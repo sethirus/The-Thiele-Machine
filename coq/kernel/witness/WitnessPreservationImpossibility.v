@@ -22,7 +22,7 @@
 
     WHAT THIS IS NOT:
     This is not a complexity result. It does not say that certified behavior
-    is hard to compute — it says the information required to decide it is
+    is hard to compute. It says the information required to decide it is
     not present in the classical projection at all.
 
 *)
@@ -132,7 +132,7 @@ Proof.
   (* And  HC : f (project_trace [C]) = certification_decider [C] = false *)
   rewrite cert_decider_A in HA.
   rewrite cert_decider_C in HC.
-  (* HA : f ... = true   and   HC : f ... = false   — contradiction *)
+  (* HA : f ... = true   and   HC : f ... = false, contradiction *)
   congruence.
 Qed.
 
@@ -151,14 +151,14 @@ Definition certification_sound (enc : VMState -> list bool) : Prop :=
 
 (** factors_classically: the encoding depends only on classical fields.
 
-    Formally: enc factors through project_state — there exists a function
+    Formally: enc factors through project_state; there exists a function
     on ClassicalSnapshots that produces the same result as enc. *)
 Definition factors_classically (enc : VMState -> list bool) : Prop :=
   exists f : ClassicalSnapshot -> list bool,
     forall s : VMState, enc s = f (project_state s).
 
 (** Any certification-sound encoding cannot factor through the classical
-    projection — it must carry bits the classical projection drops.
+    projection: it must carry bits the classical projection drops.
 
     That is the formal statement that there's no recovering certification
     information for free: any encoding supporting certification detection
@@ -168,7 +168,7 @@ Definition factors_classically (enc : VMState -> list bool) : Prop :=
     through f. Then enc trace_witness_A = f (project_state A) and
          enc trace_witness_C = f (project_state C).
     Since project_state A = project_state C (project_A_eq_C),
-    we get enc trace_witness_A = enc trace_witness_C.
+    enc trace_witness_A = enc trace_witness_C.
     But A and C have different vm_certified (cert_A_ne_cert_C), so
     certification-soundness requires enc A ≠ enc C. Contradiction. *)
 Theorem certification_sound_encoding_not_classical :
@@ -185,7 +185,7 @@ Proof.
   rewrite (Hfactor trace_witness_C) in Hne.
   (* The classical projections are equal *)
   rewrite project_A_eq_C in Hne.
-  (* Therefore enc A = enc C — contradicting Hne *)
+  (* Therefore enc A = enc C, contradicting Hne *)
   exact (Hne eq_refl).
 Qed.
 
@@ -201,6 +201,6 @@ Corollary no_certification_preserving_classical_encoder :
           read_cert_bit (project_state s) = s.(vm_certified)).
 Proof.
   intros [enc [read_cert_bit [Hsound [Hfactor Hread]]]].
-  (* enc is certification-sound and factors classically — impossible *)
+  (* enc is certification-sound and factors classically, which is impossible *)
   exact (certification_sound_encoding_not_classical enc Hsound Hfactor).
 Qed.

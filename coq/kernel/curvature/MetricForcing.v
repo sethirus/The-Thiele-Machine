@@ -143,7 +143,7 @@ Qed.
     For the Levi-Civita connection, this equals:
     (∂_μ g_{νσ} + ∂_ν g_{μσ} - ∂_σ g_{μν}) / 2
 
-    This is metric compatibility. We prove it for the isotropic 2-vertex case,
+    This is metric compatibility, proved here for the isotropic 2-vertex case,
     where g = a·I and g^{-1} = (1/a)·I, making the contraction explicit. *)
 
 Definition lowered_christoffel (s : VMState) (sc : SimplicialComplex4D)
@@ -185,7 +185,7 @@ Proof.
      = Σ_ξ δ(σ,ξ) · (half_sum ξ)                    [g·g^{-1} = I]
      = half_sum σ
 
-     We prove this by direct computation: unfold Christoffel, swap sums,
+     Proof by direct computation: unfold Christoffel, swap sums,
      and use the metric identity g(σ,τ)·g^{τξ} = δ(σ,ξ). *)
   unfold curved_christoffel.
   (* Now left side is: Σ_τ g(σ,τ) * Σ_ξ g^{τξ} * half(ξ) *)
@@ -208,7 +208,7 @@ Proof.
   end.
   (* Rewrite w-metric *)
   set (b := full_metric_at_vertex s w 0%nat 0%nat).
-  (* NOTE: We cannot use repeat match here because Hiso_w rewrites
+  (* NOTE: repeat match does not work here because Hiso_w rewrites
      full_metric_at_vertex s w i j into a form containing
      full_metric_at_vertex s w 0 0, which re-matches the pattern.
      Instead, fold b after each rewrite to block the re-match. *)

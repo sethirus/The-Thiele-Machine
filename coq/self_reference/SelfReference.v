@@ -27,7 +27,7 @@ Record System := {
 }.
 
 (** A system is self-referential if it can express some proposition that is
-    in fact about its own expressive power.  We model that by requiring the
+    in fact about its own expressive power.  The model captures that by requiring the
     system to mark at least one of its expressible propositions as true. *)
 Definition contains_self_reference (S : System) : Prop :=
   exists P : Prop, sentences S P /\ P.
@@ -63,7 +63,7 @@ Qed.
     Exported lemma: consumed by [self_reference_requires_metalevel] below,
     by [spacetime_meta_properties] and [global_truth_escapes] in
     [Spacetime.v], and by [thiele_level_richer] in
-    [ThieleManifoldBridge.v]. We obtain the strict inequality by
+    [ThieleManifoldBridge.v]. The strict inequality follows by
     rewriting through [meta_system_dim] (real proof content: a non-trivial
     rewrite step that depends on the [meta_system] constructor) and then
     closing the resulting [d < d + 1] obligation with [lia]. *)
@@ -91,8 +91,8 @@ Proof.
 Qed.
 
 (** The meta-system inherits a concrete self-referential statement from the
-    base system: it can assert the truth of [contains_self_reference S], and we
-    use the witness from [S] to keep the statement true. *)
+    base system: it can assert the truth of [contains_self_reference S], and
+    the witness from [S] keeps the statement true. *)
 Lemma meta_system_self_referential :
   forall S, contains_self_reference S -> contains_self_reference (meta_system S).
 Proof.

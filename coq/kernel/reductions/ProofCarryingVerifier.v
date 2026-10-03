@@ -14,10 +14,10 @@
     checker, and no interactive or zero-knowledge protocol. The PCC and
     round words below are the reading; the pair is the model.
 
-    Core instantiations: [interactive_escape_succeeds] -- transcripts
+    Core instantiations: [interactive_escape_succeeds], transcripts
     extended with the carried number admit a sound, complete verifier for
     the mu-dependent claim, relative to that explanation relation, at a cost
-    defined to be one. [level_k_certification_cost_floor] -- a VM trace
+    defined to be one. [level_k_certification_cost_floor]: a VM trace
     satisfying the kernel's level-k certification predicate costs at least
     k mu: k certification events cannot be had for fewer than k units.
 
@@ -179,7 +179,7 @@ Qed.
 
 (** Second: the bare log does not pin μ. The kernel's projection
     collision exhibits two states that explain the same bare transcript
-    while disagreeing on μ — μ = 1 against μ = 0 on one shared log. This
+    while disagreeing on μ: μ = 1 against μ = 0 on one shared log. This
     is the precise structure [pcc_certificate] restores, and the reason
     Main 2 cannot be escaped by reading the log harder. *)
 Lemma bare_transcript_does_not_pin_mu :
@@ -302,7 +302,7 @@ Definition certifies_k_claims (k fuel : nat) proof_script : Prop :=
     events cannot be had for fewer than k units under the kernel's trace
     semantics.
 
-    WHAT THE FLOOR BOUNDS, EXACTLY: certification events — the μ-ledger
+    WHAT THE FLOOR BOUNDS, EXACTLY: certification events, the μ-ledger
     total of the prover run whose executed log contains the level-k
     commitment. Each certification commitment is priced on the ledger,
     and the ledger sum cannot fall under the declared level.

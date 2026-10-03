@@ -4,8 +4,8 @@
 
     [LegacyLoadGuard.v] proved this for [legacy_word] alone. [RichWordDecode.v]
     then showed the six formats do not actually lay out [dd_opcode]/[dd_op_a]/
-    [dd_op_b]/[dd_cost_v] differently -- every one of those is a fixed
-    [ConstExtract] at a fixed absolute bit range, independent of [format_id] --
+    [dd_op_b]/[dd_cost_v] differently (every one of those is a fixed
+    [ConstExtract] at a fixed absolute bit range, independent of [format_id]),
     so [rich_word] with its header fields left as arbitrary [isa]/[fid]/
     [flags]/[reserved]/[ext0] covers every encoding including legacy itself
     (legacy is the special case [fid = FMT_LEGACY], [flags = ext0 = 0]).
@@ -13,16 +13,11 @@
     The proof body below is otherwise identical to [LegacyLoadGuard.v]'s: the
     guard's own address getter ([dd_mem_addr]) and region-size getter stay
     fully opaque throughout, never unfolded against the word's encoding, so
-    the only encoding fact the proof actually needs is the opcode decode --
+    the only encoding fact the proof actually needs is the opcode decode:
     [RichWordDecode.rw_op_correct] in place of [LegacyWordDecode.dd_op_correct].
-    This is what makes the same nine-line tactic script carry over verbatim
-    to the other nine guard-class opcodes via a generator, exactly as in
-    the legacy files.
-
-    Open: the same argument for the other nine guard-class opcodes
-    (STORE, HEAP_LOAD, HEAP_STORE, CALL, RET, PNEW, PSPLIT, PMERGE,
-    PDISCOVER), then assembling all ten opcodes across both [legacy_word] and
-    [rich_word] into [OutsideDomain.v]'s master statement. *)
+    The same tactic script carries over to the other locality opcodes
+    ([RichLocalityGuard.v]); PDISCOVER is [RichNfiGuard.v], and
+    [OutsideDomainMaster.v] assembles all seven guard-class opcodes. *)
 Require Import Kami.Kami Kami.Semantics.
 From Coq Require Import String List Bool Arith Lia.
 From KamiHW Require Import ThieleTypes ThieleCPUCore HWBoundary RuleNext RuleStep BoundaryDecoded

@@ -1,4 +1,4 @@
-(** * VerifierImpossibility.v — bare-setting verifier impossibility.
+(** * VerifierImpossibility.v: bare-setting verifier impossibility.
 
     Theorem [bare_setting_no_sound_complete_verifier]:
     There exists a [BareVerificationProblem] whose claim is sensitive
@@ -11,7 +11,7 @@
     and [po1_state_B] (μ=0) project onto identical strict-classical
     traces. Both states therefore "explain" the same transcript. A
     sound verifier must commit to [vm_mu s = 1] for every explanation
-    of any accepted transcript — but the explanation by [po1_state_B]
+    of any accepted transcript; but the explanation by [po1_state_B]
     contradicts the claim. A complete verifier must accept the
     transcript at the honest [po1_state_A]. Contradiction.
 
@@ -58,8 +58,8 @@ Definition mu_eq_one_problem : BareVerificationProblem :=
   mk_bvp
     mu_eq_one_claim
     mu_collision_explains
-    0   (* bare_cheap_budget — unused in this theorem *)
-    1.  (* bare_recompute_cost — unused in this theorem *)
+    0   (* bare_cheap_budget: unused in this theorem *)
+    1.  (* bare_recompute_cost: unused in this theorem *)
 
 (* -------------------------------------------------------------------- *)
 (** ** Supporting facts about the witness states.
@@ -153,7 +153,7 @@ Corollary bare_sound_blocks_honest_acceptance :
 Proof.
   intros V Hsound.
   destruct (bv_decide V po1_strict_trace_A) eqn:Hdec.
-  - (* V accepted — soundness gives a contradiction at po1_state_B. *)
+  - (* V accepted: soundness gives a contradiction at po1_state_B. *)
     exfalso.
     apply witness_B_violates_claim.
     apply (Hsound po1_strict_trace_A Hdec po1_state_B

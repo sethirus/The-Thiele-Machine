@@ -86,7 +86,7 @@ Qed.
 (** ** 3. Trust-embodying traces *)
 
 (** A trace [embodies] a trust expansion (A ↪ B) if its total cost equals
-    [expansion_insight e] — the count of genuinely new states in B. *)
+    [expansion_insight e], the count of genuinely new states in B. *)
 Definition embodies_trust {A B : StateSpace} (e : Expansion A B)
     (costs : list nat) : Prop :=
   trace_total_cost costs = expansion_insight e.
@@ -144,7 +144,7 @@ Proof.
   exact (eq_trans H1 (eq_sym H2)).
 Qed.
 
-(** A trust expansion always costs POSITIVE μ — no shortcut exists. *)
+(** A trust expansion always costs POSITIVE μ; no shortcut exists. *)
 Theorem mu_refinement_costs_positive :
   forall {A B : StateSpace} (e : Expansion A B)
          (pre post : ExecState),
@@ -161,8 +161,8 @@ Qed.
 (** ** 6. Embedded states contribute zero net overhead *)
 
 (** From InductiveTrust, [lift_cost] reproduces A's cost on embedded states.
-    Here we re-state it in the concrete execution layer:
-    re-certifying a state already in Im(φ) costs exactly what A paid — zero
+    Here it is restated in the concrete execution layer:
+    re-certifying a state already in Im(φ) costs exactly what A paid, with zero
     overhead.  This is the Löb bypass materialised in the execution model. *)
 Theorem embedded_states_zero_overhead :
   forall {A B : StateSpace} (e : Expansion A B) (cA : VerifyCost A),
@@ -217,7 +217,7 @@ Proof.
   exact (full_certification_trace_cost (expansion_insight e)).
 Qed.
 
-(** THE SMOKING GUN — THE CONCRETE LÖB BYPASS:
+(** THE SMOKING GUN. THE CONCRETE LÖB BYPASS:
 
     For any Expansion e and initial state s0, there is a constructive witness
     trace whose cost equals [expansion_insight e] exactly.

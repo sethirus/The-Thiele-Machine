@@ -1,4 +1,4 @@
-(** StructuralUndecidability.v — the substrate-level limitative result.
+(** StructuralUndecidability.v: the substrate-level limitative result.
 
     The structural-axis analog of Turing's 1936 halting result. Every
     A2-respecting computational substrate equipped with a non-trivial
@@ -8,7 +8,7 @@
     The theorem and its proof live entirely at the substrate level
     (Substrate typeclass). They are facts about A2-respecting substrates,
     not about the 51-opcode Thiele VM. The 51-opcode VM is one substrate
-    instance — when its Substrate-typeclass instance is supplied, the
+    instance; when its Substrate-typeclass instance is supplied, the
     diagonalization fires for it as a corollary, but the limitative
     content is substrate-level.
 
@@ -25,7 +25,7 @@
                   is [yes_program], so [semantics p = yes behavior].
                   Contradiction.
 
-    The proof is short — five lines of Ltac. The machinery (Substrate
+    The proof is short: five lines of Ltac. The machinery (Substrate
     typeclass, recursion theorem, canonical inhabitants) is the work.
 
     Substrate-vs-scaffolding. The theorem's content is purely substrate-
@@ -33,9 +33,7 @@
     recursion theorem. Nothing in the statement or proof references the
     51-opcode instruction set. The opcodes are how the substrate is made
     concrete enough to verify and synthesize, but the limitative result
-    is one level above. Section 1 of the monograph names this distinction
-    explicitly; the present file is its formal embodiment.
-*)
+    is one level above. *)
 
 From Coq Require Import Setoid.
 From Kernel Require Import Substrate.
@@ -71,7 +69,7 @@ Class WithShortcutPredicate `{Sub : Substrate} : Type := {
   (** [AdmitsShortcut p] holds iff the program [p] admits a sound
       structural shortcut on the substrate's distinguished initial state.
       Concrete substrates instantiate this with their concrete witness
-      class — for the 51-opcode VM, with inhabitedness of
+      class: for the 51-opcode VM, with inhabitedness of
       [SoundStructuralShortcut fuel p s_init] for some choice of fuel
       and s_init. *)
   AdmitsShortcut : Program -> Prop;
@@ -97,14 +95,13 @@ Class WithShortcutPredicate `{Sub : Substrate} : Type := {
 
 (** ** The substrate-level limitative theorem *)
 
-(* SCOPE NOTE: ABSTRACT INTERFACE — this Section is parameterized
+(* SCOPE NOTE: ABSTRACT INTERFACE. This Section is parameterized
    over a Substrate plus WithShortcutPredicate typeclass instance. The
    Context bindings are SECTION PARAMETERS, not section-local axioms;
    closing the section discharges them as EXPLICIT FORALL premises on
    the contained theorems. The 51-opcode VM instance and its
-   shortcut-predicate witness are supplied in the deferred VMState
-   instantiation file (see the monograph's substrate-undecidability
-   section for status). *)
+   shortcut-predicate witness are supplied in VMSubstrateInstance.v and
+   VMSubstrateEncoded.v, conditionally on their section parameters. *)
 Section StructuralAxisUndecidability.
   Context `{Sub : Substrate} `{Wsp : @WithShortcutPredicate Sub}.
 
@@ -116,7 +113,7 @@ Section StructuralAxisUndecidability.
       every Coq function [decide] (the nat substrate of
       NatSubstrateInstance.v does so by construction). The Coq-decider
       whose "internal flip" is not representable is outside the scope
-      of this internal limitative result — it lives in the meta-theory,
+      of this internal limitative result; it lives in the meta-theory,
       not inside the substrate. The same scoping appears in Turing's
       1936 result: the decider universe was Turing machines because that
       was the substrate Turing was studying. *)
@@ -200,13 +197,11 @@ Section StructuralAxisUndecidability.
       Other A2-respecting substrates would inherit the same theorem the
       moment they supply a Substrate + WithShortcutPredicate instance.
 
-      What this closes. The "open structural-translation" question raised
-      in the monograph's "What I don't know" section was: "is
-      there a uniform translation from informal structural arguments into
-      SoundStructuralShortcut witnesses?" The answer, given the present
-      theorem, is no: no total uniform decision procedure for shortcut
-      admittance exists, so a fortiori no total uniform translation
-      procedure exists.
+      The structural-translation question asks for a uniform translation
+      from informal structural arguments into SoundStructuralShortcut
+      witnesses. The present theorem rules out a total uniform decision
+      procedure for shortcut admittance; it does not directly rule out a
+      translation that only produces witnesses for programs that admit one.
 
       The boundary is explicit: the theorem rules out a total Boolean
       decision procedure satisfying the stated equivalence under these
@@ -219,7 +214,7 @@ End StructuralAxisUndecidability.
 
 (** ** Corollary: the predicate is not Decidable in the Coq sense *)
 
-(* SCOPE NOTE: ABSTRACT INTERFACE — same pattern as
+(* SCOPE NOTE: ABSTRACT INTERFACE. Same pattern as
    StructuralAxisUndecidability above. SECTION PARAMETER over
    Substrate + WithShortcutPredicate; closing the section discharges
    the Context as an EXPLICIT FORALL premise on the corollary. *)
@@ -261,7 +256,7 @@ End DecidabilityCorollary.
     it bundles syntactic objects (a fuel budget, a trace, an initial
     state, a decision tree, an observation function, a representative
     reduction, etc.) that make sense at the VM level. It is the
-    constructive class of "shortcuts that gave their receipts" — every
+    constructive class of "shortcuts that gave their receipts": every
     concrete realization of a structural shortcut in the 51-opcode VM
     is an inhabitant.
 
@@ -269,7 +264,7 @@ End DecidabilityCorollary.
     below is behavioural: it asks whether a program's [vm_run] from
     [init_state] coincides with the [vm_run] of a fixed canonical
     reference (here, [simple_morph_trace]). It is the substrate-level
-    abstraction the diagonalization is about — by Rice's-theorem
+    abstraction the diagonalization is about; by Rice's-theorem
     reasoning, the extensional shape is the right level for a
     limitative result, because any decision procedure for an
     extensional property reduces to one for the underlying behavioural
@@ -285,7 +280,7 @@ End DecidabilityCorollary.
     concrete class is rich (carries the receipts); the extensional
     class is the substrate-parametric notion the diagonalization
     operates on. They are not in tension; they are the same phenomenon
-    at two scopes. We do NOT collapse one into the other. *)
+    at two scopes. Neither collapses into the other. *)
 
 Definition vm_instantiation_target
            (p : list vm_instruction) : Prop :=
@@ -357,7 +352,7 @@ Qed.
 (** The concrete bridge: the existence of a
     [SoundStructuralShortcut] for [simple_morph_trace] establishes the
     extensional witness for [simple_morph_trace]. The bridge is
-    reflexivity by construction — the extensional predicate is defined
+    reflexivity by construction: the extensional predicate is defined
     relative to [simple_morph_trace] as the canonical reference, and
     [simple_morph_shortcut] inhabits the concrete class for that trace.
     For any other program [p] with the same [vm_run] from [init_state],
@@ -371,17 +366,17 @@ Qed.
 
 (** [WithShortcutPredicate] for [vm_substrate]: package the predicate
     plus the two canonical inhabitants. This requires the four section
-    parameters of [vm_substrate] to be supplied (here we curry under
-    them and let consumers discharge them at use-site). *)
+    parameters of [vm_substrate] to be supplied (here the statement curries
+    under them and consumers discharge them at use-site). *)
 
-(* SCOPE NOTE: ABSTRACT INTERFACE — the Section below is the
+(* SCOPE NOTE: ABSTRACT INTERFACE. The Section below is the
    VM-corollary plumbing layer. Its Section parameters are SECTION
    PARAMETERS that become EXPLICIT FORALL premises on the contained
    theorems when the Section closes. The VM-side encoding/representability
    piece is separate engineering on the VM-specific instance; the
    substrate-level limitative content does not depend on it (the
    nat substrate already discharges the substrate-level theorem
-   unconditionally — see NatSubstrateInstance.v). *)
+   unconditionally; see NatSubstrateInstance.v). *)
 Section VMShortcutPredicate.
   Variable vm_encode_arg : list vm_instruction -> VMState.
   Variable vm_decode_safe_arg : VMState -> list vm_instruction.
@@ -433,8 +428,8 @@ Section VMShortcutPredicate.
 
       The internal-representability side condition is the substrate-
       level analog of "this decider is itself a program of the model"
-      — Turing's halting result was about Turing-machine deciders for
-      the same reason. This is the substrate's own halting problem,
+      (Turing's halting result was about Turing-machine deciders for
+      the same reason). This is the substrate's own halting problem,
       stated in the substrate's own terms.
 
       The Section parameters become explicit forall premises when the

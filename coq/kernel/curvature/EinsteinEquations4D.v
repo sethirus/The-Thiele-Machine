@@ -140,8 +140,8 @@ Definition stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
     It is not derived from μ-cost dynamics.
 
     This is a valid Coq theorem: zero Admitted, zero project-local axioms.
-    For the curved / non-vacuum case, see einstein_equation_isotropic_vacuum
-    open problems OP-1 through OP-6 and CurvedTensorPipeline.v.
+    For the curved / non-vacuum case, see the OP-1 to OP-6 list in the
+    summary block of this file and CurvedTensorPipeline.v.
 
     The core machine theorems: μ-conservation, NoFI, initiality, and
     categorical laws, are independent of the geometry proofs here.
@@ -159,7 +159,7 @@ Definition stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
 
     G = 1/(8π) is a unit convention.  Classification: (R) Consistency.
     For the non-vacuum curved case see CurvedTensorPipeline.v and
-    open problems OP-1 through OP-6 in einstein_equation_isotropic_vacuum.
+    the OP-1 to OP-6 list in the summary block of this file.
 *)
 
 (** Bridge lemmas: connecting discrete geometry to mass distribution. *)
@@ -246,7 +246,7 @@ Proof.
   intros s sc f mu v H_no_edges.
   unfold RiemannTensor4D.discrete_derivative.
   rewrite H_no_edges.
-  (* After rewrite, we have filter (fun w => existsb ... []) (sc4d_vertices sc) *)
+  (* After rewrite, the goal has filter (fun w => existsb ... []) (sc4d_vertices sc) *)
   (* Need to show this equals [] *)
   induction (sc4d_vertices sc) as [|w ws IH].
   - reflexivity.
@@ -559,7 +559,7 @@ Qed.
 
     When vertices carry DIFFERENT tensors (e.g. after PNEW), the metric is
     genuinely curved and G_μν can be non-zero. Proving G_μν = 8πG T_μν
-    in that regime is an open problem (see einstein_field_equations_general below).
+    in that regime is not proved here (see the OP-1 to OP-6 list below).
 *)
 Lemma curvature_from_mu_gradients : forall s sc mu nu v,
   uniform_module_tensor s ->
@@ -643,7 +643,7 @@ Qed.
    5. Therefore: 0 = 8πG·0.
  Both sides are zero independently (G_μν from geometry, T_μν from
    mass content), so this is a genuine equation rather than a tautology.
-   The non-flat/non-vacuum case remains an open problem.
+   The non-flat/non-vacuum case is not covered by this theorem.
 **)
 
 Theorem einstein_equation_vacuum : forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
@@ -687,25 +687,9 @@ Qed.
     definition), not a value derived from μ-cost dynamics.  See
     gravitational_coupling_unit_convention for the explicit Coq proof.
 
-    OPEN PROBLEMS, not addressed by this theorem:
-      (a) Upgrade the current concrete non-vacuum local theorem
-          (local_einstein_two_vertex_endpoint_diag) to a direct
-          local_einstein_tensor = 8πG · T_μν statement for a genuinely
-          curved family in this file's local pipeline.
-      (b) Generalize the current local / curved bridge beyond the specialized
-          endpoint-matched two-vertex family captured by
-          CurvedTensorPipeline.local_einstein_from_mass_two_vertex_endpoint_diag.
-      (c) Physical G bridge: the Einstein-side constant in this file is
-          explicitly a unit normalization; the remaining open step is an
-          external calibration or cross-file bridge identifying it with a
-          physically scaled constant such as MuGravity.gravitational_constant.
-      (d) Lorentz signature: extending to Minkowski metric (-,+,+,+).
-      (e) Continuum limit: requires an explicit family of graph/state
-          refinements, a notion of embedding / edge-length convergence, and a
-          theorem linking local_einstein_tensor to a smooth Einstein tensor.
-      (f) Newtonian limit: requires an explicit weak-field potential,
-          a static low-velocity regime, a discrete Laplacian for that
-          potential, and a source-normalization bridge to Poisson's equation.
+    Extensions beyond this theorem (non-vacuum, physical G, Lorentz
+    signature, continuum and Newtonian limits) are listed as OP-1 to OP-6
+    in the summary block of this file.
 *)
 Theorem einstein_equation_isotropic_vacuum :
     forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
@@ -1018,37 +1002,38 @@ Qed.
    11. vm_step reachability + uniformity gives the Bianchi result.
 
     UNIT CONVENTION:
-    G = 1/(8π) is a DEFINITION, not a derivation.  We work in computational
+    G = 1/(8π) is a DEFINITION, not a derivation.  The development works in computational
     units where 8πG ≡ 1.  Theorem gravitational_coupling_unit_convention
     proves this identity from the definition.  The numerical value of G in
     SI units is not addressed.
 
-    OPEN PROBLEMS (not covered by any theorem in this file):
-    OP-1. [CLOSED] Strengthen the concrete non-vacuum closure into a direct
-          field equation with 8πG coefficient. RESOLVED in
-          CurvedTensorPipeline.v: local_einstein_explicit_coupling_two_vertex
-          and local_einstein_field_equation_two_vertex prove the explicit
+    FIELD-EQUATION EXTENSIONS (OP-1 to OP-6):
+    OP-1. Non-vacuum field equation with explicit 8πG coefficient: proved in
+          CurvedTensorPipeline.v by local_einstein_explicit_coupling_two_vertex
+          and local_einstein_field_equation_two_vertex, the explicit
           κ = (m_w - m_v)(1 - m_v)/m_v coupling and G = 8πG·T identity.
-    OP-2. [CLOSED] Generalize beyond 2-vertex endpoint-matched family.
-          RESOLVED below: three_vertex_chain_sc defines a 3-vertex chain
-          u-v-w, with explicit local tensor formulas at the vertices:
+    OP-2. Beyond the 2-vertex endpoint-matched family: three_vertex_chain_sc
+          below defines a 3-vertex chain u-v-w, with explicit local tensor
+          formulas at the vertices:
           - local_einstein_three_vertex_at_u: G_{dd}(u) = (2m_v-m_w-m_u)(2-3m_u)
           - local_einstein_three_vertex_at_v follows from dd_three_at_v ≡ dd_at_v
           - local_einstein_three_vertex_at_w_zero: G_{μν}(w) = 0
-    OP-3. [CLOSED] Physical G bridge. RESOLVED below:
-          gravitational_scaling_factor_value proves the exact scaling
-          relationship (200π/ln2) between unit systems.
-          gravitational_constants_both_positive confirms both G > 0.
-          The bridge is classified as a unit-system correspondence,
-          not a physical identity.
-    OP-4. Fully general Lorentz signature: extend the curved pipeline to
-          Minkowski metric (-,+,+,+) beyond the current specialized bridges.
-    OP-5. Continuum limit: the repo currently has no theorem stating what it
+          and CurvedTensorPipeline.v states the field equation on the
+          arbitrary n-edge chain (local_einstein_field_equation_nat_chain_4d).
+    OP-3. Physical G: gravitational_scaling_factor_value below proves the
+          exact scaling relationship (200π/ln2) between unit systems, and
+          gravitational_constants_both_positive shows both G > 0. The bridge
+          is a unit-system correspondence, not a physical identity.
+    OP-4. Lorentz signature (-,+,+,+): einstein_equation_lorentz_vacuum
+          below covers vacuum states and lorentz_nat_chain_efe covers the
+          diagonal of the successor geometry. A Lorentz-signature field
+          equation for general non-vacuum curved states is not proved.
+    OP-5. Continuum limit: no theorem states what it
           means for a family of partition graphs / VM states to converge to a
           smooth spacetime.  Missing pieces: a graph-refinement family,
           an embedding or edge-length convergence notion, a limit operator for
           local_einstein_tensor, and a bridge to the smooth Einstein tensor.
-    OP-6. Newtonian limit: the repo currently has no theorem defining a
+    OP-6. Newtonian limit: no theorem defines a
           weak-field potential Φ from the discrete metric, no static
           low-velocity regime, and no discrete-to-continuum Poisson bridge.
           The missing objects are a metric-perturbation notion, a Laplacian on
@@ -1115,7 +1100,7 @@ Definition local_einstein_tensor (s : VMState) (sc : SimplicialComplex4D)
   (R_mu_nu - (1/2) * g_mu_nu * R)%R.
 
 (** Fixed 4D contraction indices for dimension-stable local tensor variants.
-    The legacy local_ricci_tensor contracts over sc4d_vertices sc, which is
+    The local_ricci_tensor contracts over sc4d_vertices sc, which is
     useful for existing finite templates but changes tensor dimension when the
     graph size changes. *)
 Definition tensor_indices_4d : list ModuleID :=
@@ -1650,7 +1635,7 @@ Qed.
     This is weaker than the closed-complex theorem a full Stokes bridge would
     need. *)
 Lemma stress_energy_divergence_structure : forall s sc ν v,
-  (* We prove only the no-edge case. *)
+  (* Only the no-edge case is proved. *)
   sc4d_edges sc = [] ->
   fold_left (fun acc μ =>
     (acc + discrete_derivative s sc
@@ -1724,7 +1709,7 @@ Proof.
 Qed.
 
 (** General Bianchi identity: For closed simplicial complexes.
-    We prove this for the case of no edges. *)
+    Proved here for the case of no edges. *)
 Lemma general_bianchi_identity : forall s sc ν v,
   sc4d_edges sc = [] ->
   fold_left (fun acc μ =>
@@ -2008,7 +1993,7 @@ Qed.
 (**
     OP-2: beyond 2-vertex, the 3-vertex chain
 
-    We extend the local Einstein equation from the 2-vertex family to a
+    The local Einstein equation extends from the 2-vertex family to a
     3-vertex chain u-v-w. Key structural facts:
 
     - discrete_derivative takes the FIRST neighbor found in vertex-list order.
@@ -2572,7 +2557,7 @@ Proof.
   symmetry. exact (INR_eq _ _ H).
 Qed.
 
-(** OP-2 status: CLOSED for the finite chain formulas.
+(** OP-2, finite chain formulas.
     The 3-vertex chain u-v-w extends the 2-vertex local tensor calculation to
     a multi-vertex simplicial complex. What is proved here:
     - At u: G_{dd}(u) = (2·m_v - m_w - m_u)(2 - 3·m_u),
@@ -2591,13 +2576,14 @@ Qed.
     
     Limitation: discrete_derivative uses first-neighbor semantics,
     not a discrete Laplacian. True multi-neighbor averaging would require
-    changing the derivative definition in RiemannTensor4D.v. The current
+    changing the derivative definition in RiemannTensor4D.v. The first-neighbor
     semantics is consistent with forward-difference calculus on oriented graphs.
 
-    Remaining generalizations beyond OP-2:
+    Generalizations not covered by these formulas:
     - Relaxing the mod 4 distinctness requirement (→ diagonal metric case)
-    - n-vertex chains for arbitrary n
-    - Branching (non-chain) topologies                                      *)
+    - Branching (non-chain) topologies
+    (Arbitrary n-edge chains: local_einstein_field_equation_nat_chain_4d in
+    CurvedTensorPipeline.v.)                                                *)
 
 (** Step 2: Einstein field equation as a constraint
 
@@ -2927,13 +2913,13 @@ Proof.
 Qed.
 
 (**
-    OP-3 CLOSURE: SCALING RELATIONSHIP BETWEEN UNIT SYSTEMS
+    OP-3: SCALING RELATIONSHIP BETWEEN UNIT SYSTEMS
 
     EinsteinEquations4D defines G = 1/(8π) (unit convention: 8πG = 1).
     MuGravity defines G = d_μ³ / (τ_μ² · h_derived) where the fundamental
     scales are normalized to d_μ = τ_μ = 1 and h = 4·E_bit·τ_μ.
 
-    Under current ConstantUnification normalizations:
+    Under the ConstantUnification normalizations:
       MuGravity.G = 1 / (4·k_B·T·ln2) = 25 / ln2   (k_B=1/100, T=1)
       EinsteinEquations4D.G = 1/(8π)
 
@@ -2948,7 +2934,7 @@ Qed.
 Definition gravitational_scaling_factor : R :=
   (MuGravity.gravitational_constant / gravitational_constant)%R.
 
-(** The scaling factor equals 200π/ln2 under current normalizations. *)
+(** The scaling factor equals 200π/ln2 under the ConstantUnification normalizations. *)
 Theorem gravitational_scaling_factor_value :
   (gravitational_scaling_factor * ln 2 = 200 * PI)%R.
 Proof.
@@ -2972,7 +2958,7 @@ Proof.
     try (cut (PI2 > 0)%R; [lra | unfold PI2; assert (PI > 0)%R by exact PI_RGT_0; lra]).
 Qed.
 
-(** Both G constants are strictly positive (required for any future bridge). *)
+(** Both G constants are strictly positive (a precondition for any bridge between them). *)
 Theorem gravitational_constants_both_positive :
   (gravitational_constant > 0)%R /\
   (MuGravity.gravitational_constant > 0)%R.
@@ -2984,24 +2970,24 @@ Proof.
   - exact MuGravity.gravitational_constant_pos.
 Qed.
 
-(** OP-3 status: CLOSED.  The physical bridge
-    [gravitational_constant_physical_bridge] (G_einstein = G_mugravity) is
-    FALSE under current normalizations.  This is expected: the two G values
+(** OP-3 summary.  The physical bridge
+    [gravitational_constant_physical_bridge] (G_einstein = G_mugravity) does
+    not hold under the ConstantUnification normalizations: the two G values
     live in different unit systems.  The scaling factor 200π/ln2 ≈ 907.0 is
-    exact and proven.  Any future claim requiring physical Newton's constant
-    must introduce an external calibration that rescales one unit system to
-    the other. *)
+    exact and proven.  A claim requiring physical Newton's constant must
+    introduce an external calibration that rescales one unit system to the
+    other. *)
 
 (** =========================================================================
     LORENTZIAN METRIC EXTENSION (OP-4: Fully general Lorentz signature)
     =========================================================================
 
     The Euclidean metric has signature (+,+,+,+). For Lorentzian manifolds
-    with one temporal dimension we need signature (-,+,+,+): index 0 is
+    with one temporal dimension the signature must be (-,+,+,+): index 0 is
     time-like (negative norm) and indices 1,2,3 are space-like (positive norm).
 
-    We define Lorentzian versions of all geometric objects using the Lorentz
-    metric, and prove the Einstein equations in Lorentz signature.
+    Lorentzian versions of all geometric objects are defined from the Lorentz
+    metric, and the Einstein equations are proved in Lorentz signature.
     =========================================================================*)
 
 (** Sign of coordinate index μ: −1 for time (μ mod 4 = 0), +1 for space. *)
@@ -3110,12 +3096,11 @@ Definition lorentz_stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
   (μ ν v : ModuleID) : R :=
   stress_energy_tensor s sc μ ν v.
 
-(** Lorentzian Einstein field equations: G_μν = 8πG T_μν in Lorentz signature.
-
-    This closes OP-4: the Einstein equations hold in fully general Lorentz
-    signature (-,+,+,+) beyond the specialized Euclidean bridges.
+(** Lorentzian Einstein field equations: G_μν = 8πG T_μν in Lorentz signature
+    (-,+,+,+) for vacuum states (zero structural mass) on any complex. This
+    is the vacuum part of OP-4.
 *)
-Theorem einstein_equation_lorentz_general :
+Theorem einstein_equation_lorentz_vacuum :
   forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
   (forall w, module_structural_mass s w = 0%nat) ->
   lorentz_einstein_tensor s sc mu nu v =
@@ -3175,7 +3160,7 @@ Proof.
       unfold lorentz_ricci_tensor.
       apply fold_left_sum_zeros.
       intro ρ. apply H_riem_zero. }
-    (* Inverse metric is 0 when mass=0 (vacuum) — both branches of the if give 0 *)
+    (* Inverse metric is 0 when mass=0 (vacuum); both branches of the if give 0 *)
     assert (H_inv_metric_zero: forall w μ' ν',
       lorentz_inverse_metric_at_vertex s w μ' ν' = 0%R).
     { intros w μ' ν'. unfold lorentz_inverse_metric_at_vertex.
@@ -3201,8 +3186,8 @@ Proof.
   apply (stress_energy_conserved_non_pmerge s sc mu nu v). exact H_vacuum.
 Qed.
 
-(** OP-4 status: CLOSED for the vacuum case.
-    [einstein_equation_lorentz_general] proves G_μν = 8πG T_μν in Lorentz
+(** OP-4, vacuum case.
+    [einstein_equation_lorentz_vacuum] proves G_μν = 8πG T_μν in Lorentz
     signature (-,+,+,+) for vacuum (zero structural mass) flat geometry.
 
     The successor-geometry Lorentz Ricci values, proved below:
@@ -3450,7 +3435,7 @@ Qed.
 
     Connecting these values to a specific stress-energy model (Lorentz T_μν)
     requires additional conventions about how T_μν is defined. The named
-    definition below closes this: lorentz_nat_chain_stress_energy matches
+    definition below supplies this: lorentz_nat_chain_stress_energy matches
     the computed G values exactly with coupling κ = 1 (units 8πG = 1). *)
 
 Theorem lorentz_einstein_tensor_nat_chain :
@@ -3470,7 +3455,7 @@ Proof.
 Qed.
 
 (* =========================================================================
-   LORENTZ NAMED STRESS-ENERGY TENSOR (OP-4 T_μν CLOSURE)
+   LORENTZ NAMED STRESS-ENERGY TENSOR (OP-4, T_μν)
    =========================================================================
 
    The successor geometry gives G_dd = (3·msd, −msd, −msd, −msd) on the
@@ -3487,7 +3472,7 @@ Definition lorentz_nat_chain_stress_energy (msd : R) (d : nat) : R :=
 
 (** The Lorentz EFE for the nat_chain successor geometry with explicit T_μν.
 
-    Closes OP-4 at the stress-energy level: the diagonal Einstein tensor equals
+    OP-4 at the stress-energy level: the diagonal Einstein tensor equals
     the named canonical Lorentz stress-energy. Off-diagonal components are zero
     for both G and T (diagonal metric → zero off-diagonal Ricci). *)
 Theorem lorentz_nat_chain_efe :

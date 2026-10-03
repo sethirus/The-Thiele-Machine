@@ -12,8 +12,8 @@
     - area law is expressed as a boundary-scaling theorem under a locality
       hypothesis that reduced support is bounded by boundary degrees of freedom
 
-    This is the next formal step toward a Srednicki-style chain inside the
-    current VM/PSPLIT representation.
+    The file is a step toward a Srednicki-style chain inside the VM/PSPLIT
+    representation; it does not complete that chain.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.

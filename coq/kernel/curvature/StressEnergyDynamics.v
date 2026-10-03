@@ -53,8 +53,8 @@ Qed.
 (** Count PNEW operations in a trace.
 
     This definition counts how many PNEW instructions appear in a
-    sequence of VM steps. This is the "PNEW frequency" we want to prove
-    correlates with stress-energy.
+    sequence of VM steps. No theorem here relates this count to
+    stress-energy.
 *)
 Fixpoint count_pnew_in_trace (trace : list vm_instruction) : nat :=
   match trace with

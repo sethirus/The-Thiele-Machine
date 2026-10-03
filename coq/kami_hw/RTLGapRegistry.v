@@ -7,10 +7,10 @@
 
     The bridge theorem [GraphReconstructionBridge.driven_step_wf] retains
     [WFDrivenPrecondition ks i]. Its exact common representation and
-    opcode-specific premises must be read from that definition. In the printed
-    47-case classification, the subtotal 37 combines 31 cases without additional
-    opcode-specific restrictions and six requiring valid arguments; ten more
-    require structural invariants. This is not 37 premise-free physical cases.
+    opcode-specific premises must be read from that definition. Its cases
+    split as 35 opcodes without additional opcode-specific restrictions, six
+    requiring valid arguments, and ten requiring structural invariants, 51 in
+    all. That is not 35 premise-free physical cases.
     Inductiveness of an invariant does not discharge arbitrary operand validity
     or finite-resource requirements without the corresponding run contract.
 
@@ -43,7 +43,7 @@ Record RTLGap := {
 
     [closeout_zero_gaps] in [tests/CloseoutVerification.v] depends on
     this being empty. Reintroducing an entry here breaks that test. *)
-(* SAFE: rtl_gap_registry is intentionally empty — all RTL coverage gaps are closed *)
+(* SAFE: rtl_gap_registry is intentionally empty; all RTL coverage gaps are closed *)
 Definition rtl_gap_registry : list RTLGap := [].
 
 (** The hand-written gap registry lists no entries. This says what the
@@ -52,8 +52,9 @@ Theorem rtl_gap_registry_empty :
   List.length rtl_gap_registry = 0.
 Proof. reflexivity. Qed.
 
-(** Historical coverage subtotal: (31 + 6) + 10 = 47.
-    The six valid-argument cases remain conditional. This arithmetic does not
+(** The identity below, 37 + 10 + 0 = 47, is a sum of numerals. The
+    classification of [driven_step_wf]'s cases is (35 + 6) + 10 = 51, and
+    the six valid-argument cases stay conditional. This arithmetic does not
     check their contracts or connect the intermediate step to physical RTL. *)
 (** DO NOT CITE THIS AS COVERAGE EVIDENCE.
 

@@ -374,7 +374,7 @@ Qed.
 
 (** What the Bekenstein calculation establishes. *)
 
-(** [bekenstein_establishes_energy_ratio]: The Bekenstein calculation above
+(** [bekenstein_rindler_ratio_justified]: The Bekenstein calculation above
     proves the energy-per-bit ratio once saturation is assumed. This alias names
     that exact theorem for downstream files.
 

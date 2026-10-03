@@ -140,7 +140,7 @@ Theorem partition_based_separation :
       ~ preserves_partition_labels tm_sys th_sys.
 Proof.
   (* Inline the Thiele witness so the existential does not just re-expose the
-     [separation_program] definition: we list the instructions explicitly here. *)
+     [separation_program] definition: the instructions are listed here. *)
   exists [ instr_pnew [1; 2; 3] 0
          ; instr_pnew [4; 5] 0
          ; instr_psplit 1 [1; 2] [3] 0
@@ -197,14 +197,14 @@ Qed.
 
 (** 10. Categorical Separation
 
-    We prove that two VMStates can be computationally equivalent — identical
-    in all observable computational fields (registers, memory, μ, PC, error
-    flag, certification status) — yet categorically distinct, differing in
+    Two VMStates can be computationally equivalent (identical in all
+    observable computational fields: registers, memory, μ, PC, error
+    flag, certification status) yet categorically distinct, differing in
     their morphism graph structure.
 
-    This is the formal content of the claim that the categorical morphism layer
-    (MORPH opcodes 0x27–0x2D) adds genuine semantic content beyond Turing
-    computation. Morphism structure is first-class in the instruction set, not
+    This is the formal content of the claim that the categorical morphism
+    layer (MORPH opcodes 0x27 to 0x2D) carries state that those fields do not
+    determine. Morphism structure is first-class in the instruction set, not
     merely an encoding on tape or in registers.
 *)
 
@@ -305,9 +305,9 @@ Qed.
 
 (** 11. The Classical Separation Theorem
 
-    CLAIM: A "classical observer" — any function that maps VMState to a
+    CLAIM: A "classical observer", any function that maps VMState to a
     result and depends ONLY on the computational fields (registers, memory,
-    μ, PC, error, certification) — cannot distinguish the two separated
+    μ, PC, error, certification), cannot distinguish the two separated
     states. Yet the morphism graphs of the two states differ.
 
     DEFINITION: A function f : VMState → A is "classical" if
@@ -322,11 +322,9 @@ Qed.
     and the definition of classical observer.
 
     SIGNIFICANCE:
-    This is the formal proof that "classical machines cannot distinguish
-    program A from program B" in the demo's Act 4 argument. Classical
-    machines observe only (regs, mem, μ, pc, err, certified). Those fields
-    are IDENTICAL for the two programs. Only the morphism graph differs,
-    and morphism graph access requires morphism-aware instructions.
+    Classical observers see only (regs, mem, μ, pc, err, certified). Those
+    fields are IDENTICAL for the two states. Only the morphism graph
+    differs, and reading it takes morphism-aware instructions.
 *)
 
 (** Definition: A function f is a classical observer if it is

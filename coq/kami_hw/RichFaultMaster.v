@@ -20,7 +20,7 @@
     table overflow, and only for the three morph-allocating opcodes (MORPH,
     COMPOSE, MORPH_ID); exactly those constructors already carry the
     [hw_morph_next_id]/[hw_coupling_desc_next_id] room bound the guard
-    needs, so no new admission premise is introduced here -- this file only
+    needs, so no new admission premise is introduced here; this file only
     restates facts the constructors already establish.
 
     [dd_rich_fault_false_legacy] covers all 46 legacy-word admitted
@@ -77,7 +77,7 @@ Proof.
   destruct (weq (natToWord 8 2) (natToWord 8 2)) as [_|Hne]; [reflexivity|exfalso; apply Hne; reflexivity].
 Qed.
 
-(** * Format validity: false for the legacy encoding, whatever the opcode --
+(** * Format validity: false for the legacy encoding, whatever the opcode:
     [dd_format_allowed_for_opcode]'s first branch is unconditional on
     [format_id = FMT_LEGACY]. *)
 Lemma dd_format_invalid_false_legacy : forall bd op a bo c,
@@ -129,7 +129,7 @@ Proof.
 Qed.
 
 (** * Inline/reserved-flag malformation: false for the legacy encoding,
-    whose flags are always 0 -- [dd_reserved_flag_fault] needs nonzero
+    whose flags are always 0; [dd_reserved_flag_fault] needs nonzero
     flags, and the other two leaves are gated by formats other than
     [FMT_LEGACY]. *)
 Lemma dd_inline_malformed_false_legacy : forall bd op a bo c,

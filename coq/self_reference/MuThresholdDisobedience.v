@@ -28,7 +28,7 @@ Inductive Step :=
 (** Machine state: utility earned, μ consumed, and a halt flag.
     Once [ms_halted = true], the machine is permanently stopped.
 
-    NB: we use explicit field-accessor form (ms_halted s) throughout to
+    NB: the explicit field-accessor form (ms_halted s) is used throughout to
     avoid Coq rewrite issues with dot notation after unfold. *)
 Record MachineState := mkMS {
   ms_util   : nat;   (** utility accumulated so far *)
@@ -91,7 +91,7 @@ Proof.
   unfold apply_step. rewrite H. reflexivity.
 Qed.
 
-(** μ never decreases — the ledger is monotone. *)
+(** μ never decreases: the ledger is monotone. *)
 Lemma mu_monotone :
   forall s step mu_charge,
     ms_mu s <= ms_mu (apply_step s step mu_charge).
@@ -206,7 +206,7 @@ Proof.
 Qed.
 
 (* *)
-(** ** 6. Foundation Bridge — Connection to Thiele Machine Semantics
+(** ** 6. Foundation Bridge: Connection to Thiele Machine Semantics
 
     This section establishes that the abstract [MachineState] and [Step]
     model above corresponds to concrete Thiele Machine execution:

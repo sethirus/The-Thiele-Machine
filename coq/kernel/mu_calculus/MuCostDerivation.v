@@ -100,7 +100,7 @@ Proof.
         assert (S omega_after' <> S omega_before').
         { intro Heq. rewrite Heq in Hafter_pow. rewrite Hbefore_pow in Hafter_pow.
           rewrite Nat.eqb_refl in Hafter_pow. discriminate. }
-        (* Combined with <=, we get < *)
+        (* Combined with <=, this gives < *)
         assert (Hstrict : S omega_after' < S omega_before').
         { apply Nat.lt_eq_cases in Hle. destruct Hle as [Hlt | Heq].
           - assumption.
@@ -436,7 +436,7 @@ Proof.
 Qed.
 
 
-(** Check that our theorems don't use problematic axioms *)
+(** Check that these theorems don't use problematic axioms *)
 Print Assumptions supplied_delta_schedule_consistent.
 Print Assumptions lassert_cost_from_component_floors.
 Print Assumptions lassert_cost_formula_lower_bound.

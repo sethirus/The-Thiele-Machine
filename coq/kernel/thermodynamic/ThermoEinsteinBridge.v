@@ -3,15 +3,20 @@
 
     Connect the entropy-locality bridge (nearest-neighbor split morphisms
     imply boundary entropy scaling) to an explicit Jacobson-style bridge
-    hypothesis that maps entropy-area control to Einstein dynamics.
-    The core 4D Einstein field equation theorem is
-    clausius_load_bearing_einstein_4d (below), which derives the equation
-    from thermodynamic focusing — not a bare einstein_equation lemma.
+    hypothesis that maps entropy-area control to Einstein dynamics. The
+    generic corridor theorems take that hypothesis as a premise; this file
+    does not derive Jacobson's argument.
 
-    This file stays honest: it composes proven entropy locality with an
-    explicit thermodynamic-to-gravity hypothesis, rather than claiming that
-    Jacobson is already fully derived in this module.
-*)
+    Two concrete instances close the file. The discrete instance
+    ([thermodynamic_locality_toward_discrete_einstein_emergence]) concludes
+    the Gauss-Bonnet delta identity, which holds from the two triangulation
+    premises alone; its Clausius and flux data are carried. The 4D instance
+    ([einstein_4d_successor_diag_from_positive_mass]) gives the diagonal
+    Einstein tensor on the successor chain from positive structural mass.
+    The premise named [clausius_structural_mass_axiom_statement] is
+    equivalent to positive structural mass
+    ([clausius_structural_mass_axiom_statement_iff]), so no Clausius data
+    reaches that theorem either. *)
 
 From Coq Require Import List Arith.PeanoNat Reals ZArith Lia.
 Import ListNotations.
@@ -39,15 +44,11 @@ Definition discrete_einstein_emergence_target
      IZR (euler_characteristic (vm_graph (snd st_pair)) -
           euler_characteristic (vm_graph (fst st_pair))))%R.
 
-(* DEPRECATED: vacuous 2D proof — the Clausius params (dQ, dS, T) are unused
+(* DEPRECATED: vacuous 2D proof; the Clausius params (dQ, dS, T) are unused
    because 2D Gauss-Bonnet does not need them.  The lemma accepts them only for
    interface compatibility with the generic corridor theorem
    (thermodynamic_locality_toward_einstein_with_clausius_model), but the 2D
-   proof path calls einstein_emerges directly and ignores all thermodynamic data.
-
-   For the load-bearing 4D version where Clausius IS structurally required
-   (mass-focusing chain → Clausius witnesses → EFE), see
-   clausius_load_bearing_einstein_4d below. *)
+   proof path calls einstein_emerges directly and ignores all thermodynamic data. *)
 Lemma discrete_einstein_emergence_component :
   forall (st_pair : VMState * VMState)
          (_ : unit)
@@ -60,7 +61,7 @@ Proof.
   exact (einstein_emerges s_pre s_post Hwf_pre Hwf_post).
 Qed.
 
-(* SCOPE NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section, parameterized theorem.
    EinsteinTarget is an abstract predicate. All theorems export as explicit
    forall premises when section closes. *)
 Section TowardEinstein.
@@ -167,6 +168,11 @@ Qed.
 
 End TowardEinstein.
 
+(** The generic corridor theorem instantiated at the discrete target. The
+    instance runs through [discrete_einstein_emergence_component], which
+    ignores the Clausius data, so the conclusion follows from the two
+    triangulation premises; the locality, support and null-flux premises are
+    carried. *)
 Theorem thermodynamic_locality_toward_discrete_einstein_emergence :
   forall (hbar c_light k_B entropy_per_bit : R)
          (hbar_pos : (0 < hbar)%R)
@@ -206,162 +212,36 @@ Proof.
   exact (Htarget Hwf_pre Hwf_post).
 Qed.
 
-(** ** Explicit thermodynamic chain: mass → focusing → Clausius → Gauss-Bonnet
-
-    This theorem makes the Clausius hypothesis structurally load-bearing
-    in the path to the Gauss-Bonnet identity.  The path is:
-
-      Positive mass + κ>0 (lorentzian_coupling_positive)
-        → null expansion rate < 0  (positive_mass_implies_focusing)
-        → ∃(dQ, dS, T) with T>0 and dQ = T×dS  (focusing_implies_clausius_witnesses)
-        → discrete_einstein_emergence_target       (einstein_emerges)
-
-    Unlike discrete_einstein_emergence_component (which ignores dQ and dS),
-    this theorem obtains the Clausius witnesses from the focusing theorem and
-    uses them explicitly before concluding Gauss-Bonnet.
-
-    The remaining named hypothesis is lorentzian_coupling_positive (κ>0),
-    which is discharged in LorentzianTensorPipeline.v for the mass-gradient case.
-*)
-(* SCOPE NOTE: load-bearing thermodynamic path — mass→focusing→Clausius→Gauss-Bonnet *)
-Theorem discrete_einstein_emergence_from_mass_focusing :
-  forall (hbar c_light k_B entropy_per_bit : R)
-         (s s' : VMState) (v w : ModuleID)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support : LocalMorphismSemantics.joint_support),
-    (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R ->
-    (v <> w)%nat ->
-    (module_structural_mass s v > 0)%nat ->
-    isotropic_mass_metric s v ->
-    isotropic_mass_metric s w ->
-    DiscreteRaychaudhuri.lorentzian_coupling_positive s v w (two_vertex_sc v w) ->
-    well_formed_triangulated (vm_graph s) ->
-    well_formed_triangulated (vm_graph s') ->
-    discrete_einstein_emergence_target (s, s').
-Proof.
-  intros hbar c_light k_B entropy_per_bit s s' v w P support
-         Hh Hc Hk Hvw Hmass Hiso_v Hiso_w Hcoupling Hwf Hwf'.
-  (* Step 1: positive mass + κ>0 → expansion rate < 0 (focusing) *)
-  assert (Hfocus : (DiscreteRaychaudhuri.discrete_null_expansion_rate
-                     RaychaudhuriFluxBridge.calibrated_null_congruence
-                     s (two_vertex_sc v w) v P < 0)%R).
-  { apply DiscreteRaychaudhuri.positive_mass_implies_focusing;
-      assumption. }
-  (* Step 2: focusing → Clausius witnesses (dQ, dS, T) *)
-  assert (Hclausius : exists dQ dS T : R, (0 < T)%R /\ dQ = (T * dS)%R).
-  { apply (DiscreteRaychaudhuri.focusing_implies_clausius_witnesses
-             hbar c_light k_B entropy_per_bit
-             s (two_vertex_sc v w) v P support);
-      assumption. }
-  (* Step 3: with the Clausius witnesses in hand, conclude Gauss-Bonnet *)
-  destruct Hclausius as [_ [_ [_ [_ _]]]].
-  unfold discrete_einstein_emergence_target. simpl.
-  exact (einstein_emerges s s').
-Qed.
-
-(**
-    PHYSICAL AXIOM DECLARATION (C3 — H_clausius_mass)
-
-    H_clausius_mass is the physical bridge from continuous thermodynamics
-    (Clausius relation dQ = T dS with T > 0) to discrete geometry
-    (positive structural mass at module v).
-
-    PHYSICAL CONTENT:
-    Non-zero heat at a horizon (T > 0) implies the module at that horizon
-    has positive structural mass: module_structural_mass s v > 0.
-
-    FORMAL DEFINITION (module_structural_mass):
-      match graph_lookup (vm_graph s) v with
-      | None => 0
-      | Some m => length(m.region) + length(m.axioms)
-      end
-    So mass > 0 iff the module exists AND has non-empty region or axioms.
-
-    DISCHARGE PATH (constructive — sketch only, structurally circular
-    under the current definitions; see CIRCULARITY NOTE below):
-    The discharge chain would be:
-      1. T > 0 → the module sits at a non-zero Unruh-temperature horizon
-      2. Non-zero Unruh temperature → non-zero null congruence focusing
-      3. Focusing occurs AT module v → v exists in the graph
-      4. v exists AND focusing implies non-zero Bekenstein entropy
-      5. Non-zero Bekenstein entropy → non-zero area → length(region) ≥ 1
-    This chain uses discrete_null_expansion_rate < 0 as a precondition,
-    which in turn requires the Ricci curvature to be computable at v,
-    which requires module_structural_mass s v > 0 — creating a circularity.
-
-    CIRCULARITY NOTE: The discharge is CIRCULAR given the current definitions.
-    discrete_null_expansion_rate uses curved_ricci which uses the metric
-    which depends on module_structural_mass. So "focusing → mass > 0" cannot
-    be proven from focusing alone without additional module-existence hypotheses.
-
-    Classification: STRUCTURAL AXIOM — the gap is circular by construction.
-    The current formulation in clausius_load_bearing_einstein_4d is honest:
-    H_clausius_mass is named explicitly and cannot be hidden.
-
-    BYPASS: thermodynamic_einstein_full_chain_4d (below) takes
-    module_structural_mass > 0 as a DIRECT hypothesis, bypassing the
-    Clausius channel entirely.  All downstream consumers can use
-    the full-chain theorem instead. *)
-
-(** PHYSICAL AXIOM (C3 — clausius_mass): non-zero Clausius heat implies positive
-    structural mass at the module.  This is a structural axiom — the discharge
-    is circular given the current metric/mass/focusing chain.  The axiom is
-    named explicitly rather than hidden in an Admitted or a closed hypothesis. *)
+(** [clausius_structural_mass_axiom_statement]: the premise "every
+    positive-temperature Clausius pair at [v] gives positive structural mass
+    at [v]". Its conclusion does not mention the pair, and the pair
+    (dQ, dS, T) = (0, 0, 1) always exists, so the premise says exactly that
+    the structural mass at [v] is positive
+    ([clausius_structural_mass_axiom_statement_iff]). *)
 Definition clausius_structural_mass_axiom_statement (s : VMState) (v : ModuleID) : Prop :=
   forall dQ dS T : R, (0 < T)%R -> dQ = (T * dS)%R -> (module_structural_mass s v > 0)%nat.
 
-(**
-    CLAUSIUS LOAD-BEARING 4D EINSTEIN BRIDGE (Gap B2 Closure)
+Lemma clausius_structural_mass_axiom_statement_iff :
+  forall (s : VMState) (v : ModuleID),
+    clausius_structural_mass_axiom_statement s v <->
+    (module_structural_mass s v > 0)%nat.
+Proof.
+  intros s v. unfold clausius_structural_mass_axiom_statement. split.
+  - intro H. apply (H 0%R 0%R 1%R).
+    + apply Rlt_0_1.
+    + ring.
+  - intros Hm dQ dS T _ _. exact Hm.
+Qed.
 
-    THE PROBLEM:
-    discrete_einstein_emergence_from_mass_focusing threads the chain
-      mass → focusing → Clausius → Gauss-Bonnet
-    but the Clausius witnesses (dQ, dS, T) are destructed into underscores
-    and the conclusion is the 2D Gauss-Bonnet identity, not the 4D EFE.
-
-    THE FIX:
-    clausius_load_bearing_einstein_4d takes FOCUSING as its initial
-    hypothesis (not positive mass), derives Clausius witnesses via
-    focusing_implies_clausius_witnesses, then uses a BRIDGE HYPOTHESIS
-    H_clausius_mass to obtain positive_structural_mass from the Clausius
-    data. This positive mass feeds into the A3 theorem
-    local_einstein_field_equation_nat_chain_4d (4D EFE).
-
-    LOAD-BEARING STRUCTURE:
-    focusing → (focusing_implies_clausius_witnesses) → ∃(dQ, dS, T)
-      → (H_clausius_mass) → module_structural_mass > 0
-      → (local_einstein_field_equation_nat_chain_4d) → G_{dd} = 8πG T_{dd}
-
-    Without the Clausius witnesses (dQ, dS, T), the proof cannot obtain
-    positive_structural_mass and the 4D EFE is unreachable.
-
-    H_clausius_mass names the physical content: non-zero heat at a
-    module (dQ = T dS with T > 0) implies non-zero structural mass
-    (|region| + |axioms| > 0).  See clausius_structural_mass_axiom_statement
-    above (C3) for the full discharge analysis.
-    *)
-
-Theorem clausius_load_bearing_einstein_4d :
-  forall (hbar c_light k_B entropy_per_bit : R)
-         (s : VMState) (n : nat)
-         (v w : ModuleID) (d : nat)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support : LocalMorphismSemantics.joint_support),
-    (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R ->
+(** [einstein_4d_successor_diag_from_positive_mass]: on the natural-number
+    successor chain, at a module with positive structural mass, each diagonal
+    component of the 4D Einstein tensor equals 8 PI G times the mass factor
+    times the mass stress-energy. Positive mass is needed only to divide by
+    the mass. *)
+Theorem einstein_4d_successor_diag_from_positive_mass :
+  forall (s : VMState) (n : nat) (v : ModuleID) (d : nat),
     (d < 4)%nat ->
-    (* Initial hypothesis: null congruence focuses *)
-    (DiscreteRaychaudhuri.discrete_null_expansion_rate
-      RaychaudhuriFluxBridge.calibrated_null_congruence
-      s (two_vertex_sc v w) v P < 0)%R ->
-    (* CLAUSIUS BRIDGE: Clausius heat witnesses ground positive structural mass.
-       This hypothesis connects continuous thermodynamics (dQ = T dS, T > 0)
-       to the discrete structural mass (partition region size). It is the
-       content of the VM's physical interpretation: non-zero heat at a
-       horizon implies non-zero partition structure at the corresponding module. *)
-    (forall dQ dS T : R,
-       (0 < T)%R -> dQ = (T * dS)%R ->
-       (module_structural_mass s v > 0)%nat) ->
-    (* Conclusion: 4D EFE (not 2D Gauss-Bonnet) *)
+    (module_structural_mass s v > 0)%nat ->
     (local_einstein_tensor_4d s (nat_chain_sc n) d d v =
       (8 * PI * EinsteinEquations4D.gravitational_constant) *
       ((3 * local_mass_second_difference s (nat_chain_successor n) v *
@@ -369,115 +249,11 @@ Theorem clausius_load_bearing_einstein_4d :
        INR (module_structural_mass s v)) *
       mass_stress_energy s d d v)%R.
 Proof.
-  intros hbar c_light k_B entropy_per_bit s n v w d P support
-         Hh Hc Hk Hd Hfocus H_clausius_mass.
-  (* Step 1: focusing → Clausius witnesses (dQ, dS, T) *)
-  pose proof (DiscreteRaychaudhuri.focusing_implies_clausius_witnesses
-    hbar c_light k_B entropy_per_bit s (two_vertex_sc v w) v P support
-    Hh Hc Hk Hfocus)
-    as [dQ [dS [T [HT HdQ]]]].
-  (* Step 2: Clausius → positive structural mass (bridge) *)
-  pose proof (H_clausius_mass dQ dS T HT HdQ) as Hmass.
-  (* Step 3: positive mass → 4D Euclidean EFE *)
+  intros s n v d Hd Hmass.
   rewrite EinsteinEquations4D.gravitational_coupling_unit_convention, Rmult_1_l.
   rewrite (EinsteinEquations4D.local_einstein_tensor_4d_successor_diag
     s (nat_chain_sc n) (nat_chain_successor n) v d
     (EinsteinEquations4D.nat_chain_successor_derivative_semantics s n) Hd).
   unfold mass_stress_energy. rewrite Nat.eqb_refl. field.
   apply not_0_INR. lia.
-Qed.
-
-(** Full chain connector: mass + geometric hypotheses yield BOTH
-    Clausius witnesses AND the 4D EFE, with the Clausius relation
-    visible in the conclusion. *)
-Theorem thermodynamic_einstein_full_chain_4d :
-  forall (hbar c_light k_B entropy_per_bit : R)
-         (s : VMState) (n : nat)
-         (v w : ModuleID) (d : nat)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support : LocalMorphismSemantics.joint_support),
-    (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R ->
-    (d < 4)%nat ->
-    (v <> w)%nat ->
-    (module_structural_mass s v > 0)%nat ->
-    isotropic_mass_metric s v ->
-    isotropic_mass_metric s w ->
-    DiscreteRaychaudhuri.lorentzian_coupling_positive s v w (two_vertex_sc v w) ->
-    (* Conclusion: Clausius witnesses are preserved AND 4D EFE holds *)
-    (exists dQ dS T : R, (0 < T)%R /\ dQ = (T * dS)%R) /\
-    (local_einstein_tensor_4d s (nat_chain_sc n) d d v =
-      (8 * PI * EinsteinEquations4D.gravitational_constant) *
-      ((3 * local_mass_second_difference s (nat_chain_successor n) v *
-        (1 - 2 * INR (module_structural_mass s v))) /
-       INR (module_structural_mass s v)) *
-      mass_stress_energy s d d v)%R.
-Proof.
-  intros hbar c_light k_B entropy_per_bit s n v w d P support
-         Hh Hc Hk Hd Hvw Hmass Hiso_v Hiso_w Hcoupling.
-  split.
-  - (* Thermodynamic chain: mass → focusing → Clausius *)
-    pose proof (DiscreteRaychaudhuri.positive_mass_implies_focusing
-      s v w Hvw Hmass Hiso_v Hiso_w Hcoupling P) as Hfocus.
-    exact (DiscreteRaychaudhuri.focusing_implies_clausius_witnesses
-      hbar c_light k_B entropy_per_bit s (two_vertex_sc v w) v P support
-      Hh Hc Hk Hfocus).
-  - (* Geometric chain: positive mass → 4D Euclidean EFE *)
-    rewrite EinsteinEquations4D.gravitational_coupling_unit_convention, Rmult_1_l.
-    rewrite (EinsteinEquations4D.local_einstein_tensor_4d_successor_diag
-      s (nat_chain_sc n) (nat_chain_successor n) v d
-      (EinsteinEquations4D.nat_chain_successor_derivative_semantics s n) Hd).
-    unfold mass_stress_energy. rewrite Nat.eqb_refl. field.
-    apply not_0_INR. lia.
-Qed.
-
-(** Direct non-circular corollary: downstream users that already have
-    positive structural mass do not need to pass through the circular
-    Clausius-mass bridge. *)
-Corollary positive_mass_implies_clausius_witnesses_4d :
-  forall (hbar c_light k_B entropy_per_bit : R)
-         (s : VMState) (n : nat)
-         (v w : ModuleID) (d : nat)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support : LocalMorphismSemantics.joint_support),
-    (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R ->
-    (d < 4)%nat ->
-    (v <> w)%nat ->
-    (module_structural_mass s v > 0)%nat ->
-    isotropic_mass_metric s v ->
-    isotropic_mass_metric s w ->
-    DiscreteRaychaudhuri.lorentzian_coupling_positive s v w (two_vertex_sc v w) ->
-    exists dQ dS T : R, (0 < T)%R /\ dQ = (T * dS)%R.
-Proof.
-  intros hbar c_light k_B entropy_per_bit s n v w d P support
-         Hh Hc Hk Hd Hvw Hmass Hiso_v Hiso_w Hcoupling.
-  exact (proj1 (thermodynamic_einstein_full_chain_4d
-    hbar c_light k_B entropy_per_bit s n v w d P support
-    Hh Hc Hk Hd Hvw Hmass Hiso_v Hiso_w Hcoupling)).
-Qed.
-
-Corollary direct_mass_load_bearing_einstein_4d :
-  forall (hbar c_light k_B entropy_per_bit : R)
-         (s : VMState) (n : nat)
-         (v w : ModuleID) (d : nat)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support : LocalMorphismSemantics.joint_support),
-    (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R ->
-    (d < 4)%nat ->
-    (v <> w)%nat ->
-    (module_structural_mass s v > 0)%nat ->
-    isotropic_mass_metric s v ->
-    isotropic_mass_metric s w ->
-    DiscreteRaychaudhuri.lorentzian_coupling_positive s v w (two_vertex_sc v w) ->
-    (local_einstein_tensor_4d s (nat_chain_sc n) d d v =
-      (8 * PI * EinsteinEquations4D.gravitational_constant) *
-      ((3 * local_mass_second_difference s (nat_chain_successor n) v *
-        (1 - 2 * INR (module_structural_mass s v))) /
-       INR (module_structural_mass s v)) *
-      mass_stress_energy s d d v)%R.
-Proof.
-  intros hbar c_light k_B entropy_per_bit s n v w d P support
-         Hh Hc Hk Hd Hvw Hmass Hiso_v Hiso_w Hcoupling.
-  exact (proj2 (thermodynamic_einstein_full_chain_4d
-    hbar c_light k_B entropy_per_bit s n v w d P support
-    Hh Hc Hk Hd Hvw Hmass Hiso_v Hiso_w Hcoupling)).
 Qed.

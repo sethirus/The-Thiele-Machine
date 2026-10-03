@@ -1,7 +1,7 @@
 (** StructuralCore: record-carrying machines, adequacy, and core equivalence.
 
-    The monograph asks whether every adequate record-carrying machine has
-    the same structural core as the Thiele Machine. That question needs
+    The question: does every adequate record-carrying machine have
+    the same structural core as the Thiele Machine? That question needs
     three definitions: what a record-carrying machine is, when one is
     adequate, and when two cores are the same. This file gives them in their
     weak form. It proves only what the definitions need to be well posed:

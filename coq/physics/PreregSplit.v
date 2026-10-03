@@ -13,7 +13,7 @@
 From Coq Require Import List Arith Lia.
 
 Import ListNotations.
-(* SCOPE NOTE: foundation connectivity -- bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuCostModel.
 From Kernel Require Import MuLedgerConservation NoFreeInsight MuInitiality.

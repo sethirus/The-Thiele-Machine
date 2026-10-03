@@ -4,7 +4,7 @@
     corresponds to a physical system, or separates Turing machines from the
     VM. *)
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** The implementation computes a [GeometricSignature] from an edge list and

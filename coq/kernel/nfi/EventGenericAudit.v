@@ -6,16 +6,16 @@
     witnesses use a program-counter predicate and the generic record latch.
 
     Each [audit_*] definition is a kernel-checked application of the cited
-    theorem.  Applications that still expose a pricing, distribution, physical,
-    or injectivity premise are reported as partial in the accompanying evidence
-    table. *)
+    theorem.  Some applications still carry a pricing, distribution,
+    physical, or injectivity premise; each such premise is named in the
+    application's statement. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia Strings.String.
 Import ListNotations.
 
 From Kernel Require Import A2Payoff CommitmentPredicateAdequacy.
 From Kernel Require Import CommitmentVsErasure CostFrameworks.
-From Kernel Require Import CostSemanticsComparison F1_StrongForm GasMetering.
+From Kernel Require Import CostSemanticsComparison LandauerDissipationStrongForm GasMetering.
 From Kernel Require Import HonestCostTracking PermanentCertification.
 From Kernel Require Import PermanentCertificationEntropy PermanentRecordPricing.
 From Kernel Require Import RecordAxisDiscrimination ShadowPricing.
@@ -260,7 +260,7 @@ Proof.
     meter_system [Tick; Tick] Meter0 eq_refl meter_two_ticks_reach_event).
 Qed.
 
-Definition door_vm_event : F1_LogicalErasure.bool_macro_property :=
+Definition door_vm_event : LogicalErasureCertFlip.bool_macro_property :=
   fun s => Nat.eqb s.(vm_pc) 1.
 
 (** Exact theorem applications for the 49 cited theorems. *)
@@ -297,9 +297,9 @@ Definition audit_nfi_by_potential :=
   @CostSemanticsComparison.nfi_by_potential
     bool DoorInstr door_step door_cost door_opened door_a2.
 
-Definition audit_F1_strong_form_universal :=
+Definition audit_collapse_step_cost_from_calibrated_dissipation :=
   fun physical_cost landauer calibration =>
-    F1_strong_form_universal physical_cost landauer calibration door_vm_event.
+    collapse_step_cost_ge_1_from_calibrated_dissipation physical_cost landauer calibration door_vm_event.
 
 Definition audit_gas_schedule_exactness :=
   gas_schedule_exactness door_local_pricing.
@@ -625,9 +625,9 @@ Lemma evidence_nfi_by_potential :
   ltac:(let T := type of audit_nfi_by_potential in exact T).
 Proof. exact audit_nfi_by_potential. Qed.
 
-Lemma evidence_F1_strong_form_universal :
-  ltac:(let T := type of audit_F1_strong_form_universal in exact T).
-Proof. exact audit_F1_strong_form_universal. Qed.
+Lemma evidence_collapse_step_cost_from_calibrated_dissipation :
+  ltac:(let T := type of audit_collapse_step_cost_from_calibrated_dissipation in exact T).
+Proof. exact audit_collapse_step_cost_from_calibrated_dissipation. Qed.
 
 Lemma evidence_gas_schedule_exactness :
   ltac:(let T := type of audit_gas_schedule_exactness in exact T).
@@ -785,7 +785,7 @@ Lemma evidence_no_free_insight :
   ltac:(let T := type of audit_no_free_insight in exact T).
 Proof. exact audit_no_free_insight. Qed.
 
-(** The current VM schedule does not satisfy the theory interface's global
+(** The VM schedule does not satisfy the theory interface's global
     payload-pricing field.  The concrete counterexample below keeps that
     obstacle visible.  A functor parameter supplies the exact missing field,
     while every other field has a concrete implementation. *)

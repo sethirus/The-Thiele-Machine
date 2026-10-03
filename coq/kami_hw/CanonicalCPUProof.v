@@ -34,9 +34,9 @@ From KamiHW Require Import FullAbstraction.
 Import VMStep.VMStep.
 
 (** Canonical hardware module as a direct Coq-generated Bluespec-subset AST.
-  Route through the wrapper boundary so protocol integration evolves at source,
-  but keep the emitted object explicit: this is already the result of the
-  verified Kami synthesis path [getModuleS |> ModulesSToBModules]. *)
+  Route through the wrapper boundary, but keep the emitted object explicit:
+  this is the output of Kami's synthesis functions
+  [getModuleS |> ModulesSToBModules]. *)
 Definition canonical_cpu_module := thieleBusTopB.
 
 (** Explicit generator normal form.
@@ -265,8 +265,9 @@ Proof.
   apply (canonical_bus_step_preserves_abs_phase1 canonical_cpu_proof).
 Qed.
 
-(* Proof anchors: ensure extraction-root proofs depend on C3/C4 and honest NoFI wiring. *)
-Theorem canonical_c3_born_rule_anchor :
+(* Proof anchors: the extraction root depends on the Born-rule uniqueness,
+   Tsirelson-model and honest NoFI theorems. *)
+Theorem canonical_born_rule_uniqueness_anchor :
   forall (P : ProbabilityRule),
     valid_born_rule P ->
     forall (z : R), (-1 <= z <= 1)%R -> P z = born_probability z.
@@ -278,7 +279,7 @@ Qed.
 (** Canonical extraction-root dependency wiring: re-exports the corresponding
     bundle field as a named theorem so downstream proofs / extract refs can
     cite a stable name. *)
-Theorem canonical_c4_tsirelson_model_anchor :
+Theorem canonical_tsirelson_npa_model_anchor :
   forall fuel trace s_init,
     trace_quantum_bridge_coherent fuel trace s_init ->
     trace_npa_model fuel trace s_init /\

@@ -1,24 +1,20 @@
 (** FullAbstraction.v
 
-    A full-state local Kami snapshot for the eventual strong refinement path.
+    A full-state Kami snapshot.
 
-    The existing [KamiSnapshot] / [abs_phase1] pair in [Abstraction.v] is a
-    deliberately weaker hardware-facing abstraction: it reconstructs only part
-    of the VM state and drops graph, CSR, and prototype detail.  This file adds
-    a richer snapshot that carries the entire [VMState] surface directly, so the
-    full-refinement work has an exact target to build on without disturbing the
-    existing weaker theorems.
+    The [KamiSnapshot] / [abs_phase1] pair in [Abstraction.v] reconstructs
+    only the partition table of the graph. This file adds a snapshot that
+    carries the entire [VMState] surface directly.
 
-    This file is the data-type half of the full-state path. It establishes
-    the snapshot record and its exact abstraction/reification laws:
+    It establishes the snapshot record and its exact
+    abstraction/reification laws:
 
       abs_full_snapshot (full_snapshot_repr s) = s
 
-    and shows how the legacy [KamiSnapshot] embeds into the new full
-    snapshot. The companion [FullStep.v] defines [kami_step_full] over the
-    same record. The bounded-graph embedding here carries the richer
-    hardware-facing state directly, avoiding the older module-only
-    projection.
+    and shows how [KamiSnapshot] embeds into the full snapshot. The
+    companion [FullStep.v] defines [kami_step_full] over the same record.
+    The bounded-graph embedding here carries the morphism and coupling
+    tables as well as the partition table.
 *)
 
 From Coq Require Import List.

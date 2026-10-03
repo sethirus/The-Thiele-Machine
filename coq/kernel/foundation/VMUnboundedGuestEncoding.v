@@ -1,18 +1,14 @@
-(** VMUnboundedGuestEncoding.v — the bridge between get_slot/set_slot
+(** VMUnboundedGuestEncoding.v: the bridge between get_slot/set_slot
     (which operate on one packed nat) and a guest's actual register file
     (list nat, matching how vm_apply/vm_apply_u represent vm_regs).
 
-    Scope, stated plainly: each slot is 64 bits (Kn), matching the
-    physical VM's own register width — this is not a regression relative
-    to the bounded model. What B3 needs to be unbounded is the guest
-    PROGRAM (arbitrarily many/long instructions), not necessarily
-    individual guest register VALUES; a guest whose register values stay
-    below 2^64 is correctly simulated exactly (no masking artifact), and
-    that is the premise `encode_regs_correct` below is stated under. This
-    is a deliberate, disclosed scope choice, not an oversight: widening or
-    parameterizing the slot size is a separate, later refinement if a
-    guest program that produces genuinely unbounded register values is
-    ever the actual target. *)
+    Scope: each slot is 64 bits (Kn), the VM's own register width. What
+    the self-interpreter needs unbounded is the guest PROGRAM (arbitrarily
+    many/long instructions), not necessarily individual guest register
+    VALUES; a guest whose register values stay below 2^64 is simulated
+    exactly (no masking artifact), and that is the premise
+    `encode_regs_correct` below is stated under. Wider or parameterized
+    slots are not part of this file. *)
 
 From Coq Require Import Arith Lia List Bool.
 From Coq Require Import NArith.NArith.
@@ -85,7 +81,7 @@ Proof.
 Qed.
 
 (** * 4. u_and with slot_mask is the identity on values already at most
-    slot_mask (i.e. already below 2^64) — proved via slot_mask_N_eq only,
+    slot_mask (i.e. already below 2^64), proved via slot_mask_N_eq only,
     never by reducing slot_mask's actual value. *)
 
 Lemma u_and_slot_mask_id : forall v, v <= slot_mask -> u_and v slot_mask = v.
@@ -137,8 +133,8 @@ Qed.
 
 (** * 5. The clean corollary: for i within the register file and every
     value already below 2^64, encode_regs represents each register
-    exactly — no masking artifact. This is the premise under which the
-    ADD/SUB/etc. opcode blocks will state their simulation theorems. *)
+    exactly, with no masking artifact. This is the premise under which the
+    opcode blocks (VMUnboundedOpcodeAdd.v) state their simulation theorems. *)
 
 Theorem encode_regs_correct : forall regs i,
   i < length regs ->

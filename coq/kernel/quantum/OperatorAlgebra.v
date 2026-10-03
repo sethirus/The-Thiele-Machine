@@ -1,8 +1,8 @@
-(** * OperatorAlgebra — finite-dimensional real matrix machinery.
+(** * OperatorAlgebra: finite-dimensional real matrix machinery.
 
     Just enough operator-algebra infrastructure to state and prove
     Holevo's bound at general finite dimension [d]. Not a full matrix
-    library — a focused minimal layer sufficient for
+    library; a focused minimal layer sufficient for
     [HolevoGeneralD.v] to compile on top.
 
     What's here:
@@ -12,10 +12,10 @@
       - Matrix multiplication and trace.
       - Density matrix as a record carrying (matrix, hermitian-or-symmetric
         proof, trace-one proof, PSD-as-Prop proof).
-      - The spectral / eigenvalue interface as a parameter — we do
-        NOT formalize the spectral theorem (which is genuinely heavy
-        in Coq); instead, we take "the density matrix has a non-
-        negative spectrum summing to one" as a substrate property
+      - The spectral / eigenvalue interface as a parameter. The spectral
+        theorem is NOT formalized (it is genuinely heavy
+        in Coq); instead, "the density matrix has a non-
+        negative spectrum summing to one" is taken as a substrate property
         of the density matrix record. This is consistent with what
         Hermitian PSD trace-1 matrices satisfy, and is the form
         downstream entropy work needs.
@@ -30,7 +30,7 @@ Import ListNotations.
 
 Local Open Scope R_scope.
 
-(** ** Section 1 — matrices and vectors over R.
+(** ** Section 1: matrices and vectors over R.
 
     A real matrix of size [m × n] is a function from indices to R.
     Out-of-range accesses return 0 by convention; this keeps the
@@ -70,7 +70,7 @@ Definition mat_trace (d : nat) (A : Matrix) : R :=
 Definition mat_id : Matrix :=
   fun i j => if Nat.eqb i j then 1 else 0.
 
-(** ** Section 2 — basic algebraic properties.
+(** ** Section 2: basic algebraic properties.
 
     Just enough to support trace linearity, used by downstream
     entropy work. *)
@@ -124,7 +124,7 @@ Proof.
   apply sum_to_scal.
 Qed.
 
-(** ** Section 3 — vector operations.
+(** ** Section 3: vector operations.
 
     A vector is a function [nat -> R] interpreted on indices [0, d). *)
 
@@ -143,7 +143,7 @@ Qed.
 Definition mat_vec (d : nat) (A : Matrix) (v : Vector) : Vector :=
   fun i => sum_to d (fun j => A i j * v j).
 
-(** ** Section 4 — symmetric, PSD, and density matrices.
+(** ** Section 4: symmetric, PSD, and density matrices.
 
     For real density matrices the [symmetric] condition replaces the
     complex Hermitian condition. PSD is stated via the quadratic-form
@@ -171,11 +171,11 @@ Arguments dm_symmetric {d}.
 Arguments dm_trace_one {d}.
 Arguments dm_psd {d}.
 
-(** ** Section 5 — spectral interface.
+(** ** Section 5: spectral interface.
 
     The spectral theorem says: any real symmetric matrix has an
-    orthonormal eigenbasis with real eigenvalues. We do NOT prove the
-    spectral theorem here. We expose its consequence as a property
+    orthonormal eigenbasis with real eigenvalues. The spectral theorem is
+    NOT proved here. Its consequence is exposed as a property
     of [DensityMatrix]: a density matrix has a probability-
     distribution-shaped spectrum (eigenvalues are non-negative and
     sum to 1).
@@ -184,7 +184,7 @@ Arguments dm_psd {d}.
     principle in finite dimension over R, but the proof is long.
     Treating "has a probability-distribution spectrum" as a substrate
     property of density matrices keeps the layer minimal while
-    making clear what we are assuming. *)
+    making clear what is assumed. *)
 
 Definition Spectrum (d : nat) : Type := nat -> R.
 
@@ -194,14 +194,14 @@ Definition is_probability_spectrum (d : nat) (lambdas : Spectrum d) : Prop :=
   (forall i, (i < d)%nat -> 0 <= lambdas i <= 1) /\
   sum_to d lambdas = 1.
 
-(** The spectral hypothesis on a density matrix. We expose this as a
-    [Parameter]-shaped relationship — a density matrix [rho] has SOME
+(** The spectral hypothesis on a density matrix, exposed as a
+    [Parameter]-shaped relationship: a density matrix [rho] has SOME
     probability spectrum that matches its trace. *)
 Definition has_spectrum (d : nat) (rho : DensityMatrix d) (lambdas : Spectrum d) : Prop :=
   is_probability_spectrum d lambdas /\
   sum_to d lambdas = mat_trace d rho.(dm_mat).
 
-(** The trace-one property already gives us the second conjunct: *)
+(** The trace-one property already gives the second conjunct: *)
 Lemma has_spectrum_trace : forall d rho lambdas,
   is_probability_spectrum d lambdas ->
   sum_to d lambdas = 1 ->
@@ -213,7 +213,7 @@ Proof.
   - intros Htrace. split; [exact Hps |]. rewrite Hsum, Htrace. reflexivity.
 Qed.
 
-(** ** Section 6 — what this file provides downstream.
+(** ** Section 6: what this file provides downstream.
 
     For [HolevoGeneralD.v], the relevant exports are:
       - The [DensityMatrix] record (Section 4).
@@ -221,8 +221,8 @@ Qed.
         (Section 5).
       - The [has_spectrum] relation (Section 5), which is the
         substrate-side spectral input.
-      - The trace linearity lemmas (Section 2), which let us
-        manipulate convex combinations of density matrices. *)
+      - The trace linearity lemmas (Section 2), which allow
+        manipulating convex combinations of density matrices. *)
 
 (** Print Assumptions on the load-bearing lemmas. *)
 Print Assumptions mat_trace_add.

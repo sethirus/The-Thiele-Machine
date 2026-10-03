@@ -9,9 +9,9 @@
     image(step) ⊆ S, so the number of distinct observation classes can only
     decrease or stay constant.
 
-    Three theorems: info_nonincreasing (deterministic evolution cannot increase
-    distinguishable observation classes), mu_monotonic (the μ-ledger is
-    monotonically non-decreasing), and vm_mu never decreases.
+    Two theorems: info_nonincreasing (deterministic evolution cannot increase
+    distinguishable observation classes) and vm_mu_monotonic (vm_mu never
+    decreases under vm_step).
 
     To break this: find a deterministic step : S → S on a finite state space
     where |{observations of step(S)}| > |{observations of S}|. That requires
@@ -28,7 +28,7 @@ From Coq Require Import Sorting.Permutation.
 Import ListNotations.
 
 
-(* SCOPE NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section, parameterized theorem.
    A_eq_dec is decidable equality parameter (standard Coq parameterization).
    All theorems export as explicit forall premises when section closes. *)
 Section ListUtils.
@@ -116,9 +116,9 @@ Qed.
 
 End ListUtils.
 
-(** More list utilities: remove preserves the counting facts we need. *)
+(** More list utilities: remove preserves the counting facts used below. *)
 
-(* SCOPE NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section, parameterized theorem.
    A_eq_dec is decidable equality parameter (standard Coq parameterization).
    All theorems export as explicit forall premises when section closes. *)
 Section MoreListUtils.
@@ -171,9 +171,9 @@ Proof.
   - simpl. constructor.
   - simpl. inversion Hnodup; subst.
     destruct (A_eq_dec a x) as [Heq | Hneq].
-    + (* a = x, so we skip x *)
+    + (* a = x, so x is skipped *)
       apply IH. exact H2.
-    + (* a <> x, so we keep x *)
+    + (* a <> x, so x is kept *)
       constructor.
       * intros Hin.
         apply in_remove_neq in Hin.
@@ -234,7 +234,7 @@ Section FiniteInformation.
 
 (** State type with decidable equality *)
 Variable State : Type.
-(* SCOPE NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section, parameterized theorem.
    State, Obs, decidable equality and completeness are abstract parameters.
    All theorems export as explicit forall premises when section closes. *)
 Variable state_eq_dec : forall s1 s2 : State, {s1 = s2} + {s1 <> s2}.
@@ -277,53 +277,14 @@ Definition image : list State := map step all_states.
 Definition info_after : nat := info image.
 
 
-(** We want to prove: info_after <= current_info
-    
-    This means: the number of distinct observations after step
-    is at most the number of distinct observations before step.
-    
-    Strategy:
-    1. distinct_obs image = nodup (map observe (map step all_states))
-                          = nodup (map (observe ∘ step) all_states)
-    2. The number of distinct values in map f l is at most length l
-    3. length l = length all_states = |{distinct observations}| when NoDup
-    
-    Wait, that's not quite right. We need a different approach.
-    
-    The correct statement:
-    - Let f = observe ∘ step : State -> Obs
-    - info_after = |{f(s) : s in all_states}|
-    - This equals the number of distinct values in the range of f
-    
-    Key insight: |range(f)| <= |domain(f)| for any function on finite sets.
-    More precisely: |{f(s) : s in S}| <= |S|
-    
-    But we want: |{f(s) : s in S}| <= |{observe(s) : s in S}|
-    
-    This is NOT generally true! f could have more distinct values than observe.
-    
-    EXAMPLE:
-    - S = {s1, s2, s3}
-    - observe(s1) = observe(s2) = o1, observe(s3) = o2
-    - So current_info = 2 (two classes)
-    - Suppose step(s1) = s1, step(s2) = s3, step(s3) = s3
-    - Then (observe ∘ step)(s1) = o1, (observe ∘ step)(s2) = o2, (observe ∘ step)(s3) = o2
-    - So info_after = 2 (still two classes)
-    - OK in this case.
-    
-    But suppose:
-    - step(s1) = some state with obs = o3 (different from o1, o2)
-    - Then info_after could be 3 > current_info = 2
-    
-    Wait: that is impossible because step(s1) must be a state in S,
-    and all states in S have observations in {o1, o2}.
-    
-    So step : S -> S means the image is a subset of S.
-    Therefore {observe(step(s)) : s in S} ⊆ {observe(s') : s' in S}
-    Therefore |{observe(step(s))}| <= |{observe(s')}|
-    Therefore info_after <= current_info!
-    
-    THIS IS THE KEY INSIGHT.
+(** Goal: info_after <= current_info.
+
+    Let f = observe ∘ step. For an arbitrary f, |{f(s) : s in S}| need not
+    be bounded by |{observe(s) : s in S}|: a step that leaves S could reach
+    a new observation. Here step : S -> S, so the image is a subset of S:
+      {observe(step(s)) : s in S} ⊆ {observe(s') : s' in S}
+    and therefore |{observe(step(s))}| <= |{observe(s')}|, which is
+    info_after <= current_info.
 *)
 
 (** Observations of image are a subset of observations of domain *)
@@ -358,7 +319,7 @@ Proof.
   exact Hin.
 Qed.
 
-(** We need a counting lemma over NoDup lists with decidable equality. *)
+(** A counting lemma over NoDup lists with decidable equality. *)
 
 (** [NoDup_incl_length] is the finite-list inclusion bound used below. The
     decidable-equality argument permits induction while removing each selected
@@ -383,7 +344,7 @@ Proof.
     (* |rest| <= |B \ {a}| = |B| - 1 *)
     (* So |a :: rest| = 1 + |rest| <= 1 + |B| - 1 = |B| *)
     
-    (* We use: |rest| <= |remove a B| and |remove a B| = |B| - 1 when a ∈ B and NoDup B *)
+    (* Uses: |rest| <= |remove a B| and |remove a B| = |B| - 1 when a ∈ B and NoDup B *)
     assert (Hrest_incl : forall x, In x rest -> In x (remove T_eq_dec a B)).
     {
       intros x Hx.
@@ -437,7 +398,7 @@ Proof.
 Qed.
 
 
-(** If we track cumulative information destruction, it can only increase *)
+(** Tracked cumulatively, information destruction can only increase *)
 
 Variable mu : nat.  (* Current ledger value *)
 
@@ -456,7 +417,7 @@ Definition mu_after : nat := mu + info_destroyed.
 (** WHAT I PROVED:
 
     1. info_nonincreasing (Theorem):
-       The number of distinct observation classes CANNOT INCREASE when we apply
+       The number of distinct observation classes CANNOT INCREASE when applying
        a deterministic function step : State -> State on an explicitly
        enumerated finite state space.
 
@@ -468,9 +429,8 @@ Definition mu_after : nat := mu + info_destroyed.
     2. info_destroyed is well-defined as current_info - info_after
        because info_after <= current_info (from theorem 1).
 
-    3. mu_monotonic (Theorem):
-       The cumulative destruction ledger μ_after = μ + info_destroyed is
-       monotonically non-decreasing: μ_after ≥ μ.
+    3. mu_after = mu + info_destroyed is at least mu, immediate from
+       info_destroyed : nat (no named theorem).
     This theorem is not a full thermodynamic derivation. It is about closed
     finite dynamics: the image of a function f : X → X is a subset of X, so
     |image(f)| ≤ |X|. Any observation of image(f) must be an observation of

@@ -121,7 +121,7 @@ Qed.
 
 (** Self-reference escalation: any self-referential level produces a
     meta-witness one rung up. The hypothesis [contains_self_reference]
-    is unused in the proof — the witness exists structurally — but the
+    is unused in the proof (the witness exists structurally), but the
     statement records what the lemma is for. *)
 Lemma tower_self_reference_escalates :
   forall (M : ThieleManifold) n,
@@ -201,7 +201,7 @@ Definition spacetime_shadow (M : ThieleManifold) : System := pi4 M.
 
 (** The shadow can express every spacetime sentence. The proof works
     because [canonical_manifold] uses [fun P => P] as its sentences
-    predicate, so any [Prop] — including [spacetime_sentences P] — is
+    predicate, so any [Prop] (including [spacetime_sentences P]) is
     expressible at every level. The body unwinds [spacetime_sentences]
     to extract a witness event and produces [P] by applying the local
     entailment at that event. *)

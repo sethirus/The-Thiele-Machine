@@ -1,23 +1,20 @@
-(** B4: a genuine output-value fact about actual host VM execution, not
-    just raw halting -- one direction of a reduction toward "an explicitly
-    named nontrivial extensional predicate" is undecidable, per B4's
-    contract.
+(** An output-value fact about actual host VM execution, not just raw
+    halting: the extensional predicate "the guest halts with counter 0 = 0"
+    is undecidable.
 
     [zero_out_program p] is a real, executable CM2 program built from an
     MM2 guest [p]: it runs [p] exactly as [mm2_guest_program p] would, but
-    wherever [p] would stop -- either by MM2's own "address 0" halt
-    convention, or by jumping to any address beyond the program, which is
-    equally a stop under [cm2_halts_falloff] -- it instead falls into one
-    trailing instruction that drains counter 0 to exactly 0 and then halts
-    by falling off the array.
+    wherever [p] would stop (by MM2's own "address 0" halt convention, or
+    by jumping to any address beyond the program, which is equally a stop
+    under [cm2_halts_falloff]) it instead falls into one trailing
+    instruction that drains counter 0 to exactly 0 and then halts by
+    falling off the array.
 
-    This file proves the forward direction: if the MM2 instance (p,a,b)
-    halts, the real host execution of [zero_out_program p] from (a,b)
-    reaches a state with counter 0 = 0. The converse (a host halt with
-    counter 0 = 0 implies the MM2 instance halts) is outside this file's
-    theorem surface: it requires an embedding argument in the other direction
-    or an additional excluded-middle premise. This file records the checked
-    forward reduction contract, not a full undecidability theorem. *)
+    The MM2 instance (p,a,b) halts iff the real host execution of
+    [zero_out_program p] from (a,b) reaches a state with counter 0 = 0
+    ([zero_out_program_full_iff]). By many-one reduction from pinned MM2
+    halting, that predicate is undecidable on real host executions
+    ([cm2_host_outputs_zero_undecidable]). *)
 
 From Coq Require Import Arith Lia List.
 Import ListNotations.
@@ -39,7 +36,7 @@ Proof.
 Qed.
 
 (** Send MM2's implicit halt target (0) AND every out-of-range target
-    (anything beyond the real body, [len]) to [len] itself -- the position
+    (anything beyond the real body, [len]) to [len] itself, the position
     of the trailing drain instruction. Every genuine body target (1..len)
     shifts down by one to account for dropping the leading [CM2_Halt]
     marker [mm2_guest_program] uses. *)
@@ -201,8 +198,8 @@ Proof.
     + apply IH.
 Qed.
 
-(** Any way [mm2_guest_program p] can stop -- explicit halt marker, or
-    falling off the end at any out-of-range address -- reindexes to
+(** Any way [mm2_guest_program p] can stop (explicit halt marker, or
+    falling off the end at any out-of-range address) reindexes to
     exactly the drain position. *)
 Lemma cm2_halts_remap_pc : forall p start final,
   cm2_halts (mm2_guest_program p) start final ->
@@ -220,7 +217,7 @@ Qed.
 
 (** Forward direction: if the MM2 instance halts, the real host execution
     of [zero_out_program p] from (a,b) reaches a state with counter 0 = 0.
-    (The converse is open; see the file header.) *)
+    The converse is [zero_out_program_full_iff] below. *)
 Theorem zero_out_program_reaches_zero : forall p a b,
   (exists final, cm2_halts (mm2_guest_program p)
      {| cc_pc := 1; cc_c0 := a; cc_c1 := b |} final) ->
@@ -434,8 +431,8 @@ Proof.
       exists final_orig. exact Hhalts.
 Qed.
 
-(** The predicate "the guest halts with counter 0 = 0" -- a genuine
-    output-value fact, not a restatement of raw halting -- is therefore
+(** The predicate "the guest halts with counter 0 = 0" (a genuine
+    output-value fact, not a restatement of raw halting) is therefore
     undecidable on real host executions, by many-one reduction from the
     pinned MM2 halting problem. *)
 Definition cm2_host_outputs_zero (p : list mm2_instr) (ab : nat * nat) : Prop :=

@@ -1,38 +1,39 @@
 (** QuantitativeNoFI.v
     AXIOM 5: QUANTITATIVE NO FREE INSIGHT
 
-    THE GAP BEING CLOSED
-    UniversalCertificationCost.v proved:
+    FROM 1 TO K
+    UniversalCertificationCost.v proves:
         total_cost ≥ 1    (for any substrate satisfying A2)
 
-    This file pushes to:
-        total_cost ≥ K    where K = cs_cert_threshold
+    This file proves:
+        total_cost ≥ K    where K = qcs_threshold
 
     K is the MINIMUM WITNESS needed to certify.  When K > 1, this says
     certifying something of complexity K costs K, every time. No way around it.
     This is the formal content of "insight requires cost proportional to
     what is learned."
 
-    THE FIVE AXIOMS
-    A2  (inherited): cert transition costs ≥ 1
-    A3. cs_witness_cost_step:
-          cs_witness s + cs_cost i ≥ cs_witness (cs_step s i)
+    THE FIVE AXIOMS (fields of QuantitativeCertificationSystem and
+    QuantitativeCertificationSystem_full)
+    A2  (inherited, cs_cert_costs): cert transition costs ≥ 1
+    A3. qcs_cost_bounds_witness:
+          qcs_witness s + cs_cost i ≥ qcs_witness (cs_step s i)
           "Each instruction's cost bounds how much witness it can generate"
-    A4. cs_witness_nondecreasing:
-          cs_witness s ≤ cs_witness (cs_step s i)
+    A4. qcsf_witness_nondecreasing:
+          qcs_witness s ≤ qcs_witness (cs_step s i)
           (NOT derivable from A3.  A3 bounds growth from above
-           (w + cost ≥ w'); A4 bounds change from below (w ≤ w') —
+           (w + cost ≥ w'); A4 bounds change from below (w ≤ w'):
            opposite directions.  Counterexample (w,cost,w') = (1,0,0)
            satisfies A3 with cost ≥ 0 yet violates A4.  Stated as its
            own field; idle for the ≥K floor, which uses only A3/A5/A6.)
-    A5. cs_certified_requires_witness:
-          cs_cert s = true → cs_witness s ≥ cs_cert_threshold
+    A5. qcs_cert_threshold_witness:
+          cs_cert s = true → qcs_witness s ≥ qcs_threshold
           "Certification requires having accumulated ≥ K evidence"
-    A6. cs_witness_initial:
-          cs_witness s₀ = 0   (stated as theorem hypothesis)
+    A6. Initial witness:
+          qcs_witness s₀ = 0   (stated as theorem hypothesis)
 
     THE CENTRAL LEMMA (telescoping)
-    cs_witness s0 + cs_total_cost trace ≥ cs_witness (cs_run trace s0)
+    qcs_witness s0 + cs_total_cost trace ≥ qcs_witness (cs_run trace s0)
 
     Proof: at each step, cost ≥ Δwitness.  Summing over the trace:
            total_cost ≥ total_Δwitness = final_witness - initial_witness.
@@ -41,17 +42,17 @@
     Therefore: total_cost ≥ K.
 
     THE INFORMATION-THEORETIC READING
-    cs_witness measures HOW MUCH the state has learned.
-    cs_cert_threshold is HOW MUCH it needs to have learned to certify.
-    cs_witness_cost_step says: learning costs.
+    qcs_witness measures HOW MUCH the state has learned.
+    qcs_threshold is HOW MUCH it needs to have learned to certify.
+    qcs_cost_bounds_witness says: learning costs.
 
     When K = 1: same as UniversalCertificationCost.v (A2 alone).
     When K = n: you need n units of evidence, each costing ≥ 1.
     When K = H(X): you need Shannon-entropy(X) evidence to certify X.
     When K = K(x): you need Kolmogorov-complexity(x) to certify x.
 
-    The last two require connecting cs_witness to an information measure.
-    That is the open problem.
+    The last two require connecting qcs_witness to an information measure;
+    no theorem here makes that connection.
 
     A3/A4/A5 are requirements on the system, discharged per instantiation.
 *)
@@ -66,13 +67,13 @@ From Kernel Require Import VMState VMStep SimulationProof
 (**
 
     Extends CertificationSystem with:
-      - cs_witness       : state → nat  (the evidence accumulator)
-      - cs_cert_threshold : nat          (minimum witness for certification)
+      - qcs_witness   : state → nat  (the evidence accumulator)
+      - qcs_threshold : nat          (minimum witness for certification)
       - A3: cost bounds witness growth
       - A5: certification requires threshold witness
 
     A4 (nondecreasing) does NOT follow from A3.  A3 gives w + cost ≥ w'
-    (an upper bound on growth); A4 wants w ≤ w' (a lower bound on change) —
+    (an upper bound on growth); A4 wants w ≤ w' (a lower bound on change);
     opposite directions, see (w,cost,w') = (1,0,0).  It is therefore
     axiomatized as its own field on QuantitativeCertificationSystem_full
     (see the analysis at that record below), and is idle in any case: the
@@ -80,7 +81,7 @@ From Kernel Require Import VMState VMStep SimulationProof
 *)
 
 Record QuantitativeCertificationSystem := mk_qcs {
-  (** Underlying CertificationSystem — inherits A2 (cs_cert_costs). *)
+  (** Underlying CertificationSystem: inherits A2 (cs_cert_costs). *)
   qcs_base       : CertificationSystem;
 
   (** The witness function: how much evidence has been accumulated. *)
@@ -126,29 +127,25 @@ Record QuantitativeCertificationSystem := mk_qcs {
 
     A4 (witness nondecreasing) does NOT follow from A3.
 
-    Tempting argument: cost ≥ 0 (since cost : _ → nat) and A3 gives
-    witness_before + cost ≥ witness_after, so witness_after ≥ witness_before.
-    This is WRONG — the last step does not follow.
-
-    A3 says witness_before + cost ≥ witness_after.
-    This does NOT give witness_after ≥ witness_before.
+    A3 says witness_before + cost ≥ witness_after, and cost ≥ 0 since
+    cost : _ → nat. Together these do NOT give witness_after ≥ witness_before.
     Counterexample: witness_before = 1, cost = 0, witness_after = 0
     satisfies A3 (1 + 0 ≥ 0) with cost ≥ 0, yet witness_after < witness_before.
     The two inequalities bound opposite directions.
 
-    However: if we also assume cs_cert_costs (A2), which gives a LOWER BOUND
-    on cost when cert transitions, we don't get nondecreasing for free.
+    Adding cs_cert_costs (A2), which gives a LOWER BOUND on cost when
+    cert transitions, does not give nondecreasing either.
 
-    DECISION: Add A4 as a separate axiom.  It is mild and natural — it says
-    that evidence cannot be "unlearned" (knowledge is persistent).
+    A4 is therefore a separate field. It says that evidence cannot be
+    "unlearned" (knowledge is persistent).
 *)
 
-(** A4 as a field — knowledge is monotone. *)
+(** A4 as a field: knowledge is monotone. *)
 Record QuantitativeCertificationSystem_full := mk_qcs_full {
   (** The quantitative base (A2, A3, A5 included). *)
   qcsf_qcs       : QuantitativeCertificationSystem;
 
-  (** A4: Witness is nondecreasing — evidence once accumulated stays.
+  (** A4: Witness is nondecreasing. Evidence once accumulated stays.
 
       Formally: qcs_witness s ≤ qcs_witness (cs_step qcs_base s i).
 
@@ -156,7 +153,7 @@ Record QuantitativeCertificationSystem_full := mk_qcs_full {
       every step. It is a formal persistence condition, not a general claim
       about memory, information, or physical erasure.
 
-      (This can fail in systems with noise / forgetting — those would
+      (This can fail in systems with noise / forgetting; those would
        not satisfy NoFI in the strong quantitative sense.)
   *)
   qcsf_witness_nondecreasing :
@@ -250,17 +247,17 @@ Proof.
   lia.
 Qed.
 
-(** Stronger statement: also gives the explicit witness lower bound. *)
+(** Witness lower bound: from a zero witness, any trace costs at least the
+    final witness, whether or not the run certifies. *)
 Theorem universal_nfi_quantitative_witness :
   forall (QCS : QuantitativeCertificationSystem)
          (trace : list (cs_instr (qcs_base QCS)))
          (s0 : cs_state (qcs_base QCS)),
     qcs_witness QCS s0 = 0 ->
-    cs_cert (qcs_base QCS) (cs_run (qcs_base QCS) trace s0) = true ->
     cs_total_cost (qcs_base QCS) trace >=
       qcs_witness QCS (cs_run (qcs_base QCS) trace s0).
 Proof.
-  intros QCS trace s0 Hinit Hcert.
+  intros QCS trace s0 Hinit.
   pose proof (qcs_telescoping QCS trace s0) as Htele.
   rewrite Hinit in Htele. simpl in Htele.
   exact Htele.
@@ -300,18 +297,17 @@ Qed.
 
     PROOF: thiele_cert_bool s = true means csr_cert_addr ≠ 0.
     This channel can only be reached through cert-addr-setters, each costing ≥ 1.
-    But we need this as a STATIC property of the state, not a trace property.
+    That is a trace property; A5 needs a STATIC property of the state.
 
     SUBTLETY: In Coq, a VMState could be constructed directly with
     csr_cert_addr ≠ 0 AND vm_mu = 0.  The static property doesn't hold
-    for arbitrary states — it holds for states REACHABLE from initial state.
+    for arbitrary states; it holds for states REACHABLE from initial state.
 
-    RESOLUTION: Weaken to threshold = 0 for the general static form,
-    and use the trace-level theorem for the interesting case.
-    OR: use a different witness function that is always ≥ 1 when certified,
-    by construction.
+    Two forms are available: weaken to threshold = 0 for the general static
+    form and use the trace-level theorem for the interesting case, or use a
+    witness function that is always ≥ 1 when certified, by construction.
 
-    We choose the second approach: define the witness as
+    The second is used here: the witness is
       witness_cert_addr s := if thiele_cert_bool s then 1 else 0
     This trivially satisfies A5 with threshold = 1.
 *)
@@ -338,7 +334,7 @@ Proof.
   simpl.
   - lia.
   - lia.
-  - (* cert was false, now true — cost ≥ 1 *)
+  - (* cert was false, now true: cost ≥ 1 *)
     pose proof (thiele_cert_bool_zero_iff s) as [Hzero _].
     pose proof (thiele_cert_bool_nonzero_iff (vm_apply s i)) as [Hnonzero _].
     pose proof (no_free_certification s i (Hzero Hs) (Hnonzero Hsi)).
@@ -381,7 +377,7 @@ Qed.
 
 (**
 
-    THE CURRENT STATE:
+    THRESHOLD 1:
     With threshold = 1, this is equivalent to UniversalCertificationCost.v.
     The quantitative theorem gives total_cost ≥ 1.
 
@@ -399,7 +395,7 @@ Qed.
           something is certified.  This connects to Kolmogorov complexity,
           Shannon entropy, or circuit lower bounds.
 
-    THE CANDIDATE WITNESS FUNCTIONS (to be developed):
+    CANDIDATE WITNESS FUNCTIONS:
 
     W1. Certificate payload bits:
           W(s) := concrete bit length of the certificate payload reachable from
@@ -430,20 +426,18 @@ Qed.
           Connection: Chaitin's incompleteness theorem.
           Requires: an oracle for K, which must be axiomatized.
 
-    DEVELOPMENT STATUS:
-    1. DONE (this file): quantitative framework + trivial threshold = 1.
-    2. DONE: W2 (CHSH witness count) — proven as chsh_trial_count_lower_bound
-       below. Certifying a CHSH violation requires ≥ N_min CHSH trials.
-    3. OPEN: W1 (cert payload bits) — connect cert cost to cert size.
-    4. OPEN: W4 (Shannon) — formal connection to information theory.
-    5. OPEN: W5 (Kolmogorov) — requires oracle axiom.
+    STATUS OF THE CANDIDATES:
+    1. This file: quantitative framework + trivial threshold = 1.
+    2. W2 (CHSH witness count): chsh_trial_count_lower_bound below.
+       Certifying a CHSH violation requires ≥ N_min CHSH trials.
+    3. W1 (cert payload bits): MuChaitin.v proves a payload bound under the
+       cert_priced pricing policy; no QCS instance here uses it.
+    4. W4 (Shannon): no formal connection to information theory here.
+    5. W5 (Kolmogorov): requires an oracle axiom, which is not stated.
 
-    WHAT WOULD MAKE THIS EPOCH-SHIFTING:
     W5 with a concrete, falsifiable connection between K(cert) and
-    physical cost.  That would make "No Free Insight" a precise formal
-    analog of the Landauer bound for cognition.
-
-    above as W1-W5.
+    physical cost would make "No Free Insight" a precise formal analog
+    of the Landauer bound for cognition.
 *)
 
 (**
@@ -463,8 +457,8 @@ Qed.
     RESULT: total CHSH_TRIAL count ≥ 1 to transition from uncertified to
     certified (i.e., at least one valid trial has been run).
 
-    EXTENSION: lifting the threshold from 1 to N_min for Tsirelson violation
-    detection requires proving A5 with threshold = N_min.
+    EXTENSION: chsh_qcs_n below lifts the threshold from 1 to N (A5 with
+    threshold = N).
 
 *)
 
@@ -577,13 +571,13 @@ Proof.
   pose proof (vm_apply_witness s i) as Hw.
   rewrite Hw in Hafter.
   destruct i; simpl in *;
-  (* Non-CHSH: vm_witness unchanged, so Hafter = Hbefore — contradiction *)
+  (* Non-CHSH: vm_witness unchanged, so Hafter = Hbefore, contradiction *)
   try (rewrite Hbefore in Hafter; discriminate).
   (* instr_chsh_trial: case split on bit validity *)
   destruct (chsh_bits_ok x y a b) eqn:Hbits; simpl in *.
   - (* valid bits: simpl already reduced chsh_trial_cost to 1 *)
     lia.
-  - (* invalid bits: witness unchanged — contradiction *)
+  - (* invalid bits: witness unchanged, contradiction *)
     rewrite Hbefore in Hafter. discriminate.
 Qed.
 
@@ -656,7 +650,7 @@ Qed.
 
     A2_n: cert-false → cert-true in one step requires a valid CHSH_TRIAL.
     A5_n: cert = true → witness_total ≥ N (trivially, by Nat.leb_le).
-    A3: unchanged — same chsh_a3_obligation works for all N.
+    A3: unchanged; same chsh_a3_obligation works for all N.
 
     THEOREM (chsh_trial_count_lower_bound):
     Starting from zero trials, accumulating N valid CHSH trials requires
@@ -718,7 +712,7 @@ Definition chsh_cert_system_n (n : nat) : CertificationSystem :=
     cs_cert_costs := chsh_a2_n n;
   |}.
 
-(** A3 for chsh_cert_system_n: same obligation as before — cost bounds
+(** A3 for chsh_cert_system_n: same obligation as before; cost bounds
     witness growth regardless of threshold.  Shared across all N. *)
 Lemma chsh_a3_n :
   forall (n : nat) (s : VMState) (i : vm_instruction),
@@ -794,10 +788,10 @@ Qed.
     accumulates total μ-cost ≥ S(d), because instruction_cost (instr_certify d)
     = S(d) by definition, and the total cost is the sum of all instruction costs.
 
-    This closes the gap between the abstract threshold K and the concrete ISA:
+    This connects the abstract threshold K to the concrete ISA:
       - thiele_qcs_cert_addr gives: any certifying trace has total cost ≥ 1.
       - certify_d_trace_cost_lower_bound gives: any trace containing CERTIFY d
-        has total cost ≥ S(d) — the exact ISA-declared cost.
+        has total cost ≥ S(d), the exact ISA-declared cost.
     ═══════════════════════════════════════════════════════════════════════════ *)
 
 (** The sum of all instruction costs is ≥ the cost of any element in the trace. *)
@@ -821,7 +815,7 @@ Proof. intro d. reflexivity. Qed.
 
 (** Any trace containing instr_certify d has total μ-cost ≥ S(d).
     The μ-ledger cannot be built up to S(d) without paying S(d) at the
-    CERTIFY step alone — no other trace prefix can offset this. *)
+    CERTIFY step alone; no other trace prefix can offset this. *)
 Theorem certify_d_trace_cost_lower_bound :
   forall (d : nat) (trace : list vm_instruction),
     In (instr_certify d) trace ->
@@ -847,33 +841,33 @@ Qed.
        universal_nfi_quantitative, universal_nfi_quantitative_witness.
 
     2. THIELE TRIVIAL INSTANTIATION (threshold = 1):
-       thiele_qcs_cert_addr — cert_addr channel, mu-cost, threshold = 1.
-       thiele_quantitative_nfi_cert_addr — any certifying trace costs ≥ 1.
+       thiele_qcs_cert_addr: cert_addr channel, mu-cost, threshold = 1.
+       thiele_quantitative_nfi_cert_addr: any certifying trace costs ≥ 1.
        This matches UniversalCertificationCost.v; proves the framework is wired.
 
     3. CHSH INSTANTIATION (threshold = 1):
-       chsh_qcs — one valid CHSH_TRIAL requires one instruction.
+       chsh_qcs: one valid CHSH_TRIAL requires one instruction.
 
     4. W2 PROPER (N-parameterized):
-       chsh_trial_count_lower_bound — N valid CHSH_TRIALs require N instructions.
+       chsh_trial_count_lower_bound: N valid CHSH_TRIALs require N instructions.
        The family chsh_qcs_n N covers all N simultaneously.
        vm_witness is an unforgeable trial counter: no instruction other than
        a valid CHSH_TRIAL can increment witness_total.
        Cost(N quantum measurements) ≥ N.
 
     5. CERTIFY-d DIRECT LOWER BOUND:
-       certify_d_trace_cost_lower_bound — any trace containing instr_certify d
+       certify_d_trace_cost_lower_bound: any trace containing instr_certify d
        accumulates total μ-cost ≥ S(d).  Connects abstract threshold to ISA.
 
     STATISTICAL CONNECTION (external):
     CHSHStatisticalBridge.v applies Hoeffding concentration bounds to W2:
     witness_total ≥ N_min → CHSH violation statistically certified at (1-δ).
 
-    OPEN (require additional machinery):
-    W1 (cert payload bits): cost ≥ |cert_content|_bits.
-      Requires formalizing the formula store and cert payload size.
+    NOT PROVED HERE (require additional machinery):
+    W1 (cert payload bits): cost ≥ |cert_content|_bits as a QCS instance.
+      MuChaitin.v proves a payload bound under the cert_priced policy.
     W4 (Shannon entropy): cost ≥ H(X) for certified distribution.
-      Requires connecting cs_witness to MuShannonBridge.v entropy model.
+      Requires connecting qcs_witness to MuShannonBridge.v entropy model.
     W5 (Kolmogorov): cost ≥ K(x).
       Requires a Chaitin-style oracle axiom for K(x).
 

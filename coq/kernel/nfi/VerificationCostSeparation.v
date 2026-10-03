@@ -94,7 +94,7 @@ Fixpoint encode_thiele_trace
       :: encode_thiele_trace s' rest
   end.
 
-(** Thiele's encoded trace is honest by construction — the cost law
+(** Thiele's encoded trace is honest by construction: the cost law
     forces every cert-flip step to have cost ≥ 1. *)
 Theorem thiele_encoded_trace_is_honest :
   forall (s : VMState) (instrs : list vm_instruction),
@@ -118,8 +118,8 @@ Proof.
       apply IH.
 Qed.
 
-(** Thiele's O(1) honesty witness: a single boolean — the encoded
-    trace's final cert flag — combined with [thiele_encoded_trace_is_honest],
+(** Thiele's O(1) honesty witness: a single boolean (the encoded
+    trace's final cert flag), combined with [thiele_encoded_trace_is_honest],
     suffices to know the trace is honest.  No trace inspection required.
 
     Formally, the verifier needs only the type-level fact that the
@@ -138,10 +138,10 @@ Proof.
   - intros _. reflexivity.
 Qed.
 
-(** ** Free side: Ω(T) honesty verification — the adversary argument.
+(** ** Free side: Ω(T) honesty verification, the adversary argument.
 
     A "verifier of trace honesty" reads some positions of a trace and
-    decides honest/dishonest.  We show: any verifier that is correct
+    decides honest/dishonest.  Shown here: any verifier that is correct
     on every trace must inspect every position where a cert-flip can
     occur.  Otherwise, the adversary plants a zero-cost cert-flip at
     an uninspected position and the verifier accepts a dishonest
@@ -152,7 +152,7 @@ Qed.
     [NonAdaptiveLowerBound.v]. *)
 
 (** The honest baseline: a trace consisting of [n] non-cert-flip
-    steps with arbitrary cost.  We use [false → false, cost = 0] as
+    steps with arbitrary cost.  The step [false → false, cost = 0] serves as
     the canonical non-cert-flip step. *)
 Definition trivial_step : FreeStepRecord := mk_free_step false false 0.
 
@@ -423,7 +423,7 @@ Theorem verification_cost_gap_omega_T :
     (* Free-world cost (positions inspected) is at least n. *)
     length (V.(pv_positions) n) >= n
     (* Thiele cost (positions inspected) is 0: the verifier doesn't
-       need the trace at all — see thiele_honesty_O_1_witness. *)
+       need the trace at all; see thiele_honesty_O_1_witness. *)
     /\ (forall (s : VMState) (instrs : list vm_instruction),
           trace_honest (encode_thiele_trace s instrs)).
 Proof.

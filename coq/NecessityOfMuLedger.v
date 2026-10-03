@@ -1,13 +1,13 @@
-(** NecessityOfMuLedger.v — Proof Obligation 1: Formal Necessity of the μ-Ledger
+(** NecessityOfMuLedger.v (Proof Obligation 1): Formal Necessity of the μ-Ledger
 
     PROOF BY CONTRADICTION (Seven Conditions)
 
-    We construct two computation traces, Trace A and Trace B, satisfying all
-    seven conditions of Proof Obligation 1.  From conditions (1)–(2) we derive
+    The file constructs two computation traces, Trace A and Trace B, satisfying all
+    seven conditions of Proof Obligation 1.  Conditions (1)–(2) show
     that P(State_A(final)) = P(State_B(final)) for the strict classical shadow P.
-    From conditions (4)–(5) we derive contradictory μ-ledger and certification
+    Conditions (4)–(5) give contradictory μ-ledger and certification
     outcomes.  Any classical observer Ω on the strict shadow must therefore
-    return incompatible structural receipts for the same input — a contradiction.
+    return incompatible structural receipts for the same input, a contradiction.
 
     This proves: no function of the strict classical state (mem, regs, pc) can
     determine either the μ-ledger balance or the certification status of a
@@ -33,10 +33,10 @@
       Trace B: [instr_pnew [] 0]
         Advances PC by 1, preserves vm_certified (stays false), charges μ += 0.
         Preserves vm_mem and vm_regs exactly.
-        Modifies only vm_graph (creates a new empty partition module) —
+        Modifies only vm_graph (creates a new empty partition module),
         invisible to the strict classical shadow.
 
-    The programs are different — they diverge in the structural layer — but
+    The programs are different (they diverge in the structural layer), but
     their strict classical traces (mem, regs, pc at each step) are provably
     identical.  The divergence lives entirely in vm_certified, vm_mu, and
     vm_graph, which no function of (mem, regs, pc) can observe.
@@ -67,7 +67,7 @@ From Kernel Require Import VMState VMStep SimulationProof
 (** ** §1. Strict classical shadow
 
     The [ClassicalState] defined in [ShadowProjection.v] includes
-    [vm_mu] and [vm_certified]. For this proof we need the strictly
+    [vm_mu] and [vm_certified]. This proof needs the strictly
     Turing-classical shadow: just [(mem, regs, pc)], matching what any
     RAM or Turing machine can observe. There is no μ-ledger, no
     certification flag, and no partition graph. *)
@@ -284,7 +284,7 @@ Definition po1_state_A : VMState := vm_apply po1_init po1_instr_A.
 (** Trace B: execute PNEW [] 0 from po1_init.
     instruction_cost (instr_pnew [] 0) = 0  (no S-floor for pnew).
     Final state: pc=1, μ=0, certified=false, mem=[], regs=[].
-    vm_graph gains one empty partition module — invisible to strict_shadow. *)
+    vm_graph gains one empty partition module, invisible to strict_shadow. *)
 Definition po1_instr_B : vm_instruction := instr_pnew [] 0.
 Definition po1_state_B : VMState := vm_apply po1_init po1_instr_B.
 
@@ -464,7 +464,7 @@ Qed.
       - Omega predicts [(0, false)] for B.
     But both states have identical strict shadows  (cond 2).
     Since Omega is a function, equal inputs must give equal outputs.
-    Therefore [(1, true) = (0, false)] — a contradiction.
+    Therefore [(1, true) = (0, false)], a contradiction.
 
     This establishes the μ-ledger as a logically necessary additional
     state variable: it cannot be recovered from, or reduced to, the
@@ -518,7 +518,7 @@ Proof.
 Qed.
 
 (** Constructive form: for any claimed classical structural-receipt predictor
-    Omega, there exist two explicit states that falsify it — they have equal
+    Omega, there exist two explicit states that falsify it: they have equal
     classical shadows but different μ/certification status, so Omega cannot be
     correct for both. *)
 Corollary mu_ledger_necessity_constructive :
@@ -601,17 +601,17 @@ Proof.
   exists po1_state_A, po1_state_B.
   split.
   { exact po1_cond2_final_shadow_equal. }
-  (* Either f mispredicts A or f mispredicts B — in both cases f fails.
-     We derive this from the fact that both shadows are equal: f returns
+  (* Either f mispredicts A or f mispredicts B; in both cases f fails.
+     This follows from the fact that both shadows are equal: f returns
      one value, but vm_certified differs between A and B. *)
   destruct (f (strict_shadow po1_state_A)) eqn:HfA.
-  - (* f returns true on the common shadow — it must mispredict B (false) *)
+  - (* f returns true on the common shadow, so it must mispredict B (false) *)
     right.
     rewrite po1_cond5_trace_B_not_certified.
     rewrite <- po1_cond2_final_shadow_equal.
     rewrite HfA.
     discriminate.
-  - (* f returns false on the common shadow — it must mispredict A (true).
+  - (* f returns false on the common shadow, so it must mispredict A (true).
        After destruct, the goal's LHS is already the literal false, so
        rewriting po1_cond4_trace_A_certified yields false <> true directly. *)
     left.
@@ -748,7 +748,7 @@ Qed.
         the same instruction sequence accumulate the same additional
         μ. The δ is written into the program; the starting state does
         not change it. This is universality across starting states,
-        not across substrates — the substrate-independent claim lives
+        not across substrates. The substrate-independent claim lives
         in [UniversalCertificationCost.v].
       - [shadow_mu_inevitable]: for any non-empty program containing
         at least one instruction with positive cost, the accumulated
@@ -761,8 +761,8 @@ Qed.
     gives this teeth is [universal_nfi_any_substrate] in
     [UniversalCertificationCost.v]: under A2 (cert-flip costs ≥ 1),
     every uncertified-to-certified trace pays ≥ 1 in total on any
-    substrate. A Turing machine that satisfies A2 — for example by
-    mapping μ to an address and incrementing on cert-flip — is a
+    substrate. A Turing machine that satisfies A2 (for example by
+    mapping μ to an address and incrementing on cert-flip) is a
     witness for that theorem, not a counterexample.
     [thiele_morphism_exists] then makes the Thiele VM the initial
     cost-preserving simulation.
@@ -787,7 +787,7 @@ Qed.
 
 (** THE CORE THEOREM: the total μ accumulated by any program equals the
     starting μ plus the sum of instruction costs.  The accumulation is a
-    pure function of the instruction sequence — it does not depend on any
+    pure function of the instruction sequence; it does not depend on any
     other field of the machine state (graph, regs, mem, pc, certified). *)
 Theorem shadow_mu_is_computation_intrinsic :
   forall (prog : list vm_instruction) (s : VMState),
@@ -798,8 +798,8 @@ Proof.
   apply mu_accumulates_trace_cost.
 Qed.
 
-(** UNIVERSALITY: two machines running the same program — from any two
-    starting states, with any starting μ-values — accumulate the same
+(** UNIVERSALITY: two machines running the same program (from any two
+    starting states, with any starting μ-values) accumulate the same
     additional μ.  The δ-μ is a property of the computation, not the
     machine. *)
 Theorem shadow_mu_delta_universal :
@@ -812,7 +812,7 @@ Proof.
 Qed.
 
 (** Helper: any instruction-consistent M accumulates exactly its cost
-    over any run.  Proved by direct induction — avoids the inline-fixpoint
+    over any run.  Proved by direct induction, which avoids the inline-fixpoint
     form of consistent_accumulates_trace_cost. *)
 Lemma M_run_instrs_eq :
   forall (M : VMState -> nat),
@@ -833,7 +833,7 @@ Qed.
 (** UNIQUENESS OF THE SHADOW: any instruction-consistent accounting system
     that assigns zero to a starting state will assign exactly trace_total_cost
     to the result of running any program from that state.  The cost is not a
-    choice — it is forced by the instruction sequence.
+    choice. The instruction sequence forces it.
 
     Replace the Thiele Machine's vm_mu counter with any other
     instruction-consistent measure and you get the same number.  The Turing
@@ -864,7 +864,7 @@ Proof.
 Qed.
 
 (** INEVITABILITY: any program containing an instruction with positive
-    declared cost accumulates strictly positive total μ — from any
+    declared cost accumulates strictly positive total μ, from any
     starting state.  There is no free computation. *)
 Theorem shadow_mu_inevitable :
   forall (prog : list vm_instruction) (s : VMState) (i : vm_instruction),

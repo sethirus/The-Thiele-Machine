@@ -1,14 +1,14 @@
-(** * MuDirectSum.v — direct-sum theorem and amortisation counterexample.
+(** * MuDirectSum.v: direct-sum theorem and amortisation counterexample.
 
     Direct-sum: certifying n independent claims costs ≥ n × (cost of
     one). The classical pattern is well known to be sensitive to the
-    *definition* of independence — too weak, and amortisation is
+    *definition* of independence: too weak, and amortisation is
     possible; too strong, and the result is trivial. This file makes
     that sensitivity explicit by proving both sides.
 
     **Independence definition.** Two claims [P] and [Q] are
     *cert-disjoint independent* if any joint certification of them
-    executes at least two cert-setter instructions — one for each
+    executes at least two cert-setter instructions, one for each
     claim. Concretely: the trace cannot use a single cert-setter event
     to discharge both. Under this definition, direct-sum follows from
     additive ledger accounting:
@@ -48,7 +48,7 @@ Definition cert_events_required_by (k : nat) (s_final : VMState) : Prop :=
     cert_setter_executions fuel trace init_state >= k.
 
 (** Strong independence: two claims jointly require the *sum* of
-    their individual cert-event lower bounds. We state this as a
+    their individual cert-event lower bounds, stated as a
     property of the joint final state. *)
 Definition cert_disjoint_independent
     (k1 k2 : nat) (s_final : VMState) : Prop :=
@@ -120,7 +120,7 @@ Qed.
 
 (** **The amortization theorem.** Two atomic claims (vm_certified
     and vm_mu ≥ 1) are simultaneously satisfied by a SINGLE
-    cert-setter event at total cost 1 — refuting any direct-sum
+    cert-setter event at total cost 1. This refutes any direct-sum
     formulation that does not enforce cert-event-disjoint independence. *)
 Theorem amortization_succeeds :
   is_certified amortizing_state /\

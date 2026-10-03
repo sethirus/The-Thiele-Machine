@@ -1,7 +1,7 @@
-(** * DimensionalGapTheorem — the substrate gap as a standalone result.
+(** * DimensionalGapTheorem: the substrate gap as a standalone result.
 
     [SecondLawBoltzmannWall.v] proves the gap *for the Thiele
-    machine's µ-ledger specifically* — given [vm_mu] and the
+    machine's µ-ledger specifically*, given [vm_mu] and the
     exponential microstate-count candidate [2^vm_mu], aligning with
     Boltzmann's formula forces the scalar coefficient [k_B · ln 2].
 
@@ -31,7 +31,7 @@ From Coq Require Import Reals Lra Lia Arith.
 
 Local Open Scope R_scope.
 
-(** ** Section 1 — abstract setup.
+(** ** Section 1: abstract setup.
 
     No reference to the Thiele machine. [State] is any type, [L] any
     ledger, [omega] any microstate-count function. The theorem
@@ -67,7 +67,7 @@ Section AbstractDimensionalGap.
       (omega s > 0)%nat ->
       S_candidate s = k_B * ln (INR (omega s)).
 
-  (** ** Section 2 — helper: log of integer power. *)
+  (** ** Section 2. Helper: log of integer power. *)
 
   Lemma pow_pos_nat : forall (base n : nat),
     (0 < base)%nat -> (0 < base ^ n)%nat.
@@ -91,7 +91,7 @@ Section AbstractDimensionalGap.
       + apply lt_0_INR. apply pow_pos_nat. exact Hpos.
   Qed.
 
-  (** ** Section 3 — the dimensional gap.
+  (** ** Section 3: the dimensional gap.
 
       If [S] is both ledger-linear with constant [alpha] and
       Boltzmann-form with constant [k_B], and [omega] is
@@ -131,7 +131,7 @@ Section AbstractDimensionalGap.
     nra.
   Qed.
 
-  (** ** Section 4 — corollary: existence of multiple solutions.
+  (** ** Section 4. Corollary: existence of multiple solutions.
 
       For any choice of [k_B > 0], one can solve for [alpha = k_B · ln base].
       The ledger does not prefer one over another. Equivalently: there is a
@@ -157,7 +157,7 @@ Section AbstractDimensionalGap.
 
 End AbstractDimensionalGap.
 
-(** ** Section 5 — what the theorem says, in prose.
+(** ** Section 5: what the theorem says, in prose.
 
     [dimensional_gap_forces_constant] is the precise structural
     statement of the wall:
@@ -171,7 +171,7 @@ End AbstractDimensionalGap.
             substrate fact about thermodynamics);
         (b) the base of the exponential microstate-counting [base]
             (a structural fact about the substrate's degrees of
-            freedom — typically 2 for binary substrates).
+            freedom, typically 2 for binary substrates).
 
     Once both are supplied, the linear coefficient [alpha] of the
     entropy-vs-ledger relation is determined. But neither piece is

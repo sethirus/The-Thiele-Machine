@@ -2,7 +2,7 @@
 
     Structural partition ops (PNEW, PSPLIT, PMERGE) change the partition graph
     but do NOT change any cert channel (csr_cert_addr, vm_certified). They are
-    exploration — building structure without committing to it — and can have
+    exploration (building structure without committing to it) and can have
     cost = 0. Certified partition insight ops (LASSERT, MORPH_ASSERT, LJOIN,
     EMIT, REVEAL) certify structural claims and always cost ≥ 1.
 
@@ -10,7 +10,7 @@
     cannot be acquired for free.
 
     partition_structural_ops_not_cert_setters: PNEW, PSPLIT, PMERGE have
-    cert_addr_setterb = false — definitionally excluded from the cert-setter
+    cert_addr_setterb = false, definitionally excluded from the cert-setter
     predicate.
     partition_structural_ops_can_be_free: each can be called with cost=0.
     partition_structural_trace_cannot_certify: a trace of only PNEW/PSPLIT/PMERGE
@@ -163,7 +163,7 @@ Qed.
     (b) mu grew by at least 1
 
     This is the partition domain instantiation of no_free_certified_insight
-    from InsightTaxonomy.v — stated explicitly as the "partition refinement
+    from InsightTaxonomy.v, stated explicitly as the "partition refinement
     boundary" theorem so it is findable under its conceptual name.
 
     WHAT "PARTITION REFINEMENT" MEANS HERE:

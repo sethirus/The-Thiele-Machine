@@ -1,4 +1,4 @@
-(** NecessityAbstract.v — Universal Projection Necessity Framework
+(** NecessityAbstract.v: Universal Projection Necessity Framework
 
     This file generalizes the necessity result of NecessityOfMuLedger.v to an
     arbitrary classical computation model represented as a projection
@@ -13,7 +13,7 @@
       but differ in vm_mu or vm_certified, then no oracle Omega : C → _ can
       correctly predict vm_mu or vm_certified for all VMStates.
 
-    Proof method: the same contradiction used in NecessityOfMuLedger.v —
+    Proof method: the same contradiction used in NecessityOfMuLedger.v:
     equal inputs to a function must produce equal outputs.
 
     FOUR NAMED SEPARATION RESULTS (four independent instantiations):
@@ -45,9 +45,9 @@
       vm_graph ⊥ (mem, regs, pc, vm_mu, vm_certified) [from D, §9]
 
     The three independent non-classical components of VMState are:
-      1. vm_mu        — the μ-ledger balance (§3–§5)
-      2. vm_certified — the certification flag (§3–§5)
-      3. vm_graph     — the categorical (partition/morphism) structure (§9)
+      1. vm_mu:         the μ-ledger balance (§3–§5)
+      2. vm_certified:  the certification flag (§3–§5)
+      3. vm_graph:      the categorical (partition/morphism) structure (§9)
 
     NAMED MACHINE INSTANCES:
       Turing machine  → P_strict  = strict shadow  (tape+head+state ≅ mem+regs+pc)
@@ -216,7 +216,7 @@ Proof. intros s r c. rewrite vm_apply_pnew_eq. reflexivity. Qed.
 
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §3.  SEPARATION A — STRICT SHADOW  (TURING / RAM MODEL)
+    §3.  SEPARATION A: STRICT SHADOW  (TURING / RAM MODEL)
 
     P_strict = (mem, regs, pc): the strictly Turing-classical projection.
     This is the analog of the tape+head+control-state of a Turing machine,
@@ -302,7 +302,7 @@ Proof.
 Qed.
 
 (** THEOREM A3: No strict-shadow oracle can recover the pair (mu, certified).
-    This is the joint impossibility — the μ-ledger as a whole is invisible
+    This is the joint impossibility: the μ-ledger as a whole is invisible
     to any classical Turing or RAM machine observer. *)
 Theorem turing_ram_pair_necessity :
   ~ exists (Omega : StrictShadow -> nat * bool),
@@ -316,7 +316,7 @@ Qed.
 
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §4.  SEPARATION B — COST-ANNOTATED SHADOW  (COST SEMANTICS MODEL)
+    §4.  SEPARATION B: COST-ANNOTATED SHADOW  (COST SEMANTICS MODEL)
 
     P_cost = (mem, regs, pc, mu): adds the runtime μ-cost to the projection.
     This models cost semantics and any machine that tracks exact resource use.
@@ -374,7 +374,7 @@ Qed.
 
 (** THEOREM B: No cost-annotated oracle can recover vm_certified.
     Even a machine that records exact μ-cost at every step cannot determine
-    whether CERTIFY was invoked — equal cost can result from a non-certifying
+    whether CERTIFY was invoked: equal cost can result from a non-certifying
     structural instruction, leaving vm_certified = false. *)
 Theorem cost_model_cert_necessity :
   ~ exists (Omega : CostShadow -> bool),
@@ -387,7 +387,7 @@ Qed.
 
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §5.  SEPARATION C — CERT-ANNOTATED SHADOW  (EFFECT SYSTEM MODEL)
+    §5.  SEPARATION C: CERT-ANNOTATED SHADOW  (EFFECT SYSTEM MODEL)
 
     P_cert = (mem, regs, pc, certified): adds the certification flag.
     This models effect systems, proof-carrying code, and any machine that
@@ -400,7 +400,7 @@ Qed.
         → instruction_cost = S 1 = 2, so vm_mu = 2, vm_certified = true.
 
     Both states have (mem=[], regs=[], pc=1, certified=true).
-    Their vm_mu values are 1 and 2 — different.
+    Their vm_mu values are 1 and 2: different.
     Therefore: knowing vm_certified is not sufficient to determine vm_mu.
 
     INTERPRETATION: The μ-ledger records a quantity distinct from certification
@@ -449,7 +449,7 @@ Qed.
 
 (** THEOREM C: No cert-annotated oracle can recover vm_mu.
     Even a machine that records the certification flag at every step cannot
-    determine the μ-ledger balance — two certified computations may carry
+    determine the μ-ledger balance: two certified computations may carry
     different μ-values depending on the cost argument to CERTIFY. *)
 Theorem cert_model_mu_necessity :
   ~ exists (Omega : CertAnnotatedShadow -> nat),
@@ -477,19 +477,19 @@ Qed.
 (** The four classical independence facts collected into one theorem. *)
 Theorem mu_ledger_mutual_independence :
 
-  (** I.   vm_mu ⊥ (mem, regs, pc) — from §3 *)
+  (** I.   vm_mu ⊥ (mem, regs, pc), from §3 *)
   (~ exists (Omega : StrictShadow -> nat),
        forall s, Omega (P_strict s) = s.(vm_mu)) /\
 
-  (** II.  vm_certified ⊥ (mem, regs, pc) — from §3 *)
+  (** II.  vm_certified ⊥ (mem, regs, pc), from §3 *)
   (~ exists (Omega : StrictShadow -> bool),
        forall s, Omega (P_strict s) = s.(vm_certified)) /\
 
-  (** III. vm_certified ⊥ (mem, regs, pc, vm_mu) — from §4 *)
+  (** III. vm_certified ⊥ (mem, regs, pc, vm_mu), from §4 *)
   (~ exists (Omega : CostShadow -> bool),
        forall s, Omega (P_cost s) = s.(vm_certified)) /\
 
-  (** IV.  vm_mu ⊥ (mem, regs, pc, vm_certified) — from §5 *)
+  (** IV.  vm_mu ⊥ (mem, regs, pc, vm_certified), from §5 *)
   (~ exists (Omega : CertAnnotatedShadow -> nat),
        forall s, Omega (P_cert s) = s.(vm_mu)).
 
@@ -556,10 +556,10 @@ Proof. exact cert_model_mu_necessity. Qed.
     minimality claim precise and machine-checkable:
 
     DEFINITIONS:
-      mu_complete P    — P carries enough information to recover vm_mu
-      cert_complete P  — P carries enough information to recover vm_certified
-      proj_forgets_mu  — P is invariant under changes to vm_mu
-      proj_forgets_cert — P is invariant under changes to vm_certified
+      mu_complete P:     P carries enough information to recover vm_mu
+      cert_complete P:   P carries enough information to recover vm_certified
+      proj_forgets_mu:   P is invariant under changes to vm_mu
+      proj_forgets_cert:  P is invariant under changes to vm_certified
 
     GENERAL THEOREMS:
       forgets_mu_not_mu_complete:   any P that forgets vm_mu is not mu-complete
@@ -714,9 +714,9 @@ Qed.
 
 (** THE IRREDUNDANCY COROLLARY.
 
-    SCOPE — READ THE NAME LITERALLY. The name says irredundancy, and that is
+    SCOPE: READ THE NAME LITERALLY. The name says irredundancy, and that is
     deliberate: it is not a minimality claim. "Minimal" asserts leastness in an
-    ORDER, and no order relation is defined anywhere in this file — there is no
+    ORDER, and no order relation is defined anywhere in this file; there is no
     `refines`, no `coarser_than`, no `factors_through`. Without an ordering
     there is no lattice for anything to be least in, so a minimality claim
     would have no referent here, and would suggest something much stronger than
@@ -761,7 +761,7 @@ Qed.
     §9.  GRAPH INDEPENDENCE
 
     The categorical layer (vm_graph) is independent from P_full.  Even knowing
-    (mem, regs, pc, mu, certified) — the complete μ-ledger shadow — no
+    (mem, regs, pc, mu, certified), the complete μ-ledger shadow, no
     classical observer can recover vm_graph.
 
     PROOF: categorical_separation (PartitionSeparation.v §10) gives two VMStates
@@ -770,15 +770,15 @@ Qed.
     Since P_full ignores vm_graph, P_full s1 = P_full s2.  But vm_graph s1 ≠
     vm_graph s2 (their pg_morphisms differ, so the records differ).  Any
     oracle Ω : FullMuLedgerShadow → PartitionGraph must return the same value
-    on equal inputs — contradiction.
+    on equal inputs. Contradiction.
 
     CONSEQUENCE (completing the independence classification):
       vm_graph ⊥ (mem, regs, pc, vm_mu, vm_certified)   [from §9]
 
     Together with §3–§5, the three independent non-classical components are:
-      1. vm_mu        — μ-ledger balance
-      2. vm_certified — certification flag
-      3. vm_graph     — categorical (partition/morphism) structure
+      1. vm_mu:         μ-ledger balance
+      2. vm_certified:  certification flag
+      3. vm_graph:      categorical (partition/morphism) structure
 
     Each is provably not recoverable from any combination of the others
     together with the strict classical shadow (mem, regs, pc).
@@ -822,19 +822,19 @@ Qed.
     and graph are all mutually independent.  This is the full classification
     of VMState information components. *)
 Theorem thiele_state_three_component_independence :
-  (** I.   vm_mu ⊥ (mem, regs, pc)                          — §3 *)
+  (** I.   vm_mu ⊥ (mem, regs, pc):                           §3 *)
   (~ exists (Omega : StrictShadow -> nat),
        forall s, Omega (P_strict s) = s.(vm_mu)) /\
-  (** II.  vm_certified ⊥ (mem, regs, pc)                   — §3 *)
+  (** II.  vm_certified ⊥ (mem, regs, pc):                    §3 *)
   (~ exists (Omega : StrictShadow -> bool),
        forall s, Omega (P_strict s) = s.(vm_certified)) /\
-  (** III. vm_certified ⊥ (mem, regs, pc, vm_mu)            — §4 *)
+  (** III. vm_certified ⊥ (mem, regs, pc, vm_mu):             §4 *)
   (~ exists (Omega : CostShadow -> bool),
        forall s, Omega (P_cost s) = s.(vm_certified)) /\
-  (** IV.  vm_mu ⊥ (mem, regs, pc, vm_certified)            — §5 *)
+  (** IV.  vm_mu ⊥ (mem, regs, pc, vm_certified):             §5 *)
   (~ exists (Omega : CertAnnotatedShadow -> nat),
        forall s, Omega (P_cert s) = s.(vm_mu)) /\
-  (** V.   vm_graph ⊥ (mem, regs, pc, vm_mu, vm_certified)  — §9 *)
+  (** V.   vm_graph ⊥ (mem, regs, pc, vm_mu, vm_certified):   §9 *)
   (~ exists (Omega : FullMuLedgerShadow -> PartitionGraph),
        forall s, Omega (P_full s) = s.(vm_graph)).
 Proof.

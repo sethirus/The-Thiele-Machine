@@ -5,9 +5,10 @@
     vm_apply, then the observed device trace matches the classical shadow of
     the corresponding Thiele execution trace.
 
-    For the RTL instance, the remaining work is exactly the embed-step bridge.
-    That hypothesis is kept explicit because it depends on bounded arithmetic
-    and snapshot well-formedness, not on hand-waving about the hardware layer.
+    For the RTL instance the step-embedding hypothesis is kept explicit in
+    [rtl_shadow_trace_compat]; the corollaries below discharge it for
+    [SupportedOpcode] traces, [ShadowSupportedOpcode] traces and, under
+    [WFDrivenRun], for every opcode.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
@@ -65,7 +66,7 @@ Qed.
     the observation after running [trace] equals the classical shadow of the
     corresponding Thiele trace.
 
-    Proof: list induction — each step reifies [embed_step] and applies
+    Proof: list induction; each step reifies [embed_step] and applies
     the induction hypothesis to the updated device state. *)
 Theorem every_shadow_device_trace_compat :
   forall (S : Type)
@@ -82,20 +83,20 @@ Theorem every_shadow_device_trace_compat :
 Proof.
   intros S obs embed step compat embed_step trace.
   induction trace as [| i rest IH].
-  - (* Base: empty trace — static compat suffices *)
+  - (* Base: empty trace; static compat suffices *)
     intros d. simpl. apply compat.
-  - (* Step: i :: rest — use embed_step then induction hypothesis *)
+  - (* Step: i :: rest; use embed_step then induction hypothesis *)
     intros d. simpl.
     rewrite (IH (step d i)).
     rewrite (embed_step d i).
     reflexivity.
 Qed.
 
-(** RTL corollary — [embed_step] as a hypothesis
+(** RTL corollary: [embed_step] as a hypothesis
 
     Instantiates [every_shadow_device_trace_compat] for the Thiele RTL stack.
 
-    The precondition [embed_step] — that [abs_phase1 ∘ kami_step = vm_apply ∘ abs_phase1] —
+    The precondition [embed_step] (that [abs_phase1 ∘ kami_step = vm_apply ∘ abs_phase1])
     captures the bounded arithmetic commutativity for hardware operations
     (hardware register values within 64-bit range so nat = word64_mod).
     It is stated as a hypothesis because its proof requires a
@@ -125,16 +126,13 @@ Qed.
 
 (** Unconditional trace-level shadow compatibility for supported traces
 
-    Unlike [rtl_shadow_trace_compat] (which requires the full 46-opcode
-    [embed_step] as an unproved hypothesis), this theorem is
-    unconditionally true for any trace whose instructions satisfy
-    [SupportedOpcode].
+    Unlike [rtl_shadow_trace_compat] (which takes the step embedding for
+    every instruction as a hypothesis), this theorem holds for any trace
+    whose instructions satisfy [SupportedOpcode].
 
     Proof: [hardware_shadow_compat] applied to the final state reduces the
     goal to [shadow_proj ∘ abs_phase1] on both sides; then
-    [embed_step_supported_trace] closes the [abs_phase1] commutation.
-
-    This is the theorem to cite in print — it carries no unprovable premise. *)
+    [embed_step_supported_trace] closes the [abs_phase1] commutation. *)
 Theorem rtl_shadow_trace_compat_supported :
   forall (trace : list vm_instruction) (ks : KamiSnapshot),
     (forall i, List.In i trace -> SupportedOpcode i) ->
@@ -147,12 +145,11 @@ Proof.
   reflexivity.
 Qed.
 
-(** Extended unconditional trace-level shadow compatibility (29 opcodes)
+(** Trace-level shadow compatibility for [ShadowSupportedOpcode] traces
 
-    Extends [rtl_shadow_trace_compat_supported] (26 opcodes) to
-    [ShadowSupportedOpcode] traces (29 opcodes: 26 + PDISCOVER,
-    EMIT, REVEAL).  These 3 additional opcodes diverge on vm_graph/vm_csrs
-    but agree on the 6 shadow fields.
+    [ShadowSupportedOpcode] is [SupportedOpcode] without the five
+    CHSH_LASSERT forms: 30 opcodes. The theorem assumes the snapshot's heap
+    base is 0.
 
     Proof: [hardware_shadow_compat] reduces the LHS to [shadow_proj ∘ abs_phase1];
     then [shadow_trace_compat_extended] from ShadowEmbedStep.v closes the
@@ -171,12 +168,12 @@ Proof.
   exact Hsupp.
 Qed.
 
-(** Full 46-opcode, PC-driven trace compatibility under the explicit
+(** PC-driven trace compatibility for all 51 opcodes under the explicit
     well-formed/driven precondition exported by GraphReconstructionBridge.
 
-    This theorem uses the stronger full-state bridge rather than the older
-    [abs_phase1]/fold_left path, so all remaining opcodes are covered by Qed
-    proofs with their exact side conditions named in [WFDrivenPrecondition]. *)
+    This theorem uses the full-state bridge rather than the
+    [abs_phase1]/fold_left path, so every opcode is covered by Qed proofs
+    with its exact side conditions named in [WFDrivenPrecondition]. *)
 Theorem rtl_shadow_trace_compat_wf :
   forall fuel trace ks,
     WFDrivenRun fuel trace ks ->

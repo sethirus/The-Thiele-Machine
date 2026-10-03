@@ -1,4 +1,4 @@
-(** * UnificationProbePattern — the recurring shape across the probes.
+(** * UnificationProbePattern: the recurring shape across the probes.
 
     The probe files
     ([LandauerJoules.v], [HolevoDimensional.v]+[HolevoTwoQubit.v],
@@ -57,7 +57,7 @@ Local Open Scope R_scope.
     but this pattern file is the kernel-side aggregator combining
     them with VM-level mu-ledger semantics. *)
 
-(* SCOPE NOTE: cross-tier import (Landauer bridge — see above). *)
+(* SCOPE NOTE: cross-tier import (Landauer bridge; see above). *)
 From Thermodynamic Require Import LandauerDerived LandauerJoules.
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuShannonBridge SimulationProof.
@@ -66,11 +66,11 @@ From Kernel Require Import HolevoTwoQubit.
 From Kernel Require Import BekensteinBound.
 From Kernel Require Import TsirelsonFromMu.
 
-(** ** Section 1 — the [UnificationProbe] record.
+(** ** Section 1: the [UnificationProbe] record.
 
     A probe is described by (a) what it bounds, (b) what bound it
     proves, (c) which named substrate hypotheses are required. The
-    headline witness [probe_bound_holds] is a [Prop] — instantiated
+    headline witness [probe_bound_holds] is a [Prop], instantiated
     differently for each probe to point at the specific theorem that
     closes it. *)
 
@@ -88,7 +88,7 @@ Record UnificationProbe : Type := mk_probe {
   probe_bound_holds : Prop;
 }.
 
-(** ** Section 2 — Landauer probe.
+(** ** Section 2: Landauer probe.
 
     Physical observable: heat released to a thermal bath.
     Structural quantity: bits erased (information-theoretic).
@@ -121,7 +121,7 @@ Definition landauer_probe : UnificationProbe := {|
 Theorem landauer_probe_holds : probe_bound_holds landauer_probe.
 Proof. simpl. exact landauer_joules. Qed.
 
-(** ** Section 3 — Holevo dimensional probe (classical floor).
+(** ** Section 3: Holevo dimensional probe (classical floor).
 
     Physical observable: µ-cost of discriminating an n-element feasible set.
     Structural quantity: log_2(n).
@@ -149,7 +149,7 @@ Definition holevo_classical_probe : UnificationProbe := {|
 Theorem holevo_classical_probe_holds : probe_bound_holds holevo_classical_probe.
 Proof. simpl. exact classical_holevo_bound. Qed.
 
-(** ** Section 4 — Holevo quantum probe at d = 2.
+(** ** Section 4: Holevo quantum probe at d = 2.
 
     Physical observable: Holevo quantity χ.
     Structural quantity: binary entropy.
@@ -172,7 +172,7 @@ Definition holevo_d2_probe : UnificationProbe := {|
 Theorem holevo_d2_probe_holds : probe_bound_holds holevo_d2_probe.
 Proof. simpl. exact holevo_chi_bounded_2d. Qed.
 
-(** ** Section 5 — Bekenstein probe.
+(** ** Section 5: Bekenstein probe.
 
     Physical observable: information capacity (bits) of a bounded thermal region.
     Structural quantity: system entropy.
@@ -199,7 +199,7 @@ Definition bekenstein_probe : UnificationProbe := {|
 Theorem bekenstein_probe_holds : probe_bound_holds bekenstein_probe.
 Proof. simpl. exact bekenstein_bound. Qed.
 
-(** ** Section 6 — Tsirelson probe (conditional).
+(** ** Section 6: Tsirelson probe (conditional).
 
     Physical observable: CHSH S-value.
     Structural quantity: algebraic value `2 √2`.
@@ -221,10 +221,10 @@ Definition tsirelson_probe : UnificationProbe := {|
 Theorem tsirelson_probe_holds : probe_bound_holds tsirelson_probe.
 Proof. simpl. exact tsirelson_bound_from_rotated_bounds. Qed.
 
-(** ** Section 7 — the list of probes.
+(** ** Section 7: the list of probes.
 
     All five instances. By typechecking, the list asserts that every
-    probe really fits the recorded shape — each has its substrate
+    probe really fits the recorded shape; each has its substrate
     hypotheses named, and each has a Qed-closed theorem witnessing
     its bound. *)
 
@@ -235,7 +235,7 @@ Definition all_probes : list UnificationProbe :=
    bekenstein_probe;
    tsirelson_probe].
 
-(** ** Section 8 — the meta-pattern as a Prop.
+(** ** Section 8: the meta-pattern as a Prop.
 
     The recurring shape: every probe in the list above has its bound
     Qed-closed using only its own named substrate hypotheses plus the

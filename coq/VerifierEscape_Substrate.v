@@ -1,10 +1,10 @@
-(** * VerifierEscape_Substrate.v — substrate-trust escape.
+(** * VerifierEscape_Substrate.v: substrate-trust escape.
 
     The bare-setting impossibility ([VerifierImpossibility.v]) ruled out
     sound+complete verifiers whose transcript carries only the strict
     classical projection of a VM execution. Here is the
     **substrate-trust escape**: hand the verifier the full [VMState]
-    of the prover — [vm_mu], [vm_certified], the ledger — and a cheap
+    of the prover ([vm_mu], [vm_certified], the ledger) and a cheap
     deterministic verifier becomes both sound and complete for
     [vm_mu]-sensitive claims.
 
@@ -12,8 +12,9 @@
     runs on an A2-respecting substrate that genuinely reports its μ
     rather than fabricating it. Under that trust, the verifier merely
     reads the ledger. This escape is the option the structural axis
-    makes available; the [VerifierExhaustiveness.v] factorisation
-    impossibility shows it is one of the only options.
+    makes available. [VerifierExhaustiveness.v] shows that any sound
+    complete verifier must use information the colliding projection
+    forgets; it does not show this is the only way to carry it.
 *)
 
 From Coq Require Import List Arith.PeanoNat.
@@ -27,7 +28,7 @@ Require Import VerifierImpossibility.
 (* -------------------------------------------------------------------- *)
 (** ** The substrate-certified transcript.
 
-    A substrate transcript is a list of full [VMState] snapshots — the
+    A substrate transcript is a list of full [VMState] snapshots: the
     classical projection is augmented with the hidden coordinates
     (vm_mu, vm_certified, ledger structure, graph). The verifier reads
     the last snapshot and trusts the substrate to have reported its
@@ -64,7 +65,7 @@ Definition substrate_decide_mu_eq_one (t : SubstrateTranscript) : bool :=
 Definition substrate_cost_one (t : SubstrateTranscript) : nat := 1.
 
 (** The substrate explanation relation: the prover state [s] is the last
-    element of the transcript. This is a functional relation — each
+    element of the transcript. This is a functional relation: each
     non-empty transcript has a unique explanation. *)
 Definition substrate_explains (s : VMState) (t : SubstrateTranscript) : Prop :=
   match t with

@@ -4,17 +4,16 @@
     accessible classical information is bounded by [log_2 n]. For a
     classical (diagonal-density-matrix) substrate this reduces to the
     statement that [log_2 n] yes/no questions are needed in the worst
-    case to distinguish [n] outcomes — the standard binary-decision-tree
+    case to distinguish [n] outcomes, the standard binary-decision-tree
     depth bound.
 
-    The Thiele framework as it stands is classical: the VM is
-    deterministic, and the framework explicitly does not include
-    density matrices or von Neumann entropy. (See the comment in
-    [HonestMeasurementImpliesNPA.v]: "the quantum cost ledger
-    (Holevo-style payment for state preparation and measurement) must be
-    modelled explicitly, which requires Hilbert-space machinery beyond
-    the kernel's current quantum surface.") That comment is the reason
-    full Holevo is NOT derivable in the present framework.
+    The Thiele framework is classical: the VM is deterministic, and the
+    framework does not include density matrices or von Neumann entropy.
+    The quantum cost ledger (Holevo-style payment for state preparation
+    and measurement) would have to be modelled explicitly, which requires
+    Hilbert-space machinery the kernel does not contain (see
+    [HonestMeasurementImpliesNPA.v]). For that reason full Holevo is NOT
+    derivable in the framework.
 
     This file proves the classical-floor version of the bound: the
     dimensional dependence [log_2 n] falls out of the framework's
@@ -33,7 +32,7 @@
       - The derivation uses real ingredients: the decision-tree depth
         bound [decision_tree_log2_leaf_bound] from [MuShannonBridge.v],
         plus the cert-setter cost floor [cert_executions_le_ledger].
-        Both are already proven in the framework — no new axioms here.
+        Both are already proven in the framework; no new axioms here.
 
     What does NOT fall out:
       - The genuinely quantum tightening (Holevo with non-commuting
@@ -41,7 +40,7 @@
         Hilbert-space machinery, no density matrices, and explicitly
         admits that adding them is out of scope.
       - The bridge from a generic VM trace to a decision-tree witness
-        is supplied as a hypothesis ([decision_tree_realizes]).
+        is supplied as a hypothesis ([decision_tree_realized_by_trace]).
         [MuShannonBridge.v] documents this as the bridge step that is
         not derived in general: "The actual missing piece ... is
         deriving the tree/posterior witness from general VM-side
@@ -49,7 +48,7 @@
 
     The classical floor of Holevo is a theorem here. The quantum
     tightening is a gap of the same kind as the Boltzmann gap in
-    [LandauerJoules.v] — it requires substrate structure (Hilbert
+    [LandauerJoules.v]; it requires substrate structure (Hilbert
     space) that the VM cost ledger does not provide. *)
 
 From Coq Require Import List Lia Arith.PeanoNat.
@@ -60,7 +59,7 @@ From Kernel Require Import SimulationProof.
 From Kernel Require Import MuLedgerConservation.
 From Kernel Require Import MuShannonBridge.
 
-(** ** Section 1 — the classical Holevo statement.
+(** ** Section 1: the classical Holevo statement.
 
     For a classical substrate of effective dimension [n] (an
     [n]-element feasible set), the accessible classical information,
@@ -84,7 +83,7 @@ Definition substrate_dimension (omega : FeasibleSet) : nat :=
 Definition accessible_classical_information (omega : FeasibleSet) : nat :=
   Nat.log2 (substrate_dimension omega).
 
-(** ** Section 2 — headline.
+(** ** Section 2: headline.
 
     The classical Holevo bound: for any VM trace that discriminates a
     feasible set of [n] outcomes via a decision-tree-realized
@@ -131,7 +130,7 @@ Proof.
   lia.
 Qed.
 
-(** ** Section 3 — specialisation to n-qubit-shaped substrate.
+(** ** Section 3: specialisation to n-qubit-shaped substrate.
 
     An [n]-qubit substrate has dimension [2^n]; the classical Holevo
     bound on accessible information is then [log_2(2^n) = n] bits. This
@@ -139,7 +138,7 @@ Qed.
     classical-floor sense. *)
 
 (** A substrate with [n]-bit dimensional capacity has feasible-set size
-    [2^n]. We do not construct such a set here; we just assume one is
+    [2^n]. No such set is constructed here; one is simply
     given. *)
 Lemma classical_holevo_n_qubits :
   forall (fuel : nat) (trace : list vm_instruction) (s : VMState)
@@ -158,7 +157,7 @@ Proof.
   exact Hbound.
 Qed.
 
-(** ** Section 4 — what the substrate would need for full Holevo.
+(** ** Section 4: what the substrate would need for full Holevo.
 
     The classical floor here is saturated by classical substrates and
     by quantum substrates whose density matrices commute with the
@@ -177,7 +176,7 @@ Qed.
       3. The Holevo inequality chi(ensemble) >= I(X:Y) for any
          classical-to-quantum encoding-decoding scheme.
 
-    None of these are present in the kernel's current quantum surface.
+    None of these is present in the kernel.
     [HonestMeasurementImpliesNPA.v] explicitly flags this as the
     obstruction. This file therefore stops at the classical floor and
     names the gap. *)

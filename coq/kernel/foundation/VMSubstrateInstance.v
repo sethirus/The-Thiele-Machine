@@ -1,4 +1,4 @@
-(** VMSubstrateInstance.v — VMState as a Substrate instance.
+(** VMSubstrateInstance.v: VMState as a Substrate instance.
 
     This file constructs a [Substrate] typeclass instance for the
     51-opcode Thiele VM. Once supplied, the substrate-level
@@ -31,15 +31,13 @@
     that consumes the instance.
 
     What this file delivers, conditionally on the section parameters:
-      - vm_substrate, a value of type [Substrate]
-      - vm_substrate_undecidable, a corollary of the abstract
-        [structural_shortcut_undecidable] applied to vm_substrate
+      - vm_substrate, a value of type [Substrate]. Applying the abstract
+        [structural_shortcut_undecidable] to it gives the VM corollary.
 
-    What this file does not deliver: the unconditional formal proofs
-    of the section parameters. Those remain open; they are named
-    explicitly here and in the monograph rather than hidden. The
-    unconditional substrate-level limitative theorem is already
-    discharged for the nat-coded substrate in NatSubstrateInstance.v.
+    What this file does not deliver: proofs of the section parameters.
+    They are named explicitly here. The unconditional substrate-level
+    limitative theorem is discharged for the nat-coded substrate in
+    NatSubstrateInstance.v.
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool.
@@ -53,12 +51,11 @@ From Kernel Require Import VMState VMStep SimulationProof
 
     The Substrate typeclass requires [run : Program -> state -> option state]
     where [Some r] means the program converges to [r] and [None] models
-    divergence. The 51-opcode VM has bounded execution — every [run_vm]
-    call terminates because it consumes fuel. We wrap it by choosing a
-    fixed fuel budget large enough to cover the programs we care about
-    in this file (the diagonal construction's "yes" and "no"
-    inhabitants), and returning [Some] always. Substrates that need
-    full divergence semantics would refine this wrapper. *)
+    divergence. The 51-opcode VM has bounded execution: every [run_vm]
+    call terminates because it consumes fuel. The wrapper chooses a fixed
+    fuel budget large enough to cover the programs used in this file (the
+    diagonal construction's "yes" and "no" inhabitants), and always returns
+    [Some]. It does not model divergence. *)
 
 Definition vm_run_fuel : nat := 1000.
 
@@ -91,7 +88,7 @@ Qed.
     that consumes it.
 *)
 
-(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER. The Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every consumer when the Section closes.
    The recurrence field concerns the chosen bounded [vm_run], and the
@@ -117,12 +114,12 @@ Section VMSubstrateConstruction.
       transformer [f : list vm_instruction -> list vm_instruction] is
       VM-representable iff there is a single fixed VM program that
       mimics [f]'s effect on the run-behavior of its argument. The
-      concrete realization for the 51-opcode VM is not built here; we
-      leave [vm_representable] as a Section parameter so the
-      VM-corollary remains parameterized over it.
+      concrete realization for the 51-opcode VM is not built here;
+      [vm_representable] is a Section parameter, so the VM corollary is
+      parameterized over it.
       The minimal nat-coded substrate (NatSubstrateInstance.v) discharges
       the analogous predicate unconditionally for its own language. *)
-  (* SCOPE NOTE: SECTION PARAMETER — [vm_representable] and the
+  (* SCOPE NOTE: SECTION PARAMETER. [vm_representable] and the
      [vm_recursion_theorem] Hypothesis below are section parameters that
      become EXPLICIT FORALL premises on every consumer when the Section
      closes. The substrate-level limitative theorem is discharged
@@ -178,20 +175,19 @@ End VMSubstrateConstruction.
 
     The four section parameters are:
 
-      1. vm_encode    — a Goedel encoding of programs as states.
-      2. vm_decode_safe — its (total) decoder.
-      3. vm_encode_decode — round-trip property on encoded states.
-      4. vm_recursion_theorem — Kleene's second recursion theorem
+      1. vm_encode:     a Goedel encoding of programs as states.
+      2. vm_decode_safe:  its (total) decoder.
+      3. vm_encode_decode:  round-trip property on encoded states.
+      4. vm_recursion_theorem:  Kleene's second recursion theorem
                                applied to the 51-opcode VM.
 
     Items 1-3 are well-known constructive encodings. Item 4 is the
-    Kleene recursion theorem; discharging it for this specific VM
-    means building a universal interpreter as a [list vm_instruction]
-    plus its s-m-n parametrization proof. That discharge is open here;
-    the unconditional substrate-level result is the nat instance in
-    NatSubstrateInstance.v.
+    Kleene recursion theorem for the bounded [vm_run]; this file does not
+    discharge it. The unconditional substrate-level result is the nat
+    instance in NatSubstrateInstance.v, and the recursion theorem for the
+    unbounded guest is VMGuestRecursion.v.
 
-    What this file delivers TODAY: the explicit pipe from
-    "the parameters" to "a Substrate instance for VMState" — the
-    diagonal fires for VMState the moment the parameters are supplied.
+    What this file delivers: the explicit pipe from "the parameters" to
+    "a Substrate instance for VMState"; the diagonal fires for VMState the
+    moment the parameters are supplied.
 *)

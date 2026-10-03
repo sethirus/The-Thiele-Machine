@@ -1,39 +1,18 @@
-(** * F4_BModulesTranslation: Kami [BModule] AST → Coq Verilog AST
+(** * BModulesTranslation: Kami [BModule] AST → Coq Verilog AST
 
-    Translation from Kami's actual [BModule] AST (defined in
+    Translation from Kami's [BModule] AST (defined in
     [vendor/kami/Kami/Ext/BSyntax.v]) to a Coq Verilog AST.
 
-    ** Hard requirements addressed:
+    - The source type is Kami's own [BModule], defined in the vendored
+      library, so the translation connects an external AST to a local
+      one. Without [Require Import Kami.Ext.BSyntax] this file does not
+      compile: [BExpr], [BAction] and [BModule] are undefined.
+    - [BExpr] uses [BVar : nat] and width-typed operators ([UniBitOp],
+      [BinBitOp]); [VExpr] uses string register names and operator
+      labels. [bexpr_to_vexpr] recurses on the Kami constructors;
+      unsupported constructors map to [VUnknown].
 
-    - **B4 (no shadow-AST iso).** The source AST [BModule] is Kami's
-      actual type, defined externally in [vendor/kami/Kami/Ext/BSyntax.v].
-      Deleting THIS file does NOT remove the source artifact: Kami's
-      [BModule] persists in the vendored library independently.
-      Verified: [Require Import Kami.Ext.BSyntax] resolves whether or
-      not this file exists.
-
-    - **No identity translation.** [BExpr] uses [BVar : nat] and rich
-      width-typed arithmetic operators ([UniBitOp], [BinBitOp], etc).
-      [VExpr] uses string register names and abstract operators.
-      [bexpr_to_vexpr] is a real recursive translation pattern-matching
-      on the Kami constructors.
-
-    - **B5 (no bypass markers).** No [SCOPE NOTE] /
-      [DEFINITIONAL HELPER] / [RECORD PROJECTION] markers anywhere in
-      this file.
-
-    - **The translation engages with ISA-specific structure.** Each
-      [bexpr_to_vexpr] case handles a specific Kami constructor by
-      pattern-match. Unsupported constructors fall through to
-      [VUnknown], which is documented as the residual scope.
-
-    - **Adversarial test (delete-source).** If [Kami.Ext.BSyntax] is
-      removed from the import list, this file fails to compile because
-      [BExpr], [BAction], [BModule] are undefined. The translation
-      genuinely connects two artifacts that exist in different files,
-      maintained separately.
-
-    Honest scope of F4 partial closure:
+    Scope:
 
     - The Verilog AST defined here is a SUBSET sufficient for the
       structurally simple constructors that BSC emits for Thiele's
@@ -42,13 +21,11 @@
       mapped to abstract opaque labels: their precise per-instance
       Verilog encoding is not reproduced here, but the structural
       correspondence (each [BBinBit] becomes a binary [VBitOp] with
-      labeled operator) IS established.
-    - Per-opcode Verilog-equivalent semantics for the full 46-opcode
-      ISA require additional per-opcode bisimulation lemmas (already
-      present elsewhere in [coq/kami_hw/EmbedStep.v] etc); this file
-      provides the AST-level translation skeleton, not the per-opcode
-      semantic bisimulation. That is the further engineering required
-      to close [bsc_kami_compilation_trusted] fully.
+      labeled operator) is.
+    - This file is an AST-level translation. It states no per-opcode
+      semantics of the generated Verilog. The step from Kami to the
+      generated RTL stays behind the trust boundary
+      [VerilogRTLCorrespondence.bsc_kami_compilation_trusted].
 *)
 
 From Coq Require Import String List ZArith.
@@ -58,14 +35,9 @@ Require Import Kami.Ext.BSyntax.
 Require Import Kami.Syntax.
 Require Import Kami.Lib.Struct.
 
-(* Foundation connectivity. F4 is at the kami_hw layer; the
-   translation operates over Kami's BModule type that compiles down
-   from VMState/VMStep semantics via Kami extraction. The cost ledger
-   from MuCostModel flows through the Kami extraction to produce the
-   actual generated Verilog. This file provides the AST-level shape
-   the translation must respect; the foundation chain is referenced
-   here so the inquisitor's connectivity audit recognises the link. *)
-From Kernel Require Import VMState VMStep MuCostModel.
+(* SCOPE NOTE: standalone proof scope. The translation maps Kami BModules
+   syntax to a Verilog AST and does not use the kernel's VMState, VMStep or
+   MuCostModel. *)
 
 Open Scope string_scope.
 
@@ -74,7 +46,7 @@ Open Scope string_scope.
     Concrete Coq AST representing the subset of Verilog that BSC emits
     for Kami modules. Distinct from [BExpr] / [BAction] / [BModule]
     (those are typed at the Kami level; this AST is at the Verilog
-    level — string-named registers, untyped operator labels). *)
+    level: string-named registers, untyped operator labels). *)
 
 (** Verilog name (string). *)
 Definition VName := string.
@@ -310,34 +282,14 @@ Definition adversarial_source_persistence_test_BExpr : BExpr -> VExpr :=
 Definition adversarial_source_persistence_test_BModule : BModule -> VModule :=
   bmodule_to_vmodule.
 
-(** ** Foundation-connectivity tag.
-
-    The Kami [BModule] artefacts translated above are not arbitrary:
-    they are the output of the Kami compilation of the Thiele CPU,
-    whose ISA surface is the [vm_instruction] inductive type defined
-    in [VMState.v]. The dependency below records that grounding
-    explicitly at the theorem-body symbol level (so the proof
-    dependency DAG can resolve it), without altering the translation
-    semantics. The instruction count is a deliberately trivial
-    summary: this file's content is the AST-level shape of the
-    translation, not a per-opcode bisimulation. *)
-
-Definition f4_translation_foundation_link
-    (i : vm_instruction) : vm_instruction := i.
-
 (** ** Print Assumptions sanity.
 
     All theorems above are proven by [simpl. reflexivity.] (the
     translation is structural; correspondences are by definitional
-    unfolding plus reflexivity). No bypass markers, no project-local
-    axioms. Print Assumptions returns "Closed under the global context".
+    unfolding plus reflexivity). No project-local axioms. Print
+    Assumptions returns "Closed under the global context".
 
-    The translation is a partial closure of F4: the structural-AST
-    correspondence is established for the supported constructors. The
-    remaining work to FULLY close [bsc_kami_compilation_trusted] is
-    per-opcode semantic bisimulation against the actual Verilog
-    semantics that [thiele_cpu_kami.v] enacts — that requires writing
-    a Coq-side Verilog evaluator for the BSC subset and proving each
-    of the 46 opcodes' Kami → Verilog → vm_apply diagram commutes.
-    That is bounded mechanical engineering of substantial scope, not
-    new theory. *)
+    The structural-AST correspondence holds for the supported
+    constructors. No theorem here relates the behaviour of
+    [thiele_cpu_kami.v] to [vm_apply]; that step is the trust boundary
+    [bsc_kami_compilation_trusted]. *)

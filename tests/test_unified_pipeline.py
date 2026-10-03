@@ -61,8 +61,8 @@ def test_extraction_includes_proof_anchors():
     anchors = [
         "extraction_nofi_supra_boundary_anchor",
         "extraction_canonical_source_anchor",
-        "extraction_c3_born_rule_anchor",
-        "extraction_c4_tsirelson_model_anchor",
+        "extraction_born_rule_uniqueness_anchor",
+        "extraction_tsirelson_npa_model_anchor",
         "extraction_honest_nofi_anchor",
     ]
     for anchor in anchors:

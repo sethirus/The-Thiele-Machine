@@ -4,14 +4,14 @@
     is exactly the classical shadow of its abstract Thiele VM state.
 
       State-level: Proved (hardware_shadow_compat, hardware_shadow_sim_rel).
-      Trace-level: Proved for 30/46 opcodes unconditionally
-        (rtl_shadow_trace_compat_extended in ShadowDeviceTrace.v),
-        34/46 with preconditions (adding CALL, RET, CHSH_TRIAL, TENSOR_SET/GET,
-        LJOIN from EmbedStep_WF.v + ShadowEmbedStep.v).
-      Full 46-opcode, PC-driven trace correctness is also exported under
+      Trace-level: for traces of the 35 [SupportedOpcode] instructions
+        (rtl_shadow_trace_compat_supported in ShadowDeviceTrace.v), and of
+        the 30 [ShadowSupportedOpcode] instructions when the heap base is 0
+        (rtl_shadow_trace_compat_extended).
+      PC-driven trace correctness for all 51 opcodes is exported under
         explicit [WFDrivenPrecondition] through
         [rtl_shadow_trace_compat_wf] in ShadowDeviceTrace.v.
-        This uses the stronger abs_full_snapshot/GraphReconstructionBridge path.
+        This uses the abs_full_snapshot/GraphReconstructionBridge path.
 
       LASSERT is covered through the checked EmbedStep/LogicEngine path:
       its formula-length μ charge and dual-witness guard are aligned with
@@ -35,7 +35,7 @@ From KamiHW  Require Import Abstraction VerilogRefinement FullAbstraction.
 (** RTL classical observation
 
     Reads exactly the 6 fields that [shadow_proj] reads from [VMState],
-    but directly from [KamiSnapshot] — no round-trip through [abs_phase1]. *)
+    but directly from [KamiSnapshot], no round-trip through [abs_phase1]. *)
 Definition rtl_classical_obs (ks : KamiSnapshot) : ClassicalState :=
   {| cs_regs      := snapshot_regs_to_list (snap_regs ks)  ;
      cs_mem       := snapshot_mem_to_list  (snap_mem  ks)  ;
@@ -49,7 +49,7 @@ Definition rtl_classical_obs (ks : KamiSnapshot) : ClassicalState :=
     The RTL-observable classical state of any hardware snapshot equals the
     classical shadow of the corresponding abstract Thiele VM state.
 
-    Proof: both sides unfold to the same record — definitional equality. *)
+    Proof: both sides unfold to the same record, a definitional equality. *)
 (* DEFINITIONAL HELPER: rtl_classical_obs and shadow_proj ∘ abs_phase1 agree by record unfolding. *)
 Theorem hardware_shadow_compat :
   forall ks : KamiSnapshot,
@@ -127,7 +127,7 @@ Qed.
 (** Shadow certification flag preserved
 
     The hardware [snap_certified] flag equals [vm_certified] in the abstract
-    Thiele state — so classical observers can read certification status,
+    Thiele state, so classical observers can read certification status,
     but cannot read the structural content (graph, CSRs) that justifies it. *)
 (* DEFINITIONAL HELPER: certification flag is a direct field projection. *)
 Corollary hardware_shadow_cert_preserved :

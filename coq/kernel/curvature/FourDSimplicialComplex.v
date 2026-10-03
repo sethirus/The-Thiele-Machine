@@ -471,7 +471,7 @@ Proof.
 Qed.
 
 (** OPEN (4D extension):
-    Well-formedness proofs are complete above.
-    Remaining: Christoffel symbols, Riemann tensor, and 4D Gauss-Bonnet-Chern.
-    The current gravity pipeline uses 2D Gauss-Bonnet (DiscreteGaussBonnet.v).
+    Well-formedness proofs are above. Christoffel symbols and the Riemann
+    tensor are defined in RiemannTensor4D.v; 4D Gauss-Bonnet-Chern is not
+    proved. The gravity pipeline uses 2D Gauss-Bonnet (DiscreteGaussBonnet.v).
 *)

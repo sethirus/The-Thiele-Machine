@@ -1,32 +1,28 @@
-(** * F4_VerilogEvaluator: small-step semantics for the translated AST
+(** * VerilogEvaluator: small-step semantics for the translated AST
 
     A small-step evaluator for the Verilog AST defined in
-    [F4_BModulesTranslation.v], plus a parallel evaluator for Kami's
+    [BModulesTranslation.v], plus a parallel evaluator for Kami's
     [BAction] over the same simple state model, plus a
     semantic-equivalence theorem between the two on a structural
     subset.
 
-    [F4_BModulesTranslation] establishes the AST-level translation from
+    [BModulesTranslation] establishes the AST-level translation from
     Kami's actual [BModule] type to a Coq Verilog AST. This file adds
     the semantic counterpart: under a simple state model (string-to-nat
     for register values), the translated Verilog AST evaluates to the
     same state transitions as the source Kami [BAction] list does under
     the obvious "pure" semantics.
 
-    Honest scope:
+    Scope:
     - The "Kami semantics" used here is a simple-evaluator interpretation
       of [BAction], NOT Kami's full type-theoretic semantics from
-      [Kami.Semantics.SemAction]. Lifting to full Kami semantics
-      requires handling Kami's typed expression world, which is
-      substantial additional work that is not provided here.
+      [Kami.Semantics.SemAction].
     - The semantic-equivalence theorems below cover concrete BAction
       patterns ([BWriteReg], [BReadReg], [BAssert], [BReturn], [BLet],
-      and their compositions) over the simple state model. This is
-      genuine semantic correspondence at the simple-evaluator level.
-    - For Tsirelson's BSC-trust-boundary closure, the open work is
-      extending to Kami's full semantics, then showing
-      the actual generated [thiele_cpu_kami.v] semantics agree with the
-      translated VerilogAST evaluation. Bounded, not new theory.
+      and their compositions) over the simple state model.
+    - No theorem here relates Kami's full semantics or the generated
+      [thiele_cpu_kami.v] to the translated AST; that step is the trust
+      boundary [VerilogRTLCorrespondence.bsc_kami_compilation_trusted].
 *)
 
 From Coq Require Import String List ZArith Arith.PeanoNat Lia Bool.
@@ -37,7 +33,7 @@ Require Import Kami.Syntax.
 Require Import Kami.Lib.Struct.
 
 From Kernel Require Import VMState VMStep MuCostModel.
-From KamiHW Require Import F4_BModulesTranslation.
+From KamiHW Require Import BModulesTranslation.
 
 Open Scope string_scope.
 
@@ -77,7 +73,7 @@ Qed.
 (** ** Verilog VExpr evaluator over [SimpleState].
 
     Pattern-matches on the constructors of [VExpr] from
-    [F4_BModulesTranslation]. *)
+    [BModulesTranslation]. *)
 
 Fixpoint vexpr_eval_simple (e : VExpr) (s : SimpleState) : nat :=
   match e with
@@ -283,7 +279,7 @@ Qed.
 
     Headline theorem: for any single BAction whose construction uses
     only the supported constructors (BWriteReg, BAssert, BReturn,
-    BLet — i.e., excluding [BIfElse]'s recursive structure and
+    BLet; that is, excluding [BIfElse]'s recursive structure and
     method calls), the simple-evaluator agrees on the source and
     translated forms. *)
 
@@ -316,13 +312,12 @@ Qed.
     on each branch.
 
     The key lemma: for any list of BActions whose constituents satisfy
-    the per-construct correspondence (excluding nested BIfElse for
-    now), [vstmts_eval_simple (map baction_to_vstmt acts) s =
+    the per-construct correspondence (no nested BIfElse),
+    [vstmts_eval_simple (map baction_to_vstmt acts) s =
     bactions_eval_simple acts s]. *)
 
-(** A BAction is "simply translatable" if it's not a BIfElse with
-    deeply nested branches (we handle one level of BIfElse, where the
-    inner branches are simple BActions). *)
+(** A BAction is "simply translatable" if it is a BIfElse whose
+    branches are simple BActions (one level of BIfElse). *)
 
 Definition baction_one_level_ifelse_branches_simple (a : BAction) : Prop :=
   match a with
@@ -379,7 +374,7 @@ Qed.
     On a state where flag = 1 and src = 99: both evaluators set
     "out" = 99 (taking then-branch). On a state where flag = 0:
     both evaluators set "out" = 0 (taking else-branch with the
-    opaque BConst literal that evaluates to 0 in our simple model). *)
+    opaque BConst literal that evaluates to 0 in the simple model). *)
 
 Definition test_ifelse :
   BAction :=
@@ -414,7 +409,7 @@ Proof. cbn. unfold state_set; simpl. reflexivity. Qed.
 
     All theorems above close under the global context. The translation
     correspondences are proven by structural induction on [BExpr] /
-    [BAction] plus computation. No bypass markers, no project-local
-    axioms. The BModule→Verilog translation is structurally and
-    semantically faithful (under the simple-evaluator semantics on a
-    string-to-nat state model) for the supported BAction constructors. *)
+    [BAction] plus computation. No project-local axioms. Under the
+    simple-evaluator semantics on a string-to-nat state model, the
+    translated Verilog agrees with the source for the supported BAction
+    constructors. *)

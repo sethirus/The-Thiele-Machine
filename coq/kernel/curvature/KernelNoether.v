@@ -14,7 +14,7 @@
     z_action_identity: shifting by 0 is identity.
     z_action_composition: shifts compose, shift(a) ∘ shift(b) = shift(a+b).
     z_action_inverse: shift(n) ∘ shift(-n) = identity.
-    z_gauge_invariance: Z-shifts preserve partition structure.
+    Z-shifts preserve partition structure (by unfolding; no named lemma).
 
     The zero boundary is part of the definition. The comments and theorem
     statements below record exactly where the guarded shift laws hold and
@@ -78,8 +78,8 @@ Definition z_gauge_shift (delta : Z) (s : VMState) : VMState :=
   vm_witness := s.(vm_witness);
   vm_certified := s.(vm_certified) |}.
 
-(** [z_gauge_shift] only touches vm_mu; [z_gauge_invariance] below uses
-    that structural fact directly by reflexivity. *)
+(** [z_gauge_shift] only touches vm_mu; the partition-invariance fact below
+    follows from that structural fact by reflexivity. *)
 
 (** Helper: z_gauge_shift preserves read_reg (depends only on vm_regs) *)
 Lemma z_gauge_shift_read_reg : forall delta s r,
@@ -95,7 +95,7 @@ Proof. intros. unfold read_reg, z_gauge_shift. reflexivity. Qed.
   ALGORITHM: Map pg_modules to list of region lists. Each module m contributes
   m.module_region (list of partition IDs). Result: list (list nat) of all regions.
 
-  The proved claim is z_gauge_invariance:
+  The invariance fact (an unfold and reflexivity, not a named lemma) is:
     Observable_partition (z_gauge_shift delta s) = Observable_partition s.
 
   This does not say every possible observation of the VM ignores μ. It says this
@@ -249,7 +249,7 @@ Qed.
 (** Gauge invariance for the chosen partition observable. *)
 
 (**
-  z_gauge_invariance: partition observable unchanged by μ-shifts.
+  Partition invariance: the partition observable is unchanged by μ-shifts.
 
   Shifting μ doesn't change observable partition structure:
            Observable_partition (z_gauge_shift delta s) = Observable_partition s.

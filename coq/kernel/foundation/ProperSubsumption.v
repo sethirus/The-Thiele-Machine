@@ -17,7 +17,7 @@
     
     *)
 
-(* SCOPE NOTE: standalone proof scope — this file is not bridged to
+(* SCOPE NOTE: standalone proof scope; this file is not bridged to
    the VM kernel, and imports none of it.
 
    What it is: a self-contained Turing-machine development (TM_Config,
@@ -179,7 +179,7 @@ Proof.
     + reflexivity.
 Qed.
 
-(** SCOPE NOTE — what "Thiele" means in this theorem's name.
+(** SCOPE NOTE: what "Thiele" means in this theorem's name.
 
     [Thiele_Config] here is the LOCAL record defined in this file,
     [{ th_tm_config : TM_Config; th_mu : nat }], a Turing configuration
@@ -279,9 +279,9 @@ Qed.
     1. All Turing-computable functions (simulation theorem)
     2. Verifiable cost certificates (strict extension)
     
-    This is NOT circular: we don't define Turing as "lacking cost tracking"
-    and then prove it lacks cost tracking. We show that cost tracking is
-    a meaningful, useful property that Thiele has and Turing doesn't.
+    This is NOT circular: Turing machines are not defined as "lacking cost
+    tracking" and then proved to lack it. Cost tracking is a property the
+    local Thiele record has and the Turing configuration does not.
 *)
 
 Definition TM_computes (delta : TM_Delta) (c_init c_final : TM_Config) : Prop :=
@@ -329,7 +329,7 @@ Qed.
     2. STRICT EXTENSION: Thiele provides verifiable cost certificates
        that Turing machines cannot produce (cost_certificate_valid)
     
-    3. NON-CIRCULAR: We do NOT artificially limit Turing machines.
+    3. NON-CIRCULAR: Turing machines are not artificially limited.
        They have full read/write/move capability on an infinite tape.
        The extension is about OBSERVABLE PROPERTIES, not raw power.
     

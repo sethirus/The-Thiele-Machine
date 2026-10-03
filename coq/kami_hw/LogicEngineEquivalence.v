@@ -22,17 +22,11 @@ Import VMStep.VMStep.
     Computes the vm_err value that vm_step will produce for an LASSERT
     instruction, given the current VMState and register indices:
     - kind = true (SAT mode): check_model; vm_err preserved iff model is valid
-    - kind = false (UNSAT mode): always error (diagnostic condition — UNSAT
-      means the kernel records that no new axiom can be added, which is
-      treated as an informational error, regardless of proof validity) *)
+    - kind = false (UNSAT mode): always error; the kernel's UNSAT path
+      always fails *)
 Definition lassert_expected_err (s : VMState) (freg creg : nat) (kind : bool) : bool :=
   if lassert_exec_ok s freg creg kind (lassert_hw_flen s freg) then vm_err s else true.
 
-(** Expected error flag after LJOIN
-
-    Computes the vm_err value that vm_step will produce for an LJOIN
-    instruction, given the current VMState and register indices:
-    - vm_err preserved iff both cert strings are equal *)
 (** LJOIN preserves vm_err unconditionally (via advance_state). *)
 Definition ljoin_expected_err (s : VMState) (c1reg c2reg : nat) : bool :=
   vm_err s.
@@ -157,8 +151,8 @@ Qed.
 
 (** Error flag determination
 
-    Given the VMState and register indices, we can predict the vm_err
-    outcome of the kernel step. *)
+    Given the VMState and register indices, the vm_err outcome of the
+    kernel step is determined. *)
 
 (** Definitional lemma *)
 Theorem lassert_vm_step_err :
@@ -191,8 +185,8 @@ Qed.
     For LASSERT: hardware charges flen*8 + S cost matching the kernel.
     The mu gap is zero.  PC agreement requires lassert_check_ok = true.
 
-    For LJOIN: hardware and kernel agree on both PC and mu (no gap),
-    since both steps read from the same mem_to_string operands. *)
+    For LJOIN: hardware and kernel agree on both PC and mu (no gap): both
+    advance the PC and charge S cost without reading the operands. *)
 
 Theorem logic_engine_equivalent_lassert :
   forall (hs : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),

@@ -2,9 +2,8 @@
 
     This file proves a concrete operational claim: if execution starts with
     cert_addr = 0 and ends with cert_addr <> 0, then some executed step must
-    perform the relevant structure-setting transition. In the current VM this
-    means certification does not appear out of arithmetic or control flow
-    alone.
+    perform the relevant structure-setting transition. In the VM this means
+    certification does not appear out of arithmetic or control flow alone.
 
     The result is intentionally scoped to the machine semantics in this
     repository. It packages the connection between trace execution,
@@ -21,7 +20,7 @@ Import ListNotations.
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import KernelPhysics SimulationProof.
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** Decidable equality for vm_instruction (needed for discriminate). *)
@@ -91,7 +90,7 @@ Qed.
 
 (** Supra-Quantum Correlation Property *)
 
-(** We conservatively define supra-quantum correlations as requiring
+(** Supra-quantum correlations are conservatively defined as requiring
     explicit certification. This is validated by the μ-accounting system
     at runtime. *)
 
@@ -100,7 +99,7 @@ Definition has_supra_cert (s : VMState) : Prop :=
 
 (** Semantic structure addition (execution-based)
 
-    To avoid defining “structure addition” by an opcode list, we define it
+    To avoid defining “structure addition” by an opcode list, it is defined
     as an *observable transition* during execution:
     the certification CSR changes from 0 to non-zero at some executed step.
 
@@ -269,20 +268,20 @@ Proof.
     destruct (column_contractive_check_q1ab_kernel _);
       simpl; reflexivity.
   - (* instr_chsh_lassert_1ab_g5: same cert-channel behaviour as the other
-       CHSH_LASSERT family — neither success nor trap branch writes csr_cert_addr. *)
+       CHSH_LASSERT family: neither success nor trap branch writes csr_cert_addr. *)
     destruct (q1ab_g5_full_integer_check_kernel _ _ _);
       simpl; reflexivity.
   - (* instr_chsh_lassert_1ab_g345: same cert-channel behaviour as the other
-       CHSH_LASSERT family — neither success nor trap branch writes csr_cert_addr. *)
+       CHSH_LASSERT family: neither success nor trap branch writes csr_cert_addr. *)
     destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _);
       simpl; reflexivity.
   - (* instr_chsh_lassert_1ab_g12345: full γ_{1..5} variant; same cert-channel
-       behaviour — neither branch writes csr_cert_addr. *)
+       behaviour: neither branch writes csr_cert_addr. *)
     destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _);
       simpl; reflexivity.
 Qed.
 
-(** Under the current kernel semantics, every instruction except MORPH_ASSERT
+(** In the kernel semantics, every instruction except MORPH_ASSERT
     preserves csr_cert_addr exactly. MORPH_ASSERT is the only opcode whose
     success branch writes a new cert address. CHSH_LASSERT (the
     column-contractivity check) does not write to csr_cert_addr; its success
@@ -721,10 +720,10 @@ Proof.
               simpl in Hnth0.
               (* Hnth0 : Some hd = Some (instr_reveal mod0 bits0 cert0 mu0) *)
               (* Goal: match hd with | instr_reveal _ _ _ _ => True | _ => uses_revelation tl end *)
-              (* We know Hnth0 : Some hd = Some (...reveal...) *)
+              (* Known fact Hnth0 : Some hd = Some (...reveal...) *)
               (* Therefore hd = instr_reveal ... by option injectivity *)
-              (* Since we can't easily extract this without decidability,
-                 we use the fact that we have vm_instruction_eq_dec defined above. *)
+              (* This is hard to extract without decidability,
+                 so the proof uses vm_instruction_eq_dec, defined above. *)
               destruct (vm_instruction_eq_dec hd (instr_reveal mod0 bits0 cert0 mu0)) as [Heq|Hneq].
               ** rewrite Heq. exact I.
               ** exfalso. apply Hneq. injection Hnth0. intro. exact H.
@@ -848,7 +847,7 @@ Proof.
            ++ exact Hrun.
            ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
            ++ exact Hfinal.
-      * (* instr_morph_assert: cert-setter — witness it directly as 5th disjunct *)
+      * (* instr_morph_assert: cert-setter; witness it directly as 5th disjunct *)
         right. right. right. right.
         eexists _, _, _, _, _. exact Hnth.
       * (* instr_morph_tensor *)

@@ -9,7 +9,7 @@
   every cert-setting opcode and still flips cert_addr anyway. If that exists,
   the boundary theorem is wrong. *)
 
-(* SCOPE NOTE: foundation connectivity -- bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** The main result is quantum_admissible_implies_no_supra_cert. *)
@@ -118,7 +118,7 @@ Proof.
            | |- (advance_state_rm _ _ _ ?csrs _ _ _).(vm_csrs).(csr_cert_addr) = _ =>
                rewrite advance_state_rm_cert_addr
            end;
-    (* Now we have csrs either s.(vm_csrs) or csr_set_err/csr_set_status *)
+    (* Now csrs is either s.(vm_csrs) or csr_set_err/csr_set_status *)
     try reflexivity;
     try (rewrite csr_set_err_preserves_cert_addr; reflexivity).
 Qed.

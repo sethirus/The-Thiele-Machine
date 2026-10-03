@@ -1,4 +1,4 @@
-(** * VacuitySmoke.v — fixture for the kernel-conversion vacuity gate.
+(** * VacuitySmoke.v: fixture for the kernel-conversion vacuity gate.
 
     Each [Theorem]/[Lemma] below carries a comment annotation:
       - (* EXPECT_VACUOUS_TRUE *)  : the gate's probe (a) should accept it
@@ -7,8 +7,8 @@
 
     The gate is sound (a positive probe is conclusive), so the
     EXPECT_VACUOUS_* fixtures must always flag. The gate is incomplete,
-    so we only require EXPECT_CLEAR fixtures to be theorems we have no
-    reason to expect the gate flags — if it does, that is a false positive
+    so EXPECT_CLEAR fixtures need only be theorems with no
+    reason to expect the gate flags; if it does, that is a false positive
     in the gate, not in the fixture. *)
 
 From Coq Require Import Arith.PeanoNat.
@@ -19,7 +19,7 @@ Definition VacuouslyTrueProp : Prop := True.
 (** A definition that does NOT reduce to True. *)
 Definition GenuineEquality (n : nat) : Prop := S n = S n.
 
-(** ** Vacuous theorems — gate MUST flag these. *)
+(** ** Vacuous theorems: gate MUST flag these. *)
 
 (* EXPECT_VACUOUS_TRUE *)
 Theorem smoke_literal_true : True.
@@ -42,7 +42,7 @@ Theorem smoke_two_hyps_pick_first :
   forall (P Q : Prop), P -> Q -> P.
 Proof. intros P Q p _. exact p. Qed.
 
-(** ** Genuine theorems — gate MUST NOT flag these.
+(** ** Genuine theorems: gate MUST NOT flag these.
 
     These are simple but non-vacuous: the conclusion is neither True
     nor convertible to a hypothesis, even after [lazy] reduction. *)

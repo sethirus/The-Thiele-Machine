@@ -2,7 +2,7 @@
     across [Retire], for the 47 of [RetireMaster.admitted]'s 55 constructors that
     leave every field the invariants mention unchanged ("frame" cases).
 
-    [hwb_table_invariants_frame]: the generic combinator -- given the twelve
+    [hwb_table_invariants_frame]: the generic combinator. Given the twelve
     field equalities the nine invariant clauses actually read (four morph-table
     fields, six coupling desc/pair-table fields via [StepEval]'s
     opcode-independent frame lemmas, two label-table fields), the invariants
@@ -19,17 +19,14 @@
     [lscan_iter_keeps_X]/[lhdr_keeps_X] frame catalogues chain onto the same
     opcode-specific [step_next] equations to reach the same twelve facts.
 
-    NOT done here: the eight constructors that actually write the morph or
-    coupling tables (MORPH_ID/DELETE, legacy and extended, MORPH_EXT,
-    COMPOSE_EXT and their fault branches) -- [TableInvariants.v]'s closing
-    note has the algebra already available for these (an explicit if-mux at
-    the allocation/deletion index from [StepFieldsMorph.v], respectively
-    [CouplingFsmRun.morph_fsm_run]/[CouplingComposeRetire]'s field equations
-    for the FSM completions, [CouplingFaults.v]'s frame for the fault
-    branches); building them is the next increment, after which
-    [hwb_table_invariants_preserved : forall b i d, hwb_table_invariants b ->
-    admitted b i -> Retire b i d -> hwb_table_invariants d] (all 55 cases) and
-    the reachable-state induction it feeds can be stated. *)
+    The eight constructors that write the morph or coupling tables
+    (MORPH_ID/DELETE, legacy and extended, MORPH_EXT, COMPOSE_EXT and their
+    fault branches) are proved further below: an explicit if-mux at the
+    allocation/deletion index from [StepFieldsMorph.v], respectively
+    [CouplingFsmRun.morph_fsm_run]/[CouplingComposeRetire]'s field
+    equations for the FSM completions, and [CouplingFaults.v]'s frame for
+    the fault branches. [hwb_table_invariants_preserved] at the end covers
+    all 55 cases. *)
 Require Import Kami.Kami Kami.Semantics Kami.Lib.NatLib.
 From Coq Require Import String List Arith Lia Bool FunctionalExtensionality.
 Import ListNotations.
@@ -2165,7 +2162,7 @@ Qed.
 
 (** MORPH_EXT_FAULT and COMPOSE_EXT_FAULT: [step_next] alone (no FSM), and
     since one of the two module/type guards fails, every field stays at
-    its "else" (frame) value regardless of the value of the OTHER guard --
+    its "else" (frame) value regardless of the value of the OTHER guard,
     a fact that does not depend on which specific guard failed. *)
 Lemma mux2_frame : forall T (m1 m2 : bool) (X Y : T),
   m1 = false \/ m2 = false -> (if m1 then (if m2 then X else Y) else Y) = Y.
@@ -2601,7 +2598,7 @@ Qed.
 (** * The master preservation statement
 
     All 55 [admitted] constructors are covered: the 47 frame cases and the
-    eight table-writing cases above. This is the induction step for C1/C2's
+    eight table-writing cases above. This is the induction step of the
     reachable-state invariants, whose base case is
     [TableInvariants.hwb_table_invariants_reset]. *)
 Theorem hwb_table_invariants_preserved : forall b i d,

@@ -138,7 +138,7 @@ Qed.
     vacuously, so the witness view is genuinely load-bearing.)
 
     This is [free_forgery_violates_A2] applied at the unfinalized state
-    [(v, false)] with instruction [PoSFinalize] — an instantiation of the
+    [(v, false)] with instruction [PoSFinalize], an instantiation of the
     kernel theorem, stated here so the PoS reading is on the record. *)
 Theorem nothing_at_stake_is_free_forgery :
   forall v : ValidatorView,
@@ -212,7 +212,7 @@ Definition slashing_gadget
     flag-flipping step somewhere, and slashing prices that step.
 
     This is [universal_nfi_any_substrate] instantiated at
-    [slashing_gadget] — the proof is a single application of the kernel
+    [slashing_gadget]; the proof is a single application of the kernel
     theorem, and the doc comment says so.  The work specific to this file
     was already done in [slashing_cert_costs]: showing that the slashing
     condition IS the A2 field for this instruction set. *)

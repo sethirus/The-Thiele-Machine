@@ -1,8 +1,9 @@
-(** TuringClassicalEmbedding.v — D1+D2: Classical Machine Notion and Embedding
+(** TuringClassicalEmbedding.v: Classical Machine Notion and Embedding
 
-    D1: THE TURING / CLASSICAL COMPUTATION NOTION
+    THE TURING / CLASSICAL COMPUTATION NOTION
 
-    The "Turing notion" used throughout D2-D5 is:
+    The "Turing notion" used by the embedding, conservativity, strictness and
+    strict-extension results is:
 
       A CLASSICAL PROGRAM is a list of vm_instructions all satisfying
       is_classical_opcode (defined in ClassicalConservativity.v).
@@ -20,25 +21,22 @@
 
       Relation to KernelTM.v:
       The traditional Turing Machine model (KernelTM.v) uses T_Write,
-      T_Move, T_Branch, T_Halt operating on a tape.  These have direct
-      classical Thiele analogs (store/load for T_Write/read, jnez for
-      T_Branch, halt for T_Halt).  The Thiele classical fragment is a
-      strict superset of the traditional TM model, adding register
-      arithmetic and direct memory operations.
+      T_Move, T_Branch, T_Halt operating on a tape.  These have classical
+      Thiele analogs (store/load for T_Write/read, jnez for T_Branch, halt
+      for T_Halt), and the classical fragment adds register arithmetic and
+      direct memory operations.
 
-      We do not formally simulate KernelTM.v inside the classical fragment
-      here (that would require a large simulation proof).  Instead, we
-      establish the classical fragment as the authoritative Turing notion
-      for D2-D5, noting that the KernelTM.v model is a special case.
+      No theorem here simulates KernelTM.v inside the classical fragment.
+      The classical fragment is the Turing notion those results use.
 
-    D2: THE CLASSICAL → THIELE EMBEDDING
+    THE CLASSICAL → THIELE EMBEDDING
 
     The embedding classical_to_thiele is the identity function:
-    classical programs ARE Thiele programs — the ISA is shared, and
+    classical programs ARE Thiele programs; the ISA is shared, and
     classical programs simply do not use structural opcodes.
 
-    FAITHFULNESS (D2): The embedding preserves all shadow-observable
-    behavior.  By D3 (ClassicalConservativity.v), classical traces do not
+    FAITHFULNESS: The embedding preserves all shadow-observable
+    behavior.  By classical conservativity (ClassicalConservativity.v), classical traces do not
     touch the structural layer.  Therefore:
       (a) The shadow_proj of the Thiele result is the complete observable
           summary of the classical computation.
@@ -56,17 +54,18 @@ From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI
 
 (**
 
-    Pin down the "Turing notion" used in D2-D5.
+    Pin down the "Turing notion" the embedding and strictness results use.
 *)
 
 (** is_classical_program: A program is classical iff every instruction
-    satisfies is_classical_opcode — i.e., it does not access structural
+    satisfies is_classical_opcode; that is, it does not access structural
     (categorical) state: no graph mutations, no cert-channel ops, no
     witness ops, no certified flag changes. *)
 Definition is_classical_program (prog : list vm_instruction) : Prop :=
   Forall (fun i => is_classical_opcode i = true) prog.
 
-(** ClassicalMachine: the classical computation model used in D1-D5.
+(** ClassicalMachine: the classical computation model of this file and of
+    ClassicalConservativity.v and TuringStrictness.v.
     A pair of a classical program with its classicality certificate. *)
 Record ClassicalMachine := {
   cm_program   : list vm_instruction;
@@ -81,22 +80,22 @@ Definition cm_run (M : ClassicalMachine) (s0 : VMState) : VMState :=
 
 
 (** classical_to_thiele: The formal embedding is the identity on program
-    lists.  Classical programs are already Thiele programs — no
+    lists.  Classical programs are already Thiele programs; no
     translation is needed, as they use a common ISA. *)
 Definition classical_to_thiele (prog : list vm_instruction) : list vm_instruction :=
   prog.
 
 (** The embedding function is definitionally the identity on the classical
-    program representation. The substantive D2 result is [D2_faithfulness]
+    program representation. The substantive embedding result is [classical_run_shadow_faithful]
     below, which proves preservation through execution. *)
 
-(** D2_faithfulness: The embedding is faithful under shadow_proj.
+(** classical_run_shadow_faithful: The embedding is faithful under shadow_proj.
     Running a classical program on the Thiele VM:
       (a) produces a shadow that captures all classical observables;
       (b) leaves the structural layer (graph, cert_addr, certified) unchanged.
 
-    Proof uses D3_conservativity from ClassicalConservativity.v. *)
-Theorem D2_faithfulness :
+    Proof uses classical_opcodes_preserve_structure from ClassicalConservativity.v. *)
+Theorem classical_run_shadow_faithful :
   forall (prog : list vm_instruction) (s0 : VMState),
     is_classical_program prog ->
     (** (a) The shadow projection is the classical-observable summary. *)
@@ -107,7 +106,7 @@ Theorem D2_faithfulness :
        cs_mu        := (acm_run thiele_cert_machine prog s0).(vm_mu);
        cs_err       := (acm_run thiele_cert_machine prog s0).(vm_err);
        cs_certified := (acm_run thiele_cert_machine prog s0).(vm_certified) |} /\
-    (** (b) The structural layer is frozen by classical traces (D3). *)
+    (** (b) The structural layer is frozen by classical traces (classical conservativity). *)
     (acm_run thiele_cert_machine prog s0).(vm_graph) = s0.(vm_graph) /\
     (acm_run thiele_cert_machine prog s0).(vm_csrs).(csr_cert_addr) =
       s0.(vm_csrs).(csr_cert_addr) /\
@@ -117,13 +116,13 @@ Proof.
   refine (conj _ _).
   - (* (a) shadow_proj is definitionally the projection onto classical fields *)
     unfold shadow_proj. reflexivity.
-  - (* (b) structural preservation — apply D3_conservativity *)
-    exact (D3_conservativity prog s0 Hclassical).
+  - (* (b) structural preservation: apply classical_opcodes_preserve_structure *)
+    exact (classical_opcodes_preserve_structure prog s0 Hclassical).
 Qed.
 
 (** A [ClassicalMachine] run is represented by the same [acm_run] evaluator
     used by the Thiele machine. The execution-level preservation result is
-    [D2_faithfulness]. *)
+    [classical_run_shadow_faithful]. *)
 
 (**
 
@@ -277,7 +276,7 @@ Proof.
     unfold write_reg, read_reg. congruence.
   (* 8. jump *)
   - apply shadow_jump_state; congruence.
-  (* 9. jnez: branches on read_reg s rs — use match goal to avoid naming *)
+  (* 9. jnez: branches on read_reg s rs; use match goal to avoid naming *)
   - match goal with
     | |- context [Nat.eqb (read_reg s2 ?reg) 0] =>
         replace (Nat.eqb (read_reg s2 reg) 0) with (Nat.eqb (read_reg s1 reg) 0)
@@ -313,10 +312,10 @@ Proof.
     unfold write_reg. congruence.
   (* 20. write_port *)
   - apply shadow_advance_state; congruence.
-  (* 21. heap_load: uses csr_heap_base — equal by Hhb *)
+  (* 21. heap_load: uses csr_heap_base, equal by Hhb *)
   - apply shadow_advance_state_rm; try congruence.
     unfold write_reg, read_mem, read_reg. congruence.
-  (* 22. heap_store: uses csr_heap_base — equal by Hhb *)
+  (* 22. heap_store: uses csr_heap_base, equal by Hhb *)
   - apply shadow_advance_state_rm; try congruence.
     unfold write_mem, read_reg. congruence.
   (* 23. and *)
@@ -434,7 +433,7 @@ Proof.
     + exact (classical_step_compat i s1 s2 Hi Hcompat).
 Qed.
 
-(** D2_classical_shadow_preserved:
+(** classical_run_preserves_shadow_compat:
     Classical programs preserve shadow equality for classically-compatible
     initial states.
 
@@ -442,7 +441,7 @@ Qed.
     vm_csrs equality.  The extra conditions are genuinely necessary because
     instr_morph_get / instr_tensor_get read vm_graph, and instr_heap_load /
     instr_heap_store read csr_heap_base from vm_csrs. *)
-Theorem D2_classical_shadow_preserved :
+Theorem classical_run_preserves_shadow_compat :
   forall (prog : list vm_instruction) (s1 s2 : VMState),
     is_classical_program prog ->
     vm_classical_compat s1 s2 ->
@@ -460,10 +459,10 @@ Qed.
     This is the capstone theorem for the "Turing ⊂ Thiele" relationship.
     It assembles four orthogonal results into a single named formal claim.
 
-    SAFE WORDING: "A classical Turing machine is a degenerate projection
-    fragment of the Thiele machine: every TM computation embeds faithfully
-    via lift_config, and shadow_proj is the quotient map back to the
-    classical fragment.  The quotient is proper (shadow_proj is lossy)."
+    SAFE WORDING: "Turing configurations run unchanged inside the local
+    Thiele_Config record of ProperSubsumption.v (lift_config), and
+    shadow_proj is the quotient map from VMState back to the classical
+    fragment.  The quotient is proper (shadow_proj is lossy)."
 *)
 
 (** eq_on_classical_shadow: the equivalence relation defined by shadow_proj.
@@ -491,19 +490,20 @@ Qed.
 
 (** THE DEGENERATE PROJECTION THEOREM
 
-    Part (1): Every TM run is faithfully simulated by the Thiele machine via
-              lift_config.  The TM config is preserved component-wise.
+    Part (1): Every TM run is preserved component-wise inside the local
+              Thiele_Config record via lift_config. That record is a TM
+              configuration plus a counter, not VMState.
               Source: ProperSubsumption.thiele_simulates_turing.
 
     Part (2): shadow_proj is the quotient map.  Its kernel is exactly
-              eq_on_classical_shadow — the relation that identifies states
+              eq_on_classical_shadow, the relation that identifies states
               a classical observer cannot distinguish.
 
     Part (3): Classically-compatible states (equal on shadow, graph, csrs) stay
               classically-compatible under classical programs.  I.e., the
               quotient is respected by classical traces.
 
-    Part (4): The projection is strictly lossy — there exist distinct Thiele
+    Part (4): The projection is strictly lossy; there exist distinct Thiele
               states that are shadow-equal.  The classical fragment is a
               proper quotient, not an isomorphism. *)
 Theorem degenerate_projection_theorem :
@@ -512,7 +512,7 @@ Theorem degenerate_projection_theorem :
     (ProperSubsumption.thiele_run fuel delta
        (ProperSubsumption.lift_config c)).(ProperSubsumption.th_tm_config)
     = ProperSubsumption.tm_run fuel delta c) /\
-  (* (2) shadow_proj is the quotient map — its kernel is eq_on_classical_shadow *)
+  (* (2) shadow_proj is the quotient map; its kernel is eq_on_classical_shadow *)
   (forall s1 s2 : VMState,
     shadow_proj s1 = shadow_proj s2 <-> eq_on_classical_shadow s1 s2) /\
   (* (3) Classical traces respect the classical-compatible quotient *)
@@ -521,7 +521,7 @@ Theorem degenerate_projection_theorem :
     vm_classical_compat s1 s2 ->
     shadow_proj (acm_run thiele_cert_machine prog s1) =
     shadow_proj (acm_run thiele_cert_machine prog s2)) /\
-  (* (4) The projection is strictly lossy — structural info is irreversibly erased *)
+  (* (4) The projection is strictly lossy: structural info is irreversibly erased *)
   (exists s1 s2 : VMState,
     shadow_proj s1 = shadow_proj s2 /\ s1 <> s2).
 Proof.
@@ -530,8 +530,8 @@ Proof.
     exact ProperSubsumption.thiele_simulates_turing.
   - (* (2) shadow_proj kernel = eq_on_classical_shadow *)
     exact shadow_proj_kernel_is_eq_on_classical_shadow.
-  - (* (3) D2_classical_shadow_preserved *)
-    exact D2_classical_shadow_preserved.
+  - (* (3) classical_run_preserves_shadow_compat *)
+    exact classical_run_preserves_shadow_compat.
   - (* (4) shadow_strictly_lossy provides the witness pair *)
     destruct shadow_strictly_lossy as [s1 [s2 [Heq [Hdiff _]]]].
     exists s1, s2.
@@ -548,7 +548,7 @@ Qed.
     Converse of conjunct (3) above: if two states have different shadow projections,
     some classical program can distinguish them.
 
-    The witness is trivial — the empty program [].  Since
+    The witness is trivial: the empty program [].  Since
     [acm_run thiele_cert_machine [] s = s], the initial shadow difference
     is preserved verbatim.  This confirms that shadow_proj is exactly the
     distinguishability quotient: shadow-equivalent states are indistinguishable

@@ -27,7 +27,7 @@ Definition Dead (fs : FuelState) : Prop :=
     This is an operational correspondence; it does not calibrate natural-number cost to joules or thermodynamic irreversibility. *)
 Definition fuel_cost (i : vm_instruction) : nat := instruction_cost i.
 
-(** [fuel_reward] is the current refund policy and returns zero for every instruction. *)
+(** [fuel_reward] is the refund policy and returns zero for every instruction. *)
 Definition fuel_reward (i : vm_instruction) : nat :=
   match i with
   | _ => 0

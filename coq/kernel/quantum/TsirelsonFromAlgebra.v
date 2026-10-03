@@ -62,15 +62,15 @@ Local Open Scope R_scope.
     - tsirelson_achievable:
         ∃ correlators with row bounds satisfied and S = √8 (tight)
 
-    We re-derive the core result here for self-containment,
-    then connect it to the μ-cost framework. *)
+    The core result is re-derived here for self-containment,
+    then connected to the μ-cost framework. *)
 
 (**
 
     For any four real numbers satisfying row constraints,
     their CHSH combination (a + b + c - d) is bounded by √8 = 2√2.
 
-    This is pure algebra — no physics, no Hilbert spaces, no quantum. *)
+    This is pure algebra: no physics, no Hilbert spaces, no quantum. *)
 
 (** The CHSH expression: sum of four correlators with one sign flip *)
 Definition CHSH_value (e00 e01 e10 e11 : R) : R :=
@@ -131,7 +131,7 @@ Qed.
 
 (**
 
-    KEY POINT: The number 2√2 ≈ 2.828... appears NOWHERE in our axioms.
+    KEY POINT: The number 2√2 ≈ 2.828... appears NOWHERE in the axioms.
     It emerges as √8 from the algebraic computation:
       row bounds  →  Σeᵢ² ≤ 2  →  S² ≤ 4·2 = 8  →  |S| ≤ √8
 
@@ -141,7 +141,7 @@ Qed.
 
     Neither 2√2 nor √8 is a magic number. It's 4 × 2 = 8 under a
     square root. This is why putting 2√2 in a definition is
-    circular — it assumes the answer. *)
+    circular: it assumes the answer. *)
 
 (** √8 = 2√2: explicit computation *)
 Lemma sqrt8_eq_2sqrt2 : sqrt 8 = 2 * sqrt 2.
@@ -278,7 +278,7 @@ Qed.
 
     4. RATIONAL BOUND: 5657/2000 > 2√2, proved as rational_tsirelson_bound.
     The Tsirelson bound 2√2 is not a property of quantum mechanics.
-    It is a property of constrained quadratic forms in R^4 — pure algebra.
+    It is a property of constrained quadratic forms in R^4: pure algebra.
     The NPA moment matrix constraints (from consistency of observations)
     combined with the Cauchy-Schwarz inequality produce the bound.
 

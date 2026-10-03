@@ -1,12 +1,13 @@
 (** DiscreteSimplicialGeometry.v
 
     Defines the [combinatorially_orthogonal] predicate and connects it to the
-    [off_diagonal_ricci_zero] premise from EinsteinEquationsFull.v.
+    off-diagonal Ricci = 0 premise of full_efe_from_diagonal_and_offdiag_ricci
+    (EinsteinEquationsFull.v).
 
-    PURPOSE: [off_diagonal_ricci_zero] is a named premise of the full
+    PURPOSE: off-diagonal Ricci = 0 is an explicit premise of the full
     tensor Einstein field equation in EinsteinEquationsFull.v.
     This file defines a combinatorial predicate that, when satisfied,
-    implies [off_diagonal_ricci_zero], and exhibits a specific curved
+    implies off-diagonal Ricci = 0, and exhibits a specific curved
     simplicial complex (the boundary of a 4-simplex) that satisfies it.
 
     STATUS:
@@ -22,9 +23,9 @@
       [boundary_4simplex_curved_riemann_zero],
       [boundary_4simplex_comb_orthogonal], and
       [boundary_4simplex_full_tensor_efe]: the honest uniform diagonal boundary
-      theorem chain for the current operator.
+      theorem chain for the first-neighbor operator.
 
-    REFUTED IN THE CURRENT OPERATOR:
+    REFUTED FOR THE FIRST-NEIGHBOR OPERATOR:
     - the stronger non-uniform diagonal boundary extension.
     - [boundary_4simplex_nonuniform_diagonal_refuted_at_1] transports the
       boundary-of-4-simplex case to the existing two-vertex gradient witness
@@ -53,11 +54,11 @@ From Kernel Require Import EinsteinEquationsFull.
 (** A simplicial complex is [combinatorially_orthogonal] at vertex [v]
     under metric from state [s] when all off-diagonal Ricci components vanish.
 
-    This is stated directly in terms of [curved_ricci] — the definitionally
-    correct characterization — rather than in terms of angle defects.
-    The angle-defect connection requires a bridge between discrete Christoffel
-    symbols and simplicial angle sums; that bridge is named as a Section
-    Variable below ([boundary_4simplex_comb_orthogonal_h]). *)
+    This is stated directly in terms of [curved_ricci] (the definitionally
+    correct characterization) rather than in terms of angle defects.
+    The angle-defect connection would require a bridge between discrete
+    Christoffel symbols and simplicial angle sums; no such bridge is stated
+    in this file. *)
 Definition combinatorially_orthogonal (sc : SimplicialComplex4D) (s : VMState)
     (v : ModuleID) : Prop :=
   forall mu nu : nat,

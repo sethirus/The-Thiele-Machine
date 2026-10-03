@@ -1,4 +1,4 @@
-(** * HolevoGeneralD — Holevo bound at general finite dimension.
+(** * HolevoGeneralD: Holevo bound at general finite dimension.
 
     [HolevoTwoQubit.v] proves [χ ≤ ln 2] for binary ensembles of
     real 2×2 density matrices. This file generalises to dimension
@@ -21,7 +21,7 @@ From Kernel Require Import OperatorAlgebra.
 
 Local Open Scope R_scope.
 
-(** ** Section 1 — analysis lemmas (Gibbs). *)
+(** ** Section 1: analysis lemmas (Gibbs). *)
 
 Lemma ln_le_x_minus_1' : forall x : R, 0 < x -> ln x <= x - 1.
 Proof.
@@ -49,7 +49,7 @@ Proof.
   lra.
 Qed.
 
-(** ** Section 2 — sum extensionality.
+(** ** Section 2: sum extensionality.
 
     Two functions that agree pointwise on indices below [d] have the
     same [sum_to d]. *)
@@ -120,7 +120,7 @@ Proof.
     lra.
 Qed.
 
-(** ** Section 3 — per-term identity:
+(** ** Section 3: per-term identity:
     [λ · ln (d · λ) = λ · ln d + λ · ln λ] for all [λ ≥ 0]. *)
 
 Lemma lambda_ln_d_lambda_split :
@@ -138,7 +138,7 @@ Proof.
     rewrite ln_mult by lra. ring.
 Qed.
 
-(** ** Section 4 — per-term Gibbs lemma. *)
+(** ** Section 4: per-term Gibbs lemma. *)
 
 Lemma gibbs_per_term :
   forall (lambda : R) (d : nat),
@@ -163,7 +163,7 @@ Proof.
     exact Hgibbs.
 Qed.
 
-(** ** Section 5 — Shannon entropy and its max.
+(** ** Section 5: Shannon entropy and its max.
 
     Shannon entropy of a probability spectrum, in nats:
        H(λ) = − Σ λ_i · ln λ_i. *)
@@ -248,7 +248,7 @@ Proof.
   lra.
 Qed.
 
-(** ** Section 6 — Von Neumann entropy via spectrum.
+(** ** Section 6: Von Neumann entropy via spectrum.
 
     For a density matrix [rho] in dimension [d], its von Neumann
     entropy in nats is the Shannon entropy of its (probability-shaped)
@@ -303,7 +303,7 @@ Proof.
   - rewrite sum_to_const. nra.
 Qed.
 
-(** ** Section 7 — Holevo bound at general d.
+(** ** Section 7: Holevo bound at general d.
 
     For a binary ensemble of d-dim density matrices [rho_0, rho_1]
     with probability [p ∈ [0, 1]], the Holevo quantity
@@ -312,7 +312,7 @@ Qed.
 
     is bounded by [ln d]. *)
 
-(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER. The Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    d_pos is the dimension positivity precondition; Hspec_0/_1/_avg are

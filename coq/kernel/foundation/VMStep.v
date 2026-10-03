@@ -8,7 +8,7 @@ From Kernel Require Import CertCheck VMState.
 (* Force nat default scope locally: BinInt opens Z_scope which would reinterpret
    literals like [8] in [ascii_payload_bits_length] as Z. Marked [Local] so the
    scope choice does NOT propagate to importers; downstream files (like
-   F3_CrossLink.v) keep their own scope discipline. *)
+   LassertTsirelsonCrossLink.v) keep their own scope discipline. *)
 Local Open Scope nat_scope.
 
 (** VMStep: how the machine runs.
@@ -27,8 +27,8 @@ Definition check_model : string -> string -> bool := CertCheck.check_model.
 
 (** Payload bits.
 
-    Coq strings are lists of 8-bit [ascii] values.  For cost accounting we do
-    not charge "string length" or "character length"; we expose the actual
+    Coq strings are lists of 8-bit [ascii] values.  Cost accounting does
+    not charge "string length" or "character length"; it exposes the actual
     Boolean bits carried by each payload byte and count those bits directly. *)
 Definition ascii_payload_bits (a : ascii) : list bool :=
   match a with
@@ -77,11 +77,11 @@ Qed.
     - PNEW: Claim a range of data memory as a fresh module at pg_next_id.
       Traps if the range overlaps another module's range, runs past data
       memory, or the 64 module numbers are used up.
-    - PSPLIT: Split a module's range into two halves (hardware: equal halves).
-      Traps if fewer than two module numbers are left.
+    - PSPLIT: Split a module's range at its middle (the left part gets size/2
+      addresses). Traps if fewer than two module numbers are left.
     - PMERGE: Join two modules whose ranges touch. Traps otherwise, and when
       the module numbers are used up.
-    - PDISCOVER: Carry evidence payload; current transition is pure advance.
+    - PDISCOVER: Carry evidence payload; the transition is a pure advance.
 
     Logical ops:
     - LASSERT: Check a formula with a SAT certificate and a falsifying witness.
@@ -89,7 +89,7 @@ Qed.
       countermodel, so a tautology fails the check. A successful step advances
       the pc and changes no certification field; a failed step traps.
       The UNSAT path always fails.
-    - LJOIN: Reserve certificate join cost. Current state transition is pure advance.
+    - LJOIN: Reserve certificate join cost. The transition is a pure advance.
     - REVEAL: Reveal bits, record to μ-tensor. Cost: bits + S mu_delta.
     - EMIT: Emit payload bits outside the Coq state. Cost:
       payload_bit_length payload + S mu_delta.
@@ -103,7 +103,7 @@ Qed.
     - JUMP/JNEZ/CALL/RET: control flow. r15 = SP; CALL stores the return
       address at mem[SP] and increments SP, RET decrements SP and loads the pc.
 
-    GF(2) ops (reversible):
+    GF(2) ops (XOR_ADD and XOR_SWAP are reversible; XOR_LOAD and XOR_RANK overwrite dst):
     - XOR_LOAD: load from absolute addr (despite name, no XOR involved).
     - XOR_ADD: dst ^= src.
     - XOR_SWAP: swap two registers.
@@ -228,15 +228,16 @@ Inductive vm_instruction :=
     S5 entries; see Section 16 of QuantumPartitionPSD_1AB.v). A successful
     step implies PSD9 of the full 9×9 NPA Q_{1+AB} moment matrix at
     (E, γ_1, γ_2, γ_3, γ_4, γ_5) for the rationals derived from the
-    bucket pairs — substrate-level Q_{1+AB} closure across all five γ
+    bucket pairs: substrate-level Q_{1+AB} closure across all five γ
     parameters simultaneously. Cost is S mu_delta. *)
 | instr_chsh_lassert_1ab_g12345 (mu_delta same_g1 diff_g1 same_g2 diff_g2 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat).
 
 
 (** [instruction_cost] is the complete scheduled cost function. The assertion
     and receipt-bearing instructions add their payload size to the successor
-    floor; [LJOIN], [CERTIFY], and [MORPH_ASSERT] have the positive successor
-    floor without a payload term; all remaining constructors use their encoded
+    floor; [LJOIN], [CERTIFY], [MORPH_ASSERT] and the five CHSH_LASSERT forms
+    have the positive successor floor without a payload term; all remaining
+    constructors use their encoded
     [mu_delta]. This definition is the schedule consumed by the ledger lemmas. *)
 Definition instruction_cost (instr : vm_instruction) : nat :=
   match instr with
@@ -901,12 +902,12 @@ Definition graph_hw_pmerge (g : PartitionGraph) (m1 m2 : nat) : PartitionGraph :
        A := n_00^2 * n_10^2 - d_00^2 * n_10^2 - d_10^2 * n_00^2 >= 0
        B := n_01^2 * n_11^2 - d_01^2 * n_11^2 - d_11^2 * n_01^2 >= 0
        A * B >= C^2,  where C := d_00*d_01*n_10*n_11 + d_10*d_11*n_00*n_01
-    Each n_xy must also be strictly positive (we need at least one trial per
-    setting pair to compute a correlator at all). The check function below is
-    decidable and runs at kernel-step time using only integer arithmetic.
+    Each n_xy must also be strictly positive (a correlator needs at least
+    one trial per setting pair). The check function below is decidable and
+    runs at kernel-step time using only integer arithmetic.
 
-    The bridge theorem (proven in MuLedgerQuantumBridge.v after we wire this
-    into the step relation) is:
+    The bridge theorem is
+    [MuLedgerQuantumBridge.column_contractive_check_witness_sound]:
         column_contractive_check_witness wc = true
           -> zero_marginal_column_contractive (E_00 wc) (E_01 wc) (E_10 wc) (E_11 wc)
     which combined with [column_contractive_iff_npa_psd]
@@ -1329,7 +1330,7 @@ Definition q1ab_g345_full_integer_check_kernel
         [g12345_COMMON_Z] := (N00·N01·N10·N11·Dg1·Dg2·Dg3·Dg4·Dg5)²;
       - 15 cleared scaled_S_6 entries (4×4 Schur complement of row 1 of
         the sym6 H) at scaling g12345_COMMON_Z²;
-      - 10 cleared scaled_S_5 entries (Schur of Schur — 4×4 Schur of row 1
+      - 10 cleared scaled_S_5 entries (Schur of Schur: 4×4 Schur of row 1
         of the sym5 scaled_S_6) at scaling g12345_COMMON_Z⁴;
       - 4 sym4 Sylvester leading minors of the scaled_S_5 cleared values,
         at scaling g12345_COMMON_Z^(4·k) for k = 1..4.
@@ -1774,7 +1775,7 @@ Definition q1ab_g12345_check_z_kernel
   && ((-Dg3 <? Ng3)%Z) && ((Ng3 <? Dg3)%Z)
   && ((-Dg4 <? Ng4)%Z) && ((Ng4 <? Dg4)%Z)
   && ((-Dg5 <? Ng5)%Z) && ((Ng5 <? Dg5)%Z)
-  (* Schur cascade — six PD checks: *)
+  (* Schur cascade, six PD checks: *)
   && ((0 <? cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z)
   && ((0 <? cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z)
   && ((0 <? sym4_d1_Z
@@ -1884,8 +1885,8 @@ Definition lassert_hw_flen (s : VMState) (freg : nat) : nat :=
     Success requires BOTH:
       (1) the instruction-encoded flen equals the in-memory formula header, AND
       (2) the formula has a satisfying assignment and a falsifying assignment.
-    This closes the honest-cost gap: a successful LASSERT step pays
-    exactly hw_flen * 8 + S(cost), not a programmer-declared undercount. *)
+    So a successful LASSERT step pays exactly hw_flen * 8 + S(cost), not a
+    programmer-declared undercount. *)
 Definition lassert_exec_ok (s : VMState) (freg creg : nat) (kind : bool) (flen : nat) : bool :=
   andb (Nat.eqb (lassert_hw_flen s freg) flen)
        (lassert_check_ok s freg creg kind).
@@ -1902,11 +1903,11 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_pnew region cost)
       (partition_step_state s (instr_pnew region cost)
         (pnew_ok s.(vm_graph) (pnew_region region)) graph')
-(** step_psplit: Split a module's range into two halves with graph_hw_psplit
-    (left gets the first size/2 addresses, right gets the rest). The abstract
-    left/right parameters are accepted but ignored. The split is always equal
-    halves at the RTL level. The two halves take two fresh module numbers;
-    when fewer than two are left the step traps. *)
+(** step_psplit: Split a module's range in two with graph_hw_psplit (left
+    gets the first size/2 addresses, right gets the rest), as the CPU does.
+    The abstract left/right parameters are accepted but ignored. The two
+    halves take two fresh module numbers; when fewer than two are left the
+    step traps. *)
 | step_psplit : forall s module left right cost graph',
     graph' = graph_hw_psplit s.(vm_graph) (module mod 64) ->
     vm_step s (instr_psplit module left right cost)
@@ -1928,17 +1929,17 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
       Memory at cbase stores two assignments back-to-back:
       - cbase + k: satisfying assignment value for variable k
       - cbase + num_vars + k: falsifying assignment value for variable k
-      Variables remain 1-indexed; slot 0 is ignored as before.
+      Variables are 1-indexed; slot 0 is ignored.
     false: UNSAT (always fails here).
      flen = declared formula-unit count (drives μ-cost via flen * 8 + S cost).
-     The current memory encoding uses natural-number words; the factor 8 is a
+     The memory encoding uses natural-number words; the factor 8 is a
      VM pricing convention, not by itself a theorem that each unit is a byte
      or that the charge is a physical information count.
 
      The instruction is only allowed to succeed when flen matches the in-memory
      formula header [lassert_hw_flen s freg]. A mismatch traps exactly like a
-     failed witness check. This closes the underpricing gap: a successful LASSERT
-     cannot claim a cheaper length than the bytes the checker actually reads.
+     failed witness check. So a successful LASSERT cannot claim a cheaper
+     length than the words the checker reads.
 
      On SAT success (lassert_exec_ok = true): advance PC normally, no error.
      On failure or length mismatch: jump to LASSERT_TRAP_PC (0xF00 = 3840),
@@ -1966,8 +1967,8 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
          vm_witness := s.(vm_witness);
          vm_certified := s.(vm_certified) |}
 (** step_ljoin: Reserve the cost of joining two certificates.
-    Current hardware-aligned semantics do not compare certificate strings or touch
-    CSR state. The step advances and charges S mu_delta. *)
+    The step does not compare certificate strings or touch CSR state. It
+    advances and charges S mu_delta. *)
 | step_ljoin : forall s c1reg c2reg cost,
     vm_step s (instr_ljoin c1reg c2reg cost)
       (advance_state s (instr_ljoin c1reg c2reg cost)
@@ -2004,7 +2005,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     x, y ∈ {0,1} are measurement settings; a, b ∈ {0,1} are outcomes.
     wc' is the updated WitnessCounts with the appropriate bucket incremented.
     The CHSH inequality is NOT checked here. That's for CHSHStatisticalBridge.v.
-    Here we just record the trial into the unforgeable witness counters.
+    This step records the trial into the unforgeable witness counters.
     μ-cost is charged. Cost can be 0 for CHSH trials because they are not cert-setters. *)
 | step_chsh_trial_ok : forall s x y a b cost wc',
     chsh_bits_ok x y a b = true ->
@@ -2109,8 +2110,8 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_ret cost)
       (jump_state_rm s (instr_ret cost) ret_pc regs' s.(vm_mem))
 (** ---------------------------------------------------------------
-    GF(2) / bit-linear operations for partition and info work.
-    XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK: all reversible.
+    GF(2) / bit-linear operations.
+    XOR_ADD and XOR_SWAP are reversible; XOR_LOAD and XOR_RANK overwrite dst.
     --------------------------------------------------------------- *)
 (** step_xor_load: Load from absolute address `addr` (not register-indirect).
     Despite the XOR name, this is just a plain load. No XOR involved. *)
@@ -2129,15 +2130,14 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
       (advance_state_rm s (instr_xor_add dst src cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
 (** step_xor_swap: Swap registers a and b. Uses swap_regs which does two
-    in-place writes. Fredkin gate primitive, reversible. *)
+    in-place writes. Reversible. *)
 | step_xor_swap : forall s a b cost regs',
     regs' = swap_regs s.(vm_regs) a b ->
     vm_step s (instr_xor_swap a b cost)
       (advance_state_rm s (instr_xor_swap a b cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
 (** step_xor_rank: Population count (Hamming weight) of src. dst = popcount(src).
-    Counts the number of 1-bits in the 64-bit value. Used for measuring
-    information density in partition region bitfields. *)
+    Counts the number of 1-bits in the 64-bit value. *)
 | step_xor_rank : forall s dst src cost regs' vsrc,
     vsrc = read_reg s src ->
     regs' = write_reg s dst (word64_popcount vsrc) ->
@@ -2152,8 +2152,8 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
       (advance_state s (instr_checkpoint label cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
 (** step_read_port: Read `value` from external channel `channel_idx` into dst.
-    The value is baked into the instruction at decode time (the IOEnvironment
-    oracle does this). So execution is deterministic given the instruction stream.
+    The value is part of the instruction, so execution is deterministic
+    given the instruction stream.
     Cost: bits + S mu_delta. Cert-setter, always ≥ 1 regardless of mu_delta. *)
 | step_read_port : forall s dst channel_idx value bits cost regs',
     regs' = write_reg s dst value ->
@@ -2230,8 +2230,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
       (advance_state_rm s (instr_mul dst rs1 rs2 cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
 (** step_lui: Load upper immediate. dst = imm << 8. Same shift-and-load pattern
-    as RISC-V LUI, but the shift amount is 8 (not 12). Used to build 16-bit constants
-    with a subsequent LOAD_IMM for the low 8 bits. *)
+    as RISC-V LUI, but the shift amount is 8 (not 12). *)
 | step_lui : forall s dst imm cost regs',
     regs' = write_reg s dst (word64_shl imm 8) ->
     vm_step s (instr_lui dst imm cost)
@@ -2300,8 +2299,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     MORPH_ID, MORPH_TENSOR, MORPH_GET) or just advance state (MORPH_DELETE,
     MORPH_ASSERT). All charge μ-cost regardless of outcome.
 
-    Proven in CategoryLaws.v, CategoryBridge.v, and ThieleCanonicality.v.
-    Zero Admitted for all 7 opcodes.
+    The category laws are proved in CategoryLaws.v and CategoryBridge.v.
     --------------------------------------------------------------- *)
 (** step_morph_ok: Both modules exist. Add a morphism and return its ID in dst. *)
 | step_morph_ok : forall s dst src_mod dst_mod coupling_idx cost src_ms dst_ms graph' morph_id,
@@ -2410,9 +2408,10 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     the sole cert_addr writer; CHSH_LASSERT signals its success via PC
     advance + vm_err staying false, which is exactly the same trap discipline
     LASSERT uses). μ-cost is [S mu_delta] regardless of outcome (cert-setter
-    discipline). The bridge theorem
-    [chsh_lassert_no_trap_implies_column_contractive] (see
-    MuLedgerQuantumBridge.v) operates on this observable signature. *)
+    discipline). The bridge theorems
+    [MuLedgerQuantumBridge.chsh_lassert_no_trap_implies_state_column_contractive]
+    and [QuantumPartitionPSD.chsh_lassert_no_trap_implies_npa_psd] operate on
+    this observable signature. *)
 | step_chsh_lassert_ok : forall s mu_delta,
     column_contractive_check_witness s.(vm_witness) = true ->
     vm_step s (instr_chsh_lassert mu_delta)
@@ -3845,8 +3844,7 @@ Qed.
     But it raises a question: does the μ-cost depend on what the environment returns?
 
     It doesn't. The three theorems below prove it. Cost = bits + S mu_delta,
-    regardless of which environment produced the value. This closes the
-    "I/O port oracle" gap.
+    regardless of which environment produced the value.
 
     IOEnvironment: maps channel indices to the values they supply. *)
 Definition IOEnvironment := nat -> nat.

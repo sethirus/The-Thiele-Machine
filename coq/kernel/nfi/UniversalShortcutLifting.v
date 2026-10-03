@@ -19,12 +19,11 @@
     channel could only have fired via a successful cert-setter" and is
     needed to discharge the decision-tree depth condition.
 
-    What this closes: the §20 open piece called the "open translation
-    theorem" asks whether every informal structural shortcut packages
-    as a [SoundStructuralShortcut]. This file proves the lifting for
-    the cert-setter family of informal shortcuts: any successful trace
-    that lifts a state from clean to supra-certified, with no error,
-    is in that class. *)
+    The open translation question asks whether every informal structural
+    shortcut packages as a [SoundStructuralShortcut]. This file proves the
+    lifting for the cert-setter family of informal shortcuts: any
+    successful trace that lifts a state from clean to supra-certified, with
+    no error, is in that class. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool String.
 Import ListNotations.
@@ -39,7 +38,7 @@ From Kernel Require Import StructuralAdvantageObservedShortcut.
 Import RevelationProof.
 
 (** Running the VM on an empty trace returns the state unchanged. This
-    lets us derive [trace <> []] from the assumption that the trace
+    allows deriving [trace <> []] from the assumption that the trace
     fired the supra-cert channel from a clean initial state. *)
 Lemma run_vm_nil_id :
   forall (fuel : nat) (s : VMState), run_vm fuel [] s = s.

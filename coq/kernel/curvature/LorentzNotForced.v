@@ -29,7 +29,7 @@
     separate limitation: Lorentz symmetry specifically requires geometric
     structure beyond cones.)
 
-    What we can prove (and what is used everywhere) is purely:
+    What is provable (and what is used everywhere) is purely:
     - cones are syntactically determined by instr_targets recursion
     - no-signaling is stated relative to that cone
 
@@ -68,7 +68,7 @@ Definition stutter (region : list nat) (cost : nat) (t : list vm_instruction)
   instr_pnew region cost :: t.
 
 (* The fact that [causal_cone (stutter region cost t) = causal_cone t] holds
-   by [unfold stutter; simpl; reflexivity] — [instr_pnew] is matched-skipped
+   by [unfold stutter; simpl; reflexivity]; [instr_pnew] is matched-skipped
    inside [causal_cone] by definition. The caller below uses it inline. *)
 
 (** Witness that the kernel's cone notion admits a strictly nontrivial

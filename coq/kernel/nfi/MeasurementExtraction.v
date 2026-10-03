@@ -48,7 +48,7 @@ From Coq Require Import Bool Arith.PeanoNat Lia.
     Notational convention:
     - cr_outcomes s x y returns (a, b): Alice's outcome a, Bob's outcome b
     - cr_cost x is the cost of a query with Alice setting x
-      (we keep this one-sided for simplicity; the full version would have
+      (this is one-sided for simplicity; the full version would have
       separate Alice- and Bob-cost functions; the result below does not
       need that generality)
 *)
@@ -142,8 +142,8 @@ Definition cr_no_signalling (CR : CorrelatedResource) : Prop :=
     case. The no-signalling case is already covered, axiom-free, by this
     theorem. Whether a probabilistic / non-deterministic no-signalling
     resource (the actual physical PR-box, modulo shared randomness)
-    likewise fails RAC requires a more general formulation we do not
-    pursue here.
+    likewise fails RAC requires a more general formulation, not
+    pursued here.
 *)
 Theorem cr_no_signalling_implies_no_perfect_rac :
   forall (CR : CorrelatedResource),
@@ -205,7 +205,7 @@ Qed.
     The deterministic per-state model above cannot express the physical
     PR-box, which is no-signalling at the level of *marginal distributions*
     over shared randomness rather than at the level of individual states.
-    We introduce a relational variant: at each state and pair of settings,
+    This section introduces a relational variant: at each state and pair of settings,
     a set of (a, b) outcomes is admissible, not a single one.
 
     The relational PR-box is honest: the relation
@@ -260,7 +260,7 @@ Definition prbox_rel
 
 Definition prbox_relational : RelationalResource :=
   mk_relational_resource
-    unit         (* rr_state — irrelevant for PR-box; the constraint is state-free *)
+    unit         (* rr_state, irrelevant for PR-box; the constraint is state-free *)
     tt           (* rr_init *)
     prbox_rel    (* rr_outcomes *)
     (fun _ => 0) (* rr_cost = 0 *)
@@ -298,12 +298,12 @@ Proof. intro x. reflexivity. Qed.
 (** *** CONSEQUENCE: the deterministic no-signalling theorem does NOT lift.
 
     The relational PR-box is no-signalling, has zero cost, and satisfies
-    relational RAC success. In the deterministic case our theorem above
+    relational RAC success. In the deterministic case the theorem above
     forced a contradiction from these conditions; in the relational case
     no contradiction is available.
 
-    Without a stronger physicality precondition (which we do NOT
-    postulate here), the relational PR-box is consistent. The
+    Without a stronger physicality precondition (which is NOT
+    postulated here), the relational PR-box is consistent. The
     deterministic theorem is genuine progress but it does not close
     the question. *)
 Theorem relational_prbox_is_consistent :
@@ -650,7 +650,7 @@ Qed.
     bound used in the tightness theorem below; the reflexivity proof
     is the right shape because the count reduces to a definitional
     computation. *)
-(* SCOPE NOTE: intentionally arithmetic — see the comment above. *)
+(* SCOPE NOTE: intentionally arithmetic; see the comment above. *)
 Lemma classical_witness_count : rac_success_count classical_witness = 6.
 Proof.
   reflexivity.
@@ -678,9 +678,9 @@ Qed.
     no-signalling deterministic resource. The PR-box achieves 4 (all four
     cells match its constraint).
 
-    This is the bool-valued, deterministic-CR analog of the kernel's
-    [chsh_local_bound] (in [kernel/quantum/CHSH.v]), which proves the
-    same statement in Q-arithmetic on lists of CHSH trials. *)
+    The kernel's integer counterpart is [local_strategy_chsh_between_neg2_2]
+    (in [kernel/quantum/CHSH.v]): for every local deterministic response
+    table, -2 <= S <= 2. *)
 
 Definition prbox_match_count (CR : CorrelatedResource) : nat :=
     (if Bool.eqb (cr_alice CR (cr_init CR) false false)

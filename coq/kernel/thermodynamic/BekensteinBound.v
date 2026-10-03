@@ -3,13 +3,12 @@
     The existing [BekensteinCalibration.v] proves the *rearrangement*
     [bekenstein_rindler_energy_per_bit]: given Bekenstein saturation
     [E = T_Unruh × n × k_B × ln 2], one reads off [E/n = T_Unruh × k_B × ln 2].
-    That is pure algebra around an *assumed* saturation. The file's
-    own docstring acknowledges this: "this is the algebraic identity
-    given saturation."
+    That is pure algebra around an *assumed* saturation, as that file's
+    own docstring states.
 
     This file pushes one notch further: from two more primitive named
-    ingredients — the second law for a thermal region, and the Unruh
-    formula relating temperature to Rindler radius — the textbook
+    ingredients (the second law for a thermal region, and the Unruh
+    formula relating temperature to Rindler radius), the textbook
     Bekenstein bound
 
         S_bits ≤ 2π · E · R / (ℏ · c · ln 2)
@@ -60,7 +59,7 @@ From Coq Require Import Reals Lra.
 
 Local Open Scope R_scope.
 
-(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER. The Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    The constants hbar, c_light, k_B, R_radius, E_total are physical
@@ -72,7 +71,7 @@ Local Open Scope R_scope.
    Section discharges them as explicit preconditions on each theorem. *)
 Section BekensteinDerivation.
 
-  (** ** Section 1 — physical constants and region parameters. *)
+  (** ** Section 1: physical constants and region parameters. *)
 
   Variable hbar c_light k_B : R.
   Variable R_radius : R.
@@ -84,7 +83,7 @@ Section BekensteinDerivation.
   Hypothesis R_pos : 0 < R_radius.
   Hypothesis E_pos : 0 < E_total.
 
-  (** ** Section 2 — Unruh temperature at proper distance R.
+  (** ** Section 2: Unruh temperature at proper distance R.
 
       A Rindler observer at proper distance [R_radius] from a horizon
       has proper acceleration [a = c² / R] and Unruh temperature
@@ -110,14 +109,14 @@ Section BekensteinDerivation.
     apply Rinv_0_lt_compat. exact Hden.
   Qed.
 
-  (* SCOPE NOTE: SECTION PARAMETER (continued) — the
+  (* SCOPE NOTE: SECTION PARAMETER (continued). The
      system_entropy_nats Variable below and its nonnegativity Hypothesis,
      together with the second_law Hypothesis, are section parameters
      that become EXPLICIT FORALL premises when the Section closes. They
      are the thermodynamic preconditions for the Bekenstein bound; not
      global axioms. *)
 
-  (** ** Section 3 — second law for a thermal region (named hypothesis).
+  (** ** Section 3: second law for a thermal region (named hypothesis).
 
       The system in the bounded region has some thermodynamic entropy
       S_thermo (in J/K). The standard thermodynamic bound says: at
@@ -138,7 +137,7 @@ Section BekensteinDerivation.
   Hypothesis second_law :
     unruh_temperature_of_radius * k_B * system_entropy_nats <= E_total.
 
-  (** ** Section 4 — entropy in bits.
+  (** ** Section 4: entropy in bits.
 
       [S_bits = S_nats / ln 2]. This is the standard bits/nats
       conversion, a pure-math definition. *)
@@ -148,7 +147,7 @@ Section BekensteinDerivation.
   Lemma ln_2_pos_local : 0 < ln 2.
   Proof. rewrite <- ln_1. apply ln_increasing; lra. Qed.
 
-  (** ** Section 5 — headline: the Bekenstein bound.
+  (** ** Section 5. Headline: the Bekenstein bound.
 
       Composing the Unruh definition with the second law and dividing
       by [ln 2] (for the bits conversion):
@@ -226,7 +225,7 @@ Section BekensteinDerivation.
 End BekensteinDerivation.
 
 (** Print Assumptions on the headline should report only the standard
-    [Coq.Reals] axioms — no project-local axiom is introduced. The two
+    [Coq.Reals] axioms; no project-local axiom is introduced. The two
     named substrate inputs (the Unruh formula and the second law) are
     discharged as Section variables, so they appear in the theorem
     statement as explicit [forall] premises rather than as global

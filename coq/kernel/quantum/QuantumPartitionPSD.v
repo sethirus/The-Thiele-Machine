@@ -40,7 +40,7 @@ Local Open Scope R_scope.
     trace_column_contractive predicate computed at the initial state
     agrees with the one after run_vm. The helper [run_vm_stuck_local]
     proves the halt, and the main lemma rewrites the trace_column
-    predicate using it — engaging the stuck hypothesis [Hstuck]. *)
+    predicate using it, engaging the stuck hypothesis [Hstuck]. *)
 Lemma run_vm_stuck_local :
   forall n trace (s : VMState),
     nth_error trace s.(vm_pc) = None ->
@@ -240,7 +240,7 @@ Qed.
 
     WHAT THIS MEANS FOR THE THIELE MACHINE:
     The VM records CHSH_TRIAL outcomes. The npa_psd predicate
-    (PSD of NPA matrix) is CHECKABLE from the recorded data — it does not
+    (PSD of NPA matrix) is CHECKABLE from the recorded data; it does not
     require additional quantum machinery. The CERTIFY opcode (with nonzero
     μ-cost) formalises the act of certifying this PSD condition.
 
@@ -249,7 +249,7 @@ Qed.
     and Bob modules. Classical independent outputs (after PSPLIT, μ = 0 for
     CHSH_TRIAL) give rank-1 correlation matrices, which have CHSH ≤ 2
     (proven in MinorConstraints.v). To violate the classical bound (CHSH > 2),
-    the source must be quantum-entangled — requiring the bipartite partition
+    the source must be quantum-entangled, requiring the bipartite partition
     to have been prepared via a quantum channel, which costs μ > 0 (by NoFI).
     Once the NPA-PSD certificate is verified, Tsirelson ≤ 2√2 follows. □ *)
 

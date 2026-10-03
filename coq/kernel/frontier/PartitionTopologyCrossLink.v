@@ -1,4 +1,4 @@
-(** * F3_PartitionTopologyCrossLink: a cross-link in [MuGravity]
+(** * PartitionTopologyCrossLink: a cross-link in [MuGravity]
 
     A cross-link connecting partition-topology data to the
     MuGravity geometric-defect machinery, written so that no single
@@ -32,13 +32,13 @@
     finite d. The strong bridge is not derivable from kernel
     definitions.
 
-    *** Load-bearing F3 statement (this file).
+    *** Load-bearing calibration cross-link statement (this file).
 
     The cross-link is stated entirely in MuGravity vocabulary. It
     composes
     - [calibration_residual_zero_iff] (geometry↔μ-ledger): at zero
       residual, [angle_defect_curvature s m = PI * mu_laplacian s m].
-    - [F3_MuLaplacianSum.total_mu_laplacian_zero] (graph-structural):
+    - [MuLaplacianSum.total_mu_laplacian_zero] (graph-structural):
       cumulative μ-Laplacian over a partition graph vanishes
       identically (proved by edge-pair antisymmetry).
 
@@ -53,7 +53,7 @@
     sum-zero identity breaks the cancellation. Counterexamples are kept
     as load-bearing checks below.
 
-    *** What this F3 does NOT claim.
+    *** What this cross-link does NOT claim.
 
     - It does NOT predict a topological invariant (no χ in the
       conclusion). The [5πχ] reading depended on identifying the two
@@ -77,7 +77,7 @@
 
     The calibration premise holds on a state the machine reaches from
     init_state only when the state has no modules: there every module's
-    calibration residual is 2π (F3_ReachableGeometry.v,
+    calibration residual is 2π (ReachableGeometry.v,
     reachable_calibrated_iff_no_modules). On reachable states with modules
     the theorem's premise fails; it is a theorem about partition graphs in
     general.
@@ -89,7 +89,7 @@ Import ListNotations.
 From Kernel Require Import VMState VMStep MuCostModel.
 From Kernel Require Import DiscreteTopology DiscreteGaussBonnet.
 From Kernel Require Import MuGravity.
-From Kernel Require Import F3_MuLaplacianSum.
+From Kernel Require Import MuLaplacianSum.
 
 Open Scope R_scope.
 
@@ -143,7 +143,7 @@ Proof.
   lra.
 Qed.
 
-(** ** Headline F3 cross-link.
+(** ** Headline calibration cross-link.
 
     Conclusion is in MuGravity's own angle-defect vocabulary. The
     graph-structural sum-zero identity is what eliminates the
@@ -186,11 +186,14 @@ Proof.
     + intros m' Hm'. apply Hcal. right; exact Hm'.
 Qed.
 
-(** F3 narrow form: cumulative geometric angle defect vanishes on
+(** Narrow form of the calibration cross-link: cumulative geometric angle defect vanishes on
     universally-calibrated states. Composes the local calibration
     bridge ([calibration_residual_zero_iff]) with the structural
-    sum-zero identity ([total_mu_laplacian_zero]). *)
-Theorem F3_partition_topology_mu_cross_link :
+    sum-zero identity ([total_mu_laplacian_zero]). The premise holds on no
+    well-formed triangulated graph with connected links and distinct ids
+    ([CalibrationObstruction.connected_triangulation_not_calibrated]), so on
+    those graphs the theorem has no instances. *)
+Theorem calibrated_total_angle_defect_zero :
   forall s,
     (forall m, In m (map fst (pg_modules (vm_graph s))) ->
                calibration_residual s m = 0%R) ->
@@ -230,15 +233,15 @@ Qed.
 
     This file imports and uses kernel modules across the foundation
     chain:
-    - [VMState], [VMStep], [MuCostModel] — VM semantics and cost ledger.
-    - [DiscreteTopology], [DiscreteGaussBonnet] — kept available for
-      cross-reference; not load-bearing in the F3 narrow form.
-    - [MuGravity] — angle-defect, calibration_residual, mu_laplacian.
-    - [F3_MuLaplacianSum] — cumulative μ-Laplacian sum-zero identity.
+    - [VMState], [VMStep], [MuCostModel]: VM semantics and cost ledger.
+    - [DiscreteTopology], [DiscreteGaussBonnet]: kept available for
+      cross-reference; not load-bearing in the narrow form.
+    - [MuGravity]: angle-defect, calibration_residual, mu_laplacian.
+    - [MuLaplacianSum]: cumulative μ-Laplacian sum-zero identity.
 
-    The F3 narrow form is therefore not an abstract real-arithmetic
+    The narrow form is therefore not an abstract real-arithmetic
     identity: it composes [MuGravity.calibration_residual_zero_iff]
-    (geometry↔μ-ledger) and [F3_MuLaplacianSum.total_mu_laplacian_zero]
+    (geometry↔μ-ledger) and [MuLaplacianSum.total_mu_laplacian_zero]
     (graph-structural cancellation) on the same partition graph.
 *)
 
@@ -249,14 +252,14 @@ Qed.
     partition graph with an actual triangle that satisfies that premise, so
     the headline is stated as a conditional. On well-formed triangulated
     graphs with connected vertex links and distinct module identifiers the
-    premise is uninhabited: [F3_CalibrationObstruction.F3_calibration_obstruction]. *)
+    premise is uninhabited: [CalibrationObstruction.connected_triangulation_not_calibrated]. *)
 
 (** ** Print Assumptions sanity.
 
     All theorems above are [Closed under the global context] modulo
     Coq's standard [Reals] axioms ([ClassicalDedekindReals.sig_not_dec],
-    [sig_forall_dec], [FunctionalExtensionality.functional_extensionality_dep])
-    — the same axiom set as [F3_MuLaplacianSum.total_mu_laplacian_zero]
+    [sig_forall_dec], [FunctionalExtensionality.functional_extensionality_dep]).
+    This is the same axiom set as [MuLaplacianSum.total_mu_laplacian_zero]
     and [MuGravity.calibration_residual_zero_iff]. No project-local
     axioms.
 

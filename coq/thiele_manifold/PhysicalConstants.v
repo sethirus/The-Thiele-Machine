@@ -14,14 +14,14 @@ From ThieleManifold Require Import ThieleManifoldBridge.
 Import ListNotations.
 Local Open Scope R_scope.
 
-(* SCOPE NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section, parameterized theorem.
    decodes_to and produces_own_payload are abstract external predicates
    instantiated by the Python harness. All theorems export as explicit
    forall premises when section closes. *)
 Section Constants.
   Variable N : nat.
 
-  (** Abstract external predicates — instantiated by the Python sampling
+  (** Abstract external predicates: instantiated by the Python sampling
       harness.  The actual decode/execute cycle lives outside Coq. *)
   Variable decodes_to : list bool -> Prog -> Prop.
   Variable produces_own_payload : Prog -> list bool -> Prop.
@@ -42,7 +42,7 @@ Section Constants.
       decodes_to bits p /\
       produces_own_payload p bits.
 
-  (** Counting functions – external measurements of program density. *)
+  (** Counting functions: external measurements of program density. *)
   Definition volume_spacetime (n : nat) : R :=
     INR (Nat.pow 2 n).
 

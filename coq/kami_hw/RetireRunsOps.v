@@ -3,7 +3,7 @@
 
     The step firing is selected at a live boundary ([live_step_runs]); each
     theorem below is the busy part after it. [compose_ext_runs],
-    [morph_ext_runs]: the coupling FSM run. [chsh_lassert_runs]: 23 CHSH FSM
+    [morph_ext_runs]: the coupling FSM run. [chsh_lassert_runs]: 29 CHSH FSM
     firings. [lassert_sat_runs]: the header firing and the scan loop, with the
     scan count of [lassert_sat_refines]. Single-cycle instructions have an
     empty busy part. *)

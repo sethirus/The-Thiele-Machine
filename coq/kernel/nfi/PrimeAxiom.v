@@ -1,18 +1,18 @@
 (** PrimeAxiom: State-based No Free Insight on the Kernel VM
 
-    A NOTE ON THE NAME: this file declares ZERO Coq `Axiom`s — grep it and you
+    A NOTE ON THE NAME: this file declares ZERO Coq `Axiom`s; grep it and you
     find only `Lemma`/`Theorem`/`Qed`. "Axiom" in the filename is meant in the
     older sense of a *foundational law* (the "prime axiom" of the system),
-    namely No Free Insight. That law is PROVEN here, not assumed. In a repo that
-    advertises zero project-local axioms, the filename is a historical label,
-    not a counterexample to the claim.
+    namely No Free Insight. That law is PROVEN here, not assumed. In a repo
+    that advertises zero project-local axioms, the filename is a name, not
+    a counterexample to the claim.
 
     No Free Insight is the central economic law of the Thiele Machine:
     certification cannot be obtained without paying mu-cost. This file
     proves that law directly on the kernel VM by case-splitting over all
     51 instructions.
 
-    THE The key theorem: vm_certified = true implies vm_mu > 0.
+    The key theorem: vm_certified = true implies vm_mu > 0.
 
     This is the state-based formulation of No Free Insight:
     CERTIFY is the ONLY instruction that sets vm_certified to true,
@@ -27,7 +27,7 @@
     at least S 0 = 1 unit of mu. The single_step theorem would then fail
     its case split, and the multi-step induction would collapse.
     Alternatively, find a run_vm trace that reaches certified=true with
-    mu=0 -- this would directly contradict kernel_certified_implies_positive_mu.
+    mu=0; this would directly contradict kernel_certified_implies_positive_mu.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
@@ -90,8 +90,8 @@ Proof.
   intros s delta_mu. simpl. reflexivity.
 Qed.
 
-(** Single-step version: if we start uncertified with mu=0 and
-    one instruction makes us certified, then mu > 0 afterward. *)
+(** Single-step version: if a state starts uncertified with mu=0 and
+    one instruction certifies it, then mu > 0 afterward. *)
 Theorem single_step_certified_implies_positive_mu :
   forall s instr,
     s.(vm_certified) = false ->
@@ -110,7 +110,7 @@ Qed.
     and reaches a certified state, then mu > 0 at that point.
 
     Strategy: induction on fuel. At each step, either the instruction certifies
-    (and we use single_step + monotonicity) or it doesn't (and we recurse).
+    (then single_step + monotonicity apply) or it doesn't (then recurse).
     The key observation: non-certify instructions preserve vm_certified=false
     (by vm_apply_certified) and vm_mu >= 0 (all costs are nat). *)
 Theorem kernel_certified_implies_positive_mu :
@@ -126,11 +126,11 @@ Proof.
     destruct (nth_error program (vm_pc s0)) as [instr|] eqn:Hlook.
     + set (s1 := vm_apply s0 instr) in *.
       destruct (Bool.bool_dec s1.(vm_certified) true) as [Hcert1|Hcert1].
-      * (* s1 is certified — single_step gives mu > 0, monotonicity gives final mu > 0 *)
+      * (* s1 is certified: single_step gives mu > 0, monotonicity gives final mu > 0 *)
         assert (Hmu1 : 0 < s1.(vm_mu)).
         { apply (single_step_certified_implies_positive_mu s0 instr Huncert Hmu0 Hcert1). }
         pose proof (run_vm_mu_nondecreasing fuel' program s1). lia.
-      * (* s1 not certified — need s1.certified=false and s1.mu=0 for IH *)
+      * (* s1 not certified: need s1.certified=false and s1.mu=0 for IH *)
         apply Bool.not_true_iff_false in Hcert1.
         assert (Hmu1 : s0.(vm_mu) <= s1.(vm_mu)).
         { unfold s1. apply vm_apply_mu_nondecreasing. }

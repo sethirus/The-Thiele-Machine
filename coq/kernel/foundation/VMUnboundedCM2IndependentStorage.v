@@ -1,16 +1,15 @@
-(** B2c: independently usable storage and control, under unchanged ISA
+(** Independently usable storage and control, under unchanged ISA
     semantics, sufficient for the chosen universal simulation (CM2/MM2).
 
-    The B3 interpreter files already show, instruction by instruction, that
-    an Inc0/DecJump0 host execution leaves counter 1's represented value
-    syntactically untouched, and dually for counter 1.  What is missing
-    from those files is a statement that this pair of registers is not
-    merely non-interfering at a single step, but supplies unbounded,
-    jointly independent storage: any pair (n, m) of natural numbers is
-    reachable, with each coordinate driven solely by its own instruction
-    count, in one real proven host execution.  This file supplies that
-    statement, built from the existing CM2 program/run semantics and the
-    existing interpreter simulation theorem; it adds no new VM semantics. *)
+    The interpreter files show, instruction by instruction, that an
+    Inc0/DecJump0 host execution leaves counter 1's represented value
+    syntactically untouched, and dually for counter 1.  This file states
+    that the pair of registers supplies unbounded, jointly independent
+    storage: any pair (n, m) of natural numbers is reachable, with each
+    coordinate driven solely by its own instruction count, in one real
+    proven host execution.  It is built from the existing CM2 program/run
+    semantics and the existing interpreter simulation theorem; it adds no
+    new VM semantics. *)
 
 From Coq Require Import Arith Lia List.
 Import ListNotations.
@@ -133,11 +132,11 @@ Lemma cm2_reach_pair_fits : forall n m,
     (repeat CM2_Inc0 n ++ repeat CM2_Inc1 m).
 Proof. intros n m. apply cm2_program_fits_encoding_width. Qed.
 
-(** B2c closure on the real machine: starting from the canonical initial
+(** On the real machine: starting from the canonical initial
     boundary state for this program, there is a real, finite, actually
     proven host execution (via [run_vm_u] of the fixed [cm2_interpreter_program])
     after which the register file represents exactly the independently
-    chosen pair (n, m) -- for every n, m, not merely a fixed example. Each
+    chosen pair (n, m), for every n, m, not merely a fixed example. Each
     counter's final value is controlled solely by its own instruction
     count, under the unchanged ISA and the unchanged fixed interpreter. *)
 Theorem vm_storage_reaches_arbitrary_independent_pair :

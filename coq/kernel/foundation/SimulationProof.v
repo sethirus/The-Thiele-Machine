@@ -2,7 +2,7 @@
 
     The Thiele Machine has two execution views: the abstract kernel Turing
     machine (Kernel.v / KernelTM.v / KernelThiele.v) and the concrete VM with
-    46 typed instructions (VMStep.v). This file connects those views, but be
+    51 typed instructions (VMStep.v). This file connects those views, but be
     precise about what is proven here.
 
     The hard facts:
@@ -11,11 +11,9 @@
     - vm_step_deterministic proves the step relation has no branching ambiguity.
     - vm_exec_run_vm proves the relational execution matches run_vm.
 
-    The TM-level compilation lemmas below currently use canonical encoded kernel
-    states as witnesses instead of replaying every compiled tape instruction.
-    That is intentional and documented at each lemma. If you want full replay
-    of compile_increment_pc / compile_add_mu / compile_vm_operation, those are
-    the lemmas to strengthen.
+    The TM-level compilation lemmas below use canonical encoded kernel
+    states as witnesses; they do not replay the compiled tape instructions
+    of compile_increment_pc, compile_add_mu or compile_vm_operation.
 
     vm_step and vm_apply agree. That gives deterministic VM execution. The
     refinement lemmas then show that the final VM state can be represented as
@@ -58,7 +56,7 @@ Definition states_related_for_execution (s_vm : VMState) (s_kernel : state) : Pr
 
     These are field-projection functions on the [states_related]
     conjunction, expressed as [Definition] with explicit proof terms
-    rather than [Lemma]. They are not derivations — they are the
+    rather than [Lemma]. They are not derivations. They are the
     canonical record-projection API. The [Definition] form makes the
     projection nature syntactically obvious: [match H with conj _ ... =>
     ... end] is literally what the proof does. Downstream code uses
@@ -1072,9 +1070,9 @@ Lemma compile_increment_pc_correct :
            head := s_vm'.(vm_pc);
            tm_state := s_vm'.(vm_pc);
            mu_cost := s_vm'.(vm_mu) |}.
-(* NOTE: Until the full TM-level simulation proof is mechanized, we provide a
-   canonical encoded kernel state witnessing the incremented program counter
-   rather than replaying the compiled `compile_increment_pc` trace. *)
+(* The witness is a canonical encoded kernel state carrying the incremented
+   program counter; the compiled `compile_increment_pc` trace is not
+   replayed. *)
 Proof.
   intros s_kernel s_vm _.
   refine (ex_intro _ {| vm_graph := s_vm.(vm_graph);
@@ -1129,9 +1127,8 @@ Lemma compile_add_mu_correct :
          head := s_vm'.(vm_pc);
          tm_state := s_vm'.(vm_pc);
          mu_cost := s_vm'.(vm_mu) |}.
-(* NOTE: Until the tape-level simulation of [compile_add_mu] is mechanized, we
-   provide the canonical encoded state witnessing the updated μ-balance rather
-   than replaying the compiled unary increment trace. *)
+(* The witness is the canonical encoded state carrying the updated
+   μ-balance; the compiled unary increment trace is not replayed. *)
 Proof.
   intros delta s_kernel s_vm _ s_vm'.
   unfold states_related.
@@ -1222,9 +1219,8 @@ Lemma vm_step_kernel_simulation :
     vm_step s_vm instr s_vm' ->
     exists s_kernel',
       states_related_for_execution s_vm' s_kernel'.
-(* NOTE: Until the individual compilation lemmas are fully mechanized, we
-   provide a canonical encoded kernel state witnessing the simulation
-   relation instead of replaying the compiled trace. *)
+(* The witness is a canonical encoded kernel state satisfying the
+   simulation relation; the compiled trace is not replayed. *)
 Proof.
   intros trace s_vm s_kernel instr s_vm' _ _ _.
   exists {| tape := encode_vm_state_to_tape s_vm';
@@ -1237,18 +1233,6 @@ Proof.
   rewrite <- app_nil_r with (l := encode_vm_state s_vm').
   apply decode_vm_state_correct.
 Qed.
-
-(* Lemma run_thiele_unfold :
-  forall fuel prog st,
-    KernelThiele.run_thiele (S fuel) prog st =
-    match fetch prog st with
-    | T_Halt => st
-    | _ => KernelThiele.run_thiele fuel prog (step_thiele prog st)
-    end.
-Proof.
-  intros fuel prog st.
-  reflexivity.
-Qed. *)
 
 (** vm_exec_simulation: a VM execution has a canonical related kernel-state witness. *)
 Lemma vm_exec_simulation :
@@ -1297,14 +1281,13 @@ Qed.
 
 (** ** Agent Trust: Concrete Löb Bypass via pnew_chain
 
-    The abstract tiling chain (self_reference/TilingChain.v) proves that
-    recursive self-improvement is safe when each step costs μ.  This
-    section grounds that abstract framework in the Thiele Machine's
-    concrete vm_apply and PartitionGraph.
+    The tiling chain (self_reference/TilingChain.v) composes trust
+    certificates along a finite chain in which every link pays its μ-cost.
+    This section states the same shape over the Thiele Machine's concrete
+    vm_apply and PartitionGraph.
 
-    pnew_chain is a plain Fixpoint that extracts directly to OCaml
-    alongside vm_apply.  Both extraction paths must produce the same
-    function. This file is the kernel-layer definition. *)
+    pnew_chain is a plain Fixpoint that extracts to OCaml alongside
+    vm_apply. This file is the kernel-layer definition. *)
 
 (** vm_apply on PNEW, PSPLIT and PMERGE, written as the partition step state. *)
 Lemma vm_apply_pnew_eq :

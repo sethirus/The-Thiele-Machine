@@ -1,30 +1,18 @@
-(** StateSpaceCounting: Proving mu-cost bounds information gained
+(** StateSpaceCounting: LASSERT's charge against the formula it reads
 
-    This file establishes the quantitative information-theoretic lower bound
-    on mu-cost: when you narrow a search space from Omega possibilities to
-    Omega' possibilities, you must pay mu-cost >= log2(Omega/Omega').
+    LASSERT charges [instruction_cost] = flen * 8 + S mu_delta, so every
+    LASSERT step pays at least eight ledger units per declared formula word
+    ([mu_increase_bounds_axiom_bits]). On a step that does not trap, the
+    declared flen is the length of the formula in memory
+    ([lassert_honest_cost]), so the charge is eight units per word the
+    checker read ([mu_increase_bounds_actual_formula_bits],
+    [lassert_honest_mu_cost]).
 
-    THE QUANTITATIVE CLAIM:
-    When you narrow a search space from Omega possibilities to Omega' possibilities,
-    you must pay mu-cost >= log2(Omega/Omega'). This is the information-theoretic
-    minimum. You can't cheat. You can't get logarithmic space reduction
-    without paying logarithmic information cost.
-
-    Computing the EXACT reduction |Omega|->|Omega'| requires model counting, which is
-    #P-complete (counting SAT solutions is harder than deciding SAT). I can't
-    solve #P-complete problems at runtime to compute costs.
-
-    THE CONSERVATIVE SOLUTION:
-    The Coq kernel semantics enforce a SAFE UPPER BOUND via instruction_cost:
-    - before_count = 2^num_vars (all possible truth assignments)
-    - after_count = 1 (assume SINGLE solution)
-    - mu_delta = formula_bits + num_vars
-
-    This GUARANTEES delta_mu >= log2(2^n/actual_count) for ANY actual_count >= 1.
-    It may OVERCHARGE when multiple solutions exist, but it NEVER undercharges.
-
-    Find a way to reduce search space by factor F without paying >= log2(F) mu-cost.
-    You can't. The bound is information-theoretic.
+    The file also proves the arithmetic fact k >= log2 (2^k)
+    ([nofreeinsight_information_theoretic_bound]). The kernel does not
+    count models: no theorem here relates the charge to the number of
+    assignments a formula rules out, and the ledger units are not
+    identified with physical bits.
 *)
 
 From Coq Require Import List Lia Arith.PeanoNat Bool String.
@@ -79,7 +67,7 @@ Proof.
   intros. simpl. reflexivity.
 Qed.
 
-(** Quantitative No Free Insight — encoded-length lower bound
+(** Quantitative No Free Insight: encoded-length lower bound
 
   PROVEN: Every LASSERT step pays at least the encoded formula bit length.
     No precondition on cost. The bound follows from instruction_cost alone.
@@ -90,10 +78,10 @@ Qed.
   in-memory formula length header by the runtime guard
   [lassert_exec_ok], which checks
   [Nat.eqb (lassert_hw_flen s fa) flen]. The companion theorem
-  [mu_increase_bounds_actual_formula_bits] (below, line 128) discharges
+  [mu_increase_bounds_actual_formula_bits] (below) discharges
   this bridge: under [lassert_exec_ok = true], delta_mu is bounded by
-  [lassert_hw_flen s fa * 8], i.e. the bit count of the heap-resident
-  formula header itself rather than the programmer's declared field.
+  [lassert_hw_flen s fa * 8], eight times the formula length in the
+  heap-resident header rather than the programmer's declared field.
 
     The inequality chain:
     - delta_mu = flen * 8 + S cost >= flen * 8
@@ -155,7 +143,7 @@ Proof.
   induction k.
   - simpl. auto.
   - (* Goal: Nat.log2 (2^(S k)) = S k *)
-    (* We have: 2^(S k) = 2 * 2^k *)
+    (* Known: 2^(S k) = 2 * 2^k *)
     assert (Heq: 2 ^ S k = 2 * 2 ^ k) by (simpl; reflexivity).
     rewrite Heq.
     (* Apply log2_double: log₂(2n) = S (log₂ n) when n ≥ 1 *)
@@ -165,30 +153,11 @@ Proof.
     reflexivity.
 Qed.
 
-(** Corollary: μ-cost >= log₂ of state space reduction (enforced by kernel)
+(** Arithmetic: k >= log2 (2^k).
 
-    The kernel semantics enforce a CONSERVATIVE BOUND on semantic μ-cost:
-
-    For a CNF formula with n variables:
-      - before_count = 2^n (all possible truth assignments)
-      - after_count = 1 (CONSERVATIVE: assumes single solution)
-      - mu_delta = description_bits + log₂(before_count/after_count)
-
-    Why after_count = 1?
-      - Computing exact model count is #P-complete (intractable)
-      - Using after = 1 GUARANTEES μ ≥ log₂(|Ω|/|Ω'|) since:
-        * Actual |Ω'| ≥ 1 for SAT (at least one satisfying assignment)
-        * Our bound log₂(2^n/1) = n ≥ log₂(2^n/|Ω'|) for any |Ω'| ≥ 1
-      - May OVERCHARGE when multiple solutions exist (conservative)
-
-    Given: instruction_cost charges Δμ = |formula| + log₂(2^n / 1) = |formula| + n
-    This is an UPPER BOUND on the true semantic cost.
-    The bound GUARANTEES Δμ ≥ log₂(|Ω|/|Ω'|) without computing #P-complete model count.
-
-    The Coq kernel proves both the structural property (certification requires
-    cert-setter instruction with declared μ-cost) and the conservative bound
-    guaranteeing the semantic property.
-*)
+    If k constraint bits each halve a space of 2^k assignments, the
+    reduction ratio is 2^k and its base-2 logarithm is k. The theorem is
+    that arithmetic identity; it does not mention the VM. *)
 Theorem nofreeinsight_information_theoretic_bound :
   forall k : nat,
     k > 0 ->
@@ -210,27 +179,19 @@ Qed.
 
 (** Main theorem: Combining the pieces
 
-    STRUCTURAL THEOREM (Coq-proven):
-    - μ-cost is at least k bits where k = the encoded formula bit length
+    - every LASSERT step raises μ by at least k = flen * 8
+      ([nofreeinsight_quantitative_lower_bound]);
+    - k >= log2 (2^k) ([nofreeinsight_information_theoretic_bound]).
 
-    SEMANTIC ENFORCEMENT (kernel instruction_cost):
-    - instruction_cost computes before = 2^num_vars
-    - Uses conservative after = 1 (avoids #P-complete model counting)
-    - Charges description_bits + log₂(before/1) = description_bits + n
-    - This GUARANTEES Δμ ≥ log₂(|Ω|/|Ω'|) since after ≤ |Ω'| implies
-      log₂(before/after) ≥ log₂(before/|Ω'|) = log₂(|Ω|/|Ω'|)
-    - Conservative: may overcharge if multiple solutions exist
-
-    The Coq kernel proves both: the structural property (instruction_cost
-    definition in VMStep.v) and the semantic bound (this theorem).
-    The extracted OCaml runner (build/thiele_core.ml) faithfully preserves
-    this cost model.
+    The second conjunct is arithmetic about k. The theorem does not say
+    that a formula of k encoded bits narrows any space of assignments by a
+    factor of 2^k.
 *)
 Theorem no_free_insight_quantitative :
   forall s s' fa ca ck flen cost,
     vm_step s (instr_lassert fa ca ck flen cost) s' ->
     let k := flen * 8 in
-    (** μ-cost is at least k bits — UNCONDITIONAL *)
+    (** μ-cost is at least k bits, UNCONDITIONAL *)
     s'.(vm_mu) - s.(vm_mu) >= k /\
     (** k bits provide at least log₂(2^k) = k bits of state space reduction *)
     k >= log2_nat (Nat.pow 2 k).

@@ -1,5 +1,5 @@
-(** VMUnboundedOpcodeAdd.v — the ADD opcode block: the first actual
-    guest-instruction simulation case for B3, composed from
+(** VMUnboundedOpcodeAdd.v: the ADD opcode block, a guest-instruction
+    simulation case of the self-interpreter, composed from
     get_slot_program/set_slot_program via the embedding infrastructure in
     VMUnboundedInterpreterCompose.v, and proved against the guest's actual
     list-based register file via VMUnboundedGuestEncoding.v.
@@ -9,9 +9,9 @@
     call into R0, since those subroutines clobber R0). R11/R12/R13 hold
     the two unpacked operands and their sum, chosen outside get_slot_program
     /set_slot_program's own clobber set (R0-R10) so back-to-back calls
-    don't destroy each other's results. R15 stays unused (CALL/RET
-    convention, forward compatibility). rs1/rs2/dst are concrete constants
-    for this theorem — decoding them from an actual encoded guest
+    don't destroy each other's results. R15 stays unused (the CALL/RET
+    convention). rs1/rs2/dst are concrete constants
+    for this theorem; decoding them from an actual encoded guest
     instruction is the dispatch loop's job, built separately.
 
     The single 36-step simulation is proved as four phase lemmas (glue1+
@@ -68,7 +68,7 @@ Qed.
 
 (** The three call sites, restated as an explicit prefix ++ P ++ suffix
     split of add_block, each provable by reflexivity since add_block is a
-    fully concrete instruction list once rs1/rs2/dst are given — true
+    fully concrete instruction list once rs1/rs2/dst are given, true
     regardless of how the defining ++-chain associates. *)
 
 Lemma add_block_call1 : forall rs1 rs2 dst,

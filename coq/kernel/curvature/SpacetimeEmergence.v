@@ -20,7 +20,7 @@ From Kernel Require Import VMState VMStep KernelPhysics.
 
 Import ListNotations.
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 Definition Event : Type := VMState.
@@ -448,35 +448,35 @@ Proof.
     destruct (pmerge_ok _ _ _); [|reflexivity].
     rewrite graph_hw_pmerge_lookup_other;
       [reflexivity | exact Hmid_lt | exact Hneq1 | exact Hneq2].
-  (* Goal 4: step_tensor_set_ok — only the target module tensor mutates. *)
+  (* Goal 4: step_tensor_set_ok; only the target module tensor mutates. *)
   - assert (Hneq : mid <> mid0).
     { intro Heq. apply Hnotin. unfold instr_targets. simpl. left. symmetry. exact Heq. }
     simpl.
     enough (graph_lookup (graph_update_module_tensor (vm_graph s) mid0 (i * 4 + j) value) mid =
             graph_lookup (vm_graph s) mid) as -> by reflexivity.
     apply graph_update_module_tensor_preserves_unrelated. exact Hneq.
-  (* Goal 5: step_morph_ok — morph table changes do not affect module lookups. *)
+  (* Goal 5: step_morph_ok; morph table changes do not affect module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     change graph' with (fst (graph', morph_id)).
     rewrite H1.
     apply graph_add_morphism_preserves_lookup.
-  (* Goal 6: step_compose_ok — composing morphisms preserves module lookups. *)
+  (* Goal 6: step_compose_ok; composing morphisms preserves module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     eapply graph_compose_morphisms_preserves_lookup.
     exact H.
-  (* Goal 7: step_morph_id_ok — identity morph creation preserves module lookups. *)
+  (* Goal 7: step_morph_id_ok; identity morph creation preserves module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     eapply graph_add_identity_preserves_lookup.
     exact H.
-  (* Goal 8: step_morph_delete_ok — deleting a morphism preserves module lookups. *)
+  (* Goal 8: step_morph_delete_ok; deleting a morphism preserves module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     eapply graph_delete_morphism_preserves_lookup.
     exact H.
-  (* Goal 9: step_morph_tensor_ok — tensoring morphisms preserves module lookups. *)
+  (* Goal 9: step_morph_tensor_ok; tensoring morphisms preserves module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     eapply graph_tensor_morphisms_preserves_lookup.

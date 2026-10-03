@@ -189,7 +189,7 @@ the injective, revoking case. The door also instantiates No Free Insight
 For 45 of the 49, the specialization discharges every premise, including the
 uniform distribution, compression and entropy pricing, and the blind-window
 price the statements ask for. Four keep a physical premise that no machine
-fact discharges: Landauer heat, and for `F1_strong_form_universal` also its
+fact discharges: Landauer heat, and for `collapse_step_cost_ge_1_from_calibrated_dissipation` also its
 cost calibration. Those four are conditional.
 
 | Event-generic theorem | Specialization | Premises |
@@ -203,7 +203,7 @@ cost calibration. Those four are conditional.
 | `a2_iff_nonnegative_amortized_cost` | `evidence_a2_iff_nonnegative_amortized_cost` | discharged |
 | `certification_system_is_potential_method` | `evidence_certification_system_is_potential_method` | discharged |
 | `nfi_by_potential` | `evidence_nfi_by_potential` | discharged |
-| `F1_strong_form_universal` | `evidence_F1_strong_form_universal` | Landauer premise kept |
+| `collapse_step_cost_ge_1_from_calibrated_dissipation` | `evidence_collapse_step_cost_from_calibrated_dissipation` | Landauer premise kept |
 | `gas_schedule_exactness` | `evidence_gas_schedule_exactness` | discharged |
 | `overcharge_breaks_exactness` | `evidence_overcharge_breaks_exactness` | discharged |
 | `undercharged_opcode_admits_free_commitment` | `evidence_undercharged_opcode_admits_free_commitment` | discharged |
@@ -291,7 +291,7 @@ satisfying a retraction law. One such representative exists:
 enumeration of all traces that reaches it, so the existence form holds outright
 (`generalized_reachable_simulation_holds`). The pick is a search, not a
 program that rebuilds a trace from a state: it uses the choice principle
-`sig_forall_dec` of Coq's real numbers, which the corpus already assumes. The billed and surcharged schedule equivalences
+`ClassicalDedekindReals.sig_forall_dec` of Coq's real numbers, which the corpus already assumes. The billed and surcharged schedule equivalences
 fail because the unchanged Thiele base does not price every substituted event.
 
 | Certification theorem | Event-generic form | Status | Coq |

@@ -6,7 +6,7 @@
 
     This file exhibits a structurally distinct inhabitant whose trace is
     the minimal MORPH_ASSERT closure (three instructions: PNEW, MORPH_ID,
-    MORPH_ASSERT) — no factored search, no prior compute work, just the
+    MORPH_ASSERT): no factored search, no prior compute work, just the
     smallest sequence of opcodes that fires the supra-cert channel from a
     clean initial state.
 

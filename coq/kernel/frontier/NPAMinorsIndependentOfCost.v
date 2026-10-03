@@ -1,4 +1,4 @@
-(** * F2_MinorIndependence: independence of NPA-1 minors from Thiele cost axioms
+(** * NPAMinorsIndependentOfCost: independence of NPA-1 minors from Thiele cost axioms
 
     OP-QM (Tsirelson's 1980 question) asks whether the NPA-1
     polynomial conditions of [algebraically_coherent] can be derived
@@ -8,17 +8,17 @@
     verifiable model satisfying the cost axioms but violating the
     minor.
 
-    This file provides the NEGATIVE result — and it is genuinely a
+    This file provides the NEGATIVE result. It is genuinely a
     negative result, not a renaming.
 
     The construction:
-    - We exhibit a concrete VMState [pr_box_state] reached from
+    - A concrete VMState [pr_box_state] is reached from
       [fresh_vm_state] by a 4-instruction trace of valid CHSH trials.
     - The trace satisfies all kernel cost axioms: [vm_mu] stays 0
       (each [instr_chsh_trial] has [mu_delta = 0], no cert-flip occurs,
       monotonicity is preserved trivially), [vm_certified] stays
       [false], and the trace would survive [vm_apply_mu_nondecreasing],
-      [no_free_certification_certified], [F1_LogicalErasure.A2_from_
+      [no_free_certification_certified], [LogicalErasureCertFlip.A2_from_
       physical_reversibility_real], etc.
     - The resulting [vm_witness pr_box_state] gives the PR-box
       correlator pattern (E00 = E01 = E10 = 1, E11 = -1), which
@@ -33,7 +33,7 @@
     observables produces correlators that violate the NPA-1 minor
     inequalities. So the four minors are independent of (not entailed
     by) the Thiele cost axioms in their current form. Closing OP-QM
-    requires additional structure — a constraint that excludes the
+    requires additional structure: a constraint that excludes the
     [pr_box_state] observable pattern. The cost axioms alone do not
     provide it.
 
@@ -53,8 +53,8 @@ Local Open Scope Q_scope.
 From Kernel Require Import VMState VMStep SimulationProof PrimeAxiom.
 From Kernel Require Import AlgebraicCoherence.
 
-(** Local fresh-machine state for the construction. We define our own
-    rather than importing one from elsewhere (the kernel's
+(** Local fresh-machine state for the construction. It is defined here
+    rather than imported from elsewhere (the kernel's
     [PartitionSeparation.fresh_vm_state] is inside a Module wrapper).
     All fields are zeroed; in particular [vm_witness = witness_counts_zero],
     [vm_mu = 0], [vm_certified = false]. *)
@@ -94,7 +94,7 @@ Definition correlators_from_witness (wc : WitnessCounts) : Correlators :=
 
     Four CHSH trials, each with valid bit inputs and zero declared
     cost. [vm_apply] is the deterministic step function from
-    [VMStep.v]; we apply it sequentially. *)
+    [VMStep.v], applied sequentially. *)
 
 Definition pr_box_state : VMState :=
   vm_apply
@@ -152,7 +152,7 @@ Qed.
 (** ** Step 5: PR-box correlators violate [algebraically_coherent].
 
     This uses the existing [algebraic_max_not_coherent] from
-    [AlgebraicCoherence.v]. We must transport that result across
+    [AlgebraicCoherence.v], transported across
     Q-equality of the correlator components. *)
 
 (** [algebraically_coherent] is invariant under componentwise [Qeq]. *)
@@ -193,7 +193,7 @@ Qed.
     four cost-axiom-satisfying [instr_chsh_trial] instructions
     produces correlators that violate [algebraically_coherent]. Since
     every cost axiom in the kernel (A2, monotonicity, mu_initiality,
-    LASSERT cost law, F1's Landauer-derivation of A2) is satisfied by
+    LASSERT cost law, the Landauer derivation of A2) is satisfied by
     this trace (cost remains 0, no cert-flip occurs, monotonicity is
     trivial), the four NPA-1 minor inequalities are **not entailed**
     by the Thiele cost axioms.
@@ -228,7 +228,7 @@ Qed.
     at least one constraint that fails on a cost-axiom-realisable
     correlator." *)
 
-Theorem F2_independence :
+Theorem pr_box_state_cost_axioms_do_not_force_coherence :
   exists (s : VMState) (c : Correlators),
     (* Concrete realisation by Thiele VM *)
     s = pr_box_state /\

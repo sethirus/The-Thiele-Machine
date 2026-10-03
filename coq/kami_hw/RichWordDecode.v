@@ -8,7 +8,7 @@
     layouts: every one of [dd_isa_version]/[dd_format_id]/[dd_flags]/
     [dd_ext0]/[dd_opcode]/[dd_op_a]/[dd_op_b]/[dd_cost_v] is a fixed
     [ConstExtract] at a fixed absolute bit range, independent of what
-    [format_id] happens to decode to -- only the *interpretation* of those
+    [format_id] happens to decode to: only the *interpretation* of those
     ranges (what a rich-format opcode does with [dd_ext0], say) depends on
     the format. So instead of five per-encoding word constructors and five
     lane-arithmetic files, one general constructor covers all six: [rich_word]
@@ -347,7 +347,7 @@ Proof.
 Qed.
 
 (** [dd_format_id] is [ConstExtract 112 FormatIdSz 8]: mod pow2 120 *first*
-    (dropping isa), *then* div pow2 112 (dropping fid) -- the opposite order
+    (dropping isa), *then* div pow2 112 (dropping fid): the opposite order
     of what the field's own bit position might suggest. Since
     [rich_word_nat]'s fully flat form already isolates isa as its trailing
     addend, no regrouping is needed at all here, exactly as for

@@ -520,59 +520,18 @@ Definition audit_master_a2_equal_trust_substitution_payoff : HonestClaim :=
          "Does not use the trusted-vs-untrusted verification gap.";
          "Rules out substitutes only for exact certification-commitment pricing; predicates that intentionally overcharge are classified as different cost laws." ] |}.
 
-Definition audit_master_nofi_to_discrete_einstein : HonestClaim :=
-  {| claim_name := "master_nofi_to_discrete_einstein";
-     claim_sources := [ "NoFIToEinstein.nfi_to_discrete_einstein" ];
-     claim_scope := ConditionalPhysical;
+Definition audit_master_discrete_gauss_bonnet_delta : HonestClaim :=
+  {| claim_name := "master_discrete_gauss_bonnet_delta";
+     claim_sources := [ "NoFIToEinstein.discrete_gauss_bonnet_delta" ];
+     claim_scope := Structural;
      claim_status := StatusConditional;
      claim_role := WrapperOnly;
      claim_premises :=
-       [ "positive hbar, c_light, and k_B";
-         "nearest-neighbor split morphism with support witnesses";
-         "explicit Landauer-Unruh calibration predicate";
-         "well-formed pre/post triangulations" ];
-     claim_premise_kinds := [ PremisePhysical; PremiseStructural; PremisePhysical; PremiseStructural ];
+       [ "well-formed pre/post triangulations" ];
+     claim_premise_kinds := [ PremiseStructural ];
      claim_not_imply :=
-       [ "Does not derive the calibration predicate from bare μ-accounting alone.";
-         "Does not eliminate the explicit local-horizon thermodynamic corridor assumptions." ;
-         "The curvature identity follows from the two triangulation premises alone; the physical, locality and calibration premises are carried, not used." ] |}.
-
-Definition audit_master_nofi_to_discrete_einstein_from_bekenstein_calibration : HonestClaim :=
-  {| claim_name := "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
-     claim_sources := [ "NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration" ];
-     claim_scope := ConditionalPhysical;
-     claim_status := StatusConditional;
-     claim_role := WrapperOnly;
-     claim_premises :=
-       [ "positive hbar, c_light, and k_B";
-         "nearest-neighbor split morphism with support witnesses";
-         "Landauer-Unruh constants calibration";
-         "explicit mu_bit_calibration over the chosen support witnesses";
-         "well-formed pre/post triangulations" ];
-     claim_premise_kinds := [ PremisePhysical; PremiseStructural; PremisePhysical; PremiseSemantic; PremiseStructural ];
-     claim_not_imply :=
-       [ "Does not provide an empirical measurement theorem for the constants calibration.";
-         "Still depends on the explicit Bekenstein/Landauer-Unruh premises that connect the μ-ledger to horizon thermodynamics." ;
-         "The curvature identity follows from the two triangulation premises alone; the physical, locality and calibration premises are carried, not used." ] |}.
-
-Definition audit_master_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration : HonestClaim :=
-  {| claim_name := "master_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration";
-     claim_sources := [ "NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration" ];
-     claim_scope := ConditionalPhysical;
-     claim_status := StatusConditional;
-     claim_role := WrapperOnly;
-     claim_premises :=
-       [ "positive hbar, c_light, and k_B";
-         "a concrete vm_step PSPLIT transition";
-         "nearest-neighbor condition for the induced psplit_transition_morphism";
-         "Landauer-Unruh constants calibration";
-         "PSPLIT cost matches the induced entropy event";
-         "well-formed pre/post triangulations" ];
-     claim_premise_kinds := [ PremisePhysical; PremiseSemantic; PremiseStructural; PremisePhysical; PremiseSemantic; PremiseStructural ];
-     claim_not_imply :=
-       [ "Does not generalize the execution-grounded entropy bridge beyond the PSPLIT family.";
-         "Does not eliminate the constants calibration premise." ;
-         "The curvature identity follows from the two triangulation premises alone; the physical, locality and calibration premises are carried, not used." ] |}.
+       [ "Does not derive curvature from mu.";
+         "Uses no No Free Insight, Landauer-Unruh calibration, locality or thermodynamic premise." ] |}.
 
 Definition audit_master_verification_chain : HonestClaim :=
   {| claim_name := "master_verification_chain";
@@ -811,8 +770,7 @@ Definition master_claim_ledger : list HonestClaim :=
     audit_master_honest_nofi_quantitative_state_space;
     audit_master_honest_nofi_posterior_representative_reduction;
     audit_master_a2_equal_trust_substitution_payoff;
-    audit_master_nofi_to_discrete_einstein;
-    audit_master_nofi_to_discrete_einstein_from_bekenstein_calibration;
+    audit_master_discrete_gauss_bonnet_delta;
     audit_master_verification_chain;
     audit_master_verification_preserved_observables;
     audit_master_pos_finality_reduction;
@@ -1195,19 +1153,8 @@ Definition exposed_thermo_discrete_einstein_content :
   exposed_thermo_discrete_einstein_spine :=
   ThermoEinsteinBridge.thermodynamic_locality_toward_discrete_einstein_emergence.
 
-Definition exposed_nofi_to_discrete_einstein_spine : Prop :=
-  forall (hbar c_light k_B entropy_per_bit : R)
-         (s_pre s_post : VMState)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support_pre support_post : LocalMorphismSemantics.joint_support),
-    (0 < hbar)%R ->
-    (0 < c_light)%R ->
-    (0 < k_B)%R ->
-    LocalMorphismSemantics.is_nearest_neighbor P ->
-    In support_pre (LocalMorphismSemantics.morphism_support_semantics P) ->
-    In support_post (LocalMorphismSemantics.morphism_support_semantics P) ->
-    NoFIToEinstein.mu_landauer_unruh_calibrated
-      hbar c_light k_B entropy_per_bit s_pre s_post P support_pre support_post ->
+Definition exposed_discrete_gauss_bonnet_spine : Prop :=
+  forall (s_pre s_post : VMState),
     well_formed_triangulated (vm_graph s_pre) ->
     well_formed_triangulated (vm_graph s_post) ->
     (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
@@ -1215,59 +1162,9 @@ Definition exposed_nofi_to_discrete_einstein_spine : Prop :=
      IZR (euler_characteristic (vm_graph s_post) -
           euler_characteristic (vm_graph s_pre))%Z)%R.
 
-Definition exposed_nofi_to_discrete_einstein_content :
-  exposed_nofi_to_discrete_einstein_spine :=
-  NoFIToEinstein.nfi_to_discrete_einstein.
-
-Definition exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_spine : Prop :=
-  forall (hbar c_light k_B : R)
-         (s_pre s_post : VMState)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support_pre support_post : LocalMorphismSemantics.joint_support),
-    (0 < hbar)%R ->
-    (0 < c_light)%R ->
-    (0 < k_B)%R ->
-    LocalMorphismSemantics.is_nearest_neighbor P ->
-    In support_pre (LocalMorphismSemantics.morphism_support_semantics P) ->
-    In support_post (LocalMorphismSemantics.morphism_support_semantics P) ->
-    BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
-    BekensteinCalibration.mu_bit_calibration
-      support_pre support_post s_pre s_post ->
-    well_formed_triangulated (vm_graph s_pre) ->
-    well_formed_triangulated (vm_graph s_post) ->
-    (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
-    (einstein_coupling_constant *
-     IZR (euler_characteristic (vm_graph s_post) -
-          euler_characteristic (vm_graph s_pre))%Z)%R.
-
-Definition exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_content :
-  exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_spine :=
-  NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration.
-
-Definition exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_spine : Prop :=
-  forall (hbar c_light k_B : R)
-         (s_pre s_post : VMState)
-         (module : ModuleID)
-         (left right : list nat)
-         (cost : nat),
-    (0 < hbar)%R ->
-    (0 < c_light)%R ->
-    (0 < k_B)%R ->
-    vm_step s_pre (instr_psplit module left right cost) s_post ->
-    LocalMorphismSemantics.is_nearest_neighbor
-      (LocalMorphismSemantics.psplit_transition_morphism left right) ->
-    BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
-    BekensteinCalibration.psplit_cost_matches_entropy left right cost ->
-    well_formed_triangulated (vm_graph s_pre) ->
-    well_formed_triangulated (vm_graph s_post) ->
-    (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
-    (einstein_coupling_constant *
-     IZR (euler_characteristic (vm_graph s_post) -
-          euler_characteristic (vm_graph s_pre))%Z)%R.
-
-Definition exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_content :
-  exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_spine :=
-  NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration.
+Definition exposed_discrete_gauss_bonnet_content :
+  exposed_discrete_gauss_bonnet_spine :=
+  NoFIToEinstein.discrete_gauss_bonnet_delta.
 
 Definition exposed_import_spine : list string :=
   [ "QuantumPartitionPSD.npa_psd_iff_column_contractive -> exposed_zero_marginal_psd_contractivity";
@@ -1282,9 +1179,7 @@ Definition exposed_import_spine : list string :=
     "A2Payoff.a2_equal_trust_substitution_payoff -> exposed_a2_equal_trust_substitution_content";
     "ThermoEinsteinBridge.thermodynamic_locality_toward_einstein_with_clausius_model -> exposed_thermo_einstein_bridge_content";
     "ThermoEinsteinBridge.thermodynamic_locality_toward_discrete_einstein_emergence -> exposed_thermo_discrete_einstein_content";
-    "NoFIToEinstein.nfi_to_discrete_einstein -> exposed_nofi_to_discrete_einstein_content";
-    "NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration -> exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_content";
-    "NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration -> exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_content" ].
+    "NoFIToEinstein.discrete_gauss_bonnet_delta -> exposed_discrete_gauss_bonnet_content" ].
 
 (**
     METADATA COMPLETENESS AND KERNEL-STORY COVERAGE
@@ -1315,8 +1210,7 @@ Definition master_exported_theorem_names : list string :=
     "master_honest_nofi_quantitative_state_space";
     "master_honest_nofi_posterior_representative_reduction";
     "master_a2_equal_trust_substitution_payoff";
-    "master_nofi_to_discrete_einstein";
-    "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
+    "master_discrete_gauss_bonnet_delta";
     "master_verification_chain";
     "master_verification_preserved_observables";
     "master_non_circular_mu_cost_primitives";
@@ -1366,10 +1260,8 @@ Definition master_theorem_metadata_ledger : list TheoremMetadata :=
        metadata_scope := Structural; metadata_status := StatusConditional; metadata_role := WrapperOnly |};
      {| metadata_name := "master_a2_equal_trust_substitution_payoff";
        metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := NewComposition |};
-     {| metadata_name := "master_nofi_to_discrete_einstein";
-       metadata_scope := ConditionalPhysical; metadata_status := StatusConditional; metadata_role := WrapperOnly |};
-     {| metadata_name := "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
-       metadata_scope := ConditionalPhysical; metadata_status := StatusConditional; metadata_role := WrapperOnly |};
+     {| metadata_name := "master_discrete_gauss_bonnet_delta";
+       metadata_scope := Structural; metadata_status := StatusConditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_verification_chain";
        metadata_scope := VerificationTransfer; metadata_status := StatusConditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_verification_preserved_observables";
@@ -1416,8 +1308,7 @@ Definition summary_file_theorem_names : list string :=
     "exposed_honest_nofi_posterior_representative_reduction_content";
     "exposed_thermo_einstein_bridge_content";
     "exposed_thermo_discrete_einstein_content";
-    "exposed_nofi_to_discrete_einstein_content";
-    "exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_content";
+    "exposed_discrete_gauss_bonnet_content";
     "master_theorem_metadata_names_exact";
     "master_theorem_metadata_complete";
     "covered_kernel_story_areas_exact";
@@ -1446,8 +1337,7 @@ Definition summary_file_theorem_names : list string :=
     "master_honest_nofi_quantitative_state_space";
     "master_honest_nofi_posterior_representative_reduction";
     "master_a2_equal_trust_substitution_payoff";
-    "master_nofi_to_discrete_einstein";
-    "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
+    "master_discrete_gauss_bonnet_delta";
     "master_verification_chain";
     "master_verification_preserved_observables";
     "master_non_circular_mu_cost_primitives";
@@ -1459,7 +1349,7 @@ Definition summary_file_theorem_names : list string :=
     "master_permanent_flip_heat" ].
 
 Theorem summary_file_theorem_inventory_explicit :
-  List.length summary_file_theorem_names = 53%nat.
+  List.length summary_file_theorem_names = 51%nat.
 Proof.
   reflexivity.
 Qed.
@@ -1495,8 +1385,7 @@ Definition kernel_story_coverage_ledger : list kernel_story_coverage_entry :=
        coverage_note := "Semantic boundaries are explicit in the summary file, including the conditional thermo-to-Einstein corridor." |};
     {| coverage_area := AreaPhysicsBoundary;
        coverage_support :=
-         [ "master_nofi_to_discrete_einstein";
-           "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
+         [ "master_discrete_gauss_bonnet_delta";
            "master_physics_reading_inventory";
            "master_remaining_project_local_admits";
            "master_permanent_flip_heat" ];
@@ -1672,12 +1561,8 @@ Definition master_physics_reading_inventory : list physical_reading_entry :=
        reading_boundary := "Conditional on the explicit null-flux equality premise and on the generic EinsteinTarget/LocalHorizon interface; the repository now discharges the Raychaudhuri component explicitly for the discrete Einstein target." |};
      {| reading_name := "Nearest-neighbor entropy-local split transitions imply the repository's discrete Einstein-emergence equality";
        reading_status := ProvedKernelConsequence;
-       reading_basis := [ "exposed_thermo_discrete_einstein_content"; "master_nofi_to_discrete_einstein"; "thermo_einstein_semantic_boundary" ];
-       reading_boundary := "Conditional on the explicit null-flux equality premise plus graph well-formedness; this theorem no longer abstracts over EinsteinTarget, and the stronger NoFI entry path can derive the calibration from explicit Bekenstein/Landauer-Unruh premises." |};
-    {| reading_name := "No Free Insight plus explicit Bekenstein/Landauer-Unruh calibration premises imply the repository's discrete Einstein-emergence equality";
-       reading_status := ProvedKernelConsequence;
-       reading_basis := [ "master_nofi_to_discrete_einstein_from_bekenstein_calibration" ];
-       reading_boundary := "Conditional on explicit constants calibration, ledger-to-support entropy identification, nearest-neighbor locality, and graph well-formedness." |};
+       reading_basis := [ "exposed_thermo_discrete_einstein_content"; "master_discrete_gauss_bonnet_delta"; "thermo_einstein_semantic_boundary" ];
+       reading_boundary := "The equality follows from graph well-formedness alone (master_discrete_gauss_bonnet_delta); the null-flux, locality and support premises of the corridor instance are carried, not used." |};
     {| reading_name := "A laboratory source satisfies the coherence predicate";
        reading_status := ExternalEmpiricalHypothesis;
        reading_basis := [ "chsh_trace_semantic_boundary" ];
@@ -1720,7 +1605,7 @@ Definition master_nonclaim_inventory_statement : Prop :=
   List.length verification_nonclaims_list = 3%nat.
 
 (* [master_nonclaim_inventory_statement] reduces by [unfold; simpl; split;
-   reflexivity] — both conjuncts are direct length/equality checks on
+   reflexivity]: both conjuncts are direct length/equality checks on
    transparently-defined constants ([] and a fixed three-element list), so
    [kernel_story_coverage_ledger_is_semantically_sufficient] discharges it
    inline. *)
@@ -1754,8 +1639,7 @@ Definition kernel_story_semantic_sufficiency_statement : Prop :=
   exposed_honest_nofi_conditional_shannon_spine /\
   exposed_honest_nofi_quantitative_state_space_spine /\
   exposed_honest_nofi_posterior_representative_reduction_spine /\
-  exposed_nofi_to_discrete_einstein_spine /\
-  exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_spine /\
+  exposed_discrete_gauss_bonnet_spine /\
   master_assumption_boundary_statement /\
   master_verification_scope_statement /\
   master_nonclaim_inventory_statement.
@@ -1802,9 +1686,7 @@ Proof.
         split.
         { exact exposed_honest_nofi_posterior_representative_reduction_content. }
         split.
-        { exact exposed_nofi_to_discrete_einstein_content. }
-        split.
-        { exact exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_content. }
+        { exact exposed_discrete_gauss_bonnet_content. }
         split.
         { exact master_assumption_boundary_explicit. }
         split.
@@ -2404,8 +2286,8 @@ Qed.
    external_interpretation: exact certification-commitment pricing rejects
      non-A2 substitutes; intentionally-overcharging laws are different laws
 *)
-(* This summary module re-exports kernel theorems under master_* names so the
-   monograph can cite one stable surface. Deliberate, no new content.
+(* This summary module re-exports kernel theorems under master_* names so
+   documents can cite one stable surface. Deliberate, no new content.
    SCOPE NOTE: alias for a2_equal_trust_substitution_payoff. *)
 Theorem master_a2_equal_trust_substitution_payoff :
   exposed_a2_equal_trust_substitution_spine.
@@ -2477,35 +2359,19 @@ Proof.
 Qed.
 
 (* AUDIT:
-   theorem: master_nofi_to_discrete_einstein
+   theorem: master_discrete_gauss_bonnet_delta
    status: conditional
    kind: export-only
-   depends_on: NoFIToEinstein.nfi_to_discrete_einstein
-   premise_kinds: structural; physical; semantic
+   depends_on: NoFIToEinstein.discrete_gauss_bonnet_delta
+   premise_kinds: structural
    new_content_here: none
-   semantic_layer: formal theorem layer -> physical interpretation layer
-   external_interpretation: does not derive the explicit calibration predicate from bare μ-accounting alone
+   semantic_layer: formal theorem layer
+   external_interpretation: discrete Gauss-Bonnet on two triangulated states; no mu or thermodynamic premise
 *)
-Theorem master_nofi_to_discrete_einstein :
-  exposed_nofi_to_discrete_einstein_spine.
+Theorem master_discrete_gauss_bonnet_delta :
+  exposed_discrete_gauss_bonnet_spine.
 Proof.
-  exact NoFIToEinstein.nfi_to_discrete_einstein.
-Qed.
-
-(* AUDIT:
-   theorem: master_nofi_to_discrete_einstein_from_bekenstein_calibration
-   status: conditional
-   kind: export-only
-   depends_on: NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration
-   premise_kinds: structural; physical; semantic
-   new_content_here: none
-   semantic_layer: formal theorem layer -> physical interpretation layer
-   external_interpretation: packages the stronger theorem path but still depends on explicit Bekenstein/Landauer-Unruh calibration premises
-*)
-Theorem master_nofi_to_discrete_einstein_from_bekenstein_calibration :
-  exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_spine.
-Proof.
-  exact NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration.
+  exact NoFIToEinstein.discrete_gauss_bonnet_delta.
 Qed.
 
 (**
@@ -2879,11 +2745,10 @@ Qed.
     | master_honest_nofi_conditional_shannon            | conditional          | local cert-setter / Shannon lower bound         | a theorem about arbitrary traces without the info-pricing and local-step premises |
     | master_honest_nofi_quantitative_state_space       | unconditional        | conservative LASSERT state-space-counting wrapper | a fully general feasible-set-ratio theorem for arbitrary traces or exact model counts |
     | master_honest_nofi_posterior_representative_reduction | conditional      | posterior-representative observation-equivalence lift | automatic derivation of that representative witness from arbitrary feasible-set collapse |
-    | master_nofi_to_discrete_einstein                  | conditional          | explicit Landauer-Unruh calibration + thermo corridor | derivation of the calibration predicate from bare μ-accounting alone |
-    | master_nofi_to_discrete_einstein_from_bekenstein_calibration | conditional | Bekenstein/Landauer-Unruh constants calibration path | an empirical calibration theorem with no explicit physical premises |
+    | master_discrete_gauss_bonnet_delta                | conditional          | well-formed pre/post triangulations             | any link from mu or thermodynamics to curvature |
     | master_verification_chain                         | transfer theorem     | abstract hw/python bisimulation                 | full register/memory/partition-state equivalence or arbitrary semantic preservation |
     | master_verification_preserved_observables         | conditional          | projection from verification transfer theorem   | equality of all hardware observables |
-    | master_second_axis_of_undecidability              | unconditional        | μ-not-a-function-of-classical + reachable cert_addr keystone + survives-any-classical-oracle (Rung B) + mutual independence (Rung C) | that μ measures entropy/Kolmogorov information, or a Turing-degree separation — the structural set is decidable-from-full-state, so the independence is information-theoretic not degree-theoretic |
+    | master_second_axis_of_undecidability              | unconditional        | μ-not-a-function-of-classical + reachable cert_addr keystone + survives-any-classical-oracle (Rung B) + mutual independence (Rung C) | that μ measures entropy/Kolmogorov information, or a Turing-degree separation; the structural set is decidable-from-full-state, so the independence is information-theoretic not degree-theoretic |
 
     | master_permanent_certification                    | unconditional        | finite enumeration + permanent certificate + merge pricing (Landauer, worst case, named premise) | that the full VM is an instance, or that every account must price merges |
     | master_permanent_flip_heat                        | conditional          | landauer_heat premise + distribution positive on the states in play | Landauer's principle itself, heat from a known state, or any measurement |

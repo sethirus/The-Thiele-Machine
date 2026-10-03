@@ -18,6 +18,7 @@
 -R kami_hw KamiHW
 -R ../vendor/kami/Kami Kami
 -Q ../vendor/coq-undecidability/theories Undecidability
+-Q ../minimal Minimal
 -R spacetime Spacetime
 -R thielemachine ThieleMachine
 -R physics Physics
@@ -98,6 +99,8 @@ kernel/foundation/VMGuestEvalTuple.v
 kernel/foundation/VMGuestMMAPipeline.v
 kernel/foundation/VMGuestEvalL.v
 kernel/foundation/VMGuestRecursion.v
+../minimal/EarnedCore.v
+kernel/foundation/EarnedCoreLinks.v
 kernel/foundation/RecordAxisDiscrimination.v
 
 kernel/quantum/CHSH.v
@@ -261,8 +264,8 @@ kernel/curvature/EinsteinEmergence.v
 kernel/hardware_bridge/VerilogRTLCorrespondence.v
 
 # Kami HW
-kami_hw/F4_BModulesTranslation.v
-kami_hw/F4_VerilogEvaluator.v
+kami_hw/BModulesTranslation.v
+kami_hw/VerilogEvaluator.v
 kami_hw/Compatibility.v
 kami_hw/ThieleTypes.v
 kami_hw/ThieleCPUCore.v
@@ -327,20 +330,20 @@ kernel/foundation/TuringStrictness.v
 kernel/hardware_bridge/OCamlExtractionBridge.v
 kernel/nfi/UniversalCertificationCost.v
 kernel/nfi/ThieleInitiality.v
-kernel/frontier/F1_LogicalErasure.v
-kernel/frontier/F1_TraceLevelA2.v
-kernel/frontier/F1_AbstractedBridge.v
-kernel/frontier/F1_StrongForm.v
-kernel/frontier/F2_MinorIndependence.v
-kernel/frontier/F2_MinorFromWitnessLocality.v
-kernel/frontier/F2_PerMinorFromCostCoherent.v
-kernel/frontier/F3_CrossLink.v
-kernel/frontier/F3_TripleCrossLink.v
-kernel/frontier/F3_PartitionTopologyCrossLink.v
-kernel/frontier/F3_CalibrationObstruction.v
-kernel/frontier/F3_MuLaplacianSum.v
-kernel/frontier/F3_PlusOneStructural.v
-kernel/frontier/F3_ReachableGeometry.v
+kernel/frontier/LogicalErasureCertFlip.v
+kernel/frontier/LandauerTraceLevelA2.v
+kernel/frontier/LandauerBridgeAbstractCost.v
+kernel/frontier/LandauerDissipationStrongForm.v
+kernel/frontier/NPAMinorsIndependentOfCost.v
+kernel/frontier/NPAMinorsFromWitnessLocality.v
+kernel/frontier/NPAPerMinorFromCostCoherence.v
+kernel/frontier/LassertTsirelsonCrossLink.v
+kernel/frontier/LassertTsirelsonHierarchyCrossLink.v
+kernel/frontier/PartitionTopologyCrossLink.v
+kernel/frontier/CalibrationObstruction.v
+kernel/frontier/MuLaplacianSum.v
+kernel/frontier/TriangleAnglePlusOne.v
+kernel/frontier/ReachableGeometry.v
 kernel/frontier/PointerObservable.v
 kernel/frontier/PointerObservableReductions.v
 kernel/frontier/PointerObservableCounterexamples.v

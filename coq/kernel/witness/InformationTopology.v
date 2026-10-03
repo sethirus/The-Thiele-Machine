@@ -1,36 +1,25 @@
-(** InformationTopology.v: the mu-cost as a routing metric over computation.
+(** InformationTopology.v: the mu-cost of a run read as a path cost.
 
-    MetricFromMuCosts.v establishes the mu-tensor as a spacetime metric.
-    This file frames the same structure as pure computer science.
+    [mu_path_cost fuel trace s] is the mu a run spends, and
+    [mu_distance_le s1 s2 b] says some run takes [s1] to [s2] for at most
+    [b]. This is weighted-graph vocabulary over VM runs; it is not a
+    physics claim and it does not identify the mu-tensor with a metric.
 
-    The core claim: the mu-cost between two computational states defines a
-    metric on the partition graph. Geodesics (minimum-mu paths) correspond
-    to the most structurally efficient programs. The Thiele Machine
-    naturally computes optimal structural decompositions because they
-    minimize mu-cost — the same way a geodesic minimizes path length.
+    Results:
 
-    This is not a physics claim. It is a routing algorithm claim:
-    the partition graph with mu-costs is a weighted directed graph, and
-    the optimal Thiele program traces the shortest path in that graph.
-    No Einstein equations, no Ricci curvature. Just weighted graph theory
-    with the No Free Insight axiom as the cost lower bound.
+    MU_PATH_COST: [mu_path_cost] is nonnegative and zero on the empty
+    run ([mu_path_cost_nonneg], [mu_path_cost_empty]).
 
-    Four results:
+    DISTANCE FACTS: self-distance 0 ([mu_distance_self_zero]),
+    nonnegativity ([mu_distance_nonneg]), and a triangle bound for two legs
+    of the same trace ([mu_distance_le_single_trace_triangle]). It is not a
+    full metric: two different states can have distance 0.
 
-    MU_PATH_COST (mu_path_cost): the total mu spent on a sequence of steps.
-
-    METRIC AXIOMS (mu_pseudometric): non-negativity, self-distance = 0,
-    triangle inequality. (Not a full metric: two different states can have
-    distance 0 if they are observationally equivalent — identity of
-    indiscernibles fails in the presence of hidden state, per EntropyImpossibility.)
-
-    GEODESIC OPTIMALITY (mu_geodesic_optimal): the sighted program from
-    StructuralAdvantage.v is the geodesic — it reaches the certified state
-    with minimum mu-cost.
-
-    NFI AS COST BOUND (nfi_is_cost_lower_bound): No Free Insight says
-    the distance from uncertified to certified is strictly positive.
-    There's no reaching a certified state along a zero-cost path. *)
+    FACTORED SEARCH: at N = 1 the blind program of StructuralAdvantage.v
+    spends 0 mu ([blind_is_mu_zero]; the sighted program's 18 is
+    [sighted_halts_in_two_n] there); the remaining theorems restate the arithmetic
+    savings bounds of StructuralAdvantage.v. No theorem here proves that
+    the sighted program spends the least mu among all programs. *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
 Import ListNotations.
@@ -116,8 +105,8 @@ Qed.
 (** Triangle inequality for [mu_path_cost] over a single trace.
 
     Given an intermediate state [s_mid] reachable from [s1] in [f1]
-    fuel and [s3] reachable from [s_mid] in [f2] fuel — both along the
-    SAME trace — running [(f1 + f2)] fuel along that trace from [s1]
+    fuel and [s3] reachable from [s_mid] in [f2] fuel (both along the
+    SAME trace), running [(f1 + f2)] fuel along that trace from [s1]
     reaches [s3] and the path cost is bounded by the sum of the per-leg
     bounds.
 
@@ -176,31 +165,15 @@ Proof.
   split; assumption.
 Qed.
 
-(** ** Geodesic Optimality
+(** ** Factored search
 
-    The sighted program from StructuralAdvantage.v is the geodesic in
-    the mu-metric for the factored search problem.
+    The sighted program from StructuralAdvantage.v spends 18 mu on the
+    2D factored search (two EMIT steps of 9 each); that is
+    [sighted_halts_in_two_n] there. No theorem states that no program
+    spends less. *)
 
-    Claim: no program can solve the 2D factored search in fewer than 18 mu.
-    (This is the lower bound direction of No Free Insight: to certify both
-    halves of the decomposition, you must pay at least 1 mu per half, and
-    the EMIT instruction costs 9 mu. Two halves = 18 mu minimum.)
-
-    The sighted_program achieves exactly 18 mu, so it is mu-optimal.
-    This is the GEODESIC: it traces the shortest path in mu-space from
-    the uncertified to the certified state. *)
-
-(** PROVEN: sighted_program achieves mu-cost 18 at N=1 (the smallest case). *)
-Theorem sighted_is_mu_geodesic_at_N1 :
-  let s := run_vm 20 (sighted_program 0 0) init_state in
-  s.(vm_mu) = 18.
-Proof.
-  (* Directly from sighted_halts_in_two_n in StructuralAdvantage.v *)
-  exact (proj1 (proj2 (sighted_halts_in_two_n))).
-Qed.
-
-(** PROVEN: The blind program costs strictly less mu than the sighted program.
-    A zero-mu program cannot certify structure — this is the No Free Insight bound. *)
+(** PROVEN: the blind program at N = 1 spends 0 mu. It uses no
+    cert-setter instruction. *)
 Theorem blind_is_mu_zero :
   let s := run_vm 8 (blind_program 0) init_state in
   s.(vm_mu) = 0.
@@ -208,18 +181,11 @@ Proof.
   exact (proj1 (proj2 (blind_halts_in_n_squared))).
 Qed.
 
-(** PROVEN: The mu-optimal path to certified state spends at least 1 mu.
-    This follows from the fact that blind_program (0 mu) does NOT set vm_certified
-    (it uses no cert-setter instructions), while any program that certifies must
-    pay cert-setter cost > 0.
+(** Any run from csr_cert_addr = 0 to has_supra_cert executes a cert-setter
+    (NoFreeInsight.v), and each cert-setter costs at least 1 mu, so such a
+    run spends at least 1 mu. No theorem in this file states that bound. *)
 
-    The No Free Insight theorem (NoFreeInsight.v) gives the stronger result:
-    any certified execution from csr_cert_addr = 0 must use a cert-setter.
-    Each cert-setter costs ≥ 1 mu. Therefore the minimum mu to reach
-    has_supra_cert is ≥ 1. *)
-
-(** PROVEN: The mu gap between blind and sighted grows as Θ(N²).
-    For N ≥ 6, the iteration savings exceed the 18 mu cost by a growing margin. *)
+(** PROVEN: arithmetic: for N ≥ 6, N * N > 2 * N + 18. *)
 (* SCOPE NOTE: alias for iteration_savings_dwarfs_mu_cost export. *)
 Theorem geodesic_efficiency :
   forall N : nat,
@@ -229,24 +195,13 @@ Proof.
   exact iteration_savings_dwarfs_mu_cost.
 Qed.
 
-(** ** Routing Interpretation
+(** ** Routing reading
 
-    The mu-metric defines the Thiele Machine as a ROUTING ENGINE:
-    given a computation problem, find the path through the partition graph
-    that minimizes mu-cost. This is equivalent to finding the structural
-    decomposition that minimizes certification cost.
-
-    The StructuralAdvantage results establish that:
-    - The routing cost (mu) grows as O(k) in the number of dimensions k.
-    - The computation savings grow as O(N^k).
-    - The optimal route is the sighted program: certify each dimension
-      once, then search each dimension independently.
-
-    This is a theorem about DISTRIBUTED COMPUTATION ROUTING:
-    a network of Thiele nodes that verify each other's mu-receipts
-    can coordinate structural decompositions without re-solving them.
-    Each mu-receipt proves that the decomposition was paid for at
-    some node in the network — the ledger is the routing table. *)
+    Read as routing: a run is a path, mu-cost is its weight. The
+    StructuralAdvantage results give, for the factored search, a mu cost
+    that grows as O(k) in the number of dimensions k and iteration
+    savings that grow as O(N^k). The theorems below are those arithmetic
+    bounds; no theorem here is about networks of machines. *)
 
 (** PROVEN: The k-dimensional generalization: N^k > k*N + k for N≥4, k≥2. *)
 (* SCOPE NOTE: alias for k_factor_savings_exceed_mu_cost export. *)
@@ -270,15 +225,10 @@ Qed.
 
 (** ** Summary
 
-    The mu-cost defines a metric on the computation space. This metric:
-    1. Is non-negative (mu_path_cost_nonneg).
-    2. Has zero self-distance (mu_distance_self_zero).
-    3. Satisfies the triangle inequality (mu_distance_triangle — cost bound only).
-    4. Is bounded below by 1 for any path to a certified state (NFI).
-    5. Has geodesics corresponding to optimal structural programs (sighted).
-    6. Has routing advantage that grows with problem dimension (k_factor theorems).
-
-    The Insight ASIC from DagRestriction.v computes along these geodesics:
-    it pays mu to certify structural claims, then exploits the structure.
-    It cannot loop, so it cannot retry failed decompositions indefinitely.
-    Each execution trace is a path in the mu-metric from start to halt. *)
+    1. [mu_path_cost] is non-negative (mu_path_cost_nonneg).
+    2. Self-distance is zero (mu_distance_self_zero).
+    3. A triangle bound holds for two legs of one trace
+       (mu_distance_le_single_trace_triangle).
+    4. At N = 1 the sighted program spends 18 mu and the blind program 0.
+    5. The arithmetic savings bounds grow with the problem dimension
+       (k_factor theorems). *)

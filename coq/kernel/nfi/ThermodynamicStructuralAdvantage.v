@@ -10,8 +10,8 @@
     matches the sighted complexity in time.  So the *time*-complexity
     version of the advantage does not survive a parsing-equipped TM.
 
-    What does survive — and is the actual content of the structural-
-    advantage claim — is a *thermodynamic* gap.  In the irreversible
+    What does survive (and is the actual content of the structural-
+    advantage claim) is a *thermodynamic* gap.  In the irreversible
     regime (where each byte-read is an irreversible operation that
     contributes to Landauer dissipation under the Thiele cost law via
     [LandauerDerivation.v]'s [total_irreversible_bits] ≤
@@ -34,19 +34,19 @@
         accumulate as μ-cost.  N reads ≥ N μ-cost ≥ N × kT ln 2 of
         Landauer dissipation under the standard calibration.
 
-    The thermodynamic gap is therefore Ω(N) × kT ln 2 vs O(1) × kT ln 2 —
+    The thermodynamic gap is therefore Ω(N) × kT ln 2 vs O(1) × kT ln 2,
     a multiplicative-in-formula-length dissipation separation that does
     survive against parsing-equipped TMs.
 
     What this file proves
     ---------------------
-    1. [byte_inspector_must_read_every_byte] — adversary argument: any
+    1. [byte_inspector_must_read_every_byte], adversary argument: any
        positional inspector deciding a structural property over n-byte
        formulas, correct on every formula, must inspect every byte
        position in [0, n).
-    2. [byte_inspector_reads_omega_n] — pigeonhole consequence: the
+    2. [byte_inspector_reads_omega_n], pigeonhole consequence: the
        inspected-position list has length ≥ n.
-    3. [thermodynamic_structural_advantage] — the gap statement: any
+    3. [thermodynamic_structural_advantage], the gap statement: any
        irreversible byte-inspector pays Ω(n) reads while the Thiele
        CERTIFY of pre-existing partition state pays O(1).
 
@@ -64,7 +64,7 @@
       implementation" lower bound is the per-instruction Landauer
       relationship from [LandauerDerivation.v]
       ([total_irreversible_bits] ≤ [total_instruction_cost]).  Bennett-
-      reversible implementations evade this — that scope is named
+      reversible implementations evade this; that scope is named
       explicitly in the README's Prediction 2 section, and the same
       caveat applies here.
 *)
@@ -113,14 +113,14 @@ Fixpoint adversary_formula (pos n : nat) : Formula :=
 
 (** ** Structural property model.
 
-    We define an abstract "structural property" predicate on formulas.
+    The setting is an abstract "structural property" predicate on formulas.
     The property is *byte-position-sensitive*: changing any byte position
     can change the property's value.  This is the formal analogue of
     "the disjoint-factorization property of a CNF formula depends on
     which variable each clause's literals reference, and changing any
     byte of the formula encoding can change the dependency graph."
 
-    Concretely, we use the predicate "every byte equals
+    Concretely, the predicate is "every byte equals
     [baseline_byte]" which is byte-position-sensitive: changing any byte
     flips the predicate. *)
 Definition struct_property (f : Formula) : bool :=
@@ -334,7 +334,7 @@ Theorem thermodynamic_structural_advantage :
     (* Free-world inspector reads ≥ n positions. *)
     length (bi_positions I n) >= n
     (* Thiele's CERTIFY of pre-existing partition state pays exactly 1
-       μ — a constant independent of n.  Witness from the cost law: *)
+       μ, a constant independent of n.  Witness from the cost law: *)
     /\ (forall flag : nat, instruction_cost (instr_certify flag) >= 1).
 Proof.
   intros I n Hcorrect Hop. split.

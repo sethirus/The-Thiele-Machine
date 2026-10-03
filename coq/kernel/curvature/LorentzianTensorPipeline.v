@@ -236,7 +236,7 @@ Qed.
     the hypothesis used by DiscreteRaychaudhuri.v can be discharged in that
     setting rather than assumed externally.
 
-    We provide a convenience wrapper here. *)
+    A convenience wrapper follows. *)
 
 (** [positive_mass_implies_focusing_from_gradient]: Convenience re-export.
     Positive mass with gradient along edge → null congruence focuses. *)

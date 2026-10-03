@@ -8,7 +8,7 @@
     opcodes need the complementary argument: given that opcode's own
     admission bound, the *same* disjunction is false, this time because each
     of the disjunction's five leaves (four locality sub-guards, the NFI
-    guard) is individually false -- one by the bound premise (via
+    guard) is individually false: one by the bound premise (via
     [RichLoadGuard]/[RichLocalityGuard]/[RichNfiGuard]), the other four
     because the decoded opcode does not match their own gating constant,
     which needs no bound and no encoding fact at all.
@@ -16,8 +16,8 @@
     Stated over [rich_word] throughout, so (unlike [LegacyLoadGuard.v] and
     its siblings) this single set of seven theorems already covers every
     ISA-v2 encoding, legacy included as the special case [fid = FMT_LEGACY].
-    Together with [OutsideDomain.not_guard_of_opcode], this closes the
-    syntactic half of C1's outside-domain relation: for an arbitrary
+    Together with [OutsideDomain.not_guard_of_opcode], this gives the
+    syntactic half of the outside-domain relation: for an arbitrary
     [rich_word], whatever its opcode, either it is outside the guard class
     (guard false by computation) or it is one of the seven guard-class
     opcodes and its own admission bound makes the guard false. *)
@@ -46,7 +46,7 @@ Proof. intros bd w. unfold dd_locality_violation. dd_cbn. reflexivity. Qed.
 
     Each of the five leaves is gated by its own opcode test(s); if the
     decoded opcode is not among them, the leaf is false regardless of the
-    operand bytes or the boundary -- no bound premise, no encoding fact.
+    operand bytes or the boundary: no bound premise, no encoding fact.
     Fully generic over [w]: unlike the guard-falsity lemmas, these never
     look past [dd_opcode]. *)
 
@@ -110,7 +110,7 @@ Ltac neq_from_op Hop :=
     Each combines its own leaf (already proved false by the admission bound
     in [RichLoadGuard]/[RichLocalityGuard]/[RichNfiGuard]) with the
     sibling-nullification facts above, closing the full
-    trap-class guard disjunction -- the same conclusion
+    trap-class guard disjunction, the same conclusion
     [OutsideDomain.not_guard_of_opcode] reaches for opcodes outside the
     guard class, reached here through the bound instead of non-membership. *)
 

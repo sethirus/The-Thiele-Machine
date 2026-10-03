@@ -1,6 +1,6 @@
 (** HonestMeasurementImpliesNPA: the converse-direction theorem.
 
-    GOAL (sketch-literal):
+    GOAL:
        forall H : HonestMeasurementSystem,
          npa_psd (correlation_of H).
 
@@ -17,7 +17,7 @@
     arbitrary super-quantum correlations. Some of these axioms exclude
     PR-box-vertex correlations but leave gaps elsewhere.
 
-    What WE CAN prove from the present A3 (zero-cost CHSH bound):
+    What IS provable from the present A3 (zero-cost CHSH bound):
 
     1. The PR-box correlation cannot be wrapped as HMS. Concrete
        rejection: any candidate construction with PR-box correlators at
@@ -40,14 +40,14 @@
       (e.g. the all-ones point E_xy = 1 has operator norm 2). Filling
       this in would require BOTH a stronger A3 (forcing also bounds on
       individual |E_xy| and self-correlation structure) AND a
-      constructive linear-algebra argument over R that we do not give
-      here.
+      constructive linear-algebra argument over R that this file does not
+      give.
 
-    - A construction of QuantumIsHonest (in a future companion file).
-      The expected obstruction: the quantum cost ledger (Holevo-style
-      payment for state preparation and measurement) must be modelled
-      explicitly, which requires Hilbert-space machinery beyond the
-      kernel's current quantum surface.
+    - A construction showing that quantum measurement satisfies the honest
+      measurement axioms. Such a construction needs the quantum cost ledger
+      (Holevo-style payment for state preparation and measurement) modelled
+      explicitly, which requires Hilbert-space machinery the kernel does
+      not contain.
 *)
 
 From Coq Require Import Reals Lra Lia Bool.
@@ -60,10 +60,10 @@ From Kernel Require Import NPAMomentMatrix.
 
     At zero cost, the CHSH S-value of an HMS is bounded by 2 (classical
     bound). This is just A3 spelled out. The Tsirelson bound (2√2) is
-    the subject of TsirelsonFromMu / TsirelsonFromIC, not this file —
+    the subject of TsirelsonFromMu / TsirelsonFromIC, not this file;
     A3 at zero cost only gives the classical 2. *)
 
-(* SAFE: classical CHSH bound (2), not Tsirelson — see comment above. *)
+(* SAFE: classical CHSH bound (2), not Tsirelson; see comment above. *)
 Theorem honest_zero_cost_chsh_bound :
   forall (H : HonestMeasurementSystem),
     hms_cost H = 0%nat ->
@@ -74,8 +74,8 @@ Qed.
 
 (** *** What CANNOT be derived from A3 alone.
 
-    We document the obstruction as a no-go observation rather than a
-    theorem. The conclusion of [honest_measurement_implies_npa] requires
+    The obstruction is a no-go observation rather than a theorem. The
+    conclusion of [full_honest_implies_npa_status] requires
     PSD on the moment matrix; the PSD condition has the explicit form
 
        det(I - M^T M) >= 0  AND  diag of (I - M^T M) >= 0
@@ -92,13 +92,12 @@ Qed.
     condition itself, making A3 circular. Conversely, leaving A3 as the
     zero-cost CHSH bound makes the conclusion non-derivable.
 
-    This is the literal "either it compiles or it doesn't" outcome the
-    sketch predicted: with A3 = zero-cost CHSH bound, the full theorem
-    does not compile. Documenting that result here, as the body of a
-    [Definition], not as a [Theorem]. *)
+    With A3 = zero-cost CHSH bound, the full theorem has no proof here.
+    The proposition is recorded as the body of a [Definition], not as a
+    [Theorem]. *)
 
 Definition full_honest_implies_npa_status : Prop :=
-  (* This is the goal we want, written as a Prop. It is NOT proved. *)
+  (* The converse goal, written as a Prop. It is NOT proved. *)
   forall (H : HonestMeasurementSystem),
     npa_psd (correlation_of H).
 

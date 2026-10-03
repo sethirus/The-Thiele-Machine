@@ -5,7 +5,7 @@
    notion is the right one for coupling lists.
 
    This file is where those facts touch the kernel. I take the actual graph
-   operations here — graph_compose_morphisms and graph_add_identity — and show
+   operations here (graph_compose_morphisms and graph_add_identity) and show
    that their couplings do what the relational story says they should do.
 
    The load-bearing claims are simple:
@@ -795,7 +795,7 @@ Proof. intros. reflexivity. Qed.
 
 (** MORPH_ASSERT always costs something. *)
 
-(** MORPH_ASSERT costs S cost ≥ 1 — it is a cert-setter under NoFI policy.
+(** MORPH_ASSERT costs S cost ≥ 1; it is a cert-setter under NoFI policy.
     This means morphism certification (MORPH_ASSERT) always charges at least 1
     unit of μ-cost, consistent with the NoFreeInsight principle. *)
 Lemma morph_assert_cost_positive : forall morph_id prop cert cost,

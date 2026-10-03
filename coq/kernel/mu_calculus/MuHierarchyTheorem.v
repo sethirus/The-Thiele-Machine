@@ -107,7 +107,7 @@ Proof.
   lia.
 Qed.
 
-(** ** Section 4: The lower bound — core of the hierarchy *)
+(** ** Section 4: The lower bound, core of the hierarchy *)
 
 (** The instructions actually executed by [run_vm], in execution order. This
     is deliberately trace-side evidence rather than a predicate on [vm_mu]. *)
@@ -228,11 +228,11 @@ Qed.
     The levels classify executed certification events by their declared cost. *)
 Theorem mu_hierarchy_theorem :
   forall k, k >= 1 ->
-    (* Achievability — existence of a k-cost certifying trace *)
+    (* Achievability: existence of a k-cost certifying trace *)
     (exists fuel trace,
       trace_mu_cost fuel trace init_state = k /\
       level_k_certified k fuel trace) /\
-    (* Lower bound — cost ≥ k is necessary for level-k certification *)
+    (* Lower bound: cost ≥ k is necessary for level-k certification *)
     (forall fuel trace,
       level_k_certified k fuel trace ->
       trace_mu_cost fuel trace init_state >= k).

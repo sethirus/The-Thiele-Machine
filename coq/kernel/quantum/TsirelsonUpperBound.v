@@ -218,7 +218,7 @@ Qed.
     
     This theorem establishes that CHSH values computed from μ=0 traces
     are bounded. Combined with chsh_algebraic_bound from CHSHExtraction.v,
-    we get that all valid CHSH values are at most 4.
+    all valid CHSH values are at most 4.
     
     The proof gives the algebraic bound 4 and no more. A μ=0 trace reaches 4
     ([mu_zero_trace_exceeds_quantum_tsirelson]), so μ=0 alone gives no tighter

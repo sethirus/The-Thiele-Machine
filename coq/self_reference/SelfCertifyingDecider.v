@@ -265,7 +265,7 @@ Definition trust_certifying_oracle
 
 (** The trust-certifying oracle is sound with respect to the lifted safety
     predicate from InductiveTrust.  Any approved transition arrives in Im(φ)
-    at a state that A certified safe — the InductiveTrust bridge holds. *)
+    at a state that A certified safe; the InductiveTrust bridge holds. *)
 Theorem trust_oracle_sound :
   forall {A B : StateSpace} (e : Expansion A B) (safe_A : nat -> bool),
     (** Adequacy: safe_A correctly reflects A.(ss_safe) *)
@@ -317,24 +317,22 @@ Proof.
 Qed.
 
 (* *)
-(** ** 9. Closing theorem: bridge from Spaceland to Flatland to Silicon *)
+(** ** 9. Closing theorem: decider, trust trace, and expansion together *)
 
-(** DECIDER_BRIDGES_SPACELAND: full closure from abstract trust to concrete VM.
+(** decider_bridges_spaceland: three statements packaged together.
 
-    Given a TrustCertificate tc for (A, B) and a self-certifying decider
-    instantiated from tc, the following hold simultaneously:
+    Given a self-certifying decider with a sound oracle and an expansion e:
 
-    (i)  The decider maintains safety at every step [decider_correctness].
-    (ii) There exists a concrete trace realizing the trust expansion
-         [lob_bypass_concrete from RefinementInvariant].
-    (iii) The trust chain is scale-invariant [scale_invariance from TilingChain].
+    (i)   The decider maintains safety and μ-monotonicity at every step
+          (the content of [decider_correctness]).
+    (ii)  The full certification trace for e embodies the trust expansion
+          and costs exactly its insight μ in the ExecState μ-counter
+          (the content of [lob_bypass_concrete] in RefinementInvariant).
+    (iii) The expansion's insight is positive: B is strictly larger than A
+          ([size_strict]), so trust always costs at least one unit.
 
-    This theorem does NOT import TilingChain or ThieleMachineComplete — it
-    names the three results and shows they are jointly satisfiable, grounding
-    the abstract "Tiling Agent" proof in concrete machine semantics.
-
-    The abstract TrustCertificate, the concrete ExecState μ-counter, and the
-    operational DeciderState are all consistent.  There is no gap. *)
+    This theorem does NOT import TilingChain or ThieleMachineComplete, and
+    ExecState is an abstract μ-counter, not the kernel VMState. *)
 Theorem decider_bridges_spaceland :
   forall {A B : StateSpace} (e : Expansion A B) (s0 : ExecState),
   forall (ts : TransitionSystem) (oracle : SafetyOracle) (util : nat)
@@ -352,8 +350,7 @@ Theorem decider_bridges_spaceland :
      mu_refinement e s0 post /\
      post.(ex_mu) = s0.(ex_mu) + expansion_insight e) /\
     (** (iii) The Expansion never shrinks: trust costs are always positive: *)
-    (0 < expansion_insight e \/ A.(ss_size) >= B.(ss_size) -> False ->
-     0 < expansion_insight e).
+    0 < expansion_insight e.
 Proof.
   intros A B e s0 ts oracle util P d0 Hsound HP.
   refine (conj _ (conj _ _)).
@@ -361,6 +358,8 @@ Proof.
     intro n. exact (decider_correctness ts oracle util P d0 Hsound HP n).
   - (* (ii) lob_bypass_concrete *)
     exact (lob_bypass_concrete e s0).
-  - (* (iii) trivially true given positivity from expansion size_strict *)
-    intros _ Hfalse. destruct Hfalse.
+  - (* (iii) positivity from the expansion's size_strict *)
+    unfold expansion_insight.
+    pose proof (e.(size_strict A B)).
+    lia.
 Qed.

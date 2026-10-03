@@ -252,60 +252,15 @@ Proof.
 Qed.
 
 
-(** [focusing_implies_heat_dissipation]: this is the contract shape for the
-    Clausius bridge. If the calibrated congruence focuses, the conclusion must
-    provide dQ, dS, and T with T > 0 and dQ = T dS.
-
-    This definition does not derive the numerical heat flow. It pins down the
-    witness shape that the theorem below can fill. *)
-(* SCOPE NOTE: Raychaudhuri focusing gives the trigger for the Clausius witness. *)
-Definition raychaudhuri_heat_dissipation
-    (hbar c_light k_B : R)
-    (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID)
-    (P : LocalMorphismSemantics.SplitMorphism)
-    (support : LocalMorphismSemantics.joint_support) : Prop :=
-  discrete_null_expansion_rate
-    RaychaudhuriFluxBridge.calibrated_null_congruence s sc v P < 0 ->
-  exists dQ dS T : R,
-    0 < T /\ dQ = (T * dS)%R.
-
-(** Given the selected negative expansion expression, the Clausius-shaped
-    witnesses exist.
-    The temperature comes from unruh_temperature_pos. The entropy term comes
-    from entropy_increment. This is a weak existence bridge: the proof does
-    not compute heat from the focusing rate. *)
-(* SCOPE NOTE: Focusing + area law provide Clausius-shaped witnesses; no heat magnitude is derived here. *)
-Theorem focusing_implies_clausius_witnesses :
-  forall (hbar c_light k_B entropy_per_bit : R)
-         (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support : LocalMorphismSemantics.joint_support),
-    (0 < hbar) -> (0 < c_light) -> (0 < k_B) ->
-    discrete_null_expansion_rate
-      RaychaudhuriFluxBridge.calibrated_null_congruence s sc v P < 0 ->
-    exists dQ dS T : R,
-      0 < T /\ dQ = (T * dS)%R.
-Proof.
-  intros hbar c_light k_B entropy_per_bit s sc v P support Hh Hc Hk Hfocus.
-  set (T := ClausiusFromEntropyArea.unruh_temperature hbar c_light k_B P).
-  set (dS := ClausiusFromEntropyArea.entropy_increment entropy_per_bit support).
-  exists (T * dS), dS, T.
-  split.
-  - apply ClausiusFromEntropyArea.unruh_temperature_pos; auto.
-  - ring.
-Qed.
-
-
 (** What this file actually delivers.
 
    First, it fixes the sign bookkeeping between the Euclidean tensor pipeline
    and the Lorentzian focusing story. Second, under the explicit positive-
    coupling hypothesis, it proves the chain from positive mass to positive
-   Lorentzian Ricci null term to focusing. Third, it packages focusing into a
-   weak Clausius-shaped witness.
+   Lorentzian Ricci null term to focusing.
 
    The open interface remains the same: lorentzian_coupling_positive. The
-   current specialized discharge lives in LorentzianTensorPipeline.v for the
+   specialized discharge lives in LorentzianTensorPipeline.v for the
    isotropic mass-gradient case. A broader discharge that does not rely on
    that narrow setup is not provided. *)
 Definition raychaudhuri_open_obligation := lorentzian_coupling_positive.

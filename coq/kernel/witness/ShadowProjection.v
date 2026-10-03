@@ -1,4 +1,4 @@
-(** ShadowProjection.v — Formal Classical Shadow Projection
+(** ShadowProjection.v: Formal Classical Shadow Projection
 
     THE CLASSICAL SHADOW
 
@@ -87,7 +87,7 @@ Qed.
 
 (**
 
-    We define explicit witness states for the separation theorem.
+    Explicit witness states for the separation theorem.
     These correspond exactly to the states in categorical_separation
     (PartitionSeparation.v) but are named here for direct use.
 
@@ -132,7 +132,7 @@ Definition separation_A : VMState := {|
   vm_certified := false
 |}.
 
-(** separation_B: state with no morphisms — otherwise identical to A *)
+(** separation_B: state with no morphisms, otherwise identical to A *)
 Definition separation_B : VMState := {|
   vm_graph     := {| pg_next_id       := 1;
                      pg_modules       := [];
@@ -283,11 +283,11 @@ Qed.
     This combines C2, C3, C4 into the single public-safe claim. *)
 Theorem shadow_strictly_lossy :
   exists (s1 s2 : VMState),
-    (** Same shadow — classical machines cannot tell them apart *)
+    (** Same shadow: classical machines cannot tell them apart *)
     shadow_proj s1 = shadow_proj s2 /\
-    (** Different graph — Thiele retains structure classical machines lose *)
+    (** Different graph: Thiele retains structure classical machines lose *)
     s1.(vm_graph).(pg_morphisms) <> s2.(vm_graph).(pg_morphisms) /\
-    (** A legitimate probe preserves the distinction — the retained structure is persistent *)
+    (** A legitimate probe preserves the distinction: the retained structure is persistent *)
     exists probe,
       (vm_apply s1 probe).(vm_graph).(pg_morphisms) <>
         (vm_apply s2 probe).(vm_graph).(pg_morphisms).

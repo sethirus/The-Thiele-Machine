@@ -59,7 +59,7 @@ Definition thiele_rtl_shadow_device : ShadowDevice :=
 (** Device-class theorem
 
     Every [ShadowDevice] satisfies the shadow compatibility invariant.
-    Follows immediately from the record field — the theorem is here to
+    Follows immediately from the record field; the theorem is here to
     make the class-level statement explicit and separately named.
 
     Any device satisfying the interface is automatically a
@@ -111,9 +111,9 @@ Qed.
     parameter.
 
     DESIGN DECISION: [dsd_step_embed] is scoped to instructions
-    satisfying a class-provided predicate [dsd_supported].  This
-    avoids requiring the RTL to commute on ALL 46 opcodes (some
-    diverge by design — see EmbedStep.v header). *)
+    satisfying a class-provided predicate [dsd_supported].  Under
+    [abs_phase1] the RTL commutes unconditionally only on the
+    [SupportedOpcode] instructions (see EmbedStep.v header). *)
 Record DynamicShadowDevice := {
   dsd_state     : Type ;
   dsd_obs       : dsd_state -> ClassicalState ;
@@ -128,7 +128,7 @@ Record DynamicShadowDevice := {
       dsd_embed (dsd_step d i) = vm_apply (dsd_embed d) i
 }.
 
-(** RTL instance of DynamicShadowDevice (26-opcode SupportedOpcode scope).
+(** RTL instance of DynamicShadowDevice (35-opcode SupportedOpcode scope).
 
     Uses [kami_step] as the device step and [SupportedOpcode] from
     EmbedStep.v as the support predicate.  [embed_step_supported]
@@ -148,7 +148,7 @@ Definition thiele_rtl_dynamic_shadow_device : DynamicShadowDevice :=
     the observation after running the trace equals the classical shadow
     of the corresponding Thiele execution via the embedding.
 
-    No external embed_step parameter needed — everything is in the record. *)
+    No external embed_step parameter needed: everything is in the record. *)
 Theorem dynamic_shadow_device_trace_compat :
   forall (D : DynamicShadowDevice)
          (trace : list vm_instruction)
@@ -182,7 +182,7 @@ Qed.
 
 (** μ-cost observable through dynamic interface.
 
-    The μ-cost after a supported trace equals the Thiele-computed μ —
+    The μ-cost after a supported trace equals the Thiele-computed μ,
     connecting the dynamic device to the cost chain. *)
 Corollary dynamic_shadow_device_mu_observable :
   forall (D : DynamicShadowDevice)

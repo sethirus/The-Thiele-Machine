@@ -109,12 +109,12 @@ Proof.
     destruct Hab as [Hf | Hg], Hbc as [Hf' | Hg'].
     + (* case 1: (a,b)∈pf, (b,c)∈pf' → pf;pf' *)
       left. apply CategoryLaws.relational_compose_spec. exists b. split; assumption.
-    + (* case 2: (a,b)∈pf, (b,c)∈pg' → pf;pg' — must be empty *)
+    + (* case 2: (a,b)∈pf, (b,c)∈pg' → pf;pg' must be empty *)
       exfalso.
       assert (Hin : In (a, c) (CategoryLaws.relational_compose pf pg')).
       { apply CategoryLaws.relational_compose_spec. exists b. split; assumption. }
       apply (Hcross_fg' a c) in Hin. simpl in Hin. exact Hin.
-    + (* case 3: (a,b)∈pg, (b,c)∈pf' → pg;pf' — must be empty *)
+    + (* case 3: (a,b)∈pg, (b,c)∈pf' → pg;pf' must be empty *)
       exfalso.
       assert (Hin : In (a, c) (CategoryLaws.relational_compose pg pf')).
       { apply CategoryLaws.relational_compose_spec. exists b. split; assumption. }

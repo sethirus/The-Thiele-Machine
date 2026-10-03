@@ -1,4 +1,4 @@
-(** Comprehensive Print Assumptions probe — every addressable proof-bearing
+(** Comprehensive Print Assumptions probe: every addressable proof-bearing
     declaration across every .v file in the repository (excluding vendor/kami,
     coq/archive/). Generated; do not edit. Functor and Module-Type interiors
     are skipped here and recorded separately in the inventory. *)
@@ -60,8 +60,8 @@ Require KamiHW.DispatchObservation.
 Require KamiHW.DispatchReset.
 Require KamiHW.EmbedStep.
 Require KamiHW.EmbedStep_WF.
-Require KamiHW.F4_BModulesTranslation.
-Require KamiHW.F4_VerilogEvaluator.
+Require KamiHW.BModulesTranslation.
+Require KamiHW.VerilogEvaluator.
 Require KamiHW.FsmDecoded.
 Require KamiHW.FullAbstraction.
 Require KamiHW.FullEmbedStep.
@@ -296,20 +296,20 @@ Require Kernel.VMWitnessCounterMonotonicity.
 Require Kernel.VMWord64BoundednessObstruction.
 Require Kernel.EcosystemGame.
 Require Kernel.EcosystemGameTarget.
-Require Kernel.F1_AbstractedBridge.
-Require Kernel.F1_LogicalErasure.
-Require Kernel.F1_StrongForm.
-Require Kernel.F1_TraceLevelA2.
-Require Kernel.F2_MinorFromWitnessLocality.
-Require Kernel.F2_MinorIndependence.
-Require Kernel.F2_PerMinorFromCostCoherent.
-Require Kernel.F3_CalibrationObstruction.
-Require Kernel.F3_CrossLink.
-Require Kernel.F3_MuLaplacianSum.
-Require Kernel.F3_PartitionTopologyCrossLink.
-Require Kernel.F3_PlusOneStructural.
-Require Kernel.F3_ReachableGeometry.
-Require Kernel.F3_TripleCrossLink.
+Require Kernel.LandauerBridgeAbstractCost.
+Require Kernel.LogicalErasureCertFlip.
+Require Kernel.LandauerDissipationStrongForm.
+Require Kernel.LandauerTraceLevelA2.
+Require Kernel.NPAMinorsFromWitnessLocality.
+Require Kernel.NPAMinorsIndependentOfCost.
+Require Kernel.NPAPerMinorFromCostCoherence.
+Require Kernel.CalibrationObstruction.
+Require Kernel.LassertTsirelsonCrossLink.
+Require Kernel.MuLaplacianSum.
+Require Kernel.PartitionTopologyCrossLink.
+Require Kernel.TriangleAnglePlusOne.
+Require Kernel.ReachableGeometry.
+Require Kernel.LassertTsirelsonHierarchyCrossLink.
 Require Kernel.ObservationPolicy.
 Require Kernel.PointerObservable.
 Require Kernel.PointerObservableCounterexamples.
@@ -514,8 +514,8 @@ Require ThieleMachine.ThieleProc.
 Print Assumptions Extraction.extraction_nofi_supra_boundary_anchor.
 Print Assumptions Extraction.extraction_canonical_source_anchor.
 Print Assumptions Extraction.run_vm_extraction_invariant_at_stuck.
-Print Assumptions Extraction.extraction_c3_born_rule_anchor.
-Print Assumptions Extraction.extraction_c4_tsirelson_model_anchor.
+Print Assumptions Extraction.extraction_born_rule_uniqueness_anchor.
+Print Assumptions Extraction.extraction_tsirelson_npa_model_anchor.
 Print Assumptions Extraction.extraction_honest_nofi_anchor.
 Print Assumptions Extraction.extraction_honest_nofi_trace_separation_anchor.
 Print Assumptions Extraction.extraction_honest_nofi_general_feasible_reduction_anchor.
@@ -864,16 +864,6 @@ Print Assumptions ThieleMachineComplete.landauer_multi_step_tc.
 Print Assumptions ThieleMachineComplete.python_projection_mu_invariant.
 Print Assumptions ThieleMachineComplete.hw_projection_mu_commutation.
 Print Assumptions ThieleMachineComplete.three_layer_mu_projection.
-Print Assumptions ThieleMachineComplete.kami_step_mu_cost.
-Print Assumptions ThieleMachineComplete.kami_cost_eq_instruction_cost.
-Print Assumptions ThieleMachineComplete.snapshot_regs_to_list_length.
-Print Assumptions ThieleMachineComplete.snapshot_mem_to_list_length.
-Print Assumptions ThieleMachineComplete.snapshot_tensor_to_list_length.
-Print Assumptions ThieleMachineComplete.kami_step_mu_commutation.
-Print Assumptions ThieleMachineComplete.kami_vm_mu_diamond.
-Print Assumptions ThieleMachineComplete.kami_vm_mu_lassert_gap.
-Print Assumptions ThieleMachineComplete.all_instructions_mu_simulate.
-Print Assumptions ThieleMachineComplete.canonical_cpu_proof.
 Print Assumptions ThieleMachineComplete.neighbors_empty.
 Print Assumptions ThieleMachineComplete.discrete_derivative_empty.
 Print Assumptions ThieleMachineComplete.christoffel_empty.
@@ -987,14 +977,14 @@ Print Assumptions ThieleMachineComplete.classical_opcode_preserves_graph_tc.
 Print Assumptions ThieleMachineComplete.classical_trace_preserves_graph_tc.
 Print Assumptions ThieleMachineComplete.classical_trace_preserves_cert_addr_tc.
 Print Assumptions ThieleMachineComplete.classical_trace_preserves_certified_tc.
-Print Assumptions ThieleMachineComplete.D3_conservativity_tc.
+Print Assumptions ThieleMachineComplete.classical_opcodes_preserve_structure_tc.
 Print Assumptions ThieleMachineComplete.classical_trace_cannot_certify_tc.
 Print Assumptions ThieleMachineComplete.morph_delete_no_morphism_err_tc.
 Print Assumptions ThieleMachineComplete.graph_empty_morphisms_delete_fails_tc.
-Print Assumptions ThieleMachineComplete.D4_thiele_passes_probe_tc.
-Print Assumptions ThieleMachineComplete.D4_classical_cannot_pass_probe_tc.
-Print Assumptions ThieleMachineComplete.D4_strictness_tc.
-Print Assumptions ThieleMachineComplete.D5_thiele_strictly_extends_classical_tc.
+Print Assumptions ThieleMachineComplete.morph_id_step_passes_morph_delete_probe_tc.
+Print Assumptions ThieleMachineComplete.classical_trace_fails_morph_delete_probe_tc.
+Print Assumptions ThieleMachineComplete.morph_delete_probe_separates_thiele_from_classical_tc.
+Print Assumptions ThieleMachineComplete.thiele_strictly_extends_classical_tc.
 Print Assumptions ThieleMachineComplete.pad_memory_length_tc.
 Print Assumptions ThieleMachineComplete.tm_encode_length_tc.
 Print Assumptions ThieleMachineComplete.staged_store_instr_pc_succ_tc.
@@ -1071,7 +1061,6 @@ Print Assumptions KamiHW.Abstraction.kami_err_partition_overlap_witness.
 Print Assumptions KamiHW.Abstraction.kami_err_partition_witness.
 Print Assumptions KamiHW.Abstraction.kami_step_mu_cost.
 Print Assumptions KamiHW.Abstraction.kami_cost_eq_instruction_cost.
-Print Assumptions KamiHW.Abstraction.kami_cost_ge_instruction_cost.
 Print Assumptions KamiHW.Abstraction.snapshot_regs_to_list_length.
 Print Assumptions KamiHW.Abstraction.snapshot_mem_to_list_length.
 Print Assumptions KamiHW.Abstraction.snapshot_tensor_to_list_length.
@@ -1144,8 +1133,8 @@ Print Assumptions KamiHW.CPUStart.start_substep.
 Print Assumptions KamiHW.CanonicalCPUProof.canonical_cpu_module_from_source.
 Print Assumptions KamiHW.CanonicalCPUProof.canonical_cpu_proof.
 Print Assumptions KamiHW.CanonicalCPUProof.vm_step_canonical_bus_invariant.
-Print Assumptions KamiHW.CanonicalCPUProof.canonical_c3_born_rule_anchor.
-Print Assumptions KamiHW.CanonicalCPUProof.canonical_c4_tsirelson_model_anchor.
+Print Assumptions KamiHW.CanonicalCPUProof.canonical_born_rule_uniqueness_anchor.
+Print Assumptions KamiHW.CanonicalCPUProof.canonical_tsirelson_npa_model_anchor.
 Print Assumptions KamiHW.CanonicalCPUProof.canonical_honest_nofi_anchor.
 Print Assumptions KamiHW.CanonicalCPUProof.canonical_honest_nofi_trace_separation_anchor.
 Print Assumptions KamiHW.CanonicalCPUProof.canonical_honest_nofi_general_feasible_reduction_anchor.
@@ -5889,39 +5878,39 @@ Print Assumptions KamiHW.EmbedStep_WF.embed_step_lassert.
 Print Assumptions KamiHW.EmbedStep_WF.embed_step_pnew.
 Print Assumptions KamiHW.EmbedStep_WF.embed_step_psplit.
 Print Assumptions KamiHW.EmbedStep_WF.embed_step_pmerge.
-(* === KamiHW.F4_BModulesTranslation : 14 addressable theorems (unaddressable: 0) === *)
-Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_var.
-Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_readreg.
-Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_eq.
-Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_ite.
-Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_readfield.
-Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_writereg.
-Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_assert.
-Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_return.
-Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_let.
-Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_ifelse.
-Print Assumptions KamiHW.F4_BModulesTranslation.bmodule_to_vmodule_behavioural.
-Print Assumptions KamiHW.F4_BModulesTranslation.bmodule_to_vmodule_primitive.
-Print Assumptions KamiHW.F4_BModulesTranslation.bmodules_to_verilog_length.
-Print Assumptions KamiHW.F4_BModulesTranslation.bmodules_to_verilog_singleton.
-(* === KamiHW.F4_VerilogEvaluator : 17 addressable theorems (unaddressable: 0) === *)
-Print Assumptions KamiHW.F4_VerilogEvaluator.state_set_get_eq.
-Print Assumptions KamiHW.F4_VerilogEvaluator.state_set_get_neq.
-Print Assumptions KamiHW.F4_VerilogEvaluator.bexpr_eval_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.writereg_readreg_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.writereg_readreg_concrete_test.
-Print Assumptions KamiHW.F4_VerilogEvaluator.writereg_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.assert_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.return_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.let_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.test_baction_seq_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.test_baction_seq_concrete.
-Print Assumptions KamiHW.F4_VerilogEvaluator.baction_translation_simple_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.simple_bactions_seq_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.ifelse_with_simple_branches_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.test_ifelse_correspondence.
-Print Assumptions KamiHW.F4_VerilogEvaluator.test_ifelse_concrete_then.
-Print Assumptions KamiHW.F4_VerilogEvaluator.test_ifelse_concrete_else.
+(* === KamiHW.BModulesTranslation : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.BModulesTranslation.bexpr_to_vexpr_var.
+Print Assumptions KamiHW.BModulesTranslation.bexpr_to_vexpr_readreg.
+Print Assumptions KamiHW.BModulesTranslation.bexpr_to_vexpr_eq.
+Print Assumptions KamiHW.BModulesTranslation.bexpr_to_vexpr_ite.
+Print Assumptions KamiHW.BModulesTranslation.bexpr_to_vexpr_readfield.
+Print Assumptions KamiHW.BModulesTranslation.baction_to_vstmt_writereg.
+Print Assumptions KamiHW.BModulesTranslation.baction_to_vstmt_assert.
+Print Assumptions KamiHW.BModulesTranslation.baction_to_vstmt_return.
+Print Assumptions KamiHW.BModulesTranslation.baction_to_vstmt_let.
+Print Assumptions KamiHW.BModulesTranslation.baction_to_vstmt_ifelse.
+Print Assumptions KamiHW.BModulesTranslation.bmodule_to_vmodule_behavioural.
+Print Assumptions KamiHW.BModulesTranslation.bmodule_to_vmodule_primitive.
+Print Assumptions KamiHW.BModulesTranslation.bmodules_to_verilog_length.
+Print Assumptions KamiHW.BModulesTranslation.bmodules_to_verilog_singleton.
+(* === KamiHW.VerilogEvaluator : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.VerilogEvaluator.state_set_get_eq.
+Print Assumptions KamiHW.VerilogEvaluator.state_set_get_neq.
+Print Assumptions KamiHW.VerilogEvaluator.bexpr_eval_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.writereg_readreg_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.writereg_readreg_concrete_test.
+Print Assumptions KamiHW.VerilogEvaluator.writereg_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.assert_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.return_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.let_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.test_baction_seq_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.test_baction_seq_concrete.
+Print Assumptions KamiHW.VerilogEvaluator.baction_translation_simple_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.simple_bactions_seq_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.ifelse_with_simple_branches_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.test_ifelse_correspondence.
+Print Assumptions KamiHW.VerilogEvaluator.test_ifelse_concrete_then.
+Print Assumptions KamiHW.VerilogEvaluator.test_ifelse_concrete_else.
 (* === KamiHW.FsmDecoded : 69 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.FsmDecoded.lhdr_rule_action.
 Print Assumptions KamiHW.FsmDecoded.lhdr_decoded_read_free.
@@ -10132,7 +10121,6 @@ Print Assumptions KamiHW.VerilogRefinement.verilog_simulates_vm_step_lui.
 Print Assumptions KamiHW.VerilogRefinement.verilog_simulates_vm_step_certify.
 Print Assumptions KamiHW.VerilogRefinement.kami_step_mu_commutation.
 Print Assumptions KamiHW.VerilogRefinement.kami_vm_mu_diamond.
-Print Assumptions KamiHW.VerilogRefinement.kami_vm_mu_conservative.
 Print Assumptions KamiHW.VerilogRefinement.kami_vm_mu_lassert_gap.
 Print Assumptions KamiHW.VerilogRefinement.verilog_simulates_vm_step_tensor_set.
 Print Assumptions KamiHW.VerilogRefinement.verilog_simulates_vm_step_tensor_get.
@@ -10210,8 +10198,6 @@ Print Assumptions Kernel.MasterSummary.master_honest_nofi_posterior_representati
 Print Assumptions Kernel.MasterSummary.master_a2_equal_trust_substitution_payoff.
 Print Assumptions Kernel.MasterSummary.master_permanent_certification.
 Print Assumptions Kernel.MasterSummary.master_permanent_flip_heat.
-Print Assumptions Kernel.MasterSummary.master_nofi_to_discrete_einstein.
-Print Assumptions Kernel.MasterSummary.master_nofi_to_discrete_einstein_from_bekenstein_calibration.
 Print Assumptions Kernel.MasterSummary.master_verification_chain.
 Print Assumptions Kernel.MasterSummary.master_verification_preserved_observables.
 Print Assumptions Kernel.MasterSummary.master_non_circular_mu_cost_primitives.
@@ -10452,7 +10438,6 @@ Print Assumptions Kernel.DiscreteRaychaudhuri.discrete_null_expansion_rate_calib
 Print Assumptions Kernel.DiscreteRaychaudhuri.isotropic_einstein_ricci_relation.
 Print Assumptions Kernel.DiscreteRaychaudhuri.positive_mass_implies_lorentzian_ricci_positive.
 Print Assumptions Kernel.DiscreteRaychaudhuri.positive_mass_implies_focusing.
-Print Assumptions Kernel.DiscreteRaychaudhuri.focusing_implies_clausius_witnesses.
 (* === Kernel.DiscreteSimplicialGeometry : 21 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.DiscreteSimplicialGeometry.two_vertex_sc_combinatorially_orthogonal.
 Print Assumptions Kernel.DiscreteSimplicialGeometry.boundary_4simplex_vertex_count.
@@ -10603,7 +10588,7 @@ Print Assumptions Kernel.EinsteinEquations4D.fold_left_zero.
 Print Assumptions Kernel.EinsteinEquations4D.fold_left_zero_nested.
 Print Assumptions Kernel.EinsteinEquations4D.fold_left_id_acc.
 Print Assumptions Kernel.EinsteinEquations4D.fold_left_add_zero_l.
-Print Assumptions Kernel.EinsteinEquations4D.einstein_equation_lorentz_general.
+Print Assumptions Kernel.EinsteinEquations4D.einstein_equation_lorentz_vacuum.
 Print Assumptions Kernel.EinsteinEquations4D.lorentz_metric_at_vertex_diag.
 Print Assumptions Kernel.EinsteinEquations4D.lorentz_christoffel_successor_diag_component.
 Print Assumptions Kernel.EinsteinEquations4D.lorentz_christoffel_successor_trace_component.
@@ -10850,10 +10835,6 @@ Print Assumptions Kernel.MuGravity.calibration_progress_consecutive_run_vm_from_
 Print Assumptions Kernel.MuGravity.mu_geometry_defined.
 Print Assumptions Kernel.MuGravity.gravity_uses_unique_cone.
 (* === Kernel.NoFIToEinstein : 6 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.NoFIToEinstein.nfi_to_discrete_einstein.
-Print Assumptions Kernel.NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration.
-Print Assumptions Kernel.NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration.
-Print Assumptions Kernel.NoFIToEinstein.nfi_to_discrete_einstein_from_pnew_bekenstein_calibration.
 Print Assumptions Kernel.NoFIToEinstein.certified_implies_positive_mu.
 Print Assumptions Kernel.NoFIToEinstein.nfi_cost_nonzero_implies_nontrivial_calibration.
 (* === Kernel.PNEWTopologyChange : 7 addressable theorems (unaddressable: 0) === *)
@@ -10865,9 +10846,6 @@ Print Assumptions Kernel.PNEWTopologyChange.pnew_fresh_changes_F.
 Print Assumptions Kernel.PNEWTopologyChange.pnew_fresh_measurably_changes_topology.
 Print Assumptions Kernel.PNEWTopologyChange.vm_pnew_step_changes_topology.
 (* === Kernel.PhysicalSubstrate : 4 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.PhysicalSubstrate.substrate_implies_discrete_einstein.
-Print Assumptions Kernel.PhysicalSubstrate.substrate_psplit_implies_discrete_einstein.
-Print Assumptions Kernel.PhysicalSubstrate.substrate_pnew_implies_discrete_einstein.
 Print Assumptions Kernel.PhysicalSubstrate.landauer_metrological_boundary_closed_proof.
 (* === Kernel.PhysicsClosure : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PhysicsClosure.Physics_Closure.
@@ -10976,9 +10954,9 @@ Print Assumptions Kernel.ClassicalConservativity.classical_opcode_preserves_cert
 Print Assumptions Kernel.ClassicalConservativity.classical_trace_preserves_graph.
 Print Assumptions Kernel.ClassicalConservativity.classical_trace_preserves_cert_addr.
 Print Assumptions Kernel.ClassicalConservativity.classical_trace_preserves_certified.
-Print Assumptions Kernel.ClassicalConservativity.D3_conservativity.
+Print Assumptions Kernel.ClassicalConservativity.classical_opcodes_preserve_structure.
 Print Assumptions Kernel.ClassicalConservativity.classical_trace_cannot_certify.
-Print Assumptions Kernel.ClassicalConservativity.D3_conservativity_pc.
+Print Assumptions Kernel.ClassicalConservativity.classical_opcodes_preserve_structure_run_vm.
 Print Assumptions Kernel.ClassicalConservativity.classical_reachable_vm_reachable.
 Print Assumptions Kernel.ClassicalConservativity.classical_reachable_preserves_structure.
 (* === Kernel.CrossBaseGranularity : 8 addressable theorems (unaddressable: 0) === *)
@@ -11540,7 +11518,7 @@ Print Assumptions Kernel.Subsumption.witness_is_sighted.
 Print Assumptions Kernel.Subsumption.witness_not_turing.
 Print Assumptions Kernel.Subsumption.sighted_program_not_turing_witness.
 (* === Kernel.TuringClassicalEmbedding : 14 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.TuringClassicalEmbedding.D2_faithfulness.
+Print Assumptions Kernel.TuringClassicalEmbedding.classical_run_shadow_faithful.
 Print Assumptions Kernel.TuringClassicalEmbedding.unpack_shadow_proj.
 Print Assumptions Kernel.TuringClassicalEmbedding.shadow_advance_state.
 Print Assumptions Kernel.TuringClassicalEmbedding.shadow_advance_state_rm.
@@ -11550,7 +11528,7 @@ Print Assumptions Kernel.TuringClassicalEmbedding.classical_step_shadow_compat.
 Print Assumptions Kernel.TuringClassicalEmbedding.classical_step_csrs_compat.
 Print Assumptions Kernel.TuringClassicalEmbedding.classical_step_compat.
 Print Assumptions Kernel.TuringClassicalEmbedding.classical_trace_compat.
-Print Assumptions Kernel.TuringClassicalEmbedding.D2_classical_shadow_preserved.
+Print Assumptions Kernel.TuringClassicalEmbedding.classical_run_preserves_shadow_compat.
 Print Assumptions Kernel.TuringClassicalEmbedding.shadow_proj_kernel_is_eq_on_classical_shadow.
 Print Assumptions Kernel.TuringClassicalEmbedding.degenerate_projection_theorem.
 Print Assumptions Kernel.TuringClassicalEmbedding.shadow_inequivalent_states_distinguishable.
@@ -11597,12 +11575,12 @@ Print Assumptions Kernel.TuringCompletenessISA.inc_via_vm_apply.
 Print Assumptions Kernel.TuringCompletenessISA.jzdec_zero_via_vm_apply.
 Print Assumptions Kernel.TuringCompletenessISA.jzdec_nonzero_via_vm_apply.
 (* === Kernel.TuringStrictness : 6 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.TuringStrictness.D4_classical_preserves_next_id.
-Print Assumptions Kernel.TuringStrictness.d4_reachable_step_state.
-Print Assumptions Kernel.TuringStrictness.D4_strictness_reachable.
-Print Assumptions Kernel.TuringStrictness.D4_strictness_from_init.
-Print Assumptions Kernel.TuringStrictness.D4_strictness.
-Print Assumptions Kernel.TuringStrictness.D5_thiele_strictly_extends_classical.
+Print Assumptions Kernel.TuringStrictness.classical_program_preserves_next_module_id.
+Print Assumptions Kernel.TuringStrictness.separating_pnew_step_state.
+Print Assumptions Kernel.TuringStrictness.pnew_step_separates_thiele_from_classical_reachable.
+Print Assumptions Kernel.TuringStrictness.pnew_step_separates_thiele_from_classical_at_init.
+Print Assumptions Kernel.TuringStrictness.pnew_step_separates_thiele_from_classical.
+Print Assumptions Kernel.TuringStrictness.thiele_strictly_extends_classical.
 (* === Kernel.VMAlternativeCounterAccess : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMAlternativeCounterAccess.diagonal_base_guard.
 Print Assumptions Kernel.VMAlternativeCounterAccess.diagonal_increment_first.
@@ -12659,376 +12637,375 @@ Print Assumptions Kernel.EcosystemGame.vm_certification_game_consensus.
 Print Assumptions Kernel.EcosystemGame.vm_certification_game_authentic.
 Print Assumptions Kernel.EcosystemGame.vm_certification_game_durable.
 Print Assumptions Kernel.EcosystemGame.vm_certification_is_permanent_consensus.
-(* === Kernel.F1_AbstractedBridge : 2 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F1_AbstractedBridge.F1_factored_through_abstract_cost.
-Print Assumptions Kernel.F1_AbstractedBridge.A2_via_abstract_landauer_universal_bridge.
-(* === Kernel.F1_LogicalErasure : 4 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F1_LogicalErasure.cert_flip_collapses_cert_classes.
-Print Assumptions Kernel.F1_LogicalErasure.thiele_cost_law_satisfies_landauer_for_cert.
-Print Assumptions Kernel.F1_LogicalErasure.A2_from_physical_reversibility_real.
-Print Assumptions Kernel.F1_LogicalErasure.A2_consistency_check.
-(* === Kernel.F1_StrongForm : 4 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F1_StrongForm.F1_strong_form_universal.
-Print Assumptions Kernel.F1_StrongForm.A2_via_physical_landauer.
-Print Assumptions Kernel.F1_StrongForm.f1_zero_cost_jump_collapses.
-Print Assumptions Kernel.F1_StrongForm.F1_physical_premises_incompatible.
-(* === Kernel.F1_TraceLevelA2 : 3 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F1_TraceLevelA2.F1_trace_level_A2.
-Print Assumptions Kernel.F1_TraceLevelA2.F1_singleton_trace_A2.
-Print Assumptions Kernel.F1_TraceLevelA2.F1_thiele_trace_level_A2.
-(* === Kernel.F2_MinorFromWitnessLocality : 14 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.q_sign_eq_squared.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.correlator_from_local_strategy_00.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.correlator_from_local_strategy_01.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.correlator_from_local_strategy_10.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.correlator_from_local_strategy_11.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.local_strategy_t_E00_E10_eq_one.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.local_strategy_t_E01_E11_eq_one.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.local_strategy_s_E00_E01_eq_one.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.local_strategy_s_E10_E11_eq_one.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.minor_vanishes_local_strategy.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.minor_3x3_proper.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.correlator_from_counts_abs_le_1.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.WCLocallyConsistent_implies_algebraically_coherent.
-Print Assumptions Kernel.F2_MinorFromWitnessLocality.WCLocallyConsistent_implies_tsirelson.
-(* === Kernel.F2_MinorIndependence : 9 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F2_MinorIndependence.pr_box_state_mu_zero.
-Print Assumptions Kernel.F2_MinorIndependence.pr_box_state_certified_false.
-Print Assumptions Kernel.F2_MinorIndependence.pr_box_state_witness_counts.
-Print Assumptions Kernel.F2_MinorIndependence.pr_box_correlators_eq_max_trace.
-Print Assumptions Kernel.F2_MinorIndependence.pr_box_correlators_match_max_trace_q.
-Print Assumptions Kernel.F2_MinorIndependence.algebraically_coherent_proper.
-Print Assumptions Kernel.F2_MinorIndependence.pr_box_correlators_not_coherent.
-Print Assumptions Kernel.F2_MinorIndependence.cost_axioms_do_not_entail_algebraic_coherence.
-Print Assumptions Kernel.F2_MinorIndependence.F2_independence.
-(* === Kernel.F2_PerMinorFromCostCoherent : 8 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F2_PerMinorFromCostCoherent.max_trace_cost_coherent.
-Print Assumptions Kernel.F2_PerMinorFromCostCoherent.minor_3x3_at_product.
-Print Assumptions Kernel.F2_PerMinorFromCostCoherent.sq_le_1_of_abs_le_1.
-Print Assumptions Kernel.F2_PerMinorFromCostCoherent.one_minus_sq_nonneg.
-Print Assumptions Kernel.F2_PerMinorFromCostCoherent.minor_nonneg_at_product.
-Print Assumptions Kernel.F2_PerMinorFromCostCoherent.cost_coherent_implies_per_minor_nonneg.
-Print Assumptions Kernel.F2_PerMinorFromCostCoherent.per_minor_strictly_weaker_than_algebraic_coherence.
-Print Assumptions Kernel.F2_PerMinorFromCostCoherent.pr_box_minor_2_fails_at_minor_1_witness.
-(* === Kernel.F3_CalibrationObstruction : 241 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_nil.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_cons.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_ext_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_ext.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_plus.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_scal.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_const.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_le_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_nonneg_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_pos.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_pos_exists.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_app.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_map.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_flat_map.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_filter.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_swap.
-Print Assumptions Kernel.F3_CalibrationObstruction.if_lsum.
-Print Assumptions Kernel.F3_CalibrationObstruction.INR_nsum.
-Print Assumptions Kernel.F3_CalibrationObstruction.ind_nonneg.
-Print Assumptions Kernel.F3_CalibrationObstruction.triangulated_regions_are_triples.
-Print Assumptions Kernel.F3_CalibrationObstruction.graph_lookup_modules_In.
-Print Assumptions Kernel.F3_CalibrationObstruction.graph_lookup_modules_some.
-Print Assumptions Kernel.F3_CalibrationObstruction.graph_lookup_modules_nodup.
-Print Assumptions Kernel.F3_CalibrationObstruction.adjacent_lookup_l.
-Print Assumptions Kernel.F3_CalibrationObstruction.adjacent_lookup_r.
-Print Assumptions Kernel.F3_CalibrationObstruction.lookup_region3.
-Print Assumptions Kernel.F3_CalibrationObstruction.fold_encoding_mult8.
-Print Assumptions Kernel.F3_CalibrationObstruction.density_form.
-Print Assumptions Kernel.F3_CalibrationObstruction.lap_fold_mult8.
-Print Assumptions Kernel.F3_CalibrationObstruction.mu_laplacian_mult8.
-Print Assumptions Kernel.F3_CalibrationObstruction.triangle_angle_nonneg.
-Print Assumptions Kernel.F3_CalibrationObstruction.sum_angles_nonneg.
-Print Assumptions Kernel.F3_CalibrationObstruction.triangle_angle_lt_half_pi.
-Print Assumptions Kernel.F3_CalibrationObstruction.sum_angles_le.
-Print Assumptions Kernel.F3_CalibrationObstruction.sum_angles_lt.
-Print Assumptions Kernel.F3_CalibrationObstruction.calibrated_lap_nonpos.
-Print Assumptions Kernel.F3_CalibrationObstruction.fold_sum_nonpos.
-Print Assumptions Kernel.F3_CalibrationObstruction.fold_sum_nonpos_zero.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_forces_flat_faces.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_forces_five_triangles.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_ext_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_ext.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_plus.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_scal.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_le_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_swap23.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_swap12.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_rot.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_rot2.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_swap13.
-Print Assumptions Kernel.F3_CalibrationObstruction.face_tri_swap23.
-Print Assumptions Kernel.F3_CalibrationObstruction.face_tri_rot.
-Print Assumptions Kernel.F3_CalibrationObstruction.face_tri_rot2.
-Print Assumptions Kernel.F3_CalibrationObstruction.face_tri_swap12.
-Print Assumptions Kernel.F3_CalibrationObstruction.face_tri_swap13.
-Print Assumptions Kernel.F3_CalibrationObstruction.face_tri_true.
-Print Assumptions Kernel.F3_CalibrationObstruction.tri_perim_rot.
-Print Assumptions Kernel.F3_CalibrationObstruction.tri_perim_rot2.
-Print Assumptions Kernel.F3_CalibrationObstruction.dist_nonzero.
-Print Assumptions Kernel.F3_CalibrationObstruction.triangle_angle_swap23.
-Print Assumptions Kernel.F3_CalibrationObstruction.triangle_angle_face.
-Print Assumptions Kernel.F3_CalibrationObstruction.sum_angles_lsum.
-Print Assumptions Kernel.F3_CalibrationObstruction.sum_angles_triple.
-Print Assumptions Kernel.F3_CalibrationObstruction.total_angle_sum_identity.
-Print Assumptions Kernel.F3_CalibrationObstruction.mass_ge3.
-Print Assumptions Kernel.F3_CalibrationObstruction.dist_ge7.
-Print Assumptions Kernel.F3_CalibrationObstruction.perim_ge21.
-Print Assumptions Kernel.F3_CalibrationObstruction.weight_plus_rem.
-Print Assumptions Kernel.F3_CalibrationObstruction.rem_nonneg.
-Print Assumptions Kernel.F3_CalibrationObstruction.rem_le.
-Print Assumptions Kernel.F3_CalibrationObstruction.weight_pos_rem_pos.
-Print Assumptions Kernel.F3_CalibrationObstruction.tri_weight_nonneg.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_pos_of_witness.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_window_R.
-Print Assumptions Kernel.F3_CalibrationObstruction.INR_if.
-Print Assumptions Kernel.F3_CalibrationObstruction.INR_face_triangle_count.
-Print Assumptions Kernel.F3_CalibrationObstruction.ind_six.
-Print Assumptions Kernel.F3_CalibrationObstruction.ordered_count_six.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_window.
-Print Assumptions Kernel.F3_CalibrationObstruction.share_adjacent.
-Print Assumptions Kernel.F3_CalibrationObstruction.share_face_tri.
-Print Assumptions Kernel.F3_CalibrationObstruction.norm_edge_sym.
-Print Assumptions Kernel.F3_CalibrationObstruction.region_edges_In.
-Print Assumptions Kernel.F3_CalibrationObstruction.edge_eq_refl.
-Print Assumptions Kernel.F3_CalibrationObstruction.list_mem_edge_In.
-Print Assumptions Kernel.F3_CalibrationObstruction.dedup_In.
-Print Assumptions Kernel.F3_CalibrationObstruction.collect_edges_In.
-Print Assumptions Kernel.F3_CalibrationObstruction.count_modules_with_edge_filter.
-Print Assumptions Kernel.F3_CalibrationObstruction.cont_lookup.
-Print Assumptions Kernel.F3_CalibrationObstruction.no_three_faces_on_edge.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_ind_at_most_one.
-Print Assumptions Kernel.F3_CalibrationObstruction.vertex_terms_le_face_tri.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_lsum_swap.
-Print Assumptions Kernel.F3_CalibrationObstruction.tsum_filter3.
-Print Assumptions Kernel.F3_CalibrationObstruction.lsum_eqb_one.
-Print Assumptions Kernel.F3_CalibrationObstruction.count_distinct3.
-Print Assumptions Kernel.F3_CalibrationObstruction.filter_cont_length.
-Print Assumptions Kernel.F3_CalibrationObstruction.INR_falling3.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_vertex_triangle_bound.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_consequences.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_forces_degree_inequality.
-Print Assumptions Kernel.F3_CalibrationObstruction.falling3_ge_6d.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_falling3_ge.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_obstruction_min_degree4.
-Print Assumptions Kernel.F3_CalibrationObstruction.triangles_check.
-Print Assumptions Kernel.F3_CalibrationObstruction.normalized_check.
-Print Assumptions Kernel.F3_CalibrationObstruction.manifold_check.
-Print Assumptions Kernel.F3_CalibrationObstruction.nodup_check.
-Print Assumptions Kernel.F3_CalibrationObstruction.om_well_formed.
-Print Assumptions Kernel.F3_CalibrationObstruction.om_nodup.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_degree_route_insufficient.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_om_not_calibrated.
-Print Assumptions Kernel.F3_CalibrationObstruction.falling3_tangent.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_falling3_tangent.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_forces_large_boundary.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_obstruction_closed.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_cons.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_nil.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_app.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_ext_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_plus.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_scal.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_zero.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_swap.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_perm.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_filter.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_length.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_const.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_indicator_sub.
-Print Assumptions Kernel.F3_CalibrationObstruction.length_filter_split.
-Print Assumptions Kernel.F3_CalibrationObstruction.length_same_elements.
-Print Assumptions Kernel.F3_CalibrationObstruction.double_count.
-Print Assumptions Kernel.F3_CalibrationObstruction.grown_root.
-Print Assumptions Kernel.F3_CalibrationObstruction.grown_reach.
-Print Assumptions Kernel.F3_CalibrationObstruction.bfs_aux.
-Print Assumptions Kernel.F3_CalibrationObstruction.bfs.
-Print Assumptions Kernel.F3_CalibrationObstruction.norm_edge_inv.
-Print Assumptions Kernel.F3_CalibrationObstruction.norm_edge_lt.
-Print Assumptions Kernel.F3_CalibrationObstruction.norm_edge_fst_snd.
-Print Assumptions Kernel.F3_CalibrationObstruction.norm_edge_swap_fst_snd.
-Print Assumptions Kernel.F3_CalibrationObstruction.norm_edge_ends.
-Print Assumptions Kernel.F3_CalibrationObstruction.grown_edges.
-Print Assumptions Kernel.F3_CalibrationObstruction.edge_eq_true.
-Print Assumptions Kernel.F3_CalibrationObstruction.list_mem_edge_iff.
-Print Assumptions Kernel.F3_CalibrationObstruction.connected_edge_count.
-Print Assumptions Kernel.F3_CalibrationObstruction.cut_or_count.
-Print Assumptions Kernel.F3_CalibrationObstruction.tri_ok_of_wf.
-Print Assumptions Kernel.F3_CalibrationObstruction.NoDup_app_disj.
-Print Assumptions Kernel.F3_CalibrationObstruction.collect_nodes_In.
-Print Assumptions Kernel.F3_CalibrationObstruction.vertices_In.
-Print Assumptions Kernel.F3_CalibrationObstruction.vertices_NoDup.
-Print Assumptions Kernel.F3_CalibrationObstruction.region_edges_inv.
-Print Assumptions Kernel.F3_CalibrationObstruction.region_edges_inv_nodup.
-Print Assumptions Kernel.F3_CalibrationObstruction.norm_edge_In_fst.
-Print Assumptions Kernel.F3_CalibrationObstruction.norm_edge_In_snd.
-Print Assumptions Kernel.F3_CalibrationObstruction.region_edges_iff.
-Print Assumptions Kernel.F3_CalibrationObstruction.map_norm_nodup.
-Print Assumptions Kernel.F3_CalibrationObstruction.region_edges_nodup.
-Print Assumptions Kernel.F3_CalibrationObstruction.region_edges_length3.
-Print Assumptions Kernel.F3_CalibrationObstruction.collect_edges_iff.
-Print Assumptions Kernel.F3_CalibrationObstruction.dedup_In_iff.
-Print Assumptions Kernel.F3_CalibrationObstruction.dedup_NoDup.
-Print Assumptions Kernel.F3_CalibrationObstruction.edges_In.
-Print Assumptions Kernel.F3_CalibrationObstruction.edges_NoDup.
-Print Assumptions Kernel.F3_CalibrationObstruction.count_modules_with_edge_nsum.
-Print Assumptions Kernel.F3_CalibrationObstruction.count_incident_nsum.
-Print Assumptions Kernel.F3_CalibrationObstruction.sum_degrees_nsum.
-Print Assumptions Kernel.F3_CalibrationObstruction.count_boundary_filter.
-Print Assumptions Kernel.F3_CalibrationObstruction.module_edges_props.
-Print Assumptions Kernel.F3_CalibrationObstruction.degree_sum_general.
-Print Assumptions Kernel.F3_CalibrationObstruction.edge_sum_general.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_one_two.
-Print Assumptions Kernel.F3_CalibrationObstruction.edges_faces_boundary.
-Print Assumptions Kernel.F3_CalibrationObstruction.cont_entry.
-Print Assumptions Kernel.F3_CalibrationObstruction.cont_true_entry.
-Print Assumptions Kernel.F3_CalibrationObstruction.ein_norm.
-Print Assumptions Kernel.F3_CalibrationObstruction.ein_entry.
-Print Assumptions Kernel.F3_CalibrationObstruction.ein_edges.
-Print Assumptions Kernel.F3_CalibrationObstruction.edges_ein.
-Print Assumptions Kernel.F3_CalibrationObstruction.ein_count2.
-Print Assumptions Kernel.F3_CalibrationObstruction.three_faces_ein.
-Print Assumptions Kernel.F3_CalibrationObstruction.share_edge_spec.
-Print Assumptions Kernel.F3_CalibrationObstruction.share_edge_intro.
-Print Assumptions Kernel.F3_CalibrationObstruction.third_vertex.
-Print Assumptions Kernel.F3_CalibrationObstruction.euler_inv.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_even.
-Print Assumptions Kernel.F3_CalibrationObstruction.nsum_odd_one.
-Print Assumptions Kernel.F3_CalibrationObstruction.cross_three.
-Print Assumptions Kernel.F3_CalibrationObstruction.euler_component.
-Print Assumptions Kernel.F3_CalibrationObstruction.lookup_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.ids_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.restrict_entry.
-Print Assumptions Kernel.F3_CalibrationObstruction.cont_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.share_edge_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.tri_ok_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.triangles_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.normalized_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.nodup_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.count_edge_filter_le.
-Print Assumptions Kernel.F3_CalibrationObstruction.count_edge_pos.
-Print Assumptions Kernel.F3_CalibrationObstruction.manifold_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.q_In.
-Print Assumptions Kernel.F3_CalibrationObstruction.adj_closed.
-Print Assumptions Kernel.F3_CalibrationObstruction.adj_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.filter_filter_drop.
-Print Assumptions Kernel.F3_CalibrationObstruction.neighbors_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.neighbors_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.flat_map_ext_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.triangles_restrict_eq.
-Print Assumptions Kernel.F3_CalibrationObstruction.triangles_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.mass_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.dist_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.angle_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.sum_angles_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.density_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.fold_left_ext_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.laplacian_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.residual_restrict.
-Print Assumptions Kernel.F3_CalibrationObstruction.link_chain.
-Print Assumptions Kernel.F3_CalibrationObstruction.nat_list_disjoint_false.
-Print Assumptions Kernel.F3_CalibrationObstruction.adj_common_vertex.
-Print Assumptions Kernel.F3_CalibrationObstruction.other_vertex.
-Print Assumptions Kernel.F3_CalibrationObstruction.adj_share_closure.
-Print Assumptions Kernel.F3_CalibrationObstruction.window_nat.
-Print Assumptions Kernel.F3_CalibrationObstruction.component_inequality.
-Print Assumptions Kernel.F3_CalibrationObstruction.restrict_graph_ext_in.
-Print Assumptions Kernel.F3_CalibrationObstruction.restrict_graph_true.
-Print Assumptions Kernel.F3_CalibrationObstruction.restrict_empty.
-Print Assumptions Kernel.F3_CalibrationObstruction.count_edge_union.
-Print Assumptions Kernel.F3_CalibrationObstruction.count_edge_zero.
-Print Assumptions Kernel.F3_CalibrationObstruction.length_filter_union.
-Print Assumptions Kernel.F3_CalibrationObstruction.restrict_union.
-Print Assumptions Kernel.F3_CalibrationObstruction.length_filter_and.
-Print Assumptions Kernel.F3_CalibrationObstruction.components_sum.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_calibration_obstruction.
-Print Assumptions Kernel.F3_CalibrationObstruction.link_edge_b_sound.
-Print Assumptions Kernel.F3_CalibrationObstruction.link_vertex_b_complete.
-Print Assumptions Kernel.F3_CalibrationObstruction.link_reach_sound.
-Print Assumptions Kernel.F3_CalibrationObstruction.links_connected_check.
-Print Assumptions Kernel.F3_CalibrationObstruction.om_links_connected.
-Print Assumptions Kernel.F3_CalibrationObstruction.F3_obstruction_hypotheses_satisfiable.
-(* === Kernel.F3_CrossLink : 8 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F3_CrossLink.cost_q_lassert_ge_flen.
-Print Assumptions Kernel.F3_CrossLink.lassert_flen_q_positive.
-Print Assumptions Kernel.F3_CrossLink.F3_cross_link_lassert_tsirelson.
-Print Assumptions Kernel.F3_CrossLink.example_lassert_flen_q_value_at_8.
-Print Assumptions Kernel.F3_CrossLink.example_lassert_min_cost_at_8.
-Print Assumptions Kernel.F3_CrossLink.example_F3_bound_at_flen_8.
-Print Assumptions Kernel.F3_CrossLink.F3_adversarial_drop_tsirelson.
-Print Assumptions Kernel.F3_CrossLink.F3_adversarial_drop_lassert.
-(* === Kernel.F3_MuLaplacianSum : 26 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F3_MuLaplacianSum.nat_list_mem_existsb.
-Print Assumptions Kernel.F3_MuLaplacianSum.nat_list_mem_In.
-Print Assumptions Kernel.F3_MuLaplacianSum.nat_list_disjoint_sym.
-Print Assumptions Kernel.F3_MuLaplacianSum.modules_adjacent_by_region_sym.
-Print Assumptions Kernel.F3_MuLaplacianSum.edge_weight_sym.
-Print Assumptions Kernel.F3_MuLaplacianSum.mu_gradient_antisym.
-Print Assumptions Kernel.F3_MuLaplacianSum.pair_contribution_swap.
-Print Assumptions Kernel.F3_MuLaplacianSum.pair_contribution_self.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_inner_nil.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_inner_cons.
-Print Assumptions Kernel.F3_MuLaplacianSum.pair_contribution_zero_when_not_adjacent.
-Print Assumptions Kernel.F3_MuLaplacianSum.pair_contribution_when_self.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_inner_filter_neighbors.
-Print Assumptions Kernel.F3_MuLaplacianSum.fold_left_pair_contribution_to_fold_right.
-Print Assumptions Kernel.F3_MuLaplacianSum.mu_laplacian_as_sum_pair_inner.
-Print Assumptions Kernel.F3_MuLaplacianSum.mu_laplacian_as_sum_pair_inner_all.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_outer_nil_l.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_outer_cons_l.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_inner_app.
-Print Assumptions Kernel.F3_MuLaplacianSum.fold_right_Rplus_app.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_outer_swap.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_outer_self_swap.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_inner_antisym_var.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_outer_swap_neg.
-Print Assumptions Kernel.F3_MuLaplacianSum.sum_pair_outer_self_zero.
-Print Assumptions Kernel.F3_MuLaplacianSum.total_mu_laplacian_zero.
-(* === Kernel.F3_PartitionTopologyCrossLink : 6 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F3_PartitionTopologyCrossLink.strong_bridge_counterexample.
-Print Assumptions Kernel.F3_PartitionTopologyCrossLink.calibration_pointwise.
-Print Assumptions Kernel.F3_PartitionTopologyCrossLink.sum_geometric_angle_defect_eq_pi_sum_mu_laplacian.
-Print Assumptions Kernel.F3_PartitionTopologyCrossLink.F3_partition_topology_mu_cross_link.
-Print Assumptions Kernel.F3_PartitionTopologyCrossLink.unit_residual_is_nonzero.
-Print Assumptions Kernel.F3_PartitionTopologyCrossLink.pi_times_unit_is_nonzero.
-(* === Kernel.F3_PlusOneStructural : 3 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F3_PlusOneStructural.F3_plus_one_renaming_unification.
-Print Assumptions Kernel.F3_PlusOneStructural.F3_plus_one_substantive_unification_attempt.
-Print Assumptions Kernel.F3_PlusOneStructural.triangle_angle_plus_one_correction_decays.
-(* === Kernel.F3_ReachableGeometry : 22 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F3_ReachableGeometry.vm_reachable_regions_separate.
-Print Assumptions Kernel.F3_ReachableGeometry.init_reachable_regions_separate.
-Print Assumptions Kernel.F3_ReachableGeometry.separate_entries_disjoint.
-Print Assumptions Kernel.F3_ReachableGeometry.separate_not_adjacent.
-Print Assumptions Kernel.F3_ReachableGeometry.filter_all_false.
-Print Assumptions Kernel.F3_ReachableGeometry.separate_no_neighbors.
-Print Assumptions Kernel.F3_ReachableGeometry.separate_no_module_triangles.
-Print Assumptions Kernel.F3_ReachableGeometry.separate_face_tri_false.
-Print Assumptions Kernel.F3_ReachableGeometry.nsum_zero.
-Print Assumptions Kernel.F3_ReachableGeometry.separate_face_triangle_count.
-Print Assumptions Kernel.F3_ReachableGeometry.reachable_no_adjacent_modules.
-Print Assumptions Kernel.F3_ReachableGeometry.separate_flat_reading.
-Print Assumptions Kernel.F3_ReachableGeometry.reachable_flat_reading.
-Print Assumptions Kernel.F3_ReachableGeometry.reachable_calibrated_iff_no_modules.
-Print Assumptions Kernel.F3_ReachableGeometry.edge_in_region_edges.
-Print Assumptions Kernel.F3_ReachableGeometry.count_edge_absent.
-Print Assumptions Kernel.F3_ReachableGeometry.disjoint_count_le_1.
-Print Assumptions Kernel.F3_ReachableGeometry.count_interior_edges_zero.
-Print Assumptions Kernel.F3_ReachableGeometry.separate_triangulated_isolated.
-Print Assumptions Kernel.F3_ReachableGeometry.reachable_triangulated_isolated.
-Print Assumptions Kernel.F3_ReachableGeometry.one_triangle_graph.
-Print Assumptions Kernel.F3_ReachableGeometry.reachable_triangulated_exists.
-(* === Kernel.F3_TripleCrossLink : 6 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_cross_link.
-Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_specialises_to_F3_R1.
-Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_at_k_pos_with_tsirelson.
-Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_fails_without_tsirelson.
-Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_adversarial_drop_tsirelson.
-Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_worked_example_pin.
+(* === Kernel.LandauerBridgeAbstractCost : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LandauerBridgeAbstractCost.abstract_cost_cert_flip_ge_1_from_landauer_bound.
+Print Assumptions Kernel.LandauerBridgeAbstractCost.A2_via_abstract_landauer_universal_bridge.
+(* === Kernel.LogicalErasureCertFlip : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LogicalErasureCertFlip.cert_flip_collapses_cert_classes.
+Print Assumptions Kernel.LogicalErasureCertFlip.thiele_cost_law_satisfies_landauer_for_cert.
+Print Assumptions Kernel.LogicalErasureCertFlip.A2_from_physical_reversibility_real.
+Print Assumptions Kernel.LogicalErasureCertFlip.A2_consistency_check.
+(* === Kernel.LandauerDissipationStrongForm : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LandauerDissipationStrongForm.collapse_step_cost_ge_1_from_calibrated_dissipation.
+Print Assumptions Kernel.LandauerDissipationStrongForm.A2_via_physical_landauer.
+Print Assumptions Kernel.LandauerDissipationStrongForm.zero_cost_jump_collapses_pc_is_one.
+Print Assumptions Kernel.LandauerDissipationStrongForm.landauer_dissipation_premises_inconsistent.
+(* === Kernel.LandauerTraceLevelA2 : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LandauerTraceLevelA2.trace_level_A2_from_landauer_bound.
+Print Assumptions Kernel.LandauerTraceLevelA2.single_step_A2_from_landauer_bound.
+Print Assumptions Kernel.LandauerTraceLevelA2.thiele_trace_level_A2.
+(* === Kernel.NPAMinorsFromWitnessLocality : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.q_sign_eq_squared.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.correlator_from_local_strategy_00.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.correlator_from_local_strategy_01.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.correlator_from_local_strategy_10.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.correlator_from_local_strategy_11.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.local_strategy_t_E00_E10_eq_one.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.local_strategy_t_E01_E11_eq_one.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.local_strategy_s_E00_E01_eq_one.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.local_strategy_s_E10_E11_eq_one.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.minor_vanishes_local_strategy.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.minor_3x3_proper.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.correlator_from_counts_abs_le_1.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.WCLocallyConsistent_implies_algebraically_coherent.
+Print Assumptions Kernel.NPAMinorsFromWitnessLocality.WCLocallyConsistent_implies_tsirelson.
+(* === Kernel.NPAMinorsIndependentOfCost : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NPAMinorsIndependentOfCost.pr_box_state_mu_zero.
+Print Assumptions Kernel.NPAMinorsIndependentOfCost.pr_box_state_certified_false.
+Print Assumptions Kernel.NPAMinorsIndependentOfCost.pr_box_state_witness_counts.
+Print Assumptions Kernel.NPAMinorsIndependentOfCost.pr_box_correlators_eq_max_trace.
+Print Assumptions Kernel.NPAMinorsIndependentOfCost.pr_box_correlators_match_max_trace_q.
+Print Assumptions Kernel.NPAMinorsIndependentOfCost.algebraically_coherent_proper.
+Print Assumptions Kernel.NPAMinorsIndependentOfCost.pr_box_correlators_not_coherent.
+Print Assumptions Kernel.NPAMinorsIndependentOfCost.cost_axioms_do_not_entail_algebraic_coherence.
+Print Assumptions Kernel.NPAMinorsIndependentOfCost.pr_box_state_cost_axioms_do_not_force_coherence.
+(* === Kernel.NPAPerMinorFromCostCoherence : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NPAPerMinorFromCostCoherence.max_trace_cost_coherent.
+Print Assumptions Kernel.NPAPerMinorFromCostCoherence.minor_3x3_at_product.
+Print Assumptions Kernel.NPAPerMinorFromCostCoherence.sq_le_1_of_abs_le_1.
+Print Assumptions Kernel.NPAPerMinorFromCostCoherence.one_minus_sq_nonneg.
+Print Assumptions Kernel.NPAPerMinorFromCostCoherence.minor_nonneg_at_product.
+Print Assumptions Kernel.NPAPerMinorFromCostCoherence.cost_coherent_implies_per_minor_nonneg.
+Print Assumptions Kernel.NPAPerMinorFromCostCoherence.per_minor_strictly_weaker_than_algebraic_coherence.
+Print Assumptions Kernel.NPAPerMinorFromCostCoherence.pr_box_minor_2_fails_at_minor_1_witness.
+(* === Kernel.CalibrationObstruction : 241 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CalibrationObstruction.lsum_nil.
+Print Assumptions Kernel.CalibrationObstruction.lsum_cons.
+Print Assumptions Kernel.CalibrationObstruction.lsum_ext_in.
+Print Assumptions Kernel.CalibrationObstruction.lsum_ext.
+Print Assumptions Kernel.CalibrationObstruction.lsum_plus.
+Print Assumptions Kernel.CalibrationObstruction.lsum_scal.
+Print Assumptions Kernel.CalibrationObstruction.lsum_const.
+Print Assumptions Kernel.CalibrationObstruction.lsum_le_in.
+Print Assumptions Kernel.CalibrationObstruction.lsum_nonneg_in.
+Print Assumptions Kernel.CalibrationObstruction.lsum_pos.
+Print Assumptions Kernel.CalibrationObstruction.lsum_pos_exists.
+Print Assumptions Kernel.CalibrationObstruction.lsum_app.
+Print Assumptions Kernel.CalibrationObstruction.lsum_map.
+Print Assumptions Kernel.CalibrationObstruction.lsum_flat_map.
+Print Assumptions Kernel.CalibrationObstruction.lsum_filter.
+Print Assumptions Kernel.CalibrationObstruction.lsum_swap.
+Print Assumptions Kernel.CalibrationObstruction.if_lsum.
+Print Assumptions Kernel.CalibrationObstruction.INR_nsum.
+Print Assumptions Kernel.CalibrationObstruction.ind_nonneg.
+Print Assumptions Kernel.CalibrationObstruction.triangulated_regions_are_triples.
+Print Assumptions Kernel.CalibrationObstruction.graph_lookup_modules_In.
+Print Assumptions Kernel.CalibrationObstruction.graph_lookup_modules_some.
+Print Assumptions Kernel.CalibrationObstruction.graph_lookup_modules_nodup.
+Print Assumptions Kernel.CalibrationObstruction.adjacent_lookup_l.
+Print Assumptions Kernel.CalibrationObstruction.adjacent_lookup_r.
+Print Assumptions Kernel.CalibrationObstruction.lookup_region3.
+Print Assumptions Kernel.CalibrationObstruction.fold_encoding_mult8.
+Print Assumptions Kernel.CalibrationObstruction.density_form.
+Print Assumptions Kernel.CalibrationObstruction.lap_fold_mult8.
+Print Assumptions Kernel.CalibrationObstruction.mu_laplacian_mult8.
+Print Assumptions Kernel.CalibrationObstruction.triangle_angle_nonneg.
+Print Assumptions Kernel.CalibrationObstruction.sum_angles_nonneg.
+Print Assumptions Kernel.CalibrationObstruction.triangle_angle_lt_half_pi.
+Print Assumptions Kernel.CalibrationObstruction.sum_angles_le.
+Print Assumptions Kernel.CalibrationObstruction.sum_angles_lt.
+Print Assumptions Kernel.CalibrationObstruction.calibrated_lap_nonpos.
+Print Assumptions Kernel.CalibrationObstruction.fold_sum_nonpos.
+Print Assumptions Kernel.CalibrationObstruction.fold_sum_nonpos_zero.
+Print Assumptions Kernel.CalibrationObstruction.calibration_forces_flat_faces.
+Print Assumptions Kernel.CalibrationObstruction.calibration_forces_five_triangles.
+Print Assumptions Kernel.CalibrationObstruction.tsum_ext_in.
+Print Assumptions Kernel.CalibrationObstruction.tsum_ext.
+Print Assumptions Kernel.CalibrationObstruction.tsum_plus.
+Print Assumptions Kernel.CalibrationObstruction.tsum_scal.
+Print Assumptions Kernel.CalibrationObstruction.tsum_le_in.
+Print Assumptions Kernel.CalibrationObstruction.tsum_swap23.
+Print Assumptions Kernel.CalibrationObstruction.tsum_swap12.
+Print Assumptions Kernel.CalibrationObstruction.tsum_rot.
+Print Assumptions Kernel.CalibrationObstruction.tsum_rot2.
+Print Assumptions Kernel.CalibrationObstruction.tsum_swap13.
+Print Assumptions Kernel.CalibrationObstruction.face_tri_swap23.
+Print Assumptions Kernel.CalibrationObstruction.face_tri_rot.
+Print Assumptions Kernel.CalibrationObstruction.face_tri_rot2.
+Print Assumptions Kernel.CalibrationObstruction.face_tri_swap12.
+Print Assumptions Kernel.CalibrationObstruction.face_tri_swap13.
+Print Assumptions Kernel.CalibrationObstruction.face_tri_true.
+Print Assumptions Kernel.CalibrationObstruction.tri_perim_rot.
+Print Assumptions Kernel.CalibrationObstruction.tri_perim_rot2.
+Print Assumptions Kernel.CalibrationObstruction.dist_nonzero.
+Print Assumptions Kernel.CalibrationObstruction.triangle_angle_swap23.
+Print Assumptions Kernel.CalibrationObstruction.triangle_angle_face.
+Print Assumptions Kernel.CalibrationObstruction.sum_angles_lsum.
+Print Assumptions Kernel.CalibrationObstruction.sum_angles_triple.
+Print Assumptions Kernel.CalibrationObstruction.total_angle_sum_identity.
+Print Assumptions Kernel.CalibrationObstruction.mass_ge3.
+Print Assumptions Kernel.CalibrationObstruction.dist_ge7.
+Print Assumptions Kernel.CalibrationObstruction.perim_ge21.
+Print Assumptions Kernel.CalibrationObstruction.weight_plus_rem.
+Print Assumptions Kernel.CalibrationObstruction.rem_nonneg.
+Print Assumptions Kernel.CalibrationObstruction.rem_le.
+Print Assumptions Kernel.CalibrationObstruction.weight_pos_rem_pos.
+Print Assumptions Kernel.CalibrationObstruction.tri_weight_nonneg.
+Print Assumptions Kernel.CalibrationObstruction.tsum_pos_of_witness.
+Print Assumptions Kernel.CalibrationObstruction.calibration_face_triangle_window_R.
+Print Assumptions Kernel.CalibrationObstruction.INR_if.
+Print Assumptions Kernel.CalibrationObstruction.INR_face_triangle_count.
+Print Assumptions Kernel.CalibrationObstruction.ind_six.
+Print Assumptions Kernel.CalibrationObstruction.ordered_count_six.
+Print Assumptions Kernel.CalibrationObstruction.calibration_face_triangle_window.
+Print Assumptions Kernel.CalibrationObstruction.share_adjacent.
+Print Assumptions Kernel.CalibrationObstruction.share_face_tri.
+Print Assumptions Kernel.CalibrationObstruction.norm_edge_sym.
+Print Assumptions Kernel.CalibrationObstruction.region_edges_In.
+Print Assumptions Kernel.CalibrationObstruction.edge_eq_refl.
+Print Assumptions Kernel.CalibrationObstruction.list_mem_edge_In.
+Print Assumptions Kernel.CalibrationObstruction.dedup_In.
+Print Assumptions Kernel.CalibrationObstruction.collect_edges_In.
+Print Assumptions Kernel.CalibrationObstruction.count_modules_with_edge_filter.
+Print Assumptions Kernel.CalibrationObstruction.cont_lookup.
+Print Assumptions Kernel.CalibrationObstruction.no_three_faces_on_edge.
+Print Assumptions Kernel.CalibrationObstruction.lsum_ind_at_most_one.
+Print Assumptions Kernel.CalibrationObstruction.vertex_terms_le_face_tri.
+Print Assumptions Kernel.CalibrationObstruction.tsum_lsum_swap.
+Print Assumptions Kernel.CalibrationObstruction.tsum_filter3.
+Print Assumptions Kernel.CalibrationObstruction.lsum_eqb_one.
+Print Assumptions Kernel.CalibrationObstruction.count_distinct3.
+Print Assumptions Kernel.CalibrationObstruction.filter_cont_length.
+Print Assumptions Kernel.CalibrationObstruction.INR_falling3.
+Print Assumptions Kernel.CalibrationObstruction.vertex_degree_face_triangle_bound.
+Print Assumptions Kernel.CalibrationObstruction.calibration_consequences.
+Print Assumptions Kernel.CalibrationObstruction.calibration_forces_degree_inequality.
+Print Assumptions Kernel.CalibrationObstruction.falling3_ge_6d.
+Print Assumptions Kernel.CalibrationObstruction.nsum_falling3_ge.
+Print Assumptions Kernel.CalibrationObstruction.min_degree_4_triangulation_not_calibrated.
+Print Assumptions Kernel.CalibrationObstruction.triangles_check.
+Print Assumptions Kernel.CalibrationObstruction.normalized_check.
+Print Assumptions Kernel.CalibrationObstruction.manifold_check.
+Print Assumptions Kernel.CalibrationObstruction.nodup_check.
+Print Assumptions Kernel.CalibrationObstruction.om_well_formed.
+Print Assumptions Kernel.CalibrationObstruction.om_nodup.
+Print Assumptions Kernel.CalibrationObstruction.degree_inequality_admits_om_state.
+Print Assumptions Kernel.CalibrationObstruction.om_state_not_calibrated.
+Print Assumptions Kernel.CalibrationObstruction.falling3_tangent.
+Print Assumptions Kernel.CalibrationObstruction.nsum_falling3_tangent.
+Print Assumptions Kernel.CalibrationObstruction.calibration_forces_large_boundary.
+Print Assumptions Kernel.CalibrationObstruction.closed_triangulation_not_calibrated.
+Print Assumptions Kernel.CalibrationObstruction.nsum_cons.
+Print Assumptions Kernel.CalibrationObstruction.nsum_nil.
+Print Assumptions Kernel.CalibrationObstruction.nsum_app.
+Print Assumptions Kernel.CalibrationObstruction.nsum_ext_in.
+Print Assumptions Kernel.CalibrationObstruction.nsum_plus.
+Print Assumptions Kernel.CalibrationObstruction.nsum_scal.
+Print Assumptions Kernel.CalibrationObstruction.nsum_zero.
+Print Assumptions Kernel.CalibrationObstruction.nsum_swap.
+Print Assumptions Kernel.CalibrationObstruction.nsum_perm.
+Print Assumptions Kernel.CalibrationObstruction.nsum_filter.
+Print Assumptions Kernel.CalibrationObstruction.nsum_length.
+Print Assumptions Kernel.CalibrationObstruction.nsum_const.
+Print Assumptions Kernel.CalibrationObstruction.nsum_indicator_sub.
+Print Assumptions Kernel.CalibrationObstruction.length_filter_split.
+Print Assumptions Kernel.CalibrationObstruction.length_same_elements.
+Print Assumptions Kernel.CalibrationObstruction.double_count.
+Print Assumptions Kernel.CalibrationObstruction.grown_root.
+Print Assumptions Kernel.CalibrationObstruction.grown_reach.
+Print Assumptions Kernel.CalibrationObstruction.bfs_aux.
+Print Assumptions Kernel.CalibrationObstruction.bfs.
+Print Assumptions Kernel.CalibrationObstruction.norm_edge_inv.
+Print Assumptions Kernel.CalibrationObstruction.norm_edge_lt.
+Print Assumptions Kernel.CalibrationObstruction.norm_edge_fst_snd.
+Print Assumptions Kernel.CalibrationObstruction.norm_edge_swap_fst_snd.
+Print Assumptions Kernel.CalibrationObstruction.norm_edge_ends.
+Print Assumptions Kernel.CalibrationObstruction.grown_edges.
+Print Assumptions Kernel.CalibrationObstruction.edge_eq_true.
+Print Assumptions Kernel.CalibrationObstruction.list_mem_edge_iff.
+Print Assumptions Kernel.CalibrationObstruction.connected_edge_count.
+Print Assumptions Kernel.CalibrationObstruction.cut_or_count.
+Print Assumptions Kernel.CalibrationObstruction.tri_ok_of_wf.
+Print Assumptions Kernel.CalibrationObstruction.NoDup_app_disj.
+Print Assumptions Kernel.CalibrationObstruction.collect_nodes_In.
+Print Assumptions Kernel.CalibrationObstruction.vertices_In.
+Print Assumptions Kernel.CalibrationObstruction.vertices_NoDup.
+Print Assumptions Kernel.CalibrationObstruction.region_edges_inv.
+Print Assumptions Kernel.CalibrationObstruction.region_edges_inv_nodup.
+Print Assumptions Kernel.CalibrationObstruction.norm_edge_In_fst.
+Print Assumptions Kernel.CalibrationObstruction.norm_edge_In_snd.
+Print Assumptions Kernel.CalibrationObstruction.region_edges_iff.
+Print Assumptions Kernel.CalibrationObstruction.map_norm_nodup.
+Print Assumptions Kernel.CalibrationObstruction.region_edges_nodup.
+Print Assumptions Kernel.CalibrationObstruction.region_edges_length3.
+Print Assumptions Kernel.CalibrationObstruction.collect_edges_iff.
+Print Assumptions Kernel.CalibrationObstruction.dedup_In_iff.
+Print Assumptions Kernel.CalibrationObstruction.dedup_NoDup.
+Print Assumptions Kernel.CalibrationObstruction.edges_In.
+Print Assumptions Kernel.CalibrationObstruction.edges_NoDup.
+Print Assumptions Kernel.CalibrationObstruction.count_modules_with_edge_nsum.
+Print Assumptions Kernel.CalibrationObstruction.count_incident_nsum.
+Print Assumptions Kernel.CalibrationObstruction.sum_degrees_nsum.
+Print Assumptions Kernel.CalibrationObstruction.count_boundary_filter.
+Print Assumptions Kernel.CalibrationObstruction.module_edges_props.
+Print Assumptions Kernel.CalibrationObstruction.degree_sum_general.
+Print Assumptions Kernel.CalibrationObstruction.edge_sum_general.
+Print Assumptions Kernel.CalibrationObstruction.nsum_one_two.
+Print Assumptions Kernel.CalibrationObstruction.edges_faces_boundary.
+Print Assumptions Kernel.CalibrationObstruction.cont_entry.
+Print Assumptions Kernel.CalibrationObstruction.cont_true_entry.
+Print Assumptions Kernel.CalibrationObstruction.ein_norm.
+Print Assumptions Kernel.CalibrationObstruction.ein_entry.
+Print Assumptions Kernel.CalibrationObstruction.ein_edges.
+Print Assumptions Kernel.CalibrationObstruction.edges_ein.
+Print Assumptions Kernel.CalibrationObstruction.ein_count2.
+Print Assumptions Kernel.CalibrationObstruction.three_faces_ein.
+Print Assumptions Kernel.CalibrationObstruction.share_edge_spec.
+Print Assumptions Kernel.CalibrationObstruction.share_edge_intro.
+Print Assumptions Kernel.CalibrationObstruction.third_vertex.
+Print Assumptions Kernel.CalibrationObstruction.euler_inv.
+Print Assumptions Kernel.CalibrationObstruction.nsum_even.
+Print Assumptions Kernel.CalibrationObstruction.nsum_odd_one.
+Print Assumptions Kernel.CalibrationObstruction.cross_three.
+Print Assumptions Kernel.CalibrationObstruction.euler_component.
+Print Assumptions Kernel.CalibrationObstruction.lookup_restrict.
+Print Assumptions Kernel.CalibrationObstruction.ids_restrict.
+Print Assumptions Kernel.CalibrationObstruction.restrict_entry.
+Print Assumptions Kernel.CalibrationObstruction.cont_restrict.
+Print Assumptions Kernel.CalibrationObstruction.share_edge_restrict.
+Print Assumptions Kernel.CalibrationObstruction.tri_ok_restrict.
+Print Assumptions Kernel.CalibrationObstruction.triangles_restrict.
+Print Assumptions Kernel.CalibrationObstruction.normalized_restrict.
+Print Assumptions Kernel.CalibrationObstruction.nodup_restrict.
+Print Assumptions Kernel.CalibrationObstruction.count_edge_filter_le.
+Print Assumptions Kernel.CalibrationObstruction.count_edge_pos.
+Print Assumptions Kernel.CalibrationObstruction.manifold_restrict.
+Print Assumptions Kernel.CalibrationObstruction.q_In.
+Print Assumptions Kernel.CalibrationObstruction.adj_closed.
+Print Assumptions Kernel.CalibrationObstruction.adj_restrict.
+Print Assumptions Kernel.CalibrationObstruction.filter_filter_drop.
+Print Assumptions Kernel.CalibrationObstruction.neighbors_restrict.
+Print Assumptions Kernel.CalibrationObstruction.neighbors_in.
+Print Assumptions Kernel.CalibrationObstruction.flat_map_ext_in.
+Print Assumptions Kernel.CalibrationObstruction.triangles_restrict_eq.
+Print Assumptions Kernel.CalibrationObstruction.triangles_in.
+Print Assumptions Kernel.CalibrationObstruction.mass_restrict.
+Print Assumptions Kernel.CalibrationObstruction.dist_restrict.
+Print Assumptions Kernel.CalibrationObstruction.angle_restrict.
+Print Assumptions Kernel.CalibrationObstruction.sum_angles_restrict.
+Print Assumptions Kernel.CalibrationObstruction.density_restrict.
+Print Assumptions Kernel.CalibrationObstruction.fold_left_ext_in.
+Print Assumptions Kernel.CalibrationObstruction.laplacian_restrict.
+Print Assumptions Kernel.CalibrationObstruction.residual_restrict.
+Print Assumptions Kernel.CalibrationObstruction.link_chain.
+Print Assumptions Kernel.CalibrationObstruction.nat_list_disjoint_false.
+Print Assumptions Kernel.CalibrationObstruction.adj_common_vertex.
+Print Assumptions Kernel.CalibrationObstruction.other_vertex.
+Print Assumptions Kernel.CalibrationObstruction.adj_share_closure.
+Print Assumptions Kernel.CalibrationObstruction.window_nat.
+Print Assumptions Kernel.CalibrationObstruction.component_inequality.
+Print Assumptions Kernel.CalibrationObstruction.restrict_graph_ext_in.
+Print Assumptions Kernel.CalibrationObstruction.restrict_graph_true.
+Print Assumptions Kernel.CalibrationObstruction.restrict_empty.
+Print Assumptions Kernel.CalibrationObstruction.count_edge_union.
+Print Assumptions Kernel.CalibrationObstruction.count_edge_zero.
+Print Assumptions Kernel.CalibrationObstruction.length_filter_union.
+Print Assumptions Kernel.CalibrationObstruction.restrict_union.
+Print Assumptions Kernel.CalibrationObstruction.length_filter_and.
+Print Assumptions Kernel.CalibrationObstruction.components_sum.
+Print Assumptions Kernel.CalibrationObstruction.connected_triangulation_not_calibrated.
+Print Assumptions Kernel.CalibrationObstruction.link_edge_b_sound.
+Print Assumptions Kernel.CalibrationObstruction.link_vertex_b_complete.
+Print Assumptions Kernel.CalibrationObstruction.link_reach_sound.
+Print Assumptions Kernel.CalibrationObstruction.links_connected_check.
+Print Assumptions Kernel.CalibrationObstruction.om_links_connected.
+Print Assumptions Kernel.CalibrationObstruction.calibration_obstruction_hypotheses_satisfiable.
+(* === Kernel.LassertTsirelsonCrossLink : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LassertTsirelsonCrossLink.cost_q_lassert_ge_flen.
+Print Assumptions Kernel.LassertTsirelsonCrossLink.lassert_flen_q_positive.
+Print Assumptions Kernel.LassertTsirelsonCrossLink.lassert_cost_bounds_coherent_chsh_square.
+Print Assumptions Kernel.LassertTsirelsonCrossLink.example_lassert_flen_q_value_at_8.
+Print Assumptions Kernel.LassertTsirelsonCrossLink.example_lassert_min_cost_at_8.
+Print Assumptions Kernel.LassertTsirelsonCrossLink.lassert_chsh_square_bound_at_flen_8.
+Print Assumptions Kernel.LassertTsirelsonCrossLink.lassert_min_cost_below_pr_box_square_bound.
+Print Assumptions Kernel.LassertTsirelsonCrossLink.tsirelson_correlator_positive_flen_term.
+(* === Kernel.MuLaplacianSum : 26 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.MuLaplacianSum.nat_list_mem_existsb.
+Print Assumptions Kernel.MuLaplacianSum.nat_list_mem_In.
+Print Assumptions Kernel.MuLaplacianSum.nat_list_disjoint_sym.
+Print Assumptions Kernel.MuLaplacianSum.modules_adjacent_by_region_sym.
+Print Assumptions Kernel.MuLaplacianSum.edge_weight_sym.
+Print Assumptions Kernel.MuLaplacianSum.mu_gradient_antisym.
+Print Assumptions Kernel.MuLaplacianSum.pair_contribution_swap.
+Print Assumptions Kernel.MuLaplacianSum.pair_contribution_self.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_inner_nil.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_inner_cons.
+Print Assumptions Kernel.MuLaplacianSum.pair_contribution_zero_when_not_adjacent.
+Print Assumptions Kernel.MuLaplacianSum.pair_contribution_when_self.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_inner_filter_neighbors.
+Print Assumptions Kernel.MuLaplacianSum.fold_left_pair_contribution_to_fold_right.
+Print Assumptions Kernel.MuLaplacianSum.mu_laplacian_as_sum_pair_inner.
+Print Assumptions Kernel.MuLaplacianSum.mu_laplacian_as_sum_pair_inner_all.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_outer_nil_l.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_outer_cons_l.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_inner_app.
+Print Assumptions Kernel.MuLaplacianSum.fold_right_Rplus_app.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_outer_swap.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_outer_self_swap.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_inner_antisym_var.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_outer_swap_neg.
+Print Assumptions Kernel.MuLaplacianSum.sum_pair_outer_self_zero.
+Print Assumptions Kernel.MuLaplacianSum.total_mu_laplacian_zero.
+(* === Kernel.PartitionTopologyCrossLink : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PartitionTopologyCrossLink.strong_bridge_counterexample.
+Print Assumptions Kernel.PartitionTopologyCrossLink.calibration_pointwise.
+Print Assumptions Kernel.PartitionTopologyCrossLink.sum_geometric_angle_defect_eq_pi_sum_mu_laplacian.
+Print Assumptions Kernel.PartitionTopologyCrossLink.calibrated_total_angle_defect_zero.
+Print Assumptions Kernel.PartitionTopologyCrossLink.unit_residual_is_nonzero.
+Print Assumptions Kernel.PartitionTopologyCrossLink.pi_times_unit_is_nonzero.
+(* === Kernel.TriangleAnglePlusOne : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TriangleAnglePlusOne.instr_certify_cost_is_successor.
+Print Assumptions Kernel.TriangleAnglePlusOne.triangle_angle_plus_one_correction_decays.
+(* === Kernel.ReachableGeometry : 22 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ReachableGeometry.vm_reachable_regions_separate.
+Print Assumptions Kernel.ReachableGeometry.init_reachable_regions_separate.
+Print Assumptions Kernel.ReachableGeometry.separate_entries_disjoint.
+Print Assumptions Kernel.ReachableGeometry.separate_not_adjacent.
+Print Assumptions Kernel.ReachableGeometry.filter_all_false.
+Print Assumptions Kernel.ReachableGeometry.separate_no_neighbors.
+Print Assumptions Kernel.ReachableGeometry.separate_no_module_triangles.
+Print Assumptions Kernel.ReachableGeometry.separate_face_tri_false.
+Print Assumptions Kernel.ReachableGeometry.nsum_zero.
+Print Assumptions Kernel.ReachableGeometry.separate_face_triangle_count.
+Print Assumptions Kernel.ReachableGeometry.reachable_no_adjacent_modules.
+Print Assumptions Kernel.ReachableGeometry.separate_flat_reading.
+Print Assumptions Kernel.ReachableGeometry.reachable_flat_reading.
+Print Assumptions Kernel.ReachableGeometry.reachable_calibrated_iff_no_modules.
+Print Assumptions Kernel.ReachableGeometry.edge_in_region_edges.
+Print Assumptions Kernel.ReachableGeometry.count_edge_absent.
+Print Assumptions Kernel.ReachableGeometry.disjoint_count_le_1.
+Print Assumptions Kernel.ReachableGeometry.count_interior_edges_zero.
+Print Assumptions Kernel.ReachableGeometry.separate_triangulated_isolated.
+Print Assumptions Kernel.ReachableGeometry.reachable_triangulated_isolated.
+Print Assumptions Kernel.ReachableGeometry.one_triangle_graph.
+Print Assumptions Kernel.ReachableGeometry.reachable_triangulated_exists.
+(* === Kernel.LassertTsirelsonHierarchyCrossLink : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LassertTsirelsonHierarchyCrossLink.lassert_hierarchy_cost_bounds_coherent_chsh_square.
+Print Assumptions Kernel.LassertTsirelsonHierarchyCrossLink.lassert_hierarchy_bound_specialises_to_lassert_bound.
+Print Assumptions Kernel.LassertTsirelsonHierarchyCrossLink.hierarchy_floor_bounds_coherent_chsh_square.
+Print Assumptions Kernel.LassertTsirelsonHierarchyCrossLink.hierarchy_floor_below_pr_box_square_bound.
+Print Assumptions Kernel.LassertTsirelsonHierarchyCrossLink.lassert_hierarchy_min_cost_below_pr_box_square_bound.
+Print Assumptions Kernel.LassertTsirelsonHierarchyCrossLink.lassert_hierarchy_bound_values_at_flen_8_k_2.
 (* === Kernel.ObservationPolicy : 13 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.ObservationPolicy.decoding_requires_fiber_constancy.
 Print Assumptions Kernel.ObservationPolicy.selected_representatives_give_decoder.
@@ -13476,7 +13453,7 @@ Print Assumptions Kernel.EventGenericAudit.evidence_flips_le_cost.
 Print Assumptions Kernel.EventGenericAudit.evidence_a2_iff_nonnegative_amortized_cost.
 Print Assumptions Kernel.EventGenericAudit.evidence_certification_system_is_potential_method.
 Print Assumptions Kernel.EventGenericAudit.evidence_nfi_by_potential.
-Print Assumptions Kernel.EventGenericAudit.evidence_F1_strong_form_universal.
+Print Assumptions Kernel.EventGenericAudit.evidence_collapse_step_cost_from_calibrated_dissipation.
 Print Assumptions Kernel.EventGenericAudit.evidence_gas_schedule_exactness.
 Print Assumptions Kernel.EventGenericAudit.evidence_overcharge_breaks_exactness.
 Print Assumptions Kernel.EventGenericAudit.evidence_undercharged_opcode_admits_free_commitment.
@@ -14286,7 +14263,6 @@ Print Assumptions Kernel.CHSHExtraction.filter_length_le.
 Print Assumptions Kernel.CHSHExtraction.Qabs_4_triangle.
 Print Assumptions Kernel.CHSHExtraction.correlation_bound_1.
 Print Assumptions Kernel.CHSHExtraction.chsh_algebraic_bound.
-Print Assumptions Kernel.CHSHExtraction.chsh_local_bound.
 (* === Kernel.CHSHStatisticalBridge : 16 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CHSHStatisticalBridge.Z_of_nat_pos.
 Print Assumptions Kernel.CHSHStatisticalBridge.correlator_abs_le_1.
@@ -14727,10 +14703,8 @@ Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_imp
 Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_tsirelson_squared.
 Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_tsirelson_abs.
 Print Assumptions Kernel.TsirelsonQuantumModel.trace_npa_model_connection_closed.
-Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_npa_psd.
-Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_npa_psd.
-Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_npa_psd_invariant.
-Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_npa_psd_invariant.
+Print Assumptions Kernel.TsirelsonQuantumModel.tsirelson_square_from_npa_psd.
+Print Assumptions Kernel.TsirelsonQuantumModel.tsirelson_abs_from_npa_psd.
 (* === Kernel.TsirelsonUniqueness : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TsirelsonUniqueness.mu_zero_algebraic_bound.
 (* === Kernel.TsirelsonUpperBound : 17 addressable theorems (unaddressable: 0) === *)
@@ -15005,11 +14979,6 @@ Print Assumptions Kernel.ThermoEinsteinBridge.discrete_einstein_emergence_compon
 Print Assumptions Kernel.ThermoEinsteinBridge.thermodynamic_locality_toward_einstein.
 Print Assumptions Kernel.ThermoEinsteinBridge.thermodynamic_locality_toward_einstein_with_clausius_model.
 Print Assumptions Kernel.ThermoEinsteinBridge.thermodynamic_locality_toward_discrete_einstein_emergence.
-Print Assumptions Kernel.ThermoEinsteinBridge.discrete_einstein_emergence_from_mass_focusing.
-Print Assumptions Kernel.ThermoEinsteinBridge.clausius_load_bearing_einstein_4d.
-Print Assumptions Kernel.ThermoEinsteinBridge.thermodynamic_einstein_full_chain_4d.
-Print Assumptions Kernel.ThermoEinsteinBridge.positive_mass_implies_clausius_witnesses_4d.
-Print Assumptions Kernel.ThermoEinsteinBridge.direct_mass_load_bearing_einstein_4d.
 (* === Kernel.BlindnessRepresentation : 13 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.BlindnessRepresentation.eq_on_classical_refl.
 Print Assumptions Kernel.BlindnessRepresentation.eq_on_classical_sym.
@@ -15036,7 +15005,6 @@ Print Assumptions Kernel.InformationTopology.mu_distance_self_zero.
 Print Assumptions Kernel.InformationTopology.mu_distance_nonneg.
 Print Assumptions Kernel.InformationTopology.mu_path_cost_triangle.
 Print Assumptions Kernel.InformationTopology.mu_distance_le_single_trace_triangle.
-Print Assumptions Kernel.InformationTopology.sighted_is_mu_geodesic_at_N1.
 Print Assumptions Kernel.InformationTopology.blind_is_mu_zero.
 Print Assumptions Kernel.InformationTopology.geodesic_efficiency.
 Print Assumptions Kernel.InformationTopology.geodesic_routing_k_dimensions.
@@ -15321,12 +15289,10 @@ Print Assumptions TestFixtures.VacuitySmoke.smoke_modus_ponens.
 Print Assumptions Tests.ClaimBoundaryRegression.receipt_encoding_roundtrip.
 Print Assumptions Tests.ClaimBoundaryRegression.no_vm_state_morphism_to_never_certifies.
 Print Assumptions Tests.ClaimBoundaryRegression.zero_cost_jump_collapses_pc_class.
-Print Assumptions Tests.ClaimBoundaryRegression.full_vm_f1_premises_incompatible.
+Print Assumptions Tests.ClaimBoundaryRegression.full_vm_landauer_dissipation_premises_inconsistent.
 Print Assumptions Tests.ClaimBoundaryRegression.zero_cost_partition_changes_structure.
 (* === Tests.CloseoutVerification : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Tests.CloseoutVerification.closeout_zero_gaps.
-Print Assumptions Tests.CloseoutVerification.closeout_47_opcodes.
-Print Assumptions Tests.CloseoutVerification.closeout_extraction_identity.
 (* === Tests.SemanticContractRegression : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Tests.SemanticContractRegression.all_ones_in_full_completion.
 (* === Tests.TestNecessity : 10 addressable theorems (unaddressable: 0) === *)

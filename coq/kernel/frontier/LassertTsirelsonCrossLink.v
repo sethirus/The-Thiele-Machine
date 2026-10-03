@@ -1,4 +1,4 @@
-(** * F3_CrossLink: a single-conclusion cross-link inequality
+(** * LassertTsirelsonCrossLink: a single-conclusion cross-link inequality
 
     A Coq inequality whose bound combines the Tsirelson constant
     (from [algebraically_coherent_tsirelson_general]'s [S² ≤ 8])
@@ -6,15 +6,15 @@
     [instruction_cost (instr_lassert _ _ _ flen _) = flen * 8 + S _])
     in non-separable form.
 
-    ** Hard requirements addressed:
+    ** Properties:
 
-    - **B2 (no conjunction-as-composite).** The headline theorem has a
+    - **Single conclusion.** The headline theorem has a
       single conclusion (no top-level `/\`). The bound is one
       Q-inequality whose left-hand side mentions LASSERT cost and
       whose right-hand side mentions both LASSERT formula length and
       the squared CHSH correlator.
 
-    - **B3 (numerical bound inside Coq).** The constants 8 (Tsirelson)
+    - **Numerical bound inside Coq.** The constants 8 (Tsirelson)
       and 8 (LASSERT byte coefficient) appear inside the Coq theorem
       statement itself. Worked-example corollaries pin specific
       rational numbers via [vm_compute].
@@ -26,12 +26,12 @@
         [cost * 8 >= 16*(flen*8+1)], which fails for cost =
         flen*8+1 (the minimum LASSERT cost) as
         [(flen*8+1)*8 < 16*(flen*8+1)] when flen*8+1 > 0.
-        See [F3_adversarial_drop_tsirelson] below.
+        See [lassert_min_cost_below_pr_box_square_bound] below.
       * Drop LASSERT (allow [cost = 0]): the bound becomes
         [0 >= S² * (flen*8+1)], which fails for any [S² > 0] and
-        [flen*8+1 > 0]. See [F3_adversarial_drop_lassert].
+        [flen*8+1 > 0]. See [tsirelson_correlator_positive_flen_term].
 
-    - **B5 (no bypass markers).** No SCOPE NOTE / DEFINITIONAL
+    - **No bypass markers.** No SCOPE NOTE / DEFINITIONAL
       HELPER markers anywhere in this file.
 
     The composite says: any LASSERT certificate of an algebraically-
@@ -83,7 +83,7 @@ Proof.
   unfold Qlt. simpl. rewrite Z.mul_1_r. lia.
 Qed.
 
-(** ** F3 HEADLINE.
+(** ** HEADLINE: the LASSERT cost and Tsirelson cross-link.
 
     Single-conclusion Coq inequality combining LASSERT cost-floor and
     Tsirelson upper bound:
@@ -96,7 +96,7 @@ Qed.
     invokes BOTH [cost_q_lassert_ge_flen] (LASSERT cost law) AND
     [tsirelson_S_squared_le_8] (Tsirelson). *)
 
-Theorem F3_cross_link_lassert_tsirelson :
+Theorem lassert_cost_bounds_coherent_chsh_square :
   forall (c : Correlators) (freg creg flen mu_delta : nat) (kind : bool),
     algebraically_coherent c ->
     cost_q (instr_lassert freg creg kind flen mu_delta) * 8 >=
@@ -106,7 +106,7 @@ Proof.
   (* Step 1: LASSERT cost-floor in Q form. *)
   pose proof (cost_q_lassert_ge_flen freg creg kind flen mu_delta) as Hcost.
   (* Step 2: Tsirelson upper bound (S² ≤ 8) from
-     algebraically_coherent_tsirelson_general directly — no aliasing. *)
+     algebraically_coherent_tsirelson_general directly, no aliasing. *)
   pose proof (algebraically_coherent_tsirelson_general c Hcoh) as Htsirelson.
   (* Step 3: lassert_flen_q is positive. *)
   pose proof (lassert_flen_q_positive flen) as Hpos.
@@ -143,47 +143,52 @@ Lemma example_lassert_min_cost_at_8 :
   cost_q (instr_lassert 0 0 false 8 0) == 65.
 Proof. vm_compute. reflexivity. Qed.
 
-Lemma example_F3_bound_at_flen_8 :
+Lemma lassert_chsh_square_bound_at_flen_8 :
   forall c : Correlators,
     algebraically_coherent c ->
     cost_q (instr_lassert 0 0 false 8 0) * 8 >=
     (S_from_correlators c) * (S_from_correlators c) * 65.
 Proof.
   intros c Hcoh.
-  pose proof (F3_cross_link_lassert_tsirelson
+  pose proof (lassert_cost_bounds_coherent_chsh_square
                 c 0 0 8 0 false Hcoh) as H.
   rewrite example_lassert_flen_q_value_at_8 in H. exact H.
 Qed.
 
 (** ** Adversarial degradation tests.
 
-    These prove that the F3 bound is genuinely non-separable: dropping
+    These prove that the cross-link bound is genuinely non-separable: dropping
     either link's constraint makes a counterexample exhibitable. *)
 
-(** Adversarial 1: drop Tsirelson. With S² = 16 (PR-box squared), the
-    bound `cost * 8 >= 16 * (flen*8+1)` requires `cost >= 2*(flen*8+1)`,
-    which fails for the minimum LASSERT cost `cost = flen*8 + 1`.
+(** Adversarial 1: drop Tsirelson. The PR-box correlators
+    (E00 = E01 = E10 = 1, E11 = -1) have S = 4, so S² = 16. They are not
+    algebraically coherent, and for them the cross-link bound fails at the
+    minimum LASSERT cost: at flen = 0, mu_delta = 0 the cost is 1, so
+    cost * 8 = 8 while S² * (flen*8+1) = 16. *)
+Definition pr_box_correlators : Correlators :=
+  {| E00 := 1; E01 := 1; E10 := 1; E11 := -1 |}.
 
-    Concretely: at flen = 0, mu_delta = 0:
-      cost = 0*8 + 1 = 1
-      cost * 8 = 8
-      RHS = 16 * (0*8 + 1) = 16
-      8 < 16  ⟹  bound fails. *)
-
-Lemma F3_adversarial_drop_tsirelson :
-  cost_q (instr_lassert 0 0 false 0 0) * 8 < 16 * lassert_flen_q 0.
-Proof. vm_compute. reflexivity. Qed.
+Lemma lassert_min_cost_below_pr_box_square_bound :
+  exists c : Correlators,
+    (S_from_correlators c * S_from_correlators c == 16) /\
+    ~ (cost_q (instr_lassert 0 0 false 0 0) * 8 >=
+       S_from_correlators c * S_from_correlators c * lassert_flen_q 0).
+Proof.
+  exists pr_box_correlators. split.
+  - vm_compute. reflexivity.
+  - intro H. vm_compute in H. apply H. reflexivity.
+Qed.
 
 (** Adversarial 2: drop LASSERT. With cost = 0 (free certification),
     the bound `0 >= S² * (flen*8+1)` fails for any S² > 0 and any flen.
 
-    We can't fake a zero-cost LASSERT in Coq (the cost is fixed by the
+    A zero-cost LASSERT cannot be faked in Coq (the cost is fixed by the
     cost law), but the analytical bound `0 >= S² * (flen*8+1)`
     requires either S² = 0 or flen*8+1 = 0 (impossible). The
     adversarial test below exhibits a Tsirelson-saturating correlator
     whose squared S violates the dropped-LASSERT bound. *)
 
-Lemma F3_adversarial_drop_lassert :
+Lemma tsirelson_correlator_positive_flen_term :
   exists c : Correlators,
     algebraically_coherent c /\
     0 < (S_from_correlators c) * (S_from_correlators c) * lassert_flen_q 0.
@@ -195,7 +200,7 @@ Qed.
 
 (** ** Print Assumptions sanity.
 
-    [F3_cross_link_lassert_tsirelson] composes [cost_q_lassert_ge_flen]
+    [lassert_cost_bounds_coherent_chsh_square] composes [cost_q_lassert_ge_flen]
     (proven from instruction_cost arithmetic, no axioms) and
     [tsirelson_S_squared_le_8] (= [algebraically_coherent_tsirelson_general]
     from [AlgebraicCoherence.v], CUTGC). No bypass markers, no

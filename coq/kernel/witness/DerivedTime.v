@@ -5,7 +5,7 @@ From Kernel Require Import SpacetimeEmergence.
 
 Import ListNotations.
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** DerivedTime: observational trace time in this VM.

@@ -31,7 +31,7 @@ Record CertificationSystem := mk_cert_system {
   (** The state space of the computational system. *)
   cs_state : Type;
 
-  (** The instruction type.  Fully abstract — could be vm_instruction,
+  (** The instruction type.  Fully abstract: could be vm_instruction,
       a proof term, a network packet, a thermodynamic process, anything. *)
   cs_instr : Type;
 
@@ -84,7 +84,7 @@ Fixpoint cs_total_cost (CS : CertificationSystem)
     has total cost ≥ 1.
 
     Induction on the trace.
-    - Base: empty trace — cert cannot go from false to true → contradiction.
+    - Base: empty trace; cert cannot go from false to true → contradiction.
     - Step (i :: rest):
         Case A: i certifies (cert goes false→true at step 1).
           → A2 gives cost i ≥ 1.
@@ -229,7 +229,7 @@ Qed.
 
     The record adds a cert-reflection field connecting the external cert
     indicator to vm_certified of the embedded state.  Without this, one
-    cannot derive part (2) from the embedding alone — the external system's
+    cannot derive part (2) from the embedding alone; the external system's
     notion of "certified" could be unrelated to Thiele's vm_certified.
 *)
 
@@ -266,7 +266,7 @@ Qed.
 
 (** THE REPRESENTATION THEOREM
 
-    Part (1): cost lower bound — follows directly from universal_nfi_any_substrate
+    Part (1): cost lower bound; follows directly from universal_nfi_any_substrate
               applied to scs_base.  Not new, but included for completeness.
 
     Part (2): the embedded Thiele execution certifies.  This IS new.
@@ -323,7 +323,7 @@ Definition thiele_self_simulating : SimulatingCertificationSystem :=
 
     CAVEAT:
     Full uniqueness (exists! phi. ...) requires that the morphism map is
-    uniquely determined on ALL states, not just reachable ones.  We prove:
+    uniquely determined on ALL states, not just reachable ones.  Proved here:
     - Existence of a morphism (assuming M provides a witness map)
     - Agreement on reachable states (any two morphisms agree on traces)
     The stronger unique-on-all-states version would need state surjectivity

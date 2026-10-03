@@ -14,11 +14,10 @@
     notation: "x>0", "x > 0", and "(> x 0)" all collapse to the same
     canonical form and the same cost.
 
-    Isomorphism requirement: this Coq definition is the canonical
-    specification of [semantic_complexity_bits]. Both the OCaml extraction
-    in [build/thiele_core.ml] and the Verilog/LEI enforcement layer must
-    compute the same value for any given constraint, since the
-    cross-layer comparison contract depends on it. *)
+    This Coq definition is the canonical specification of
+    [semantic_complexity_bits]. The extracted OCaml in [build/thiele_core.ml]
+    does not contain it, no hardware layer computes it, and no VM
+    instruction cost in VMStep.v calls it. *)
 
 (* SCOPE NOTE: foundation connectivity. This file genuinely engages VM
    semantics: it is stated over kernel types imported below and used in its
@@ -267,8 +266,8 @@ Qed.
 Definition axiom_semantic_cost (ax : VMAxiom) (ast : Constraint) : nat :=
   semantic_complexity_bits ast.
 
-(** When no AST is available — for example because the source formula
-    failed to parse — fall back to the original concrete payload-bit
+(** When no AST is available (for example because the source formula
+    failed to parse), fall back to the original concrete payload-bit
     measure. The fallback is monotonically larger than the AST measure on
     typical inputs, so this preserves the lower-bound discipline. *)
 Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint) : nat :=
@@ -277,27 +276,18 @@ Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint)
   | None => payload_bit_length ax
   end.
 
-(** ** Cross-layer test oracle
+(** ** Cross-layer status
 
-    For every constraint [c], the OCaml extraction in
-    [build/thiele_core.ml] must satisfy
-
-        coq_semantic_complexity_bits c
-          = extracted_semantic_complexity_bits c
-
-    and the Verilog/LEI layer must agree with both. The contract is
-    structural: extraction preserves the AST, both layers compute the
-    same atom, variable, and operator counts, and both apply the same
-    scaling formula
+    [semantic_complexity_bits] exists only in Coq. Neither the extracted
+    OCaml in [build/thiele_core.ml] nor any hardware layer computes it, so
+    no cross-layer equality is checked. A layer that adopts the measure
+    must compute the same atom, variable, and operator counts and apply
+    the same scaling formula
 
         complexity_bits = 8 * (log_2(atoms+1) + log_2(vars+1) + log_2(ops+1)).
 
-    Any divergence breaks the cross-layer comparison contract.
-
-    The headline theorems connecting semantic complexity to per-step
-    LASSERT μ-cost increases live alongside the VM step proofs in
-    [kernel/foundation/StateSpaceCounting.v]; this file provides only the
-    canonical specification of complexity. *)
+    No VM step proof uses this measure; this file provides only the
+    specification of complexity. *)
 
 (** Stable alias for downstream extraction. *)
 Definition ConstraintVar_anchor : Type := ConstraintVar.

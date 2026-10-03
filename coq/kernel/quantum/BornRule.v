@@ -89,7 +89,7 @@ Proof.
   lra.
 Qed.
 
-(* DEFINITIONAL HELPER — SCOPE NOTE: arithmetic derivation from prob_zero + prob_one definitions. *)
+(* DEFINITIONAL HELPER. SCOPE NOTE: arithmetic derivation from prob_zero + prob_one definitions. *)
 (** The two computational-basis probabilities sum to one by definition. *)
 Lemma probs_sum_to_one : forall x y z,
   prob_zero x y z + prob_one x y z = 1.
@@ -102,7 +102,7 @@ Qed.
 (** Before measurement: information about outcome is uncertain *)
 (** Shannon entropy H = -Σ p_i log p_i *)
 
-(** After measurement: we know the outcome definitively *)
+(** After measurement: the outcome is known definitively *)
 (** Information gained = H (prior uncertainty eliminated) *)
 
 (** For a pure state |ψ⟩ measured in its eigenbasis: H = 0 (no surprise) *)

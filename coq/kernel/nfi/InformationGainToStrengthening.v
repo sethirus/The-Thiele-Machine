@@ -43,11 +43,11 @@ Definition observation_distinguishes
 
 
 (** Decidable equality on list (list vm_instruction) observations.
-    We use a parametric approach: the caller provides the decidable
+    The approach is parametric: the caller provides the decidable
     equality on observations. This avoids needing decidable equality
     on vm_instruction (which has 38 constructors). *)
 
-(* SCOPE NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section, parameterized theorem.
    obs_eqb_spec is a decidable equality parameter. All theorems export with
    obs_eqb and obs_eqb_spec as explicit forall premises when section closes. *)
 Section WithDecEq.
@@ -94,7 +94,7 @@ Qed.
 
 
 (** SCOPE NOTE: feasible_strict_subset_implies_strict_predicates is the
-    core B3 result. Predicates are DERIVED from feasible-set membership via
+    core result. Predicates are DERIVED from feasible-set membership via
     omega_predicate, not by constant predicates. The witness state in Ω \ Ω'
     provides the separating observation. *)
 Theorem feasible_strict_subset_implies_strict_predicates :
@@ -165,38 +165,13 @@ Qed.
 End WithDecEq.
 
 
-(** DEPRECATED: Use feasible_strict_subset_implies_strict_predicates instead.
-    This proof is vacuous: it constructs constant true/false predicates that
-    ignore the computation entirely. The real content is the membership-based
-    theorem above. *)
-Definition feasible_reduction_implies_strict_predicates :
-  forall (fuel : nat) (trace : list vm_instruction)
-         (s_init s_final : VMState)
-         (omega_prior omega_posterior : FeasibleSet),
-    s_final = run_vm fuel trace s_init ->
-    In s_init omega_prior ->
-    is_strict_reduction omega_prior omega_posterior ->
-    feasible_size omega_posterior > 0 ->
-    exists (P_prior P_posterior : NoFreeInsight.ReceiptPredicate vm_instruction),
-      NoFreeInsight.strictly_stronger P_posterior P_prior.
-Proof.
-  intros fuel trace s_init s_final omega_prior omega_posterior
-         Hfinal Hin_prior Hreduce Hcard.
-  (* DEPRECATED: constant true / false predicates *)
-  exists (fun _ => true), (fun _ => false).
-  unfold NoFreeInsight.strictly_stronger.
-  constructor.
-  - intros obs Hfalse. discriminate.
-  - exists []. constructor; reflexivity.
-Qed.
-
 (**
 
-    ORIGINAL ASSUMPTION (NoFreeInsight.v):
+    THE ASSUMPTION IN NoFreeInsight.v:
       strengthening_obs_requires_structure_addition :
-        strictly_stronger P_strong P_weak -> ...  [ASSUMED]
+        strictly_stronger P_strong P_weak -> ...  [premise]
 
-    FIXED FRAMEWORK (with B3):
+    FEASIBLE-SET DERIVATION:
       feasible_strict_subset_implies_strict_predicates shows that
       strictly_stronger can be DERIVED from:
       1. Strict subset relation: Ω' ⊊ Ω
@@ -213,9 +188,10 @@ Qed.
     DERIVATION CHAIN:
       Ω' ⊊ Ω (information gain)
         -> observation_distinguishes (the computation revealed something)
-        -> strictly_stronger P_posterior P_prior (B3, PROVEN)
+        -> strictly_stronger P_posterior P_prior (PROVEN here)
         -> structure_addition required (NoFreeInsight.v, PROVEN)
         -> μ-cost > 0 (MuLedgerConservation, PROVEN)
 
-    This completes B3 and enables B4 (stating the honest NoFI theorem).
+    HonestNoFI_TheoremsWithoutAssumptions.v states the honest NoFI theorem
+    on top of this derivation.
     *)

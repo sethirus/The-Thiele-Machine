@@ -3,7 +3,7 @@
     [MuComplexity.v] expresses the structural-advantage gap as
     arithmetic on declared cost constants: [blind_sat_steps k := 4^k]
     and [sighted_sat_steps k := 2 * 2^k]. That file's header is
-    honest about scope — the separation is at the witness level, not a
+    honest about scope: the separation is at the witness level, not a
     complexity-class lower bound. This file lifts the [4^k] constant
     from a declared cost to a worst-case theorem.
 
@@ -24,9 +24,8 @@
     What is NOT proven here
     -----------------------
     - This is a lower bound for *non-adaptive* solvers only.  Adaptive
-      solvers (DPLL, CDCL) can do much better in practice.  The bound for
-      arbitrary blind adaptive solvers in the Thiele VM remains M4b in
-      [CRITIQUE_REMEDIATION.md].
+      solvers (DPLL, CDCL) can do much better in practice.  No bound for
+      arbitrary blind adaptive solvers in the Thiele VM is proved.
     - The matching upper bound (a sighted Thiele program achieving 2*2^k
       probes with 1 μ paid for the factorization CERTIFY) is implicit in
       `sighted_sat_steps` but is not constructed inside the VM here.
@@ -72,7 +71,7 @@ Definition nad_correct (n : nat) (D : NonAdaptiveDecider) : Prop :=
 
 (** ** The adversary witness.
 
-    For each candidate satisfying assignment a, we construct a predicate
+    For each candidate satisfying assignment a, the proof constructs a predicate
     phi_a whose unique satisfying point in [0, 2^n) is a (assuming a is
     in range).  These are the formulas the adversary uses to force the
     solver to probe every assignment. *)
@@ -120,7 +119,7 @@ Qed.
     Proof: suppose some a in range is missing.  Then on the singleton
     predicate phi_a, every probe maps to false (since each probe ≠ a),
     giving the same observation vector as phi_zero.  But phi_a is SAT
-    while phi_zero is UNSAT — contradiction. *)
+    while phi_zero is UNSAT. Contradiction. *)
 Theorem non_adaptive_must_probe_every_assignment :
   forall (n : nat) (D : NonAdaptiveDecider),
     nad_correct n D ->
@@ -191,8 +190,8 @@ Qed.
 
     A factored 2k-bit instance φ = φ₁(x) ∧ φ₂(y) lives over the joint
     assignment space of size 2^(2k) = 4^k.  A non-adaptive decider that
-    must work on every Boolean predicate over those 2k bits — including
-    the singleton predicates the adversary uses — needs at least 4^k
+    must work on every Boolean predicate over those 2k bits (including
+    the singleton predicates the adversary uses) needs at least 4^k
     probes.
 
     This is the unconditional version of `blind_sat_steps k = 4^k`. *)

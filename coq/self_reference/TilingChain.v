@@ -79,7 +79,7 @@ Definition compose_expansion
 (* *)
 (** ** 2. Insight of the composed expansion *)
 
-(** Insight is EXACTLY additive — no overhead, no synergy. *)
+(** Insight is EXACTLY additive: no overhead, no synergy. *)
 Lemma compose_insight_eq :
   forall {A B C : StateSpace} (eAB : Expansion A B) (eBC : Expansion B C),
     expansion_insight eAB + expansion_insight eBC =

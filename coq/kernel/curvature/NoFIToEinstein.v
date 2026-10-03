@@ -1,30 +1,22 @@
-(** NoFIToEinstein: from No Free Insight to the discrete Einstein bridge.
+(** NoFIToEinstein: what the No Free Insight side and the curvature side
+   each prove, kept apart.
 
-   This file is the long chain written in one place. Start with No Free
-   Insight: if the machine genuinely reduces uncertainty, mu has to go up.
-   Feed that into the locality and entropy files, then into Clausius and the
-   Raychaudhuri bridge, and you end up at the discrete curvature law used by
-   EinsteinEmergence.v.
+   Two kinds of result live here. The first is No Free Insight's cost side:
+   a run that starts uncertified with zero mu and ends certified has paid at
+   least one unit ([certified_implies_positive_mu]), and when mu goes up and
+   the Landauer-Unruh calibration holds, the calibrated null flux is positive
+   ([nfi_cost_nonzero_implies_nontrivial_calibration]). That second theorem
+   uses the calibration premise.
 
-   The delicate step is the Landauer-Unruh calibration. I do not smuggle it
-   in as an axiom. I name it as a hypothesis, state exactly what equality it
-   claims, and then let later theorems discharge it from more explicit
-   calibration assumptions when those are available.
+   The second is the curvature side: for two well-formed triangulated graphs
+   the change in total curvature is 5 PI times the change in Euler
+   characteristic ([discrete_gauss_bonnet_delta]). That identity is discrete
+   Gauss-Bonnet. It needs the two triangulation premises and nothing else.
+   No theorem here derives curvature from mu, and none connects the cost
+   side to the curvature side. *)
 
-   So the real point of this file is not "general relativity is done." The
-   point is narrower, and narrower than the chain above suggests. Every
-   theorem named nfi_to_discrete_einstein concludes the discrete Gauss-Bonnet
-   delta identity, delta-curvature = 5 PI * delta-chi, for two well-formed
-   triangulated graphs. That conclusion follows from the two triangulation
-   premises alone (einstein_emerges). The positivity of hbar, c and k_B, the
-   locality and support premises and the Landauer-Unruh calibration are
-   carried in the statement and not used. The file records the corridor of
-   premises under which the identity reads as Einstein-like; it does not
-   derive curvature from mu. *)
-
-(* SCOPE NOTE: foundation connectivity — closes raychaudhuri_component gap by
-   wiring discrete_einstein_emergence_component into the full Jacobson chain.
-   Chain: NoFI → area law (LocalMorphismSemantics) → Clausius → discrete GR. *)
+(* SCOPE NOTE: foundation connectivity: imports the locality, Clausius and
+   Raychaudhuri files whose definitions the calibration predicate names. *)
 
 From Coq Require Import Reals Lra ZArith List.
 Import ListNotations.
@@ -65,28 +57,12 @@ Definition mu_landauer_unruh_calibrated
      entropy_per_bit support_pre support_post)%R.
 
 
-(** [nfi_to_discrete_einstein]: the corridor of premises and the curvature
-    identity in one statement.
-
-    The proof passes every premise to the thermodynamic bridge, whose
-    Raychaudhuri component accepts any positive-temperature Clausius
-    relation and returns the Gauss-Bonnet delta identity. The identity uses
-    only the two triangulation premises; the others are carried. *)
-(* SCOPE NOTE: main theorem — discharges raychaudhuri_component gap via
-  discrete_einstein_emergence_component in ThermoEinsteinBridge. *)
-Theorem nfi_to_discrete_einstein :
-  forall (hbar c_light k_B entropy_per_bit : R)
-         (s_pre s_post : VMState)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support_pre support_post : LocalMorphismSemantics.joint_support),
-    (0 < hbar)%R ->
-    (0 < c_light)%R ->
-    (0 < k_B)%R ->
-    LocalMorphismSemantics.is_nearest_neighbor P ->
-    In support_pre (LocalMorphismSemantics.morphism_support_semantics P) ->
-    In support_post (LocalMorphismSemantics.morphism_support_semantics P) ->
-    mu_landauer_unruh_calibrated
-      hbar c_light k_B entropy_per_bit s_pre s_post P support_pre support_post ->
+(** [discrete_gauss_bonnet_delta]: the curvature change between two
+    well-formed triangulated states is the coupling constant times the change
+    in Euler characteristic. Discrete Gauss-Bonnet on each graph gives it;
+    no premise about mu, temperature or locality is involved. *)
+Theorem discrete_gauss_bonnet_delta :
+  forall (s_pre s_post : VMState),
     well_formed_triangulated (vm_graph s_pre) ->
     well_formed_triangulated (vm_graph s_post) ->
     (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
@@ -94,118 +70,8 @@ Theorem nfi_to_discrete_einstein :
      IZR (euler_characteristic (vm_graph s_post) -
           euler_characteristic (vm_graph s_pre))%Z)%R.
 Proof.
-  intros hbar c_light k_B entropy_per_bit s_pre s_post P support_pre support_post
-         Hh Hc Hk Hnn Hin_pre Hin_post Hcal Hwf_pre Hwf_post.
-  exact (thermodynamic_locality_toward_discrete_einstein_emergence
-           hbar c_light k_B entropy_per_bit Hh Hc Hk
-           s_pre s_post P support_pre support_post
-           Hnn Hin_pre Hin_post Hcal Hwf_pre Hwf_post).
-Qed.
-
-Theorem nfi_to_discrete_einstein_from_bekenstein_calibration :
-  forall (hbar c_light k_B : R)
-         (s_pre s_post : VMState)
-         (P : LocalMorphismSemantics.SplitMorphism)
-         (support_pre support_post : LocalMorphismSemantics.joint_support),
-    (0 < hbar)%R ->
-    (0 < c_light)%R ->
-    (0 < k_B)%R ->
-    LocalMorphismSemantics.is_nearest_neighbor P ->
-    In support_pre (LocalMorphismSemantics.morphism_support_semantics P) ->
-    In support_post (LocalMorphismSemantics.morphism_support_semantics P) ->
-    BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
-    BekensteinCalibration.mu_bit_calibration
-      support_pre support_post s_pre s_post ->
-    well_formed_triangulated (vm_graph s_pre) ->
-    well_formed_triangulated (vm_graph s_post) ->
-    (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
-    (einstein_coupling_constant *
-     IZR (euler_characteristic (vm_graph s_post) -
-          euler_characteristic (vm_graph s_pre))%Z)%R.
-Proof.
-  intros hbar c_light k_B s_pre s_post P support_pre support_post
-         Hh Hc Hk Hnn Hin_pre Hin_post Hconst Hbit Hwf_pre Hwf_post.
-  apply (nfi_to_discrete_einstein
-           hbar c_light k_B (k_B * ln 2)
-           s_pre s_post P support_pre support_post);
-    try assumption.
-  apply (BekensteinCalibration.mu_landauer_unruh_calibrated_from_constant_and_bit_calibration
-           hbar c_light k_B
-           s_pre s_post P support_pre support_post);
-    assumption.
-Qed.
-
-Theorem nfi_to_discrete_einstein_from_psplit_bekenstein_calibration :
-  forall (hbar c_light k_B : R)
-         (s_pre s_post : VMState)
-         (module : ModuleID)
-         (left right : list nat)
-         (cost : nat),
-    (0 < hbar)%R ->
-    (0 < c_light)%R ->
-    (0 < k_B)%R ->
-    vm_step s_pre (instr_psplit module left right cost) s_post ->
-    LocalMorphismSemantics.is_nearest_neighbor
-      (LocalMorphismSemantics.psplit_transition_morphism left right) ->
-    BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
-    BekensteinCalibration.psplit_cost_matches_entropy left right cost ->
-    well_formed_triangulated (vm_graph s_pre) ->
-    well_formed_triangulated (vm_graph s_post) ->
-    (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
-    (einstein_coupling_constant *
-     IZR (euler_characteristic (vm_graph s_post) -
-          euler_characteristic (vm_graph s_pre))%Z)%R.
-Proof.
-  intros hbar c_light k_B s_pre s_post module left right cost
-         Hh Hc Hk Hstep Hnn Hconst Hcost Hwf_pre Hwf_post.
-  apply (nfi_to_discrete_einstein_from_bekenstein_calibration
-           hbar c_light k_B
-           s_pre s_post
-           (LocalMorphismSemantics.psplit_transition_morphism left right)
-           []
-           (BekensteinCalibration.psplit_entropy_event left right));
-    try assumption.
-  - simpl. left. reflexivity.
-  - simpl. right. left. reflexivity.
-  - eapply BekensteinCalibration.psplit_step_mu_bit_calibration; eauto.
-Qed.
-
-(** PNEW-specific discrete Einstein chain.  Generalizes the entropy bridge
-    beyond PSPLIT to module-creation operations. As above, the conclusion is
-    the Gauss-Bonnet delta identity from the two triangulation premises; the
-    step, locality and calibration premises are carried. *)
-Theorem nfi_to_discrete_einstein_from_pnew_bekenstein_calibration :
-  forall (hbar c_light k_B : R)
-         (s_pre s_post : VMState)
-         (region : list nat)
-         (cost : nat),
-    (0 < hbar)%R ->
-    (0 < c_light)%R ->
-    (0 < k_B)%R ->
-    vm_step s_pre (instr_pnew region cost) s_post ->
-    LocalMorphismSemantics.is_nearest_neighbor
-      (LocalMorphismSemantics.pnew_creation_morphism region) ->
-    BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
-    BekensteinCalibration.pnew_cost_matches_entropy region cost ->
-    well_formed_triangulated (vm_graph s_pre) ->
-    well_formed_triangulated (vm_graph s_post) ->
-    (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
-    (einstein_coupling_constant *
-     IZR (euler_characteristic (vm_graph s_post) -
-          euler_characteristic (vm_graph s_pre))%Z)%R.
-Proof.
-  intros hbar c_light k_B s_pre s_post region cost
-         Hh Hc Hk Hstep Hnn Hconst Hcost Hwf_pre Hwf_post.
-  apply (nfi_to_discrete_einstein_from_bekenstein_calibration
-           hbar c_light k_B
-           s_pre s_post
-           (LocalMorphismSemantics.pnew_creation_morphism region)
-           []
-           (BekensteinCalibration.pnew_entropy_event region));
-    try assumption.
-  - simpl. left. reflexivity.
-  - simpl. right. left. reflexivity.
-  - eapply BekensteinCalibration.pnew_step_mu_bit_calibration; eauto.
+  intros s_pre s_post Hwf_pre Hwf_post.
+  exact (einstein_emerges s_pre s_post Hwf_pre Hwf_post).
 Qed.
 
 
@@ -218,7 +84,7 @@ Qed.
     "Certification requires payment." Starting from nothing, nothing
     certifies without cost. The machine's second law.
 *)
-(* SCOPE NOTE: re-export — PrimeAxiom.kernel_certified_implies_positive_mu
+(* SCOPE NOTE: re-export. PrimeAxiom.kernel_certified_implies_positive_mu
    directly proves the NoFI cost consequence for the vm_certified execution path. *)
 Theorem certified_implies_positive_mu :
   forall fuel program (s0 : VMState),
@@ -239,7 +105,7 @@ Qed.
 
     Proof: vm_mu_delta > 0 and horizon_area ≥ 1 imply flux > 0.
 *)
-(* SCOPE NOTE: NoFI contribution — positive Δμ + calibration = nonzero flux. *)
+(* SCOPE NOTE: NoFI contribution, positive Δμ + calibration = nonzero flux. *)
 Theorem nfi_cost_nonzero_implies_nontrivial_calibration :
   forall (hbar c_light k_B entropy_per_bit : R)
          (s_pre s_post : VMState)
@@ -269,36 +135,10 @@ Proof.
   - rewrite RaychaudhuriFluxBridge.calibrated_focusing_unit. lra.
 Qed.
 
-(**
-
-    The Jacobson/Thermo bridge Raychaudhuri interface is discharged by
-    ThermoEinsteinBridge.discrete_einstein_emergence_component:
-
-        forall (st_pair : VMState * VMState) (_ : unit) (dQ dS T : R),
-          (0 < T)%R -> dQ = (T * dS)%R ->
-          discrete_einstein_emergence_target st_pair.
-
-    ANY positive-temperature Clausius relation dQ = T·dS gives the discrete
-    Einstein target. The variable is fully closed.
- This definition aliases the VACUOUS 2D version of the proof —
-    the Clausius parameters (dQ, dS, T) are accepted for interface compatibility
-    but not used, because 2D Gauss-Bonnet (einstein_emerges) does not require
-    them.  The substantive 4D proof where Clausius IS structurally load-bearing
-    is clausius_load_bearing_einstein_4d in ThermoEinsteinBridge.v.  This alias
-    serves the chain summary record.
-
-    CONSEQUENCE: the Jacobson-side Raychaudhuri discharge is closed. The
-    stronger entry theorem [nfi_to_discrete_einstein_from_bekenstein_calibration]
-    removes the raw null-flux equality as a top-level premise.
-*)
-(* SCOPE NOTE: raychaudhuri discharge witness — confirms the gap is closed *)
-Definition raychaudhuri_component_discharged_witness :=
-  @ThermoEinsteinBridge.discrete_einstein_emergence_component.
-
-
+(** [nfi_to_gr_chain_complete]: the three results of this file side by side.
+    The tuple groups them; it does not compose them, and no component's
+    premises feed another's conclusion. *)
 Definition nfi_to_gr_chain_complete :=
-  (nfi_to_discrete_einstein,
-   nfi_to_discrete_einstein_from_bekenstein_calibration,
+  (discrete_gauss_bonnet_delta,
    certified_implies_positive_mu,
-   nfi_cost_nonzero_implies_nontrivial_calibration,
-   raychaudhuri_component_discharged_witness).
+   nfi_cost_nonzero_implies_nontrivial_calibration).

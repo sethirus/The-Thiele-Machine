@@ -1,26 +1,23 @@
 (** LegacyLoadGuard.v: the LOAD guard-class bound premise as decoded-guard
     falsity, for the legacy word encoding.
 
-    [OutsideDomain.v]'s closing note leaves open, for each of the ten
-    guard-class opcodes, restating its own admission bound as the falsity of
-    its own decoded guard predicate ([dd_load_locality_bad], ...). This is
-    the first such result: for a legacy LOAD word, [dd_load_locality_bad] is
-    false whenever the decoded memory address lies within the active
-    partition's region -- the same premise [StepRefineCommon.region_ok_of_range]
-    already names for the bit-variable route [StepRefine.step_load_refines]
-    takes. The two routes reach the same guard via different means:
-    [StepRefine.v] states its premise directly over eight per-bit variables
-    with no opcode symbolically fixed; here the opcode, and every operand
-    byte, are decoded from an arbitrary [legacy_word OP_LOAD a b c] via
-    [LegacyWordDecode]'s lane identity, which is what the outside-domain
-    relation needs: a guard stated over the concrete instruction word, not
-    over already-split bit variables.
+    For each of the seven guard-class opcodes, the admission bound can be
+    restated as the falsity of the opcode's own decoded guard predicate
+    ([dd_load_locality_bad], ...). For a legacy LOAD word,
+    [dd_load_locality_bad] is false whenever the decoded memory address lies
+    within the active partition's region, the same premise
+    [StepRefineCommon.region_ok_of_range] names for the bit-variable route
+    [StepRefine.step_load_refines] takes. The two routes reach the same guard
+    via different means: [StepRefine.v] states its premise directly over
+    eight per-bit variables with no opcode symbolically fixed; here the
+    opcode, and every operand byte, are decoded from an arbitrary
+    [legacy_word OP_LOAD a b c] via [LegacyWordDecode]'s lane identity, which
+    is what the outside-domain relation needs: a guard stated over the
+    concrete instruction word, not over already-split bit variables.
 
-    Open: the same argument for the other nine guard-class opcodes
-    (STORE, HEAP_LOAD, HEAP_STORE, CALL, RET, PNEW, PSPLIT, PMERGE,
-    PDISCOVER), and the rich-format guard, which needs the same lane
-    identity for the other five encodings (BRANCH_EXT, TENSOR_EXT,
-    MORPH_INLINE, DESC, CERT_INLINE). *)
+    The other locality opcodes are in [LegacyLocalityGuard.v], PDISCOVER is
+    in [LegacyNfiGuard.v], and the same results over every ISA-v2 encoding
+    are [RichLoadGuard.v], [RichLocalityGuard.v] and [RichNfiGuard.v]. *)
 Require Import Kami.Kami Kami.Semantics.
 From Coq Require Import String List Bool Arith Lia.
 From KamiHW Require Import ThieleTypes ThieleCPUCore HWBoundary RuleNext RuleStep BoundaryDecoded

@@ -16,8 +16,8 @@ Import ListNotations.
 
     This file supplies a simple, nontrivial "physics-style" model: a reversible
     1D lattice gas with local swaps.  The update rule is involutive and
-    conserves both particle count and a momentum-like quantity, giving us
-    concrete invariants we can transport through later embeddings. *)
+    conserves both particle count and a momentum-like quantity, giving
+    concrete invariants to transport through later embeddings. *)
 
 Inductive Cell := Empty | LeftMover | RightMover.
 
@@ -170,7 +170,7 @@ Qed.
     conservation laws.  No Thiele-specific machinery is required here; the
     assumptions can be discharged later by a simulation lemma in the VM/Thiele
     stack. *)
-(* SCOPE NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section, parameterized theorem.
    Section Variables become explicit forall premises when the section closes. *)
 Section Embedding.
   Variable Encoded : Type.

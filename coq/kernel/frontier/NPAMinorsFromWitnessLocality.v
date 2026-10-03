@@ -1,10 +1,10 @@
-(** * F2_MinorFromWitnessLocality: deriving the NPA-1 minor inequalities
+(** * NPAMinorsFromWitnessLocality: deriving the NPA-1 minor inequalities
 
-    [F2_MinorIndependence] establishes the negative result: cost
+    [NPAMinorsIndependentOfCost] establishes the negative result: cost
     axioms alone do not entail [algebraically_coherent]. This file
     establishes the corresponding positive result under a natural
     strengthening: cost axioms + witness-locality
-    ([WCLocallyConsistent] — a structural condition on witness counts
+    ([WCLocallyConsistent], a structural condition on witness counts
     that is strictly weaker than full classical realisability and
     strictly stronger than no-signaling) do entail
     [algebraically_coherent].
@@ -29,7 +29,7 @@
     inequalities from a cost-axiomatic premise (witness-locality),
     expressed purely in terms of the kernel's existing
     [WitnessCounts] / [WCLocallyConsistent] structure. The minor
-    inequalities are NOT primitive — they fall out of local-strategy
+    inequalities are NOT primitive. They fall out of local-strategy
     consistency by direct algebra. This is a real partial closure of
     OP-QM under a strengthening axiom.
 
@@ -58,7 +58,7 @@ Local Open Scope Q_scope.
 
 From Kernel Require Import VMState VMStep SimulationProof.
 From Kernel Require Import CHSH CHSHStatisticalBridge AlgebraicCoherence.
-From Kernel Require Import F2_MinorIndependence.
+From Kernel Require Import NPAMinorsIndependentOfCost.
 
 (** Sign of a Boolean equality test, as a Q-valued ±1. *)
 Definition q_sign_eq (x y : nat) : Q :=
@@ -71,7 +71,7 @@ Proof. intros. unfold q_sign_eq. destruct (Nat.eqb x y); lra. Qed.
 
     For a local strategy [(a0, a1, b0, b1)] with x ∈ {0, 1} and a witness
     count satisfying [WCLocallyConsistent], the correlator [E_xy] equals
-    [q_sign_eq a_x b_y] — that is, [+1] if [a_x = b_y] and [-1] otherwise.
+    [q_sign_eq a_x b_y]; that is, [+1] if [a_x = b_y] and [-1] otherwise.
 
     Same as the existing [chsh_correlator_q] but specialized for
     the case where exactly one of [same/diff] is non-zero (which
@@ -182,7 +182,7 @@ Qed.
        matched cross-correlator.
 
     For any choice of t = q_sign_eq a0 a1, E_00 = q_sign_eq a0 b0,
-    E_10 = q_sign_eq a1 b0 with bits a0, a1, b0 ∈ {0, 1}, we have
+    E_10 = q_sign_eq a1 b0 with bits a0, a1, b0 ∈ {0, 1}, it holds that
     [t * E_00 * E_10 == 1] (the signs cancel pairwise). Therefore
     minor_3x3 evaluates to [-2 + 2 = 0]. *)
 
@@ -261,7 +261,7 @@ Proof.
   apply correlator_abs_le_1.
 Qed.
 
-(** ** F2 HEADLINE: WCLocallyConsistent implies algebraically_coherent.
+(** ** HEADLINE: WCLocallyConsistent implies algebraically_coherent.
 
     For any [WCLocallyConsistent a0 a1 b0 b1 wc] with bit-valued
     strategy components, the witness-derived correlator c satisfies
@@ -355,7 +355,7 @@ Qed.
     Composing with the existing [algebraically_coherent_tsirelson_general]:
     locally-consistent witness counts produce correlators satisfying
     [S² ≤ 8]. The four NPA-1 minor inequalities are derived (not
-    assumed) — this is the partial closure of OP-QM under the
+    assumed). This is the partial closure of OP-QM under the
     witness-locality strengthening. *)
 
 Theorem WCLocallyConsistent_implies_tsirelson :
@@ -382,12 +382,12 @@ Qed.
     and composition with [algebraically_coherent_tsirelson_general]
     (already CUTGC). No new axioms. No bypass markers.
 
-    F2 deepening result. The four NPA-1 minor inequalities are
+    Minor-independence deepening result. The four NPA-1 minor inequalities are
     DERIVED (not stipulated) from a defensible cost-axiomatic
     strengthening (witness-locality). Combined with
-    [F2_MinorIndependence], the joint scope statement is precise:
+    [NPAMinorsIndependentOfCost], the joint scope statement is precise:
     - cost axioms ALONE do not entail [algebraically_coherent]
-      (negative result, [F2_independence])
+      (negative result, [pr_box_state_cost_axioms_do_not_force_coherence])
     - cost axioms + witness-locality DO entail
       [algebraically_coherent] (positive result, this file)
     - the witness-locality premise is the precise additional

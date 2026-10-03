@@ -8,12 +8,12 @@
     pair/descriptor pointers reset to 0/1, so every implication is vacuous
     or a direct value check; closed under the global context beyond the
     two already-documented inherited axioms, [functional_extensionality_dep]
-    and [eq_rect_eq]). This is the base case of C1/C2's "reachable-state
-    invariants from reset" obligation.
+    and [eq_rect_eq]). This is the base case of the reachable-state
+    induction.
 
-    Preservation across [Retire] (needed to carry the invariants along any
-    admitted instruction sequence, C1/C2's "reachable-state invariants from
-    reset" obligation) is NOT done here. Scope of that obligation:
+    Preservation across [Retire] is
+    [TableInvariantsPreserved.hwb_table_invariants_preserved]. Its case
+    split:
     [RetireMaster.admitted] has 55 constructors (one per retirement theorem,
     covering 47 opcodes; a few opcodes have more than one constructor for a
     legacy/extended encoding or a success/fault branch). 47 leave every

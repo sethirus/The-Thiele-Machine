@@ -41,7 +41,7 @@ Require Import VerifierImpossibility.
 (** ** Generalized verifier and projection.
 
     [T] is an arbitrary transcript type. [proj_classical] is the
-    forgetful map to the bare classical transcript — every escape
+    forgetful map to the bare classical transcript: every escape
     transcript admits such a projection (it discards the extra
     structure).
 *)
@@ -58,8 +58,8 @@ Definition factors_classical {T : Type} (proj : T -> BareTranscript)
 
     If V on a generic transcript type T factors through the classical
     projection AND there exist two T-transcripts that map to the same
-    classical transcript but explain states with different μ — one
-    satisfying μ=1, one not — then V cannot be both sound and complete
+    classical transcript but explain states with different μ (one
+    satisfying μ=1, one not), then V cannot be both sound and complete
     on the μ=1 problem.
 
     The hypotheses encode that T has at least the structural richness
@@ -76,7 +76,7 @@ Definition factors_classical {T : Type} (proj : T -> BareTranscript)
 
     All structural premises (collision, explanation pair, soundness,
     completeness) are explicit forall hypotheses on the theorem
-    statement — no Section-local Variables or Hypotheses are used,
+    statement: no Section-local Variables or Hypotheses are used,
     so the theorem carries its own assumption surface and the kernel
     audit reports zero project-local axioms. *)
 Theorem V_does_not_factor_through_classical :

@@ -5,8 +5,8 @@
     the seven "_ext" retirement theorems use (morph-inline opcodes at
     [fmt = 3], MORPH_ASSERT's descriptor-carrying form at [fmt = 5]), with
     flags fixed to 4 (subtype 0, descriptor kind 0, inline length 4). This
-    is exactly one instance of [RichWordDecode.rich_word] -- the general
-    six-encoding word -- with [isa = 2], [flags = 4], [reserved = 0] and
+    is exactly one instance of [RichWordDecode.rich_word] (the general
+    six-encoding word) with [isa = 2], [flags = 4], [reserved = 0] and
     [format_id] fixed to the literal [fmt]. Bridging the two lets every
     [dd_*] decode fact [RichWordDecode.v] already proved (opcode, isa
     version, format id, flags) transfer directly, without re-deriving the

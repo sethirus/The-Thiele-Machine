@@ -163,9 +163,9 @@ Qed.
 
 (** Metric invertibility boundary for the curved route.
 
-    The simplicial complex argument is retained because future general chain
-    theorems will state invertibility at a vertex of a particular complex; the
-    current predicate is local to the vertex and requires positive diagonal
+    The simplicial complex argument is kept in the signature so that chain
+    theorems can state invertibility at a vertex of a particular complex; the
+    predicate itself is local to the vertex and requires positive diagonal
     entries in the module tensor. *)
 Definition metric_invertible
   (s : VMState) (_sc : SimplicialComplex4D) (v : ModuleID) : Prop :=
@@ -300,11 +300,11 @@ Proof.
   rewrite Hzero. simpl. reflexivity.
 Qed.
 
-(** ** Non-trivial Einstein equation — main deliverable
+(** ** Non-trivial Einstein equation: main deliverable
 
     Setting: 2-vertex complex with diagonal conformal metric.
     Vertex v has metric a·δ_{μν}, vertex w has metric b·δ_{μν}.
-    When a ≠ b (different "mass" at each vertex), we get non-zero curvature.
+    When a ≠ b (different "mass" at each vertex), the curvature is non-zero.
 
     Strategy:
     1. Build concrete VMState with diagonal a, b tensors
@@ -403,7 +403,7 @@ Qed.
     The proof requires: R_{d1,d1}(v) = R_{d2,d2}(v) for all d1, d2.
     This is the Ricci isotropy property of spherically symmetric metrics.
 
-    For the 2-vertex complex, we prove it from the Ricci isotropy hypothesis,
+    For the 2-vertex complex, it is proved from the Ricci isotropy hypothesis,
     which holds for any metric of the form g = a·I (can be verified
     computationally for any concrete a, b). *)
 Theorem curved_einstein_diagonal_isotropic_uniform : forall s v w,
@@ -641,7 +641,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** For our full_metric_at_vertex, symmetry follows from module_tensor_entry *)
+(** For full_metric_at_vertex, symmetry follows from module_tensor_entry *)
 Lemma full_metric_symmetric : forall s v μ ν,
   (μ < 4)%nat -> (ν < 4)%nat ->
   module_tensor_entry s v μ ν = module_tensor_entry s v ν μ ->
@@ -656,7 +656,7 @@ Qed.
 (** ** Stress-energy uniformity *)
 
 (** The einstein_equation_uniform_coupling theorem already provides the
-    main deliverable. Here we show that the coupling structure is
+    main deliverable. This section shows that the coupling structure is
     genuinely non-trivial: it connects Einstein and stress-energy tensors
     with a uniform ratio across all diagonal components. *)
 
@@ -705,7 +705,7 @@ Qed.
 
     For general non-flat metrics, the Bianchi identity ∇_μ G^{μν} = 0
     is an algebraic identity of the Riemann tensor. On the discrete
-    2-vertex complex, we prove it by direct computation: since Einstein
+    2-vertex complex, direct computation proves it: since Einstein
     at w is always zero, the divergence reduces to a sum involving
     g_inv × (0 - G(v)) = -g_inv × G(v). *)
 
@@ -733,7 +733,7 @@ Qed.
     On a 2-vertex complex (which has Euler characteristic χ = 2),
     the curvature should sum to 2 × normalization constant.
 
-    Since proving the general 4D GBC theorem is a deep result, we:
+    The general 4D GBC theorem is a deep result, so this section does four things:
     1. Define the curvature invariant at each vertex
     2. Define total curvature
     3. State the GBC connection as an explicit hypothesis
@@ -859,7 +859,7 @@ Proof.
   intros s sc v ρ μ ν Hρ Hginv Hmetric.
   unfold curved_christoffel, sum_4, sum_n.
   (* The discrete_derivative is the same function applied to the same arguments,
-     but with full_metric instead of metric. Since they're functions, we use
+     but with full_metric instead of metric. Since they're functions, the proof uses
      the fact that (fun w => full_metric s w i j) = (fun w => metric s w i j)
      pointwise, so discrete_derivative gives the same result. *)
   assert (Hdd: forall a b d w,
@@ -975,7 +975,7 @@ Proof.
   all: field; lra.
 Qed.
 
-(** ** Step 5: Ricci isotropy — THE KEY RESULT *)
+(** ** Step 5: Ricci isotropy, THE KEY RESULT *)
 
 (** Helper: compute a single Riemann tensor component for isotropic metric.
     The Riemann tensor at v on the 2-vertex complex:
@@ -994,9 +994,9 @@ Definition gamma_iso (c : R) (ρ μ ν : nat) : R :=
 (** The key Ricci computation: for isotropic diagonal metric on 2-vertex complex,
     curved_ricci s sc d d v is the same for all d < 4.
 
-    Strategy: we show curved_ricci s sc d d v = f(c) for a specific function f
+    Strategy: show curved_ricci s sc d d v = f(c) for a specific function f
     that does not depend on d, where c = (b-a)/(2a). *)
-(* SCOPE NOTE: Ricci isotropy for isotropic 2-vertex — key new result *)
+(* SCOPE NOTE: Ricci isotropy for the isotropic 2-vertex complex, a key result *)
 Theorem ricci_isotropy_isotropic_2v :
   forall s v w (d1 d2 : nat) a b,
   (v <> w)%nat -> a > 0 ->
@@ -1010,7 +1010,7 @@ Theorem ricci_isotropy_isotropic_2v :
 Proof.
   intros s v w d1 d2 a b Hvw Ha Hd1 Hd2 Hiso_v Hiso_w.
   set (c := (b - a) / (2 * a)).
-  (* We will show both sides equal the same expression in c *)
+  (* Both sides equal the same expression in c *)
   (* First, establish Christoffel closed form *)
   assert (HGamma: forall ρ μ ν, (ρ < 4)%nat -> (μ < 4)%nat -> (ν < 4)%nat ->
     curved_christoffel s (two_vertex_sc v w) ρ μ ν v =
@@ -1159,10 +1159,10 @@ Proof.
   rewrite HG_eq. unfold G00. field. lra.
 Qed.
 
-(** Concrete bridge back to the local Einstein tensor on the current
-    2-vertex endpoint-matched family.  This does not identify the full local
-    and curved pipelines; it records the exact non-vacuum family that the
-    local pipeline presently closes. *)
+(** Concrete bridge back to the local Einstein tensor on the 2-vertex
+    endpoint-matched family.  This does not identify the full local and
+    curved pipelines; it records the exact non-vacuum family on which the
+    local pipeline is proved. *)
 Theorem local_einstein_from_mass_two_vertex_endpoint_diag :
   forall s v w d,
     (v <> w)%nat ->
@@ -1218,7 +1218,7 @@ Qed.
 
 (** Explicit field equation: G_{dd} = 8πG · κ · T_{dd}.
 
-  This is the OP-1 closure point for the local 2-vertex endpoint-matched
+  This is OP-1 (EinsteinEquations4D.v) for the local 2-vertex endpoint-matched
   family. The local Einstein tensor equals a concrete, non-existential
   coupling times mass_stress_energy, and the 8πG coefficient is kept visible
   in the statement. Under gravitational_coupling_unit_convention, 8πG = 1, so
@@ -1248,7 +1248,7 @@ Qed.
 
 (** The same equation with the 8πG coefficient written out.
     Since [gravitational_coupling_unit_convention] proves 8πG = 1, the
-    coefficient multiplies through to 1 — but the theorem statement makes
+    coefficient multiplies through to 1. The theorem statement still makes
     the coupling constant structurally visible. *)
 Theorem local_einstein_field_equation_two_vertex : forall s v w d,
   v <> w ->
@@ -1522,7 +1522,7 @@ Qed.
     [nat_chain_sc n] is the well-formed chain 0--1--...--n with vertex order
     [n; ...; 0].  The derivative semantics theorem in EinsteinEquations4D.v
     proves that this concrete constructor satisfies the successor contract, so
-    A3 does not rest on a schematic chain hypothesis. *)
+    the theorem below does not rest on a schematic chain hypothesis. *)
 Theorem local_einstein_field_equation_nat_chain_4d :
   forall s n v d,
     (d < 4)%nat ->

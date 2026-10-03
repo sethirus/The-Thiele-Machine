@@ -41,7 +41,7 @@ From Kernel Require Import VMState.
     the data memory.
 
     NOT in the classical view:
-      - vm_graph      (partition graph — semantic, not syntactic)
+      - vm_graph      (partition graph: semantic, not syntactic)
       - vm_csrs       (control/status registers)
       - vm_mu_tensor  (per-module metric tensor)
       - vm_err        (error flag)
@@ -161,15 +161,15 @@ Definition trace_witness_B : VMState :=
                         wc_same_11 := 0; wc_diff_11 := 0 |};
      vm_certified := true |}.
 
-(** Observable function that reads wc_same_00 — this distinguishes A from B. *)
+(** Observable function that reads wc_same_00; this distinguishes A from B. *)
 Definition read_wc_same_00 (s : VMState) : nat :=
   wc_same_00 (vm_witness s).
 
-(* SCOPE NOTE: Base lemma — computational normalization. *)
+(* SCOPE NOTE: Base lemma, computational normalization. *)
 Lemma read_wc_A : read_wc_same_00 trace_witness_A = 3.
 Proof. reflexivity. Qed.
 
-(* SCOPE NOTE: Base lemma — computational normalization. *)
+(* SCOPE NOTE: Base lemma, computational normalization. *)
 Lemma read_wc_B : read_wc_same_00 trace_witness_B = 5.
 Proof. reflexivity. Qed.
 

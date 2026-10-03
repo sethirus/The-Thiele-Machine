@@ -11,10 +11,10 @@ states the requirement it addresses and the exact theorem surface it supplies.
 
 | File | Purpose |
 |---|---|
-| `F1_LogicalErasure.v` | Single-step A2 from a cost-floor bridge premise over boolean macro-properties and a calibration premise (`mu_per_landauer_bit >= 1`) |
-| `F1_AbstractedBridge.v` | The F1 Landauer bridge abstracted over arbitrary cost functions `vm_instruction -> nat` |
-| `F1_StrongForm.v` | Factored implication plus the proof that its two premises are incompatible for the full ISA (`F1_physical_premises_incompatible`); no applicable physical derivation of A2 |
-| `F1_TraceLevelA2.v` | Multi-step extension via `universal_nfi_any_substrate` |
+| `LogicalErasureCertFlip.v` | Single-step A2 from a cost-floor bridge premise over boolean macro-properties and a calibration premise (`mu_per_landauer_bit >= 1`) |
+| `LandauerBridgeAbstractCost.v` | The F1 Landauer bridge abstracted over arbitrary cost functions `vm_instruction -> nat` |
+| `LandauerDissipationStrongForm.v` | Factored implication plus the proof that its two premises are incompatible for the full ISA (`landauer_dissipation_premises_inconsistent`); no applicable physical derivation of A2 |
+| `LandauerTraceLevelA2.v` | Multi-step extension via `universal_nfi_any_substrate` |
 
 ## F2: algebraic coherence vs. cost axioms
 
@@ -22,9 +22,9 @@ Settles whether NPA-1 minor inequalities follow from cost axioms alone.
 
 | File | Purpose |
 |---|---|
-| `F2_MinorIndependence.v` | **Negative result**: PR-box VMState satisfies cost axioms but violates `algebraically_coherent` |
-| `F2_MinorFromWitnessLocality.v` | **Positive**: cost axioms + witness-locality DO entail `algebraically_coherent` |
-| `F2_PerMinorFromCostCoherent.v` | Per-minor existence form derivable from cost axioms alone |
+| `NPAMinorsIndependentOfCost.v` | **Negative result**: PR-box VMState satisfies cost axioms but violates `algebraically_coherent` |
+| `NPAMinorsFromWitnessLocality.v` | **Positive**: cost axioms + witness-locality DO entail `algebraically_coherent` |
+| `NPAPerMinorFromCostCoherence.v` | Per-minor existence form derivable from cost axioms alone |
 
 ## F3: non-separable cross-link inequalities
 
@@ -32,13 +32,13 @@ Single-conclusion Coq inequalities that compose multiple chain constants.
 
 | File | Purpose |
 |---|---|
-| `F3_CrossLink.v` | LASSERT byte coefficient + Tsirelson constant in one bound |
-| `F3_TripleCrossLink.v` | LASSERT + Tsirelson + μ-hierarchy in one bound |
-| `F3_MuLaplacianSum.v` | Sum-zero lemma for the discrete μ-Laplacian |
-| `F3_PartitionTopologyCrossLink.v` | Partition-topology cross-link |
-| `F3_PlusOneStructural.v` | Whether the +1 in `triangle_angle` is the +1 of the A2 cost floor |
-| `F3_CalibrationObstruction.v` | What calibration at every module forces on a well-formed triangulated state, and the closed obstruction (`F3_calibration_obstruction`) for connected vertex links and distinct module numbers |
-| `F3_ReachableGeometry.v` | The geometry on states reachable from `init_state`: no two modules adjacent, no face-graph triangle, calibration residual 2π at every module (`reachable_calibrated_iff_no_modules`), and a well-formed triangulated reachable graph is a set of separate triangles (`reachable_triangulated_isolated`); one reachable example (`reachable_triangulated_exists`) |
+| `LassertTsirelsonCrossLink.v` | LASSERT byte coefficient + Tsirelson constant in one bound |
+| `LassertTsirelsonHierarchyCrossLink.v` | LASSERT + Tsirelson + μ-hierarchy in one bound |
+| `MuLaplacianSum.v` | Sum-zero lemma for the discrete μ-Laplacian |
+| `PartitionTopologyCrossLink.v` | Partition-topology cross-link |
+| `TriangleAnglePlusOne.v` | Whether the +1 in `triangle_angle` is the +1 of the A2 cost floor |
+| `CalibrationObstruction.v` | What calibration at every module forces on a well-formed triangulated state, and the closed obstruction (`connected_triangulation_not_calibrated`) for connected vertex links and distinct module numbers |
+| `ReachableGeometry.v` | The geometry on states reachable from `init_state`: no two modules adjacent, no face-graph triangle, calibration residual 2π at every module (`reachable_calibrated_iff_no_modules`), and a well-formed triangulated reachable graph is a set of separate triangles (`reachable_triangulated_isolated`); one reachable example (`reachable_triangulated_exists`) |
 
 ## Pointer observables and ecosystems
 
@@ -59,7 +59,7 @@ Single-conclusion Coq inequalities that compose multiple chain constants.
 Each F-file is the closure of a documented frontier item; they don't get
 re-imported elsewhere because the published statement is the export.
 
-`F3_PlusOneStructural.v` shows that the +1 in `triangle_angle` contributes a
+`TriangleAnglePlusOne.v` shows that the +1 in `triangle_angle` contributes a
 correction that decays as 1/d (the signature of a Tikhonov regularizer), not a
 fixed contribution independent of d (an A2 cost floor). The file does not
 promote that interpretation to a physical derivation.

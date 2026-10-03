@@ -14,7 +14,7 @@ From Kernel Require Import EntropyImpossibility.
   the trace crosses a positive-cost certification boundary. The broad
   structural envelope exported from RevelationRequirement.v lists the
   revelation/certification instruction forms REVEAL, EMIT, LJOIN, LASSERT,
-  and MORPH_ASSERT. The sharper current-semantics shortcut frontier is
+  and MORPH_ASSERT. The sharper kernel-semantics shortcut frontier is
   also explicit: the actual bridge pattern for the csr_cert_addr channel is an
   executed nonzero MORPH_ASSERT step, and traces with no such bridge remain
   observation-only. No execution moves from "no supra certificate" to "supra
@@ -86,11 +86,11 @@ Definition total_mu_cost (trace : Receipts) : nat :=
   fold_left (fun acc i => acc + mu_cost i) trace 0.
 
 (** μ-ledger conservation is proven in MuLedgerConservation.v.
-    We use run_vm_mu_conservation which states:
+    The key fact is run_vm_mu_conservation, which states:
       (run_vm fuel trace s).(vm_mu) = s.(vm_mu) + ledger_sum (ledger_entries fuel trace s)
 
-    The local [mu_cost] and [total_mu_cost] above are a legacy coarse view over
-    certification-ish instructions. They are NOT the authoritative ledger.
+    The local [mu_cost] and [total_mu_cost] above are a coarse view over
+    certification-class instructions. They are NOT the authoritative ledger.
     The authoritative cost model is VMStep.instruction_cost, and the executed
     ledger is ledger_entries in MuLedgerConservation.v.
     *)
@@ -179,13 +179,13 @@ Notation "P1 < P2" := (strictly_stronger P1 P2) (at level 70).
 
 (** Definition D3: Certification
 
-    We split certification into two layers:
+    Certification splits into two layers:
     - [CertifiedObs]: execution succeeded + predicate accepted on decoded receipts
     - [CertifiedWithSupra]: [CertifiedObs] plus supra-certification bit set
 
     This separation avoids baking structure-addition into every use of
-    predicate certification. The legacy [Certified] name remains as a
-    compatibility alias for [CertifiedWithSupra].
+    predicate certification. The name [Certified] is an alias for
+    [CertifiedWithSupra].
 *)
 
 Definition CertifiedObs {A : Type}
@@ -230,7 +230,7 @@ Qed.
 
 (** Definition D4: Structure Addition (semantic)
 
-    We define structure-addition as an *execution-visible* event: during
+    Structure-addition is defined as an *execution-visible* event: during
     execution starting from an unset certification CSR (cert_addr = 0),
     some executed step makes cert_addr non-zero.
 
@@ -277,8 +277,8 @@ Qed.
 (** The program/trace distinction matters:
     [run_vm] executes by [vm_pc] indexing into the instruction list, so
     mere membership [In i trace] does not imply the instruction was executed.
-    We therefore keep the µ-charging facts in the kernel layer (MuLedgerConservation)
-    and focus this file on the *structural* no-free-insight theorem about
+    The µ-charging facts therefore stay in the kernel layer (MuLedgerConservation)
+    and this file focuses on the *structural* no-free-insight theorem about
     certification being impossible without a cert-setter instruction. *)
 
 (** The structural No Free Insight theorem exposes the existing
@@ -365,7 +365,7 @@ Qed.
 
 (** Bridge-free traces stay at the observation layer.
 
-    Under the current kernel semantics, a trace with no executed MORPH_ASSERT
+    In the kernel semantics, a trace with no executed MORPH_ASSERT
     bridge cannot finish with [has_supra_cert]. That makes the negative result
     class-level rather than witness-level: any such trace remains observation-
     only, regardless of which decoder or observational predicate you attach to

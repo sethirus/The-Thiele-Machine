@@ -1,10 +1,10 @@
-(** VMInstructionEncoding.v — Gödel encoding from [list vm_instruction] to [nat].
+(** VMInstructionEncoding.v: Gödel encoding from [list vm_instruction] to [nat].
 
     The substrate-level structural-undecidability theorem is proved at the
     [nat]-program substrate (see NatSubstrateInstance.v).
-    To carry the impossibility back to the 51-opcode VM as a corollary, we
-    need a concrete, total injection [list vm_instruction → nat] with a
-    proven left inverse. This file provides exactly that, by composing
+    To carry the impossibility back to the 51-opcode VM as a corollary, the
+    corollary needs a concrete, total injection [list vm_instruction → nat]
+    with a proven left inverse. This file provides exactly that, by composing
     the existing [list bool] encoders from VMEncoding.v with a standard
     [list bool ↔ nat] bijection through Coq's [positive] type.
 
@@ -577,8 +577,8 @@ Qed.
 
     [bools_to_nat] always returns a positive nat (≥ 1) because
     [bools_to_pos] always returns a positive. [nat_to_bools] returns
-    [[]] on the input 0, which is outside the image — the round-trip
-    holds in the direction we need. *)
+    [[]] on the input 0, which is outside the image; the round-trip
+    holds in the direction used. *)
 
 Definition bools_to_nat (bs : list bool) : nat :=
   Pos.to_nat (bools_to_pos bs).
@@ -610,8 +610,8 @@ Qed.
 
 (** ** Composition: [list vm_instruction] ↔ [nat]
 
-    These are the primary deliverables of B.3: a Coq function from
-    programs to natural numbers (Gödel encoding) and a left inverse. *)
+    A Coq function from programs to natural numbers (Gödel encoding) and
+    a left inverse. *)
 
 Definition program_to_nat (p : list vm_instruction) : nat :=
   bools_to_nat (encode_program p).

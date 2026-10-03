@@ -1,6 +1,6 @@
 (** RichNfiGuard.v: the NFI guard-falsity lemma generalized from legacy to
-    all six ISA-v2 encodings -- PDISCOVER, the last of the ten guard-class
-    opcodes -- mirroring [LegacyNfiGuard.v].
+    all six ISA-v2 encodings, for PDISCOVER, the guard-class opcode outside
+    the locality class, mirroring [LegacyNfiGuard.v].
 
     [dd_nfi_violation] compares two word-decoded operand bytes directly, so
     this needs [RichWordDecode.rw_b_correct]/[rw_c_correct] in place of

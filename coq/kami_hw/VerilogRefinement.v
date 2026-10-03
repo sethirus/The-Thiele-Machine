@@ -1,10 +1,10 @@
 (** VerilogRefinement.v
 
     Simulation lemmas for the intermediate Gallina KamiSnapshot/kami_step
-    model and Kernel VM stepping. The historical filename and hardware
-    terminology below do not make this a semantics of the synthesizable
-    thieleCore rules or emitted Verilog. Actual FSM retirement, finite-word
-    representation and downstream toolchain contracts are separate.
+    model and Kernel VM stepping. The filename and the hardware terminology
+    below do not make this a semantics of the synthesizable thieleCore rules
+    or emitted Verilog. Actual FSM retirement, finite-word representation
+    and downstream toolchain contracts are separate.
 *)
 
 From Coq Require Import Arith.PeanoNat Lia Strings.String List.
@@ -280,7 +280,7 @@ Theorem verilog_simulates_vm_step_pnew :
     exists vs',
       vm_step (abs_phase1 hs) (instr_pnew region cost) vs'.
 Proof.
-  (* step_pnew witnesses graph' = fst (graph_add_module ...) — choose that witness
+  (* step_pnew witnesses graph' = fst (graph_add_module ...); choose that witness
      and discharge the equality by reflexivity. *)
   intros. eexists. eapply step_pnew. reflexivity.
 Qed.
@@ -316,7 +316,7 @@ Theorem verilog_simulates_vm_step_psplit :
     exists vs',
       vm_step (abs_phase1 hs) (instr_psplit module left right cost) vs'.
 Proof.
-  (* step_psplit witnesses graph' = graph_hw_psplit ... — choose that witness
+  (* step_psplit witnesses graph' = graph_hw_psplit ...; choose that witness
      and discharge the equality by reflexivity. *)
   intros. eexists. eapply step_psplit. reflexivity.
 Qed.
@@ -326,7 +326,7 @@ Theorem verilog_simulates_vm_step_pmerge :
     exists vs',
       vm_step (abs_phase1 hs) (instr_pmerge m1 m2 cost) vs'.
 Proof.
-  (* step_pmerge witnesses graph' = graph_hw_pmerge ... — choose that witness
+  (* step_pmerge witnesses graph' = graph_hw_pmerge ...; choose that witness
      and discharge the equality by reflexivity. *)
   intros. eexists. eapply step_pmerge. reflexivity.
 Qed.
@@ -373,7 +373,7 @@ Proof.
   intros. eexists. eapply step_reveal.
 Qed.
 
-(** CHSH trial — valid bits case *)
+(** CHSH trial: valid bits case *)
 Theorem verilog_simulates_vm_step_chsh_trial_ok :
   forall (hs : KamiSnapshot) (x y a b cost : nat),
     chsh_bits_ok x y a b = true ->
@@ -655,20 +655,6 @@ Proof.
   end).
 Qed.
 
-(** Hardware μ is at least software μ for every instruction whose cost fits
-    under the cost ceiling. LASSERT matches the kernel cost
-    table exactly; this theorem is the conservative wrapper used downstream. *)
-Theorem kami_vm_mu_conservative :
-  forall (hs : KamiSnapshot) (i : vm_instruction) (vs' : VMState),
-    instruction_cost i <= ORACLE_HALTS_HW_COST ->
-    vm_step (abs_phase1 hs) i vs' ->
-    (abs_phase1 (kami_step hs i)).(vm_mu) >= vs'.(vm_mu).
-Proof.
-  intros hs i vs' _ Hstep.
-  rewrite (kami_vm_mu_diamond hs i vs' Hstep).
-  apply Nat.le_refl.
-Qed.
-
 (** Since hardware charges flen * 8 + S cost for LASSERT (matching
     the kernel exactly), the LASSERT gap is zero: exact mu agreement. *)
 Theorem kami_vm_mu_lassert_gap :
@@ -683,7 +669,8 @@ Proof.
   simpl in *; lia.
 Qed.
 
-(** TENSOR_SET: advance PC, charge mu. *)
+(** TENSOR_SET: a kernel step exists from [abs_phase1 hs], for in-range and
+    out-of-range indices. *)
 Theorem verilog_simulates_vm_step_tensor_set :
   forall (hs : KamiSnapshot) (mid i j value cost : nat),
     exists vs',
@@ -695,7 +682,8 @@ Proof.
   - eexists. eapply step_tensor_set_bad. exact Hok.
 Qed.
 
-(** TENSOR_GET: advance PC, charge mu, write 0 to dst register. *)
+(** TENSOR_GET: a kernel step exists from [abs_phase1 hs], for in-range and
+    out-of-range indices. *)
 Theorem verilog_simulates_vm_step_tensor_get :
   forall (hs : KamiSnapshot) (dst mid i j cost : nat),
     exists vs',
@@ -754,18 +742,18 @@ Qed.
 (** ---------------------------------------------------------------
     Categorical / morphism-instruction simulation proofs.
 
-    The hardware layer (kami_step) models morph opcodes as pure
-    cost-charge + PC-advance (kami_advance_default), since the
-    morphism graph state is maintained by the software extraction
-    layer.  The abstract state from abs_phase1 always has
-    pg_morphisms = [], so vm_step over morphism-lookup operations
-    always takes the failure branch.
+    kami_step runs the morph opcodes over the snapshot's rich morphism
+    tables, which abs_phase1 does not read: the abstract state from
+    abs_phase1 always has pg_morphisms = [], so vm_step over
+    morphism-lookup operations always takes the failure branch.
 
     For COMPOSE / MORPH_DELETE / MORPH_ASSERT / MORPH_TENSOR /
-    MORPH_GET we prove the failure constructor directly.
-    For MORPH / MORPH_ID we prove existence (either success or
+    MORPH_GET these lemmas prove the failure constructor directly.
+    For MORPH / MORPH_ID they prove existence (either success or
     failure based on module presence), without claiming the
-    resulting state equals the hardware snapshot.
+    resulting state equals the hardware snapshot. The commutation of the
+    morph opcodes with kami_step is
+    GraphReconstructionBridge.driven_step_wf, over abs_full_snapshot.
     --------------------------------------------------------------- *)
 
 (** Auxiliary: graph_lookup_morphism on the abs_phase1 graph always

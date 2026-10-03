@@ -1,8 +1,8 @@
 (** VerilogSemantics.v
 
     Instantiates the abstract VerilogRTLCorrespondence interface with
-    KamiSnapshot and Abstraction.kami_step. The historical file/interface
-    names do not make this a semantics of the generated Verilog.
+    KamiSnapshot and Abstraction.kami_step. The file and interface names do
+    not make this a semantics of the generated Verilog.
 
     The results below concern the intermediate Gallina model and its VM
     observations. The applicable WF-driven variants carry their explicit
@@ -10,11 +10,10 @@
     clock or instruction retirement implements this model.
 
     The synthesizable source is ThieleCPUCore.thieleCore, a Kami module with
-    actual rules. NormalizationRetirement and MorphRetirement separately
-    establish selected executions of portions of that module. Their bounded
-    register premises, scheduling scope, and raw-pair observation must be
-    connected to an instruction-boundary invariant before claiming a full
-    FSM refinement.
+    actual rules. RetireMaster.admitted_retires and
+    TableInvariantsReachable.fsm_retirement_refinement relate its rule
+    executions to kami_step for admitted instructions; NormalizationRetirement
+    and MorphRetirement establish selected executions of portions of it.
 
     CanonicalCPUProof constructs the backend AST from the actual module.
     Definitional equality of that construction is not semantic preservation
@@ -23,10 +22,10 @@
     manifest and text-transform audit record provenance and replayed byte
     transformations; they do not prove those downstream semantic edges.
 
-    A physical correspondence result still requires the actual FSM proof and
-    an explicit classification of every downstream edge as proved, validated,
-    tested, or trusted. No such edge is discharged merely by assigning the
-    Gallina kami_step function to an interface field named verilog_step.
+    A physical correspondence result also requires an explicit
+    classification of every downstream edge as proved, validated, tested,
+    or trusted. No such edge is discharged merely by assigning the Gallina
+    kami_step function to an interface field named verilog_step.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
@@ -129,12 +128,10 @@ Proof.
   exact full_embed_step_trace.
 Qed.
 
-(** ** Stronger corollary: all 46 opcodes are covered under the explicit
+(** ** Stronger corollary: all 51 opcodes are covered under the explicit
     driver/well-formedness precondition exported by GraphReconstructionBridge.
 
-    This is the strongest proof surface currently available inside Coq for
-    the RTL step-correctness statement: every instruction in the ISA is
-    covered by a Qed theorem, with the
+    Every instruction in the ISA is covered by a Qed theorem, with the
     exact side conditions made explicit rather than hidden in tests. *)
 Theorem coq_kami_model_satisfies_rtl_step_correct_wf :
   forall (ks : KamiSnapshot) (i : vm_instruction),
@@ -169,37 +166,28 @@ Qed.
     - coq_kami_model_satisfies_rtl_step_correct_wf (Qed)
     - coq_kami_model_trace_correct_wf (Qed)
     The first pair applies to all SupportedOpcodes.
-    The second pair lifts the result to the full 46-opcode ISA under the
+    The second pair lifts the result to all 51 opcodes under the
     explicit WFDrivenPrecondition exported by GraphReconstructionBridge.
 
-    REMAINING SECTION VARIABLE (not Admitted):
-    - bsc_kami_compilation_trusted: PP.ml / project transforms / BSC → Verilog correctness.
-      Named as [True] in VerilogRTLCorrespondence.v because the claim
-      cannot be stated as a Coq Prop without formalizing BSC semantics.
-      Artifact provenance, tracked-RTL identity, and text-transform scope are
+    TRUST BOUNDARY (not Admitted, not an axiom):
+    - bsc_kami_compilation_trusted: PP.ml / project transforms / BSC → Verilog
+      correctness. In VerilogRTLCorrespondence.v it is the conjunction of
+      the section variables [kami_pretty_printer_trusted] and
+      [bluespec_compiler_trusted]; no theorem discharges it. Artifact
+      provenance, tracked-RTL identity, and text-transform scope are
       pinned separately by [scripts/generate_rtl_pipeline_manifest.py --check]
       and [scripts/audit_rtl_text_transforms.py --check].
-
-    TO FULLY CLOSE bsc_kami_compilation_trusted, implement one of:
-    (a) bmodules_to_verilog : BModules -> VerilogModule in Coq
-      Prove bmodules_to_verilog is correct over the existing Coq-generated
-      BModules AST and extract it to produce thiele_cpu_kami.v directly.
-      Then [bsc_kami_compilation_trusted] is replaced by a proved theorem.
-    (b) VerilogCorrectnessProof: write a Q-valued semantics for the specific
-        subset of Verilog in thiele_cpu_kami.v, and use [native_decide] to
-        compute agreement with kami_step for all 46 opcodes.
-        Estimated effort: ~2000 lines, fully mechanical.
 *)
 Definition rtl_trust_boundary_audit : Prop :=
-  (* Layer 1: Coq kernel <-> Kami Coq model -- PROVED *)
+  (* Layer 1: Coq kernel <-> Kami Coq model, PROVED *)
   (forall ks i, SupportedOpcode i ->
     abs_full_snapshot (full_snapshot_of_snapshot (kami_step ks i)) =
     vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks)) i) /\
-  (* Layer 2: Kami Coq model <-> generated Verilog -- SECTION VARIABLE *)
+  (* Layer 2: Kami Coq model <-> generated Verilog, TRUSTED *)
   (* bsc_kami_compilation_trusted covers this layer *)
   True.
 
-(* SCOPE NOTE: alias for full_embed_step_compute — summary re-export for rtl_trust_boundary_audit self-documentation. *)
+(* SCOPE NOTE: alias for full_embed_step_compute; summary re-export for rtl_trust_boundary_audit self-documentation. *)
 Theorem rtl_trust_boundary_audit_layer1 :
   (* Layer 1 is fully proved: *)
   forall ks i, SupportedOpcode i ->

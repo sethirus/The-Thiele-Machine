@@ -1,4 +1,4 @@
-(** VMUnboundedInterpreterSlots.v — the bit-slicing spec layer for the B3
+(** VMUnboundedInterpreterSlots.v: the bit-slicing spec layer for the
     self-interpreter, built on VMUnboundedStep.v's unbounded VM sibling.
 
     There is no division or modulo instruction anywhere in vm_instruction
@@ -17,9 +17,8 @@
     non-interference between distinct slots), proved once via bit
     extensionality (N.bits_inj) rather than per-case algebra. The actual
     host instruction sequences that compute get_slot/set_slot using
-    vm_apply_u, and the guest/host simulation theorem, are the next file;
-    this one is their load-bearing dependency, kept separate so it can be
-    fully checked before any instruction-sequence tracing is attempted. *)
+    vm_apply_u are in VMUnboundedInterpreterCode.v; this file is their
+    dependency. *)
 
 From Coq Require Import Arith Lia Bool.
 From Coq Require Import NArith.NArith.
@@ -158,7 +157,7 @@ Definition slot_mask : nat := N.to_nat (N.ones K).
     staying symbolic. slot_mask_N_eq is proved once, here, while the
     definition is still transparent, by directly instantiating the
     generic (already-proved-by-induction, not by evaluating this specific
-    huge value) stdlib lemma N2Nat.id — no reduction of the actual value
+    huge value) stdlib lemma N2Nat.id; no reduction of the actual value
     occurs. Every later proof uses this equation, never `unfold slot_mask`. *)
 Lemma slot_mask_N_eq : N.of_nat slot_mask = N.ones K.
 Proof. unfold slot_mask. apply N2Nat.id. Qed.
@@ -188,8 +187,8 @@ Qed.
 
 (** get_slot/set_slot are exactly u_shr/u_and and the corresponding
     u_shl/u_or/u_sub composite, matching what the host instruction
-    sequence will literally compute — restated so the next file can
-    `unfold get_slot, u_shr, u_and` etc. and match host-register content
+    sequence literally computes, restated so VMUnboundedInterpreterCode.v
+    can `unfold get_slot, u_shr, u_and` etc. and match host-register content
     to these definitions directly rather than re-deriving them. *)
 
 Lemma get_slot_unfold : forall packed i,
@@ -204,7 +203,7 @@ Lemma K_eq : N.of_nat Kn = K.
 Proof. reflexivity. Qed.
 
 (** The "low mask" 2^shift - 1 computed the way a host program actually
-    would (SHL 1 by shift, then SUB 1 — no N.ones primitive exists in the
+    would (SHL 1 by shift, then SUB 1; no N.ones primitive exists in the
     ISA) equals N.ones shift exactly. *)
 Lemma nat_ones_eq : forall n : nat,
   u_sub (u_shl 1 n) 1 = N.to_nat (N.ones (N.of_nat n)).

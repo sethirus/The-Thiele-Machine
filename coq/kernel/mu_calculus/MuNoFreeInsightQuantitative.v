@@ -63,8 +63,8 @@ Qed.
 
     The certification pipeline in the kernel layer is phrased in terms of
     [RevelationProof.trace_run]. To avoid mismatches between relations and
-    functions (and to handle early-stop when [nth_error] returns [None]), we
-    also provide the quantitative bound directly over [trace_run].
+    functions (and to handle early-stop when [nth_error] returns [None]), the
+    quantitative bound is also stated directly over [trace_run].
 *)
 
 Lemma trace_run_mu_monotone :

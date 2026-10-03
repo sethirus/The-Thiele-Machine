@@ -1,7 +1,7 @@
 (** Full Tensor Einstein Field Equations: structural decomposition
 
-    ThieleMachineComplete.v's Einstein equation is restricted to diagonal
-    (d,d) indices. This file proves the structural decomposition:
+    CurvedTensorPipeline.v's einstein_equation_from_mass is restricted to
+    diagonal (d,d) indices. This file proves the structural decomposition:
     full tensor EFE = diagonal EFE + off-diagonal Ricci = 0.
 
     Proven (0 Admitted):
@@ -19,7 +19,7 @@
     physically important case of flat discrete spacetime (uniform metric).
     The unconditional full tensor EFE (item 9) follows immediately.
 
-    SCOPE: item 9 is the flat/vacuum case — both sides vanish (G = 0 * T) on a
+    SCOPE: item 9 is the flat/vacuum case; both sides vanish (G = 0 * T) on a
     uniform-metric two-vertex complex. It is a discrete-geometry identity, not
     a derivation of general relativity; non-flat content lives in the named
     bridges.
@@ -32,7 +32,7 @@
 
     The reduction theorem is falsifiable: instantiate the off-diagonal Ricci
     hypothesis with a specific complex. On two_vertex_sc with NONUNIFORM metric
-    it fails (CurvedTensorPipeline.v:1085-1101). With UNIFORM metric it holds
+    it fails (see the off-diagonal Ricci note in CurvedTensorPipeline.v). With UNIFORM metric it holds
     unconditionally (curved_ricci_uniform_two_vertex, this file). *)
 
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra.
@@ -218,10 +218,9 @@ Qed.
     vertices is 0, so all directional derivatives collapse to the same value
     at the center vertex, making off-diagonal Ricci = 2c(1+c) for coupling c.
 
-    No conditional full tensor EFE depends on off_diagonal_ricci_zero
-    as a section Variable. Section Variables are hidden
-    axioms. Off_diagonal_ricci_zero is formally refuted for non-uniform
-    diagonal metrics under the current operator
+    No theorem here takes off-diagonal Ricci = 0 as a section Variable.
+    Off-diagonal Ricci = 0 is formally refuted for non-uniform
+    diagonal metrics under the first-neighbor operator
     (DiscreteSimplicialGeometry.v: boundary_4simplex_nonuniform_diagonal_refuted_at_1).
 
     The unconditional result below is the real theorem. The reduction theorem
@@ -231,13 +230,13 @@ Qed.
 
 (** ** Unconditional Closure: Full Tensor EFE for Flat (Uniform) Spacetime
 
-    Here we discharge off_diagonal_ricci_zero for the case of uniform metric
+    This section discharges off_diagonal_ricci_zero for the case of uniform metric
     (same metric at all vertices of two_vertex_sc).  This is the flat discrete
     spacetime case: all Christoffel symbols vanish, Riemann = 0, Ricci = 0.
 
     STRATEGY:
     1. All curved_riemann components are 0 (curved_riemann_uniform_zero_two_vertex,
-       CurvedTensorPipeline.v:246-265).
+       CurvedTensorPipeline.v).
     2. curved_ricci = sum_4 of Riemann terms = sum of zeros = 0.
     3. This proves off_diagonal_ricci_zero for uniform metric.
     4. full_efe_from_diagonal_and_offdiag_ricci then gives the full tensor EFE.
@@ -273,14 +272,14 @@ Qed.
     G_{mu nu}(v) = 0 * T_{mu nu}(v)   for all mu, nu < 4.
 
     This is the flat/vacuum case: both sides vanish (G = 0 * T) on a
-    uniform-metric two-vertex complex. A discrete-geometry identity — not a
+    uniform-metric two-vertex complex. A discrete-geometry identity. Not a
     derivation of general relativity; non-flat content lives in the named
     bridges.
 
-    This is the first fully unconditional full-tensor EFE theorem in this
-    codebase.  The off_diagonal_ricci_zero premise is discharged by
+    This full-tensor EFE theorem has no open premise.  The off-diagonal
+    Ricci = 0 premise is discharged by
     curved_ricci_uniform_two_vertex above; the diagonal EFE is discharged by
-    curved_einstein_uniform_zero_two_vertex (CurvedTensorPipeline.v:270-286).
+    curved_einstein_uniform_zero_two_vertex (CurvedTensorPipeline.v).
     The structural reduction full_efe_from_diagonal_and_offdiag_ricci completes
     the proof. Zero Admitted. *)
 Theorem full_efe_uniform_two_vertex :
@@ -315,11 +314,10 @@ Qed.
     real theorem.
 
     full_efe_from_diagonal_and_offdiag_ricci: zero Admitted. Honest
-    implication — takes diagonal metric, diagonal EFE, and off-diagonal
+    implication: takes diagonal metric, diagonal EFE, and off-diagonal
     Ricci = 0 as explicit forall premises and produces the full tensor EFE.
     Any complex that proves those three conditions gets the full result.
 
-    No conditional section (full_tensor_efe_conditional with Section
-    Variables) is used. Section Variables are axioms, not proofs.
-    off_diagonal_ricci_zero is formally refuted in the general case
+    No theorem here uses Section Variables. Off-diagonal Ricci = 0 is
+    formally refuted in the general case
     (DiscreteSimplicialGeometry.v). No theorem here assumes it. *)

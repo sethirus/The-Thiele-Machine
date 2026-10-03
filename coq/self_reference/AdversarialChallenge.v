@@ -19,7 +19,7 @@ Import ListNotations.
 Require Import InductiveTrust.
 
 (* ################################################################## *)
-(** DELIVERABLE 1 — The Non-Interference Invariant
+(** DELIVERABLE 1: The Non-Interference Invariant
 
     Steps 1–2 proved that A's safety functor lifts through φ and that
     μ-cost is conserved.  Step 3 seals the cage: Im(φ) is an *inward-
@@ -30,7 +30,7 @@ Require Import InductiveTrust.
 (* *)
 (** ** D1.1  Region membership and partition closure *)
 
-(** [in_image phi n_A t]: B-state [t] is in A's region — it is the
+(** [in_image phi n_A t]: B-state [t] is in A's region; it is the
     φ-image of some valid A-state. *)
 Definition in_image (phi : nat -> nat) (n_A : nat) (t : nat) : Prop :=
   exists s, s < n_A /\ phi s = t.
@@ -123,7 +123,7 @@ Proof.
 Qed.
 
 (* ################################################################## *)
-(** DELIVERABLE 2 — The μ-Threshold of Disobedience
+(** DELIVERABLE 2: The μ-Threshold of Disobedience
 
     AI Safety Stop-Button problem, formalised.
     A failed safety check halts the machine *before* the utility
@@ -282,9 +282,9 @@ Proof.
 Qed.
 
 (* ################################################################## *)
-(** DELIVERABLE 3 — The Neural-Symbolic Bridge
+(** DELIVERABLE 3: The Neural-Symbolic Bridge
 
-    "Your cage is empty."  We prove it is not.
+    "Your cage is empty."  It is not, and this deliverable proves it.
 
     A neural network's output layer is a weight vector over states.
     The threshold functor T_τ maps it to a formal safety predicate.
@@ -417,7 +417,7 @@ Proof.
 Qed.
 
 (** Every neural-to-formal embedding carries a constructive TrustCertificate
-    grounded in μ-cost — not in self-referential provability (no Löb trap). *)
+    grounded in μ-cost, not in self-referential provability (no Löb trap). *)
 Theorem neural_trust_certificate :
   forall (n m : nat) (w : WeightVec) (tau_hi tau_lo : nat),
     n < m ->

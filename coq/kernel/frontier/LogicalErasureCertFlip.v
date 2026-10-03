@@ -1,4 +1,4 @@
-(** * F1_LogicalErasure: an A2 theorem from an explicit bridge premise.
+(** * LogicalErasureCertFlip: an A2 theorem from an explicit bridge premise.
 
     The headline theorem takes a cost-floor premise over an arbitrary boolean
     macro-property and applies it to the certification predicate.
@@ -21,7 +21,7 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof PrimeAxiom AbstractNoFI.
 
-(** ** Step 1 — bool-valued macro-properties.
+(** ** Step 1: bool-valued macro-properties.
 
     A bool-valued macro-property is any predicate on VMState. The cert
     flag [vm_certified] is one such property, but the framework
@@ -29,7 +29,7 @@ From Kernel Require Import VMState VMStep SimulationProof PrimeAxiom AbstractNoF
 
 Definition bool_macro_property := VMState -> bool.
 
-(** ** Step 2 — class-collapse on a bool-valued macro-property.
+(** ** Step 2: class-collapse on a bool-valued macro-property.
 
     A step [i] collapses the bool-class space of property P iff:
     (1) some pre-state with [P = false] maps to a post-state with
@@ -51,7 +51,7 @@ Definition step_collapses_bool_classes
   (exists s, P s = false /\ P (vm_apply s i) = true) /\
   (forall s, P s = true -> P (vm_apply s i) = true).
 
-(** ** Step 3 — substantive ISA lemma.
+(** ** Step 3: substantive ISA lemma.
 
     Cert-flips genuinely collapse the cert-class space. The proof is
     not a definitional unfold: it uses [vm_apply_certified]
@@ -77,7 +77,7 @@ Proof.
   - (* Universal arm: for every s' with cert(s') = true,
        cert(vm_apply s' i) = true.
 
-       The step-instruction i must be instr_certify _ — any other
+       The step-instruction i must be instr_certify _; any other
        instruction preserves vm_certified, and would give
        vm_certified (vm_apply s i) = vm_certified s = false ≠ true.
 
@@ -89,7 +89,7 @@ Proof.
     rewrite vm_apply_certified. reflexivity.
 Qed.
 
-(** ** Step 4 — the VM discharges the cert-property subcase.
+(** ** Step 4: the VM discharges the cert-property subcase.
 
     The existing theorem [no_free_certification_certified] discharges the
     bool-class-collapse cost floor for [P = vm_certified] directly.
@@ -107,7 +107,7 @@ Proof.
   exact (no_free_certification_certified s i Hf Ht).
 Qed.
 
-(** ** Step 5 — headline theorem: A2 from the named bridge.
+(** ** Step 5. Headline theorem: A2 from the named bridge.
 
     Given Landauer's principle (named physical bridge, parameterised
     by [mu_per_landauer_bit], the mu-cost equivalent of one Landauer
@@ -153,11 +153,11 @@ Lemma A2_consistency_check :
     instruction_cost i >= 1.
 Proof.
   (* Two routes to A2; both Qed-closed:
-     Route A — via Landauer bridge, instantiated with mu = 1 and the
+     Route A:  via Landauer bridge, instantiated with mu = 1 and the
               Thiele cost law as the bridge witness:
        apply (A2_from_physical_reversibility_real 1 (le_n 1)
               thiele_cost_law_satisfies_landauer_for_cert s i Hf Ht).
-     Route B — via the existing Thiele cost-law theorem directly. *)
+     Route B:  via the existing Thiele cost-law theorem directly. *)
   intros s i Hf Ht.
   exact (no_free_certification_certified s i Hf Ht).
 Qed.

@@ -43,14 +43,14 @@ Definition state_hash := nat.
     Hardware uses 32-bit registers; Python must enforce the same bounds.
     
     Q16_MAX = 2^31 - 1 = 2147483647
-    Q16_MIN = -2^31   = -2147483648 (but as nat, we use 0)
+    Q16_MIN = -2^31   = -2147483648 (but as nat, 0 is used)
     
-    For Coq nat, we only have non-negative values, so:
+    Coq nat has only non-negative values, so:
     - mu_max = Q16_MAX as the upper bound
     - mu is valid if 0 ≤ mu ≤ mu_max
     *)
 
-(** We define mu_max as 2^31 - 1 using Nat.pow to avoid large literal issues *)
+(** mu_max is 2^31 - 1, defined with Nat.pow to avoid large literal issues *)
 Definition mu_max : nat := Nat.pow 2 31 - 1.
 
 (** μ range predicate: is the value within valid Q16.16 bounds? *)
@@ -81,7 +81,7 @@ Record Receipt := {
     The receipt's instruction cost is the value computed by
     instruction_cost.
     
-    We expose that value through instruction_mu_delta and use it as the
+    That value is exposed through instruction_mu_delta and used as the
     verification criterion for the receipt arithmetic.
     *)
 
@@ -283,7 +283,7 @@ Definition chain_final_mu (rs : list Receipt) (initial_mu : nat) : nat :=
 (** Head-extraction definitions for chain_links. They project the
     [i = 0] specialisation out of the universally-quantified
     [chain_links_*] predicates. Expressed as [Definition] with explicit
-    proof terms — not derivations. *)
+    proof terms. They are not derivations. *)
 Definition chain_links_mu_head
   (r1 r2 : Receipt) (rest : list Receipt)
   (Hlinks : chain_links_mu (r1 :: r2 :: rest)) :
@@ -383,7 +383,7 @@ Proof.
   destruct rs as [|r rest]; [trivial|].
   unfold receipt_chain_valid in Hvalid.
   destruct Hvalid as [Hconsistent [Hinrange [Hlinks Hstart]]].
-  (* We need to prove for a non-empty list starting with r *)
+  (* Goal: a non-empty list starting with r *)
   (* The proof proceeds by strong induction on list length *)
   revert r initial_mu Hconsistent Hinrange Hlinks Hstart.
   induction rest as [|r2 rest' IHrest].

@@ -19,7 +19,7 @@ From Kernel Require Import MetricFromMuCosts.
     The metric tensor g_μν defines distances and angles.
     In continuous GR: ds² = g_μν dx^μ dx^ν
 
-    In our discrete case:
+    In the discrete case:
     - Vertices are modules (computational events)
     - Edges have lengths from μ-costs
     - Metric components are derived from edge lengths
@@ -55,7 +55,7 @@ Definition metric_component (s : VMState) (μ ν v : ModuleID) : R :=
 
     Δ_μ f(v) = f(v + e_μ) - f(v)
 
-    In our discrete setting, "v + e_μ" means:
+    In the discrete setting, "v + e_μ" means:
     move from vertex v to an adjacent vertex along direction μ
 *)
 Definition discrete_derivative (s : VMState) (sc : SimplicialComplex4D)

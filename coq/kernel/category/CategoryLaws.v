@@ -135,7 +135,7 @@ Qed.
 (** ** Associativity of Relational Composition *)
 
 (** For category laws, literal list equality is the wrong target.
-  We care about whether two coupling lists represent the same relation. *)
+  The question is whether two coupling lists represent the same relation. *)
 
 Definition coupling_equiv (r1 r2 : Coupling) : Prop :=
   forall a c, In (a, c) r1 <-> In (a, c) r2.
@@ -300,7 +300,7 @@ Qed.
 (** Bifunctoriality: (f⊗g) ; (f'⊗g') = (f;f') ⊗ (g;g')
     when domains/codomains are disjoint *)
 
-(** We state this as: if r1, r2 are disjoint (no shared endpoints)
+(** Stated as: if r1, r2 are disjoint (no shared endpoints)
     and r1', r2' are disjoint, then composition distributes over union. *)
 
 Definition disjoint_couplings (r1 r2 : Coupling) : Prop :=
@@ -338,7 +338,7 @@ Proof.
 Qed.
 
 (** The cost of a categorical composition instruction is exactly its mu_delta
-    parameter — no hidden cost inflation for non-cert-setter morph operations. *)
+    parameter; no hidden cost inflation for non-cert-setter morph operations. *)
 Lemma morph_compose_cost_is_delta : forall (dst m1 m2 cost : nat),
   instruction_cost (instr_compose dst m1 m2 cost) = cost.
 Proof.
@@ -347,7 +347,7 @@ Qed.
 
 (** Category law: relational composition of CouplingData pairs is associative.
     This is the kernel-facing statement of relational_compose_assoc, expressed
-    using VMState.CouplingData — the kernel type for morphism couplings. *)
+    using VMState.CouplingData, the kernel type for morphism couplings. *)
 Lemma coupling_data_compose_assoc :
   forall (cd1 cd2 cd3 : CouplingData),
     relational_compose
@@ -365,7 +365,7 @@ Qed.
 (** ** Separability of Couplings
 
     A coupling is SEPARABLE (functional) if every source maps to at most one
-    target — i.e., it is the graph of a partial function from sources to
+    target; that is, it is the graph of a partial function from sources to
     targets. This is the computational sense of separability: the coupling
     can be described by an independent function on each dimension.
 

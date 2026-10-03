@@ -1,11 +1,11 @@
-(** Substrate.v — the abstract computational substrate of the Thiele
+(** Substrate.v: the abstract computational substrate of the Thiele
     Machine, expressed as a Coq typeclass.
 
     The Thiele Machine is not the 51-opcode VM. The 51-opcode VM is one
     realization, the way a tape-and-head Turing machine is one realization
     of "the abstract notion of computation by a step relation." This file
     extracts the substrate: a typeclass capturing exactly the structure
-    needed for the substrate-level theorems — a notion of state, a notion
+    needed for the substrate-level theorems: a notion of state, a notion
     of program, a notion of execution, a non-decreasing cost ledger, an
     internal encoding of programs as states, an internal-representability
     predicate on Coq function transformers, and the recursion-theorem
@@ -22,11 +22,11 @@
     not include a cert predicate, so it cannot state A2 directly.
 
     What lives here:
-      Class Substrate           — the abstract Substrate typeclass
-      mu_monotone               — cost-ledger monotonicity (a field)
-      encode / decode_safe      — programs are encodable as substrate states
-      Representable             — internal representability of program transformers
-      recursion_theorem (field) — every representable transformer has a fixed-point
+      Class Substrate:            the abstract Substrate typeclass
+      mu_monotone:                cost-ledger monotonicity (a field)
+      encode / decode_safe:       programs are encodable as substrate states
+      Representable:              internal representability of program transformers
+      recursion_theorem (field):  every representable transformer has a fixed-point
                                   program, in the extensional sense
 
     What does NOT live here:
@@ -67,8 +67,8 @@ Class Substrate : Type := {
 
   (** [run p s] is the trace-equivalence behavior of running program [p]
       from state [s]. Returns [Some r] when execution converges to [r],
-      [None] when it diverges. We model divergence to keep the abstract
-      layer Turing-equivalent in expressive power. *)
+      [None] when it diverges. Divergence is modeled so that the abstract
+      layer is Turing-equivalent in expressive power. *)
   run : Program -> state -> option state;
 
   (** *** Mu-ledger and monotonicity *)
@@ -100,8 +100,8 @@ Class Substrate : Type := {
       Goedel-coding move: the substrate can talk about its own programs. *)
   encode : Program -> state;
 
-  (** Decoder: total, returns a default for non-encoded states. We do not
-      require [decode_safe] to be the inverse of [encode] on all states —
+  (** Decoder: total, returns a default for non-encoded states.
+      [decode_safe] need not be the inverse of [encode] on all states,
       only on encoded ones. *)
   decode_safe : state -> Program;
   encode_decode : forall p, decode_safe (encode p) = p;
@@ -120,7 +120,7 @@ Class Substrate : Type := {
       [Program] of the substrate that, when applied as a transformer of
       programs, has the same effect as [f]. The substrate makes no claim
       about Coq functions that exist only in the meta-theory but cannot
-      be expressed inside the substrate's own program type — the
+      be expressed inside the substrate's own program type; the
       limitative theorems in this file are about internal representability,
       mirroring Turing's halting theorem (which is about Turing machines,
       not about every conceivable mathematical decider).
@@ -139,7 +139,7 @@ Class Substrate : Type := {
       equivalent to [f p]. This is the substrate's Kleene 1938 recursion
       theorem, restricted to transformers the substrate can actually
       express. The bundled consequence of having a universal interpreter
-      together with the s-m-n parametrization property — for the
+      together with the s-m-n parametrization property, for the
       substrate's own internal language. The substrate-level
       diagonalization in StructuralUndecidability.v uses this exactly
       once, at the diagonal flip transformer, and requires that
@@ -154,7 +154,7 @@ Class Substrate : Type := {
 
 (** ** Basic facts about [prog_equiv] *)
 
-(* SCOPE NOTE: ABSTRACT INTERFACE — the Sections in this file are
+(* SCOPE NOTE: ABSTRACT INTERFACE. The Sections in this file are
    parameterized over a Substrate typeclass instance. Closing each section
    discharges the Context binding as an EXPLICIT FORALL premise on the
    contained lemmas. The typeclass binding is a section parameter, not a
@@ -178,11 +178,11 @@ End ProgEquivFacts.
 
 (** ** Mu-monotonicity along finite chains of steps
 
-    A trivial corollary that we prove once and reuse: if a state is
-    reachable from another by any finite chain of atomic steps, the
-    target's mu dominates the source's mu. *)
+    A corollary used repeatedly: if a state is reachable from another by
+    any finite chain of atomic steps, the target's mu dominates the
+    source's mu. *)
 
-(* SCOPE NOTE: ABSTRACT INTERFACE — section parameterized over a
+(* SCOPE NOTE: ABSTRACT INTERFACE. Section parameterized over a
    Substrate typeclass instance. See note above ProgEquivFacts for the
    discipline. Closing the section discharges the binding as an EXPLICIT
    FORALL premise on the contained lemmas. *)

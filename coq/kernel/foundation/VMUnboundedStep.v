@@ -1,17 +1,17 @@
-(** VMUnboundedStep.v — the unbounded sibling of the physical VM's vm_apply.
+(** VMUnboundedStep.v: the unbounded sibling of the physical VM's vm_apply.
 
-    Scaffolding #1 (VMState.v / VMStep.v / SimulationProof.v) is the bounded
-    Coq VM: write_reg/write_mem apply word64 on every write.
+    The bounded Coq VM (VMState.v / VMStep.v / SimulationProof.v) is the
+    model whose write_reg/write_mem apply word64 on every write.
     VMWord64BoundednessObstruction.v proves that model has finite capacity
     ((2^64)^144 reachable (regs,mem) contents). Correspondence with any
     finite-width hardware implementation is a separate, width-specific
     refinement obligation; this file asserts no such bridge.
 
-    This file is Scaffolding #2, an unbounded mathematical semantics: the
+    This file is an unbounded mathematical semantics: the
     same instruction set, the same vm_instruction type, the same VMState
     record, the same graph/morphism/
     certification/mu-ledger machinery (all reused unchanged from VMStep.v
-    and SimulationProof.v's helper functions) — but with vm_apply's write
+    and SimulationProof.v's helper functions), but with vm_apply's write
     path re-derived (vm_apply_u) using write_reg_u/write_mem_u, which store
     the computed value exactly, and with every word64_* arithmetic helper
     replaced by an unmasked counterpart (u_add, u_sub, u_mul, u_and, u_or,
@@ -29,9 +29,9 @@
     no-overflow, no-underflow, and shift-range premises explicitly; no
     blanket equivalence with the bounded VM is asserted here.
 
-    This file builds the sibling *semantics*.  It intentionally stops before
-    the self-interpreter layer: B3's uniform_interpreter_simulation/_correct
-    contract is specified by the interpreter modules that consume this layer. *)
+    This file builds the sibling *semantics*. The self-interpreter is in
+    the interpreter modules (VMSelf*.v, VMUnboundedCM2*.v,
+    VMUnboundedMinsky*.v) that use this layer. *)
 
 From Coq Require Import Strings.String List Bool Arith.PeanoNat micromega.Lia.
 From Coq Require Import NArith.NArith.
@@ -80,7 +80,7 @@ Definition write_mem_u (s : VMState) (a v : nat) : list nat :=
     write_reg/write_mem replaced by write_reg_u/write_mem_u and every
     word64_* arithmetic helper replaced by its u_* counterpart. Arms that
     never touch vm_regs/vm_mem (advance_state/jump_state/record-literal
-    passthrough arms) are copied verbatim — there is nothing to unbound in
+    passthrough arms) are copied verbatim; there is nothing to unbound in
     them, they already carry values through unchanged. *)
 
 Definition vm_apply_u (s : VMState) (instr : vm_instruction) : VMState :=
@@ -515,7 +515,7 @@ Definition vm_apply_u (s : VMState) (instr : vm_instruction) : VMState :=
 
 (** * 4. Sanity theorem: this sibling genuinely escapes the boundedness
     obstruction. A single LOAD_IMM-style write (instr_load_imm) can place
-    any value, however large, into a register, and it survives exactly —
+    any value, however large, into a register, and it survives exactly;
     unlike write_reg, write_reg_u never masks. This is the direct,
     concrete refutation of state_64bit_bounded_step for this model: the
     analogous property FAILS here by construction, for any v. *)

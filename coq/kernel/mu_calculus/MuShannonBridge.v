@@ -16,7 +16,7 @@
     The naive single-trace entropy slogan is too strong; this file keeps
     that failure visible rather than pretending it is almost proved. *)
 
-(* SCOPE NOTE: foundation connectivity — bridges MuLedgerConservation to
+(* SCOPE NOTE: foundation connectivity, bridges MuLedgerConservation to
    Shannon information theory. Foundational for NoFI generalization. *)
 
 From Coq Require Import List Lia Arith.PeanoNat Arith.Compare_dec.
@@ -40,8 +40,8 @@ From Kernel Require Import RevelationRequirement.
 Definition FeasibleSet := list VMState.
 
 (** A finite weighted feasible set packages an explicit multiplicity or mass for
-    each feasible state. This is the smallest non-uniform prior semantics we
-    can add without importing full real-valued probability theory. *)
+    each feasible state. This is the smallest non-uniform prior semantics that
+    can be added without importing full real-valued probability theory. *)
 Definition WeightedFeasibleSet := list (VMState * nat).
 
 (** Size of a feasible set *)
@@ -167,10 +167,10 @@ Qed.
 (**
     SECTION 4b: POLICY-BASED BOUND (PROVABLE WITHOUT PROBABILISTIC SEMANTICS)
 
-    We prove: under the info-pricing policy, the number of cert-setting
+    Proved here: under the info-pricing policy, the number of cert-setting
     instruction EXECUTIONS is bounded above by Δμ.
 
-    This is the strongest result we can prove without probabilistic semantics.
+    This is the strongest result available here without probabilistic semantics.
     It says: you can't execute more cert-setting operations than you pay for.
 
 
@@ -196,7 +196,7 @@ Fixpoint cert_setter_executions (fuel : nat) (trace : list vm_instruction)
   end.
 
 (** info_priced_cert_setter_cost_pos: cert-setters cost ≥ 1 (unconditional).
-    No trace or pricing-policy hypothesis needed — follows directly from
+    No trace or pricing-policy hypothesis needed; it follows directly from
     cert_setter_cost_pos in VMStep. *)
 Lemma info_priced_cert_setter_cost_pos :
   forall (instr : vm_instruction),
@@ -207,7 +207,7 @@ Proof.
   apply VMStep.cert_setter_cost_pos. exact Hsetter.
 Qed.
 
-(** cert_executions_le_ledger: unconditional — no pricing-policy hypothesis needed.
+(** cert_executions_le_ledger: unconditional, no pricing-policy hypothesis needed.
     All cert-setters cost ≥ 1 by construction (S cost in instruction_cost). *)
 Lemma cert_executions_le_ledger :
   forall (fuel : nat) (trace : list vm_instruction) (s : VMState),
@@ -227,7 +227,7 @@ Proof.
 Qed.
 
 (** THEOREM (Unconditional Cert-Execution Bound):
-    Δμ ≥ number of cert-setting instruction executions — no hypothesis needed.
+    Δμ ≥ number of cert-setting instruction executions; no hypothesis needed.
     All cert-setters charge S cost ≥ 1 by construction.
 
     This is the maximum bound provable without probabilistic semantics.
@@ -255,7 +255,7 @@ Qed.
     a feasible set Ω reduces to Ω' (assuming uniform prior over Ω).
 
     H(prior) - H(posterior) = log₂|Ω| - log₂|Ω'|
-    (using truncated nat subtraction — Nat.log2 0 = 0 by Coq convention) *)
+    (using truncated nat subtraction; Nat.log2 0 = 0 by Coq convention) *)
 Definition shannon_entropy_reduction (omega_init omega_final : FeasibleSet) : nat :=
   Nat.log2 (feasible_size omega_init) -
   Nat.log2 (feasible_size omega_final).
@@ -274,7 +274,7 @@ Definition uniform_entropy_reduction
 
 (** Finite weighted entropy semantics: rounded entropy of the total prior mass.
     This does not claim a full normalized Shannon expectation over reals; it is
-    the exact finite weighted analogue available in the current nat-valued tree
+    the exact finite weighted analogue available in the nat-valued tree
     framework. *)
 Definition weighted_feasible_entropy (omega : WeightedFeasibleSet) : nat :=
   Nat.log2_up (weighted_mass omega).
@@ -318,18 +318,18 @@ Definition weighted_delta_mu_numerator
     0
     omega.
 
-(** HISTORICAL SINGLE-TRACE CLAIM:
+(** REJECTED SINGLE-TRACE CLAIM:
    Executing a trace that reduces the feasible set from Ω to Ω' requires
    Δμ ≥ log₂|Ω| - log₂|Ω'|.
 
-   Status: FALSE IN GENERAL under the current deterministic VM semantics.
-   This definition is retained only as a precise record of the rejected claim.
+   Status: FALSE IN GENERAL under the deterministic VM semantics.
+   This definition is a precise record of the rejected claim.
 
    Why it fails:
    1. A single trace is one realized path through a larger branching object.
    2. Shannon-style lower bounds apply to expected code length or whole-tree
      structure, not to an arbitrarily short successful path.
-   3. Under current VM semantics, one short certification path can isolate a
+   3. Under the VM semantics, one short certification path can isolate a
      leaf of a larger feasible set without paying log₂ of the original set size.
 
     Key challenge: The Thiele VM is DETERMINISTIC. Shannon entropy reduction
@@ -378,8 +378,8 @@ Definition MuShannonConjecture : Prop := MuShannonSingleTraceClaim.
 (**
     SECTION 5b: DECISION-TREE LOWER-BOUND FRAMEWORK
 
-    Instead of postulating full probabilistic semantics immediately, we can
-    factor the Shannon bridge through an abstract binary decision tree.
+    Instead of postulating full probabilistic semantics, the Shannon bridge
+    factors through an abstract binary decision tree.
 
     Interpretation:
     - each internal node is one certification-bearing binary distinction
@@ -971,8 +971,8 @@ Qed.
 
 (**
 
-    These are theorems that hold unconditionally, establishing the
-    infrastructure for the eventual full proof.
+    These are theorems that hold unconditionally, with no decision-tree
+    hypothesis.
     *)
 
 (** Trivial bound: any certified execution spends some μ (from conservation) *)
@@ -1000,7 +1000,7 @@ Qed.
    is available but verbose. The above multiset bound is the provable form.
    The interesting direction: if the set image is SMALLER, information is lost,
    which requires cert-setting operations to recover via certification.
-  This connects to the historical single-trace claim stated above and shows
+  This connects to the rejected single-trace claim stated above and shows
   why the tree-depth hypothesis must be made explicit. *)
 
 (**
@@ -1033,9 +1033,9 @@ Qed.
     The theorems above require an explicit decision tree as a hypothesis.
     This section proves that for any feasible-set reduction, a covering
     decision tree EXISTS. The witness is a complete binary tree of depth
-    log2_up(|Ω| / |Ω'|). This closes the gap between the quantitative bound
-    (which requires the tree as input) and arbitrary reductions (which only
-    know |Ω'| < |Ω|). *)
+    log2_up(|Ω| / |Ω'|). This connects the quantitative bound (which
+    requires the tree as input) to arbitrary reductions (which only know
+    |Ω'| < |Ω|). *)
 
 (** A complete binary tree of depth d has 2^d leaves. *)
 Fixpoint complete_tree (d : nat) : DecisionTree :=
@@ -1077,7 +1077,7 @@ Proof.
   exists (complete_tree d).
   apply complete_tree_covers_reduction.
   (* Need: |Ω| ≤ 2^d * |Ω'|.
-     We have: |Ω| < k * |Ω'| (from division definition)
+     Known: |Ω| < k * |Ω'| (from division definition)
      And: k ≤ 2^log2_up(k) = 2^d *)
   assert (Hpos' : feasible_size omega_posterior <> 0) by lia.
   assert (Hk_bound : feasible_size omega_prior < k * feasible_size omega_posterior).

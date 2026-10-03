@@ -9,12 +9,12 @@
 
     Three attacks are tried below:
 
-      - [w_decreasing] — a non-monotone weight. Fails [weight_empty]
+      - [w_decreasing]: a non-monotone weight. Fails [weight_empty]
         because additivity forces the empty trace to have cost zero.
-      - [w_privileged] — a weight that privileges [instr_halt]. Fails
+      - [w_privileged]: a weight that privileges [instr_halt]. Fails
         [weight_sequential] because the cost depends on the head
         instruction, not on the trace as a multiset.
-      - [w_free_read] — a weight that counts only [instr_xfer]
+      - [w_free_read]: a weight that counts only [instr_xfer]
         instructions. Satisfies [weight_laws] but fails
         [singleton_uniform], so the necessity claim that uniformity is
         load-bearing is preserved.
@@ -24,7 +24,7 @@
     normalisation is length, and length forces monotonicity and
     conservation. *)
 
-(* SCOPE NOTE: foundation connectivity -- bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Lia.
@@ -86,7 +86,7 @@ Proof.
   unfold weight_empty, w_privileged. reflexivity.
 Qed.
 
-(** Let's check if sequentiality holds *)
+(** Sequentiality check *)
 
 Lemma w_privileged_sequential_REALLY_FAILS : 
   weight_sequential w_privileged -> False.
@@ -113,7 +113,7 @@ Qed.
 
 (** ** ATTEMPT 3: A weight that allows "free insight" *)
 
-(** Can we build a cost function where some information is free? *)
+(** A cost function where some information is free. *)
 
 (** Imagine a "magic" instruction that reads without cost. *)
 
@@ -162,8 +162,8 @@ Proof.
   apply w_free_read_disjoint_commutes.
 Qed.
 
-(** This DOES satisfy weight_laws! 
-    Have we found a counter-example? *)
+(** This DOES satisfy weight_laws. Whether it is a counter-example
+    turns on singleton uniformity, checked next. *)
 
 (** Check singleton uniformity... *)
 
@@ -209,7 +209,7 @@ Qed.
 
 (** ** THE VERDICT
 
-    We tried three attacks:
+    Three attacks:
     
     1. Non-monotonic cost: REJECTED by additivity
        - If w(a++b) = w(a) + w(b), then extending traces adds cost

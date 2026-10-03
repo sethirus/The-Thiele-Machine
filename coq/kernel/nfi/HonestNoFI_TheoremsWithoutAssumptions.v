@@ -55,7 +55,7 @@ Proof.
 Qed.
 
 (**
-    b4_information_reduction_derives_strict_predicates uses B3's membership-based
+    b4_information_reduction_derives_strict_predicates uses the membership-based
     predicates. The strictly_stronger relationship is derived from the strict subset
     relation and observation distinguishability, not taken as input.
     *)
@@ -63,7 +63,7 @@ Qed.
 (** SCOPE NOTE: b4_information_reduction_derives_strict_predicates shows
     that feasible-set reduction with distinguishing observations produces
     the strictly_stronger relationship needed by NoFreeInsight, using the
-    non-trivial membership predicates from B3. No trivial true/false. *)
+    non-trivial membership predicates of feasible_strict_subset_implies_strict_predicates. No trivial true/false. *)
 Theorem b4_information_reduction_derives_strict_predicates :
   forall (omega_prior omega_posterior : InformationGainToStrengthening.FeasibleSet)
          (obs_fn : InformationGainToStrengthening.ObservationFunction)
@@ -83,7 +83,7 @@ Proof.
 Qed.
 
 (** SCOPE NOTE: the same observation function cannot simultaneously play
-    the B3 distinguishing role and the posterior-representative role. If a
+    the feasible-set distinguishing role and the posterior-representative role. If a
     prior witness state is observation-distinguishable from every posterior
     state, then it cannot also be assigned to a posterior representative with
     the same observation. This is why the end-to-end theorem below splits the
@@ -376,8 +376,8 @@ Proof.
     exact Hsupra.
 Qed.
 
-(** SCOPE NOTE: the full observed-shortcut upgrade has an exact
-    current-semantics frontier. To move from [CertifiedObs] to the full
+(** SCOPE NOTE: the full observed-shortcut theorem has an exact
+    frontier in the kernel semantics. To move from [CertifiedObs] to the full
     theorem boundary, the run needs two things:
     - the final state still has [has_supra_cert]; and
     - somewhere in the executed run, a genuine MORPH_ASSERT bridge step fired
@@ -430,10 +430,10 @@ Proof.
       exact Hbridge.
 Qed.
 
-(** SCOPE NOTE: this theorem isolates the last upgrade step. Once an
+(** SCOPE NOTE: this theorem isolates the last step. Once an
     observed shortcut has a domain-specific bridge from CertifiedObs into the
-    cert_addr channel, the full structure-addition theorem closes. The remaining
-    gap is exactly the bridge hypothesis below. *)
+    cert_addr channel, the full structure-addition theorem applies. The bridge
+    hypothesis below is the only premise beyond the observed shortcut. *)
 Theorem every_bridged_observed_structural_shortcut_lands_here :
   forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState)
          (shortcut : ObservedStructuralShortcut fuel trace s_init),
@@ -597,7 +597,7 @@ Qed.
   for structural shortcuts and proves every member lands in that theorem.
 
   The open representation theorem (whether every informal shortcut compiles
-  into SoundStructuralShortcut) is handled below: we prove the ABSTRACT
+  into SoundStructuralShortcut) is handled below: the file proves the ABSTRACT
   existence of a shortcut for any valid singleton-observation reduction,
   showing the class is non-empty and giving the witnesses explicitly. *)
 
@@ -626,7 +626,7 @@ Qed.
 
 (** The SoundStructuralShortcut class is non-empty: every_sound_structural_shortcut
     already showed that every member lands in the structural entitlement theorem.
-    The REVERSE direction — that informal shortcuts can be COMPILED into members —
+    The REVERSE direction (that informal shortcuts can be COMPILED into members)
     requires the open representation theorem. The key condition is that the
     shortcut's observation function and posterior-representative reduction must
     be CONSTRUCTIVELY derivable from the program's trace behavior.

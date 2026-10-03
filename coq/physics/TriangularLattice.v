@@ -5,8 +5,8 @@ From Kernel Require Import VMState MuGravity.
 
 (** * TriangularLattice: finite triangular lattice encoding for partition graphs
 
-    This file packages a concrete, bounded graph class — the [n × n]
-    triangular lattice — for use as the first testbed of the geometric
+    This file packages a concrete, bounded graph class (the [n × n]
+    triangular lattice) for use as the first testbed of the geometric
     calibration proofs in [MuGravity.v]. Each lattice site has a unique
     [nat] identifier given by [lattice_id n x y = x + n * y]; the inverse
     [coord_of_id] reads coordinates back via integer division and modulo.

@@ -27,9 +27,8 @@
     completion, the self-interpreter and Rice reduction, the pointer
     observable models, and the five reductions live in coq/kernel.
     coq/kernel/aggregators/MasterSummary.v is the audit-facing index. The
-    Kami snapshot model in Section 6H is a snapshot-level
-    refinement; the current hardware bridge is coq/kami_hw
-    (driven_step_wf, driven_trace_commutes, fsm_retirement_refinement).
+    hardware bridge is coq/kami_hw (driven_step_wf, driven_trace_commutes,
+    fsm_retirement_refinement).
 
     The order below: the VM and its costed steps, the stated cost floors and
     schedule-relative uniqueness, then a categorical layer of morphisms
@@ -61,7 +60,7 @@
 
     THE CATEGORICAL LAYER:
 
-    Beyond modules (objects), the machine tracks morphisms — typed
+    Beyond modules (objects), the machine tracks morphisms: typed
     relational arrows between modules. The records and operations support
     the category laws proved by the named theorems:
     objects = partition modules, arrows = MORPH relations, composition =
@@ -70,8 +69,9 @@
     in this file (local category laws, §2 subsection) and also in the
     modular kernel (CategoryLaws.v, CategoryBridge.v, CategoryMonoidal.v).
 
-    The Categorical Separation Theorem (§16 in this file, also proved
-    in the modular kernel's PartitionSeparation.v)
+    The Categorical Separation Theorem (categorical_separation, in the
+    LOCAL CATEGORICAL SEPARATION WITNESS part of Section 15A of this file,
+    also proved in the modular kernel's PartitionSeparation.v)
     proves that the morphism layer is not redundant under the named
     projection: there exist states
     s1, s2 that agree on ALL classical fields (regs, mem, μ, err,
@@ -131,10 +131,10 @@
         formal constructions over the stated VM data. Any interpretation as
         spacetime or general relativity remains a separate bridge question.
 
-    (9) HARDWARE REFINEMENT: the Kami sections define snapshots and
-        correspondence relations for the hardware model. The resulting
-        claims are conditional on those relations and on the downstream
-        synthesis and translation checks.
+    (9) HARDWARE REFINEMENT: the hardware model and its correspondence
+        theorems live in coq/kami_hw, not in this file. Those claims are
+        conditional on the stated correspondence relations and on the
+        downstream synthesis and translation checks.
 
    (10) EXTRACTION: selected definitions extract to OCaml, and the hardware
         model has a separate Kami-to-RTL path. Build and parity evidence is
@@ -143,7 +143,7 @@
    (11) VERIFICATION: assumption receipts and build checks distinguish
         project-local declarations, explicit theorem premises, standard
         library dependencies, and tool-trusted translation steps. Read the
-        current receipt rather than inferring trust from this outline.
+        receipt rather than inferring trust from this outline.
 
     TO BUILD (from the coq/ directory):
       coqc -R . Top -R kernel Kernel -R nofi NoFI -R kami_hw KamiHW \
@@ -154,17 +154,20 @@
            ThieleMachineComplete.v
 
     This produces:
-      ThieleMachineComplete.vo    — proof certificate (machine-checked)
-      ../build/kami_hw/Target_complete.ml — extracted Kami OCaml (byte-for-byte = Target.ml)
-      ../build/thiele_core_complete.ml — OCaml extracted from the kernel's
+      ThieleMachineComplete.vo: proof certificate (machine-checked)
+      ../build/kami_hw/Target_complete.ml: extracted Kami OCaml, emitted
+        first so the extraction engine is in the same state as in
+        Extraction.v when the core VM OCaml is emitted (its top-level
+        definitions match Target.ml's as a set; the file order differs)
+      ../build/thiele_core_complete.ml: OCaml extracted from the kernel's
         qualified symbols (byte-for-byte = thiele_core.ml; see Section 19C)
 
-    The current source and proof gate determine the actual assumptions and
+    The source and proof gate determine the actual assumptions and
     compilation status.
     ========================================================================= *)
 
 (** =========================================================================
-    SECTION 0: MOTIVATION — What This Formal Development Is About
+    SECTION 0: MOTIVATION. What This Formal Development Is About
     =========================================================================
 
     This section records the motivating argument before the definitions.
@@ -173,11 +176,11 @@
 
     STEP 1: A CERTIFIED NARROWING IS A STATE-SPACE REDUCTION.
 
-    A machine operates over a state space Ω — all configurations consistent
+    A machine operates over a state space Ω: all configurations consistent
     with current knowledge. Before any observation, Ω is maximal. After
     observing "property P holds," the state space shrinks to
-    Ω' = {s ∈ Ω | P(s)}. If P is nontrivial — rules out at least one
-    configuration — then |Ω'| < |Ω|.
+    Ω' = {s ∈ Ω | P(s)}. If P is nontrivial (rules out at least one
+    configuration), then |Ω'| < |Ω|.
 
     The VM records a certified narrowing only when the supplied transition
     semantics and representation premises say that a claim was checked and
@@ -818,8 +821,8 @@ Open Scope list_scope.
 
     1. PARTITION GRAPH: The machine maintains a model of its own state
        space. Modules represent regions. Each module has:
-       - A region (list of nat identifiers — which states belong here)
-       - An axiom set (list of string formulas — what's known about it)
+       - A region (list of nat identifiers: which states belong here)
+       - An axiom set (list of string formulas: what's known about it)
        - A μ-tensor (stored per-module cost data used by this model)
        LASSERT, PSPLIT, PMERGE, PNEW manipulate the module structure.
 
@@ -868,9 +871,8 @@ Open Scope list_scope.
 
    10. PROTOTYPE FIELDS (vm_logic_acc, vm_mstatus): Logic accumulator and
        machine-status register. Initialized to zero and not
-       modified by any instruction — reserved for future XOR-rank and
-       privileged-mode extensions. No corresponding hardware fields in
-       KamiSnapshot yet (noted as prototype gaps in abs_phase1).
+       modified by any instruction. KamiSnapshot (coq/kami_hw/Abstraction.v)
+       mirrors both as snap_logic_acc and snap_mstatus.
 
     Some fields are prototype or bridge data, and their uses are recorded by
     the definitions and theorem premises that consume them.
@@ -965,10 +967,10 @@ Definition normalize_module (m : ModuleState) : ModuleState :=
 
    MORPH_TENSOR computes f⊗g: source = A∪C, target = B∪D, coupling =
    f.coupling ++ g.coupling. The union modules must already exist in the
-   graph — the machine does not create them automatically.
+   graph; the machine does not create them automatically.
 
    MORPH_ASSERT is the only cert-setter in the morphism group. It charges
-   S(cost) ≥ 1 — the No Free Insight law applies to certified morphism
+   S(cost) ≥ 1. The No Free Insight law applies to certified morphism
    properties just as it does to module-level assertions.
 
    The morphism IDs are allocated monotonically from pg_next_morph_id
@@ -2208,7 +2210,7 @@ Definition graph_hw_pmerge (g : PartitionGraph) (m1 m2 : nat) : PartitionGraph :
   let '(g3, _) := graph_add_module g2 merged [] in
   g3.
 
-(** Tensor index bounds check — true iff both i,j ∈ {0,1,2,3}. *)
+(** Tensor index bounds check: true iff both i,j ∈ {0,1,2,3}. *)
 Definition tensor_indices_ok (i j : nat) : bool :=
   Nat.ltb i 4 && Nat.ltb j 4.
 
@@ -2230,64 +2232,64 @@ Definition morphism_selector_value (ms : MorphismState) (selector : nat) : nat :
     monolithic VM, the same 51 as the kernel's VMStep.vm_instruction. They are grouped here by the state they read or update.
 
     STATE SPACE MANAGEMENT (cost = mu_delta, which may be 0):
-      PNEW        — create a new partition module
-      PSPLIT      — split a module into two sub-modules
-      PMERGE      — merge two modules into one
-      MDLACC      — module access control
-      PDISCOVER   — record evidence about a module
+      PNEW:         create a new partition module
+      PSPLIT:       split a module into two sub-modules
+      PMERGE:       merge two modules into one
+      MDLACC:       module access control
+      PDISCOVER:    record evidence about a module
 
     POSITIVE-FLOOR CLASSES:
-      LASSERT     — assert a formula about a module (SAT/UNSAT verified).
+      LASSERT:      assert a formula about a module (SAT/UNSAT verified).
                     cost = flen * 8 + S(mu_delta) ≥ 1. The flen field is
                     the formula's byte-length divided by 8 (an explicit
-                    instruction field). Cannot be zero — even setting
+                    instruction field). Cannot be zero: even setting
                     mu_delta = 0 and flen = 0 charges S(0) = 1.
-      LJOIN       — join two certificate chains. cost = S(mu_delta) ≥ 1.
-      EMIT        — emit observations into the partition graph.
+      LJOIN:        join two certificate chains. cost = S(mu_delta) ≥ 1.
+      EMIT:         emit observations into the partition graph.
                     cost = S(mu_delta) ≥ 1.
-      REVEAL      — reveal information (observation event).
+      REVEAL:       reveal information (observation event).
                     cost = S(mu_delta) ≥ 1.
-      CERTIFY     — certify the current state. cost = S(mu_delta) ≥ 1.
-      READ_PORT   — read the supplied channel value.
+      CERTIFY:      certify the current state. cost = S(mu_delta) ≥ 1.
+      READ_PORT:    read the supplied channel value.
                     cost = S(mu_delta) ≥ 1 under this schedule.
 
     COMPUTATION (cost = mu_delta, typically 0):
-      XFER, LOAD_IMM, LOAD, STORE — data movement
-      ADD, SUB, AND, OR, SHL, SHR, MUL, LUI — arithmetic/logic
-      XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK — XOR/rank operations
-      JUMP, JNEZ, CALL, RET — control flow
-      HEAP_LOAD, HEAP_STORE — heap-relative memory access
+      XFER, LOAD_IMM, LOAD, STORE: data movement
+      ADD, SUB, AND, OR, SHL, SHR, MUL, LUI: arithmetic/logic
+      XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK: XOR/rank operations
+      JUMP, JNEZ, CALL, RET: control flow
+      HEAP_LOAD, HEAP_STORE: heap-relative memory access
 
     I/O AND CONTROL:
-    HALT        — stop execution
-      CHECKPOINT  — emit a checkpoint label
-      WRITE_PORT  — I/O port write (cost = mu_delta, can be 0)
+    HALT:         stop execution
+      CHECKPOINT:   emit a checkpoint label
+      WRITE_PORT:   I/O port write (cost = mu_delta, can be 0)
 
     WITNESS COUNTERS:
-      CHSH_TRIAL  — record the supplied CHSH-trial fields
-      TENSOR_SET  — write a 4×4 μ-tensor entry
-      TENSOR_GET  — read a 4×4 μ-tensor entry
+      CHSH_TRIAL:   record the supplied CHSH-trial fields
+      TENSOR_SET:   write a 4×4 μ-tensor entry
+      TENSOR_GET:   read a 4×4 μ-tensor entry
 
     CATEGORICAL MORPHISMS (opcodes 0x27–0x2D):
-      MORPH       — create a typed relation (morphism) between two modules.
+      MORPH:        create a typed relation (morphism) between two modules.
                     dst register ← new MorphismID. Source and target modules
                     must already exist. Coupling data is relation payload.
-      COMPOSE     — compose two morphisms f;g (f.target must equal g.source).
+      COMPOSE:      compose two morphisms f;g (f.target must equal g.source).
                     dst ← new MorphismID for the composed relation.
                     Relational composition: (a,c) ∈ f;g iff ∃b, (a,b)∈f ∧ (b,c)∈g.
-      MORPH_ID    — create an identity morphism for a module (diagonal relation:
+      MORPH_ID:     create an identity morphism for a module (diagonal relation:
                     (x,x) for all x in the module's region). dst ← new ID.
-      MORPH_DELETE — remove a morphism from the graph by ID. No register write.
+      MORPH_DELETE:  remove a morphism from the graph by ID. No register write.
                     PSPLIT/PMERGE trigger automatic cascade deletion of any
                     morphisms referencing the removed module.
-      MORPH_ASSERT — assert a named property on a morphism (cert-setter).
+      MORPH_ASSERT:  assert a named property on a morphism (cert-setter).
                     Cost = S(delta_mu) ≥ 1. The No Free Insight law applies:
                     certified knowledge about morphism structure costs μ.
                     No register write (assertion, not computation).
-      MORPH_TENSOR — compute the tensor product f⊗g of two morphisms with
+      MORPH_TENSOR:  compute the tensor product f⊗g of two morphisms with
                     disjoint source/target regions. Source = A∪C, target = B∪D.
                     Union modules must exist. dst ← new MorphismID.
-      MORPH_GET   — inspect a morphism field. dst ← value.
+      MORPH_GET:    inspect a morphism field. dst ← value.
                     Selectors: 0=source_module, 1=target_module,
                                2=coupling_length, 3=is_identity_flag.
 
@@ -2398,7 +2400,7 @@ Inductive vm_instruction :=
     S5 entries; see Section 16 of QuantumPartitionPSD_1AB.v). A successful
     step implies PSD9 of the full 9×9 NPA Q_{1+AB} moment matrix at
     (E, γ_1, γ_2, γ_3, γ_4, γ_5) for the rationals derived from the
-    bucket pairs — substrate-level Q_{1+AB} closure across all five γ
+    bucket pairs: substrate-level Q_{1+AB} closure across all five γ
     parameters simultaneously. Cost is S mu_delta. *)
 | instr_chsh_lassert_1ab_g12345 (mu_delta same_g1 diff_g1 same_g2 diff_g2 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat).
 
@@ -2545,7 +2547,7 @@ Proof.
   intros. reflexivity.
 Qed.
 
-(** The µ-cost is exactly [bits + S mu_delta] — strictly positive — so every I/O
+(** The µ-cost is exactly [bits + S mu_delta], which is strictly positive, so every I/O
     read charges at least 1 µ unit to the ledger. *)
 Lemma io_read_cost_positive :
   forall dst ch v bits mu_delta,
@@ -2584,7 +2586,7 @@ Definition record_trial (wc : WitnessCounts) (x y a b : nat) : WitnessCounts :=
              else       {| wc_same_00 := wc.(wc_same_00); wc_diff_00 := wc.(wc_diff_00); wc_same_01 := wc.(wc_same_01); wc_diff_01 := wc.(wc_diff_01); wc_same_10 := wc.(wc_same_10); wc_diff_10 := wc.(wc_diff_10); wc_same_11 := wc.(wc_same_11); wc_diff_11 := S wc.(wc_diff_11) |}
   end.
 
-(** Trap PC — hardware branches here on LASSERT failure. *)
+(** Trap PC: hardware branches here on LASSERT failure. *)
 Definition LASSERT_TRAP_PC : nat := 3840.
 
 (** Helper for LASSERT: compute whether the binary SAT check passes.
@@ -3046,7 +3048,7 @@ Definition q1ab_g345_full_integer_check_kernel
         [g12345_COMMON_Z] := (N00·N01·N10·N11·Dg1·Dg2·Dg3·Dg4·Dg5)²;
       - 15 cleared scaled_S_6 entries (4×4 Schur complement of row 1 of
         the sym6 H) at scaling g12345_COMMON_Z²;
-      - 10 cleared scaled_S_5 entries (Schur of Schur — 4×4 Schur of row 1
+      - 10 cleared scaled_S_5 entries (Schur of Schur: 4×4 Schur of row 1
         of the sym5 scaled_S_6) at scaling g12345_COMMON_Z⁴;
       - 4 sym4 Sylvester leading minors of the scaled_S_5 cleared values,
         at scaling g12345_COMMON_Z^(4·k) for k = 1..4.
@@ -3491,7 +3493,7 @@ Definition q1ab_g12345_check_z_kernel
   && ((-Dg3 <? Ng3)%Z) && ((Ng3 <? Dg3)%Z)
   && ((-Dg4 <? Ng4)%Z) && ((Ng4 <? Dg4)%Z)
   && ((-Dg5 <? Ng5)%Z) && ((Ng5 <? Dg5)%Z)
-  (* Schur cascade — six PD checks: *)
+  (* Schur cascade, six PD checks: *)
   && ((0 <? cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z)
   && ((0 <? cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z)
   && ((0 <? sym4_d1_Z
@@ -3628,7 +3630,7 @@ Definition jump_state_rm (s : VMState) (instr : vm_instruction)
       1. Read relevant state fields
       2. Compute new values (register writes, memory updates, graph ops,
          morphism graph mutations)
-      3. Set vm_mu := vm_mu + instruction_cost (ALWAYS — no exception)
+      3. Set vm_mu := vm_mu + instruction_cost (ALWAYS, no exception)
       4. Advance PC (or jump)
       Totality matters: every instruction on every state produces a
       well-defined next state. No exceptions, no errors that escape the
@@ -3637,7 +3639,7 @@ Definition jump_state_rm (s : VMState) (instr : vm_instruction)
     run_vm (fuel : nat) (trace : list vm_instruction) (s : VMState) : VMState
       Fuel-bounded execution loop. Fetches instruction at PC from the
       trace, applies vm_apply, repeats until fuel runs out or PC is out
-      of bounds. Fuel ensures termination — Coq requires all Fixpoints
+      of bounds. Fuel ensures termination; Coq requires all Fixpoints
       to terminate. The fuel value is NOT a physical limit. For any
       specific execution, pick fuel larger than the number of steps.
 
@@ -4186,7 +4188,7 @@ Fixpoint run_vm (fuel : nat) (trace : list vm_instruction) (s : VMState) : VMSta
       end
   end.
 
-(** NoFI policy helpers — aliases matching the modular kernel (VMStep/SimulationProof) *)
+(** NoFI policy helpers: aliases matching the modular kernel (VMStep/SimulationProof) *)
 
 Definition nofi_step_cost_okb (instr : vm_instruction) : bool :=
   match is_cert_setterb instr with
@@ -4220,7 +4222,7 @@ Definition vm_apply_runtime : VMState -> vm_instruction -> VMState := vm_apply.
       s.(vm_mu) ≤ (vm_apply s i).(vm_mu)
       Immediate from vm_apply_mu + costs are nat ≥ 0.
 
-    run_vm_mu_monotonic: MULTI-STEP MONOTONICITY — the key theorem.
+    run_vm_mu_monotonic: MULTI-STEP MONOTONICITY, the key theorem.
       For any fuel and any trace:
         s.(vm_mu) ≤ (run_vm fuel trace s).(vm_mu)
       Induction on fuel. Base: trivial. Step: compose single-step
@@ -4232,7 +4234,7 @@ Definition vm_apply_runtime : VMState -> vm_instruction -> VMState := vm_apply.
       It is not a thermodynamic second-law derivation.
     ========================================================================= *)
 
-(** vm_apply_mu: Single-step μ conservation — the foundation of everything. *)
+(** vm_apply_mu: Single-step μ conservation, the foundation of everything. *)
 Lemma vm_apply_mu :
   forall s instr,
     (vm_apply s instr).(vm_mu) = s.(vm_mu) + instruction_cost instr.
@@ -4251,7 +4253,7 @@ Proof.
   intros s instr. rewrite vm_apply_mu. lia.
 Qed.
 
-(** Multi-step μ-monotonicity — THE KEY THEOREM *)
+(** Multi-step μ-monotonicity: THE KEY THEOREM *)
 Theorem run_vm_mu_monotonic :
   forall fuel trace s,
     s.(vm_mu) <= (run_vm fuel trace s).(vm_mu).
@@ -4308,24 +4310,24 @@ Qed.
     The following parts combine the VM cost schedule with its certification
     predicates.
 
-    Part A — CERTIFICATION REQUIRES COST (PrimeAxiom):
+    Part A: CERTIFICATION REQUIRES COST (PrimeAxiom):
       The designated setter behavior and its positive floor are proved by
       case analysis over the instruction constructors.
 
-    Part B — NON-REVELATION PRESERVES CERT CSR (RevelationRequirement):
+    Part B: NON-REVELATION PRESERVES CERT CSR (RevelationRequirement):
       The non-setter lemmas identify which transition cases preserve
       csr_cert_addr and which cases may activate it.
 
-    Part C — STRENGTHENING REQUIRES STRUCTURE ADDITION (NoFreeInsight):
+    Part C: STRENGTHENING REQUIRES STRUCTURE ADDITION (NoFreeInsight):
       Starting with csr_cert_addr = 0, ending with cert_addr ≠ 0 means
-      somewhere a "structure addition" event occurred — cert_addr went
+      somewhere a "structure addition" event occurred: cert_addr went
       from 0 to non-zero. That transition requires a revelation-class
       instruction.
 
       The theorem connects the supplied stronger-predicate and certification
       premises to a structure-addition event and its schedule cost.
 
-    Part D — μ-INITIALITY (MuInitiality):
+    Part D: μ-INITIALITY (MuInitiality):
       For the declared instruction-cost assignment, any other measure M
       satisfying instruction consistency and zero initialization agrees with μ
       on the reachable states covered by the theorem.
@@ -4405,7 +4407,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6A: LEDGER NECESSITY — Why μ Cannot Be Projected Away
+    SECTION 6A: LEDGER NECESSITY. Why μ Cannot Be Projected Away
     =========================================================================
 
     This section internalises the necessity proof directly in this
@@ -5340,7 +5342,7 @@ Qed.
 (** Irredundancy, not minimality: "minimal" would assert leastness in an
     order, and no order relation over projections is defined in this
     development. What is proved is that neither vm_mu nor vm_certified can be
-    dropped — (b) and (c) below quantify over every carrier type and every
+    dropped: (b) and (c) below quantify over every carrier type and every
     projection. See the extended note on the twin corollary in
     coq/kernel/nfi/NecessityAbstract.v. *)
 Corollary P_full_complete_neither_mu_nor_cert_droppable :
@@ -5571,7 +5573,7 @@ Definition has_structure_addition (fuel : nat) (trace : Receipts) (s_init : VMSt
     cert_addr transitioned 0 → nonzero. That is a structure addition event.
     That event costs μ. Nothing certifies for free, and the ledger is where the bill lands.
 
-    HONEST NOTE: P_weak and Hstrict are carried for caller documentation —
+    HONEST NOTE: P_weak and Hstrict are carried for caller documentation;
     the caller proves they achieved a strictly stronger predicate. The proof
     body uses only has_supra_cert from Hcert. Hstrict is structurally unused.
     The theorem is correct regardless: Certified ⇒ has_supra_cert ⇒
@@ -5598,7 +5600,7 @@ Qed.
 (** --- Part D: μ-Initiality (uniqueness of the cost measure) --- *)
 
 (** Initial state: everything zeroed. The unique state with μ = 0
-    reachable from nothing — the root of the reachability tree. *)
+    reachable from nothing: the root of the reachability tree. *)
 Definition init_graph : PartitionGraph := {|
   pg_next_id := 0;
   pg_modules := [];
@@ -5692,7 +5694,7 @@ Definition instruction_consistent (M : VMState -> nat) (c : CostAssignment) : Pr
 
 (** THE FLAGSHIP INITIALITY THEOREM:
     Any instruction-consistent M with M(init)=0 equals vm_mu on reachable states.
-    μ is not a choice — it is the UNIQUE cost functional. *)
+    μ is not a choice. It is the UNIQUE cost functional. *)
 Theorem mu_is_initial_monotone :
   forall M : VMState -> nat,
     instruction_consistent M canonical_cost ->
@@ -5782,7 +5784,7 @@ Proof. exact mu_is_initial_monotone. Qed.
 (** Weight: abstract cost algebra (Trace already defined in Section 6A) *)
 Definition Weight := Trace -> nat.
 
-(** Three weight laws — necessary and sufficient for No Free Insight *)
+(** Three weight laws: necessary and sufficient for No Free Insight *)
 
 Definition weight_empty (w : Weight) : Prop :=
   w [] = 0.
@@ -6080,7 +6082,7 @@ Qed.
     ========================================================================= *)
 
 (* Reals imported here (not at file top) to avoid notation conflicts with the
-   integer/list sections above.  R_scope overrides nat_scope — opening it
+   integer/list sections above.  R_scope overrides nat_scope; opening it
    earlier would require scope annotations throughout Sections 1–6C. *)
 From Coq Require Import Reals.
 From Coq Require Import micromega.Lra.
@@ -7513,7 +7515,7 @@ Record PhysicalErasure_tc := mkPhysicalErasure_tc {
   pe_second_law : pe_env_entropy_increase >= bits_erased_tc pe_erasure_op
 }.
 
-(* SCOPE NOTE: verified extraction — pe_second_law IS the Landauer bound proof;
+(* SCOPE NOTE: verified extraction; pe_second_law IS the Landauer bound proof;
    the Record bundles the erasure operation with its thermodynamic constraint;
    extracting it as a theorem gives callers a named interface without assuming anything new. *)
 Theorem landauer_information_bound_tc : forall pe : PhysicalErasure_tc,
@@ -7720,7 +7722,7 @@ Definition states_correspond (coq_s : VMState) (py_s : PythonState) : Prop :=
 (** Narrow Python projection: PC/μ/error only. See OCamlExtractionBridge.v
     for the canonical full-state bridge.
 
-    KNOWN GAP — projects PC/μ/error from init_state,
+    KNOWN GAP: projects PC/μ/error from init_state,
     not from py_s itself. Registers and memory pass through unchanged.
     This is an honest conservative stand-in: the three observables (pc, μ, err)
     are correctly projected; full register/memory bisimulation is outside this
@@ -7738,7 +7740,7 @@ Definition python_step_projection (py_s : PythonState) (instr : vm_instruction) 
 (** Alias for [python_step_projection]. *)
 Definition python_step := python_step_projection.
 
-(** μ grows on every step — Coq side always matches Python.
+(** μ grows on every step; Coq side always matches Python.
     The Hcorr witness is interface-contractual: it documents the correspondence
     assumption without contributing to the arithmetic. The conclusion is
     vm_apply_mu coq_s instr under a different name. *)
@@ -7769,9 +7771,9 @@ Definition hw_states_correspond (coq_s : VMState) (hw_s : HardwareState) : Prop 
   coq_s.(vm_mu) = hw_s.(hw_mu) /\
   coq_s.(vm_err) = hw_s.(hw_error).
 
-(** μ grows on every step — Coq side always matches hardware.
+(** μ grows on every step; Coq side always matches hardware.
     Hw_s and Hcorr document the correspondence contract but do not drive
-    the arithmetic — vm_apply_mu closes it unconditionally. *)
+    the arithmetic; vm_apply_mu closes it unconditionally. *)
 Theorem hw_projection_mu_commutation :
   forall coq_s hw_s instr,
     hw_states_correspond coq_s hw_s ->
@@ -7785,12 +7787,10 @@ Qed.
 Definition hw_bisimulation_mu_commutation := hw_projection_mu_commutation.
 
 (** Three-layer μ-monotonicity: one step, three witnesses, one receipt.
-    After any vm_apply, the new μ dominates the old μ at all three layers —
-    Coq VM, Python harness, hardware snapshot — simultaneously.
+    After any vm_apply, the new μ dominates the old μ at all three layers
+    (Coq VM, Python harness, hardware snapshot) simultaneously.
     KNOWN GAP: This is μ lower-bound agreement, not full-state isomorphism.
-    [per_opcode_mu_simulation] and [all_instructions_mu_simulate] prove μ relations
-    for the local Kami model only; they do not prove equality of PC, registers,
-    memory, graph, or CSR state. *)
+    The hardware correspondence lives in coq/kami_hw. *)
 Theorem three_layer_mu_projection :
   forall coq_s py_s hw_s instr,
     states_correspond coq_s py_s ->
@@ -7807,2324 +7807,15 @@ Qed.
 (** Alias for [three_layer_mu_projection]. *)
 Definition three_layer_isomorphism := three_layer_mu_projection.
 
-(** =========================================================================
-    KAMI FRAMEWORK IMPORTS
-
-    Kami imports MUST come here, after all sections that use standard List
-    notations like []. Kami redefines [] for its own vector types — if
-    imported earlier, it breaks CertCheck and everything upstream.
-
-    I also close all conflicting scopes before importing Kami. Kami's ==
-    notation lives at level 30; Reals' == is at level 70. Coq won't
-    allow both. Close scopes first, import Kami, reopen what I need.
-    ========================================================================= *)
-
-(* Close all conflicting scopes before importing Kami *)
+(* Scope state for the sections below: R and Z scopes closed, nat scope
+   open, List imported last (so [length] is the list length, not the string
+   one), list notations imported, asymmetric patterns on. *)
 Close Scope R_scope.
 Close Scope Z_scope.
-Close Scope nat_scope.
-
-(* Use Require without Import to load Kami without its notations *)
-(* This avoids the == notation conflict between Reals (level 70) and Kami (level 30) *)
-Require Kami.Kami.
-Require Kami.Synthesize.
-Require Kami.Ext.BSyntax.
-
-(* Import Kami modules for the types we need *)
-Import Kami.Kami.
-Import Kami.Synthesize.
-Import Kami.Ext.BSyntax.
-
-(* Re-import List notations after Kami - Kami overrides [] notation *)
+Import Coq.Lists.List.
 Import ListNotations.
-
-(* Reopen nat_scope for hardware dimension constants *)
 Open Scope nat_scope.
-
-(** =========================================================================
-    SECTION 6G-KAMI: KAMI HARDWARE TYPES AND MODULE
-    =========================================================================
-
-    This section defines the Kami hardware model and the extraction path used
-    to produce Bluespec and Verilog artifacts. The standalone definitions here
-    are related to the modular source in [coq/kami_hw/ThieleCPUCore.v]; the
-    generated files and their compiler steps remain separate artifacts.
-
-    The declared hardware dimensions are 16 registers, 64-bit words, 128-word
-    instruction and data memories, 64 partition slots, and eight CHSH witness
-    counters. Section 6H supplies the checked abstraction lemmas for the fields
-    and operations that its relation covers. Those lemmas do not by themselves
-    prove that an emitted bitstream is identical to this Coq model.
-    ========================================================================= *)
-
-Set Implicit Arguments.
 Set Asymmetric Patterns.
-
-(** ** Hardware Type Definitions *)
-
-Definition RegCount := 16.
-Definition MemSize := 128.
-Definition RegIdxSz := 4.   (* log2(16) *)
-Definition MemAddrSz := 7.  (* log2(128) *)
-Definition WordSz := 64.
-Definition OpcodeSz := 8.
-Definition CostSz := 8.
-Definition MuTensorIdxSz := 4.  (* log2(16) — 4×4 flattened μ-tensor *)
-Definition PTableIdxSz := 6.   (* log2(64) — 64 partition module slots *)
-Definition PTableSz := 64.
-Definition PTableNextIdSz := 7.
-Definition InstrSz := 32.
-
-(** Initial values *)
-Definition ACTIVE_MODULE_INIT : word PTableIdxSz := WO~0~0~0~0~0~1.
-Definition PT_NEXT_ID_INIT : word PTableNextIdSz := WO~0~0~0~0~0~0~1.
-
-(** Error code constants *)
-Definition ERR_CHSH_VAL    : word WordSz := natToWord WordSz 0x0BADC45C.
-Definition ERR_BIANCHI_VAL : word WordSz := natToWord WordSz 0x0B1A4C81.
-Definition ERR_LOGIC_VAL   : word WordSz := natToWord WordSz 0xC43471A1.
-Definition ERR_LOCALITY_VAL : word WordSz := natToWord WordSz 0x0BADC0DE.
-Definition ERR_PARTITION_VAL : word WordSz := natToWord WordSz 0xBADF001D.
-
-(** Logic-gated physics key *)
-Definition LOGIC_GATE_KEY : word WordSz := natToWord WordSz 0xCAFEEACE.
-
-(** Trap vector and mstatus *)
-Definition TRAP_VEC_INIT  : word WordSz := natToWord WordSz 0x00000F00.
-Definition MSTATUS_TURING : word WordSz := natToWord WordSz 0.
-Definition MSTATUS_THIELE : word WordSz := natToWord WordSz 1.
-
-Definition ORACLE_HALTS_HW_COST : nat := 1000000.
-
-Definition CHSH_X1_SURCHARGE : word WordSz := natToWord WordSz 0x100. (* 256 *)
-
-(** Opcode encoding — canonical source *)
-Definition OP_PNEW : word OpcodeSz := WO~0~0~0~0~0~0~0~0.
-Definition OP_PSPLIT : word OpcodeSz := WO~0~0~0~0~0~0~0~1.
-Definition OP_PMERGE : word OpcodeSz := WO~0~0~0~0~0~0~1~0.
-Definition OP_LASSERT : word OpcodeSz := WO~0~0~0~0~0~0~1~1.
-Definition OP_LJOIN : word OpcodeSz := WO~0~0~0~0~0~1~0~0.
-Definition OP_MDLACC : word OpcodeSz := WO~0~0~0~0~0~1~0~1.
-Definition OP_PDISCOVER : word OpcodeSz := WO~0~0~0~0~0~1~1~0.
-Definition OP_XFER : word OpcodeSz := WO~0~0~0~0~0~1~1~1.
-Definition OP_LOAD_IMM : word OpcodeSz := WO~0~0~0~0~1~0~0~0.
-Definition OP_CHSH_TRIAL : word OpcodeSz := WO~0~0~0~0~1~0~0~1.
-Definition OP_XOR_LOAD : word OpcodeSz := WO~0~0~0~0~1~0~1~0.
-Definition OP_XOR_ADD : word OpcodeSz := WO~0~0~0~0~1~0~1~1.
-Definition OP_XOR_SWAP : word OpcodeSz := WO~0~0~0~0~1~1~0~0.
-Definition OP_XOR_RANK : word OpcodeSz := WO~0~0~0~0~1~1~0~1.
-Definition OP_EMIT : word OpcodeSz := WO~0~0~0~0~1~1~1~0.
-Definition OP_REVEAL : word OpcodeSz := WO~0~0~0~0~1~1~1~1.
-(* 0x10 reserved *)
-Definition OP_LOAD : word OpcodeSz := WO~0~0~0~1~0~0~0~1.
-Definition OP_STORE : word OpcodeSz := WO~0~0~0~1~0~0~1~0.
-Definition OP_ADD : word OpcodeSz := WO~0~0~0~1~0~0~1~1.
-Definition OP_SUB : word OpcodeSz := WO~0~0~0~1~0~1~0~0.
-Definition OP_JUMP : word OpcodeSz := WO~0~0~0~1~0~1~0~1.
-Definition OP_JNEZ : word OpcodeSz := WO~0~0~0~1~0~1~1~0.
-Definition OP_CALL : word OpcodeSz := WO~0~0~0~1~0~1~1~1.
-Definition OP_RET : word OpcodeSz := WO~0~0~0~1~1~0~0~0.
-Definition OP_CHECKPOINT : word OpcodeSz := WO~0~0~0~1~1~0~0~1.
-Definition OP_READ_PORT : word OpcodeSz := WO~0~0~0~1~1~0~1~0.
-Definition OP_WRITE_PORT : word OpcodeSz := WO~0~0~0~1~1~0~1~1.
-Definition OP_HEAP_LOAD : word OpcodeSz := WO~0~0~0~1~1~1~0~0.
-Definition OP_HEAP_STORE : word OpcodeSz := WO~0~0~0~1~1~1~0~1.
-Definition OP_CERTIFY : word OpcodeSz := WO~0~0~0~1~1~1~1~0.
-Definition OP_AND : word OpcodeSz := WO~0~0~0~1~1~1~1~1.
-Definition OP_OR : word OpcodeSz := WO~0~0~1~0~0~0~0~0.
-Definition OP_SHL : word OpcodeSz := WO~0~0~1~0~0~0~0~1.
-Definition OP_SHR : word OpcodeSz := WO~0~0~1~0~0~0~1~0.
-Definition OP_MUL : word OpcodeSz := WO~0~0~1~0~0~0~1~1.
-Definition OP_LUI : word OpcodeSz := WO~0~0~1~0~0~1~0~0.
-Definition OP_TENSOR_SET : word OpcodeSz := WO~0~0~1~0~0~1~0~1.
-Definition OP_TENSOR_GET : word OpcodeSz := WO~0~0~1~0~0~1~1~0.
-Definition OP_HALT : word OpcodeSz := WO~1~1~1~1~1~1~1~1.
-
-Definition hardware_dimensions := (RegCount, MemSize, CostSz).
-
-(** ** Kami CPU Section *)
-
-Section ThieleCPU.
-
-  Definition LoadInstrPort :=
-    STRUCT {
-      "addr" :: Bit MemAddrSz ;
-      "data" :: Bit InstrSz
-    }.
-
-  Definition LogicRespPort :=
-    STRUCT {
-      "valid" :: Bool ;
-      "error" :: Bool ;
-      "value" :: Bit WordSz
-    }.
-
-  Definition APBBusWritePort :=
-    STRUCT {
-      "addr" :: Bit WordSz ;
-      "data" :: Bit WordSz
-    }.
-
-  Definition SP_IDX : word RegIdxSz := WO~1~1~1~1.   (* RegIdxSz=4, SP=15 *)
-
-  Definition kami_check_bounds
-             {ty}
-             (addr : Expr ty (SyntaxKind (Bit MemAddrSz)))
-             (active_partition_size : Expr ty (SyntaxKind (Bit WordSz)))
-    : Expr ty (SyntaxKind Bool) :=
-    BinBitBool (Lt WordSz) (UniBit (ZeroExtendTrunc _ _) addr) active_partition_size.
-
-  Definition kami_read_mem
-             {ty}
-             (addr : Expr ty (SyntaxKind (Bit MemAddrSz)))
-             (memv : Expr ty (SyntaxKind (Vector (Bit WordSz) MemAddrSz)))
-    : Expr ty (SyntaxKind (Bit WordSz)) :=
-    ReadIndex addr memv.
-
-  Definition kami_write_mem
-             {ty}
-             (addr : Expr ty (SyntaxKind (Bit MemAddrSz)))
-             (val : Expr ty (SyntaxKind (Bit WordSz)))
-             (memv : Expr ty (SyntaxKind (Vector (Bit WordSz) MemAddrSz)))
-    : Expr ty (SyntaxKind (Vector (Bit WordSz) MemAddrSz)) :=
-    UpdateVector memv addr val.
-
-  (** The complete Kami MODULE definition for the Thiele CPU.
-      In this standalone file it is a prototype of the hardware
-      definition. The hardware that is extracted and synthesized is
-      coq/kami_hw's canonical_cpu_module, not this module.
-      ~985 lines of Kami DSL covering the 47 synthesized opcodes for
-      PC/mu/err tracking.
-      Prototype gaps: OP_TENSOR_SET is not implemented (tensor writes not
-      handled); OP_TENSOR_GET always returns 0 (no hardware tensor read);
-      module graph, logic_acc, and mstatus are absent from KamiSnapshot
-      (see abs_snapshot).  These gaps are documented above each occurrence. *)
-
-  Definition thieleCore :=
-    MODULE {
-      (* Core registers matching VMState *)
-      Register "pc"     : Bit WordSz <- Default
-      with Register "mu"     : Bit WordSz <- Default
-      with Register "err"    : Bool <- false
-      with Register "halted" : Bool <- false
-      with Register "regs"  : Vector (Bit WordSz) RegIdxSz <- Default
-      with Register "mem"   : Vector (Bit WordSz) MemAddrSz <- Default
-      with Register "imem"   : Vector (Bit InstrSz) MemAddrSz <- Default
-
-      (* Diagnostic counters *)
-      with Register "partition_ops" : Bit WordSz <- Default
-      with Register "mdl_ops"       : Bit WordSz <- Default
-      with Register "info_gain"     : Bit WordSz <- Default
-      with Register "error_code"    : Bit WordSz <- Default
-      with Register "logic_acc"     : Bit WordSz <- Default
-      with Register "lassert_phase" : Bit 3 <- Default
-      with Register "lassert_kind"  : Bool <- false
-      with Register "lassert_fbase" : Bit WordSz <- Default
-      with Register "lassert_cbase" : Bit WordSz <- Default
-      with Register "lassert_flen"  : Bit WordSz <- Default
-      with Register "lassert_clen"  : Bit WordSz <- Default
-      with Register "lassert_fptr"  : Bit WordSz <- Default
-      with Register "lassert_cptr"  : Bit WordSz <- Default
-      with Register "lassert_fbuf"  : Vector (Bit WordSz) 8 <- Default
-      with Register "lassert_cbuf"  : Vector (Bit WordSz) 9 <- Default
-      with Register "active_module" : Bit PTableIdxSz <- ACTIVE_MODULE_INIT
-      with Register "mstatus"       : Bit WordSz <- MSTATUS_THIELE
-      with Register "mcycle_lo"     : Bit WordSz <- Default
-      with Register "mcycle_hi"     : Bit WordSz <- Default
-      with Register "minstret_lo"   : Bit WordSz <- Default
-      with Register "minstret_hi"   : Bit WordSz <- Default
-      with Register "trap_vector"   : Bit WordSz <- TRAP_VEC_INIT
-      with Register "bus_load_instr_addr" : Bit MemAddrSz <- Default
-      with Register "bus_load_instr_data" : Bit InstrSz <- Default
-      with Register "bus_load_instr_kick" : Bool <- false
-      with Register "mu_tensor"     : Vector (Bit WordSz) MuTensorIdxSz <- Default
-      with Register "ptTable"  : Vector (Bit WordSz) PTableIdxSz <- Default
-      with Register "pt_next_id"    : Bit PTableNextIdSz <- PT_NEXT_ID_INIT
-      with Register "certified" : Bool <- false
-      with Register "wc_same_00" : Bit WordSz <- Default
-      with Register "wc_diff_00" : Bit WordSz <- Default
-      with Register "wc_same_01" : Bit WordSz <- Default
-      with Register "wc_diff_01" : Bit WordSz <- Default
-      with Register "wc_same_10" : Bit WordSz <- Default
-      with Register "wc_diff_10" : Bit WordSz <- Default
-      with Register "wc_same_11" : Bit WordSz <- Default
-      with Register "wc_diff_11" : Bit WordSz <- Default
-
-      (** The atomic step rule: fetch-decode-execute *)
-      with Rule "step" :=
-        Read halted_v : Bool <- "halted";
-        Assert !#halted_v;
-        Read err_v : Bool <- "err";
-        Assert !#err_v;
-        Read pc_v : Bit WordSz <- "pc";
-        Read mu_v : Bit WordSz <- "mu";
-        Read regs_v : Vector (Bit WordSz) RegIdxSz <- "regs";
-        Read mem_v : Vector (Bit WordSz) MemAddrSz <- "mem";
-        Read imem_v : Vector (Bit InstrSz) MemAddrSz <- "imem";
-        Read partition_ops_v : Bit WordSz <- "partition_ops";
-        Read mdl_ops_v : Bit WordSz <- "mdl_ops";
-        Read info_gain_v : Bit WordSz <- "info_gain";
-        Read error_code_v : Bit WordSz <- "error_code";
-        Read logic_acc_v : Bit WordSz <- "logic_acc";
-        Read active_module_v : Bit PTableIdxSz <- "active_module";
-        Read mstatus_v : Bit WordSz <- "mstatus";
-        Read mcycle_lo_v : Bit WordSz <- "mcycle_lo";
-        Read mcycle_hi_v : Bit WordSz <- "mcycle_hi";
-        Read minstret_lo_v : Bit WordSz <- "minstret_lo";
-        Read minstret_hi_v : Bit WordSz <- "minstret_hi";
-        Read trap_vector_v : Bit WordSz <- "trap_vector";
-        Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
-        Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
-        Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
-        Read certified_v : Bool <- "certified";
-        Read wc_same_00_v : Bit WordSz <- "wc_same_00";
-        Read wc_diff_00_v : Bit WordSz <- "wc_diff_00";
-        Read wc_same_01_v : Bit WordSz <- "wc_same_01";
-        Read wc_diff_01_v : Bit WordSz <- "wc_diff_01";
-        Read wc_same_10_v : Bit WordSz <- "wc_same_10";
-        Read wc_diff_10_v : Bit WordSz <- "wc_diff_10";
-        Read wc_same_11_v : Bit WordSz <- "wc_same_11";
-        Read wc_diff_11_v : Bit WordSz <- "wc_diff_11";
-
-        (* Bianchi conservation check *)
-        LET t0 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~0~0)];
-        LET t1 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~0~1)];
-        LET t2 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~1~0)];
-        LET t3 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~1~1)];
-        LET t4 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~1~0~0)];
-        LET t5 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~1~0~1)];
-        LET t6 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~1~1~0)];
-        LET t7 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~1~1~1)];
-        LET t8 : Bit WordSz <- #mu_tensor_v@[$$(WO~1~0~0~0)];
-        LET t9 : Bit WordSz <- #mu_tensor_v@[$$(WO~1~0~0~1)];
-        LET t10 : Bit WordSz <- #mu_tensor_v@[$$(WO~1~0~1~0)];
-        LET t11 : Bit WordSz <- #mu_tensor_v@[$$(WO~1~0~1~1)];
-        LET t12 : Bit WordSz <- #mu_tensor_v@[$$(WO~1~1~0~0)];
-        LET t13 : Bit WordSz <- #mu_tensor_v@[$$(WO~1~1~0~1)];
-        LET t14 : Bit WordSz <- #mu_tensor_v@[$$(WO~1~1~1~0)];
-        LET t15 : Bit WordSz <- #mu_tensor_v@[$$(WO~1~1~1~1)];
-        LET tensor_total : Bit WordSz <-
-          #t0 + #t1 + #t2 + #t3 + #t4 + #t5 + #t6 + #t7 +
-          #t8 + #t9 + #t10 + #t11 + #t12 + #t13 + #t14 + #t15;
-        LET bianchi_violation <- #tensor_total > #mu_v;
-
-        LET pc_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #pc_v;
-        LET instr_v : Bit InstrSz <- #imem_v@[#pc_addr];
-
-        (* Decode *)
-        LET opcode : Bit OpcodeSz <- UniBit (ConstExtract 24 8 0) #instr_v;
-        LET op_a   : Bit 8        <- UniBit (ConstExtract 16 8 8) #instr_v;
-        LET op_b   : Bit 8        <- UniBit (ConstExtract 8 8 16) #instr_v;
-        LET cost_v : Bit CostSz   <- UniBit (Trunc 8 24) #instr_v;
-        LET cost32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #cost_v;
-        LET op_b_32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
-        LET bit_payload_charge : Bit WordSz <-
-          IF ((#opcode == $$(OP_EMIT)) ||
-              (#opcode == $$(OP_REVEAL)) ||
-              (#opcode == $$(OP_READ_PORT)))
-          then #op_b_32
-          else $0;
-        LET bit_priced_mu : Bit WordSz <- #mu_v + #bit_payload_charge + #cost32 + $1;
-        LET new_mu : Bit WordSz <- #mu_v + #cost32;
-        LET pc_plus_1 : Bit WordSz <- #pc_v + $1;
-        LET dst_idx : Bit RegIdxSz <- UniBit (Trunc RegIdxSz _) #op_a;
-        LET src_idx : Bit RegIdxSz <- UniBit (Trunc RegIdxSz _) #op_b;
-        LET op_b_hi : Bit 4 <- UniBit (ConstExtract 4 4 0) #op_b;
-        LET op_b_lo : Bit 4 <- UniBit (Trunc 4 4) #op_b;
-        LET rs1_idx : Bit RegIdxSz <- UniBit (ZeroExtendTrunc _ _) #op_b_hi;
-        LET rs2_idx : Bit RegIdxSz <- UniBit (ZeroExtendTrunc _ _) #op_b_lo;
-        LET rs1_val : Bit WordSz <- #regs_v@[#rs1_idx];
-        LET rs2_val : Bit WordSz <- #regs_v@[#rs2_idx];
-        LET dst_val : Bit WordSz <- #regs_v@[#dst_idx];
-        LET src_val : Bit WordSz <- #regs_v@[#src_idx];
-        LET imm32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
-        LET mem_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #src_val;
-        LET mem_addr_a : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #dst_val;
-        LET mem_addr_imm : Bit MemAddrSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
-        LET mem_val : Bit WordSz <- kami_read_mem #mem_addr #mem_v;
-        LET mem_val_imm : Bit WordSz <- kami_read_mem #mem_addr_imm #mem_v;
-        LET sp_val : Bit WordSz <- #regs_v@[$$(SP_IDX)];
-        LET sp_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #sp_val;
-        LET sp_inc : Bit WordSz <- #sp_val + $1;
-        LET sp_dec : Bit WordSz <- #sp_val - $1;
-        LET sp_dec_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #sp_dec;
-
-        (* Partition wall enforcement *)
-        LET active_region_size : Bit WordSz <- #pt_sizes_v@[#active_module_v];
-        LET load_in_bounds <- kami_check_bounds #mem_addr #active_region_size;
-        LET store_in_bounds <- kami_check_bounds #mem_addr_a #active_region_size;
-        LET call_in_bounds <- kami_check_bounds #sp_addr #active_region_size;
-        LET ret_in_bounds <- kami_check_bounds #sp_dec_addr #active_region_size;
-        (* XOR_LOAD uses immediate addressing — no locality check, matches Coq step_xor_load *)
-        LET is_load_op <- (#opcode == $$(OP_LOAD)) ||
-                          (#opcode == $$(OP_HEAP_LOAD));
-        LET is_store_op <- (#opcode == $$(OP_STORE)) || (#opcode == $$(OP_HEAP_STORE));
-        LET is_call_op <- #opcode == $$(OP_CALL);
-        LET is_ret_op <- #opcode == $$(OP_RET);
-        LET load_locality_bad <- #is_load_op && !#load_in_bounds;
-        LET store_locality_bad <- #is_store_op && !#store_in_bounds;
-        LET call_locality_bad <- #is_call_op && !#call_in_bounds;
-        LET ret_locality_bad <- #is_ret_op && !#ret_in_bounds;
-        LET locality_violation <-
-          #load_locality_bad || #store_locality_bad || #call_locality_bad || #ret_locality_bad;
-
-        (* Logic-gated physics lock *)
-        LET logic_key_ok <- #logic_acc_v == $$(LOGIC_GATE_KEY);
-        LET is_high_value_op <-
-          (#opcode == $$(OP_REVEAL)) || (#opcode == $$(OP_PDISCOVER)) || (#opcode == $$(OP_CHSH_TRIAL));
-        LET high_value_locked <- #is_high_value_op && !#logic_key_ok;
-
-        (* Capacity guards *)
-        LET ptable_full <- #pt_next_id_v >= $64;
-        LET ptable_room_one <- !#ptable_full;
-        LET ptable_room_two <- (#pt_next_id_v + $2) <= $64;
-        LET pnew_overflow <- (#opcode == $$(OP_PNEW)) && !#ptable_room_one;
-        LET psplit_overflow <- (#opcode == $$(OP_PSPLIT)) && !#ptable_room_two;
-        LET pmerge_overflow <- (#opcode == $$(OP_PMERGE)) && !#ptable_room_one;
-        LET ptable_overflow_violation <- #pnew_overflow || #psplit_overflow || #pmerge_overflow;
-
-        LET pt_probe_idx : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_b;
-        LET pt_probe_size : Bit WordSz <- #pt_sizes_v@[#pt_probe_idx];
-        LET jnez_target : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
-        LET jump_target_16 : Bit 16 <- {#op_a, #op_b};
-        LET jump_target : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #jump_target_16;
-        LET ret_pc : Bit WordSz <-
-          IF #ret_in_bounds then kami_read_mem #sp_dec_addr #mem_v else $0;
-
-        (* Execute *)
-        LET add_result : Bit WordSz <- #rs1_val + #rs2_val;
-        LET sub_result : Bit WordSz <- #rs1_val - #rs2_val;
-        LET and_result : Bit WordSz <- BinBit (Band _) #rs1_val #rs2_val;
-        LET or_result  : Bit WordSz <- BinBit (Bor _) #rs1_val #rs2_val;
-        LET shl_result : Bit WordSz <- BinBit (Sll _ _) #rs1_val #rs2_val;
-        LET shr_result : Bit WordSz <- BinBit (Srl _ _) #rs1_val #rs2_val;
-        LET mul_result : Bit WordSz <- BinBit (Mul _ SignUU) #rs1_val #rs2_val;
-        LET lui_shift  : Bit WordSz <- $$(natToWord WordSz 8);
-        LET lui_result : Bit WordSz <- BinBit (Sll _ _) #imm32 #lui_shift;
-        LET xor_result : Bit WordSz <- #dst_val ~+ #src_val;
-        LET jnez_taken <- #dst_val != $0;
-
-        (* Popcount for XOR_RANK: tree-based bit count (64-bit Harley-Seal) *)
-        LET pop_val : Bit WordSz <- #src_val;
-        (* Step 1: pairs - (v & 0x5555555555555555) + ((v >> 1) & 0x5555555555555555) *)
-        LET pop_mask1 : Bit WordSz <- $$(natToWord WordSz 6148914691236517205);
-        LET pop_s1a : Bit WordSz <- #pop_val ~& #pop_mask1;
-        LET pop_s1b : Bit WordSz <- (BinBit (Srl _ _) #pop_val ($$(WO~0~0~0~0~0~1))) ~& #pop_mask1;
-        LET pop_2 : Bit WordSz <- #pop_s1a + #pop_s1b;
-        (* Step 2: nibbles - (v & 0x3333333333333333) + ((v >> 2) & 0x3333333333333333) *)
-        LET pop_mask2 : Bit WordSz <- $$(natToWord WordSz 3689348814741910323);
-        LET pop_n1 : Bit WordSz <- #pop_2 ~& #pop_mask2;
-        LET pop_n2 : Bit WordSz <- (BinBit (Srl _ _) #pop_2 ($$(WO~0~0~0~0~1~0))) ~& #pop_mask2;
-        LET pop_4 : Bit WordSz <- #pop_n1 + #pop_n2;
-        (* Step 3: bytes - (v & 0x0F0F0F0F0F0F0F0F) + ((v >> 4) & 0x0F0F0F0F0F0F0F0F) *)
-        LET pop_mask3 : Bit WordSz <- $$(natToWord WordSz 1085102592571150095);
-        LET pop_b1 : Bit WordSz <- #pop_4 ~& #pop_mask3;
-        LET pop_b2 : Bit WordSz <- (BinBit (Srl _ _) #pop_4 ($$(WO~0~0~0~1~0~0))) ~& #pop_mask3;
-        LET pop_8 : Bit WordSz <- #pop_b1 + #pop_b2;
-        (* Step 4: 2-byte groups - (v & 0x00FF00FF00FF00FF) + ((v >> 8) & 0x00FF00FF00FF00FF) *)
-        LET pop_mask4 : Bit WordSz <- $$(natToWord WordSz 71777214294589695);
-        LET pop_h1 : Bit WordSz <- #pop_8 ~& #pop_mask4;
-        LET pop_h2 : Bit WordSz <- (BinBit (Srl _ _) #pop_8 ($$(WO~0~0~1~0~0~0))) ~& #pop_mask4;
-        LET pop_16 : Bit WordSz <- #pop_h1 + #pop_h2;
-        (* Step 5: 4-byte groups - (v & 0x0000FFFF0000FFFF) + ((v >> 16) & 0x0000FFFF0000FFFF) *)
-        LET pop_mask5 : Bit WordSz <- $$(natToWord WordSz 281470681808895);
-        LET pop_q1 : Bit WordSz <- #pop_16 ~& #pop_mask5;
-        LET pop_q2 : Bit WordSz <- (BinBit (Srl _ _) #pop_16 ($$(WO~0~1~0~0~0~0))) ~& #pop_mask5;
-        LET pop_32 : Bit WordSz <- #pop_q1 + #pop_q2;
-        (* Step 6: final 64-bit sum - (v & 0x00000000FFFFFFFF) + ((v >> 32) & 0x00000000FFFFFFFF) *)
-        LET pop_mask6 : Bit WordSz <- $$(natToWord WordSz 4294967295);
-        LET popcount : Bit WordSz <- (#pop_32 + (BinBit (Srl _ _) #pop_32 ($$(WO~1~0~0~0~0~0)))) ~& #pop_mask6;
-
-        (* CHSH_TRIAL *)
-        LET chsh_outcomes_bad <- #op_b > $$(WO~0~0~0~0~0~0~1~1);
-        LET is_x1_trial <- #op_a > $$(WO~0~0~0~0~0~0~0~1);
-        LET chsh_cert_missing <- (#is_x1_trial) && (#tensor_total == $0);
-        LET chsh_bits_bad <- #chsh_cert_missing;
-        LET chsh_settings : Bit 2 <- UniBit (Trunc 2 _) #op_a;
-        LET chsh_outcomes : Bit 2 <- UniBit (Trunc 2 _) #op_b;
-        LET chsh_outcomes_same <- (#chsh_outcomes == $$(WO~0~0)) || (#chsh_outcomes == $$(WO~1~1));
-        LET is_bucket_00 <- #chsh_settings == $$(WO~0~0);
-        LET is_bucket_01 <- #chsh_settings == $$(WO~0~1);
-        LET is_bucket_10 <- #chsh_settings == $$(WO~1~0);
-        LET is_bucket_11 <- #chsh_settings == $$(WO~1~1);
-
-        (* No-Free-Insight guard. EMIT pays [op_b] bits directly in μ, so
-           the [cost >= op_b] guard is needed only for PDISCOVER. *)
-        LET is_info_gain_op <- (#opcode == $$(OP_PDISCOVER)) || (#opcode == $$(OP_EMIT));
-        LET is_declared_bound_op <- #opcode == $$(OP_PDISCOVER);
-        LET nfi_violation <- #is_declared_bound_op && (#cost32 < #op_b_32);
-
-        LET is_chsh_valid <- (#opcode == $$(OP_CHSH_TRIAL)) && !#chsh_bits_bad &&
-          !#bianchi_violation && !#locality_violation && !#ptable_overflow_violation &&
-          !#high_value_locked && !#nfi_violation;
-
-        LET tensor_idx : Bit MuTensorIdxSz <- UniBit (Trunc MuTensorIdxSz _) #op_a;
-        LET tensor_old : Bit WordSz <- #mu_tensor_v@[#tensor_idx];
-        LET tensor_new_val : Bit WordSz <- #tensor_old + #op_b_32;
-
-        (* New PC *)
-        LET new_pc : Bit WordSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
-          then #trap_vector_v
-          else (IF (#opcode == $$(OP_HALT)) then #pc_v
-          else (IF (#opcode == $$(OP_JUMP)) then #jump_target
-          else (IF (#opcode == $$(OP_CALL)) then #jump_target
-          else (IF (#opcode == $$(OP_RET)) then #ret_pc
-          else (IF ((#opcode == $$(OP_JNEZ)) && #jnez_taken) then #jnez_target
-          else #pc_plus_1)))));
-
-        LET swap_regs : Vector (Bit WordSz) RegIdxSz <-
-          (#regs_v@[#dst_idx <- #src_val])@[#src_idx <- #dst_val];
-
-        (* New registers *)
-        LET new_regs : Vector (Bit WordSz) RegIdxSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
-          then #regs_v
-          else (IF (#opcode == $$(OP_LOAD_IMM)) then #regs_v@[#dst_idx <- #imm32]
-          else (IF (#opcode == $$(OP_ADD)) then #regs_v@[#dst_idx <- #add_result]
-          else (IF (#opcode == $$(OP_SUB)) then #regs_v@[#dst_idx <- #sub_result]
-          else (IF (#opcode == $$(OP_XFER)) then #regs_v@[#dst_idx <- #src_val]
-          else (IF (#opcode == $$(OP_LOAD)) then #regs_v@[#dst_idx <- #mem_val]
-          else (IF (#opcode == $$(OP_XOR_LOAD)) then #regs_v@[#dst_idx <- #mem_val_imm]
-          else (IF (#opcode == $$(OP_XOR_ADD)) then #regs_v@[#dst_idx <- #xor_result]
-          else (IF (#opcode == $$(OP_XOR_SWAP)) then #swap_regs
-          else (IF (#opcode == $$(OP_XOR_RANK)) then #regs_v@[#dst_idx <- #popcount]
-          else (IF (#opcode == $$(OP_CALL)) then #regs_v@[$$(SP_IDX) <- #sp_inc]
-          else (IF (#opcode == $$(OP_RET)) then #regs_v@[$$(SP_IDX) <- #sp_dec]
-          else (IF (#opcode == $$(OP_PDISCOVER)) then #regs_v@[#dst_idx <- #pt_probe_size]
-          else (IF (#opcode == $$(OP_HEAP_LOAD)) then #regs_v@[#dst_idx <- #mem_val]
-          else (IF (#opcode == $$(OP_READ_PORT)) then #regs_v@[#dst_idx <- $0]
-          else (IF (#opcode == $$(OP_AND)) then #regs_v@[#dst_idx <- #and_result]
-          else (IF (#opcode == $$(OP_OR)) then #regs_v@[#dst_idx <- #or_result]
-          else (IF (#opcode == $$(OP_SHL)) then #regs_v@[#dst_idx <- #shl_result]
-          else (IF (#opcode == $$(OP_SHR)) then #regs_v@[#dst_idx <- #shr_result]
-          else (IF (#opcode == $$(OP_MUL)) then #regs_v@[#dst_idx <- #mul_result]
-          else (IF (#opcode == $$(OP_LUI)) then #regs_v@[#dst_idx <- #lui_result]
-          (* NOTE: OP_TENSOR_GET in hardware always returns 0.
-             The module-tensor array is not mapped into KamiSnapshot/kami_step,
-             so there is no hardware state to read from.  This is a prototype
-             limitation: the Coq VM reads module_tensor_entry; the Kami MODULE
-             registers the opcode for cost/PC but produces a zero value.
-             OP_TENSOR_SET is similarly unimplemented in this MODULE
-             (the tensor_new_val path handles OP_REVEAL only). *)
-          else (IF (#opcode == $$(OP_TENSOR_GET)) then #regs_v@[#dst_idx <- $$(natToWord WordSz 0)]
-          else #regs_v)))))))))))))))))))));
-
-        (* New memory *)
-        LET new_mem : Vector (Bit WordSz) MemAddrSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
-          then #mem_v
-          else (IF (#opcode == $$(OP_STORE)) then kami_write_mem #mem_addr_a #src_val #mem_v
-          else (IF (#opcode == $$(OP_CALL)) then kami_write_mem #sp_addr #pc_plus_1 #mem_v
-          else (IF (#opcode == $$(OP_HEAP_STORE)) then kami_write_mem #mem_addr_a #src_val #mem_v
-          else #mem_v)));
-
-        LET new_halted <-
-          #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation || (#opcode == $$(OP_HALT));
-
-        LET new_err <-
-          #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation ||
-          ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad);
-
-        LET new_error_code : Bit WordSz <-
-          IF #bianchi_violation then $$(ERR_BIANCHI_VAL)
-          else (IF #locality_violation then $$(ERR_LOCALITY_VAL)
-          else (IF #ptable_overflow_violation then $$(ERR_PARTITION_VAL)
-          else (IF #nfi_violation then $$(ERR_LOGIC_VAL)
-          else (IF #high_value_locked then $$(ERR_LOGIC_VAL)
-          else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) then $$(ERR_CHSH_VAL)
-          else #error_code_v)))));
-
-        (* Final mu *)
-        LET final_mu : Bit WordSz <-
-          IF (#bianchi_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
-          then #mu_v
-          else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#is_x1_trial)) then #new_mu + $$(CHSH_X1_SURCHARGE)
-          else (IF (#opcode == $$(OP_CERTIFY)) then #mu_v + #cost32 + $1
-          else (IF ((#opcode == $$(OP_EMIT)) ||
-                    (#opcode == $$(OP_REVEAL)) ||
-                    (#opcode == $$(OP_READ_PORT))) then #bit_priced_mu
-          else #new_mu)));
-
-        LET new_certified : Bool <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
-          then #certified_v
-          else (IF (#opcode == $$(OP_CERTIFY)) then $$true else #certified_v);
-
-        (* Partition table updates *)
-        LET pt_slot : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
-        LET pnew_region_size : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_a;
-        LET pt_after_pnew : Vector (Bit WordSz) PTableIdxSz <-
-          #pt_sizes_v@[#pt_slot <- #pnew_region_size];
-        LET next_after_pnew : Bit PTableNextIdSz <- #pt_next_id_v + $1;
-        LET psplit_id : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_a;
-        LET psplit_orig_sz : Bit WordSz <- #pt_sizes_v@[#psplit_id];
-        LET psplit_left_sz : Bit WordSz <- BinBit (Srl _ _) #psplit_orig_sz ($$(WO~0~0~0~0~1));
-        LET psplit_right_sz : Bit WordSz <- #psplit_orig_sz - #psplit_left_sz;
-        LET psplit_slot1 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
-        LET psplit_slot2 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) (#pt_next_id_v + $1);
-        LET pt_after_psplit : Vector (Bit WordSz) PTableIdxSz <-
-          ((#pt_sizes_v@[#psplit_id <- $0])@[#psplit_slot1 <- #psplit_left_sz])
-            @[#psplit_slot2 <- #psplit_right_sz];
-        LET next_after_psplit : Bit PTableNextIdSz <- #pt_next_id_v + $2;
-        LET pmerge_m1 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_a;
-        LET pmerge_m2 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_b;
-        LET pmerge_m1_sz : Bit WordSz <- #pt_sizes_v@[#pmerge_m1];
-        LET pmerge_m2_sz : Bit WordSz <- #pt_sizes_v@[#pmerge_m2];
-        LET pmerge_merged_sz : Bit WordSz <- #pmerge_m1_sz + #pmerge_m2_sz;
-        LET pmerge_slot : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
-        LET pt_after_pmerge : Vector (Bit WordSz) PTableIdxSz <-
-          ((#pt_sizes_v@[#pmerge_m1 <- $0])@[#pmerge_m2 <- $0])
-            @[#pmerge_slot <- #pmerge_merged_sz];
-        LET next_after_pmerge : Bit PTableNextIdSz <- #pt_next_id_v + $1;
-
-        LET new_pt_sizes : Vector (Bit WordSz) PTableIdxSz <-
-          IF (#bianchi_violation || #ptable_overflow_violation) then #pt_sizes_v
-          else (IF (#opcode == $$(OP_PNEW)) then #pt_after_pnew
-          else (IF (#opcode == $$(OP_PSPLIT)) then #pt_after_psplit
-          else (IF (#opcode == $$(OP_PMERGE)) then #pt_after_pmerge
-          else #pt_sizes_v)));
-
-        LET new_pt_next_id : Bit PTableNextIdSz <-
-          IF (#bianchi_violation || #ptable_overflow_violation) then #pt_next_id_v
-          else (IF (#opcode == $$(OP_PNEW)) then #next_after_pnew
-          else (IF (#opcode == $$(OP_PSPLIT)) then #next_after_psplit
-          else (IF (#opcode == $$(OP_PMERGE)) then #next_after_pmerge
-          else #pt_next_id_v)));
-
-        (* Counter updates *)
-        LET is_partition_op <-
-          (#opcode == $$(OP_PNEW)) || (#opcode == $$(OP_PSPLIT)) || (#opcode == $$(OP_PMERGE));
-        LET new_partition_ops : Bit WordSz <-
-          IF (#is_partition_op && !#bianchi_violation) then #partition_ops_v + $1 else #partition_ops_v;
-        LET new_mdl_ops : Bit WordSz <-
-          IF ((#opcode == $$(OP_MDLACC)) && !#bianchi_violation) then #mdl_ops_v + $1 else #mdl_ops_v;
-        LET new_info_gain : Bit WordSz <-
-          IF (#is_info_gain_op && !#bianchi_violation && !#locality_violation &&
-              !#ptable_overflow_violation && !#high_value_locked && !#nfi_violation)
-          then #info_gain_v + #op_b_32 else #info_gain_v;
-
-        (* Witness counters *)
-        LET new_wc_same_00 : Bit WordSz <-
-          IF (#is_chsh_valid && #is_bucket_00 && #chsh_outcomes_same) then #wc_same_00_v + $1 else #wc_same_00_v;
-        LET new_wc_diff_00 : Bit WordSz <-
-          IF (#is_chsh_valid && #is_bucket_00 && !#chsh_outcomes_same) then #wc_diff_00_v + $1 else #wc_diff_00_v;
-        LET new_wc_same_01 : Bit WordSz <-
-          IF (#is_chsh_valid && #is_bucket_01 && #chsh_outcomes_same) then #wc_same_01_v + $1 else #wc_same_01_v;
-        LET new_wc_diff_01 : Bit WordSz <-
-          IF (#is_chsh_valid && #is_bucket_01 && !#chsh_outcomes_same) then #wc_diff_01_v + $1 else #wc_diff_01_v;
-        LET new_wc_same_10 : Bit WordSz <-
-          IF (#is_chsh_valid && #is_bucket_10 && #chsh_outcomes_same) then #wc_same_10_v + $1 else #wc_same_10_v;
-        LET new_wc_diff_10 : Bit WordSz <-
-          IF (#is_chsh_valid && #is_bucket_10 && !#chsh_outcomes_same) then #wc_diff_10_v + $1 else #wc_diff_10_v;
-        LET new_wc_same_11 : Bit WordSz <-
-          IF (#is_chsh_valid && #is_bucket_11 && #chsh_outcomes_same) then #wc_same_11_v + $1 else #wc_same_11_v;
-        LET new_wc_diff_11 : Bit WordSz <-
-          IF (#is_chsh_valid && #is_bucket_11 && !#chsh_outcomes_same) then #wc_diff_11_v + $1 else #wc_diff_11_v;
-
-        (* μ-tensor update *)
-        LET new_mu_tensor : Vector (Bit WordSz) MuTensorIdxSz <-
-          IF ((#opcode == $$(OP_REVEAL)) && !#bianchi_violation && !#high_value_locked)
-          then #mu_tensor_v@[#tensor_idx <- #tensor_new_val]
-          else #mu_tensor_v;
-
-        LET new_logic_acc : Bit WordSz <-
-          IF (#bianchi_violation || #locality_violation) then #logic_acc_v
-          else (IF (#opcode == $$(OP_LASSERT)) then #logic_acc_v ~+ $$(LOGIC_GATE_KEY)
-          else #logic_acc_v);
-
-        LET mcycle_lo_next : Bit WordSz <- #mcycle_lo_v + $1;
-        LET mcycle_lo_wrap <- #mcycle_lo_next == $0;
-        LET mcycle_hi_next : Bit WordSz <- IF #mcycle_lo_wrap then #mcycle_hi_v + $1 else #mcycle_hi_v;
-        LET retire_this_step <-
-          !#locality_violation && !#ptable_overflow_violation && !#high_value_locked && !#nfi_violation;
-        LET minstret_lo_inc : Bit WordSz <- IF #retire_this_step then #minstret_lo_v + $1 else #minstret_lo_v;
-        LET minstret_lo_wrap <- #retire_this_step && (#minstret_lo_inc == $0);
-        LET minstret_hi_next : Bit WordSz <- IF #minstret_lo_wrap then #minstret_hi_v + $1 else #minstret_hi_v;
-        LET new_mstatus : Bit WordSz <- IF #logic_key_ok then $$(MSTATUS_THIELE) else $$(MSTATUS_TURING);
-
-        (* Write back *)
-        Write "pc"             <- #new_pc;
-        Write "mu"             <- #final_mu;
-        Write "regs"           <- #new_regs;
-        Write "mem"            <- #new_mem;
-        Write "halted"         <- #new_halted;
-        Write "err"            <- #new_err;
-        Write "error_code"     <- #new_error_code;
-        Write "logic_acc"      <- #new_logic_acc;
-        Write "mstatus"        <- #new_mstatus;
-        Write "mcycle_lo"      <- #mcycle_lo_next;
-        Write "mcycle_hi"      <- #mcycle_hi_next;
-        Write "minstret_lo"    <- #minstret_lo_inc;
-        Write "minstret_hi"    <- #minstret_hi_next;
-        Write "partition_ops"  <- #new_partition_ops;
-        Write "mdl_ops"        <- #new_mdl_ops;
-        Write "info_gain"      <- #new_info_gain;
-        Write "mu_tensor"      <- #new_mu_tensor;
-        Write "ptTable"        <- #new_pt_sizes;
-        Write "pt_next_id"     <- #new_pt_next_id;
-        Write "certified"      <- #new_certified;
-        Write "wc_same_00"     <- #new_wc_same_00;
-        Write "wc_diff_00"     <- #new_wc_diff_00;
-        Write "wc_same_01"     <- #new_wc_same_01;
-        Write "wc_diff_01"     <- #new_wc_diff_01;
-        Write "wc_same_10"     <- #new_wc_same_10;
-        Write "wc_diff_10"     <- #new_wc_diff_10;
-        Write "wc_same_11"     <- #new_wc_same_11;
-        Write "wc_diff_11"     <- #new_wc_diff_11;
-        Retv
-
-      (** Program loading method *)
-      with Method "loadInstr" (arg : Struct LoadInstrPort) : Void :=
-        Read imem_v : Vector (Bit InstrSz) MemAddrSz <- "imem";
-        LET addr_v <- #arg!LoadInstrPort@."addr";
-        LET data_v <- #arg!LoadInstrPort@."data";
-        Write "imem" <- #imem_v@[#addr_v <- #data_v];
-        Retv
-
-      (** Output methods *)
-      with Method "getPC" () : Bit WordSz := Read v : Bit WordSz <- "pc"; Ret #v
-      with Method "getMu" () : Bit WordSz := Read v : Bit WordSz <- "mu"; Ret #v
-      with Method "getErr" () : Bool := Read v : Bool <- "err"; Ret #v
-      with Method "getHalted" () : Bool := Read v : Bool <- "halted"; Ret #v
-      with Method "getCertified" () : Bool := Read v : Bool <- "certified"; Ret #v
-
-      (** CHSH witness counters — 8 methods *)
-      with Method "getWcSame00" () : Bit WordSz :=
-        Read v : Bit WordSz <- "wc_same_00"; Ret #v
-      with Method "getWcDiff00" () : Bit WordSz :=
-        Read v : Bit WordSz <- "wc_diff_00"; Ret #v
-      with Method "getWcSame01" () : Bit WordSz :=
-        Read v : Bit WordSz <- "wc_same_01"; Ret #v
-      with Method "getWcDiff01" () : Bit WordSz :=
-        Read v : Bit WordSz <- "wc_diff_01"; Ret #v
-      with Method "getWcSame10" () : Bit WordSz :=
-        Read v : Bit WordSz <- "wc_same_10"; Ret #v
-      with Method "getWcDiff10" () : Bit WordSz :=
-        Read v : Bit WordSz <- "wc_diff_10"; Ret #v
-      with Method "getWcSame11" () : Bit WordSz :=
-        Read v : Bit WordSz <- "wc_same_11"; Ret #v
-      with Method "getWcDiff11" () : Bit WordSz :=
-        Read v : Bit WordSz <- "wc_diff_11"; Ret #v
-
-      (** Partition/module/info tracking — 4 methods *)
-      with Method "getPartitionOps" () : Bit WordSz :=
-        Read v : Bit WordSz <- "partition_ops"; Ret #v
-
-      with Method "getMdlOps" () : Bit WordSz :=
-        Read v : Bit WordSz <- "mdl_ops"; Ret #v
-
-      with Method "getInfoGain" () : Bit WordSz :=
-        Read v : Bit WordSz <- "info_gain"; Ret #v
-
-      with Method "getErrorCode" () : Bit WordSz :=
-        Read v : Bit WordSz <- "error_code"; Ret #v
-
-      (** RISC-V CSR-like status registers — 5 methods *)
-      with Method "getMstatus" () : Bit WordSz :=
-        Read v : Bit WordSz <- "mstatus"; Ret #v
-
-      with Method "getMcycleLo" () : Bit WordSz :=
-        Read v : Bit WordSz <- "mcycle_lo"; Ret #v
-
-      with Method "getMcycleHi" () : Bit WordSz :=
-        Read v : Bit WordSz <- "mcycle_hi"; Ret #v
-
-      with Method "getMinstretLo" () : Bit WordSz :=
-        Read v : Bit WordSz <- "minstret_lo"; Ret #v
-
-      with Method "getMinstretHi" () : Bit WordSz :=
-        Read v : Bit WordSz <- "minstret_hi"; Ret #v
-
-      (** Logic gate interface — 1 get method *)
-      with Method "getLogicAcc" () : Bit WordSz :=
-        Read v : Bit WordSz <- "logic_acc"; Ret #v
-
-      (** Mu tensor row sums — 4 methods *)
-      with Method "getMuTensor0" () : Bit WordSz :=
-        Read t : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
-        LET s : Bit WordSz <-
-          #t@[$$(WO~0~0~0~0)] + #t@[$$(WO~0~0~0~1)] +
-          #t@[$$(WO~0~0~1~0)] + #t@[$$(WO~0~0~1~1)];
-        Ret #s
-
-      with Method "getMuTensor1" () : Bit WordSz :=
-        Read t : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
-        LET s : Bit WordSz <-
-          #t@[$$(WO~0~1~0~0)] + #t@[$$(WO~0~1~0~1)] +
-          #t@[$$(WO~0~1~1~0)] + #t@[$$(WO~0~1~1~1)];
-        Ret #s
-
-      with Method "getMuTensor2" () : Bit WordSz :=
-        Read t : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
-        LET s : Bit WordSz <-
-          #t@[$$(WO~1~0~0~0)] + #t@[$$(WO~1~0~0~1)] +
-          #t@[$$(WO~1~0~1~0)] + #t@[$$(WO~1~0~1~1)];
-        Ret #s
-
-      with Method "getMuTensor3" () : Bit WordSz :=
-        Read t : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
-        LET s : Bit WordSz <-
-          #t@[$$(WO~1~1~0~0)] + #t@[$$(WO~1~1~0~1)] +
-          #t@[$$(WO~1~1~1~0)] + #t@[$$(WO~1~1~1~1)];
-        Ret #s
-
-      (** Module control — 2 set methods *)
-      with Method "setActiveModule" (mid : Bit PTableIdxSz) : Void :=
-        Write "active_module" <- #mid; Retv
-
-      with Method "setTrapVector" (tv : Bit WordSz) : Void :=
-        Write "trap_vector" <- #tv; Retv
-
-      (** APB bus interface — 3 methods *)
-      with Method "apbReadData" (addr : Bit WordSz) : Bit WordSz :=
-        Read pc_v : Bit WordSz <- "pc";
-        Read mu_v : Bit WordSz <- "mu";
-        Read err_v : Bool <- "err";
-        Read halted_v : Bool <- "halted";
-        Read partition_ops_v : Bit WordSz <- "partition_ops";
-        Read mdl_ops_v : Bit WordSz <- "mdl_ops";
-        Read info_gain_v : Bit WordSz <- "info_gain";
-        Read error_code_v : Bit WordSz <- "error_code";
-        Read mstatus_v : Bit WordSz <- "mstatus";
-        Read mcycle_lo_v : Bit WordSz <- "mcycle_lo";
-        Read mcycle_hi_v : Bit WordSz <- "mcycle_hi";
-        Read minstret_lo_v : Bit WordSz <- "minstret_lo";
-        Read minstret_hi_v : Bit WordSz <- "minstret_hi";
-        Read logic_acc_v : Bit WordSz <- "logic_acc";
-        Read mu_tensor_v : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
-        Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
-        Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
-        LET mu_tensor0 : Bit WordSz <-
-          #mu_tensor_v@[$$(WO~0~0~0~0)] + #mu_tensor_v@[$$(WO~0~0~0~1)] +
-          #mu_tensor_v@[$$(WO~0~0~1~0)] + #mu_tensor_v@[$$(WO~0~0~1~1)];
-        LET mu_tensor1 : Bit WordSz <-
-          #mu_tensor_v@[$$(WO~0~1~0~0)] + #mu_tensor_v@[$$(WO~0~1~0~1)] +
-          #mu_tensor_v@[$$(WO~0~1~1~0)] + #mu_tensor_v@[$$(WO~0~1~1~1)];
-        LET mu_tensor2 : Bit WordSz <-
-          #mu_tensor_v@[$$(WO~1~0~0~0)] + #mu_tensor_v@[$$(WO~1~0~0~1)] +
-          #mu_tensor_v@[$$(WO~1~0~1~0)] + #mu_tensor_v@[$$(WO~1~0~1~1)];
-        LET mu_tensor3 : Bit WordSz <-
-          #mu_tensor_v@[$$(WO~1~1~0~0)] + #mu_tensor_v@[$$(WO~1~1~0~1)] +
-          #mu_tensor_v@[$$(WO~1~1~1~0)] + #mu_tensor_v@[$$(WO~1~1~1~1)];
-        LET tensor_total : Bit WordSz <- #mu_tensor0 + #mu_tensor1 + #mu_tensor2 + #mu_tensor3;
-        LET bianchi_alarm_v <- #tensor_total > #mu_v;
-        LET pt_next_id32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #pt_next_id_v;
-        LET pt_size0 : Bit WordSz <- #pt_sizes_v@[$$(natToWord PTableIdxSz 0)];
-        LET rdata : Bit WordSz <-
-          IF (#addr == $$(natToWord WordSz 0)) then #pc_v
-          else (IF (#addr == $$(natToWord WordSz 4)) then #mu_v
-          else (IF (#addr == $$(natToWord WordSz 8)) then (IF #err_v then $1 else $0)
-          else (IF (#addr == $$(natToWord WordSz 12)) then (IF #halted_v then $1 else $0)
-          else (IF (#addr == $$(natToWord WordSz 16)) then #partition_ops_v
-          else (IF (#addr == $$(natToWord WordSz 20)) then #mdl_ops_v
-          else (IF (#addr == $$(natToWord WordSz 24)) then #info_gain_v
-          else (IF (#addr == $$(natToWord WordSz 28)) then #error_code_v
-          else (IF (#addr == $$(natToWord WordSz 32)) then #mstatus_v
-          else (IF (#addr == $$(natToWord WordSz 36)) then #mcycle_lo_v
-          else (IF (#addr == $$(natToWord WordSz 40)) then #mcycle_hi_v
-          else (IF (#addr == $$(natToWord WordSz 44)) then #minstret_lo_v
-          else (IF (#addr == $$(natToWord WordSz 48)) then #minstret_hi_v
-          else (IF (#addr == $$(natToWord WordSz 52)) then #logic_acc_v
-          else (IF (#addr == $$(natToWord WordSz 68)) then #mu_tensor0
-          else (IF (#addr == $$(natToWord WordSz 72)) then #mu_tensor1
-          else (IF (#addr == $$(natToWord WordSz 76)) then #mu_tensor2
-          else (IF (#addr == $$(natToWord WordSz 80)) then #mu_tensor3
-          else (IF (#addr == $$(natToWord WordSz 84)) then (IF #bianchi_alarm_v then $1 else $0)
-          else (IF (#addr == $$(natToWord WordSz 88)) then #pt_next_id32
-          else (IF (#addr == $$(natToWord WordSz 92)) then #pt_size0 else $0))))))))))))))))))));
-        Ret #rdata
-
-      with Method "apbReadErr" (addr : Bit WordSz) : Bool :=
-        LET is_readable <-
-          (#addr == $$(natToWord WordSz 0)) ||
-          (#addr == $$(natToWord WordSz 4)) ||
-          (#addr == $$(natToWord WordSz 8)) ||
-          (#addr == $$(natToWord WordSz 12)) ||
-          (#addr == $$(natToWord WordSz 16)) ||
-          (#addr == $$(natToWord WordSz 20)) ||
-          (#addr == $$(natToWord WordSz 24)) ||
-          (#addr == $$(natToWord WordSz 28)) ||
-          (#addr == $$(natToWord WordSz 32)) ||
-          (#addr == $$(natToWord WordSz 36)) ||
-          (#addr == $$(natToWord WordSz 40)) ||
-          (#addr == $$(natToWord WordSz 44)) ||
-          (#addr == $$(natToWord WordSz 48)) ||
-          (#addr == $$(natToWord WordSz 52)) ||
-          (#addr == $$(natToWord WordSz 68)) ||
-          (#addr == $$(natToWord WordSz 72)) ||
-          (#addr == $$(natToWord WordSz 76)) ||
-          (#addr == $$(natToWord WordSz 80)) ||
-          (#addr == $$(natToWord WordSz 84)) ||
-          (#addr == $$(natToWord WordSz 88)) ||
-          (#addr == $$(natToWord WordSz 92));
-        Ret (!#is_readable)
-
-      with Method "apbWrite" (arg : Struct APBBusWritePort) : Bool :=
-        Read imem_v : Vector (Bit InstrSz) MemAddrSz <- "imem";
-        Read active_module_v : Bit PTableIdxSz <- "active_module";
-        Read trap_vector_v : Bit WordSz <- "trap_vector";
-        Read bus_load_instr_addr_v : Bit MemAddrSz <- "bus_load_instr_addr";
-        Read bus_load_instr_data_v : Bit InstrSz <- "bus_load_instr_data";
-        Read bus_load_instr_kick_v : Bool <- "bus_load_instr_kick";
-        LET addr <- #arg!APBBusWritePort@."addr";
-        LET data <- #arg!APBBusWritePort@."data";
-        LET wr_load_instr_addr <- #addr == $$(natToWord WordSz 128);
-        LET wr_load_instr_data <- #addr == $$(natToWord WordSz 132);
-        LET wr_load_instr_kick <- #addr == $$(natToWord WordSz 136);
-        LET wr_set_active_module <- #addr == $$(natToWord WordSz 152);
-        LET wr_set_trap_vector <- #addr == $$(natToWord WordSz 156);
-        LET wr_any <-
-          #wr_load_instr_addr ||
-          #wr_load_instr_data ||
-          #wr_load_instr_kick ||
-          #wr_set_active_module ||
-          #wr_set_trap_vector;
-        LET data_mem_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #data;
-        LET data_instr : Bit InstrSz <- UniBit (Trunc InstrSz _) #data;
-        LET data_nonzero <- #data != $0;
-        LET next_load_instr_addr : Bit MemAddrSz <-
-          IF #wr_load_instr_addr then #data_mem_addr else #bus_load_instr_addr_v;
-        LET next_load_instr_data : Bit InstrSz <-
-          IF #wr_load_instr_data then #data_instr else #bus_load_instr_data_v;
-        LET next_load_instr_kick <-
-          IF #wr_load_instr_kick then #data_nonzero else #bus_load_instr_kick_v;
-        LET do_instr_commit <- #wr_load_instr_kick && #data_nonzero;
-        LET next_imem : Vector (Bit InstrSz) MemAddrSz <-
-          IF #do_instr_commit
-          then #imem_v@[#next_load_instr_addr <- #next_load_instr_data]
-          else #imem_v;
-        LET next_active_module : Bit PTableIdxSz <-
-          IF #wr_set_active_module
-          then UniBit (Trunc PTableIdxSz _) #data
-          else #active_module_v;
-        LET next_trap_vector : Bit WordSz <-
-          IF #wr_set_trap_vector then #data else #trap_vector_v;
-        Write "imem" <- #next_imem;
-        Write "bus_load_instr_addr" <- #next_load_instr_addr;
-        Write "bus_load_instr_data" <- #next_load_instr_data;
-        Write "bus_load_instr_kick" <- #next_load_instr_kick;
-        Write "active_module" <- #next_active_module;
-        Write "trap_vector" <- #next_trap_vector;
-        Ret (!#wr_any)
-
-      (** Bianchi alarm — 1 method *)
-      with Method "getBianchiAlarm" () : Bool :=
-        Read t : Vector (Bit WordSz) MuTensorIdxSz <- "mu_tensor";
-        Read m : Bit WordSz <- "mu";
-        LET total : Bit WordSz <-
-          #t@[$$(WO~0~0~0~0)] + #t@[$$(WO~0~0~0~1)] +
-          #t@[$$(WO~0~0~1~0)] + #t@[$$(WO~0~0~1~1)] +
-          #t@[$$(WO~0~1~0~0)] + #t@[$$(WO~0~1~0~1)] +
-          #t@[$$(WO~0~1~1~0)] + #t@[$$(WO~0~1~1~1)] +
-          #t@[$$(WO~1~0~0~0)] + #t@[$$(WO~1~0~0~1)] +
-          #t@[$$(WO~1~0~1~0)] + #t@[$$(WO~1~0~1~1)] +
-          #t@[$$(WO~1~1~0~0)] + #t@[$$(WO~1~1~0~1)] +
-          #t@[$$(WO~1~1~1~0)] + #t@[$$(WO~1~1~1~1)];
-        Ret (#total > #m)
-
-      (** Partition table output — 2 methods *)
-      with Method "getPtNextId" () : Bit WordSz :=
-        Read v : Bit PTableNextIdSz <- "pt_next_id";
-        LET v32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #v;
-        Ret #v32
-
-      with Method "getPtSize" (idx : Bit PTableIdxSz) : Bit WordSz :=
-        Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
-        Ret (#pt_sizes_v@[#idx])
-    }.
-
-End ThieleCPU.
-
-(** Restore default argument inference: Set Implicit Arguments was needed
-    inside ThieleCPU for Kami compatibility but must not leak into subsequent
-    sections (Einstein equations, etc.) where explicit forall binders are used. *)
-Unset Implicit Arguments.
-
-(** Prevent stack overflow: keep ORACLE_HALTS_HW_COST symbolic from here on. *)
-Global Opaque ORACLE_HALTS_HW_COST.
-
-#[global] Hint Unfold thieleCore : ModuleDefs.
-
-(** Canonical CPU Module for Extraction lives in CanonicalCPUProof; this file
-    re-uses the imported root via qualified names at the extraction site. *)
-
-(** =========================================================================
-    SECTION 6H: HARDWARE ABSTRACTION + μ-REFINEMENT
-    =========================================================================
-
-    [abs_phase1] relates the 22-field [KamiSnapshot] to the selected fields of
-    [VMState]. The snapshot contains pc, μ, error and halt flags, registers,
-    memory, partition counters, tensor state, CHSH witness counters, and the
-    certification flag. The abstraction also records which VM fields have no
-    snapshot source: the graph, logic accumulator, and mstatus are supplied by
-    the fixed values used by this model.
-
-    The checked lemmas preserve the mapped pc, μ, and error fields and establish
-    the selected step/ledger commutation results. They are a relation between
-    the Kami model and the VM. They do not close the generated RTL, synthesis,
-    place-and-route, or bitstream boundaries.
-    ========================================================================= *)
-
-(** Full hardware snapshot: 22 fields matching Kami CPU state *)
-Record KamiSnapshot := {
-  snap_pc            : nat;
-  snap_mu            : nat;
-  snap_err           : bool;
-  snap_halted        : bool;
-  snap_regs          : nat -> nat;  (* 16 registers *)
-  snap_mem           : nat -> nat;  (* 128-word memory *)
-  snap_partition_ops : nat;
-  snap_mdl_ops       : nat;
-  snap_info_gain     : nat;
-  snap_error_code    : nat;
-  snap_mu_tensor     : nat -> nat;  (* 16 entries (4x4) *)
-  snap_pt_sizes      : nat -> nat;  (* partition table: module_id -> size *)
-  snap_pt_next_id    : nat;
-  snap_certified     : bool;
-  snap_wc_same_00    : nat;
-  snap_wc_diff_00    : nat;
-  snap_wc_same_01    : nat;
-  snap_wc_diff_01    : nat;
-  snap_wc_same_10    : nat;
-  snap_wc_diff_10    : nat;
-  snap_wc_same_11    : nat;
-  snap_wc_diff_11    : nat
-}.
-
-(** Convert function-based register file to list *)
-Definition snapshot_regs_to_list (f : nat -> nat) : list nat :=
-  map f (seq 0 32).
-
-(** Convert function-based memory to list *)
-Definition snapshot_mem_to_list (f : nat -> nat) : list nat :=
-  map f (seq 0 MEM_SIZE).
-
-(** Convert function-based tensor to list *)
-Definition snapshot_tensor_to_list (f : nat -> nat) : list nat :=
-  map f (seq 0 16).
-
-(** Main abstraction: KamiSnapshot → VMState.
-    Scope of this abstraction: pc, mu, err, regs, mem, mu_tensor, witness,
-    certified are faithfully mapped.  Three fields are zeroed out because
-    they exist in the Kami MODULE registers but are absent from KamiSnapshot:
-      - vm_graph := empty_graph  (partition/morphism graph; needs more infra)
-      - vm_logic_acc := 0        (logic accumulator; no snap_logic_acc field)
-      - vm_mstatus := 0          (machine status; no snap_mstatus field)
-    Proofs in Section 6H use local per-opcode commutation arguments. *)
-Definition abs_phase1 (s : KamiSnapshot) : VMState :=
-  {| vm_graph     := empty_graph;  (* prototype gap: graph not in KamiSnapshot *)
-     vm_csrs      := {| csr_cert_addr := 0; csr_status := 0;
-                        csr_err := 0; csr_heap_base := 0 |};
-     vm_regs      := snapshot_regs_to_list (snap_regs s);
-     vm_mem       := snapshot_mem_to_list (snap_mem s);
-     vm_pc        := snap_pc s;
-     vm_mu        := snap_mu s;
-     vm_mu_tensor := snapshot_tensor_to_list (snap_mu_tensor s);
-     vm_err       := snap_err s;
-     vm_logic_acc := 0;  (* prototype gap: no snap_logic_acc in KamiSnapshot *)
-     vm_mstatus   := 0;  (* prototype gap: no snap_mstatus in KamiSnapshot *)
-     vm_witness   := {| wc_same_00 := snap_wc_same_00 s;
-                        wc_diff_00 := snap_wc_diff_00 s;
-                        wc_same_01 := snap_wc_same_01 s;
-                        wc_diff_01 := snap_wc_diff_01 s;
-                        wc_same_10 := snap_wc_same_10 s;
-                        wc_diff_10 := snap_wc_diff_10 s;
-                        wc_same_11 := snap_wc_same_11 s;
-                        wc_diff_11 := snap_wc_diff_11 s |};
-     vm_certified := snap_certified s
-  |}.
-
-(** Alias for [abs_phase1] *)
-Definition abs_snapshot := abs_phase1.
-
-(** Default CSRs — matches abs_phase1 zeroed CSRs *)
-Definition default_csrs : CSRState :=
-  {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |}.
-
-(** Simulation relation: hardware snapshot relates to VM state *)
-Definition kami_sim_rel (ks : KamiSnapshot) (vs : VMState) : Prop :=
-  abs_phase1 ks = vs.
-
-(** Stack-pointer register index: r(RegCount-1) = r15 by convention,
-    matching coq/kami_hw/Abstraction.v's parametric definition. *)
-Definition kami_sp_reg : nat := RegCount - 1.
-
-(** Default hardware advance: increment PC by 1, add cost to mu. *)
-Definition snap_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot :=
-  {| snap_pc := S (snap_pc hs); snap_mu := snap_mu hs + cost;
-     snap_err := snap_err hs; snap_halted := snap_halted hs;
-     snap_regs := snap_regs hs; snap_mem := snap_mem hs;
-     snap_partition_ops := snap_partition_ops hs;
-     snap_mdl_ops := snap_mdl_ops hs;
-     snap_info_gain := snap_info_gain hs;
-     snap_error_code := snap_error_code hs;
-     snap_mu_tensor := snap_mu_tensor hs;
-     snap_pt_sizes := snap_pt_sizes hs;
-     snap_pt_next_id := snap_pt_next_id hs;
-     snap_certified := snap_certified hs;
-     snap_wc_same_00 := snap_wc_same_00 hs; snap_wc_diff_00 := snap_wc_diff_00 hs;
-     snap_wc_same_01 := snap_wc_same_01 hs; snap_wc_diff_01 := snap_wc_diff_01 hs;
-     snap_wc_same_10 := snap_wc_same_10 hs; snap_wc_diff_10 := snap_wc_diff_10 hs;
-     snap_wc_same_11 := snap_wc_same_11 hs; snap_wc_diff_11 := snap_wc_diff_11 hs |}.
-
-(** Write register [r mod 32] with value word64(v). *)
-Definition snap_write_reg (hs : KamiSnapshot) (r v : nat) : nat -> nat :=
-  fun j => if Nat.eqb j (r mod 32) then word64 v else snap_regs hs j.
-
-(** Advance pc, charge cost, write register [r] to value [v]. *)
-Definition snap_advance_reg (hs : KamiSnapshot) (r v cost : nat) : KamiSnapshot :=
-  {| snap_pc := S (snap_pc hs); snap_mu := snap_mu hs + cost;
-     snap_err := snap_err hs; snap_halted := snap_halted hs;
-     snap_regs := snap_write_reg hs r v; snap_mem := snap_mem hs;
-     snap_partition_ops := snap_partition_ops hs;
-     snap_mdl_ops := snap_mdl_ops hs;
-     snap_info_gain := snap_info_gain hs;
-     snap_error_code := snap_error_code hs;
-     snap_mu_tensor := snap_mu_tensor hs;
-     snap_pt_sizes := snap_pt_sizes hs;
-     snap_pt_next_id := snap_pt_next_id hs;
-     snap_certified := snap_certified hs;
-     snap_wc_same_00 := snap_wc_same_00 hs; snap_wc_diff_00 := snap_wc_diff_00 hs;
-     snap_wc_same_01 := snap_wc_same_01 hs; snap_wc_diff_01 := snap_wc_diff_01 hs;
-     snap_wc_same_10 := snap_wc_same_10 hs; snap_wc_diff_10 := snap_wc_diff_10 hs;
-     snap_wc_same_11 := snap_wc_same_11 hs; snap_wc_diff_11 := snap_wc_diff_11 hs |}.
-
-(** Write memory[a mod MEM_SIZE] with value word64(v). *)
-Definition snap_write_mem (hs : KamiSnapshot) (a v : nat) : nat -> nat :=
-  fun j => if Nat.eqb j (a mod MEM_SIZE) then word64 v else snap_mem hs j.
-
-(** =========================================================================
-    INDEPENDENT HARDWARE STEP MODEL
-    =========================================================================
-    Each arm follows the corresponding RTL behaviour encoded by this file's
-    hardware model.
-    This is NOT a delegation to vm_apply — it is a structurally independent
-    model of the hardware behaviour. The theorems below prove exact
-    agreement of the projected μ observable between [kami_step] and
-    [vm_apply] through [abs_phase1] for the stated cost cases; they do
-    not identify every VM field after a step. *)
-
-(** Computable hardware step function.  Each case mirrors the corresponding
-    local RTL-style rule body.
-
-    CSR note: abs_phase1 projects vm_csrs = default_csrs for all snapshots.
-    Instructions that update CSRs (REVEAL, EMIT, LASSERT, LJOIN) are handled
-    at the software/driver layer; the snapshot only records the mu-tensor
-    charge (for REVEAL) and mu/pc advances (for others).
-
-    CALL/RET use kami_sp_reg (r15) as the stack pointer. *)
-Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
-  match i with
-  | instr_pnew region cost =>
-      let id := snap_pt_next_id hs in
-      let sz := length (normalize_region region) in
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs + 1;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes :=
-           fun j => if Nat.eqb j id then sz else snap_pt_sizes hs j;
-         snap_pt_next_id := S id;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_psplit module_ _ _ cost =>
-      let mid := module_ mod 64 in
-      let orig_sz := snap_pt_sizes hs mid in
-      let left_sz := Nat.div orig_sz 2 in
-      let right_sz := orig_sz - left_sz in
-      let slot1 := snap_pt_next_id hs mod 64 in
-      let slot2 := (snap_pt_next_id hs + 1) mod 64 in
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs + 1;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := fun j =>
-           if Nat.eqb j mid then 0
-           else if Nat.eqb j slot1 then left_sz
-           else if Nat.eqb j slot2 then right_sz
-           else snap_pt_sizes hs j;
-         snap_pt_next_id := snap_pt_next_id hs + 2;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_pmerge m1 m2 cost =>
-      let mid1 := m1 mod 64 in
-      let mid2 := m2 mod 64 in
-      let merged_sz := snap_pt_sizes hs mid1 + snap_pt_sizes hs mid2 in
-      let slot := snap_pt_next_id hs mod 64 in
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs + 1;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := fun j =>
-           if Nat.eqb j mid1 then 0
-           else if Nat.eqb j mid2 then 0
-           else if Nat.eqb j slot then merged_sz
-           else snap_pt_sizes hs j;
-         snap_pt_next_id := snap_pt_next_id hs + 1;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_lassert _ _ _ flen cost =>
-      snap_advance_default hs (flen * 8 + S cost)
-  | instr_ljoin _ _ cost =>
-      snap_advance_default hs (S cost)
-  | instr_mdlacc _ cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs + 1;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_pdiscover _ _ cost =>
-      snap_advance_default hs cost
-  | instr_xfer dst src cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst (snap_regs hs (src mod 32));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_load_imm dst imm cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst imm;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_load dst rs_addr cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst (snap_mem hs (snap_regs hs (rs_addr mod 32) mod MEM_SIZE));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_store rs_addr src cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_write_mem hs (snap_regs hs (rs_addr mod 32)) (snap_regs hs (src mod 32));
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_add dst rs1 rs2 cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst
-                         (snap_regs hs (rs1 mod 32) + snap_regs hs (rs2 mod 32));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_sub dst rs1 rs2 cost =>
-      let v1 := snap_regs hs (rs1 mod 32) in
-      let v2 := snap_regs hs (rs2 mod 32) in
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst
-                         (word64_sub v1 v2);  (* 2's complement wrap — matches vm_apply_unsafe *)
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_jump target cost =>
-      {| snap_pc    := target;
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_jnez rs target cost =>
-      let v := snap_regs hs (rs mod 32) in
-      {| snap_pc    := if Nat.eqb v 0 then S (snap_pc hs) else target;
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  (* CALL/RET use kami_sp_reg (r15) as the stack pointer.
-     Stack convention: ASCENDING (matches vm_apply_unsafe and RTL).
-     CALL: write ret_addr at OLD sp, then increment sp.
-     RET:  decrement sp first, then read ret_pc from new sp. *)
-  | instr_call target cost =>
-      let sp  := snap_regs hs kami_sp_reg in
-      let sp' := word64_add sp 1 in               (* INCREMENT — matches vm_apply_unsafe *)
-      let ra  := S (snap_pc hs) in
-      {| snap_pc    := target;
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := fun j =>
-           if Nat.eqb j kami_sp_reg then sp' else snap_regs hs j;
-         snap_mem   := fun j =>
-           if Nat.eqb j sp then ra else snap_mem hs j;  (* write at OLD sp *)
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_ret cost =>
-      let sp' := word64_sub (snap_regs hs kami_sp_reg) 1 in  (* DECREMENT — matches vm_apply_unsafe *)
-      let ra  := snap_mem hs sp' in  (* read from DECREMENTED sp *)
-      {| snap_pc    := ra;
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := fun j =>
-           if Nat.eqb j kami_sp_reg then sp' else snap_regs hs j;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_chsh_trial x y a b cost =>
-      let same := Nat.eqb a b in
-      let wc00s := snap_wc_same_00 hs in let wc00d := snap_wc_diff_00 hs in
-      let wc01s := snap_wc_same_01 hs in let wc01d := snap_wc_diff_01 hs in
-      let wc10s := snap_wc_same_10 hs in let wc10d := snap_wc_diff_10 hs in
-      let wc11s := snap_wc_same_11 hs in let wc11d := snap_wc_diff_11 hs in
-      let mk s00 d00 s01 d01 s10 d10 s11 d11 :=
-        {| snap_pc := S (snap_pc hs); snap_mu := snap_mu hs + cost;
-           snap_err := snap_err hs; snap_halted := snap_halted hs;
-           snap_regs := snap_regs hs; snap_mem := snap_mem hs;
-           snap_partition_ops := snap_partition_ops hs;
-           snap_mdl_ops := snap_mdl_ops hs;
-           snap_info_gain := snap_info_gain hs;
-           snap_error_code := snap_error_code hs;
-           snap_mu_tensor := snap_mu_tensor hs;
-           snap_pt_sizes := snap_pt_sizes hs;
-           snap_pt_next_id := snap_pt_next_id hs;
-           snap_certified := snap_certified hs;
-           snap_wc_same_00 := s00; snap_wc_diff_00 := d00;
-           snap_wc_same_01 := s01; snap_wc_diff_01 := d01;
-           snap_wc_same_10 := s10; snap_wc_diff_10 := d10;
-           snap_wc_same_11 := s11; snap_wc_diff_11 := d11 |} in
-      match x, y with
-      | 0, 0 => if same then mk (S wc00s) wc00d wc01s wc01d wc10s wc10d wc11s wc11d
-                 else         mk wc00s (S wc00d) wc01s wc01d wc10s wc10d wc11s wc11d
-      | 0, _ => if same then mk wc00s wc00d (S wc01s) wc01d wc10s wc10d wc11s wc11d
-                 else         mk wc00s wc00d wc01s (S wc01d) wc10s wc10d wc11s wc11d
-      | _, 0 => if same then mk wc00s wc00d wc01s wc01d (S wc10s) wc10d wc11s wc11d
-                 else         mk wc00s wc00d wc01s wc01d wc10s (S wc10d) wc11s wc11d
-      | _, _ => if same then mk wc00s wc00d wc01s wc01d wc10s wc10d (S wc11s) wc11d
-                 else         mk wc00s wc00d wc01s wc01d wc10s wc10d wc11s (S wc11d)
-      end
-  | instr_xor_load dst addr cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst (snap_mem hs (addr mod MEM_SIZE));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_xor_add dst src cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst
-                         (N.to_nat (N.lxor (N.of_nat (snap_regs hs (dst mod 32)))
-                                           (N.of_nat (snap_regs hs (src mod 32)))));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_xor_swap a b cost =>
-      let va := snap_regs hs (a mod 32) in
-      let vb := snap_regs hs (b mod 32) in
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := fun j =>
-           if Nat.eqb j (a mod 32) then vb
-           else if Nat.eqb j (b mod 32) then va
-           else snap_regs hs j;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_xor_rank dst src cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst (word64_popcount (snap_regs hs (src mod 32)));  (* popcount — matches vm_apply_unsafe *)
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_emit _ payload cost =>
-      snap_advance_default hs (payload_bit_length payload + S cost)
-  | instr_reveal module0 bits _ cost =>
-      (* REVEAL: tensor_idx = module0 mod 16, delta = bits — matches advance_state_reveal in vm_apply_unsafe *)
-      let k := module0 mod 16 in
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + (bits + S cost);
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs + bits;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor :=
-           fun j => if Nat.eqb j k then snap_mu_tensor hs j + bits
-                    else snap_mu_tensor hs j;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_halt cost =>
-      (* HALT: vm_apply_unsafe falls through to advance_state (PC+1, cost).
-         snap_halted flag is hardware-only; abs_phase1 does not expose it.
-         We match vm_apply_unsafe: pc advances by 1. *)
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := true;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_checkpoint _ cost =>
-      snap_advance_default hs cost
-  | instr_read_port dst _ v bits cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + (bits + S cost);
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst v;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_write_port _ _ cost =>
-      snap_advance_default hs cost
-  | instr_heap_load dst rs_addr cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst (snap_mem hs (snap_regs hs (rs_addr mod 32) mod MEM_SIZE));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_heap_store rs_addr src cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_write_mem hs (snap_regs hs (rs_addr mod 32)) (snap_regs hs (src mod 32));
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  (* CERTIFY: advance PC, charge S delta_mu (structurally positive cost),
-     set certified=true. No reg/mem/graph changes. *)
-  | instr_certify delta_mu =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + S delta_mu;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_regs hs;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := true;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_and dst rs1 rs2 cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst
-                         (word64_and (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_or dst rs1 rs2 cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst
-                         (word64_or (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_shl dst rs1 rs2 cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst
-                         (word64_shl (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_shr dst rs1 rs2 cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst
-                         (word64_shr (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_mul dst rs1 rs2 cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst
-                         (word64_mul (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_lui dst imm cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst (word64_shl imm 8);
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  (* TENSOR_SET: Updates per-module tensor entry at (i,j).
-     The per-module tensor is managed by the software driver (like axioms);
-     snap_pt_to_graph reconstructs modules with module_mu_tensor_default.
-     Hardware just advances PC and charges cost, like PDISCOVER. *)
-  | instr_tensor_set _ _ _ _ cost =>
-      snap_advance_default hs cost
-  (* TENSOR_GET: Reads per-module tensor entry at (i,j) into register dst.
-     Per-module tensor data is not stored in KamiSnapshot hardware registers;
-     snap_pt_to_graph reconstructs all modules with module_mu_tensor_default
-     (all zeros), so the hardware read returns 0. *)
-  | instr_tensor_get dst _ _ _ cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := snap_write_reg hs dst 0;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  (* Categorical instructions: hardware writes 0 to dst for graph-result opcodes *)
-  | instr_morph dst _ _ _ cost =>
-      snap_advance_reg hs dst 0 cost
-  | instr_compose dst _ _ cost =>
-      snap_advance_reg hs dst 0 cost
-  | instr_morph_id dst _ cost =>
-      snap_advance_reg hs dst 0 cost
-  | instr_morph_delete _ cost =>
-      snap_advance_default hs cost
-  | instr_morph_assert _ _ _ cost =>
-      snap_advance_default hs (S cost)  (* cert-setter *)
-  | instr_morph_tensor dst _ _ cost =>
-      snap_advance_reg hs dst 0 cost
-  | instr_morph_get dst _ _ cost =>
-      snap_advance_reg hs dst 0 cost
-  | instr_chsh_lassert cost =>
-      (* CHSH-aware certification: snapshot layer charges S cost (cert-setter
-         discipline). The column-contractivity check on witness counters is
-         placed at the VM-step level; bisimulation for this opcode is
-         established separately and the SupportedOpcode predicate excludes it
-         from the embed_step_compute lemma. *)
-      snap_advance_default hs (S cost)
-  | instr_chsh_lassert_1ab cost =>
-      snap_advance_default hs (S cost)
-  | instr_chsh_lassert_1ab_g5 cost _ _ =>
-      snap_advance_default hs (S cost)
-  | instr_chsh_lassert_1ab_g345 cost _ _ _ _ _ _ =>
-      snap_advance_default hs (S cost)
-  | instr_chsh_lassert_1ab_g12345 cost _ _ _ _ _ _ _ _ _ _ =>
-      snap_advance_default hs (S cost)
-  end.
-
-(** kami_instruction_cost: the cost that the hardware charges for each opcode.
-    Matches instruction_cost for all opcodes EXCEPT:
-    - CERTIFY: charges S delta_mu (structurally positive, matching step_certify)
-    - LASSERT: charges flen * 8 + S cost — identical to instruction_cost.
-      flen is an explicit encoded formula-unit count, so hardware can decode
-      the bit charge directly without reading memory. The hardware-software
-      gap on LASSERT is therefore ZERO (proved in kami_vm_mu_lassert_gap). *)
-Definition kami_instruction_cost (i : vm_instruction) : nat :=
-  match i with
-  | instr_certify dm => S dm
-  | instr_lassert _ _ _ flen cost => flen * 8 + S cost
-  | other => instruction_cost other
-  end.
-
-(** Predicate for identifying CERTIFY instructions. *)
-Definition is_certify (i : vm_instruction) : bool :=
-  match i with
-  | instr_certify _ => true
-  | _ => false
-  end.
-
-(** kami_step advances mu by exactly kami_instruction_cost.
-    For CERTIFY, this is S delta_mu (structurally positive).
-    For all other opcodes, this equals instruction_cost. *)
-Lemma kami_step_mu_cost : forall (hs : KamiSnapshot) (i : vm_instruction),
-    snap_mu (kami_step hs i) = snap_mu hs + kami_instruction_cost i.
-Proof.
-  intros hs i. destruct i; unfold kami_step, kami_instruction_cost,
-    snap_advance_default, snap_advance_reg, instruction_cost;
-  cbn [snap_mu]; try reflexivity.
-  (* CHSH_TRIAL: nested match on settings (x,y) and output same/diff — all arms have same mu *)
-  repeat match goal with
-    | |- context [match ?x with _ => _ end] =>
-        destruct x; cbn [snap_mu]; try reflexivity
-  end.
-Qed.
-
-(** For non-CERTIFY instructions, kami cost equals vm cost. *)
-(* SCOPE NOTE: definitional helper for relating kami and vm cost models *)
-Lemma kami_cost_eq_instruction_cost : forall i,
-    is_certify i = false ->
-    kami_instruction_cost i = instruction_cost i.
-Proof.
-  intros i Hc. destruct i; simpl in *; try reflexivity; try discriminate.
-Qed.
-
-(** * Execution preconditions *)
-Definition cpu_preconditions (s : KamiSnapshot) : Prop :=
-  snap_pc         s < MEM_SIZE /\
-  snap_mu         s < 2^31   /\
-  snap_err        s = false  /\
-  snap_halted     s = false  /\
-  snap_pt_next_id s < 64.    (* partition table not full: room for at least one more allocation *)
-
-(** * Length invariants *)
-
-Lemma snapshot_regs_to_list_length : forall f,
-    length (snapshot_regs_to_list f) = 32.
-Proof.
-  intro f. unfold snapshot_regs_to_list. rewrite map_length, seq_length. reflexivity.
-Qed.
-
-Lemma snapshot_mem_to_list_length : forall f,
-    length (snapshot_mem_to_list f) = MEM_SIZE.
-Proof.
-  intro f. unfold snapshot_mem_to_list. rewrite map_length, seq_length. reflexivity.
-Qed.
-
-Lemma snapshot_tensor_to_list_length : forall f,
-    length (snapshot_tensor_to_list f) = 16.
-Proof.
-  intro f. unfold snapshot_tensor_to_list. rewrite map_length, seq_length. reflexivity.
-Qed.
-
-(** mu-monotonicity: hardware mu never decreases across any step *)
-Theorem kami_step_mu_commutation :
-  forall ks instr,
-    snap_mu (kami_step ks instr) >= snap_mu ks.
-Proof.
-  intros ks instr. rewrite kami_step_mu_cost. lia.
-Qed.
-
-(** Hardware-VM mu diamond: for non-CERTIFY instructions,
-    hardware and software mu agree exactly (kami charges = instruction_cost). *)
-Theorem kami_vm_mu_diamond :
-  forall ks instr,
-    is_certify instr = false ->
-    snap_mu (kami_step ks instr) = (vm_apply (abs_phase1 ks) instr).(vm_mu).
-Proof.
-  intros ks instr Hc.
-  rewrite kami_step_mu_cost, vm_apply_mu.
-  unfold abs_phase1. simpl.
-  rewrite (kami_cost_eq_instruction_cost instr Hc). lia.
-Qed.
-
-(** LASSERT mu gap: ZERO — hardware and software both charge flen * 8 + S cost. *)
-Theorem kami_vm_mu_lassert_gap :
-  forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
-    (vm_apply (abs_phase1 ks) (instr_lassert freg creg kind flen cost)).(vm_mu) =
-    snap_mu (kami_step ks (instr_lassert freg creg kind flen cost)).
-Proof.
-  intros ks freg creg kind flen cost.
-  rewrite kami_step_mu_cost, vm_apply_mu.
-  unfold abs_phase1, kami_instruction_cost, instruction_cost. simpl. lia.
-Qed.
-
-(** Per-opcode mu simulation: hardware charges exactly kami_instruction_cost *)
-Definition per_opcode_mu_simulation (instr : vm_instruction) : Prop :=
-  forall ks,
-    snap_mu (kami_step ks instr) = snap_mu ks + kami_instruction_cost instr.
-
-(** All instructions satisfy mu simulation *)
-Theorem all_instructions_mu_simulate :
-  forall instr, per_opcode_mu_simulation instr.
-Proof.
-  intros instr ks. apply kami_step_mu_cost.
-Qed.
-
-(** Aliases of the μ-simulation theorems.
-    These aliases refer to μ-simulation only. *)
-Definition per_opcode_simulation := per_opcode_mu_simulation.
-Definition all_instructions_simulate := all_instructions_mu_simulate.
-
-(** Standalone μ-accounting proof bundle for the local Kami model.
-    It packages the abstraction and μ-commutation facts proved in this file. *)
-Record CanonicalCPUProofBundle := {
-  (* The hardware abstraction is sound *)
-  bundle_abstraction_sound :
-    forall ks, kami_sim_rel ks (abs_phase1 ks);
-
-  (* Non-CERTIFY: hardware and software mu agree exactly *)
-  bundle_step_commutes_standard :
-    forall ks instr,
-      is_certify instr = false ->
-      snap_mu (kami_step ks instr) = (vm_apply (abs_phase1 ks) instr).(vm_mu);
-
-  (* LASSERT gap is zero *)
-  bundle_lassert_mu_gap :
-    forall ks freg creg kind flen cost,
-      (vm_apply (abs_phase1 ks) (instr_lassert freg creg kind flen cost)).(vm_mu) =
-      snap_mu (kami_step ks (instr_lassert freg creg kind flen cost));
-
-  (* mu-monotonicity is preserved by hardware *)
-  bundle_mu_monotonic :
-    forall ks instr,
-      snap_mu (kami_step ks instr) >= snap_mu ks;
-
-  (* Per-instruction mu simulation *)
-  bundle_per_instr_mu :
-    forall instr, per_opcode_mu_simulation instr
-}.
-
-(** Constructive proof bundle *)
-Theorem canonical_cpu_proof : CanonicalCPUProofBundle.
-Proof.
-  constructor.
-  - intros ks. unfold kami_sim_rel. reflexivity.
-  - exact kami_vm_mu_diamond.
-  - exact kami_vm_mu_lassert_gap.
-  - exact kami_step_mu_commutation.
-  - exact all_instructions_mu_simulate.
-Qed.
-
-
-(** =========================================================================
-    BUS-LAYER ABSTRACTION — MMIO REGISTER MAP
-    =========================================================================
-
-    [BusReg] and [decodeBusReg] define the formal memory-mapped register
-    interface used by the host-integration model. The map names the selected
-    pc, μ, error, tensor, partition, instruction-load, and trap-control fields.
-    [busRegReadable] and [busRegWritable] record which entries are read-only
-    or write-only in this interface. The map is part of the extraction surface;
-    it is not by itself a proof about a deployed bus or a physical board.
-    ========================================================================= *)
-
-Inductive BusReg : Type :=
-| BusRegPc | BusRegMu | BusRegErr | BusRegHalted
-| BusRegPartitionOps | BusRegMdlOps | BusRegInfoGain | BusRegErrorCode
-| BusRegMstatus | BusRegMcycleLo | BusRegMcycleHi
-| BusRegMinstretLo | BusRegMinstretHi
-| BusRegLogicAcc
-| BusRegMuTensor0 | BusRegMuTensor1 | BusRegMuTensor2 | BusRegMuTensor3
-| BusRegBianchiAlarm | BusRegPtNextId | BusRegPtSize
-| BusRegLoadInstrAddr | BusRegLoadInstrData | BusRegLoadInstrKick
-| BusRegSetActiveModule | BusRegSetTrapVector.
-
-Definition decodeBusReg (addr : nat) : option BusReg :=
-  match addr with
-  | 0 => Some BusRegPc       | 4 => Some BusRegMu
-  | 8 => Some BusRegErr      | 12 => Some BusRegHalted
-  | 16 => Some BusRegPartitionOps | 20 => Some BusRegMdlOps
-  | 24 => Some BusRegInfoGain | 28 => Some BusRegErrorCode
-  | 32 => Some BusRegMstatus
-  | 36 => Some BusRegMcycleLo | 40 => Some BusRegMcycleHi
-  | 44 => Some BusRegMinstretLo | 48 => Some BusRegMinstretHi
-  | 52 => Some BusRegLogicAcc
-  | 68 => Some BusRegMuTensor0 | 72 => Some BusRegMuTensor1
-  | 76 => Some BusRegMuTensor2 | 80 => Some BusRegMuTensor3
-  | 84 => Some BusRegBianchiAlarm
-  | 88 => Some BusRegPtNextId | 92 => Some BusRegPtSize
-  | 128 => Some BusRegLoadInstrAddr | 132 => Some BusRegLoadInstrData
-  | 136 => Some BusRegLoadInstrKick
-  | 152 => Some BusRegSetActiveModule | 156 => Some BusRegSetTrapVector
-  | _ => None
-  end.
-
-Definition busRegReadable (r : BusReg) : bool :=
-  match r with
-  | BusRegLoadInstrAddr | BusRegLoadInstrData | BusRegLoadInstrKick
-  | BusRegSetActiveModule | BusRegSetTrapVector => false
-  | _ => true
-  end.
-
-Definition busRegWritable (r : BusReg) : bool := negb (busRegReadable r).
-
-Record BusCoreView : Type := {
-  view_pc : nat; view_mu : nat; view_err : bool; view_halted : bool;
-  view_partition_ops : nat; view_mdl_ops : nat; view_info_gain : nat;
-  view_error_code : nat; view_mstatus : nat;
-  view_mcycle_lo : nat; view_mcycle_hi : nat;
-  view_minstret_lo : nat; view_minstret_hi : nat;
-  view_logic_acc : nat;
-  view_mu_tensor0 : nat; view_mu_tensor1 : nat;
-  view_mu_tensor2 : nat; view_mu_tensor3 : nat;
-  view_bianchi_alarm : bool; view_pt_next_id : nat;
-  view_pt_size : nat -> nat
-}.
-
-Definition bool_to_nat (b : bool) : nat := if b then 1 else 0.
-
-Definition busRegReadValue (v : BusCoreView) (r : BusReg) : option nat :=
-  match r with
-  | BusRegPc => Some v.(view_pc)
-  | BusRegMu => Some v.(view_mu)
-  | BusRegErr => Some (bool_to_nat v.(view_err))
-  | BusRegHalted => Some (bool_to_nat v.(view_halted))
-  | BusRegPartitionOps => Some v.(view_partition_ops)
-  | BusRegMdlOps => Some v.(view_mdl_ops)
-  | BusRegInfoGain => Some v.(view_info_gain)
-  | BusRegErrorCode => Some v.(view_error_code)
-  | BusRegMstatus => Some v.(view_mstatus)
-  | BusRegMcycleLo => Some v.(view_mcycle_lo)
-  | BusRegMcycleHi => Some v.(view_mcycle_hi)
-  | BusRegMinstretLo => Some v.(view_minstret_lo)
-  | BusRegMinstretHi => Some v.(view_minstret_hi)
-  | BusRegLogicAcc => Some v.(view_logic_acc)
-  | BusRegMuTensor0 => Some v.(view_mu_tensor0)
-  | BusRegMuTensor1 => Some v.(view_mu_tensor1)
-  | BusRegMuTensor2 => Some v.(view_mu_tensor2)
-  | BusRegMuTensor3 => Some v.(view_mu_tensor3)
-  | BusRegBianchiAlarm => Some (bool_to_nat v.(view_bianchi_alarm))
-  | BusRegPtNextId => Some v.(view_pt_next_id)
-  | BusRegPtSize => Some (v.(view_pt_size) 0)
-  | BusRegLoadInstrAddr | BusRegLoadInstrData | BusRegLoadInstrKick
-  | BusRegSetActiveModule | BusRegSetTrapVector => None
-  end.
-
-Definition busRead (v : BusCoreView) (addr : nat) : option nat :=
-  match decodeBusReg addr with
-  | Some r => if busRegReadable r then busRegReadValue v r else None
-  | None => None
-  end.
-
-Record BusShadowRegs : Type := {
-  sh_load_instr_addr : nat; sh_load_instr_data : nat;
-  sh_load_instr_kick : bool;
-  sh_active_module : nat; sh_trap_vector : nat
-}.
-
-Definition busShadowInit : BusShadowRegs :=
-  {| sh_load_instr_addr := 0; sh_load_instr_data := 0;
-     sh_load_instr_kick := false;
-     sh_active_module := 0; sh_trap_vector := 0 |}.
-
-Record BusWrapperState : Type := {
-  bw_core : KamiSnapshot;
-  bw_shadow : BusShadowRegs
-}.
-
-Definition busWriteShadow (s : BusShadowRegs) (r : BusReg) (data : nat)
-  : BusShadowRegs :=
-  match r with
-  | BusRegLoadInstrAddr =>
-      {| sh_load_instr_addr := data; sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegLoadInstrData =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr); sh_load_instr_data := data;
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegLoadInstrKick =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr);
-         sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := negb (Nat.eqb data 0);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegSetActiveModule =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr);
-         sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_active_module := data;
-         sh_trap_vector := s.(sh_trap_vector) |}
-  | BusRegSetTrapVector =>
-      {| sh_load_instr_addr := s.(sh_load_instr_addr);
-         sh_load_instr_data := s.(sh_load_instr_data);
-         sh_load_instr_kick := s.(sh_load_instr_kick);
-         sh_active_module := s.(sh_active_module);
-         sh_trap_vector := data |}
-  | _ => s
-  end.
-
-Definition busWrite (st : BusWrapperState) (addr data : nat) : BusWrapperState :=
-  match decodeBusReg addr with
-  | Some r =>
-      if busRegWritable r then
-        {| bw_core := st.(bw_core);
-           bw_shadow := busWriteShadow st.(bw_shadow) r data |}
-      else st
-  | None => st
-  end.
-
-Definition coreViewOfSnapshot (s : KamiSnapshot) : BusCoreView :=
-  {| view_pc := snap_pc s; view_mu := snap_mu s;
-     view_err := snap_err s; view_halted := snap_halted s;
-     view_partition_ops := snap_partition_ops s;
-     view_mdl_ops := snap_mdl_ops s;
-     view_info_gain := snap_info_gain s;
-     view_error_code := snap_error_code s;
-     view_mstatus := 0; view_mcycle_lo := 0; view_mcycle_hi := 0;
-     view_minstret_lo := 0; view_minstret_hi := 0;
-     view_logic_acc := 0;
-     view_mu_tensor0 := snap_mu_tensor s 0;
-     view_mu_tensor1 := snap_mu_tensor s 1;
-     view_mu_tensor2 := snap_mu_tensor s 2;
-     view_mu_tensor3 := snap_mu_tensor s 3;
-     view_bianchi_alarm := false;
-     view_pt_next_id := snap_pt_next_id s;
-     view_pt_size := snap_pt_sizes s |}.
-
-Inductive BusOp : Type :=
-| BusOpRead (addr : nat)
-| BusOpWrite (addr data : nat).
-
-Definition bus_step (st : BusWrapperState) (op : BusOp) : BusWrapperState :=
-  match op with
-  | BusOpRead _ => st
-  | BusOpWrite addr data => busWrite st addr data
-  end.
 
 (** =========================================================================
     SECTION 6I: DISCRETE TENSOR EXPRESSIONS
@@ -10321,16 +8012,89 @@ Definition einstein_field_equation_holds
 (** The named real coupling constant used by the vacuum witness. *)
 Definition einstein_coupling : R := (8 * PI)%R.
 
-(** The empty-complex witness satisfies the selected equality with a zero
-    stress-energy matrix. *)
-Theorem vacuum_solution :
-  forall gfield,
-    einstein_field_equation_holds empty_complex gfield mat4_zero einstein_coupling.
+(** Flat functions have zero discrete derivative: if f takes the same value
+    at every vertex, each neighbor difference is 0, so their average is 0. *)
+Lemma fold_left_flat_sum : forall (f : nat -> R) (v : nat) (l : list nat) (acc : R),
+  (forall w, f w = f v) ->
+  fold_left (fun acc w => (acc + (f w - f v))%R) l acc = acc.
 Proof.
-  intros gfield.
+  intros f v l. induction l as [| w l IH]; intros acc Hf; simpl.
+  - reflexivity.
+  - rewrite IH by exact Hf. rewrite (Hf w). ring.
+Qed.
+
+Lemma discrete_derivative_flat : forall sc (f : nat -> R) v,
+  (forall w, f w = f v) ->
+  discrete_derivative sc f v = 0%R.
+Proof.
+  intros sc f v Hf. unfold discrete_derivative.
+  destruct (neighbors sc v) as [| w ws].
+  - reflexivity.
+  - cbv zeta. rewrite fold_left_flat_sum by exact Hf. unfold Rdiv. ring.
+Qed.
+
+(** A metric field that is the same at every vertex. *)
+Definition constant_metric_field (gfield : MetricField) : Prop :=
+  forall v w mu nu, gfield v mu nu = gfield w mu nu.
+
+Lemma christoffel_constant_metric : forall sc gfield,
+  constant_metric_field gfield ->
+  forall rho mu nu v, christoffel_discrete sc gfield rho mu nu v = 0%R.
+Proof.
+  intros sc gfield Hc rho mu nu v. unfold christoffel_discrete. cbv zeta.
+  rewrite (discrete_derivative_flat sc (fun w => gfield w nu rho) v)
+    by (intro w; apply Hc).
+  rewrite (discrete_derivative_flat sc (fun w => gfield w mu rho) v)
+    by (intro w; apply Hc).
+  rewrite (discrete_derivative_flat sc (fun w => gfield w mu nu) v)
+    by (intro w; apply Hc).
+  unfold Rdiv. ring.
+Qed.
+
+Lemma riemann_constant_metric : forall sc gfield,
+  constant_metric_field gfield ->
+  forall rho sigma mu nu v, riemann_discrete sc gfield rho sigma mu nu v = 0%R.
+Proof.
+  intros sc gfield Hc rho sigma mu nu v. unfold riemann_discrete. cbv zeta.
+  rewrite (discrete_derivative_flat sc (fun w => christoffel_discrete sc gfield rho nu sigma w) v)
+    by (intro w; rewrite !(christoffel_constant_metric sc gfield Hc); reflexivity).
+  rewrite (discrete_derivative_flat sc (fun w => christoffel_discrete sc gfield rho mu sigma w) v)
+    by (intro w; rewrite !(christoffel_constant_metric sc gfield Hc); reflexivity).
+  ring.
+Qed.
+
+Lemma ricci_constant_metric : forall sc gfield,
+  constant_metric_field gfield ->
+  forall mu nu v, ricci_discrete sc gfield mu nu v = 0%R.
+Proof.
+  intros sc gfield Hc mu nu v. unfold ricci_discrete.
+  rewrite !(riemann_constant_metric sc gfield Hc). ring.
+Qed.
+
+Lemma scalar_curvature_constant_metric : forall sc gfield,
+  constant_metric_field gfield ->
+  forall v, scalar_curvature_discrete sc gfield v = 0%R.
+Proof.
+  intros sc gfield Hc v. unfold scalar_curvature_discrete.
+  rewrite !(ricci_constant_metric sc gfield Hc). ring.
+Qed.
+
+(** Vacuum: for any complex and any metric field that is the same at every
+    vertex, the selected Einstein expression is 0 everywhere, so the field
+    equation holds with zero stress-energy. Every finite difference of a
+    constant field vanishes, so the Christoffel, Riemann, Ricci and scalar
+    curvature expressions all vanish. *)
+Theorem vacuum_solution :
+  forall sc gfield,
+    constant_metric_field gfield ->
+    einstein_field_equation_holds sc gfield mat4_zero einstein_coupling.
+Proof.
+  intros sc gfield Hc.
   unfold einstein_field_equation_holds.
   intros mu nu v Hmu Hnu.
-  rewrite einstein_empty.
+  unfold einstein_discrete. cbv zeta.
+  rewrite (ricci_constant_metric sc gfield Hc).
+  rewrite (scalar_curvature_constant_metric sc gfield Hc).
   unfold mat4_zero. ring.
 Qed.
 
@@ -10536,15 +8300,15 @@ Qed.
 
     The Euclidean [metric_at_vertex] has all non-negative diagonal entries
     (signature (+,+,+,+)).  For a Lorentzian manifold with one temporal
-    dimension we need signature (-,+,+,+): index 0 is time-like (negative
+    dimension the signature must be (-,+,+,+): index 0 is time-like (negative
     norm) and indices 1,2,3 are space-like (positive norm).
 
-    We define [lorentz_metric_at_vertex] by multiplying each diagonal entry
-    by [lorentz_sign μ] and prove the signature theorem.
+    [lorentz_metric_at_vertex] is defined by multiplying each diagonal entry
+    by [lorentz_sign μ], and the signature theorem is proved.
 
     NOTE: This is a formal extension of the computational metric.  Whether
     the physical interpretation warrants calling this a Lorentzian manifold
-    depends on identifying index 0 with a time dimension — an interpretation
+    depends on identifying index 0 with a time dimension, an interpretation
     that is not forced by the computational dynamics alone.
     =========================================================================*)
 
@@ -10726,8 +8490,8 @@ Qed.
     Einstein field equation holds.
 
     Note on scope: the hypothesis [vm_apply s instr = s'] is structurally
-    present to connect this to VM dynamics, but the proof body does not use it
-    — [local_einstein_equation_vacuum] closes the goal directly from the
+    present to connect this to VM dynamics, but the proof body does not use it:
+    [local_einstein_equation_vacuum] closes the goal directly from the
     vacuum hypothesis alone.  In the vacuum case the Einstein equation is
     0 = 0, so no step-level computation is required.  For a non-trivial
     spacetime connection see [einstein_equation_uniform_coupling_tc]. *)
@@ -10805,7 +8569,7 @@ Qed.
 Open Scope R_scope.
 
 (** =========================================================================
-    SECTION 6I-B: CURVED TENSOR PIPELINE — CONDITIONAL UNIFORM COUPLING
+    SECTION 6I-B: CURVED TENSOR PIPELINE, CONDITIONAL UNIFORM COUPLING
     =========================================================================
 
     [einstein_equation_uniform_coupling_tc] is a real-arithmetic theorem about
@@ -10952,7 +8716,7 @@ Definition curved_einstein_tc (s : VMState) (sc : SimplicialComplex4D)
 Definition curved_stress_energy_tc (s : VMState) (μ ν v : nat) : R :=
   full_metric_tc s v μ ν.
 
-(** ** THE NON-TRIVIAL EINSTEIN EQUATION — Key Lemma *)
+(** ** THE NON-TRIVIAL EINSTEIN EQUATION: Key Lemma *)
 
 (** Under isotropic diagonal metric and Ricci isotropy, all diagonal
     Einstein components are equal.
@@ -10961,7 +8725,7 @@ Definition curved_stress_energy_tc (s : VMState) (μ ν v : nat) : R :=
                      = R_{d2 d2} - (1/2) · g_{d2 d2} · R    (Ricci iso + metric iso)
                      = G_{d2 d2}
 
-    This is purely algebraic given the hypotheses — holds for ANY complex. *)
+    This is purely algebraic given the hypotheses; holds for ANY complex. *)
 Lemma curved_einstein_isotropy_tc : forall s sc v d1 d2,
   (d1 < 4)%nat -> (d2 < 4)%nat ->
   (** Metric is isotropic diagonal at v: g_{ij} = a·δ_{ij} *)
@@ -10990,7 +8754,7 @@ Proof.
   ring.
 Qed.
 
-(** ** THE NON-TRIVIAL EINSTEIN EQUATION — Main Theorem *)
+(** ** THE NON-TRIVIAL EINSTEIN EQUATION: Main Theorem *)
 
 (** For any VM state, any 4D simplicial complex, and any computational module v
     satisfying isotropic diagonal metric + Ricci isotropy + non-vacuum:
@@ -10998,7 +8762,7 @@ Qed.
     THERE EXISTS a scalar κ such that G_{dd} = κ · T_{dd} for ALL d < 4.
 
     The coupling constant κ = G_{00} / T_{00} is uniform across all
-    spacetime directions — a consequence of the spherical symmetry of
+    spacetime directions, a consequence of the spherical symmetry of
     the metric (isotropy) and its implication for the Riemann geometry.
 
     This is the Einstein field equation in uniform coupling form:
@@ -11067,7 +8831,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6I-B-II: FULL TENSOR EFE — OFF-DIAGONAL REDUCTION THEOREM
+    SECTION 6I-B-II: FULL TENSOR EFE, OFF-DIAGONAL REDUCTION THEOREM
     =========================================================================
 
     [full_efe_from_diagonal_and_offdiag_ricci_tc] combines the diagonal result
@@ -11131,11 +8895,11 @@ Qed.
 
     STATUS: The off-diagonal Ricci hypothesis is DISCHARGED for flat
     (uniform metric) spacetime. See EinsteinEquationsFull.curved_ricci_uniform_two_vertex
-    and EinsteinEquationsFull.full_efe_uniform_two_vertex — these give the first
+    and EinsteinEquationsFull.full_efe_uniform_two_vertex; these give the first
     unconditional full-tensor EFE for flat discrete spacetime (0 Admitted, 0 open premises).
 
     For curved (non-uniform metric) spacetime on finite complexes, off-diagonal
-    discrete Ricci is generically nonzero — a known discretization artifact.
+    discrete Ricci is generically nonzero, a known discretization artifact.
     The diagonal EFE is proved unconditionally (einstein_equation_from_mass). *)
 Theorem full_efe_from_diagonal_and_offdiag_ricci_tc :
   forall s sc v κ,
@@ -11492,7 +9256,7 @@ Proof.
   split; [| split; [| split]].
   (* 1. Non-degeneracy *)
   - exact (@metric_det_positive_tc s v a Ha Hiso_v).
-  (* 2. Torsion-freedom — direct computation via isotropy *)
+  (* 2. Torsion-freedom: direct computation via isotropy *)
   - intros ρ μ ν Hρ Hμ Hν.
     assert (Hginv: forall i j, (i < 4)%nat -> (j < 4)%nat ->
       inv_metric_tc s v i j = if (i =? j)%nat then / a else 0%R).
@@ -11741,7 +9505,7 @@ Qed.
     Placed here because directional_derivative (Section 6J-A) must be defined
     first. Zero Admitted.
 
-    STAR COMPLEX: 5 vertices — center v, four neighbors w0..w3. Each
+    STAR COMPLEX: 5 vertices, center v, four neighbors w0..w3. Each
     coordinate direction μ has exactly one outgoing edge (v, w_μ). This
     gives genuinely distinct directional derivatives for each direction.
 
@@ -11810,9 +9574,11 @@ Qed.
 
 Extraction Language OCaml.
 
-(** Kami Hardware Extraction — generates OCaml for Bluespec pipeline.
+(** Kami hardware extraction: generates OCaml for the Bluespec pipeline.
     Emitted before the core VM extraction so this file and Extraction.v have
-    the same extraction-engine state when the core VM surface is emitted. *)
+    the same extraction-engine state when the core VM surface is emitted.
+    Without it the core VM OCaml below comes out in a different order and
+    thiele_core_complete.ml no longer matches thiele_core.ml byte for byte. *)
 From KamiHW Require CanonicalCPUProof.
 Set Extraction Optimize.
 Set Extraction KeepSingleton.
@@ -11897,11 +9663,6 @@ Print Assumptions tsirelson_bound_abs.
 Print Assumptions zero_cost_preserves_radius.
 Print Assumptions no_cloning_from_conservation.
 Print Assumptions born_rule_from_mixture_compatibility.
-
-(* Hardware refinement *)
-Print Assumptions kami_step_mu_commutation.
-Print Assumptions kami_vm_mu_diamond.
-Print Assumptions canonical_cpu_proof.
 
 (* Spacetime emergence *)
 Print Assumptions einstein_empty.
@@ -12031,7 +9792,7 @@ Definition tm_decode_from_list_tc (l : list nat) (tape_len : nat) : TM_Config_tc
   let tape := firstn tape_len (skipn 2 l) in
   (q, tape, head).
 
-(** firstn_all for list nat — inline for Coq version portability. *)
+(** firstn_all for list nat: inline for Coq version portability. *)
 Local Lemma firstn_all_tc : forall (l : list nat), firstn (length l) l = l.
 Proof.
   induction l as [|h t IH]; simpl; [reflexivity | f_equal; exact IH].
@@ -12124,7 +9885,7 @@ Proof.
   apply thiele_simulates_tm.
 Qed.
 
-(** EVERY Turing Machine is Thiele-computable — no exceptions, no caveats.
+(** EVERY Turing Machine is Thiele-computable. No exceptions, no caveats.
     For any TM transition function and initial configuration, the Thiele list
     simulation produces exactly the TM's n-step output. The classical model
     is a STRICT SUBSET of this machine. Not equivalent. Subset. *)
@@ -12141,7 +9902,7 @@ Proof.
   apply thiele_simulates_tm_encoding_tc.
 Qed.
 
-(* Turing Universality — Part A: encoding-level (no vm_apply) *)
+(* Turing Universality, Part A: encoding-level (no vm_apply) *)
 Print Assumptions thiele_simulates_tm.
 Print Assumptions thiele_simulates_tm_encoding_tc.
 Print Assumptions thiele_machine_subsumes_tm_tc.
@@ -12248,7 +10009,7 @@ Definition minsky_vm_inv_tc (prog : list MinskyInstr_tc)
   read_reg s 4 = 1 /\
   length s.(vm_regs) >= REG_COUNT.
 
-(** word64 1 = 1 — follows from word64_idempotent and native_compute *)
+(** word64 1 = 1: follows from word64_idempotent and native_compute *)
 Lemma minsky_word64_1_tc : word64 1 = 1.
 Proof. native_compute. reflexivity. Qed.
 
@@ -12303,7 +10064,7 @@ Lemma minsky_vm_apply_jump_tc :
     jump_state s (instr_jump tgt cost) tgt.
 Proof. intros. unfold vm_apply. reflexivity. Qed.
 
-(** MI_Inc generates exactly 2 vm_apply calls — confirmed by dispatch structure.
+(** MI_Inc generates exactly 2 vm_apply calls: confirmed by dispatch structure.
     load_imm sets r4=1, then add increments the counter register.
     Both steps go through vm_apply; the dispatch is proved by reflexivity. *)
 Theorem inc_via_vm_apply_tc :
@@ -12403,7 +10164,7 @@ Qed.
 Print Assumptions thiele_isa_turing_complete_via_minsky_tc.
 
 (** =========================================================================
-    TURING COMPLETENESS SUMMARY — thiele_turing_complete_via_minsky_tc
+    TURING COMPLETENESS SUMMARY: thiele_turing_complete_via_minsky_tc
     =========================================================================
 
     The three per-step simulation theorems above prove:
@@ -12462,7 +10223,7 @@ Import ListNotations.
 Open Scope list_scope.
 
 (** =========================================================================
-    SECTION 11: AGENT TRUST — CONCRETE LÖB BYPASS
+    SECTION 11: AGENT TRUST, CONCRETE LÖB BYPASS
     =========================================================================
 
     The definitions in this section relate repeated [PNEW] operations to two
@@ -12662,7 +10423,7 @@ Qed.
     [s.vm_mu + n * cost] and all pre-existing module lookups are preserved.
 
     The μ-register IS the trust certificate.  No self-referential reasoning
-    about B's safety is needed.  The two properties hold unconditionally —
+    about B's safety is needed.  The two properties hold unconditionally,
     regardless of whether each PNEW creates a fresh partition or finds an
     existing one.  *)
 Theorem vm_lob_bypass :
@@ -12713,7 +10474,7 @@ Qed.
 (* Re-establish list notations for Sections 12-16 *)
 Import ListNotations.
 Open Scope list_scope.
-(* Kami set implicit arguments; we want explicit args for clarity in Sections 12-16 *)
+(* Explicit arguments for clarity in Sections 12-16 *)
 Unset Implicit Arguments.
 
 (** Sequential trace runner: left-fold, no fuel limit.
@@ -12745,7 +10506,7 @@ Proof.
 Qed.
 
 (** Tier-2 certification insight event: a single step crosses a certification
-    threshold — cert_addr goes 0 → nonzero, OR vm_certified goes false → true.
+    threshold: cert_addr goes 0 → nonzero, OR vm_certified goes false → true.
     Tier-1 structural creation (PNEW, MORPH_ID …) leaves cert_addr = 0 and
     vm_certified = false, so no Tier-2 event is triggered. *)
 Definition is_cert_insight_event_tc (s : VMState) (i : vm_instruction) : Prop :=
@@ -12877,7 +10638,7 @@ Fixpoint cs_total_cost_tc (CS : CertificationSystem_tc)
   end.
 
 (** Universal No Free Insight: substrate-independent, proven from A2 alone.
-    Axiom A2 is exactly the right minimal condition — it cannot be weakened. *)
+    Axiom A2 is exactly the right minimal condition; it cannot be weakened. *)
 Theorem universal_nfi_any_substrate_tc :
   forall (CS : CertificationSystem_tc)
          (trace : list (cs_instr_tc CS))
@@ -12934,7 +10695,7 @@ Proof.
 Qed.
 
 (** Thiele VM as a CertificationSystem: cert_addr channel.
-    A2 is discharged by thiele_cert_addr_a2_tc — no axioms needed. *)
+    A2 is discharged by thiele_cert_addr_a2_tc; no axioms needed. *)
 Definition thiele_cert_addr_system_tc : CertificationSystem_tc :=
   {| cs_state_tc := VMState;
      cs_instr_tc := vm_instruction;
@@ -12977,7 +10738,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 14: CLASSICAL CONSERVATIVITY (D3)
+    SECTION 14: CLASSICAL CONSERVATIVITY
     =========================================================================
 
     [is_classical_opcode_tc] selects the instructions whose [vm_apply] rule
@@ -13030,7 +10791,7 @@ Proof.
 Qed.
 
 (** Classical opcodes preserve csr_cert_addr.
-    Proof: by vm_apply_cert_addr_cases_tc — if cert_addr changed it would
+    Proof: by vm_apply_cert_addr_cases_tc; if cert_addr changed it would
     require cert_addr_value_of_tc to return Some, contradicting the above. *)
 Lemma classical_opcode_preserves_cert_addr_tc :
   forall s i, is_classical_opcode_tc i = true ->
@@ -13128,9 +10889,9 @@ Proof.
     exact (classical_opcode_preserves_certified_tc s0 i Hi).
 Qed.
 
-(** D3 CONSERVATIVITY: Over any classical trace, all three structural
+(** CLASSICAL CONSERVATIVITY: Over any classical trace, all three structural
     dimensions (graph, cert_addr, vm_certified) are unchanged. *)
-Theorem D3_conservativity_tc :
+Theorem classical_opcodes_preserve_structure_tc :
   forall (trace : list vm_instruction) (s0 : VMState),
     is_classical_program_tc trace ->
     (run_trace_tc trace s0).(vm_graph) = s0.(vm_graph) /\
@@ -13159,39 +10920,39 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 15: TURING STRICTNESS — D4 AND D5
+    SECTION 15: TURING STRICTNESS AND STRICT EXTENSION
     =========================================================================
 
-    The D4 witness compares two VM executions from [d4_base_tc]. One applies
+    The strictness witness compares two VM executions from [probe_base_state_tc]. One applies
     [MORPH_ID] and then probes for morphism 0; the other uses only the selected
-    classical fragment. D3 preserves the empty morphism list along that
+    classical fragment. Classical conservativity preserves the empty morphism list along that
     classical trace, so the probe outcomes differ. This is a separation result
     for the named VM state and opcode predicate. It does not assert that a
     conventional machine cannot encode the graph or simulate the richer run.
     ========================================================================= *)
 
-Definition d4_module_tc : ModuleState := mk_module_state (0 :: nil) nil.
+Definition probe_base_module_tc : ModuleState := mk_module_state (0 :: nil) nil.
 
-Definition d4_graph_tc : PartitionGraph := {|
+Definition probe_base_graph_tc : PartitionGraph := {|
   pg_next_id       := 1;
-  pg_modules       := ((0, d4_module_tc) :: nil);
+  pg_modules       := ((0, probe_base_module_tc) :: nil);
   pg_next_morph_id := 0;
   pg_morphisms     := nil
 |}.
 
-Definition d4_csrs_tc : CSRState :=
+Definition probe_base_csrs_tc : CSRState :=
   {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |}.
 
-Definition d4_witness_tc : WitnessCounts :=
+Definition probe_base_witness_tc : WitnessCounts :=
   {| wc_same_00 := 0; wc_diff_00 := 0;
      wc_same_01 := 0; wc_diff_01 := 0;
      wc_same_10 := 0; wc_diff_10 := 0;
      wc_same_11 := 0; wc_diff_11 := 0 |}.
 
-(** d4_base_tc: module 0 present with region {0}, no morphisms. *)
-Definition d4_base_tc : VMState := {|
-  vm_graph     := d4_graph_tc;
-  vm_csrs      := d4_csrs_tc;
+(** probe_base_state_tc: module 0 present with region {0}, no morphisms. *)
+Definition probe_base_state_tc : VMState := {|
+  vm_graph     := probe_base_graph_tc;
+  vm_csrs      := probe_base_csrs_tc;
   vm_regs      := nil;
   vm_mem       := nil;
   vm_pc        := 0;
@@ -13200,17 +10961,17 @@ Definition d4_base_tc : VMState := {|
   vm_err       := false;
   vm_logic_acc := 0;
   vm_mstatus   := 0;
-  vm_witness   := d4_witness_tc;
+  vm_witness   := probe_base_witness_tc;
   vm_certified := false
 |}.
 
 (** MORPH_ID 0 0 0: create identity morphism for module 0, store id in reg 0,
-    cost=0 (structural creation is free — this is a Tier-1 operation). *)
-Definition d4_thiele_step_tc : vm_instruction := instr_morph_id 0 0 0.
+    cost=0 (structural creation is free; this is a Tier-1 operation). *)
+Definition probe_morph_id_step_tc : vm_instruction := instr_morph_id 0 0 0.
 
 (** MORPH_DELETE 0 0: delete morphism id=0; succeeds (err=false) iff morph 0
     exists in the graph, otherwise sets vm_err=true. *)
-Definition d4_morph_delete_probe_tc : vm_instruction := instr_morph_delete 0 0.
+Definition morph_delete_probe_tc : vm_instruction := instr_morph_delete 0 0.
 
 (** If graph_delete_morphism returns None, vm_apply sets vm_err = true. *)
 Lemma morph_delete_no_morphism_err_tc :
@@ -13236,37 +10997,37 @@ Proof.
   unfold graph_delete_morphism. rewrite Hempty. simpl. reflexivity.
 Qed.
 
-(** D4: After one Thiele structural step from d4_base_tc, the probe passes.
+(** Strictness, Thiele side: after one Thiele structural step from probe_base_state_tc, the probe passes.
     Proof: by VM computation (all definitions are transparent). *)
-Lemma D4_thiele_passes_probe_tc :
-  (vm_apply (vm_apply d4_base_tc d4_thiele_step_tc) d4_morph_delete_probe_tc).(vm_err) = false.
+Lemma morph_id_step_passes_morph_delete_probe_tc :
+  (vm_apply (vm_apply probe_base_state_tc probe_morph_id_step_tc) morph_delete_probe_tc).(vm_err) = false.
 Proof.
   vm_compute. reflexivity.
 Qed.
 
-(** D4: No classical program can make the probe pass from d4_base_tc.
-    Proof: D3 conservativity preserves pg_morphisms=[],
+(** Strictness, classical side: no classical program can make the probe pass from probe_base_state_tc.
+    Proof: classical conservativity preserves pg_morphisms=[],
     so MORPH_DELETE always finds no morphism and sets err=true. *)
-Lemma D4_classical_cannot_pass_probe_tc :
+Lemma classical_trace_fails_morph_delete_probe_tc :
   forall (trace : list vm_instruction),
     is_classical_program_tc trace ->
-    (vm_apply (run_trace_tc trace d4_base_tc) d4_morph_delete_probe_tc).(vm_err) = true.
+    (vm_apply (run_trace_tc trace probe_base_state_tc) morph_delete_probe_tc).(vm_err) = true.
 Proof.
   intros trace Hclassical.
-  assert (Hgraph : (run_trace_tc trace d4_base_tc).(vm_graph) = d4_base_tc.(vm_graph))
-    by exact (classical_trace_preserves_graph_tc trace d4_base_tc Hclassical).
-  set (s' := run_trace_tc trace d4_base_tc).
+  assert (Hgraph : (run_trace_tc trace probe_base_state_tc).(vm_graph) = probe_base_state_tc.(vm_graph))
+    by exact (classical_trace_preserves_graph_tc trace probe_base_state_tc Hclassical).
+  set (s' := run_trace_tc trace probe_base_state_tc).
   assert (Hmorphs : s'.(vm_graph).(pg_morphisms) = nil).
   { unfold s'. rewrite Hgraph. simpl. reflexivity. }
   assert (Hnone : graph_delete_morphism s'.(vm_graph) 0 = None)
     by exact (graph_empty_morphisms_delete_fails_tc s'.(vm_graph) 0 Hmorphs).
-  unfold d4_morph_delete_probe_tc.
+  unfold morph_delete_probe_tc.
   exact (morph_delete_no_morphism_err_tc s' 0 0 Hnone).
 Qed.
 
-(** D4 STRICTNESS THEOREM: Explicit witness of Thiele's structural power
+(** STRICTNESS THEOREM: Explicit witness of Thiele's structural power
     strictly beyond any classical computation of any length. *)
-Theorem D4_strictness_tc :
+Theorem morph_delete_probe_separates_thiele_from_classical_tc :
   exists (s0 : VMState) (thiele_step probe : vm_instruction),
     (** Thiele reaches a probe-passing state in one step **)
     (vm_apply (vm_apply s0 thiele_step) probe).(vm_err) = false /\
@@ -13275,17 +11036,17 @@ Theorem D4_strictness_tc :
        is_classical_program_tc trace ->
        (vm_apply (run_trace_tc trace s0) probe).(vm_err) = true).
 Proof.
-  exists d4_base_tc, d4_thiele_step_tc, d4_morph_delete_probe_tc.
+  exists probe_base_state_tc, probe_morph_id_step_tc, morph_delete_probe_tc.
   split.
-  - exact D4_thiele_passes_probe_tc.
+  - exact morph_id_step_passes_morph_delete_probe_tc.
   - intros trace Hclassical.
-    exact (D4_classical_cannot_pass_probe_tc trace Hclassical).
+    exact (classical_trace_fails_morph_delete_probe_tc trace Hclassical).
 Qed.
 
-(** D5: The Thiele VM STRICTLY EXTENDS classical computation semantics.
-    EXTENSION (from D3): Classical programs do not exercise the structural layer.
-    STRICTNESS (from D4): Thiele programs exit the classical fragment. *)
-Theorem D5_thiele_strictly_extends_classical_tc :
+(** STRICT EXTENSION: The Thiele VM STRICTLY EXTENDS classical computation semantics.
+    EXTENSION (from classical conservativity): Classical programs do not exercise the structural layer.
+    STRICTNESS: Thiele programs exit the classical fragment. *)
+Theorem thiele_strictly_extends_classical_tc :
   (** EXTENSION: Classical programs freeze graph, cert_addr, and certified. **)
   (forall (prog : list vm_instruction) (s0 : VMState),
      is_classical_program_tc prog ->
@@ -13301,8 +11062,8 @@ Theorem D5_thiele_strictly_extends_classical_tc :
         (vm_apply (run_trace_tc trace s0) probe).(vm_err) = true)).
 Proof.
   split.
-  - intros prog s0 Hclassical. exact (D3_conservativity_tc prog s0 Hclassical).
-  - exact D4_strictness_tc.
+  - intros prog s0 Hclassical. exact (classical_opcodes_preserve_structure_tc prog s0 Hclassical).
+  - exact morph_delete_probe_separates_thiele_from_classical_tc.
 Qed.
 
 (** =========================================================================
@@ -14037,7 +11798,7 @@ Definition wc_local_strategy_consistent_tc (ls : LocalStrategy) (wc : WitnessCou
 
 (** The violation witness: (0,0)=same, (0,1)=same, (1,0)=same, (1,1)=diff.
     This forces: a0=b0, a0=b1, a1=b0 → b0=b1 → a1=b1; but (1,1)=diff
-    requires a1≠b1. Contradiction — no local strategy is consistent. *)
+    requires a1≠b1. Contradiction. No local strategy is consistent. *)
 Definition violation_wc_tc : WitnessCounts :=
   {| wc_same_00 := 1; wc_diff_00 := 0;
      wc_same_01 := 1; wc_diff_01 := 0;
@@ -14060,7 +11821,7 @@ Proof.
   pose proof (H01s (Nat.lt_0_succ 0)) as Ha0b1.   (* a0 = b1 *)
   pose proof (H10s (Nat.lt_0_succ 0)) as Ha1b0.   (* a1 = b0 *)
   pose proof (H11d (Nat.lt_0_succ 0)) as Ha1nb1.  (* a1 ≠ b1 *)
-  (* a1 = b0 = a0 = b1,  yet a1 ≠ b1 — contradiction *)
+  (* a1 = b0 = a0 = b1,  yet a1 ≠ b1, contradiction *)
   apply Ha1nb1. congruence.
 Qed.
 
@@ -14077,7 +11838,7 @@ Qed.
 (** Extraction flags at Coq 8.18 defaults for the core extraction.
     Coq 8.18 defaults: Optimize ON, KeepSingleton OFF, AutoInline OFF.
     Extraction.v has no explicit flags, so it uses these defaults.
-    We set all three explicitly for clarity and to guard against any
+    All three are set explicitly for clarity and to guard against any
     future changes to the file that might set them differently. *)
 Extraction Language OCaml.
 Set Extraction Optimize.
@@ -14094,7 +11855,7 @@ Unset Extraction AutoInline.
 
     So the proofs here are standalone, and the extraction is the kernel's.
     The Extract Constant directives and Extraction root symbols below
-    are IDENTICAL to those in Extraction.v — same qualified names,
+    are IDENTICAL to those in Extraction.v: same qualified names,
     same OCaml implementations, same root symbol list.
 
     The canonical extraction gate compares [thiele_core_complete.ml] with
@@ -14115,58 +11876,58 @@ Extract Inductive nat => "int"
   [ "0" "(fun x -> x + 1)" ]
   "(fun zero succ n -> if n=0 then zero () else succ (n-1))".
 
-(* SAFE: Standard Coq library nat arithmetic — OCaml (+) is equivalent for non-negative int *)
+(* SAFE: Standard Coq library nat arithmetic; OCaml (+) is equivalent for non-negative int *)
 Extract Constant Nat.add => "(+)".
-(* SAFE: Standard Coq library nat multiplication — OCaml ( * ) is equivalent for non-negative int *)
+(* SAFE: Standard Coq library nat multiplication; OCaml ( * ) is equivalent for non-negative int *)
 Extract Constant Nat.mul => "( * )".
-(* SAFE: Standard Coq library nat subtraction — clamped to 0 matches Nat.sub semantics *)
+(* SAFE: Standard Coq library nat subtraction; clamped to 0 matches Nat.sub semantics *)
 Extract Constant Nat.sub => "fun n m -> max 0 (n-m)".
-(* SAFE: Standard Coq library minimum — OCaml's min is equivalent on int naturals *)
+(* SAFE: Standard Coq library minimum; OCaml's min is equivalent on int naturals *)
 Extract Constant Nat.min => "Stdlib.min".
-(* SAFE: Standard Coq library nat equality — OCaml structural (=) matches Nat.eqb on int *)
+(* SAFE: Standard Coq library nat equality; OCaml structural (=) matches Nat.eqb on int *)
 Extract Constant Nat.eqb => "(=)".
-(* SAFE: Nat.div — guard against y=0 to match Coq semantics (returns 0) *)
+(* SAFE: Nat.div; guard against y=0 to match Coq semantics (returns 0) *)
 Extract Constant Nat.div => "fun x y -> if y = 0 then 0 else x / y".
-(* SAFE: Nat.modulo — guard against y=0 to match Coq semantics (returns 0) *)
+(* SAFE: Nat.modulo; guard against y=0 to match Coq semantics (returns 0) *)
 Extract Constant Nat.modulo => "fun x y -> if y = 0 then 0 else x mod y".
-(* SAFE: Nat.ltb — OCaml (<) is equivalent for non-negative int *)
+(* SAFE: Nat.ltb; OCaml (<) is equivalent for non-negative int *)
 Extract Constant Nat.ltb => "(<)".
-(* SAFE: word_to_bytes_4 — bit ops equivalent to Coq mod/div byte split; values are ascii chars (0-255) *)
+(* SAFE: word_to_bytes_4 uses bit ops equivalent to Coq mod/div byte split; values are ascii chars (0-255) *)
 Extract Constant VMState.word_to_bytes_4 =>
   "(fun w -> [Char.chr (w land 0xff); Char.chr ((w lsr 8) land 0xff); Char.chr ((w lsr 16) land 0xff); Char.chr ((w lsr 24) land 0xff)])".
-(* SAFE: bytes_to_word_4 — lor/lsl equivalent to b0+b1*256+b2*65536+b3*16777216 for b0..b3 in [0,255] *)
+(* SAFE: bytes_to_word_4 uses lor/lsl, equivalent to b0+b1*256+b2*65536+b3*16777216 for b0..b3 in [0,255] *)
 Extract Constant VMState.bytes_to_word_4 =>
   "(fun b0 b1 b2 b3 -> b0 lor (b1 lsl 8) lor (b2 lsl 16) lor (b3 lsl 24))".
-(* SAFE: 64-bit addition via Int64 — wraps at 2^64 boundary, 63-bit fidelity *)
+(* SAFE: 64-bit addition via Int64; wraps at the 2^64 boundary, 63-bit fidelity *)
 Extract Constant VMState.word64_add =>
   "(fun a b -> Int64.to_int (Int64.add (Int64.of_int a) (Int64.of_int b)))".
-(* SAFE: bitwise XOR via Int64 — 63-bit fidelity *)
+(* SAFE: bitwise XOR via Int64, 63-bit fidelity *)
 Extract Constant VMState.word64_xor =>
   "(fun a b -> Int64.to_int (Int64.logxor (Int64.of_int a) (Int64.of_int b)))".
-(* SAFE: popcount via Int64 Kernighan bit-clear loop — counts set bits *)
+(* SAFE: popcount via Int64 Kernighan bit-clear loop; counts set bits *)
 Extract Constant VMState.word64_popcount =>
   "(fun x -> let v = ref (Int64.of_int x) in let c = ref 0 in while !v <> 0L do v := Int64.logand !v (Int64.sub !v 1L); incr c done; !c)".
-(* SAFE: bitwise AND via Int64 — 63-bit fidelity *)
+(* SAFE: bitwise AND via Int64, 63-bit fidelity *)
 Extract Constant VMState.word64_and =>
   "(fun a b -> Int64.to_int (Int64.logand (Int64.of_int a) (Int64.of_int b)))".
-(* SAFE: bitwise OR via Int64 — 63-bit fidelity *)
+(* SAFE: bitwise OR via Int64, 63-bit fidelity *)
 Extract Constant VMState.word64_or =>
   "(fun a b -> Int64.to_int (Int64.logor (Int64.of_int a) (Int64.of_int b)))".
-(* SAFE: left shift modulo 64 via Int64 — 63-bit fidelity *)
+(* SAFE: left shift modulo 64 via Int64, 63-bit fidelity *)
 Extract Constant VMState.word64_shl =>
   "(fun a b -> Int64.to_int (Int64.shift_left (Int64.of_int a) (b mod 64)))".
-(* SAFE: logical right shift modulo 64 via Int64 — 63-bit fidelity *)
+(* SAFE: logical right shift modulo 64 via Int64, 63-bit fidelity *)
 Extract Constant VMState.word64_shr =>
   "(fun a b -> Int64.to_int (Int64.shift_right_logical (Int64.of_int a) (b mod 64)))".
-(* SAFE: 64-bit subtraction via Int64 — two's complement wrap, 63-bit fidelity *)
+(* SAFE: 64-bit subtraction via Int64 with two's complement wrap, 63-bit fidelity *)
 Extract Constant VMState.word64_sub =>
   "(fun a b -> Int64.to_int (Int64.sub (Int64.of_int a) (Int64.of_int b)))".
-(* SAFE: 64-bit multiplication via Int64 — wrapping multiply, 63-bit fidelity *)
+(* SAFE: 64-bit multiplication via Int64, a wrapping multiply, 63-bit fidelity *)
 Extract Constant VMState.word64_mul =>
   "(fun a b -> Int64.to_int (Int64.mul (Int64.of_int a) (Int64.of_int b)))".
-(* SAFE: 64-bit mask — OCaml int(-1) has all bits set; correct round-trip via Int64 *)
+(* SAFE: 64-bit mask; OCaml int(-1) has all bits set; correct round-trip via Int64 *)
 Extract Constant VMState.word64_mask => "(-1)".
-(* SAFE: word64 identity function — truncation handled internally by word64 operations *)
+(* SAFE: word64 identity function; truncation handled internally by word64 operations *)
 Extract Constant VMState.word64 => "(fun x -> x)".
 
 (* word32_to_signed: two's complement interpretation of a 32-bit word as a
@@ -14260,13 +12021,7 @@ Record ThieleMachineMasterSummary := {
     (e10*e10 + e11*e11 <= 1)%R ->
     ((CHSH_R e00 e01 e10 e11) * (CHSH_R e00 e01 e10 e11) <= 8)%R;
 
-  (* Layer 5: Hardware Refinement — exact μ commutation + LASSERT zero gap *)
-  summary_hw_mu_diamond : forall ks instr,
-    is_certify instr = false ->
-    snap_mu (kami_step ks instr) = (vm_apply (abs_phase1 ks) instr).(vm_mu);
-  summary_hw_mu_lassert_gap : forall ks freg creg kind flen cost,
-    (vm_apply (abs_phase1 ks) (instr_lassert freg creg kind flen cost)).(vm_mu) =
-    snap_mu (kami_step ks (instr_lassert freg creg kind flen cost));
+  (* Layer 5: LASSERT cost floor (the hardware correspondence lives in coq/kami_hw) *)
   summary_nofreeinsight_quantitative : forall s freg creg kind flen cost,
     (vm_apply s (instr_lassert freg creg kind flen cost)).(vm_mu) - s.(vm_mu) >=
     flen * 8;
@@ -14280,8 +12035,9 @@ Record ThieleMachineMasterSummary := {
     (vm_apply s_init instr).(vm_mu) > s_init.(vm_mu);
 
   (* Layer 7: Spacetime Emergence - Vacuum *)
-  summary_vacuum : forall gfield,
-    einstein_field_equation_holds empty_complex gfield mat4_zero einstein_coupling;
+  summary_vacuum : forall sc gfield,
+    constant_metric_field gfield ->
+    einstein_field_equation_holds sc gfield mat4_zero einstein_coupling;
 
   (* Layer 8: Substantive Physics - Mass Gradient → Curvature *)
   summary_curvature_from_mass : forall s μ v w,
@@ -14351,13 +12107,13 @@ Record ThieleMachineMasterSummary := {
 (** master_summary_proven: the assembled proof record.
 
     ThieleMachineMasterSummary is the record type listing every major claim
-    in this file. This theorem proves the record is fully inhabited —
-    not by assumption, but by exact-naming every proven theorem.
+    in this file. This theorem proves the record is fully inhabited.
+    Each field is filled by naming a proven theorem exactly; none is assumed.
 
     If this proof closes, every field in the record is inhabited by the
     theorem named in its proof. The record checks the listed contracts:
-    ledger behavior, certification cost, the fixed algebraic bound, selected
-    hardware equalities, the file-local TM simulation, and the PNEW
+    ledger behavior, certification cost, the fixed algebraic bound, the
+    file-local TM simulation, and the PNEW
     preservation results. It does not turn explicit hypotheses into
     theorems or establish a physical interpretation for the formal fields. *)
 Theorem master_summary_proven : ThieleMachineMasterSummary.
@@ -14368,8 +12124,6 @@ Proof.
   - exact kernel_certified_implies_positive_mu.
   - exact mu_is_initial_monotone.
   - exact tsirelson_from_row_bounds.
-  - exact kami_vm_mu_diamond.
-  - exact kami_vm_mu_lassert_gap.
   - exact no_free_insight_quantitative.
   - exact landauer_information_bound_tc.
   - exact honest_nofi_structural_cost.
@@ -14383,7 +12137,7 @@ Proof.
   - exact pnew_chain_noninterference.
 Qed.
 
-(** NoFI is proven — the structural version uses complex dependent types
+(** NoFI is proven. The structural version uses complex dependent types
     and is checked here by name. These Check commands are the seal:
     if this file compiles, these theorems exist. *)
 Check supra_cert_implies_structure_addition.
@@ -14491,7 +12245,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    COST BOUND — CERT-ADDR SETTERS COST ≥ 1
+    COST BOUND: CERT-ADDR SETTERS COST ≥ 1
     ========================================================================= *)
 
 Lemma cert_addr_setter_cost_pos_nfi_tc :
@@ -14662,7 +12416,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    TRACE-LEVEL LOWER BOUND — THE KEY GAP CLOSURE
+    TRACE-LEVEL LOWER BOUND: THE KEY GAP CLOSURE
     =========================================================================
 
     No finite sequence of zero-cost instructions can produce cert_addr ≠ 0.
@@ -14744,7 +12498,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    MASTER THEOREM — BOTH CERTIFICATION CHANNELS
+    MASTER THEOREM: BOTH CERTIFICATION CHANNELS
     =========================================================================
 
     [certification_requires_positive_mu_nfi_tc] combines the two VM-local
@@ -14919,7 +12673,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    CHSH QUANTITATIVE INSTANCE — W2: N TRIALS REQUIRE N INSTRUCTIONS
+    CHSH QUANTITATIVE INSTANCE (W2): N TRIALS REQUIRE N INSTRUCTIONS
     =========================================================================
 
     In this representation, the witness counter changes only through the
@@ -15057,7 +12811,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    W2 PROPER: PARAMETERIZED THRESHOLD — N TRIALS REQUIRE N INSTRUCTIONS
+    W2 PROPER: PARAMETERIZED THRESHOLD, N TRIALS REQUIRE N INSTRUCTIONS
     =========================================================================
 
     This is the threshold-parameterized version of the CHSH-style witness
@@ -15199,39 +12953,6 @@ Proof.
   exact (proj1 (certified_insight_nonfree_tc s i Hevent)).
 Qed.
 
-(** nfi_to_einstein_tc: a VM event alongside finite tensor premises.
-
-    The theorem uses the certification event only as an explicit premise.
-    The conclusion comes from the supplied metric isotropy, Ricci equality,
-    and non-vacuum premises through einstein_equation_uniform_coupling_tc.
-
-    It is a finite algebraic implication about the selected expressions.
-    It does not derive a physical Einstein equation. *)
-Theorem nfi_to_einstein_tc :
-  forall (s_pre s_post : VMState) (i : vm_instruction)
-         (sc : SimplicialComplex4D) (v : ModuleID),
-    is_cert_insight_event_tc s_pre i ->
-    s_post = vm_apply s_pre i ->
-    (forall p q, (p < 4)%nat -> (q < 4)%nat ->
-      full_metric_tc s_post v p q =
-      if (p =? q)%nat then full_metric_tc s_post v 0%nat 0%nat else 0%R) ->
-    (forall d1 d2, (d1 < 4)%nat -> (d2 < 4)%nat ->
-      curved_ricci_tc s_post sc d1 d1 v =
-      curved_ricci_tc s_post sc d2 d2 v) ->
-    curved_stress_energy_tc s_post 0%nat 0%nat v <> 0%R ->
-    exists kappa : R,
-      forall d, (d < 4)%nat ->
-      curved_einstein_tc s_post sc d d v =
-      kappa * curved_stress_energy_tc s_post d d v.
-Proof.
-  intros s_pre s_post i sc v _ Htrans Hiso HRicci Hnonzero.
-  rewrite Htrans in *.
-  eapply einstein_equation_uniform_coupling_tc.
-  - exact Hiso.
-  - exact HRicci.
-  - exact Hnonzero.
-Qed.
-
 (** nfi_to_gr_chain_complete_tc: the assembled conditional tuple.
 
     The tuple groups the VM cost results, the valid-trial count, and the
@@ -15239,12 +12960,12 @@ Qed.
     remain explicit where the relevant theorem requires them.
 
     The named components are machine-checked:
-    — certified_implies_positive_mu_tc: from uncertified+zero μ to certified = Δμ ≥ 1
-    — nfi_cost_nonzero_implies_nontrivial_calibration_tc: VM cost floor
-    — no_free_certification_trace_mu_nfi_tc: trace-level cost consequence
-    — certification_requires_positive_mu_nfi_tc: both cert channels unified
-    — chsh_trial_count_lower_bound_nfi_tc: valid-trial count consequence
-    — nfi_to_einstein_tc: conditional finite tensor equality
+    - certified_implies_positive_mu_tc: from uncertified+zero μ to certified = Δμ ≥ 1
+    - nfi_cost_nonzero_implies_nontrivial_calibration_tc: VM cost floor
+    - no_free_certification_trace_mu_nfi_tc: trace-level cost consequence
+    - certification_requires_positive_mu_nfi_tc: both cert channels unified
+    - chsh_trial_count_lower_bound_nfi_tc: valid-trial count consequence
+    - einstein_equation_uniform_coupling_tc: conditional finite tensor equality
 
     This tuple is not a physical derivation or a claim that the separate
     components share one interpretation. *)
@@ -15254,7 +12975,7 @@ Definition nfi_to_gr_chain_complete_tc :=
    no_free_certification_trace_mu_nfi_tc,
    certification_requires_positive_mu_nfi_tc,
    chsh_trial_count_lower_bound_nfi_tc,
-   nfi_to_einstein_tc).
+   einstein_equation_uniform_coupling_tc).
 
 Close Scope R_scope.
 
@@ -15334,13 +13055,6 @@ Definition mu_landauer_unruh_calibrated := mu_landauer_unruh_calibrated_tc.
 Definition nfi_cost_nonzero_implies_nontrivial_calibration :=
   nfi_cost_nonzero_implies_nontrivial_calibration_tc.
 
-(** nfi_to_einstein_tc under every name that downstream proofs, thesis chapters,
-    or external verifiers might expect. Same theorem. Different label.
-    Zero new proof content — the physics is already in nfi_to_einstein_tc. *)
-Definition nfi_to_discrete_einstein := nfi_to_einstein_tc.
-Definition nfi_to_discrete_einstein_from_bekenstein_calibration := nfi_to_einstein_tc.
-Definition raychaudhuri_component_discharged_witness := nfi_to_einstein_tc.
-Definition nfi_to_gr_chain_complete := nfi_to_gr_chain_complete_tc.
 
 (** =========================================================================
     SECTION 19C: EXTRACTION SURFACE
@@ -15375,16 +13089,18 @@ Definition nfi_to_gr_chain_complete := nfi_to_gr_chain_complete_tc.
 
 (** ExtractionIdentityBundle_tc: the extraction root symbols in one record.
     If this type-checks, every listed symbol has a definition of the stated
-    shape in this file. It checks presence and type, not agreement with the
-    kernel; the agreement test above covers that.
+    shape: the core VM symbols in this file, the hardware symbols in
+    coq/kami_hw (Abstraction, ThieleCPUBusTop). It checks presence and type,
+    not agreement with the kernel; the agreement test above covers that.
 
     The bundle covers all 23 extraction root symbols from Extraction.v:
     - Core VM: vm_instruction, VMState, vm_apply, vm_apply_nofi,
       vm_apply_runtime, pnew_chain, nofi_step_cost_okb, nofi_trace_cost_okb,
       mem_to_string, write_string_to_mem
-    - Hardware: KamiSnapshot, BusReg, BusCoreView, BusShadowRegs,
-      BusWrapperState, BusOp, decodeBusReg, busRegReadable, busRegWritable,
-      busRead, busWrite, bus_step, coreViewOfSnapshot *)
+    - Hardware: Abstraction.KamiSnapshot and, from ThieleCPUBusTop, BusReg,
+      BusCoreView, BusShadowRegs, BusWrapperState, BusOp, decodeBusReg,
+      busRegReadable, busRegWritable, busRead, busWrite, bus_step,
+      coreViewOfSnapshot *)
 Record ExtractionIdentityBundle_tc := {
   eib_vm_instruction       : Type;
   eib_VMState              : Type;
@@ -15422,19 +13138,19 @@ Definition canonical_extraction_identity_tc : ExtractionIdentityBundle_tc :=
      eib_nofi_trace_cost_okb := nofi_trace_cost_okb;
      eib_mem_to_string       := mem_to_string;
      eib_write_string_to_mem := write_string_to_mem;
-     eib_KamiSnapshot        := KamiSnapshot;
-     eib_BusReg              := BusReg;
-     eib_BusCoreView         := BusCoreView;
-     eib_BusShadowRegs       := BusShadowRegs;
-     eib_BusWrapperState     := BusWrapperState;
-     eib_BusOp               := BusOp;
-     eib_decodeBusReg        := decodeBusReg;
-     eib_busRegReadable      := busRegReadable;
-     eib_busRegWritable      := busRegWritable;
-     eib_busRead             := busRead;
-     eib_busWrite            := busWrite;
-     eib_bus_step            := bus_step;
-     eib_coreViewOfSnapshot  := coreViewOfSnapshot;
+     eib_KamiSnapshot        := Abstraction.KamiSnapshot;
+     eib_BusReg              := ThieleCPUBusTop.BusReg;
+     eib_BusCoreView         := ThieleCPUBusTop.BusCoreView;
+     eib_BusShadowRegs       := ThieleCPUBusTop.BusShadowRegs;
+     eib_BusWrapperState     := ThieleCPUBusTop.BusWrapperState;
+     eib_BusOp               := ThieleCPUBusTop.BusOp;
+     eib_decodeBusReg        := ThieleCPUBusTop.decodeBusReg;
+     eib_busRegReadable      := ThieleCPUBusTop.busRegReadable;
+     eib_busRegWritable      := ThieleCPUBusTop.busRegWritable;
+     eib_busRead             := ThieleCPUBusTop.busRead;
+     eib_busWrite            := ThieleCPUBusTop.busWrite;
+     eib_bus_step            := ThieleCPUBusTop.bus_step;
+     eib_coreViewOfSnapshot  := ThieleCPUBusTop.coreViewOfSnapshot;
   |}.
 
 (** Structural extraction proof: canonical_extraction_identity_tc type-checks
@@ -15450,14 +13166,14 @@ Lemma extraction_identity_complete_tc :
   (eib_vm_apply_runtime canonical_extraction_identity_tc = vm_apply_runtime) /\
   (eib_mem_to_string canonical_extraction_identity_tc = mem_to_string) /\
   (eib_write_string_to_mem canonical_extraction_identity_tc = write_string_to_mem) /\
-  (eib_bus_step canonical_extraction_identity_tc = bus_step) /\
-  (eib_coreViewOfSnapshot canonical_extraction_identity_tc = coreViewOfSnapshot).
+  (eib_bus_step canonical_extraction_identity_tc = ThieleCPUBusTop.bus_step) /\
+  (eib_coreViewOfSnapshot canonical_extraction_identity_tc = ThieleCPUBusTop.coreViewOfSnapshot).
 Proof.
   repeat split; reflexivity.
 Qed.
 
 (** =========================================================================
-    VERIFICATION SUMMARY — THE AUDIT
+    VERIFICATION SUMMARY: THE AUDIT
 
     WHAT THIS SUMMARY MEANS:
     If this file compiles, Coq has checked the theorem terms named in the
@@ -15468,7 +13184,7 @@ Qed.
     THE TWENTY-EIGHT THEOREMS (what "compiles" means):
 
     1.  VMState: well-defined machine state (51 opcodes, categorical layer, CHSH
-        registers, tensor field, morphism graph — all in one self-contained type)
+        registers, tensor field, morphism graph: all in one self-contained type)
 
     2.  vm_apply: 51 opcodes with executable semantics (run_vm executes any program)
         39 original + 7 categorical (MORPH, COMPOSE, MORPH_ID, MORPH_DELETE,
@@ -15495,7 +13211,7 @@ Qed.
         This is a VM cost theorem, not a thermodynamic Landauer derivation.
 
     8.  honest_nofi_structural_cost: CERT-SETTER STEPS STRICTLY INCREASE μ.
-        Every instruction that sets cert_addr charges ≥ 1 μ — by construction.
+        Every instruction that sets cert_addr charges ≥ 1 μ, by construction.
         MORPH_ASSERT is a cert-setter: charges S(cost) ≥ 1.
 
     9.  local_strategy_chsh_le_2: CLASSICAL CHSH BOUND.
@@ -15510,13 +13226,14 @@ Qed.
         the selected purity equality. The theorem is not a general physical
         unitarity theorem.
 
-    12. kami_step_mu_commutation: the named Kami correspondence has the
-        stated μ equality under its interface and premises. It is not an
-        unrestricted claim about all downstream hardware artifacts.
+    12. Hardware correspondence: not in this file. coq/kami_hw states it
+        (driven_step_wf, driven_trace_commutes, fsm_retirement_refinement)
+        under the premises given there.
 
-    13. vacuum_solution: FLAT SPACETIME = ZERO MASS.
-        G_μν = 0 when the metric is constant. The Einstein equations hold
-        for any constant metric field — the trivial case, proven first.
+    13. vacuum_solution: CONSTANT METRICS.
+        On any complex, for any metric field that is the same at every
+        vertex, the selected Einstein expression is 0, so G = κ·T holds with
+        zero stress-energy.
 
     14. non_uniform_mass_produces_curvature: the selected finite metric
         expression cannot be uniform under the stated mass premises. This
@@ -15551,7 +13268,7 @@ Qed.
         is a genuine semantic layer beyond classical computation.
 
     21. CATEGORY LAWS (four results):
-        - relational_compose_assoc: (f;g);h = f;(g;h) — associativity
+        - relational_compose_assoc: (f;g);h = f;(g;h) (associativity)
         - Left identity: id_A ; f = f
         - Right identity: f ; id_B = f
         - MORPH_TENSOR bifunctoriality + interchange law (monoidal coherence)
@@ -15573,12 +13290,12 @@ Qed.
         Substrate-independent. Parameterized over state type AND instruction type.
         A2 is the minimal sufficient condition.
 
-    26. D3_conservativity_tc: CLASSICAL CONSERVATIVITY.
+    26. classical_opcodes_preserve_structure_tc: CLASSICAL CONSERVATIVITY.
         Classical programs do not exercise the Thiele-specific structural layer.
         The morphism graph, cert_addr, and vm_certified are all frozen.
         Classical computation is a clean sublanguage. Enforced by proof.
 
-    27. D4_strictness_tc + D5_thiele_strictly_extends_classical_tc: the
+    27. morph_delete_probe_separates_thiele_from_classical_tc + thiele_strictly_extends_classical_tc: the
         named projection/classical-fragment separation witness holds under
         its stated interface. It is not a claim about every encoding or
         every conventional machine.
@@ -15594,13 +13311,13 @@ Qed.
     Pure logic → types → ISA (51 opcodes) → semantics → conservation →
     certification cost → Insight Taxonomy (Tier-1 free / Tier-2 costs) →
     No Free Insight (trace-level) → Universal NoFI (substrate-independent, A2) →
-    Classical Conservativity (D3: structural layer frozen) →
-    Turing Strictness (D4/D5: strictly exits classical fragment) →
+    Classical Conservativity (structural layer frozen) →
+    Turing Strictness (strictly exits classical fragment) →
     CHSH Statistical Bridge (H8: local strategies fail) →
     uniqueness of μ → quantum bounds (Tsirelson) → hardware refinement →
     module tensor → full 4×4 metric (Cramer's rule) →
     curved Christoffel → Riemann (quadratic Γ·Γ) → Ricci → Einstein →
-    uniform coupling G = κ·T → METRIC FORCING (Levi-Civita uniqueness) →
+    uniform coupling G = κ·T → metric identities (metric_structure_forced_tc) →
     Turing universality (TM encoded in vm_mem) →
     Agent Trust (pnew_chain: μ-exact, non-interference, Löb bypass) →
     CATEGORICAL LAYER (morphism graph → composition → tensor product →

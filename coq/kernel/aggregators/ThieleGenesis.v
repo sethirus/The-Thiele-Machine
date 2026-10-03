@@ -43,7 +43,7 @@ From KamiHW Require Import Abstraction EmbedStep FullEmbedStep GraphReconstructi
 
     The kernel Turing machine (Kernel.v) includes a mu_cost field in
     its state record, but for a classical Turing program this field is
-    semantically inert --- standard instructions do not charge it.
+    semantically inert; standard instructions do not charge it.
 
     The Thiele Machine begins by taking this cost seriously.
 *)
@@ -72,7 +72,7 @@ Check turing_instruction.
     - And crucially: a mu-cost ledger (vm_mu : nat)
 
     Every instruction carries an explicit cost parameter (mu_delta).
-    The step function vm_apply is TOTAL --- no instruction produces an
+    The step function vm_apply is TOTAL: no instruction produces an
     undefined result; errors latch a flag but execution continues.
 
     The ISA has 51 opcodes spanning computation, control flow, XOR
@@ -93,7 +93,7 @@ Check run_vm.
     CHAPTER 2: THE SINGLE PRINCIPLE
 
     Of the 51 opcodes, 12 carry the positive-cost policy predicate
-    is_cert_setterb --- the cert/revelation-discipline class, each of
+    is_cert_setterb: the cert/revelation-discipline class, each of
     which always costs at least one mu-unit.  Seven create or modify
     certified knowledge directly:
 
@@ -122,7 +122,7 @@ Check run_vm.
       instruction_cost(instr_read_port bits delta) = bits + S delta
 
     Since S n >= 1 for all n : nat, cert-setters ALWAYS cost at least
-    one mu-unit.  This is not an axiom --- it is a structural
+    one mu-unit.  This is not an axiom. It is a structural
     consequence of using Peano natural numbers; the bit-counted cases are
     stronger than the floor.
 
@@ -132,7 +132,7 @@ Check run_vm.
     per bit.  The S(cost) pattern formalizes "at least one unit of
     irreversible work."
 
-    The Coq derivation chain does not DEPEND on thermodynamics ---
+    The Coq derivation chain does not DEPEND on thermodynamics;
     it starts from this definition and proves forward.  Landauer is
     the MOTIVATION; the Peano structure is the MECHANISM.
 *)
@@ -214,8 +214,8 @@ Check kernel_certified_implies_positive_mu.
         honest cert accounting (non-cert-setters preserve cert status),
         satisfies NoFI.
 
-    5b. UNIVERSAL: Any substrate --- any state type, any instruction
-        type --- if cert transitions cost >= 1, total cost >= 1.
+    5b. UNIVERSAL: Any substrate (any state type, any instruction
+        type): if cert transitions cost >= 1, total cost >= 1.
 
     5c. QUANTITATIVE: Not just cost >= 1, but cost >= K, where K is
         the complexity of what is certified.  N quantum measurements
@@ -295,41 +295,37 @@ Check jzdec_zero_via_vm_apply.
 Check jzdec_nonzero_via_vm_apply.
 
 (**
-    CHAPTER 7: PHYSICS EMERGES
+    CHAPTER 7: PHYSICS-NAMED RESULTS
 
-    Physical laws are theorems of vm_step, not axioms.
+    Each result below is a theorem about the VM's definitions under its
+    stated premises. None derives a physical law.
 
-    7a. LANDAUER: The mu-cost of any instruction bounds the number of
-        irreversible bit operations.  This is Landauer's principle
-        derived from the definitions, not assumed.
+    7a. LANDAUER-STYLE COUNT: the mu-cost of any instruction bounds a
+        conservative count of irreversible bit events (at most one per
+        positive-cost step), by the cost schedule.
 
-    7b. PHYSICS CLOSURE: Three properties proven from vm_step:
+    7b. CLOSURE: Three properties proven from vm_step:
         - Locality: instructions on module A do not affect
-          observations on module B (no-signaling).
-        - Conservation: mu never decreases (second law).
-        - Causality: effects are constrained by causal cones.
+          observations on module B.
+        - Monotonicity: mu never decreases.
+        - Causality: effects stay inside the project's causal cones.
 
     7c. CHSH CLASSICAL BOUND: No deterministic local strategy can
         produce a CHSH value exceeding |S| = 2.  Proved by exhaustive
         enumeration of all 16 possible strategies via vm_compute.
 
-    7d. BORN RULE: The Born probability rule P(z)=(1+z)/2 is the
-        unique probability assignment compatible with no-signaling,
-        convex-linearity of outcomes, and boundary conditions.
-        Derived via Hardy (2001) bridge from VM observables.
+    7d. BORN RULE: P(z)=(1+z)/2 is the unique probability assignment
+        satisfying the stated mixture-compatibility, convex-linearity and
+        boundary premises (Hardy 2001 form).
 
     7e. TSIRELSON BOUND: If a trace's zero-marginal NPA matrix is PSD,
         its CHSH value satisfies |S|^2 <= 8.
         The chain: NPA PSD -> column contractive -> Tsirelson.
 
-    7f. THERMODYNAMIC EINSTEIN EMERGENCE: Positive mass + focusing
-        + Clausius witnesses imply the 4D local Einstein field
-        equation.  The thermodynamic chain is genuinely load-bearing:
-        Clausius dQ = TdS -> structural mass -> 4D EFE.
-
-    Physics textbooks start with physical laws as axioms.  This
-    development starts with computational primitives and derives
-    physical laws as theorems.
+    7f. DISCRETE EINSTEIN EQUATION: at a module v with positive
+        structural mass, on the successor chain, each diagonal component
+        of the discrete 4D Einstein tensor at v equals the stated mass
+        expression. Both sides are the file's discrete definitions.
 *)
 
 (** 7a. Landauer: per-step mu bounds irreversible bits. *)
@@ -349,9 +345,8 @@ Check hardy_born_rule_bridge.
 Check trace_npa_matrix_psd_implies_tsirelson.
 Check trace_npa_matrix_psd_implies_column_contractive.
 
-(** 7f. Thermodynamic Einstein: Clausius load-bearing -> 4D EFE. *)
-Check clausius_load_bearing_einstein_4d.
-Check thermodynamic_einstein_full_chain_4d.
+(** 7f. 4D Einstein tensor on the successor chain from positive mass. *)
+Check einstein_4d_successor_diag_from_positive_mass.
 
 (**
     CHAPTER 8: THE MACHINE IS REAL
@@ -394,30 +389,33 @@ Check full_state_trace_bisimulation.
     CHAPTER 9: THE HARDWARE CHAIN
 
     The Kami hardware model (coq/kami_hw/) defines a KamiSnapshot
-    record with 28 fields representing the hardware state.  The
-    abstraction function abs_phase1 maps KamiSnapshot to VMState.
+    record representing the CPU state. The abstraction function
+    abs_phase1 maps KamiSnapshot to VMState.
 
     The hardware proof chain:
 
-    Layer 1 -- EmbedStep.v:
+    Layer 1 (EmbedStep.v):
       abs_phase1(kami_step(ks, i)) = vm_apply(abs_phase1(ks), i)
-      for 31 SupportedOpcodes (unconditional).
+      for 35 SupportedOpcodes (unconditional).
 
-    Layer 2 -- FullEmbedStep.v:
+    Layer 2 (FullEmbedStep.v):
       abs_full_snapshot(full_snapshot_of_snapshot(kami_step(ks, i)))
         = vm_apply(abs_full_snapshot(full_snapshot_of_snapshot(ks)), i)
       Full-state version handling graph reconstruction.
 
-    Layer 3 -- GraphReconstructionBridge.v:
+    Layer 3 (GraphReconstructionBridge.v):
       Multi-step trace commutation under WFDrivenPrecondition.
       Hardware trace = software trace through the abstraction.
 
-    The Kami model extracts to Bluespec, compiles to synthesizable
-    Verilog RTL, and has been verified against the Coq spec by
-    11,049 fuzz tests and 31 targeted co-simulation tests.
+    The CPU rules retire each admitted instruction into the kami_step
+    result (RetireMaster.admitted_retires,
+    TableInvariantsReachable.fsm_retirement_refinement). The Kami model
+    extracts to Bluespec and compiles to synthesizable Verilog RTL; that
+    translation is a trust boundary, and the co-simulation tests compare
+    the RTL with the extracted VM.
 *)
 
-(** Layer 1: single-step commutation (31 opcodes unconditional). *)
+(** Layer 1: single-step commutation (35 opcodes unconditional). *)
 Check embed_step_compute.
 
 (** Layer 2: full-state commutation with graph reconstruction. *)
@@ -429,8 +427,8 @@ Check driven_trace_commutes.
 (**
     CODA: THE COMPLETE ARC
 
-    From a single structural commitment --- cert-setters cost >= 1,
-    encoded as S(delta) in the Peano naturals --- the following chain
+    From a single structural commitment (cert-setters cost >= 1,
+    encoded as S(delta) in the Peano naturals), the following chain
     of implications is machine-checked:
 
      1. cert_setter_cost_pos           Every cert-setter costs >= 1.
@@ -449,8 +447,8 @@ Check driven_trace_commutes.
     12. hardy_born_rule                Born rule from no-signaling.
     13. trace_npa_matrix_psd_implies_tsirelson
                                        Tsirelson bound from VM quantum state.
-    14. clausius_load_bearing_einstein_4d
-                                       Thermodynamic -> 4D Einstein.
+    14. einstein_4d_successor_diag_from_positive_mass
+                                       Positive mass -> 4D Einstein diagonal.
 
     The record below packages the spine theorems as a single Coq term.
     Items 12-14 are verified via Check statements above.
@@ -528,7 +526,7 @@ Record ThieleGenesis := {
 }.
 
 (** THE WITNESS: all fields are inhabited by existing theorems. *)
-(* SAFE: capstone derivation record — all fields are Qed theorems *)
+(* SAFE: capstone derivation record; all fields are Qed theorems *)
 Definition thiele_genesis : ThieleGenesis := {|
   tg_single_principle    := cert_setter_cost_pos;
   tg_mu_conservation     := vm_apply_mu;
@@ -542,21 +540,22 @@ Definition thiele_genesis : ThieleGenesis := {|
 (**
     EPILOGUE
 
-    What you have just read is a machine-checked proof that:
+    What you have just read is a machine-checked chain of results:
 
     - A Turing-complete computational machine exists (Chapter 6)
       whose every instruction carries an explicit cost (Chapter 1),
-    - whose cost ledger is perfectly conserved (Chapter 3),
+    - whose cost ledger is conserved step by step (Chapter 3),
     - where certification cannot be achieved for free (Chapter 4),
-    - where this impossibility holds for ANY substrate (Chapter 5),
-    - where physical locality, conservation, and causality are
-      theorems, not axioms (Chapter 7b),
-    - where the Born probability rule is derived from no-signaling
-      and convex-linearity (Chapter 7d),
+    - where this impossibility holds for any certification system
+      satisfying A2 (Chapter 5),
+    - where locality, monotonicity and causal-cone closure are theorems
+      about vm_step (Chapter 7b),
+    - where P(z)=(1+z)/2 is the unique rule meeting the stated mixture
+      and convex-linearity premises (Chapter 7d),
     - where partition splits with a PSD NPA matrix satisfy the
       Tsirelson bound |S|^2 <= 8 (Chapter 7e),
-    - where thermodynamic Clausius witnesses load-bearingly imply
-      the 4D Einstein field equation (Chapter 7f),
+    - where a discrete 4D Einstein identity holds at modules with
+      positive structural mass (Chapter 7f),
     - where the Coq specification extracts to running OCaml code
       (Chapter 8a),
     - where a Python VM bisimulates the spec (Chapter 8b),

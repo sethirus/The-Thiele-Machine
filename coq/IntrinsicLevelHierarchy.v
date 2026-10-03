@@ -1,4 +1,4 @@
-(** * IntrinsicLevelHierarchy.v — state-level strict hierarchy.
+(** * IntrinsicLevelHierarchy.v: state-level strict hierarchy.
 
     State-level companion to [MuHierarchyTheorem]. The latter defines
     the level-k predicate on a trace ("the executed-instruction log
@@ -35,8 +35,8 @@ From Kernel Require Import MuNoFreeInsightQuantitative.
 (** ** The intrinsic level: minimum cert-setter execution count. *)
 
 (** Count cert-setter executions along a [run_vm] trace.
-    This is exactly [MuShannonBridge.cert_setter_executions]; we
-    re-export the name for visibility. *)
+    This is exactly [MuShannonBridge.cert_setter_executions], re-exported
+    under this name for visibility. *)
 Definition cert_events_in (fuel : nat) (trace : list vm_instruction)
                          (s_init : VMState) : nat :=
   cert_setter_executions fuel trace s_init.
@@ -54,7 +54,7 @@ Definition level_intrinsic_at_least (k : nat) (s_final : VMState) : Prop :=
 (* -------------------------------------------------------------------- *)
 (** ** The strict separation.
 
-    The kernel's [info_priced_cert_executions_bound] gives us the
+    The kernel's [info_priced_cert_executions_bound] gives the
     canonical cost-vs-events inequality:
       `cert_setter_executions ≤ Δ μ`.
 
@@ -89,8 +89,8 @@ Qed.
 
     The arithmetic step is the contrapositive of "cert_events ≥ k+1
     forces cert_events > k." The substantive content is that
-    [level_intrinsic_at_least] is a property of the final state —
-    the *minimum* taken over all certifying traces — and the kernel's
+    [level_intrinsic_at_least] is a property of the final state
+    (the *minimum* taken over all certifying traces), and the kernel's
     [info_priced_cert_executions_bound] pins that minimum to the
     ledger sum. The hierarchy is a property of claims, not of any one
     trace that happens to certify them.

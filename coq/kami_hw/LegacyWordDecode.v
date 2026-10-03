@@ -1,21 +1,20 @@
 (** LegacyWordDecode.v: the word-lane decode identity for the ISA-v2 legacy
-    encoding, over symbolic operand bytes. This is the missing piece
-    [OutsideDomain.v]'s closing note names: reducing a decoded field
+    encoding, over symbolic operand bytes: it reduces a decoded field
     ([dd_isa_version], [dd_opcode], ...) on a concrete instruction word with
     symbolic operands.
 
     The technique: work entirely through [wordToNat] ([wordToNat_combine],
     [wordToNat_split1], [wordToNat_split2], which reduce to plain [mod]/[div]
-    on naturals), never through [split]/[combine] terms directly. The
-    dependent-size casts that come from re-associating [split]/[combine] at
-    boundaries that do not line up with [legacy_word]'s own nesting are what
-    defeated earlier attempts; going through [wordToNat] and back via
-    [wordToNat_eqw] avoids them entirely, since two words of the same size
-    are equal whenever their [wordToNat] values are equal.
+    on naturals), never through [split]/[combine] terms directly.
+    Re-associating [split]/[combine] at boundaries that do not line up with
+    [legacy_word]'s own nesting produces dependent-size casts; going through
+    [wordToNat] and back via [wordToNat_eqw] avoids them entirely, since two
+    words of the same size are equal whenever their [wordToNat] values are
+    equal.
 
     The one real trap: [ring], [nia] and [exact]'s conversion check must
     never be asked to relate two forms of a term containing an unevaluated
-    [pow2 n] for large [n] (here, 89, 96 or 121) -- the kernel represents
+    [pow2 n] for large [n] (here, 89, 96 or 121); the kernel represents
     [nat] in unary, so normalizing [pow2 89] this way does not finish. Every
     proof below stays on plain [rewrite] with named facts near such terms,
     and only lets [ring]/[nia] touch [pow2 8]/[16]/[24]/[32] (safe: bounded

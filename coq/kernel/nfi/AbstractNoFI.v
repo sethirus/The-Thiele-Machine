@@ -15,7 +15,7 @@
     at least one cert-setter instruction AND must have spent ≥ 1 unit of cost.
 
     THE THIELE VM IS AN INSTANCE:
-    We prove that the Thiele VM satisfies A1–A4, so all consequences apply.
+    The Thiele VM satisfies A1–A4 (proved below), so all consequences apply.
     A machine that does not satisfy A1–A4 is outside this theorem. It may be
     doing something interesting, but it is not doing this honest cert-accounting
     discipline. A machine that does satisfy A1–A4 is covered by this proof.
@@ -195,7 +195,7 @@ Qed.
     PROOF NOTE: non_cert_setter_preserves_cert from RevelationRequirement.v
     takes a premise (forall mu, i <> instr_certify mu). But instr_certify is
     NOT in cert_addr_setterb (it sets vm_certified, not csr_cert_addr), so
-    we handle it as a special case before calling non_cert_setter_preserves_cert.
+    it is handled as a special case before calling non_cert_setter_preserves_cert.
 *)
 Lemma thiele_non_cert_addr_setter_preserves :
   forall (s : VMState) (i : vm_instruction),
@@ -205,7 +205,7 @@ Proof.
   intros s i Hi.
   (* Split on whether i is instr_certify or something else.
      instr_certify preserves csr_cert_addr (uses vm_csrs := s.(vm_csrs)).
-     non_cert_setter_preserves_cert asks us to exclude it, so handle it here. *)
+     non_cert_setter_preserves_cert requires excluding it, so handle it here. *)
   assert (is_certify_or_not : (exists mu, i = instr_certify mu) \/
                                (forall mu, i <> instr_certify mu)).
   { destruct i; try (right; intros mu H; discriminate H).
@@ -336,14 +336,14 @@ Qed.
 
     The above theorems use sequential (list-order) execution.
     The Thiele VM uses PC-indexed execution (run_vm).
-    We connect them via the existing nonlocal_correlation_requires_revelation,
+    They connect via nonlocal_correlation_requires_revelation,
     which proves the same property for PC-indexed execution.
 
     THEOREM (thiele_nfi_pc_indexed): For PC-indexed execution,
     starting from cert_addr = 0 and ending with cert_addr ≠ 0,
     the trace must contain a cert-setter (REVEAL/EMIT/LJOIN/LASSERT/MORPH_ASSERT).
     This is exactly nonlocal_correlation_requires_revelation from
-    RevelationRequirement.v, restated in our vocabulary.
+    RevelationRequirement.v, restated in this file's vocabulary.
 *)
 
 Theorem thiele_nfi_pc_indexed :
@@ -361,7 +361,7 @@ Proof.
   apply nonlocal_correlation_requires_revelation
     with (s_init := s_init) (s_final := s_final) (fuel := fuel)
     in Hrun; [| exact Hzero | exact Hsupra].
-  (* Translate the disjunction into our cert_addr_setterb vocabulary *)
+  (* Translate the disjunction into the cert_addr_setterb vocabulary *)
   destruct Hrun as [Hrev | [Hemit | [Hljoin | [Hlassert | Hmorph]]]].
   - (* uses_revelation: contains an instr_reveal → use helper *)
     exact (uses_revelation_has_reveal trace Hrev).
@@ -406,7 +406,7 @@ Qed.
     any machine that processes vm_instructions with honest cert accounting
     (= satisfies A3) is subject to this theorem. A machine that does NOT
     satisfy A3 is not doing honest cert accounting. It allows free forgery,
-    which is exactly the property we are proving cannot happen here.
+    which is exactly the property proved impossible here.
 *)
 
 Theorem universal_nfi :

@@ -2,7 +2,7 @@
 
     The two existing Landauer files in this directory
     ([LandauerDerived.v], [ThermodynamicBridge.v]) prove Landauer "in
-    Landauer units" — that is, in units where the conversion factor
+    Landauer units", that is, in units where the conversion factor
     [k_B * T * ln 2] is set to 1. Both files explicitly state that the
     bits-to-joules conversion is not derived; in [LandauerDerived.v] the
     comment reads:
@@ -19,7 +19,7 @@
 
         ln 2 : the Shannon entropy of a uniform distribution over [2^n]
                outcomes is [n * ln 2] nats. This is a pure-mathematics
-               identity ([shannon_entropy_binary_uniform_nats] below) —
+               identity ([shannon_entropy_binary_uniform_nats] below);
                no axiom is introduced. It comes from
                [ln (INR (2^n)) = INR n * ln 2], i.e. log of a power.
 
@@ -37,7 +37,7 @@
 
     The headline [landauer_joules] then composes these three sources
     into [Q >= k_B * T * ln 2 * n]. The combined coefficient is not
-    chosen anywhere — it emerges as the product of the three factors.
+    chosen anywhere. It emerges as the product of the three factors.
 
     What falls out:
       - The factor [ln 2] is *forced* by the binary structure of bit
@@ -80,7 +80,7 @@ From Thermodynamic Require Import LandauerDerived.
 
 Local Open Scope R_scope.
 
-(* SCOPE NOTE: SECTION PARAMETER — Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER. Variable and Hypothesis
    declarations across this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    T_pos and k_B_pos are physical positivity for thermodynamic
@@ -98,12 +98,12 @@ Section LandauerJoulesDerivation.
   Hypothesis T_pos : 0 < T.
   Hypothesis k_B_pos : 0 < k_B.
 
-  (** ** Section 1 — bits to nats, pure mathematics.
+  (** ** Section 1: bits to nats, pure mathematics.
 
       Shannon entropy of a uniform distribution over [Omega] outcomes is
       [ln Omega] nats. For a binary state space of size [2^n] this equals
       [n * ln 2]. The [ln 2] factor comes from [ln (2^n) = n * ln 2], a
-      mathematical identity — no axiom is involved. *)
+      mathematical identity; no axiom is involved. *)
 
   Definition shannon_entropy_nats (omega : nat) : R := ln (INR omega).
 
@@ -137,11 +137,11 @@ Section LandauerJoulesDerivation.
   Lemma ln_2_pos : 0 < ln 2.
   Proof. rewrite <- ln_1. apply ln_increasing; lra. Qed.
 
-  (** ** Section 2 — information entropy for an erasure (a definition).
+  (** ** Section 2: information entropy for an erasure (a definition).
 
       For an erasure of [n] bits, the system's Shannon information
       entropy decrease in nats is, by definition, the entropy of a
-      uniform distribution over [2^n] outcomes — i.e. [ln (2^n)] nats.
+      uniform distribution over [2^n] outcomes, i.e. [ln (2^n)] nats.
       This is a *definition* (the uniform-prior Shannon entropy
       decrease), not a substrate hypothesis. *)
 
@@ -157,7 +157,7 @@ Section LandauerJoulesDerivation.
     apply shannon_entropy_binary_uniform_nats.
   Qed.
 
-  (** ** Section 3 — Boltzmann bridge (named hypothesis).
+  (** ** Section 3: Boltzmann bridge (named hypothesis).
 
       The substrate's thermodynamic entropy decrease in J/K equals
       [k_B] times its Shannon information entropy decrease in nats.
@@ -166,10 +166,10 @@ Section LandauerJoulesDerivation.
       Boltzmann identification in its bare form: thermodynamic entropy
       equals Boltzmann's constant times information entropy (in nats).
       The [ln 2] factor that ultimately appears in [landauer_joules]
-      does NOT enter through this hypothesis — it enters through
+      does NOT enter through this hypothesis. It enters through
       [info_entropy_decrease_value], which is pure mathematics. *)
 
-  (* SCOPE NOTE: SECTION PARAMETER (continued) — the Variable
+  (* SCOPE NOTE: SECTION PARAMETER (continued). The Variable
      system_thermo_entropy_decrease and the boltzmann_bridge Hypothesis
      are section parameters that become EXPLICIT FORALL premises on
      each theorem when the Section closes. boltzmann_bridge is the
@@ -183,16 +183,16 @@ Section LandauerJoulesDerivation.
       system_thermo_entropy_decrease pe =
       k_B * info_entropy_decrease_nats pe.
 
-  (** ** Section 4 — Second law for a thermal bath (named hypothesis).
+  (** ** Section 4: Second law for a thermal bath (named hypothesis).
 
       For a process that decreases the system's thermodynamic entropy
       by [dS] while in thermal contact with a bath at [T], the bath
       absorbs at least [T * dS] of heat. This is Clausius's statement of
       the second law applied to a bath of fixed temperature.
 
-      This hypothesis contains no [k_B] and no [ln 2] — just [T]. *)
+      This hypothesis contains no [k_B] and no [ln 2]: just [T]. *)
 
-  (* SCOPE NOTE: SECTION PARAMETER (continued) — heat_to_bath
+  (* SCOPE NOTE: SECTION PARAMETER (continued); heat_to_bath
      Variable and second_law_thermal_bath Hypothesis are section
      parameters that become EXPLICIT FORALL premises on every theorem
      when the Section closes. The hypothesis is Clausius's statement
@@ -205,11 +205,11 @@ Section LandauerJoulesDerivation.
       0 <= system_thermo_entropy_decrease pe ->
       T * system_thermo_entropy_decrease pe <= heat_to_bath pe.
 
-  (** ** Section 5 — Headline.
+  (** ** Section 5: Headline.
 
       Composing the three sources, the heat released to the bath by any
       erasure of [n] bits is at least [k_B * T * ln 2 * n]. The constant
-      [k_B * T * ln 2] is not chosen anywhere — it is the algebraic
+      [k_B * T * ln 2] is not chosen anywhere. It is the algebraic
       product of three factors that each arrive separately:
         [k_B]  from [boltzmann_bridge]      (no ln 2 in its statement),
         [T]    from [second_law_thermal_bath] (no k_B in its statement),
@@ -236,7 +236,7 @@ Section LandauerJoulesDerivation.
       [apply Req_le; ring | exact Hlaw].
   Qed.
 
-  (** ** Section 5 — Specialisation to one-bit erasure.
+  (** ** Section 6: specialisation to one-bit erasure.
 
       The single-bit case: [Q >= k_B * T * ln 2]. This is the textbook
       Landauer bound. Note that the right-hand side here has each factor
@@ -254,7 +254,7 @@ Section LandauerJoulesDerivation.
       [apply Req_le; ring | exact H].
   Qed.
 
-  (** ** Section 6 — Consistency with the information-side bound.
+  (** ** Section 7: consistency with the information-side bound.
 
       The existing [landauer_information_bound] gives
       [env_entropy_increase pe >= bits_erased (erasure_op pe)] in

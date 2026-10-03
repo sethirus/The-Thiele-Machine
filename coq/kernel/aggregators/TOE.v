@@ -1,11 +1,10 @@
 (**
     KERNEL CLOSURE: Closure Properties of VM Semantics
 
-    A NOTE ON THE NAME: "TOE" here is a legacy module identifier, NOT a claim
-    of a "theory of everything." The project disclaims that reading outright
-    (monograph: "It is not a theory of everything"). What this file actually
-    packages is a kernel closure record over already-proven VM properties; read
-    every "TOE" below as "this closure aggregator," nothing larger.
+    A NOTE ON THE NAME: "TOE" here is a module identifier, NOT a claim of a
+    "theory of everything." What this file packages is a kernel closure
+    record over already-proven VM properties; read every "TOE" below as
+    "this closure aggregator," nothing larger.
 
     This theorem summarizes what the Thiele Machine kernel PROVES from its
     operational semantics. KernelMaximalClosureP packages three properties:
@@ -36,7 +35,7 @@
 
     *)
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Coq Require Import List.
 From Kernel Require Import MuCostModel.
 
@@ -50,14 +49,14 @@ From Kernel Require Import TsirelsonGeneral.
 From Kernel Require Import MuLedgerQuantumBridge.
 From Coq Require Import Reals.
 
-(** KERNEL CLOSURE: Maximal closure — what the kernel proves
+(** KERNEL CLOSURE: Maximal closure, what the kernel proves
 
     KernelMaximalClosureP packages three closure properties proven
     from vm_step's definition (Closure.v / PhysicsClosure.v):
     - Instruction locality
     - mu-monotonicity
     - Trace causality *)
-(* SCOPE NOTE: alias for KernelMaximalClosure — intentional compat export *)
+(* SCOPE NOTE: alias for KernelMaximalClosure, intentional compat export *)
 Theorem KernelTOE_FinalOutcome :
   KernelMaximalClosureP.
 Proof.
@@ -89,11 +88,11 @@ Proof.
   exact Hloc.
 Qed.
 
-(** Core proof wiring for C3/C4 bridge files.
+(** Core proof wiring for the Born-rule and Tsirelson-model bridge files.
 
       This theorem is intentionally lightweight: it does not add new physical
-      assumptions, it only guarantees that the final TOE layer is wired to the
-      completed C3/C4 bridge statements.
+      assumptions, it only guarantees that the closure layer is wired to the
+      Born-rule uniqueness and Tsirelson-model bridge statements.
 *)
 Theorem KernelTOE_CoreProofWiring :
    KernelMaximalClosureP /\
@@ -126,8 +125,8 @@ Qed.
 
     KernelTOE_CoreProofWiring additionally wires in:
     - Born rule uniqueness (conditional on mixture_compatible + boundary
-      conditions — see BornRuleLinearity.v)
-    - Tsirelson bound (conditional on NPA-1 coherence premises —
+      conditions: see BornRuleLinearity.v)
+    - Tsirelson bound (conditional on NPA-1 coherence premises;
       see TsirelsonGeneral.v)
 
     These conditional results are NOT consequences of the three closure

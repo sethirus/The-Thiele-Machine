@@ -8,7 +8,7 @@
     [map g_denote]) and a guest step is literally [vm_apply_u]; nothing
     about the host's execution semantics is redefined for the guest.
 
-    Stated fragment (the guest/input domain of the B3 theorems):
+    Stated fragment (the guest/input domain of the self-interpreter theorems):
       - guest instructions: HALT, LOAD_IMM, XFER, ADD, SUB, MUL, AND, OR,
         SHL, SHR, JUMP, JNEZ;
       - guest register fields range over 0..3 and guest register values are

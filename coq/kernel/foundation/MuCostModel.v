@@ -88,10 +88,8 @@ Proof.
 Qed.
 
 (* [mu_cost_of_instr (instr_reveal _ _ _ _) _] reduces to a closed nat that is
-   at least [1] by the [Definition] table for [mu_cost_of_instr]. The
-   standalone helper [reveal_cost_positive] had no callers and only restated
-   that table entry; consumers can [unfold mu_cost_of_instr; simpl; lia]
-   directly. *)
+   at least [1] by the [Definition] table for [mu_cost_of_instr];
+   [unfold mu_cost_of_instr; simpl; lia] shows it. *)
 
 (** ** CHSH is outside this cost definition.
 
@@ -170,7 +168,7 @@ Proof.
            simpl in Hcost. exfalso. destruct n0; [discriminate Hcost | eapply one_plus_neq_zero; exact Hcost].
     + (* No instruction at pc *)
       (* If nth_error trace pc = None and pc <= n, then nth_error trace n = None *)
-      (* But we have nth_error trace n = Some (instr_reveal ...), contradiction *)
+      (* But nth_error trace n = Some (instr_reveal ...), contradiction *)
       exfalso. eapply nth_error_none_propagates in Hpc; [|exact Hge].
       rewrite Hpc in Hnth. discriminate.
 Qed.

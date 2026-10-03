@@ -4,7 +4,7 @@
     after replacing "cert-flip" by an arbitrary local invariant.  This file
     makes that test precise.
 
-    We consider trusted local-predicate pricing systems.  A system chooses a
+    The setting is trusted local-predicate pricing systems.  A system chooses a
     local predicate [lps_charge s i].  The trust law says:
 
       - charged steps cost at least 1;
@@ -24,7 +24,7 @@
     trusted system can certify at zero cost.  A2 is therefore the minimal
     local predicate for certification-cost lower bounds under equal trust.
 
-    SCOPE NOTE: foundation connectivity gap suppressed — this file is the
+    SCOPE NOTE: foundation connectivity gap suppressed; this file is the
     substrate-free half of the substitution gate.  Every theorem here is
     indicator-uniqueness over an abstract local-predicate pricing record
     (lps_charge / lps_cost); it deliberately imports no VM semantics, because

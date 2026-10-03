@@ -23,9 +23,9 @@
 
     Exhibit a mu = 0 trace with |S| > 4. Impossible: the VM encodes
     CHSH values as bounded naturals, and TsirelsonUpperBound.v proves
-    the algebraic maximum is 4. Alternatively, reinstate the old
-    "mu = 0 implies S <= 2" claim -- the algebraic_max_trace
-    counterexample in TsirelsonUpperBound.v refutes it.
+    the algebraic maximum is 4. The claim "mu = 0 implies S <= 2" is
+    refuted by the algebraic_max_trace counterexample in
+    TsirelsonUpperBound.v.
 
     Fully proven, zero Admitted.
     *)
@@ -44,11 +44,11 @@ From Kernel Require Import AlgebraicCoherence.
     Rational approximation: 5657/2000 = 2.8285 *)
 Definition tsirelson_bound : Q := (5657 # 2000)%Q.
 
-(** ** What μ=0 Actually Gives Us *)
+(** ** What μ=0 Actually Gives *)
 
 (** HELPER: Base case property *)
 (** HELPER: Base case property *)
-(* SAFE: Delegates to mu_zero_chsh_bounded — this is proof composition, not a placeholder. *)
+(* SAFE: Delegates to mu_zero_chsh_bounded; this is proof composition, not a placeholder. *)
 Theorem mu_zero_algebraic_bound :
   forall fuel trace s_init,
     mu_zero_program fuel trace ->
@@ -79,9 +79,9 @@ Qed.
 
 *)
 
-(** NOTE: mu_zero_classical_bound (|S| <= 2 for mu=0) is FALSE.
+(** NOTE: the claim |S| <= 2 for every mu = 0 trace is FALSE.
     Counterexample: algebraic_max_trace achieves S = 4 with mu = 0.
-    The correct bound is mu_zero_algebraic_bound above: |S| <= 4. *)
+    The bound that holds is mu_zero_algebraic_bound above: |S| <= 4. *)
 
 (** ** The Correct Theorem: Coherence is What Bounds Correlations *)
 

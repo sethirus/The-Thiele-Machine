@@ -3,11 +3,11 @@
 
     The first-neighbor discrete derivative in RiemannTensor4D.v produces
     nonzero off-diagonal Ricci for non-uniform diagonal metrics on finite
-    complexes. DiscreteSimplicialGeometry.v proves this failure is not a gap
-    in the proof — it is a property of that specific operator.
+    complexes. DiscreteSimplicialGeometry.v proves this is a property of
+    that specific operator, not a missing proof step.
 
     SymmetricDerivative4D.v defines the affine metric-scaled symmetric
-    derivative, which fixes the problem:
+    derivative, under which off-diagonal Ricci vanishes on this geometry:
 
       affine_metric_symmetric_factor s v = 8 - 5 * g_{00}(v)
 
@@ -40,7 +40,7 @@ From Kernel Require Import SymmetricDerivative4D.
 
     These are explicit conditions on full_metric_at_vertex, which is defined
     as INR(module_tensor_entry s v ...). They characterize a specific VMState
-    configuration — the geometry under study. *)
+    configuration: the geometry under study. *)
 
 Definition has_nonuniform_isotropic_metric (s : VMState) : Prop :=
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -106,17 +106,17 @@ Qed.
 
     CLOSED (zero Admitted, zero Section Variables):
 
-    1. affine_off_diagonal_ricci_zero — off-diagonal Ricci vanishes under the
+    1. affine_off_diagonal_ricci_zero: off-diagonal Ricci vanishes under the
        affine metric-scaled symmetric operator on the non-uniform isotropic
-       boundary_4simplex geometry at vertex 1. This resolves the off_diagonal_ricci_zero
-       gap for the affine operator on this geometry.
+       boundary_4simplex geometry at vertex 1. So off-diagonal Ricci = 0
+       holds for the affine operator on this geometry.
 
-    2. affine_full_tensor_efe — the full 4x4 Einstein field equations hold at
+    2. affine_full_tensor_efe: the full 4x4 Einstein field equations hold at
        vertex 1 under the affine operator with unit structural mass. G = 3T.
 
     WHAT THESE THEOREMS ARE:
     The premises are explicit conditions on what the VMState's metric looks
-    like (which tensor entries it has). These are not abstract assumptions —
+    like (which tensor entries it has). These are not abstract assumptions.
     they specify a concrete geometry. Any VMState satisfying has_nonuniform_isotropic_metric
     and module_structural_mass s 1 = 1 lands in both theorems.
 
@@ -302,7 +302,7 @@ Proof.
   lra.
 Qed.
 
-(** sum_4 equality from pointwise equality — avoids rewriting under fold_left binder. *)
+(** sum_4 equality from pointwise equality; avoids rewriting under fold_left binder. *)
 Lemma sum_4_congr : forall f g : nat -> R,
   (forall n, (n < 4)%nat -> f n = g n) -> sum_4 f = sum_4 g.
 Proof.
@@ -326,7 +326,7 @@ Proof.
   unfold affine_metric_symmetric_curved_riemann.
   rewrite (affine_dd_christoffel_outer_val s v rho nu0 sigma Hiso Hv Hrho Hnu0 Hsigma mu0).
   rewrite (affine_dd_christoffel_outer_val s v rho mu0 sigma Hiso Hv Hrho Hmu0 Hsigma nu0).
-  (* Compare the two sum_4 product terms pointwise — avoids rewriting under fold_left lambda *)
+  (* Compare the two sum_4 product terms pointwise; avoids rewriting under fold_left lambda *)
   assert (HS1 : sum_4 (fun lam =>
       affine_metric_symmetric_curved_christoffel s boundary_4simplex rho mu0 lam v *
       affine_metric_symmetric_curved_christoffel s boundary_4simplex lam nu0 sigma v) =
@@ -474,7 +474,7 @@ Proof.
   rewrite (affine_einstein_outer s v mu nu Hiso Hv Hmu Hnu) in Heq.
   apply Nat.eqb_neq in Hneq. rewrite Hneq in Heq.
   (* 3/32 = 3 * mass_stress_energy: need mass_stress_energy = 0 for mu≠nu.
-     mass_stress_energy is 0 off-diagonal — prove by case-splitting to concrete values. *)
+     mass_stress_energy is 0 off-diagonal; prove by case-splitting to concrete values. *)
   (* mass_stress_energy is 0 for mu≠nu (diagonal stress-energy).
      After concrete case splits and Nat.mod_small, the off-diagonal branch gives 0 definitionally. *)
   assert (HT : (3 * mass_stress_energy s mu nu v)%R = 0%R).

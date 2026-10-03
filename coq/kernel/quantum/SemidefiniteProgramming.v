@@ -17,7 +17,7 @@
     - Schur complement criterion for 2x2 PSD
     - Cauchy-Schwarz inequality for PSD matrices
 
-    We use a computational approach where PSD is characterized by
+    The approach is computational: PSD is characterized by
     all principal minors being non-negative (Sylvester's criterion).
     This is more amenable to Coq proof than eigenvalue analysis.
 
@@ -45,8 +45,8 @@ Local Open Scope R_scope.
 
 (** Matrix Representation *)
 
-(** We represent matrices as functions from indices to reals.
-    For the CHSH NPA-1 matrix, we only need small matrices (up to 5×5). *)
+(** Matrices are functions from indices to reals.
+    The CHSH NPA-1 matrix needs only small matrices (up to 5×5). *)
 
 Definition Matrix (n : nat) : Type := nat -> nat -> R.
 
@@ -273,7 +273,7 @@ Definition PSD_3 (M : Matrix 3) : Prop :=
   minor2_12 M >= 0 /\
   det3_matrix M >= 0.
 
-(** General PSD for n×n matrix (we'll specialize to small n) *)
+(** General PSD for n×n matrix (specialized to small n below) *)
 Definition PSD {n : nat} (M : Matrix n) : Prop :=
   match n with
   | 0 => True
@@ -481,9 +481,9 @@ Qed.
     This follows from the 2×2 principal submatrix having non-negative determinant.
     For symmetric PSD M: det([[M_ii, M_ij], [M_ji, M_jj]]) = M_ii * M_jj - M_ij^2 >= 0
     
-    Note: We restrict to n <= 5 because our PSD definition for n >= 6 only includes
+    Note: restricted to n <= 5 because the PSD definition for n >= 6 only includes
     diagonal non-negativity, not the full Sylvester criterion with all 2×2 minors.
-    This is sufficient for our NPA hierarchy application which uses n <= 5. *)
+    This is sufficient for the NPA hierarchy application, which uses n <= 5. *)
 Lemma PSD_cauchy_schwarz : forall (n : nat) (M : Matrix n) (i j : nat),
   (n <= 5)%nat ->
   (i < n)%nat -> (j < n)%nat ->
@@ -600,7 +600,7 @@ Qed.
 
 (** Absolute Value Bound *)
 
-(** For PSD M with M[i,i] <= 1 and M[j,j] <= 1, we have |M[i,j]| <= 1 *)
+(** For PSD M with M[i,i] <= 1 and M[j,j] <= 1, |M[i,j]| <= 1 *)
 (** This follows from Cauchy-Schwarz: |M[i,j]|^2 <= M[i,i] * M[j,j] <= 1*1 = 1. *)
 Lemma PSD_off_diagonal_bound : forall (n : nat) (M : Matrix n) (i j : nat),
   (n <= 5)%nat ->
@@ -622,7 +622,7 @@ Proof.
   (* 0 <= x <= 1 and 0 <= y <= 1 implies xy <= 1 *)
   assert (Hprod: (M i i) * (M j j) <= 1) by nra.
   assert (Hsq_bound: (M i j) * (M i j) <= 1) by lra.
-  (* From x^2 <= 1, we get -1 <= x <= 1, hence |x| <= 1 *)
+  (* From x^2 <= 1, -1 <= x <= 1, hence |x| <= 1 *)
   (* Use Rabs_le: |x| <= y <-> -y <= x <= y *)
   apply Rabs_le.
   split; nra.

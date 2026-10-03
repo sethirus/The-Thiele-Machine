@@ -7,9 +7,9 @@
     model register files, memory, partition graph, CSRs, mu_tensor,
     jump/branch/call/ret targets, or any instruction-specific behavior.
 
-    For full hardware state correspondence with the Kami-extracted RTL,
-    see VerilogRefinement.v which uses KamiSnapshot (13 fields) and abs_phase1
-    from Abstraction.v.
+    For hardware state correspondence with the Kami CPU, see
+    VerilogRefinement.v and GraphReconstructionBridge.v, which use
+    KamiSnapshot and the abstractions of Abstraction.v.
 
     The real results here - hw_bisimulation_step, hw_bisimulation_multi_step,
     hw_step_reflects_vm_cost - are useful for reasoning about mu-accumulation
@@ -211,8 +211,9 @@ Qed.
 
 (** Abstract verification chain.
     
-    Despite the historical theorem name below, this theorem only establishes
-    the abstract hardware/Python cost-preservation chain in this file.
+    The name of the theorem below is broader than its content: it only
+    establishes the abstract hardware/Python cost-preservation chain in
+    this file.
     
     Combined with separately checked PythonBisimulation.v facts, it contributes
     one link toward:
@@ -307,9 +308,10 @@ Qed.
 
 (** Abstract hardware/Python correctness.
     
-    The theorem name is historical. The theorem proves that the abstract
-    hardware stepper and abstract Python stepper keep PC and mu-cost aligned
-    for a list of costs. It does not prove synthesized RTL correctness.
+    The theorem name is broader than its content. The theorem proves that
+    the abstract hardware stepper and abstract Python stepper keep PC and
+    mu-cost aligned for a list of costs. It does not prove synthesized RTL
+    correctness.
     *)
 
 Theorem hardware_synthesis_correctness :
@@ -357,18 +359,12 @@ Qed.
     physical hardware behavior require the separate RTL/refinement assumptions to
     be stated and checked.
 
-    1. Synthesize the Verilog to FPGA (Xilinx, Intel, Lattice, whatever)
-    2. Run the same test vectors through hardware and OCaml extracted VM
-    3. Compare μ-accumulator values, PC values, observable outputs
-    4. If they diverge by even 1 bit, the bisimulation is false
+    The cosimulation tests run the same programs on the extracted VM and
+    the generated RTL and compare PC, μ and the observable outputs; any
+    discrepancy fails them. Passing tests support the comparison; they are
+    not a proof that every repository layer is identical.
 
-    The cosimulation tests generate random traces, execute on all three layers,
-    compare snapshots. If ANY discrepancy occurs, the tests fail.
-
-    Passing tests support the comparison story; they should not be paraphrased
-    here as an unconditional proof that every repository layer is identical.
-
-    The lemmas in this file are proven inside the current abstract hardware
-    model. The remaining risk is cross-layer mismatch in the concrete runners
-    or RTL, which is why the repository still needs the cosimulation checks.
+    The lemmas in this file are proven inside the abstract hardware model.
+    Cross-layer mismatch in the concrete runners or RTL is what the
+    cosimulation checks test.
 *)

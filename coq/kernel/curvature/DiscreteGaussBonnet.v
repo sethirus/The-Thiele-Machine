@@ -24,7 +24,7 @@
     DiscreteTopology.v and the equilateral-angle model both hold, this file
     says there isn't one. *)
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith Reals.
@@ -211,7 +211,7 @@ Proof.
   (* First, prove that 6F <= 5E using the nat version of Hident *)
   assert (Hge: (6 * F g <= 5 * E g)%nat).
   { (* From triangulation identity: 3V = 5E - 6F
-       Since V >= 1 (well-formed), we have 3 <= 5E - 6F
+       Since V >= 1 (well-formed), 3 <= 5E - 6F
        So 6F <= 5E - 3, hence 6F <= 5E *)
     unfold well_formed_triangulated in Hwf.
     destruct Hwf as [_ [_ [_ [_ [HV [_ [_ [_ [_ _]]]]]]]]].
@@ -259,7 +259,7 @@ Proof.
   unfold euler_characteristic.
 
   (* χ = V - E + F (in Z) *)
-  (* We want IZR(V - E + F) = (2E - 3F)/3 *)
+  (* Goal: IZR(V - E + F) = (2E - 3F)/3 *)
 
   assert (HV := nat_algebra_for_triangulation g Hwf Hident).
   (* HV: INR (V g) = (5 * INR (E g) - 6 * INR (F g)) / 3 *)
@@ -372,7 +372,7 @@ Qed.
     identity on a discrete graph.
 
     On graphs the machine reaches from init_state, the triangles are separate
-    (F3_ReachableGeometry.v): χ = F, and the identity counts modules.
+    (ReachableGeometry.v): χ = F, and the identity counts modules.
     *)
 
 (* Continued in PNEWTopologyChange.v *)

@@ -1,4 +1,4 @@
-(** VMUnboundedInterpreterCode.v — the actual host
+(** VMUnboundedInterpreterCode.v: the actual host
     instruction sequences that compute get_slot/set_slot
     (VMUnboundedInterpreterSlots.v) under real vm_apply_u execution, and
     their correctness proofs against that spec.
@@ -14,10 +14,9 @@
       R3..R10 = scratch/constants
       R8 (get_slot) / R8 (set_slot) = result, on exit
 
-    Every register used is < REG_COUNT = 16. mu_delta costs are all 0 here
-    — this phase proves value correctness only; mirroring the mu-ledger
-    increment per guest opcode (part of the eventual ADD block) is a
-    separate, later addition once this layer is solid. *)
+    Every register used is < REG_COUNT = 16. mu_delta costs are all 0 here:
+    these programs are proved for value correctness only and do not move
+    the ledger. *)
 
 From Coq Require Import Arith Lia List.
 Import ListNotations.
@@ -538,7 +537,7 @@ Qed.
 
 (** * 6. Preservation: any register outside the clobber set is left alone
     by get_slot_program (writes only R3,R4,R5,R6,R8) or set_slot_program
-    (writes only R3..R10) — needed to track a "long-lived" register like a
+    (writes only R3..R10), needed to track a "long-lived" register like a
     persistent packed-registers cell across back-to-back subroutine calls
     in an opcode block, without re-deriving each call's step-by-step
     effect on that register from scratch. *)

@@ -1,4 +1,4 @@
-(** KamiExtraction.v — Extracts the canonical Coq-generated BModules AST to OCaml.
+(** KamiExtraction.v: Extracts the canonical Coq-generated BModules AST to OCaml.
     The OCaml code is then used by PP.ml to print Bluespec text,
     which bsc compiles to synthesizable Verilog.
 

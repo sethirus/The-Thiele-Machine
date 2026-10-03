@@ -284,7 +284,7 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** rho_BB is at position (3, 4) — zero in zero_marginal_npa *)
+(** rho_BB is at position (3, 4): zero in zero_marginal_npa *)
 Lemma npa_rho_BB_position : forall (npa : NPAMomentMatrix),
   nat_matrix_to_fin5 (npa_to_matrix npa) idx3 idx4 = npa.(npa_rho_BB).
 Proof.

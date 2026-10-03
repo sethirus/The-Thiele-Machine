@@ -10,8 +10,8 @@
 
     This file flips them into NON-EXISTENCE statements about functions: no
     function on the bare classical projection can recover the dropped fields.
-    The corollaries package these as the three "Turing-equivalent signatures
-    cannot host this Thiele content" statements the monograph relies on:
+    The corollaries package these as three "Turing-equivalent signatures
+    cannot host this Thiele content" statements:
 
     (A) The A2 axiom (cert-flip costs at least 1) cannot be stated as a
         constraint that quantifies over the bare projection alone: the
@@ -23,10 +23,11 @@
         predicate language whose terms only see (pc, regs, mem): mu is not a
         function of the bare classical observable.
 
-    (C) The structural-axis undecidability diagonal lives on csr_cert_addr
-        reachability.  csr_cert_addr is not a function of forget, so any
-        predicate on TMSnapshot that purports to match the diagonal must
-        already smuggle in the Thiele-only field.
+    (C) csr_cert_addr is not a function of forget, so any predicate on
+        TMSnapshot that purports to decide a property read off
+        csr_cert_addr must already smuggle in the Thiele-only field. (The
+        substrate-level diagonal of StructuralUndecidability.v is stated
+        over AdmitsShortcut, not over csr_cert_addr.)
 
     NONE OF THESE PROOFS ASSERT THAT TURING MACHINES CANNOT COMPUTE.  They
     assert that specific *statements* the Thiele substrate makes about its own
@@ -48,7 +49,7 @@ From Kernel Require Import BlindnessRepresentation.
 (** ** Section 1: a stricter projection that drops mu.
 
     [forget] keeps four fields including [vm_mu].  For the cost-ledger
-    separation result, we need a projection that drops [vm_mu] too: the
+    separation result, the projection must drop [vm_mu] too: the
     "bare TM observable" the standard complexity-theory cost model sees.
 *)
 
@@ -148,7 +149,7 @@ Proof. simpl. discriminate. Qed.
 (** ** Section 2: the three field-irrecoverability theorems.
 
     These are the "no function on the projection recovers the dropped field"
-    statements that ground the monograph's non-existence corollaries.
+    statements that ground the non-existence corollaries below.
 *)
 
 (** *** Theorem 1: vm_certified is not a function of the forget image.
@@ -219,10 +220,10 @@ Proof.
   discriminate Hca_zero.
 Qed.
 
-(** ** Section 3: the three non-existence corollaries the monograph names.
+(** ** Section 3: the three non-existence corollaries.
 
     Each corollary turns one of the field-irrecoverability theorems above into
-    the monograph-grade "Turing-equivalent signature cannot host this Thiele
+    the "Turing-equivalent signature cannot host this Thiele
     content" statement: there is no way to phrase the Thiele-side predicate as
     a predicate that quantifies over the bare classical projection alone.
 
@@ -243,9 +244,9 @@ Qed.
 
     A2 is the constraint cs_cert s = false -> cs_cert (step s i) = true ->
     cost i >= 1.  It quantifies over a cert predicate on substrate states.  If
-    we attempt to phrase that constraint with a cert predicate that is a
+    that constraint is phrased with a cert predicate that is a
     function of the bare TM observable alone, the cert function cannot agree
-    with vm_certified on Thiele states -- by [cert_not_function_of_forget].
+    with vm_certified on Thiele states, by [cert_not_function_of_forget].
 *)
 Corollary no_classical_a2_cert_predicate :
   forall phi : TMSnapshot -> bool,
@@ -261,7 +262,7 @@ Qed.
     The cost-ledger separation says: there exist Thiele states with identical
     bare-classical observables but different mu values.  Any predicate on the
     bare projection that purports to detect that separation must be able to
-    extract mu from the projection -- which is impossible by
+    extract mu from the projection, which is impossible by
     [mu_not_function_of_bare_observable].
 *)
 Corollary no_classical_mu_separation_predicate :
@@ -277,7 +278,7 @@ Qed.
 
     The structural-axis diagonal in StructuralUndecidability.v references the
     csr_cert_addr channel.  Any analog of that diagonal on TMSnapshot must
-    extract csr_cert_addr from forget -- which is impossible by
+    extract csr_cert_addr from forget, which is impossible by
     [cert_addr_not_function_of_forget].
 *)
 Corollary no_classical_cert_addr_predicate :
@@ -292,8 +293,8 @@ Qed.
 (** ** Section 4: the combined non-existence statement.
 
     A single packaged theorem that names all three irrecoverabilities and the
-    irrecoverable fields they pin down.  This is the form the monograph cites
-    as "the Thiele content the bare projection structurally cannot carry."
+    irrecoverable fields they pin down: the Thiele content the bare
+    projection structurally cannot carry.
 *)
 
 Theorem thiele_content_irrecoverable_from_bare_projection :

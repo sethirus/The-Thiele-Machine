@@ -1,4 +1,4 @@
-(** TableInvariantsReachable.v: the reachable-state invariants of C1/C2.
+(** TableInvariantsReachable.v: the reachable-state invariants of the CPU's tables.
 
     [TableInvariants.hwb_table_invariants_reset] gives a boundary at the reset
     state carrying [hwb_table_invariants]. [TableInvariantsPreserved.
@@ -102,9 +102,9 @@ Proof.
     rewrite <- Hsnap. exact IH.
 Qed.
 
-(** The composed statement C1/C2 asks for: an admitted chain from the reset
-    boundary is an actual Kami execution whose final state carries the table
-    invariants and observes the kernel's run of the same instructions. *)
+(** An admitted chain from the reset boundary is an actual Kami execution
+    whose final state carries the table invariants and observes the
+    kernel's run of the same instructions. *)
 Theorem fsm_retirement_refinement :
   exists b0, hwb_regs b0 = dispatch_reset_state /\
     forall is d, AdmittedRun b0 is d ->

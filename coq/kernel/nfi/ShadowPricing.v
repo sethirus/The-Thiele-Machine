@@ -17,7 +17,7 @@
     - If the window shows the reading, a shadow account prices exactly.
 
     So exact pricing needs the reading in what the account carries. On the
-    VM both windows the book names, [bare_observable] and [forget], have such
+    VM both named windows, [bare_observable] and [forget], have such
     a collision from the clean start: [CERTIFY] against a [JUMP] with the
     same visible effect. The exact price lives in the step, or in a window
     that shows certification; the read/write shadow cannot carry it. *)

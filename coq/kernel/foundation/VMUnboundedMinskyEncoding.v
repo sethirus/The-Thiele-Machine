@@ -147,7 +147,7 @@ Proof.
   rewrite encode_minsky_program_fetch_N_outside by assumption. reflexivity.
 Qed.
 
-(** The concrete B3 input encoding.  Guest program and input counters vary
+(** The concrete interpreter input encoding.  Guest program and input counters vary
     only in data; the host instruction list remains fixed. *)
 Definition minsky_input_encoding (ambient : VMState) (p : list MinskyInstrU)
     (width x0 x1 : nat) : VMState :=
@@ -158,7 +158,7 @@ Definition minsky_config_encoding (ambient : VMState) (p : list MinskyInstrU)
     (width : nat) (c : MinskyConfigU) : VMState :=
   minsky_boundary ambient (encode_minsky_program width p) width c.
 
-(** Total executable data encodings used by the premise-free B3 theorems. *)
+(** Total executable data encodings used by the premise-free interpreter theorems. *)
 Definition minsky_total_input_encoding (ambient : VMState)
     (p : list MinskyInstrU) (x0 x1 : nat) : VMState :=
   minsky_input_encoding ambient p (minsky_encoding_width p) x0 x1.

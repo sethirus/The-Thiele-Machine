@@ -97,7 +97,7 @@ Qed.
 
 (* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 
-Theorem extraction_c3_born_rule_anchor :
+Theorem extraction_born_rule_uniqueness_anchor :
   forall (P : ProbabilityRule),
     valid_born_rule P ->
     forall (z : R), (-1 <= z <= 1)%R -> P z = born_probability z.
@@ -108,7 +108,7 @@ Qed.
 (* definitional lemma: re-exports the trace_npa_model + Tsirelson bound
    conclusion under a shorter name; no new mathematical content. *)
 (* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
-Theorem extraction_c4_tsirelson_model_anchor :
+Theorem extraction_tsirelson_npa_model_anchor :
   forall fuel trace s_init,
     trace_quantum_bridge_coherent fuel trace s_init ->
     trace_npa_model fuel trace s_init /\
@@ -221,17 +221,18 @@ Proof.
 Qed.
 
 (* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
-(** [extraction_nfi_to_einstein_anchor]: pins the full NoFI → discrete GR chain
-    into the extraction root. NoFI → area law → Clausius → Raychaudhuri →
-    ΔCurvature = κ·Δ(Euler characteristic). Zero admits, zero axioms.
-    The only open hypothesis: mu_landauer_unruh_calibrated (Landauer + Unruh, experimental). *)
+(** [extraction_nfi_to_einstein_anchor]: pins the NoFIToEinstein tuple into
+    the extraction root: discrete Gauss-Bonnet (ΔCurvature = κ·Δ(Euler
+    characteristic) from the two triangulation premises), the certification
+    cost floor, and the calibrated-flux positivity theorem. The tuple groups
+    them; no component feeds another. Zero admits, zero axioms. *)
 Definition extraction_nfi_to_einstein_anchor :=
   NoFIToEinstein.nfi_to_gr_chain_complete.
 
 (* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 (** [extraction_monoidal_coherence_anchor]: pins CategoryMonoidal.monoidal_coherence
     into the extraction root. Tensor (coupling append) is associative with []
-    as left and right unit — the categorical foundation for MORPH_TENSOR. *)
+    as left and right unit. This is the categorical foundation for MORPH_TENSOR. *)
 Theorem extraction_monoidal_coherence_anchor :
   forall r1 r2 r3 : list (nat * nat),
     CategoryMonoidal.coupling_tensor
@@ -247,7 +248,7 @@ Qed.
 (* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 (** [extraction_compose_assoc_anchor]: pins CategoryLaws.relational_compose_assoc
     into the extraction root. Relational composition is associative up to
-    coupling_equiv — the categorical foundation for COMPOSE. *)
+    coupling_equiv. This is the categorical foundation for COMPOSE. *)
 Theorem extraction_compose_assoc_anchor :
   forall r1 r2 r3 : CategoryLaws.Coupling,
     CategoryLaws.coupling_equiv
@@ -260,7 +261,7 @@ Proof.
 Qed.
 
 (* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
-(* SCOPE NOTE: alias for extraction proof-root dependency wiring — pins driven_step_compose into extraction surface. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring; it pins driven_step_compose into extraction surface. *)
 Theorem extraction_compose_anchor :
   forall ks dst m1_id m2_id cost,
     extended_hw_invariant ks ->
@@ -273,7 +274,7 @@ Proof.
 Qed.
 
 (* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
-(* SCOPE NOTE: alias for extraction proof-root dependency wiring — pins driven_step_morph_tensor into extraction surface. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring; it pins driven_step_morph_tensor into extraction surface. *)
 Theorem extraction_morph_tensor_anchor :
   forall ks dst f_id g_id cost,
     extended_hw_invariant ks ->
@@ -298,35 +299,35 @@ Extract Inductive nat => "int"
   [ "0" "(fun x -> x + 1)" ]
   "(fun zero succ n -> if n=0 then zero () else succ (n-1))".
 
-(* SAFE: Standard Coq library nat arithmetic — OCaml (+) is equivalent for non-negative int *)
+(* SAFE: Standard Coq library nat arithmetic; OCaml (+) is equivalent for non-negative int *)
 Extract Constant Nat.add => "(+)".
-(* SAFE: Standard Coq library nat multiplication — OCaml ( * ) is equivalent for non-negative int *)
+(* SAFE: Standard Coq library nat multiplication; OCaml ( * ) is equivalent for non-negative int *)
 Extract Constant Nat.mul => "( * )".
-(* SAFE: Standard Coq library nat subtraction — clamped to 0 matches Nat.sub semantics *)
+(* SAFE: Standard Coq library nat subtraction; clamped to 0 matches Nat.sub semantics *)
 Extract Constant Nat.sub => "fun n m -> max 0 (n-m)".
-(* SAFE: Standard Coq library minimum — OCaml's min is equivalent on int naturals *)
+(* SAFE: Standard Coq library minimum; OCaml's min is equivalent on int naturals *)
 Extract Constant Nat.min => "Stdlib.min".
-(* SAFE: Standard Coq library nat equality — OCaml structural (=) matches Nat.eqb on int *)
+(* SAFE: Standard Coq library nat equality; OCaml structural (=) matches Nat.eqb on int *)
 Extract Constant Nat.eqb => "(=)".
-(* SAFE: Nat.div — guard against y=0 to match Coq semantics (returns 0) *)
+(* SAFE: Nat.div; guard against y=0 to match Coq semantics (returns 0) *)
 Extract Constant Nat.div => "fun x y -> if y = 0 then 0 else x / y".
-(* SAFE: Nat.modulo — guard against y=0 to match Coq semantics (returns 0) *)
+(* SAFE: Nat.modulo; guard against y=0 to match Coq semantics (returns 0) *)
 Extract Constant Nat.modulo => "fun x y -> if y = 0 then 0 else x mod y".
-(* SAFE: Nat.ltb — OCaml (<) is equivalent for non-negative int *)
+(* SAFE: Nat.ltb; OCaml (<) is equivalent for non-negative int *)
 Extract Constant Nat.ltb => "(<)".
 
-(* SAFE: word_to_bytes_4 — bit ops equivalent to Coq mod/div byte split; values returned are ascii chars (0-255) *)
+(* SAFE: word_to_bytes_4 uses bit ops equivalent to Coq mod/div byte split; values returned are ascii chars (0-255) *)
 Extract Constant VMState.word_to_bytes_4 =>
   "(fun w -> [Char.chr (w land 0xff); Char.chr ((w lsr 8) land 0xff); Char.chr ((w lsr 16) land 0xff); Char.chr ((w lsr 24) land 0xff)])".
 
-(* SAFE: bytes_to_word_4 — lor/lsl equivalent to b0+b1*256+b2*65536+b3*16777216 for b0..b3 in [0,255] *)
+(* SAFE: bytes_to_word_4 uses lor/lsl, equivalent to b0+b1*256+b2*65536+b3*16777216 for b0..b3 in [0,255] *)
 Extract Constant VMState.bytes_to_word_4 =>
   "(fun b0 b1 b2 b3 -> b0 lor (b1 lsl 8) lor (b2 lsl 16) lor (b3 lsl 24))".
 
 (* NOTE ON 63-BIT WORD FIDELITY:
    OCaml int on 64-bit platforms is 63-bit (1 bit used by GC tag). The
    Int64.to_int → Int64.of_int round-trip loses bit 63 of the 64-bit value.
-   This gives us 63-bit operational fidelity (values 0..2^62-1 and the
+   This gives 63-bit operational fidelity (values 0..2^62-1 and the
    two's-complement signed range are exact). Values in unsigned [2^62, 2^64)
    with bit 63 ≠ bit 62 cannot be distinguished. The Coq proofs have full
    64-bit fidelity; the Verilog RTL has 32-bit. The nonnegative native-int
@@ -334,49 +335,49 @@ Extract Constant VMState.bytes_to_word_4 =>
    must keep intermediate values in the domain required by each replacement.
    See VMState.v lines 962-965 for documentation of this boundary. *)
 
-(* SAFE: 64-bit addition via Int64 — wraps at 2^64 boundary, 63-bit fidelity *)
+(* SAFE: 64-bit addition via Int64; wraps at the 2^64 boundary, 63-bit fidelity *)
 Extract Constant VMState.word64_add =>
   "(fun a b -> Int64.to_int (Int64.add (Int64.of_int a) (Int64.of_int b)))".
 
-(* SAFE: bitwise XOR via Int64 — 63-bit fidelity *)
+(* SAFE: bitwise XOR via Int64, 63-bit fidelity *)
 Extract Constant VMState.word64_xor =>
   "(fun a b -> Int64.to_int (Int64.logxor (Int64.of_int a) (Int64.of_int b)))".
 
-(* SAFE: popcount via Int64 Kernighan bit-clear loop — counts set bits *)
+(* SAFE: popcount via Int64 Kernighan bit-clear loop; counts set bits *)
 Extract Constant VMState.word64_popcount =>
   "(fun x -> let v = ref (Int64.of_int x) in let c = ref 0 in while !v <> 0L do v := Int64.logand !v (Int64.sub !v 1L); incr c done; !c)".
 
-(* SAFE: bitwise AND via Int64 — 63-bit fidelity *)
+(* SAFE: bitwise AND via Int64, 63-bit fidelity *)
 Extract Constant VMState.word64_and =>
   "(fun a b -> Int64.to_int (Int64.logand (Int64.of_int a) (Int64.of_int b)))".
 
-(* SAFE: bitwise OR via Int64 — 63-bit fidelity *)
+(* SAFE: bitwise OR via Int64, 63-bit fidelity *)
 Extract Constant VMState.word64_or =>
   "(fun a b -> Int64.to_int (Int64.logor (Int64.of_int a) (Int64.of_int b)))".
 
-(* SAFE: left shift modulo 64 via Int64 — 63-bit fidelity *)
+(* SAFE: left shift modulo 64 via Int64, 63-bit fidelity *)
 Extract Constant VMState.word64_shl =>
   "(fun a b -> Int64.to_int (Int64.shift_left (Int64.of_int a) (b mod 64)))".
 
-(* SAFE: logical right shift modulo 64 via Int64 — 63-bit fidelity.
+(* SAFE: logical right shift modulo 64 via Int64, 63-bit fidelity.
    NOTE: SHR can propagate bit-63 errors from sign-extension for inputs
    where bit 63 ≠ bit 62 (unsigned range [2^62, 2^63-1]). *)
 Extract Constant VMState.word64_shr =>
   "(fun a b -> Int64.to_int (Int64.shift_right_logical (Int64.of_int a) (b mod 64)))".
 
-(* SAFE: 64-bit subtraction via Int64 — two's complement wrap, 63-bit fidelity *)
+(* SAFE: 64-bit subtraction via Int64 with two's complement wrap, 63-bit fidelity *)
 Extract Constant VMState.word64_sub =>
   "(fun a b -> Int64.to_int (Int64.sub (Int64.of_int a) (Int64.of_int b)))".
 
-(* SAFE: 64-bit multiplication via Int64 — wrapping multiply, 63-bit fidelity *)
+(* SAFE: 64-bit multiplication via Int64, a wrapping multiply, 63-bit fidelity *)
 Extract Constant VMState.word64_mul =>
   "(fun a b -> Int64.to_int (Int64.mul (Int64.of_int a) (Int64.of_int b)))".
 
-(* SAFE: 64-bit mask — OCaml int(-1) has all bits set;
+(* SAFE: 64-bit mask; OCaml int(-1) has all bits set;
    Int64.of_int(-1) = 0xFFFFFFFFFFFFFFFF for correct round-trip *)
 Extract Constant VMState.word64_mask => "(-1)".
 
-(* SAFE: Truncate to word64 — identity; word64_add and other operations
+(* SAFE: Truncate to word64 is the identity; word64_add and other operations
    already handle truncation via Int64 internally *)
 Extract Constant VMState.word64 => "(fun x -> x)".
 

@@ -1,4 +1,4 @@
-(** ThieleTypes.v — Hardware type definitions for the Kami Thiele CPU.
+(** ThieleTypes.v: Hardware type definitions for the Kami Thiele CPU.
     Maps the Coq VMState types to fixed-size hardware representations. *)
 
 Require Import Kami.Kami.
@@ -6,7 +6,7 @@ Require Import Kami.Kami.
 Set Implicit Arguments.
 Set Asymmetric Patterns.
 
-(** Register and memory dimensions — must match VMState.v.
+(** Register and memory dimensions: must match VMState.v.
 
     These are fixed numbers: the silicon-side bounds of the synthesized RTL
     for the Kintex-7 xc7k325tffg900-2 / Digilent Genesys 2 target through the
@@ -26,8 +26,8 @@ Definition DescKindFieldSz := 4.
 Definition InlineLenSz := 8.
 Definition OpcodeSz := 8.
 Definition CostSz := 8.
-Definition MuTensorIdxSz := 4.
-Definition ModTensorIdxSz := 4. (* log2(16) module slots addressable by a 4-bit tensor module field *)  (* log2(16) — 4×4 flattened μ-tensor *)
+Definition MuTensorIdxSz := 4.  (* log2(16): 4×4 flattened μ-tensor *)
+Definition ModTensorIdxSz := 4. (* log2(16) module slots addressable by a 4-bit tensor module field *)
 
 (** ISA-v2 format identifiers. *)
 Definition FMT_LEGACY : word FormatIdSz :=
@@ -58,16 +58,16 @@ Definition PTableNextIdSz := 7.  (* enough to represent 0..PTableSz for trap *)
 Definition DescIdxSz := 4.            (* generic descriptor identifier width *)
 Definition DescTableSz := 16.
 Definition DescTableNextIdSz := 5.    (* enough to represent 0..16 descriptor allocations *)
-Definition MorphTableIdxSz := 4.      (* log2(16) — 16 morphism descriptors *)
+Definition MorphTableIdxSz := 4.      (* log2(16): 16 morphism descriptors *)
 Definition MorphTableSz := 16.
 Definition MorphTableNextIdSz := 5.   (* enough to represent 0..16 for trap/overflow checks *)
-Definition CouplingDescIdxSz := 4.    (* log2(16) — 16 coupling descriptors *)
+Definition CouplingDescIdxSz := 4.    (* log2(16): 16 coupling descriptors *)
 Definition CouplingDescSz := 16.
-Definition FormulaDescIdxSz := 4.     (* log2(16) — 16 formula descriptors *)
+Definition FormulaDescIdxSz := 4.     (* log2(16): 16 formula descriptors *)
 Definition FormulaDescSz := 16.
-Definition CertDescIdxSz := 4.        (* log2(16) — 16 certification descriptors *)
+Definition CertDescIdxSz := 4.        (* log2(16): 16 certification descriptors *)
 Definition CertDescSz := 16.
-Definition DescMetaIdxSz := 4.        (* log2(16) — 16 descriptor metadata records *)
+Definition DescMetaIdxSz := 4.        (* log2(16): 16 descriptor metadata records *)
 Definition DescMetaSz := 16.
 Definition CouplingPairIdxSz := 4.    (* bounded on-chip storage for 16 coupling pairs *)
 Definition CouplingPairSz := 16.
@@ -85,13 +85,13 @@ Definition PT_NEXT_ID_INIT : word PTableNextIdSz :=
 
 (** Initial value for morph_next_id: starts at 1 to match empty_graph.pg_next_morph_id = 1 *)
 Definition MORPH_NEXT_ID_INIT : word MorphTableNextIdSz :=
-  WO~0~0~0~0~1. (* value 1 — 5-bit *)
+  WO~0~0~0~0~1. (* value 1: 5-bit *)
 
 (** Descriptor / pair tables start empty, so their next-id counters begin at 0. *)
 Definition DESC_NEXT_ID_INIT : word DescTableNextIdSz :=
   WO~0~0~0~0~0. (* 5-bit *)
 
-(** Error code constants — must match handwritten RTL.
+(** Error code constants, as the generated RTL uses them.
     Using binary literals to avoid pathological Peano extraction.
     All values are 32-bit. *)
 (* ERR_CHSH_VAL = 0x0BADC45C - simplified for fast extraction *)
@@ -116,34 +116,34 @@ Definition ERR_PARTITION_VAL : word WordSz :=
    partition table unchanged. *)
 Definition ERR_PARTITION_OVERLAP_VAL : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~1~1~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~0.
-(* ERR_COUPLING_INVALID = 0xBADC0000 — morphism coupling failed well-formedness check *)
+(* ERR_COUPLING_INVALID = 0xBADC0000: morphism coupling failed well-formedness check *)
 Definition ERR_COUPLING_INVALID : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0.
-(* ERR_COMPOSE_TYPE = 0xBADC0001 — compose type mismatch (target ≠ source) *)
+(* ERR_COMPOSE_TYPE = 0xBADC0001: compose type mismatch (target ≠ source) *)
 Definition ERR_COMPOSE_TYPE : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1.
-(* ERR_TENSOR_INVALID = 0xBADC0002 — tensor morphism precondition failed *)
+(* ERR_TENSOR_INVALID = 0xBADC0002: tensor morphism precondition failed *)
 Definition ERR_TENSOR_INVALID : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0.
-(* ERR_MORPH_NOT_FOUND = 0xBADC0003 — morphism ID not in graph *)
+(* ERR_MORPH_NOT_FOUND = 0xBADC0003: morphism ID not in graph *)
 Definition ERR_MORPH_NOT_FOUND : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~1.
-(* ERR_ISA_VERSION = 0xBADC0010 — ISA-v2 instruction version field is invalid *)
+(* ERR_ISA_VERSION = 0xBADC0010: ISA-v2 instruction version field is invalid *)
 Definition ERR_ISA_VERSION : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~0~0.
-(* ERR_FORMAT_INVALID = 0xBADC0011 — reserved/unknown format_id *)
+(* ERR_FORMAT_INVALID = 0xBADC0011: reserved/unknown format_id *)
 Definition ERR_FORMAT_INVALID : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~0~1.
-(* ERR_DESC_RANGE = 0xBADC0012 — descriptor id outside bounded table range *)
+(* ERR_DESC_RANGE = 0xBADC0012: descriptor id outside bounded table range *)
 Definition ERR_DESC_RANGE : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~1~0.
-(* ERR_INLINE_MALFORMED = 0xBADC0013 — malformed inline payload/flag layout *)
+(* ERR_INLINE_MALFORMED = 0xBADC0013: malformed inline payload/flag layout *)
 Definition ERR_INLINE_MALFORMED : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~1~1.
-(* ERR_TABLE_OVERFLOW = 0xBADC0014 — bounded rich-state table allocation overflow *)
+(* ERR_TABLE_OVERFLOW = 0xBADC0014: bounded rich-state table allocation overflow *)
 Definition ERR_TABLE_OVERFLOW : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~1~0~0.
-(* ERR_CERT_DESC_INVALID = 0xBADC0015 — formula/cert descriptor invalid or mismatched *)
+(* ERR_CERT_DESC_INVALID = 0xBADC0015: formula/cert descriptor invalid or mismatched *)
 Definition ERR_CERT_DESC_INVALID : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~1~0~1.
 
@@ -163,16 +163,12 @@ Definition MSTATUS_TURING : word WordSz :=
 Definition MSTATUS_THIELE : word WordSz :=
   WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1.
 
-(** ORACLE_HALTS_HW_COST: legacy cost ceiling constant. No opcode uses it;
-    kept for conservative cost-cap lemmas in Abstraction.v. *)
-Definition ORACLE_HALTS_HW_COST : nat := 1000000.
-
 (** CHSH x=1 surcharge constant (μ-bits).
     CHSH_X1_SURCHARGE = 0x100 = 256 - binary literal for fast extraction *)
 Definition CHSH_X1_SURCHARGE : word WordSz :=
   WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~0~0~0~0~0~0~0.
 
-(** Opcode encoding — canonical source; RTL is generated via the Kami extraction chain *)
+(** Opcode encoding, the canonical source; RTL is generated via the Kami extraction chain *)
 Definition OP_PNEW         : word OpcodeSz := WO~0~0~0~0~0~0~0~0.
 Definition OP_PSPLIT        : word OpcodeSz := WO~0~0~0~0~0~0~0~1.
 Definition OP_PMERGE        : word OpcodeSz := WO~0~0~0~0~0~0~1~0.

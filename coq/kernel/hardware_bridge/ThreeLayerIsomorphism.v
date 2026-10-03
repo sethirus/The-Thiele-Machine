@@ -38,7 +38,7 @@ Proof.
   intros s i. eexists. reflexivity.
 Qed.
 
-(* Section 2: The 47-Opcode Completeness Proof                        *)
+(* Section 2: The 51-Opcode Completeness Proof                        *)
 
 Lemma instruction_exhaustive : forall (i : vm_instruction),
   match i with
@@ -189,7 +189,7 @@ Proof.
   intros s i s1 s2 H1 H2. rewrite <- H1, <- H2. reflexivity.
 Qed.
 
-(* Section 4: Wire Specification — abstract implementation contract    *)
+(* Section 4: Wire Specification, abstract implementation contract    *)
 
 (** A "wire specification" defines a μ/PC-level contract for an
     implementation. Any two implementations satisfying this contract agree on
@@ -206,22 +206,9 @@ Record WireSpec := {
     ws_step s i = s1 -> ws_step s i = s2 -> s1 = s2
 }.
 
-(** The Coq kernel would satisfy the wire specification for non-jump instructions.
- WireSpec abstraction is idealized and incomplete. Jump instructions don't
-    increment PC by 1. The complete semantics are proven in SimulationProof.v and
-    HardwareBridge.v. This partial spec is kept for documentation but not proven. *)
-(*
-(* SCOPE NOTE: coq_wire_spec commented out - WireSpec pc_advance incompatible with jump instructions *)
-Definition coq_wire_spec : WireSpec := {|
-  ws_state := VMState;
-  ws_step  := vm_apply;
-  ws_mu    := vm_mu;
-  ws_pc    := vm_pc;
-  ws_mu_exact   := mu_cost_exact;
-  ws_pc_advance := ...;  (* Cannot prove - jumps violate this *)
-  ws_deterministic := step_deterministic_fn
-|}.
-*)
+(** The Coq kernel does not satisfy [WireSpec] as a whole: jump
+    instructions do not increment PC by 1. Its full semantics are in
+    SimulationProof.v. *)
 
 (* Section 5: Trace execution and cost accounting                      *)
 
@@ -254,7 +241,7 @@ Proof.
   - rewrite IH. rewrite (ws_pc_advance spec). lia.
 Qed.
 
-(* Section 6: THE CORE THEOREM — 3-way bisimulation                    *)
+(* Section 6: THE CORE THEOREM, 3-way bisimulation                    *)
 
 (** Any two implementations satisfying [WireSpec], starting from the same
     μ and PC, produce identical μ and PC after executing the same trace. *)
@@ -276,22 +263,6 @@ Proof.
   - rewrite !trace_pc_exact. lia.
 Qed.
 
-(** Corollary: Coq kernel bisimilar to any conforming implementation. *)
-(* SCOPE NOTE: corollary commented out - depends on coq_wire_spec which cannot be proven for jumps
-Corollary coq_bisimilar_to_any :
-  forall (impl : WireSpec)
-    (s_coq : VMState) (s_impl : ws_state impl)
-    (instrs : list vm_instruction),
-  vm_mu s_coq = ws_mu impl s_impl ->
-  vm_pc s_coq = ws_pc impl s_impl ->
-  vm_mu (run_wire coq_wire_spec instrs s_coq) =
-    ws_mu impl (run_wire impl instrs s_impl) /\
-  vm_pc (run_wire coq_wire_spec instrs s_coq) =
-    ws_pc impl (run_wire impl instrs s_impl).
-Proof.
-  intros. exact (three_layer_bisimulation coq_wire_spec impl _ _ instrs H H0).
-Qed.
-*)
 
 (* Section 7: Single-step bisimulation (per-instruction guarantee)     *)
 
@@ -313,7 +284,7 @@ Qed.
 (* Section 8: Full-State Wire Specification                            *)
 
 (** WireSpec only covers μ and PC. For the full three-layer comparison contract
-    we need to verify ALL state components: registers, memory, partition
+    the check covers ALL state components: registers, memory, partition
     graph, CSRs, and error flag.
 
     FullWireSpec strengthens WireSpec by requiring that every state
@@ -350,11 +321,11 @@ Definition preserves_memory (instr : vm_instruction) : bool :=
   end.
 
 (** Memory preservation theorem - omitted here.
-    Full memory semantics proven in HardwareBridge.v and SimulationProof.v.
+    The memory semantics are in SimulationProof.v (vm_apply).
     The STORE instruction modifies memory by design, so a universal memory
     preservation theorem would need per-instruction predicates. *)
 
-(** A [FullWireSpec] extends [WireSpec] with the current VMState observables.
+(** A [FullWireSpec] extends [WireSpec] with the VMState observables.
     The single proof obligation says: the output of every projected state
     component must match [vm_apply] of the projected input. *)
 
@@ -362,7 +333,7 @@ Record FullWireSpec := {
   fws_state : Type;
   fws_step  : fws_state -> vm_instruction -> fws_state;
 
-  (** Observable projections — one for each VMState field used here. *)
+  (** Observable projections: one for each VMState field used here. *)
   fws_graph : fws_state -> PartitionGraph;
   fws_csrs  : fws_state -> CSRState;
   fws_regs  : fws_state -> list nat;
@@ -377,7 +348,7 @@ Record FullWireSpec := {
   fws_certified : fws_state -> bool;
 
   (** Core correctness: all output observables match vm_apply of projected input.
-      This is the SINGLE axiom that implementations must satisfy. *)
+      This is the SINGLE obligation that implementations must satisfy. *)
   fws_step_correct : forall s i,
     let input := project_vmstate (fws_graph s) (fws_csrs s) (fws_regs s)
                    (fws_mem s) (fws_pc s) (fws_mu s) (fws_mu_tensor s) (fws_err s)
@@ -441,7 +412,7 @@ Definition coq_full_wire_spec : FullWireSpec := {|
   fws_step_correct := coq_full_step_correct
 |}.
 
-(* Section 9: THE CORE THEOREM — Full-State 3-Way Bisimulation         *)
+(* Section 9: THE CORE THEOREM, Full-State 3-Way Bisimulation         *)
 
 (** Single-step full-state comparison: if two [FullWireSpec] implementations
     agree on all projected observables, they agree on those observables after

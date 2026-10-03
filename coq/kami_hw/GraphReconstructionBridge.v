@@ -2,12 +2,9 @@
 
   This file bridges the hardware step function to vm_apply through the full
   snapshot abstraction. The main theorem covers the supported opcode class
-  directly, and the later conditional lemmas extend that bridge to the more
-  delicate cases.
-
-  The point is proof plumbing, not rhetoric: line up the full reconstructed
-  hardware state with the abstract VM state strongly enough to reuse vm_apply
-  semantics at the hardware boundary.
+  directly, and the later conditional lemmas extend that bridge to the
+  remaining opcodes; [driven_step_wf] collects all 51 under
+  [WFDrivenPrecondition].
 *)
 
 Require Import Coq.Lists.List.
@@ -49,7 +46,7 @@ Definition hw_repr_invariant (ks : KamiSnapshot) : Prop :=
   pt_well_formed ks.
 
 (* ======================================================================
-   §2  Core: 31 SupportedOpcodes
+   §2  Core: 35 SupportedOpcodes
    *)
 
 (** Re-export from FullEmbedStep.v *)
@@ -138,7 +135,7 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §5  LASSERT: full VMState equality (no mu gap — hardware matches kernel)
+   §5  LASSERT: full VMState equality (no mu gap: hardware matches kernel)
    *)
 
 Lemma snap_full_graph_lassert :
@@ -691,9 +688,9 @@ Qed.
    §8  Extended Representation Invariant
    *)
 
-(** Coupling descriptor table has no entry at index 0.
-    All hardware-created morphisms use coupling_desc = 0.
-    Maintained by all kami_step branches (none writes coupling descriptors). *)
+(** Descriptor 0 is reserved: the coupling descriptor table has no entry
+    at index 0. MORPH_ID stores descriptor 0, the empty coupling, and
+    allocation starts above 0 ([coupling_desc_safe]). *)
 Definition coupling_zero_empty (rs : RichSnapshotState) : Prop :=
   rs.(rich_coupling_desc_table) 0 = None.
 
@@ -703,8 +700,10 @@ Definition coupling_zero_empty (rs : RichSnapshotState) : Prop :=
 Definition morph_table_wf (rs : RichSnapshotState) : Prop :=
   forall i, i >= rich_next_morph_id rs -> rich_morph_table rs i = None.
 
-(** All existing morphisms have coupling_desc = 0 (hardware invariant:
-    rich_state_add_morph always passes 0 as coupling_desc). *)
+(** Every morphism in the table names descriptor 0. MORPH, COMPOSE and
+    MORPH_TENSOR allocate fresh descriptors, so this holds only for tables
+    no such step has written; [coupling_wf] is the invariant every step
+    preserves. *)
 Definition coupling_desc_all_zero (rs : RichSnapshotState) : Prop :=
   forall i entry, rs.(rich_morph_table) i = Some entry ->
     morph_entry_coupling_desc entry = 0.
@@ -731,8 +730,8 @@ Definition coupling_pairs_fully_populated (rs : RichSnapshotState) : Prop :=
     rs.(rich_coupling_pair_table) (coupling_desc_base desc + ofs) <> None.
 
 (** Combined well-formedness predicate for the coupling tables.
-    This predicate is preserved by all 46 kami_step operations including
-    COMPOSE and MORPH_TENSOR. *)
+    This predicate is preserved by every kami_step operation, including
+    COMPOSE and MORPH_TENSOR ([coupling_wf_kami_step_preserved]). *)
 Definition coupling_wf (rs : RichSnapshotState) : Prop :=
   coupling_desc_bounded rs /\
   coupling_pairs_in_range rs /\
@@ -912,7 +911,7 @@ Qed.
 
 (*  These lemmas prove the three primitive operations that can modify the
    morph table each individually preserve morph_table_wf.  The master
-   theorem morph_table_wf_kami_step_preserved then dispatches all 46
+   theorem morph_table_wf_kami_step_preserved then dispatches all 51
    vm_instruction constructors to the appropriate helper.
    *)
 
@@ -1031,9 +1030,9 @@ Proof.
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j); simpl snap_rich_state; exact Hwf.
   (* instr_morph (dst src_mod dst_mod coupling_idx mu_delta):
-     success path uses rich_state_add_morph_with_coupling (M5: real coupling
-     decoded from memory, registered through the same allocation path
-     COMPOSE/MORPH_TENSOR already use, rather than a fixed empty morphism). *)
+     success path uses rich_state_add_morph_with_coupling, with the coupling
+     decoded from memory and registered through the allocation path
+     COMPOSE/MORPH_TENSOR use. *)
   - unfold kami_step.
     destruct (negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) &&
               negb (Nat.eqb (snap_pt_sizes ks dst_mod) 0)) eqn:Hc.
@@ -1236,8 +1235,9 @@ Proof.
 Qed.
 
 (** coupling_desc_safe (rich_next_coupling_desc_id > 0) is preserved by all
-    46 kami_step operations.  Non-COMPOSE/MORPH_TENSOR ops leave the counter
-    unchanged; those two success paths increment it (always stays > 0). *)
+    51 kami_step operations.  The success paths of MORPH, COMPOSE and
+    MORPH_TENSOR increment the counter; every other operation leaves it
+    unchanged. *)
 Theorem coupling_desc_safe_kami_step_preserved :
   forall ks i,
     coupling_desc_safe ks ->
@@ -1267,10 +1267,10 @@ Proof.
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j);
       simpl snap_rich_state; simpl rich_next_coupling_desc_id; exact Hsafe.
-  (* instr_morph: success uses rich_state_add_morph_with_coupling (M5) —
-     the counter increases by one rather than staying fixed, same as
-     COMPOSE/MORPH_TENSOR below; add_with_coupling_next_desc_id_pos gives
-     positivity directly from the Eram equation alone. *)
+  (* instr_morph: success uses rich_state_add_morph_with_coupling; the
+     counter increases by one, as for COMPOSE/MORPH_TENSOR below;
+     add_with_coupling_next_desc_id_pos gives positivity directly from the
+     Eram equation alone. *)
   - unfold kami_step.
     destruct (negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) &&
               negb (Nat.eqb (snap_pt_sizes ks dst_mod) 0)) eqn:Hc.
@@ -1280,7 +1280,7 @@ Proof.
       exact (add_with_coupling_next_desc_id_pos _ _ _ _ _ _ _ _ Eram).
     + unfold kami_advance_err. simpl snap_rich_state.
       simpl rich_next_coupling_desc_id. exact Hsafe.
-  (* instr_compose: success uses add_morph_with_coupling — counter +1, always > 0 *)
+  (* instr_compose: success uses add_morph_with_coupling; counter +1, always > 0 *)
   - unfold kami_step.
     destruct (rich_morph_table (snap_rich_state ks) m1_id) as [e1|] eqn:He1;
     destruct (rich_morph_table (snap_rich_state ks) m2_id) as [e2|] eqn:He2;
@@ -1296,7 +1296,7 @@ Proof.
     end.
     unfold kami_advance_rich_morph. simpl snap_rich_state.
     exact (add_with_coupling_next_desc_id_pos _ _ _ _ _ _ _ _ Eawc).
-  (* instr_morph_id: success uses rich_state_add_morph — preserves counter *)
+  (* instr_morph_id: success uses rich_state_add_morph, which preserves counter *)
   - unfold kami_step.
     destruct (negb (Nat.eqb (snap_pt_sizes ks module) 0)) eqn:Hc.
     + destruct (rich_state_add_morph (snap_rich_state ks) module module 0 true)
@@ -1307,17 +1307,17 @@ Proof.
       rewrite Eram in Hpres. simpl fst in Hpres. lia.
     + unfold kami_advance_err. simpl snap_rich_state.
       simpl rich_next_coupling_desc_id. exact Hsafe.
-  (* instr_morph_delete: success uses rich_state_delete_morph — preserves counter *)
+  (* instr_morph_delete: success uses rich_state_delete_morph, which preserves counter *)
   - unfold kami_step, kami_advance_rich_noret, kami_advance_err.
     destruct (rich_morph_table (snap_rich_state ks) morph_id) eqn:Hmt;
       simpl snap_rich_state.
     + rewrite delete_morph_preserves_next_coupling_desc_id. exact Hsafe.
     + simpl rich_next_coupling_desc_id. exact Hsafe.
-  (* instr_morph_assert: cert_addr or err — rich_state unchanged *)
+  (* instr_morph_assert: cert_addr or err; rich_state unchanged *)
   - unfold kami_step, kami_advance_cert_addr, kami_advance_err.
     destruct (rich_morph_table (snap_rich_state ks) morph_id);
       simpl snap_rich_state; simpl rich_next_coupling_desc_id; exact Hsafe.
-  (* instr_morph_tensor: success uses add_morph_with_coupling — counter +1, always > 0 *)
+  (* instr_morph_tensor: success uses add_morph_with_coupling; counter +1, always > 0 *)
   - unfold kami_step.
     set (g := snap_full_graph ks).
     destruct (graph_tensor_morphisms g f_id g_id) as [[g' mid]|] eqn:Htens;
@@ -1332,14 +1332,14 @@ Proof.
                (coupling_label (morph_coupling new_ms)) false) as [rs' nid2] eqn:Eadd.
     unfold kami_advance_rich_morph. simpl snap_rich_state.
     exact (add_with_coupling_next_desc_id_pos _ _ _ _ _ _ _ _ Eadd).
-  (* instr_morph_get: reg or err — rich_state unchanged *)
+  (* instr_morph_get: reg or err; rich_state unchanged *)
   - unfold kami_step, kami_advance_reg, kami_advance_err.
     destruct (rich_morph_table (snap_rich_state ks) morph_id);
       simpl snap_rich_state; simpl rich_next_coupling_desc_id; exact Hsafe.
 Qed.
 
 (** coupling_zero_empty (rich_coupling_desc_table 0 = None) is preserved by all
-    46 kami_step operations, conditional only on coupling_desc_safe holding
+    51 kami_step operations, conditional only on coupling_desc_safe holding
     initially.  The key argument: rich_state_add_coupling_data writes at
     desc_id = rich_next_coupling_desc_id rs > 0 (by coupling_desc_safe), so
     slot 0 is never written. *)
@@ -1372,7 +1372,7 @@ Proof.
   (* instr_tensor_get *)
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j); simpl snap_rich_state; exact Hcze.
-  (* instr_morph: uses rich_state_add_morph_with_coupling (M5); the
+  (* instr_morph: uses rich_state_add_morph_with_coupling; the
      descriptor table does change, but add_with_coupling_preserves_coupling_zero_empty
      covers exactly this, from Hsafe and Hcze on the pre-state. *)
   - unfold kami_step.
@@ -1419,7 +1419,7 @@ Proof.
     + unfold coupling_zero_empty. rewrite delete_morph_preserves_coupling_desc_table.
       exact Hcze.
     + exact Hcze.
-  (* instr_morph_assert: cert_addr or err — rich_state unchanged *)
+  (* instr_morph_assert: cert_addr or err; rich_state unchanged *)
   - unfold kami_step, kami_advance_cert_addr, kami_advance_err.
     destruct (rich_morph_table (snap_rich_state ks) morph_id);
       simpl snap_rich_state; exact Hcze.
@@ -1437,7 +1437,7 @@ Proof.
     unfold kami_advance_rich_morph. simpl snap_rich_state.
     exact (add_with_coupling_preserves_coupling_zero_empty
              _ _ _ _ _ _ _ _ Eadd Hsafe Hcze).
-  (* instr_morph_get: reg or err — rich_state unchanged *)
+  (* instr_morph_get: reg or err; rich_state unchanged *)
   - unfold kami_step, kami_advance_reg, kami_advance_err.
     destruct (rich_morph_table (snap_rich_state ks) morph_id);
       simpl snap_rich_state; exact Hcze.
@@ -1450,9 +1450,9 @@ Qed.
                  coupling_pairs_fully_populated
 
    This IS an inductive invariant: unlike coupling_desc_all_zero it is
-   preserved by COMPOSE and MORPH_TENSOR because the new coupling_desc
-   equals the old next_desc_id which is then incremented, keeping all
-   existing descs strictly below the new next_desc_id.
+   preserved by MORPH, COMPOSE and MORPH_TENSOR because the new
+   coupling_desc equals the old next_desc_id which is then incremented,
+   keeping all existing descs strictly below the new next_desc_id.
    *)
 
 (** rich_state_add_morph preserves coupling_wf when the new desc index is
@@ -1582,8 +1582,9 @@ Proof.
 Qed.
 
 (** coupling_wf is preserved by every kami_step operation.
-    Uses coupling_desc_safe (next_desc_id > 0) for MORPH and MORPH_ID
-    (which add a morph with coupling_desc = 0). *)
+    Uses coupling_desc_safe (next_desc_id > 0) for MORPH, COMPOSE and
+    MORPH_TENSOR (which allocate a descriptor) and MORPH_ID (which adds a
+    morph with coupling_desc = 0). *)
 Theorem coupling_wf_kami_step_preserved :
   forall ks i,
     coupling_wf (snap_rich_state ks) ->
@@ -1611,7 +1612,7 @@ Proof.
   (* instr_tensor_get *)
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j); simpl snap_rich_state; exact Hwcf.
-  (* instr_morph: uses rich_state_add_morph_with_coupling (M5), same
+  (* instr_morph: uses rich_state_add_morph_with_coupling, same
      shape as COMPOSE/MORPH_TENSOR below. *)
   - unfold kami_step.
     destruct (negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) &&
@@ -1719,12 +1720,12 @@ Lemma morph_lookup_agrees :
 Proof.
   intros ks mid Hwf.
   destruct ((snap_rich_state ks).(rich_morph_table) mid) eqn:Emid.
-  - (* Some — table has entry *)
+  - (* Some: table has entry *)
     destruct (Nat.lt_ge_cases mid (rich_next_morph_id (snap_rich_state ks))) as [Hlt|Hge].
     + apply morph_lookup_commutation; [exact Hlt|].
       rewrite Emid. discriminate.
     + exfalso. specialize (Hwf mid Hge). rewrite Hwf in Emid. discriminate.
-  - (* None — table empty *)
+  - (* None: table empty *)
     exact (morph_table_none_implies_graph_none ks mid Emid).
 Qed.
 
@@ -2143,7 +2144,7 @@ Proof.
        end) = morphism_selector_value ms selector).
     { rewrite Hms_eq. unfold morphism_selector_value. simpl.
       destruct selector as [|[|[|[|s']]]]; try reflexivity.
-      (* selector 2: coupling count — use coupling_count_length *)
+      (* selector 2: coupling count; use coupling_count_length *)
       destruct (rich_coupling_desc_table rs (morph_entry_coupling_desc m))
         as [desc|] eqn:Edesc.
       + symmetry.
@@ -2279,7 +2280,7 @@ Proof.
   rewrite Hsrc, Hdst. simpl andb.
   unfold vm_apply. cbn [vm_graph vm_mem].
   rewrite Esrc, Edst.
-  (* Both sides decode the identical serialized block (M5): same mem
+  (* Both sides decode the identical serialized block: same mem
      (snapshot_mem_to_list (snap_mem ks) on the hardware side, the
      definitionally-equal reconstructed vm_mem on the software side), same
      regions (from Esrc/Edst), same coupling_idx. *)
@@ -2381,7 +2382,7 @@ Qed.
 
 (** driven_step_morph_full: named corollary for callers such as the
     assumptions probe; requires the same extended_hw_invariant
-    driven_step_morph does, since M5's real coupling decode genuinely needs
+    driven_step_morph does, since decoding the coupling from memory needs
     coupling_wf and coupling_desc_safe, not just coupling_zero_empty. *)
 Theorem driven_step_morph_full :
   forall ks dst src_mod dst_mod coupling_idx cost,
@@ -3034,8 +3035,8 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §16  COMPOSE, MORPH_TENSOR: field-by-field with coupling gap
-   (MORPH_ID is fully proven — see driven_step_morph_id below)
+   §16  MORPH_ID, COMPOSE, MORPH_TENSOR
+   (field-by-field helpers for COMPOSE and MORPH_TENSOR, then full equality)
    *)
 
 (** MORPH_ID: full VMState equality (including vm_graph).
@@ -3215,7 +3216,7 @@ Proof.
   destruct (rich_morph_table rs m1_id) as [e1|] eqn:Em1.
   - (* m1 found in rich table *)
     destruct (rich_morph_table rs m2_id) as [e2|] eqn:Em2.
-    + (* Both found — bridge to graph lookups *)
+    + (* Both found: bridge to graph lookups *)
       pose proof (morph_lookup_agrees ks m1_id Hwf) as Hm1g.
       fold rs in Hm1g. rewrite Em1 in Hm1g.
       destruct (graph_lookup_morphism (snap_full_graph ks) m1_id) as [f|] eqn:Ef;
@@ -3231,13 +3232,13 @@ Proof.
       unfold graph_compose_morphisms. rewrite Ef, Eh.
       simpl morph_target. simpl morph_source.
       destruct (Nat.eqb (morph_entry_target e1) (morph_entry_source e2)) eqn:Hep.
-      * (* Endpoint match — both success *)
+      * (* Endpoint match: both success *)
         destruct (rich_state_add_morph rs (morph_entry_source e1) (morph_entry_target e2) 0 false)
           as [rs' new_id] eqn:Eram.
         repeat split; reflexivity.
-      * (* Endpoint mismatch — both error *)
+      * (* Endpoint mismatch: both error *)
         repeat split; reflexivity.
-    + (* m2 not found — both error *)
+    + (* m2 not found: both error *)
       assert (Hgcm : graph_compose_morphisms (snap_full_graph ks) m1_id m2_id = None).
       { unfold graph_compose_morphisms.
         pose proof (morph_table_none_implies_graph_none ks m2_id) as Hg2.
@@ -3245,7 +3246,7 @@ Proof.
         destruct (graph_lookup_morphism (snap_full_graph ks) m1_id); reflexivity. }
       rewrite Hgcm.
       repeat split; reflexivity.
-  - (* m1 not found — both error *)
+  - (* m1 not found: both error *)
     assert (Hgcm : graph_compose_morphisms (snap_full_graph ks) m1_id m2_id = None).
     { unfold graph_compose_morphisms.
       pose proof (morph_table_none_implies_graph_none ks m1_id) as Hg1.
@@ -3417,22 +3418,12 @@ Proof.
     reflexivity.
 Qed.
 
-(** MORPH_TENSOR: hardware creates tensor morphism from
-    ef.source → eg.target with empty coupling.
-    Kernel creates from union-region module to union-region module
-    with concatenated coupling.  Source, target, AND coupling all differ.
-
-    This is the most divergent opcode: driver-patched, like TENSOR_SET/GET.
-    The hardware produces a default tensor-morphism descriptor; the driver
-    supplies source, target, and coupling data required by the kernel's
-    tensor semantics.
-
-    Unlike COMPOSE, the hardware performs NO endpoint, module-existence,
-    disjointness, or union-module checks that [graph_tensor_morphisms]
-    verifies.  Therefore [vm_err] agreement cannot be proven without
-    additional region-structural invariants.  The 5 fields below are
-    branch-independent: they have the same value regardless of whether
-    the operation succeeds or fails on either side. *)
+(** MORPH_TENSOR: [kami_step] runs the kernel's [graph_tensor_morphisms]
+    on the reconstructed graph and stores the resulting morphism in the
+    rich tables (Abstraction.v). This helper states the five fields that
+    are branch-independent: they have the same value whether the
+    operation succeeds or fails on either side. [driven_step_morph_tensor]
+    below states full equality under extended_hw_invariant. *)
 Theorem driven_step_morph_tensor_fields :
   forall ks dst f_id g_id cost,
     extended_hw_invariant ks ->
@@ -3445,8 +3436,7 @@ Theorem driven_step_morph_tensor_fields :
     vm_mu_tensor hs' = vm_mu_tensor vs' /\
     vm_witness hs' = vm_witness vs' /\
     vm_certified hs' = vm_certified vs'.
-    (* vm_graph differs in source, target, AND coupling of the new morphism;
-       vm_err requires region-structural bridge (not proven here) *)
+    (* vm_graph, vm_regs and vm_err are left to driven_step_morph_tensor *)
 Proof.
   intros ks dst f_id g_id cost [Hpt [Hwf [Hcze [_ _]]]].
   set (rs := snap_rich_state ks) in *.
@@ -3457,15 +3447,15 @@ Proof.
   destruct (graph_tensor_morphisms (snap_full_graph ks) f_id g_id) as [[g' mid]|] eqn:Egt.
   - (* graph_tensor_morphisms succeeded *)
     destruct (graph_lookup_morphism g' mid) as [new_ms|] eqn:Elm.
-    + (* lookup succeeded — kami success path *)
+    + (* lookup succeeded: kami success path *)
       match goal with
       | |- context [rich_state_add_morph_with_coupling ?a ?b ?c ?d ?e ?f] =>
           destruct (rich_state_add_morph_with_coupling a b c d e f) as [rs' new_mid']
       end.
       repeat split; reflexivity.
-    + (* lookup failed — kami error *)
+    + (* lookup failed: kami error *)
       repeat split; reflexivity.
-  - (* graph_tensor_morphisms failed — kami error *)
+  - (* graph_tensor_morphisms failed: kami error *)
     repeat split; reflexivity.
 Qed.
 
@@ -3675,21 +3665,20 @@ Qed.
    §17  WFDrivenPrecondition and Multi-Step
    *)
 
-(** Combined precondition for all 46 opcodes.
+(** Combined precondition for all 51 opcodes.
 
-    Opcodes with FULL step-commutation (exact equality through driven_step_wf):
-    - 31 SupportedOpcodes: True
+    Every opcode has exact step-commutation through driven_step_wf:
+    - 35 SupportedOpcodes: True
     - CALL, RET, CHSH_TRIAL, LASSERT: conditional (runtime/structural conditions)
-    - MORPH_ASSERT, MORPH_DELETE: morph_table_wf (structural invariant — necessary)
-    - MORPH_GET, COMPOSE, MORPH_TENSOR: extended_hw_invariant (necessary)
+    - MORPH_ASSERT, MORPH_DELETE: morph_table_wf (structural invariant)
+    - MORPH_GET, COMPOSE, MORPH_TENSOR: extended_hw_invariant
     - MORPH: extended_hw_invariant + module bounds
     - MORPH_ID: coupling_zero_empty + module bounds
     - PNEW: next_id <= PTableSz + sz>0 + tensors=0 (_full needs neither pt_well_formed nor fresh-slot)
     - PSPLIT: pt_well_formed + arithmetic (_full does not need morph_table_wf)
     - PMERGE: pt_well_formed + arithmetic (_full does not need morph_table_wf)
-
-    Opcodes with CLASSIFIED GAPS (separate field-by-field or driver-patched theorems):
-    - TENSOR_SET/GET: driver-patched (§6, driven_step_tensor_set/get)
+    - TENSOR_SET: tensor_indices_ok
+    - TENSOR_GET: tensor_indices_ok + the module exists
 
     The field-only lemmas for COMPOSE and MORPH_TENSOR in §16 are weaker;
     exact VMState equality is discharged by [driven_step_compose] and
@@ -3861,50 +3850,45 @@ Qed.
     Full-state commutation (abs_full_snapshot ∘ full_snapshot_of_snapshot
     ∘ kami_step = vm_apply ∘ abs_full_snapshot ∘ full_snapshot_of_snapshot):
 
-    Unconditional (31 opcodes):
+    Unconditional (35 opcodes):
       All SupportedOpcode via [driven_step_supported].  Qed.
 
-    Conditional with full equality (12 opcodes):
-      - PNEW: [driven_step_pnew] — requires pt_well_formed + fresh slot.  Qed.
-      - CALL: [driven_step_call] — requires WellFormedSnapshot + pc < MEM_SIZE.  Qed.
-      - RET:  [driven_step_ret] — requires WellFormedSnapshot.  Qed.
-      - CHSH_TRIAL: [driven_step_chsh_trial] — requires chsh_bits_ok.  Qed.
-      - LASSERT: [driven_step_lassert] — requires flen = lassert_hw_flen.  Qed.
-      - MORPH_ASSERT: [driven_step_morph_assert] — requires morph_table_wf.  Qed.
-      - MORPH_GET: [driven_step_morph_get] — requires extended_hw_invariant.  Qed.
-      - MORPH_DELETE: [driven_step_morph_delete] — requires morph_table_wf.  Qed.
-      - MORPH: [driven_step_morph_full] requires extended_hw_invariant + modules exist.  Qed.
-      - MORPH_ID: [driven_step_morph_id_full] — requires coupling_zero_empty + module exists.  Qed.
+    Conditional with full equality (16 opcodes):
+      - PNEW: [driven_step_pnew_full]: next_id <= PTableSz, a nonempty
+        region, and a zero tensor row in the next slot.  Qed.
+      - CALL: [driven_step_call]: WellFormedSnapshot + pc < MEM_SIZE.  Qed.
+      - RET:  [driven_step_ret]: WellFormedSnapshot.  Qed.
+      - CHSH_TRIAL: [driven_step_chsh_trial]: chsh_bits_ok.  Qed.
+      - LASSERT: [driven_step_lassert]: flen = lassert_hw_flen.  Qed.
+      - MORPH_ASSERT: [driven_step_morph_assert]: morph_table_wf.  Qed.
+      - MORPH_GET: [driven_step_morph_get]: extended_hw_invariant.  Qed.
+      - MORPH_DELETE: [driven_step_morph_delete]: morph_table_wf.  Qed.
+      - MORPH: [driven_step_morph_full]: extended_hw_invariant + modules exist.  Qed.
+      - MORPH_ID: [driven_step_morph_id_full]: coupling_zero_empty + module exists.  Qed.
         (MORPH_ID uses empty coupling; MORPH decodes coupling from memory.)
-      - PSPLIT: [driven_step_psplit] requires pt_well_formed and empty new
+      - PSPLIT: [driven_step_psplit_full]: pt_well_formed and empty new
         slots; without two free slots both sides trap.  Qed.
-      - PMERGE: [driven_step_pmerge] — requires pt_well_formed + modules exist.  Qed.
+      - PMERGE: [driven_step_pmerge_full]: pt_well_formed + modules exist.  Qed.
+      - TENSOR_SET: [driven_step_tensor_set_full]: tensor_indices_ok.  Qed.
+      - TENSOR_GET: [driven_step_tensor_get_full]: tensor_indices_ok + module exists.  Qed.
+      - COMPOSE: [driven_step_compose]: extended_hw_invariant.  Qed.
+      - MORPH_TENSOR: [driven_step_morph_tensor]: extended_hw_invariant.  Qed.
 
-    Field-by-field helpers (vm_graph/vm_regs omitted in the helper lemma):
-      - COMPOSE: [driven_step_compose_fields] — all fields except vm_graph/vm_regs in helper.
-        FULL EQUALITY: [driven_step_compose] — complete state equality under extended_hw_invariant.  Qed.
-      - MORPH_TENSOR: [driven_step_morph_tensor_fields] — all fields except vm_graph/vm_regs/vm_err in helper.
-        FULL EQUALITY: [driven_step_morph_tensor] — complete state equality under extended_hw_invariant.  Qed.
+    Field-by-field helpers: [driven_step_compose_fields] and
+    [driven_step_morph_tensor_fields] state the fields that do not depend
+    on the new morphism.
 
-    Driver-patched identity (2 opcodes):
-      - TENSOR_SET: [driven_step_tensor_set] — driver-patched output = vm_apply.  Qed.
-      - TENSOR_GET: [driven_step_tensor_get] — driver-patched output = vm_apply.  Qed.
-
-    TOTAL: 46/46 opcodes addressed.
+    TOTAL: 51/51 opcodes.
 
     Invariant preservation:
       - [hw_repr_invariant_supported_step]: Qed for SupportedOpcodes.
-      - [hw_repr_invariant_pnew]: Qed under S(next_id) < PTableSz.
+      - [hw_repr_invariant_pnew]: Qed for every PNEW.
 
     Multi-step:
-      - [driven_step_wf]: Qed under WFDrivenPrecondition for exact cases above.
+      - [driven_step_wf]: Qed under WFDrivenPrecondition for all 51 opcodes.
       - [driven_trace_commutes]: Qed under WFDrivenRun for the executed steps.
 
     Admitted count: 0.
-    All 46 opcode bridges are fully proven (Qed).
-    COMPOSE and MORPH_TENSOR have both field-by-field helper lemmas (omitting vm_graph/vm_regs)
-    AND full-equality theorems (driven_step_compose, driven_step_morph_tensor) under extended_hw_invariant.
-    No open gaps remain.
 *)
 
 (** ** Connecting [kami_step] to [kami_step_full]

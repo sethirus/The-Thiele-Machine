@@ -1,11 +1,11 @@
 (** MuLedgerQuantumBridge: connect μ-ledger traces to NPA-style constraints.
 
-    The repository already contains two separate layers: μ-ledger trace
+    The repository contains two separate layers: μ-ledger trace
     accounting and the NPA or Tsirelson correlation machinery. This file links
-    those layers as far as the current proofs honestly support. It defines a
-    concrete trace-to-correlator interface, states ledger-side coherence
-    predicates, proves that the coherent side implies the existing Tsirelson
-    bound, and keeps the remaining PSD gap explicit.
+    those layers. It defines a concrete trace-to-correlator interface, states
+    ledger-side coherence predicates, proves that the coherent side implies
+    the Tsirelson bound, and proves that a CHSH_LASSERT step without a trap
+    gives column contractivity of the witness correlators.
 
     That last point matters. The file does not identify μ-ledger coherence with
     PSD of the NPA matrix by fiat. Column contractivity remains an extra
@@ -97,10 +97,10 @@ Definition final_tensor_symmetric
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   mu_tensor_symmetric (run_vm fuel trace s_init).
 
-(** The current VM/final-tensor invariant layer gives a Tsirelson-sufficient
+(** The VM/final-tensor invariant layer gives a Tsirelson-sufficient
     row-minor condition, but not the stronger column-contractivity facts needed
-    for PSD of the induced zero-marginal NPA matrix. We keep that weaker layer
-    explicit so the exact remaining gap stays visible. *)
+    for PSD of the induced zero-marginal NPA matrix. That weaker layer is
+    kept explicit; column contractivity comes from CHSH_LASSERT below. *)
 Definition mu_ledger_tsirelson_coherent
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   final_tensor_symmetric fuel trace s_init /\
@@ -410,7 +410,7 @@ Proof.
   apply npa_to_matrix_symmetric.
 Qed.
 
-(** ** Strongest current bridge theorem actually provable from existing infrastructure *)
+(** ** Bridge theorem from the row-minor layer *)
 
 Theorem mu_ledger_coherent_implies_tsirelson_bound_squared :
   forall fuel trace s_init,
@@ -447,7 +447,7 @@ Qed.
 (** ** Step-semantics invariant: trace correlator is deterministic under equal initial states.
     This invariance lemma establishes that run_vm trace semantics produce an equivalent
     CHSH correlator for any two equal initial VMState inputs (required by PHYSICS_ANALOGY_CONTRACT).
-    definitional lemma — the equality is a direct consequence of functional extensionality. *)
+    definitional lemma: the equality is a direct consequence of functional extensionality. *)
 (* definitional lemma *)
 Lemma trace_run_semantics_equiv :
   forall fuel trace (s1 s2 : VMState),
@@ -829,7 +829,7 @@ Definition state_column_contractive (s : VMState) : Prop :=
        WitnessCounts is sound w.r.t. the real-valued column-contractivity
        predicate on the bucket-derived correlators.
 
-    This is the load-bearing theorem that closes the gap from kernel-level
+    This is the load-bearing theorem that connects kernel-level
     [instr_chsh_lassert] success (which decides the Z-arithmetic check on
     [vm_witness]) to the NPA-realizability condition on the correlator matrix
     via [column_contractive_iff_npa_psd] (QuantumPartitionPSD.v).
@@ -975,7 +975,7 @@ Proof.
   assert (Hrn10sq : (0 < rN10 * rN10)%R) by nra.
   assert (Hrn11sq : (0 < rN11 * rN11)%R) by nra.
   (* The R-level conditions follow by clearing the n_xy denominators (positive)
-     and applying the Z-arithmetic facts HrA, HrB, HrAB. We clear denominators
+     and applying the Z-arithmetic facts HrA, HrB, HrAB. Denominators are cleared
      by asserting a polynomial form of each goal and closing it with nra. *)
   assert (HrN00ne : rN00 <> 0%R) by lra.
   assert (HrN01ne : rN01 <> 0%R) by lra.
@@ -1332,10 +1332,10 @@ Proof.
   exact Hready.
 Qed.
 
-(** C4 end-to-end: NPA PSD alone implies the Tsirelson bound.
+(** End-to-end: NPA PSD alone implies the Tsirelson bound.
     Chain: npa_psd → row bounds (above) → tsirelson_from_minors (existing). *)
-(** SCOPE NOTE: npa_psd_implies_tsirelson_bound is the C4
-    closure theorem. No assumed row bounds — they are DERIVED from PSD. *)
+(** SCOPE NOTE: npa_psd_implies_tsirelson_bound uses no assumed row
+    bounds; they are DERIVED from PSD. *)
 Theorem npa_psd_implies_tsirelson_bound :
   forall E00 E01 E10 E11 : RealNumber,
     npa_psd (zero_marginal_npa E00 E01 E10 E11) ->
@@ -1359,7 +1359,7 @@ Proof.
   apply tsirelson_from_minors_abs; assumption.
 Qed.
 
-(** State-based C4: column contractivity → PSD → row bounds → Tsirelson.
+(** State-based: column contractivity → PSD → row bounds → Tsirelson.
     This shows the row bounds are derivable from column contractivity. *)
 Theorem state_column_contractive_implies_tsirelson :
   forall s : VMState,

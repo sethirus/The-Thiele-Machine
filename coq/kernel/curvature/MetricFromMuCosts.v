@@ -168,8 +168,8 @@ Definition angle_at_vertex (s : VMState) (v1 v2 v3 : ModuleID) : R :=
     CORRECT FORMULATION:
     angle_sum - π = (area of triangle) × (Gaussian curvature)
 
-    For our discrete triangles, we compute the angle sum directly
-    from the metric, and the deviation from π gives us the curvature.
+    For the discrete triangles, the angle sum is computed directly
+    from the metric, and the deviation from π gives the curvature.
 *)
 
 (** Sum of angles in a triangle *)
@@ -190,7 +190,7 @@ Definition angular_excess (s : VMState) (v1 v2 v3 : ModuleID) : R :=
     This is the GAUSS-BONNET theorem for a single triangle:
     ∫∫_triangle K dA = angular_excess
 
-    For our discrete case, the "area" is determined by the edge lengths
+    In the discrete case, the "area" is determined by the edge lengths
     from the metric.
 *)
 
@@ -221,7 +221,7 @@ Definition discrete_gaussian_curvature (s : VMState) (v1 v2 v3 : ModuleID) : R :
 
     This is NOT an axiom - it's the DEFINITION of curvature.
     The angle sum is computed from the metric (law of cosines).
-    The deviation from π tells us the curvature.
+    The deviation from π gives the curvature.
 *)
 Theorem angle_sum_determines_curvature : forall s v1 v2 v3,
   (triangle_area s v1 v2 v3 <> 0)%R ->
@@ -290,8 +290,8 @@ Fixpoint sum_angle_defects_4d (s : VMState) (sc : SimplicialComplex4D)
     For 2D: constant = 5π (proven in DiscreteGaussBonnet.v)
     For 4D: constant = 32π² (from 4D Gauss-Bonnet-Chern integral)
 
-    OPEN: 4D Gauss-Bonnet-Chern. The gravity
-    pipeline currently uses 2D Gauss-Bonnet (DiscreteGaussBonnet.v).
+    4D Gauss-Bonnet-Chern is not proved. The gravity
+    pipeline uses 2D Gauss-Bonnet (DiscreteGaussBonnet.v).
 *)
 
 (** ** Summary: local results
@@ -310,7 +310,7 @@ Fixpoint sum_angle_defects_4d (s : VMState) (sc : SimplicialComplex4D)
     LOCAL (VERTEX-DEPENDENT) METRIC
 
     The global vm_mu_tensor gives a single 4x4 metric for the whole state.
-    For "curved" discrete spacetime we also define a LOCAL metric where each
+    For "curved" discrete spacetime there is also a LOCAL metric where each
     vertex v carries its own mass = module_structural_mass s v.
 
     g_μν^{local}(v) = mass(v)   if μ = ν   (diagonal, isotropic)
@@ -389,11 +389,11 @@ Definition metric_deriv_anchor := local_metric_derivative_nonzero_when_masses_di
 
     The Euclidean [metric_at_vertex] has all non-negative diagonal entries
     (signature (+,+,+,+)).  For a Lorentzian manifold with one temporal
-    dimension we need signature (-,+,+,+): index 0 is time-like (negative
+    dimension the signature must be (-,+,+,+): index 0 is time-like (negative
     norm) and indices 1,2,3 are space-like (positive norm).
 
-    We define [lorentz_metric_at_vertex] by multiplying each diagonal entry
-    by [lorentz_sign μ] and prove the signature theorem.
+    [lorentz_metric_at_vertex] is defined by multiplying each diagonal entry
+    by [lorentz_sign μ], and the signature theorem is proved.
  This is a formal extension of the computational metric.  Whether
     the physical interpretation warrants calling this a Lorentzian manifold
     depends on identifying index 0 with a time dimension, an interpretation

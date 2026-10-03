@@ -2,8 +2,8 @@
 
     SCOPE.
     ------
-    We construct a deterministic [CorrelatedResource] whose outcomes
-    realize the PR-box algebra (A XOR B = x AND y), and prove:
+    This file constructs a deterministic [CorrelatedResource] whose outcomes
+    realize the PR-box algebra (A XOR B = x AND y), and proves:
     1. It is free ([prbox_is_free]).
     2. It satisfies the standard 2-to-1 RAC protocol on every input
        ([prbox_rac_succeeds]).
@@ -233,7 +233,7 @@ Proof.
 Qed.
 
 (** Cleaner statement variant: forbid construction at the more honest
-    level — given the PR-box specifically, asking for an HMS that
+    level: given the PR-box specifically, asking for an HMS that
     produces it (with hms_cost = 0) is impossible. *)
 Corollary no_zero_cost_HMS_with_chsh_S_of_4 :
   ~ exists (H : HonestMeasurementSystem),

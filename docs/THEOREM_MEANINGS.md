@@ -26,7 +26,7 @@ An explicitly qualified citation keeps its own module identity.
 - `no_free_certification`: A single VM step that moves `csr_cert_addr` from zero to nonzero has instruction cost at least one.
 - `no_free_certification_certified`: A single VM step that switches `vm_certified` from false to true has instruction cost at least one.
 - `certification_requires_positive_mu`: A single VM step that switches on either certification channel raises `vm_mu` by at least one.
-- `F3_plus_one_renaming_unification`: For every `cost`, `instruction_cost (instr_certify cost)` equals `S cost`, that is, `cost + 1`; the statement is this equation for `instr_certify` and says nothing about deriving the `+1`.
+- `instr_certify_cost_is_successor`: For every `cost`, `instruction_cost (instr_certify cost)` equals `S cost`, that is, `cost + 1`; the statement is this equation for `instr_certify` and says nothing about deriving the `+1`.
 - `thiele_represents_simulating_cert_system`: For a certification system supplied together with an embedding and decoding into the VM, a trace that certifies in the source costs at least one there, and its decoded VM run ends with `vm_certified` true.
 - `honest_cost_tracking_strict_restriction`: Some cost-bearing system certifies at total cost zero, while every `CertificationSystem` needs cost at least one; the cost rule is what separates them.
 - `commitment_cost_not_reducible_to_erasure_cost`: Some trusted erasure-accounting system certifies at total cost zero with no erasure reported, while every `CertificationSystem` needs cost at least one.
@@ -190,19 +190,20 @@ An explicitly qualified citation keeps its own module identity.
 - `bounded_run_mu_decomposition`: For any two functions `mu_blind_component` and `mu_sighted_component` from instructions to naturals whose sum equals `instruction_cost` on every instruction (the premise `mu_component_split`), and any fuel, trace, and state, `vm_mu` after `run_vm fuel trace s` equals `vm_mu s` plus the sum of the first component over the executed instructions plus the sum of the second.
 - `total_irreversible_bits_le_cost`: The number of positively charged instructions in a list is at most the list's total cost.
 - `zero_cost_vm_jump_has_injective_history_lift`: `JUMP 1 0` costs zero, moves the program counter to one, and becomes injective once each state carries its history.
-- `F1_physical_premises_incompatible`: No dissipation function both charges every step that collapses a Boolean macro-property and matches the VM cost schedule.
-- `full_vm_f1_premises_incompatible`: The same statement, kept as a regression check.
+- `landauer_dissipation_premises_inconsistent`: No dissipation function both charges every step that collapses a Boolean macro-property and matches the VM cost schedule.
+- `full_vm_landauer_dissipation_premises_inconsistent`: The same statement, kept as a regression check.
 
 ## What a window loses
 
+- `no_mu_oracle` (`Minimal.EarnedCore.no_mu_oracle`): In minimal/EarnedCore.v, no function of the window (program counter and the two counters) returns mu for every trace run from `start 0 0`; minimal/MuCore.v proves the same for its strict shadow and `st_mu` over every state.
 - `shadow_proj_kernel_is_eq_on_classical_shadow`: Two VM states have the same six-field shadow exactly when they agree on those six fields.
 - `shadow_strictly_lossy`: Two VM states share a six-field shadow, differ in their morphism lists, and still differ after some probe instruction.
 - `probe_preserves_graph_A`: The graph-preserving probe leaves the first separation witness's graph unchanged.
 - `probe_preserves_graph_B`: The same for the second witness.
 - `categorical_separation` (`Kernel.PartitionSeparation.PartitionSeparation.categorical_separation`): Two VM states agree on registers, memory, mu, program counter, error flag, and certification, and have different morphism lists.
 - `degenerate_projection_theorem`: The Turing lift runs a Turing machine exactly; shadow equality is agreement on the six fields; classical programs from states agreeing on the shadow, graph, and CSRs end with equal shadows; and some distinct states share a shadow.
-- `D2_classical_shadow_preserved`: A classical program run from two states that agree on the shadow, graph, and CSRs ends with equal shadows.
-- `D5_thiele_strictly_extends_classical`: Classical programs leave the graph, `csr_cert_addr`, and certification unchanged, both as instruction lists and under the program-counter runner `run_vm` for any fuel; and from every state a classical run reaches from `init_state`, PNEW of address 0 is a step to a state whose graph differs from the graph of every state a classical run reaches from `init_state`.
+- `classical_run_preserves_shadow_compat`: A classical program run from two states that agree on the shadow, graph, and CSRs ends with equal shadows.
+- `thiele_strictly_extends_classical`: Classical programs leave the graph, `csr_cert_addr`, and certification unchanged, both as instruction lists and under the program-counter runner `run_vm` for any fuel; and from every state a classical run reaches from `init_state`, PNEW of address 0 is a step to a state whose graph differs from the graph of every state a classical run reaches from `init_state`.
 - `thiele_simulates_turing`: Lifting a Turing configuration and running the file-local Thiele model for `n` steps gives the Turing machine's configuration after `n` steps.
 - `thiele_simulates_turing_gen`: For every fuel, transition table `delta`, and Thiele configuration `tc`, the Turing configuration inside `thiele_run fuel delta tc` equals `tm_run fuel delta` applied to the Turing configuration inside `tc`, whatever the `th_mu` value of `tc`.
 - `thiele_strictly_extends_turing`: Two conjuncts about the `ProperSubsumption.v` Turing and Thiele step functions: every Turing computation `TM_computes delta c_init c_final` has a Thiele computation from `lift_config c_init` with some cost whose final Turing configuration is `c_final`; and for every fuel, table, and configuration, the `cc_witness` of `thiele_cost_certificate` (the `th_mu` increase, by natural subtraction) is at most its `cc_bound`, which is `fuel * (step_cost + 1)`.
@@ -330,7 +331,7 @@ An explicitly qualified citation keeps its own module identity.
 - `npa_psd_implies_tsirelson_bound`: If the zero-marginal NPA matrix is symmetric and PSD, the CHSH value squared is at most 8.
 - `npa_psd_implies_tsirelson_bound_abs`: For any four reals `E00 E01 E10 E11`, if `zero_marginal_npa E00 E01 E10 E11` is positive semidefinite, then the absolute value of `CHSH E00 E01 E10 E11` is at most `sqrt8`.
 - `npa_psd_zero_marginal_implies_row_bounds`: For any four reals, if `zero_marginal_npa E00 E01 E10 E11` is positive semidefinite, then `1 - E00^2 - E01^2 >= 0` and `1 - E10^2 - E11^2 >= 0` (the row minor constraints).
-- `c4_direct_tsirelson_abs_from_npa_psd`: For any fuel, trace, and initial state, if the zero-marginal NPA matrix built from the trace's four correlator values `trace_e00` through `trace_e11` is positive semidefinite, then the absolute value of `CHSH` of those four values is at most `sqrt8`.
+- `tsirelson_abs_from_npa_psd`: For any fuel, trace, and initial state, if the zero-marginal NPA matrix built from the trace's four correlator values `trace_e00` through `trace_e11` is positive semidefinite, then the absolute value of `CHSH` of those four values is at most `sqrt8`.
 - `trace_column_contractive_iff_trace_npa_model`: For any fuel, trace, and initial state, `trace_column_contractive` holds exactly when the trace's zero-marginal NPA matrix is positive semidefinite.
 - `tsirelson_from_minors`: For four reals, if `1 - e00^2 - e01^2 >= 0` and `1 - e10^2 - e11^2 >= 0`, then the square of `CHSH e00 e01 e10 e11` is at most 8.
 - `tsirelson_squared`: For four reals with `e00^2 + e01^2 <= 1` and `e10^2 + e11^2 <= 1`, `CHSH_value e00 e01 e10 e11` multiplied by itself is at most 8.
@@ -468,13 +469,13 @@ An explicitly qualified citation keeps its own module identity.
 - `reachable_trace_representative_correct`: For every trace `t`, evaluating `reachable_trace_representative (vm_trace_eval t)` from `init_state` gives `vm_trace_eval t`; the representative is defined with decidable VM-state equality and the Reals choice principle `sig_forall_dec`.
 - `reachable_representative_exists`: Some function from VM states to traces maps every reachable state to a trace that reaches it.
 - `generalized_reachable_simulation_holds`: For every reading `E`, certification-cost machine `M` and base state, a reachable event simulation exists exactly when traces with the same VM endpoint have the same target endpoint and the reading of every trace's VM endpoint equals the certification flag of its target endpoint.
-- `D2_faithfulness`: A classical instruction-list run has its defined six-field projection and preserves its initial partition graph, certificate address, and certification flag.
-- `D3_conservativity`: A list of classical opcodes preserves the partition graph, certificate address, and certification flag under instruction-list execution.
-- `D3_conservativity_pc`: For any fuel, `run_vm` on a program whose instructions are all classical, which follows jumps through the program counter, leaves the partition graph, certificate address, and certification flag unchanged.
+- `classical_run_shadow_faithful`: A classical instruction-list run has its defined six-field projection and preserves its initial partition graph, certificate address, and certification flag.
+- `classical_opcodes_preserve_structure`: A list of classical opcodes preserves the partition graph, certificate address, and certification flag under instruction-list execution.
+- `classical_opcodes_preserve_structure_run_vm`: For any fuel, `run_vm` on a program whose instructions are all classical, which follows jumps through the program counter, leaves the partition graph, certificate address, and certification flag unchanged.
 - `classical_reachable_preserves_structure`: Every state reached by a sequence of steps that each execute a classical instruction has the partition graph, certificate address, and certification flag of the starting state.
-- `D4_strictness`: Some state reachable from `init_state` (it is `init_state`) and some VM instruction change the graph's next-module identifier where every classical instruction-list run from that state preserves it.
-- `D4_strictness_reachable`: For every state `s` a classical run reaches from `init_state`: `s` is reachable; PNEW of address 0 is a step from `s` that raises `pg_next_id` by one and leaves the error latch as it was; every classical step sequence from `s` and every `run_vm` of a classical program from `s` keep `pg_next_id`; and the graph PNEW produces differs from the graph of every state a classical run reaches from `init_state`.
-- `D4_strictness_from_init`: From `init_state`, PNEW of address 0 is a step to a state with `pg_next_id = 1`, and `run_vm` of every classical program from `init_state`, for any fuel, ends with `pg_next_id = 0`.
+- `pnew_step_separates_thiele_from_classical`: Some state reachable from `init_state` (it is `init_state`) and some VM instruction change the graph's next-module identifier where every classical instruction-list run from that state preserves it.
+- `pnew_step_separates_thiele_from_classical_reachable`: For every state `s` a classical run reaches from `init_state`: `s` is reachable; PNEW of address 0 is a step from `s` that raises `pg_next_id` by one and leaves the error latch as it was; every classical step sequence from `s` and every `run_vm` of a classical program from `s` keep `pg_next_id`; and the graph PNEW produces differs from the graph of every state a classical run reaches from `init_state`.
+- `pnew_step_separates_thiele_from_classical_at_init`: From `init_state`, PNEW of address 0 is a step to a state with `pg_next_id = 1`, and `run_vm` of every classical program from `init_state`, for any fuel, ends with `pg_next_id = 0`.
 - `nat_recursion_theorem`: For the candidate-decider-dependent nat substrate, every transformer selected by its representability predicate has a code whose total run equals the transformer's image on every input state.
 
 ## Information and witness contracts
@@ -582,12 +583,12 @@ An explicitly qualified citation keeps its own module identity.
 - `embed_step_compute`: For instructions outside the sixteen explicitly excluded structural, call/return, witness, tensor, and morphism opcode cases, abstracting the intermediate Kami step equals applying the VM step to the abstraction.
 - `five_labeled_models_have_selected_pointer`: In the five synthetic labelled mirror models, each selected flag is returned by every stipulated observer and its named rival is not.
 
-- `F3_calibration_forces_flat_faces`: If every region of the partition graph is a normalized triangle and calibration holds at every module, then at every module the mu-Laplacian is zero, the angle-defect curvature is zero, and the angles of its triangles sum to 2*PI.
-- `F3_calibration_forces_five_triangles`: Under the same hypotheses every module lies in at least five triangles.
-- `F3_calibration_obstruction_closed`: A well-formed triangulated partition graph with distinct module identifiers and no boundary edges cannot be calibrated at every module.
-- `F3_calibration_obstruction_min_degree4`: A well-formed triangulated partition graph with distinct module identifiers in which every vertex lies in at least four faces cannot be calibrated at every module.
-- `F3_calibration_obstruction`: No VM state whose partition graph is well-formed triangulated, has connected vertex links, and has distinct module identifiers is calibrated at every module.
-- `F3_obstruction_hypotheses_satisfiable`: A concrete VM state (an octahedron next to a zigzag 9-gon) satisfies every hypothesis of `F3_calibration_obstruction`.
+- `calibration_forces_flat_faces`: If every region of the partition graph is a normalized triangle and calibration holds at every module, then at every module the mu-Laplacian is zero, the angle-defect curvature is zero, and the angles of its triangles sum to 2*PI.
+- `calibration_forces_five_triangles`: Under the same hypotheses every module lies in at least five triangles.
+- `closed_triangulation_not_calibrated`: A well-formed triangulated partition graph with distinct module identifiers and no boundary edges cannot be calibrated at every module.
+- `min_degree_4_triangulation_not_calibrated`: A well-formed triangulated partition graph with distinct module identifiers in which every vertex lies in at least four faces cannot be calibrated at every module.
+- `connected_triangulation_not_calibrated`: No VM state whose partition graph is well-formed triangulated, has connected vertex links, and has distinct module identifiers is calibrated at every module.
+- `calibration_obstruction_hypotheses_satisfiable`: A concrete VM state (an octahedron next to a zigzag 9-gon) satisfies every hypothesis of `connected_triangulation_not_calibrated`.
 - `vm_reachable_regions_separate`: From a state with no modules, a well-formed graph and at most 64 module numbers issued, every reachable state has pairwise-disjoint module regions and distinct module numbers.
 - `reachable_no_adjacent_modules`: On every state reachable from `init_state`, two different module numbers are never adjacent by region, every module number has no neighbors and lies in no `module_triangles` entry, and `face_triangle_count` is 0.
 - `reachable_flat_reading`: On every state reachable from `init_state`, every module number has mu-Laplacian 0, angle-defect curvature 2*PI, and calibration residual 2*PI.

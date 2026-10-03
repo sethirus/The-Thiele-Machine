@@ -1,4 +1,4 @@
-(** F3_CalibrationObstruction: what calibration at every module forces on a
+(** CalibrationObstruction: what calibration at every module forces on a
     well-formed triangulated state, and the cases in which it is impossible.
 
     Setting (MuGravity.v). calibration_residual s m is
@@ -15,7 +15,7 @@
 
     Proved here.
 
-    1. F3_calibration_forces_flat_faces (needs only that regions are
+    1. calibration_forces_flat_faces (needs only that regions are
        normalized triangles). Calibrated implies every mu_laplacian is 0 and
        every face is flat (angle sum 2 PI). Each region has 3 nodes and each
        axiom costs 8 bits per character, so every density is 3 plus a
@@ -23,32 +23,32 @@
        Laplacian = 2 - (angle sum)/PI <= 2, hence <= 0, and the proved
        identity total_mu_laplacian_zero forces every term to be 0.
 
-    2. F3_calibration_forces_five_triangles. Every angle is below PI/2, so a
+    2. calibration_forces_five_triangles. Every angle is below PI/2, so a
        flat face lies in at least 5 face-graph triangles.
 
     3. total_angle_sum_identity (unconditional). The sum over modules of the
        angle sums equals PI/6 times the sum, over ordered triples of
        distinct pairwise adjacent modules, of P/(1+P), P the perimeter.
 
-    4. F3_calibration_window. Calibrated implies 2F < T and 21 T <= 44 F,
+    4. calibration_face_triangle_window. Calibrated implies 2F < T and 21 T <= 44 F,
        hence F >= 11. The +1 in the angle denominator makes each triple
        weigh strictly less than 1, and P >= 21 makes it weigh at least 21/22.
 
-    5. F3_vertex_triangle_bound. With distinct module IDs and is_2_manifold,
+    5. vertex_degree_face_triangle_bound. With distinct module IDs and is_2_manifold,
        sum over vertices of d (d - 1) (d - 2) <= 6 T: three faces through a
        vertex form a face-graph triangle, and three distinct faces cannot
        share two vertices (that edge would lie in three faces).
 
-    6. F3_calibration_consequences, F3_calibration_forces_degree_inequality
+    6. calibration_consequences, calibration_forces_degree_inequality
        (21 * sum_v d(d-1)(d-2) <= 88 * sum_v d) and
-       F3_calibration_forces_large_boundary (61 F <= 140 B).
+       calibration_forces_large_boundary (61 F <= 140 B).
 
     7. Closed obstructions, with distinct module IDs:
-       F3_calibration_obstruction_closed (no boundary edge, B = 0) and
-       F3_calibration_obstruction_min_degree4 (every vertex in at least
+       closed_triangulation_not_calibrated (no boundary edge, B = 0) and
+       min_degree_4_triangulation_not_calibrated (every vertex in at least
        four faces).
 
-    8. F3_degree_route_insufficient and F3_om_not_calibrated. A concrete
+    8. degree_inequality_admits_om_state and om_state_not_calibrated. A concrete
        well-formed triangulated state with distinct IDs (an octahedron next
        to a zigzag triangulation of a 9-gon; every vertex link is connected)
        satisfies the degree inequality and the boundary bound of item 6.
@@ -68,7 +68,7 @@
        crossing that cut is even face by face but odd in total, since b is
        counted once and every attaching edge twice.
 
-    10. F3_calibration_obstruction, the full target:
+    10. connected_triangulation_not_calibrated, the full target:
           forall s, well_formed_triangulated (vm_graph s) ->
             links_connected s -> NoDup (module IDs) -> ~ calibrated s.
        links_connected says the link of every vertex is a connected graph
@@ -91,14 +91,14 @@
        original target is not needed: 1 <= F comes with
        well_formed_triangulated.
 
-    11. F3_obstruction_hypotheses_satisfiable. The state of item 8 meets
+    11. calibration_obstruction_hypotheses_satisfiable. The state of item 8 meets
        every hypothesis of item 10 (om_links_connected checks its links),
        so the theorem is not vacuous.
 
     These theorems are about every VM state with a well-formed triangulated
     graph. A state the machine reaches from init_state has pairwise-disjoint
     regions, so its calibration residual is 2π at every module and it is
-    calibrated only when it has no modules (F3_ReachableGeometry.v). The
+    calibrated only when it has no modules (ReachableGeometry.v). The
     configurations above, with faces sharing edges, are partition graphs the
     machine does not reach.
 
@@ -109,7 +109,7 @@
 From Coq Require Import List Arith.PeanoNat Lia Reals Lra ZArith Bool.
 From Coq Require String.
 Import ListNotations.
-From Kernel Require Import VMState VMStep DiscreteTopology MuGravity F3_MuLaplacianSum.
+From Kernel Require Import VMState VMStep DiscreteTopology MuGravity MuLaplacianSum.
 
 (** * Finite sums over lists. *)
 
@@ -507,7 +507,7 @@ Proof.
 Qed.
 
 (** Calibration at every module forces every face to be flat. *)
-Theorem F3_calibration_forces_flat_faces : forall s,
+Theorem calibration_forces_flat_faces : forall s,
   all_modules_are_triangles_list (vm_graph s) ->
   all_regions_normalized_list (vm_graph s) ->
   (forall m, In m (map fst (pg_modules (vm_graph s))) ->
@@ -534,7 +534,7 @@ Qed.
 
 (** A flat face has at least five triangles through it: each angle is
     below pi/2. *)
-Theorem F3_calibration_forces_five_triangles : forall s,
+Theorem calibration_forces_five_triangles : forall s,
   all_modules_are_triangles_list (vm_graph s) ->
   all_regions_normalized_list (vm_graph s) ->
   (forall m, In m (map fst (pg_modules (vm_graph s))) ->
@@ -543,7 +543,7 @@ Theorem F3_calibration_forces_five_triangles : forall s,
     (5 <= List.length (module_triangles s m))%nat.
 Proof.
   intros s Htri Hnorm Hcal m Hin.
-  destruct (F3_calibration_forces_flat_faces s Htri Hnorm Hcal m Hin) as [_ [_ Hsa]].
+  destruct (calibration_forces_flat_faces s Htri Hnorm Hcal m Hin) as [_ [_ Hsa]].
   pose proof PI_RGT_0 as Hpi.
   destruct (le_lt_dec 5 (List.length (module_triangles s m))) as [H|H]; [exact H|].
   exfalso.
@@ -913,7 +913,7 @@ Proof.
   apply Hfg. exact Hfc.
 Qed.
 
-Theorem F3_calibration_window_R : forall s,
+Theorem calibration_face_triangle_window_R : forall s,
   all_modules_are_triangles_list (vm_graph s) ->
   all_regions_normalized_list (vm_graph s) ->
   (1 <= List.length (pg_modules (vm_graph s)))%nat ->
@@ -933,7 +933,7 @@ Proof.
                  (nF * (2 * PI))%R).
   { rewrite (lsum_ext_in _ ids _ (fun _ => (2 * PI)%R)).
     - rewrite lsum_const. unfold ids, nF. rewrite map_length. reflexivity.
-    - intros m Hm. apply (F3_calibration_forces_flat_faces s Htri Hnorm Hcal m Hm). }
+    - intros m Hm. apply (calibration_forces_flat_faces s Htri Hnorm Hcal m Hm). }
   unfold ids in Hsum. rewrite total_angle_sum_identity in Hsum. fold ids in Hsum.
   assert (HW : tsum ids (tri_weight s) = (12 * nF)%R).
   { assert (Hz : (PI * (tsum ids (tri_weight s) - 12 * nF) = 0)%R) by lra.
@@ -1024,7 +1024,7 @@ Qed.
 
 (** Calibration at every module puts the number T of face-graph triangles
     in the window 2F < T <= (44/21) F, which forces F >= 11. *)
-Theorem F3_calibration_window : forall s,
+Theorem calibration_face_triangle_window : forall s,
   well_formed_triangulated (vm_graph s) ->
   (forall m, In m (map fst (pg_modules (vm_graph s))) ->
              calibration_residual s m = 0%R) ->
@@ -1035,7 +1035,7 @@ Proof.
   intros s Hwf Hcal.
   destruct Hwf as [_ [Htri [Hnorm [_ [_ [_ [HF _]]]]]]].
   unfold DiscreteTopology.F in *.
-  destruct (F3_calibration_window_R s Htri Hnorm HF Hcal) as [Hlo Hhi].
+  destruct (calibration_face_triangle_window_R s Htri Hnorm HF Hcal) as [Hlo Hhi].
   rewrite ordered_count_six in Hlo, Hhi.
   rewrite <- INR_face_triangle_count in Hlo, Hhi.
   set (T := face_triangle_count s) in *.
@@ -1353,7 +1353,7 @@ Qed.
 (** Every triple of faces through one vertex is a face-graph triangle, and
     on a 2-manifold with distinct module IDs no triangle is counted twice:
     6 T >= sum over vertices of d (d - 1) (d - 2). *)
-Theorem F3_vertex_triangle_bound : forall s,
+Theorem vertex_degree_face_triangle_bound : forall s,
   NoDup (map fst (pg_modules (vm_graph s))) ->
   is_2_manifold (vm_graph s) ->
   (nsum (vertices (vm_graph s))
@@ -1388,7 +1388,7 @@ Qed.
 
 (** Everything calibration everywhere forces on a well-formed triangulated
     state with distinct module IDs. *)
-Theorem F3_calibration_consequences : forall s,
+Theorem calibration_consequences : forall s,
   well_formed_triangulated (vm_graph s) ->
   NoDup (map fst (pg_modules (vm_graph s))) ->
   (forall m, In m (map fst (pg_modules (vm_graph s))) ->
@@ -1407,19 +1407,19 @@ Proof.
   intros s Hwf Hnd Hcal.
   pose proof Hwf as Hwf'.
   destruct Hwf' as [_ [Htri [Hnorm [Hman _]]]].
-  destruct (F3_calibration_window s Hwf Hcal) as [H1 [H2 H3]].
+  destruct (calibration_face_triangle_window s Hwf Hcal) as [H1 [H2 H3]].
   split.
   - intros m Hm.
-    destruct (F3_calibration_forces_flat_faces s Htri Hnorm Hcal m Hm) as [A [B _]].
+    destruct (calibration_forces_flat_faces s Htri Hnorm Hcal m Hm) as [A [B _]].
     split; [exact A|]. split; [exact B|].
-    exact (F3_calibration_forces_five_triangles s Htri Hnorm Hcal m Hm).
+    exact (calibration_forces_five_triangles s Htri Hnorm Hcal m Hm).
   - split; [exact H1|]. split; [exact H2|]. split; [exact H3|].
-    apply F3_vertex_triangle_bound; assumption.
+    apply vertex_degree_face_triangle_bound; assumption.
 Qed.
 
 (** The degree inequality that calibration forces:
     21 * sum_v d_v (d_v - 1) (d_v - 2) <= 264 F = 88 * sum_v d_v. *)
-Theorem F3_calibration_forces_degree_inequality : forall s,
+Theorem calibration_forces_degree_inequality : forall s,
   well_formed_triangulated (vm_graph s) ->
   NoDup (map fst (pg_modules (vm_graph s))) ->
   (forall m, In m (map fst (pg_modules (vm_graph s))) ->
@@ -1430,7 +1430,7 @@ Theorem F3_calibration_forces_degree_inequality : forall s,
    <= 88 * sum_degrees (vm_graph s) (vertices (vm_graph s)))%nat.
 Proof.
   intros s Hwf Hnd Hcal.
-  destruct (F3_calibration_consequences s Hwf Hnd Hcal) as [_ [_ [H2 [_ H4]]]].
+  destruct (calibration_consequences s Hwf Hnd Hcal) as [_ [_ [H2 [_ H4]]]].
   destruct Hwf as [_ [_ [_ [_ [_ [_ [_ [_ [Hdeg _]]]]]]]]].
   unfold satisfies_degree_face_relation in Hdeg. rewrite Hdeg. lia.
 Qed.
@@ -1463,7 +1463,7 @@ Qed.
 (** A closed obstruction: if every vertex lies in at least four faces
     (for example any triangulated torus without vertices of degree 3),
     calibration cannot hold at every module. *)
-Theorem F3_calibration_obstruction_min_degree4 : forall s,
+Theorem min_degree_4_triangulation_not_calibrated : forall s,
   well_formed_triangulated (vm_graph s) ->
   NoDup (map fst (pg_modules (vm_graph s))) ->
   (forall v, In v (vertices (vm_graph s)) -> (4 <= vertex_degree (vm_graph s) v)%nat) ->
@@ -1471,8 +1471,8 @@ Theorem F3_calibration_obstruction_min_degree4 : forall s,
                calibration_residual s m = 0%R).
 Proof.
   intros s Hwf Hnd Hdeg4 Hcal.
-  pose proof (F3_calibration_forces_degree_inequality s Hwf Hnd Hcal) as Hineq.
-  destruct (F3_calibration_consequences s Hwf Hnd Hcal) as [_ [_ [_ [H3 _]]]].
+  pose proof (calibration_forces_degree_inequality s Hwf Hnd Hcal) as Hineq.
+  destruct (calibration_consequences s Hwf Hnd Hcal) as [_ [_ [_ [H3 _]]]].
   pose proof (nsum_falling3_ge (vm_graph s) (vertices (vm_graph s)) Hdeg4) as Hge.
   destruct Hwf as [_ [_ [_ [_ [_ [_ [_ [_ [Hdeg _]]]]]]]]].
   unfold satisfies_degree_face_relation in Hdeg.
@@ -1557,12 +1557,12 @@ Qed.
 Lemma om_nodup : NoDup (map fst (pg_modules (vm_graph om_state))).
 Proof. apply nodup_check. vm_compute. reflexivity. Qed.
 
-(** On this state the conclusion of [F3_calibration_forces_degree_inequality]
+(** On this state the conclusion of [calibration_forces_degree_inequality]
     holds (21 * 174 <= 88 * 45), so that inequality cannot refute
     calibration by itself; the full count T = 37 of face-graph triangles
     (which includes triangles with no common vertex) already leaves the
     window 2F < T <= (44/21) F, since 21 * 37 > 44 * 15. *)
-Theorem F3_degree_route_insufficient :
+Theorem degree_inequality_admits_om_state :
   well_formed_triangulated (vm_graph om_state) /\
   NoDup (map fst (pg_modules (vm_graph om_state))) /\
   (21 * nsum (vertices (vm_graph om_state))
@@ -1577,13 +1577,13 @@ Proof.
   - apply Nat.ltb_lt. vm_compute. reflexivity.
 Qed.
 
-Corollary F3_om_not_calibrated :
+Corollary om_state_not_calibrated :
   ~ (forall m, In m (map fst (pg_modules (vm_graph om_state))) ->
                calibration_residual om_state m = 0%R).
 Proof.
   intro Hcal.
-  destruct (F3_calibration_window om_state om_well_formed Hcal) as [_ [H _]].
-  destruct F3_degree_route_insufficient as [_ [_ [_ H']]].
+  destruct (calibration_face_triangle_window om_state om_well_formed Hcal) as [_ [H _]].
+  destruct degree_inequality_admits_om_state as [_ [_ [_ H']]].
   lia.
 Qed.
 
@@ -1612,7 +1612,7 @@ Qed.
     61 F <= 140 B. With the well-formedness identities 3F = 2I + B,
     E = I + B and B = 3 chi, the sum of degrees is 6V - 5B, and the bound
     d (d - 1) (d - 2) >= 18 d - 48 turns the degree inequality into this. *)
-Theorem F3_calibration_forces_large_boundary : forall s,
+Theorem calibration_forces_large_boundary : forall s,
   well_formed_triangulated (vm_graph s) ->
   NoDup (map fst (pg_modules (vm_graph s))) ->
   (forall m, In m (map fst (pg_modules (vm_graph s))) ->
@@ -1620,7 +1620,7 @@ Theorem F3_calibration_forces_large_boundary : forall s,
   (61 * DiscreteTopology.F (vm_graph s) <= 140 * DiscreteTopology.B (vm_graph s))%nat.
 Proof.
   intros s Hwf Hnd Hcal.
-  pose proof (F3_calibration_forces_degree_inequality s Hwf Hnd Hcal) as Hineq.
+  pose proof (calibration_forces_degree_inequality s Hwf Hnd Hcal) as Hineq.
   pose proof (nsum_falling3_tangent (vm_graph s) (vertices (vm_graph s))) as Htan.
   pose proof (total_edges_eq_interior_plus_boundary (vm_graph s) Hwf) as HEIB.
   destruct Hwf as [_ [_ [_ [_ [_ [_ [_ [H3F [Hdeg Hbd]]]]]]]]].
@@ -1634,7 +1634,7 @@ Qed.
 
 (** A closed obstruction: a well-formed triangulated state with no
     boundary edge (a closed surface) cannot be calibrated at every module. *)
-Theorem F3_calibration_obstruction_closed : forall s,
+Theorem closed_triangulation_not_calibrated : forall s,
   well_formed_triangulated (vm_graph s) ->
   NoDup (map fst (pg_modules (vm_graph s))) ->
   DiscreteTopology.B (vm_graph s) = 0%nat ->
@@ -1642,7 +1642,7 @@ Theorem F3_calibration_obstruction_closed : forall s,
                calibration_residual s m = 0%R).
 Proof.
   intros s Hwf Hnd HB Hcal.
-  pose proof (F3_calibration_forces_large_boundary s Hwf Hnd Hcal) as H.
+  pose proof (calibration_forces_large_boundary s Hwf Hnd Hcal) as H.
   destruct Hwf as [_ [_ [_ [_ [_ [_ [HF _]]]]]]].
   lia.
 Qed.
@@ -3095,7 +3095,7 @@ Lemma window_nat : forall s,
 Proof.
   intros s Htri Hnorm HF Hcal.
   unfold DiscreteTopology.F.
-  destruct (F3_calibration_window_R s Htri Hnorm HF Hcal) as [Hlo Hhi].
+  destruct (calibration_face_triangle_window_R s Htri Hnorm HF Hcal) as [Hlo Hhi].
   rewrite ordered_count_six in Hlo, Hhi.
   rewrite <- INR_face_triangle_count in Hlo, Hhi.
   set (T := face_triangle_count s) in *.
@@ -3142,7 +3142,7 @@ Proof.
   assert (HF_c : (1 <= List.length (pg_modules (vm_graph sc)))%nat).
   { destruct (pg_modules (vm_graph sc)) as [|x l]; [destruct Ha0c|simpl; lia]. }
   destruct (window_nat sc Htri_c Hnorm_c HF_c Hcal_c) as [Hw1 Hw2].
-  pose proof (F3_vertex_triangle_bound sc Hnd_c Hman_c) as Hvtb.
+  pose proof (vertex_degree_face_triangle_bound sc Hnd_c Hman_c) as Hvtb.
   pose proof (degree_sum_general (vm_graph sc) Hok_c) as Hdeg.
   pose proof (nsum_falling3_tangent (vm_graph sc) (vertices (vm_graph sc))) as Htan.
   pose proof (edges_faces_boundary (vm_graph sc) Hok_c Hman_c) as Hefb.
@@ -3431,7 +3431,7 @@ Qed.
 
 (** A well-formed triangulated state with distinct module IDs and
     connected vertex links cannot be calibrated at every module. *)
-Theorem F3_calibration_obstruction : forall s,
+Theorem connected_triangulation_not_calibrated : forall s,
   well_formed_triangulated (vm_graph s) ->
   links_connected s ->
   NoDup (map fst (pg_modules (vm_graph s))) ->
@@ -3526,36 +3526,36 @@ Lemma om_links_connected : links_connected om_state.
 Proof. apply (links_connected_check om_state 4). vm_compute. reflexivity. Qed.
 
 (** The octahedron next to the 9-gon of the degree-inequality section meets every hypothesis of
-    F3_calibration_obstruction, so those hypotheses are consistent. *)
-Corollary F3_obstruction_hypotheses_satisfiable :
+    connected_triangulation_not_calibrated, so those hypotheses are consistent. *)
+Corollary calibration_obstruction_hypotheses_satisfiable :
   well_formed_triangulated (vm_graph om_state) /\ links_connected om_state /\
   NoDup (map fst (pg_modules (vm_graph om_state))) /\ ~ calibrated om_state.
 Proof.
   split; [exact om_well_formed|]. split; [exact om_links_connected|].
   split; [exact om_nodup|].
-  apply F3_calibration_obstruction; [exact om_well_formed|exact om_links_connected|exact om_nodup].
+  apply connected_triangulation_not_calibrated; [exact om_well_formed|exact om_links_connected|exact om_nodup].
 Qed.
 
 (** * Assumption audit. *)
 
-Print Assumptions F3_calibration_forces_flat_faces.
-Print Assumptions F3_calibration_forces_five_triangles.
+Print Assumptions calibration_forces_flat_faces.
+Print Assumptions calibration_forces_five_triangles.
 Print Assumptions total_angle_sum_identity.
-Print Assumptions F3_calibration_window_R.
-Print Assumptions F3_calibration_window.
-Print Assumptions F3_vertex_triangle_bound.
-Print Assumptions F3_calibration_consequences.
-Print Assumptions F3_calibration_forces_degree_inequality.
-Print Assumptions F3_calibration_obstruction_min_degree4.
-Print Assumptions F3_calibration_forces_large_boundary.
-Print Assumptions F3_calibration_obstruction_closed.
-Print Assumptions F3_degree_route_insufficient.
-Print Assumptions F3_om_not_calibrated.
+Print Assumptions calibration_face_triangle_window_R.
+Print Assumptions calibration_face_triangle_window.
+Print Assumptions vertex_degree_face_triangle_bound.
+Print Assumptions calibration_consequences.
+Print Assumptions calibration_forces_degree_inequality.
+Print Assumptions min_degree_4_triangulation_not_calibrated.
+Print Assumptions calibration_forces_large_boundary.
+Print Assumptions closed_triangulation_not_calibrated.
+Print Assumptions degree_inequality_admits_om_state.
+Print Assumptions om_state_not_calibrated.
 Print Assumptions degree_sum_general.
 Print Assumptions edges_faces_boundary.
 Print Assumptions euler_component.
 Print Assumptions component_inequality.
 Print Assumptions components_sum.
-Print Assumptions F3_calibration_obstruction.
+Print Assumptions connected_triangulation_not_calibrated.
 Print Assumptions om_links_connected.
-Print Assumptions F3_obstruction_hypotheses_satisfiable.
+Print Assumptions calibration_obstruction_hypotheses_satisfiable.

@@ -261,7 +261,7 @@ Qed.
 (** Bridge to [BornRule.v]. *)
 
 (** The existing BornRule.v uses `is_linear_in_z` as a hypothesis.
-    We show that mixture_compatible + boundary conditions implies
+    This section shows that mixture_compatible + boundary conditions imply
     the functional form used there. *)
 
 (** Slope derived from the affine uniqueness proof. *)
@@ -492,7 +492,7 @@ Definition hardy_axiom_5_statement
     INR (read_reg s r) = (1+z)/2], only z ∈ {-1, 1} are representable (since
     read_reg returns nat, only n=0 → z=-1 and n=1 → z=1 satisfy the equation).
     A richer approximate encoding (e.g. 16-bit fixed-point) would make this
-    constructive for all z with precision ε > 0.  The current formulation
+    constructive for all z with precision ε > 0.  This formulation
     restricts H_universal to the exact-encoding subspace.
 
     For the exact encoding, H_universal is CONSTRUCTIVELY dischargeable for
@@ -640,7 +640,7 @@ Qed.
       z = -1  ↔  n = 0:  INR 0 = 0 = (1+(-1))/2. ✓
       z =  1  ↔  n = 1:  INR 1 = 1 = (1+1)/2.     ✓
 
-    We construct explicit VMState witnesses discharging H_universal for
+    Explicit VMState witnesses discharge H_universal for
     these two points.  This is the maximal constructive range of the exact
     nat encoding.
 *)
@@ -693,7 +693,7 @@ Qed.
     shown affine, its endpoint values are computed, and the uniqueness lemma
     is applied. The Hardy-style assumptions are an optional separate route.
 
-    The current Hardy predicates quantify over the register encodings supplied
+    The Hardy predicates quantify over the register encodings supplied
     by their interfaces. That representation choice can make them stronger
     than the witnesses needed by the bridge; the direct theorem below avoids
     relying on that additional encoding premise. *)

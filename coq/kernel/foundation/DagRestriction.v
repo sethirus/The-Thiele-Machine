@@ -14,9 +14,9 @@
     length(trace) steps from any initial PC ≤ length(trace).
 
     STRUCTURAL COMPLETENESS (dag_structural_completeness): PNEW, EMIT, LASSERT,
-    CERTIFY, and all MORPH variants are dag-safe. The full epistemic instruction
-    set survives the restriction. The Insight ASIC computes everything the
-    full machine can certify.
+    CERTIFY, and all MORPH variants are dag-safe (PNEW and LASSERT on traces
+    no longer than LASSERT_TRAP_PC). The certification-capable instructions
+    survive the restriction.
 
     NFI PRESERVATION (dag_nfi_preserved): No Free Insight holds for DAG traces
     as a direct corollary of NoFreeInsight.no_free_insight_general, which holds
@@ -45,8 +45,8 @@ Import RevelationRequirement.RevelationProof.
     2. No RET (pops return address, enabling arbitrary backward jumps).
     3. Every JUMP or JNEZ target is strictly greater than the current PC
        (no backward edges).
-    4. LASSERT: on failure, jumps to LASSERT_TRAP_PC = 3840. We require
-       the trace is short enough that this also exits bounds: length ≤ LASSERT_TRAP_PC.
+    4. LASSERT: on failure, jumps to LASSERT_TRAP_PC = 3840. The trace must be
+       short enough that this also exits bounds: length ≤ LASSERT_TRAP_PC.
        PNEW, PSPLIT and PMERGE trap to the same vector on a partition fault, so they
        carry the same length condition.
 
@@ -277,7 +277,7 @@ Qed.
 (** ** PC Monotone Growth Under DAG Execution
 
     After k steps from state s in a DAG trace, the PC has advanced by at
-    least k — OR the machine has already halted (PC ≥ length trace).
+    least k, OR the machine has already halted (PC ≥ length trace).
 
     This is the formal basis for the termination bound. *)
 Lemma dag_pc_growth :
@@ -376,8 +376,8 @@ Qed.
 
 (** ** Structural Completeness
 
-    All epistemic instructions — those that can certify structural claims or
-    accumulate mu-cost — pass the DAG check unconditionally (or under the
+    All epistemic instructions (those that can certify structural claims or
+    accumulate mu-cost) pass the DAG check unconditionally (or under the
     trivially satisfied condition length ≤ LASSERT_TRAP_PC = 3840). *)
 
 (** EMIT, CERTIFY, MORPH, MORPH_ID, MORPH_ASSERT, MORPH_TENSOR,
@@ -511,7 +511,7 @@ Qed.
 
 (** ** The Separation
 
-    These two facts together characterize the Insight ASIC:
+    Three facts about the DAG machine:
     - It always halts (dag_terminates).
     - It cannot certify for free (dag_no_free_insight_corollary).
     - It CAN certify when the program includes cert-setter instructions

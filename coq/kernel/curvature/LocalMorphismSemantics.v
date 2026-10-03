@@ -1,6 +1,6 @@
 (** Local Morphism Support Semantics for PSPLIT Subsystems
 
-    EntanglementEntropy.v currently states area-law bounds from an explicit
+    EntanglementEntropy.v states area-law bounds from an explicit
     locality hypothesis. This file introduces a split-morphism support
     semantics and a nearest-neighbor predicate that exposes that locality
     condition at morphism level.

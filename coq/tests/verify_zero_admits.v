@@ -7,7 +7,7 @@
 
     The expected output is not uniformly empty: standard-library facts
     (functional extensionality, classical reals, etc.) reach into the
-    proofs from below. The contract is narrower — the script exposes
+    proofs from below. The contract is narrower: the script exposes
     exactly what the assumption surface is, and any newly introduced
     project-local axiom or [Admitted] would show up here immediately. *)
 
@@ -94,7 +94,7 @@ Print Assumptions honest_nfi_quantitative_state_space_partial.
 (* Theorem: Separation requires cert count (Shannon quantitative lower bound) *)
 Print Assumptions MuShannonQuantitative.separation_requires_cert_count.
 
-(* Theorem: Conditional Shannon bound — cert executions bound delta-mu *)
+(* Theorem: Conditional Shannon bound, cert executions bound delta-mu *)
 Print Assumptions MuShannonQuantitative.conditional_shannon_bound.
 
 (* Theorem: General feasible-set reduction bound under explicit tree-cover hypothesis *)

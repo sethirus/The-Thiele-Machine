@@ -1,12 +1,12 @@
-(** VMUnboundedInterpreterCompose.v — general subroutine-embedding
-    infrastructure, so get_slot_program/set_slot_program (and every future
-    opcode block's straight-line helper code) can be proved correct once,
+(** VMUnboundedInterpreterCompose.v: general subroutine-embedding
+    infrastructure, so get_slot_program/set_slot_program (and any opcode
+    block's straight-line helper code) can be proved correct once,
     at pc=0, and then reused unchanged inside a larger program at any
     absolute offset, instead of re-deriving register bookkeeping from
     scratch for every composition.
 
     The core fact: for the specific arithmetic/load-immediate instructions
-    used by get_slot_program/set_slot_program (all straight-line — none of
+    used by get_slot_program/set_slot_program (all straight-line: none of
     them is a jump, call, ret, or taken branch), vm_apply_u's effect on
     every field except vm_pc does not depend on the incoming vm_pc value,
     and vm_pc always becomes exactly one more than it was. So running such
@@ -122,7 +122,7 @@ Qed.
 (** * 6. The main embedding theorem: running a straight-line program P for
     n steps from a state at pc=k, or running it embedded inside
     prefix++P++suffix from a pc_shifted_by-related state at pc=length
-    prefix+k, produces pc_shifted_by-related results — every field but
+    prefix+k, produces pc_shifted_by-related results: every field but
     vm_pc identical, vm_pc offset by the same constant throughout. *)
 
 Lemma run_vm_u_embed_gen : forall P prefix suffix,
@@ -184,7 +184,7 @@ Proof.
 Qed.
 
 (** * 7. Fuel splitting: running n1+n2 steps is the same as running n1
-    then n2 more from wherever that lands — including past a halt, where
+    then n2 more from wherever that lands, including past a halt, where
     extra fuel is a no-op. Needed to carve an exact 5- or 15-step
     sub-computation (matching a get_slot_program/set_slot_program call)
     out of the middle of a longer run, without re-deriving it. *)
@@ -209,7 +209,7 @@ Proof.
 Qed.
 
 (** * 8. reset_pc: a copy of a state with vm_pc zeroed, everything else
-    identical — always pc_shifted_by-related to the original by its own
+    identical, always pc_shifted_by-related to the original by its own
     (whatever) pc value. Used to manufacture the "standalone, pc=0" state
     a get_slot_program_correct/set_slot_program_correct call needs, from
     a state already embedded partway through a bigger program. *)
@@ -232,7 +232,7 @@ Proof.
   repeat split; try lia; try reflexivity.
 Qed.
 
-(** * 9. Register-file length is preserved by any straight-line run — used
+(** * 9. Register-file length is preserved by any straight-line run. Used
     at every subroutine call site to keep re-establishing REG_COUNT
     without re-deriving it instruction by instruction. *)
 

@@ -359,7 +359,7 @@ Qed.
     rational predicate. The proof uses its minor witnesses and an SOS
     certificate over [Q]. *)
 
-(* SCOPE NOTE: foundation connectivity — the theorem uses the minor witnesses
+(* SCOPE NOTE: foundation connectivity; the theorem uses the minor witnesses
    and [psatz Q 4] supplies the required rational SOS certificate. *)
 Theorem algebraically_coherent_tsirelson_general :
   forall c : Correlators,

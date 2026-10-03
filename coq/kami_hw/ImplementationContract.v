@@ -1,5 +1,5 @@
 (** Finite implementation interface. Definitions are specifications, not an
-    assumed refinement theorem; see C1_IMPLEMENTATION_CONTRACT.md. *)
+    assumed refinement theorem. *)
 Require Import Kami.Kami Kami.Semantics.
 From Coq Require Import List String NArith Arith Lia.
 From KamiHW Require Import ThieleTypes ThieleCPUCore ThieleCPUBusTop
@@ -170,7 +170,8 @@ Definition represented_region (region : list nat) :=
 Definition represented_endpoint (endpoint : nat) := endpoint < MemSize.
 
 (** A schedule lists actual CPU rule firings only; host methods occur before
-    this trace. Enabled-rule progress/fairness is a separate C2 obligation. *)
+    this trace. Progress to retirement under the concrete scheduler is
+    RetireProgress.v. *)
 Definition execution_schedule (names : list string) : Prop :=
   Forall (fun name => In name (List.map (@attrName _) (getRules thieleCore))) names.
 

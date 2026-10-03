@@ -33,7 +33,7 @@ Record StateSpace := {
 (** ** 2. Expansion record *)
 
 (** An [Expansion A B] is an injective embedding φ : Ω_A → Ω_B that is
-    strictly monotone in size.  We require:
+    strictly monotone in size.  Requirements:
     - φ maps valid A-indices to valid B-indices        [embed_lt]
     - φ is injective on A-indices                      [embed_inj]
     - B is strictly larger than A                      [size_strict] *)
@@ -62,10 +62,10 @@ Definition lift_safety
                        exists t, t < A.(ss_size) /\ phi t = s /\ A.(ss_safe) t |}.
 
 (* ------------------------------------------------------------------ *)
-(** ** 4. Theorem 1 — Safety Functor is sound
+(** ** 4. Theorem 1: Safety Functor is sound
 
     The lifted predicate accepts exactly the image of A's safe states.
-    Proof is a direct witness construction — no induction required. *)
+    Proof is a direct witness construction, no induction required. *)
 
 Theorem safety_functor_sound :
   forall (A       : StateSpace)
@@ -86,7 +86,7 @@ Proof.
 Qed.
 
 (* *)
-(** ** Step 2 — μ-Conservation of Trust
+(** ** Step 2: μ-Conservation of Trust
 
     The key question: does trusting B cost *more* μ than what A already paid?
 
@@ -207,7 +207,7 @@ Qed.
 Definition cost_sum (c : nat -> nat) (indices : list nat) : nat :=
   List.fold_left (fun acc i => acc + c i) indices 0.
 
-(** Helper: fold_left addition is pointwise — equal pointwise functions give
+(** Helper: fold_left addition is pointwise; equal pointwise functions give
     equal sums. *)
 Lemma fold_left_sum_congr :
   forall (f g : nat -> nat) (l : list nat) (acc : nat),
@@ -223,7 +223,7 @@ Proof.
 Qed.
 
 (** μ-CONSERVATION The total verification load that B incurs on
-    embedded states (those in Im φ) equals exactly what A paid — no
+    embedded states (those in Im φ) equals exactly what A paid, no
     overhead from the non-isomorphic state-space expansion. *)
 Theorem mu_conservation :
   forall {A B : StateSpace} (e : Expansion A B) (cA : VerifyCost A),
@@ -239,11 +239,11 @@ Proof.
 Qed.
 
 (* *)
-(** ** Step 3 — Constructive Trust Certificate and Löb Bypass
+(** ** Step 3: Constructive Trust Certificate and Löb Bypass
 
     Löb's theorem: any proof of □P → P immediately yields a proof of P.
     A system that could assert "if I am safe then I am safe" would derive
-    its own safety for free — the circularity is the bug.
+    its own safety for free; the circularity is the bug.
 
     The bypass: replace the provability modality with a *cost-grounded
     certificate*.  B does not assert its own safety.  It presents a
@@ -276,7 +276,7 @@ Record TrustCertificate (A B : StateSpace) : Type := {
 }.
 
 (* ------------------------------------------------------------------ *)
-(** *** 3b. Construction — every Expansion yields a certificate
+(** *** 3b. Construction: every Expansion yields a certificate
 
     [mk_trust_certificate] shows trust transfer is always possible.
     [lift_cost] from Step 2 supplies the cost witness; the three proof
@@ -304,13 +304,13 @@ Qed.
 (* ------------------------------------------------------------------ *)
 (** *** 3c. Löb Bypass Theorem
 
-    MAIN RESULT: From A's safety evidence alone — plus the expansion and
-    cost model — we derive that B accepts φ(s) as safe, and that no
+    MAIN RESULT: From A's safety evidence alone (plus the expansion and
+    cost model), it follows that B accepts φ(s) as safe, and that no
     extra μ is consumed on already-certified states.
 
     Proof structure:
-    (i)  Safety  — direct application of [safety_functor_sound] (Step 1).
-    (ii) Cost    — direct application of [lift_cost_image_eq] (Step 2).
+    (i)  Safety:   direct application of [safety_functor_sound] (Step 1).
+    (ii) Cost:     direct application of [lift_cost_image_eq] (Step 2).
 
     The B-type does not appear in any hypothesis.
     No □P → P step appears anywhere in this proof tree. *)
@@ -334,7 +334,7 @@ Proof.
 Qed.
 
 (* ------------------------------------------------------------------ *)
-(** *** 3d. Corollary — No Free Trust
+(** *** 3d. Corollary: No Free Trust
 
     A [TrustCertificate A B] certifies that B is strictly larger than A.
     There is no zero-cost expansion: new capability always carries
@@ -351,7 +351,7 @@ Proof.
 Qed.
 
 (* *)
-(** ** 6. Foundation Bridge — Connection to Thiele Machine Semantics
+(** ** 6. Foundation Bridge: Connection to Thiele Machine Semantics
 
     This section connects the abstract [StateSpace] model to the concrete
     Thiele Machine foundation:

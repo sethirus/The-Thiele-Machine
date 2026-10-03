@@ -1,7 +1,7 @@
 (** Effective specialization of MM2's first input, with its actual PC-1
     entry and exact two-direction terminal-result/host contracts. The prefix
     preserves the PC-0 halt sentinel by jumping over it, rather than starting
-    execution at that sentinel. See SPECIALIZATION_REPAIR.md. *)
+    execution at that sentinel. *)
 
 From Coq Require Import Arith Lia List.
 Import ListNotations.

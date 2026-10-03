@@ -1,7 +1,6 @@
 (** A2Payoff: the equal-trust substitution-test payoff theorem.
 
-    This file packages the commitment-accounting results into one theorem the
-    monograph can cite.
+    This file packages the commitment-accounting results into one theorem.
 
     The theorem says, in one place:
 
@@ -19,7 +18,7 @@
        the charged predicate is A2; the real VM's [instruction_cost] decomposes
        into background cost plus the [vm_certified] commitment count.
 
-    This is the current answer to the substitution test: substitutes work only
+    This is the answer to the substitution test: substitutes work only
     by containing A2; exact non-overcharging substitutes are A2.
 *)
 

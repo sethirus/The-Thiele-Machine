@@ -22,7 +22,7 @@ From KamiHW  Require Import Abstraction HardwareShadowBridge
                             ShadowEmbedStep FullAbstraction GraphReconstructionBridge.
 
 (**
-    NEW LEMMA 1: Thiele instruction cost is surjective
+    LEMMA: Thiele instruction cost is surjective
 
     Every natural number is the cost of some Thiele instruction.
     Witness: [instr_halt n] has [instruction_cost = n].
@@ -40,13 +40,13 @@ Proof.
 Qed.
 
 (**
-    NEW LEMMA 2: Thiele has certifying instructions for every positive cost
+    LEMMA: Thiele has certifying instructions for every positive cost
 
     For every cost value [S k], there exists a Thiele instruction that:
     (a) has that exact cost, AND
     (b) unconditionally sets [vm_certified := true]
 
-    Witness: [instr_certify k] — cost is [S k], always certifies.
+    Witness: [instr_certify k]; cost is [S k], always certifies.
 
     This is the sense in which Thiele is "cert-cost-complete":
     any certification budget ≥ 1 is achievable via a concrete instruction.
@@ -72,9 +72,8 @@ Qed.
 (**
     THE CANONICAL MODEL RECORD
 
-    Bundles the seven unconditional guarantees into a single named structure.
-    Proved via instantiation of the record's fields using existing theorems
-    plus the two new lemmas above.
+    Bundles eight guarantees into a single named structure, instantiated
+    from existing theorems and the two lemmas above.
 *)
 
 Record ThieleCanonicalModel := {
@@ -96,8 +95,8 @@ Record ThieleCanonicalModel := {
   (** (3) Universal No Free Insight:
       Any certification system satisfying A2 (cost ≥ 1 at the certification
       transition) cannot certify from false to true without spending ≥ 1 cost.
-      This holds for Thiele, OCaml extraction, RTL, physical measurements,
-      proof assistants, and consensus protocols — any substrate satisfying A2. *)
+      The statement quantifies over [CertificationSystem]; a substrate is
+      covered once it is given as an instance satisfying A2. *)
   tcm_nfi_universal :
     forall (CS : CertificationSystem)
            (trace : list (cs_instr CS))
@@ -108,7 +107,7 @@ Record ThieleCanonicalModel := {
 
   (** (4) Shadow is strictly lossy:
       There exist two Thiele states with the same classical shadow but
-      different graph structure — and a probe that preserves the distinction.
+      different graph structure, and a probe that preserves the distinction.
       The classical observer cannot distinguish what the Thiele machine retains. *)
   tcm_shadow_strictly_lossy :
     exists (s1 s2 : VMState),
@@ -140,19 +139,17 @@ Record ThieleCanonicalModel := {
   (** (7) Trace-level shadow compatibility for supported executions:
       For any trace over the SupportedOpcode instruction subset, the hardware
       observable trace equals the classical shadow of the Thiele execution.
-      Unconditional — no embed_step hypothesis.  This is the theorem to cite
-      in print for the hardware-runs-as-shadow claim. *)
+      No embed_step hypothesis. *)
   tcm_trace_compat_supported :
     forall (trace : list vm_instruction) (ks : KamiSnapshot),
       (forall i, List.In i trace -> SupportedOpcode i) ->
       rtl_classical_obs (List.fold_left kami_step trace ks) =
       shadow_proj (List.fold_left vm_apply trace (abs_phase1 ks));
 
-  (** (8) Extended trace-level shadow compatibility (29 opcodes):
-      Extends (7) to ShadowSupportedOpcode: the original 26 plus
-      PDISCOVER, EMIT, REVEAL.  These 3 additional opcodes diverge on
-      vm_graph/vm_csrs but agree on all shadow fields.
-      Uses shadow compositionality (vm_apply_shadow_compat). *)
+  (** (8) Trace-level shadow compatibility for ShadowSupportedOpcode
+      traces: SupportedOpcode without the five CHSH_LASSERT forms (30
+      opcodes), from a snapshot whose heap base is 0. A special case of
+      (7), proved through shadow compositionality (vm_apply_shadow_compat). *)
   tcm_trace_compat_shadow_extended :
     forall (trace : list vm_instruction) (ks : KamiSnapshot),
       snap_csr_heap_base ks = 0 ->
@@ -162,12 +159,12 @@ Record ThieleCanonicalModel := {
 }.
 
 (**
-    INSTANTIATION: Thiele satisfies all seven guarantees
+    INSTANTIATION: Thiele satisfies all eight guarantees
 
     The proof is by record construction from existing lemmata.
 *)
 
-(** Seventh guarantee: unconditional trace-level shadow compatibility.
+(** Guarantee (7): trace-level shadow compatibility for supported traces.
     Proved directly from [rtl_shadow_trace_compat_supported]. *)
 Theorem thiele_trace_compat_supported :
   forall (trace : list vm_instruction) (ks : KamiSnapshot),
@@ -193,11 +190,10 @@ Proof.
 Qed.
 
 (**
-    Full PC-driven trace compatibility for the current hardware model.
+    PC-driven trace compatibility for the hardware model.
 
-    This is the stronger replacement for the older abstract [embed_step]
-    theorem shape: the hardware trace is run by [kami_run_driven], and the
-    exact side conditions for all 46 opcodes are collected in
+    The hardware trace is run by [kami_run_driven], and the exact side
+    conditions for all 51 opcodes are collected in
     [WFDrivenPrecondition]. *)
 Theorem thiele_trace_compat_wf_driven :
   forall fuel trace ks,
@@ -211,7 +207,7 @@ Qed.
 
 (**
     Abstract trace theorem over a generic [embed_step], for files that use
-    that shape rather than the concrete 46-opcode [WFDrivenPrecondition]
+    that shape rather than the concrete 51-opcode [WFDrivenPrecondition]
     bridge. *)
 Theorem thiele_trace_compat_under_embed_step :
   forall (embed_step : forall (ks : KamiSnapshot) (i : vm_instruction),

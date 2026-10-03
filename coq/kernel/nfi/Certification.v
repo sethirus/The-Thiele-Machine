@@ -61,8 +61,8 @@ Definition Receipts := Trace.
   choices (inputs), a,b are results (outputs).
 
   extract_chsh_trials scans the receipt stream for instr_chsh_trial
-  instructions — that's the ONLY way CHSH trials enter the stream,
-  proven in chsh_trials_non_forgeable below. Once we have the trial list,
+  instructions: that's the ONLY way CHSH trials enter the stream,
+  proven in chsh_trials_non_forgeable below. Given the trial list,
   KernelCHSH.chsh computes E_xy = average correlation per input pair and
   S = E00 + E01 + E10 - E11. Mechanical arithmetic.
 *)
@@ -72,8 +72,8 @@ Definition extract_chsh_trials (receipts : Receipts) : list KernelCHSH.Trial :=
 
 (** CHSH Value Computation (Rational approximation)
 
-    We use the concrete empirical CHSH statistic [KernelCHSH.chsh].
-    Tsirelson bound: $2\sqrt{2} \approx 2.828427$; we use a safe rational
+    The CHSH statistic is the concrete empirical one, [KernelCHSH.chsh].
+    Tsirelson bound: $2\sqrt{2} \approx 2.828427$, with the safe rational
     approximation [5657/2000].
 
     Note: This is an *empirical* statistic over the receipt stream; it is not
@@ -99,7 +99,7 @@ Definition compute_chsh (receipts : Receipts) : Q :=
       supra := S > TSIRELSON_BOUND  (where TSIRELSON_BOUND = 5657/2000)
     
     COQ DEFINITION:
-      We take "supra-quantum" to mean the receipt-derived empirical
+      "Supra-quantum" means the receipt-derived empirical
       CHSH value exceeds the Tsirelson bound approximation.
     *)
 

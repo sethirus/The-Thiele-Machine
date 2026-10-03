@@ -13,10 +13,10 @@ From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI
   MuLedgerQuantumBridge MuInitiality ElliptopeCompletion.
 Local Open Scope R_scope.
 
-Definition U1_classical_chsh_bound := fine_theorem.
-Definition U2_no_free_certification := certification_requires_positive_mu.
-Definition U3_trial_authenticity := chsh_trial_count_lower_bound.
-Definition U4_cost_intrinsic := mu_accumulates_trace_cost.
+Definition physics_classical_chsh_bound := fine_theorem.
+Definition physics_certification_requires_positive_mu := certification_requires_positive_mu.
+Definition physics_chsh_trial_count_lower_bound := chsh_trial_count_lower_bound.
+Definition physics_mu_accumulates_trace_cost := mu_accumulates_trace_cost.
 
 Lemma semantics_run_vm_cost_invariant :
   forall (trace : list vm_instruction) (s : VMState),
@@ -39,7 +39,7 @@ Proof.
   exact Hsq.
 Qed.
 
-Definition U5_tsirelson_from_psd_completion := elliptope_tsirelson_bound_abs.
+Definition physics_tsirelson_from_psd_completion := elliptope_tsirelson_bound_abs.
 
 Section PhysicsBridge.
 (* SCOPE NOTE: abstract interface section, an experimental interpretation and its PSD-completion premise. *)

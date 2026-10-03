@@ -1,5 +1,6 @@
 (** LegacyNfiGuard.v: the NFI guard-falsity lemma over the legacy word
-    encoding -- PDISCOVER, the last of the ten guard-class opcodes.
+    encoding, for PDISCOVER, the guard-class opcode outside the locality
+    class.
 
     [dd_nfi_violation] compares two word-decoded operand bytes directly
     ([dd_cost_v] against [dd_op_b], zero-extended), not a register-read

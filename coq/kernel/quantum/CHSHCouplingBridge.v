@@ -6,15 +6,15 @@
 
     The key structural facts proved here:
 
-    1. locally_consistent_gives_separable: WCLocallyConsistent → separable coupling.
+    1. locally_consistent_gives_separable_coupling: WCLocallyConsistent → separable coupling.
        A locally deterministic CHSH strategy (a0,a1,b0,b1) produces exactly one
        outcome type per setting, giving a functional (separable) coupling.
 
-    2. separable_implies_no_locally_consistent_violation: If a WitnessCount is
+    2. locally_consistent_classical_bound: If a WitnessCount is
        WCLocallyConsistent for some strategy, then |S| ≤ 2. Follows from
        local_bound_for_wc.
 
-    3. chsh_violation_rules_out_local_coupling: S > 2 → no locally consistent
+    3. chsh_violation_rules_out_locally_factorizable_coupling: S > 2 → no locally consistent
        strategy explains the data → no locally factorizable coupling.
        (This is chsh_stat_violation_not_local restated in coupling language.)
 
@@ -61,7 +61,7 @@ Definition chsh_setting_outcome_coupling (wc : WitnessCounts) : Coupling :=
     WCLocallyConsistent a0 a1 b0 b1 wc forces each setting to have at most
     one outcome type: either wc_same_ab = 0 or wc_diff_ab = 0 (per the wclc_XX
     fields). This makes each source in the coupling map to exactly one target
-    — a functional (separable) coupling. *)
+    (a functional, separable coupling). *)
 
 (** Tactic: after unfolding and zero-rewriting one bucket, discharge the
     remaining In-false goals by splitting ++ chains, closing In-[]-False,
@@ -204,7 +204,7 @@ Proof.
   - destruct K01 as [Ks|Kd]; [exact (not_in_coupling_same_01 wc Ks H1) | exact (not_in_coupling_diff_01 wc Kd H2)].
   - destruct K10 as [Ks|Kd]; [exact (not_in_coupling_same_10 wc Ks H1) | exact (not_in_coupling_diff_10 wc Kd H2)].
   - destruct K11 as [Ks|Kd]; [exact (not_in_coupling_same_11 wc Ks H1) | exact (not_in_coupling_diff_11 wc Kd H2)].
-  (* c1=1, c2=0: H1 is In(s,1), H2 is In(s,0) — swap K-lemma args *)
+  (* c1=1, c2=0: H1 is In(s,1), H2 is In(s,0); swap K-lemma args *)
   - destruct K00 as [Ks|Kd]; [exact (not_in_coupling_same_00 wc Ks H2) | exact (not_in_coupling_diff_00 wc Kd H1)].
   - destruct K01 as [Ks|Kd]; [exact (not_in_coupling_same_01 wc Ks H2) | exact (not_in_coupling_diff_01 wc Kd H1)].
   - destruct K10 as [Ks|Kd]; [exact (not_in_coupling_same_10 wc Ks H2) | exact (not_in_coupling_diff_10 wc Kd H1)].
@@ -248,7 +248,7 @@ Proof.
 Qed.
 
 (** ** Corollary: S > 2 → for any locally factorizable strategy, the coupling
-    it would require is separable — but no such strategy is consistent with S > 2.
+    it would require is separable. But no such strategy is consistent with S > 2.
 
     This combines the three theorems: any consistent local strategy gives a
     separable coupling. S > 2 rules out all consistent local strategies. Therefore
@@ -279,7 +279,7 @@ Qed.
     The CHSH violation (S > 2): no locally factorizable morphism coupling can
     explain the statistics. If a certified morphism is asserted with coupling data
     that witnesses S > 2, the certification is proof that the correlations are
-    non-local — beyond what any locally factorizable coupling can produce.
+    non-local, beyond what any locally factorizable coupling can produce.
 
     This gives the morphism coupling language a precise CHSH semantics:
     the no-go theorem for locally factorizable couplings under CHSH violation. *)

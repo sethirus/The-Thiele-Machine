@@ -114,7 +114,7 @@ Proof.
   apply Qabs_case; intros Hcase.
   - (* p00 - p01 - p10 + p11 >= 0 *)
     (* Need: p00 - p01 - p10 + p11 <= 1 *)
-    (* Since p00 + p11 <= 1 and p01, p10 >= 0, we have p00 + p11 - p01 - p10 <= 1 *)
+    (* Since p00 + p11 <= 1 and p01, p10 >= 0, p00 + p11 - p01 - p10 <= 1 *)
     setoid_replace (p00 - p01 - p10 + p11) with ((p00 + p11) - (p01 + p10)) by ring.
     assert (H_nonneg: 0 <= p01 + p10).
     { assert (H0: 0 == 0 + 0) by ring. rewrite H0. apply Qplus_le_compat; assumption. }

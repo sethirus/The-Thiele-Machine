@@ -1,6 +1,7 @@
-(** First checked actual-dispatch / [kami_step] bridge. The observation is
-    explicitly limited to PC, charge, error and all sixteen data registers.
-    This concrete ADD instance is not a full-snapshot or all-opcode refinement. *)
+(** A checked actual-dispatch / [kami_step] bridge for one instruction. The
+    observation is explicitly limited to PC, charge, error and all sixteen
+    data registers. This concrete ADD instance is not a full-snapshot or
+    all-opcode refinement. *)
 Require Import Kami.Kami Kami.Semantics.
 From KamiHW Require Import ActionEvaluator DispatchExecution DispatchObservation
   DispatchContracts CoreTyping ThieleTypes Abstraction.

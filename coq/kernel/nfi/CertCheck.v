@@ -9,7 +9,7 @@ Open Scope Z_scope.
     When the VM claims "this formula is SAT" or "this formula is UNSAT", it
     has to provide a certificate anyone can check. Saying "I computed X"
     without proof is worthless. I don't believe my own claims unless I can
-    verify them mechanically — that's what this file is.
+    verify them mechanically. That's what this file is.
 
     Two problems:
     1. SAT: Certificate = satisfying assignment. Verification = substitute,
@@ -21,13 +21,13 @@ Open Scope Z_scope.
     for SAT certificates, LRAT for UNSAT proofs.
 
     This Coq code is the canonical specification. It's extracted to OCaml
-    (build/thiele_core.ml) — same parsing, same checks, same outputs. If the
+    (build/thiele_core.ml): same parsing, same checks, same outputs. If the
     OCaml extraction accepts, Coq accepts. If Coq rejects, the extraction
     rejects. They're the same thing looked at differently.
 
     If you find a formula and assignment where this checker says SAT but the
-    formula isn't satisfied — or an LRAT proof this checker accepts but the
-    formula is actually SAT — the cross-layer parity tests will catch it.
+    formula isn't satisfied (or an LRAT proof this checker accepts but the
+    formula is actually SAT), the cross-layer parity tests will catch it.
 *)
 
 Module CertCheck.
@@ -35,7 +35,7 @@ Module CertCheck.
   (** String/list utilities: split on whitespace, trim, walk by ASCII.
       Certificate formats are text-based (DIMACS, LRAT), so I need basic
       string primitives. These are pure functional walks on ASCII character
-      lists — deterministic and formal, no external libraries. Everything
+      lists, deterministic and formal, no external libraries. Everything
       below (DIMACS parser, LRAT parser, assignment parser) bottoms out here. *)
 
   Fixpoint string_to_list (s : string) : list ascii :=
@@ -111,7 +111,7 @@ Module CertCheck.
 
   (** Integer parsing: ASCII decimal strings → Coq Z/nat.
       DIMACS uses integers for literals; LRAT uses them for clause IDs.
-      Standard decimal with optional '+'/'-' prefix — e.g. "42", "-7", "+3".
+      Standard decimal with optional '+'/'-' prefix: e.g. "42", "-7", "+3".
       parse_int "0" = Some 0, parse_int "-123" = Some (-123)%Z,
       malformed input = None. *)
 
@@ -170,7 +170,7 @@ Module CertCheck.
 
       Line-by-line scanner: skip comments, grab num_vars from header,
       accumulate clauses. This should accept exactly what standard DIMACS
-      parsers accept — the cross-layer parity tests verify agreement with
+      parsers accept; the cross-layer parity tests verify agreement with
       the OCaml extraction. *)
 
   (** Parsed CNF formula. cnf_num_vars is the variable count (1..num_vars);
@@ -248,7 +248,7 @@ Module CertCheck.
 
       Algorithm: parse the assignment into (variable, bool) pairs; for each
       clause check if any literal is satisfied. If all clauses are true,
-      the certificate is valid. Mechanical substitution — no search,
+      the certificate is valid. Mechanical substitution: no search,
       no heuristics. O(formula_size), linear in literals.
 
       The checker is a substitution procedure: if it returns true, its
@@ -358,7 +358,7 @@ Module CertCheck.
 
       This is the gate the VM goes through to verify SAT claims. If I say
       "formula F is satisfiable", I have to provide an A such that
-      check_model(F, A) = true. No escape. The check is mechanical — no
+      check_model(F, A) = true. No escape. The check is mechanical: no
       heuristics, no approximation. *)
   Definition check_model (cnf_text : string) (assignment_text : string) : bool :=
     match parse_dimacs cnf_text, parse_assignment assignment_text with
@@ -371,7 +371,7 @@ Module CertCheck.
 
   (** LRAT / RUP checking for UNSAT proofs.
 
-      SAT is easy to check — just test the assignment. UNSAT is harder: how
+      SAT is easy to check; just test the assignment. UNSAT is harder: how
       do you prove NO assignment works? The answer is LRAT proofs (Linear
       Resolution Asymmetric Tautology). Each step either adds a clause derived
       by RUP or deletes old ones for memory efficiency.
@@ -415,12 +415,12 @@ Module CertCheck.
       and returns false if exhausted (proof invalid, not infinite loop).
 
       Loop: pop a literal from the queue. If it contradicts the current
-      assignment, we have a conflict — return true. Otherwise assign it
+      assignment, that is a conflict: return true. Otherwise assign it
       and scan all clauses: unsatisfied clause → conflict (return true);
       unit clause (one undecided literal) → add that literal to queue;
       otherwise continue. Returns false when queue is empty with no conflict.
 
-      This is DPLL unit propagation. For RUP I assume ¬C and run this —
+      This is DPLL unit propagation. For RUP I assume ¬C and run this:
       if it finds a conflict, C must follow from the database. Fuel is set
       to num_vars + queue_length + 10, generous but finite. *)
   Fixpoint unit_conflict_fuel
@@ -490,7 +490,7 @@ Module CertCheck.
 
   (** verify_rup_clause: check that C is derivable by RUP from DB.
       Negates C (map Z.opp), then runs unit_conflict. If ¬C leads to
-      contradiction with DB, C must follow from DB — RUP holds. If not,
+      contradiction with DB, C must follow from DB; RUP holds. If not,
       this step is invalid and the LRAT proof is rejected. *)
   Definition verify_rup_clause
     (num_vars : nat)
@@ -511,8 +511,8 @@ Module CertCheck.
       Example: "5 1 -2 0 0 2 3 0" → derive clause #5 = (x₁ ∨ ¬x₂),
       hints from clauses #2 and #3, no deletions.
 
-      Deletions don't affect soundness — a derived clause stays valid; we
-      just drop it from memory once it's no longer needed for future steps. *)
+      Deletions don't affect soundness: a derived clause stays valid; it
+      is just dropped from memory once it's no longer needed for future steps. *)
   Record lrat_step :=
     { lrat_id : nat;
       lrat_clause : list Z;
@@ -607,14 +607,14 @@ Module CertCheck.
 
       For each line: if it's a deletion, remove those clause IDs from the
       database. If it's a derivation, verify the clause by RUP from the
-      current database — reject immediately if that check fails. If the
+      current database; reject immediately if that check fails. If the
       derived clause is empty, set the derived_empty flag.
 
       State: db (current clause database as (id, clause) pairs),
-      derived_empty (have we derived FALSE yet?).
+      derived_empty (has FALSE been derived yet?).
 
       Returns true iff ALL derivation steps verified AND the empty clause
-      was derived. The empty clause has no literals to satisfy — deriving
+      was derived. The empty clause has no literals to satisfy; deriving
       it proves the formula is contradictory, i.e. UNSAT. *)
   Fixpoint check_lrat_lines
     (num_vars : nat)
@@ -648,7 +648,7 @@ Module CertCheck.
       then run check_lrat_lines. Returns false if any parse fails or any
       RUP step fails.
 
-      UNSAT proofs can be enormous for hard instances — O(proof_size ×
+      UNSAT proofs can be enormous for hard instances: O(proof_size ×
       formula_size) to check. That's why it's a μ>0 operation: the μ-cost
       is proportional to proof length. I can't claim UNSAT for free.
 
@@ -663,7 +663,7 @@ Module CertCheck.
         check_lrat_lines cnf.(cnf_num_vars) (split_lines proof_text) db false
     end.
 
-  (** Binary clause format — hardware path.
+  (** Binary clause format: hardware path.
 
       The on-chip LASSERT FSM reads formula and assignment directly from VM
       data memory as 32-bit words. Parsing DIMACS text in RTL is infeasible
@@ -676,7 +676,7 @@ Module CertCheck.
         mem[fbase + 0] : flen (number of literal/terminator words)
         mem[fbase + 1] : num_vars
         mem[fbase + 2] : num_clauses
-        mem[fbase + 3 .. 3+flen-1] : clause data — signed 32-bit literals,
+        mem[fbase + 3 .. 3+flen-1] : clause data, signed 32-bit literals,
           0 = end-of-clause terminator
         mem[cbase + 0] : num_vars guard
         mem[cbase + k] : assignment for variable k (0 = false, nonzero = true),

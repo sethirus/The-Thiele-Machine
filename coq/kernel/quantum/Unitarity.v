@@ -99,7 +99,7 @@ Definition radius_preserving_zero_cost (E : Evolution) : Prop :=
     In the Bloch sphere parametrization ρ = (I + x·σ_x + y·σ_y + z·σ_z)/2,
     Tr(ρ) = 1 holds for ALL density matrices by the normalization constraint
     (the Pauli matrices are traceless: Tr(σ_i) = 0).  This is NOT special to
-    unitaries — it is a structural property of the parametrization itself.
+    unitaries. It is a structural property of the parametrization itself.
     The general statement [trace_preserved_by_normalization] is the
     corollary [radius_preserving_trace] with an unused radius premise;
     the general form is folded into the corollary below to avoid an
@@ -259,7 +259,7 @@ Proof.
 Qed.
 
 (** Radius preservation follows from the two radius inequalities at zero cost. *)
-(* SCOPE NOTE: key derived theorem — zero-cost + dual conservation → unitarity.
+(* SCOPE NOTE: key derived theorem, zero-cost + dual conservation → unitarity.
    Bridges Unitarity.v to NoCloning.v by eliminating the unitarity assumption. *)
 Theorem zero_cost_preserves_radius :
   forall E : Evolution,

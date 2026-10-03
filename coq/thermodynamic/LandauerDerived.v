@@ -39,8 +39,8 @@ Import ListNotations.
 
 (** ** State spaces
 
-    A computational state is a bitstring of fixed length [n]. We represent
-    it as a [nat] interpreted in binary, refined by the bound [< 2^n]. *)
+    A computational state is a bitstring of fixed length [n]. It is represented
+    as a [nat] interpreted in binary, refined by the bound [< 2^n]. *)
 Definition Bitstring (n : nat) := { x : nat | x < 2^n }.
 
 (** Total number of distinct states for [n] bits. *)
@@ -58,7 +58,7 @@ Qed.
 (** ** Information content
 
     The Shannon information content (in bits) of a state space with [2^n]
-    elements is exactly [n]. We work entirely in integers: there are no
+    elements is exactly [n]. The development works entirely in integers: there are no
     real-number approximations and no logarithm definitions to verify. *)
 Definition info_bits (n : nat) : nat := n.
 
@@ -86,7 +86,7 @@ Definition bits_erased (e : Erasure) : nat :=
 Definition fan_in (e : Erasure) : nat :=
   2^(bits_erased e).
 
-(** Fan-in is always positive — there is always at least one preimage. *)
+(** Fan-in is always positive: there is always at least one preimage. *)
 Lemma fan_in_pos : forall e, fan_in e > 0.
 Proof.
   intro e. unfold fan_in.
@@ -104,7 +104,7 @@ Definition is_reversible (e : Erasure) : Prop :=
 Definition is_irreversible (e : Erasure) : Prop :=
   fan_in e > 1.
 
-(** Powers of two are at least one — used as a step lemma below. *)
+(** Powers of two are at least one; used as a step lemma below. *)
 Lemma pow2_ge_1 : forall n, 2^n >= 1.
 Proof.
   induction n as [|n' IH].
@@ -188,7 +188,7 @@ Record PhysicalErasure := mkPhysicalErasure {
     For any physical erasure that erases [n] bits, environmental entropy
     must increase by at least [n] bits. The proof reads off the
     [second_law_satisfied] field. *)
-(* SCOPE NOTE: Record field extraction — exposes constraint for downstream use. *)
+(* SCOPE NOTE: Record field extraction; exposes constraint for downstream use. *)
 Theorem landauer_information_bound : forall pe : PhysicalErasure,
   env_entropy_increase pe >= bits_erased (erasure_op pe).
 Proof.
@@ -198,7 +198,7 @@ Proof.
   lia.
 Qed.
 
-(** ** From bits to joules — the physical bridge
+(** ** From bits to joules: the physical bridge
 
     The full physical Landauer bound reads
 
@@ -342,7 +342,7 @@ Qed.
       - Worked one-bit and n-bit examples ([one_bit_landauer],
         [n_bit_landauer]).
 
-    What the physics adds — and is not provable here — is the
+    What the physics adds (and is not provable here) is the
     bits-to-joules conversion factor k_B · T · ln 2, the fact that
     physical systems obey the second law, and the identification of
     computational bits with phase-space regions. Those are bridges, not

@@ -173,7 +173,7 @@ Proof.
 Qed.
 
 (** Theorem 2: μ-tallies for concatenated sequences distribute over the
-    intermediate state — execution is associative in the obvious way. *)
+    intermediate state; execution is associative in the obvious way. *)
 Theorem mu_additive : forall ops1 ops2 s,
   mu_value (execute_ops (ops1 ++ ops2) s) =
   mu_value (execute_ops ops2 (execute_ops ops1 s)).

@@ -1,4 +1,4 @@
-(** * F1_StrongForm: a factored cost implication, with an applicability failure
+(** * LandauerDissipationStrongForm: a factored cost implication, with an applicability failure
 
     The Landauer-style premise below prices every bool-class collapse;
     the calibration bounds that price by the VM instruction-cost schedule.
@@ -7,7 +7,7 @@
     the macro-property PC = 1. The first premise requires positive
     dissipation, while the calibration bounds it by zero.
 
-    [F1_physical_premises_incompatible] makes that obstruction explicit.
+    [landauer_dissipation_premises_inconsistent] makes that obstruction explicit.
     Consequently this file does not provide an applicable physical
     derivation of A2 for the current VM. A2 is already proved directly
     from the instruction semantics in [no_free_certification_certified].
@@ -21,7 +21,7 @@
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 
 From Kernel Require Import VMState VMStep SimulationProof PrimeAxiom AbstractNoFI.
-From Kernel Require Import F1_LogicalErasure MuInitiality.
+From Kernel Require Import LogicalErasureCertFlip MuInitiality.
 
 (** ** Landauer's principle, abstract dissipation form.
 
@@ -37,7 +37,7 @@ From Kernel Require Import F1_LogicalErasure MuInitiality.
     at least one Landauer quantum. The bridge body mentions class
     collapse and dissipation; not cost. *)
 
-(** ** Named bridge — [cost_dissipation_calibrated].
+(** ** Named bridge: [cost_dissipation_calibrated].
 
     The framework-physics interface, packaged as an explicit named bridge
     predicate in the same trust-ledger style as
@@ -74,7 +74,7 @@ Definition cost_dissipation_calibrated
     Landauer bridge and calibration are jointly incompatible on the current
     ISA, as proved below; this implication has no physical instance here. *)
 
-Theorem F1_strong_form_universal :
+Theorem collapse_step_cost_ge_1_from_calibrated_dissipation :
   forall (phys_dissipation_in_landauer_quanta : vm_instruction -> nat),
     (* Landauer's principle, bridge body in dissipation vocabulary:
        class-collapsing step → at least one Landauer quantum dissipated.
@@ -96,10 +96,10 @@ Proof.
   lia.
 Qed.
 
-(** ** A2 corollary — cert-flip specialisation.
+(** ** A2 corollary: cert-flip specialisation.
 
     Composes the universal-[P] strong-form theorem with the structural
-    lemma [cert_flip_collapses_cert_classes] from [F1_LogicalErasure.v]:
+    lemma [cert_flip_collapses_cert_classes] from [LogicalErasureCertFlip.v]:
     a cert-flip step is one specific class-collapsing step (on the
     [vm_certified] macro-property), so the strong-form bound applies. *)
 
@@ -116,7 +116,7 @@ Corollary A2_via_physical_landauer :
 Proof.
   intros phys_diss Hlandauer Hcalib s i Hf Ht.
   pose proof (cert_flip_collapses_cert_classes s i Hf Ht) as Hcollapse.
-  exact (F1_strong_form_universal phys_diss Hlandauer Hcalib
+  exact (collapse_step_cost_ge_1_from_calibrated_dissipation phys_diss Hlandauer Hcalib
                                    vm_certified i Hcollapse).
 Qed.
 
@@ -126,24 +126,24 @@ Qed.
 
     More strongly, the full premise pair below is uninhabited. *)
 
-Definition f1_pc_is_one (s : VMState) : bool := Nat.eqb (vm_pc s) 1.
+Definition pc_is_one_macro_property (s : VMState) : bool := Nat.eqb (vm_pc s) 1.
 
-Lemma f1_zero_cost_jump_collapses :
-  step_collapses_bool_classes f1_pc_is_one (instr_jump 1 0).
+Lemma zero_cost_jump_collapses_pc_is_one :
+  step_collapses_bool_classes pc_is_one_macro_property (instr_jump 1 0).
 Proof.
   split.
   - exists MuInitiality.init_state. split; reflexivity.
   - intros s _. reflexivity.
 Qed.
 
-Theorem F1_physical_premises_incompatible :
+Theorem landauer_dissipation_premises_inconsistent :
   ~ exists dissipation : vm_instruction -> nat,
       (forall P i, step_collapses_bool_classes P i -> dissipation i >= 1) /\
       cost_dissipation_calibrated dissipation.
 Proof.
   intros [dissipation [Hlandauer Hcalibration]].
-  pose proof (Hlandauer f1_pc_is_one (instr_jump 1 0)
-    f1_zero_cost_jump_collapses) as Hpositive.
+  pose proof (Hlandauer pc_is_one_macro_property (instr_jump 1 0)
+    zero_cost_jump_collapses_pc_is_one) as Hpositive.
   pose proof (Hcalibration (instr_jump 1 0)) as Hzero.
   cbn [instruction_cost] in Hzero. lia.
 Qed.

@@ -1,13 +1,15 @@
-(** ThieleCPUCore.v — Complete Thiele CPU in Kami (47-opcode synth-realised ISA).
+(** ThieleCPUCore.v: the Thiele CPU in Kami (47-opcode synth-realised ISA).
 
-    Implements the full ISA from VMStep.v:
+    Implements 47 of the 51 kernel opcodes of VMStep.v; the four Q_{1+AB}
+    CHSH_LASSERT forms have no opcode here:
       - Every instruction uses the μ cost table from VMStep.v
       - PC advances to PC+1 (sequential) or target (branch)
       - HALT latches the halted flag
       - CERTIFY sets the certified flag and charges S(cost) mu (structurally positive)
 
-    ISA v2 transport is 128 bits wide. Decode in this phase still reads the
-    legacy low lane:
+    ISA v2 words are 128 bits wide. Every format carries the opcode and
+    operands in the low 32-bit lane; the rich formats add upper-lane fields
+    (ext0) for operands that do not fit there:
       [31:24] opcode | [23:16] op_a | [15:8] op_b | [7:0] cost
 
     Encoding conventions:
@@ -20,8 +22,8 @@
       LUI:       op_a = dst, op_b = immediate (shifted left by 8)
       JUMP:      {op_a, op_b} = 16-bit target address
       JNEZ:      op_a = register to test, op_b = target address
-      CALL:      {op_a, op_b} = 16-bit target address; r31 = SP
-      RET:       no operands; r31 = SP
+      CALL:      {op_a, op_b} = 16-bit target address; r15 = SP
+      RET:       no operands; r15 = SP
       XOR_LOAD:  op_a = dst, op_b = memory address
       XOR_ADD:   op_a = dst, op_b = src (dst ^= src)
       XOR_SWAP:  op_a = reg a, op_b = reg b
@@ -78,7 +80,7 @@ Section ThieleCPU.
   Definition COUPLING_DESC_NEXT_ID_INIT : word DescTableNextIdSz :=
     WO~0~0~0~0~1.
 
-  (** Stack pointer register index (r31) *)
+  (** Stack pointer register index (r15) *)
   Definition SP_IDX : word RegIdxSz := WO~1~1~1~1.   (* RegIdxSz=4, SP=15 *)
 
   (** 33-bit zero extension of a data word, built by concatenating a zero
@@ -454,7 +456,7 @@ Section ThieleCPU.
         (* Default: PC+1 *)
         LET pc_plus_1 : Bit WordSz <- #pc_v + $1;
 
-        (* Register index: truncate op_a/op_b to 5 bits *)
+        (* Register index: truncate op_a/op_b to 4 bits *)
         LET dst_idx : Bit RegIdxSz <- UniBit (Trunc RegIdxSz _) #op_a;
         LET src_idx : Bit RegIdxSz <- UniBit (Trunc RegIdxSz _) #op_b;
 
@@ -473,10 +475,10 @@ Section ThieleCPU.
         (* Zero-extend op_b to 32 bits for LOAD_IMM immediate *)
         LET imm32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
 
-        (* Memory address from register value — register-indirect addressing *)
+        (* Memory address from register value: register-indirect addressing *)
         LET mem_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #src_val;
         LET mem_addr_a : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #dst_val;
-        (* Legacy 8-bit address for XOR_LOAD (still uses immediate addressing) *)
+        (* Legacy 8-bit address for XOR_LOAD (immediate addressing) *)
         LET mem_addr_imm : Bit MemAddrSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
         LET mem_val : Bit WordSz <- read_mem #mem_addr #mem_v;
         (* HEAP_LOAD/HEAP_STORE: address relative to csr_heap_base. *)
@@ -485,7 +487,7 @@ Section ThieleCPU.
         LET heap_val : Bit WordSz <- read_mem #heap_addr #mem_v;
         LET mem_val_imm : Bit WordSz <- read_mem #mem_addr_imm #mem_v;
 
-        (* Stack pointer (r31) for CALL/RET *)
+        (* Stack pointer (r15) for CALL/RET *)
         LET sp_val : Bit WordSz <- #regs_v@[$$(SP_IDX)];
         LET sp_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #sp_val;
         LET sp_inc : Bit WordSz <- #sp_val + $1;
@@ -502,7 +504,7 @@ Section ThieleCPU.
           check_bounds (IF (#opcode == $$(OP_HEAP_STORE)) then #heap_addr_a else #mem_addr_a) #active_region_base #active_region_size;
         LET call_in_bounds <- check_bounds #sp_addr #active_region_base #active_region_size;
         LET ret_in_bounds <- check_bounds #sp_dec_addr #active_region_base #active_region_size;
-        (* XOR_LOAD uses immediate addressing — no locality check, matches Coq step_xor_load *)
+        (* XOR_LOAD uses immediate addressing; no locality check, matches Coq step_xor_load *)
         LET is_load_op <- (#opcode == $$(OP_LOAD)) ||
                           (#opcode == $$(OP_HEAP_LOAD));
         LET is_store_op <- (#opcode == $$(OP_STORE)) || (#opcode == $$(OP_HEAP_STORE));
@@ -578,10 +580,10 @@ Section ThieleCPU.
           then read_mem #sp_dec_addr #mem_v
           else $0;
 
-        (* Morph dispatch (M4 complete): FMT_MORPH_INLINE carries the
-           operands that do not fit in the legacy low lane. All morph opcodes
-           now use hardware morph-table state. Encoding limits for legacy paths
-           are documented per opcode below. MORPH_TENSOR always faults. *)
+        (* Morph dispatch: FMT_MORPH_INLINE carries the operands that do
+           not fit in the legacy low lane. Every morph opcode uses the
+           hardware morph-table state. Encoding limits for legacy paths are
+           documented per opcode below. MORPH_TENSOR always faults. *)
         LET is_morph_inline <- #format_id == $$(FMT_MORPH_INLINE);
         LET is_morph_ext <- (#opcode == $$(OP_MORPH)) && #is_morph_inline;
         LET is_compose_ext <- (#opcode == $$(OP_COMPOSE)) && #is_morph_inline;
@@ -603,9 +605,9 @@ Section ThieleCPU.
 
         LET ext_morph_dst_mod : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz 26) #ext0;
         (* MORPH's coupling operand in the extended format: a memory base
-           address for the serialized coupling block (M5), not a descriptor
+           address for the serialized coupling block, not a descriptor
            reference. 7 bits (MemAddrSz) covers the full 128-word memory;
-           bits 13-31 of ext0 remain unused for this opcode. *)
+           bits 13-31 of ext0 are unused for this opcode. *)
         LET ext_coupling_base : Bit MemAddrSz <- UniBit (ConstExtract 6 MemAddrSz 19) #ext0;
         LET ext_compose_m2 : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 28) #ext0;
         LET ext_get_selector : Bit 2 <- UniBit (Trunc 2 30) #ext0;
@@ -776,14 +778,12 @@ Section ThieleCPU.
           else (IF #compose_success then #compose_m2_dst
           else (IF #legacy_compose_success then #legacy_compose_m2_dst
           else #morph_identity_mod_idx))));
-        (* Morphism-coupling FSM (M5) dispatch: MORPH and COMPOSE each
-           allocate a fresh descriptor for their coupling
-           data rather than writing $0 (empty) unconditionally. The
-           descriptor id is known immediately, coupling_desc_next_id_v,
-           before the FSM runs; the FSM's own job is to populate that
-           descriptor's base/count/pairs and advance the two next-id
-           counters, in the background, while pc/mu/registers/morph tables
-           already commit this same cycle exactly as before. *)
+        (* Morphism-coupling FSM dispatch: MORPH and COMPOSE each allocate
+           a fresh descriptor for their coupling data. The descriptor id,
+           coupling_desc_next_id_v, is known at dispatch; the FSM populates
+           that descriptor's base/count/pairs and advances the two next-id
+           counters in the following cycles, while pc/mu/registers/morph
+           tables commit in the dispatch cycle. *)
         LET mc_enters_fsm <-
           #morph_alloc_success || #compose_success || #legacy_compose_success;
         LET morph_alloc_coupling : Bit DescIdxSz <-
@@ -791,7 +791,7 @@ Section ThieleCPU.
           then UniBit (Trunc DescIdxSz _) #coupling_desc_next_id_v
           else $0;
 
-        (* Morphism-coupling FSM (M5): which existing descriptors COMPOSE
+        (* Morphism-coupling FSM: which existing descriptors COMPOSE
            reads from. m1 always comes from morph_lookup_idx; m2 comes from
            ext_compose_m2 (extended COMPOSE) or morph_zero_idx (legacy
            COMPOSE, m2 is always slot 0). COMPOSE's identity shortcut is
@@ -904,7 +904,7 @@ Section ThieleCPU.
           (* CHSH_TRIAL witness counter update:
             op_a[1:0] = setting (x,y) → selects bucket (00/01/10/11)
             op_b[1:0] = outcome (a,b) → same when a==b, diff otherwise
-           We use 2-bit truncations and compare to 2-bit constants. *)
+           The rule uses 2-bit truncations and compares to 2-bit constants. *)
         LET chsh_settings : Bit 2 <- UniBit (Trunc 2 _) #op_a;
         LET chsh_outcomes : Bit 2 <- UniBit (Trunc 2 _) #op_b;
         (* Outcomes same when both bits equal: 00 or 11 → same; 01 or 10 → diff *)
@@ -931,9 +931,9 @@ Section ThieleCPU.
            CHSH_LASSERT column-contractivity check (combinational).
 
            Hardware mirror of [column_contractive_check_witness] in VMStep.v.
-           For each (x,y) ∈ {00,01,10,11} pair we have:
+           For each (x,y) ∈ {00,01,10,11} pair:
              n_xy = wc_same_xy + wc_diff_xy  (unsigned)
-             d_xy = wc_same_xy - wc_diff_xy  (signed; we track |d| and sign)
+             d_xy = wc_same_xy - wc_diff_xy  (signed; the rule tracks |d| and sign)
            The Z-arithmetic check
              A := n00²·n10² - d00²·n10² - d10²·n00² >= 0
              B := n01²·n11² - d01²·n11² - d11²·n01² >= 0
@@ -990,20 +990,19 @@ Section ThieleCPU.
           (#ll_n00 != $0) && (#ll_n01 != $0) && (#ll_n10 != $0) && (#ll_n11 != $0);
 
         (* CHSH_LASSERT check: the column-contractive check (8 squarings + 14
-           wide products + final compare) used to live combinationally here,
-           costing ~1131 DSP48E1 slices in synth (more than K325T's 840) and
-           ~353K LUTs in -nodsp mode (over K325T's 203K). The check now lives
-           in the multi-cycle FSM defined as Rule "chsh_lassert_fsm" below.
-           That rule shares ONE 67x67 multiplier across 28 phases. The step
-           rule below reads the FSM's committed boolean from a register and
-           treats the trap as never-firing from this rule (the FSM phase 29
-           commit overrides PC / err / error_code when the check fails). *)
+           wide products + final compare) runs in the multi-cycle FSM defined
+           as Rule "chsh_lassert_fsm" below; done combinationally in this
+           rule it would need ~1131 DSP48E1 slices (K325T has 840) and ~353K
+           LUTs in -nodsp mode (K325T has 203K). The FSM shares ONE 67x67
+           multiplier across 28 phases. This rule reads the FSM's committed
+           boolean from a register and never raises the trap itself (the FSM
+           phase 29 commit overrides PC / err / error_code when the check
+           fails). *)
         LET chsh_lassert_check_ok <- #chsh_check_result_v;
         LET chsh_lassert_trap     <- $$false;
 
         (* REVEAL: legacy tensor index is op_a[3:0].
-           FMT_TENSOR_EXT overrides it with ext0[3:0], providing the first
-           live upper-lane execution path in hardware. *)
+           FMT_TENSOR_EXT overrides it with ext0[3:0]. *)
         LET legacy_tensor_idx : Bit MuTensorIdxSz <- UniBit (Trunc MuTensorIdxSz _) #op_a;
         LET ext_tensor_idx : Bit MuTensorIdxSz <- UniBit (Trunc MuTensorIdxSz 28) #ext0;
         LET tensor_idx : Bit MuTensorIdxSz <-
@@ -1148,7 +1147,7 @@ Section ThieleCPU.
                                               else $$(ERR_PARTITION_OVERLAP_VAL))
                                         else #error_code_v)))))));
 
-        (* Determine new mu — only charge if not a bianchi violation. *)
+        (* Determine new mu: only charge if not a bianchi violation. *)
         LET rich_fault_mu : Bit WordSz <-
           IF (#opcode == $$(OP_CERTIFY))
           then #mu_v + #cost32 + $1
@@ -1187,7 +1186,7 @@ Section ThieleCPU.
           else (IF #rich_fault then #rich_fault_mu else #normal_step_mu);
 
         (* ============================================================
-           CERTIFY flag update — set by CERTIFY opcode only
+           CERTIFY flag update: set by CERTIFY opcode only
            *)
         LET new_certified : Bool <-
           IF (#bianchi_violation || #locality_violation || #nfi_violation || #rich_fault || #morph_runtime_fault)
@@ -1469,7 +1468,7 @@ Section ThieleCPU.
         Write "wc_diff_11"     <- #new_wc_diff_11;
 
         (* ============================================================
-           LASSERT FSM dispatch — initialize on-chip SAT checker state.
+           LASSERT FSM dispatch: initialize on-chip SAT checker state.
            When opcode == OP_LASSERT and kind=SAT: enter phase 1.
            lassert_cptr repurposed as cost field for FSM commit.
            freg base = dst_val (regs[op_a[4:0]]), creg base = src_val.
@@ -1499,7 +1498,7 @@ Section ThieleCPU.
            chsh_phase = 1. The FSM rule then runs 28 cycles of one-multiply-
            per-cycle arithmetic and on phase 29 commits the result (overriding
            PC/err/error_code on trap). When the step rule sees any other
-           opcode, chsh_phase is held at 0 — the latches still update (cheap
+           opcode, chsh_phase is held at 0; the latches still update (cheap
            additions over the witness counters, no DSPs) but the FSM stays
            idle. *)
         Write "chsh_phase"  <- IF (#is_chsh_lassert && #assertion_dispatch_allowed) then $$(WO~0~0~0~0~1) else $$(WO~0~0~0~0~0);
@@ -1517,15 +1516,13 @@ Section ThieleCPU.
         Write "chsh_sign11" <- #ll_sign11;
 
         (* ============================================================
-           Morphism-coupling FSM (M5) dispatch. pc/mu/registers/morph
-           tables have already committed above, same cycle, exactly as
-           before this feature existed; morph_coupling_desc_table already
+           Morphism-coupling FSM dispatch. pc/mu/registers/morph tables
+           commit above, in this cycle; morph_coupling_desc_table already
            points the new morphism at coupling_desc_next_id_v (see
-           morph_alloc_coupling above). What's left is to actually
-           populate that descriptor's base/count and the underlying pair
-           table, which this FSM does in the background over the next
-           few cycles while mc_phase is nonzero, mirroring the LASSERT
-           and CHSH_LASSERT FSMs' own Assert-guard pattern above. *)
+           morph_alloc_coupling above). The FSM then populates that
+           descriptor's base/count and the underlying pair table over the
+           next cycles while mc_phase is nonzero, with the same Assert-guard
+           pattern as the LASSERT and CHSH_LASSERT FSMs. *)
         LET mc_zero_pidx : Bit CouplingPairIdxSz <- $0;
         LET mc_zero_cnt : Bit CouplingPairCountSz <- $0;
         LET mc_zero_word : Bit WordSz <- $0;
@@ -1616,7 +1613,7 @@ Section ThieleCPU.
         LET d10_67 : Bit 67 <- UniBit (ZeroExtendTrunc 64 67) #chsh_d10_v;
         LET d11_67 : Bit 67 <- UniBit (ZeroExtendTrunc 64 67) #chsh_d11_v;
 
-        (* For phases 21..24 (|C|²) we need abs_C derived from abs_C1, abs_C2
+        (* Phases 21..24 (|C|²) need abs_C derived from abs_C1, abs_C2
            and the latched signs (signs are XOR of d-signs per term). *)
         LET signC1_v   <- #chsh_sign00_v != #chsh_sign01_v;
         LET signC2_v   <- #chsh_sign10_v != #chsh_sign11_v;
@@ -1631,7 +1628,7 @@ Section ThieleCPU.
         LET abs_C_lo : Bit 67 <- UniBit (Trunc 67 67) #abs_C_134;
         LET abs_C_hi : Bit 67 <- UniBit (TruncLsb 67 67) #abs_C_134;
 
-        (* For phases 25..28 (A·B) we need abs_A, abs_B derived from A_pos/neg, B_pos/neg. *)
+        (* Phases 25..28 (A·B) need abs_A, abs_B derived from A_pos/neg, B_pos/neg. *)
         LET A_neg_v   : Bit 134 <- #chsh_A_neg_a_v + #chsh_A_neg_b_v;
         LET A_ge0_v   <- #chsh_A_pos_v >= #A_neg_v;
         LET abs_A_134 : Bit 134 <-
@@ -1805,11 +1802,9 @@ Section ThieleCPU.
         Write "chsh_check_result" <- IF #phase_eq_29 then #final_ok else #chsh_check_result_v;
 
         (* Phase 29: if the check failed, override PC / err / error_code to trap.
-           If the check passed, leave those fields alone — the step rule already
+           If the check passed, leave those fields alone; the step rule already
            advanced PC by 1 and charged μ on the dispatch cycle (cert-setter
-           discipline charges μ regardless of outcome). The trap-on-fail path
-           mirrors what the original combinational chsh_lassert_trap branch
-           did when it lived in the step rule. *)
+           discipline charges μ regardless of outcome). *)
         LET commit_trap <- #phase_eq_29 && !#final_ok;
         Write "pc"         <- IF #commit_trap then #trap_vector_v_fsm else #pc_v_fsm;
         Write "err"        <- IF #commit_trap then $$true            else #err_v_fsm;
@@ -1835,12 +1830,12 @@ Section ThieleCPU.
       with Register "mem"   : Vector (Bit WordSz) MemAddrSz <- Default
       with Register "imem"   : Vector (Bit InstrSz) MemAddrSz <- Default (* 2^MemAddrSz=128 instrs *)
 
-      (* Diagnostic counters — needed for test parity with handwritten RTL *)
+      (* Diagnostic counters *)
       with Register "partition_ops" : Bit WordSz <- Default
       with Register "mdl_ops"       : Bit WordSz <- Default
       with Register "info_gain"     : Bit WordSz <- Default
 
-      (* Error code register — specific error condition identifier *)
+      (* Error code register: specific error condition identifier *)
       with Register "error_code"    : Bit WordSz <- Default
 
       (* In-core logic engine accumulator: deterministic certificate/logic state. *)
@@ -1857,17 +1852,18 @@ Section ThieleCPU.
       with Register "minstret_hi"   : Bit WordSz <- Default
       with Register "trap_vector"   : Bit WordSz <- TRAP_VEC_INIT
 
-      (* Certification flag — set by the CERTIFY opcode (state-based certification). *)
+      (* Certification flag: set by the CERTIFY opcode (state-based certification). *)
       with Register "certified" : Bool <- false
 
-      (* On-chip LASSERT FSM state — replaces external coprocessor interface.
+      (* On-chip LASSERT FSM state (no external coprocessor).
          phase=0: idle; phase>0: multi-cycle formula/cert read in progress.
          fbase/cbase: base addresses of formula/cert in vm_mem.
          flen/clen/nvars: formula length, remaining clauses, variable count.
          fptr/cptr: current read pointers during FSM traversal.
          kind: true = SAT check, false = UNSAT check.
-         fbuf/cbuf: bounded backing buffers that M3 exposes architecturally and
-         later rich-state paths can target directly. *)
+         fbuf/cbuf: bounded backing buffers, readable through getter
+         methods; the FSM streams the formula and certificate from data
+         memory and does not read them. *)
       with Register "lassert_phase" : Bit 3 <- Default
       with Register "lassert_kind"  : Bool <- false
       with Register "lassert_fbase" : Bit WordSz <- Default
@@ -1877,8 +1873,7 @@ Section ThieleCPU.
       with Register "lassert_nvars" : Bit WordSz <- Default
       with Register "lassert_fptr"  : Bit WordSz <- Default
       with Register "lassert_cptr"  : Bit WordSz <- Default
-      (* fbuf/cbuf reduced to 2^6 = 64 backing words from early Arty A7 fit;
-         kept on Kintex-7 K325T target for test/cosim parity *)
+      (* fbuf/cbuf: 2^6 = 64 backing words each *)
       with Register "lassert_fbuf"  : Vector (Bit WordSz) 6 <- Default
       with Register "lassert_cbuf"  : Vector (Bit WordSz) 6 <- Default
       (* Scratch flag: has any literal in the current clause been satisfied? *)
@@ -1903,7 +1898,7 @@ Section ThieleCPU.
            2  : compute n01²
            3  : n10²
            4  : n11²
-           5  : d00²        — chsh_d_xy values are pre-computed absolute diffs
+           5  : d00²        (chsh_d_xy values are pre-computed absolute diffs)
            6  : d01²
            7  : d10²
            8  : d11²
@@ -1992,7 +1987,7 @@ Section ThieleCPU.
       with Register "csr_status"    : Bit WordSz <- Default
       with Register "csr_heap_base" : Bit WordSz <- Default
 
-      (* Partition table — bounded to 64 slots by PTableIdxSz=6.
+      (* Partition table: bounded to 64 slots by PTableIdxSz=6.
          Slot id owns the data-memory range [ptBases[id], ptBases[id] + ptTable[id]);
          ptTable[id] = 0 means the slot is unallocated.
          pt_next_id is the next free module ID to assign; initialized to 1 to match
@@ -2001,11 +1996,11 @@ Section ThieleCPU.
       with Register "ptBases"  : Vector (Bit WordSz) PTableIdxSz <- Default
       with Register "pt_next_id"    : Bit PTableNextIdSz <- PT_NEXT_ID_INIT
 
-      (* Bounded rich-state tables (M3):
+      (* Bounded rich-state tables:
          - morph_* tables store per-morphism source/target/descriptor metadata
          - coupling_desc_* tables describe contiguous ranges in the pair table
          - coupling_pair_* tables store concrete source/target coupling pairs
-         M4 will make the rich opcodes mutate these tables directly. *)
+         The morph opcodes mutate these tables directly. *)
       with Register "morph_src_table" : Vector (Bit PTableIdxSz) MorphTableIdxSz <- Default
       with Register "morph_dst_table" : Vector (Bit PTableIdxSz) MorphTableIdxSz <- Default
       with Register "morph_coupling_desc_table" : Vector (Bit DescIdxSz) MorphTableIdxSz <- Default
@@ -2028,14 +2023,15 @@ Section ThieleCPU.
       with Register "coupling_pair_valid_table" : Vector Bool CouplingPairIdxSz <- Default
       with Register "coupling_pair_next_id" : Bit DescTableNextIdSz <- DESC_NEXT_ID_INIT
 
-      (* Morphism-coupling FSM (M5): real coupling data for MORPH (decoded from
-         a serialized memory block), COMPOSE (relational composition of two
-         existing morphisms' pairs). mc_phase=0: idle, main step rule dispatches.
-         mc_phase>0: multi-cycle coupling computation in progress; main step
-         rule is inhibited while the FSM runs. PC, mu, and the morphism table
-         are updated at dispatch; coupling descriptors become valid at the
-         terminal phase. Retirement observations must wait for that phase. mc_op selects which of the three shapes mc_phase
-         walks through. *)
+      (* Morphism-coupling FSM: coupling data for MORPH (decoded from a
+         serialized memory block) and COMPOSE (relational composition of two
+         existing morphisms' pairs). mc_phase=0: idle, main step rule
+         dispatches. mc_phase>0: multi-cycle coupling computation in
+         progress; main step rule is inhibited while the FSM runs. PC, mu,
+         and the morphism table are updated at dispatch; coupling
+         descriptors become valid at the terminal phase. Retirement
+         observations must wait for that phase. mc_op selects which of the
+         three shapes mc_phase walks through. *)
       with Register "mc_phase"     : Bit 4 <- Default
       with Register "mc_op"        : Bit 2 <- Default  (* 0=morph mem-decode, 1=compose, 2=tensor *)
       with Register "mc_mem_base"  : Bit WordSz <- Default
@@ -2073,7 +2069,7 @@ Section ThieleCPU.
       with Register "desc_meta_valid_table" : Vector Bool DescMetaIdxSz <- Default
       with Register "desc_meta_next_id" : Bit DescTableNextIdSz <- DESC_NEXT_ID_INIT
 
-      (* Witness counters — 8-bucket CHSH trial recorder matching VMState.WitnessCounts.
+      (* Witness counters: 8-bucket CHSH trial recorder matching VMState.WitnessCounts.
         Each setting pair (x,y) has same/diff counters tracking whether
         outputs (a,b) matched. Updated by CHSH_TRIAL on valid bits. *)
       with Register "wc_same_00" : Bit WordSz <- Default
@@ -2098,7 +2094,7 @@ Section ThieleCPU.
         Read lassert_phase_v : Bit 3 <- "lassert_phase";
         Assert (#lassert_phase_v == $0);
 
-        (* Morphism-coupling FSM (M5): step rule also inhibited while a
+        (* Morphism-coupling FSM: step rule also inhibited while a
            MORPH/COMPOSE coupling computation is in flight,
            same pattern as the LASSERT and CHSH_LASSERT FSMs. *)
         Read mc_phase_v : Bit 4 <- "mc_phase";
@@ -2160,7 +2156,7 @@ Section ThieleCPU.
         Read desc_meta_valid_table_v : Vector Bool DescMetaIdxSz <- "desc_meta_valid_table";
         Read desc_meta_next_id_v : Bit DescTableNextIdSz <- "desc_meta_next_id";
 
-        (* Witness counter registers — 8-bucket CHSH trial state *)
+        (* Witness counter registers: 8-bucket CHSH trial state *)
         Read wc_same_00_v : Bit WordSz <- "wc_same_00";
         Read wc_diff_00_v : Bit WordSz <- "wc_diff_00";
         Read wc_same_01_v : Bit WordSz <- "wc_same_01";
@@ -2171,7 +2167,7 @@ Section ThieleCPU.
         Read wc_diff_11_v : Bit WordSz <- "wc_diff_11";
 
         (* Bianchi conservation check: tensor_total must not exceed mu.
-           Check BEFORE executing the instruction (matches handwritten RTL). *)
+           Checked before the instruction executes. *)
         LET t0 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~0~0)];
         LET t1 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~0~1)];
         LET t2 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~1~0)];
@@ -2212,8 +2208,8 @@ Section ThieleCPU.
             mem[cbase + num_vars + k] : falsifying assignment for variable k
 
           Phases:
-            1 — Read header: latch flen and num_clauses, set fptr to fbase+3.
-            2 — Scan literals one per cycle:
+            1:  Read header: latch flen and num_clauses, set fptr to fbase+3.
+            2:  Scan literals one per cycle:
                   nonzero literal → check both assignments
                   zero (0)        → end of clause:
                     if model failed any clause → FAIL
@@ -2222,8 +2218,8 @@ Section ThieleCPU.
                     otherwise      → decrement clause counter, reset clause_sat, advance fptr
 
           lassert_cptr register is repurposed at dispatch to hold the cost field.
-          The backing buffers are now architecturally exposed for the rich-state
-          path even though this FSM still streams directly from memory today. *)
+          The FSM streams from data memory; the backing buffers fbuf/cbuf are
+          readable through getter methods and are not read here. *)
       with Rule "lassert_fsm_header" :=
         Read lassert_phase_v : Bit 3 <- "lassert_phase";
         Assert (#lassert_phase_v == $$(WO~0~0~1));
@@ -2339,7 +2335,7 @@ Section ThieleCPU.
         LET next_counter_seen_fail <-
           #counter_seen_fail_next;
 
-        (* PC/mu commit — only fire on terminal transitions *)
+        (* PC/mu commit: only fire on terminal transitions *)
         LET new_pc : Bit WordSz <-
           IF #all_done then (#pc_v + $1)
           else (IF #clause_fail then #trap_vector_v
@@ -2368,7 +2364,7 @@ Section ThieleCPU.
         Write "error_code"         <- #new_error_code_fsm;
         Retv
 
-      (** Morphism-coupling FSM (M5): real coupling data for MORPH (decoded
+      (** Morphism-coupling FSM: coupling data for MORPH (decoded
           from a serialized memory block), COMPOSE (relational composition
           of two existing morphisms' pairs). Dispatched by the step rule
           above (mc_phase, mc_mem_base, mc_write_base/ptr, mc_src1/2_base/
@@ -2378,8 +2374,8 @@ Section ThieleCPU.
           the morph table already points at, then release mc_phase back to
           0 so the step rule can fire again.
 
-          Two differences from the software spec
-          (ThieleMachineComplete.load_coupling_from_mem): no region-
+          Two differences from the kernel's decoder
+          (VMState.load_coupling_from_mem): no region-
           restriction filter (this FSM never reads the partition table, so
           it does not filter pairs against module ranges), and no label
           decoding from memory. MORPH admits only in-region pairs and the empty label;
@@ -2389,17 +2385,17 @@ Section ThieleCPU.
           Phase encoding (Bit 4):
             0     : idle (step rule fires)
             1     : MORPH header: validate pair count, space, and memory extent
-            2     : MORPH loop — read one (source,target) pair per cycle
-            4     : COPY loop — concatenate two existing pair ranges
+            2     : MORPH loop: read one (source,target) pair per cycle
+            4     : COPY loop: concatenate two existing pair ranges
                     (COMPOSE when either source is a
                     flagged identity morphism, which always carries empty
                     coupling by construction, so this reduces to copying
                     just the non-identity side)
-            7     : JOIN loop — relational composition of two existing pair
+            7     : JOIN loop, relational composition of two existing pair
                     ranges (COMPOSE when neither source is identity)
             5     : initialize last-occurrence normalization
             8,9   : scan suffix and compact each retained pair
-            11    : shared commit — allocate the descriptor, advance the
+            11    : shared commit; allocate the descriptor, advance the
                     two next-id counters, phase back to 0 *)
       with Rule "mc_morph_header" :=
         Read mc_phase_v : Bit 4 <- "mc_phase";
@@ -2729,7 +2725,7 @@ Section ThieleCPU.
         Write "pc" <- $$(natToWord WordSz 0);
         Retv
 
-      (** Output methods — create proper Verilog output ports for state observation *)
+      (** Output methods: create proper Verilog output ports for state observation *)
       with Method "getPC" () : Bit WordSz :=
         Read v : Bit WordSz <- "pc"; Ret #v
 
@@ -2978,7 +2974,7 @@ Section ThieleCPU.
           #t@[$$(WO~1~1~1~0)] + #t@[$$(WO~1~1~1~1)];
         Ret (#total > #m)
 
-      (** Partition table output methods — expose pt_next_id and slot sizes for verification *)
+      (** Partition table output methods: expose pt_next_id and slot sizes for verification *)
       with Method "getPtNextId" () : Bit WordSz :=
         Read v : Bit PTableNextIdSz <- "pt_next_id";
         LET v32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #v;

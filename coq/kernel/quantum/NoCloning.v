@@ -295,15 +295,13 @@ Definition cloning_from_evolution (E : Evolution) (x y z : R) : CloningOperation
   |}.
 
 (** The theorem below rules out a specific formal conjunction of output equalities and a conservation inequality. *)
-(* SCOPE NOTE: bridges Unitarity.zero_cost_preserves_radius to
-   NoCloning.no_cloning_from_conservation — closes C2 gap. *)
 (** The theorem derives radius preservation from the supplied zero-cost and dual-conservation hypotheses. *)
 
 (** It then uses that equality in the formal arithmetic contradiction. *)
 
 (** The statement should not be read as a theorem about every physical unitary operator. *)
 (* SCOPE NOTE: bridges Unitarity.zero_cost_preserves_radius to
-   NoCloning.no_cloning_from_conservation — closes C2 gap. *)
+   NoCloning.no_cloning_from_conservation. *)
 Theorem unitary_cannot_clone :
   forall (E : Evolution) (x y z : R),
     Unitarity.respects_info_conservation E ->

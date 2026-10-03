@@ -49,8 +49,8 @@ def test_logic_related_opcodes_defined_in_coq_and_present_in_rtl_paths() -> None
     coq_types = (Path(__file__).resolve().parents[1] / "coq" / "kami_hw" / "ThieleTypes.v").read_text(encoding="utf-8")
     assert "OP_LASSERT" in coq_types
     assert "OP_LJOIN" in coq_types
-    # OP_ORACLE_HALTS is absent (0x10 reserved); the legacy cost constant remains
-    assert "ORACLE_HALTS_HW_COST" in coq_types
+    # OP_ORACLE_HALTS (0x10) is reserved: no opcode and no cost constant for it exist
+    assert "ORACLE_HALTS_HW_COST" not in coq_types
 
     txt = _rtl_text()
     # LASSERT appears as explicit opcode literal in the extracted RTL.

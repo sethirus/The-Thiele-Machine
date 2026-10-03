@@ -13,7 +13,7 @@
     the witness-counter buckets specifically; it says nothing about the
     VM's ordinary registers or memory, which are unrestricted read/write
     storage and are not the subject of this file. This is the
-    witness-counter fact used by the current VM contracts: no macro built
+    witness-counter fact used by the VM contracts: no macro built
     only from record_trial calls and guard reads can restore a drained bucket
     pair to encode an independent second value, because restoration would
     require a field decrease that no actual step can produce. *)
@@ -105,7 +105,7 @@ Proof.
     + apply (IH _ _ Hrest).
 Qed.
 
-(** Corollary making the B2c obstacle precise: once a bucket field reaches
+(** Corollary: once a bucket field reaches
     some value k anywhere in a run, no later state in that same run can
     show a smaller value for that field. In particular, a bucket pair
     driven to equality (the only way any CHSH guard variant can look past

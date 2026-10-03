@@ -6,9 +6,9 @@
     priority order picks"). [admitted_progress] composes them: from a boundary
     at which an instruction is admitted, the rule runner reaches a boundary
     observing the kernel's step for that instruction, in a bounded number of
-    firings, and the whole firing sequence is one actual Kami execution. That
-    is the "progress to retirement" half of C1/C2, stated against the real
-    scheduler rather than an abstract relation.
+    firings, and the whole firing sequence is one actual Kami execution:
+    progress to retirement, stated against the real scheduler rather than
+    an abstract relation.
 
     [admitted_run_progress] extends it along an admitted chain, so a whole
     admitted trace is realized by one concrete runner prefix and still carries
@@ -56,8 +56,8 @@ Proof.
 Qed.
 
 (** From an admitted instruction alone: the runner fires a bounded number of
-    times and the result observes the kernel step. This is the statement
-    C1/C2 calls progress to retirement. *)
+    times and the result observes the kernel step: progress to
+    retirement. *)
 Theorem admitted_instruction_progress : forall b i,
   admitted b i ->
   exists d k, fst (run_boundary_rules k b) = d /\

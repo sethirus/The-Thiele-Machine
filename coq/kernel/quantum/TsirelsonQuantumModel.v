@@ -79,7 +79,7 @@ Definition trace_npa_model
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   npa_psd (trace_zero_marginal_npa fuel trace s_init).
 
-(** Strong coherence predicate used by the current kernel bridge. *)
+(** Strong coherence predicate used by the kernel bridge. *)
 Definition trace_quantum_bridge_coherent
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   mu_ledger_coherent fuel trace s_init.
@@ -107,7 +107,7 @@ Proof.
   split; intro H; exact H.
 Qed.
 
-(** C4 bridge: coherence gives a concrete quantum model. *)
+(** Bridge: coherence gives a concrete quantum model. *)
 (* definitional lemma *)
 Theorem trace_quantum_bridge_coherent_implies_npa_model :
   forall fuel trace s_init,
@@ -121,7 +121,7 @@ Proof.
   exact Hcoh.
 Qed.
 
-(** C4 bridge: the same coherent model yields Tsirelson bound S^2 <= 8. *)
+(** Bridge: the same coherent model yields Tsirelson bound S^2 <= 8. *)
 (* definitional lemma *)
 Theorem trace_quantum_bridge_coherent_implies_tsirelson_squared :
   forall fuel trace s_init,
@@ -138,7 +138,7 @@ Proof.
   exact Hcoh.
 Qed.
 
-(** C4 bridge: absolute-value form |S| <= sqrt(8) = 2*sqrt(2). *)
+(** Bridge: absolute-value form |S| <= sqrt(8) = 2*sqrt(2). *)
 (* definitional lemma *)
 Theorem trace_quantum_bridge_coherent_implies_tsirelson_abs :
   forall fuel trace s_init,
@@ -176,10 +176,10 @@ Proof.
 Qed.
 
 (**
-    C4 DIRECT CHAIN: npa_psd → Tsirelson (no coherence assumption)
+    DIRECT CHAIN: npa_psd → Tsirelson (no coherence assumption)
 
     The theorems above route through mu_ledger_coherent, which assumes both
-    row bounds AND column contractivity. The new C4 closure proves:
+    row bounds AND column contractivity. The direct chain proves:
 
       npa_psd (PSD + symmetric) → row bounds → |S| ≤ 2√2
 
@@ -189,11 +189,11 @@ Qed.
     argument (psd_3x3_determinant_nonneg in ConstructivePSD.v).
     *)
 
-(** SCOPE NOTE: c4_direct_tsirelson_from_npa_psd is the
-    direct C4 closure: npa_psd → Tsirelson, no intermediate
+(** SCOPE NOTE: tsirelson_square_from_npa_psd is the
+    direct chain: npa_psd → Tsirelson, no intermediate
     coherence assumptions. Uses npa_psd_implies_tsirelson_bound. *)
 (* definitional lemma *)
-Theorem c4_direct_tsirelson_from_npa_psd :
+Theorem tsirelson_square_from_npa_psd :
   forall fuel trace s_init,
     npa_psd (trace_zero_marginal_npa fuel trace s_init) ->
     (CHSH
@@ -210,7 +210,7 @@ Qed.
 
 (** Absolute-value form. *)
 (* definitional lemma *)
-Theorem c4_direct_tsirelson_abs_from_npa_psd :
+Theorem tsirelson_abs_from_npa_psd :
   forall fuel trace s_init,
     npa_psd (trace_zero_marginal_npa fuel trace s_init) ->
     Rabs (CHSH
@@ -225,51 +225,7 @@ Proof.
   exact Hqr.
 Qed.
 
-(* definitional lemma *)
-Lemma c4_direct_tsirelson_from_npa_psd_invariant :
-  forall fuel trace (s1 s2 : VMState),
-    s1 = s2 ->
-    (npa_psd (trace_zero_marginal_npa fuel trace s1) ->
-      (CHSH
-        (trace_e00 fuel trace s1)
-        (trace_e01 fuel trace s1)
-        (trace_e10 fuel trace s1)
-        (trace_e11 fuel trace s1))² <= 8) <->
-    (npa_psd (trace_zero_marginal_npa fuel trace s2) ->
-      (CHSH
-        (trace_e00 fuel trace s2)
-        (trace_e01 fuel trace s2)
-        (trace_e10 fuel trace s2)
-        (trace_e11 fuel trace s2))² <= 8).
-Proof.
-  intros fuel trace s1 s2 Heq.
-  rewrite Heq.
-  tauto.
-Qed.
-
-(* definitional lemma *)
-Lemma c4_direct_tsirelson_abs_from_npa_psd_invariant :
-  forall fuel trace (s1 s2 : VMState),
-    s1 = s2 ->
-    (npa_psd (trace_zero_marginal_npa fuel trace s1) ->
-      Rabs (CHSH
-        (trace_e00 fuel trace s1)
-        (trace_e01 fuel trace s1)
-        (trace_e10 fuel trace s1)
-        (trace_e11 fuel trace s1)) <= sqrt8) <->
-    (npa_psd (trace_zero_marginal_npa fuel trace s2) ->
-      Rabs (CHSH
-        (trace_e00 fuel trace s2)
-        (trace_e01 fuel trace s2)
-        (trace_e10 fuel trace s2)
-        (trace_e11 fuel trace s2)) <= sqrt8).
-Proof.
-  intros fuel trace s1 s2 Heq.
-  rewrite Heq.
-  tauto.
-Qed.
-
-(** C4 closure summary: the complete derivation chain.
+(** Summary: the complete derivation chain.
 
     WHAT IS PROVEN (no admits, no assumed row bounds):
     1. npa_psd (PSD + symmetric) of zero-marginal NPA matrix

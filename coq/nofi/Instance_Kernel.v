@@ -110,7 +110,7 @@ Module KernelNoFI <: NO_FREE_INSIGHT_SYSTEM.
     exact Hrun.
   Qed.
 
-  (** HONEST SCOPE NOTE — what this instantiation actually uses.
+  (** HONEST SCOPE NOTE: what this instantiation actually uses.
 
       The [strictly_stronger strength weak] hypothesis ([Hstrict] below) is
       required by [NoFreeInsight_Interface] for signature matching, but it is

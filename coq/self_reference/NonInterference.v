@@ -22,7 +22,7 @@ Require Import InductiveTrust.
 (* *)
 (** ** 1. Region membership and closure *)
 
-(** [in_image phi n_A t]: B-state [t] is *in A's region* —
+(** [in_image phi n_A t]: B-state [t] is *in A's region*;
     it is the φ-image of some valid A-state. *)
 Definition in_image (phi : nat -> nat) (n_A : nat) (t : nat) : Prop :=
   exists s, s < n_A /\ phi s = t.
@@ -30,8 +30,8 @@ Definition in_image (phi : nat -> nat) (n_A : nat) (t : nat) : Prop :=
 (** [partition_closed e]: every B-partition edge whose *destination*
     lies in Im(φ) must have its *source* also in Im(φ).
 
-    Constructive form: the hypothesis hands us a preimage witness
-    directly whenever we need one, with no law-of-excluded-middle step. *)
+    Constructive form: the hypothesis supplies a preimage witness
+    directly whenever one is needed, with no law-of-excluded-middle step. *)
 Definition partition_closed {A B : StateSpace} (e : Expansion A B) : Prop :=
   forall src dst,
     In (src, dst) B.(ss_partition) ->

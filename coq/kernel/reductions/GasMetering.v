@@ -15,9 +15,9 @@
     reading.
 
     Main theorem [gas_schedule_exactness]: any schedule satisfying the two
-    conditions an honest fee market wants --
+    conditions an honest fee market wants,
       floor:        no state-certifying step is free, and
-      no-overcharge: nothing else is billed as a commitment --
+      no-overcharge: nothing else is billed as a commitment,
     is extensionally the cert-flip schedule with exact unit pricing. This is
     [exact_commitment_pricing_characterization] wearing EVM vocabulary.
 
@@ -53,7 +53,7 @@ From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI.
 
     GAS.  The per-step execution fee. In the kernel's terms this is
     [lps_cost]: a state-dependent nat charged when a step runs. "Out of
-    gas" and refund mechanics are out of scope; we price steps, not
+    gas" and refund mechanics are out of scope; the schedule prices steps, not
     budgets.
 
     OPCODE.  One instruction of the execution layer: [lps_instr]. An
@@ -80,7 +80,7 @@ Definition GasSchedule := LocalPredicatePricedSystem.
 (** * Main 1: the exactness characterization, in gas vocabulary.
 
     [gas_schedule_exactness]: a gas schedule satisfies the two
-    conditions an honest fee market wants --
+    conditions an honest fee market wants:
 
       floor:         total gas collected on any trace is at least the
                      number of commitment events in it
@@ -88,7 +88,7 @@ Definition GasSchedule := LocalPredicatePricedSystem.
       no-overcharge: total gas never exceeds that count
                      ([no_overcharge_for_commitments])
 
-    — exactly when its charging predicate is extensionally the
+    It satisfies them exactly when its charging predicate is extensionally the
     cert-flip predicate and every charged step costs exactly one unit
     ([local_predicate_same] + [exact_unit_pricing]). Under equal trust
     there is one exact schedule for pricing commitment, and it charges
@@ -96,13 +96,13 @@ Definition GasSchedule := LocalPredicatePricedSystem.
 
     HONESTY NOTE: since [GasSchedule] is definitionally
     [LocalPredicatePricedSystem], this theorem IS the kernel's
-    [exact_commitment_pricing_characterization] carried over unchanged —
+    [exact_commitment_pricing_characterization] carried over unchanged;
     the proof is a one-line instantiation, and the contribution of this
     statement is the reading, not new mathematics. The new mathematics
     in this file is downstream: the failure modes (Mains 2 and 3) and
     the concrete inhabitants ([toy_gas_schedule_is_exact],
     [thiele_vm_commit_pricing_is_exact]). *)
-(* SCOPE NOTE: alias for exact_commitment_pricing_characterization — deliberate vocabulary re-export; the file's new content is the failure modes and concrete instances below. *)
+(* SCOPE NOTE: alias for exact_commitment_pricing_characterization; deliberate vocabulary re-export; the file's new content is the failure modes and concrete instances below. *)
 Theorem gas_schedule_exactness :
   forall G : GasSchedule,
     (quantitative_certification_floor G /\
@@ -141,7 +141,7 @@ Proof.
 Qed.
 
 (** Corollary: a schedule with even one undercharged committing opcode
-    fails the universal certification floor outright — some certifying
+    fails the universal certification floor outright: some certifying
     trace is free. One missed flip is enough; the floor is not a
     statistical property that survives small leaks.
 
@@ -168,7 +168,7 @@ Qed.
     trace through it exceeds its commitment count, so the schedule
     overcharges relative to commitments. Undercharging kills the floor
     (Main 2); overcharging kills the ceiling. Exactness pins the
-    predicate from both sides — that pincer is what makes the
+    predicate from both sides; that pincer is what makes the
     characterization in Main 1 an "iff" rather than a one-way bound.
 
     Instantiation note: this is the contrapositive of the kernel's
@@ -194,10 +194,10 @@ Qed.
 
     State:  one bit: "has the state root been committed?" (in the reading)
     Opcodes:
-      [OpCompute] — pure computation; never touches the committed flag.
-      [OpCommit]  — finalizes; sets the committed flag.
+      [OpCompute]:  pure computation; never touches the committed flag.
+      [OpCommit]:   finalizes; sets the committed flag.
     Cert:   the flag itself.
-    Charge: the canonical predicate — charge exactly when the commit
+    Charge: the canonical predicate; charge exactly when the commit
             flips the flag (committing an already-committed state is a
             no-op and free here; the nearest EVM case, a warm SSTORE
             writing the same value, is cheap there, not free).
@@ -265,7 +265,7 @@ Proof.
     cbv in H; cbv; congruence.
 Qed.
 
-(** Each charged step costs exactly one unit — true definitionally,
+(** Each charged step costs exactly one unit, true definitionally,
     since [toy_cost] is written as the indicator of [toy_charge]. *)
 Lemma toy_exact_unit_pricing :
   exact_unit_pricing toy_gas_schedule.
@@ -292,8 +292,8 @@ Qed.
 
     The toy shows the class is inhabited; this shows it is inhabited by the
     machine the kernel is about. Price the VM's certification channel with
-    the canonical unit schedule — charge exactly the steps that flip
-    [vm_certified] false-to-true, one unit each — and the result is a
+    the canonical unit schedule (charge exactly the steps that flip
+    [vm_certified] false-to-true, one unit each), and the result is a
     [GasSchedule] satisfying both honest-fee-market conditions. This is the
     constructive bridge from the abstract fee-market characterization back
     to the kernel's concrete step semantics ([vm_apply]). *)
@@ -369,7 +369,7 @@ Qed.
     [thiele_vm_gas_schedule] is at most the mu the instruction actually
     pays ([instruction_cost]). The inequality composes the schedule's
     definitional unit price with the kernel's A2 lemma
-    [no_free_certification_certified]: mu covers the commitment floor —
+    [no_free_certification_certified]: mu covers the commitment floor,
     with room to spare, since mu also prices computation that commits
     nothing, which is exactly why mu itself is not the exact commitment
     pricer and the unit schedule above is. *)

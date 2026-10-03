@@ -6,10 +6,10 @@
   OCaml operational semantics, so full runtime equivalence cannot be proved
   here as an ordinary theorem.
 
-  Instead the trust boundary is named as an axiom and kept auditable. The
-  file also proves the pieces that do not depend on that boundary, like total
-  `vm_apply` and the mu-accounting facts. That separation is the whole point
-  of the file. *)
+  Instead the trust boundary is stated in prose and checked by the parity
+  tests; no Coq axiom or hypothesis stands in for it. The file also proves
+  the pieces that do not depend on that boundary, like total `vm_apply` and
+  the mu-accounting facts. That separation is the whole point of the file. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.
@@ -55,8 +55,8 @@ Definition shadow_to_eo (s : VMState) : ExtractionObservable := {|
 
 (**
 
-    These properties are proven from the Coq semantics and transfer through
-    extraction by Coq's type-preserving extraction guarantee.
+    These properties are proven about the Coq function. That the extracted
+    OCaml computes the same function is the tested trust boundary below.
 *)
 
 (** eo_mu_is_apply_cost: The mu field of vm_apply is exactly apply_cost(s, i).
@@ -172,13 +172,13 @@ Proof.
   intros s i. exists (shadow_to_eo (vm_apply s i)). reflexivity.
 Qed.
 
-(** ocaml_nfi_transfers: No Free Insight holds for the OCaml extracted runner.
+(** ocaml_nfi_transfers: No Free Insight on the observable the OCaml
+    runner is tested against.
 
-    The extracted OCaml runner cannot set eo_certified from false to true
-    without paying at least 1 unit of mu-cost.  This is NoFI in the OCaml
-    execution domain.
-    The proof uses only Coq semantics.  NoFI transfers through extraction by the
-    type-preservation guarantee of Coq's extraction mechanism. *)
+    On [shadow_to_eo (vm_apply s i)], eo_certified cannot go from false to
+    true without at least 1 unit of mu-cost. The theorem is about the Coq
+    function [vm_apply]. That the extracted runner computes the same
+    observable is the tested trust boundary above, not part of this proof. *)
 Theorem ocaml_nfi_transfers :
   forall (s : VMState) (i : vm_instruction),
     s.(vm_certified) = false ->
@@ -192,7 +192,7 @@ Proof.
 Qed.
 
 (** ocaml_extraction_mu_nondecreasing: mu is nondecreasing in the OCaml runner.
-    Follows from eo_mu_nondecreasing — no hypothesis needed. *)
+    Follows from eo_mu_nondecreasing; no hypothesis needed. *)
 Theorem ocaml_extraction_mu_nondecreasing :
   forall (s : VMState) (i : vm_instruction),
     s.(vm_mu) <= (shadow_to_eo (vm_apply s i)).(eo_mu).

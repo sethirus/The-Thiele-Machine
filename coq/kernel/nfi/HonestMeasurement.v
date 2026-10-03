@@ -1,24 +1,24 @@
 (** HonestMeasurement: HonestMeasurementSystem and the A3 axiom-as-record-field.
 
-    This file follows the literal structure of the outside sketch:
     HonestMeasurementSystem is a Coq record extending CertificationSystem
     with a measurement function and a structural obligation A3
     ("measurement factors through cost"). A3 is a *record field*, not a
     global Axiom. Coq remains consistent; the obligation is shifted onto
     the constructor of HonestMeasurementSystem.
 
-    THE TARGET THEOREM (stated in HonestMeasurementImpliesNPA.v):
-       forall (H : HonestMeasurementSystem),
-         zero_marginal_npa_realizable (correlation_of H).
+    The converse direction, every HonestMeasurementSystem gives an NPA-PSD
+    correlation, is stated in HonestMeasurementImpliesNPA.v as the
+    proposition [full_honest_implies_npa_status] and is not proved there.
 
     This file lays the record and supporting machinery. The companion
-    files prove (a) PR-box cannot be wrapped as HMS, (b) the theorem for
-    the restricted case where A3 forces |S| <= 2, (c) the full theorem
-    is open in the literature and the obstruction is documented.
+    files prove (a) PR-box cannot be wrapped as HMS, (b) the classical
+    CHSH bound at zero cost; the full converse is an open problem in the
+    literature, and HonestMeasurementImpliesNPA.v records why A3 alone
+    does not give it.
 
     A3 PRECISE FORMULATION.
     -----------------------
-    The sketch said A3 should mean "any measurement function factors
+    A3 should mean "any measurement function factors
     through the cost ledger." The most operational concretization that
     bites PR-box but admits classical and quantum (without naming them):
 
@@ -34,7 +34,7 @@
     This is the *zero-cost* shadow of the full IC bound. Stronger A3
     formulations (e.g., |S| <= 2 + f(cost)) would entail Tsirelson and
     full NPA-realizability for arbitrary cost, but require the IC
-    inequality, which we do not formalize here. The restricted A3
+    inequality, which is not formalized here. The restricted A3
     formulation captures the PR-box rejection cleanly. *)
 
 From Coq Require Import Reals Lra Lia Bool List.
@@ -51,9 +51,7 @@ From Kernel Require Import NPAMomentMatrix.
     - hms_normalized : the E_xy entries lie in [-1, 1].
     - hms_a3 : the cost-bounded-correlation obligation.
 
-    For the present file we keep the carrier deliberately small: just the
-    correlator values and the cost. Bridging to a deeper substrate
-    (CertificationSystem or Thiele VM) is layered on top later. *)
+    The carrier is small: just the correlator values and the cost. *)
 
 Record HonestMeasurementSystem : Type := mk_hms {
   hms_E00 : R;

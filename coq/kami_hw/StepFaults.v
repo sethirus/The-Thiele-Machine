@@ -9,7 +9,7 @@
 
     The first four guards form the trap class: the PC takes the trap vector.
     [kami_step] has none of these guards, so their outcomes are the specified
-    outside-domain behaviour of C1. [morph_runtime_fault] advances the PC and
+    outside-domain behaviour. [morph_runtime_fault] advances the PC and
     is the hardware side of the morph failure cases of [kami_step]. A
     partition step without a free table slot, or a PNEW range past data
     memory, is not among them: it is a partition fault, which [kami_step]

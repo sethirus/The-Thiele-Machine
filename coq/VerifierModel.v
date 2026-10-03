@@ -1,10 +1,10 @@
-(** * VerifierModel.v — generic prover/verifier model for the μ-axis.
+(** * VerifierModel.v: generic prover/verifier model for the μ-axis.
 
     This file defines the verifier setting used by the verifier-corollary
-    chain in the monograph (Section "What the projection cannot verify"):
+    chain ("what the projection cannot verify"):
 
       - [BareTranscript]: what a verifier observes in the bare setting
-        (a list of strict-classical-state observations — the kernel's
+        (a list of strict-classical-state observations: the kernel's
         Turing-classical projection of a VM execution).
       - [BareVerificationProblem]: a claim [φ] over [VMState] together
         with an explanation relation, a budget, and a recompute-cost.
@@ -36,7 +36,7 @@ Require Import NecessityOfMuLedger.
 (** ** The bare-setting transcript.
 
     The verifier in the bare setting sees a list of strict classical
-    states — exactly what a Turing-classical observer would see along
+    states: exactly what a Turing-classical observer would see along
     the prover's execution. No μ, no certification flag, no graph state.
 *)
 
@@ -84,8 +84,8 @@ Record BareVerifier := mk_bv {
     [bare_cheap]: every accepted-or-rejected transcript fits within
     the problem's cost budget.
 
-    [bare_sound]: every accepted transcript witnesses the claim. We
-    use *strong soundness* — the claim must hold for every honest
+    [bare_sound]: every accepted transcript witnesses the claim. This
+    is *strong soundness*: the claim must hold for every honest
     state that could explain the transcript, not merely for some.
     This captures the verifier's inability to distinguish which prover
     state produced the transcript when the transcript only carries
@@ -112,9 +112,9 @@ Definition bare_complete (P : BareVerificationProblem) (V : BareVerifier) : Prop
 (** ** Sanity lemmas.
 
     A handful of bookkeeping facts used in downstream proofs. Each is
-    short enough that the kernel-conversion vacuity gate may flag it —
-    that is *expected* and *desired*; sanity lemmas should be flagged,
-    we just want the gate to keep these from masquerading as headline
+    short enough that the kernel-conversion vacuity gate may flag it.
+    That is *expected* and *desired*: sanity lemmas should be flagged,
+    so the gate keeps them from masquerading as headline
     results. The downstream Phase-1.b theorem is the headline; these
     are scaffolding.
 *)

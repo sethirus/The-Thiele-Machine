@@ -30,7 +30,7 @@ which uses `π` at boundary vertices under the appropriate surface conditions.
 | `FourDSimplicialComplex.v` | 4-simplex / clique-style cell bookkeeping |
 | `DiscreteSimplicialGeometry.v` | `combinatorially_orthogonal` predicate; closes off-diagonal Ricci section variable |
 | `DiscreteTopology.v` | Triangle/edge definitions; required incidence 3F = 2I + B and additional restriction B = 3χ |
-| `PhysicalSubstrate.v` | Typeclass for (k_B, ℏ, c) with positivity conditions and the Landauer-Unruh calibration relation; imports `NoFIToEinstein.v` |
+| `PhysicalSubstrate.v` | Typeclass for (k_B, ℏ, c) with positivity conditions and the Landauer-Unruh calibration relation, and an instance showing the conditions are consistent |
 | `KernelPhysics.v` | Causal-cone semantics; structural physics primitives |
 
 ### Metric / connection
@@ -52,7 +52,7 @@ which uses `π` at boundary vertices under the appropriate surface conditions.
 | `AffineEFEClosure.v` | Closes off-diagonal Ricci gap via affine metric-scaled symmetric operator |
 | `CurvedTensorPipeline.v` | Curved (non-vacuum) diagonal EFE pipeline |
 | `EinsteinEmergence.v` | **`einstein_emerges`**: restricted angle-defect identity ΔK = 5π·Δχ under the stated triangulation predicates |
-| `NoFIToEinstein.v` | NFI → EFE bridge under Bekenstein calibration; defines `mu_landauer_unruh_calibrated` |
+| `NoFIToEinstein.v` | No Free Insight cost results beside discrete Gauss-Bonnet (`discrete_gauss_bonnet_delta`); defines `mu_landauer_unruh_calibrated`; no theorem connects the two |
 
 ### Lorentzian signature
 
@@ -82,8 +82,7 @@ which uses `π` at boundary vertices under the appropriate surface conditions.
 - `Physics_Closure`
 - `einstein_emerges`: discrete Gauss-Bonnet identity
 - `mu_landauer_unruh_calibrated`: the named bridge premise (a `Prop`-valued definition used as an explicit hypothesis)
-- `nfi_to_discrete_einstein_from_pnew_bekenstein_calibration`,
-  `nfi_to_discrete_einstein_from_psplit_bekenstein_calibration`
+- `discrete_gauss_bonnet_delta`: the curvature change between two well-formed triangulated states is the coupling constant times the change in Euler characteristic, with no mu or thermodynamic premise
 
 ## Imports
 

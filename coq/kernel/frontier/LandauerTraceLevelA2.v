@@ -1,6 +1,6 @@
-(** * F1_TraceLevelA2: lifting single-step A2 to multi-step traces
+(** * LandauerTraceLevelA2: lifting single-step A2 to multi-step traces
 
-    [F1_LogicalErasure.v] establishes the single-step result: given
+    [LogicalErasureCertFlip.v] establishes the single-step result: given
     the Landauer bridge plus cert-monotonicity, A2 holds for any
     single cert-flip step. This file extends to multi-step traces:
     any trace from an uncertified initial state to a certified final
@@ -12,7 +12,7 @@
     [CertificationSystem] record. The file constructs one from the
     single-step setup and instantiates.
 
-    No new bridges, no new axioms — pure composition of existing
+    No new bridges, no new axioms: pure composition of existing
     single-step content with existing kernel infrastructure. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
@@ -21,7 +21,7 @@ Import ListNotations.
 From Kernel Require Import VMState VMStep SimulationProof.
 From Kernel Require Import PrimeAxiom AbstractNoFI.
 From Kernel Require Import UniversalCertificationCost.
-From Kernel Require Import F1_LogicalErasure.
+From Kernel Require Import LogicalErasureCertFlip.
 
 (** ** Trace-level extension of the single-step A2 derivation.
 
@@ -36,8 +36,8 @@ From Kernel Require Import F1_LogicalErasure.
     universal_nfi_any_substrate's induction gives the trace-level
     cost ≥ 1. *)
 
-(** Build a [CertificationSystem] from the single-step F1 hypotheses. *)
-Definition thiele_cert_system_from_F1
+(** Build a [CertificationSystem] from the single-step Landauer hypotheses. *)
+Definition thiele_cert_system_from_landauer_bound
   (mu_per_landauer_bit : nat)
   (Hcal : mu_per_landauer_bit >= 1)
   (HLandauer : forall (P : bool_macro_property) (i : vm_instruction),
@@ -65,7 +65,7 @@ Definition thiele_cert_system_from_F1
     universal_nfi_any_substrate (induction over the trace). No new
     bridges, no new axioms. *)
 
-Theorem F1_trace_level_A2 :
+Theorem trace_level_A2_from_landauer_bound :
   forall (mu_per_landauer_bit : nat) (Hcal : mu_per_landauer_bit >= 1)
          (HLandauer : forall (P : bool_macro_property) (i : vm_instruction),
               step_collapses_bool_classes P i ->
@@ -73,15 +73,15 @@ Theorem F1_trace_level_A2 :
     forall (trace : list vm_instruction) (s0 : VMState),
       vm_certified s0 = false ->
       vm_certified
-        (cs_run (thiele_cert_system_from_F1
+        (cs_run (thiele_cert_system_from_landauer_bound
                    mu_per_landauer_bit Hcal HLandauer) trace s0) = true ->
       cs_total_cost
-        (thiele_cert_system_from_F1
+        (thiele_cert_system_from_landauer_bound
            mu_per_landauer_bit Hcal HLandauer) trace >= 1.
 Proof.
   intros mu Hcal HLandauer trace s0 Hf Ht.
   exact (universal_nfi_any_substrate
-           (thiele_cert_system_from_F1 mu Hcal HLandauer)
+           (thiele_cert_system_from_landauer_bound mu Hcal HLandauer)
            trace s0 Hf Ht).
 Qed.
 
@@ -89,7 +89,7 @@ Qed.
        certified state pays ≥ 1. (Same as the single-step result in a different
        packaging.) *)
 
-Theorem F1_singleton_trace_A2 :
+Theorem single_step_A2_from_landauer_bound :
   forall (mu_per_landauer_bit : nat) (Hcal : mu_per_landauer_bit >= 1)
          (HLandauer : forall (P : bool_macro_property) (i : vm_instruction),
               step_collapses_bool_classes P i ->
@@ -107,11 +107,11 @@ Qed.
 
     Directly use Thiele's existing [thiele_certified_system] (which
     satisfies A2 via no_free_certification_certified) to derive the
-    trace-level cost ≥ 1 result without going through F1's
+    trace-level cost ≥ 1 result without going through the Landauer derivation's
     Landauer-bridge hypothesis. This is an alternative route to the
     same conclusion via the existing cost law. *)
 
-Theorem F1_thiele_trace_level_A2 :
+Theorem thiele_trace_level_A2 :
   forall (trace : list vm_instruction) (s0 : VMState),
     vm_certified s0 = false ->
     vm_certified (cs_run thiele_certified_system trace s0) = true ->

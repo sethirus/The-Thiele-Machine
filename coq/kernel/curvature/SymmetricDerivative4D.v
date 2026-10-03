@@ -11,7 +11,7 @@ Open Scope R_scope.
 
 (** SymmetricDerivative4D.v
 
-    Draft redesign scaffold for the discrete derivative used by the curvature
+    An alternative discrete derivative for the curvature
     pipeline. The active pipeline in [RiemannTensor4D.v] uses first-neighbor
     semantics: scan the filtered vertex list, take the first matching witness,
     and return [f(w) - f(v)].
@@ -23,10 +23,10 @@ Open Scope R_scope.
     - aggregates over all matching adjacent vertices, and
     - averages their directional differences.
 
-    The goal is not to claim that this operator is correct physics. The goal is
-    to make the redesign surface explicit and machine-check the first exact
-    formulas that such a redesign would need on the same witness complexes the
-    current proofs already use.
+    The file does not claim that this operator is correct physics. It makes
+    the alternative explicit and machine-checks exact formulas for it on the
+    same witness complexes the first-neighbor proofs use; AffineEFEClosure.v
+    uses its affine metric-scaled variant.
 
     ZERO PROJECT-LOCAL AXIOMS. NO SHORTCUTS.
 *)

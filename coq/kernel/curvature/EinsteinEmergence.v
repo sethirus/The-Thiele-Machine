@@ -21,7 +21,7 @@
   The theorems hold for every pair of well-formed triangulated graphs. The
   graphs the machine reaches from init_state have pairwise-disjoint module
   regions, so a well-formed triangulated one is a set of separate triangles
-  with chi = F (F3_ReachableGeometry.v). On those graphs delta-chi is the
+  with chi = F (ReachableGeometry.v). On those graphs delta-chi is the
   change in the number of modules, and the identity counts modules. *)
 
 From Coq Require Import Reals List Lia ZArith Lra.

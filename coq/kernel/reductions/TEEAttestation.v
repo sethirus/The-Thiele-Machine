@@ -13,7 +13,7 @@
     MRENCLAVE/PCR semantics, signature, nonce, key hierarchy, or
     remote-attestation protocol is in it.
 
-    Core instantiation: [V_does_not_factor_through_classical] -- a sound and
+    Core instantiation: [V_does_not_factor_through_classical], a sound and
     complete verifier of a mu-dependent claim cannot factor through the bare
     classical transcript. Attestation of a measurement-dependent claim must
     expose non-classical structure (the measurement register), and the
@@ -46,7 +46,7 @@ Require Import VerifierEscape_Substrate.
 
 (* The po1 collision witnesses and the mu=1 verification problem live in
    [NecessityOfMuLedger] and [VerifierImpossibility]. The imports above
-   load both transitively but do not open them; we open them here, plus
+   load both transitively but do not open them; they are opened here, plus
    the kernel VM state for [vm_mu]. *)
 From Kernel Require Import VMState.
 Require Import NecessityOfMuLedger.
@@ -78,7 +78,7 @@ Definition report_projection (r : TEEReport) : BareTranscript :=
 (** When a report honestly attests prover state [s]:
 
       - its bare field is explained by [s] under the kernel's mu=1
-        verification problem — [bare_explains mu_eq_one_problem], the
+        verification problem: [bare_explains mu_eq_one_problem], the
         relation the bare-setting impossibility is stated over; and
       - its measurement register equals the state's mu ledger.
 
@@ -91,7 +91,7 @@ Definition report_explains (s : VMState) (r : TEEReport) : Prop :=
   /\ rep_measurement r = s.(vm_mu).
 
 (** Soundness in attestation vocabulary: an accepted report vouches for
-    every state that explains it — the verifier cannot accept a report
+    every state that explains it; the verifier cannot accept a report
     consistent with an unpaid run. *)
 Definition attestation_sound (V : TEEReport -> bool) : Prop :=
   forall r, V r = true ->
@@ -238,7 +238,7 @@ Qed.
     and
     the three conjuncts of the headline are discharged by
     [substrate_verifier_sound], [substrate_verifier_complete], and
-    [substrate_verifier_cheap] — the components of
+    [substrate_verifier_cheap], the components of
     [substrate_escape_succeeds]. *)
 
 (** The state a report's register vouches for, within the po1 collision

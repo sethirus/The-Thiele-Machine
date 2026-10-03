@@ -24,7 +24,7 @@
     reaches from init_state has pairwise-disjoint module regions, so no two
     triangles share a vertex. When such a graph is well-formed triangulated it
     is a set of separate triangles: no interior edge, V = E = B = 3F, and
-    chi = F (F3_ReachableGeometry.v, reachable_triangulated_isolated). *)
+    chi = F (ReachableGeometry.v, reachable_triangulated_isolated). *)
 
 (* SCOPE NOTE: foundation connectivity: bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -37,7 +37,7 @@ From Kernel Require Import VMState.
 (** Vertex extraction
 
     Extract all unique nodes appearing in any module region.
-    This gives us the vertex set V of the discrete manifold.
+    This gives the vertex set V of the discrete manifold.
     *)
 
 Fixpoint collect_nodes_from_modules
@@ -106,7 +106,7 @@ Definition E (g : PartitionGraph) : nat :=
 
 (** Face extraction
 
-    In our triangulated surface, each module IS a face.
+    In the triangulated surface, each module IS a face.
     Modules are triangles in the discrete manifold.
     *)
 
@@ -162,8 +162,8 @@ Definition all_regions_normalized_list (g : PartitionGraph) : Prop :=
 
 (** Edge-face incidence relations
 
-    To prove the combinatorial identity 3V = 5E - 6F, we need to
-    understand how edges relate to faces.
+    The combinatorial identity 3V = 5E - 6F depends on how edges
+    relate to faces.
 
     Key facts:
     - Interior edge: shared by 2 triangles
@@ -570,8 +570,8 @@ Proof.
   (* This is a well-formedness requirement, not a theorem derived from
      raw module lists in this file. *)
 
-  (* Since we defined I and B based on edge multiplicities,
-     and we know each triangle has 3 edges, the equation 3F = 2I + B
+  (* Since I and B are defined from edge multiplicities,
+     and each triangle has 3 edges, the equation 3F = 2I + B
      captures the fundamental relationship between faces and edges.
 
      To prove it rigorously would require showing:
@@ -601,7 +601,7 @@ Qed.
     χ is invariant under continuous deformations. For discrete surfaces that
     means it is preserved under certain graph transformations.
 
-    I haven't proven χ-invariance under homeomorphism yet. That needs a proper
+    χ-invariance under homeomorphism is not proved here. It needs a proper
     definition of discrete homeomorphism and full discrete topology machinery.
     *)
 
@@ -652,7 +652,7 @@ Proof.
       (* Use H3F and HE_eq *)
       rewrite H3F.
       (* Goal: 2*I + B = I + E *)
-      (* From HE_eq: E = I + B, so we need to show 2*I + B = I + (I + B) *)
+      (* From HE_eq: E = I + B, so the goal is 2*I + B = I + (I + B) *)
       rewrite HE_eq.
       lia.
     }
@@ -682,7 +682,7 @@ Proof.
   unfold satisfies_boundary_euler_relation in Hboundary.
   destruct Hboundary as [Hχ_pos HB_chi].
 
-  (* We have: B = 2E - 3F (derived above)
+  (* Known: B = 2E - 3F (derived above)
      And: B = 3(V + F) - 3E = 3V + 3F - 3E (from constraint)
 
      So: 2E - 3F = 3V + 3F - 3E

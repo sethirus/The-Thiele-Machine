@@ -1,9 +1,9 @@
-(** * F3_TripleCrossLink: triple-link composition
+(** * LassertTsirelsonHierarchyCrossLink: triple-link composition
 
     Combines the LASSERT cost law, the Tsirelson upper bound, and the
     μ-hierarchy lower bound into a single non-separable Coq inequality.
 
-    [F3_CrossLink] established the two-link single-conclusion bound
+    [LassertTsirelsonCrossLink] established the two-link single-conclusion bound
     combining the LASSERT byte coefficient (8) and the Tsirelson
     upper bound (8). This file extends to a three-link composition by
     adding the μ-hierarchy theorem (level [k] requires [k] μ).
@@ -24,8 +24,8 @@
     specialising k = 0 collapses the hierarchy term; specialising
     Tsirelson (allowing S² > 8) breaks the bound entirely.
 
-    All three link constants — LASSERT (8), Tsirelson (8), hierarchy
-    (k) — appear in the same inequality.
+    All three link constants appear in the same inequality: LASSERT (8),
+    Tsirelson (8), hierarchy (k).
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith QArith Lqa.
@@ -35,7 +35,7 @@ Local Open Scope Q_scope.
 
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import AlgebraicCoherence.
-From Kernel Require Import F3_CrossLink.
+From Kernel Require Import LassertTsirelsonCrossLink.
 
 (** ** Triple-link composite: LASSERT + Tsirelson + Hierarchy.
 
@@ -44,7 +44,7 @@ From Kernel Require Import F3_CrossLink.
     with LASSERT and Tsirelson gives a tighter bound. *)
 
 (** Q-valued hierarchy floor: trace cost ≥ k μ in Q form. Defined by
-    [inject_Z (Z.of_nat k)] — direct lift of a nat to Q. *)
+    [inject_Z (Z.of_nat k)], direct lift of a nat to Q. *)
 Definition hierarchy_floor_q (k : nat) : Q := inject_Z (Z.of_nat k).
 
 (** ** Headline: triple-link composition
@@ -67,7 +67,7 @@ Definition hierarchy_floor_q (k : nat) : Q := inject_Z (Z.of_nat k).
     Proof: each side dominates element-wise; combining via
     [algebraically_coherent_tsirelson_general] and arithmetic. *)
 
-Theorem F3_triple_cross_link :
+Theorem lassert_hierarchy_cost_bounds_coherent_chsh_square :
   forall (c : Correlators) (freg creg flen mu_delta m k : nat) (kind : bool),
     algebraically_coherent c ->
     let lc := cost_q (instr_lassert freg creg kind flen mu_delta) in
@@ -110,16 +110,16 @@ Proof.
     nra.
 Qed.
 
-(** ** Specialisation: at [m = 1, k = 0], recover the two-link bound from [F3_CrossLink]. *)
+(** ** Specialisation: at [m = 1, k = 0], recover the two-link bound from [LassertTsirelsonCrossLink]. *)
 
-Corollary F3_triple_specialises_to_F3_R1 :
+Corollary lassert_hierarchy_bound_specialises_to_lassert_bound :
   forall (c : Correlators) (freg creg flen mu_delta : nat) (kind : bool),
     algebraically_coherent c ->
     cost_q (instr_lassert freg creg kind flen mu_delta) * 8 >=
     (S_from_correlators c) * (S_from_correlators c) * lassert_flen_q flen.
 Proof.
   intros c freg creg flen mu_delta kind Hcoh.
-  exact (F3_cross_link_lassert_tsirelson c freg creg flen mu_delta kind Hcoh).
+  exact (lassert_cost_bounds_coherent_chsh_square c freg creg flen mu_delta kind Hcoh).
 Qed.
 
 (** ** Adversarial degradation tests for the triple link. *)
@@ -128,14 +128,14 @@ Qed.
     (S²≤8), this holds; without Tsirelson (e.g., S²=16), it fails for
     k > 0. *)
 
-Lemma F3_triple_drop_lassert_at_k_pos_with_tsirelson :
+Lemma hierarchy_floor_bounds_coherent_chsh_square :
   forall (c : Correlators) (k : nat) (freg creg flen mu_delta : nat) (kind : bool),
     algebraically_coherent c ->
     8 * hierarchy_floor_q k >=
     (S_from_correlators c) * (S_from_correlators c) * hierarchy_floor_q k.
 Proof.
   intros c k freg creg flen mu_delta kind Hcoh.
-  pose proof (F3_triple_cross_link c freg creg flen mu_delta 0 k kind Hcoh) as H.
+  pose proof (lassert_hierarchy_cost_bounds_coherent_chsh_square c freg creg flen mu_delta 0 k kind Hcoh) as H.
   simpl in H.
   unfold cost_q in H.
   set (lq := lassert_flen_q flen) in *.
@@ -144,24 +144,37 @@ Proof.
   rewrite E1 in H. nra.
 Qed.
 
-Lemma F3_triple_drop_lassert_fails_without_tsirelson :
-  (* Without Tsirelson, for S² = 16 (allowed by no-signaling) and k=1,
-     the bound 8*1 >= 16*1 = 16 fails: 8 < 16. *)
-  8 * hierarchy_floor_q 1 < 16 * hierarchy_floor_q 1.
-Proof. vm_compute. reflexivity. Qed.
+(** Without Tsirelson: the PR-box correlators (S² = 16, allowed by
+    no-signaling) break the floor-only bound at k = 1, since 8 < 16. *)
+Lemma hierarchy_floor_below_pr_box_square_bound :
+  exists c : Correlators,
+    (S_from_correlators c * S_from_correlators c == 16) /\
+    ~ (8 * hierarchy_floor_q 1 >=
+       S_from_correlators c * S_from_correlators c * hierarchy_floor_q 1).
+Proof.
+  exists pr_box_correlators. split.
+  - vm_compute. reflexivity.
+  - intro H. vm_compute in H. apply H. reflexivity.
+Qed.
 
 (** Drop Tsirelson (allow S² = 16): triple bound fails. Demonstrated
     via the same arithmetic counterexample. *)
 
-Lemma F3_triple_adversarial_drop_tsirelson :
-  (* Specialised counterexample: m=1, flen=0, k=1, S²=16.
-     LHS = 8 * (1 * (0*8+1) + 1) = 8 * 2 = 16.
-     RHS = 16 * (1 * 1 + 1) = 32.
-     16 < 32. *)
-  8 * (inject_Z (Z.of_nat 1) * cost_q (instr_lassert 0 0 false 0 0) +
-       hierarchy_floor_q 1) <
-  16 * (inject_Z (Z.of_nat 1) * lassert_flen_q 0 + hierarchy_floor_q 1).
-Proof. vm_compute. reflexivity. Qed.
+(** Specialised counterexample: m = 1, flen = 0, k = 1 with the PR-box
+    correlators (S² = 16). LHS = 8 * (1 * (0*8+1) + 1) = 16;
+    RHS = 16 * (1 * 1 + 1) = 32; 16 < 32. *)
+Lemma lassert_hierarchy_min_cost_below_pr_box_square_bound :
+  exists c : Correlators,
+    (S_from_correlators c * S_from_correlators c == 16) /\
+    ~ (8 * (inject_Z (Z.of_nat 1) * cost_q (instr_lassert 0 0 false 0 0) +
+            hierarchy_floor_q 1) >=
+       S_from_correlators c * S_from_correlators c *
+       (inject_Z (Z.of_nat 1) * lassert_flen_q 0 + hierarchy_floor_q 1)).
+Proof.
+  exists pr_box_correlators. split.
+  - vm_compute. reflexivity.
+  - intro H. vm_compute in H. apply H. reflexivity.
+Qed.
 
 (** ** Worked-example numerical pin: m=1, flen=8, k=2.
 
@@ -169,7 +182,7 @@ Proof. vm_compute. reflexivity. Qed.
     RHS (with Tsirelson saturated, S² = 8) = 8 * (1 * 65 + 2) = 536.
     Tight. *)
 
-Lemma F3_triple_worked_example_pin :
+Lemma lassert_hierarchy_bound_values_at_flen_8_k_2 :
   cost_q (instr_lassert 0 0 false 8 0) == 65 /\
   lassert_flen_q 8 == 65 /\
   hierarchy_floor_q 2 == 2 /\

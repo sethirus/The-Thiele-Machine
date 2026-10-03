@@ -1,23 +1,22 @@
-(** WitnessInsightGeneral.v — General Witness Insight Taxonomy
+(** WitnessInsightGeneral.v: General Witness Insight Taxonomy
 
     THE THREE-TIER WITNESS INSIGHT STRUCTURE
 
-    The ASPIRATIONAL item "Witness insight is non-free (general)" is closed
-    here by formalizing the three-tier taxonomy and proving the central
-    theorem for all three tiers.
+    This file formalizes the three-tier taxonomy and proves that witness
+    insight is non-free for all three tiers.
 
-    TIER 0 — RAW OBSERVATION (always free):
+    TIER 0: RAW OBSERVATION (always free):
       CHSH_TRIAL: updates witness counters (wc_same_XY, wc_diff_XY).
       Cost: 0.  These are observational data, NOT authorization tokens.
       No cert channel is activated.
 
-    TIER 1 — CERTIFIED STRUCTURAL INSIGHT (always costs >= 1):
+    TIER 1: CERTIFIED STRUCTURAL INSIGHT (always costs >= 1):
       Any instruction that activates a cert channel:
-      - csr_cert_addr: 0 → nonzero  (cert_addr_setters: MORPH_ASSERT, LASSERT, etc.)
+      - csr_cert_addr: 0 → nonzero  (MORPH_ASSERT is the only writer)
       - vm_certified: false → true  (CERTIFY opcode)
       From certified_insight_nonfree (InsightTaxonomy.v): cost >= 1, mu >= +1.
 
-    TIER 2 — CERTIFIED NON-LOCAL WITNESS INSIGHT (costs >= 1):
+    TIER 2: CERTIFIED NON-LOCAL WITNESS INSIGHT (costs >= 1):
       vm_certified = true AND chsh_violation_certified (S > 2).
       The vm_certified flag is a Tier 1 event (cost >= 1).
       The CHSH violation (S > 2) makes the statistics non-local
@@ -36,7 +35,7 @@
     certification (cost >= 1), even if the raw trials were free.
 
     The "general" aspect: the theorem applies to ANY trace length and ANY
-    sequence of opcodes — raw CHSH_TRIAL observations are free, but
+    sequence of opcodes: raw CHSH_TRIAL observations are free, but
     certifying what those observations mean is provably non-free.
 
     HONEST SCOPE
@@ -118,7 +117,7 @@ Qed.
 *)
 
 (** A witness insight event is a certified insight event in the witness
-    context — any instruction that activates a cert channel while the
+    context: any instruction that activates a cert channel while the
     witness state is potentially non-local. *)
 Definition is_witness_insight_event (s : VMState) (i : vm_instruction) : Prop :=
   is_cert_insight_event s i.
@@ -137,7 +136,7 @@ Qed.
 (**
 
     A state certifies non-local witness statistics if:
-    1. vm_certified = true  (certification channel activated — Tier 1, cost >= 1)
+    1. vm_certified = true  (certification channel activated, Tier 1, cost >= 1)
     2. chsh_violation_certified s  (CHSH statistic S > 2, hence non-local)
 
     chsh_certification_not_local (from CHSHStatisticalBridge.v) proves that
@@ -169,8 +168,8 @@ Qed.
     The key new theorem: over ANY trace, achieving certified non-local
     witness statistics from an uncertified baseline requires mu >= init + 1.
 
-    This theorem closes the ASPIRATIONAL gap: it IS the general theorem
-    connecting witness insight (certified non-locality) to cost.
+    This is the general theorem connecting witness insight (certified
+    non-locality) to cost.
 
     By induction on the trace.  At the step where vm_certified goes from
     false to true, no_free_certification_certified_mu gives mu += 1.
@@ -207,10 +206,8 @@ Qed.
     Any trace that achieves certified non-local witness statistics from an
     uncertified baseline must have paid at least 1 unit of mu-cost.
 
-    CLOSES: ASPIRATIONAL "Witness insight is non-free (general)."
-
     INTERPRETATION:
-    - Raw CHSH_TRIAL observations (Tier 0) are free — they just accumulate data.
+    - Raw CHSH_TRIAL observations (Tier 0) are free; they just accumulate data.
     - COMMITTING to a non-local interpretation (vm_certified = true) requires
       certification, which provably costs >= 1.
     - Therefore: non-local CERTIFIED witness insight is non-free.
@@ -233,7 +230,7 @@ Qed.
 *)
 
 Theorem witness_insight_complete_taxonomy :
-  (** Tier 0: CHSH trials do not activate cert channels — they are free. *)
+  (** Tier 0: CHSH trials do not activate cert channels; they are free. *)
   (forall s a b x y mu_delta, ~ is_cert_insight_event s (instr_chsh_trial a b x y mu_delta)) /\
   (** Tier 1: Certified insight events (any cert channel activation) cost >= 1. *)
   (forall s i, is_cert_insight_event s i ->

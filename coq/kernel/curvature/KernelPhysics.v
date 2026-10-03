@@ -37,7 +37,7 @@ Definition ObservableSignature (s : VMState) : list (option (list nat)) * nat :=
 Definition obs_equiv (s1 s2 : VMState) : Prop :=
   forall mid : nat, Observable s1 mid = Observable s2 mid.
 
-(** Reflexivity is discharged inline by the only current downstream equivalence instance, so this file keeps only the nontrivial symmetry and transitivity lemmas. *)
+(** Reflexivity is discharged inline by the downstream equivalence instance, so this file states only the symmetry and transitivity lemmas. *)
 
 (** Observational equivalence is symmetric. *)
 Theorem obs_equiv_sym : forall s1 s2, obs_equiv s1 s2 -> obs_equiv s2 s1.
@@ -122,7 +122,7 @@ Proof.
 Qed.
 
 (** The VM step relation never decreases [vm_mu]. This is an arithmetic property of the instruction-cost rules, not a claim about physical dissipation. *)
-(* SAFE: short proof — inversion + lia exhausts all vm_step cases directly *)
+(* SAFE: short proof; inversion + lia exhausts all vm_step cases directly *)
 Theorem mu_conservation_kernel : forall s s' instr,
   vm_step s instr s' ->
   s'.(vm_mu) >= s.(vm_mu).
@@ -615,35 +615,35 @@ Proof.
     destruct (pmerge_ok _ _ _); [|reflexivity].
     rewrite graph_hw_pmerge_lookup_other;
       [reflexivity | exact Hmid_lt | exact Hneq1 | exact Hneq2].
-  (* Goal 4: step_tensor_set_ok — only the target module tensor mutates. *)
+  (* Goal 4: step_tensor_set_ok; only the target module tensor mutates. *)
   - assert (Hneq : mid <> mid0).
     { intro Heq. apply Hnotin. unfold instr_targets. simpl. left. symmetry. exact Heq. }
     simpl.
     enough (graph_lookup (graph_update_module_tensor (vm_graph s) mid0 (i * 4 + j) value) mid =
             graph_lookup (vm_graph s) mid) as -> by reflexivity.
     apply graph_update_module_tensor_preserves_unrelated. exact Hneq.
-  (* Goal 5: step_morph_ok — morph table changes do not affect module lookups. *)
+  (* Goal 5: step_morph_ok; morph table changes do not affect module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     change graph' with (fst (graph', morph_id)).
     rewrite H1.
     apply graph_add_morphism_preserves_lookup.
-  (* Goal 6: step_compose_ok — composing morphisms preserves module lookups. *)
+  (* Goal 6: step_compose_ok; composing morphisms preserves module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     eapply graph_compose_morphisms_preserves_lookup.
     exact H.
-  (* Goal 7: step_morph_id_ok — identity morph creation preserves module lookups. *)
+  (* Goal 7: step_morph_id_ok; identity morph creation preserves module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     eapply graph_add_identity_preserves_lookup.
     exact H.
-  (* Goal 8: step_morph_delete_ok — deleting a morphism preserves module lookups. *)
+  (* Goal 8: step_morph_delete_ok; deleting a morphism preserves module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     eapply graph_delete_morphism_preserves_lookup.
     exact H.
-  (* Goal 9: step_morph_tensor_ok — tensoring morphisms preserves module lookups. *)
+  (* Goal 9: step_morph_tensor_ok; tensoring morphisms preserves module lookups. *)
   - simpl.
     enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
     eapply graph_tensor_morphisms_preserves_lookup.

@@ -1,10 +1,10 @@
 (** =========================================================================
-    TURING COMPLETENESS VIA ISA — 2-COUNTER MINSKY MACHINE SIMULATION
+    TURING COMPLETENESS VIA ISA: 2-COUNTER MINSKY MACHINE SIMULATION
     =========================================================================
 
-    This file closes the ISA-level simulation boundary. The
-    thiele_simulates_tm development uses a file-local transition model; here
-    the compilation is executed through the concrete [vm_apply] semantics.
+    The thiele_simulates_tm development uses a file-local transition
+    model; here the compilation is executed through the concrete
+    [vm_apply] semantics.
     The target is a 2-counter Minsky machine.
 
     Minsky machines with 2 counters are Turing complete (Minsky 1967).
@@ -23,7 +23,7 @@
     ========================================================================= *)
 
 From Coq Require Import List Arith Lia PeanoNat Bool.
-From Coq Require Nnat. (* loaded but NOT imported — Nnat changes scope of < breaking lia *)
+From Coq Require Nnat. (* loaded but NOT imported; Nnat changes scope of < breaking lia *)
 Import ListNotations.
 From Kernel Require Import VMState VMStep SimulationProof.
 From Kernel Require Import MuLedgerConservation. (* cost-foundation connectivity *)
@@ -145,7 +145,7 @@ Definition minsky_step (prog : list MinskyInstr) (cfg : MinskyConfig)
   end.
 
 (** =========================================================================
-    COMPILATION — MINSKY TO VM INSTRUCTIONS
+    COMPILATION: MINSKY TO VM INSTRUCTIONS
     ========================================================================= *)
 
 (** Block size for each Minsky instruction *)
@@ -220,8 +220,8 @@ Definition minsky_vm_inv (prog : list MinskyInstr)
     VM_APPLY DISPATCH LEMMAS
     =========================================================================
 
-    For each instruction type we use (5 of 46), we prove what vm_apply does.
-    These are the key lemmas showing vm_apply IS called, addressing G2.
+    For each instruction type used (5 of 51), these lemmas state what
+    vm_apply does.
     ========================================================================= *)
 
 (** vm_apply for load_imm: updates register, increments PC *)
@@ -311,7 +311,7 @@ Lemma jump_state_regs :
 Proof. intros. unfold jump_state. reflexivity. Qed.
 
 (** =========================================================================
-    SINGLE-STEP SIMULATION — INC
+    SINGLE-STEP SIMULATION: INC
     =========================================================================
 
     MI_Inc(c) compiles to: [load_imm r4 1; add r(2+c) r(2+c) r4]
@@ -321,23 +321,19 @@ Proof. intros. unfold jump_state. reflexivity. Qed.
     - vm_pc advances by 2
     ========================================================================= *)
 
-(** After running Inc block, the counter register is incremented.
-    NOTE: The run_vm-based approach (fetching instructions from the compiled
-    trace via nth_error) requires compile layout correctness lemmas that are
-    non-trivial boilerplate. The single-instruction proofs below prove the
-    same result more directly via explicit vm_apply calls, which is what is
-    needed for the audit. This theorem is therefore not proved here; the
-    single-instruction theorems (inc_via_vm_apply, jzdec_*_via_vm_apply) are the canonical proofs. *)
+(** The run_vm form of the Inc block (fetching the compiled instructions
+    through nth_error) is not proved here: it needs compile-layout lemmas
+    for compile_minsky_aux. The single-instruction theorems below
+    (inc_via_vm_apply, jzdec_*_via_vm_apply) state each block through
+    explicit vm_apply calls. *)
 
 (** =========================================================================
     SINGLE INSTRUCTION vm_apply PROOFS
     =========================================================================
 
-    Rather than proving full run_vm simulation (which requires
-    nth_error/compile alignment lemmas), we prove that EACH vm_apply call
-    in the compiled block produces the correct state transition.
-
-    This directly addresses G2: every state transition goes through vm_apply.
+    Each vm_apply call in a compiled block produces the stated state
+    transition. Full run_vm simulation, which needs nth_error/compile
+    alignment lemmas, is not proved here.
     ========================================================================= *)
 
 (** Key fact: vm_apply on load_imm sets the target register *)
@@ -540,7 +536,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    COMPOSITION — INC VIA VM_APPLY
+    COMPOSITION: INC VIA VM_APPLY
     =========================================================================
 
     Show that two consecutive vm_apply calls implement MI_Inc correctly.
@@ -655,7 +651,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    COMPOSITION — JZDEC VIA VM_APPLY
+    COMPOSITION: JZDEC VIA VM_APPLY
     =========================================================================
 
     MI_JzDec(c, tgt) compiles to:
@@ -780,40 +776,28 @@ Qed.
     MAIN SIMULATION THEOREM
     =========================================================================
 
-    Every single Minsky step can be simulated by 2-3 vm_apply calls.
-    This is the theorem that directly addresses audit G2:
-    - Every VM state transition goes THROUGH vm_apply
-    - The Minsky machine is Turing-complete (standard result)
-    - Therefore, the ISA (via vm_apply) is computationally universal
-
-    The word64 faithfulness conditions can be discharged for any
-    computation where counter values stay bounded (which includes
-    all terminating computations with bounded counters).
+    Every single Minsky step is simulated by 2-3 vm_apply calls, provided
+    the counters fit in 64-bit words.
     ========================================================================= *)
 
 (** Summary of what is proved:
 
-    1. vm_apply correctly dispatches load_imm, add, sub, jnez, jump, halt
-       (6 reflexivity proofs)
+    1. vm_apply dispatches load_imm, add, sub, jnez, jump, halt as stated.
 
-    2. Each vm_apply call produces the right register/PC updates
-       (17 lemmas about field updates)
+    2. Each vm_apply call produces the stated register/PC updates.
 
-    3. MI_Inc is correctly simulated by 2 vm_apply calls
-       (inc_via_vm_apply)
+    3. MI_Inc is simulated by 2 vm_apply calls (inc_via_vm_apply).
 
-    4. MI_JzDec is correctly simulated by 2 vm_apply calls
-       (jzdec_zero_via_vm_apply, jzdec_nonzero_via_vm_apply)
+    4. MI_JzDec is simulated by 2 vm_apply calls
+       (jzdec_zero_via_vm_apply, jzdec_nonzero_via_vm_apply).
 
-    5. All transitions preserve register length and scratch register
-       (invariant maintenance)
+    5. All transitions preserve register length and the scratch register.
 
     SCOPE:
-    - The compilation scheme maps each Minsky primitive to vm_instructions
-    - Every state transition explicitly calls vm_apply (not a Coq simulation)
-    - Word64 faithfulness is a hypothesis (provable for bounded counters)
-    - The run_vm/nth_error alignment (compile layout correctness) is
-      documented but not proved here — it's a straightforward property
-      of compile_minsky_aux producing instructions at the right offsets
-
-    The ISA is Turing complete via vm_apply. *)
+    - The compilation scheme maps each Minsky primitive to vm_instructions.
+    - Every state transition is a vm_apply call.
+    - Word64 faithfulness is a hypothesis (it holds for bounded counters).
+    - The run_vm/nth_error alignment of compile_minsky_aux is not proved
+      here.
+    - Two-counter Minsky machines are Turing complete (Minsky 1967); that
+      is cited, not proved. *)

@@ -20,7 +20,7 @@
     [Prog], [State], and [step] to richer Thiele CPU semantics; this file
     proves what holds at the abstract small-step level. *)
 
-(* SCOPE NOTE: foundation connectivity -- bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuCostModel.
 
@@ -231,9 +231,9 @@ Definition tm_step_fun (P : Prog) (s : State) : option (State * StepObs) :=
 (** ** Hash chain for tamper-evidence
 
     The hashing primitives below are deliberately weak ([nat]-valued
-    additions): they are sufficient to state the abstract chain-equality
-    lemma [chain_equiv]. Concrete hash functions (SHA-256, etc.) are
-    instantiated by downstream layers and the same chain shape is reused. *)
+    additions): they are enough to state the chain shape [chain_exec]
+    below. This file instantiates no concrete hash function (SHA-256,
+    etc.). *)
 Definition hash_state  (s : State) : Hash := s.(pc).
 Definition hash_cert   (c : Cert)  : Hash := c.
 Definition hcombine    (h1 h2 : Hash) : Hash := Nat.add h1 h2.
@@ -384,7 +384,7 @@ Definition sum_bits (rs: list Receipt) : Z :=
 
 (** ** Universal theorems
 
-    The two lemmas below — replay correctness and μ-accounting — combine into
+    The two lemmas below (replay correctness and μ-accounting) combine into
     [abstract_exec_receipts_replay_and_are_paid], the headline statement of
     this file. Together they say that any valid execution of any well-formed
     program is auditable end-to-end and that auditing it never reveals a

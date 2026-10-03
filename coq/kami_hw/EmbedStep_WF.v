@@ -1,23 +1,23 @@
 (** EmbedStep_WF.v
 
     Full-state embed_step for the WF-guarded instruction layer.
-    Extends the 31-opcode unconditional SupportedOpcode coverage to a
-    34-opcode WFSupportedOpcode coverage by adding:
+    Extends the 35-opcode unconditional SupportedOpcode coverage to the
+    38-opcode WFSupportedOpcode coverage by adding:
     - CALL
     - RET
     - CHSH_TRIAL
 
-    The remaining 4 preconditioned opcodes stay in specialised lemmas:
-    PNEW, PSPLIT, PMERGE, LASSERT.
+    The file also proves LASSERT, PNEW, PSPLIT and PMERGE under their own
+    preconditions.
 
     Preconditions:
     - WellFormedSnapshot: sp < MEM_SIZE, word64_sub sp 1 < MEM_SIZE
-    - snap_pc ks < MEM_SIZE (for CALL only — ensures S(pc) fits in word64)
-    - chsh_bits_ok x y a b = true (for CHSH_TRIAL — all four values are bits)
-    - WellFormedPartitionTable: next_id >= 1 /\ next_id <= PTableSz /\ fresh slot
+    - snap_pc ks < MEM_SIZE (for CALL only; ensures S(pc) fits in word64)
+    - chsh_bits_ok x y a b = true (for CHSH_TRIAL; all four values are bits)
+    - WellFormedPT_PNEW: next_id >= 1 /\ next_id <= PTableSz /\ fresh slot
       (the table may be full; a partition step without room traps on both sides)
     - LASSERT: check_ok = true /\ flen = hw_flen (success-path match)
-    - PSPLIT/PMERGE: partition table well-formedness
+    - PSPLIT/PMERGE: WellFormedPT_PSPLIT / WellFormedPT_PMERGE
 
 *)
 
@@ -71,7 +71,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** The inline reg write used in CALL/RET for r31 agrees with
+(** The inline reg write used in CALL/RET for r15 agrees with
     snapshot_regs_to_list of kami_write_reg, because the CALL/RET
     value is already word64-truncated (sp' = word64_add sp 1 for CALL,
     sp' = word64_sub sp 1 for RET). *)
@@ -134,7 +134,7 @@ Proof.
   unfold abs_phase1 at 1, kami_step.
   unfold jump_state_rm, apply_cost, instruction_cost.
   f_equal.
-  - (* vm_regs: inline reg write for r31 = word64_add sp 1 *)
+  - (* vm_regs: inline reg write for r15 = word64_add sp 1 *)
     apply inline_reg_write_sp_abs.
     unfold word64_add.
     apply word64_idempotent.
@@ -198,7 +198,7 @@ Proof.
      Kernel: explicit record with record_trial for vm_witness. *)
   unfold abs_phase1, kami_step, record_trial.
   unfold apply_cost, instruction_cost.
-  (* Unfold vm_graph reconstruction — snap_pt_* fields are unchanged by kami_step *)
+  (* Unfold vm_graph reconstruction: snap_pt_* fields are unchanged by kami_step *)
   simpl snap_pt_next_id. simpl snap_pt_sizes. simpl snap_mu_tensor.
   simpl snap_regs. simpl snap_mem. simpl snap_pc. simpl snap_mu.
   simpl snap_err. simpl snap_certified.
@@ -211,11 +211,11 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §5  WFSupportedOpcode: 43-opcode predicate
+   §5  WFSupportedOpcode: 38-opcode predicate
    *)
 
-(** WFSupportedOpcode extends the 31-opcode SupportedOpcode subset with
-    CALL, RET, and CHSH_TRIAL, yielding a 43-opcode layer.
+(** WFSupportedOpcode extends the 35-opcode SupportedOpcode subset with
+    CALL, RET, and CHSH_TRIAL, yielding a 38-opcode layer.
 
     Preconditions:
     - CALL requires WellFormedSnapshot plus pc < MEM_SIZE

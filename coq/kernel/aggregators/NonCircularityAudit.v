@@ -57,7 +57,7 @@ Qed.
 (** ** Audit 2: CHSH Formula Is Physics-Free *)
 
 (** The CHSH formula [e00 + e01 + e10 - e11] is built from Q-arithmetic
-    operations alone — no μ-cost, no quantum, no Tsirelson reference. That
+    operations alone; no μ-cost, no quantum, no Tsirelson reference. That
     audit observation is structural: it is visible at a glance in the
     definitions of [classical_chsh_value] and [chsh_value], whose bodies
     contain only [+], [-], and rational literals over [Q]. A statement such
@@ -329,7 +329,7 @@ Qed.
     ATTACK 2: "LOCC in your model is not LOCC in physics."
 
     The audit establishes:
-    (a) We use "μ=0-LOCC" terminology to be precise
+    (a) The term "μ=0-LOCC" is used to be precise
     (b) μ=0-LOCC satisfies: closure, identity, locality
     (c) Partition ops (classical communication) are μ=0
     (d) Revelation ops (non-LOCC) are NOT μ=0

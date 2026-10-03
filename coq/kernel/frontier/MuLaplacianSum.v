@@ -1,4 +1,4 @@
-(** F3_MuLaplacianSum: the sum-zero lemma for the discrete μ-Laplacian.
+(** MuLaplacianSum: the sum-zero lemma for the discrete μ-Laplacian.
 
     The cumulative μ-Laplacian over the modules of a partition graph
     vanishes identically. This is a purely structural fact: it follows

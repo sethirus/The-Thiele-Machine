@@ -1,11 +1,11 @@
 (* Active regression proof: compiled by _CoqProject and CI; included in the
-   full assumption receipt. Historical review copies remain under artifacts/. *)
+   full assumption receipt. *)
 (* Independent checks of claims discussed in the accompanying assessment.
    Compile with the repository's _CoqProject load paths. *)
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.
 From Kernel Require Import VMState VMStep SimulationProof MuInitiality
-  UniversalCertificationCost F1_LogicalErasure F1_StrongForm.
+  UniversalCertificationCost LogicalErasureCertFlip LandauerDissipationStrongForm.
 
 (* A2 requires a predicate and a cost function, not two dedicated fields. *)
 Definition counter_certification_system : CertificationSystem.
@@ -47,7 +47,7 @@ Proof.
   discriminate H.
 Qed.
 
-(* The current F1 premises cannot hold together on the full VM ISA:
+(* The Landauer strong-form premises cannot hold together on the full VM ISA:
    JUMP 1 at cost zero collapses the macro-property PC = 1. *)
 Definition pc_is_one (s : VMState) : bool := Nat.eqb (vm_pc s) 1.
 
@@ -59,7 +59,7 @@ Proof.
   - intros s _. reflexivity.
 Qed.
 
-Theorem full_vm_f1_premises_incompatible :
+Theorem full_vm_landauer_dissipation_premises_inconsistent :
   ~ exists dissipation : vm_instruction -> nat,
       (forall P i, step_collapses_bool_classes P i -> dissipation i >= 1) /\
       cost_dissipation_calibrated dissipation.
@@ -73,7 +73,7 @@ Qed.
 
 Print Assumptions receipt_encoding_roundtrip.
 Print Assumptions no_vm_state_morphism_to_never_certifies.
-Print Assumptions full_vm_f1_premises_incompatible.
+Print Assumptions full_vm_landauer_dissipation_premises_inconsistent.
 
 (* Structural state can change for zero ledger cost. A2 must not be read as
    a positive price for every observable change. *)

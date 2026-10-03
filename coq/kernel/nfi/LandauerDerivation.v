@@ -1,4 +1,4 @@
-(** LandauerDerivation proves a VM-level accounting result. In the current
+(** LandauerDerivation proves a VM-level accounting result. In the
     instruction semantics, [CERTIFY] is the channel that sets [vm_certified],
     its scheduled cost has a positive floor, and every [vm_apply] step updates
     [vm_mu] by its declared instruction cost. The derived indicator therefore
@@ -13,7 +13,7 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof MuLedgerConservation.
 
-(** The preservation lemma below is a case analysis over the current
+(** The preservation lemma below is a case analysis over the
     [vm_instruction] constructors. The ordinary state helpers copy the flag;
     the explicit-record cases are unfolded; [CERTIFY] is the sole setter. *)
 
@@ -202,7 +202,7 @@ Qed.
 (**
 
     Every vm_apply step increases μ by exactly instruction_cost (from
-    MuLedgerConservation). We define "irreversible bits" conservatively:
+    MuLedgerConservation). "Irreversible bits" are defined conservatively:
     an instruction contributes 1 if and only if it charges a positive μ-cost.
     This is a coarse indicator, not a physical count of erased bits.
     *)
@@ -272,7 +272,7 @@ Theorem landauer_single_step :
     s'.(vm_mu) - s.(vm_mu) >= irreversible_bits instr.
 Proof.
   intros s instr. simpl.
-  (* vm_apply_mu gives us: (vm_apply s instr).(vm_mu) = s.(vm_mu) + instruction_cost instr *)
+  (* vm_apply_mu gives: (vm_apply s instr).(vm_mu) = s.(vm_mu) + instruction_cost instr *)
   assert (Hmu: (vm_apply s instr).(vm_mu) = s.(vm_mu) + instruction_cost instr).
   { (* This is vm_apply_mu from MuLedgerConservation, reproved here for self-containment *)
     destruct instr; unfold vm_apply; simpl; try reflexivity;

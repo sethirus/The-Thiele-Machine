@@ -10,7 +10,7 @@
 
   *)
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia.
@@ -135,7 +135,7 @@ Qed.
     - Cox's theorem: Consistent plausibility → probability axioms
       (but requires consistency postulates beyond composition)
 
-    Neither of these works applies here because we're only assuming
-    compositional structure, nothing more.
+    Neither of these works applies here because only
+    compositional structure is assumed, nothing more.
 
     *)

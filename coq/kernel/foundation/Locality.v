@@ -108,8 +108,9 @@ Qed.
 
 
 (** Define observation of a module in a state as just the region (not axioms).
-    We use the NORMALIZED region because graph operations may normalize regions
-    during storage, so comparing normalized forms gives semantic equality. *)
+    The observation uses the NORMALIZED region because graph operations may
+    normalize regions during storage, so comparing normalized forms gives
+    semantic equality. *)
 Definition module_region_obs (s : VMState) (mid : ModuleID) : option (list nat) :=
   match graph_lookup s.(vm_graph) mid with
   | Some m => Some (normalize_region (m.(module_region)))
@@ -125,12 +126,12 @@ Definition states_agree_on_module (s s' : VMState) (mid : ModuleID) : Prop :=
   module_region_obs s mid = module_region_obs s' mid.
 
 (** Two states agree on EXISTING modules except on target modules.
-    This is the correct locality definition: we only require agreement on
-    modules that already existed, not on newly created modules.
- We compare REGIONS only, not axioms. This is because pmerge
-    can update axioms of an existing module with the union region, but
-    that module is not in the targets [m1; m2]. Observable locality
-    only guarantees region preservation, not axiom preservation. *)
+    Agreement is required only on modules that already existed, not on
+    newly created modules.
+    Only REGIONS are compared, not axioms: pmerge can update axioms of an
+    existing module with the union region, but that module is not in the
+    targets [m1; m2]. Observable locality only guarantees region
+    preservation, not axiom preservation. *)
 Definition states_agree_except (s s' : VMState) (targets : list ModuleID) : Prop :=
   forall mid, 
     module_exists s mid ->
@@ -214,7 +215,7 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_morph_tensor _ _ _ _ => []
   | instr_morph_get _ _ _ _ => []
   | instr_chsh_lassert _ => []  (* CHSH-aware certification: reads witness counters, no module targets *)
-  | instr_chsh_lassert_1ab _ => []  (* Q_{1+AB} certification: same — reads witness counters only *)
+  | instr_chsh_lassert_1ab _ => []  (* Q_{1+AB} certification: same; reads witness counters only *)
   | instr_chsh_lassert_1ab_g5 _ _ _ => []  (* γ_5-aware Q_{1+AB} certification: reads witness counters + γ_5 buckets, no module targets *)
   | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => []  (* γ_{3,4,5}-aware Q_{1+AB} certification: reads witness counters + γ_3,4,5 buckets, no module targets *)
   | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => []  (* full γ_{1..5}-aware Q_{1+AB} certification: reads witness counters + γ_1..5 buckets, no module targets *)
@@ -604,7 +605,7 @@ Qed.
 
 (**
     
-    PROVEN over the current vm_step constructor cases:
+    PROVEN for every vm_step constructor; among the cases:
     - pnew: Uses well_formed_graph invariant + region_obs_lookup_eq
     - psplit: Uses graph_psplit_preserves_unrelated + region_obs_lookup_eq
     - pmerge: Uses graph_pmerge_preserves_region_obs with normalized regions

@@ -1,6 +1,6 @@
-(** * F1_AbstractedBridge: factoring the F1 Landauer derivation
+(** * LandauerBridgeAbstractCost: factoring the Landauer derivation
 
-    The headline theorem in [F1_LogicalErasure.v]
+    The headline theorem in [LogicalErasureCertFlip.v]
     ([A2_from_physical_reversibility_real]) factored A2 through a
     Landauer bridge whose body and conclusion both mentioned
     [instruction_cost] specifically. This file factors that bridge
@@ -15,16 +15,16 @@
 
       - An abstraction of the Landauer bridge over arbitrary cost
         functions [vm_instruction -> nat]. The headline theorem
-        [F1_factored_through_abstract_cost] never names
+        [abstract_cost_cert_flip_ge_1_from_landauer_bound] never names
         [instruction_cost]; [instruction_cost] is recovered only by
         instantiation in the composition corollary.
 
     What this file is NOT:
 
-      - F1 strong-form closure. The bridge body has cost-floor
+      - The Landauer strong form. The bridge body has cost-floor
         shape ([phys_cost i >= mu_bit]); the abstraction shifts that
         shape from a specific cost to an arbitrary cost, but does not
-        eliminate it. The strong form of F1 would require the bridge
+        eliminate it. The Landauer strong form would require the bridge
         to be statable in operationally-defined physical vocabulary
         (real-valued thermodynamic dissipation in joules, or
         class-collapse counts on macrostates defined by physical
@@ -48,9 +48,9 @@
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 
 From Kernel Require Import VMState VMStep SimulationProof PrimeAxiom AbstractNoFI.
-From Kernel Require Import F1_LogicalErasure.
+From Kernel Require Import LogicalErasureCertFlip.
 
-(** ** Headline — A2's argument over an abstract cost function.
+(** ** Headline: A2's argument over an abstract cost function.
 
     For any [phys_cost : vm_instruction -> nat] satisfying the Landauer
     bridge (universal-[P] form, with cost-floor [phys_cost i >= mu_bit]
@@ -58,12 +58,12 @@ From Kernel Require Import F1_LogicalErasure.
     cost-floor [phys_cost i >= 1] follows.
 
     Theorem statement contains no occurrence of [instruction_cost]. The
-    proof composes the [F1_LogicalErasure] structural lemma (cert-flip
+    proof composes the [LogicalErasureCertFlip] structural lemma (cert-flip
     implies class-collapse on [vm_certified]) with the universally-
     quantified Landauer bridge, then closes with [lia] on the calibration
     [mu_bit >= 1]. Three independent ingredients, no unfold-apply. *)
 
-Theorem F1_factored_through_abstract_cost :
+Theorem abstract_cost_cert_flip_ge_1_from_landauer_bound :
   forall (phys_cost : vm_instruction -> nat) (mu_bit : nat),
     mu_bit >= 1 ->
     (forall (P : bool_macro_property) (i : vm_instruction),
@@ -80,9 +80,9 @@ Proof.
   lia.
 Qed.
 
-(** ** Composition (sanity) — instantiate to [instruction_cost].
+(** ** Composition (sanity): instantiate to [instruction_cost].
 
-    Specialising [F1_factored_through_abstract_cost] to
+    Specialising [abstract_cost_cert_flip_ge_1_from_landauer_bound] to
     [phys_cost := instruction_cost] and [mu_bit := 1] recovers
     [A2_from_physical_reversibility_real]'s conclusion, given the
     same universal-[P] bridge as a hypothesis. This shows the
@@ -93,8 +93,8 @@ Qed.
     law ([no_free_certification_certified] in [AbstractNoFI.v])
     discharges only the cert-only sub-case ([P = vm_certified] at
     [mu_bit = 1]); the universal-[P] version is the physical-
-    reversibility *premise* the F1 derivation imports. The corollary
-    therefore does not close F1 — it only confirms the abstract
+    reversibility *premise* the Landauer derivation imports. The corollary
+    therefore does not give the Landauer strong form. It only confirms the abstract
     theorem instantiates correctly. *)
 
 Corollary A2_via_abstract_landauer_universal_bridge :
@@ -107,7 +107,7 @@ Corollary A2_via_abstract_landauer_universal_bridge :
     instruction_cost i >= 1.
 Proof.
   intros Huniv s i Hf Ht.
-  apply (F1_factored_through_abstract_cost
+  apply (abstract_cost_cert_flip_ge_1_from_landauer_bound
            instruction_cost 1 (le_n 1) Huniv s i Hf Ht).
 Qed.
 
@@ -115,12 +115,12 @@ Qed.
 
     All three theorems above are [Closed under the global context]. The
     abstract cost parameter [phys_cost] and the universal-[P] bridge
-    are theorem-level Prop hypotheses — neither is a Coq [Axiom],
+    are theorem-level Prop hypotheses; neither is a Coq [Axiom],
     [Parameter], or [Hypothesis]. The kernel's zero-project-local-
     axioms invariant is preserved.
 
-    F1 strong-form residual: the bridge body has cost-floor
-    shape ([phys_cost i >= mu_bit]). Closing F1's strong form would
+    Landauer strong-form residual: the bridge body has cost-floor
+    shape ([phys_cost i >= mu_bit]). Proving the Landauer strong form would
     require restating the bridge in operationally-defined physical
     vocabulary (e.g., real-valued dissipation in joules, or
     thermodynamic class-collapse counts on macrostates defined by

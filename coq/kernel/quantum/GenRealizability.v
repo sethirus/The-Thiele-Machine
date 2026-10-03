@@ -1,9 +1,9 @@
 (** GenRealizability: a dimension-polymorphic GENUINE PSD predicate, and the
-    bridge that exhibits the 5x5 CHSH PSD as a special case of it (W2-M1).
+    bridge that exhibits the 5x5 CHSH PSD as a special case of it.
 
     The point of this file is to stop `npa_psd` being a standalone
     5x5 coincidence. `psd_n` below is the REAL quadratic-form-nonnegativity over
-    EVERY vector — the full double sum over all i,j, NOT a diagonal-only sham
+    EVERY vector: the full double sum over all i,j, NOT a diagonal-only sham
     like SemidefiniteProgramming.PSD {n} is for n >= 6. The dimension lives in
     the top index `top` (= dimension - 1): `psd_n top M` quantifies the genuine
     form summed over indices 0..top.
@@ -11,11 +11,11 @@
     The bridge `psd_n_unfold_5` is dimension-GENERIC in its reason: a nat-indexed
     quadratic form summed over 0..d-1 equals the Fin-restricted form under index
     correspondence. Nothing in that reason is special to 5, so it carries to 9
-    (W2-M4) with a longer finite unfolding and no new idea. The only 5-specific
+    (psd_n_unfold_9) with a longer finite unfolding and no new idea. The only 5-specific
     content here is the finite reduction (`cbn`) of a literal-length sum.
 
-    (We use ConstructivePSD's exported `RealNumber := Rdefinitions.R` notation
-    throughout, because `From Coq Require Import Fin` shadows the bare `R`.) *)
+    (The file uses ConstructivePSD's exported `RealNumber := Rdefinitions.R`
+    notation throughout, because `From Coq Require Import Fin` shadows the bare `R`.) *)
 
 From Coq Require Import Reals Lra Lia.
 From Coq Require Import Fin.
@@ -78,7 +78,7 @@ Proof.
   ring.
 Qed.
 
-(** W2-M1. The bridge. Genuine PSD of the nat-indexed 5x5 matrix (top index 4)
+(** The bridge. Genuine PSD of the nat-indexed 5x5 matrix (top index 4)
     is equivalent to the genuine PSD5 of its Fin5 restriction. Neither side is
     weakened: both quantify the full quadratic form over all vectors. *)
 Lemma psd_n_unfold_5 : forall M : Matrix 5,
@@ -95,7 +95,7 @@ Qed.
 
 Print Assumptions psd_n_unfold_5.
 
-(** ── W2-M2: the abstract realizable claim and its CHSH adapter ──────────── *)
+(** ── The abstract realizable claim and its CHSH adapter ──────────── *)
 
 (** A certified claim presented for realizability: a finite dimension (carried
     as the top index = dimension - 1) and the nat-indexed moment/layout matrix
@@ -106,7 +106,7 @@ Record RealizableClaim := mk_realizable_claim {
   rc_matrix : nat -> nat -> RealNumber;
 }.
 
-(** Symmetry over the live range 0..top — the polymorphic analogue of
+(** Symmetry over the live range 0..top: the polymorphic analogue of
     symmetric5. *)
 Definition symmetric_n (top : nat) (M : nat -> nat -> RealNumber) : Prop :=
   forall i j, (i <= top)%nat -> (j <= top)%nat -> M i j = M j i.
@@ -141,9 +141,9 @@ Proof.
     rewrite !Fin.to_nat_of_nat in H. simpl in H. exact H.
 Qed.
 
-(** W2-M2. The adapter equivalence: the general projection applied to the CHSH
+(** The adapter equivalence: the general projection applied to the CHSH
     claim is exactly the existing npa_psd predicate. Pure combination
-    of the two bridges (psd_n_unfold_5 + symmetric_n_unfold_5) — no new
+    of the two bridges (psd_n_unfold_5 + symmetric_n_unfold_5); no new
     mathematics, and the matrix is the SAME on both sides (npa_to_matrix of the
     zero-marginal NPA). No appeal to any Hilbert-space, Born-rule, density-
     matrix, or tensor structure. *)
@@ -166,9 +166,9 @@ Qed.
 
 Print Assumptions chsh_claim_is_zero_marginal_npa.
 
-(** ── W2-M3: the headline biconditional, re-derived through GenRealizable ── *)
+(** ── The headline biconditional, re-derived through GenRealizable ── *)
 
-(** W2-M3. The original CHSH biconditional re-expressed against the GENERAL
+(** The original CHSH biconditional re-expressed against the GENERAL
     projection. This is a genuine Corollary, not a parallel theorem: it
     re-proves NONE of the hard PSD<->contractivity content. It imports the
     original `column_contractive_iff_npa_psd` as a black box and
@@ -197,16 +197,16 @@ Proof.
 Qed.
 
 (** The two assumption lists, for the diff. The corollary's set must equal (or
-    be a subset of) the original's — nothing beyond the headline axioms. *)
+    be a subset of) the original's: nothing beyond the headline axioms. *)
 Print Assumptions column_contractive_iff_general_realizable.
 Print Assumptions column_contractive_iff_npa_psd.
 
-(** ── W2-M4: the genericity test — dim-9, reusing the SAME psd_n ─────────── *)
+(** ── The genericity test: dim-9, reusing the SAME psd_n ─────────── *)
 
-(** The whole point of M4: psd_n_unfold_9 below uses the SAME `psd_n` and the
-    SAME `quad_n`/`sum_n` as the dim-5 case — only `top := 8`. No new fold, no
-    re-rolled dim-9 PSD predicate. If this compiles, `psd_n` genuinely
-    generalized; the dim-5 bridge was not a 5-shaped coincidence. *)
+(** psd_n_unfold_9 below uses the SAME `psd_n` and the SAME
+    `quad_n`/`sum_n` as the dim-5 case, with only `top := 8`. There is no
+    new fold and no re-rolled dim-9 PSD predicate, so `psd_n` is
+    dimension-generic: the dim-5 bridge is not a 5-shaped coincidence. *)
 
 Definition vec9_to_nat (v : Fin9 -> RealNumber) : nat -> RealNumber :=
   fun n => match n with
@@ -239,7 +239,7 @@ Proof.
   ring.
 Qed.
 
-(** W2-M4 core. The SAME `psd_n` (top := 8) is equivalent to the genuine dim-9
+(** Dim-9 bridge. The SAME `psd_n` (top := 8) is equivalent to the genuine dim-9
     PSD9 of the Fin9 restriction. Identical proof shape to psd_n_unfold_5. *)
 Lemma psd_n_unfold_9 :
   forall M : nat -> nat -> RealNumber,
@@ -256,7 +256,7 @@ Qed.
 
 Print Assumptions psd_n_unfold_9.
 
-(** ── W2-M4 completion: dim-9 as a RealizableClaim, through GenRealizable ── *)
+(** ── Dim-9 as a RealizableClaim, through GenRealizable ── *)
 
 (** nat -> Fin9, clamping out-of-range to F1 (only 0..8 is ever used). *)
 Definition fin9_of_nat (a : nat) : Fin9 :=
@@ -266,7 +266,7 @@ Definition fin9_of_nat (a : nat) : Fin9 :=
   end.
 
 (** q1ab_moment_matrix reads only proj1_sig (Fin.to_nat .) of its indices, so it
-    depends only on those nat indices — no copy of its 81 arms needed. *)
+    depends only on those nat indices; no copy of its 81 arms needed. *)
 Lemma q1ab_depends_only_on_index :
   forall e00 e01 e10 e11 g1 g2 g3 g4 g5 (a a' b b' : Fin9),
     proj1_sig (Fin.to_nat a) = proj1_sig (Fin.to_nat a') ->
@@ -294,7 +294,7 @@ Definition q1ab_nat_matrix
   fun a b => q1ab_moment_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5
                                 (fin9_of_nat a) (fin9_of_nat b).
 
-(** Its Fin9 restriction is exactly q1ab_moment_matrix — so psd_n_unfold_9 and
+(** Its Fin9 restriction is exactly q1ab_moment_matrix, so psd_n_unfold_9 and
     symmetric_n_unfold_9 land on the genuine dim-9 moment matrix. *)
 Lemma q1ab_nat_to_fin9_eq :
   forall e00 e01 e10 e11 g1 g2 g3 g4 g5,
@@ -347,8 +347,8 @@ Proof.
     + apply (proj2 (psd_n_unfold_9 _)). rewrite Heq. exact Hpsd.
 Qed.
 
-(** W2-M4 completion. The dim-9 (Q_{1+AB}) biconditional, re-expressed against
-    the SAME general projection — the second instance proving GenRealizable is
+(** The dim-9 (Q_{1+AB}) biconditional, re-expressed against the SAME
+    general projection: the second instance showing GenRealizable is
     layout-parametric, not 5-shaped. Pure composition; re-derives nothing. *)
 Corollary column_contractive_q1ab_iff_general_realizable :
   forall e00 e01 e10 e11 g1 g2 g3 g4 g5,
@@ -369,7 +369,7 @@ Qed.
 
 Print Assumptions column_contractive_q1ab_iff_general_realizable.
 
-(** ── W2-M5: honest scope — what the projection captures, and what it cannot ─ *)
+(** ── Scope: what the projection captures, and what it cannot ─ *)
 
 (** Linearity helper: a sum of an affine combination splits. *)
 Lemma sum_n_affine : forall top (c d : RealNumber) a b,
@@ -397,7 +397,7 @@ Qed.
 
 (** THE SCOPE THEOREM. The feasible region of psd_n (hence of GenRealizable) is
     CONVEX: a convex combination of PSD matrices is PSD. This bounds what the
-    general projection can express — only convex (spectrahedral) realizability
+    general projection can express: only convex (spectrahedral) realizability
     sets. Any certified-realizability notion that is non-convex is out of reach. *)
 Lemma psd_n_convex :
   forall top (M1 M2 : nat -> nat -> RealNumber) (t : RealNumber),
@@ -422,7 +422,7 @@ Definition deterministic_chsh (e00 e01 e10 e11 : RealNumber) : Prop :=
   (e10 = 1 \/ e10 = -1) /\ (e11 = 1 \/ e11 = -1).
 
 (** Witness that it is non-convex: two deterministic points whose midpoint is
-    not deterministic. So no psd_n feasible region (convex) can equal it — this
+    not deterministic. So no psd_n feasible region (convex) can equal it; this
     realizability notion is provably outside GenRealizable's reach. *)
 Lemma deterministic_chsh_not_convex :
   deterministic_chsh 1 1 1 1 /\
@@ -435,12 +435,12 @@ Proof.
   - unfold deterministic_chsh. intros [H _]. destruct H as [H|H]; lra.
 Qed.
 
-(** "Realizability captured" for the moment-presentable class we actually have:
+(** "Realizability captured" for the moment-presentable class at hand:
     GenRealizable coincides with the quantum predicate for BOTH proven instances
     (dim-5 CHSH and dim-9 Q_{1+AB}). This is the FORWARD characterization only.
 
     It does NOT, and does not claim to, close the open converse
-    full_honest_implies_npa_status (HonestMeasurementImpliesNPA.v) — whether
+    full_honest_implies_npa_status (HonestMeasurementImpliesNPA.v); whether
     every honest measurement statistic is NPA-realizable is a separate, open
     question, untouched here. The scope is: GenRealizable captures the
     convex/moment-presentable realizability of these classes, no more. *)

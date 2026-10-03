@@ -154,7 +154,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** PROVEN: EMIT cost formula — payload bits + S(declared_cost).
+(** PROVEN: EMIT cost formula is payload bits + S(declared_cost).
     The payload is unfolded into concrete Boolean bits before charging.
     For the "." payload (one ascii byte = 8 bits) with declared_cost=0:
     cost = 8 + 1 = 9. *)
@@ -278,7 +278,7 @@ Qed.
 (** PROVEN: The crossover lambda (at which sighted wins) grows at least
     linearly with N. For N ≥ 3, the crossover exceeds N itself.
 
-    This is: N*N - 2*N > 2*N ↔ N*N > 4*N ↔ N > 4, but we state the weaker
+    This is: N*N - 2*N > 2*N ↔ N*N > 4*N ↔ N > 4, but the statement here is the weaker
     form holding from N≥3: N*N - 2*N ≥ N (crossover ≥ N/2 ≥ N/2).
     Equivalently: N*N ≥ 3*N ↔ N ≥ 3. *)
 Theorem crossover_lambda_grows_with_n :
@@ -312,7 +312,7 @@ Qed.
 (**
     (Formalizes results from tests/test_complexity_frontier.py)
 
-    The k=2 case is covered earlier in this file. Here we state the general
+    The k=2 case is covered earlier in this file. This part states the general
     arithmetic for k dimensions each of size N.
 
     MEASURED ON REAL OCaml VM:
@@ -576,7 +576,7 @@ Qed.
     At N=8, k=3: ratio = N^(k-1)/k = N^2/k = 64/3 ≈ 21.3 > N = 8.
     At N=16, k=4: ratio = N^3/k = 4096/4 = 1024 > N^2 = 256.
 
-    We prove the concrete claim: for k=3, N≥4, N^(k-1)/k > N,
+    Proved here for the concrete case: for k=3, N≥4, N^(k-1)/k > N,
     i.e., N^2 > 3*N (true for N≥4). *)
 Theorem diagonal_ratio_exceeds_n_at_k3 :
   forall N : nat,
@@ -588,7 +588,7 @@ Proof.
   nia.
 Qed.
 
-(** PROVEN: At k=4, N≥8: N^3 > 4*N^2 (ratio exceeds N^2 — super-quadratic). *)
+(** PROVEN: At k=4, N≥8: N^3 > 4*N^2 (ratio exceeds N^2, super-quadratic). *)
 Theorem diagonal_ratio_exceeds_n_sq_at_k4 :
   forall N : nat,
     N >= 8 ->
@@ -678,7 +678,7 @@ Qed.
 (** PROVEN: The P/MuP ratio exceeds N for N ≥ 2, k ≥ 3.
     ratio = N^k / (k*N) = N^(k-1)/k > N ↔ N^(k-2) > k.
     For k=3: N > 3, i.e., N ≥ 4.
-    We prove: for k=3, N≥4: ratio > N. *)
+    Proved: for k=3, N≥4: ratio > N. *)
 Theorem mup_separation_ratio_exceeds_n_at_k3 :
   forall N : nat,
     N >= 4 ->

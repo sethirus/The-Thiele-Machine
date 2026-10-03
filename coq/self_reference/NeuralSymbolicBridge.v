@@ -22,14 +22,14 @@ From Kernel Require Import VMState VMStep MuCostModel.
 Require Import InductiveTrust.
 
 (* *)
-(** ** 1. Weight vectors — the neural confidence model *)
+(** ** 1. Weight vectors: the neural confidence model *)
 
 (** A [WeightVec] assigns a non-negative integer confidence to every state
     index.  Real-valued neural outputs are approximated by scaling to a
     fixed precision (e.g., multiply by 10^6 and round). *)
 Definition WeightVec := nat -> nat.
 
-(** [threshold w tau i]: state [i] is in the high-confidence region —
+(** [threshold w tau i]: state [i] is in the high-confidence region:
     its weight is at least τ.  This is the formal safety predicate
     derived from the neural model at decision threshold τ. *)
 Definition threshold (w : WeightVec) (tau : nat) : nat -> Prop :=
@@ -104,7 +104,7 @@ Qed.
 (* *)
 (** ** 4. The symbolic-to-neural embedding (right adjoint) *)
 
-(** [symbolic_to_neural P]: indicator function — weight 1 if P i = true, else 0.
+(** [symbolic_to_neural P]: indicator function; weight 1 if P i = true, else 0.
     This is the "inverse direction": given a formal predicate, produce a
     degenerate neural confidence model consistent with it. *)
 Definition symbolic_to_neural (P : nat -> bool) : WeightVec :=
@@ -133,7 +133,7 @@ Qed.
     whose safe states are exactly the high-confidence states of [w] at
     threshold [tau].
 
-    Note: the partition graph is empty here — the neural model is "flat"
+    Note: the partition graph is empty here; the neural model is "flat"
     (no directed inference edges).  Edges can be added for structured
     models (e.g., Bayesian networks); the safety predicate is unchanged. *)
 Definition neural_safety_space (n : nat) (w : WeightVec) (tau : nat) : StateSpace :=
@@ -193,7 +193,7 @@ Proof.
 Qed.
 
 (** Combined with [mk_trust_certificate], the neural threshold expansion
-    yields a constructive TrustCertificate — the Löb-safe, cost-grounded
+    yields a constructive TrustCertificate, the Löb-safe, cost-grounded
     proof that B (relaxed threshold, larger space) can be trusted by A.
 
     Key: trust is grounded in μ-cost (lift_cost), not self-referential

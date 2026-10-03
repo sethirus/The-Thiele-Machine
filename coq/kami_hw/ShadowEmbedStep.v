@@ -8,21 +8,16 @@
         shadow_proj (abs_phase1 (kami_step ks i))
       = shadow_proj (vm_apply (abs_phase1 ks) i)
 
-    UNCONDITIONAL shadow embed_step (3 opcodes beyond the 26 full-state ones):
-      PDISCOVER, EMIT, REVEAL
-    These diverge only in vm_graph, vm_csrs, or vm_mu_tensor — all dropped
-    by shadow_proj.
+    UNCONDITIONAL shadow embed_step: every [SupportedOpcode] except the five
+    CHSH_LASSERT forms (30 opcodes, [ShadowSupportedOpcode]), through the
+    full-state embed_step.
 
-    CONDITIONAL shadow embed_step (5 opcodes):
+    CONDITIONAL shadow embed_step (4 opcodes):
       PNEW        (requires a well-formed partition table and a nonempty range;
                    an overlap traps, so pc and err depend on the table)
       CHSH_TRIAL  (requires chsh_bits_ok = true)
       TENSOR_SET  (requires i < 4, j < 4)
-      TENSOR_GET  (requires i < 4, j < 4)
-      LJOIN       (requires cert strings match)
-
-    Combined: ShadowSupportedOpcode covers 29 opcodes unconditionally
-    (original 26 + PDISCOVER, EMIT, REVEAL).
+      TENSOR_GET  (requires i < 4, j < 4 and a zero hardware tensor entry)
 
 *)
 
@@ -54,8 +49,8 @@ Proof.
   rewrite (embed_step_pnew ks region cost Hwf Hsz). reflexivity.
 Qed.
 
-(** PDISCOVER: hardware does kami_advance_default, kernel updates vm_graph via
-    graph_record_discovery.  Graph change invisible to shadow_proj. *)
+(** PDISCOVER: both sides advance the pc and charge the cost; neither
+    changes the graph. *)
 Lemma shadow_embed_step_pdiscover :
   forall (ks : KamiSnapshot) (mid : ModuleID) (evidence : list VMAxiom) (cost : nat),
     shadow_proj (abs_phase1 (kami_step ks (instr_pdiscover mid evidence cost))) =
@@ -68,8 +63,8 @@ Proof.
   reflexivity.
 Qed.
 
-(** EMIT: hardware does kami_advance_default with payload-bit cost, kernel updates
-    vm_csrs via csr_set_cert_addr.  CSR change invisible to shadow_proj. *)
+(** EMIT: both sides advance the pc and charge the payload-bit cost; neither
+    changes the CSRs. *)
 Lemma shadow_embed_step_emit :
   forall (ks : KamiSnapshot) (mid : ModuleID) (payload : string) (cost : nat),
     shadow_proj (abs_phase1 (kami_step ks (instr_emit mid payload cost))) =
@@ -82,9 +77,9 @@ Proof.
   reflexivity.
 Qed.
 
-(** REVEAL: hardware bumps snap_mu_tensor and snap_info_gain;
-    kernel bumps vm_mu_tensor via advance_state_reveal and sets vm_csrs.
-    Both vm_mu_tensor and vm_csrs are dropped by shadow_proj. *)
+(** REVEAL: hardware bumps snap_mu_tensor and snap_info_gain; the kernel
+    bumps vm_mu_tensor via advance_state_reveal. vm_mu_tensor is dropped by
+    shadow_proj. *)
 Lemma shadow_embed_step_reveal :
   forall (ks : KamiSnapshot) (mid : ModuleID) (bits : nat) (cert : string) (cost : nat),
     shadow_proj (abs_phase1 (kami_step ks (instr_reveal mid bits cert cost))) =
@@ -98,11 +93,11 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §2  ShadowSupportedOpcode: 29 opcodes with unconditional shadow equality
+   §2  ShadowSupportedOpcode: 30 opcodes with unconditional shadow equality
    *)
 
-(** ShadowSupportedOpcode extends SupportedOpcode with PDISCOVER, EMIT and
-    REVEAL. PNEW is not in it: an overlapping range traps, so its shadow
+(** ShadowSupportedOpcode is SupportedOpcode without the five CHSH_LASSERT
+    forms. PNEW is not in it: an overlapping range traps, so its shadow
     depends on the partition table.
     Every instruction satisfying this predicate has shadow_proj commutation
     with no preconditions on the hardware state. *)
@@ -118,13 +113,13 @@ Definition ShadowSupportedOpcode (i : vm_instruction) : Prop :=
      so the shadow-compat lemma is structurally false for this opcode.
      Excluding it here keeps the shadow theory precise. *)
   | instr_chsh_lassert _        => False
-  (* CHSH_LASSERT_1AB: same exclusion — also branches on [vm_witness]. *)
+  (* CHSH_LASSERT_1AB: same exclusion, since it also branches on [vm_witness]. *)
   | instr_chsh_lassert_1ab _    => False
   (* CHSH_LASSERT_1AB_G5: same exclusion as the rest of the family. *)
   | instr_chsh_lassert_1ab_g5 _ _ _ => False
-  (* CHSH_LASSERT_1AB_G345: same exclusion — also branches on [vm_witness]. *)
+  (* CHSH_LASSERT_1AB_G345: same exclusion, since it also branches on [vm_witness]. *)
   | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => False
-  (* CHSH_LASSERT_1AB_G12345: same exclusion — also branches on [vm_witness]. *)
+  (* CHSH_LASSERT_1AB_G12345: same exclusion, since it also branches on [vm_witness]. *)
   | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => False
   | other                       => SupportedOpcode other
   end.
@@ -149,7 +144,7 @@ Proof. intros i Hi Hne Hne1 Hne2 Hne345 Hne12345. destruct i; simpl in *; try ta
   - exfalso. eapply Hne345. reflexivity.
   - exfalso. eapply Hne12345. reflexivity. Qed.
 
-(** Main per-step shadow theorem for all 29 opcodes. *)
+(** Main per-step shadow theorem for all 30 opcodes. *)
 Theorem shadow_embed_step_supported :
   forall (ks : KamiSnapshot) (i : vm_instruction),
     ShadowSupportedOpcode i ->
@@ -158,7 +153,7 @@ Theorem shadow_embed_step_supported :
 Proof.
   intros ks i Hi.
   destruct i; simpl in Hi; try contradiction;
-    (* For 26 SupportedOpcode cases: use full embed_step to get shadow eq *)
+    (* SupportedOpcode cases: use full embed_step to get shadow eq *)
     try match goal with
     | |- context [kami_step _ ?instr] =>
         let H := fresh in
@@ -196,10 +191,8 @@ Proof.
 Qed.
 
 (** TENSOR_SET: shadow equality when tensor_indices_ok holds.
-    Hardware: kami_advance_default (no graph change).
-    Kernel: graph_update_module_tensor (graph change — dropped by shadow).
-    Error path diverges (kernel sets err, hardware doesn't), so we require
-    tensor_indices_ok as a precondition. *)
+    Hardware writes snap_module_tensors and the kernel updates the graph;
+    shadow_proj drops both. The lemma covers the in-range case. *)
 Lemma shadow_embed_step_tensor_set :
   forall (ks : KamiSnapshot) (mid i j value cost : nat),
     tensor_indices_ok i j = true ->
@@ -260,8 +253,8 @@ Qed.
     Hardware: writes snap_module_tensors ks mid (i*4+j) to regs[dst].
     Kernel: writes module_tensor_entry(abs_phase1 ks, mid, i, j) to regs[dst].
     From abs_phase1, all module tensors are all-zero (module_mu_tensor_default),
-    so module_tensor_entry = 0 on the kernel side.  We require the hardware
-    tensor state to also be zero for fresh/initial snapshots. *)
+    so module_tensor_entry = 0 on the kernel side. The lemma assumes the
+    hardware entry is 0 as well. *)
 Lemma shadow_embed_step_tensor_get :
   forall (ks : KamiSnapshot) (dst mid i j cost : nat),
     tensor_indices_ok i j = true ->
@@ -286,34 +279,18 @@ Qed.
    §4  Divergence documentation
    *)
 
-(** The following opcodes do NOT have shadow embed_step from abs_phase1:
+(** Opcodes with no shadow embed_step from abs_phase1:
 
-    IRREDUCIBLE — cs_err diverges (from abs_phase1):
-    - MORPH_COMPOSE:  morphism lookup always fails (pg_morphisms=[]);
-                      kernel sets err=true, hw preserves err
-    - MORPH_DELETE:   same
-    - MORPH_ASSERT:   same
-    - MORPH_TENSOR:   same
-    - MORPH_GET:      same
-    - PSPLIT:         may fail (graph_psplit returns None if module absent);
-                      kernel sets err=true, hw preserves err
-    - PMERGE:         may fail (graph_pmerge returns None if modules absent);
-                      kernel sets err=true, hw preserves err
-
-    IRREDUCIBLE — cs_regs diverges:
-    - MORPH:          on module-exists, kernel writes morph_id to regs[dst];
-                      hw preserves regs.  On module-absent, er diverges instead.
-    - MORPH_ID:       on module-exists, kernel writes identity_id to regs[dst];
-                      hw preserves regs.  On module-absent, err diverges.
-
-    CONDITIONAL — cs_err diverges when condition fails:
-    - LJOIN:          when cert strings differ, kernel sets err=true,
-                      hw preserves err.  Shadow eq when strings match.
-    - CHSH_TRIAL:     when chsh_bits_ok = false, kernel sets err=true,
-                      hw preserves err.  Shadow eq when bits OK.
-    - TENSOR_SET:     when i >= 4 or j >= 4, kernel sets err=true,
-                      hw preserves err.  Shadow eq when bounds OK.
-    - TENSOR_GET:     same as TENSOR_SET.
+    - MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT, MORPH_TENSOR,
+      MORPH_GET: abs_phase1 reconstructs no morphisms (pg_morphisms = []),
+      while kami_step reads the rich morphism tables, so err and the
+      destination register can differ. Their commutation is stated over
+      abs_full_snapshot (GraphReconstructionBridge.driven_step_wf).
+    - PSPLIT, PMERGE: proved under table well-formedness in
+      EmbedStep_WF.v (embed_step_psplit, embed_step_pmerge).
+    - CALL, RET: proved in EmbedStep_WF.v under WellFormedSnapshot.
+    - The five CHSH_LASSERT forms branch on vm_witness, which shadow_proj
+      drops (see ShadowSupportedOpcode).
 
     LASSERT is not in this list: the formula-length μ charge and
     dual-witness success condition are aligned through the EmbedStep bridge.
@@ -346,9 +323,9 @@ Qed.
     to compose over traces even though intermediate states may differ
     on non-shadow fields (vm_graph, vm_csrs.csr_cert_addr, etc.).
 
-    Strategy: we prove this by destructing [s1] and [s2] so they share
-    all shadow fields, then show that vm_apply's shadow-relevant output
-    depends only on those shared fields. *)
+    Strategy: destruct [s1] and [s2] so they share all shadow fields, then
+    show that vm_apply's shadow-relevant output depends only on those
+    shared fields. *)
 
 (** Helper: build a VMState that shares shadow fields from a template
     but has specified non-shadow fields. Used to factor the proof. *)
@@ -364,14 +341,13 @@ Lemma shadow_proj_ext :
     shadow_proj X = shadow_proj Y.
 Proof. intros. unfold shadow_proj. f_equal; assumption. Qed.
 
-(** Per-opcode shadow compat for the 3 new opcodes (PDISCOVER, EMIT, REVEAL).
-    For the original 26, vm_apply_shadow_compat follows from SupportedOpcode
-    being a subset of ShadowSupportedOpcode + the full-state embed_step. *)
+(** Per-opcode shadow compat: the tactic below handles each
+    ShadowSupportedOpcode case. *)
 
 (** Automation: solve shadow_proj_ext subgoals for a single opcode case.
-    After apply shadow_proj_ext, we have 6 goals (one per ClassicalState field).
+    After apply shadow_proj_ext, 6 goals remain (one per ClassicalState field).
     Each field of the result depends only on shadow fields of the input.
-    We rewrite all shadow fields s1→s2 and close with reflexivity. *)
+    The tactic rewrites all shadow fields s1→s2 and closes with reflexivity. *)
 Ltac rewrite_shadow_fields Hregs Hmem Hpc Hmu Herr Hcert Hheap :=
   try rewrite Hregs; try rewrite Hmem; try rewrite Hpc;
   try rewrite Hmu; try rewrite Herr; try rewrite Hcert;
@@ -408,7 +384,7 @@ Proof.
     reflexivity.
 Qed.
 
-(** All 29 ShadowSupportedOpcodes preserve csr_heap_base through vm_apply. *)
+(** All 30 ShadowSupportedOpcodes preserve csr_heap_base through vm_apply. *)
 Lemma vm_apply_preserves_heap_base :
   forall (s : VMState) (i : vm_instruction),
     ShadowSupportedOpcode i ->
@@ -430,7 +406,7 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §6  Shadow trace compositionality: 29-opcode trace theorem
+   §6  Shadow trace compositionality: 30-opcode trace theorem
    *)
 
 (** Trace-level shadow commutation: for any trace of ShadowSupportedOpcodes,
@@ -444,7 +420,7 @@ Qed.
     - abs_phase1 always has csr_heap_base = snap_csr_heap_base ks (definitional)
 
     Hardware has no heap_base register, so snap_csr_heap_base = 0 is
-    a natural precondition — matching the hardware initialization. *)
+    a natural precondition, matching the hardware initialization. *)
 
 (** kami_step preserves snap_csr_heap_base for all instructions. *)
 Lemma kami_step_preserves_heap_base :

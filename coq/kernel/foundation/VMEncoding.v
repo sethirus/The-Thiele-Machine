@@ -1,20 +1,18 @@
 (** VMEncoding: Canonical binary encoding of VM state onto the kernel tape
 
-    The three-layer isomorphism (Coq = Python = Verilog) requires a single
-    canonical serialization of VMState. This file defines the roundtrip
-    encoding/decoding of every VMState field to and from a boolean tape
-    (list bool). Without a proven-faithful encoding, the kernel machine
-    and the VM would disagree on what a "state" means.
+    SimulationProof.v relates VM states to kernel tape states through a
+    single canonical serialization of VMState. This file defines the
+    roundtrip encoding/decoding of every VMState field to and from a
+    boolean tape (list bool).
 
     encode then decode is the identity: for every VMState s,
       decode_vm_state (encode_vm_state s ++ rest) = Some (s, rest).
     Each primitive type (nat, bool, list, string) has its own roundtrip
     lemma, and they compose to give the full-state roundtrip.
 
-    If encode_vm_state followed by decode_vm_state does not return the
-    original state, then SimulationProof.v cannot establish bisimulation
-    between the VM and the kernel Turing machine, and the three-layer
-    isomorphism breaks.
+    If encode_vm_state followed by decode_vm_state did not return the
+    original state, SimulationProof.v could not relate the VM to the
+    kernel Turing machine.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
@@ -906,7 +904,6 @@ Proof.
   - simpl; repeat split; auto.
 Qed.
 
-(** Similar lemmas for other update functions would follow the same pattern *)
 
 (** ** Kernel program generators for tape manipulation *)
 
@@ -948,11 +945,10 @@ Definition compile_update_err (new_err : bool) : program :=
     All arms return [T_Halt]: tape-level operation encoding requires
     variable-length graph parsing. The correctness of VM operations is
     established by decode_vm_state_correct (roundtrip) and
-    SimulationProof.v (bisimulation). *)
+    SimulationProof.v (canonical encoded witnesses). *)
 Definition compile_vm_operation (instr : vm_instruction) : program :=
   match instr with
   | instr_pnew region cost =>
-      (* Would need to update graph encoding with new partition *)
       [T_Halt]
   | instr_psplit module left_region right_region cost =>
       [T_Halt]
@@ -961,7 +957,6 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
   | instr_lassert _ _ _ _ cost =>
       [T_Halt]
   | instr_ljoin cert1 cert2 cost =>
-      (* Update CSR cert_addr and err based on cert comparison *)
       [T_Halt]
   | instr_mdlacc module cost =>
       (* No state change beyond pc/μ *)
@@ -969,17 +964,13 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
   | instr_emit module payload cost =>
       [T_Halt]
   | instr_reveal module bits cert cost =>
-      (* REVEAL opcode: Update CSR cert_addr with revelation certificate *)
-      (* Semantically: marks explicit information revelation *)
       [T_Halt]
   | instr_pdiscover module evidence cost =>
-      (* Update graph with discovery *)
       [T_Halt]
   | instr_chsh_trial x y a b cost =>
       (* CHSH trial event: does not change fixed header beyond pc/μ. *)
       [T_Halt]
     | instr_xfer dst src cost =>
-      (* Transfer operation - no state change beyond pc/μ *)
       [T_Halt]
     | instr_load_imm dst imm cost =>
       [T_Halt]

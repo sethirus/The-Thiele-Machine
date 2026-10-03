@@ -39,7 +39,7 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
 (** [region_equiv s (tweak_regs s x)] holds for every [s], [x]; it is used
     inline in [region_equiv_class_infinite] below. Conceptually the equivalence
     reflects that [ObservableRegion] ignores [vm_regs] entirely, so
-    register tweaking is invisible to any region-level observer — this
+    register tweaking is invisible to any region-level observer; this
     is the seed of the infinite-microstates-per-observable problem
     closed by [region_equiv_class_infinite]. *)
 

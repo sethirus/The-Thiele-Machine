@@ -1,6 +1,6 @@
 (** RichLocalityGuard.v: the remaining locality-class guard-falsity lemmas
-    generalized from legacy to all six ISA-v2 encodings -- STORE, HEAP_LOAD,
-    HEAP_STORE, CALL, RET -- completing the set [RichLoadGuard.v] started
+    generalized from legacy to all six ISA-v2 encodings: STORE, HEAP_LOAD,
+    HEAP_STORE, CALL, RET. This completes the set [RichLoadGuard.v] started
     with LOAD, mirroring [LegacyLocalityGuard.v]'s five legacy lemmas.
 
     Same technique as [RichLoadGuard.v]: the address getter and mux structure

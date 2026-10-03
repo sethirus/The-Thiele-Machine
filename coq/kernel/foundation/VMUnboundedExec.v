@@ -1,12 +1,11 @@
-(** VMUnboundedExec.v — unbounded relational execution for the 47/51-opcode VM.
+(** VMUnboundedExec.v: unbounded relational execution for the 51-opcode VM.
 
-    Why this file exists. The VM [Substrate] instance (VMSubstrateInstance.v)
-    uses BOUNDED execution: [vm_run p s = Some (run_vm vm_run_fuel p s)] with a
-    fixed fuel. Unbounded halting is a different predicate: supplying an
-    interpreter for it does not discharge the bounded recurrence premise of
-    VMSubstrateEncoded. A new interpreter contract must specify the executable
-    input encoding, output observation, and simulation relation before an
-    applicable unbounded recurrence theorem can be claimed.
+    The VM [Substrate] instance (VMSubstrateInstance.v) uses BOUNDED
+    execution: [vm_run p s = Some (run_vm vm_run_fuel p s)] with a fixed
+    fuel. Unbounded halting is a different predicate: an interpreter for it
+    does not discharge the bounded recurrence premise of VMSubstrateEncoded.
+    The unbounded recurrence results state their own executable input
+    encoding, output observation, and simulation relation.
 
     This file is the foundation of that model. It defines unbounded halting
     relationally on top of [run_vm], and proves the load-bearing facts the later
@@ -50,7 +49,7 @@ Lemma run_vm_halt_witness :
   forall n p s, halted p (run_vm n p s) -> vm_halts_at p s (run_vm n p s).
 Proof. intros n p s H. exists n. split; [reflexivity | exact H]. Qed.
 
-(** Determinism — the heart of treating [vm_halts_at] as a partial function.
+(** Determinism: the heart of treating [vm_halts_at] as a partial function.
     If p halts at both r1 and r2 from s, the larger fuel run equals the smaller
     by halt-saturation, so r1 = r2. *)
 Lemma vm_halts_at_deterministic :
@@ -91,8 +90,8 @@ Proof.
 Qed.
 
 (** Two programs are unbounded-equivalent when they halt at the same states from
-    every start (and diverge together). This is the genuine extensional
-    equivalence the recursion theorem will be stated against — fuel-free, unlike
+    every start (and diverge together). This is the extensional
+    equivalence the recursion theorem is stated against: fuel-free, unlike
     the bounded [prog_equiv] of the VM Substrate instance. *)
 Definition vm_equiv (p q : list vm_instruction) : Prop :=
   forall s r, vm_halts_at p s r <-> vm_halts_at q s r.

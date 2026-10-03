@@ -1,4 +1,4 @@
-(** * UnificationProbeBridges — composing the probe files with the VM.
+(** * UnificationProbeBridges: composing the probe files with the VM.
 
     [LandauerJoules.v], [HolevoDimensional.v], and [BekensteinBound.v]
     each prove a physical bound for an abstract object (a
@@ -13,19 +13,19 @@
 
     The four bridges:
 
-      Bridge A — every cert-flip VM step exhibits as a one-bit
+      Bridge A:  every cert-flip VM step exhibits as a one-bit
                  [PhysicalErasure], with the [second_law_satisfied]
                  field witnessed by [no_free_certification_certified].
 
-      Bridge B — in a thermal substrate satisfying the
+      Bridge B:  in a thermal substrate satisfying the
                  [LandauerJoules.v] hypotheses, every cert-flip VM
                  step releases at least [k_B · T · ln 2] of heat.
 
-      Bridge C — for any VM trace whose cert-setter executions
+      Bridge C:  for any VM trace whose cert-setter executions
                  realise a decision tree covering an [n]-outcome
                  feasible set, [Δµ ≥ log_2 n].
 
-      Bridge D — in a substrate where [vm_mu] increment matches the
+      Bridge D:  in a substrate where [vm_mu] increment matches the
                  substrate's information entropy in nats, the Bekenstein
                  bound is a bound on [vm_mu] itself:
                  [Δµ / ln 2 ≤ 2π · E · R / (ℏ c ln 2)].
@@ -48,18 +48,18 @@ From Kernel Require Import MuShannonBridge.
     but this aggregator is the kernel-side bridging file that
     combines them with VM-level mu-ledger results. *)
 
-(* SCOPE NOTE: cross-tier import (Landauer bridge — see above). *)
+(* SCOPE NOTE: cross-tier import (Landauer bridge; see above). *)
 From Thermodynamic Require Import LandauerDerived.
-(* SCOPE NOTE: cross-tier import (Landauer bridge — see above). *)
+(* SCOPE NOTE: cross-tier import (Landauer bridge; see above). *)
 From Thermodynamic Require Import LandauerJoules.
 
 From Kernel Require Import HolevoDimensional.
 From Kernel Require Import BekensteinBound.
 
-(** ** Bridge A — VM cert-flip ↔ PhysicalErasure.
+(** ** Bridge A: VM cert-flip ↔ PhysicalErasure.
 
     Given a single VM step that flips [vm_certified] from [false] to
-    [true], we construct a [PhysicalErasure] record realising it. The
+    [true], this section constructs a [PhysicalErasure] record realising it. The
     [second_law_satisfied] field of the constructed record is exactly
     the framework's [no_free_certification_certified] applied to the
     given step. *)
@@ -96,14 +96,14 @@ Qed.
    identity (no callers); any consumer that needs it can [simpl] / [unfold]
    directly on the projection. *)
 
-(** ** Bridge B — VM cert-flip in a thermal bath releases ≥ k_B · T · ln 2.
+(** ** Bridge B: VM cert-flip in a thermal bath releases ≥ k_B · T · ln 2.
 
     Composes Bridge A with [LandauerJoules.landauer_joules_one_bit].
     Given the thermal-substrate hypotheses (Boltzmann bridge +
     second law for a bath), every cert-flip VM step releases at least
     [k_B · T · ln 2] of heat to the bath. *)
 
-(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER. The Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    k_B_pos is physical positivity for the Boltzmann constant; the
@@ -151,7 +151,7 @@ Section ThermalBathCertFlip.
 
 End ThermalBathCertFlip.
 
-(** ** Bridge C — VM trace classical Holevo bound.
+(** ** Bridge C: VM trace classical Holevo bound.
 
     Composes [HolevoDimensional.classical_holevo_bound] with the
     framework's existing [info_priced_cert_executions_bound]. The
@@ -189,7 +189,7 @@ Proof.
             Hdim Hrealized Hcover).
 Qed.
 
-(** ** Bridge D — VM µ-ledger bounded by Bekenstein in a bounded substrate.
+(** ** Bridge D: VM µ-ledger bounded by Bekenstein in a bounded substrate.
 
     For a VM trace operating inside a bounded thermal substrate of
     radius [R] and total energy [E], if the substrate satisfies the
@@ -197,7 +197,7 @@ Qed.
     µ-cost (in nats) playing the role of [system_entropy_nats], then
     the µ-ledger is bounded by the Bekenstein bound on bits. *)
 
-(* SCOPE NOTE: SECTION PARAMETER — Variable/Hypothesis declarations
+(* SCOPE NOTE: SECTION PARAMETER. Variable/Hypothesis declarations
    in this Section are section parameters that become EXPLICIT FORALL
    premises on each theorem when the Section closes. Constants
    (hbar, c_light, k_B, R_radius) carry physical positivity; the
@@ -212,7 +212,7 @@ Section BekensteinVMBridge.
   Hypothesis k_B_pos : (0 < k_B)%R.
   Hypothesis R_pos : (0 < R_radius)%R.
 
-  (** The µ-ledger increment expressed in nats. We multiply by [ln 2]
+  (** The µ-ledger increment expressed in nats. The factor [ln 2] is there
       because [vm_mu] is a count of cert-setter executions (effectively
       bits) and the substrate physics works in nats.
 

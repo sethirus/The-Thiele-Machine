@@ -191,7 +191,7 @@ def main():
     print(f"# Coq files: {len(coq_files)}")
 
     probe_lines = [
-        "(** Comprehensive Print Assumptions probe — every addressable proof-bearing",
+        "(** Comprehensive Print Assumptions probe: every addressable proof-bearing",
         "    declaration across every .v file in the repository (excluding vendor/kami,",
         "    coq/archive/). Generated; do not edit. Functor and Module-Type interiors",
         "    are skipped here and recorded separately in the inventory. *)",

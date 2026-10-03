@@ -9,8 +9,8 @@
     constraints (e00^2 + e01^2 <= 1, e10^2 + e11^2 <= 1), the CHSH
     expression S = e00 + e01 + e10 - e11 satisfies S^2 <= 8.
 
-    The Tsirelson bound is not a property of quantum mechanics specifically --
-    it's a property of ANY correlation matrix satisfying PSD minor constraints.
+    The Tsirelson bound is not a property of quantum mechanics specifically.
+    It's a property of ANY correlation matrix satisfying PSD minor constraints.
     Quantum mechanics happens to saturate this bound (achievable at 1/sqrt(2)),
     but the bound itself is purely algebraic.
 
@@ -117,7 +117,7 @@ Qed.
     The Tsirelson bound is a property of four real correlators. The
     lemma below makes the run-vm/step-semantics connection explicit: if
     [vm_step s instr s'] takes the machine from one state to another,
-    and we have row-bound hypotheses on any four correlators, then the
+    and row-bound hypotheses hold on any four correlators, then the
     bound itself is preserved across the step (it is a property of the
     numbers, not of the executing state). The proof inverts the
     [vm_step] relation to confirm the conclusion does not depend on which
@@ -233,7 +233,7 @@ Qed.
 Lemma four_over_sqrt2 : 4 * sqrt2inv = sqrt8.
 Proof.
   unfold sqrt2inv, sqrt8.
-  (* We need: 4 * (1 / sqrt 2) = sqrt 8 *)
+  (* Goal: 4 * (1 / sqrt 2) = sqrt 8 *)
   (* Simplify: 4 / sqrt 2 = sqrt 8 *)
   (* Square both sides: 16 / 2 = 8 ✓ *)
   assert (Hneq: sqrt 2 <> 0) by (apply Rgt_not_eq; exact sqrt2_pos).

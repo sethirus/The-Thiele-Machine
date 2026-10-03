@@ -1,10 +1,10 @@
-(** * F2_PerMinorFromCostCoherent: per-minor coherence from cost axioms
+(** * NPAPerMinorFromCostCoherence: per-minor coherence from cost axioms
 
     Each of the four NPA-1 minor inequalities is individually
     derivable from [cost_coherent] alone (no additional structural
     premise), with a per-minor [t] or [s] witness chosen as a product
     of the correlator components. This is a strictly weaker positive
-    result than [F2_MinorFromWitnessLocality], which needs
+    result than [NPAMinorsFromWitnessLocality], which needs
     witness-locality and produces a shared [t, s] for all four minors
     simultaneously (i.e. algebraic-coherence proper).
 
@@ -14,7 +14,7 @@
 
     The per-minor existence is strictly weaker (the witnesses can
     differ across minors), but the per-minor existence form IS
-    derivable from cost-axioms alone — and that derivation is what
+    derivable from cost-axioms alone, and that derivation is what
     this file establishes.
 
     Algebraic identity: at t = a · b (the product of correlators in the
@@ -24,14 +24,14 @@
 
     OP-QM scope refinement:
     - cost-axioms alone do NOT entail algebraically_coherent
-      ([F2_MinorIndependence.v]).
+      ([NPAMinorsIndependentOfCost.v]).
     - cost-axioms + per-minor existence form (this file) is
       derivable but strictly weaker than algebraic-coherence.
     - cost-axioms + witness-locality DO entail algebraically_coherent
-      ([F2_MinorFromWitnessLocality.v]). Witness-locality is the precise strengthening that
+      ([NPAMinorsFromWitnessLocality.v]). Witness-locality is the precise strengthening that
       promotes per-minor existence to shared-witness existence.
 
-    The F2 results have THREE rungs of precision: cost-axioms (no
+    The minor-independence results have THREE rungs of precision: cost-axioms (no
     minors), cost-axioms + per-minor (each minor satisfiable), and
     cost-axioms + witness-locality (algebraic-coherence proper). *)
 
@@ -50,7 +50,7 @@ Import ListNotations.
 Local Open Scope Q_scope.
 
 From Kernel Require Import VMState VMStep AlgebraicCoherence.
-From Kernel Require Import F2_MinorIndependence.
+From Kernel Require Import NPAMinorsIndependentOfCost.
 
 (** [cost_coherent c]: the cost-axiomatic conjunct of
     [algebraically_coherent], namely |E_xy| ≤ 1 for all four xy-pairs.
@@ -136,7 +136,7 @@ Qed.
     The PR-box has cost-coherent correlators (|E_xy| = 1). By the
     above theorem, each minor is INDIVIDUALLY satisfiable. But the
     PR-box is NOT algebraically-coherent (no SHARED t, s makes all
-    four simultaneously non-negative) — proven by
+    four simultaneously non-negative), proven by
     [algebraic_max_not_coherent].
 
     Therefore the per-minor existence form is strictly weaker than
@@ -187,7 +187,7 @@ Qed.
 
     All theorems above close under the global context. The per-minor
     derivation uses pure rational arithmetic (ring + lra/nra) plus the
-    cost_coherent definition from F2_MinorIndependence. No bypass
+    cost_coherent definition from NPAMinorsIndependentOfCost. No bypass
     markers. This file establishes the strictly-weaker positive result;
     closing OP-QM at the FULL algebraic-coherence level still requires
-    the witness-locality strengthening ([F2_MinorFromWitnessLocality.v]). *)
+    the witness-locality strengthening ([NPAMinorsFromWitnessLocality.v]). *)

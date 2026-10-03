@@ -2,13 +2,13 @@
 
     This file packages three things:
 
-      - [DiscretePhysics] — a shared interface for discrete physics
+      - [DiscretePhysics]: a shared interface for discrete physics
         models. The interface is deliberately small: a state type, a
         deterministic step, locality and finiteness markers, energy and
         momentum observables, an energy law (either conserving or
         strictly decreasing), and a [phys_reversible] flag.
 
-      - [ThieleEmbedding] — the embedding contract from a discrete
+      - [ThieleEmbedding]: the embedding contract from a discrete
         physics into the verified VM. An embedding is an
         encode/decode pair plus a one-step bisimulation
         ([emb_step_sim]) showing that one physics step is realised by
@@ -17,7 +17,7 @@
         certificate that the embedding is reversible (zero μ-cost) or
         dissipative (≥ 1 μ-cost per step).
 
-      - Generic embedding lemmas — irreversibility-count and μ-bound
+      - Generic embedding lemmas: irreversibility-count and μ-bound
         consequences that hold for any embedding satisfying the
         cost-free or cost-positive certificate. The generic lemmas are
         then specialised for hardware faithfulness via
@@ -37,7 +37,7 @@ Import ListNotations.
 
 (** ** Discrete physics interface
 
-    The interface keeps only the minimal structure we want to reason about
+    The interface keeps only the minimal structure to reason about
     across all case studies: a step function, locality/finiteness markers, and
     two standard observables with an energy law that can either be conserving
     or strictly decreasing.
@@ -313,8 +313,8 @@ Definition embedded_case_studies : list EmbeddingCaseStudy :=
     constructing it discharges [emb_roundtrip] (decode is a left inverse of
     encode) and [emb_step_sim] (one physics step is realised by running
     [emb_trace] for exactly one VM step). So [embeddable DP] asserts precisely
-    "a faithful VM embedding of DP exists"; the [True] only says we ask for
-    nothing beyond that contract. The three definitions below are open
+    "a faithful VM embedding of DP exists"; the [True] only says nothing is
+    required beyond that contract. The three definitions below are open
     conjectures (stated, not proven here); concrete witnesses for the case
     studies live in separate embedding modules. *)
 Definition embeddable (DP : DiscretePhysics) : Prop :=

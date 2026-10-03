@@ -1,9 +1,9 @@
-(** A2LoadBearing.v — A2 as a load-bearing axiom in a non-trivial
+(** A2LoadBearing.v: A2 as a load-bearing axiom in a non-trivial
     separation result.
 
     This file establishes a theorem F with three explicit properties:
 
-    1. F is statable without reference to A2 — it is a real claim about
+    1. F is statable without reference to A2; it is a real claim about
        computational state observability that makes sense in any
        framework with a cost notion and a classical observation level.
 
@@ -28,11 +28,11 @@
 
     Counterfactual:
       If A2 did not hold for cert-flipping steps, then the certifying
-      trace's vm_mu could be zero — equal to the non-certifying
-      trace's vm_mu — and the separation between the two traces'
+      trace's vm_mu could be zero (equal to the non-certifying
+      trace's vm_mu), and the separation between the two traces'
       classical shadows would no longer carry over to a separation
-      in vm_mu. The witness in [bad_substrate_collapses_separation]
-      below makes this explicit at the substrate level.
+      in vm_mu. The counterexample [cf_no_cost_separation] below makes
+      this explicit at the substrate level.
 
     This is distinct from the existing [vm_mu_not_classically_determined]
     in [NecessityOfMuLedger.v]. That theorem proves the same F, but
@@ -41,7 +41,7 @@
     [instruction_cost (instr_certify d) = S d] off the cost schedule).
     This theorem instead routes the lower bound through A2 (via
     [no_free_certification_certified_mu]), making explicit that the
-    separation depends on the cert-flip cost-floor — not on the
+    separation depends on the cert-flip cost-floor, not on the
     specific schedule numeric.
 
     Print Assumptions on the headline theorem at the end of the file
@@ -119,7 +119,7 @@ Proof.
   pose proof trace_A_mu_ge_1_via_A2 as HA.
   (* From the existing proof (which uses the pnew cost rule, not A2):
      po1_state_B.vm_mu = 0.  This part is the schedule's "pnew is
-     free" choice — the A2-load-bearing part is HA above. *)
+     free" choice; the A2-load-bearing part is HA above. *)
   pose proof po1_cond5_trace_B_mu_zero as HB.
   (* The two states have equal strict shadows by direct case analysis
      over the opcode semantics. *)
@@ -153,7 +153,7 @@ Qed.
     [CostBearingSystem] framework from [HonestCostTracking.v]: a
     system that has cost, state, instructions, and a cert predicate,
     but is NOT required to satisfy A2. In this larger framework, free
-    forgery is admissible — and with it, the cost ledger collapses
+    forgery is admissible, and with it, the cost ledger collapses
     into the classical observable. *)
 
 From Kernel Require Import HonestCostTracking.
@@ -174,7 +174,7 @@ Definition cf_system : CostBearingSystem := dishonest_forge_system.
     starting from the same initial state, where one ends certified
     and the other does not, but their total costs are equal.  The
     separation [certified trace pays strictly more than non-certifying
-    trace] — which holds in every A2-respecting system — fails here. *)
+    trace], which holds in every A2-respecting system, fails here. *)
 Lemma cf_no_cost_separation :
   exists (CB : CostBearingSystem)
          (s0 : cb_state CB)
@@ -212,7 +212,7 @@ Qed.
     minimum number of bits a classical observer needs to specify
     which of the n outcomes occurred. The substrate's lower bound is
     n, which exceeds log_2(n) by the ratio n / log_2(n). For
-    n = 2^32, Shannon = 32, substrate >= 2^32 -- a gap of factor
+    n = 2^32, Shannon = 32, substrate >= 2^32, a gap of factor
     2^27 between the substrate cost and the classical
     information-theoretic minimum at the same task.
 
@@ -220,7 +220,7 @@ Qed.
     [separation_le_cert_cost] in MuShannonQuantitative.v, which
     requires the info-pricing hypothesis that cert-setter instructions
     cost at least 1 each. The info-pricing hypothesis holds for the
-    Thiele VM by [cert_addr_setter_cost_pos] -- which is exactly A2
+    Thiele VM by [cert_addr_setter_cost_pos], which is exactly A2
     for the cert_addr channel, in static form on the instruction
     encodings. Without A2, cert-setters could cost zero, and the
     n-way separation could be achieved at total cost zero, putting
@@ -233,7 +233,7 @@ Qed.
     each cert-flip event costs at least 1 by A2, and n distinct
     outcomes require n distinct cert-flip events in the trace by
     pigeonhole on cert_addr values. The substrate is therefore
-    counting events, not bits -- and events are bounded below per
+    counting events, not bits, and events are bounded below per
     distinguishable outcome rather than per information bit.
 
     This is the Landauer-vs-Shannon gap, made formal at the
@@ -322,11 +322,11 @@ Qed.
     is any computation that certifies a logical claim of bit-length
     B via the substrate's LASSERT instruction. The class is broad:
     SAT certification, predicate certification, structural-property
-    certification -- anything routed through LASSERT lands here.
+    certification. Anything routed through LASSERT lands here.
 
     Classical complexity (unit-cost RAM). Under the standard
-    unit-cost RAM model -- where each instruction takes one unit of
-    time regardless of its payload size -- a single LASSERT
+    unit-cost RAM model (where each instruction takes one unit of
+    time regardless of its payload size), a single LASSERT
     instruction is one unit of classical time. Classical complexity
     for the one-step trace is therefore 1.
 

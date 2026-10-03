@@ -48,7 +48,7 @@ Proof. intros P. unfold obs_equiv. exact eq_refl. Qed.
 (** ** A [System] instance driven by Thiele programs and receipts *)
 
 (** The self-reference predicate at this level is the existence of a
-    program observationally equivalent to itself — trivially populated
+    program observationally equivalent to itself, trivially populated
     by [empty_prog]. *)
 Definition thiele_self_reference : Prop :=
   exists P : Prog, obs_equiv P P.
@@ -227,9 +227,9 @@ Qed.
 (** ** Faithful implementations and entropy-facing bounds
 
     To connect the Coq-level ledger/irreversibility results to real hardware,
-    we model a *faithful implementation* as a step function over some concrete
-    machine state that refines the VM semantics after decoding.  We require
-    that, for a fixed instruction trace [trace], iterating the hardware step
+    a *faithful implementation* is modeled as a step function over some concrete
+    machine state that refines the VM semantics after decoding.  The requirement
+    is that, for a fixed instruction trace [trace], iterating the hardware step
     [fuel] times and decoding the resulting state matches the Coq VM execution
     [run_vm fuel trace] started from the decoded initial state.  Under that
     assumption, the VM irreversibility gap transports directly to the
@@ -318,5 +318,5 @@ Proof.
 Qed.
 
 (** A quotable summary: any faithful decoded execution of the VM cannot hide
-    irreversible bit events—its µ-accumulator must rise by at least the
+    irreversible bit events: its µ-accumulator must rise by at least the
     conservative irreversibility counter computed over the VM trace. *)

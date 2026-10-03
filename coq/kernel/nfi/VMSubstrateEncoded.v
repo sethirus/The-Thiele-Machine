@@ -1,4 +1,4 @@
-(** VMSubstrateEncoded.v — discharging the Goedel-encoding premises of the
+(** VMSubstrateEncoded.v: discharging the Goedel-encoding premises of the
     VM-scoped structural undecidability theorem.
 
     [vm_structural_shortcut_undecidable] (StructuralUndecidability.v) carries
@@ -7,7 +7,7 @@
     representability predicate [vm_representable], and the VM's recursion
     theorem [vm_recursion_theorem].
 
-    The first three — the encoding — are not an open problem. The kernel already
+    The first three (the encoding) are not an open problem. The kernel already
     has [program_to_nat] / [nat_to_program] with a proven round-trip
     ([VMInstructionEncoding.nat_to_program_program_to_nat]). This file supplies a
     concrete encoding (store the program's Goedel number in [vm_logic_acc]) and
@@ -57,7 +57,7 @@ Definition vm_encode_concrete (p : list vm_instruction) : VMState :=
 Definition vm_decode_concrete (s : VMState) : list vm_instruction :=
   nat_to_program s.(vm_logic_acc).
 
-(** The round-trip — the encoding premise, discharged. *)
+(** The round-trip: the encoding premise, discharged. *)
 Lemma vm_encode_decode_concrete :
   forall p, vm_decode_concrete (vm_encode_concrete p) = p.
 Proof.
@@ -66,7 +66,7 @@ Proof.
 Qed.
 
 (** The VM-scoped structural undecidability, with the Goedel encoding
-    PROVEN (not assumed). The only surviving hypotheses are [rep] and [Hrec] —
+    PROVEN (not assumed). The only surviving hypotheses are [rep] and [Hrec]:
     the VM's internal recursion theorem. Everything the encoding contributed is
     discharged by [vm_encode_decode_concrete]. *)
 Theorem vm_structural_shortcut_undecidable_encoded :

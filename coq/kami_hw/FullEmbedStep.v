@@ -4,19 +4,19 @@
     [kami_step] (from Abstraction.v) to [vm_apply] through the
     full-state [abs_full_snapshot ∘ full_snapshot_of_snapshot] bridge.
 
-    This closes the gap between:
-    - EmbedStep.v: proves commutation through [abs_phase1], which drops
-      morphism state and uses default CSRs.
+    It relates:
+    - EmbedStep.v: proves commutation through [abs_phase1], which reads
+      only the partition table of the graph.
     - FullStep.v: proves commutation for [kami_step_full], which wraps
       [vm_apply] by construction.
 
-    The new theorem:
+    The theorem:
 
         abs_full_snapshot (full_snapshot_of_snapshot (kami_step ks i)) =
           vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks)) i
 
-    for [SupportedOpcode], with conditional extensions for additional
-    opcodes (PNEW, CALL, RET, CHSH_TRIAL, LASSERT).
+    for [SupportedOpcode], with conditional extensions for CALL, RET,
+    CHSH_TRIAL and LASSERT.
 
     The full-state abstraction [abs_full_snapshot ∘ full_snapshot_of_snapshot]
     differs from [abs_phase1] only in [vm_graph]: the former uses
@@ -32,8 +32,8 @@
        by showing that swapping the graph before or after [vm_apply]
        produces the same result.
 
-    Coverage (verified against [RTLGapRegistry.v]):
-    - 30 SupportedOpcode instructions: unconditional full-state commutation.
+    Coverage of [GraphReconstructionBridge.driven_step_wf]:
+    - 35 SupportedOpcode instructions: unconditional full-state commutation.
     - 6 valid-args opcodes (CALL, RET, CHSH_TRIAL, TENSOR_SET, TENSOR_GET, LASSERT):
       Qed under WellFormedSnapshot / index-in-range / flen-match preconditions
       (handled in EmbedStep_WF.v and GraphReconstructionBridge.v).
@@ -225,7 +225,7 @@ Proof.
   apply vm_apply_with_graph_commute. exact Hsup.
 Qed.
 
-(** Named corollary:  [full_embed_step] — a direct name for the theorem. *)
+(** Named corollary:  [full_embed_step], a direct name for the theorem. *)
 Corollary full_embed_step :
   forall (ks : KamiSnapshot) (i : vm_instruction),
     SupportedOpcode i ->
@@ -275,10 +275,10 @@ Qed.
    §7  Conditional extensions
    *)
 
-(** For non-SupportedOpcode instructions that already have conditional
-    theorems in EmbedStep.v / EmbedStep_WF.v, we lift those theorems
-    to the full-state bridge under the same or compatible preconditions
-    plus additional graph-preservation conditions. *)
+(** For non-SupportedOpcode instructions that have conditional theorems in
+    EmbedStep.v / EmbedStep_WF.v, the theorems below lift them to the
+    full-state bridge under the same or compatible preconditions plus
+    graph-preservation conditions. *)
 
 (** LASSERT: conditional full-state commutation.
     Precondition: same as [embed_step_lassert] from EmbedStep.v. *)
@@ -291,9 +291,9 @@ Qed.
     [vm_apply] for CALL/RET references only regs/mem/pc, and for
     CHSH_TRIAL references only witness counters/csrs).
 
-    The detailed conditional theorems are available in EmbedStep_WF.v
-    and can be lifted by the same [with_graph] argument as §5.
-    We state the general lifting principle here. *)
+    The detailed conditional theorems are in EmbedStep_WF.v and lift by
+    the same [with_graph] argument as §5. The general lifting principle
+    follows. *)
 
 Lemma full_embed_step_of_projected :
   forall ks i,
@@ -429,75 +429,23 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §9  Irreducible gap documentation
+   §9  Opcodes outside this file
    *)
 
-(** The following opcodes have IRREDUCIBLE gaps between [kami_step] and
-    [vm_apply] that prevent unconditional full-state commutation:
-
-    CATEGORY A — Hardware does not implement graph mutation (2 opcodes):
-
-      PSPLIT: [kami_step] does [kami_advance_default] (cost only),
-              [vm_apply] calls [graph_hw_psplit] (actual graph mutation).
-              The hardware leaves split operations to the driver layer.
-
-      PMERGE: [kami_step] does [kami_advance_default] (cost only),
-              [vm_apply] calls [graph_hw_pmerge] (actual graph mutation).
-              Same driver-layer design as PSPLIT.
-
-    CATEGORY B — Per-module tensor state (2 opcodes):
-
-      TENSOR_SET: [kami_step] does not update per-module tensor entries,
-                  [vm_apply] calls [graph_update_module_tensor].
-                  Tensor state is maintained at the driver level.
-
-      TENSOR_GET: [kami_step] writes 0 to dst register,
-                  [vm_apply] reads [module_tensor_entry] from the graph.
-                  Same driver-layer design as TENSOR_SET.
-
-    CATEGORY C — Rich-state vs graph representation (7 opcodes):
-
-      MORPH, MORPH_DELETE, MORPH_ASSERT, MORPH_GET:
-        Full-state equality proved through abs_full_snapshot under
-        WFDrivenPrecondition (GraphReconstructionBridge.v driven_step_wf).
-        Bounded-table ↔ unbounded-list isomorphism resolved via
-        snap_full_graph / snapshot_morphisms_of_rich_state.
-
-      MORPH_ID, COMPOSE, MORPH_TENSOR:
-        Field-by-field equality only (driven_step_*_fields).
-        Coupling label and representation mismatches prevent
-        exact VMState equality:
-        - MORPH_ID: coupling label "id" vs "empty"
-        - COMPOSE: coupling label "f;h" vs "empty", coupling pairs
-        - MORPH_TENSOR: source/target/coupling all differ
-
-    These gaps are design constraints, not proof failures.  The hardware
-    delegates graph, tensor, and categorical operations to the software
-    driver/firmware layer.  The full-state bridge through
-    [FullAbstraction.v] + [FullStep.v] handles these at the
-    snapshot-wrapper level instead. *)
+(** PNEW, PSPLIT, PMERGE, TENSOR_SET, TENSOR_GET and the seven morphism
+    opcodes change the partition table, the module tensors or the
+    morphism tables, so the graph-swap argument of §5 does not apply to
+    them. Their full-state commutation is
+    [GraphReconstructionBridge.driven_step_wf], under
+    [WFDrivenPrecondition]. *)
 
 (* ======================================================================
-   §10  FullSupportedPredicate  — composite coverage summary
+   §10  Coverage summary
    *)
 
-(** Count of unconditionally covered opcodes through the full-state
-    bridge: 31 via [SupportedOpcode] (§5).
-
-    Additionally covered under preconditions: CALL, RET, CHSH_TRIAL,
-    LASSERT (§7–§8), totalling 35 of 46 opcodes.
-
-    Remaining 11 opcodes:
-    - 2 partition graph ops (PSPLIT, PMERGE are irreducible Category A gaps;
-      PNEW has conditional coverage in EmbedStep.v)
-    - 2 tensor ops (TENSOR_SET, TENSOR_GET — Category B)
-    - 7 morphism ops (MORPH family — Category C)
-
-    The 11 uncovered opcodes are handled at the wrapper level by
-    [FullStep.v]'s [kami_step_full_refines], which trivially commutes
-    because [kami_step_full] is defined as [full_snapshot_repr ∘ vm_apply
-    ∘ abs_full_snapshot].  The remaining gap is *only* in connecting
-    the actual hardware step [kami_step] to [vm_apply] for these opcodes
-    through [full_snapshot_of_snapshot], and is documented above as
-    arising from intentional hardware/driver separation. *)
+(** Covered through the full-state bridge in this file: the 35
+    [SupportedOpcode] instructions unconditionally (§5), and CALL, RET,
+    CHSH_TRIAL and LASSERT under their preconditions (§7 and §8), 39 of
+    the kernel's 51 instructions. The other 12 are covered by
+    [GraphReconstructionBridge.driven_step_wf]. *)
 

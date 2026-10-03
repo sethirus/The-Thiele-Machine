@@ -8,7 +8,7 @@
 
     Core claim: causal cones form a monoid under trace concatenation,
     cone(t1 ++ t2) = cone(t1) U cone(t2), cone([]) = empty, associativity comes
-    from list append, and on top of that we get partial commutativity for
+    from list append, and on top of that come partial commutativity for
     independent traces and a well-founded causal-distance metric.
 
     Key theorems in this file: cone_composition, cone_monotonic,
@@ -29,7 +29,7 @@
     no proof admissions.
 *)
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Kernel Require Import VMState VMStep KernelPhysics.

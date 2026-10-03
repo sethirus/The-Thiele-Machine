@@ -6714,7 +6714,7 @@ def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
         # `SCOPE NOTE` mentioning `proof-connect`/`proof connect`)
         # somewhere in the file. The same set of files
         # (CloseoutVerification.v, RTLGapRegistry.v,
-        # F4_BModulesTranslation.v) passes under that rule; without this
+        # BModulesTranslation.v) passes under that rule; without this
         # exemption, the body-graph rule would flag the same files for the
         # same reason.
         try:

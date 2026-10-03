@@ -1,23 +1,23 @@
-(** ClassicalConservativity.v — D3: Classical Opcode Conservativity
+(** ClassicalConservativity.v: Classical Opcode Conservativity
 
     The Thiele VM's full ISA includes both structural (categorical) instructions
-    and classical instructions. D3 says: when the VM executes a program using
-    only "classical" opcodes — no PNEW, MORPH, MORPH_ASSERT, LASSERT, LJOIN,
+    and classical instructions. Conservativity says: when the VM executes a program using
+    only "classical" opcodes (no PNEW, MORPH, MORPH_ASSERT, LASSERT, LJOIN,
     EMIT, REVEAL, PDISCOVER, CHSH_TRIAL, CERTIFY, TENSOR_SET, or any
-    graph-modifying MORPH variants — the morphism graph, the cert address
+    graph-modifying MORPH variants), the morphism graph, the cert address
     channel, and the vm_certified flag are all preserved throughout.
 
     Precisely: if all instructions satisfy is_classical_opcode, then
     (1) vm_graph is unchanged, (2) csr_cert_addr is unchanged, and
     (3) vm_certified is unchanged. Thiele restricted to classical opcodes does
-    not exercise the structural layer — it behaves like a classical machine on
+    not exercise the structural layer; it behaves like a classical machine on
     the (graph, cert) dimensions.
 
     What this does NOT prove: that classical opcodes simulate a Turing machine
     (separate theorem), that classical behavior equals any specific external
-    model, conservativity on (regs, mem, pc) — those are unconstrained —
-    or D4 (strictness: that Thiele can distinguish states classical machines
-    cannot). Fully proven. Zero Admitted.
+    model, conservativity on (regs, mem, pc), which are unconstrained,
+    or strictness (that Thiele can distinguish states classical machines
+    cannot, TuringStrictness.v). Fully proven. Zero Admitted.
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool Lia.
@@ -39,7 +39,7 @@ From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI.
       forms
     - pdiscover, whose step is a pure advance
     Instructions like mdlacc, morph_get, tensor_get, read_port, write_port
-    are classical — they don't touch graph/cert/witness.
+    are classical; they don't touch graph/cert/witness.
 *)
 
 Definition is_classical_opcode (i : vm_instruction) : bool :=
@@ -197,17 +197,16 @@ Proof.
     exact (classical_opcode_preserves_certified s0 i Hi).
 Qed.
 
-(** D3 Conservativity. A trace using only classical opcodes does not
-    exercise the Thiele-specific structural layer. Thiele restricted to
-    classical opcodes behaves identically to any machine tracking only
-    (regs, mem, pc, mu, err): the morphism graph is unchanged, no structural
-    certification occurs, vm_certified is unchanged. This is the formal
-    content of "Thiele extends classical machines." *)
+(** Classical conservativity. A trace using only classical opcodes does not
+    exercise the Thiele-specific structural layer: the morphism graph is
+    unchanged, no structural certification occurs, vm_certified is
+    unchanged. The statement says nothing about regs, mem, pc, mu or err.
+    This is the formal content of "Thiele extends classical machines." *)
 
-(** D3_conservativity: over any classical trace, (1) vm_graph, (2) csr_cert_addr,
+(** classical_opcodes_preserve_structure: over any classical trace, (1) vm_graph, (2) csr_cert_addr,
     and (3) vm_certified are all unchanged. Thiele over classical programs
     does not exercise the structural (categorical) layer. *)
-Theorem D3_conservativity :
+Theorem classical_opcodes_preserve_structure :
   forall (trace : list vm_instruction) (s0 : VMState),
     Forall (fun i => is_classical_opcode i = true) trace ->
     (** (1) morphism graph unchanged **)
@@ -245,7 +244,7 @@ Qed.
     instruction of the program is classical, every fetched instruction is
     classical, and the structural state is unchanged after any number of
     steps. *)
-Theorem D3_conservativity_pc :
+Theorem classical_opcodes_preserve_structure_run_vm :
   forall (fuel : nat) (prog : list vm_instruction) (s0 : VMState),
     Forall (fun i => is_classical_opcode i = true) prog ->
     (run_vm fuel prog s0).(vm_graph) = s0.(vm_graph) /\

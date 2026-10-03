@@ -5,7 +5,7 @@ From Kernel Require Import VMState VMStep KernelPhysics.
 
 Import ListNotations.
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** ObserverDerivation: observer functions and projection relations.

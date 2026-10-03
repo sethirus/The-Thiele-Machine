@@ -17,7 +17,7 @@ From KamiHW Require Import ThieleCPUCore.
 From KamiHW Require Import Abstraction.
 Require Import Coq.Bool.Bool.
 
-(* Foundation connectivity imports — required by proof chain policy *)
+(* Foundation connectivity imports: required by proof chain policy *)
 From Kernel Require Import VMStep.
 From Kernel Require Import MuCostModel.
 

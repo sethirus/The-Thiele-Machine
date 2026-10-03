@@ -1,4 +1,4 @@
-(** StructuralAxisOrthogonality.v — the keystone: the structural-shortcut
+(** StructuralAxisOrthogonality.v, the keystone: the structural-shortcut
     predicate's detection channel is not a function of the Turing configuration.
 
     What this file is for
@@ -13,14 +13,14 @@
 
     The dismissal silently assumes the predicate is a function of the (bigger)
     machine state. This file refutes exactly that assumption: the predicate is
-    detected through a field — [csr_cert_addr] — that is provably not a function
+    detected through a field, [csr_cert_addr], that is provably not a function
     of the *classical* state, the Turing configuration [forget s : TMSnapshot].
 
     Why that defeats the dismissal. A classical decider has, as its entire
     input, the Turing configuration [forget s]. If the thing it is asked to
     decide is not a function of [forget s], then no classical decider can be
-    correct about it — not for lack of computational power, but because what it
-    is deciding is not present in its input. That is an information-theoretic
+    correct about it. What it is deciding is not present in its input;
+    computational power has nothing to do with it. That is an information-theoretic
     impossibility, orthogonal to the computational impossibility Rice/Turing
     describe. Two independent limitative phenomena, on two independent axes.
 
@@ -29,14 +29,13 @@
     hand-picked projection. "Not a function of [forget]" is "not a function of
     the Turing machine's state."
 
-    The upgrade over [ProjectionNonExistence.cert_addr_not_function_of_forget].
-    That lemma proved the same shape using a hand-built pair of [VMState]
+    Compared with [ProjectionNonExistence.cert_addr_not_function_of_forget]:
+    that lemma proves the same shape using a hand-built pair of [VMState]
     records ([cert_addr_witness_zero] / [_one]). Here the collision is built on
     states the machine actually *reaches* from [init_state] by executing an
-    instruction trace — the [MuRunIncompleteness.v] over-runs style. The
+    instruction trace, in the [MuRunIncompleteness.v] over-runs style. The
     impossibility is therefore not about arbitrary records one can write down;
-    it is about the states the 51-opcode VM genuinely produces. That is what
-    makes it undismissable.
+    it is about the states the 51-opcode VM produces.
 
     NO COQ AXIOMS. NO ADMITS. The two witnesses are reachable-by-construction;
     the collision and the predicate values are settled by [vm_compute]. *)
@@ -63,8 +62,8 @@ From Kernel Require Import VMSubstrateInstance.
     [run_cert_unset] shares the first two instructions, then runs a
                      graph-preserving no-op ([MDLACC]) whose μ-cost (1) exactly
                      matches the MORPH_ASSERT cost, so the two runs land on the
-                     same (pc, μ, regs, mem) — i.e., the same Turing
-                     configuration — while [csr_cert_addr] stays 0.
+                     same (pc, μ, regs, mem), that is, the same Turing
+                     configuration, while [csr_cert_addr] stays 0.
 
     Both are reachable from [init_state] because each is literally
     [exec_trace_from init_state <trace>].
@@ -93,8 +92,8 @@ Proof. vm_compute. reflexivity. Qed.
 (** ═══════════════════════════════════════════════════════════════════════════
     §2.  The state-level structural-shortcut reading.
 
-    The structural shortcut is *detected* through [csr_cert_addr] being nonzero
-    — this is exactly the channel [SimpleMorphShortcut.simple_morph_obs_fn]
+    The structural shortcut is *detected* through [csr_cert_addr] being nonzero.
+    This is exactly the channel [SimpleMorphShortcut.simple_morph_obs_fn]
     keys on. As a boolean reading on states:
     ═══════════════════════════════════════════════════════════════════════════ *)
 
@@ -132,8 +131,8 @@ Proof.
   discriminate H1.
 Qed.
 
-(** The headline corollary: no classical decider — no function of the Turing
-    configuration — can be correct about structural-shortcut admittance. The
+(** The headline corollary: no classical decider (no function of the Turing
+    configuration) can be correct about structural-shortcut admittance. The
     classical axis is blind to this limitative phenomenon for an
     information-theoretic reason, on top of the computational undecidability in
     [StructuralUndecidability.v]. *)
@@ -159,9 +158,9 @@ Qed.
     ═══════════════════════════════════════════════════════════════════════════ *)
 
 (** Reading the cert-channel out of an [option VMState]. Pushing the run
-    through this extractor lets us rewrite with the *folded* [vm_run p init]
+    through this extractor allows rewriting with the *folded* [vm_run p init]
     application (a small term), so the only [vm_compute] that ever fires is on
-    the concrete [simple_morph_trace] run — never on [run_vm] with a symbolic
+    the concrete [simple_morph_trace] run, never on [run_vm] with a symbolic
     program, which would not reduce. *)
 Definition admits_opt (o : option VMState) : bool :=
   match o with
@@ -204,7 +203,7 @@ Qed.
 
       (b) The axis carries its own undecidable predicate on the actual
           51-opcode VM. Stated conditionally on the VM's own Gödel encoding and
-          Kleene recursion theorem — exactly the premises
+          Kleene recursion theorem, exactly the premises
           [vm_structural_shortcut_undecidable] carries (Turing's 1936 result
           is, in the same way, about deciders that are themselves machines of
           the model).
@@ -254,6 +253,6 @@ Qed.
 (** Falsifier (the whole thing is one [Coq accepts it] away from falling).
     Exhibit a [decode : TMSnapshot -> bool] with
     [forall s, decode (forget s) = admits_structural_shortcut_bool s] over the
-    reachable states, and §3's keystone — and with it (c) of the fused result —
+    reachable states, and §3's keystone (and with it (c) of the fused result)
     is refuted. The keystone says no such [decode] exists; producing one is the
     falsification. *)

@@ -1,4 +1,4 @@
-(** VMWord64BoundednessObstruction.v — the abstract VM's register/memory file
+(** VMWord64BoundednessObstruction.v: the abstract VM's register/memory file
     is a genuine finite-state system once every cell has been touched, and no
     finite program can inject arbitrarily many distinct inputs into it.
 
@@ -8,13 +8,13 @@
     vm_regs/vm_mem would fare any better, since those DO have general
     read/write opcodes (LOAD, STORE, ADD, ...). This file proves the sharper,
     channel-independent reason: write_reg and write_mem apply word64 (mask to
-    the low 64 bits) on every write, unconditionally, "so hardware wraparound
+    the low 64 bits) on every write, unconditionally, "so 64-bit wraparound
     matches the Coq model" (VMState.v's own comment on word64). Every writing
     instruction in vm_apply routes through one of write_reg, write_mem, or
-    swap_regs (checked exhaustively below against SimulationProof.v's ~50
+    swap_regs (checked exhaustively below against SimulationProof.v's 51
     match arms). swap_regs is the one exception: it relocates two existing
     register values without masking, but only ever moves values already
-    present in the register file — it cannot synthesize a new one.
+    present in the register file; it cannot synthesize a new one.
 
     Consequence: starting from a state where every register and memory cell
     already holds a value below 2^64 (state_64bit_bounded), that property is
@@ -25,14 +25,14 @@
     domain (standing for "which of arbitrarily many guest programs was fed
     in") into such a state can be injective on its final register+memory
     content. This is the rigorous form of "you cannot derive new unboundedly
-    large working state via ordinary computation here" — it is what actually
+    large working state via ordinary computation here"; it is what actually
     blocks a self-interpreter, independent of which register or cell the
     guest program's encoding starts in.
 
     This file does not touch coq/kami_hw or the ISA. It is a fact about the
     abstract VM (VMState.v/VMStep.v/SimulationProof.v) exactly as specified.
     It does not claim vm_encode_concrete-style initial encodings are
-    impossible (an untouched cell may start above 2^64 — that is exactly how
+    impossible (an untouched cell may start above 2^64; that is exactly how
     vm_encode_concrete/VMSubstrateEncoded.v work); it claims that once
     execution begins and the machine actually computes with that content,
     every derived value collapses into the 64-bit-bounded regime, and the
@@ -72,7 +72,7 @@ Qed.
 
 (** * 2. Small list helpers: Forall survives firstn/skipn, and nth with a
     bounded-Forall list is itself bounded (whether or not the index is in
-    range — the out-of-range default is 0, safely below two64). *)
+    range; the out-of-range default is 0, safely below two64). *)
 
 Lemma Forall_firstn : forall {A} (P : A -> Prop) n l,
   Forall P l -> Forall P (firstn n l).
@@ -143,7 +143,7 @@ Qed.
 
 (** * 4. swap_regs: the one write path that skips word64. It only relocates
     two values already present in the register file, so it cannot introduce
-    anything above two64 that was not already there — and given a
+    anything above two64 that was not already there; and given a
     64-bit-bounded input, both relocated values are themselves bounded, so
     the result stays bounded too (this file does not need swap_regs'
     unmasked exactness beyond that; VMWitnessCounterMonotonicity-style
@@ -251,7 +251,7 @@ Qed.
 
 (** * 6. Finite capacity: enumerate every length-n list with entries below a
     bound b, and show its length is exactly b^n (reusing no unproved
-    combinatorial fact — this is a direct induction). *)
+    combinatorial fact; this is a direct induction). *)
 
 Fixpoint all_bounded_lists (n b : nat) : list (list nat) :=
   match n with

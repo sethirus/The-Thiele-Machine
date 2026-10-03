@@ -1,44 +1,38 @@
 (** EmbedStep.v
 
-    Proves the step-commutation theorem for 46 of the 51 VM instructions:
+    Step commutation under [abs_phase1], the abstraction that reads the
+    partition table but not the module tensors or the morphism tables:
 
         abs_phase1 (kami_step ks i) = vm_apply (abs_phase1 ks) i
 
-    The other five are the CHSH_LASSERT forms, which branch on the witness
-    counters; they are outside this theorem.
+    - 35 opcodes unconditionally ([SupportedOpcode], [embed_step_compute]).
+    - PNEW for a nonempty range on a well-formed table ([embed_step_pnew]).
+    - LASSERT on its success path ([embed_step_lassert], field by field).
+    - CALL, RET, CHSH_TRIAL under snapshot and bit preconditions, and PSPLIT
+      and PMERGE under table well-formedness, in EmbedStep_WF.v.
+    - TENSOR_SET, TENSOR_GET and the seven morphism opcodes write state
+      that [abs_phase1] does not read; their commutation is stated over
+      [abs_full_snapshot] in GraphReconstructionBridge.v ([driven_step_wf]).
 
-    - 30 opcodes proved UNCONDITIONALLY via SupportedOpcode + embed_step_compute
-    - 3 opcodes added under snapshot/bit preconditions via EmbedStep_WF.v:
-      CALL, RET, CHSH_TRIAL
-    - 4 opcodes handled by specialised preconditioned lemmas in §8:
-      PNEW, PSPLIT, PMERGE, LASSERT
-    - 2 opcodes have driver-managed gaps (no unconditional full-state proof):
-      TENSOR_SET, TENSOR_GET (proven under tensor_indices_ok in GraphReconstructionBridge.v)
-    - 7 opcodes are gaps HERE under abs_phase1 but are FULLY PROVEN under
-      abs_full_snapshot in GraphReconstructionBridge.v with extended_hw_invariant:
-      MORPH, MORPH_ID, MORPH_DELETE, MORPH_ASSERT, MORPH_GET,
-      COMPOSE (driven_step_compose, Qed), MORPH_TENSOR (driven_step_morph_tensor, Qed)
-
-    UNCONDITIONAL (30 opcodes, SupportedOpcode):
+    UNCONDITIONAL (35 opcodes, SupportedOpcode):
       XFER, LOAD_IMM, LOAD, STORE, ADD, SUB, JUMP, JNEZ,
       XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK,
       AND, OR, SHL, SHR, MUL, LUI,
       HALT, CHECKPOINT, WRITE_PORT, READ_PORT,
       HEAP_LOAD, HEAP_STORE, CERTIFY, MDLACC,
-      LJOIN, EMIT, PDISCOVER, REVEAL
+      LJOIN, EMIT, PDISCOVER, REVEAL,
+      CHSH_LASSERT and its four Q_{1+AB} forms
 
-    CONDITIONAL (7 opcodes, split across two layers):
-      WF layer in EmbedStep_WF.v (3 opcodes):
+    CONDITIONAL:
+      EmbedStep_WF.v:
         CALL: WellFormedSnapshot + pc < MEM_SIZE
         RET: WellFormedSnapshot
         CHSH_TRIAL: chsh_bits_ok = true
-
-      Specialised lemmas in §8 (4 opcodes):
-        PNEW: WellFormedPT + region_size > 0 (embed_step_pnew)
-        PSPLIT: graph consistency hypothesis (embed_step_psplit)
-        PMERGE: graph consistency hypothesis (embed_step_pmerge)
+        PSPLIT: WellFormedPT_PSPLIT (embed_step_psplit)
+        PMERGE: WellFormedPT_PMERGE (embed_step_pmerge)
+      This file:
+        PNEW: WellFormedPT + nonempty normalized region (embed_step_pnew)
         LASSERT: flen = hw_flen + check success (embed_step_lassert)
-
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool NArith.BinNat NArith.Nnat Strings.String FunctionalExtensionality.
@@ -115,7 +109,7 @@ Proof.
       reflexivity.
 Qed.
 
-(** Corollary with start = 0 — the form used for register/memory maps. *)
+(** Corollary with start = 0: the form used for register/memory maps. *)
 Lemma map_update_at_seq :
   forall (n dst : nat) (v : nat) (f : nat -> nat),
     dst < n ->
@@ -156,8 +150,8 @@ Proof.
   apply Nat.mod_upper_bound. unfold RegCount. lia.
 Qed.
 
-(** MEM_SIZE is nonzero.  We cannot use [lia] because Coq 8.18
-    represents large nat literals via Init.Nat.of_num_uint which is opaque
+(** MEM_SIZE is nonzero.  [lia] does not apply because Coq 8.18
+    represents large nat literals via Init.Nat.of_num_uint, which is opaque
     to the lia decision procedure.  [intro H; inversion H] works because
     it evaluates the constructors directly. *)
 Lemma mem_size_nonzero : MEM_SIZE <> 0.
@@ -174,7 +168,7 @@ Proof.
 Qed.
 
 (** The hardware register write (as a list) matches the kernel write_reg
-    applied to the abstracted state — for the same value v. *)
+    applied to the abstracted state, for the same value v. *)
 Lemma abs_phase1_kami_reg_write : forall (ks : KamiSnapshot) (r v : nat),
     snapshot_regs_to_list (kami_write_reg ks r v) =
     write_reg (abs_phase1 ks) r v.
@@ -338,12 +332,12 @@ Theorem embed_step_compute :
      | instr_ret _      => False
      (* Valid-bit precondition needed *)
      | instr_chsh_trial _ _ _ _ _ => False
-     (* Tensor instructions: kami_step uses snap_mu_tensor/default while
-        vm_apply uses graph_update_module_tensor/module_tensor_entry *)
+     (* Tensor instructions: kami_step writes snap_module_tensors, which
+        abs_phase1 does not read *)
      | instr_tensor_set _ _ _ _ _ => False
      | instr_tensor_get _ _ _ _ _ => False
-     (* Morph instructions: kami_step uses rich-state tables while
-        vm_apply uses partition graph operations — different representations *)
+     (* Morph instructions: kami_step uses rich-state tables, which
+        abs_phase1 does not read *)
      | instr_morph _ _ _ _ _       => False
      | instr_compose _ _ _ _       => False
      | instr_morph_id _ _ _        => False
@@ -357,7 +351,7 @@ Theorem embed_step_compute :
 Proof.
   intros ks i Hi.
   destruct i; simpl in Hi; try tauto;
-  (* Unfold both sides for all remaining 40 arms *)
+  (* Unfold both sides for all remaining 35 arms *)
   unfold kami_step, vm_apply, advance_state, advance_state_rm,
          advance_state_reveal,
          kami_advance_default, kami_advance_reg, jump_state, jump_state_rm,
@@ -459,47 +453,42 @@ Qed.
    §6  SupportedOpcode predicate
    *)
 
-(** SupportedOpcode: the 30 opcodes for which hardware and kernel semantics
-    agree unconditionally.  Defined as a Prop so trace theorems can use it
-    as a hypothesis without repeating the multi-arm match everywhere.
+(** SupportedOpcode: the 35 opcodes for which hardware and kernel semantics
+    agree unconditionally under [abs_phase1].  Defined as a Prop so trace
+    theorems can use it as a hypothesis without repeating the multi-arm
+    match everywhere.
 
-    ** Excluded opcodes (require preconditions or different representations) **
+    ** Excluded opcodes (require preconditions or the full abstraction) **
 
-    CATEGORY A — Partition graph consistency (3 opcodes):
-      PNEW: requires WellFormedPT + region_size > 0 (embed_step_pnew).
-      PSPLIT: requires graph consistency hypothesis (embed_step_psplit).
-      PMERGE: requires graph consistency hypothesis (embed_step_pmerge).
+    CATEGORY A: partition table (3 opcodes):
+      PNEW: requires WellFormedPT + a nonempty region (embed_step_pnew).
+      PSPLIT: requires WellFormedPT_PSPLIT (EmbedStep_WF.embed_step_psplit).
+      PMERGE: requires WellFormedPT_PMERGE (EmbedStep_WF.embed_step_pmerge).
 
-    CATEGORY B — LASSERT success path (1 opcode):
+    CATEGORY B: LASSERT success path (1 opcode):
       LASSERT: requires flen = hw_flen AND check succeeds (embed_step_lassert).
-        Failure path cost diverges: hardware S cost vs kernel flen*8 + S cost.
 
-    CATEGORY C — Bounded invariant needed (3 opcodes):
+    CATEGORY C: bounded invariant needed (3 opcodes):
       CALL: needs WellFormedSnapshot + pc < MEM_SIZE (EmbedStep_WF.v).
       RET: needs WellFormedSnapshot (EmbedStep_WF.v).
       CHSH_TRIAL: needs chsh_bits_ok = true (EmbedStep_WF.v).
 
-    CATEGORY D — Tensor/module level mismatch (2 opcodes):
-      TENSOR_SET/TENSOR_GET: kami_step uses snap_mu_tensor/default
-        while vm_apply uses graph_update_module_tensor/module_tensor_entry.
+    CATEGORY D: module tensors (2 opcodes):
+      TENSOR_SET/TENSOR_GET: kami_step reads and writes snap_module_tensors,
+        which abs_phase1 does not read. Proved in GraphReconstructionBridge.v
+        (driven_step_tensor_set_full, driven_step_tensor_get_full).
 
-    CATEGORY E — Rich-state vs graph mismatch (7 opcodes, abs_phase1 only):
-      MORPH/MORPH_ID/MORPH_DELETE/MORPH_ASSERT/MORPH_GET:
-        GAP HERE under abs_phase1 only. These are fully proven in
-        GraphReconstructionBridge.v (driven_step_morph/morph_id/morph_delete/
-        morph_assert/morph_get, all Qed) under extended_hw_invariant +
-        abs_full_snapshot. SupportedOpcode excludes them because they need
-        the richer abstraction.
-      COMPOSE:
-        GAP HERE under abs_phase1 only. Fully proven in GraphReconstructionBridge.v
-        (driven_step_compose, Qed) under extended_hw_invariant.
-      MORPH_TENSOR:
-        GAP HERE under abs_phase1 only. Fully proven in GraphReconstructionBridge.v
-        (driven_step_morph_tensor, Qed) under extended_hw_invariant.
+    CATEGORY E: morphism tables (7 opcodes):
+      MORPH/MORPH_ID/MORPH_DELETE/MORPH_ASSERT/MORPH_GET/COMPOSE/MORPH_TENSOR:
+        abs_phase1 does not read the morphism tables. Proved in
+        GraphReconstructionBridge.v (driven_step_morph_full,
+        driven_step_morph_id_full, driven_step_morph_delete,
+        driven_step_morph_assert, driven_step_morph_get,
+        driven_step_compose, driven_step_morph_tensor) under
+        abs_full_snapshot and the preconditions of WFDrivenPrecondition.
 
-    This is the correct abstraction boundary: SupportedOpcode is right for
-    abs_phase1 (partition-only). The full coverage of the 46 instructions lives in
-    GraphReconstructionBridge.v under abs_full_snapshot. *)
+    The coverage of all 51 instructions is
+    GraphReconstructionBridge.driven_step_wf under abs_full_snapshot. *)
 Definition SupportedOpcode (i : vm_instruction) : Prop :=
   match i with
   | instr_pnew _ _              => False
@@ -565,7 +554,7 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §8  Per-opcode embed_step for the remaining 18 opcodes
+   §8  Per-opcode embed_step for LJOIN, EMIT, PDISCOVER and REVEAL
    *)
 
 (** Helper: abs_phase1 of kami_advance_default equals advance_state
@@ -664,22 +653,17 @@ Proof.
 Qed.
 
 (** --- MORPH_DELETE --- *)
-(** --- MORPH_DELETE --- *)
-(** NOTE: Morph/tensor instructions have different semantics in
-    kami_step (rich-state bounded tables) and vm_apply (partition graph).
-    The abs_phase1 embedding does not hold unconditionally for these
-    instructions.  Full equivalence is established via FullAbstraction.v
-    using the full-state abstraction function (abs_full_snapshot). *)
+(** NOTE: the morph and tensor instructions write the morphism tables and
+    the module tensors, which [abs_phase1] does not read, so the
+    [abs_phase1] embedding does not state them. Their commutation is
+    [GraphReconstructionBridge.driven_step_wf] over [abs_full_snapshot]. *)
 
 (** --- TENSOR_SET --- *)
-(** See NOTE above.  kami_step uses kami_advance_default while vm_apply
-    uses graph_update_module_tensor with tensor_indices_ok validation. *)
+(** See NOTE above.  kami_step writes snap_module_tensors; vm_apply uses
+    graph_update_module_tensor with tensor_indices_ok validation. *)
 
 (** --- MORPH/COMPOSE/MORPH_ID/MORPH_TENSOR/MORPH_GET/TENSOR_GET --- *)
-(** See NOTE above for MORPH_DELETE.  All morph and tensor instructions
-    use rich-state tables in kami_step and partition graph operations in
-    vm_apply, so FullAbstraction states their equivalence instead of the
-    abs_phase1 embedding. *)
+(** See NOTE above for MORPH_DELETE. *)
 
 (** --- REVEAL --- *)
 Theorem embed_step_reveal :
@@ -706,7 +690,7 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §7  Graph opcodes: PNEW, PSPLIT, PMERGE
+   §9  Graph opcodes: PNEW, PSPLIT, PMERGE
    These require well-formedness preconditions on the partition table.
    *)
 
@@ -872,10 +856,8 @@ Proof.
 Qed.
 
 (** --- PSPLIT --- *)
-(** PSPLIT is IRREDUCIBLE for full commutation: kami_step uses kami_advance_default
-    which does NOT update the partition table, while vm_apply calls graph_hw_psplit.
-    The hardware treats partition ops as opaque metadata not affecting execution.
-    We prove the weaker existence result. *)
+(** The kernel step exists for every PSPLIT. Full commutation under a
+    well-formed table is [EmbedStep_WF.embed_step_psplit]. *)
 Theorem embed_step_psplit_exists :
   forall (ks : KamiSnapshot) (module : nat) (left_region right_region : list nat) (cost : nat),
     exists vs',
@@ -885,7 +867,8 @@ Proof.
 Qed.
 
 (** --- PMERGE --- *)
-(** PMERGE is similarly IRREDUCIBLE for full commutation for the same reason. *)
+(** The kernel step exists for every PMERGE. Full commutation under a
+    well-formed table is [EmbedStep_WF.embed_step_pmerge]. *)
 Theorem embed_step_pmerge_exists :
   forall (ks : KamiSnapshot) (m1 m2 cost : nat),
     exists vs',

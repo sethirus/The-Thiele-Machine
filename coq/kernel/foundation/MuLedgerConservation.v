@@ -6,7 +6,7 @@ From Kernel Require Import VMState VMStep SimulationProof.
 (** MuLedgerConservation: μ never decreases.
 
     The μ-ledger is the whole point. If it could decrease, No Free Insight would
-    be meaningless — you could "borrow" μ-cost, use the structure, then get a
+    be meaningless; you could "borrow" μ-cost, use the structure, then get a
     refund. This file proves it can't happen. For any execution trace, the final
     μ equals the initial μ plus the sum of instruction costs that actually ran.
     A step changes μ by exactly its declared cost. No refund path exists in
@@ -193,8 +193,9 @@ Fixpoint ledger_sum (entries : list nat) : nat :=
 (** ** Irreversibility counting
 
     Landauer's principle links logically irreversible operations to physical
-    entropy production.  To expose that connection, we conservatively count
-    irreversible bit events per VM instruction and show the µ-ledger lower
+    entropy production.  To expose that connection, this section
+    conservatively counts irreversible bit events per VM instruction and
+    shows that the µ-ledger lower-bounds that count for any bounded execution.
     bounds that count for any bounded execution.  The count is deliberately
     minimal: each instruction contributes at most one irreversible bit, and
     only when it charges a positive µ-cost. That keeps the ledger bound tied
@@ -205,7 +206,7 @@ Definition irreversible_bits (instr : vm_instruction) : nat :=
 
 (** The irreversible-bit counter is intentionally weak: zero-cost instructions
     count as zero, and every positive-cost instruction has at least enough μ
-    to pay for the single bit we count. *)
+    to pay for the single bit counted. *)
 Lemma irreversible_bits_le_cost :
   forall instr, irreversible_bits instr <= instruction_cost instr.
 Proof.
@@ -436,7 +437,7 @@ Qed.
     lets later files talk about blind search work versus sighted certificate
     validation without changing the ledger theorem. *)
 
-(* SCOPE NOTE: abstract section — parameterized theorem.
+(* SCOPE NOTE: abstract section, parameterized theorem.
    Section Variables here are explicit forall premises when the section closes.
    mu_component_split is not a machine-specific assumption; it holds for any
    cost decomposition. All theorems export as explicit forall statements. *)
@@ -518,7 +519,7 @@ End MuDecomposition.
     reads the tail while [final_digest (rev ledger)] reads the head, so no
     general equality is claimed here. *)
 
-(* SCOPE NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section, parameterized theorem.
    Hash, combine, default are type/value parameters for abstract hash algebra.
    All theorems export as explicit forall when section closes. *)
 Section GestaltIsomorphism.
@@ -545,7 +546,7 @@ Section GestaltIsomorphism.
   (** Equality depends on the fact that [final_digest] returns
       [List.last l default], and [List.last (rev l) default]
       equals [hd default l] for non-empty lists.  For the
-      empty case both reduce to [default].  We prove this by
+      empty case both reduce to [default].  The proof is
       structural induction on the ledger. *)
   Lemma final_digest_rev :
     forall ledger,

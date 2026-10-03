@@ -1,4 +1,4 @@
-(** * VerifierEscape_Interaction.v — interaction escape.
+(** * VerifierEscape_Interaction.v: interaction escape.
 
     The bare-setting impossibility ruled out cheap sound verifiers
     seeing only the classical projection. Here is the **interaction
@@ -7,7 +7,7 @@
     deterministic verifier is then sound when the response set is
     rich enough to distinguish μ values.
 
-    Modeling note: we use the *simplest possible* interaction model —
+    Modeling note: this is the *simplest possible* interaction model:
     one round, the prover sends a single value, the verifier checks
     it equals the claimed μ. This is not a serious interactive proof
     system (no error bounds, no public coins, no soundness amplification);
@@ -41,7 +41,7 @@ Definition it_response (t : InteractiveTranscript) : nat := snd t.
 (* -------------------------------------------------------------------- *)
 (** ** Honest prover's response function.
 
-    An honest prover responds with its actual μ. We model honesty as
+    An honest prover responds with its actual μ. Honesty is modeled as
     a property of the (state, response) pair rather than as a
     behavioural restriction.
 *)

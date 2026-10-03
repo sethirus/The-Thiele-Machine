@@ -1,5 +1,5 @@
 (* Active regression proof: compiled by _CoqProject and CI; included in the
-   full assumption receipt. Historical review copies remain under artifacts/. *)
+   full assumption receipt. *)
 From Coq Require Import List Lia Arith.PeanoNat.
 Import ListNotations.
 From Kernel Require Import VMState VMStep SimulationProof.

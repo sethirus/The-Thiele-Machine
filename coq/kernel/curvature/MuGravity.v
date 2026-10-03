@@ -20,7 +20,7 @@
    the machine reaches from init_state, module regions are pairwise disjoint,
    so no two modules are adjacent by region: every module has no neighbors,
    mu-Laplacian 0, angle defect 2π and calibration residual 2π.
-   F3_ReachableGeometry.v proves this; there a state is calibrated only when
+   ReachableGeometry.v proves this; there a state is calibrated only when
    it has no modules.
 *)
 
@@ -218,11 +218,10 @@ Definition module_triangles_adjacent (s : VMState) (m : ModuleID) : list (Module
     AND n1, n2 are themselves mutually adjacent (so {m, n1, n2} forms an actual
     three-cycle in the module-adjacency graph).
 
-    The mutual-adjacency clause (`modules_adjacent_by_region s n1 n2`) is the
-    Phase C1 tightening: without it, the previous definition counted every pair
-    of neighbors as a "triangle", which on K_{1,16} produces 120 spurious
-    "triangles" through the center even though the graph contains zero actual
-    3-cycles. *)
+    The mutual-adjacency clause (`modules_adjacent_by_region s n1 n2`) is what
+    makes these actual triangles: counting every pair of neighbors would give
+    120 "triangles" through the center of K_{1,16}, which contains zero
+    actual 3-cycles. *)
 Definition module_triangles (s : VMState) (m : ModuleID) : list (ModuleID * ModuleID) :=
   let neighbors := module_neighbors s m in
   flat_map (fun n1 =>
@@ -438,31 +437,6 @@ Definition flat_at_module (s : VMState) (m : ModuleID) : Prop :=
     a proper Ricci sum (not just the angle-defect re-export), this
     relation becomes a real theorem. *)
 
-(** Bridge calibration predicate.
-
-  This file keeps the geometric↔analytic link explicit as a local
-  hypothesis rather than hiding it in definitions. *)
-
-(** Bridge extraction lemma: calibrated equality can be used directly.
-
-  Makes calibration obligations explicit in the proof graph.
-  angle_defect_equals_laplacian, curvature_stress_balance.
-
-  Any state/module violating calibration hypothesis blocks this bridge. *)
-(** Interface projection: re-exposes the calibration equality as a
-    named typing landmark. This is literally the identity function on
-    the calibration hypothesis — that is its intent (the well_formed
-    and bound hypotheses are advisory, not used in the conclusion).
-    Definition-with-proof-term form. *)
-Definition curvature_laplacian_relation
-  (s : VMState) (m : nat)
-  (_Hwf : well_formed_graph (vm_graph s))
-  (_Hm : (m < pg_next_id (vm_graph s))%nat)
-  (Hcal : angle_defect_curvature s m = (curvature_coupling * mu_laplacian s m)%R) :
-  angle_defect_curvature s m = (curvature_coupling * mu_laplacian s m)%R :=
-  Hcal.
-
-
 (*
    PROVEN RELATIONSHIP: Discrete Gauss-Bonnet for Triangulated Surfaces
 
@@ -478,7 +452,7 @@ Definition curvature_laplacian_relation
    - 5π*χ = 15.707963
    - Error: 0.00004% (machine precision)
 
-   The factor 5 (not 2) comes from our discretization:
+   The factor 5 (not 2) comes from the discretization:
    - Each triangle contributes angles summing to π
    - Angle defects measure deviation from flatness
    - The discrete formulation gives 5π*χ exactly
@@ -547,7 +521,6 @@ Qed.
 (** Stress-energy is well-defined for all module queries.
 
   Stress-energy is a total function of the supplied VM state and module.
-  einstein_equation and summary theorem packaging.
 
   The value itself supplies the existential witness.
   (Impossible in total Coq definition, so proof is reflexive.) *)
@@ -586,17 +559,13 @@ Definition einstein_tensor (s : VMState) (m : ModuleID) : R :=
     The proof rewrites [einstein_tensor s m] to [1/2 * ricci_curvature s m]
     via [lra] on the [scalar_curvature]/[metric_volume] conventions.
 
-    DEPENDENCY:
-    curvature_stress_balance -> einstein_balance_implies_tensor_relation ->
-    einstein_equation. *)
+    DEPENDENCY: the balance premise ricci_curvature = 16πG·T is supplied by
+    the caller; this lemma converts it to the Einstein-tensor form. *)
 Lemma einstein_balance_implies_tensor_relation : forall s m,
-  well_formed_graph (vm_graph s) ->
-  (m < pg_next_id (vm_graph s))%nat ->
   ricci_curvature s m = (16 * PI * gravitational_constant * stress_energy s m)%R ->
   einstein_tensor s m = (8 * PI * gravitational_constant * stress_energy s m)%R.
 Proof.
-  intros s m Hwf Hm Hbalance.
-  pose proof (curvature_laplacian_relation s m Hwf Hm) as Hconn.
+  intros s m Hbalance.
   (* Normal form: under the kernel's scalar/volume conventions,
      [einstein_tensor s m] reduces to [1/2 * ricci_curvature s m]. *)
   assert (Hnf : einstein_tensor s m = (1/2 * ricci_curvature s m)%R).
@@ -613,7 +582,7 @@ Qed.
 
 (** Documentation note:
     In this kernel formalization, Einstein balance is proven from explicit
-    local calibration hypotheses (curvature_laplacian_calibrated and source
+    local calibration hypotheses (the angle-defect/Laplacian calibration and source
     normalization), rather than from a continuum variational derivation.
     This keeps the dependency surface explicit and testable at VM level. *)
 
@@ -777,7 +746,7 @@ Definition eventual_einstein_ready (trace : list vm_instruction) (s : VMState) (
 
 (**
   SECTION 6B: BOUNDED DESCENT UNDER RESTRICTED DYNAMICS
-  Section 6 introduced dynamic obligations. This subsection proves a first
+  The definitions above state dynamic obligations. This subsection proves a first
   nontrivial dynamic guarantee: for a restricted (graph-preserving) instruction
   class, calibration residual cannot increase along execution.
 
@@ -2034,7 +2003,7 @@ Qed.
 (**
   SECTION 6G: EXPLICIT SCHEDULER MECHANISM CONTRACT
   [run_vm] executes whatever instruction sits at [vm_pc]. To state a concrete
-  mechanism-of-action, we make the scheduler obligation explicit: when residual
+  mechanism-of-action, the scheduler obligation is explicit: when residual
   is positive, the selected instruction is active and cost-minimal vs safe.
 
   CORE RESULT:

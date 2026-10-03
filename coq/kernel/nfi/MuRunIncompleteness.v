@@ -1,9 +1,9 @@
-(** MuRunIncompleteness.v — μ is NOT a complete invariant of a run.
+(** MuRunIncompleteness.v: μ is NOT a complete invariant of a run.
 
     NecessityAbstract.v proves, over *arbitrary* VMStates, that vm_mu,
     vm_certified, and vm_graph are three mutually independent trans-classical
     components (thiele_state_three_component_independence). Those separations
-    use hand-built witness states — fine for the projection-level statement,
+    use hand-built witness states, which is fine for the projection-level statement,
     but they leave one seam open: are the witnesses *runs*? A natural sharper
     question is whether μ becomes complete once you restrict to genuine
     executions:
@@ -17,12 +17,12 @@
 
       certified axis : [certify 2]  vs  [pnew [] 3]
                        certify 2 costs S 2 = 3; pnew [] 3 costs 3. Both leave
-                       mem/regs untouched, advance pc to 1, land at μ = 3 —
+                       mem/regs untouched, advance pc to 1, land at μ = 3,
                        and one is certified, the other is not.
 
       graph axis     : [pnew [] 0]  vs  [mdlacc 0 0]
                        both cost 0, advance pc to 1, leave mem/regs/μ/certified
-                       identical — but pnew conses a module onto the partition
+                       identical. But pnew conses a module onto the partition
                        graph and mdlacc does not, so the graphs differ.
 
     Consequence: even restricted to reachable runs, μ is not a complete
@@ -33,7 +33,7 @@
     standing guard against the reading that μ is THE universal forgotten
     coordinate. The narrow, true factoring statement remains
     MuInitiality.monotone_factors_through_mu: it holds only for
-    instruction-consistent, nat-valued cost functionals — a class that
+    instruction-consistent, nat-valued cost functionals, a class that
     excludes vm_certified (a bool that flips independent of cost) and vm_graph. *)
 
 From Coq Require Import List Arith.PeanoNat.
@@ -44,7 +44,7 @@ From Kernel Require Import MuInitiality.
 From Kernel Require Import NecessityAbstract.
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §1.  CERTIFIED AXIS — equal (mem, regs, pc, μ), differing vm_certified.
+    §1.  CERTIFIED AXIS: equal (mem, regs, pc, μ), differing vm_certified.
     ═══════════════════════════════════════════════════════════════════════════ *)
 
 Definition run_certify : VMState := exec_trace_from init_state [instr_certify 2].
@@ -132,7 +132,7 @@ Proof.
 Qed.
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §2.  GRAPH AXIS — equal (mem, regs, pc, μ, certified), differing vm_graph.
+    §2.  GRAPH AXIS: equal (mem, regs, pc, μ, certified), differing vm_graph.
 
     Witnesses: pnew [] 0 (conses one module) vs mdlacc 0 0 (graph-preserving
     no-op). The mdlacc helper lemmas below mirror the abs_pnew_* lemmas already
@@ -279,7 +279,7 @@ Proof.
 Qed.
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §3.  HEADLINE — μ is not the universal forgotten coordinate, over runs.
+    §3.  HEADLINE: μ is not the universal forgotten coordinate, over runs.
 
     Both axes at once: there are run-determined, classically-invisible fields
     (vm_certified and vm_graph) that do NOT factor through μ even when the

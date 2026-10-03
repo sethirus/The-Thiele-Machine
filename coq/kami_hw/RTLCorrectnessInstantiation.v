@@ -125,12 +125,11 @@ Qed.
 
     This file achieves the following formal guarantees:
     (1) The identity instantiation uses [full_state_trace_bisimulation]
-        with [coq_full_wire_spec] for both sides — no Section Variables
+        with [coq_full_wire_spec] for both sides; no Section Variables
         needed, no global Axioms.
     (2) All three corollaries are derived from the closed base theorem
         without any additional assumptions.
 
-    Physical instantiation (Verilog RTL):
-    - 31/31 co-simulation tests supply empirical validation
-    - kami_hw/Abstraction.v supplies constructive KamiSnapshot evidence
-    - The Section-Variable architecture keeps Coq logically sound *)
+    Physical instantiation (Verilog RTL): this file states nothing about
+    it. The co-simulation tests compare the generated RTL with the
+    extracted VM; they are tests, not proofs. *)

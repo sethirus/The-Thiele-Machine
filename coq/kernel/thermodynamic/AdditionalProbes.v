@@ -1,4 +1,4 @@
-(** * AdditionalProbes — three more physical bounds factored through
+(** * AdditionalProbes: three more physical bounds factored through
       the same unification pattern.
 
     The probes Landauer, classical-Holevo, Holevo-d=2, Bekenstein, and
@@ -23,7 +23,7 @@ From Coq Require Import Reals Lra.
 
 Local Open Scope R_scope.
 
-(** ** Section 1 — Margolus-Levitin bound.
+(** ** Section 1: Margolus-Levitin bound.
 
     For any quantum system in a state with mean energy [E] above the
     ground state, the minimum time to evolve to an orthogonal state
@@ -33,7 +33,7 @@ Local Open Scope R_scope.
     side primitive is "an orthogonal evolution event" (one bit of
     distinguishable transition). *)
 
-(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER. The Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    The hbar/E/t positivity are physical positivity preconditions; the
@@ -80,13 +80,13 @@ Section MargolusLevitin.
 
 End MargolusLevitin.
 
-(** ** Section 2 — Lloyd's computational speed limit.
+(** ** Section 2: Lloyd's computational speed limit.
 
     From Margolus-Levitin: with mean energy [E], the maximum number
     of distinguishable operations per second is bounded by
     [2 · E / (π · ℏ)]. *)
 
-(* SCOPE NOTE: SECTION PARAMETER — same discipline as the
+(* SCOPE NOTE: SECTION PARAMETER. Same discipline as the
    MargolusLevitin Section above. Variable/Hypothesis declarations are
    section parameters becoming EXPLICIT FORALL premises on each theorem
    when the Section closes. Constants positivity is physical
@@ -109,7 +109,7 @@ Section LloydBound.
     ops_per_second <= 2 * E / (PI * hbar).
 
   (** Lloyd's bound: trivial restatement of the named axiom. The
-      substantive content is in the axiom itself — Lloyd showed it
+      substantive content is in the axiom itself; Lloyd showed it
       follows from Margolus-Levitin. *)
   Theorem lloyd_bound :
     ops_per_second <= 2 * E / (PI * hbar).
@@ -152,7 +152,7 @@ Section LloydBound.
 
 End LloydBound.
 
-(** ** Section 3 — Bekenstein-Hawking area law.
+(** ** Section 3: Bekenstein-Hawking area law.
 
     For a black hole, the entropy in nats (per k_B) is
 
@@ -163,7 +163,7 @@ End LloydBound.
     substrate inputs are [G, c, ℏ]. The information-side primitive
     is the horizon area itself. *)
 
-(* SCOPE NOTE: SECTION PARAMETER — Variable/Hypothesis declarations
+(* SCOPE NOTE: SECTION PARAMETER. Variable/Hypothesis declarations
    in this Section are section parameters becoming EXPLICIT FORALL
    premises on each theorem when the Section closes. Constants
    positivity (hbar, c_light, G_newton, A_horizon) is physical
@@ -207,7 +207,7 @@ Section AreaLawBekensteinHawking.
 
 End AreaLawBekensteinHawking.
 
-(** ** Section 4 — what these three probes show.
+(** ** Section 4: what these three probes show.
 
     All three probes have the factoring shape:
       physical_observable = substrate_constants × information_primitive

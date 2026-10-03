@@ -1,7 +1,7 @@
-(** F3_ReachableGeometry: the geometry the machine reaches.
+(** ReachableGeometry: the geometry the machine reaches.
 
     The curvature files (DiscreteTopology.v, MuGravity.v, DiscreteGaussBonnet.v)
-    and the F3 files state their theorems for every partition graph and every
+    and the calibration cross-link files state their theorems for every partition graph and every
     VM state. A graph with shared addresses can be read as a surface: modules
     whose regions meet are neighbors, a module with three addresses is a
     triangle, and two triangles that share two addresses share an edge.
@@ -29,14 +29,14 @@
        well-formed triangulated graph (one triangle), so item 3 is not about
        an empty class.
 
-    The theorems of the curvature and F3 files stay theorems about partition
+    The theorems of the curvature and calibration cross-link files stay theorems about partition
     graphs in general. On the machine's reachable states their hypotheses of
     shared edges and calibration do not hold, by items 1 to 3. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Reals Lra ZArith Bool.
 Import ListNotations.
 From Kernel Require Import VMState VMStep SimulationProof MuInitiality.
-From Kernel Require Import DiscreteTopology MuGravity F3_CalibrationObstruction.
+From Kernel Require Import DiscreteTopology MuGravity CalibrationObstruction.
 
 (** * Disjoint regions and distinct numbers on reachable states *)
 
@@ -210,7 +210,7 @@ Proof.
 Qed.
 
 (** reachable_calibrated_iff_no_modules. A state reachable from
-    [init_state] is calibrated ([calibrated], F3_CalibrationObstruction.v)
+    [init_state] is calibrated ([calibrated], CalibrationObstruction.v)
     exactly when it has no modules. *)
 Theorem reachable_calibrated_iff_no_modules : forall s,
   vm_reachable init_state s ->

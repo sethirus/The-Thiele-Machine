@@ -23,7 +23,7 @@ Definition dispatch_fetch_action : Action Void :=
         Read lassert_phase_v : Bit 3 <- "lassert_phase";
         Assert (#lassert_phase_v == $0);
 
-        (* Morphism-coupling FSM (M5): step rule also inhibited while a
+        (* Morphism-coupling FSM: step rule also inhibited while a
            MORPH/COMPOSE coupling computation is in progress,
            same pattern as the LASSERT and CHSH_LASSERT FSMs. *)
         Read mc_phase_v : Bit 4 <- "mc_phase";
@@ -85,7 +85,7 @@ Definition dispatch_fetch_action : Action Void :=
         Read desc_meta_valid_table_v : Vector Bool DescMetaIdxSz <- "desc_meta_valid_table";
         Read desc_meta_next_id_v : Bit DescTableNextIdSz <- "desc_meta_next_id";
 
-        (* Witness counter registers — 8-bucket CHSH trial state *)
+        (* Witness counter registers: 8-bucket CHSH trial state *)
         Read wc_same_00_v : Bit WordSz <- "wc_same_00";
         Read wc_diff_00_v : Bit WordSz <- "wc_diff_00";
         Read wc_same_01_v : Bit WordSz <- "wc_same_01";
@@ -96,7 +96,7 @@ Definition dispatch_fetch_action : Action Void :=
         Read wc_diff_11_v : Bit WordSz <- "wc_diff_11";
 
         (* Bianchi conservation check: tensor_total must not exceed mu.
-           Check BEFORE executing the instruction (matches handwritten RTL). *)
+           Checked before the instruction executes. *)
         LET t0 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~0~0)];
         LET t1 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~0~1)];
         LET t2 : Bit WordSz <- #mu_tensor_v@[$$(WO~0~0~1~0)];

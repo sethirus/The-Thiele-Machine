@@ -1,4 +1,4 @@
-(** Assumptions audit probe — runs Print Assumptions against the consequential
+(** Assumptions audit probe: runs Print Assumptions against the consequential
     top-level claims in [Kernel.MasterSummary]. Output is captured by coqc and
     pinned to artifacts/print_assumptions_master_summary.txt.
 

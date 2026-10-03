@@ -258,7 +258,7 @@ Proof.
 Qed.
 
 (** Abstract embedding helper for reuse in VM/Thiele contexts. *)
-(* SCOPE NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section, parameterized theorem.
    Section Variables become explicit forall premises when the section closes. *)
 Section Embedding.
   Variable Encoded : Type.

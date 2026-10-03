@@ -1,4 +1,4 @@
-(** * HolevoTwoQubit — Holevo's bound at d = 2.
+(** * HolevoTwoQubit: Holevo's bound at d = 2.
 
     The classical floor in [HolevoDimensional.v] gives [log_2 n] for
     the accessible information from an [n]-element substrate. For a
@@ -28,7 +28,7 @@ From Coq Require Import Reals Lra Rpower.
 
 Local Open Scope R_scope.
 
-(** ** Section 1 — Key real-analysis lemma: ln x ≤ x − 1.
+(** ** Section 1. Key real-analysis lemma: ln x ≤ x − 1.
 
     Proof: from [exp_ineq1_le : 1 + x ≤ exp x] applied at [x - 1] and
     taking logarithms. *)
@@ -51,7 +51,7 @@ Proof.
     lra.
 Qed.
 
-(** ** Section 2 — Binary entropy in nats.
+(** ** Section 2: Binary entropy in nats.
 
     For [p ∈ (0,1)], [H_bin(p) := −p · ln p − (1 − p) · ln (1 − p)].
     The endpoints [p = 0] and [p = 1] are handled by Coq's convention
@@ -60,7 +60,7 @@ Qed.
 Definition binary_entropy_nats (p : R) : R :=
   - p * ln p - (1 - p) * ln (1 - p).
 
-(** ** Section 3 — Binary entropy upper bound: H_bin(p) ≤ ln 2 for 0 < p < 1.
+(** ** Section 3. Binary entropy upper bound: H_bin(p) ≤ ln 2 for 0 < p < 1.
 
     Proof: Gibbs' inequality applied to (p, 1−p) vs (1/2, 1/2). Use
     [ln x ≤ x − 1] to bound the cross terms.
@@ -131,7 +131,7 @@ Qed.
 
 (** Endpoints: at [p = 0] or [p = 1], [H_bin = 0] (using Coq's
     convention [0 * _ = 0]). Note: Coq's [ln 0] depends on the
-    convention; we use the fact that the [0 *] factor always
+    convention; the [0 *] factor always
     swallows it. *)
 
 Lemma binary_entropy_nats_at_0 : binary_entropy_nats 0 = 0.
@@ -184,7 +184,7 @@ Proof.
       rewrite binary_entropy_nats_at_1. apply Rle_refl.
 Qed.
 
-(** ** Section 4 — 2x2 real density matrices.
+(** ** Section 4: 2x2 real density matrices.
 
     A real 2x2 density matrix is parameterised by [a ∈ [0, 1]] and
     [b] with [b² ≤ a(1−a)]. The matrix is
@@ -202,7 +202,7 @@ Record density_2x2 : Type := {
   d_psd : d_b * d_b <= d_a * (1 - d_a)
 }.
 
-(** ** Section 5 — Eigenvalues.
+(** ** Section 5: Eigenvalues.
 
     Trace [a + (1−a) = 1]; determinant [det = a(1−a) − b²].
     Eigenvalues: [(1 ± √(1 − 4·det)) / 2 = (1 ± √((1−2a)² + 4b²))/2].
@@ -268,7 +268,7 @@ Proof.
   intro rho. pose proof (lambda_plus_range rho). lra.
 Qed.
 
-(** ** Section 6 — Von Neumann entropy via the dominant eigenvalue.
+(** ** Section 6: Von Neumann entropy via the dominant eigenvalue.
 
     For a 2x2 density matrix, [S(ρ) = −λ₊ ln λ₊ − λ₋ ln λ₋ =
     H_bin(λ₊)]. *)
@@ -296,15 +296,15 @@ Proof.
   apply lambda_plus_in_unit.
 Qed.
 
-(** ** Section 7 — Holevo quantity for a binary ensemble.
+(** ** Section 7: Holevo quantity for a binary ensemble.
 
     Given two density matrices [ρ_0, ρ_1] and a probability [p], the
     Holevo quantity is
 
       χ = S(ρ_avg) − p · S(ρ_0) − (1−p) · S(ρ_1)
 
-    where [ρ_avg = p · ρ_0 + (1−p) · ρ_1]. We expose [ρ_avg] as a
-    parameter (so the consumer can supply it) and state the
+    where [ρ_avg = p · ρ_0 + (1−p) · ρ_1]. [ρ_avg] is a
+    parameter (so the consumer can supply it), and the statement takes the
     average-property as a hypothesis. The bound does not depend on
     the average-property for its proof, but the hypothesis is
     documented so the theorem statement is honest about its intent. *)
@@ -320,7 +320,7 @@ Definition holevo_chi
   - p * vn_entropy_nats rho_0
   - (1 - p) * vn_entropy_nats rho_1.
 
-(** ** Section 8 — Headline: Holevo bound at d = 2.
+(** ** Section 8. Headline: Holevo bound at d = 2.
 
     For any binary ensemble at d = 2, [χ ≤ ln 2]. *)
 

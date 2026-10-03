@@ -117,7 +117,7 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
     - pmerge: removes 2, may add 0 or 1 (net -2 or -1)
     - others: no change
     
-    For information loss, we care about whether the count decreases
+    For information loss, the question is whether the count decreases
     (information is lost) or stays the same/increases (information preserved).
     
     The key insight: module count INCREASE means info can only stay same or decrease
@@ -476,7 +476,7 @@ Qed.
     - For pmerge, the cost parameter must be >= 2 (the max info loss)
     - For other instructions, info_loss <= 0 always
     
-    We prove the signed bound: cost >= info_loss.
+    Proved: the signed bound cost >= info_loss.
     *)
 
 (** Helper: pmerge info loss is bounded by 2 *)
@@ -500,7 +500,7 @@ Qed.
     - For pmerge: info_loss <= 2, requires cost >= 2 
     - For other instructions: info_loss = 0, so cost >= 0 >= info_loss
     
-    We define a well-formed instruction predicate.
+    A well-formed instruction predicate.
     *)
 
 (** A well-formed pmerge must have cost >= 2 to cover maximum info loss *)

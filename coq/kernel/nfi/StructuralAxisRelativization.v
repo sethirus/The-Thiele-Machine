@@ -1,10 +1,10 @@
-(** StructuralAxisRelativization.v — Rungs B and C of the orthogonality ladder,
-    done in the frame the construction actually lives in.
+(** StructuralAxisRelativization.v: Rungs B and C of the orthogonality ladder,
+    in the frame the construction lives in.
 
-    Rung A (StructuralAxisOrthogonality.v) showed the structural-shortcut reading
+    Rung A (StructuralAxisOrthogonality.v) shows the structural-shortcut reading
     is not a function of the classical (Turing) configuration [forget s]. This
-    file pushes that to the remaining rungs — and corrects the frame the original
-    blueprint used for Rung C.
+    file carries that to the remaining rungs, and states Rung C in the
+    information-theoretic frame rather than as Turing-degree incomparability.
 
     ── Rung B: survives any classical oracle (relativized orthogonality). ───────
     A classical decider may be handed an oracle. But a *classical* oracle answers
@@ -18,26 +18,26 @@
     by any oracle, information that is not in the input. That is the whole
     difference between the two axes.
 
-    ── Rung C: mutual independence — and why "Turing-degree incomparability" is
+    ── Rung C: mutual independence, and why "Turing-degree incomparability" is
        the wrong instrument. ───────────────────────────────────────────────────
-    The blueprint's Rung C asked for Turing-degree incomparability of the two
-    axes. That is the wrong frame, and it is provably so:
+    Turing-degree incomparability of the two axes is the wrong frame for
+    Rung C, and it is provably so:
 
       [structural_membership_decidable] below proves the structural-shortcut set
-      is DECIDABLE from the full VMState — it is a total Boolean function of the
+      is DECIDABLE from the full VMState; it is a total Boolean function of the
       state. A decidable set is Turing degree 0: it sits *below* halting, hence
       it is Turing-COMPARABLE to the classical axis, not incomparable. (More
-      generally, any genuinely undecidable predicate of this Turing-complete VM —
-      e.g. "does this program ever fire the cert channel?" — is ≡_T halting, the
+      generally, any genuinely undecidable predicate of this Turing-complete VM
+      (e.g. "does this program ever fire the cert channel?") is ≡_T halting, the
       same degree. Two predicates of one Turing-complete machine cannot be
       incomparable degrees.)
 
     So the genuine independence of the two axes is NOT degree-theoretic; it is
     information-theoretic: each axis is not a function of the other's projection.
     [axes_mutually_independent] states exactly that, with reachable witnesses on
-    both sides. This is the honest Rung C: the strongest true statement, in the
-    frame where the phenomenon is real, with a theorem ([..._decidable]) that
-    actively forecloses the degree-theoretic over-reading.
+    both sides. This is Rung C: the strongest true statement, in the frame
+    where the phenomenon is real, with a theorem ([..._decidable]) that
+    forecloses the degree-theoretic over-reading.
 
     NO COQ AXIOMS. NO ADMITS. *)
 
@@ -50,12 +50,12 @@ From Kernel Require Import BlindnessRepresentation.
 From Kernel Require Import StructuralAxisOrthogonality.
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §1.  RUNG B — the obstruction survives any classical oracle.
+    §1.  RUNG B: the obstruction survives any classical oracle.
     ═══════════════════════════════════════════════════════════════════════════ *)
 
 (** A classical oracle of *any* answer type [A] is a function of the classical
     configuration [forget s]. A decider that reads the classical configuration
-    and consults such an oracle is therefore *still* a function of [forget s] —
+    and consults such an oracle is therefore *still* a function of [forget s];
     so Rung A's keystone defeats it. No oracle can supply information the
     classical configuration does not contain. *)
 Theorem structural_axis_survives_any_classical_oracle :
@@ -71,8 +71,8 @@ Qed.
 
 (** The headline case: even given a halting oracle on the classical
     configuration, no classical decider is correct about structural-shortcut
-    admittance. This is the relativized form of Rung A — Baker–Gill–Solovay's
-    question for this predicate — and it holds because the impossibility is
+    admittance. This is the relativized form of Rung A (Baker–Gill–Solovay's
+    question for this predicate), and it holds because the impossibility is
     information-theoretic, not computational. *)
 Corollary structural_axis_survives_halting_oracle :
   forall (halts : TMSnapshot -> bool) (decode : TMSnapshot -> bool -> bool),
@@ -100,11 +100,11 @@ Proof.
 Qed.
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §2.  RUNG C, reverse direction — a classical quantity is not a function of
+    §2.  RUNG C, reverse direction: a classical quantity is not a function of
          the structural channel either.
 
-    [struct_only] keeps only the structural channel [csr_cert_addr] — the field
-    [forget] drops — and discards the classical configuration. Two reachable
+    [struct_only] keeps only the structural channel [csr_cert_addr] (the field
+    [forget] drops) and discards the classical configuration. Two reachable
     states ([init_state] and [run_cert_unset]) share [struct_only = 0] but differ
     on the classical quantity [vm_pc] (0 vs 3). So [vm_pc] is not a function of
     the structural channel.
@@ -136,12 +136,12 @@ Proof.
 Qed.
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §3.  RUNG C — mutual information-theoretic independence.
+    §3.  RUNG C: mutual information-theoretic independence.
 
     Neither axis is a function of the other's projection: the structural reading
     is not a function of the classical configuration (Rung A), and the classical
     program counter is not a function of the structural channel (§2). This is the
-    honest "the two axes are independent" — in the information-theoretic frame,
+    honest "the two axes are independent", in the information-theoretic frame,
     where it is true.
     ═══════════════════════════════════════════════════════════════════════════ *)
 
@@ -159,10 +159,10 @@ Proof.
 Qed.
 
 (** ═══════════════════════════════════════════════════════════════════════════
-    §4.  Why this is NOT Turing-degree incomparability — and must not be read so.
+    §4.  Why this is NOT Turing-degree incomparability, and must not be read so.
 
     The structural-shortcut set is decidable from the full state: membership is a
-    total Boolean function. A decidable set is Turing degree 0 — below halting,
+    total Boolean function. A decidable set is Turing degree 0: below halting,
     hence COMPARABLE to the classical axis. The independence in §3 is therefore
     information-theoretic (projection loss), not degree-theoretic. This theorem
     is the formal guard against reading [axes_mutually_independent] as a

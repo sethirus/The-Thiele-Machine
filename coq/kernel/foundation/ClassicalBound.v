@@ -28,15 +28,15 @@ From Kernel Require Import VMState VMStep CHSHExtraction MuCostModel.
 From Kernel Require Import SimulationProof CHSHStatisticalBridge.
 
 (** classical_chsh_value: The target - exactly 2.
-  Bell's classical bound (1964): local hidden variable models — where Alice's
+  Bell's classical bound (1964): local hidden variable models, where Alice's
   output depends only on (x, shared randomness) and Bob's only on
-  (y, shared randomness) — can achieve at most CHSH=2. This file shows that
+  (y, shared randomness), can achieve at most CHSH=2. This file shows that
   maximum is attainable.
 *)
 Definition classical_chsh_value : Q := 2%Q.
 
 (** shared_random_bit: The classical correlation source.
-  Alice and Bob share a random bit before the experiment — pure classical
+  Alice and Bob share a random bit before the experiment: pure classical
   correlation, no μ-cost, no structural operations. There are 4 equivalent
   optimal strategies (one per shared bit value). I fix it to 0 to show one
   of them. The bit is fixed at the start; a(x, shared) and b(y, shared) are
@@ -47,12 +47,12 @@ Definition classical_chsh_value : Q := 2%Q.
 Definition shared_random_bit : nat := 0%nat.
 
 (** alice_classical_output: Alice's deterministic strategy.
-  LOCAL function — depends only on (x, shared), not on Bob's input y or
+  LOCAL function: depends only on (x, shared), not on Bob's input y or
   output b. That's what "classical" means. With shared=0: x=0 → 0, x=1 → 0.
   This is one of the optimal deterministic strategies: if Alice and Bob both
   output 0 most of the time, they maximize E00, E01, E10 and minimize E11,
   giving S = E00 + E01 + E10 - E11 = 2. Factorizability: a depends only on
-  (x, shared), not on y — Alice and Bob are statistically independent given
+  (x, shared), not on y; Alice and Bob are statistically independent given
   the shared randomness.
 *)
 Definition alice_classical_output (x : nat) (shared : nat) : nat :=
@@ -65,7 +65,7 @@ Definition alice_classical_output (x : nat) (shared : nat) : nat :=
   end.
 
 (** bob_classical_output: Bob's deterministic strategy.
-  LOCAL function — depends only on (y, shared), not on Alice's input x.
+  LOCAL function: depends only on (y, shared), not on Alice's input x.
   With shared=0: y=0 → 0, y=1 → 0. Mirrors Alice's strategy. Both output 0
   for both inputs when shared=0, so all four (x,y) pairs give matching outputs:
   E00 = E01 = E10 = E11 = +1 → S = 1+1+1-1 = 2. That's the classical bound. ✓

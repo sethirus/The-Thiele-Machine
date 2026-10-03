@@ -1,6 +1,6 @@
 (** RichFaultRetireMaster.v: generated. dd_rich_fault falsity for each
     of RetireMaster.v's 55 admitted constructors' own fetched word, cited
-    verbatim against RichFaultMaster.v's three general theorems -- the
+    verbatim against RichFaultMaster.v's three general theorems: the
     room bound each corollary needs (MORPH_ID, MORPH_EXT, COMPOSE_EXT and
     their fault siblings only) is exactly the premise that constructor
     already carries in RetireMaster.v, extracted mechanically from that

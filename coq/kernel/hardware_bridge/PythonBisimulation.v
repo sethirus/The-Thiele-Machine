@@ -17,8 +17,8 @@ From Kernel Require Import VMState VMStep SimulationProof.
 
 (** ** Abstract Python State Representation
     
-    This record mirrors the Python State class in thielecpu/state.py.
-    The concrete Python implementation maintains these same fields.
+    This record is the Coq-side cost/PC abstraction of the Python VM
+    (thielecpu/vm.py, a wrapper over the extracted OCaml runner).
     *)
 
 Record PythonState := {
@@ -104,7 +104,7 @@ Proof.
   simpl.
   (* Destruct on instruction to handle each case *)
   destruct instr; simpl in Hinc; try discriminate;
-  (* Now we only have non-jump instructions left *)
+  (* Only non-jump instructions remain *)
   inversion Hstep; subst; simpl; unfold advance_state, advance_state_reveal, advance_state_rm;
   simpl; rewrite Hpc; reflexivity.
 Qed.
@@ -155,7 +155,7 @@ Qed.
 (** ** Full-State Python Mirror
 
     The abstract PC/μ model above is intentionally small.  For full-state
-    refinement work we also expose a Python-facing mirror of the VM state
+    refinement work there is also a Python-facing mirror of the VM state
     surface.  This mirror is pure Coq: it is the proof-facing model
     corresponding to the richer runtime protocol layer used by the generated
     Python wrapper.

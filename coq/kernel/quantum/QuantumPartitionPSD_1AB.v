@@ -284,7 +284,7 @@ Qed.
     coefficient matrix is a 4×4 PSD condition which is exactly the
     Q_{1+AB} column-contractivity predicate.
 
-    Concretely, we decompose
+    Concretely, the decomposition is
 
       quad9 M v
       = (v_I + e00·v_{11} + e01·v_{12} + e10·v_{21} + e11·v_{22})^2
@@ -303,7 +303,7 @@ Qed.
     form PLUS a finite collection of 2×2 Schur-determinant conditions
     extracted by Sylvester's criterion on the residual matrix.
 
-    To keep the proof tractable, we package the residual condition as
+    To keep the proof tractable, the residual condition is packaged as
     [resid_psd]: the asserted nonnegativity of a specific quadratic form
     on six variables, with the column-contractivity predicate the
     decidable sufficient condition for it. *)
@@ -487,7 +487,7 @@ Proof.
     | 8%nat => v22
     | _ => 0
     end)) as Hq.
-  (* Rewrite quad9 via the SOS decomposition with our chosen vI/vA1/vA2. *)
+  (* Rewrite quad9 via the SOS decomposition with the chosen vI/vA1/vA2. *)
   pose proof (quad9_q1ab_sos_decomposition e00 e01 e10 e11 g1 g2 g3 g4 g5
                 vI vA1 vA2 vB1 vB2 v11 v12 v21 v22) as Hdec.
   simpl in Hdec.
@@ -545,10 +545,10 @@ Qed.
 
     Strategy. At γ_1 = γ_2 = γ_3 = γ_4 = γ_5 = 0, the residual quadratic
     form [q1ab_residual] decomposes as a block-diagonal sum of:
-      (a) the top 2×2 quadratic form on (v_{B1}, v_{B2}) — exactly the
+      (a) the top 2×2 quadratic form on (v_{B1}, v_{B2}): exactly the
           Q_1 column-contractivity condition on the 2×2 correlator block;
-      (b) the bottom 4×4 quadratic form on (v_{11}, v_{12}, v_{21}, v_{22})
-          — exactly [I_4 − c c^T] with c = (e_{11}, e_{12}, e_{21}, e_{22}),
+      (b) the bottom 4×4 quadratic form on (v_{11}, v_{12}, v_{21}, v_{22}):
+          exactly [I_4 − c c^T] with c = (e_{11}, e_{12}, e_{21}, e_{22}),
           which is PSD iff ||c||² ≤ 1, i.e. ∑ e_{ij}² ≤ 1.
     The integer-arithmetic check below verifies (a) via the existing
     [column_contractive_check_witness] from VMStep.v plus (b) via a
@@ -607,7 +607,7 @@ Qed.
 
 (** The top 2×2 block: SAME as the level-1 column-contractivity quadratic
     form on (vB1, vB2). PSD iff the Q_1 column-contractivity conditions
-    hold. We use the existing [psd2_quadratic_form_nonneg] from
+    hold, by [psd2_quadratic_form_nonneg] from
     [MuLedgerQuantumBridge.v]. *)
 Lemma q1ab_top_block_nonneg :
   forall e00 e01 e10 e11 vB1 vB2 : RealNumber,
@@ -845,10 +845,10 @@ Qed.
 (** ========================================================================
     Section 8. Kernel-level bridge from CHSH_LASSERT to Q_{1+AB} PSD.
 
-    Design note. The mathematical content of this file — the 9×9 NPA
+    Design note. The mathematical content of this file (the 9×9 NPA
     matrix, the column-contractivity predicate at level 1+AB, the
-    biconditional with PSD9, and the integer-arithmetic soundness theorem
-    — does not require modifying the VMStep ISA. The bridge theorem
+    biconditional with PSD9, and the integer-arithmetic soundness theorem)
+    does not require modifying the VMStep ISA. The bridge theorem
     below uses the *existing* [instr_chsh_lassert] opcode and adds an
     explicit extra hypothesis [sum_E_sq_check_witness s.(vm_witness) = true]
     for the Q_{1+AB} upgrade. This extra check can be promoted
@@ -950,7 +950,7 @@ Proof.
   intros wc Hchk.
   pose proof (column_contractive_check_q1ab_sound_at_g_zero wc Hchk) as Hcc.
   unfold column_contractive_q1ab in Hcc.
-  (* Test the residual with v_{ij} = e_{ij} and the rest zero — that
+  (* Test the residual with v_{ij} = e_{ij} and the rest zero; that
      simplifies the residual to 1 − (E_{00}² + ...) ≥ 0. *)
   set (e00 := state_bucket_correlation wc.(wc_same_00) wc.(wc_diff_00)) in *.
   set (e01 := state_bucket_correlation wc.(wc_same_01) wc.(wc_diff_01)) in *.
@@ -1038,7 +1038,7 @@ Theorem chsh_lassert_1ab_no_trap_implies_q1ab_psd :
             0 0 0 0 0).
 Proof.
   intros s mu_delta s' Hpc Herr Herr0.
-  (* From "no trap" we deduce the kernel-internal check passed. *)
+  (* "No trap" means the kernel-internal check passed. *)
   assert (Hchk : column_contractive_check_q1ab_kernel s.(vm_witness) = true).
   { unfold s' in Herr. unfold vm_apply in Herr.
     destruct (column_contractive_check_q1ab_kernel s.(vm_witness)) eqn:Echk.
@@ -1301,7 +1301,7 @@ Qed.
 (** Diagnostic: the γ_5-extended admitted region strictly contains the
     γ = 0 unit ball. The unit-ball direction is [q1ab_g5_caller_witness_at_zero]
     above (γ_5 = 0 specialization). For the strict-extension direction,
-    we exhibit a concrete (E, γ_5) with ||E||² > 1 that the γ_5-extended
+    there is a concrete (E, γ_5) with ||E||² > 1 that the γ_5-extended
     witness still admits, witnessing that γ_5 ≠ 0 genuinely enlarges the
     admitted region in directions aligned with the 4-body moment. *)
 Lemma q1ab_g5_witness_strict_extension_exists :
@@ -1412,7 +1412,7 @@ Proof.
   assert (HrNg5L : (-rDg5 < rNg5)%R).
   { unfold rDg5, rNg5. rewrite <- opp_IZR. apply IZR_lt. exact HNg5L. }
   assert (HrNg5U : (rNg5 < rDg5)%R) by (apply IZR_lt; exact HNg5U).
-  (* Nothing — we lift the Z inequality just before we need it. *)
+  (* The Z inequality is lifted just before it is needed. *)
   (* Now the goal: q1ab_g5_caller_witness on the divided correlators. *)
   unfold q1ab_g5_caller_witness.
   fold rNg5 rDg5 rN00 rN01 rN10 rN11 rD00 rD01 rD10 rD11.
@@ -1547,7 +1547,7 @@ Qed.
     Extends Section 12's γ_5-only closure to allow γ_3, γ_4 (the two
     3-body A-B-B moments ⟨A_1 B_1 B_2⟩, ⟨A_2 B_1 B_2⟩) free in
     addition to γ_5. γ_1 = γ_2 = 0 still (the 3-body A-A-B moments
-    remain at zero — adding those breaks the block decomposition).
+    remain at zero; adding those breaks the block decomposition).
 
     Mathematical content. With γ_1 = γ_2 = 0, the residual splits as
       q1ab_residual = b_part(b1, b2; v) + bot_g5_only(v)
@@ -2186,8 +2186,8 @@ Qed.
 
 (** Cleared H_ij bridges. Each
        IZR (cleared_H_ij_Z ...) = IZR (COMMON_Z ...) · H_ij_real
-    where H_ij_real is the q345_H_ij value at the rational reals. We
-    state the RHS via the unfolded polynomial form for q345 (no q345_X
+    where H_ij_real is the q345_H_ij value at the rational reals. The
+    RHS is stated via the unfolded polynomial form for q345 (no q345_X
     application) so the proof's `field` step has the same syntactic
     form on both sides after helper-bridge rewrites. *)
 
@@ -2839,7 +2839,7 @@ Qed.
 
     This is the strict-PD interior of the [q1ab_g345_caller_witness]
     cone of Section 14. PSD-boundary configurations (where some d_k
-    vanishes) are not certified — they require a separate (rank-degenerate)
+    vanishes) are not certified; they require a separate (rank-degenerate)
     treatment. Every non-boundary point of the γ_345 cone, including
     Tsirelson-saturating configurations with γ_3, γ_4 nonzero, is
     reachable through some choice of integer (D_{ij}, N_{ij}, Ng_k, Dg_k)
@@ -2850,7 +2850,7 @@ Qed.
 
     Closes the full multi-γ slice by lifting γ_1, γ_2 (the 3-body A-A-B
     moments ⟨A_1A_2B_1⟩, ⟨A_1A_2B_2⟩) into the caller-witness check. With
-    γ_1, γ_2 free, Section 14's augmented Schur trick does not apply —
+    γ_1, γ_2 free, Section 14's augmented Schur trick does not apply;
     the b-block is not a pure quadratic in b with linear-in-v part,
     because γ_1, γ_2 inject bilinear-in-(b, v) cross terms that interleave
     with the existing −e_{ij}·b structure.
@@ -2909,7 +2909,7 @@ Definition sym5_d4
 (** Scaled 4×4 Schur complement of row/column 1 of the 5×5 H. Each entry
     is [h11·h_{ij} − h_{1i}·h_{1j}] for i, j ∈ {2,3,4,5}. Working with
     [scaled_S] (instead of dividing by h11) keeps the entire reduction
-    polynomial over R — no [field] tactic, no h11 ≠ 0 hypothesis needed
+    polynomial over R, no [field] tactic, no h11 ≠ 0 hypothesis needed
     for [ring] identities. *)
 
 Definition sym5_scaled_S_22
@@ -3573,7 +3573,7 @@ Qed.
     bool decider on Z bucket counts. The kernel decider
     [q1ab_g12345_check_z_kernel] and all 21 cleared H-entries + 25
     Schur-cascade Z helpers live in [VMStep.v Section 15.6] (foundation
-    tier — no quantum dependency). This section establishes:
+    tier, no quantum dependency). This section establishes:
 
     (a) 21 bridge lemmas [cleared_g12345_HXX_Z_bridge]: each
         [IZR (cleared_g12345_HXX_Z(...)) = IZR (g12345_COMMON_Z(...)) *
@@ -3589,7 +3589,7 @@ Qed.
         ⇒ q1ab_g12345_minors_witness ⇒ PSD9 of the 9×9 NPA matrix.
 
     Region diagnostic: the check admits exactly the rational interior of
-    the sym6_pd_interior cone — strict zero-marginal-column-contractive
+    the sym6_pd_interior cone: strict zero-marginal-column-contractive
     on E, strict |g_k| < 1 for k = 1..5, and strict PD-via-Schur cascade
     on H_{γ_12345}. PSD-boundary configurations excluded (mirror of
     γ_5 and γ_345 checks). The cone strictly contains the Section 15
@@ -4619,7 +4619,7 @@ Variables D00 N00 D01 N01 D10 N10 D11 N11
 
 (** Each lemma in this Section takes the 9 denominator-positivity preconditions
     explicitly (rather than as Section [Hypothesis] / Prop-typed [Variable], which
-    the inquisitor flags as axiom-equivalent).  The preconditions are uniform —
+    the inquisitor flags as axiom-equivalent).  The preconditions are uniform:
     [(0 < N00)%Z -> (0 < N01)%Z -> (0 < N10)%Z -> (0 < N11)%Z ->
      (0 < Dg1)%Z -> (0 < Dg2)%Z -> (0 < Dg3)%Z -> (0 < Dg4)%Z -> (0 < Dg5)%Z ->]
     bound by [intros HN00 HN01 HN10 HN11 HDg1 HDg2 HDg3 HDg4 HDg5.] in every proof. *)
@@ -5072,7 +5072,7 @@ Qed.
 
 (** Slice B (γ_5).  Direct application of [q1ab_g5_full_integer_check_sound],
     which already concludes PSD9 at [state_bucket_correlation]-based
-    correlators — no IZR-bridge step needed. *)
+    correlators; no IZR-bridge step needed. *)
 Theorem chsh_lassert_1ab_g5_no_trap_implies_npa_psd_q1ab :
   forall (s : VMState) (mu_delta same_g5 diff_g5 : nat),
     let s' := vm_apply s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5) in
@@ -5152,7 +5152,7 @@ Qed.
 (** Slice D (full γ_12345).  Same pattern as slice C, but the cascade check
     has nine positivity-of-N/Dg conjuncts which the headline corollary
     [q1ab_g12345_caller_witness_z_abs_implies_psd9] expects as explicit
-    hypotheses — extract them from the bool check, then apply. *)
+    hypotheses; extract them from the bool check, then apply. *)
 Theorem chsh_lassert_1ab_g12345_no_trap_implies_npa_psd_q1ab :
   forall (s : VMState)
          (mu_delta same_g1 diff_g1 same_g2 diff_g2

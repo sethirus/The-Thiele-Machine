@@ -14,8 +14,8 @@
       abs_full_snapshot (kami_step_full ks i) = vm_apply (abs_full_snapshot ks) i
       abs_full_snapshot (kami_run_full fuel tr ks) = run_vm fuel tr (abs_full_snapshot ks)
 
-    This is stronger than the legacy projected [abs_phase1]/[kami_step]
-    story: no VM fields are dropped. The instruction-by-instruction
+    No VM fields are dropped, unlike the projected [abs_phase1]/[kami_step]
+    pair. The instruction-by-instruction
     agreement between the lower-level [kami_step] in [Abstraction.v]
     and [kami_step_full] is itself a theorem:
     [kami_step_full_agrees_with_kami_step_supported] in

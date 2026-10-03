@@ -1,12 +1,12 @@
-(** * MuCodingTheorem.v — certification-coding theorem (Chaitin-style).
+(** * MuCodingTheorem.v: certification-coding theorem (Chaitin-style).
 
     A two-sided tight bound on the minimum [MuChaitin.cert_payload_size]
     required to certify a decidable claim, with an in-VM achiever for
     the upper bound.
 
     Wrinkle worth flagging: [MuShannonBridge] explicitly disclaims any
-    Shannon DPI form of the lower bound (file lines 330–356 there) under
-    the kernel's deterministic VM semantics. Two cleanly available paths
+    Shannon DPI form of the lower bound under the kernel's deterministic
+    VM semantics. Two cleanly available paths
     around it: restrict to tree-structured traces and use
     [MuShannonQuantitative.conditional_shannon_bound], or stay Chaitin-
     style and use [MuChaitin.cert_payload_size] as the intrinsic measure.
@@ -55,7 +55,7 @@ Definition certifies_claim
 (** ** Predicate-style intrinsic cert-payload bounds.
 
     Coq's type theory does not directly express "minimum [MuChaitin.cert_payload_size]
-    over an infinite set of instructions." We use a predicate pair
+    over an infinite set of instructions." A predicate pair is used
     instead: [P] is intrinsically certifiable *at least* [k] iff every
     certifier has payload ≥ k; [P] is intrinsically certifiable *at most*
     [k] iff some certifier has payload ≤ k. Tightness is the case
@@ -143,13 +143,11 @@ Qed.
     cert_priced, [MuChaitin.cert_payload_size instr ≤ instruction_cost instr =
     k], which gives an upper bound, not a lower one. The lower bound
     needs more: it requires that no cert-setter with smaller payload
-    *could* establish the claim. For the canonical claim family
-    [mu_eq_k] this is true because the cost equals [k], and any
-    cert-setter with payload < k - 1 must have cost ≤ k - 1 (under
-    cert_priced is *equality* for the standard pricing where cost =
-    S(payload)) — wait, that's not what cert_priced says in general.
+    *could* establish the claim. Plain cert_priced bounds payload by
+    cost from above only, so it does not rule out a cert-setter with a
+    smaller payload reaching cost [k].
 
-    To get a clean lower bound matching the upper, we add the
+    A clean lower bound matching the upper one needs the
     *Chaitin-equality* pricing assumption [cert_priced_eq]: for
     cert-setters, [instruction_cost = S(MuChaitin.cert_payload_size)]. Under
     this stricter policy, the bound is tight.
@@ -160,7 +158,7 @@ Definition cert_priced_eq (instr : vm_instruction) : Prop :=
   instruction_cost instr = S (MuChaitin.cert_payload_size instr).
 
 (** The standard kernel pricing satisfies cert_priced_eq for
-    [instr_certify]. We do not require it for all cert-setters; only
+    [instr_certify]. It is not required for all cert-setters; only
     instances of the claim family that route through [instr_certify]. *)
 Lemma instr_certify_priced_eq :
   forall delta, cert_priced_eq (instr_certify delta).

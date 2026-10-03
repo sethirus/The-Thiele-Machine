@@ -1,36 +1,45 @@
-(** Abstraction.v — Maps Kami hardware state to VMState.
+(** Abstraction.v: Maps Kami hardware state to VMState.
 
     DESIGN: KamiSnapshot uses Coq [nat] for all values, matching VMState's
     own nat-based word64 arithmetic. 32-bit bounds are enforced as preconditions.
     This avoids cross-library word/nat conversion gaps and keeps all proofs in
     pure nat arithmetic.
 
-    The Kami hardware module (extracted to Verilog) is argued to implement
-    [kami_step] in Abstraction.v by construction: the Kami rule bodies
-    compute exactly the same nat operations as [vm_apply] under the abstraction.
+    [kami_step] below models one step of the CPU in ThieleCPUCore.v. The
+    retirement theorems tie the two: [RetireMaster.admitted_retires] and
+    [TableInvariantsReachable.fsm_retirement_refinement] show that the
+    scheduled Kami rules retire an instruction into the snapshot
+    [kami_step] computes. [GraphReconstructionBridge.driven_step_wf] then
+    shows that [kami_step] commutes with [vm_apply] under the abstraction,
+    under its stated precondition.
 
-    All 46 instructions are covered:
+    [kami_step] has one arm for each of the kernel's 51 instructions:
     - Compute: LOAD_IMM, ADD, SUB, XFER, LOAD, STORE, JUMP, JNEZ, CALL, RET
     - XOR ALU: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
     - Partition / logic: PNEW, PSPLIT, PMERGE, PDISCOVER, LASSERT, LJOIN,
-      MDLACC, EMIT, REVEAL (partition graph managed at higher layer)
+      MDLACC, EMIT, REVEAL (PNEW, PSPLIT and PMERGE update the partition
+      table)
     - Special: CHSH_TRIAL, HALT
     - Checkpoint / I/O / heap: CHECKPOINT, READ_PORT, WRITE_PORT,
       HEAP_LOAD, HEAP_STORE
     - State-based certification: CERTIFY
-    - Per-module tensor (software-managed): TENSOR_SET, TENSOR_GET
+    - Extended ALU: AND, OR, SHL, SHR, MUL, LUI
+    - Per-module tensor: TENSOR_SET, TENSOR_GET
     - Categorical / morphism opcodes: MORPH, COMPOSE, MORPH_ID,
       MORPH_DELETE, MORPH_ASSERT, MORPH_TENSOR, MORPH_GET
+    - CHSH certification: CHSH_LASSERT and the four Q_{1+AB} forms.
+    The CPU encodes 47 of these opcodes. The four Q_{1+AB} arms model the
+    kernel only; the CPU has no opcode for them.
 
     On-chip logic-engine model (LASSERT/LJOIN):
-    The current Kami core models LASSERT/LJOIN with on-chip logic-engine state,
+    The Kami core models LASSERT/LJOIN with on-chip logic-engine state,
     not an external coprocessor. Formula/certificate data live in VM memory,
     and the hardware advances an internal FSM to perform the check. The Coq
     kernel uses the binary formula header and dual SAT witness check, and
     LogicEngineEquivalence.v relates the hardware path to the kernel path at
     the observable-state boundary (PC, μ, error flag).
 
-    Extended state (matching handwritten RTL parity):
+    Extended state:
     - partition_ops, mdl_ops, info_gain: diagnostic counters
     - mu_tensor: 4×4 revelation direction tracking
     - error_code: specific error condition identifier *)
@@ -46,10 +55,6 @@ Require Import Kernel.VMState.
 Require Import Kernel.VMStep.
 From KamiHW Require Import ThieleTypes.
 Import VMStep.VMStep.
-
-(** ORACLE_HALTS_HW_COST preserved for use in cost-ceiling lemmas.
-    No opcode charges this anymore — it serves as a conservative cap reference. *)
-Definition ORACLE_HALTS_HW_COST : nat := 1000000.
 
 (** Rich-state snapshot payload
 
@@ -153,8 +158,9 @@ Definition empty_rich_snapshot_state : RichSnapshotState :=
 
 (** Hardware state snapshot
 
-    All values are stored as [nat]; the invariant [snap_regs_bounded] /
-    [snap_mem_bounded] ensures they fit in hardware 32-bit registers. *)
+    All values are stored as [nat]. The CPU's registers and memory words
+    are 32 bits wide; the snapshot does not record that bound, and
+    [cpu_preconditions] bounds only [snap_mu]. *)
 
 Record KamiSnapshot := {
   snap_pc            : nat ;
@@ -171,7 +177,7 @@ Record KamiSnapshot := {
   snap_pt_sizes      : nat -> nat ;  (* hardware partition table: module_id -> region_size (0 = unallocated) *)
   snap_pt_bases      : nat -> nat ;  (* hardware partition table: module_id -> first address of its range *)
   snap_pt_next_id    : nat ;         (* next free module ID; initialized to 1 matching empty_graph.pg_next_id *)
-  snap_certified     : bool ;        (* state-based certification flag — set by CERTIFY *)
+  snap_certified     : bool ;        (* state-based certification flag: set by CERTIFY *)
   snap_wc_same_00    : nat ;         (* witness counter: setting (0,0), same outcomes *)
   snap_wc_diff_00    : nat ;         (* witness counter: setting (0,0), diff outcomes *)
   snap_wc_same_01    : nat ;
@@ -182,7 +188,7 @@ Record KamiSnapshot := {
   snap_wc_diff_11    : nat ;
   snap_module_tensors : nat -> nat -> nat ;  (* per-module tensor: module_id -> flat_idx -> value *)
   snap_rich_state    : RichSnapshotState ;
-  (* --- M1 unification fields: CSR / logic_acc / mstatus --- *)
+  (* --- CSR / logic_acc / mstatus fields --- *)
   snap_csr_cert_addr : nat ;   (* mirrors CSRState.csr_cert_addr *)
   snap_csr_status    : nat ;   (* mirrors CSRState.csr_status *)
   snap_csr_err       : nat ;   (* mirrors CSRState.csr_err *)
@@ -203,7 +209,7 @@ Definition snapshot_tensor_to_list (f : nat -> nat) : list nat :=
   List.map f (List.seq 0 16).
 
 (** Option-valued filter-map.  [List.filter_map] in Coq 8.18 is an
-    unrelated boolean lemma; we define our own here. *)
+    unrelated boolean lemma, so this file defines its own. *)
 Fixpoint filtermap {A B : Type} (f : A -> option B) (l : list A) : list B :=
   match l with
   | []      => []
@@ -439,14 +445,15 @@ Definition default_csrs : CSRState :=
 (** Reconstruct a PartitionGraph from the bounded hardware partition table.
 
     The hardware stores (module_id -> base, region_size) for up to PTableSz=64
-    slots. A size of 0 means the slot is unallocated.  Axioms cannot be stored
-    in fixed-width hardware registers; they are maintained by the software
-    driver. The region for module id with base b and size sz is the range
-    List.seq b sz of data-memory addresses.
+    slots. A size of 0 means the slot is unallocated. The table stores no
+    axioms; every reconstructed module has an empty axiom list, which is
+    what PNEW stores (PDISCOVER does not record its evidence). The region
+    for module id with base b and size sz is the range List.seq b sz of
+    data-memory addresses.
 
-    We iterate over module IDs in DESCENDING order (List.rev) so that the
-    oldest module appears LAST in pg_modules, matching the cons-prepend
-    behaviour of graph_add_module:
+    The reconstruction walks module IDs in DESCENDING order (List.rev) so
+    that the oldest module appears LAST in pg_modules, matching the
+    cons-prepend behaviour of graph_add_module:
       graph_add_module g region [] = {pg_next_id := S(g.pg_next_id);
                                        pg_modules := (g.pg_next_id, m) :: g.pg_modules;
                                        pg_next_morph_id := g.pg_next_morph_id;
@@ -480,7 +487,7 @@ Definition snap_pt_to_graph (next_id : nat) (sizes bases : nat -> nat) : Partiti
      pg_morphisms := [] |}.
 
 (** Full bounded graph reconstruction from the hardware-facing snapshot.
-    M3 uses the same module reconstruction as [snap_pt_to_graph], then overlays
+    It uses the same module reconstruction as [snap_pt_to_graph], then overlays
     bounded morph/coupling state from [snap_rich_state] and per-module tensor
     data from [snap_module_tensors]. *)
 Definition snap_full_graph (s : KamiSnapshot) : PartitionGraph :=
@@ -496,8 +503,8 @@ Definition snap_full_graph (s : KamiSnapshot) : PartitionGraph :=
      pg_morphisms := snapshot_morphisms_of_rich_state (snap_rich_state s) |}.
 
 (** Main abstraction: KamiSnapshot -> VMState.
-    The partition graph is reconstructed from the hardware partition table.
-    Axioms are maintained by the software driver and are not stored in hardware. *)
+    The partition graph is reconstructed from the hardware partition table,
+    with an empty axiom list for every module. *)
 Definition abs_phase1 (s : KamiSnapshot) : VMState :=
   {| vm_graph     := snap_pt_to_graph (snap_pt_next_id s) (snap_pt_sizes s) (snap_pt_bases s) ;
      vm_csrs      := {| csr_cert_addr := snap_csr_cert_addr s;
@@ -522,11 +529,11 @@ Definition abs_phase1 (s : KamiSnapshot) : VMState :=
                         wc_diff_11 := snap_wc_diff_11 s |} ;
      vm_certified := snap_certified s |}.
 
-(** Full alias — all 46 instructions covered *)
+(** Alias of [abs_phase1]. *)
 Definition abs_full := abs_phase1.
 
 (* ====================================================================
-   Hardware step function — kami_step
+   Hardware step function: kami_step
    Maps a KamiSnapshot through one vm_instruction, mirroring
    the RTL rule bodies in ThieleCPUCore.v.
 
@@ -534,7 +541,7 @@ Definition abs_full := abs_phase1.
    for CALL/RET, matching SP_IDX in ThieleCPUCore.v.
    *)
 
-(** Stack-pointer register index — mirrors SP_IDX in ThieleCPUCore.v.
+(** Stack-pointer register index: mirrors SP_IDX in ThieleCPUCore.v.
     RegIdxSz bits → max register index RegCount-1 is kami_sp_reg. *)
 Definition kami_sp_reg : nat := RegCount - 1.
 
@@ -887,10 +894,10 @@ Definition kami_advance_cert_addr (hs : KamiSnapshot) (addr cost : nat) : KamiSn
 (** Computable hardware step function.  Each case mirrors the corresponding
     RTL rule body in ThieleCPUCore.v.
 
-    CSR note: abs_phase1 projects vm_csrs = default_csrs for all snapshots.
-    Instructions that update CSRs (REVEAL, EMIT, LASSERT, LJOIN) are handled
-    at the software/driver layer; the snapshot only records the mu-tensor
-    charge (for REVEAL) and mu/pc advances (for others).
+    CSR note: abs_phase1 reads the CSRs from the snap_csr_* fields. REVEAL,
+    EMIT, LASSERT and LJOIN leave the certification address unchanged, here
+    and in [vm_apply]; a failed LASSERT sets the CSR error flag. REVEAL also
+    adds its bits to one mu-tensor entry.
 
     CALL/RET use kami_sp_reg (r15) as the stack pointer, matching SP_IDX
     in ThieleCPUCore.v. *)
@@ -1297,7 +1304,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word64_sub v1 v2);  (* 2's complement wrap — matches vm_apply_unsafe *)
+                         (word64_sub v1 v2);  (* 2's complement wrap; matches vm_apply_unsafe *)
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1390,13 +1397,13 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   (* CALL/RET use kami_sp_reg (r15) as the stack pointer.
-     Mirrors SP_IDX (WO~1~1~1~1~1 = 31) in ThieleCPUCore.v.
-     Stack convention: ASCENDING (matches vm_apply_unsafe and RTL).
+     Mirrors SP_IDX (WO~1~1~1~1 = 15) in ThieleCPUCore.v.
+     Stack convention: ASCENDING (matches vm_apply and the CPU).
      CALL: write ret_addr at OLD sp, then increment sp.
      RET:  decrement sp first, then read ret_pc from new sp. *)
   | instr_call target cost =>
       let sp  := snap_regs hs kami_sp_reg in
-      let sp' := word64_add sp 1 in               (* INCREMENT — matches vm_apply_unsafe *)
+      let sp' := word64_add sp 1 in               (* INCREMENT; matches vm_apply_unsafe *)
       let ra  := S (snap_pc hs) in
       {| snap_pc    := target;
          snap_mu    := snap_mu hs + cost;
@@ -1432,7 +1439,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_ret cost =>
-      let sp' := word64_sub (snap_regs hs kami_sp_reg) 1 in  (* DECREMENT — matches vm_apply_unsafe *)
+      let sp' := word64_sub (snap_regs hs kami_sp_reg) 1 in  (* DECREMENT; matches vm_apply_unsafe *)
       let ra  := snap_mem hs sp' in  (* read from DECREMENTED sp *)
       {| snap_pc    := ra;
          snap_mu    := snap_mu hs + cost;
@@ -1615,7 +1622,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (word64_popcount (snap_regs hs (src mod RegCount)));  (* popcount — matches vm_apply_unsafe *)
+         snap_regs  := kami_write_reg hs dst (word64_popcount (snap_regs hs (src mod RegCount)));  (* popcount; matches vm_apply_unsafe *)
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1646,7 +1653,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       kami_advance_info hs (payload_bit_length payload + S cost)
         (payload_bit_length payload)
   | instr_reveal module0 bits _ cost =>
-      (* REVEAL: tensor_idx = module0 mod 16, delta = bits — matches advance_state_reveal in vm_apply_unsafe *)
+      (* REVEAL: tensor_idx = module0 mod 16, delta = bits; matches advance_state_reveal in vm_apply_unsafe *)
       let k := module0 mod 16 in
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + (bits + S cost);
@@ -1682,9 +1689,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_halt cost =>
-      (* HALT: vm_apply_unsafe falls through to advance_state (PC+1, cost).
-         snap_halted flag is hardware-only; abs_phase1 does not expose it.
-         We match vm_apply_unsafe: pc advances by 1. *)
+      (* HALT: vm_apply advances the pc by 1 and charges the cost, as here.
+         snap_halted is hardware-only; abs_phase1 does not expose it. *)
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
@@ -2124,9 +2130,9 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
            snap_mstatus       := snap_mstatus hs |}
       else
         kami_advance_err hs cost
-  (* Categorical / morphism instructions — full rich-state mutations.
-     The hardware maintains bounded morph tables (max 64 entries) and
-     performs real allocations / lookups / deletions.
+  (* Categorical / morphism instructions: rich-state mutations.
+     The snapshot keeps the morphism table as a function from id to entry,
+     with no capacity check; the CPU's table has MorphTableSz = 16 slots.
      Error paths set snap_csr_err := 1 and snap_err := true,
      matching SimulationProof.vm_apply's csr_set_err + latch_err pattern. *)
   | instr_morph dst src_mod dst_mod coupling_idx cost =>
@@ -2135,13 +2141,12 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       let dst_exists := negb (Nat.eqb (snap_pt_sizes hs dst_mod) 0) in
       if andb src_exists dst_exists then
         let rs := snap_rich_state hs in
-        (* Real coupling data (M5): decode the same serialized memory block
-           ThieleMachineComplete.vm_apply reads, and register it through the
-           same allocation path COMPOSE/MORPH_TENSOR already use below,
-           rather than hardcoding an empty descriptor. Mirrors
-           ThieleMachineComplete.load_coupling_from_mem exactly, working
-           directly over the memory list (snapshot_mem_to_list (snap_mem hs))
-           since that is all load_coupling_from_mem's helpers ever read. *)
+        (* Coupling data: decode the serialized memory block that the
+           kernel's MORPH reads (VMState.load_coupling_from_mem), and
+           register it through the allocation path COMPOSE/MORPH_TENSOR use
+           below. The decoding works directly over the memory list
+           (snapshot_mem_to_list (snap_mem hs)), which is all
+           load_coupling_from_mem's helpers read. *)
         let g := snap_full_graph hs in
         let mem := snapshot_mem_to_list (snap_mem hs) in
         let src_region :=
@@ -2284,7 +2289,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          from snap_wc_* buckets directly (abs_phase1 projects these into
          vm_witness, so the snapshot-level check and the VM-level check
          agree by definition). On success: PC := S pc, err preserved,
-         csr_csr_* preserved. On failure: PC := LASSERT_TRAP_PC, err := true.
+         CSRs preserved. On failure: PC := LASSERT_TRAP_PC, err := true.
          Cost: S cost regardless (cert-setter discipline). Matches
          step_chsh_lassert_ok / step_chsh_lassert_bad in VMStep.v. *)
       let check_ok := column_contractive_check_witness (vm_witness (abs_phase1 hs)) in
@@ -2515,7 +2520,7 @@ Proof.
             unfold kami_advance_err; simpl; try reflexivity; try lia);
        unfold kami_advance_err; simpl; try reflexivity; try lia);
   (* CHSH_TRIAL: nested match on settings (x,y) and output same/diff *)
-  (* Rich morph ops: match on option MorphTableEntry — all branches charge same mu *)
+  (* Rich morph ops: match on option MorphTableEntry; all branches charge same mu *)
   repeat match goal with
     | |- context [match ?x with _ => _ end] =>
         destruct x; simpl; try reflexivity; try lia
@@ -2529,14 +2534,6 @@ Lemma kami_cost_eq_instruction_cost : forall i,
     kami_instruction_cost i = instruction_cost i.
 Proof.
   intros i Hc. destruct i; simpl in *; try reflexivity; try discriminate.
-Qed.
-
-(** For CERTIFY, hardware cost >= software cost (conservative). *)
-Lemma kami_cost_ge_instruction_cost : forall i,
-    instruction_cost i <= ORACLE_HALTS_HW_COST ->
-    kami_instruction_cost i >= instruction_cost i.
-Proof.
-  intros i Hbound. destruct i; simpl in *; try lia.
 Qed.
 
 (** Execution preconditions *)
@@ -2731,10 +2728,9 @@ Qed.
     graph_add_module applied to the previous graph with region
     (List.seq region_base region_size) and empty axioms.
 
-    Preconditions match the hardware invariants:
-    - next_id >= 1: matches empty_graph.pg_next_id = 1 starting point
-    - region_size > 0: PNEW with zero size is a no-op; meaningful allocation is nonzero
-    - sizes next_id = 0: hardware slot must be fresh (unallocated) before PNEW *)
+    The proof uses only region_size > 0. The other three premises
+    (next_id >= 1, next_id < PTableSz, sizes next_id = 0) describe a fresh
+    slot; [snap_pt_to_graph_pnew_minimal] drops them. *)
 Theorem snap_pt_to_graph_pnew :
     forall (next_id region_base region_size : nat) (sizes bases : nat -> nat),
       next_id >= 1 ->
@@ -2751,9 +2747,8 @@ Proof.
   exact (snap_pt_to_graph_pnew_minimal_aux next_id region_base region_size sizes bases Hrsz).
 Qed.
 
-(** snap_pt_to_graph_pnew_minimal: same as snap_pt_to_graph_pnew but without
-    the preconditions next_id >= 1, next_id < PTableSz, and sizes next_id = 0.
-    The proof never uses those hypotheses. *)
+(** snap_pt_to_graph_pnew_minimal: the same equation without the premises
+    next_id >= 1, next_id < PTableSz, and sizes next_id = 0. *)
 Theorem snap_pt_to_graph_pnew_minimal :
     forall (next_id region_base region_size : nat) (sizes bases : nat -> nat),
       region_size > 0 ->
@@ -2766,7 +2761,7 @@ Proof.
   exact snap_pt_to_graph_pnew_minimal_aux.
 Qed.
 
-(** snap_pt_to_graph_pnew_pg_next_id:
+(** snap_pt_to_graph_pnew_next_id:
     After hardware PNEW, pg_next_id advances by 1. *)
 Corollary snap_pt_to_graph_pnew_next_id :
     forall (next_id region_base region_size : nat) (sizes bases : nat -> nat),
@@ -2780,8 +2775,8 @@ Proof.
 Qed.
 
 (** snap_pt_to_graph_pmerge_size_conserved:
-    After hardware PMERGE of slots m1 and m2 (merging their sizes into slot slot3),
-    the total region-size sum across all allocated modules is conserved. *)
+    When PMERGE clears slots m1 and m2 and writes slot3, slot3 holds the
+    sum of the two source sizes. *)
 Theorem snap_pt_to_graph_pmerge_size_conserved :
     forall (m1 m2 slot3 : nat) (sizes : nat -> nat),
       m1 < PTableSz -> m2 < PTableSz -> slot3 < PTableSz ->
@@ -2923,10 +2918,9 @@ Qed.
 
 (** hw_step_preserves_bianchi
 
-    Bianchi conservation: if the hardware is in a state where
-    tensor_sum ≤ mu, and a step charges [cost] to mu and [delta] to a
-    single tensor entry, then tensor_sum' ≤ mu' still holds, provided
-    the hardware enforces the pre-step check (bianchi_violation halts). *)
+    Per-entry arithmetic: if tensor entry k is at most mu, and a step
+    charges [cost] to mu and at most [cost] to entry k, then entry k stays
+    at most mu after the step. *)
 Theorem hw_step_preserves_bianchi :
     forall (s : KamiSnapshot) (cost delta : nat),
       (* Pre-condition: Bianchi holds before the step *)
@@ -2944,10 +2938,8 @@ Qed.
 
 (** partition_ops_count_correct
 
-    The hardware partition_ops counter is a non-negative nat that
-    increments monotonically.  Any snapshot satisfies
-    snap_partition_ops s ≥ 0 trivially (nat ≥ 0), and after
-    incrementing by 1 it is strictly greater. *)
+    Incrementing the partition_ops counter by 1 makes it strictly
+    greater. *)
 Theorem partition_ops_count_correct :
     forall (s : KamiSnapshot),
       snap_partition_ops s + 1 > snap_partition_ops s.
@@ -2957,9 +2949,8 @@ Qed.
 
 (** mu_tensor_charges_correct
 
-    REVEAL charges the tensor at flat index k by [delta], giving
-    new_tensor[k] = old_tensor[k] + delta, while all other indices
-    remain unchanged. *)
+    Adding [delta] at flat index k of a tensor makes entry k the old entry
+    plus [delta]. *)
 Theorem mu_tensor_charges_correct :
     forall (old_tensor : nat -> nat) (k delta : nat),
       k < 16 ->
@@ -2970,7 +2961,7 @@ Proof.
   simpl. rewrite Nat.eqb_refl. reflexivity.
 Qed.
 
-(** Corollary: non-k entries are unchanged by REVEAL. *)
+(** Corollary: the same point update leaves every other entry unchanged. *)
 Lemma mu_tensor_charges_other :
     forall (old_tensor : nat -> nat) (k j delta : nat),
       j <> k ->
@@ -2983,12 +2974,10 @@ Qed.
 
 (** lassert_ljoin_abstraction_sound
 
-    LASSERT and LJOIN involve certificate validation using arbitrary-length
-    string data that cannot fit in the fixed-width 32-bit instruction encoding.
-    The hardware charges μ and advances PC; the certificate content is supplied
-    by the software driver at the abstraction boundary (as part of the verifier).
-    Soundness means the μ-charge is correctly applied regardless of certificate
-    outcome. The partition graph is NOT modified by LASSERT/LJOIN in hardware. *)
+    States [mu + cost = mu + cost] for the abstracted ledger, an equation
+    that holds by reflexivity. The LASSERT check itself runs on chip; its
+    correspondence with the kernel is LogicEngineEquivalence.v and the
+    LASSERT arm of [driven_step_wf]. *)
 Theorem lassert_ljoin_abstraction_sound :
     forall (s : KamiSnapshot) (cost : nat),
       (abs_phase1 s).(vm_mu) + cost =

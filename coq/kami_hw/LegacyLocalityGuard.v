@@ -1,6 +1,6 @@
 (** LegacyLocalityGuard.v: the remaining locality-class guard-falsity
-    lemmas over the legacy word encoding -- STORE, HEAP_LOAD, HEAP_STORE,
-    CALL, RET -- completing the set [LegacyLoadGuard.v] started with LOAD.
+    lemmas over the legacy word encoding: STORE, HEAP_LOAD, HEAP_STORE,
+    CALL, RET. This completes the set [LegacyLoadGuard.v] started with LOAD.
 
     Same technique throughout: decode the opcode (and, for the two heap
     variants, resolve the mux the non-heap proof left untouched) via

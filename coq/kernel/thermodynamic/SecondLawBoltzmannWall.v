@@ -1,4 +1,4 @@
-(** * SecondLawBoltzmannWall — characterizing the substrate gap.
+(** * SecondLawBoltzmannWall: characterizing the substrate gap.
 
     The probe files ([LandauerJoules.v], [HolevoDimensional.v]
     + [HolevoTwoQubit.v], [BekensteinBound.v], [TsirelsonFromMu.v])
@@ -32,7 +32,7 @@ From Kernel Require Import VMState VMStep MuCostModel.
 
 Local Open Scope R_scope.
 
-(** ** Section 1 — what Boltzmann's formula would have to be.
+(** ** Section 1: what Boltzmann's formula would have to be.
 
     A [Boltzmann_substrate] specifies a microstate-counting function
     [omega : VMState -> nat] and asserts that thermodynamic entropy
@@ -44,7 +44,7 @@ Definition Boltzmann_substrate
     (omega s > 0)%nat ->
     S_thermo s = k_B * ln (INR (omega s)).
 
-(** ** Section 2 — what the second law for a thermal bath would have to be.
+(** ** Section 2: what the second law for a thermal bath would have to be.
 
     A [Second_law_thermal_bath] specifies a temperature [T], a system
     entropy function, and a bath heat function, with the inequality
@@ -58,11 +58,11 @@ Definition Second_law_thermal_bath
     S_system s' <= S_system s ->
     T * (S_system s - S_system s') <= Q_bath s s'.
 
-(** ** Section 3 — attempted derivation: define [S_thermo] from [vm_mu].
+(** ** Section 3. Attempted derivation: define [S_thermo] from [vm_mu].
 
     The framework has a natural integer-valued ledger ([vm_mu]). The
     obvious real-valued lift is [INR (vm_mu s)]. The question: can
-    we satisfy [Boltzmann_substrate] by taking [S_thermo s] proportional
+    [Boltzmann_substrate] be satisfied by taking [S_thermo s] proportional
     to [INR (vm_mu s)] and supplying the right [omega]?
 
     The constructed entropy candidate is:
@@ -96,7 +96,7 @@ Qed.
 (** Now: does [S_mu_candidate alpha] together with [omega_mu_candidate]
     satisfy [Boltzmann_substrate k_B]? Only if [alpha = k_B · ln 2].
 
-    We state this as: assuming there exists a state with positive
+    Stated as: assuming there exists a state with positive
     µ-cost, the candidate equation forces [alpha = k_B · ln 2]. *)
 
 Lemma S_mu_candidate_forces_alpha :
@@ -134,11 +134,11 @@ Proof.
   ring.
 Qed.
 
-(** ** Section 4 — the structural defect.
+(** ** Section 4: the structural defect.
 
     The lemma above is the clean statement of the wall. Either
     [alpha = k_B · ln 2] (which is just the framework consuming [k_B]
-    and [ln 2] as inputs — they emerge from substrate physics
+    and [ln 2] as inputs; they emerge from substrate physics
     elsewhere), or the system is trivially at zero µ-cost (vacuous).
 
     There is NO third option in which [alpha] gets determined by the
@@ -149,7 +149,7 @@ Qed.
     is what [LandauerJoules.v] does with its
     [boltzmann_bridge] hypothesis). *)
 
-(** ** Section 5 — the second law: structural attempt.
+(** ** Section 5. The second law: structural attempt.
 
     A similar pattern holds for the second law. The framework's
     [vm_mu] increment is non-negative across any step:
@@ -163,20 +163,20 @@ Qed.
 
     The framework has the structural fact [Δµ ≥ 0]. It has no [T],
     no [Q_bath], no thermal environment. The second law's
-    *content* — that heat release is bounded by temperature times
-    entropy change — is a substrate fact about the *interface*
+    *content* (that heat release is bounded by temperature times
+    entropy change) is a substrate fact about the *interface*
     between system and bath, an interface the framework does not
     model.
 
     Attempt: lift [Δµ ≥ 0] to the second law by assuming functions
     [T_substrate], [Q_bath_substrate], and [S_substrate]. *)
 
-(* SCOPE NOTE: SECTION PARAMETER — Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER. Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on each theorem when the Section closes.
    T_pos is physical positivity for thermodynamic temperature. The
    substrate functions T_substrate, Q_bath_substrate, S_substrate are
-   parameters of the second-law attempt — closing the Section turns
+   parameters of the second-law attempt; closing the Section turns
    them into explicit premises so callers must supply concrete
    instantiations to use the theorems. Not global axioms. *)
 Section SecondLawAttempt.
@@ -187,7 +187,7 @@ Section SecondLawAttempt.
 
   Hypothesis T_pos : 0 < T_substrate.
 
-  (** What the µ-ledger gives us: monotonicity of [vm_mu] under any
+  (** What the µ-ledger gives: monotonicity of [vm_mu] under any
       transition. This definition records the state-level property; the
       information-priced execution bound is proved separately in
       [info_priced_cert_executions_bound] in [MuShannonBridge.v]. *)
@@ -195,7 +195,7 @@ Section SecondLawAttempt.
   Definition mu_monotonic_property : Prop :=
     forall s s' : VMState, (s.(vm_mu) <= s'.(vm_mu))%nat.
 
-  (** What we cannot do: bridge [vm_mu] monotonicity to the second
+  (** What is out of reach: bridging [vm_mu] monotonicity to the second
       law without additional structure. The bridge requires:
       (i) a function from VM transitions to entropy changes
           (supplied by [Boltzmann_substrate] above);
@@ -220,7 +220,7 @@ End SecondLawAttempt.
     Section 3's lemma [S_mu_candidate_forces_alpha] makes this
     precise: in any state with positive µ-cost, the candidate
     equation forces [alpha = k_B · ln 2]. That choice is exactly
-    the substrate-physics import — [k_B] does not come from the
+    the substrate-physics import; [k_B] does not come from the
     µ-ledger.
 
     [The second law for a thermal bath] requires three substrate

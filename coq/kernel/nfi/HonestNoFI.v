@@ -69,7 +69,7 @@ From Kernel Require Import NoFreeInsight InformationGainToStrengthening.
 
     If feasible set shrinks from Ω to Ω' with |Ω'| < |Ω|, then the trace
     must contain structure-adding instructions with non-zero μ-cost.
-    Proof chain: InformationGainToStrengthening.B3 (feasible reduction →
+    Proof chain: InformationGainToStrengthening.feasible_strict_subset_implies_strict_predicates (feasible reduction →
     strictly_stronger predicates) → strengthening_requires_structure_addition
     (strictly_stronger → structure addition).
 *)
@@ -203,8 +203,8 @@ Proof.
 Qed.
 
 (** Honest μ-cost: on a non-trapping LASSERT, Δμ = hw_flen * 8 + S(cost) exactly.
-    This is the closed form of the honest-cost gap: flen = hw_flen is machine-checked
-    by lassert_honest_cost, so the programmer cannot undercount by declaring a small flen. *)
+    flen = hw_flen is machine-checked by lassert_honest_cost, so the
+    programmer cannot undercount by declaring a small flen. *)
 Theorem honest_nfi_honest_mu_cost_partial :
     forall (s s' : VMState) (fa ca : nat) (ck : bool) (flen cost : nat),
         VMStep.VMStep.vm_step s (VMStep.VMStep.instr_lassert fa ca ck flen cost) s' ->

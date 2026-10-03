@@ -49,8 +49,8 @@ Definition KernelMaximalClosureP : Prop :=
       ObservableRegion s mid = ObservableRegion s' mid).
 
 
-(** [KernelMaximalClosure] exposes [Physics_Closure] under the historical
-    public name used by downstream files.
+(** [KernelMaximalClosure] exposes [Physics_Closure] under the public name
+    used by downstream files.
     The theorem proves the stated preservation properties for this transition
     relation under their explicit premises.
 

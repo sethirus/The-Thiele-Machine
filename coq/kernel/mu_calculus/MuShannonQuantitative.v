@@ -19,7 +19,7 @@
        tree hypothesis), THEN delta_mu(s) >= log2(n).
 
     A unit-cost argument is not used here. [cert_addr] is set to the
-    checksum carried by the selected instruction, while the current [EMIT]
+    checksum carried by the selected instruction, while the [EMIT]
     schedule charges payload bits plus its floor. This file therefore proves
     the trace-level and decision-tree-conditional bounds below, not an
     unconditional individual Shannon bound.
@@ -29,7 +29,7 @@
     - Individual delta_mu: delta_mu(s_init) >= log2(n) holds IF the
       program is structured as a binary decision tree [conditional, proven]
 
-    SCOPE NOTE: foundation connectivity -- quantitative Shannon bound
+    SCOPE NOTE: foundation connectivity, quantitative Shannon bound
     connecting cert_addr range to separation count.
     *)
 
@@ -197,7 +197,7 @@ Proof.
        try rewrite csr_set_status_cert_addr;
        try rewrite csr_set_err_cert_addr;
        reflexivity);
-  (* lassert, current ISA: a failing check sets only the CSR error flag *)
+  (* lassert: a failing check sets only the CSR error flag *)
   try (left; cbv zeta; destruct (lassert_exec_ok _ _ _ _ _); reflexivity);
   (* ljoin: cert_addr NOT set in new ISA *)
   try (left; cbv zeta; destruct (String.eqb _ _);
@@ -269,7 +269,7 @@ Proof.
   (* instr_morph: two graph_lookup scrutinees + graph_add_morphism pair destruct.
      The let '(graph', morph_id) := graph_add_morphism ... is an irrefutable pair match,
      which cbv zeta/iota cannot reduce when graph_add_morphism is opaque.
-     We must explicitly destruct the pair to expose advance_state_rm. *)
+     The pair must be destructed explicitly to expose advance_state_rm. *)
   try (left;
        match goal with |- context [graph_lookup ?g ?m1] =>
          destruct (graph_lookup g m1) as [?|]; cbv beta iota
@@ -598,7 +598,7 @@ Qed.
     What IS true (separation_requires_cert_count):
       count_cert_addr_setters(trace) >= n for n-way separation.
 
-    The individual bound requires the decision tree hypothesis (Section 8).
+    The individual bound requires the decision tree hypothesis (conditional_shannon_bound).
     *)
 
 (** SCOPE: The gap between proven results and the conjecture.

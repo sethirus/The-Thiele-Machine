@@ -151,7 +151,7 @@ Proof.
   rewrite encode_cm2_program_fetch_N_outside by assumption. reflexivity.
 Qed.
 
-(** The concrete B3 input encoding.  Guest program and input counters vary
+(** The concrete interpreter input encoding.  Guest program and input counters vary
     only in data; the host instruction list remains fixed. *)
 Definition cm2_input_encoding (ambient : VMState) (p : list CM2InstrU)
     (width x0 x1 : nat) : VMState :=
@@ -162,7 +162,7 @@ Definition cm2_config_encoding (ambient : VMState) (p : list CM2InstrU)
     (width : nat) (c : CM2ConfigU) : VMState :=
   cm2_boundary ambient (encode_cm2_program width p) width c.
 
-(** Total executable data encodings used by the premise-free B3 theorems. *)
+(** Total executable data encodings used by the premise-free interpreter theorems. *)
 Definition cm2_total_input_encoding (ambient : VMState)
     (p : list CM2InstrU) (x0 x1 : nat) : VMState :=
   cm2_input_encoding ambient p (cm2_encoding_width p) x0 x1.

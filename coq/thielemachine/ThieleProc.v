@@ -126,9 +126,8 @@ Proof.
 Qed.
 
 (** Note: the projection [(fst (run_closed P)).(pc) = length P.(code)]
-    follows by [unfold run_closed; simpl; reflexivity]. The named
-    lemma [run_closed_pc] had no proof callers and is left to reduce
-    inline at the call sites that need the corresponding equality. *)
+    follows by [unfold run_closed; simpl; reflexivity] and is used inline
+    at the call sites that need the corresponding equality. *)
 
 (** The canonical starting state for a closed run: PC = 0. *)
 Definition closed_state : State := {| pc := 0 |}.
@@ -159,8 +158,8 @@ Fixpoint final_state (s : State) (trace : list (State * StepObs)) : State :=
 (** ** [skipn] lemmas used to thread PC through closed-trace executions
 
     These three are pure list facts: they say that if [skipn k xs] is the
-    concrete suffix [a :: tl], then we can both read off [a] via
-    [nth_error] at index [k] and recover [tl] as [skipn (S k) xs]. They
+    concrete suffix [a :: tl], then [a] can be read off via
+    [nth_error] at index [k] and [tl] recovered as [skipn (S k) xs]. They
     package the PC bookkeeping for [closed_trace_exec_aux]. *)
 Lemma skipn_cons_inv : forall (A : Type) (xs : list A) k a tl,
   skipn k xs = a :: tl ->
@@ -282,7 +281,7 @@ Qed.
 (** ** Categorical packaging
 
     A minimal [Category] record sufficient for [ThieleProc]. It is local to
-    this file because we do not want to take a dependency on a heavyweight
+    this file to avoid a dependency on a heavyweight
     category-theory library for what amounts to three associativity/identity
     rewrites. *)
 Record Category := {
@@ -304,7 +303,7 @@ Record Category := {
     interfaces. The categorical structure is real (associativity and
     identity laws hold), but the type system here treats every program as
     a morphism between every pair of objects. Tightening this to a
-    typed-morphism category is not done in the current kernel. *)
+    typed-morphism category is not done in this file. *)
 Definition ThieleProc : Category :=
   {| Obj := Interface;
      Hom _ _ := Prog;
@@ -317,7 +316,7 @@ Definition ThieleProc : Category :=
 (** ** Interface helpers used by the tensor proofs *)
 
 (** Projecting [iface_partitions] from a tensored interface gives the sum
-    of the components — by definition. *)
+    of the components, by definition. *)
 Lemma iface_tensor_partitions : forall A B,
   (tensor_interface A B).(iface_partitions) =
   A.(iface_partitions) + B.(iface_partitions).

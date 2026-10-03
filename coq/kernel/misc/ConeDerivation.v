@@ -5,7 +5,7 @@ From Kernel Require Import VMStep KernelPhysics.
 
 Import ListNotations.
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** ConeDerivation: The causal cone is uniquely determined by algebraic laws
