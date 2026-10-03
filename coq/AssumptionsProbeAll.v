@@ -105,6 +105,7 @@ Require KamiHW.PopcountSWAR.
 Require KamiHW.RTLCorrectnessInstantiation.
 Require KamiHW.RTLGapRegistry.
 Require KamiHW.ReadFreeObservation.
+Require KamiHW.ReportSerial.
 Require KamiHW.RetireMaster.
 Require KamiHW.RetireProgress.
 Require KamiHW.RetireRuns.
@@ -7377,6 +7378,55 @@ Print Assumptions KamiHW.RTLGapRegistry.rtl_inventory_arithmetic.
 (* === KamiHW.ReadFreeObservation : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.ReadFreeObservation.observe_read_free_action.
 Print Assumptions KamiHW.ReadFreeObservation.eval_read_free_action.
+(* === KamiHW.ReportSerial : 48 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.ReportSerial.eval_call_action_sound.
+Print Assumptions KamiHW.ReportSerial.report_rule_name.
+Print Assumptions KamiHW.ReportSerial.report_eval_some.
+Print Assumptions KamiHW.ReportSerial.report_step_is_rule.
+Print Assumptions KamiHW.ReportSerial.get_tx_method_name.
+Print Assumptions KamiHW.ReportSerial.get_tx_is_tx_out.
+Print Assumptions KamiHW.ReportSerial.report_begin.
+Print Assumptions KamiHW.ReportSerial.report_tick.
+Print Assumptions KamiHW.ReportSerial.report_start_bit_end.
+Print Assumptions KamiHW.ReportSerial.report_data_bit_end.
+Print Assumptions KamiHW.ReportSerial.report_stop_bit_end.
+Print Assumptions KamiHW.ReportSerial.report_last_stop_bit_end.
+Print Assumptions KamiHW.ReportSerial.report_done_idle.
+Print Assumptions KamiHW.ReportSerial.tx_out_idle.
+Print Assumptions KamiHW.ReportSerial.tx_out_start_bit.
+Print Assumptions KamiHW.ReportSerial.tx_out_stop_bit.
+Print Assumptions KamiHW.ReportSerial.tx_out_data_bit.
+Print Assumptions KamiHW.ReportSerial.tx_run_app.
+Print Assumptions KamiHW.ReportSerial.tx_out_clk.
+Print Assumptions KamiHW.ReportSerial.ticks_run.
+Print Assumptions KamiHW.ReportSerial.repeat_snoc.
+Print Assumptions KamiHW.ReportSerial.period_run.
+Print Assumptions KamiHW.ReportSerial.split_length.
+Print Assumptions KamiHW.ReportSerial.word8_bits.
+Print Assumptions KamiHW.ReportSerial.data_period.
+Print Assumptions KamiHW.ReportSerial.shift_right_bits.
+Print Assumptions KamiHW.ReportSerial.data_bits_run.
+Print Assumptions KamiHW.ReportSerial.byte_run.
+Print Assumptions KamiHW.ReportSerial.last_byte_run.
+Print Assumptions KamiHW.ReportSerial.bytes_run.
+Print Assumptions KamiHW.ReportSerial.report_transmits.
+Print Assumptions KamiHW.ReportSerial.report_done_stays.
+Print Assumptions KamiHW.ReportSerial.report_waits.
+Print Assumptions KamiHW.ReportSerial.report_bytes_fields.
+Print Assumptions KamiHW.ReportSerial.status_byte_value.
+Print Assumptions KamiHW.ReportSerial.cpu_getter_names.
+Print Assumptions KamiHW.ReportSerial.get_pc_returns.
+Print Assumptions KamiHW.ReportSerial.get_mu_returns.
+Print Assumptions KamiHW.ReportSerial.get_err_returns.
+Print Assumptions KamiHW.ReportSerial.get_halted_returns.
+Print Assumptions KamiHW.ReportSerial.get_certified_returns.
+Print Assumptions KamiHW.ReportSerial.get_error_code_returns.
+Print Assumptions KamiHW.ReportSerial.getters_run.
+Print Assumptions KamiHW.ReportSerial.report_bytes_kernel.
+Print Assumptions KamiHW.ReportSerial.rx_bytes_app.
+Print Assumptions KamiHW.ReportSerial.rx_frames.
+Print Assumptions KamiHW.ReportSerial.rx_idle_high.
+Print Assumptions KamiHW.ReportSerial.serial_status_report.
 (* === KamiHW.RetireMaster : 60 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.RetireMaster.retire_runner.
 Print Assumptions KamiHW.RetireMaster.retire_unique.

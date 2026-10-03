@@ -311,9 +311,9 @@ II    Building it                                                               
 17 Five minimal models inspired by other disciplines                                        127
    17.1 Proof-of-stake finality . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   128
    17.2 Gas metering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    128
-   17.3 Trusted-execution attestation . . . . . . . . . . . . . . . . . . . . . . . .       128
+   17.3 Trusted-execution attestation . . . . . . . . . . . . . . . . . . . . . . . .       129
    17.4 Certificate transparency . . . . . . . . . . . . . . . . . . . . . . . . . . .      129
-   17.5 Proof-carrying verification . . . . . . . . . . . . . . . . . . . . . . . . . .     129
+   17.5 Proof-carrying verification . . . . . . . . . . . . . . . . . . . . . . . . . .     130
    17.6 The same table, five ways . . . . . . . . . . . . . . . . . . . . . . . . . .       130
    17.7 Five specifications, read through the record axis . . . . . . . . . . . . .         130
 
@@ -327,9 +327,9 @@ II    Building it                                                               
    18.6 Algebraic characterization of the CHSH gate condition . . . . . . . . .             141
         18.6.1 The matrix, written out . . . . . . . . . . . . . . . . . . . . . . .        142
         18.6.2 Where the three conditions come from . . . . . . . . . . . . . . .           143
-   18.7 Lifting the bridge to level 1+AB: the four-slice Schur cascade . . . . . .          151
+   18.7 Lifting the bridge to level 1+AB: the four-slice Schur cascade . . . . . .          152
         18.7.1 The 9 × 9 moment matrix and its five γ parameters . . . . . . .              152
-        18.7.2 Why four slices . . . . . . . . . . . . . . . . . . . . . . . . . . . .      152
+        18.7.2 Why four slices . . . . . . . . . . . . . . . . . . . . . . . . . . . .      153
         18.7.3 The compositional Schur cascade (Slice D) . . . . . . . . . . . .            154
         18.7.4 What this delivers and what it does not . . . . . . . . . . . . . .          155
    18.8 The full correlator set: the elliptope completion . . . . . . . . . . . . . .       155
@@ -6236,15 +6236,21 @@ le_hands_off and LoaderSerial.load_instr_writes say the rule that takes
 
 
                                           124
-The Thiele Machine                                         Devon Thiele • September 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 a held word calls loadInstr with exactly that word and address, and loadInstr
-writes it into instruction memory.
+writes it into instruction memory. ReportSerial.serial_status_report runs
+the report rule once per cycle as the Kami rule itself. Once the CPU has started and
+then halts or faults, the line carries the frames of the fifteen bytes, and those bytes are
+the program counter, the µ ledger, the error flag and the certified flag of the kernel
+state the CPU registers abstract to, as 32-bit words, with the CPU’s error code. The
+loader’s own receiver reads the same fifteen bytes back off the line.
 
 One link isn’t proved. Kami’s semantics say a rule may fire whenever its guard holds.
 They don’t say when it fires. So Coq doesn’t prove that the loader’s load rule takes
-each word before the next word replaces it. Each word stays held for at least fifteen
+each word before the next word replaces it, and the report theorem takes as given
+that the report rule fires once every cycle. Each word stays held for at least fifteen
 more frames, and the simulation tests (scripts/system_sim.py, on the extracted
 Verilog and on a gate netlist) check that whole programs land and run.
 
@@ -6277,19 +6283,19 @@ separate from physical clock transitions in ThieleCPUCore.v.
      specific premise to this intermediate model equality.
    • CALL and RET require WellFormedSnapshot, with a PC bound for CALL.
      CHSH_TRIAL requires Boolean operands. LASSERT requires agreement with
-     its memory header. Tensor access requires valid indices, and TENSOR_GET also
-     requires module existence.
+
+
+                                           125
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
+      its memory header. Tensor access requires valid indices, and TENSOR_GET also
+      requires module existence.
    • MORPH requires extended_hw_invariant and existing source and target
      modules. COMPOSE, MORPH_TENSOR, and MORPH_GET require the ex-
      tended invariant. MORPH_ID uses the empty-descriptor invariant and module
      existence. MORPH_ASSERT and MORPH_DELETE require morph-table well-
-
-
-                                         125
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
-      formedness.
+     formedness.
    • PNEW requires a nonempty normalized region and fresh tensor state. PSPLIT
      and PMERGE carry the partition, capacity, freshness, and arithmetic conditions
      in their source branches. These per-operation conditions must be established
@@ -6326,6 +6332,12 @@ first requires room for the raw intermediate list; a normalized result fitting t
 does not guarantee admission when the raw list exceeds it.
 
 The inventory arithmetic rtl_inventory_arithmetic is not a proof of these
+
+
+                                          126
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 representation obligations. The 47 synthesized / four nonsynthesized distinction
 describes the implementation inventory; it does not turn a conditional model theorem
 into unrestricted RTL equality.
@@ -6333,12 +6345,6 @@ into unrestricted RTL equality.
 And the four Q1+AB check opcodes are not stranded by sitting outside that partition:
 their kernel-equivalence proof makes them sound at the substrate level (see §18), and
 they run in the OCaml runner and Python harness. What they lack is a synthesized-
-
-
-                                          126
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 Verilog counterpart to bisimulate against, which is why they sit outside the 47 instead
 of inside it as a gap. That’s honest proof accounting. Nothing is papered over.
 
@@ -6377,17 +6383,17 @@ Ordinary machines can do all of this. That is the point of the section. Blockcha
 meters, attestation, transparency logs, and proof-carrying code all run on conventional
 hardware. Four of them keep records that are meant to last; proof-carrying code does
 not. What the four share is permanence, not a price on the write. Read against their
+
+                                           127
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 actual specifications (Section 17.7), only one prices writing its record, and it refunds
 the write when the record is taken back before it settles. The others hold their records
 in place by pricing reversal or by building them so they can’t be undone. The claim of
 this book is about the account of computation: it should carry the record and its price,
 so the next field doesn’t have to build them again. It does not say every field already
 prices the write, and it does not say a machine can’t carry one.
-
-
-                                           127
-The Thiele Machine                                          Devon Thiele • September 2026
-
 
 17.1 Proof-of-stake finality
 Stake it or it doesn’t count. The model has a yes/no finalized flag, and finalizing
@@ -6428,17 +6434,17 @@ only a false-to-true transition contributes to the flip counter.
 Falsifier: a schedule satisfying floor and no-overcharge whose charging predicate
 differs from the commitment predicate on some reachable step.
 
+
+                                          128
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 17.3 Trusted-execution attestation
 Show the measurement, or the verifier can’t tell. The attestation model adds a mea-
 surement field to the report. Under its coverage and evidence assumptions, atte
 station_cannot_factor_through_bare_transcript rules out a sound and
 complete verifier that only reads the bare transcript. replay_is_a_two_preima
 ge_witness supplies the model’s collision: two runs, one bare transcript. That is
-
-                                          128
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
 the shape of a replay, not a replay attack; no signed report or freshness rule is in the
 model. measurement_enriched_attestation_succeeds gives a verifier that
 works on the enriched reports. The point is that some distinguishing evidence has
@@ -6476,6 +6482,13 @@ deployment would take its own implementation and security argument.
 
 Falsifier: a sound and complete log-free verifier with the same soundness target.
 
+
+
+
+                                          129
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
 17.5 Proof-carrying verification
 Carry the proof along. The proof-carrying model puts evidence in a transcript field
 called rounds. proof_rounds_escape verifies that field under its evidence contract,
@@ -6484,12 +6497,6 @@ Calling the field rounds doesn’t make a one-shot certificate interactive. The 
 is one number the contract says equals µ; no code, safety policy, or proof checker is
 modeled. Separately, level_k_verification_floor, which is just another name
 for level_k_certification_cost_floor, says a run from the clean start that
-
-
-                                          129
-The Thiele Machine                                             Devon Thiele • September 2026
-
-
 ends certified after executing one CERTIFY charged at least k costs at least k, and l
 evel_k_verification_floor_tight shows it can be exactly k. That count is
 a different thing from the per-instruction charge levels in Section 19. Neither one
@@ -6528,16 +6535,14 @@ is the one event every model has to price; that selection is a conjecture.
 The models above are mine. Here are the specifications themselves, read with three
 questions: what is the record, what keeps it permanent, and where does a price sit. A
 price can sit at three levels. It can be economic, a fee or a deposit the protocol takes. It
-can be cryptographic, a reversal made infeasible by a hardness assumption. Or it can
-be physical, energy spent under Landauer’s principle.
-
-
 
 
                                             130
 The Thiele Machine                                               Devon Thiele • September 2026
 
 
+can be cryptographic, a reversal made infeasible by a hardness assumption. Or it can
+be physical, energy spent under Landauer’s principle.
 
 
  Specification       Record           What keeps it   Where a price sits, and     Checked in Coq
@@ -6583,14 +6588,14 @@ TPM and CT price nothing in their specifications. A hash chain or an append-only
 stays put because undoing it is infeasible, which is a cryptographic guarantee, not an
 exact one. A PCR’s record lasts until the platform resets it, so its permanence is per
 boot. There is a physical cost underneath: a register that exactly kept a permanent
-record on finite hardware would have to merge states (Section 9.1). The specifications
-don’t price it.
-
 
 
                                               131
 The Thiele Machine                                           Devon Thiele • September 2026
 
+
+record on finite hardware would have to merge states (Section 9.1). The specifications
+don’t price it.
 
 Proof-carrying code keeps no permanent record and prices nothing. It is outside the
 family.
@@ -6633,14 +6638,14 @@ gate count.
 Everything below earns that. The matrix algebra is the discharge: it shows that ev-
 erything CHSH_LASSERT lets through sits inside the Tsirelson bound, a bar I did not
 set myself. I came at it sideways, stress-testing the machine’s priced checks against a
-known algebraic boundary, the NPA moment matrix conditions for what correlations
-are achievable under polynomial constraints.
-
 
 
                                            132
 The Thiele Machine                                            Devon Thiele • September 2026
 
+
+known algebraic boundary, the NPA moment matrix conditions for what correlations
+are achievable under polynomial constraints.
 
 I did not set out to find what I found. The chain is concrete. The Z-arithmetic check
 the kernel runs on the witness counters (decidable, integer-only) is sound with respect
@@ -6682,41 +6687,41 @@ Imagine two players, Alice and Bob, in separate rooms. They cannot communicate
 once the game starts. A referee sends Alice one of two questions (x ∈ {0, 1}). The
 referee sends Bob one of two questions (y ∈ {0, 1}). Alice answers a ∈ {0, 1}. Bob
 answers b ∈ {0, 1}. (Settings ( x, y), outcomes ( a, b): same convention as Section 11
-and the Coq.)
-
-The game rule: they want a ⊕ b = x ∧ y. The symbol ⊕ is XOR (exclusive OR):
 
 
                                            133
-The Thiele Machine                                                                Devon Thiele • September 2026
+The Thiele Machine                                                             Devon Thiele • September 2026
 
 
+and the Coq.)
+
+The game rule: they want a ⊕ b = x ∧ y. The symbol ⊕ is XOR (exclusive OR):
 a ⊕ b = 1 when a ̸= b, and 0 when a = b. The symbol ∧ is AND: x ∧ y = 1 only
 when both x = 1 and y = 1, otherwise 0. In plain language: their answers should
 be different if and only if both questions were 1. For all other question combinations
 (both 0, or one each), they should match.
 
-                                         x             Referee                se
-                                                                                 tti
-                                     g                                               ng
+                                                   Referee                se
+                                    gx                                      tti
+                                                                                  ng
                                   in
-                             sett                                                       y
+                             sett                                                    y
 
 
 
 
-                     Alice                                                                  Bob
-                                                       shared λ
-                 separated room                                                    separated room
+                     Alice                                                               Bob
+                                                   shared λ
+                 separated room                                                   separated room
 
 
 
 
-             outcome a ∈ {0, 1}                                              outcome b ∈ {0, 1}
-                                                    no communication
-                                                     during the game
+             outcome a ∈ {0, 1}                                          outcome b ∈ {0, 1}
+                                                no communication
+                                                 during the game
 
-                                              Win condition: a ⊕ b = x ∧ y
+                                          Win condition: a ⊕ b = x ∧ y
 
 
 Figure 7: The CHSH setup. The referee distributes settings x, y; Alice and Bob each
@@ -6739,20 +6744,20 @@ swers, a0 and a1 , and Bob has two predetermined answers, b0 and b1 . Winning al
 question combinations would require:
 
 
-                a0 ⊕ b0 = 0,                 a0 ⊕ b1 = 0,    a1 ⊕ b0 = 0,         a1 ⊕ b1 = 1.
+                a0 ⊕ b0 = 0,             a0 ⊕ b1 = 0,    a1 ⊕ b0 = 0,          a1 ⊕ b1 = 1.
 
 Now XOR the four left sides. Every variable appears twice, so the total is 0. XOR
 the four right sides and the total is 1. That is impossible. So every deterministic local
 strategy loses at least one of the four cases, and the best deterministic strategy wins at
+
+
+                                                      134
+The Thiele Machine                                              Devon Thiele • September 2026
+
+
 most 3 out of 4 question combinations.
 
 And you cannot buy your way past it with a coin flip. A randomized strategy is
-
-
-                                                          134
-The Thiele Machine                                                  Devon Thiele • September 2026
-
-
 nothing but a bag of deterministic ones with a die deciding which to pull, and every
 strategy in the bag already tops out at 75%. Average a pile of things that each sit at
 75% or below and the average sits at 75% or below; there is no arrangement of losers
@@ -6797,12 +6802,13 @@ for any fixed λ.
 Average over λ:
 
 
-                         S = ⟨ A0 B0 ⟩ + ⟨ A0 B1 ⟩ + ⟨ A1 B0 ⟩ − ⟨ A1 B1 ⟩
+                                             135
+The Thiele Machine                                                Devon Thiele • September 2026
 
 
-                                               135
-The Thiele Machine                                           Devon Thiele • September 2026
 
+
+                       S = ⟨ A0 B0 ⟩ + ⟨ A0 B1 ⟩ + ⟨ A1 B0 ⟩ − ⟨ A1 B1 ⟩
 
 where ⟨ A x By ⟩ is the correlation (expected value of the product) when settings are
 x and y. Since the expression before averaging was bounded by 2 for every λ, the
@@ -6849,15 +6855,15 @@ And that gap between 2 and 2 2 is not bookkeeping. It is the most stubborn fact
 in physics: people have gone into labs, fired entangled photons through polarizers,
 counted coincidences, and watched the number sit up above 2 where no local classical
 story is allowed to put it. Whatever the world is doing, it is not Alice and Bob with
+
+                                             136
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
                                                                                   √
 a shared cheat sheet agreed beforehand. The physics of why the wall sits at 2 2
 is somebody else’s chapter and a good one. My question is narrower and, to me,
 stranger: why does an integer check on counters stay under a wall it never names?
-
-                                           136
-The Thiele Machine                                                Devon Thiele • September 2026
-
-
 The polynomial arithmetic below answers it. Take the check’s three inequalities, add
                                                   √
 nothing from quantum mechanics, and the same 2 2 falls out the bottom on its own.
@@ -6903,15 +6909,16 @@ Tightness: the strategy A x ≡ 1, By ≡ 1 gives ⟨ A0 B0 ⟩ = ⟨ A0 B1 ⟩ 
 instructions accumulating one trial per setting pair in vm_witness. The Coq witness
 is classical_bound_achieved.
 
-   Plain reading. Direct contrapositive. If |S| ≤ 2 for the population-level correlation
-   of every LHV, then a population-level S > 2 rules out every LHV. The Bell-test
-   contradiction has this form, and it’s a claim about the number an unbounded run
+
 
                                              137
 The Thiele Machine                                                 Devon Thiele • September 2026
 
 
-    converges to. The number on any one finite scoreboard is a different thing.
+   Plain reading. Direct contrapositive. If |S| ≤ 2 for the population-level correlation
+   of every LHV, then a population-level S > 2 rules out every LHV. The Bell-test
+   contradiction has this form, and it’s a claim about the number an unbounded run
+   converges to. The number on any one finite scoreboard is a different thing.
 
 
 Theorem 18.2 (Non-locality of an exact CHSH violation). An exact correlation E =
@@ -6953,19 +6960,18 @@ rule out a randomized local model that redraws λ trial by trial, which is exact
 kind of model the coin-flip example above uses to reach S = 4 honestly. Reading a
 certified witness violation as physically informative rests on running enough trials to
 make the fixed-strategy count and the population count converge, not on an identity
-between one finite tally and the exact-correlation theorem above.
-
-   Plain reading. PSD of the fixed matrix and column contractivity are the same
-
 
                                                138
 The Thiele Machine                                              Devon Thiele • September 2026
 
 
-    condition. PSD also caps each row, and Cauchy–Schwarz turns those row caps
-           √
-    into 2 2. That is a statement about this matrix. A quantum behavior in general,
-    or a finite local sample, is a different object with its own definition.
+between one finite tally and the exact-correlation theorem above.
+
+   Plain reading. PSD of the fixed matrix and column contractivity are the same
+   condition. PSD also caps each row, and Cauchy–Schwarz turns those row caps
+          √
+   into 2 2. That is a statement about this matrix. A quantum behavior in general,
+   or a finite local sample, is a different object with its own definition.
 
 
 Theorem 18.3 (Tsirelson upper bound for the fixed completion, npa_psd_implies
@@ -7017,14 +7023,13 @@ parison in Q: (5657/2000)2 = 32,001,649/4,000,000 > 8 = 32,000,000/4,000,000, so
 5657/2000 > 8. Combined with |S|2 ≤ 8, this gives |S| < 5657/2000, a strict rational
 bound checkable without floating-point evaluation.
 
-Bell’s theorem has another face, and it is worth seeing both. The statistical face is
-the one everyone draws: counts going into a number S and the number refusing to
-
 
                                              139
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+Bell’s theorem has another face, and it is worth seeing both. The statistical face is
+the one everyone draws: counts going into a number S and the number refusing to
 stay under 2. But the same wall shows up one floor down, in the language of cou-
 plings, where you are no longer talking about averages at all but about whether two
 parties can each answer locally and have their answers fit together. A WitnessCount-
@@ -7066,14 +7071,14 @@ observed, the reference kernel makes you pay for a step from the priced class to
 there. nonlocal_correlation_requires_revelation says exactly which: a
 trace that starts with the certificate-address channel at zero and ends with it set con-
 tains a REVEAL, EMIT, LJOIN, LASSERT, or MORPH_ASSERT. That theorem is about
-the channel. It knows nothing about CHSH. Requiring REVEAL in particular for a
-super-quantum claim is a runtime policy, and the source says so. The requirement
 
 
                                             140
 The Thiele Machine                                             Devon Thiele • September 2026
 
 
+the channel. It knows nothing about CHSH. Requiring REVEAL in particular for a
+super-quantum claim is a runtime policy, and the source says so. The requirement
 falls straight out of how cost is priced: A2 charges the cert-flip, so the only way to
 reach an attested claim is to take the step that flips the cert, and that step costs. The
 strictness is downstream of the accounting, not the other way around, and the next
@@ -7117,18 +7122,18 @@ arithmetic. The following biconditional holds.
 
 Positive semidefinite (PSD). A matrix M is positive semidefinite if for every vector v
 you can multiply with it, the quantity v T Mv is at least 0. (Here v T is the transpose
-of v from Section A: turning a column of numbers on its side; v T Mv is the matrix
-product of v T , M, and v, which is just one number.) The intuition: PSD means the
 
                                             141
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+of v from Section A: turning a column of numbers on its side; v T Mv is the matrix
+product of v T , M, and v, which is just one number.) The intuition: PSD means the
 matrix never maps a vector
                          ! to something pointing “backwards” relative to the vector.
                      a b
-For a 2 × 2 matrix        , PSD reduces to three simple conditions: a ≥ 0, c ≥ 0, and
-                    b c
+For a 2 × 2 matrix         , PSD reduces to three simple conditions: a ≥ 0, c ≥ 0, and
+                     b c
 ac − b2 ≥ 0. The first two say the diagonal entries are non-negative. The third says
 the determinant (Section A) is non-negative. For larger matrices, the PSD condition
 generalises: every principal submatrix (every square subblock you get by picking
@@ -7165,24 +7170,26 @@ expected value of Oi O j . In Coq they are just positions in a real matrix. Zero
 means the four one-party slots and the two within-party slots are set to zero, which
 leaves the CHSH correlators in the cross positions.
 
-                                                 
-                                1 0    0   0   0
-                              0 1     0 E00 E01 
-                                                 
-                                                 
-                            M=
-                               0  0   1  E10 E11
-                                                  
-                                                  
-                              0 E00 E10 1     0 
-                                                 
 
-                                0 E01 E11 0    1
 
 
                                            142
-The Thiele Machine                                                                                Devon Thiele • September 2026
+The Thiele Machine                                                                               Devon Thiele • September 2026
 
+
+
+                                                              
+                                              1 0    0  0   0
+                                            0 1     0 E00 E01 
+                                                              
+                                                              
+                                          M=
+                                            0 0     1 E10 E11 
+                                                               
+                                            0 E00 E10 1    0 
+                                                              
+
+                                              0 E01 E11 0   1
 
 Rows and columns are indexed 0 through 4, in the order { I, A0 , A1 , B0 , B1 }. The
 diagonal is all 1s. In the physics reading that is because a ±1-valued measurement
@@ -7190,22 +7197,22 @@ squares to the identity. In Coq the 1s are simply written into the definition. T
 diagonal entries Exy are the CHSH correlators with Alice’s setting x and Bob’s setting y
 (Section A). Everything else is zero because this is the zero-marginal, zero-within-party
 slice.
-                  1      0     0      0      0          1      0     0      0      0         1       0     0     0        0
+                 1      0     0      0      0           1     0     0      0      0         1       0     0     0        0
 
-                  0      1     0     E00   E01          0      1     0     E00   E01         0       1     0    E00   E01
+                 0      1     0     E00   E01           0     1     0     E00   E01         0       1     0    E00   E01
 
-                  0      0     1     E10   E11          0      0     1     E10   E11         0       0     1    E10   E11
+                 0      0     1     E10   E11           0     0     1     E10   E11         0       0     1    E10   E11
 
-                  0    E00    E10     1      0          0    E00    E10     1      0         0     E00    E10    1        0
+                 0    E00    E10     1      0           0    E00   E10     1      0         0     E00    E10    1        0
 
-                  0    E01    E11     0      1          0    E01    E11     0      1         0     E01    E11    0        1
+                 0    E01    E11     0      1           0    E01   E11     0      1         0     E01    E11    0        1
 
-                      Condition 1                           Condition 2                           Condition 3
-                          2 − E2 ≥ 0
-                      1− E00                                    2 − E2 ≥ 0
-                                                            1− E01                         AC ≥ B2 , Schur on 4×4
-                               10                                    11
-               rows/cols {1, 2, 3} (A0 , A1 , B0 )   rows/cols {1, 2, 4} (A0 , A1 , B1 )         rows/cols {1, 2, 3, 4}
+                     Condition 1                            Condition 2                          Condition 3
+                         2 − E2 ≥ 0
+                     1− E00                                     2 − E2 ≥ 0
+                                                            1− E01                        AC ≥ B2 , Schur on 4×4
+                              10                                     11
+              rows/cols {1, 2, 3} (A0 , A1 , B0 )   rows/cols {1, 2, 4} (A0 , A1 , B1 )         rows/cols {1, 2, 3, 4}
 
 
 
@@ -7227,15 +7234,20 @@ Condition 1: 1 − E00   10
 
 Take the 3 × 3 submatrix from rows and columns {1, 2, 3} of the 5 × 5 moment matrix
 (the rows and columns indexed by A0 , A1 , B0 ):
-                                                                 
-                                                        1   0 E00
-                                                      0    1 E10 
-                                                                 
+                                                                
+                                                       1   0 E00
+                                                     0    1 E10 
+                                                                
 
-                                                       E00 E10 1
+                                                      E00 E10 1
 
 Compute the determinant of this 3 × 3 submatrix by the cofactor expansion along the
 first row (Section A: pick a row, multiply each entry by the determinant of the 2 × 2
+
+                                                                   143
+The Thiele Machine                                                        Devon Thiele • September 2026
+
+
 matrix you get by deleting that entry’s row and column, with alternating signs, then
 sum):
 
@@ -7245,20 +7257,16 @@ sum):
 The principal-submatrix rule for PSD says this determinant must be ≥ 0. That is
 condition 1.
 
-                                                                   143
-The Thiele Machine                                                      Devon Thiele • September 2026
-
-
                   2 − E2 ≥ 0
 Condition 2: 1 − E01   11
 
 Take the 3×3 submatrix from rows and columns {1, 2, 4} (the A0 , A1 , B1 block):
-                                               
-                                      1   0 E01
-                                    0    1 E11 
-                                               
+                                                   
+                                          1   0 E01
+                                        0    1 E11 
+                                                   
 
-                                     E01 E11 1
+                                         E01 E11 1
 
                                      2 − E2 ≥ 0. That is condition 2.
 Same calculation: determinant = 1 − E01   11
@@ -7268,15 +7276,15 @@ Condition 3: (1 − E00   10       01   11       00 01 10 11
 
 This comes from the 4 × 4 submatrix at rows and columns {1, 2, 3, 4}. That submatrix
 has a block structure (an arrangement where the entries are themselves 2 × 2 matrices):
-                                                            !
-                                             I2        E
-                                             ET        I2
+                                                              !
+                                               I2        E
+                                               ET        I2
 
 where I2 is the 2 × 2 identity matrix (Section A) and E is the 2 × 2 correlator matrix
-                                                                !
-                                             E00 E01
-                                   E=                               .
-                                             E10 E11
+                                                                  !
+                                               E00 E01
+                                       E=                             .
+                                               E10 E11
 
 E T is the transpose of E from Section A. A standard linear-algebra fact (the Schur
 complement criterion, also Section A) says that a block matrix of this shape is positive-
@@ -7287,35 +7295,37 @@ on its diagonal, while EE T would put the squared norms of the rows. The right o
 for this argument is E T E.
 
 Computing E T E entry by entry:
-                           !             !                                                 !
-                 E00 E10       E00 E01                  2 + E2
-                                                       E00           E00 E01 + E10 E11
-      ET E =                                 =                10
-                                                                          2 + E2
-                                                                                               .
-                 E01 E11       E10 E11             E00 E01 + E10 E11     E01    11
+                           !               !                                                 !
+                 E00 E10        E00 E01                   2 + E2
+                                                         E00           E00 E01 + E10 E11
+      ET E =                                   =                10
+                                                                            2 + E2
+                                                                                                 .
+                 E01 E11        E10 E11              E00 E01 + E10 E11     E01    11
+
+
+
+
+                                                   144
+The Thiele Machine                                              Devon Thiele • September 2026
+
 
 The Schur complement is therefore
-                                                                          !                 !
-                              2 − E2
-                        1 − E00             −( E00 E01 + E10 E11 )                A −B
-             T                      10
-       I2 − E E =                                    2 − E2
-                                                                              =
-                     −( E00 E01 + E10 E11 )    1 − E01     11                     −B C
+                                                                      !              !
+                               2 − E2
+                         1 − E00             −( E00 E01 + E10 E11 )           A −B
+       I2 − E T E =                  10
+                                                      2 − E2
+                                                                          =
+                      −( E00 E01 + E10 E11 )    1 − E01     11                −B C
 
-where A = 1 − E00  2 − E2 (the left side of condition 1), B = E E + E E , and
-                          10                                       00 01   10 11
-            2    2
-C = 1 − E01 − E11 (the left side of condition 2). For this 2 × 2 Schur complement to
+where A = 1 − E00   2 − E2 (the left side of condition 1), B = E E + E E , and
+                          10                                        00 01   10 11
+C = 1 − E01 2 − E2 (the left side of condition 2). For this 2 × 2 Schur complement to
+                 11
 be PSD, two things must hold: the diagonal entries must be non-negative (which are
 conditions 1 and 2 again) and the determinant must be non-negative, AC − B2 ≥ 0.
 That last inequality is condition 3.
-
-
-                                                 144
-The Thiele Machine                                               Devon Thiele • September 2026
-
 
 That is where the three conditions come from: two from 3×3 submatrices, one from the
 Schur complement of the 4×4 block, each one a principal minor forced non-negative by
@@ -7323,10 +7333,10 @@ M being PSD. That derivation runs necessity, PSD of M implies the three conditio
 It does not establish sufficiency; checking these particular minors does not by itself
 certify every principal minor of the full 5 × 5; a direct argument for the other direction
 follows.
-                                                                            !
-                                                                   I2 E
-The forward direction, directly. Write M in block form as 1 ⊕                 : the (0, 0)
-                                                                  E T I2
+                                                                             !
+                                                                       I2 E
+The forward direction, directly. Write M in block form as 1 ⊕                  : the (0, 0)
+                                                                      E T I2
 entry is 1, the rest of row and column 0 are 0 because the marginals vanish, and the
 remaining 4 × 4 block is exactly the one just computed. For v = (v0 , x, y) with v0 ∈ R
 and x, y ∈ R2 ,
@@ -7352,6 +7362,11 @@ column-contractive. Here is the argument. Take any PSD matrix M and feed it the
 specific 5-dimensional vector v = (0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1 ),
 where y0 and y1 are free real numbers. The PSD condition v T Mv ≥ 0, after the matrix
 algebra, gives a quadratic expression in y0 and y1 : Ay20 − 2By0 y1 + Cy21 ≥ 0 for all real
+
+                                             145
+The Thiele Machine                                               Devon Thiele • September 2026
+
+
 y0 and y1 . If a quadratic of the form ay2 + 2by + c is non-negative for every real y,
 then a ≥ 0 and ac ≥ b2 (the non-negative-discriminant rule from intermediate algebra:
 a parabola that never dips below the axis has non-positive discriminant, which after
@@ -7362,12 +7377,6 @@ separately.
 A correlation ( E00 , E01 , E10 , E11 ) is slice-coherent if and only if it is realizable by the
 specified zero-marginal, zero-within-party-moment completion. Exactly. Not approxi-
 mately. Not “a complete test for physical quantum behavior.” The name describes the
-
-
-                                              145
-The Thiele Machine                                                Devon Thiele • September 2026
-
-
 test: membership in the fixed algebraic completion used by zero_marginal_npa.
 Four ratios can satisfy that test whether their counters came from trials or were written
 directly. A passing gate earns the algebraic membership claim. It does not establish
@@ -7403,6 +7412,12 @@ Forward direction (column-contractive ⇒ PSD). Assume the three column-contract
 conditions hold. The Section 18 derivation showed: condition 1 is exactly the principal-
 submatrix determinant on rows/columns {1, 2, 3}; condition 2 is exactly the principal-
 submatrix determinant on rows/columns {1, 2, 4}; condition 3 is exactly the Schur-
+
+
+                                             146
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
 complement determinant of the 4 × 4 block. Those three minors alone do not settle
 PSD; the proof completes squares. At a vector (v0 , x0 , x1 , y0 , y1 ) the quadratic form is
 v20 + ( x0 + E00 y0 + E01 y1 )2 + ( x1 + E10 y0 + E11 y1 )2 + yT ( I − ET E) y, and the last term
@@ -7412,13 +7427,6 @@ full 5 × 5 matrix is PSD. The Coq witness is zero_marginal_npa_column_contr
 active_implies_psd.
 
 Reverse direction (PSD ⇒ column-contractive). Assume the moment matrix M is PSD.
-
-
-
-                                              146
-The Thiele Machine                                                Devon Thiele • September 2026
-
-
 Specialize v T Mv ≥ 0 at the vector
                                                                                      
              v(y0 , y1 ) := 0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1
@@ -7426,7 +7434,7 @@ Specialize v T Mv ≥ 0 at the vector
 for free y0 , y1 ∈ R. Computing v T Mv using the explicit moment-matrix entries and
 collecting terms gives the quadratic form
 
-                      Ay20 − 2By0 y1 + Cy21 ≥ 0       for all y0 , y1 ∈ R,
+                       Ay20 − 2By0 y1 + Cy21 ≥ 0      for all y0 , y1 ∈ R,
 
 where A = 1 − E00     2 − E2 , B = E E + E E , C = 1 − E2 − E2 . Specializing
                             10           00 01     10 11             01    11
@@ -7460,6 +7468,12 @@ play, is a relaxation, an outer approximation the NPA hierarchy tightens level b
 Section 18.7 climbs to the level that is exact for CHSH.
 
 The forward direction is zero_marginal_npa_column_contractive_implie
+
+
+                                              147
+The Thiele Machine                                               Devon Thiele • September 2026
+
+
 s_psd. The reverse direction: given a PSD NPA matrix, specialize it at the vector
 (0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1 ). The PSD condition gives a quadratic-
 in-y0 /y1 that is everywhere non-negative. Then quadratic_nonneg_discrimina
@@ -7468,12 +7482,6 @@ conditions come from y0 = 1, y1 = 0 and y0 = 0, y1 = 1. Both directions are pack
 as the biconditional column_contractive_iff_npa_psd.
 
 What this means for the hierarchy of correlations:
-
-
-
-                                              147
-The Thiele Machine                                            Devon Thiele • September 2026
-
 
    • Classical local hidden variables: |S| ≤ 2.
    • Slice-coherent = realizable by the specified zero-marginal, zero-within-party-
@@ -7513,6 +7521,12 @@ buckets CHSH_LASSERT reads, so it cannot forge a tally directly, but a program i
 to choose its own CHSH_TRIAL inputs and drive the buckets to any reachable value it
 likes. Whether a tally was earned by play against a genuine referee or walked there
 on purpose is the kind of fact the receipt discipline of Section 15 meters, not this op-
+
+
+                                             148
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 code. So the correct reading of the boundary is set-theoretic, not moral. The classical
 polytope and the slice-coherent set intersect, uniform noise (0, 0, 0, 0) sits comfortably
 in both, but neither contains the other: (1, 0, 1, 0), reachable by a classical mixture and
@@ -7521,12 +7535,6 @@ satisfying the fixed orthogonal completion passes. What a successful CHSH_LASSER
 certifies is that the counters cohere with the zero-marginal slice, no more and no less,
 and the Tsirelson corollary is inherited from that membership, not from any power to
 sniff out forged data.
-
-
-
-                                           148
-The Thiele Machine                                                Devon Thiele • September 2026
-
 
 Kernel-level enforcement (the CHSH_LASSERT opcode). Here is the thing about a
 certification bit: by itself it is just a bit. A generic CERTIFY can set vm_certified
@@ -7563,22 +7571,21 @@ ss_sound). Let w be the WitnessCount record with eight non-negative-integer fiel
 wc_samexy , wc_diffxy for ( x, y) ∈ {0, 1}2 . Define Nxy = wc_samexy + wc_diffxy .
 The integer-only check column_contractive_check_witness is the conjunction of
 two parts: the four strict-positivity conjuncts N00 > 0, N01 > 0, N10 > 0, N11 > 0, and
+
+                                           149
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
 three Z-arithmetic inequalities on the counts, all written with no division. If the integer check
 returns true, then every Nxy is a positive integer, so
 
-                                     wc_samexy − wc_diffxy
-                             Exy =
-                                              Nxy
+                                      wc_samexy − wc_diffxy
+                              Exy =
+                                               Nxy
 
 is an ordinary quotient with a positive denominator, and E = ( E00 , E01 , E10 , E11 ) ∈ [−1, 1]4
 satisfies the three column-contractivity conditions of Section 18. This is a different fact from
 the general zero-trial convention of Section A, which sets Exy = 0 when Nxy = 0 so that the
-
-
-                                              149
-The Thiele Machine                                              Devon Thiele • September 2026
-
-
 CHSH score S is defined on every witness record. That convention lets S be computed at all; it
 plays no role here, because a passing check already guarantees no setting pair is empty.
 
@@ -7618,21 +7625,23 @@ on a sum-of-squares-shaped goal.
    Plain reading. Three theorems snap together: the kernel step rule says no-trap
    means the integer check passed; the soundness lemma says a passing integer
    check means real-valued column-contractivity; the biconditional says column-
-   contractivity means NPA-PSD. Stack them. A successful CHSH_LASSERT step
-   is a proof that the witness-derived correlators land inside the NPA-PSD set. No
-   physics input anywhere in the stack. The (1,0,1,0) correlation fails the integer
-   check (condition 1: 1 − 1 − 1 = −1 < 0), so any program that accumulated those
-   statistics traps on CHSH_LASSERT.
+
+
+
+                                              150
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
+    contractivity means NPA-PSD. Stack them. A successful CHSH_LASSERT step
+    is a proof that the witness-derived correlators land inside the NPA-PSD set. No
+    physics input anywhere in the stack. The (1,0,1,0) correlation fails the integer
+    check (condition 1: 1 − 1 − 1 = −1 < 0), so any program that accumulated those
+    statistics traps on CHSH_LASSERT.
 
 
 Theorem 18.7 (CHSH_LASSERT ⇒ NPA-PSD, chsh_lassert_no_trap_implie
 s_npa_psd). Let s be a state and let s′ = vm_apply s (instr_chsh_lassert δ). If
 s′ .vm_err = false and s′ .vm_pc = s.vm_pc + 1 (i.e., the CHSH_LASSERT step advanced
-
-                                             150
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 normally rather than trapping), then the specified zero-marginal, zero-within-party-moment
 matrix M built from the witness-derived correlators Exy of s.vm_witness is positive semi-
 definite.
@@ -7669,6 +7678,11 @@ theorem proves it impossible. Or exhibit a quantum experiment producing a non-PS
 NPA matrix. That would be news of a different kind. It would break the NPA bridge
 or quantum mechanics, not this theorem.
 
+
+                                           151
+The Thiele Machine                                               Devon Thiele • September 2026
+
+
 18.7 Lifting the bridge to level 1+AB: the four-slice Schur cascade
 Same test, bigger grid. The 5 × 5 grid only holds the four correlators. The 9 × 9 grid
 also holds five higher moments, the ones that involve three or four measurements at
@@ -7678,11 +7692,6 @@ What follows is the formal layer.
 
 Section 18 establishes the runtime bridge: CHSH_LASSERT implies PSD of a
 fixed 5 × 5 moment matrix with zero marginals and zero within-party cross mo-
-
-                                           151
-The Thiele Machine                                               Devon Thiele • September 2026
-
-
 ments. This fixed slice excludes some classical correlators. Allowing the within-
 party moments to vary gives the full correlator elliptope developed in Section 18.8.
 The Q1+AB checks instead validate a specified 9 × 9 moment matrix on the ba-
@@ -7718,6 +7727,12 @@ the swap flips the sign. That minus sign is the anticommutator a CHSH violation 
 on. That is the motivation, and only the motivation. In Coq the angle brackets are
 labels on the entries of a real polynomial matrix. The nine parameters are independent
 real slots, the opposite signs are part of how the matrix is defined, and nothing in the
+
+
+                                             152
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 proofs builds operators, adjoints, or anticommutation. Reading the entries as physical
 expectation values would take a separate representation theorem. The 9 × 9 entries
 are polynomials of degree ≤ 2 in ( Eij , γk ), and PSD of this matrix is the formal Q1+AB
@@ -7727,12 +7742,6 @@ condition used below.
 What a slice is. Here “slice” means three things together: a parameter domain, the
 PSD predicate on it, and the integer check that certifies it. What the source proves is
 that each check is sound. It does not prove that the accepted sets nest strictly, that the
-
-
-                                             152
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 integer checker accepts every PSD point in its domain, or that Slice D is the whole
 physical quantum cone. Any inclusion claim below is about the formal domains only,
 and would need its own zero-extension and certificate-translation proof.
@@ -7768,15 +7777,14 @@ cross term into the residual, and you would rather meet those one at a time than
 once. What climbs is the set of parameters each check lets in. Whether the accepted
 sets climb strictly is a different question, and nothing here proves it. Each check is
 proved sound in one direction, into PSD of the specified matrix; none has a proved
-converse. Slice D, with nothing pinned, is the broadest check here. It is not a theorem
-that Slice D is the whole Q1+AB cone.
-
-
 
 
                                            153
 The Thiele Machine                                                        Devon Thiele • September 2026
 
+
+converse. Slice D, with nothing pinned, is the broadest check here. It is not a theorem
+that Slice D is the whole Q1+AB cone.
 
 18.7.3 The compositional Schur cascade (Slice D)
 The mathematical core of Slice D is the chain
@@ -7828,13 +7836,12 @@ positive. That is the whole soundness argument: a base case and three reductions
 each one a Schur step you can carry out by hand, stacked from the 4 × 4 back up to
 PSD9.
 
-Every reduction is a single polynomial identity in the correlators Eij and the moments
-γk . To keep the opcode’s check decidable and integer-only, each identity is multiplied
-
                                                154
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
+Every reduction is a single polynomial identity in the correlators Eij and the moments
+γk . To keep the opcode’s check decidable and integer-only, each identity is multiplied
                                                                                       2
 through by the common denominator KZ = N00 N01 N10 N11 · Dg1 Dg2 Dg3 Dg4 Dg5 ,
 where the Nij are the per-setting trial counts and the Dgk the γ-bucket denominators,
@@ -7879,14 +7886,14 @@ The slice nails two numbers in the grid to zero. The elliptope lets them move. F
 slice you ask whether the point fits one fixed grid. For the elliptope you ask whether
 there’s any way to fill in those two blanks that makes the grid pass.
 
-The fixed orthogonal completion excludes some classical correlators, including every
-deterministic local strategy. The full elliptope allows the within-party cross moments
 
 
                                            155
 The Thiele Machine                                                   Devon Thiele • September 2026
 
 
+The fixed orthogonal completion excludes some classical correlators, including every
+deterministic local strategy. The full elliptope allows the within-party cross moments
 to vary. ElliptopeCompletion.v defines membership by existence of a PSD com-
 pletion and proves inclusion of classical correlators, the Tsirelson bound, and exclusion
 of the PR box. That is the mathematical object this subsection examines.
@@ -7928,24 +7935,25 @@ axioms):
      columns have squared norms 12 + 12 = 2 and 02 + 02 = 0. Transposing the
      matrix supplies the corresponding column/row counterexample; the distinc-
      tion matters because the fixed-completion proof uses E T E and therefore column
-     contractivity.
-                                                                                      √
-   • elliptope_tsirelson: everything in the set satisfies S2 ≤ 8, i.e. |S| ≤ 2 2.
+
 
                                                 156
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
-      The proof is worth a sentence, because the fixed-slice column bound does not
-      hold for arbitrary completions. At x ̸= 0 the column-norm bound fails, and
-                                                                                     √
-      honestly so: the point (1, 0, 1, 0), completed at x = 1, has a column of norm 2.
-      What replaces it is Cauchy–Schwarz run inside the PSD form itself (psd_cau
-      chy_schwarz, derived from the same discriminant lemma the reverse bridge
-      uses): the two budgets ∥ B0 + B1 ∥2 = 2 + 2y and ∥ B0 − B1 ∥2 = 2 − 2y are coupled
-      through the completion, their product is at most 4, and S2 ≤ 8 falls out of that
-      coupling. The bound holds at every point of the set, not because each column is
-      short, but because the completion cannot make both budgets long at once.
+      contractivity.
+                                                                                    √
+   • elliptope_tsirelson: everything in the set satisfies S2 ≤ 8, i.e. |S| ≤ 2 2.
+     The proof is worth a sentence, because the fixed-slice column bound does not
+     hold for arbitrary completions. At x ̸= 0 the column-norm bound fails, and
+                                                                                    √
+     honestly so: the point (1, 0, 1, 0), completed at x = 1, has a column of norm 2.
+     What replaces it is Cauchy–Schwarz run inside the PSD form itself (psd_cau
+     chy_schwarz, derived from the same discriminant lemma the reverse bridge
+     uses): the two budgets ∥ B0 + B1 ∥2 = 2 + 2y and ∥ B0 − B1 ∥2 = 2 − 2y are coupled
+     through the completion, their product is at most 4, and S2 ≤ 8 falls out of that
+     coupling. The bound holds at every point of the set, not because each column is
+     short, but because the completion cannot make both budgets long at once.
    • pr_box_not_elliptope: the PR box has no completion; its S is 4 and the
      Tsirelson theorem refuses it. And beyond_classical_elliptope exhibits
      a rational point with S = 12/5 > 2 inside the set, so the containment of the
@@ -7978,15 +7986,16 @@ theorem is elliptope_check_full_sound: a passing check entails elliptope mem-
 bership of the witness-derived correlators, with the check’s own passing as its only
 hypothesis. And the gate computes, not just proves, each by reflexivity: gate_
 accepts_all_ones runs the µ = 0 tightness witness through the LDL branch (its
-all-ones completion is rank-one singular) and it passes; gate_accepts_turing_p
-oint does the same for (1, 0, 1, 0); gate_accepts_beyond_classical passes the
-interior S = 12/5 point through the PD branch; gate_accepts_pythagorean_b
+
 
 
                                            157
 The Thiele Machine                                         Devon Thiele • September 2026
 
 
+all-ones completion is rank-one singular) and it passes; gate_accepts_turing_p
+oint does the same for (1, 0, 1, 0); gate_accepts_beyond_classical passes the
+interior S = 12/5 point through the PD branch; gate_accepts_pythagorean_b
 oundary certifies (3/5, 4/5, 4/5, −3/5), whose arcsine sum is exactly π by the 3-4-5
 triangle so it sits exactly on the Tsirelson curve with S = 14/5 > 2; it’s invisible to
 the strict PD branch because its completion is singular, and it’s reached by the LDL
@@ -8027,9 +8036,6 @@ Shape borrowed, content paid for separately.
    Landauer is the shape: a lower-bound quantity attached to an event. It is not an
    irreversibility theorem. No physics in the proof. No microscopic erasure model.
    No physical entropy. No Boltzmann constant. The conversion of µ counts to joules
-   is a calibration premise (mu_landauer_calibration, used by calibrated_
-   mu_landauer_energy; Section 25). The separate Unruh–Clausius flux bridge
-   mu_landauer_unruh_calibrated is likewise a premise. No kernel theorem
 
 
 
@@ -8037,6 +8043,9 @@ Shape borrowed, content paid for separately.
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
+    is a calibration premise (mu_landauer_calibration, used by calibrated_
+    mu_landauer_energy; Section 25). The separate Unruh–Clausius flux bridge
+    mu_landauer_unruh_calibrated is likewise a premise. No kernel theorem
     proves either; theorems in NoFIToEinstein.v take the second as an explicit
     hypothesis.
 
@@ -8082,15 +8091,14 @@ counterexample. The PC can collapse to one place while the bigger state keeps it
 I can’t spot physical erasure by watching the PC alone.
 
 The physical boundary. Counting positively charged instructions does not give the
-formal charge a physical interpretation. Neither does the finite-map Python demon-
-stration: it checks its combinatorial model, not heat released by a device. A physical
-
 
 
                                             159
 The Thiele Machine                                               Devon Thiele • September 2026
 
 
+formal charge a physical interpretation. Neither does the finite-map Python demon-
+stration: it checks its combinatorial model, not heat released by a device. A physical
 model has to use jointly satisfiable premises, account for retained history, and jus-
 tify its connection to an experiment. The permanent-certificate theorem (Section 9)
 supplies the first two for the certifying step. Its premises hold together, as the reset
@@ -8135,13 +8143,13 @@ between a known state, which owes nothing, and an uncertain one, which owes heat
 is Maroney’s and Sagawa’s. So the physics content is exactly Landauer’s principle
 plus one bridge: on finite memory, a certificate that lasts can only be switched on by a
 squeeze. The bridge formalized here is checked. The heat is Landauer’s, and Bérut’s
-experiment already measured it for the smallest case. A test of the bridge itself would
-need a device that stores a certificate with no step able to revoke it and a way to meter
 
                                            160
 The Thiele Machine                                                  Devon Thiele • September 2026
 
 
+experiment already measured it for the smallest case. A test of the bridge itself would
+need a device that stores a certificate with no step able to revoke it and a way to meter
 the certifying step alone, and I don’t know of one.
 
 19.2 The µ-hierarchy
@@ -8185,9 +8193,6 @@ for less.
 
    Plain reading. For any budget you propose, the hierarchy theorem produces a
    certified trace that exceeds it by 1. So no finite budget caps all certifications.
-
-
-
 
                                                 161
 The Thiele Machine                                              Devon Thiele • September 2026
@@ -8672,13 +8677,13 @@ Falsify the axiom audit.
 If running Print Assumptions (Section A: the Coq command that reports global
 proof dependencies) on any named theorem in the kernel tier shows a project-local
 Axiom or Parameter in the dependency tree, the audit has degraded. The full-
-corpus probe covers 14,458 named theorems across 505 files: 6,908 close under
-the global Coq context outright, and 7,550 use only Coq standard-library assump-
+corpus probe covers 14,506 named theorems across 506 files: 6,921 close under
+the global Coq context outright, and 7,585 use only Coq standard-library assump-
 tions. The receipt names five such constants: dependent functional extensionality,
 Eqdep.Eq_rect_eq.eq_rect_eq, ClassicalDedekindReals.sig_not_dec,
 ClassicalDedekindReals.sig_forall_dec,                                            and
 Classical_Prop.classic. Zero project-local axioms appear in any of the
-14,458 dependency trees. This audits where global dependencies come from. It
+14,506 dependency trees. This audits where global dependencies come from. It
 doesn’t prove that a theorem’s own Section-generalized premises hold for the instance
 you care about; those premises stay visible in the theorem types and get checked
 separately. Any project-local axiom or parameter appearing in a global dependency

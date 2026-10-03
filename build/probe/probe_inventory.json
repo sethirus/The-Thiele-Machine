@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 505,
-  "total_addressable": 14457,
+  "files_probed": 506,
+  "total_addressable": 14505,
   "total_unaddressable": 8,
   "extras_addressable_via_instantiation": [
     {
@@ -34767,6 +34767,255 @@
           "local_name": "eval_read_free_action",
           "kind": "Theorem",
           "full_name": "KamiHW.ReadFreeObservation.eval_read_free_action"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kami_hw/ReportSerial.v",
+      "qualified_module": "KamiHW.ReportSerial",
+      "addressable_count": 48,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "eval_call_action_sound",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.eval_call_action_sound"
+        },
+        {
+          "local_name": "report_rule_name",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.report_rule_name"
+        },
+        {
+          "local_name": "report_eval_some",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.report_eval_some"
+        },
+        {
+          "local_name": "report_step_is_rule",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.report_step_is_rule"
+        },
+        {
+          "local_name": "get_tx_method_name",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.get_tx_method_name"
+        },
+        {
+          "local_name": "get_tx_is_tx_out",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.get_tx_is_tx_out"
+        },
+        {
+          "local_name": "report_begin",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.report_begin"
+        },
+        {
+          "local_name": "report_tick",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.report_tick"
+        },
+        {
+          "local_name": "report_start_bit_end",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.report_start_bit_end"
+        },
+        {
+          "local_name": "report_data_bit_end",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.report_data_bit_end"
+        },
+        {
+          "local_name": "report_stop_bit_end",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.report_stop_bit_end"
+        },
+        {
+          "local_name": "report_last_stop_bit_end",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.report_last_stop_bit_end"
+        },
+        {
+          "local_name": "report_done_idle",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.report_done_idle"
+        },
+        {
+          "local_name": "tx_out_idle",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.tx_out_idle"
+        },
+        {
+          "local_name": "tx_out_start_bit",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.tx_out_start_bit"
+        },
+        {
+          "local_name": "tx_out_stop_bit",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.tx_out_stop_bit"
+        },
+        {
+          "local_name": "tx_out_data_bit",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.tx_out_data_bit"
+        },
+        {
+          "local_name": "tx_run_app",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.tx_run_app"
+        },
+        {
+          "local_name": "tx_out_clk",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.tx_out_clk"
+        },
+        {
+          "local_name": "ticks_run",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.ticks_run"
+        },
+        {
+          "local_name": "repeat_snoc",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.repeat_snoc"
+        },
+        {
+          "local_name": "period_run",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.period_run"
+        },
+        {
+          "local_name": "split_length",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.split_length"
+        },
+        {
+          "local_name": "word8_bits",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.word8_bits"
+        },
+        {
+          "local_name": "data_period",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.data_period"
+        },
+        {
+          "local_name": "shift_right_bits",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.shift_right_bits"
+        },
+        {
+          "local_name": "data_bits_run",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.data_bits_run"
+        },
+        {
+          "local_name": "byte_run",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.byte_run"
+        },
+        {
+          "local_name": "last_byte_run",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.last_byte_run"
+        },
+        {
+          "local_name": "bytes_run",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.bytes_run"
+        },
+        {
+          "local_name": "report_transmits",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.report_transmits"
+        },
+        {
+          "local_name": "report_done_stays",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.report_done_stays"
+        },
+        {
+          "local_name": "report_waits",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.report_waits"
+        },
+        {
+          "local_name": "report_bytes_fields",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.report_bytes_fields"
+        },
+        {
+          "local_name": "status_byte_value",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.status_byte_value"
+        },
+        {
+          "local_name": "cpu_getter_names",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.cpu_getter_names"
+        },
+        {
+          "local_name": "get_pc_returns",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.get_pc_returns"
+        },
+        {
+          "local_name": "get_mu_returns",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.get_mu_returns"
+        },
+        {
+          "local_name": "get_err_returns",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.get_err_returns"
+        },
+        {
+          "local_name": "get_halted_returns",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.get_halted_returns"
+        },
+        {
+          "local_name": "get_certified_returns",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.get_certified_returns"
+        },
+        {
+          "local_name": "get_error_code_returns",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.get_error_code_returns"
+        },
+        {
+          "local_name": "getters_run",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.getters_run"
+        },
+        {
+          "local_name": "report_bytes_kernel",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.report_bytes_kernel"
+        },
+        {
+          "local_name": "rx_bytes_app",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.rx_bytes_app"
+        },
+        {
+          "local_name": "rx_frames",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.rx_frames"
+        },
+        {
+          "local_name": "rx_idle_high",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ReportSerial.rx_idle_high"
+        },
+        {
+          "local_name": "serial_status_report",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ReportSerial.serial_status_report"
         }
       ],
       "unaddressable": []
