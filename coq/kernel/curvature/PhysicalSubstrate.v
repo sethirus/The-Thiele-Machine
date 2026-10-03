@@ -68,7 +68,9 @@ Class PhysicalSubstrate := {
 
     Given any substrate satisfying the typeclass, the existing
     nfi_to_discrete_einstein_from_bekenstein_calibration chain applies
-    directly.  The proof just names the typeclass fields and forwards. *)
+    directly.  The proof just names the typeclass fields and forwards. The
+    conclusion is the Gauss-Bonnet delta identity, which holds from the two
+    triangulation premises alone; the substrate fields are carried. *)
 Theorem substrate_implies_discrete_einstein
     `{sub : PhysicalSubstrate}
     (s_pre s_post : VMState)

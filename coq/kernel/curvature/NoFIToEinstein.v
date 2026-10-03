@@ -12,9 +12,15 @@
    calibration assumptions when those are available.
 
    So the real point of this file is not "general relativity is done." The
-   point is narrower: given the explicit bridge conditions, the repository can
-   carry a NoFI-style cost increase all the way to the discrete
-   delta-curvature = kappa * delta-chi statement. *)
+   point is narrower, and narrower than the chain above suggests. Every
+   theorem named nfi_to_discrete_einstein concludes the discrete Gauss-Bonnet
+   delta identity, delta-curvature = 5 PI * delta-chi, for two well-formed
+   triangulated graphs. That conclusion follows from the two triangulation
+   premises alone (einstein_emerges). The positivity of hbar, c and k_B, the
+   locality and support premises and the Landauer-Unruh calibration are
+   carried in the statement and not used. The file records the corridor of
+   premises under which the identity reads as Einstein-like; it does not
+   derive curvature from mu. *)
 
 (* SCOPE NOTE: foundation connectivity — closes raychaudhuri_component gap by
    wiring discrete_einstein_emergence_component into the full Jacobson chain.
@@ -59,12 +65,13 @@ Definition mu_landauer_unruh_calibrated
      entropy_per_bit support_pre support_post)%R.
 
 
-(** [nfi_to_discrete_einstein]: the whole bridge in one theorem.
+(** [nfi_to_discrete_einstein]: the corridor of premises and the curvature
+    identity in one statement.
 
-    The proof just threads the already-built pieces together. Locality gives
-    the area-law side, the calibration identifies the flux, the thermodynamic
-    bridge turns that into the Raychaudhuri component the Einstein-side theorem
-    wants, and the Gauss-Bonnet chain finishes the curvature statement. *)
+    The proof passes every premise to the thermodynamic bridge, whose
+    Raychaudhuri component accepts any positive-temperature Clausius
+    relation and returns the Gauss-Bonnet delta identity. The identity uses
+    only the two triangulation premises; the others are carried. *)
 (* SCOPE NOTE: main theorem — discharges raychaudhuri_component gap via
   discrete_einstein_emergence_component in ThermoEinsteinBridge. *)
 Theorem nfi_to_discrete_einstein :
@@ -164,7 +171,9 @@ Proof.
 Qed.
 
 (** PNEW-specific discrete Einstein chain.  Generalizes the entropy bridge
-    beyond PSPLIT to module-creation operations. *)
+    beyond PSPLIT to module-creation operations. As above, the conclusion is
+    the Gauss-Bonnet delta identity from the two triangulation premises; the
+    step, locality and calibration premises are carried. *)
 Theorem nfi_to_discrete_einstein_from_pnew_bekenstein_calibration :
   forall (hbar c_light k_B : R)
          (s_pre s_post : VMState)

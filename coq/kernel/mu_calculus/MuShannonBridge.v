@@ -1095,11 +1095,14 @@ Proof.
   - apply Nat.mul_le_mono_r. exact Hpow.
 Qed.
 
-(** Combined: given that the trace paid enough μ to realize the constructed
-    covering tree, the log2_up entropy bound follows automatically.
-    The tree is chosen as the minimal complete binary tree covering the
-    reduction — the user supplies only the μ payment and the set sizes. *)
-Theorem info_priced_reduction_no_tree_hypothesis :
+(** complete_tree_realization_bound. Take any two feasible sets with a
+    nonempty posterior, and the complete binary tree of depth
+    log2_up(|prior| / |posterior| + 1), which covers the size ratio. A
+    bounded run that realizes that tree raised mu by at least
+    log2_up |prior| - log2_up |posterior|. The two sets need not be related
+    to the run: the bound comes from the depth of the realized tree, and the
+    sets only fix which depth is required. *)
+Theorem complete_tree_realization_bound :
   forall (fuel : nat) (trace : list vm_instruction) (s : VMState)
          (omega_prior omega_posterior : FeasibleSet),
     feasible_size omega_posterior > 0 ->

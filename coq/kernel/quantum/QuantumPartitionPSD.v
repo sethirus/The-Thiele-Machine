@@ -360,21 +360,22 @@ Proof.
   exact Hchk.
 Qed.
 
-(** Final kernel-level bridge theorem: a no-trap, no-err-flip execution of
-    [instr_chsh_lassert] entails NPA-realizability of the witness-derived
-    correlators. This is the operational closure of the gap shown
+(** Final kernel-level bridge theorem: a [instr_chsh_lassert] step from a
+    state with the error flag clear that leaves the flag clear entails
+    NPA-realizability of the witness-derived correlators. A failed check is
+    exactly the case that sets the flag, so the program counter needs no
+    premise. This is the operational closure of the gap shown
     by the counterexample lemmas in MuLedgerQuantumBridge.v;
     the opcode is a kernel mechanism that decidably enforces
     column-contractivity at certification time. *)
 Theorem chsh_lassert_no_trap_implies_npa_psd :
   forall s mu_delta,
     let s' := vm_apply s (instr_chsh_lassert mu_delta) in
-    s'.(vm_pc) = S s.(vm_pc) ->
     s'.(vm_err) = s.(vm_err) ->
     s.(vm_err) = false ->
     npa_psd (state_zero_marginal_npa s).
 Proof.
-  intros s mu_delta s' Hpc Herr Herr0.
+  intros s mu_delta s' Herr Herr0.
   assert (Hchk : column_contractive_check_witness s.(vm_witness) = true).
   { unfold s' in Herr. unfold vm_apply in Herr.
     destruct (column_contractive_check_witness s.(vm_witness)) eqn:Echk.

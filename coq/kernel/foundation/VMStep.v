@@ -354,6 +354,86 @@ Proof.
   destruct instr; simpl in H; try discriminate; simpl; lia.
 Qed.
 
+(** declared_mu_delta: the mu_delta operand the instruction carries, the
+    cost the program declares. [instruction_cost] adds the successor floor
+    and any payload term to it for the twelve [is_cert_setterb] instructions
+    and uses it unchanged for every other instruction. *)
+Definition declared_mu_delta (instr : vm_instruction) : nat :=
+  match instr with
+  | instr_pnew _ cost => cost
+  | instr_psplit _ _ _ cost => cost
+  | instr_pmerge _ _ cost => cost
+  | instr_lassert _ _ _ _ cost => cost
+  | instr_ljoin _ _ cost => cost
+  | instr_mdlacc _ cost => cost
+  | instr_pdiscover _ _ cost => cost
+  | instr_xfer _ _ cost => cost
+  | instr_load_imm _ _ cost => cost
+  | instr_load _ _ cost => cost
+  | instr_store _ _ cost => cost
+  | instr_add _ _ _ cost => cost
+  | instr_sub _ _ _ cost => cost
+  | instr_jump _ cost => cost
+  | instr_jnez _ _ cost => cost
+  | instr_call _ cost => cost
+  | instr_ret cost => cost
+  | instr_chsh_trial _ _ _ _ cost => cost
+  | instr_xor_load _ _ cost => cost
+  | instr_xor_add _ _ cost => cost
+  | instr_xor_swap _ _ cost => cost
+  | instr_xor_rank _ _ cost => cost
+  | instr_emit _ _ cost => cost
+  | instr_reveal _ _ _ cost => cost
+  | instr_halt cost => cost
+  | instr_checkpoint _ cost => cost
+  | instr_read_port _ _ _ _ cost => cost
+  | instr_write_port _ _ cost => cost
+  | instr_heap_load _ _ cost => cost
+  | instr_heap_store _ _ cost => cost
+  | instr_certify cost => cost
+  | instr_and _ _ _ cost => cost
+  | instr_or _ _ _ cost => cost
+  | instr_shl _ _ _ cost => cost
+  | instr_shr _ _ _ cost => cost
+  | instr_mul _ _ _ cost => cost
+  | instr_lui _ _ cost => cost
+  | instr_tensor_set _ _ _ _ cost => cost
+  | instr_tensor_get _ _ _ _ cost => cost
+  | instr_morph _ _ _ _ cost => cost
+  | instr_compose _ _ _ cost => cost
+  | instr_morph_id _ _ cost => cost
+  | instr_morph_delete _ cost => cost
+  | instr_morph_assert _ _ _ cost => cost
+  | instr_morph_tensor _ _ _ cost => cost
+  | instr_morph_get _ _ _ cost => cost
+  | instr_chsh_lassert cost => cost
+  | instr_chsh_lassert_1ab cost => cost
+  | instr_chsh_lassert_1ab_g5 cost _ _ => cost
+  | instr_chsh_lassert_1ab_g345 cost _ _ _ _ _ _ => cost
+  | instr_chsh_lassert_1ab_g12345 cost _ _ _ _ _ _ _ _ _ _ => cost
+  end.
+
+(** Outside the cert-setter class the scheduled cost is the declared cost. *)
+Lemma non_cert_setter_cost_is_declared :
+  forall instr,
+    is_cert_setterb instr = false ->
+    instruction_cost instr = declared_mu_delta instr.
+Proof.
+  intros instr H.
+  destruct instr; simpl in H; try discriminate; reflexivity.
+Qed.
+
+(** Inside the class the scheduled cost is at least one more than the
+    declared cost: the successor floor, plus any payload bits. *)
+Lemma cert_setter_cost_above_declared :
+  forall instr,
+    is_cert_setterb instr = true ->
+    instruction_cost instr >= S (declared_mu_delta instr).
+Proof.
+  intros instr H.
+  destruct instr; simpl in H; try discriminate; simpl; lia.
+Qed.
+
 (** [nofi_step_always_ok] proves that the boolean cost-policy check accepts every instruction under this ISA's own cost function. *)
 Lemma nofi_step_always_ok : forall instr, nofi_step_cost_okb instr = true.
 Proof.

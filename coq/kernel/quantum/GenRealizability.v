@@ -463,9 +463,9 @@ Qed.
 (** Everything above is pure linear algebra: a dimension-polymorphic PSD
     predicate and its CHSH / Q_{1+AB} instances. This corollary ties that general
     machinery back to the machine it generalizes. If a CHSH-LASSERT step does not
-    trap --- it advances the program counter by one, leaves the error flag as it
-    found it, and started from a clean state --- then the correlators the VM
-    derived from its own witness land inside the general realizable set. It is
+    trap (it leaves the error flag clear, starting from a clean state), then the
+    correlators the VM derived from its own witness land inside the general
+    realizable set. It is
     the same realizability projection run at dimension five, stated over the
     actual machine state [s], so GenRealizable connects to vm_apply / VMState
     instead of standing apart from the kernel it generalizes. Composition only:
@@ -475,15 +475,14 @@ Qed.
 Corollary vm_chsh_lassert_step_is_general_realizable :
   forall (s : VMState) (mu_delta : nat),
     let s' := vm_apply s (instr_chsh_lassert mu_delta) in
-    s'.(vm_pc) = S s.(vm_pc) ->
     s'.(vm_err) = s.(vm_err) ->
     s.(vm_err) = false ->
     GenRealizable (chsh_claim (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)).
 Proof.
-  intros s mu_delta s' Hpc Herr Herr0.
+  intros s mu_delta s' Herr Herr0.
   apply (proj2 (chsh_claim_is_zero_marginal_npa
                   (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s))).
-  exact (chsh_lassert_no_trap_implies_npa_psd s mu_delta Hpc Herr Herr0).
+  exact (chsh_lassert_no_trap_implies_npa_psd s mu_delta Herr Herr0).
 Qed.
 
 Print Assumptions vm_chsh_lassert_step_is_general_realizable.

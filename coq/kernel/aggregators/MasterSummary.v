@@ -534,7 +534,8 @@ Definition audit_master_nofi_to_discrete_einstein : HonestClaim :=
      claim_premise_kinds := [ PremisePhysical; PremiseStructural; PremisePhysical; PremiseStructural ];
      claim_not_imply :=
        [ "Does not derive the calibration predicate from bare μ-accounting alone.";
-         "Does not eliminate the explicit local-horizon thermodynamic corridor assumptions." ] |}.
+         "Does not eliminate the explicit local-horizon thermodynamic corridor assumptions." ;
+         "The curvature identity follows from the two triangulation premises alone; the physical, locality and calibration premises are carried, not used." ] |}.
 
 Definition audit_master_nofi_to_discrete_einstein_from_bekenstein_calibration : HonestClaim :=
   {| claim_name := "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
@@ -551,7 +552,8 @@ Definition audit_master_nofi_to_discrete_einstein_from_bekenstein_calibration : 
      claim_premise_kinds := [ PremisePhysical; PremiseStructural; PremisePhysical; PremiseSemantic; PremiseStructural ];
      claim_not_imply :=
        [ "Does not provide an empirical measurement theorem for the constants calibration.";
-         "Still depends on the explicit Bekenstein/Landauer-Unruh premises that connect the μ-ledger to horizon thermodynamics." ] |}.
+         "Still depends on the explicit Bekenstein/Landauer-Unruh premises that connect the μ-ledger to horizon thermodynamics." ;
+         "The curvature identity follows from the two triangulation premises alone; the physical, locality and calibration premises are carried, not used." ] |}.
 
 Definition audit_master_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration : HonestClaim :=
   {| claim_name := "master_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration";
@@ -569,7 +571,8 @@ Definition audit_master_nofi_to_discrete_einstein_from_psplit_bekenstein_calibra
      claim_premise_kinds := [ PremisePhysical; PremiseSemantic; PremiseStructural; PremisePhysical; PremiseSemantic; PremiseStructural ];
      claim_not_imply :=
        [ "Does not generalize the execution-grounded entropy bridge beyond the PSPLIT family.";
-         "Does not eliminate the constants calibration premise." ] |}.
+         "Does not eliminate the constants calibration premise." ;
+         "The curvature identity follows from the two triangulation premises alone; the physical, locality and calibration premises are carried, not used." ] |}.
 
 Definition audit_master_verification_chain : HonestClaim :=
   {| claim_name := "master_verification_chain";

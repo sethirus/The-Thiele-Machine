@@ -18,6 +18,8 @@ An explicitly qualified citation keeps its own module identity.
 ## Certification cost
 
 - `universal_nfi_any_substrate`: In any `CertificationSystem`, whose record includes the rule that a step switching certification on costs at least one, a trace from an uncertified state to a certified one has total cost at least one.
+- `non_cert_setter_cost_is_declared`: For every instruction outside the twelve-instruction `is_cert_setterb` class, `instruction_cost` equals the declared `mu_delta` operand.
+- `cert_setter_cost_above_declared`: For every instruction in the `is_cert_setterb` class, `instruction_cost` is at least the declared `mu_delta` operand plus one.
 - `universal_nfi_quantitative`: For every `QuantitativeCertificationSystem` QCS, trace, and start state whose witness value `qcs_witness` is zero, if the state reached by running the trace in the underlying certification system is certified, then the trace's total cost is at least `qcs_threshold QCS`.
 - `abstract_nfi`: In an `AbstractCertMachine`, a trace that starts uncertified and ends certified contains an instruction in the cert-setter class.
 - `cert_addr_setter_cost_pos`: Every VM instruction in the cert-setter class costs at least one.
@@ -332,7 +334,7 @@ An explicitly qualified citation keeps its own module identity.
 - `tsirelson_squared`: For four reals with `e00^2 + e01^2 <= 1` and `e10^2 + e11^2 <= 1`, `CHSH_value e00 e01 e10 e11` multiplied by itself is at most 8.
 - `fine_theorem`: For any correlator table `E` that is factorizable (two `+1`/`-1` response functions, a probability distribution on finitely many hidden states, and `E a b x y` equal to the distribution-weighted sum of the products of the two responses), `E 0 0 0 0 + E 0 0 0 1 + E 0 0 1 0 - E 0 0 1 1` lies between -2 and 2.
 - `column_contractive_check_witness_sound`: If the integer witness check passes, the witness-derived correlators are column-contractive.
-- `chsh_lassert_no_trap_implies_npa_psd`: A `CHSH_LASSERT` step that advances without setting the error flag implies the witness-derived zero-marginal NPA matrix is symmetric and PSD.
+- `chsh_lassert_no_trap_implies_npa_psd`: A `CHSH_LASSERT` step from a state with the error flag clear that leaves the flag clear implies the witness-derived zero-marginal NPA matrix is symmetric and PSD.
 - `chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab`: A `CHSH_LASSERT_1AB` step that advances without error implies the 9 by 9 level-1+AB matrix at the witness correlators and zero higher moments is symmetric and PSD.
 - `state_column_contractive_implies_npa_gram`: A state whose correlators are column-contractive has a symmetric PSD zero-marginal NPA matrix.
 - `state_column_contractive_implies_tsirelson`: A state whose correlators are column-contractive has CHSH value squared at most 8.
@@ -474,7 +476,7 @@ An explicitly qualified citation keeps its own module identity.
 - `info_priced_arbitrary_feasible_reduction_bound`: Given a tree whose depth is paid by the bounded trace, a nonempty posterior, and the tree's covering inequality, the rounded-log feasible-size difference is at most the trace's mu increment.
 - `info_priced_weighted_feasible_reduction_bound`: Given a tree whose depth is paid by the bounded trace, positive posterior mass, and the weighted covering inequality, the defined weighted entropy reduction is at most the mu increment.
 - `exists_covering_tree`: Every pair of feasible lists with a nonempty posterior has a decision tree satisfying the defined size-covering inequality.
-- `info_priced_reduction_no_tree_hypothesis`: If a bounded trace pays for the specified complete tree and the posterior is nonempty, its mu increment bounds the rounded-log feasible-size difference.
+- `complete_tree_realization_bound`: For any two feasible sets with a nonempty posterior, a bounded run that realizes the complete binary tree of depth `log2_up(|prior| / |posterior| + 1)` raised mu by at least `log2_up |prior| - log2_up |posterior|`; the sets need not be related to the run.
 - `partition_structural_ops_not_cert_setters`: PNEW, PSPLIT, and PMERGE are outside the certificate-address setter class for every choice of operands and cost.
 - `partition_structural_ops_can_be_free`: There are zero-cost PNEW, PSPLIT, and PMERGE instructions.
 - `partition_structural_trace_cannot_certify`: An instruction list made only of partition-structural instructions preserves the certificate address.
