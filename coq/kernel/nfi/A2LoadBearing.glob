@@ -1,355 +1,355 @@
-DIGEST f4bc2a95e48d0c0b64cc1f85b7706620
+DIGEST 282528bfb1e52279f0b37e3d6c1fdb61
 FKernel.A2LoadBearing
-R2436:2439 Coq.Lists.List <> <> lib
-R2441:2454 Coq.Arith.PeanoNat <> <> lib
-R2456:2459 Coq.Bool.Bool <> <> lib
-R2461:2463 Coq.micromega.Lia <> <> lib
-R2473:2485 Coq.Lists.List ListNotations <> mod
-R2516:2522 Kernel.VMState <> <> lib
-R2524:2529 Kernel.VMStep <> <> lib
-R2531:2545 Kernel.SimulationProof <> <> lib
-R2574:2589 Kernel.ShadowProjection <> <> lib
-R2591:2613 Kernel.ClassicalConservativity <> <> lib
-R2642:2653 Kernel.MuInitiality <> <> lib
-R2655:2666 Kernel.AbstractNoFI <> <> lib
-R2695:2714 Kernel.MuLedgerConservation <> <> lib
-R2733:2751 NecessityOfMuLedger <> <> lib
-prf 3615:3636 <> trace_A_mu_ge_1_via_A2
-R3659:3662 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3642:3646 Kernel.VMState <> vm_mu proj
-R3648:3658 NecessityOfMuLedger <> po1_state_A def
-R3682:3692 NecessityOfMuLedger <> po1_state_A def
-R3695:3705 NecessityOfMuLedger <> po1_instr_A def
-R3813:3815 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3792:3803 Kernel.VMState <> vm_certified proj
-R3805:3812 NecessityOfMuLedger <> po1_init def
-R3816:3820 Coq.Init.Datatypes <> false constr
-R3813:3815 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3792:3803 Kernel.VMState <> vm_certified proj
-R3805:3812 NecessityOfMuLedger <> po1_init def
-R3816:3820 Coq.Init.Datatypes <> false constr
-R3835:3842 NecessityOfMuLedger <> po1_init def
-R4078:4080 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4028:4039 Kernel.VMState <> vm_certified proj
-R4042:4049 Kernel.SimulationProof <> vm_apply def
-R4051:4058 NecessityOfMuLedger <> po1_init def
-R4061:4073 Kernel.VMStep VMStep instr_certify constr
-R4081:4084 Coq.Init.Datatypes <> true constr
-R4078:4080 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4028:4039 Kernel.VMState <> vm_certified proj
-R4042:4049 Kernel.SimulationProof <> vm_apply def
-R4051:4058 NecessityOfMuLedger <> po1_init def
-R4061:4073 Kernel.VMStep VMStep instr_certify constr
-R4081:4084 Coq.Init.Datatypes <> true constr
-R4099:4124 NecessityOfMuLedger <> vm_apply_certify_certified thm
-R4126:4133 NecessityOfMuLedger <> po1_init def
-R4099:4124 NecessityOfMuLedger <> vm_apply_certify_certified thm
-R4126:4133 NecessityOfMuLedger <> po1_init def
-R4355:4388 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
-R4406:4413 NecessityOfMuLedger <> po1_init def
-R4416:4428 Kernel.VMStep VMStep instr_certify constr
-R4355:4388 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
-R4406:4413 NecessityOfMuLedger <> po1_init def
-R4416:4428 Kernel.VMStep VMStep instr_certify constr
-R4556:4558 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4550:4554 Kernel.VMState <> vm_mu proj
-R4540:4547 NecessityOfMuLedger <> po1_init def
-R4556:4558 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4550:4554 Kernel.VMState <> vm_mu proj
-R4540:4547 NecessityOfMuLedger <> po1_init def
-R4574:4581 NecessityOfMuLedger <> po1_init def
-prf 5021:5059 <> vm_mu_not_classically_determined_via_A2
-R5065:5066 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5067:5074 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5110:5118 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5103:5106 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5083:5102 NecessityOfMuLedger <> StrictClassicalState rec
-R5107:5109 Coq.Init.Datatypes <> nat ind
-binder 5075:5079 <> Omega:1
-R5131:5137 Kernel.VMState <> VMState rec
-binder 5127:5127 <> s:2
-R5164:5166 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5141:5145 Kernel.A2LoadBearing <> Omega:1 var
-R5148:5160 NecessityOfMuLedger <> strict_shadow def
-R5162:5162 Kernel.A2LoadBearing <> s:2 var
-R5170:5174 Kernel.VMState <> vm_mu proj
-R5167:5167 Kernel.A2LoadBearing <> s:2 var
-R5264:5285 Kernel.A2LoadBearing <> trace_A_mu_ge_1_via_A2 thm
-R5264:5285 Kernel.A2LoadBearing <> trace_A_mu_ge_1_via_A2 thm
-R5506:5530 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R5506:5530 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R5657:5684 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R5657:5684 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R5760:5770 NecessityOfMuLedger <> po1_state_A def
-R5760:5770 NecessityOfMuLedger <> po1_state_A def
-R5806:5816 NecessityOfMuLedger <> po1_state_B def
-R5806:5816 NecessityOfMuLedger <> po1_state_B def
-R5937:5939 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5931:5935 Kernel.VMState <> vm_mu proj
-R5918:5928 NecessityOfMuLedger <> po1_state_A def
-R5953:5957 Kernel.VMState <> vm_mu proj
-R5940:5950 NecessityOfMuLedger <> po1_state_B def
-R5937:5939 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5931:5935 Kernel.VMState <> vm_mu proj
-R5918:5928 NecessityOfMuLedger <> po1_state_A def
-R5953:5957 Kernel.VMState <> vm_mu proj
-R5940:5950 NecessityOfMuLedger <> po1_state_B def
-R5987:5999 NecessityOfMuLedger <> strict_shadow def
-R6001:6011 NecessityOfMuLedger <> po1_state_A def
-R5987:5999 NecessityOfMuLedger <> strict_shadow def
-R6001:6011 NecessityOfMuLedger <> po1_state_A def
-R7086:7103 Kernel.HonestCostTracking <> <> lib
-def 7379:7387 <> cf_system
-R7391:7407 Kernel.HonestCostTracking <> CostBearingSystem rec
-R7412:7433 Kernel.HonestCostTracking <> dishonest_forge_system def
-prf 8127:8147 <> cf_no_cost_separation
-R8153:8160 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8266:8275 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8166:8182 Kernel.HonestCostTracking <> CostBearingSystem rec
-binder 8161:8162 <> CB:3
-R8200:8207 Kernel.HonestCostTracking <> cb_state proj
-R8209:8210 Kernel.A2LoadBearing <> CB:3 var
-binder 8195:8196 <> s0:4
-R8248:8251 Coq.Init.Datatypes <> list ind
-R8254:8261 Kernel.HonestCostTracking <> cb_instr proj
-R8263:8264 Kernel.A2LoadBearing <> CB:3 var
-binder 8223:8232 <> trace_cert:5
-R8248:8251 Coq.Init.Datatypes <> list ind
-R8254:8261 Kernel.HonestCostTracking <> cb_instr proj
-R8263:8264 Kernel.A2LoadBearing <> CB:3 var
-binder 8234:8244 <> trace_quiet:6
-R8297:8304 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8289:8291 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8276:8282 Kernel.HonestCostTracking <> cb_cert proj
-R8284:8285 Kernel.A2LoadBearing <> CB:3 var
-R8287:8288 Kernel.A2LoadBearing <> s0:4 var
-R8292:8296 Coq.Init.Datatypes <> false constr
-R8348:8355 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8341:8343 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8305:8311 Kernel.HonestCostTracking <> cb_cert proj
-R8313:8314 Kernel.A2LoadBearing <> CB:3 var
-R8317:8322 Kernel.HonestCostTracking <> cb_run def
-R8324:8325 Kernel.A2LoadBearing <> CB:3 var
-R8327:8336 Kernel.A2LoadBearing <> trace_cert:5 var
-R8338:8339 Kernel.A2LoadBearing <> s0:4 var
-R8344:8347 Coq.Init.Datatypes <> true constr
-R8401:8408 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8393:8395 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8356:8362 Kernel.HonestCostTracking <> cb_cert proj
-R8364:8365 Kernel.A2LoadBearing <> CB:3 var
-R8368:8373 Kernel.HonestCostTracking <> cb_run def
-R8375:8376 Kernel.A2LoadBearing <> CB:3 var
-R8378:8388 Kernel.A2LoadBearing <> trace_quiet:6 var
-R8390:8391 Kernel.A2LoadBearing <> s0:4 var
-R8396:8400 Coq.Init.Datatypes <> false constr
-R8436:8438 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8409:8421 Kernel.HonestCostTracking <> cb_total_cost def
-R8423:8424 Kernel.A2LoadBearing <> CB:3 var
-R8426:8435 Kernel.A2LoadBearing <> trace_cert:5 var
-R8439:8451 Kernel.HonestCostTracking <> cb_total_cost def
-R8453:8454 Kernel.A2LoadBearing <> CB:3 var
-R8456:8466 Kernel.A2LoadBearing <> trace_quiet:6 var
-R8485:8506 Kernel.HonestCostTracking <> dishonest_forge_system def
-R8509:8513 Coq.Init.Datatypes <> false constr
-R8516:8516 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R8519:8519 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R8517:8518 Coq.Init.Datatypes <> tt constr
-R8522:8523 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8485:8506 Kernel.HonestCostTracking <> dishonest_forge_system def
-R8509:8513 Coq.Init.Datatypes <> false constr
-R8516:8516 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R8519:8519 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R8517:8518 Coq.Init.Datatypes <> tt constr
-R8522:8523 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R11758:11778 Kernel.MuShannonQuantitative <> <> lib
-R11780:11805 Kernel.UniversalCertificationCost <> <> lib
-prf 11815:11839 <> thiele_info_pricing_holds
-R11860:11863 Coq.Init.Datatypes <> list ind
-R11865:11878 Kernel.VMStep VMStep vm_instruction ind
-binder 11852:11856 <> trace:7
-R11885:11890 Coq.Lists.List <> Forall ind
-R12048:12052 Kernel.A2LoadBearing <> trace:7 var
-binder 11897:11897 <> i:8
-R11922:11939 Kernel.MuShannonQuantitative <> cert_addr_value_of def
-R11941:11941 Kernel.A2LoadBearing <> i:8 var
-R11964:11967 Coq.Init.Datatypes <> Some constr
-R11992:11995 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11974:11989 Kernel.VMStep VMStep instruction_cost def
-R11991:11991 Kernel.A2LoadBearing <> i:8 var
-R12014:12017 Coq.Init.Datatypes <> None constr
-R12024:12027 Coq.Init.Logic <> True ind
-R12085:12097 Coq.Lists.List <> Forall_forall thm
-R12085:12097 Coq.Lists.List <> Forall_forall thm
-R12126:12143 Kernel.MuShannonQuantitative <> cert_addr_value_of def
-R12126:12143 Kernel.MuShannonQuantitative <> cert_addr_value_of def
-R12417:12432 Kernel.VMStep VMStep instruction_cost def
-prf 12529:12560 <> cs_total_cost_ge_cert_setter_sum
-binder 12573:12577 <> trace:9
-R12627:12634 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R12584:12596 Kernel.UniversalCertificationCost <> cs_total_cost def
-R12598:12620 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-R12622:12626 Kernel.A2LoadBearing <> trace:9 var
-R12635:12644 Coq.Lists.List <> fold_right def
-R12776:12780 Kernel.A2LoadBearing <> trace:9 var
-binder 12651:12651 <> i:10
-binder 12653:12655 <> acc:11
-R12672:12689 Kernel.MuShannonQuantitative <> cert_addr_value_of def
-R12691:12691 Kernel.A2LoadBearing <> i:10 var
-R12706:12709 Coq.Init.Datatypes <> Some constr
-R12734:12736 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R12716:12731 Kernel.VMStep VMStep instruction_cost def
-R12733:12733 Kernel.A2LoadBearing <> i:10 var
-R12737:12739 Kernel.A2LoadBearing <> acc:11 var
-R12749:12752 Coq.Init.Datatypes <> None constr
-R12759:12761 Kernel.A2LoadBearing <> acc:11 var
-R12856:12862 Kernel.UniversalCertificationCost <> cs_cost proj
-R12884:12901 Kernel.MuShannonQuantitative <> cert_addr_value_of def
-R12884:12901 Kernel.MuShannonQuantitative <> cert_addr_value_of def
-prf 12993:13027 <> nway_separation_substrate_cost_ge_n
-R13048:13050 Coq.Init.Datatypes <> nat ind
-binder 13041:13044 <> fuel:12
-R13062:13065 Coq.Init.Datatypes <> list ind
-R13067:13080 Kernel.VMStep VMStep vm_instruction ind
-binder 13054:13058 <> trace:13
-R13092:13095 Coq.Init.Datatypes <> list ind
-R13097:13103 Kernel.VMState <> VMState rec
-binder 13084:13088 <> omega:14
-R13161:13161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13217:13292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 13169:13169 <> s:15
-R13182:13185 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13172:13173 Coq.Lists.List <> In def
-R13177:13181 Kernel.A2LoadBearing <> omega:14 var
-R13175:13175 Kernel.A2LoadBearing <> s:15 var
-R13213:13215 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13199:13211 Kernel.VMState <> csr_cert_addr proj
-R13189:13195 Kernel.VMState <> vm_csrs proj
-R13186:13186 Kernel.A2LoadBearing <> s:15 var
-R13293:13293 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13377:13448 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 13301:13301 <> s:16
-R13314:13324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13304:13305 Coq.Lists.List <> In def
-R13309:13313 Kernel.A2LoadBearing <> omega:14 var
-R13307:13307 Kernel.A2LoadBearing <> s:16 var
-R13372:13375 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R13358:13370 Kernel.VMState <> csr_cert_addr proj
-R13348:13354 Kernel.VMState <> vm_csrs proj
-R13326:13331 Kernel.SimulationProof <> run_vm def
-R13333:13336 Kernel.A2LoadBearing <> fuel:12 var
-R13338:13342 Kernel.A2LoadBearing <> trace:13 var
-R13344:13344 Kernel.A2LoadBearing <> s:16 var
-R13558:13619 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13449:13453 Coq.Lists.List <> NoDup ind
-R13456:13458 Coq.Lists.List <> map def
-R13552:13556 Kernel.A2LoadBearing <> omega:14 var
-binder 13465:13465 <> s:17
-R13521:13533 Kernel.VMState <> csr_cert_addr proj
-R13511:13517 Kernel.VMState <> vm_csrs proj
-R13489:13494 Kernel.SimulationProof <> run_vm def
-R13496:13499 Kernel.A2LoadBearing <> fuel:12 var
-R13501:13505 Kernel.A2LoadBearing <> trace:13 var
-R13507:13507 Kernel.A2LoadBearing <> s:17 var
-R13663:13666 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R13620:13632 Kernel.UniversalCertificationCost <> cs_total_cost def
-R13634:13656 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-R13658:13662 Kernel.A2LoadBearing <> trace:13 var
-R13667:13677 Coq.Lists.List <> length abbrev
-R13679:13683 Kernel.A2LoadBearing <> omega:14 var
-R13756:13780 Kernel.A2LoadBearing <> thiele_info_pricing_holds thm
-R13756:13780 Kernel.A2LoadBearing <> thiele_info_pricing_holds thm
-R13816:13838 Kernel.MuShannonQuantitative <> separation_le_cert_cost thm
-R13816:13838 Kernel.MuShannonQuantitative <> separation_le_cert_cost thm
-R13929:13960 Kernel.A2LoadBearing <> cs_total_cost_ge_cert_setter_sum thm
-R13929:13960 Kernel.A2LoadBearing <> cs_total_cost_ge_cert_setter_sum thm
-prf 16764:16799 <> lassert_mu_increase_ge_bits_plus_one
-R16817:16823 Kernel.VMState <> VMState rec
-binder 16813:16813 <> s:18
-R16835:16837 Coq.Init.Datatypes <> nat ind
-binder 16827:16828 <> fa:19
-binder 16830:16831 <> ca:20
-R16846:16849 Coq.Init.Datatypes <> bool ind
-binder 16841:16842 <> ck:21
-R16865:16867 Coq.Init.Datatypes <> nat ind
-binder 16853:16856 <> flen:22
-binder 16858:16861 <> cost:23
-R16930:16937 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R16924:16928 Kernel.VMState <> vm_mu proj
-R16876:16883 Kernel.SimulationProof <> vm_apply def
-R16885:16885 Kernel.A2LoadBearing <> s:18 var
-R16888:16900 Kernel.VMStep VMStep instr_lassert constr
-R16902:16903 Kernel.A2LoadBearing <> fa:19 var
-R16905:16906 Kernel.A2LoadBearing <> ca:20 var
-R16908:16909 Kernel.A2LoadBearing <> ck:21 var
-R16911:16914 Kernel.A2LoadBearing <> flen:22 var
-R16916:16919 Kernel.A2LoadBearing <> cost:23 var
-R16958:16960 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R16947:16949 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R16941:16945 Kernel.VMState <> vm_mu proj
-R16938:16938 Kernel.A2LoadBearing <> s:18 var
-R16954:16956 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R16950:16953 Kernel.A2LoadBearing <> flen:22 var
-R17012:17022 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R17012:17022 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R17012:17022 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R17034:17049 Kernel.VMStep VMStep instruction_cost def
-prf 17695:17732 <> lassert_substrate_mu_exceeds_unit_cost
-R17750:17756 Kernel.VMState <> VMState rec
-binder 17746:17746 <> s:24
-R17768:17770 Coq.Init.Datatypes <> nat ind
-binder 17760:17761 <> fa:25
-binder 17763:17764 <> ca:26
-R17779:17782 Coq.Init.Datatypes <> bool ind
-binder 17774:17775 <> ck:27
-R17798:17800 Coq.Init.Datatypes <> nat ind
-binder 17786:17789 <> flen:28
-binder 17791:17794 <> cost:29
-R17821:17823 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R17817:17820 Kernel.A2LoadBearing <> flen:28 var
-binder 17812:17812 <> B:30
-R17976:17983 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R17964:17966 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R17958:17962 Kernel.VMState <> vm_mu proj
-R17910:17917 Kernel.SimulationProof <> vm_apply def
-R17919:17919 Kernel.A2LoadBearing <> s:24 var
-R17922:17934 Kernel.VMStep VMStep instr_lassert constr
-R17936:17937 Kernel.A2LoadBearing <> fa:25 var
-R17939:17940 Kernel.A2LoadBearing <> ca:26 var
-R17942:17943 Kernel.A2LoadBearing <> ck:27 var
-R17945:17948 Kernel.A2LoadBearing <> flen:28 var
-R17950:17953 Kernel.A2LoadBearing <> cost:29 var
-R17970:17974 Kernel.VMState <> vm_mu proj
-R17967:17967 Kernel.A2LoadBearing <> s:24 var
-R17985:17987 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R17984:17984 Kernel.A2LoadBearing <> B:30 var
-R18045:18080 Kernel.A2LoadBearing <> lassert_mu_increase_ge_bits_plus_one thm
-R18045:18080 Kernel.A2LoadBearing <> lassert_mu_increase_ge_bits_plus_one thm
-prf 18672:18717 <> a2_contributes_exact_plus_one_to_lassert_bound
-R18739:18741 Coq.Init.Datatypes <> nat ind
-binder 18731:18732 <> fa:31
-binder 18734:18735 <> ca:32
-R18750:18753 Coq.Init.Datatypes <> bool ind
-binder 18745:18746 <> ck:33
-R18764:18766 Coq.Init.Datatypes <> nat ind
-binder 18757:18760 <> cost:34
-binder 18778:18781 <> flen:35
-R18824:18826 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R18820:18822 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R18816:18819 Kernel.A2LoadBearing <> flen:35 var
-binder 18799:18811 <> bound_with_a2:36
-R18864:18866 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R18860:18863 Kernel.A2LoadBearing <> flen:35 var
-binder 18840:18855 <> bound_without_a2:37
-R18889:18891 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18876:18888 Kernel.A2LoadBearing <> bound_with_a2:36 var
-R18908:18910 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R18892:18907 Kernel.A2LoadBearing <> bound_without_a2:37 var
-R19067:19088 Kernel.A2LoadBearing <> trace_A_mu_ge_1_via_A2 thm
-R19109:19147 Kernel.A2LoadBearing <> vm_mu_not_classically_determined_via_A2 thm
-R19168:19188 Kernel.A2LoadBearing <> cf_no_cost_separation thm
-R19209:19233 Kernel.A2LoadBearing <> thiele_info_pricing_holds thm
-R19254:19285 Kernel.A2LoadBearing <> cs_total_cost_ge_cert_setter_sum thm
-R19306:19340 Kernel.A2LoadBearing <> nway_separation_substrate_cost_ge_n thm
-R19361:19396 Kernel.A2LoadBearing <> lassert_mu_increase_ge_bits_plus_one thm
-R19417:19454 Kernel.A2LoadBearing <> lassert_substrate_mu_exceeds_unit_cost thm
-R19475:19520 Kernel.A2LoadBearing <> a2_contributes_exact_plus_one_to_lassert_bound thm
+R2413:2416 Coq.Lists.List <> <> lib
+R2418:2431 Coq.Arith.PeanoNat <> <> lib
+R2433:2436 Coq.Bool.Bool <> <> lib
+R2438:2440 Coq.micromega.Lia <> <> lib
+R2450:2462 Coq.Lists.List ListNotations <> mod
+R2493:2499 Kernel.VMState <> <> lib
+R2501:2506 Kernel.VMStep <> <> lib
+R2508:2522 Kernel.SimulationProof <> <> lib
+R2551:2566 Kernel.ShadowProjection <> <> lib
+R2568:2590 Kernel.ClassicalConservativity <> <> lib
+R2619:2630 Kernel.MuInitiality <> <> lib
+R2632:2643 Kernel.AbstractNoFI <> <> lib
+R2672:2691 Kernel.MuLedgerConservation <> <> lib
+R2710:2728 NecessityOfMuLedger <> <> lib
+prf 3592:3613 <> trace_A_mu_ge_1_via_A2
+R3636:3639 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3619:3623 Kernel.VMState <> vm_mu proj
+R3625:3635 NecessityOfMuLedger <> po1_state_A def
+R3659:3669 NecessityOfMuLedger <> po1_state_A def
+R3672:3682 NecessityOfMuLedger <> po1_instr_A def
+R3790:3792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3769:3780 Kernel.VMState <> vm_certified proj
+R3782:3789 NecessityOfMuLedger <> po1_init def
+R3793:3797 Coq.Init.Datatypes <> false constr
+R3790:3792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3769:3780 Kernel.VMState <> vm_certified proj
+R3782:3789 NecessityOfMuLedger <> po1_init def
+R3793:3797 Coq.Init.Datatypes <> false constr
+R3812:3819 NecessityOfMuLedger <> po1_init def
+R4055:4057 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4005:4016 Kernel.VMState <> vm_certified proj
+R4019:4026 Kernel.SimulationProof <> vm_apply def
+R4028:4035 NecessityOfMuLedger <> po1_init def
+R4038:4050 Kernel.VMStep VMStep instr_certify constr
+R4058:4061 Coq.Init.Datatypes <> true constr
+R4055:4057 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4005:4016 Kernel.VMState <> vm_certified proj
+R4019:4026 Kernel.SimulationProof <> vm_apply def
+R4028:4035 NecessityOfMuLedger <> po1_init def
+R4038:4050 Kernel.VMStep VMStep instr_certify constr
+R4058:4061 Coq.Init.Datatypes <> true constr
+R4076:4101 NecessityOfMuLedger <> vm_apply_certify_certified thm
+R4103:4110 NecessityOfMuLedger <> po1_init def
+R4076:4101 NecessityOfMuLedger <> vm_apply_certify_certified thm
+R4103:4110 NecessityOfMuLedger <> po1_init def
+R4332:4365 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+R4383:4390 NecessityOfMuLedger <> po1_init def
+R4393:4405 Kernel.VMStep VMStep instr_certify constr
+R4332:4365 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+R4383:4390 NecessityOfMuLedger <> po1_init def
+R4393:4405 Kernel.VMStep VMStep instr_certify constr
+R4533:4535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4527:4531 Kernel.VMState <> vm_mu proj
+R4517:4524 NecessityOfMuLedger <> po1_init def
+R4533:4535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4527:4531 Kernel.VMState <> vm_mu proj
+R4517:4524 NecessityOfMuLedger <> po1_init def
+R4551:4558 NecessityOfMuLedger <> po1_init def
+prf 4998:5036 <> vm_mu_not_classically_determined_via_A2
+R5042:5043 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5044:5051 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5087:5095 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5080:5083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5060:5079 NecessityOfMuLedger <> StrictClassicalState rec
+R5084:5086 Coq.Init.Datatypes <> nat ind
+binder 5052:5056 <> Omega:1
+R5108:5114 Kernel.VMState <> VMState rec
+binder 5104:5104 <> s:2
+R5141:5143 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5118:5122 Kernel.A2LoadBearing <> Omega:1 var
+R5125:5137 NecessityOfMuLedger <> strict_shadow def
+R5139:5139 Kernel.A2LoadBearing <> s:2 var
+R5147:5151 Kernel.VMState <> vm_mu proj
+R5144:5144 Kernel.A2LoadBearing <> s:2 var
+R5241:5262 Kernel.A2LoadBearing <> trace_A_mu_ge_1_via_A2 thm
+R5241:5262 Kernel.A2LoadBearing <> trace_A_mu_ge_1_via_A2 thm
+R5480:5504 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R5480:5504 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R5631:5658 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R5631:5658 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R5734:5744 NecessityOfMuLedger <> po1_state_A def
+R5734:5744 NecessityOfMuLedger <> po1_state_A def
+R5780:5790 NecessityOfMuLedger <> po1_state_B def
+R5780:5790 NecessityOfMuLedger <> po1_state_B def
+R5911:5913 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5905:5909 Kernel.VMState <> vm_mu proj
+R5892:5902 NecessityOfMuLedger <> po1_state_A def
+R5927:5931 Kernel.VMState <> vm_mu proj
+R5914:5924 NecessityOfMuLedger <> po1_state_B def
+R5911:5913 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5905:5909 Kernel.VMState <> vm_mu proj
+R5892:5902 NecessityOfMuLedger <> po1_state_A def
+R5927:5931 Kernel.VMState <> vm_mu proj
+R5914:5924 NecessityOfMuLedger <> po1_state_B def
+R5961:5973 NecessityOfMuLedger <> strict_shadow def
+R5975:5985 NecessityOfMuLedger <> po1_state_A def
+R5961:5973 NecessityOfMuLedger <> strict_shadow def
+R5975:5985 NecessityOfMuLedger <> po1_state_A def
+R7057:7074 Kernel.HonestCostTracking <> <> lib
+def 7350:7358 <> cf_system
+R7362:7378 Kernel.HonestCostTracking <> CostBearingSystem rec
+R7383:7404 Kernel.HonestCostTracking <> dishonest_forge_system def
+prf 8092:8112 <> cf_no_cost_separation
+R8118:8125 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8231:8240 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8131:8147 Kernel.HonestCostTracking <> CostBearingSystem rec
+binder 8126:8127 <> CB:3
+R8165:8172 Kernel.HonestCostTracking <> cb_state proj
+R8174:8175 Kernel.A2LoadBearing <> CB:3 var
+binder 8160:8161 <> s0:4
+R8213:8216 Coq.Init.Datatypes <> list ind
+R8219:8226 Kernel.HonestCostTracking <> cb_instr proj
+R8228:8229 Kernel.A2LoadBearing <> CB:3 var
+binder 8188:8197 <> trace_cert:5
+R8213:8216 Coq.Init.Datatypes <> list ind
+R8219:8226 Kernel.HonestCostTracking <> cb_instr proj
+R8228:8229 Kernel.A2LoadBearing <> CB:3 var
+binder 8199:8209 <> trace_quiet:6
+R8262:8269 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8254:8256 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8241:8247 Kernel.HonestCostTracking <> cb_cert proj
+R8249:8250 Kernel.A2LoadBearing <> CB:3 var
+R8252:8253 Kernel.A2LoadBearing <> s0:4 var
+R8257:8261 Coq.Init.Datatypes <> false constr
+R8313:8320 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8306:8308 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8270:8276 Kernel.HonestCostTracking <> cb_cert proj
+R8278:8279 Kernel.A2LoadBearing <> CB:3 var
+R8282:8287 Kernel.HonestCostTracking <> cb_run def
+R8289:8290 Kernel.A2LoadBearing <> CB:3 var
+R8292:8301 Kernel.A2LoadBearing <> trace_cert:5 var
+R8303:8304 Kernel.A2LoadBearing <> s0:4 var
+R8309:8312 Coq.Init.Datatypes <> true constr
+R8366:8373 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8358:8360 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8321:8327 Kernel.HonestCostTracking <> cb_cert proj
+R8329:8330 Kernel.A2LoadBearing <> CB:3 var
+R8333:8338 Kernel.HonestCostTracking <> cb_run def
+R8340:8341 Kernel.A2LoadBearing <> CB:3 var
+R8343:8353 Kernel.A2LoadBearing <> trace_quiet:6 var
+R8355:8356 Kernel.A2LoadBearing <> s0:4 var
+R8361:8365 Coq.Init.Datatypes <> false constr
+R8401:8403 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8374:8386 Kernel.HonestCostTracking <> cb_total_cost def
+R8388:8389 Kernel.A2LoadBearing <> CB:3 var
+R8391:8400 Kernel.A2LoadBearing <> trace_cert:5 var
+R8404:8416 Kernel.HonestCostTracking <> cb_total_cost def
+R8418:8419 Kernel.A2LoadBearing <> CB:3 var
+R8421:8431 Kernel.A2LoadBearing <> trace_quiet:6 var
+R8450:8471 Kernel.HonestCostTracking <> dishonest_forge_system def
+R8474:8478 Coq.Init.Datatypes <> false constr
+R8481:8481 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8484:8484 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8482:8483 Coq.Init.Datatypes <> tt constr
+R8487:8488 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8450:8471 Kernel.HonestCostTracking <> dishonest_forge_system def
+R8474:8478 Coq.Init.Datatypes <> false constr
+R8481:8481 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8484:8484 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8482:8483 Coq.Init.Datatypes <> tt constr
+R8487:8488 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11717:11737 Kernel.MuShannonQuantitative <> <> lib
+R11739:11764 Kernel.UniversalCertificationCost <> <> lib
+prf 11774:11798 <> thiele_info_pricing_holds
+R11819:11822 Coq.Init.Datatypes <> list ind
+R11824:11837 Kernel.VMStep VMStep vm_instruction ind
+binder 11811:11815 <> trace:7
+R11844:11849 Coq.Lists.List <> Forall ind
+R12007:12011 Kernel.A2LoadBearing <> trace:7 var
+binder 11856:11856 <> i:8
+R11881:11898 Kernel.MuShannonQuantitative <> cert_addr_value_of def
+R11900:11900 Kernel.A2LoadBearing <> i:8 var
+R11923:11926 Coq.Init.Datatypes <> Some constr
+R11951:11954 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11933:11948 Kernel.VMStep VMStep instruction_cost def
+R11950:11950 Kernel.A2LoadBearing <> i:8 var
+R11973:11976 Coq.Init.Datatypes <> None constr
+R11983:11986 Coq.Init.Logic <> True ind
+R12044:12056 Coq.Lists.List <> Forall_forall thm
+R12044:12056 Coq.Lists.List <> Forall_forall thm
+R12085:12102 Kernel.MuShannonQuantitative <> cert_addr_value_of def
+R12085:12102 Kernel.MuShannonQuantitative <> cert_addr_value_of def
+R12376:12391 Kernel.VMStep VMStep instruction_cost def
+prf 12488:12519 <> cs_total_cost_ge_cert_setter_sum
+binder 12532:12536 <> trace:9
+R12586:12593 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12543:12555 Kernel.UniversalCertificationCost <> cs_total_cost def
+R12557:12579 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
+R12581:12585 Kernel.A2LoadBearing <> trace:9 var
+R12594:12603 Coq.Lists.List <> fold_right def
+R12735:12739 Kernel.A2LoadBearing <> trace:9 var
+binder 12610:12610 <> i:10
+binder 12612:12614 <> acc:11
+R12631:12648 Kernel.MuShannonQuantitative <> cert_addr_value_of def
+R12650:12650 Kernel.A2LoadBearing <> i:10 var
+R12665:12668 Coq.Init.Datatypes <> Some constr
+R12693:12695 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12675:12690 Kernel.VMStep VMStep instruction_cost def
+R12692:12692 Kernel.A2LoadBearing <> i:10 var
+R12696:12698 Kernel.A2LoadBearing <> acc:11 var
+R12708:12711 Coq.Init.Datatypes <> None constr
+R12718:12720 Kernel.A2LoadBearing <> acc:11 var
+R12815:12821 Kernel.UniversalCertificationCost <> cs_cost proj
+R12843:12860 Kernel.MuShannonQuantitative <> cert_addr_value_of def
+R12843:12860 Kernel.MuShannonQuantitative <> cert_addr_value_of def
+prf 12952:12986 <> nway_separation_substrate_cost_ge_n
+R13007:13009 Coq.Init.Datatypes <> nat ind
+binder 13000:13003 <> fuel:12
+R13021:13024 Coq.Init.Datatypes <> list ind
+R13026:13039 Kernel.VMStep VMStep vm_instruction ind
+binder 13013:13017 <> trace:13
+R13051:13054 Coq.Init.Datatypes <> list ind
+R13056:13062 Kernel.VMState <> VMState rec
+binder 13043:13047 <> omega:14
+R13120:13120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13176:13251 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 13128:13128 <> s:15
+R13141:13144 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13131:13132 Coq.Lists.List <> In def
+R13136:13140 Kernel.A2LoadBearing <> omega:14 var
+R13134:13134 Kernel.A2LoadBearing <> s:15 var
+R13172:13174 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13158:13170 Kernel.VMState <> csr_cert_addr proj
+R13148:13154 Kernel.VMState <> vm_csrs proj
+R13145:13145 Kernel.A2LoadBearing <> s:15 var
+R13252:13252 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13336:13407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 13260:13260 <> s:16
+R13273:13283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13263:13264 Coq.Lists.List <> In def
+R13268:13272 Kernel.A2LoadBearing <> omega:14 var
+R13266:13266 Kernel.A2LoadBearing <> s:16 var
+R13331:13334 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13317:13329 Kernel.VMState <> csr_cert_addr proj
+R13307:13313 Kernel.VMState <> vm_csrs proj
+R13285:13290 Kernel.SimulationProof <> run_vm def
+R13292:13295 Kernel.A2LoadBearing <> fuel:12 var
+R13297:13301 Kernel.A2LoadBearing <> trace:13 var
+R13303:13303 Kernel.A2LoadBearing <> s:16 var
+R13517:13578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13408:13412 Coq.Lists.List <> NoDup ind
+R13415:13417 Coq.Lists.List <> map def
+R13511:13515 Kernel.A2LoadBearing <> omega:14 var
+binder 13424:13424 <> s:17
+R13480:13492 Kernel.VMState <> csr_cert_addr proj
+R13470:13476 Kernel.VMState <> vm_csrs proj
+R13448:13453 Kernel.SimulationProof <> run_vm def
+R13455:13458 Kernel.A2LoadBearing <> fuel:12 var
+R13460:13464 Kernel.A2LoadBearing <> trace:13 var
+R13466:13466 Kernel.A2LoadBearing <> s:17 var
+R13622:13625 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13579:13591 Kernel.UniversalCertificationCost <> cs_total_cost def
+R13593:13615 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
+R13617:13621 Kernel.A2LoadBearing <> trace:13 var
+R13626:13636 Coq.Lists.List <> length abbrev
+R13638:13642 Kernel.A2LoadBearing <> omega:14 var
+R13715:13739 Kernel.A2LoadBearing <> thiele_info_pricing_holds thm
+R13715:13739 Kernel.A2LoadBearing <> thiele_info_pricing_holds thm
+R13775:13797 Kernel.MuShannonQuantitative <> separation_le_cert_cost thm
+R13775:13797 Kernel.MuShannonQuantitative <> separation_le_cert_cost thm
+R13888:13919 Kernel.A2LoadBearing <> cs_total_cost_ge_cert_setter_sum thm
+R13888:13919 Kernel.A2LoadBearing <> cs_total_cost_ge_cert_setter_sum thm
+prf 16718:16753 <> lassert_mu_increase_ge_bits_plus_one
+R16771:16777 Kernel.VMState <> VMState rec
+binder 16767:16767 <> s:18
+R16789:16791 Coq.Init.Datatypes <> nat ind
+binder 16781:16782 <> fa:19
+binder 16784:16785 <> ca:20
+R16800:16803 Coq.Init.Datatypes <> bool ind
+binder 16795:16796 <> ck:21
+R16819:16821 Coq.Init.Datatypes <> nat ind
+binder 16807:16810 <> flen:22
+binder 16812:16815 <> cost:23
+R16884:16891 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R16878:16882 Kernel.VMState <> vm_mu proj
+R16830:16837 Kernel.SimulationProof <> vm_apply def
+R16839:16839 Kernel.A2LoadBearing <> s:18 var
+R16842:16854 Kernel.VMStep VMStep instr_lassert constr
+R16856:16857 Kernel.A2LoadBearing <> fa:19 var
+R16859:16860 Kernel.A2LoadBearing <> ca:20 var
+R16862:16863 Kernel.A2LoadBearing <> ck:21 var
+R16865:16868 Kernel.A2LoadBearing <> flen:22 var
+R16870:16873 Kernel.A2LoadBearing <> cost:23 var
+R16912:16914 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16901:16903 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16895:16899 Kernel.VMState <> vm_mu proj
+R16892:16892 Kernel.A2LoadBearing <> s:18 var
+R16908:16910 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R16904:16907 Kernel.A2LoadBearing <> flen:22 var
+R16966:16976 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R16966:16976 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R16966:16976 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R16988:17003 Kernel.VMStep VMStep instruction_cost def
+prf 17649:17686 <> lassert_substrate_mu_exceeds_unit_cost
+R17704:17710 Kernel.VMState <> VMState rec
+binder 17700:17700 <> s:24
+R17722:17724 Coq.Init.Datatypes <> nat ind
+binder 17714:17715 <> fa:25
+binder 17717:17718 <> ca:26
+R17733:17736 Coq.Init.Datatypes <> bool ind
+binder 17728:17729 <> ck:27
+R17752:17754 Coq.Init.Datatypes <> nat ind
+binder 17740:17743 <> flen:28
+binder 17745:17748 <> cost:29
+R17775:17777 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R17771:17774 Kernel.A2LoadBearing <> flen:28 var
+binder 17766:17766 <> B:30
+R17930:17937 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R17918:17920 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R17912:17916 Kernel.VMState <> vm_mu proj
+R17864:17871 Kernel.SimulationProof <> vm_apply def
+R17873:17873 Kernel.A2LoadBearing <> s:24 var
+R17876:17888 Kernel.VMStep VMStep instr_lassert constr
+R17890:17891 Kernel.A2LoadBearing <> fa:25 var
+R17893:17894 Kernel.A2LoadBearing <> ca:26 var
+R17896:17897 Kernel.A2LoadBearing <> ck:27 var
+R17899:17902 Kernel.A2LoadBearing <> flen:28 var
+R17904:17907 Kernel.A2LoadBearing <> cost:29 var
+R17924:17928 Kernel.VMState <> vm_mu proj
+R17921:17921 Kernel.A2LoadBearing <> s:24 var
+R17939:17941 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17938:17938 Kernel.A2LoadBearing <> B:30 var
+R17999:18034 Kernel.A2LoadBearing <> lassert_mu_increase_ge_bits_plus_one thm
+R17999:18034 Kernel.A2LoadBearing <> lassert_mu_increase_ge_bits_plus_one thm
+prf 18626:18671 <> a2_contributes_exact_plus_one_to_lassert_bound
+R18693:18695 Coq.Init.Datatypes <> nat ind
+binder 18685:18686 <> fa:31
+binder 18688:18689 <> ca:32
+R18704:18707 Coq.Init.Datatypes <> bool ind
+binder 18699:18700 <> ck:33
+R18718:18720 Coq.Init.Datatypes <> nat ind
+binder 18711:18714 <> cost:34
+binder 18732:18735 <> flen:35
+R18778:18780 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18774:18776 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18770:18773 Kernel.A2LoadBearing <> flen:35 var
+binder 18753:18765 <> bound_with_a2:36
+R18818:18820 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18814:18817 Kernel.A2LoadBearing <> flen:35 var
+binder 18794:18809 <> bound_without_a2:37
+R18843:18845 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18830:18842 Kernel.A2LoadBearing <> bound_with_a2:36 var
+R18862:18864 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18846:18861 Kernel.A2LoadBearing <> bound_without_a2:37 var
+R19021:19042 Kernel.A2LoadBearing <> trace_A_mu_ge_1_via_A2 thm
+R19063:19101 Kernel.A2LoadBearing <> vm_mu_not_classically_determined_via_A2 thm
+R19122:19142 Kernel.A2LoadBearing <> cf_no_cost_separation thm
+R19163:19187 Kernel.A2LoadBearing <> thiele_info_pricing_holds thm
+R19208:19239 Kernel.A2LoadBearing <> cs_total_cost_ge_cert_setter_sum thm
+R19260:19294 Kernel.A2LoadBearing <> nway_separation_substrate_cost_ge_n thm
+R19315:19350 Kernel.A2LoadBearing <> lassert_mu_increase_ge_bits_plus_one thm
+R19371:19408 Kernel.A2LoadBearing <> lassert_substrate_mu_exceeds_unit_cost thm
+R19429:19474 Kernel.A2LoadBearing <> a2_contributes_exact_plus_one_to_lassert_bound thm

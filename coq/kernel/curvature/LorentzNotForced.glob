@@ -1,87 +1,87 @@
-DIGEST bbdeb862b11bad6612097f38133290b4
+DIGEST d5bc147b7c76464841fe6073537f9acf
 FKernel.LorentzNotForced
-R2152:2162 Kernel.MuCostModel <> <> lib
-R2190:2193 Coq.Lists.List <> <> lib
-R2224:2230 Kernel.VMState <> <> lib
-R2232:2237 Kernel.VMStep <> <> lib
-R2239:2251 Kernel.KernelPhysics <> <> lib
-R2262:2274 Coq.Lists.List ListNotations <> mod
-def 2289:2303 <> cone_preserving
-R2331:2334 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2312:2315 Coq.Init.Datatypes <> list ind
-R2317:2330 Kernel.VMStep VMStep vm_instruction ind
-R2335:2338 Coq.Init.Datatypes <> list ind
-R2340:2353 Kernel.VMStep VMStep vm_instruction ind
-binder 2306:2308 <> phi:1
-binder 2375:2375 <> t:2
-R2397:2399 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2378:2388 Kernel.KernelPhysics <> causal_cone def
-R2391:2393 Kernel.LorentzNotForced <> phi:1 var
-R2395:2395 Kernel.LorentzNotForced <> t:2 var
-R2400:2410 Kernel.KernelPhysics <> causal_cone def
-R2412:2412 Kernel.LorentzNotForced <> t:2 var
-prf 2492:2509 <> Lorentz_Not_Forced
-R2513:2519 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2523:2524 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2520:2522 <> phi:3
-R2525:2539 Kernel.LorentzNotForced <> cone_preserving def
-R2541:2543 Kernel.LorentzNotForced <> phi:3 var
-binder 2567:2567 <> t:4
-R2572:2572 Kernel.LorentzNotForced <> t:4 var
-binder 2567:2567 <> t:5
-R2572:2572 Kernel.LorentzNotForced <> t:5 var
-def 2861:2867 <> stutter
-R2879:2882 Coq.Init.Datatypes <> list ind
-R2884:2886 Coq.Init.Datatypes <> nat ind
-binder 2870:2875 <> region:6
-R2897:2899 Coq.Init.Datatypes <> nat ind
-binder 2890:2893 <> cost:7
-R2907:2910 Coq.Init.Datatypes <> list ind
-R2912:2925 Kernel.VMStep VMStep vm_instruction ind
-binder 2903:2903 <> t:8
-R2932:2935 Coq.Init.Datatypes <> list ind
-R2937:2950 Kernel.VMStep VMStep vm_instruction ind
-R2979:2982 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2957:2966 Kernel.VMStep VMStep instr_pnew constr
-R2968:2973 Kernel.LorentzNotForced <> region:6 var
-R2975:2978 Kernel.LorentzNotForced <> cost:7 var
-R2983:2983 Kernel.LorentzNotForced <> t:8 var
-prf 3589:3626 <> cone_admits_nontrivial_stutter_reparam
-R3632:3638 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3642:3647 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3639:3641 <> phi:9
-R3648:3648 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3694:3703 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3758:3758 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 3656:3656 <> t:10
-R3678:3680 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3659:3669 Kernel.KernelPhysics <> causal_cone def
-R3672:3674 Kernel.LorentzNotForced <> phi:9 var
-R3676:3676 Kernel.LorentzNotForced <> t:10 var
-R3681:3691 Kernel.KernelPhysics <> causal_cone def
-R3693:3693 Kernel.LorentzNotForced <> t:10 var
-R3704:3710 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3725:3726 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3711:3716 <> region:11
-binder 3718:3721 <> cost:12
-binder 3723:3724 <> t0:13
-R3733:3735 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3727:3729 Kernel.LorentzNotForced <> phi:9 var
-R3731:3732 Kernel.LorentzNotForced <> t0:13 var
-R3736:3742 Kernel.LorentzNotForced <> stutter def
-R3744:3749 Kernel.LorentzNotForced <> region:11 var
-R3751:3754 Kernel.LorentzNotForced <> cost:12 var
-R3756:3757 Kernel.LorentzNotForced <> t0:13 var
-binder 3782:3782 <> t:14
-R3787:3793 Kernel.LorentzNotForced <> stutter def
-R3795:3796 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3800:3800 Kernel.LorentzNotForced <> t:14 var
-binder 3782:3782 <> t:15
-R3787:3793 Kernel.LorentzNotForced <> stutter def
-R3795:3796 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3800:3800 Kernel.LorentzNotForced <> t:15 var
-R3928:3934 Kernel.LorentzNotForced <> stutter def
-R3968:3969 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3975:3976 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3968:3969 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3975:3976 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2151:2161 Kernel.MuCostModel <> <> lib
+R2189:2192 Coq.Lists.List <> <> lib
+R2223:2229 Kernel.VMState <> <> lib
+R2231:2236 Kernel.VMStep <> <> lib
+R2238:2250 Kernel.KernelPhysics <> <> lib
+R2261:2273 Coq.Lists.List ListNotations <> mod
+def 2288:2302 <> cone_preserving
+R2330:2333 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2311:2314 Coq.Init.Datatypes <> list ind
+R2316:2329 Kernel.VMStep VMStep vm_instruction ind
+R2334:2337 Coq.Init.Datatypes <> list ind
+R2339:2352 Kernel.VMStep VMStep vm_instruction ind
+binder 2305:2307 <> phi:1
+binder 2374:2374 <> t:2
+R2396:2398 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2377:2387 Kernel.KernelPhysics <> causal_cone def
+R2390:2392 Kernel.LorentzNotForced <> phi:1 var
+R2394:2394 Kernel.LorentzNotForced <> t:2 var
+R2399:2409 Kernel.KernelPhysics <> causal_cone def
+R2411:2411 Kernel.LorentzNotForced <> t:2 var
+prf 2491:2508 <> Lorentz_Not_Forced
+R2512:2518 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2522:2523 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2519:2521 <> phi:3
+R2524:2538 Kernel.LorentzNotForced <> cone_preserving def
+R2540:2542 Kernel.LorentzNotForced <> phi:3 var
+binder 2566:2566 <> t:4
+R2571:2571 Kernel.LorentzNotForced <> t:4 var
+binder 2566:2566 <> t:5
+R2571:2571 Kernel.LorentzNotForced <> t:5 var
+def 2860:2866 <> stutter
+R2878:2881 Coq.Init.Datatypes <> list ind
+R2883:2885 Coq.Init.Datatypes <> nat ind
+binder 2869:2874 <> region:6
+R2896:2898 Coq.Init.Datatypes <> nat ind
+binder 2889:2892 <> cost:7
+R2906:2909 Coq.Init.Datatypes <> list ind
+R2911:2924 Kernel.VMStep VMStep vm_instruction ind
+binder 2902:2902 <> t:8
+R2931:2934 Coq.Init.Datatypes <> list ind
+R2936:2949 Kernel.VMStep VMStep vm_instruction ind
+R2978:2981 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2956:2965 Kernel.VMStep VMStep instr_pnew constr
+R2967:2972 Kernel.LorentzNotForced <> region:6 var
+R2974:2977 Kernel.LorentzNotForced <> cost:7 var
+R2982:2982 Kernel.LorentzNotForced <> t:8 var
+prf 3585:3622 <> cone_admits_nontrivial_stutter_reparam
+R3628:3634 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3638:3643 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3635:3637 <> phi:9
+R3644:3644 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3690:3699 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3754:3754 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3652:3652 <> t:10
+R3674:3676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3655:3665 Kernel.KernelPhysics <> causal_cone def
+R3668:3670 Kernel.LorentzNotForced <> phi:9 var
+R3672:3672 Kernel.LorentzNotForced <> t:10 var
+R3677:3687 Kernel.KernelPhysics <> causal_cone def
+R3689:3689 Kernel.LorentzNotForced <> t:10 var
+R3700:3706 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3721:3722 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3707:3712 <> region:11
+binder 3714:3717 <> cost:12
+binder 3719:3720 <> t0:13
+R3729:3731 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3723:3725 Kernel.LorentzNotForced <> phi:9 var
+R3727:3728 Kernel.LorentzNotForced <> t0:13 var
+R3732:3738 Kernel.LorentzNotForced <> stutter def
+R3740:3745 Kernel.LorentzNotForced <> region:11 var
+R3747:3750 Kernel.LorentzNotForced <> cost:12 var
+R3752:3753 Kernel.LorentzNotForced <> t0:13 var
+binder 3778:3778 <> t:14
+R3783:3789 Kernel.LorentzNotForced <> stutter def
+R3791:3792 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3796:3796 Kernel.LorentzNotForced <> t:14 var
+binder 3778:3778 <> t:15
+R3783:3789 Kernel.LorentzNotForced <> stutter def
+R3791:3792 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3796:3796 Kernel.LorentzNotForced <> t:15 var
+R3924:3930 Kernel.LorentzNotForced <> stutter def
+R3964:3965 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3971:3972 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3964:3965 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3971:3972 Coq.Lists.List ListNotations ::list_scope:'['_']' not

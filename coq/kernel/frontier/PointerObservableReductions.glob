@@ -1,432 +1,432 @@
-DIGEST 801f74571d8339eae57b73e6080f01a7
+DIGEST 76269f8b18b3ff2fbd1d81697ad72275
 FKernel.PointerObservableReductions
-R4016:4032 Kernel.PointerObservable <> <> lib
-R4060:4063 Coq.Lists.List <> <> lib
-R4065:4067 Coq.micromega.Lia <> <> lib
-R4077:4089 Coq.Lists.List ListNotations <> mod
-def 4513:4543 <> pointer_criterion_holds_indexed
-binder 4548:4548 <> I:1
-R4568:4571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4567:4567 Kernel.PointerObservableReductions <> I:1 var
-R4572:4580 Kernel.PointerObservable <> Ecosystem rec
-binder 4561:4563 <> eco:2
-R4608:4608 Kernel.PointerObservableReductions <> I:1 var
-binder 4604:4604 <> i:3
-R4628:4631 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4611:4619 Kernel.PointerObservable <> eco_state proj
-R4622:4624 Kernel.PointerObservableReductions <> eco:2 var
-R4626:4626 Kernel.PointerObservableReductions <> i:3 var
-binder 4586:4593 <> selected:4
-R4661:4661 Kernel.PointerObservableReductions <> I:1 var
-binder 4657:4657 <> i:5
-R4664:4667 Coq.Init.Datatypes <> list ind
-R4687:4690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4670:4678 Kernel.PointerObservable <> eco_state proj
-R4681:4683 Kernel.PointerObservableReductions <> eco:2 var
-R4685:4685 Kernel.PointerObservableReductions <> i:5 var
-binder 4641:4646 <> rivals:6
-R4721:4721 Kernel.PointerObservableReductions <> I:1 var
-binder 4717:4717 <> i:7
-R4724:4743 Kernel.PointerObservable <> unique_pointer_among def
-R4746:4748 Kernel.PointerObservableReductions <> eco:2 var
-R4750:4750 Kernel.PointerObservableReductions <> i:7 var
-R4754:4761 Kernel.PointerObservableReductions <> selected:4 var
-R4763:4763 Kernel.PointerObservableReductions <> i:7 var
-R4767:4772 Kernel.PointerObservableReductions <> rivals:6 var
-R4774:4774 Kernel.PointerObservableReductions <> i:7 var
-sec 5056:5070 <> MirrorEcosystem
-var 5083:5084 MirrorEcosystem St
-var 5103:5106 MirrorEcosystem flag
-R5112:5115 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5110:5111 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
-R5116:5119 Coq.Init.Datatypes <> bool ind
-var 5131:5137 MirrorEcosystem counter
-R5143:5146 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5141:5142 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
-R5147:5149 Coq.Init.Datatypes <> nat ind
-def 5164:5173 <> mirror_eco
-R5177:5185 Kernel.PointerObservable <> Ecosystem rec
-R5195:5203 Kernel.PointerObservable <> eco_state proj
-R5195:5203 Kernel.PointerObservable <> eco_state proj
-R5195:5203 Kernel.PointerObservable <> eco_state proj
-R5214:5226 Kernel.PointerObservable <> eco_observers proj
-R5214:5226 Kernel.PointerObservable <> eco_observers proj
-R5236:5247 Kernel.PointerObservable <> eco_fragment proj
-R5236:5247 Kernel.PointerObservable <> eco_fragment proj
-R5208:5209 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
-binder 5258:5258 <> s:11
-R5263:5266 Kernel.PointerObservableReductions <> MirrorEcosystem.flag var
-R5268:5268 Kernel.PointerObservableReductions <> s:11 var
-def 5286:5306 <> mirror_selected_event
-R5313:5314 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
-binder 5309:5309 <> s:12
-R5333:5335 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5327:5330 Kernel.PointerObservableReductions <> MirrorEcosystem.flag var
-R5332:5332 Kernel.PointerObservableReductions <> s:12 var
-R5336:5339 Coq.Init.Datatypes <> true constr
-def 5353:5364 <> mirror_rival
-R5371:5372 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
-binder 5367:5367 <> s:13
-R5387:5390 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5391:5397 Kernel.PointerObservableReductions <> MirrorEcosystem.counter var
-R5399:5399 Kernel.PointerObservableReductions <> s:13 var
-prf 5631:5660 <> mirror_rival_not_proliferating
-R5666:5666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5723:5729 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5667:5673 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5681:5682 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5679:5680 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
-binder 5674:5675 <> s0:14
-R5698:5701 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5690:5692 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5683:5686 Kernel.PointerObservableReductions <> MirrorEcosystem.flag var
-R5688:5689 Kernel.PointerObservableReductions <> s0:14 var
-R5693:5697 Coq.Init.Datatypes <> false constr
-R5704:5707 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5708:5714 Kernel.PointerObservableReductions <> MirrorEcosystem.counter var
-R5716:5717 Kernel.PointerObservableReductions <> s0:14 var
-R5730:5731 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5732:5756 Kernel.PointerObservable <> redundantly_proliferating def
-R5758:5767 Kernel.PointerObservableReductions <> mirror_eco def
-R5769:5780 Kernel.PointerObservableReductions <> mirror_rival def
-R5837:5839 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R5840:5852 Kernel.PointerObservable <> eco_observers proj
-R5854:5863 Kernel.PointerObservableReductions <> mirror_eco def
-R5837:5839 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R5840:5852 Kernel.PointerObservable <> eco_observers proj
-R5854:5863 Kernel.PointerObservableReductions <> mirror_eco def
-R5927:5938 Kernel.PointerObservableReductions <> mirror_rival def
-prf 6063:6083 <> mirror_unique_pointer
-R6089:6089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6146:6152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6090:6096 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6104:6105 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6102:6103 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
-binder 6097:6098 <> s0:15
-R6121:6124 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6113:6115 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6106:6109 Kernel.PointerObservableReductions <> MirrorEcosystem.flag var
-R6111:6112 Kernel.PointerObservableReductions <> s0:15 var
-R6116:6120 Coq.Init.Datatypes <> false constr
-R6127:6130 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6131:6137 Kernel.PointerObservableReductions <> MirrorEcosystem.counter var
-R6139:6140 Kernel.PointerObservableReductions <> s0:15 var
-R6153:6172 Kernel.PointerObservable <> unique_pointer_among def
-R6174:6183 Kernel.PointerObservableReductions <> mirror_eco def
-R6185:6205 Kernel.PointerObservableReductions <> mirror_selected_event def
-R6207:6207 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6220:6220 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6208:6219 Kernel.PointerObservableReductions <> mirror_rival def
-R6355:6375 Kernel.PointerObservableReductions <> mirror_selected_event def
-R6430:6459 Kernel.PointerObservableReductions <> mirror_rival_not_proliferating thm
-R6430:6459 Kernel.PointerObservableReductions <> mirror_rival_not_proliferating thm
-R6494:6508 Kernel.PointerObservableReductions MirrorEcosystem <> sec
-rec 6849:6856 <> PoSState
-proj 6863:6875 <> pos_finalized
-proj 6885:6901 <> pos_proposer_work
-R6879:6882 Coq.Init.Datatypes <> bool ind
-R6905:6907 Coq.Init.Datatypes <> nat ind
-def 6924:6930 <> PoS_eco
-R6935:6944 Kernel.PointerObservableReductions <> mirror_eco def
-R6955:6967 Kernel.PointerObservableReductions <> pos_finalized proj
-R6946:6953 Kernel.PointerObservableReductions <> PoSState rec
-def 6981:6998 <> PoS_selected_event
-R7003:7023 Kernel.PointerObservableReductions <> mirror_selected_event def
-R7034:7046 Kernel.PointerObservableReductions <> pos_finalized proj
-R7025:7032 Kernel.PointerObservableReductions <> PoSState rec
-def 7060:7068 <> PoS_rival
-R7073:7084 Kernel.PointerObservableReductions <> mirror_rival def
-R7095:7111 Kernel.PointerObservableReductions <> pos_proposer_work proj
-R7086:7093 Kernel.PointerObservableReductions <> PoSState rec
-prf 7123:7146 <> PoS_model_unique_pointer
-R7152:7171 Kernel.PointerObservable <> unique_pointer_among def
-R7173:7179 Kernel.PointerObservableReductions <> PoS_eco def
-R7181:7198 Kernel.PointerObservableReductions <> PoS_selected_event def
-R7200:7200 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R7210:7210 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R7201:7209 Kernel.PointerObservableReductions <> PoS_rival def
-R7229:7249 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R7274:7290 Kernel.PointerObservableReductions <> pos_proposer_work proj
-R7260:7272 Kernel.PointerObservableReductions <> pos_finalized proj
-R7251:7258 Kernel.PointerObservableReductions <> PoSState rec
-R7229:7249 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R7274:7290 Kernel.PointerObservableReductions <> pos_proposer_work proj
-R7260:7272 Kernel.PointerObservableReductions <> pos_finalized proj
-R7251:7258 Kernel.PointerObservableReductions <> PoSState rec
-R7306:7318 Kernel.PointerObservableReductions <> pos_finalized proj
-R7306:7318 Kernel.PointerObservableReductions <> pos_finalized proj
-R7306:7318 Kernel.PointerObservableReductions <> pos_finalized proj
-R7330:7346 Kernel.PointerObservableReductions <> pos_proposer_work proj
-R7330:7346 Kernel.PointerObservableReductions <> pos_proposer_work proj
-R7323:7327 Coq.Init.Datatypes <> false constr
-R7306:7318 Kernel.PointerObservableReductions <> pos_finalized proj
-R7306:7318 Kernel.PointerObservableReductions <> pos_finalized proj
-R7306:7318 Kernel.PointerObservableReductions <> pos_finalized proj
-R7330:7346 Kernel.PointerObservableReductions <> pos_proposer_work proj
-R7330:7346 Kernel.PointerObservableReductions <> pos_proposer_work proj
-R7323:7327 Coq.Init.Datatypes <> false constr
-rec 7659:7666 <> GasState
-proj 7673:7685 <> gas_committed
-proj 7695:7705 <> gas_scratch
-R7689:7692 Coq.Init.Datatypes <> bool ind
-R7709:7711 Coq.Init.Datatypes <> nat ind
-def 7728:7734 <> Gas_eco
-R7739:7748 Kernel.PointerObservableReductions <> mirror_eco def
-R7759:7771 Kernel.PointerObservableReductions <> gas_committed proj
-R7750:7757 Kernel.PointerObservableReductions <> GasState rec
-def 7785:7802 <> Gas_selected_event
-R7807:7827 Kernel.PointerObservableReductions <> mirror_selected_event def
-R7838:7850 Kernel.PointerObservableReductions <> gas_committed proj
-R7829:7836 Kernel.PointerObservableReductions <> GasState rec
-def 7864:7872 <> Gas_rival
-R7877:7888 Kernel.PointerObservableReductions <> mirror_rival def
-R7899:7909 Kernel.PointerObservableReductions <> gas_scratch proj
-R7890:7897 Kernel.PointerObservableReductions <> GasState rec
-prf 7921:7944 <> Gas_model_unique_pointer
-R7950:7969 Kernel.PointerObservable <> unique_pointer_among def
-R7971:7977 Kernel.PointerObservableReductions <> Gas_eco def
-R7979:7996 Kernel.PointerObservableReductions <> Gas_selected_event def
-R7998:7998 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R8008:8008 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R7999:8007 Kernel.PointerObservableReductions <> Gas_rival def
-R8027:8047 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R8072:8082 Kernel.PointerObservableReductions <> gas_scratch proj
-R8058:8070 Kernel.PointerObservableReductions <> gas_committed proj
-R8049:8056 Kernel.PointerObservableReductions <> GasState rec
-R8027:8047 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R8072:8082 Kernel.PointerObservableReductions <> gas_scratch proj
-R8058:8070 Kernel.PointerObservableReductions <> gas_committed proj
-R8049:8056 Kernel.PointerObservableReductions <> GasState rec
-R8098:8110 Kernel.PointerObservableReductions <> gas_committed proj
-R8098:8110 Kernel.PointerObservableReductions <> gas_committed proj
-R8098:8110 Kernel.PointerObservableReductions <> gas_committed proj
-R8122:8132 Kernel.PointerObservableReductions <> gas_scratch proj
-R8122:8132 Kernel.PointerObservableReductions <> gas_scratch proj
-R8115:8119 Coq.Init.Datatypes <> false constr
-R8098:8110 Kernel.PointerObservableReductions <> gas_committed proj
-R8098:8110 Kernel.PointerObservableReductions <> gas_committed proj
-R8098:8110 Kernel.PointerObservableReductions <> gas_committed proj
-R8122:8132 Kernel.PointerObservableReductions <> gas_scratch proj
-R8122:8132 Kernel.PointerObservableReductions <> gas_scratch proj
-R8115:8119 Coq.Init.Datatypes <> false constr
-rec 8518:8525 <> TEEState
-proj 8532:8543 <> tee_attested
-proj 8553:8566 <> tee_meas_noise
-R8547:8550 Coq.Init.Datatypes <> bool ind
-R8570:8572 Coq.Init.Datatypes <> nat ind
-def 8589:8595 <> TEE_eco
-R8600:8609 Kernel.PointerObservableReductions <> mirror_eco def
-R8620:8631 Kernel.PointerObservableReductions <> tee_attested proj
-R8611:8618 Kernel.PointerObservableReductions <> TEEState rec
-def 8645:8662 <> TEE_selected_event
-R8667:8687 Kernel.PointerObservableReductions <> mirror_selected_event def
-R8698:8709 Kernel.PointerObservableReductions <> tee_attested proj
-R8689:8696 Kernel.PointerObservableReductions <> TEEState rec
-def 8723:8731 <> TEE_rival
-R8736:8747 Kernel.PointerObservableReductions <> mirror_rival def
-R8758:8771 Kernel.PointerObservableReductions <> tee_meas_noise proj
-R8749:8756 Kernel.PointerObservableReductions <> TEEState rec
-prf 8783:8806 <> TEE_model_unique_pointer
-R8812:8831 Kernel.PointerObservable <> unique_pointer_among def
-R8833:8839 Kernel.PointerObservableReductions <> TEE_eco def
-R8841:8858 Kernel.PointerObservableReductions <> TEE_selected_event def
-R8860:8860 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R8870:8870 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R8861:8869 Kernel.PointerObservableReductions <> TEE_rival def
-R8889:8909 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R8933:8946 Kernel.PointerObservableReductions <> tee_meas_noise proj
-R8920:8931 Kernel.PointerObservableReductions <> tee_attested proj
-R8911:8918 Kernel.PointerObservableReductions <> TEEState rec
-R8889:8909 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R8933:8946 Kernel.PointerObservableReductions <> tee_meas_noise proj
-R8920:8931 Kernel.PointerObservableReductions <> tee_attested proj
-R8911:8918 Kernel.PointerObservableReductions <> TEEState rec
-R8962:8973 Kernel.PointerObservableReductions <> tee_attested proj
-R8962:8973 Kernel.PointerObservableReductions <> tee_attested proj
-R8962:8973 Kernel.PointerObservableReductions <> tee_attested proj
-R8985:8998 Kernel.PointerObservableReductions <> tee_meas_noise proj
-R8985:8998 Kernel.PointerObservableReductions <> tee_meas_noise proj
-R8978:8982 Coq.Init.Datatypes <> false constr
-R8962:8973 Kernel.PointerObservableReductions <> tee_attested proj
-R8962:8973 Kernel.PointerObservableReductions <> tee_attested proj
-R8962:8973 Kernel.PointerObservableReductions <> tee_attested proj
-R8985:8998 Kernel.PointerObservableReductions <> tee_meas_noise proj
-R8985:8998 Kernel.PointerObservableReductions <> tee_meas_noise proj
-R8978:8982 Coq.Init.Datatypes <> false constr
-rec 9344:9350 <> CTState
-proj 9357:9365 <> ct_logged
-proj 9375:9391 <> ct_submit_latency
-R9369:9372 Coq.Init.Datatypes <> bool ind
-R9395:9397 Coq.Init.Datatypes <> nat ind
-def 9414:9419 <> CT_eco
-R9424:9433 Kernel.PointerObservableReductions <> mirror_eco def
-R9443:9451 Kernel.PointerObservableReductions <> ct_logged proj
-R9435:9441 Kernel.PointerObservableReductions <> CTState rec
-def 9465:9481 <> CT_selected_event
-R9486:9506 Kernel.PointerObservableReductions <> mirror_selected_event def
-R9516:9524 Kernel.PointerObservableReductions <> ct_logged proj
-R9508:9514 Kernel.PointerObservableReductions <> CTState rec
-def 9538:9545 <> CT_rival
-R9550:9561 Kernel.PointerObservableReductions <> mirror_rival def
-R9571:9587 Kernel.PointerObservableReductions <> ct_submit_latency proj
-R9563:9569 Kernel.PointerObservableReductions <> CTState rec
-prf 9599:9621 <> CT_model_unique_pointer
-R9627:9646 Kernel.PointerObservable <> unique_pointer_among def
-R9648:9653 Kernel.PointerObservableReductions <> CT_eco def
-R9655:9671 Kernel.PointerObservableReductions <> CT_selected_event def
-R9673:9673 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R9682:9682 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R9674:9681 Kernel.PointerObservableReductions <> CT_rival def
-R9701:9721 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R9741:9757 Kernel.PointerObservableReductions <> ct_submit_latency proj
-R9731:9739 Kernel.PointerObservableReductions <> ct_logged proj
-R9723:9729 Kernel.PointerObservableReductions <> CTState rec
-R9701:9721 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R9741:9757 Kernel.PointerObservableReductions <> ct_submit_latency proj
-R9731:9739 Kernel.PointerObservableReductions <> ct_logged proj
-R9723:9729 Kernel.PointerObservableReductions <> CTState rec
-R9773:9781 Kernel.PointerObservableReductions <> ct_logged proj
-R9773:9781 Kernel.PointerObservableReductions <> ct_logged proj
-R9773:9781 Kernel.PointerObservableReductions <> ct_logged proj
-R9793:9809 Kernel.PointerObservableReductions <> ct_submit_latency proj
-R9793:9809 Kernel.PointerObservableReductions <> ct_submit_latency proj
-R9786:9790 Coq.Init.Datatypes <> false constr
-R9773:9781 Kernel.PointerObservableReductions <> ct_logged proj
-R9773:9781 Kernel.PointerObservableReductions <> ct_logged proj
-R9773:9781 Kernel.PointerObservableReductions <> ct_logged proj
-R9793:9809 Kernel.PointerObservableReductions <> ct_submit_latency proj
-R9793:9809 Kernel.PointerObservableReductions <> ct_submit_latency proj
-R9786:9790 Coq.Init.Datatypes <> false constr
-rec 10131:10138 <> PCCState
-proj 10145:10155 <> pcc_checked
-proj 10165:10180 <> pcc_prover_steps
-R10159:10162 Coq.Init.Datatypes <> bool ind
-R10184:10186 Coq.Init.Datatypes <> nat ind
-def 10203:10209 <> PCC_eco
-R10214:10223 Kernel.PointerObservableReductions <> mirror_eco def
-R10234:10244 Kernel.PointerObservableReductions <> pcc_checked proj
-R10225:10232 Kernel.PointerObservableReductions <> PCCState rec
-def 10258:10275 <> PCC_selected_event
-R10280:10300 Kernel.PointerObservableReductions <> mirror_selected_event def
-R10311:10321 Kernel.PointerObservableReductions <> pcc_checked proj
-R10302:10309 Kernel.PointerObservableReductions <> PCCState rec
-def 10335:10343 <> PCC_rival
-R10348:10359 Kernel.PointerObservableReductions <> mirror_rival def
+R3850:3866 Kernel.PointerObservable <> <> lib
+R3894:3897 Coq.Lists.List <> <> lib
+R3899:3901 Coq.micromega.Lia <> <> lib
+R3911:3923 Coq.Lists.List ListNotations <> mod
+def 4347:4377 <> pointer_criterion_holds_indexed
+binder 4382:4382 <> I:1
+R4402:4405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4401:4401 Kernel.PointerObservableReductions <> I:1 var
+R4406:4414 Kernel.PointerObservable <> Ecosystem rec
+binder 4395:4397 <> eco:2
+R4442:4442 Kernel.PointerObservableReductions <> I:1 var
+binder 4438:4438 <> i:3
+R4462:4465 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4445:4453 Kernel.PointerObservable <> eco_state proj
+R4456:4458 Kernel.PointerObservableReductions <> eco:2 var
+R4460:4460 Kernel.PointerObservableReductions <> i:3 var
+binder 4420:4427 <> selected:4
+R4495:4495 Kernel.PointerObservableReductions <> I:1 var
+binder 4491:4491 <> i:5
+R4498:4501 Coq.Init.Datatypes <> list ind
+R4521:4524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4504:4512 Kernel.PointerObservable <> eco_state proj
+R4515:4517 Kernel.PointerObservableReductions <> eco:2 var
+R4519:4519 Kernel.PointerObservableReductions <> i:5 var
+binder 4475:4480 <> rivals:6
+R4555:4555 Kernel.PointerObservableReductions <> I:1 var
+binder 4551:4551 <> i:7
+R4558:4577 Kernel.PointerObservable <> unique_pointer_among def
+R4580:4582 Kernel.PointerObservableReductions <> eco:2 var
+R4584:4584 Kernel.PointerObservableReductions <> i:7 var
+R4588:4595 Kernel.PointerObservableReductions <> selected:4 var
+R4597:4597 Kernel.PointerObservableReductions <> i:7 var
+R4601:4606 Kernel.PointerObservableReductions <> rivals:6 var
+R4608:4608 Kernel.PointerObservableReductions <> i:7 var
+sec 4890:4904 <> MirrorEcosystem
+var 4917:4918 MirrorEcosystem St
+var 4937:4940 MirrorEcosystem flag
+R4946:4949 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4944:4945 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
+R4950:4953 Coq.Init.Datatypes <> bool ind
+var 4965:4971 MirrorEcosystem counter
+R4977:4980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4975:4976 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
+R4981:4983 Coq.Init.Datatypes <> nat ind
+def 4998:5007 <> mirror_eco
+R5011:5019 Kernel.PointerObservable <> Ecosystem rec
+R5029:5037 Kernel.PointerObservable <> eco_state proj
+R5029:5037 Kernel.PointerObservable <> eco_state proj
+R5029:5037 Kernel.PointerObservable <> eco_state proj
+R5048:5060 Kernel.PointerObservable <> eco_observers proj
+R5048:5060 Kernel.PointerObservable <> eco_observers proj
+R5070:5081 Kernel.PointerObservable <> eco_fragment proj
+R5070:5081 Kernel.PointerObservable <> eco_fragment proj
+R5042:5043 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
+binder 5092:5092 <> s:11
+R5097:5100 Kernel.PointerObservableReductions <> MirrorEcosystem.flag var
+R5102:5102 Kernel.PointerObservableReductions <> s:11 var
+def 5120:5140 <> mirror_selected_event
+R5147:5148 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
+binder 5143:5143 <> s:12
+R5167:5169 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5161:5164 Kernel.PointerObservableReductions <> MirrorEcosystem.flag var
+R5166:5166 Kernel.PointerObservableReductions <> s:12 var
+R5170:5173 Coq.Init.Datatypes <> true constr
+def 5187:5198 <> mirror_rival
+R5205:5206 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
+binder 5201:5201 <> s:13
+R5221:5224 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5225:5231 Kernel.PointerObservableReductions <> MirrorEcosystem.counter var
+R5233:5233 Kernel.PointerObservableReductions <> s:13 var
+prf 5465:5494 <> mirror_rival_not_proliferating
+R5500:5500 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5557:5563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5501:5507 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5515:5516 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5513:5514 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
+binder 5508:5509 <> s0:14
+R5532:5535 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5524:5526 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5517:5520 Kernel.PointerObservableReductions <> MirrorEcosystem.flag var
+R5522:5523 Kernel.PointerObservableReductions <> s0:14 var
+R5527:5531 Coq.Init.Datatypes <> false constr
+R5538:5541 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5542:5548 Kernel.PointerObservableReductions <> MirrorEcosystem.counter var
+R5550:5551 Kernel.PointerObservableReductions <> s0:14 var
+R5564:5565 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5566:5590 Kernel.PointerObservable <> redundantly_proliferating def
+R5592:5601 Kernel.PointerObservableReductions <> mirror_eco def
+R5603:5614 Kernel.PointerObservableReductions <> mirror_rival def
+R5671:5673 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5674:5686 Kernel.PointerObservable <> eco_observers proj
+R5688:5697 Kernel.PointerObservableReductions <> mirror_eco def
+R5671:5673 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5674:5686 Kernel.PointerObservable <> eco_observers proj
+R5688:5697 Kernel.PointerObservableReductions <> mirror_eco def
+R5761:5772 Kernel.PointerObservableReductions <> mirror_rival def
+prf 5897:5917 <> mirror_unique_pointer
+R5923:5923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5980:5986 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5924:5930 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5938:5939 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5936:5937 Kernel.PointerObservableReductions <> MirrorEcosystem.St var
+binder 5931:5932 <> s0:15
+R5955:5958 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5947:5949 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5940:5943 Kernel.PointerObservableReductions <> MirrorEcosystem.flag var
+R5945:5946 Kernel.PointerObservableReductions <> s0:15 var
+R5950:5954 Coq.Init.Datatypes <> false constr
+R5961:5964 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5965:5971 Kernel.PointerObservableReductions <> MirrorEcosystem.counter var
+R5973:5974 Kernel.PointerObservableReductions <> s0:15 var
+R5987:6006 Kernel.PointerObservable <> unique_pointer_among def
+R6008:6017 Kernel.PointerObservableReductions <> mirror_eco def
+R6019:6039 Kernel.PointerObservableReductions <> mirror_selected_event def
+R6041:6041 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6054:6054 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6042:6053 Kernel.PointerObservableReductions <> mirror_rival def
+R6189:6209 Kernel.PointerObservableReductions <> mirror_selected_event def
+R6264:6293 Kernel.PointerObservableReductions <> mirror_rival_not_proliferating thm
+R6264:6293 Kernel.PointerObservableReductions <> mirror_rival_not_proliferating thm
+R6328:6342 Kernel.PointerObservableReductions MirrorEcosystem <> sec
+rec 6681:6688 <> PoSState
+proj 6695:6707 <> pos_finalized
+proj 6717:6733 <> pos_proposer_work
+R6711:6714 Coq.Init.Datatypes <> bool ind
+R6737:6739 Coq.Init.Datatypes <> nat ind
+def 6756:6762 <> PoS_eco
+R6767:6776 Kernel.PointerObservableReductions <> mirror_eco def
+R6787:6799 Kernel.PointerObservableReductions <> pos_finalized proj
+R6778:6785 Kernel.PointerObservableReductions <> PoSState rec
+def 6813:6830 <> PoS_selected_event
+R6835:6855 Kernel.PointerObservableReductions <> mirror_selected_event def
+R6866:6878 Kernel.PointerObservableReductions <> pos_finalized proj
+R6857:6864 Kernel.PointerObservableReductions <> PoSState rec
+def 6892:6900 <> PoS_rival
+R6905:6916 Kernel.PointerObservableReductions <> mirror_rival def
+R6927:6943 Kernel.PointerObservableReductions <> pos_proposer_work proj
+R6918:6925 Kernel.PointerObservableReductions <> PoSState rec
+prf 6955:6978 <> PoS_model_unique_pointer
+R6984:7003 Kernel.PointerObservable <> unique_pointer_among def
+R7005:7011 Kernel.PointerObservableReductions <> PoS_eco def
+R7013:7030 Kernel.PointerObservableReductions <> PoS_selected_event def
+R7032:7032 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7042:7042 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7033:7041 Kernel.PointerObservableReductions <> PoS_rival def
+R7061:7081 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
+R7106:7122 Kernel.PointerObservableReductions <> pos_proposer_work proj
+R7092:7104 Kernel.PointerObservableReductions <> pos_finalized proj
+R7083:7090 Kernel.PointerObservableReductions <> PoSState rec
+R7061:7081 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
+R7106:7122 Kernel.PointerObservableReductions <> pos_proposer_work proj
+R7092:7104 Kernel.PointerObservableReductions <> pos_finalized proj
+R7083:7090 Kernel.PointerObservableReductions <> PoSState rec
+R7138:7150 Kernel.PointerObservableReductions <> pos_finalized proj
+R7138:7150 Kernel.PointerObservableReductions <> pos_finalized proj
+R7138:7150 Kernel.PointerObservableReductions <> pos_finalized proj
+R7162:7178 Kernel.PointerObservableReductions <> pos_proposer_work proj
+R7162:7178 Kernel.PointerObservableReductions <> pos_proposer_work proj
+R7155:7159 Coq.Init.Datatypes <> false constr
+R7138:7150 Kernel.PointerObservableReductions <> pos_finalized proj
+R7138:7150 Kernel.PointerObservableReductions <> pos_finalized proj
+R7138:7150 Kernel.PointerObservableReductions <> pos_finalized proj
+R7162:7178 Kernel.PointerObservableReductions <> pos_proposer_work proj
+R7162:7178 Kernel.PointerObservableReductions <> pos_proposer_work proj
+R7155:7159 Coq.Init.Datatypes <> false constr
+rec 7489:7496 <> GasState
+proj 7503:7515 <> gas_committed
+proj 7525:7535 <> gas_scratch
+R7519:7522 Coq.Init.Datatypes <> bool ind
+R7539:7541 Coq.Init.Datatypes <> nat ind
+def 7558:7564 <> Gas_eco
+R7569:7578 Kernel.PointerObservableReductions <> mirror_eco def
+R7589:7601 Kernel.PointerObservableReductions <> gas_committed proj
+R7580:7587 Kernel.PointerObservableReductions <> GasState rec
+def 7615:7632 <> Gas_selected_event
+R7637:7657 Kernel.PointerObservableReductions <> mirror_selected_event def
+R7668:7680 Kernel.PointerObservableReductions <> gas_committed proj
+R7659:7666 Kernel.PointerObservableReductions <> GasState rec
+def 7694:7702 <> Gas_rival
+R7707:7718 Kernel.PointerObservableReductions <> mirror_rival def
+R7729:7739 Kernel.PointerObservableReductions <> gas_scratch proj
+R7720:7727 Kernel.PointerObservableReductions <> GasState rec
+prf 7751:7774 <> Gas_model_unique_pointer
+R7780:7799 Kernel.PointerObservable <> unique_pointer_among def
+R7801:7807 Kernel.PointerObservableReductions <> Gas_eco def
+R7809:7826 Kernel.PointerObservableReductions <> Gas_selected_event def
+R7828:7828 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7838:7838 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7829:7837 Kernel.PointerObservableReductions <> Gas_rival def
+R7857:7877 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
+R7902:7912 Kernel.PointerObservableReductions <> gas_scratch proj
+R7888:7900 Kernel.PointerObservableReductions <> gas_committed proj
+R7879:7886 Kernel.PointerObservableReductions <> GasState rec
+R7857:7877 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
+R7902:7912 Kernel.PointerObservableReductions <> gas_scratch proj
+R7888:7900 Kernel.PointerObservableReductions <> gas_committed proj
+R7879:7886 Kernel.PointerObservableReductions <> GasState rec
+R7928:7940 Kernel.PointerObservableReductions <> gas_committed proj
+R7928:7940 Kernel.PointerObservableReductions <> gas_committed proj
+R7928:7940 Kernel.PointerObservableReductions <> gas_committed proj
+R7952:7962 Kernel.PointerObservableReductions <> gas_scratch proj
+R7952:7962 Kernel.PointerObservableReductions <> gas_scratch proj
+R7945:7949 Coq.Init.Datatypes <> false constr
+R7928:7940 Kernel.PointerObservableReductions <> gas_committed proj
+R7928:7940 Kernel.PointerObservableReductions <> gas_committed proj
+R7928:7940 Kernel.PointerObservableReductions <> gas_committed proj
+R7952:7962 Kernel.PointerObservableReductions <> gas_scratch proj
+R7952:7962 Kernel.PointerObservableReductions <> gas_scratch proj
+R7945:7949 Coq.Init.Datatypes <> false constr
+rec 8346:8353 <> TEEState
+proj 8360:8371 <> tee_attested
+proj 8381:8394 <> tee_meas_noise
+R8375:8378 Coq.Init.Datatypes <> bool ind
+R8398:8400 Coq.Init.Datatypes <> nat ind
+def 8417:8423 <> TEE_eco
+R8428:8437 Kernel.PointerObservableReductions <> mirror_eco def
+R8448:8459 Kernel.PointerObservableReductions <> tee_attested proj
+R8439:8446 Kernel.PointerObservableReductions <> TEEState rec
+def 8473:8490 <> TEE_selected_event
+R8495:8515 Kernel.PointerObservableReductions <> mirror_selected_event def
+R8526:8537 Kernel.PointerObservableReductions <> tee_attested proj
+R8517:8524 Kernel.PointerObservableReductions <> TEEState rec
+def 8551:8559 <> TEE_rival
+R8564:8575 Kernel.PointerObservableReductions <> mirror_rival def
+R8586:8599 Kernel.PointerObservableReductions <> tee_meas_noise proj
+R8577:8584 Kernel.PointerObservableReductions <> TEEState rec
+prf 8611:8634 <> TEE_model_unique_pointer
+R8640:8659 Kernel.PointerObservable <> unique_pointer_among def
+R8661:8667 Kernel.PointerObservableReductions <> TEE_eco def
+R8669:8686 Kernel.PointerObservableReductions <> TEE_selected_event def
+R8688:8688 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8698:8698 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8689:8697 Kernel.PointerObservableReductions <> TEE_rival def
+R8717:8737 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
+R8761:8774 Kernel.PointerObservableReductions <> tee_meas_noise proj
+R8748:8759 Kernel.PointerObservableReductions <> tee_attested proj
+R8739:8746 Kernel.PointerObservableReductions <> TEEState rec
+R8717:8737 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
+R8761:8774 Kernel.PointerObservableReductions <> tee_meas_noise proj
+R8748:8759 Kernel.PointerObservableReductions <> tee_attested proj
+R8739:8746 Kernel.PointerObservableReductions <> TEEState rec
+R8790:8801 Kernel.PointerObservableReductions <> tee_attested proj
+R8790:8801 Kernel.PointerObservableReductions <> tee_attested proj
+R8790:8801 Kernel.PointerObservableReductions <> tee_attested proj
+R8813:8826 Kernel.PointerObservableReductions <> tee_meas_noise proj
+R8813:8826 Kernel.PointerObservableReductions <> tee_meas_noise proj
+R8806:8810 Coq.Init.Datatypes <> false constr
+R8790:8801 Kernel.PointerObservableReductions <> tee_attested proj
+R8790:8801 Kernel.PointerObservableReductions <> tee_attested proj
+R8790:8801 Kernel.PointerObservableReductions <> tee_attested proj
+R8813:8826 Kernel.PointerObservableReductions <> tee_meas_noise proj
+R8813:8826 Kernel.PointerObservableReductions <> tee_meas_noise proj
+R8806:8810 Coq.Init.Datatypes <> false constr
+rec 9170:9176 <> CTState
+proj 9183:9191 <> ct_logged
+proj 9201:9217 <> ct_submit_latency
+R9195:9198 Coq.Init.Datatypes <> bool ind
+R9221:9223 Coq.Init.Datatypes <> nat ind
+def 9240:9245 <> CT_eco
+R9250:9259 Kernel.PointerObservableReductions <> mirror_eco def
+R9269:9277 Kernel.PointerObservableReductions <> ct_logged proj
+R9261:9267 Kernel.PointerObservableReductions <> CTState rec
+def 9291:9307 <> CT_selected_event
+R9312:9332 Kernel.PointerObservableReductions <> mirror_selected_event def
+R9342:9350 Kernel.PointerObservableReductions <> ct_logged proj
+R9334:9340 Kernel.PointerObservableReductions <> CTState rec
+def 9364:9371 <> CT_rival
+R9376:9387 Kernel.PointerObservableReductions <> mirror_rival def
+R9397:9413 Kernel.PointerObservableReductions <> ct_submit_latency proj
+R9389:9395 Kernel.PointerObservableReductions <> CTState rec
+prf 9425:9447 <> CT_model_unique_pointer
+R9453:9472 Kernel.PointerObservable <> unique_pointer_among def
+R9474:9479 Kernel.PointerObservableReductions <> CT_eco def
+R9481:9497 Kernel.PointerObservableReductions <> CT_selected_event def
+R9499:9499 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9508:9508 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9500:9507 Kernel.PointerObservableReductions <> CT_rival def
+R9527:9547 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
+R9567:9583 Kernel.PointerObservableReductions <> ct_submit_latency proj
+R9557:9565 Kernel.PointerObservableReductions <> ct_logged proj
+R9549:9555 Kernel.PointerObservableReductions <> CTState rec
+R9527:9547 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
+R9567:9583 Kernel.PointerObservableReductions <> ct_submit_latency proj
+R9557:9565 Kernel.PointerObservableReductions <> ct_logged proj
+R9549:9555 Kernel.PointerObservableReductions <> CTState rec
+R9599:9607 Kernel.PointerObservableReductions <> ct_logged proj
+R9599:9607 Kernel.PointerObservableReductions <> ct_logged proj
+R9599:9607 Kernel.PointerObservableReductions <> ct_logged proj
+R9619:9635 Kernel.PointerObservableReductions <> ct_submit_latency proj
+R9619:9635 Kernel.PointerObservableReductions <> ct_submit_latency proj
+R9612:9616 Coq.Init.Datatypes <> false constr
+R9599:9607 Kernel.PointerObservableReductions <> ct_logged proj
+R9599:9607 Kernel.PointerObservableReductions <> ct_logged proj
+R9599:9607 Kernel.PointerObservableReductions <> ct_logged proj
+R9619:9635 Kernel.PointerObservableReductions <> ct_submit_latency proj
+R9619:9635 Kernel.PointerObservableReductions <> ct_submit_latency proj
+R9612:9616 Coq.Init.Datatypes <> false constr
+rec 9955:9962 <> PCCState
+proj 9969:9979 <> pcc_checked
+proj 9989:10004 <> pcc_prover_steps
+R9983:9986 Coq.Init.Datatypes <> bool ind
+R10008:10010 Coq.Init.Datatypes <> nat ind
+def 10027:10033 <> PCC_eco
+R10038:10047 Kernel.PointerObservableReductions <> mirror_eco def
+R10058:10068 Kernel.PointerObservableReductions <> pcc_checked proj
+R10049:10056 Kernel.PointerObservableReductions <> PCCState rec
+def 10082:10099 <> PCC_selected_event
+R10104:10124 Kernel.PointerObservableReductions <> mirror_selected_event def
+R10135:10145 Kernel.PointerObservableReductions <> pcc_checked proj
+R10126:10133 Kernel.PointerObservableReductions <> PCCState rec
+def 10159:10167 <> PCC_rival
+R10172:10183 Kernel.PointerObservableReductions <> mirror_rival def
+R10194:10209 Kernel.PointerObservableReductions <> pcc_prover_steps proj
+R10185:10192 Kernel.PointerObservableReductions <> PCCState rec
+prf 10221:10244 <> PCC_model_unique_pointer
+R10250:10269 Kernel.PointerObservable <> unique_pointer_among def
+R10271:10277 Kernel.PointerObservableReductions <> PCC_eco def
+R10279:10296 Kernel.PointerObservableReductions <> PCC_selected_event def
+R10298:10298 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10308:10308 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10299:10307 Kernel.PointerObservableReductions <> PCC_rival def
+R10327:10347 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
 R10370:10385 Kernel.PointerObservableReductions <> pcc_prover_steps proj
-R10361:10368 Kernel.PointerObservableReductions <> PCCState rec
-prf 10397:10420 <> PCC_model_unique_pointer
-R10426:10445 Kernel.PointerObservable <> unique_pointer_among def
-R10447:10453 Kernel.PointerObservableReductions <> PCC_eco def
-R10455:10472 Kernel.PointerObservableReductions <> PCC_selected_event def
-R10474:10474 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R10484:10484 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R10475:10483 Kernel.PointerObservableReductions <> PCC_rival def
-R10503:10523 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R10546:10561 Kernel.PointerObservableReductions <> pcc_prover_steps proj
-R10534:10544 Kernel.PointerObservableReductions <> pcc_checked proj
-R10525:10532 Kernel.PointerObservableReductions <> PCCState rec
-R10503:10523 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
-R10546:10561 Kernel.PointerObservableReductions <> pcc_prover_steps proj
-R10534:10544 Kernel.PointerObservableReductions <> pcc_checked proj
-R10525:10532 Kernel.PointerObservableReductions <> PCCState rec
-R10577:10587 Kernel.PointerObservableReductions <> pcc_checked proj
-R10577:10587 Kernel.PointerObservableReductions <> pcc_checked proj
-R10577:10587 Kernel.PointerObservableReductions <> pcc_checked proj
-R10599:10614 Kernel.PointerObservableReductions <> pcc_prover_steps proj
-R10599:10614 Kernel.PointerObservableReductions <> pcc_prover_steps proj
-R10592:10596 Coq.Init.Datatypes <> false constr
-R10577:10587 Kernel.PointerObservableReductions <> pcc_checked proj
-R10577:10587 Kernel.PointerObservableReductions <> pcc_checked proj
-R10577:10587 Kernel.PointerObservableReductions <> pcc_checked proj
-R10599:10614 Kernel.PointerObservableReductions <> pcc_prover_steps proj
-R10599:10614 Kernel.PointerObservableReductions <> pcc_prover_steps proj
-R10592:10596 Coq.Init.Datatypes <> false constr
-ind 10737:10746 <> ModelLabel
-constr 10751:10754 <> DPoS
-constr 10758:10761 <> DGas
-constr 10765:10768 <> DTEE
-constr 10772:10774 <> DCT
-constr 10778:10781 <> DPCC
-scheme 10737:10746 <> ModelLabel_rect
-scheme 10737:10746 <> ModelLabel_ind
-scheme 10737:10746 <> ModelLabel_rec
-scheme 10737:10746 <> ModelLabel_sind
-def 10796:10806 <> labeled_eco
-R10813:10822 Kernel.PointerObservableReductions <> ModelLabel ind
-binder 10809:10809 <> d:33
-R10827:10835 Kernel.PointerObservable <> Ecosystem rec
-R10848:10848 Kernel.PointerObservableReductions <> d:33 var
-R10859:10862 Kernel.PointerObservableReductions <> DPoS constr
-R10867:10873 Kernel.PointerObservableReductions <> PoS_eco def
-R10877:10880 Kernel.PointerObservableReductions <> DGas constr
-R10885:10891 Kernel.PointerObservableReductions <> Gas_eco def
-R10895:10898 Kernel.PointerObservableReductions <> DTEE constr
-R10903:10909 Kernel.PointerObservableReductions <> TEE_eco def
-R10915:10917 Kernel.PointerObservableReductions <> DCT constr
-R10922:10927 Kernel.PointerObservableReductions <> CT_eco def
-R10931:10934 Kernel.PointerObservableReductions <> DPCC constr
-R10939:10945 Kernel.PointerObservableReductions <> PCC_eco def
-def 10966:10987 <> labeled_selected_event
-R10998:11007 Kernel.PointerObservableReductions <> ModelLabel ind
-binder 10994:10994 <> d:35
-R11037:11040 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11012:11020 Kernel.PointerObservable <> eco_state proj
-R11023:11033 Kernel.PointerObservableReductions <> labeled_eco def
-R11035:11035 Kernel.PointerObservableReductions <> d:35 var
-R11057:11057 Kernel.PointerObservableReductions <> d:35 var
-R11068:11071 Kernel.PointerObservableReductions <> DPoS constr
-R11076:11093 Kernel.PointerObservableReductions <> PoS_selected_event def
-R11099:11102 Kernel.PointerObservableReductions <> DGas constr
-R11107:11124 Kernel.PointerObservableReductions <> Gas_selected_event def
-R11130:11133 Kernel.PointerObservableReductions <> DTEE constr
-R11138:11155 Kernel.PointerObservableReductions <> TEE_selected_event def
-R11161:11163 Kernel.PointerObservableReductions <> DCT constr
-R11168:11184 Kernel.PointerObservableReductions <> CT_selected_event def
-R11190:11193 Kernel.PointerObservableReductions <> DPCC constr
-R11198:11215 Kernel.PointerObservableReductions <> PCC_selected_event def
-def 11236:11249 <> labeled_rivals
-R11260:11269 Kernel.PointerObservableReductions <> ModelLabel ind
-binder 11256:11256 <> d:37
-R11274:11277 Coq.Init.Datatypes <> list ind
-R11305:11308 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11280:11288 Kernel.PointerObservable <> eco_state proj
-R11291:11301 Kernel.PointerObservableReductions <> labeled_eco def
-R11303:11303 Kernel.PointerObservableReductions <> d:37 var
-R11326:11326 Kernel.PointerObservableReductions <> d:37 var
-R11337:11340 Kernel.PointerObservableReductions <> DPoS constr
-R11345:11345 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11355:11355 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11346:11354 Kernel.PointerObservableReductions <> PoS_rival def
-R11359:11362 Kernel.PointerObservableReductions <> DGas constr
-R11367:11367 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11377:11377 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11368:11376 Kernel.PointerObservableReductions <> Gas_rival def
-R11381:11384 Kernel.PointerObservableReductions <> DTEE constr
-R11389:11389 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11399:11399 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11390:11398 Kernel.PointerObservableReductions <> TEE_rival def
-R11405:11407 Kernel.PointerObservableReductions <> DCT constr
-R11412:11412 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11421:11421 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11413:11420 Kernel.PointerObservableReductions <> CT_rival def
-R11425:11428 Kernel.PointerObservableReductions <> DPCC constr
-R11433:11433 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11443:11443 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11434:11442 Kernel.PointerObservableReductions <> PCC_rival def
-prf 11900:11940 <> five_labeled_models_have_selected_pointer
-R11946:11976 Kernel.PointerObservableReductions <> pointer_criterion_holds_indexed def
-R12017:12030 Kernel.PointerObservableReductions <> labeled_rivals def
-R11994:12015 Kernel.PointerObservableReductions <> labeled_selected_event def
-R11982:11992 Kernel.PointerObservableReductions <> labeled_eco def
-R12080:12103 Kernel.PointerObservableReductions <> PoS_model_unique_pointer thm
-R12080:12103 Kernel.PointerObservableReductions <> PoS_model_unique_pointer thm
-R12116:12139 Kernel.PointerObservableReductions <> Gas_model_unique_pointer thm
-R12116:12139 Kernel.PointerObservableReductions <> Gas_model_unique_pointer thm
-R12152:12175 Kernel.PointerObservableReductions <> TEE_model_unique_pointer thm
-R12152:12175 Kernel.PointerObservableReductions <> TEE_model_unique_pointer thm
-R12188:12210 Kernel.PointerObservableReductions <> CT_model_unique_pointer thm
-R12188:12210 Kernel.PointerObservableReductions <> CT_model_unique_pointer thm
-R12223:12246 Kernel.PointerObservableReductions <> PCC_model_unique_pointer thm
-R12223:12246 Kernel.PointerObservableReductions <> PCC_model_unique_pointer thm
-def 12318:12342 <> pointer_reductions_anchor
-R12348:12388 Kernel.PointerObservableReductions <> five_labeled_models_have_selected_pointer thm
+R10358:10368 Kernel.PointerObservableReductions <> pcc_checked proj
+R10349:10356 Kernel.PointerObservableReductions <> PCCState rec
+R10327:10347 Kernel.PointerObservableReductions <> mirror_unique_pointer thm
+R10370:10385 Kernel.PointerObservableReductions <> pcc_prover_steps proj
+R10358:10368 Kernel.PointerObservableReductions <> pcc_checked proj
+R10349:10356 Kernel.PointerObservableReductions <> PCCState rec
+R10401:10411 Kernel.PointerObservableReductions <> pcc_checked proj
+R10401:10411 Kernel.PointerObservableReductions <> pcc_checked proj
+R10401:10411 Kernel.PointerObservableReductions <> pcc_checked proj
+R10423:10438 Kernel.PointerObservableReductions <> pcc_prover_steps proj
+R10423:10438 Kernel.PointerObservableReductions <> pcc_prover_steps proj
+R10416:10420 Coq.Init.Datatypes <> false constr
+R10401:10411 Kernel.PointerObservableReductions <> pcc_checked proj
+R10401:10411 Kernel.PointerObservableReductions <> pcc_checked proj
+R10401:10411 Kernel.PointerObservableReductions <> pcc_checked proj
+R10423:10438 Kernel.PointerObservableReductions <> pcc_prover_steps proj
+R10423:10438 Kernel.PointerObservableReductions <> pcc_prover_steps proj
+R10416:10420 Coq.Init.Datatypes <> false constr
+ind 10561:10570 <> ModelLabel
+constr 10575:10578 <> DPoS
+constr 10582:10585 <> DGas
+constr 10589:10592 <> DTEE
+constr 10596:10598 <> DCT
+constr 10602:10605 <> DPCC
+scheme 10561:10570 <> ModelLabel_rect
+scheme 10561:10570 <> ModelLabel_ind
+scheme 10561:10570 <> ModelLabel_rec
+scheme 10561:10570 <> ModelLabel_sind
+def 10620:10630 <> labeled_eco
+R10637:10646 Kernel.PointerObservableReductions <> ModelLabel ind
+binder 10633:10633 <> d:33
+R10651:10659 Kernel.PointerObservable <> Ecosystem rec
+R10672:10672 Kernel.PointerObservableReductions <> d:33 var
+R10683:10686 Kernel.PointerObservableReductions <> DPoS constr
+R10691:10697 Kernel.PointerObservableReductions <> PoS_eco def
+R10701:10704 Kernel.PointerObservableReductions <> DGas constr
+R10709:10715 Kernel.PointerObservableReductions <> Gas_eco def
+R10719:10722 Kernel.PointerObservableReductions <> DTEE constr
+R10727:10733 Kernel.PointerObservableReductions <> TEE_eco def
+R10739:10741 Kernel.PointerObservableReductions <> DCT constr
+R10746:10751 Kernel.PointerObservableReductions <> CT_eco def
+R10755:10758 Kernel.PointerObservableReductions <> DPCC constr
+R10763:10769 Kernel.PointerObservableReductions <> PCC_eco def
+def 10790:10811 <> labeled_selected_event
+R10822:10831 Kernel.PointerObservableReductions <> ModelLabel ind
+binder 10818:10818 <> d:35
+R10861:10864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10836:10844 Kernel.PointerObservable <> eco_state proj
+R10847:10857 Kernel.PointerObservableReductions <> labeled_eco def
+R10859:10859 Kernel.PointerObservableReductions <> d:35 var
+R10881:10881 Kernel.PointerObservableReductions <> d:35 var
+R10892:10895 Kernel.PointerObservableReductions <> DPoS constr
+R10900:10917 Kernel.PointerObservableReductions <> PoS_selected_event def
+R10923:10926 Kernel.PointerObservableReductions <> DGas constr
+R10931:10948 Kernel.PointerObservableReductions <> Gas_selected_event def
+R10954:10957 Kernel.PointerObservableReductions <> DTEE constr
+R10962:10979 Kernel.PointerObservableReductions <> TEE_selected_event def
+R10985:10987 Kernel.PointerObservableReductions <> DCT constr
+R10992:11008 Kernel.PointerObservableReductions <> CT_selected_event def
+R11014:11017 Kernel.PointerObservableReductions <> DPCC constr
+R11022:11039 Kernel.PointerObservableReductions <> PCC_selected_event def
+def 11060:11073 <> labeled_rivals
+R11084:11093 Kernel.PointerObservableReductions <> ModelLabel ind
+binder 11080:11080 <> d:37
+R11098:11101 Coq.Init.Datatypes <> list ind
+R11129:11132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11104:11112 Kernel.PointerObservable <> eco_state proj
+R11115:11125 Kernel.PointerObservableReductions <> labeled_eco def
+R11127:11127 Kernel.PointerObservableReductions <> d:37 var
+R11150:11150 Kernel.PointerObservableReductions <> d:37 var
+R11161:11164 Kernel.PointerObservableReductions <> DPoS constr
+R11169:11169 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11179:11179 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11170:11178 Kernel.PointerObservableReductions <> PoS_rival def
+R11183:11186 Kernel.PointerObservableReductions <> DGas constr
+R11191:11191 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11201:11201 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11192:11200 Kernel.PointerObservableReductions <> Gas_rival def
+R11205:11208 Kernel.PointerObservableReductions <> DTEE constr
+R11213:11213 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11223:11223 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11214:11222 Kernel.PointerObservableReductions <> TEE_rival def
+R11229:11231 Kernel.PointerObservableReductions <> DCT constr
+R11236:11236 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11245:11245 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11237:11244 Kernel.PointerObservableReductions <> CT_rival def
+R11249:11252 Kernel.PointerObservableReductions <> DPCC constr
+R11257:11257 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11267:11267 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11258:11266 Kernel.PointerObservableReductions <> PCC_rival def
+prf 11712:11752 <> five_labeled_models_have_selected_pointer
+R11758:11788 Kernel.PointerObservableReductions <> pointer_criterion_holds_indexed def
+R11829:11842 Kernel.PointerObservableReductions <> labeled_rivals def
+R11806:11827 Kernel.PointerObservableReductions <> labeled_selected_event def
+R11794:11804 Kernel.PointerObservableReductions <> labeled_eco def
+R11892:11915 Kernel.PointerObservableReductions <> PoS_model_unique_pointer thm
+R11892:11915 Kernel.PointerObservableReductions <> PoS_model_unique_pointer thm
+R11928:11951 Kernel.PointerObservableReductions <> Gas_model_unique_pointer thm
+R11928:11951 Kernel.PointerObservableReductions <> Gas_model_unique_pointer thm
+R11964:11987 Kernel.PointerObservableReductions <> TEE_model_unique_pointer thm
+R11964:11987 Kernel.PointerObservableReductions <> TEE_model_unique_pointer thm
+R12000:12022 Kernel.PointerObservableReductions <> CT_model_unique_pointer thm
+R12000:12022 Kernel.PointerObservableReductions <> CT_model_unique_pointer thm
+R12035:12058 Kernel.PointerObservableReductions <> PCC_model_unique_pointer thm
+R12035:12058 Kernel.PointerObservableReductions <> PCC_model_unique_pointer thm
+def 12130:12154 <> pointer_reductions_anchor
+R12160:12200 Kernel.PointerObservableReductions <> five_labeled_models_have_selected_pointer thm

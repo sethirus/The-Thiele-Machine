@@ -1,11 +1,11 @@
 # INQUISITOR REPORT
-Generated: 2026-10-03 15:29:55Z (UTC)
-Scanned: 520 Coq files across the repo
+Generated: 2026-10-03 19:06:04Z (UTC)
+Scanned: 523 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
-- LOW: 0
-- SCOPE NOTES: 359 in-source scope markers across 163 files (265 SCOPE NOTE, 94 SAFE markers)
+- LOW: 3
+- SCOPE NOTES: 349 in-source scope markers across 164 files (255 SCOPE NOTE, 94 SAFE markers)
   - Read the severity counts as *unsuppressed* findings. Each scope note silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
 
 ## Rules
@@ -101,4 +101,15 @@ Scanned: 520 Coq files across the repo
 (no files scored above zero — no trivially-true or placeholder patterns detected)
 
 ## Findings
-(none)
+### LOW
+
+#### `coq/kernel/frontier/LassertTsirelsonCrossLink.v`
+- L99: **CHSH_BOUND_MISSING** — CHSH bound theorem \`lassert_cost_bounds_coherent_chsh_square\` may not reference proper Tsirelson bound value.
+  - `Theorem lassert_cost_bounds_coherent_chsh_square :`
+- L146: **CHSH_BOUND_MISSING** — CHSH bound theorem \`lassert_chsh_square_bound_at_flen_8\` may not reference proper Tsirelson bound value.
+  - `Lemma lassert_chsh_square_bound_at_flen_8 :`
+
+#### `coq/kernel/frontier/LassertTsirelsonHierarchyCrossLink.v`
+- L131: **CHSH_BOUND_MISSING** — CHSH bound theorem \`hierarchy_floor_bounds_coherent_chsh_square\` may not reference proper Tsirelson bound value.
+  - `Lemma hierarchy_floor_bounds_coherent_chsh_square :`
+

@@ -1,144 +1,144 @@
-DIGEST 6b4adafde74259a2183762603060fdc6
+DIGEST c0619cbfe5871a71a4b0ac05e7a80abf
 FKernel.GasMetering
-R1952:1955 Coq.Lists.List <> <> lib
-R1957:1970 Coq.Arith.PeanoNat <> <> lib
-R1972:1974 Coq.micromega.Lia <> <> lib
-R1976:1979 Coq.Bool.Bool <> <> lib
-R1989:2001 Coq.Lists.List ListNotations <> mod
-R2032:2058 Kernel.CommitmentPredicateAdequacy <> <> lib
-R2274:2280 Kernel.VMState <> <> lib
-R2282:2287 Kernel.VMStep <> <> lib
-R2289:2303 Kernel.SimulationProof <> <> lib
-R2305:2316 Kernel.AbstractNoFI <> <> lib
-def 3845:3855 <> GasSchedule
-R3860:3885 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
-prf 5361:5382 <> gas_schedule_exactness
-R5399:5409 Kernel.GasMetering <> GasSchedule def
-binder 5395:5395 <> G:1
-R5416:5416 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R5491:5505 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R5592:5592 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R5451:5459 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5417:5448 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
-R5450:5450 Kernel.GasMetering <> G:1 var
-R5460:5488 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
-R5490:5490 Kernel.GasMetering <> G:1 var
-R5563:5571 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5506:5525 Kernel.CommitmentPredicateAdequacy <> local_predicate_same def
-R5527:5527 Kernel.GasMetering <> G:1 var
-R5530:5544 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
-R5546:5546 Kernel.GasMetering <> G:1 var
-R5550:5559 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
-R5561:5561 Kernel.GasMetering <> G:1 var
-R5572:5589 Kernel.CommitmentPredicateAdequacy <> exact_unit_pricing def
-R5591:5591 Kernel.GasMetering <> G:1 var
-R5610:5650 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
-R5610:5650 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
-prf 6397:6438 <> undercharged_opcode_admits_free_commitment
-R6456:6466 Kernel.GasMetering <> GasSchedule def
-binder 6452:6452 <> G:2
-R6474:6482 Kernel.CommitmentPredicateAdequacy <> lps_state proj
-R6484:6484 Kernel.GasMetering <> G:2 var
-binder 6470:6470 <> s:3
-R6492:6500 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
-R6502:6502 Kernel.GasMetering <> G:2 var
-binder 6488:6488 <> i:4
-R6530:6537 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6522:6524 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6510:6517 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
-R6519:6519 Kernel.GasMetering <> G:2 var
-R6521:6521 Kernel.GasMetering <> s:3 var
-R6525:6529 Coq.Init.Datatypes <> false constr
-R6572:6579 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6565:6567 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6538:6545 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
-R6547:6547 Kernel.GasMetering <> G:2 var
-R6550:6557 Kernel.CommitmentPredicateAdequacy <> lps_step proj
-R6559:6559 Kernel.GasMetering <> G:2 var
-R6561:6561 Kernel.GasMetering <> s:3 var
-R6563:6563 Kernel.GasMetering <> i:4 var
-R6568:6571 Coq.Init.Datatypes <> true constr
-R6604:6611 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6596:6598 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6580:6589 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
-R6591:6591 Kernel.GasMetering <> G:2 var
-R6593:6593 Kernel.GasMetering <> s:3 var
-R6595:6595 Kernel.GasMetering <> i:4 var
-R6599:6603 Coq.Init.Datatypes <> false constr
-R6634:6636 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6612:6625 Kernel.CommitmentPredicateAdequacy <> lps_total_cost def
-R6627:6627 Kernel.GasMetering <> G:2 var
-R6629:6629 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6631:6631 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6630:6630 Kernel.GasMetering <> i:4 var
-R6633:6633 Kernel.GasMetering <> s:3 var
-R6698:6715 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
-R6698:6715 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
-R6698:6715 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
-prf 7155:7200 <> undercharged_opcode_breaks_certification_floor
-R7218:7228 Kernel.GasMetering <> GasSchedule def
-binder 7214:7214 <> G:5
-R7236:7244 Kernel.CommitmentPredicateAdequacy <> lps_state proj
-R7246:7246 Kernel.GasMetering <> G:5 var
-binder 7232:7232 <> s:6
-R7254:7262 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
-R7264:7264 Kernel.GasMetering <> G:5 var
-binder 7250:7250 <> i:7
-R7292:7299 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7284:7286 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7272:7279 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
-R7281:7281 Kernel.GasMetering <> G:5 var
-R7283:7283 Kernel.GasMetering <> s:6 var
-R7287:7291 Coq.Init.Datatypes <> false constr
-R7334:7341 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7327:7329 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7300:7307 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
-R7309:7309 Kernel.GasMetering <> G:5 var
-R7312:7319 Kernel.CommitmentPredicateAdequacy <> lps_step proj
-R7321:7321 Kernel.GasMetering <> G:5 var
-R7323:7323 Kernel.GasMetering <> s:6 var
-R7325:7325 Kernel.GasMetering <> i:7 var
-R7330:7333 Coq.Init.Datatypes <> true constr
-R7366:7373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7358:7360 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7342:7351 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
-R7353:7353 Kernel.GasMetering <> G:5 var
-R7355:7355 Kernel.GasMetering <> s:6 var
-R7357:7357 Kernel.GasMetering <> i:7 var
-R7361:7365 Coq.Init.Datatypes <> false constr
-R7374:7375 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7376:7404 Kernel.CommitmentPredicateAdequacy <> universal_certification_floor def
-R7406:7406 Kernel.GasMetering <> G:5 var
-R7478:7514 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
-R7478:7514 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
-prf 8343:8369 <> overcharge_breaks_exactness
-R8387:8397 Kernel.GasMetering <> GasSchedule def
-binder 8383:8383 <> G:8
-R8405:8413 Kernel.CommitmentPredicateAdequacy <> lps_state proj
-R8415:8415 Kernel.GasMetering <> G:8 var
-binder 8401:8401 <> s:9
-R8423:8431 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
-R8433:8433 Kernel.GasMetering <> G:8 var
-binder 8419:8419 <> i:10
-R8464:8471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8457:8459 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8441:8450 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
-R8452:8452 Kernel.GasMetering <> G:8 var
-R8454:8454 Kernel.GasMetering <> s:9 var
-R8456:8456 Kernel.GasMetering <> i:10 var
-R8460:8463 Coq.Init.Datatypes <> true constr
-R8501:8508 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8493:8495 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8472:8486 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
-R8488:8488 Kernel.GasMetering <> G:8 var
-R8490:8490 Kernel.GasMetering <> s:9 var
-R8492:8492 Kernel.GasMetering <> i:10 var
-R8496:8500 Coq.Init.Datatypes <> false constr
-R8509:8510 Coq.Init.Logic <> ::type_scope:'~'_x not
-R8511:8539 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
-R8541:8541 Kernel.GasMetering <> G:8 var
-R8602:8647 Kernel.CommitmentPredicateAdequacy <> no_overcharge_forces_charge_only_on_cert_flips thm
-R8602:8647 Kernel.CommitmentPredicateAdequacy <> no_overcharge_forces_charge_only_on_cert_flips thm
+R1948:1951 Coq.Lists.List <> <> lib
+R1953:1966 Coq.Arith.PeanoNat <> <> lib
+R1968:1970 Coq.micromega.Lia <> <> lib
+R1972:1975 Coq.Bool.Bool <> <> lib
+R1985:1997 Coq.Lists.List ListNotations <> mod
+R2028:2054 Kernel.CommitmentPredicateAdequacy <> <> lib
+R2270:2276 Kernel.VMState <> <> lib
+R2278:2283 Kernel.VMStep <> <> lib
+R2285:2299 Kernel.SimulationProof <> <> lib
+R2301:2312 Kernel.AbstractNoFI <> <> lib
+def 3852:3862 <> GasSchedule
+R3867:3892 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+prf 5374:5395 <> gas_schedule_exactness
+R5412:5422 Kernel.GasMetering <> GasSchedule def
+binder 5408:5408 <> G:1
+R5429:5429 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5504:5518 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5605:5605 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5464:5472 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5430:5461 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R5463:5463 Kernel.GasMetering <> G:1 var
+R5473:5501 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R5503:5503 Kernel.GasMetering <> G:1 var
+R5576:5584 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5519:5538 Kernel.CommitmentPredicateAdequacy <> local_predicate_same def
+R5540:5540 Kernel.GasMetering <> G:1 var
+R5543:5557 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R5559:5559 Kernel.GasMetering <> G:1 var
+R5563:5572 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R5574:5574 Kernel.GasMetering <> G:1 var
+R5585:5602 Kernel.CommitmentPredicateAdequacy <> exact_unit_pricing def
+R5604:5604 Kernel.GasMetering <> G:1 var
+R5623:5663 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
+R5623:5663 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
+prf 6410:6451 <> undercharged_opcode_admits_free_commitment
+R6469:6479 Kernel.GasMetering <> GasSchedule def
+binder 6465:6465 <> G:2
+R6487:6495 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R6497:6497 Kernel.GasMetering <> G:2 var
+binder 6483:6483 <> s:3
+R6505:6513 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R6515:6515 Kernel.GasMetering <> G:2 var
+binder 6501:6501 <> i:4
+R6543:6550 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6535:6537 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6523:6530 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R6532:6532 Kernel.GasMetering <> G:2 var
+R6534:6534 Kernel.GasMetering <> s:3 var
+R6538:6542 Coq.Init.Datatypes <> false constr
+R6585:6592 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6578:6580 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6551:6558 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R6560:6560 Kernel.GasMetering <> G:2 var
+R6563:6570 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R6572:6572 Kernel.GasMetering <> G:2 var
+R6574:6574 Kernel.GasMetering <> s:3 var
+R6576:6576 Kernel.GasMetering <> i:4 var
+R6581:6584 Coq.Init.Datatypes <> true constr
+R6617:6624 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6609:6611 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6593:6602 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R6604:6604 Kernel.GasMetering <> G:2 var
+R6606:6606 Kernel.GasMetering <> s:3 var
+R6608:6608 Kernel.GasMetering <> i:4 var
+R6612:6616 Coq.Init.Datatypes <> false constr
+R6647:6649 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6625:6638 Kernel.CommitmentPredicateAdequacy <> lps_total_cost def
+R6640:6640 Kernel.GasMetering <> G:2 var
+R6642:6642 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6644:6644 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6643:6643 Kernel.GasMetering <> i:4 var
+R6646:6646 Kernel.GasMetering <> s:3 var
+R6711:6728 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R6711:6728 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R6711:6728 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+prf 7165:7210 <> undercharged_opcode_breaks_certification_floor
+R7228:7238 Kernel.GasMetering <> GasSchedule def
+binder 7224:7224 <> G:5
+R7246:7254 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R7256:7256 Kernel.GasMetering <> G:5 var
+binder 7242:7242 <> s:6
+R7264:7272 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R7274:7274 Kernel.GasMetering <> G:5 var
+binder 7260:7260 <> i:7
+R7302:7309 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7294:7296 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7282:7289 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R7291:7291 Kernel.GasMetering <> G:5 var
+R7293:7293 Kernel.GasMetering <> s:6 var
+R7297:7301 Coq.Init.Datatypes <> false constr
+R7344:7351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7337:7339 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7310:7317 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R7319:7319 Kernel.GasMetering <> G:5 var
+R7322:7329 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R7331:7331 Kernel.GasMetering <> G:5 var
+R7333:7333 Kernel.GasMetering <> s:6 var
+R7335:7335 Kernel.GasMetering <> i:7 var
+R7340:7343 Coq.Init.Datatypes <> true constr
+R7376:7383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7368:7370 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7352:7361 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R7363:7363 Kernel.GasMetering <> G:5 var
+R7365:7365 Kernel.GasMetering <> s:6 var
+R7367:7367 Kernel.GasMetering <> i:7 var
+R7371:7375 Coq.Init.Datatypes <> false constr
+R7384:7385 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7386:7414 Kernel.CommitmentPredicateAdequacy <> universal_certification_floor def
+R7416:7416 Kernel.GasMetering <> G:5 var
+R7488:7524 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
+R7488:7524 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
+prf 8350:8376 <> overcharge_breaks_exactness
+R8394:8404 Kernel.GasMetering <> GasSchedule def
+binder 8390:8390 <> G:8
+R8412:8420 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R8422:8422 Kernel.GasMetering <> G:8 var
+binder 8408:8408 <> s:9
+R8430:8438 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R8440:8440 Kernel.GasMetering <> G:8 var
+binder 8426:8426 <> i:10
+R8471:8478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8464:8466 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8448:8457 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R8459:8459 Kernel.GasMetering <> G:8 var
+R8461:8461 Kernel.GasMetering <> s:9 var
+R8463:8463 Kernel.GasMetering <> i:10 var
+R8467:8470 Coq.Init.Datatypes <> true constr
+R8508:8515 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8500:8502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8479:8493 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R8495:8495 Kernel.GasMetering <> G:8 var
+R8497:8497 Kernel.GasMetering <> s:9 var
+R8499:8499 Kernel.GasMetering <> i:10 var
+R8503:8507 Coq.Init.Datatypes <> false constr
+R8516:8517 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8518:8546 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R8548:8548 Kernel.GasMetering <> G:8 var
+R8609:8654 Kernel.CommitmentPredicateAdequacy <> no_overcharge_forces_charge_only_on_cert_flips thm
+R8609:8654 Kernel.CommitmentPredicateAdequacy <> no_overcharge_forces_charge_only_on_cert_flips thm
 ind 9554:9559 <> toy_op
 constr 9575:9583 <> OpCompute
 constr 9589:9596 <> OpCommit
@@ -245,164 +245,164 @@ R10933:10947 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
 R10949:10964 Kernel.GasMetering <> toy_gas_schedule def
 R10972:10981 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
 R10983:10998 Kernel.GasMetering <> toy_gas_schedule def
-prf 11229:11250 <> toy_exact_unit_pricing
-R11256:11273 Kernel.CommitmentPredicateAdequacy <> exact_unit_pricing def
-R11275:11290 Kernel.GasMetering <> toy_gas_schedule def
-prf 11612:11636 <> toy_gas_schedule_is_exact
-R11691:11696 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11642:11673 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
-R11675:11690 Kernel.GasMetering <> toy_gas_schedule def
-R11697:11725 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
-R11727:11742 Kernel.GasMetering <> toy_gas_schedule def
-R11761:11765 Coq.Init.Logic <> proj2 thm
-R11768:11789 Kernel.GasMetering <> gas_schedule_exactness thm
-R11791:11806 Kernel.GasMetering <> toy_gas_schedule def
-R11761:11765 Coq.Init.Logic <> proj2 thm
-R11768:11789 Kernel.GasMetering <> gas_schedule_exactness thm
-R11791:11806 Kernel.GasMetering <> toy_gas_schedule def
-R11830:11852 Kernel.GasMetering <> toy_charge_is_cert_flip thm
-R11830:11852 Kernel.GasMetering <> toy_charge_is_cert_flip thm
-R11865:11886 Kernel.GasMetering <> toy_exact_unit_pricing thm
-R11865:11886 Kernel.GasMetering <> toy_exact_unit_pricing thm
-def 12472:12491 <> thiele_commit_charge
-R12498:12504 Kernel.VMState <> VMState rec
-binder 12494:12494 <> s:26
-R12512:12525 Kernel.VMStep VMStep vm_instruction ind
-binder 12508:12508 <> i:27
-R12530:12533 Coq.Init.Datatypes <> bool ind
-R12540:12543 Coq.Init.Datatypes <> andb def
-R12585:12596 Kernel.VMState <> vm_certified proj
-R12570:12577 Kernel.SimulationProof <> vm_apply def
-R12579:12579 Kernel.GasMetering <> s:26 var
-R12581:12581 Kernel.GasMetering <> i:27 var
-R12546:12549 Coq.Init.Datatypes <> negb def
-R12554:12565 Kernel.VMState <> vm_certified proj
-R12551:12551 Kernel.GasMetering <> s:26 var
-def 12612:12629 <> thiele_commit_cost
-R12636:12642 Kernel.VMState <> VMState rec
-binder 12632:12632 <> s:28
-R12650:12663 Kernel.VMStep VMStep vm_instruction ind
-binder 12646:12646 <> i:29
-R12668:12670 Coq.Init.Datatypes <> nat ind
-R12680:12699 Kernel.GasMetering <> thiele_commit_charge def
-R12701:12701 Kernel.GasMetering <> s:28 var
-R12703:12703 Kernel.GasMetering <> i:29 var
-prf 12727:12753 <> thiele_commit_charged_costs
-R12771:12777 Kernel.VMState <> VMState rec
-binder 12767:12767 <> s:30
-R12785:12798 Kernel.VMStep VMStep vm_instruction ind
-binder 12781:12781 <> i:31
-R12837:12840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12830:12832 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12806:12825 Kernel.GasMetering <> thiele_commit_charge def
-R12827:12827 Kernel.GasMetering <> s:30 var
-R12829:12829 Kernel.GasMetering <> i:31 var
-R12833:12836 Coq.Init.Datatypes <> true constr
-R12863:12866 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R12841:12858 Kernel.GasMetering <> thiele_commit_cost def
-R12860:12860 Kernel.GasMetering <> s:30 var
-R12862:12862 Kernel.GasMetering <> i:31 var
-R12909:12926 Kernel.GasMetering <> thiele_commit_cost def
-prf 12968:12995 <> thiele_commit_uncharged_free
-R13013:13019 Kernel.VMState <> VMState rec
-binder 13009:13009 <> s:32
-R13027:13040 Kernel.VMStep VMStep vm_instruction ind
-binder 13023:13023 <> i:33
-R13080:13083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13072:13074 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13048:13067 Kernel.GasMetering <> thiele_commit_charge def
-R13069:13069 Kernel.GasMetering <> s:32 var
-R13071:13071 Kernel.GasMetering <> i:33 var
-R13075:13079 Coq.Init.Datatypes <> false constr
-R13106:13108 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13084:13101 Kernel.GasMetering <> thiele_commit_cost def
-R13103:13103 Kernel.GasMetering <> s:32 var
-R13105:13105 Kernel.GasMetering <> i:33 var
-R13153:13170 Kernel.GasMetering <> thiele_commit_cost def
-def 13227:13248 <> thiele_vm_gas_schedule
-R13252:13262 Kernel.GasMetering <> GasSchedule def
-R13272:13280 Kernel.CommitmentPredicateAdequacy <> lps_state proj
-R13272:13280 Kernel.CommitmentPredicateAdequacy <> lps_state proj
-R13272:13280 Kernel.CommitmentPredicateAdequacy <> lps_state proj
-R13300:13308 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
-R13300:13308 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
-R13335:13342 Kernel.CommitmentPredicateAdequacy <> lps_step proj
-R13335:13342 Kernel.CommitmentPredicateAdequacy <> lps_step proj
-R13364:13371 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
-R13364:13371 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
-R13403:13410 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
-R13403:13410 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
-R13449:13458 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
-R13449:13458 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
-R13490:13506 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
-R13490:13506 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
-R13546:13563 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
-R13546:13563 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
-R13286:13292 Kernel.VMState <> VMState rec
-R13314:13327 Kernel.VMStep VMStep vm_instruction ind
-R13349:13356 Kernel.SimulationProof <> vm_apply def
-R13378:13395 Kernel.GasMetering <> thiele_commit_cost def
-binder 13421:13421 <> s:34
-R13429:13440 Kernel.VMState <> vm_certified proj
-R13426:13426 Kernel.GasMetering <> s:34 var
-R13463:13482 Kernel.GasMetering <> thiele_commit_charge def
-R13512:13538 Kernel.GasMetering <> thiele_commit_charged_costs thm
-R13568:13595 Kernel.GasMetering <> thiele_commit_uncharged_free thm
-prf 13735:13760 <> thiele_charge_is_cert_flip
-R13766:13785 Kernel.CommitmentPredicateAdequacy <> local_predicate_same def
-R13787:13808 Kernel.GasMetering <> thiele_vm_gas_schedule def
-R13815:13829 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
-R13831:13852 Kernel.GasMetering <> thiele_vm_gas_schedule def
-R13860:13869 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
-R13871:13892 Kernel.GasMetering <> thiele_vm_gas_schedule def
-prf 13947:13971 <> thiele_exact_unit_pricing
-R13977:13994 Kernel.CommitmentPredicateAdequacy <> exact_unit_pricing def
-R13996:14017 Kernel.GasMetering <> thiele_vm_gas_schedule def
-prf 14286:14318 <> thiele_vm_commit_pricing_is_exact
-R14379:14384 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R14324:14355 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
-R14357:14378 Kernel.GasMetering <> thiele_vm_gas_schedule def
-R14385:14413 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
-R14415:14436 Kernel.GasMetering <> thiele_vm_gas_schedule def
-R14455:14459 Coq.Init.Logic <> proj2 thm
-R14462:14483 Kernel.GasMetering <> gas_schedule_exactness thm
-R14485:14506 Kernel.GasMetering <> thiele_vm_gas_schedule def
-R14455:14459 Coq.Init.Logic <> proj2 thm
-R14462:14483 Kernel.GasMetering <> gas_schedule_exactness thm
-R14485:14506 Kernel.GasMetering <> thiele_vm_gas_schedule def
-R14530:14555 Kernel.GasMetering <> thiele_charge_is_cert_flip thm
-R14530:14555 Kernel.GasMetering <> thiele_charge_is_cert_flip thm
-R14568:14592 Kernel.GasMetering <> thiele_exact_unit_pricing thm
-R14568:14592 Kernel.GasMetering <> thiele_exact_unit_pricing thm
-prf 15198:15230 <> thiele_unit_price_lower_bounds_mu
-R15248:15254 Kernel.VMState <> VMState rec
-binder 15244:15244 <> s:35
-R15262:15275 Kernel.VMStep VMStep vm_instruction ind
-binder 15258:15258 <> i:36
-R15314:15321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15307:15309 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15283:15302 Kernel.GasMetering <> thiele_commit_charge def
-R15304:15304 Kernel.GasMetering <> s:35 var
-R15306:15306 Kernel.GasMetering <> i:36 var
-R15310:15313 Coq.Init.Datatypes <> true constr
-R15344:15347 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R15322:15339 Kernel.GasMetering <> thiele_commit_cost def
-R15341:15341 Kernel.GasMetering <> s:35 var
-R15343:15343 Kernel.GasMetering <> i:36 var
-R15348:15363 Kernel.VMStep VMStep instruction_cost def
-R15365:15365 Kernel.GasMetering <> i:36 var
-R15407:15424 Kernel.GasMetering <> thiele_commit_cost def
-R15456:15475 Kernel.GasMetering <> thiele_commit_charge def
-R15498:15515 Coq.Bool.Bool <> andb_true_iff thm
-R15498:15515 Coq.Bool.Bool <> andb_true_iff thm
-R15579:15596 Coq.Bool.Bool <> negb_true_iff thm
-R15579:15596 Coq.Bool.Bool <> negb_true_iff thm
-R15624:15654 Kernel.AbstractNoFI <> no_free_certification_certified thm
-R15624:15654 Kernel.AbstractNoFI <> no_free_certification_certified thm
-R15708:15729 Kernel.GasMetering <> gas_schedule_exactness thm
-R15750:15791 Kernel.GasMetering <> undercharged_opcode_admits_free_commitment thm
-R15812:15857 Kernel.GasMetering <> undercharged_opcode_breaks_certification_floor thm
-R15878:15904 Kernel.GasMetering <> overcharge_breaks_exactness thm
-R15925:15949 Kernel.GasMetering <> toy_gas_schedule_is_exact thm
-R15970:16002 Kernel.GasMetering <> thiele_vm_commit_pricing_is_exact thm
-R16023:16055 Kernel.GasMetering <> thiele_unit_price_lower_bounds_mu thm
+prf 11226:11247 <> toy_exact_unit_pricing
+R11253:11270 Kernel.CommitmentPredicateAdequacy <> exact_unit_pricing def
+R11272:11287 Kernel.GasMetering <> toy_gas_schedule def
+prf 11609:11633 <> toy_gas_schedule_is_exact
+R11688:11693 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11639:11670 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R11672:11687 Kernel.GasMetering <> toy_gas_schedule def
+R11694:11722 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R11724:11739 Kernel.GasMetering <> toy_gas_schedule def
+R11758:11762 Coq.Init.Logic <> proj2 thm
+R11765:11786 Kernel.GasMetering <> gas_schedule_exactness thm
+R11788:11803 Kernel.GasMetering <> toy_gas_schedule def
+R11758:11762 Coq.Init.Logic <> proj2 thm
+R11765:11786 Kernel.GasMetering <> gas_schedule_exactness thm
+R11788:11803 Kernel.GasMetering <> toy_gas_schedule def
+R11827:11849 Kernel.GasMetering <> toy_charge_is_cert_flip thm
+R11827:11849 Kernel.GasMetering <> toy_charge_is_cert_flip thm
+R11862:11883 Kernel.GasMetering <> toy_exact_unit_pricing thm
+R11862:11883 Kernel.GasMetering <> toy_exact_unit_pricing thm
+def 12464:12483 <> thiele_commit_charge
+R12490:12496 Kernel.VMState <> VMState rec
+binder 12486:12486 <> s:26
+R12504:12517 Kernel.VMStep VMStep vm_instruction ind
+binder 12500:12500 <> i:27
+R12522:12525 Coq.Init.Datatypes <> bool ind
+R12532:12535 Coq.Init.Datatypes <> andb def
+R12577:12588 Kernel.VMState <> vm_certified proj
+R12562:12569 Kernel.SimulationProof <> vm_apply def
+R12571:12571 Kernel.GasMetering <> s:26 var
+R12573:12573 Kernel.GasMetering <> i:27 var
+R12538:12541 Coq.Init.Datatypes <> negb def
+R12546:12557 Kernel.VMState <> vm_certified proj
+R12543:12543 Kernel.GasMetering <> s:26 var
+def 12604:12621 <> thiele_commit_cost
+R12628:12634 Kernel.VMState <> VMState rec
+binder 12624:12624 <> s:28
+R12642:12655 Kernel.VMStep VMStep vm_instruction ind
+binder 12638:12638 <> i:29
+R12660:12662 Coq.Init.Datatypes <> nat ind
+R12672:12691 Kernel.GasMetering <> thiele_commit_charge def
+R12693:12693 Kernel.GasMetering <> s:28 var
+R12695:12695 Kernel.GasMetering <> i:29 var
+prf 12719:12745 <> thiele_commit_charged_costs
+R12763:12769 Kernel.VMState <> VMState rec
+binder 12759:12759 <> s:30
+R12777:12790 Kernel.VMStep VMStep vm_instruction ind
+binder 12773:12773 <> i:31
+R12829:12832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12822:12824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12798:12817 Kernel.GasMetering <> thiele_commit_charge def
+R12819:12819 Kernel.GasMetering <> s:30 var
+R12821:12821 Kernel.GasMetering <> i:31 var
+R12825:12828 Coq.Init.Datatypes <> true constr
+R12855:12858 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12833:12850 Kernel.GasMetering <> thiele_commit_cost def
+R12852:12852 Kernel.GasMetering <> s:30 var
+R12854:12854 Kernel.GasMetering <> i:31 var
+R12901:12918 Kernel.GasMetering <> thiele_commit_cost def
+prf 12960:12987 <> thiele_commit_uncharged_free
+R13005:13011 Kernel.VMState <> VMState rec
+binder 13001:13001 <> s:32
+R13019:13032 Kernel.VMStep VMStep vm_instruction ind
+binder 13015:13015 <> i:33
+R13072:13075 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13064:13066 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13040:13059 Kernel.GasMetering <> thiele_commit_charge def
+R13061:13061 Kernel.GasMetering <> s:32 var
+R13063:13063 Kernel.GasMetering <> i:33 var
+R13067:13071 Coq.Init.Datatypes <> false constr
+R13098:13100 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13076:13093 Kernel.GasMetering <> thiele_commit_cost def
+R13095:13095 Kernel.GasMetering <> s:32 var
+R13097:13097 Kernel.GasMetering <> i:33 var
+R13145:13162 Kernel.GasMetering <> thiele_commit_cost def
+def 13219:13240 <> thiele_vm_gas_schedule
+R13244:13254 Kernel.GasMetering <> GasSchedule def
+R13264:13272 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R13264:13272 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R13264:13272 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R13292:13300 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R13292:13300 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R13327:13334 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R13327:13334 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R13356:13363 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
+R13356:13363 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
+R13395:13402 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R13395:13402 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R13441:13450 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13441:13450 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13482:13498 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R13482:13498 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R13538:13555 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R13538:13555 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R13278:13284 Kernel.VMState <> VMState rec
+R13306:13319 Kernel.VMStep VMStep vm_instruction ind
+R13341:13348 Kernel.SimulationProof <> vm_apply def
+R13370:13387 Kernel.GasMetering <> thiele_commit_cost def
+binder 13413:13413 <> s:34
+R13421:13432 Kernel.VMState <> vm_certified proj
+R13418:13418 Kernel.GasMetering <> s:34 var
+R13455:13474 Kernel.GasMetering <> thiele_commit_charge def
+R13504:13530 Kernel.GasMetering <> thiele_commit_charged_costs thm
+R13560:13587 Kernel.GasMetering <> thiele_commit_uncharged_free thm
+prf 13727:13752 <> thiele_charge_is_cert_flip
+R13758:13777 Kernel.CommitmentPredicateAdequacy <> local_predicate_same def
+R13779:13800 Kernel.GasMetering <> thiele_vm_gas_schedule def
+R13807:13821 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R13823:13844 Kernel.GasMetering <> thiele_vm_gas_schedule def
+R13852:13861 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13863:13884 Kernel.GasMetering <> thiele_vm_gas_schedule def
+prf 13939:13963 <> thiele_exact_unit_pricing
+R13969:13986 Kernel.CommitmentPredicateAdequacy <> exact_unit_pricing def
+R13988:14009 Kernel.GasMetering <> thiele_vm_gas_schedule def
+prf 14278:14310 <> thiele_vm_commit_pricing_is_exact
+R14371:14376 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14316:14347 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R14349:14370 Kernel.GasMetering <> thiele_vm_gas_schedule def
+R14377:14405 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R14407:14428 Kernel.GasMetering <> thiele_vm_gas_schedule def
+R14447:14451 Coq.Init.Logic <> proj2 thm
+R14454:14475 Kernel.GasMetering <> gas_schedule_exactness thm
+R14477:14498 Kernel.GasMetering <> thiele_vm_gas_schedule def
+R14447:14451 Coq.Init.Logic <> proj2 thm
+R14454:14475 Kernel.GasMetering <> gas_schedule_exactness thm
+R14477:14498 Kernel.GasMetering <> thiele_vm_gas_schedule def
+R14522:14547 Kernel.GasMetering <> thiele_charge_is_cert_flip thm
+R14522:14547 Kernel.GasMetering <> thiele_charge_is_cert_flip thm
+R14560:14584 Kernel.GasMetering <> thiele_exact_unit_pricing thm
+R14560:14584 Kernel.GasMetering <> thiele_exact_unit_pricing thm
+prf 15187:15219 <> thiele_unit_price_lower_bounds_mu
+R15237:15243 Kernel.VMState <> VMState rec
+binder 15233:15233 <> s:35
+R15251:15264 Kernel.VMStep VMStep vm_instruction ind
+binder 15247:15247 <> i:36
+R15303:15310 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15296:15298 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15272:15291 Kernel.GasMetering <> thiele_commit_charge def
+R15293:15293 Kernel.GasMetering <> s:35 var
+R15295:15295 Kernel.GasMetering <> i:36 var
+R15299:15302 Coq.Init.Datatypes <> true constr
+R15333:15336 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R15311:15328 Kernel.GasMetering <> thiele_commit_cost def
+R15330:15330 Kernel.GasMetering <> s:35 var
+R15332:15332 Kernel.GasMetering <> i:36 var
+R15337:15352 Kernel.VMStep VMStep instruction_cost def
+R15354:15354 Kernel.GasMetering <> i:36 var
+R15396:15413 Kernel.GasMetering <> thiele_commit_cost def
+R15445:15464 Kernel.GasMetering <> thiele_commit_charge def
+R15487:15504 Coq.Bool.Bool <> andb_true_iff thm
+R15487:15504 Coq.Bool.Bool <> andb_true_iff thm
+R15568:15585 Coq.Bool.Bool <> negb_true_iff thm
+R15568:15585 Coq.Bool.Bool <> negb_true_iff thm
+R15613:15643 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R15613:15643 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R15697:15718 Kernel.GasMetering <> gas_schedule_exactness thm
+R15739:15780 Kernel.GasMetering <> undercharged_opcode_admits_free_commitment thm
+R15801:15846 Kernel.GasMetering <> undercharged_opcode_breaks_certification_floor thm
+R15867:15893 Kernel.GasMetering <> overcharge_breaks_exactness thm
+R15914:15938 Kernel.GasMetering <> toy_gas_schedule_is_exact thm
+R15959:15991 Kernel.GasMetering <> thiele_vm_commit_pricing_is_exact thm
+R16012:16044 Kernel.GasMetering <> thiele_unit_price_lower_bounds_mu thm

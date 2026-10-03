@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 506,
-  "total_addressable": 14505,
+  "files_probed": 508,
+  "total_addressable": 14503,
   "total_unaddressable": 8,
   "extras_addressable_via_instantiation": [
     {
@@ -33,14 +33,14 @@
           "full_name": "Extraction.run_vm_extraction_invariant_at_stuck"
         },
         {
-          "local_name": "extraction_c3_born_rule_anchor",
+          "local_name": "extraction_born_rule_uniqueness_anchor",
           "kind": "Theorem",
-          "full_name": "Extraction.extraction_c3_born_rule_anchor"
+          "full_name": "Extraction.extraction_born_rule_uniqueness_anchor"
         },
         {
-          "local_name": "extraction_c4_tsirelson_model_anchor",
+          "local_name": "extraction_tsirelson_npa_model_anchor",
           "kind": "Theorem",
-          "full_name": "Extraction.extraction_c4_tsirelson_model_anchor"
+          "full_name": "Extraction.extraction_tsirelson_npa_model_anchor"
         },
         {
           "local_name": "extraction_honest_nofi_anchor",
@@ -512,7 +512,7 @@
     {
       "file": "coq/ThieleMachineComplete.v",
       "qualified_module": "ThieleMachineComplete",
-      "addressable_count": 425,
+      "addressable_count": 421,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -1811,56 +1811,6 @@
           "full_name": "ThieleMachineComplete.three_layer_mu_projection"
         },
         {
-          "local_name": "kami_step_mu_cost",
-          "kind": "Lemma",
-          "full_name": "ThieleMachineComplete.kami_step_mu_cost"
-        },
-        {
-          "local_name": "kami_cost_eq_instruction_cost",
-          "kind": "Lemma",
-          "full_name": "ThieleMachineComplete.kami_cost_eq_instruction_cost"
-        },
-        {
-          "local_name": "snapshot_regs_to_list_length",
-          "kind": "Lemma",
-          "full_name": "ThieleMachineComplete.snapshot_regs_to_list_length"
-        },
-        {
-          "local_name": "snapshot_mem_to_list_length",
-          "kind": "Lemma",
-          "full_name": "ThieleMachineComplete.snapshot_mem_to_list_length"
-        },
-        {
-          "local_name": "snapshot_tensor_to_list_length",
-          "kind": "Lemma",
-          "full_name": "ThieleMachineComplete.snapshot_tensor_to_list_length"
-        },
-        {
-          "local_name": "kami_step_mu_commutation",
-          "kind": "Theorem",
-          "full_name": "ThieleMachineComplete.kami_step_mu_commutation"
-        },
-        {
-          "local_name": "kami_vm_mu_diamond",
-          "kind": "Theorem",
-          "full_name": "ThieleMachineComplete.kami_vm_mu_diamond"
-        },
-        {
-          "local_name": "kami_vm_mu_lassert_gap",
-          "kind": "Theorem",
-          "full_name": "ThieleMachineComplete.kami_vm_mu_lassert_gap"
-        },
-        {
-          "local_name": "all_instructions_mu_simulate",
-          "kind": "Theorem",
-          "full_name": "ThieleMachineComplete.all_instructions_mu_simulate"
-        },
-        {
-          "local_name": "canonical_cpu_proof",
-          "kind": "Theorem",
-          "full_name": "ThieleMachineComplete.canonical_cpu_proof"
-        },
-        {
           "local_name": "neighbors_empty",
           "kind": "Lemma",
           "full_name": "ThieleMachineComplete.neighbors_empty"
@@ -1894,6 +1844,36 @@
           "local_name": "einstein_empty",
           "kind": "Theorem",
           "full_name": "ThieleMachineComplete.einstein_empty"
+        },
+        {
+          "local_name": "fold_left_flat_sum",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.fold_left_flat_sum"
+        },
+        {
+          "local_name": "discrete_derivative_flat",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.discrete_derivative_flat"
+        },
+        {
+          "local_name": "christoffel_constant_metric",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.christoffel_constant_metric"
+        },
+        {
+          "local_name": "riemann_constant_metric",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.riemann_constant_metric"
+        },
+        {
+          "local_name": "ricci_constant_metric",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.ricci_constant_metric"
+        },
+        {
+          "local_name": "scalar_curvature_constant_metric",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.scalar_curvature_constant_metric"
         },
         {
           "local_name": "vacuum_solution",
@@ -2426,9 +2406,9 @@
           "full_name": "ThieleMachineComplete.classical_trace_preserves_certified_tc"
         },
         {
-          "local_name": "D3_conservativity_tc",
+          "local_name": "classical_opcodes_preserve_structure_tc",
           "kind": "Theorem",
-          "full_name": "ThieleMachineComplete.D3_conservativity_tc"
+          "full_name": "ThieleMachineComplete.classical_opcodes_preserve_structure_tc"
         },
         {
           "local_name": "classical_trace_cannot_certify_tc",
@@ -2446,24 +2426,24 @@
           "full_name": "ThieleMachineComplete.graph_empty_morphisms_delete_fails_tc"
         },
         {
-          "local_name": "D4_thiele_passes_probe_tc",
+          "local_name": "morph_id_step_passes_morph_delete_probe_tc",
           "kind": "Lemma",
-          "full_name": "ThieleMachineComplete.D4_thiele_passes_probe_tc"
+          "full_name": "ThieleMachineComplete.morph_id_step_passes_morph_delete_probe_tc"
         },
         {
-          "local_name": "D4_classical_cannot_pass_probe_tc",
+          "local_name": "classical_trace_fails_morph_delete_probe_tc",
           "kind": "Lemma",
-          "full_name": "ThieleMachineComplete.D4_classical_cannot_pass_probe_tc"
+          "full_name": "ThieleMachineComplete.classical_trace_fails_morph_delete_probe_tc"
         },
         {
-          "local_name": "D4_strictness_tc",
+          "local_name": "morph_delete_probe_separates_thiele_from_classical_tc",
           "kind": "Theorem",
-          "full_name": "ThieleMachineComplete.D4_strictness_tc"
+          "full_name": "ThieleMachineComplete.morph_delete_probe_separates_thiele_from_classical_tc"
         },
         {
-          "local_name": "D5_thiele_strictly_extends_classical_tc",
+          "local_name": "thiele_strictly_extends_classical_tc",
           "kind": "Theorem",
-          "full_name": "ThieleMachineComplete.D5_thiele_strictly_extends_classical_tc"
+          "full_name": "ThieleMachineComplete.thiele_strictly_extends_classical_tc"
         },
         {
           "local_name": "pad_memory_length_tc",
@@ -2830,7 +2810,7 @@
     {
       "file": "coq/kami_hw/Abstraction.v",
       "qualified_module": "KamiHW.Abstraction",
-      "addressable_count": 53,
+      "addressable_count": 52,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -2872,11 +2852,6 @@
           "local_name": "kami_cost_eq_instruction_cost",
           "kind": "Lemma",
           "full_name": "KamiHW.Abstraction.kami_cost_eq_instruction_cost"
-        },
-        {
-          "local_name": "kami_cost_ge_instruction_cost",
-          "kind": "Lemma",
-          "full_name": "KamiHW.Abstraction.kami_cost_ge_instruction_cost"
         },
         {
           "local_name": "snapshot_regs_to_list_length",
@@ -3150,6 +3125,85 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kami_hw/BModulesTranslation.v",
+      "qualified_module": "KamiHW.BModulesTranslation",
+      "addressable_count": 14,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "bexpr_to_vexpr_var",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.bexpr_to_vexpr_var"
+        },
+        {
+          "local_name": "bexpr_to_vexpr_readreg",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.bexpr_to_vexpr_readreg"
+        },
+        {
+          "local_name": "bexpr_to_vexpr_eq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.bexpr_to_vexpr_eq"
+        },
+        {
+          "local_name": "bexpr_to_vexpr_ite",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.bexpr_to_vexpr_ite"
+        },
+        {
+          "local_name": "bexpr_to_vexpr_readfield",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.bexpr_to_vexpr_readfield"
+        },
+        {
+          "local_name": "baction_to_vstmt_writereg",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.baction_to_vstmt_writereg"
+        },
+        {
+          "local_name": "baction_to_vstmt_assert",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.baction_to_vstmt_assert"
+        },
+        {
+          "local_name": "baction_to_vstmt_return",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.baction_to_vstmt_return"
+        },
+        {
+          "local_name": "baction_to_vstmt_let",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.baction_to_vstmt_let"
+        },
+        {
+          "local_name": "baction_to_vstmt_ifelse",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.baction_to_vstmt_ifelse"
+        },
+        {
+          "local_name": "bmodule_to_vmodule_behavioural",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.bmodule_to_vmodule_behavioural"
+        },
+        {
+          "local_name": "bmodule_to_vmodule_primitive",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.bmodule_to_vmodule_primitive"
+        },
+        {
+          "local_name": "bmodules_to_verilog_length",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.bmodules_to_verilog_length"
+        },
+        {
+          "local_name": "bmodules_to_verilog_singleton",
+          "kind": "Lemma",
+          "full_name": "KamiHW.BModulesTranslation.bmodules_to_verilog_singleton"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kami_hw/BoundaryDecoded.v",
       "qualified_module": "KamiHW.BoundaryDecoded",
       "addressable_count": 1,
@@ -3263,14 +3317,14 @@
           "full_name": "KamiHW.CanonicalCPUProof.vm_step_canonical_bus_invariant"
         },
         {
-          "local_name": "canonical_c3_born_rule_anchor",
+          "local_name": "canonical_born_rule_uniqueness_anchor",
           "kind": "Theorem",
-          "full_name": "KamiHW.CanonicalCPUProof.canonical_c3_born_rule_anchor"
+          "full_name": "KamiHW.CanonicalCPUProof.canonical_born_rule_uniqueness_anchor"
         },
         {
-          "local_name": "canonical_c4_tsirelson_model_anchor",
+          "local_name": "canonical_tsirelson_npa_model_anchor",
           "kind": "Theorem",
-          "full_name": "KamiHW.CanonicalCPUProof.canonical_c4_tsirelson_model_anchor"
+          "full_name": "KamiHW.CanonicalCPUProof.canonical_tsirelson_npa_model_anchor"
         },
         {
           "local_name": "canonical_honest_nofi_anchor",
@@ -27139,179 +27193,6 @@
       "unaddressable": []
     },
     {
-      "file": "coq/kami_hw/F4_BModulesTranslation.v",
-      "qualified_module": "KamiHW.F4_BModulesTranslation",
-      "addressable_count": 14,
-      "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "bexpr_to_vexpr_var",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_var"
-        },
-        {
-          "local_name": "bexpr_to_vexpr_readreg",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_readreg"
-        },
-        {
-          "local_name": "bexpr_to_vexpr_eq",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_eq"
-        },
-        {
-          "local_name": "bexpr_to_vexpr_ite",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_ite"
-        },
-        {
-          "local_name": "bexpr_to_vexpr_readfield",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_readfield"
-        },
-        {
-          "local_name": "baction_to_vstmt_writereg",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.baction_to_vstmt_writereg"
-        },
-        {
-          "local_name": "baction_to_vstmt_assert",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.baction_to_vstmt_assert"
-        },
-        {
-          "local_name": "baction_to_vstmt_return",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.baction_to_vstmt_return"
-        },
-        {
-          "local_name": "baction_to_vstmt_let",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.baction_to_vstmt_let"
-        },
-        {
-          "local_name": "baction_to_vstmt_ifelse",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.baction_to_vstmt_ifelse"
-        },
-        {
-          "local_name": "bmodule_to_vmodule_behavioural",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.bmodule_to_vmodule_behavioural"
-        },
-        {
-          "local_name": "bmodule_to_vmodule_primitive",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.bmodule_to_vmodule_primitive"
-        },
-        {
-          "local_name": "bmodules_to_verilog_length",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.bmodules_to_verilog_length"
-        },
-        {
-          "local_name": "bmodules_to_verilog_singleton",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_BModulesTranslation.bmodules_to_verilog_singleton"
-        }
-      ],
-      "unaddressable": []
-    },
-    {
-      "file": "coq/kami_hw/F4_VerilogEvaluator.v",
-      "qualified_module": "KamiHW.F4_VerilogEvaluator",
-      "addressable_count": 17,
-      "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "state_set_get_eq",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.state_set_get_eq"
-        },
-        {
-          "local_name": "state_set_get_neq",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.state_set_get_neq"
-        },
-        {
-          "local_name": "bexpr_eval_correspondence",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.bexpr_eval_correspondence"
-        },
-        {
-          "local_name": "writereg_readreg_correspondence",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.writereg_readreg_correspondence"
-        },
-        {
-          "local_name": "writereg_readreg_concrete_test",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.writereg_readreg_concrete_test"
-        },
-        {
-          "local_name": "writereg_correspondence",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.writereg_correspondence"
-        },
-        {
-          "local_name": "assert_correspondence",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.assert_correspondence"
-        },
-        {
-          "local_name": "return_correspondence",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.return_correspondence"
-        },
-        {
-          "local_name": "let_correspondence",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.let_correspondence"
-        },
-        {
-          "local_name": "test_baction_seq_correspondence",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.test_baction_seq_correspondence"
-        },
-        {
-          "local_name": "test_baction_seq_concrete",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.test_baction_seq_concrete"
-        },
-        {
-          "local_name": "baction_translation_simple_correspondence",
-          "kind": "Theorem",
-          "full_name": "KamiHW.F4_VerilogEvaluator.baction_translation_simple_correspondence"
-        },
-        {
-          "local_name": "simple_bactions_seq_correspondence",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.simple_bactions_seq_correspondence"
-        },
-        {
-          "local_name": "ifelse_with_simple_branches_correspondence",
-          "kind": "Theorem",
-          "full_name": "KamiHW.F4_VerilogEvaluator.ifelse_with_simple_branches_correspondence"
-        },
-        {
-          "local_name": "test_ifelse_correspondence",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.test_ifelse_correspondence"
-        },
-        {
-          "local_name": "test_ifelse_concrete_then",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.test_ifelse_concrete_then"
-        },
-        {
-          "local_name": "test_ifelse_concrete_else",
-          "kind": "Lemma",
-          "full_name": "KamiHW.F4_VerilogEvaluator.test_ifelse_concrete_else"
-        }
-      ],
-      "unaddressable": []
-    },
-    {
       "file": "coq/kami_hw/FsmDecoded.v",
       "qualified_module": "KamiHW.FsmDecoded",
       "addressable_count": 69,
@@ -48494,9 +48375,103 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kami_hw/VerilogEvaluator.v",
+      "qualified_module": "KamiHW.VerilogEvaluator",
+      "addressable_count": 17,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "state_set_get_eq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.state_set_get_eq"
+        },
+        {
+          "local_name": "state_set_get_neq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.state_set_get_neq"
+        },
+        {
+          "local_name": "bexpr_eval_correspondence",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.bexpr_eval_correspondence"
+        },
+        {
+          "local_name": "writereg_readreg_correspondence",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.writereg_readreg_correspondence"
+        },
+        {
+          "local_name": "writereg_readreg_concrete_test",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.writereg_readreg_concrete_test"
+        },
+        {
+          "local_name": "writereg_correspondence",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.writereg_correspondence"
+        },
+        {
+          "local_name": "assert_correspondence",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.assert_correspondence"
+        },
+        {
+          "local_name": "return_correspondence",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.return_correspondence"
+        },
+        {
+          "local_name": "let_correspondence",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.let_correspondence"
+        },
+        {
+          "local_name": "test_baction_seq_correspondence",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.test_baction_seq_correspondence"
+        },
+        {
+          "local_name": "test_baction_seq_concrete",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.test_baction_seq_concrete"
+        },
+        {
+          "local_name": "baction_translation_simple_correspondence",
+          "kind": "Theorem",
+          "full_name": "KamiHW.VerilogEvaluator.baction_translation_simple_correspondence"
+        },
+        {
+          "local_name": "simple_bactions_seq_correspondence",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.simple_bactions_seq_correspondence"
+        },
+        {
+          "local_name": "ifelse_with_simple_branches_correspondence",
+          "kind": "Theorem",
+          "full_name": "KamiHW.VerilogEvaluator.ifelse_with_simple_branches_correspondence"
+        },
+        {
+          "local_name": "test_ifelse_correspondence",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.test_ifelse_correspondence"
+        },
+        {
+          "local_name": "test_ifelse_concrete_then",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.test_ifelse_concrete_then"
+        },
+        {
+          "local_name": "test_ifelse_concrete_else",
+          "kind": "Lemma",
+          "full_name": "KamiHW.VerilogEvaluator.test_ifelse_concrete_else"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kami_hw/VerilogRefinement.v",
       "qualified_module": "KamiHW.VerilogRefinement",
-      "addressable_count": 59,
+      "addressable_count": 58,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -48715,11 +48690,6 @@
           "full_name": "KamiHW.VerilogRefinement.kami_vm_mu_diamond"
         },
         {
-          "local_name": "kami_vm_mu_conservative",
-          "kind": "Theorem",
-          "full_name": "KamiHW.VerilogRefinement.kami_vm_mu_conservative"
-        },
-        {
           "local_name": "kami_vm_mu_lassert_gap",
           "kind": "Theorem",
           "full_name": "KamiHW.VerilogRefinement.kami_vm_mu_lassert_gap"
@@ -48882,7 +48852,7 @@
     {
       "file": "coq/kernel/aggregators/MasterSummary.v",
       "qualified_module": "Kernel.MasterSummary",
-      "addressable_count": 57,
+      "addressable_count": 56,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -49121,14 +49091,9 @@
           "full_name": "Kernel.MasterSummary.master_permanent_flip_heat"
         },
         {
-          "local_name": "master_nofi_to_discrete_einstein",
+          "local_name": "master_discrete_gauss_bonnet_delta",
           "kind": "Theorem",
-          "full_name": "Kernel.MasterSummary.master_nofi_to_discrete_einstein"
-        },
-        {
-          "local_name": "master_nofi_to_discrete_einstein_from_bekenstein_calibration",
-          "kind": "Theorem",
-          "full_name": "Kernel.MasterSummary.master_nofi_to_discrete_einstein_from_bekenstein_calibration"
+          "full_name": "Kernel.MasterSummary.master_discrete_gauss_bonnet_delta"
         },
         {
           "local_name": "master_verification_chain",
@@ -50371,7 +50336,7 @@
     {
       "file": "coq/kernel/curvature/DiscreteRaychaudhuri.v",
       "qualified_module": "Kernel.DiscreteRaychaudhuri",
-      "addressable_count": 5,
+      "addressable_count": 4,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -50393,11 +50358,6 @@
           "local_name": "positive_mass_implies_focusing",
           "kind": "Theorem",
           "full_name": "Kernel.DiscreteRaychaudhuri.positive_mass_implies_focusing"
-        },
-        {
-          "local_name": "focusing_implies_clausius_witnesses",
-          "kind": "Theorem",
-          "full_name": "Kernel.DiscreteRaychaudhuri.focusing_implies_clausius_witnesses"
         }
       ],
       "unaddressable": []
@@ -51166,9 +51126,9 @@
           "full_name": "Kernel.EinsteinEquations4D.fold_left_add_zero_l"
         },
         {
-          "local_name": "einstein_equation_lorentz_general",
+          "local_name": "einstein_equation_lorentz_vacuum",
           "kind": "Theorem",
-          "full_name": "Kernel.EinsteinEquations4D.einstein_equation_lorentz_general"
+          "full_name": "Kernel.EinsteinEquations4D.einstein_equation_lorentz_vacuum"
         },
         {
           "local_name": "lorentz_metric_at_vertex_diag",
@@ -52449,28 +52409,13 @@
     {
       "file": "coq/kernel/curvature/NoFIToEinstein.v",
       "qualified_module": "Kernel.NoFIToEinstein",
-      "addressable_count": 6,
+      "addressable_count": 3,
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "nfi_to_discrete_einstein",
+          "local_name": "discrete_gauss_bonnet_delta",
           "kind": "Theorem",
-          "full_name": "Kernel.NoFIToEinstein.nfi_to_discrete_einstein"
-        },
-        {
-          "local_name": "nfi_to_discrete_einstein_from_bekenstein_calibration",
-          "kind": "Theorem",
-          "full_name": "Kernel.NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration"
-        },
-        {
-          "local_name": "nfi_to_discrete_einstein_from_psplit_bekenstein_calibration",
-          "kind": "Theorem",
-          "full_name": "Kernel.NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration"
-        },
-        {
-          "local_name": "nfi_to_discrete_einstein_from_pnew_bekenstein_calibration",
-          "kind": "Theorem",
-          "full_name": "Kernel.NoFIToEinstein.nfi_to_discrete_einstein_from_pnew_bekenstein_calibration"
+          "full_name": "Kernel.NoFIToEinstein.discrete_gauss_bonnet_delta"
         },
         {
           "local_name": "certified_implies_positive_mu",
@@ -52532,30 +52477,9 @@
     {
       "file": "coq/kernel/curvature/PhysicalSubstrate.v",
       "qualified_module": "Kernel.PhysicalSubstrate",
-      "addressable_count": 4,
+      "addressable_count": 0,
       "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "substrate_implies_discrete_einstein",
-          "kind": "Theorem",
-          "full_name": "Kernel.PhysicalSubstrate.substrate_implies_discrete_einstein"
-        },
-        {
-          "local_name": "substrate_psplit_implies_discrete_einstein",
-          "kind": "Theorem",
-          "full_name": "Kernel.PhysicalSubstrate.substrate_psplit_implies_discrete_einstein"
-        },
-        {
-          "local_name": "substrate_pnew_implies_discrete_einstein",
-          "kind": "Theorem",
-          "full_name": "Kernel.PhysicalSubstrate.substrate_pnew_implies_discrete_einstein"
-        },
-        {
-          "local_name": "landauer_metrological_boundary_closed_proof",
-          "kind": "Theorem",
-          "full_name": "Kernel.PhysicalSubstrate.landauer_metrological_boundary_closed_proof"
-        }
-      ],
+      "addressable": [],
       "unaddressable": []
     },
     {
@@ -53127,9 +53051,9 @@
           "full_name": "Kernel.ClassicalConservativity.classical_trace_preserves_certified"
         },
         {
-          "local_name": "D3_conservativity",
+          "local_name": "classical_opcodes_preserve_structure",
           "kind": "Theorem",
-          "full_name": "Kernel.ClassicalConservativity.D3_conservativity"
+          "full_name": "Kernel.ClassicalConservativity.classical_opcodes_preserve_structure"
         },
         {
           "local_name": "classical_trace_cannot_certify",
@@ -53137,9 +53061,9 @@
           "full_name": "Kernel.ClassicalConservativity.classical_trace_cannot_certify"
         },
         {
-          "local_name": "D3_conservativity_pc",
+          "local_name": "classical_opcodes_preserve_structure_run_vm",
           "kind": "Theorem",
-          "full_name": "Kernel.ClassicalConservativity.D3_conservativity_pc"
+          "full_name": "Kernel.ClassicalConservativity.classical_opcodes_preserve_structure_run_vm"
         },
         {
           "local_name": "classical_reachable_vm_reachable",
@@ -53522,6 +53446,100 @@
       "addressable_count": 0,
       "unaddressable_count": 0,
       "addressable": [],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/EarnedCoreLinks.v",
+      "qualified_module": "Kernel.EarnedCoreLinks",
+      "addressable_count": 17,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "mm2_instr_at_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.EarnedCoreLinks.mm2_instr_at_iff"
+        },
+        {
+          "local_name": "mm2_step_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.EarnedCoreLinks.mm2_step_iff"
+        },
+        {
+          "local_name": "mm2_stop_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.EarnedCoreLinks.mm2_stop_iff"
+        },
+        {
+          "local_name": "mm2_terminates_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.EarnedCoreLinks.mm2_terminates_iff"
+        },
+        {
+          "local_name": "mm2_halting_iff",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.mm2_halting_iff"
+        },
+        {
+          "local_name": "earned_core_halting_undecidable",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.earned_core_halting_undecidable"
+        },
+        {
+          "local_name": "cs_run_is_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.EarnedCoreLinks.cs_run_is_run"
+        },
+        {
+          "local_name": "cs_total_cost_is_total_cost",
+          "kind": "Lemma",
+          "full_name": "Kernel.EarnedCoreLinks.cs_total_cost_is_total_cost"
+        },
+        {
+          "local_name": "earned_core_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.earned_core_floor"
+        },
+        {
+          "local_name": "earned_rc_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.EarnedCoreLinks.earned_rc_run"
+        },
+        {
+          "local_name": "earned_core_ledger",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.earned_core_ledger"
+        },
+        {
+          "local_name": "earned_core_a2",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.earned_core_a2"
+        },
+        {
+          "local_name": "earned_core_permanent",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.earned_core_permanent"
+        },
+        {
+          "local_name": "earned_core_record_write",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.earned_core_record_write"
+        },
+        {
+          "local_name": "earned_core_adequate",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.earned_core_adequate"
+        },
+        {
+          "local_name": "earned_core_honest",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.earned_core_honest"
+        },
+        {
+          "local_name": "earned_core_is_latch",
+          "kind": "Theorem",
+          "full_name": "Kernel.EarnedCoreLinks.earned_core_is_latch"
+        }
+      ],
       "unaddressable": []
     },
     {
@@ -55489,6 +55507,30 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/ReachableTraceRepresentative.v",
+      "qualified_module": "Kernel.ReachableTraceRepresentative",
+      "addressable_count": 3,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "reachable_trace_representative_correct",
+          "kind": "Theorem",
+          "full_name": "Kernel.ReachableTraceRepresentative.reachable_trace_representative_correct"
+        },
+        {
+          "local_name": "reachable_representative_exists",
+          "kind": "Corollary",
+          "full_name": "Kernel.ReachableTraceRepresentative.reachable_representative_exists"
+        },
+        {
+          "local_name": "generalized_reachable_simulation_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.ReachableTraceRepresentative.generalized_reachable_simulation_holds"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/RecordAxisDiscrimination.v",
       "qualified_module": "Kernel.RecordAxisDiscrimination",
       "addressable_count": 4,
@@ -56175,9 +56217,9 @@
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "D2_faithfulness",
+          "local_name": "classical_run_shadow_faithful",
           "kind": "Theorem",
-          "full_name": "Kernel.TuringClassicalEmbedding.D2_faithfulness"
+          "full_name": "Kernel.TuringClassicalEmbedding.classical_run_shadow_faithful"
         },
         {
           "local_name": "unpack_shadow_proj",
@@ -56225,9 +56267,9 @@
           "full_name": "Kernel.TuringClassicalEmbedding.classical_trace_compat"
         },
         {
-          "local_name": "D2_classical_shadow_preserved",
+          "local_name": "classical_run_preserves_shadow_compat",
           "kind": "Theorem",
-          "full_name": "Kernel.TuringClassicalEmbedding.D2_classical_shadow_preserved"
+          "full_name": "Kernel.TuringClassicalEmbedding.classical_run_preserves_shadow_compat"
         },
         {
           "local_name": "shadow_proj_kernel_is_eq_on_classical_shadow",
@@ -56468,34 +56510,34 @@
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "D4_classical_preserves_next_id",
+          "local_name": "classical_program_preserves_next_module_id",
           "kind": "Lemma",
-          "full_name": "Kernel.TuringStrictness.D4_classical_preserves_next_id"
+          "full_name": "Kernel.TuringStrictness.classical_program_preserves_next_module_id"
         },
         {
-          "local_name": "d4_reachable_step_state",
+          "local_name": "separating_pnew_step_state",
           "kind": "Lemma",
-          "full_name": "Kernel.TuringStrictness.d4_reachable_step_state"
+          "full_name": "Kernel.TuringStrictness.separating_pnew_step_state"
         },
         {
-          "local_name": "D4_strictness_reachable",
+          "local_name": "pnew_step_separates_thiele_from_classical_reachable",
           "kind": "Theorem",
-          "full_name": "Kernel.TuringStrictness.D4_strictness_reachable"
+          "full_name": "Kernel.TuringStrictness.pnew_step_separates_thiele_from_classical_reachable"
         },
         {
-          "local_name": "D4_strictness_from_init",
+          "local_name": "pnew_step_separates_thiele_from_classical_at_init",
           "kind": "Corollary",
-          "full_name": "Kernel.TuringStrictness.D4_strictness_from_init"
+          "full_name": "Kernel.TuringStrictness.pnew_step_separates_thiele_from_classical_at_init"
         },
         {
-          "local_name": "D4_strictness",
+          "local_name": "pnew_step_separates_thiele_from_classical",
           "kind": "Theorem",
-          "full_name": "Kernel.TuringStrictness.D4_strictness"
+          "full_name": "Kernel.TuringStrictness.pnew_step_separates_thiele_from_classical"
         },
         {
-          "local_name": "D5_thiele_strictly_extends_classical",
+          "local_name": "thiele_strictly_extends_classical",
           "kind": "Theorem",
-          "full_name": "Kernel.TuringStrictness.D5_thiele_strictly_extends_classical"
+          "full_name": "Kernel.TuringStrictness.thiele_strictly_extends_classical"
         }
       ],
       "unaddressable": []
@@ -56547,7 +56589,7 @@
     {
       "file": "coq/kernel/foundation/VMBoundedDecidability.v",
       "qualified_module": "Kernel.VMBoundedDecidability",
-      "addressable_count": 3,
+      "addressable_count": 5,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -56564,6 +56606,16 @@
           "local_name": "vm_bounded_decider_flip_not_representable",
           "kind": "Theorem",
           "full_name": "Kernel.VMBoundedDecidability.vm_bounded_decider_flip_not_representable"
+        },
+        {
+          "local_name": "vm_full_recursion_premise_refuted",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMBoundedDecidability.vm_full_recursion_premise_refuted"
+        },
+        {
+          "local_name": "vm_correct_flip_has_no_fixed_point",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMBoundedDecidability.vm_correct_flip_has_no_fixed_point"
         }
       ],
       "unaddressable": []
@@ -61953,6 +62005,1220 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/frontier/CalibrationObstruction.v",
+      "qualified_module": "Kernel.CalibrationObstruction",
+      "addressable_count": 241,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "lsum_nil",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_nil"
+        },
+        {
+          "local_name": "lsum_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_cons"
+        },
+        {
+          "local_name": "lsum_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_ext_in"
+        },
+        {
+          "local_name": "lsum_ext",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_ext"
+        },
+        {
+          "local_name": "lsum_plus",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_plus"
+        },
+        {
+          "local_name": "lsum_scal",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_scal"
+        },
+        {
+          "local_name": "lsum_const",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_const"
+        },
+        {
+          "local_name": "lsum_le_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_le_in"
+        },
+        {
+          "local_name": "lsum_nonneg_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_nonneg_in"
+        },
+        {
+          "local_name": "lsum_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_pos"
+        },
+        {
+          "local_name": "lsum_pos_exists",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_pos_exists"
+        },
+        {
+          "local_name": "lsum_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_app"
+        },
+        {
+          "local_name": "lsum_map",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_map"
+        },
+        {
+          "local_name": "lsum_flat_map",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_flat_map"
+        },
+        {
+          "local_name": "lsum_filter",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_filter"
+        },
+        {
+          "local_name": "lsum_swap",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_swap"
+        },
+        {
+          "local_name": "if_lsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.if_lsum"
+        },
+        {
+          "local_name": "INR_nsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.INR_nsum"
+        },
+        {
+          "local_name": "ind_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.ind_nonneg"
+        },
+        {
+          "local_name": "triangulated_regions_are_triples",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.triangulated_regions_are_triples"
+        },
+        {
+          "local_name": "graph_lookup_modules_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.graph_lookup_modules_In"
+        },
+        {
+          "local_name": "graph_lookup_modules_some",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.graph_lookup_modules_some"
+        },
+        {
+          "local_name": "graph_lookup_modules_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.graph_lookup_modules_nodup"
+        },
+        {
+          "local_name": "adjacent_lookup_l",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.adjacent_lookup_l"
+        },
+        {
+          "local_name": "adjacent_lookup_r",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.adjacent_lookup_r"
+        },
+        {
+          "local_name": "lookup_region3",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lookup_region3"
+        },
+        {
+          "local_name": "fold_encoding_mult8",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.fold_encoding_mult8"
+        },
+        {
+          "local_name": "density_form",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.density_form"
+        },
+        {
+          "local_name": "lap_fold_mult8",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lap_fold_mult8"
+        },
+        {
+          "local_name": "mu_laplacian_mult8",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.mu_laplacian_mult8"
+        },
+        {
+          "local_name": "triangle_angle_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.triangle_angle_nonneg"
+        },
+        {
+          "local_name": "sum_angles_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.sum_angles_nonneg"
+        },
+        {
+          "local_name": "triangle_angle_lt_half_pi",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.triangle_angle_lt_half_pi"
+        },
+        {
+          "local_name": "sum_angles_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.sum_angles_le"
+        },
+        {
+          "local_name": "sum_angles_lt",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.sum_angles_lt"
+        },
+        {
+          "local_name": "calibrated_lap_nonpos",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.calibrated_lap_nonpos"
+        },
+        {
+          "local_name": "fold_sum_nonpos",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.fold_sum_nonpos"
+        },
+        {
+          "local_name": "fold_sum_nonpos_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.fold_sum_nonpos_zero"
+        },
+        {
+          "local_name": "calibration_forces_flat_faces",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.calibration_forces_flat_faces"
+        },
+        {
+          "local_name": "calibration_forces_five_triangles",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.calibration_forces_five_triangles"
+        },
+        {
+          "local_name": "tsum_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_ext_in"
+        },
+        {
+          "local_name": "tsum_ext",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_ext"
+        },
+        {
+          "local_name": "tsum_plus",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_plus"
+        },
+        {
+          "local_name": "tsum_scal",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_scal"
+        },
+        {
+          "local_name": "tsum_le_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_le_in"
+        },
+        {
+          "local_name": "tsum_swap23",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_swap23"
+        },
+        {
+          "local_name": "tsum_swap12",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_swap12"
+        },
+        {
+          "local_name": "tsum_rot",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_rot"
+        },
+        {
+          "local_name": "tsum_rot2",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_rot2"
+        },
+        {
+          "local_name": "tsum_swap13",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_swap13"
+        },
+        {
+          "local_name": "face_tri_swap23",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.face_tri_swap23"
+        },
+        {
+          "local_name": "face_tri_rot",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.face_tri_rot"
+        },
+        {
+          "local_name": "face_tri_rot2",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.face_tri_rot2"
+        },
+        {
+          "local_name": "face_tri_swap12",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.face_tri_swap12"
+        },
+        {
+          "local_name": "face_tri_swap13",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.face_tri_swap13"
+        },
+        {
+          "local_name": "face_tri_true",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.face_tri_true"
+        },
+        {
+          "local_name": "tri_perim_rot",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tri_perim_rot"
+        },
+        {
+          "local_name": "tri_perim_rot2",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tri_perim_rot2"
+        },
+        {
+          "local_name": "dist_nonzero",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.dist_nonzero"
+        },
+        {
+          "local_name": "triangle_angle_swap23",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.triangle_angle_swap23"
+        },
+        {
+          "local_name": "triangle_angle_face",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.triangle_angle_face"
+        },
+        {
+          "local_name": "sum_angles_lsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.sum_angles_lsum"
+        },
+        {
+          "local_name": "sum_angles_triple",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.sum_angles_triple"
+        },
+        {
+          "local_name": "total_angle_sum_identity",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.total_angle_sum_identity"
+        },
+        {
+          "local_name": "mass_ge3",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.mass_ge3"
+        },
+        {
+          "local_name": "dist_ge7",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.dist_ge7"
+        },
+        {
+          "local_name": "perim_ge21",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.perim_ge21"
+        },
+        {
+          "local_name": "weight_plus_rem",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.weight_plus_rem"
+        },
+        {
+          "local_name": "rem_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.rem_nonneg"
+        },
+        {
+          "local_name": "rem_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.rem_le"
+        },
+        {
+          "local_name": "weight_pos_rem_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.weight_pos_rem_pos"
+        },
+        {
+          "local_name": "tri_weight_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tri_weight_nonneg"
+        },
+        {
+          "local_name": "tsum_pos_of_witness",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_pos_of_witness"
+        },
+        {
+          "local_name": "calibration_face_triangle_window_R",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.calibration_face_triangle_window_R"
+        },
+        {
+          "local_name": "INR_if",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.INR_if"
+        },
+        {
+          "local_name": "INR_face_triangle_count",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.INR_face_triangle_count"
+        },
+        {
+          "local_name": "ind_six",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.ind_six"
+        },
+        {
+          "local_name": "ordered_count_six",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.ordered_count_six"
+        },
+        {
+          "local_name": "calibration_face_triangle_window",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.calibration_face_triangle_window"
+        },
+        {
+          "local_name": "share_adjacent",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.share_adjacent"
+        },
+        {
+          "local_name": "share_face_tri",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.share_face_tri"
+        },
+        {
+          "local_name": "norm_edge_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.norm_edge_sym"
+        },
+        {
+          "local_name": "region_edges_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.region_edges_In"
+        },
+        {
+          "local_name": "edge_eq_refl",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.edge_eq_refl"
+        },
+        {
+          "local_name": "list_mem_edge_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.list_mem_edge_In"
+        },
+        {
+          "local_name": "dedup_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.dedup_In"
+        },
+        {
+          "local_name": "collect_edges_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.collect_edges_In"
+        },
+        {
+          "local_name": "count_modules_with_edge_filter",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.count_modules_with_edge_filter"
+        },
+        {
+          "local_name": "cont_lookup",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.cont_lookup"
+        },
+        {
+          "local_name": "no_three_faces_on_edge",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.no_three_faces_on_edge"
+        },
+        {
+          "local_name": "lsum_ind_at_most_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_ind_at_most_one"
+        },
+        {
+          "local_name": "vertex_terms_le_face_tri",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.vertex_terms_le_face_tri"
+        },
+        {
+          "local_name": "tsum_lsum_swap",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_lsum_swap"
+        },
+        {
+          "local_name": "tsum_filter3",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tsum_filter3"
+        },
+        {
+          "local_name": "lsum_eqb_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lsum_eqb_one"
+        },
+        {
+          "local_name": "count_distinct3",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.count_distinct3"
+        },
+        {
+          "local_name": "filter_cont_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.filter_cont_length"
+        },
+        {
+          "local_name": "INR_falling3",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.INR_falling3"
+        },
+        {
+          "local_name": "vertex_degree_face_triangle_bound",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.vertex_degree_face_triangle_bound"
+        },
+        {
+          "local_name": "calibration_consequences",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.calibration_consequences"
+        },
+        {
+          "local_name": "calibration_forces_degree_inequality",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.calibration_forces_degree_inequality"
+        },
+        {
+          "local_name": "falling3_ge_6d",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.falling3_ge_6d"
+        },
+        {
+          "local_name": "nsum_falling3_ge",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_falling3_ge"
+        },
+        {
+          "local_name": "min_degree_4_triangulation_not_calibrated",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.min_degree_4_triangulation_not_calibrated"
+        },
+        {
+          "local_name": "triangles_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.triangles_check"
+        },
+        {
+          "local_name": "normalized_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.normalized_check"
+        },
+        {
+          "local_name": "manifold_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.manifold_check"
+        },
+        {
+          "local_name": "nodup_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nodup_check"
+        },
+        {
+          "local_name": "om_well_formed",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.om_well_formed"
+        },
+        {
+          "local_name": "om_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.om_nodup"
+        },
+        {
+          "local_name": "degree_inequality_admits_om_state",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.degree_inequality_admits_om_state"
+        },
+        {
+          "local_name": "om_state_not_calibrated",
+          "kind": "Corollary",
+          "full_name": "Kernel.CalibrationObstruction.om_state_not_calibrated"
+        },
+        {
+          "local_name": "falling3_tangent",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.falling3_tangent"
+        },
+        {
+          "local_name": "nsum_falling3_tangent",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_falling3_tangent"
+        },
+        {
+          "local_name": "calibration_forces_large_boundary",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.calibration_forces_large_boundary"
+        },
+        {
+          "local_name": "closed_triangulation_not_calibrated",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.closed_triangulation_not_calibrated"
+        },
+        {
+          "local_name": "nsum_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_cons"
+        },
+        {
+          "local_name": "nsum_nil",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_nil"
+        },
+        {
+          "local_name": "nsum_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_app"
+        },
+        {
+          "local_name": "nsum_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_ext_in"
+        },
+        {
+          "local_name": "nsum_plus",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_plus"
+        },
+        {
+          "local_name": "nsum_scal",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_scal"
+        },
+        {
+          "local_name": "nsum_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_zero"
+        },
+        {
+          "local_name": "nsum_swap",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_swap"
+        },
+        {
+          "local_name": "nsum_perm",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_perm"
+        },
+        {
+          "local_name": "nsum_filter",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_filter"
+        },
+        {
+          "local_name": "nsum_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_length"
+        },
+        {
+          "local_name": "nsum_const",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_const"
+        },
+        {
+          "local_name": "nsum_indicator_sub",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_indicator_sub"
+        },
+        {
+          "local_name": "length_filter_split",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.length_filter_split"
+        },
+        {
+          "local_name": "length_same_elements",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.length_same_elements"
+        },
+        {
+          "local_name": "double_count",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.double_count"
+        },
+        {
+          "local_name": "grown_root",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.grown_root"
+        },
+        {
+          "local_name": "grown_reach",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.grown_reach"
+        },
+        {
+          "local_name": "bfs_aux",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.bfs_aux"
+        },
+        {
+          "local_name": "bfs",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.bfs"
+        },
+        {
+          "local_name": "norm_edge_inv",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.norm_edge_inv"
+        },
+        {
+          "local_name": "norm_edge_lt",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.norm_edge_lt"
+        },
+        {
+          "local_name": "norm_edge_fst_snd",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.norm_edge_fst_snd"
+        },
+        {
+          "local_name": "norm_edge_swap_fst_snd",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.norm_edge_swap_fst_snd"
+        },
+        {
+          "local_name": "norm_edge_ends",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.norm_edge_ends"
+        },
+        {
+          "local_name": "grown_edges",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.grown_edges"
+        },
+        {
+          "local_name": "edge_eq_true",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.edge_eq_true"
+        },
+        {
+          "local_name": "list_mem_edge_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.list_mem_edge_iff"
+        },
+        {
+          "local_name": "connected_edge_count",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.connected_edge_count"
+        },
+        {
+          "local_name": "cut_or_count",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.cut_or_count"
+        },
+        {
+          "local_name": "tri_ok_of_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tri_ok_of_wf"
+        },
+        {
+          "local_name": "NoDup_app_disj",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.NoDup_app_disj"
+        },
+        {
+          "local_name": "collect_nodes_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.collect_nodes_In"
+        },
+        {
+          "local_name": "vertices_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.vertices_In"
+        },
+        {
+          "local_name": "vertices_NoDup",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.vertices_NoDup"
+        },
+        {
+          "local_name": "region_edges_inv",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.region_edges_inv"
+        },
+        {
+          "local_name": "region_edges_inv_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.region_edges_inv_nodup"
+        },
+        {
+          "local_name": "norm_edge_In_fst",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.norm_edge_In_fst"
+        },
+        {
+          "local_name": "norm_edge_In_snd",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.norm_edge_In_snd"
+        },
+        {
+          "local_name": "region_edges_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.region_edges_iff"
+        },
+        {
+          "local_name": "map_norm_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.map_norm_nodup"
+        },
+        {
+          "local_name": "region_edges_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.region_edges_nodup"
+        },
+        {
+          "local_name": "region_edges_length3",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.region_edges_length3"
+        },
+        {
+          "local_name": "collect_edges_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.collect_edges_iff"
+        },
+        {
+          "local_name": "dedup_In_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.dedup_In_iff"
+        },
+        {
+          "local_name": "dedup_NoDup",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.dedup_NoDup"
+        },
+        {
+          "local_name": "edges_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.edges_In"
+        },
+        {
+          "local_name": "edges_NoDup",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.edges_NoDup"
+        },
+        {
+          "local_name": "count_modules_with_edge_nsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.count_modules_with_edge_nsum"
+        },
+        {
+          "local_name": "count_incident_nsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.count_incident_nsum"
+        },
+        {
+          "local_name": "sum_degrees_nsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.sum_degrees_nsum"
+        },
+        {
+          "local_name": "count_boundary_filter",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.count_boundary_filter"
+        },
+        {
+          "local_name": "module_edges_props",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.module_edges_props"
+        },
+        {
+          "local_name": "degree_sum_general",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.degree_sum_general"
+        },
+        {
+          "local_name": "edge_sum_general",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.edge_sum_general"
+        },
+        {
+          "local_name": "nsum_one_two",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_one_two"
+        },
+        {
+          "local_name": "edges_faces_boundary",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.edges_faces_boundary"
+        },
+        {
+          "local_name": "cont_entry",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.cont_entry"
+        },
+        {
+          "local_name": "cont_true_entry",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.cont_true_entry"
+        },
+        {
+          "local_name": "ein_norm",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.ein_norm"
+        },
+        {
+          "local_name": "ein_entry",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.ein_entry"
+        },
+        {
+          "local_name": "ein_edges",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.ein_edges"
+        },
+        {
+          "local_name": "edges_ein",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.edges_ein"
+        },
+        {
+          "local_name": "ein_count2",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.ein_count2"
+        },
+        {
+          "local_name": "three_faces_ein",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.three_faces_ein"
+        },
+        {
+          "local_name": "share_edge_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.share_edge_spec"
+        },
+        {
+          "local_name": "share_edge_intro",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.share_edge_intro"
+        },
+        {
+          "local_name": "third_vertex",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.third_vertex"
+        },
+        {
+          "local_name": "euler_inv",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.euler_inv"
+        },
+        {
+          "local_name": "nsum_even",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_even"
+        },
+        {
+          "local_name": "nsum_odd_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nsum_odd_one"
+        },
+        {
+          "local_name": "cross_three",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.cross_three"
+        },
+        {
+          "local_name": "euler_component",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.euler_component"
+        },
+        {
+          "local_name": "lookup_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.lookup_restrict"
+        },
+        {
+          "local_name": "ids_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.ids_restrict"
+        },
+        {
+          "local_name": "restrict_entry",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.restrict_entry"
+        },
+        {
+          "local_name": "cont_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.cont_restrict"
+        },
+        {
+          "local_name": "share_edge_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.share_edge_restrict"
+        },
+        {
+          "local_name": "tri_ok_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.tri_ok_restrict"
+        },
+        {
+          "local_name": "triangles_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.triangles_restrict"
+        },
+        {
+          "local_name": "normalized_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.normalized_restrict"
+        },
+        {
+          "local_name": "nodup_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nodup_restrict"
+        },
+        {
+          "local_name": "count_edge_filter_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.count_edge_filter_le"
+        },
+        {
+          "local_name": "count_edge_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.count_edge_pos"
+        },
+        {
+          "local_name": "manifold_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.manifold_restrict"
+        },
+        {
+          "local_name": "q_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.q_In"
+        },
+        {
+          "local_name": "adj_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.adj_closed"
+        },
+        {
+          "local_name": "adj_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.adj_restrict"
+        },
+        {
+          "local_name": "filter_filter_drop",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.filter_filter_drop"
+        },
+        {
+          "local_name": "neighbors_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.neighbors_restrict"
+        },
+        {
+          "local_name": "neighbors_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.neighbors_in"
+        },
+        {
+          "local_name": "flat_map_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.flat_map_ext_in"
+        },
+        {
+          "local_name": "triangles_restrict_eq",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.triangles_restrict_eq"
+        },
+        {
+          "local_name": "triangles_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.triangles_in"
+        },
+        {
+          "local_name": "mass_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.mass_restrict"
+        },
+        {
+          "local_name": "dist_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.dist_restrict"
+        },
+        {
+          "local_name": "angle_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.angle_restrict"
+        },
+        {
+          "local_name": "sum_angles_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.sum_angles_restrict"
+        },
+        {
+          "local_name": "density_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.density_restrict"
+        },
+        {
+          "local_name": "fold_left_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.fold_left_ext_in"
+        },
+        {
+          "local_name": "laplacian_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.laplacian_restrict"
+        },
+        {
+          "local_name": "residual_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.residual_restrict"
+        },
+        {
+          "local_name": "link_chain",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.link_chain"
+        },
+        {
+          "local_name": "nat_list_disjoint_false",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.nat_list_disjoint_false"
+        },
+        {
+          "local_name": "adj_common_vertex",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.adj_common_vertex"
+        },
+        {
+          "local_name": "other_vertex",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.other_vertex"
+        },
+        {
+          "local_name": "adj_share_closure",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.adj_share_closure"
+        },
+        {
+          "local_name": "window_nat",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.window_nat"
+        },
+        {
+          "local_name": "component_inequality",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.component_inequality"
+        },
+        {
+          "local_name": "restrict_graph_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.restrict_graph_ext_in"
+        },
+        {
+          "local_name": "restrict_graph_true",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.restrict_graph_true"
+        },
+        {
+          "local_name": "restrict_empty",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.restrict_empty"
+        },
+        {
+          "local_name": "count_edge_union",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.count_edge_union"
+        },
+        {
+          "local_name": "count_edge_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.count_edge_zero"
+        },
+        {
+          "local_name": "length_filter_union",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.length_filter_union"
+        },
+        {
+          "local_name": "restrict_union",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.restrict_union"
+        },
+        {
+          "local_name": "length_filter_and",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.length_filter_and"
+        },
+        {
+          "local_name": "components_sum",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.components_sum"
+        },
+        {
+          "local_name": "connected_triangulation_not_calibrated",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalibrationObstruction.connected_triangulation_not_calibrated"
+        },
+        {
+          "local_name": "link_edge_b_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.link_edge_b_sound"
+        },
+        {
+          "local_name": "link_vertex_b_complete",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.link_vertex_b_complete"
+        },
+        {
+          "local_name": "link_reach_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.link_reach_sound"
+        },
+        {
+          "local_name": "links_connected_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.links_connected_check"
+        },
+        {
+          "local_name": "om_links_connected",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalibrationObstruction.om_links_connected"
+        },
+        {
+          "local_name": "calibration_obstruction_hypotheses_satisfiable",
+          "kind": "Corollary",
+          "full_name": "Kernel.CalibrationObstruction.calibration_obstruction_hypotheses_satisfiable"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/frontier/EcosystemGame.v",
       "qualified_module": "Kernel.EcosystemGame",
       "addressable_count": 11,
@@ -62025,1907 +63291,511 @@
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/frontier/F1_AbstractedBridge.v",
-      "qualified_module": "Kernel.F1_AbstractedBridge",
+      "file": "coq/kernel/frontier/LandauerBridgeAbstractCost.v",
+      "qualified_module": "Kernel.LandauerBridgeAbstractCost",
       "addressable_count": 2,
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "F1_factored_through_abstract_cost",
+          "local_name": "abstract_cost_cert_flip_ge_1_from_landauer_bound",
           "kind": "Theorem",
-          "full_name": "Kernel.F1_AbstractedBridge.F1_factored_through_abstract_cost"
+          "full_name": "Kernel.LandauerBridgeAbstractCost.abstract_cost_cert_flip_ge_1_from_landauer_bound"
         },
         {
           "local_name": "A2_via_abstract_landauer_universal_bridge",
           "kind": "Corollary",
-          "full_name": "Kernel.F1_AbstractedBridge.A2_via_abstract_landauer_universal_bridge"
+          "full_name": "Kernel.LandauerBridgeAbstractCost.A2_via_abstract_landauer_universal_bridge"
         }
       ],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/frontier/F1_LogicalErasure.v",
-      "qualified_module": "Kernel.F1_LogicalErasure",
+      "file": "coq/kernel/frontier/LandauerDissipationStrongForm.v",
+      "qualified_module": "Kernel.LandauerDissipationStrongForm",
       "addressable_count": 4,
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "cert_flip_collapses_cert_classes",
-          "kind": "Lemma",
-          "full_name": "Kernel.F1_LogicalErasure.cert_flip_collapses_cert_classes"
-        },
-        {
-          "local_name": "thiele_cost_law_satisfies_landauer_for_cert",
-          "kind": "Lemma",
-          "full_name": "Kernel.F1_LogicalErasure.thiele_cost_law_satisfies_landauer_for_cert"
-        },
-        {
-          "local_name": "A2_from_physical_reversibility_real",
+          "local_name": "collapse_step_cost_ge_1_from_calibrated_dissipation",
           "kind": "Theorem",
-          "full_name": "Kernel.F1_LogicalErasure.A2_from_physical_reversibility_real"
-        },
-        {
-          "local_name": "A2_consistency_check",
-          "kind": "Lemma",
-          "full_name": "Kernel.F1_LogicalErasure.A2_consistency_check"
-        }
-      ],
-      "unaddressable": []
-    },
-    {
-      "file": "coq/kernel/frontier/F1_StrongForm.v",
-      "qualified_module": "Kernel.F1_StrongForm",
-      "addressable_count": 4,
-      "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "F1_strong_form_universal",
-          "kind": "Theorem",
-          "full_name": "Kernel.F1_StrongForm.F1_strong_form_universal"
+          "full_name": "Kernel.LandauerDissipationStrongForm.collapse_step_cost_ge_1_from_calibrated_dissipation"
         },
         {
           "local_name": "A2_via_physical_landauer",
           "kind": "Corollary",
-          "full_name": "Kernel.F1_StrongForm.A2_via_physical_landauer"
+          "full_name": "Kernel.LandauerDissipationStrongForm.A2_via_physical_landauer"
         },
         {
-          "local_name": "f1_zero_cost_jump_collapses",
+          "local_name": "zero_cost_jump_collapses_pc_is_one",
           "kind": "Lemma",
-          "full_name": "Kernel.F1_StrongForm.f1_zero_cost_jump_collapses"
+          "full_name": "Kernel.LandauerDissipationStrongForm.zero_cost_jump_collapses_pc_is_one"
         },
         {
-          "local_name": "F1_physical_premises_incompatible",
+          "local_name": "landauer_dissipation_premises_inconsistent",
           "kind": "Theorem",
-          "full_name": "Kernel.F1_StrongForm.F1_physical_premises_incompatible"
+          "full_name": "Kernel.LandauerDissipationStrongForm.landauer_dissipation_premises_inconsistent"
         }
       ],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/frontier/F1_TraceLevelA2.v",
-      "qualified_module": "Kernel.F1_TraceLevelA2",
+      "file": "coq/kernel/frontier/LandauerTraceLevelA2.v",
+      "qualified_module": "Kernel.LandauerTraceLevelA2",
       "addressable_count": 3,
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "F1_trace_level_A2",
+          "local_name": "trace_level_A2_from_landauer_bound",
           "kind": "Theorem",
-          "full_name": "Kernel.F1_TraceLevelA2.F1_trace_level_A2"
+          "full_name": "Kernel.LandauerTraceLevelA2.trace_level_A2_from_landauer_bound"
         },
         {
-          "local_name": "F1_singleton_trace_A2",
+          "local_name": "single_step_A2_from_landauer_bound",
           "kind": "Theorem",
-          "full_name": "Kernel.F1_TraceLevelA2.F1_singleton_trace_A2"
+          "full_name": "Kernel.LandauerTraceLevelA2.single_step_A2_from_landauer_bound"
         },
         {
-          "local_name": "F1_thiele_trace_level_A2",
+          "local_name": "thiele_trace_level_A2",
           "kind": "Theorem",
-          "full_name": "Kernel.F1_TraceLevelA2.F1_thiele_trace_level_A2"
+          "full_name": "Kernel.LandauerTraceLevelA2.thiele_trace_level_A2"
         }
       ],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/frontier/F2_MinorFromWitnessLocality.v",
-      "qualified_module": "Kernel.F2_MinorFromWitnessLocality",
-      "addressable_count": 14,
-      "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "q_sign_eq_squared",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.q_sign_eq_squared"
-        },
-        {
-          "local_name": "correlator_from_local_strategy_00",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.correlator_from_local_strategy_00"
-        },
-        {
-          "local_name": "correlator_from_local_strategy_01",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.correlator_from_local_strategy_01"
-        },
-        {
-          "local_name": "correlator_from_local_strategy_10",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.correlator_from_local_strategy_10"
-        },
-        {
-          "local_name": "correlator_from_local_strategy_11",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.correlator_from_local_strategy_11"
-        },
-        {
-          "local_name": "local_strategy_t_E00_E10_eq_one",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.local_strategy_t_E00_E10_eq_one"
-        },
-        {
-          "local_name": "local_strategy_t_E01_E11_eq_one",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.local_strategy_t_E01_E11_eq_one"
-        },
-        {
-          "local_name": "local_strategy_s_E00_E01_eq_one",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.local_strategy_s_E00_E01_eq_one"
-        },
-        {
-          "local_name": "local_strategy_s_E10_E11_eq_one",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.local_strategy_s_E10_E11_eq_one"
-        },
-        {
-          "local_name": "minor_vanishes_local_strategy",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.minor_vanishes_local_strategy"
-        },
-        {
-          "local_name": "minor_3x3_proper",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.minor_3x3_proper"
-        },
-        {
-          "local_name": "correlator_from_counts_abs_le_1",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.correlator_from_counts_abs_le_1"
-        },
-        {
-          "local_name": "WCLocallyConsistent_implies_algebraically_coherent",
-          "kind": "Theorem",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.WCLocallyConsistent_implies_algebraically_coherent"
-        },
-        {
-          "local_name": "WCLocallyConsistent_implies_tsirelson",
-          "kind": "Theorem",
-          "full_name": "Kernel.F2_MinorFromWitnessLocality.WCLocallyConsistent_implies_tsirelson"
-        }
-      ],
-      "unaddressable": []
-    },
-    {
-      "file": "coq/kernel/frontier/F2_MinorIndependence.v",
-      "qualified_module": "Kernel.F2_MinorIndependence",
-      "addressable_count": 9,
-      "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "pr_box_state_mu_zero",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorIndependence.pr_box_state_mu_zero"
-        },
-        {
-          "local_name": "pr_box_state_certified_false",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorIndependence.pr_box_state_certified_false"
-        },
-        {
-          "local_name": "pr_box_state_witness_counts",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorIndependence.pr_box_state_witness_counts"
-        },
-        {
-          "local_name": "pr_box_correlators_eq_max_trace",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorIndependence.pr_box_correlators_eq_max_trace"
-        },
-        {
-          "local_name": "pr_box_correlators_match_max_trace_q",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorIndependence.pr_box_correlators_match_max_trace_q"
-        },
-        {
-          "local_name": "algebraically_coherent_proper",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorIndependence.algebraically_coherent_proper"
-        },
-        {
-          "local_name": "pr_box_correlators_not_coherent",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_MinorIndependence.pr_box_correlators_not_coherent"
-        },
-        {
-          "local_name": "cost_axioms_do_not_entail_algebraic_coherence",
-          "kind": "Theorem",
-          "full_name": "Kernel.F2_MinorIndependence.cost_axioms_do_not_entail_algebraic_coherence"
-        },
-        {
-          "local_name": "F2_independence",
-          "kind": "Theorem",
-          "full_name": "Kernel.F2_MinorIndependence.F2_independence"
-        }
-      ],
-      "unaddressable": []
-    },
-    {
-      "file": "coq/kernel/frontier/F2_PerMinorFromCostCoherent.v",
-      "qualified_module": "Kernel.F2_PerMinorFromCostCoherent",
-      "addressable_count": 8,
-      "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "max_trace_cost_coherent",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_PerMinorFromCostCoherent.max_trace_cost_coherent"
-        },
-        {
-          "local_name": "minor_3x3_at_product",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_PerMinorFromCostCoherent.minor_3x3_at_product"
-        },
-        {
-          "local_name": "sq_le_1_of_abs_le_1",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_PerMinorFromCostCoherent.sq_le_1_of_abs_le_1"
-        },
-        {
-          "local_name": "one_minus_sq_nonneg",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_PerMinorFromCostCoherent.one_minus_sq_nonneg"
-        },
-        {
-          "local_name": "minor_nonneg_at_product",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_PerMinorFromCostCoherent.minor_nonneg_at_product"
-        },
-        {
-          "local_name": "cost_coherent_implies_per_minor_nonneg",
-          "kind": "Theorem",
-          "full_name": "Kernel.F2_PerMinorFromCostCoherent.cost_coherent_implies_per_minor_nonneg"
-        },
-        {
-          "local_name": "per_minor_strictly_weaker_than_algebraic_coherence",
-          "kind": "Theorem",
-          "full_name": "Kernel.F2_PerMinorFromCostCoherent.per_minor_strictly_weaker_than_algebraic_coherence"
-        },
-        {
-          "local_name": "pr_box_minor_2_fails_at_minor_1_witness",
-          "kind": "Lemma",
-          "full_name": "Kernel.F2_PerMinorFromCostCoherent.pr_box_minor_2_fails_at_minor_1_witness"
-        }
-      ],
-      "unaddressable": []
-    },
-    {
-      "file": "coq/kernel/frontier/F3_CalibrationObstruction.v",
-      "qualified_module": "Kernel.F3_CalibrationObstruction",
-      "addressable_count": 241,
-      "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "lsum_nil",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_nil"
-        },
-        {
-          "local_name": "lsum_cons",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_cons"
-        },
-        {
-          "local_name": "lsum_ext_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_ext_in"
-        },
-        {
-          "local_name": "lsum_ext",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_ext"
-        },
-        {
-          "local_name": "lsum_plus",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_plus"
-        },
-        {
-          "local_name": "lsum_scal",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_scal"
-        },
-        {
-          "local_name": "lsum_const",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_const"
-        },
-        {
-          "local_name": "lsum_le_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_le_in"
-        },
-        {
-          "local_name": "lsum_nonneg_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_nonneg_in"
-        },
-        {
-          "local_name": "lsum_pos",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_pos"
-        },
-        {
-          "local_name": "lsum_pos_exists",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_pos_exists"
-        },
-        {
-          "local_name": "lsum_app",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_app"
-        },
-        {
-          "local_name": "lsum_map",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_map"
-        },
-        {
-          "local_name": "lsum_flat_map",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_flat_map"
-        },
-        {
-          "local_name": "lsum_filter",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_filter"
-        },
-        {
-          "local_name": "lsum_swap",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_swap"
-        },
-        {
-          "local_name": "if_lsum",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.if_lsum"
-        },
-        {
-          "local_name": "INR_nsum",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.INR_nsum"
-        },
-        {
-          "local_name": "ind_nonneg",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.ind_nonneg"
-        },
-        {
-          "local_name": "triangulated_regions_are_triples",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.triangulated_regions_are_triples"
-        },
-        {
-          "local_name": "graph_lookup_modules_In",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.graph_lookup_modules_In"
-        },
-        {
-          "local_name": "graph_lookup_modules_some",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.graph_lookup_modules_some"
-        },
-        {
-          "local_name": "graph_lookup_modules_nodup",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.graph_lookup_modules_nodup"
-        },
-        {
-          "local_name": "adjacent_lookup_l",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.adjacent_lookup_l"
-        },
-        {
-          "local_name": "adjacent_lookup_r",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.adjacent_lookup_r"
-        },
-        {
-          "local_name": "lookup_region3",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lookup_region3"
-        },
-        {
-          "local_name": "fold_encoding_mult8",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.fold_encoding_mult8"
-        },
-        {
-          "local_name": "density_form",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.density_form"
-        },
-        {
-          "local_name": "lap_fold_mult8",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lap_fold_mult8"
-        },
-        {
-          "local_name": "mu_laplacian_mult8",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.mu_laplacian_mult8"
-        },
-        {
-          "local_name": "triangle_angle_nonneg",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.triangle_angle_nonneg"
-        },
-        {
-          "local_name": "sum_angles_nonneg",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_nonneg"
-        },
-        {
-          "local_name": "triangle_angle_lt_half_pi",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.triangle_angle_lt_half_pi"
-        },
-        {
-          "local_name": "sum_angles_le",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_le"
-        },
-        {
-          "local_name": "sum_angles_lt",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_lt"
-        },
-        {
-          "local_name": "calibrated_lap_nonpos",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.calibrated_lap_nonpos"
-        },
-        {
-          "local_name": "fold_sum_nonpos",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.fold_sum_nonpos"
-        },
-        {
-          "local_name": "fold_sum_nonpos_zero",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.fold_sum_nonpos_zero"
-        },
-        {
-          "local_name": "F3_calibration_forces_flat_faces",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_forces_flat_faces"
-        },
-        {
-          "local_name": "F3_calibration_forces_five_triangles",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_forces_five_triangles"
-        },
-        {
-          "local_name": "tsum_ext_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_ext_in"
-        },
-        {
-          "local_name": "tsum_ext",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_ext"
-        },
-        {
-          "local_name": "tsum_plus",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_plus"
-        },
-        {
-          "local_name": "tsum_scal",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_scal"
-        },
-        {
-          "local_name": "tsum_le_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_le_in"
-        },
-        {
-          "local_name": "tsum_swap23",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_swap23"
-        },
-        {
-          "local_name": "tsum_swap12",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_swap12"
-        },
-        {
-          "local_name": "tsum_rot",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_rot"
-        },
-        {
-          "local_name": "tsum_rot2",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_rot2"
-        },
-        {
-          "local_name": "tsum_swap13",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_swap13"
-        },
-        {
-          "local_name": "face_tri_swap23",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_swap23"
-        },
-        {
-          "local_name": "face_tri_rot",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_rot"
-        },
-        {
-          "local_name": "face_tri_rot2",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_rot2"
-        },
-        {
-          "local_name": "face_tri_swap12",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_swap12"
-        },
-        {
-          "local_name": "face_tri_swap13",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_swap13"
-        },
-        {
-          "local_name": "face_tri_true",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_true"
-        },
-        {
-          "local_name": "tri_perim_rot",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tri_perim_rot"
-        },
-        {
-          "local_name": "tri_perim_rot2",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tri_perim_rot2"
-        },
-        {
-          "local_name": "dist_nonzero",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.dist_nonzero"
-        },
-        {
-          "local_name": "triangle_angle_swap23",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.triangle_angle_swap23"
-        },
-        {
-          "local_name": "triangle_angle_face",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.triangle_angle_face"
-        },
-        {
-          "local_name": "sum_angles_lsum",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_lsum"
-        },
-        {
-          "local_name": "sum_angles_triple",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_triple"
-        },
-        {
-          "local_name": "total_angle_sum_identity",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.total_angle_sum_identity"
-        },
-        {
-          "local_name": "mass_ge3",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.mass_ge3"
-        },
-        {
-          "local_name": "dist_ge7",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.dist_ge7"
-        },
-        {
-          "local_name": "perim_ge21",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.perim_ge21"
-        },
-        {
-          "local_name": "weight_plus_rem",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.weight_plus_rem"
-        },
-        {
-          "local_name": "rem_nonneg",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.rem_nonneg"
-        },
-        {
-          "local_name": "rem_le",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.rem_le"
-        },
-        {
-          "local_name": "weight_pos_rem_pos",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.weight_pos_rem_pos"
-        },
-        {
-          "local_name": "tri_weight_nonneg",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tri_weight_nonneg"
-        },
-        {
-          "local_name": "tsum_pos_of_witness",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_pos_of_witness"
-        },
-        {
-          "local_name": "F3_calibration_window_R",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_window_R"
-        },
-        {
-          "local_name": "INR_if",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.INR_if"
-        },
-        {
-          "local_name": "INR_face_triangle_count",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.INR_face_triangle_count"
-        },
-        {
-          "local_name": "ind_six",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.ind_six"
-        },
-        {
-          "local_name": "ordered_count_six",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.ordered_count_six"
-        },
-        {
-          "local_name": "F3_calibration_window",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_window"
-        },
-        {
-          "local_name": "share_adjacent",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.share_adjacent"
-        },
-        {
-          "local_name": "share_face_tri",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.share_face_tri"
-        },
-        {
-          "local_name": "norm_edge_sym",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_sym"
-        },
-        {
-          "local_name": "region_edges_In",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_In"
-        },
-        {
-          "local_name": "edge_eq_refl",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.edge_eq_refl"
-        },
-        {
-          "local_name": "list_mem_edge_In",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.list_mem_edge_In"
-        },
-        {
-          "local_name": "dedup_In",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.dedup_In"
-        },
-        {
-          "local_name": "collect_edges_In",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.collect_edges_In"
-        },
-        {
-          "local_name": "count_modules_with_edge_filter",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.count_modules_with_edge_filter"
-        },
-        {
-          "local_name": "cont_lookup",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.cont_lookup"
-        },
-        {
-          "local_name": "no_three_faces_on_edge",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.no_three_faces_on_edge"
-        },
-        {
-          "local_name": "lsum_ind_at_most_one",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_ind_at_most_one"
-        },
-        {
-          "local_name": "vertex_terms_le_face_tri",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.vertex_terms_le_face_tri"
-        },
-        {
-          "local_name": "tsum_lsum_swap",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_lsum_swap"
-        },
-        {
-          "local_name": "tsum_filter3",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tsum_filter3"
-        },
-        {
-          "local_name": "lsum_eqb_one",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lsum_eqb_one"
-        },
-        {
-          "local_name": "count_distinct3",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.count_distinct3"
-        },
-        {
-          "local_name": "filter_cont_length",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.filter_cont_length"
-        },
-        {
-          "local_name": "INR_falling3",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.INR_falling3"
-        },
-        {
-          "local_name": "F3_vertex_triangle_bound",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_vertex_triangle_bound"
-        },
-        {
-          "local_name": "F3_calibration_consequences",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_consequences"
-        },
-        {
-          "local_name": "F3_calibration_forces_degree_inequality",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_forces_degree_inequality"
-        },
-        {
-          "local_name": "falling3_ge_6d",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.falling3_ge_6d"
-        },
-        {
-          "local_name": "nsum_falling3_ge",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_falling3_ge"
-        },
-        {
-          "local_name": "F3_calibration_obstruction_min_degree4",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_obstruction_min_degree4"
-        },
-        {
-          "local_name": "triangles_check",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.triangles_check"
-        },
-        {
-          "local_name": "normalized_check",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.normalized_check"
-        },
-        {
-          "local_name": "manifold_check",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.manifold_check"
-        },
-        {
-          "local_name": "nodup_check",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nodup_check"
-        },
-        {
-          "local_name": "om_well_formed",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.om_well_formed"
-        },
-        {
-          "local_name": "om_nodup",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.om_nodup"
-        },
-        {
-          "local_name": "F3_degree_route_insufficient",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_degree_route_insufficient"
-        },
-        {
-          "local_name": "F3_om_not_calibrated",
-          "kind": "Corollary",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_om_not_calibrated"
-        },
-        {
-          "local_name": "falling3_tangent",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.falling3_tangent"
-        },
-        {
-          "local_name": "nsum_falling3_tangent",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_falling3_tangent"
-        },
-        {
-          "local_name": "F3_calibration_forces_large_boundary",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_forces_large_boundary"
-        },
-        {
-          "local_name": "F3_calibration_obstruction_closed",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_obstruction_closed"
-        },
-        {
-          "local_name": "nsum_cons",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_cons"
-        },
-        {
-          "local_name": "nsum_nil",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_nil"
-        },
-        {
-          "local_name": "nsum_app",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_app"
-        },
-        {
-          "local_name": "nsum_ext_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_ext_in"
-        },
-        {
-          "local_name": "nsum_plus",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_plus"
-        },
-        {
-          "local_name": "nsum_scal",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_scal"
-        },
-        {
-          "local_name": "nsum_zero",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_zero"
-        },
-        {
-          "local_name": "nsum_swap",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_swap"
-        },
-        {
-          "local_name": "nsum_perm",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_perm"
-        },
-        {
-          "local_name": "nsum_filter",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_filter"
-        },
-        {
-          "local_name": "nsum_length",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_length"
-        },
-        {
-          "local_name": "nsum_const",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_const"
-        },
-        {
-          "local_name": "nsum_indicator_sub",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_indicator_sub"
-        },
-        {
-          "local_name": "length_filter_split",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.length_filter_split"
-        },
-        {
-          "local_name": "length_same_elements",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.length_same_elements"
-        },
-        {
-          "local_name": "double_count",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.double_count"
-        },
-        {
-          "local_name": "grown_root",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.grown_root"
-        },
-        {
-          "local_name": "grown_reach",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.grown_reach"
-        },
-        {
-          "local_name": "bfs_aux",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.bfs_aux"
-        },
-        {
-          "local_name": "bfs",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.bfs"
-        },
-        {
-          "local_name": "norm_edge_inv",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_inv"
-        },
-        {
-          "local_name": "norm_edge_lt",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_lt"
-        },
-        {
-          "local_name": "norm_edge_fst_snd",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_fst_snd"
-        },
-        {
-          "local_name": "norm_edge_swap_fst_snd",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_swap_fst_snd"
-        },
-        {
-          "local_name": "norm_edge_ends",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_ends"
-        },
-        {
-          "local_name": "grown_edges",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.grown_edges"
-        },
-        {
-          "local_name": "edge_eq_true",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.edge_eq_true"
-        },
-        {
-          "local_name": "list_mem_edge_iff",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.list_mem_edge_iff"
-        },
-        {
-          "local_name": "connected_edge_count",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.connected_edge_count"
-        },
-        {
-          "local_name": "cut_or_count",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.cut_or_count"
-        },
-        {
-          "local_name": "tri_ok_of_wf",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tri_ok_of_wf"
-        },
-        {
-          "local_name": "NoDup_app_disj",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.NoDup_app_disj"
-        },
-        {
-          "local_name": "collect_nodes_In",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.collect_nodes_In"
-        },
-        {
-          "local_name": "vertices_In",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.vertices_In"
-        },
-        {
-          "local_name": "vertices_NoDup",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.vertices_NoDup"
-        },
-        {
-          "local_name": "region_edges_inv",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_inv"
-        },
-        {
-          "local_name": "region_edges_inv_nodup",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_inv_nodup"
-        },
-        {
-          "local_name": "norm_edge_In_fst",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_In_fst"
-        },
-        {
-          "local_name": "norm_edge_In_snd",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_In_snd"
-        },
-        {
-          "local_name": "region_edges_iff",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_iff"
-        },
-        {
-          "local_name": "map_norm_nodup",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.map_norm_nodup"
-        },
-        {
-          "local_name": "region_edges_nodup",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_nodup"
-        },
-        {
-          "local_name": "region_edges_length3",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_length3"
-        },
-        {
-          "local_name": "collect_edges_iff",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.collect_edges_iff"
-        },
-        {
-          "local_name": "dedup_In_iff",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.dedup_In_iff"
-        },
-        {
-          "local_name": "dedup_NoDup",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.dedup_NoDup"
-        },
-        {
-          "local_name": "edges_In",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.edges_In"
-        },
-        {
-          "local_name": "edges_NoDup",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.edges_NoDup"
-        },
-        {
-          "local_name": "count_modules_with_edge_nsum",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.count_modules_with_edge_nsum"
-        },
-        {
-          "local_name": "count_incident_nsum",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.count_incident_nsum"
-        },
-        {
-          "local_name": "sum_degrees_nsum",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.sum_degrees_nsum"
-        },
-        {
-          "local_name": "count_boundary_filter",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.count_boundary_filter"
-        },
-        {
-          "local_name": "module_edges_props",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.module_edges_props"
-        },
-        {
-          "local_name": "degree_sum_general",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.degree_sum_general"
-        },
-        {
-          "local_name": "edge_sum_general",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.edge_sum_general"
-        },
-        {
-          "local_name": "nsum_one_two",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_one_two"
-        },
-        {
-          "local_name": "edges_faces_boundary",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.edges_faces_boundary"
-        },
-        {
-          "local_name": "cont_entry",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.cont_entry"
-        },
-        {
-          "local_name": "cont_true_entry",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.cont_true_entry"
-        },
-        {
-          "local_name": "ein_norm",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.ein_norm"
-        },
-        {
-          "local_name": "ein_entry",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.ein_entry"
-        },
-        {
-          "local_name": "ein_edges",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.ein_edges"
-        },
-        {
-          "local_name": "edges_ein",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.edges_ein"
-        },
-        {
-          "local_name": "ein_count2",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.ein_count2"
-        },
-        {
-          "local_name": "three_faces_ein",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.three_faces_ein"
-        },
-        {
-          "local_name": "share_edge_spec",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.share_edge_spec"
-        },
-        {
-          "local_name": "share_edge_intro",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.share_edge_intro"
-        },
-        {
-          "local_name": "third_vertex",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.third_vertex"
-        },
-        {
-          "local_name": "euler_inv",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.euler_inv"
-        },
-        {
-          "local_name": "nsum_even",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_even"
-        },
-        {
-          "local_name": "nsum_odd_one",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nsum_odd_one"
-        },
-        {
-          "local_name": "cross_three",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.cross_three"
-        },
-        {
-          "local_name": "euler_component",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.euler_component"
-        },
-        {
-          "local_name": "lookup_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.lookup_restrict"
-        },
-        {
-          "local_name": "ids_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.ids_restrict"
-        },
-        {
-          "local_name": "restrict_entry",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.restrict_entry"
-        },
-        {
-          "local_name": "cont_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.cont_restrict"
-        },
-        {
-          "local_name": "share_edge_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.share_edge_restrict"
-        },
-        {
-          "local_name": "tri_ok_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.tri_ok_restrict"
-        },
-        {
-          "local_name": "triangles_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.triangles_restrict"
-        },
-        {
-          "local_name": "normalized_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.normalized_restrict"
-        },
-        {
-          "local_name": "nodup_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nodup_restrict"
-        },
-        {
-          "local_name": "count_edge_filter_le",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.count_edge_filter_le"
-        },
-        {
-          "local_name": "count_edge_pos",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.count_edge_pos"
-        },
-        {
-          "local_name": "manifold_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.manifold_restrict"
-        },
-        {
-          "local_name": "q_In",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.q_In"
-        },
-        {
-          "local_name": "adj_closed",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.adj_closed"
-        },
-        {
-          "local_name": "adj_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.adj_restrict"
-        },
-        {
-          "local_name": "filter_filter_drop",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.filter_filter_drop"
-        },
-        {
-          "local_name": "neighbors_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.neighbors_restrict"
-        },
-        {
-          "local_name": "neighbors_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.neighbors_in"
-        },
-        {
-          "local_name": "flat_map_ext_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.flat_map_ext_in"
-        },
-        {
-          "local_name": "triangles_restrict_eq",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.triangles_restrict_eq"
-        },
-        {
-          "local_name": "triangles_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.triangles_in"
-        },
-        {
-          "local_name": "mass_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.mass_restrict"
-        },
-        {
-          "local_name": "dist_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.dist_restrict"
-        },
-        {
-          "local_name": "angle_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.angle_restrict"
-        },
-        {
-          "local_name": "sum_angles_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_restrict"
-        },
-        {
-          "local_name": "density_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.density_restrict"
-        },
-        {
-          "local_name": "fold_left_ext_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.fold_left_ext_in"
-        },
-        {
-          "local_name": "laplacian_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.laplacian_restrict"
-        },
-        {
-          "local_name": "residual_restrict",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.residual_restrict"
-        },
-        {
-          "local_name": "link_chain",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.link_chain"
-        },
-        {
-          "local_name": "nat_list_disjoint_false",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.nat_list_disjoint_false"
-        },
-        {
-          "local_name": "adj_common_vertex",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.adj_common_vertex"
-        },
-        {
-          "local_name": "other_vertex",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.other_vertex"
-        },
-        {
-          "local_name": "adj_share_closure",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.adj_share_closure"
-        },
-        {
-          "local_name": "window_nat",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.window_nat"
-        },
-        {
-          "local_name": "component_inequality",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.component_inequality"
-        },
-        {
-          "local_name": "restrict_graph_ext_in",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.restrict_graph_ext_in"
-        },
-        {
-          "local_name": "restrict_graph_true",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.restrict_graph_true"
-        },
-        {
-          "local_name": "restrict_empty",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.restrict_empty"
-        },
-        {
-          "local_name": "count_edge_union",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.count_edge_union"
-        },
-        {
-          "local_name": "count_edge_zero",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.count_edge_zero"
-        },
-        {
-          "local_name": "length_filter_union",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.length_filter_union"
-        },
-        {
-          "local_name": "restrict_union",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.restrict_union"
-        },
-        {
-          "local_name": "length_filter_and",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.length_filter_and"
-        },
-        {
-          "local_name": "components_sum",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.components_sum"
-        },
-        {
-          "local_name": "F3_calibration_obstruction",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_obstruction"
-        },
-        {
-          "local_name": "link_edge_b_sound",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.link_edge_b_sound"
-        },
-        {
-          "local_name": "link_vertex_b_complete",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.link_vertex_b_complete"
-        },
-        {
-          "local_name": "link_reach_sound",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.link_reach_sound"
-        },
-        {
-          "local_name": "links_connected_check",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.links_connected_check"
-        },
-        {
-          "local_name": "om_links_connected",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_CalibrationObstruction.om_links_connected"
-        },
-        {
-          "local_name": "F3_obstruction_hypotheses_satisfiable",
-          "kind": "Corollary",
-          "full_name": "Kernel.F3_CalibrationObstruction.F3_obstruction_hypotheses_satisfiable"
-        }
-      ],
-      "unaddressable": []
-    },
-    {
-      "file": "coq/kernel/frontier/F3_CrossLink.v",
-      "qualified_module": "Kernel.F3_CrossLink",
+      "file": "coq/kernel/frontier/LassertTsirelsonCrossLink.v",
+      "qualified_module": "Kernel.LassertTsirelsonCrossLink",
       "addressable_count": 8,
       "unaddressable_count": 0,
       "addressable": [
         {
           "local_name": "cost_q_lassert_ge_flen",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_CrossLink.cost_q_lassert_ge_flen"
+          "full_name": "Kernel.LassertTsirelsonCrossLink.cost_q_lassert_ge_flen"
         },
         {
           "local_name": "lassert_flen_q_positive",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_CrossLink.lassert_flen_q_positive"
+          "full_name": "Kernel.LassertTsirelsonCrossLink.lassert_flen_q_positive"
         },
         {
-          "local_name": "F3_cross_link_lassert_tsirelson",
+          "local_name": "lassert_cost_bounds_coherent_chsh_square",
           "kind": "Theorem",
-          "full_name": "Kernel.F3_CrossLink.F3_cross_link_lassert_tsirelson"
+          "full_name": "Kernel.LassertTsirelsonCrossLink.lassert_cost_bounds_coherent_chsh_square"
         },
         {
           "local_name": "example_lassert_flen_q_value_at_8",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_CrossLink.example_lassert_flen_q_value_at_8"
+          "full_name": "Kernel.LassertTsirelsonCrossLink.example_lassert_flen_q_value_at_8"
         },
         {
           "local_name": "example_lassert_min_cost_at_8",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_CrossLink.example_lassert_min_cost_at_8"
+          "full_name": "Kernel.LassertTsirelsonCrossLink.example_lassert_min_cost_at_8"
         },
         {
-          "local_name": "example_F3_bound_at_flen_8",
+          "local_name": "lassert_chsh_square_bound_at_flen_8",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_CrossLink.example_F3_bound_at_flen_8"
+          "full_name": "Kernel.LassertTsirelsonCrossLink.lassert_chsh_square_bound_at_flen_8"
         },
         {
-          "local_name": "F3_adversarial_drop_tsirelson",
+          "local_name": "lassert_min_cost_below_pr_box_square_bound",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_CrossLink.F3_adversarial_drop_tsirelson"
+          "full_name": "Kernel.LassertTsirelsonCrossLink.lassert_min_cost_below_pr_box_square_bound"
         },
         {
-          "local_name": "F3_adversarial_drop_lassert",
+          "local_name": "tsirelson_correlator_positive_flen_term",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_CrossLink.F3_adversarial_drop_lassert"
+          "full_name": "Kernel.LassertTsirelsonCrossLink.tsirelson_correlator_positive_flen_term"
         }
       ],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/frontier/F3_MuLaplacianSum.v",
-      "qualified_module": "Kernel.F3_MuLaplacianSum",
+      "file": "coq/kernel/frontier/LassertTsirelsonHierarchyCrossLink.v",
+      "qualified_module": "Kernel.LassertTsirelsonHierarchyCrossLink",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "lassert_hierarchy_cost_bounds_coherent_chsh_square",
+          "kind": "Theorem",
+          "full_name": "Kernel.LassertTsirelsonHierarchyCrossLink.lassert_hierarchy_cost_bounds_coherent_chsh_square"
+        },
+        {
+          "local_name": "lassert_hierarchy_bound_specialises_to_lassert_bound",
+          "kind": "Corollary",
+          "full_name": "Kernel.LassertTsirelsonHierarchyCrossLink.lassert_hierarchy_bound_specialises_to_lassert_bound"
+        },
+        {
+          "local_name": "hierarchy_floor_bounds_coherent_chsh_square",
+          "kind": "Lemma",
+          "full_name": "Kernel.LassertTsirelsonHierarchyCrossLink.hierarchy_floor_bounds_coherent_chsh_square"
+        },
+        {
+          "local_name": "hierarchy_floor_below_pr_box_square_bound",
+          "kind": "Lemma",
+          "full_name": "Kernel.LassertTsirelsonHierarchyCrossLink.hierarchy_floor_below_pr_box_square_bound"
+        },
+        {
+          "local_name": "lassert_hierarchy_min_cost_below_pr_box_square_bound",
+          "kind": "Lemma",
+          "full_name": "Kernel.LassertTsirelsonHierarchyCrossLink.lassert_hierarchy_min_cost_below_pr_box_square_bound"
+        },
+        {
+          "local_name": "lassert_hierarchy_bound_values_at_flen_8_k_2",
+          "kind": "Lemma",
+          "full_name": "Kernel.LassertTsirelsonHierarchyCrossLink.lassert_hierarchy_bound_values_at_flen_8_k_2"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/frontier/LogicalErasureCertFlip.v",
+      "qualified_module": "Kernel.LogicalErasureCertFlip",
+      "addressable_count": 4,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "cert_flip_collapses_cert_classes",
+          "kind": "Lemma",
+          "full_name": "Kernel.LogicalErasureCertFlip.cert_flip_collapses_cert_classes"
+        },
+        {
+          "local_name": "thiele_cost_law_satisfies_landauer_for_cert",
+          "kind": "Lemma",
+          "full_name": "Kernel.LogicalErasureCertFlip.thiele_cost_law_satisfies_landauer_for_cert"
+        },
+        {
+          "local_name": "A2_from_physical_reversibility_real",
+          "kind": "Theorem",
+          "full_name": "Kernel.LogicalErasureCertFlip.A2_from_physical_reversibility_real"
+        },
+        {
+          "local_name": "A2_consistency_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.LogicalErasureCertFlip.A2_consistency_check"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/frontier/MuLaplacianSum.v",
+      "qualified_module": "Kernel.MuLaplacianSum",
       "addressable_count": 26,
       "unaddressable_count": 0,
       "addressable": [
         {
           "local_name": "nat_list_mem_existsb",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.nat_list_mem_existsb"
+          "full_name": "Kernel.MuLaplacianSum.nat_list_mem_existsb"
         },
         {
           "local_name": "nat_list_mem_In",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.nat_list_mem_In"
+          "full_name": "Kernel.MuLaplacianSum.nat_list_mem_In"
         },
         {
           "local_name": "nat_list_disjoint_sym",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.nat_list_disjoint_sym"
+          "full_name": "Kernel.MuLaplacianSum.nat_list_disjoint_sym"
         },
         {
           "local_name": "modules_adjacent_by_region_sym",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.modules_adjacent_by_region_sym"
+          "full_name": "Kernel.MuLaplacianSum.modules_adjacent_by_region_sym"
         },
         {
           "local_name": "edge_weight_sym",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.edge_weight_sym"
+          "full_name": "Kernel.MuLaplacianSum.edge_weight_sym"
         },
         {
           "local_name": "mu_gradient_antisym",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.mu_gradient_antisym"
+          "full_name": "Kernel.MuLaplacianSum.mu_gradient_antisym"
         },
         {
           "local_name": "pair_contribution_swap",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.pair_contribution_swap"
+          "full_name": "Kernel.MuLaplacianSum.pair_contribution_swap"
         },
         {
           "local_name": "pair_contribution_self",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.pair_contribution_self"
+          "full_name": "Kernel.MuLaplacianSum.pair_contribution_self"
         },
         {
           "local_name": "sum_pair_inner_nil",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_inner_nil"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_inner_nil"
         },
         {
           "local_name": "sum_pair_inner_cons",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_inner_cons"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_inner_cons"
         },
         {
           "local_name": "pair_contribution_zero_when_not_adjacent",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.pair_contribution_zero_when_not_adjacent"
+          "full_name": "Kernel.MuLaplacianSum.pair_contribution_zero_when_not_adjacent"
         },
         {
           "local_name": "pair_contribution_when_self",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.pair_contribution_when_self"
+          "full_name": "Kernel.MuLaplacianSum.pair_contribution_when_self"
         },
         {
           "local_name": "sum_pair_inner_filter_neighbors",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_inner_filter_neighbors"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_inner_filter_neighbors"
         },
         {
           "local_name": "fold_left_pair_contribution_to_fold_right",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.fold_left_pair_contribution_to_fold_right"
+          "full_name": "Kernel.MuLaplacianSum.fold_left_pair_contribution_to_fold_right"
         },
         {
           "local_name": "mu_laplacian_as_sum_pair_inner",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.mu_laplacian_as_sum_pair_inner"
+          "full_name": "Kernel.MuLaplacianSum.mu_laplacian_as_sum_pair_inner"
         },
         {
           "local_name": "mu_laplacian_as_sum_pair_inner_all",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.mu_laplacian_as_sum_pair_inner_all"
+          "full_name": "Kernel.MuLaplacianSum.mu_laplacian_as_sum_pair_inner_all"
         },
         {
           "local_name": "sum_pair_outer_nil_l",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_outer_nil_l"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_outer_nil_l"
         },
         {
           "local_name": "sum_pair_outer_cons_l",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_outer_cons_l"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_outer_cons_l"
         },
         {
           "local_name": "sum_pair_inner_app",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_inner_app"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_inner_app"
         },
         {
           "local_name": "fold_right_Rplus_app",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.fold_right_Rplus_app"
+          "full_name": "Kernel.MuLaplacianSum.fold_right_Rplus_app"
         },
         {
           "local_name": "sum_pair_outer_swap",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_outer_swap"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_outer_swap"
         },
         {
           "local_name": "sum_pair_outer_self_swap",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_outer_self_swap"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_outer_self_swap"
         },
         {
           "local_name": "sum_pair_inner_antisym_var",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_inner_antisym_var"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_inner_antisym_var"
         },
         {
           "local_name": "sum_pair_outer_swap_neg",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_outer_swap_neg"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_outer_swap_neg"
         },
         {
           "local_name": "sum_pair_outer_self_zero",
           "kind": "Theorem",
-          "full_name": "Kernel.F3_MuLaplacianSum.sum_pair_outer_self_zero"
+          "full_name": "Kernel.MuLaplacianSum.sum_pair_outer_self_zero"
         },
         {
           "local_name": "total_mu_laplacian_zero",
           "kind": "Theorem",
-          "full_name": "Kernel.F3_MuLaplacianSum.total_mu_laplacian_zero"
+          "full_name": "Kernel.MuLaplacianSum.total_mu_laplacian_zero"
         }
       ],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/frontier/F3_PartitionTopologyCrossLink.v",
-      "qualified_module": "Kernel.F3_PartitionTopologyCrossLink",
-      "addressable_count": 6,
+      "file": "coq/kernel/frontier/NPAMinorsFromWitnessLocality.v",
+      "qualified_module": "Kernel.NPAMinorsFromWitnessLocality",
+      "addressable_count": 14,
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "strong_bridge_counterexample",
+          "local_name": "q_sign_eq_squared",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_PartitionTopologyCrossLink.strong_bridge_counterexample"
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.q_sign_eq_squared"
         },
         {
-          "local_name": "calibration_pointwise",
+          "local_name": "correlator_from_local_strategy_00",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_PartitionTopologyCrossLink.calibration_pointwise"
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.correlator_from_local_strategy_00"
         },
         {
-          "local_name": "sum_geometric_angle_defect_eq_pi_sum_mu_laplacian",
+          "local_name": "correlator_from_local_strategy_01",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_PartitionTopologyCrossLink.sum_geometric_angle_defect_eq_pi_sum_mu_laplacian"
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.correlator_from_local_strategy_01"
         },
         {
-          "local_name": "F3_partition_topology_mu_cross_link",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_PartitionTopologyCrossLink.F3_partition_topology_mu_cross_link"
+          "local_name": "correlator_from_local_strategy_10",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.correlator_from_local_strategy_10"
         },
         {
-          "local_name": "unit_residual_is_nonzero",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_PartitionTopologyCrossLink.unit_residual_is_nonzero"
+          "local_name": "correlator_from_local_strategy_11",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.correlator_from_local_strategy_11"
         },
         {
-          "local_name": "pi_times_unit_is_nonzero",
+          "local_name": "local_strategy_t_E00_E10_eq_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.local_strategy_t_E00_E10_eq_one"
+        },
+        {
+          "local_name": "local_strategy_t_E01_E11_eq_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.local_strategy_t_E01_E11_eq_one"
+        },
+        {
+          "local_name": "local_strategy_s_E00_E01_eq_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.local_strategy_s_E00_E01_eq_one"
+        },
+        {
+          "local_name": "local_strategy_s_E10_E11_eq_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.local_strategy_s_E10_E11_eq_one"
+        },
+        {
+          "local_name": "minor_vanishes_local_strategy",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.minor_vanishes_local_strategy"
+        },
+        {
+          "local_name": "minor_3x3_proper",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.minor_3x3_proper"
+        },
+        {
+          "local_name": "correlator_from_counts_abs_le_1",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.correlator_from_counts_abs_le_1"
+        },
+        {
+          "local_name": "WCLocallyConsistent_implies_algebraically_coherent",
           "kind": "Theorem",
-          "full_name": "Kernel.F3_PartitionTopologyCrossLink.pi_times_unit_is_nonzero"
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.WCLocallyConsistent_implies_algebraically_coherent"
+        },
+        {
+          "local_name": "WCLocallyConsistent_implies_tsirelson",
+          "kind": "Theorem",
+          "full_name": "Kernel.NPAMinorsFromWitnessLocality.WCLocallyConsistent_implies_tsirelson"
         }
       ],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/frontier/F3_PlusOneStructural.v",
-      "qualified_module": "Kernel.F3_PlusOneStructural",
-      "addressable_count": 3,
+      "file": "coq/kernel/frontier/NPAMinorsIndependentOfCost.v",
+      "qualified_module": "Kernel.NPAMinorsIndependentOfCost",
+      "addressable_count": 9,
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "F3_plus_one_renaming_unification",
+          "local_name": "pr_box_state_mu_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsIndependentOfCost.pr_box_state_mu_zero"
+        },
+        {
+          "local_name": "pr_box_state_certified_false",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsIndependentOfCost.pr_box_state_certified_false"
+        },
+        {
+          "local_name": "pr_box_state_witness_counts",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsIndependentOfCost.pr_box_state_witness_counts"
+        },
+        {
+          "local_name": "pr_box_correlators_eq_max_trace",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsIndependentOfCost.pr_box_correlators_eq_max_trace"
+        },
+        {
+          "local_name": "pr_box_correlators_match_max_trace_q",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsIndependentOfCost.pr_box_correlators_match_max_trace_q"
+        },
+        {
+          "local_name": "algebraically_coherent_proper",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsIndependentOfCost.algebraically_coherent_proper"
+        },
+        {
+          "local_name": "pr_box_correlators_not_coherent",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAMinorsIndependentOfCost.pr_box_correlators_not_coherent"
+        },
+        {
+          "local_name": "cost_axioms_do_not_entail_algebraic_coherence",
           "kind": "Theorem",
-          "full_name": "Kernel.F3_PlusOneStructural.F3_plus_one_renaming_unification"
+          "full_name": "Kernel.NPAMinorsIndependentOfCost.cost_axioms_do_not_entail_algebraic_coherence"
         },
         {
-          "local_name": "F3_plus_one_substantive_unification_attempt",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_PlusOneStructural.F3_plus_one_substantive_unification_attempt"
-        },
-        {
-          "local_name": "triangle_angle_plus_one_correction_decays",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_PlusOneStructural.triangle_angle_plus_one_correction_decays"
+          "local_name": "pr_box_state_cost_axioms_do_not_force_coherence",
+          "kind": "Theorem",
+          "full_name": "Kernel.NPAMinorsIndependentOfCost.pr_box_state_cost_axioms_do_not_force_coherence"
         }
       ],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/frontier/F3_ReachableGeometry.v",
-      "qualified_module": "Kernel.F3_ReachableGeometry",
-      "addressable_count": 22,
+      "file": "coq/kernel/frontier/NPAPerMinorFromCostCoherence.v",
+      "qualified_module": "Kernel.NPAPerMinorFromCostCoherence",
+      "addressable_count": 8,
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "vm_reachable_regions_separate",
+          "local_name": "max_trace_cost_coherent",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAPerMinorFromCostCoherence.max_trace_cost_coherent"
+        },
+        {
+          "local_name": "minor_3x3_at_product",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAPerMinorFromCostCoherence.minor_3x3_at_product"
+        },
+        {
+          "local_name": "sq_le_1_of_abs_le_1",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAPerMinorFromCostCoherence.sq_le_1_of_abs_le_1"
+        },
+        {
+          "local_name": "one_minus_sq_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAPerMinorFromCostCoherence.one_minus_sq_nonneg"
+        },
+        {
+          "local_name": "minor_nonneg_at_product",
+          "kind": "Lemma",
+          "full_name": "Kernel.NPAPerMinorFromCostCoherence.minor_nonneg_at_product"
+        },
+        {
+          "local_name": "cost_coherent_implies_per_minor_nonneg",
           "kind": "Theorem",
-          "full_name": "Kernel.F3_ReachableGeometry.vm_reachable_regions_separate"
+          "full_name": "Kernel.NPAPerMinorFromCostCoherence.cost_coherent_implies_per_minor_nonneg"
         },
         {
-          "local_name": "init_reachable_regions_separate",
-          "kind": "Corollary",
-          "full_name": "Kernel.F3_ReachableGeometry.init_reachable_regions_separate"
-        },
-        {
-          "local_name": "separate_entries_disjoint",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.separate_entries_disjoint"
-        },
-        {
-          "local_name": "separate_not_adjacent",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.separate_not_adjacent"
-        },
-        {
-          "local_name": "filter_all_false",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.filter_all_false"
-        },
-        {
-          "local_name": "separate_no_neighbors",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.separate_no_neighbors"
-        },
-        {
-          "local_name": "separate_no_module_triangles",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.separate_no_module_triangles"
-        },
-        {
-          "local_name": "separate_face_tri_false",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.separate_face_tri_false"
-        },
-        {
-          "local_name": "nsum_zero",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.nsum_zero"
-        },
-        {
-          "local_name": "separate_face_triangle_count",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.separate_face_triangle_count"
-        },
-        {
-          "local_name": "reachable_no_adjacent_modules",
+          "local_name": "per_minor_strictly_weaker_than_algebraic_coherence",
           "kind": "Theorem",
-          "full_name": "Kernel.F3_ReachableGeometry.reachable_no_adjacent_modules"
+          "full_name": "Kernel.NPAPerMinorFromCostCoherence.per_minor_strictly_weaker_than_algebraic_coherence"
         },
         {
-          "local_name": "separate_flat_reading",
+          "local_name": "pr_box_minor_2_fails_at_minor_1_witness",
           "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.separate_flat_reading"
-        },
-        {
-          "local_name": "reachable_flat_reading",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_ReachableGeometry.reachable_flat_reading"
-        },
-        {
-          "local_name": "reachable_calibrated_iff_no_modules",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_ReachableGeometry.reachable_calibrated_iff_no_modules"
-        },
-        {
-          "local_name": "edge_in_region_edges",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.edge_in_region_edges"
-        },
-        {
-          "local_name": "count_edge_absent",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.count_edge_absent"
-        },
-        {
-          "local_name": "disjoint_count_le_1",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.disjoint_count_le_1"
-        },
-        {
-          "local_name": "count_interior_edges_zero",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.count_interior_edges_zero"
-        },
-        {
-          "local_name": "separate_triangulated_isolated",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.separate_triangulated_isolated"
-        },
-        {
-          "local_name": "reachable_triangulated_isolated",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_ReachableGeometry.reachable_triangulated_isolated"
-        },
-        {
-          "local_name": "one_triangle_graph",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_ReachableGeometry.one_triangle_graph"
-        },
-        {
-          "local_name": "reachable_triangulated_exists",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_ReachableGeometry.reachable_triangulated_exists"
-        }
-      ],
-      "unaddressable": []
-    },
-    {
-      "file": "coq/kernel/frontier/F3_TripleCrossLink.v",
-      "qualified_module": "Kernel.F3_TripleCrossLink",
-      "addressable_count": 6,
-      "unaddressable_count": 0,
-      "addressable": [
-        {
-          "local_name": "F3_triple_cross_link",
-          "kind": "Theorem",
-          "full_name": "Kernel.F3_TripleCrossLink.F3_triple_cross_link"
-        },
-        {
-          "local_name": "F3_triple_specialises_to_F3_R1",
-          "kind": "Corollary",
-          "full_name": "Kernel.F3_TripleCrossLink.F3_triple_specialises_to_F3_R1"
-        },
-        {
-          "local_name": "F3_triple_drop_lassert_at_k_pos_with_tsirelson",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_at_k_pos_with_tsirelson"
-        },
-        {
-          "local_name": "F3_triple_drop_lassert_fails_without_tsirelson",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_fails_without_tsirelson"
-        },
-        {
-          "local_name": "F3_triple_adversarial_drop_tsirelson",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_TripleCrossLink.F3_triple_adversarial_drop_tsirelson"
-        },
-        {
-          "local_name": "F3_triple_worked_example_pin",
-          "kind": "Lemma",
-          "full_name": "Kernel.F3_TripleCrossLink.F3_triple_worked_example_pin"
+          "full_name": "Kernel.NPAPerMinorFromCostCoherence.pr_box_minor_2_fails_at_minor_1_witness"
         }
       ],
       "unaddressable": []
@@ -64000,6 +63870,45 @@
           "local_name": "zero_cost_vm_jump_has_injective_history_lift",
           "kind": "Theorem",
           "full_name": "Kernel.ObservationPolicy.zero_cost_vm_jump_has_injective_history_lift"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/frontier/PartitionTopologyCrossLink.v",
+      "qualified_module": "Kernel.PartitionTopologyCrossLink",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "strong_bridge_counterexample",
+          "kind": "Lemma",
+          "full_name": "Kernel.PartitionTopologyCrossLink.strong_bridge_counterexample"
+        },
+        {
+          "local_name": "calibration_pointwise",
+          "kind": "Lemma",
+          "full_name": "Kernel.PartitionTopologyCrossLink.calibration_pointwise"
+        },
+        {
+          "local_name": "sum_geometric_angle_defect_eq_pi_sum_mu_laplacian",
+          "kind": "Lemma",
+          "full_name": "Kernel.PartitionTopologyCrossLink.sum_geometric_angle_defect_eq_pi_sum_mu_laplacian"
+        },
+        {
+          "local_name": "calibrated_total_angle_defect_zero",
+          "kind": "Theorem",
+          "full_name": "Kernel.PartitionTopologyCrossLink.calibrated_total_angle_defect_zero"
+        },
+        {
+          "local_name": "unit_residual_is_nonzero",
+          "kind": "Theorem",
+          "full_name": "Kernel.PartitionTopologyCrossLink.unit_residual_is_nonzero"
+        },
+        {
+          "local_name": "pi_times_unit_is_nonzero",
+          "kind": "Theorem",
+          "full_name": "Kernel.PartitionTopologyCrossLink.pi_times_unit_is_nonzero"
         }
       ],
       "unaddressable": []
@@ -64127,6 +64036,125 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/frontier/ReachableGeometry.v",
+      "qualified_module": "Kernel.ReachableGeometry",
+      "addressable_count": 22,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "vm_reachable_regions_separate",
+          "kind": "Theorem",
+          "full_name": "Kernel.ReachableGeometry.vm_reachable_regions_separate"
+        },
+        {
+          "local_name": "init_reachable_regions_separate",
+          "kind": "Corollary",
+          "full_name": "Kernel.ReachableGeometry.init_reachable_regions_separate"
+        },
+        {
+          "local_name": "separate_entries_disjoint",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.separate_entries_disjoint"
+        },
+        {
+          "local_name": "separate_not_adjacent",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.separate_not_adjacent"
+        },
+        {
+          "local_name": "filter_all_false",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.filter_all_false"
+        },
+        {
+          "local_name": "separate_no_neighbors",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.separate_no_neighbors"
+        },
+        {
+          "local_name": "separate_no_module_triangles",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.separate_no_module_triangles"
+        },
+        {
+          "local_name": "separate_face_tri_false",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.separate_face_tri_false"
+        },
+        {
+          "local_name": "nsum_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.nsum_zero"
+        },
+        {
+          "local_name": "separate_face_triangle_count",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.separate_face_triangle_count"
+        },
+        {
+          "local_name": "reachable_no_adjacent_modules",
+          "kind": "Theorem",
+          "full_name": "Kernel.ReachableGeometry.reachable_no_adjacent_modules"
+        },
+        {
+          "local_name": "separate_flat_reading",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.separate_flat_reading"
+        },
+        {
+          "local_name": "reachable_flat_reading",
+          "kind": "Theorem",
+          "full_name": "Kernel.ReachableGeometry.reachable_flat_reading"
+        },
+        {
+          "local_name": "reachable_calibrated_iff_no_modules",
+          "kind": "Theorem",
+          "full_name": "Kernel.ReachableGeometry.reachable_calibrated_iff_no_modules"
+        },
+        {
+          "local_name": "edge_in_region_edges",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.edge_in_region_edges"
+        },
+        {
+          "local_name": "count_edge_absent",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.count_edge_absent"
+        },
+        {
+          "local_name": "disjoint_count_le_1",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.disjoint_count_le_1"
+        },
+        {
+          "local_name": "count_interior_edges_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.count_interior_edges_zero"
+        },
+        {
+          "local_name": "separate_triangulated_isolated",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.separate_triangulated_isolated"
+        },
+        {
+          "local_name": "reachable_triangulated_isolated",
+          "kind": "Theorem",
+          "full_name": "Kernel.ReachableGeometry.reachable_triangulated_isolated"
+        },
+        {
+          "local_name": "one_triangle_graph",
+          "kind": "Lemma",
+          "full_name": "Kernel.ReachableGeometry.one_triangle_graph"
+        },
+        {
+          "local_name": "reachable_triangulated_exists",
+          "kind": "Theorem",
+          "full_name": "Kernel.ReachableGeometry.reachable_triangulated_exists"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/frontier/RecordProliferationSurvey.v",
       "qualified_module": "Kernel.RecordProliferationSurvey",
       "addressable_count": 3,
@@ -64213,6 +64241,25 @@
           "local_name": "certification_agreement_does_not_imply_descent",
           "kind": "Theorem",
           "full_name": "Kernel.TraceStateDescent.certification_agreement_does_not_imply_descent"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/frontier/TriangleAnglePlusOne.v",
+      "qualified_module": "Kernel.TriangleAnglePlusOne",
+      "addressable_count": 2,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "instr_certify_cost_is_successor",
+          "kind": "Theorem",
+          "full_name": "Kernel.TriangleAnglePlusOne.instr_certify_cost_is_successor"
+        },
+        {
+          "local_name": "triangle_angle_plus_one_correction_decays",
+          "kind": "Lemma",
+          "full_name": "Kernel.TriangleAnglePlusOne.triangle_angle_plus_one_correction_decays"
         }
       ],
       "unaddressable": []
@@ -66323,9 +66370,9 @@
           "full_name": "Kernel.EventGenericAudit.evidence_nfi_by_potential"
         },
         {
-          "local_name": "evidence_F1_strong_form_universal",
+          "local_name": "evidence_collapse_step_cost_from_calibrated_dissipation",
           "kind": "Lemma",
-          "full_name": "Kernel.EventGenericAudit.evidence_F1_strong_form_universal"
+          "full_name": "Kernel.EventGenericAudit.evidence_collapse_step_cost_from_calibrated_dissipation"
         },
         {
           "local_name": "evidence_gas_schedule_exactness",
@@ -70527,7 +70574,7 @@
     {
       "file": "coq/kernel/quantum/CHSHExtraction.v",
       "qualified_module": "Kernel.CHSHExtraction",
-      "addressable_count": 14,
+      "addressable_count": 13,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -70594,11 +70641,6 @@
           "local_name": "chsh_algebraic_bound",
           "kind": "Lemma",
           "full_name": "Kernel.CHSHExtraction.chsh_algebraic_bound"
-        },
-        {
-          "local_name": "chsh_local_bound",
-          "kind": "Lemma",
-          "full_name": "Kernel.CHSHExtraction.chsh_local_bound"
         }
       ],
       "unaddressable": []
@@ -72869,7 +72911,7 @@
     {
       "file": "coq/kernel/quantum/TsirelsonQuantumModel.v",
       "qualified_module": "Kernel.TsirelsonQuantumModel",
-      "addressable_count": 12,
+      "addressable_count": 10,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -72913,24 +72955,14 @@
           "full_name": "Kernel.TsirelsonQuantumModel.trace_npa_model_connection_closed"
         },
         {
-          "local_name": "c4_direct_tsirelson_from_npa_psd",
+          "local_name": "tsirelson_square_from_npa_psd",
           "kind": "Theorem",
-          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_npa_psd"
+          "full_name": "Kernel.TsirelsonQuantumModel.tsirelson_square_from_npa_psd"
         },
         {
-          "local_name": "c4_direct_tsirelson_abs_from_npa_psd",
+          "local_name": "tsirelson_abs_from_npa_psd",
           "kind": "Theorem",
-          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_npa_psd"
-        },
-        {
-          "local_name": "c4_direct_tsirelson_from_npa_psd_invariant",
-          "kind": "Lemma",
-          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_npa_psd_invariant"
-        },
-        {
-          "local_name": "c4_direct_tsirelson_abs_from_npa_psd_invariant",
-          "kind": "Lemma",
-          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_npa_psd_invariant"
+          "full_name": "Kernel.TsirelsonQuantumModel.tsirelson_abs_from_npa_psd"
         }
       ],
       "unaddressable": []
@@ -74459,7 +74491,7 @@
     {
       "file": "coq/kernel/thermodynamic/ThermoEinsteinBridge.v",
       "qualified_module": "Kernel.ThermoEinsteinBridge",
-      "addressable_count": 9,
+      "addressable_count": 6,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -74483,29 +74515,14 @@
           "full_name": "Kernel.ThermoEinsteinBridge.thermodynamic_locality_toward_discrete_einstein_emergence"
         },
         {
-          "local_name": "discrete_einstein_emergence_from_mass_focusing",
+          "local_name": "clausius_structural_mass_axiom_statement_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.ThermoEinsteinBridge.clausius_structural_mass_axiom_statement_iff"
+        },
+        {
+          "local_name": "einstein_4d_successor_diag_from_positive_mass",
           "kind": "Theorem",
-          "full_name": "Kernel.ThermoEinsteinBridge.discrete_einstein_emergence_from_mass_focusing"
-        },
-        {
-          "local_name": "clausius_load_bearing_einstein_4d",
-          "kind": "Theorem",
-          "full_name": "Kernel.ThermoEinsteinBridge.clausius_load_bearing_einstein_4d"
-        },
-        {
-          "local_name": "thermodynamic_einstein_full_chain_4d",
-          "kind": "Theorem",
-          "full_name": "Kernel.ThermoEinsteinBridge.thermodynamic_einstein_full_chain_4d"
-        },
-        {
-          "local_name": "positive_mass_implies_clausius_witnesses_4d",
-          "kind": "Corollary",
-          "full_name": "Kernel.ThermoEinsteinBridge.positive_mass_implies_clausius_witnesses_4d"
-        },
-        {
-          "local_name": "direct_mass_load_bearing_einstein_4d",
-          "kind": "Corollary",
-          "full_name": "Kernel.ThermoEinsteinBridge.direct_mass_load_bearing_einstein_4d"
+          "full_name": "Kernel.ThermoEinsteinBridge.einstein_4d_successor_diag_from_positive_mass"
         }
       ],
       "unaddressable": []
@@ -74611,7 +74628,7 @@
     {
       "file": "coq/kernel/witness/InformationTopology.v",
       "qualified_module": "Kernel.InformationTopology",
-      "addressable_count": 12,
+      "addressable_count": 11,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -74648,11 +74665,6 @@
           "local_name": "mu_distance_le_single_trace_triangle",
           "kind": "Lemma",
           "full_name": "Kernel.InformationTopology.mu_distance_le_single_trace_triangle"
-        },
-        {
-          "local_name": "sighted_is_mu_geodesic_at_N1",
-          "kind": "Theorem",
-          "full_name": "Kernel.InformationTopology.sighted_is_mu_geodesic_at_N1"
         },
         {
           "local_name": "blind_is_mu_zero",
@@ -76230,9 +76242,9 @@
           "full_name": "Tests.ClaimBoundaryRegression.zero_cost_jump_collapses_pc_class"
         },
         {
-          "local_name": "full_vm_f1_premises_incompatible",
+          "local_name": "full_vm_landauer_dissipation_premises_inconsistent",
           "kind": "Theorem",
-          "full_name": "Tests.ClaimBoundaryRegression.full_vm_f1_premises_incompatible"
+          "full_name": "Tests.ClaimBoundaryRegression.full_vm_landauer_dissipation_premises_inconsistent"
         },
         {
           "local_name": "zero_cost_partition_changes_structure",
@@ -76245,7 +76257,7 @@
     {
       "file": "coq/tests/CloseoutVerification.v",
       "qualified_module": "Tests.CloseoutVerification",
-      "addressable_count": 3,
+      "addressable_count": 2,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -76254,14 +76266,9 @@
           "full_name": "Tests.CloseoutVerification.closeout_zero_gaps"
         },
         {
-          "local_name": "closeout_47_opcodes",
+          "local_name": "closeout_opcode_coverage",
           "kind": "Theorem",
-          "full_name": "Tests.CloseoutVerification.closeout_47_opcodes"
-        },
-        {
-          "local_name": "closeout_extraction_identity",
-          "kind": "Theorem",
-          "full_name": "Tests.CloseoutVerification.closeout_extraction_identity"
+          "full_name": "Tests.CloseoutVerification.closeout_opcode_coverage"
         }
       ],
       "unaddressable": []

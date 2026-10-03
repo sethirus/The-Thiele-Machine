@@ -1,4 +1,4 @@
-DIGEST 81e4e20b3ca480242835e0cf8ca8f44f
+DIGEST 449e62ba87fef540d855f49b01d61fa3
 FKernel.VMUnboundedMinskyEncoding
 R100:104 Coq.Arith.Arith <> <> lib
 R106:108 Coq.micromega.Lia <> <> lib
@@ -465,79 +465,79 @@ R6015:6022 Coq.NArith.Nnat N2Nat id thm
 R6035:6071 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_fetch_N_outside thm
 R6035:6071 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_fetch_N_outside thm
 R6035:6071 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_fetch_N_outside thm
-def 6255:6275 <> minsky_input_encoding
-R6288:6294 Kernel.VMState <> VMState rec
-binder 6278:6284 <> ambient:40
-R6302:6305 Coq.Init.Datatypes <> list ind
-R6307:6318 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
-binder 6298:6298 <> p:41
-R6340:6342 Coq.Init.Datatypes <> nat ind
-binder 6326:6330 <> width:42
-binder 6332:6333 <> x0:43
-binder 6335:6336 <> x1:44
-R6347:6353 Kernel.VMState <> VMState rec
-R6360:6374 Kernel.VMUnboundedMinskyInterpreter <> minsky_boundary def
-R6376:6382 Kernel.VMUnboundedMinskyEncoding <> ambient:40 var
-R6385:6405 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
-R6407:6411 Kernel.VMUnboundedMinskyEncoding <> width:42 var
-R6413:6413 Kernel.VMUnboundedMinskyEncoding <> p:41 var
+def 6264:6284 <> minsky_input_encoding
+R6297:6303 Kernel.VMState <> VMState rec
+binder 6287:6293 <> ambient:40
+R6311:6314 Coq.Init.Datatypes <> list ind
+R6316:6327 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 6307:6307 <> p:41
+R6349:6351 Coq.Init.Datatypes <> nat ind
+binder 6335:6339 <> width:42
+binder 6341:6342 <> x0:43
+binder 6344:6345 <> x1:44
+R6356:6362 Kernel.VMState <> VMState rec
+R6369:6383 Kernel.VMUnboundedMinskyInterpreter <> minsky_boundary def
+R6385:6391 Kernel.VMUnboundedMinskyEncoding <> ambient:40 var
+R6394:6414 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
 R6416:6420 Kernel.VMUnboundedMinskyEncoding <> width:42 var
-R6429:6433 Kernel.VMUnboundedMinskyInterpreter <> mc_pc proj
-R6429:6433 Kernel.VMUnboundedMinskyInterpreter <> mc_pc proj
-R6429:6433 Kernel.VMUnboundedMinskyInterpreter <> mc_pc proj
-R6441:6445 Kernel.VMUnboundedMinskyInterpreter <> mc_c0 proj
-R6441:6445 Kernel.VMUnboundedMinskyInterpreter <> mc_c0 proj
-R6454:6458 Kernel.VMUnboundedMinskyInterpreter <> mc_c1 proj
-R6454:6458 Kernel.VMUnboundedMinskyInterpreter <> mc_c1 proj
-R6450:6451 Kernel.VMUnboundedMinskyEncoding <> x0:43 var
-R6463:6464 Kernel.VMUnboundedMinskyEncoding <> x1:44 var
-def 6482:6503 <> minsky_config_encoding
-R6516:6522 Kernel.VMState <> VMState rec
-binder 6506:6512 <> ambient:45
-R6530:6533 Coq.Init.Datatypes <> list ind
-R6535:6546 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
-binder 6526:6526 <> p:46
-R6562:6564 Coq.Init.Datatypes <> nat ind
-binder 6554:6558 <> width:47
-R6572:6584 Kernel.VMUnboundedMinskyInterpreter <> MinskyConfigU rec
-binder 6568:6568 <> c:48
-R6589:6595 Kernel.VMState <> VMState rec
-R6602:6616 Kernel.VMUnboundedMinskyInterpreter <> minsky_boundary def
-R6618:6624 Kernel.VMUnboundedMinskyEncoding <> ambient:45 var
-R6627:6647 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
-R6649:6653 Kernel.VMUnboundedMinskyEncoding <> width:47 var
-R6655:6655 Kernel.VMUnboundedMinskyEncoding <> p:46 var
+R6422:6422 Kernel.VMUnboundedMinskyEncoding <> p:41 var
+R6425:6429 Kernel.VMUnboundedMinskyEncoding <> width:42 var
+R6438:6442 Kernel.VMUnboundedMinskyInterpreter <> mc_pc proj
+R6438:6442 Kernel.VMUnboundedMinskyInterpreter <> mc_pc proj
+R6438:6442 Kernel.VMUnboundedMinskyInterpreter <> mc_pc proj
+R6450:6454 Kernel.VMUnboundedMinskyInterpreter <> mc_c0 proj
+R6450:6454 Kernel.VMUnboundedMinskyInterpreter <> mc_c0 proj
+R6463:6467 Kernel.VMUnboundedMinskyInterpreter <> mc_c1 proj
+R6463:6467 Kernel.VMUnboundedMinskyInterpreter <> mc_c1 proj
+R6459:6460 Kernel.VMUnboundedMinskyEncoding <> x0:43 var
+R6472:6473 Kernel.VMUnboundedMinskyEncoding <> x1:44 var
+def 6491:6512 <> minsky_config_encoding
+R6525:6531 Kernel.VMState <> VMState rec
+binder 6515:6521 <> ambient:45
+R6539:6542 Coq.Init.Datatypes <> list ind
+R6544:6555 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 6535:6535 <> p:46
+R6571:6573 Coq.Init.Datatypes <> nat ind
+binder 6563:6567 <> width:47
+R6581:6593 Kernel.VMUnboundedMinskyInterpreter <> MinskyConfigU rec
+binder 6577:6577 <> c:48
+R6598:6604 Kernel.VMState <> VMState rec
+R6611:6625 Kernel.VMUnboundedMinskyInterpreter <> minsky_boundary def
+R6627:6633 Kernel.VMUnboundedMinskyEncoding <> ambient:45 var
+R6636:6656 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
 R6658:6662 Kernel.VMUnboundedMinskyEncoding <> width:47 var
-R6664:6664 Kernel.VMUnboundedMinskyEncoding <> c:48 var
-def 6756:6782 <> minsky_total_input_encoding
-R6795:6801 Kernel.VMState <> VMState rec
-binder 6785:6791 <> ambient:49
-R6813:6816 Coq.Init.Datatypes <> list ind
-R6818:6829 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
-binder 6809:6809 <> p:50
-R6841:6843 Coq.Init.Datatypes <> nat ind
-binder 6833:6834 <> x0:51
-binder 6836:6837 <> x1:52
-R6848:6854 Kernel.VMState <> VMState rec
-R6861:6881 Kernel.VMUnboundedMinskyEncoding <> minsky_input_encoding def
-R6883:6889 Kernel.VMUnboundedMinskyEncoding <> ambient:49 var
-R6891:6891 Kernel.VMUnboundedMinskyEncoding <> p:50 var
-R6894:6914 Kernel.VMUnboundedMinskyEncoding <> minsky_encoding_width def
-R6916:6916 Kernel.VMUnboundedMinskyEncoding <> p:50 var
-R6919:6920 Kernel.VMUnboundedMinskyEncoding <> x0:51 var
-R6922:6923 Kernel.VMUnboundedMinskyEncoding <> x1:52 var
-def 6938:6965 <> minsky_total_config_encoding
-R6978:6984 Kernel.VMState <> VMState rec
-binder 6968:6974 <> ambient:53
-R6996:6999 Coq.Init.Datatypes <> list ind
-R7001:7012 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
-binder 6992:6992 <> p:54
-R7020:7032 Kernel.VMUnboundedMinskyInterpreter <> MinskyConfigU rec
-binder 7016:7016 <> c:55
-R7037:7043 Kernel.VMState <> VMState rec
-R7050:7071 Kernel.VMUnboundedMinskyEncoding <> minsky_config_encoding def
-R7073:7079 Kernel.VMUnboundedMinskyEncoding <> ambient:53 var
-R7081:7081 Kernel.VMUnboundedMinskyEncoding <> p:54 var
-R7084:7104 Kernel.VMUnboundedMinskyEncoding <> minsky_encoding_width def
-R7106:7106 Kernel.VMUnboundedMinskyEncoding <> p:54 var
-R7109:7109 Kernel.VMUnboundedMinskyEncoding <> c:55 var
+R6664:6664 Kernel.VMUnboundedMinskyEncoding <> p:46 var
+R6667:6671 Kernel.VMUnboundedMinskyEncoding <> width:47 var
+R6673:6673 Kernel.VMUnboundedMinskyEncoding <> c:48 var
+def 6774:6800 <> minsky_total_input_encoding
+R6813:6819 Kernel.VMState <> VMState rec
+binder 6803:6809 <> ambient:49
+R6831:6834 Coq.Init.Datatypes <> list ind
+R6836:6847 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 6827:6827 <> p:50
+R6859:6861 Coq.Init.Datatypes <> nat ind
+binder 6851:6852 <> x0:51
+binder 6854:6855 <> x1:52
+R6866:6872 Kernel.VMState <> VMState rec
+R6879:6899 Kernel.VMUnboundedMinskyEncoding <> minsky_input_encoding def
+R6901:6907 Kernel.VMUnboundedMinskyEncoding <> ambient:49 var
+R6909:6909 Kernel.VMUnboundedMinskyEncoding <> p:50 var
+R6912:6932 Kernel.VMUnboundedMinskyEncoding <> minsky_encoding_width def
+R6934:6934 Kernel.VMUnboundedMinskyEncoding <> p:50 var
+R6937:6938 Kernel.VMUnboundedMinskyEncoding <> x0:51 var
+R6940:6941 Kernel.VMUnboundedMinskyEncoding <> x1:52 var
+def 6956:6983 <> minsky_total_config_encoding
+R6996:7002 Kernel.VMState <> VMState rec
+binder 6986:6992 <> ambient:53
+R7014:7017 Coq.Init.Datatypes <> list ind
+R7019:7030 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 7010:7010 <> p:54
+R7038:7050 Kernel.VMUnboundedMinskyInterpreter <> MinskyConfigU rec
+binder 7034:7034 <> c:55
+R7055:7061 Kernel.VMState <> VMState rec
+R7068:7089 Kernel.VMUnboundedMinskyEncoding <> minsky_config_encoding def
+R7091:7097 Kernel.VMUnboundedMinskyEncoding <> ambient:53 var
+R7099:7099 Kernel.VMUnboundedMinskyEncoding <> p:54 var
+R7102:7122 Kernel.VMUnboundedMinskyEncoding <> minsky_encoding_width def
+R7124:7124 Kernel.VMUnboundedMinskyEncoding <> p:54 var
+R7127:7127 Kernel.VMUnboundedMinskyEncoding <> c:55 var

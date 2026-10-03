@@ -161,7 +161,7 @@ argue over.
       ord_axis_is_latch_holds) is close to definitional; it follows from those two
       conditions in a few lines. The pointer question asks which event gets latched; no
       theorem here selects one uniquely.
-           The formal results go further than that one floor. They pin down exact unit
+          The formal results go further than that one floor. They pin down exact unit
       pricing relative to how many certification flips happen, show the ledger is unique
       once the schedule is fixed, exhibit states that a specified window can’t tell apart,
       give a universal property for folding traces, and check some specialized algebraic
@@ -169,30 +169,30 @@ argue over.
       model. They realize parts of this, each under its stated conditions. They are wit-
       nesses to the argument. They are not its subject. Paying for an event is accounting.
       Truth needs a checker whose soundness is proved.
-           Two questions lie outside the proved core: what the ledger means physically,
+          Two questions lie outside the proved core: what the ledger means physically,
       and which events every account of computation has to price. For the full instruc-
-      tion set, the F1 physical premise pair can’t coexist with free jumps, and F1_phys
-      ical_premises_incompatible proves it. A narrower pair does hold together.
-      On a machine with finite memory and a certificate that can never be revoked, the
-      step that certifies has to merge two states, so pricing merges, as Landauer’s princi-
-      ple does in the worst case over what the machine might hold, yields A2 (a2_fro
-      m_merging_price_and_permanence). Priced per halving, switching k states
-      on beside m certified ones costs at least log2 ((m + k )/m). In Shannon entropy
-      the same step removes at least that many bits from the uniform distribution on
-      the states in play, and with Landauer’s principle as the premise that is at least
-      k B T ln((m + k)/m) of heat. At positive temperature, any distribution that leaves
-      every state in play possible forces positive heat under the same premise; a state
-      known in advance forces none, and both are proved. A four-slot piece of the VM
-      with a certification flag is such a finite machine. For programs built from CERTIFY
-      0, JUMP a 2 and CHECKPOINT the VM runs it step for step, and its ledger rises
-      by exactly what the merges cost; the JUMP charge of two is the program’s cho-
-      sen µ-delta. In the full VM every certification flip is a priced merge, and at least
-      one other merge, JUMP 0 0, is free. And on finite hardware, under the premise
-      that merges are priced, the events every such account must price are exactly the
-      merges: every permanent-record write is one, and a flip escapes the price only
-      when the same step can take it back. The physical side requires an experiment.
-      The observation results don’t forbid encodings that keep the information. The
-      trace-fold property doesn’t make the VM’s state space initial.
+      tion set, the F1 physical premise pair can’t coexist with free jumps, and landaue
+      r_dissipation_premises_inconsistent proves it. A narrower pair does
+      hold together. On a machine with finite memory and a certificate that can never
+      be revoked, the step that certifies has to merge two states, so pricing merges, as
+      Landauer’s principle does in the worst case over what the machine might hold,
+      yields A2 (a2_from_merging_price_and_permanence). Priced per halving,
+      switching k states on beside m certified ones costs at least log2 ((m + k)/m). In
+      Shannon entropy the same step removes at least that many bits from the uniform
+      distribution on the states in play, and with Landauer’s principle as the premise
+      that is at least k B T ln((m + k )/m) of heat. At positive temperature, any distribu-
+      tion that leaves every state in play possible forces positive heat under the same
+      premise; a state known in advance forces none, and both are proved. A four-slot
+      piece of the VM with a certification flag is such a finite machine. For programs
+      built from CERTIFY 0, JUMP a 2 and CHECKPOINT the VM runs it step for step,
+      and its ledger rises by exactly what the merges cost; the JUMP charge of two is
+      the program’s chosen µ-delta. In the full VM every certification flip is a priced
+      merge, and at least one other merge, JUMP 0 0, is free. And on finite hardware,
+      under the premise that merges are priced, the events every such account must
+      price are exactly the merges: every permanent-record write is one, and a flip
+      escapes the price only when the same step can take it back. The physical side
+      requires an experiment. The observation results don’t forbid encodings that keep
+      the information. The trace-fold property doesn’t make the VM’s state space initial.
 
 
 
@@ -1581,13 +1581,13 @@ Proof. The theorem is four lemmas stitched into one conjunction.
    • Part (2) is definitional. shadow_proj extracts its six projected fields. Equal
      projections mean those six fields agree. The Coq witness is shadow_proj_ker
      nel_is_eq_on_classical_shadow.
-   • Part (3) is the compatibility theorem D2_classical_shadow_preserved.
-     Its premise is stronger than equality of the six-field shadow: the two inputs
-     must also agree on vm_graph and the complete vm_csrs, because classical
-     MORPH_GET/TENSOR_GET and heap operations can read those hidden fields.
-     Under that compatibility relation, the two output shadows agree. This is preser-
-     vation of a specified relation, not a claim that shadow equality alone commutes
-     with execution.
+   • Part (3) is the compatibility theorem classical_run_preserves_shadow
+     _compat. Its premise is stronger than equality of the six-field shadow: the
+     two inputs must also agree on vm_graph and the complete vm_csrs, because
+     classical MORPH_GET/TENSOR_GET and heap operations can read those hidden
+     fields. Under that compatibility relation, the two output shadows agree. This
+     is preservation of a specified relation, not a claim that shadow equality alone
+     commutes with execution.
 
 
 
@@ -8569,8 +8569,8 @@ Falsify Turing strictness.
 Exhibit a classical program, a VM instruction trace restricted to the classical opcode
 fragment (is_classical_program, run on the same substrate), whose execution
 changes the partition graph (pg_next_id) or the morphism map. Or prove that the
-witness step PNEW leaves pg_next_id fixed. Either kills the strictness half of D5_thi
-ele_strictly_extends_classical. This is the semantic claim, that the classical
+witness step PNEW leaves pg_next_id fixed. Either kills the strictness half of thie
+le_strictly_extends_classical. This is the semantic claim, that the classical
 opcode fragment cannot reach the structural states one structural opcode reaches. It
 is not the computability claim. A Turing machine can of course simulate a Thiele
 run by encoding the graph as bytes on its tape; that simulation exists and is not a
@@ -8677,13 +8677,13 @@ Falsify the axiom audit.
 If running Print Assumptions (Section A: the Coq command that reports global
 proof dependencies) on any named theorem in the kernel tier shows a project-local
 Axiom or Parameter in the dependency tree, the audit has degraded. The full-
-corpus probe covers 14,506 named theorems across 506 files: 6,921 close under
-the global Coq context outright, and 7,585 use only Coq standard-library assump-
+corpus probe covers 14,504 named theorems across 508 files: 6,924 close under
+the global Coq context outright, and 7,580 use only Coq standard-library assump-
 tions. The receipt names five such constants: dependent functional extensionality,
 Eqdep.Eq_rect_eq.eq_rect_eq, ClassicalDedekindReals.sig_not_dec,
 ClassicalDedekindReals.sig_forall_dec,                                            and
 Classical_Prop.classic. Zero project-local axioms appear in any of the
-14,506 dependency trees. This audits where global dependencies come from. It
+14,504 dependency trees. This audits where global dependencies come from. It
 doesn’t prove that a theorem’s own Section-generalized premises hold for the instance
 you care about; those premises stay visible in the theorem types and get checked
 separately. Any project-local axiom or parameter appearing in a global dependency
@@ -8964,12 +8964,13 @@ declaration.
   36. classical_observer_cannot_separate: no classical function separates morphism-distinct
       states.
   37. shadow_proj / shadow_separation_theorem: formal surjection, strictly lossy.
-  38. D2_faithfulness: classical programs run unchanged on the VM and leave vm_graph,
-      csr_cert_addr and vm_certified unchanged; shadow_proj is the field
-      projection. No faithful-functor property is proved.
-  39. D3_conservativity: classical programs leave structural layer untouched.
-  40. D4_strictness: there exist Thiele steps that escape the classical fragment.
-  41. D5_thiele_strictly_extends_classical: classical-fragment traces leave the structural layer
+  38. classical_run_shadow_faithful: classical programs run unchanged on the VM and leave
+      vm_graph, csr_cert_addr and vm_certified unchanged; shadow_proj is the
+      field projection. No faithful-functor property is proved.
+  39. classical_opcodes_preserve_structure: classical programs leave structural layer untouched.
+  40. pnew_step_separates_thiele_from_classical: there exist Thiele steps that escape the classical
+      fragment.
+  41. thiele_strictly_extends_classical: classical-fragment traces leave the structural layer
       unchanged, and one PNEW step changes pg_next_id. Not a computability separation.
   42. degenerate_projection_theorem: the kernel of the shadow projection is the classical
       equivalence relation.
@@ -8978,13 +8979,13 @@ declaration.
   44. chsh_stat_violation_not_local: S > 2 on the counters is inconsistent with every fixed
       deterministic response table (WCLocallyConsistent).
   45. structural_trace_preserves_cert_addr: traces with no cert-address setter preserve
-      csr_cert_addr.
 
 
                                                177
 The Thiele Machine                                                   Devon Thiele • September 2026
 
 
+      csr_cert_addr.
   46. partition_refinement_nonfree: a run that moves csr_cert_addr from 0 to nonzero
       contains a positive-cost cert-address setter and raises µ by at least 1.
   47. partition_free_but_certification_nonfree: partition structure can be built at δ = 0, but
@@ -9031,14 +9032,13 @@ declaration.
       proof factors through the repository’s fixed formal completion predicate: state_colu
       mn_contractive_implies_npa_gram composes with npa_psd_implies_tsire
       lson_bound. The checked chain is a statement about the specified real matrix and its
-      algebraic bound. The row bounds come from npa_psd_zero_marginal_implies_
-
 
 
                                                 178
 The Thiele Machine                                                Devon Thiele • September 2026
 
 
+      algebraic bound. The row bounds come from npa_psd_zero_marginal_implies_
       row_bounds, and the algebraic Cauchy–Schwarz step is tsirelson_from_minors;
       tsirelson_from_row_bounds states the same algebra on the two row hypotheses.
                                  √
@@ -9087,7 +9087,6 @@ declaration.
       (nonempty region, distinct merge operands, table capacity, module bounds) stay in
       WFDrivenPrecondition and are checked per step by WFDrivenRun; the invariants
       do not discharge them.
-  64. RTL translation boundary: the Section Variable rtl_step_correct is a contract for the
 
 
 
@@ -9095,6 +9094,7 @@ declaration.
 The Thiele Machine                                                  Devon Thiele • September 2026
 
 
+  64. RTL translation boundary: the Section Variable rtl_step_correct is a contract for the
       synthesized-RTL relationship, not a theorem that the generated Verilog automatically
       satisfies. The Coq theorem driven_step_wf covers the intermediate Kami model
       under WFDrivenPrecondition; the emitted RTL and later FPGA artifacts are
@@ -9138,7 +9138,6 @@ declaration.
       assignment exactly when its step merges two states.
   76. flip_merges_or_revokes / injective_flip_revokes: on a finite machine, an instruction that
       switches a reading on either merges two states or switches the reading off somewhere
-      else.
 
 
 
@@ -9146,6 +9145,7 @@ declaration.
 The Thiele Machine                                                 Devon Thiele • September 2026
 
 
+      else.
   77. permanent_record_write_is_forced_priced / forced_price_without_permanent_record:
       permanent-record writes are forced to be priced; the converse fails on a three-state
       machine.
@@ -9190,13 +9190,13 @@ trust boundaries):
 
    • Hardware correspondence: driven_step_wf and driven_trace_commu
      tes prove intermediate model equality under WFDrivenPrecondition and
-     WFDrivenRun. Section 16 states the additional finite RTL contract and distin-
 
 
                                                181
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+      WFDrivenRun. Section 16 states the additional finite RTL contract and distin-
       guishes the 47 synthesized instructions from four nonsynthesized checks. As-
       sessing an executable instance also requires allocation, overflow, and retirement
       obligations.
@@ -9240,8 +9240,6 @@ complete mathematical contract.
   nel.NecessityAbstract. displayed non-determination witnesses. It is neither sta-
   mu_ledger_mutual_indep tistical independence nor recovery of every field from a
   endence                      graph-free projection.
-
-
 
 
                                            182
@@ -9328,8 +9326,8 @@ complete mathematical contract.
   f_classical
   Shadow-local execution Kern    The source predicate restricts the instruction fragment
   el.TuringClassicalEmbe         and its six-field observation. Graph preservation alone is
-  dding.D2_classical_sha         insufficient when hidden graph or CSR data can be read
-  dow_preserved                  into visible fields.
+  dding.classical_run_pr         insufficient when hidden graph or CSR data can be read
+  eserves_shadow_compat          into visible fields.
   Elliptope gate soundness Ker   Witness counters and the supplied comple-
   nel.ElliptopeGate.elli         tion/certificate data. Passing the actual gate implies
   ptope_check_full_sound         the defined elliptope membership.           Rejection and

@@ -1,129 +1,129 @@
-DIGEST 6929b369fdcc45fff00ed1ee8c1cc8b6
+DIGEST 21c0acc466b2a42ace8ea91b9105214b
 FKernel.HolevoDimensional
-R2969:2972 Coq.Lists.List <> <> lib
-R2974:2976 Coq.micromega.Lia <> <> lib
-R2978:2991 Coq.Arith.PeanoNat <> <> lib
-R3001:3013 Coq.Lists.List ListNotations <> mod
-R3044:3050 Kernel.VMState <> <> lib
-R3052:3057 Kernel.VMStep <> <> lib
-R3087:3101 Kernel.SimulationProof <> <> lib
-R3131:3150 Kernel.MuLedgerConservation <> <> lib
-R3180:3194 Kernel.MuShannonBridge <> <> lib
-def 3972:3990 <> substrate_dimension
-R4001:4011 Kernel.MuShannonBridge <> FeasibleSet def
-binder 3993:3997 <> omega:1
-R4016:4018 Coq.Init.Datatypes <> nat ind
-R4025:4037 Kernel.MuShannonBridge <> feasible_size def
-R4039:4043 Kernel.HolevoDimensional <> omega:1 var
-def 4244:4275 <> accessible_classical_information
-R4286:4296 Kernel.MuShannonBridge <> FeasibleSet def
-binder 4278:4282 <> omega:2
-R4301:4303 Coq.Init.Datatypes <> nat ind
-R4310:4317 Coq.Arith.PeanoNat Nat log2 def
-R4320:4338 Kernel.HolevoDimensional <> substrate_dimension def
-R4340:4344 Kernel.HolevoDimensional <> omega:2 var
-prf 5401:5422 <> classical_holevo_bound
-R5443:5445 Coq.Init.Datatypes <> nat ind
-binder 5436:5439 <> fuel:3
-R5457:5460 Coq.Init.Datatypes <> list ind
-R5462:5475 Kernel.VMStep VMStep vm_instruction ind
-binder 5449:5453 <> trace:4
-R5483:5489 Kernel.VMState <> VMState rec
-binder 5479:5479 <> s:5
-R5510:5520 Kernel.MuShannonBridge <> FeasibleSet def
-binder 5502:5506 <> omega:6
-R5531:5542 Kernel.MuShannonBridge <> DecisionTree ind
-binder 5524:5527 <> tree:7
-R5599:5606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5550:5580 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R5582:5585 Kernel.HolevoDimensional <> fuel:3 var
-R5587:5591 Kernel.HolevoDimensional <> trace:4 var
-R5593:5593 Kernel.HolevoDimensional <> s:5 var
-R5595:5598 Kernel.HolevoDimensional <> tree:7 var
-R5665:5672 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5632:5635 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5607:5625 Kernel.HolevoDimensional <> substrate_dimension def
-R5627:5631 Kernel.HolevoDimensional <> omega:6 var
-R5636:5659 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R5661:5664 Kernel.HolevoDimensional <> tree:7 var
-R5711:5720 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5673:5704 Kernel.HolevoDimensional <> accessible_classical_information def
-R5706:5710 Kernel.HolevoDimensional <> omega:6 var
-R5750:5752 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R5744:5748 Kernel.VMState <> vm_mu proj
-R5722:5727 Kernel.SimulationProof <> run_vm def
-R5729:5732 Kernel.HolevoDimensional <> fuel:3 var
-R5734:5738 Kernel.HolevoDimensional <> trace:4 var
-R5740:5740 Kernel.HolevoDimensional <> s:5 var
-R5756:5760 Kernel.VMState <> vm_mu proj
-R5753:5753 Kernel.HolevoDimensional <> s:5 var
-R5831:5862 Kernel.HolevoDimensional <> accessible_classical_information def
-R5865:5883 Kernel.HolevoDimensional <> substrate_dimension def
-R6003:6023 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5973:5980 Coq.Arith.PeanoNat Nat log2 def
-R5983:5995 Kernel.MuShannonBridge <> feasible_size def
-R6024:6031 Coq.Arith.PeanoNat Nat log2 def
-R6034:6057 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R6003:6023 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5973:5980 Coq.Arith.PeanoNat Nat log2 def
-R5983:5995 Kernel.MuShannonBridge <> feasible_size def
-R6024:6031 Coq.Arith.PeanoNat Nat log2 def
-R6034:6057 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R6077:6088 Kernel.MuShannonBridge <> log2_le_mono thm
-R6077:6088 Kernel.MuShannonBridge <> log2_le_mono thm
-R6170:6198 Kernel.MuShannonBridge <> decision_tree_log2_leaf_bound thm
-R6170:6198 Kernel.MuShannonBridge <> decision_tree_log2_leaf_bound thm
-R6292:6322 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R6403:6435 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
-R6403:6435 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
-prf 7029:7053 <> classical_holevo_n_qubits
-R7074:7076 Coq.Init.Datatypes <> nat ind
-binder 7067:7070 <> fuel:8
-R7088:7091 Coq.Init.Datatypes <> list ind
-R7093:7106 Kernel.VMStep VMStep vm_instruction ind
-binder 7080:7084 <> trace:9
-R7114:7120 Kernel.VMState <> VMState rec
-binder 7110:7110 <> s:10
-R7141:7151 Kernel.MuShannonBridge <> FeasibleSet def
-binder 7133:7137 <> omega:11
-R7162:7173 Kernel.MuShannonBridge <> DecisionTree ind
-binder 7155:7158 <> tree:12
-R7181:7183 Coq.Init.Datatypes <> nat ind
-binder 7177:7177 <> n:13
-R7224:7231 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7216:7218 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7191:7209 Kernel.HolevoDimensional <> substrate_dimension def
-R7211:7215 Kernel.HolevoDimensional <> omega:11 var
-R7220:7222 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R7223:7223 Kernel.HolevoDimensional <> n:13 var
-R7281:7288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7232:7262 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R7264:7267 Kernel.HolevoDimensional <> fuel:8 var
-R7269:7273 Kernel.HolevoDimensional <> trace:9 var
-R7275:7275 Kernel.HolevoDimensional <> s:10 var
-R7277:7280 Kernel.HolevoDimensional <> tree:12 var
-R7347:7354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7314:7317 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7289:7307 Kernel.HolevoDimensional <> substrate_dimension def
-R7309:7313 Kernel.HolevoDimensional <> omega:11 var
-R7318:7341 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R7343:7346 Kernel.HolevoDimensional <> tree:12 var
-R7356:7359 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7355:7355 Kernel.HolevoDimensional <> n:13 var
-R7389:7391 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R7383:7387 Kernel.VMState <> vm_mu proj
-R7361:7366 Kernel.SimulationProof <> run_vm def
-R7368:7371 Kernel.HolevoDimensional <> fuel:8 var
-R7373:7377 Kernel.HolevoDimensional <> trace:9 var
-R7379:7379 Kernel.HolevoDimensional <> s:10 var
-R7395:7399 Kernel.VMState <> vm_mu proj
-R7392:7392 Kernel.HolevoDimensional <> s:10 var
-R7482:7503 Kernel.HolevoDimensional <> classical_holevo_bound thm
-R7482:7503 Kernel.HolevoDimensional <> classical_holevo_bound thm
-R7571:7602 Kernel.HolevoDimensional <> accessible_classical_information def
-R7605:7623 Kernel.HolevoDimensional <> substrate_dimension def
-R7667:7679 Coq.Arith.PeanoNat Nat log2_pow2 thm
-R7667:7679 Coq.Arith.PeanoNat Nat log2_pow2 thm
-R7667:7679 Coq.Arith.PeanoNat Nat log2_pow2 thm
-R8982:9003 Kernel.HolevoDimensional <> classical_holevo_bound thm
-R9024:9048 Kernel.HolevoDimensional <> classical_holevo_n_qubits thm
+R2897:2900 Coq.Lists.List <> <> lib
+R2902:2904 Coq.micromega.Lia <> <> lib
+R2906:2919 Coq.Arith.PeanoNat <> <> lib
+R2929:2941 Coq.Lists.List ListNotations <> mod
+R2972:2978 Kernel.VMState <> <> lib
+R2980:2985 Kernel.VMStep <> <> lib
+R3015:3029 Kernel.SimulationProof <> <> lib
+R3059:3078 Kernel.MuLedgerConservation <> <> lib
+R3108:3122 Kernel.MuShannonBridge <> <> lib
+def 3897:3915 <> substrate_dimension
+R3926:3936 Kernel.MuShannonBridge <> FeasibleSet def
+binder 3918:3922 <> omega:1
+R3941:3943 Coq.Init.Datatypes <> nat ind
+R3950:3962 Kernel.MuShannonBridge <> feasible_size def
+R3964:3968 Kernel.HolevoDimensional <> omega:1 var
+def 4169:4200 <> accessible_classical_information
+R4211:4221 Kernel.MuShannonBridge <> FeasibleSet def
+binder 4203:4207 <> omega:2
+R4226:4228 Coq.Init.Datatypes <> nat ind
+R4235:4242 Coq.Arith.PeanoNat Nat log2 def
+R4245:4263 Kernel.HolevoDimensional <> substrate_dimension def
+R4265:4269 Kernel.HolevoDimensional <> omega:2 var
+prf 5323:5344 <> classical_holevo_bound
+R5365:5367 Coq.Init.Datatypes <> nat ind
+binder 5358:5361 <> fuel:3
+R5379:5382 Coq.Init.Datatypes <> list ind
+R5384:5397 Kernel.VMStep VMStep vm_instruction ind
+binder 5371:5375 <> trace:4
+R5405:5411 Kernel.VMState <> VMState rec
+binder 5401:5401 <> s:5
+R5432:5442 Kernel.MuShannonBridge <> FeasibleSet def
+binder 5424:5428 <> omega:6
+R5453:5464 Kernel.MuShannonBridge <> DecisionTree ind
+binder 5446:5449 <> tree:7
+R5521:5528 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5472:5502 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R5504:5507 Kernel.HolevoDimensional <> fuel:3 var
+R5509:5513 Kernel.HolevoDimensional <> trace:4 var
+R5515:5515 Kernel.HolevoDimensional <> s:5 var
+R5517:5520 Kernel.HolevoDimensional <> tree:7 var
+R5587:5594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5554:5557 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5529:5547 Kernel.HolevoDimensional <> substrate_dimension def
+R5549:5553 Kernel.HolevoDimensional <> omega:6 var
+R5558:5581 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R5583:5586 Kernel.HolevoDimensional <> tree:7 var
+R5633:5642 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5595:5626 Kernel.HolevoDimensional <> accessible_classical_information def
+R5628:5632 Kernel.HolevoDimensional <> omega:6 var
+R5672:5674 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5666:5670 Kernel.VMState <> vm_mu proj
+R5644:5649 Kernel.SimulationProof <> run_vm def
+R5651:5654 Kernel.HolevoDimensional <> fuel:3 var
+R5656:5660 Kernel.HolevoDimensional <> trace:4 var
+R5662:5662 Kernel.HolevoDimensional <> s:5 var
+R5678:5682 Kernel.VMState <> vm_mu proj
+R5675:5675 Kernel.HolevoDimensional <> s:5 var
+R5753:5784 Kernel.HolevoDimensional <> accessible_classical_information def
+R5787:5805 Kernel.HolevoDimensional <> substrate_dimension def
+R5925:5945 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5895:5902 Coq.Arith.PeanoNat Nat log2 def
+R5905:5917 Kernel.MuShannonBridge <> feasible_size def
+R5946:5953 Coq.Arith.PeanoNat Nat log2 def
+R5956:5979 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R5925:5945 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5895:5902 Coq.Arith.PeanoNat Nat log2 def
+R5905:5917 Kernel.MuShannonBridge <> feasible_size def
+R5946:5953 Coq.Arith.PeanoNat Nat log2 def
+R5956:5979 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R5999:6010 Kernel.MuShannonBridge <> log2_le_mono thm
+R5999:6010 Kernel.MuShannonBridge <> log2_le_mono thm
+R6092:6120 Kernel.MuShannonBridge <> decision_tree_log2_leaf_bound thm
+R6092:6120 Kernel.MuShannonBridge <> decision_tree_log2_leaf_bound thm
+R6214:6244 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R6325:6357 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+R6325:6357 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+prf 6936:6960 <> classical_holevo_n_qubits
+R6981:6983 Coq.Init.Datatypes <> nat ind
+binder 6974:6977 <> fuel:8
+R6995:6998 Coq.Init.Datatypes <> list ind
+R7000:7013 Kernel.VMStep VMStep vm_instruction ind
+binder 6987:6991 <> trace:9
+R7021:7027 Kernel.VMState <> VMState rec
+binder 7017:7017 <> s:10
+R7048:7058 Kernel.MuShannonBridge <> FeasibleSet def
+binder 7040:7044 <> omega:11
+R7069:7080 Kernel.MuShannonBridge <> DecisionTree ind
+binder 7062:7065 <> tree:12
+R7088:7090 Coq.Init.Datatypes <> nat ind
+binder 7084:7084 <> n:13
+R7131:7138 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7123:7125 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7098:7116 Kernel.HolevoDimensional <> substrate_dimension def
+R7118:7122 Kernel.HolevoDimensional <> omega:11 var
+R7127:7129 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7130:7130 Kernel.HolevoDimensional <> n:13 var
+R7188:7195 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7139:7169 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R7171:7174 Kernel.HolevoDimensional <> fuel:8 var
+R7176:7180 Kernel.HolevoDimensional <> trace:9 var
+R7182:7182 Kernel.HolevoDimensional <> s:10 var
+R7184:7187 Kernel.HolevoDimensional <> tree:12 var
+R7254:7261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7221:7224 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7196:7214 Kernel.HolevoDimensional <> substrate_dimension def
+R7216:7220 Kernel.HolevoDimensional <> omega:11 var
+R7225:7248 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R7250:7253 Kernel.HolevoDimensional <> tree:12 var
+R7263:7266 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7262:7262 Kernel.HolevoDimensional <> n:13 var
+R7296:7298 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7290:7294 Kernel.VMState <> vm_mu proj
+R7268:7273 Kernel.SimulationProof <> run_vm def
+R7275:7278 Kernel.HolevoDimensional <> fuel:8 var
+R7280:7284 Kernel.HolevoDimensional <> trace:9 var
+R7286:7286 Kernel.HolevoDimensional <> s:10 var
+R7302:7306 Kernel.VMState <> vm_mu proj
+R7299:7299 Kernel.HolevoDimensional <> s:10 var
+R7389:7410 Kernel.HolevoDimensional <> classical_holevo_bound thm
+R7389:7410 Kernel.HolevoDimensional <> classical_holevo_bound thm
+R7478:7509 Kernel.HolevoDimensional <> accessible_classical_information def
+R7512:7530 Kernel.HolevoDimensional <> substrate_dimension def
+R7574:7586 Coq.Arith.PeanoNat Nat log2_pow2 thm
+R7574:7586 Coq.Arith.PeanoNat Nat log2_pow2 thm
+R7574:7586 Coq.Arith.PeanoNat Nat log2_pow2 thm
+R8859:8880 Kernel.HolevoDimensional <> classical_holevo_bound thm
+R8901:8925 Kernel.HolevoDimensional <> classical_holevo_n_qubits thm

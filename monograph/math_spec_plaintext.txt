@@ -1407,7 +1407,7 @@ Theorem 15.1 (Tsirelson Upper Bound for the Zero-Marginal NPA Model (TsirelsonQu
 tumModel.v, TsirelsonFromAlgebra.v), (S)). If a trace’s zero-marginal NPA matrix is PSD
 (equivalently, the trace is slice-coherent, i.e. √
                                                  column-contractive, by trace_column_contractive_
-iff_trace_npa_model), then |SCHSH | ≤ 2 2 (c4_direct_tsirelson_abs_from_npa_psd).
+iff_trace_npa_model), then |SCHSH | ≤ 2 2 (tsirelson_abs_from_npa_psd).
     Three algebraic statements back it. TsirelsonFromAlgebra.v (tsirelson_squared)
 proves S 2 ≤ 8 from the two row bounds, by linear arithmetic. coq/kernel/category/
 AlgebraicCoherence.v (algebraically_coherent_tsirelson_general) proves S 2 ≤ 8
@@ -1845,8 +1845,8 @@ It neither derives those restrictions from computation nor establishes a physica
 or an angle scale from µ-cost.
 
 19.4.1    Cross-link in MuGravity Vocabulary
-Theorem 19.4 (Graph-Laplacian Sum-Zero                      Identity   (coq/kernel/frontier/F3_
-MuLaplacianSum.v), (S)). For every VMState s:
+Theorem 19.4 (Graph-Laplacian Sum-Zero Identity (coq/kernel/frontier/MuLaplacianSum.v),
+(S)). For every VMState s:
                                                     mu_laplacian(s, m) = 0.
                                     X
 
@@ -1856,7 +1856,7 @@ Proof by edge-pair antisymmetry. nat_list_disjoint is symmetric, hence modules_a
 by_region is symmetric, hence edge_weight is symmetric; mu_gradient is antisymmetric by
 definition; the double sum cancels under the Fubini swap. No well-formedness, no calibration.
 Standalone graph-theoretic fact.
-Theorem 19.5 (F3 Narrow Cross-link (coq/kernel/frontier/F3_PartitionTopologyCrossLink.v),
+Theorem 19.5 (Calibrated Total Angle Defect Is Zero (coq/kernel/frontier/PartitionTopologyCrossLink.
 (S)). For every VMState s at universal local calibration (∀m, calibration_residual(s, m) = 0):
                                               geometric_angle_defect(s, m) = 0.
                               X
@@ -2333,8 +2333,8 @@ mu). The correspondence between the device and that event is not proved.
 
 21.3     A2 from Landauer (Factored Form): a Conditional Whose
          Premises Fail on the Full ISA
-Theorem 21.2 (F1 Strong Form: A2 from Two Landauer-Style Premises (coq/
-kernel/frontier/F1_StrongForm.v), (C)). Given an abstract dissipation function
+Theorem 21.2 (Landauer Strong Form: A2 from Two Landauer-Style Premises (coq/kernel/
+frontier/LandauerDissipationStrongForm.v), (C)). Given an abstract dissipation function
 ϕ : vm_instruction → N (interpreted as dissipation per step in Landauer quanta), if
 
   1. Landauer’s principle holds in dissipation vocabulary, every class-collapsing step on any
@@ -2348,12 +2348,12 @@ class-collapse and dissipation; instruction_cost appears only in the calibration
 conditional implication, but its two premises are incompatible on the full VM instruction set, as
 the following remark explains.
 
-Remark 21.1 (Applicability failure of the full-ISA physical premises). F1_physical_premises_
-incompatible proves that no dissipation function satisfies both hypotheses. The instruction
-JUMP(1,0) has zero cost and sends every state’s program counter to 1. For the Boolean macro-
-property “PC equals 1,” it meets step_collapses_bool_classes: a state with PC 0 enters
-the true class, and states already in that class stay there. Hypothesis (1) therefore requires
-dissipation at least 1, while hypothesis (2) bounds it by 0.
+Remark 21.1 (Applicability failure of the full-ISA physical premises). landauer_dissipation_premises_incon
+proves that no dissipation function satisfies both hypotheses. The instruction JUMP(1,0) has
+zero cost and sends every state’s program counter to 1. For the Boolean macro-property “PC
+equals 1,” it meets step_collapses_bool_classes: a state with PC 0 enters the true class,
+and states already in that class stay there. Hypothesis (1) therefore requires dissipation at least
+1, while hypothesis (2) bounds it by 0.
     Thus this theorem does not supply an applicable physical derivation of A2 for the VM. A2
 follows directly from its instruction semantics, without either physical premise. A physical
 account must justify a domain of operations and macro-properties, reconcile its dissipation model
@@ -2372,7 +2372,7 @@ cost_dissipation_calibrated, not as a neutral formalisation detail.
 Theorem 21.3 (Calibration consistency and retained history, (S)). For eligible operations E(i)
 and a schedule c(i), a function d with E(i) ⇒ d(i) ≥ 1 and d(i) ≤ c(i) exists exactly when all
 
-                                                52
+                                               52
 eligible operations have positive scheduled cost. The witness in the converse is d = c. A Boolean
 identity/reset model realizes the conditions with charges zero and one respectively.
      For any deterministic step function, the extension
@@ -2898,26 +2898,27 @@ This contradicts mu_hierarchy_theorem.
   be circular by construction, defining τµ in terms of h and checking consistency rather than
   predicting h.
 
-• The two +1s (OP-Plus-One): the +1 in triangle_angle’s denominator (PI · d_bc
-  / (1 + d_ab + d_ac + d_bc), coq/kernel/curvature/MuGravity.v) versus the A2
-  cost-floor +1 on CERTIFY/LASSERT (coq/kernel/foundation/VMStep.v), same axiom,
-  or unrelated regularisation? No kernel theorem identifies them (coq/kernel/frontier/
-  F3_PlusOneStructural.v). That file proves F3_plus_one_renaming_unification,
+• The two +1s: the +1 in triangle_angle’s denominator (PI · d_bc / (1 + d_
+  ab + d_ac + d_bc), coq/kernel/curvature/MuGravity.v) versus the A2 cost-floor
+  +1 on CERTIFY/LASSERT (coq/kernel/foundation/VMStep.v), same axiom, or
+  unrelated regularisation? No kernel theorem identifies them (coq/kernel/frontier/
+  TriangleAnglePlusOne.v).        That file proves instr_certify_cost_is_successor,
   which is instruction_cost (instr_certify cost) = S cost and says nothing about
   triangle_angle, and triangle_angle_plus_one_correction_decays: the correction
   term decays as −π/(3(3d + 1)) in the equilateral case (tools/triangle_angle_plus_
   one_analysis.py computes it symbolically). The kernel uses the stated denominator; no
   identification theorem is claimed.
 
-• F3 narrow non-vacuity: refuted. Calibration at every module is impossible on a well-
-  formed triangulated partition graph whose vertex links are connected and whose module
-  identifiers are distinct (F3_calibration_obstruction); the hypotheses are met by a
-  concrete state (F3_obstruction_hypotheses_satisfiable). Calibration forces every
-  face flat (F3_calibration_forces_flat_faces), the +1 in triangle_angle bounds the
-  triangle count against the face count, and an Euler bound on each component, a set that
-  contains a module exactly when the module is reachable from it through shared edges
+• Non-vacuity of the calibrated angle-defect theorem: refuted.                    Calibra-
+  tion at every module is impossible on a well-formed triangulated partition graph
+  whose vertex links are connected and whose module identifiers are distinct
+  (connected_triangulation_not_calibrated); the hypotheses are met by a con-
+  crete state (calibration_obstruction_hypotheses_satisfiable). Calibration forces
+  every face flat (calibration_forces_flat_faces), the +1 in triangle_angle bounds
+  the triangle count against the face count, and an Euler bound on each component, a set
+  that contains a module exactly when the module is reachable from it through shared edges
   (euler_component), contradicts the boundary count that well_formed_triangulated
-  fixes. The headline of F3_PartitionTopologyCrossLink.v is therefore vacuous on such
+  fixes. The headline of PartitionTopologyCrossLink.v is therefore vacuous on such
   graphs. No theorem derives the asymptotic behavior from OP-Plus-One.
 
 • Cross-base equivalence (coq/kernel/foundation/CrossBaseGranularity*.v): Base
@@ -2981,7 +2982,7 @@ Laws                                    kernel/category/CategoryLaws.v, coq/kern
                                         CategoryBridge.v
 Shadow Strictly Lossy                   coq/kernel/witness/ShadowProjection.v: shadow_
                                         strictly_lossy
-Turing Strictness (D5)                  coq/kernel/foundation/TuringStrictness.v
+Turing Strictness                       coq/kernel/foundation/TuringStrictness.v
 CHSH Coupling Bridge (S ≤ 2 from        coq/kernel/quantum/CHSHCouplingBridge.v
 local coupling, S > 2 rules it out)
 

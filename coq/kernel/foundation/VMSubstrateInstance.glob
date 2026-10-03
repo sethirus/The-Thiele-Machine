@@ -1,164 +1,164 @@
-DIGEST d957120a0ea48890d2a8d3f2fd6bfa1e
+DIGEST 55ae1aff8c3e31d233faf69d9a15c864
 FKernel.VMSubstrateInstance
-R2270:2273 Coq.Lists.List <> <> lib
-R2275:2288 Coq.Arith.PeanoNat <> <> lib
-R2290:2293 Coq.Bool.Bool <> <> lib
-R2303:2315 Coq.Lists.List ListNotations <> mod
-R2346:2354 Kernel.Substrate <> <> lib
-R2384:2390 Kernel.VMState <> <> lib
-R2392:2397 Kernel.VMStep <> <> lib
-R2399:2413 Kernel.SimulationProof <> <> lib
-R2442:2461 Kernel.MuLedgerConservation <> <> lib
-def 3101:3111 <> vm_run_fuel
-R3115:3117 Coq.Init.Datatypes <> nat ind
-def 3140:3145 <> vm_run
-R3152:3155 Coq.Init.Datatypes <> list ind
-R3157:3170 Kernel.VMStep VMStep vm_instruction ind
-binder 3148:3148 <> p:1
-R3178:3184 Kernel.VMState <> VMState rec
-binder 3174:3174 <> s:2
-R3189:3194 Coq.Init.Datatypes <> option ind
-R3196:3202 Kernel.VMState <> VMState rec
-R3209:3212 Coq.Init.Datatypes <> Some constr
-R3215:3220 Kernel.SimulationProof <> run_vm def
-R3222:3232 Kernel.VMSubstrateInstance <> vm_run_fuel def
-R3234:3234 Kernel.VMSubstrateInstance <> p:1 var
-R3236:3236 Kernel.VMSubstrateInstance <> s:2 var
-def 3297:3303 <> vm_step
-R3310:3313 Coq.Init.Datatypes <> list ind
-R3315:3328 Kernel.VMStep VMStep vm_instruction ind
-binder 3306:3306 <> p:3
-R3339:3345 Kernel.VMState <> VMState rec
-binder 3332:3332 <> s:4
-binder 3334:3335 <> s':5
-R3360:3366 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3385:3386 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3371:3384 Kernel.VMStep VMStep vm_instruction ind
-binder 3367:3367 <> i:6
-R3393:3396 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3387:3388 Coq.Lists.List <> In def
-R3392:3392 Kernel.VMSubstrateInstance <> p:3 var
-R3390:3390 Kernel.VMSubstrateInstance <> i:6 var
-R3399:3401 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3397:3398 Kernel.VMSubstrateInstance <> s':5 var
-R3402:3409 Kernel.SimulationProof <> vm_apply def
-R3411:3411 Kernel.VMSubstrateInstance <> s:4 var
-R3413:3413 Kernel.VMSubstrateInstance <> i:6 var
-prf 3572:3585 <> vm_mu_monotone
-R3603:3606 Coq.Init.Datatypes <> list ind
-R3608:3621 Kernel.VMStep VMStep vm_instruction ind
-binder 3599:3599 <> p:7
-R3632:3638 Kernel.VMState <> VMState rec
-binder 3625:3625 <> s:8
-binder 3627:3628 <> s':9
-R3660:3663 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3646:3652 Kernel.VMSubstrateInstance <> vm_step def
-R3654:3654 Kernel.VMSubstrateInstance <> p:7 var
-R3656:3656 Kernel.VMSubstrateInstance <> s:8 var
-R3658:3659 Kernel.VMSubstrateInstance <> s':9 var
-R3671:3674 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3664:3668 Kernel.VMState <> vm_mu proj
-R3670:3670 Kernel.VMSubstrateInstance <> s:8 var
-R3675:3679 Kernel.VMState <> vm_mu proj
-R3681:3682 Kernel.VMSubstrateInstance <> s':9 var
-R3745:3755 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R3745:3755 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R3745:3755 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R3766:3777 Coq.Arith.PeanoNat Nat le_add_r thm
-R3766:3777 Coq.Arith.PeanoNat Nat le_add_r thm
-sec 4650:4672 <> VMSubstrateConstruction
-var 4735:4743 VMSubstrateConstruction vm_encode
-R4766:4769 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4747:4750 Coq.Init.Datatypes <> list ind
-R4752:4765 Kernel.VMStep VMStep vm_instruction ind
-R4770:4776 Kernel.VMState <> VMState rec
-var 4790:4803 VMSubstrateConstruction vm_decode_safe
-R4814:4817 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4807:4813 Kernel.VMState <> VMState rec
-R4818:4821 Coq.Init.Datatypes <> list ind
-R4823:4836 Kernel.VMStep VMStep vm_instruction ind
-var 4852:4867 VMSubstrateConstruction vm_encode_decode
-binder 4882:4882 <> p:12
-R4913:4915 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4885:4898 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_decode_safe var
-R4901:4909 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_encode var
-R4911:4911 Kernel.VMSubstrateInstance <> p:12 var
-R4916:4916 Kernel.VMSubstrateInstance <> p:12 var
-def 5138:5150 <> vm_prog_equiv
-R5161:5164 Coq.Init.Datatypes <> list ind
-R5166:5179 Kernel.VMStep VMStep vm_instruction ind
-binder 5153:5154 <> p1:14
-binder 5156:5157 <> p2:15
-binder 5203:5203 <> s:16
-R5217:5219 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5206:5211 Kernel.VMSubstrateInstance <> vm_run def
-R5213:5214 Kernel.VMSubstrateInstance <> p1:14 var
-R5216:5216 Kernel.VMSubstrateInstance <> s:16 var
-R5220:5225 Kernel.VMSubstrateInstance <> vm_run def
-R5227:5228 Kernel.VMSubstrateInstance <> p2:15 var
-R5230:5230 Kernel.VMSubstrateInstance <> s:16 var
-var 6573:6588 VMSubstrateConstruction vm_representable
-R6592:6592 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6635:6639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6612:6615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6593:6596 Coq.Init.Datatypes <> list ind
-R6598:6611 Kernel.VMStep VMStep vm_instruction ind
-R6616:6619 Coq.Init.Datatypes <> list ind
-R6621:6634 Kernel.VMStep VMStep vm_instruction ind
-var 6773:6792 VMSubstrateConstruction vm_recursion_theorem
-R6831:6834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6812:6815 Coq.Init.Datatypes <> list ind
-R6817:6830 Kernel.VMStep VMStep vm_instruction ind
-R6835:6838 Coq.Init.Datatypes <> list ind
-R6840:6853 Kernel.VMStep VMStep vm_instruction ind
-binder 6808:6808 <> f:18
-R6881:6890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6863:6878 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_representable var
-R6880:6880 Kernel.VMSubstrateInstance <> f:18 var
-R6891:6898 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6922:6924 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6903:6906 Coq.Init.Datatypes <> list ind
-R6908:6921 Kernel.VMStep VMStep vm_instruction ind
-binder 6899:6899 <> p:19
-R6925:6937 Kernel.VMSubstrateInstance <> vm_prog_equiv def
-R6939:6939 Kernel.VMSubstrateInstance <> p:19 var
-R6942:6942 Kernel.VMSubstrateInstance <> f:18 var
-R6944:6944 Kernel.VMSubstrateInstance <> p:19 var
-def 7001:7012 <> vm_substrate
-R7016:7024 Kernel.Substrate <> Substrate class
-R7042:7046 Kernel.Substrate <> state meth
-R7042:7046 Kernel.Substrate <> state meth
-R7042:7046 Kernel.Substrate <> state meth
-R7066:7072 Kernel.Substrate <> Program meth
-R7066:7072 Kernel.Substrate <> Program meth
-R7104:7106 Kernel.Substrate <> run meth
-R7104:7106 Kernel.Substrate <> run meth
-R7125:7126 Kernel.Substrate <> mu meth
-R7125:7126 Kernel.Substrate <> mu meth
-R7144:7147 Kernel.Substrate <> step meth
-R7144:7147 Kernel.Substrate <> step meth
-R7167:7177 Kernel.Substrate <> mu_monotone meth
-R7167:7177 Kernel.Substrate <> mu_monotone meth
-R7204:7209 Kernel.Substrate <> encode meth
-R7204:7209 Kernel.Substrate <> encode meth
-R7231:7241 Kernel.Substrate <> decode_safe meth
-R7231:7241 Kernel.Substrate <> decode_safe meth
-R7268:7280 Kernel.Substrate <> encode_decode meth
-R7268:7280 Kernel.Substrate <> encode_decode meth
-R7309:7321 Kernel.Substrate <> Representable meth
-R7309:7321 Kernel.Substrate <> Representable meth
-R7350:7366 Kernel.Substrate <> recursion_theorem meth
-R7350:7366 Kernel.Substrate <> recursion_theorem meth
-R7051:7057 Kernel.VMState <> VMState rec
-R7077:7080 Coq.Init.Datatypes <> list ind
-R7082:7095 Kernel.VMStep VMStep vm_instruction ind
-R7111:7116 Kernel.VMSubstrateInstance <> vm_run def
-R7131:7135 Kernel.VMState <> vm_mu proj
-R7152:7158 Kernel.VMSubstrateInstance <> vm_step def
-R7182:7195 Kernel.VMSubstrateInstance <> vm_mu_monotone thm
-R7214:7222 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_encode var
-R7246:7259 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_decode_safe var
-R7285:7300 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_encode_decode var
-R7326:7341 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_representable var
-R7371:7390 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_recursion_theorem var
-R7406:7428 Kernel.VMSubstrateInstance VMSubstrateConstruction <> sec
+R2138:2141 Coq.Lists.List <> <> lib
+R2143:2156 Coq.Arith.PeanoNat <> <> lib
+R2158:2161 Coq.Bool.Bool <> <> lib
+R2171:2183 Coq.Lists.List ListNotations <> mod
+R2214:2222 Kernel.Substrate <> <> lib
+R2252:2258 Kernel.VMState <> <> lib
+R2260:2265 Kernel.VMStep <> <> lib
+R2267:2281 Kernel.SimulationProof <> <> lib
+R2310:2329 Kernel.MuLedgerConservation <> <> lib
+def 2904:2914 <> vm_run_fuel
+R2918:2920 Coq.Init.Datatypes <> nat ind
+def 2943:2948 <> vm_run
+R2955:2958 Coq.Init.Datatypes <> list ind
+R2960:2973 Kernel.VMStep VMStep vm_instruction ind
+binder 2951:2951 <> p:1
+R2981:2987 Kernel.VMState <> VMState rec
+binder 2977:2977 <> s:2
+R2992:2997 Coq.Init.Datatypes <> option ind
+R2999:3005 Kernel.VMState <> VMState rec
+R3012:3015 Coq.Init.Datatypes <> Some constr
+R3018:3023 Kernel.SimulationProof <> run_vm def
+R3025:3035 Kernel.VMSubstrateInstance <> vm_run_fuel def
+R3037:3037 Kernel.VMSubstrateInstance <> p:1 var
+R3039:3039 Kernel.VMSubstrateInstance <> s:2 var
+def 3100:3106 <> vm_step
+R3113:3116 Coq.Init.Datatypes <> list ind
+R3118:3131 Kernel.VMStep VMStep vm_instruction ind
+binder 3109:3109 <> p:3
+R3142:3148 Kernel.VMState <> VMState rec
+binder 3135:3135 <> s:4
+binder 3137:3138 <> s':5
+R3163:3169 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3188:3189 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3174:3187 Kernel.VMStep VMStep vm_instruction ind
+binder 3170:3170 <> i:6
+R3196:3199 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3190:3191 Coq.Lists.List <> In def
+R3195:3195 Kernel.VMSubstrateInstance <> p:3 var
+R3193:3193 Kernel.VMSubstrateInstance <> i:6 var
+R3202:3204 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3200:3201 Kernel.VMSubstrateInstance <> s':5 var
+R3205:3212 Kernel.SimulationProof <> vm_apply def
+R3214:3214 Kernel.VMSubstrateInstance <> s:4 var
+R3216:3216 Kernel.VMSubstrateInstance <> i:6 var
+prf 3375:3388 <> vm_mu_monotone
+R3406:3409 Coq.Init.Datatypes <> list ind
+R3411:3424 Kernel.VMStep VMStep vm_instruction ind
+binder 3402:3402 <> p:7
+R3435:3441 Kernel.VMState <> VMState rec
+binder 3428:3428 <> s:8
+binder 3430:3431 <> s':9
+R3463:3466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3449:3455 Kernel.VMSubstrateInstance <> vm_step def
+R3457:3457 Kernel.VMSubstrateInstance <> p:7 var
+R3459:3459 Kernel.VMSubstrateInstance <> s:8 var
+R3461:3462 Kernel.VMSubstrateInstance <> s':9 var
+R3474:3477 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3467:3471 Kernel.VMState <> vm_mu proj
+R3473:3473 Kernel.VMSubstrateInstance <> s:8 var
+R3478:3482 Kernel.VMState <> vm_mu proj
+R3484:3485 Kernel.VMSubstrateInstance <> s':9 var
+R3548:3558 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3548:3558 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3548:3558 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3569:3580 Coq.Arith.PeanoNat Nat le_add_r thm
+R3569:3580 Coq.Arith.PeanoNat Nat le_add_r thm
+sec 4450:4472 <> VMSubstrateConstruction
+var 4535:4543 VMSubstrateConstruction vm_encode
+R4566:4569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4547:4550 Coq.Init.Datatypes <> list ind
+R4552:4565 Kernel.VMStep VMStep vm_instruction ind
+R4570:4576 Kernel.VMState <> VMState rec
+var 4590:4603 VMSubstrateConstruction vm_decode_safe
+R4614:4617 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4607:4613 Kernel.VMState <> VMState rec
+R4618:4621 Coq.Init.Datatypes <> list ind
+R4623:4636 Kernel.VMStep VMStep vm_instruction ind
+var 4652:4667 VMSubstrateConstruction vm_encode_decode
+binder 4682:4682 <> p:12
+R4713:4715 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4685:4698 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_decode_safe var
+R4701:4709 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_encode var
+R4711:4711 Kernel.VMSubstrateInstance <> p:12 var
+R4716:4716 Kernel.VMSubstrateInstance <> p:12 var
+def 4938:4950 <> vm_prog_equiv
+R4961:4964 Coq.Init.Datatypes <> list ind
+R4966:4979 Kernel.VMStep VMStep vm_instruction ind
+binder 4953:4954 <> p1:14
+binder 4956:4957 <> p2:15
+binder 5003:5003 <> s:16
+R5017:5019 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5006:5011 Kernel.VMSubstrateInstance <> vm_run def
+R5013:5014 Kernel.VMSubstrateInstance <> p1:14 var
+R5016:5016 Kernel.VMSubstrateInstance <> s:16 var
+R5020:5025 Kernel.VMSubstrateInstance <> vm_run def
+R5027:5028 Kernel.VMSubstrateInstance <> p2:15 var
+R5030:5030 Kernel.VMSubstrateInstance <> s:16 var
+var 6357:6372 VMSubstrateConstruction vm_representable
+R6376:6376 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6419:6423 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6396:6399 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6377:6380 Coq.Init.Datatypes <> list ind
+R6382:6395 Kernel.VMStep VMStep vm_instruction ind
+R6400:6403 Coq.Init.Datatypes <> list ind
+R6405:6418 Kernel.VMStep VMStep vm_instruction ind
+var 6557:6576 VMSubstrateConstruction vm_recursion_theorem
+R6615:6618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6596:6599 Coq.Init.Datatypes <> list ind
+R6601:6614 Kernel.VMStep VMStep vm_instruction ind
+R6619:6622 Coq.Init.Datatypes <> list ind
+R6624:6637 Kernel.VMStep VMStep vm_instruction ind
+binder 6592:6592 <> f:18
+R6665:6674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6647:6662 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_representable var
+R6664:6664 Kernel.VMSubstrateInstance <> f:18 var
+R6675:6682 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6706:6708 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6687:6690 Coq.Init.Datatypes <> list ind
+R6692:6705 Kernel.VMStep VMStep vm_instruction ind
+binder 6683:6683 <> p:19
+R6709:6721 Kernel.VMSubstrateInstance <> vm_prog_equiv def
+R6723:6723 Kernel.VMSubstrateInstance <> p:19 var
+R6726:6726 Kernel.VMSubstrateInstance <> f:18 var
+R6728:6728 Kernel.VMSubstrateInstance <> p:19 var
+def 6785:6796 <> vm_substrate
+R6800:6808 Kernel.Substrate <> Substrate class
+R6826:6830 Kernel.Substrate <> state meth
+R6826:6830 Kernel.Substrate <> state meth
+R6826:6830 Kernel.Substrate <> state meth
+R6850:6856 Kernel.Substrate <> Program meth
+R6850:6856 Kernel.Substrate <> Program meth
+R6888:6890 Kernel.Substrate <> run meth
+R6888:6890 Kernel.Substrate <> run meth
+R6909:6910 Kernel.Substrate <> mu meth
+R6909:6910 Kernel.Substrate <> mu meth
+R6928:6931 Kernel.Substrate <> step meth
+R6928:6931 Kernel.Substrate <> step meth
+R6951:6961 Kernel.Substrate <> mu_monotone meth
+R6951:6961 Kernel.Substrate <> mu_monotone meth
+R6988:6993 Kernel.Substrate <> encode meth
+R6988:6993 Kernel.Substrate <> encode meth
+R7015:7025 Kernel.Substrate <> decode_safe meth
+R7015:7025 Kernel.Substrate <> decode_safe meth
+R7052:7064 Kernel.Substrate <> encode_decode meth
+R7052:7064 Kernel.Substrate <> encode_decode meth
+R7093:7105 Kernel.Substrate <> Representable meth
+R7093:7105 Kernel.Substrate <> Representable meth
+R7134:7150 Kernel.Substrate <> recursion_theorem meth
+R7134:7150 Kernel.Substrate <> recursion_theorem meth
+R6835:6841 Kernel.VMState <> VMState rec
+R6861:6864 Coq.Init.Datatypes <> list ind
+R6866:6879 Kernel.VMStep VMStep vm_instruction ind
+R6895:6900 Kernel.VMSubstrateInstance <> vm_run def
+R6915:6919 Kernel.VMState <> vm_mu proj
+R6936:6942 Kernel.VMSubstrateInstance <> vm_step def
+R6966:6979 Kernel.VMSubstrateInstance <> vm_mu_monotone thm
+R6998:7006 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_encode var
+R7030:7043 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_decode_safe var
+R7069:7084 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_encode_decode var
+R7110:7125 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_representable var
+R7155:7174 Kernel.VMSubstrateInstance <> VMSubstrateConstruction.vm_recursion_theorem var
+R7190:7212 Kernel.VMSubstrateInstance VMSubstrateConstruction <> sec
