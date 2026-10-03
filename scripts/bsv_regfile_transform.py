@@ -473,10 +473,13 @@ def transform_matrix_regs(bsv: str) -> str:
             rows_read[rm.group(1)] = rm.group(2)
         bsv = row_pat.sub('', bsv)
 
+        # The printer wraps long lines at any space, so every separator in the
+        # write expression matches any run of whitespace.
         write = re.compile(
-            r'Vector#\(' + str(rows) + r', Vector#\(' + str(cols) + r', ' + re.escape(elem)
-            + r'\)\) (\w+) = \(\((.*?) \? \(update \(' + re.escape(x) + r', (\w+), update\s+\((\w+), '
-            r'(\w+), (\w+)\)\)\) : \(' + re.escape(x) + r'\)\)\);', re.S)
+            r'Vector#\(' + str(rows) + r',\s+Vector#\(' + str(cols) + r',\s+' + re.escape(elem)
+            + r'\)\)\s+(\w+)\s+=\s+\(\((.*?)\s+\?\s+\(update\s+\(' + re.escape(x)
+            + r',\s+(\w+),\s+update\s+\((\w+),\s+'
+            r'(\w+),\s+(\w+)\)\)\)\s+:\s+\(' + re.escape(x) + r'\)\)\);', re.S)
         wm = write.search(bsv)
         if wm is None:
             raise SystemExit(f"matrix transform: write shape for {name} not found")
