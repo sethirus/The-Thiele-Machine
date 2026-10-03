@@ -80,7 +80,6 @@ Require KamiHW.LassertWord.
 Require KamiHW.LegacyLoadGuard.
 Require KamiHW.LegacyLocalityGuard.
 Require KamiHW.LegacyNfiGuard.
-Require KamiHW.LegacyPartitionGuard.
 Require KamiHW.LegacyWordDecode.
 Require KamiHW.LoaderSerial.
 Require KamiHW.LogicEngineEquivalence.
@@ -117,7 +116,6 @@ Require KamiHW.RichFaultWords.
 Require KamiHW.RichLoadGuard.
 Require KamiHW.RichLocalityGuard.
 Require KamiHW.RichNfiGuard.
-Require KamiHW.RichPartitionGuard.
 Require KamiHW.RichStateCommutation.
 Require KamiHW.RichWordDecode.
 Require KamiHW.RuleEnabled.
@@ -604,7 +602,7 @@ Print Assumptions PhysicsConditionalClosure.master_tsirelson_conditional.
 Print Assumptions PhysicsConditionalClosure.master_supra_quantum_impossible.
 (* === ReceiptTheorem : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions ReceiptTheorem.ReceiptTheorem.
-(* === ThieleMachineComplete : 420 addressable theorems (unaddressable: 0) === *)
+(* === ThieleMachineComplete : 425 addressable theorems (unaddressable: 0) === *)
 Print Assumptions ThieleMachineComplete.normalize_region_nodup.
 Print Assumptions ThieleMachineComplete.normalize_region_idempotent.
 Print Assumptions ThieleMachineComplete.filter_In_iff_tc.
@@ -642,6 +640,11 @@ Print Assumptions ThieleMachineComplete.word64_modulus_N.
 Print Assumptions ThieleMachineComplete.word64_small_identity.
 Print Assumptions ThieleMachineComplete.MEM_SIZE_lt_word64_modulus.
 Print Assumptions ThieleMachineComplete.mem_addr_lt_word64_modulus.
+Print Assumptions ThieleMachineComplete.pnew_ok_spec.
+Print Assumptions ThieleMachineComplete.module_room_spec.
+Print Assumptions ThieleMachineComplete.region_in_memory_spec.
+Print Assumptions ThieleMachineComplete.region_in_memory_seq.
+Print Assumptions ThieleMachineComplete.pmerge_ok_spec.
 Print Assumptions ThieleMachineComplete.ascii_payload_bits_length.
 Print Assumptions ThieleMachineComplete.payload_bit_length_ascii.
 Print Assumptions ThieleMachineComplete.io_env_mu_cost_independent.
@@ -1057,12 +1060,13 @@ Print Assumptions VerifierImpossibility.bare_sound_blocks_honest_acceptance.
 (* === VerifierModel : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions VerifierModel.bare_decide_eq_trans.
 Print Assumptions VerifierModel.bare_sound_contrapositive.
-(* === KamiHW.Abstraction : 52 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.Abstraction : 53 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.Abstraction.kami_err_logic_witness.
 Print Assumptions KamiHW.Abstraction.kami_err_coupling_invalid_witness.
 Print Assumptions KamiHW.Abstraction.kami_err_compose_type_witness.
 Print Assumptions KamiHW.Abstraction.kami_err_morph_not_found_witness.
 Print Assumptions KamiHW.Abstraction.kami_err_partition_overlap_witness.
+Print Assumptions KamiHW.Abstraction.kami_err_partition_witness.
 Print Assumptions KamiHW.Abstraction.kami_step_mu_cost.
 Print Assumptions KamiHW.Abstraction.kami_cost_eq_instruction_cost.
 Print Assumptions KamiHW.Abstraction.kami_cost_ge_instruction_cost.
@@ -5830,7 +5834,7 @@ Print Assumptions KamiHW.DispatchObservation.dispatch_add_actual_post.
 Print Assumptions KamiHW.DispatchObservation.dispatch_add_actual_execution.
 (* === KamiHW.DispatchReset : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.DispatchReset.actual_cpu_reset_contract.
-(* === KamiHW.EmbedStep : 32 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.EmbedStep : 36 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.EmbedStep.word64_idempotent.
 Print Assumptions KamiHW.EmbedStep.map_update_at_seq_gen.
 Print Assumptions KamiHW.EmbedStep.map_update_at_seq.
@@ -5855,6 +5859,10 @@ Print Assumptions KamiHW.EmbedStep.embed_step_ljoin.
 Print Assumptions KamiHW.EmbedStep.embed_step_emit.
 Print Assumptions KamiHW.EmbedStep.embed_step_pdiscover.
 Print Assumptions KamiHW.EmbedStep.embed_step_reveal.
+Print Assumptions KamiHW.EmbedStep.region_in_memory_seq_b.
+Print Assumptions KamiHW.EmbedStep.module_room_one_snap.
+Print Assumptions KamiHW.EmbedStep.module_room_two_snap.
+Print Assumptions KamiHW.EmbedStep.pnew_ok_snap.
 Print Assumptions KamiHW.EmbedStep.embed_step_pnew_bounded.
 Print Assumptions KamiHW.EmbedStep.embed_step_pnew.
 Print Assumptions KamiHW.EmbedStep.abs_phase1_kami_graph_op_advance.
@@ -6025,7 +6033,7 @@ Print Assumptions KamiHW.FullEmbedStep.vm_apply_lassert_with_graph_commute.
 Print Assumptions KamiHW.FullStep.kami_step_full_refines.
 Print Assumptions KamiHW.FullStep.kami_run_full_refines.
 Print Assumptions KamiHW.FullStep.initial_full_kami_correspondence.
-(* === KamiHW.GraphReconstructionBridge : 129 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.GraphReconstructionBridge : 132 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_supported.
 Print Assumptions KamiHW.GraphReconstructionBridge.map_const_zero_repeat.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_call.
@@ -6136,6 +6144,9 @@ Print Assumptions KamiHW.GraphReconstructionBridge.filter_filter_pointwise.
 Print Assumptions KamiHW.GraphReconstructionBridge.cascade_pred_keep1.
 Print Assumptions KamiHW.GraphReconstructionBridge.cascade_pred_keep2.
 Print Assumptions KamiHW.GraphReconstructionBridge.graph_pnew_morph_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_module_room.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_pnew_ok.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_pmerge_ok.
 Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_psplit.
 Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_pmerge.
 Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_pnew.
@@ -6894,10 +6905,6 @@ Print Assumptions KamiHW.LegacyLocalityGuard.dd_load_locality_bad_heap_false.
 Print Assumptions KamiHW.LegacyLocalityGuard.dd_store_locality_bad_heap_false.
 (* === KamiHW.LegacyNfiGuard : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.LegacyNfiGuard.dd_nfi_violation_false.
-(* === KamiHW.LegacyPartitionGuard : 3 addressable theorems (unaddressable: 0) === *)
-Print Assumptions KamiHW.LegacyPartitionGuard.dd_pnew_overflow_false.
-Print Assumptions KamiHW.LegacyPartitionGuard.dd_psplit_overflow_false.
-Print Assumptions KamiHW.LegacyPartitionGuard.dd_pmerge_overflow_false.
 (* === KamiHW.LegacyWordDecode : 42 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.LegacyWordDecode.wordToNat_eqw.
 Print Assumptions KamiHW.LegacyWordDecode.dd_isa_version_form.
@@ -7231,7 +7238,7 @@ Print Assumptions KamiHW.NormalizationSteps.normalization_pair_index_exact.
 Print Assumptions KamiHW.NormalizationSteps.normalization_distinct_pair_indices.
 Print Assumptions KamiHW.NormalizationSteps.normalization_emit_preserves_other_pair.
 Print Assumptions KamiHW.NormalizationSteps.normalization_emit_preserves_unread_suffix.
-(* === KamiHW.OutsideDomain : 41 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.OutsideDomain : 43 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.OutsideDomain.not_guard_of_opcode.
 Print Assumptions KamiHW.OutsideDomain.op_off_add.
 Print Assumptions KamiHW.OutsideDomain.op_off_sub.
@@ -7269,20 +7276,18 @@ Print Assumptions KamiHW.OutsideDomain.op_off_morph.
 Print Assumptions KamiHW.OutsideDomain.op_off_compose.
 Print Assumptions KamiHW.OutsideDomain.op_off_lassert.
 Print Assumptions KamiHW.OutsideDomain.op_off_chsh_lassert.
+Print Assumptions KamiHW.OutsideDomain.op_off_pnew.
+Print Assumptions KamiHW.OutsideDomain.op_off_psplit.
+Print Assumptions KamiHW.OutsideDomain.op_off_pmerge.
 Print Assumptions KamiHW.OutsideDomain.guard_opcodes_exact.
 Print Assumptions KamiHW.OutsideDomain.locality_opcodes_sub_guard.
-Print Assumptions KamiHW.OutsideDomain.partition_opcodes_sub_guard.
 Print Assumptions KamiHW.OutsideDomain.op_member_guard_of_in.
-(* === KamiHW.OutsideDomainMaster : 20 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.OutsideDomainMaster : 13 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.OutsideDomainMaster.dd_locality_violation_unfold.
-Print Assumptions KamiHW.OutsideDomainMaster.dd_ptable_overflow_violation_unfold.
 Print Assumptions KamiHW.OutsideDomainMaster.dd_load_locality_bad_false_of_neq.
 Print Assumptions KamiHW.OutsideDomainMaster.dd_store_locality_bad_false_of_neq.
 Print Assumptions KamiHW.OutsideDomainMaster.dd_call_locality_bad_false_of_neq.
 Print Assumptions KamiHW.OutsideDomainMaster.dd_ret_locality_bad_false_of_neq.
-Print Assumptions KamiHW.OutsideDomainMaster.dd_pnew_overflow_false_of_neq.
-Print Assumptions KamiHW.OutsideDomainMaster.dd_psplit_overflow_false_of_neq.
-Print Assumptions KamiHW.OutsideDomainMaster.dd_pmerge_overflow_false_of_neq.
 Print Assumptions KamiHW.OutsideDomainMaster.dd_nfi_violation_false_of_neq.
 Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_load.
 Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_heap_load.
@@ -7290,16 +7295,14 @@ Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_store.
 Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_heap_store.
 Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_call.
 Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_ret.
-Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_pnew.
-Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_psplit.
-Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_pmerge.
 Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_pdiscover.
-(* === KamiHW.PartitionRefine : 4 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.PartitionRefine : 5 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.PartitionRefine.wordToNat_err_partition_overlap.
+Print Assumptions KamiHW.PartitionRefine.wordToNat_err_partition.
 Print Assumptions KamiHW.PartitionRefine.step_pnew_refines.
 Print Assumptions KamiHW.PartitionRefine.step_pmerge_refines.
 Print Assumptions KamiHW.PartitionRefine.step_psplit_refines.
-(* === KamiHW.PartitionScan : 29 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.PartitionScan : 32 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.PartitionScan.bool_of_wlt.
 Print Assumptions KamiHW.PartitionScan.ev_Eq.
 Print Assumptions KamiHW.PartitionScan.ev_Lt.
@@ -7329,6 +7332,9 @@ Print Assumptions KamiHW.PartitionScan.ev_UpdateVector.
 Print Assumptions KamiHW.PartitionScan.eval_morph_cascade.
 Print Assumptions KamiHW.PartitionScan.hw_morph_cascade_spec.
 Print Assumptions KamiHW.PartitionScan.step_rich_cascade.
+Print Assumptions KamiHW.PartitionScan.pt_room_one_ltb.
+Print Assumptions KamiHW.PartitionScan.pt_room_two_leb.
+Print Assumptions KamiHW.PartitionScan.hw_pnew_in_memory_nat.
 (* === KamiHW.PopcountSWAR : 30 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.PopcountSWAR.pow2_ne0.
 Print Assumptions KamiHW.PopcountSWAR.fld_testbit.
@@ -7575,10 +7581,6 @@ Print Assumptions KamiHW.RichLocalityGuard.dd_load_locality_bad_heap_false_rich.
 Print Assumptions KamiHW.RichLocalityGuard.dd_store_locality_bad_heap_false_rich.
 (* === KamiHW.RichNfiGuard : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.RichNfiGuard.dd_nfi_violation_false_rich.
-(* === KamiHW.RichPartitionGuard : 3 addressable theorems (unaddressable: 0) === *)
-Print Assumptions KamiHW.RichPartitionGuard.dd_pnew_overflow_false_rich.
-Print Assumptions KamiHW.RichPartitionGuard.dd_psplit_overflow_false_rich.
-Print Assumptions KamiHW.RichPartitionGuard.dd_pmerge_overflow_false_rich.
 (* === KamiHW.RichStateCommutation : 30 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.RichStateCommutation.filtermap_ext.
 Print Assumptions KamiHW.RichStateCommutation.filtermap_filter.
@@ -7900,25 +7902,20 @@ Print Assumptions KamiHW.StepEval.step_keeps_desc_meta_inline_len_table.
 Print Assumptions KamiHW.StepEval.step_keeps_desc_meta_aux_table.
 Print Assumptions KamiHW.StepEval.step_keeps_desc_meta_valid_table.
 Print Assumptions KamiHW.StepEval.step_keeps_desc_meta_next_id.
-(* === KamiHW.StepFaults : 76 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.StepFaults : 67 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.StepFaults.op_test_outside.
 Print Assumptions KamiHW.StepFaults.op_in_member_false.
 Print Assumptions KamiHW.StepFaults.op_disjoint.
 Print Assumptions KamiHW.StepFaults.split1_4_1_small.
 Print Assumptions KamiHW.StepFaults.dd_locality_opcode.
-Print Assumptions KamiHW.StepFaults.dd_ptable_opcode.
 Print Assumptions KamiHW.StepFaults.dd_nfi_opcode.
 Print Assumptions KamiHW.StepFaults.dd_partition_opcode.
 Print Assumptions KamiHW.StepFaults.dd_morph_opcode.
 Print Assumptions KamiHW.StepFaults.dd_guard_opcode.
 Print Assumptions KamiHW.StepFaults.dd_morph_not_guard.
 Print Assumptions KamiHW.StepFaults.dd_morph_not_partition.
-Print Assumptions KamiHW.StepFaults.dd_locality_not_ptable.
 Print Assumptions KamiHW.StepFaults.dd_locality_not_nfi.
-Print Assumptions KamiHW.StepFaults.dd_ptable_not_nfi.
-Print Assumptions KamiHW.StepFaults.dd_ptable_not_locality.
 Print Assumptions KamiHW.StepFaults.dd_nfi_not_locality.
-Print Assumptions KamiHW.StepFaults.dd_nfi_not_ptable.
 Print Assumptions KamiHW.StepFaults.dd_guard_not_morph.
 Print Assumptions KamiHW.StepFaults.dd_trap_false.
 Print Assumptions KamiHW.StepFaults.dd_pc_trap.
@@ -7952,9 +7949,6 @@ Print Assumptions KamiHW.StepFaults.dd_partition_ops_bianchi.
 Print Assumptions KamiHW.StepFaults.dd_mu_locality.
 Print Assumptions KamiHW.StepFaults.dd_error_code_locality.
 Print Assumptions KamiHW.StepFaults.dd_partition_ops_locality.
-Print Assumptions KamiHW.StepFaults.dd_mu_ptable.
-Print Assumptions KamiHW.StepFaults.dd_error_code_ptable.
-Print Assumptions KamiHW.StepFaults.dd_partition_ops_ptable.
 Print Assumptions KamiHW.StepFaults.dd_mu_nfi.
 Print Assumptions KamiHW.StepFaults.dd_error_code_nfi.
 Print Assumptions KamiHW.StepFaults.dd_partition_ops_nfi.
@@ -7973,7 +7967,6 @@ Print Assumptions KamiHW.StepFaults.step_trap_snapshot.
 Print Assumptions KamiHW.StepFaults.step_freeze_phases.
 Print Assumptions KamiHW.StepFaults.step_bianchi_snapshot.
 Print Assumptions KamiHW.StepFaults.step_locality_snapshot.
-Print Assumptions KamiHW.StepFaults.step_ptable_snapshot.
 Print Assumptions KamiHW.StepFaults.step_nfi_snapshot.
 Print Assumptions KamiHW.StepFaults.step_rich_snapshot.
 Print Assumptions KamiHW.StepFaults.step_morph_fault_snapshot.
@@ -9710,8 +9703,8 @@ Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_coupling_desc_label_le
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_lassert_phase.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_chsh_phase.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_mc_phase.
-Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_mc_src1_count.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_mc_src2_count.
+Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_mc_src1_count.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_mc_src1_base.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_mc_src2_base.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_mc_i.
@@ -10235,7 +10228,7 @@ Print Assumptions Kernel.AlgebraicCoherence.tsirelson_achieving_value.
 Print Assumptions Kernel.AlgebraicCoherence.tsirelson_rational_lower_witness.
 Print Assumptions Kernel.AlgebraicCoherence.algebraically_coherent_tsirelson_general.
 Print Assumptions Kernel.AlgebraicCoherence.algebraically_coherent_tsirelson_abs.
-(* === Kernel.CategoryBridge : 26 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.CategoryBridge : 53 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CategoryBridge.graph_add_morphism_new_id_lookup.
 Print Assumptions Kernel.CategoryBridge.graph_add_morphism_old_id_lookup.
 Print Assumptions Kernel.CategoryBridge.graph_compose_morphisms_coupling.
@@ -10245,6 +10238,33 @@ Print Assumptions Kernel.CategoryBridge.morph_graph_compose_assoc.
 Print Assumptions Kernel.CategoryBridge.graph_add_identity_coupling.
 Print Assumptions Kernel.CategoryBridge.morph_id_left_coupling.
 Print Assumptions Kernel.CategoryBridge.morph_id_right_coupling.
+Print Assumptions Kernel.CategoryBridge.graph_compose_stored.
+Print Assumptions Kernel.CategoryBridge.well_formed_lookup_morphism_below.
+Print Assumptions Kernel.CategoryBridge.nodup_pairs_equiv.
+Print Assumptions Kernel.CategoryBridge.graph_compose_identities_is_identity.
+Print Assumptions Kernel.CategoryBridge.composite_record_pairs_In.
+Print Assumptions Kernel.CategoryBridge.composite_pairs_none.
+Print Assumptions Kernel.CategoryBridge.composite_pairs_left.
+Print Assumptions Kernel.CategoryBridge.composite_pairs_right.
+Print Assumptions Kernel.CategoryBridge.graph_compose_assoc_stored.
+Print Assumptions Kernel.CategoryBridge.graph_compose_left_identity_stored.
+Print Assumptions Kernel.CategoryBridge.graph_compose_right_identity_stored.
+Print Assumptions Kernel.CategoryBridge.identity_arrows_canonical_sub.
+Print Assumptions Kernel.CategoryBridge.identity_arrows_canonical_same.
+Print Assumptions Kernel.CategoryBridge.identity_arrows_canonical_add.
+Print Assumptions Kernel.CategoryBridge.graph_compose_preserves_identity_arrows_canonical.
+Print Assumptions Kernel.CategoryBridge.graph_cascade_delete_morphisms_sub.
+Print Assumptions Kernel.CategoryBridge.graph_remove_or_keep_morphisms.
+Print Assumptions Kernel.CategoryBridge.graph_hw_psplit_morphisms_sub.
+Print Assumptions Kernel.CategoryBridge.graph_hw_pmerge_morphisms_sub.
+Print Assumptions Kernel.CategoryBridge.graph_pnew_morphisms.
+Print Assumptions Kernel.CategoryBridge.graph_update_module_tensor_morphisms.
+Print Assumptions Kernel.CategoryBridge.graph_delete_morphism_sub.
+Print Assumptions Kernel.CategoryBridge.graph_tensor_preserves_identity_arrows_canonical.
+Print Assumptions Kernel.CategoryBridge.graph_add_identity_preserves_identity_arrows_canonical.
+Print Assumptions Kernel.CategoryBridge.vm_step_preserves_identity_arrows_canonical.
+Print Assumptions Kernel.CategoryBridge.vm_reachable_preserves_identity_arrows_canonical.
+Print Assumptions Kernel.CategoryBridge.vm_reachable_identity_arrows_canonical.
 Print Assumptions Kernel.CategoryBridge.morph_assert_is_cert_setter.
 Print Assumptions Kernel.CategoryBridge.instr_morph_not_cert_setter.
 Print Assumptions Kernel.CategoryBridge.instr_compose_not_cert_setter.
@@ -11346,7 +11366,7 @@ Print Assumptions Kernel.RecordAxisDiscrimination.latch_core_honest.
 Print Assumptions Kernel.RecordAxisDiscrimination.history_latch_injective.
 Print Assumptions Kernel.RecordAxisDiscrimination.history_latch_honest.
 Print Assumptions Kernel.RecordAxisDiscrimination.finite_reversible_cannot_write.
-(* === Kernel.SimulationProof : 45 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.SimulationProof : 51 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.SimulationProof.encoding_implies_states_related.
 Print Assumptions Kernel.SimulationProof.firstn_succ_nth_error_Some.
 Print Assumptions Kernel.SimulationProof.firstn_succ_nth_error_None.
@@ -11381,6 +11401,7 @@ Print Assumptions Kernel.SimulationProof.vm_step_kernel_simulation.
 Print Assumptions Kernel.SimulationProof.vm_exec_simulation.
 Print Assumptions Kernel.SimulationProof.vm_is_a_correct_refinement_of_kernel.
 Print Assumptions Kernel.SimulationProof.vm_apply_pnew_eq.
+Print Assumptions Kernel.SimulationProof.vm_apply_psplit_eq.
 Print Assumptions Kernel.SimulationProof.vm_apply_pmerge_eq.
 Print Assumptions Kernel.SimulationProof.vm_apply_pnew_pc.
 Print Assumptions Kernel.SimulationProof.pnew_mu_exact.
@@ -11389,6 +11410,11 @@ Print Assumptions Kernel.SimulationProof.vm_apply_pnew_graph_adds.
 Print Assumptions Kernel.SimulationProof.graph_add_module_next_id_nondec.
 Print Assumptions Kernel.SimulationProof.vm_apply_pnew_graph_nondec.
 Print Assumptions Kernel.SimulationProof.vm_apply_pnew_noninterference.
+Print Assumptions Kernel.SimulationProof.vm_apply_preserves_regions_in_memory.
+Print Assumptions Kernel.SimulationProof.vm_apply_preserves_modules_bounded.
+Print Assumptions Kernel.SimulationProof.vm_apply_preserves_module_ids_distinct.
+Print Assumptions Kernel.SimulationProof.vm_apply_preserves_partition_in_bounds.
+Print Assumptions Kernel.SimulationProof.run_vm_partition_in_bounds.
 Print Assumptions Kernel.SimulationProof.pnew_chain_mu.
 Print Assumptions Kernel.SimulationProof.pnew_chain_noninterference.
 Print Assumptions Kernel.SimulationProof.vm_lob_bypass.
@@ -12101,7 +12127,7 @@ Print Assumptions Kernel.VMState.bytes_to_words_length.
 Print Assumptions Kernel.VMState.map_seq_nth.
 Print Assumptions Kernel.VMState.String_length_eq_list_length.
 Print Assumptions Kernel.VMState.mem_to_string_roundtrip.
-(* === Kernel.VMStep : 57 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.VMStep : 98 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMStep.VMStep.ascii_payload_bits_length.
 Print Assumptions Kernel.VMStep.VMStep.payload_bit_length_ascii.
 Print Assumptions Kernel.VMStep.VMStep.cert_setter_cost_pos.
@@ -12111,7 +12137,14 @@ Print Assumptions Kernel.VMStep.VMStep.pnew_region_contiguous.
 Print Assumptions Kernel.VMStep.VMStep.pnew_region_normalized.
 Print Assumptions Kernel.VMStep.VMStep.pnew_region_nil.
 Print Assumptions Kernel.VMStep.VMStep.region_conflict_nil.
+Print Assumptions Kernel.VMStep.VMStep.pnew_ok_spec.
+Print Assumptions Kernel.VMStep.VMStep.module_room_spec.
+Print Assumptions Kernel.VMStep.VMStep.region_in_memory_spec.
+Print Assumptions Kernel.VMStep.VMStep.region_in_memory_seq.
+Print Assumptions Kernel.VMStep.VMStep.pnew_ok_nil.
 Print Assumptions Kernel.VMStep.VMStep.region_contiguousb_spec.
+Print Assumptions Kernel.VMStep.VMStep.pmerge_ok_spec.
+Print Assumptions Kernel.VMStep.VMStep.partition_step_state_graph.
 Print Assumptions Kernel.VMStep.VMStep.partition_step_state_ok.
 Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_next_id.
 Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_lookup_other.
@@ -12156,6 +12189,40 @@ Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_no_ref_wf.
 Print Assumptions Kernel.VMStep.VMStep.graph_hw_psplit_preserves_wf.
 Print Assumptions Kernel.VMStep.VMStep.graph_hw_pmerge_preserves_wf.
 Print Assumptions Kernel.VMStep.VMStep.vm_step_preserves_well_formed_graph.
+Print Assumptions Kernel.VMStep.VMStep.regions_in_memory_no_modules.
+Print Assumptions Kernel.VMStep.VMStep.regions_in_memory_incl.
+Print Assumptions Kernel.VMStep.VMStep.regions_in_memory_same.
+Print Assumptions Kernel.VMStep.VMStep.region_in_memory_incl.
+Print Assumptions Kernel.VMStep.VMStep.graph_module_region_in_memory.
+Print Assumptions Kernel.VMStep.VMStep.graph_add_module_preserves_regions_in_memory.
+Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_incl.
+Print Assumptions Kernel.VMStep.VMStep.graph_pnew_preserves_regions_in_memory.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_psplit_preserves_regions_in_memory.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_pmerge_preserves_regions_in_memory.
+Print Assumptions Kernel.VMStep.VMStep.graph_insert_modules_incl_or_new.
+Print Assumptions Kernel.VMStep.VMStep.graph_update_module_tensor_regions_in_memory.
+Print Assumptions Kernel.VMStep.VMStep.vm_step_preserves_regions_in_memory.
+Print Assumptions Kernel.VMStep.VMStep.graph_pnew_next_id_le.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_psplit_next_id.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_pmerge_next_id.
+Print Assumptions Kernel.VMStep.VMStep.graph_update_module_tensor_next_id.
+Print Assumptions Kernel.VMStep.VMStep.vm_step_preserves_modules_bounded.
+Print Assumptions Kernel.VMStep.VMStep.all_ids_below_In.
+Print Assumptions Kernel.VMStep.VMStep.graph_add_module_preserves_ids_distinct.
+Print Assumptions Kernel.VMStep.VMStep.graph_remove_modules_ids_distinct.
+Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_ids_distinct.
+Print Assumptions Kernel.VMStep.VMStep.graph_insert_modules_ids.
+Print Assumptions Kernel.VMStep.VMStep.graph_update_module_tensor_ids_distinct.
+Print Assumptions Kernel.VMStep.VMStep.module_ids_distinct_same.
+Print Assumptions Kernel.VMStep.VMStep.graph_pnew_preserves_ids_distinct.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_psplit_preserves_ids_distinct.
+Print Assumptions Kernel.VMStep.VMStep.in_map_fst_incl.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_pmerge_preserves_ids_distinct.
+Print Assumptions Kernel.VMStep.VMStep.vm_step_preserves_module_ids_distinct.
+Print Assumptions Kernel.VMStep.VMStep.modules_count_bounded.
+Print Assumptions Kernel.VMStep.VMStep.module_id_mod_64.
+Print Assumptions Kernel.VMStep.VMStep.vm_step_preserves_partition_in_bounds.
+Print Assumptions Kernel.VMStep.VMStep.vm_reachable_partition_in_bounds.
 Print Assumptions Kernel.VMStep.VMStep.io_env_mu_cost_independent.
 Print Assumptions Kernel.VMStep.VMStep.io_env_mu_cost_env_agnostic.
 Print Assumptions Kernel.VMStep.VMStep.io_read_cost_positive.

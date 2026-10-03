@@ -291,6 +291,8 @@ val rEG_COUNT : int
 
 val mEM_SIZE : int
 
+val nUM_MODULES : int
+
 val graph_pnew : partitionGraph -> int list -> partitionGraph*moduleID
 
 type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int;
@@ -499,9 +501,17 @@ module VMStep :
 
   val region_conflict : partitionGraph -> int list -> bool
 
+  val module_room : partitionGraph -> int -> bool
+
+  val region_in_memory : int list -> bool
+
+  val pnew_ok : partitionGraph -> int list -> bool
+
   val region_contiguousb : int list -> bool
 
   val pmerge_adjacent : partitionGraph -> moduleID -> moduleID -> bool
+
+  val pmerge_ok : partitionGraph -> moduleID -> moduleID -> bool
 
   val pmerge_region : int list -> int list -> int list
 

@@ -1,1319 +1,769 @@
-DIGEST 9ca3f0783429d1d9d501be8d43c7ae16
+DIGEST d0e0476d484428c64646ecd8033aa2cc
 FKamiHW.OutsideDomainMaster
-R1542:1550 Kami.Kami <> <> lib
-R1552:1565 Kami.Semantics <> <> lib
-R1592:1597 Coq.Strings.String <> <> lib
-R1599:1602 Coq.Lists.List <> <> lib
-R1604:1607 Coq.Bool.Bool <> <> lib
-R1609:1613 Coq.Arith.Arith <> <> lib
-R1615:1617 Coq.micromega.Lia <> <> lib
-R1647:1657 KamiHW.ThieleTypes <> <> lib
-R1659:1671 KamiHW.ThieleCPUCore <> <> lib
-R1673:1682 KamiHW.HWBoundary <> <> lib
-R1684:1691 KamiHW.RuleNext <> <> lib
-R1693:1700 KamiHW.RuleStep <> <> lib
-R1702:1716 KamiHW.BoundaryDecoded <> <> lib
-R1720:1727 KamiHW.StepEval <> <> lib
-R1729:1741 KamiHW.StepWordFacts <> <> lib
-R1743:1754 KamiHW.DispatchLets <> <> lib
-R1756:1766 KamiHW.Abstraction <> <> lib
-R1768:1789 KamiHW.ImplementationContract <> <> lib
-R1793:1802 KamiHW.StepFields <> <> lib
-R1804:1818 KamiHW.StepFieldsMorph <> <> lib
-R1820:1829 KamiHW.StepFaults <> <> lib
-R1831:1846 KamiHW.StepRefineCommon <> <> lib
-R1848:1863 KamiHW.LegacyWordDecode <> <> lib
-R1865:1878 KamiHW.RichWordDecode <> <> lib
-R1882:1894 KamiHW.RichLoadGuard <> <> lib
-R1896:1912 KamiHW.RichLocalityGuard <> <> lib
-R1914:1931 KamiHW.RichPartitionGuard <> <> lib
-R1933:1944 KamiHW.RichNfiGuard <> <> lib
-R1996:2003 Kami.Semantics <> evalExpr def
-R2005:2015 Kami.Semantics <> evalBinBool def
-R2017:2027 Kami.Semantics <> evalUniBool def
-R2029:2038 Kami.Semantics <> evalConstT def
-R2040:2043 Kami.Semantics <> isEq def
-R2045:2058 Kami.Semantics <> evalBinBitBool def
-R2060:2069 Kami.Semantics <> evalUniBit def
-R2071:2089 Kami.Semantics <> evalZeroExtendTrunc def
-R2091:2100 Kami.Semantics <> evalBinBit def
-R2142:2144 Coq.Init.Datatypes <> orb def
-R2146:2149 Coq.Init.Datatypes <> andb def
-R2151:2154 Coq.Init.Datatypes <> negb def
-prf 2412:2439 <> dd_locality_violation_unfold
-binder 2450:2451 <> bd:1
-binder 2453:2453 <> w:2
-R2484:2488 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2458:2478 KamiHW.DispatchLets <> dd_locality_violation def
-R2480:2481 KamiHW.OutsideDomainMaster <> bd:1 var
-R2483:2483 KamiHW.OutsideDomainMaster <> w:2 var
-R2575:2578 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R2544:2549 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R2514:2517 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R2489:2508 KamiHW.DispatchLets <> dd_load_locality_bad def
-R2510:2511 KamiHW.OutsideDomainMaster <> bd:1 var
-R2513:2513 KamiHW.OutsideDomainMaster <> w:2 var
-R2518:2538 KamiHW.DispatchLets <> dd_store_locality_bad def
-R2540:2541 KamiHW.OutsideDomainMaster <> bd:1 var
-R2543:2543 KamiHW.OutsideDomainMaster <> w:2 var
-R2550:2569 KamiHW.DispatchLets <> dd_call_locality_bad def
-R2571:2572 KamiHW.OutsideDomainMaster <> bd:1 var
-R2574:2574 KamiHW.OutsideDomainMaster <> w:2 var
-R2579:2597 KamiHW.DispatchLets <> dd_ret_locality_bad def
-R2599:2600 KamiHW.OutsideDomainMaster <> bd:1 var
-R2602:2602 KamiHW.OutsideDomainMaster <> w:2 var
-R2632:2652 KamiHW.DispatchLets <> dd_locality_violation def
-prf 2688:2722 <> dd_ptable_overflow_violation_unfold
-binder 2733:2734 <> bd:3
-binder 2736:2736 <> w:4
-R2774:2778 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2741:2768 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R2770:2771 KamiHW.OutsideDomainMaster <> bd:3 var
-R2773:2773 KamiHW.OutsideDomainMaster <> w:4 var
-R2827:2830 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R2800:2803 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R2779:2794 KamiHW.DispatchLets <> dd_pnew_overflow def
-R2796:2797 KamiHW.OutsideDomainMaster <> bd:3 var
-R2799:2799 KamiHW.OutsideDomainMaster <> w:4 var
-R2804:2821 KamiHW.DispatchLets <> dd_psplit_overflow def
-R2823:2824 KamiHW.OutsideDomainMaster <> bd:3 var
-R2826:2826 KamiHW.OutsideDomainMaster <> w:4 var
-R2831:2848 KamiHW.DispatchLets <> dd_pmerge_overflow def
-R2850:2851 KamiHW.OutsideDomainMaster <> bd:3 var
-R2853:2853 KamiHW.OutsideDomainMaster <> w:4 var
-R2883:2910 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-prf 3298:3330 <> dd_load_locality_bad_false_of_neq
-binder 3341:3342 <> bd:5
-binder 3344:3344 <> w:6
-R3374:3377 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3363:3366 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R3349:3357 KamiHW.DispatchLets <> dd_opcode def
-R3359:3360 KamiHW.OutsideDomainMaster <> bd:5 var
-R3362:3362 KamiHW.OutsideDomainMaster <> w:6 var
-R3367:3373 KamiHW.ThieleTypes <> OP_LOAD def
-R3408:3413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3392:3395 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R3378:3386 KamiHW.DispatchLets <> dd_opcode def
-R3388:3389 KamiHW.OutsideDomainMaster <> bd:5 var
-R3391:3391 KamiHW.OutsideDomainMaster <> w:6 var
-R3396:3407 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
-R3439:3441 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3414:3433 KamiHW.DispatchLets <> dd_load_locality_bad def
-R3435:3436 KamiHW.OutsideDomainMaster <> bd:5 var
-R3438:3438 KamiHW.OutsideDomainMaster <> w:6 var
-R3442:3446 Coq.Init.Datatypes <> false constr
-R3484:3503 KamiHW.DispatchLets <> dd_load_locality_bad def
-R3506:3518 KamiHW.DispatchLets <> dd_is_load_op def
-R3553:3555 Kami.Lib.Word <> weq def
-R3574:3580 KamiHW.ThieleTypes <> OP_LOAD def
-R3558:3566 KamiHW.DispatchLets <> dd_opcode def
-R3553:3555 Kami.Lib.Word <> weq def
-R3574:3580 KamiHW.ThieleTypes <> OP_LOAD def
-R3558:3566 KamiHW.DispatchLets <> dd_opcode def
-R3623:3625 Kami.Lib.Word <> weq def
-R3644:3655 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
-R3628:3636 KamiHW.DispatchLets <> dd_opcode def
-R3623:3625 Kami.Lib.Word <> weq def
-R3644:3655 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
-R3628:3636 KamiHW.DispatchLets <> dd_opcode def
-prf 3713:3746 <> dd_store_locality_bad_false_of_neq
-binder 3757:3758 <> bd:7
-binder 3760:3760 <> w:8
-R3791:3794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3779:3782 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R3765:3773 KamiHW.DispatchLets <> dd_opcode def
-R3775:3776 KamiHW.OutsideDomainMaster <> bd:7 var
-R3778:3778 KamiHW.OutsideDomainMaster <> w:8 var
-R3783:3790 KamiHW.ThieleTypes <> OP_STORE def
-R3826:3831 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3809:3812 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R3795:3803 KamiHW.DispatchLets <> dd_opcode def
-R3805:3806 KamiHW.OutsideDomainMaster <> bd:7 var
-R3808:3808 KamiHW.OutsideDomainMaster <> w:8 var
-R3813:3825 KamiHW.ThieleTypes <> OP_HEAP_STORE def
-R3858:3860 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3832:3852 KamiHW.DispatchLets <> dd_store_locality_bad def
-R3854:3855 KamiHW.OutsideDomainMaster <> bd:7 var
-R3857:3857 KamiHW.OutsideDomainMaster <> w:8 var
-R3861:3865 Coq.Init.Datatypes <> false constr
-R3903:3923 KamiHW.DispatchLets <> dd_store_locality_bad def
-R3926:3939 KamiHW.DispatchLets <> dd_is_store_op def
-R3974:3976 Kami.Lib.Word <> weq def
-R3995:4002 KamiHW.ThieleTypes <> OP_STORE def
-R3979:3987 KamiHW.DispatchLets <> dd_opcode def
-R3974:3976 Kami.Lib.Word <> weq def
-R3995:4002 KamiHW.ThieleTypes <> OP_STORE def
-R3979:3987 KamiHW.DispatchLets <> dd_opcode def
-R4045:4047 Kami.Lib.Word <> weq def
-R4066:4078 KamiHW.ThieleTypes <> OP_HEAP_STORE def
-R4050:4058 KamiHW.DispatchLets <> dd_opcode def
-R4045:4047 Kami.Lib.Word <> weq def
-R4066:4078 KamiHW.ThieleTypes <> OP_HEAP_STORE def
-R4050:4058 KamiHW.DispatchLets <> dd_opcode def
-prf 4136:4168 <> dd_call_locality_bad_false_of_neq
-binder 4179:4180 <> bd:9
-binder 4182:4182 <> w:10
-R4212:4215 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4201:4204 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4187:4195 KamiHW.DispatchLets <> dd_opcode def
-R4197:4198 KamiHW.OutsideDomainMaster <> bd:9 var
-R4200:4200 KamiHW.OutsideDomainMaster <> w:10 var
-R4205:4211 KamiHW.ThieleTypes <> OP_CALL def
-R4241:4243 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4216:4235 KamiHW.DispatchLets <> dd_call_locality_bad def
-R4237:4238 KamiHW.OutsideDomainMaster <> bd:9 var
-R4240:4240 KamiHW.OutsideDomainMaster <> w:10 var
-R4244:4248 Coq.Init.Datatypes <> false constr
-R4283:4302 KamiHW.DispatchLets <> dd_call_locality_bad def
-R4305:4317 KamiHW.DispatchLets <> dd_is_call_op def
-R4352:4354 Kami.Lib.Word <> weq def
-R4373:4379 KamiHW.ThieleTypes <> OP_CALL def
-R4357:4365 KamiHW.DispatchLets <> dd_opcode def
-R4352:4354 Kami.Lib.Word <> weq def
-R4373:4379 KamiHW.ThieleTypes <> OP_CALL def
-R4357:4365 KamiHW.DispatchLets <> dd_opcode def
-prf 4437:4468 <> dd_ret_locality_bad_false_of_neq
-binder 4479:4480 <> bd:11
-binder 4482:4482 <> w:12
-R4511:4514 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4501:4504 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4487:4495 KamiHW.DispatchLets <> dd_opcode def
-R4497:4498 KamiHW.OutsideDomainMaster <> bd:11 var
-R4500:4500 KamiHW.OutsideDomainMaster <> w:12 var
-R4505:4510 KamiHW.ThieleTypes <> OP_RET def
-R4539:4541 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4515:4533 KamiHW.DispatchLets <> dd_ret_locality_bad def
-R4535:4536 KamiHW.OutsideDomainMaster <> bd:11 var
-R4538:4538 KamiHW.OutsideDomainMaster <> w:12 var
-R4542:4546 Coq.Init.Datatypes <> false constr
-R4581:4599 KamiHW.DispatchLets <> dd_ret_locality_bad def
-R4602:4613 KamiHW.DispatchLets <> dd_is_ret_op def
-R4648:4650 Kami.Lib.Word <> weq def
-R4669:4674 KamiHW.ThieleTypes <> OP_RET def
-R4653:4661 KamiHW.DispatchLets <> dd_opcode def
-R4648:4650 Kami.Lib.Word <> weq def
-R4669:4674 KamiHW.ThieleTypes <> OP_RET def
-R4653:4661 KamiHW.DispatchLets <> dd_opcode def
-prf 4732:4760 <> dd_pnew_overflow_false_of_neq
-binder 4771:4772 <> bd:13
-binder 4774:4774 <> w:14
-R4804:4807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4793:4796 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4779:4787 KamiHW.DispatchLets <> dd_opcode def
-R4789:4790 KamiHW.OutsideDomainMaster <> bd:13 var
-R4792:4792 KamiHW.OutsideDomainMaster <> w:14 var
-R4797:4803 KamiHW.ThieleTypes <> OP_PNEW def
-R4829:4831 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4808:4823 KamiHW.DispatchLets <> dd_pnew_overflow def
-R4825:4826 KamiHW.OutsideDomainMaster <> bd:13 var
-R4828:4828 KamiHW.OutsideDomainMaster <> w:14 var
-R4832:4836 Coq.Init.Datatypes <> false constr
-R4871:4886 KamiHW.DispatchLets <> dd_pnew_overflow def
-R4921:4923 Kami.Lib.Word <> weq def
-R4942:4948 KamiHW.ThieleTypes <> OP_PNEW def
-R4926:4934 KamiHW.DispatchLets <> dd_opcode def
-R4921:4923 Kami.Lib.Word <> weq def
-R4942:4948 KamiHW.ThieleTypes <> OP_PNEW def
-R4926:4934 KamiHW.DispatchLets <> dd_opcode def
-prf 5006:5036 <> dd_psplit_overflow_false_of_neq
-binder 5047:5048 <> bd:15
-binder 5050:5050 <> w:16
-R5082:5085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5069:5072 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5055:5063 KamiHW.DispatchLets <> dd_opcode def
-R5065:5066 KamiHW.OutsideDomainMaster <> bd:15 var
-R5068:5068 KamiHW.OutsideDomainMaster <> w:16 var
-R5073:5081 KamiHW.ThieleTypes <> OP_PSPLIT def
-R5109:5111 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5086:5103 KamiHW.DispatchLets <> dd_psplit_overflow def
-R5105:5106 KamiHW.OutsideDomainMaster <> bd:15 var
-R5108:5108 KamiHW.OutsideDomainMaster <> w:16 var
-R5112:5116 Coq.Init.Datatypes <> false constr
-R5151:5168 KamiHW.DispatchLets <> dd_psplit_overflow def
-R5203:5205 Kami.Lib.Word <> weq def
-R5224:5232 KamiHW.ThieleTypes <> OP_PSPLIT def
-R5208:5216 KamiHW.DispatchLets <> dd_opcode def
-R5203:5205 Kami.Lib.Word <> weq def
-R5224:5232 KamiHW.ThieleTypes <> OP_PSPLIT def
-R5208:5216 KamiHW.DispatchLets <> dd_opcode def
-prf 5290:5320 <> dd_pmerge_overflow_false_of_neq
-binder 5331:5332 <> bd:17
-binder 5334:5334 <> w:18
-R5366:5369 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5353:5356 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5339:5347 KamiHW.DispatchLets <> dd_opcode def
-R5349:5350 KamiHW.OutsideDomainMaster <> bd:17 var
-R5352:5352 KamiHW.OutsideDomainMaster <> w:18 var
-R5357:5365 KamiHW.ThieleTypes <> OP_PMERGE def
-R5393:5395 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5370:5387 KamiHW.DispatchLets <> dd_pmerge_overflow def
-R5389:5390 KamiHW.OutsideDomainMaster <> bd:17 var
-R5392:5392 KamiHW.OutsideDomainMaster <> w:18 var
-R5396:5400 Coq.Init.Datatypes <> false constr
-R5435:5452 KamiHW.DispatchLets <> dd_pmerge_overflow def
-R5487:5489 Kami.Lib.Word <> weq def
-R5508:5516 KamiHW.ThieleTypes <> OP_PMERGE def
-R5492:5500 KamiHW.DispatchLets <> dd_opcode def
-R5487:5489 Kami.Lib.Word <> weq def
-R5508:5516 KamiHW.ThieleTypes <> OP_PMERGE def
-R5492:5500 KamiHW.DispatchLets <> dd_opcode def
-prf 5574:5602 <> dd_nfi_violation_false_of_neq
-binder 5613:5614 <> bd:19
-binder 5616:5616 <> w:20
-R5651:5654 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5635:5638 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5621:5629 KamiHW.DispatchLets <> dd_opcode def
-R5631:5632 KamiHW.OutsideDomainMaster <> bd:19 var
-R5634:5634 KamiHW.OutsideDomainMaster <> w:20 var
-R5639:5650 KamiHW.ThieleTypes <> OP_PDISCOVER def
-R5676:5678 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5655:5670 KamiHW.DispatchLets <> dd_nfi_violation def
-R5672:5673 KamiHW.OutsideDomainMaster <> bd:19 var
-R5675:5675 KamiHW.OutsideDomainMaster <> w:20 var
-R5679:5683 Coq.Init.Datatypes <> false constr
-R5718:5733 KamiHW.DispatchLets <> dd_nfi_violation def
-R5736:5758 KamiHW.DispatchLets <> dd_is_declared_bound_op def
-R5793:5795 Kami.Lib.Word <> weq def
-R5814:5825 KamiHW.ThieleTypes <> OP_PDISCOVER def
-R5798:5806 KamiHW.DispatchLets <> dd_opcode def
-R5793:5795 Kami.Lib.Word <> weq def
-R5814:5825 KamiHW.ThieleTypes <> OP_PDISCOVER def
-R5798:5806 KamiHW.DispatchLets <> dd_opcode def
-prf 6647:6665 <> guard_false_of_load
-binder 6676:6677 <> bd:21
-R6686:6689 Kami.Lib.Word <> word ind
-binder 6680:6682 <> isa:22
-R6701:6704 Kami.Lib.Word <> word ind
-R6706:6715 KamiHW.ThieleTypes <> FormatIdSz def
-binder 6695:6697 <> fid:23
-R6731:6734 Kami.Lib.Word <> word ind
-binder 6723:6727 <> flags:24
-R6752:6755 Kami.Lib.Word <> word ind
-binder 6741:6748 <> reserved:25
-R6769:6772 Kami.Lib.Word <> word ind
-R6774:6779 KamiHW.ThieleTypes <> WordSz def
-binder 6762:6765 <> ext0:26
-R6791:6794 Kami.Lib.Word <> word ind
-binder 6783:6783 <> a:27
-binder 6785:6785 <> b:28
-binder 6787:6787 <> c:29
-R6912:6917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6802:6825 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
-R6827:6828 KamiHW.OutsideDomainMaster <> bd:21 var
-R6831:6839 Kami.Lib.Word <> wordToNat def
-R6842:6852 KamiHW.DispatchLets <> dd_mem_addr def
-R6854:6855 KamiHW.OutsideDomainMaster <> bd:21 var
-R6858:6866 KamiHW.RichWordDecode <> rich_word def
-R6868:6870 KamiHW.OutsideDomainMaster <> isa:22 var
-R6872:6874 KamiHW.OutsideDomainMaster <> fid:23 var
-R6876:6880 KamiHW.OutsideDomainMaster <> flags:24 var
-R6882:6889 KamiHW.OutsideDomainMaster <> reserved:25 var
-R6891:6894 KamiHW.OutsideDomainMaster <> ext0:26 var
-R6896:6902 KamiHW.ThieleTypes <> OP_LOAD def
-R6904:6904 KamiHW.OutsideDomainMaster <> a:27 var
-R6906:6906 KamiHW.OutsideDomainMaster <> b:28 var
-R6908:6908 KamiHW.OutsideDomainMaster <> c:29 var
-R7166:7168 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7087:7092 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R6996:7001 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R6918:6938 KamiHW.DispatchLets <> dd_locality_violation def
-R6940:6941 KamiHW.OutsideDomainMaster <> bd:21 var
-R6944:6952 KamiHW.RichWordDecode <> rich_word def
-R6954:6956 KamiHW.OutsideDomainMaster <> isa:22 var
-R6958:6960 KamiHW.OutsideDomainMaster <> fid:23 var
-R6962:6966 KamiHW.OutsideDomainMaster <> flags:24 var
-R6968:6975 KamiHW.OutsideDomainMaster <> reserved:25 var
-R6977:6980 KamiHW.OutsideDomainMaster <> ext0:26 var
-R6982:6988 KamiHW.ThieleTypes <> OP_LOAD def
-R6990:6990 KamiHW.OutsideDomainMaster <> a:27 var
-R6992:6992 KamiHW.OutsideDomainMaster <> b:28 var
-R6994:6994 KamiHW.OutsideDomainMaster <> c:29 var
-R7002:7029 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R7031:7032 KamiHW.OutsideDomainMaster <> bd:21 var
-R7035:7043 KamiHW.RichWordDecode <> rich_word def
-R7045:7047 KamiHW.OutsideDomainMaster <> isa:22 var
-R7049:7051 KamiHW.OutsideDomainMaster <> fid:23 var
-R7053:7057 KamiHW.OutsideDomainMaster <> flags:24 var
-R7059:7066 KamiHW.OutsideDomainMaster <> reserved:25 var
-R7068:7071 KamiHW.OutsideDomainMaster <> ext0:26 var
-R7073:7079 KamiHW.ThieleTypes <> OP_LOAD def
-R7081:7081 KamiHW.OutsideDomainMaster <> a:27 var
-R7083:7083 KamiHW.OutsideDomainMaster <> b:28 var
-R7085:7085 KamiHW.OutsideDomainMaster <> c:29 var
-R7093:7108 KamiHW.DispatchLets <> dd_nfi_violation def
-R7110:7111 KamiHW.OutsideDomainMaster <> bd:21 var
-R7114:7122 KamiHW.RichWordDecode <> rich_word def
-R7124:7126 KamiHW.OutsideDomainMaster <> isa:22 var
-R7128:7130 KamiHW.OutsideDomainMaster <> fid:23 var
-R7132:7136 KamiHW.OutsideDomainMaster <> flags:24 var
-R7138:7145 KamiHW.OutsideDomainMaster <> reserved:25 var
-R7147:7150 KamiHW.OutsideDomainMaster <> ext0:26 var
-R7152:7158 KamiHW.ThieleTypes <> OP_LOAD def
-R7160:7160 KamiHW.OutsideDomainMaster <> a:27 var
-R7162:7162 KamiHW.OutsideDomainMaster <> b:28 var
-R7164:7164 KamiHW.OutsideDomainMaster <> c:29 var
-R7169:7173 Coq.Init.Datatypes <> false constr
-R7251:7263 KamiHW.RichWordDecode <> rw_op_correct thm
-R7296:7302 KamiHW.ThieleTypes <> OP_LOAD def
-R7251:7263 KamiHW.RichWordDecode <> rw_op_correct thm
-R7296:7302 KamiHW.ThieleTypes <> OP_LOAD def
-R7329:7356 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R7359:7393 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R7329:7356 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R7329:7356 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R7359:7393 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R7359:7393 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R7407:7437 KamiHW.RichLoadGuard <> dd_load_locality_bad_false_rich thm
-R7407:7437 KamiHW.RichLoadGuard <> dd_load_locality_bad_false_rich thm
-R7407:7437 KamiHW.RichLoadGuard <> dd_load_locality_bad_false_rich thm
-R7496:7529 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R7496:7529 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R7496:7529 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R7595:7627 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R7595:7627 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R7595:7627 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R7670:7701 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R7670:7701 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R7670:7701 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R7744:7772 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R7744:7772 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R7744:7772 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R7815:7845 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R7815:7845 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R7815:7845 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R7888:7918 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R7888:7918 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R7888:7918 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R7961:7989 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R7961:7989 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R7961:7989 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-prf 8048:8071 <> guard_false_of_heap_load
-binder 8082:8083 <> bd:30
-R8092:8095 Kami.Lib.Word <> word ind
-binder 8086:8088 <> isa:31
-R8107:8110 Kami.Lib.Word <> word ind
-R8112:8121 KamiHW.ThieleTypes <> FormatIdSz def
-binder 8101:8103 <> fid:32
-R8137:8140 Kami.Lib.Word <> word ind
-binder 8129:8133 <> flags:33
-R8158:8161 Kami.Lib.Word <> word ind
-binder 8147:8154 <> reserved:34
-R8175:8178 Kami.Lib.Word <> word ind
-R8180:8185 KamiHW.ThieleTypes <> WordSz def
-binder 8168:8171 <> ext0:35
-R8197:8200 Kami.Lib.Word <> word ind
-binder 8189:8189 <> a:36
-binder 8191:8191 <> b:37
-binder 8193:8193 <> c:38
-R8324:8329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8208:8231 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
-R8233:8234 KamiHW.OutsideDomainMaster <> bd:30 var
-R8237:8245 Kami.Lib.Word <> wordToNat def
-R8248:8259 KamiHW.DispatchLets <> dd_heap_addr def
-R8261:8262 KamiHW.OutsideDomainMaster <> bd:30 var
-R8265:8273 KamiHW.RichWordDecode <> rich_word def
-R8275:8277 KamiHW.OutsideDomainMaster <> isa:31 var
-R8279:8281 KamiHW.OutsideDomainMaster <> fid:32 var
-R8283:8287 KamiHW.OutsideDomainMaster <> flags:33 var
-R8289:8296 KamiHW.OutsideDomainMaster <> reserved:34 var
-R8298:8301 KamiHW.OutsideDomainMaster <> ext0:35 var
-R8303:8314 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
-R8316:8316 KamiHW.OutsideDomainMaster <> a:36 var
-R8318:8318 KamiHW.OutsideDomainMaster <> b:37 var
-R8320:8320 KamiHW.OutsideDomainMaster <> c:38 var
-R8593:8595 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8509:8514 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R8413:8418 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R8330:8350 KamiHW.DispatchLets <> dd_locality_violation def
-R8352:8353 KamiHW.OutsideDomainMaster <> bd:30 var
-R8356:8364 KamiHW.RichWordDecode <> rich_word def
-R8366:8368 KamiHW.OutsideDomainMaster <> isa:31 var
-R8370:8372 KamiHW.OutsideDomainMaster <> fid:32 var
-R8374:8378 KamiHW.OutsideDomainMaster <> flags:33 var
-R8380:8387 KamiHW.OutsideDomainMaster <> reserved:34 var
-R8389:8392 KamiHW.OutsideDomainMaster <> ext0:35 var
-R8394:8405 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
-R8407:8407 KamiHW.OutsideDomainMaster <> a:36 var
-R8409:8409 KamiHW.OutsideDomainMaster <> b:37 var
-R8411:8411 KamiHW.OutsideDomainMaster <> c:38 var
-R8419:8446 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R8448:8449 KamiHW.OutsideDomainMaster <> bd:30 var
-R8452:8460 KamiHW.RichWordDecode <> rich_word def
-R8462:8464 KamiHW.OutsideDomainMaster <> isa:31 var
-R8466:8468 KamiHW.OutsideDomainMaster <> fid:32 var
-R8470:8474 KamiHW.OutsideDomainMaster <> flags:33 var
-R8476:8483 KamiHW.OutsideDomainMaster <> reserved:34 var
-R8485:8488 KamiHW.OutsideDomainMaster <> ext0:35 var
-R8490:8501 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
-R8503:8503 KamiHW.OutsideDomainMaster <> a:36 var
-R8505:8505 KamiHW.OutsideDomainMaster <> b:37 var
-R8507:8507 KamiHW.OutsideDomainMaster <> c:38 var
-R8515:8530 KamiHW.DispatchLets <> dd_nfi_violation def
-R8532:8533 KamiHW.OutsideDomainMaster <> bd:30 var
-R8536:8544 KamiHW.RichWordDecode <> rich_word def
-R8546:8548 KamiHW.OutsideDomainMaster <> isa:31 var
-R8550:8552 KamiHW.OutsideDomainMaster <> fid:32 var
-R8554:8558 KamiHW.OutsideDomainMaster <> flags:33 var
-R8560:8567 KamiHW.OutsideDomainMaster <> reserved:34 var
-R8569:8572 KamiHW.OutsideDomainMaster <> ext0:35 var
-R8574:8585 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
-R8587:8587 KamiHW.OutsideDomainMaster <> a:36 var
-R8589:8589 KamiHW.OutsideDomainMaster <> b:37 var
-R8591:8591 KamiHW.OutsideDomainMaster <> c:38 var
-R8596:8600 Coq.Init.Datatypes <> false constr
-R8678:8690 KamiHW.RichWordDecode <> rw_op_correct thm
-R8723:8734 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
-R8678:8690 KamiHW.RichWordDecode <> rw_op_correct thm
-R8723:8734 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
-R8761:8788 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R8791:8825 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R8761:8788 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R8761:8788 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R8791:8825 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R8791:8825 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R8839:8874 KamiHW.RichLocalityGuard <> dd_load_locality_bad_heap_false_rich thm
-R8839:8874 KamiHW.RichLocalityGuard <> dd_load_locality_bad_heap_false_rich thm
-R8839:8874 KamiHW.RichLocalityGuard <> dd_load_locality_bad_heap_false_rich thm
-R8933:8966 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R8933:8966 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R8933:8966 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R9032:9064 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R9032:9064 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R9032:9064 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R9107:9138 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R9107:9138 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R9107:9138 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R9181:9209 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R9181:9209 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R9181:9209 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R9252:9282 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R9252:9282 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R9252:9282 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R9325:9355 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R9325:9355 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R9325:9355 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R9398:9426 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R9398:9426 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R9398:9426 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-prf 9485:9504 <> guard_false_of_store
-binder 9515:9516 <> bd:39
-R9525:9528 Kami.Lib.Word <> word ind
-binder 9519:9521 <> isa:40
-R9540:9543 Kami.Lib.Word <> word ind
-R9545:9554 KamiHW.ThieleTypes <> FormatIdSz def
-binder 9534:9536 <> fid:41
-R9570:9573 Kami.Lib.Word <> word ind
-binder 9562:9566 <> flags:42
-R9591:9594 Kami.Lib.Word <> word ind
-binder 9580:9587 <> reserved:43
-R9608:9611 Kami.Lib.Word <> word ind
-R9613:9618 KamiHW.ThieleTypes <> WordSz def
-binder 9601:9604 <> ext0:44
-R9630:9633 Kami.Lib.Word <> word ind
-binder 9622:9622 <> a:45
-binder 9624:9624 <> b:46
-binder 9626:9626 <> c:47
-R9754:9759 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9641:9664 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
-R9666:9667 KamiHW.OutsideDomainMaster <> bd:39 var
-R9670:9678 Kami.Lib.Word <> wordToNat def
-R9681:9693 KamiHW.DispatchLets <> dd_mem_addr_a def
-R9695:9696 KamiHW.OutsideDomainMaster <> bd:39 var
-R9699:9707 KamiHW.RichWordDecode <> rich_word def
-R9709:9711 KamiHW.OutsideDomainMaster <> isa:40 var
-R9713:9715 KamiHW.OutsideDomainMaster <> fid:41 var
-R9717:9721 KamiHW.OutsideDomainMaster <> flags:42 var
-R9723:9730 KamiHW.OutsideDomainMaster <> reserved:43 var
-R9732:9735 KamiHW.OutsideDomainMaster <> ext0:44 var
-R9737:9744 KamiHW.ThieleTypes <> OP_STORE def
-R9746:9746 KamiHW.OutsideDomainMaster <> a:45 var
-R9748:9748 KamiHW.OutsideDomainMaster <> b:46 var
-R9750:9750 KamiHW.OutsideDomainMaster <> c:47 var
-R10011:10013 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9931:9936 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R9839:9844 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R9760:9780 KamiHW.DispatchLets <> dd_locality_violation def
-R9782:9783 KamiHW.OutsideDomainMaster <> bd:39 var
-R9786:9794 KamiHW.RichWordDecode <> rich_word def
-R9796:9798 KamiHW.OutsideDomainMaster <> isa:40 var
-R9800:9802 KamiHW.OutsideDomainMaster <> fid:41 var
-R9804:9808 KamiHW.OutsideDomainMaster <> flags:42 var
-R9810:9817 KamiHW.OutsideDomainMaster <> reserved:43 var
-R9819:9822 KamiHW.OutsideDomainMaster <> ext0:44 var
-R9824:9831 KamiHW.ThieleTypes <> OP_STORE def
-R9833:9833 KamiHW.OutsideDomainMaster <> a:45 var
-R9835:9835 KamiHW.OutsideDomainMaster <> b:46 var
-R9837:9837 KamiHW.OutsideDomainMaster <> c:47 var
-R9845:9872 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R9874:9875 KamiHW.OutsideDomainMaster <> bd:39 var
-R9878:9886 KamiHW.RichWordDecode <> rich_word def
-R9888:9890 KamiHW.OutsideDomainMaster <> isa:40 var
-R9892:9894 KamiHW.OutsideDomainMaster <> fid:41 var
-R9896:9900 KamiHW.OutsideDomainMaster <> flags:42 var
-R9902:9909 KamiHW.OutsideDomainMaster <> reserved:43 var
-R9911:9914 KamiHW.OutsideDomainMaster <> ext0:44 var
-R9916:9923 KamiHW.ThieleTypes <> OP_STORE def
-R9925:9925 KamiHW.OutsideDomainMaster <> a:45 var
-R9927:9927 KamiHW.OutsideDomainMaster <> b:46 var
-R9929:9929 KamiHW.OutsideDomainMaster <> c:47 var
-R9937:9952 KamiHW.DispatchLets <> dd_nfi_violation def
-R9954:9955 KamiHW.OutsideDomainMaster <> bd:39 var
-R9958:9966 KamiHW.RichWordDecode <> rich_word def
-R9968:9970 KamiHW.OutsideDomainMaster <> isa:40 var
-R9972:9974 KamiHW.OutsideDomainMaster <> fid:41 var
-R9976:9980 KamiHW.OutsideDomainMaster <> flags:42 var
-R9982:9989 KamiHW.OutsideDomainMaster <> reserved:43 var
-R9991:9994 KamiHW.OutsideDomainMaster <> ext0:44 var
-R9996:10003 KamiHW.ThieleTypes <> OP_STORE def
-R10005:10005 KamiHW.OutsideDomainMaster <> a:45 var
-R10007:10007 KamiHW.OutsideDomainMaster <> b:46 var
-R10009:10009 KamiHW.OutsideDomainMaster <> c:47 var
-R10014:10018 Coq.Init.Datatypes <> false constr
-R10096:10108 KamiHW.RichWordDecode <> rw_op_correct thm
-R10141:10148 KamiHW.ThieleTypes <> OP_STORE def
-R10096:10108 KamiHW.RichWordDecode <> rw_op_correct thm
-R10141:10148 KamiHW.ThieleTypes <> OP_STORE def
-R10175:10202 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R10205:10239 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R10175:10202 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R10175:10202 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R10205:10239 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R10205:10239 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R10253:10285 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R10253:10285 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R10253:10285 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R10351:10382 KamiHW.RichLocalityGuard <> dd_store_locality_bad_false_rich thm
-R10351:10382 KamiHW.RichLocalityGuard <> dd_store_locality_bad_false_rich thm
-R10351:10382 KamiHW.RichLocalityGuard <> dd_store_locality_bad_false_rich thm
-R10441:10473 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R10441:10473 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R10441:10473 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R10516:10547 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R10516:10547 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R10516:10547 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R10590:10618 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R10590:10618 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R10590:10618 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R10661:10691 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R10661:10691 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R10661:10691 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R10734:10764 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R10734:10764 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R10734:10764 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R10807:10835 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R10807:10835 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R10807:10835 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-prf 10894:10918 <> guard_false_of_heap_store
-binder 10929:10930 <> bd:48
-R10939:10942 Kami.Lib.Word <> word ind
-binder 10933:10935 <> isa:49
-R10954:10957 Kami.Lib.Word <> word ind
-R10959:10968 KamiHW.ThieleTypes <> FormatIdSz def
-binder 10948:10950 <> fid:50
-R10984:10987 Kami.Lib.Word <> word ind
-binder 10976:10980 <> flags:51
-R11005:11008 Kami.Lib.Word <> word ind
-binder 10994:11001 <> reserved:52
-R11022:11025 Kami.Lib.Word <> word ind
-R11027:11032 KamiHW.ThieleTypes <> WordSz def
-binder 11015:11018 <> ext0:53
-R11044:11047 Kami.Lib.Word <> word ind
-binder 11036:11036 <> a:54
-binder 11038:11038 <> b:55
-binder 11040:11040 <> c:56
-R11174:11179 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11055:11078 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
-R11080:11081 KamiHW.OutsideDomainMaster <> bd:48 var
-R11084:11092 Kami.Lib.Word <> wordToNat def
-R11095:11108 KamiHW.DispatchLets <> dd_heap_addr_a def
-R11110:11111 KamiHW.OutsideDomainMaster <> bd:48 var
-R11114:11122 KamiHW.RichWordDecode <> rich_word def
-R11124:11126 KamiHW.OutsideDomainMaster <> isa:49 var
-R11128:11130 KamiHW.OutsideDomainMaster <> fid:50 var
-R11132:11136 KamiHW.OutsideDomainMaster <> flags:51 var
-R11138:11145 KamiHW.OutsideDomainMaster <> reserved:52 var
-R11147:11150 KamiHW.OutsideDomainMaster <> ext0:53 var
-R11152:11164 KamiHW.ThieleTypes <> OP_HEAP_STORE def
-R11166:11166 KamiHW.OutsideDomainMaster <> a:54 var
-R11168:11168 KamiHW.OutsideDomainMaster <> b:55 var
-R11170:11170 KamiHW.OutsideDomainMaster <> c:56 var
-R11446:11448 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11361:11366 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R11264:11269 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R11180:11200 KamiHW.DispatchLets <> dd_locality_violation def
-R11202:11203 KamiHW.OutsideDomainMaster <> bd:48 var
-R11206:11214 KamiHW.RichWordDecode <> rich_word def
-R11216:11218 KamiHW.OutsideDomainMaster <> isa:49 var
-R11220:11222 KamiHW.OutsideDomainMaster <> fid:50 var
-R11224:11228 KamiHW.OutsideDomainMaster <> flags:51 var
-R11230:11237 KamiHW.OutsideDomainMaster <> reserved:52 var
-R11239:11242 KamiHW.OutsideDomainMaster <> ext0:53 var
-R11244:11256 KamiHW.ThieleTypes <> OP_HEAP_STORE def
-R11258:11258 KamiHW.OutsideDomainMaster <> a:54 var
-R11260:11260 KamiHW.OutsideDomainMaster <> b:55 var
-R11262:11262 KamiHW.OutsideDomainMaster <> c:56 var
-R11270:11297 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R11299:11300 KamiHW.OutsideDomainMaster <> bd:48 var
-R11303:11311 KamiHW.RichWordDecode <> rich_word def
-R11313:11315 KamiHW.OutsideDomainMaster <> isa:49 var
-R11317:11319 KamiHW.OutsideDomainMaster <> fid:50 var
-R11321:11325 KamiHW.OutsideDomainMaster <> flags:51 var
-R11327:11334 KamiHW.OutsideDomainMaster <> reserved:52 var
-R11336:11339 KamiHW.OutsideDomainMaster <> ext0:53 var
-R11341:11353 KamiHW.ThieleTypes <> OP_HEAP_STORE def
-R11355:11355 KamiHW.OutsideDomainMaster <> a:54 var
-R11357:11357 KamiHW.OutsideDomainMaster <> b:55 var
-R11359:11359 KamiHW.OutsideDomainMaster <> c:56 var
-R11367:11382 KamiHW.DispatchLets <> dd_nfi_violation def
-R11384:11385 KamiHW.OutsideDomainMaster <> bd:48 var
-R11388:11396 KamiHW.RichWordDecode <> rich_word def
-R11398:11400 KamiHW.OutsideDomainMaster <> isa:49 var
-R11402:11404 KamiHW.OutsideDomainMaster <> fid:50 var
-R11406:11410 KamiHW.OutsideDomainMaster <> flags:51 var
-R11412:11419 KamiHW.OutsideDomainMaster <> reserved:52 var
-R11421:11424 KamiHW.OutsideDomainMaster <> ext0:53 var
-R11426:11438 KamiHW.ThieleTypes <> OP_HEAP_STORE def
-R11440:11440 KamiHW.OutsideDomainMaster <> a:54 var
-R11442:11442 KamiHW.OutsideDomainMaster <> b:55 var
-R11444:11444 KamiHW.OutsideDomainMaster <> c:56 var
-R11449:11453 Coq.Init.Datatypes <> false constr
-R11531:11543 KamiHW.RichWordDecode <> rw_op_correct thm
-R11576:11588 KamiHW.ThieleTypes <> OP_HEAP_STORE def
-R11531:11543 KamiHW.RichWordDecode <> rw_op_correct thm
-R11576:11588 KamiHW.ThieleTypes <> OP_HEAP_STORE def
-R11615:11642 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R11645:11679 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R11615:11642 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R11615:11642 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R11645:11679 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R11645:11679 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R11693:11725 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R11693:11725 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R11693:11725 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R11791:11827 KamiHW.RichLocalityGuard <> dd_store_locality_bad_heap_false_rich thm
-R11791:11827 KamiHW.RichLocalityGuard <> dd_store_locality_bad_heap_false_rich thm
-R11791:11827 KamiHW.RichLocalityGuard <> dd_store_locality_bad_heap_false_rich thm
-R11886:11918 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R11886:11918 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R11886:11918 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R11961:11992 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R11961:11992 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R11961:11992 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R12035:12063 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R12035:12063 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R12035:12063 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R12106:12136 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R12106:12136 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R12106:12136 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R12179:12209 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R12179:12209 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R12179:12209 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R12252:12280 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R12252:12280 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R12252:12280 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-prf 12339:12357 <> guard_false_of_call
-binder 12368:12369 <> bd:57
-R12378:12381 Kami.Lib.Word <> word ind
-binder 12372:12374 <> isa:58
-R12393:12396 Kami.Lib.Word <> word ind
-R12398:12407 KamiHW.ThieleTypes <> FormatIdSz def
-binder 12387:12389 <> fid:59
-R12423:12426 Kami.Lib.Word <> word ind
-binder 12415:12419 <> flags:60
-R12444:12447 Kami.Lib.Word <> word ind
-binder 12433:12440 <> reserved:61
-R12461:12464 Kami.Lib.Word <> word ind
-R12466:12471 KamiHW.ThieleTypes <> WordSz def
-binder 12454:12457 <> ext0:62
-R12483:12486 Kami.Lib.Word <> word ind
-binder 12475:12475 <> a:63
-binder 12477:12477 <> b:64
-binder 12479:12479 <> c:65
-R12603:12608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12494:12517 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
-R12519:12520 KamiHW.OutsideDomainMaster <> bd:57 var
-R12523:12531 Kami.Lib.Word <> wordToNat def
-R12534:12543 KamiHW.DispatchLets <> dd_sp_addr def
-R12545:12546 KamiHW.OutsideDomainMaster <> bd:57 var
-R12549:12557 KamiHW.RichWordDecode <> rich_word def
-R12559:12561 KamiHW.OutsideDomainMaster <> isa:58 var
-R12563:12565 KamiHW.OutsideDomainMaster <> fid:59 var
-R12567:12571 KamiHW.OutsideDomainMaster <> flags:60 var
-R12573:12580 KamiHW.OutsideDomainMaster <> reserved:61 var
-R12582:12585 KamiHW.OutsideDomainMaster <> ext0:62 var
-R12587:12593 KamiHW.ThieleTypes <> OP_CALL def
-R12595:12595 KamiHW.OutsideDomainMaster <> a:63 var
-R12597:12597 KamiHW.OutsideDomainMaster <> b:64 var
-R12599:12599 KamiHW.OutsideDomainMaster <> c:65 var
-R12857:12859 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12778:12783 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R12687:12692 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R12609:12629 KamiHW.DispatchLets <> dd_locality_violation def
-R12631:12632 KamiHW.OutsideDomainMaster <> bd:57 var
-R12635:12643 KamiHW.RichWordDecode <> rich_word def
-R12645:12647 KamiHW.OutsideDomainMaster <> isa:58 var
-R12649:12651 KamiHW.OutsideDomainMaster <> fid:59 var
-R12653:12657 KamiHW.OutsideDomainMaster <> flags:60 var
-R12659:12666 KamiHW.OutsideDomainMaster <> reserved:61 var
-R12668:12671 KamiHW.OutsideDomainMaster <> ext0:62 var
-R12673:12679 KamiHW.ThieleTypes <> OP_CALL def
-R12681:12681 KamiHW.OutsideDomainMaster <> a:63 var
-R12683:12683 KamiHW.OutsideDomainMaster <> b:64 var
-R12685:12685 KamiHW.OutsideDomainMaster <> c:65 var
-R12693:12720 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R12722:12723 KamiHW.OutsideDomainMaster <> bd:57 var
-R12726:12734 KamiHW.RichWordDecode <> rich_word def
-R12736:12738 KamiHW.OutsideDomainMaster <> isa:58 var
-R12740:12742 KamiHW.OutsideDomainMaster <> fid:59 var
-R12744:12748 KamiHW.OutsideDomainMaster <> flags:60 var
-R12750:12757 KamiHW.OutsideDomainMaster <> reserved:61 var
-R12759:12762 KamiHW.OutsideDomainMaster <> ext0:62 var
-R12764:12770 KamiHW.ThieleTypes <> OP_CALL def
-R12772:12772 KamiHW.OutsideDomainMaster <> a:63 var
-R12774:12774 KamiHW.OutsideDomainMaster <> b:64 var
-R12776:12776 KamiHW.OutsideDomainMaster <> c:65 var
-R12784:12799 KamiHW.DispatchLets <> dd_nfi_violation def
-R12801:12802 KamiHW.OutsideDomainMaster <> bd:57 var
-R12805:12813 KamiHW.RichWordDecode <> rich_word def
-R12815:12817 KamiHW.OutsideDomainMaster <> isa:58 var
-R12819:12821 KamiHW.OutsideDomainMaster <> fid:59 var
-R12823:12827 KamiHW.OutsideDomainMaster <> flags:60 var
-R12829:12836 KamiHW.OutsideDomainMaster <> reserved:61 var
-R12838:12841 KamiHW.OutsideDomainMaster <> ext0:62 var
-R12843:12849 KamiHW.ThieleTypes <> OP_CALL def
-R12851:12851 KamiHW.OutsideDomainMaster <> a:63 var
-R12853:12853 KamiHW.OutsideDomainMaster <> b:64 var
-R12855:12855 KamiHW.OutsideDomainMaster <> c:65 var
-R12860:12864 Coq.Init.Datatypes <> false constr
-R12942:12954 KamiHW.RichWordDecode <> rw_op_correct thm
-R12987:12993 KamiHW.ThieleTypes <> OP_CALL def
-R12942:12954 KamiHW.RichWordDecode <> rw_op_correct thm
-R12987:12993 KamiHW.ThieleTypes <> OP_CALL def
-R13020:13047 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R13050:13084 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R13020:13047 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R13020:13047 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R13050:13084 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R13050:13084 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R13098:13130 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R13098:13130 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R13098:13130 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R13196:13229 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R13196:13229 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R13196:13229 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R13295:13325 KamiHW.RichLocalityGuard <> dd_call_locality_bad_false_rich thm
-R13295:13325 KamiHW.RichLocalityGuard <> dd_call_locality_bad_false_rich thm
-R13295:13325 KamiHW.RichLocalityGuard <> dd_call_locality_bad_false_rich thm
-R13384:13415 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R13384:13415 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R13384:13415 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R13458:13486 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R13458:13486 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R13458:13486 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R13529:13559 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R13529:13559 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R13529:13559 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R13602:13632 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R13602:13632 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R13602:13632 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R13675:13703 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R13675:13703 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R13675:13703 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-prf 13762:13779 <> guard_false_of_ret
-binder 13790:13791 <> bd:66
-R13800:13803 Kami.Lib.Word <> word ind
-binder 13794:13796 <> isa:67
-R13815:13818 Kami.Lib.Word <> word ind
-R13820:13829 KamiHW.ThieleTypes <> FormatIdSz def
-binder 13809:13811 <> fid:68
-R13845:13848 Kami.Lib.Word <> word ind
-binder 13837:13841 <> flags:69
-R13866:13869 Kami.Lib.Word <> word ind
-binder 13855:13862 <> reserved:70
-R13883:13886 Kami.Lib.Word <> word ind
-R13888:13893 KamiHW.ThieleTypes <> WordSz def
-binder 13876:13879 <> ext0:71
-R13905:13908 Kami.Lib.Word <> word ind
-binder 13897:13897 <> a:72
-binder 13899:13899 <> b:73
-binder 13901:13901 <> c:74
-R14028:14033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13916:13939 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
-R13941:13942 KamiHW.OutsideDomainMaster <> bd:66 var
-R13945:13953 Kami.Lib.Word <> wordToNat def
-R13956:13969 KamiHW.DispatchLets <> dd_sp_dec_addr def
-R13971:13972 KamiHW.OutsideDomainMaster <> bd:66 var
-R13975:13983 KamiHW.RichWordDecode <> rich_word def
-R13985:13987 KamiHW.OutsideDomainMaster <> isa:67 var
-R13989:13991 KamiHW.OutsideDomainMaster <> fid:68 var
-R13993:13997 KamiHW.OutsideDomainMaster <> flags:69 var
-R13999:14006 KamiHW.OutsideDomainMaster <> reserved:70 var
-R14008:14011 KamiHW.OutsideDomainMaster <> ext0:71 var
-R14013:14018 KamiHW.ThieleTypes <> OP_RET def
-R14020:14020 KamiHW.OutsideDomainMaster <> a:72 var
-R14022:14022 KamiHW.OutsideDomainMaster <> b:73 var
-R14024:14024 KamiHW.OutsideDomainMaster <> c:74 var
-R14279:14281 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14201:14206 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R14111:14116 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R14034:14054 KamiHW.DispatchLets <> dd_locality_violation def
-R14056:14057 KamiHW.OutsideDomainMaster <> bd:66 var
-R14060:14068 KamiHW.RichWordDecode <> rich_word def
-R14070:14072 KamiHW.OutsideDomainMaster <> isa:67 var
-R14074:14076 KamiHW.OutsideDomainMaster <> fid:68 var
-R14078:14082 KamiHW.OutsideDomainMaster <> flags:69 var
-R14084:14091 KamiHW.OutsideDomainMaster <> reserved:70 var
-R14093:14096 KamiHW.OutsideDomainMaster <> ext0:71 var
-R14098:14103 KamiHW.ThieleTypes <> OP_RET def
-R14105:14105 KamiHW.OutsideDomainMaster <> a:72 var
-R14107:14107 KamiHW.OutsideDomainMaster <> b:73 var
-R14109:14109 KamiHW.OutsideDomainMaster <> c:74 var
-R14117:14144 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R14146:14147 KamiHW.OutsideDomainMaster <> bd:66 var
-R14150:14158 KamiHW.RichWordDecode <> rich_word def
-R14160:14162 KamiHW.OutsideDomainMaster <> isa:67 var
-R14164:14166 KamiHW.OutsideDomainMaster <> fid:68 var
-R14168:14172 KamiHW.OutsideDomainMaster <> flags:69 var
-R14174:14181 KamiHW.OutsideDomainMaster <> reserved:70 var
-R14183:14186 KamiHW.OutsideDomainMaster <> ext0:71 var
-R14188:14193 KamiHW.ThieleTypes <> OP_RET def
-R14195:14195 KamiHW.OutsideDomainMaster <> a:72 var
-R14197:14197 KamiHW.OutsideDomainMaster <> b:73 var
-R14199:14199 KamiHW.OutsideDomainMaster <> c:74 var
-R14207:14222 KamiHW.DispatchLets <> dd_nfi_violation def
-R14224:14225 KamiHW.OutsideDomainMaster <> bd:66 var
-R14228:14236 KamiHW.RichWordDecode <> rich_word def
-R14238:14240 KamiHW.OutsideDomainMaster <> isa:67 var
-R14242:14244 KamiHW.OutsideDomainMaster <> fid:68 var
-R14246:14250 KamiHW.OutsideDomainMaster <> flags:69 var
-R14252:14259 KamiHW.OutsideDomainMaster <> reserved:70 var
-R14261:14264 KamiHW.OutsideDomainMaster <> ext0:71 var
-R14266:14271 KamiHW.ThieleTypes <> OP_RET def
-R14273:14273 KamiHW.OutsideDomainMaster <> a:72 var
-R14275:14275 KamiHW.OutsideDomainMaster <> b:73 var
-R14277:14277 KamiHW.OutsideDomainMaster <> c:74 var
-R14282:14286 Coq.Init.Datatypes <> false constr
-R14364:14376 KamiHW.RichWordDecode <> rw_op_correct thm
-R14409:14414 KamiHW.ThieleTypes <> OP_RET def
-R14364:14376 KamiHW.RichWordDecode <> rw_op_correct thm
-R14409:14414 KamiHW.ThieleTypes <> OP_RET def
-R14441:14468 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R14471:14505 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R14441:14468 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R14441:14468 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R14471:14505 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R14471:14505 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R14519:14551 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R14519:14551 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R14519:14551 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R14617:14650 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R14617:14650 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R14617:14650 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R14716:14748 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R14716:14748 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R14716:14748 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R14791:14820 KamiHW.RichLocalityGuard <> dd_ret_locality_bad_false_rich thm
-R14791:14820 KamiHW.RichLocalityGuard <> dd_ret_locality_bad_false_rich thm
-R14791:14820 KamiHW.RichLocalityGuard <> dd_ret_locality_bad_false_rich thm
-R14879:14907 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R14879:14907 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R14879:14907 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R14950:14980 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R14950:14980 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R14950:14980 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R15023:15053 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R15023:15053 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R15023:15053 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R15096:15124 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R15096:15124 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R15096:15124 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-prf 15183:15201 <> guard_false_of_pnew
-binder 15212:15213 <> bd:75
-R15222:15225 Kami.Lib.Word <> word ind
-binder 15216:15218 <> isa:76
-R15237:15240 Kami.Lib.Word <> word ind
-R15242:15251 KamiHW.ThieleTypes <> FormatIdSz def
-binder 15231:15233 <> fid:77
-R15267:15270 Kami.Lib.Word <> word ind
-binder 15259:15263 <> flags:78
-R15288:15291 Kami.Lib.Word <> word ind
-binder 15277:15284 <> reserved:79
-R15305:15308 Kami.Lib.Word <> word ind
-R15310:15315 KamiHW.ThieleTypes <> WordSz def
-binder 15298:15301 <> ext0:80
-R15327:15330 Kami.Lib.Word <> word ind
-binder 15319:15319 <> a:81
-binder 15321:15321 <> b:82
-binder 15323:15323 <> c:83
-R15371:15376 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15366:15368 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R15338:15346 Kami.Lib.Word <> wordToNat def
-R15349:15361 KamiHW.HWBoundary <> hw_pt_next_id proj
-R15363:15364 KamiHW.OutsideDomainMaster <> bd:75 var
-R15625:15627 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15546:15551 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R15455:15460 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R15377:15397 KamiHW.DispatchLets <> dd_locality_violation def
-R15399:15400 KamiHW.OutsideDomainMaster <> bd:75 var
-R15403:15411 KamiHW.RichWordDecode <> rich_word def
-R15413:15415 KamiHW.OutsideDomainMaster <> isa:76 var
-R15417:15419 KamiHW.OutsideDomainMaster <> fid:77 var
-R15421:15425 KamiHW.OutsideDomainMaster <> flags:78 var
-R15427:15434 KamiHW.OutsideDomainMaster <> reserved:79 var
-R15436:15439 KamiHW.OutsideDomainMaster <> ext0:80 var
-R15441:15447 KamiHW.ThieleTypes <> OP_PNEW def
-R15449:15449 KamiHW.OutsideDomainMaster <> a:81 var
-R15451:15451 KamiHW.OutsideDomainMaster <> b:82 var
-R15453:15453 KamiHW.OutsideDomainMaster <> c:83 var
-R15461:15488 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R15490:15491 KamiHW.OutsideDomainMaster <> bd:75 var
-R15494:15502 KamiHW.RichWordDecode <> rich_word def
-R15504:15506 KamiHW.OutsideDomainMaster <> isa:76 var
-R15508:15510 KamiHW.OutsideDomainMaster <> fid:77 var
-R15512:15516 KamiHW.OutsideDomainMaster <> flags:78 var
-R15518:15525 KamiHW.OutsideDomainMaster <> reserved:79 var
-R15527:15530 KamiHW.OutsideDomainMaster <> ext0:80 var
-R15532:15538 KamiHW.ThieleTypes <> OP_PNEW def
-R15540:15540 KamiHW.OutsideDomainMaster <> a:81 var
-R15542:15542 KamiHW.OutsideDomainMaster <> b:82 var
-R15544:15544 KamiHW.OutsideDomainMaster <> c:83 var
-R15552:15567 KamiHW.DispatchLets <> dd_nfi_violation def
-R15569:15570 KamiHW.OutsideDomainMaster <> bd:75 var
-R15573:15581 KamiHW.RichWordDecode <> rich_word def
-R15583:15585 KamiHW.OutsideDomainMaster <> isa:76 var
-R15587:15589 KamiHW.OutsideDomainMaster <> fid:77 var
-R15591:15595 KamiHW.OutsideDomainMaster <> flags:78 var
-R15597:15604 KamiHW.OutsideDomainMaster <> reserved:79 var
-R15606:15609 KamiHW.OutsideDomainMaster <> ext0:80 var
-R15611:15617 KamiHW.ThieleTypes <> OP_PNEW def
-R15619:15619 KamiHW.OutsideDomainMaster <> a:81 var
-R15621:15621 KamiHW.OutsideDomainMaster <> b:82 var
-R15623:15623 KamiHW.OutsideDomainMaster <> c:83 var
-R15628:15632 Coq.Init.Datatypes <> false constr
-R15710:15722 KamiHW.RichWordDecode <> rw_op_correct thm
-R15755:15761 KamiHW.ThieleTypes <> OP_PNEW def
-R15710:15722 KamiHW.RichWordDecode <> rw_op_correct thm
-R15755:15761 KamiHW.ThieleTypes <> OP_PNEW def
-R15788:15815 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R15818:15852 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R15788:15815 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R15788:15815 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R15818:15852 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R15818:15852 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R15866:15898 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R15866:15898 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R15866:15898 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R15964:15997 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R15964:15997 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R15964:15997 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R16063:16095 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R16063:16095 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R16063:16095 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R16138:16169 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R16138:16169 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R16138:16169 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R16212:16238 KamiHW.RichPartitionGuard <> dd_pnew_overflow_false_rich thm
-R16212:16238 KamiHW.RichPartitionGuard <> dd_pnew_overflow_false_rich thm
-R16212:16238 KamiHW.RichPartitionGuard <> dd_pnew_overflow_false_rich thm
-R16297:16327 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R16297:16327 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R16297:16327 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R16370:16400 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R16370:16400 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R16370:16400 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R16443:16471 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R16443:16471 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R16443:16471 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-prf 16530:16550 <> guard_false_of_psplit
-binder 16561:16562 <> bd:84
-R16571:16574 Kami.Lib.Word <> word ind
-binder 16565:16567 <> isa:85
-R16586:16589 Kami.Lib.Word <> word ind
-R16591:16600 KamiHW.ThieleTypes <> FormatIdSz def
-binder 16580:16582 <> fid:86
-R16616:16619 Kami.Lib.Word <> word ind
-binder 16608:16612 <> flags:87
-R16637:16640 Kami.Lib.Word <> word ind
-binder 16626:16633 <> reserved:88
-R16654:16657 Kami.Lib.Word <> word ind
-R16659:16664 KamiHW.ThieleTypes <> WordSz def
-binder 16647:16650 <> ext0:89
-R16676:16679 Kami.Lib.Word <> word ind
-binder 16668:16668 <> a:90
-binder 16670:16670 <> b:91
-binder 16672:16672 <> c:92
-R16725:16730 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16719:16722 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R16715:16717 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R16687:16695 Kami.Lib.Word <> wordToNat def
-R16698:16710 KamiHW.HWBoundary <> hw_pt_next_id proj
-R16712:16713 KamiHW.OutsideDomainMaster <> bd:84 var
-R16985:16987 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16904:16909 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R16811:16816 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R16731:16751 KamiHW.DispatchLets <> dd_locality_violation def
-R16753:16754 KamiHW.OutsideDomainMaster <> bd:84 var
-R16757:16765 KamiHW.RichWordDecode <> rich_word def
-R16767:16769 KamiHW.OutsideDomainMaster <> isa:85 var
-R16771:16773 KamiHW.OutsideDomainMaster <> fid:86 var
-R16775:16779 KamiHW.OutsideDomainMaster <> flags:87 var
-R16781:16788 KamiHW.OutsideDomainMaster <> reserved:88 var
-R16790:16793 KamiHW.OutsideDomainMaster <> ext0:89 var
-R16795:16803 KamiHW.ThieleTypes <> OP_PSPLIT def
-R16805:16805 KamiHW.OutsideDomainMaster <> a:90 var
-R16807:16807 KamiHW.OutsideDomainMaster <> b:91 var
-R16809:16809 KamiHW.OutsideDomainMaster <> c:92 var
-R16817:16844 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R16846:16847 KamiHW.OutsideDomainMaster <> bd:84 var
-R16850:16858 KamiHW.RichWordDecode <> rich_word def
-R16860:16862 KamiHW.OutsideDomainMaster <> isa:85 var
-R16864:16866 KamiHW.OutsideDomainMaster <> fid:86 var
-R16868:16872 KamiHW.OutsideDomainMaster <> flags:87 var
-R16874:16881 KamiHW.OutsideDomainMaster <> reserved:88 var
-R16883:16886 KamiHW.OutsideDomainMaster <> ext0:89 var
-R16888:16896 KamiHW.ThieleTypes <> OP_PSPLIT def
-R16898:16898 KamiHW.OutsideDomainMaster <> a:90 var
-R16900:16900 KamiHW.OutsideDomainMaster <> b:91 var
-R16902:16902 KamiHW.OutsideDomainMaster <> c:92 var
-R16910:16925 KamiHW.DispatchLets <> dd_nfi_violation def
-R16927:16928 KamiHW.OutsideDomainMaster <> bd:84 var
-R16931:16939 KamiHW.RichWordDecode <> rich_word def
-R16941:16943 KamiHW.OutsideDomainMaster <> isa:85 var
-R16945:16947 KamiHW.OutsideDomainMaster <> fid:86 var
-R16949:16953 KamiHW.OutsideDomainMaster <> flags:87 var
-R16955:16962 KamiHW.OutsideDomainMaster <> reserved:88 var
-R16964:16967 KamiHW.OutsideDomainMaster <> ext0:89 var
-R16969:16977 KamiHW.ThieleTypes <> OP_PSPLIT def
-R16979:16979 KamiHW.OutsideDomainMaster <> a:90 var
-R16981:16981 KamiHW.OutsideDomainMaster <> b:91 var
-R16983:16983 KamiHW.OutsideDomainMaster <> c:92 var
-R16988:16992 Coq.Init.Datatypes <> false constr
-R17070:17082 KamiHW.RichWordDecode <> rw_op_correct thm
-R17115:17123 KamiHW.ThieleTypes <> OP_PSPLIT def
-R17070:17082 KamiHW.RichWordDecode <> rw_op_correct thm
-R17115:17123 KamiHW.ThieleTypes <> OP_PSPLIT def
-R17150:17177 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R17180:17214 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R17150:17177 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R17150:17177 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R17180:17214 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R17180:17214 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R17228:17260 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R17228:17260 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R17228:17260 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R17326:17359 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R17326:17359 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R17326:17359 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R17425:17457 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R17425:17457 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R17425:17457 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R17500:17531 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R17500:17531 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R17500:17531 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R17574:17602 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R17574:17602 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R17574:17602 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R17645:17673 KamiHW.RichPartitionGuard <> dd_psplit_overflow_false_rich thm
-R17645:17673 KamiHW.RichPartitionGuard <> dd_psplit_overflow_false_rich thm
-R17645:17673 KamiHW.RichPartitionGuard <> dd_psplit_overflow_false_rich thm
-R17732:17762 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R17732:17762 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R17732:17762 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R17805:17833 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R17805:17833 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R17805:17833 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-prf 17892:17912 <> guard_false_of_pmerge
-binder 17923:17924 <> bd:93
-R17933:17936 Kami.Lib.Word <> word ind
-binder 17927:17929 <> isa:94
-R17948:17951 Kami.Lib.Word <> word ind
-R17953:17962 KamiHW.ThieleTypes <> FormatIdSz def
-binder 17942:17944 <> fid:95
-R17978:17981 Kami.Lib.Word <> word ind
-binder 17970:17974 <> flags:96
-R17999:18002 Kami.Lib.Word <> word ind
-binder 17988:17995 <> reserved:97
-R18016:18019 Kami.Lib.Word <> word ind
-R18021:18026 KamiHW.ThieleTypes <> WordSz def
-binder 18009:18012 <> ext0:98
-R18038:18041 Kami.Lib.Word <> word ind
-binder 18030:18030 <> a:99
-binder 18032:18032 <> b:100
-binder 18034:18034 <> c:101
-R18082:18087 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18077:18079 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R18049:18057 Kami.Lib.Word <> wordToNat def
-R18060:18072 KamiHW.HWBoundary <> hw_pt_next_id proj
-R18074:18075 KamiHW.OutsideDomainMaster <> bd:93 var
-R18342:18344 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18261:18266 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R18168:18173 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R18088:18108 KamiHW.DispatchLets <> dd_locality_violation def
-R18110:18111 KamiHW.OutsideDomainMaster <> bd:93 var
-R18114:18122 KamiHW.RichWordDecode <> rich_word def
-R18124:18126 KamiHW.OutsideDomainMaster <> isa:94 var
-R18128:18130 KamiHW.OutsideDomainMaster <> fid:95 var
-R18132:18136 KamiHW.OutsideDomainMaster <> flags:96 var
-R18138:18145 KamiHW.OutsideDomainMaster <> reserved:97 var
-R18147:18150 KamiHW.OutsideDomainMaster <> ext0:98 var
-R18152:18160 KamiHW.ThieleTypes <> OP_PMERGE def
-R18162:18162 KamiHW.OutsideDomainMaster <> a:99 var
-R18164:18164 KamiHW.OutsideDomainMaster <> b:100 var
-R18166:18166 KamiHW.OutsideDomainMaster <> c:101 var
-R18174:18201 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R18203:18204 KamiHW.OutsideDomainMaster <> bd:93 var
-R18207:18215 KamiHW.RichWordDecode <> rich_word def
-R18217:18219 KamiHW.OutsideDomainMaster <> isa:94 var
-R18221:18223 KamiHW.OutsideDomainMaster <> fid:95 var
-R18225:18229 KamiHW.OutsideDomainMaster <> flags:96 var
-R18231:18238 KamiHW.OutsideDomainMaster <> reserved:97 var
-R18240:18243 KamiHW.OutsideDomainMaster <> ext0:98 var
-R18245:18253 KamiHW.ThieleTypes <> OP_PMERGE def
-R18255:18255 KamiHW.OutsideDomainMaster <> a:99 var
-R18257:18257 KamiHW.OutsideDomainMaster <> b:100 var
-R18259:18259 KamiHW.OutsideDomainMaster <> c:101 var
-R18267:18282 KamiHW.DispatchLets <> dd_nfi_violation def
-R18284:18285 KamiHW.OutsideDomainMaster <> bd:93 var
-R18288:18296 KamiHW.RichWordDecode <> rich_word def
-R18298:18300 KamiHW.OutsideDomainMaster <> isa:94 var
-R18302:18304 KamiHW.OutsideDomainMaster <> fid:95 var
-R18306:18310 KamiHW.OutsideDomainMaster <> flags:96 var
-R18312:18319 KamiHW.OutsideDomainMaster <> reserved:97 var
-R18321:18324 KamiHW.OutsideDomainMaster <> ext0:98 var
-R18326:18334 KamiHW.ThieleTypes <> OP_PMERGE def
-R18336:18336 KamiHW.OutsideDomainMaster <> a:99 var
-R18338:18338 KamiHW.OutsideDomainMaster <> b:100 var
-R18340:18340 KamiHW.OutsideDomainMaster <> c:101 var
-R18345:18349 Coq.Init.Datatypes <> false constr
-R18427:18439 KamiHW.RichWordDecode <> rw_op_correct thm
-R18472:18480 KamiHW.ThieleTypes <> OP_PMERGE def
-R18427:18439 KamiHW.RichWordDecode <> rw_op_correct thm
-R18472:18480 KamiHW.ThieleTypes <> OP_PMERGE def
-R18507:18534 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R18537:18571 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R18507:18534 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R18507:18534 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R18537:18571 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R18537:18571 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R18585:18617 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R18585:18617 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R18585:18617 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R18683:18716 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R18683:18716 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R18683:18716 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R18782:18814 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R18782:18814 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R18782:18814 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R18857:18888 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R18857:18888 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R18857:18888 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R18931:18959 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R18931:18959 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R18931:18959 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R19002:19032 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R19002:19032 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R19002:19032 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R19075:19103 KamiHW.RichPartitionGuard <> dd_pmerge_overflow_false_rich thm
-R19075:19103 KamiHW.RichPartitionGuard <> dd_pmerge_overflow_false_rich thm
-R19075:19103 KamiHW.RichPartitionGuard <> dd_pmerge_overflow_false_rich thm
-R19162:19190 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R19162:19190 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-R19162:19190 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
-prf 19249:19272 <> guard_false_of_pdiscover
-binder 19283:19284 <> bd:102
-R19293:19296 Kami.Lib.Word <> word ind
-binder 19287:19289 <> isa:103
-R19308:19311 Kami.Lib.Word <> word ind
-R19313:19322 KamiHW.ThieleTypes <> FormatIdSz def
-binder 19302:19304 <> fid:104
-R19338:19341 Kami.Lib.Word <> word ind
-binder 19330:19334 <> flags:105
-R19359:19362 Kami.Lib.Word <> word ind
-binder 19348:19355 <> reserved:106
-R19376:19379 Kami.Lib.Word <> word ind
-R19381:19386 KamiHW.ThieleTypes <> WordSz def
-binder 19369:19372 <> ext0:107
-R19398:19401 Kami.Lib.Word <> word ind
-binder 19390:19390 <> a:108
-binder 19392:19392 <> b:109
-binder 19394:19394 <> c:110
-R19435:19440 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19420:19423 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R19409:19417 Kami.Lib.Word <> wordToNat def
-R19419:19419 KamiHW.OutsideDomainMaster <> b:109 var
-R19424:19432 Kami.Lib.Word <> wordToNat def
-R19434:19434 KamiHW.OutsideDomainMaster <> c:110 var
-R19704:19706 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19620:19625 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R19524:19529 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R19441:19461 KamiHW.DispatchLets <> dd_locality_violation def
-R19463:19464 KamiHW.OutsideDomainMaster <> bd:102 var
-R19467:19475 KamiHW.RichWordDecode <> rich_word def
-R19477:19479 KamiHW.OutsideDomainMaster <> isa:103 var
-R19481:19483 KamiHW.OutsideDomainMaster <> fid:104 var
-R19485:19489 KamiHW.OutsideDomainMaster <> flags:105 var
-R19491:19498 KamiHW.OutsideDomainMaster <> reserved:106 var
-R19500:19503 KamiHW.OutsideDomainMaster <> ext0:107 var
-R19505:19516 KamiHW.ThieleTypes <> OP_PDISCOVER def
-R19518:19518 KamiHW.OutsideDomainMaster <> a:108 var
-R19520:19520 KamiHW.OutsideDomainMaster <> b:109 var
-R19522:19522 KamiHW.OutsideDomainMaster <> c:110 var
-R19530:19557 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
-R19559:19560 KamiHW.OutsideDomainMaster <> bd:102 var
-R19563:19571 KamiHW.RichWordDecode <> rich_word def
-R19573:19575 KamiHW.OutsideDomainMaster <> isa:103 var
-R19577:19579 KamiHW.OutsideDomainMaster <> fid:104 var
-R19581:19585 KamiHW.OutsideDomainMaster <> flags:105 var
-R19587:19594 KamiHW.OutsideDomainMaster <> reserved:106 var
-R19596:19599 KamiHW.OutsideDomainMaster <> ext0:107 var
-R19601:19612 KamiHW.ThieleTypes <> OP_PDISCOVER def
-R19614:19614 KamiHW.OutsideDomainMaster <> a:108 var
-R19616:19616 KamiHW.OutsideDomainMaster <> b:109 var
-R19618:19618 KamiHW.OutsideDomainMaster <> c:110 var
-R19626:19641 KamiHW.DispatchLets <> dd_nfi_violation def
-R19643:19644 KamiHW.OutsideDomainMaster <> bd:102 var
-R19647:19655 KamiHW.RichWordDecode <> rich_word def
-R19657:19659 KamiHW.OutsideDomainMaster <> isa:103 var
-R19661:19663 KamiHW.OutsideDomainMaster <> fid:104 var
-R19665:19669 KamiHW.OutsideDomainMaster <> flags:105 var
-R19671:19678 KamiHW.OutsideDomainMaster <> reserved:106 var
-R19680:19683 KamiHW.OutsideDomainMaster <> ext0:107 var
-R19685:19696 KamiHW.ThieleTypes <> OP_PDISCOVER def
-R19698:19698 KamiHW.OutsideDomainMaster <> a:108 var
-R19700:19700 KamiHW.OutsideDomainMaster <> b:109 var
-R19702:19702 KamiHW.OutsideDomainMaster <> c:110 var
-R19707:19711 Coq.Init.Datatypes <> false constr
-R19789:19801 KamiHW.RichWordDecode <> rw_op_correct thm
-R19834:19845 KamiHW.ThieleTypes <> OP_PDISCOVER def
-R19789:19801 KamiHW.RichWordDecode <> rw_op_correct thm
-R19834:19845 KamiHW.ThieleTypes <> OP_PDISCOVER def
-R19872:19899 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R19902:19936 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R19872:19899 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R19872:19899 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
-R19902:19936 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R19902:19936 KamiHW.OutsideDomainMaster <> dd_ptable_overflow_violation_unfold thm
-R19950:19982 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R19950:19982 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R19950:19982 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
-R20048:20081 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R20048:20081 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R20048:20081 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
-R20147:20179 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R20147:20179 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R20147:20179 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
-R20222:20253 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R20222:20253 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R20222:20253 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
-R20296:20324 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R20296:20324 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R20296:20324 KamiHW.OutsideDomainMaster <> dd_pnew_overflow_false_of_neq thm
-R20367:20397 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R20367:20397 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R20367:20397 KamiHW.OutsideDomainMaster <> dd_psplit_overflow_false_of_neq thm
-R20440:20470 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R20440:20470 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R20440:20470 KamiHW.OutsideDomainMaster <> dd_pmerge_overflow_false_of_neq thm
-R20513:20539 KamiHW.RichNfiGuard <> dd_nfi_violation_false_rich thm
-R20513:20539 KamiHW.RichNfiGuard <> dd_nfi_violation_false_rich thm
-R20513:20539 KamiHW.RichNfiGuard <> dd_nfi_violation_false_rich thm
+R1457:1465 Kami.Kami <> <> lib
+R1467:1480 Kami.Semantics <> <> lib
+R1507:1512 Coq.Strings.String <> <> lib
+R1514:1517 Coq.Lists.List <> <> lib
+R1519:1522 Coq.Bool.Bool <> <> lib
+R1524:1528 Coq.Arith.Arith <> <> lib
+R1530:1532 Coq.micromega.Lia <> <> lib
+R1562:1572 KamiHW.ThieleTypes <> <> lib
+R1574:1586 KamiHW.ThieleCPUCore <> <> lib
+R1588:1597 KamiHW.HWBoundary <> <> lib
+R1599:1606 KamiHW.RuleNext <> <> lib
+R1608:1615 KamiHW.RuleStep <> <> lib
+R1617:1631 KamiHW.BoundaryDecoded <> <> lib
+R1635:1642 KamiHW.StepEval <> <> lib
+R1644:1656 KamiHW.StepWordFacts <> <> lib
+R1658:1669 KamiHW.DispatchLets <> <> lib
+R1671:1681 KamiHW.Abstraction <> <> lib
+R1683:1704 KamiHW.ImplementationContract <> <> lib
+R1708:1717 KamiHW.StepFields <> <> lib
+R1719:1733 KamiHW.StepFieldsMorph <> <> lib
+R1735:1744 KamiHW.StepFaults <> <> lib
+R1746:1761 KamiHW.StepRefineCommon <> <> lib
+R1763:1778 KamiHW.LegacyWordDecode <> <> lib
+R1780:1793 KamiHW.RichWordDecode <> <> lib
+R1797:1809 KamiHW.RichLoadGuard <> <> lib
+R1811:1827 KamiHW.RichLocalityGuard <> <> lib
+R1829:1840 KamiHW.RichNfiGuard <> <> lib
+R1892:1899 Kami.Semantics <> evalExpr def
+R1901:1911 Kami.Semantics <> evalBinBool def
+R1913:1923 Kami.Semantics <> evalUniBool def
+R1925:1934 Kami.Semantics <> evalConstT def
+R1936:1939 Kami.Semantics <> isEq def
+R1941:1954 Kami.Semantics <> evalBinBitBool def
+R1956:1965 Kami.Semantics <> evalUniBit def
+R1967:1985 Kami.Semantics <> evalZeroExtendTrunc def
+R1987:1996 Kami.Semantics <> evalBinBit def
+R2038:2040 Coq.Init.Datatypes <> orb def
+R2042:2045 Coq.Init.Datatypes <> andb def
+R2047:2050 Coq.Init.Datatypes <> negb def
+prf 2308:2335 <> dd_locality_violation_unfold
+binder 2346:2347 <> bd:1
+binder 2349:2349 <> w:2
+R2380:2384 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2354:2374 KamiHW.DispatchLets <> dd_locality_violation def
+R2376:2377 KamiHW.OutsideDomainMaster <> bd:1 var
+R2379:2379 KamiHW.OutsideDomainMaster <> w:2 var
+R2471:2474 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R2440:2445 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R2410:2413 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R2385:2404 KamiHW.DispatchLets <> dd_load_locality_bad def
+R2406:2407 KamiHW.OutsideDomainMaster <> bd:1 var
+R2409:2409 KamiHW.OutsideDomainMaster <> w:2 var
+R2414:2434 KamiHW.DispatchLets <> dd_store_locality_bad def
+R2436:2437 KamiHW.OutsideDomainMaster <> bd:1 var
+R2439:2439 KamiHW.OutsideDomainMaster <> w:2 var
+R2446:2465 KamiHW.DispatchLets <> dd_call_locality_bad def
+R2467:2468 KamiHW.OutsideDomainMaster <> bd:1 var
+R2470:2470 KamiHW.OutsideDomainMaster <> w:2 var
+R2475:2493 KamiHW.DispatchLets <> dd_ret_locality_bad def
+R2495:2496 KamiHW.OutsideDomainMaster <> bd:1 var
+R2498:2498 KamiHW.OutsideDomainMaster <> w:2 var
+R2528:2548 KamiHW.DispatchLets <> dd_locality_violation def
+prf 2935:2967 <> dd_load_locality_bad_false_of_neq
+binder 2978:2979 <> bd:3
+binder 2981:2981 <> w:4
+R3011:3014 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3000:3003 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2986:2994 KamiHW.DispatchLets <> dd_opcode def
+R2996:2997 KamiHW.OutsideDomainMaster <> bd:3 var
+R2999:2999 KamiHW.OutsideDomainMaster <> w:4 var
+R3004:3010 KamiHW.ThieleTypes <> OP_LOAD def
+R3045:3050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3029:3032 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3015:3023 KamiHW.DispatchLets <> dd_opcode def
+R3025:3026 KamiHW.OutsideDomainMaster <> bd:3 var
+R3028:3028 KamiHW.OutsideDomainMaster <> w:4 var
+R3033:3044 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R3076:3078 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3051:3070 KamiHW.DispatchLets <> dd_load_locality_bad def
+R3072:3073 KamiHW.OutsideDomainMaster <> bd:3 var
+R3075:3075 KamiHW.OutsideDomainMaster <> w:4 var
+R3079:3083 Coq.Init.Datatypes <> false constr
+R3121:3140 KamiHW.DispatchLets <> dd_load_locality_bad def
+R3143:3155 KamiHW.DispatchLets <> dd_is_load_op def
+R3190:3192 Kami.Lib.Word <> weq def
+R3211:3217 KamiHW.ThieleTypes <> OP_LOAD def
+R3195:3203 KamiHW.DispatchLets <> dd_opcode def
+R3190:3192 Kami.Lib.Word <> weq def
+R3211:3217 KamiHW.ThieleTypes <> OP_LOAD def
+R3195:3203 KamiHW.DispatchLets <> dd_opcode def
+R3260:3262 Kami.Lib.Word <> weq def
+R3281:3292 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R3265:3273 KamiHW.DispatchLets <> dd_opcode def
+R3260:3262 Kami.Lib.Word <> weq def
+R3281:3292 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R3265:3273 KamiHW.DispatchLets <> dd_opcode def
+prf 3350:3383 <> dd_store_locality_bad_false_of_neq
+binder 3394:3395 <> bd:5
+binder 3397:3397 <> w:6
+R3428:3431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3416:3419 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3402:3410 KamiHW.DispatchLets <> dd_opcode def
+R3412:3413 KamiHW.OutsideDomainMaster <> bd:5 var
+R3415:3415 KamiHW.OutsideDomainMaster <> w:6 var
+R3420:3427 KamiHW.ThieleTypes <> OP_STORE def
+R3463:3468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3446:3449 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3432:3440 KamiHW.DispatchLets <> dd_opcode def
+R3442:3443 KamiHW.OutsideDomainMaster <> bd:5 var
+R3445:3445 KamiHW.OutsideDomainMaster <> w:6 var
+R3450:3462 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R3495:3497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3469:3489 KamiHW.DispatchLets <> dd_store_locality_bad def
+R3491:3492 KamiHW.OutsideDomainMaster <> bd:5 var
+R3494:3494 KamiHW.OutsideDomainMaster <> w:6 var
+R3498:3502 Coq.Init.Datatypes <> false constr
+R3540:3560 KamiHW.DispatchLets <> dd_store_locality_bad def
+R3563:3576 KamiHW.DispatchLets <> dd_is_store_op def
+R3611:3613 Kami.Lib.Word <> weq def
+R3632:3639 KamiHW.ThieleTypes <> OP_STORE def
+R3616:3624 KamiHW.DispatchLets <> dd_opcode def
+R3611:3613 Kami.Lib.Word <> weq def
+R3632:3639 KamiHW.ThieleTypes <> OP_STORE def
+R3616:3624 KamiHW.DispatchLets <> dd_opcode def
+R3682:3684 Kami.Lib.Word <> weq def
+R3703:3715 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R3687:3695 KamiHW.DispatchLets <> dd_opcode def
+R3682:3684 Kami.Lib.Word <> weq def
+R3703:3715 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R3687:3695 KamiHW.DispatchLets <> dd_opcode def
+prf 3773:3805 <> dd_call_locality_bad_false_of_neq
+binder 3816:3817 <> bd:7
+binder 3819:3819 <> w:8
+R3849:3852 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3838:3841 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3824:3832 KamiHW.DispatchLets <> dd_opcode def
+R3834:3835 KamiHW.OutsideDomainMaster <> bd:7 var
+R3837:3837 KamiHW.OutsideDomainMaster <> w:8 var
+R3842:3848 KamiHW.ThieleTypes <> OP_CALL def
+R3878:3880 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3853:3872 KamiHW.DispatchLets <> dd_call_locality_bad def
+R3874:3875 KamiHW.OutsideDomainMaster <> bd:7 var
+R3877:3877 KamiHW.OutsideDomainMaster <> w:8 var
+R3881:3885 Coq.Init.Datatypes <> false constr
+R3920:3939 KamiHW.DispatchLets <> dd_call_locality_bad def
+R3942:3954 KamiHW.DispatchLets <> dd_is_call_op def
+R3989:3991 Kami.Lib.Word <> weq def
+R4010:4016 KamiHW.ThieleTypes <> OP_CALL def
+R3994:4002 KamiHW.DispatchLets <> dd_opcode def
+R3989:3991 Kami.Lib.Word <> weq def
+R4010:4016 KamiHW.ThieleTypes <> OP_CALL def
+R3994:4002 KamiHW.DispatchLets <> dd_opcode def
+prf 4074:4105 <> dd_ret_locality_bad_false_of_neq
+binder 4116:4117 <> bd:9
+binder 4119:4119 <> w:10
+R4148:4151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4138:4141 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4124:4132 KamiHW.DispatchLets <> dd_opcode def
+R4134:4135 KamiHW.OutsideDomainMaster <> bd:9 var
+R4137:4137 KamiHW.OutsideDomainMaster <> w:10 var
+R4142:4147 KamiHW.ThieleTypes <> OP_RET def
+R4176:4178 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4152:4170 KamiHW.DispatchLets <> dd_ret_locality_bad def
+R4172:4173 KamiHW.OutsideDomainMaster <> bd:9 var
+R4175:4175 KamiHW.OutsideDomainMaster <> w:10 var
+R4179:4183 Coq.Init.Datatypes <> false constr
+R4218:4236 KamiHW.DispatchLets <> dd_ret_locality_bad def
+R4239:4250 KamiHW.DispatchLets <> dd_is_ret_op def
+R4285:4287 Kami.Lib.Word <> weq def
+R4306:4311 KamiHW.ThieleTypes <> OP_RET def
+R4290:4298 KamiHW.DispatchLets <> dd_opcode def
+R4285:4287 Kami.Lib.Word <> weq def
+R4306:4311 KamiHW.ThieleTypes <> OP_RET def
+R4290:4298 KamiHW.DispatchLets <> dd_opcode def
+prf 4369:4397 <> dd_nfi_violation_false_of_neq
+binder 4408:4409 <> bd:11
+binder 4411:4411 <> w:12
+R4446:4449 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4430:4433 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4416:4424 KamiHW.DispatchLets <> dd_opcode def
+R4426:4427 KamiHW.OutsideDomainMaster <> bd:11 var
+R4429:4429 KamiHW.OutsideDomainMaster <> w:12 var
+R4434:4445 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R4471:4473 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4450:4465 KamiHW.DispatchLets <> dd_nfi_violation def
+R4467:4468 KamiHW.OutsideDomainMaster <> bd:11 var
+R4470:4470 KamiHW.OutsideDomainMaster <> w:12 var
+R4474:4478 Coq.Init.Datatypes <> false constr
+R4513:4528 KamiHW.DispatchLets <> dd_nfi_violation def
+R4531:4553 KamiHW.DispatchLets <> dd_is_declared_bound_op def
+R4588:4590 Kami.Lib.Word <> weq def
+R4609:4620 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R4593:4601 KamiHW.DispatchLets <> dd_opcode def
+R4588:4590 Kami.Lib.Word <> weq def
+R4609:4620 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R4593:4601 KamiHW.DispatchLets <> dd_opcode def
+prf 5417:5435 <> guard_false_of_load
+binder 5446:5447 <> bd:13
+R5456:5459 Kami.Lib.Word <> word ind
+binder 5450:5452 <> isa:14
+R5471:5474 Kami.Lib.Word <> word ind
+R5476:5485 KamiHW.ThieleTypes <> FormatIdSz def
+binder 5465:5467 <> fid:15
+R5501:5504 Kami.Lib.Word <> word ind
+binder 5493:5497 <> flags:16
+R5522:5525 Kami.Lib.Word <> word ind
+binder 5511:5518 <> reserved:17
+R5539:5542 Kami.Lib.Word <> word ind
+R5544:5549 KamiHW.ThieleTypes <> WordSz def
+binder 5532:5535 <> ext0:18
+R5561:5564 Kami.Lib.Word <> word ind
+binder 5553:5553 <> a:19
+binder 5555:5555 <> b:20
+binder 5557:5557 <> c:21
+R5682:5687 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5572:5595 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
+R5597:5598 KamiHW.OutsideDomainMaster <> bd:13 var
+R5601:5609 Kami.Lib.Word <> wordToNat def
+R5612:5622 KamiHW.DispatchLets <> dd_mem_addr def
+R5624:5625 KamiHW.OutsideDomainMaster <> bd:13 var
+R5628:5636 KamiHW.RichWordDecode <> rich_word def
+R5638:5640 KamiHW.OutsideDomainMaster <> isa:14 var
+R5642:5644 KamiHW.OutsideDomainMaster <> fid:15 var
+R5646:5650 KamiHW.OutsideDomainMaster <> flags:16 var
+R5652:5659 KamiHW.OutsideDomainMaster <> reserved:17 var
+R5661:5664 KamiHW.OutsideDomainMaster <> ext0:18 var
+R5666:5672 KamiHW.ThieleTypes <> OP_LOAD def
+R5674:5674 KamiHW.OutsideDomainMaster <> a:19 var
+R5676:5676 KamiHW.OutsideDomainMaster <> b:20 var
+R5678:5678 KamiHW.OutsideDomainMaster <> c:21 var
+R5845:5847 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5766:5771 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R5688:5708 KamiHW.DispatchLets <> dd_locality_violation def
+R5710:5711 KamiHW.OutsideDomainMaster <> bd:13 var
+R5714:5722 KamiHW.RichWordDecode <> rich_word def
+R5724:5726 KamiHW.OutsideDomainMaster <> isa:14 var
+R5728:5730 KamiHW.OutsideDomainMaster <> fid:15 var
+R5732:5736 KamiHW.OutsideDomainMaster <> flags:16 var
+R5738:5745 KamiHW.OutsideDomainMaster <> reserved:17 var
+R5747:5750 KamiHW.OutsideDomainMaster <> ext0:18 var
+R5752:5758 KamiHW.ThieleTypes <> OP_LOAD def
+R5760:5760 KamiHW.OutsideDomainMaster <> a:19 var
+R5762:5762 KamiHW.OutsideDomainMaster <> b:20 var
+R5764:5764 KamiHW.OutsideDomainMaster <> c:21 var
+R5772:5787 KamiHW.DispatchLets <> dd_nfi_violation def
+R5789:5790 KamiHW.OutsideDomainMaster <> bd:13 var
+R5793:5801 KamiHW.RichWordDecode <> rich_word def
+R5803:5805 KamiHW.OutsideDomainMaster <> isa:14 var
+R5807:5809 KamiHW.OutsideDomainMaster <> fid:15 var
+R5811:5815 KamiHW.OutsideDomainMaster <> flags:16 var
+R5817:5824 KamiHW.OutsideDomainMaster <> reserved:17 var
+R5826:5829 KamiHW.OutsideDomainMaster <> ext0:18 var
+R5831:5837 KamiHW.ThieleTypes <> OP_LOAD def
+R5839:5839 KamiHW.OutsideDomainMaster <> a:19 var
+R5841:5841 KamiHW.OutsideDomainMaster <> b:20 var
+R5843:5843 KamiHW.OutsideDomainMaster <> c:21 var
+R5848:5852 Coq.Init.Datatypes <> false constr
+R5930:5942 KamiHW.RichWordDecode <> rw_op_correct thm
+R5975:5981 KamiHW.ThieleTypes <> OP_LOAD def
+R5930:5942 KamiHW.RichWordDecode <> rw_op_correct thm
+R5975:5981 KamiHW.ThieleTypes <> OP_LOAD def
+R6008:6035 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R6008:6035 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R6008:6035 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R6049:6079 KamiHW.RichLoadGuard <> dd_load_locality_bad_false_rich thm
+R6049:6079 KamiHW.RichLoadGuard <> dd_load_locality_bad_false_rich thm
+R6049:6079 KamiHW.RichLoadGuard <> dd_load_locality_bad_false_rich thm
+R6138:6171 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R6138:6171 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R6138:6171 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R6237:6269 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R6237:6269 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R6237:6269 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R6312:6343 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R6312:6343 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R6312:6343 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R6386:6414 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R6386:6414 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R6386:6414 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+prf 6473:6496 <> guard_false_of_heap_load
+binder 6507:6508 <> bd:22
+R6517:6520 Kami.Lib.Word <> word ind
+binder 6511:6513 <> isa:23
+R6532:6535 Kami.Lib.Word <> word ind
+R6537:6546 KamiHW.ThieleTypes <> FormatIdSz def
+binder 6526:6528 <> fid:24
+R6562:6565 Kami.Lib.Word <> word ind
+binder 6554:6558 <> flags:25
+R6583:6586 Kami.Lib.Word <> word ind
+binder 6572:6579 <> reserved:26
+R6600:6603 Kami.Lib.Word <> word ind
+R6605:6610 KamiHW.ThieleTypes <> WordSz def
+binder 6593:6596 <> ext0:27
+R6622:6625 Kami.Lib.Word <> word ind
+binder 6614:6614 <> a:28
+binder 6616:6616 <> b:29
+binder 6618:6618 <> c:30
+R6749:6754 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6633:6656 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
+R6658:6659 KamiHW.OutsideDomainMaster <> bd:22 var
+R6662:6670 Kami.Lib.Word <> wordToNat def
+R6673:6684 KamiHW.DispatchLets <> dd_heap_addr def
+R6686:6687 KamiHW.OutsideDomainMaster <> bd:22 var
+R6690:6698 KamiHW.RichWordDecode <> rich_word def
+R6700:6702 KamiHW.OutsideDomainMaster <> isa:23 var
+R6704:6706 KamiHW.OutsideDomainMaster <> fid:24 var
+R6708:6712 KamiHW.OutsideDomainMaster <> flags:25 var
+R6714:6721 KamiHW.OutsideDomainMaster <> reserved:26 var
+R6723:6726 KamiHW.OutsideDomainMaster <> ext0:27 var
+R6728:6739 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R6741:6741 KamiHW.OutsideDomainMaster <> a:28 var
+R6743:6743 KamiHW.OutsideDomainMaster <> b:29 var
+R6745:6745 KamiHW.OutsideDomainMaster <> c:30 var
+R6922:6924 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6838:6843 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R6755:6775 KamiHW.DispatchLets <> dd_locality_violation def
+R6777:6778 KamiHW.OutsideDomainMaster <> bd:22 var
+R6781:6789 KamiHW.RichWordDecode <> rich_word def
+R6791:6793 KamiHW.OutsideDomainMaster <> isa:23 var
+R6795:6797 KamiHW.OutsideDomainMaster <> fid:24 var
+R6799:6803 KamiHW.OutsideDomainMaster <> flags:25 var
+R6805:6812 KamiHW.OutsideDomainMaster <> reserved:26 var
+R6814:6817 KamiHW.OutsideDomainMaster <> ext0:27 var
+R6819:6830 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R6832:6832 KamiHW.OutsideDomainMaster <> a:28 var
+R6834:6834 KamiHW.OutsideDomainMaster <> b:29 var
+R6836:6836 KamiHW.OutsideDomainMaster <> c:30 var
+R6844:6859 KamiHW.DispatchLets <> dd_nfi_violation def
+R6861:6862 KamiHW.OutsideDomainMaster <> bd:22 var
+R6865:6873 KamiHW.RichWordDecode <> rich_word def
+R6875:6877 KamiHW.OutsideDomainMaster <> isa:23 var
+R6879:6881 KamiHW.OutsideDomainMaster <> fid:24 var
+R6883:6887 KamiHW.OutsideDomainMaster <> flags:25 var
+R6889:6896 KamiHW.OutsideDomainMaster <> reserved:26 var
+R6898:6901 KamiHW.OutsideDomainMaster <> ext0:27 var
+R6903:6914 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R6916:6916 KamiHW.OutsideDomainMaster <> a:28 var
+R6918:6918 KamiHW.OutsideDomainMaster <> b:29 var
+R6920:6920 KamiHW.OutsideDomainMaster <> c:30 var
+R6925:6929 Coq.Init.Datatypes <> false constr
+R7007:7019 KamiHW.RichWordDecode <> rw_op_correct thm
+R7052:7063 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R7007:7019 KamiHW.RichWordDecode <> rw_op_correct thm
+R7052:7063 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R7090:7117 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R7090:7117 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R7090:7117 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R7131:7166 KamiHW.RichLocalityGuard <> dd_load_locality_bad_heap_false_rich thm
+R7131:7166 KamiHW.RichLocalityGuard <> dd_load_locality_bad_heap_false_rich thm
+R7131:7166 KamiHW.RichLocalityGuard <> dd_load_locality_bad_heap_false_rich thm
+R7225:7258 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R7225:7258 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R7225:7258 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R7324:7356 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R7324:7356 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R7324:7356 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R7399:7430 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R7399:7430 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R7399:7430 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R7473:7501 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R7473:7501 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R7473:7501 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+prf 7560:7579 <> guard_false_of_store
+binder 7590:7591 <> bd:31
+R7600:7603 Kami.Lib.Word <> word ind
+binder 7594:7596 <> isa:32
+R7615:7618 Kami.Lib.Word <> word ind
+R7620:7629 KamiHW.ThieleTypes <> FormatIdSz def
+binder 7609:7611 <> fid:33
+R7645:7648 Kami.Lib.Word <> word ind
+binder 7637:7641 <> flags:34
+R7666:7669 Kami.Lib.Word <> word ind
+binder 7655:7662 <> reserved:35
+R7683:7686 Kami.Lib.Word <> word ind
+R7688:7693 KamiHW.ThieleTypes <> WordSz def
+binder 7676:7679 <> ext0:36
+R7705:7708 Kami.Lib.Word <> word ind
+binder 7697:7697 <> a:37
+binder 7699:7699 <> b:38
+binder 7701:7701 <> c:39
+R7829:7834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7716:7739 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
+R7741:7742 KamiHW.OutsideDomainMaster <> bd:31 var
+R7745:7753 Kami.Lib.Word <> wordToNat def
+R7756:7768 KamiHW.DispatchLets <> dd_mem_addr_a def
+R7770:7771 KamiHW.OutsideDomainMaster <> bd:31 var
+R7774:7782 KamiHW.RichWordDecode <> rich_word def
+R7784:7786 KamiHW.OutsideDomainMaster <> isa:32 var
+R7788:7790 KamiHW.OutsideDomainMaster <> fid:33 var
+R7792:7796 KamiHW.OutsideDomainMaster <> flags:34 var
+R7798:7805 KamiHW.OutsideDomainMaster <> reserved:35 var
+R7807:7810 KamiHW.OutsideDomainMaster <> ext0:36 var
+R7812:7819 KamiHW.ThieleTypes <> OP_STORE def
+R7821:7821 KamiHW.OutsideDomainMaster <> a:37 var
+R7823:7823 KamiHW.OutsideDomainMaster <> b:38 var
+R7825:7825 KamiHW.OutsideDomainMaster <> c:39 var
+R7994:7996 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7914:7919 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R7835:7855 KamiHW.DispatchLets <> dd_locality_violation def
+R7857:7858 KamiHW.OutsideDomainMaster <> bd:31 var
+R7861:7869 KamiHW.RichWordDecode <> rich_word def
+R7871:7873 KamiHW.OutsideDomainMaster <> isa:32 var
+R7875:7877 KamiHW.OutsideDomainMaster <> fid:33 var
+R7879:7883 KamiHW.OutsideDomainMaster <> flags:34 var
+R7885:7892 KamiHW.OutsideDomainMaster <> reserved:35 var
+R7894:7897 KamiHW.OutsideDomainMaster <> ext0:36 var
+R7899:7906 KamiHW.ThieleTypes <> OP_STORE def
+R7908:7908 KamiHW.OutsideDomainMaster <> a:37 var
+R7910:7910 KamiHW.OutsideDomainMaster <> b:38 var
+R7912:7912 KamiHW.OutsideDomainMaster <> c:39 var
+R7920:7935 KamiHW.DispatchLets <> dd_nfi_violation def
+R7937:7938 KamiHW.OutsideDomainMaster <> bd:31 var
+R7941:7949 KamiHW.RichWordDecode <> rich_word def
+R7951:7953 KamiHW.OutsideDomainMaster <> isa:32 var
+R7955:7957 KamiHW.OutsideDomainMaster <> fid:33 var
+R7959:7963 KamiHW.OutsideDomainMaster <> flags:34 var
+R7965:7972 KamiHW.OutsideDomainMaster <> reserved:35 var
+R7974:7977 KamiHW.OutsideDomainMaster <> ext0:36 var
+R7979:7986 KamiHW.ThieleTypes <> OP_STORE def
+R7988:7988 KamiHW.OutsideDomainMaster <> a:37 var
+R7990:7990 KamiHW.OutsideDomainMaster <> b:38 var
+R7992:7992 KamiHW.OutsideDomainMaster <> c:39 var
+R7997:8001 Coq.Init.Datatypes <> false constr
+R8079:8091 KamiHW.RichWordDecode <> rw_op_correct thm
+R8124:8131 KamiHW.ThieleTypes <> OP_STORE def
+R8079:8091 KamiHW.RichWordDecode <> rw_op_correct thm
+R8124:8131 KamiHW.ThieleTypes <> OP_STORE def
+R8158:8185 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R8158:8185 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R8158:8185 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R8199:8231 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R8199:8231 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R8199:8231 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R8297:8328 KamiHW.RichLocalityGuard <> dd_store_locality_bad_false_rich thm
+R8297:8328 KamiHW.RichLocalityGuard <> dd_store_locality_bad_false_rich thm
+R8297:8328 KamiHW.RichLocalityGuard <> dd_store_locality_bad_false_rich thm
+R8387:8419 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R8387:8419 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R8387:8419 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R8462:8493 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R8462:8493 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R8462:8493 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R8536:8564 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R8536:8564 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R8536:8564 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+prf 8623:8647 <> guard_false_of_heap_store
+binder 8658:8659 <> bd:40
+R8668:8671 Kami.Lib.Word <> word ind
+binder 8662:8664 <> isa:41
+R8683:8686 Kami.Lib.Word <> word ind
+R8688:8697 KamiHW.ThieleTypes <> FormatIdSz def
+binder 8677:8679 <> fid:42
+R8713:8716 Kami.Lib.Word <> word ind
+binder 8705:8709 <> flags:43
+R8734:8737 Kami.Lib.Word <> word ind
+binder 8723:8730 <> reserved:44
+R8751:8754 Kami.Lib.Word <> word ind
+R8756:8761 KamiHW.ThieleTypes <> WordSz def
+binder 8744:8747 <> ext0:45
+R8773:8776 Kami.Lib.Word <> word ind
+binder 8765:8765 <> a:46
+binder 8767:8767 <> b:47
+binder 8769:8769 <> c:48
+R8903:8908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8784:8807 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
+R8809:8810 KamiHW.OutsideDomainMaster <> bd:40 var
+R8813:8821 Kami.Lib.Word <> wordToNat def
+R8824:8837 KamiHW.DispatchLets <> dd_heap_addr_a def
+R8839:8840 KamiHW.OutsideDomainMaster <> bd:40 var
+R8843:8851 KamiHW.RichWordDecode <> rich_word def
+R8853:8855 KamiHW.OutsideDomainMaster <> isa:41 var
+R8857:8859 KamiHW.OutsideDomainMaster <> fid:42 var
+R8861:8865 KamiHW.OutsideDomainMaster <> flags:43 var
+R8867:8874 KamiHW.OutsideDomainMaster <> reserved:44 var
+R8876:8879 KamiHW.OutsideDomainMaster <> ext0:45 var
+R8881:8893 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R8895:8895 KamiHW.OutsideDomainMaster <> a:46 var
+R8897:8897 KamiHW.OutsideDomainMaster <> b:47 var
+R8899:8899 KamiHW.OutsideDomainMaster <> c:48 var
+R9078:9080 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8993:8998 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R8909:8929 KamiHW.DispatchLets <> dd_locality_violation def
+R8931:8932 KamiHW.OutsideDomainMaster <> bd:40 var
+R8935:8943 KamiHW.RichWordDecode <> rich_word def
+R8945:8947 KamiHW.OutsideDomainMaster <> isa:41 var
+R8949:8951 KamiHW.OutsideDomainMaster <> fid:42 var
+R8953:8957 KamiHW.OutsideDomainMaster <> flags:43 var
+R8959:8966 KamiHW.OutsideDomainMaster <> reserved:44 var
+R8968:8971 KamiHW.OutsideDomainMaster <> ext0:45 var
+R8973:8985 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R8987:8987 KamiHW.OutsideDomainMaster <> a:46 var
+R8989:8989 KamiHW.OutsideDomainMaster <> b:47 var
+R8991:8991 KamiHW.OutsideDomainMaster <> c:48 var
+R8999:9014 KamiHW.DispatchLets <> dd_nfi_violation def
+R9016:9017 KamiHW.OutsideDomainMaster <> bd:40 var
+R9020:9028 KamiHW.RichWordDecode <> rich_word def
+R9030:9032 KamiHW.OutsideDomainMaster <> isa:41 var
+R9034:9036 KamiHW.OutsideDomainMaster <> fid:42 var
+R9038:9042 KamiHW.OutsideDomainMaster <> flags:43 var
+R9044:9051 KamiHW.OutsideDomainMaster <> reserved:44 var
+R9053:9056 KamiHW.OutsideDomainMaster <> ext0:45 var
+R9058:9070 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R9072:9072 KamiHW.OutsideDomainMaster <> a:46 var
+R9074:9074 KamiHW.OutsideDomainMaster <> b:47 var
+R9076:9076 KamiHW.OutsideDomainMaster <> c:48 var
+R9081:9085 Coq.Init.Datatypes <> false constr
+R9163:9175 KamiHW.RichWordDecode <> rw_op_correct thm
+R9208:9220 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R9163:9175 KamiHW.RichWordDecode <> rw_op_correct thm
+R9208:9220 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R9247:9274 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R9247:9274 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R9247:9274 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R9288:9320 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R9288:9320 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R9288:9320 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R9386:9422 KamiHW.RichLocalityGuard <> dd_store_locality_bad_heap_false_rich thm
+R9386:9422 KamiHW.RichLocalityGuard <> dd_store_locality_bad_heap_false_rich thm
+R9386:9422 KamiHW.RichLocalityGuard <> dd_store_locality_bad_heap_false_rich thm
+R9481:9513 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R9481:9513 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R9481:9513 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R9556:9587 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R9556:9587 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R9556:9587 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R9630:9658 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R9630:9658 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R9630:9658 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+prf 9717:9735 <> guard_false_of_call
+binder 9746:9747 <> bd:49
+R9756:9759 Kami.Lib.Word <> word ind
+binder 9750:9752 <> isa:50
+R9771:9774 Kami.Lib.Word <> word ind
+R9776:9785 KamiHW.ThieleTypes <> FormatIdSz def
+binder 9765:9767 <> fid:51
+R9801:9804 Kami.Lib.Word <> word ind
+binder 9793:9797 <> flags:52
+R9822:9825 Kami.Lib.Word <> word ind
+binder 9811:9818 <> reserved:53
+R9839:9842 Kami.Lib.Word <> word ind
+R9844:9849 KamiHW.ThieleTypes <> WordSz def
+binder 9832:9835 <> ext0:54
+R9861:9864 Kami.Lib.Word <> word ind
+binder 9853:9853 <> a:55
+binder 9855:9855 <> b:56
+binder 9857:9857 <> c:57
+R9981:9986 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9872:9895 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
+R9897:9898 KamiHW.OutsideDomainMaster <> bd:49 var
+R9901:9909 Kami.Lib.Word <> wordToNat def
+R9912:9921 KamiHW.DispatchLets <> dd_sp_addr def
+R9923:9924 KamiHW.OutsideDomainMaster <> bd:49 var
+R9927:9935 KamiHW.RichWordDecode <> rich_word def
+R9937:9939 KamiHW.OutsideDomainMaster <> isa:50 var
+R9941:9943 KamiHW.OutsideDomainMaster <> fid:51 var
+R9945:9949 KamiHW.OutsideDomainMaster <> flags:52 var
+R9951:9958 KamiHW.OutsideDomainMaster <> reserved:53 var
+R9960:9963 KamiHW.OutsideDomainMaster <> ext0:54 var
+R9965:9971 KamiHW.ThieleTypes <> OP_CALL def
+R9973:9973 KamiHW.OutsideDomainMaster <> a:55 var
+R9975:9975 KamiHW.OutsideDomainMaster <> b:56 var
+R9977:9977 KamiHW.OutsideDomainMaster <> c:57 var
+R10144:10146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10065:10070 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R9987:10007 KamiHW.DispatchLets <> dd_locality_violation def
+R10009:10010 KamiHW.OutsideDomainMaster <> bd:49 var
+R10013:10021 KamiHW.RichWordDecode <> rich_word def
+R10023:10025 KamiHW.OutsideDomainMaster <> isa:50 var
+R10027:10029 KamiHW.OutsideDomainMaster <> fid:51 var
+R10031:10035 KamiHW.OutsideDomainMaster <> flags:52 var
+R10037:10044 KamiHW.OutsideDomainMaster <> reserved:53 var
+R10046:10049 KamiHW.OutsideDomainMaster <> ext0:54 var
+R10051:10057 KamiHW.ThieleTypes <> OP_CALL def
+R10059:10059 KamiHW.OutsideDomainMaster <> a:55 var
+R10061:10061 KamiHW.OutsideDomainMaster <> b:56 var
+R10063:10063 KamiHW.OutsideDomainMaster <> c:57 var
+R10071:10086 KamiHW.DispatchLets <> dd_nfi_violation def
+R10088:10089 KamiHW.OutsideDomainMaster <> bd:49 var
+R10092:10100 KamiHW.RichWordDecode <> rich_word def
+R10102:10104 KamiHW.OutsideDomainMaster <> isa:50 var
+R10106:10108 KamiHW.OutsideDomainMaster <> fid:51 var
+R10110:10114 KamiHW.OutsideDomainMaster <> flags:52 var
+R10116:10123 KamiHW.OutsideDomainMaster <> reserved:53 var
+R10125:10128 KamiHW.OutsideDomainMaster <> ext0:54 var
+R10130:10136 KamiHW.ThieleTypes <> OP_CALL def
+R10138:10138 KamiHW.OutsideDomainMaster <> a:55 var
+R10140:10140 KamiHW.OutsideDomainMaster <> b:56 var
+R10142:10142 KamiHW.OutsideDomainMaster <> c:57 var
+R10147:10151 Coq.Init.Datatypes <> false constr
+R10229:10241 KamiHW.RichWordDecode <> rw_op_correct thm
+R10274:10280 KamiHW.ThieleTypes <> OP_CALL def
+R10229:10241 KamiHW.RichWordDecode <> rw_op_correct thm
+R10274:10280 KamiHW.ThieleTypes <> OP_CALL def
+R10307:10334 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R10307:10334 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R10307:10334 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R10348:10380 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R10348:10380 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R10348:10380 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R10446:10479 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R10446:10479 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R10446:10479 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R10545:10575 KamiHW.RichLocalityGuard <> dd_call_locality_bad_false_rich thm
+R10545:10575 KamiHW.RichLocalityGuard <> dd_call_locality_bad_false_rich thm
+R10545:10575 KamiHW.RichLocalityGuard <> dd_call_locality_bad_false_rich thm
+R10634:10665 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R10634:10665 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R10634:10665 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R10708:10736 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R10708:10736 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R10708:10736 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+prf 10795:10812 <> guard_false_of_ret
+binder 10823:10824 <> bd:58
+R10833:10836 Kami.Lib.Word <> word ind
+binder 10827:10829 <> isa:59
+R10848:10851 Kami.Lib.Word <> word ind
+R10853:10862 KamiHW.ThieleTypes <> FormatIdSz def
+binder 10842:10844 <> fid:60
+R10878:10881 Kami.Lib.Word <> word ind
+binder 10870:10874 <> flags:61
+R10899:10902 Kami.Lib.Word <> word ind
+binder 10888:10895 <> reserved:62
+R10916:10919 Kami.Lib.Word <> word ind
+R10921:10926 KamiHW.ThieleTypes <> WordSz def
+binder 10909:10912 <> ext0:63
+R10938:10941 Kami.Lib.Word <> word ind
+binder 10930:10930 <> a:64
+binder 10932:10932 <> b:65
+binder 10934:10934 <> c:66
+R11061:11066 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10949:10972 KamiHW.StepRefineCommon <> hwb_addr_in_active_range def
+R10974:10975 KamiHW.OutsideDomainMaster <> bd:58 var
+R10978:10986 Kami.Lib.Word <> wordToNat def
+R10989:11002 KamiHW.DispatchLets <> dd_sp_dec_addr def
+R11004:11005 KamiHW.OutsideDomainMaster <> bd:58 var
+R11008:11016 KamiHW.RichWordDecode <> rich_word def
+R11018:11020 KamiHW.OutsideDomainMaster <> isa:59 var
+R11022:11024 KamiHW.OutsideDomainMaster <> fid:60 var
+R11026:11030 KamiHW.OutsideDomainMaster <> flags:61 var
+R11032:11039 KamiHW.OutsideDomainMaster <> reserved:62 var
+R11041:11044 KamiHW.OutsideDomainMaster <> ext0:63 var
+R11046:11051 KamiHW.ThieleTypes <> OP_RET def
+R11053:11053 KamiHW.OutsideDomainMaster <> a:64 var
+R11055:11055 KamiHW.OutsideDomainMaster <> b:65 var
+R11057:11057 KamiHW.OutsideDomainMaster <> c:66 var
+R11222:11224 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11144:11149 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R11067:11087 KamiHW.DispatchLets <> dd_locality_violation def
+R11089:11090 KamiHW.OutsideDomainMaster <> bd:58 var
+R11093:11101 KamiHW.RichWordDecode <> rich_word def
+R11103:11105 KamiHW.OutsideDomainMaster <> isa:59 var
+R11107:11109 KamiHW.OutsideDomainMaster <> fid:60 var
+R11111:11115 KamiHW.OutsideDomainMaster <> flags:61 var
+R11117:11124 KamiHW.OutsideDomainMaster <> reserved:62 var
+R11126:11129 KamiHW.OutsideDomainMaster <> ext0:63 var
+R11131:11136 KamiHW.ThieleTypes <> OP_RET def
+R11138:11138 KamiHW.OutsideDomainMaster <> a:64 var
+R11140:11140 KamiHW.OutsideDomainMaster <> b:65 var
+R11142:11142 KamiHW.OutsideDomainMaster <> c:66 var
+R11150:11165 KamiHW.DispatchLets <> dd_nfi_violation def
+R11167:11168 KamiHW.OutsideDomainMaster <> bd:58 var
+R11171:11179 KamiHW.RichWordDecode <> rich_word def
+R11181:11183 KamiHW.OutsideDomainMaster <> isa:59 var
+R11185:11187 KamiHW.OutsideDomainMaster <> fid:60 var
+R11189:11193 KamiHW.OutsideDomainMaster <> flags:61 var
+R11195:11202 KamiHW.OutsideDomainMaster <> reserved:62 var
+R11204:11207 KamiHW.OutsideDomainMaster <> ext0:63 var
+R11209:11214 KamiHW.ThieleTypes <> OP_RET def
+R11216:11216 KamiHW.OutsideDomainMaster <> a:64 var
+R11218:11218 KamiHW.OutsideDomainMaster <> b:65 var
+R11220:11220 KamiHW.OutsideDomainMaster <> c:66 var
+R11225:11229 Coq.Init.Datatypes <> false constr
+R11307:11319 KamiHW.RichWordDecode <> rw_op_correct thm
+R11352:11357 KamiHW.ThieleTypes <> OP_RET def
+R11307:11319 KamiHW.RichWordDecode <> rw_op_correct thm
+R11352:11357 KamiHW.ThieleTypes <> OP_RET def
+R11384:11411 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R11384:11411 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R11384:11411 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R11425:11457 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R11425:11457 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R11425:11457 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R11523:11556 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R11523:11556 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R11523:11556 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R11622:11654 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R11622:11654 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R11622:11654 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R11697:11726 KamiHW.RichLocalityGuard <> dd_ret_locality_bad_false_rich thm
+R11697:11726 KamiHW.RichLocalityGuard <> dd_ret_locality_bad_false_rich thm
+R11697:11726 KamiHW.RichLocalityGuard <> dd_ret_locality_bad_false_rich thm
+R11785:11813 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R11785:11813 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+R11785:11813 KamiHW.OutsideDomainMaster <> dd_nfi_violation_false_of_neq thm
+prf 11872:11895 <> guard_false_of_pdiscover
+binder 11906:11907 <> bd:67
+R11916:11919 Kami.Lib.Word <> word ind
+binder 11910:11912 <> isa:68
+R11931:11934 Kami.Lib.Word <> word ind
+R11936:11945 KamiHW.ThieleTypes <> FormatIdSz def
+binder 11925:11927 <> fid:69
+R11961:11964 Kami.Lib.Word <> word ind
+binder 11953:11957 <> flags:70
+R11982:11985 Kami.Lib.Word <> word ind
+binder 11971:11978 <> reserved:71
+R11999:12002 Kami.Lib.Word <> word ind
+R12004:12009 KamiHW.ThieleTypes <> WordSz def
+binder 11992:11995 <> ext0:72
+R12021:12024 Kami.Lib.Word <> word ind
+binder 12013:12013 <> a:73
+binder 12015:12015 <> b:74
+binder 12017:12017 <> c:75
+R12058:12063 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12043:12046 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12032:12040 Kami.Lib.Word <> wordToNat def
+R12042:12042 KamiHW.OutsideDomainMaster <> b:74 var
+R12047:12055 Kami.Lib.Word <> wordToNat def
+R12057:12057 KamiHW.OutsideDomainMaster <> c:75 var
+R12231:12233 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12147:12152 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R12064:12084 KamiHW.DispatchLets <> dd_locality_violation def
+R12086:12087 KamiHW.OutsideDomainMaster <> bd:67 var
+R12090:12098 KamiHW.RichWordDecode <> rich_word def
+R12100:12102 KamiHW.OutsideDomainMaster <> isa:68 var
+R12104:12106 KamiHW.OutsideDomainMaster <> fid:69 var
+R12108:12112 KamiHW.OutsideDomainMaster <> flags:70 var
+R12114:12121 KamiHW.OutsideDomainMaster <> reserved:71 var
+R12123:12126 KamiHW.OutsideDomainMaster <> ext0:72 var
+R12128:12139 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R12141:12141 KamiHW.OutsideDomainMaster <> a:73 var
+R12143:12143 KamiHW.OutsideDomainMaster <> b:74 var
+R12145:12145 KamiHW.OutsideDomainMaster <> c:75 var
+R12153:12168 KamiHW.DispatchLets <> dd_nfi_violation def
+R12170:12171 KamiHW.OutsideDomainMaster <> bd:67 var
+R12174:12182 KamiHW.RichWordDecode <> rich_word def
+R12184:12186 KamiHW.OutsideDomainMaster <> isa:68 var
+R12188:12190 KamiHW.OutsideDomainMaster <> fid:69 var
+R12192:12196 KamiHW.OutsideDomainMaster <> flags:70 var
+R12198:12205 KamiHW.OutsideDomainMaster <> reserved:71 var
+R12207:12210 KamiHW.OutsideDomainMaster <> ext0:72 var
+R12212:12223 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R12225:12225 KamiHW.OutsideDomainMaster <> a:73 var
+R12227:12227 KamiHW.OutsideDomainMaster <> b:74 var
+R12229:12229 KamiHW.OutsideDomainMaster <> c:75 var
+R12234:12238 Coq.Init.Datatypes <> false constr
+R12316:12328 KamiHW.RichWordDecode <> rw_op_correct thm
+R12361:12372 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R12316:12328 KamiHW.RichWordDecode <> rw_op_correct thm
+R12361:12372 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R12399:12426 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R12399:12426 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R12399:12426 KamiHW.OutsideDomainMaster <> dd_locality_violation_unfold thm
+R12440:12472 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R12440:12472 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R12440:12472 KamiHW.OutsideDomainMaster <> dd_load_locality_bad_false_of_neq thm
+R12538:12571 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R12538:12571 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R12538:12571 KamiHW.OutsideDomainMaster <> dd_store_locality_bad_false_of_neq thm
+R12637:12669 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R12637:12669 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R12637:12669 KamiHW.OutsideDomainMaster <> dd_call_locality_bad_false_of_neq thm
+R12712:12743 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R12712:12743 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R12712:12743 KamiHW.OutsideDomainMaster <> dd_ret_locality_bad_false_of_neq thm
+R12786:12812 KamiHW.RichNfiGuard <> dd_nfi_violation_false_rich thm
+R12786:12812 KamiHW.RichNfiGuard <> dd_nfi_violation_false_rich thm
+R12786:12812 KamiHW.RichNfiGuard <> dd_nfi_violation_false_rich thm

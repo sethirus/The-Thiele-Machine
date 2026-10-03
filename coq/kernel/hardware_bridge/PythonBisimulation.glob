@@ -1,4 +1,4 @@
-DIGEST 8545e695a64a797477769a0ab2bfabab
+DIGEST be8066b00e4a4ec6d8dc1150712a5def
 FKernel.PythonBisimulation
 R630:633 Coq.Lists.List <> <> lib
 R635:638 Coq.Bool.Bool <> <> lib
@@ -133,874 +133,876 @@ R2617:2625 Kernel.VMStep VMStep instr_ret constr
 R2632:2636 Coq.Init.Datatypes <> false constr
 R2642:2651 Kernel.VMStep VMStep instr_pnew constr
 R2660:2664 Coq.Init.Datatypes <> false constr
-R2735:2746 Kernel.VMStep VMStep instr_pmerge constr
-R2757:2761 Coq.Init.Datatypes <> false constr
-R2828:2840 Kernel.VMStep VMStep instr_lassert constr
-R2855:2859 Coq.Init.Datatypes <> false constr
-R2865:2882 Kernel.VMStep VMStep instr_chsh_lassert constr
-R2889:2893 Coq.Init.Datatypes <> false constr
-R2966:2987 Kernel.VMStep VMStep instr_chsh_lassert_1ab constr
-R2994:2998 Coq.Init.Datatypes <> false constr
-R3065:3089 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g5 constr
-R3100:3104 Coq.Init.Datatypes <> false constr
-R3163:3189 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g345 constr
-R3208:3212 Coq.Init.Datatypes <> false constr
-R3277:3305 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g12345 constr
-R3332:3336 Coq.Init.Datatypes <> false constr
-R3405:3408 Coq.Init.Datatypes <> true constr
-prf 3613:3629 <> step_preserves_pc
-binder 3642:3646 <> coq_s:17
-binder 3648:3653 <> coq_s':18
-binder 3655:3658 <> py_s:19
-binder 3660:3664 <> instr:20
-R3704:3711 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3671:3692 Kernel.PythonBisimulation <> bisimulation_invariant def
-R3694:3698 Kernel.PythonBisimulation <> coq_s:17 var
-R3700:3703 Kernel.PythonBisimulation <> py_s:19 var
-R3738:3745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3712:3718 Kernel.VMStep VMStep vm_step ind
-R3720:3724 Kernel.PythonBisimulation <> coq_s:17 var
-R3726:3730 Kernel.PythonBisimulation <> instr:20 var
-R3732:3737 Kernel.PythonBisimulation <> coq_s':18 var
-R3772:3779 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3765:3767 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3746:3758 Kernel.PythonBisimulation <> increments_pc def
-R3760:3764 Kernel.PythonBisimulation <> instr:20 var
-R3768:3771 Coq.Init.Datatypes <> true constr
-R3794:3796 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3788:3792 Kernel.VMState <> vm_pc proj
-R3780:3785 Kernel.PythonBisimulation <> coq_s':18 var
-R3849:3853 Kernel.PythonBisimulation <> py_pc proj
-R3798:3817 Kernel.PythonBisimulation <> python_step_abstract def
-R3819:3822 Kernel.PythonBisimulation <> py_s:19 var
-R3825:3838 Kernel.PythonBisimulation <> instruction_mu def
-R3840:3844 Kernel.PythonBisimulation <> instr:20 var
-R4123:4135 Kernel.VMStep VMStep advance_state def
-R4138:4157 Kernel.VMStep VMStep advance_state_reveal def
-R4160:4175 Kernel.VMStep VMStep advance_state_rm def
-prf 4274:4290 <> step_preserves_mu
-binder 4303:4307 <> coq_s:21
-binder 4309:4314 <> coq_s':22
-binder 4316:4319 <> py_s:23
-binder 4321:4325 <> instr:24
-R4365:4372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4332:4353 Kernel.PythonBisimulation <> bisimulation_invariant def
-R4355:4359 Kernel.PythonBisimulation <> coq_s:21 var
-R4361:4364 Kernel.PythonBisimulation <> py_s:23 var
-R4399:4406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4373:4379 Kernel.VMStep VMStep vm_step ind
-R4381:4385 Kernel.PythonBisimulation <> coq_s:21 var
-R4387:4391 Kernel.PythonBisimulation <> instr:24 var
-R4393:4398 Kernel.PythonBisimulation <> coq_s':22 var
-R4421:4423 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4415:4419 Kernel.VMState <> vm_mu proj
-R4407:4412 Kernel.PythonBisimulation <> coq_s':22 var
-R4476:4480 Kernel.PythonBisimulation <> py_mu proj
-R4425:4444 Kernel.PythonBisimulation <> python_step_abstract def
-R4446:4449 Kernel.PythonBisimulation <> py_s:23 var
-R4452:4465 Kernel.PythonBisimulation <> instruction_mu def
-R4467:4471 Kernel.PythonBisimulation <> instr:24 var
-R4590:4599 Kernel.VMStep VMStep apply_cost def
+R2754:2765 Kernel.VMStep VMStep instr_psplit constr
+R2778:2782 Coq.Init.Datatypes <> false constr
+R2864:2875 Kernel.VMStep VMStep instr_pmerge constr
+R2886:2890 Coq.Init.Datatypes <> false constr
+R2978:2990 Kernel.VMStep VMStep instr_lassert constr
+R3005:3009 Coq.Init.Datatypes <> false constr
+R3015:3032 Kernel.VMStep VMStep instr_chsh_lassert constr
+R3039:3043 Coq.Init.Datatypes <> false constr
+R3116:3137 Kernel.VMStep VMStep instr_chsh_lassert_1ab constr
+R3144:3148 Coq.Init.Datatypes <> false constr
+R3215:3239 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g5 constr
+R3250:3254 Coq.Init.Datatypes <> false constr
+R3313:3339 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g345 constr
+R3358:3362 Coq.Init.Datatypes <> false constr
+R3427:3455 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g12345 constr
+R3482:3486 Coq.Init.Datatypes <> false constr
+R3555:3558 Coq.Init.Datatypes <> true constr
+prf 3763:3779 <> step_preserves_pc
+binder 3792:3796 <> coq_s:17
+binder 3798:3803 <> coq_s':18
+binder 3805:3808 <> py_s:19
+binder 3810:3814 <> instr:20
+R3854:3861 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3821:3842 Kernel.PythonBisimulation <> bisimulation_invariant def
+R3844:3848 Kernel.PythonBisimulation <> coq_s:17 var
+R3850:3853 Kernel.PythonBisimulation <> py_s:19 var
+R3888:3895 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3862:3868 Kernel.VMStep VMStep vm_step ind
+R3870:3874 Kernel.PythonBisimulation <> coq_s:17 var
+R3876:3880 Kernel.PythonBisimulation <> instr:20 var
+R3882:3887 Kernel.PythonBisimulation <> coq_s':18 var
+R3922:3929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3915:3917 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3896:3908 Kernel.PythonBisimulation <> increments_pc def
+R3910:3914 Kernel.PythonBisimulation <> instr:20 var
+R3918:3921 Coq.Init.Datatypes <> true constr
+R3944:3946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3938:3942 Kernel.VMState <> vm_pc proj
+R3930:3935 Kernel.PythonBisimulation <> coq_s':18 var
+R3999:4003 Kernel.PythonBisimulation <> py_pc proj
+R3948:3967 Kernel.PythonBisimulation <> python_step_abstract def
+R3969:3972 Kernel.PythonBisimulation <> py_s:19 var
+R3975:3988 Kernel.PythonBisimulation <> instruction_mu def
+R3990:3994 Kernel.PythonBisimulation <> instr:20 var
+R4273:4285 Kernel.VMStep VMStep advance_state def
+R4288:4307 Kernel.VMStep VMStep advance_state_reveal def
+R4310:4325 Kernel.VMStep VMStep advance_state_rm def
+prf 4424:4440 <> step_preserves_mu
+binder 4453:4457 <> coq_s:21
+binder 4459:4464 <> coq_s':22
+binder 4466:4469 <> py_s:23
+binder 4471:4475 <> instr:24
+R4515:4522 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4482:4503 Kernel.PythonBisimulation <> bisimulation_invariant def
+R4505:4509 Kernel.PythonBisimulation <> coq_s:21 var
+R4511:4514 Kernel.PythonBisimulation <> py_s:23 var
+R4549:4556 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4523:4529 Kernel.VMStep VMStep vm_step ind
+R4531:4535 Kernel.PythonBisimulation <> coq_s:21 var
+R4537:4541 Kernel.PythonBisimulation <> instr:24 var
+R4543:4548 Kernel.PythonBisimulation <> coq_s':22 var
+R4571:4573 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4565:4569 Kernel.VMState <> vm_mu proj
+R4557:4562 Kernel.PythonBisimulation <> coq_s':22 var
+R4626:4630 Kernel.PythonBisimulation <> py_mu proj
+R4575:4594 Kernel.PythonBisimulation <> python_step_abstract def
+R4596:4599 Kernel.PythonBisimulation <> py_s:23 var
 R4602:4615 Kernel.PythonBisimulation <> instruction_mu def
-prf 4831:4847 <> bisimulation_step
-binder 4860:4864 <> coq_s:25
-binder 4866:4871 <> coq_s':26
-binder 4873:4876 <> py_s:27
-binder 4878:4882 <> instr:28
-R4922:4929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4889:4910 Kernel.PythonBisimulation <> bisimulation_invariant def
-R4912:4916 Kernel.PythonBisimulation <> coq_s:25 var
-R4918:4921 Kernel.PythonBisimulation <> py_s:27 var
-R4956:4963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4930:4936 Kernel.VMStep VMStep vm_step ind
-R4938:4942 Kernel.PythonBisimulation <> coq_s:25 var
-R4944:4948 Kernel.PythonBisimulation <> instr:28 var
-R4950:4955 Kernel.PythonBisimulation <> coq_s':26 var
-R4990:4997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4983:4985 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4964:4976 Kernel.PythonBisimulation <> increments_pc def
-R4978:4982 Kernel.PythonBisimulation <> instr:28 var
-R4986:4989 Coq.Init.Datatypes <> true constr
-R4998:5019 Kernel.PythonBisimulation <> bisimulation_invariant def
-R5021:5026 Kernel.PythonBisimulation <> coq_s':26 var
-R5035:5054 Kernel.PythonBisimulation <> python_step_abstract def
-R5056:5059 Kernel.PythonBisimulation <> py_s:27 var
-R5062:5075 Kernel.PythonBisimulation <> instruction_mu def
-R5077:5081 Kernel.PythonBisimulation <> instr:28 var
-R5152:5173 Kernel.PythonBisimulation <> bisimulation_invariant def
-R5196:5212 Kernel.PythonBisimulation <> step_preserves_pc thm
-R5196:5212 Kernel.PythonBisimulation <> step_preserves_pc thm
-R5263:5279 Kernel.PythonBisimulation <> step_preserves_mu thm
-R5263:5279 Kernel.PythonBisimulation <> step_preserves_mu thm
-prf 5381:5399 <> mu_cost_consistency
-binder 5412:5416 <> coq_s:29
-binder 5418:5423 <> coq_s':30
-binder 5425:5428 <> py_s:31
-binder 5430:5434 <> instr:32
-binder 5436:5442 <> py_cost:33
-R5482:5489 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5449:5470 Kernel.PythonBisimulation <> bisimulation_invariant def
-R5472:5476 Kernel.PythonBisimulation <> coq_s:29 var
-R5478:5481 Kernel.PythonBisimulation <> py_s:31 var
-R5516:5523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5490:5496 Kernel.VMStep VMStep vm_step ind
-R5498:5502 Kernel.PythonBisimulation <> coq_s:29 var
-R5504:5508 Kernel.PythonBisimulation <> instr:32 var
-R5510:5515 Kernel.PythonBisimulation <> coq_s':30 var
-R5556:5563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5531:5533 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5524:5530 Kernel.PythonBisimulation <> py_cost:33 var
-R5534:5549 Kernel.VMStep VMStep instruction_cost def
-R5551:5555 Kernel.PythonBisimulation <> instr:32 var
-R5578:5580 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5572:5576 Kernel.VMState <> vm_mu proj
-R5564:5569 Kernel.PythonBisimulation <> coq_s':30 var
-R5593:5595 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5587:5591 Kernel.PythonBisimulation <> py_mu proj
-R5581:5584 Kernel.PythonBisimulation <> py_s:31 var
-R5596:5602 Kernel.PythonBisimulation <> py_cost:33 var
-R5716:5725 Kernel.VMStep VMStep apply_cost def
-rec 6118:6131 <> PythonCSRState
-proj 6140:6156 <> pyf_csr_cert_addr
-proj 6167:6180 <> pyf_csr_status
-proj 6191:6201 <> pyf_csr_err
-proj 6212:6228 <> pyf_csr_heap_base
-R6160:6162 Coq.Init.Datatypes <> nat ind
-R6184:6186 Coq.Init.Datatypes <> nat ind
-R6205:6207 Coq.Init.Datatypes <> nat ind
-R6232:6234 Coq.Init.Datatypes <> nat ind
-rec 6247:6263 <> PythonModuleState
-proj 6272:6288 <> pyf_module_region
-proj 6304:6320 <> pyf_module_axioms
-proj 6339:6358 <> pyf_module_mu_tensor
-R6292:6295 Coq.Init.Datatypes <> list ind
-R6297:6299 Coq.Init.Datatypes <> nat ind
-R6324:6327 Coq.Init.Datatypes <> list ind
-R6329:6334 Coq.Strings.String <> string ind
-R6362:6365 Coq.Init.Datatypes <> list ind
-R6367:6369 Coq.Init.Datatypes <> nat ind
-rec 6382:6399 <> PythonCouplingData
-proj 6408:6425 <> pyf_coupling_pairs
-proj 6449:6466 <> pyf_coupling_label
-R6429:6432 Coq.Init.Datatypes <> list ind
-R6438:6440 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R6435:6437 Coq.Init.Datatypes <> nat ind
-R6441:6443 Coq.Init.Datatypes <> nat ind
-R6470:6475 Coq.Strings.String <> string ind
-rec 6488:6506 <> PythonMorphismState
-proj 6515:6530 <> pyf_morph_source
-proj 6541:6556 <> pyf_morph_target
-proj 6567:6584 <> pyf_morph_coupling
-proj 6610:6630 <> pyf_morph_is_identity
-proj 6642:6660 <> pyf_morph_cert_cost
-R6534:6536 Coq.Init.Datatypes <> nat ind
-R6560:6562 Coq.Init.Datatypes <> nat ind
-R6588:6605 Kernel.PythonBisimulation <> PythonCouplingData rec
-R6634:6637 Coq.Init.Datatypes <> bool ind
-R6664:6666 Coq.Init.Datatypes <> nat ind
-rec 6679:6698 <> PythonPartitionGraph
-proj 6707:6720 <> pyf_pg_next_id
-proj 6731:6744 <> pyf_pg_modules
-proj 6782:6801 <> pyf_pg_next_morph_id
-proj 6812:6827 <> pyf_pg_morphisms
-R6724:6726 Coq.Init.Datatypes <> nat ind
-R6748:6751 Coq.Init.Datatypes <> list ind
-R6757:6759 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R6754:6756 Coq.Init.Datatypes <> nat ind
-R6760:6776 Kernel.PythonBisimulation <> PythonModuleState rec
-R6805:6807 Coq.Init.Datatypes <> nat ind
-R6831:6834 Coq.Init.Datatypes <> list ind
-R6840:6842 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R6837:6839 Coq.Init.Datatypes <> nat ind
-R6843:6861 Kernel.PythonBisimulation <> PythonMorphismState rec
-rec 6875:6893 <> PythonWitnessCounts
-proj 6902:6915 <> pyf_wc_same_00
-proj 6926:6939 <> pyf_wc_diff_00
-proj 6950:6963 <> pyf_wc_same_01
-proj 6974:6987 <> pyf_wc_diff_01
-proj 6998:7011 <> pyf_wc_same_10
-proj 7022:7035 <> pyf_wc_diff_10
-proj 7046:7059 <> pyf_wc_same_11
-proj 7070:7083 <> pyf_wc_diff_11
-R6919:6921 Coq.Init.Datatypes <> nat ind
-R6943:6945 Coq.Init.Datatypes <> nat ind
-R6967:6969 Coq.Init.Datatypes <> nat ind
-R6991:6993 Coq.Init.Datatypes <> nat ind
-R7015:7017 Coq.Init.Datatypes <> nat ind
-R7039:7041 Coq.Init.Datatypes <> nat ind
-R7063:7065 Coq.Init.Datatypes <> nat ind
-R7087:7089 Coq.Init.Datatypes <> nat ind
-rec 7102:7116 <> PythonStateFull
-proj 7125:7130 <> pyf_pc
-proj 7141:7146 <> pyf_mu
-proj 7157:7163 <> pyf_err
-proj 7175:7182 <> pyf_regs
-proj 7198:7204 <> pyf_mem
-proj 7220:7227 <> pyf_csrs
-proj 7249:7257 <> pyf_graph
-proj 7285:7297 <> pyf_mu_tensor
-proj 7313:7325 <> pyf_logic_acc
-proj 7336:7346 <> pyf_mstatus
-proj 7357:7367 <> pyf_witness
-proj 7394:7406 <> pyf_certified
-R7134:7136 Coq.Init.Datatypes <> nat ind
-R7150:7152 Coq.Init.Datatypes <> nat ind
-R7167:7170 Coq.Init.Datatypes <> bool ind
-R7186:7189 Coq.Init.Datatypes <> list ind
-R7191:7193 Coq.Init.Datatypes <> nat ind
-R7208:7211 Coq.Init.Datatypes <> list ind
+R4617:4621 Kernel.PythonBisimulation <> instr:24 var
+R4740:4749 Kernel.VMStep VMStep apply_cost def
+R4752:4765 Kernel.PythonBisimulation <> instruction_mu def
+prf 4981:4997 <> bisimulation_step
+binder 5010:5014 <> coq_s:25
+binder 5016:5021 <> coq_s':26
+binder 5023:5026 <> py_s:27
+binder 5028:5032 <> instr:28
+R5072:5079 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5039:5060 Kernel.PythonBisimulation <> bisimulation_invariant def
+R5062:5066 Kernel.PythonBisimulation <> coq_s:25 var
+R5068:5071 Kernel.PythonBisimulation <> py_s:27 var
+R5106:5113 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5080:5086 Kernel.VMStep VMStep vm_step ind
+R5088:5092 Kernel.PythonBisimulation <> coq_s:25 var
+R5094:5098 Kernel.PythonBisimulation <> instr:28 var
+R5100:5105 Kernel.PythonBisimulation <> coq_s':26 var
+R5140:5147 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5133:5135 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5114:5126 Kernel.PythonBisimulation <> increments_pc def
+R5128:5132 Kernel.PythonBisimulation <> instr:28 var
+R5136:5139 Coq.Init.Datatypes <> true constr
+R5148:5169 Kernel.PythonBisimulation <> bisimulation_invariant def
+R5171:5176 Kernel.PythonBisimulation <> coq_s':26 var
+R5185:5204 Kernel.PythonBisimulation <> python_step_abstract def
+R5206:5209 Kernel.PythonBisimulation <> py_s:27 var
+R5212:5225 Kernel.PythonBisimulation <> instruction_mu def
+R5227:5231 Kernel.PythonBisimulation <> instr:28 var
+R5302:5323 Kernel.PythonBisimulation <> bisimulation_invariant def
+R5346:5362 Kernel.PythonBisimulation <> step_preserves_pc thm
+R5346:5362 Kernel.PythonBisimulation <> step_preserves_pc thm
+R5413:5429 Kernel.PythonBisimulation <> step_preserves_mu thm
+R5413:5429 Kernel.PythonBisimulation <> step_preserves_mu thm
+prf 5531:5549 <> mu_cost_consistency
+binder 5562:5566 <> coq_s:29
+binder 5568:5573 <> coq_s':30
+binder 5575:5578 <> py_s:31
+binder 5580:5584 <> instr:32
+binder 5586:5592 <> py_cost:33
+R5632:5639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5599:5620 Kernel.PythonBisimulation <> bisimulation_invariant def
+R5622:5626 Kernel.PythonBisimulation <> coq_s:29 var
+R5628:5631 Kernel.PythonBisimulation <> py_s:31 var
+R5666:5673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5640:5646 Kernel.VMStep VMStep vm_step ind
+R5648:5652 Kernel.PythonBisimulation <> coq_s:29 var
+R5654:5658 Kernel.PythonBisimulation <> instr:32 var
+R5660:5665 Kernel.PythonBisimulation <> coq_s':30 var
+R5706:5713 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5681:5683 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5674:5680 Kernel.PythonBisimulation <> py_cost:33 var
+R5684:5699 Kernel.VMStep VMStep instruction_cost def
+R5701:5705 Kernel.PythonBisimulation <> instr:32 var
+R5728:5730 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5722:5726 Kernel.VMState <> vm_mu proj
+R5714:5719 Kernel.PythonBisimulation <> coq_s':30 var
+R5743:5745 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5737:5741 Kernel.PythonBisimulation <> py_mu proj
+R5731:5734 Kernel.PythonBisimulation <> py_s:31 var
+R5746:5752 Kernel.PythonBisimulation <> py_cost:33 var
+R5866:5875 Kernel.VMStep VMStep apply_cost def
+rec 6268:6281 <> PythonCSRState
+proj 6290:6306 <> pyf_csr_cert_addr
+proj 6317:6330 <> pyf_csr_status
+proj 6341:6351 <> pyf_csr_err
+proj 6362:6378 <> pyf_csr_heap_base
+R6310:6312 Coq.Init.Datatypes <> nat ind
+R6334:6336 Coq.Init.Datatypes <> nat ind
+R6355:6357 Coq.Init.Datatypes <> nat ind
+R6382:6384 Coq.Init.Datatypes <> nat ind
+rec 6397:6413 <> PythonModuleState
+proj 6422:6438 <> pyf_module_region
+proj 6454:6470 <> pyf_module_axioms
+proj 6489:6508 <> pyf_module_mu_tensor
+R6442:6445 Coq.Init.Datatypes <> list ind
+R6447:6449 Coq.Init.Datatypes <> nat ind
+R6474:6477 Coq.Init.Datatypes <> list ind
+R6479:6484 Coq.Strings.String <> string ind
+R6512:6515 Coq.Init.Datatypes <> list ind
+R6517:6519 Coq.Init.Datatypes <> nat ind
+rec 6532:6549 <> PythonCouplingData
+proj 6558:6575 <> pyf_coupling_pairs
+proj 6599:6616 <> pyf_coupling_label
+R6579:6582 Coq.Init.Datatypes <> list ind
+R6588:6590 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6585:6587 Coq.Init.Datatypes <> nat ind
+R6591:6593 Coq.Init.Datatypes <> nat ind
+R6620:6625 Coq.Strings.String <> string ind
+rec 6638:6656 <> PythonMorphismState
+proj 6665:6680 <> pyf_morph_source
+proj 6691:6706 <> pyf_morph_target
+proj 6717:6734 <> pyf_morph_coupling
+proj 6760:6780 <> pyf_morph_is_identity
+proj 6792:6810 <> pyf_morph_cert_cost
+R6684:6686 Coq.Init.Datatypes <> nat ind
+R6710:6712 Coq.Init.Datatypes <> nat ind
+R6738:6755 Kernel.PythonBisimulation <> PythonCouplingData rec
+R6784:6787 Coq.Init.Datatypes <> bool ind
+R6814:6816 Coq.Init.Datatypes <> nat ind
+rec 6829:6848 <> PythonPartitionGraph
+proj 6857:6870 <> pyf_pg_next_id
+proj 6881:6894 <> pyf_pg_modules
+proj 6932:6951 <> pyf_pg_next_morph_id
+proj 6962:6977 <> pyf_pg_morphisms
+R6874:6876 Coq.Init.Datatypes <> nat ind
+R6898:6901 Coq.Init.Datatypes <> list ind
+R6907:6909 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6904:6906 Coq.Init.Datatypes <> nat ind
+R6910:6926 Kernel.PythonBisimulation <> PythonModuleState rec
+R6955:6957 Coq.Init.Datatypes <> nat ind
+R6981:6984 Coq.Init.Datatypes <> list ind
+R6990:6992 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6987:6989 Coq.Init.Datatypes <> nat ind
+R6993:7011 Kernel.PythonBisimulation <> PythonMorphismState rec
+rec 7025:7043 <> PythonWitnessCounts
+proj 7052:7065 <> pyf_wc_same_00
+proj 7076:7089 <> pyf_wc_diff_00
+proj 7100:7113 <> pyf_wc_same_01
+proj 7124:7137 <> pyf_wc_diff_01
+proj 7148:7161 <> pyf_wc_same_10
+proj 7172:7185 <> pyf_wc_diff_10
+proj 7196:7209 <> pyf_wc_same_11
+proj 7220:7233 <> pyf_wc_diff_11
+R7069:7071 Coq.Init.Datatypes <> nat ind
+R7093:7095 Coq.Init.Datatypes <> nat ind
+R7117:7119 Coq.Init.Datatypes <> nat ind
+R7141:7143 Coq.Init.Datatypes <> nat ind
+R7165:7167 Coq.Init.Datatypes <> nat ind
+R7189:7191 Coq.Init.Datatypes <> nat ind
 R7213:7215 Coq.Init.Datatypes <> nat ind
-R7231:7244 Kernel.PythonBisimulation <> PythonCSRState rec
-R7261:7280 Kernel.PythonBisimulation <> PythonPartitionGraph rec
-R7301:7304 Coq.Init.Datatypes <> list ind
-R7306:7308 Coq.Init.Datatypes <> nat ind
-R7329:7331 Coq.Init.Datatypes <> nat ind
-R7350:7352 Coq.Init.Datatypes <> nat ind
-R7371:7389 Kernel.PythonBisimulation <> PythonWitnessCounts rec
-R7410:7413 Coq.Init.Datatypes <> bool ind
-def 7430:7443 <> python_csr_abs
-R7451:7464 Kernel.PythonBisimulation <> PythonCSRState rec
-binder 7446:7447 <> cs:79
-R7469:7476 Kernel.VMState <> CSRState rec
-R7486:7498 Kernel.VMState <> csr_cert_addr proj
-R7486:7498 Kernel.VMState <> csr_cert_addr proj
-R7486:7498 Kernel.VMState <> csr_cert_addr proj
-R7532:7541 Kernel.VMState <> csr_status proj
-R7532:7541 Kernel.VMState <> csr_status proj
-R7572:7578 Kernel.VMState <> csr_err proj
-R7572:7578 Kernel.VMState <> csr_err proj
-R7606:7618 Kernel.VMState <> csr_heap_base proj
-R7606:7618 Kernel.VMState <> csr_heap_base proj
-R7507:7523 Kernel.PythonBisimulation <> pyf_csr_cert_addr proj
-R7503:7504 Kernel.PythonBisimulation <> cs:79 var
-R7550:7563 Kernel.PythonBisimulation <> pyf_csr_status proj
-R7546:7547 Kernel.PythonBisimulation <> cs:79 var
-R7587:7597 Kernel.PythonBisimulation <> pyf_csr_err proj
-R7583:7584 Kernel.PythonBisimulation <> cs:79 var
-R7627:7643 Kernel.PythonBisimulation <> pyf_csr_heap_base proj
-R7623:7624 Kernel.PythonBisimulation <> cs:79 var
-def 7662:7676 <> python_csr_repr
-R7684:7691 Kernel.VMState <> CSRState rec
-binder 7679:7680 <> cs:80
-R7696:7709 Kernel.PythonBisimulation <> PythonCSRState rec
-R7719:7735 Kernel.PythonBisimulation <> pyf_csr_cert_addr proj
-R7719:7735 Kernel.PythonBisimulation <> pyf_csr_cert_addr proj
-R7719:7735 Kernel.PythonBisimulation <> pyf_csr_cert_addr proj
-R7765:7778 Kernel.PythonBisimulation <> pyf_csr_status proj
-R7765:7778 Kernel.PythonBisimulation <> pyf_csr_status proj
-R7805:7815 Kernel.PythonBisimulation <> pyf_csr_err proj
-R7805:7815 Kernel.PythonBisimulation <> pyf_csr_err proj
-R7839:7855 Kernel.PythonBisimulation <> pyf_csr_heap_base proj
-R7839:7855 Kernel.PythonBisimulation <> pyf_csr_heap_base proj
-R7744:7756 Kernel.VMState <> csr_cert_addr proj
-R7740:7741 Kernel.PythonBisimulation <> cs:80 var
-R7787:7796 Kernel.VMState <> csr_status proj
-R7783:7784 Kernel.PythonBisimulation <> cs:80 var
-R7824:7830 Kernel.VMState <> csr_err proj
-R7820:7821 Kernel.PythonBisimulation <> cs:80 var
-R7864:7876 Kernel.VMState <> csr_heap_base proj
-R7860:7861 Kernel.PythonBisimulation <> cs:80 var
-def 7895:7911 <> python_module_abs
-R7919:7935 Kernel.PythonBisimulation <> PythonModuleState rec
-binder 7914:7915 <> ms:81
-R7940:7950 Kernel.VMState <> ModuleState rec
-R7960:7972 Kernel.VMState <> module_region proj
-R7960:7972 Kernel.VMState <> module_region proj
-R7960:7972 Kernel.VMState <> module_region proj
-R8006:8018 Kernel.VMState <> module_axioms proj
-R8006:8018 Kernel.VMState <> module_axioms proj
-R8052:8067 Kernel.VMState <> module_mu_tensor proj
-R8052:8067 Kernel.VMState <> module_mu_tensor proj
-R7981:7997 Kernel.PythonBisimulation <> pyf_module_region proj
-R7977:7978 Kernel.PythonBisimulation <> ms:81 var
-R8027:8043 Kernel.PythonBisimulation <> pyf_module_axioms proj
-R8023:8024 Kernel.PythonBisimulation <> ms:81 var
-R8076:8095 Kernel.PythonBisimulation <> pyf_module_mu_tensor proj
-R8072:8073 Kernel.PythonBisimulation <> ms:81 var
-def 8114:8131 <> python_module_repr
-R8139:8149 Kernel.VMState <> ModuleState rec
-binder 8134:8135 <> ms:82
-R8154:8170 Kernel.PythonBisimulation <> PythonModuleState rec
-R8180:8196 Kernel.PythonBisimulation <> pyf_module_region proj
-R8180:8196 Kernel.PythonBisimulation <> pyf_module_region proj
-R8180:8196 Kernel.PythonBisimulation <> pyf_module_region proj
-R8226:8242 Kernel.PythonBisimulation <> pyf_module_axioms proj
-R8226:8242 Kernel.PythonBisimulation <> pyf_module_axioms proj
-R8272:8291 Kernel.PythonBisimulation <> pyf_module_mu_tensor proj
-R8272:8291 Kernel.PythonBisimulation <> pyf_module_mu_tensor proj
-R8205:8217 Kernel.VMState <> module_region proj
-R8201:8202 Kernel.PythonBisimulation <> ms:82 var
-R8251:8263 Kernel.VMState <> module_axioms proj
-R8247:8248 Kernel.PythonBisimulation <> ms:82 var
-R8300:8315 Kernel.VMState <> module_mu_tensor proj
-R8296:8297 Kernel.PythonBisimulation <> ms:82 var
-def 8334:8352 <> python_coupling_abs
-R8359:8376 Kernel.PythonBisimulation <> PythonCouplingData rec
-binder 8355:8355 <> c:83
-R8381:8392 Kernel.VMState <> CouplingData rec
-R8402:8415 Kernel.VMState <> coupling_pairs proj
-R8402:8415 Kernel.VMState <> coupling_pairs proj
-R8402:8415 Kernel.VMState <> coupling_pairs proj
-R8449:8462 Kernel.VMState <> coupling_label proj
-R8449:8462 Kernel.VMState <> coupling_label proj
-R8423:8440 Kernel.PythonBisimulation <> pyf_coupling_pairs proj
-R8420:8420 Kernel.PythonBisimulation <> c:83 var
-R8470:8487 Kernel.PythonBisimulation <> pyf_coupling_label proj
-R8467:8467 Kernel.PythonBisimulation <> c:83 var
-def 8506:8525 <> python_coupling_repr
-R8532:8543 Kernel.VMState <> CouplingData rec
-binder 8528:8528 <> c:84
-R8548:8565 Kernel.PythonBisimulation <> PythonCouplingData rec
-R8575:8592 Kernel.PythonBisimulation <> pyf_coupling_pairs proj
-R8575:8592 Kernel.PythonBisimulation <> pyf_coupling_pairs proj
-R8575:8592 Kernel.PythonBisimulation <> pyf_coupling_pairs proj
-R8622:8639 Kernel.PythonBisimulation <> pyf_coupling_label proj
-R8622:8639 Kernel.PythonBisimulation <> pyf_coupling_label proj
-R8600:8613 Kernel.VMState <> coupling_pairs proj
-R8597:8597 Kernel.PythonBisimulation <> c:84 var
-R8647:8660 Kernel.VMState <> coupling_label proj
-R8644:8644 Kernel.PythonBisimulation <> c:84 var
-def 8679:8697 <> python_morphism_abs
-R8705:8723 Kernel.PythonBisimulation <> PythonMorphismState rec
-binder 8700:8701 <> ms:85
-R8728:8740 Kernel.VMState <> MorphismState rec
-R8750:8761 Kernel.VMState <> morph_source proj
-R8750:8761 Kernel.VMState <> morph_source proj
-R8750:8761 Kernel.VMState <> morph_source proj
-R8794:8805 Kernel.VMState <> morph_target proj
-R8794:8805 Kernel.VMState <> morph_target proj
-R8838:8851 Kernel.VMState <> morph_coupling proj
-R8838:8851 Kernel.VMState <> morph_coupling proj
-R8906:8922 Kernel.VMState <> morph_is_identity proj
-R8906:8922 Kernel.VMState <> morph_is_identity proj
-R8960:8974 Kernel.VMState <> morph_cert_cost proj
-R8960:8974 Kernel.VMState <> morph_cert_cost proj
-R8770:8785 Kernel.PythonBisimulation <> pyf_morph_source proj
-R8766:8767 Kernel.PythonBisimulation <> ms:85 var
-R8814:8829 Kernel.PythonBisimulation <> pyf_morph_target proj
-R8810:8811 Kernel.PythonBisimulation <> ms:85 var
-R8856:8874 Kernel.PythonBisimulation <> python_coupling_abs def
-R8880:8897 Kernel.PythonBisimulation <> pyf_morph_coupling proj
-R8876:8877 Kernel.PythonBisimulation <> ms:85 var
-R8931:8951 Kernel.PythonBisimulation <> pyf_morph_is_identity proj
-R8927:8928 Kernel.PythonBisimulation <> ms:85 var
-R8983:9001 Kernel.PythonBisimulation <> pyf_morph_cert_cost proj
-R8979:8980 Kernel.PythonBisimulation <> ms:85 var
-def 9020:9039 <> python_morphism_repr
-R9047:9059 Kernel.VMState <> MorphismState rec
-binder 9042:9043 <> ms:86
-R9064:9082 Kernel.PythonBisimulation <> PythonMorphismState rec
-R9092:9107 Kernel.PythonBisimulation <> pyf_morph_source proj
-R9092:9107 Kernel.PythonBisimulation <> pyf_morph_source proj
-R9092:9107 Kernel.PythonBisimulation <> pyf_morph_source proj
-R9136:9151 Kernel.PythonBisimulation <> pyf_morph_target proj
-R9136:9151 Kernel.PythonBisimulation <> pyf_morph_target proj
-R9180:9197 Kernel.PythonBisimulation <> pyf_morph_coupling proj
-R9180:9197 Kernel.PythonBisimulation <> pyf_morph_coupling proj
-R9249:9269 Kernel.PythonBisimulation <> pyf_morph_is_identity proj
-R9249:9269 Kernel.PythonBisimulation <> pyf_morph_is_identity proj
-R9303:9321 Kernel.PythonBisimulation <> pyf_morph_cert_cost proj
-R9303:9321 Kernel.PythonBisimulation <> pyf_morph_cert_cost proj
-R9116:9127 Kernel.VMState <> morph_source proj
-R9112:9113 Kernel.PythonBisimulation <> ms:86 var
-R9160:9171 Kernel.VMState <> morph_target proj
-R9156:9157 Kernel.PythonBisimulation <> ms:86 var
-R9202:9221 Kernel.PythonBisimulation <> python_coupling_repr def
-R9227:9240 Kernel.VMState <> morph_coupling proj
-R9223:9224 Kernel.PythonBisimulation <> ms:86 var
-R9278:9294 Kernel.VMState <> morph_is_identity proj
-R9274:9275 Kernel.PythonBisimulation <> ms:86 var
-R9330:9344 Kernel.VMState <> morph_cert_cost proj
-R9326:9327 Kernel.PythonBisimulation <> ms:86 var
-def 9361:9378 <> python_modules_abs
-R9390:9393 Coq.Init.Datatypes <> list ind
-R9399:9401 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R9396:9398 Coq.Init.Datatypes <> nat ind
-R9402:9418 Kernel.PythonBisimulation <> PythonModuleState rec
-binder 9383:9386 <> mods:87
-R9424:9427 Coq.Init.Datatypes <> list ind
-R9433:9435 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R9430:9432 Coq.Init.Datatypes <> nat ind
-R9436:9446 Kernel.VMState <> ModuleState rec
-R9460:9463 Kernel.PythonBisimulation <> mods:87 var
-R9474:9475 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R9480:9481 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R9496:9499 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R9487:9487 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9491:9492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9495:9495 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9535:9538 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R9508:9508 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9512:9513 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9534:9534 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9514:9530 Kernel.PythonBisimulation <> python_module_abs def
-R9539:9556 Kernel.PythonBisimulation <> python_modules_abs:88 def
-def 9580:9598 <> python_modules_repr
-R9610:9613 Coq.Init.Datatypes <> list ind
-R9619:9621 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R9616:9618 Coq.Init.Datatypes <> nat ind
-R9622:9632 Kernel.VMState <> ModuleState rec
-binder 9603:9606 <> mods:90
-R9638:9641 Coq.Init.Datatypes <> list ind
-R9647:9649 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R9644:9646 Coq.Init.Datatypes <> nat ind
-R9650:9666 Kernel.PythonBisimulation <> PythonModuleState rec
-R9680:9683 Kernel.PythonBisimulation <> mods:90 var
-R9694:9695 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R9700:9701 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R9716:9719 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R9707:9707 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9711:9712 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9715:9715 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9756:9759 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R9728:9728 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9732:9733 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9755:9755 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9734:9751 Kernel.PythonBisimulation <> python_module_repr def
-R9760:9778 Kernel.PythonBisimulation <> python_modules_repr:91 def
-def 9802:9821 <> python_morphisms_abs
-R9835:9838 Coq.Init.Datatypes <> list ind
-R9844:9846 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R9841:9843 Coq.Init.Datatypes <> nat ind
-R9847:9865 Kernel.PythonBisimulation <> PythonMorphismState rec
-binder 9826:9831 <> morphs:93
-R9871:9874 Coq.Init.Datatypes <> list ind
-R9880:9882 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R9877:9879 Coq.Init.Datatypes <> nat ind
-R9883:9895 Kernel.VMState <> MorphismState rec
-R9909:9914 Kernel.PythonBisimulation <> morphs:93 var
-R9925:9926 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R9931:9932 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R9947:9950 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R9938:9938 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9942:9943 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9946:9946 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9988:9991 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R9959:9959 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9963:9964 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9987:9987 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9965:9983 Kernel.PythonBisimulation <> python_morphism_abs def
-R9992:10011 Kernel.PythonBisimulation <> python_morphisms_abs:94 def
-def 10035:10055 <> python_morphisms_repr
-R10069:10072 Coq.Init.Datatypes <> list ind
-R10078:10080 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R10075:10077 Coq.Init.Datatypes <> nat ind
-R10081:10093 Kernel.VMState <> MorphismState rec
-binder 10060:10065 <> morphs:96
-R10099:10102 Coq.Init.Datatypes <> list ind
-R10108:10110 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R10105:10107 Coq.Init.Datatypes <> nat ind
-R10111:10129 Kernel.PythonBisimulation <> PythonMorphismState rec
-R10143:10148 Kernel.PythonBisimulation <> morphs:96 var
-R10159:10160 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10165:10166 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10181:10184 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R10172:10172 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10176:10177 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10180:10180 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10223:10226 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R10193:10193 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10197:10198 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10222:10222 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10199:10218 Kernel.PythonBisimulation <> python_morphism_repr def
-R10227:10247 Kernel.PythonBisimulation <> python_morphisms_repr:97 def
-def 10273:10288 <> python_graph_abs
-R10295:10314 Kernel.PythonBisimulation <> PythonPartitionGraph rec
-binder 10291:10291 <> g:99
-R10319:10332 Kernel.VMState <> PartitionGraph rec
-R10342:10351 Kernel.VMState <> pg_next_id proj
-R10342:10351 Kernel.VMState <> pg_next_id proj
-R10342:10351 Kernel.VMState <> pg_next_id proj
-R10381:10390 Kernel.VMState <> pg_modules proj
-R10381:10390 Kernel.VMState <> pg_modules proj
-R10439:10454 Kernel.VMState <> pg_next_morph_id proj
-R10439:10454 Kernel.VMState <> pg_next_morph_id proj
-R10490:10501 Kernel.VMState <> pg_morphisms proj
-R10490:10501 Kernel.VMState <> pg_morphisms proj
-R10359:10372 Kernel.PythonBisimulation <> pyf_pg_next_id proj
-R10356:10356 Kernel.PythonBisimulation <> g:99 var
-R10395:10412 Kernel.PythonBisimulation <> python_modules_abs def
-R10417:10430 Kernel.PythonBisimulation <> pyf_pg_modules proj
-R10414:10414 Kernel.PythonBisimulation <> g:99 var
-R10462:10481 Kernel.PythonBisimulation <> pyf_pg_next_morph_id proj
-R10459:10459 Kernel.PythonBisimulation <> g:99 var
-R10506:10525 Kernel.PythonBisimulation <> python_morphisms_abs def
-R10530:10545 Kernel.PythonBisimulation <> pyf_pg_morphisms proj
-R10527:10527 Kernel.PythonBisimulation <> g:99 var
-def 10564:10580 <> python_graph_repr
-R10587:10600 Kernel.VMState <> PartitionGraph rec
-binder 10583:10583 <> g:100
-R10605:10624 Kernel.PythonBisimulation <> PythonPartitionGraph rec
-R10634:10647 Kernel.PythonBisimulation <> pyf_pg_next_id proj
-R10634:10647 Kernel.PythonBisimulation <> pyf_pg_next_id proj
-R10634:10647 Kernel.PythonBisimulation <> pyf_pg_next_id proj
-R10673:10686 Kernel.PythonBisimulation <> pyf_pg_modules proj
-R10673:10686 Kernel.PythonBisimulation <> pyf_pg_modules proj
-R10732:10751 Kernel.PythonBisimulation <> pyf_pg_next_morph_id proj
-R10732:10751 Kernel.PythonBisimulation <> pyf_pg_next_morph_id proj
-R10783:10798 Kernel.PythonBisimulation <> pyf_pg_morphisms proj
-R10783:10798 Kernel.PythonBisimulation <> pyf_pg_morphisms proj
-R10655:10664 Kernel.VMState <> pg_next_id proj
-R10652:10652 Kernel.PythonBisimulation <> g:100 var
-R10691:10709 Kernel.PythonBisimulation <> python_modules_repr def
-R10714:10723 Kernel.VMState <> pg_modules proj
-R10711:10711 Kernel.PythonBisimulation <> g:100 var
-R10759:10774 Kernel.VMState <> pg_next_morph_id proj
-R10756:10756 Kernel.PythonBisimulation <> g:100 var
-R10803:10823 Kernel.PythonBisimulation <> python_morphisms_repr def
-R10828:10839 Kernel.VMState <> pg_morphisms proj
-R10825:10825 Kernel.PythonBisimulation <> g:100 var
-def 10858:10875 <> python_witness_abs
-R10882:10900 Kernel.PythonBisimulation <> PythonWitnessCounts rec
-binder 10878:10878 <> w:101
-R10905:10917 Kernel.VMState <> WitnessCounts rec
-R10927:10936 Kernel.VMState <> wc_same_00 proj
-R10927:10936 Kernel.VMState <> wc_same_00 proj
-R10927:10936 Kernel.VMState <> wc_same_00 proj
-R10966:10975 Kernel.VMState <> wc_diff_00 proj
-R10966:10975 Kernel.VMState <> wc_diff_00 proj
-R11005:11014 Kernel.VMState <> wc_same_01 proj
-R11005:11014 Kernel.VMState <> wc_same_01 proj
-R11044:11053 Kernel.VMState <> wc_diff_01 proj
-R11044:11053 Kernel.VMState <> wc_diff_01 proj
-R11083:11092 Kernel.VMState <> wc_same_10 proj
-R11083:11092 Kernel.VMState <> wc_same_10 proj
-R11122:11131 Kernel.VMState <> wc_diff_10 proj
-R11122:11131 Kernel.VMState <> wc_diff_10 proj
-R11161:11170 Kernel.VMState <> wc_same_11 proj
-R11161:11170 Kernel.VMState <> wc_same_11 proj
-R11200:11209 Kernel.VMState <> wc_diff_11 proj
-R11200:11209 Kernel.VMState <> wc_diff_11 proj
-R10944:10957 Kernel.PythonBisimulation <> pyf_wc_same_00 proj
-R10941:10941 Kernel.PythonBisimulation <> w:101 var
-R10983:10996 Kernel.PythonBisimulation <> pyf_wc_diff_00 proj
-R10980:10980 Kernel.PythonBisimulation <> w:101 var
-R11022:11035 Kernel.PythonBisimulation <> pyf_wc_same_01 proj
-R11019:11019 Kernel.PythonBisimulation <> w:101 var
-R11061:11074 Kernel.PythonBisimulation <> pyf_wc_diff_01 proj
-R11058:11058 Kernel.PythonBisimulation <> w:101 var
-R11100:11113 Kernel.PythonBisimulation <> pyf_wc_same_10 proj
-R11097:11097 Kernel.PythonBisimulation <> w:101 var
-R11139:11152 Kernel.PythonBisimulation <> pyf_wc_diff_10 proj
-R11136:11136 Kernel.PythonBisimulation <> w:101 var
-R11178:11191 Kernel.PythonBisimulation <> pyf_wc_same_11 proj
-R11175:11175 Kernel.PythonBisimulation <> w:101 var
-R11217:11230 Kernel.PythonBisimulation <> pyf_wc_diff_11 proj
-R11214:11214 Kernel.PythonBisimulation <> w:101 var
-def 11249:11267 <> python_witness_repr
-R11274:11286 Kernel.VMState <> WitnessCounts rec
-binder 11270:11270 <> w:102
-R11291:11309 Kernel.PythonBisimulation <> PythonWitnessCounts rec
-R11319:11332 Kernel.PythonBisimulation <> pyf_wc_same_00 proj
-R11319:11332 Kernel.PythonBisimulation <> pyf_wc_same_00 proj
-R11319:11332 Kernel.PythonBisimulation <> pyf_wc_same_00 proj
-R11358:11371 Kernel.PythonBisimulation <> pyf_wc_diff_00 proj
-R11358:11371 Kernel.PythonBisimulation <> pyf_wc_diff_00 proj
-R11397:11410 Kernel.PythonBisimulation <> pyf_wc_same_01 proj
-R11397:11410 Kernel.PythonBisimulation <> pyf_wc_same_01 proj
-R11436:11449 Kernel.PythonBisimulation <> pyf_wc_diff_01 proj
-R11436:11449 Kernel.PythonBisimulation <> pyf_wc_diff_01 proj
-R11475:11488 Kernel.PythonBisimulation <> pyf_wc_same_10 proj
-R11475:11488 Kernel.PythonBisimulation <> pyf_wc_same_10 proj
-R11514:11527 Kernel.PythonBisimulation <> pyf_wc_diff_10 proj
-R11514:11527 Kernel.PythonBisimulation <> pyf_wc_diff_10 proj
-R11553:11566 Kernel.PythonBisimulation <> pyf_wc_same_11 proj
-R11553:11566 Kernel.PythonBisimulation <> pyf_wc_same_11 proj
-R11592:11605 Kernel.PythonBisimulation <> pyf_wc_diff_11 proj
-R11592:11605 Kernel.PythonBisimulation <> pyf_wc_diff_11 proj
-R11340:11349 Kernel.VMState <> wc_same_00 proj
-R11337:11337 Kernel.PythonBisimulation <> w:102 var
-R11379:11388 Kernel.VMState <> wc_diff_00 proj
-R11376:11376 Kernel.PythonBisimulation <> w:102 var
-R11418:11427 Kernel.VMState <> wc_same_01 proj
-R11415:11415 Kernel.PythonBisimulation <> w:102 var
-R11457:11466 Kernel.VMState <> wc_diff_01 proj
-R11454:11454 Kernel.PythonBisimulation <> w:102 var
-R11496:11505 Kernel.VMState <> wc_same_10 proj
-R11493:11493 Kernel.PythonBisimulation <> w:102 var
-R11535:11544 Kernel.VMState <> wc_diff_10 proj
-R11532:11532 Kernel.PythonBisimulation <> w:102 var
-R11574:11583 Kernel.VMState <> wc_same_11 proj
-R11571:11571 Kernel.PythonBisimulation <> w:102 var
-R11613:11622 Kernel.VMState <> wc_diff_11 proj
-R11610:11610 Kernel.PythonBisimulation <> w:102 var
-def 11641:11655 <> python_full_abs
-R11663:11677 Kernel.PythonBisimulation <> PythonStateFull rec
-binder 11658:11659 <> ps:103
-R11682:11688 Kernel.VMState <> VMState rec
-R11698:11705 Kernel.VMState <> vm_graph proj
-R11698:11705 Kernel.VMState <> vm_graph proj
-R11698:11705 Kernel.VMState <> vm_graph proj
-R11748:11754 Kernel.VMState <> vm_csrs proj
-R11748:11754 Kernel.VMState <> vm_csrs proj
-R11794:11800 Kernel.VMState <> vm_regs proj
-R11794:11800 Kernel.VMState <> vm_regs proj
-R11825:11830 Kernel.VMState <> vm_mem proj
-R11825:11830 Kernel.VMState <> vm_mem proj
-R11854:11858 Kernel.VMState <> vm_pc proj
-R11854:11858 Kernel.VMState <> vm_pc proj
-R11881:11885 Kernel.VMState <> vm_mu proj
-R11881:11885 Kernel.VMState <> vm_mu proj
-R11908:11919 Kernel.VMState <> vm_mu_tensor proj
-R11908:11919 Kernel.VMState <> vm_mu_tensor proj
-R11949:11954 Kernel.VMState <> vm_err proj
-R11949:11954 Kernel.VMState <> vm_err proj
-R11978:11989 Kernel.VMState <> vm_logic_acc proj
-R11978:11989 Kernel.VMState <> vm_logic_acc proj
-R12019:12028 Kernel.VMState <> vm_mstatus proj
-R12019:12028 Kernel.VMState <> vm_mstatus proj
-R12056:12065 Kernel.VMState <> vm_witness proj
-R12056:12065 Kernel.VMState <> vm_witness proj
-R12112:12123 Kernel.VMState <> vm_certified proj
-R12112:12123 Kernel.VMState <> vm_certified proj
-R11710:11725 Kernel.PythonBisimulation <> python_graph_abs def
-R11731:11739 Kernel.PythonBisimulation <> pyf_graph proj
-R11727:11728 Kernel.PythonBisimulation <> ps:103 var
-R11759:11772 Kernel.PythonBisimulation <> python_csr_abs def
-R11778:11785 Kernel.PythonBisimulation <> pyf_csrs proj
-R11774:11775 Kernel.PythonBisimulation <> ps:103 var
-R11809:11816 Kernel.PythonBisimulation <> pyf_regs proj
-R11805:11806 Kernel.PythonBisimulation <> ps:103 var
-R11839:11845 Kernel.PythonBisimulation <> pyf_mem proj
-R11835:11836 Kernel.PythonBisimulation <> ps:103 var
-R11867:11872 Kernel.PythonBisimulation <> pyf_pc proj
-R11863:11864 Kernel.PythonBisimulation <> ps:103 var
-R11894:11899 Kernel.PythonBisimulation <> pyf_mu proj
-R11890:11891 Kernel.PythonBisimulation <> ps:103 var
-R11928:11940 Kernel.PythonBisimulation <> pyf_mu_tensor proj
+R7237:7239 Coq.Init.Datatypes <> nat ind
+rec 7252:7266 <> PythonStateFull
+proj 7275:7280 <> pyf_pc
+proj 7291:7296 <> pyf_mu
+proj 7307:7313 <> pyf_err
+proj 7325:7332 <> pyf_regs
+proj 7348:7354 <> pyf_mem
+proj 7370:7377 <> pyf_csrs
+proj 7399:7407 <> pyf_graph
+proj 7435:7447 <> pyf_mu_tensor
+proj 7463:7475 <> pyf_logic_acc
+proj 7486:7496 <> pyf_mstatus
+proj 7507:7517 <> pyf_witness
+proj 7544:7556 <> pyf_certified
+R7284:7286 Coq.Init.Datatypes <> nat ind
+R7300:7302 Coq.Init.Datatypes <> nat ind
+R7317:7320 Coq.Init.Datatypes <> bool ind
+R7336:7339 Coq.Init.Datatypes <> list ind
+R7341:7343 Coq.Init.Datatypes <> nat ind
+R7358:7361 Coq.Init.Datatypes <> list ind
+R7363:7365 Coq.Init.Datatypes <> nat ind
+R7381:7394 Kernel.PythonBisimulation <> PythonCSRState rec
+R7411:7430 Kernel.PythonBisimulation <> PythonPartitionGraph rec
+R7451:7454 Coq.Init.Datatypes <> list ind
+R7456:7458 Coq.Init.Datatypes <> nat ind
+R7479:7481 Coq.Init.Datatypes <> nat ind
+R7500:7502 Coq.Init.Datatypes <> nat ind
+R7521:7539 Kernel.PythonBisimulation <> PythonWitnessCounts rec
+R7560:7563 Coq.Init.Datatypes <> bool ind
+def 7580:7593 <> python_csr_abs
+R7601:7614 Kernel.PythonBisimulation <> PythonCSRState rec
+binder 7596:7597 <> cs:79
+R7619:7626 Kernel.VMState <> CSRState rec
+R7636:7648 Kernel.VMState <> csr_cert_addr proj
+R7636:7648 Kernel.VMState <> csr_cert_addr proj
+R7636:7648 Kernel.VMState <> csr_cert_addr proj
+R7682:7691 Kernel.VMState <> csr_status proj
+R7682:7691 Kernel.VMState <> csr_status proj
+R7722:7728 Kernel.VMState <> csr_err proj
+R7722:7728 Kernel.VMState <> csr_err proj
+R7756:7768 Kernel.VMState <> csr_heap_base proj
+R7756:7768 Kernel.VMState <> csr_heap_base proj
+R7657:7673 Kernel.PythonBisimulation <> pyf_csr_cert_addr proj
+R7653:7654 Kernel.PythonBisimulation <> cs:79 var
+R7700:7713 Kernel.PythonBisimulation <> pyf_csr_status proj
+R7696:7697 Kernel.PythonBisimulation <> cs:79 var
+R7737:7747 Kernel.PythonBisimulation <> pyf_csr_err proj
+R7733:7734 Kernel.PythonBisimulation <> cs:79 var
+R7777:7793 Kernel.PythonBisimulation <> pyf_csr_heap_base proj
+R7773:7774 Kernel.PythonBisimulation <> cs:79 var
+def 7812:7826 <> python_csr_repr
+R7834:7841 Kernel.VMState <> CSRState rec
+binder 7829:7830 <> cs:80
+R7846:7859 Kernel.PythonBisimulation <> PythonCSRState rec
+R7869:7885 Kernel.PythonBisimulation <> pyf_csr_cert_addr proj
+R7869:7885 Kernel.PythonBisimulation <> pyf_csr_cert_addr proj
+R7869:7885 Kernel.PythonBisimulation <> pyf_csr_cert_addr proj
+R7915:7928 Kernel.PythonBisimulation <> pyf_csr_status proj
+R7915:7928 Kernel.PythonBisimulation <> pyf_csr_status proj
+R7955:7965 Kernel.PythonBisimulation <> pyf_csr_err proj
+R7955:7965 Kernel.PythonBisimulation <> pyf_csr_err proj
+R7989:8005 Kernel.PythonBisimulation <> pyf_csr_heap_base proj
+R7989:8005 Kernel.PythonBisimulation <> pyf_csr_heap_base proj
+R7894:7906 Kernel.VMState <> csr_cert_addr proj
+R7890:7891 Kernel.PythonBisimulation <> cs:80 var
+R7937:7946 Kernel.VMState <> csr_status proj
+R7933:7934 Kernel.PythonBisimulation <> cs:80 var
+R7974:7980 Kernel.VMState <> csr_err proj
+R7970:7971 Kernel.PythonBisimulation <> cs:80 var
+R8014:8026 Kernel.VMState <> csr_heap_base proj
+R8010:8011 Kernel.PythonBisimulation <> cs:80 var
+def 8045:8061 <> python_module_abs
+R8069:8085 Kernel.PythonBisimulation <> PythonModuleState rec
+binder 8064:8065 <> ms:81
+R8090:8100 Kernel.VMState <> ModuleState rec
+R8110:8122 Kernel.VMState <> module_region proj
+R8110:8122 Kernel.VMState <> module_region proj
+R8110:8122 Kernel.VMState <> module_region proj
+R8156:8168 Kernel.VMState <> module_axioms proj
+R8156:8168 Kernel.VMState <> module_axioms proj
+R8202:8217 Kernel.VMState <> module_mu_tensor proj
+R8202:8217 Kernel.VMState <> module_mu_tensor proj
+R8131:8147 Kernel.PythonBisimulation <> pyf_module_region proj
+R8127:8128 Kernel.PythonBisimulation <> ms:81 var
+R8177:8193 Kernel.PythonBisimulation <> pyf_module_axioms proj
+R8173:8174 Kernel.PythonBisimulation <> ms:81 var
+R8226:8245 Kernel.PythonBisimulation <> pyf_module_mu_tensor proj
+R8222:8223 Kernel.PythonBisimulation <> ms:81 var
+def 8264:8281 <> python_module_repr
+R8289:8299 Kernel.VMState <> ModuleState rec
+binder 8284:8285 <> ms:82
+R8304:8320 Kernel.PythonBisimulation <> PythonModuleState rec
+R8330:8346 Kernel.PythonBisimulation <> pyf_module_region proj
+R8330:8346 Kernel.PythonBisimulation <> pyf_module_region proj
+R8330:8346 Kernel.PythonBisimulation <> pyf_module_region proj
+R8376:8392 Kernel.PythonBisimulation <> pyf_module_axioms proj
+R8376:8392 Kernel.PythonBisimulation <> pyf_module_axioms proj
+R8422:8441 Kernel.PythonBisimulation <> pyf_module_mu_tensor proj
+R8422:8441 Kernel.PythonBisimulation <> pyf_module_mu_tensor proj
+R8355:8367 Kernel.VMState <> module_region proj
+R8351:8352 Kernel.PythonBisimulation <> ms:82 var
+R8401:8413 Kernel.VMState <> module_axioms proj
+R8397:8398 Kernel.PythonBisimulation <> ms:82 var
+R8450:8465 Kernel.VMState <> module_mu_tensor proj
+R8446:8447 Kernel.PythonBisimulation <> ms:82 var
+def 8484:8502 <> python_coupling_abs
+R8509:8526 Kernel.PythonBisimulation <> PythonCouplingData rec
+binder 8505:8505 <> c:83
+R8531:8542 Kernel.VMState <> CouplingData rec
+R8552:8565 Kernel.VMState <> coupling_pairs proj
+R8552:8565 Kernel.VMState <> coupling_pairs proj
+R8552:8565 Kernel.VMState <> coupling_pairs proj
+R8599:8612 Kernel.VMState <> coupling_label proj
+R8599:8612 Kernel.VMState <> coupling_label proj
+R8573:8590 Kernel.PythonBisimulation <> pyf_coupling_pairs proj
+R8570:8570 Kernel.PythonBisimulation <> c:83 var
+R8620:8637 Kernel.PythonBisimulation <> pyf_coupling_label proj
+R8617:8617 Kernel.PythonBisimulation <> c:83 var
+def 8656:8675 <> python_coupling_repr
+R8682:8693 Kernel.VMState <> CouplingData rec
+binder 8678:8678 <> c:84
+R8698:8715 Kernel.PythonBisimulation <> PythonCouplingData rec
+R8725:8742 Kernel.PythonBisimulation <> pyf_coupling_pairs proj
+R8725:8742 Kernel.PythonBisimulation <> pyf_coupling_pairs proj
+R8725:8742 Kernel.PythonBisimulation <> pyf_coupling_pairs proj
+R8772:8789 Kernel.PythonBisimulation <> pyf_coupling_label proj
+R8772:8789 Kernel.PythonBisimulation <> pyf_coupling_label proj
+R8750:8763 Kernel.VMState <> coupling_pairs proj
+R8747:8747 Kernel.PythonBisimulation <> c:84 var
+R8797:8810 Kernel.VMState <> coupling_label proj
+R8794:8794 Kernel.PythonBisimulation <> c:84 var
+def 8829:8847 <> python_morphism_abs
+R8855:8873 Kernel.PythonBisimulation <> PythonMorphismState rec
+binder 8850:8851 <> ms:85
+R8878:8890 Kernel.VMState <> MorphismState rec
+R8900:8911 Kernel.VMState <> morph_source proj
+R8900:8911 Kernel.VMState <> morph_source proj
+R8900:8911 Kernel.VMState <> morph_source proj
+R8944:8955 Kernel.VMState <> morph_target proj
+R8944:8955 Kernel.VMState <> morph_target proj
+R8988:9001 Kernel.VMState <> morph_coupling proj
+R8988:9001 Kernel.VMState <> morph_coupling proj
+R9056:9072 Kernel.VMState <> morph_is_identity proj
+R9056:9072 Kernel.VMState <> morph_is_identity proj
+R9110:9124 Kernel.VMState <> morph_cert_cost proj
+R9110:9124 Kernel.VMState <> morph_cert_cost proj
+R8920:8935 Kernel.PythonBisimulation <> pyf_morph_source proj
+R8916:8917 Kernel.PythonBisimulation <> ms:85 var
+R8964:8979 Kernel.PythonBisimulation <> pyf_morph_target proj
+R8960:8961 Kernel.PythonBisimulation <> ms:85 var
+R9006:9024 Kernel.PythonBisimulation <> python_coupling_abs def
+R9030:9047 Kernel.PythonBisimulation <> pyf_morph_coupling proj
+R9026:9027 Kernel.PythonBisimulation <> ms:85 var
+R9081:9101 Kernel.PythonBisimulation <> pyf_morph_is_identity proj
+R9077:9078 Kernel.PythonBisimulation <> ms:85 var
+R9133:9151 Kernel.PythonBisimulation <> pyf_morph_cert_cost proj
+R9129:9130 Kernel.PythonBisimulation <> ms:85 var
+def 9170:9189 <> python_morphism_repr
+R9197:9209 Kernel.VMState <> MorphismState rec
+binder 9192:9193 <> ms:86
+R9214:9232 Kernel.PythonBisimulation <> PythonMorphismState rec
+R9242:9257 Kernel.PythonBisimulation <> pyf_morph_source proj
+R9242:9257 Kernel.PythonBisimulation <> pyf_morph_source proj
+R9242:9257 Kernel.PythonBisimulation <> pyf_morph_source proj
+R9286:9301 Kernel.PythonBisimulation <> pyf_morph_target proj
+R9286:9301 Kernel.PythonBisimulation <> pyf_morph_target proj
+R9330:9347 Kernel.PythonBisimulation <> pyf_morph_coupling proj
+R9330:9347 Kernel.PythonBisimulation <> pyf_morph_coupling proj
+R9399:9419 Kernel.PythonBisimulation <> pyf_morph_is_identity proj
+R9399:9419 Kernel.PythonBisimulation <> pyf_morph_is_identity proj
+R9453:9471 Kernel.PythonBisimulation <> pyf_morph_cert_cost proj
+R9453:9471 Kernel.PythonBisimulation <> pyf_morph_cert_cost proj
+R9266:9277 Kernel.VMState <> morph_source proj
+R9262:9263 Kernel.PythonBisimulation <> ms:86 var
+R9310:9321 Kernel.VMState <> morph_target proj
+R9306:9307 Kernel.PythonBisimulation <> ms:86 var
+R9352:9371 Kernel.PythonBisimulation <> python_coupling_repr def
+R9377:9390 Kernel.VMState <> morph_coupling proj
+R9373:9374 Kernel.PythonBisimulation <> ms:86 var
+R9428:9444 Kernel.VMState <> morph_is_identity proj
+R9424:9425 Kernel.PythonBisimulation <> ms:86 var
+R9480:9494 Kernel.VMState <> morph_cert_cost proj
+R9476:9477 Kernel.PythonBisimulation <> ms:86 var
+def 9511:9528 <> python_modules_abs
+R9540:9543 Coq.Init.Datatypes <> list ind
+R9549:9551 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9546:9548 Coq.Init.Datatypes <> nat ind
+R9552:9568 Kernel.PythonBisimulation <> PythonModuleState rec
+binder 9533:9536 <> mods:87
+R9574:9577 Coq.Init.Datatypes <> list ind
+R9583:9585 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9580:9582 Coq.Init.Datatypes <> nat ind
+R9586:9596 Kernel.VMState <> ModuleState rec
+R9610:9613 Kernel.PythonBisimulation <> mods:87 var
+R9624:9625 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9630:9631 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9646:9649 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9637:9637 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9641:9642 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9645:9645 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9685:9688 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9658:9658 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9662:9663 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9684:9684 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9664:9680 Kernel.PythonBisimulation <> python_module_abs def
+R9689:9706 Kernel.PythonBisimulation <> python_modules_abs:88 def
+def 9730:9748 <> python_modules_repr
+R9760:9763 Coq.Init.Datatypes <> list ind
+R9769:9771 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9766:9768 Coq.Init.Datatypes <> nat ind
+R9772:9782 Kernel.VMState <> ModuleState rec
+binder 9753:9756 <> mods:90
+R9788:9791 Coq.Init.Datatypes <> list ind
+R9797:9799 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9794:9796 Coq.Init.Datatypes <> nat ind
+R9800:9816 Kernel.PythonBisimulation <> PythonModuleState rec
+R9830:9833 Kernel.PythonBisimulation <> mods:90 var
+R9844:9845 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9850:9851 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9866:9869 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9857:9857 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9861:9862 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9865:9865 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9906:9909 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9878:9878 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9882:9883 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9905:9905 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9884:9901 Kernel.PythonBisimulation <> python_module_repr def
+R9910:9928 Kernel.PythonBisimulation <> python_modules_repr:91 def
+def 9952:9971 <> python_morphisms_abs
+R9985:9988 Coq.Init.Datatypes <> list ind
+R9994:9996 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9991:9993 Coq.Init.Datatypes <> nat ind
+R9997:10015 Kernel.PythonBisimulation <> PythonMorphismState rec
+binder 9976:9981 <> morphs:93
+R10021:10024 Coq.Init.Datatypes <> list ind
+R10030:10032 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R10027:10029 Coq.Init.Datatypes <> nat ind
+R10033:10045 Kernel.VMState <> MorphismState rec
+R10059:10064 Kernel.PythonBisimulation <> morphs:93 var
+R10075:10076 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10081:10082 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10097:10100 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10088:10088 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10092:10093 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10096:10096 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10138:10141 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10109:10109 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10113:10114 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10137:10137 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10115:10133 Kernel.PythonBisimulation <> python_morphism_abs def
+R10142:10161 Kernel.PythonBisimulation <> python_morphisms_abs:94 def
+def 10185:10205 <> python_morphisms_repr
+R10219:10222 Coq.Init.Datatypes <> list ind
+R10228:10230 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R10225:10227 Coq.Init.Datatypes <> nat ind
+R10231:10243 Kernel.VMState <> MorphismState rec
+binder 10210:10215 <> morphs:96
+R10249:10252 Coq.Init.Datatypes <> list ind
+R10258:10260 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R10255:10257 Coq.Init.Datatypes <> nat ind
+R10261:10279 Kernel.PythonBisimulation <> PythonMorphismState rec
+R10293:10298 Kernel.PythonBisimulation <> morphs:96 var
+R10309:10310 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10315:10316 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10331:10334 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10322:10322 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10326:10327 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10330:10330 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10373:10376 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10343:10343 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10347:10348 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10372:10372 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10349:10368 Kernel.PythonBisimulation <> python_morphism_repr def
+R10377:10397 Kernel.PythonBisimulation <> python_morphisms_repr:97 def
+def 10423:10438 <> python_graph_abs
+R10445:10464 Kernel.PythonBisimulation <> PythonPartitionGraph rec
+binder 10441:10441 <> g:99
+R10469:10482 Kernel.VMState <> PartitionGraph rec
+R10492:10501 Kernel.VMState <> pg_next_id proj
+R10492:10501 Kernel.VMState <> pg_next_id proj
+R10492:10501 Kernel.VMState <> pg_next_id proj
+R10531:10540 Kernel.VMState <> pg_modules proj
+R10531:10540 Kernel.VMState <> pg_modules proj
+R10589:10604 Kernel.VMState <> pg_next_morph_id proj
+R10589:10604 Kernel.VMState <> pg_next_morph_id proj
+R10640:10651 Kernel.VMState <> pg_morphisms proj
+R10640:10651 Kernel.VMState <> pg_morphisms proj
+R10509:10522 Kernel.PythonBisimulation <> pyf_pg_next_id proj
+R10506:10506 Kernel.PythonBisimulation <> g:99 var
+R10545:10562 Kernel.PythonBisimulation <> python_modules_abs def
+R10567:10580 Kernel.PythonBisimulation <> pyf_pg_modules proj
+R10564:10564 Kernel.PythonBisimulation <> g:99 var
+R10612:10631 Kernel.PythonBisimulation <> pyf_pg_next_morph_id proj
+R10609:10609 Kernel.PythonBisimulation <> g:99 var
+R10656:10675 Kernel.PythonBisimulation <> python_morphisms_abs def
+R10680:10695 Kernel.PythonBisimulation <> pyf_pg_morphisms proj
+R10677:10677 Kernel.PythonBisimulation <> g:99 var
+def 10714:10730 <> python_graph_repr
+R10737:10750 Kernel.VMState <> PartitionGraph rec
+binder 10733:10733 <> g:100
+R10755:10774 Kernel.PythonBisimulation <> PythonPartitionGraph rec
+R10784:10797 Kernel.PythonBisimulation <> pyf_pg_next_id proj
+R10784:10797 Kernel.PythonBisimulation <> pyf_pg_next_id proj
+R10784:10797 Kernel.PythonBisimulation <> pyf_pg_next_id proj
+R10823:10836 Kernel.PythonBisimulation <> pyf_pg_modules proj
+R10823:10836 Kernel.PythonBisimulation <> pyf_pg_modules proj
+R10882:10901 Kernel.PythonBisimulation <> pyf_pg_next_morph_id proj
+R10882:10901 Kernel.PythonBisimulation <> pyf_pg_next_morph_id proj
+R10933:10948 Kernel.PythonBisimulation <> pyf_pg_morphisms proj
+R10933:10948 Kernel.PythonBisimulation <> pyf_pg_morphisms proj
+R10805:10814 Kernel.VMState <> pg_next_id proj
+R10802:10802 Kernel.PythonBisimulation <> g:100 var
+R10841:10859 Kernel.PythonBisimulation <> python_modules_repr def
+R10864:10873 Kernel.VMState <> pg_modules proj
+R10861:10861 Kernel.PythonBisimulation <> g:100 var
+R10909:10924 Kernel.VMState <> pg_next_morph_id proj
+R10906:10906 Kernel.PythonBisimulation <> g:100 var
+R10953:10973 Kernel.PythonBisimulation <> python_morphisms_repr def
+R10978:10989 Kernel.VMState <> pg_morphisms proj
+R10975:10975 Kernel.PythonBisimulation <> g:100 var
+def 11008:11025 <> python_witness_abs
+R11032:11050 Kernel.PythonBisimulation <> PythonWitnessCounts rec
+binder 11028:11028 <> w:101
+R11055:11067 Kernel.VMState <> WitnessCounts rec
+R11077:11086 Kernel.VMState <> wc_same_00 proj
+R11077:11086 Kernel.VMState <> wc_same_00 proj
+R11077:11086 Kernel.VMState <> wc_same_00 proj
+R11116:11125 Kernel.VMState <> wc_diff_00 proj
+R11116:11125 Kernel.VMState <> wc_diff_00 proj
+R11155:11164 Kernel.VMState <> wc_same_01 proj
+R11155:11164 Kernel.VMState <> wc_same_01 proj
+R11194:11203 Kernel.VMState <> wc_diff_01 proj
+R11194:11203 Kernel.VMState <> wc_diff_01 proj
+R11233:11242 Kernel.VMState <> wc_same_10 proj
+R11233:11242 Kernel.VMState <> wc_same_10 proj
+R11272:11281 Kernel.VMState <> wc_diff_10 proj
+R11272:11281 Kernel.VMState <> wc_diff_10 proj
+R11311:11320 Kernel.VMState <> wc_same_11 proj
+R11311:11320 Kernel.VMState <> wc_same_11 proj
+R11350:11359 Kernel.VMState <> wc_diff_11 proj
+R11350:11359 Kernel.VMState <> wc_diff_11 proj
+R11094:11107 Kernel.PythonBisimulation <> pyf_wc_same_00 proj
+R11091:11091 Kernel.PythonBisimulation <> w:101 var
+R11133:11146 Kernel.PythonBisimulation <> pyf_wc_diff_00 proj
+R11130:11130 Kernel.PythonBisimulation <> w:101 var
+R11172:11185 Kernel.PythonBisimulation <> pyf_wc_same_01 proj
+R11169:11169 Kernel.PythonBisimulation <> w:101 var
+R11211:11224 Kernel.PythonBisimulation <> pyf_wc_diff_01 proj
+R11208:11208 Kernel.PythonBisimulation <> w:101 var
+R11250:11263 Kernel.PythonBisimulation <> pyf_wc_same_10 proj
+R11247:11247 Kernel.PythonBisimulation <> w:101 var
+R11289:11302 Kernel.PythonBisimulation <> pyf_wc_diff_10 proj
+R11286:11286 Kernel.PythonBisimulation <> w:101 var
+R11328:11341 Kernel.PythonBisimulation <> pyf_wc_same_11 proj
+R11325:11325 Kernel.PythonBisimulation <> w:101 var
+R11367:11380 Kernel.PythonBisimulation <> pyf_wc_diff_11 proj
+R11364:11364 Kernel.PythonBisimulation <> w:101 var
+def 11399:11417 <> python_witness_repr
+R11424:11436 Kernel.VMState <> WitnessCounts rec
+binder 11420:11420 <> w:102
+R11441:11459 Kernel.PythonBisimulation <> PythonWitnessCounts rec
+R11469:11482 Kernel.PythonBisimulation <> pyf_wc_same_00 proj
+R11469:11482 Kernel.PythonBisimulation <> pyf_wc_same_00 proj
+R11469:11482 Kernel.PythonBisimulation <> pyf_wc_same_00 proj
+R11508:11521 Kernel.PythonBisimulation <> pyf_wc_diff_00 proj
+R11508:11521 Kernel.PythonBisimulation <> pyf_wc_diff_00 proj
+R11547:11560 Kernel.PythonBisimulation <> pyf_wc_same_01 proj
+R11547:11560 Kernel.PythonBisimulation <> pyf_wc_same_01 proj
+R11586:11599 Kernel.PythonBisimulation <> pyf_wc_diff_01 proj
+R11586:11599 Kernel.PythonBisimulation <> pyf_wc_diff_01 proj
+R11625:11638 Kernel.PythonBisimulation <> pyf_wc_same_10 proj
+R11625:11638 Kernel.PythonBisimulation <> pyf_wc_same_10 proj
+R11664:11677 Kernel.PythonBisimulation <> pyf_wc_diff_10 proj
+R11664:11677 Kernel.PythonBisimulation <> pyf_wc_diff_10 proj
+R11703:11716 Kernel.PythonBisimulation <> pyf_wc_same_11 proj
+R11703:11716 Kernel.PythonBisimulation <> pyf_wc_same_11 proj
+R11742:11755 Kernel.PythonBisimulation <> pyf_wc_diff_11 proj
+R11742:11755 Kernel.PythonBisimulation <> pyf_wc_diff_11 proj
+R11490:11499 Kernel.VMState <> wc_same_00 proj
+R11487:11487 Kernel.PythonBisimulation <> w:102 var
+R11529:11538 Kernel.VMState <> wc_diff_00 proj
+R11526:11526 Kernel.PythonBisimulation <> w:102 var
+R11568:11577 Kernel.VMState <> wc_same_01 proj
+R11565:11565 Kernel.PythonBisimulation <> w:102 var
+R11607:11616 Kernel.VMState <> wc_diff_01 proj
+R11604:11604 Kernel.PythonBisimulation <> w:102 var
+R11646:11655 Kernel.VMState <> wc_same_10 proj
+R11643:11643 Kernel.PythonBisimulation <> w:102 var
+R11685:11694 Kernel.VMState <> wc_diff_10 proj
+R11682:11682 Kernel.PythonBisimulation <> w:102 var
+R11724:11733 Kernel.VMState <> wc_same_11 proj
+R11721:11721 Kernel.PythonBisimulation <> w:102 var
+R11763:11772 Kernel.VMState <> wc_diff_11 proj
+R11760:11760 Kernel.PythonBisimulation <> w:102 var
+def 11791:11805 <> python_full_abs
+R11813:11827 Kernel.PythonBisimulation <> PythonStateFull rec
+binder 11808:11809 <> ps:103
+R11832:11838 Kernel.VMState <> VMState rec
+R11848:11855 Kernel.VMState <> vm_graph proj
+R11848:11855 Kernel.VMState <> vm_graph proj
+R11848:11855 Kernel.VMState <> vm_graph proj
+R11898:11904 Kernel.VMState <> vm_csrs proj
+R11898:11904 Kernel.VMState <> vm_csrs proj
+R11944:11950 Kernel.VMState <> vm_regs proj
+R11944:11950 Kernel.VMState <> vm_regs proj
+R11975:11980 Kernel.VMState <> vm_mem proj
+R11975:11980 Kernel.VMState <> vm_mem proj
+R12004:12008 Kernel.VMState <> vm_pc proj
+R12004:12008 Kernel.VMState <> vm_pc proj
+R12031:12035 Kernel.VMState <> vm_mu proj
+R12031:12035 Kernel.VMState <> vm_mu proj
+R12058:12069 Kernel.VMState <> vm_mu_tensor proj
+R12058:12069 Kernel.VMState <> vm_mu_tensor proj
+R12099:12104 Kernel.VMState <> vm_err proj
+R12099:12104 Kernel.VMState <> vm_err proj
+R12128:12139 Kernel.VMState <> vm_logic_acc proj
+R12128:12139 Kernel.VMState <> vm_logic_acc proj
+R12169:12178 Kernel.VMState <> vm_mstatus proj
+R12169:12178 Kernel.VMState <> vm_mstatus proj
+R12206:12215 Kernel.VMState <> vm_witness proj
+R12206:12215 Kernel.VMState <> vm_witness proj
+R12262:12273 Kernel.VMState <> vm_certified proj
+R12262:12273 Kernel.VMState <> vm_certified proj
+R11860:11875 Kernel.PythonBisimulation <> python_graph_abs def
+R11881:11889 Kernel.PythonBisimulation <> pyf_graph proj
+R11877:11878 Kernel.PythonBisimulation <> ps:103 var
+R11909:11922 Kernel.PythonBisimulation <> python_csr_abs def
+R11928:11935 Kernel.PythonBisimulation <> pyf_csrs proj
 R11924:11925 Kernel.PythonBisimulation <> ps:103 var
-R11963:11969 Kernel.PythonBisimulation <> pyf_err proj
-R11959:11960 Kernel.PythonBisimulation <> ps:103 var
-R11998:12010 Kernel.PythonBisimulation <> pyf_logic_acc proj
-R11994:11995 Kernel.PythonBisimulation <> ps:103 var
-R12037:12047 Kernel.PythonBisimulation <> pyf_mstatus proj
-R12033:12034 Kernel.PythonBisimulation <> ps:103 var
-R12070:12087 Kernel.PythonBisimulation <> python_witness_abs def
-R12093:12103 Kernel.PythonBisimulation <> pyf_witness proj
-R12089:12090 Kernel.PythonBisimulation <> ps:103 var
-R12132:12144 Kernel.PythonBisimulation <> pyf_certified proj
-R12128:12129 Kernel.PythonBisimulation <> ps:103 var
-def 12163:12178 <> python_full_repr
-R12185:12191 Kernel.VMState <> VMState rec
-binder 12181:12181 <> s:104
-R12196:12210 Kernel.PythonBisimulation <> PythonStateFull rec
-R12220:12225 Kernel.PythonBisimulation <> pyf_pc proj
-R12220:12225 Kernel.PythonBisimulation <> pyf_pc proj
-R12220:12225 Kernel.PythonBisimulation <> pyf_pc proj
-R12246:12251 Kernel.PythonBisimulation <> pyf_mu proj
-R12246:12251 Kernel.PythonBisimulation <> pyf_mu proj
-R12272:12278 Kernel.PythonBisimulation <> pyf_err proj
-R12272:12278 Kernel.PythonBisimulation <> pyf_err proj
-R12300:12307 Kernel.PythonBisimulation <> pyf_regs proj
-R12300:12307 Kernel.PythonBisimulation <> pyf_regs proj
-R12330:12336 Kernel.PythonBisimulation <> pyf_mem proj
-R12330:12336 Kernel.PythonBisimulation <> pyf_mem proj
-R12358:12365 Kernel.PythonBisimulation <> pyf_csrs proj
-R12358:12365 Kernel.PythonBisimulation <> pyf_csrs proj
-R12404:12412 Kernel.PythonBisimulation <> pyf_graph proj
-R12404:12412 Kernel.PythonBisimulation <> pyf_graph proj
-R12454:12466 Kernel.PythonBisimulation <> pyf_mu_tensor proj
-R12454:12466 Kernel.PythonBisimulation <> pyf_mu_tensor proj
-R12494:12506 Kernel.PythonBisimulation <> pyf_logic_acc proj
-R12494:12506 Kernel.PythonBisimulation <> pyf_logic_acc proj
-R12534:12544 Kernel.PythonBisimulation <> pyf_mstatus proj
-R12534:12544 Kernel.PythonBisimulation <> pyf_mstatus proj
-R12570:12580 Kernel.PythonBisimulation <> pyf_witness proj
-R12570:12580 Kernel.PythonBisimulation <> pyf_witness proj
-R12626:12638 Kernel.PythonBisimulation <> pyf_certified proj
-R12626:12638 Kernel.PythonBisimulation <> pyf_certified proj
-R12233:12237 Kernel.VMState <> vm_pc proj
-R12230:12230 Kernel.PythonBisimulation <> s:104 var
-R12259:12263 Kernel.VMState <> vm_mu proj
-R12256:12256 Kernel.PythonBisimulation <> s:104 var
-R12286:12291 Kernel.VMState <> vm_err proj
-R12283:12283 Kernel.PythonBisimulation <> s:104 var
-R12315:12321 Kernel.VMState <> vm_regs proj
-R12312:12312 Kernel.PythonBisimulation <> s:104 var
-R12344:12349 Kernel.VMState <> vm_mem proj
-R12341:12341 Kernel.PythonBisimulation <> s:104 var
-R12370:12384 Kernel.PythonBisimulation <> python_csr_repr def
-R12389:12395 Kernel.VMState <> vm_csrs proj
-R12386:12386 Kernel.PythonBisimulation <> s:104 var
-R12417:12433 Kernel.PythonBisimulation <> python_graph_repr def
-R12438:12445 Kernel.VMState <> vm_graph proj
-R12435:12435 Kernel.PythonBisimulation <> s:104 var
-R12474:12485 Kernel.VMState <> vm_mu_tensor proj
-R12471:12471 Kernel.PythonBisimulation <> s:104 var
-R12514:12525 Kernel.VMState <> vm_logic_acc proj
-R12511:12511 Kernel.PythonBisimulation <> s:104 var
-R12552:12561 Kernel.VMState <> vm_mstatus proj
-R12549:12549 Kernel.PythonBisimulation <> s:104 var
-R12585:12603 Kernel.PythonBisimulation <> python_witness_repr def
-R12608:12617 Kernel.VMState <> vm_witness proj
-R12605:12605 Kernel.PythonBisimulation <> s:104 var
-R12646:12657 Kernel.VMState <> vm_certified proj
-R12643:12643 Kernel.PythonBisimulation <> s:104 var
-prf 12671:12689 <> python_csr_abs_repr
-binder 12702:12703 <> cs:105
-R12741:12743 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12706:12719 Kernel.PythonBisimulation <> python_csr_abs def
-R12722:12736 Kernel.PythonBisimulation <> python_csr_repr def
-R12738:12739 Kernel.PythonBisimulation <> cs:105 var
-R12744:12745 Kernel.PythonBisimulation <> cs:105 var
-prf 12791:12812 <> python_module_abs_repr
-binder 12825:12826 <> ms:106
-R12870:12872 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12829:12845 Kernel.PythonBisimulation <> python_module_abs def
-R12848:12865 Kernel.PythonBisimulation <> python_module_repr def
-R12867:12868 Kernel.PythonBisimulation <> ms:106 var
-R12873:12874 Kernel.PythonBisimulation <> ms:106 var
-prf 12920:12943 <> python_coupling_abs_repr
-binder 12956:12956 <> c:107
-R13003:13005 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12959:12977 Kernel.PythonBisimulation <> python_coupling_abs def
-R12980:12999 Kernel.PythonBisimulation <> python_coupling_repr def
-R13001:13001 Kernel.PythonBisimulation <> c:107 var
-R13006:13006 Kernel.PythonBisimulation <> c:107 var
-prf 13052:13075 <> python_morphism_abs_repr
-binder 13088:13089 <> ms:108
-R13137:13139 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13092:13110 Kernel.PythonBisimulation <> python_morphism_abs def
-R13113:13132 Kernel.PythonBisimulation <> python_morphism_repr def
-R13134:13135 Kernel.PythonBisimulation <> ms:108 var
-R13140:13141 Kernel.PythonBisimulation <> ms:108 var
-prf 13216:13238 <> python_modules_abs_repr
-binder 13251:13254 <> mods:109
-R13302:13304 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13257:13274 Kernel.PythonBisimulation <> python_modules_abs def
-R13277:13295 Kernel.PythonBisimulation <> python_modules_repr def
-R13297:13300 Kernel.PythonBisimulation <> mods:109 var
-R13305:13308 Kernel.PythonBisimulation <> mods:109 var
-R13395:13416 Kernel.PythonBisimulation <> python_module_abs_repr thm
-R13395:13416 Kernel.PythonBisimulation <> python_module_abs_repr thm
-R13395:13416 Kernel.PythonBisimulation <> python_module_abs_repr thm
-prf 13448:13472 <> python_morphisms_abs_repr
-binder 13485:13490 <> morphs:110
-R13544:13546 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13493:13512 Kernel.PythonBisimulation <> python_morphisms_abs def
-R13515:13535 Kernel.PythonBisimulation <> python_morphisms_repr def
-R13537:13542 Kernel.PythonBisimulation <> morphs:110 var
-R13547:13552 Kernel.PythonBisimulation <> morphs:110 var
-R13641:13664 Kernel.PythonBisimulation <> python_morphism_abs_repr thm
-R13641:13664 Kernel.PythonBisimulation <> python_morphism_abs_repr thm
-R13641:13664 Kernel.PythonBisimulation <> python_morphism_abs_repr thm
-prf 13696:13716 <> python_graph_abs_repr
-binder 13729:13729 <> g:111
-R13770:13772 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13732:13747 Kernel.PythonBisimulation <> python_graph_abs def
-R13750:13766 Kernel.PythonBisimulation <> python_graph_repr def
-R13768:13768 Kernel.PythonBisimulation <> g:111 var
-R13773:13773 Kernel.PythonBisimulation <> g:111 var
-R13838:13853 Kernel.PythonBisimulation <> python_graph_abs def
-R13856:13872 Kernel.PythonBisimulation <> python_graph_repr def
-R13892:13914 Kernel.PythonBisimulation <> python_modules_abs_repr thm
-R13917:13941 Kernel.PythonBisimulation <> python_morphisms_abs_repr thm
-R13892:13914 Kernel.PythonBisimulation <> python_modules_abs_repr thm
-R13892:13914 Kernel.PythonBisimulation <> python_modules_abs_repr thm
-R13917:13941 Kernel.PythonBisimulation <> python_morphisms_abs_repr thm
-R13917:13941 Kernel.PythonBisimulation <> python_morphisms_abs_repr thm
-prf 13969:13991 <> python_witness_abs_repr
-binder 14004:14004 <> w:112
-R14049:14051 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14007:14024 Kernel.PythonBisimulation <> python_witness_abs def
-R14027:14045 Kernel.PythonBisimulation <> python_witness_repr def
-R14047:14047 Kernel.PythonBisimulation <> w:112 var
-R14052:14052 Kernel.PythonBisimulation <> w:112 var
-prf 14100:14119 <> python_full_abs_repr
-binder 14132:14132 <> s:113
-R14171:14173 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14135:14149 Kernel.PythonBisimulation <> python_full_abs def
-R14152:14167 Kernel.PythonBisimulation <> python_full_repr def
-R14169:14169 Kernel.PythonBisimulation <> s:113 var
-R14174:14174 Kernel.PythonBisimulation <> s:113 var
-R14281:14295 Kernel.PythonBisimulation <> python_full_abs def
-R14298:14313 Kernel.PythonBisimulation <> python_full_repr def
-R14333:14353 Kernel.PythonBisimulation <> python_graph_abs_repr thm
-R14356:14374 Kernel.PythonBisimulation <> python_csr_abs_repr thm
-R14377:14399 Kernel.PythonBisimulation <> python_witness_abs_repr thm
-R14333:14353 Kernel.PythonBisimulation <> python_graph_abs_repr thm
-R14333:14353 Kernel.PythonBisimulation <> python_graph_abs_repr thm
-R14356:14374 Kernel.PythonBisimulation <> python_csr_abs_repr thm
-R14356:14374 Kernel.PythonBisimulation <> python_csr_abs_repr thm
-R14377:14399 Kernel.PythonBisimulation <> python_witness_abs_repr thm
-R14377:14399 Kernel.PythonBisimulation <> python_witness_abs_repr thm
-def 14434:14455 <> full_states_correspond
-R14466:14472 Kernel.VMState <> VMState rec
-binder 14458:14462 <> coq_s:114
-R14483:14497 Kernel.PythonBisimulation <> PythonStateFull rec
-binder 14476:14479 <> py_s:115
-R14532:14534 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14512:14526 Kernel.PythonBisimulation <> python_full_abs def
-R14528:14531 Kernel.PythonBisimulation <> py_s:115 var
-R14535:14539 Kernel.PythonBisimulation <> coq_s:114 var
-def 14554:14569 <> python_step_full
-R14581:14595 Kernel.PythonBisimulation <> PythonStateFull rec
-binder 14574:14577 <> py_s:116
-R14607:14620 Kernel.VMStep VMStep vm_instruction ind
-binder 14599:14603 <> instr:117
-R14625:14639 Kernel.PythonBisimulation <> PythonStateFull rec
-R14646:14661 Kernel.PythonBisimulation <> python_full_repr def
-R14664:14671 Kernel.SimulationProof <> vm_apply def
-R14674:14688 Kernel.PythonBisimulation <> python_full_abs def
-R14690:14693 Kernel.PythonBisimulation <> py_s:116 var
-R14696:14700 Kernel.PythonBisimulation <> instr:117 var
-prf 14713:14736 <> python_step_full_refines
-binder 14749:14752 <> py_s:118
-binder 14754:14758 <> instr:119
-R14810:14816 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14765:14779 Kernel.PythonBisimulation <> python_full_abs def
-R14782:14797 Kernel.PythonBisimulation <> python_step_full def
-R14799:14802 Kernel.PythonBisimulation <> py_s:118 var
-R14804:14808 Kernel.PythonBisimulation <> instr:119 var
-R14817:14824 Kernel.SimulationProof <> vm_apply def
-R14827:14841 Kernel.PythonBisimulation <> python_full_abs def
-R14843:14846 Kernel.PythonBisimulation <> py_s:118 var
-R14849:14853 Kernel.PythonBisimulation <> instr:119 var
-R14891:14906 Kernel.PythonBisimulation <> python_step_full def
-R14917:14936 Kernel.PythonBisimulation <> python_full_abs_repr thm
-R14917:14936 Kernel.PythonBisimulation <> python_full_abs_repr thm
-def 14954:14968 <> python_run_full
-R14980:14982 Coq.Init.Datatypes <> nat ind
-binder 14973:14976 <> fuel:120
-R14994:14997 Coq.Init.Datatypes <> list ind
-R14999:15012 Kernel.VMStep VMStep vm_instruction ind
-binder 14986:14990 <> trace:121
-R15023:15037 Kernel.PythonBisimulation <> PythonStateFull rec
-binder 15016:15019 <> py_s:122
-R15044:15058 Kernel.PythonBisimulation <> PythonStateFull rec
-R15071:15074 Kernel.PythonBisimulation <> fuel:120 var
-R15090:15093 Kernel.PythonBisimulation <> py_s:122 var
-R15099:15099 Coq.Init.Datatypes <> S constr
-R15122:15130 Coq.Lists.List <> nth_error def
-R15144:15149 Kernel.PythonBisimulation <> pyf_pc proj
-R15138:15141 Kernel.PythonBisimulation <> py_s:122 var
-R15132:15136 Kernel.PythonBisimulation <> trace:121 var
-R15165:15168 Coq.Init.Datatypes <> Some constr
-R15179:15193 Kernel.PythonBisimulation <> python_run_full:123 def
-R15208:15223 Kernel.PythonBisimulation <> python_step_full def
-R15225:15228 Kernel.PythonBisimulation <> py_s:122 var
-R15201:15205 Kernel.PythonBisimulation <> trace:121 var
-R15245:15248 Coq.Init.Datatypes <> None constr
-R15253:15256 Kernel.PythonBisimulation <> py_s:122 var
-prf 15284:15306 <> python_run_full_refines
-binder 15319:15322 <> fuel:125
-binder 15324:15328 <> trace:126
-binder 15330:15333 <> py_s:127
-R15389:15395 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15340:15354 Kernel.PythonBisimulation <> python_full_abs def
-R15357:15371 Kernel.PythonBisimulation <> python_run_full def
-R15373:15376 Kernel.PythonBisimulation <> fuel:125 var
-R15378:15382 Kernel.PythonBisimulation <> trace:126 var
-R15384:15387 Kernel.PythonBisimulation <> py_s:127 var
-R15396:15401 Kernel.SimulationProof <> run_vm def
-R15403:15406 Kernel.PythonBisimulation <> fuel:125 var
-R15408:15412 Kernel.PythonBisimulation <> trace:126 var
-R15415:15429 Kernel.PythonBisimulation <> python_full_abs def
-R15431:15434 Kernel.PythonBisimulation <> py_s:127 var
-R15534:15542 Coq.Lists.List <> nth_error def
-R15551:15556 Kernel.PythonBisimulation <> pyf_pc proj
-R15534:15542 Coq.Lists.List <> nth_error def
-R15551:15556 Kernel.PythonBisimulation <> pyf_pc proj
-R15620:15643 Kernel.PythonBisimulation <> python_step_full_refines thm
-R15620:15643 Kernel.PythonBisimulation <> python_step_full_refines thm
-R15620:15643 Kernel.PythonBisimulation <> python_step_full_refines thm
+R11959:11966 Kernel.PythonBisimulation <> pyf_regs proj
+R11955:11956 Kernel.PythonBisimulation <> ps:103 var
+R11989:11995 Kernel.PythonBisimulation <> pyf_mem proj
+R11985:11986 Kernel.PythonBisimulation <> ps:103 var
+R12017:12022 Kernel.PythonBisimulation <> pyf_pc proj
+R12013:12014 Kernel.PythonBisimulation <> ps:103 var
+R12044:12049 Kernel.PythonBisimulation <> pyf_mu proj
+R12040:12041 Kernel.PythonBisimulation <> ps:103 var
+R12078:12090 Kernel.PythonBisimulation <> pyf_mu_tensor proj
+R12074:12075 Kernel.PythonBisimulation <> ps:103 var
+R12113:12119 Kernel.PythonBisimulation <> pyf_err proj
+R12109:12110 Kernel.PythonBisimulation <> ps:103 var
+R12148:12160 Kernel.PythonBisimulation <> pyf_logic_acc proj
+R12144:12145 Kernel.PythonBisimulation <> ps:103 var
+R12187:12197 Kernel.PythonBisimulation <> pyf_mstatus proj
+R12183:12184 Kernel.PythonBisimulation <> ps:103 var
+R12220:12237 Kernel.PythonBisimulation <> python_witness_abs def
+R12243:12253 Kernel.PythonBisimulation <> pyf_witness proj
+R12239:12240 Kernel.PythonBisimulation <> ps:103 var
+R12282:12294 Kernel.PythonBisimulation <> pyf_certified proj
+R12278:12279 Kernel.PythonBisimulation <> ps:103 var
+def 12313:12328 <> python_full_repr
+R12335:12341 Kernel.VMState <> VMState rec
+binder 12331:12331 <> s:104
+R12346:12360 Kernel.PythonBisimulation <> PythonStateFull rec
+R12370:12375 Kernel.PythonBisimulation <> pyf_pc proj
+R12370:12375 Kernel.PythonBisimulation <> pyf_pc proj
+R12370:12375 Kernel.PythonBisimulation <> pyf_pc proj
+R12396:12401 Kernel.PythonBisimulation <> pyf_mu proj
+R12396:12401 Kernel.PythonBisimulation <> pyf_mu proj
+R12422:12428 Kernel.PythonBisimulation <> pyf_err proj
+R12422:12428 Kernel.PythonBisimulation <> pyf_err proj
+R12450:12457 Kernel.PythonBisimulation <> pyf_regs proj
+R12450:12457 Kernel.PythonBisimulation <> pyf_regs proj
+R12480:12486 Kernel.PythonBisimulation <> pyf_mem proj
+R12480:12486 Kernel.PythonBisimulation <> pyf_mem proj
+R12508:12515 Kernel.PythonBisimulation <> pyf_csrs proj
+R12508:12515 Kernel.PythonBisimulation <> pyf_csrs proj
+R12554:12562 Kernel.PythonBisimulation <> pyf_graph proj
+R12554:12562 Kernel.PythonBisimulation <> pyf_graph proj
+R12604:12616 Kernel.PythonBisimulation <> pyf_mu_tensor proj
+R12604:12616 Kernel.PythonBisimulation <> pyf_mu_tensor proj
+R12644:12656 Kernel.PythonBisimulation <> pyf_logic_acc proj
+R12644:12656 Kernel.PythonBisimulation <> pyf_logic_acc proj
+R12684:12694 Kernel.PythonBisimulation <> pyf_mstatus proj
+R12684:12694 Kernel.PythonBisimulation <> pyf_mstatus proj
+R12720:12730 Kernel.PythonBisimulation <> pyf_witness proj
+R12720:12730 Kernel.PythonBisimulation <> pyf_witness proj
+R12776:12788 Kernel.PythonBisimulation <> pyf_certified proj
+R12776:12788 Kernel.PythonBisimulation <> pyf_certified proj
+R12383:12387 Kernel.VMState <> vm_pc proj
+R12380:12380 Kernel.PythonBisimulation <> s:104 var
+R12409:12413 Kernel.VMState <> vm_mu proj
+R12406:12406 Kernel.PythonBisimulation <> s:104 var
+R12436:12441 Kernel.VMState <> vm_err proj
+R12433:12433 Kernel.PythonBisimulation <> s:104 var
+R12465:12471 Kernel.VMState <> vm_regs proj
+R12462:12462 Kernel.PythonBisimulation <> s:104 var
+R12494:12499 Kernel.VMState <> vm_mem proj
+R12491:12491 Kernel.PythonBisimulation <> s:104 var
+R12520:12534 Kernel.PythonBisimulation <> python_csr_repr def
+R12539:12545 Kernel.VMState <> vm_csrs proj
+R12536:12536 Kernel.PythonBisimulation <> s:104 var
+R12567:12583 Kernel.PythonBisimulation <> python_graph_repr def
+R12588:12595 Kernel.VMState <> vm_graph proj
+R12585:12585 Kernel.PythonBisimulation <> s:104 var
+R12624:12635 Kernel.VMState <> vm_mu_tensor proj
+R12621:12621 Kernel.PythonBisimulation <> s:104 var
+R12664:12675 Kernel.VMState <> vm_logic_acc proj
+R12661:12661 Kernel.PythonBisimulation <> s:104 var
+R12702:12711 Kernel.VMState <> vm_mstatus proj
+R12699:12699 Kernel.PythonBisimulation <> s:104 var
+R12735:12753 Kernel.PythonBisimulation <> python_witness_repr def
+R12758:12767 Kernel.VMState <> vm_witness proj
+R12755:12755 Kernel.PythonBisimulation <> s:104 var
+R12796:12807 Kernel.VMState <> vm_certified proj
+R12793:12793 Kernel.PythonBisimulation <> s:104 var
+prf 12821:12839 <> python_csr_abs_repr
+binder 12852:12853 <> cs:105
+R12891:12893 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12856:12869 Kernel.PythonBisimulation <> python_csr_abs def
+R12872:12886 Kernel.PythonBisimulation <> python_csr_repr def
+R12888:12889 Kernel.PythonBisimulation <> cs:105 var
+R12894:12895 Kernel.PythonBisimulation <> cs:105 var
+prf 12941:12962 <> python_module_abs_repr
+binder 12975:12976 <> ms:106
+R13020:13022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12979:12995 Kernel.PythonBisimulation <> python_module_abs def
+R12998:13015 Kernel.PythonBisimulation <> python_module_repr def
+R13017:13018 Kernel.PythonBisimulation <> ms:106 var
+R13023:13024 Kernel.PythonBisimulation <> ms:106 var
+prf 13070:13093 <> python_coupling_abs_repr
+binder 13106:13106 <> c:107
+R13153:13155 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13109:13127 Kernel.PythonBisimulation <> python_coupling_abs def
+R13130:13149 Kernel.PythonBisimulation <> python_coupling_repr def
+R13151:13151 Kernel.PythonBisimulation <> c:107 var
+R13156:13156 Kernel.PythonBisimulation <> c:107 var
+prf 13202:13225 <> python_morphism_abs_repr
+binder 13238:13239 <> ms:108
+R13287:13289 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13242:13260 Kernel.PythonBisimulation <> python_morphism_abs def
+R13263:13282 Kernel.PythonBisimulation <> python_morphism_repr def
+R13284:13285 Kernel.PythonBisimulation <> ms:108 var
+R13290:13291 Kernel.PythonBisimulation <> ms:108 var
+prf 13366:13388 <> python_modules_abs_repr
+binder 13401:13404 <> mods:109
+R13452:13454 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13407:13424 Kernel.PythonBisimulation <> python_modules_abs def
+R13427:13445 Kernel.PythonBisimulation <> python_modules_repr def
+R13447:13450 Kernel.PythonBisimulation <> mods:109 var
+R13455:13458 Kernel.PythonBisimulation <> mods:109 var
+R13545:13566 Kernel.PythonBisimulation <> python_module_abs_repr thm
+R13545:13566 Kernel.PythonBisimulation <> python_module_abs_repr thm
+R13545:13566 Kernel.PythonBisimulation <> python_module_abs_repr thm
+prf 13598:13622 <> python_morphisms_abs_repr
+binder 13635:13640 <> morphs:110
+R13694:13696 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13643:13662 Kernel.PythonBisimulation <> python_morphisms_abs def
+R13665:13685 Kernel.PythonBisimulation <> python_morphisms_repr def
+R13687:13692 Kernel.PythonBisimulation <> morphs:110 var
+R13697:13702 Kernel.PythonBisimulation <> morphs:110 var
+R13791:13814 Kernel.PythonBisimulation <> python_morphism_abs_repr thm
+R13791:13814 Kernel.PythonBisimulation <> python_morphism_abs_repr thm
+R13791:13814 Kernel.PythonBisimulation <> python_morphism_abs_repr thm
+prf 13846:13866 <> python_graph_abs_repr
+binder 13879:13879 <> g:111
+R13920:13922 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13882:13897 Kernel.PythonBisimulation <> python_graph_abs def
+R13900:13916 Kernel.PythonBisimulation <> python_graph_repr def
+R13918:13918 Kernel.PythonBisimulation <> g:111 var
+R13923:13923 Kernel.PythonBisimulation <> g:111 var
+R13988:14003 Kernel.PythonBisimulation <> python_graph_abs def
+R14006:14022 Kernel.PythonBisimulation <> python_graph_repr def
+R14042:14064 Kernel.PythonBisimulation <> python_modules_abs_repr thm
+R14067:14091 Kernel.PythonBisimulation <> python_morphisms_abs_repr thm
+R14042:14064 Kernel.PythonBisimulation <> python_modules_abs_repr thm
+R14042:14064 Kernel.PythonBisimulation <> python_modules_abs_repr thm
+R14067:14091 Kernel.PythonBisimulation <> python_morphisms_abs_repr thm
+R14067:14091 Kernel.PythonBisimulation <> python_morphisms_abs_repr thm
+prf 14119:14141 <> python_witness_abs_repr
+binder 14154:14154 <> w:112
+R14199:14201 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14157:14174 Kernel.PythonBisimulation <> python_witness_abs def
+R14177:14195 Kernel.PythonBisimulation <> python_witness_repr def
+R14197:14197 Kernel.PythonBisimulation <> w:112 var
+R14202:14202 Kernel.PythonBisimulation <> w:112 var
+prf 14250:14269 <> python_full_abs_repr
+binder 14282:14282 <> s:113
+R14321:14323 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14285:14299 Kernel.PythonBisimulation <> python_full_abs def
+R14302:14317 Kernel.PythonBisimulation <> python_full_repr def
+R14319:14319 Kernel.PythonBisimulation <> s:113 var
+R14324:14324 Kernel.PythonBisimulation <> s:113 var
+R14431:14445 Kernel.PythonBisimulation <> python_full_abs def
+R14448:14463 Kernel.PythonBisimulation <> python_full_repr def
+R14483:14503 Kernel.PythonBisimulation <> python_graph_abs_repr thm
+R14506:14524 Kernel.PythonBisimulation <> python_csr_abs_repr thm
+R14527:14549 Kernel.PythonBisimulation <> python_witness_abs_repr thm
+R14483:14503 Kernel.PythonBisimulation <> python_graph_abs_repr thm
+R14483:14503 Kernel.PythonBisimulation <> python_graph_abs_repr thm
+R14506:14524 Kernel.PythonBisimulation <> python_csr_abs_repr thm
+R14506:14524 Kernel.PythonBisimulation <> python_csr_abs_repr thm
+R14527:14549 Kernel.PythonBisimulation <> python_witness_abs_repr thm
+R14527:14549 Kernel.PythonBisimulation <> python_witness_abs_repr thm
+def 14584:14605 <> full_states_correspond
+R14616:14622 Kernel.VMState <> VMState rec
+binder 14608:14612 <> coq_s:114
+R14633:14647 Kernel.PythonBisimulation <> PythonStateFull rec
+binder 14626:14629 <> py_s:115
+R14682:14684 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14662:14676 Kernel.PythonBisimulation <> python_full_abs def
+R14678:14681 Kernel.PythonBisimulation <> py_s:115 var
+R14685:14689 Kernel.PythonBisimulation <> coq_s:114 var
+def 14704:14719 <> python_step_full
+R14731:14745 Kernel.PythonBisimulation <> PythonStateFull rec
+binder 14724:14727 <> py_s:116
+R14757:14770 Kernel.VMStep VMStep vm_instruction ind
+binder 14749:14753 <> instr:117
+R14775:14789 Kernel.PythonBisimulation <> PythonStateFull rec
+R14796:14811 Kernel.PythonBisimulation <> python_full_repr def
+R14814:14821 Kernel.SimulationProof <> vm_apply def
+R14824:14838 Kernel.PythonBisimulation <> python_full_abs def
+R14840:14843 Kernel.PythonBisimulation <> py_s:116 var
+R14846:14850 Kernel.PythonBisimulation <> instr:117 var
+prf 14863:14886 <> python_step_full_refines
+binder 14899:14902 <> py_s:118
+binder 14904:14908 <> instr:119
+R14960:14966 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14915:14929 Kernel.PythonBisimulation <> python_full_abs def
+R14932:14947 Kernel.PythonBisimulation <> python_step_full def
+R14949:14952 Kernel.PythonBisimulation <> py_s:118 var
+R14954:14958 Kernel.PythonBisimulation <> instr:119 var
+R14967:14974 Kernel.SimulationProof <> vm_apply def
+R14977:14991 Kernel.PythonBisimulation <> python_full_abs def
+R14993:14996 Kernel.PythonBisimulation <> py_s:118 var
+R14999:15003 Kernel.PythonBisimulation <> instr:119 var
+R15041:15056 Kernel.PythonBisimulation <> python_step_full def
+R15067:15086 Kernel.PythonBisimulation <> python_full_abs_repr thm
+R15067:15086 Kernel.PythonBisimulation <> python_full_abs_repr thm
+def 15104:15118 <> python_run_full
+R15130:15132 Coq.Init.Datatypes <> nat ind
+binder 15123:15126 <> fuel:120
+R15144:15147 Coq.Init.Datatypes <> list ind
+R15149:15162 Kernel.VMStep VMStep vm_instruction ind
+binder 15136:15140 <> trace:121
+R15173:15187 Kernel.PythonBisimulation <> PythonStateFull rec
+binder 15166:15169 <> py_s:122
+R15194:15208 Kernel.PythonBisimulation <> PythonStateFull rec
+R15221:15224 Kernel.PythonBisimulation <> fuel:120 var
+R15240:15243 Kernel.PythonBisimulation <> py_s:122 var
+R15249:15249 Coq.Init.Datatypes <> S constr
+R15272:15280 Coq.Lists.List <> nth_error def
+R15294:15299 Kernel.PythonBisimulation <> pyf_pc proj
+R15288:15291 Kernel.PythonBisimulation <> py_s:122 var
+R15282:15286 Kernel.PythonBisimulation <> trace:121 var
+R15315:15318 Coq.Init.Datatypes <> Some constr
+R15329:15343 Kernel.PythonBisimulation <> python_run_full:123 def
+R15358:15373 Kernel.PythonBisimulation <> python_step_full def
+R15375:15378 Kernel.PythonBisimulation <> py_s:122 var
+R15351:15355 Kernel.PythonBisimulation <> trace:121 var
+R15395:15398 Coq.Init.Datatypes <> None constr
+R15403:15406 Kernel.PythonBisimulation <> py_s:122 var
+prf 15434:15456 <> python_run_full_refines
+binder 15469:15472 <> fuel:125
+binder 15474:15478 <> trace:126
+binder 15480:15483 <> py_s:127
+R15539:15545 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15490:15504 Kernel.PythonBisimulation <> python_full_abs def
+R15507:15521 Kernel.PythonBisimulation <> python_run_full def
+R15523:15526 Kernel.PythonBisimulation <> fuel:125 var
+R15528:15532 Kernel.PythonBisimulation <> trace:126 var
+R15534:15537 Kernel.PythonBisimulation <> py_s:127 var
+R15546:15551 Kernel.SimulationProof <> run_vm def
+R15553:15556 Kernel.PythonBisimulation <> fuel:125 var
+R15558:15562 Kernel.PythonBisimulation <> trace:126 var
+R15565:15579 Kernel.PythonBisimulation <> python_full_abs def
+R15581:15584 Kernel.PythonBisimulation <> py_s:127 var
+R15684:15692 Coq.Lists.List <> nth_error def
+R15701:15706 Kernel.PythonBisimulation <> pyf_pc proj
+R15684:15692 Coq.Lists.List <> nth_error def
+R15701:15706 Kernel.PythonBisimulation <> pyf_pc proj
+R15770:15793 Kernel.PythonBisimulation <> python_step_full_refines thm
+R15770:15793 Kernel.PythonBisimulation <> python_step_full_refines thm
+R15770:15793 Kernel.PythonBisimulation <> python_step_full_refines thm

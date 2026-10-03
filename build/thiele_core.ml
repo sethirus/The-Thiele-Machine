@@ -999,7 +999,8 @@ let graph_compose_morphisms g m1 m2 =
     (match graph_lookup_morphism g m2 with
      | Some h ->
        if Nat.eqb f.morph_target h.morph_source
-       then let composed_pairs =
+       then let both_id = (&&) f.morph_is_identity h.morph_is_identity in
+            let composed_pairs =
               if f.morph_is_identity
               then h.morph_coupling.coupling_pairs
               else if h.morph_is_identity
@@ -1007,11 +1008,15 @@ let graph_compose_morphisms g m1 m2 =
                    else relational_compose f.morph_coupling.coupling_pairs
                           h.morph_coupling.coupling_pairs
             in
-            let c = { coupling_pairs = composed_pairs; coupling_label =
-              (append f.morph_coupling.coupling_label
-                (append (';'::[]) h.morph_coupling.coupling_label)) }
+            let c =
+              if both_id
+              then empty_coupling_data
+              else { coupling_pairs = composed_pairs; coupling_label =
+                     (append f.morph_coupling.coupling_label
+                       (append (';'::[]) h.morph_coupling.coupling_label)) }
             in
-            Some (graph_add_morphism g f.morph_source h.morph_target c false)
+            Some
+            (graph_add_morphism g f.morph_source h.morph_target c both_id)
        else None
      | None -> None)
   | None -> None
@@ -1116,6 +1121,27 @@ let mEM_SIZE =
     ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
     ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
     0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+(** val nUM_MODULES : int **)
+
+let nUM_MODULES =
+  (fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (** val graph_pnew : partitionGraph -> int list -> partitionGraph*moduleID **)
 
@@ -2756,6 +2782,22 @@ module VMStep =
       (&&) (negb (nat_list_eq (snd p).module_region r))
         (negb (nat_list_disjoint (snd p).module_region r))) g.pg_modules
 
+  (** val module_room : partitionGraph -> int -> bool **)
+
+  let module_room g k =
+    (<=) ((+) g.pg_next_id k) nUM_MODULES
+
+  (** val region_in_memory : int list -> bool **)
+
+  let region_in_memory r =
+    forallb (fun a -> Nat.ltb a mEM_SIZE) r
+
+  (** val pnew_ok : partitionGraph -> int list -> bool **)
+
+  let pnew_ok g r =
+    (&&) ((&&) (module_room g ((fun x -> x + 1) 0)) (region_in_memory r))
+      (negb (region_conflict g r))
+
   (** val region_contiguousb : int list -> bool **)
 
   let region_contiguousb r =
@@ -2767,6 +2809,11 @@ module VMStep =
     let r1 = graph_module_region g m1 in
     let r2 = graph_module_region g m2 in
     (||) (region_contiguousb (app r1 r2)) (region_contiguousb (app r2 r1))
+
+  (** val pmerge_ok : partitionGraph -> moduleID -> moduleID -> bool **)
+
+  let pmerge_ok g m1 m2 =
+    (&&) (module_room g ((fun x -> x + 1) 0)) (pmerge_adjacent g m1 m2)
 
   (** val pmerge_region : int list -> int list -> int list **)
 
@@ -5513,11 +5560,12 @@ let vm_apply s = function
 | VMStep.Coq_instr_pnew (region, cost) ->
   let r = VMStep.pnew_region region in
   VMStep.partition_step_state s (VMStep.Coq_instr_pnew (region, cost))
-    (negb (VMStep.region_conflict s.vm_graph r))
-    (fst (graph_pnew s.vm_graph r))
+    (VMStep.pnew_ok s.vm_graph r) (fst (graph_pnew s.vm_graph r))
 | VMStep.Coq_instr_psplit (module0, left_region, right_region, cost) ->
-  let graph' =
-    VMStep.graph_hw_psplit s.vm_graph
+  VMStep.partition_step_state s (VMStep.Coq_instr_psplit (module0,
+    left_region, right_region, cost))
+    (VMStep.module_room s.vm_graph ((fun x -> x + 1) ((fun x -> x + 1) 0)))
+    (VMStep.graph_hw_psplit s.vm_graph
       (Nat.modulo module0 ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
@@ -5540,13 +5588,10 @@ let vm_apply s = function
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1)
-        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-  in
-  VMStep.advance_state s (VMStep.Coq_instr_psplit (module0, left_region,
-    right_region, cost)) graph' s.vm_csrs s.vm_err
+        0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 | VMStep.Coq_instr_pmerge (m1, m2, cost) ->
   VMStep.partition_step_state s (VMStep.Coq_instr_pmerge (m1, m2, cost))
-    (VMStep.pmerge_adjacent s.vm_graph
+    (VMStep.pmerge_ok s.vm_graph
       (Nat.modulo m1 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)

@@ -1,648 +1,2778 @@
-DIGEST 2520084dd61b0f6ce9f1e4882b4aea5f
+DIGEST 94054330f27a4ca301473e19d400c8c0
 FKernel.CategoryBridge
-R1100:1103 Coq.Lists.List <> <> lib
-R1105:1108 Coq.Bool.Bool <> <> lib
-R1110:1123 Coq.Arith.PeanoNat <> <> lib
-R1125:1127 Coq.micromega.Lia <> <> lib
-R1129:1134 Coq.Strings.String <> <> lib
-R1144:1156 Coq.Lists.List ListNotations <> mod
-R1212:1223 Kernel.CategoryLaws <> <> lib
-R1253:1259 Kernel.VMState <> <> lib
-R1261:1266 Kernel.VMStep <> <> lib
-R1268:1278 Kernel.MuCostModel <> <> lib
-R1280:1292 Kernel.NoFreeInsight <> <> lib
-prf 1438:1469 <> graph_add_morphism_new_id_lookup
-binder 1482:1482 <> g:1
-binder 1484:1486 <> src:2
-binder 1488:1490 <> dst:3
-binder 1492:1492 <> c:4
-binder 1494:1498 <> is_id:5
-R1526:1543 Kernel.VMState <> graph_add_morphism def
-R1545:1545 Kernel.CategoryBridge <> g:1 var
-R1547:1549 Kernel.CategoryBridge <> src:2 var
-R1551:1553 Kernel.CategoryBridge <> dst:3 var
-R1555:1555 Kernel.CategoryBridge <> c:4 var
-R1557:1561 Kernel.CategoryBridge <> is_id:5 var
-R1510:1510 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1513:1514 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1521:1521 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1601:1607 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1570:1590 Kernel.VMState <> graph_lookup_morphism def
-R1608:1611 Coq.Init.Datatypes <> Some constr
-R1616:1627 Kernel.VMState <> morph_source proj
-R1616:1627 Kernel.VMState <> morph_source proj
-R1616:1627 Kernel.VMState <> morph_source proj
-R1649:1660 Kernel.VMState <> morph_target proj
-R1649:1660 Kernel.VMState <> morph_target proj
-R1682:1695 Kernel.VMState <> morph_coupling proj
-R1682:1695 Kernel.VMState <> morph_coupling proj
-R1734:1750 Kernel.VMState <> morph_is_identity proj
-R1734:1750 Kernel.VMState <> morph_is_identity proj
-R1777:1791 Kernel.VMState <> morph_cert_cost proj
-R1777:1791 Kernel.VMState <> morph_cert_cost proj
-R1632:1634 Kernel.CategoryBridge <> src:2 var
-R1665:1667 Kernel.CategoryBridge <> dst:3 var
-R1700:1717 Kernel.VMState <> normalize_coupling def
-R1719:1719 Kernel.CategoryBridge <> c:4 var
-R1755:1759 Kernel.CategoryBridge <> is_id:5 var
-R1846:1863 Kernel.VMState <> graph_add_morphism def
-R1882:1902 Kernel.VMState <> graph_lookup_morphism def
-R1922:1933 Coq.Arith.PeanoNat Nat eqb_refl thm
-R1922:1933 Coq.Arith.PeanoNat Nat eqb_refl thm
-R1922:1933 Coq.Arith.PeanoNat Nat eqb_refl thm
-prf 2102:2133 <> graph_add_morphism_old_id_lookup
-binder 2146:2146 <> g:6
-binder 2148:2150 <> src:7
-binder 2152:2154 <> dst:8
-binder 2156:2156 <> c:9
-binder 2158:2162 <> is_id:10
-binder 2164:2166 <> mid:11
-R2200:2207 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2176:2179 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R2173:2175 Kernel.CategoryBridge <> mid:11 var
-R2183:2198 Kernel.VMState <> pg_next_morph_id proj
-R2180:2180 Kernel.CategoryBridge <> g:6 var
-R2278:2284 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2208:2228 Kernel.VMState <> graph_lookup_morphism def
-R2231:2233 Coq.Init.Datatypes <> fst def
-R2236:2253 Kernel.VMState <> graph_add_morphism def
-R2255:2255 Kernel.CategoryBridge <> g:6 var
-R2257:2259 Kernel.CategoryBridge <> src:7 var
-R2261:2263 Kernel.CategoryBridge <> dst:8 var
-R2265:2265 Kernel.CategoryBridge <> c:9 var
-R2267:2271 Kernel.CategoryBridge <> is_id:10 var
-R2275:2277 Kernel.CategoryBridge <> mid:11 var
-R2285:2305 Kernel.VMState <> graph_lookup_morphism def
-R2307:2307 Kernel.CategoryBridge <> g:6 var
-R2309:2311 Kernel.CategoryBridge <> mid:11 var
-R2366:2383 Kernel.VMState <> graph_add_morphism def
-R2402:2422 Kernel.VMState <> graph_lookup_morphism def
-R2444:2450 Coq.Arith.PeanoNat Nat eqb def
-R2453:2468 Kernel.VMState <> pg_next_morph_id proj
-R2444:2450 Coq.Arith.PeanoNat Nat eqb def
-R2453:2468 Kernel.VMState <> pg_next_morph_id proj
-R2497:2506 Coq.Arith.PeanoNat Nat eqb_eq thm
-R2497:2506 Coq.Arith.PeanoNat Nat eqb_eq thm
-prf 3104:3135 <> graph_compose_morphisms_coupling
-binder 3148:3148 <> g:12
-binder 3150:3151 <> m1:13
-binder 3153:3154 <> m2:14
-binder 3156:3157 <> g':15
-binder 3159:3169 <> composed_id:16
-R3232:3239 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3207:3209 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3176:3198 Kernel.VMState <> graph_compose_morphisms def
-R3200:3200 Kernel.CategoryBridge <> g:12 var
-R3202:3203 Kernel.CategoryBridge <> m1:13 var
-R3205:3206 Kernel.CategoryBridge <> m2:14 var
-R3210:3213 Coq.Init.Datatypes <> Some constr
-R3215:3215 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3218:3219 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3231:3231 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3216:3217 Kernel.CategoryBridge <> g':15 var
-R3220:3230 Kernel.CategoryBridge <> composed_id:16 var
-R3240:3246 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3259:3266 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3247:3249 <> ms1:17
-binder 3251:3253 <> ms2:18
-binder 3255:3258 <> ms_c:19
-R3304:3313 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3293:3295 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3267:3287 Kernel.VMState <> graph_lookup_morphism def
-R3289:3289 Kernel.CategoryBridge <> g:12 var
-R3291:3292 Kernel.CategoryBridge <> m1:13 var
-R3296:3299 Coq.Init.Datatypes <> Some constr
-R3301:3303 Kernel.CategoryBridge <> ms1:17 var
-R3351:3360 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3340:3342 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3314:3334 Kernel.VMState <> graph_lookup_morphism def
-R3336:3336 Kernel.CategoryBridge <> g:12 var
-R3338:3339 Kernel.CategoryBridge <> m2:14 var
-R3343:3346 Coq.Init.Datatypes <> Some constr
-R3348:3350 Kernel.CategoryBridge <> ms2:18 var
-R3409:3418 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3397:3399 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3361:3381 Kernel.VMState <> graph_lookup_morphism def
-R3383:3384 Kernel.CategoryBridge <> g':15 var
-R3386:3396 Kernel.CategoryBridge <> composed_id:16 var
-R3400:3403 Coq.Init.Datatypes <> Some constr
-R3405:3408 Kernel.CategoryBridge <> ms_c:19 var
-R3457:3468 Kernel.CategoryLaws <> :::x_'≡'_x not
-R3789:3789 Kernel.CategoryLaws <> :::x_'≡'_x not
-R3442:3455 Kernel.VMState <> coupling_pairs proj
-R3425:3438 Kernel.VMState <> morph_coupling proj
-R3419:3422 Kernel.CategoryBridge <> ms_c:19 var
-R3477:3493 Kernel.VMState <> morph_is_identity proj
-R3472:3474 Kernel.CategoryBridge <> ms1:17 var
-R3566:3582 Kernel.VMState <> morph_is_identity proj
-R3561:3563 Kernel.CategoryBridge <> ms2:18 var
-R3657:3674 Kernel.VMState <> relational_compose def
-R3717:3730 Kernel.VMState <> coupling_pairs proj
-R3700:3713 Kernel.VMState <> morph_coupling proj
-R3695:3697 Kernel.CategoryBridge <> ms1:17 var
-R3774:3787 Kernel.VMState <> coupling_pairs proj
-R3757:3770 Kernel.VMState <> morph_coupling proj
-R3752:3754 Kernel.CategoryBridge <> ms2:18 var
-R3624:3637 Kernel.VMState <> coupling_pairs proj
-R3607:3620 Kernel.VMState <> morph_coupling proj
-R3602:3604 Kernel.CategoryBridge <> ms1:17 var
-R3530:3543 Kernel.VMState <> coupling_pairs proj
-R3513:3526 Kernel.VMState <> morph_coupling proj
-R3508:3510 Kernel.CategoryBridge <> ms2:18 var
-R3843:3865 Kernel.VMState <> graph_compose_morphisms def
-R3885:3905 Kernel.VMState <> graph_lookup_morphism def
-R3885:3905 Kernel.VMState <> graph_lookup_morphism def
-R3962:3982 Kernel.VMState <> graph_lookup_morphism def
-R3962:3982 Kernel.VMState <> graph_lookup_morphism def
-R4039:4045 Coq.Arith.PeanoNat Nat eqb def
-R4048:4059 Kernel.VMState <> morph_target proj
-R4067:4078 Kernel.VMState <> morph_source proj
-R4039:4045 Coq.Arith.PeanoNat Nat eqb def
-R4048:4059 Kernel.VMState <> morph_target proj
-R4067:4078 Kernel.VMState <> morph_source proj
-R4448:4468 Kernel.VMState <> graph_lookup_morphism def
-R4486:4497 Coq.Arith.PeanoNat Nat eqb_refl thm
-R4486:4497 Coq.Arith.PeanoNat Nat eqb_refl thm
-R4486:4497 Coq.Arith.PeanoNat Nat eqb_refl thm
-R4647:4654 Coq.Lists.List <> nodup_In thm
-R4647:4654 Coq.Lists.List <> nodup_In thm
-R4687:4694 Coq.Lists.List <> nodup_In thm
-R4687:4694 Coq.Lists.List <> nodup_In thm
-prf 4800:4838 <> graph_compose_preserves_morphism_lookup
-binder 4851:4851 <> g:20
-binder 4853:4854 <> m1:21
-binder 4856:4857 <> m2:22
-binder 4859:4860 <> g':23
-binder 4862:4867 <> new_id:24
-binder 4869:4871 <> mid:25
-R4929:4936 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4909:4911 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4878:4900 Kernel.VMState <> graph_compose_morphisms def
-R4902:4902 Kernel.CategoryBridge <> g:20 var
-R4904:4905 Kernel.CategoryBridge <> m1:21 var
-R4907:4908 Kernel.CategoryBridge <> m2:22 var
-R4912:4915 Coq.Init.Datatypes <> Some constr
-R4917:4917 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4920:4921 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4928:4928 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4918:4919 Kernel.CategoryBridge <> g':23 var
-R4922:4927 Kernel.CategoryBridge <> new_id:24 var
-R4950:4957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4940:4943 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4937:4939 Kernel.CategoryBridge <> mid:25 var
-R4944:4949 Kernel.CategoryBridge <> new_id:24 var
-R4986:4988 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4958:4978 Kernel.VMState <> graph_lookup_morphism def
-R4980:4981 Kernel.CategoryBridge <> g':23 var
-R4983:4985 Kernel.CategoryBridge <> mid:25 var
-R4989:5009 Kernel.VMState <> graph_lookup_morphism def
-R5011:5011 Kernel.CategoryBridge <> g:20 var
-R5013:5015 Kernel.CategoryBridge <> mid:25 var
-R5072:5094 Kernel.VMState <> graph_compose_morphisms def
-R5114:5134 Kernel.VMState <> graph_lookup_morphism def
-R5114:5134 Kernel.VMState <> graph_lookup_morphism def
-R5183:5203 Kernel.VMState <> graph_lookup_morphism def
-R5183:5203 Kernel.VMState <> graph_lookup_morphism def
-R5252:5258 Coq.Arith.PeanoNat Nat eqb def
-R5261:5272 Kernel.VMState <> morph_target proj
-R5280:5291 Kernel.VMState <> morph_source proj
-R5252:5258 Coq.Arith.PeanoNat Nat eqb def
-R5261:5272 Kernel.VMState <> morph_target proj
-R5280:5291 Kernel.VMState <> morph_source proj
-R5386:5417 Kernel.CategoryBridge <> graph_add_morphism_old_id_lookup thm
-R5386:5417 Kernel.CategoryBridge <> graph_add_morphism_old_id_lookup thm
-prf 5689:5716 <> morph_compose_assoc_coupling
-R5756:5759 Coq.Init.Datatypes <> list ind
-R5765:5767 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R5762:5764 Coq.Init.Datatypes <> nat ind
-R5768:5770 Coq.Init.Datatypes <> nat ind
-binder 5730:5736 <> pairs_f:26
-binder 5738:5744 <> pairs_g:27
-binder 5746:5752 <> pairs_k:28
-R5880:5892 Kernel.CategoryLaws <> :::x_'≡'_x not
-R5779:5809 Kernel.CategoryLaws <> relational_compose def
-R5818:5848 Kernel.CategoryLaws <> relational_compose def
-R5850:5856 Kernel.CategoryBridge <> pairs_f:26 var
-R5858:5864 Kernel.CategoryBridge <> pairs_g:27 var
-R5873:5879 Kernel.CategoryBridge <> pairs_k:28 var
-R5893:5923 Kernel.CategoryLaws <> relational_compose def
-R5931:5937 Kernel.CategoryBridge <> pairs_f:26 var
-R5946:5976 Kernel.CategoryLaws <> relational_compose def
-R5978:5984 Kernel.CategoryBridge <> pairs_g:27 var
-R5986:5992 Kernel.CategoryBridge <> pairs_k:28 var
-R6019:6055 Kernel.CategoryLaws <> relational_compose_assoc thm
-R6019:6055 Kernel.CategoryLaws <> relational_compose_assoc thm
-prf 6162:6186 <> morph_graph_compose_assoc
-binder 6199:6199 <> g:29
-binder 6201:6204 <> f_id:30
-binder 6206:6209 <> g_id:31
-binder 6211:6214 <> k_id:32
-binder 6216:6219 <> ms_f:33
-binder 6221:6224 <> ms_g:34
-binder 6226:6229 <> ms_k:35
-R6276:6283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6264:6266 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6236:6256 Kernel.VMState <> graph_lookup_morphism def
-R6258:6258 Kernel.CategoryBridge <> g:29 var
-R6260:6263 Kernel.CategoryBridge <> f_id:30 var
-R6267:6270 Coq.Init.Datatypes <> Some constr
-R6272:6275 Kernel.CategoryBridge <> ms_f:33 var
-R6324:6331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6312:6314 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6284:6304 Kernel.VMState <> graph_lookup_morphism def
-R6306:6306 Kernel.CategoryBridge <> g:29 var
-R6308:6311 Kernel.CategoryBridge <> g_id:31 var
-R6315:6318 Coq.Init.Datatypes <> Some constr
-R6320:6323 Kernel.CategoryBridge <> ms_g:34 var
-R6372:6379 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6360:6362 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6332:6352 Kernel.VMState <> graph_lookup_morphism def
-R6354:6354 Kernel.CategoryBridge <> g:29 var
-R6356:6359 Kernel.CategoryBridge <> k_id:32 var
-R6363:6366 Coq.Init.Datatypes <> Some constr
-R6368:6371 Kernel.CategoryBridge <> ms_k:35 var
-R6434:6441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6427:6429 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6380:6386 Coq.Arith.PeanoNat Nat eqb def
-R6394:6405 Kernel.VMState <> morph_target proj
-R6388:6391 Kernel.CategoryBridge <> ms_f:33 var
-R6414:6425 Kernel.VMState <> morph_source proj
-R6408:6411 Kernel.CategoryBridge <> ms_g:34 var
-R6430:6433 Coq.Init.Datatypes <> true constr
-R6496:6533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6489:6491 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6442:6448 Coq.Arith.PeanoNat Nat eqb def
-R6456:6467 Kernel.VMState <> morph_target proj
-R6450:6453 Kernel.CategoryBridge <> ms_g:34 var
-R6476:6487 Kernel.VMState <> morph_source proj
-R6470:6473 Kernel.CategoryBridge <> ms_k:35 var
-R6492:6495 Coq.Init.Datatypes <> true constr
-R6746:6789 Kernel.CategoryLaws <> :::x_'≡'_x not
-R6534:6564 Kernel.CategoryLaws <> relational_compose def
-R6573:6603 Kernel.CategoryLaws <> relational_compose def
-R6637:6650 Kernel.VMState <> coupling_pairs proj
-R6620:6633 Kernel.VMState <> morph_coupling proj
-R6614:6617 Kernel.CategoryBridge <> ms_f:33 var
-R6685:6698 Kernel.VMState <> coupling_pairs proj
-R6668:6681 Kernel.VMState <> morph_coupling proj
-R6662:6665 Kernel.CategoryBridge <> ms_g:34 var
-R6731:6744 Kernel.VMState <> coupling_pairs proj
-R6714:6727 Kernel.VMState <> morph_coupling proj
-R6708:6711 Kernel.CategoryBridge <> ms_k:35 var
-R6790:6820 Kernel.CategoryLaws <> relational_compose def
-R6851:6864 Kernel.VMState <> coupling_pairs proj
-R6834:6847 Kernel.VMState <> morph_coupling proj
-R6828:6831 Kernel.CategoryBridge <> ms_f:33 var
-R6874:6904 Kernel.CategoryLaws <> relational_compose def
-R6938:6951 Kernel.VMState <> coupling_pairs proj
-R6921:6934 Kernel.VMState <> morph_coupling proj
-R6915:6918 Kernel.CategoryBridge <> ms_g:34 var
-R6986:6999 Kernel.VMState <> coupling_pairs proj
-R6969:6982 Kernel.VMState <> morph_coupling proj
-R6963:6966 Kernel.CategoryBridge <> ms_k:35 var
-R7027:7063 Kernel.CategoryLaws <> relational_compose_assoc thm
-R7027:7063 Kernel.CategoryLaws <> relational_compose_assoc thm
-prf 7175:7201 <> graph_add_identity_coupling
-binder 7214:7214 <> g:36
-binder 7216:7218 <> mid:37
-binder 7220:7221 <> g':38
-binder 7223:7230 <> morph_id:39
-binder 7232:7237 <> ms_mod:40
-R7276:7283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7262:7264 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7244:7255 Kernel.VMState <> graph_lookup def
-R7257:7257 Kernel.CategoryBridge <> g:36 var
-R7259:7261 Kernel.CategoryBridge <> mid:37 var
-R7265:7268 Coq.Init.Datatypes <> Some constr
-R7270:7275 Kernel.CategoryBridge <> ms_mod:40 var
-R7330:7337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7308:7310 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7284:7301 Kernel.VMState <> graph_add_identity def
-R7303:7303 Kernel.CategoryBridge <> g:36 var
-R7305:7307 Kernel.CategoryBridge <> mid:37 var
-R7311:7314 Coq.Init.Datatypes <> Some constr
-R7316:7316 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7319:7320 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7329:7329 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7317:7318 Kernel.CategoryBridge <> g':38 var
-R7321:7328 Kernel.CategoryBridge <> morph_id:39 var
-R7338:7344 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7350:7357 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 7345:7349 <> ms_id:41
-R7404:7413 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7391:7393 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7358:7378 Kernel.VMState <> graph_lookup_morphism def
-R7380:7381 Kernel.CategoryBridge <> g':38 var
-R7383:7390 Kernel.CategoryBridge <> morph_id:39 var
-R7394:7397 Coq.Init.Datatypes <> Some constr
-R7399:7403 Kernel.CategoryBridge <> ms_id:41 var
-R7439:7441 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7421:7437 Kernel.VMState <> morph_is_identity proj
-R7414:7418 Kernel.CategoryBridge <> ms_id:41 var
-R7442:7445 Coq.Init.Datatypes <> true constr
-R7508:7525 Kernel.VMState <> graph_add_identity def
-R7567:7584 Kernel.VMState <> graph_add_morphism def
-R7687:7707 Kernel.VMState <> graph_lookup_morphism def
-R7725:7736 Coq.Arith.PeanoNat Nat eqb_refl thm
-R7725:7736 Coq.Arith.PeanoNat Nat eqb_refl thm
-R7725:7736 Coq.Arith.PeanoNat Nat eqb_refl thm
-prf 7921:7942 <> morph_id_left_coupling
-R7965:7968 Coq.Init.Datatypes <> list ind
-R7970:7972 Coq.Init.Datatypes <> nat ind
-binder 7956:7961 <> region:42
-R7986:7989 Coq.Init.Datatypes <> list ind
-R7995:7997 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7992:7994 Coq.Init.Datatypes <> nat ind
-R7998:8000 Coq.Init.Datatypes <> nat ind
-binder 7976:7982 <> pairs_f:43
-R8009:8009 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8054:8062 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 8017:8017 <> a:44
-binder 8019:8019 <> b:45
-R8039:8042 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8022:8023 Coq.Lists.List <> In def
-R8032:8038 Kernel.CategoryBridge <> pairs_f:43 var
-R8025:8025 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8027:8028 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8030:8030 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8026:8026 Kernel.CategoryBridge <> a:44 var
-R8029:8029 Kernel.CategoryBridge <> b:45 var
-R8043:8044 Coq.Lists.List <> In def
-R8048:8053 Kernel.CategoryBridge <> region:42 var
-R8046:8046 Kernel.CategoryBridge <> a:44 var
-R8133:8137 Kernel.CategoryLaws <> :::x_'≡'_x not
-R8063:8093 Kernel.CategoryLaws <> relational_compose def
-R8096:8098 Coq.Lists.List <> map def
-R8118:8123 Kernel.CategoryBridge <> region:42 var
-binder 8105:8105 <> x:46
-R8110:8110 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8112:8113 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8115:8115 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8111:8111 Kernel.CategoryBridge <> x:46 var
-R8114:8114 Kernel.CategoryBridge <> x:46 var
-R8126:8132 Kernel.CategoryBridge <> pairs_f:43 var
-R8138:8144 Kernel.CategoryBridge <> pairs_f:43 var
-R8192:8236 Kernel.CategoryLaws <> relational_compose_diagonal_left thm
-R8192:8236 Kernel.CategoryLaws <> relational_compose_diagonal_left thm
-prf 8401:8423 <> morph_id_right_coupling
-R8446:8449 Coq.Init.Datatypes <> list ind
-R8451:8453 Coq.Init.Datatypes <> nat ind
-binder 8437:8442 <> region:47
-R8467:8470 Coq.Init.Datatypes <> list ind
-R8476:8478 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R8473:8475 Coq.Init.Datatypes <> nat ind
-R8479:8481 Coq.Init.Datatypes <> nat ind
-binder 8457:8463 <> pairs_f:48
-R8490:8490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8535:8543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 8498:8498 <> a:49
-binder 8500:8500 <> b:50
-R8520:8523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8503:8504 Coq.Lists.List <> In def
-R8513:8519 Kernel.CategoryBridge <> pairs_f:48 var
-R8506:8506 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8508:8509 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8511:8511 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8507:8507 Kernel.CategoryBridge <> a:49 var
-R8510:8510 Kernel.CategoryBridge <> b:50 var
-R8524:8525 Coq.Lists.List <> In def
-R8529:8534 Kernel.CategoryBridge <> region:47 var
-R8527:8527 Kernel.CategoryBridge <> b:50 var
-R8614:8618 Kernel.CategoryLaws <> :::x_'≡'_x not
-R8544:8574 Kernel.CategoryLaws <> relational_compose def
-R8576:8582 Kernel.CategoryBridge <> pairs_f:48 var
-R8585:8587 Coq.Lists.List <> map def
-R8607:8612 Kernel.CategoryBridge <> region:47 var
-binder 8594:8594 <> x:51
-R8599:8599 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8601:8602 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8604:8604 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8600:8600 Kernel.CategoryBridge <> x:51 var
-R8603:8603 Kernel.CategoryBridge <> x:51 var
-R8619:8625 Kernel.CategoryBridge <> pairs_f:48 var
-R8673:8718 Kernel.CategoryLaws <> relational_compose_diagonal_right thm
-R8673:8718 Kernel.CategoryLaws <> relational_compose_diagonal_right thm
-prf 9148:9174 <> morph_assert_is_cert_setter
-binder 9187:9194 <> morph_id:52
-binder 9196:9199 <> prop:53
-binder 9201:9204 <> cert:54
-binder 9206:9209 <> cost:55
-R9276:9278 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9216:9230 Kernel.VMStep VMStep is_cert_setterb def
-R9233:9250 Kernel.VMStep VMStep instr_morph_assert constr
-R9252:9259 Kernel.CategoryBridge <> morph_id:52 var
-R9261:9264 Kernel.CategoryBridge <> prop:53 var
-R9266:9269 Kernel.CategoryBridge <> cert:54 var
-R9271:9274 Kernel.CategoryBridge <> cost:55 var
-R9279:9282 Coq.Init.Datatypes <> true constr
-prf 9325:9351 <> instr_morph_not_cert_setter
-binder 9364:9366 <> dst:56
-binder 9368:9370 <> src:57
-binder 9372:9378 <> dst_mod:58
-binder 9380:9391 <> coupling_idx:59
-binder 9393:9396 <> cost:60
-R9466:9468 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9403:9417 Kernel.VMStep VMStep is_cert_setterb def
-R9420:9430 Kernel.VMStep VMStep instr_morph constr
-R9432:9434 Kernel.CategoryBridge <> dst:56 var
-R9436:9438 Kernel.CategoryBridge <> src:57 var
-R9440:9446 Kernel.CategoryBridge <> dst_mod:58 var
-R9448:9459 Kernel.CategoryBridge <> coupling_idx:59 var
-R9461:9464 Kernel.CategoryBridge <> cost:60 var
-R9469:9473 Coq.Init.Datatypes <> false constr
-prf 9516:9544 <> instr_compose_not_cert_setter
-binder 9557:9559 <> dst:61
-binder 9561:9562 <> m1:62
-binder 9564:9565 <> m2:63
-binder 9567:9570 <> cost:64
-R9623:9625 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9577:9591 Kernel.VMStep VMStep is_cert_setterb def
-R9594:9606 Kernel.VMStep VMStep instr_compose constr
-R9608:9610 Kernel.CategoryBridge <> dst:61 var
-R9612:9613 Kernel.CategoryBridge <> m1:62 var
-R9615:9616 Kernel.CategoryBridge <> m2:63 var
-R9618:9621 Kernel.CategoryBridge <> cost:64 var
-R9626:9630 Coq.Init.Datatypes <> false constr
-prf 9673:9702 <> instr_morph_id_not_cert_setter
-binder 9715:9717 <> dst:65
-binder 9719:9721 <> mid:66
-binder 9723:9726 <> cost:67
-R9778:9780 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9733:9747 Kernel.VMStep VMStep is_cert_setterb def
-R9750:9763 Kernel.VMStep VMStep instr_morph_id constr
-R9765:9767 Kernel.CategoryBridge <> dst:65 var
-R9769:9771 Kernel.CategoryBridge <> mid:66 var
-R9773:9776 Kernel.CategoryBridge <> cost:67 var
-R9781:9785 Coq.Init.Datatypes <> false constr
-prf 9828:9861 <> instr_morph_delete_not_cert_setter
-binder 9874:9881 <> morph_id:68
-binder 9883:9886 <> cost:69
-R9943:9945 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9893:9907 Kernel.VMStep VMStep is_cert_setterb def
-R9910:9927 Kernel.VMStep VMStep instr_morph_delete constr
-R9929:9936 Kernel.CategoryBridge <> morph_id:68 var
-R9938:9941 Kernel.CategoryBridge <> cost:69 var
-R9946:9950 Coq.Init.Datatypes <> false constr
-prf 9993:10026 <> instr_morph_tensor_not_cert_setter
-binder 10039:10041 <> dst:70
-binder 10043:10043 <> f:71
-binder 10045:10045 <> g:72
-binder 10047:10050 <> cost:73
-R10106:10108 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10057:10071 Kernel.VMStep VMStep is_cert_setterb def
-R10074:10091 Kernel.VMStep VMStep instr_morph_tensor constr
-R10093:10095 Kernel.CategoryBridge <> dst:70 var
-R10097:10097 Kernel.CategoryBridge <> f:71 var
-R10099:10099 Kernel.CategoryBridge <> g:72 var
-R10101:10104 Kernel.CategoryBridge <> cost:73 var
-R10109:10113 Coq.Init.Datatypes <> false constr
-prf 10156:10186 <> instr_morph_get_not_cert_setter
-binder 10199:10201 <> dst:74
-binder 10203:10210 <> morph_id:75
-binder 10212:10219 <> selector:76
-binder 10221:10224 <> cost:77
-R10291:10293 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10231:10245 Kernel.VMStep VMStep is_cert_setterb def
-R10248:10262 Kernel.VMStep VMStep instr_morph_get constr
-R10264:10266 Kernel.CategoryBridge <> dst:74 var
-R10268:10275 Kernel.CategoryBridge <> morph_id:75 var
-R10277:10284 Kernel.CategoryBridge <> selector:76 var
-R10286:10289 Kernel.CategoryBridge <> cost:77 var
-R10294:10298 Coq.Init.Datatypes <> false constr
-prf 10395:10410 <> morph_cost_morph
-binder 10421:10423 <> dst:78
-binder 10425:10427 <> src:79
-binder 10429:10435 <> dst_mod:80
-binder 10437:10440 <> cidx:81
-binder 10442:10445 <> cost:82
-R10506:10508 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10450:10465 Kernel.VMStep VMStep instruction_cost def
-R10468:10478 Kernel.VMStep VMStep instr_morph constr
-R10480:10482 Kernel.CategoryBridge <> dst:78 var
-R10484:10486 Kernel.CategoryBridge <> src:79 var
-R10488:10494 Kernel.CategoryBridge <> dst_mod:80 var
-R10496:10499 Kernel.CategoryBridge <> cidx:81 var
-R10501:10504 Kernel.CategoryBridge <> cost:82 var
-R10509:10512 Kernel.CategoryBridge <> cost:82 var
-prf 10555:10572 <> morph_cost_compose
-binder 10583:10585 <> dst:83
-binder 10587:10588 <> m1:84
-binder 10590:10591 <> m2:85
-binder 10593:10596 <> cost:86
-R10648:10650 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10601:10616 Kernel.VMStep VMStep instruction_cost def
-R10619:10631 Kernel.VMStep VMStep instr_compose constr
-R10633:10635 Kernel.CategoryBridge <> dst:83 var
-R10637:10638 Kernel.CategoryBridge <> m1:84 var
-R10640:10641 Kernel.CategoryBridge <> m2:85 var
-R10643:10646 Kernel.CategoryBridge <> cost:86 var
-R10651:10654 Kernel.CategoryBridge <> cost:86 var
-prf 10697:10715 <> morph_cost_morph_id
-binder 10726:10728 <> dst:87
-binder 10730:10732 <> mid:88
-binder 10734:10737 <> cost:89
-R10788:10790 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10742:10757 Kernel.VMStep VMStep instruction_cost def
-R10760:10773 Kernel.VMStep VMStep instr_morph_id constr
-R10775:10777 Kernel.CategoryBridge <> dst:87 var
-R10779:10781 Kernel.CategoryBridge <> mid:88 var
-R10783:10786 Kernel.CategoryBridge <> cost:89 var
-R10791:10794 Kernel.CategoryBridge <> cost:89 var
-prf 10837:10859 <> morph_cost_morph_delete
-binder 10870:10877 <> morph_id:90
-binder 10879:10882 <> cost:91
-R10938:10940 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10887:10902 Kernel.VMStep VMStep instruction_cost def
-R10905:10922 Kernel.VMStep VMStep instr_morph_delete constr
-R10924:10931 Kernel.CategoryBridge <> morph_id:90 var
-R10933:10936 Kernel.CategoryBridge <> cost:91 var
-R10941:10944 Kernel.CategoryBridge <> cost:91 var
-prf 10987:11009 <> morph_cost_morph_assert
-binder 11020:11027 <> morph_id:92
-binder 11029:11032 <> prop:93
-binder 11034:11037 <> cert:94
-binder 11039:11042 <> cost:95
-R11108:11110 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11047:11062 Kernel.VMStep VMStep instruction_cost def
-R11065:11082 Kernel.VMStep VMStep instr_morph_assert constr
-R11084:11091 Kernel.CategoryBridge <> morph_id:92 var
-R11093:11096 Kernel.CategoryBridge <> prop:93 var
-R11098:11101 Kernel.CategoryBridge <> cert:94 var
-R11103:11106 Kernel.CategoryBridge <> cost:95 var
-R11111:11111 Coq.Init.Datatypes <> S constr
-R11113:11116 Kernel.CategoryBridge <> cost:95 var
-prf 11159:11181 <> morph_cost_morph_tensor
-binder 11192:11194 <> dst:96
-binder 11196:11196 <> f:97
-binder 11198:11198 <> g:98
-binder 11200:11203 <> cost:99
-R11258:11260 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11208:11223 Kernel.VMStep VMStep instruction_cost def
-R11226:11243 Kernel.VMStep VMStep instr_morph_tensor constr
-R11245:11247 Kernel.CategoryBridge <> dst:96 var
-R11249:11249 Kernel.CategoryBridge <> f:97 var
-R11251:11251 Kernel.CategoryBridge <> g:98 var
-R11253:11256 Kernel.CategoryBridge <> cost:99 var
-R11261:11264 Kernel.CategoryBridge <> cost:99 var
-prf 11307:11326 <> morph_cost_morph_get
-binder 11337:11339 <> dst:100
-binder 11341:11348 <> morph_id:101
-binder 11350:11352 <> sel:102
-binder 11354:11357 <> cost:103
-R11418:11420 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11362:11377 Kernel.VMStep VMStep instruction_cost def
-R11380:11394 Kernel.VMStep VMStep instr_morph_get constr
-R11396:11398 Kernel.CategoryBridge <> dst:100 var
-R11400:11407 Kernel.CategoryBridge <> morph_id:101 var
-R11409:11411 Kernel.CategoryBridge <> sel:102 var
-R11413:11416 Kernel.CategoryBridge <> cost:103 var
-R11421:11424 Kernel.CategoryBridge <> cost:103 var
-prf 11739:11764 <> morph_assert_cost_positive
-binder 11775:11782 <> morph_id:104
-binder 11784:11787 <> prop:105
-binder 11789:11792 <> cert:106
-binder 11794:11797 <> cost:107
-R11803:11805 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R11806:11821 Kernel.VMStep VMStep instruction_cost def
-R11824:11841 Kernel.VMStep VMStep instr_morph_assert constr
-R11843:11850 Kernel.CategoryBridge <> morph_id:104 var
-R11852:11855 Kernel.CategoryBridge <> prop:105 var
-R11857:11860 Kernel.CategoryBridge <> cert:106 var
-R11862:11865 Kernel.CategoryBridge <> cost:107 var
-prf 11999:12021 <> morph_compose_cost_zero
-binder 12032:12034 <> dst:108
-binder 12036:12037 <> m1:109
-binder 12039:12040 <> m2:110
-R12089:12091 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12045:12060 Kernel.VMStep VMStep instruction_cost def
-R12063:12075 Kernel.VMStep VMStep instr_compose constr
-R12077:12079 Kernel.CategoryBridge <> dst:108 var
-R12081:12082 Kernel.CategoryBridge <> m1:109 var
-R12084:12085 Kernel.CategoryBridge <> m2:110 var
-prf 12608:12644 <> categorical_extension_nofi_consistent
-R12674:12676 Coq.Init.Datatypes <> nat ind
-binder 12658:12665 <> morph_id:111
-binder 12667:12670 <> cost:112
-R12692:12697 Coq.Strings.String <> string ind
-binder 12680:12683 <> prop:113
-binder 12685:12688 <> cert:114
-R12772:12779 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12765:12767 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12705:12719 Kernel.VMStep VMStep is_cert_setterb def
-R12722:12739 Kernel.VMStep VMStep instr_morph_assert constr
-R12741:12748 Kernel.CategoryBridge <> morph_id:111 var
-R12750:12753 Kernel.CategoryBridge <> prop:113 var
-R12755:12758 Kernel.CategoryBridge <> cert:114 var
-R12760:12763 Kernel.CategoryBridge <> cost:112 var
-R12768:12771 Coq.Init.Datatypes <> true constr
-R12781:12783 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R12784:12799 Kernel.VMStep VMStep instruction_cost def
-R12802:12819 Kernel.VMStep VMStep instr_morph_assert constr
-R12821:12828 Kernel.CategoryBridge <> morph_id:111 var
-R12830:12833 Kernel.CategoryBridge <> prop:113 var
-R12835:12838 Kernel.CategoryBridge <> cert:114 var
-R12840:12843 Kernel.CategoryBridge <> cost:112 var
-R12881:12907 Kernel.CategoryBridge <> morph_assert_is_cert_setter thm
-R12881:12907 Kernel.CategoryBridge <> morph_assert_is_cert_setter thm
-R12920:12945 Kernel.CategoryBridge <> morph_assert_cost_positive thm
-R12920:12945 Kernel.CategoryBridge <> morph_assert_cost_positive thm
+R1292:1295 Coq.Lists.List <> <> lib
+R1297:1300 Coq.Bool.Bool <> <> lib
+R1302:1315 Coq.Arith.PeanoNat <> <> lib
+R1317:1319 Coq.micromega.Lia <> <> lib
+R1321:1326 Coq.Strings.String <> <> lib
+R1336:1348 Coq.Lists.List ListNotations <> mod
+R1404:1415 Kernel.CategoryLaws <> <> lib
+R1445:1451 Kernel.VMState <> <> lib
+R1453:1458 Kernel.VMStep <> <> lib
+R1460:1470 Kernel.MuCostModel <> <> lib
+R1472:1484 Kernel.NoFreeInsight <> <> lib
+prf 1630:1661 <> graph_add_morphism_new_id_lookup
+binder 1674:1674 <> g:1
+binder 1676:1678 <> src:2
+binder 1680:1682 <> dst:3
+binder 1684:1684 <> c:4
+binder 1686:1690 <> is_id:5
+R1718:1735 Kernel.VMState <> graph_add_morphism def
+R1737:1737 Kernel.CategoryBridge <> g:1 var
+R1739:1741 Kernel.CategoryBridge <> src:2 var
+R1743:1745 Kernel.CategoryBridge <> dst:3 var
+R1747:1747 Kernel.CategoryBridge <> c:4 var
+R1749:1753 Kernel.CategoryBridge <> is_id:5 var
+R1702:1702 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1705:1706 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1713:1713 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1793:1799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1762:1782 Kernel.VMState <> graph_lookup_morphism def
+R1800:1803 Coq.Init.Datatypes <> Some constr
+R1808:1819 Kernel.VMState <> morph_source proj
+R1808:1819 Kernel.VMState <> morph_source proj
+R1808:1819 Kernel.VMState <> morph_source proj
+R1841:1852 Kernel.VMState <> morph_target proj
+R1841:1852 Kernel.VMState <> morph_target proj
+R1874:1887 Kernel.VMState <> morph_coupling proj
+R1874:1887 Kernel.VMState <> morph_coupling proj
+R1926:1942 Kernel.VMState <> morph_is_identity proj
+R1926:1942 Kernel.VMState <> morph_is_identity proj
+R1969:1983 Kernel.VMState <> morph_cert_cost proj
+R1969:1983 Kernel.VMState <> morph_cert_cost proj
+R1824:1826 Kernel.CategoryBridge <> src:2 var
+R1857:1859 Kernel.CategoryBridge <> dst:3 var
+R1892:1909 Kernel.VMState <> normalize_coupling def
+R1911:1911 Kernel.CategoryBridge <> c:4 var
+R1947:1951 Kernel.CategoryBridge <> is_id:5 var
+R2038:2055 Kernel.VMState <> graph_add_morphism def
+R2074:2094 Kernel.VMState <> graph_lookup_morphism def
+R2114:2125 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2114:2125 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2114:2125 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 2294:2325 <> graph_add_morphism_old_id_lookup
+binder 2338:2338 <> g:6
+binder 2340:2342 <> src:7
+binder 2344:2346 <> dst:8
+binder 2348:2348 <> c:9
+binder 2350:2354 <> is_id:10
+binder 2356:2358 <> mid:11
+R2392:2399 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2368:2371 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2365:2367 Kernel.CategoryBridge <> mid:11 var
+R2375:2390 Kernel.VMState <> pg_next_morph_id proj
+R2372:2372 Kernel.CategoryBridge <> g:6 var
+R2470:2476 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2400:2420 Kernel.VMState <> graph_lookup_morphism def
+R2423:2425 Coq.Init.Datatypes <> fst def
+R2428:2445 Kernel.VMState <> graph_add_morphism def
+R2447:2447 Kernel.CategoryBridge <> g:6 var
+R2449:2451 Kernel.CategoryBridge <> src:7 var
+R2453:2455 Kernel.CategoryBridge <> dst:8 var
+R2457:2457 Kernel.CategoryBridge <> c:9 var
+R2459:2463 Kernel.CategoryBridge <> is_id:10 var
+R2467:2469 Kernel.CategoryBridge <> mid:11 var
+R2477:2497 Kernel.VMState <> graph_lookup_morphism def
+R2499:2499 Kernel.CategoryBridge <> g:6 var
+R2501:2503 Kernel.CategoryBridge <> mid:11 var
+R2558:2575 Kernel.VMState <> graph_add_morphism def
+R2594:2614 Kernel.VMState <> graph_lookup_morphism def
+R2636:2642 Coq.Arith.PeanoNat Nat eqb def
+R2645:2660 Kernel.VMState <> pg_next_morph_id proj
+R2636:2642 Coq.Arith.PeanoNat Nat eqb def
+R2645:2660 Kernel.VMState <> pg_next_morph_id proj
+R2689:2698 Coq.Arith.PeanoNat Nat eqb_eq thm
+R2689:2698 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 3420:3451 <> graph_compose_morphisms_coupling
+binder 3464:3464 <> g:12
+binder 3466:3467 <> m1:13
+binder 3469:3470 <> m2:14
+binder 3472:3473 <> g':15
+binder 3475:3485 <> composed_id:16
+R3548:3555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3523:3525 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3492:3514 Kernel.VMState <> graph_compose_morphisms def
+R3516:3516 Kernel.CategoryBridge <> g:12 var
+R3518:3519 Kernel.CategoryBridge <> m1:13 var
+R3521:3522 Kernel.CategoryBridge <> m2:14 var
+R3526:3529 Coq.Init.Datatypes <> Some constr
+R3531:3531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3534:3535 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3547:3547 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3532:3533 Kernel.CategoryBridge <> g':15 var
+R3536:3546 Kernel.CategoryBridge <> composed_id:16 var
+R3556:3562 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3575:3582 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3563:3565 <> ms1:17
+binder 3567:3569 <> ms2:18
+binder 3571:3574 <> ms_c:19
+R3620:3629 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3609:3611 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3583:3603 Kernel.VMState <> graph_lookup_morphism def
+R3605:3605 Kernel.CategoryBridge <> g:12 var
+R3607:3608 Kernel.CategoryBridge <> m1:13 var
+R3612:3615 Coq.Init.Datatypes <> Some constr
+R3617:3619 Kernel.CategoryBridge <> ms1:17 var
+R3667:3676 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3656:3658 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3630:3650 Kernel.VMState <> graph_lookup_morphism def
+R3652:3652 Kernel.CategoryBridge <> g:12 var
+R3654:3655 Kernel.CategoryBridge <> m2:14 var
+R3659:3662 Coq.Init.Datatypes <> Some constr
+R3664:3666 Kernel.CategoryBridge <> ms2:18 var
+R3725:3734 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3713:3715 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3677:3697 Kernel.VMState <> graph_lookup_morphism def
+R3699:3700 Kernel.CategoryBridge <> g':15 var
+R3702:3712 Kernel.CategoryBridge <> composed_id:16 var
+R3716:3719 Coq.Init.Datatypes <> Some constr
+R3721:3724 Kernel.CategoryBridge <> ms_c:19 var
+R3812:3821 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3759:3761 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3741:3757 Kernel.VMState <> morph_is_identity proj
+R3735:3738 Kernel.CategoryBridge <> ms_c:19 var
+R3785:3788 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3767:3783 Kernel.VMState <> morph_is_identity proj
+R3762:3764 Kernel.CategoryBridge <> ms1:17 var
+R3794:3810 Kernel.VMState <> morph_is_identity proj
+R3789:3791 Kernel.CategoryBridge <> ms2:18 var
+R3860:3871 Kernel.CategoryLaws <> :::x_'≡'_x not
+R4273:4273 Kernel.CategoryLaws <> :::x_'≡'_x not
+R3845:3858 Kernel.VMState <> coupling_pairs proj
+R3828:3841 Kernel.VMState <> morph_coupling proj
+R3822:3825 Kernel.CategoryBridge <> ms_c:19 var
+R3898:3901 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3880:3896 Kernel.VMState <> morph_is_identity proj
+R3875:3877 Kernel.CategoryBridge <> ms1:17 var
+R3907:3923 Kernel.VMState <> morph_is_identity proj
+R3902:3904 Kernel.CategoryBridge <> ms2:18 var
+R3961:3977 Kernel.VMState <> morph_is_identity proj
+R3956:3958 Kernel.CategoryBridge <> ms1:17 var
+R4050:4066 Kernel.VMState <> morph_is_identity proj
+R4045:4047 Kernel.CategoryBridge <> ms2:18 var
+R4141:4158 Kernel.VMState <> relational_compose def
+R4201:4214 Kernel.VMState <> coupling_pairs proj
+R4184:4197 Kernel.VMState <> morph_coupling proj
+R4179:4181 Kernel.CategoryBridge <> ms1:17 var
+R4258:4271 Kernel.VMState <> coupling_pairs proj
+R4241:4254 Kernel.VMState <> morph_coupling proj
+R4236:4238 Kernel.CategoryBridge <> ms2:18 var
+R4108:4121 Kernel.VMState <> coupling_pairs proj
+R4091:4104 Kernel.VMState <> morph_coupling proj
+R4086:4088 Kernel.CategoryBridge <> ms1:17 var
+R4014:4027 Kernel.VMState <> coupling_pairs proj
+R3997:4010 Kernel.VMState <> morph_coupling proj
+R3992:3994 Kernel.CategoryBridge <> ms2:18 var
+R3938:3939 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4327:4349 Kernel.VMState <> graph_compose_morphisms def
+R4369:4389 Kernel.VMState <> graph_lookup_morphism def
+R4369:4389 Kernel.VMState <> graph_lookup_morphism def
+R4446:4466 Kernel.VMState <> graph_lookup_morphism def
+R4446:4466 Kernel.VMState <> graph_lookup_morphism def
+R4523:4529 Coq.Arith.PeanoNat Nat eqb def
+R4532:4543 Kernel.VMState <> morph_target proj
+R4551:4562 Kernel.VMState <> morph_source proj
+R4523:4529 Coq.Arith.PeanoNat Nat eqb def
+R4532:4543 Kernel.VMState <> morph_target proj
+R4551:4562 Kernel.VMState <> morph_source proj
+R4747:4767 Kernel.VMState <> graph_lookup_morphism def
+R4785:4796 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4785:4796 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4785:4796 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4957:4973 Kernel.VMState <> morph_is_identity proj
+R4982:4998 Kernel.VMState <> morph_is_identity proj
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R4957:4973 Kernel.VMState <> morph_is_identity proj
+R4982:4998 Kernel.VMState <> morph_is_identity proj
+R4982:4998 Kernel.VMState <> morph_is_identity proj
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+R5028:5035 Coq.Lists.List <> nodup_In thm
+prf 5143:5181 <> graph_compose_preserves_morphism_lookup
+binder 5194:5194 <> g:20
+binder 5196:5197 <> m1:21
+binder 5199:5200 <> m2:22
+binder 5202:5203 <> g':23
+binder 5205:5210 <> new_id:24
+binder 5212:5214 <> mid:25
+R5272:5279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5252:5254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5221:5243 Kernel.VMState <> graph_compose_morphisms def
+R5245:5245 Kernel.CategoryBridge <> g:20 var
+R5247:5248 Kernel.CategoryBridge <> m1:21 var
+R5250:5251 Kernel.CategoryBridge <> m2:22 var
+R5255:5258 Coq.Init.Datatypes <> Some constr
+R5260:5260 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5263:5264 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5271:5271 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5261:5262 Kernel.CategoryBridge <> g':23 var
+R5265:5270 Kernel.CategoryBridge <> new_id:24 var
+R5293:5300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5283:5286 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5280:5282 Kernel.CategoryBridge <> mid:25 var
+R5287:5292 Kernel.CategoryBridge <> new_id:24 var
+R5329:5331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5301:5321 Kernel.VMState <> graph_lookup_morphism def
+R5323:5324 Kernel.CategoryBridge <> g':23 var
+R5326:5328 Kernel.CategoryBridge <> mid:25 var
+R5332:5352 Kernel.VMState <> graph_lookup_morphism def
+R5354:5354 Kernel.CategoryBridge <> g:20 var
+R5356:5358 Kernel.CategoryBridge <> mid:25 var
+R5415:5437 Kernel.VMState <> graph_compose_morphisms def
+R5457:5477 Kernel.VMState <> graph_lookup_morphism def
+R5457:5477 Kernel.VMState <> graph_lookup_morphism def
+R5526:5546 Kernel.VMState <> graph_lookup_morphism def
+R5526:5546 Kernel.VMState <> graph_lookup_morphism def
+R5595:5601 Coq.Arith.PeanoNat Nat eqb def
+R5604:5615 Kernel.VMState <> morph_target proj
+R5623:5634 Kernel.VMState <> morph_source proj
+R5595:5601 Coq.Arith.PeanoNat Nat eqb def
+R5604:5615 Kernel.VMState <> morph_target proj
+R5623:5634 Kernel.VMState <> morph_source proj
+R5729:5760 Kernel.CategoryBridge <> graph_add_morphism_old_id_lookup thm
+R5729:5760 Kernel.CategoryBridge <> graph_add_morphism_old_id_lookup thm
+prf 6032:6059 <> morph_compose_assoc_coupling
+R6099:6102 Coq.Init.Datatypes <> list ind
+R6108:6110 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6105:6107 Coq.Init.Datatypes <> nat ind
+R6111:6113 Coq.Init.Datatypes <> nat ind
+binder 6073:6079 <> pairs_f:26
+binder 6081:6087 <> pairs_g:27
+binder 6089:6095 <> pairs_k:28
+R6223:6235 Kernel.CategoryLaws <> :::x_'≡'_x not
+R6122:6152 Kernel.CategoryLaws <> relational_compose def
+R6161:6191 Kernel.CategoryLaws <> relational_compose def
+R6193:6199 Kernel.CategoryBridge <> pairs_f:26 var
+R6201:6207 Kernel.CategoryBridge <> pairs_g:27 var
+R6216:6222 Kernel.CategoryBridge <> pairs_k:28 var
+R6236:6266 Kernel.CategoryLaws <> relational_compose def
+R6274:6280 Kernel.CategoryBridge <> pairs_f:26 var
+R6289:6319 Kernel.CategoryLaws <> relational_compose def
+R6321:6327 Kernel.CategoryBridge <> pairs_g:27 var
+R6329:6335 Kernel.CategoryBridge <> pairs_k:28 var
+R6362:6398 Kernel.CategoryLaws <> relational_compose_assoc thm
+R6362:6398 Kernel.CategoryLaws <> relational_compose_assoc thm
+prf 6505:6529 <> morph_graph_compose_assoc
+binder 6542:6542 <> g:29
+binder 6544:6547 <> f_id:30
+binder 6549:6552 <> g_id:31
+binder 6554:6557 <> k_id:32
+binder 6559:6562 <> ms_f:33
+binder 6564:6567 <> ms_g:34
+binder 6569:6572 <> ms_k:35
+R6619:6626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6607:6609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6579:6599 Kernel.VMState <> graph_lookup_morphism def
+R6601:6601 Kernel.CategoryBridge <> g:29 var
+R6603:6606 Kernel.CategoryBridge <> f_id:30 var
+R6610:6613 Coq.Init.Datatypes <> Some constr
+R6615:6618 Kernel.CategoryBridge <> ms_f:33 var
+R6667:6674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6655:6657 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6627:6647 Kernel.VMState <> graph_lookup_morphism def
+R6649:6649 Kernel.CategoryBridge <> g:29 var
+R6651:6654 Kernel.CategoryBridge <> g_id:31 var
+R6658:6661 Coq.Init.Datatypes <> Some constr
+R6663:6666 Kernel.CategoryBridge <> ms_g:34 var
+R6715:6722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6703:6705 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6675:6695 Kernel.VMState <> graph_lookup_morphism def
+R6697:6697 Kernel.CategoryBridge <> g:29 var
+R6699:6702 Kernel.CategoryBridge <> k_id:32 var
+R6706:6709 Coq.Init.Datatypes <> Some constr
+R6711:6714 Kernel.CategoryBridge <> ms_k:35 var
+R6777:6784 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6770:6772 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6723:6729 Coq.Arith.PeanoNat Nat eqb def
+R6737:6748 Kernel.VMState <> morph_target proj
+R6731:6734 Kernel.CategoryBridge <> ms_f:33 var
+R6757:6768 Kernel.VMState <> morph_source proj
+R6751:6754 Kernel.CategoryBridge <> ms_g:34 var
+R6773:6776 Coq.Init.Datatypes <> true constr
+R6839:6876 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6832:6834 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6785:6791 Coq.Arith.PeanoNat Nat eqb def
+R6799:6810 Kernel.VMState <> morph_target proj
+R6793:6796 Kernel.CategoryBridge <> ms_g:34 var
+R6819:6830 Kernel.VMState <> morph_source proj
+R6813:6816 Kernel.CategoryBridge <> ms_k:35 var
+R6835:6838 Coq.Init.Datatypes <> true constr
+R7089:7132 Kernel.CategoryLaws <> :::x_'≡'_x not
+R6877:6907 Kernel.CategoryLaws <> relational_compose def
+R6916:6946 Kernel.CategoryLaws <> relational_compose def
+R6980:6993 Kernel.VMState <> coupling_pairs proj
+R6963:6976 Kernel.VMState <> morph_coupling proj
+R6957:6960 Kernel.CategoryBridge <> ms_f:33 var
+R7028:7041 Kernel.VMState <> coupling_pairs proj
+R7011:7024 Kernel.VMState <> morph_coupling proj
+R7005:7008 Kernel.CategoryBridge <> ms_g:34 var
+R7074:7087 Kernel.VMState <> coupling_pairs proj
+R7057:7070 Kernel.VMState <> morph_coupling proj
+R7051:7054 Kernel.CategoryBridge <> ms_k:35 var
+R7133:7163 Kernel.CategoryLaws <> relational_compose def
+R7194:7207 Kernel.VMState <> coupling_pairs proj
+R7177:7190 Kernel.VMState <> morph_coupling proj
+R7171:7174 Kernel.CategoryBridge <> ms_f:33 var
+R7217:7247 Kernel.CategoryLaws <> relational_compose def
+R7281:7294 Kernel.VMState <> coupling_pairs proj
+R7264:7277 Kernel.VMState <> morph_coupling proj
+R7258:7261 Kernel.CategoryBridge <> ms_g:34 var
+R7329:7342 Kernel.VMState <> coupling_pairs proj
+R7312:7325 Kernel.VMState <> morph_coupling proj
+R7306:7309 Kernel.CategoryBridge <> ms_k:35 var
+R7370:7406 Kernel.CategoryLaws <> relational_compose_assoc thm
+R7370:7406 Kernel.CategoryLaws <> relational_compose_assoc thm
+prf 7518:7544 <> graph_add_identity_coupling
+binder 7557:7557 <> g:36
+binder 7559:7561 <> mid:37
+binder 7563:7564 <> g':38
+binder 7566:7573 <> morph_id:39
+binder 7575:7580 <> ms_mod:40
+R7619:7626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7605:7607 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7587:7598 Kernel.VMState <> graph_lookup def
+R7600:7600 Kernel.CategoryBridge <> g:36 var
+R7602:7604 Kernel.CategoryBridge <> mid:37 var
+R7608:7611 Coq.Init.Datatypes <> Some constr
+R7613:7618 Kernel.CategoryBridge <> ms_mod:40 var
+R7673:7680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7651:7653 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7627:7644 Kernel.VMState <> graph_add_identity def
+R7646:7646 Kernel.CategoryBridge <> g:36 var
+R7648:7650 Kernel.CategoryBridge <> mid:37 var
+R7654:7657 Coq.Init.Datatypes <> Some constr
+R7659:7659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7662:7663 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7672:7672 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7660:7661 Kernel.CategoryBridge <> g':38 var
+R7664:7671 Kernel.CategoryBridge <> morph_id:39 var
+R7681:7687 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7693:7700 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7688:7692 <> ms_id:41
+R7747:7756 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7734:7736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7701:7721 Kernel.VMState <> graph_lookup_morphism def
+R7723:7724 Kernel.CategoryBridge <> g':38 var
+R7726:7733 Kernel.CategoryBridge <> morph_id:39 var
+R7737:7740 Coq.Init.Datatypes <> Some constr
+R7742:7746 Kernel.CategoryBridge <> ms_id:41 var
+R7782:7784 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7764:7780 Kernel.VMState <> morph_is_identity proj
+R7757:7761 Kernel.CategoryBridge <> ms_id:41 var
+R7785:7788 Coq.Init.Datatypes <> true constr
+R7851:7868 Kernel.VMState <> graph_add_identity def
+R7910:7927 Kernel.VMState <> graph_add_morphism def
+R8030:8050 Kernel.VMState <> graph_lookup_morphism def
+R8068:8079 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8068:8079 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8068:8079 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 8264:8285 <> morph_id_left_coupling
+R8308:8311 Coq.Init.Datatypes <> list ind
+R8313:8315 Coq.Init.Datatypes <> nat ind
+binder 8299:8304 <> region:42
+R8329:8332 Coq.Init.Datatypes <> list ind
+R8338:8340 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8335:8337 Coq.Init.Datatypes <> nat ind
+R8341:8343 Coq.Init.Datatypes <> nat ind
+binder 8319:8325 <> pairs_f:43
+R8352:8352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8397:8405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8360:8360 <> a:44
+binder 8362:8362 <> b:45
+R8382:8385 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8365:8366 Coq.Lists.List <> In def
+R8375:8381 Kernel.CategoryBridge <> pairs_f:43 var
+R8368:8368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8370:8371 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8373:8373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8369:8369 Kernel.CategoryBridge <> a:44 var
+R8372:8372 Kernel.CategoryBridge <> b:45 var
+R8386:8387 Coq.Lists.List <> In def
+R8391:8396 Kernel.CategoryBridge <> region:42 var
+R8389:8389 Kernel.CategoryBridge <> a:44 var
+R8476:8480 Kernel.CategoryLaws <> :::x_'≡'_x not
+R8406:8436 Kernel.CategoryLaws <> relational_compose def
+R8439:8441 Coq.Lists.List <> map def
+R8461:8466 Kernel.CategoryBridge <> region:42 var
+binder 8448:8448 <> x:46
+R8453:8453 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8455:8456 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8458:8458 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8454:8454 Kernel.CategoryBridge <> x:46 var
+R8457:8457 Kernel.CategoryBridge <> x:46 var
+R8469:8475 Kernel.CategoryBridge <> pairs_f:43 var
+R8481:8487 Kernel.CategoryBridge <> pairs_f:43 var
+R8535:8579 Kernel.CategoryLaws <> relational_compose_diagonal_left thm
+R8535:8579 Kernel.CategoryLaws <> relational_compose_diagonal_left thm
+prf 8744:8766 <> morph_id_right_coupling
+R8789:8792 Coq.Init.Datatypes <> list ind
+R8794:8796 Coq.Init.Datatypes <> nat ind
+binder 8780:8785 <> region:47
+R8810:8813 Coq.Init.Datatypes <> list ind
+R8819:8821 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8816:8818 Coq.Init.Datatypes <> nat ind
+R8822:8824 Coq.Init.Datatypes <> nat ind
+binder 8800:8806 <> pairs_f:48
+R8833:8833 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8878:8886 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8841:8841 <> a:49
+binder 8843:8843 <> b:50
+R8863:8866 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8846:8847 Coq.Lists.List <> In def
+R8856:8862 Kernel.CategoryBridge <> pairs_f:48 var
+R8849:8849 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8851:8852 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8854:8854 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8850:8850 Kernel.CategoryBridge <> a:49 var
+R8853:8853 Kernel.CategoryBridge <> b:50 var
+R8867:8868 Coq.Lists.List <> In def
+R8872:8877 Kernel.CategoryBridge <> region:47 var
+R8870:8870 Kernel.CategoryBridge <> b:50 var
+R8957:8961 Kernel.CategoryLaws <> :::x_'≡'_x not
+R8887:8917 Kernel.CategoryLaws <> relational_compose def
+R8919:8925 Kernel.CategoryBridge <> pairs_f:48 var
+R8928:8930 Coq.Lists.List <> map def
+R8950:8955 Kernel.CategoryBridge <> region:47 var
+binder 8937:8937 <> x:51
+R8942:8942 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8944:8945 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8947:8947 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8943:8943 Kernel.CategoryBridge <> x:51 var
+R8946:8946 Kernel.CategoryBridge <> x:51 var
+R8962:8968 Kernel.CategoryBridge <> pairs_f:48 var
+R9016:9061 Kernel.CategoryLaws <> relational_compose_diagonal_right thm
+R9016:9061 Kernel.CategoryLaws <> relational_compose_diagonal_right thm
+def 9594:9611 <> stored_arrow_equiv
+R9620:9632 Kernel.VMState <> MorphismState rec
+binder 9614:9614 <> x:52
+binder 9616:9616 <> y:53
+R9678:9683 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9661:9663 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9647:9658 Kernel.VMState <> morph_source proj
+R9660:9660 Kernel.CategoryBridge <> x:52 var
+R9664:9675 Kernel.VMState <> morph_source proj
+R9677:9677 Kernel.CategoryBridge <> y:53 var
+R9715:9720 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9698:9700 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9684:9695 Kernel.VMState <> morph_target proj
+R9697:9697 Kernel.CategoryBridge <> x:52 var
+R9701:9712 Kernel.VMState <> morph_target proj
+R9714:9714 Kernel.CategoryBridge <> y:53 var
+R9762:9768 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9876:9876 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9740:9742 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9721:9737 Kernel.VMState <> morph_is_identity proj
+R9739:9739 Kernel.CategoryBridge <> x:52 var
+R9743:9759 Kernel.VMState <> morph_is_identity proj
+R9761:9761 Kernel.CategoryBridge <> y:53 var
+R9796:9804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9788:9790 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9769:9785 Kernel.VMState <> morph_is_identity proj
+R9787:9787 Kernel.CategoryBridge <> x:52 var
+R9791:9795 Coq.Init.Datatypes <> false constr
+R9838:9842 Kernel.CategoryLaws <> :::x_'≡'_x not
+R9805:9818 Kernel.VMState <> coupling_pairs proj
+R9821:9834 Kernel.VMState <> morph_coupling proj
+R9836:9836 Kernel.CategoryBridge <> x:52 var
+R9843:9856 Kernel.VMState <> coupling_pairs proj
+R9859:9872 Kernel.VMState <> morph_coupling proj
+R9874:9874 Kernel.CategoryBridge <> y:53 var
+def 9957:9972 <> compose_coupling
+R9981:9993 Kernel.VMState <> MorphismState rec
+binder 9975:9975 <> f:54
+binder 9977:9977 <> h:55
+R9998:10009 Kernel.VMState <> CouplingData rec
+R10040:10043 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R10022:10038 Kernel.VMState <> morph_is_identity proj
+R10019:10019 Kernel.CategoryBridge <> f:54 var
+R10047:10063 Kernel.VMState <> morph_is_identity proj
+R10044:10044 Kernel.CategoryBridge <> h:55 var
+R10101:10114 Kernel.VMState <> coupling_pairs proj
+R10101:10114 Kernel.VMState <> coupling_pairs proj
+R10101:10114 Kernel.VMState <> coupling_pairs proj
+R10489:10502 Kernel.VMState <> coupling_label proj
+R10489:10502 Kernel.VMState <> coupling_label proj
+R10137:10153 Kernel.VMState <> morph_is_identity proj
+R10134:10134 Kernel.CategoryBridge <> f:54 var
+R10232:10248 Kernel.VMState <> morph_is_identity proj
+R10229:10229 Kernel.CategoryBridge <> h:55 var
+R10331:10356 Kernel.VMState <> relational_compose def
+R10402:10415 Kernel.VMState <> coupling_pairs proj
+R10385:10398 Kernel.VMState <> morph_coupling proj
+R10382:10382 Kernel.CategoryBridge <> f:54 var
+R10462:10475 Kernel.VMState <> coupling_pairs proj
+R10445:10458 Kernel.VMState <> morph_coupling proj
+R10442:10442 Kernel.CategoryBridge <> h:55 var
+R10293:10306 Kernel.VMState <> coupling_pairs proj
+R10276:10289 Kernel.VMState <> morph_coupling proj
+R10273:10273 Kernel.CategoryBridge <> f:54 var
+R10193:10206 Kernel.VMState <> coupling_pairs proj
+R10176:10189 Kernel.VMState <> morph_coupling proj
+R10173:10173 Kernel.CategoryBridge <> h:55 var
+R10542:10545 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R10527:10540 Kernel.VMState <> coupling_label proj
+R10510:10523 Kernel.VMState <> morph_coupling proj
+R10507:10507 Kernel.CategoryBridge <> f:54 var
+R10549:10580 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R10601:10614 Kernel.VMState <> coupling_label proj
+R10584:10597 Kernel.VMState <> morph_coupling proj
+R10581:10581 Kernel.CategoryBridge <> h:55 var
+R10071:10089 Kernel.VMState <> empty_coupling_data def
+def 10675:10690 <> composite_record
+R10699:10711 Kernel.VMState <> MorphismState rec
+binder 10693:10693 <> f:56
+binder 10695:10695 <> h:57
+R10716:10728 Kernel.VMState <> MorphismState rec
+R10738:10749 Kernel.VMState <> morph_source proj
+R10738:10749 Kernel.VMState <> morph_source proj
+R10738:10749 Kernel.VMState <> morph_source proj
+R10777:10788 Kernel.VMState <> morph_target proj
+R10777:10788 Kernel.VMState <> morph_target proj
+R10816:10829 Kernel.VMState <> morph_coupling proj
+R10816:10829 Kernel.VMState <> morph_coupling proj
+R10882:10898 Kernel.VMState <> morph_is_identity proj
+R10882:10898 Kernel.VMState <> morph_is_identity proj
+R10956:10970 Kernel.VMState <> morph_cert_cost proj
+R10956:10970 Kernel.VMState <> morph_cert_cost proj
+R10757:10768 Kernel.VMState <> morph_source proj
+R10754:10754 Kernel.CategoryBridge <> f:56 var
+R10796:10807 Kernel.VMState <> morph_target proj
+R10793:10793 Kernel.CategoryBridge <> h:57 var
+R10834:10851 Kernel.VMState <> normalize_coupling def
+R10854:10869 Kernel.CategoryBridge <> compose_coupling def
+R10871:10871 Kernel.CategoryBridge <> f:56 var
+R10873:10873 Kernel.CategoryBridge <> h:57 var
+R10924:10927 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R10906:10922 Kernel.VMState <> morph_is_identity proj
+R10903:10903 Kernel.CategoryBridge <> f:56 var
+R10931:10947 Kernel.VMState <> morph_is_identity proj
+R10928:10928 Kernel.CategoryBridge <> h:57 var
+prf 11173:11192 <> graph_compose_stored
+binder 11205:11205 <> g:58
+binder 11207:11208 <> m1:59
+binder 11210:11211 <> m2:60
+binder 11213:11213 <> f:61
+binder 11215:11215 <> h:62
+R11257:11264 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11248:11250 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11222:11242 Kernel.VMState <> graph_lookup_morphism def
+R11244:11244 Kernel.CategoryBridge <> g:58 var
+R11246:11247 Kernel.CategoryBridge <> m1:59 var
+R11251:11254 Coq.Init.Datatypes <> Some constr
+R11256:11256 Kernel.CategoryBridge <> f:61 var
+R11300:11307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11291:11293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11265:11285 Kernel.VMState <> graph_lookup_morphism def
+R11287:11287 Kernel.CategoryBridge <> g:58 var
+R11289:11290 Kernel.CategoryBridge <> m2:60 var
+R11294:11297 Coq.Init.Datatypes <> Some constr
+R11299:11299 Kernel.CategoryBridge <> h:62 var
+R11339:11346 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11322:11324 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11308:11319 Kernel.VMState <> morph_target proj
+R11321:11321 Kernel.CategoryBridge <> f:61 var
+R11325:11336 Kernel.VMState <> morph_source proj
+R11338:11338 Kernel.CategoryBridge <> h:62 var
+R11347:11353 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11356:11363 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11354:11355 <> g':63
+R11427:11436 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11395:11397 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11364:11386 Kernel.VMState <> graph_compose_morphisms def
+R11388:11388 Kernel.CategoryBridge <> g:58 var
+R11390:11391 Kernel.CategoryBridge <> m1:59 var
+R11393:11394 Kernel.CategoryBridge <> m2:60 var
+R11398:11401 Coq.Init.Datatypes <> Some constr
+R11403:11403 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11406:11407 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11426:11426 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11404:11405 Kernel.CategoryBridge <> g':63 var
+R11408:11423 Kernel.VMState <> pg_next_morph_id proj
+R11425:11425 Kernel.CategoryBridge <> g:58 var
+R11512:11521 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11482:11484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11437:11457 Kernel.VMState <> graph_lookup_morphism def
+R11459:11460 Kernel.CategoryBridge <> g':63 var
+R11463:11478 Kernel.VMState <> pg_next_morph_id proj
+R11480:11480 Kernel.CategoryBridge <> g:58 var
+R11485:11488 Coq.Init.Datatypes <> Some constr
+R11491:11506 Kernel.CategoryBridge <> composite_record def
+R11508:11508 Kernel.CategoryBridge <> f:61 var
+R11510:11510 Kernel.CategoryBridge <> h:62 var
+R11566:11576 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11685:11685 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11541:11543 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11522:11537 Kernel.VMState <> pg_next_morph_id proj
+R11539:11540 Kernel.CategoryBridge <> g':63 var
+R11544:11544 Coq.Init.Datatypes <> S constr
+R11547:11562 Kernel.VMState <> pg_next_morph_id proj
+R11564:11564 Kernel.CategoryBridge <> g:58 var
+binder 11584:11586 <> mid:64
+R11614:11626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11592:11595 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R11589:11591 Kernel.CategoryBridge <> mid:64 var
+R11596:11611 Kernel.VMState <> pg_next_morph_id proj
+R11613:11613 Kernel.CategoryBridge <> g:58 var
+R11655:11657 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11627:11647 Kernel.VMState <> graph_lookup_morphism def
+R11649:11650 Kernel.CategoryBridge <> g':63 var
+R11652:11654 Kernel.CategoryBridge <> mid:64 var
+R11658:11678 Kernel.VMState <> graph_lookup_morphism def
+R11680:11680 Kernel.CategoryBridge <> g:58 var
+R11682:11684 Kernel.CategoryBridge <> mid:64 var
+R11736:11738 Coq.Init.Datatypes <> fst def
+R11741:11758 Kernel.VMState <> graph_add_morphism def
+R11763:11774 Kernel.VMState <> morph_source proj
+R11780:11791 Kernel.VMState <> morph_target proj
+R11814:11829 Kernel.CategoryBridge <> compose_coupling def
+R11873:11876 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R11854:11870 Kernel.VMState <> morph_is_identity proj
+R11877:11893 Kernel.VMState <> morph_is_identity proj
+R11736:11738 Coq.Init.Datatypes <> fst def
+R11741:11758 Kernel.VMState <> graph_add_morphism def
+R11763:11774 Kernel.VMState <> morph_source proj
+R11780:11791 Kernel.VMState <> morph_target proj
+R11814:11829 Kernel.CategoryBridge <> compose_coupling def
+R11873:11876 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R11854:11870 Kernel.VMState <> morph_is_identity proj
+R11877:11893 Kernel.VMState <> morph_is_identity proj
+R11941:11963 Kernel.VMState <> graph_compose_morphisms def
+R11986:11997 Coq.Arith.PeanoNat Nat eqb_refl thm
+R11986:11997 Coq.Arith.PeanoNat Nat eqb_refl thm
+R11986:11997 Coq.Arith.PeanoNat Nat eqb_refl thm
+R12024:12041 Kernel.VMState <> graph_add_morphism def
+R12044:12064 Kernel.VMState <> graph_lookup_morphism def
+R12086:12097 Coq.Arith.PeanoNat Nat eqb_refl thm
+R12086:12097 Coq.Arith.PeanoNat Nat eqb_refl thm
+R12086:12097 Coq.Arith.PeanoNat Nat eqb_refl thm
+R12156:12187 Kernel.CategoryBridge <> graph_add_morphism_old_id_lookup thm
+R12156:12187 Kernel.CategoryBridge <> graph_add_morphism_old_id_lookup thm
+prf 12316:12348 <> well_formed_lookup_morphism_below
+binder 12361:12361 <> g:65
+binder 12363:12365 <> mid:66
+binder 12367:12368 <> ms:67
+R12394:12401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12375:12391 Kernel.VMState <> well_formed_graph def
+R12393:12393 Kernel.CategoryBridge <> g:65 var
+R12439:12446 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12429:12431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12402:12422 Kernel.VMState <> graph_lookup_morphism def
+R12424:12424 Kernel.CategoryBridge <> g:65 var
+R12426:12428 Kernel.CategoryBridge <> mid:66 var
+R12432:12435 Coq.Init.Datatypes <> Some constr
+R12437:12438 Kernel.CategoryBridge <> ms:67 var
+R12450:12452 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12447:12449 Kernel.CategoryBridge <> mid:66 var
+R12453:12468 Kernel.VMState <> pg_next_morph_id proj
+R12470:12470 Kernel.CategoryBridge <> g:65 var
+R12524:12544 Kernel.VMState <> graph_lookup_morphism def
+R12566:12577 Kernel.VMState <> pg_morphisms proj
+R12566:12577 Kernel.VMState <> pg_morphisms proj
+R12682:12688 Coq.Arith.PeanoNat Nat eqb def
+R12682:12688 Coq.Arith.PeanoNat Nat eqb def
+R12717:12726 Coq.Arith.PeanoNat Nat eqb_eq thm
+R12717:12726 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 12791:12807 <> nodup_pairs_equiv
+R12823:12826 Coq.Init.Datatypes <> list ind
+R12832:12834 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R12829:12831 Coq.Init.Datatypes <> nat ind
+R12835:12837 Coq.Init.Datatypes <> nat ind
+binder 12819:12819 <> l:68
+R12887:12891 Kernel.CategoryLaws <> :::x_'≡'_x not
+R12844:12848 Coq.Lists.List <> nodup def
+R12886:12886 Kernel.CategoryBridge <> l:68 var
+R12851:12861 Kernel.VMState <> pair_eq_dec def
+R12874:12883 Coq.Arith.PeanoNat Nat eq_dec thm
+R12863:12872 Coq.Arith.PeanoNat Nat eq_dec thm
+R12892:12892 Kernel.CategoryBridge <> l:68 var
+R12922:12929 Coq.Lists.List <> nodup_In thm
+R12922:12929 Coq.Lists.List <> nodup_In thm
+prf 13147:13182 <> graph_compose_identities_is_identity
+binder 13195:13195 <> g:69
+binder 13197:13198 <> m1:70
+binder 13200:13201 <> m2:71
+binder 13203:13203 <> i:72
+binder 13205:13205 <> j:73
+R13247:13254 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13238:13240 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13212:13232 Kernel.VMState <> graph_lookup_morphism def
+R13234:13234 Kernel.CategoryBridge <> g:69 var
+R13236:13237 Kernel.CategoryBridge <> m1:70 var
+R13241:13244 Coq.Init.Datatypes <> Some constr
+R13246:13246 Kernel.CategoryBridge <> i:72 var
+R13290:13297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13281:13283 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13255:13275 Kernel.VMState <> graph_lookup_morphism def
+R13277:13277 Kernel.CategoryBridge <> g:69 var
+R13279:13280 Kernel.CategoryBridge <> m2:71 var
+R13284:13287 Coq.Init.Datatypes <> Some constr
+R13289:13289 Kernel.CategoryBridge <> j:73 var
+R13324:13331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13317:13319 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13298:13314 Kernel.VMState <> morph_is_identity proj
+R13316:13316 Kernel.CategoryBridge <> i:72 var
+R13320:13323 Coq.Init.Datatypes <> true constr
+R13358:13365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13351:13353 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13332:13348 Kernel.VMState <> morph_is_identity proj
+R13350:13350 Kernel.CategoryBridge <> j:73 var
+R13354:13357 Coq.Init.Datatypes <> true constr
+R13397:13404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13380:13382 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13366:13377 Kernel.VMState <> morph_target proj
+R13379:13379 Kernel.CategoryBridge <> i:72 var
+R13383:13394 Kernel.VMState <> morph_source proj
+R13396:13396 Kernel.CategoryBridge <> j:73 var
+R13405:13411 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13416:13423 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13412:13413 <> g':74
+binder 13415:13415 <> r:75
+R13470:13479 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13455:13457 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13424:13446 Kernel.VMState <> graph_compose_morphisms def
+R13448:13448 Kernel.CategoryBridge <> g:69 var
+R13450:13451 Kernel.CategoryBridge <> m1:70 var
+R13453:13454 Kernel.CategoryBridge <> m2:71 var
+R13458:13461 Coq.Init.Datatypes <> Some constr
+R13463:13463 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13466:13467 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13469:13469 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13464:13465 Kernel.CategoryBridge <> g':74 var
+R13468:13468 Kernel.CategoryBridge <> r:75 var
+R13506:13516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13480:13500 Kernel.VMState <> graph_lookup_morphism def
+R13502:13503 Kernel.CategoryBridge <> g':74 var
+R13505:13505 Kernel.CategoryBridge <> r:75 var
+R13517:13520 Coq.Init.Datatypes <> Some constr
+R13525:13536 Kernel.VMState <> morph_source proj
+R13525:13536 Kernel.VMState <> morph_source proj
+R13525:13536 Kernel.VMState <> morph_source proj
+R13573:13584 Kernel.VMState <> morph_target proj
+R13573:13584 Kernel.VMState <> morph_target proj
+R13621:13634 Kernel.VMState <> morph_coupling proj
+R13621:13634 Kernel.VMState <> morph_coupling proj
+R13676:13692 Kernel.VMState <> morph_is_identity proj
+R13676:13692 Kernel.VMState <> morph_is_identity proj
+R13719:13733 Kernel.VMState <> morph_cert_cost proj
+R13719:13733 Kernel.VMState <> morph_cert_cost proj
+R13541:13552 Kernel.VMState <> morph_source proj
+R13554:13554 Kernel.CategoryBridge <> i:72 var
+R13589:13600 Kernel.VMState <> morph_target proj
+R13602:13602 Kernel.CategoryBridge <> j:73 var
+R13639:13657 Kernel.VMState <> empty_coupling_data def
+R13697:13700 Coq.Init.Datatypes <> true constr
+R13800:13819 Kernel.CategoryBridge <> graph_compose_stored thm
+R13800:13819 Kernel.CategoryBridge <> graph_compose_stored thm
+R13878:13893 Kernel.VMState <> pg_next_morph_id proj
+R13878:13893 Kernel.VMState <> pg_next_morph_id proj
+R13940:13955 Kernel.CategoryBridge <> composite_record def
+R13958:13973 Kernel.CategoryBridge <> compose_coupling def
+prf 14066:14090 <> composite_record_pairs_In
+binder 14103:14103 <> f:76
+binder 14105:14105 <> h:77
+binder 14107:14107 <> a:78
+binder 14109:14109 <> c:79
+R14182:14191 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14551:14551 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14116:14117 Coq.Lists.List <> In def
+R14127:14140 Kernel.VMState <> coupling_pairs proj
+R14143:14156 Kernel.VMState <> morph_coupling proj
+R14159:14174 Kernel.CategoryBridge <> composite_record def
+R14176:14176 Kernel.CategoryBridge <> f:76 var
+R14178:14178 Kernel.CategoryBridge <> h:77 var
+R14119:14119 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14121:14122 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14124:14124 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14120:14120 Kernel.CategoryBridge <> a:78 var
+R14123:14123 Kernel.CategoryBridge <> c:79 var
+R14214:14217 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R14195:14211 Kernel.VMState <> morph_is_identity proj
+R14213:14213 Kernel.CategoryBridge <> f:76 var
+R14218:14234 Kernel.VMState <> morph_is_identity proj
+R14236:14236 Kernel.CategoryBridge <> h:77 var
+R14262:14278 Kernel.VMState <> morph_is_identity proj
+R14280:14280 Kernel.CategoryBridge <> f:76 var
+R14346:14362 Kernel.VMState <> morph_is_identity proj
+R14364:14364 Kernel.CategoryBridge <> h:77 var
+R14427:14433 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14435:14436 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14434:14434 <> b:80
+R14482:14505 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14437:14438 Coq.Lists.List <> In def
+R14448:14461 Kernel.VMState <> coupling_pairs proj
+R14464:14477 Kernel.VMState <> morph_coupling proj
+R14479:14479 Kernel.CategoryBridge <> f:76 var
+R14440:14440 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14442:14443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14445:14445 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14441:14441 Kernel.CategoryBridge <> a:78 var
+R14444:14444 Kernel.CategoryBridge <> b:80 var
+R14506:14507 Coq.Lists.List <> In def
+R14517:14530 Kernel.VMState <> coupling_pairs proj
+R14533:14546 Kernel.VMState <> morph_coupling proj
+R14548:14548 Kernel.CategoryBridge <> h:77 var
+R14509:14509 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14511:14512 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14514:14514 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14510:14510 Kernel.CategoryBridge <> b:80 var
+R14513:14513 Kernel.CategoryBridge <> c:79 var
+R14371:14372 Coq.Lists.List <> In def
+R14382:14395 Kernel.VMState <> coupling_pairs proj
+R14398:14411 Kernel.VMState <> morph_coupling proj
+R14413:14413 Kernel.CategoryBridge <> f:76 var
+R14374:14374 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14376:14377 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14379:14379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14375:14375 Kernel.CategoryBridge <> a:78 var
+R14378:14378 Kernel.CategoryBridge <> c:79 var
+R14287:14288 Coq.Lists.List <> In def
+R14298:14311 Kernel.VMState <> coupling_pairs proj
+R14314:14327 Kernel.VMState <> morph_coupling proj
+R14329:14329 Kernel.CategoryBridge <> h:77 var
+R14290:14290 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14292:14293 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14295:14295 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14291:14291 Kernel.CategoryBridge <> a:78 var
+R14294:14294 Kernel.CategoryBridge <> c:79 var
+R14243:14247 Coq.Init.Logic <> False ind
+R14588:14603 Kernel.CategoryBridge <> composite_record def
+R14606:14621 Kernel.CategoryBridge <> compose_coupling def
+R14636:14652 Kernel.VMState <> morph_is_identity proj
+R14659:14675 Kernel.VMState <> morph_is_identity proj
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14636:14652 Kernel.VMState <> morph_is_identity proj
+R14659:14675 Kernel.VMState <> morph_is_identity proj
+R14659:14675 Kernel.VMState <> morph_is_identity proj
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14697:14704 Coq.Lists.List <> nodup_In thm
+R14744:14773 Kernel.CategoryLaws <> kernel_relational_compose_same thm
+R14776:14798 Kernel.CategoryLaws <> relational_compose_spec thm
+R14744:14773 Kernel.CategoryLaws <> kernel_relational_compose_same thm
+R14744:14773 Kernel.CategoryLaws <> kernel_relational_compose_same thm
+R14776:14798 Kernel.CategoryLaws <> relational_compose_spec thm
+R14776:14798 Kernel.CategoryLaws <> relational_compose_spec thm
+prf 14826:14845 <> composite_pairs_none
+binder 14856:14856 <> f:81
+binder 14858:14858 <> h:82
+R14890:14893 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14882:14884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14863:14879 Kernel.VMState <> morph_is_identity proj
+R14881:14881 Kernel.CategoryBridge <> f:81 var
+R14885:14889 Coq.Init.Datatypes <> false constr
+R14921:14924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14913:14915 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14894:14910 Kernel.VMState <> morph_is_identity proj
+R14912:14912 Kernel.CategoryBridge <> h:82 var
+R14916:14920 Coq.Init.Datatypes <> false constr
+binder 14932:14932 <> a:83
+binder 14934:14934 <> c:84
+R15005:15011 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14939:14940 Coq.Lists.List <> In def
+R14950:14963 Kernel.VMState <> coupling_pairs proj
+R14966:14979 Kernel.VMState <> morph_coupling proj
+R14982:14997 Kernel.CategoryBridge <> composite_record def
+R14999:14999 Kernel.CategoryBridge <> f:81 var
+R15001:15001 Kernel.CategoryBridge <> h:82 var
+R14942:14942 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14944:14945 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14947:14947 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14943:14943 Kernel.CategoryBridge <> a:83 var
+R14946:14946 Kernel.CategoryBridge <> c:84 var
+R15012:15018 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15020:15021 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15019:15019 <> b:85
+R15067:15070 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15022:15023 Coq.Lists.List <> In def
+R15033:15046 Kernel.VMState <> coupling_pairs proj
+R15049:15062 Kernel.VMState <> morph_coupling proj
+R15064:15064 Kernel.CategoryBridge <> f:81 var
+R15025:15025 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15027:15028 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15030:15030 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15026:15026 Kernel.CategoryBridge <> a:83 var
+R15029:15029 Kernel.CategoryBridge <> b:85 var
+R15071:15072 Coq.Lists.List <> In def
+R15082:15095 Kernel.VMState <> coupling_pairs proj
+R15098:15111 Kernel.VMState <> morph_coupling proj
+R15113:15113 Kernel.CategoryBridge <> h:82 var
+R15074:15074 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15076:15077 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15079:15079 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15075:15075 Kernel.CategoryBridge <> b:85 var
+R15078:15078 Kernel.CategoryBridge <> c:84 var
+R15157:15181 Kernel.CategoryBridge <> composite_record_pairs_In thm
+R15157:15181 Kernel.CategoryBridge <> composite_record_pairs_In thm
+R15157:15181 Kernel.CategoryBridge <> composite_record_pairs_In thm
+prf 15217:15236 <> composite_pairs_left
+binder 15247:15247 <> f:86
+binder 15249:15249 <> h:87
+R15280:15283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15273:15275 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15254:15270 Kernel.VMState <> morph_is_identity proj
+R15272:15272 Kernel.CategoryBridge <> f:86 var
+R15276:15279 Coq.Init.Datatypes <> true constr
+R15311:15314 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15303:15305 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15284:15300 Kernel.VMState <> morph_is_identity proj
+R15302:15302 Kernel.CategoryBridge <> h:87 var
+R15306:15310 Coq.Init.Datatypes <> false constr
+binder 15322:15322 <> a:88
+binder 15324:15324 <> c:89
+R15395:15401 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R15329:15330 Coq.Lists.List <> In def
+R15340:15353 Kernel.VMState <> coupling_pairs proj
+R15356:15369 Kernel.VMState <> morph_coupling proj
+R15372:15387 Kernel.CategoryBridge <> composite_record def
+R15389:15389 Kernel.CategoryBridge <> f:86 var
+R15391:15391 Kernel.CategoryBridge <> h:87 var
+R15332:15332 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15334:15335 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15337:15337 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15333:15333 Kernel.CategoryBridge <> a:88 var
+R15336:15336 Kernel.CategoryBridge <> c:89 var
+R15402:15403 Coq.Lists.List <> In def
+R15413:15426 Kernel.VMState <> coupling_pairs proj
+R15429:15442 Kernel.VMState <> morph_coupling proj
+R15444:15444 Kernel.CategoryBridge <> h:87 var
+R15405:15405 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15407:15408 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15410:15410 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15406:15406 Kernel.CategoryBridge <> a:88 var
+R15409:15409 Kernel.CategoryBridge <> c:89 var
+R15488:15512 Kernel.CategoryBridge <> composite_record_pairs_In thm
+R15488:15512 Kernel.CategoryBridge <> composite_record_pairs_In thm
+R15488:15512 Kernel.CategoryBridge <> composite_record_pairs_In thm
+prf 15548:15568 <> composite_pairs_right
+binder 15579:15579 <> f:90
+binder 15581:15581 <> h:91
+R15613:15616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15605:15607 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15586:15602 Kernel.VMState <> morph_is_identity proj
+R15604:15604 Kernel.CategoryBridge <> f:90 var
+R15608:15612 Coq.Init.Datatypes <> false constr
+R15643:15646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15636:15638 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15617:15633 Kernel.VMState <> morph_is_identity proj
+R15635:15635 Kernel.CategoryBridge <> h:91 var
+R15639:15642 Coq.Init.Datatypes <> true constr
+binder 15654:15654 <> a:92
+binder 15656:15656 <> c:93
+R15727:15733 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R15661:15662 Coq.Lists.List <> In def
+R15672:15685 Kernel.VMState <> coupling_pairs proj
+R15688:15701 Kernel.VMState <> morph_coupling proj
+R15704:15719 Kernel.CategoryBridge <> composite_record def
+R15721:15721 Kernel.CategoryBridge <> f:90 var
+R15723:15723 Kernel.CategoryBridge <> h:91 var
+R15664:15664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15666:15667 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15669:15669 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15665:15665 Kernel.CategoryBridge <> a:92 var
+R15668:15668 Kernel.CategoryBridge <> c:93 var
+R15734:15735 Coq.Lists.List <> In def
+R15745:15758 Kernel.VMState <> coupling_pairs proj
+R15761:15774 Kernel.VMState <> morph_coupling proj
+R15776:15776 Kernel.CategoryBridge <> f:90 var
+R15737:15737 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15739:15740 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15742:15742 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15738:15738 Kernel.CategoryBridge <> a:92 var
+R15741:15741 Kernel.CategoryBridge <> c:93 var
+R15820:15844 Kernel.CategoryBridge <> composite_record_pairs_In thm
+R15820:15844 Kernel.CategoryBridge <> composite_record_pairs_In thm
+R15820:15844 Kernel.CategoryBridge <> composite_record_pairs_In thm
+prf 16070:16095 <> graph_compose_assoc_stored
+binder 16108:16108 <> g:94
+binder 16110:16111 <> fi:95
+binder 16113:16114 <> ki:96
+binder 16116:16117 <> hi:97
+binder 16119:16119 <> f:98
+binder 16121:16121 <> k:99
+binder 16123:16123 <> h:100
+R16149:16156 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16130:16146 Kernel.VMState <> well_formed_graph def
+R16148:16148 Kernel.CategoryBridge <> g:94 var
+R16192:16199 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16183:16185 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16157:16177 Kernel.VMState <> graph_lookup_morphism def
+R16179:16179 Kernel.CategoryBridge <> g:94 var
+R16181:16182 Kernel.CategoryBridge <> fi:95 var
+R16186:16189 Coq.Init.Datatypes <> Some constr
+R16191:16191 Kernel.CategoryBridge <> f:98 var
+R16235:16242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16226:16228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16200:16220 Kernel.VMState <> graph_lookup_morphism def
+R16222:16222 Kernel.CategoryBridge <> g:94 var
+R16224:16225 Kernel.CategoryBridge <> ki:96 var
+R16229:16232 Coq.Init.Datatypes <> Some constr
+R16234:16234 Kernel.CategoryBridge <> k:99 var
+R16278:16285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16269:16271 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16243:16263 Kernel.VMState <> graph_lookup_morphism def
+R16265:16265 Kernel.CategoryBridge <> g:94 var
+R16267:16268 Kernel.CategoryBridge <> hi:97 var
+R16272:16275 Coq.Init.Datatypes <> Some constr
+R16277:16277 Kernel.CategoryBridge <> h:100 var
+R16317:16324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16300:16302 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16286:16297 Kernel.VMState <> morph_target proj
+R16299:16299 Kernel.CategoryBridge <> f:98 var
+R16303:16314 Kernel.VMState <> morph_source proj
+R16316:16316 Kernel.CategoryBridge <> k:99 var
+R16356:16363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16339:16341 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16325:16336 Kernel.VMState <> morph_target proj
+R16338:16338 Kernel.CategoryBridge <> k:99 var
+R16342:16353 Kernel.VMState <> morph_source proj
+R16355:16355 Kernel.CategoryBridge <> h:100 var
+R16364:16370 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16396:16403 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16371:16372 <> g1:101
+binder 16374:16374 <> a:102
+binder 16376:16377 <> g2:103
+binder 16379:16379 <> b:104
+binder 16381:16383 <> g1':105
+binder 16385:16385 <> c:106
+binder 16387:16389 <> g2':107
+binder 16391:16391 <> d:108
+binder 16393:16393 <> x:109
+binder 16395:16395 <> y:110
+R16450:16459 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16435:16437 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16404:16426 Kernel.VMState <> graph_compose_morphisms def
+R16428:16428 Kernel.CategoryBridge <> g:94 var
+R16430:16431 Kernel.CategoryBridge <> fi:95 var
+R16433:16434 Kernel.CategoryBridge <> ki:96 var
+R16438:16441 Coq.Init.Datatypes <> Some constr
+R16443:16443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16446:16447 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16449:16449 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16444:16445 Kernel.CategoryBridge <> g1:101 var
+R16448:16448 Kernel.CategoryBridge <> a:102 var
+R16506:16515 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16491:16493 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16460:16482 Kernel.VMState <> graph_compose_morphisms def
+R16484:16485 Kernel.CategoryBridge <> g1:101 var
+R16487:16487 Kernel.CategoryBridge <> a:102 var
+R16489:16490 Kernel.CategoryBridge <> hi:97 var
+R16494:16497 Coq.Init.Datatypes <> Some constr
+R16499:16499 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16502:16503 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16505:16505 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16500:16501 Kernel.CategoryBridge <> g2:103 var
+R16504:16504 Kernel.CategoryBridge <> b:104 var
+R16563:16572 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16547:16549 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16516:16538 Kernel.VMState <> graph_compose_morphisms def
+R16540:16540 Kernel.CategoryBridge <> g:94 var
+R16542:16543 Kernel.CategoryBridge <> ki:96 var
+R16545:16546 Kernel.CategoryBridge <> hi:97 var
+R16550:16553 Coq.Init.Datatypes <> Some constr
+R16555:16555 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16559:16560 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16562:16562 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16556:16558 Kernel.CategoryBridge <> g1':105 var
+R16561:16561 Kernel.CategoryBridge <> c:106 var
+R16621:16630 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16605:16607 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16573:16595 Kernel.VMState <> graph_compose_morphisms def
+R16597:16599 Kernel.CategoryBridge <> g1':105 var
+R16601:16602 Kernel.CategoryBridge <> fi:95 var
+R16604:16604 Kernel.CategoryBridge <> c:106 var
+R16608:16611 Coq.Init.Datatypes <> Some constr
+R16613:16613 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16617:16618 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16620:16620 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16614:16616 Kernel.CategoryBridge <> g2':107 var
+R16619:16619 Kernel.CategoryBridge <> d:108 var
+R16666:16675 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16657:16659 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16631:16651 Kernel.VMState <> graph_lookup_morphism def
+R16653:16654 Kernel.CategoryBridge <> g2:103 var
+R16656:16656 Kernel.CategoryBridge <> b:104 var
+R16660:16663 Coq.Init.Datatypes <> Some constr
+R16665:16665 Kernel.CategoryBridge <> x:109 var
+R16712:16721 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16703:16705 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16676:16696 Kernel.VMState <> graph_lookup_morphism def
+R16698:16700 Kernel.CategoryBridge <> g2':107 var
+R16702:16702 Kernel.CategoryBridge <> d:108 var
+R16706:16709 Coq.Init.Datatypes <> Some constr
+R16711:16711 Kernel.CategoryBridge <> y:110 var
+R16722:16739 Kernel.CategoryBridge <> stored_arrow_equiv def
+R16741:16741 Kernel.CategoryBridge <> x:109 var
+R16743:16743 Kernel.CategoryBridge <> y:110 var
+R16815:16847 Kernel.CategoryBridge <> well_formed_lookup_morphism_below thm
+R16815:16847 Kernel.CategoryBridge <> well_formed_lookup_morphism_below thm
+R16885:16917 Kernel.CategoryBridge <> well_formed_lookup_morphism_below thm
+R16885:16917 Kernel.CategoryBridge <> well_formed_lookup_morphism_below thm
+R16969:16988 Kernel.CategoryBridge <> graph_compose_stored thm
+R16969:16988 Kernel.CategoryBridge <> graph_compose_stored thm
+R17083:17085 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17056:17076 Kernel.VMState <> graph_lookup_morphism def
+R17086:17089 Coq.Init.Datatypes <> Some constr
+R17083:17085 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17056:17076 Kernel.VMState <> graph_lookup_morphism def
+R17086:17089 Coq.Init.Datatypes <> Some constr
+R17144:17163 Kernel.CategoryBridge <> graph_compose_stored thm
+R17169:17184 Kernel.VMState <> pg_next_morph_id proj
+R17193:17208 Kernel.CategoryBridge <> composite_record def
+R17144:17163 Kernel.CategoryBridge <> graph_compose_stored thm
+R17169:17184 Kernel.VMState <> pg_next_morph_id proj
+R17193:17208 Kernel.CategoryBridge <> composite_record def
+R17282:17301 Kernel.CategoryBridge <> graph_compose_stored thm
+R17282:17301 Kernel.CategoryBridge <> graph_compose_stored thm
+R17402:17404 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17374:17394 Kernel.VMState <> graph_lookup_morphism def
+R17405:17408 Coq.Init.Datatypes <> Some constr
+R17402:17404 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17374:17394 Kernel.VMState <> graph_lookup_morphism def
+R17405:17408 Coq.Init.Datatypes <> Some constr
+R17464:17483 Kernel.CategoryBridge <> graph_compose_stored thm
+R17493:17508 Kernel.VMState <> pg_next_morph_id proj
+R17516:17531 Kernel.CategoryBridge <> composite_record def
+R17464:17483 Kernel.CategoryBridge <> graph_compose_stored thm
+R17493:17508 Kernel.VMState <> pg_next_morph_id proj
+R17516:17531 Kernel.CategoryBridge <> composite_record def
+R17593:17608 Kernel.VMState <> pg_next_morph_id proj
+R17619:17634 Kernel.VMState <> pg_next_morph_id proj
+R17656:17671 Kernel.VMState <> pg_next_morph_id proj
+R17683:17698 Kernel.VMState <> pg_next_morph_id proj
+R17716:17731 Kernel.CategoryBridge <> composite_record def
+R17734:17749 Kernel.CategoryBridge <> composite_record def
+R17770:17785 Kernel.CategoryBridge <> composite_record def
+R17790:17805 Kernel.CategoryBridge <> composite_record def
+R17593:17608 Kernel.VMState <> pg_next_morph_id proj
+R17619:17634 Kernel.VMState <> pg_next_morph_id proj
+R17656:17671 Kernel.VMState <> pg_next_morph_id proj
+R17683:17698 Kernel.VMState <> pg_next_morph_id proj
+R17716:17731 Kernel.CategoryBridge <> composite_record def
+R17734:17749 Kernel.CategoryBridge <> composite_record def
+R17770:17785 Kernel.CategoryBridge <> composite_record def
+R17790:17805 Kernel.CategoryBridge <> composite_record def
+R17952:17969 Kernel.CategoryBridge <> stored_arrow_equiv def
+R18053:18062 Coq.Bool.Bool <> andb_assoc thm
+R18053:18062 Coq.Bool.Bool <> andb_assoc thm
+R18115:18131 Kernel.VMState <> morph_is_identity proj
+R18145:18161 Kernel.VMState <> morph_is_identity proj
+R18186:18202 Kernel.VMState <> morph_is_identity proj
+R18115:18131 Kernel.VMState <> morph_is_identity proj
+R18145:18161 Kernel.VMState <> morph_is_identity proj
+R18145:18161 Kernel.VMState <> morph_is_identity proj
+R18186:18202 Kernel.VMState <> morph_is_identity proj
+R18186:18202 Kernel.VMState <> morph_is_identity proj
+R18186:18202 Kernel.VMState <> morph_is_identity proj
+R18186:18202 Kernel.VMState <> morph_is_identity proj
+R18309:18331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18269:18285 Kernel.VMState <> morph_is_identity proj
+R18288:18303 Kernel.CategoryBridge <> composite_record def
+R18351:18354 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18332:18348 Kernel.VMState <> morph_is_identity proj
+R18355:18371 Kernel.VMState <> morph_is_identity proj
+R18309:18331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18269:18285 Kernel.VMState <> morph_is_identity proj
+R18288:18303 Kernel.CategoryBridge <> composite_record def
+R18351:18354 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18332:18348 Kernel.VMState <> morph_is_identity proj
+R18355:18371 Kernel.VMState <> morph_is_identity proj
+R18309:18331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18269:18285 Kernel.VMState <> morph_is_identity proj
+R18288:18303 Kernel.CategoryBridge <> composite_record def
+R18351:18354 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18332:18348 Kernel.VMState <> morph_is_identity proj
+R18355:18371 Kernel.VMState <> morph_is_identity proj
+R18309:18331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18269:18285 Kernel.VMState <> morph_is_identity proj
+R18288:18303 Kernel.CategoryBridge <> composite_record def
+R18351:18354 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18332:18348 Kernel.VMState <> morph_is_identity proj
+R18355:18371 Kernel.VMState <> morph_is_identity proj
+R18309:18331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18269:18285 Kernel.VMState <> morph_is_identity proj
+R18288:18303 Kernel.CategoryBridge <> composite_record def
+R18351:18354 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18332:18348 Kernel.VMState <> morph_is_identity proj
+R18355:18371 Kernel.VMState <> morph_is_identity proj
+R18309:18331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18269:18285 Kernel.VMState <> morph_is_identity proj
+R18288:18303 Kernel.CategoryBridge <> composite_record def
+R18351:18354 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18332:18348 Kernel.VMState <> morph_is_identity proj
+R18355:18371 Kernel.VMState <> morph_is_identity proj
+R18309:18331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18269:18285 Kernel.VMState <> morph_is_identity proj
+R18288:18303 Kernel.CategoryBridge <> composite_record def
+R18351:18354 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18332:18348 Kernel.VMState <> morph_is_identity proj
+R18355:18371 Kernel.VMState <> morph_is_identity proj
+R18309:18331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18269:18285 Kernel.VMState <> morph_is_identity proj
+R18288:18303 Kernel.CategoryBridge <> composite_record def
+R18351:18354 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18332:18348 Kernel.VMState <> morph_is_identity proj
+R18355:18371 Kernel.VMState <> morph_is_identity proj
+R18452:18474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18412:18428 Kernel.VMState <> morph_is_identity proj
+R18431:18446 Kernel.CategoryBridge <> composite_record def
+R18494:18497 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18475:18491 Kernel.VMState <> morph_is_identity proj
+R18498:18514 Kernel.VMState <> morph_is_identity proj
+R18452:18474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18412:18428 Kernel.VMState <> morph_is_identity proj
+R18431:18446 Kernel.CategoryBridge <> composite_record def
+R18494:18497 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18475:18491 Kernel.VMState <> morph_is_identity proj
+R18498:18514 Kernel.VMState <> morph_is_identity proj
+R18452:18474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18412:18428 Kernel.VMState <> morph_is_identity proj
+R18431:18446 Kernel.CategoryBridge <> composite_record def
+R18494:18497 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18475:18491 Kernel.VMState <> morph_is_identity proj
+R18498:18514 Kernel.VMState <> morph_is_identity proj
+R18452:18474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18412:18428 Kernel.VMState <> morph_is_identity proj
+R18431:18446 Kernel.CategoryBridge <> composite_record def
+R18494:18497 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18475:18491 Kernel.VMState <> morph_is_identity proj
+R18498:18514 Kernel.VMState <> morph_is_identity proj
+R18452:18474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18412:18428 Kernel.VMState <> morph_is_identity proj
+R18431:18446 Kernel.CategoryBridge <> composite_record def
+R18494:18497 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18475:18491 Kernel.VMState <> morph_is_identity proj
+R18498:18514 Kernel.VMState <> morph_is_identity proj
+R18452:18474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18412:18428 Kernel.VMState <> morph_is_identity proj
+R18431:18446 Kernel.CategoryBridge <> composite_record def
+R18494:18497 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18475:18491 Kernel.VMState <> morph_is_identity proj
+R18498:18514 Kernel.VMState <> morph_is_identity proj
+R18452:18474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18412:18428 Kernel.VMState <> morph_is_identity proj
+R18431:18446 Kernel.CategoryBridge <> composite_record def
+R18494:18497 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18475:18491 Kernel.VMState <> morph_is_identity proj
+R18498:18514 Kernel.VMState <> morph_is_identity proj
+R18452:18474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18412:18428 Kernel.VMState <> morph_is_identity proj
+R18431:18446 Kernel.CategoryBridge <> composite_record def
+R18494:18497 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R18475:18491 Kernel.VMState <> morph_is_identity proj
+R18498:18514 Kernel.VMState <> morph_is_identity proj
+R18625:18644 Kernel.CategoryBridge <> composite_pairs_left thm
+R18659:18678 Kernel.CategoryBridge <> composite_pairs_left thm
+R18705:18724 Kernel.CategoryBridge <> composite_pairs_left thm
+R18625:18644 Kernel.CategoryBridge <> composite_pairs_left thm
+R18625:18644 Kernel.CategoryBridge <> composite_pairs_left thm
+R18659:18678 Kernel.CategoryBridge <> composite_pairs_left thm
+R18659:18678 Kernel.CategoryBridge <> composite_pairs_left thm
+R18705:18724 Kernel.CategoryBridge <> composite_pairs_left thm
+R18705:18724 Kernel.CategoryBridge <> composite_pairs_left thm
+R18790:18810 Kernel.CategoryBridge <> composite_pairs_right thm
+R18825:18844 Kernel.CategoryBridge <> composite_pairs_left thm
+R18871:18890 Kernel.CategoryBridge <> composite_pairs_left thm
+R18905:18925 Kernel.CategoryBridge <> composite_pairs_right thm
+R18790:18810 Kernel.CategoryBridge <> composite_pairs_right thm
+R18790:18810 Kernel.CategoryBridge <> composite_pairs_right thm
+R18825:18844 Kernel.CategoryBridge <> composite_pairs_left thm
+R18825:18844 Kernel.CategoryBridge <> composite_pairs_left thm
+R18871:18890 Kernel.CategoryBridge <> composite_pairs_left thm
+R18871:18890 Kernel.CategoryBridge <> composite_pairs_left thm
+R18905:18925 Kernel.CategoryBridge <> composite_pairs_right thm
+R18905:18925 Kernel.CategoryBridge <> composite_pairs_right thm
+R18990:19009 Kernel.CategoryBridge <> composite_pairs_none thm
+R19024:19043 Kernel.CategoryBridge <> composite_pairs_left thm
+R19070:19089 Kernel.CategoryBridge <> composite_pairs_none thm
+R18990:19009 Kernel.CategoryBridge <> composite_pairs_none thm
+R18990:19009 Kernel.CategoryBridge <> composite_pairs_none thm
+R19024:19043 Kernel.CategoryBridge <> composite_pairs_left thm
+R19024:19043 Kernel.CategoryBridge <> composite_pairs_left thm
+R19070:19089 Kernel.CategoryBridge <> composite_pairs_none thm
+R19070:19089 Kernel.CategoryBridge <> composite_pairs_none thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19123:19142 Kernel.CategoryBridge <> composite_pairs_left thm
+R19208:19228 Kernel.CategoryBridge <> composite_pairs_right thm
+R19243:19263 Kernel.CategoryBridge <> composite_pairs_right thm
+R19290:19310 Kernel.CategoryBridge <> composite_pairs_right thm
+R19208:19228 Kernel.CategoryBridge <> composite_pairs_right thm
+R19208:19228 Kernel.CategoryBridge <> composite_pairs_right thm
+R19243:19263 Kernel.CategoryBridge <> composite_pairs_right thm
+R19243:19263 Kernel.CategoryBridge <> composite_pairs_right thm
+R19290:19310 Kernel.CategoryBridge <> composite_pairs_right thm
+R19290:19310 Kernel.CategoryBridge <> composite_pairs_right thm
+R19371:19390 Kernel.CategoryBridge <> composite_pairs_none thm
+R19405:19424 Kernel.CategoryBridge <> composite_pairs_none thm
+R19371:19390 Kernel.CategoryBridge <> composite_pairs_none thm
+R19371:19390 Kernel.CategoryBridge <> composite_pairs_none thm
+R19405:19424 Kernel.CategoryBridge <> composite_pairs_none thm
+R19405:19424 Kernel.CategoryBridge <> composite_pairs_none thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19458:19478 Kernel.CategoryBridge <> composite_pairs_right thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19512:19531 Kernel.CategoryBridge <> composite_pairs_left thm
+R19592:19612 Kernel.CategoryBridge <> composite_pairs_right thm
+R19627:19646 Kernel.CategoryBridge <> composite_pairs_none thm
+R19673:19692 Kernel.CategoryBridge <> composite_pairs_none thm
+R19592:19612 Kernel.CategoryBridge <> composite_pairs_right thm
+R19592:19612 Kernel.CategoryBridge <> composite_pairs_right thm
+R19627:19646 Kernel.CategoryBridge <> composite_pairs_none thm
+R19627:19646 Kernel.CategoryBridge <> composite_pairs_none thm
+R19673:19692 Kernel.CategoryBridge <> composite_pairs_none thm
+R19673:19692 Kernel.CategoryBridge <> composite_pairs_none thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19726:19746 Kernel.CategoryBridge <> composite_pairs_right thm
+R19810:19829 Kernel.CategoryBridge <> composite_pairs_none thm
+R19844:19863 Kernel.CategoryBridge <> composite_pairs_none thm
+R19810:19829 Kernel.CategoryBridge <> composite_pairs_none thm
+R19810:19829 Kernel.CategoryBridge <> composite_pairs_none thm
+R19844:19863 Kernel.CategoryBridge <> composite_pairs_none thm
+R19844:19863 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19897:19916 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+R19950:19969 Kernel.CategoryBridge <> composite_pairs_none thm
+prf 20142:20175 <> graph_compose_left_identity_stored
+binder 20188:20188 <> g:111
+binder 20190:20191 <> ii:112
+binder 20193:20194 <> fi:113
+binder 20196:20196 <> i:114
+binder 20198:20198 <> f:115
+R20240:20247 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20231:20233 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20205:20225 Kernel.VMState <> graph_lookup_morphism def
+R20227:20227 Kernel.CategoryBridge <> g:111 var
+R20229:20230 Kernel.CategoryBridge <> ii:112 var
+R20234:20237 Coq.Init.Datatypes <> Some constr
+R20239:20239 Kernel.CategoryBridge <> i:114 var
+R20283:20290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20274:20276 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20248:20268 Kernel.VMState <> graph_lookup_morphism def
+R20270:20270 Kernel.CategoryBridge <> g:111 var
+R20272:20273 Kernel.CategoryBridge <> fi:113 var
+R20277:20280 Coq.Init.Datatypes <> Some constr
+R20282:20282 Kernel.CategoryBridge <> f:115 var
+R20317:20324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20310:20312 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20291:20307 Kernel.VMState <> morph_is_identity proj
+R20309:20309 Kernel.CategoryBridge <> i:114 var
+R20313:20316 Coq.Init.Datatypes <> true constr
+R20356:20363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20339:20341 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20325:20336 Kernel.VMState <> morph_source proj
+R20338:20338 Kernel.CategoryBridge <> i:114 var
+R20342:20353 Kernel.VMState <> morph_target proj
+R20355:20355 Kernel.CategoryBridge <> i:114 var
+R20395:20402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20378:20380 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20364:20375 Kernel.VMState <> morph_target proj
+R20377:20377 Kernel.CategoryBridge <> i:114 var
+R20381:20392 Kernel.VMState <> morph_source proj
+R20394:20394 Kernel.CategoryBridge <> f:115 var
+R20403:20409 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20416:20423 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20410:20411 <> g':116
+binder 20413:20413 <> r:117
+binder 20415:20415 <> x:118
+R20470:20479 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20455:20457 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20424:20446 Kernel.VMState <> graph_compose_morphisms def
+R20448:20448 Kernel.CategoryBridge <> g:111 var
+R20450:20451 Kernel.CategoryBridge <> ii:112 var
+R20453:20454 Kernel.CategoryBridge <> fi:113 var
+R20458:20461 Coq.Init.Datatypes <> Some constr
+R20463:20463 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20466:20467 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20469:20469 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20464:20465 Kernel.CategoryBridge <> g':116 var
+R20468:20468 Kernel.CategoryBridge <> r:117 var
+R20515:20524 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20506:20508 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20480:20500 Kernel.VMState <> graph_lookup_morphism def
+R20502:20503 Kernel.CategoryBridge <> g':116 var
+R20505:20505 Kernel.CategoryBridge <> r:117 var
+R20509:20512 Coq.Init.Datatypes <> Some constr
+R20514:20514 Kernel.CategoryBridge <> x:118 var
+R20525:20542 Kernel.CategoryBridge <> stored_arrow_equiv def
+R20544:20544 Kernel.CategoryBridge <> x:118 var
+R20546:20546 Kernel.CategoryBridge <> f:115 var
+R20607:20626 Kernel.CategoryBridge <> graph_compose_stored thm
+R20607:20626 Kernel.CategoryBridge <> graph_compose_stored thm
+R20683:20698 Kernel.VMState <> pg_next_morph_id proj
+R20705:20720 Kernel.CategoryBridge <> composite_record def
+R20683:20698 Kernel.VMState <> pg_next_morph_id proj
+R20705:20720 Kernel.CategoryBridge <> composite_record def
+R20777:20794 Kernel.CategoryBridge <> stored_arrow_equiv def
+R20914:20929 Kernel.CategoryBridge <> compose_coupling def
+R20965:20981 Kernel.CategoryBridge <> nodup_pairs_equiv thm
+R20965:20981 Kernel.CategoryBridge <> nodup_pairs_equiv thm
+prf 21130:21164 <> graph_compose_right_identity_stored
+binder 21177:21177 <> g:119
+binder 21179:21180 <> fi:120
+binder 21182:21183 <> ii:121
+binder 21185:21185 <> f:122
+binder 21187:21187 <> i:123
+R21229:21236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21220:21222 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21194:21214 Kernel.VMState <> graph_lookup_morphism def
+R21216:21216 Kernel.CategoryBridge <> g:119 var
+R21218:21219 Kernel.CategoryBridge <> fi:120 var
+R21223:21226 Coq.Init.Datatypes <> Some constr
+R21228:21228 Kernel.CategoryBridge <> f:122 var
+R21272:21279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21263:21265 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21237:21257 Kernel.VMState <> graph_lookup_morphism def
+R21259:21259 Kernel.CategoryBridge <> g:119 var
+R21261:21262 Kernel.CategoryBridge <> ii:121 var
+R21266:21269 Coq.Init.Datatypes <> Some constr
+R21271:21271 Kernel.CategoryBridge <> i:123 var
+R21306:21313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21299:21301 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21280:21296 Kernel.VMState <> morph_is_identity proj
+R21298:21298 Kernel.CategoryBridge <> i:123 var
+R21302:21305 Coq.Init.Datatypes <> true constr
+R21345:21352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21328:21330 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21314:21325 Kernel.VMState <> morph_source proj
+R21327:21327 Kernel.CategoryBridge <> i:123 var
+R21331:21342 Kernel.VMState <> morph_target proj
+R21344:21344 Kernel.CategoryBridge <> i:123 var
+R21384:21391 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21367:21369 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21353:21364 Kernel.VMState <> morph_target proj
+R21366:21366 Kernel.CategoryBridge <> f:122 var
+R21370:21381 Kernel.VMState <> morph_source proj
+R21383:21383 Kernel.CategoryBridge <> i:123 var
+R21392:21398 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21405:21412 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 21399:21400 <> g':124
+binder 21402:21402 <> r:125
+binder 21404:21404 <> x:126
+R21459:21468 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21444:21446 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21413:21435 Kernel.VMState <> graph_compose_morphisms def
+R21437:21437 Kernel.CategoryBridge <> g:119 var
+R21439:21440 Kernel.CategoryBridge <> fi:120 var
+R21442:21443 Kernel.CategoryBridge <> ii:121 var
+R21447:21450 Coq.Init.Datatypes <> Some constr
+R21452:21452 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21455:21456 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21458:21458 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21453:21454 Kernel.CategoryBridge <> g':124 var
+R21457:21457 Kernel.CategoryBridge <> r:125 var
+R21504:21513 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21495:21497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21469:21489 Kernel.VMState <> graph_lookup_morphism def
+R21491:21492 Kernel.CategoryBridge <> g':124 var
+R21494:21494 Kernel.CategoryBridge <> r:125 var
+R21498:21501 Coq.Init.Datatypes <> Some constr
+R21503:21503 Kernel.CategoryBridge <> x:126 var
+R21514:21531 Kernel.CategoryBridge <> stored_arrow_equiv def
+R21533:21533 Kernel.CategoryBridge <> x:126 var
+R21535:21535 Kernel.CategoryBridge <> f:122 var
+R21596:21615 Kernel.CategoryBridge <> graph_compose_stored thm
+R21596:21615 Kernel.CategoryBridge <> graph_compose_stored thm
+R21672:21687 Kernel.VMState <> pg_next_morph_id proj
+R21694:21709 Kernel.CategoryBridge <> composite_record def
+R21672:21687 Kernel.VMState <> pg_next_morph_id proj
+R21694:21709 Kernel.CategoryBridge <> composite_record def
+R21766:21783 Kernel.CategoryBridge <> stored_arrow_equiv def
+R21806:21816 Coq.Bool.Bool <> andb_true_r thm
+R21806:21816 Coq.Bool.Bool <> andb_true_r thm
+R21806:21816 Coq.Bool.Bool <> andb_true_r thm
+R21909:21924 Kernel.CategoryBridge <> compose_coupling def
+R21960:21976 Kernel.CategoryBridge <> nodup_pairs_equiv thm
+R21960:21976 Kernel.CategoryBridge <> nodup_pairs_equiv thm
+def 22409:22433 <> identity_arrows_canonical
+R22440:22453 Kernel.VMState <> PartitionGraph rec
+binder 22436:22436 <> g:127
+binder 22475:22477 <> mid:128
+binder 22479:22480 <> ms:129
+R22512:22519 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22483:22484 Coq.Lists.List <> In def
+R22497:22508 Kernel.VMState <> pg_morphisms proj
+R22510:22510 Kernel.CategoryBridge <> g:127 var
+R22486:22486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22490:22491 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22494:22494 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22487:22489 Kernel.CategoryBridge <> mid:128 var
+R22492:22493 Kernel.CategoryBridge <> ms:129 var
+R22547:22554 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22540:22542 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22520:22536 Kernel.VMState <> morph_is_identity proj
+R22538:22539 Kernel.CategoryBridge <> ms:129 var
+R22543:22546 Coq.Init.Datatypes <> true constr
+R22588:22591 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22570:22572 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22555:22566 Kernel.VMState <> morph_source proj
+R22568:22569 Kernel.CategoryBridge <> ms:129 var
+R22573:22584 Kernel.VMState <> morph_target proj
+R22586:22587 Kernel.CategoryBridge <> ms:129 var
+R22626:22628 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22592:22605 Kernel.VMState <> coupling_pairs proj
+R22608:22621 Kernel.VMState <> morph_coupling proj
+R22623:22624 Kernel.CategoryBridge <> ms:129 var
+R22629:22630 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 22640:22668 <> identity_arrows_canonical_sub
+binder 22681:22681 <> g:130
+binder 22683:22684 <> g':131
+R22691:22691 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22749:22757 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 22699:22699 <> p:132
+R22724:22727 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22702:22703 Coq.Lists.List <> In def
+R22708:22719 Kernel.VMState <> pg_morphisms proj
+R22721:22722 Kernel.CategoryBridge <> g':131 var
+R22705:22705 Kernel.CategoryBridge <> p:132 var
+R22728:22729 Coq.Lists.List <> In def
+R22734:22745 Kernel.VMState <> pg_morphisms proj
+R22747:22747 Kernel.CategoryBridge <> g:130 var
+R22731:22731 Kernel.CategoryBridge <> p:132 var
+R22785:22788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22758:22782 Kernel.CategoryBridge <> identity_arrows_canonical def
+R22784:22784 Kernel.CategoryBridge <> g:130 var
+R22789:22813 Kernel.CategoryBridge <> identity_arrows_canonical def
+R22815:22816 Kernel.CategoryBridge <> g':131 var
+prf 22909:22938 <> identity_arrows_canonical_same
+binder 22951:22951 <> g:133
+binder 22953:22954 <> g':134
+R22993:23000 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22976:22978 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22961:22972 Kernel.VMState <> pg_morphisms proj
+R22974:22975 Kernel.CategoryBridge <> g':134 var
+R22979:22990 Kernel.VMState <> pg_morphisms proj
+R22992:22992 Kernel.CategoryBridge <> g:133 var
+R23028:23031 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23001:23025 Kernel.CategoryBridge <> identity_arrows_canonical def
+R23027:23027 Kernel.CategoryBridge <> g:133 var
+R23032:23056 Kernel.CategoryBridge <> identity_arrows_canonical def
+R23058:23059 Kernel.CategoryBridge <> g':134 var
+R23092:23120 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R23092:23120 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+prf 23172:23200 <> identity_arrows_canonical_add
+binder 23213:23213 <> g:135
+binder 23215:23217 <> src:136
+binder 23219:23221 <> dst:137
+binder 23223:23223 <> c:138
+binder 23225:23229 <> is_id:139
+R23263:23270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23236:23260 Kernel.CategoryBridge <> identity_arrows_canonical def
+R23262:23262 Kernel.CategoryBridge <> g:135 var
+R23271:23271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23322:23330 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23284:23287 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23277:23279 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23272:23276 Kernel.CategoryBridge <> is_id:139 var
+R23280:23283 Coq.Init.Datatypes <> true constr
+R23297:23300 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23291:23293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23288:23290 Kernel.CategoryBridge <> src:136 var
+R23294:23296 Kernel.CategoryBridge <> dst:137 var
+R23317:23319 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23301:23314 Kernel.VMState <> coupling_pairs proj
+R23316:23316 Kernel.CategoryBridge <> c:138 var
+R23320:23321 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R23331:23355 Kernel.CategoryBridge <> identity_arrows_canonical def
+R23358:23360 Coq.Init.Datatypes <> fst def
+R23363:23380 Kernel.VMState <> graph_add_morphism def
+R23382:23382 Kernel.CategoryBridge <> g:135 var
+R23384:23386 Kernel.CategoryBridge <> src:136 var
+R23388:23390 Kernel.CategoryBridge <> dst:137 var
+R23392:23392 Kernel.CategoryBridge <> c:138 var
+R23394:23398 Kernel.CategoryBridge <> is_id:139 var
+R23470:23487 Kernel.VMState <> graph_add_morphism def
+R23661:23678 Kernel.VMState <> normalize_coupling def
+prf 23756:23804 <> graph_compose_preserves_identity_arrows_canonical
+binder 23817:23817 <> g:140
+binder 23819:23820 <> m1:141
+binder 23822:23823 <> m2:142
+binder 23825:23826 <> g':143
+binder 23828:23828 <> r:144
+R23862:23869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23835:23859 Kernel.CategoryBridge <> identity_arrows_canonical def
+R23861:23861 Kernel.CategoryBridge <> g:140 var
+R23916:23923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23901:23903 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23870:23892 Kernel.VMState <> graph_compose_morphisms def
+R23894:23894 Kernel.CategoryBridge <> g:140 var
+R23896:23897 Kernel.CategoryBridge <> m1:141 var
+R23899:23900 Kernel.CategoryBridge <> m2:142 var
+R23904:23907 Coq.Init.Datatypes <> Some constr
+R23909:23909 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23912:23913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23915:23915 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23910:23911 Kernel.CategoryBridge <> g':143 var
+R23914:23914 Kernel.CategoryBridge <> r:144 var
+R23924:23948 Kernel.CategoryBridge <> identity_arrows_canonical def
+R23950:23951 Kernel.CategoryBridge <> g':143 var
+R23998:24020 Kernel.VMState <> graph_compose_morphisms def
+R24040:24060 Kernel.VMState <> graph_lookup_morphism def
+R24040:24060 Kernel.VMState <> graph_lookup_morphism def
+R24113:24133 Kernel.VMState <> graph_lookup_morphism def
+R24113:24133 Kernel.VMState <> graph_lookup_morphism def
+R24186:24192 Coq.Arith.PeanoNat Nat eqb def
+R24195:24206 Kernel.VMState <> morph_target proj
+R24212:24223 Kernel.VMState <> morph_source proj
+R24186:24192 Coq.Arith.PeanoNat Nat eqb def
+R24195:24206 Kernel.VMState <> morph_target proj
+R24212:24223 Kernel.VMState <> morph_source proj
+R24293:24321 Kernel.CategoryBridge <> identity_arrows_canonical_add thm
+R24293:24321 Kernel.CategoryBridge <> identity_arrows_canonical_add thm
+R24358:24370 Coq.Bool.Bool <> andb_true_iff thm
+R24358:24370 Coq.Bool.Bool <> andb_true_iff thm
+R24465:24474 Coq.Arith.PeanoNat Nat eqb_eq thm
+R24465:24474 Coq.Arith.PeanoNat Nat eqb_eq thm
+R24504:24532 Kernel.VMState <> graph_lookup_morphism_list_In thm
+R24535:24546 Kernel.VMState <> pg_morphisms proj
+R24504:24532 Kernel.VMState <> graph_lookup_morphism_list_In thm
+R24535:24546 Kernel.VMState <> pg_morphisms proj
+R24600:24628 Kernel.VMState <> graph_lookup_morphism_list_In thm
+R24631:24642 Kernel.VMState <> pg_morphisms proj
+R24600:24628 Kernel.VMState <> graph_lookup_morphism_list_In thm
+R24631:24642 Kernel.VMState <> pg_morphisms proj
+prf 24701:24734 <> graph_cascade_delete_morphisms_sub
+binder 24745:24745 <> g:145
+binder 24747:24749 <> mid:146
+binder 24751:24751 <> p:147
+R24814:24817 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24756:24757 Coq.Lists.List <> In def
+R24762:24773 Kernel.VMState <> pg_morphisms proj
+R24776:24805 Kernel.VMState <> graph_cascade_delete_morphisms def
+R24807:24807 Kernel.CategoryBridge <> g:145 var
+R24809:24811 Kernel.CategoryBridge <> mid:146 var
+R24759:24759 Kernel.CategoryBridge <> p:147 var
+R24818:24819 Coq.Lists.List <> In def
+R24824:24835 Kernel.VMState <> pg_morphisms proj
+R24837:24837 Kernel.CategoryBridge <> g:145 var
+R24821:24821 Kernel.CategoryBridge <> p:147 var
+R24876:24905 Kernel.VMState <> graph_cascade_delete_morphisms def
+R24935:24943 Coq.Lists.List <> filter_In thm
+R24935:24943 Coq.Lists.List <> filter_In thm
+R24959:24963 Coq.Init.Logic <> proj1 thm
+R24959:24963 Coq.Init.Logic <> proj1 thm
+prf 24982:25011 <> graph_remove_or_keep_morphisms
+binder 25022:25022 <> g:148
+binder 25024:25026 <> mid:149
+R25110:25114 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25031:25042 Kernel.VMState <> pg_morphisms proj
+R25051:25062 Kernel.VMState <> graph_remove def
+R25064:25064 Kernel.CategoryBridge <> g:148 var
+R25066:25068 Kernel.CategoryBridge <> mid:149 var
+R25075:25078 Coq.Init.Datatypes <> Some constr
+R25080:25080 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25083:25084 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25086:25086 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R25096:25099 Coq.Init.Datatypes <> None constr
+R25104:25104 Kernel.CategoryBridge <> g:148 var
+R25115:25126 Kernel.VMState <> pg_morphisms proj
+R25128:25128 Kernel.CategoryBridge <> g:148 var
+R25161:25172 Kernel.VMState <> graph_remove def
+R25187:25206 Kernel.VMState <> graph_remove_modules def
+R25209:25218 Kernel.VMState <> pg_modules proj
+R25187:25206 Kernel.VMState <> graph_remove_modules def
+R25209:25218 Kernel.VMState <> pg_modules proj
+prf 25266:25294 <> graph_hw_psplit_morphisms_sub
+binder 25305:25305 <> g:150
+binder 25307:25309 <> mid:151
+binder 25311:25311 <> p:152
+R25359:25362 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25316:25317 Coq.Lists.List <> In def
+R25322:25333 Kernel.VMState <> pg_morphisms proj
+R25336:25350 Kernel.VMStep VMStep graph_hw_psplit def
+R25352:25352 Kernel.CategoryBridge <> g:150 var
+R25354:25356 Kernel.CategoryBridge <> mid:151 var
+R25319:25319 Kernel.CategoryBridge <> p:152 var
+R25363:25364 Coq.Lists.List <> In def
+R25369:25380 Kernel.VMState <> pg_morphisms proj
+R25382:25382 Kernel.CategoryBridge <> g:150 var
+R25366:25366 Kernel.CategoryBridge <> p:152 var
+R25421:25435 Kernel.VMStep VMStep graph_hw_psplit def
+R25456:25471 Kernel.VMState <> graph_add_module def
+R25476:25486 Kernel.VMStep VMStep psplit_left def
+R25491:25492 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R25456:25471 Kernel.VMState <> graph_add_module def
+R25476:25486 Kernel.VMStep VMStep psplit_left def
+R25491:25492 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R25526:25541 Kernel.VMState <> graph_add_module def
+R25547:25558 Kernel.VMStep VMStep psplit_right def
+R25563:25564 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R25526:25541 Kernel.VMState <> graph_add_module def
+R25547:25558 Kernel.VMStep VMStep psplit_right def
+R25563:25564 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R25616:25618 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25601:25612 Kernel.VMState <> pg_morphisms proj
+R25619:25630 Kernel.VMState <> pg_morphisms proj
+R25651:25666 Kernel.VMState <> graph_add_module def
+R25616:25618 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25601:25612 Kernel.VMState <> pg_morphisms proj
+R25619:25630 Kernel.VMState <> pg_morphisms proj
+R25740:25755 Kernel.VMState <> graph_add_module def
+R25809:25838 Kernel.CategoryBridge <> graph_remove_or_keep_morphisms thm
+R25809:25838 Kernel.CategoryBridge <> graph_remove_or_keep_morphisms thm
+R25809:25838 Kernel.CategoryBridge <> graph_remove_or_keep_morphisms thm
+R25856:25889 Kernel.CategoryBridge <> graph_cascade_delete_morphisms_sub thm
+R25856:25889 Kernel.CategoryBridge <> graph_cascade_delete_morphisms_sub thm
+prf 25916:25944 <> graph_hw_pmerge_morphisms_sub
+binder 25955:25955 <> g:153
+binder 25957:25958 <> m1:154
+binder 25960:25961 <> m2:155
+binder 25963:25963 <> p:156
+R26013:26016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25968:25969 Coq.Lists.List <> In def
+R25974:25985 Kernel.VMState <> pg_morphisms proj
+R25988:26002 Kernel.VMStep VMStep graph_hw_pmerge def
+R26004:26004 Kernel.CategoryBridge <> g:153 var
+R26006:26007 Kernel.CategoryBridge <> m1:154 var
+R26009:26010 Kernel.CategoryBridge <> m2:155 var
+R25971:25971 Kernel.CategoryBridge <> p:156 var
+R26017:26018 Coq.Lists.List <> In def
+R26023:26034 Kernel.VMState <> pg_morphisms proj
+R26036:26036 Kernel.CategoryBridge <> g:153 var
+R26020:26020 Kernel.CategoryBridge <> p:156 var
+R26077:26091 Kernel.VMStep VMStep graph_hw_pmerge def
+R26112:26127 Kernel.VMState <> graph_add_module def
+R26133:26134 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26112:26127 Kernel.VMState <> graph_add_module def
+R26133:26134 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26165:26180 Kernel.VMState <> graph_add_module def
+R26235:26264 Kernel.CategoryBridge <> graph_remove_or_keep_morphisms thm
+R26235:26264 Kernel.CategoryBridge <> graph_remove_or_keep_morphisms thm
+R26235:26264 Kernel.CategoryBridge <> graph_remove_or_keep_morphisms thm
+R26235:26264 Kernel.CategoryBridge <> graph_remove_or_keep_morphisms thm
+R26235:26264 Kernel.CategoryBridge <> graph_remove_or_keep_morphisms thm
+R26281:26314 Kernel.CategoryBridge <> graph_cascade_delete_morphisms_sub thm
+R26281:26314 Kernel.CategoryBridge <> graph_cascade_delete_morphisms_sub thm
+R26332:26365 Kernel.CategoryBridge <> graph_cascade_delete_morphisms_sub thm
+R26332:26365 Kernel.CategoryBridge <> graph_cascade_delete_morphisms_sub thm
+prf 26391:26410 <> graph_pnew_morphisms
+binder 26421:26421 <> g:157
+binder 26423:26428 <> region:158
+R26473:26475 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26433:26444 Kernel.VMState <> pg_morphisms proj
+R26447:26449 Coq.Init.Datatypes <> fst def
+R26452:26461 Kernel.VMState <> graph_pnew def
+R26463:26463 Kernel.CategoryBridge <> g:157 var
+R26465:26470 Kernel.CategoryBridge <> region:158 var
+R26476:26487 Kernel.VMState <> pg_morphisms proj
+R26489:26489 Kernel.CategoryBridge <> g:157 var
+R26525:26534 Kernel.VMState <> graph_pnew def
+R26549:26565 Kernel.VMState <> graph_find_region def
+R26570:26585 Kernel.VMState <> normalize_region def
+R26549:26565 Kernel.VMState <> graph_find_region def
+R26570:26585 Kernel.VMState <> normalize_region def
+prf 26622:26657 <> graph_update_module_tensor_morphisms
+binder 26668:26668 <> g:159
+binder 26670:26672 <> mid:160
+binder 26674:26674 <> k:161
+binder 26676:26676 <> v:162
+R26732:26734 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26681:26692 Kernel.VMState <> pg_morphisms proj
+R26695:26720 Kernel.VMState <> graph_update_module_tensor def
+R26722:26722 Kernel.CategoryBridge <> g:159 var
+R26724:26726 Kernel.CategoryBridge <> mid:160 var
+R26728:26728 Kernel.CategoryBridge <> k:161 var
+R26730:26730 Kernel.CategoryBridge <> v:162 var
+R26735:26746 Kernel.VMState <> pg_morphisms proj
+R26748:26748 Kernel.CategoryBridge <> g:159 var
+R26785:26810 Kernel.VMState <> graph_update_module_tensor def
+R26825:26836 Kernel.VMState <> graph_lookup def
+R26825:26836 Kernel.VMState <> graph_lookup def
+prf 26871:26895 <> graph_delete_morphism_sub
+binder 26906:26906 <> g:163
+binder 26908:26910 <> mid:164
+binder 26912:26913 <> g':165
+binder 26915:26915 <> p:166
+R26957:26962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26947:26949 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26920:26940 Kernel.VMState <> graph_delete_morphism def
+R26942:26942 Kernel.CategoryBridge <> g:163 var
+R26944:26946 Kernel.CategoryBridge <> mid:164 var
+R26950:26953 Coq.Init.Datatypes <> Some constr
+R26955:26956 Kernel.CategoryBridge <> g':165 var
+R26985:26988 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26963:26964 Coq.Lists.List <> In def
+R26969:26980 Kernel.VMState <> pg_morphisms proj
+R26982:26983 Kernel.CategoryBridge <> g':165 var
+R26966:26966 Kernel.CategoryBridge <> p:166 var
+R26989:26990 Coq.Lists.List <> In def
+R26995:27006 Kernel.VMState <> pg_morphisms proj
+R27008:27008 Kernel.CategoryBridge <> g:163 var
+R26992:26992 Kernel.CategoryBridge <> p:166 var
+R27052:27072 Kernel.VMState <> graph_delete_morphism def
+R27092:27098 Coq.Lists.List <> existsb def
+R27092:27098 Coq.Lists.List <> existsb def
+R27163:27171 Coq.Lists.List <> filter_In thm
+R27163:27171 Coq.Lists.List <> filter_In thm
+R27187:27191 Coq.Init.Logic <> proj1 thm
+R27187:27191 Coq.Init.Logic <> proj1 thm
+prf 27210:27257 <> graph_tensor_preserves_identity_arrows_canonical
+binder 27270:27270 <> g:167
+binder 27272:27275 <> f_id:168
+binder 27277:27280 <> g_id:169
+binder 27282:27283 <> g':170
+binder 27285:27285 <> r:171
+R27319:27326 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27292:27316 Kernel.CategoryBridge <> identity_arrows_canonical def
+R27318:27318 Kernel.CategoryBridge <> g:167 var
+R27376:27383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27361:27363 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27327:27348 Kernel.VMState <> graph_tensor_morphisms def
+R27350:27350 Kernel.CategoryBridge <> g:167 var
+R27352:27355 Kernel.CategoryBridge <> f_id:168 var
+R27357:27360 Kernel.CategoryBridge <> g_id:169 var
+R27364:27367 Coq.Init.Datatypes <> Some constr
+R27369:27369 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R27372:27373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R27375:27375 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R27370:27371 Kernel.CategoryBridge <> g':170 var
+R27374:27374 Kernel.CategoryBridge <> r:171 var
+R27384:27408 Kernel.CategoryBridge <> identity_arrows_canonical def
+R27410:27411 Kernel.CategoryBridge <> g':170 var
+R27462:27483 Kernel.VMState <> graph_tensor_morphisms def
+R27503:27523 Kernel.VMState <> graph_lookup_morphism def
+R27503:27523 Kernel.VMState <> graph_lookup_morphism def
+R27571:27591 Kernel.VMState <> graph_lookup_morphism def
+R27571:27591 Kernel.VMState <> graph_lookup_morphism def
+R27639:27650 Kernel.VMState <> graph_lookup def
+R27655:27666 Kernel.VMState <> morph_source proj
+R27639:27650 Kernel.VMState <> graph_lookup def
+R27655:27666 Kernel.VMState <> morph_source proj
+R27702:27713 Kernel.VMState <> graph_lookup def
+R27718:27729 Kernel.VMState <> morph_target proj
+R27702:27713 Kernel.VMState <> graph_lookup def
+R27718:27729 Kernel.VMState <> morph_target proj
+R27765:27776 Kernel.VMState <> graph_lookup def
+R27781:27792 Kernel.VMState <> morph_source proj
+R27765:27776 Kernel.VMState <> graph_lookup def
+R27781:27792 Kernel.VMState <> morph_source proj
+R27828:27839 Kernel.VMState <> graph_lookup def
+R27844:27855 Kernel.VMState <> morph_target proj
+R27828:27839 Kernel.VMState <> graph_lookup def
+R27844:27855 Kernel.VMState <> morph_target proj
+R27892:27895 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R27892:27895 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R27929:27945 Kernel.VMState <> graph_find_region def
+R27929:27945 Kernel.VMState <> graph_find_region def
+R27982:27998 Kernel.VMState <> graph_find_region def
+R27982:27998 Kernel.VMState <> graph_find_region def
+R28052:28080 Kernel.CategoryBridge <> identity_arrows_canonical_add thm
+R28052:28080 Kernel.CategoryBridge <> identity_arrows_canonical_add thm
+prf 28124:28177 <> graph_add_identity_preserves_identity_arrows_canonical
+binder 28190:28190 <> g:172
+binder 28192:28194 <> mid:173
+binder 28196:28197 <> g':174
+binder 28199:28199 <> r:175
+R28233:28240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28206:28230 Kernel.CategoryBridge <> identity_arrows_canonical def
+R28232:28232 Kernel.CategoryBridge <> g:172 var
+R28280:28287 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28265:28267 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28241:28258 Kernel.VMState <> graph_add_identity def
+R28260:28260 Kernel.CategoryBridge <> g:172 var
+R28262:28264 Kernel.CategoryBridge <> mid:173 var
+R28268:28271 Coq.Init.Datatypes <> Some constr
+R28273:28273 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R28276:28277 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R28279:28279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R28274:28275 Kernel.CategoryBridge <> g':174 var
+R28278:28278 Kernel.CategoryBridge <> r:175 var
+R28288:28312 Kernel.CategoryBridge <> identity_arrows_canonical def
+R28314:28315 Kernel.CategoryBridge <> g':174 var
+R28358:28375 Kernel.VMState <> graph_add_identity def
+R28395:28406 Kernel.VMState <> graph_lookup def
+R28395:28406 Kernel.VMState <> graph_lookup def
+R28462:28490 Kernel.CategoryBridge <> identity_arrows_canonical_add thm
+R28462:28490 Kernel.CategoryBridge <> identity_arrows_canonical_add thm
+prf 28680:28722 <> vm_step_preserves_identity_arrows_canonical
+binder 28733:28733 <> s:176
+binder 28735:28739 <> instr:177
+binder 28741:28742 <> s':178
+R28765:28770 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28747:28753 Kernel.VMStep VMStep vm_step ind
+R28755:28755 Kernel.CategoryBridge <> s:176 var
+R28757:28761 Kernel.CategoryBridge <> instr:177 var
+R28763:28764 Kernel.CategoryBridge <> s':178 var
+R28809:28812 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28771:28795 Kernel.CategoryBridge <> identity_arrows_canonical def
+R28800:28807 Kernel.VMState <> vm_graph proj
+R28797:28797 Kernel.CategoryBridge <> s:176 var
+R28813:28837 Kernel.CategoryBridge <> identity_arrows_canonical def
+R28843:28850 Kernel.VMState <> vm_graph proj
+R28839:28840 Kernel.CategoryBridge <> s':178 var
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29085:29114 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29117:29124 Kernel.VMState <> vm_graph proj
+R29150:29169 Kernel.CategoryBridge <> graph_pnew_morphisms thm
+R29204:29232 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29235:29242 Kernel.VMState <> vm_graph proj
+R29282:29310 Kernel.CategoryBridge <> graph_hw_psplit_morphisms_sub thm
+R29204:29232 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29235:29242 Kernel.VMState <> vm_graph proj
+R29282:29310 Kernel.CategoryBridge <> graph_hw_psplit_morphisms_sub thm
+R29204:29232 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29235:29242 Kernel.VMState <> vm_graph proj
+R29282:29310 Kernel.CategoryBridge <> graph_hw_psplit_morphisms_sub thm
+R29204:29232 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29235:29242 Kernel.VMState <> vm_graph proj
+R29282:29310 Kernel.CategoryBridge <> graph_hw_psplit_morphisms_sub thm
+R29204:29232 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29235:29242 Kernel.VMState <> vm_graph proj
+R29282:29310 Kernel.CategoryBridge <> graph_hw_psplit_morphisms_sub thm
+R29204:29232 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29235:29242 Kernel.VMState <> vm_graph proj
+R29282:29310 Kernel.CategoryBridge <> graph_hw_psplit_morphisms_sub thm
+R29204:29232 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29235:29242 Kernel.VMState <> vm_graph proj
+R29282:29310 Kernel.CategoryBridge <> graph_hw_psplit_morphisms_sub thm
+R29204:29232 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29235:29242 Kernel.VMState <> vm_graph proj
+R29282:29310 Kernel.CategoryBridge <> graph_hw_psplit_morphisms_sub thm
+R29204:29232 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29235:29242 Kernel.VMState <> vm_graph proj
+R29282:29310 Kernel.CategoryBridge <> graph_hw_psplit_morphisms_sub thm
+R29355:29383 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29386:29393 Kernel.VMState <> vm_graph proj
+R29433:29461 Kernel.CategoryBridge <> graph_hw_pmerge_morphisms_sub thm
+R29355:29383 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29386:29393 Kernel.VMState <> vm_graph proj
+R29433:29461 Kernel.CategoryBridge <> graph_hw_pmerge_morphisms_sub thm
+R29355:29383 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29386:29393 Kernel.VMState <> vm_graph proj
+R29433:29461 Kernel.CategoryBridge <> graph_hw_pmerge_morphisms_sub thm
+R29355:29383 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29386:29393 Kernel.VMState <> vm_graph proj
+R29433:29461 Kernel.CategoryBridge <> graph_hw_pmerge_morphisms_sub thm
+R29355:29383 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29386:29393 Kernel.VMState <> vm_graph proj
+R29433:29461 Kernel.CategoryBridge <> graph_hw_pmerge_morphisms_sub thm
+R29355:29383 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29386:29393 Kernel.VMState <> vm_graph proj
+R29433:29461 Kernel.CategoryBridge <> graph_hw_pmerge_morphisms_sub thm
+R29355:29383 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29386:29393 Kernel.VMState <> vm_graph proj
+R29433:29461 Kernel.CategoryBridge <> graph_hw_pmerge_morphisms_sub thm
+R29355:29383 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+R29386:29393 Kernel.VMState <> vm_graph proj
+R29433:29461 Kernel.CategoryBridge <> graph_hw_pmerge_morphisms_sub thm
+R29508:29537 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29540:29547 Kernel.VMState <> vm_graph proj
+R29573:29608 Kernel.CategoryBridge <> graph_update_module_tensor_morphisms thm
+R29508:29537 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29540:29547 Kernel.VMState <> vm_graph proj
+R29573:29608 Kernel.CategoryBridge <> graph_update_module_tensor_morphisms thm
+R29508:29537 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29540:29547 Kernel.VMState <> vm_graph proj
+R29573:29608 Kernel.CategoryBridge <> graph_update_module_tensor_morphisms thm
+R29508:29537 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29540:29547 Kernel.VMState <> vm_graph proj
+R29573:29608 Kernel.CategoryBridge <> graph_update_module_tensor_morphisms thm
+R29508:29537 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29540:29547 Kernel.VMState <> vm_graph proj
+R29573:29608 Kernel.CategoryBridge <> graph_update_module_tensor_morphisms thm
+R29508:29537 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29540:29547 Kernel.VMState <> vm_graph proj
+R29573:29608 Kernel.CategoryBridge <> graph_update_module_tensor_morphisms thm
+R29508:29537 Kernel.CategoryBridge <> identity_arrows_canonical_same thm
+R29540:29547 Kernel.VMState <> vm_graph proj
+R29573:29608 Kernel.CategoryBridge <> graph_update_module_tensor_morphisms thm
+R29679:29681 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29670:29670 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29674:29675 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29678:29678 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29682:29699 Kernel.VMState <> graph_add_morphism def
+R29679:29681 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29670:29670 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29674:29675 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29678:29678 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29682:29699 Kernel.VMState <> graph_add_morphism def
+R29737:29761 Kernel.CategoryBridge <> identity_arrows_canonical def
+R29737:29761 Kernel.CategoryBridge <> identity_arrows_canonical def
+R29802:29804 Coq.Init.Datatypes <> fst def
+R29806:29806 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29809:29810 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29812:29812 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29849:29877 Kernel.CategoryBridge <> identity_arrows_canonical_add thm
+R29802:29804 Coq.Init.Datatypes <> fst def
+R29806:29806 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29809:29810 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29812:29812 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29849:29877 Kernel.CategoryBridge <> identity_arrows_canonical_add thm
+R29999:30001 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29970:29992 Kernel.VMState <> graph_compose_morphisms def
+R30002:30005 Coq.Init.Datatypes <> Some constr
+R30007:30007 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30011:30012 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30014:30014 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29999:30001 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29970:29992 Kernel.VMState <> graph_compose_morphisms def
+R30002:30005 Coq.Init.Datatypes <> Some constr
+R30007:30007 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30011:30012 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30014:30014 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30153:30155 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30131:30148 Kernel.VMState <> graph_add_identity def
+R30156:30159 Coq.Init.Datatypes <> Some constr
+R30161:30161 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30165:30166 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30168:30168 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30153:30155 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30131:30148 Kernel.VMState <> graph_add_identity def
+R30156:30159 Coq.Init.Datatypes <> Some constr
+R30161:30161 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30165:30166 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30168:30168 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30313:30315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30288:30308 Kernel.VMState <> graph_delete_morphism def
+R30316:30319 Coq.Init.Datatypes <> Some constr
+R30313:30315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30288:30308 Kernel.VMState <> graph_delete_morphism def
+R30316:30319 Coq.Init.Datatypes <> Some constr
+R30518:30520 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30490:30511 Kernel.VMState <> graph_tensor_morphisms def
+R30521:30524 Coq.Init.Datatypes <> Some constr
+R30526:30526 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30530:30531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30533:30533 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30518:30520 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30490:30511 Kernel.VMState <> graph_tensor_morphisms def
+R30521:30524 Coq.Init.Datatypes <> Some constr
+R30526:30526 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30530:30531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30533:30533 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R30566:30613 Kernel.CategoryBridge <> graph_tensor_preserves_identity_arrows_canonical thm
+R30356:30384 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+binder 30420:30420 <> p:179
+binder 30422:30423 <> Hp:180
+R30428:30452 Kernel.CategoryBridge <> graph_delete_morphism_sub thm
+R30460:30460 Kernel.CategoryBridge <> p:179 var
+R30464:30465 Kernel.CategoryBridge <> Hp:180 var
+R30201:30254 Kernel.CategoryBridge <> graph_add_identity_preserves_identity_arrows_canonical thm
+R30047:30095 Kernel.CategoryBridge <> graph_compose_preserves_identity_arrows_canonical thm
+R30047:30095 Kernel.CategoryBridge <> graph_compose_preserves_identity_arrows_canonical thm
+R30201:30254 Kernel.CategoryBridge <> graph_add_identity_preserves_identity_arrows_canonical thm
+R30356:30384 Kernel.CategoryBridge <> identity_arrows_canonical_sub thm
+binder 30420:30420 <> p:181
+binder 30422:30423 <> Hp:182
+R30428:30452 Kernel.CategoryBridge <> graph_delete_morphism_sub thm
+R30460:30460 Kernel.CategoryBridge <> p:181 var
+R30464:30465 Kernel.CategoryBridge <> Hp:182 var
+R30566:30613 Kernel.CategoryBridge <> graph_tensor_preserves_identity_arrows_canonical thm
+prf 30663:30710 <> vm_reachable_preserves_identity_arrows_canonical
+binder 30721:30721 <> s:183
+binder 30723:30724 <> s':184
+R30746:30751 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30729:30740 Kernel.VMStep VMStep vm_reachable ind
+R30742:30742 Kernel.CategoryBridge <> s:183 var
+R30744:30745 Kernel.CategoryBridge <> s':184 var
+R30790:30793 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30752:30776 Kernel.CategoryBridge <> identity_arrows_canonical def
+R30781:30788 Kernel.VMState <> vm_graph proj
+R30778:30778 Kernel.CategoryBridge <> s:183 var
+R30794:30818 Kernel.CategoryBridge <> identity_arrows_canonical def
+R30824:30831 Kernel.VMState <> vm_graph proj
+R30820:30821 Kernel.CategoryBridge <> s':184 var
+R30952:30994 Kernel.CategoryBridge <> vm_step_preserves_identity_arrows_canonical thm
+R30952:30994 Kernel.CategoryBridge <> vm_step_preserves_identity_arrows_canonical thm
+prf 31213:31250 <> vm_reachable_identity_arrows_canonical
+binder 31261:31261 <> s:185
+binder 31263:31264 <> s':186
+R31301:31306 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R31296:31298 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31283:31294 Kernel.VMState <> pg_morphisms proj
+R31272:31279 Kernel.VMState <> vm_graph proj
+R31269:31269 Kernel.CategoryBridge <> s:185 var
+R31299:31300 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R31324:31329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R31307:31318 Kernel.VMStep VMStep vm_reachable ind
+R31320:31320 Kernel.CategoryBridge <> s:185 var
+R31322:31323 Kernel.CategoryBridge <> s':186 var
+R31330:31354 Kernel.CategoryBridge <> identity_arrows_canonical def
+R31360:31367 Kernel.VMState <> vm_graph proj
+R31356:31357 Kernel.CategoryBridge <> s':186 var
+R31408:31455 Kernel.CategoryBridge <> vm_reachable_preserves_identity_arrows_canonical thm
+R31408:31455 Kernel.CategoryBridge <> vm_reachable_preserves_identity_arrows_canonical thm
+prf 31934:31960 <> morph_assert_is_cert_setter
+binder 31973:31980 <> morph_id:187
+binder 31982:31985 <> prop:188
+binder 31987:31990 <> cert:189
+binder 31992:31995 <> cost:190
+R32062:32064 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32002:32016 Kernel.VMStep VMStep is_cert_setterb def
+R32019:32036 Kernel.VMStep VMStep instr_morph_assert constr
+R32038:32045 Kernel.CategoryBridge <> morph_id:187 var
+R32047:32050 Kernel.CategoryBridge <> prop:188 var
+R32052:32055 Kernel.CategoryBridge <> cert:189 var
+R32057:32060 Kernel.CategoryBridge <> cost:190 var
+R32065:32068 Coq.Init.Datatypes <> true constr
+prf 32111:32137 <> instr_morph_not_cert_setter
+binder 32150:32152 <> dst:191
+binder 32154:32156 <> src:192
+binder 32158:32164 <> dst_mod:193
+binder 32166:32177 <> coupling_idx:194
+binder 32179:32182 <> cost:195
+R32252:32254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32189:32203 Kernel.VMStep VMStep is_cert_setterb def
+R32206:32216 Kernel.VMStep VMStep instr_morph constr
+R32218:32220 Kernel.CategoryBridge <> dst:191 var
+R32222:32224 Kernel.CategoryBridge <> src:192 var
+R32226:32232 Kernel.CategoryBridge <> dst_mod:193 var
+R32234:32245 Kernel.CategoryBridge <> coupling_idx:194 var
+R32247:32250 Kernel.CategoryBridge <> cost:195 var
+R32255:32259 Coq.Init.Datatypes <> false constr
+prf 32302:32330 <> instr_compose_not_cert_setter
+binder 32343:32345 <> dst:196
+binder 32347:32348 <> m1:197
+binder 32350:32351 <> m2:198
+binder 32353:32356 <> cost:199
+R32409:32411 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32363:32377 Kernel.VMStep VMStep is_cert_setterb def
+R32380:32392 Kernel.VMStep VMStep instr_compose constr
+R32394:32396 Kernel.CategoryBridge <> dst:196 var
+R32398:32399 Kernel.CategoryBridge <> m1:197 var
+R32401:32402 Kernel.CategoryBridge <> m2:198 var
+R32404:32407 Kernel.CategoryBridge <> cost:199 var
+R32412:32416 Coq.Init.Datatypes <> false constr
+prf 32459:32488 <> instr_morph_id_not_cert_setter
+binder 32501:32503 <> dst:200
+binder 32505:32507 <> mid:201
+binder 32509:32512 <> cost:202
+R32564:32566 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32519:32533 Kernel.VMStep VMStep is_cert_setterb def
+R32536:32549 Kernel.VMStep VMStep instr_morph_id constr
+R32551:32553 Kernel.CategoryBridge <> dst:200 var
+R32555:32557 Kernel.CategoryBridge <> mid:201 var
+R32559:32562 Kernel.CategoryBridge <> cost:202 var
+R32567:32571 Coq.Init.Datatypes <> false constr
+prf 32614:32647 <> instr_morph_delete_not_cert_setter
+binder 32660:32667 <> morph_id:203
+binder 32669:32672 <> cost:204
+R32729:32731 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32679:32693 Kernel.VMStep VMStep is_cert_setterb def
+R32696:32713 Kernel.VMStep VMStep instr_morph_delete constr
+R32715:32722 Kernel.CategoryBridge <> morph_id:203 var
+R32724:32727 Kernel.CategoryBridge <> cost:204 var
+R32732:32736 Coq.Init.Datatypes <> false constr
+prf 32779:32812 <> instr_morph_tensor_not_cert_setter
+binder 32825:32827 <> dst:205
+binder 32829:32829 <> f:206
+binder 32831:32831 <> g:207
+binder 32833:32836 <> cost:208
+R32892:32894 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32843:32857 Kernel.VMStep VMStep is_cert_setterb def
+R32860:32877 Kernel.VMStep VMStep instr_morph_tensor constr
+R32879:32881 Kernel.CategoryBridge <> dst:205 var
+R32883:32883 Kernel.CategoryBridge <> f:206 var
+R32885:32885 Kernel.CategoryBridge <> g:207 var
+R32887:32890 Kernel.CategoryBridge <> cost:208 var
+R32895:32899 Coq.Init.Datatypes <> false constr
+prf 32942:32972 <> instr_morph_get_not_cert_setter
+binder 32985:32987 <> dst:209
+binder 32989:32996 <> morph_id:210
+binder 32998:33005 <> selector:211
+binder 33007:33010 <> cost:212
+R33077:33079 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33017:33031 Kernel.VMStep VMStep is_cert_setterb def
+R33034:33048 Kernel.VMStep VMStep instr_morph_get constr
+R33050:33052 Kernel.CategoryBridge <> dst:209 var
+R33054:33061 Kernel.CategoryBridge <> morph_id:210 var
+R33063:33070 Kernel.CategoryBridge <> selector:211 var
+R33072:33075 Kernel.CategoryBridge <> cost:212 var
+R33080:33084 Coq.Init.Datatypes <> false constr
+prf 33181:33196 <> morph_cost_morph
+binder 33207:33209 <> dst:213
+binder 33211:33213 <> src:214
+binder 33215:33221 <> dst_mod:215
+binder 33223:33226 <> cidx:216
+binder 33228:33231 <> cost:217
+R33292:33294 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33236:33251 Kernel.VMStep VMStep instruction_cost def
+R33254:33264 Kernel.VMStep VMStep instr_morph constr
+R33266:33268 Kernel.CategoryBridge <> dst:213 var
+R33270:33272 Kernel.CategoryBridge <> src:214 var
+R33274:33280 Kernel.CategoryBridge <> dst_mod:215 var
+R33282:33285 Kernel.CategoryBridge <> cidx:216 var
+R33287:33290 Kernel.CategoryBridge <> cost:217 var
+R33295:33298 Kernel.CategoryBridge <> cost:217 var
+prf 33341:33358 <> morph_cost_compose
+binder 33369:33371 <> dst:218
+binder 33373:33374 <> m1:219
+binder 33376:33377 <> m2:220
+binder 33379:33382 <> cost:221
+R33434:33436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33387:33402 Kernel.VMStep VMStep instruction_cost def
+R33405:33417 Kernel.VMStep VMStep instr_compose constr
+R33419:33421 Kernel.CategoryBridge <> dst:218 var
+R33423:33424 Kernel.CategoryBridge <> m1:219 var
+R33426:33427 Kernel.CategoryBridge <> m2:220 var
+R33429:33432 Kernel.CategoryBridge <> cost:221 var
+R33437:33440 Kernel.CategoryBridge <> cost:221 var
+prf 33483:33501 <> morph_cost_morph_id
+binder 33512:33514 <> dst:222
+binder 33516:33518 <> mid:223
+binder 33520:33523 <> cost:224
+R33574:33576 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33528:33543 Kernel.VMStep VMStep instruction_cost def
+R33546:33559 Kernel.VMStep VMStep instr_morph_id constr
+R33561:33563 Kernel.CategoryBridge <> dst:222 var
+R33565:33567 Kernel.CategoryBridge <> mid:223 var
+R33569:33572 Kernel.CategoryBridge <> cost:224 var
+R33577:33580 Kernel.CategoryBridge <> cost:224 var
+prf 33623:33645 <> morph_cost_morph_delete
+binder 33656:33663 <> morph_id:225
+binder 33665:33668 <> cost:226
+R33724:33726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33673:33688 Kernel.VMStep VMStep instruction_cost def
+R33691:33708 Kernel.VMStep VMStep instr_morph_delete constr
+R33710:33717 Kernel.CategoryBridge <> morph_id:225 var
+R33719:33722 Kernel.CategoryBridge <> cost:226 var
+R33727:33730 Kernel.CategoryBridge <> cost:226 var
+prf 33773:33795 <> morph_cost_morph_assert
+binder 33806:33813 <> morph_id:227
+binder 33815:33818 <> prop:228
+binder 33820:33823 <> cert:229
+binder 33825:33828 <> cost:230
+R33894:33896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33833:33848 Kernel.VMStep VMStep instruction_cost def
+R33851:33868 Kernel.VMStep VMStep instr_morph_assert constr
+R33870:33877 Kernel.CategoryBridge <> morph_id:227 var
+R33879:33882 Kernel.CategoryBridge <> prop:228 var
+R33884:33887 Kernel.CategoryBridge <> cert:229 var
+R33889:33892 Kernel.CategoryBridge <> cost:230 var
+R33897:33897 Coq.Init.Datatypes <> S constr
+R33899:33902 Kernel.CategoryBridge <> cost:230 var
+prf 33945:33967 <> morph_cost_morph_tensor
+binder 33978:33980 <> dst:231
+binder 33982:33982 <> f:232
+binder 33984:33984 <> g:233
+binder 33986:33989 <> cost:234
+R34044:34046 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33994:34009 Kernel.VMStep VMStep instruction_cost def
+R34012:34029 Kernel.VMStep VMStep instr_morph_tensor constr
+R34031:34033 Kernel.CategoryBridge <> dst:231 var
+R34035:34035 Kernel.CategoryBridge <> f:232 var
+R34037:34037 Kernel.CategoryBridge <> g:233 var
+R34039:34042 Kernel.CategoryBridge <> cost:234 var
+R34047:34050 Kernel.CategoryBridge <> cost:234 var
+prf 34093:34112 <> morph_cost_morph_get
+binder 34123:34125 <> dst:235
+binder 34127:34134 <> morph_id:236
+binder 34136:34138 <> sel:237
+binder 34140:34143 <> cost:238
+R34204:34206 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34148:34163 Kernel.VMStep VMStep instruction_cost def
+R34166:34180 Kernel.VMStep VMStep instr_morph_get constr
+R34182:34184 Kernel.CategoryBridge <> dst:235 var
+R34186:34193 Kernel.CategoryBridge <> morph_id:236 var
+R34195:34197 Kernel.CategoryBridge <> sel:237 var
+R34199:34202 Kernel.CategoryBridge <> cost:238 var
+R34207:34210 Kernel.CategoryBridge <> cost:238 var
+prf 34525:34550 <> morph_assert_cost_positive
+binder 34561:34568 <> morph_id:239
+binder 34570:34573 <> prop:240
+binder 34575:34578 <> cert:241
+binder 34580:34583 <> cost:242
+R34589:34591 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R34592:34607 Kernel.VMStep VMStep instruction_cost def
+R34610:34627 Kernel.VMStep VMStep instr_morph_assert constr
+R34629:34636 Kernel.CategoryBridge <> morph_id:239 var
+R34638:34641 Kernel.CategoryBridge <> prop:240 var
+R34643:34646 Kernel.CategoryBridge <> cert:241 var
+R34648:34651 Kernel.CategoryBridge <> cost:242 var
+prf 34785:34807 <> morph_compose_cost_zero
+binder 34818:34820 <> dst:243
+binder 34822:34823 <> m1:244
+binder 34825:34826 <> m2:245
+R34875:34877 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34831:34846 Kernel.VMStep VMStep instruction_cost def
+R34849:34861 Kernel.VMStep VMStep instr_compose constr
+R34863:34865 Kernel.CategoryBridge <> dst:243 var
+R34867:34868 Kernel.CategoryBridge <> m1:244 var
+R34870:34871 Kernel.CategoryBridge <> m2:245 var
+prf 35394:35430 <> categorical_extension_nofi_consistent
+R35460:35462 Coq.Init.Datatypes <> nat ind
+binder 35444:35451 <> morph_id:246
+binder 35453:35456 <> cost:247
+R35478:35483 Coq.Strings.String <> string ind
+binder 35466:35469 <> prop:248
+binder 35471:35474 <> cert:249
+R35558:35565 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R35551:35553 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35491:35505 Kernel.VMStep VMStep is_cert_setterb def
+R35508:35525 Kernel.VMStep VMStep instr_morph_assert constr
+R35527:35534 Kernel.CategoryBridge <> morph_id:246 var
+R35536:35539 Kernel.CategoryBridge <> prop:248 var
+R35541:35544 Kernel.CategoryBridge <> cert:249 var
+R35546:35549 Kernel.CategoryBridge <> cost:247 var
+R35554:35557 Coq.Init.Datatypes <> true constr
+R35567:35569 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R35570:35585 Kernel.VMStep VMStep instruction_cost def
+R35588:35605 Kernel.VMStep VMStep instr_morph_assert constr
+R35607:35614 Kernel.CategoryBridge <> morph_id:246 var
+R35616:35619 Kernel.CategoryBridge <> prop:248 var
+R35621:35624 Kernel.CategoryBridge <> cert:249 var
+R35626:35629 Kernel.CategoryBridge <> cost:247 var
+R35667:35693 Kernel.CategoryBridge <> morph_assert_is_cert_setter thm
+R35667:35693 Kernel.CategoryBridge <> morph_assert_is_cert_setter thm
+R35706:35731 Kernel.CategoryBridge <> morph_assert_cost_positive thm
+R35706:35731 Kernel.CategoryBridge <> morph_assert_cost_positive thm
