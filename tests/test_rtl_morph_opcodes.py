@@ -341,7 +341,7 @@ class TestMorphRTLCouplingData:
     def test_join_uses_last_pair_slot(self):
         first = [(i, i + 20) for i in range(14)]
         program = _coupling_memory(64, first) + _coupling_memory(100, [(20, 40)])
-        state = _run_cosim(program + "PNEW {50} 0\nPNEW {50} 0\nPNEW {50} 0\nMORPH_EXT 0 1 2 64 0\nMORPH_EXT 0 2 3 100 0\nCOMPOSE_EXT 0 1 2 0\nHALT")
+        state = _run_cosim(program + "PNEW {50} 0\nPNEW {51} 0\nPNEW {52} 0\nMORPH_EXT 0 1 2 64 0\nMORPH_EXT 0 2 3 100 0\nCOMPOSE_EXT 0 1 2 0\nHALT")
         assert not state["err"]
         assert _pairs(state, 3) == [[0, 40]]
         assert _pairs(state, 1) == [list(pair) for pair in first]
