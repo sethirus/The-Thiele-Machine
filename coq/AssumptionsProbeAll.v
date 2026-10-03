@@ -342,6 +342,7 @@ Require Kernel.QuantitativeNoFI.
 Require Kernel.A2LoadBearing.
 Require Kernel.A2Payoff.
 Require Kernel.AbstractNoFI.
+Require Kernel.BitSearchEntitlement.
 Require Kernel.CertCheck.
 Require Kernel.Certification.
 Require Kernel.CommitmentCostDecomposition.
@@ -13385,6 +13386,74 @@ Print Assumptions Kernel.AbstractNoFI.no_free_certification_trace_mu.
 Print Assumptions Kernel.AbstractNoFI.no_free_certification_certified.
 Print Assumptions Kernel.AbstractNoFI.no_free_certification_certified_mu.
 Print Assumptions Kernel.AbstractNoFI.certification_requires_positive_mu.
+(* === Kernel.BitSearchEntitlement : 67 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.BitSearchEntitlement.questions_length.
+Print Assumptions Kernel.BitSearchEntitlement.nth_error_questions.
+Print Assumptions Kernel.BitSearchEntitlement.nth_error_prog_question.
+Print Assumptions Kernel.BitSearchEntitlement.nth_error_prog_tail.
+Print Assumptions Kernel.BitSearchEntitlement.search_prog_length.
+Print Assumptions Kernel.BitSearchEntitlement.run_vm_step_at.
+Print Assumptions Kernel.BitSearchEntitlement.cse_step_at.
+Print Assumptions Kernel.BitSearchEntitlement.run_vm_step_some.
+Print Assumptions Kernel.BitSearchEntitlement.cse_step_some.
+Print Assumptions Kernel.BitSearchEntitlement.run_vm_stopped.
+Print Assumptions Kernel.BitSearchEntitlement.cse_stopped.
+Print Assumptions Kernel.BitSearchEntitlement.run_vm_add.
+Print Assumptions Kernel.BitSearchEntitlement.cse_add.
+Print Assumptions Kernel.BitSearchEntitlement.word64_small.
+Print Assumptions Kernel.BitSearchEntitlement.word64_b2n.
+Print Assumptions Kernel.BitSearchEntitlement.word64_xor_b2n.
+Print Assumptions Kernel.BitSearchEntitlement.nth_mem_of.
+Print Assumptions Kernel.BitSearchEntitlement.mem_of_length.
+Print Assumptions Kernel.BitSearchEntitlement.world_searching.
+Print Assumptions Kernel.BitSearchEntitlement.question_run.
+Print Assumptions Kernel.BitSearchEntitlement.run_prefix.
+Print Assumptions Kernel.BitSearchEntitlement.prog_stopped.
+Print Assumptions Kernel.BitSearchEntitlement.trap_run.
+Print Assumptions Kernel.BitSearchEntitlement.suffix_run.
+Print Assumptions Kernel.BitSearchEntitlement.first_mismatch.
+Print Assumptions Kernel.BitSearchEntitlement.search_run_agrees.
+Print Assumptions Kernel.BitSearchEntitlement.search_run_mismatch.
+Print Assumptions Kernel.BitSearchEntitlement.search_certifies_iff_agrees.
+Print Assumptions Kernel.BitSearchEntitlement.still_searching_iff.
+Print Assumptions Kernel.BitSearchEntitlement.all_bits_length.
+Print Assumptions Kernel.BitSearchEntitlement.in_all_bits.
+Print Assumptions Kernel.BitSearchEntitlement.agreesb_spec.
+Print Assumptions Kernel.BitSearchEntitlement.filter_app'.
+Print Assumptions Kernel.BitSearchEntitlement.filter_map'.
+Print Assumptions Kernel.BitSearchEntitlement.filter_ext_in'.
+Print Assumptions Kernel.BitSearchEntitlement.filter_false'.
+Print Assumptions Kernel.BitSearchEntitlement.filter_true'.
+Print Assumptions Kernel.BitSearchEntitlement.count_agrees.
+Print Assumptions Kernel.BitSearchEntitlement.agree_upto_firstn.
+Print Assumptions Kernel.BitSearchEntitlement.search_progress_count.
+Print Assumptions Kernel.BitSearchEntitlement.receipt_eqb_spec.
+Print Assumptions Kernel.BitSearchEntitlement.read_mem_world.
+Print Assumptions Kernel.BitSearchEntitlement.map_nth_seq_self.
+Print Assumptions Kernel.BitSearchEntitlement.decode_world.
+Print Assumptions Kernel.BitSearchEntitlement.world_inj.
+Print Assumptions Kernel.BitSearchEntitlement.decoder_search_prog.
+Print Assumptions Kernel.BitSearchEntitlement.asked_obs_world.
+Print Assumptions Kernel.BitSearchEntitlement.app_agree.
+Print Assumptions Kernel.BitSearchEntitlement.agree_split.
+Print Assumptions Kernel.BitSearchEntitlement.posterior_is_what_the_run_certifies.
+Print Assumptions Kernel.BitSearchEntitlement.posterior_size.
+Print Assumptions Kernel.BitSearchEntitlement.complete_tree_depth.
+Print Assumptions Kernel.BitSearchEntitlement.fold_add_const.
+Print Assumptions Kernel.BitSearchEntitlement.bs_prior_member.
+Print Assumptions Kernel.BitSearchEntitlement.bs_posterior_in_prior.
+Print Assumptions Kernel.BitSearchEntitlement.bs_witness_length.
+Print Assumptions Kernel.BitSearchEntitlement.bs_asked_head.
+Print Assumptions Kernel.BitSearchEntitlement.bs_distinguishing.
+Print Assumptions Kernel.BitSearchEntitlement.bs_strict_subset.
+Print Assumptions Kernel.BitSearchEntitlement.bs_hidden_in_posterior.
+Print Assumptions Kernel.BitSearchEntitlement.bs_obs_hidden.
+Print Assumptions Kernel.BitSearchEntitlement.bs_certified.
+Print Assumptions Kernel.BitSearchEntitlement.bs_tree_realized.
+Print Assumptions Kernel.BitSearchEntitlement.bs_posterior_nonempty.
+Print Assumptions Kernel.BitSearchEntitlement.bs_representatives.
+Print Assumptions Kernel.BitSearchEntitlement.bit_search_entitlement.
+Print Assumptions Kernel.BitSearchEntitlement.bit_search_bound_reads.
 (* === Kernel.Certification : 13 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Certification.CertificationTheory.reveal_charges_mu.
 Print Assumptions Kernel.Certification.CertificationTheory.chsh_trials_non_forgeable.

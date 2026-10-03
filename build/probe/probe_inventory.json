@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 508,
-  "total_addressable": 14503,
+  "files_probed": 509,
+  "total_addressable": 14570,
   "total_unaddressable": 8,
   "extras_addressable_via_instantiation": [
     {
@@ -65832,6 +65832,350 @@
           "local_name": "certification_requires_positive_mu",
           "kind": "Theorem",
           "full_name": "Kernel.AbstractNoFI.certification_requires_positive_mu"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/nfi/BitSearchEntitlement.v",
+      "qualified_module": "Kernel.BitSearchEntitlement",
+      "addressable_count": 67,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "questions_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.questions_length"
+        },
+        {
+          "local_name": "nth_error_questions",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.nth_error_questions"
+        },
+        {
+          "local_name": "nth_error_prog_question",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.nth_error_prog_question"
+        },
+        {
+          "local_name": "nth_error_prog_tail",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.nth_error_prog_tail"
+        },
+        {
+          "local_name": "search_prog_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.search_prog_length"
+        },
+        {
+          "local_name": "run_vm_step_at",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.run_vm_step_at"
+        },
+        {
+          "local_name": "cse_step_at",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.cse_step_at"
+        },
+        {
+          "local_name": "run_vm_step_some",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.run_vm_step_some"
+        },
+        {
+          "local_name": "cse_step_some",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.cse_step_some"
+        },
+        {
+          "local_name": "run_vm_stopped",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.run_vm_stopped"
+        },
+        {
+          "local_name": "cse_stopped",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.cse_stopped"
+        },
+        {
+          "local_name": "run_vm_add",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.run_vm_add"
+        },
+        {
+          "local_name": "cse_add",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.cse_add"
+        },
+        {
+          "local_name": "word64_small",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.word64_small"
+        },
+        {
+          "local_name": "word64_b2n",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.word64_b2n"
+        },
+        {
+          "local_name": "word64_xor_b2n",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.word64_xor_b2n"
+        },
+        {
+          "local_name": "nth_mem_of",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.nth_mem_of"
+        },
+        {
+          "local_name": "mem_of_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.mem_of_length"
+        },
+        {
+          "local_name": "world_searching",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.world_searching"
+        },
+        {
+          "local_name": "question_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.question_run"
+        },
+        {
+          "local_name": "run_prefix",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.run_prefix"
+        },
+        {
+          "local_name": "prog_stopped",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.prog_stopped"
+        },
+        {
+          "local_name": "trap_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.trap_run"
+        },
+        {
+          "local_name": "suffix_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.suffix_run"
+        },
+        {
+          "local_name": "first_mismatch",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.first_mismatch"
+        },
+        {
+          "local_name": "search_run_agrees",
+          "kind": "Theorem",
+          "full_name": "Kernel.BitSearchEntitlement.search_run_agrees"
+        },
+        {
+          "local_name": "search_run_mismatch",
+          "kind": "Theorem",
+          "full_name": "Kernel.BitSearchEntitlement.search_run_mismatch"
+        },
+        {
+          "local_name": "search_certifies_iff_agrees",
+          "kind": "Theorem",
+          "full_name": "Kernel.BitSearchEntitlement.search_certifies_iff_agrees"
+        },
+        {
+          "local_name": "still_searching_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.still_searching_iff"
+        },
+        {
+          "local_name": "all_bits_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.all_bits_length"
+        },
+        {
+          "local_name": "in_all_bits",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.in_all_bits"
+        },
+        {
+          "local_name": "agreesb_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.agreesb_spec"
+        },
+        {
+          "local_name": "filter_app'",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.filter_app'"
+        },
+        {
+          "local_name": "filter_map'",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.filter_map'"
+        },
+        {
+          "local_name": "filter_ext_in'",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.filter_ext_in'"
+        },
+        {
+          "local_name": "filter_false'",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.filter_false'"
+        },
+        {
+          "local_name": "filter_true'",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.filter_true'"
+        },
+        {
+          "local_name": "count_agrees",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.count_agrees"
+        },
+        {
+          "local_name": "agree_upto_firstn",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.agree_upto_firstn"
+        },
+        {
+          "local_name": "search_progress_count",
+          "kind": "Theorem",
+          "full_name": "Kernel.BitSearchEntitlement.search_progress_count"
+        },
+        {
+          "local_name": "receipt_eqb_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.receipt_eqb_spec"
+        },
+        {
+          "local_name": "read_mem_world",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.read_mem_world"
+        },
+        {
+          "local_name": "map_nth_seq_self",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.map_nth_seq_self"
+        },
+        {
+          "local_name": "decode_world",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.decode_world"
+        },
+        {
+          "local_name": "world_inj",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.world_inj"
+        },
+        {
+          "local_name": "decoder_search_prog",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.decoder_search_prog"
+        },
+        {
+          "local_name": "asked_obs_world",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.asked_obs_world"
+        },
+        {
+          "local_name": "app_agree",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.app_agree"
+        },
+        {
+          "local_name": "agree_split",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.agree_split"
+        },
+        {
+          "local_name": "posterior_is_what_the_run_certifies",
+          "kind": "Theorem",
+          "full_name": "Kernel.BitSearchEntitlement.posterior_is_what_the_run_certifies"
+        },
+        {
+          "local_name": "posterior_size",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.posterior_size"
+        },
+        {
+          "local_name": "complete_tree_depth",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.complete_tree_depth"
+        },
+        {
+          "local_name": "fold_add_const",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.fold_add_const"
+        },
+        {
+          "local_name": "bs_prior_member",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_prior_member"
+        },
+        {
+          "local_name": "bs_posterior_in_prior",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_posterior_in_prior"
+        },
+        {
+          "local_name": "bs_witness_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_witness_length"
+        },
+        {
+          "local_name": "bs_asked_head",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_asked_head"
+        },
+        {
+          "local_name": "bs_distinguishing",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_distinguishing"
+        },
+        {
+          "local_name": "bs_strict_subset",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_strict_subset"
+        },
+        {
+          "local_name": "bs_hidden_in_posterior",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_hidden_in_posterior"
+        },
+        {
+          "local_name": "bs_obs_hidden",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_obs_hidden"
+        },
+        {
+          "local_name": "bs_certified",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_certified"
+        },
+        {
+          "local_name": "bs_tree_realized",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_tree_realized"
+        },
+        {
+          "local_name": "bs_posterior_nonempty",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_posterior_nonempty"
+        },
+        {
+          "local_name": "bs_representatives",
+          "kind": "Lemma",
+          "full_name": "Kernel.BitSearchEntitlement.bs_representatives"
+        },
+        {
+          "local_name": "bit_search_entitlement",
+          "kind": "Theorem",
+          "full_name": "Kernel.BitSearchEntitlement.bit_search_entitlement"
+        },
+        {
+          "local_name": "bit_search_bound_reads",
+          "kind": "Corollary",
+          "full_name": "Kernel.BitSearchEntitlement.bit_search_bound_reads"
         }
       ],
       "unaddressable": []
