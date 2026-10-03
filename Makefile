@@ -414,14 +414,11 @@ rtl-verify: rtl-check rtl-synth rtl-cosim
 	@echo "║  ✓ accelerator cosim        (22+ tests)         ║"
 	@echo "╚══════════════════════════════════════════════════╝"
 
-# Full Xilinx Artix-7 (xc7a35t / Arty A7-35T) deployment flow:
-# yosys synth_xilinx → nextpnr-xilinx → fasm2frames → xc7frames2bit.
-# Lets engineers reproduce the FPGA build locally without going through CI.
-# Top is the minimal wrapper (thiele_cpu_top in thiele_cpu_top_min.v) so
-# only the 5 board-visible pins need routing.
+# Genesys 2 deployment through the canonical board wrapper.
+# yosys synth_xilinx -> nextpnr-xilinx -> fasm2frames -> xc7frames2bit.
 .PHONY: rtl-synth-xc7
 rtl-synth-xc7: $(RTL_CANONICAL)
-	@echo "=== Xilinx Artix-7 (xc7a35t) deployment flow ==="
+	@echo "=== Xilinx Kintex-7 (Genesys 2) deployment flow ==="
 	@command -v yosys             >/dev/null || { echo "ERROR: yosys not found"; exit 1; }
 	@command -v nextpnr-xilinx    >/dev/null || { echo "ERROR: nextpnr-xilinx not found (build from openXC7/nextpnr-xilinx)"; exit 1; }
 	@command -v xc7frames2bit     >/dev/null || { echo "ERROR: xc7frames2bit not found (build from SymbiFlow/prjxray tools)"; exit 1; }
@@ -554,7 +551,6 @@ check-sensitive-files:
 	   echo "     1. make -C coq -j1              (rebuild proofs)"; \
 	   echo "     2. make isa-proof-freshness-check (verify .vo freshness)"; \
 	   echo "     3. python3 scripts/inquisitor.py  (zero Admitted check)"; \
-	   echo "     4. Update artifacts/final_claim_audit/isa_proof_impact.md if ISA changed"; \
 	   echo ""; \
 	 else \
 	   echo "[check-sensitive-files] No uncommitted changes to proof-sensitive files. OK"; \

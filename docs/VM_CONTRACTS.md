@@ -1,8 +1,9 @@
 # VM contracts
 
-The unbounded VM results are stated for two related but distinct objects: the
-fixed self-interpreter construction and the extensional limitative reduction.
-Both are formal results about the unbounded sibling semantics.
+The unbounded VM results are stated for three related but distinct objects:
+the fixed self-interpreter construction, the extensional limitative reduction,
+and the guest's recursion theorem. All three are formal results about the
+unbounded sibling semantics.
 
 ## Self-interpreter
 
@@ -29,9 +30,29 @@ MM2 instance halts and behaves as the divergent program otherwise. The
 checked result establishes undecidability for extensional predicates that
 separate those behaviors, including halting on zero and returning zero.
 
-This is the selected proved construction for the stated limitative result. It
-does not claim an internal recursion theorem, and it does not discharge a
-conditional diagonal for a bounded or physical VM. A total converged
+The reduction does not use the recursion theorem below.
+
+## Recursion theorem
+
+`vm_guest_recursion_theorem_closed` proves Kleene's recursion theorem inside
+the guest: for every transformer that maps well-formed guest programs to
+well-formed guest programs and is computed by a guest program on program
+codes, some well-formed guest program has the same final registers and the
+same guest ledger as its image on every input, and runs forever exactly when
+its image does. The evaluator in the proof runs as guest code: the evaluator
+relation is extracted to the lambda calculus L, compiled to a Minsky machine,
+and executed by the guest.
+
+## The full VM
+
+None of the above is a recursion theorem for the full 51-opcode VM under its
+bounded runs. Asked for every map on programs, with equality of the
+thousand-step runs from every state, such a theorem is false
+(`vm_full_recursion_premise_refuted`): that bounded shortcut property is
+decidable, and the flip of any correct decider for it has no fixed point
+(`vm_correct_flip_has_no_fixed_point`). So the conditional diagonal for the
+full VM (`vm_structural_shortcut_undecidable_encoded`) applies only to
+classes of maps that leave every such flip out. A total converged
 `Substrate.run` is treated as a separate assumption whose consequences are
 stated by its own theorem.
 

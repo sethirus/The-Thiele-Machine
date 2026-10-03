@@ -1,6 +1,6 @@
 # No-Free-Insight (NoFI)
 
-**Mission:** No-Free-Insight abstraction proofs establishing fundamental limits on information extraction.
+No Free Insight and the μ-Chaitin bound stated over abstract interfaces, with the kernel instance and a trace-local instance.
 
 ## Structure
 

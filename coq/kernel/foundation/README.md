@@ -28,15 +28,15 @@ imports something here.
 | `PartitionSeparation.v` | Partition ops are semantic in Thiele, syntactic in TM |
 | `DagRestriction.v` | Sub-Turing DAG variant: NoFI survives without backward jumps |
 | `ClassicalBound.v` | Classical CHSH bound on `μ=0` traces |
-| `ClassicalConservativity.v` | D3: classical-opcode traces preserve graph/cert/witness |
-| `TuringClassicalEmbedding.v` | D1+D2: classical-program notion + embedding into the Thiele ISA |
-| `TuringStrictness.v` | D4+D5: Thiele strictly extends classical semantics (witness construction) |
+| `ClassicalConservativity.v` | Classical-opcode runs, including runs that jump, leave the graph, the certificate address and certification unchanged |
+| `TuringClassicalEmbedding.v` | The classical-program notion and its embedding into the Thiele ISA |
+| `TuringStrictness.v` | Thiele strictly extends classical semantics: from every state a classical run reaches from `init_state`, one PNEW changes the module counter, which no classical run does |
 | `TuringCompletenessISA.v` | Simulates 2-counter Minsky machines through `vm_apply` (5 of the 51 opcodes: `load_imm`, `add`, `sub`, `jnez`, `jump`), bounded by the 64-bit word representation |
 | `Substrate.v` | Abstract computational substrate as a Coq typeclass; the 51-opcode VM is one realization |
 | `VMSubstrateInstance.v` | `VMState` as a `Substrate` instance, so the substrate-level `structural_shortcut_undecidable` applies to the concrete VM |
 | `NatSubstrateInstance.v` | A concrete `Substrate` over `nat`-coded programs, with the recursion theorem discharged by construction |
 | `VMInstructionEncoding.v` | Godel encoding from `list vm_instruction` to `nat` with a proven left inverse |
-| `VMBoundedDecidability.v` | Decidability of the bounded VM shortcut predicate, which compares full outcomes after 1000 steps |
+| `VMBoundedDecidability.v` | Decidability of the bounded VM shortcut predicate, which compares full outcomes after 1000 steps; the recursion premise for every map on programs is false (`vm_full_recursion_premise_refuted`) |
 | `VMWitnessCounterMonotonicity.v` | Witness-counter buckets are monotone under `vm_step` |
 | `VMWord64BoundednessObstruction.v` | The bounded VM's register and memory file is a finite-state system; no finite program injects arbitrarily many distinct inputs into it |
 | `VMEncodedInputAccess.v` | No fixed VM program started from `vm_encode_concrete p` can report `p`'s final certification bit for every `p` through an output independent of the retained `vm_logic_acc`; every executable opcode commutes with replacing `vm_logic_acc` |
@@ -89,6 +89,8 @@ imports something here.
 | `VMGuestExactEpilogue.v` | Exact output epilogue for the four-register guest: decodes one number into all four guest registers and charges the mu ledger by an exact data-dependent amount |
 | `VMGuestMMAPipeline.v` | Composite guest program that evaluates a one-input alternate Minsky program with exact semantics |
 | `VMGuestRecursion.v` | The guest's internal recursion theorem, closed: `vm_guest_recursion_theorem_closed` |
+| `ReachableTraceRepresentative.v` | A trace for every reachable state, found by search over an enumeration of all traces; the generalized reachable-simulation iff holds without its representative premise (`generalized_reachable_simulation_holds`) |
+| `EarnedCoreLinks.v` | Links `minimal/EarnedCore.v` to the kernel's records: its halting problem is undecidable, it is a `CertificationSystem`, an adequate record-carrying machine, an honest extension of its base, and a latch |
 | `LRecursion.v` | Kleene's second recursion theorem and Rice's theorem for the lambda calculus L |
 | `StructuralCore.v` | Record-carrying machines, adequacy, and core equivalence (weak form) |
 | `StructuralCoreCover.v` | Computational covers and record observations: the strong form of the structural definitions, for machines that run the VM underneath |

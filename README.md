@@ -34,8 +34,12 @@ There is another axis: what the computation established, and what establishing i
 5. **Which events every account has to price.** Certification is the one I pinned down. On finite hardware the events that must be priced are the merges; every permanent-record write is one, and a flip escapes the price only when the same step can take it back. Proved, with Landauer's principle as the named premise. The guess that the priced events are exactly the permanent records is false; a three-state counterexample is in the same file. No theorem selects another universal class of priced events.
 6. **What carries the weight.** Three results. Every machine can carry the record axis: take a Turing machine, a RAM, the VM, any deterministic machine, and any event it reaches, and the machine plus a latch on that event, charging one unit when the latch sets, is an honest extension of it ([`latch_core_honest`](coq/kernel/foundation/RecordAxisDiscrimination.v)). The record can't be read back off the shadow: on the VM, no function of the named windows returns certification or μ (`cert_not_function_of_forget`, `mu_not_function_of_bare_observable`). And on finite hardware a step that writes a permanent record merges two states (`permanent_flip_is_not_injective`), so an account that prices merges already prices the write (`a2_from_merging_price_and_permanence`). Proved. The shape of the axis is close to definitional: a record that never switches off and is driven by the computation moves as a latch on one event (`record_axis_is_latch_holds`), and that follows from those two conditions in a few lines. The pointer question asks which event gets latched; no theorem here selects one uniquely.
 
-The 51-opcode VM, the Coq kernel, the hardware, and the CHSH check are one build of the model.
-They are there so the argument has something you can run and try to break.
+Two machines here run the model.
+The small one, [minimal/EarnedCore.v](minimal/EarnedCore.v), earns its commitments: a commitment goes through only on a fact a passing check wrote, and every certification traces back to such a check.
+It runs any two-counter program, so by Minsky's theorem (cited, not re-proved) it computes whatever a Turing machine computes.
+The big one is a test bench: the 51-opcode VM, the Coq kernel that defines it, the extracted runner, the hardware, and the CHSH check.
+It prices commitments and doesn't check that they were earned.
+Both are there so the argument has something you can run and try to break.
 They are witnesses.
 They are not the subject.
 
@@ -106,7 +110,9 @@ The napkin doesn't just hold; it compiles.
 [minimal/EarnedCore.v](minimal/EarnedCore.v) is the smallest machine I could build that earns its commitments instead of pricing them.
 Two counters, a table of checked facts, and three priced instructions: CHECK, COMMIT and CERTIFY.
 A COMMIT goes through only on a fact that a passing CHECK wrote for that counter at its current version, CERTIFY only after a COMMIT, and anything else traps.
-From a clean start a certified run costs at least 3, and 3 is reached.
+From a clean start, every certified run contains a passing CHECK, then a passing COMMIT of that same claim with the counter untouched in between, then CERTIFY (`earned_certification_provenance`).
+On a run from a clean start, a fact whose counter hasn't been written since its check names a true claim about that counter (`checker_soundness`), and every fact in the table was written by a passing CHECK of exactly that claim.
+From a clean start a certified run costs at least 3 (`certified_run_min_cost`), and 3 is reached.
 The counter instructions are a two-counter machine, so it runs any two-counter program, and [EarnedCoreLinks.v](coq/kernel/foundation/EarnedCoreLinks.v) proves its halting problem undecidable from the vendored two-counter result.
 Twenty-nine theorems, standard library only, each closed under the global context: `coqc minimal/EarnedCore.v`.
 
@@ -159,6 +165,7 @@ Generic `CERTIFY` sets a flag and charges for doing so; it checks no proposition
 `MORPH_ASSERT` checks morphism existence and uses property text as a checksum label; it does not interpret an arbitrary proposition or validate its certificate string.
 `CHSH_LASSERT` has a separate soundness theorem for its restricted PSD test.
 Payment and semantic truth must be assessed separately.
+The small machine is the contrast: there CERTIFY needs a COMMIT, and a COMMIT needs a fact a passing CHECK wrote.
 
 The mathematical [elliptope completion and gate](coq/kernel/quantum/ElliptopeGate.v) extend beyond the runtime check's fixed orthogonal slice.
 The completion gate is not bound into the executable ISA.
@@ -300,7 +307,8 @@ The fourth column is the artifact that refutes the row, each one constructible i
 
 | Claim | Meaning | Main proof files | Refute it |
 |---|---|---|---|
-| Minimal core | The whole substrate claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. Zero axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) | An `f : shadow -> nat` with `f (strict_shadow s) = st_mu s` for all `s`; Coq accepts it where `no_mu_oracle` proves none exists. |
+| Minimal core | The core accounting claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. Zero axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) | An `f : shadow -> nat` with `f (strict_shadow s) = st_mu s` for all `s`; Coq accepts it where `no_mu_oracle` proves none exists. |
+| Earned commitments | In the small machine, every certified run from a clean start passed a CHECK, then a COMMIT of the same claim with its counter untouched in between, then CERTIFY; it costs at least 3, and 3 is reached. | [minimal/EarnedCore.v](minimal/EarnedCore.v), [EarnedCoreLinks.v](coq/kernel/foundation/EarnedCoreLinks.v) | A clean-start trace that ends certified without a passing CHECK of the committed claim before its COMMIT; `earned_certification_provenance` falls. |
 | Receipt theorem | `mu` is not determined by strict classical state. | [ReceiptTheorem.v](coq/ReceiptTheorem.v), [NecessityOfMuLedger.v](coq/NecessityOfMuLedger.v) | An `f : StrictClassicalState -> nat` with `f (strict_shadow s) = vm_mu s` for every `VMState`; `ReceiptTheorem` falls. |
 | No Free Insight | Certification from an uncertified state requires positive `mu`. | [AbstractNoFI.v](coq/kernel/nfi/AbstractNoFI.v), [NoFreeInsight.v](coq/kernel/nfi/NoFreeInsight.v) | A VM step taking `vm_certified` false→true at instruction cost 0; `no_free_certification_certified` falls. |
 | Universal cost floor | Any substrate with a cert-flip cost floor satisfies the same no-free-certification result. | [UniversalCertificationCost.v](coq/kernel/nfi/UniversalCertificationCost.v) | A `CertificationSystem` trace from uncertified to certified with `cs_total_cost = 0`; `universal_nfi_any_substrate` falls. |
@@ -310,8 +318,8 @@ The fourth column is the artifact that refutes the row, each one constructible i
 | `mu` hierarchy | Level-`k` certification requires at least `k` units of `mu`; no fixed budget covers every level. | [MuHierarchyTheorem.v](coq/kernel/mu_calculus/MuHierarchyTheorem.v) | A level-`k` certification trace with total `mu` < `k`; `level_k_certification_cost_floor` falls. |
 | Structural advantage | The factored-SAT lower bound is proved for the non-adaptive model; the thermodynamic parsing gap is proved separately. | [NonAdaptiveLowerBound.v](coq/kernel/nfi/NonAdaptiveLowerBound.v), [ThermodynamicStructuralAdvantage.v](coq/kernel/nfi/ThermodynamicStructuralAdvantage.v) | A non-adaptive solver deciding the factored instance while probing fewer than `2^n` assignments; `non_adaptive_sat_lower_bound` falls. |
 | Algebraic Tsirelson | The CHSH bound follows from rational polynomial constraints by Coq arithmetic. | [AlgebraicCoherence.v](coq/kernel/category/AlgebraicCoherence.v), [QuantumPartitionPSD.v](coq/kernel/quantum/QuantumPartitionPSD.v) | An `algebraically_coherent` correlator with `S² > 8`; `algebraically_coherent_tsirelson_general` falls. |
-| Physics closure | Locality, `mu` monotonicity (mu never decreases under any step), causality, and discrete curvature identities are formalized as VM-level consequences or named bridges. The flat/vacuum EFE closure (`full_efe_uniform_two_vertex`) is a discrete-geometry identity (both sides vanish), not a derivation of general relativity. | [PhysicsClosure.v](coq/kernel/curvature/PhysicsClosure.v), [EinsteinEmergence.v](coq/kernel/curvature/EinsteinEmergence.v), [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | A state `s` and instruction `i` with `(vm_apply s i)` paying less than `instruction_cost i` in `mu`, or a step writing outside its target module; `vm_apply_mu` (or the locality lemma) falls. |
-| Intermediate hardware-model correspondence | The load-bearing theorem is [`driven_step_wf`](coq/kami_hw/GraphReconstructionBridge.v#L3757): for every instruction, the abstracted Kami hardware step equals `vm_apply` under `WFDrivenPrecondition`: `abs_full_snapshot (kami_step ks i) = vm_apply (abs_full_snapshot ks) i`, discharged by per-opcode lemmas. CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. (The bookkeeping identity `37 + 10 + 0 = 47` is recorded separately as `rtl_inventory_arithmetic`; it is Peano arithmetic and proves nothing about opcodes, so cite `driven_step_wf`, not the partition.) | [GraphReconstructionBridge.v](coq/kami_hw/GraphReconstructionBridge.v#L3757), [coq/kami_hw](coq/kami_hw) | A cosim input on which synthesised RTL diverges from the Kami step for any synth-realised opcode (run `tests/test_verilog_cosim.py`); `rtl_step_correct` is violated empirically. |
+| Physics closure | Locality, `mu` monotonicity (mu never decreases under any step), causality, and discrete curvature identities are formalized as VM-level consequences or named bridges. The flat/vacuum EFE closure (`full_efe_uniform_two_vertex`) is a discrete-geometry identity (both sides vanish), not a derivation of general relativity. The curvature theorems are about partition graphs in general. On states the VM reaches, no two modules share an address, so no two are adjacent and no face-graph triangle exists (`reachable_no_adjacent_modules`), and calibration holds exactly when there are no modules (`reachable_calibrated_iff_no_modules`). | [PhysicsClosure.v](coq/kernel/curvature/PhysicsClosure.v), [EinsteinEmergence.v](coq/kernel/curvature/EinsteinEmergence.v), [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | A state `s` and instruction `i` with `(vm_apply s i)` paying less than `instruction_cost i` in `mu`, or a step writing outside its target module; `vm_apply_mu` (or the locality lemma) falls. |
+| Intermediate hardware-model correspondence | The load-bearing theorem is [`driven_step_wf`](coq/kami_hw/GraphReconstructionBridge.v#L3746): for every instruction, the abstracted Kami hardware step equals `vm_apply` under `WFDrivenPrecondition`: `abs_full_snapshot (kami_step ks i) = vm_apply (abs_full_snapshot ks) i`, discharged by per-opcode lemmas. CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. (The bookkeeping identity `37 + 10 + 0 = 47` is recorded separately as `rtl_inventory_arithmetic`; it is Peano arithmetic and proves nothing about opcodes, so cite `driven_step_wf`, not the partition.) | [GraphReconstructionBridge.v](coq/kami_hw/GraphReconstructionBridge.v#L3746), [coq/kami_hw](coq/kami_hw) | A cosim input on which synthesised RTL diverges from the Kami step for any synth-realised opcode (run `tests/test_verilog_cosim.py`); `rtl_step_correct` is violated empirically. |
 | CHSH ↔ NPA-PSD bridge | A successful `CHSH_LASSERT` step entails the witness-derived NPA moment matrix is PSD. | [chsh_lassert_no_trap_implies_npa_psd](coq/kernel/quantum/QuantumPartitionPSD.v), [column_contractive_check_witness_sound](coq/kernel/nfi/MuLedgerQuantumBridge.v) | A successful `CHSH_LASSERT` step whose witness-derived moment matrix is not PSD; `chsh_lassert_no_trap_implies_npa_psd` falls. |
 | Elliptope completion | The completion-based PSD correlator model (physical quantum identification uses external mathematics): every LHV correlator inside (deterministic + n-ary mixtures), Tsirelson `S² ≤ 8` for the whole set, PR box excluded, classical ⊂ elliptope strict. | [ElliptopeCompletion.v](coq/kernel/quantum/ElliptopeCompletion.v) | An elliptope-realizable tuple with `S² > 8` (`elliptope_tsirelson` falls), a sign pattern whose completed Gram form goes negative (`deterministic_strategy_elliptope` falls), or a PSD completion of the PR box (`pr_box_not_elliptope` falls). |
 | Elliptope gate | Decidable Z-arithmetic membership check, two branches (fraction-free Sylvester for strict interior, rational LDL^T certificate reaching singular and boundary completions); passing provably entails elliptope membership; the µ=0 tightness witness, (1,0,1,0), and the on-Tsirelson-curve Pythagorean point (3/5,4/5,4/5,−3/5) accepted by computation; the PR box never accepted. | [ElliptopeGate.v](coq/kernel/quantum/ElliptopeGate.v) | Inputs making `elliptope_check_full` return true with correlators outside the set; `elliptope_check_full_sound` falls. |
@@ -338,9 +346,10 @@ Its generated closure receipt is [artifacts/master_summary_open_obligations.json
 | Quantum certificate soundness | Specified slice or completion PSD conditions; not physical entanglement generation. |
 | Hardware trace commutation | The Coq hardware model under `WFDrivenRun`; downstream compiler/RTL trust is explicit. |
 | Which narrowing is priced | On a finite machine that prices merges, the machine's own spread of possible states can't shrink for free (`run_narrowing_priced_log`). Observer knowledge need not be charged: `observer_narrowing_can_be_free` exhibits one admissible merge-priced cost assigning zero to an injective measurement, while wiping the record costs at least one (`wipe_costs_at_least_one`). Merge pricing is a lower bound and may overcharge injective steps. The insight No Free Insight prices is certified insight. What the run itself teaches, from the first look to the end, is also free (`demon_refutes_incremental`); the smallest machine that teaches for free has three states (`free_incremental_narrowing_with_three`, `no_free_incremental_narrowing_below_three`). |
-| Recursion theorem | Proved for L, a Turing-complete lambda calculus, from its reduction rules (`second_recursion`), with Rice's theorem and halting as corollaries (`L_rice`, `L_halting_undecidable`). For the 12-instruction guest fragment, numeric decoding, fuel-bounded dispatch, agreement with actual VM execution, and semantic s-m-n specialization are proved (`g_decode_guest_code_roundtrip`, `g_eval_is_actual_vm_execution`, `g_smn`); the specialized program on any input is equivalent to the original on the fixed input. The guest also has its own recursion theorem (`vm_guest_recursion_theorem_closed`): every program transformer that a guest program computes on program codes has a fixed point `p` that matches `F p` in all four final registers and in `mu` on every input, and runs forever exactly when `F p` does. The evaluator in that proof runs as guest code: it is extracted to the lambda calculus L, compiled to a Minsky machine, and executed by the guest. |
+| Recursion theorem | Proved for L, a Turing-complete lambda calculus, from its reduction rules (`second_recursion`), with Rice's theorem and halting as corollaries (`L_rice`, `L_halting_undecidable`). For the 12-instruction guest fragment, numeric decoding, fuel-bounded dispatch, agreement with actual VM execution, and semantic s-m-n specialization are proved (`g_decode_guest_code_roundtrip`, `g_eval_is_actual_vm_execution`, `g_smn`); the specialized program on any input is equivalent to the original on the fixed input. The guest also has its own recursion theorem (`vm_guest_recursion_theorem_closed`): every program transformer that a guest program computes on program codes has a fixed point `p` that matches `F p` in all four final registers and in `mu` on every input, and runs forever exactly when `F p` does. The evaluator in that proof runs as guest code: it is extracted to the lambda calculus L, compiled to a Minsky machine, and executed by the guest. For the full 51-opcode VM, a recursion theorem in the sense the bounded diagonal asks for, a fixed point for every map on programs up to equal thousand-step runs from every state, is false (`vm_full_recursion_premise_refuted`): that bounded property is decidable, and the flip of any correct decider for it has no such fixed point (`vm_correct_flip_has_no_fixed_point`). |
+| Geometry | The curvature, angle-defect and Einstein-type theorems are about partition graphs in general. On every state the VM reaches, module regions are pairwise disjoint, so no two modules are adjacent, a well-formed triangulated reachable graph with F faces has no interior edge, 3F vertices, 3F edges and Euler characteristic F, the counts of F separate triangles (`reachable_triangulated_isolated`; one PNEW reaches such a graph, `reachable_triangulated_exists`), and calibration holds exactly when there are no modules (`reachable_calibrated_iff_no_modules`). |
 | Structural uniqueness | False in the form the words suggest: a Thiele core that bills CPU time is adequate and runs the VM underneath, and it is not the same machine (`adequate_core_uniqueness_refuted`, `honest_vm_extension_uniqueness_refuted`). Up to the price schedule it holds for machines that run the VM and record certification (`cert_record_schedule_uniqueness_holds`); any state-dependent bill is just a schedule (`surcharged_core_equiv_mod_schedule`). Which permanent reading counts as the record is a second free choice (`tied_record_schedule_uniqueness_refuted`). Over any base, a record driven by the computation that never switches off is a latch on one event (`record_axis_is_latch_holds`); a revocable record is not (`toggle_not_latch`). |
-| Physical interpretation | A closed two-state discrete master-equation protocol computes bath heat as `Delta / 2`. Choosing `Delta = 2 k_B T ln 2` gives the Landauer value, but changing only the gap changes the heat with identical population dynamics (`master_equation_does_not_fix_heat_scale`). The protocol is an exact calorimeter blueprint. Calibration of one μ to joules requires thermal-admissibility and device-correspondence premises. `landauer_dissipation_premises_inconsistent` separately proves the full-ISA F1 premise pair has no instance. |
+| Physical interpretation | A closed two-state discrete master-equation protocol computes bath heat as `Delta / 2`. Choosing `Delta = 2 k_B T ln 2` gives the Landauer value, but changing only the gap changes the heat with identical population dynamics (`master_equation_does_not_fix_heat_scale`). The protocol is an exact calorimeter blueprint. Calibration of one μ to joules requires thermal-admissibility and device-correspondence premises. `landauer_dissipation_premises_inconsistent` separately proves that the full instruction set has no instance of the Landauer-dissipation premise pair. |
 
 The classical embedding results describe the formal fragments and simulation contracts in their cited files.
 Multiple preimages rule out recovering the original full state from the projection.
@@ -355,10 +364,12 @@ instance of the event, not a uniquely selected one.
 
 A finite monotone record decomposes into threshold latches, but not in general
 into one latch. Revocable and probabilistic records do not inherit the same
-uniqueness theorem. The guest VM has a direct Rice reduction, an external
-verified decoder/evaluator, and semantic s-m-n specialization. Its recursion
-theorem is not established because neither dynamic dispatch nor the numeric
-specializer is callable by a guest program. The two-state calorimeter protocol
+uniqueness theorem. The guest VM has a direct Rice reduction, a verified
+decoder and evaluator, semantic s-m-n specialization, and its own recursion
+theorem, with the evaluator running as guest code. For the full VM, a fixed
+point for every map on programs, up to equal thousand-step runs, is false:
+the flip of any correct decider of the bounded shortcut property has none.
+The two-state calorimeter protocol
 fixes distributions, a Hamiltonian, a discrete master equation, and exact bath
 heat, but also proves that those dynamics do not determine the energy gap.
 The ledger therefore has no intrinsic joule value without thermal and device
@@ -389,8 +400,8 @@ criterion is a conjecture; its proposed strong necessity theorem is refuted.
 
 This section is the build, not the model.
 The core of the model fits in one short file, [minimal/MuCore.v](minimal/MuCore.v): a state, two toy instructions (store and certify), and the law.
-None of the VM's 51 opcodes appear in it.
-The build has one semantics source and two execution paths:
+None of the VM's 51 opcodes appear in it, and none appear in [minimal/EarnedCore.v](minimal/EarnedCore.v), the small machine with earned commitments.
+The 51-opcode test bench has one semantics source and two execution paths:
 
 ```text
 coq/kernel/foundation/VMStep.v
@@ -412,7 +423,7 @@ The RTL path is generated from the same Coq/Kami source.
 ## Repository Layout
 
 ```text
-minimal/                 the substrate claim in one self-contained Coq file + clean-room demo
+minimal/                 standalone Coq files (MuCore, Napkin, EarnedCore) + clean-room demo
 coq/                     Coq proof tree, extraction roots, theorem ledger
 coq/kernel/              VM semantics, cost laws, NoFI, hierarchy, physics layers
 coq/kami_hw/             Kami hardware model and RTL correspondence proofs
@@ -498,8 +509,8 @@ make coq-gate
 `COQPATH` selects the repository libraries, so no global `make install` is needed.
 `make verify` and `pytest` alone do not compile the full Coq corpus.
 
-The actual CPU proof surface includes executable semantics for all 12 Kami rules, finite selected execution traces, reset facts, and preservation of register names and kinds (`CoreRules`, `CoreExecution`, `CoreTyping`, `DispatchReset`).
-The theorem excludes full value/resource invariants, abstract retirement correspondence, and compiler semantic preservation.
+The CPU proofs are about the CPU's own Kami rules: executable semantics for all 12 rules, reset facts, and preservation of register names and kinds (`CoreRules`, `CoreExecution`, `CoreTyping`, `DispatchReset`); retirement of every admitted instruction against the Kami step (`admitted_retires`); and, from reset, runs of admitted instructions that keep the table invariants and match the Kami step run (`fsm_retirement_refinement`).
+They exclude compiler semantic preservation and every step on which a CPU-only guard fires.
 [Assurance and scope](docs/ASSURANCE.md) identifies each boundary.
 
 The unbounded VM has a checked 122-instruction self-interpreter for twelve arithmetic and control instructions over four guest registers.
@@ -510,7 +521,8 @@ Guest structural fields remain unchanged.
 
 For that model, the checked Rice reduction proves undecidability for extensional predicates separating the divergent program from a well-formed program, including halting on zero and returning zero.
 Guest-program deciders are covered.
-The guest's internal recursion theorem is proved separately (`vm_guest_recursion_theorem_closed`). Neither discharges the conditional bounded VM diagonal.
+The guest's internal recursion theorem is proved separately (`vm_guest_recursion_theorem_closed`).
+Neither supplies the premise of the bounded diagonal for the full VM, and nothing can: asked for every map on programs, that premise is false (`vm_full_recursion_premise_refuted`).
 [VM contracts](docs/VM_CONTRACTS.md) records the assumptions and checked results.
 
 ## Run A Program
@@ -581,37 +593,54 @@ make proof-undeniable
 
 ## ISA Summary
 
-The VM exposes 51 opcodes total.
-47 are synth-realized and implemented in the generated RTL; no full physical retirement-refinement theorem is claimed.
-Four are Q_{1+AB} cert-opcodes that live in the Kami HW abstraction with kernel-equivalence proven.
-They aren't in the synthesized Verilog, because their hardware hasn't been built.
-They contribute the OCaml/RTL parity tests' tolerated slack of 4 (the count is 37 + 10 + 0 = 47; `rtl_inventory_arithmetic` records that sum and checks no opcode).
-The 47 synth-realized opcodes fall into six families.
+The VM exposes 51 opcodes.
+The CPU implements 47 of them.
+The other four are the Q_{1+AB} forms of `CHSH_LASSERT` (`instr_chsh_lassert_1ab*`): the kernel, the extracted runner, the Python VM and `kami_step`, the Gallina model of the hardware step, all run them, and the CPU has no opcode for them.
+They account for the parity tests' tolerated slack of 4 (the count is 37 + 10 + 0 = 47; `rtl_inventory_arithmetic` records that sum and checks no opcode).
+The 47 CPU opcodes fall into six families.
 
 | Family | Examples | Cost behavior |
 |---|---|---|
 | Partition and module structure | `PNEW`, `PSPLIT`, `PMERGE`, `PDISCOVER` | Programmer-declared, with zero-cost reversible structure supported by the model. |
-| Logic and certification | `LASSERT`, `LJOIN`, `MDLACC` | `LASSERT` includes formula-length, entropy, and certification terms. |
+| Logic and certification | `LASSERT`, `LJOIN`, `MDLACC` | `LASSERT` charges eight units per declared formula word plus the certification floor. |
 | Memory, ALU, control flow | `LOAD`, `STORE`, `ADD`, `JUMP`, `HALT` | Classical compute surface. |
 | Witness, tensor, cert flags | `CHSH_TRIAL`, `CERTIFY`, `REVEAL`, `TENSOR_SET`, `TENSOR_GET` | Certification/revelation instructions carry positive cost floors. |
 | Categorical morphisms | `MORPH`, `COMPOSE`, `MORPH_ID`, `MORPH_ASSERT` | Morphism assertions are certification-bearing. |
 | CHSH-aware certification | `CHSH_LASSERT` | Kernel-level column-contractivity check on `vm_witness` buckets. Decidable integer-arithmetic check; success ⇒ NPA-PSD via the bridge theorem [`chsh_lassert_no_trap_implies_npa_psd`](coq/kernel/quantum/QuantumPartitionPSD.v). Cost `S(mu_delta) ≥ 1` regardless of outcome (cert-setter discipline). |
 
-The four Q_{1+AB} opcodes (`instr_chsh_lassert_1ab*`) extend `CHSH_LASSERT` with the Q_{1+AB} moment-matrix family.
-They are defined in the Kami HW abstraction with kernel-equivalence proven (`coq/kami_hw/Abstraction.v`, `EmbedStep.v`) and run on the OCaml/Python VM.
-They are not in the synthesized Verilog.
-Each one would need its own wide-arithmetic FSM in silicon, and that hardware has not been built.
-That is a silicon boundary, not a semantic one.
-The substrate claim does not require them.
+Partition operations work on ranges of data memory.
+PNEW claims a range, PSPLIT cuts a module's range at its middle, and PMERGE joins two ranges that touch.
+Each traps instead (error flag set, program counter to the trap address, cost charged, graph unchanged) when the range runs past the 128-word data memory, overlaps a module without being that module's range, the two ranges don't touch, or the 64-slot module table has no free number; the CPU traps on the same conditions.
+From a state with no modules, every reachable state keeps the regions pairwise disjoint, contiguous and inside memory, with every module number below 64 (`vm_reachable_partition_in_bounds`).
+COMPOSE of two identity arrows stores an identity arrow (`graph_compose_identities_is_identity`), and composition of stored arrows is associative with identity arrows as units, up to equal endpoints, equal identity flags and equivalent couplings (`graph_compose_assoc_stored`, `graph_compose_left_identity_stored`, `graph_compose_right_identity_stored`).
+
+The CPU is not the kernel at a different speed.
+Its data words are 32 bits; the kernel's are 64.
+Its ledger μ is a 32-bit register that wraps at 2^32; the kernel's μ is an unbounded natural number.
+Each refinement theorem assumes the counters it touches fit in 32 bits (`cpu_preconditions` asks for μ below 2^31).
+The CPU also checks things the kernel doesn't: that LOAD, STORE, their heap forms, CALL and RET stay inside the active module's range, that PDISCOVER's declared cost is at least its second operand, that μ stays at or above the tensor total, and the rich-format fields of the 128-bit instruction word.
+On any of these it traps with a named error code, and the refinement theorems cover only steps on which none fires.
 
 Single-step semantics live in [coq/kernel/foundation/VMStep.v](coq/kernel/foundation/VMStep.v).
+
+## Hardware
+
+The hardware is a check on the build. Each check below says what it compares, and nothing more.
+
+- **Coq.** `driven_step_wf` and the retirement theorems above relate the Kami model of the CPU to `vm_apply`, under their stated premises.
+- **Gate-level simulation of the exact board top** ([scripts/board_gls.py](scripts/board_gls.py), CI Full). The netlist the bitstream is built from, the same board top as RTL, and the extracted VM run the same programs through the board pins (the program goes in over the serial line, the status report comes back on it), and their final states are compared field by field. The same comparison runs with no reset press: the board wrapper holds the system in reset for its first sixteen CPU clock cycles after configuration. This is zero-delay simulation of the netlist before place and route, with behavioural models of the three Xilinx clock and buffer cells.
+- **SymbiYosys properties** ([formal/](formal/), CI Full). Unbounded proofs over every state reachable from reset: the error flag never clears and nothing executes after it is set; the module table stays within 64 slots, with every range inside the 128-word memory and the ranges pairwise disjoint; a partition trap leaves the table unchanged; μ changes only when a charging rule fires; the loader starts the CPU only while it is halted, loads nothing after the start, and reports only after a stop. Cover goals check each property can be reached.
+- **RTL/netlist equivalence** ([scripts/rtl_netlist_equiv.py](scripts/rtl_netlist_equiv.py), CI Full). yosys proves paired nets of the RTL and the bitstream netlist equal and lists the pairs it can't prove; it is an equivalence proof only when that list is empty. Nets behind the LUT-RAM reads are covered by the gate-level simulation instead.
+- **Timing.** nextpnr-xilinx reports that the CPU clock meets its 20 MHz target. That is a tool report, not vendor sign-off timing.
+
+No physical board has run this design.
 
 ## Reading Path
 
 | Document | Role |
 |---|---|
 | [THIELE_MACHINE.txt](THIELE_MACHINE.txt) | The model and the argument in plain text, no build details. Start here. |
-| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph. Part I is the argument, Part II is the VM build, Part III is how to check it, and Part IV states the exact boundary. |
+| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph, in six parts after a short version: the picture, the axiom, the logic (Parts I to III, the abstract model only), the machine (the small machine first, then the 51-opcode test bench), the hardware, and how to check it and where it ends. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the crosswalk from claims to Coq, and the CHSH derivation. |
 | [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
 | [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v) | Audited ledger of the selected established claim set. |
 | [coq/README.md](coq/README.md) | Map of the active Coq proof tree. |

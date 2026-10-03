@@ -24,7 +24,7 @@ Here is the picture. The machine carries two things an ordinary description leav
 
 That's a fact about the window. It isn't a fact about computers. Ordinary memory can hold the whole state, ledger included, and an ordinary machine can follow the same accounting rule step for step. The blindness is in the view. The hardware isn't blind. So every comparison in here names four things: the state, the steps allowed, the window, and what you're trusting the implementation to do.
 
-One more line I keep drawing. Paying for certification doesn't make anything true. The generic CERTIFY instruction flips a flag and charges for it. It checks nothing. Other instructions do check things, and each of those has its own soundness proof. Calling the flag "certified" doesn't give it one.
+One more line I keep drawing. Paying for certification doesn't make anything true. The generic CERTIFY instruction flips a flag and charges for it. It checks nothing. Other instructions do check things, and each of those has its own soundness proof. Calling the flag "certified" doesn't give it one. The smallest machine in the repository, minimal/EarnedCore.v, goes the other way. There a commitment goes through only on a fact that a passing check wrote, certification goes through only after a commitment, and every certified run from a clean start contains that check, that commitment, and the certification, in that order (`earned_certification_provenance`). The VM prices commitments. That machine earns them.
 
 I built this to be examined. Below, what I built and what the proofs show about it stay on one side. What I'm asking you to consider stays on the other.
 
@@ -147,7 +147,7 @@ Theorem. No decider the substrate can run as one of its own programs gets this p
 
 Proof. Suppose D is such a decider. Build f: given a program p, run D(p). If D says yes, output the canonical program the predicate rejects. If no, output the one it accepts. For the recursion theorem to apply, f has to be one of the substrate's own programs. That takes one more premise, and I name it: the substrate's programs are closed under "run a program, then branch to one of two fixed programs." Being able to run D doesn't give you that for free. Grant it, and the recursion theorem hands back a program q that behaves exactly like f(q). Now look at D(q). If D says q admits a shortcut, then f(q) is the program that doesn't, and q behaves like f(q), so q doesn't. D was wrong. If D says q doesn't, the same step makes q one that does. Either answer is wrong, so D can't exist.
 
-That's the Kleene/Rice pattern run through an abstract program interface. It holds under that interface's recursion, representability, closure, same-behavior, and nontriviality premises. The VM instance carries its recursion-theorem premise. The separate natural-number substrate meets the premise by construction: its fixed-point program is defined to copy the transformer's output. L meets it the honest way. L is the weak call-by-value lambda calculus, built here from scratch; its Turing-completeness is cited from Forster and Smolka, not re-proved. Its recursion theorem is proved from the reduction rules (`second_recursion`), and the same diagonal gives Rice's theorem for L and the undecidability of L halting (`L_rice`, `L_halting_undecidable`). The twelve-instruction guest fragment has a numeric decoder, a fuel-bounded evaluator whose result is its actual VM execution, and semantic s-m-n specialization (`g_decode_guest_code_roundtrip`, `g_eval_is_actual_vm_execution`, `g_smn`). The guest also proves its own recursion theorem (`vm_guest_recursion_theorem_closed`): every program transformer that a guest program computes on codes has a fixed point that matches it in all four final registers and in mu on every input, halting or not. The evaluator in that proof runs as guest code: it is extracted to the lambda calculus L, compiled to a Minsky machine, and executed by the guest.
+That's the Kleene/Rice pattern run through an abstract program interface. It holds under that interface's recursion, representability, closure, same-behavior, and nontriviality premises. For the VM instance, the recursion premise asked for every map on programs is false (`vm_full_recursion_premise_refuted`). Its shortcut predicate compares two thousand-step runs, so it can be decided by running them, and the flip of any correct decider has no fixed point (`vm_correct_flip_has_no_fixed_point`). The VM version applies only to classes of maps that leave that flip out. The separate natural-number substrate meets the premise by construction: its fixed-point program is defined to copy the transformer's output. L meets it the honest way. L is the weak call-by-value lambda calculus, built here from scratch; its Turing-completeness is cited from Forster and Smolka, not re-proved. Its recursion theorem is proved from the reduction rules (`second_recursion`), and the same diagonal gives Rice's theorem for L and the undecidability of L halting (`L_rice`, `L_halting_undecidable`). The twelve-instruction guest fragment has a numeric decoder, a fuel-bounded evaluator whose result is its actual VM execution, and semantic s-m-n specialization (`g_decode_guest_code_roundtrip`, `g_eval_is_actual_vm_execution`, `g_smn`). The guest also proves its own recursion theorem (`vm_guest_recursion_theorem_closed`): every program transformer that a guest program computes on codes has a fixed point that matches it in all four final registers and in mu on every input, halting or not. The evaluator in that proof runs as guest code: it is extracted to the lambda calculus L, compiled to a Minsky machine, and executed by the guest.
 
 The proof doesn't go through a Turing-machine simulator. That doesn't show the predicate is unrelated to halting, or that it sits at a different Turing degree. Those would need their own definitions and proofs. And deciding a predicate over arbitrary programs is a different job from reading one yes/no field out of a state someone hands you.
 
@@ -243,7 +243,7 @@ Where to push:
   5. Section 10's bound. Look at the tree, the representative/fiber premise, and the depth-and-payment condition. They're part of the result. The bound isn't claimed for every deterministic decision run.
   6. Payload-cost claims. Find the actual schedule and the premise that makes charges add. Keep that meter apart from runtime and from physical heat.
 
-The formal inventory contains the permanent-certificate results, shadow pricing, the entropy forms, and the finite VM instance. The one-file development, ThieleMachineComplete.v, has the kernel VM's 51 instructions and definitions; a test enforces that correspondence. The assumption receipt covers 14,504 statements across 508 files: 6,924 closed under the global context and 7,580 depending on standard-library assumptions. It rejects project-local axioms. Closure under the global context does not erase a theorem's explicit hypotheses.
+The formal inventory contains the permanent-certificate results, shadow pricing, the entropy forms, the finite VM instance, and the small machine with earned commitments (minimal/EarnedCore.v, standard library only). The one-file development, ThieleMachineComplete.v, has the kernel VM's 51 instructions and definitions; a test enforces that correspondence. The assumption receipt covers 14,504 statements across 508 files: 6,924 closed under the global context and 7,580 depending on standard-library assumptions. It rejects project-local axioms. Closure under the global context does not erase a theorem's explicit hypotheses.
 
 Start with `README.md` and the proof contracts it links. Run `make verify`, `make verify-claims`, and `make verify-research` in the documented build environment. They give you reproducible evidence about what they check. They don't certify every reading of an essay.
 
@@ -262,7 +262,8 @@ A finite growing record decomposes into threshold latches, but not in general
 into one latch. Revocable and probabilistic records do not inherit the same
 uniqueness theorem. The guest VM has a direct Rice reduction, verified dynamic
 dispatch, semantic s-m-n specialization, and its own recursion theorem, with the
-evaluator running as guest code. A two-state
+evaluator running as guest code. For the full VM, a fixed point for every map on
+programs, up to equal thousand-step runs, is false. A two-state
 master-equation calorimeter computes exact heat and simultaneously shows that
 the population dynamics do not determine the Hamiltonian scale. Physical
 calibration requires thermal and device premises; mu has no intrinsic joule value.
@@ -277,9 +278,10 @@ cost-framework embeddings.
 The twelve-event observer survey proves a MAC-labelled counterexample in its
 chosen observer map and behaves correctly when the proliferating event is
 swapped. Its application to real systems depends on the observer model. The external
-consequence search found five known local arguments and five stronger targets
-without enough protocol or hardware semantics; none was both record-axis
-dependent, novel, and ready for external use. Consensus, exact observation, and
+consequence survey lists five narrow consequences that reduce to known local
+arguments and five stronger targets without enough protocol or hardware
+semantics; none is at once record-axis dependent, novel, and ready for
+external use. Consensus, exact observation, and
 a shared coordinator-free update do not force a permanent record; a closed
 two-observer toggle game refutes that stronger proposal. Durability does imply
 permanence, but only by making persistence a premise. The pointer criterion

@@ -4,7 +4,7 @@ The repository supports a source-only native rebuild of the formal project. It u
 
 ## Prerequisites
 
-Install the native tools used by the gate: Python 3, GNU make, Coq 8.18 with the standard library, OCaml, `ocamlfind`, and CSDP. The RTL gates additionally use `iverilog`, `verilator`, and/or `yosys` as required by the selected workflow.
+Install the native tools used by the gate: Python 3, GNU make, Coq 8.18 with the standard library, OCaml, `ocamlfind`, CSDP, and MetaCoq 1.2.1 for Coq 8.18, which the vendored L extraction tactics need (`scripts/install_metacoq.sh` builds it from pinned, checksum-verified source and installs it; it needs Coq-Equations and the Coq OCaml development libraries). The RTL gates additionally use `iverilog`, `verilator`, and/or `yosys` as required by the selected workflow.
 
 ## Fresh source-only run
 

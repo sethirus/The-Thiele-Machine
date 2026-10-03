@@ -23,8 +23,12 @@ abstract: >-
   Machine is an abstract model of computation, a machine the way Turing's is,
   and this work is an argument made with it about which distinctions an
   account of computation should preserve. It is not a CPU, an instruction set,
-  or category theory; the VM and hardware here are one build of the model,
-  kept as witnesses. A computation gives
+  or category theory. Two machines here are witnesses, not the subject: a
+  minimal two-counter machine whose commitments are earned, where every
+  certified run from a clean start contains a passing check of the committed
+  claim and costs at least three, and a 51-opcode VM with hardware, a test
+  bench that prices commitments without checking that they were earned. A
+  computation gives
   you an answer. What did it establish on the way there? Which distinctions
   did it keep? What did it cost to establish them? Certification is one point
   I could pin down. The machine carries structural state, a cost ledger, and
@@ -63,7 +67,9 @@ abstract: >-
   reversible-update, and TPM-interface results delimit the real-system claims.
   The VM guest Rice reduction, numeric decoding, verified dispatch, and semantic
   s-m-n specialization are proved, and so is the guest's internal
-  recursion theorem, with the evaluator running as guest code;
+  recursion theorem, with the evaluator running as guest code; for the full
+  VM, a fixed point for every map on programs up to equal thousand-step runs
+  is false;
   the local cost-semantics correspondences are not
   full cost-framework embeddings. The two-state calorimeter protocol computes
   exact heat while proving that its population dynamics do not determine the
@@ -72,7 +78,9 @@ abstract: >-
   all four novelty and applicability criteria.
   Those are mathematical answers with
   explicit premises. The repository contains the Coq kernel, an extracted
-  OCaml runner, a Kami/Bluespec/Verilog hardware development, the monograph,
+  OCaml runner, a Kami/Bluespec/Verilog hardware development whose CPU
+  implements 47 of the 51 opcodes with 32-bit words and has run on no
+  physical board, the monograph,
   and the mathematical specification. The assumption receipt covers 14,504
   statements across 508 files: 6,924 are closed under the global context, 7,580 depend on
   standard-library axioms, and none depend on project-local or third-party

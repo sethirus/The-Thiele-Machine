@@ -1,6 +1,6 @@
 # Thiele Machine
 
-**Mission:** Main Thiele Machine proofs and verification layers.
+A small executable machine model with receipts, and Thiele programs as the morphisms of a process category.
 
 ## Verification Status
 

@@ -44,6 +44,22 @@ def test_external_quote_command_and_stdlib_axiom_are_classified():
     assert {"TPM2_Quote", "classic"} <= citations.NON_COQ_TOKENS
 
 
+def test_vendored_halting_citation_requires_its_source(tmp_path, monkeypatch):
+    monkeypatch.setattr(citations, "REPO", tmp_path)
+    root = tmp_path / "coq"
+    root.mkdir()
+    assert "MM2_HALTING_undec" not in citations.find_top_level_decls([root])
+    source = tmp_path / "vendor/coq-undecidability/theories/MinskyMachines/MM2_undec.v"
+    source.parent.mkdir(parents=True)
+    source.write_text(
+        "(* Lemma invented_result : True. *)\n"
+        "Lemma MM2_HALTING_undec : undecidable MM2_HALTING.\n"
+    )
+    found = citations.find_top_level_decls([root])
+    assert "MM2_HALTING_undec" in found
+    assert "invented_result" not in found
+
+
 def test_latex_code_macro_is_audited_as_a_citation():
     assert citations.extract_texttt_citations(r"\code{named\_theorem}") == [
         ("named_theorem", 1)

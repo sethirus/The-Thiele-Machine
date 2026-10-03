@@ -1,6 +1,6 @@
 # Spacetime
 
-**Mission:** Spacetime structure proofs derived from partition dynamics.
+A small 4D event model connected to the self-reference framework; it is not derived from partition dynamics.
 
 ## Structure
 

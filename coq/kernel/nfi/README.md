@@ -79,8 +79,8 @@ point into this directory.
 
 | File | Purpose |
 |---|---|
-| `StructuralUndecidability.v` | Substrate-level limitative result: an A2-respecting substrate with a non-trivial structural-shortcut predicate has an undecidable membership problem; the VM-scoped corollary carries encoding and recursion-theorem premises |
-| `VMSubstrateEncoded.v` | Discharges the Goedel-encoding premises of the VM-scoped theorem by storing the program's Goedel number in `vm_logic_acc`; the VM's internal recursion-theorem premise remains |
+| `StructuralUndecidability.v` | Substrate-level limitative result: an A2-respecting substrate with a non-trivial structural-shortcut predicate has an undecidable membership problem; the VM-scoped corollary carries encoding and recursion-theorem premises, and the recursion premise for every map on programs is false (`vm_full_recursion_premise_refuted`) |
+| `VMSubstrateEncoded.v` | Discharges the Goedel-encoding premises of the VM-scoped theorem by storing the program's Goedel number in `vm_logic_acc`; the theorem keeps a recursion premise for a class of maps, and applies only to classes that leave out the flip of every correct decider (`vm_correct_flip_has_no_fixed_point`) |
 | `StructuralAxisOrthogonality.v` | The structural-shortcut predicate's detection channel is not a function of the Turing configuration `forget s` |
 | `StructuralAxisRelativization.v` | The same holds relative to any classical oracle; the two axes are mutually independent (`axes_mutually_independent`), and structural membership is decidable from the full `VMState` |
 | `UniversalShortcutLifting.v` | Any trace that fires the supra-cert channel from a clean initial state without latching `vm_err` yields a `SoundStructuralShortcut` |

@@ -168,6 +168,15 @@ steps on the other.
   `tied_honest_base_extension`, `untied_run_record_constant`,
   `untied_not_honest_growing`, `untied_not_honest_base_extension`,
   `ram_record_axis_classification`, `record_axis_separates_ram`.
+- **Proved.** The two-counter machine of minimal/EarnedCore.v, whose
+  commitments are earned, has an undecidable halting problem, satisfies the
+  certification floor, is adequate as a record-carrying machine, is an honest
+  extension of its base (program and core, everything but the ledger and the
+  flag), and moves its record as a latch. Coq:
+  `earned_core_halting_undecidable`, `earned_core_floor`,
+  `earned_core_adequate`, `earned_core_honest`, `earned_core_is_latch`. Its
+  provenance, checker-soundness, no-forging and price theorems are in
+  minimal/EarnedCore.v itself, on the Coq standard library alone.
 
 ## Which events the theorems allow
 
@@ -395,6 +404,14 @@ runs.
   prefixing a constant load is a semantic s-m-n specialization.
   Coq: `g_decode_guest_code_roundtrip`, `g_eval_is_actual_vm_execution`,
   `g_smn`, `identity_transformer_representable`.
+- **Refuted.** Every map on programs of the full VM has a fixed point up to
+  equal thousand-step runs from every state. Coq:
+  `vm_full_recursion_premise_refuted`. The counterexample map is the flip of
+  `vm_bounded_shortcut_decide`, a correct decider of the bounded shortcut
+  property, and the flip of every correct decider has no such fixed point.
+  Coq: `vm_correct_flip_has_no_fixed_point`. The guest theorem above is a
+  different statement: its runs are the unbounded sibling's, and its
+  equality is final registers and ledger.
 
 ## Pricing and physics
 

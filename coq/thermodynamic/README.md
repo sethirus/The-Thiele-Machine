@@ -1,6 +1,6 @@
 # Thermodynamic Proofs
 
-**Mission:** Thermodynamic formalization proofs connecting information-theoretic costs to physical thermodynamics.
+Landauer-style counting results and the boundary between ledger units and joules; physical calibration is a premise, not a result.
 
 ## Structure
 

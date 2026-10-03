@@ -64,9 +64,10 @@ def test_public_documents_preserve_the_scope_boundary():
 
 def test_pointer_criterion_is_stated_as_a_conjecture():
     monograph = normalized(ROOT / "monograph/monograph.tex")
-    assert r"\section{The pointer-observable conjecture}" in monograph
-    assert "stated as a conjecture and nothing more" in monograph
-    assert "Five proofs about chosen models do not settle those choices" in monograph
+    assert r"\label{sec:pointer}" in monograph
+    assert r"\begin{conjecture}[The pointer conjecture]" in monograph
+    assert "The conjecture leans on four notions left without precise mathematical definitions" in monograph
+    assert "which systems count as" in monograph and "independent" in monograph
     assert "The general pointer criterion is a conjecture." in normalized(ROOT / "README.md")
     assert "The pointer criterion is a conjecture." in normalized(
         ROOT / "monograph/thiele_machine_math_spec.tex"

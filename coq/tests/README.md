@@ -1,6 +1,6 @@
 # Coq Tests
 
-**Mission:** Coq test files for verification and necessity checking.
+Coq-side regression targets and necessity checks.
 
 ## Structure
 

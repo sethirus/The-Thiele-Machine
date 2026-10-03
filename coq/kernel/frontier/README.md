@@ -1,22 +1,22 @@
 # kernel/frontier
 
-F1, F2, and F3 frontier closure files. Each addresses a named boundary in the
-current claim surface. The filenames keep the frontier results distinct from
-the public claim names in the root README.
+Files that close or bound a named boundary of the claims: the Landauer
+bridges to A2, NPA minors against the cost axioms, cross-link inequalities and
+the partition geometry, and pointer observables.
 
 These files either close or formally bound a frontier claim. Each file header
 states the requirement it addresses and the exact theorem surface it supplies.
 
-## F1: physical-reversibility / A2 derivation
+## Physical reversibility and A2
 
 | File | Purpose |
 |---|---|
 | `LogicalErasureCertFlip.v` | Single-step A2 from a cost-floor bridge premise over boolean macro-properties and a calibration premise (`mu_per_landauer_bit >= 1`) |
-| `LandauerBridgeAbstractCost.v` | The F1 Landauer bridge abstracted over arbitrary cost functions `vm_instruction -> nat` |
+| `LandauerBridgeAbstractCost.v` | The Landauer bridge abstracted over arbitrary cost functions `vm_instruction -> nat` |
 | `LandauerDissipationStrongForm.v` | Factored implication plus the proof that its two premises are incompatible for the full ISA (`landauer_dissipation_premises_inconsistent`); no applicable physical derivation of A2 |
 | `LandauerTraceLevelA2.v` | Multi-step extension via `universal_nfi_any_substrate` |
 
-## F2: algebraic coherence vs. cost axioms
+## Algebraic coherence against the cost axioms
 
 Settles whether NPA-1 minor inequalities follow from cost axioms alone.
 
@@ -26,7 +26,7 @@ Settles whether NPA-1 minor inequalities follow from cost axioms alone.
 | `NPAMinorsFromWitnessLocality.v` | **Positive**: cost axioms + witness-locality DO entail `algebraically_coherent` |
 | `NPAPerMinorFromCostCoherence.v` | Per-minor existence form derivable from cost axioms alone |
 
-## F3: non-separable cross-link inequalities
+## Cross-link inequalities and partition geometry
 
 Single-conclusion Coq inequalities that compose multiple chain constants.
 
@@ -56,8 +56,8 @@ Single-conclusion Coq inequalities that compose multiple chain constants.
 
 ## Load-bearing exports
 
-Each F-file is the closure of a documented frontier item; they don't get
-re-imported elsewhere because the published statement is the export.
+Each file's published statement is its export; the files are not re-imported
+elsewhere.
 
 `TriangleAnglePlusOne.v` shows that the +1 in `triangle_angle` contributes a
 correction that decays as 1/d (the signature of a Tikhonov regularizer), not a

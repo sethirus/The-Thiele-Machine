@@ -6,18 +6,17 @@ This directory contains the active Coq proof tree for the Thiele Machine.
 
 ## Build
 
+From the repository root, with the vendored libraries on `COQPATH`:
+
 ```bash
-# From repository root:
-make              # Build the active Coq proof tree
-
-# Or from coq/ directory:
-cd coq
-make -j4          # Build with 4 parallel jobs
-
-# Clean and rebuild:
-make clean
-make -j4
+export COQPATH="$PWD/vendor/bbv/src:$PWD/vendor/kami"
+make -C vendor/bbv
+make -C vendor/kami
+make coq-gate     # regenerates coq/Makefile from _CoqProject and builds the active tree
 ```
+
+`coq/_CoqProject` also maps `../minimal` to the `Minimal` namespace, so `minimal/EarnedCore.v` builds with the tree.
+For a fresh source-only rebuild, see [docs/REPRODUCTION.md](../docs/REPRODUCTION.md).
 
 ## Directory Structure
 
@@ -33,8 +32,12 @@ The table names the principal proof surfaces; each directory README names its pr
 | top-level `MuCodingTheorem.v` | Two-sided cert-payload bound for single-instruction certifiers of `vm_mu = k` from the clean start (`mu_eq_k_claim`), under the pricing policy `cert_priced_eq` |
 | top-level `IntrinsicLevelHierarchy.v` | State-side level hierarchy ("every certifying trace requires ≥ k cert-events"), companion to the trace-side `MuHierarchyTheorem` in `kernel/mu_calculus/` |
 | top-level `MuDirectSum.v` | Direct-sum theorem under cert-disjoint independence + amortisation counterexample under weaker independence |
+| top-level `PhysicsConditionalClosure.v` | VM accounting results and a conditional Tsirelson theorem from a full PSD completion (`A_QM` is a section premise) |
+| top-level `ThieleMachineComplete.v` | One-file copy of the kernel's 51 instructions and their definitions; `tests/test_standalone_kernel_agreement.py` checks it against the kernel text |
+| top-level `Extraction.v` | Extraction of the kernel step to OCaml (`build/thiele_core.ml`, the extracted runner) |
+| top-level `AssumptionsProbe.v`, `AssumptionsProbeAll.v` | `Print Assumptions` probes; `AssumptionsProbeAll.v` is generated and feeds the assumption receipt |
 | `kernel/` | Core kernel proofs (VMState, VMStep, NoFreeInsight, μ-accounting, necessity/minimality, CHSH / bounds work) |
-| `kami_hw/` | Kami hardware spec, extraction, and refinement-facing proofs |
+| `kami_hw/` | The CPU and loader in Kami, their extraction, and refinement against the kernel |
 | `thielemachine/` | Main Thiele Machine proofs and verification layers |
 | `physics/` | Physics-model formalizations and embeddings |
 | `nofi/` | No-Free-Insight abstraction layer |
@@ -43,6 +46,6 @@ The table names the principal proof surfaces; each directory README names its pr
 | `test_fixtures/` | `VacuitySmoke.v`, the fixture the kernel-conversion vacuity gate checks itself against |
 | `thermodynamic/` | Thermodynamic bridge proofs |
 | `spacetime/` | Spacetime proofs (1 file) |
-| `self_reference/` | Self-reference exploration (9 files) |
+| `self_reference/` | Self-reference and trust-transfer models (9 files) |
 
 See the `README.md` in each subdirectory for details on its contents.

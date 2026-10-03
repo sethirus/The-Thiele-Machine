@@ -35,6 +35,6 @@ hardware step.
 
 The named premise `bsc_kami_compilation_trusted` (a `Definition ... : Prop`
 in `VerilogRTLCorrespondence.v`, not an axiom; BSC compiler to physical
-Verilog) is the only place these files cross from formal proof
-to external tools. See `OCamlExtractionBridge.v` and
+Verilog) and the OCaml extraction premise in `OCamlExtractionBridge.v` are where
+these files cross from formal proof to external tools. See `OCamlExtractionBridge.v` and
 `VerilogRTLCorrespondence.v` for the explicit trust-boundary statements.

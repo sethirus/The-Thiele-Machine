@@ -4,16 +4,17 @@ This repository separates checked mathematics, executable verification, trusted 
 
 ## Checked Coq results
 
-The active Coq project is the source of truth for the formal corpus. The current checked surface includes:
+The active Coq project is the source of truth for the formal corpus. The checked surface includes:
 
 - the kernel instruction semantics, state invariants, cost accounting, and the selected computability and limitative results;
-- the Kami CPU rules, reset facts, register schema, selected execution traces, fetch/update observations, normalization schedules, and the explicitly stated hardware-boundary lemmas;
+- the Kami CPU rules, reset facts, register schema, selected execution traces, fetch/update observations, normalization schedules, per-instruction retirement of every admitted instruction, and the explicitly stated hardware-boundary lemmas;
+- the small machine in `minimal/EarnedCore.v` (earned commitments, checker soundness, no forging, the cost of a certified run) and its links into the kernel's records in `coq/kernel/foundation/EarnedCoreLinks.v`;
 - the source-generation equality that identifies the canonical backend AST;
 - the assumptions and dependency closure reported by the proof gates.
 
-These theorems establish only the propositions stated by their types. In particular, the checked CPU results do not by themselves establish a complete reachable-state invariant, arbitrary scheduler correctness, abstract retirement correspondence, compiler semantic preservation, or an unbounded hardware refinement theorem.
+These theorems establish only the propositions stated by their types. In particular, the checked CPU results do not establish arbitrary-scheduler fairness, compiler semantic preservation, a refinement for counters wider than 32 bits, or a refinement for steps on which a CPU-only guard fires.
 
-The unbounded self-interpreter and Rice reduction are scoped to the stated four-register guest fragment and the unbounded sibling semantics. They do not claim interpretation of the full structural ISA, correctness of the word64 physical model, or correctness of the synthesized RTL.
+The unbounded self-interpreter, the Rice reduction and the guest recursion theorem are scoped to the stated four-register guest fragment and the unbounded sibling semantics. They do not claim interpretation of the full structural ISA, correctness of the word64 physical model, or correctness of the synthesized RTL. For the full VM, a recursion theorem asked for every map on programs is false (`vm_full_recursion_premise_refuted`).
 
 ## Executable verification
 
@@ -25,13 +26,17 @@ The probe sources used by the native proof reproduction live in [`tests/coq_prob
 
 The extraction, OCaml printer, Bluespec compiler, and project text transformations are executed and replayed with recorded inputs and hashes. Their semantic preservation remains a trusted boundary unless a separate Coq theorem states otherwise. Byte identity proves provenance and repeatability, not circuit-level semantic equivalence.
 
-RTL simulation covers the checked finite programs and encodings. Synthesis, place-and-route, timing, and bitstream results are claims only when the corresponding full workflow has produced current evidence. Historical measurements are not current measurements.
+RTL simulation covers the checked finite programs and encodings. Synthesis, place-and-route, timing, and bitstream results are claims only when the corresponding full workflow has produced evidence for the same source revision. No physical board has run the design.
+
+## The CPU against the kernel
+
+The CPU implements 47 of the 51 opcodes; the four Q<sub>1+AB</sub> forms of `CHSH_LASSERT` run in the kernel, the extracted runner, the Python VM and `kami_step`, and the CPU has no opcode for them. The CPU's data words and its ledger register are 32 bits wide, and the ledger wraps at 2^32; the kernel's words are 64 bits and its ledger is an unbounded natural number. Each refinement theorem assumes the counters it touches fit in 32 bits (`cpu_preconditions`). The CPU traps with a named error code on checks the kernel doesn't make: memory and control accesses outside the active module's range, a PDISCOVER whose declared cost is below its second operand, a ledger below the tensor total, and malformed rich-format fields. The refinement theorems cover only steps on which none of these fires. On partition capacity and range the two agree: PNEW, PSPLIT and PMERGE trap in both when the 64-slot module table has no free number or a range runs past data memory.
 
 ## Edge-by-edge implementation assurance
 
 The implementation path is intentionally not summarized as one unconditional RTL bisimulation:
 
-| Edge | Current assurance | Boundary or domain |
+| Edge | Assurance | Boundary or domain |
 | --- | --- | --- |
 | One-file `ThieleMachineComplete.v` VM → kernel `vm_apply` | Tested | `tests/test_standalone_kernel_agreement.py` requires every definition reachable from the kernel's `vm_apply`, `instruction_cost`, `is_cert_setterb`, `VMState`, and `vm_instruction` to have identical text in the one-file copy, and the 51 instructions to agree. No Coq theorem relates the two state types. |
 | Gallina `vm_apply` → Kami `kami_step` | Proved in Coq | `driven_step_wf` requires `WFDrivenPrecondition`; `driven_trace_commutes` requires `WFDrivenRun`. |
@@ -39,18 +44,18 @@ The implementation path is intentionally not summarized as one unconditional RTL
 | Kami model → extracted OCaml semantics | Coq-side theorem plus parity testing of the external binary | `ocaml_observable_nofi_and_monotone` concerns the extracted observable; the built binary and printer remain a tested boundary. |
 | Kami → emitted Bluespec/Verilog | Trusted translation, checked by provenance and RTL tests | BSC/compiler and printer are named by `bsc_kami_compilation_trusted`; no generated-RTL semantic theorem is claimed here. |
 | Verilog → synthesized netlist | Tool execution and synthesis-gate evidence | Valid only for the recorded RTL/tool/source identity. |
-| Netlist → routed design → bitstream | Tool execution, with current evidence required | Historical resource/timing/bitstream results do not transfer to a new source revision. |
+| Verilog → synthesized netlist of the exact board top | Gate-level simulation and equivalence checks configured in CI Full | `scripts/board_gls.py` runs the bitstream netlist, the RTL and the extracted VM on the same programs through the board pins, with and without a reset press, and compares final state field by field; zero-delay, before place and route, with behavioural models of three Xilinx cells. `scripts/rtl_netlist_equiv.py` proves paired nets equal and lists the unproven ones; it is an equivalence proof only when none are left. |
+| Extracted CPU and loader RTL → safety properties | SymbiYosys proof and cover tasks configured in CI Full | `formal/thiele.sby`: error flag sticky, nothing executes after an error, module-table bounds, ranges inside memory and pairwise disjoint, partition traps leave the table unchanged, μ written only by charging rules, loader start and report discipline. μ never decreasing is not stated: the 32-bit register can wrap. |
+| Netlist → routed design → bitstream | Tool execution for the same source revision | nextpnr-xilinx timing is a tool report, not vendor sign-off. Resource, timing and bitstream results do not transfer to a new source revision. |
 | Python reference ↔ Coq/runner behavior | Finite parity/regression tests | Tests cover their recorded inputs; they are not a universal semantic proof. |
 
-The 47/4 opcode inventory is an implementation inventory, not a proof that all 51 opcodes are present in the bitstream or that every finite hardware state represents an abstract VM state. The four Q\textsubscript{1+AB} opcodes are outside the synthesized RTL scope by design.
+The 47/4 opcode inventory is an implementation inventory, not a proof that all 51 opcodes are present in the bitstream or that every finite hardware state represents an abstract VM state.
 
-## Vocabulary used by current documents
+## Vocabulary used by the documents
 
 - **Proved**: established by the checked Coq source and its required dependencies.
 - **Tested**: exercised by an executable gate or finite regression suite.
 - **Trusted**: relied upon at a translation or tool boundary without a corresponding semantic-preservation theorem in this repository.
 - **Assumed**: supplied as a premise of a theorem or gate.
-- **Outside scope**: deliberately not claimed by the current model or gate.
-- **Historical**: retained for provenance and not a current result.
-
-Real limitations remain visible in the relevant theorem and document. The active documentation does not describe the order in which a result was discovered, repaired, or deferred.
+- **Outside scope**: deliberately not claimed by the model or gate.
+Real limitations stay visible in the relevant theorem and document. The documentation does not describe the order in which a result was discovered, repaired, or deferred.

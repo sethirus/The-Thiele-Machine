@@ -1,6 +1,6 @@
 # Thiele Manifold
 
-**Mission:** Thiele manifold proofs bridging abstract machine theory to physical constants and geometry.
+An infinite tower of self-referential systems over the VM, a discrete-physics interface, and definitions of a proposed coupling constant; no physical constant is derived.
 
 ## Structure
 

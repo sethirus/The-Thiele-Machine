@@ -1,6 +1,6 @@
 # Self Reference
 
-**Mission:** Self-reference exploration proofs examining fixed-point, diagonal arguments, trust induction, and agent-level certification.
+Small models of self-reference and trust transfer: meta-levels, safety lifted through an embedding, inward-closed safe regions, trust chains, a machine that checks its own safety oracle, and a stop rule that halts before a reward step.
 
 ## Verification Status
 

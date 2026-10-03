@@ -1,6 +1,6 @@
 # Physics Models
 
-**Mission:** Physics model formalizations including wave/discrete duality and lattice geometry.
+Small discrete physics models: a particle cell model, a dissipative model, a wave model, and a triangular lattice.
 
 The kernel-connected Landauer derivation is in
 [`kernel/nfi/LandauerDerivation.v`](../kernel/nfi/LandauerDerivation.v).
