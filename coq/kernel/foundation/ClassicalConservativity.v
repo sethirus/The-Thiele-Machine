@@ -238,3 +238,71 @@ Proof.
   rewrite classical_trace_preserves_cert_addr by exact Hclassical.
   exact Hzero.
 Qed.
+
+(** Conservativity for programs that jump. [run_vm] fetches the instruction
+    at the program counter, so a classical program can branch and loop
+    ([instr_jump], [instr_jnez], [instr_call], [instr_ret]). When every
+    instruction of the program is classical, every fetched instruction is
+    classical, and the structural state is unchanged after any number of
+    steps. *)
+Theorem D3_conservativity_pc :
+  forall (fuel : nat) (prog : list vm_instruction) (s0 : VMState),
+    Forall (fun i => is_classical_opcode i = true) prog ->
+    (run_vm fuel prog s0).(vm_graph) = s0.(vm_graph) /\
+    (run_vm fuel prog s0).(vm_csrs).(csr_cert_addr) =
+      s0.(vm_csrs).(csr_cert_addr) /\
+    (run_vm fuel prog s0).(vm_certified) = s0.(vm_certified).
+Proof.
+  induction fuel as [| fuel IH]; intros prog s0 Hclassical.
+  - simpl. auto.
+  - simpl. destruct (nth_error prog (vm_pc s0)) as [i |] eqn:Hfetch.
+    + assert (Hi : is_classical_opcode i = true).
+      { rewrite Forall_forall in Hclassical. apply Hclassical.
+        exact (nth_error_In prog (vm_pc s0) Hfetch). }
+      destruct (IH prog (vm_apply s0 i) Hclassical) as [Hg [Hc Hv]].
+      rewrite Hg, Hc, Hv.
+      refine (conj _ (conj _ _)).
+      * exact (classical_opcode_preserves_graph s0 i Hi).
+      * exact (classical_opcode_preserves_cert_addr s0 i Hi).
+      * exact (classical_opcode_preserves_certified s0 i Hi).
+    + auto.
+Qed.
+
+(** classical_reachable s s': [s'] is reached from [s] by zero or more
+    steps of the step relation, each executing a classical instruction.
+    The steps may come in any order, so this covers every control flow a
+    classical program can take. *)
+Inductive classical_reachable : VMState -> VMState -> Prop :=
+| classical_reachable_refl : forall s, classical_reachable s s
+| classical_reachable_step : forall s i s' s'',
+    is_classical_opcode i = true ->
+    vm_step s i s' ->
+    classical_reachable s' s'' ->
+    classical_reachable s s''.
+
+(** Every classical run is a run of the machine. *)
+Lemma classical_reachable_vm_reachable : forall s s',
+  classical_reachable s s' -> vm_reachable s s'.
+Proof.
+  intros s s' H. induction H as [s | s i s' s'' _ Hstep _ IH].
+  - apply vm_reachable_refl.
+  - exact (vm_reachable_step s i s' s'' Hstep IH).
+Qed.
+
+(** A classical run of any shape leaves the graph, the certificate address
+    and the certified flag where they started. *)
+Theorem classical_reachable_preserves_structure : forall s s',
+  classical_reachable s s' ->
+  s'.(vm_graph) = s.(vm_graph) /\
+  s'.(vm_csrs).(csr_cert_addr) = s.(vm_csrs).(csr_cert_addr) /\
+  s'.(vm_certified) = s.(vm_certified).
+Proof.
+  intros s s' H. induction H as [s | s i s' s'' Hi Hstep _ [Hg [Hc Hv]]].
+  - auto.
+  - apply vm_step_vm_apply in Hstep. subst s'.
+    rewrite Hg, Hc, Hv.
+    refine (conj _ (conj _ _)).
+    + exact (classical_opcode_preserves_graph s i Hi).
+    + exact (classical_opcode_preserves_cert_addr s i Hi).
+    + exact (classical_opcode_preserves_certified s i Hi).
+Qed.

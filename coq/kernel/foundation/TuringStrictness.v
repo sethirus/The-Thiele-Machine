@@ -1,38 +1,16 @@
-(** TuringStrictness.v — D4+D5: Thiele Strictly Extends Classical Semantics
+(** TuringStrictness.v: D4 and D5, the VM strictly extends classical runs.
 
-    D4: STRICTNESS WITNESS
+    D4 (strictness). The kernel's [init_state] has no modules. Every state a
+    classical run reaches from it keeps that empty graph (D3). At each such
+    state, PNEW of address 0 is a step that issues a module number and raises
+    [pg_next_id] from its value to one more. No classical run from
+    [init_state], straight-line or jumping, changes [pg_next_id], so the state
+    PNEW reaches is one no classical run reaches.
 
-    A single Thiele instruction can reach a state that is provably
-    inaccessible to any classical program (of any length) from the same
-    starting configuration.
-
-    Concrete witness:
-      s0 = d4_base: module 0 owns the range {0}, no morphisms.
-
-      Thiele step: instr_pnew [1] 0
-        Claims address 1. The range {1} is disjoint from the range of
-        module 0, so the step adds a module and pg_next_id rises by one.
-
-      Classical traces from d4_base:
-        By D3 (classical_trace_preserves_graph), vm_graph is unchanged.
-        Therefore pg_next_id is unchanged along any classical trace.
-
-    D5: SAFE WORDING — THIELE STRICTLY EXTENDS CLASSICAL
-
-    The full classical strictness theorem combines D3 + D4:
-
-      EXTENSION: Every classical program runs unchanged inside the Thiele VM,
-      with the structural layer (vm_graph, csr_cert_addr, vm_certified) frozen.
-
-      STRICTNESS: Thiele has programs that exit the classical fragment.
-      They reach states provably unreachable by any classical program.
-
-    Safe wording (formal theorem-grade):
-      "The Thiele VM strictly refines classical trace semantics under
-      shadow_proj: it extends classical computation by preserving classical
-      behavior exactly, while adding structural operations that classical
-      machines cannot exercise."
-
+    D5 (extension plus strictness). A classical program leaves the graph, the
+    certificate address and the certified flag unchanged, whether it runs as
+    an instruction list or under the program-counter runner. D4 supplies a
+    reachable state where one structural step leaves that classical fragment.
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool Lia.
@@ -40,72 +18,7 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI
                            ClassicalConservativity ShadowProjection
-                           TuringClassicalEmbedding.
-
-(**
-
-    d4_base: the base state for the D4 strictness argument.
-    Module 0 owns the range {0}, so the PNEW of {1} adds a module.
-    No morphisms are present, and pg_next_morph_id = 0.
-*)
-
-Definition d4_module : ModuleState :=
-  mk_module_state [0] [].
-
-Definition d4_graph : PartitionGraph := {|
-  pg_next_id       := 1;
-  pg_modules       := [(0, d4_module)];
-  pg_next_morph_id := 0;
-  pg_morphisms     := []
-|}.
-
-Definition d4_csrs : CSRState :=
-  {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |}.
-
-Definition d4_witness : WitnessCounts :=
-  {| wc_same_00 := 0; wc_diff_00 := 0;
-     wc_same_01 := 0; wc_diff_01 := 0;
-     wc_same_10 := 0; wc_diff_10 := 0;
-     wc_same_11 := 0; wc_diff_11 := 0 |}.
-
-(** d4_base: concrete starting state.
-    - Module 0 present with region {0}.
-    - No morphisms (pg_morphisms = []).
-    - pg_next_morph_id = 0 (so MORPH_ID allocates id=0). *)
-Definition d4_base : VMState := {|
-  vm_graph     := d4_graph;
-  vm_csrs      := d4_csrs;
-  vm_regs      := [];
-  vm_mem       := [];
-  vm_pc        := 0;
-  vm_mu        := 0;
-  vm_mu_tensor := repeat 0 16;
-  vm_err       := false;
-  vm_logic_acc := 0;
-  vm_mstatus   := 0;
-  vm_witness   := d4_witness;
-  vm_certified := false
-|}.
-
-
-(** The structural step is PNEW, which creates a new module.
-
-    Classical programs preserve vm_graph (D3). Thiele with PNEW changes it.
-    The probe is the value of pg_next_id. *)
-
-(** Thiele structural step: PNEW claiming address 1, which module 0 (region
-    {0}) does not own. *)
-Definition d4_thiele_step : vm_instruction := instr_pnew [1] 0.
-
-(** D4_thiele_changes_graph: After PNEW from d4_base, pg_next_id increases. *)
-Lemma D4_thiele_changes_graph :
-  (vm_apply d4_base d4_thiele_step).(vm_graph).(pg_next_id) >
-  d4_base.(vm_graph).(pg_next_id).
-Proof.
-  unfold vm_apply, d4_thiele_step, d4_base, d4_graph, d4_module.
-  simpl. lia.
-Qed.
-
+                           TuringClassicalEmbedding MuInitiality.
 
 (** D4_classical_preserves_next_id: For any classical trace from s0,
     pg_next_id is preserved (because vm_graph is preserved). *)
@@ -120,78 +33,147 @@ Proof.
   rewrite Hgraph. reflexivity.
 Qed.
 
-(**
+(** The structural step: PNEW of the range {0}. *)
+Definition d4_reachable_step : vm_instruction := instr_pnew [0] 0.
 
-    D4_strictness: There exist a base state and a Thiele structural instruction
-    such that:
-    (1) Thiele reaches a graph state with higher pg_next_id in one step.
-    (2) No classical program of any length can change pg_next_id from s0.
-*)
-(* SCOPE NOTE: Constructive existence proof. The witnesses d4_base (empty-morphism
-   initial state) and d4_thiele_step (PNEW instruction) are explicit constructions.
-   The substantive content delegates to two non-trivial lemmas:
-   D4_thiele_changes_graph (Thiele changes graph in one step) and
-   D4_classical_preserves_next_id (classical programs cannot change graph).
-   This is the constructive form of the Categorical Separation Theorem (§10). *)
+(** Every classical run from [init_state] keeps the initial graph, so PNEW
+    of address 0 finds a free module number, an address inside memory and no
+    overlapping module. *)
+Lemma d4_reachable_step_state : forall s,
+  s.(vm_graph) = init_graph ->
+  vm_step s d4_reachable_step (vm_apply s d4_reachable_step) /\
+  (vm_apply s d4_reachable_step).(vm_graph).(pg_next_id) =
+    S s.(vm_graph).(pg_next_id) /\
+  (vm_apply s d4_reachable_step).(vm_err) = s.(vm_err).
+Proof.
+  intros s Hg. unfold d4_reachable_step.
+  split; [| split].
+  - unfold vm_apply. apply step_pnew. reflexivity.
+  - unfold vm_apply. rewrite partition_step_state_graph, Hg. reflexivity.
+  - unfold vm_apply, partition_step_state. rewrite Hg. reflexivity.
+Qed.
+
+(** D4_strictness_reachable. For every state [s] that a classical run
+    reaches from [init_state] ([init_state] itself included):
+    (1) [s] is reachable by the machine;
+    (2) PNEW of address 0 is a step from [s] that raises [pg_next_id] by
+        one without setting the error latch;
+    (3) every state a classical run reaches from [s], with any control flow,
+        has the [pg_next_id] of [s];
+    (4) the same holds for the program-counter runner on every classical
+        program, for any fuel;
+    (5) so the state PNEW reaches differs from every state a classical run
+        reaches from [init_state]. *)
+Theorem D4_strictness_reachable : forall s,
+  classical_reachable init_state s ->
+  vm_reachable init_state s /\
+  vm_step s d4_reachable_step (vm_apply s d4_reachable_step) /\
+  (vm_apply s d4_reachable_step).(vm_graph).(pg_next_id) =
+    S s.(vm_graph).(pg_next_id) /\
+  (vm_apply s d4_reachable_step).(vm_err) = s.(vm_err) /\
+  (forall s', classical_reachable s s' ->
+     s'.(vm_graph).(pg_next_id) = s.(vm_graph).(pg_next_id)) /\
+  (forall fuel prog, is_classical_program prog ->
+     (run_vm fuel prog s).(vm_graph).(pg_next_id) =
+       s.(vm_graph).(pg_next_id)) /\
+  (forall s', classical_reachable init_state s' ->
+     s'.(vm_graph) <> (vm_apply s d4_reachable_step).(vm_graph)).
+Proof.
+  intros s Hs.
+  destruct (classical_reachable_preserves_structure _ _ Hs) as [Hg _].
+  simpl in Hg.
+  destruct (d4_reachable_step_state s Hg) as [Hstep [Hnext Herr]].
+  split; [exact (classical_reachable_vm_reachable _ _ Hs) |].
+  split; [exact Hstep |].
+  split; [exact Hnext |].
+  split; [exact Herr |].
+  split.
+  - intros s' Hs'.
+    destruct (classical_reachable_preserves_structure _ _ Hs') as [Hg' _].
+    rewrite Hg'. reflexivity.
+  - split.
+    + intros fuel prog Hprog.
+      destruct (D3_conservativity_pc fuel prog s Hprog) as [Hg' _].
+      rewrite Hg'. reflexivity.
+    + intros s' Hs' Heq.
+      destruct (classical_reachable_preserves_structure _ _ Hs') as [Hg' _].
+      simpl in Hg'.
+      assert (Hn := f_equal pg_next_id Heq).
+      rewrite Hnext, Hg', Hg in Hn. simpl in Hn. discriminate.
+Qed.
+
+(** The classical run of length zero reaches [init_state], so the theorem
+    applies to [init_state] itself: one PNEW step issues module number 0,
+    and no classical program run from [init_state] issues any. *)
+Corollary D4_strictness_from_init :
+  vm_step init_state d4_reachable_step (vm_apply init_state d4_reachable_step) /\
+  (vm_apply init_state d4_reachable_step).(vm_graph).(pg_next_id) = 1 /\
+  (forall fuel prog, is_classical_program prog ->
+     (run_vm fuel prog init_state).(vm_graph).(pg_next_id) = 0).
+Proof.
+  destruct (D4_strictness_reachable init_state
+              (classical_reachable_refl init_state))
+    as [_ [Hstep [Hnext [_ [_ [Hrun _]]]]]].
+  split; [exact Hstep |]. split.
+  - rewrite Hnext. reflexivity.
+  - intros fuel prog Hprog. rewrite (Hrun fuel prog Hprog). reflexivity.
+Qed.
+
+(** D4_strictness: some state and some structural step change [pg_next_id]
+    where every classical instruction-list run from that state keeps it. The
+    state is the kernel's [init_state]. *)
 Theorem D4_strictness :
   exists (s0 : VMState) (thiele_step : vm_instruction),
-    (** (1) Thiele: one step changes graph *)
+    vm_reachable init_state s0 /\
     (vm_apply s0 thiele_step).(vm_graph).(pg_next_id) <>
     s0.(vm_graph).(pg_next_id) /\
-    (** (2) Classical: any trace preserves graph *)
     (forall (trace : list vm_instruction),
        is_classical_program trace ->
        (acm_run thiele_cert_machine trace s0).(vm_graph).(pg_next_id) =
        s0.(vm_graph).(pg_next_id)).
 Proof.
-  exists d4_base, d4_thiele_step.
-  split.
-  - (* (1) Thiele changes graph — from D4_thiele_changes_graph *)
-    pose proof D4_thiele_changes_graph as H. lia.
-  - (* (2) Classical preserves graph *)
-    intros trace Hclassical.
-    apply D4_classical_preserves_next_id. exact Hclassical.
+  destruct (D4_strictness_reachable init_state
+              (classical_reachable_refl init_state))
+    as [Hreach [_ [Hnext _]]].
+  exists init_state, d4_reachable_step.
+  split; [exact Hreach |]. split.
+  - rewrite Hnext. lia.
+  - intros trace Hclassical.
+    exact (D4_classical_preserves_next_id trace init_state Hclassical).
 Qed.
 
-(**
-
-    D5_thiele_strictly_extends_classical:
-    The Thiele VM strictly extends classical computation semantics
-    under shadow_proj.
-
-    EXTENSION (D3): Classical programs run faithfully in the Thiele VM;
-    the structural state is frozen.
-
-    STRICTNESS (D4): Thiele can reach structural states that no classical
-    program can reach, distinguished by a semantically legitimate probe.
-
-    This is the formal theorem-grade statement of:
-      "Thiele strictly refines classical trace semantics under shadow_proj."
-*)
+(** D5_thiele_strictly_extends_classical.
+    EXTENSION: a classical program leaves the graph, the certificate address
+    and the certified flag unchanged, run as an instruction list and run
+    under the program-counter runner (which follows jumps), for any fuel.
+    STRICTNESS: from every state a classical run reaches from [init_state],
+    PNEW of address 0 is a step to a state whose graph no classical run from
+    [init_state] reaches. *)
 Theorem D5_thiele_strictly_extends_classical :
-  (** EXTENSION: Classical programs do not exercise the structural layer.
-      For any classical trace, the structural state is unchanged. *)
   (forall (prog : list vm_instruction) (s0 : VMState),
      is_classical_program prog ->
      (acm_run thiele_cert_machine prog s0).(vm_graph) = s0.(vm_graph) /\
      (acm_run thiele_cert_machine prog s0).(vm_csrs).(csr_cert_addr) =
        s0.(vm_csrs).(csr_cert_addr) /\
      (acm_run thiele_cert_machine prog s0).(vm_certified) = s0.(vm_certified)) /\
-  (** STRICTNESS: Thiele has programs that exit the classical fragment.
-      There exists a state and instruction such that Thiele changes the graph
-      but no classical program can. *)
-  (exists (s0 : VMState) (thiele_step : vm_instruction),
-     (vm_apply s0 thiele_step).(vm_graph).(pg_next_id) <>
-     s0.(vm_graph).(pg_next_id) /\
-     (forall (trace : list vm_instruction),
-        is_classical_program trace ->
-        (acm_run thiele_cert_machine trace s0).(vm_graph).(pg_next_id) =
-        s0.(vm_graph).(pg_next_id))).
+  (forall (fuel : nat) (prog : list vm_instruction) (s0 : VMState),
+     is_classical_program prog ->
+     (run_vm fuel prog s0).(vm_graph) = s0.(vm_graph) /\
+     (run_vm fuel prog s0).(vm_csrs).(csr_cert_addr) =
+       s0.(vm_csrs).(csr_cert_addr) /\
+     (run_vm fuel prog s0).(vm_certified) = s0.(vm_certified)) /\
+  (forall s, classical_reachable init_state s ->
+     vm_step s d4_reachable_step (vm_apply s d4_reachable_step) /\
+     (forall s', classical_reachable init_state s' ->
+        s'.(vm_graph) <> (vm_apply s d4_reachable_step).(vm_graph))).
 Proof.
-  split.
-  - (* EXTENSION: apply D3_conservativity *)
-    intros prog s0 Hclassical.
+  split; [| split].
+  - intros prog s0 Hclassical.
     exact (D3_conservativity prog s0 Hclassical).
-  - (* STRICTNESS: apply D4_strictness *)
-    exact D4_strictness.
+  - intros fuel prog s0 Hclassical.
+    exact (D3_conservativity_pc fuel prog s0 Hclassical).
+  - intros s Hs.
+    destruct (D4_strictness_reachable s Hs)
+      as [_ [Hstep [_ [_ [_ [_ Hsep]]]]]].
+    split; [exact Hstep | exact Hsep].
 Qed.
