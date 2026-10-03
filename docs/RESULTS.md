@@ -285,8 +285,13 @@ and honest extension, schedule uniqueness under an explicit event-pricing
 premise, reachable-simulation descent, representation through an
 event-reflecting embedding, and the direct certification specification. Some
 of these repeat a premise or assume the essential structure. The
-reachable-simulation existence form is conditional on a global representative
-satisfying a retraction law. The billed and surcharged schedule equivalences
+reachable-simulation existence form is stated for any global representative
+satisfying a retraction law. One such representative exists:
+`reachable_trace_representative` picks, for each state, the first trace in an
+enumeration of all traces that reaches it, so the existence form holds outright
+(`generalized_reachable_simulation_holds`). The pick is a search, not a
+program that rebuilds a trace from a state: it uses the choice principle
+`sig_forall_dec` of Coq's real numbers, which the corpus already assumes. The billed and surcharged schedule equivalences
 fail because the unchanged Thiele base does not price every substituted event.
 
 | Certification theorem | Event-generic form | Status | Coq |
@@ -562,6 +567,7 @@ the real-number axioms `ClassicalDedekindReals.sig_forall_dec` and
 - `evidence_permanent_flip_heat_floor`
 - `evidence_permanent_flip_heat_positive`
 - `evidence_permanent_flip_uniform_entropy_drop`
+- `generalized_reachable_simulation_holds`
 - `master_equation_does_not_fix_heat_scale`
 - `mu_has_no_intrinsic_joule_value`
 - `permanence_heat_floor_uses_landauer`

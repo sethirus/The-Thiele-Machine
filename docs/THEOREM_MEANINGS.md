@@ -463,6 +463,9 @@ An explicitly qualified citation keeps its own module identity.
 - `no_classical_certification_decider`: No Boolean function of projected classical traces agrees with the defined certification decider on every Thiele trace.
 - `selected_representatives_give_decoder`: Given a representative for every view whose observation is that view, a query is constant on observation fibers exactly when it factors through a decoder of the view.
 - `reachable_simulation_unique`: Two `ReachableCertSimulation` records into the same target with the same base map every VM trace endpoint to equal target states.
+- `reachable_trace_representative_correct`: For every trace `t`, evaluating `reachable_trace_representative (vm_trace_eval t)` from `init_state` gives `vm_trace_eval t`; the representative is defined with decidable VM-state equality and the Reals choice principle `sig_forall_dec`.
+- `reachable_representative_exists`: Some function from VM states to traces maps every reachable state to a trace that reaches it.
+- `generalized_reachable_simulation_holds`: For every reading `E`, certification-cost machine `M` and base state, a reachable event simulation exists exactly when traces with the same VM endpoint have the same target endpoint and the reading of every trace's VM endpoint equals the certification flag of its target endpoint.
 - `D2_faithfulness`: A classical instruction-list run has its defined six-field projection and preserves its initial partition graph, certificate address, and certification flag.
 - `D3_conservativity`: A list of classical opcodes preserves the partition graph, certificate address, and certification flag under instruction-list execution.
 - `D3_conservativity_pc`: For any fuel, `run_vm` on a program whose instructions are all classical, which follows jumps through the program counter, leaves the partition graph, certificate address, and certification flag unchanged.
