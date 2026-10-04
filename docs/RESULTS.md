@@ -177,6 +177,13 @@ steps on the other.
   `earned_core_adequate`, `earned_core_honest`, `earned_core_is_latch`. Its
   provenance, checker-soundness, no-forging and price theorems are in
   minimal/EarnedCore.v itself, on the Coq standard library alone.
+- **Proved.** A host built on that machine runs any of its programs as a
+  guest, keeps a mirror equal to the guest's certified flag, and raises the
+  mirror only in a guest step that passed CERTIFY, charged in that step, for
+  every sequence of host moves, in minimal/UniversalThiele.v on the Coq
+  standard library alone; coq/kernel/foundation/UniversalThieleLinks.v makes
+  the host and its guests certification systems. A machine from elsewhere
+  enters through the two-counter encoding; its own price list is not kept.
 
 ## Which events the theorems allow
 

@@ -482,8 +482,11 @@ my builds count too, each with its toll proved, and Part IV names the theorems. 
 machine is \emph{Thiele-complete} when its base is Turing-universal, so it carries the record
 and pays the toll while computing anything a Turing machine can. The small machine is proved
 Thiele-complete. Whether the big build is, I haven't proved, and nothing in this book
-depends on it. A machine that could run every Thiele machine with its record and its toll
-still enforced would be a \emph{universal} Thiele machine, and that one is an open question.
+depends on it. A \emph{universal} Thiele machine is one fixed machine that runs any machine of a stated
+class as a guest, with the guest's record kept and its toll collected by its own step. Part IV
+builds one: its guests are the small machine's programs, so every computation runs on it, and
+a machine from elsewhere comes in with its computation and toll kept but not its exact
+prices.
 And the chip of Part V isn't a Thiele machine at all. It's hardware that implements one, the
 big build, inside bounds Part V states, the way a laptop implements a Turing machine.
 
@@ -6323,6 +6326,178 @@ file uses nothing but Coq's standard library, so you can check it with nothing e
 installed; the link file adds only the book's own abstract records and the library of
 undecidability proofs.
 
+\subsection{One machine that runs them all}
+\label{sec:universal-host}
+
+The small machine raises its flag only by checking, committing and certifying, and it pays
+for that. The next question is whether one machine can stand in for all of them, the way
+Turing's universal machine stands in for every Turing machine. Here's what I mean by that. A
+\emph{universal Thiele machine} is one fixed machine that runs any machine of a stated class
+as a guest, with the guest's record kept and the guest's toll collected by its own step, not
+by a convention some program running on it has to keep.
+
+So I built a host. It carries a guest inside its own state: the guest's program as data, the
+guest's counters, its table, its ledger, its flag. The host has one extra move, run one guest
+step. In that one move it looks at the guest's flag, takes the step, looks again, and if the
+flag went from down to up, the host's own copy of that flag goes up in the same move, and the
+host pays for it.
+
+\begin{definition}[The host]\label{def:u34-host}
+A \emph{guest} is a program $P$ of this chapter's machine together with a state $g$ of it
+(Definition~\ref{def:u34-step}). A \emph{host state} $h$ has six parts: its own core
+$\mathrm{core}(h)$, its ledger $\mu(h)$, its own flag $\mathrm{own}(h)$, the guest program
+$P(h)$ held as a list of instructions, the guest state $g(h)$, and the \emph{mirror} $m(h)$, a
+yes/no copy of the guest's flag. The host has two kinds of move. $\mathrm{OWN}\ i$ runs the
+instruction $i$ on the host's own core, costs what this chapter's machine charges for $i$,
+and raises $\mathrm{own}$ exactly when that machine's flag would rise. $\mathrm{GSTEP}\ b$
+costs $b$. If the host's core is trapped it does nothing else. Otherwise it moves the host to
+its next line and, if the guest's next instruction costs at most $b$, runs that instruction
+on $g(h)$; in the same move the mirror becomes $m(h) \lor (\lnot\mathrm{cert}(g(h)) \land
+\mathrm{cert}(g'))$, where $g'$ is the new guest state. The host's reading is
+$\mathrm{own}(h) \lor m(h)$. The universal program is $U = [\mathrm{GSTEP}\ 1;\ \mathrm{OWN}\
+(\text{INC } A);\ \mathrm{OWN}\ (\text{DEC } A\ 1)]$: one guest step, then two moves that
+bring the host back to its first line.
+\end{definition}
+
+Every instruction of the small machine costs at most one, so $\mathrm{GSTEP}\ 1$ runs every
+guest instruction there is. Charging the budget $b$ and not the cost of whatever instruction
+got fetched keeps the price a function of the move alone, which is what the certification
+system of Part II asks for.
+
+\begin{theorem}[The host runs any guest]\label{thm:u34-universal}
+(1) If the host's core is not trapped, then after $n$ moves $\mathrm{GSTEP}\ 1$ the guest state
+is the guest program's own run of $n$ steps from $g(h)$, the guest program is unchanged, and
+the host is still not trapped. (2) If the host's core is at line 1 and not trapped, then $3n$
+steps of the program $U$ leave the guest exactly where $n$ steps of its own program put it.
+(3) For every two-counter program $M$ and inputs $a$, $b$: $M$ halts from $(1, (a, b))$ exactly
+when the host program made of $\mathrm{OWN}$ moves of the compiled $M$ halts, from a host
+whose core starts at $(a, b)$, whatever guest that host carries.
+\end{theorem}
+
+\begin{proof}
+(1) Induction on $n$: a host that isn't trapped stays untrapped through a guest step, and with
+budget 1 the guest step is the guest's own step. (2) One pass of $U$ is a guest step, then
+INC $A$ and DEC $A$ back to line 1, so it is (1) once per pass. (3) A host program made only
+of $\mathrm{OWN}$ moves is the small machine, core for core, and
+Theorem~\ref{thm:u34-halting} does the rest.
+\end{proof}
+
+Checked as \code{universal\_simulation}, \code{universal\_program\_simulation} and
+\code{host\_thiele\_complete} (UniversalThiele.v).
+
+\begin{theorem}[The copy is the record]\label{thm:u34-mirror}
+Say a host state $h$ \emph{agrees} when $m(h) = \mathrm{cert}(g(h))$. Every host move takes an
+agreeing state to an agreeing state, so every host trace and every stored host program
+does too, and a freshly loaded host agrees. In particular, if $h$ agrees and is not trapped,
+the mirror after $n$ moves $\mathrm{GSTEP}\ 1$ is the guest's flag after $n$ steps of its own
+program.
+\end{theorem}
+
+\begin{proof}
+One move at a time. An $\mathrm{OWN}$ move touches neither the mirror nor the guest. A trapped
+$\mathrm{GSTEP}$ touches neither. An untrapped one sets the mirror to the old mirror or the
+crossing, and the guest's flag is a latch (Theorem~\ref{thm:u34-toll}), so if the old mirror
+equalled the old flag, the new mirror equals the new flag. The last sentence is this
+together with Theorem~\ref{thm:u34-universal}.
+\end{proof}
+
+Checked as \code{record\_agreement\_step}, \code{record\_agreement},
+\code{record\_agreement\_program}, \code{hload\_agrees} and \code{simulated\_record}
+(UniversalThiele.v).
+
+\begin{theorem}[The host's step collects the guest's toll]\label{thm:u34-host-toll}
+(1) If $h$ agrees, is not trapped, and the guest step that budget $b$ allows takes the guest's
+flag from down to up, then the mirror is down before $\mathrm{GSTEP}\ b$ and up after it,
+the host's ledger rose by exactly $b$, and $b \ge 1$. (2) In the run of (1) of
+Theorem~\ref{thm:u34-universal}, if the guest's flag goes up between its steps $n$ and $n + 1$,
+the mirror goes up between the host's moves $n$ and $n + 1$, and that move costs 1. (3) For every
+host trace $t$, $\mu(g(\mathrm{run}(t, h))) + \mu(h) \le \mu(\mathrm{run}(t, h)) +
+\mu(g(h))$: the host's ledger grows at least as fast as the guest's.
+\end{theorem}
+
+\begin{proof}
+(1) The guest's flag rises only on a passing CERTIFY (Theorem~\ref{thm:u34-toll}), which costs
+1, and the budget let it run, so $b \ge 1$; the mirror was the guest's flag, so it was down,
+and the move sets it to the crossing. (2) is (1) at the matching move. (3) Induction on $t$: a
+guest step that runs costs the guest at most the budget the host paid, and every other move
+leaves the guest's ledger alone.
+\end{proof}
+
+Checked as \code{toll\_enforced\_by\_host\_step}, \code{every\_guest\_crossing\_is\_a\_host\_crossing},
+\code{host\_pays\_for\_guest}, \code{host\_cost\_covers\_guest} and \code{simulated\_cost}
+(UniversalThiele.v).
+
+\begin{theorem}[No free host certification]\label{thm:u34-no-free-host}
+If the mirror is down at $h$ and up after a host move $i$, then $i$ is $\mathrm{GSTEP}\ b$ with
+$b \ge 1$, the host was not trapped, the guest's next instruction was CERTIFY, and the guest's
+flag went from down to up in that move. A trace made only of $\mathrm{OWN}$ moves leaves the
+mirror and the guest state exactly where they were. And the host's own flag rises only by an
+$\mathrm{OWN}$ CERTIFY that passes on the host's core.
+\end{theorem}
+
+\begin{proof}
+An $\mathrm{OWN}$ move copies the mirror unchanged, and a trapped $\mathrm{GSTEP}$ does too, so
+the rise is an untrapped $\mathrm{GSTEP}\ b$ whose guest step crossed; a crossing is a passing
+CERTIFY, which costs 1 and needed the budget. The own flag moves by this chapter's step line.
+\end{proof}
+
+Checked as \code{no\_free\_host\_certification\_step}, \code{no\_free\_host\_certification},
+\code{no\_free\_host\_certification\_program}, \code{guestless\_runs\_leave\_mirror} and
+\code{own\_record\_only\_by\_certify} (UniversalThiele.v).
+
+\begin{theorem}[The host is a Thiele machine]\label{thm:u34-host-instance}
+For every host state and move, if the host's reading goes from no to yes, the move costs at
+least 1; the same holds for the mirror alone and for the own flag alone. So the host read
+through $\mathrm{own} \lor m$, the host read through $m$ alone, and the guest class are
+certification systems (Definition~\ref{def:certsys}), and any host trace that raises the
+host's reading costs at least 1.
+\end{theorem}
+
+\begin{proof}
+The mirror's half is Theorem~\ref{thm:u34-no-free-host}; the own flag's half is the small
+machine's toll on the host's core. The trace form is Section~\ref{sec:toll}'s universal floor.
+\end{proof}
+
+Checked as \code{host\_toll}, \code{host\_own\_toll} and \code{host\_mirror\_toll}
+(UniversalThiele.v), and \code{host\_cs}, \code{host\_mirror\_cs}, \code{guest\_cs} and
+\code{host\_nfi} (UniversalThieleLinks.v).
+
+\begin{remark}[Two guests, run]\label{rem:u34-host-runs}
+Load the guest CHECK \emph{is zero} $A$; COMMIT \emph{is zero} $A$; CERTIFY; HALT with both
+counters at 0. After two moves $\mathrm{GSTEP}\ 1$ the mirror is down; after three it is up,
+the guest's flag is up, the host's own flag is still down, and the host has paid 3. Under the
+program $U$ the mirror is down at host step 6 and up at step 7, with 3 paid. The guest
+CERTIFY; CERTIFY traps on its first step: after five moves $\mathrm{GSTEP}\ 1$ the mirror is
+down, the guest is trapped, and the host has paid 5 for nothing.
+\end{remark}
+
+Checked as \code{demo\_certifies}, \code{demo\_program\_certifies} and \code{demo\_forgery\_fails}
+(UniversalThiele.v).
+
+That copy can't be faked. The proof walks every host move there is, and the copy only rises
+in a guest step where the guest itself ran CERTIFY and passed. A host program that never
+touches the guest leaves the copy exactly where it was. The copy always equals the guest's
+flag, the host's ledger always grows at least as fast as the guest's, and a three-instruction
+loop runs any small-machine program one guest step per pass. Since the small machine already
+runs every two-counter program, the host runs every computation, and every guest's toll is
+collected by the host's own step, not by a convention someone has to keep.
+
+Here's what that covers, said plainly. The guests are this chapter's programs, every one of
+them from every state, and that's the stated class; it's the same kind of class Turing's
+universal machine has, a fixed instruction set and a finite program held as data. The guest
+program sits in the host's state as a list of instructions, not packed into one number;
+packing it would add bookkeeping and nothing to the record argument. A Thiele machine from
+somewhere else comes in through the two-counter encoding, and it keeps its computation and
+its toll (a raise still costs at least one), but not its own price list: a guest pays one
+for each CHECK, COMMIT and CERTIFY and nothing for counting, and the foreign machine's
+reading has to be computed into a counter and checked with this machine's three properties.
+A compilation that keeps every foreign price exactly is not proved. And here's why the extra
+move is the point. A plain two-counter host could interpret guests too, but then the guest's
+record would be data the host's program updates by convention, which is exactly the Turing
+machine's position from the front matter. Here the mirror, the crossing test and the charge
+are in the host's step rule, so Theorems~\ref{thm:u34-host-toll} and~\ref{thm:u34-no-free-host}
+hold for every sequence of host moves, including ones that never run a guest.
+
 \subsection{What it doesn't do}
 
 Here's where it falls short, in plain words, because a small machine is only honest if its
@@ -6358,6 +6533,10 @@ for any program that wants to keep checking forever.
 all stated from a clean start. Hand the machine a table pre-loaded with facts nobody
 checked, and of course none of that follows. The theorems are about what the machine
 produces, not about what you smuggle in at the door.
+\item \textbf{The host keeps a guest's toll, not its prices.} The universal host of the last
+subsection runs this machine's programs. A machine from elsewhere gets in through the
+two-counter encoding with its computation and toll intact and its own price list replaced
+by this machine's.
 \item \textbf{Slow, and fed directly.} Universality is Minsky's, with the inputs placed straight in
 the counters. Getting from an arbitrary Turing machine to two counters goes through his
 exponential packing, which is not in my files.
@@ -6384,7 +6563,9 @@ one as \code{earned\_cs} (Theorem~\ref{thm:u34-instance}), the big one as
 \code{thiele\_cert\_addr\_system} (UniversalCertificationCost.v), whose toll is
 Theorem~\ref{thm:u17-nfi}. This one is also Thiele-complete. Its base is a two-counter
 machine, so it computes whatever a Turing machine can while it carries the record and pays
-the toll (Theorems~\ref{thm:u34-simulation} and~\ref{thm:u34-halting}). Whether the big one
+the toll (Theorems~\ref{thm:u34-simulation} and~\ref{thm:u34-halting}). And a host built on it
+is a universal Thiele machine for its programs: it runs any of them as a guest and collects
+the guest's toll in its own step (Section~\ref{sec:universal-host}). Whether the big one
 is Thiele-complete I haven't proved, and nothing in this book leans on it. The small one shows the
 model whole, with earned commitments, on the least I could build. The big one shows how
 much a single build can carry while the toll still holds, and where it stops short. If you
@@ -13775,6 +13956,12 @@ Equal computational windows can hide different records & proved on the minimal m
 The window cannot recover the ledger, flag or commitment permission & proved on the minimal machine, under the stated premises & Section~\ref{sec:smallest}, \ref{thm:u34-no-oracle} \\
 Clean-start certification costs at least three & proved on the minimal machine, under the stated premises & Section~\ref{sec:smallest}, \ref{thm:u34-min-price} \\
 A three-charge certification run attains the bound & proved on the minimal machine, under the stated premises & Section~\ref{sec:smallest}, \ref{thm:u34-tight} \\
+One host runs any small-machine program as a guest, and halts with any two-counter program & proved on the minimal machine; the guest program is held as a list & Section~\ref{sec:universal-host}, \ref{thm:u34-universal} \\
+The host's mirror always equals the guest's flag & proved on the minimal machine & Section~\ref{sec:universal-host}, \ref{thm:u34-mirror} \\
+The host's step collects the guest's toll, and its ledger covers the guest's & proved on the minimal machine & Section~\ref{sec:universal-host}, \ref{thm:u34-host-toll} \\
+The mirror rises only in a guest step that passed CERTIFY & proved on the minimal machine, for every sequence of host moves & Section~\ref{sec:universal-host}, \ref{thm:u34-no-free-host} \\
+The host is a certification system & proved on the minimal machine & Section~\ref{sec:universal-host}, \ref{thm:u34-host-instance} \\
+A foreign machine's own price list is kept exactly by the host & not claimed; it enters through the two-counter encoding with its computation and toll kept & Section~\ref{sec:universal-host} \\
 \end{longtable}
 \endgroup
 
@@ -14078,9 +14265,10 @@ here, and nothing in the tables puts an unavoidable physical price on every obse
 And four things left open: whether Landauer's critics are right, which would leave every
 theorem standing and one premise unowned by the world (Section~\ref{sec:a2-not-arbitrary}); whether certification really is
 the pointer event (Section~\ref{sec:pointer}); whether there's a smaller start than a partition, by a ruler
-someone can state (Section~\ref{sec:structure}); and whether there's a universal Thiele
-machine, one that runs every Thiele machine with its record and toll still enforced
-(\hyperref[sec:straight]{Let me be straight with you}).
+someone can state (Section~\ref{sec:structure}); and whether a universal Thiele machine can
+keep every foreign machine's own price list exactly; the one built in
+Section~\ref{sec:universal-host} keeps a foreign machine's computation and toll and replaces
+its prices.
 
 That's the whole ledger. If you find a claim in this book that isn't on it, or a line that
 says more than its home does, that's my mistake, and I'd want to hear about it.
@@ -14289,7 +14477,12 @@ Part IV built twice. The small machine came first, two counters and six instruct
 it the model stands whole: a raised flag was checked, then committed, then certified, on the
 same edition of the same counter, nothing gets forged, the cheapest certificate costs exactly
 three, and it computes everything Minsky's two-counter machines can, so its halting is
-undecidable. Earned commitments and universality are proved there. Then the big build, one
+undecidable. Earned commitments and universality are proved there. So is a universal Thiele
+machine: one fixed host runs any small-machine program as a guest, mirrors the guest's
+record, and pays the guest's toll in the same step the guest crosses, proved in Coq with
+nothing assumed. What it covers is said plainly: guests are small-machine programs, which
+compute everything, and a machine from somewhere else comes in through the two-counter
+encoding with its computation and its toll kept, but not its exact prices. Then the big build, one
 try, in three materials, whose job was to be the witness: every ``when the machine exists'' from
 the earlier parts landed on a theorem with a name. It prices every commitment on its
 fifty-one instructions and doesn't enforce that one was earned; the check and the commit stay
@@ -14331,9 +14524,9 @@ has no fixed point; both are theorems. Those are different sentences, and sharin
 
 What's open, by my count. Whether the toll is the \emph{right} thing to price, as against a
 wall or a penalty for contradiction, which is what the five real systems mostly built.
-Whether certification is the pointer event. Whether there's a universal Thiele machine, one
-that runs every other Thiele machine with its record and its toll still enforced; the small
-machine is Thiele-complete, which is less. Whether Landauer's critics
+Whether certification is the pointer event. Whether a universal Thiele machine can keep
+every foreign machine's own price list exactly; the host in Section~\ref{sec:universal-host}
+keeps a foreign machine's computation and toll, and replaces its prices. Whether Landauer's critics
 are right, which would leave every theorem standing and one premise unowned by the world.
 And the question I'd most like someone to take from me: is there a smaller start than a
 partition, by a ruler they can state? I said in Section~\ref{sec:structure} it would change this book. It would.
@@ -14645,8 +14838,10 @@ machine}, lower case, is any system proved to be an instance of the certificatio
 builds. \emph{Thiele-complete} means a Thiele machine whose base is Turing-universal, so it
 computes anything a Turing machine can while carrying the record and paying the toll; the
 small machine is proved Thiele-complete, and for the big build it's open. A \emph{universal}
-Thiele machine, one that runs every Thiele machine with its record and toll still enforced,
-isn't proved to exist. The chip isn't a Thiele machine; it implements the big build inside
+Thiele machine runs any machine of a stated class as a guest, with the guest's record kept
+and its toll collected by its own step; one is proved for the small machine's programs
+(Section~\ref{sec:universal-host}), and a machine from elsewhere keeps its computation and
+toll there but not its exact prices. The chip isn't a Thiele machine; it implements the big build inside
 the bounds Section~\ref{sec:chip} states. When a word below belongs
 to only one of the two layers, the entry says which.
 
@@ -15050,6 +15245,18 @@ Kind: implementation and mechanization of a small design. The universality and t
 undecidability are borrowed, and the other properties are short consequences of the step
 rule. Whether the design is new I can't say, and I make no claim beyond the proofs.
 
+\subsection{15. The universal host}
+
+Known: Turing's universal machine (1936), which runs any machine given as data, and the
+universal register machines that run two-counter programs. Mine: a host that runs any
+program of the small machine as a guest and has one extra move, a guest step that mirrors
+the guest's flag and charges in the same step, with theorems that the mirror always equals
+the guest's flag, that it rises only in a guest step that passed CERTIFY, for every sequence
+of host moves, and that the host's ledger covers the guest's
+(Section~\ref{sec:universal-host}). Kind: implementation and mechanization of a small
+design. The universality is borrowed from the small machine and from Minsky. A foreign
+machine's own prices are not kept, and the book says so where it states the result.
+
 \subsection{What that adds up to}
 
 Read straight down the list and the honest summary is this. The mathematics underneath this
@@ -15194,6 +15401,13 @@ Theorem \ref{thm:u34-separation}: Same window, different record & \S\ref{sec:sma
 Theorem \ref{thm:u34-no-oracle}: No window oracle & \S\ref{sec:smallest} & \code{no\_mu\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_cert\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_commit\_oracle} {\footnotesize(\code{EarnedCore.v})} & not probed\newline not probed\newline not probed \\
 Theorem \ref{thm:u34-min-price}: The minimum price of a certificate & \S\ref{sec:smallest} & \code{certified\_run\_min\_cost} {\footnotesize(\code{EarnedCore.v})}\newline \code{program\_certified\_min\_cost} {\footnotesize(\code{EarnedCore.v})} & not probed\newline not probed \\
 Theorem \ref{thm:u34-tight}: Three is tight & \S\ref{sec:smallest} & \code{min\_cost\_tight} {\footnotesize(\code{EarnedCore.v})}\newline \code{witness} {\footnotesize(\code{EarnedCore.v})} & not probed\newline def \\
+Definition \ref{def:u34-host}: The host & \S\ref{sec:smallest} & \code{hexec} {\footnotesize(\code{UniversalThiele.v})}\newline \code{U} {\footnotesize(\code{UniversalThiele.v})} & def\newline def \\
+Theorem \ref{thm:u34-universal}: The host runs any guest & \S\ref{sec:smallest} & \code{universal\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{universal\_program\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_thiele\_complete} {\footnotesize(\code{UniversalThiele.v})} & not probed\newline not probed\newline not probed \\
+Theorem \ref{thm:u34-mirror}: The copy is the record & \S\ref{sec:smallest} & \code{record\_agreement\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{record\_agreement} {\footnotesize(\code{UniversalThiele.v})}\newline \code{simulated\_record} {\footnotesize(\code{UniversalThiele.v})} & not probed\newline not probed\newline not probed \\
+Theorem \ref{thm:u34-host-toll}: The host's step collects the guest's toll & \S\ref{sec:smallest} & \code{toll\_enforced\_by\_host\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{every\_guest\_crossing\_is\_a\_host\_crossing} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_cost\_covers\_guest} {\footnotesize(\code{UniversalThiele.v})} & not probed\newline not probed\newline not probed \\
+Theorem \ref{thm:u34-no-free-host}: No free host certification & \S\ref{sec:smallest} & \code{no\_free\_host\_certification\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{guestless\_runs\_leave\_mirror} {\footnotesize(\code{UniversalThiele.v})}\newline \code{own\_record\_only\_by\_certify} {\footnotesize(\code{UniversalThiele.v})} & not probed\newline not probed\newline not probed \\
+Theorem \ref{thm:u34-host-instance}: The host is a Thiele machine & \S\ref{sec:smallest} & \code{host\_toll} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_nfi} {\footnotesize(\code{UniversalThieleLinks.v})}\newline \code{host\_cs} {\footnotesize(\code{UniversalThieleLinks.v})} & not probed\newline none\newline def \\
+Remark \ref{rem:u34-host-runs}: Two guests, run & \S\ref{sec:smallest} & \code{demo\_certifies} {\footnotesize(\code{UniversalThiele.v})}\newline \code{demo\_program\_certifies} {\footnotesize(\code{UniversalThiele.v})}\newline \code{demo\_forgery\_fails} {\footnotesize(\code{UniversalThiele.v})} & not probed\newline not probed\newline not probed \\
 Definition \ref{def:u16-state}: The state record & \S\ref{sec:state} & stated in the text &  \\
 Definition \ref{def:u16-access}: Registers, memory, and the word & \S\ref{sec:state} & \code{REG\_COUNT} {\footnotesize(\code{ThieleMachineComplete.v}, +1)}\newline \code{MEM\_SIZE} {\footnotesize(\code{ThieleMachineComplete.v}, +1)}\newline \code{word64} {\footnotesize(\code{ThieleMachineComplete.v}, +1)}\newline \code{read\_reg} {\footnotesize(\code{ThieleMachineComplete.v}, +1)}\newline and 4 more & def\newline def\newline def\newline def \\
 Theorem \ref{thm:u16-conservation}: Conservation on this machine & \S\ref{sec:state} & \code{vm\_apply\_mu} {\footnotesize(\code{ThieleMachineComplete.v}, +1)} & none \\

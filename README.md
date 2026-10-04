@@ -30,7 +30,7 @@ The record exists only if something keeps it, and keeping it, priced, is what th
 The Thiele Machine, with capitals, is the model and nothing else.
 A Thiele machine, lower case, is any particular system proved to meet the model's definition (a certification system: states, moves, a step, a cost, a reading, and the toll), the way one rule table is a Turing machine.
 A Thiele machine is Thiele-complete when its base is Turing-universal, so it computes anything a Turing machine can while carrying the record and paying the toll.
-A universal Thiele machine, one that runs every Thiele machine with its record and toll still enforced, is not proved here; it is an open question.
+A universal Thiele machine runs any machine of a stated class as a guest, with the guest's record kept and its toll collected by its own step; one is proved for the small machine's programs ([minimal/UniversalThiele.v](minimal/UniversalThiele.v)), and a machine from elsewhere keeps its computation and toll there but not its exact prices.
 
 **What this repository is.**
 It is an argument, made with that model, about what an account of computation should preserve.
@@ -128,6 +128,7 @@ On a run from a clean start, a fact whose counter hasn't been written since its 
 From a clean start a certified run costs at least 3 (`certified_run_min_cost`), and 3 is reached.
 The counter instructions are a two-counter machine, so it runs any two-counter program, and [EarnedCoreLinks.v](coq/kernel/foundation/EarnedCoreLinks.v) proves its halting problem undecidable from the vendored two-counter result.
 Twenty-nine theorems, standard library only, each closed under the global context: `coqc minimal/EarnedCore.v`.
+[minimal/UniversalThiele.v](minimal/UniversalThiele.v) builds a universal Thiele machine on it: one host runs any small-machine program as a guest, its mirror of the guest's flag always equals that flag (`record_agreement`), and the mirror rises only in a guest step that passed CERTIFY, charged in that same step, for every sequence of host moves (`no_free_host_certification_step`, `toll_enforced_by_host_step`); a machine from elsewhere enters through the two-counter encoding with its computation and toll kept but not its own prices.
 
 Then it runs [minimal/nofi_demo.py](minimal/nofi_demo.py), which rebuilds the quantitative floor with none of my code anywhere near it.
 The examples compare finite-map image sizes and query costs under explicit models; they do not measure physical erasure or derive the VM cost law from Landauer.
@@ -436,7 +437,7 @@ The RTL path is generated from the same Coq/Kami source.
 ## Repository Layout
 
 ```text
-minimal/                 standalone Coq files (MuCore, Napkin, EarnedCore) + clean-room demo
+minimal/                 standalone Coq files (MuCore, Napkin, EarnedCore, UniversalThiele) + clean-room demo
 coq/                     Coq proof tree, extraction roots, theorem ledger
 coq/kernel/              VM semantics, cost laws, NoFI, hierarchy, physics layers
 coq/kami_hw/             Kami hardware model and RTL correspondence proofs

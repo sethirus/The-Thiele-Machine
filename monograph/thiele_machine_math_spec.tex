@@ -433,7 +433,14 @@ whose counter has not been written since its check names a true claim
 $3$ (\texttt{certified\_\allowbreak{}run\_\allowbreak{}min\_\allowbreak{}cost}).
 Its prices are still flat, one per instruction, so A2 holds there by the
 price list and is not derived from the cost of establishing the claim; see
-Remark~\ref{rem:a2_stipulated}.
+Remark~\ref{rem:a2_stipulated}. A host on the same machine,
+in \texttt{minimal/\allowbreak{}UniversalThiele.v}, runs any of its programs
+as a guest, keeps a mirror equal to the guest's certified flag
+(\texttt{record\_\allowbreak{}agreement}), and raises the mirror only in a
+guest step that passed \texttt{CERTIFY}, charged in that step
+(\texttt{toll\_\allowbreak{}enforced\_\allowbreak{}by\_\allowbreak{}host\_\allowbreak{}step});
+a machine from elsewhere enters through the two-counter encoding with its
+computation and toll kept but not its own prices.
 \end{remark}
 
 \chapter{Operational Semantics}

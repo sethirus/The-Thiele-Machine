@@ -872,6 +872,31 @@ An explicitly qualified citation keeps its own module identity.
 - `earned_core_floor`: A trace taking the minimal machine from uncertified to certified has total cost at least one, by the abstract certification-system floor.
 - `earned_core_honest`: The minimal machine with its program has a certification reading driven by, and permanent over, its projected core base.
 - `earned_core_is_latch`: There exists an event on the minimal machine core base whose latch reproduces its certification reading.
+- `universal_simulation`: A host that is not trapped, after n guest-step moves with budget 1, holds the guest state that n steps of the guest program reach, with the guest program unchanged and the host still not trapped.
+- `universal_program_simulation`: From line 1 and not trapped, 3n steps of the stored host program U leave the guest where n steps of its own program put it.
+- `host_thiele_complete`: A two-counter program halts from (1, (a, b)) exactly when the host program made of OWN moves of its compilation halts from a host whose core starts at (a, b), whatever guest the host carries.
+- `record_agreement_step`: Every host move keeps the host's mirror equal to the guest's certified flag.
+- `record_agreement`: Every host trace keeps the host's mirror equal to the guest's certified flag.
+- `record_agreement_program`: Every run of a stored host program keeps the host's mirror equal to the guest's certified flag.
+- `hload_agrees`: A freshly loaded host's mirror equals its guest's certified flag.
+- `simulated_record`: After n guest steps under the host, the mirror is the guest's certified flag after n steps of its own program.
+- `toll_enforced_by_host_step`: When a guest step with budget b takes the guest's flag from down to up, the host's mirror goes from down to up in that same host step, the host's ledger rises by exactly b, and b is at least 1.
+- `every_guest_crossing_is_a_host_crossing`: A guest crossing between its steps n and n+1 is the mirror's crossing between host moves n and n+1, which costs 1.
+- `host_pays_for_guest`: One host move raises the guest's ledger by no more than it raises the host's.
+- `host_cost_covers_guest`: Over every host trace, the host's ledger grows at least as much as the guest's.
+- `simulated_cost`: The guest's total cost over n steps is at most the host's total cost over the matching n guest-step moves.
+- `no_free_host_certification_step`: If one host move raises the mirror, it is a guest step with budget at least 1 on an untrapped host whose guest's next instruction is CERTIFY, and the guest's flag crossed in that step.
+- `no_free_host_certification`: Any host trace that raises the mirror contains a guest step with budget at least 1 in which the guest's flag crossed.
+- `no_free_host_certification_program`: Any run of a stored host program that raises the mirror contains such a guest step.
+- `guestless_runs_leave_mirror`: A host trace made only of OWN moves leaves the mirror and the guest state unchanged.
+- `own_record_only_by_certify`: The host's own flag rises only by an OWN CERTIFY that passes on the host's core.
+- `host_own_toll`: A host move that raises the host's own flag costs at least 1.
+- `host_mirror_toll`: A host move that raises the mirror costs at least 1.
+- `host_toll`: A host move that raises the host's reading, its own flag or the mirror, costs at least 1.
+- `host_nfi`: Any host trace that raises the host's reading has total cost at least 1, by the abstract certification-system floor.
+- `demo_certifies`: The guest CHECK, COMMIT, CERTIFY, HALT loaded at (0, 0) raises the mirror on the third guest step, with the host's own flag down and 3 paid.
+- `demo_program_certifies`: Under the stored host program U the same guest raises the mirror at host step 7, with 3 paid.
+- `demo_forgery_fails`: The guest CERTIFY, CERTIFY traps, the mirror stays down after five guest steps, and the host pays 5.
 - `eval_iff`: For each property and number, the Boolean checker is true if and only if the arithmetic meaning of the property holds.
 - `facts_bounded_step`: A core whose fact list has at most fact_cap entries still meets that bound after any instruction.
 - `facts_keep`: Every fact already in the core table remains there after any instruction.
