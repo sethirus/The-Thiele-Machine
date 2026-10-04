@@ -37,6 +37,7 @@ def test_preparation_copies_dependency_sources_without_compiled_objects(source_r
     assert not list((output / 'source').rglob('*.vo'))
     assert not list((output / 'source').rglob('Makefile.coq'))
     assert (output / 'source/vendor/coq-undecidability/theories/Proof.v').is_file()
+    assert (output / 'source/minimal/Proof.v').is_file()
     report = json.loads((output / 'reproduction.json').read_text())
     assert report['status'] == 'prepared'
     assert all(c['exit_code'] is None for c in report['commands'])

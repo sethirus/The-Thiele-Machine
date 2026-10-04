@@ -20,7 +20,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-FOLDERS = ('coq', 'vendor/bbv', 'vendor/kami',
+FOLDERS = ('coq', 'minimal', 'vendor/bbv', 'vendor/kami',
            'vendor/coq-undecidability/theories')
 CONFIGS = ('coq/_CoqProject', 'coq/Makefile.local',
            'vendor/bbv/Makefile', 'vendor/bbv/_CoqProject',
@@ -39,9 +39,9 @@ DEFAULT_PROBES = ('tests/coq_probes/cm2_delivery.v',
                   'tests/coq_probes/specialization/Contracts.v',
                   'tests/coq_probes/self_interpreter/Contracts.v',
                   'tests/coq_probes/rice/Contracts.v',
-                  'tests/coq_probes/c1_c2/Contracts.v',
-                  'tests/coq_probes/c2_dispatch/Contracts.v',
-                  'tests/coq_probes/c2_invariants/Contracts.v')
+                  'tests/coq_probes/hardware_boundary/Contracts.v',
+                  'tests/coq_probes/dispatch_decoding/Contracts.v',
+                  'tests/coq_probes/table_invariants/Contracts.v')
 _ROOT_RE = re.compile(r'^-(R|Q)\s+(\S+)\s+(\S+)$')
 
 

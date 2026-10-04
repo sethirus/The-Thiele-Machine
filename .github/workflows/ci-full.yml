@@ -387,7 +387,7 @@ jobs:
 
       - name: Record the netlist the bitstream was built from
         # board-gls and rtl-netlist-equiv download this artifact and check
-        # the digest, so they read exactly the netlist nextpnr placed.
+        # the digest, so they read exactly the netlist nextpnr was handed.
         run: sha256sum build/thiele_xc7k325t.json | tee build/thiele_xc7k325t.json.sha256
 
       - name: Upload bitstream
@@ -407,7 +407,8 @@ jobs:
           if-no-files-found: warn
 
   # Gate-level simulation of the exact board top. Reads the netlist the
-  # bitstream job synthesized (the file nextpnr placed and routed), writes it
+  # bitstream job synthesized (the yosys netlist handed to nextpnr, before
+  # place and route; the routed design is not simulated), writes it
   # back to Verilog, and simulates it with yosys's xilinx cells_sim.v and
   # behavioural IBUFDS/MMCME2_BASE/BUFGCE models, through the board pins:
   # program in over the UART, status report out. The same testbench runs

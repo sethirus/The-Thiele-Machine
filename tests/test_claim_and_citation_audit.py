@@ -1,4 +1,5 @@
-"""Regression checks for the research-plan statement and citation audit."""
+"""Checks that the citation audit resolves every cited Coq name and that the maintained
+documents state each result at its proved scope."""
 
 from pathlib import Path
 import sys
