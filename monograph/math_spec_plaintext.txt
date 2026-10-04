@@ -616,7 +616,6 @@ Since ∆µi : N, the µ-ledger is monotonically non-decreasing by construction.
 S(∆µ) ≥ 1); EMIT (|payload|bits + S(∆µ)); REVEAL and READ_PORT (bits + S(∆µ)); and LASSERT
 (flen × 8 + S(∆µ)). These cannot be zero-cost even with ∆µ = 0. The five CHSH_LASSERT family
 instructions also charge S(∆µ). Other instructions charge their encoded ∆µ, which may be zero.
-
 Theorem 4.1 (Least joint unit floor, (S)). For a finite family of event predicates on instructions,
 the least natural-valued schedule satisfying a unit floor on each event is the indicator that at least
 one event occurs. This is joint_floor_is_least. Independent Boolean coordinates can change
@@ -625,14 +624,12 @@ together for one unit under these rules; additivity requires an additional condi
 
 4.4     The CERTIFY instruction
 CERTIFY is referred to throughout Chapters 6 onward and is defined here.
-
 Definition 4.1 (CERTIFY (instr_certify, VMStep.v)). CERTIFY(∆µ) has the step semantics
 
                        pc 7→ pc + 1,      µ 7→ µ + S(∆µ),        cert 7→ true,                  (4.2)
 
 with every other state component unchanged. Its cost is S(∆µ) ≥ 1, which is the concrete
 instance of A2 (Section 4.1) for this ISA. It is the only rule in VMStep.v that sets cert := true.
-
 Remark 4.3 (CERTIFY is unguarded; what that does and does not mean). The rule fires for
 every state and every ∆µ: it carries no precondition, takes no proposition as an argument, and
 checks nothing. Setting the certification bit is therefore always available, at a price of at least
@@ -654,9 +651,12 @@ of the same claim with the counter untouched in between, and a passing certifica
 certification_provenance); a fact whose counter has not been written since its check names
 a true claim (checker_soundness); every certified run costs at least 3 (certified_run_min_
 cost). Its prices are still flat, one per instruction, so A2 holds there by the price list and is not
-derived from the cost of establishing the claim; see Remark 4.1.
-
-
+derived from the cost of establishing the claim; see Remark 4.1. A host on the same machine,
+in minimal/UniversalThiele.v, runs any of its programs as a guest, keeps a mirror equal
+to the guest’s certified flag (record_agreement), and raises the mirror only in a guest step
+that passed CERTIFY, charged in that step (toll_enforced_by_host_step); a machine from
+elsewhere enters through the two-counter encoding with its computation and toll kept but not
+its own prices.
 
 
                                                  14

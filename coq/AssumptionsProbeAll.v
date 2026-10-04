@@ -240,6 +240,7 @@ Require Kernel.Subsumption.
 Require Kernel.TuringClassicalEmbedding.
 Require Kernel.TuringCompletenessISA.
 Require Kernel.TuringStrictness.
+Require Kernel.UniversalThieleLinks.
 Require Kernel.VMAlternativeCounterAccess.
 Require Kernel.VMBoundedDecidability.
 Require Kernel.VMCounterBranch.
@@ -11612,6 +11613,10 @@ Print Assumptions Kernel.TuringStrictness.pnew_step_separates_thiele_from_classi
 Print Assumptions Kernel.TuringStrictness.pnew_step_separates_thiele_from_classical_at_init.
 Print Assumptions Kernel.TuringStrictness.pnew_step_separates_thiele_from_classical.
 Print Assumptions Kernel.TuringStrictness.thiele_strictly_extends_classical.
+(* === Kernel.UniversalThieleLinks : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.UniversalThieleLinks.host_cs_run.
+Print Assumptions Kernel.UniversalThieleLinks.host_cs_cost.
+Print Assumptions Kernel.UniversalThieleLinks.host_nfi.
 (* === Kernel.VMAlternativeCounterAccess : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMAlternativeCounterAccess.diagonal_base_guard.
 Print Assumptions Kernel.VMAlternativeCounterAccess.diagonal_increment_first.
