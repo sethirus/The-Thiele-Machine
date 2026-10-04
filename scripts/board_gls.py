@@ -691,6 +691,54 @@ def diff(a: dict, b: dict, la: str, lb: str, keys=None) -> list[str]:
     return errs
 
 
+def shard_programs(names: list[str], count: int) -> list[list[str]]:
+    """Balance serial traffic without changing any program or comparison."""
+    if not 1 <= count <= len(names):
+        raise ValueError("shard count must be between one and the program count")
+    groups = [[] for _ in range(count)]
+    loads = [0] * count
+    for name in sorted(names, key=lambda n: -len(program_stream(PROGRAMS[n]["cpu"]))):
+        index = min(range(count), key=lambda i: loads[i])
+        groups[index].append(name)
+        loads[index] += len(program_stream(PROGRAMS[name]["cpu"]))
+    return groups
+
+
+def combine_reports(paths: list[Path], names: list[str], expected_covers: set[str]) -> dict:
+    """Fail closed on missing, duplicate, incomplete or inconsistent shards."""
+    programs, covers, digests, shards = {}, set(), set(), set()
+    for path in paths:
+        report = json.loads(path.read_text(encoding="utf-8"))
+        if not report.get("complete") or not report.get("ok"):
+            raise ValueError(f"incomplete or failed report: {path}")
+        if not report.get("power_on") or not report.get("props") or not report.get("vm"):
+            raise ValueError(f"report omitted required comparisons: {path}")
+        shard = report.get("shard_index")
+        if shard in shards or report.get("shard_count") != len(paths):
+            raise ValueError(f"duplicate or inconsistent shard: {path}")
+        shards.add(shard)
+        digests.add(report.get("netlist_sha256"))
+        if set(report["programs"]) != set(report["planned_programs"]):
+            raise ValueError(f"missing planned programs: {path}")
+        for name, result in report["programs"].items():
+            if name in programs or not result.get("ok") or result.get("errors"):
+                raise ValueError(f"duplicate or failed program: {name}")
+            required = {"rtl_report", "rtl_power_on_report", "gates_report",
+                        "gates_power_on_report", "compared_with_vm"}
+            if not required <= result.keys() or not result["compared_with_vm"]:
+                raise ValueError(f"missing comparison results: {name}")
+            programs[name] = result
+        covers.update(report.get("covers_hit", []))
+    if shards != set(range(len(paths))) or len(digests) != 1 or None in digests:
+        raise ValueError("missing shards or inconsistent netlists")
+    if set(programs) != set(names):
+        raise ValueError("combined program set differs from the requested suite")
+    if expected_covers - covers:
+        raise ValueError(f"covers not reached: {sorted(expected_covers - covers)}")
+    return {"complete": True, "ok": True, "programs": programs,
+            "covers_hit": sorted(covers), "netlist_sha256": digests.pop()}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     src = ap.add_mutually_exclusive_group()
@@ -705,6 +753,9 @@ def main() -> int:
     ap.add_argument("--random", type=int, default=0, metavar="N",
                     help="also run N random programs (gates against RTL against VM)")
     ap.add_argument("--seed", type=int, default=20261003)
+    ap.add_argument("--shard-count", type=int, default=1)
+    ap.add_argument("--shard-index", type=int, default=0)
+    ap.add_argument("--combine-reports", type=Path, nargs="+")
     ap.add_argument("--sim", choices=["verilator", "iverilog"], default="verilator")
     ap.add_argument("--props", action="store_true",
                     help="run the property files as simulation checks in the RTL run")
@@ -718,11 +769,24 @@ def main() -> int:
         for k in range(args.random):
             PROGRAMS[f"random_{args.seed}_{k}"] = {"cpu": random_program(rng)}
             names.append(f"random_{args.seed}_{k}")
+    expected = REACHABLE_COVERS | (LONG_COVERS if args.long and not args.program else set())
+    if args.combine_reports:
+        summary = combine_reports(args.combine_reports, names, expected)
+        if args.report:
+            args.report.parent.mkdir(parents=True, exist_ok=True)
+            args.report.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+        print(f"[board-gls] all {len(names)} programs and {len(expected)} coverage targets passed")
+        return 0
+    if not 0 <= args.shard_index < args.shard_count:
+        ap.error("shard index must be in [0, shard count)")
+    names = shard_programs(names, args.shard_count)[args.shard_index]
     ratio = mmcm_ratio(wrapper_mmcm_params())
     defines = {"GLS_MMCM_RATIO": ratio}
     failures: list[str] = []
     summary: dict = {"mmcm_ratio": ratio, "programs": {},
-                     "planned_programs": list(names), "complete": False}
+                     "planned_programs": list(names), "complete": False,
+                     "shard_index": args.shard_index, "shard_count": args.shard_count,
+                     "power_on": args.power_on, "props": args.props, "vm": not args.no_vm}
 
     def save_progress():
         if args.report:
@@ -868,7 +932,7 @@ def main() -> int:
         missed = sorted(expected - covers_hit)
         summary["covers_hit"] = sorted(covers_hit)
         print(f"[board-gls] covers hit from reset: {sorted(covers_hit)}")
-        if args.program is None and missed:
+        if args.program is None and args.shard_count == 1 and missed:
             failures.append(f"covers not reached by the program set: {missed}")
             print(f"    covers not reached: {missed}")
     summary["complete"] = True

@@ -417,14 +417,18 @@ jobs:
   # reach every cover that is reachable from reset (--props). Each program
   # also runs without pressing the reset button, on the gates from their INIT
   # values and on the RTL from all zeros, and must end the same (--power-on).
-  board-gls:
+  board-gls-shards:
     # Reusing an existing bitstream is for harness diagnostics only; it cannot
     # produce a Full Verification Summary. Normal runs still require synthesis.
     if: ${{ always() && (needs.fpga-bitstream.result == 'success' || inputs.board_netlist_run_id != '') }}
     permissions:
       contents: read
       actions: read
-    name: Board-top gate-level simulation (netlist vs RTL vs VM)
+    name: Board-top gate-level simulation (shard ${{ matrix.shard }})
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
     runs-on: ubuntu-latest
     needs: fpga-bitstream
     timeout-minutes: 150
@@ -478,16 +482,44 @@ jobs:
           python3 scripts/board_gls.py \
             --netlist-json build/thiele_xc7k325t.json \
             --long --props --random 8 --power-on \
-            --report build/board_gls_report.json
+            --shard-count 4 --shard-index ${{ matrix.shard }} \
+            --report build/board_gls_report_${{ matrix.shard }}.json
 
       - name: Upload the report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: board-gls
-          path: build/board_gls_report.json
+          name: board-gls-${{ matrix.shard }}
+          path: build/board_gls_report_${{ matrix.shard }}.json
           retention-days: 30
           if-no-files-found: warn
+
+  board-gls:
+    name: Board-top complete suite and coverage
+    if: always()
+    needs: board-gls-shards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require every simulation shard
+        env:
+          SHARD_RESULT: ${{ needs.board-gls-shards.result }}
+        run: test "$SHARD_RESULT" = success
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: board-gls-*
+          path: build/board-gls-reports
+          merge-multiple: true
+      - name: Check all programs, comparisons and coverage targets
+        run: |
+          python3 scripts/board_gls.py --long --props --random 8 --power-on \
+            --combine-reports build/board-gls-reports/*.json \
+            --report build/board_gls_report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: board-gls
+          path: build/board_gls_report.json
+          if-no-files-found: error
 
   # Equivalence of the RTL and the netlist the bitstream was built from
   # (yosys equiv_make / equiv_simple / equiv_induct). The script reports how

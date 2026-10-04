@@ -24,6 +24,56 @@ import board_gls  # noqa: E402
 import formal_prepare  # noqa: E402
 
 
+def test_shards_partition_the_entire_program_suite_once():
+    names = list(board_gls.PROGRAMS)
+    groups = board_gls.shard_programs(names, 4)
+    assert sorted(n for group in groups for n in group) == sorted(names)
+    assert all(groups)
+    assert groups == board_gls.shard_programs(names, 4)
+
+
+def _shard_reports(tmp_path):
+    paths = []
+    for i, name in enumerate(["arith_halt", "jump_loop"]):
+        result = {"ok": True, "errors": [], "compared_with_vm": ["pc"],
+                  **{k: {} for k in ["rtl_report", "rtl_power_on_report",
+                                     "gates_report", "gates_power_on_report"]}}
+        report = {"complete": True, "ok": True, "power_on": True, "props": True,
+                  "vm": True, "shard_index": i, "shard_count": 2,
+                  "netlist_sha256": "a" * 64, "planned_programs": [name],
+                  "programs": {name: result}, "covers_hit": [f"cover{i}"]}
+        path = tmp_path / f"{i}.json"
+        path.write_text(json.dumps(report), encoding="utf-8")
+        paths.append(path)
+    return paths
+
+
+def test_combined_shards_require_all_programs_and_union_of_covers(tmp_path):
+    paths = _shard_reports(tmp_path)
+    result = board_gls.combine_reports(paths, ["arith_halt", "jump_loop"], {"cover0", "cover1"})
+    assert result["ok"] and len(result["programs"]) == 2
+
+
+@pytest.mark.parametrize("damage", ["incomplete", "failed", "missing_program", "duplicate",
+                                   "wrong_netlist", "missing_cover", "no_power_on", "no_vm",
+                                   "missing_result"])
+def test_combined_shards_reject_missing_evidence(tmp_path, damage):
+    paths = _shard_reports(tmp_path)
+    report = json.loads(paths[1].read_text(encoding="utf-8"))
+    if damage == "incomplete": report["complete"] = False
+    elif damage == "failed": report["programs"]["jump_loop"]["ok"] = False
+    elif damage == "missing_program": report["programs"] = {}
+    elif damage == "duplicate": report["shard_index"] = 0
+    elif damage == "wrong_netlist": report["netlist_sha256"] = "b" * 64
+    elif damage == "missing_cover": report["covers_hit"] = []
+    elif damage == "no_power_on": report["power_on"] = False
+    elif damage == "no_vm": report["vm"] = False
+    elif damage == "missing_result": del report["programs"]["jump_loop"]["gates_power_on_report"]
+    paths[1].write_text(json.dumps(report), encoding="utf-8")
+    with pytest.raises(ValueError):
+        board_gls.combine_reports(paths, ["arith_halt", "jump_loop"], {"cover0", "cover1"})
+
+
 def test_wrapper_mmcm_divides_the_board_clock_by_ten():
     assert board_gls.mmcm_ratio(board_gls.wrapper_mmcm_params()) == 10
 
