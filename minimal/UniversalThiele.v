@@ -94,8 +94,9 @@
     Dependencies: Coq standard library and EarnedCore.v. No axioms, no
     Admitted.                                                              *)
 
-(* SCOPE NOTE: like EarnedCore.v, this file imports nothing outside the
-   standard library and EarnedCore.v, so it re-checks from a clean checkout.
+(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose, as in
+   EarnedCore.v: this file imports nothing outside the standard library and
+   EarnedCore.v, so it re-checks from a clean checkout.
    Its link to the abstract record (the host and the guest as
    CertificationSystem instances, and the trace cost floor for the host)
    lives in UniversalThieleLinks.v. *)
