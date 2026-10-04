@@ -262,8 +262,8 @@ establish that axioms model physical reality. This distinction is critical for e
 claims in Parts V–VIII.
     Every result in this specification falls into one of three categories:
 
-(S) Structural Theorems about the Thiele Machine as a mathematical object. Their conclu-
-     sions follow from the definitions, explicit hypotheses, and reported library assumptions.
+(S) Structural Theorems about the model and the kernel as mathematical objects. Their con-
+     clusions follow from the definitions, explicit hypotheses, and reported library assumptions.
      Examples: µ-conservation, gauge invariance, strict Turing subsumption of instruction
      sets, and, for the calculus L, confluence of value reduction (star_value_confluent) and
      halting undecidability (L_halting_undecidable).
@@ -2583,7 +2583,7 @@ Then α is forced:
 
     This is the limit on deriving physics from computation in this framework, and it should be
 read as a no-go, not as a bridge. The theorem quantifies over any type, any integer ledger,
-and any exponential microstate count. It makes no reference to the Thiele machine at all.
+and any exponential microstate count. It makes no reference to any Thiele machine at all.
 It proves α = kB ln(base) from the three stated premises. The reading of the file is that the
 
                                                    56
@@ -2745,9 +2745,10 @@ module’s range; a PDISCOVER whose declared cost is below its second operand; a
 tensor total; malformed rich-format fields. The refinement theorems cover only steps on which
 none of these fires. Partition capacity and range are checked by both, with the same outcome.
 Retirement under the CPU’s own scheduler is proved for every admitted instruction (admitted_
-retires) and, from reset, for runs of admitted instructions (fsm_retirement_refinement).
-The gate-level simulation, SymbiYosys properties, and RTL/netlist equivalence check run outside
-Coq; no physical board has run the design.
+retires) and, from reset, for runs of admitted instructions (fsm_retirement_refinement). The
+board-top gate-level simulation, the SymbiYosys properties, and the board/loader equivalence
+check, which is conditional on the CPU interface and leaves the CPU and its RAM out, run
+outside Coq; no physical board has run the design.
 
 
 23.3      Named Trust Boundaries
@@ -2762,10 +2763,10 @@ bsc_kami_compilation_trusted (Layer 2, Verilog semantics gap). The Bluespec Sys-
      Kami spec, is trusted, not proved in Coq. This is documented in coq/kernel/hardware_
      bridge/VerilogRTLCorrespondence.v, where Definition bsc_kami_compilation_
      trusted is the conjunction of two abstract propositions, kami_pretty_printer_trusted
-     and bluespec_compiler_trusted. The Section Variable rtl_step_correct states that
 
                                                  61
-     an abstract RTL step agrees with vm_apply on projected state; this is the residual
+     and bluespec_compiler_trusted. The Section Variable rtl_step_correct states that
+     an abstract RTL step agrees with vm_apply on projected state; this is the residual
      hypothesis that every theorem in the section quantifies over. An instance for generated
      Verilog additionally needs a model of that artifact and a semantic correspondence
      proof. The boundary is empirically backed by the cosim suite (tests/test_verilog_
@@ -2773,19 +2774,20 @@ bsc_kami_compilation_trusted (Layer 2, Verilog semantics gap). The Bluespec Sys-
      opcode appears) and the parametrized cross-layer fuzz suites (tests/test_fuzz_random_
      programs.py and tests/test_cross_layer_adversarial_fuzz.py).
 
-A_QM (physical quantum axiom). No theorem proves that a physical Thiele Machine pro-
-     duces CHSH-violating statistics by exploiting quantum entanglement in hardware. The
-     column_contractive_iff_npa_psd biconditional (Theorem 18.1) requires no physical
-     axiom; it is pure algebra. The physical quantum axiom A_QM (declared as a Context
-     parameter in coq/PhysicsConditionalClosure.v) is the separate named hypothesis that
-     the chosen quantum CHSH experimental predicate admits a PSD completion with free
-     within-party cross moments. It does not appear in the kernel-tier proof of the biconditional;
-     it is the bridge used in conditional theorems such as master_tsirelson_conditional.
+A_QM (physical quantum axiom). No theorem proves that physical hardware implementing
+     the kernel produces CHSH-violating statistics by exploiting quantum entanglement in
+     hardware. The column_contractive_iff_npa_psd biconditional (Theorem 18.1) requires
+     no physical axiom; it is pure algebra. The physical quantum axiom A_QM (declared as
+     a Context parameter in coq/PhysicsConditionalClosure.v) is the separate named hy-
+     pothesis that the chosen quantum CHSH experimental predicate admits a PSD completion
+     with free within-party cross moments. It does not appear in the kernel-tier proof of the
+     biconditional; it is the bridge used in conditional theorems such as master_tsirelson_
+     conditional.
 
 
 
 
-                                               62
+                                             62
 Chapter 24
 
 Categorical Structure
@@ -2914,10 +2916,10 @@ core theorems.
 
 
 25.1     Falsify No Free Insight
-Find a Thiele Machine step vm_apply s i that takes vm_certified from false to true, or
-csr_cert_addr from zero to non-zero, without raising µ by at least 1. The Coq proof of
-certification_requires_positive_mu would fail. The trace form is the trace-level No Free
-Insight theorem (universal_nfi_any_substrate).
+Find a kernel step vm_apply s i that takes vm_certified from false to true, or csr_cert_
+addr from zero to non-zero, without raising µ by at least 1. The Coq proof of certification_
+requires_positive_mu would fail. The trace form is the trace-level No Free Insight theorem
+(universal_nfi_any_substrate).
 
 
 25.2     Falsify the Classical CHSH Bound
