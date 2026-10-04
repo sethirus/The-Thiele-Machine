@@ -97,17 +97,53 @@ def mapped_memory_netlist(tmp_path, cells):
 
 
 def test_banked_lut_ram_observes_each_bank_enable(tmp_path):
-    cells = {f"system.m1.mem.arr.{bank}.0": {
+    cells = {f"system.m1.mem.arr.0.{bank}": {
         "type": "RAM64M", "hide_name": 0,
-        "connections": {"WE": [10 + bank], "WCLK": [2]}}
+        "connections": {"WE": [10 + bank], "WCLK": [2], "ADDRD": list(range(30, 36))}}
         for bank in range(2)}
     # An unrelated RAM with the same data must not contribute its write enable.
     cells["system.m1.imem.arr.0.0"] = {
         "type": "RAM64M", "hide_name": 0,
         "connections": {"WE": [99], "WCLK": [2]}}
     port = mapped_memory_netlist(tmp_path, cells).ram_write_port("mem", 7)
-    assert port["WE"] == r"(\system.m1.mem.arr.0.0 .WE | \system.m1.mem.arr.1.0 .WE)"
-    assert port["ADDR"] is None  # use the retained logical address
+    assert port["WE"] == r"(\system.m1.mem.arr.0.0 .WE | \system.m1.mem.arr.0.1 .WE)"
+    assert port["ADDR"] == r"{(\system.m1.mem.arr.0.1 .WE), \system.m1.mem.arr.0.0 .ADDRD}"
+    assert port["CONFLICT"] == r"(\system.m1.mem.arr.0.0 .WE && \system.m1.mem.arr.0.1 .WE)"
+
+
+@pytest.mark.parametrize("change", ["missing_bank", "different_address", "replica_order"])
+def test_lut_ram_rejects_an_unrecognized_bank_layout(tmp_path, change):
+    cells = {f"system.m1.mem.arr.{replica}.{bank}": {
+        "type": "RAM64M", "hide_name": 0,
+        "connections": {"WE": [10 + bank], "WCLK": [2], "ADDRD": list(range(30, 36))}}
+        for replica in range(2) for bank in range(2)}
+    if change == "missing_bank":
+        del cells["system.m1.mem.arr.1.1"]
+    elif change == "different_address":
+        cells["system.m1.mem.arr.1.1"]["connections"]["ADDRD"][0] = 99
+    else:
+        cells["system.m1.mem.arr.1.0"]["connections"]["WE"] = [11]
+        cells["system.m1.mem.arr.1.1"]["connections"]["WE"] = [10]
+    assert mapped_memory_netlist(tmp_path, cells).ram_write_port("mem", 7) is None
+
+
+def test_gate_probe_uses_physical_bank_address_over_undriven_logical_name(tmp_path):
+    path = tmp_path / "mapped.json"
+    def net(bits):
+        return {"bits": bits, "hide_name": 0}
+
+    cells = {f"system.m1.mem.arr.0.{bank}": {
+        "type": "RAM64M", "hide_name": 0,
+        "connections": {"WE": [10 + bank], "WCLK": [2], "ADDRD": list(range(30, 36))}}
+        for bank in range(2)}
+    netnames = {"cpu_clk": net([2]), "system.m1.mem$ADDR_IN": net(list(range(30, 36)) + [99]),
+                "system.m1.mem$D_IN": net(list(range(100, 132)))}
+    path.write_text(json.dumps({"modules": {board_gls.TOP: {"netnames": netnames, "cells": cells}}}))
+    wires, probes, _ = board_gls.gate_probes(board_gls.Netlist(path))
+    assert "mem" in probes
+    addr = next(w for w in wires if "gls_mem_addr =" in w)
+    assert "ADDR_IN" not in addr
+    assert ".WE" in addr and ".ADDRD" in addr
 
 
 def block_ram_cell():

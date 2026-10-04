@@ -46,6 +46,9 @@ jobs:
         with:
           packages: coq coinor-csdp ocaml ocaml-findlib iverilog verilator yosys
 
+      - name: Use the validated Verilator release
+        uses: ./.github/actions/setup-verilator
+
       - name: Set up MetaCoq Template
         uses: ./.github/actions/setup-metacoq
 
@@ -432,6 +435,9 @@ jobs:
         uses: ./.github/actions/apt-install
         with:
           packages: yosys verilator iverilog ocaml ocaml-findlib
+
+      - name: Use the validated Verilator release
+        uses: ./.github/actions/setup-verilator
 
       - name: Set up Python
         uses: actions/setup-python@v5

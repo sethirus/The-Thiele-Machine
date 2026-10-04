@@ -32,6 +32,11 @@ What is compared:
 - rtl against itself: the memories reconstructed from their write ports
   against the RegFile arrays read directly (this validates the write-port
   reconstruction the gate run depends on).
+- mapped LUT RAM uses physical write-address pins and bank enables. The
+  Yosys 0.33 memory_libmap replica ordering is checked across every read
+  replica; logical address aliases can contain undriven high bits after
+  synthesis. Simultaneous writes to distinct banks are rejected, and the
+  program set writes distinct values at addresses 63, 64 and 127.
 - rtl against vm: pc, mu, err, the sixteen registers, the 128 data words,
   certified, the module table (live slots against the VM's modules),
   pt_next_id, the morphism table, the witness counters and logic_acc.
@@ -96,6 +101,13 @@ PROGRAMS: dict[str, dict] = {
     "store_load": {  # a data-memory write read back, inside module 1's range
         "cpu": ["PNEW {0,1,2,3,4,5,6,7} 1", "LOAD_IMM 1 42 0", "STORE 5 1 0",
                 "LOAD 2 5 0", "HALT 0"],
+    },
+    "store_load_banks": {  # distinct values across the 64-word LUT-RAM boundary
+        "cpu": ["PNEW {" + ",".join(map(str, range(128))) + "} 1",
+                "LOAD_IMM 1 42 0", "LOAD_IMM 5 63 0", "STORE 5 1 0", "LOAD 2 5 0",
+                "LOAD_IMM 1 43 0", "LOAD_IMM 5 64 0", "STORE 5 1 0", "LOAD 3 5 0",
+                "LOAD_IMM 1 44 0", "LOAD_IMM 5 127 0", "STORE 5 1 0", "LOAD 4 5 0",
+                "HALT 0"],
     },
     "pnew_overlap_trap": {  # tests/test_pnew_topology_change.py
         "cpu": ["PNEW {0,1,2} 10", "PNEW {1,2,3} 10", "HALT 1"],
@@ -348,14 +360,21 @@ class Netlist:
         if not cells or any(c.get("hide_name", 0) for _, c in cells):
             return None
         enables, addresses = {}, {}
+        lut_banks = {}
         cpu_clock = self.nets["cpu_clk"]["bits"]
         for name, cell in cells:
             conn = cell["connections"]
             ref = esc(name)
             if cell["type"] == "RAM64M":
-                if conn.get("WCLK") != cpu_clock or len(conn.get("WE", [])) != 1:
+                suffix = name.removeprefix(CPU + memory + ".arr.")
+                if (conn.get("WCLK") != cpu_clock or len(conn.get("WE", [])) != 1
+                        or len(conn.get("ADDRD", [])) != 6
+                        or not re.fullmatch(r"\d+\.\d+", suffix)):
                     return None
                 enables.setdefault(tuple(conn["WE"]), f"{ref}.WE")
+                replica, index = map(int, suffix.split("."))
+                lut_banks.setdefault(replica, []).append((index, tuple(conn["WE"])))
+                addresses.setdefault(tuple(conn["ADDRD"]), f"{ref}.ADDRD")
             elif cell["type"] == "RAMB36E1":
                 params = cell["parameters"]
                 if (params.get("RAM_MODE") != "SDP"
@@ -380,8 +399,36 @@ class Netlist:
                 return None
         if len(addresses) > 1:
             return None
+        conflict = None
+        if lut_banks:
+            if any(c["type"] != "RAM64M" for _, c in cells) or not 6 <= abits <= 8:
+                return None
+            # Yosys 0.33 memory_libmap emit(): arr.<read-replica>.<data-replica>.
+            # gen_swizzle orders data replicas by increasing high address,
+            # then by data column. All read replicas must agree on that order.
+            # The old logical ADDR_IN high bits can survive as UNDRIVEN wires;
+            # the bank enables, rather than those names, locate the actual write.
+            orders = []
+            for replica in sorted(lut_banks):
+                order = []
+                for _, we_bits in sorted(lut_banks[replica]):
+                    if not order or we_bits != order[-1]:
+                        order.append(we_bits)
+                orders.append(order)
+            banks = orders[0]
+            if (len(banks) != 1 << (abits - 6) or len(set(banks)) != len(banks)
+                    or any(order != banks for order in orders)):
+                return None
+            bank_we = [enables[bits] for bits in banks]
+            low = next(iter(addresses.values()))
+            high = ["(" + " | ".join(we for n, we in enumerate(bank_we) if n & (1 << bit)) + ")"
+                    for bit in reversed(range(abits - 6))]
+            addr_expr = "{" + ", ".join([*high, low]) + "}" if high else low
+            addresses = {(): addr_expr}
+            conflict = " | ".join(f"({a} && {b})" for i, a in enumerate(bank_we)
+                                  for b in bank_we[i + 1:]) or None
         return {"WE": "(" + " | ".join(enables.values()) + ")",
-                "ADDR": next(iter(addresses.values()), None)}
+                "ADDR": next(iter(addresses.values()), None), "CONFLICT": conflict}
 
 
 def esc(name: str) -> str:
@@ -410,11 +457,13 @@ def gate_probes(net: Netlist) -> tuple[list[str], dict, list[str]]:
         din = net.find(f"{CPU}{mem}$D_IN", f"{CPU}{mem}.D_IN")
         we_expr = esc(we) if we else None
         addr_expr = esc(addr) if addr else None
-        if we is None or addr is None:
-            port = net.ram_write_port(mem, abits)
-            if port is not None:
-                we_expr = we_expr or port["WE"]
-                addr_expr = addr_expr or port["ADDR"]
+        port = net.ram_write_port(mem, abits)
+        if port is not None:
+            we_expr = port["WE"]
+            addr_expr = port["ADDR"] or addr_expr
+            if port["CONFLICT"]:
+                wires.append(f'always @(posedge gls_cpu_clk) if ({port["CONFLICT"]}) '
+                             f'$fatal(1, "{mem}: multiple physical write banks enabled");')
         if we_expr is None or addr_expr is None or din is None:
             missing.append(f"{mem} write port" + (" (required)" if required else ""))
             continue

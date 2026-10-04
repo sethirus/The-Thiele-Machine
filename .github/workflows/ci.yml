@@ -459,6 +459,9 @@ jobs:
         with:
           packages: coq coinor-csdp ocaml ocaml-findlib iverilog verilator yosys
 
+      - name: Use the validated Verilator release
+        uses: ./.github/actions/setup-verilator
+
       - name: Set up MetaCoq Template
         uses: ./.github/actions/setup-metacoq
 
