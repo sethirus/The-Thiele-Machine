@@ -156,14 +156,14 @@ def test_gate_cell_library_replaces_the_empty_bram_declaration(tmp_path, monkeyp
     sources = board_gls.gate_cell_sources(tmp_path)
     assert "module RAMB36E1" not in sources[1].read_text()
     assert "module LUT1" in sources[1].read_text()
-    assert sources[2].name == "RAMB36E1.v"
+    assert sources[2].name == "ramb36_sdp72.v"
     assert sources[3].name == "glbl.v"
 
 
 @pytest.mark.strict_rtl
-@pytest.mark.parametrize("sim", ["iverilog", "iverilog_compat", "verilator"])
+@pytest.mark.parametrize("sim", ["reference_iverilog", "iverilog", "verilator"])
 def test_vendor_block_ram_stores_and_reads_the_synthesized_sdp72_mode(tmp_path, sim):
-    compiler = "iverilog" if sim == "iverilog_compat" else sim
+    compiler = "iverilog" if sim == "reference_iverilog" else sim
     if shutil.which(compiler) is None:
         pytest.skip(f"{compiler} not installed")
     tb = tmp_path / "bram_tb.v"
@@ -176,13 +176,16 @@ module bram_tb;
   reg [7:0] we = 0;
   reg [63:0] din = 0;
   reg [7:0] parity = 0;
+  reg ren = 1, wen = 1;
+  reg [15:0] raddr = 320;
   wire [63:0] dout;
   wire [7:0] pout;
   RAMB36E1 #(.RAM_MODE("SDP"), .READ_WIDTH_A(72), .READ_WIDTH_B(0),
     .WRITE_WIDTH_A(0), .WRITE_WIDTH_B(72), .DOA_REG(0), .DOB_REG(0),
-    .WRITE_MODE_A("WRITE_FIRST"), .WRITE_MODE_B("WRITE_FIRST")) ram (
-    .CLKARDCLK(clk), .CLKBWRCLK(clk), .ENARDEN(1'b1), .ENBWREN(1'b1),
-    .ADDRARDADDR(16'd320), .ADDRBWRADDR(16'd320), .WEA(4'b0), .WEBWE(we),
+    .WRITE_MODE_A("WRITE_FIRST"), .WRITE_MODE_B("WRITE_FIRST"),
+    .INIT_01({128'b0, 64'h1122334455667788, 64'b0}), .INITP_00(256'h6c0000000000)) ram (
+    .CLKARDCLK(clk), .CLKBWRCLK(clk), .ENARDEN(ren), .ENBWREN(wen),
+    .ADDRARDADDR(raddr), .ADDRBWRADDR(16'd320), .WEA(4'b0), .WEBWE(we),
     .DIADI(din[31:0]), .DIBDI(din[63:32]), .DIPADIP(parity[3:0]), .DIPBDIP(parity[7:4]),
     .DOADO(dout[31:0]), .DOBDO(dout[63:32]), .DOPADOP(pout[3:0]), .DOPBDOP(pout[7:4]),
     .REGCEAREGCE(1'b0), .REGCEB(1'b0), .RSTRAMARSTRAM(1'b0), .RSTRAMB(1'b0),
@@ -192,6 +195,9 @@ module bram_tb;
     #25;
     if (dout !== 0 || pout !== 0) $fatal(1, "GSR reset mismatch");
     #175;
+    @(negedge clk);
+    if (dout !== 64'h1122334455667788 || pout !== 8'h6c)
+      $fatal(1, "SDP72 INIT layout mismatch %h %h", dout, pout);
     @(negedge clk); din = 64'hfedcba9876543210; parity = 8'h5b; we = 8'hff;
     @(negedge clk); we = 0;
     repeat (2) @(negedge clk);
@@ -201,13 +207,26 @@ module bram_tb;
     repeat (2) @(negedge clk);
     if (dout !== 64'hfedcba98765432aa || pout !== 8'h5a)
       $fatal(1, "SDP72 byte-mask mismatch %h %h", dout, pout);
+    @(negedge clk); wen = 0; we = 8'hff; din = 0;
+    @(negedge clk); wen = 1; we = 0;
+    repeat (2) @(negedge clk);
+    if (dout !== 64'hfedcba98765432aa || pout !== 8'h5a)
+      $fatal(1, "write enable mismatch");
+    ren = 0; raddr = 0;
+    repeat (2) @(negedge clk);
+    if (dout !== 64'hfedcba98765432aa || pout !== 8'h5a)
+      $fatal(1, "read enable hold mismatch");
+    ren = 1;
+    repeat (2) @(negedge clk);
+    if (dout !== 0 || pout !== 0) $fatal(1, "read address mismatch");
     $display("BRAM_PASS"); $finish;
   end
   initial begin #1000; $fatal(1, "BRAM timeout"); end
 endmodule
 """)
-    model_sim = "verilator" if sim in ("verilator", "iverilog_compat") else "iverilog"
-    sources = [str(tb), str(board_gls.bram_model_source(tmp_path, model_sim)),
+    model = (board_gls.XILINX_MODELS / "RAMB36E1.v" if sim == "reference_iverilog"
+             else board_gls.BOARD_CELLS.parent / "ramb36_sdp72.v")
+    sources = [str(tb), str(model),
                str(board_gls.XILINX_MODELS / "glbl.v")]
     if compiler == "iverilog":
         exe = tmp_path / "bram.vvp"

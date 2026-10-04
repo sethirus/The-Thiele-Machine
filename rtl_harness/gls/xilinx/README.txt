@@ -8,14 +8,19 @@ glbl.v: verilog/src/glbl.v
   SHA256 de59a57e3e0091f1b9162d9914dce24c469820a0c5b5a41d1d202d93fae0abdd
 
 Both files retain their upstream Apache-2.0 copyright/license headers and are
-unmodified. The board gate-simulation harness replaces only the empty Yosys
-RAMB36E1 declaration with this vendor behavioral model. This does not change
-the synthesized netlist, and simulation is not physical board/timing sign-off.
+unmodified. RAMB36E1.v is the regression reference, run under Icarus; its older
+procedural assign/deassign/event scheduling is not supported faithfully by the
+installed Verilator. glbl.v supplies the vendor startup/reset global.
 
-Verilator compatibility: board_gls.py generates a temporary model copy in which
-only seven constant GSR procedural assign/deassign pairs on output variables
-become force/release pairs. There are no competing procedural continuous or
-force drivers on these variables; both forms override until release and retain
-the value until the next procedural update. The original vendor files remain
-byte-for-byte unchanged. Tests run reset, full-word and byte-masked readback
-against both forms under Icarus, and the adapted form under Verilator.
+The gate harness uses ../ramb36_sdp72.v for the exact mode synthesized here:
+72-bit simple-dual-port RAM, port B write / port A synchronous read, no output
+pipeline, ECC, cascade or inverted pins, common clock. Other configurations
+fail explicitly. Port/parameter declarations retain the Yosys 0.33 ISC notice;
+the functional body implements INIT data/parity layout, byte write enables,
+read enable/hold and collision-undefined read data. This model is tested under
+Icarus and Verilator against the same reset, initialized read, full-write/read
+and byte-masked-read traces passed by the unmodified vendor model in Icarus.
+
+This changes simulation support only, never the synthesized netlist. It is not
+an analogue, timing, or physical-board sign-off. The three clock/input stand-ins
+in ../xilinx_board_cells.v retain their separately documented limits.

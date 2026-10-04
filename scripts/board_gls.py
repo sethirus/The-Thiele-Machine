@@ -20,7 +20,8 @@ fifteen-byte status report comes back on the UART transmit pin, and then the
 testbench reads the architectural state. IBUFDS, MMCME2_BASE and BUFGCE are
 behavioural models (rtl_harness/gls/xilinx_board_cells.v); every other cell
 is yosys's cells_sim.v model, except block RAM, which uses the pinned
-Xilinx UNISIM RAMB36E1 model (the Yosys declaration has no behavior).
+SDP72 functional model checked against Xilinx UNISIM (the Yosys declaration
+has no behavior).
 
 What is compared:
 - gates against rtl: the report bytes, the LEDs, and every probed state
@@ -42,7 +43,7 @@ What is compared:
 What is not covered: timing (zero-delay simulation of the pre-place-and-
 route netlist; the routed design is not simulated, and nextpnr's timing
 report is not sign-off), the real behaviour of the three modelled Xilinx
-cells, analogue/timing behavior of the UNISIM RAM model, and anything about a physical board. No board has run this design.
+cells, analogue/timing behavior of the functional RAM model, and anything about a physical board. No board has run this design.
 
 Usage:
   python3 scripts/board_gls.py --netlist-json build/thiele_xc7k325t.json
@@ -218,36 +219,17 @@ def cells_sim_modules(cells_sim: Path) -> set[str]:
     return {m.lstrip("\\") for m in re.findall(r"^\s*module\s+(\\?\S+?)\s*[#(]", text, re.M)}
 
 
-def bram_model_source(work: Path, sim: str) -> Path:
-    original = XILINX_MODELS / "RAMB36E1.v"
-    if sim != "verilator":
-        return original
-    # Verilator does not implement procedural assign/deassign. These seven
-    # GSR overrides drive variables with constant reset values and have no
-    # competing force/assign drivers. force/release has the same variable
-    # override/retention behavior here. Keep the upstream file unmodified.
-    text = original.read_text(encoding="utf-8")
-    signals = "doa_out|dopa_out|dob_out|dopb_out|dbiterr_out|sbiterr_out|rdaddrecc_out"
-    text, assigns = re.subn(r"(?m)^(\s*)assign (" + signals + r") =", r"\1force \2 =", text)
-    text, releases = re.subn(r"(?m)^(\s*)deassign (" + signals + r");", r"\1release \2;", text)
-    if assigns != 7 or releases != 7:
-        raise RuntimeError("unexpected UNISIM GSR override structure")
-    adapted = work / "RAMB36E1_verilator.v"
-    adapted.write_text(text, encoding="utf-8")
-    return adapted
-
-
-def gate_cell_sources(work: Path, sim: str = "iverilog") -> list[Path]:
-    """Use UNISIM for block RAM: Yosys's declaration has no behavior."""
+def gate_cell_sources(work: Path) -> list[Path]:
+    """Replace Yosys's empty block-RAM declaration with the tested SDP72 model."""
     original = yosys_datdir() / "xilinx" / "cells_sim.v"
     text = original.read_text(encoding="utf-8")
     text, count = re.subn(r"(?ms)^module RAMB36E1\b.*?^endmodule\b",
-                          "// RAMB36E1 is supplied by the pinned Xilinx UNISIM model.", text)
+                          "// RAMB36E1 behavior is supplied by ramb36_sdp72.v.", text)
     if count != 1:
         raise RuntimeError("expected exactly one Yosys RAMB36E1 declaration")
     filtered = work / "xilinx_cells_sim.v"
     filtered.write_text(text, encoding="utf-8")
-    return [BOARD_CELLS, filtered, bram_model_source(work, sim), XILINX_MODELS / "glbl.v"]
+    return [BOARD_CELLS, filtered, BOARD_CELLS.parent / "ramb36_sdp72.v", XILINX_MODELS / "glbl.v"]
 
 
 # ---------------------------------------------------------------------------
@@ -745,6 +727,17 @@ def main() -> int:
             for t in BOARD_CELL_TYPES:
                 if types.get(t) != 1:
                     raise SystemExit(f"expected exactly one {t} in the netlist, found {types.get(t, 0)}")
+            for cell in net.top["cells"].values():
+                if cell["type"] != "RAMB36E1":
+                    continue
+                conn = cell["connections"]
+                if conn["CLKARDCLK"] != conn["CLKBWRCLK"]:
+                    raise SystemExit("RAMB36E1 simulation requires a common read/write clock")
+                for port in ("WEA", "REGCEAREGCE", "REGCEB", "RSTRAMARSTRAM", "RSTRAMB",
+                             "RSTREGARSTREG", "RSTREGB", "CASCADEINA", "CASCADEINB",
+                             "INJECTDBITERR", "INJECTSBITERR"):
+                    if any(bit != "0" for bit in conn.get(port, [])):
+                        raise SystemExit(f"unsupported active RAMB36E1 pin: {port}")
             mmcm = next(c for c in net.top["cells"].values() if c["type"] == "MMCME2_BASE")
             if mmcm_ratio(mmcm["parameters"]) != ratio:
                 raise SystemExit("the netlist's MMCM parameters differ from the wrapper source")
@@ -758,7 +751,7 @@ def main() -> int:
             (work / "gates").mkdir()
             (work / "gates" / "gls_probes.vh").write_text(probes_include(probes), encoding="utf-8")
             gate_defines = {**defines, "GLS_XILINX_BRAM": 1}
-            gate_bin = build_sim("gates", [*gate_cell_sources(work, args.sim), gv], gate_defines, work, args.sim)
+            gate_bin = build_sim("gates", [*gate_cell_sources(work), gv], gate_defines, work, args.sim)
 
         for name in names:
             prog = PROGRAMS[name]

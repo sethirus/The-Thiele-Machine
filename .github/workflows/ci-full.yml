@@ -1,9 +1,16 @@
 name: CI (Full)
+run-name: ${{ inputs.board_netlist_run_id && format('Board simulation diagnostic (artifact run {0})', inputs.board_netlist_run_id) || 'CI (Full)' }}
 
 on:
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch:
+    inputs:
+      board_netlist_run_id:
+        description: "Diagnostic only: reuse this run's FPGA artifact; blank runs full CI"
+        required: false
+        type: string
+        default: ""
 
 permissions:
   contents: read
@@ -18,6 +25,7 @@ jobs:
   # Import the primary CI checks first.
   # The software/proof surface and hardware checks are independent branches.
   fast-verify:
+    if: ${{ !inputs.board_netlist_run_id }}
     uses: ./.github/workflows/ci.yml
     secrets: inherit
 
@@ -25,6 +33,7 @@ jobs:
   # only consumes RTL files (.v) already in the repo at checkout, so it does
   # not depend on any fast-verify output.
   hardware-synthesis:
+    if: ${{ !inputs.board_netlist_run_id }}
     name: Hardware synthesis & simulation
     runs-on: ubuntu-latest
     steps:
@@ -234,6 +243,7 @@ jobs:
   # hardware-synthesis upstream, so this job only needs the FPGA toolchain
   # — no Coq/OCaml/Python/forge.
   fpga-bitstream:
+    if: ${{ !inputs.board_netlist_run_id }}
     name: FPGA bitstream generation (Kintex-7 K325T / ffg900 / openXC7)
     runs-on: ubuntu-latest
     env:
@@ -405,6 +415,12 @@ jobs:
   # also runs without pressing the reset button, on the gates from their INIT
   # values and on the RTL from all zeros, and must end the same (--power-on).
   board-gls:
+    # Reusing an existing bitstream is for harness diagnostics only; it cannot
+    # produce a Full Verification Summary. Normal runs still require synthesis.
+    if: ${{ always() && (needs.fpga-bitstream.result == 'success' || inputs.board_netlist_run_id != '') }}
+    permissions:
+      contents: read
+      actions: read
     name: Board-top gate-level simulation (netlist vs RTL vs VM)
     runs-on: ubuntu-latest
     needs: fpga-bitstream
@@ -443,6 +459,8 @@ jobs:
         with:
           name: fpga-bitstream
           path: build/
+          run-id: ${{ inputs.board_netlist_run_id || github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check the netlist digest
         run: sha256sum -c build/thiele_xc7k325t.json.sha256
@@ -472,6 +490,7 @@ jobs:
   # read, --min-proven is pinned to the measured count so a regression fails
   # (scripts/rtl_netlist_equiv.py).
   rtl-netlist-equiv:
+    if: ${{ !inputs.board_netlist_run_id }}
     name: RTL / netlist equivalence (yosys equiv)
     runs-on: ubuntu-latest
     needs: fpga-bitstream
@@ -516,6 +535,7 @@ jobs:
   # yosys-smtbmc) and z3 but not SymbiYosys, so sby is installed from the
   # YosysHQ/sby tag that matches the installed yosys.
   formal:
+    if: ${{ !inputs.board_netlist_run_id }}
     name: Formal properties (${{ matrix.task }})
     runs-on: ubuntu-latest
     timeout-minutes: 300
@@ -570,6 +590,7 @@ jobs:
   # case by re-probing the whole manifest against a fresh proof tree every
   # night.
   vacuity-audit:
+    if: ${{ !inputs.board_netlist_run_id }}
     name: Kernel-conversion vacuity audit (full sweep)
     runs-on: ubuntu-latest
     timeout-minutes: 90
@@ -699,7 +720,7 @@ jobs:
     name: Full Verification Summary
     runs-on: ubuntu-latest
     needs: [fast-verify, hardware-synthesis, fpga-bitstream, board-gls, rtl-netlist-equiv, formal, vacuity-audit]
-    if: always()
+    if: ${{ always() && !inputs.board_netlist_run_id }}
     steps:
       - name: Generate summary
         run: |
