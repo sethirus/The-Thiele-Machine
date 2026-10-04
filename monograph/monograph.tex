@@ -242,7 +242,8 @@
 \emph{The book in one paragraph.} The Thiele Machine is an abstract model of computation: a
 state, a step rule, a counter that only climbs, a rule that the step turning a certification
 reading from no to yes costs at least one unit on that counter (I call that rule the toll,
-and Part II builds it), and a window that says what an observer sees. Here's what's proved,
+and its first name, the one I gave it before I understood it, is No Free Insight; Part II
+builds it), and a window that says what an observer sees. Here's what's proved,
 in Coq (a proof assistant: software that checks every step of a proof), with every premise
 printed. Any system that follows the toll pays something to get from uncertified to
 certified. On a finite machine whose certificate is never taken back, the certifying step
@@ -255,14 +256,18 @@ a substrate can represent decides which programs admit a shortcut, given a recur
 that a program can act as though it held its own code). A substrate is the model's bare
 shape, a kind of state and a rule for stepping, with whatever extra pieces a given theorem
 asks for; here the extra pieces are programs written as states and that recursion theorem.
-All of that is about the model: any system with the named pieces. One build carries the
-model, and that build is what I mean every time I say ``my machine'': a fifty-one-instruction
+All of that is about the model: any system with the named pieces. Two builds carry the
+model, and both are Thiele machines in the sense a few pages on pins down. The small one, six
+instructions on two counters, is where commitments are earned and universality is proved.
+The big one is what I mean every time I say ``my machine'': a fifty-one-instruction
 machine in Coq, a runner extracted from it as ordinary code, and hardware in Kami (a Coq
 library for describing circuits) refined instruction by instruction. On it, leaning on a
 structural fact costs at least the index bits it commits to (roughly, how many times it
 halves its list of possibilities), under the hypotheses of one representation theorem; the
 recursion theorem is proved for its twelve-instruction guest (a small fragment it runs as
-data), as it is for the lambda calculus L, and assumed for the full machine; and an integer
+data), as it is for the lambda calculus L, and on the full machine it is a premise about a
+chosen class of program transformations (asked of every transformation it is false there,
+and that is proved too); and an integer
 check on eight counters implies that a fixed moment matrix is positive semidefinite, and so
 Tsirelson's bound, the ceiling quantum mechanics puts on the score of a two-player game
 (Part IV builds the game, the matrix and the check from zero). Not proved: a physical price for one mark,
@@ -279,7 +284,14 @@ can carry. The model is small. A state. A step rule. A counter that only climbs.
 which steps have to pay. And a window: what an observer is allowed to see. Like a Turing
 machine, it's a precise way to say what a computation is. Unlike a Turing machine, it
 computes nothing new. It adds what a computation \emph{establishes}, and what establishing it
-cost.
+cost. The event it accounts for happens on any computer, whether anybody keeps track of it
+or not. What Turing's model doesn't have is a place for the record of that event, or
+anything that enforces one. A Turing machine can be programmed to keep the record, and then
+it obeys the toll and it's a Thiele machine in its own right. But when it runs some other
+program's record as data on its tape, nothing in its own step enforces it
+(Section~\ref{sec:machine-vs-program}). The event's physical cost comes in only under
+Landauer's premise, with its name on it. The record exists only if something keeps it, and
+keeping it, priced, is what the model adds.
 
 What this book is. An argument, made with that model, about what an account of
 computation should preserve. The usual account describes a computation by what it reads and
@@ -461,10 +473,25 @@ enforcing them: its check commits to nothing and its commit doesn't look for a c
 shows where). Neither one is the model. The small one shows the model fits in six
 instructions; the big one shows how much a single build can carry while the toll holds.
 
+The names work the way Turing's do, and I'll hold to them. \emph{The Thiele Machine}, with
+capitals, is the model and nothing else. \emph{A Thiele machine}, lower case, is any particular
+system proved to be an instance of the model's core definition, a certification system with
+its five parts and its toll (Definition~\ref{def:certsys}), the way one rule table is a Turing
+machine. The toys on paper in Part II count, the same way trivial Turing machines do. Both of
+my builds count too, each with its toll proved, and Part IV names the theorems. A Thiele
+machine is \emph{Thiele-complete} when its base is Turing-universal, so it carries the record
+and pays the toll while computing anything a Turing machine can. The small machine is proved
+Thiele-complete. Whether the big build is, I haven't proved, and nothing in this book
+depends on it. A machine that could run every Thiele machine with its record and its toll
+still enforced would be a \emph{universal} Thiele machine, and that one is an open question.
+And the chip of Part V isn't a Thiele machine at all. It's hardware that implements one, the
+big build, inside bounds Part V states, the way a laptop implements a Turing machine.
+
 \emph{What ``new model of computation'' means here.} It adds something to how a machine runs:
 structure it keeps, and an account of what that structure cost. It doesn't add computable
-functions. It's an abstract model the way the Turing machine is; it isn't a new primitive
-the way the Turing machine is. When I say ``shadow'' I mean the particular window I name, not
+functions. It's an abstract model the way the Turing machine is, but it doesn't hand you a
+new primitive to compute with; whatever base machine sits under it still does all the
+computing. When I say ``shadow'' I mean the particular window I name, not
 every way a conventional machine could store things. Enforcing the law, storing it, and
 letting an observer see it are three separate questions, and the book keeps them separate.
 
@@ -518,7 +545,7 @@ Cantor, Gödel, Turing, Kleene, Rice; Lawvere 1969 & the diagonal & the shortcut
 Bell, CHSH, Tsirelson, Wehner, NPA, Landau, Masanes, Fine; Echenim and Mhalla 2023 and Lean's mathlib (Tsirelson's bound already machine-checked) & the game, its walls, and the matrix test & an integer gate on counters, inside one instruction, that implies the pinned matrix is PSD, which implies the bound \\
 Buterin and Griffith; Wood; TCG; RFC 9162; Necula & five record disciplines & five fragments read through one question: is the write priced \\
 Zurek 2009; Ollivier, Poulin and Zurek 2004; Blume-Kohout and Zurek 2006 & pointer states and redundancy & a conjecture borrowing the shape, with the gap to the physics stated \\
-Choi et al. 2017 (Kami); Hoe and Arvind; Nikhil & hardware as rules in Coq & per-opcode refinement, a proved serial loader and status report, a labelled chain to a bitstream \\
+Choi et al. 2017 (Kami); Hoe and Arvind; Nikhil & hardware as rules in Coq & per-opcode refinement, a proved serial loader and status report, solver-checked safety of the extracted circuit, a labelled chain to a bitstream \\
 Leroy 2009; Klein et al. 2009 & the discipline of saying where the proof stops & the proved/tested/trusted table \\
 Minsky 1961, 1967; Forster, Larchey-Wendling and coauthors 2019, 2020 & two-counter machines are universal, and their halting is undecidable, checked in Coq & a six-instruction machine on two counters where earned commitments, no forging and an exact minimum price of three are theorems, with halting reduced to the library's \\
 Forster and Smolka 2017; the Coq Library of Undecidability; Norrish 2011 & L as a model of computation in Coq; counter-machine constructions & the guest's recursion theorem, with its evaluator compiled through L and the library into guest instructions \\
@@ -796,7 +823,7 @@ that's a sharper thing than Aristotle said: structure is what survives a change 
 in the places where the material didn't matter. Why do I care? Because the machine I keep
 mentioning and not describing gets built more than once, in more than one material, and I'd
 like it to be the same machine every time, and I don't get to just say it is. That's a
-promise I'll have to keep in Part IV (Section~\ref{sec:onemachine}), and Aristotle is the one who told me what the
+promise I make in Part IV (Section~\ref{sec:onemachine}) and have to keep in Part V (Section~\ref{sec:chip}), and Aristotle is the one who told me what the
 promise means.
 
 \subsection{Where things are, without numbers}
@@ -824,8 +851,8 @@ sided with the famous guy.
 \subsection{Naming a thing by saying when two are the same}
 
 In 1884, in a short book called \emph{The Foundations of Arithmetic}, Gottlob Frege noticed
-something you can check in your head right now. ``Line $a$ is parallel to line $b$`` and ``the
-direction of $a$ is the direction of $b$`` say exactly the same thing. There is no fact in one
+something you can check in your head right now. ``Line $a$ is parallel to line $b$'' and ``the
+direction of $a$ is the direction of $b$'' say exactly the same thing. There is no fact in one
 that isn't in the other. But the second sentence has a new object in it, a \emph{direction}, that
 the first one doesn't. Where did it come from? From the sameness. Once you can say when two
 things count as the same, you've earned the right to name the thing they share. Frege used
@@ -1081,7 +1108,7 @@ that.
 In 1972 David Parnas, a software engineer, wrote a short paper that every programmer should
 be made to read and most haven't, on how to cut a program into modules. He took one small
 program and cut it two ways. Both worked. But one was easy to change later and the other
-wasn't, and the second could be ``much less efficient'' if talking between modules cost
+wasn't, and the easy one could be ``much less efficient'' if talking between modules cost
 anything. His point: a module is ``a responsibility assignment,'' a decision about who answers
 for what, and how you cut decides what every later change costs. If you've ever maintained
 someone else's code, you've paid Parnas's bill, probably at two in the morning. What survives
@@ -1281,7 +1308,7 @@ and the rule says one. So this isn't a partition yet, and you have to decide whi
 wins. That decision is the whole thing. A partition is a pile of small rulings like that one,
 and once you've made them all, the pile is holding a fact it wasn't holding a minute ago. The
 formal version says the same thing with fewer words and more squiggles, and you've already seen
-it: it's the definition of a partition a few pages back (\ref{def:equiv-partition}). Non-empty
+it: it's the definition of a partition a few pages back (Definition~\ref{def:equiv-partition}). Non-empty
 buckets, nothing in two, nothing on the floor.
 
 Here's the part that isn't kindergarten, and it's the part I had to sit with longest. Why
@@ -1441,13 +1468,12 @@ is supposed to be impossible. The being got called Maxwell's demon, and physicis
 arguing about it for a hundred and fifty years, which should tell you something.
 
 Szilard's one-molecule engine, in 1929, made information part of the accounting.
-It is tempting to put the whole bill on finding out which side the molecule is on.
-Bennett's analysis separates that measurement from restoring the memory for another
-round. A measurement onto a blank record can, in principle, be thermodynamically
-reversible; resetting an unknown record is a different operation. That does not make
-a real measuring device free to build or run. It says that learning and resetting
-do not have the same unavoidable entropy cost. I'm about to pick a step to charge,
-so I need that distinction before I do.
+The tempting move is to put the whole bill on finding out which side the molecule is on.
+Bennett pulled that apart from restoring the memory for another round: measuring onto a
+blank record can, in principle, be thermodynamically reversible, and resetting an unknown
+record is a different operation. That does not make a real measuring device free to build
+or run. It says that learning and resetting do not carry the same unavoidable entropy
+cost, and I'm about to pick a step to charge, so I need that distinction before I do.
 
 Bennett's version of the rule, in a 2003 paper you can read, is that what must cost is ``the
 erasure of a bit or the merging of two computation paths.'' Erasing, or taking two possible
@@ -2407,8 +2433,8 @@ Brillouin made it concrete: to see a molecule you have to bounce light off it, a
 photon costs at least kT ln 2, Landauer's number before Landauer, and there was your toll on
 looking. For thirty years that was the answer. Information costs because getting it costs.
 
-That does not establish a universal charge on measurement. An optical device can
-spend energy without showing that every possible way of making a record must do so.
+That's a price on one way of looking, and it doesn't show that every possible way of
+making a record has to pay it. A device can burn energy without that being a law.
 
 \subsection{Bennett moves the bill}
 
@@ -2534,7 +2560,7 @@ Defined as \code{knowledge} (KnowledgeNarrowing.v).
 There is a four-state machine (the demon), a cost satisfying the halving price, a run of cost
 0, and candidates with $|\Omega| = 2$, for which $|K(\Omega, t, s_0)| = 1$. So the claim
 ``for all $\Omega$, $t$, $s_0$: $\lceil\log_2|\Omega|\rceil - \lceil\log_2|K(\Omega,t,s_0)|
-\rceil \le \mathrm{cost}(t)$`` is false for that machine and that cost. In the same machine,
+\rceil \le \mathrm{cost}(t)$'' is false for that machine and that cost. In the same machine,
 every cost satisfying the halving price charges WIPE at least one.
 \end{theorem}
 
@@ -2728,8 +2754,8 @@ a sum of whole numbers and climbing comes for free; this paragraph is about why 
 \emph{stored in the state}, where a step could in principle write it, has to be designed so that
 no step ever lowers it.)
 
-I found the same rule in two places that had nothing to do with each other, pointing in
-opposite directions, and that's when I started to trust it. In 1978 Leslie Lamport asked how
+The same rule turns up in two places that have nothing to do with each other, pointing in
+opposite directions, and that's a big part of why I trust it. In 1978 Leslie Lamport asked how
 a set of computers that pass each other messages, with no shared clock, could ever agree on
 what happened before what. His answer is a counter per machine with two rules: add one before
 you do anything, and when a message arrives carrying the sender's count, jump your own counter
@@ -3257,7 +3283,7 @@ accepted. The claim is ``the counter is 1.''
 No verifier on these transcripts is both, and the proof is three lines. Suppose one were both.
 Run $A$ ends with the counter at 1 and leaves the transcript, so completeness says the
 verifier accepts it. Now soundness, on that same accepted transcript: every state that leaves it satisfies the
-claim, and run $B$`s does. So run $B$`s counter is 1. It is 0. That's the cube again, with a
+claim, and run $B$'s does. So run $B$'s counter is 1. It is 0. That's the cube again, with a
 verdict in place of an answer: a verifier sees only what the window kept, and two states that
 the window can't tell apart get one verdict between them.
 
@@ -3611,7 +3637,7 @@ paid for. It doesn't rule out deleting for no reason. A run can satisfy every hy
 the count and have ruled nothing out on purpose; the count prices the size of the drop, not
 the honesty of it.
 
-\subsection{What you've got now}
+\subsection{What you've got}
 
 A paid flag is not a true claim; Section~\ref{sec:windows} left it at ``a paid flag is a paid flag,'' and Section~\ref{sec:insight} will say
 it flatly. What a paid flag with an object and a checked relation behind it gives you is
@@ -3651,8 +3677,8 @@ the whole school of psychology he belonged to, the Gestalt school, said that's w
 is: not stacking up tries until one works, but a \emph{restructuring}, the moment two sticks stop
 being two sticks and become one tool. Karl Duncker, in 1945, gave the human version that
 everyone's done in a class: a candle, a box of tacks, matches, and the task of fixing the
-candle to the wall. Almost nobody sees that the \emph{box} is a shelf, until they do. And then he found that if you hand people the box \emph{empty}, with the tacks poured out beside it, they see
-it right away. Same objects. What changed was which relation among them was on the table.
+candle to the wall. Almost nobody sees that the \emph{box} is a shelf, until they do. And then he found that if you hand people the box \emph{empty}, with the tacks poured out beside it, they
+solve it far more readily. Same objects. What changed was which relation among them was on the table.
 
 I like both of these for the same reason: the insight didn't add an object. Sultan had both
 sticks the whole time. The box was there the whole time. What arrived was a \emph{relation}, which
@@ -3662,7 +3688,7 @@ best it's also a relation.
 
 \subsection{It isn't a feeling}
 
-But here's the finding that actually changed how I think about the word, and it comes from
+But here's the finding I'd hand anyone who thinks insight is a feeling, and it comes from
 someone who measured it. In the 1980s the psychologist Janet Metcalfe asked people to solve
 problems while rating, every fifteen seconds, how ``warm'' they felt, how close to the answer.
 On ordinary problems, algebra for instance, the warmth climbs steadily and peaks at the
@@ -3792,7 +3818,7 @@ condition on the step function, which a particular system can impose and the def
 not.
 \end{remark}
 
-\subsection{What the word means now}
+\subsection{What the word means}
 
 So: insight, in the sense this book prices, is a relation committed to, in a move that flips a
 reading from off to on, and that move costs at least one mark, in any system with the toll,
@@ -4159,8 +4185,9 @@ program); and a lambda calculus (call-by-value, meaning an argument is worked ou
 plugged in, and made deterministic by letting a term with no step left to take step to
 itself). On each, the latch form holds, by the one generic theorem applied to that base
 (the checked names are listed with the formal statement below). So a register machine
-with an honest record is a register machine plus a cup. So is a lambda calculus. (There's a
-fourth instance, the machine I build later; it's Section~\ref{sec:witness}'s.)
+with an honest record is a register machine plus a cup. So is a lambda calculus. (There are two
+more instances, both machines I build later: the small one, where the flag is shown to be a latch
+directly, in Section~\ref{sec:smallest}, and the big one, in Section~\ref{sec:witness}.)
 
 Here are the three bases explicitly. A base needs a state, a next-state function,
 a set of starting states and a halting predicate; the latch theorem asks for nothing
@@ -4252,7 +4279,7 @@ There is a limit to that statement. The ``preserved across it'' proof throws awa
 on every base regardless, so the preservation is true for a boring reason. And nowhere in the
 checked work are \emph{two} of the bases actually related by this relation. The relation is
 defined, it's an equivalence, and it is not used to connect the Turing machine to the
-register machine to the lambda calculus, or any of them to the fourth instance. It would be
+register machine to the lambda calculus, or any of them to the machines in Part IV. It would be
 easy to read that list as if it did. What's proved is that each base, separately,
 carries a latch. That's the honest sentence.
 
@@ -4288,7 +4315,7 @@ the definitions in CrossBaseGranularityCore.v.
 
 A cup has two positions. Some records have more: a counter of how many checks passed, a level
 that only rises. The same reasoning goes through one threshold at a time. For each value $a$,
-``the record has reached $a$`` is a yes/no reading, and each of those readings is a latch. What
+``the record has reached $a$'' is a yes/no reading, and each of those readings is a latch. What
 doesn't go through is squeezing the whole record into one cup. ``Rises'' needs one word: the
 values come with an order $\le$, ``is at or below,'' which needn't compare every pair (that's
 what makes it a \emph{partial} order), and $[a \le x]$ is the yes/no reading ``$x$ has reached $a$.''
@@ -4422,11 +4449,11 @@ theorem doesn't say the sentence is unknowable, it says \emph{this one system} c
 
 Alan Turing, 1936: and here the historical record is not the story you usually hear. The
 usual story is that Turing proved the halting problem undecidable. Joel David Hamkins and
-Theodora Nenu went back to the 1936 paper and found that the word ``halting,'' the modern
+Theodor Nenu went back to the 1936 paper and found that the word ``halting,'' the modern
 statement, and the self-referential proof everyone teaches are all, strictly, absent from
 it. What Turing proved undecidable were two other questions about his machines (whether a
-machine prints infinitely many digits; whether it ever prints a given symbol), which are
-\emph{equivalent} to halting, and the name ``halting problem'' came later, probably from Martin
+machine prints infinitely many digits; whether it ever prints a given symbol). The second is
+\emph{equivalent} to halting and the first is strictly harder, and the name ``halting problem'' came later, probably from Martin
 Davis. The textbook version is still right as mathematics, and here it is, on two index
 cards. Card A is the Checker: hand it any program card and it announces ``halts'' or ``runs
 forever.'' Card B is the Contrarian: ``Hand me to the Checker. If it says I halt, run forever.
@@ -4624,7 +4651,7 @@ $N_d$, is \code{nat\_structural\_shortcut\_undecidable} in the same file.
 
 Now push on it once more, because the nat family shows the outside decider in three lines,
 and you can do them yourself. Stand outside $N_d$, knowing $d$. Write down a new decider
-$e$: say yes on program 0, say ``not $d(2)$`` on program 2, and say no on everything else.
+$e$: say yes on program 0, say ``not $d(2)$'' on program 2, and say no on everything else.
 Check it against $A$. Program 0 returns 1, so $A(0)$ holds and $e$ says yes. Program 1
 returns 0, so $A(1)$ fails and $e$ says no. Program 2 returns 1 exactly when $d(2)$ is false,
 and that's what $e$ says. Every other program gives nothing, so $A$ fails and $e$ says no.
@@ -4697,7 +4724,7 @@ some value.
 \begin{proof}
 (1) A closed quoting term $Q$ takes $\ulcorner t \urcorner$ to the code of
 $\ulcorner t \urcorner$; its constructors, recursive program and terminating induction are given in
-Section~\ref{sec:quoting-construction}. A closed
+Appendix~\ref{sec:quoting-construction}. A closed
 term $\mathrm{mkapp}$ takes two codes to the code of their application. Let
 $A = \lambda x.\, s\,(\mathrm{mkapp}\ x\ (Q\,x))$ and $t = A\,\ulcorner A \urcorner$. One step
 gives $s\,(\mathrm{mkapp}\ \ulcorner A \urcorner\ (Q\,\ulcorner A \urcorner))$, and the argument
@@ -4717,9 +4744,11 @@ Checked as \code{second\_recursion}, \code{L\_recursion\_theorem}, \code{L\_rice
 compute says true exactly when the property holds) in the same file. The file uses only Coq's standard library.
 
 That's the wall on paper, on a family built to fit it, and on one outside model with nothing
-assumed. The machine built in Part IV fills in this same shape, with its recursion theorem as
-a premise rather than a result, and a small fragment of it gets a recursion theorem by proof,
-with L as one of the tools; Section~\ref{sec:interpreters} does both, once there's something built to point at.
+assumed. The machine built in Part IV fills in this same shape. For the whole machine the
+recursion theorem has to come in as a premise, and a premise that fails when it is asked for
+every transformation; a small fragment of it, the guest, gets a recursion theorem by proof, with
+L as one of the tools. Section~\ref{sec:interpreters} does both, once there's something built
+to point at.
 
 Here's the picture all of that fills in, lined up against Turing's, one column per axis.
 
@@ -5114,9 +5143,11 @@ interface while accepting a signature no key produced.
 
 The certificates that make your browser show a padlock are issued by hundreds of
 authorities, and a bad or compromised one can issue a certificate for a domain it shouldn't.
-Certificate Transparency, now RFC 9162, makes authorities submit every certificate to public
+Certificate Transparency makes authorities submit every certificate to public
 append-only logs built as Merkle trees, so that anyone can check that a certificate was
-logged and that the log never rewrote its past. A Merkle tree is Section~\ref{sec:toll}'s hash chain folded into
+logged and that the log never rewrote its past. It was specified in RFC 6962 and revised as
+RFC 9162 in 2021; the logs people run still mostly follow 6962, and the fragment I
+transcribe is 9162's. A Merkle tree is Section~\ref{sec:toll}'s hash chain folded into
 a tree: hash each certificate (those are the \emph{leaves}), hash the leaf hashes in pairs, hash
 those in pairs, and so on up to one \emph{root} hash. To prove one leaf is in, the log hands you
 only the few hashes sitting beside the climb from that leaf to the root, the \emph{path}, and you
@@ -5569,7 +5600,9 @@ a check, and a paid event, and, given lists, a tree and a covering that someone 
 costs the index bits it commits to (Section~\ref{sec:entitlement}). Insight is a committed relation, not a feeling (Section~\ref{sec:insight}).
 Over any base a record is a latch, with two free choices, the price list and the event
 (Section~\ref{sec:latch}). No inside procedure whose flip a substrate can represent decides a shortcut property,
-given a recursion theorem, which is proved for L and assumed elsewhere; a record carries the
+given a recursion theorem, which the nat family has by construction and L has by proof; on
+the machine Part IV builds, a small guest gets one by proof too, and the whole machine can't
+have one for every map; a record carries the
 commitment instead (Section~\ref{sec:diagonal}). Of
 five specifications, read through my transcriptions, one prices the write (Section~\ref{sec:models}).
 And which event to record is a conjecture with a borrowed shape and a listed set of
@@ -5578,7 +5611,8 @@ refutations (Section~\ref{sec:pointer}).
 What none of that is: a machine. Every theorem so far quantifies over ``any states, any
 steps,'' or is about a small copy of somebody else's system, or points forward at a thing I
 keep promising. That's the abstract part of the book, and it's done. From the next page on I
-stop saying ``any machine'' and build one, mine, with every part named and every price written
+stop saying ``any machine'' and build two, mine. A small one first, the least I can make that
+still shows the whole model, and then a big one with every part named and every price written
 down, so that everything above finally has something to bump into. If a statement up there
 doesn't mean what I think it means, that's where it'll show. Part IV is the thing. Let's see if it holds weight.
 
@@ -5680,7 +5714,8 @@ a new value is a new edition.
 \item A \emph{line number}, which instruction comes next, counting from 1 the way Minsky does.
 \item A \emph{fact table}: a list of facts. A \emph{fact} is three things stuck together: a property, a
 counter, and a version. ``$A$ is even, as of edition 3'' is a fact. The table has room for
-sixteen.
+sixteen. Why sixteen? It's a pick, with no derivation behind it, and what the pick costs is
+in the last subsection of this chapter, the one on what the machine doesn't do.
 \item A \emph{channel}: either empty, or holding one fact. This is where a commitment sits.
 \item A \emph{trap}: one bit, down at the start. When it goes up, the machine has refused something,
 and it stays up.
@@ -5692,7 +5727,7 @@ them to decide what to do next. That's not a promise, it's how the step is writt
 shows up as a theorem below.
 
 The properties a fact can name come from a tiny fixed language with three words: \emph{is zero};
-\emph{is even}; and *is at least $n$*, for any whole number $n$ you like. Each one comes in two
+\emph{is even}; and \emph{is at least $n$}, for any whole number $n$ you like. Each one comes in two
 forms. There's the \emph{checker}, a little program that computes yes or no: compare with 0,
 look at the last bit, compare with $n$. And there's the \emph{meaning}, the plain arithmetic
 statement the checker is supposed to be checking: the number is 0; the number is two times
@@ -5714,8 +5749,8 @@ Now the six instructions.
 INC $c$ & Adds one to counter $c$, adds one to its version, goes to the next line. & 0 \\
 DEC $c$ $j$ & If $c$ is above 0: subtracts one, adds one to its version, jumps to line $j$. If $c$ is 0: just goes to the next line. & 0 \\
 HALT & Nothing. A program that reaches it stops. & 0 \\
-CHECK $p$ $c$ & Runs the checker for $p$ on $c$`s value. If it says yes and the table has fewer than sixteen facts, writes the fact ($p$, $c$, $c$`s current version) into the table and goes to the next line. Otherwise, trap. & 1 \\
-COMMIT $p$ $c$ & Looks in the table for exactly the fact ($p$, $c$, $c$`s current version), field by field. If it's there, puts it in the channel and goes to the next line. Otherwise, trap. & 1 \\
+CHECK $p$ $c$ & Runs the checker for $p$ on $c$'s value. If it says yes and the table has fewer than sixteen facts, writes the fact ($p$, $c$, $c$'s current version) into the table and goes to the next line. Otherwise, trap. & 1 \\
+COMMIT $p$ $c$ & Looks in the table for exactly the fact ($p$, $c$, $c$'s current version), field by field. If it's there, puts it in the channel and goes to the next line. Otherwise, trap. & 1 \\
 CERTIFY & If the channel holds a fact, goes to the next line, and the flag goes up. Otherwise, trap. & 1 \\
 \end{longtable}
 \endgroup
@@ -5783,7 +5818,7 @@ Checked as \code{eval\_iff} (EarnedCore.v).
 A \emph{core} $k$ holds two counters $A$, $B$ and their versions (whole numbers), a line number,
 a fact table (a list of facts, a fact being a triple of a property, a counter and a
 version), a channel (empty or one fact), and a trap bit. Write $\mathrm{val}(k, c)$ and
-$\mathrm{ver}(k, c)$ for counter $c$`s value and version. A \emph{state} $s$ is a core, written
+$\mathrm{ver}(k, c)$ for counter $c$'s value and version. A \emph{state} $s$ is a core, written
 $\mathrm{core}(s)$, with a ledger $\mu(s)$ and a flag $\mathrm{cert}(s)$. The \emph{claim} $p$ of
 $c$ in $k$ is the fact $(p, c, \mathrm{ver}(k, c))$. The table's room is 16. The start
 $\mathrm{start}(a, b)$ has counters $a$ and $b$, versions 0, line 1, an empty table, an
@@ -5822,7 +5857,7 @@ anywhere. The base is blind to the record by construction.
 A worked run, the shortest one there is. The program: CHECK \emph{at least 0} $A$; COMMIT \emph{at
 least 0} $A$; CERTIFY. Start anywhere, $\mathrm{start}(a, b)$ for any $a$ and $b$. Line 1:
 every whole number is at least 0, the checker says yes, the table is empty so there's room,
-and the fact (\emph{at least 0}, $A$, 0) goes in. $\mu = 1$. Line 2: the claim about $A$`s
+and the fact (\emph{at least 0}, $A$, 0) goes in. $\mu = 1$. Line 2: the claim about $A$'s
 current edition is (\emph{at least 0}, $A$, 0), and it's right there. Into the channel. $\mu =
 2$. Line 3: the channel holds a fact, the flag goes up. $\mu = 3$. Line 4 has no
 instruction, so the program stops. Three paid acts, in order, and a flag that can tell you
@@ -5881,8 +5916,8 @@ Checked as \code{halting\_correspondence} (EarnedCore.v).
 Now the part that isn't mine. Proving that halting is undecidable for two-counter machines
 is real work, and it's already done, checked, in a shared Coq project called the Coq
 Library of Undecidability Proofs (presented by Yannick Forster, Dominique Larchey-Wendling
-and coauthors at CoqPL 2020). The two-counter result in it is Larchey-Wendling's, building
-on his and Forster's work on Minsky machines (CPP 2019). Their two-counter machine has the
+and coauthors at CoqPL 2020). The two-counter result in it is Larchey-Wendling's, reached
+from his and Forster's work on Minsky machines (CPP 2019) by way of FRACTRAN. Their two-counter machine has the
 same two instructions as Minsky's, with the same rule for zero. So the only thing I have to
 prove is that their machine and my INC/DEC fragment are the same machine, step for step,
 and then borrow their theorem.
@@ -5978,7 +6013,7 @@ sense (Definition~\ref{def:u11-honest}), and if it is, Section~\ref{sec:latch} d
 
 \begin{theorem}[The flag is a latch of the base]\label{thm:u34-latch}
 Let the base have states (program, core), stepping by the program step, starting at
-$\mathrm{start}(a, b)$`s core for any $a$, $b$, and halting when the program has halted.
+$\mathrm{start}(a, b)$'s core for any $a$, $b$, and halting when the program has halted.
 Map each (program, state) to (program, core). Then the machine, run as a closed machine on
 (program, state), is an honest extension of that base, and so its flag factors as the latch
 (Theorem~\ref{thm:u11-latch}) of the event ``the next instruction is a CERTIFY that passes.''
@@ -5998,7 +6033,7 @@ by \code{record\_axis\_is\_latch\_holds}; the step-level facts are \code{cert\_l
 (EarnedCore.v).
 
 So far, nothing new. The toll, the floor and the latch are things Part III already promised
-about any machine of this kind. The next section is the part Part III couldn't give.
+about any machine of this kind. The next subsection is the part Part III couldn't give.
 
 \subsection{Commitments are earned}
 
@@ -6024,7 +6059,7 @@ Defined as \code{untouched} (EarnedCore.v).
 Let $s_0$ be clean and $\mathit{pre}$ any trace after which COMMIT $p$ $c$ would pass. Then
 $\mathit{pre}$ splits as $\mathit{pre}_1$, then CHECK $p$ $c$, then $\mathit{mid}$, where:
 the CHECK passes at the core reached by $\mathit{pre}_1$; CHECK $p$ $c$ and COMMIT $p$ $c$
-each cost at least 1; $c$`s version after $\mathit{pre}_1$ equals its version after
+each cost at least 1; $c$'s version after $\mathit{pre}_1$ equals its version after
 $\mathit{pre}$; and $\mathit{mid}$, run from just after the CHECK, leaves $c$ untouched.
 \end{theorem}
 
@@ -6034,7 +6069,7 @@ table. By the no-forging invariant (Theorem~\ref{thm:u34-no-forging} below), tha
 written by a passing CHECK $p$ $c$ at some point $\mathit{pre}_1$, with the version $c$ had
 then; since it's the current version too, the two versions are equal. Versions never go
 down, and any instruction that changes a counter's value also raises its version, so an
-instruction in $\mathit{mid}$ that touched $c$ would have left $c$`s version higher at the
+instruction in $\mathit{mid}$ that touched $c$ would have left $c$'s version higher at the
 end than at the CHECK. It isn't. So nothing in $\mathit{mid}$ touched $c$.
 \end{proof}
 
@@ -6097,7 +6132,7 @@ a fact in the table actually tell you about the counter?
 
 \begin{theorem}[Checker soundness]\label{thm:u34-soundness}
 Let $s_0$ be clean and $t$ any trace, and let $k$ be the core of $\mathrm{run}(t, s_0)$. For
-every fact $(p, c, v)$ in $k$`s table with $v = \mathrm{ver}(k, c)$, the property holds of
+every fact $(p, c, v)$ in $k$'s table with $v = \mathrm{ver}(k, c)$, the property holds of
 the counter's current value: $\mathrm{holds}(p, \mathrm{val}(k, c))$. In particular, if
 COMMIT $p$ $c$ would pass at $k$, then $\mathrm{holds}(p, \mathrm{val}(k, c))$.
 \end{theorem}
@@ -6133,13 +6168,13 @@ only way I trust myself to answer it.
 After a trace $t$ from $s_0$, a fact $f = (p, c, v)$ is \emph{earned} when $t$ is $\mathit{pre}$,
 then CHECK $p$ $c$, then $\mathit{mid}$, where the CHECK passes at the core reached by
 $\mathit{pre}$, $f$ is exactly the claim $p$ of $c$ at that core, and, if $f$ is live at the
-end ($v$ equals $c$`s version after $t$), $\mathit{mid}$ leaves $c$ untouched. The trace has
+end ($v$ equals $c$'s version after $t$), $\mathit{mid}$ leaves $c$ untouched. The trace has
 \emph{no forgery} when every fact in the table after it is earned.
 \end{definition}
 
 \begin{theorem}[No forging]\label{thm:u34-no-forging}
 For every core $k$, instruction $i$ and fact $f$ in the table after executing $i$ at $k$:
-either $f$ was already in $k$`s table, or $i$ is CHECK of $f$`s property and counter, it
+either $f$ was already in $k$'s table, or $i$ is CHECK of $f$'s property and counter, it
 passes at $k$, and $f$ is the claim it writes. Consequently, if a trace has no forgery, so
 does that trace followed by any one instruction; and from every clean start, every trace
 has no forgery.
@@ -6180,7 +6215,8 @@ Checked as \code{facts\_keep}, \code{full\_table\_traps} and \code{facts\_bounde
 Why trap instead of making room? Because ``making room'' means deciding which fact dies, and a
 fact that can die is a fact whose absence you have to explain later. A table that only grows
 is a history you can read back, and the provenance proofs above lean on exactly that. The
-bill for it is real, though, and it's in the section after next.
+bill for it is real, though, and it's in the last subsection of this chapter, the one on
+what the machine doesn't do.
 
 \subsection{The window can't see the record}
 
@@ -6307,7 +6343,7 @@ traces, instructions after a trap are each charged their cost and none of them c
 core. I chose to keep charging so that the ledger stays the plain sum of what was issued
 (Theorem~\ref{thm:u34-toll} has no exceptions); the price of that choice is that a trapped
 machine can still be billed for nothing.
-\item \textbf{''Checked'' means three properties and nothing more.} Is zero, is even, is at least $n$.
+\item \textbf{``Checked'' means three properties and nothing more.} Is zero, is even, is at least $n$.
 A live fact means one of those holds of one counter's current value. It doesn't mean the
 program is correct, or that anything follows from the property, or that the property was
 worth checking.
@@ -6342,7 +6378,14 @@ passing check (Section~\ref{sec:machine-claims} shows exactly where). Theorem~\r
 raised flag was checked, then committed, then certified, on the same edition with nothing in
 between, is a theorem about \emph{this} machine, the small one. The earned version lives here.
 
-So Part IV has two machines, and neither of them is the model. The small one shows the
+So Part IV has two machines, and neither of them is the model. Both are Thiele machines in
+the front matter's sense, instances of the certification system with the toll proved: this
+one as \code{earned\_cs} (Theorem~\ref{thm:u34-instance}), the big one as
+\code{thiele\_cert\_addr\_system} (UniversalCertificationCost.v), whose toll is
+Theorem~\ref{thm:u17-nfi}. This one is also Thiele-complete. Its base is a two-counter
+machine, so it computes whatever a Turing machine can while it carries the record and pays
+the toll (Theorems~\ref{thm:u34-simulation} and~\ref{thm:u34-halting}). Whether the big one
+is Thiele-complete I haven't proved, and nothing in this book leans on it. The small one shows the
 model whole, with earned commitments, on the least I could build. The big one shows how
 much a single build can carry while the toll still holds, and where it stops short. If you
 ever find yourself wondering whether a property of the big one is the model's or just the
@@ -6355,13 +6398,10 @@ needs more than that, the big one is where it'll show.
 %===========================================================================
 
 That was the small machine: six instructions, the whole model, earned commitments and
-all, on the least I could build. Now the big one. Parts I to III were about \emph{any} system
-with the named pieces: a state, a step, a reading, a toll, and whatever extra a theorem
-asked for, with boards and chairs and cups standing in whenever a picture was needed. Section~\ref{sec:smallest}
-showed those pieces can stand up on six instructions. From here on, through the hardware,
-everything is about one much larger concrete build, the test bench where I find out how
-much a single machine can carry while the toll still holds. When I say ``my machine'' or ``the
-machine'' from now on, I mean exactly one thing: that build, with its state record, its
+all, on the least I could build. Now the big one, which I'll call the big build, and which
+is the test bench where I find out how much a single machine can carry while the toll still
+holds. From here on, through the hardware, everything is about it. When I say ``my machine'' or
+``the machine'' from now on, I mean exactly one thing: that build, with its state record, its
 fifty-one instructions and the price of each, written down in Coq and then turned into a
 hardware design. The six-instruction one keeps its own name, the small machine. Not a toy,
 not ``any system.'' This one, warts included. I want to say three
@@ -6380,6 +6420,13 @@ would have the same shape underneath. Section~\ref{sec:smallest} is exactly that
 and its record is a latch. One difference I'll keep saying out loud: this build prices
 commitments but doesn't enforce that they were earned. That guarantee is the small
 machine's (Section~\ref{sec:smallest}), and Section~\ref{sec:machine-claims} shows where this one stops short of it.
+The plainest sign is a name the two machines share. CERTIFY in the small machine traps
+unless a commitment is waiting; CERTIFY here (Section~\ref{sec:isa}) raises the flag with
+nothing required before it.
+It's still a Thiele machine, an instance of the certification system with its toll proved
+(\code{thiele\_cert\_addr\_system}, UniversalCertificationCost.v, with
+Theorem~\ref{thm:u17-nfi} as the toll). And the hardware at the end isn't a second one. It
+implements this one, inside bounds Section~\ref{sec:chip} states.
 
 Second: why build one at all, if the abstract theorems are the point? Because an abstract
 theorem about ``any machine'' is checked against nothing until there's a machine to check it
@@ -6989,7 +7036,8 @@ and every value written to a register or a memory word is truncated to sixty-fou
 And how to read the tables. In the cost column, \emph{S d} means d plus one: S is Coq's name for
 ``the next number,'' which is the most Coq way possible of saying plus one, and that plus one
 is the floor. The fault column says what a failure
-does. TRAP jumps to a fixed trap address, 3840, and sets the error code and the error flag.
+does. TRAP jumps to a fixed trap address, 3840 (0xF00 in hexadecimal; it's the chosen trap
+vector, a design pick that nothing derives), and sets the error code and the error flag.
 LATCH steps on to the next instruction, sets the error code and the flag, and changes
 nothing else. The last column says whether the instruction is in the cost-positive class.
 
@@ -7047,9 +7095,9 @@ changes; otherwise a fresh module with no axioms is added; and a PNEW that traps
 graph unchanged. All three take fresh module numbers from a budget of sixty-four per run
 that is never refunded (Section~\ref{sec:state} tells that story): PNEW asks for one, PSPLIT for two, PMERGE for
 one, and each traps when the budget can't cover it. PSPLIT and PMERGE remove every arrow
-touching a module they remove. Both take their module operands modulo 64 first; every module
-that exists is numbered below 64 (Theorem~\ref{thm:u16-bounds}), so this names the module itself,
-and an operand of 64 or more names the module numbered by its remainder: 64 splits module 0.
+touching a module they remove. Both take their module operands modulo 64 first, which always
+names the module itself (Theorem~\ref{thm:u16-bounds}); the odd corner, an operand of 64 or
+more, is in Section~\ref{sec:state}.
 PSPLIT accepts its left and right operands and ignores them, and a missing module splits into
 two empty ones. PMERGE's joined range starts from the lower base.
 
@@ -7123,7 +7171,7 @@ $\ell = h(s, f)$ and
 \end{theorem}
 
 \begin{proof}
-The rule's success test is the conjunction of ``$h(s, f) = \ell$`` and the satisfying and
+The rule's success test is the conjunction of ``$h(s, f) = \ell$'' and the satisfying and
 falsifying checks; when the test fails the rule sets $\mathrm{pc}$ to $3840$. So a step that
 lands elsewhere passed the test, which gives $\ell = h(s, f)$. The counter equation is then
 conservation (Theorem~\ref{thm:u16-conservation}) with $\mathrm{cost}(i) = 8\ell + d + 1$.
@@ -7199,7 +7247,7 @@ LOAD and STORE above, and the heap pair in the next group, take any address and 
 cell. None of them looks at a module's region (Section~\ref{sec:state}), so the kernel doesn't enforce the
 locality the regions suggest; the hardware's table does (Section~\ref{sec:chip}).
 
-\subsection{Group 5: revelation, ports, heap, tensor (7)}
+\subsection{Group 5: emission, ports, heap, tensor (7)}
 
 \begingroup\small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.224\linewidth}>{\raggedright\arraybackslash}p{0.159\linewidth}>{\raggedright\arraybackslash}p{0.159\linewidth}>{\raggedright\arraybackslash}p{0.159\linewidth}>{\raggedright\arraybackslash}p{0.159\linewidth}@{}}
@@ -7276,7 +7324,7 @@ for positive definiteness). All of it is integer arithmetic.
 Let $s$ have $\mathrm{err}(s)$ false, let $i$ be CHSH\_\allowbreak{}LASSERT\_\allowbreak{}1AB\_\allowbreak{}G345 with declared cost $d$
 and pairs $(a_3, b_3), (a_4, b_4), (a_5, b_5)$, and let $s' = \mathrm{apply}(s, i)$. If
 $\mathrm{pc}(s') = \mathrm{pc}(s) + 1$ and $\mathrm{err}(s') = \mathrm{err}(s)$, then the
-nine-by-nine level 1+AB moment matrix built from the four correlators of $s$`s counters,
+nine-by-nine level 1+AB moment matrix built from the four correlators of $s$'s counters,
 with $\gamma_1 = \gamma_2 = 0$ and $\gamma_j = (a_j - b_j)/(a_j + b_j)$ for $j = 3, 4, 5$,
 is symmetric and positive semidefinite. Section~\ref{sec:chsh} and Appendix B carry the matrix
 and the argument; the check itself is \code{q1ab\_g345\_full\_integer\_check\_kernel} (VMStep.v) and
@@ -7830,9 +7878,8 @@ and i2, gives the empty list instead of Q), and the composite of two identities 
 from A to A that is an identity for nothing. A book that proved the laws on pair lists and
 let that stand on the records would be proving the laws somewhere the machine doesn't live.
 
-The machine's rule passes the flag along: when both inputs are flagged, the composite is
-flagged, with the empty coupling, stored exactly the way MORPH\_\allowbreak{}ID stores an identity
-(Definition~\ref{def:u18-compose-rule}). Run the same three arrows through it. i1 composed with i2
+The machine's rule passes the flag along (Definition~\ref{def:u18-compose-rule}): two
+flagged arrows compose to a flagged one. Run the same three arrows through it. i1 composed with i2
 is a flagged identity on A. That composed with f: only the first is flagged, so take f's
 pairs, P. i1 with (i2 with f): i2 with f has pairs P and the flag off, i1 is flagged, so P.
 Same both ways. And g followed by the composite of i1 and i2 gives Q, and so does g followed
@@ -8187,20 +8234,24 @@ logician who insisted on it: a proof system is trustworthy when its proofs can b
 a checker \emph{small enough that a person can audit it}, independent of whatever clever tool
 produced the proof. Euclid had the instinct: five postulates you can hold in your head, and
 everything else meant to follow from them. The machine's checker is of that kind. In the
-chip I build at the end of the book it's a finite-state controller of about twenty states
-that walks the formula word by word. The proofs hold it up against the kernel (Section~\ref{sec:onemachine}'s name for
+chip I build at the end of the book it's a controller with three phases (idle, read the
+formula's header, scan) that walks the formula word by word. The proofs hold it up against the kernel (Section~\ref{sec:onemachine}'s name for
 the machine's reference definition in Coq, the step function every proof in this part is
 about), and they show its word-by-word scan returns the same answer as the kernel's
 two checks, as long as the formula declares at least one clause, its words
 hold an end-of-clause zero for every clause it declares, and every word fits in thirty-two
 bits. It also proves that the hardware step and the kernel step agree on the counter always,
-and on the program counter whenever the check passes; the same theorem pins the kernel's
+and on the program counter whenever the check passes. ``The hardware step'' there is Coq's
+model of it, which keeps every field as a whole number with no thirty-two-bit bound; on the
+chip's own registers the agreement needs the counter to stay below $2^{32}$, and
+Section~\ref{sec:chip} states it with that premise (Theorem~\ref{thm:u25-lassert}). The same
+theorem pins the kernel's
 error flag to the check's outcome, unchanged on a pass and set on a fail.
 That's a fact about the hardware and it's Section~\ref{sec:chip}'s to show; I mention it here so you know the
 checker isn't a black box, and so you know where to find the trusted base, which is short and
 listed in Section~\ref{sec:coq}.
 
-The two hardware facts, stated so their premises are in view. Two words first: a \emph{hardware snapshot} is the chip's whole state at one tick of its clock, and $\alpha$ reads off which
+The two hardware facts, stated so their premises are in view. Two words first: a \emph{hardware snapshot} is the chip's whole state at one tick of its clock, written the way Coq's hardware model keeps it, with whole numbers and no thirty-two-bit bound, and $\alpha$ reads off which
 kernel state that snapshot stands for. Section~\ref{sec:chip} builds both, and nothing else in this part of the
 book leans on them. (Yes, these are theorems about a chip I have never held in my hand. Section~\ref{sec:chip}
 is very upfront about that.)
@@ -8212,7 +8263,8 @@ $2^{32}$, then the hardware scan of $u$ returns
 $\mathrm{Sat}(w, g_1) \wedge \lnot \mathrm{Sat}(w, g_2)$. (2) For every hardware snapshot $h$
 and every checking instruction $i$, write $\alpha(h)$ for the kernel state the snapshot stands
 for. There is a kernel state $s'$ that the kernel's step relation reaches from $\alpha(h)$
-under $i$ such that: $\mu(s')$ equals the hardware counter after the step; if
+under $i$ such that: $\mu(s')$ equals the hardware counter after the model's step, with no
+bound on its size; if
 $\mathrm{ok}$ holds at $\alpha(h)$, the hardware program counter after the step equals that of
 $s'$; and the error flag of $s'$ is unchanged when $\mathrm{ok}$ holds and set otherwise.
 \end{theorem}
@@ -8230,8 +8282,8 @@ Checked as \code{hw\_scan\_certcheck} (LassertSpec.v), from \code{hw\_scan\_spec
 \code{logic\_engine\_equivalent\_lassert} (LogicEngineEquivalence.v).
 
 So the little checker in the chip and the check the proofs talk about give the same verdict,
-as long as the formula meets those three conditions, and the chip's counter moves the way the
-kernel's does.
+as long as the formula meets those three conditions, and the model of the chip's counter
+moves the way the kernel's does, which on the chip itself holds below $2^{32}$.
 
 \subsection{Where, not just how much}
 
@@ -8520,7 +8572,7 @@ state.
 (3) By induction on the list, on the fuel, or on the chain of steps: the program-counter
 runner either stops or fetches an instruction of the program, which is classical, and no
 classical instruction writes the graph, the assertion channel or the certified flag. (1) A
-state classically reachable from $s_0$ therefore has $s_0$`s graph: no modules and next
+state classically reachable from $s_0$ therefore has $s_0$'s graph: no modules and next
 module number 0. Memory has a hundred and twenty-eight words in every reachable state, so
 cell 0 is inside it, no module overlaps it, and a module number is free, so PNEW does not trap
 and adds a module, raising the next module number by one. Reachability holds because each
@@ -8641,6 +8693,7 @@ counter is a question about the simulator's own step rule, and the next subsecti
 about that.
 
 \subsection{The machine versus the program it runs}
+\label{sec:machine-vs-program}
 
 One more theorem belongs here, because it says what the pair \emph{means} for the rest of the
 book. Section~\ref{sec:toll}'s universal floor was stated for any certification system. Now take any such system
@@ -8724,8 +8777,8 @@ $d(t)$ from $e(s_0)$ ends with the certified flag on.
 \begin{proof}
 The first part is the universal floor (Theorem~\ref{thm:universal-floor}) applied to $\mathcal{B}$ by
 itself. For the second, by induction on $t$ using step commutation, the embedding of
-$\mathcal{B}$`s final state is the machine's final state on $d(t)$ from $e(s_0)$; reflection
-turns ``$\mathcal{B}$`s final state is certified'' into ``that machine state has the flag on''.
+$\mathcal{B}$'s final state is the machine's final state on $d(t)$ from $e(s_0)$; reflection
+turns ``$\mathcal{B}$'s final state is certified'' into ``that machine state has the flag on''.
 Cost preservation is not used.
 \end{proof}
 
@@ -9824,7 +9877,9 @@ merges, gets the same treatment next, in Section~\ref{sec:witness}.
 %===========================================================================
 
 Parts II and III made claims about any machine and kept saying ``when the machine exists on
-the page, I'll show you.'' The machine exists, and some of the showing has happened already:
+the page, I'll show you.'' The machine exists, and by that I mean the big one, the
+fifty-one-instruction test bench from Section~\ref{sec:onemachine} on, not the six-instruction
+small machine, which keeps its own chapter and its own name. Some of the showing has happened already:
 Section~\ref{sec:state} put Section~\ref{sec:counter}'s counter rule on one field, Section~\ref{sec:isa} put Section~\ref{sec:toll}'s floor on fifty-one instructions, Section~\ref{sec:separation}
 showed Section~\ref{sec:windows}'s window losing the graph, and Section~\ref{sec:machine-claims} just did Section~\ref{sec:entitlement} and Section~\ref{sec:insight} whole. This section is the
 rest: for each remaining claim, the theorem about \emph{this} machine, with its hypotheses and its
@@ -9990,11 +10045,11 @@ Fix a target $M$ and a starting state $b$.
 and $u$, $\mathrm{ev}(t) = \mathrm{ev}(u)$ implies $F_b(t) = F_b(u)$.
 
 (2) Suppose some function picks, for every reachable state, a list that reaches it. Then a
-map $h$ from the machine's states to $M$`s states with $h(\mathrm{ev}([\,])) = b$,
+map $h$ from the machine's states to $M$'s states with $h(\mathrm{ev}([\,])) = b$,
 $h(\mathrm{apply}(\mathrm{ev}(t), i)) = \mathrm{step}_M(h(\mathrm{ev}(t)), i)$, and the
-machine's reading at $\mathrm{ev}(t)$ equal to $M$`s reading at $h(\mathrm{ev}(t))$, for all
+machine's reading at $\mathrm{ev}(t)$ equal to $M$'s reading at $h(\mathrm{ev}(t))$, for all
 $t$ and $i$, exists if and only if two things hold: the condition in (1), and the machine's
-reading at $\mathrm{ev}(t)$ equals $M$`s reading at $F_b(t)$ for every list $t$. Any two such
+reading at $\mathrm{ev}(t)$ equals $M$'s reading at $F_b(t)$ for every list $t$. Any two such
 maps agree on every reachable state.
 
 (3) A picking function as in (2) exists, so the equivalence in (2) holds with no premise
@@ -10231,7 +10286,7 @@ and every move, the
 window of the stepped state is the finite machine's step of the window
 (\code{vm\_runs\_finite\_machine}), the counter rises by exactly the finite machine's cost
 (\code{vm\_pays\_finite\_price}), both over runs (\code{vm\_runs\_finite\_trace}), and a run of that
-fragment from unflagged to flagged raised the counter by at least one
+fragment from unflagged to flagged raises the counter by at least one
 (\code{vm\_fragment\_certification\_paid}). So Section~\ref{sec:a2-not-arbitrary}'s argument applies to this machine
 \emph{through a window onto a finite fragment}. That's the honest form. One limit goes with it: the jump's
 charge of two is a choice the program makes when it writes the instruction. The machine's
@@ -10400,7 +10455,7 @@ Now dress the transcript up. Let $T$ be any richer kind of transcript, with a wa
 squash one down to its bare photographs, and a relation saying which states explain which
 transcripts. A verifier $V$ on $T$ \emph{factors through} $\pi$ when it only looks at the squashed
 part: $V = V' \circ \pi$ for some rule $V'$ on bare transcripts (the small circle means
-``squash first with $\pi$, then apply $V'$``), or equivalently, two transcripts with the same
+``squash first with $\pi$, then apply $V'$''), or equivalently, two transcripts with the same
 $\pi$ always get the same answer.
 
 \begin{theorem}[A richer verifier that only looks at the bare part does no better]\label{thm:u21-no-factor}
@@ -10486,19 +10541,20 @@ Checked as \code{substrate\_escape\_succeeds} (VerifierEscape\_\allowbreak{}Subs
 \code{unchecked\_bit\_violates\_contract} (VerifierEscape\_\allowbreak{}Hardness.v), and
 \code{interactive\_escape\_succeeds} (VerifierEscape\_\allowbreak{}Interaction.v).
 
-The collision has disappeared because the extra information separates its two states.
-The full-state transcript shows the counter. The honest commitment for $A$ has a true
-bit and the one for $B$ a false bit. Their honest responses are $1$ and $0$.
-None asks a verifier to distinguish identical inputs.
+The collision is gone, and no trick did it: the extra information pulls $A$ and $B$ apart.
+The full-state transcript shows the counter outright. The honest commitment for $A$ carries a
+true bit and the one for $B$ a false bit. The honest responses are $1$ and $0$. In none of the
+three is the verifier asked to tell identical inputs apart, which was the impossible job.
 
-That is also the limit. A list of states has no authentication built into it. The
-commitment contract is assumed, and the unchecked bit shows why the assumption matters.
-The response relation allows only a truthful counter value, so asking a question here
-does not establish resistance to a cheating prover. And cost $1$ is an abstract price,
-not a measurement of the work needed to authenticate a state, check a cryptographic
-proof or communicate a response. These constructions exhibit the extra distinctions
-a verifier can use. They supply no adversary model, security parameter or hardness
-reduction.
+Now the limit, and I'd rather say it before you find it. A list of states has no
+authentication built into it, so nothing in it stops a liar from handing over whatever the
+verifier wants to see. The commitment contract is assumed, and the unchecked bit above is what
+happens when the assumption is dropped. The response relation only allows a truthful counter
+value, so asking a question here does not buy resistance to a cheating prover. And the cost
+$1$ is an abstract price I wrote down, not a measurement of what it takes to authenticate a
+state, check a cryptographic proof or send a response. What these three show is which extra
+distinctions a verifier can use. They are not an adversary model, a security parameter or a
+hardness reduction.
 
 \subsection{Records on this machine (Section~\ref{sec:latch})}
 
@@ -10616,7 +10672,7 @@ So agreeing with this machine on every certification reading doesn't make a mach
 of this machine's state. When a history-keeper counts as the same as this machine, it's because the
 relation was allowed to drop the history, and for no other reason.
 
-But the billed machine isn't a different \emph{structure}. It's the same machine with a different price list. So the claim worth keeping is uniqueness \emph{up to the price schedule}: compare two
+Back to the billed machine. It isn't a different \emph{structure}; it's the same machine with a different price list. So the claim worth keeping is uniqueness \emph{up to the price schedule}: compare two
 machines by their record light, their halting, and their steps, through their maps down to
 this machine, and don't compare charges. Here I have to be plain about how much that claim
 says. Every machine it covers runs this one underneath, and ``the same machine'' means each state
@@ -10670,7 +10726,7 @@ records, same machine, disagreeing: Corollary~\ref{cor:u11-event-free} with a re
 underneath.
 
 \begin{theorem}[Not unique for a tied record]\label{thm:u21-tied-refuted}
-Let the \emph{meter core} be the Thiele core with record ``$\mu(s) \ge 1$`` and the identity as cover.
+Let the \emph{meter core} be the Thiele core with record ``$\mu(s) \ge 1$'' and the identity as cover.
 It is an honest tied extension and it is not the same as the Thiele core up to the schedule. So
 uniqueness up to the schedule fails once the record is only required to be some reading of the
 computation.
@@ -10749,7 +10805,7 @@ certificate admits a checker, sound and complete for $\mu = 1$ at unit cost
 (\code{proof\_rounds\_escape}, ProofCarryingVerifier.v); strip the certificate and no checker on the
 bare transcript is sound and complete at any cost (\code{bare\_pcc\_impossible}). And the prover's
 side has a floor. A \emph{script} is a program run from the initial state with a fixed fuel, and
-it's *level $k$* when it ends with the certified flag up and one of the CERTIFY steps it
+it's \emph{level $k$} when it ends with the certified flag up and one of the CERTIFY steps it
 executed was charged at least $k$. Then its counter rises by at least $k$, and for every
 $k \ge 1$ a single CERTIFY charged $k$ does it at exactly $k$
 (\code{level\_k\_verification\_floor}, \code{level\_k\_verification\_floor\_tight}). The first is
@@ -10788,7 +10844,7 @@ property writes a zero to it.
 
 \subsection{What landed}
 
-Every pointer from Parts II and III that said ``on the machine'' now has a name. What's
+Every pointer from Parts II and III that said ``on the machine'' has a name in this chapter. What's
 \emph{not} here, and stays not here: a single either-reading run theorem; ``every merge priced'' on the
 full machine (false, by the free jump); a statement of Section~\ref{sec:counter}'s counter facts or Section~\ref{sec:latch}'s two free
 choices over an arbitrary base (those are argued in their chapters, checked only here); and
@@ -10803,7 +10859,8 @@ on it.
 Section~\ref{sec:diagonal} left the diagonal standing on any substrate, on a little family built to fit it, and on
 L, and said the machine is one more substrate of that kind, conditionally. The machine is
 on the table now, so here it is, in three pieces. First the wall pointed at the full
-machine, where it stands under a premise nobody has filled in, and where a decider standing
+machine, where it is conditional on a recursion premise that can't be granted for every map and
+can't hold for any class containing a correct decider's flip, and where a decider standing
 outside exists and is checked. Then two interpreters, programs of the machine that run a
 smaller machine handed to them as data. Then the guest, where the recursion theorem is
 proved rather than assumed. I'll say which interpreter the recursion theorem lives on,
@@ -10956,7 +11013,9 @@ So the machine's property is decidable from outside, and the wall on the machine
 nothing from classical halting: it's about bounded runs, and the premise can't be granted for
 every map (part (1) of Theorem~\ref{thm:u22-premise-refuted}), and no class can both meet it and
 contain a correct decider's flip (part (2)). So the machine's version can't be knocked over that way, and it doesn't
-say much either: it's the diagonal applied to a property I can decide.
+say much either: it's the diagonal applied to a property I can decide. Put plainly: against
+a decider that's actually correct, the machine's conditional wall has no bite at all,
+because no class it would need can hold that decider's flip.
 
 Take the thousand-step cutoff away and the question changes shape, so here's the run with no
 stopwatch on it. Unbounded halting is its own relation, and it has its own facts.
@@ -11100,7 +11159,7 @@ the guest program counter has run off the end of the guest program. A guest prog
 hundred and fifty-six.
 
 The literal host listings, complete encodings and block-by-block verification are in
-Section~\ref{sec:fixed-interpreters}. In this guest, HALT advances the program counter;
+Appendix~\ref{sec:fixed-interpreters}. In this guest, HALT advances the program counter;
 leaving the program is what ends execution.
 
 The host is a fixed list of a hundred and twenty-two of the machine's instructions, at
@@ -11129,7 +11188,7 @@ measure:
 \begin{definition}[Guest configurations and runs]\label{def:u22-guest}
 A guest configuration $c$ is a program counter, a ledger and four registers, all natural
 numbers. A guest program $p$ is a list of the twelve guest instructions. $\mathrm{gstep}_p(c)$
-executes the instruction of $p$ at $c$`s program counter on unbounded values and leaves $c$
+executes the instruction of $p$ at $c$'s program counter on unbounded values and leaves $c$
 alone when there is none; $\mathrm{grun}_p(n, c)$ is $n$ such steps. $c$ is \emph{terminal} for $p$
 when its program counter is at least the length of $p$. $p$ is \emph{well-formed} when every
 register field is below 4 and every declared cost below 256, and $p$ \emph{fits} the width $w$
@@ -11140,8 +11199,8 @@ when every packed instruction word of $p$ is below $2^w$.
 Let $p$ be well-formed and fit $w$, and let $U$ be the fixed host program of 122
 instructions, run by the program-counter runner on the unbounded step $\mathrm{apply_u}$;
 write $\mathrm{urun}(F, s)$ for $F$ steps. For a guest configuration $c$, let $H(c)$ be a host
-state at host program counter 0 whose registers 0 to 3 hold $c$`s registers, register 9
-holds 0, registers 11 and 12 hold $c$`s ledger and program counter, register 13 holds $w$
+state at host program counter 0 whose registers 0 to 3 hold $c$'s registers, register 9
+holds 0, registers 11 and 12 hold $c$'s ledger and program counter, register 13 holds $w$
 and register 14 holds the packed code of $p$; the seven scratch registers (4 to 8, 10 and 15), the host counter and
 every other field are arbitrary. Say a host state is \emph{done for} $c'$ when it has host
 program counter 122, registers 0 to 3, 11 and 12 holding $c'$, register 9 holding 1,
@@ -11226,18 +11285,18 @@ single-tape Turing-machine halting enumerable.
 
 \begin{theorem}[Rice on the guest]\label{thm:u22-rice}
 Let $P$ be extensional, let $w$ be a well-formed program with $P(w)$, and let $P$ fail for the
-one-instruction program that jumps to itself. Then ``well-formed and $P$`` is undecidable. If
+one-instruction program that jumps to itself. Then ``well-formed and $P$'' is undecidable. If
 moreover some guest program decides $P$ under some numbering, the complement of single-tape
 Turing-machine halting is enumerable.
 \end{theorem}
 
 \begin{proof}
 For the first part, send a two-counter machine $m$ to a guest program that saves its input
-in register 2, loads $m$`s two starting counters, runs a guest copy of $m$, puts the input
+in register 2, loads $m$'s two starting counters, runs a guest copy of $m$, puts the input
 back in register 0 and clears the other three, and then runs $w$, with every instruction
 before $w$ at declared cost 0. If $m$ halts, the program behaves like $w$, so it has $P$; if $m$ does not halt, it never terminates, behaves like the self-jump, and lacks
 $P$. That reduces the complement of two-counter halting, undecidable in the library, to the
-complement of ``well-formed and $P$``, and a predicate whose complement is undecidable is
+complement of ``well-formed and $P$'', and a predicate whose complement is undecidable is
 undecidable. For the second part, a guest decider gives a Coq decider: for a well-formed $p$,
 search for the least fuel at which $D$ on $e(p)$ is terminal (it exists, so the constructive
 search over the naturals finds it) and read register 0.
@@ -11426,7 +11485,7 @@ The evaluator's search is a partial recursive calculation. The compilation fact 
 here is that such a calculation can be realised by a finite counter program with
 its input and output represented as natural numbers. The traditional universality
 constructions and the precise counter conventions are identified in
-Section~\ref{sec:bibliography}. The implementation checks the translation through
+Appendix~\ref{sec:bibliography}. The implementation checks the translation through
 the weak call-by-value calculus and an increment/decrement counter machine.
 This is a computability result; it supplies no useful bound on the resulting
 program's size or running time.
@@ -11476,7 +11535,7 @@ the end of VMGuestRecursion.v, read from the build.
 
 Two things it isn't. It isn't a recursion theorem for the full fifty-one-instruction
 machine, and nothing can be one in the sense Premise~\ref{prem:u12-vm-recursion} asks for every
-map: that premise is false (Theorem~\ref{thm:u12-outside-decider}). The guest theorem answers a
+map: that premise is false (part (1) of Theorem~\ref{thm:u22-premise-refuted}). The guest theorem answers a
 different question. It gives fixed points for the guest's representable transformations, under
 the unbounded sibling's runs, up to equal registers and ledger, and no correspondence theorem
 turns that into equal thousand-step runs of the full machine from every state. And the ledger: the
@@ -11496,7 +11555,8 @@ from the construction. What I haven't proved is the shortcut predicate itself on
 the wall at the start of this chapter is about bounded-run equality with one reference
 program on the full machine (Definition~\ref{def:u12-vm-shortcut}), and the guest results are
 about behaviour on registers and ledger. On the full machine the diagonal holds under a
-premise (Theorem~\ref{thm:u12-vm-wall}). Both are true; they're different sentences; and the
+premise that no class containing a correct decider's flip can meet (Theorems~\ref{thm:u12-vm-wall}
+and~\ref{thm:u22-premise-refuted}). Both are true; they're different sentences; and the
 fragment is where the unconditional ingredients live.
 
 Next: the one instruction family I've been pointing at since Section~\ref{sec:state} without building, the
@@ -11530,8 +11590,7 @@ rounds impose: a0 equals b0 (both asked zero); a0 equals b1; a1 equals b0; a1 di
 b1. Chain the first three: a0 equals b0 equals a1, and a0 equals b1, so b0 equals b1. But
 the fourth says a1 differs from b1, and a1 equals b0 equals b1. Contradiction. One of the
 four must break. So any plan loses at least one of the four question pairs, and if the
-referee asks all four equally often, the best a plan can do is three out of four. Seventy-
-five percent. Do it the long way too: there are sixteen plans (four bits), and if you write
+referee asks all four equally often, the best a plan can do is three out of four. Seventy-five percent. Do it the long way too: there are sixteen plans (four bits), and if you write
 them all out and count wins you'll find eight win three rounds and eight win one, and none
 wins four (the broken requirements always come in odd numbers, which you can see by adding
 up the four equations: the left sides cancel to zero and the right sides to one). Sharing a
@@ -11606,7 +11665,7 @@ both questions are one, by fiat, each answer alone a fair coin), S equals four, 
 about it lets either room send a message. So relativity alone doesn't explain the quantum
 ceiling; the PR box obeys relativity and beats 2.83. The order is: two for plans, 2.83 for
 quantum, four for no-signalling. Which principle fixes 2.83 is still an open question, and
-this unit won't answer it. My machine's check is a fence at the middle step.
+this book won't answer it. My machine's check is a fence at the middle step.
 
 \subsection{Wrong turns to take off the table}
 
@@ -11851,7 +11910,7 @@ predicate and a few rational theorems. It is \emph{not} used in the integer gate
 real-number theorems use root eight. Nothing in the hardware files mentions it either: the
 chip checks CHSH in integers.
 
-\subsection{Two more rungs, built and not bound in}
+\subsection{Three more tests, and how far each one is in the machine}
 
 The second rung: a nine-by-nine table on I, the four questions, and the four Alice-Bob
 \emph{products}, with the correlators and five extra free numbers for three- and four-body
@@ -12375,6 +12434,11 @@ where a team that had just proved an operating-system kernel correct spent a
 paragraph listing what they \emph{hadn't} proved (the compiler, the assembly, the hardware), and
 I think that paragraph is the most important one in the paper. So here's mine, at length.
 
+One thing about names first. The chip isn't a Thiele machine. It's hardware that implements
+one, the big build, inside stated bounds: forty-seven of the fifty-one instructions have an
+encoding, and its words are thirty-two bits where the kernel's are sixty-four. A laptop
+implements a Turing machine the same way, with a finite memory the model doesn't have.
+
 \subsection{Hardware as rules}
 
 First the idea that makes any of this possible, because it's not obvious that a circuit can
@@ -12421,7 +12485,8 @@ and that call is a legal step in Kami's semantics (\code{start\_substep}).
 firing of the real \code{step} rule, read through Kami's semantics, updates the registers exactly
 as a Gallina function \code{step\_next} says (Gallina is the plain programming language inside Coq,
 the one the kernel's step is written in) (\code{rule\_next\_correct}, \code{step\_next\_correct}). Then one
-theorem per opcode, thirty-eight of them generated by a script plus ten more for the arrow
+theorem per opcode, forty-eight in all and every one generated by a script: thirty-five in
+one file, three for the partition instructions in a file of their own, and ten for the arrow
 instructions at both encodings: if the fetched word is that opcode, the machine is live (not
 halted, no error, every multi-cycle machine idle), the alarm is down (the alarm is a flag the
 chip raises when the ledger falls below the tensor total), and the stated counters don't overflow thirty-two bits, then the
@@ -12432,7 +12497,7 @@ theorems carry more premises (an address inside the active module's range, modul
 that don't overlap, and others), so I'll stay with
 ``under its stated side conditions.'' The full admission catalogue, including the
 different conditions on the two arrow encodings and on fault paths, is printed in
-Section~\ref{sec:hardware-contracts}. Then the multi-cycle ones: the game check retires
+Appendix~\ref{sec:hardware-contracts}. Then the multi-cycle ones: the game check retires
 through its twenty-nine firings to the same place (\code{chsh\_lassert\_refines}, with
 \code{chsh\_only\_rule\_enabled} saying nothing else can fire meanwhile), the checking step through
 its header and scan firings (\code{lassert\_sat\_refines}, \code{lassert\_unsat\_refines}; the scan's
@@ -12540,7 +12605,7 @@ Checked as \code{lassert\_sat\_refines} (LassertRetire.v), \code{lassert\_unsat\
 other kind, and \code{hw\_scan\_spec}, \code{hw\_scan\_certcheck} (LassertSpec.v, 120).
 
 The partition-only reading $\mathrm{abs}_0$ and the full reading $\mathrm{abs}$
-are defined field by field in Section~\ref{sec:hardware-contracts}. The first comparison
+are defined field by field in Appendix~\ref{sec:hardware-contracts}. The first comparison
 uses the partition-only reading; the later full-state theorem uses the full reading.
 
 \begin{theorem}[The checking step against the kernel]\label{thm:u25-logic-engine}
@@ -12568,7 +12633,7 @@ An instruction $i$ \emph{retires} from $b$ to $d$ when $b$ is live, the firings 
 step firing (each chosen by the module's own scheduler while some machine is busy) run from
 $\mathrm{next}(b)$ to $d$, $d$ is idle, and $\mathrm{snap}(d) = \mathrm{kstep}(\mathrm{snap}(b),
 i)$. \emph{Admitted} means that the fetched instruction and initial board state satisfy
-one of the fifty-five cases in Section~\ref{sec:hardware-contracts}. That catalogue gives
+one of the fifty-five cases in Appendix~\ref{sec:hardware-contracts}. That catalogue gives
 the common conditions, each case's ledger increment and every additional premise.
 \end{definition}
 
@@ -12585,7 +12650,7 @@ state and that the multi-cycle firings run to idle.
 Checked as \code{admitted\_retires} (RetireMaster.v), with \code{Retire} and \code{admitted}.
 
 And the whole-machine version, every opcode under its side conditions (\code{driven\_step\_wf}),
-which in the last assumption audit (Section~\ref{sec:witness}) uses one standard axiom, functional extensionality on
+which, in the assumption audit (Section~\ref{sec:witness}), uses one standard axiom, functional extensionality on
 dependent functions. Most of the per-rule theorems above use that one and a second, \code{eq\_rect\_eq},
 the axiom form of uniqueness of identity proofs; the audit lists which. Both are standard,
 and Section~\ref{sec:coq} accounts for them, along with how to rerun the audit on the sources in front of you.
@@ -12594,7 +12659,7 @@ The whole-machine statement compares \code{kami\_step} with the kernel's step th
 function, under a per-opcode condition, and lifts to runs.
 
 \begin{theorem}[The specification step is the kernel step]\label{thm:u25-driven}
-Let $\mathrm{abs}$ be the full snapshot reading and $\mathrm{WF}$ the per-instruction conditions printed in Section~\ref{sec:hardware-contracts}. (1) For every snapshot
+Let $\mathrm{abs}$ be the full snapshot reading and $\mathrm{WF}$ the per-instruction conditions printed in Appendix~\ref{sec:hardware-contracts}. (1) For every snapshot
 $h$ and instruction $i$ with $\mathrm{WF}(h, i)$: $\mathrm{abs}(\mathrm{kstep}(h, i)) =
 \mathrm{apply}(\mathrm{abs}(h), i)$. (2) For every fuel $F$, program $t$ and snapshot $h$ such
 that $\mathrm{WF}$ holds at every state the run visits, for the instruction it fetches there:
@@ -12637,7 +12702,7 @@ hold at reset. (In order, those are \code{CoreRules}, \code{CoreExecution}, \cod
 \code{DispatchReset}.) What none of them pins down: fairness, the allocation invariants along a reachable run, or meaning through
 the tools below Kami. One more file is worth naming so nobody leans on it:
 \code{rtl\_inventory\_arithmetic} (RTLGapRegistry.v) is the equation $37 + 10 + 0 = 47$, an
-inventory count of opcodes (not of the refinement theorems above), and it would still hold if every hardware proof were deleted.
+inventory count of opcodes (not of the forty-eight refinement theorems above), and it would still hold if every hardware proof were deleted.
 
 The arrow-building instructions run through a coupling state machine, and the picture is
 simple: it builds a list of cell pairs, then tidies it. Descriptor zero is
@@ -12649,7 +12714,7 @@ fault branches retire in the step firing alone with the error set
 retire under the admission premises (\code{morph\_ext\_retire}, \code{compose\_ext\_retire}). From
 \code{kami\_step} down to the kernel they also need the extended table invariant above.
 
-\emph{The loader: proved for the receive, the hand-off and the report, tested for the rest.} Here's the part
+\emph{The loader: proved for the receive, the hand-off and the report, its start discipline proved by a solver, the rest tested.} Here's the part
 that answers a question worth asking in plain words: what's the point of a chip you
 can't load? The answer is a second Kami module, also extracted, not hand-written: a serial
 receiver. It samples one input pin through two registers (the standard way to avoid reading
@@ -12685,12 +12750,15 @@ reads back exactly those fifteen bytes, and the pin stays high from then on
 (\code{report\_waits}). Its premise is worth saying out loud: Kami's semantics don't say when a rule
 fires, so the theorem takes one firing of the report rule per clock cycle as given.
 
-What's \emph{tested only}: the rule that actually fires \code{start} and the LED output. No theorem
-names them. And one thing the loader
-file says about itself that I'll repeat: Kami's semantics let a rule fire whenever its guard
-holds, and the file does not prove that the load rule takes each word before the next
-replaces it. That's a real gap between ``the receiver assembles the right word'' and ``the CPU
-got every word,'' and it's closed by the simulation, not by proof.
+What's \emph{tested only, as far as Coq goes}: the rule that actually fires \code{start} and
+the LED output. No Coq theorem names them. (The extracted circuit's start discipline has a
+separate solver proof, further down, and the LEDs have only the simulations.) And one thing
+the loader file says about itself that I'll repeat: Kami's semantics let a rule fire
+whenever its guard holds, and the file does not prove that the load rule takes each word
+before the next replaces it. That's a real gap between ``the receiver assembles the right
+word'' and ``the CPU got every word,'' and only the simulations cover it, which are finite.
+The solver properties don't close it either: they say the loader never writes after
+\code{start}, not that every word was taken.
 
 Here's the start, in the theorem's own words:
 
@@ -12795,8 +12863,13 @@ same observable is checked by a parity test suite, not proved. And the checked-i
 (build/extracted\_\allowbreak{}vm\_\allowbreak{}runner.ml) takes each step by calling the extracted Coq step, so the
 steps themselves follow the current rules, but the code wrapped around them is its own and
 differs from the kernel: it starts both graph counters at one, stops on an error, stops at
-HALT and writes a status word, and advances CHECKPOINT without charging. Nothing in this book is a claim about that
-runner.
+HALT and writes a status word, and steps over a CHECKPOINT written without a cost (and the
+two port directives) without charging; a CHECKPOINT with a cost goes through the kernel's
+step like everything else. No theorem in this book is about that runner. The board
+simulations do use it as the reference they compare against, which makes those comparisons
+exactly as good as the runner is, and I'd rather say that than let ``agrees with the
+software machine'' sound like it names the kernel. None of the seventeen board programs
+uses CHECKPOINT.
 
 \emph{Extraction: trusted.} Coq's extraction turns the Kami syntax tree for the system into
 OCaml. The stock extraction command is an unverified translator (Letouzey's 2003 design;
@@ -12827,11 +12900,103 @@ clear about what this gate protects: that the tracked Verilog is exactly what th
 prints from the current sources. It doesn't say those sources are the ones the proofs were
 checked against; that's the job of the proof build on the same commit.
 
-\emph{Simulation: tested.} Two programs (an arithmetic-then-halt and a jump loop) go in as
-serial bytes to the extracted system under a Verilog simulator, and again to a gate-level
-netlist that yosys builds from it, and both must match the CPU-alone reference on halted,
-error, program counter, counter, and error code. Two programs. Generic yosys gates, not the
-chip-specific mapped netlist. I'd want more of both and I'm telling you the number.
+\emph{Simulation: tested.} The suite is seventeen programs: nine directed cases (the two
+short serial tests, arithmetic-then-halt and a jump loop, are two of them) and eight
+generated from a fixed random seed. The directed cases include memory reads and writes on
+both sides of the sixty-four-word bank boundary, allocation past the memory limit,
+overlapping partitions, splitting and merging, composition, and allocation-table exhaustion.
+Each program goes in as serial frames on the board's one input pin, and the fifteen-byte
+report comes back on its output pin. Three things run it. One is the netlist yosys mapped
+for the chip, written back out as Verilog and simulated with yosys's models of the chip's
+cells. One is the extracted Verilog of the same board top. One is the OCaml runner
+extracted from the Coq step. The netlist and the Verilog must agree exactly on the report
+bytes, the LEDs and every probed state field. The Verilog and the runner must agree on the
+program counter, the counter, the error flag, the sixteen registers, the 128 data words,
+the certified flag, the module and arrow tables and the witness counters. And each report
+must match the state it reports. Every program also runs without pressing the reset
+button, the netlist from its initial values and the Verilog from all zeros, so the board
+wrapper's power-on reset has to do the job alone. The formal property lines ride along in
+the Verilog run as checks, any failed check fails the run, and fifteen named triggers from
+them must each be hit by some program. All seventeen programs and all fifteen triggers
+passed in the recorded run.\footnote{Board simulation record: CI Full run 37188435151,
+source revision \code{710fdaf912b0e3df1107f6a5376df0b05adb9b1c}, 4 October 2026, in which
+every job passed, including the solver and netlist jobs described below. These identify the
+supporting record; the comparison and its limits are stated here.}
+These are finite tests on zero-delay models. The netlist they simulate is the one before
+place and route; the placed and routed design itself is not simulated. Three of the chip's
+cells (the input buffer, the clock synthesiser and the clock gate) are behavioural
+stand-ins, and the block RAM is a functional model. So the simulations say nothing about
+every program, about the analog behaviour of the clock, about physical timing, or about a
+powered board. And since the runner is the reference, they are only as good as the runner.
+
+\emph{Safety in the extracted circuit: proved by a separate solver.} This is a different
+tool pointed at the same Verilog, and it gets its own paragraph because it is the one place
+where a proof reaches the circuit without going through Kami's semantics. Yosys reads the
+extracted files with extra property lines added to a copy (the tracked files aren't
+touched, and the added lines only watch registers, they never drive anything), and
+a driver called SymbiYosys hands the questions to a solver. Each proof is an induction over every state
+reachable from reset, with no bound on how long the run is. There are three.
+
+\emph{The partition table.} The table never holds more than sixty-four slots, and the
+allocation counter stays between one and sixty-four. Every slot at or above the counter is
+empty. Every nonempty slot lies inside the 128-word memory, and nonempty slots never
+overlap. A partition instruction that faults sends the program counter to the trap vector
+and leaves the table as it was. And only PNEW, PSPLIT and PMERGE ever write the table. The
+solver gets this as 321 separate obligations (a reset base, a frame step saying nothing
+else touches the table, one step for each partition instruction, and the pairwise cases for
+overlap), and a missing, failed or timed-out one fails the job. The memory's read signals
+are left arbitrary, so the result holds for whatever the memory could return.
+
+\emph{Control.} The error flag never clears except by reset, and nothing executes while it
+is set. The arrow-table counter stays between one and sixteen, and every valid arrow slot
+sits below it. The counter register changes only when the main step rule or the checking
+step's scan rule fires. The halted flag clears only through \code{start}. This one runs
+unbounded model checking (an engine called PDR, short for property-directed reachability) over the whole state space, so the
+multi-cycle machines are inside it at every phase and every interleaving. What the list
+doesn't say is that the counter never goes down. It is a thirty-two-bit register and a big
+enough charge wraps it, which is exactly why the Coq theorems carry overflow premises.
+
+\emph{The loader.} Five properties after reset: start is called only while halted;
+instruction memory is never written after start; start occurs at most once; the report
+begins only after start and after halt or error; and no second report begins after the
+first has been sent. Six auxiliary invariants are proved with them. The induction depth of
+four bounds the solver's search, not the length of the run covered, and both the reset base
+and the inductive step have to pass. The check keeps the complete extracted CPU in the
+system.
+
+The two CPU proofs assume that \code{start} is called only while the CPU is halted. The
+loader proof is the one that establishes that for the loader, and the loader is the only
+caller, so the three fit. But they are three separate runs, and that they fit is my
+reading of them, not a mechanical composition. Beside each proof sits a cover task: every
+property has a named trigger event, and the task shows that a real transition of the
+circuit reaches it within sixteen cycles from a state satisfying all the properties (the
+CPU is not reset in those tasks). That keeps a property from being true only because its
+trigger never happens. It says nothing about properties I never wrote.
+
+What these are, and aren't. They are statements about the extracted Verilog as Yosys reads
+it, checked by Yosys and its solvers, not Coq proofs of the translators. They are not the
+Coq theorems either: the partition-table list says the same kind of thing as the
+well-formedness premises of the refinement theorems, but nothing links the two statements
+formally. They don't replace the premises of the Coq report theorem, and they don't prove
+the serial input was the program the user meant. And what they read is the extracted
+Verilog, not the mapped netlist that becomes the bitstream. The next check reaches part of
+that gap.
+
+\emph{The board and loader against the mapped netlist: proved, conditional on the CPU.} A
+second solver check takes the netlist yosys mapped for the chip, the very file nextpnr is
+handed (a digest check ties the jobs to it), and the extracted RTL of the same board top.
+It proves by induction, a reset base and one arbitrary step, that the loader, the reporter
+and the board wrapper's reset logic behave the same on both sides: the same serial
+transmit pin, the same four LEDs, the same \code{start} and load enables, the same
+connected bits of the instruction and address bus. The CPU and its memories are cut out of
+the comparison. Seven signals come back from the CPU (program counter, counter, error
+flag, halted flag, certified flag, error code, and whether it can take an instruction),
+both sides get the same values, and the values are otherwise arbitrary. So the result
+reads: if the two CPUs answer alike, the two loaders act alike. It is not a proof that the
+chip's CPU matches the Verilog's. The report is stamped as component equivalence and not
+whole-chip equivalence, and the CPU and memories in the netlist are checked only by the
+simulations above. The clock primitives are checked for their types and divider ratio, and
+the model is synchronous and functional: no analog clock, no delays.
 
 \emph{Synthesis, place and route, bitstream: trusted, tested.} yosys maps the Verilog to the
 chip's lookup tables and flip-flops; nextpnr-xilinx places and routes it; and Project X-Ray's
@@ -12841,18 +13006,22 @@ a proof; yosys (2013) is a free synthesis suite covering most of Verilog, nextpn
 followed, and X-Ray documented the chip's bitstream format by building many designs with the
 vendor's tool and cross-correlating the bits. Two tests sit on this link. A timing gate reads
 the clock-synthesiser settings out of the board wrapper, computes the clock it produces
-(twenty megahertz), and fails if nextpnr's achieved frequency is lower; the last recorded run
-achieved 42.78 megahertz against the 20 required. And a round trip decodes the bitstream two ways: the raw
+(twenty megahertz), and fails if nextpnr's achieved frequency is lower; the recorded run
+achieved 27.22 megahertz against the 20 required. And a round trip decodes the bitstream two ways: the raw
 bits must equal the frames that were encoded, and the bits decoded back to named features and
 re-encoded must match too, so a bit the database can't name shows up as a mismatch.
 
-\emph{The board wrapper: the one hand-written logic file.} Seventy-two lines. It takes the
+\emph{The board wrapper: the one hand-written logic file.} It takes the
 board's two-hundred-megahertz clock, which arrives as a pair of wires with opposite voltages,
 and turns it into one signal; feeds that to the chip's clock synthesiser, which multiplies by
 five and divides by fifty to get twenty megahertz and raises a LOCKED flag when it's
 stable; drives the clock onto the chip's clock network only while locked, so the CPU never
 sees a half-formed clock; and then instantiates the extracted system, ties three enables
-high, and wires four LEDs. A pin file maps the clock pair, the reset button, the LEDs, and
+high, and wires four LEDs. It also supplies power-on reset: a five-bit counter starts at
+zero after configuration and counts the first sixteen CPU clock edges; a registered reset
+keeps the system in reset until that count has completed and the reset button is released.
+This matters because all-zero configuration state is not the machine's reset state.
+A pin file maps the clock pair, the reset button, the LEDs, and
 the two serial pins to the connector names of a specific board, a Digilent Genesys 2 (its
 chip is the Kintex-7 xc7k325tffg900-2, the part the synthesis script targets), per
 the file's note. The pin names match Digilent's published master constraints file for that
@@ -12873,14 +13042,16 @@ Kami's semantics & trusted as the definition of meaning & nothing; every hardwar
 rule firing to \code{kami\_step} to \code{vm\_apply} & proved, under stated premises & RuleStep, StepRefine, the Retire files, \code{admitted\_retires}, EmbedStep, \code{driven\_step\_wf} \\
 loader receive and hand-off & proved & \code{serial\_program\_load}, \code{load\_rule\_hands\_off}, \code{load\_instr\_writes}, \code{start\_from\_reset} \\
 status report on the serial pin & proved, under one firing of the report rule per cycle & \code{serial\_status\_report}, \code{report\_waits} \\
-loader start rule, word-by-word timing of the hand-off, LED output & tested & the serial simulation; no theorem \\
+partition table, control state and loader start discipline in the extracted RTL & proved by solver induction, not Coq; the two CPU proofs assume the loader's start discipline, which the loader proof establishes & the three solver proofs, with cover tasks showing each trigger can happen \\
+board and loader against the mapped netlist & proved by solver induction, conditional on equal CPU responses & the netlist comparison; the CPU and memories are not in it \\
+word-by-word timing of the hand-off, LED output & tested & the serial and board simulations \\
 CPU and loader composed into the system & proved & a one-line theorem, by reflexivity \\
-kernel step extracted to an OCaml runner & tested & the parity test suite; nothing in the book rests on the runner \\
+kernel step extracted to an OCaml runner & tested & the parity test suite; no theorem rests on it, and the board simulations use it as their reference \\
 Kami syntax to Bluespec syntax & trusted & a library function in a file with no theorems \\
 OCaml extraction of the system's Kami syntax & trusted & an unverified translator \\
 printer, text rewrites, bsc & trusted, tested & byte-identical regeneration; co-simulation \\
 RegFile.v library cell & trusted & read by synthesis; from no proof \\
-yosys & trusted, tested & gate-level simulation on generic gates \\
+yosys & trusted, tested & generic-gate tests, and seventeen programs on the netlist it maps for the chip (before place and route) \\
 nextpnr & trusted, tested & the timing gate \\
 X-Ray tools and database & trusted, tested & the bitstream round trip \\
 board wrapper (the one hand-written logic file) and its clock primitives & trusted & vendor documentation and Digilent's pin file; the timing gate reads the clock settings \\
@@ -12897,7 +13068,7 @@ stronger artifact, with its translators named as trusted, which is a better posi
 hand-written code whose translator is a person. And ``it synthesized, so it's correct'' is
 the wrong turn in the other direction: synthesis checks that the text describes \emph{some}
 circuit; a wrong circuit synthesises as happily as a right one. The evidence of function is
-the co-simulation and the serial runs, not that yosys finished.
+the co-simulation, the board simulations and the solver checks, not that yosys finished.
 
 \subsection{Thompson's knife, again}
 
@@ -12907,17 +13078,19 @@ Extraction, the printer, bsc, yosys, nextpnr, the X-Ray database. I don't believ
 does. I can't prove it, and the discipline of this section is to say so rather than to let
 ``formally verified'' cover a chain whose bottom half is trust and tests.
 
-\subsection{The numbers, true of the last recorded run}
+\subsection{The numbers, true of one recorded run}
 
 Sixteen registers of thirty-two bits; a hundred and twenty-eight words of data and of
 instructions; instructions a hundred and twenty-eight bits wide; sixty-four partition
 slots, the same sixty-four module numbers the kernel hands out per run (Section~\ref{sec:state}), each module
 in its own slot; forty-seven of fifty-one opcodes encoded (Section~\ref{sec:isa}); fifty-five retirement cases. From the
-last full run on record: 37,057 of 407,600 lookup-table sites (nine percent; nextpnr counts each half of a six-input
-lookup table as a site, and the datasheet lists 203,800 six-input tables), 8,336
-flip-flops, no DSP slices, two block RAMs, a bitstream of 11.4 megabytes whose round trip
-matched 2,045,121 bits by encoding and 2,045,509 by meaning, and both serial programs agreed
-in RTL and in gates. Those numbers belong to one run, and the gate above is what ties
+full run 37188435151 at source revision \code{710fdaf9}, 4 October 2026: 53,117 of 407,600
+lookup-table sites (thirteen percent; nextpnr counts each half of a six-input lookup table
+as a site, and the datasheet lists 203,800 six-input tables), 10,390 flip-flop sites, no DSP
+slices, two block RAMs, a bitstream of 11.4 megabytes whose round trip matched 2,887,071
+bits by encoding and 2,887,590 by meaning, a placed and routed clock of 27.22 megahertz
+against the 20 required, and every simulation and solver job in that run passing. Those
+numbers belong to one run, and the gate above is what ties
 any run's numbers to the sources it was built from; when the sources change, the numbers
 do, and the gate says so.
 
@@ -12926,7 +13099,7 @@ do, and the gate says so.
 The chip is the third material. The proofs reach from the kernel's step relation to the
 firing of Kami rules. Everything below that is translated by tools I trust and checked by
 tests I've described in numbers. The bitstream is a wiring list, not evidence that the wiring
-computes anything; the evidence is the simulations. And no board was ever powered on: I
+computes anything; the evidence is the simulations and the solver checks. And no board was ever powered on: I
 don't own one, the repository records no run on one, and I'd rather end this section on that
 sentence than on a flourish. What I can say is this. Any claim of the form ``the proof says
 the chip does X'' has to pass through this table, and the table says exactly where the proof
@@ -12984,8 +13157,8 @@ artifact. Gap-catcher and extractor. Not the proof. The proof is the argument, a
 argument has to close in a way a person can follow, or it hasn't closed at all, which is
 why this book exists in prose and not as a list of theorem names.
 
-Two precedents I leaned on when deciding whether a proof assistant was a serious tool or
-a toy. CompCert, Xavier Leroy's C compiler, written and proved correct in Coq: the assembly it
+Two precedents show that a proof assistant is a serious tool and not a
+toy. CompCert, Xavier Leroy's C compiler, written and proved correct in Coq: the assembly it
 emits behaves as the source does, for programs with defined behaviour. And Georges
 Gonthier's 2005 proof of the four-colour theorem, a century-old problem whose first
 proof (in 1976) needed a computer to check thousands of cases and was distrusted for exactly
@@ -13198,6 +13371,17 @@ merge, certifying or not. That's the conjecture, and Section~\ref{sec:pointer} i
 
 \subsection{The machine claims (Parts IV and V)}
 
+\emph{The small machine (Section~\ref{sec:smallest}).} Four targets. From a clean start, a
+run that raises the flag without an earlier passing CHECK, COMMIT and CERTIFY of the same
+claim, with the counter's version unchanged between the CHECK and the COMMIT;
+\code{earned\_certification\_provenance} falls, and \code{earned\_commitment\_provenance} for
+a COMMIT alone. From a clean start, a trace that leaves a fact in the table nobody checked;
+\code{no\_forging} falls. From a clean start, a run that ends certified for a total charge
+under three; \code{certified\_run\_min\_cost} falls, and a run at exactly three is not a
+counterexample, it is the witness of \code{min\_cost\_tight}. A two-counter machine and a
+program whose run on the small machine disagrees with it step for step, or halts when it
+doesn't; \code{simulation\_step} or \code{halting\_correspondence} falls.
+
 \emph{The partition (Section~\ref{sec:state}).} From the initial state, run any program and land on a state where two
 modules share a cell, a module owns a cell numbered 128 or more, the module counter is past
 sixty-four, or two modules carry one number. \code{vm\_reachable\_partition\_in\_bounds} falls (and with
@@ -13288,7 +13472,12 @@ has to satisfy its precondition and break its stated equality. A co-simulation m
 challenges the \emph{tested} transfer for that revision; then pull it apart link by link
 (encoding, observation timing, extraction, printing, bsc, the harness). An input outside the
 theorem's domain, or a toolchain mismatch, doesn't refute the conditional theorem. It
-refutes a trusted link, which is worse for me and more useful for you.
+refutes a trusted link, which is worse for me and more useful for you. The solver checks
+have a target of their own: a run from reset on the extracted circuit that breaks a
+partition-table, control or loader property, which the property-carrying simulation prints
+as a failed assertion and the solver would hand back as a counterexample. For the netlist
+comparison, an input stream on which the loader's outputs differ in the two models while
+the CPU responses agree.
 
 \emph{The five models (Section~\ref{sec:models}; the wrappers stated on this machine, Section~\ref{sec:witness}).} Each fragment has a theorem with a named falsifier: a finality fork
 with nobody slashable; a gas schedule meeting floor and no-overcharge whose charging
@@ -13300,7 +13489,7 @@ bounds checker accepts whose verification condition fails. Each kills one fragme
 real system beyond the fragment.
 
 \emph{The audit (Section~\ref{sec:coq}).} Run the assumption probe on any kernel-tier theorem and find a
-project-local axiom or parameter in its dependencies. The audit has degraded. Run the
+project-local axiom or parameter in its dependencies, and the claim of zero of them falls. Run the
 Inquisitor and read what it says; it fails on high and medium findings. A new finding means
 somebody looks. It doesn't automatically mean a theorem is false.
 
@@ -13318,8 +13507,8 @@ Masanes, Fine, the elliptope, and the machine-checked proofs of Tsirelson's boun
 before mine (Echenim and Mhalla in Isabelle, and Lean's mathlib). Landauer, Bennett, Szilard,
 Maxwell, and their critics. The potential method (Tarjan) and its mechanizations (Nipkow,
 Charguéraud and Pottier), Lamport's clocks, Floyd and Hoare. Gettier, Necula, Cook, Hartley,
-Shannon, Rissanen. Zurek. The seL4 and CompCert discipline. Kami, Bluespec, yosys, nextpnr,
-X-Ray. The facts under the permanence results are Landauer's own example and Shannon's
+Shannon, Rissanen. Zurek. The seL4 and CompCert discipline. Kami, Bluespec, yosys with
+SymbiYosys and the solvers under it, nextpnr, X-Ray. The facts under the permanence results are Landauer's own example and Shannon's
 bounds, and ``set a bit to one whatever it held'' is my way of saying his RESTORE TO ONE.
 
 \emph{Formal reconstructions.} The Coq development defines the state types, transition systems,
@@ -13337,7 +13526,8 @@ schedule, refuted for tied records). The substrate diagonal, the L results, and 
 recursion theorem by construction. The integer gate implying the pinned matrix is PSD (a
 sufficient test, not a necessary one), the equivalence with contraction, and Tsirelson's
 bound from PSD, which is known mathematics checked again here and tied to an instruction. The
-per-opcode hardware refinement and the loader theorems. All of it with premises printed. Of
+per-opcode hardware refinement and the loader theorems, and the solver-checked safety
+properties of the extracted circuit. All of it with premises printed. Of
 that list, the toll derivation, the pricing form of the window fact, and the latch form are
 the only pieces I'd call new statements, and only in the sense that I didn't find them stated
 where I looked.
@@ -13556,6 +13746,11 @@ The floor raised to a threshold & proved (premises: the witness grows by at most
 
 \subsection{Claims about the machine}
 
+Part IV built two machines, and the ledger keeps them apart. First the small one of
+Section~\ref{sec:smallest}, two counters and six instructions, where commitments are earned
+and universality is proved. Every line in the next table is about that machine and nothing
+else, under the premises printed in its section.
+
 \begingroup\small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.242\linewidth}>{\raggedright\arraybackslash}p{0.344\linewidth}>{\raggedright\arraybackslash}p{0.344\linewidth}@{}}
 \toprule
@@ -13583,7 +13778,7 @@ A three-charge certification run attains the bound & proved on the minimal machi
 \end{longtable}
 \endgroup
 
-Now the machine, the one I built. A lot of these lines are a claim from Parts II and III
+Now the big build, the fifty-one-instruction machine. A lot of these lines are a claim from Parts II and III
 landing on something real, and where one is, the Kind column says which claim it
 instantiates. ``Proved on the
 machine'' means under the premises printed in the home section, and those are often more than
@@ -13709,6 +13904,7 @@ The two observations can't be one & proved on the machine & Section~\ref{sec:mac
 A run that realizes the complete tree pays the index bits & proved on the machine (premise: the run realizes the complete tree of the right depth) & Section~\ref{sec:machine-claims}, Remark~\ref{rem:u08-no-tree} \\
 Every sound shortcut lands in the bound & definition; proved on the machine, by packaging & Section~\ref{sec:machine-claims}, Definition~\ref{def:u08-shortcut}, Corollary~\ref{cor:u08-lands-here} \\
 The worked member: $1 \le 19$ & proved on the machine, by computation & Section~\ref{sec:machine-claims}, Remark~\ref{rem:u08-member} \\
+Checked bit answers filter the candidate list and instantiate entitlement & proved for supplied honest answers, with one to n questions and n at most 64 & Section~\ref{sec:machine-claims}, Theorem~\ref{thm:u33-bit-search} \\
 The speedup theorems: iteration counts, counters, and the price comparison & proved on the machine (runs from the initial state, every $N$ with $N^2 < 2^{64}$; the comparison is an if and only if) & Section~\ref{sec:machine-claims}, Remark~\ref{rem:u08-time-tax} \\
 A new speedup, or anything about P versus NP & not claimed & Section~\ref{sec:machine-claims} \\
 \end{longtable}
@@ -13855,22 +14051,14 @@ Every admitted instruction retires & definition; proved on the machine & Section
 The specification step is the kernel step & proved on the machine (premise: well formed at every step) & Section~\ref{sec:chip}, Theorem~\ref{thm:u25-driven} \\
 Start from reset; serial load; hand-off & proved on the machine & Section~\ref{sec:chip}, Theorem~\ref{thm:u25-start}, Theorem~\ref{thm:u25-serial}, Theorem~\ref{thm:u25-handoff} \\
 The status report on the serial pin carries the kernel state's fields & proved on the machine (premise: one firing of the report rule per cycle) & Section~\ref{sec:chip}, Theorem~\ref{thm:u25-report} \\
+Partition-table, control and loader safety hold in the extracted circuit & proved by solver induction, not Coq; the two CPU proofs assume the loader's start discipline, proved separately & Section~\ref{sec:chip} \\
+Each of those properties' triggers can happen & checked by solver cover tasks and by simulation from reset & Section~\ref{sec:chip} \\
+The board and loader match the mapped netlist & proved by solver induction, conditional on equal CPU responses; CPU and memories not compared & Section~\ref{sec:chip} \\
+Seventeen programs agree across netlist, Verilog and the runner & tested (finite, zero-delay, before place and route) & Section~\ref{sec:chip} \\
 Everything below Kami works & assumed (trusted; some links tested, as the table there says) & Section~\ref{sec:chip} \\
 A board ran it & not claimed; no run is recorded & Section~\ref{sec:chip} \\
 Zero Admitted; five standard assumptions & fact from the assumption audit, true of the run that printed it & Section~\ref{sec:coq} \\
 The theorems prove physical reality, or Coq's consistency & not claimed & Section~\ref{sec:coq} \\
-\end{longtable}
-\endgroup
-
-\begingroup\small
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.242\linewidth}>{\raggedright\arraybackslash}p{0.344\linewidth}>{\raggedright\arraybackslash}p{0.344\linewidth}@{}}
-\toprule
-\textbf{Claim} & \textbf{Kind} & \textbf{Home} \\
-\midrule
-\endhead
-\bottomrule
-\endlastfoot
-Checked bit answers filter the candidate list and instantiate entitlement & proved for supplied honest answers, with one to n questions and n at most 64 & Section~\ref{sec:machine-claims}, Theorem~\ref{thm:u33-bit-search} \\
 \end{longtable}
 \endgroup
 
@@ -13887,10 +14075,12 @@ here, and nothing in the tables puts an unavoidable physical price on every obse
 \item That the toll is the right thing to price, against a wall or a penalty for contradiction (Section~\ref{sec:models}, Section~\ref{sec:conclusion}).
 \end{itemize}
 
-And three things left open: whether Landauer's critics are right, which would leave every
+And four things left open: whether Landauer's critics are right, which would leave every
 theorem standing and one premise unowned by the world (Section~\ref{sec:a2-not-arbitrary}); whether certification really is
-the pointer event (Section~\ref{sec:pointer}); and whether there's a smaller start than a partition, by a ruler
-someone can state (Section~\ref{sec:structure}).
+the pointer event (Section~\ref{sec:pointer}); whether there's a smaller start than a partition, by a ruler
+someone can state (Section~\ref{sec:structure}); and whether there's a universal Thiele
+machine, one that runs every Thiele machine with its record and toll still enforced
+(\hyperref[sec:straight]{Let me be straight with you}).
 
 That's the whole ledger. If you find a claim in this book that isn't on it, or a line that
 says more than its home does, that's my mistake, and I'd want to hear about it.
@@ -14027,11 +14217,17 @@ an address, every module reads flat, and every triangulation is separate triangl
 characteristic equal to their count, so no run reaches a closed surface (Section~\ref{sec:landauer},
 Theorem~\ref{thm:u24-reachable-geometry}).
 
-\emph{The hardware.} Proof stops at Kami's semantics. Below that: extraction, printing, bsc,
-yosys, nextpnr, X-Ray, and the board primitives are trusted, with the tests named. Two
-programs are simulated. Generic gates, not the mapped netlist. The loader's start rule has no
-theorem; the status report has one, under the premise that the report rule fires once per
-clock cycle. No board was powered on (Section~\ref{sec:chip}).
+\emph{The hardware.} The Coq refinement chain stops at Kami's semantics. Below that:
+extraction, printing, bsc, yosys, nextpnr, X-Ray, and the board primitives remain trusted,
+with the checks named. Beside the chain, a separate solver proves by induction that the
+extracted circuit keeps its partition-table, control and loader safety properties on every
+run from reset, and that the loader and board wrapper match the mapped netlist if the CPU
+answers alike on both sides; no proof compares the CPU and its memories. Seventeen programs
+passed the board-specific simulation across the mapped netlist (before place and route),
+the extracted Verilog and the runner, including reset and power-on checks. The Coq
+status-report theorem retains its premise that the report rule fires once per clock cycle.
+The solver checks are not Coq theorems, and neither they nor the finite simulations prove
+the translation chain correct. No physical board run is recorded (Section~\ref{sec:chip}).
 
 \emph{Where each result lives.} Every system that follows the toll, whatever its states: the
 floor, at most as many certifications as cost, and the potential-method reading. Every
@@ -14135,14 +14331,17 @@ has no fixed point; both are theorems. Those are different sentences, and sharin
 
 What's open, by my count. Whether the toll is the \emph{right} thing to price, as against a
 wall or a penalty for contradiction, which is what the five real systems mostly built.
-Whether certification is the pointer event. Whether Landauer's critics
+Whether certification is the pointer event. Whether there's a universal Thiele machine, one
+that runs every other Thiele machine with its record and its toll still enforced; the small
+machine is Thiele-complete, which is less. Whether Landauer's critics
 are right, which would leave every theorem standing and one premise unowned by the world.
 And the question I'd most like someone to take from me: is there a smaller start than a
 partition, by a ruler they can state? I said in Section~\ref{sec:structure} it would change this book. It would.
 
 So that's the Thiele Machine. An abstract model with five parts and one rule, an argument
 made with it that the usual account of a computation is a shadow and the axis it leaves out
-belongs in the step, and one build of it in three materials to check the argument against.
+belongs in the step, and two builds of it to check the argument against, a small one and a
+big one, the big one in three materials.
 The theorems are what they are, with their premises printed. The interpretation is mine, and
 I've tried to say at every turn which is which, because the first time through I was the
 only one checking, and I've met me, and that's not enough people. Now there's you.
@@ -14171,7 +14370,7 @@ from 0 to 255, and the first thing that genuinely surprised me is that the same 
 a letter: a convention called ASCII simply agrees to call 65 the letter A, 48 the digit 0,
 32 a space. Nothing in the byte knows which it is. The meaning is a convention laid on top.
 
-Everything in this subsection is about real CPUs and about my machine, the one build of Part
+Everything in this subsection is about real CPUs and about my machine, the big build of Part
 IV. None of it belongs to the abstract model, which has a kind of state and a step rule and
 nothing about widths or slots.
 
@@ -14317,8 +14516,9 @@ they agree, a correspondence earned by testing rather than by proof.
 
 \subsection{Other terms I use without rebuilding}
 
-Provenance is the recorded chain of where an object came from; an arrow's provenance is the
-sequence of instructions that built it. Simulation, in computer science, is one system
+Provenance is the recorded chain of where an object came from; on the small machine, a
+commitment's provenance is the passing check that came before it (Section~\ref{sec:smallest}).
+Simulation, in computer science, is one system
 imitating another's input-output behaviour; a Turing machine simulates any system of the
 model, my machine included, by writing the whole state out on its tape, and the difference
 this book is about is what a window on that tape shows. That's real, and it's exactly what people reach for when they
@@ -14439,7 +14639,15 @@ build, the build, the big build) is the concrete machine that fills in many of t
 once: its state record, its fifty-one instructions and their prices, the reference kernel in
 Coq, the guest, the extracted runner, and the hardware. The \emph{small machine} (the smallest
 honest machine, Section~\ref{sec:smallest}) is the other piece of scaffolding, and it comes first in Part IV. The
-\emph{scaffolding} is both of them together. Parts IV and V live there. When a word below belongs
+\emph{scaffolding} is both of them together. Parts IV and V live there. \emph{A Thiele
+machine}, lower case, is any system proved to be an instance of the certification system
+(Definition~\ref{def:certsys}), five parts and the toll; the paper toys are, and so are both
+builds. \emph{Thiele-complete} means a Thiele machine whose base is Turing-universal, so it
+computes anything a Turing machine can while carrying the record and paying the toll; the
+small machine is proved Thiele-complete, and for the big build it's open. A \emph{universal}
+Thiele machine, one that runs every Thiele machine with its record and toll still enforced,
+isn't proved to exist. The chip isn't a Thiele machine; it implements the big build inside
+the bounds Section~\ref{sec:chip} states. When a word below belongs
 to only one of the two layers, the entry says which.
 
 A \emph{partition} is a sorting of a pile into groups, nothing in two groups and nothing left
@@ -14452,7 +14660,9 @@ the same end; one that never does is \emph{injective}, it forgets nothing. A rea
 
 The \emph{counter}, which I also call the \emph{ledger}: in the model, a number carried in the state
 that starts at zero and that every step raises by exactly that step's charge (Section~\ref{sec:counter}). My
-machine's counter is one; the source calls it mu ($\mu$) (Section~\ref{sec:state}). A \emph{price list} (on my machine,
+machine has exactly one, and the source calls it mu ($\mu$) (Section~\ref{sec:state}). Two other things get called
+counters, and each chapter says which: Minsky's two bins on the small machine, and the eight witness counters that
+tally the game's rounds (Section~\ref{sec:chsh}). Neither is the ledger. A \emph{price list} (on my machine,
 the \emph{cost schedule}) says what each move costs; the model takes it as given, and my machine's
 table of what each instruction costs is in Section~\ref{sec:isa}. A \emph{receipt} is a total that lives in the
 state, only climbs, equals the sum of the charges on every path including the failures, and is
@@ -14479,7 +14689,7 @@ record, six in all: INC, DEC, HALT, CHECK, COMMIT and CERTIFY. A counter's \emph
 edition number: it starts at 0 and goes up by one every time the counter is written, so an
 edition never comes back. A \emph{fact} is a property, a counter and a version together, such as
 ``$A$ is even, as of edition 3''; the properties come from a fixed language of three, \emph{is zero},
-\emph{is even} and *is at least $n$\emph{. The *fact table} holds up to sixteen facts, and the only way
+\emph{is even} and \emph{is at least $n$}. The \emph{fact table} holds up to sixteen facts, and the only way
 in is a CHECK that passed; nothing ever leaves it. The small machine's \emph{channel} holds one
 committed fact or nothing, and COMMIT puts a fact there only if the table has it about the
 counter's current edition. The \emph{trap} is a bit that goes up when an instruction refuses, and
@@ -14625,7 +14835,7 @@ Hardware side conditions & per-instruction preconditions (arrow-table room, modu
 
 Three remarks on the table. First, the recursion premise for the full machine is false
 when asked for every map (its thousand-step cutoff property can be decided by running both
-programs), and holds only for trivial classes such as the identity map; for the twelve-instruction guest, the corresponding statement is a theorem with no premise
+programs), and holds for trivial classes such as the identity map and the constant maps, and for no class containing the flip of a correct decider; for the twelve-instruction guest, the corresponding statement is a theorem with no premise
 (\code{vm\_guest\_recursion\_theorem\_closed}, Section~\ref{sec:interpreters}). Second, the class
 \code{Substrate} (Substrate.v) carries a different rule from the toll, mu\_\allowbreak{}monotone: the counter
 never goes down on a step. Neither implies the other, the diagonal uses neither, and on the
@@ -14640,7 +14850,7 @@ standard-library axioms, which the assumption audit lists theorem by theorem: fu
 extensionality on dependent functions (the most used, across the kernel and the hardware);
 uniqueness of equality proofs, \code{eq\_rect\_eq} (only in the hardware proofs); two decidability
 principles for the real numbers (used wherever real analysis is, for example in the game
-check of Section~\ref{sec:chsh}); and the law of excluded middle (in about a hundred theorems). No axiom or
+check of Section~\ref{sec:chsh}); and the law of excluded middle (in a little over a hundred theorems). No axiom or
 parameter of the project's own appears in the audited theorems. Section~\ref{sec:coq} says what that does and
 doesn't mean.
 
@@ -14686,8 +14896,8 @@ looks clever, that's Tarjan's cleverness; my part was picking which number to pl
 \subsection{2. The toll from finiteness, permanence, and a price on merges}
 
 Known: that steps which merge states (no single-valued inverse) are what Landauer's principle
-charges for is Landauer's (1961), sharpened by Bennett (1973, 1982, 2003: ``the erasure of a bit
-or the merging of two computation paths''); generalizations and the dependence on the input
+charges for is Landauer's (1961), sharpened by Bennett (1973, 1982, 2003; the words ``the erasure of a bit
+or the merging of two computation paths'' are from the 2003 abstract); generalizations and the dependence on the input
 distribution are Maroney's (2009), Sagawa's (2014), Wolpert's; the critique is Earman and
 Norton's and Norton's. Write-once memory is an old topic in coding theory (Rivest and
 Shamir, 1982), about reuse rather than price. Mine: the short pigeonhole argument that on a
@@ -14767,7 +14977,7 @@ the level $1+AB$ are Navascués, Pironio and Acín's (2007, 2008), with Landau (
 and Mhalla, 2023) and in Lean's mathlib. Rational sum-of-squares certificates are Peyrl and
 Parrilo's (2008). Mine: a decision procedure in integer arithmetic on outcome counters that
 runs inside one instruction; a checked chain from ``that instruction didn't trap'' to ``the
-pinned level-one matrix is positive semidefinite'' to ``$S^2 \le 8$``; proofs of the
+pinned level-one matrix is positive semidefinite'' to ``$S^2 \le 8$''; proofs of the
 contraction equivalence by explicit test vectors; the level-$1+AB$ cascade and an
 elliptope gate in whole numbers, with a soundness proof and no step of the machine
 attached to it; and a circuit proved to compute the same
@@ -14782,7 +14992,7 @@ Known: Kami (Choi, Vijayaraghavan, Sherman, Chlipala and Arvind, 2017), Kôika (
 Pit-Claudel, Chlipala and Arvind, 2020), the end-to-end verified stack of Erbsen and coauthors
 (2021), CakeML on the verified Silver processor (Lööw and coauthors, 2019), and the discipline
 of naming what isn't proved (CompCert, seL4). Mine: an instruction-by-instruction Kami
-refinement for this machine, a proved serial loader, and a labelled chain to a bitstream
+refinement for this machine, a proved serial loader, solver-checked inductions on the extracted circuit's partition-table, control and loader safety, and a labelled chain to a bitstream
 (Section~\ref{sec:chip}). Kind: implementation of an established method. No new verification
 method; extraction, synthesis, and the chip are trusted, and no board was run.
 
@@ -14802,6 +15012,44 @@ redundantly in the environment. Mine: borrowing that shape for the question of w
 deserves a record, with definitions, a toy, and refutations of two stronger forms
 (Section~\ref{sec:pointer}). Kind: conjecture. No claim about quantum physics.
 
+\subsection{12. The counter as a receipt}
+
+Known: one-way counters that give order and termination are old: Turing's 1949 note on
+checking a large routine, Floyd's ranking functions (1967), Lamport's clocks (1978).
+Carrying a run's cost beside its result is the writer cost of Danner and Licata and the
+graded effect semantics of Katsumata (2014), with a working-language version in Orchard,
+Liepelt and Eades (2019). Mine: putting three properties side by side (the total only
+climbs, it equals the sum of the charges on every path including the failures, and it is
+the only such total for a given price list), the argument for any system with a counter
+and a price list, and the checked versions on the machine (Section~\ref{sec:counter},
+Section~\ref{sec:witness}). Kind: synthesis, with mechanization on the machine; the
+abstract statements are argued in the text and are not checked in Coq. Whether the counter
+is an embedding of the graded frameworks or something weaker I haven't settled.
+
+\subsection{13. Couplings and the stored-arrow laws}
+
+Known: the category (Eilenberg and Mac Lane, 1945), and that relations compose
+associatively with the diagonal as identity. Mine: the machine's rule for composing stored
+arrows, which passes the identity flag along so that associativity and both identity laws
+hold on the arrows it stores, each a theorem, together with the checked laws for
+relational composition and for the tensor on couplings (Section~\ref{sec:category}). The
+obvious rule for composing identity arrows breaks associativity, and the book says so where
+it matters. Kind: implementation and mechanization of known structure on one machine. Not
+a result in category theory.
+
+\subsection{14. The small machine}
+
+Known: two-counter machines are Minsky's (1961, 1967), and the undecidability of their
+halting is checked in the Coq Library of Undecidability (Forster, Larchey-Wendling and
+coauthors, 2019, 2020). Mine: a six-instruction machine on two counters, with a version
+for each counter, a bounded fact table and a channel; its theorems that a committed fact
+was checked first about the same edition, that nothing is forged, that nothing is evicted,
+and that a certificate costs exactly three and no less; and the step-for-step match with
+the library's machine, so halting is undecidable for it (Section~\ref{sec:smallest}).
+Kind: implementation and mechanization of a small design. The universality and the
+undecidability are borrowed, and the other properties are short consequences of the step
+rule. Whether the design is new I can't say, and I make no claim beyond the proofs.
+
 \subsection{What that adds up to}
 
 Read straight down the list and the honest summary is this. The mathematics underneath this
@@ -14809,7 +15057,7 @@ book is mostly known, and some of it is very old. What's mine is the question (s
 account of computation carry what was certified and what certifying cost, as part of how it
 steps), a handful of small exact statements that the question needed and that I didn't find
 stated elsewhere (items 2, 4's pricing form, and 6), a large body of mechanized proof that
-ties those statements to one machine that runs, and my best attempt at saying which is which,
+ties those statements to two machines that run, the small one and the big build, and my best attempt at saying which is which,
 which you should check as hard as anything else in here. If someone shows me item 2, the
 pricing form in item 4, or item 6 stated earlier, I'll move it up the list and be glad to,
 and a little embarrassed, in that order.
@@ -14891,6 +15139,7 @@ Lemma \ref{lem:u11-toggle}: The toggle & \S\ref{sec:latch} & \code{toggle\_not\_
 Lemma \ref{lem:u11-clock}: The clock & \S\ref{sec:latch} & \code{toggle\_computation\_driven} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_latch} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{clock\_record\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline and 1 more & none\newline none\newline none\newline none \\
 Corollary \ref{cor:u11-event-free}: The event is a free choice & \S\ref{sec:latch} & argued in the text, not checked in Coq &  \\
 Theorem \ref{thm:u11-probabilistic}: The schedule doesn't fix the probabilities & \S\ref{sec:latch} & \code{schedule\_determines\_probabilities\_refuted} {\footnotesize(\code{ProbabilisticRecord.v})}\newline \code{deterministic\_latch\_handles\_branching\_refuted} {\footnotesize(\code{ProbabilisticRecord.v})} & none\newline none \\
+Definition \ref{def:u11-concrete-bases}: Three concrete bases & \S\ref{sec:latch} & stated in the text &  \\
 Definition \ref{def:u11-weak-equiv}: Weak base equivalence & \S\ref{sec:latch} & stated in the text &  \\
 Theorem \ref{thm:u11-four-bases}: Outside bases, and the relation & \S\ref{sec:latch} & \code{weak\_base\_equiv\_refl\_holds} {\footnotesize(\code{CrossBaseGranularity.v})}\newline \code{weak\_base\_equiv\_sym\_holds} {\footnotesize(\code{CrossBaseGranularity.v})}\newline \code{weak\_base\_equiv\_trans\_holds} {\footnotesize(\code{CrossBaseGranularity.v})}\newline \code{weak\_match\_left\_runs} {\footnotesize(\code{CrossBaseGranularity.v})}\newline and 5 more & none\newline none\newline none\newline none \\
 Definition \ref{def:u11-growing}: A growing record & \S\ref{sec:latch} & stated in the text &  \\
@@ -15029,7 +15278,7 @@ Remark \ref{rem:u08-two-observations}: Why two observations & \S\ref{sec:machine
 Remark \ref{rem:u08-no-tree}: The complete-tree bound & \S\ref{sec:machine-claims} & \code{exists\_covering\_tree} {\footnotesize(\code{MuShannonBridge.v})}\newline \code{complete\_tree\_realization\_bound} {\footnotesize(\code{MuShannonBridge.v})}\newline \code{info\_priced\_weighted\_feasible\_reduction\_bound} {\footnotesize(\code{MuShannonBridge.v})}\newline \code{observation\_partition\_reduction\_implies\_posterior\_representative\_reduction} {\footnotesize(\code{MuShannonBridge.v})} & none\newline none\newline none\newline none \\
 Definition \ref{def:u08-shortcut}: Sound structural shortcut & \S\ref{sec:machine-claims} & stated in the text &  \\
 Corollary \ref{cor:u08-lands-here}: Every sound shortcut lands in the bound & \S\ref{sec:machine-claims} & \code{every\_sound\_structural\_shortcut\_lands\_here} {\footnotesize(\code{HonestNoFI\_TheoremsWithoutAssumptions.v})}\newline \code{sound\_shortcut\_from\_components} {\footnotesize(\code{HonestNoFI\_TheoremsWithoutAssumptions.v})} & none\newline none \\
-Theorem \ref{thm:u33-bit-search}: A checked bit search supplies the entitlement data & \S\ref{sec:machine-claims} & \code{bit\_search\_entitlement} {\footnotesize(\code{BitSearchEntitlement.v})}\newline \code{bit\_search\_bound\_reads} {\footnotesize(\code{BitSearchEntitlement.v})}\newline \code{posterior\_is\_what\_the\_run\_certifies} {\footnotesize(if and only if)} {\footnotesize(\code{BitSearchEntitlement.v})}\newline \code{bit\_search\_shortcut} {\footnotesize(\code{BitSearchEntitlement.v})} & not probed\newline not probed\newline not probed\newline def \\
+Theorem \ref{thm:u33-bit-search}: A checked bit search supplies the entitlement data & \S\ref{sec:machine-claims} & \code{bit\_search\_entitlement} {\footnotesize(\code{BitSearchEntitlement.v})}\newline \code{bit\_search\_bound\_reads} {\footnotesize(\code{BitSearchEntitlement.v})}\newline \code{posterior\_is\_what\_the\_run\_certifies} {\footnotesize(if and only if)} {\footnotesize(\code{BitSearchEntitlement.v})}\newline \code{bit\_search\_shortcut} {\footnotesize(\code{BitSearchEntitlement.v})} & none\newline none\newline none\newline def \\
 Remark \ref{rem:u08-member}: What the member computes & \S\ref{sec:machine-claims} & \code{factored\_n1\_shortcut\_lands\_in\_representation} {\footnotesize(\code{StructuralAdvantageCertifiedShortcut.v})}\newline \code{factored\_n1\_shortcut} {\footnotesize(\code{StructuralAdvantageCertifiedShortcut.v})} & none\newline def \\
 Remark \ref{rem:u08-time-tax}: What the speedup theorems state & \S\ref{sec:machine-claims} & \code{blind\_program\_run} {\footnotesize(\code{StructuralAdvantage.v})}\newline \code{sighted\_program\_run} {\footnotesize(\code{StructuralAdvantage.v})}\newline \code{time\_tax\_theorem} {\footnotesize(if and only if)} {\footnotesize(\code{StructuralAdvantage.v})}\newline \code{time\_tax\_sighted\_wins} {\footnotesize(\code{StructuralAdvantage.v})}\newline and 7 more & none\newline none\newline none\newline none \\
 Definition \ref{def:u21-classical}: Classical opcode, classical run & \S\ref{sec:witness} & \code{is\_classical\_opcode} {\footnotesize(\code{ClassicalConservativity.v})} & def \\
@@ -15060,7 +15309,7 @@ Theorem \ref{thm:u21-tied-refuted}: Not unique for a tied record & \S\ref{sec:wi
 Theorem \ref{thm:u21-attestation}: Attestation cannot factor through the bare transcript & \S\ref{sec:witness} & \code{attestation\_cannot\_factor\_through\_bare\_transcript} {\footnotesize(\code{TEEAttestation.v})}\newline \code{V\_does\_not\_factor\_through\_classical} {\footnotesize(\code{VerifierExhaustiveness.v})}\newline \code{replay\_is\_a\_two\_preimage\_witness} {\footnotesize(\code{TEEAttestation.v})}\newline \code{measurement\_enriched\_attestation\_succeeds} {\footnotesize(\code{TEEAttestation.v})}\newline and 2 more & none\newline none\newline none\newline none \\
 Theorem \ref{thm:u21-cert-consensus}: The certified flag is a permanent consensus & \S\ref{sec:witness} & \code{vm\_certification\_is\_permanent\_consensus} {\footnotesize(\code{EcosystemGame.v})}\newline \code{vm\_apply\_u\_certified\_permanent} {\footnotesize(\code{VMUnboundedLedger.v})} & none\newline none \\
 Definition \ref{def:u12-vm-shortcut}: The machine's shortcut property & \S\ref{sec:interpreters} & \code{vm\_admits\_shortcut\_yes} {\footnotesize(\code{StructuralUndecidability.v})}\newline \code{vm\_admits\_shortcut\_no} {\footnotesize(\code{StructuralUndecidability.v})}\newline \code{vm\_instantiation\_target\_witnessed} {\footnotesize(\code{StructuralUndecidability.v})}\newline \code{vm\_admits\_shortcut\_extensional} {\footnotesize(\code{StructuralUndecidability.v})}\newline and 1 more & none\newline none\newline none\newline def \\
-Premise \ref{prem:u12-vm-recursion}: A recursion theorem for the full machine & \S\ref{sec:interpreters} & assumed, not proved &  \\
+Premise \ref{prem:u12-vm-recursion}: A recursion theorem for the full machine & \S\ref{sec:interpreters} & a hypothesis on a class of maps; false for the class of all maps (Theorem \ref{thm:u22-premise-refuted}) &  \\
 Theorem \ref{thm:u12-vm-wall}: The wall on the machine, conditional & \S\ref{sec:interpreters} & \code{vm\_structural\_shortcut\_undecidable} {\footnotesize(if and only if)} {\footnotesize(\code{StructuralUndecidability.v})}\newline \code{vm\_structural\_shortcut\_undecidable\_encoded} {\footnotesize(if and only if)} {\footnotesize(\code{VMSubstrateEncoded.v})}\newline \code{vm\_encode\_decode\_concrete} {\footnotesize(\code{VMSubstrateEncoded.v})} & none\newline none\newline none \\
 Theorem \ref{thm:u12-outside-decider}: Bounded runs are decidable from outside & \S\ref{sec:interpreters} & \code{vm\_bounded\_shortcut\_decide\_correct} {\footnotesize(\code{VMBoundedDecidability.v})}\newline \code{vm\_bounded\_decider\_flip\_not\_representable} {\footnotesize(\code{VMBoundedDecidability.v})} & none\newline none \\
 Theorem \ref{thm:u22-premise-refuted}: The full-machine recursion premise fails, and every correct flip has no fixed point & \S\ref{sec:interpreters} & \code{vm\_full\_recursion\_premise\_refuted} {\footnotesize(\code{VMBoundedDecidability.v})}\newline \code{vm\_correct\_flip\_has\_no\_fixed\_point} {\footnotesize(\code{VMBoundedDecidability.v})}\newline \code{vm\_run} {\footnotesize(\code{VMSubstrateInstance.v})}\newline \code{simple\_morph\_trace} {\footnotesize(\code{SimpleMorphShortcut.v})} & none\newline none\newline def\newline def \\
@@ -15117,7 +15366,7 @@ Definition \ref{def:app-qcs}: Quantitative certification system & \S\ref{sec:ass
 Theorem \ref{thm:app-quantitative}: The floor raised to a threshold & \S\ref{sec:assumptions} & \code{universal\_nfi\_quantitative} {\footnotesize(\code{ThieleMachineComplete.v}, +1)}\newline \code{thiele\_quantitative\_nfi\_cert\_addr} {\footnotesize(\code{ThieleMachineComplete.v}, +1)}\newline \code{chsh\_trial\_count\_lower\_bound} {\footnotesize(\code{ThieleMachineComplete.v}, +1)} & none\newline none\newline none \\
 Definition \ref{def:chsh-setting}: Settings, outcomes, correlators & \S\ref{sec:chsh-derivation} & stated in the text &  \\
 Definition \ref{def:chsh-counters}: Counters & \S\ref{sec:chsh-derivation} & \code{WitnessCounts} {\footnotesize(\code{ThieleMachineComplete.v}, +1)}\newline \code{record\_trial} {\footnotesize(\code{ThieleMachineComplete.v}, +1)} & def\newline def \\
-Lemma \ref{lem:chsh-deterministic}: Deterministic strategies & \S\ref{sec:chsh-derivation} & argued in the text, not checked in Coq &  \\
+Lemma \ref{lem:chsh-deterministic}: Deterministic strategies & \S\ref{sec:chsh-derivation} & \code{local\_S\_2\_deterministic} {\footnotesize(\code{BoxCHSH.v})}\newline \code{deterministic\_strategy\_chsh\_bounded} {\footnotesize(\code{MinorConstraints.v})} & none\newline FE, RD \\
 Definition \ref{def:chsh-factorizable}: Finite factorizable model, \code{is\_factorizable} & \S\ref{sec:chsh-derivation} & \code{is\_factorizable} {\footnotesize(\code{MinorConstraints.v})} & def \\
 Theorem \ref{thm:chsh-fine}: \code{fine\_theorem}, one direction only & \S\ref{sec:chsh-derivation} & \code{fine\_theorem} {\footnotesize(\code{MinorConstraints.v})}\newline \code{factorizable\_CHSH\_classical\_bound} {\footnotesize(\code{MinorConstraints.v})} & FE, RD\newline FE, RD \\
 Remark \ref{rem:chsh-fine-scope}: What the name does and does not cover & \S\ref{sec:chsh-derivation} & \code{fine\_theorem} {\footnotesize(\code{MinorConstraints.v})}\newline \code{local\_box\_CHSH\_bound} {\footnotesize(\code{MinorConstraints.v})} & FE, RD\newline FE, RD \\
@@ -15173,7 +15422,7 @@ Theorem \ref{thm:chsh-gate-sound}: Soundness of the gate, \code{elliptope\_check
 
 This appendix supports Section~\ref{sec:chsh}. That section tells the story; this one does the algebra. Each
 item gives the exact statement with all its hypotheses, the steps a reader needs to check
-it, and the Coq name with file and line. Nothing here identifies any matrix with a quantum
+it, and the Coq name with its file. Nothing here identifies any matrix with a quantum
 state. Where the reading ``quantum'' appears, it is a cited result from outside the kernel.
 
 \subsection{A. Setting and notation}
@@ -15412,7 +15661,7 @@ M(E) \;=\;
 
 Positive semidefiniteness in the source is defined by quadratic forms, not eigenvalues:
 \code{PSD5} (kernel/quantum/ConstructivePSD.v) says $v^{\mathsf T} M v \ge 0$ for every
-$v \in \mathbb{R}^5$, and \code{npa\_psd} (NPAMomentMatrix.v) is ``symmetric and \code{PSD5}``.
+$v \in \mathbb{R}^5$, and \code{npa\_psd} (NPAMomentMatrix.v) is ``symmetric and \code{PSD5}''.
 In block form,
 
 \[
@@ -15677,7 +15926,7 @@ cost plus one (\textnormal{\texttt{S mu\_delta}}).
 $s'$ be the result of applying \code{instr\_chsh\_lassert} $d$ to $s$, where $d$ is the declared cost. If the error flag of
 $s'$ equals that of $s$, then
 \code{npa\_psd} holds of \code{state\_zero\_marginal\_npa} $s$: the pinned matrix $M(E)$ built from the
-correlators of $s$`s counters is symmetric and PSD.
+correlators of $s$'s counters is symmetric and PSD.
 \end{theorem}
 
 \begin{proof}
@@ -15688,7 +15937,7 @@ contractivity, and Corollary~\ref{cor:chsh-iff} gives PSD. The intermediate form
 \end{proof}
 
 \begin{corollary}[No trap implies the Tsirelson bound]\label{cor:chsh-notrap-bound}
-Under the hypotheses of Theorem~\ref{thm:chsh-notrap}, the correlators of $s$`s counters satisfy
+Under the hypotheses of Theorem~\ref{thm:chsh-notrap}, the correlators of $s$'s counters satisfy
 $S^2 \le 8$. There is no single named theorem for this; it is the composition of
 Theorem~\ref{thm:chsh-notrap} with Theorem~\ref{thm:chsh-psd-tsirelson} (the matrix \code{state\_zero\_marginal\_npa}
 $s$ unfolds to \code{zero\_marginal\_npa} of the four state correlators). The same conclusion is
@@ -16374,7 +16623,7 @@ Theorem~\ref{thm:u25-lassert} and Lemma~\ref{lem:u25-scan}.
 
 \textbf{CHSH\_\allowbreak{}LASSERT.} The increment is $c+1$. Require trap agreement. The arithmetic
 check itself may pass or fail; retirement covers either result. Its complete
-integer predicate and its mathematical consequence are in Section~\ref{sec:chsh-derivation}.
+integer predicate and its mathematical consequence are in Appendix~\ref{sec:chsh-derivation}.
 
 \subsection{What the catalogue establishes}
 
@@ -16600,8 +16849,9 @@ Each recursive call works on a proper child of the finite input tree, or on a
 smaller numeral. Each builder takes finitely many beta steps. The induction therefore
 establishes termination as well as the value returned.
 
-The $\mathrm{mkapp}$ used in Section~\ref{sec:diagonal} is the builder $A$ here. With
-$Q$ and that builder now explicit, its self-referential term has every piece on
+The $\mathrm{mkapp}$ used in Section~\ref{sec:diagonal} is the builder $A$ here (not the
+term called $A$ in that proof). With $Q$ and that builder written out, its self-referential
+term has every piece on
 the page. The companion names are \code{mk\_app\_enc}, \code{rec\_spec}, \code{Qn\_spec} and \code{Q\_spec}
 (LRecursion.v); the construction above is the argument those names identify.
 
@@ -16958,13 +17208,34 @@ this book's pointer conjecture.
 \noindent Aristotle. Physics II.1; Metaphysics VII.3. Matter, form and substance.
 \par\medskip
 
+\noindent Gottfried Wilhelm Leibniz (1679). Letter to Christiaan Huygens, 8 September 1679, with the enclosed essay on the analysis of situation. In C. I. Gerhardt (ed.), Mathematische Schriften, vol. 2, Halle, 1850; the essay is on pp. 20--27. Huygens replied on 22 November 1679. \href{https://web.mat.upc.edu/sebastia.xambo/GA/s-leibniz.pdf}{Discussion with the dated correspondence}.
+\par\medskip
+
+\noindent Carl Huffman (2006, revised 2024). Pythagoreanism. Stanford Encyclopedia of Philosophy. \href{https://plato.stanford.edu/entries/pythagoreanism/}{Entry}. The source for the remark on Hippasus.
+\par\medskip
+
 \noindent Gottlob Frege (1884). Die Grundlagen der Arithmetik, section 64. Directions and parallel lines.
+\par\medskip
+
+\noindent Felix Klein (1872). Vergleichende Betrachtungen über neuere geometrische Forschungen (the Erlangen program). Erlangen: A. Deichert.
+\par\medskip
+
+\noindent Bertrand Russell (1902). Letter to Gottlob Frege, 16 June 1902, and Frege's reply. In Jean van Heijenoort (ed.), From Frege to Gödel: A Source Book in Mathematical Logic, 1879--1931. Harvard University Press, 1967, pp. 124--125 and 127--128. \href{https://plato.stanford.edu/entries/russell-paradox/}{Stanford Encyclopedia of Philosophy, Russell's paradox}.
+\par\medskip
+
+\noindent Ernst Zermelo (1908). Untersuchungen über die Grundlagen der Mengenlehre I. Mathematische Annalen 65(2), pp. 261--281. \href{https://doi.org/10.1007/BF01449999}{DOI: 10.1007/BF01449999}.
 \par\medskip
 
 \noindent Emmy Noether (1918). Invariante Variationsprobleme. Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse, pp. 235--257. \href{https://eudml.org/doc/59024}{Original paper, EuDML 59024}.
 \par\medskip
 
 \noindent Samuel Eilenberg and Saunders Mac Lane (1945). General Theory of Natural Equivalences. Transactions of the American Mathematical Society 58(2), pp. 231--294. \href{https://people.math.osu.edu/cogdell.1/6112-Eilenberg%26MacLane-www.pdf}{Original paper}.
+\par\medskip
+
+\noindent Alfred Tarski (1954). Contributions to the theory of models, I and II. Indagationes Mathematicae 16, pp. 572--581 and 582--588. The first part proposes the name theory of models.
+\par\medskip
+
+\noindent Paul R. Halmos (1960). Naive Set Theory. D. Van Nostrand. Section 7, Relations: equivalence relations and partitions.
 \par\medskip
 
 \noindent Jorma Rissanen (1978). Modeling by shortest data description. Automatica 14(5), pp. 465--471. \href{https://www.sciencedirect.com/science/article/abs/pii/0005109878900055}{DOI: 10.1016/0005-1098(78)90005-5}.
@@ -16979,12 +17250,87 @@ this book's pointer conjecture.
 \noindent Edmund L. Gettier (1963). Is Justified True Belief Knowledge? Analysis 23(6), pp. 121--123. \href{https://www.jstor.org/stable/3326923}{JSTOR: 3326923}.
 \par\medskip
 
+\noindent Andrei N. Kolmogorov (1965). Three approaches to the quantitative definition of information. Problems of Information Transmission 1(1), pp. 1--7; reprinted in International Journal of Computer Mathematics 2 (1968), pp. 157--168. \href{https://doi.org/10.1080/00207166808803030}{DOI of the reprint: 10.1080/00207166808803030}.
+\par\medskip
+
+\noindent David L. Parnas (1972). On the Criteria To Be Used in Decomposing Systems into Modules. Communications of the ACM 15(12), pp. 1053--1058. \href{https://doi.org/10.1145/361598.361623}{DOI: 10.1145/361598.361623}.
+\par\medskip
+
+\noindent Nikolai K. Vereshchagin and Paul M. B. Vitányi (2004). Kolmogorov's Structure Functions and Model Selection. IEEE Transactions on Information Theory 50(12), pp. 3265--3290. \href{https://arxiv.org/abs/cs/0204037}{arXiv: cs/0204037; DOI: 10.1109/TIT.2004.838346}.
+\par\medskip
+
+\noindent Wolfgang Köhler (1917). Intelligenzprüfungen an Anthropoiden. Abhandlungen der Königlich Preussischen Akademie der Wissenschaften, Physikalisch-mathematische Klasse, 1917. English translation by Ella Winter, The Mentality of Apes, London: Kegan Paul, Trench, Trubner, 1925.
+\par\medskip
+
+\noindent Karl Duncker (1945). On problem-solving. Psychological Monographs 58(5), whole no. 270. The candle problem.
+\par\medskip
+
 \subsection{Cost, records and thermodynamics}
+
+\noindent Tobias Nipkow (2015). Amortized Complexity Verified. Interactive Theorem Proving, ITP 2015, LNCS 9236, pp. 310--324. \href{https://www.proof.cit.tum.de/~nipkow/pubs/itp15.pdf}{Author paper}. Extended treatment: Tobias Nipkow and Hauke Brinkop (2019), same title, Journal of Automated Reasoning 62(3), pp. 367--391. \href{https://doi.org/10.1007/s10817-018-9459-3}{DOI: 10.1007/s10817-018-9459-3}.
+\par\medskip
+
+\noindent Arthur Charguéraud and François Pottier (2019). Verifying the Correctness and Amortized Complexity of a Union-Find Implementation in Separation Logic with Time Credits. Journal of Automated Reasoning 62, pp. 331--365; first published online in 2017. \href{https://doi.org/10.1007/s10817-017-9431-7}{DOI: 10.1007/s10817-017-9431-7}.
+\par\medskip
+
+\noindent Jan Hoffmann, Klaus Aehlig and Martin Hofmann (2011). Multivariate Amortized Resource Analysis. Proceedings of POPL 2011, pp. 357--370. \href{https://doi.org/10.1145/1926385.1926427}{DOI: 10.1145/1926385.1926427}. Journal version: ACM Transactions on Programming Languages and Systems 34(3), 2012, article 14, \href{https://doi.org/10.1145/2362389.2362393}{DOI: 10.1145/2362389.2362393}.
+\par\medskip
+
+\noindent Charles H. Bennett (1982). The thermodynamics of computation: a review. International Journal of Theoretical Physics 21, pp. 905--940. \href{https://doi.org/10.1007/BF02084158}{DOI: 10.1007/BF02084158}.
+\par\medskip
+
+\noindent O. J. E. Maroney (2009). Generalizing Landauer's Principle. Physical Review E 79, 031105. \href{https://arxiv.org/abs/quant-ph/0702094v3}{arXiv: quant-ph/0702094v3; DOI: 10.1103/PhysRevE.79.031105}.
+\par\medskip
+
+\noindent Takahiro Sagawa and Masahito Ueda (2009). Minimal Energy Cost for Thermodynamic Information Processing: Measurement and Information Erasure. Physical Review Letters 102, 250602. \href{https://arxiv.org/abs/0809.4098v3}{arXiv: 0809.4098v3; DOI: 10.1103/PhysRevLett.102.250602}. See also the erratum, Physical Review Letters 106, 189901 (2011).
+\par\medskip
+
+\noindent David H. Wolpert (2019). The stochastic thermodynamics of computation. Journal of Physics A: Mathematical and Theoretical 52, 193001. \href{https://doi.org/10.1088/1751-8121/ab0850}{DOI: 10.1088/1751-8121/ab0850; arXiv: 1905.05669}. Review of distribution-dependent costs and restrictions imposed by computational architecture.
+\par\medskip
+
+\noindent John Earman and John D. Norton (1998, 1999). Exorcist XIV: The Wrath of Maxwell's Demon. Part I: From Maxwell to Szilard, Studies in History and Philosophy of Modern Physics 29, pp. 435--471; Part II: From Szilard to Landauer and Beyond, 30, pp. 1--40. \href{https://sites.pitt.edu/~jdnorton/papers/ExorcistXIV/Exorcist1.pdf}{Part I}; \href{https://sites.pitt.edu/~jdnorton/papers/ExorcistXIV/Exorcist2.pdf}{Part II}.
+\par\medskip
+
+\noindent John D. Norton (2005). Eaters of the Lotus: Landauer's Principle and the Return of Maxwell's Demon. Studies in History and Philosophy of Modern Physics 36, pp. 375--411. \href{https://sites.pitt.edu/~jdnorton/homepage/research/Maxwell_demon.html}{Author's papers and discussion}.
+\par\medskip
+
+\noindent Arthur S. Eddington (1928). The Nature of the Physical World. Cambridge University Press. Chapter IV, The Running-Down of the Universe. \href{https://en.wikiquote.org/wiki/Arthur_Eddington}{Quotation with chapter}.
+\par\medskip
+
+\noindent Owen Maroney (2009). Information Processing and Thermodynamic Entropy. Stanford Encyclopedia of Philosophy, first published 15 September 2009. \href{https://plato.stanford.edu/entries/information-entropy/}{Entry}. It ends without a verdict on Landauer's principle.
+\par\medskip
 
 \noindent Robert Endre Tarjan (1985). Amortized Computational Complexity. SIAM Journal on Algebraic and Discrete Methods 6(2), pp. 306--318. \href{https://doi.org/10.1137/0606031}{DOI: 10.1137/0606031}.
 \par\medskip
 
+\noindent Aleksandr M. Lyapunov (1892). The general problem of the stability of motion. Doctoral thesis, Kharkov Mathematical Society (in Russian). English translation by A. T. Fuller, International Journal of Control 55(3) (1992), pp. 531--773.
+\par\medskip
+
 \noindent Yue Niu, Jonathan Sterling, Harrison Grodin and Robert Harper (2022). A Cost-Aware Logical Framework. Proceedings of the ACM on Programming Languages 6(POPL), article 9. \href{https://doi.org/10.1145/3498670}{DOI: 10.1145/3498670}.
+\par\medskip
+
+\noindent Shin-ya Katsumata (2014). Parametric effect monads and semantics of effect systems. Proceedings of POPL 2014, pp. 633--645. \href{https://doi.org/10.1145/2535838.2535846}{DOI: 10.1145/2535838.2535846}.
+\par\medskip
+
+\noindent Norman Danner, Daniel R. Licata and Ramyaa Ramyaa (2015). Denotational cost semantics for functional languages with inductive types. Proceedings of ICFP 2015, pp. 140--151. \href{https://doi.org/10.1145/2784731.2784749}{DOI: 10.1145/2784731.2784749}.
+\par\medskip
+
+\noindent Norman Danner and Daniel R. Licata (2022). Denotational semantics as a foundation for cost recurrence extraction for functional languages. Journal of Functional Programming 32. \href{https://doi.org/10.1017/S095679682200003X}{DOI: 10.1017/S095679682200003X}.
+\par\medskip
+
+\noindent Dominic Orchard, Vilem Liepelt and Harley Eades III (2019). Quantitative program reasoning with graded modal types. Proceedings of the ACM on Programming Languages 3(ICFP), article 110. \href{https://doi.org/10.1145/3341714}{DOI: 10.1145/3341714}.
+\par\medskip
+
+\noindent Roberto M. Amadio, Nicolas Ayache, François Bobot, Jaap P. Boender, Brian Campbell, Ilias Garnier, Antoine Madet, James McKinna, Dominic P. Mulligan, Mauro Piccolo, Randy Pollack, Yann Régis-Gianas, Claudio Sacerdoti Coen, Ian Stark and Paolo Tranquilli (2014). Certified Complexity (CerCo). Foundational and Practical Aspects of Resource Analysis, FOPARA 2013, LNCS 8552, pp. 1--18. \href{https://doi.org/10.1007/978-3-319-12466-7_1}{DOI: 10.1007/978-3-319-12466-7\_1}.
+\par\medskip
+
+\noindent James Clerk Maxwell (1867, 1871). Letter to Peter Guthrie Tait, 11 December 1867, printed in Cargill Gilston Knott, Life and Scientific Work of Peter Guthrie Tait, Cambridge University Press, 1911, pp. 213--214; and Theory of Heat, London: Longmans, Green, 1871, the section on the limitation of the second law of thermodynamics. \href{https://research.engineering.nyu.edu/~jbain/tcs_seminar/lectures/03.Maxwell's_Demon.pdf}{Text of the letter}.
+\par\medskip
+
+\noindent Leo Szilard (1929). Über die Entropieverminderung in einem thermodynamischen System bei Eingriffen intelligenter Wesen. Zeitschrift für Physik 53, pp. 840--856. \href{https://doi.org/10.1007/BF01341281}{DOI: 10.1007/BF01341281}.
+\par\medskip
+
+\noindent Léon Brillouin (1951). Maxwell's Demon Cannot Operate: Information and Entropy. I. Journal of Applied Physics 22(3), pp. 334--337. \href{https://doi.org/10.1063/1.1699951}{DOI: 10.1063/1.1699951}.
 \par\medskip
 
 \noindent Rolf Landauer (1961). Irreversibility and Heat Generation in the Computing Process. IBM Journal of Research and Development 5(3), pp. 183--191. \href{https://doi.org/10.1147/rd.53.0183}{DOI: 10.1147/rd.53.0183}.
@@ -16999,18 +17345,186 @@ this book's pointer conjecture.
 \noindent Takahiro Sagawa (2014). Thermodynamic and Logical Reversibilities Revisited. Journal of Statistical Mechanics: Theory and Experiment, P03025. \href{https://arxiv.org/abs/1311.1886v2}{arXiv: 1311.1886v2}.
 \par\medskip
 
-\noindent Leslie Lamport (1983). Specifying Concurrent Program Modules. ACM Transactions on Programming Languages and Systems 5(2), pp. 190--222. \href{https://www.microsoft.com/en-us/research/publication/specifying-concurrent-program-modules/}{Author publication record}.
+\noindent Antoine Bérut, Artak Arakelyan, Artyom Petrosyan, Sergio Ciliberto, Raoul Dillenschneider and Eric Lutz (2012). Experimental verification of Landauer's principle linking information and thermodynamics. Nature 483, pp. 187--189. \href{https://doi.org/10.1038/nature10872}{DOI: 10.1038/nature10872}.
+\par\medskip
+
+\noindent Shoichi Toyabe, Takahiro Sagawa, Masahito Ueda, Eiro Muneyuki and Masaki Sano (2010). Experimental demonstration of information-to-energy conversion and validation of the generalized Jarzynski equality. Nature Physics 6, pp. 988--992. \href{https://doi.org/10.1038/nphys1821}{DOI: 10.1038/nphys1821}.
+\par\medskip
+
+\noindent Carlo Rovelli (2024). The Thermodynamic Cost of Choosing. Foundations of Physics 54, article 28. \href{https://arxiv.org/abs/2309.08557}{arXiv: 2309.08557; DOI: 10.1007/s10701-024-00765-7}.
+\par\medskip
+
+\noindent Edwin T. Jaynes (1989). Clearing up Mysteries: The Original Goal. In John Skilling (ed.), Maximum Entropy and Bayesian Methods, Kluwer, pp. 1--27. \href{https://doi.org/10.1007/978-94-015-7860-8_1}{DOI: 10.1007/978-94-015-7860-8\_1}. Where the mind projection fallacy is named.
+\par\medskip
+
+\noindent Ronald L. Rivest and Adi Shamir (1982). How to reuse a write-once memory. Information and Control 55, pp. 1--19. \href{https://doi.org/10.1016/S0019-9958(82)90344-8}{DOI: 10.1016/S0019-9958(82)90344-8}.
+\par\medskip
+
+\noindent David H. Wolpert and William G. Macready (1997). No free lunch theorems for optimization. IEEE Transactions on Evolutionary Computation 1(1), pp. 67--82. \href{https://doi.org/10.1109/4235.585893}{DOI: 10.1109/4235.585893}.
+\par\medskip
+
+\noindent William G. Unruh (1976). Notes on black-hole evaporation. Physical Review D 14(4), pp. 870--892. \href{https://doi.org/10.1103/PhysRevD.14.870}{DOI: 10.1103/PhysRevD.14.870}.
+\par\medskip
+
+\noindent Ted Jacobson (1995). Thermodynamics of Spacetime: The Einstein Equation of State. Physical Review Letters 75, pp. 1260--1263. \href{https://doi.org/10.1103/PhysRevLett.75.1260}{DOI: 10.1103/PhysRevLett.75.1260}.
+\par\medskip
+
+\noindent Leslie Lamport (1978). Time, Clocks, and the Ordering of Events in a Distributed System. Communications of the ACM 21(7), pp. 558--565. \href{https://doi.org/10.1145/359545.359563}{DOI: 10.1145/359545.359563}.
+\par\medskip
+
+\noindent Robert W. Floyd (1967). Assigning Meanings to Programs. In J. T. Schwartz (ed.), Mathematical Aspects of Computer Science, Proceedings of Symposia in Applied Mathematics 19, American Mathematical Society, pp. 19--32.
+\par\medskip
+
+\noindent Alan M. Turing (1949). Checking a large routine. In Report of a Conference on High Speed Automatic Calculating Machines, University Mathematical Laboratory, Cambridge, pp. 67--69. \href{https://turingarchive.kings.cam.ac.uk/checking-large-routine}{Turing Digital Archive}. A corrected text was published by F. L. Morris and C. B. Jones, Annals of the History of Computing 6 (1984).
+\par\medskip
+
+\noindent C. A. R. Hoare (1969). An Axiomatic Basis for Computer Programming. Communications of the ACM 12(10), pp. 576--580. \href{https://doi.org/10.1145/363235.363259}{DOI: 10.1145/363235.363259}.
+\par\medskip
+
+\noindent Leslie Lamport (1983). What Good Is Temporal Logic? In R. E. A. Mason (ed.), Information Processing 83, Elsevier, pp. 657--668. \href{https://lamport.azurewebsites.net/pubs/what-good.pdf}{Author paper}. The paper that introduces invariance under stuttering.
 \par\medskip
 
 \noindent Vitalik Buterin and Virgil Griffith (2017). Casper the Friendly Finality Gadget. \href{https://arxiv.org/abs/1710.09437v1}{arXiv: 1710.09437v1}.
 \par\medskip
 
+\noindent Gavin Wood (2014). Ethereum: A Secure Decentralised Generalised Transaction Ledger (the yellow paper). \href{https://ethereum.github.io/yellowpaper/paper.pdf}{Current version}.
+\par\medskip
+
+\noindent Wei Tang (2019). EIP-2200: Structured Definitions for Net Gas Metering. Ethereum Improvement Proposals. \href{https://eips.ethereum.org/EIPS/eip-2200}{eips.ethereum.org/EIPS/eip-2200}.
+\par\medskip
+
+\noindent Vitalik Buterin and Martin Swende (2021). EIP-3529: Reduction in refunds. Ethereum Improvement Proposals. \href{https://eips.ethereum.org/EIPS/eip-3529}{eips.ethereum.org/EIPS/eip-3529}.
+\par\medskip
+
 \noindent Ben Laurie, Eran Messeri and Rob Stradling (2021). Certificate Transparency Version 2.0. RFC 9162. \href{https://www.rfc-editor.org/rfc/rfc9162.html}{RFC 9162; DOI: 10.17487/RFC9162}.
+\par\medskip
+
+\noindent Trusted Computing Group. Trusted Platform Module Library Specification, Family 2.0, Part 1: Architecture. The platform configuration registers and the extend operation. \href{https://trustedcomputinggroup.org/resource/tpm-library-specification/}{Specification page}.
+\par\medskip
+
+\noindent Ralph C. Merkle (1979). Secrecy, Authentication, and Public Key Systems. PhD thesis, Stanford University. \href{https://www.ralphmerkle.com/papers/Thesis1979.pdf}{Thesis}. Where tree authentication, now called the Merkle tree, is introduced.
+\par\medskip
+
+\noindent Cynthia Dwork and Moni Naor (1992). Pricing via Processing or Combatting Junk Mail. Advances in Cryptology, CRYPTO '92, LNCS 740 (Springer, 1993), pp. 139--147. \href{https://doi.org/10.1007/3-540-48071-4_10}{DOI: 10.1007/3-540-48071-4\_10}.
+\par\medskip
+
+\noindent Adam Back (2002). Hashcash: A Denial of Service Counter-Measure. Technical report, 1 August 2002; the scheme was first proposed in 1997. \href{http://www.hashcash.org/papers/hashcash.pdf}{Report}.
+\par\medskip
+
+\noindent Bruce Schneier and John Kelsey (1999). Secure audit logs to support computer forensics. ACM Transactions on Information and System Security 2(2), pp. 159--176. \href{https://doi.org/10.1145/317087.317089}{DOI: 10.1145/317087.317089}.
+\par\medskip
+
+\noindent Fox-IT (2012). Black Tulip: Report of the investigation into the DigiNotar Certificate Authority breach. Version 1.0. \href{https://roselabs.nl/files/audit_reports/Fox-IT_-_DigiNotar.pdf}{Report}.
+\par\medskip
+
+\noindent Denise Schmandt-Besserat (1992). Before Writing, volume 1: From Counting to Cuneiform. University of Texas Press.
+\par\medskip
+
+\noindent Deuteronomy 19:15. Two or three witnesses for a conviction. \href{https://www.biblegateway.com/passage/?search=Deuteronomy+19:15&version=NRSV}{NRSV text}.
+\par\medskip
+
+\noindent Gaius. Institutes, book 2, section 147 (second century). A will sealed by seven witnesses. \href{https://droitromain.univ-grenoble-alpes.fr/Anglica/gai2_Poste.htm}{Text and translation}.
+\par\medskip
+
+\noindent Michael T. Clanchy (1979). From Memory to Written Record: England 1066--1307. London: Edward Arnold; third edition, Wiley-Blackwell, 2012.
+\par\medskip
+
+\noindent Luca Pacioli (1494). Summa de arithmetica, geometria, proportioni et proportionalità. Venice. The bookkeeping treatise is Distinctio IX, Tractatus XI, Particularis de computis et scripturis.
+\par\medskip
+
+\noindent Geoffrey A. Lee (1977). The Coming of Age of Double Entry: The Giovanni Farolfi Ledger of 1299--1300. Accounting Historians Journal 4(2), pp. 79--96. \href{https://doi.org/10.2308/0148-4184.4.2.79}{DOI: 10.2308/0148-4184.4.2.79}.
+\par\medskip
+
+\noindent Forrester. Books as Evidence, before and after Pacioli (1494 AD). Paper on the University of Strathclyde accounting history pages; the page gives no initials or date. \href{http://www.cs.trinity.edu/rjensen/readings/history/forrester/a01before1494AD.htm}{Mirror of the paper}.
+\par\medskip
+
+\noindent Steven Shapin (1984). Pump and Circumstance: Robert Boyle's Literary Technology. Social Studies of Science 14(4), pp. 481--520. \href{https://doi.org/10.1177/030631284014004001}{DOI: 10.1177/030631284014004001}.
 \par\medskip
 
 \subsection{Computation, self-reference and checking}
 
+\noindent Edward F. Moore (1956). Gedanken-Experiments on Sequential Machines. In Claude E. Shannon and John McCarthy (eds.), Automata Studies, pp. 129--153. Princeton University Press. \href{https://www.cs.cmu.edu/~cdm/resources/Moore1956-gedanken-experiments.pdf}{Original paper}.
+\par\medskip
+
+\noindent Rudolf E. Kalman (1960). Contributions to the Theory of Optimal Control. Boletín de la Sociedad Matemática Mexicana 5, pp. 102--119. \href{https://liberzon.csl.illinois.edu/teaching/kalman_paper.pdf}{Reprinted paper}.
+\par\medskip
+
+\noindent Patrick Cousot and Radhia Cousot (1977). Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints. Proceedings of POPL 1977, pp. 238--252. \href{https://cs.nyu.edu/~pcousot/COUSOTpapers/POPL77.shtml}{Author publication record and paper}.
+\par\medskip
+
+\noindent Roberto Giacobazzi, Francesco Ranzato and Francesca Scozzari (2000). Making abstract interpretations complete. Journal of the ACM 47(2), pp. 361--416. \href{https://profs.sci.univr.it/~giaco/papers.html}{Author publication record}.
+\par\medskip
+
+\noindent Edgar F. Codd (1970). A Relational Model of Data for Large Shared Data Banks. Communications of the ACM 13(6), pp. 377--387. \href{https://doi.org/10.1145/362384.362685}{DOI: 10.1145/362384.362685}.
+\par\medskip
+
+\noindent François Bancilhon and Nicolas Spyratos (1981). Update semantics of relational views. ACM Transactions on Database Systems 6(4), pp. 557--575. \href{https://doi.org/10.1145/319628.319634}{DOI: 10.1145/319628.319634}.
+\par\medskip
+
+\noindent William Henry Eccles and Frank Wilfred Jordan. Improvements in ionic relays. British patent GB148582A, filed 21 June 1918, published 5 August 1920. \href{https://patents.google.com/patent/GB148582A/en}{Patent text}. The 1918 date in the text is the filing date.
+\par\medskip
+
+\noindent Serge A. Plotkin (1989). Sticky Bits and Universality of Consensus. Proceedings of PODC 1989, pp. 159--175. \href{https://doi.org/10.1145/72981.72992}{DOI: 10.1145/72981.72992}.
+\par\medskip
+
+\noindent Marc Shapiro, Nuno Preguiça, Carlos Baquero and Marek Zawirski (2011). A comprehensive study of Convergent and Commutative Replicated Data Types. INRIA Research Report RR-7506. \href{https://inria.hal.science/inria-00555588}{HAL: inria-00555588}.
+\par\medskip
+
+\noindent Martín Abadi and Leslie Lamport (1991). The Existence of Refinement Mappings. Theoretical Computer Science 82(2), pp. 253--284. Earlier versions appeared at LICS 1988 and as SRC Research Report 29. \href{https://lamport.azurewebsites.net/pubs/abadi-existence.pdf}{Author report}; \href{https://doi.org/10.1016/0304-3975(91)90224-P}{DOI: 10.1016/0304-3975(91)90224-P}.
+\par\medskip
+
+\noindent F. William Lawvere (1969). Diagonal arguments and cartesian closed categories. Lecture Notes in Mathematics 92, pp. 134--145. Reprinted with author commentary in Reprints in Theory and Applications of Categories 15 (2006), pp. 1--13. \href{https://www.tac.mta.ca/tac/reprints/articles/15/tr15abs.html}{Authorized reprint}.
+\par\medskip
+
+\noindent Noson S. Yanofsky (2003). A Universal Approach to Self-Referential Paradoxes, Incompleteness and Fixed Points. Bulletin of Symbolic Logic 9(3), pp. 362--386. \href{https://arxiv.org/abs/math/0305282}{arXiv: math/0305282; DOI: 10.2178/bsl/1058448677}.
+\par\medskip
+
+\noindent Georg Cantor (1891). Über eine elementare Frage der Mannigfaltigkeitslehre. Jahresbericht der Deutschen Mathematiker-Vereinigung 1, pp. 75--78.
+\par\medskip
+
+\noindent Jules Richard (1905). Les principes des mathématiques et le problème des ensembles. Revue générale des sciences pures et appliquées 16(12), pp. 541--543. English translation in Jean van Heijenoort (ed.), From Frege to Gödel, Harvard University Press, 1967, pp. 142--144.
+\par\medskip
+
+\noindent Kurt Gödel (1931). Über formal unentscheidbare Sätze der Principia Mathematica und verwandter Systeme I. Monatshefte für Mathematik und Physik 38, pp. 173--198. \href{https://doi.org/10.1007/BF01700692}{DOI: 10.1007/BF01700692}.
+\par\medskip
+
+\noindent J. Barkley Rosser (1936). Extensions of some theorems of Gödel and Church. Journal of Symbolic Logic 1(3), pp. 87--91. \href{https://doi.org/10.2307/2269028}{DOI: 10.2307/2269028}.
+\par\medskip
+
+\noindent Alonzo Church (1936). An Unsolvable Problem of Elementary Number Theory. American Journal of Mathematics 58(2), pp. 345--363. \href{https://doi.org/10.2307/2371045}{DOI: 10.2307/2371045}.
+\par\medskip
+
+\noindent Panu Raatikainen (2013, revised 2025). Gödel's Incompleteness Theorems. Stanford Encyclopedia of Philosophy. \href{https://plato.stanford.edu/entries/goedel-incompleteness/}{Entry}. Source for the cautions about what the Gödel sentence says.
+\par\medskip
+
+\noindent Michael Norrish (2011). Mechanised Computability Theory. Interactive Theorem Proving, ITP 2011, LNCS 6898, pp. 297--311. \href{https://trustworthy.systems/publications/nicta_full_text/4837.pdf}{Author paper}; \href{https://doi.org/10.1007/978-3-642-22863-6_22}{DOI: 10.1007/978-3-642-22863-6\_22}.
+\par\medskip
+
+\noindent Mario Carneiro (2019). Formalizing computability theory via partial recursive functions. Interactive Theorem Proving, ITP 2019, LIPIcs 141, article 12. \href{https://arxiv.org/abs/1810.08380}{arXiv: 1810.08380; DOI: 10.4230/LIPIcs.ITP.2019.12}.
+\par\medskip
+
+\noindent James C. Hoe and Arvind (2000). Synthesis of operation-centric hardware descriptions. Proceedings of ICCAD 2000, pp. 511--518. \href{https://doi.org/10.1109/ICCAD.2000.896524}{DOI: 10.1109/ICCAD.2000.896524}.
+\par\medskip
+
+\noindent Rishiyur S. Nikhil (2004). Bluespec System Verilog: efficient, correct RTL from high level specifications. Proceedings of MEMOCODE 2004, pp. 69--70. \href{https://doi.org/10.1109/MEMCOD.2004.1459818}{DOI: 10.1109/MEMCOD.2004.1459818}.
+\par\medskip
+
+\noindent Thomas Bourgeat, Clément Pit-Claudel, Adam Chlipala and Arvind (2020). The Essence of Bluespec: A Core Language for Rule-Based Hardware Design. Proceedings of PLDI 2020, pp. 243--257. \href{https://adam.chlipala.net/papers/KoikaPLDI20/}{Author paper and publication record}; \href{https://doi.org/10.1145/3385412.3385965}{DOI: 10.1145/3385412.3385965}. The core language is Kôika.
+\par\medskip
+
+\noindent Andres Erbsen, Samuel Gruetter, Joonwon Choi, Clark Wood and Adam Chlipala (2021). Integration Verification Across Software and Hardware for a Simple Embedded System. Proceedings of PLDI 2021, pp. 604--619. \href{https://adam.chlipala.net/papers/LightbulbPLDI21/}{Author paper}; \href{https://doi.org/10.1145/3453483.3454065}{DOI: 10.1145/3453483.3454065}.
+\par\medskip
+
+\noindent Andreas Lööw, Ramana Kumar, Yong Kiam Tan, Magnus O. Myreen, Michael Norrish, Oskar Abrahamsson and Anthony Fox (2019). Verified compilation on a verified processor. Proceedings of PLDI 2019, pp. 1041--1053. \href{https://www.cakeml.org/publications.html}{CakeML publication record and paper}; \href{https://doi.org/10.1145/3314221.3314622}{DOI: 10.1145/3314221.3314622}. The processor is Silver.
+\par\medskip
+
 \noindent Alan M. Turing (1936--1937). On Computable Numbers, with an Application to the Entscheidungsproblem. Proceedings of the London Mathematical Society, series 2, volume 42, pp. 230--265. \href{https://doi.org/10.1112/plms/s2-42.1.230}{DOI: 10.1112/plms/s2-42.1.230}.
+\par\medskip
+
+\noindent Stephen Cole Kleene (1938). On notation for ordinal numbers. Journal of Symbolic Logic 3(4), pp. 150--155. \href{https://doi.org/10.2307/2267778}{DOI: 10.2307/2267778}. The second recursion theorem is stated and proved at the end of section 2.
+\par\medskip
+
+\noindent Joel David Hamkins and Theodor Nenu (2026). Did Turing prove the undecidability of the halting problem? Journal of Logic and Computation 36(1), exaf075. \href{https://doi.org/10.1093/logcom/exaf075}{DOI: 10.1093/logcom/exaf075; arXiv: 2407.00680}.
 \par\medskip
 
 \noindent Stephen Cole Kleene (1952). Introduction to Metamathematics. North-Holland and D. Van Nostrand. Partial recursive functions, parameterisation and recursion theorems.
@@ -17022,16 +17536,28 @@ this book's pointer conjecture.
 \noindent Marvin L. Minsky (1961). Recursive Unsolvability of Post's Problem of Tag and Other Topics in Theory of Turing Machines. Annals of Mathematics 74(3), pp. 437--455. \href{https://wolframscience.com/prizes/tm23/images/Minsky.pdf}{Original paper; DOI: 10.2307/1970290}.
 \par\medskip
 
+\noindent Marvin L. Minsky (1967). Computation: Finite and Infinite Machines. Prentice-Hall. Two-counter machines are universal, so their halting problem is undecidable.
+\par\medskip
+
 \noindent Stephen A. Cook and Robert A. Reckhow (1973). Time bounded random access machines. Journal of Computer and System Sciences 7(4), pp. 354--375. \href{https://www.sciencedirect.com/science/article/pii/S0022000073800297}{DOI: 10.1016/S0022-0000(73)80029-7}.
 \par\medskip
 
 \noindent Yiannis N. Moschovakis (2009). Kleene's Amazing Second Recursion Theorem. Computer Science Logic, LNCS 5771, pp. 24--39. \href{https://www.math.ucla.edu/~ynm/lectures/2009csl.pdf}{Author lecture text}.
 \par\medskip
 
-\noindent Yannick Forster and Gert Smolka (2017). Weak Call-by-Value Lambda Calculus as a Model of Computation in Coq. Interactive Theorem Proving, ITP 2017. \href{https://www.ps.uni-saarland.de/Publications/documents/ForsterSmolka_2017_L-Computability.pdf}{Author paper}.
+\noindent Yannick Forster and Gert Smolka (2017). Weak Call-by-Value Lambda Calculus as a Model of Computation in Coq. Interactive Theorem Proving, ITP 2017, LNCS 10499, pp. 189--206. \href{https://www.ps.uni-saarland.de/Publications/documents/ForsterSmolka_2017_L-Computability.pdf}{Author paper}; \href{https://doi.org/10.1007/978-3-319-66107-0_13}{DOI: 10.1007/978-3-319-66107-0\_13}.
 \par\medskip
 
-\noindent Yannick Forster, Dominik Kirst and Gert Smolka (2019). On Synthetic Undecidability in Coq, with an Application to the Entscheidungsproblem. Certified Programs and Proofs, CPP 2019. \href{https://popl19.sigplan.org/details/CPP-2019/17/On-Synthetic-Undecidability-in-Coq-with-an-Application-to-the-Entscheidungsproblem}{Conference publication record}.
+\noindent Yannick Forster, Dominik Kirst and Gert Smolka (2019). On Synthetic Undecidability in Coq, with an Application to the Entscheidungsproblem. Certified Programs and Proofs, CPP 2019, pp. 38--51. \href{https://doi.org/10.1145/3293880.3294091}{DOI: 10.1145/3293880.3294091}.
+\par\medskip
+
+\noindent Yannick Forster and Dominique Larchey-Wendling (2019). Certified undecidability of intuitionistic linear logic via binary stack machines and Minsky machines. Certified Programs and Proofs, CPP 2019, pp. 104--117. \href{https://doi.org/10.1145/3293880.3294096}{DOI: 10.1145/3293880.3294096}.
+\par\medskip
+
+\noindent Yannick Forster and Fabian Kunze (2019). A Certifying Extraction with Time Bounds from Coq to Call-By-Value Lambda Calculus. Interactive Theorem Proving, ITP 2019, LIPIcs 141, article 17. \href{https://doi.org/10.4230/LIPIcs.ITP.2019.17}{DOI: 10.4230/LIPIcs.ITP.2019.17}.
+\par\medskip
+
+\noindent Yannick Forster, Dominique Larchey-Wendling, Andrej Dudenhefner, Edith Heiter, Dominik Kirst, Fabian Kunze, Gert Smolka, Simon Spies, Dominik Wehr and Maximilian Wuttke (2020). A Coq Library of Undecidable Problems. The Sixth International Workshop on Coq for Programming Languages, CoqPL 2020. \href{https://popl20.sigplan.org/details/CoqPL-2020-papers/5/A-Coq-Library-of-Undecidable-Problems}{Workshop record}. The library itself is the Coq Library of Undecidability Proofs, \href{https://github.com/uds-psl/coq-library-undecidability}{repository}.
 \par\medskip
 
 \noindent Andrej Dudenhefner (2022). Certified Decision Procedures for Two-Counter Machines. FSCD 2022, LIPIcs 228, article 16. The successful-decrement jump convention used in the counter guest. \href{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.FSCD.2022.16}{DOI: 10.4230/LIPIcs.FSCD.2022.16}.
@@ -17040,18 +17566,93 @@ this book's pointer conjecture.
 \noindent Gabriel C. Necula (1997). Proof-Carrying Code. Proceedings of POPL 1997, pp. 106--119. \href{https://people.eecs.berkeley.edu/~necula/papers.html}{Author publication list}.
 \par\medskip
 
+\noindent Stephen A. Cook (1971). The complexity of theorem-proving procedures. Proceedings of STOC 1971, pp. 151--158. \href{https://doi.org/10.1145/800157.805047}{DOI: 10.1145/800157.805047}.
+\par\medskip
+
+\noindent Leonid A. Levin (1973). Universal sequential search problems. Problemy Peredachi Informatsii 9(3), pp. 115--116; English translation in Problems of Information Transmission 9(3), pp. 265--266. \href{https://www.mathnet.ru/eng/ppi914}{Record}.
+\par\medskip
+
+\noindent Ross M. McConnell, Kurt Mehlhorn, Stefan Näher and Pascal Schweitzer (2011). Certifying algorithms. Computer Science Review 5(2), pp. 119--161. \href{https://doi.org/10.1016/j.cosrev.2010.09.009}{DOI: 10.1016/j.cosrev.2010.09.009}.
+\par\medskip
+
+\noindent Jean-Yves Girard (1987). Linear logic. Theoretical Computer Science 50(1), pp. 1--101. \href{https://doi.org/10.1016/0304-3975(87)90045-4}{DOI: 10.1016/0304-3975(87)90045-4}.
+\par\medskip
+
+\noindent Andrew W. Appel (2001). Foundational proof-carrying code. Proceedings of LICS 2001, pp. 247--256. \href{https://doi.org/10.1109/LICS.2001.932501}{DOI: 10.1109/LICS.2001.932501}.
+\par\medskip
+
+\noindent Kohei Honda (1993). Types for dyadic interaction. CONCUR '93, LNCS 715, pp. 509--523. \href{https://doi.org/10.1007/3-540-57208-2_35}{DOI: 10.1007/3-540-57208-2\_35}.
+\par\medskip
+
+\noindent Geoffrey Smith (2009). On the foundations of quantitative information flow. Foundations of Software Science and Computational Structures, FoSSaCS 2009, LNCS 5504, pp. 288--302. \href{https://doi.org/10.1007/978-3-642-00596-1_21}{DOI: 10.1007/978-3-642-00596-1\_21}.
+\par\medskip
+
+\noindent Ken Thompson (1984). Reflections on Trusting Trust. Communications of the ACM 27(8), pp. 761--763. Delivered as the 1983 Turing Award lecture. \href{https://doi.org/10.1145/358198.358210}{DOI: 10.1145/358198.358210}.
+\par\medskip
+
+\noindent Xavier Leroy (2009). Formal verification of a realistic compiler. Communications of the ACM 52(7), pp. 107--115. \href{https://doi.org/10.1145/1538788.1538814}{DOI: 10.1145/1538788.1538814}.
+\par\medskip
+
+\noindent Gerwin Klein, Kevin Elphinstone, Gernot Heiser, June Andronick, David Cock, Philip Derrin, Dhammika Elkaduwe, Kai Engelhardt, Rafal Kolanski, Michael Norrish, Thomas Sewell, Harvey Tuch and Simon Winwood (2009). seL4: formal verification of an OS kernel. Proceedings of SOSP 2009, pp. 207--220. \href{https://doi.org/10.1145/1629575.1629596}{DOI: 10.1145/1629575.1629596}.
+\par\medskip
+
+\noindent Georges Gonthier (2008). Formal proof: the four-color theorem. Notices of the American Mathematical Society 55(11), pp. 1382--1393. The Coq proof was completed in 2005.
+\par\medskip
+
+\noindent Pierre Letouzey (2003). A new extraction for Coq. Types for Proofs and Programs, TYPES 2002, LNCS 2646, pp. 200--219. \href{https://doi.org/10.1007/3-540-39185-1_12}{DOI: 10.1007/3-540-39185-1\_12}.
+\par\medskip
+
 \noindent Joonwon Choi, Muralidaran Vijayaraghavan, Benjamin Sherman, Adam Chlipala and Arvind (2017). Kami: A Platform for High-Level Parametric Hardware Specification and Its Modular Verification. Proceedings of the ACM on Programming Languages 1(ICFP), article 24. \href{https://adam.chlipala.net/papers/KamiICFP17/}{DOI: 10.1145/3110268}.
 \par\medskip
 
 \subsection{Correlations and environmental records}
 
+\noindent Stephanie Wehner (2006). Tsirelson bounds for generalized Clauser-Horne-Shimony-Holt inequalities. Physical Review A 73, 022110. \href{https://arxiv.org/abs/quant-ph/0510076v2}{arXiv: quant-ph/0510076v2; DOI: 10.1103/PhysRevA.73.022110}.
+\par\medskip
+
+\noindent Lawrence J. Landau (1988). Empirical two-point correlation functions. Foundations of Physics 18, pp. 449--460. \href{https://link.springer.com/article/10.1007/BF00732549}{DOI: 10.1007/BF00732549}.
+\par\medskip
+
+\noindent Mnacho Echenim and Mehdi Mhalla (2023). A formalization of the CHSH inequality and Tsirelson's upper-bound in Isabelle/HOL. Journal of Automated Reasoning 68(1), article 2 (print 2024). \href{https://arxiv.org/abs/2306.12535v1}{arXiv: 2306.12535v1}; \href{https://doi.org/10.1007/s10817-023-09689-9}{DOI: 10.1007/s10817-023-09689-9}.
+\par\medskip
+
+\noindent The mathlib Community (2020). The Lean mathematical library. Certified Programs and Proofs, CPP 2020, pp. 367--381. \href{https://doi.org/10.1145/3372885.3373824}{DOI: 10.1145/3372885.3373824}. The CHSH and Tsirelson inequalities for star-algebras are in \href{https://leanprover-community.github.io/mathlib4_docs/Mathlib/Algebra/Star/CHSH.html}{Mathlib.Algebra.Star.CHSH}.
+\par\medskip
+
+\noindent Helfried Peyrl and Pablo A. Parrilo (2008). Computing sum of squares decompositions with rational coefficients. Theoretical Computer Science 409(2), pp. 269--281. \href{https://www.mit.edu/~parrilo/pubs/files/PeyrlParrilo-ComputingSumOfSquaresDecompositionsWithRationalCoefficients.pdf}{Author paper; DOI: 10.1016/j.tcs.2008.09.025}.
+\par\medskip
+
+\noindent Albert Einstein, Boris Podolsky and Nathan Rosen (1935). Can Quantum-Mechanical Description of Physical Reality Be Considered Complete? Physical Review 47, pp. 777--780. \href{https://doi.org/10.1103/PhysRev.47.777}{DOI: 10.1103/PhysRev.47.777}.
+\par\medskip
+
+\noindent John S. Bell (1964). On the Einstein Podolsky Rosen paradox. Physics Physique Fizika 1(3), pp. 195--200. \href{https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195}{DOI: 10.1103/PhysicsPhysiqueFizika.1.195}.
+\par\medskip
+
 \noindent John F. Clauser, Michael A. Horne, Abner Shimony and Richard A. Holt (1969). Proposed Experiment to Test Local Hidden-Variable Theories. Physical Review Letters 23, pp. 880--884. \href{https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.23.880}{DOI: 10.1103/PhysRevLett.23.880}.
+\par\medskip
+
+\noindent Stuart J. Freedman and John F. Clauser (1972). Experimental Test of Local Hidden-Variable Theories. Physical Review Letters 28, pp. 938--941. \href{https://doi.org/10.1103/PhysRevLett.28.938}{DOI: 10.1103/PhysRevLett.28.938}.
+\par\medskip
+
+\noindent Alain Aspect, Jean Dalibard and Gérard Roger (1982). Experimental Test of Bell's Inequalities Using Time-Varying Analyzers. Physical Review Letters 49, pp. 1804--1807. \href{https://doi.org/10.1103/PhysRevLett.49.1804}{DOI: 10.1103/PhysRevLett.49.1804}.
+\par\medskip
+
+\noindent B. Hensen and 18 coauthors (2015). Loophole-free Bell inequality violation using electron spins separated by 1.3 kilometres. Nature 526, pp. 682--686. \href{https://doi.org/10.1038/nature15759}{DOI: 10.1038/nature15759}.
+\par\medskip
+
+\noindent Marissa Giustina and 21 coauthors (2015). Significant-Loophole-Free Test of Bell's Theorem with Entangled Photons. Physical Review Letters 115, 250401. \href{https://doi.org/10.1103/PhysRevLett.115.250401}{DOI: 10.1103/PhysRevLett.115.250401}.
+\par\medskip
+
+\noindent Lynden K. Shalm and 33 coauthors (2015). Strong Loophole-Free Test of Local Realism. Physical Review Letters 115, 250402. \href{https://doi.org/10.1103/PhysRevLett.115.250402}{DOI: 10.1103/PhysRevLett.115.250402}.
 \par\medskip
 
 \noindent Boris S. Cirel'son (Tsirelson) (1980). Quantum generalizations of Bell's inequality. Letters in Mathematical Physics 4, pp. 93--100. \href{https://doi.org/10.1007/BF00417500}{DOI: 10.1007/BF00417500}.
 \par\medskip
 
 \noindent Arthur Fine (1982). Hidden Variables, Joint Probability, and the Bell Inequalities. Physical Review Letters 48, pp. 291--295. \href{https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.48.291}{DOI: 10.1103/PhysRevLett.48.291}.
+\par\medskip
+
+\noindent Sandu Popescu and Daniel Rohrlich (1994). Quantum nonlocality as an axiom. Foundations of Physics 24, pp. 379--385. \href{https://doi.org/10.1007/BF02058098}{DOI: 10.1007/BF02058098}.
 \par\medskip
 
 \noindent Lluís Masanes (2003). Necessary and sufficient condition for quantum-generated correlations. \href{https://arxiv.org/abs/quant-ph/0309137v1}{arXiv: quant-ph/0309137v1}.
@@ -17063,7 +17664,13 @@ this book's pointer conjecture.
 \noindent Miguel Navascués, Stefano Pironio and Antonio Acín (2008). A convergent hierarchy of semidefinite programs characterizing the set of quantum correlations. New Journal of Physics 10, 073013. \href{https://arxiv.org/abs/0803.4290v1}{arXiv: 0803.4290v1}.
 \par\medskip
 
+\noindent Wojciech H. Zurek (1981). Pointer basis of quantum apparatus: Into what mixture does the wave packet collapse? Physical Review D 24(6), pp. 1516--1525. \href{https://doi.org/10.1103/PhysRevD.24.1516}{DOI: 10.1103/PhysRevD.24.1516}.
+\par\medskip
+
 \noindent Harold Ollivier, David Poulin and Wojciech H. Zurek (2004). Objective Properties from Subjective Quantum States: Environment as a Witness. Physical Review Letters 93, 220401. \href{https://arxiv.org/abs/quant-ph/0307229v2}{arXiv: quant-ph/0307229v2}.
+\par\medskip
+
+\noindent Robin Blume-Kohout and Wojciech H. Zurek (2006). Quantum Darwinism: Entanglement, branches, and the emergent classicality of redundantly stored quantum information. Physical Review A 73, 062310. \href{https://arxiv.org/abs/quant-ph/0505031}{arXiv: quant-ph/0505031; DOI: 10.1103/PhysRevA.73.062310}.
 \par\medskip
 
 \noindent Wojciech H. Zurek (2009). Quantum Darwinism. Nature Physics 5, pp. 181--188. \href{https://arxiv.org/abs/0903.5082v1}{DOI: 10.1038/nphys1202; arXiv: 0903.5082v1}.
