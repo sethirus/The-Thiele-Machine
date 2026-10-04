@@ -11,3 +11,11 @@ Both files retain their upstream Apache-2.0 copyright/license headers and are
 unmodified. The board gate-simulation harness replaces only the empty Yosys
 RAMB36E1 declaration with this vendor behavioral model. This does not change
 the synthesized netlist, and simulation is not physical board/timing sign-off.
+
+Verilator compatibility: board_gls.py generates a temporary model copy in which
+only seven constant GSR procedural assign/deassign pairs on output variables
+become force/release pairs. There are no competing procedural continuous or
+force drivers on these variables; both forms override until release and retain
+the value until the next procedural update. The original vendor files remain
+byte-for-byte unchanged. Tests run reset, full-word and byte-masked readback
+against both forms under Icarus, and the adapted form under Verilator.

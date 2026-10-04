@@ -143,7 +143,7 @@ def test_block_ram_rejects_unsupported_write_contract(tmp_path, change):
 
 def test_failed_simulator_output_is_visible(capsys):
     with pytest.raises(subprocess.CalledProcessError):
-        board_gls.run([sys.executable, "-c", "import sys; print('simulator cause'); sys.exit(2)"])
+        board_gls.run([sys.executable, "-c", "import sys; sys.stdout.write('simulator cause'); sys.exit(2)"])
     assert "simulator cause" in capsys.readouterr().err
 
 
@@ -161,10 +161,11 @@ def test_gate_cell_library_replaces_the_empty_bram_declaration(tmp_path, monkeyp
 
 
 @pytest.mark.strict_rtl
-@pytest.mark.parametrize("sim", ["iverilog", "verilator"])
+@pytest.mark.parametrize("sim", ["iverilog", "iverilog_compat", "verilator"])
 def test_vendor_block_ram_stores_and_reads_the_synthesized_sdp72_mode(tmp_path, sim):
-    if shutil.which(sim) is None:
-        pytest.skip(f"{sim} not installed")
+    compiler = "iverilog" if sim == "iverilog_compat" else sim
+    if shutil.which(compiler) is None:
+        pytest.skip(f"{compiler} not installed")
     tb = tmp_path / "bram_tb.v"
     tb.write_text(r"""
 `timescale 1ns/1ps
@@ -188,19 +189,27 @@ module bram_tb;
     .RSTREGARSTREG(1'b0), .RSTREGB(1'b0), .CASCADEINA(1'b0), .CASCADEINB(1'b0),
     .INJECTDBITERR(1'b0), .INJECTSBITERR(1'b0));
   initial begin
-    #200;
-    @(negedge clk); din = 64'hfedcba9876543210; parity = 8'h5a; we = 8'hff;
+    #25;
+    if (dout !== 0 || pout !== 0) $fatal(1, "GSR reset mismatch");
+    #175;
+    @(negedge clk); din = 64'hfedcba9876543210; parity = 8'h5b; we = 8'hff;
     @(negedge clk); we = 0;
     repeat (2) @(negedge clk);
     if (dout !== din || pout !== parity) $fatal(1, "SDP72 readback mismatch %h %h", dout, pout);
+    @(negedge clk); din = 64'haa; parity = 0; we = 1;
+    @(negedge clk); we = 0;
+    repeat (2) @(negedge clk);
+    if (dout !== 64'hfedcba98765432aa || pout !== 8'h5a)
+      $fatal(1, "SDP72 byte-mask mismatch %h %h", dout, pout);
     $display("BRAM_PASS"); $finish;
   end
   initial begin #1000; $fatal(1, "BRAM timeout"); end
 endmodule
 """)
-    sources = [str(tb), str(board_gls.XILINX_MODELS / "RAMB36E1.v"),
+    model_sim = "verilator" if sim in ("verilator", "iverilog_compat") else "iverilog"
+    sources = [str(tb), str(board_gls.bram_model_source(tmp_path, model_sim)),
                str(board_gls.XILINX_MODELS / "glbl.v")]
-    if sim == "iverilog":
+    if compiler == "iverilog":
         exe = tmp_path / "bram.vvp"
         cmd = ["iverilog", "-g2012", "-s", "bram_tb", "-o", str(exe), *sources]
         binary = ["vvp", str(exe)]
