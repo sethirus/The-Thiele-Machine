@@ -64,12 +64,12 @@ def run_task(task: str) -> bool:
     if workdir.exists():
         shutil.rmtree(workdir)
     # The [files] entries in thiele.sby are relative to formal/, not the caller.
+    # Stream solver progress so a long proof does not look like a hung job.
+    # SymbiYosys also keeps the full logs in workdir for artifact upload.
     proc = subprocess.run(["sby", "-d", str(workdir), str(FORMAL / "thiele.sby"), task],
-                          cwd=FORMAL, capture_output=True, text=True)
-    sys.stdout.write(proc.stdout[-6000:])
-    sys.stderr.write(proc.stderr[-6000:])
+                          cwd=FORMAL, capture_output=False, text=True)
     status = (workdir / "status").read_text().strip() if (workdir / "status").exists() else ""
-    print(f"[formal] {task}: {status or 'no status'} (sby exit {proc.returncode})")
+    print(f"[formal] {task}: {status or 'no status'} (sby exit {proc.returncode})", flush=True)
     return proc.returncode == 0 and status.startswith("PASS")
 
 

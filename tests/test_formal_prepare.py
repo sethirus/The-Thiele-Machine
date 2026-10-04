@@ -22,6 +22,7 @@ def test_sby_resolves_inputs_from_its_configuration_directory(tmp_path, monkeypa
     monkeypatch.setattr(MODULE, "OUT", out)
 
     def fake_sby(args, *, cwd, capture_output, text):
+        assert not capture_output, "solver progress must reach the CI log while running"
         # Model sby's resolution of [files] against its process working directory.
         config = Path(args[-2]).read_text()
         for name in config.split("[files]\n", 1)[1].splitlines():

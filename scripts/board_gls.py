@@ -721,7 +721,15 @@ def main() -> int:
     ratio = mmcm_ratio(wrapper_mmcm_params())
     defines = {"GLS_MMCM_RATIO": ratio}
     failures: list[str] = []
-    summary: dict = {"mmcm_ratio": ratio, "programs": {}}
+    summary: dict = {"mmcm_ratio": ratio, "programs": {},
+                     "planned_programs": list(names), "complete": False}
+
+    def save_progress():
+        if args.report:
+            args.report.parent.mkdir(parents=True, exist_ok=True)
+            args.report.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+
+    save_progress()
 
     with tempfile.TemporaryDirectory() as tmp:
         work = Path(tmp)
@@ -793,7 +801,7 @@ def main() -> int:
             summary["cell_types"] = types
             summary["absent_in_netlist"] = missing
             print(f"[board-gls] netlist {summary['netlist_sha256'][:16]}: {sum(types.values())} cells; "
-                  f"absent fields: {missing or 'none'}")
+                  f"absent fields: {missing or 'none'}", flush=True)
             req = [m for m in missing if m.endswith("(required)")]
             if req:
                 raise SystemExit(f"required fields not observable in the netlist: {req}")
@@ -803,6 +811,9 @@ def main() -> int:
             gate_bin = build_sim("gates", [*gate_cell_sources(work), gv], gate_defines, work, args.sim)
 
         for name in names:
+            summary["current_program"] = name
+            save_progress()
+            print(f"[board-gls] starting {name}", flush=True)
             prog = PROGRAMS[name]
             stream = program_stream(prog["cpu"])
             errs: list[str] = []
@@ -846,9 +857,10 @@ def main() -> int:
                 result["rtl_view"] = {k: v for k, v in cv.items() if k != "mem"}
                 result["vm_view"] = {k: v for k, v in vm.items() if k != "mem"}
             summary["programs"][name] = {"ok": not errs, "errors": errs, **result}
-            print(f"[board-gls] {name}: {'agree' if not errs else 'DISAGREE'}")
+            save_progress()
+            print(f"[board-gls] {name}: {'agree' if not errs else 'DISAGREE'}", flush=True)
             for e in errs:
-                print(f"    {e}")
+                print(f"    {e}", flush=True)
             failures += errs
 
     if args.props:
@@ -859,8 +871,10 @@ def main() -> int:
         if args.program is None and missed:
             failures.append(f"covers not reached by the program set: {missed}")
             print(f"    covers not reached: {missed}")
-    if args.report:
-        args.report.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    summary["complete"] = True
+    summary["ok"] = not failures
+    summary.pop("current_program", None)
+    save_progress()
     return 1 if failures else 0
 
 
