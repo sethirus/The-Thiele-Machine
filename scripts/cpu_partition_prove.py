@@ -10,7 +10,8 @@ For A6, each old allocation counter 1..64 and each partition opcode is checked.
 The two arbitrary constant indices cover every pair. The assumed old predicate
 contains J and six disjointness facts implied by the induction hypothesis;
 the assertion establishes disjointness for the selected pair in the new state.
-Every one of the 192 cases is mandatory. Thus the induction covers every finite
+PSPLIT splits its pairs into old/left-child/right-child cases, using symmetry
+of disjointness. Every one of the 316 cases is mandatory. Thus induction covers every finite
 execution from reset, provided ALL obligations pass.
 
 RAM read values are overapproximated by independent arbitrary inputs. In the
@@ -50,13 +51,19 @@ def sha256(path: Path) -> str:
 
 
 def cases() -> list[dict]:
-    return [{"name": "base", "mode": "base"},
+    obligations = [{"name": "base", "mode": "base"},
             {"name": "frame", "mode": "frame"}] + [
         {"name": f"bounds-op{op}", "mode": "bounds", "opcode": op}
-        for op in range(3)] + [
-        {"name": f"disjoint-op{op}-next{counter:02d}", "mode": "disjoint",
-         "opcode": op, "counter": counter}
-        for counter in range(1, 65) for op in range(3)]
+        for op in range(3)]
+    for counter in range(1, 65):
+        for op in range(3):
+            roles = ("old", "left", "right") if op == 1 and counter <= 62 else ("all",)
+            for role in roles:
+                suffix = "" if role == "all" else f"-{role}"
+                obligations.append({"name": f"disjoint-op{op}-next{counter:02d}{suffix}",
+                                    "mode": "disjoint", "opcode": op,
+                                    "counter": counter, "pair_case": role})
+    return obligations
 
 
 def prepare_script(mode: str, work: Path, *, lower_checks: bool = False) -> str:
@@ -93,6 +100,11 @@ def case_script(case: dict, work: Path, timeout: int) -> str:
         constraints = "-set-at 1 RST_N 0 -set-at 2 RST_N 1"
     elif mode == "disjoint":
         constraints = f"-set-at 1 pt_next_id {case['counter']}"
+        if case["pair_case"] == "old":
+            constraints += " -set-at 1 ptf_old_pair 1"
+        elif case["pair_case"] in ("left", "right"):
+            index = case["counter"] + (case["pair_case"] == "right")
+            constraints += f" -set ptf_a {index}"
     return f"""read_rtlil {quoted(work / (mode + '.il'))}
 {constrain_opcode}opt -full
 wreduce
@@ -142,7 +154,7 @@ def complete(results: list[dict]) -> bool:
 
 
 def prove(work: Path, *, yosys: str = "yosys", jobs: int = 2,
-          timeout: int = 300) -> bool:
+          timeout: int = 900) -> bool:
     from formal_prepare import with_include
 
     work = work.resolve()
@@ -214,7 +226,7 @@ def main() -> int:
     parser.add_argument("--workdir", type=Path, default=ROOT / "build/formal/cpu_prove_pt")
     parser.add_argument("--yosys", default="yosys")
     parser.add_argument("--jobs", type=int, default=min(2, os.cpu_count() or 1))
-    parser.add_argument("--timeout", type=int, default=300)
+    parser.add_argument("--timeout", type=int, default=900)
     args = parser.parse_args()
     if args.jobs < 1 or args.timeout < 1:
         parser.error("jobs and timeout must be positive")

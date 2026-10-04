@@ -21,7 +21,10 @@ def test_complete_induction_covers_every_opcode_and_old_counter():
     disjoint = [case for case in campaign if case["mode"] == "disjoint"]
     assert {(case["opcode"], case["counter"]) for case in disjoint} == {
         (op, counter) for op in range(3) for counter in range(1, 65)}
-    assert len(disjoint) == 192
+    assert len(disjoint) == 316
+    for counter in range(1, 63):
+        assert {c["pair_case"] for c in disjoint if c["opcode"] == 1 and
+                c["counter"] == counter} == {"old", "left", "right"}
     assert MODULE.complete(passing_results())
 
 
@@ -50,13 +53,19 @@ def test_mislabeled_counter_is_rejected():
 
 
 def test_counter_restriction_applies_only_to_old_frame(tmp_path):
-    case = next(c for c in MODULE.cases() if c["name"] == "disjoint-op1-next62")
+    case = next(c for c in MODULE.cases() if c["name"] == "disjoint-op1-next62-right")
     script = MODULE.case_script(case, tmp_path, 300)
     assert "-set-at 1 pt_next_id 62" in script
     assert "-set-at 2 pt_next_id" not in script
     assert "connect -set pt_next_id" not in script
     assert "connect -set ptTable" not in script
     assert "connect -set ptBases" not in script
+    assert "-set ptf_a 63" in script
+
+
+def test_missing_pair_case_fails():
+    results = [r for r in passing_results() if r["name"] != "disjoint-op1-next43-old"]
+    assert not MODULE.complete(results)
 
 
 def test_solver_exit_zero_without_proof_is_rejected(tmp_path, monkeypatch):

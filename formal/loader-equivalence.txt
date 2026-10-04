@@ -1,0 +1,51 @@
+Board/loader equivalence at the CPU interface
+
+Run scripts/rtl_netlist_equiv.py against the JSON used for the FPGA bitstream.
+This proves conditional component equivalence, not whole-chip equivalence.
+The CPU and RAM implementations remain outside this comparison; their actual
+integration is also exercised by the separate board gate-level simulations.
+
+The two component models share the board inputs, clock ticks, and seven CPU
+responses: PC, mu, error flag, halted flag, certification flag, error code,
+and instruction-load readiness. CPU responses are otherwise arbitrary at
+every tick. The repeated error-code bits in the physical netlist are represented
+by the same shared input bits on both sides. The report records this alias map.
+Equal response streams are a condition of the result, not a proved CPU property.
+
+The compared external outputs are UART transmit, all four LEDs, both CPU
+method enables (start and instruction load), and the connected bits of the
+instruction/address bus. All are mandatory. Three bus positions, 53, 62 and
+71, are unconnected to every cell input in this netlist. They cannot affect
+its behavior and are listed explicitly rather than compared as floating
+signals. A different unused-bit set fails preparation and requires review.
+
+The clock primitives are checked for their expected types and divider ratio,
+then the common CPU clock is exposed. This models synchronous functional
+behavior, not an analog clock, propagation delay, or physical timing closure.
+Yosys expose -cut disconnects the CPU response cones before pairing. Structural
+checks and an exact input/output inventory reject floating signals, conflicting
+drivers, extra unconstrained inputs, missing ports, and changed widths.
+
+The proof relation includes all compared outputs and common live loader register
+observations. Register aliases are discovered from actual flip-flop outputs:
+in particular, the request flags survive under the acknowledge registers' D_IN
+names. Unconnected bits of optional internal observations are recorded separately.
+The relation also includes the one-hot encoding invariants of the two RTL loader
+state machines. Those invariants are established and preserved by the proof;
+they are not assumptions about an execution or about the CPU response stream.
+
+There are two SAT obligations. The base starts with arbitrary loader storage,
+but the power-on counter and registered reset are zero, as explicitly specified
+by both designs' checked initialization attributes. The first clock edge resets
+the loader and establishes the whole relation. The step starts with arbitrary
+storage, assumes the relation for the previous frame, and proves it for the next
+frame, including both one-hot invariants. All other initialization attributes
+are removed from these proof models. The two frames describe one arbitrary
+transition; the resulting induction covers every finite execution from the
+specified power-on/reset state. No execution-length bound is substituted for
+this induction.
+
+Both obligations and preparation must pass. Every source/model/script hash and
+solver log is retained. A timeout, missing obligation, structural error or
+solver result without a successful proof fails the job. The JSON report keeps
+equivalent=false for whole-chip equivalence even when component_equivalent=true.

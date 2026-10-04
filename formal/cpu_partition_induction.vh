@@ -44,6 +44,14 @@ wire ptf_relevant = ptf_j &&
   ptf_disjoint(ptf_b, ptf_source_b) &&
   ptf_disjoint(ptf_source_a, ptf_source_b);
 
+`ifdef PT_DISJOINT
+// PSPLIT's old/left/right cases cover all unordered pairs. This flag is
+// constrained in the OLD SAT frame only; it never constrains the update.
+(* keep *) wire ptf_old_pair =
+  ptf_a != pt_next_id && ptf_a != pt_next_id + 1 &&
+  ptf_b != pt_next_id && ptf_b != pt_next_id + 1;
+`endif
+
 reg ptf_past = 0;
 reg ptf_j_q, ptf_relevant_q, ptf_rst_q, ptf_step_q, ptf_err_q;
 reg [7:0] ptf_opcode_q;
