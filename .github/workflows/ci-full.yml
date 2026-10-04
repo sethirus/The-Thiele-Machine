@@ -567,8 +567,8 @@ jobs:
 
   # SymbiYosys safety properties of the extracted CPU and loader
   # (formal/thiele.sby, formal/cpu_props.vh, formal/system_props.vh). The
-  # prove tasks use abc pdr, an unbounded proof over every state reachable
-  # from reset; the cover tasks show each property's trigger is reached by a
+  # prove tasks use PDR or k-induction, both unbounded proofs over every state
+  # reachable from reset; the cover tasks show each property's trigger is reached by a
   # real transition. Ubuntu packages yosys 0.33 (with yosys-abc and
   # yosys-smtbmc) and z3 but not SymbiYosys, so sby is installed from the
   # YosysHQ/sby tag that matches the installed yosys.
@@ -596,8 +596,8 @@ jobs:
           sudo make -C /tmp/sby install PREFIX=/usr/local
           sby --help > /dev/null
 
-      - name: Install pinned coverage solver
-        if: endsWith(matrix.task, '_cover')
+      - name: Install pinned SMT solver
+        if: endsWith(matrix.task, '_cover') || matrix.task == 'sys_prove'
         # CVC5 handles this memory-mapped bitvector model without Z3's
         # excessive expansion. Pin both the release and downloaded bytes.
         run: |

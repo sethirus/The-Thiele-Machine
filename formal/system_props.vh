@@ -67,6 +67,24 @@
   wire s_chk1 = s_reset_seen && s_past_valid && s_rst_q;
   wire s_tx_begins = !s_txa_q && m2_tx_active;
 
+`ifdef FORMAL
+`ifndef FORMAL_COVER
+  // Strengthen the induction hypothesis with the loader's intermediate
+  // invariants. These are proved alongside S1-S5, never assumed. The CPU
+  // remains the full extracted design, with no abstracted ports or new
+  // environment restrictions. Phase 3 is terminal; start_req toggles once
+  // on entry, and start_ack catches it only after the final load is drained.
+  always @* if (s_chk) begin
+    assert(!m2_started || m2_ld_phase == 2'd3);
+    assert(!m2_started || m2_load_req == m2_load_ack);
+    assert(m2_start_ack == m2_started);
+    assert(m2_start_req == (m2_ld_phase == 2'd3));
+    assert(!m2_started || m2_start_req == m2_start_ack);
+    assert(m2_started || m1$getHalted);
+  end
+`endif
+`endif
+
   `S_ALWAYS begin
     if (s_chk) begin
       `S_ASSERT("S1_start_only_when_halted", !m1$EN_start || m1$getHalted);

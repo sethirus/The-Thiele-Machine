@@ -12,10 +12,13 @@
 #                   by charging rules, halted cleared only by start).
 #   sys_prove       S1-S5 (loader: start only while halted, no loads after
 #                   start, start once, report only after a stop, one report).
-#   *_prove use abc pdr: an unbounded proof (IC3/PDR) over every state
+#   cpu_prove_* use abc pdr: an unbounded proof (IC3/PDR) over every state
 #   reachable from reset, so no depth bounds what is covered; the multi-cycle
 #   LASSERT, morphism-coupling and CHSH FSMs are inside that state space with
 #   every phase and every interleaving with the method inputs.
+#   sys_prove uses k-induction with proved auxiliary loader invariants.
+#   Its depth of 4 bounds the induction search, not the execution covered:
+#   both the reset base cases and the inductive step must pass.
 #   cpu_cover, sys_cover: every assertion becomes an assumption and every
 #   cover must be reached within 16 cycles from some state that satisfies all
 #   of them (the CPU is never reset in these tasks). 16 cycles is more than
@@ -37,6 +40,7 @@ cpu_bmc_reset
 cpu_prove_pt: mode prove
 cpu_prove_ctrl: mode prove
 sys_prove: mode prove
+sys_prove: depth 4
 cpu_cover: mode cover
 cpu_cover: depth 16
 sys_cover: mode cover
@@ -49,7 +53,7 @@ cpu_bmc_reset: depth 300
 # The depth, assumptions and coverage goals are unchanged.
 cpu_prove_pt: abc pdr
 cpu_prove_ctrl: abc pdr
-sys_prove: abc pdr
+sys_prove: smtbmc --unroll cvc5
 cpu_cover: smtbmc --unroll cvc5
 sys_cover: smtbmc --unroll cvc5
 cpu_bmc_reset: smtbmc z3
