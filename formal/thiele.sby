@@ -12,7 +12,11 @@
 #                   by charging rules, halted cleared only by start).
 #   sys_prove       S1-S5 (loader: start only while halted, no loads after
 #                   start, start once, report only after a stop, one report).
-#   cpu_prove_* use abc pdr: an unbounded proof (IC3/PDR) over every state
+#   Through formal_prepare.py, cpu_prove_pt uses cpu_partition_prove.py:
+#   197 mandatory reset, frame, bounds/trap and pairwise induction obligations.
+#   See partition-induction.txt for their composition and abstraction scope.
+#   The direct sby cpu_prove_pt task below retains the original PDR alternative.
+#   cpu_prove_ctrl uses abc pdr: an unbounded proof (IC3/PDR) over every state
 #   reachable from reset, so no depth bounds what is covered; the multi-cycle
 #   LASSERT, morphism-coupling and CHSH FSMs are inside that state space with
 #   every phase and every interleaving with the method inputs.

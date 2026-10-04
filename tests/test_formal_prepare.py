@@ -33,4 +33,19 @@ def test_sby_resolves_inputs_from_its_configuration_directory(tmp_path, monkeypa
         return SimpleNamespace(returncode=0, stdout="checked\n", stderr="")
 
     monkeypatch.setattr(MODULE.subprocess, "run", fake_sby)
-    assert MODULE.run_task("cpu_prove_pt")
+    assert MODULE.run_task("cpu_prove_ctrl")
+
+
+def test_partition_dispatch_preserves_failed_induction(tmp_path, monkeypatch):
+    import sys
+
+    calls = []
+
+    def failed_proof(work):
+        calls.append(work)
+        return False
+
+    monkeypatch.setattr(MODULE, "OUT", tmp_path)
+    monkeypatch.setitem(sys.modules, "cpu_partition_prove", SimpleNamespace(prove=failed_proof))
+    assert not MODULE.run_task("cpu_prove_pt")
+    assert calls == [tmp_path / "cpu_prove_pt"]

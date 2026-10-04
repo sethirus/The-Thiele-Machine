@@ -15,8 +15,8 @@ the originals in that one line only.
 
   python3 scripts/formal_prepare.py                    # copies only
   python3 scripts/formal_prepare.py --run TASK [TASK]  # copies, then sby
-Tasks are the [tasks] of formal/thiele.sby. Each runs in build/formal/<task>/;
-the script exits non-zero unless sby reports PASS.
+Tasks run in build/formal/<task>/. cpu_prove_pt uses exhaustive induction
+obligations; the other tasks use formal/thiele.sby. Every obligation must pass.
 """
 from __future__ import annotations
 
@@ -61,6 +61,9 @@ def prepare() -> None:
 
 def run_task(task: str) -> bool:
     workdir = OUT / task
+    if task == "cpu_prove_pt":
+        from cpu_partition_prove import prove
+        return prove(workdir)
     if workdir.exists():
         shutil.rmtree(workdir)
     # The [files] entries in thiele.sby are relative to formal/, not the caller.
