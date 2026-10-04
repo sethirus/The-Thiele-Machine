@@ -1,4 +1,4 @@
-(** MuCore.v — the whole claim, small enough to read in one sitting.
+(** MuCore.v: the core accounting claim, small enough to read in one sitting.
 
     I don't trust an informal argument, my own least of all, so here is the
     core of the project with nothing to take on faith. A machine state is the
@@ -8,7 +8,7 @@
     from false to true costs at least 1, and it pays in the same step, not in
     a checker you could skip. Everything below falls out of that, and every
     theorem ends in Print Assumptions reporting "Closed under the global
-    context" — no axioms, mine or anyone else's. What it shows:
+    context": no axioms, mine or anyone else's. What it shows:
 
       1.  mu is conserved exactly (ledger = sum of step costs)        [mu_conservation]
       2.  A2 holds as a theorem of the step relation                  [a2]
@@ -33,7 +33,7 @@
       3 -> coq/kernel/nfi/UniversalCertificationCost.v   (universal_nfi_any_substrate)
       4 -> coq/kernel/foundation/VMStep.v                (vm_apply_preserves_certified_non_certify)
       5 -> coq/ReceiptTheorem.v, coq/NecessityOfMuLedger.v
-      6 -> coq/kernel/foundation/ProperSubsumption.v, ClassicalConservativity.v (D3)
+      6 -> coq/kernel/foundation/ProperSubsumption.v, ClassicalConservativity.v
 
     Build:  coqc minimal/MuCore.v        (seconds, from a clean checkout)
     Check:  every Print Assumptions line below must report
@@ -268,7 +268,8 @@ Definition lift (c : shadow) : state :=
   mk_state (sh_mem c) (sh_regs c) (sh_pc c) 0 false.
 
 (* Conservativity: classical programs leave the structural axis at its
-   lifted value — zero cost, uncertified.  D3, minimal form. *)
+   lifted value: zero cost, uncertified.  The minimal form of
+   ClassicalConservativity.v. *)
 Theorem classical_conservativity :
   forall (p : list instr) (s : state),
     forallb is_classical p = true ->

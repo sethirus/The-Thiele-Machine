@@ -1,7 +1,7 @@
 # Kernel
 
 Core structural-constraint proofs, optimization bounds, and bisimulation
-results for the Thiele Machine kernel. **327 files, zero admits.**
+results for the kernel, the 51-instruction Thiele machine. **327 files, zero admits.**
 
 The `Kernel` namespace spans the topical subdirectories via
 multi-line

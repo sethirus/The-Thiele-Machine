@@ -38,7 +38,7 @@ The table names the principal proof surfaces; each directory README names its pr
 | top-level `AssumptionsProbe.v`, `AssumptionsProbeAll.v` | `Print Assumptions` probes; `AssumptionsProbeAll.v` is generated and feeds the assumption receipt |
 | `kernel/` | Core kernel proofs (VMState, VMStep, NoFreeInsight, μ-accounting, necessity/minimality, CHSH / bounds work) |
 | `kami_hw/` | The CPU and loader in Kami, their extraction, and refinement against the kernel |
-| `thielemachine/` | Main Thiele Machine proofs and verification layers |
+| `thielemachine/` | A small executable machine model with receipts, and its process category |
 | `physics/` | Physics-model formalizations and embeddings |
 | `nofi/` | No-Free-Insight abstraction layer |
 | `thiele_manifold/` | Manifold / bridge work |

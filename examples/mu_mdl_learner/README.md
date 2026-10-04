@@ -1,6 +1,6 @@
 # µ-MDL Learner
 
-Toy structural learner over the extracted Thiele VM. Tries to discover the
+Toy structural learner over the extracted VM. Tries to discover the
 period of a bit stream by issuing LASSERT calls and measuring µ paid.
 
 The period-k predicate is encoded as a SAT formula

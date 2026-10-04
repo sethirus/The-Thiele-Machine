@@ -20,7 +20,7 @@ The following records are generated from the checked source and are retained bec
 
 The exact command and current source inputs for each surface belong in the generating script or its workflow step. A generated file must not be edited by hand; regenerate it and review the resulting diff.
 
-The hardware checks of CI Full (gate-level simulation, SymbiYosys properties, RTL/netlist equivalence, the bitstream) upload their reports as workflow artifacts; none is committed.
+The hardware checks of CI Full (board-top gate-level simulation, SymbiYosys properties, board/loader equivalence conditional on the CPU interface, the bitstream) upload their reports as workflow artifacts; none is committed. `formal/loader-equivalence.txt` and `formal/partition-induction.txt` are maintained source: they state the contract and obligations those jobs check.
 
 ## Disposable output
 

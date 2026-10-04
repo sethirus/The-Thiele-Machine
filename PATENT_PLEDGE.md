@@ -4,7 +4,7 @@
 
 I will not sue anyone for patent infringement based on their use, modification, manufacture, or distribution of the Thiele Machine software, hardware designs, or documentation.
 
-This commitment covers all patent claims I hold or obtain in the future that read on any method, system, apparatus, or algorithm described in this repository — including the µ-ledger, No Free Insight theorem, partition graph machine state, CERTIFY opcode, LASSERT instruction, CHSH_TRIAL instruction, three-layer isomorphism pipeline, and any other concept described in `TECHNICAL_DISCLOSURE.md`.
+This commitment covers all patent claims I hold or obtain in the future that read on any method, system, apparatus, or algorithm described in this repository, including the µ-ledger, No Free Insight theorem, partition graph machine state, CERTIFY opcode, LASSERT instruction, CHSH_TRIAL instruction, three-layer agreement pipeline, and any other concept described in `TECHNICAL_DISCLOSURE.md`.
 
 **Defensive termination.** This commitment does not apply to anyone who sues me, or any contributor to this repository, for patent infringement.
 
@@ -14,4 +14,4 @@ The Apache 2.0 license covering the software in this repository already includes
 
 ---
 
-The concepts described in this repository are in the public domain as prior art from their respective commit dates. `TECHNICAL_DISCLOSURE.md` documents this prior art for the benefit of patent examiners.
+The concepts described in this repository are publicly disclosed as prior art from their respective commit dates. `TECHNICAL_DISCLOSURE.md` documents them for patent examiners, so that no one can claim them as new.
