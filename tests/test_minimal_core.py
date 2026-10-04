@@ -19,9 +19,11 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MUCORE = REPO_ROOT / "minimal" / "MuCore.v"
 EARNED = REPO_ROOT / "minimal" / "EarnedCore.v"
+UNIVERSAL = REPO_ROOT / "minimal" / "UniversalThiele.v"
 DEMO = REPO_ROOT / "minimal" / "nofi_demo.py"
 EXPECTED_CLOSED = 10
 EARNED_EXPECTED_CLOSED = 29
+UNIVERSAL_EXPECTED_CLOSED = 19
 
 
 def test_nofi_demo_self_checks():
@@ -84,6 +86,35 @@ def test_earned_core_compiles_axiom_free(tmp_path):
     closed = proc.stdout.count("Closed under the global context")
     assert closed == EARNED_EXPECTED_CLOSED, (
         f"expected {EARNED_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
+        + proc.stdout
+    )
+    assert "Axioms:" not in proc.stdout
+
+
+@pytest.mark.coq
+def test_universal_thiele_compiles_axiom_free(tmp_path):
+    """minimal/UniversalThiele.v, the host that runs any small-machine program
+    as a guest and enforces the guest's record and toll in its own step,
+    compiles with plain coqc against EarnedCore.v and the standard library,
+    and every theorem it prints assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    (lib / "EarnedCore.v").write_text(EARNED.read_text())
+    (lib / "UniversalThiele.v").write_text(UNIVERSAL.read_text())
+    for name in ("EarnedCore.v", "UniversalThiele.v"):
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+    closed = proc.stdout.count("Closed under the global context")
+    assert closed == UNIVERSAL_EXPECTED_CLOSED, (
+        f"expected {UNIVERSAL_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
         + proc.stdout
     )
     assert "Axioms:" not in proc.stdout
