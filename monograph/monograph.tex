@@ -303,6 +303,48 @@ nothing was kept.
 That's the shape I want you to carry through the rest: it's not a visibility problem, it's a keeping
 problem.
 
+\subsection*{So keep the trace}
+
+Then the fix is obvious, isn't it? Don't let the run go. Keep the trace: every comparison, every
+swap, the check and its answer, written down as it happens. Wheel the computers out on the cart and
+back, read the traces, and you'll know which one sorted. Problem solved?
+
+It's the right instinct, and it gets most of the way to this book. But take it apart, because
+``just keep the trace'' has three things wrong with it, and each one turns out to be a piece of
+what comes later.
+
+First, a trace is bits, and bits can be typed in. Whoever typed the sorted list into the second
+machine can type a trace in too: ``compared, swapped, checked, passed,'' a few thousand lines of
+it, every one of them plausible. A trace written by a program is something the program produced,
+and the machine running the program doesn't care whether it's true. So keeping the trace doesn't
+answer the question. It moves it. Did something establish this trace, or did it just print it?
+
+Second, the way out of that is to take the pen away from the program. Don't let the program write
+its own trace. Have something underneath it write the trace, one step at a time, as the steps
+actually happen, so nothing a program does can add a line that didn't happen or erase one that
+did. Airplanes do a version of this. Flight recorders, which go back to a prototype David Warren
+built in Melbourne in the 1950s, are fed by the aircraft's own instruments rather than by anybody's
+account of events, and they're built to survive the crash, so the investigators don't have to
+depend on anyone's memory of what happened. That's the right shape. Later in this chapter it gets
+a name from computer security, a reference monitor, and I'll say outright that a machine built
+that way would be doing what this book describes. What the book adds is the rulebook for that
+something underneath: what it has to keep, what it's allowed to forget, and what keeping costs.
+
+Third, you can't keep all of it. A full trace grows with every step and never stops growing, and a
+machine with finite memory runs out. Even the flight recorder doesn't keep everything. The cockpit
+voice recorder is a loop: for decades it held the last thirty minutes, now it holds at least two
+hours, and everything older gets recorded over. Every real machine that keeps a trace keeps a
+window of it and forgets the rest. So the real question was never ``save everything.'' It's this:
+what's the smallest thing worth keeping for good, and what does keeping it cost? The answer this
+book ends up with is not the trace but the commitment. Not every comparison the sort made, just the
+one fact that a check of this very claim passed and the question got closed. And here's the part
+that matters most: on a finite machine, keeping even that one fact for good forces the machine to
+forget something somewhere else. That's the chairs, further down.
+
+So the premise was never that computers can't keep records. They keep records all day. It's that
+nothing in the rules of an ordinary computer makes the record honest, permanent, or paid for. The
+Thiele Machine is a model where those three things are part of what a step is.
+
 \subsection*{Computed, stored, established}
 
 Three words that get used like they're one.
