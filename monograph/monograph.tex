@@ -637,7 +637,17 @@ decision about what happened, and the jury deciding it doesn't make it true. Sci
 building on piles driven into a swamp, and the piles stop where somebody's satisfied they'll hold,
 not where the ground gets firm.
 
-That swamp sent me further down, because it's the oldest problem in the book and it doesn't have a
+A real jury has a problem Popper doesn't mention, because a real jury is twelve people.
+Lewis Kornhauser and Lawrence Sager (1986) noticed that a court that votes by majority on
+each premise of a case and also on the verdict can end up contradicting itself: every judge
+is consistent, and the court isn't. Christian List and Philip Pettit (2002) turned that
+into a theorem. No way of combining people's yes-or-no judgments on connected questions
+meets a short list of reasonable-sounding conditions and always hands back a consistent,
+complete group judgment. A group's settling is a rule's settling, and which rule you pick
+decides which of the honest settlings sticks. I haven't tried to put a group on the
+machine, and that's where I'd expect the first wall to be.
+
+Popper's swamp sent me further down, because it's the oldest problem in the book and it doesn't have a
 bottom. Ask why you believe something and you get a reason. Ask why you believe the reason and you
 get another one. Sextus Empiricus wrote down the ancient version, credited to someone called
 Agrippa, and in the 1960s a follower of Popper's, Hans Albert, gave it a name with a joke in it: the
@@ -1756,6 +1766,33 @@ one way to carry the local record out of the box.
 committed to what and who is entitled to it. Brandom's entitlements can be defeated and can be
 passed on by testimony. Here entitlement is priced, step by step, and a copy carries it only as
 far as the copy is genuine. Same words, different machinery.
+\item Correspondence assertions (Woo and Lam 1993; Gordon and Jeffrey 2003). In protocol
+verification, ``this end event must be preceded by a begin event for the same thing'' is a
+correspondence assertion, and a type system can prove a protocol keeps it against any
+opponent. ``No certificate without an earlier commit, and no commit without an earlier check
+of the same claim'' has that shape. Theirs is proved about programs by typing. Mine is enforced
+by the step, which is the LCF comparison again, at the level of single instructions.
+\item Monotonic parallel composition (\AA{}man Pohjola and Parrow 2016) and persistence in the
+pi-calculus (Palamidessi, Saraswat, Valencia and Victor 2006). \AA{}man Pohjola and Parrow
+separate models where a neighbouring process can never stop a step from models that can solve
+consensus, and test-and-set, an instruction that writes a cell and reports what was there, is
+on the consensus side. Palamidessi and coauthors compare messages that are used up with
+messages that stay, and the end of their study is a reduction from Minsky machines. A store
+that can refuse permanently, which is what the version rule does to a stale commit, looks like
+the non-monotonic side. I haven't written that encoding, so that's a pointer and not a claim.
+\item Constructor theory (Deutsch and Marletto 2015; Marletto 2016; Marletto, Vedral and
+coauthors 2022; Violaris and Marletto 2022): physics as which tasks a device that runs in a
+cycle can do, with irreversible meaning possible while the inverse isn't. It's the nearest
+physics I know to ``committing costs'' stated for a cycling device. It's quantum and
+approximate, and the chairs are classical, finite and exact
+(Section~\ref{sec:a2-not-arbitrary}).
+\item Accountability and fault detection (Haeberlen and Kuznetsov 2009; K\"usters, Truderung
+and Vogt 2010; Treitz and K\"unnemann 2026): when an outside party can tell who misbehaved.
+Their windows are this book's windows, and the trust they leave over, an honest log or a
+trusted step, is left over here too (Section~\ref{sec:windows}).
+\item Transferability (Easwaran 2009): a deductive proof lets you learn from someone you don't
+trust because you can check every step, and a probabilistic proof doesn't. That's the argument
+for carrying the object and re-running the check (Section~\ref{sec:windows}).
 \end{itemize}
 
 And then the silly question that list raises, which I'm going to chase anyway: why is an
@@ -3238,6 +3275,25 @@ the strings with no $b$ in them, which is my flag turned inside out: the runs th
 exactly the strings that have seen a $b$. So the chairs, a real price on them, and the escape
 when you already know which chair you're in are all in their paper, three years before this
 book, with the price derived from the physics of the device rather than assumed.
+
+There's a fourth neighbour, more a cousin than a relative, because it speaks another
+language. Constructor theory is David Deutsch's and Chiara Marletto's programme for stating
+physics as which transformations a device that runs in a cycle can and can't bring about, and
+in it a task is irreversible when it's possible and its inverse isn't. Marletto's version of
+thermodynamics (posted in 2016) leans on exactly that: tasks that are possible while their
+transposes aren't. Marletto, Vedral and coauthors (2022) made an irreversible task out
+of the quantum homogeniser, a machine of reservoir qubits that interact by partial swaps,
+and ran it with photons. Maria Violaris and Marletto (2022) then pointed out that the same
+machine, run in a cycle, can turn a pure qubit into a mixed one but can't turn a mixed qubit
+into a pure one, even though every interaction in it is reversible, and argued that this
+suggests erasure may cost something beyond Landauer's bound. The chairs are a classical,
+finite, exact cousin of that sentence: a set of states a step can't leave, a task that's
+possible, and no way back. Theirs is quantum and approximate and aimed at physics' price;
+mine is counted, and assumes its price. Deutsch and Marletto's paper on information (2015)
+has a neighbour of the chairs argument in its section 8.6: measuring one observable
+disturbs another irreducibly, and nothing can undo the disturbance afterwards while the
+outcome stays in an information variable. That's a second, theory-independent way of saying
+that a record that stays makes the step irreversible.
 
 So what I can claim here is narrower again, and I'd rather say exactly how. Is even the pricing
 form theirs? In physics, yes: a merge the language can't avoid costs entropy, and they derived
@@ -5186,6 +5242,60 @@ different training sets, so the finished model can't show whether a point was us
 The only claim they found you can audit is about the procedure that was run. Same wall: the
 finished state is a window, and what happened is in the run.
 
+Philosophers who study testimony, which is the trade of being told things, have the same wall
+from the other side. Kenny Easwaran (2009) asked why mathematicians will accept a proof too
+long for anyone to check by hand and refuse a probabilistic one, even one far more certain.
+His answer is a property he calls \emph{transferability}. Given a deductive proof you can
+learn from the prover without trusting the prover, because every step is there for you to
+check; a probabilistic proof hands you only the prover's word about what the dice did. That's
+the clerk's problem below in his vocabulary, and it's the book's answer too: don't take the
+transcript, carry the thing and run the check yourself. (That reading is mine. He never
+mentions machines.) John Locke complained about the alternative in 1690, in the first book of
+the \emph{Essay}: believing something because someone with authority said it is not
+knowing it. The opposite default has a champion as well. Tyler Burge (1993) argued that you're
+entitled to accept what you're told, if it's presented as true and it makes sense to you,
+unless you have a reason not to. That's the default this book declines. A claim is on the
+record because its object and its paid event are there, or it isn't on the record. Jennifer
+Lackey (2008) gave a teacher who doesn't believe the theory she's required to teach and still
+passes knowledge of it to her students, so what the hearer gets can't just be what the
+speaker believes. Sanford Goldberg (2010) argued that whether your word justifies me can
+depend on how reliable the processes behind your word were, which sit outside my head.
+Christoph J\"ager and Nicholas Shackel (2025) showed, in a Bayesian model, that the speaker
+knowing is neither necessary nor sufficient for the hearer to know. Wesley Holliday (2009)
+put testimony into a logic of belief change, with an authority graph recording whose word each
+agent takes and complete rules for what hearing a speaker does to a belief. Security people had
+a leash of that kind two decades earlier: in the logic of authentication of Michael Burrows,
+Martin Abadi and Roger Needham (1990), if I believe an authority has jurisdiction over a
+statement and I believe the authority holds it, I believe it. That's Burge's default with the
+authority named in advance. None of them is about
+machines. Each is about what survives the trip from one head to another, which is the
+copier's problem with philosophers' names on it.
+
+Distributed-systems people hit the wall too, and one pair of them measured how far it goes.
+Andreas Haeberlen and Petr Kuznetsov (2009) asked which faults an outside observer can
+detect at all. The problem is solvable for exactly two classes, omission faults, where a
+node fails to send something it should have, and commission faults, where it sends
+something it shouldn't. A fault whose effects never reach anything observable can't be
+detected by any algorithm, and neither can one that looks from outside the same as
+something innocent. That's the fibre fact with an auditor attached. Their group's
+PeerReview system (Haeberlen, Kouznetsov and Druschel, 2007) is the matching construction:
+every node keeps a secure record of the messages it sent and received, and a checker replays
+the record against a reference implementation, which exposes the faults a correct node got
+to see. That's close to the whole-state escape from the three escapes below, built: ship the log,
+and the checker re-runs it. Ralf K\"usters, Tomasz Truderung and Andreas Vogt (2010) gave a
+general definition of accountability, a verdict naming who misbehaved, and showed that
+verifiability, the property that an outsider can check a result, is a weak form of it.
+Radha Jagadeesan, Alan Jeffrey, Corin Pitcher and James Riely (2009) built an operational
+model of systems that enforce a policy after the fact by audit, and studied the trade between
+the power of the auditor, the cost of the audit and what's asked of the agents.
+Robert K\"unnemann, Ilkan Esiyok and Michael Backes (2019) made the idea a mechanized check,
+with Certificate Transparency among their examples. In September 2026 Timo Treitz and
+K\"unnemann gave CT the full treatment (Section~\ref{sec:models} has my fragment of it) and
+showed that plain CT gives accountability only if the log is assumed honest, an assumption
+the SCT auditing extension can drop and the gossiping extension can't. An honest log is the commitment bit
+anyone can set, from the three escapes below, with a name on it: somebody's contract,
+trusted at the step.
+
 \subsection{The clerk with two photographs}
 
 Now point it at the counter, because that's why this section is here. Suppose you want to
@@ -5373,7 +5483,8 @@ a mathematical guarantee against a cheating prover. I mention zero-knowledge to 
 \emph{not} claiming: the asking in this section is one round, with one fixed question (``tell me
 your counter''), and nothing in it models a cheating prover; the honesty is assumed, not
 enforced. That's a toy of the real thing, and I'm not going to let the real thing's
-reputation stand behind the toy.
+reputation stand behind the toy. (Joseph Halpern, Yoram Moses and Mark Tuttle gave zero
+knowledge a knowledge-based analysis in 1988, which is where I'd start for the logic of it.)
 
 The real thing even has a cave in it, which after Plato I can't resist. In a paper for the 1989
 CRYPTO conference called ``How to Explain Zero-Knowledge Protocols to Your Children,''
@@ -6548,6 +6659,13 @@ So a base that never merges can still carry a record, if it's allowed to grow a 
 never ends. A finite one can't. On a finite machine the record's first write is a merge, and
 Section~\ref{sec:a2-not-arbitrary} already put the price on that.
 
+Process-calculus people ran into the same thing from the other side. Vincent Danos and Jean
+Krivine (2005) took a reversible version of CCS, where every step can be rolled back, and
+modelled a transaction as a process that wanders freely through everything that can be
+undone until it performs an action declared irreversible, which is the commit. In their
+calculus, as in the theorem, a permanent effect needs a step with no way back, and the
+calculus has to say which steps those are.
+
 There's an arrow of time in that theorem, and I should say where it came from, because I put it
 there by hand. Every starting state has the record off. That's the only reason a raised record
 means the event happened: it was down at the start, and only $h$ lifts it. So the clean start
@@ -6569,6 +6687,13 @@ and I'd rather say so than let it look like it does. The step runs forwards and 
 clean, and a theorem built on those two can only hand the arrow back. Under a step that forgets
 nothing, on a finite set, there are no permanent records at all, past or future, which is
 Zermelo again.
+
+Constructor theory, which Section~\ref{sec:a2-not-arbitrary} brings in as a neighbour of the
+chairs, has a paper on time (Deutsch and Marletto, 2025) saying that laws stated as which transformations
+a device can and can't bring about can't mention time at all, so duration has to come from
+relations between physical systems, clocks, that have their own dynamics. That's the position
+this book is in by construction. The step count is the only time in it, and it comes from the
+machine's own steps.
 
 Physicists have built this latch on paper too, in quantum mechanics, and it behaves the way the
 last theorem says. Klaus Hepp (1972) studied a particle that flips spins in a long chain as it
@@ -6598,6 +6723,33 @@ latches that can each read the other; do it with two cups where the
 second only turns over on an even roll \emph{if the first is already up}, and you'll see the
 second can never turn before the first.
 
+Dialogue theorists built a version of that two-latch rule for arguments. C.\ L.\ Hamblin's
+\emph{Fallacies} (1970) has a chapter on formal dialectic where each speaker has a
+\emph{commitment store}, a list of what they're on the hook for, and the rules of the
+dialogue update it, not the speaker. Henry Prakken (2005) built dialogue games for
+argumentation on stores like that and made commitments sticky: a claim can be retracted only
+when it has been challenged, and claims and backtracking carry a price. He also floats a
+convention that once a player has retracted a proposition, that player can't take it on again,
+which is a revocation that stays revoked, the way an entry on a revocation list does. The
+part of that I'd keep is the first one, that the store belongs to the rules and not to the
+speaker. Take the pen away from the program. Erik Krabbe (2001) names the awkward part of
+that: retraction is frowned on, and yet resolving a dispute takes somebody retracting a doubt
+or a point of view, so the rules have to say when taking a commitment back is allowed. This
+book answers with a price.
+
+The same field has a notion that looks a lot like earning. In Phan Minh Dung's (1995)
+abstract argumentation, arguments attack one another, and the \emph{grounded} semantics
+starts from the arguments nobody attacks and keeps adding the ones they defend. Baroni and
+Giacomin (2007) introduced, and Martin Caminada (2014) revisited, \emph{strong
+admissibility}: a set is strongly admissible when every argument in it is defended by others
+in the set that don't lean back on it, so the support bottoms out. That's the argumentation
+form of a claim that's earned and not defaulted, and Caminada shows it plays a vital part in
+the dialogue games that decide grounded acceptance. Notice the base case, though. An
+argument nobody attacks gets in on a check that can't fail, and this book says a check that
+can't fail establishes nothing. Whether a machine's earned record certifies exactly the
+strongly admissible sets is the kind of statement I'd have to prove before I said it, and
+I haven't.
+
 A record that's allowed to change its mind isn't lawless, though. It's somebody else's subject.
 Hilary Putnam and E. Mark Gold, in back-to-back papers in 1965, looked at questions a machine
 answers by guessing and revising, where the answer is whatever the guesses finally settle on.
@@ -6606,6 +6758,26 @@ yes, and you get exactly the sets a program can list, which is what a permanent 
 by a search catches. Allow two, three, and so on, and every extra change buys new sets: the
 rungs of the ladder are all different. A record that can come back down lives on that ladder.
 This book stays on the bottom rung, and I'm pointing at the ladder, not climbing it.
+
+The ladder doesn't stop at finite time, and the people who followed it past infinity have
+names for the two kinds of record I just described. A definition that only ever adds, stage
+after stage, and keeps everything it has at each limit, is an \emph{inductive definition}
+(Richter and Aczel's 1974 chapter is the long treatment). Let it take things back, and keep
+what stays put from some stage on, and you have what John Burgess (1986) called
+\emph{quasi-inductive} definitions, which he met in the revision theories of truth that grew
+up beside Kripke's; his paper measures how complicated the truths of those theories get. A
+permanent record is the first kind. A toggle that's allowed to settle is the second. Joel
+Hamkins and Andy Lewis (2000) let a Turing machine keep running through the ordinals, with a
+cell at a limit reading 1 if it has switched to 1 unboundedly often, and the trick they use
+again and again is the toggle: flash a flag on and off every time a guess changes, and at
+the limit the flag is on exactly when the guess changed infinitely often. A flag that can
+come back down is how that machine learns what no finite run could tell it. A permanent
+one can't do that trick, because at a limit a cell that only ever goes up just stays up.
+One finite-time fact belongs beside it, so nobody concludes too much from permanence. Hao
+Wang (1957) described a machine whose only write is to mark a square and which can never
+erase one, and it computes everything a Turing machine does. Permanence of a machine's own
+memory costs it no computing power. What the book prices is a permanent reading raised by a
+step that has to work whether or not the reading is already up, which is a different thing.
 
 Drop ``driven by the computation.'' Take a base that counts, and a record that switches on at
 the fifth tick of a \emph{hidden clock}, whatever the base is doing. It's permanent; it's not driven by the computation. This is a \emph{timestamp}. A timestamp is not evidence; it says \emph{when}, not \emph{what happened}, and a record switched by an outside
@@ -8500,6 +8672,19 @@ mark and raises nothing. So the uniqueness is real and it's small. It holds once
 reading you're charging for, and which reading deserves the charge is the pointer conjecture,
 which is still a conjecture.
 
+The uniqueness theorems that do exist are about pricing information loss, and they're worth
+a look because they say what kind of bill the price on merging is. John Baez, Tobias Fritz
+and Tom Leinster (2011) showed that Shannon entropy is the only measure of information loss,
+for maps that preserve a probability measure, that is functorial, convex-linear and
+continuous. J\'anos Acz\'el, Bruno Forte and C.\ T.\ Ng (1974) showed that the entropies with
+a short list of natural properties are exactly the linear combinations of Shannon's and Hartley's, where
+Hartley's is the log of the count, so even for merges the choice between the average and the
+worst case is a real choice. Both price merges, not raises, so neither picks out the toll, and
+that's the three-state example in a bigger room. On the other side of the fence, Luciano
+Pomatto, Philipp Strack and Omer Tamuz (2023) proved a uniqueness result for what it costs to
+\emph{acquire} information, with constant marginal costs. That's a price on producing a
+signal, a different bill from the free learning of Section~\ref{sec:narrowing}.
+
 What none of that is: a machine. Every theorem so far quantifies over ``any states, any
 steps,'' or is about a small copy of somebody else's system, or points forward at a thing I
 keep promising. That's the abstract part of the book, and it's done. From the next page on I
@@ -8626,7 +8811,8 @@ fewer than three letters are left. Try it at the table. Start from \texttt{1000}
 \texttt{001101}, and then \texttt{10100} again, and it goes round forever. Post wanted a rule
 that tells you, for every starting word, which of those happens. He worked at it for months and
 later called it hopeless, and as far as I can tell it still is: a hundred years on, nobody knows
-whether that one little game, with that one rule, can be decided. Minsky's paper showed that tag
+whether that one little game, with that one rule, can be decided (Stephen Wolfram's 2021
+article on it is where I'd start). Minsky's paper showed that tag
 games in general can compute anything, which is why Post's name is on it. It didn't settle Post's
 own game. And the chase goes one step further. In 2008 Liesbeth De Mol turned
 the famous $3n+1$ problem (halve an even number, triple an odd one and add one, and ask whether
@@ -8840,6 +9026,14 @@ the shared-memory face of what Joseph Hellerstein and Peter Alvaro (2020) call C
 monotone means nobody has to coordinate. The toll changes neither answer. That split is argued
 here on paper, not checked, and neither half is mine: the top is Plotkin's and the bottom is
 the monotone fact that field already knows.
+
+Process-calculus people have a statement of the same split. Johannes \AA{}man Pohjola and
+Joachim Parrow (2016) show that no model whose parallel composition is monotonic, where a
+neighbouring process can never stop a step, has a consensus process, and one of their examples
+of a model that does is test-and-set, an instruction that writes a cell and reports what was
+there, which is a sticky bit under another name. A store that can refuse permanently, as
+the version rule does to a stale commit, sits on the non-monotonic side. I haven't written that
+encoding either, so it's a pointer.
 
 Security people know the pattern by a third name. A check that blesses a value, and a write
 that takes the blessing away, is close kin to dynamic taint tracking, where a label rides along
@@ -12187,8 +12381,8 @@ functional extensionality on dependent functions (two functions that agree every
 equal); two decidability principles that come with the standard library's real numbers, used
 by the matrix proofs behind the game check; and, in some theorems, the law of excluded middle
 (every proposition is true or false). The count, from the full audit:
-the full-corpus probe covers 3,101 named theorems across 166 files: 2,747 close under the global Coq context outright, and 354 use only Coq standard-library assumptions.
-Zero project-local axioms appear in any of the 3,101 dependency trees.
+the full-corpus probe covers 14,589 named theorems across 511 files: 7,009 close under the global Coq context outright, and 7,580 use only Coq standard-library assumptions.
+Zero project-local axioms appear in any of the 14,589 dependency trees.
 The small machine's files sit outside that probe, under minimal/: the small machine, its
 version for any property language, the simpler host, the definition of Thiele-complete and its
 window theorem, the host machine with a register for every whole number, the numbers that write
@@ -13923,6 +14117,9 @@ Ueda (2014), which Manzano, Karde\c{s}, Rold\'an and Wolpert (2024) carried over
 but as a mirror and not a special case: the squeeze is ordinary Landauer heat, whose logarithm
 equals their bound for the free expansion that undoes it, and absolute irreversibility reaches
 the commit itself only on a fixed-rate device starting from a known state.
+Constructor theory states a cousin of the same core for devices that run in a cycle: Marletto,
+Vedral and coauthors (2022) and Violaris and Marletto (2022) built an irreversible task out of
+the quantum homogeniser and argued that erasure may cost more than Landauer's bound.
 Section~\ref{sec:a2-not-arbitrary} tells all of it. Mine: the price as a named rule on a
 ledger, a premise that merges cost at least a mark, which turns ``the flip merges'' into ``the
 flip costs'' on any machine whether or not anybody's physics is right, and the toll derived from
@@ -13968,7 +14165,9 @@ Hadjicostis, 2007), where a collision is a hidden event no observer can diagnose
 in economics it is the
 hard-evidence view of mechanism design (Green and Laffont, 1986; Bull and Watson, 2007), where
 what a mechanism can tell apart is limited by the evidence on offer; and its sharp form for
-fingerprints is Naor and Rothblum's lower bound for checking a stored file (2005). Mine: stating the pricing
+fingerprints is Naor and Rothblum's lower bound for checking a stored file (2005); in distributed systems it
+is Haeberlen and Kuznetsov's (2009), that only omission and commission faults can be detected from outside,
+and in philosophy it is Easwaran's transferability (2009). Mine: stating the pricing
 version (no window price is exact across a collision), exhibiting a colliding pair for the
 small machine's window, and the theorem that every Thiele-complete machine has such a pair for
 the window its base shows (Section~\ref{sec:windows}, Section~\ref{sec:smallest}). Kind:
@@ -13998,7 +14197,11 @@ for transparency logs, which fit revocation as a once-only event (Tomescu and co
 and, in program logic, monotonic state, where a property witnessed once on state that only moves
 forward can be recalled at any later point, with a soundness proof and a working home in
 F$^\star$ (Ahman, Fournet, Hri\c{t}cu, Maillard, Rastogi and Swamy, 2018): the type-theory name
-for a record that stays up.
+for a record that stays up. Past the finite case, inductive and quasi-inductive definitions
+(Richter and Aczel, 1974; Burgess, 1986) and the flag trick of infinite time Turing machines
+(Hamkins and Lewis, 2000) are the transfinite versions of a record that only grows and a
+toggle, and Danos and Krivine's (2005) reversible calculus needs an action declared
+irreversible in order to commit.
 Mine: the exact statement
 that a record driven by the computation that never switches off is, over any base, a latch
 on one event, with its converse and a counterexample for each of the two conditions, and the
@@ -14089,7 +14292,11 @@ moment, and ``no CERTIFY without an earlier earned COMMIT'' is one of those. Aze
 and coauthors (2015) verified, in Coq, monitors that check tags at every instruction. The shape
 of ``earned,'' a certificate nothing can make except through the rules, is Milner's LCF, where a
 theorem is a value only the logic's rules can build (Gordon, Milner and Wadsworth, 1979; Gordon,
-2000); the small machine is that architecture at the level of single instructions. A check that
+2000); the small machine is that architecture at the level of single instructions. ``No certify
+without an earlier commit'' is also a correspondence assertion in the sense of Woo and Lam
+(1993), which Gordon and Jeffrey (2003) check with a type system, and a store of commitments
+kept by the rules and not the speaker is Hamblin's (1970); the difference from the first is
+again that here the step enforces it. A check that
 blesses a value and a write that takes the blessing away is close kin to dynamic taint tracking,
 whose labels go back to Denning's lattice model of information flow (1976), with the blessing
 itself, controlled endorsement, given a type system and a security theorem by Cecchetti, Myers
@@ -14098,7 +14305,9 @@ can enforce with bounded memory is Talhi, Tawbi and Debbabi's question (2008). A
 record inside each replica of a replicated service is A2M (Chun and coauthors, 2007), TrInc
 (Levin and coauthors, 2009), MinBFT (Veronese and coauthors, 2013) and Damysus (Decouchant and
 coauthors, 2022), and Clement, Junqueira, Kate and Rodrigues (2012) proved what such a record
-buys and what it doesn't. And ``check once, issue a capability the system trusts, rely on it
+buys and what it doesn't. The signature route to the same goal, which needs no trusted step,
+is IA-CCF (Shamis and coauthors, 2021): replicas sign and log their protocol messages in the
+ledger, so blame lands on individual members however many of them misbehave. And ``check once, issue a capability the system trusts, rely on it
 later'' is built and deployed in Garg and Pfenning's proof-carrying file system (2010), whose
 logic lets a policy's consequences change with time and state, and in Sirer and coauthors'
 logical attestation for the Nexus operating system (2011), unforgeable statements about programs
@@ -16452,7 +16661,7 @@ this book's pointer conjecture.
 \noindent Heinrich Weber (1893). Leopold Kronecker. Jahresbericht der Deutschen Mathematiker-Vereinigung 2, pp. 5--23. The remark attributed to a lecture of 1886 is on p. 19.
 \par\medskip
 
-\noindent Stephen M. Stigler (1980). Stigler's Law of Eponymy. Transactions of the New York Academy of Sciences 39(1), pp. 147--158. \href{https://doi.org/10.1111/j.2164-0947.1980.tb02775.x}{DOI: 10.1111/j.2164-0947.1980.tb02775.x}.
+\noindent Stephen M. Stigler (1980). Stigler's Law of Eponymy. Transactions of the New York Academy of Sciences 39(1), pp. 147--157. \href{https://doi.org/10.1111/j.2164-0947.1980.tb02775.x}{DOI: 10.1111/j.2164-0947.1980.tb02775.x}.
 \par\medskip
 
 \noindent Robert K. Merton (1957). Priorities in Scientific Discovery: A Chapter in the Sociology of Science. American Sociological Review 22(6), pp. 635--659.
@@ -16551,7 +16760,7 @@ this book's pointer conjecture.
 \noindent Rudolf Ahlswede and Gunter Dueck (1989). Identification via channels. IEEE Transactions on Information Theory 35(1), pp. 15--29. \href{https://doi.org/10.1109/18.42172}{DOI: 10.1109/18.42172}.
 \par\medskip
 
-\noindent Chris Heegard (1985). On the capacity of permanent memory. IEEE Transactions on Information Theory 31(1), pp. 34--42.
+\noindent Chris Heegard (1985). On the capacity of permanent memory. IEEE Transactions on Information Theory 31(1), pp. 34--42. \href{https://doi.org/10.1109/TIT.1985.1056994}{DOI: 10.1109/TIT.1985.1056994}.
 \par\medskip
 
 \noindent Oliver Kosut and J\"org Kliewer (2018). Authentication capacity of adversarial channels. 2018 IEEE Information Theory Workshop (ITW), Guangzhou, pp. 1--5. Authentication capacity is zero or the capacity without an adversary, according to overwritability.
@@ -16576,6 +16785,51 @@ this book's pointer conjecture.
 \par\medskip
 
 \noindent Dean P. Foster and Robert A. Stine (2008). $\alpha$-investing: a procedure for sequential control of expected false discoveries. Journal of the Royal Statistical Society, Series B 70(2), pp. 429--444. \href{https://doi.org/10.1111/j.1467-9868.2007.00643.x}{DOI: 10.1111/j.1467-9868.2007.00643.x}.
+\par\medskip
+
+\noindent John Locke (1690). An Essay Concerning Human Understanding, Book I, chapter iv, section 23. The attack on taking belief from authority. \href{https://www.earlymoderntexts.com/assets/pdfs/locke1690book1.pdf}{Modernized text of Book I}.
+\par\medskip
+
+\noindent Kenny Easwaran (2009). Probabilistic proofs and transferability. Philosophia Mathematica (III) 17(3), pp. 341--362. \href{https://doi.org/10.1093/philmat/nkn032}{DOI: 10.1093/philmat/nkn032}.
+\par\medskip
+
+\noindent Tyler Burge (1993). Content preservation. The Philosophical Review 102(4), pp. 457--488. \href{https://doi.org/10.2307/2185680}{DOI: 10.2307/2185680}. The acceptance principle.
+\par\medskip
+
+\noindent Jennifer Lackey (2008). Learning from Words: Testimony as a Source of Knowledge. Oxford University Press. The case of the teacher who doesn't believe what she teaches.
+\par\medskip
+
+\noindent Sanford C. Goldberg (2010). Relying on Others: An Essay in Epistemology. Oxford University Press.
+\par\medskip
+
+\noindent Wesley H. Holliday (2009). Dynamic testimonial logic. In Xiangdong He, John Horty and Eric Pacuit (eds.), Logic, Rationality, and Interaction, LORI 2009, Lecture Notes in Computer Science 5834, Springer, pp. 161--179. \href{https://doi.org/10.1007/978-3-642-04893-7_13}{DOI: 10.1007/978-3-642-04893-7\_13}. Authority graphs for trust in testimony, with complete reduction axioms.
+\par\medskip
+
+\noindent Christoph J\"ager and Nicholas Shackel (2025). Testimonial authority and knowledge transmission. Social Epistemology 39(6), pp. 636--651. \href{https://doi.org/10.1080/02691728.2025.2449608}{DOI: 10.1080/02691728.2025.2449608}.
+\par\medskip
+
+\noindent C. L. Hamblin (1970). Fallacies. Methuen, London. Chapter 8, formal dialectic, where each speaker has a commitment store.
+\par\medskip
+
+\noindent Phan Minh Dung (1995). On the acceptability of arguments and its fundamental role in nonmonotonic reasoning, logic programming and n-person games. Artificial Intelligence 77(2), pp. 321--357. \href{https://doi.org/10.1016/0004-3702(94)00041-X}{DOI: 10.1016/0004-3702(94)00041-X}.
+\par\medskip
+
+\noindent Pietro Baroni and Massimiliano Giacomin (2007). On principle-based evaluation of extension-based argumentation semantics. Artificial Intelligence 171(10--15), pp. 675--700. \href{https://doi.org/10.1016/j.artint.2007.04.004}{DOI: 10.1016/j.artint.2007.04.004}.
+\par\medskip
+
+\noindent Martin Caminada (2014). Strong admissibility revisited. In Simon Parsons, Nir Oren, Chris Reed and Federico Cerutti (eds.), Computational Models of Argument: Proceedings of COMMA 2014, Frontiers in Artificial Intelligence and Applications 266, IOS Press, pp. 197--208. \href{https://doi.org/10.3233/978-1-61499-436-7-197}{DOI: 10.3233/978-1-61499-436-7-197}. Journal version with Paul E. Dunne (2019), Argument \& Computation 10(3), pp. 277--300, \href{https://doi.org/10.3233/AAC-190463}{DOI: 10.3233/AAC-190463}.
+\par\medskip
+
+\noindent Erik C. W. Krabbe (2001). The problem of retraction in critical discussion. Synthese 127(1--2), pp. 141--159. \href{https://doi.org/10.1023/A:1010318403544}{DOI: 10.1023/A:1010318403544}.
+\par\medskip
+
+\noindent Henry Prakken (2005). Coherence and flexibility in dialogue games for argumentation. Journal of Logic and Computation 15(6), pp. 1009--1040. \href{https://doi.org/10.1093/logcom/exi046}{DOI: 10.1093/logcom/exi046}.
+\par\medskip
+
+\noindent Lewis A. Kornhauser and Lawrence G. Sager (1986). Unpacking the court. Yale Law Journal 96(1), beginning p. 82. \href{https://doi.org/10.2307/796436}{DOI: 10.2307/796436}.
+\par\medskip
+
+\noindent Christian List and Philip Pettit (2002). Aggregating sets of judgments: an impossibility result. Economics and Philosophy 18(1), pp. 89--110. \href{https://doi.org/10.1017/S0266267102001098}{DOI: 10.1017/S0266267102001098}.
 \par\medskip
 
 \subsection{Cost, records and thermodynamics}
@@ -16979,6 +17233,51 @@ this book's pointer conjecture.
 \noindent Sebastian Goldt and Udo Seifert (2017). Stochastic thermodynamics of learning. Physical Review Letters 118, 010601. \href{https://doi.org/10.1103/PhysRevLett.118.010601}{DOI: 10.1103/PhysRevLett.118.010601}.
 \par\medskip
 
+\noindent David Deutsch and Chiara Marletto (2015). Constructor theory of information. Proceedings of the Royal Society A 471(2174), 20140540. \href{https://doi.org/10.1098/rspa.2014.0540}{DOI: 10.1098/rspa.2014.0540}; \href{https://arxiv.org/abs/1405.5563}{arXiv: 1405.5563}. Section 8.6, the irreducible perturbation caused by measurement.
+\par\medskip
+
+\noindent Chiara Marletto (2016). Constructor theory of thermodynamics. Preprint, first posted in 2016. \href{https://arxiv.org/abs/1608.02625}{arXiv: 1608.02625}.
+\par\medskip
+
+\noindent Chiara Marletto, Vlatko Vedral, Laura T. Knoll, Fabrizio Piacentini, Ettore Bernardi, Enrico Rebufello, Alessio Avella, Marco Gramegna, Ivo Pietro Degiovanni and Marco Genovese (2022). Emergence of constructor-based irreversibility in quantum systems: theory and experiment. Physical Review Letters 128, 080401. \href{https://doi.org/10.1103/PhysRevLett.128.080401}{DOI: 10.1103/PhysRevLett.128.080401}; \href{https://arxiv.org/abs/2009.14649}{arXiv: 2009.14649}.
+\par\medskip
+
+\noindent Maria Violaris and Chiara Marletto (2022). Irreversibility beyond Landauer's principle: is it possible to perform erasure using the quantum homogenizer? New Journal of Physics 24, 113030. \href{https://doi.org/10.1088/1367-2630/ac9e13}{DOI: 10.1088/1367-2630/ac9e13}.
+\par\medskip
+
+\noindent David Deutsch and Chiara Marletto (2025). Constructor theory of time. Preprint. \href{https://arxiv.org/abs/2505.08692}{arXiv: 2505.08692}.
+\par\medskip
+
+\noindent John C. Baez, Tobias Fritz and Tom Leinster (2011). A characterization of entropy in terms of information loss. Entropy 13(11), pp. 1945--1957. \href{https://doi.org/10.3390/e13111945}{DOI: 10.3390/e13111945}; \href{https://arxiv.org/abs/1106.1791}{arXiv: 1106.1791}.
+\par\medskip
+
+\noindent J\'anos Acz\'el, Bruno Forte and C. T. Ng (1974). Why the Shannon and Hartley entropies are ``natural.'' Advances in Applied Probability 6(1), pp. 131--146. \href{https://doi.org/10.2307/1426210}{DOI: 10.2307/1426210}.
+\par\medskip
+
+\noindent Luciano Pomatto, Philipp Strack and Omer Tamuz (2023). The cost of information: the case of constant marginal costs. American Economic Review 113(5), pp. 1360--1393. \href{https://doi.org/10.1257/aer.20190185}{DOI: 10.1257/aer.20190185}.
+\par\medskip
+
+\noindent Andreas Haeberlen and Petr Kuznetsov (2009). The fault detection problem. Principles of Distributed Systems, OPODIS 2009, Lecture Notes in Computer Science, Springer, pp. 99--114. \href{https://doi.org/10.1007/978-3-642-10877-8_10}{DOI: 10.1007/978-3-642-10877-8\_10}. Faults divided into classes; only omission and commission faults are detectable.
+\par\medskip
+
+\noindent Radha Jagadeesan, Alan Jeffrey, Corin Pitcher and James Riely (2009). Towards a theory of accountability and audit. Computer Security, ESORICS 2009, Lecture Notes in Computer Science 5789, Springer, pp. 152--167. \href{https://doi.org/10.1007/978-3-642-04444-1_10}{DOI: 10.1007/978-3-642-04444-1\_10}.
+\par\medskip
+
+\noindent Andreas Haeberlen, Petr Kouznetsov and Peter Druschel (2007). PeerReview: practical accountability for distributed systems. Proceedings of the 21st ACM Symposium on Operating Systems Principles (SOSP '07), pp. 175--188. \href{https://doi.org/10.1145/1294261.1294279}{DOI: 10.1145/1294261.1294279}.
+\par\medskip
+
+\noindent Ralf K\"usters, Tomasz Truderung and Andreas Vogt (2010). Accountability: definition and relationship to verifiability. Proceedings of the 17th ACM Conference on Computer and Communications Security (CCS '10), pp. 526--535. \href{https://doi.org/10.1145/1866307.1866366}{DOI: 10.1145/1866307.1866366}.
+\par\medskip
+
+\noindent Robert K\"unnemann, Ilkan Esiyok and Michael Backes (2019). Automated verification of accountability in security protocols. 2019 IEEE 32nd Computer Security Foundations Symposium (CSF), IEEE. \href{https://doi.org/10.1109/CSF.2019.00034}{DOI: 10.1109/CSF.2019.00034}; \href{https://arxiv.org/abs/1805.10891}{arXiv: 1805.10891}.
+\par\medskip
+
+\noindent Alex Shamis and coauthors (2021). IA-CCF: individual accountability for permissioned ledgers. Preprint. \href{https://arxiv.org/abs/2105.13116}{arXiv: 2105.13116}.
+\par\medskip
+
+\noindent Timo Treitz and Robert K\"unnemann (2026). Accountability in Certificate Transparency and variants. Preprint. \href{https://arxiv.org/abs/2609.11552}{arXiv: 2609.11552}.
+\par\medskip
+
 \subsection{Computation, self-reference and checking}
 
 \noindent Edward F. Moore (1956). Gedanken-Experiments on Sequential Machines. In Claude E. Shannon and John McCarthy (eds.), Automata Studies, pp. 129--153. Princeton University Press. \href{https://www.cs.cmu.edu/~cdm/resources/Moore1956-gedanken-experiments.pdf}{Original paper}.
@@ -17341,6 +17640,9 @@ this book's pointer conjecture.
 \noindent Shafi Goldwasser, Silvio Micali and Charles Rackoff (1985). The Knowledge Complexity of Interactive Proof-Systems. Proceedings of the 17th Annual ACM Symposium on Theory of Computing, pp. 291--304.
 \par\medskip
 
+\noindent Joseph Y. Halpern, Yoram Moses and Mark R. Tuttle (1988). A knowledge-based analysis of zero knowledge. Proceedings of the 20th Annual ACM Symposium on Theory of Computing (STOC '88), pp. 132--147. \href{https://doi.org/10.1145/62212.62224}{DOI: 10.1145/62212.62224}.
+\par\medskip
+
 \noindent James P. Anderson (1972). Computer Security Technology Planning Study. Technical Report ESD-TR-73-51, Electronic Systems Division, Air Force Systems Command, Hanscom Field, Bedford, MA. \href{https://seclab.cs.ucdavis.edu/projects/history/seminal.html}{Early computer security papers}.
 \par\medskip
 
@@ -17438,6 +17740,36 @@ this book's pointer conjecture.
 \par\medskip
 
 \noindent Ethan Cecchetti, Andrew C. Myers and Owen Arden (2017). Nonmalleable information flow control. CCS 2017, pp. 1875--1891. \href{https://doi.org/10.1145/3133956.3134054}{DOI: 10.1145/3133956.3134054}.
+\par\medskip
+
+\noindent Hao Wang (1957). A variant to Turing's theory of computing machines. Journal of the ACM 4(1), pp. 63--92. \href{https://doi.org/10.1145/320856.320867}{DOI: 10.1145/320856.320867}. Machines that mark a square and never erase one.
+\par\medskip
+
+\noindent Wayne Richter and Peter Aczel (1974). Inductive definitions and reflecting properties of admissible ordinals. In J. E. Fenstad and P. G. Hinman (eds.), Generalized Recursion Theory, North-Holland, Studies in Logic and the Foundations of Mathematics 79, pp. 301--381. \href{https://doi.org/10.1016/S0049-237X(08)70592-5}{DOI: 10.1016/S0049-237X(08)70592-5}.
+\par\medskip
+
+\noindent John P. Burgess (1986). The truth is never simple. Journal of Symbolic Logic 51(3), pp. 663--681. \href{https://doi.org/10.2307/2274021}{DOI: 10.2307/2274021}. Quasi-inductive definitions, in the setting of revision theories of truth.
+\par\medskip
+
+\noindent Joel David Hamkins and Andy Lewis (2000). Infinite time Turing machines. Journal of Symbolic Logic 65(2), pp. 567--604. \href{https://doi.org/10.2307/2586556}{DOI: 10.2307/2586556}; \href{https://arxiv.org/abs/math/9808093}{arXiv: math/9808093}.
+\par\medskip
+
+\noindent Michael Burrows, Martin Abadi and Roger Needham (1990). A logic of authentication. ACM Transactions on Computer Systems 8(1), pp. 18--36. \href{https://doi.org/10.1145/77648.77649}{DOI: 10.1145/77648.77649}. First presented at the 12th ACM Symposium on Operating Systems Principles, 1989.
+\par\medskip
+
+\noindent Thomas Y. C. Woo and Simon S. Lam (1993). A semantic model for authentication protocols. Proceedings of the 1993 IEEE Computer Society Symposium on Research in Security and Privacy, pp. 178--194. \href{https://doi.org/10.1109/RISP.1993.287633}{DOI: 10.1109/RISP.1993.287633}. Correspondence and secrecy as the two basic properties.
+\par\medskip
+
+\noindent Andrew D. Gordon and Alan Jeffrey (2003). Authenticity by typing for security protocols. Journal of Computer Security 11(4), pp. 451--519. \href{https://doi.org/10.3233/JCS-2003-11402}{DOI: 10.3233/JCS-2003-11402}.
+\par\medskip
+
+\noindent Johannes \AA{}man Pohjola and Joachim Parrow (2016). The expressive power of monotonic parallel composition. Programming Languages and Systems, ESOP 2016, Lecture Notes in Computer Science, Springer, pp. 780--803. \href{https://doi.org/10.1007/978-3-662-49498-1_30}{DOI: 10.1007/978-3-662-49498-1\_30}.
+\par\medskip
+
+\noindent Catuscia Palamidessi, Vijay Saraswat, Frank D. Valencia and Bj\"orn Victor (2006). On the expressiveness of linearity vs persistence in the asynchronous pi-calculus. Proceedings of the 21st Annual IEEE Symposium on Logic in Computer Science (LICS 2006), pp. 59--68. \href{https://doi.org/10.1109/LICS.2006.39}{DOI: 10.1109/LICS.2006.39}.
+\par\medskip
+
+\noindent Vincent Danos and Jean Krivine (2005). Transactions in RCCS. CONCUR 2005, Lecture Notes in Computer Science 3653, pp. 398--412. \href{https://doi.org/10.1007/11539452_31}{DOI: 10.1007/11539452\_31}.
 \par\medskip
 
 \subsection{Correlations and environmental records}
@@ -17541,7 +17873,7 @@ this book's pointer conjecture.
 \noindent Andrew Whitaker (2016). John Stewart Bell and Twentieth Century Physics: Vision and Integrity. Oxford University Press.
 \par\medskip
 
-\noindent William D. Phillips and Jean Dalibard (2022). Experimental tests of Bell's inequalities: A first-hand account by Alain Aspect. European Physical Journal D. \href{https://arxiv.org/abs/2212.04737}{arXiv: 2212.04737; DOI: 10.1140/epjd/s10053-022-00557-6}.
+\noindent William D. Phillips and Jean Dalibard (2022). Experimental tests of Bell's inequalities: A first-hand account by Alain Aspect. European Physical Journal D 77, article 8 (2023). \href{https://arxiv.org/abs/2212.04737}{arXiv: 2212.04737; DOI: 10.1140/epjd/s10053-022-00557-6}.
 \par\medskip
 
 \noindent Nicolas Brunner, Daniel Cavalcanti, Stefano Pironio, Valerio Scarani and Stephanie Wehner (2014). Bell nonlocality. Reviews of Modern Physics 86, pp. 419--478. \href{https://arxiv.org/abs/1303.2849}{arXiv: 1303.2849}.
