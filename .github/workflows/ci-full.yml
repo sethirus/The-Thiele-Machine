@@ -1,16 +1,9 @@
 name: CI (Full)
-run-name: ${{ inputs.board_netlist_run_id && format('Board simulation diagnostic (artifact run {0})', inputs.board_netlist_run_id) || 'CI (Full)' }}
 
 on:
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch:
-    inputs:
-      board_netlist_run_id:
-        description: "Diagnostic only: reuse this run's FPGA artifact; blank runs full CI"
-        required: false
-        type: string
-        default: ""
 
 permissions:
   contents: read
@@ -22,625 +15,34 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
-  # Import the primary CI checks first.
-  # The software/proof surface and hardware checks are independent branches.
+  # Import the primary CI checks first. The full vacuity sweep is an
+  # independent branch.
   fast-verify:
-    if: ${{ !inputs.board_netlist_run_id }}
     uses: ./.github/workflows/ci.yml
     secrets: inherit
 
-  # Hardware synthesis & simulation. Runs in PARALLEL with fast-verify —
-  # only consumes RTL files (.v) already in the repo at checkout, so it does
-  # not depend on any fast-verify output.
-  hardware-synthesis:
-    if: ${{ !inputs.board_netlist_run_id }}
-    name: Hardware synthesis & simulation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Install synthesis tools
-        uses: ./.github/actions/apt-install
-        with:
-          packages: coq coinor-csdp ocaml ocaml-findlib iverilog verilator yosys
-
-      - name: Use the validated Verilator release
-        uses: ./.github/actions/setup-verilator
-
-      - name: Set up MetaCoq Template
-        uses: ./.github/actions/setup-metacoq
-
-      - name: Capture toolchain version
-        id: toolchain
-        run: |
-          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
-          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
-          echo "Coq: ${coq_version}"
-
-      - name: Cache vendor builds (bbv + kami)
-        id: cache-vendor
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
-
-      - name: Build vendored deps (bbv + kami)
-        if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: |
-          cd vendor/bbv && make -j4
-          cd ../..
-          bash scripts/fix_kami_coq18.sh
-          cd vendor/kami && make -j4
-
-      - name: Compute vendor build digest
-        id: vendor-digest
-        run: |
-          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
-            | sort -z \
-            | xargs -0 sha256sum 2>/dev/null \
-            | sha256sum \
-            | cut -c1-16)
-          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
-          echo "Vendor .vo digest: ${digest}"
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements.txt
-
-      - name: Purge stale tracked Coq .vo files
-        run: make coq-clean
-
-      - name: Restore the latest Coq build
-        # Restore only: this job builds just the extraction closure, so it
-        # must never save under the key a complete build owns.
-        id: cache-coq
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            coq/**/*.vo
-            coq/**/*.vok
-            coq/**/*.vos
-            coq/**/*.glob
-            minimal/**/*.vo
-            minimal/**/*.vok
-            minimal/**/*.vos
-            minimal/**/*.glob
-            coq/Makefile
-            coq/Makefile.conf
-            coq/.Makefile.d
-            build/coq-build-manifest.json
-          key: coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
-          restore-keys: |
-            coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --quiet --upgrade pip
-          pip install --quiet -r requirements.txt
-          pip install --quiet -e . --no-deps
-
-      - name: Build the extraction closure
-        # Rebuild exactly what changed since the restored build, in parallel,
-        # so the forge pipeline's serial make finds Extraction.vo current.
-        shell: bash
-        run: |
-          set -Eeuo pipefail
-          cd coq
-          if ! python3 ../scripts/coq_build_manifest.py apply; then
-            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
-          fi
-          rm -f Makefile Makefile.conf .Makefile.d
-          coq_makefile -f _CoqProject -o Makefile
-          make -j4 pre-all
-          make -j4 Extraction.vo kami_hw/SystemExtraction.vo
-          # The extraction files write build/kami_hw as a side effect; a
-          # restored build may hold them current without that output.
-          make -j1 -W kami_hw/KamiExtraction.v -W kami_hw/SystemExtraction.v \
-            kami_hw/KamiExtraction.vo kami_hw/SystemExtraction.vo
-
-      - name: Set up the Bluespec compiler
-        id: bsc
-        uses: ./.github/actions/setup-bsc
-
-      - name: Regenerate the CPU Verilog from the Coq model
-        # Coq -> Kami -> OCaml printer -> Bluespec -> bsc -> synthesis
-        # transform, from the Target.ml the build above extracted. The
-        # tracked Verilog must come out byte-identical: it is extracted,
-        # never edited by hand.
-        env:
-          BLUESPECDIR: ${{ steps.bsc.outputs.bluespecdir }}
-        run: |
-          bash scripts/kami_extract.sh --skip-coq
-          git diff --exit-code --stat -- thielecpu/hardware/rtl/thiele_cpu_kami.v \
-            thielecpu/hardware/rtl/thiele_system.v
-
-      - name: Run hardware forge pipeline
-        run: bash scripts/forge_artifact.sh
-
-      - name: Synthesize with Yosys (stats + JSON netlist)
-        run: |
-          mkdir -p build
-          yosys -p "
-            read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v \
-            thielecpu/hardware/rtl/thiele_system.v;
-            prep -top mkThieleSystem;
-            check;
-            stat;
-            write_json build/netlist.json;
-          " 2>&1 | tee build/synthesis.log
-
-      - name: Verify synthesis
-        run: |
-          if ! grep -q "Number of cells:" build/synthesis.log; then
-            echo "❌ Synthesis failed - no cell count"
-            exit 1
-          fi
-          cells=$(grep "Number of cells:" build/synthesis.log | awk '{print $NF}' | tail -n1)
-          if [ "${cells:-0}" -eq 0 ]; then
-            echo "❌ Zero cells synthesized"
-            exit 1
-          fi
-          echo "✓ Synthesis successful: $cells cells"
-          if [ ! -s build/netlist.json ]; then
-            echo "❌ JSON netlist missing"
-            exit 1
-          fi
-          echo "✓ JSON netlist exported: build/netlist.json"
-
-      - name: Simulate hardware
-        run: |
-          vvp build/thiele_cpu_tb.out +VCD=build/thiele_cpu_tb.vcd > build/simulation.log 2>&1
-
-      - name: Verify simulation
-        # The testbench emits "status": 2 for a clean halt, 3 for an error
-        # halt, 0 if the run never halted (rtl_harness/testbench/
-        # thiele_cpu_kami_tb.v line ~318). Grepping for the bare key
-        # accepted all three — an error halt rolled up green. Require the
-        # clean-halt code.
-        run: |
-          if ! grep -q '"status": 2' build/simulation.log; then
-            echo "❌ Simulation did not reach a clean halt (status 2); got:"
-            grep '"status"' build/simulation.log || echo "(no status line at all)"
-            exit 1
-          fi
-          if [ ! -s build/thiele_cpu_tb.vcd ]; then
-            echo "❌ Simulation waveform (VCD) missing or empty"
-            exit 1
-          fi
-          vcd_bytes=$(wc -c < build/thiele_cpu_tb.vcd)
-          echo "✓ Simulation successful (VCD: ${vcd_bytes} bytes)"
-
-      - name: Load programs over the serial pin, in Verilog and in gates
-        # Each program goes in as serial frames to the extracted system and
-        # its report must equal the CPU's own result, both in the extracted
-        # Verilog and in a gate netlist synthesized from it.
-        run: python3 scripts/system_sim.py --gates
-
-      - name: Reproducible synthesis gate
-        run: bash scripts/synthesis_repro_gate.sh
-
-      - name: Upload hardware artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: hardware-verification
-          path: |
-            build/synthesis.log
-            build/simulation.log
-            build/thiele_cpu_tb.vcd
-            build/netlist.json
-            artifacts/synthesis_gate/
-          retention-days: 30
-
-  # FPGA bitstream generation. yosys synth_xilinx + nextpnr-xilinx
-  # place-and-route + xc7frames2bit packaging on the Digilent Genesys 2
-  # target (Xilinx Kintex-7, xc7k325tffg900-2) using the 100% open-source
-  # openXC7 toolchain. The RTL (.v) is committed and validated by
-  # hardware-synthesis upstream, so this job only needs the FPGA toolchain
-  # — no Coq/OCaml/Python/forge.
-  fpga-bitstream:
-    if: ${{ !inputs.board_netlist_run_id }}
-    name: FPGA bitstream generation (Kintex-7 K325T / ffg900 / openXC7)
-    runs-on: ubuntu-latest
-    env:
-      # Revisions used for the reproducible FPGA toolchain snapshot
-      # https://github.com/sethirus/The-Thiele-Machine/actions/runs/29304801708
-      # Pinning the router, chip database, and frame packager keeps placement
-      # and bitstream generation reproducible together.
-      NEXTPNR_REV: 683858daf7b85e5984ecccb27884c88df3ec01f6
-      PRJXRAY_REV: c9f02d8576042325425824647ab5555b1bc77833
-      PRJXRAY_DB_REV: 381966a746cb4cf4a7f854f0e53caa3bf74fbe62
-    # No `needs:` — this job only reads .v files from the repo at checkout
-    # and produces its own bitstream end-to-end.
-    #
-    # CHSH_LASSERT's column_contractive_check_witness performs 22 wide
-    # integer multiplications. In Kami it's implemented as a 29-phase FSM
-    # (`chsh_lassert_fsm` rule in coq/kami_hw/ThieleCPUCore.v) that
-    # time-shares one 67×67 multiplier across the phases, so only one
-    # multiply is live per cycle; each FSM register is sized to the largest
-    # value 32-bit counters can put there, and the two 134×134 products are
-    # each summed from four 67×67 partial products. The Coq spec is
-    # single-step; multi-cycle execution is a Kami-implementation detail
-    # invisible to the spec, same pattern as instr_lassert. synth_xc7.ys
-    # builds the multiplier from LUTs (`-nodsp`) and the module tensor store
-    # is a LUT-RAM RegFile, for about 37K LUTs in all. The synthesis driver
-    # uses nextpnr's `--no-tmdriv` mode so placement effort goes to
-    # routability; the uploaded nextpnr log reports the achieved frequency.
-    # A bitstream-generation failure must fail the workflow; the default
-    # continue-on-error policy is intentionally strict.
-    # Keep a hard safety cap well above the expected runtime.
-    timeout-minutes: 180
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install yosys + build deps
-        uses: ./.github/actions/apt-install
-        with:
-          packages: yosys cmake g++ python3-pip libboost-all-dev libeigen3-dev libgflags-dev libyaml-cpp-dev
-
-      - name: Install FPGA bitstream Python tools
-        run: |
-          # fasm pypi only ships 0.0.2.post* (no clean 0.0.2). The .post
-          # wheels print a noisy "circular import" RuntimeWarning under
-          # Python 3.12 and fall back to the slower textX parser — this
-          # is cosmetic, fasm2frames still runs correctly. We leave fasm
-          # unpinned so pip picks the latest .post that exists.
-          pip install --break-system-packages fasm intervaltree simplejson
-
-      - name: Build nextpnr-xilinx (openXC7)
-        run: |
-          git init /opt/nextpnr-xilinx
-          cd /opt/nextpnr-xilinx
-          git remote add origin https://github.com/openXC7/nextpnr-xilinx.git
-          git fetch --depth 1 origin "$NEXTPNR_REV"
-          git checkout --detach FETCH_HEAD
-          test "$(git rev-parse HEAD)" = "$NEXTPNR_REV"
-          git submodule update --init --recursive --depth 1
-          # Trim non-Kintex-7 device databases to keep the chipdb step slim.
-          # Keep all xc7k325t* (parent dir + ffg676 + ffg900 package subdirs)
-          # — that's the target. Drop every other Kintex-7 part (and the other
-          # 7-series families entirely).
-          rm -rf xilinx/external/prjxray-db/zynq7 xilinx/external/prjxray-db/artix7 xilinx/external/prjxray-db/spartan7
-          find xilinx/external/prjxray-db/kintex7 -maxdepth 1 -mindepth 1 -type d \
-            ! -name 'xc7k325t*' -exec rm -rf {} +
-          cmake -DARCH=xilinx -DBUILD_GUI=OFF -DBUILD_PYTHON=OFF .
-          make -j$(nproc) nextpnr-xilinx bbasm
-          sudo install -m 0755 nextpnr-xilinx /usr/local/bin/nextpnr-xilinx
-          # bbasm is needed by fpga/run_synthesis_xc7.sh to build the chipdb
-          # for xc7k325tffg900-2 at runtime; expose it on PATH and keep the
-          # source-tree path stable for the script's bbaexport.py invocation.
-          sudo install -m 0755 bbasm /usr/local/bin/bbasm
-
-      - name: Build prjxray xc7frames2bit
-        run: |
-          git init /opt/prjxray
-          cd /opt/prjxray
-          git remote add origin https://github.com/SymbiFlow/prjxray.git
-          git fetch --depth 1 origin "$PRJXRAY_REV"
-          git checkout --detach FETCH_HEAD
-          test "$(git rev-parse HEAD)" = "$PRJXRAY_REV"
-          git submodule update --init --recursive
-          rm -rf third_party/yosys
-          cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF .
-          make -C build -j$(nproc) xc7frames2bit bitread
-          sudo install -m 0755 build/tools/xc7frames2bit /usr/local/bin/xc7frames2bit
-          sudo install -m 0755 build/tools/bitread /usr/local/bin/bitread
-
-      - name: Clone full prjxray-db (kintex7 only)
-        # SymbiFlow/prjxray itself has no `database/` submodule, and
-        # SymbiFlow/prjxray-db only includes xc7k70t under kintex7/ — no
-        # xc7k325t. The upstream that supports our part is openxc7/prjxray-db
-        # (which openXC7/nextpnr-xilinx submodules at xilinx/external/...
-        # but trims mapping/ away during its own build step, so we cannot
-        # reuse that copy). Clone openxc7/prjxray-db directly here and trim
-        # only non-kintex7 families.
-        run: |
-          git init /opt/prjxray-db
-          git -C /opt/prjxray-db remote add origin https://github.com/openxc7/prjxray-db.git
-          git -C /opt/prjxray-db fetch --depth 1 origin "$PRJXRAY_DB_REV"
-          git -C /opt/prjxray-db checkout --detach FETCH_HEAD
-          test "$(git -C /opt/prjxray-db rev-parse HEAD)" = "$PRJXRAY_DB_REV"
-          rm -rf /opt/prjxray-db/artix7 /opt/prjxray-db/spartan7 /opt/prjxray-db/zynq7
-          test -f /opt/prjxray-db/kintex7/mapping/devices.yaml
-          test -f /opt/prjxray-db/kintex7/xc7k325tffg900-2/part.yaml
-
-      - name: Run yosys + nextpnr-xilinx + xc7frames2bit (Kintex-7 K325T)
-        env:
-          NEXTPNR_XILINX: /usr/local/bin/nextpnr-xilinx
-          NEXTPNR_DIR:    /opt/nextpnr-xilinx
-          BBASM:          /usr/local/bin/bbasm
-          XC7FRAMES2BIT:  /usr/local/bin/xc7frames2bit
-          PRJXRAY_DIR:    /opt/prjxray
-          # openxc7/prjxray-db: has mapping/devices.yaml AND
-          # xc7k325tffg900-2/part.yaml (speed-graded layout). Confirmed via
-          # GitHub API before push.
-          PRJXRAY_DB:     /opt/prjxray-db/kintex7
-        run: bash fpga/run_synthesis_xc7.sh
-
-      - name: Verify bitstream
-        run: |
-          if [ ! -s build/thiele_xc7k325t.bit ]; then
-            echo "❌ Bitstream missing or empty"
-            exit 1
-          fi
-          bytes=$(wc -c < build/thiele_xc7k325t.bit)
-          echo "✓ Bitstream generated: build/thiele_xc7k325t.bit (${bytes} bytes)"
-
-      - name: Check the bitstream against the routed design
-        # Decodes the bitstream back to configuration bits and FASM features
-        # and requires both to match what place-and-route produced.
-        run: |
-          python3 fpga/bitstream_roundtrip.py \
-            --bit build/thiele_xc7k325t.bit \
-            --frames build/thiele_xc7k325t.frames \
-            --part xc7k325tffg900-2 \
-            --db-root /opt/prjxray-db/kintex7 \
-            --prjxray /opt/prjxray \
-            --bitread /usr/local/bin/bitread
-
-      - name: Record the netlist the bitstream was built from
-        # board-gls and rtl-netlist-equiv download this artifact and check
-        # the digest, so they read exactly the netlist nextpnr was handed.
-        run: sha256sum build/thiele_xc7k325t.json | tee build/thiele_xc7k325t.json.sha256
-
-      - name: Upload bitstream
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: fpga-bitstream
-          path: |
-            build/thiele_xc7k325t.bit
-            build/thiele_xc7k325t.fasm
-            build/thiele_xc7k325t.frames
-            build/thiele_xc7k325t.json
-            build/thiele_xc7k325t.json.sha256
-            build/yosys_xc7.log
-            build/nextpnr_xc7.log
-          retention-days: 90
-          if-no-files-found: warn
-
-  # Gate-level simulation of the exact board top. Reads the netlist the
-  # bitstream job synthesized (the yosys netlist handed to nextpnr, before
-  # place and route; the routed design is not simulated), writes it
-  # back to Verilog, and simulates it with yosys's xilinx cells_sim.v and
-  # behavioural IBUFDS/MMCME2_BASE/BUFGCE models, through the board pins:
-  # program in over the UART, status report out. The same testbench runs
-  # the RTL of the same top, and the extracted VM runs each program; the
-  # final state is compared field by field (scripts/board_gls.py). The RTL
-  # run also carries the formal property files as simulation checks and must
-  # reach every cover that is reachable from reset (--props). Each program
-  # also runs without pressing the reset button, on the gates from their INIT
-  # values and on the RTL from all zeros, and must end the same (--power-on).
-  board-gls-shards:
-    # Reusing an existing bitstream is for harness diagnostics only; it cannot
-    # produce a Full Verification Summary. Normal runs still require synthesis.
-    if: ${{ always() && (needs.fpga-bitstream.result == 'success' || inputs.board_netlist_run_id != '') }}
-    permissions:
-      contents: read
-      actions: read
-    name: Board-top gate-level simulation (shard ${{ matrix.shard }})
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [0, 1, 2, 3]
-    runs-on: ubuntu-latest
-    needs: fpga-bitstream
-    timeout-minutes: 150
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install simulators
-        uses: ./.github/actions/apt-install
-        with:
-          packages: yosys verilator iverilog ocaml ocaml-findlib
-
-      - name: Use the validated Verilator release
-        uses: ./.github/actions/setup-verilator
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements.txt
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --quiet --upgrade pip
-          pip install --quiet -r requirements.txt
-          pip install --quiet -e . --no-deps
-
-      - name: Build the OCaml extracted VM runner
-        run: |
-          ocamlfind ocamlc -I build -package str -linkpkg \
-            -o build/extracted_vm_runner \
-            build/thiele_core.mli \
-            build/thiele_core.ml \
-            build/extracted_vm_runner.ml
-
-      - name: Download the bitstream job's netlist
-        uses: actions/download-artifact@v4
-        with:
-          name: fpga-bitstream
-          path: build/
-          run-id: ${{ inputs.board_netlist_run_id || github.run_id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check the netlist digest
-        run: sha256sum -c build/thiele_xc7k325t.json.sha256
-
-      - name: Simulate gates, RTL and VM
-        env:
-          THIELE_STRICT_VM_BACKEND: "1"
-        run: |
-          python3 scripts/board_gls.py \
-            --netlist-json build/thiele_xc7k325t.json \
-            --long --props --random 8 --power-on \
-            --shard-count 4 --shard-index ${{ matrix.shard }} \
-            --report build/board_gls_report_${{ matrix.shard }}.json
-
-      - name: Upload the report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: board-gls-${{ matrix.shard }}
-          path: build/board_gls_report_${{ matrix.shard }}.json
-          retention-days: 30
-          if-no-files-found: warn
-
-  board-gls:
-    name: Board-top complete suite and coverage
-    if: always()
-    needs: board-gls-shards
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Require every simulation shard
-        env:
-          SHARD_RESULT: ${{ needs.board-gls-shards.result }}
-        run: test "$SHARD_RESULT" = success
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: board-gls-*
-          path: build/board-gls-reports
-          merge-multiple: true
-      - name: Check all programs, comparisons and coverage targets
-        run: |
-          python3 scripts/board_gls.py --long --props --random 8 --power-on \
-            --combine-reports build/board-gls-reports/*.json \
-            --report build/board_gls_report.json
-      - uses: actions/upload-artifact@v4
-        with:
-          name: board-gls
-          path: build/board_gls_report.json
-          if-no-files-found: error
-
-  # Board/loader comparison with the actual bitstream netlist. The reset base
-  # and arbitrary inductive step must both pass. The explicit shared CPU
-  # response interface is conditional; CPU/RAM equivalence remains unproved.
-  rtl-netlist-equiv:
-    if: ${{ !inputs.board_netlist_run_id }}
-    name: Board/loader RTL-netlist equivalence (conditional CPU interface)
-    runs-on: ubuntu-latest
-    needs: fpga-bitstream
-    timeout-minutes: 120
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install yosys
-        uses: ./.github/actions/apt-install
-        with:
-          packages: yosys
-
-      - name: Download the bitstream job's netlist
-        uses: actions/download-artifact@v4
-        with:
-          name: fpga-bitstream
-          path: build/
-
-      - name: Check the netlist digest
-        run: sha256sum -c build/thiele_xc7k325t.json.sha256
-
-      - name: Prove the reset base and component induction step
-        run: |
-          python3 scripts/rtl_netlist_equiv.py \
-            --netlist-json build/thiele_xc7k325t.json \
-            --report build/equiv/equiv_report.json
-
-      - name: Upload the report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: rtl-netlist-equiv
-          path: build/equiv/
-          retention-days: 30
-          if-no-files-found: warn
-
-  # SymbiYosys safety properties of the extracted CPU and loader
-  # (formal/thiele.sby, formal/cpu_props.vh, formal/system_props.vh). The
-  # prove tasks use PDR, k-induction, or exhaustive one-step induction over every state
-  # reachable from reset; the cover tasks show each property's trigger is reached by a
-  # real transition. Ubuntu packages yosys 0.33 (with yosys-abc and
-  # yosys-smtbmc) and z3 but not SymbiYosys, so sby is installed from the
-  # YosysHQ/sby tag that matches the installed yosys.
-  formal:
-    if: ${{ !inputs.board_netlist_run_id }}
-    name: Formal properties (${{ matrix.task }})
-    runs-on: ubuntu-latest
-    timeout-minutes: 300
-    strategy:
-      fail-fast: false
-      matrix:
-        task: [cpu_prove_pt, cpu_prove_ctrl, cpu_cover, sys_prove, sys_cover]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install yosys and z3
-        uses: ./.github/actions/apt-install
-        with:
-          packages: yosys z3
-
-      - name: Install SymbiYosys for the installed yosys
-        run: |
-          ver=$(yosys -V | sed -E 's/^Yosys ([0-9]+\.[0-9]+).*/\1/')
-          git clone --depth 1 --branch "yosys-${ver}" https://github.com/YosysHQ/sby /tmp/sby
-          sudo make -C /tmp/sby install PREFIX=/usr/local
-          sby --help > /dev/null
-
-      - name: Install pinned SMT solver
-        if: endsWith(matrix.task, '_cover') || matrix.task == 'sys_prove'
-        # CVC5 handles this memory-mapped bitvector model without Z3's
-        # excessive expansion. Pin both the release and downloaded bytes.
-        run: |
-          curl --fail --location --retry 3 \
-            https://github.com/cvc5/cvc5/releases/download/cvc5-1.4.1/cvc5-Linux-x86_64-static.zip \
-            --output "$RUNNER_TEMP/cvc5.zip"
-          echo "2f8efe58fe27ba7bccbb504533f690b9312d69da14192712460e4a19231f02a1  $RUNNER_TEMP/cvc5.zip" | sha256sum -c -
-          unzip -q "$RUNNER_TEMP/cvc5.zip" -d "$RUNNER_TEMP/cvc5"
-          echo "$RUNNER_TEMP/cvc5/cvc5-Linux-x86_64-static/bin" >> "$GITHUB_PATH"
-          "$RUNNER_TEMP/cvc5/cvc5-Linux-x86_64-static/bin/cvc5" --version
-
-      - name: Run ${{ matrix.task }}
-        run: python3 scripts/formal_prepare.py --run ${{ matrix.task }}
-
-      - name: Upload the formal proof run
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: formal-${{ matrix.task }}
-          path: build/formal/${{ matrix.task }}/
-          retention-days: 30
-          if-no-files-found: warn
-
   # Nightly FULL kernel-conversion vacuity sweep. The pre-commit hook only
-  # re-probes the staged files (a full sweep is ~30 minutes — too slow for a
-  # commit), which leaves one case open: a theorem going vacuous because a
+  # re-probes the staged files (a full sweep is too slow for a commit),
+  # which leaves one case open: a theorem going vacuous because a
   # DEFINITION it uses changed in some *other* file. This job closes that
   # case by re-probing the whole manifest against a fresh proof tree every
   # night.
   vacuity-audit:
-    if: ${{ !inputs.board_netlist_run_id }}
     name: Kernel-conversion vacuity audit (full sweep)
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Install Coq + OCaml
+      - name: Install Coq
         uses: ./.github/actions/apt-install
         with:
           packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
+        # The vendored L modules (L tactics, GenEncode, MuRec, the
+        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
+        # time. They stay in the build for the small-machine recursion theorem.
         uses: ./.github/actions/setup-metacoq
 
       - name: Capture toolchain version
@@ -648,23 +50,6 @@ jobs:
         run: |
           coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
           echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
-
-      - name: Cache vendor builds (bbv + kami)
-        id: cache-vendor
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
-
-      - name: Build vendored deps (bbv + kami)
-        if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: |
-          cd vendor/bbv && make -j4
-          cd ../..
-          bash scripts/fix_kami_coq18.sh
-          cd vendor/kami && make -j4
 
       - name: Compute vendor build digest
         id: vendor-digest
@@ -696,11 +81,11 @@ jobs:
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
           # An earlier build of any source tree is a starting point; the
           # build step rebuilds what changed (scripts/coq_build_manifest.py).
           restore-keys: |
-            coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Refresh Coq artefact mtimes
         run: |
@@ -749,14 +134,12 @@ jobs:
           EOF
 
   # Final summary — waits for every parallel branch to finish so the rollup
-  # table reflects their actual outcomes. With fast-verify, hardware-synthesis,
-  # fpga-bitstream, and vacuity-audit all running in parallel, the critical
-  # path is the max of the branches instead of their sum.
+  # table reflects their actual outcomes.
   verify-full:
     name: Full Verification Summary
     runs-on: ubuntu-latest
-    needs: [fast-verify, hardware-synthesis, fpga-bitstream, board-gls, rtl-netlist-equiv, formal, vacuity-audit]
-    if: ${{ always() && !inputs.board_netlist_run_id }}
+    needs: [fast-verify, vacuity-audit]
+    if: ${{ always() }}
     steps:
       - name: Generate summary
         run: |
@@ -766,11 +149,6 @@ jobs:
           | Phase | Status |
           |-------|--------|
           | Fast verify | ${{ needs.fast-verify.result }} |
-          | Hardware synthesis | ${{ needs.hardware-synthesis.result }} |
-          | FPGA bitstream | ${{ needs.fpga-bitstream.result }} |
-          | Board-top gate-level simulation | ${{ needs.board-gls.result }} |
-          | RTL / netlist equivalence | ${{ needs.rtl-netlist-equiv.result }} |
-          | Formal properties | ${{ needs.formal.result }} |
           | Vacuity audit | ${{ needs.vacuity-audit.result }} |
           EOF
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
@@ -783,11 +161,6 @@ jobs:
 
           for result in \
             "fast-verify=${{ needs.fast-verify.result }}" \
-            "hardware-synthesis=${{ needs.hardware-synthesis.result }}" \
-            "fpga-bitstream=${{ needs.fpga-bitstream.result }}" \
-            "board-gls=${{ needs.board-gls.result }}" \
-            "rtl-netlist-equiv=${{ needs.rtl-netlist-equiv.result }}" \
-            "formal=${{ needs.formal.result }}" \
             "vacuity-audit=${{ needs.vacuity-audit.result }}"
           do
             echo "$result"

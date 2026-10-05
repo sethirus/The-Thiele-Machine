@@ -197,7 +197,7 @@ Proof.
 Qed.
 
 (** The record axis is a latch on every RAM base, by the base-parametric
-    theorem used for the TM, VM, and L bases. *)
+    theorem used for the TM and L bases. *)
 Theorem record_axis_is_latch_on_ram_holds : forall p, record_axis_is_latch_on (ram_base p).
 Proof.
   intros p M C Hhonest.

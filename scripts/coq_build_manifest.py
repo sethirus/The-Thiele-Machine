@@ -35,7 +35,7 @@ SCOPES = {
     "coq": {
         "root": "coq",
         "config": ("coq/_CoqProject", "coq/Makefile.local"),
-        "libraries": ("vendor/bbv", "vendor/kami", "vendor/coq-undecidability/theories"),
+        "libraries": ("vendor/coq-undecidability/theories",),
     },
     "minimal": {
         "root": "minimal",
@@ -49,8 +49,12 @@ SCOPES = {
     },
 }
 # Libraries built and cached by their own steps (keyed on their sources).
-LIBRARY_ROOTS = ("vendor/bbv", "vendor/kami")
-SCHEMA = 2
+# None at present: the vendored undecidability library is a build scope of
+# its own above.
+LIBRARY_ROOTS: tuple[str, ...] = ()
+# Schema 3: the coq scope reads no kami or bbv library; a manifest of an
+# earlier schema describes a different build and is not reused.
+SCHEMA = 3
 
 
 def sha256(path: Path) -> str:
@@ -92,7 +96,7 @@ def legacy_config_digest() -> str:
         hasher.update(name.encode() + b"\0")
         hasher.update(path.read_bytes() if path.exists() else b"<missing>")
         hasher.update(b"\0")
-    roots = ("vendor/bbv", "vendor/kami", "vendor/coq-undecidability/theories")
+    roots = ("vendor/coq-undecidability/theories",)
     for path in sorted(p for top in roots for p in (ROOT / top).rglob("*.vo")):
         hasher.update(rel(path).encode() + b"\0" + sha256(path).encode() + b"\0")
     return hasher.hexdigest()
@@ -138,9 +142,9 @@ def apply(manifest: Path) -> int:
     now = time.time()
     source_time, output_time = now - 7200, now - 3600
 
-    # The cached Kami and bbv builds match their sources (their own cache is
-    # keyed on them); keep their own make quiet and keep them older than
-    # every output above them.
+    # Libraries cached by their own steps match their sources (their own
+    # cache is keyed on them); keep their own make quiet and keep them older
+    # than every output above them.
     library_time = source_time - 3600
     for top in LIBRARY_ROOTS:
         for path in (ROOT / top).rglob("*.v"):

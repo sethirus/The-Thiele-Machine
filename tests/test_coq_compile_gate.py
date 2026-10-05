@@ -39,7 +39,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 COQ_DIR = REPO_ROOT / "coq"
 COQ_PROJECT = COQ_DIR / "_CoqProject"
 
-# Extraction.v is the sole active top-level file.
+# coq/ has no active top-level files; every proof lives under coq/kernel/.
 REQUIRED_KERNEL_PHYSICS_FILES: list[str] = []
 
 # Production kernel files where bare (non-Section) Axiom/Parameter are forbidden.

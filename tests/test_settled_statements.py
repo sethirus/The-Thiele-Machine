@@ -17,14 +17,6 @@ ROOT = Path(__file__).resolve().parents[1]
 KERNEL = ROOT / "coq" / "kernel"
 
 SETTLED = {
-    "foundation/StructuralUniqueness.v": {
-        "adequate_core_uniqueness_refuted": "~ adequate_core_uniqueness",
-        "honest_vm_extension_uniqueness_refuted": "~ honest_vm_extension_uniqueness",
-    },
-    "foundation/StructuralScheduleUniqueness.v": {
-        "tied_record_schedule_uniqueness_refuted": "~ tied_record_schedule_uniqueness",
-        "cert_record_schedule_uniqueness_holds": "cert_record_schedule_uniqueness",
-    },
     "foundation/StructuralRecordAxis.v": {
         "record_axis_is_latch_holds": "record_axis_is_latch",
         "record_pair_is_two_latches_holds": "record_pair_is_two_latches",
@@ -35,12 +27,6 @@ SETTLED = {
         "record_price_iff_threshold_price_holds": "record_price_iff_threshold_price",
         "one_latch_refuted": "~ one_latch_suffices",
         "chain_needs_bits_holds": "chain_needs_bits",
-    },
-    "foundation/PricedRevocation.v": {
-        "actual_revocation_excludes_permanence_holds": "actual_revocation_excludes_permanence",
-        "revocation_price_does_not_price_writes_refuted": "~ revocation_price_does_not_price_writes",
-        "casper_conflict_is_accountable_holds": "casper_conflict_is_accountable",
-        "casper_write_without_slashing_holds": "casper_write_without_slashing",
     },
     "foundation/ProbabilisticRecord.v": {
         "deterministic_latch_handles_branching_refuted": "~ deterministic_latch_handles_branching",
@@ -54,23 +40,12 @@ SETTLED = {
         "weak_base_equiv_trans_holds": "weak_base_equiv_trans",
         "weak_equiv_preserves_record_latch_holds": "weak_equiv_preserves_record_latch",
         "record_axis_is_latch_on_tm_holds": "record_axis_is_latch_on_tm",
-        "record_axis_is_latch_on_vm_holds": "record_axis_is_latch_on_vm",
     },
     "foundation/CrossBaseGranularityL.v": {
         "record_axis_is_latch_on_l_holds": "record_axis_is_latch_on l_base",
     },
     "foundation/CrossBaseGranularityRAM.v": {
         "record_axis_is_latch_on_ram_holds": "forall p, record_axis_is_latch_on (ram_base p)",
-    },
-    "foundation/EventSwapTheorem.v": {
-        "swap_preserves_main_results_refuted": "~ swap_preserves_main_results",
-        "certification_main_results_hold": "certification_main_results",
-    },
-    "foundation/VMGuestRecursion.v": {
-        "vm_guest_recursion_theorem_closed": "vm_guest_recursion_theorem",
-    },
-    "foundation/VMRecursionAudit.v": {
-        "vm_guest_rice_holds": "vm_guest_rice",
     },
     "nfi/PricingPhysicsAudit.v": {
         "no_forced_price_beyond_merges":
@@ -127,10 +102,7 @@ def test_settling_file_has_no_holes(relative: str):
                          re.MULTILINE)
 
 
-@pytest.mark.parametrize("relative", sorted(SETTLED) + [
-    "foundation/EventGeneralization.v",
-    "nfi/EventGenericAudit.v",
-])
+@pytest.mark.parametrize("relative", sorted(SETTLED))
 def test_settling_file_is_built_with_the_project(relative: str):
     project = (ROOT / "coq" / "_CoqProject").read_text(encoding="utf-8").splitlines()
     assert f"kernel/{relative}" in project
@@ -154,8 +126,3 @@ def test_durable_boundary_and_calorimeter_theorems_exist():
                  "master_equation_does_not_fix_heat_scale"):
         assert f"Theorem {name}" in calorimeter
         assert f"Print Assumptions {name}." in calorimeter
-
-
-def test_swap_theorem_source_is_in_the_vacuity_manifest():
-    manifest = (ROOT / "scripts/vacuity_targets.json").read_text(encoding="utf-8")
-    assert '"path": "coq/kernel/foundation/EventSwapTheorem.v"' in manifest

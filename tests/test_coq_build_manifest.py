@@ -22,13 +22,12 @@ def tree(tmp_path, monkeypatch):
         "coq/kernel/B.v": "Require Kernel.A.\n",
         "vendor/coq-undecidability/theories/_CoqProject": "-Q . Undecidability\n",
         "vendor/coq-undecidability/theories/L/L.v": "Inductive term := var.\n",
-        "vendor/kami/Kami/Syntax.v": "Definition k := 0.\n",
     }.items():
         path = tmp_path / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text)
     for name in ("coq/kernel/A.vo", "coq/kernel/B.vo", "coq/kernel/B.glob",
-                 "vendor/coq-undecidability/theories/L/L.vo", "vendor/kami/Kami/Syntax.vo"):
+                 "vendor/coq-undecidability/theories/L/L.vo"):
         (tmp_path / name).write_bytes(b"compiled " + name.encode())
     return tmp_path
 
@@ -44,11 +43,8 @@ def test_unchanged_sources_are_older_than_their_outputs(tree):
     for source, output in (("coq/kernel/A.v", "coq/kernel/A.vo"),
                            ("coq/kernel/B.v", "coq/kernel/B.vo"),
                            ("vendor/coq-undecidability/theories/L/L.v",
-                            "vendor/coq-undecidability/theories/L/L.vo"),
-                           ("vendor/kami/Kami/Syntax.v", "vendor/kami/Kami/Syntax.vo")):
+                            "vendor/coq-undecidability/theories/L/L.vo")):
         assert mtime(tree, source) < mtime(tree, output)
-    # Libraries below the tree are older than every output above them.
-    assert mtime(tree, "vendor/kami/Kami/Syntax.vo") < mtime(tree, "coq/kernel/A.vo")
     # Project files are older than anything generated from them.
     assert mtime(tree, "coq/_CoqProject") < mtime(tree, "coq/kernel/A.vo")
 
@@ -86,7 +82,6 @@ VENDOR_SOURCES = ("vendor/coq-undecidability/theories/L/L.v",)
 
 
 @pytest.mark.parametrize("name", ["coq/_CoqProject", "coq/Makefile.local",
-                                  "vendor/kami/Kami/Syntax.vo",
                                   "vendor/coq-undecidability/theories/L/L.vo"])
 def test_coq_flag_or_library_change_marks_coq_sources_only(tree, name):
     manifest = tree / "build/manifest.json"

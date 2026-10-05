@@ -1,7 +1,10 @@
 (** Observation, event pricing, and retained history.
     All cost units here are abstract naturals, not measured heat. *)
+(* SCOPE NOTE: standalone proof scope. Stated over arbitrary states, views,
+   steps and cost functions; no machine is fixed, and nothing here needs the
+   certification system or the small machine. *)
+
 From Coq Require Import List Bool Arith.PeanoNat Lia.
-From Kernel Require Import VMState VMStep SimulationProof MuInitiality.
 Import ListNotations.
 Set Implicit Arguments.
 
@@ -149,16 +152,4 @@ Proof.
   split; [reflexivity|split].
   - discriminate.
   - apply retained_history_step_injective.
-Qed.
-
-(** The zero-cost PC-collapse witness also has an injective history lift.
-    Thus the macro-collapse criterion cannot identify global erasure. *)
-Theorem zero_cost_vm_jump_has_injective_history_lift :
-  instruction_cost (instr_jump 1 0) = 0 /\
-  vm_pc (fst (history_step vm_apply (init_state, []) (instr_jump 1 0))) = 1 /\
-  (forall sh th,
-    history_step vm_apply sh (instr_jump 1 0) =
-    history_step vm_apply th (instr_jump 1 0) -> sh = th).
-Proof.
-  split; [reflexivity|split; [reflexivity|apply retained_history_step_injective]].
 Qed.

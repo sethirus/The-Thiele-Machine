@@ -3,164 +3,24 @@
   "description": "Production manifest of Coq files the kernel-conversion vacuity gate runs over. Each target compiles to a Coq module; the gate runs probe (a) and (b) against every Theorem/Lemma/Corollary in the file.",
   "targets": [
     {
-      "path": "coq/VerifierModel.v",
-      "logical": "VerifierModel"
-    },
-    {
-      "path": "coq/VerifierImpossibility.v",
-      "logical": "VerifierImpossibility"
-    },
-    {
-      "path": "coq/VerifierEscape_Substrate.v",
-      "logical": "VerifierEscape_Substrate"
-    },
-    {
-      "path": "coq/VerifierEscape_Hardness.v",
-      "logical": "VerifierEscape_Hardness"
-    },
-    {
-      "path": "coq/VerifierEscape_Interaction.v",
-      "logical": "VerifierEscape_Interaction"
-    },
-    {
-      "path": "coq/VerifierExhaustiveness.v",
-      "logical": "VerifierExhaustiveness"
-    },
-    {
-      "path": "coq/MuCodingTheorem.v",
-      "logical": "MuCodingTheorem"
-    },
-    {
-      "path": "coq/IntrinsicLevelHierarchy.v",
-      "logical": "IntrinsicLevelHierarchy"
-    },
-    {
-      "path": "coq/MuDirectSum.v",
-      "logical": "MuDirectSum"
-    },
-    {
-      "path": "coq/ReceiptTheorem.v",
-      "logical": "ReceiptTheorem"
-    },
-    {
-      "path": "coq/NecessityOfMuLedger.v",
-      "logical": "NecessityOfMuLedger"
-    },
-    {
-      "path": "coq/PhysicsConditionalClosure.v",
-      "logical": "PhysicsConditionalClosure"
-    },
-    {
-      "path": "coq/kernel/nfi/AbstractNoFI.v",
-      "logical": "Kernel.AbstractNoFI"
-    },
-    {
-      "path": "coq/kernel/nfi/NoFreeInsight.v",
-      "logical": "Kernel.NoFreeInsight"
-    },
-    {
       "path": "coq/kernel/nfi/UniversalCertificationCost.v",
       "logical": "Kernel.UniversalCertificationCost"
-    },
-    {
-      "path": "coq/kernel/mu_calculus/MuInitiality.v",
-      "logical": "Kernel.MuInitiality"
     },
     {
       "path": "coq/kernel/nfi/HonestCostTracking.v",
       "logical": "Kernel.HonestCostTracking"
     },
     {
-      "path": "coq/kernel/nfi/VerificationCostSeparation.v",
-      "logical": "Kernel.VerificationCostSeparation"
-    },
-    {
-      "path": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "logical": "Kernel.MuHierarchyTheorem"
-    },
-    {
-      "path": "coq/kernel/nfi/NonAdaptiveLowerBound.v",
-      "logical": "Kernel.NonAdaptiveLowerBound"
-    },
-    {
-      "path": "coq/kernel/nfi/ThermodynamicStructuralAdvantage.v",
-      "logical": "Kernel.ThermodynamicStructuralAdvantage"
-    },
-    {
       "path": "coq/kernel/category/AlgebraicCoherence.v",
       "logical": "Kernel.AlgebraicCoherence"
-    },
-    {
-      "path": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "logical": "Kernel.QuantumPartitionPSD"
-    },
-    {
-      "path": "coq/kernel/curvature/PhysicsClosure.v",
-      "logical": "Kernel.PhysicsClosure"
-    },
-    {
-      "path": "coq/kernel/curvature/EinsteinEmergence.v",
-      "logical": "Kernel.EinsteinEmergence"
-    },
-    {
-      "path": "coq/kernel/curvature/EinsteinEquationsFull.v",
-      "logical": "Kernel.EinsteinEquationsFull"
-    },
-    {
-      "path": "coq/kami_hw/RTLGapRegistry.v",
-      "logical": "KamiHW.RTLGapRegistry"
-    },
-    {
-      "path": "coq/kernel/nfi/MuLedgerQuantumBridge.v",
-      "logical": "Kernel.MuLedgerQuantumBridge"
-    },
-    {
-      "path": "coq/kernel/nfi/NecessityAbstract.v",
-      "logical": "Kernel.NecessityAbstract"
-    },
-    {
-      "path": "coq/kernel/nfi/MuRunIncompleteness.v",
-      "logical": "Kernel.MuRunIncompleteness"
-    },
-    {
-      "path": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
-      "logical": "Kernel.StructuralAxisOrthogonality"
     },
     {
       "path": "coq/kernel/nfi/StructuralUndecidability.v",
       "logical": "Kernel.StructuralUndecidability"
     },
     {
-      "path": "coq/kernel/nfi/StructuralAxisRelativization.v",
-      "logical": "Kernel.StructuralAxisRelativization"
-    },
-    {
-      "path": "coq/kernel/nfi/VMSubstrateEncoded.v",
-      "logical": "Kernel.VMSubstrateEncoded"
-    },
-    {
       "path": "coq/kernel/nfi/CommitmentPredicateAdequacy.v",
       "logical": "Kernel.CommitmentPredicateAdequacy"
-    },
-    {
-      "path": "coq/kernel/quantum/BornRuleLinearity.v",
-      "logical": "Kernel.BornRuleLinearity"
-    },
-    {
-      "path": "coq/kernel/foundation/ClassicalBound.v",
-      "logical": "Kernel.ClassicalBound"
-    },
-    {
-      "path": "coq/kernel/hardware_bridge/HardwareBisimulation.v",
-      "logical": "Kernel.HardwareBisimulation"
-    },
-    {
-      "path": "coq/kernel/nfi/HonestNoFI.v",
-      "logical": "Kernel.HonestNoFI"
-    },
-    {
-      "path": "coq/kernel/nfi/HonestNoFI_TheoremsWithoutAssumptions.v",
-      "logical": "Kernel.HonestNoFI_TheoremsWithoutAssumptions"
     },
     {
       "path": "coq/kernel/quantum/MinorConstraints.v",
@@ -171,26 +31,6 @@
       "logical": "Kernel.NPAMomentMatrix"
     },
     {
-      "path": "coq/kernel/curvature/NoFIToEinstein.v",
-      "logical": "Kernel.NoFIToEinstein"
-    },
-    {
-      "path": "coq/kernel/aggregators/NonCircularityAudit.v",
-      "logical": "Kernel.NonCircularityAudit"
-    },
-    {
-      "path": "coq/kernel/quantum/QuantumEquivalence.v",
-      "logical": "Kernel.QuantumEquivalence"
-    },
-    {
-      "path": "coq/kernel/quantum/TsirelsonQuantumModel.v",
-      "logical": "Kernel.TsirelsonQuantumModel"
-    },
-    {
-      "path": "coq/kernel/quantum/TsirelsonUniqueness.v",
-      "logical": "Kernel.TsirelsonUniqueness"
-    },
-    {
       "path": "coq/kernel/reductions/PoSFinality.v",
       "logical": "Kernel.PoSFinality"
     },
@@ -199,28 +39,12 @@
       "logical": "Kernel.GasMetering"
     },
     {
-      "path": "coq/kernel/reductions/TEEAttestation.v",
-      "logical": "Kernel.TEEAttestation"
-    },
-    {
-      "path": "coq/kernel/reductions/TransparencyLog.v",
-      "logical": "Kernel.TransparencyLog"
-    },
-    {
-      "path": "coq/kernel/reductions/ProofCarryingVerifier.v",
-      "logical": "Kernel.ProofCarryingVerifier"
-    },
-    {
       "path": "coq/kernel/foundation/LRecursion.v",
       "logical": "Kernel.LRecursion"
     },
     {
       "path": "coq/kernel/foundation/StructuralCore.v",
       "logical": "Kernel.StructuralCore"
-    },
-    {
-      "path": "coq/kernel/foundation/VMUnboundedLedger.v",
-      "logical": "Kernel.VMUnboundedLedger"
     },
     {
       "path": "coq/kernel/nfi/KnowledgeNarrowing.v",
@@ -233,14 +57,6 @@
     {
       "path": "coq/kernel/reductions/TPMQuoteGap.v",
       "logical": "Kernel.TPMQuoteGap"
-    },
-    {
-      "path": "coq/kernel/foundation/StructuralUniqueness.v",
-      "logical": "Kernel.StructuralUniqueness"
-    },
-    {
-      "path": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
-      "logical": "Kernel.StructuralScheduleUniqueness"
     },
     {
       "path": "coq/kernel/reductions/CasperFFG.v",
@@ -271,24 +87,8 @@
       "logical": "Kernel.CostFrameworks"
     },
     {
-      "path": "coq/kernel/nfi/EventGenericAudit.v",
-      "logical": "Kernel.EventGenericAudit"
-    },
-    {
-      "path": "coq/kernel/foundation/EventGeneralization.v",
-      "logical": "Kernel.EventGeneralization"
-    },
-    {
-      "path": "coq/kernel/foundation/EventSwapTheorem.v",
-      "logical": "Kernel.EventSwapTheorem"
-    },
-    {
       "path": "coq/kernel/foundation/GrowingRecord.v",
       "logical": "Kernel.GrowingRecord"
-    },
-    {
-      "path": "coq/kernel/foundation/PricedRevocation.v",
-      "logical": "Kernel.PricedRevocation"
     },
     {
       "path": "coq/kernel/foundation/ProbabilisticRecord.v",
@@ -297,10 +97,6 @@
     {
       "path": "coq/kernel/foundation/CrossBaseGranularity.v",
       "logical": "Kernel.CrossBaseGranularity"
-    },
-    {
-      "path": "coq/kernel/foundation/VMRecursionAudit.v",
-      "logical": "Kernel.VMRecursionAudit"
     },
     {
       "path": "coq/kernel/nfi/PricingPhysicsAudit.v",
@@ -335,10 +131,6 @@
       "logical": "Kernel.RealSystemConsequences"
     },
     {
-      "path": "coq/kernel/foundation/VMDynamicEval.v",
-      "logical": "Kernel.VMDynamicEval"
-    },
-    {
       "path": "coq/kernel/frontier/EcosystemGame.v",
       "logical": "Kernel.EcosystemGame"
     },
@@ -355,52 +147,8 @@
       "logical": "Kernel.CrossBaseGranularityRAM"
     },
     {
-      "path": "coq/nofi/MuChaitinTheory_TraceLocal.v",
-      "logical": "NoFI.MuChaitinTheory_TraceLocal"
-    },
-    {
-      "path": "coq/kernel/foundation/VMGuestEvalNat.v",
-      "logical": "Kernel.VMGuestEvalNat"
-    },
-    {
-      "path": "coq/kernel/foundation/VMGuestEvalTuple.v",
-      "logical": "Kernel.VMGuestEvalTuple"
-    },
-    {
-      "path": "coq/kernel/foundation/VMGuestMMAInit.v",
-      "logical": "Kernel.VMGuestMMAInit"
-    },
-    {
-      "path": "coq/kernel/foundation/VMGuestExactEpilogue.v",
-      "logical": "Kernel.VMGuestExactEpilogue"
-    },
-    {
-      "path": "coq/kernel/foundation/VMGuestMMAPipeline.v",
-      "logical": "Kernel.VMGuestMMAPipeline"
-    },
-    {
-      "path": "coq/kernel/foundation/VMGuestEvalL.v",
-      "logical": "Kernel.VMGuestEvalL"
-    },
-    {
-      "path": "coq/kernel/foundation/VMGuestRecursion.v",
-      "logical": "Kernel.VMGuestRecursion"
-    },
-    {
-      "path": "coq/kernel/foundation/RAMRecordAxis.v",
-      "logical": "Kernel.RAMRecordAxis"
-    },
-    {
       "path": "coq/kernel/reductions/CasperForkWitness.v",
       "logical": "Kernel.CasperForkWitness"
-    },
-    {
-      "path": "coq/kernel/frontier/CalibrationObstruction.v",
-      "logical": "Kernel.CalibrationObstruction"
-    },
-    {
-      "path": "coq/kami_hw/LoaderSerial.v",
-      "logical": "KamiHW.LoaderSerial"
     }
   ]
 }

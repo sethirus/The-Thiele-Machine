@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. This toy PCC fragment is checked on its
-    own terms and has no formal bridge to the Thiele VM.
+    own terms and has no formal bridge to a Thiele machine.
 
     Core model of the PCC consumer pipeline described by Necula,
     POPL 1997, Sections 2--4: policy, verification condition, certificate,

@@ -12,15 +12,15 @@
 
   These are finite real-algebra consequences of the definitions in this file.
   A later module may connect selected inequalities to a correlation model or a
-  VM cost sector, but those bridges are not supplied here. A falsification of
+  cost model, but those bridges are not supplied here. A falsification of
   one of the stated consequences would require a symmetric M with
   v^T M v >= 0 for all v that nevertheless violates that consequence.
 *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is

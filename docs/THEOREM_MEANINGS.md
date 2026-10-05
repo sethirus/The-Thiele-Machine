@@ -18,55 +18,20 @@ An explicitly qualified citation keeps its own module identity.
 ## Certification cost
 
 - `universal_nfi_any_substrate`: In any `CertificationSystem`, whose record includes the rule that a step switching certification on costs at least one, a trace from an uncertified state to a certified one has total cost at least one.
-- `non_cert_setter_cost_is_declared`: For every instruction outside the twelve-instruction `is_cert_setterb` class, `instruction_cost` equals the declared `mu_delta` operand.
-- `cert_setter_cost_above_declared`: For every instruction in the `is_cert_setterb` class, `instruction_cost` is at least the declared `mu_delta` operand plus one.
 - `universal_nfi_quantitative`: For every `QuantitativeCertificationSystem` QCS, trace, and start state whose witness value `qcs_witness` is zero, if the state reached by running the trace in the underlying certification system is certified, then the trace's total cost is at least `qcs_threshold QCS`.
-- `abstract_nfi`: In an `AbstractCertMachine`, a trace that starts uncertified and ends certified contains an instruction in the cert-setter class.
-- `cert_addr_setter_cost_pos`: Every VM instruction in the cert-setter class costs at least one.
-- `no_free_certification`: A single VM step that moves `csr_cert_addr` from zero to nonzero has instruction cost at least one.
-- `no_free_certification_certified`: A single VM step that switches `vm_certified` from false to true has instruction cost at least one.
-- `certification_requires_positive_mu`: A single VM step that switches on either certification channel raises `vm_mu` by at least one.
-- `instr_certify_cost_is_successor`: For every `cost`, `instruction_cost (instr_certify cost)` equals `S cost`, that is, `cost + 1`; the statement is this equation for `instr_certify` and says nothing about deriving the `+1`.
-- `thiele_represents_simulating_cert_system`: For a certification system supplied together with an embedding and decoding into the VM, a trace that certifies in the source costs at least one there, and its decoded VM run ends with `vm_certified` true.
 - `honest_cost_tracking_strict_restriction`: Some cost-bearing system certifies at total cost zero, while every `CertificationSystem` needs cost at least one; the cost rule is what separates them.
+- `free_forgery_violates_A2`: In any cost-bearing system, if some step switches certification from false to true at cost zero, the system fails the rule that every such step costs at least one.
 - `commitment_cost_not_reducible_to_erasure_cost`: Some trusted erasure-accounting system certifies at total cost zero with no erasure reported, while every `CertificationSystem` needs cost at least one.
-- `level_k_certification_cost_floor`: A trace from the initial state that executes a `CERTIFY` whose charge is at least `k` has total mu cost at least `k`.
-- `mu_hierarchy_theorem`: For every `k` at least one, some trace certified at level `k` costs exactly `k`, and every trace certified at level `k` costs at least `k`.
-- `mu_hierarchy_no_upper_bound`: For every budget, some certification level cannot be reached within it.
-- `level_k_verification_floor`: A proof script that certifies `k` claims costs at least `k` mu (the level-k floor restated for the proof-carrying model).
-- `level_k_verification_floor_tight`: For every `k` at least one, some proof script certifies `k` claims at cost exactly `k`.
-- `cert_setter_cost_pos`: Every VM instruction for which `is_cert_setterb` returns true (REVEAL, EMIT, LJOIN, LASSERT, READ_PORT, CERTIFY, MORPH_ASSERT, and the five CHSH_LASSERT forms) has `instruction_cost` at least one.
-- `no_free_certification_certified_mu`: A single VM step that switches `vm_certified` from false to true raises `vm_mu` by at least one.
-- `no_free_certification_certified_trace_mu`: An instruction-list run of the VM certification machine that starts with `vm_certified` false and ends with it true raises `vm_mu` by at least one.
-- `no_free_certified_insight`: An instruction-list run of the VM certification machine from `csr_cert_addr` zero to nonzero contains an instruction in the `cert_addr_setterb` class with cost at least one, and raises `vm_mu` by at least one.
-- `thiele_non_cert_addr_setter_preserves`: A VM step on an instruction outside the `cert_addr_setterb` class leaves `csr_cert_addr` unchanged.
-- `thiele_quantitative_nfi_cert_addr`: In the quantitative system over the VM whose witness is one when `csr_cert_addr` is nonzero and zero otherwise, with threshold one, a trace from a state with witness zero to a state with nonzero `csr_cert_addr` has total instruction cost at least one.
-- `chsh_trial_count_lower_bound`: In the certification system over VM states that charges one for each `CHSH_TRIAL` with valid bits, zero for every other instruction, and counts a state as certified once its witness total reaches `n`, a trace from witness total zero to a certified state contains at least `n` valid `CHSH_TRIAL` instructions; the count is over the trace list, not over steps actually executed.
-- `scs_run_embed`: For a `SimulatingCertificationSystem`, embedding the state its base system reaches on a trace equals folding `vm_apply` over the decoded trace from the embedded start state.
-- `no_vm_state_morphism_to_never_certifies`: No certification-cost morphism (a map commuting with the step and preserving the certification bit) exists from the VM certification machine to the one-state machine that never certifies.
-- `mu_hierarchy_strict`: For `k` at least one, a bounded run from `init_state` whose mu increase is below `k` is not certified at level `k`.
-- `mu_dimension_unbounded`: For every `k0` there is a `k` above it and a bounded run from `init_state` whose mu increase is exactly `k` and which is certified at level `k` (it ends certified and executed a `CERTIFY` whose charge is at least `k`).
-- `morph_assert_mu_pos`: From any VM state, a `MORPH_ASSERT` step with any operands raises `vm_mu` by at least one.
-- `morph_can_be_free`: Some `MORPH` instruction whose cost operand is zero has `instruction_cost` zero; this holds because the cost of `MORPH` is its operand.
-- `morph_cost_morph`: The cost of `MORPH` is its cost operand.
-- `morph_cost_morph_assert`: The cost of `MORPH_ASSERT` is its cost operand plus one.
-- `morph_compose_cost_zero`: `COMPOSE` with cost operand zero has `instruction_cost` zero.
-- `payload_bit_length_ascii` (`Kernel.VMStep.VMStep.payload_bit_length_ascii`): The payload bit length of a string is eight times its length.
-- `vm_apply_certified` (`Kernel.PrimeAxiom.vm_apply_certified`): After one VM step, `vm_certified` is true if the instruction is a `CERTIFY` and is unchanged otherwise.
-- `vm_apply_u_certified_permanent`: An unbounded-VM step from a state with `vm_certified` true leaves it true.
-- `certification_reading_permanent`: The reading `vm_certified` never switches from true to false under a VM step.
-- Definition `declared_mu_delta`: The `mu_delta` operand an instruction carries, the cost the program declares for it; `instruction_cost` adds the successor floor and any payload term to it for the twelve `is_cert_setterb` instructions and uses it unchanged for every other instruction.
+- `scs_run_embed`: For a `SimulatingCertificationSystem` over a host certification system, embedding the state its base system reaches on a trace equals the host's run of the concatenated decoded trace from the embedded start state.
+- `host_represents_simulating_cert_system`: For a `SimulatingCertificationSystem` over a host certification system, a trace that goes from uncertified to certified in the base system has total cost at least one there, the host run of its decoded trace from the embedded start ends certified, and that host run has total cost at least one.
 
 ## Pricing the event
 
 - `exact_commitment_pricing_characterization`: In a `LocalPredicatePricedSystem`, a charge meets the certification floor and never overcharges exactly when it charges on the certification flips and nowhere else, one unit each.
 - `substitution_test_rejects_non_a2_exact_substitute`: A charging predicate that differs from the certification-flip predicate cannot both meet the floor and never overcharge.
-- `a2_equal_trust_substitution_payoff`: A conjunction of the pricing characterizations: floors hold exactly when the charge covers the flips, exact pricing holds exactly when the charge is the flip predicate at unit price, total cost splits as base plus flip count exactly when the charge is the flip predicate, and the VM's certified channel has that split.
 - `joint_floor_is_least`: A cost meets every event floor in a finite family exactly when it is at least the joint floor, which is one when any event fires and zero otherwise.
 - `calibrated_model_exists_iff_positive_cost`: A calibrated positive model exists exactly when every eligible operation costs at least one.
 - `gas_schedule_exactness`: A gas schedule meets the commitment floor and never overcharges exactly when it charges the commitment predicate at unit price.
-- `thiele_vm_commit_pricing_is_exact`: The VM's commitment-pricing schedule meets the floor and never overcharges.
-- `thiele_unit_price_lower_bounds_mu`: Where the VM's commitment pricer charges, its unit charge is at most the instruction's full cost.
 - `overcharge_breaks_exactness`: A gas schedule that charges a step that does not flip certification violates no-overcharge.
 - `undercharged_opcode_admits_free_commitment`: A gas schedule that does not charge a certifying step lets that one-step trace certify at cost zero.
 - `nothing_at_stake_is_free_forgery`: The finality gadget whose finalize step carries zero stake cannot satisfy the certification cost rule.
@@ -96,18 +61,8 @@ An explicitly qualified citation keeps its own module identity.
 - `injective_flip_revokes`: On a finite state space, an injective instruction that switches a reading on somewhere also switches it off somewhere.
 - `permanent_record_write_is_forced_priced`: An instruction that never switches the reading off and switches it on somewhere is charged by every merge-pricing cost.
 - `forced_price_without_permanent_record`: A three-state instruction is charged by every merge-pricing cost and still revokes the reading, so forced pricing does not imply a permanent record.
-- `history_core_equiv_thiele`: Under `core_equiv`, the history-carrying core and the Thiele core cover each other's initial states and agree after every related step on certification, next-step cost, and the relation obtained by forgetting retained history.
-- `billed_core_adequate`: The CPU-billed Thiele core, whose ledger is the VM ledger plus a step counter so every step costs one more, meets all four conditions of `Adequate`.
-- `billed_core_honest_extension`: The same billed core meets the conditions of `HonestVMExtension`, with dropping the counter as the computational cover.
-- `adequate_core_uniqueness_refuted`: The conjecture `adequate_core_uniqueness` is false: the billed core is adequate but its core is not `core_equiv` to the Thiele core, because a Thiele state with an empty program prices every step at zero and every billed step costs at least one.
-- `honest_vm_extension_uniqueness_refuted`: The conjecture `honest_vm_extension_uniqueness` is false for the same reason: the billed core is an honest VM extension whose core is not `observed_core_equiv` to the Thiele core.
-- `cert_record_schedule_uniqueness_holds`: Every machine with a cover onto the Thiele core, whose record is the Thiele certification reading through that cover and whose ledger is monotone and satisfies A2, is related to the Thiele core, through that cover, by a relation that preserves the record light and halting and steps to related states; charges are not compared.
-- `billed_core_equiv_mod_schedule`: The CPU-billed Thiele core is the same machine as the Thiele core modulo its price schedule, through the cover that drops its step counter.
-- `surcharged_core_equiv_mod_schedule`: For every surcharge function on Thiele states, the Thiele core that adds that surcharge to its ledger at each step is the same machine as the Thiele core modulo its price schedule.
-- `tied_record_schedule_uniqueness_refuted`: Requiring only that the record be some reading of the computation is not enough: the Thiele core whose record is "the meter has passed one" meets that condition and disagrees with the certification light at a starting state with a positive meter and no certificate.
 - `record_axis_is_latch_holds`: For any base machine and any record-carrying machine that covers it step for step, whose record never switches off, satisfies A2 with a monotone ledger, is written by some reachable step, and has its next value determined by the base state and its current value, there is a base event h such that the base state and record evolve exactly as the latch "switch on where h holds, never switch off."
 - `record_axis_is_latch_on_tm_holds`: The record axis is a latch on the executable toy Turing-machine base for every program.
-- `record_axis_is_latch_on_vm_holds`: The record axis is a latch on the unbounded VM base for every program.
 - `record_axis_is_latch_on_ram_holds`: The record axis is a latch on the Cook-Reckhow RAM base (unbounded natural-number registers, indirect load and store, conditional jumps) for every program.
 - `record_axis_is_latch_on_l_holds`: The record axis is a latch on the L base, whose next function is L's weak call-by-value step on reducible terms and stutters on irreducible ones.
 - `l_step_fun_correct`: For all L terms `s` and `t`, `s` takes one weak call-by-value step to `t` exactly when the structural step function `l_step_fun` returns `Some t` on `s`.
@@ -124,10 +79,6 @@ An explicitly qualified citation keeps its own module identity.
 - `shadow_floor_overcharges`: Under that collision, a window-computed price that meets the floor charges some non-certifying step at least one.
 - `window_showing_reading_has_no_collision`: If certification is a function of the window, no such collision exists.
 - `window_showing_reading_prices_exactly`: If certification is a function of the window, some window-computed price meets the floor and never overcharges.
-- `vm_bare_observable_collision`: The VM has a certifying and a non-certifying step that look the same through `bare_observable`.
-- `vm_bare_shadow_cannot_price_exactly`: No price computed from `bare_observable` prices VM certification exactly.
-- `vm_forget_collision`: The VM has such a pair through the four-field `forget` window.
-- `vm_forget_shadow_cannot_price_exactly`: No price computed from `forget` prices VM certification exactly.
 - `step_entropy_invariant_if_injective`: An injective step leaves the Shannon entropy of any distribution unchanged.
 - `entropy_le_log_support`: The Shannon entropy of a distribution is at most the base-2 logarithm of the size of any list that contains its support.
 - `permanent_step_entropy_ceiling`: On a finite state space with permanent certification, after a step that switches states on, any distribution living on the certified and flipping states has entropy at most `log2(m)`.
@@ -154,22 +105,7 @@ An explicitly qualified citation keeps its own module identity.
 - `fcertify_merges`: The finite machine's certify instruction is not injective.
 - `fjump_merges`: Every finite-machine jump is not injective.
 - `fnext_injective`: The finite machine's next-slot instruction is injective.
-- `vm_runs_finite_machine`: Read through program counter modulo four and the certification flag, one VM step of `CERTIFY 0`, `JUMP a 2`, or `CHECKPOINT "" 0` equals the finite machine's step.
-- `vm_pays_finite_price`: Each of those VM steps raises `vm_mu` by exactly the finite machine's price.
-- `vm_runs_finite_trace`: For a whole run of those instructions, the window follows the finite machine and `vm_mu` rises by the summed price.
-- `vm_fragment_certification_paid`: A run of those instructions from an uncertified state to a certified one raises `vm_mu` by at least one.
-- `vm_certify_merges`: `CERTIFY d` is not injective on VM states.
-- `vm_certifying_step_is_priced_merge`: Every VM step that switches `vm_certified` on is not injective and costs at least one.
-- `vm_jump_is_free_merge`: `JUMP 0 0` is not injective and costs zero.
-- `vm_prices_certifying_merge_leaves_others_free`: Certifying VM steps are priced merges, some merge costs zero, and so the VM does not price every merge.
 - `retained_history_step_injective`: For any step function, the history-keeping step, which moves to the next state and pushes the old state onto a history list, is injective for each instruction.
-- `thiele_core_adequate`: The Thiele core meets all four conditions of `Adequate`: its ledger never decreases, it satisfies A2, some initial state reaches a certified state, and for every two-counter machine halting problem some initial state halts exactly when that problem's machine halts.
-- `thiele_core_priced`: The Thiele core's ledger never decreases along a step, and every step that switches its certification record on costs at least one.
-- `billed_core_not_equiv`: The CPU-billed core, which adds one to the ledger at every step, is not `core_equiv` to the Thiele core.
-- `billed_core_not_observed_equiv`: The CPU-billed core is not `observed_core_equiv` to the Thiele core.
-- `meter_core_honest_tied`: The meter core, the Thiele core with its record replaced by "`vm_mu` is at least one", meets `HonestTiedExtension` through the identity cover: its record is a function of the Thiele state, its ledger is monotone and satisfies A2, its record never switches off, and some reachable step switches it on.
-- `meter_core_not_equiv_mod_schedule`: The meter core is not the same machine as the Thiele core modulo its price schedule through the identity cover.
-- `surcharged_core_honest_cert`: For every surcharge function on Thiele states, the core that adds that surcharge to its ledger at each step meets `HonestCertExtension` through its cover: its record is the Thiele certification reading, its ledger is monotone and satisfies A2, its record never switches off, and some reachable step switches it on.
 - `clock_record_permanent`: The record of the clock core, switched on when its hidden clock reads five, never switches off.
 - `toggle_computation_driven`: The toggle core's next record value is a function of the counter base's state and its current record value.
 - `toggle_not_permanent`: The toggle core's record switches off at some step.
@@ -186,52 +122,19 @@ An explicitly qualified citation keeps its own module identity.
 - `weak_equiv_preserves_record_latch_holds`: If two base machines are weakly equivalent (a relation covering both sets of initial states, keeping observations and halting equal, and matching each step on either side by some number of steps on the other), the record axis is a latch on one exactly when it is a latch on the other.
 - `weak_match_left_runs`: If every step of the first base machine from a related pair is matched by some number of steps of the second, then every `k`-step run of the first from a related pair is matched by some run of the second.
 - `weak_match_right_runs`: The mirror statement, with every step of the second machine matched by some number of steps of the first.
-- `eg_size_permanent`: The reading "the register list has `REG_COUNT` entries and memory has `MEM_SIZE` entries" never switches from true to false under a VM step.
-- `mutual_independence_not_event_generic`: It is false that every latchable VM reading `E` (never switched off, switched on by some step) has the four independence properties proved for certification: `vm_mu` not a function of `P_strict`, `E` not a function of `P_strict`, `E` not a function of `P_cost`, and `vm_mu` not a function of the `E`-annotated projection.
-- `three_component_indep_not_event_generic`: The same four-part statement, joined with "the partition graph is not a function of `P_full`", is false.
 
 ## Narrowing: what is priced and what is free
 
 - `run_narrowing_priced_log`: For a finite deterministic machine whose costs meet the squeeze price, a program run from any duplicate-free set `D` of starting states satisfies `log2_up|D| <= cost(t) + log2_up|D'|`, where `D'` is the set of states the run can end in.
 - `demon_machine_spread_kept`: In the two-bit measuring machine, the measuring step from the two blank-display states can still end in two different states.
 - `wipe_costs_at_least_one`: In the two-bit measuring machine, every cost that meets the squeeze price charges the display wipe at least one.
-- `vm_observer_narrowing_at_zero_cost`: Two reachable VM states that differ only in register 1 show the same register 2; after `XOR_ADD 2 1 0` at cost zero they show different register 2 values, and mu stays zero.
 - `observer_narrowing_can_be_free`: A particular squeeze-priced cost assigns zero to the injective measuring step of a two-bit machine even though an observer's candidates shrink; the lower-bound pricing rule does not prevent another admissible cost from overcharging that step.
 - `demon_refutes_incremental`: In the two-bit measuring machine, the drop in the rounded logarithm of the observer's candidate list from the empty trace to the one-step measuring trace exceeds the trace cost, which is zero.
 - `free_incremental_narrowing_with_three`: A three-state cyclic machine with zero costs meets the squeeze price, and a zero-cost trace strictly shrinks the observer's candidate list relative to the empty trace.
 - `no_free_incremental_narrowing_below_three`: For every n at most two, no finite machine with exactly n states, squeeze-priced and running a zero-cost trace, leaves the observer with strictly fewer candidates than after the empty trace; with two states or fewer the window is constant on every state once two starting states look alike.
-- `structural_entitlement_representation`: Given a strict narrowing of a finite prior list, a distinguishing observation, an uncertified start, a certified posterior, a decision tree whose depth the trace's cert-setter count bounds, a nonempty posterior, and a representative reduction, the posterior predicate is strictly stronger, the trace contains a structure-addition event, and the drop in rounded list size is at most the trace's mu increase.
-- `every_sound_structural_shortcut_lands_here`: Every `SoundStructuralShortcut` record yields those three conclusions.
-- `sound_shortcut_from_components`: The same premises assemble a `SoundStructuralShortcut` record.
-- `factored_n1_shortcut_lands_in_representation`: The concrete n = 1 factored-search shortcut yields those three conclusions.
-- `fibered_reduction_implies_tree_cover`: A fibered feasible-set reduction for a tree implies the tree covers the reduction.
-- `lassert_cost_from_component_floors`: A cost at least the state term and at least the description term is at least the LASSERT cost formula, which is their sum.
-- `lassert_cost_is_its_formula`: The LASSERT cost formula equals its two terms added, and any total at least that sum is at least the formula; both halves hold by unfolding.
-- `lassert_honest_cost`: A non-trapping LASSERT step declared a formula length equal to the length in the formula's memory header.
-- `lassert_honest_mu_cost`: A non-trapping LASSERT step raises `vm_mu` by eight times the header length plus the successor of its declared cost.
-- `non_adaptive_sat_lower_bound`: A correct non-adaptive decider for the stated n-variable family probes at least `2^n` distinct positions.
-- `free_world_honesty_verifier_must_inspect_every_cert_position`: A positional verifier that is correct on the supplied length-`n` trace family and decides from inspected positions only must inspect every position below `n`.
-- `advantage_factor_unbounded`: For every natural `k` at least 1, some `N` at least 2 has `N * N >= k * (2 * N)`.
-- `iteration_savings_dwarfs_mu_cost`: For every natural `N` at least 6, `N * N > 2 * N + 18`.
-- `blind_program_run`: For every target `t` with `t + 1 < 2^64` and every fuel at least `5 * t + 8`, running `blind_program t` from `init_state` under `run_vm` ends with register 15 equal to `t + 1`, `vm_mu` equal to 0, and the program counter at 10, one past the last instruction.
-- `sighted_program_run`: For every pair of targets `l`, `r` with `l + r + 2 < 2^64` and every fuel at least `5 * (l + r) + 16`, running `sighted_program l r` from `init_state` under `run_vm` ends with register 15 equal to `(l + 1) + (r + 1)`, `vm_mu` equal to 18, and the program counter at 20.
-- `time_tax_theorem`: For `N` at least 1 with `N * N < 2^64`, any `lambda`, and enough fuel, the blind run on target `N * N - 1` ends with register 15 equal to `N * N` and `vm_mu` 0, the sighted run on targets `N - 1`, `N - 1` ends with register 15 equal to `2 * N` and `vm_mu` 18, and the sighted run's register 15 plus `lambda` times its `vm_mu` is below the blind run's exactly when `2 * N + 18 * lambda < N * N`.
-- `time_tax_sighted_wins`: Under the same fuel and size premises, when `N` is at least `18 * lambda + 3`, the sighted run's register 15 plus `lambda` times its `vm_mu` is below the blind run's.
-- `sighted_program_total_cost_is_eighteen`: For any two target values, summing `instruction_cost` over the instruction list `sighted_program left_target right_target` gives 18; this is a static sum over the listed instructions, not a run.
-- `sighted_halts_in_two_n`: Running `sighted_program 0 0` from `init_state` with fuel 20 leaves register 15 equal to 2, `vm_mu` equal to 18, and the program counter at or past the program length; this is one fixed run.
-- `receipt_list_eqb_spec`: For two instruction lists, `receipt_list_eqb` returns true exactly when the lists are equal.
-- `sighted_n1_supra_posterior_nonempty`: The fixed posterior `sighted_n1_supra_posterior` (a one-state list) has `feasible_size` greater than 0.
-- `sighted_n1_supra_representatives`: For the fixed instance (observation function constantly the empty trace, decision tree `dt_branch dt_leaf dt_leaf`, prior `[init_state; sighted_n1_supra_final]`, posterior `[sighted_n1_supra_final]`), `PosteriorRepresentativeReduction` holds: some fiber assignment gives each prior state an observation-equivalent posterior state whose fiber contains it, the prior size is at most the sum of the fiber sizes, and each fiber is at most the tree's leaf count.
 - `demon_observer_learns`: In the two-bit measuring machine, starting from the prior list `[(false, false); (true, false)]` with actual state `(true, false)`, the observer's candidate list after one measuring step has one member, the prior has two, and the step costs zero.
 - `measure_forgets_nothing`: The two-bit machine's measuring step, which adds the hidden bit into the display by exclusive-or, is injective.
 - `wipe_merges`: The two-bit machine's wipe step, which blanks the display, is not injective.
-- `blind_halts_in_n_squared`: Running `blind_program 0` from `init_state` with fuel 8 leaves register 15 equal to `1 * 1`, `vm_mu` equal to 0, and the program counter at or past the program length; this is one fixed run.
-- `blind_program_total_cost_is_zero`: For any target index, summing `instruction_cost` over the instruction list `blind_program target_idx` gives 0; this is a static sum over the listed instructions, not a run.
-- `observational_structural_entitlement_representation`: Given a correct Boolean equality test on observations, a posterior list strictly contained in a prior list, a prior state outside the posterior whose observation differs from every posterior state's, the posterior predicate certified after the bounded run, a decision tree whose depth is at most the run's cert-setter executions, a nonempty posterior, and a representative reduction under a second observation function, the posterior predicate is certified and strictly stronger than the prior predicate, and the drop in rounded log list size is at most the run's mu increase.
-- `distinguishing_observation_not_posterior_representable`: A prior state whose observation differs from every posterior state's and a representative reduction under the same observation function cannot both hold; that is why the previous theorem takes the reduction under a second observation function.
-- `word64_sub_zero_iff`: For `a` and `b` both below `2^64`, the 64-bit word subtraction `word64_sub a b` is 0 exactly when `a = b`.
-- `loop_iteration`: In a program whose five instructions at the loop head `h` are ADD r15 r15 r10, SUB r8 c tg, JNEZ r8 j, ADD c c r10 and JUMP h, all at declared cost 0, a state at `h` with counter register `c` holding `i < t`, target register `tg` holding `t`, r10 holding 1 and r15 holding `n` (with `t` and `n + 1` below `2^64`) runs five `run_vm` steps to the same head with `c` holding `i + 1` and r15 holding `n + 1`, the same `vm_mu`, and every other register except r8 unchanged.
-- `loop_iterations`: Under the same program shape, `k` passes from a state at the head with counter `i`, target `t` and r15 `n`, where `i + k <= t`, `t < 2^64` and `n + k < 2^64`, run `5 * k` steps to the head with counter `i + k` and r15 `n + k`, the same `vm_mu`, and every other register except r8 unchanged.
 
 ## The ledger
 
@@ -243,128 +146,21 @@ An explicitly qualified citation keeps its own module identity.
 - `a2_and_aara_iff_exact`: For any step function, state-dependent cost, and yes/no reading, A2 together with the AARA inequality for the potential "one if uncertified, zero otherwise" holds exactly when certifying steps cost one, all other steps cost zero, and no step switches the reading off.
 - `flips_le_cost`: Under A2, the number of false-to-true switches of the reading along any trace is at most the trace's total cost.
 
-- `vm_apply_mu` (`Kernel.MuLedgerConservation.vm_apply_mu`): One VM step raises `vm_mu` by exactly the instruction's cost.
-- `mu_is_initial_monotone` (`Kernel.MuInitiality.mu_is_initial_monotone`): A measure that is zero at the initial state and rises by the kernel's instruction cost on every step equals `vm_mu` on every reachable state.
-- `instruction_consistent_measure_equals_mu` (`Kernel.MuInitiality.instruction_consistent_measure_equals_mu`): A measure that is zero at the initial state and rises by the instruction cost on every step equals `vm_mu` on every reachable state.
-- `mu_is_universal` (`Kernel.MuInitiality.mu_is_universal`): Every `CostFunctional` record equals `vm_mu` on every reachable state.
-- `bounded_run_mu_decomposition`: For any two functions `mu_blind_component` and `mu_sighted_component` from instructions to naturals whose sum equals `instruction_cost` on every instruction (the premise `mu_component_split`), and any fuel, trace, and state, `vm_mu` after `run_vm fuel trace s` equals `vm_mu s` plus the sum of the first component over the executed instructions plus the sum of the second.
-- `total_irreversible_bits_le_cost`: The number of positively charged instructions in a list is at most the list's total cost.
-- `zero_cost_vm_jump_has_injective_history_lift`: `JUMP 1 0` costs zero, moves the program counter to one, and becomes injective once each state carries its history.
-- `landauer_dissipation_premises_inconsistent`: No dissipation function both charges every step that collapses a Boolean macro-property and matches the VM cost schedule.
-- `full_vm_landauer_dissipation_premises_inconsistent`: The same statement, kept as a regression check.
 - `potential_telescoping`: In the section's generic step-and-cost setting, if a potential `Phi` has non-negative amortized cost on every step, then for every trace and start state the trace's total cost plus `Phi` of the final state is at least `Phi` of the start state.
-- `delta_mu_equals_ledger_sum`: A bounded VM run's increase in `vm_mu` equals the sum of the ledger entries the run records.
-- `mu_accumulates_trace_cost` (`Kernel.MuInitiality.mu_accumulates_trace_cost`): Executing an instruction list step by step from a state gives final `vm_mu` equal to the start's `vm_mu` plus the list's summed instruction cost.
-- `monotone_factors_through_mu`: A measure that rises by exactly the instruction cost on every VM step equals, on every reachable state, a non-decreasing function of `vm_mu`.
-- `vm_mu_monotonic_single_step` (`Kernel.MuLedgerConservation.vm_mu_monotonic_single_step`): A VM step never decreases `vm_mu`.
-- `irreversible_bits_le_cost` (`Kernel.LandauerDerivation.irreversible_bits_le_cost`): For every VM instruction, the indicator `irreversible_bits` (zero for cost zero, one otherwise) is at most the instruction's cost; the name records a charge, not a proved erasure.
 
 ## What a window loses
 
 - `no_mu_oracle` (`Minimal.EarnedCore.no_mu_oracle`): In minimal/EarnedCore.v, no function of the window (program counter and the two counters) returns mu for every trace run from `start 0 0`; minimal/MuCore.v proves the same for its strict shadow and `st_mu` over every state.
-- `shadow_proj_kernel_is_eq_on_classical_shadow`: Two VM states have the same six-field shadow exactly when they agree on those six fields.
-- `shadow_strictly_lossy`: Two VM states share a six-field shadow, differ in their morphism lists, and still differ after some probe instruction.
-- `probe_preserves_graph_A`: The graph-preserving probe leaves the first separation witness's graph unchanged.
-- `probe_preserves_graph_B`: The same for the second witness.
-- `categorical_separation` (`Kernel.PartitionSeparation.PartitionSeparation.categorical_separation`): Two VM states agree on registers, memory, mu, program counter, error flag, and certification, and have different morphism lists.
-- `degenerate_projection_theorem`: The Turing lift runs a Turing machine exactly; shadow equality is agreement on the six fields; classical programs from states agreeing on the shadow, graph, and CSRs end with equal shadows; and some distinct states share a shadow.
-- `classical_run_preserves_shadow_compat`: A classical program run from two states that agree on the shadow, graph, and CSRs ends with equal shadows.
-- `thiele_strictly_extends_classical`: Classical programs leave the graph, `csr_cert_addr`, and certification unchanged, both as instruction lists and under the program-counter runner `run_vm` for any fuel; and from every state a classical run reaches from `init_state`, PNEW of address 0 is a step to a state whose graph differs from the graph of every state a classical run reaches from `init_state`.
 - `thiele_simulates_turing`: Lifting a Turing configuration and running the file-local Thiele model for `n` steps gives the Turing machine's configuration after `n` steps.
 - `thiele_simulates_turing_gen`: For every fuel, transition table `delta`, and Thiele configuration `tc`, the Turing configuration inside `thiele_run fuel delta tc` equals `tm_run fuel delta` applied to the Turing configuration inside `tc`, whatever the `th_mu` value of `tc`.
 - `thiele_strictly_extends_turing`: Two conjuncts about the `ProperSubsumption.v` Turing and Thiele step functions: every Turing computation `TM_computes delta c_init c_final` has a Thiele computation from `lift_config c_init` with some cost whose final Turing configuration is `c_final`; and for every fuel, table, and configuration, the `cc_witness` of `thiele_cost_certificate` (the `th_mu` increase, by natural subtraction) is at most its `cc_bound`, which is `fuel * (step_cost + 1)`.
-- `cert_not_function_of_forget`: No function of the four-field `forget` window returns `vm_certified` on every VM state.
-- `mu_not_function_of_bare_observable`: No function of `bare_observable` returns `vm_mu` on every VM state.
-- `cert_addr_not_function_of_forget`: No function of `forget` returns `csr_cert_addr` on every VM state.
-- `no_classical_a2_cert_predicate`: Every Boolean function of `forget` disagrees with `vm_certified` on some VM state.
-- `no_classical_mu_separation_predicate`: Every function of `bare_observable` disagrees with `vm_mu` on some VM state.
-- `no_classical_cert_addr_predicate`: Every function of `forget` disagrees with `csr_cert_addr` on some VM state.
-- `fiber_has_two_preimages`: Every four-field snapshot is the `forget` image of two different VM states.
 - `decoding_requires_fiber_constancy`: If some decoder of an observation returns a query on every state, the query is constant on each set of states with the same observation.
-- `mu_ledger_mutual_independence` (`Kernel.NecessityAbstract.mu_ledger_mutual_independence`): Neither mu nor certification is a function of the strict classical shadow, certification is not a function of the cost-annotated shadow, and mu is not a function of the certification-annotated shadow.
-- `P_full_complete_neither_mu_nor_cert_droppable` (`Kernel.NecessityAbstract.P_full_complete_neither_mu_nor_cert_droppable`): The full projection determines mu and certification, and any projection that forgets one of them cannot determine it.
-- `mu_ledger_full_pairwise_independence`: Four non-existence results: no function of `P_full_strict` (memory, registers, program counter, graph) returns `vm_mu`; none returns `vm_certified`; no function of `P_full_cost` (which adds `vm_mu`) returns `vm_certified`; and no function of `P_full_cert` (which adds `vm_certified`) returns `vm_mu`.
-- `structural_shortcut_not_function_of_classical`: No function of `forget` returns whether `csr_cert_addr` is nonzero on every VM state.
-- `structural_axis_invisible_to_classical`: The same statement, quantified over every decoder.
-- `structural_axis_survives_any_classical_oracle`: No decoder reading `forget` and any oracle answer computed from `forget` returns that bit on every VM state.
-- `structural_axis_survives_halting_oracle`: The same, with the oracle a Boolean function of `forget` such as a halting bit.
-- `axes_mutually_independent`: The structural bit is not a function of `forget`, and the program counter is not a function of the structural-only projection.
-- `structural_membership_decidable`: Whether `csr_cert_addr` is nonzero is decidable from the full VM state.
-- `bare_setting_no_sound_complete_verifier`: No verifier reading bare classical transcripts is both sound and complete for the claim `vm_mu = 1`.
-- `V_does_not_factor_through_classical`: For any transcript type whose two transcripts explain the collision witnesses and share a bare projection, no verifier that is sound and complete for `vm_mu = 1` factors through that projection.
-- `substrate_escape_succeeds`: A unit-cost verifier that reads the full state is sound and complete for `vm_mu = 1`.
-- `ReceiptTheorem`: No function of the strict classical shadow recovers `vm_mu` for every VM state.
-- `commitment_contract_verifier`: Given a contract that the commitment bit exactly reports whether each explaining state has `vm_mu = 1`, reading that bit gives a sound and complete verifier with abstract unit cost; no cryptographic security or runtime bound is proved.
-- `honest_commitments_satisfy_contract`: The commitment-bit contract holds when the bit equals whether `vm_mu = 1`.
-- `unchecked_bit_violates_contract`: The exact commitment-bit contract fails when the bit can be set independently of the claim.
-- `interactive_escape_succeeds`: A unit-cost verifier that reads the prover's reported mu is sound and complete for `vm_mu = 1` under the interactive explanation relation.
-- `attestation_cannot_factor_through_bare_transcript`: A sound and complete attestation verifier cannot factor through the report's bare transcript.
-- `replay_is_a_two_preimage_witness`: Two attestation reports have the same bare projection, different measurements, and explain the two collision witnesses.
-- `measurement_enriched_attestation_succeeds`: A unit-cost verifier reading the measurement is a sound and complete attestation verifier.
-- `abstract_log_bit_verifier`: Under an exact disclosure contract, reading the abstract inclusion-verdict bit gives a sound and complete unit-cost verifier for `vm_mu = 1`.
-- `abstract_bare_verifier_impossible`: No bare verifier is both sound and complete for `vm_mu = 1` over the named collision relation.
-- `abstract_mu_collision_witness`: Two VM states share a strict shadow and a transcript, and one satisfies `vm_mu = 1` while the other does not; this is not an RFC split view.
-- `proof_rounds_escape`: A unit-cost check of the proof-carrying transcript is sound and complete for `vm_mu = 1`.
-- `bare_pcc_impossible`: No check of bare transcripts is sound and complete for `vm_mu = 1` over the collision relation.
-- `no_classical_separation`: Every function of VM states that depends only on `shadow_proj` (registers, memory, program counter, mu, error flag, certification) gives the same value on the two separation witnesses, which differ in their morphism lists.
-- `classical_bool_test_indistinguishable`: Every Boolean test satisfying `is_classical_observer` gives the same answer on some two states with different morphism lists.
-- `thiele_content_irrecoverable_from_bare_projection`: No Boolean function of `forget` returns `vm_certified` on every VM state, no function of `bare_observable` returns `vm_mu` on every VM state, and no function of `forget` returns `csr_cert_addr` on every VM state.
-- `forgets_mu_not_mu_complete` (`Kernel.NecessityAbstract.forgets_mu_not_mu_complete`): A projection of VM states that is unchanged when `vm_mu` is reset to any value has no function of it that returns `vm_mu` on every state.
-- `forgets_cert_not_cert_complete` (`Kernel.NecessityAbstract.forgets_cert_not_cert_complete`): A projection of VM states that is unchanged when `vm_certified` is reset to either value has no function of it that returns `vm_certified` on every state.
-- `classical_trace_preserves_graph`: An instruction list made only of classical opcodes, run in the VM certification machine, leaves the partition graph unchanged.
-- `classical_trace_preserves_cert_addr`: The same run leaves `csr_cert_addr` unchanged.
-- `classical_trace_preserves_certified`: The same run leaves `vm_certified` unchanged.
-- `morph_id_step_passes_morph_delete_probe_tc`: From the fixed base state (module 0 present, no morphisms), `MORPH_ID 0 0 0` followed by the probe `MORPH_DELETE 0 0` leaves the error flag false.
-- `classical_trace_fails_morph_delete_probe_tc`: From that base state, every instruction list of classical opcodes followed by the probe sets the error flag.
-- `morph_delete_probe_separates_thiele_from_classical_tc`: Some state, step, and probe exist such that the step followed by the probe leaves the error flag false while every classical-opcode list followed by the probe sets it; the witness is the fixed base state above.
-- `morph_delete_no_morphism_err_tc`: If deleting morphism `mid` from a state's graph fails, `MORPH_DELETE mid` sets the error flag.
-- `graph_empty_morphisms_delete_fails_tc`: Deleting any morphism from a graph with no morphisms fails.
-
-## Traces, states, and uniqueness
-
-- `thiele_trace_fold_initial`: For any `CertCostMachine` and start state, folding its step over instruction lists is the only map from lists that sends the empty list to the start and extends one step per instruction.
-- `thiele_morphism_unique_on_reachable`: Two certification-cost morphisms out of the VM that agree at the initial state agree on every state reached by a trace.
-- `trace_descent_unique_value_iff`: Instruction lists with the same VM outcome always reach the same target state exactly when each VM outcome has a unique descended target value.
-- `reachable_simulation_exists_iff`: Given a representative trace for each reachable state, a certification-preserving reachable simulation exists exactly when traces are fiber-compatible and certification-compatible.
-- `certification_agreement_does_not_imply_descent`: The history-keeping target agrees with the VM on certification and still maps two traces with the same VM outcome to different states.
-- `certification_quotient_satisfies_descent`: The one-bit machine whose step sets the bit on `CERTIFY` and keeps it otherwise, started at false, sends instruction lists with the same VM outcome to the same bit, agrees with the VM on certification, gives false on the empty list, and gives true on `[CERTIFY 0]`.
-- `reachable_simulation_requires_compatibility`: Every `ReachableCertSimulation` into a target machine and base state makes traces fiber-compatible and certification-compatible for that target and base.
-- `vm_step_deterministic`: The VM step relation has at most one result for a given state and instruction.
-- `vm_step_vm_apply`: Whenever the VM step relation relates a state and instruction to a result, that result is `vm_apply` of them.
-- `empty_graph_well_formed`: The empty partition graph is well formed.
-- `vm_apply_preserves_well_formed_graph`: A VM step from a state with a well-formed graph gives a state with a well-formed graph.
-- `run_vm_preserves_well_formed_graph`: A bounded VM run from a state with a well-formed graph ends with a well-formed graph.
-- `vm_step_preserves_well_formed_graph`: Every step of the VM step relation keeps the graph well formed.
-- `vm_step_preserves_regions_disjoint`: Every step of the VM step relation keeps module regions pairwise disjoint.
-- `vm_step_preserves_regions_contiguous`: Every step of the VM step relation keeps every module region a contiguous range.
-- `vm_reachable_regions_disjoint`: From a state with no modules, every state reachable by VM steps has pairwise disjoint module regions and contiguous module regions.
-- `graph_pnew_preserves_regions_disjoint`: If module regions are disjoint and every existing region is either equal to or disjoint from the PNEW region (the requested region normalized to the contiguous range of the same length starting at its least element), so that `region_conflict` is false, the graph PNEW produces still has disjoint regions.
-- `graph_hw_psplit_preserves_regions_disjoint`: The hardware split of a module keeps module regions disjoint.
-- `graph_hw_pmerge_preserves_regions_disjoint`: The hardware merge of two modules keeps module regions disjoint.
-- `graph_hw_pmerge_preserves_regions_contiguous`: If every module region is contiguous and the two regions joined in one order or the other form a contiguous range, the hardware merge keeps every region contiguous.
-- `psplit_halves_of_range`: Splitting the range starting at `b` of length `n` gives the range starting at `b` of length `n / 2` and the range starting at `b + n / 2` of length `n - n / 2`.
-- `vm_apply_lassert_pc`: After an `LASSERT` step the program counter is one more than before when `lassert_exec_ok` holds and `LASSERT_TRAP_PC` otherwise.
-- `vm_step_preserves_regions_in_memory`: Every step of the VM step relation keeps every address of every module region below `MEM_SIZE`.
-- `vm_step_preserves_modules_bounded`: Every step of the VM step relation from a graph whose next module identifier is at most `NUM_MODULES` (64) gives a graph whose next module identifier is at most `NUM_MODULES`.
-- `vm_step_preserves_module_ids_distinct`: From a well-formed graph with pairwise distinct module identifiers, every step of the VM step relation gives a graph with pairwise distinct module identifiers.
-- `modules_count_bounded`: A well-formed graph with distinct module identifiers and next module identifier at most `NUM_MODULES` holds at most `NUM_MODULES` modules.
-- `module_id_mod_64`: In a well-formed graph whose next module identifier is at most `NUM_MODULES`, every module identifier present equals itself modulo 64.
-- `vm_step_preserves_partition_in_bounds`: Every step of the VM step relation keeps `partition_in_bounds`: a well-formed graph whose module regions lie in data memory, whose next module identifier is at most `NUM_MODULES`, and whose module identifiers are distinct.
-- `vm_reachable_partition_in_bounds`: From a state whose graph is well formed, has no modules and has next module identifier at most `NUM_MODULES`, every state reachable by VM steps has pairwise disjoint, contiguous module regions inside data memory, next module identifier at most `NUM_MODULES`, at most `NUM_MODULES` modules, and every module identifier equal to itself modulo 64.
-- `vm_apply_preserves_partition_in_bounds`: One `vm_apply` step from a graph satisfying `partition_in_bounds` gives a graph satisfying it.
-- `run_vm_partition_in_bounds`: From a state whose graph is well formed, has no modules and has next module identifier at most `NUM_MODULES`, every bounded `run_vm` run ends in a graph with disjoint, contiguous regions (`partition_regions_ok`) that satisfies `partition_in_bounds` and holds at most `NUM_MODULES` modules.
 
 ## Diagonal and undecidability
-
-- `g_decode_guest_code_roundtrip`: Encoding a guest-fragment program as a natural number and decoding that number returns the original guest program.
-- `g_eval_is_actual_vm_execution`: For a well-formed guest-fragment program, the fuel-bounded evaluator on its numeric code and input equals the state produced by the actual unbounded-VM runner, for every ambient state and tail.
-- `g_smn`: Prefixing a guest-fragment program with a constant-input load and relocating its body preserves its terminal guest behavior at that fixed input, independently of the specialized program's external input.
 
 - `structural_shortcut_undecidable`: For any substrate with a shortcut predicate, no decider whose diagonal flip is representable in the substrate decides the predicate.
 - `nat_structural_shortcut_undecidable`: For each candidate `d`, the nat substrate built from `d` has no decider with a representable flip for its predicate.
 - `nat_self_undecidable`: Each candidate `d` fails to decide the predicate of the substrate built from it.
-- `vm_structural_shortcut_undecidable`: Given a round-trip code, a representability class, and a fixed-point premise for bounded `vm_run`, no decider whose flip is in the class decides the bounded shortcut predicate.
-- `vm_structural_shortcut_undecidable_encoded`: The same with the round-trip code proved rather than assumed.
 - `mk_app_enc`: In the weak call-by-value calculus L, applying the application-code builder to the codes of terms s and t reduces in finitely many steps to the code of the application s t.
 - `rec_spec`: For closed values F and v in L, applying rec F to v reduces in finitely many steps to F (rec F) v; the lemma does not assert termination of that resulting computation.
 - `Qn_spec`: For every natural n, the numeral-quoting program Qn applied to the Scott numeral for n reduces in finitely many steps to the syntax code of that numeral.
@@ -374,91 +170,15 @@ An explicitly qualified citation keeps its own module identity.
 - `L_rice`: In L, no closed term decides, from programs' codes, a property that depends only on the values programs reach and that holds for one closed program and fails for another.
 - `L_structural_shortcut_undecidable`: In L, no Boolean decider for such a property has an L-computable flip.
 - `L_halting_undecidable`: No closed L term decides, from programs' codes, whether an L program reaches a value.
+- `MM2_HALTING_compl_undec`: The complement of two-counter machine halting, as the vendored library defines it, is undecidable in the library's synthetic sense.
 - `star_value_confluent`: In the calculus L of `LRecursion.v`, if `s` reduces to `t` and to `v` in zero or more steps and `v` is a value (a lambda), then `t` reduces to `v` in zero or more steps.
-- `vm_bounded_shortcut_decide_correct`: A computable Boolean function decides the bounded shortcut predicate.
-- `vm_bounded_decider_flip_not_representable`: That decider's flip lies outside every class that satisfies the bounded fixed-point premise.
-- `vm_full_recursion_premise_refuted`: It is not the case that every map `f` from programs to programs has a program `q` whose 1000-step `vm_run` from every state equals that of `f q`.
-- `vm_correct_flip_has_no_fixed_point`: For every Boolean function `d` that is true exactly on the programs satisfying `vm_admits_shortcut_extensional`, no program `q` has the same 1000-step `vm_run` from every state as the empty program when `d q` holds and `simple_morph_trace` otherwise.
-- `nat_to_program_program_to_nat`: Decoding the natural-number code of an instruction list returns the list.
-- `vm_apply_logic_acc_commutes`: Every VM step commutes with replacing `vm_logic_acc`.
-- `run_vm_logic_acc_commutes`: Every fuel-bounded VM run commutes with replacing `vm_logic_acc`.
-- `no_logic_acc_encoded_interpreter`: No fixed VM program, observed through an output that ignores `vm_logic_acc`, reproduces every program's final certification bit from the program's code stored in `vm_logic_acc`.
-- `vm_halts_at_deterministic`: The unbounded halting relation has at most one final state.
-- `cm2_uniform_interpreter_simulation_total`: Each successful two-counter guest step is matched by a positive number of host steps that preserve the representation.
-- `cm2_uniform_interpreter_raw_correct_total`: A two-counter guest halts with a final configuration exactly when the host run produces it.
-- `cm2_uniform_interpreter_raw_never_malformed`: The host never reports malformed input on a canonical encoding.
-- `cm2_uniform_interpreter_divergence_total`: The guest diverges exactly when the host never reaches its end.
-- `mm2_termination_guest_iff`: An MM2 program terminates exactly when its translated guest halts.
-- `mm2_halting_host_iff`: MM2 halting is equivalent to the fixed host halting on the encoded input.
-- `actual_unbounded_host_synthetic_undecidability`: For any ambient state, host halting is undecidable in the Undecidability Library's synthetic sense.
-- `g_step_is_vm_apply_u`: A well-formed guest instruction's step equals the unbounded VM step on its denotation.
-- `g_width_fits`: The chosen width represents every instruction of the guest program.
-- `self_interpreter_complete`: If the well-formed guest reaches a terminal configuration, the fixed host reaches its end with that configuration represented.
-- `self_interpreter_sound`: If the host reaches its end, the guest reached a terminal configuration and the host represents it.
-- `self_interpreter_correct`: Guest termination at a configuration is equivalent to the host reaching its end with that configuration represented.
-- `self_interpreter_divergence`: The guest never terminates exactly when the host never reaches its end.
-- `self_interpreter_malformed`: On a fetched word in the malformed range, the host reaches its end with status 2 and the guest registers unchanged.
-- `self_rice`: An extensional guest-program property that holds of some well-formed program and fails for the divergent program is undecidable when restricted to well-formed programs.
-- `self_rice_representable`: A guest program deciding such a property would make the complement of single-tape Turing halting enumerable.
-- `g_decides_decidable`: A guest program that decides a property through its register 0 yields a Boolean decider for the property on well-formed programs.
-- `vm_guest_recursion_theorem_closed`: For any transformer `F` on guest programs that sends well-formed guest programs to well-formed guest programs, and any well-formed guest program `D` that represents `F` (on the code of each well-formed program `p`, `D` terminates with register 0 holding the code of `F p`), some well-formed guest program `p` has the same terminating behaviours as `F p`, meaning the same final registers and the same `mu` for every input.
-- `g_pair_smn`: For every guest program `p`, constant `x`, and input `y`, the specialized program `g_pair_specialize p x` run on `y` halts with registers `g` and ledger `mu` exactly when `p` run on the pair `g_pair x y` halts with `g` and `mu`.
-- `hfun_sem`: If the guest program `D` represents the transformer `F` and `e` is well formed, the fuel function returns `m` for some fuel on the pair of `e`'s code and `y` exactly when `m` packs registers `g` and ledger `mu` with which `F` applied to `e` specialized by its own code halts on `y`.
-- `RD_MMA`: For every guest program `D`, the relation "some fuel makes the tuple-form evaluator return `m` on input `z`" is computed by an alternate Minsky machine.
-- `g_pipeline_beh_pack`: If every output of the Minsky program `P` on input `z` packs some registers and ledger, then the guest pipeline for `P` halts on `z` with registers `g` and ledger `mu` exactly when `P` halts on `z` with output `g_out_pack g mu`.
-- `vm_encode_decode_concrete`: Decoding the state that stores a program's numeric code in `vm_logic_acc` returns the program.
-- `halts_observes_logic`: For an observation that ignores `vm_logic_acc`, a program halts from a state with observed value `b` exactly when it does so from that state with `vm_logic_acc` replaced by any number.
-- `vm_admits_shortcut_yes`: `simple_morph_trace` (PNEW, MORPH_ID, MORPH_ASSERT) has the extensional shortcut property: its `vm_run` from `init_state` equals that of `simple_morph_trace`.
-- `vm_admits_shortcut_no`: The empty program does not have that property.
-- `vm_instantiation_target_witnessed`: For `simple_morph_trace`, some fuel and start state admit a `SoundStructuralShortcut` record.
-- `vm_guest_execution_is_actual`: For a well-formed guest program, running its compiled VM program for `n` unbounded-VM steps from the state encoding a guest configuration gives the state encoding the guest's configuration after `n` guest steps, for every ambient state and tail.
-- `vm_guest_rice_holds`: Every extensional guest-program property that holds of some well-formed program and fails for the divergent program `g_bottom` is undecidable when restricted to well-formed programs, in the Undecidability Library's synthetic sense.
-- `g_halts_on_zero_undecidable`: Whether a well-formed guest program halts on input zero is undecidable in the Undecidability Library's synthetic sense.
-- `h_block`: For a well-formed guest program packed at a width that fits it, from the host state encoding a non-terminal guest configuration, the fixed host program takes a positive number of unbounded-VM steps to the host state encoding the guest's next configuration, with some scratch values.
-- `h_simulation`: For the same guest program and every `n`, the host reaches the state encoding the guest's configuration after `n` guest steps in some number of steps.
-- `cm2_uniform_interpreter_raw_divergence_total`: For every ambient state, a two-counter program diverges from a start configuration exactly when the fixed host interpreter, run on the canonical encoding, never reaches program counter 60.
-- `cm2_loop_diverges`: The two-counter program `[CM2_Inc0; CM2_DecJump0 0]` diverges from program counter 0 with any counter values.
-- `cm2_loop_host_never_halts`: For every ambient state, counter values, and fuel, the host interpreter run on that program's encoding is not in its halted state.
-- `zero_branch_pair_terminates`: The machine program `[MU_Inc0; MU_JzDec0 0]` from program counter 0 with counters `a` and `b` halts at program counter 2 with the same counters.
-
-## Categories
-
-- `relational_compose_assoc` (`Kernel.CategoryLaws.relational_compose_assoc`): Relational composition of coupling relations is associative up to membership.
-- `morph_graph_compose_assoc`: For three stored morphisms whose ends match, the two groupings of their coupling compositions agree up to membership.
-- `graph_compose_morphisms_coupling`: A successful COMPOSE stores the conjunction of its inputs' identity flags; its coupling is empty when both are identities, the other input's coupling when exactly one is an identity, and relational composition otherwise, up to membership equivalence.
-- `morph_compose_assoc_coupling`: For three lists of pairs of naturals, `relational_compose` of the composite of the first two with the third equals `relational_compose` of the first with the composite of the other two, up to `coupling_equiv` (the same pairs).
-- `morph_id_left_coupling`: For a region list and a pair list `pairs_f` in which every pair's first component lies in the region, composing the diagonal pairs `(x, x)` over the region with `pairs_f` gives `pairs_f` up to `coupling_equiv`.
-- `morph_id_right_coupling`: For a region list and a pair list `pairs_f` in which every pair's second component lies in the region, composing `pairs_f` with the diagonal pairs `(x, x)` over the region gives `pairs_f` up to `coupling_equiv`.
-- `monoidal_coherence` (`Kernel.CategoryMonoidal.monoidal_coherence`): For three lists of pairs, `coupling_tensor` (list append) is associative and has the empty list as a left and right unit, as equalities of lists.
-- `tensor_bifunctor` (`Kernel.CategoryMonoidal.tensor_bifunctor`): For four lists of pairs `pf`, `pg`, `pf'`, `pg'`, if the composite of `pf` with `pg'` and the composite of `pg` with `pf'` are both coupling-equivalent to the empty list, then composing `pf ++ pg` with `pf' ++ pg'` is coupling-equivalent to the append of the composite of `pf` with `pf'` and the composite of `pg` with `pg'`.
-- `relational_compose_spec` (`Kernel.CategoryLaws.relational_compose_spec`): A pair `(a, c)` is in the relational composition of two pair lists exactly when some `b` has `(a, b)` in the first and `(b, c)` in the second.
-- `relational_compose_diagonal_left` (`Kernel.CategoryLaws.relational_compose_diagonal_left`): If every pair of `r` has its first component in a region, composing the diagonal pairs `(x, x)` over that region with `r` gives `r` up to membership.
-- `relational_compose_diagonal_right` (`Kernel.CategoryLaws.relational_compose_diagonal_right`): If every pair of `r` has its second component in a region, composing `r` with the diagonal pairs over that region gives `r` up to membership.
-- `relational_compose_compat`: Relational composition sends membership-equivalent arguments to membership-equivalent results.
-- `relational_compose_empty_l`: Composing the empty coupling with any coupling gives the empty coupling up to membership.
-- `relational_compose_empty_r`: Composing any coupling with the empty coupling gives the empty coupling up to membership.
-- `coupling_data_compose_assoc`: For three coupling records, the two groupings of the relational compositions of their pair lists agree up to membership.
-- `kernel_relational_compose_same`: The kernel's `VMState.relational_compose` and the category file's `relational_compose` are equal on all inputs.
-- `graph_add_identity_coupling`: If module `mid` exists and `graph_add_identity` succeeds, the new morphism identifier looks up to a morphism whose identity flag is set; despite the name, the statement says nothing about its coupling.
-- `graph_compose_stored`: `COMPOSE` of two stored morphisms whose target and source match succeeds, stores `composite_record` of the two under the next morphism identifier, raises that identifier by one, and leaves the lookup of every other morphism identifier unchanged.
-- `graph_compose_identities_is_identity`: `COMPOSE` of two stored identity-flagged morphisms whose target and source match succeeds and stores, under the returned identifier, the morphism from the first's source to the second's target with `empty_coupling_data`, the identity flag set, and certification cost zero.
-- `graph_compose_assoc_stored`: In a well-formed graph, for three stored morphisms `f`, `k`, `h` with matching ends, composing `f` with `k` and then the result with `h`, and composing `k` with `h` and then `f` with the result, all succeed, and the two stored composites are `stored_arrow_equiv` (same source, target and identity flag, and, when the flag is off, the same coupling pairs up to membership).
-- `graph_compose_left_identity_stored`: If a stored identity-flagged morphism has equal source and target and its target is the source of a stored morphism `f`, composing it with `f` succeeds and stores a morphism `stored_arrow_equiv` to `f`.
-- `graph_compose_right_identity_stored`: If a stored identity-flagged morphism has equal source and target and the target of a stored morphism `f` is its source, composing `f` with it succeeds and stores a morphism `stored_arrow_equiv` to `f`.
-- `vm_step_preserves_identity_arrows_canonical`: Every step of the VM step relation keeps `identity_arrows_canonical`: every stored identity-flagged morphism has equal source and target and no coupling pairs.
-- `vm_reachable_preserves_identity_arrows_canonical`: Every state reachable by VM steps from a state whose graph satisfies `identity_arrows_canonical` also satisfies it.
-- `vm_reachable_identity_arrows_canonical`: From a state whose graph has no morphisms, every state reachable by VM steps has a graph satisfying `identity_arrows_canonical`.
 
 ## CHSH and NPA
 
-- `local_strategy_chsh_between_neg2_2`: Four local response bits give an integer CHSH value between -2 and 2.
 - `local_box_CHSH_bound`: A factorizable box has absolute CHSH value at most 2.
-- `classical_bound_achieved` (`Kernel.ClassicalBound.classical_bound_achieved`): A zero-cost six-instruction VM trace, run from its starting state, records a tally whose CHSH value is exactly 2.
 - `chsh_stat_violation_not_local`: A tally with CHSH above 2 is inconsistent with any single four-bit strategy repeated at every trial.
 - `chsh_violation_rules_out_locally_factorizable_coupling`: The same statement in coupling vocabulary.
 - `locally_consistent_classical_bound`: A tally consistent with one four-bit strategy has absolute CHSH value at most 2.
-- `chsh_trial_is_tier0`: `CHSH_TRIAL` is never a certification-insight event.
-- `nonlocal_correlation_requires_revelation`: A trace that starts with `csr_cert_addr` zero and ends with it set contains a `REVEAL`, `EMIT`, `LJOIN`, `LASSERT`, or `MORPH_ASSERT`.
 - `cauchy_schwarz_chsh` (`Kernel.TsirelsonGeneral.cauchy_schwarz_chsh`): For any reals, `(a + b + c - d)^2 <= 4(a^2 + b^2 + c^2 + d^2)`.
 - `tsirelson_from_row_bounds` (`Kernel.TsirelsonGeneral.tsirelson_from_row_bounds`): If `E00^2 + E01^2 <= 1` and `E10^2 + E11^2 <= 1`, the CHSH value squared is at most 8.
 - `algebraically_coherent_tsirelson_general`: Algebraically coherent rational correlators have CHSH value squared at most 8.
@@ -470,16 +190,10 @@ An explicitly qualified citation keeps its own module identity.
 - `npa_psd_implies_tsirelson_bound`: If the zero-marginal NPA matrix is symmetric and PSD, the CHSH value squared is at most 8.
 - `npa_psd_implies_tsirelson_bound_abs`: For any four reals `E00 E01 E10 E11`, if `zero_marginal_npa E00 E01 E10 E11` is positive semidefinite, then the absolute value of `CHSH E00 E01 E10 E11` is at most `sqrt8`.
 - `npa_psd_zero_marginal_implies_row_bounds`: For any four reals, if `zero_marginal_npa E00 E01 E10 E11` is positive semidefinite, then `1 - E00^2 - E01^2 >= 0` and `1 - E10^2 - E11^2 >= 0` (the row minor constraints).
-- `tsirelson_abs_from_npa_psd`: For any fuel, trace, and initial state, if the zero-marginal NPA matrix built from the trace's four correlator values `trace_e00` through `trace_e11` is positive semidefinite, then the absolute value of `CHSH` of those four values is at most `sqrt8`.
-- `trace_column_contractive_iff_trace_npa_model`: For any fuel, trace, and initial state, `trace_column_contractive` holds exactly when the trace's zero-marginal NPA matrix is positive semidefinite.
 - `tsirelson_from_minors`: For four reals, if `1 - e00^2 - e01^2 >= 0` and `1 - e10^2 - e11^2 >= 0`, then the square of `CHSH e00 e01 e10 e11` is at most 8.
 - `tsirelson_squared`: For four reals with `e00^2 + e01^2 <= 1` and `e10^2 + e11^2 <= 1`, `CHSH_value e00 e01 e10 e11` multiplied by itself is at most 8.
 - `fine_theorem`: For any correlator table `E` that is factorizable (two `+1`/`-1` response functions, a probability distribution on finitely many hidden states, and `E a b x y` equal to the distribution-weighted sum of the products of the two responses), `E 0 0 0 0 + E 0 0 0 1 + E 0 0 1 0 - E 0 0 1 1` lies between -2 and 2.
 - `column_contractive_check_witness_sound`: If the integer witness check passes, the witness-derived correlators are column-contractive.
-- `chsh_lassert_no_trap_implies_npa_psd`: A `CHSH_LASSERT` step from a state with the error flag clear that leaves the flag clear implies the witness-derived zero-marginal NPA matrix is symmetric and PSD.
-- `chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab`: A `CHSH_LASSERT_1AB` step that advances without error implies the 9 by 9 level-1+AB matrix at the witness correlators and zero higher moments is symmetric and PSD.
-- `state_column_contractive_implies_npa_gram`: A state whose correlators are column-contractive has a symmetric PSD zero-marginal NPA matrix.
-- `state_column_contractive_implies_tsirelson`: A state whose correlators are column-contractive has CHSH value squared at most 8.
 - `sym4_qf_nonneg_from_pd`: If the four leading minors of a symmetric 4 by 4 matrix are positive, its quadratic form is non-negative.
 - `psd_cauchy_schwarz`: For a symmetric PSD 5 by 5 matrix, the square of the bilinear form is at most the product of the two quadratic forms.
 - `deterministic_strategy_elliptope`: Correlators from four signs have a PSD completion.
@@ -513,10 +227,6 @@ An explicitly qualified citation keeps its own module identity.
 - `npa_quad5_test_col1`: The quadratic form at the vector with entries `-e01`, `-e11`, and 1 in positions 1, 2, and 4 equals `1 - e01^2 - e11^2`.
 - `npa_quad5_test_schur`: For every real `t`, the quadratic form at the vector with entries `-(e00 t + e01)`, `-(e10 t + e11)`, `t`, and 1 in positions 1 to 4 equals `(1 - e00^2 - e10^2) t^2 - 2 (e00 e01 + e10 e11) t + (1 - e01^2 - e11^2)`.
 - `psd_3x3_determinant_nonneg`: For a symmetric PSD 5 by 5 matrix with diagonal entries 1 at indices `i`, `j`, `k`, the correlation determinant `1 - x^2 - y^2 - z^2 + 2xyz` of its `(i, j)`, `(i, k)`, `(j, k)` entries is non-negative.
-- `chsh_lassert_check_implies_npa_psd`: If the integer column-contractivity check on a state's witness counts passes, the state's zero-marginal NPA matrix is symmetric and PSD.
-- `state_column_contractive_check_witness_sound`: If the integer column-contractivity check on a state's witness counts passes, the state's witness-derived correlators are column-contractive.
-- `chsh_lassert_no_trap_implies_state_column_contractive`: A `CHSH_LASSERT` step from a state with the error flag false that advances the program counter by one and leaves the error flag unchanged implies the state's correlators are column-contractive.
-- `vm_chsh_lassert_step_is_general_realizable`: Such a `CHSH_LASSERT` step implies the dimension-generic symmetric-and-PSD predicate holds for the state's 5 by 5 zero-marginal NPA matrix.
 - `zero_marginal_implies_elliptope`: If the zero-marginal NPA matrix of four correlators is symmetric and PSD, the correlators have a PSD completion.
 - `completed_quad_expand`: The quadratic form of the completed NPA matrix with completion entries `x` and `y` expands to the sum of the five squared coordinates plus twice `x`, `y`, and the four correlators times the corresponding coordinate products.
 - `elliptope_pd_check_sound`: If the positive-definiteness integer check passes on the witness counts and completion operands, the witness-derived correlators have a PSD completion.
@@ -533,10 +243,9 @@ An explicitly qualified citation keeps its own module identity.
 - `q1ab_certifies_a_superclassical_chsh_point`: The correlators (3/5, 3/5, 3/5, -3/5) have CHSH value above 2, and the level-1+AB matrix at those correlators with four higher moments zero and the fifth equal to -1/2 is PSD.
 - `q1ab_g5_kernel_check_accepts_superclassical`: The integer check with the fifth moment supplied accepts the witness counts (4, 1), (4, 1), (4, 1), (1, 4) with fifth-moment counts 1 and 3.
 - `q1ab_four_body_cells_are_conjugate`: For every choice of parameters, the level-1+AB matrix entry at rows 6 and 7 (counting from 0) is the negative of the entry at rows 5 and 8.
-- `chsh_lassert_1ab_g5_no_trap_implies_npa_psd_q1ab`: A `CHSH_LASSERT_1AB_G5` step from a state with the error flag false that advances the program counter by one and leaves the error flag unchanged implies the level-1+AB matrix at the state's correlators, with four higher moments zero and the fifth equal to `(same - diff) / (same + diff)` of its two count operands, is symmetric and PSD.
-- `chsh_lassert_1ab_g345_no_trap_implies_npa_psd_q1ab`: The same for `CHSH_LASSERT_1AB_G345`, with the first two higher moments zero and the last three formed from its count operands.
-- `chsh_lassert_1ab_g12345_no_trap_implies_npa_psd_q1ab`: The same for `CHSH_LASSERT_1AB_G12345`, with all five higher moments formed from its count operands.
 - `q1ab_g12345_minors_witness_implies_psd9`: If the six-variable residual matrix with entries `q12345_H11` to `q12345_H66` meets the positive-pivot predicate `sym6_pd_interior`, the level-1+AB matrix is PSD.
+- `q1ab_g12345_caller_witness_z_abs_sound`: For integer correlation and residual numerators and positive denominators, if the integer kernel `q1ab_g12345_check_z_kernel` returns true, the real-valued ratios satisfy `q1ab_g12345_minors_witness`.
+- `column_contractive_check_witness_npa_psd`: For any witness tally, if the integer column-contractive check accepts it, the zero-marginal NPA moment matrix built from its four bucket correlations is positive semidefinite.
 - `q12345_sym6_qf_equals_residual`: The six-variable quadratic form with entries `q12345_H11` to `q12345_H66` equals the level-1+AB residual.
 - `cleared_g12345_H11_Z_bridge`: For integer numerators and positive integer denominators, the integer-cleared `H11` entry, read as a real, equals the integer `g12345_COMMON_Z` of those denominators times `q12345_H11` at the corresponding rational correlators and moments.
 - `sym4_LDLT_identity`: For a symmetric 4 by 4 quadratic form, the defined pivots `d1` to `d4` and partial forms `P1`, `Q1`, `Q2` satisfy `d1^2 d2 d3 q = d1 d2 d3 P1^2 + d1 d3 Q1^2 + Q2^2 + d1^2 d2 d4 v4^2`.
@@ -545,94 +254,10 @@ An explicitly qualified citation keeps its own module identity.
 - `sym6_Schur_identity`: For a symmetric 6 by 6 quadratic form, `h11` times the form equals the square of the defined first partial form plus the 5 by 5 form of the scaled Schur complement in the last five coordinates.
 - `sym6_qf_nonneg_from_pd`: If `h11 > 0` and the scaled Schur complement meets the 5 by 5 positive-pivot predicate, the symmetric 6 by 6 quadratic form is non-negative.
 
-## Geometry
-
-- `discrete_gauss_bonnet`: For a partition graph meeting `well_formed_triangulated`, which includes the extra condition `B = 3 chi`, the defined angle-defect sum equals `5 pi chi`.
-- `boundary_4simplex_nonuniform_diagonal_refuted_at_1`: For any state `s`, if the full metric at vertex 1 equals 2 on the diagonal and 0 off it for indices below 4, and the full metric at vertex 0 equals 1 on the diagonal and 0 off it for indices below 4, then `combinatorially_orthogonal boundary_4simplex s 1` fails, that is, some off-diagonal `curved_ricci` entry (indices below 4) at vertex 1 is nonzero.
-- `curvature_from_mu_gradients`: For any state `s`, complex `sc`, indices, and vertex, if every module carries the same tensor (`uniform_module_tensor s`), then `RiemannTensor4D.einstein_tensor s sc mu nu v` equals 0.
-- `einstein_equation_vacuum`: For any state, complex, indices, and vertex, if every module has structural mass 0 and `uniform_module_tensor s` holds, then `einstein_tensor s sc mu nu v` equals `8 * PI * gravitational_constant` times `stress_energy_tensor s sc mu nu v`.
-- `flat_spacetime_christoffel_zero_general`: If `uniform_module_tensor s` holds, `RiemannTensor4D.christoffel s sc rho mu nu v` equals 0 for every complex, index triple, and vertex.
-- `flat_spacetime_riemann_zero_general`: If `uniform_module_tensor s` holds, `RiemannTensor4D.riemann_tensor s sc rho sigma mu nu v` equals 0 for every complex, index quadruple, and vertex.
-- `flat_spacetime_einstein_zero_general`: If `uniform_module_tensor s` holds, `RiemannTensor4D.einstein_tensor s sc mu nu v` equals 0 for every complex, index pair, and vertex.
-- `full_metric_compat_diagonal`: For a state, a vertex, and indices below 4, if the module tensor entries at that vertex equal the structural mass on the diagonal and 0 off it for all index pairs below 4, then `full_metric_at_vertex s v mu nu` equals `metric_at_vertex s v mu nu`.
-- `non_uniform_mass_produces_curvature` (`Kernel.EinsteinEquations4D.non_uniform_mass_produces_curvature`): If two vertices `v` and `w` have different `module_structural_mass`, then it is not the case that `metric_at_vertex s u1 mu mu` and `metric_at_vertex s u2 mu mu` agree for all vertices `u1` and `u2`; the statement concludes position dependence of one diagonal metric component and does not mention curvature tensors.
-- `stress_off_diagonal_zero_isotropic`: If the metric components at vertex `v` are 0 off the diagonal (`diagonal_metric_at s v`) and `i` differs from `j`, then `stress_component s sc v i j` (the energy density times the metric component) equals 0.
-- `triangle_angle_plus_one_correction_decays`: For `d` at least 1, with the two denominators `3d` and `3d + 1` positive as premises, `PI * d / (3d + 1) - PI * d / (3d)` equals `-PI / (3 * (3d + 1))` as reals.
-- `einstein_emerges`: For two VM states whose partition graphs meet `well_formed_triangulated`, the difference of their total angle-defect curvatures equals `einstein_coupling_constant` (`5 * PI / computational_scale`) times the difference of their Euler characteristics; this is a two-dimensional curvature-topology identity, not the Einstein field equations.
-
-## Hardware and extraction
-
-- `driven_step_wf`: One Kami model step, read through the abstraction, equals `vm_apply` on the abstracted state whenever `WFDrivenPrecondition` holds.
-- `driven_trace_commutes`: A fuel-bounded driven Kami run, read through the abstraction, equals the VM run whenever `WFDrivenRun` holds at every visited state.
-- `driven_step_compose`: Under the extended hardware invariant, one Kami `COMPOSE` step equals the VM's `COMPOSE` step through the abstraction.
-- `kami_register_write_matches_vm`: Writing a register in a Kami snapshot gives the same register list as `write_reg` on the abstracted state. This is one register-write lemma, not step refinement.
-- `morph_table_wf_kami_step_preserved`: Every Kami step preserves morph-table well-formedness.
-- `coupling_desc_safe_kami_step_preserved`: Every Kami step preserves coupling-descriptor safety.
-- `coupling_zero_empty_kami_step_preserved`: For any `KamiSnapshot` `ks` and instruction `i`, if `coupling_desc_safe ks` holds (the next coupling descriptor id is positive) and `coupling_zero_empty` holds on its rich state (coupling descriptor table entry 0 is empty), then `coupling_zero_empty` holds on the rich state of `kami_step ks i`.
-- `coupling_wf_kami_step_preserved`: Every Kami step preserves coupling well-formedness, given coupling-descriptor safety.
-- `start_from_reset`: Every execution of the CPU's `start` method from `hardware_reset_state` calls no other method and writes exactly the halted flag (false) and the program counter (zero); the reset state with those writes applied is `dispatch_reset_state`.
-- `one_frame`: For every byte `s` held from before, every byte `v`, and all program registers `p`, running the loader's `rxSample` method once per cycle over the waveform of one serial frame of `v` (start bit, eight data bits least significant first, stop bit, 174 cycles each) from the idle receiver holding `s` ends at the idle receiver holding `v`, with the program registers changed exactly by `byte_step p v`.
-- `serial_program_load`: For every list `ws` of 1 to 128 instruction words and every index `k` with `ws[k] = w`, running `rxSample` from the loader's reset registers over the frames of the count bytes and of the sixteen little-endian bytes of instructions 0 to `k` leaves `load_addr = k`, `load_data = w`, `load_req` equal to the parity flag `Nat.even k`, and `start_req` true exactly when `k` is the last index.
-- `load_rule_hands_off`: When the loader's `load` rule executes on registers holding `load_req`, `load_ack`, `load_addr = a`, and `load_data = d`, the request and acknowledgement differ, the rule's only method call is `loadInstr` with the port value built from `a` and `d`, and its only register update sets `load_ack` to `load_req`.
-- `load_instr_writes`: When the CPU's `loadInstr` method executes on the port value built from `a` and `d`, it calls no method and its only update sets `imem` to the old instruction memory with address `a` mapped to `d`.
-- `report_step_is_rule`: Every `report_step` of the transmit registers, with a `Status`, is a `SemAction` of the loader's `report` rule whose method calls are the six CPU status getters returning that status.
-- `report_transmits`: From transmit registers that are neither active nor done, with the CPU started, if the first status has the halted or error flag set, then over that cycle and the next `15 * 10 * 174` cycles, with any later statuses, the pin is high for the first cycle and then carries `flat_map frame` of the fifteen bytes of the first status, and the registers end inactive and done.
-- `report_done_stays`: Once the transmit registers are inactive and done, every further run of the report rule leaves them unchanged and the pin high.
-- `report_waits`: While the CPU reports neither halted nor error, the report rule leaves inactive, not-done transmit registers unchanged.
-- `report_bytes_fields`: The fifteen bytes of a status are 0xDE, the status byte (halted, error, certified), the four little-endian bytes of the program counter, of the ledger and of the error code, and 0xAD.
-- `report_bytes_kernel`: For CPU registers `b`, the fifteen bytes are 0xDE, the status byte of `hw_halted b` and of `vm_err` and `vm_certified` of `abs_phase1 (hwb_snapshot b)`, the little-endian 32-bit words of that state's `vm_pc` and `vm_mu` and of the CPU error code, and 0xAD.
-- `serial_status_report`: For CPU registers `b` that are halted or in error, with the loader started and not yet reported, the report rule run once per cycle with the getters returning `b` in the first cycle puts one idle cycle and then the frames of the bytes of `report_bytes_kernel` on the pin; the loader's receiver, started idle, reads exactly those bytes from that waveform; and the pin stays high afterwards.
-- `fsm_retirement_refinement`: From a reset boundary state, every admitted run keeps the table invariants, ends at the snapshot the Kami run list computes, and is an actual multistep execution of the CPU core.
-- `admitted_run_progress`: An admitted run from a boundary state reaches its end boundary in some number of rule runs, matches the Kami run list, and is an actual multistep execution.
-- `rtl_inventory_arithmetic`: `37 + 10 + 0 = 47`. It records the synthesized-opcode count and checks no opcode.
-- `rtl_gap_registry_empty`: The hand-written RTL gap list is empty.
-- `ocaml_observable_nofi_and_monotone`: On the Coq-side observable the OCaml runner is tested against, certification costs at least one and mu never decreases.
-- `ocaml_runner_observable_defined`: For every state and instruction, the Coq-side observable is defined. This is true of any Coq function; the binary's agreement is tested, not proved.
-- `receipt_encoding_roundtrip`: Unpacking a packed receipt returns its mu, certification bit, and memory.
-- `coq_kami_model_satisfies_rtl_step_correct`: For any `KamiSnapshot` `ks` and any instruction `i` outside the sixteen opcodes excluded by `SupportedOpcode` (PNEW, PSPLIT, PMERGE, LASSERT, CALL, RET, CHSH_TRIAL, tensor set and get, and the morphism instructions MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT, MORPH_TENSOR, MORPH_GET), the full snapshot abstracted from `kami_step ks i` equals `vm_apply` applied to the full snapshot abstracted from `ks`.
-- `three_layer_bisimulation`: For two `WireSpec` records (each with a step function, `mu` and `pc` projections, `mu` rising by exactly `instruction_cost`, `pc` rising by one, and determinism) and states with equal `mu` and equal `pc`, running the same instruction list in each gives equal `mu` and equal `pc`.
-- `full_state_single_step_bisimulation`: For two `FullWireSpec` records (each satisfying its `fws_step_correct` field) and states that agree on all twelve projections (graph, CSRs, registers, memory, program counter, `mu`, `mu` tensor, error flag, logic accumulator, `mstatus`, witness counts, certified flag), one step on the same instruction yields states that agree on all twelve.
-- `full_state_trace_bisimulation`: For two `FullWireSpec` records and states that agree on the same twelve projections, running the same instruction list with `run_fws` in each yields states that agree on all twelve.
-- `admitted_retires`: For every hardware bundle and instruction related by `admitted` (the per-opcode fetch and side-condition list), some bundle `d` is reached from the next step by a run of busy rule firings, is idle, and has the snapshot `kami_step` gives for that instruction.
-- `step_add_refines`: For a bundle whose fetched word is an `ADD` encoding, with the mu-tensor alarm `hwb_bianchi` off, no error, not halted, and the program counter plus one, mu plus the cost, and the register sum below `2^32`, the snapshot after one dispatch step equals `kami_step` on that `ADD`.
-- `driven_step_morph`: Under the extended hardware invariant, with both module indices below the next module identifier and both modules of nonzero size, one Kami `MORPH` step equals the VM's `MORPH` step through the abstraction.
-- `morph_ext_retire`: For a fetched extended `MORPH` word on a live bundle with the alarm off, no 32-bit overflow, room in the morphism and coupling tables (each below 16 entries), both modules present, the pair count and its terminating zero word fitting in memory, and every loaded pair respecting the two module regions, the bundle the MORPH sequencer ends at has the snapshot `kami_step` gives for that `MORPH`.
-- `step_morph_ext_fault_refines`: For a fetched extended `MORPH` word with the alarm off, no error, not halted, no overflow, table room, and one of the two modules absent, the snapshot after one step equals `kami_step` on that `MORPH`.
-- `compose_ext_retire`: For a fetched extended `COMPOSE` word on a live bundle with the alarm off, no overflow, tables below 16 entries, the listed table invariants, both input morphisms valid with the first's target equal to the second's source, label lengths summing to at most 32, and room for the composed pairs, the bundle the COMPOSE sequencer ends at has the snapshot `kami_step` gives for that `COMPOSE`.
-- `chsh_check_nat_correct`: The natural-number CHSH check on eight counts equals the kernel's `column_contractive_check_witness` on the witness record built from those counts.
-- `chsh_check_word_correct`: The 32-bit word CHSH check, given the latched denominators, absolute numerators, and signs computed from eight 32-bit counts, equals the natural-number check on the counts' values.
-- `chsh_check_word_spec`: The same 32-bit word check equals the kernel's `column_contractive_check_witness` on the counts' values.
-- `chsh_run_result`: From a bundle whose CHSH phase is 1, the phase reads `m + 1` after `m` sequencer iterations for `m` up to 28 and 0 after 29, and after 29 iterations the check result is the word check on the latched values, and the program counter, error flag, and error code are unchanged when the check passes and set to the trap vector, true, and `ERR_LOGIC_VAL` when it fails.
-- `chsh_only_rule_enabled`: For a bundle whose fetched word is a `CHSH_LASSERT` encoding with the alarm off, every CPU rule enabled during the first 29 sequencer iterations is the CHSH rule.
-- `chsh_lassert_refines`: For a fetched `CHSH_LASSERT` word with the alarm off, no error, not halted, the program counter plus one and mu plus the cost plus one below `2^32`, and the trap vector at `LASSERT_TRAP_PC`, the snapshot after the dispatch step and 29 CHSH iterations equals `kami_step` on that `CHSH_LASSERT`.
-- `lassert_unsat_refines`: For a fetched `LASSERT` word of the unsatisfiable kind with the alarm off, no error, not halted, the trap vector at `LASSERT_TRAP_PC`, the formula length read from memory, and no overflow of mu plus eight times that length plus the cost plus one, the snapshot after one step equals `kami_step` on that `LASSERT`.
-- `lassert_sat_refines`: For a fetched `LASSERT` word of the satisfiable kind under the analogous side conditions, including a clause count between 1 and the number of zero words in the formula, some `n` between 1 and the formula length has the LASSERT phase in its scan value after each of the first `n - 1` scan iterations following the header step, idle after the `n`-th, and the snapshot there equal to `kami_step` on that `LASSERT`.
-- `hw_scan_spec`: For 32-bit literal words, `k` between 1 and the number of zero words, and `n = ndone + k`, the hardware clause scan with `k` clauses left and flags `sat`, `csat`, `cfail` returns `Some` of the conjunction of the model's specification scan (from `ndone` finished clauses, with `sat`) and `cfail` or'd with the negation of the countermodel's specification scan (from `ndone`, with `csat`).
-- `hw_scan_certcheck`: For a clause count `n` between 1 and the number of zero words and 32-bit literal words, the hardware clause scan from cleared flags returns `Some` of the kernel's model check conjoined with its countermodel check on the formula words.
-- `logic_engine_equivalent_lassert`: For any Kami snapshot and `LASSERT` operands, some VM step from the phase-1 abstraction has the same mu as the Kami step, the same program counter when `lassert_exec_ok` holds, and an error flag equal to the abstraction's when the check holds and true otherwise; the program counter is not matched on failure.
-- `rule_next_correct`: For a rule of the CPU core that evaluates to updates `u` on a bundle's registers, the registers after `rule_next` are `u` laid over the old registers.
-- `step_next_correct`: When the dispatch evaluates to updates `u` on a bundle's registers, the registers after `step_next` are `u` laid over the old registers.
-- `start_substep`: An execution of the `start` method from `hardware_reset_state` that calls no method is a substep of the CPU module labelled with the `start` call.
-- `step_is_rxSample`: Every one-cycle loader step is the result of applying the updates of some execution of the `rxSample` method on the same registers and pin level.
-- `empty_program_starts`: Feeding the loader the count bytes of an empty program from reset sets `start_req` true and the loader phase to 3.
-- `status_byte_value`: The status byte of halted bit `h`, error bit `e` and certified bit `c` has value `h + 2 * e + 4 * c`, each bit read as 0 or 1.
-- `get_tx_is_tx_out`: Every execution of the loader's `getTx` method on the transmitter's registers returns the transmitter's output level `tx_out` and makes no register update.
-
-## Physics files
-
-- `full_efe_uniform_two_vertex`: For a uniform diagonal two-vertex metric, the computed curved Einstein tensor equals zero times the stress-energy, that is, zero. Both sides vanish; this does not derive general relativity.
-- `boundary_geodesic_focusing_unit`: For every split morphism, the defined focusing term of the calibrated null congruence (its expansion scalar minus its shear scalar) equals 1.
-- `discrete_einstein_emergence_component`: For a pair of VM states and reals with positive `T` and `dQ = T * dS`, if both graphs meet `well_formed_triangulated`, the curvature difference equals the coupling constant times the Euler-characteristic difference; the Clausius premises do not appear in the conclusion.
-- `discrete_gauss_bonnet_delta`: For two VM states whose graphs both meet `well_formed_triangulated`, the total-curvature difference equals the coupling constant times the Euler-characteristic difference; the two triangulation premises are its only premises.
-- `nfi_cost_nonzero_implies_nontrivial_calibration`: Under positive `hbar`, `c_light` and `k_B`, nonnegative entropy per bit, `vm_mu` strictly larger after than before, and the premise `mu_landauer_unruh_calibrated`, the null energy flux difference of the calibrated congruence is nonzero (positive or negative).
-- `mu_landauer_unruh_calibrated_from_constant_and_bit_calibration`: Given positive `c_light` and `k_B`, the constant premise `hbar * ln 2 = 2 * PI * c_light`, and the premise that the entanglement-entropy bit difference equals the `vm_mu` difference, the defined null energy flux difference equals the defined Unruh temperature times the entropy increment at `k_B * ln 2` per bit.
-
 ## Models from other fields
 
 - `quote_cannot_attest_unmeasured_state`: In the scoped TPM quote-field abstraction, whose quote authenticity is assumed externally rather than modeled, no function of the selected-PCR digest and nonce returns the additional runtime Boolean for every platform.
 - `quote_decides_measured_claims`: In the same model, every supplied Boolean function of the retained selected-PCR digest is computed by some Boolean function of the quote.
-- `quote_projection_faithful`: Two modeled quotes have equal classical-transcript encodings exactly when their nonce and retained selected-PCR digest agree.
-- `quote_runtime_verifier_separation`: Any Boolean verifier that returns the modeled runtime claim on every full platform state fails to factor through the lossless encoding of its quote, by the named verifier corollary and an explicit truth-label adapter.
 - `persistent_write_priced`: In the transcribed Prague `sstore` gas and refund arithmetic, for one storage slot that is empty at the start of a transaction, any sequence of stores that leaves it nonzero has gas charged minus refund counter of at least 20000; the EIP-3529 refund cap is outside the model.
 - `revoked_write_nearly_free`: In the same model, setting a cold empty slot to one and clearing it again costs 2300 net, while setting it and leaving it set costs 22100.
 - `accountable_safety` (`Kernel.CasperFFG.accountable_safety`): In the ported Casper FFG model, under the setting's quorum-intersection and single-parent premises, two finalized blocks on different branches imply that some set in the second quorum class consists of slashed validators.
@@ -648,6 +273,7 @@ An explicitly qualified citation keeps its own module identity.
 - `pcc_certificate_implies_vc`: In that fragment, every certificate derivation for a program implies the program obeys the policy.
 - `pcc_unsafe_program_rejected`: With memory limit 2, the checker rejects `[PRead 2; PHalt]`.
 - `rfc9162_inclusion_boundary_safe`: For every hash algorithm, inclusion verification with leaf index equal to the tree size returns false.
+- `rfc9162_consistency_boundary_safe`: For every hash algorithm, consistency verification between two trees of the same size with the same root returns false.
 - `rfc9162_example_inclusion_d0`: With the symbolic hash on the seven-leaf example tree, the audit path `[b; h; l]` verifies leaf hash `a` at index 0 against the root.
 - `rfc9162_example_inclusion_d3`: The audit path `[c; g; l]` verifies leaf hash `d` at index 3 against the example root.
 - `rfc9162_example_inclusion_d4`: The audit path `[f; j; k]` verifies leaf hash `e` at index 4 against the example root.
@@ -662,111 +288,23 @@ An explicitly qualified citation keeps its own module identity.
 
 ## Trace and projection contracts
 
-- `no_free_certification_mu`: A VM step that changes the certificate address from zero to nonzero raises mu by at least one.
-- `no_free_certification_trace_mu`: An instruction-list run that changes the certificate address from zero to nonzero raises mu by at least one.
-- `thiele_nfi_pc_indexed`: A successful PC-indexed trace run that changes the certificate address from zero to nonzero contains an instruction in the certificate-address setter class.
-- `thiele_universal_nfi_cert_addr`: In the VM certificate-address system, an instruction-list run from uncertified to certified has total instruction cost at least one.
-- `thiele_universal_nfi_certified`: In the VM certification-flag system, an instruction-list run from uncertified to certified has total instruction cost at least one.
-- `kernel_certified_implies_positive_mu` (`Kernel.PrimeAxiom.kernel_certified_implies_positive_mu`): A bounded VM run from an uncertified state with mu zero that ends certified has positive final mu.
-- `run_vm_mu_conservation` (`Kernel.MuLedgerConservation.run_vm_mu_conservation`): A bounded VM run's final mu equals its initial mu plus the sum of the ledger entries recorded by that run.
-- `executed_instruction_cost_recorded`: Every instruction occurring in the bounded run's executed-instruction list has its cost in the corresponding ledger-entry list.
-- `ledger_sum_contains_lower_bound`: The sum of a natural-number ledger-entry list is at least any entry in the list.
-- `forged_receipt_fails_validation`: For a receipt `r` and a claimed `mu` delta that differs from `instruction_mu_delta` of the receipt's instruction, if `receipt_post_mu` equals `receipt_pre_mu` plus the claimed delta, then `receipt_mu_consistent r` fails.
-- `valid_chain_mu_equals_computation`: For a receipt list `rs` and start value `initial_mu` with `receipt_chain_valid rs initial_mu`, any claimed final `mu` that equals `initial_mu` (for the empty list) or the last receipt's `receipt_post_mu` (otherwise) equals `chain_final_mu rs initial_mu`, which is `initial_mu` plus the chain's total cost.
-- `structural_trace_preserves_cert_addr`: An instruction-list run containing no certificate-address setter preserves the certificate address.
-- `graph_certify_morphism_lookup`: If a morphism lookup succeeds, certifying that morphism makes the same lookup return the same fields with its certification cost replaced by the supplied cost.
-- `forget_kernel_is_eq_on_classical`: Two VM states have equal `forget` projections exactly when they agree on the fields in `eq_on_classical`.
-- `blindness_non_injective`: Two distinct VM states have the same `forget` projection.
-- `certification_is_lost`: Two VM states have the same `forget` projection and different certification flags.
-- `mu_ledger_necessity` (`NecessityOfMuLedger.mu_ledger_necessity`): No function of the strict memory-register-PC projection recovers both mu and certification on every VM state.
-- `vm_mu_not_classically_determined` (`NecessityOfMuLedger.vm_mu_not_classically_determined`): No function of the strict memory-register-PC projection recovers mu on every VM state.
-- `vm_certified_not_classically_determined` (`NecessityOfMuLedger.vm_certified_not_classically_determined`): No function of the strict memory-register-PC projection recovers certification on every VM state.
-- `vm_apply_certify_strict_shadow` (`NecessityOfMuLedger.vm_apply_certify_strict_shadow`): CERTIFY preserves memory and registers and increments PC in the strict projection.
-- `vm_apply_pnew_strict_shadow` (`NecessityOfMuLedger.vm_apply_pnew_strict_shadow`): A PNEW that succeeds (`pnew_ok`) preserves memory and registers and increments PC in the strict projection.
-- `mu_ledger_necessity_universal`: From every VM state with a free module number (`module_room s.(vm_graph) 1`), CERTIFY 0 and PNEW [] 0 produce the same strict projection, while CERTIFY adds one to mu and sets certification and PNEW preserves mu.
-- `po1_trace_necessity`: Appending CERTIFY 0 or PNEW [] 0 to any instruction-list prefix from `po1_init` that leaves a free module number gives equal strict projections and strictly greater mu in the CERTIFY case.
-- `shadow_mu_is_computation_intrinsic`: For a fixed instruction list, final mu equals initial mu plus the list's summed instruction cost.
-- `shadow_mu_delta_universal`: Running the same instruction list from any two states produces equal mu increments.
-- `shadow_mu_unique_accounting`: Any measure with the canonical per-instruction increments and value zero at the supplied start equals the summed instruction cost after that list run.
-- `shadow_mu_inevitable`: An instruction list containing an instruction of positive cost strictly raises mu under instruction-list execution.
-- `turing_ram_mu_necessity` (`Kernel.NecessityAbstract.turing_ram_mu_necessity`): No function of `P_strict` recovers mu on every VM state.
-- `turing_ram_cert_necessity` (`Kernel.NecessityAbstract.turing_ram_cert_necessity`): No function of `P_strict` recovers certification on every VM state.
-- `cost_model_cert_necessity` (`Kernel.NecessityAbstract.cost_model_cert_necessity`): No function of `P_cost`, which includes mu, recovers certification on every VM state.
-- `cert_model_mu_necessity` (`Kernel.NecessityAbstract.cert_model_mu_necessity`): No function of `P_cert`, which includes certification, recovers mu on every VM state.
-- `mu_ledger_minimality` (`Kernel.NecessityAbstract.mu_ledger_minimality`): `P_full` recovers mu and certification, `P_strict` recovers neither, `P_cost` recovers only mu, and `P_cert` recovers only certification.
-- `graph_not_recoverable_from_P_full`: No function of the full mu-ledger projection recovers the partition graph on every VM state.
-- `thiele_state_three_component_independence`: The stated strict, cost, certificate, and full-ledger projections fail to recover the omitted mu, certification, and graph fields in the five displayed combinations.
-- `classical_observer_cannot_separate` (`Kernel.PartitionSeparation.PartitionSeparation.classical_observer_cannot_separate`): Every function satisfying `is_classical_observer` gives the same answer on some computationally equivalent states with different morphism structure.
-- `shadow_separation_theorem`: Two states agree under `shadow_equal`, have different morphism lists, and still have different morphism lists after one common probe instruction.
-- `no_classical_certification_decider`: No Boolean function of projected classical traces agrees with the defined certification decider on every Thiele trace.
 - `selected_representatives_give_decoder`: Given a representative for every view whose observation is that view, a query is constant on observation fibers exactly when it factors through a decoder of the view.
-- `reachable_simulation_unique`: Two `ReachableCertSimulation` records into the same target with the same base map every VM trace endpoint to equal target states.
-- `reachable_trace_representative_correct`: For every trace `t`, evaluating `reachable_trace_representative (vm_trace_eval t)` from `init_state` gives `vm_trace_eval t`; the representative is defined with decidable VM-state equality and the Reals choice principle `sig_forall_dec`.
-- `reachable_representative_exists`: Some function from VM states to traces maps every reachable state to a trace that reaches it.
-- `generalized_reachable_simulation_holds`: For every reading `E`, certification-cost machine `M` and base state, a reachable event simulation exists exactly when traces with the same VM endpoint have the same target endpoint and the reading of every trace's VM endpoint equals the certification flag of its target endpoint.
-- `classical_run_shadow_faithful`: A classical instruction-list run has its defined six-field projection and preserves its initial partition graph, certificate address, and certification flag.
-- `classical_opcodes_preserve_structure`: A list of classical opcodes preserves the partition graph, certificate address, and certification flag under instruction-list execution.
-- `classical_opcodes_preserve_structure_run_vm`: For any fuel, `run_vm` on a program whose instructions are all classical, which follows jumps through the program counter, leaves the partition graph, certificate address, and certification flag unchanged.
-- `classical_reachable_preserves_structure`: Every state reached by a sequence of steps that each execute a classical instruction has the partition graph, certificate address, and certification flag of the starting state.
-- `pnew_step_separates_thiele_from_classical`: Some state reachable from `init_state` (it is `init_state`) and some VM instruction change the graph's next-module identifier where every classical instruction-list run from that state preserves it.
-- `pnew_step_separates_thiele_from_classical_reachable`: For every state `s` a classical run reaches from `init_state`: `s` is reachable; PNEW of address 0 is a step from `s` that raises `pg_next_id` by one and leaves the error latch as it was; every classical step sequence from `s` and every `run_vm` of a classical program from `s` keep `pg_next_id`; and the graph PNEW produces differs from the graph of every state a classical run reaches from `init_state`.
-- `pnew_step_separates_thiele_from_classical_at_init`: From `init_state`, PNEW of address 0 is a step to a state with `pg_next_id = 1`, and `run_vm` of every classical program from `init_state`, for any fuel, ends with `pg_next_id = 0`.
+- `independent_coordinates_joint_change_costs_one`: On pairs of Booleans, the two coordinates are independent observations, the step from (false, false) to (true, true) raises both, the least cost meeting both unit floors on that step is 1, and the constant cost 1 respects each floor.
 - `nat_recursion_theorem`: For the candidate-decider-dependent nat substrate, every transformer selected by its representability predicate has a code whose total run equals the transformer's image on every input state.
-- Definition `classical_reachable`: The relation of zero or more `vm_step` steps, each executing an instruction that `is_classical_opcode` accepts, in any order.
-- `classical_reachable_vm_reachable`: Every state classically reachable from `s` is reachable from `s` by the VM step relation.
-- Definition `separating_pnew_step`: The instruction PNEW of the region `[0]` at declared cost 0, the structural step of `pnew_step_separates_thiele_from_classical_reachable`.
-- Definition `probe_base_state_tc` (`ThieleMachineComplete.probe_base_state_tc`): The fixed state of the standalone strictness witness: empty registers and memory, program counter 0, `vm_mu` 0, error and certified flags false, and a graph with module 0 and no morphisms.
-- Definition `reachable_trace_representative`: For a VM state `s`, the first trace in the `nat_to_program` enumeration whose evaluation from `init_state` is `s`, found by `sig_forall_dec` over decidable state equality, or the empty trace when no trace reaches `s`.
 
 ## Information and witness contracts
 
-- `feasible_strict_subset_implies_strict_predicates`: A strict feasible subset and an excluded prior state whose observation differs from every posterior observation make the induced posterior receipt predicate strictly stronger.
-- `b4_information_reduction_derives_strict_predicates`: With a correct Boolean equality test on observations, a strict feasible subset and a distinguishing excluded state yield two receipt predicates with strict strengthening.
-- `strengthening_requires_structure_addition` (`Kernel.NoFreeInsight.NoFreeInsight.strengthening_requires_structure_addition`): If a strictly stronger receipt predicate is certified after a bounded run from certificate address zero, that run contains a structure-addition event.
-- `info_priced_cert_executions_bound`: The number of executed certificate setters in a bounded VM run is at most its mu increment.
-- `current_schedule_not_globally_cert_priced`: It is not the case that every instruction satisfies `MuChaitin.cert_priced` (for a cert-setter, `cert_payload_size` is at most `instruction_cost`).
-- `observation_partition_reduction_implies_posterior_representative_reduction`: An observation-partition reduction supplies the posterior-representative reduction contract for the same observation, tree, and feasible sets.
-- `info_priced_arbitrary_feasible_reduction_bound`: Given a tree whose depth is paid by the bounded trace, a nonempty posterior, and the tree's covering inequality, the rounded-log feasible-size difference is at most the trace's mu increment.
-- `info_priced_weighted_feasible_reduction_bound`: Given a tree whose depth is paid by the bounded trace, positive posterior mass, and the weighted covering inequality, the defined weighted entropy reduction is at most the mu increment.
-- `exists_covering_tree`: Every pair of feasible lists with a nonempty posterior has a decision tree satisfying the defined size-covering inequality.
-- `complete_tree_realization_bound`: For any two feasible sets with a nonempty posterior, a bounded run that realizes the complete binary tree of depth `log2_up(|prior| / |posterior| + 1)` raised mu by at least `log2_up |prior| - log2_up |posterior|`; the sets need not be related to the run.
-- `partition_structural_ops_not_cert_setters`: PNEW, PSPLIT, and PMERGE are outside the certificate-address setter class for every choice of operands and cost.
-- `partition_structural_ops_can_be_free`: There are zero-cost PNEW, PSPLIT, and PMERGE instructions.
-- `partition_structural_trace_cannot_certify`: An instruction list made only of partition-structural instructions preserves the certificate address.
-- `partition_refinement_nonfree`: A trace from certificate address zero to nonzero contains a certificate setter costing at least one and raises mu by at least one; no partition-refinement premise is required.
-- `partition_free_but_certification_nonfree`: Zero-cost partition-structural instructions exist and are not certificate setters, while every trace changing certificate address zero to nonzero raises mu by at least one.
-- `chsh_trial_preserves_cert_addr`: Every CHSH_TRIAL step leaves the certificate-address register unchanged.
-- `chsh_trial_preserves_vm_certified`: Every CHSH_TRIAL step preserves the VM certification flag.
-- `certified_witness_insight_nonfree`: A step satisfying the defined witness-insight event costs at least one and raises mu by at least one.
-- `nonlocal_witness_insight_nonfree`: A step from an uncertified state to a state with a certified nonlocal witness costs at least one and raises mu by at least one.
-- `witness_insight_nonfree_general`: An instruction-list run from uncertified to certified with a certified CHSH violation raises mu by at least one.
-- `witness_insight_complete_taxonomy`: CHSH_TRIAL is never a certification-insight event, every such event costs at least one, and a trace from uncertified to a certified CHSH violation raises mu by at least one.
-- `certified_insight_nonfree`: For any VM state and instruction, if the step moves `csr_cert_addr` from zero to nonzero or moves `vm_certified` from false to true, then `instruction_cost` of the instruction is at least 1 and `vm_mu` after `vm_apply` is at least `vm_mu` before plus 1.
 - `compression_priced_trace_floor`: On an enumerated finite state space with permanent certification and compression pricing, an instruction-list run from uncertified to certified costs at least one.
 - `priced_reset_satisfies_premises`: The two-state Blank/Stamped machine is finite, keeps its stamp permanently, and prices every merging step at one.
 - `step_price_is_exact`: The defined full-state certification-flip indicator price meets the flip floor and never overcharges.
-- `categorical_extension_nofi_consistent`: Every MORPH_ASSERT instruction is in the certificate-setter class and has positive cost.
 - `locally_consistent_gives_separable_coupling`: A witness tally consistent with the supplied four local deterministic outputs induces a separable setting-outcome coupling.
-- `priced_on_traces`: Inside `KernelTraceInstance`, for every `k`, every instruction of the fixed three-instruction trace (`instr_pnew [0] 0`, `instr_morph_id 0 0 0`, `instr_morph_assert 0 "p" "" 8`) satisfies `MuChaitin.cert_priced`.
-- `kernel_trace_instance_bound`: In the fixed `KernelTraceInstance` (where `proves_bits k` is `k <= 8`), `proves_bits k` implies `k <= 9`.
-- `kernel_trace_instance_inhabited`: In the fixed `KernelTraceInstance`, `proves_bits 8` holds, that is, `8 <= 8`.
 - `decision_tree_leaves_le_pow2_depth`: A decision tree has at most `2^depth` leaves.
 - `decision_tree_log2_up_leaf_bound`: The rounded-up base-2 logarithm of a decision tree's leaf count is at most its depth.
-- `tree_cover_implies_log2_up_reduction_bound`: For a nonempty posterior list and a tree with prior size at most leaf count times posterior size, the drop in rounded-up log list size is at most the rounded-up log of the leaf count.
-- `posterior_representative_reduction_implies_fibered_reduction`: A posterior-representative reduction yields a fibered feasible reduction for the same tree and lists.
-- `info_priced_posterior_representative_reduction_bound`: For a bounded run whose cert-setter executions are at least a decision tree's depth, a nonempty posterior, and a posterior-representative reduction, the drop in rounded-up log list size is at most the run's mu increase.
-- `morph_assert_step_sets_supra_cert_iff`: From a state with `csr_cert_addr` zero, one VM step makes it nonzero exactly when the instruction is a `MORPH_ASSERT` on a morphism that exists, with a nonzero checksum of its property string.
-- `non_morph_assert_preserves_cert_addr`: Every VM step on an instruction other than `MORPH_ASSERT` leaves `csr_cert_addr` unchanged.
-- `supra_cert_implies_structure_addition_in_run`: A program-counter-driven run from `csr_cert_addr` zero that ends with it nonzero contains, within its fuel, a step that switches it from zero to nonzero.
-- `structure_addition_in_run_iff_morph_assert_bridge_pattern`: A run contains such a step within its fuel exactly when it reaches, within that fuel and with `csr_cert_addr` zero, a `MORPH_ASSERT` on an existing morphism with a nonzero property checksum.
-- `non_morph_assert_trace_cannot_gain_supra_cert`: A program-counter-driven run of a program with no `MORPH_ASSERT` from `csr_cert_addr` zero ends with it zero.
-- `non_morph_assert_trace_has_no_structure_addition`: A run of a program with no `MORPH_ASSERT` contains no step that switches `csr_cert_addr` from zero to nonzero.
 
 ## Replicated-record examples
 
 - `toggle_game_refutes_strong_pointer_necessity`: Consensus, authentic observer views, a positive observer count, and coordinator-free evolution do not imply event permanence, because the two-observer toggle game satisfies those premises and revokes its event.
 - `durable_consensus_implies_permanence`: A positive observer count, authentic observer views, and durable true views imply event permanence; durability is the premise that supplies the conclusion.
-- `vm_certification_is_permanent_consensus`: For every observer count `n` greater than 0 and instruction `i`, the game on VM states whose event is `vm_certified` and whose step is `vm_apply_u s i` has `event_permanent`: if `vm_certified` holds before the step it holds after.
 
 - `toy_cert_unique_pointer`: In the chosen replicated-ledger toy, the certificate predicate proliferates and the single designated work predicate does not.
 - `PoS_model_unique_pointer`: In the synthetic PoS-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
@@ -790,68 +328,14 @@ An explicitly qualified citation keeps its own module identity.
 - `canonical_reset_heat_exact`: In the frozen two-state reset protocol, the bath heat for an energy gap `Delta` is exactly `Delta / 2`.
 - `selected_gap_gives_landauer_heat`: Choosing the two-state energy gap to be `2 * k_B * T * ln 2` makes the frozen reset protocol's bath heat exactly `k_B * T * ln 2`.
 - `master_equation_does_not_fix_heat_scale`: Two distinct energy gaps obey the same frozen population master equation but transfer different heat, so those population dynamics alone do not determine an energy scale.
-- `calibrated_mu_landauer_energy`: For all reals `k_B` and `T`, every VM state with `vm_mu = 1` has `vm_mu_energy_at_scale (k_B * T * ln 2) s` equal to `k_B * T * ln 2`; the scale is the supplied argument, so this is the arithmetic `vm_mu * scale`.
+- `calibrated_mu_landauer_energy`: For all reals `k_B` and `T`, every state type `S`, every natural-number ledger `mu` on it and every state with `mu s = 1`, `mu_energy_at_scale mu (k_B * T * ln 2) s` equals `k_B * T * ln 2`; the scale is the supplied argument, so this is the arithmetic `mu s * scale`.
 - `canonical_reset_satisfies_master_equation`: One step of the discrete two-state master equation, with the protocol's fixed time step and transition rates, carries the frozen initial populations exactly to the frozen final populations.
-- `vm_minimal_certification_charges_canonical_reset_mu`: `abs_zero` is uncertified, and `vm_apply_u abs_zero (instr_certify 0)` is certified with `vm_mu` equal to `abs_zero`'s `vm_mu` plus `canonical_reset_mu` (which is 1).
-- `vm_certification_charges_at_least_canonical_reset_mu`: For any VM state `s` with `vm_certified` false and any instruction `i`, if `vm_apply_u s i` has `vm_certified` true, then `vm_mu s` plus `canonical_reset_mu` (which is 1) is at most `vm_mu` of `vm_apply_u s i`.
 - `smaller_gap_refutes_unconditional_landauer_floor`: For positive `k_B` and `T`, the frozen reset protocol with energy gap `k_B * T * ln 2` transfers bath heat strictly less than `k_B * T * ln 2`, so the protocol by itself does not enforce a Landauer floor.
 
-- `zero_mu_traces_satisfy_preservation_budget`: If each input has a bounded error-free zero-mu trace, every Boolean state predicate satisfies `error_free_preservation_budget` with mu bound zero because its positive-mu antecedent is false.
 - `tsirelson_rational_lower_witness`: Some correlator satisfying the selected rational coherence predicate has CHSH at least 28284/10000.
-- `zero_cost_preserves_radius` (`Kernel.Unitarity.zero_cost_preserves_radius`): If both radius-loss and radius-gain inequalities are supplied and formal cost is zero, the evolution preserves squared radius on the unit ball.
-- `ball_trace_contract_from_premises`: Positivity and trace preservation supply the defined scalar ball-and-trace contract, with no assertion of complete positivity for operators.
-- `master_tsirelson_conditional` (`PhysicsConditionalClosure.master_tsirelson_conditional`): Under the section's physical quantum bridge, correlations satisfying its honest-quantum predicate have absolute CHSH value at most the defined square root of eight.
-- `no_cloning_from_conservation` (`Kernel.NoCloning.no_cloning_from_conservation`): A nontrivial input, the scalar conservation inequality, and a perfect-copy operation imply that the operation's formal cost is nonzero.
-- `no_cloning_bloch` (`Kernel.NoCloning.no_cloning_bloch`): For a radius-one input whose squared radius equals the operation's input-information field, scalar conservation and perfect copying imply formal cost at least one.
-- `linear_implies_born`: For any `ProbRule` `P` that is valid (both outcome values non-negative on the unit ball, outcomes summing to 1 everywhere, `P 0 0 1 0 = 1`, and `P 0 0 (-1) 0 = 0`) and affine in `z` on the unit ball (`P x y z 0 = a * z + b` for some reals `a` and `b`), `P x y z 0` equals `(1 + z) / 2` for every `x, y, z` with `x^2 + y^2 + z^2 <= 1`.
-- `valid_linear_rule_is_born_with_cost_side_condition`: For any valid `ProbRule` `P` that is affine in `z` on the unit ball and satisfies `measurement_cost_nonnegative P` (the linear-entropy cost `(1 - x^2 - y^2 - z^2) / 2` is non-negative on the unit ball, a condition that does not inspect `P`), `P x y z 0` equals `(1 + z) / 2` and `P x y z 1` equals `(1 - z) / 2` for every `x, y, z` with `x^2 + y^2 + z^2 <= 1`.
-- `unitary_cannot_clone`: Under conservation, the radius upper bound, zero formal cost, a valid Bloch vector, and positive input radius, two equal copies of the output radius cannot both equal the input radius while their sum satisfies the displayed conservation inequality.
-- `nonunitary_requires_mu`: If formal radius loss is bounded by formal cost on the unit ball and is positive at one valid input, formal cost is positive.
-- `lindblad_requires_mu`: Given a positive gamma, the defined dissipation bound, information conservation, and radius loss exactly gamma at (1,0,0), formal cost is at least gamma.
-- `zero_cost_preserves_purity` (`Kernel.Unitarity.zero_cost_preserves_purity`): If formal radius loss is bounded by cost and cost is zero, output squared radius is at least input squared radius on the unit ball.
-- `erasure_irreversible`: An Erasure record losing at least one bit has defined fan-in greater than one.
-- `erasure_decreases_entropy`: An Erasure record losing at least one bit has negative integer entropy difference as defined from its bit counts.
-- `landauer_information_bound`: A PhysicalErasure record's environment-entropy increase is at least its erased-bit count under the entropy-balance premise carried in the record.
-- `erasure_additive`: Composable Erasure bit counts have erased-bit differences that add to the total input-output difference.
-- `mu_cost_positive_for_projection`: Projecting a positive level of a ThieleManifold record to its fourth component has positive cost under the record's level and projection contracts.
-- `z_action_identity`: Shifting a state's mu by the integer zero returns that state.
-- `z_action_composition`: Two integer shifts of mu compose by addition when both intermediate and final integer balances are nonnegative.
-- `z_action_inverse`: An integer mu shift followed by its negative returns the original state when the first balance is nonnegative.
-- `noether_forward`: For two VM states, if their `Observable_partition` (the list of module regions), graph, registers, memory, CSRs, program counter, `mu` tensor, error flag, logic accumulator, `mstatus`, witness counts, and certified flag are equal, then some integer `delta` has `z_gauge_shift delta s1 = s2` (the shift changes `vm_mu` by `delta` and keeps every other field).
-- `vm_step_mu_monotonic`: Every VM step preserves or increases mu.
-- `vm_step_orbit_equiv`: A VM step commutes with a supplied integer mu shift when the shifted initial balance is nonnegative.
-- `exec_trace_no_signaling_outside_cone`: An executed trace from a well-formed graph preserves a valid module's observable region when the module lies outside the trace's causal cone.
-- `calibration_residual_zero_iff`: The defined calibration residual is zero exactly when angle-defect curvature equals the supplied coupling constant times the mu Laplacian.
-- `total_mu_laplacian_zero`: Summing the mu Laplacian over the graph's module list gives zero.
-- `strong_bridge_counterexample`: For positive natural d, the degree-six defect computed from the specified uniform triangle angle differs from the defect computed using pi/3.
-- `unit_residual_is_nonzero`: Any real quantity equal to one is nonzero.
-- `pi_times_unit_is_nonzero`: Multiplying a real quantity equal to one by pi gives a nonzero result.
-- `affine_off_diagonal_ricci_zero`: Under the named nonuniform isotropic metric predicate, off-diagonal Ricci entries at vertex 1 of the boundary 4-simplex vanish for indices below four.
-- `affine_full_tensor_efe`: Under that metric predicate and structural mass one at vertex 1, every Einstein-tensor entry there equals three times the modeled mass stress-energy entry for indices below four.
-- `affine_ricci_offdiag_outer`: Under that metric predicate, off-diagonal Ricci entries at vertices 0, 2, 3, or 4 equal 3/32 for indices below four.
-- `affine_ricci_diag_outer`: Under that metric predicate, diagonal Ricci entries at vertices 0, 2, 3, or 4 equal -45/32 for indices below four.
-- `affine_ricci_scalar_outer`: Under that metric predicate, Ricci scalars at vertices 0, 2, 3, or 4 equal -45/8.
-- `affine_einstein_outer`: Under that metric predicate, Einstein-tensor entries at vertices 0, 2, 3, or 4 equal 45/32 on the diagonal and 3/32 off it for indices below four.
-- `affine_efe_fails_outer_offdiag`: Under that metric predicate, the off-diagonal Einstein entries at vertices 0, 2, 3, or 4 differ from three times modeled mass stress-energy for indices below four.
-- `self_reference_requires_metalevel`: For every `System` (a dimension number and a map on propositions) that contains a self-reference (some proposition `P` with `sentences S P` and `P` true), there is a `System` `Meta_S` that can reason about it (every proposition `S` expresses, `Meta_S` expresses), has strictly greater dimension, and itself contains a self-reference.
-- `embed_step_compute`: For instructions outside the sixteen explicitly excluded structural, call/return, witness, tensor, and morphism opcode cases, abstracting the intermediate Kami step equals applying the VM step to the abstraction.
 - `five_labeled_models_have_selected_pointer`: In the five synthetic labelled mirror models, each selected flag is returned by every stipulated observer and its named rival is not.
 
-- `calibration_forces_flat_faces`: If every region of the partition graph is a normalized triangle and calibration holds at every module, then at every module the mu-Laplacian is zero, the angle-defect curvature is zero, and the angles of its triangles sum to 2*PI.
-- `calibration_forces_five_triangles`: Under the same hypotheses every module lies in at least five triangles.
-- `closed_triangulation_not_calibrated`: A well-formed triangulated partition graph with distinct module identifiers and no boundary edges cannot be calibrated at every module.
-- `min_degree_4_triangulation_not_calibrated`: A well-formed triangulated partition graph with distinct module identifiers in which every vertex lies in at least four faces cannot be calibrated at every module.
-- `connected_triangulation_not_calibrated`: No VM state whose partition graph is well-formed triangulated, has connected vertex links, and has distinct module identifiers is calibrated at every module.
-- `calibration_obstruction_hypotheses_satisfiable`: A concrete VM state (an octahedron next to a zigzag 9-gon) satisfies every hypothesis of `connected_triangulation_not_calibrated`.
-- `vm_reachable_regions_separate`: From a state with no modules, a well-formed graph and at most 64 module numbers issued, every reachable state has pairwise-disjoint module regions and distinct module numbers.
-- `reachable_no_adjacent_modules`: On every state reachable from `init_state`, two different module numbers are never adjacent by region, every module number has no neighbors and lies in no `module_triangles` entry, and `face_triangle_count` is 0.
-- `reachable_flat_reading`: On every state reachable from `init_state`, every module number has mu-Laplacian 0, angle-defect curvature 2*PI, and calibration residual 2*PI.
-- `reachable_calibrated_iff_no_modules`: A state reachable from `init_state` is calibrated at every module exactly when it has no modules.
-- `reachable_triangulated_isolated`: A state reachable from `init_state` whose graph is well-formed triangulated has no interior edge, `B = E = V = 3F`, and Euler characteristic `F`.
-- `reachable_triangulated_exists`: The state one PNEW of addresses 0, 1, 2 reaches from `init_state` is reachable, well-formed triangulated, has one face, and has Euler characteristic 1.
-- `euler_component`: For a partition graph with distinct module identifiers, triangular regions, and every edge in one or two faces, whose modules are exactly those reachable from one module through shared edges, `V + F <= E + 2`, and `V + F <= E + 1` when some edge is on the boundary.
-- `mu_has_no_intrinsic_joule_value`: Two real-valued functions on VM states exist that give 1 and 2 on every state with `vm_mu` equal to 1, so the counter by itself fixes no energy value.
-
+- `mu_has_no_intrinsic_joule_value`: For every state type and natural-number ledger `mu` on it, two real-valued functions on states exist that give 1 and 2 on every state with `mu` equal to 1, so the counter by itself fixes no energy value.
 
 ## Earned commitments in the minimal machine
 
@@ -935,9 +419,71 @@ An explicitly qualified citation keeps its own module identity.
 - `unearned_commit_traps`: If the commitment guard fails, COMMIT raises the error flag and leaves both the channel and fact table unchanged.
 - `mu_conservation` (`Minimal.EarnedCore.mu_conservation`): Executing an instruction raises the minimal-machine ledger by exactly that instruction's cost.
 
+## Thiele-complete
 
-## Bit-search entitlement
+- `thiele_complete_is_weak`: Every Thiele-complete machine obeys the toll (a step raising its record costs at least one) and has a universal base, so it is weakly Thiele-complete.
+- `base_runs_every_program`: For every machine with a universal base, every two-counter program and every live state, running the program's compiled moves for n steps from that state shows, in the base's window, exactly the configuration the program reaches in n steps, and the state stays live.
+- `base_halting_correspondence`: For every machine with a universal base, a two-counter program halts from (1, (a, b)) exactly when running its compiled moves from the loaded state for (a, b) reaches a state whose window line holds no instruction.
+- `ledger_counts_record_moves`: Through any interface meeting the exact toll clause, the ledger after a run equals the ledger before it plus the number of CHECK, COMMIT and CERTIFY moves in the run.
+- `certificate_costs_three`: Through any interface making a machine Thiele-complete, a run from a clean state that ends with the record up contains at least three record moves and raises the ledger by at least three.
+- `check_can_fail`: Through any interface making a machine Thiele-complete, some CHECK of some claim fails at some loaded state, where the claim's meaning is false.
+- `some_run_certifies`: Through any interface making a machine Thiele-complete, some run from some loaded clean state ends with the record up.
+- `only_certify_raises`: Through any interface making a machine Thiele-complete, on a run from a clean state, a move that takes the record from down to up is a CERTIFY.
+- `complete_costs_at_most_one`: Every move of a Thiele-complete machine costs 0 or 1.
+- `complete_has_free_move`: Every Thiele-complete machine has a move that costs 0.
+- `one_move_record_excluded`: No machine with a move that raises the record from every state is Thiele-complete.
+- `never_certifies_excluded`: No machine whose record is down at every state is Thiele-complete.
+- `clock_weakly_thiele_complete`: The two-counter machine with every move costing 1 and any reading of its configuration as the record obeys the toll and has a universal base.
+- `clock_not_thiele_complete`: The two-counter machine with every move costing 1 and any reading of its configuration as the record is not Thiele-complete.
+- `latch_clock_weakly_thiele_complete`: The two-counter machine with every move costing 1 and a flag that latches once any chosen test of the configuration says yes obeys the toll and has a universal base.
+- `latch_clock_not_thiele_complete`: The two-counter machine with every move costing 1 and a flag that latches once any chosen test of the configuration says yes is not Thiele-complete.
+- `paid_latch_weakly_thiele_complete`: A free two-counter base with a ledger and one move TICK that costs 1 and raises a flag obeys the toll and has a universal base.
+- `paid_latch_meets_base_and_toll`: Read with TICK as CERTIFY, that paid latch meets the universal base clause and the exact toll clause.
+- `paid_latch_not_thiele_complete`: That paid latch is not Thiele-complete.
+- `silent_weakly_thiele_complete`: A free two-counter base whose record never rises obeys the toll and has a universal base.
+- `silent_meets_base_record_toll`: That silent machine, with one interface, meets the universal base clause, the earned record clause and the exact toll clause.
+- `silent_not_thiele_complete`: That silent machine is not Thiele-complete.
+- `earned_core_thiele_complete`: The small machine of EarnedCore.v, read with INC and DEC as base moves, CHECK and COMMIT of a property on a counter as record moves on that claim, CERTIFY as CERTIFY, clean starts as clean states and mu as the ledger, is Thiele-complete.
+- `earned_generic_thiele_complete`: The small machine over any property language with an exact claim equality and a checker equivalent to its meaning, in which some property is true of one number and false of another, is Thiele-complete.
+- `sorted_machine_thiele_complete`: The small machine whose property says a counter, decoded as a list, is sorted is Thiele-complete.
+- `sorted_cs_sound`: For the sorted-list machine read as a certification system, on any run from a clean start, if the table holds the fact that a counter is sorted at that counter's current version, the list decoded from the counter's value is sorted.
+- `thiele_complete_floor`: For every Thiele-complete machine, read as the certification system `complete_cs`, a trace from a state with the record down to a state with it up has total cost at least one.
+- `earned_complete_agrees`: The certification system built from the small machine's Thiele-completeness reaches the same state and charges the same total cost as `earned_cs` on every trace from every state.
+- `generic_complete_agrees`: For every property language, any certification system built from a proof that the generic small machine is Thiele-complete reaches the same state and charges the same total cost as `generic_cs` on every trace from every state.
+- `thiele_complete_hides`: Every Thiele-complete machine has an interface making it Thiele-complete through which no function of the base window gives the ledger, and none gives the record, at the end of every run from every loaded state.
 
-- `bit_search_entitlement`: With one to n honest supplied bit answers for an n-bit hidden value and n at most 64, the checked search has a strictly stronger posterior predicate, contains a structure addition, and pays at least the reduction in ceiling-log candidate counts.
-- `bit_search_bound_reads`: Under the bit-search premises, the candidate-count reduction is exactly k bits and the ledger rises by exactly 2k+1, which bounds k.
-- `posterior_is_what_the_run_certifies`: For k supplied answers and a candidate of length n, with k at most n and n at most 64, posterior membership is equivalent to the bounded search run ending error-free.
+## The window of a Thiele-complete machine
+
+- `complete_every_window_printed`: For every machine and every interface making it Thiele-complete, and every state s, there is a loaded clean start and one base move of cost 0 from it that ends in a state with the same base window (pc, (A, B)) as s, the record down, and the ledger unchanged from the start.
+- `complete_hides_ledger`: For every machine and every interface making it Thiele-complete, there is a loaded clean start and two runs from it that end with the same base window, with different ledgers, the first at least 3 above the second.
+- `complete_two_runs`: For every machine and every interface making it Thiele-complete, there is a loaded clean start and two runs from it, the second made of base moves only, that end with the same base window; the first ends certified with its ledger at least 3 above the start, and the second ends uncertified with its ledger unchanged.
+- `complete_hides_record`: For every machine and every interface making it Thiele-complete, there is a loaded clean start and two runs from it that end with the same base window, the record up after the first and down after the second.
+- `complete_no_ledger_oracle`: For every machine and every interface making it Thiele-complete, no function from base windows to numbers gives the interface's ledger at the end of every run from every loaded start.
+- `complete_no_record_oracle`: For every machine and every interface making it Thiele-complete, no function from base windows to Booleans gives the record at the end of every run from every loaded start.
+- `complete_cs_window_blind`: For every Thiele-complete machine and every interface making it Thiele-complete, on the CertificationSystem `complete_cs` built from the machine, no function of the base window of the state a trace reaches from a loaded start gives that state's reading, and none gives the interface's ledger there.
+
+## The universal interpreter
+
+- `U_simulation`: For every small-machine program P, start (x, y) and guest step count m, there is a host step count n such that, after m guest steps from (x, y) and n steps of the fixed host program U from the loaded host `hload P x y`, either the simulation relation `rel` holds with m at most n (the host is at U's head with its registers A and B, the guest program counter, the trap latch, the ledger, the flag, the fact table and the channel matching the guest's) or both machines have stopped and the halting relation `rel_halt` holds.
+- `hload_rel`: For every small-machine program P and start (x, y), the loaded host `hload P x y` stands in the simulation relation to the guest start (x, y), with no slot records and an empty channel.
+- `U_paid_sites`: The instructions of the fixed host program U that cost 1 are exactly the listed paid sites: one CHECK on each slot and one on the dead register for each guest counter, one COMMIT on each slot and one on the dead register for each guest counter, and one CERTIFY, 69 in all.
+- `U_step`: If `rel` holds between a guest state and a host state, then either the guest has halted and some host state reachable from the host stands in `rel_halt` with it, or the guest has not halted and some positive number of steps of U reach a host state that stands in `rel` with the guest's next state or, when that guest step traps, in `rel_halt` with it.
+- `universal_halting`: For every small-machine program P and start (x, y), the guest's run of P from (x, y) halts at some step if and only if the fixed program U run from `hload P x y` halts at some step.
+- `universal_output`: If the guest's run of P from (x, y) has halted at step m and U's run from `hload P x y` has halted at step n, the host's registers A and B hold the guest's counters A and B, and the host's trap latch, ledger and certified flag equal the guest's.
+- `universal_flag_iff`: For every P and (x, y), the guest's certified flag is up at some step of its run if and only if the host's certified flag is up at some step of U's run from `hload P x y`.
+- `universal_ledger_exact`: For every P and (x, y), each guest step count m has a host step count n at which `rel` (with m at most n) or `rel_halt` holds and the host ledger equals the guest ledger, and each host step count n has a guest step count m such that the host ledger at n lies between the guest ledger at m and the guest ledger at m + 1.
+- `universal_earned`: If the host flag is up after n steps of U from `hload P x y`, the instructions U executed contain a passing CHECK PSlot on a slot register SLOT c k with k below 16, then, with that slot untouched and its version unchanged, a passing COMMIT PSlot on the same slot, then the passing CERTIFY; the slot held `pair (pcode p) v` at the CHECK with the guest property p true of v; and the guest's own run from (x, y) contains a passing CHECK p c, then, with counter c untouched, a passing COMMIT p c, then a passing CERTIFY, with counter c holding v at its CHECK.
+- `U_run_on_host_machine`: For every P, (x, y) and n, running `host_machine` (the machine of EarnedMulti.v with the property PSlot, one move per instruction) on the instructions U executes in n steps from `hload P x y` gives exactly U's state after n steps.
+- `universal_thiele_complete`: The machine of EarnedMulti.v with the single property PSlot, read as a machine of ThieleComplete.v with one move per instruction, satisfies `thiele_complete`.
+- `pigeonhole_not_injective`: For any type, any finite list Q of its elements and any function f from the naturals whose every value lies in Q, f is not injective.
+- `pigeonhole_collision`: For any type with decidable equality, any finite list Q and any function f from the naturals whose every value lies in Q, there are two different naturals n and m with f n = f m.
+- `no_exact_copy_host`: For any host property language with an exact claim equality and any host checker, and any translation of guest properties into a finite list of host properties whose host check passes whenever the guest check passes on the same number, there are n different from m with `PGe n` different from `PGe m` and the same translation, such that the guest program CHECK (PGe n) A; COMMIT (PGe m) A traps within two steps from every start, and for every a at least n, every untrapped host state with fewer than 16 facts whose register R holds a, and every b, the guest's first step from (a, b) passes, its second traps, and the host's translated CHECK, COMMIT on R ends untrapped with the channel naming the committed claim at R's version.
+- `multi_cs_floor`: For any property language, claim equality and checker, a trace of the machine of EarnedMulti.v from a state with the flag down to a state with the flag up has total cost at least one, by `universal_nfi_any_substrate` on the record `multi_cs`.
+- `interp_cs_runs_U`: For every P, (x, y) and n, running the record `interp_cs` (the machine of EarnedMulti.v with PSlot) on the instructions U executes in n steps from `hload P x y` gives U's state after n steps.
+- `interp_U_certified_floor`: If the host flag is up after n steps of U from `hload P x y`, the instructions U executed have total cost at least three on `interp_cs`.
+- `interp_halting_iff`: For every P and (x, y), the small machine's halting predicate `EARNED_HALTING` holds of (P, x, y) exactly when U halts at some step from `hload P x y`.
+- `interp_halting_undecidable`: The halting predicate of the one fixed program U on loaded triples (P, x, y) is undecidable in the vendored library's synthetic sense, by reduction from the small machine's halting problem of `earned_core_halting_undecidable`.
+- `interp_complete_agrees`: For every host trace and host state, the record `complete_cs` built from `universal_thiele_complete` reaches the same state and charges the same total cost as `interp_cs`.
+- `interp_U_complete_floor`: If the host flag is up after n steps of U from `hload P x y`, the instructions U executed have total cost at least one on the record `complete_cs` built from `universal_thiele_complete`, by `thiele_complete_floor`.
+- `multi_cs_no_exact_copy`: For any host property language with an exact claim equality and any checker, and any translation of guest properties into a finite list of host properties whose host check passes whenever the guest check passes on the same number, there are n different from m with the same translation of `PGe n` and `PGe m` such that the guest program CHECK (PGe n) A; COMMIT (PGe m) A traps within two steps from every start, while on the record `multi_cs` the translated CHECK, COMMIT on a register holding a value a at least n, from any untrapped state with fewer than 16 facts, ends untrapped with the channel naming the committed claim at that register's version.
+

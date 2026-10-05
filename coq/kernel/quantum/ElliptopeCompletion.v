@@ -1,12 +1,12 @@
 (** Full-elliptope completion: the CHSH correlator quantum set as an
     existential completion of the zero-marginal NPA matrix.
 
-  The zero-marginal bridge (QuantumPartitionPSD.v) characterizes one slice of
+  The zero-marginal bridge (CHSHColumnCheck.v) characterizes one slice of
   the quantum set: the orthogonal-observables case, where the cross moments
   rho_AA = <A0 A1> and rho_BB = <B0 B1> are pinned to zero. That slice is the
-  membership test CHSH_LASSERT runs. The pinning has a cost: the slice
-  rejects every deterministic local strategy, including the mu = 0 trace
-  that achieves the classical bound.
+  membership test [column_contractive_check_witness] decides. The pinning has
+  a cost: the slice rejects every deterministic local strategy, including the
+  one that achieves the classical bound.
 
   This file removes the pinning at the mathematical level. Membership in the
   full correlator quantum set is characterized the way Tsirelson's theorem
@@ -64,9 +64,9 @@
 *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is

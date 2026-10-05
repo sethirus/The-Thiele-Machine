@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. These proofs close the independent RAM
-    core and do not establish a bridge to VM semantics.
+    core and do not establish a bridge to a Thiele machine.
 
     Proofs for the list-memory RAM core. *)
 

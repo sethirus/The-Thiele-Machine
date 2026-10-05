@@ -1,26 +1,24 @@
 # coq_makefile injects "-R . Top" into COQLIBS when no explicit root
 # mapping appears in _CoqProject. This pre-registers every subdirectory
-# as Top.xxx, and the subsequent -R kernel Kernel / -R nofi NoFI / etc.
-# remappings emit overriding-logical-loadpath warnings that cannot be
-# suppressed via coqc -w in Coq 8.18. Strip the offending flag here,
-# after Makefile.conf sets COQLIBS.
+# as Top.xxx, and the subsequent -R kernel/... Kernel remappings emit
+# overriding-logical-loadpath warnings that cannot be suppressed via
+# coqc -w in Coq 8.18. Strip the offending flag here, after Makefile.conf
+# sets COQLIBS.
 COQLIBS := $(subst -R . Top,,$(COQLIBS))
 
-.PHONY: extraction-output-dirs
-extraction-output-dirs:
-	mkdir -p ../build/kami_hw ../build/kami_hw/system
-
-# Both roots write Target.ml/Target.mli, but their extraction contexts differ.
-# Canonical full extraction must run last, including in incremental -j builds.
-Extraction.vo: kami_hw/KamiExtraction.vo
-Extraction.vo ThieleMachineComplete.vo kami_hw/KamiExtraction.vo kami_hw/SystemExtraction.vo: | extraction-output-dirs
-
-# Build the pinned undecidability library modules that coq/ imports, with the
-# library's own project flags. Every imported module is listed, so the vendor
-# make sees the whole closure and rebuilds stale dependents consistently.
-# Grouping prevents parallel bridge imports from rebuilding the same objects.
-# The targets go to Makefile.coq in one call: the vendor Makefile's pattern rule
-# would start one sub-make per target, each regenerating the dependency file.
+# Build the pinned undecidability library modules that coq/ and minimal/
+# import, with the library's own project flags. Every imported module is
+# listed, so the vendor make sees the whole closure and rebuilds stale
+# dependents consistently. The targets go to Makefile.coq in one call: the
+# vendor Makefile's pattern rule would start one sub-make per target, each
+# regenerating the dependency file.
+#
+# The L modules (L.vo, the L tactics, GenEncode, MuRec, the L datatypes,
+# ClosedLAdmissible) and the two L_computable_*_to_MMA_computable reductions
+# need MetaCoq at build time (.github/actions/setup-metacoq). They stay in
+# this list for the small-machine recursion theorem (Rice and Kleene for
+# programs on the host), whose evaluator is an L term; MM2ComplementUndec.v
+# and the Universal*.v files need the PCP/BSM/FRACTRAN/MMA chain and DLW.
 UNDEC_DIR := ../vendor/coq-undecidability/theories
 UNDEC_MODULES := \
   FRACTRAN/FRACTRAN.vo FRACTRAN/Reductions/MM_FRACTRAN.vo \
@@ -29,8 +27,11 @@ UNDEC_MODULES := \
   L/Util/ClosedLAdmissible.vo L/Util/L_facts.vo \
   MinskyMachines/MM.vo MinskyMachines/MM2.vo MinskyMachines/MM2_undec.vo MinskyMachines/MMA.vo \
   MinskyMachines/MMA/mma3_mma2_compiler.vo MinskyMachines/MMA/mma_defs.vo \
+  MinskyMachines/Util/MMA_pairing.vo \
   MinskyMachines/Reductions/BSM_MM.vo MinskyMachines/Reductions/FRACTRAN_to_MMA2.vo \
-  MinskyMachines/Reductions/L_computable_to_MMA_computable.vo MinskyMachines/Reductions/MMA2_to_MM2.vo \
+  MinskyMachines/Reductions/L_computable_to_MMA_computable.vo \
+  MinskyMachines/Reductions/L_computable_closed_to_MMA_computable.vo \
+  MinskyMachines/Reductions/MMA2_to_MM2.vo \
   PCP/PCP.vo PCP/PCP_undec.vo PCP/Reductions/PCPb_iff_iPCPb.vo \
   Shared/Libs/DLW/Code/compiler_correction.vo Shared/Libs/DLW/Code/sss.vo Shared/Libs/DLW/Code/subcode.vo \
   Shared/Libs/DLW/Utils/godel_coding.vo Shared/Libs/DLW/Vec/pos.vo Shared/Libs/DLW/Vec/vec.vo \

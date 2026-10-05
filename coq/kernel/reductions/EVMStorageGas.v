@@ -27,11 +27,11 @@
       ([revoked_write_nearly_free]), and the refund returns the rest.
 
     Ethereum prices the write that persists, and refunds the write that is
-    taken back. That is the shape of the finite-hardware result: a record
+    taken back. That is the shape of the finite-machine result: a record
     whose write is free is one that can be revoked. *)
 
 (* SCOPE NOTE: standalone proof scope. This transcribes the Ethereum
-   specification's storage gas arithmetic; it imports no VM semantics on
+   specification's storage gas arithmetic; it imports no machine semantics on
    purpose, since it is a model of another specification. *)
 
 From Coq Require Import List ZArith Lia Bool.

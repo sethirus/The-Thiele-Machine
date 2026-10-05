@@ -1,8 +1,8 @@
-(** TPMQuoteGap: a scoped quote-view example for the verifier corollary.
+(** TPMQuoteGap: a scoped quote-view example for the window theorem.
 
-    The kernel's verifier corollary says a verifier that sees only a view
-    cannot decide a claim that differs between two states with the same
-    view. This file uses a deliberately scoped abstraction of TPM quote fields,
+    [decoding_requires_fiber_constancy] (ObservationPolicy.v) says a decider
+    that sees only a view cannot decide a claim that differs between two
+    states with the same view. This file uses a deliberately scoped abstraction of TPM quote fields,
     guided by the TPM 2.0 Library specification, Version 185: Part 3
     (Commands), sections 18.4 (TPM2_Quote) and 22.2 (TPM2_PCR_Extend),
     and Part 2 (Structures), sections 10.11.4 and 10.11.12:
@@ -44,15 +44,16 @@
     ([quote_decides_measured_claims]).
 
     A TPM quote reports selected PCR state; it does not report arbitrary
-    runtime state that was never incorporated into those PCRs. The corollary
-    recovers that projection fact from this abstraction. It is not a theorem
+    runtime state that was never incorporated into those PCRs. The window
+    theorem recovers that projection fact from this abstraction. It is not a theorem
     about every TPM deployment or runtime measurement design. *)
+
+(* SCOPE NOTE: standalone proof scope. A scoped abstraction of TPM quote
+   fields read through the window theorem; no machine is fixed. *)
 
 From Coq Require Import List Arith.PeanoNat Bool.
 Import ListNotations.
 From Kernel Require Import ObservationPolicy.
-From Kernel Require Import VMState.
-Require Import NecessityOfMuLedger VerifierModel VerifierExhaustiveness.
 
 Section TPM.
 
@@ -113,53 +114,6 @@ Theorem quote_decides_measured_claims :
       forall p, decide (quote nonce p) = claim (digest (pcr_of_log (measured_log p))).
 Proof.
   intros nonce claim. exists (fun q => claim (quote_pcr_digest q)). reflexivity.
-Qed.
-
-(** Encode every field of the modeled quote in a classical transcript.
-    This is a lossless representation adapter, not a TPM execution trace. *)
-Definition quote_projection (nonce : nat) (p : Platform) : BareTranscript :=
-  let q := quote nonce p in
-  [mk_strict_classical [quote_pcr_digest q; quote_nonce q] [] 0].
-
-Lemma quote_projection_faithful : forall nonce p q,
-  quote_projection nonce p = quote_projection nonce q <->
-  quote nonce p = quote nonce q.
-Proof.
-  intros nonce p q. split.
-  - unfold quote_projection, quote. intro Heq.
-    injection Heq as Hhash. rewrite Hhash. reflexivity.
-  - intro Heq. unfold quote_projection. rewrite Heq. reflexivity.
-Qed.
-
-(** The two VM witnesses label the two truth values of the runtime claim.
-    No equality between TPM energy, execution cost, and vm_mu is asserted. *)
-Definition runtime_explains (s : VMState) (p : Platform) : Prop :=
-  (runtime_is_measured_software p = true /\ s = po1_state_A) \/
-  (runtime_is_measured_software p = false /\ s = po1_state_B).
-
-(** A verifier deciding the external runtime label on full model states cannot
-    depend only on the modeled quote. The named verifier corollary is applied
-    through the lossless quote adapter and the two truth labels. Authenticity,
-    when desired, remains an external premise because no signature is modeled. *)
-Theorem quote_runtime_verifier_separation :
-  forall nonce (V : Platform -> bool),
-    (forall p, V p = runtime_is_measured_software p) ->
-    ~ factors_classical (quote_projection nonce) V.
-Proof.
-  intros nonce V Hcorrect.
-  apply (V_does_not_factor_through_classical
-    Platform (quote_projection nonce) runtime_explains
-    {| measured_log := []; runtime_is_measured_software := true |}
-    {| measured_log := []; runtime_is_measured_software := false |} V).
-  - reflexivity.
-  - left. split; reflexivity.
-  - right. split; reflexivity.
-  - intros p Haccept s [[Hflag ->] | [Hflag ->]].
-    + exact po1_cond4_trace_A_mu_paid.
-    + rewrite Hcorrect, Hflag in Haccept. discriminate.
-  - intros s p Hmu [[Hflag ->] | [Hflag ->]].
-    + rewrite Hcorrect. exact Hflag.
-    + rewrite po1_cond5_trace_B_mu_zero in Hmu. discriminate.
 Qed.
 
 End TPM.

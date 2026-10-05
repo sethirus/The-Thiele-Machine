@@ -1,8 +1,8 @@
 #!/bin/sh
 # Thiele Machine pre-commit hook (marker: thiele-machine-pre-commit)
 # Installed with make install-hooks. Validates the proposed commit, regenerates
-# derived artifacts, and runs the same strict pytest policy as CI. Full hardware
-# synthesis/FPGA and cross-file vacuity verification still belong to CI (Full).
+# derived artifacts, and runs the same strict pytest policy as CI. The
+# cross-file vacuity sweep still belongs to CI (Full).
 set -eu
 
 ROOT="$(git rev-parse --show-toplevel)"
@@ -12,7 +12,7 @@ cd "$ROOT"
 # partial staging before any generator can overwrite or stage unrelated work.
 python3 scripts/check_hook_worktree.py
 
-for tool in coqc coqtop coq_makefile ocamlfind ocamlc iverilog vvp verilator yosys node; do
+for tool in coqc coqtop coq_makefile; do
     if ! command -v "$tool" >/dev/null 2>&1; then
         echo "[pre-commit] FAIL: required tool missing: $tool" >&2
         exit 1
@@ -54,21 +54,9 @@ if problems:
     sys.exit("[pre-commit] Coq proof-scope drift:\n" + "\n".join(problems))
 '
 
-# Incremental vendor builds must run even when Kami.vo already exists: it may
-# be stale after a vendor change. Every build error blocks the commit.
-run make -C vendor/bbv -j1
-run bash scripts/fix_kami_coq18.sh
-run make -C vendor/kami -j1
+# The project build also builds the vendored undecidability modules it
+# imports (coq/Makefile.local, pre-all). Every build error blocks the commit.
 run sh -c 'cd coq && coq_makefile -f _CoqProject -o Makefile && make -j1'
-# Extraction is a compiler side effect. A cached .vo alone cannot guarantee
-# that its generated .ml still exists or matches; explicitly rerun entrypoints.
-# Some entrypoints share Target output paths; serialize their side effects.
-run make -C coq -j1 -W kami_hw/KamiExtraction.v -W Extraction.v -W ThieleMachineComplete.v \
-    kami_hw/KamiExtraction.vo Extraction.vo ThieleMachineComplete.vo
-stage build/kami_hw/Target.ml build/kami_hw/Target.mli \
-    build/kami_hw/Target_complete.ml build/kami_hw/Target_complete.mli \
-    build/thiele_core.ml build/thiele_core.mli \
-    build/thiele_core_complete.ml build/thiele_core_complete.mli
 
 # Refresh the full receipt when a proof-relevant input changes. The batch
 # runner reuses unchanged module results, so this normally executes only the
@@ -76,7 +64,7 @@ stage build/kami_hw/Target.ml build/kami_hw/Target.mli \
 # predictable fail-regenerate-retry cycle for every new theorem. The receipt
 # is still derived by Coq, checked for alignment and project-local axioms, and
 # re-derived independently by CI.
-if ! git diff --cached --quiet -- coq vendor scripts/coq_proof_scope.py \
+if ! git diff --cached --quiet -- coq minimal vendor scripts/coq_proof_scope.py \
         build/probe/build_full_probe.py; then
     run bash scripts/generate_assumption_receipt.sh
     stage coq/AssumptionsProbeAll.v \
@@ -139,32 +127,12 @@ if any(summary[key] for key in ("vacuous_true", "vacuous_hyp", "error")):
 '
 stage artifacts/vacuity_audit.json
 
-run python3 scripts/forge_vm.py --input build/thiele_core.ml --output thielecpu/vm.py
-stage thielecpu/vm.py
-# Match CI: link the runner from the refreshed extraction before testing it.
-run ocamlfind ocamlc -I build -package str -linkpkg -o build/extracted_vm_runner \
-    build/thiele_core.mli build/thiele_core.ml build/extracted_vm_runner.ml
-stage build/extracted_vm_runner build/extracted_vm_runner.cmi build/extracted_vm_runner.cmo \
-    build/thiele_core.cmi build/thiele_core.cmo
-
 run python3 scripts/generate_proof_dependency_dag.py
 stage artifacts/proof_dependency_dag.json artifacts/proof_dependency_connectivity.json \
     artifacts/proof_dependency_file_graph.mmd artifacts/PROOF_FOUNDATION_AUDIT.md
-run python3 scripts/generate_master_summary_artifacts.py --out-dir artifacts/final_claim_audit
-stage artifacts/final_claim_audit/*.json
 
-# Run unconditionally, after extraction. This also repairs missing/corrupt
-# manifests and handles generator edits, new inputs, renames and deletions.
-# Generator/invariant failures block the commit, with their diagnostics visible.
-run python3 scripts/audit_rtl_text_transforms.py --out artifacts/rtl_text_transform_audit.json
-stage artifacts/rtl_text_transform_audit.json
-run python3 scripts/generate_rtl_pipeline_manifest.py --out artifacts/rtl_pipeline_manifest.json
-stage artifacts/rtl_pipeline_manifest.json
-
-# Every collected test runs, with missing backends treated as failures.
-# CPU-heavy freeze simulations have a 30-second wall-clock deadline; running
-# them alongside other simulator workers can exceed it on a Codespace. Match
-# CI's sequential execution explicitly, without reducing coverage/timeouts.
+# Every collected test runs, with a missing Coq toolchain treated as a
+# failure. Match CI's sequential execution explicitly.
 if python3 -c 'import xdist' >/dev/null 2>&1; then
     run python3 -m pytest tests/ -q --tb=short --strict-backends -n 0
 else
@@ -173,11 +141,9 @@ fi
 run python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md
 stage INQUISITOR_REPORT.md
 
-# Tests can rebuild extraction or modify artifacts. Stage the tracked Coq
+# Tests can rebuild proofs or modify artifacts. Stage the tracked Coq
 # compiler outputs the hook itself rebuilt, then reject every other worktree
 # difference rather than silently committing a different version than tested.
-run python3 scripts/generate_rtl_pipeline_manifest.py --check
-run python3 scripts/audit_rtl_text_transforms.py --check
 run python3 scripts/check_hook_worktree.py --stage-generated
 
 echo "[pre-commit] PASS: commit artifacts and local verification agree."

@@ -5,16 +5,16 @@ through `postCreateCommand`. The installer also supports linked Git worktrees
 and repairs a missing executable bit on an already configured hook.
 
 The hook runs local builds and tests; it does not call GitHub or need a token.
-It requires the Coq/OCaml and RTL toolchains used by CI, Node.js, and the Python
-dependencies in `requirements.txt`. Stage the changes you intend to commit
+It requires the Coq toolchain used by CI (Coq 8.18, CSDP, and MetaCoq for the
+vendored L modules; see [native reproduction](../docs/REPRODUCTION.md)), a LaTeX
+installation for the monograph, and the Python dependencies in `requirements.txt`. Stage the changes you intend to commit
 before committing. Since generators and tests read the working tree, the hook
 rejects unstaged tracked changes and non-ignored untracked files. Stash unrelated
 work with `git stash push --keep-index --include-untracked` if needed, and restore
 it after committing. Ignored compiler caches can remain in place.
 
-The hook builds proofs and extraction, refreshes affected assumption/vacuity
-evidence, regenerates the VM and audit manifests, and stages the generated
-outputs. It runs the full pytest suite with `CI=true --strict-backends` and the
+The hook builds the proofs, refreshes affected assumption/vacuity evidence and
+the audit manifests, and stages the generated outputs. It runs the full pytest suite with `CI=true --strict-backends` and the
 Inquisitor. Generator errors, bad vacuity verdicts (including probe errors),
 missing tools and test failures block the commit. Diagnostics remain visible.
 After tests, it checks manifest freshness and working-tree/index agreement again.
@@ -25,7 +25,7 @@ from earlier successful generators may already be staged.
 
 `CI` runs automatically on branch pushes and pull requests. `CI (Full)` currently
 runs on a schedule or manual dispatch. A passing local hook does not replace its
-hardware synthesis, FPGA bitstream and full vacuity checks. Before merging,
+full vacuity sweep. Before merging,
 verify both workflows succeeded on the current PR head commit.
 
 ```sh

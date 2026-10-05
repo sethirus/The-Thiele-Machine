@@ -5,8 +5,8 @@
   ElliptopeCompletion.v characterizes the correlator quantum set as an
   existential completion: some assignment of the cross moments makes the
   moment matrix PSD. That is a real-valued predicate with an existential in
-  it, and an opcode cannot branch on it. This file builds the thing an
-  opcode CAN branch on: a boolean function of the witness counters and a
+  it, and a program cannot branch on it. This file builds the thing a
+  program CAN branch on: a boolean function of the witness counters and a
   supplied completion witness, computed in Z with every denominator cleared,
   no real and no rational ever evaluated at runtime (the same discipline
   as [column_contractive_check_witness]), together with the theorem that a
@@ -17,7 +17,7 @@
 
   - The PD branch ([elliptope_pd_check]): the program supplies completion
     buckets for x = <A0 A1> and y = <B0 B1> (the same bucket-pair idiom the
-    Q_{1+AB} opcodes use for their gamma moments), and the check runs the
+    Q_{1+AB} checks use for their gamma moments), and the check runs the
     fraction-free Sylvester test on the completed 4x4: all four leading
     principal minors of the denominator-cleared integer matrix strictly
     positive. Soundness routes through [sym4_qf_nonneg_from_pd], the
@@ -52,18 +52,16 @@
   rational singular completion and is accepted by the LDL branch
   ([gate_accepts_pythagorean_boundary]).
 
-  This file is the mathematical content of a CHSH_LASSERT_ELLIPTOPE
-  cert-opcode: the decider and its soundness. Binding it into the step
-  relation (opcode constructor, cost schedule under A2, Kami mirror) is
-  plumbing on the pattern of the four Q_{1+AB} opcodes and is not done
+  This file is the mathematical content of an elliptope check: the decider
+  and its soundness. Running it on a machine as an earned check is not done
   here.
 *)
 
-(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
-From Kernel Require Import VMState VMStep.
-From Kernel Require Import MuCostModel.
+(* PROOF SCOPE: standalone algebra. The decider and its soundness are
+   integer and real arithmetic about correlators; no machine is fixed. *)
+
 From Kernel Require Import ConstructivePSD NPAMomentMatrix.
-From Kernel Require Import MuLedgerQuantumBridge.
+From Kernel Require Import CHSHColumnCheck.
 From Kernel Require Import QuantumPartitionPSD_1AB.
 From Kernel Require Import ElliptopeCompletion.
 

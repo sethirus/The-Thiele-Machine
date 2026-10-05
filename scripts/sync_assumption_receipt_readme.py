@@ -81,7 +81,7 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
         text = replace_exact(
             text,
             rf"`{label}` \([\d,]+\)",
-            f"`{label}` ({formatted(axioms[qualified])})",
+            f"`{label}` ({formatted(axioms.get(qualified, 0))})",
             1,
         )
 

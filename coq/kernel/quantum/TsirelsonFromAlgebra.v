@@ -33,9 +33,9 @@
     *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
@@ -228,15 +228,13 @@ Qed.
     Nothing in this file identifies the variables with a physical experiment
     or assigns the gap between the classical and Tsirelson values to [mu]. Any
     such interpretation requires a separate bridge from the correlator model
-    to the VM and to an experimental implementation. *)
+    to a machine and to an experimental implementation. *)
 
-(** Summary: Non-circular derivation chain for Tsirelson *)
+(** Summary: derivation chain for Tsirelson *)
 (**
-    1. VMState.v, VMStep.v           -> Machine primitives (no physics)
-    2. ClassicalBound.v              -> μ=0 gives |S| ≤ 2 (16 cases)
-    3. TsirelsonGeneral.v (this tie) -> Pure algebra gives S² ≤ 8
-    4. Q-arithmetic mechanization (rational bound below)
-    5. NonCircularityAudit.v         -> Formal defense against circularity
+    1. ValidCorrelation.v, MinorConstraints.v -> classical bound |S| ≤ 2
+    2. TsirelsonGeneral.v                     -> pure algebra gives S² ≤ 8
+    3. Q-arithmetic mechanization (rational bound below)
 
     The bound 2√2 is COMPUTED from algebraic constraints, not assumed.
 *)
@@ -244,8 +242,8 @@ Qed.
 (**
 
     A rational upper bound for 2√2: sqrt 8 < 5657/2000. The bound is stated
-    over the reals; the machine itself checks CHSH conditions in integer
-    arithmetic and does not use this constant. *)
+    over the reals; the integer checks in CHSHColumnCheck.v decide CHSH
+    conditions in integer arithmetic and do not use this constant. *)
 
 Lemma rational_tsirelson_bound :
   sqrt 8 < 5657 / 2000.

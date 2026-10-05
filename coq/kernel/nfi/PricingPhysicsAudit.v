@@ -8,7 +8,6 @@ From Kernel Require Import PermanentCertification.
 From Kernel Require Import PermanentRecordPricing.
 From Kernel Require Import PermanentCertificationEntropy.
 From Kernel Require Import PricingPhysicsTarget.
-From Kernel Require Import VMState.
 
 Theorem no_forced_price_beyond_merges :
   forall (S I : Type) (step : S -> I -> S)
@@ -30,16 +29,17 @@ Qed.
 
 Theorem mu_has_no_intrinsic_joule_value : no_intrinsic_joule_scale.
 Proof.
-  exists (vm_mu_energy_at_scale 1), (vm_mu_energy_at_scale 2).
-  intros s Hmu. unfold vm_mu_energy_at_scale. rewrite Hmu. simpl.
+  intros S mu.
+  exists (mu_energy_at_scale mu 1), (mu_energy_at_scale mu 2).
+  intros s Hmu. unfold mu_energy_at_scale. rewrite Hmu. simpl.
   split; [ring |]. split; [ring | lra].
 Qed.
 
 Theorem calibrated_mu_landauer_energy :
   forall k_B T : R, mu_landauer_calibration k_B T.
 Proof.
-  intros k_B T s Hmu.
-  unfold mu_landauer_calibration, vm_mu_energy_at_scale in *.
+  intros k_B T S mu s Hmu.
+  unfold mu_landauer_calibration, mu_energy_at_scale in *.
   rewrite Hmu. simpl. ring.
 Qed.
 

@@ -5,9 +5,9 @@
     premises in these definitions. *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
@@ -62,7 +62,7 @@ Qed.
 
 (** [chsh_bound_4] is the triangle-inequality consequence of the four
     absolute-value premises. It is an algebraic bound for this rational record;
-    it does not classify physical correlations or mention the VM ledger. *)
+    it does not classify physical correlations or mention a ledger. *)
 Theorem chsh_bound_4 : forall c : Correlators,
   Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\ Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 ->
   Qabs (S_from_correlators c) <= 4.
@@ -342,7 +342,7 @@ Qed.
 
 (** [tsirelson_rational_lower_witness] is a lower-bound witness for the selected rational
     predicate. It gives existence at [28284/10000]; it is not an exact
-    optimizer theorem and carries no VM or ledger claim. *)
+    optimizer theorem and carries no machine or ledger claim. *)
 Theorem tsirelson_rational_lower_witness :
   exists c : Correlators,
     algebraically_coherent c /\

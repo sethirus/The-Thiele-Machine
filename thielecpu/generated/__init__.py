@@ -1,1 +1,0 @@
-"""Generated instruction-surface artifacts."""

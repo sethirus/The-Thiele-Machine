@@ -1,8 +1,9 @@
 # kernel/quantum
 
-CHSH, Tsirelson, NPA-PSD, Born rule, and the rest of the quantum-tier
-machinery. Reaches the quantum boundary by polynomial certificate over ℚ.
-**No Hilbert space invoked in the verification step.**
+CHSH, Tsirelson, and the NPA positive-semidefinite conditions, reached by
+polynomial certificates over the rationals and the reals. No Hilbert space is
+invoked in the verification step, and no machine is fixed: these files are
+mathematics about correlators and trial counts.
 
 ## Files
 
@@ -10,81 +11,38 @@ machinery. Reaches the quantum boundary by polynomial certificate over ℚ.
 
 | File | Purpose |
 |---|---|
-| `CHSH.v` | Trial parsing, witness counters, basic CHSH primitives |
-| `CHSHExtraction.v` | Extracted-trace CHSH value computation |
-| `CHSHStatisticalBridge.v` | Statistical CHSH violation; `chsh_stat_violation_not_local` |
-| `CHSHCouplingBridge.v` | Categorical coupling ↔ CHSH bound |
-| `BoxCHSH.v` | Box-CHSH variant with bounded |S| ≤ 4 |
+| `ValidCorrelation.v` | Valid correlation boxes (non-negative, normalized, no-signaling) and local boxes as mixtures of deterministic strategies |
+| `BoxCHSH.v` | Rational box operations; the deterministic bound and the algebraic bound (`local_S_2_deterministic`, `box_chsh_bound_algebraic`) |
+| `MinorConstraints.v` | Factorizable correlation witnesses satisfy the minor constraints and the classical bound (`factorizable_CHSH_classical_bound`, `local_box_CHSH_bound`) |
+| `CHSHStatisticalBridge.v` | The CHSH statistic of aggregate trial counts, its algebraic ceiling, and the fact that locally consistent deterministic counts cannot violate it (`chsh_stat_violation_not_local`); no Hoeffding bound or confidence level |
+| `CHSHCouplingBridge.v` | Separable couplings and the classical bound (`chsh_violation_rules_out_locally_factorizable_coupling`) |
 
-### Tsirelson: the named bound
-
-| File | Purpose |
-|---|---|
-| `TsirelsonGeneral.v` | General quantum Tsirelson definitions |
-| `TsirelsonFromAlgebra.v` | Bridge from algebraic to general form |
-| `TsirelsonUpperBound.v` | μ=0 fragment characterization, classical bound = 2 |
-| `TsirelsonUniqueness.v` | `Kernel.TsirelsonUniqueness.mu_zero_algebraic_bound`: μ=0 programs satisfy \|S\| ≤ 4, the algebraic maximum |
-| `TsirelsonQuantumModel.v` | NPA PSD model layer |
-
-### NPA-PSD bridge
+### Tsirelson
 
 | File | Purpose |
 |---|---|
-| `QuantumPartitionPSD.v` | **`column_contractive_iff_npa_psd`**: biconditional |
-| `NPAMomentMatrix.v` | NPA moment-matrix definitions |
-| `SemidefiniteProgramming.v` | PSD primitives |
-| `ConstructivePSD.v` | Quadratic-form PSD certificate over ℚ |
-| `MinorConstraints.v` | The four 3×3 minor inequalities |
-| `ValidCorrelation.v` | Valid-correlation predicate |
+| `TsirelsonGeneral.v` | The Tsirelson bound from row constraints and Cauchy-Schwarz (`tsirelson_from_row_bounds`, `tsirelson_from_column_bounds`), and the CHSH value's invariance under swapping the parties (`semantics_invariant_party_swap`) |
+| `TsirelsonFromAlgebra.v` | The non-circular bridge: the bound is reached and tight (`tsirelson_tight`) |
 
-### Born rule: uniqueness from boundary conditions
+### NPA and PSD
 
 | File | Purpose |
 |---|---|
-| `BornRule.v` | Bloch-sphere measurement probabilities; uniqueness from linearity |
-| `BornRuleLinearity.v` | No-signaling ⇔ linearity (definitional) |
-| `ProbabilityImpossibility.v` | Negative result: composition alone doesn't determine Born rule |
+| `NPAMomentMatrix.v` | The level-1 NPA moment matrix for CHSH |
+| `ConstructivePSD.v` | PSD facts by quadratic forms, without eigenvalues |
+| `CHSHColumnCheck.v` | An integer check on CHSH trial counts that implies the zero-marginal NPA matrix is PSD (`column_contractive_check_witness_npa_psd`), the biconditional `npa_psd_iff_column_contractive`, and the Tsirelson bound from PSD (`npa_psd_implies_tsirelson_bound`) |
+| `QuantumPartitionPSD_1AB.v` | Q_{1+AB} matrix certificates for specified correlator and higher-moment slots; soundness only, no completeness for quantum behaviors |
+| `GenRealizability.v` | A dimension-polymorphic PSD predicate (`psd_n`) and the 5x5 CHSH PSD as a special case |
+| `ElliptopeCompletion.v` | The CHSH correlator quantum set as an existential completion of the zero-marginal NPA matrix (`elliptope_tsirelson`, `deterministic_strategy_elliptope`, `pr_box_not_elliptope`) |
+| `ElliptopeGate.v` | A decidable integer membership check for the elliptope, sound into `elliptope_realizable` (`elliptope_check_full_sound`) |
 
-### Quantum tier supporting
+## Load-bearing exports
 
-| File | Purpose |
-|---|---|
-| `QuantumBound.v` | Certification interface for quantum-tier accounting |
-| `QuantumEquivalence.v` | Zero-cost quantum tier bookkeeping |
-| `EntanglementEntropy.v` | Support-level partial-trace + rank surrogate |
-| `NoCloning.v` | No-cloning at the kernel state level |
-| `Unitarity.v` | Reversible-evolution / purity-conservation argument |
-| `Purification.v` | Purification-style reasoning over kernel states |
-| `InformationCausality.v` | Record-level IC / μ comparison (bookkeeping, not physics) |
-
-### Elliptope and further PSD gates
-
-| File | Purpose |
-|---|---|
-| `ElliptopeCompletion.v` | The CHSH correlator quantum set as an existential completion of the zero-marginal NPA matrix; `elliptope_tsirelson`, `deterministic_strategy_elliptope`, `pr_box_not_elliptope` |
-| `ElliptopeGate.v` | Decidable Z-arithmetic membership check for the elliptope, with soundness into `elliptope_realizable` (`elliptope_check_full_sound`) |
-| `QuantumPartitionPSD_1AB.v` | Q_{1+AB} matrix certificates for specified correlator slots and higher moment slots; soundness only, no completeness for quantum behaviors |
-| `GenRealizability.v` | A dimension-polymorphic PSD predicate (`psd_n`) and the bridge showing the 5x5 CHSH PSD as a special case |
-| `TsirelsonFromIC.v` | CHSH consequence of the quadratic information-causality condition `E_I^2 + E_II^2 <= 1`; the protocol derivation and the physical principle are external premises |
-| `TsirelsonFromMu.v` | A CHSH bound from two rotated-vector inequalities (`rotated_correlator_bounds`), supplied independently of the VM cost schedule |
-
-### Measurement and Holevo
-
-| File | Purpose |
-|---|---|
-| `HonestMeasurementImpliesNPA.v` | The converse-direction statement from `HonestMeasurementSystem` to `npa_psd`; the full statement is open in the literature and the file documents the obstruction |
-| `PRBoxIsDishonest.v` | A deterministic PR-box realization is free, solves the 2-to-1 RAC protocol, and signals (`prbox_resource_signals`) |
-| `OperatorAlgebra.v` | Finite-dimensional real matrix machinery for the Holevo bound; the spectral interface is a parameter |
-| `HolevoDimensional.v` | A classical dimensional bound shaped like Holevo: `log_2 n` yes/no questions for `n` outcomes |
-| `HolevoTwoQubit.v` | Holevo's bound at d = 2: `chi <= ln 2` for binary ensembles of real 2x2 density matrices |
-| `HolevoGeneralD.v` | Holevo's bound at general finite dimension: `chi <= ln d` for binary ensembles of real d x d density matrices, with the spectral interface as a hypothesis |
-
-## Load-bearing exports cited from the README
-
-- `column_contractive_iff_npa_psd`: chain claim
-- `algebraically_coherent_tsirelson_general` (lives in [`category/`](../category/))
-- `tsirelson_from_row_bounds`, `tsirelson_rational_lower_witness`, `master_tsirelson_conditional`
+- `npa_psd_iff_column_contractive`, `column_contractive_check_witness_npa_psd`
+- `algebraically_coherent_tsirelson_general` (in [`category/`](../category/))
+- `tsirelson_from_row_bounds`, `tsirelson_tight`
 
 ## Imports
 
-`foundation/`, `mu_calculus/`, `category/`, `nfi/`, `curvature/`.
+The Coq standard library (Reals, QArith, Lra, Psatz), and `category/` for the
+algebraic bound.

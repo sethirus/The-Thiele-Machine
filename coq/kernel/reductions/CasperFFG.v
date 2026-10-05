@@ -47,9 +47,9 @@
     THE USE OR OTHER DEALINGS WITH THE SOFTWARE. *)
 
 (* SCOPE NOTE: standalone proof scope. This is a model of the Casper FFG
-   specification, ported from its authors' proof. It imports no VM
+   specification, ported from its authors' proof. It imports no machine
    semantics on purpose: it is compared with the record axis in prose and
-   in CasperRecordReading, not built from the VM. *)
+   in CasperRecordReading, not built from a machine. *)
 
 From Coq Require Import Arith.PeanoNat Lia Relations.
 

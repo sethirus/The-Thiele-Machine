@@ -1,7 +1,8 @@
-(** CHSHCouplingBridge: connecting categorical coupling language to CHSH bounds.
+(** CHSHCouplingBridge: connecting coupling language to CHSH bounds.
 
     This file establishes the precise connection between:
-    - Morphism coupling separability (CategoryLaws.v)
+    - Coupling separability (a coupling is a list of source-target pairs,
+      separable when each source has one target)
     - CHSH statistical bounds (CHSHStatisticalBridge.v)
 
     The key structural facts proved here:
@@ -35,12 +36,20 @@
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.
 From Coq Require Import QArith QArith.Qabs.
-From Kernel Require Import VMState.
-From Kernel Require Import CategoryLaws.
-From Kernel Require Import VMStep.
+From Kernel Require Import CHSHColumnCheck.
 From Kernel Require Import CHSHStatisticalBridge.
 
+(* PROOF SCOPE: standalone algebra. Couplings as finite relations and the
+   CHSH statistic of trial counts; no machine is fixed. *)
+
 Local Open Scope nat_scope.
+
+(** A coupling relates sources to targets. *)
+Definition Coupling := list (nat * nat).
+
+(** A coupling is separable when every source has at most one target. *)
+Definition separable_coupling (r : Coupling) : Prop :=
+  forall a c1 c2, In (a, c1) r -> In (a, c2) r -> c1 = c2.
 
 (** The settings-outcome coupling: maps each of the 4 CHSH settings
     (encoded: setting (a,b) → 2a+b ∈ {0,1,2,3}) to outcome types
@@ -265,21 +274,3 @@ Proof.
   intros wc a0 a1 b0 b1 Ha0 Ha1 Hb0 Hb1 Hviolation [Hlc _].
   exact (chsh_stat_violation_not_local wc Hviolation a0 a1 b0 b1 Ha0 Ha1 Hb0 Hb1 Hlc).
 Qed.
-
-(** ** What this establishes for the Thiele Machine.
-
-    MORPH_ASSERT certifies that a morphism EXISTS with the claimed coupling data.
-    A morphism coupling between two modules represents potential correlations.
-
-    Locally factorizable morphisms: the coupling between module A's cells and
-    module B's cells factors as fA × fB (each side determines its response
-    independently). These give locally consistent CHSH strategies and produce
-    S ≤ 2.
-
-    The CHSH violation (S > 2): no locally factorizable morphism coupling can
-    explain the statistics. If a certified morphism is asserted with coupling data
-    that witnesses S > 2, the certification is proof that the correlations are
-    non-local, beyond what any locally factorizable coupling can produce.
-
-    This gives the morphism coupling language a precise CHSH semantics:
-    the no-go theorem for locally factorizable couplings under CHSH violation. *)

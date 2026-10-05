@@ -24,73 +24,69 @@ abstract: >-
   Machine is an abstract model of computation, a machine the way Turing's is,
   and this work is an argument made with it about which distinctions an
   account of computation should preserve. It is not a CPU, an instruction set,
-  or category theory. Two machines here are witnesses, not the subject: a
+  or category theory. The machine here is a witness, not the subject: a
   minimal two-counter machine whose commitments are earned, where every
   certified run from a clean start contains a passing check of the committed
-  claim and costs at least three, and a 51-opcode VM with hardware, a test
-  bench that prices commitments without checking that they were earned. The
-  small machine is Thiele-complete, computing everything Minsky's two-counter
-  machines can while it keeps its record and pays its toll, and a universal
-  Thiele machine built on it runs any of its programs as a guest, with the
-  guest's record kept and its toll collected by the host's own step. A
-  computation gives
-  you an answer. What did it establish on the way there? Which distinctions
-  did it keep? What did it cost to establish them? Certification is one point
-  I could pin down. The machine carries structural state, a cost ledger, and
-  rules for particular events. Its proofs show exactly what specified
-  observations lose. A full encoding can preserve those distinctions; the
-  question is which ones a model should keep. The formal development
-  includes accounting laws for systems satisfying A2, pricing adequacy for
-  designated events, ledger uniqueness for a fixed schedule, observation
-  adequacy, and exact conditions for descent from instruction traces to
-  reachable-state simulations. A finite family of unit event floors can share
-  one charge. Retaining history makes a deterministic step injective without
-  changing its observed transition. On a finite state space that escape is
-  closed: a certificate no step revokes can only be switched on by a step
-  that merges states, so pricing merges, as Landauer's principle does in
-  the worst case over what the machine might hold, yields A2; the heat
-  comes from uncertainty about the state, and under Landauer's principle a known state owes none. Priced per halving, switching k states on beside m
-  certified ones costs at least log2((m+k)/m), and on finite hardware
-  that prices merges the events that must be priced are exactly the merges, with every
-  permanent-record write among them. The same bound holds in bits of
-  Shannon entropy, and a finite fragment of the VM is such a machine,
-  run by the VM at exactly its merge price; in the full VM every certification flip is
-  a priced merge while JUMP 0 0 is a free merge, so it does not price every merge. An exact price for
-  certification cannot be computed from a window in which a certifying
-  step and a non-certifying one look alike, and the VM has such a pair.
-  Three results carry the weight of the structural question: every
-  deterministic machine can carry the record axis, as itself plus a latch
-  on an event it reaches; on the VM the record cannot be recovered from
-  the named windows; and on finite hardware a step that writes a permanent
-  record merges states, so pricing merges prices the write. A record that never
-  switches off and is driven by the base computation is a latch on one event; both premises are essential. Which
-  event is latched is the pointer question; no theorem selects one uniquely. Consensus, exact observation,
-  and coordinator-free evolution do not force permanence; the pointer criterion
-  is a conjecture.
-  Finite growing records decompose into threshold latches, although a single-latch
-  decomposition is false. Scoped RFC 9162, PCC, addressed-RAM,
-  reversible-update, and TPM-interface results delimit the real-system claims.
-  The VM guest Rice reduction, numeric decoding, verified dispatch, and semantic
-  s-m-n specialization are proved, and so is the guest's internal
-  recursion theorem, with the evaluator running as guest code; for the full
-  VM, a fixed point for every map on programs up to equal thousand-step runs
-  is false;
-  the local cost-semantics correspondences are not
-  full cost-framework embeddings. The two-state calorimeter protocol computes
-  exact heat while proving that its population dynamics do not determine the
-  energy scale. Physical calibration requires thermal and device premises. The
-  observer-map counterexample is model-dependent. No surveyed external consequence satisfied
-  all four novelty and applicability criteria.
-  Those are mathematical answers with
-  explicit premises. The repository contains the Coq kernel, an extracted
-  OCaml runner, a Kami/Bluespec/Verilog hardware development whose CPU
-  implements 47 of the 51 opcodes with 32-bit words and has run on no
-  physical board, the monograph,
-  and the mathematical specification. The assumption receipt covers 14,589
+  claim, a commitment to that same claim, and a certificate, and costs at
+  least three. Thiele-complete asks for four things: a universal base whose
+  moves are free and cannot touch the record, a record raised only by an
+  earned check, commitment and certificate of one claim, an exact toll, and a
+  check that can fail. The small machine meets it, and every clock-style
+  machine fails it. Every Thiele-complete machine hides its record and its
+  ledger from its own window. A universal machine U, one fixed program of
+  the small machine's own instructions, runs every program of the small
+  machine from every start, halts exactly when its guest halts, raises its
+  flag by its own check, commit and certificate exactly when the guest would,
+  and keeps the guest's ledger mark for mark where the runs line up. A
+  computation gives you an answer. What did it establish on the way there?
+  Which distinctions did it keep? What did it cost to establish them?
+  Certification is one point I could pin down. Its proofs show exactly what
+  specified observations lose. A full encoding can preserve those
+  distinctions; the question is which ones a model should keep. The formal
+  development includes accounting laws for systems satisfying A2, pricing
+  adequacy for designated events, observation adequacy, and a finite family
+  of unit event floors that share one charge. Retaining history makes a
+  deterministic step injective without changing its observed transition. On
+  a finite state space that escape is closed: a certificate no step revokes
+  can only be switched on by a step that merges states, so pricing merges,
+  as Landauer's principle does in the worst case over what the machine might
+  hold, yields A2; the heat comes from uncertainty about the state, and under
+  Landauer's principle a known state owes none. Priced per halving, switching
+  k states on beside m certified ones costs at least log2((m+k)/m), and on
+  finite hardware that prices merges the events that must be priced are
+  exactly the merges, with every permanent-record write among them. The same
+  bound holds in bits of Shannon entropy, and an eight-state machine meets
+  both premises as theorems. An exact price for certification cannot be
+  computed from a window in which a certifying step and a non-certifying one
+  look alike. Three results carry the weight of the structural question:
+  every deterministic machine can carry the record axis, as itself plus a
+  latch on an event it reaches; every Thiele-complete machine hides its
+  record from its own window; and on finite hardware a step that writes a
+  permanent record merges states, so pricing merges prices the write. A
+  record that never switches off and is driven by the base computation is a
+  latch on one event; both premises are essential. Which event is latched is
+  the pointer question; no theorem selects one uniquely. Consensus, exact
+  observation, and coordinator-free evolution do not force permanence; the
+  pointer criterion is a conjecture. Finite growing records decompose into
+  threshold latches, although a single-latch decomposition is false. Scoped
+  RFC 9162, PCC, addressed-RAM, reversible-update, and TPM-interface results
+  delimit the real-system claims. The lambda calculus L has its
+  recursion theorem and Rice's theorem, proved from its reduction rules; the local
+  cost-semantics correspondences are not full cost-framework embeddings. The
+  two-state calorimeter protocol computes exact heat while proving that its
+  population dynamics do not determine the energy scale. Physical
+  calibration requires thermal and device premises. The observer-map
+  counterexample is model-dependent. No surveyed external consequence
+  satisfied all four novelty and applicability criteria. Those are
+  mathematical answers with explicit premises. The repository contains the
+  Coq development, the small machine, the monograph, and the mathematical
+  specification; an earlier virtual machine and hardware development is
+  preserved at tag v3.3.0. The assumption receipt covers 14,589
   statements across 511 files: 7,009 are closed under the global context, 7,580 depend on
   standard-library axioms, and none depend on project-local or third-party
-  axioms. The standard-library dependencies use five named constants. Generic paid certification establishes accounting; semantic truth
-  requires a sound checker. Hardware bridges retain their stated
-  representation and compiler boundaries. The physical and foundational
-  interpretations are not claims of the formal corpus. The software is licensed
-  Apache-2.0. The monograph and distillation are licensed CC-BY-SA-4.0.
+  axioms. The receipt generator writes these counts on Linux. Paid
+  certification alone establishes accounting; semantic truth requires a sound
+  checker, and on the small machine every certificate rests on one. The
+  physical and foundational interpretations are not claims of the formal
+  corpus. The software is licensed Apache-2.0. The monograph and
+  distillation are licensed CC-BY-SA-4.0.
