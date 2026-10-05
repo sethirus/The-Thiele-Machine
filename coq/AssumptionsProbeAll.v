@@ -200,6 +200,7 @@ Require Kernel.CrossBaseGranularityTransCore.
 Require Kernel.DagRestriction.
 Require Kernel.Definitions.
 Require Kernel.EarnedCoreLinks.
+Require Kernel.EarnedGenericLinks.
 Require Kernel.EventGeneralization.
 Require Kernel.EventGeneralizationTargets.
 Require Kernel.EventSwapCore.
@@ -11053,6 +11054,22 @@ Print Assumptions Kernel.EarnedCoreLinks.earned_core_record_write.
 Print Assumptions Kernel.EarnedCoreLinks.earned_core_adequate.
 Print Assumptions Kernel.EarnedCoreLinks.earned_core_honest.
 Print Assumptions Kernel.EarnedCoreLinks.earned_core_is_latch.
+(* === Kernel.EarnedGenericLinks : 15 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.EarnedGenericLinks.generic_cs_run.
+Print Assumptions Kernel.EarnedGenericLinks.generic_cs_cost.
+Print Assumptions Kernel.EarnedGenericLinks.earned_generic_floor.
+Print Assumptions Kernel.EarnedGenericLinks.earned_generic_certified_floor.
+Print Assumptions Kernel.EarnedGenericLinks.earned_generic_cs_sound.
+Print Assumptions Kernel.EarnedGenericLinks.sorted_machine_floor.
+Print Assumptions Kernel.EarnedGenericLinks.sorted_certified_floor.
+Print Assumptions Kernel.EarnedGenericLinks.sorted_cs_sound.
+Print Assumptions Kernel.EarnedGenericLinks.sorted_cs_demo_certifies.
+Print Assumptions Kernel.EarnedGenericLinks.sorted_cs_demo_refused.
+Print Assumptions Kernel.EarnedGenericLinks.complete_cs_run.
+Print Assumptions Kernel.EarnedGenericLinks.thiele_complete_floor.
+Print Assumptions Kernel.EarnedGenericLinks.earned_complete_agrees.
+Print Assumptions Kernel.EarnedGenericLinks.generic_complete_agrees.
+Print Assumptions Kernel.EarnedGenericLinks.sorted_complete_agrees.
 (* === Kernel.EventGeneralization : 134 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.EventGeneralization.eg_next_id_monotone.
 Print Assumptions Kernel.EventGeneralization.eg_graph_latchable.
