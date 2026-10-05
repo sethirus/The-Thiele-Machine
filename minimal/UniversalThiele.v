@@ -95,8 +95,8 @@
          mirror means the guest ran a passing CHECK, then COMMIT of the same
          claim, then CERTIFY  [host_mirror_earned].
 
-    Dependencies: Coq standard library and EarnedCore.v. No axioms, no
-    Admitted.                                                              *)
+    Dependencies: Coq standard library and EarnedCore.v. No axioms and no
+    unfinished proofs.                                                              *)
 
 (* SCOPE NOTE: foundation connectivity gap suppressed, on purpose, as in
    EarnedCore.v: this file imports nothing outside the standard library and
@@ -223,6 +223,7 @@ Proof. intros h [j | b]; simpl; [| destruct (E.err (hcore h))]; reflexivity. Qed
 Lemma hmu_conservation : forall h i, hmu (hexec h i) = hmu h + hcost i.
 Proof. intros h [j | b]; simpl; [| destruct (E.err (hcore h))]; reflexivity. Qed.
 
+(* SAFE: short on purpose: induction on the trace with hmu_conservation, proved above. *)
 Lemma hmu_conservation_trace : forall tr h, hmu (hrun tr h) = hmu h + htotal_cost tr.
 Proof.
   induction tr; intros; simpl; [lia |]. rewrite IHtr, hmu_conservation. lia.

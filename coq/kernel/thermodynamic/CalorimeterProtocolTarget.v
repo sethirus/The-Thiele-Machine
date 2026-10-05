@@ -4,7 +4,7 @@ From Coq Require Import Reals.
 Local Open Scope R_scope.
 
 (* SCOPE NOTE: standalone proof scope.  The parameters are physical inputs;
-   no VM ledger fixes their units. *)
+   no machine ledger fixes their units. *)
 
 Definition two_state_hamiltonian (Delta : R) (excited : bool) : R :=
   if excited then Delta else 0.

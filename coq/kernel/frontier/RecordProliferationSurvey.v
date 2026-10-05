@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. These measurements concern fixed
-    observer maps, not VM semantics or real-system security.
+    observer maps, not a machine's semantics or real-system security.
 
     Measurements over the observer maps and the event-swap check. *)
 

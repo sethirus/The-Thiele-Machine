@@ -20,12 +20,32 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 # Critical files that must remain free of local assumptions and admitted proofs.
 ZERO_ASSUMPTION_FILES = [
-    "coq/kernel/foundation/VMState.v",
-    "coq/kernel/foundation/VMStep.v",
-    "coq/kernel/mu_calculus/MuInitiality.v",
-    "coq/kernel/foundation/MuCostModel.v",
-    "coq/kernel/foundation/MuLedgerConservation.v",
+    "coq/kernel/nfi/UniversalCertificationCost.v",
+    "coq/kernel/foundation/StructuralCore.v",
+    "coq/kernel/foundation/StructuralRecordAxis.v",
+    "coq/kernel/nfi/PermanentCertification.v",
+    "coq/kernel/nfi/PermanentRecordPricing.v",
+    "coq/kernel/foundation/EarnedCoreLinks.v",
+    "coq/kernel/foundation/EarnedGenericLinks.v",
+    "coq/kernel/foundation/UniversalThieleLinks.v",
+    "coq/kernel/foundation/UniversalInterpreterLinks.v",
+    "coq/kernel/foundation/PricedHostLinks.v",
+    "coq/kernel/foundation/SmallChshLinks.v",
+    "minimal/EarnedCore.v",
+    "minimal/ThieleComplete.v",
 ]
+
+# The small machine in minimal/ and the foundation files carry every headline
+# theorem, so they are held to the same rule: every .v file there is scanned
+# without a list to keep in step.
+ZERO_ASSUMPTION_FILES += sorted(
+    {
+        path.relative_to(REPO_ROOT).as_posix()
+        for pattern_dir in ("minimal", "coq/kernel/foundation")
+        for path in (REPO_ROOT / pattern_dir).glob("*.v")
+    }
+    - set(ZERO_ASSUMPTION_FILES)
+)
 
 AXIOM_PATTERN = re.compile(r"\bAxiom\b")
 TOPLEVEL_ASSUMPTION_PATTERN = re.compile(

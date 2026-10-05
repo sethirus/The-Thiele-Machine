@@ -104,13 +104,6 @@ def test_all_maintained_claim_documents_resolve():
     assert not failures, f"unresolved maintained-document citations: {failures}"
 
 
-def test_commitment_contract_has_no_field_projection_theorems():
-    findings = audit_rules().scan_self_referential_record(
-        ROOT / "coq/VerifierEscape_Hardness.v"
-    )
-    assert not findings, [finding.message for finding in findings]
-
-
 def test_recursion_development_has_no_mislabelled_invariance():
     findings = audit_rules().scan_definitional_invariance(
         ROOT / "coq/kernel/foundation/LRecursion.v"
@@ -162,7 +155,6 @@ def test_commitment_contract_is_not_described_as_a_hardness_result():
         ROOT / "monograph/monograph.tex",
         ROOT / "monograph/thiele_machine_math_spec.tex",
         ROOT / "docs/THEOREM_MEANINGS.md",
-        ROOT / "coq/VerifierEscape_Hardness.v",
     ]
     forbidden = ("hardness hypothesis", "weaker soundness guarantee")
     found = {
@@ -173,24 +165,10 @@ def test_commitment_contract_is_not_described_as_a_hardness_result():
     assert not found, f"commitment contract is still mislabeled as hardness: {found}"
 
 
-def test_mu_cost_file_does_not_claim_to_derive_the_vm_schedule():
-    source = (ROOT / "coq/kernel/mu_calculus/MuCostDerivation.v").read_text()
-    forbidden = [
-        "delta MUST equal",
-        "parameters are not arbitrary",
-        "For LASSERT: mu_delta =",
-        "For PNEW/PSPLIT/PMERGE: mu_delta =",
-        "The circularity in MuInitiality.v is broken",
-    ]
-    present = [phrase for phrase in forbidden if phrase in source]
-    assert not present, f"unproved VM-cost claims remain: {present}"
-
-
 def test_repository_coq_build_entrypoints_are_serialized():
     paths = [
         ROOT / ".githooks/pre-commit",
         ROOT / "Makefile",
-        ROOT / "scripts/check_isa_proof_freshness.sh",
         ROOT / "scripts/inquisitor.py",
         ROOT / "TECHNICAL_DISCLOSURE.md",
     ]
@@ -236,8 +214,6 @@ def test_domain_wrappers_disclose_their_abstract_scope():
     required = {
         ROOT / "coq/kernel/reductions/GasMetering.v": "domain-inspired abstract wrapper",
         ROOT / "coq/kernel/reductions/PoSFinality.v": "synthetic explicit-finalize Boolean gadget",
-        ROOT / "coq/kernel/reductions/TEEAttestation.v": "abstract transcript-plus-nat wrapper",
-        ROOT / "coq/kernel/reductions/ProofCarryingVerifier.v": "carried-mu-claim wrapper",
     }
     missing = {
         str(path.relative_to(ROOT)): phrase
@@ -248,17 +224,17 @@ def test_domain_wrappers_disclose_their_abstract_scope():
 
 
 def test_factorization_prose_keeps_the_collision_premises():
+    # The verifier factorisation result keeps its collision premises wherever
+    # a document states it: the disclosure records it (historically), and the
+    # specification must carry the premise whenever it discusses verifiers.
     technical = (ROOT / "TECHNICAL_DISCLOSURE.md").read_text()
     math_spec = (ROOT / "monograph/thiele_machine_math_spec.tex").read_text()
     assert "supplied colliding transcripts" in technical
-    assert "supplied colliding transcripts" in math_spec
+    if "verifier" in math_spec.lower():
+        assert "supplied colliding transcripts" in math_spec
     for text in (technical, math_spec):
         assert "substrate/hardness/interaction trichotomy" not in text
-    verifier_sources = [
-        ROOT / "coq/VerifierModel.v",
-        ROOT / "coq/VerifierImpossibility.v",
-        ROOT / "coq/VerifierExhaustiveness.v",
-    ]
+    verifier_sources = sorted(ROOT.glob("coq/**/Verifier*.v"))
     assert all("closes the trichotomy" not in path.read_text() for path in verifier_sources)
 
 
@@ -276,15 +252,3 @@ def test_tpm_quote_model_records_its_scope_and_final_spec_pin():
     assert "real protocol" not in source
     assert "starts at zero" not in source
     assert "Boot-time attestation" not in source
-
-
-def test_unbounded_vm_is_not_described_as_hardware_faithful():
-    source = (ROOT / "coq/kernel/foundation/VMUnboundedStep.v").read_text()
-    forbidden = (
-        "hardware-faithful",
-        "matches the hardware's finite register file",
-        "whenever both operands fit in 64 bits",
-        "proved per operation",
-    )
-    present = [phrase for phrase in forbidden if phrase in source]
-    assert not present, f"unbounded VM retains a false word-width bridge: {present}"

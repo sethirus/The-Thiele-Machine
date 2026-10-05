@@ -1,0 +1,397 @@
+(* MultiThiele2.v *)
+Theorem ent2_mmachine_complete : thiele_complete_with ent2_minterface.
+
+(* BitSearchMember2.v *)
+Theorem ent2_search_certifies_iff : forall ans v, ans <> [] -> length ans <= length v ->
+  M.cert (mrun (ent2_qtrace ans) (ent2_world v)) = true <->
+  (length ans <= 16 /\ exists u, v = ans ++ u).
+
+(* BitSearchMember2.v *)
+Theorem ent2_search_posterior_is_certified : forall ans m, ans <> [] -> length ans <= 16 ->
+  forall v, In v (ent2_prior (length ans + m)) ->
+    (In v (ent2_post ans m) <-> M.cert (mrun (ent2_qtrace ans) (ent2_world v)) = true).
+
+(* BitSearchMember2.v *)
+Theorem ent2_no_search_past_16 : forall ans v, ans <> [] -> 16 < length ans ->
+  M.cert (mrun (ent2_qtrace ans) (ent2_world v)) = false.
+
+(* BitSearch2.v *)
+Theorem ent2_questions_cap : forall (s0 : mstate) tr,
+  M.clean_start s0 -> M.cert (mrun tr s0) = true ->
+  exists pre post, tr = pre ++ M.CERTIFY :: post /\ ent2_count_checks pre <= 16.
+
+(* BitSearchMember2.v *)
+Theorem ent2_bit_search : forall (ans u : list bool),
+  ans <> [] -> length ans <= 16 ->
+  ent_strictly_stronger
+    (ent_member ent_bools_eqb (ent2_agree ans) (ent2_post ans (length u)))
+    (ent_member ent_bools_eqb (ent2_agree ans) (ent2_prior (length ans + length u))) /\
+  earned_chain ent2_minterface (ent2_world (ans ++ u)) (ent2_qtrace ans) /\
+  length (ent2_prior (length ans + length u)) = 2 ^ (length ans + length u) /\
+  length (ent2_post ans (length u)) = 2 ^ length u /\
+  Nat.log2_up (length (ent2_prior (length ans + length u))) -
+    Nat.log2_up (length (ent2_post ans (length u))) = length ans /\
+  record_moves ent2_minterface (ent2_qtrace ans) = length ans + 2 /\
+  M.mu (mrun (ent2_qtrace ans) (ent2_world (ans ++ u))) -
+    M.mu (ent2_world (ans ++ u)) = length ans + 2 /\
+  Nat.log2_up (length (ent2_prior (length ans + length u))) -
+    Nat.log2_up (length (ent2_post ans (length u)))
+    <= M.mu (mrun (ent2_qtrace ans) (ent2_world (ans ++ u))) -
+       M.mu (ent2_world (ans ++ u)).
+
+(* BitSearchMember2.v *)
+Theorem ent2_search_lands : forall (ans u : list bool) (Hne : ans <> []) (Hle : length ans <= 16),
+  Nat.log2_up (length (ent2_prior (length ans + length u))) -
+    Nat.log2_up (length (ent2_post ans (length u)))
+  <= M.mu (mrun (ent2_qtrace ans) (ent2_world (ans ++ u))) -
+     M.mu (ent2_world (ans ++ u)).
+
+(* BitSearchMember2.v *)
+Theorem ent2_search_questions_floor : forall (ans : list bool) (m : nat),
+  ans <> [] ->
+  let prior := map ent2_world (ent_all_bools (length ans + m)) in
+  let I := ent2_minterface in
+  let tr := ent2_qtrace ans in
+  length (ent_checked I tr) = length ans /\
+  Nat.log2_up (length prior) - Nat.log2_up (2 ^ m) = length ans /\
+  Nat.log2_up (length prior) - Nat.log2_up (2 ^ m) <= length (ent_checked I tr) /\
+  length (ent_checked I tr) <= record_moves I tr.
+
+(* BitSearchObserved2.v *)
+Theorem ent2_search_partition : forall ans m,
+  ent2_partition ent_bools_eqb (fun x => skipn (length ans) x) (ent_complete (length ans))
+    (ent2_prior (length ans + m)) (ent2_post ans m).
+
+(* BitSearchObserved2.v *)
+Theorem ent2_search_observed : forall (ans u : list bool),
+  ans <> [] -> length ans <= 16 ->
+  ent_strictly_stronger
+    (ent_member ent_bools_eqb (ent2_agree ans) (ent2_post ans (length u)))
+    (ent_member ent_bools_eqb (ent2_agree ans) (ent2_prior (length ans + length u))) /\
+  Nat.log2_up (length (ent2_prior (length ans + length u))) -
+    Nat.log2_up (length (ent2_post ans (length u))) = length ans /\
+  record_moves ent2_minterface (ent2_checks ans 0) = length ans /\
+  M.mu (mrun (ent2_checks ans 0) (ent2_world (ans ++ u))) -
+    M.mu (ent2_world (ans ++ u)) = length ans /\
+  M.cert (mrun (ent2_checks ans 0) (ent2_world (ans ++ u))) = false /\
+  ~ earned_chain ent2_minterface (ent2_world (ans ++ u)) (ent2_checks ans 0).
+
+(* EntitlementMore2.v *)
+Theorem ent2_weighted_bits : forall {X : Type} (T : ent_tree) (prior post : list (X * nat)),
+  0 < ent2_mass post -> ent2_wcovers T prior post ->
+  Nat.log2_up (ent2_mass prior) - Nat.log2_up (ent2_mass post) <= ent_depth T.
+
+(* EntitlementMore2.v *)
+Theorem ent2_wreduction_covers : forall {X O : Type} (r : X -> O) (T : ent_tree)
+    (prior post : list (X * nat)),
+  ent2_wreduction r T prior post -> ent2_wcovers T prior post.
+
+(* EntitlementMore2.v *)
+Theorem ent2_weighted_cs : forall (C : CertificationSystem) {X : Type}
+    (tr : list (cs_instr C)) (prior post : list (X * nat)) (T : ent_tree),
+  0 < ent2_mass post -> ent2_wcovers T prior post ->
+  ent_depth T <= ent_cs_paid C tr ->
+  Nat.log2_up (ent2_mass prior) - Nat.log2_up (ent2_mass post) <= ent_cs_bill C tr.
+
+(* EntitlementMore2.v *)
+Theorem ent2_weighted_representation :
+  forall (M : machine) (I : thiele_interface M) (X O : Type)
+         (s0 : m_state M) (tr : list (m_move M))
+         (d : list (m_move M) -> O) (obs r : X -> O) (eqb : O -> O -> bool)
+         (prior post : list (X * nat)) (T : ent_tree),
+    thiele_complete_with I ->
+    (forall o1 o2, eqb o1 o2 = true <-> o1 = o2) ->
+    ent_strict_sublist (map fst post) (map fst prior) ->
+    (exists w, In w (map fst prior) /\ ~ In w (map fst post) /\
+               ent_distinguishes obs w (map fst post)) ->
+    ti_clean I s0 ->
+    ent_certified I s0 tr d (ent_member eqb obs (map fst post)) ->
+    ent_depth T <= record_moves I tr ->
+    0 < ent2_mass post ->
+    ent2_wreduction r T prior post ->
+    ent_strictly_stronger (ent_member eqb obs (map fst post))
+                          (ent_member eqb obs (map fst prior)) /\
+    earned_chain I s0 tr /\
+    Nat.log2_up (ent2_mass prior) - Nat.log2_up (ent2_mass post) <= record_moves I tr /\
+    record_moves I tr = ti_ledger I (run M tr s0) - ti_ledger I s0 /\
+    ti_ledger I s0 + 3 <= ti_ledger I (run M tr s0).
+
+(* EntitlementMore2.v *)
+Theorem ent2_rise_independent : forall (M : machine) (I : thiele_interface M),
+  exact_toll_clause I -> forall tr s s',
+    ti_ledger I (run M tr s) - ti_ledger I s = ti_ledger I (run M tr s') - ti_ledger I s'.
+
+(* EntitlementMore2.v *)
+Theorem ent2_expected_rise_exact : forall (M : machine) (I : thiele_interface M),
+  exact_toll_clause I -> forall tr (prior : list (m_state M * nat)),
+    ent2_expected_rise I tr prior = ent2_mass prior * record_moves I tr.
+
+(* EntitlementMore2.v *)
+Theorem ent2_weighted_expected_bound :
+  forall (M : machine) (I : thiele_interface M),
+    exact_toll_clause I ->
+    forall (tr : list (m_move M)) (prior post : list (m_state M * nat)) (T : ent_tree),
+      0 < ent2_mass post -> ent2_wcovers T prior post ->
+      ent_depth T <= record_moves I tr ->
+      (Nat.log2_up (ent2_mass prior) - Nat.log2_up (ent2_mass post)) * ent2_mass prior
+        <= ent2_expected_rise I tr prior.
+
+(* EntitlementMore2.v *)
+Lemma ent2_mass_uniform : forall {X : Type} (l : list X),
+  ent2_mass (map (fun x => (x, 1)) l) = length l.
+
+(* EntitlementMore2.v *)
+Theorem ent2_cover_sum : forall (r : X -> O) (prior post : list X),
+  (forall x, In x prior -> exists t, In t post /\ r x = r t) ->
+  length prior <= ent2_fibre_sum r prior post.
+
+(* EntitlementMore2.v *)
+Theorem ent2_partition_old_iff : forall r T prior post,
+  ent2_partition_old r T prior post <-> ent2_partition r T prior post.
+
+(* EntitlementMore2.v *)
+Theorem ent2_partition_to_reduction : forall r T prior post,
+  ent2_partition r T prior post -> ent_reduction r T prior post.
+
+(* EntitlementMore2.v *)
+Theorem ent2_partition_bits : forall r T (prior post : list X),
+  0 < length post -> ent2_partition r T prior post ->
+  Nat.log2_up (length prior) - Nat.log2_up (length post) <= ent_depth T.
+
+(* EntitlementMore2.v *)
+Theorem ent2_reduction_not_partition :
+  exists (prior post : list nat) (r : nat -> nat) (T : ent_tree),
+    ent_reduction r T prior post /\
+    ~ ent2_partition Nat.eqb r T prior post.
+
+(* TimeTax2.v *)
+Theorem ent2_free_run_shift : forall M n e0 e1 x x',
+  n <= fst (snd x) -> n <= fst (snd x') -> ent2_rel e0 e1 x x' ->
+  ent2_rel e0 e1 (E.mrun n M x) (E.mrun n M x').
+
+(* TimeTax2.v *)
+Theorem ent2_free_cannot_decide_fast : forall M n m, n < m -> ~ ent2_decides M n m.
+
+(* TimeTax2.v *)
+Theorem ent2_ladder_decides : forall m a b,
+  (fst (E.mrun m (ent2_ladder m) (1, (a, b))) = 2 * m + 1 <-> m <= a) /\
+  (m <= a -> E.mrun m (ent2_ladder m) (1, (a, b)) = (2 * m + 1, (a - m, b))).
+
+(* TimeTax2.v *)
+Theorem ent2_machine_free_cannot_decide : forall M n m, n < m -> ~ ent2_machine_decides M n m.
+
+(* TimeTax2.v *)
+Theorem ent2_machine_ladder_decides : forall m,
+  ent2_machine_decides (ent2_ladder m) m m.
+
+(* TimeTax2.v *)
+Theorem ent2_ladder_free : forall m n a b,
+  E.mu (E.run_prog n (E.compile (ent2_ladder m)) (E.start a b)) = 0.
+
+(* TimeTax2.v *)
+Theorem ent2_chain_decides : forall m a b,
+  E.cert (E.run (ent2_chain m) (E.start a b)) = Nat.leb m a /\
+  E.mu (E.run (ent2_chain m) (E.start a b)) = 3 /\
+  length (ent2_chain m) = 3.
+
+(* TimeTax2.v *)
+Theorem ent2_time_tax : forall m lambda,
+  (forall M n, n < m -> ~ ent2_machine_decides M n m) /\
+  (ent2_machine_decides (ent2_ladder m) m m /\
+   forall n a b, E.mu (E.run_prog n (E.compile (ent2_ladder m)) (E.start a b)) = 0) /\
+  (forall a b, E.cert (E.run (ent2_chain m) (E.start a b)) = Nat.leb m a /\
+               E.mu (E.run (ent2_chain m) (E.start a b)) = 3) /\
+  (length (ent2_chain m) + lambda * 3 < m + lambda * 0 <-> 3 + 3 * lambda < m).
+
+(* TimeTax2.v *)
+Theorem ent2_claim_strength_free : forall p c,
+  E.total_cost [E.CHECK p c; E.COMMIT p c; E.CERTIFY] = 3.
+
+(* TimeTax2.v *)
+Theorem ent2_tax_pow_ge : forall N k, 2 <= N -> 1 <= k -> k * N <= N ^ k.
+
+(* TimeTax2.v *)
+Theorem ent2_tax_pow_gap : forall N k, 4 <= N -> 2 <= k -> k * N + k < N ^ k.
+
+(* TimeTax2.v *)
+Theorem ent2_tax_ratio_grows : forall N k, 2 <= N -> 2 <= k -> N ^ (k + 1) * k > N ^ k * (k + 1).
+
+(* TimeTax2.v *)
+Theorem ent2_tax_last_saves_zero : forall N k, 1 <= k -> (k - 1) * N + N = k * N.
+
+(* TimeTax2.v *)
+Theorem ent2_tax_sighted_wins : forall N L R, 3 <= N -> 1 <= L -> L + R + 2 < L * N + R + 1.
+
+(* TimeTax2.v *)
+Theorem ent2_tax_sighted_loses_at_zero : forall N R, 0 * N + R + 1 < 0 + R + 2.
+
+(* EntitlementMore2.v *)
+Theorem ent2_observed_representation :
+  forall (M : machine) (I : thiele_interface M) (X O : Type)
+         (s0 : m_state M) (tr : list (m_move M))
+         (d : list (m_move M) -> O) (obs r : X -> O) (eqb : O -> O -> bool)
+         (prior post : list X) (T : ent_tree),
+    exact_toll_clause I ->
+    (forall o1 o2, eqb o1 o2 = true <-> o1 = o2) ->
+    ent_strict_sublist post prior ->
+    (exists w, In w prior /\ ~ In w post /\ ent_distinguishes obs w post) ->
+    ent_member eqb obs post (d tr) = true ->
+    ent_depth T <= record_moves I tr ->
+    0 < length post ->
+    ent_reduction r T prior post ->
+    ent_strictly_stronger (ent_member eqb obs post) (ent_member eqb obs prior) /\
+    Nat.log2_up (length prior) - Nat.log2_up (length post) <= record_moves I tr /\
+    record_moves I tr = ti_ledger I (run M tr s0) - ti_ledger I s0.
+
+(* EntitlementMore2.v *)
+Theorem ent2_observed_partition_representation :
+  forall (M : machine) (I : thiele_interface M) (X O : Type)
+         (s0 : m_state M) (tr : list (m_move M))
+         (d : list (m_move M) -> O) (obs r : X -> O) (eqb : O -> O -> bool)
+         (prior post : list X) (T : ent_tree),
+    exact_toll_clause I ->
+    (forall o1 o2, eqb o1 o2 = true <-> o1 = o2) ->
+    ent_strict_sublist post prior ->
+    (exists w, In w prior /\ ~ In w post /\ ent_distinguishes obs w post) ->
+    ent_member eqb obs post (d tr) = true ->
+    ent_depth T <= record_moves I tr ->
+    0 < length post ->
+    ent2_partition eqb r T prior post ->
+    ent_strictly_stronger (ent_member eqb obs post) (ent_member eqb obs prior) /\
+    Nat.log2_up (length prior) - Nat.log2_up (length post) <= record_moves I tr /\
+    record_moves I tr = ti_ledger I (run M tr s0) - ti_ledger I s0.
+
+(* EntitlementMore2.v *)
+Theorem ent2_record_adds : forall (M : machine) (I : thiele_interface M),
+  thiele_complete_with I ->
+  forall s0 tr, ti_clean I s0 -> m_record M (run M tr s0) = true ->
+    earned_chain I s0 tr /\ ti_ledger I s0 + 3 <= ti_ledger I (run M tr s0).
+
+(* EntitlementMore2.v *)
+Theorem ent2_upgrade_iff : forall (M : machine) (I : thiele_interface M),
+  thiele_complete_with I ->
+  forall s0 tr, ti_clean I s0 ->
+    (m_record M (run M tr s0) = true <-> earned_chain I s0 tr).
+
+(* EntitlementMore2.v *)
+Theorem ent2_every_observed_shortcut_lands_here :
+  forall (M : machine) (I : thiele_interface M) (X O : Type)
+         (s0 : m_state M) (tr : list (m_move M)) (sc : ent2_observed_shortcut I X O s0 tr),
+    exact_toll_clause I ->
+    ent_strictly_stronger
+      (ent_member (ent2_os_eqb sc) (ent2_os_obs sc) (ent2_os_post sc))
+      (ent_member (ent2_os_eqb sc) (ent2_os_obs sc) (ent2_os_prior sc)) /\
+    Nat.log2_up (length (ent2_os_prior sc)) - Nat.log2_up (length (ent2_os_post sc))
+      <= ti_ledger I (run M tr s0) - ti_ledger I s0.
+
+(* EntitlementMore2.v *)
+Theorem ent2_observed_small_instance :
+  ent_strictly_stronger (ent_member ent_bools_eqb ent_obs ent_post)
+                        (ent_member ent_bools_eqb ent_obs ent_prior) /\
+  Nat.log2_up (length ent_prior) - Nat.log2_up (length ent_post) = 2 /\
+  E.mu (run earned_machine ent2_obs_trace ent_s0) - E.mu ent_s0 = 2 /\
+  Nat.log2_up (length ent_prior) - Nat.log2_up (length ent_post)
+    <= E.mu (run earned_machine ent2_obs_trace ent_s0) - E.mu ent_s0 /\
+  E.cert (E.run ent2_obs_trace ent_s0) = false /\
+  ~ earned_chain earned_interface ent_s0 ent2_obs_trace /\
+  ~ (ti_ledger earned_interface ent_s0 + 3
+       <= ti_ledger earned_interface (run earned_machine ent2_obs_trace ent_s0)).
+
+(* CompressionSmall2.v *)
+Theorem ent2_flips_compression_bound :
+  forall all m F,
+    frag_finite St all ->
+    frag_permanent St Mv step flag ->
+    ent2_compression_priced ->
+    NoDup F ->
+    (forall s, In s F -> flag s = false /\ flag (step s m) = true) ->
+    length F + length (frag_up St flag all) <= 2 ^ cost m * length (frag_up St flag all).
+
+(* CompressionSmall2.v *)
+Theorem ent2_flips_log_bound :
+  forall (all : list St) s m F,
+    frag_finite St all ->
+    frag_permanent St Mv step flag ->
+    ent2_compression_priced ->
+    flag (step s m) = true ->
+    NoDup F ->
+    (forall t, In t F -> flag t = false /\ flag (step t m) = true) ->
+    Nat.log2_up (length (frag_up St flag all) + length F)
+      <= cost m + Nat.log2_up (length (frag_up St flag all)).
+
+(* CompressionSmall2.v *)
+Theorem ent2_a2_from_compression :
+  forall all : list St,
+    frag_finite St all ->
+    frag_permanent St Mv step flag ->
+    ent2_compression_priced ->
+    frag_toll St Mv step flag cost.
+
+(* CompressionSmall2.v *)
+Theorem ent2_compression_priced_iff_fibres : forall all,
+  frag_finite St all ->
+  (ent2_compression_priced <->
+   forall m y, length (ent2_fibre_eq all m y) <= 2 ^ cost m).
+
+(* CompressionSmall2.v *)
+Theorem ent2_frag_compression_priced :
+  ent2_compression_priced frag_fstate frag_move frag_step frag_cost ent2_frag_eq_dec.
+
+(* CompressionSmall2.v *)
+Theorem ent2_frag_toll_by_compression :
+  frag_toll frag_fstate frag_move frag_step frag_flag frag_cost.
+
+(* CompressionSmall2.v *)
+Theorem ent2_frag_cost_minimal : forall cost' : frag_move -> nat,
+  ent2_compression_priced frag_fstate frag_move frag_step cost' ent2_frag_eq_dec ->
+  forall m, frag_cost m <= cost' m.
+
+(* CompressionSmall2.v *)
+Theorem ent2_frag_bound_attained :
+  NoDup ent2_blank_slots /\
+  (forall s, In s ent2_blank_slots -> frag_flag s = false /\ frag_flag (frag_step s FStamp) = true) /\
+  length ent2_blank_slots + length (frag_up frag_fstate frag_flag frag_all)
+    = 2 ^ frag_cost FStamp * length (frag_up frag_fstate frag_flag frag_all).
+
+(* CompressionSmall2.v *)
+Theorem ent2_small_not_compression_priced :
+  forall eq_dec : forall a b : E.state, {a = b} + {a <> b},
+    ~ ent2_compression_priced E.state E.instr E.exec E.cost eq_dec.
+
+(* CompressionSmall2.v *)
+Theorem ent2_compression_trace_floor :
+  forall (St Mv : Type) (step : St -> Mv -> St) (flag : St -> bool) (cost : Mv -> nat)
+         (eq_dec : forall a b : St, {a = b} + {a <> b}) (all : list St)
+         (Hfin : frag_finite St all) (Hperm : frag_permanent St Mv step flag)
+         (Hprice : ent2_compression_priced St Mv step cost eq_dec)
+         (tr : list Mv) (s0 : St),
+    flag s0 = false ->
+    flag (ent_cs_run (ent2_cert_system_from_compression St Mv step flag cost eq_dec all
+                        Hfin Hperm Hprice) tr s0) = true ->
+    ent_cs_bill (ent2_cert_system_from_compression St Mv step flag cost eq_dec all
+                   Hfin Hperm Hprice) tr >= 1.
+
+(* CompressionSmall2.v *)
+Theorem ent2_flip_merges_or_revokes :
+  forall (all : list St) s m,
+    frag_finite St all -> flag s = false -> flag (step s m) = true ->
+    ~ frag_injective St Mv step m \/ exists t, flag t = true /\ flag (step t m) = false.
+
+(* CompressionSmall2.v *)
+Theorem ent2_forced_priced_iff_merges :
+  forall m, ent2_forced_priced m <-> ~ frag_injective St Mv step m.
+
+(* CompressionSmall2.v *)
+Corollary ent2_permanent_flip_forced :
+  forall (all : list St) s m,
+    frag_finite St all -> ent2_permanent_at m ->
+    flag s = false -> flag (step s m) = true ->
+    ent2_forced_priced m.
+
+(* CompressionSmall2.v *)
+Theorem ent2_forced_without_permanent :
+  frag_finite ent2_tri [ET0; ET1; ET2] /\
+  ent2_tri_mark ET0 = false /\ ent2_tri_mark (ent2_tri_step ET0 tt) = true /\
+  ~ ent2_permanent_at ent2_tri unit ent2_tri_step ent2_tri_mark tt /\
+  ent2_forced_priced ent2_tri unit ent2_tri_step tt.
+

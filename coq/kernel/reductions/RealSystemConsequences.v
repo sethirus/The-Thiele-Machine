@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. These proofs close the independent
-    two-state models and do not use VM semantic anchors.
+    two-state models and do not use the kernel's semantic anchors.
 
     Proofs of the top-five narrow consequences. *)
 

@@ -1,0 +1,1564 @@
+DIGEST ae7c9bd44409c9e2143aa7c13b11399d
+FSm.SmKleene
+R3480:3483 Coq.Lists.List <> <> lib
+R3485:3489 Coq.Arith.Arith <> <> lib
+R3491:3493 Coq.micromega.Lia <> <> lib
+R3495:3498 Coq.Bool.Bool <> <> lib
+R3508:3520 Coq.Lists.List ListNotations <> mod
+R3578:3580 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R3582:3584 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R3643:3649 Undecidability.Shared.Libs.DLW.Code.subcode <> <> lib
+R3651:3653 Undecidability.Shared.Libs.DLW.Code.sss <> <> lib
+R3706:3707 Undecidability.MinskyMachines.MM <> <> lib
+R3709:3711 Undecidability.MinskyMachines.MMA <> <> lib
+R3759:3772 Undecidability.Synthetic.Undecidability <> <> lib
+R3783:3801 Minimal.EarnedMulti <> <> lib
+R3803:3824 Minimal.UniversalCodes <> <> lib
+R3842:3856 Sm.SmHostBlocks <> <> lib
+R3858:3870 Sm.SmHostRice <> <> lib
+R3872:3881 Sm.SmCodes <> <> lib
+R3883:3893 Sm.SmInterp <> <> lib
+R3895:3903 Sm.SmFuel <> <> lib
+R3905:3916 Sm.SmMMAHost <> <> lib
+R3931:3949 Minimal.EarnedMulti <> <> modtype
+mod 3926:3926 <> M
+R3965:3986 Minimal.UniversalCodes <> <> modtype
+mod 3959:3960 <> UC
+abbrev 4031:4036 <> hinstr
+R4043:4049 Sm.SmKleene <> instr ind
+R4051:4058 Sm.SmKleene <> hprop ind
+abbrev 4077:4081 <> hcore
+R4088:4093 Sm.SmKleene <> core rec
+R4095:4102 Sm.SmKleene <> hprop ind
+abbrev 4121:4126 <> hstate
+R4133:4139 Sm.SmKleene <> state rec
+R4141:4148 Sm.SmKleene <> hprop ind
+abbrev 4167:4172 <> hcexec
+R4178:4184 Sm.SmKleene <> cexec def
+R4199:4206 Sm.SmKleene <> heval def
+R4186:4197 Sm.SmKleene <> hprop_eqb def
+abbrev 4225:4229 <> hstep
+R4235:4240 Sm.SmKleene <> step def
+R4255:4262 Sm.SmKleene <> heval def
+R4242:4253 Sm.SmKleene <> hprop_eqb def
+abbrev 4281:4289 <> hrun_prog
+R4295:4304 Sm.SmKleene <> run_prog def
+R4319:4326 Sm.SmKleene <> heval def
+R4306:4317 Sm.SmKleene <> hprop_eqb def
+abbrev 4345:4348 <> hfun
+R4354:4360 Sm.SmHostBlocks <> sm_hfun def
+R4375:4382 Sm.SmKleene <> heval def
+R4362:4373 Sm.SmKleene <> hprop_eqb def
+abbrev 4401:4406 <> hcstep
+R4412:4419 Sm.SmHostBlocks <> sm_cstep def
+R4434:4441 Sm.SmKleene <> heval def
+R4421:4432 Sm.SmKleene <> hprop_eqb def
+abbrev 4460:4463 <> srel
+R4469:4475 Sm.SmHostBlocks <> sm_srel def
+R4486:4493 Sm.SmKleene <> hprop ind
+def 4795:4800 <> sm_in2
+R4809:4811 Coq.Init.Datatypes <> nat ind
+binder 4803:4803 <> x:1
+binder 4805:4805 <> c:2
+R4819:4822 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4816:4818 Coq.Init.Datatypes <> nat ind
+R4823:4825 Coq.Init.Datatypes <> nat ind
+binder 4836:4836 <> r:3
+R4844:4850 Coq.Arith.PeanoNat Nat eqb def
+R4852:4852 Sm.SmKleene <> r:3 var
+R4871:4877 Coq.Arith.PeanoNat Nat eqb def
+R4879:4879 Sm.SmKleene <> r:3 var
+R4888:4888 Sm.SmKleene <> c:2 var
+R4861:4861 Sm.SmKleene <> x:1 var
+def 4978:4989 <> sm_hfun_from
+R4996:4999 Coq.Init.Datatypes <> list ind
+R5001:5006 Sm.SmKleene <> hinstr abbrev
+binder 4992:4992 <> P:4
+R5018:5021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5015:5017 Coq.Init.Datatypes <> nat ind
+R5022:5024 Coq.Init.Datatypes <> nat ind
+binder 5010:5011 <> vs:5
+R5032:5034 Coq.Init.Datatypes <> nat ind
+binder 5028:5028 <> y:6
+R5049:5055 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5057:5058 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5056:5056 <> n:7
+R5110:5125 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5059:5066 Sm.SmKleene <> halted def
+R5068:5068 Sm.SmKleene <> P:4 var
+R5071:5079 Sm.SmKleene <> core_of proj
+R5082:5090 Sm.SmKleene <> hrun_prog abbrev
+R5092:5092 Sm.SmKleene <> n:7 var
+R5094:5094 Sm.SmKleene <> P:4 var
+R5097:5103 Sm.SmKleene <> start def
+R5105:5106 Sm.SmKleene <> vs:5 var
+R5175:5177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5126:5131 Sm.SmKleene <> vals proj
+R5134:5142 Sm.SmKleene <> core_of proj
+R5145:5153 Sm.SmKleene <> hrun_prog abbrev
+R5155:5155 Sm.SmKleene <> n:7 var
+R5157:5157 Sm.SmKleene <> P:4 var
+R5160:5166 Sm.SmKleene <> start def
+R5168:5169 Sm.SmKleene <> vs:5 var
+R5178:5178 Sm.SmKleene <> y:6 var
+prf 5188:5203 <> sm_vec_pos_const
+binder 5214:5214 <> n:8
+R5221:5223 Coq.Init.Datatypes <> nat ind
+binder 5217:5217 <> a:9
+R5231:5233 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R5235:5235 Sm.SmKleene <> n:8 var
+binder 5227:5227 <> p:10
+R5267:5269 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5239:5245 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos def
+R5266:5266 Sm.SmKleene <> p:10 var
+R5248:5259 Coq.Vectors.Vector <> const def
+R5263:5263 Sm.SmKleene <> n:8 var
+R5261:5261 Sm.SmKleene <> a:9 var
+R5270:5270 Sm.SmKleene <> a:9 var
+R5330:5341 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_O_invert thm
+R5330:5341 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_O_invert thm
+R5370:5381 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R5370:5381 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R5408:5415 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos0 thm
+R5408:5415 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos0 thm
+R5408:5415 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos0 thm
+R5466:5477 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos_tail thm
+R5466:5477 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos_tail thm
+R5466:5477 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos_tail thm
+prf 5571:5579 <> sm_v0_pos
+binder 5590:5591 <> nn:11
+binder 5593:5593 <> x:12
+binder 5595:5595 <> c:13
+R5602:5604 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R5607:5607 Coq.Init.Datatypes <> S constr
+R5610:5610 Coq.Init.Datatypes <> S constr
+R5613:5613 Coq.Init.Datatypes <> S constr
+R5615:5616 Sm.SmKleene <> nn:11 var
+binder 5598:5598 <> p:14
+R5786:5788 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5626:5632 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos def
+R5634:5636 Coq.Init.Datatypes <> nat ind
+R5639:5639 Coq.Init.Datatypes <> S constr
+R5642:5642 Coq.Init.Datatypes <> S constr
+R5645:5645 Coq.Init.Datatypes <> S constr
+R5647:5648 Sm.SmKleene <> nn:11 var
+R5654:5666 Coq.Vectors.Vector <> append def
+R5765:5776 Coq.Vectors.Vector <> const def
+R5780:5781 Sm.SmKleene <> nn:11 var
+R5669:5679 Coq.Vectors.Vector <> cons constr
+R5681:5683 Coq.Init.Datatypes <> nat ind
+R5690:5700 Coq.Vectors.Vector <> cons constr
+R5702:5704 Coq.Init.Datatypes <> nat ind
+R5706:5706 Sm.SmKleene <> x:12 var
+R5711:5721 Coq.Vectors.Vector <> cons constr
+R5723:5725 Coq.Init.Datatypes <> nat ind
+R5727:5727 Sm.SmKleene <> c:13 var
+R5732:5741 Coq.Vectors.Vector <> nil constr
+R5743:5745 Coq.Init.Datatypes <> nat ind
+R5785:5785 Sm.SmKleene <> p:14 var
+R5789:5794 Sm.SmKleene <> sm_in2 def
+R5796:5796 Sm.SmKleene <> x:12 var
+R5798:5798 Sm.SmKleene <> c:13 var
+R5801:5807 Undecidability.Shared.Libs.DLW.Vec.pos <> pos2nat def
+R5809:5809 Sm.SmKleene <> p:14 var
+R5856:5867 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R5856:5867 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R5933:5944 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R5933:5944 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R6010:6021 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R6010:6021 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R6087:6102 Sm.SmKleene <> sm_vec_pos_const thm
+R6087:6102 Sm.SmKleene <> sm_vec_pos_const thm
+R6087:6102 Sm.SmKleene <> sm_vec_pos_const thm
+prf 6184:6196 <> sm_mmatch_in2
+binder 6207:6208 <> nn:15
+binder 6210:6210 <> x:16
+binder 6212:6212 <> c:17
+R6219:6223 Sm.SmKleene <> hcore abbrev
+binder 6215:6215 <> k:18
+R6244:6247 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6236:6238 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6229:6233 Sm.SmKleene <> err proj
+R6235:6235 Sm.SmKleene <> k:18 var
+R6239:6243 Coq.Init.Datatypes <> false constr
+R6258:6261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6254:6256 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6248:6251 Sm.SmKleene <> pc proj
+R6253:6253 Sm.SmKleene <> k:18 var
+R6262:6262 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6298:6304 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6270:6270 <> r:19
+R6283:6285 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6273:6278 Sm.SmKleene <> vals proj
+R6280:6280 Sm.SmKleene <> k:18 var
+R6282:6282 Sm.SmKleene <> r:19 var
+R6286:6291 Sm.SmKleene <> sm_in2 def
+R6293:6293 Sm.SmKleene <> x:16 var
+R6295:6295 Sm.SmKleene <> c:17 var
+R6297:6297 Sm.SmKleene <> r:19 var
+R6305:6313 Sm.SmMMAHost <> sm_mmatch def
+R6330:6330 Sm.SmKleene <> k:18 var
+R6336:6336 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6338:6339 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6466:6466 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6340:6352 Coq.Vectors.Vector <> append def
+R6448:6459 Coq.Vectors.Vector <> const def
+R6463:6464 Sm.SmKleene <> nn:15 var
+R6355:6365 Coq.Vectors.Vector <> cons constr
+R6367:6369 Coq.Init.Datatypes <> nat ind
+R6376:6386 Coq.Vectors.Vector <> cons constr
+R6388:6390 Coq.Init.Datatypes <> nat ind
+R6392:6392 Sm.SmKleene <> x:16 var
+R6397:6407 Coq.Vectors.Vector <> cons constr
+R6409:6411 Coq.Init.Datatypes <> nat ind
+R6413:6413 Sm.SmKleene <> c:17 var
+R6418:6427 Coq.Vectors.Vector <> nil constr
+R6429:6431 Coq.Init.Datatypes <> nat ind
+R6316:6316 Coq.Init.Datatypes <> S constr
+R6319:6319 Coq.Init.Datatypes <> S constr
+R6322:6322 Coq.Init.Datatypes <> S constr
+R6324:6325 Sm.SmKleene <> nn:15 var
+R6511:6519 Sm.SmMMAHost <> sm_mmatch def
+R6527:6529 Coq.Init.Datatypes <> fst def
+R6531:6533 Coq.Init.Datatypes <> snd def
+R6582:6590 Sm.SmKleene <> sm_v0_pos thm
+R6582:6590 Sm.SmKleene <> sm_v0_pos thm
+R6582:6590 Sm.SmKleene <> sm_v0_pos thm
+R6642:6647 Sm.SmKleene <> sm_in2 def
+R6663:6669 Coq.Arith.PeanoNat Nat eqb def
+R6681:6685 Coq.Init.Datatypes <> false constr
+R6707:6717 Coq.Arith.PeanoNat Nat eqb_neq thm
+R6663:6669 Coq.Arith.PeanoNat Nat eqb def
+R6681:6685 Coq.Init.Datatypes <> false constr
+R6707:6717 Coq.Arith.PeanoNat Nat eqb_neq thm
+R6739:6745 Coq.Arith.PeanoNat Nat eqb def
+R6757:6761 Coq.Init.Datatypes <> false constr
+R6783:6793 Coq.Arith.PeanoNat Nat eqb_neq thm
+R6739:6745 Coq.Arith.PeanoNat Nat eqb def
+R6757:6761 Coq.Init.Datatypes <> false constr
+R6783:6793 Coq.Arith.PeanoNat Nat eqb_neq thm
+def 7050:7059 <> sm_spec_s1
+R7066:7068 Coq.Init.Datatypes <> nat ind
+binder 7062:7062 <> c:20
+R7076:7079 Coq.Init.Datatypes <> list ind
+R7081:7086 Sm.SmKleene <> hinstr abbrev
+binder 7072:7072 <> V:21
+R7094:7096 Coq.Init.Datatypes <> nat ind
+binder 7090:7090 <> x:22
+R7101:7106 Sm.SmKleene <> hstate abbrev
+R7113:7121 Sm.SmKleene <> hrun_prog abbrev
+R7123:7123 Sm.SmKleene <> c:20 var
+R7126:7132 Sm.SmCodes <> sm_spec def
+R7134:7134 Sm.SmKleene <> c:20 var
+R7136:7136 Sm.SmKleene <> V:21 var
+R7140:7148 Sm.SmHostBlocks <> sm_hstart def
+R7150:7150 Sm.SmKleene <> x:22 var
+prf 7161:7174 <> sm_spec_phase1
+binder 7185:7185 <> c:23
+binder 7187:7187 <> V:24
+binder 7189:7189 <> x:25
+R7204:7213 Sm.SmKleene <> sm_spec_s1 def
+R7215:7215 Sm.SmKleene <> c:23 var
+R7217:7217 Sm.SmKleene <> V:24 var
+R7219:7219 Sm.SmKleene <> x:25 var
+binder 7198:7199 <> s1:26
+R7226:7226 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7275:7281 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7234:7234 <> q:27
+R7260:7262 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7237:7242 Sm.SmKleene <> vals proj
+R7245:7253 Sm.SmKleene <> core_of proj
+R7255:7256 Sm.SmKleene <> s1:26 var
+R7259:7259 Sm.SmKleene <> q:27 var
+R7263:7268 Sm.SmKleene <> sm_in2 def
+R7270:7270 Sm.SmKleene <> x:25 var
+R7272:7272 Sm.SmKleene <> c:23 var
+R7274:7274 Sm.SmKleene <> q:27 var
+R7282:7282 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7330:7336 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7290:7290 <> q:28
+R7299:7302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7294:7297 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7293:7293 Sm.SmKleene <> q:28 var
+R7326:7328 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7303:7308 Sm.SmKleene <> vers proj
+R7311:7319 Sm.SmKleene <> core_of proj
+R7321:7322 Sm.SmKleene <> s1:26 var
+R7325:7325 Sm.SmKleene <> q:28 var
+R7364:7367 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7359:7361 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7337:7343 Sm.SmKleene <> facts proj
+R7346:7354 Sm.SmKleene <> core_of proj
+R7356:7357 Sm.SmKleene <> s1:26 var
+R7362:7363 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7396:7401 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7389:7391 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7368:7373 Sm.SmKleene <> chan proj
+R7376:7384 Sm.SmKleene <> core_of proj
+R7386:7387 Sm.SmKleene <> s1:26 var
+R7392:7395 Coq.Init.Datatypes <> None constr
+R7430:7433 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7422:7424 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7402:7406 Sm.SmKleene <> err proj
+R7409:7417 Sm.SmKleene <> core_of proj
+R7419:7420 Sm.SmKleene <> s1:26 var
+R7425:7429 Coq.Init.Datatypes <> false constr
+R7459:7464 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7453:7455 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7434:7437 Sm.SmKleene <> pc proj
+R7440:7448 Sm.SmKleene <> core_of proj
+R7450:7451 Sm.SmKleene <> s1:26 var
+R7456:7456 Coq.Init.Datatypes <> S constr
+R7458:7458 Sm.SmKleene <> c:23 var
+R7476:7479 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7472:7474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7465:7468 Sm.SmKleene <> mu proj
+R7470:7471 Sm.SmKleene <> s1:26 var
+R7489:7491 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7480:7485 Sm.SmKleene <> cert proj
+R7487:7488 Sm.SmKleene <> s1:26 var
+R7492:7496 Coq.Init.Datatypes <> false constr
+R7536:7545 Sm.SmKleene <> sm_spec_s1 def
+R7560:7570 Sm.SmHostBlocks <> sm_incs_run thm
+R7595:7601 Sm.SmCodes <> sm_spec def
+R7615:7623 Sm.SmHostBlocks <> sm_hstart def
+R7585:7592 Sm.SmKleene <> heval def
+R7572:7583 Sm.SmKleene <> hprop_eqb def
+R7560:7570 Sm.SmHostBlocks <> sm_incs_run thm
+R7595:7601 Sm.SmCodes <> sm_spec def
+R7615:7623 Sm.SmHostBlocks <> sm_hstart def
+R7585:7592 Sm.SmKleene <> heval def
+R7572:7583 Sm.SmKleene <> hprop_eqb def
+R7701:7707 Sm.SmCodes <> sm_spec def
+R7718:7728 Coq.Arith.PeanoNat Nat add_0_r thm
+R7718:7728 Coq.Arith.PeanoNat Nat add_0_r thm
+R7718:7728 Coq.Arith.PeanoNat Nat add_0_r thm
+R7773:7786 Sm.SmHostBlocks <> sm_incs_length thm
+R7743:7759 Sm.SmHostBlocks <> sm_fetch_app_left thm
+R7743:7759 Sm.SmHostBlocks <> sm_fetch_app_left thm
+R7773:7786 Sm.SmHostBlocks <> sm_incs_length thm
+R7773:7786 Sm.SmHostBlocks <> sm_incs_length thm
+R7743:7759 Sm.SmHostBlocks <> sm_fetch_app_left thm
+R7843:7849 Sm.SmHostBlocks <> sm_incs def
+R7858:7873 Coq.Lists.List <> nth_error_repeat thm
+R7858:7873 Coq.Lists.List <> nth_error_repeat thm
+R8024:8029 Sm.SmKleene <> vals proj
+R8031:8039 Sm.SmKleene <> core_of proj
+R8041:8049 Sm.SmHostBlocks <> sm_hstart def
+R8051:8057 Sm.SmKleene <> start def
+R8059:8070 Sm.SmKleene <> start_core def
+R8087:8092 Sm.SmKleene <> sm_in2 def
+R8095:8100 Sm.SmHostBlocks <> sm_hin def
+R8113:8124 Coq.Arith.PeanoNat Nat eqb_spec thm
+R8113:8124 Coq.Arith.PeanoNat Nat eqb_spec thm
+R8178:8184 Coq.Arith.PeanoNat Nat eqb def
+R8178:8184 Coq.Arith.PeanoNat Nat eqb def
+prf 8376:8389 <> sm_spec_embeds
+binder 8400:8400 <> c:29
+binder 8402:8402 <> V:30
+R8405:8413 Sm.SmHostBlocks <> sm_embeds def
+R8416:8422 Sm.SmCodes <> sm_spec def
+R8424:8424 Sm.SmKleene <> c:29 var
+R8426:8426 Sm.SmKleene <> V:30 var
+R8429:8429 Sm.SmKleene <> V:30 var
+R8431:8431 Sm.SmKleene <> c:29 var
+R8462:8468 Sm.SmCodes <> sm_spec def
+R8483:8491 Coq.Lists.List <> app_nil_r thm
+R8494:8501 Sm.SmHostBlocks <> sm_reloc def
+R8483:8491 Coq.Lists.List <> app_nil_r thm
+R8494:8501 Sm.SmHostBlocks <> sm_reloc def
+R8483:8491 Coq.Lists.List <> app_nil_r thm
+R8494:8501 Sm.SmHostBlocks <> sm_reloc def
+R8525:8538 Sm.SmHostBlocks <> sm_incs_length thm
+R8540:8547 Sm.SmKleene <> hprop ind
+R8525:8538 Sm.SmHostBlocks <> sm_incs_length thm
+R8540:8547 Sm.SmKleene <> hprop ind
+R8525:8538 Sm.SmHostBlocks <> sm_incs_length thm
+R8540:8547 Sm.SmKleene <> hprop ind
+R8568:8580 Sm.SmHostBlocks <> sm_embeds_app thm
+R8568:8580 Sm.SmHostBlocks <> sm_embeds_app thm
+prf 8595:8608 <> sm_spec_length
+binder 8619:8619 <> c:31
+binder 8621:8621 <> V:32
+R8644:8646 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8624:8629 Coq.Init.Datatypes <> length def
+R8632:8638 Sm.SmCodes <> sm_spec def
+R8640:8640 Sm.SmKleene <> c:31 var
+R8642:8642 Sm.SmKleene <> V:32 var
+R8648:8650 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8647:8647 Sm.SmKleene <> c:31 var
+R8651:8656 Coq.Init.Datatypes <> length def
+R8658:8658 Sm.SmKleene <> V:32 var
+R8683:8689 Sm.SmCodes <> sm_spec def
+R8700:8709 Coq.Lists.List <> app_length thm
+R8712:8725 Sm.SmHostBlocks <> sm_incs_length thm
+R8728:8742 Sm.SmHostBlocks <> sm_reloc_length thm
+R8700:8709 Coq.Lists.List <> app_length thm
+R8700:8709 Coq.Lists.List <> app_length thm
+R8712:8725 Sm.SmHostBlocks <> sm_incs_length thm
+R8712:8725 Sm.SmHostBlocks <> sm_incs_length thm
+R8728:8742 Sm.SmHostBlocks <> sm_reloc_length thm
+R8728:8742 Sm.SmHostBlocks <> sm_reloc_length thm
+prf 8922:8933 <> sm_spec_hfun
+binder 8944:8944 <> c:33
+binder 8946:8946 <> V:34
+binder 8948:8948 <> x:35
+binder 8950:8950 <> y:36
+R8977:8983 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8955:8958 Sm.SmKleene <> hfun abbrev
+R8961:8967 Sm.SmCodes <> sm_spec def
+R8969:8969 Sm.SmKleene <> c:33 var
+R8971:8971 Sm.SmKleene <> V:34 var
+R8974:8974 Sm.SmKleene <> x:35 var
+R8976:8976 Sm.SmKleene <> y:36 var
+R8984:8990 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8992:8993 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8991:8991 <> n:37
+R9060:9075 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8994:9001 Sm.SmKleene <> halted def
+R9003:9003 Sm.SmKleene <> V:34 var
+R9006:9014 Sm.SmKleene <> core_of proj
+R9017:9025 Sm.SmKleene <> hrun_prog abbrev
+R9027:9027 Sm.SmKleene <> n:37 var
+R9029:9029 Sm.SmKleene <> V:34 var
+R9032:9037 Sm.SmHostRice <> sm_at1 def
+R9040:9049 Sm.SmKleene <> sm_spec_s1 def
+R9051:9051 Sm.SmKleene <> c:33 var
+R9053:9053 Sm.SmKleene <> V:34 var
+R9055:9055 Sm.SmKleene <> x:35 var
+R9140:9142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9076:9081 Sm.SmKleene <> vals proj
+R9084:9092 Sm.SmKleene <> core_of proj
+R9095:9103 Sm.SmKleene <> hrun_prog abbrev
+R9105:9105 Sm.SmKleene <> n:37 var
+R9107:9107 Sm.SmKleene <> V:34 var
+R9110:9115 Sm.SmHostRice <> sm_at1 def
+R9118:9127 Sm.SmKleene <> sm_spec_s1 def
+R9129:9129 Sm.SmKleene <> c:33 var
+R9131:9131 Sm.SmKleene <> V:34 var
+R9133:9133 Sm.SmKleene <> x:35 var
+R9143:9143 Sm.SmKleene <> y:36 var
+R9183:9196 Sm.SmKleene <> sm_spec_phase1 thm
+R9183:9196 Sm.SmKleene <> sm_spec_phase1 thm
+R9252:9261 Sm.SmKleene <> sm_spec_s1 def
+R9252:9261 Sm.SmKleene <> sm_spec_s1 def
+binder 9300:9300 <> n:38
+R9303:9306 Sm.SmKleene <> srel abbrev
+R9318:9321 Coq.Init.Logic <> True ind
+R9327:9332 Coq.Init.Datatypes <> length def
+R9338:9346 Sm.SmKleene <> hrun_prog abbrev
+R9348:9348 Sm.SmKleene <> n:38 var
+R9353:9358 Sm.SmHostRice <> sm_at1 def
+R9396:9404 Sm.SmKleene <> hrun_prog abbrev
+R9408:9410 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9411:9411 Sm.SmKleene <> n:38 var
+R9415:9421 Sm.SmCodes <> sm_spec def
+R9429:9437 Sm.SmHostBlocks <> sm_hstart def
+binder 9300:9300 <> n:39
+R9303:9306 Sm.SmKleene <> srel abbrev
+R9318:9321 Coq.Init.Logic <> True ind
+R9327:9332 Coq.Init.Datatypes <> length def
+R9338:9346 Sm.SmKleene <> hrun_prog abbrev
+R9348:9348 Sm.SmKleene <> n:39 var
+R9353:9358 Sm.SmHostRice <> sm_at1 def
+R9396:9404 Sm.SmKleene <> hrun_prog abbrev
+R9408:9410 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9411:9411 Sm.SmKleene <> n:39 var
+R9415:9421 Sm.SmCodes <> sm_spec def
+R9429:9437 Sm.SmHostBlocks <> sm_hstart def
+R9466:9475 Sm.SmHostBlocks <> sm_run_add thm
+R9466:9475 Sm.SmHostBlocks <> sm_run_add thm
+R9466:9475 Sm.SmHostBlocks <> sm_run_add thm
+R9484:9493 Sm.SmKleene <> sm_spec_s1 def
+R9484:9493 Sm.SmKleene <> sm_spec_s1 def
+R9523:9540 Sm.SmHostBlocks <> sm_block_run_final thm
+R9574:9577 Coq.Init.Logic <> True ind
+R9581:9587 Sm.SmCodes <> sm_spec def
+R9612:9625 Sm.SmKleene <> sm_spec_embeds thm
+R9633:9645 Sm.SmHostRice <> sm_within_all thm
+R9651:9664 Sm.SmKleene <> sm_spec_length thm
+R9555:9562 Sm.SmKleene <> heval def
+R9542:9553 Sm.SmKleene <> hprop_eqb def
+R9523:9540 Sm.SmHostBlocks <> sm_block_run_final thm
+R9574:9577 Coq.Init.Logic <> True ind
+R9581:9587 Sm.SmCodes <> sm_spec def
+R9612:9625 Sm.SmKleene <> sm_spec_embeds thm
+R9633:9645 Sm.SmHostRice <> sm_within_all thm
+R9651:9664 Sm.SmKleene <> sm_spec_length thm
+R9555:9562 Sm.SmKleene <> heval def
+R9542:9553 Sm.SmKleene <> hprop_eqb def
+R9683:9692 Sm.SmHostRice <> sm_at1_rel thm
+R9683:9692 Sm.SmHostRice <> sm_at1_rel thm
+R9765:9767 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9765:9767 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9834:9836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9789:9797 Sm.SmKleene <> hrun_prog abbrev
+R9801:9803 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9808:9814 Sm.SmCodes <> sm_spec def
+R9822:9830 Sm.SmHostBlocks <> sm_hstart def
+R9837:9845 Sm.SmKleene <> hrun_prog abbrev
+R9850:9856 Sm.SmCodes <> sm_spec def
+R9864:9872 Sm.SmHostBlocks <> sm_hstart def
+R9894:9908 Sm.SmHostBlocks <> sm_halted_after thm
+R9834:9836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9789:9797 Sm.SmKleene <> hrun_prog abbrev
+R9801:9803 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9808:9814 Sm.SmCodes <> sm_spec def
+R9822:9830 Sm.SmHostBlocks <> sm_hstart def
+R9837:9845 Sm.SmKleene <> hrun_prog abbrev
+R9850:9856 Sm.SmCodes <> sm_spec def
+R9864:9872 Sm.SmHostBlocks <> sm_hstart def
+R9894:9908 Sm.SmHostBlocks <> sm_halted_after thm
+R10023:10030 Sm.SmKleene <> halted def
+R10043:10054 Sm.SmKleene <> next_instr def
+R10059:10067 Sm.SmKleene <> core_of proj
+R10070:10078 Sm.SmKleene <> hrun_prog abbrev
+R10085:10090 Sm.SmHostRice <> sm_at1 def
+R10043:10054 Sm.SmKleene <> next_instr def
+R10059:10067 Sm.SmKleene <> core_of proj
+R10070:10078 Sm.SmKleene <> hrun_prog abbrev
+R10085:10090 Sm.SmHostRice <> sm_at1 def
+R10154:10172 Sm.SmHostBlocks <> sm_block_not_halted thm
+R10206:10209 Coq.Init.Logic <> True ind
+R10213:10219 Sm.SmCodes <> sm_spec def
+R10259:10272 Sm.SmKleene <> sm_spec_embeds thm
+R10280:10292 Sm.SmHostRice <> sm_within_all thm
+R10187:10194 Sm.SmKleene <> heval def
+R10174:10185 Sm.SmKleene <> hprop_eqb def
+R10154:10172 Sm.SmHostBlocks <> sm_block_not_halted thm
+R10206:10209 Coq.Init.Logic <> True ind
+R10213:10219 Sm.SmCodes <> sm_spec def
+R10259:10272 Sm.SmKleene <> sm_spec_embeds thm
+R10280:10292 Sm.SmHostRice <> sm_within_all thm
+R10187:10194 Sm.SmKleene <> heval def
+R10174:10185 Sm.SmKleene <> hprop_eqb def
+R10422:10430 Sm.SmKleene <> hrun_prog abbrev
+R10434:10436 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10441:10447 Sm.SmCodes <> sm_spec def
+R10455:10463 Sm.SmHostBlocks <> sm_hstart def
+R10422:10430 Sm.SmKleene <> hrun_prog abbrev
+R10434:10436 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10441:10447 Sm.SmCodes <> sm_spec def
+R10455:10463 Sm.SmHostBlocks <> sm_hstart def
+R10492:10494 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10492:10494 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10536:10550 Sm.SmHostBlocks <> sm_block_halted thm
+R10562:10565 Coq.Init.Logic <> True ind
+R10569:10575 Sm.SmCodes <> sm_spec def
+R10587:10595 Sm.SmKleene <> core_of proj
+R10598:10606 Sm.SmKleene <> hrun_prog abbrev
+R10613:10618 Sm.SmHostRice <> sm_at1 def
+R10643:10656 Sm.SmKleene <> sm_spec_embeds thm
+R10666:10679 Sm.SmKleene <> sm_spec_length thm
+R10536:10550 Sm.SmHostBlocks <> sm_block_halted thm
+R10562:10565 Coq.Init.Logic <> True ind
+R10569:10575 Sm.SmCodes <> sm_spec def
+R10587:10595 Sm.SmKleene <> core_of proj
+R10598:10606 Sm.SmKleene <> hrun_prog abbrev
+R10613:10618 Sm.SmHostRice <> sm_at1 def
+R10643:10656 Sm.SmKleene <> sm_spec_embeds thm
+R10666:10679 Sm.SmKleene <> sm_spec_length thm
+def 11014:11020 <> sm_vrel
+R11031:11034 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11028:11030 Coq.Init.Datatypes <> nat ind
+binder 11023:11024 <> Sr:40
+R11049:11053 Sm.SmKleene <> hcore abbrev
+binder 11042:11042 <> k:41
+binder 11044:11045 <> k':42
+R11068:11068 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11103:11107 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11076:11076 <> r:43
+R11089:11091 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11079:11084 Sm.SmKleene <> vals proj
+R11086:11086 Sm.SmKleene <> k:41 var
+R11088:11088 Sm.SmKleene <> r:43 var
+R11092:11097 Sm.SmKleene <> vals proj
+R11099:11100 Sm.SmKleene <> k':42 var
+R11102:11102 Sm.SmKleene <> r:43 var
+R11108:11108 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11151:11157 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11116:11116 <> r:44
+R11123:11126 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11119:11120 Sm.SmKleene <> Sr:40 var
+R11122:11122 Sm.SmKleene <> r:44 var
+R11137:11139 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11127:11132 Sm.SmKleene <> vers proj
+R11134:11134 Sm.SmKleene <> k:41 var
+R11136:11136 Sm.SmKleene <> r:44 var
+R11140:11145 Sm.SmKleene <> vers proj
+R11147:11148 Sm.SmKleene <> k':42 var
+R11150:11150 Sm.SmKleene <> r:44 var
+R11174:11177 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11164:11166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11158:11161 Sm.SmKleene <> pc proj
+R11163:11163 Sm.SmKleene <> k:41 var
+R11167:11170 Sm.SmKleene <> pc proj
+R11172:11173 Sm.SmKleene <> k':42 var
+R11200:11203 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11187:11189 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11178:11184 Sm.SmKleene <> facts proj
+R11186:11186 Sm.SmKleene <> k:41 var
+R11190:11196 Sm.SmKleene <> facts proj
+R11198:11199 Sm.SmKleene <> k':42 var
+R11224:11227 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11212:11214 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11204:11209 Sm.SmKleene <> chan proj
+R11211:11211 Sm.SmKleene <> k:41 var
+R11215:11220 Sm.SmKleene <> chan proj
+R11222:11223 Sm.SmKleene <> k':42 var
+R11235:11237 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11228:11232 Sm.SmKleene <> err proj
+R11234:11234 Sm.SmKleene <> k:41 var
+R11238:11242 Sm.SmKleene <> err proj
+R11244:11245 Sm.SmKleene <> k':42 var
+prf 11255:11266 <> sm_vrel_step
+binder 11277:11278 <> Sr:45
+R11285:11288 Coq.Init.Datatypes <> list ind
+R11290:11295 Sm.SmKleene <> hinstr abbrev
+binder 11281:11281 <> V:46
+binder 11298:11298 <> k:47
+binder 11300:11301 <> k':48
+R11318:11321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11304:11312 Sm.SmHostBlocks <> sm_within def
+R11314:11315 Sm.SmKleene <> Sr:45 var
+R11317:11317 Sm.SmKleene <> V:46 var
+R11337:11342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11322:11328 Sm.SmKleene <> sm_vrel def
+R11330:11331 Sm.SmKleene <> Sr:45 var
+R11333:11333 Sm.SmKleene <> k:47 var
+R11335:11336 Sm.SmKleene <> k':48 var
+R11343:11349 Sm.SmKleene <> sm_vrel def
+R11351:11352 Sm.SmKleene <> Sr:45 var
+R11355:11360 Sm.SmKleene <> hcstep abbrev
+R11362:11362 Sm.SmKleene <> V:46 var
+R11364:11364 Sm.SmKleene <> k:47 var
+R11368:11373 Sm.SmKleene <> hcstep abbrev
+R11375:11375 Sm.SmKleene <> V:46 var
+R11377:11378 Sm.SmKleene <> k':48 var
+R11500:11502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11484:11495 Sm.SmKleene <> next_instr def
+R11503:11514 Sm.SmKleene <> next_instr def
+R11533:11544 Sm.SmKleene <> next_instr def
+R11500:11502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11484:11495 Sm.SmKleene <> next_instr def
+R11503:11514 Sm.SmKleene <> next_instr def
+R11586:11593 Sm.SmHostBlocks <> sm_cstep def
+R11623:11634 Sm.SmKleene <> next_instr def
+R11623:11634 Sm.SmKleene <> next_instr def
+R11686:11697 Sm.SmHostBlocks <> sm_next_some thm
+R11686:11697 Sm.SmHostBlocks <> sm_next_some thm
+R11744:11745 Coq.Lists.List <> In def
+R11744:11745 Coq.Lists.List <> In def
+R11767:11770 Sm.SmKleene <> pc proj
+R11767:11770 Sm.SmKleene <> pc proj
+R11824:11835 Coq.Lists.List <> nth_error_In thm
+R11824:11835 Coq.Lists.List <> nth_error_In thm
+R11871:11873 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11863:11867 Sm.SmKleene <> err proj
+R11874:11878 Coq.Init.Datatypes <> false constr
+R11871:11873 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11863:11867 Sm.SmKleene <> err proj
+R11874:11878 Coq.Init.Datatypes <> false constr
+R11905:11911 Sm.SmKleene <> cexec def
+R12000:12006 Sm.SmKleene <> sm_vrel def
+R12066:12082 Sm.SmKleene <> multi_val_write thm
+R12066:12082 Sm.SmKleene <> multi_val_write thm
+R12066:12082 Sm.SmKleene <> multi_val_write thm
+R12066:12082 Sm.SmKleene <> multi_val_write thm
+R12066:12082 Sm.SmKleene <> multi_val_write thm
+R12095:12101 Coq.Arith.PeanoNat Nat eqb def
+R12095:12101 Coq.Arith.PeanoNat Nat eqb def
+R12144:12160 Sm.SmKleene <> multi_ver_write thm
+R12144:12160 Sm.SmKleene <> multi_ver_write thm
+R12144:12160 Sm.SmKleene <> multi_ver_write thm
+R12144:12160 Sm.SmKleene <> multi_ver_write thm
+R12144:12160 Sm.SmKleene <> multi_ver_write thm
+R12323:12328 Sm.SmKleene <> vals proj
+R12323:12328 Sm.SmKleene <> vals proj
+R12358:12364 Sm.SmKleene <> sm_vrel def
+R12407:12413 Sm.SmKleene <> sm_vrel def
+R12456:12472 Sm.SmKleene <> multi_val_write thm
+R12456:12472 Sm.SmKleene <> multi_val_write thm
+R12456:12472 Sm.SmKleene <> multi_val_write thm
+R12456:12472 Sm.SmKleene <> multi_val_write thm
+R12456:12472 Sm.SmKleene <> multi_val_write thm
+R12485:12491 Coq.Arith.PeanoNat Nat eqb def
+R12485:12491 Coq.Arith.PeanoNat Nat eqb def
+R12536:12552 Sm.SmKleene <> multi_ver_write thm
+R12536:12552 Sm.SmKleene <> multi_ver_write thm
+R12536:12552 Sm.SmKleene <> multi_ver_write thm
+R12536:12552 Sm.SmKleene <> multi_ver_write thm
+R12536:12552 Sm.SmKleene <> multi_ver_write thm
+R12742:12753 Coq.Arith.PeanoNat Nat eqb_refl thm
+R12742:12753 Coq.Arith.PeanoNat Nat eqb_refl thm
+R12815:12817 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12790:12799 Sm.SmKleene <> check_ok def
+R12801:12808 Sm.SmKleene <> heval def
+R12818:12827 Sm.SmKleene <> check_ok def
+R12829:12836 Sm.SmKleene <> heval def
+R12815:12817 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12790:12799 Sm.SmKleene <> check_ok def
+R12801:12808 Sm.SmKleene <> heval def
+R12818:12827 Sm.SmKleene <> check_ok def
+R12829:12836 Sm.SmKleene <> heval def
+R12860:12869 Sm.SmKleene <> check_ok def
+R12943:12952 Sm.SmKleene <> check_ok def
+R12954:12961 Sm.SmKleene <> heval def
+R12943:12952 Sm.SmKleene <> check_ok def
+R12954:12961 Sm.SmKleene <> heval def
+R12985:12991 Sm.SmKleene <> sm_vrel def
+R12994:13006 Sm.SmKleene <> record_fact def
+R13009:13015 Sm.SmKleene <> claim def
+R13100:13106 Sm.SmKleene <> sm_vrel def
+R13109:13114 Sm.SmKleene <> trap def
+R13207:13218 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13207:13218 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13268:13270 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13255:13261 Sm.SmKleene <> claim def
+R13271:13277 Sm.SmKleene <> claim def
+R13298:13304 Sm.SmKleene <> claim def
+R13268:13270 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13255:13261 Sm.SmKleene <> claim def
+R13271:13277 Sm.SmKleene <> claim def
+R13388:13390 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13358:13368 Sm.SmKleene <> commit_ok def
+R13370:13381 Sm.SmKleene <> hprop_eqb def
+R13391:13401 Sm.SmKleene <> commit_ok def
+R13403:13414 Sm.SmKleene <> hprop_eqb def
+R13388:13390 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13358:13368 Sm.SmKleene <> commit_ok def
+R13370:13381 Sm.SmKleene <> hprop_eqb def
+R13391:13401 Sm.SmKleene <> commit_ok def
+R13403:13414 Sm.SmKleene <> hprop_eqb def
+R13438:13448 Sm.SmKleene <> commit_ok def
+R13519:13529 Sm.SmKleene <> commit_ok def
+R13531:13542 Sm.SmKleene <> hprop_eqb def
+R13519:13529 Sm.SmKleene <> commit_ok def
+R13531:13542 Sm.SmKleene <> hprop_eqb def
+R13566:13572 Sm.SmKleene <> sm_vrel def
+R13575:13585 Sm.SmKleene <> commit_to def
+R13641:13647 Sm.SmKleene <> sm_vrel def
+R13650:13655 Sm.SmKleene <> trap def
+R13717:13719 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13703:13714 Sm.SmKleene <> certify_ok def
+R13720:13731 Sm.SmKleene <> certify_ok def
+R13717:13719 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13703:13714 Sm.SmKleene <> certify_ok def
+R13720:13731 Sm.SmKleene <> certify_ok def
+R13751:13762 Sm.SmKleene <> certify_ok def
+R13828:13839 Sm.SmKleene <> certify_ok def
+R13828:13839 Sm.SmKleene <> certify_ok def
+R13859:13865 Sm.SmKleene <> sm_vrel def
+R13868:13873 Sm.SmKleene <> goto def
+R13916:13922 Sm.SmKleene <> sm_vrel def
+R13925:13930 Sm.SmKleene <> trap def
+prf 13972:13982 <> sm_vrel_run
+binder 13993:13994 <> Sr:49
+R14001:14004 Coq.Init.Datatypes <> list ind
+R14006:14011 Sm.SmKleene <> hinstr abbrev
+binder 13997:13997 <> V:50
+binder 14014:14014 <> n:51
+binder 14016:14016 <> k:52
+binder 14018:14019 <> k':53
+R14036:14039 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14022:14030 Sm.SmHostBlocks <> sm_within def
+R14032:14033 Sm.SmKleene <> Sr:49 var
+R14035:14035 Sm.SmKleene <> V:50 var
+R14055:14060 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14040:14046 Sm.SmKleene <> sm_vrel def
+R14048:14049 Sm.SmKleene <> Sr:49 var
+R14051:14051 Sm.SmKleene <> k:52 var
+R14053:14054 Sm.SmKleene <> k':53 var
+R14061:14067 Sm.SmKleene <> sm_vrel def
+R14069:14070 Sm.SmKleene <> Sr:49 var
+R14073:14079 Sm.SmInterp <> sm_crun def
+R14081:14081 Sm.SmKleene <> n:51 var
+R14083:14083 Sm.SmKleene <> V:50 var
+R14085:14085 Sm.SmKleene <> k:52 var
+R14089:14095 Sm.SmInterp <> sm_crun def
+R14097:14097 Sm.SmKleene <> n:51 var
+R14099:14099 Sm.SmKleene <> V:50 var
+R14101:14102 Sm.SmKleene <> k':53 var
+R14223:14234 Sm.SmKleene <> sm_vrel_step thm
+R14223:14234 Sm.SmKleene <> sm_vrel_step thm
+prf 14262:14275 <> sm_vrel_halted
+binder 14286:14287 <> Sr:54
+R14294:14297 Coq.Init.Datatypes <> list ind
+R14299:14304 Sm.SmKleene <> hinstr abbrev
+binder 14290:14290 <> V:55
+binder 14307:14307 <> k:56
+binder 14309:14310 <> k':57
+R14328:14333 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14313:14319 Sm.SmKleene <> sm_vrel def
+R14321:14322 Sm.SmKleene <> Sr:54 var
+R14324:14324 Sm.SmKleene <> k:56 var
+R14326:14327 Sm.SmKleene <> k':57 var
+R14346:14349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14334:14341 Sm.SmKleene <> halted def
+R14343:14343 Sm.SmKleene <> V:55 var
+R14345:14345 Sm.SmKleene <> k:56 var
+R14350:14357 Sm.SmKleene <> halted def
+R14359:14359 Sm.SmKleene <> V:55 var
+R14361:14362 Sm.SmKleene <> k':57 var
+R14427:14434 Sm.SmKleene <> halted def
+R14437:14448 Sm.SmKleene <> next_instr def
+prf 14501:14511 <> sm_vrel_sym
+binder 14522:14523 <> Sr:58
+binder 14525:14525 <> k:59
+binder 14527:14528 <> k':60
+R14546:14549 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14531:14537 Sm.SmKleene <> sm_vrel def
+R14539:14540 Sm.SmKleene <> Sr:58 var
+R14542:14542 Sm.SmKleene <> k:59 var
+R14544:14545 Sm.SmKleene <> k':60 var
+R14550:14556 Sm.SmKleene <> sm_vrel def
+R14558:14559 Sm.SmKleene <> Sr:58 var
+R14561:14562 Sm.SmKleene <> k':60 var
+R14564:14564 Sm.SmKleene <> k:59 var
+R14629:14635 Sm.SmKleene <> sm_vrel def
+prf 14988:14993 <> sm_smn
+binder 15004:15004 <> c:61
+binder 15006:15006 <> V:62
+binder 15008:15008 <> x:63
+binder 15010:15010 <> y:64
+R15044:15050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15107:15107 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15015:15023 Sm.SmHostBlocks <> sm_within def
+binder 15030:15030 <> r:65
+R15036:15039 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15035:15035 Sm.SmKleene <> r:65 var
+R15043:15043 Sm.SmKleene <> V:62 var
+R15073:15077 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R15051:15054 Sm.SmKleene <> hfun abbrev
+R15057:15063 Sm.SmCodes <> sm_spec def
+R15065:15065 Sm.SmKleene <> c:61 var
+R15067:15067 Sm.SmKleene <> V:62 var
+R15070:15070 Sm.SmKleene <> x:63 var
+R15072:15072 Sm.SmKleene <> y:64 var
+R15078:15089 Sm.SmKleene <> sm_hfun_from def
+R15091:15091 Sm.SmKleene <> V:62 var
+R15094:15099 Sm.SmKleene <> sm_in2 def
+R15101:15101 Sm.SmKleene <> x:63 var
+R15103:15103 Sm.SmKleene <> c:61 var
+R15106:15106 Sm.SmKleene <> y:64 var
+R15148:15159 Sm.SmKleene <> sm_spec_hfun thm
+R15148:15159 Sm.SmKleene <> sm_spec_hfun thm
+R15148:15159 Sm.SmKleene <> sm_spec_hfun thm
+R15174:15187 Sm.SmKleene <> sm_spec_phase1 thm
+R15174:15187 Sm.SmKleene <> sm_spec_phase1 thm
+R15251:15257 Sm.SmKleene <> sm_vrel def
+binder 15264:15264 <> r:66
+R15270:15273 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15269:15269 Sm.SmKleene <> r:66 var
+R15278:15286 Sm.SmKleene <> core_of proj
+R15289:15294 Sm.SmHostRice <> sm_at1 def
+R15297:15306 Sm.SmKleene <> sm_spec_s1 def
+R15337:15345 Sm.SmKleene <> core_of proj
+R15348:15354 Sm.SmKleene <> start def
+R15357:15362 Sm.SmKleene <> sm_in2 def
+R15251:15257 Sm.SmKleene <> sm_vrel def
+binder 15264:15264 <> r:67
+R15270:15273 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15269:15269 Sm.SmKleene <> r:67 var
+R15278:15286 Sm.SmKleene <> core_of proj
+R15289:15294 Sm.SmHostRice <> sm_at1 def
+R15297:15306 Sm.SmKleene <> sm_spec_s1 def
+R15337:15345 Sm.SmKleene <> core_of proj
+R15348:15354 Sm.SmKleene <> start def
+R15357:15362 Sm.SmKleene <> sm_in2 def
+R15384:15390 Sm.SmKleene <> sm_vrel def
+R15393:15398 Sm.SmHostRice <> sm_at1 def
+R15401:15406 Sm.SmKleene <> goto def
+R15508:15519 Sm.SmKleene <> sm_hfun_from def
+R15575:15585 Sm.SmInterp <> sm_core_run thm
+R15575:15585 Sm.SmInterp <> sm_core_run thm
+R15575:15585 Sm.SmInterp <> sm_core_run thm
+R15609:15619 Sm.SmKleene <> sm_vrel_run thm
+R15609:15619 Sm.SmKleene <> sm_vrel_run thm
+R15668:15681 Sm.SmKleene <> sm_vrel_halted thm
+R15668:15681 Sm.SmKleene <> sm_vrel_halted thm
+R15802:15812 Sm.SmInterp <> sm_core_run thm
+R15802:15812 Sm.SmInterp <> sm_core_run thm
+R15802:15812 Sm.SmInterp <> sm_core_run thm
+R15836:15846 Sm.SmKleene <> sm_vrel_sym thm
+R15855:15865 Sm.SmKleene <> sm_vrel_run thm
+R15836:15846 Sm.SmKleene <> sm_vrel_sym thm
+R15855:15865 Sm.SmKleene <> sm_vrel_run thm
+R15915:15928 Sm.SmKleene <> sm_vrel_halted thm
+R15915:15928 Sm.SmKleene <> sm_vrel_halted thm
+prf 16233:16242 <> sm_mma_two
+binder 16253:16254 <> nn:68
+R16262:16265 Coq.Init.Datatypes <> list ind
+R16268:16275 Undecidability.MinskyMachines.MM <> mm_instr ind
+R16278:16280 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R16283:16283 Coq.Init.Datatypes <> S constr
+R16286:16286 Coq.Init.Datatypes <> S constr
+R16289:16289 Coq.Init.Datatypes <> S constr
+R16291:16292 Sm.SmKleene <> nn:68 var
+binder 16257:16258 <> Pm:69
+R16319:16322 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16305:16312 Coq.Vectors.Vector <> t ind
+R16314:16316 Coq.Init.Datatypes <> nat ind
+R16326:16329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16323:16325 Coq.Init.Datatypes <> nat ind
+binder 16301:16301 <> R:70
+R16339:16339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16589:16595 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16351:16358 Coq.Vectors.Vector <> t ind
+R16360:16362 Coq.Init.Datatypes <> nat ind
+binder 16347:16347 <> v:71
+binder 16374:16374 <> m:72
+R16382:16391 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R16377:16377 Sm.SmKleene <> R:70 var
+R16381:16381 Sm.SmKleene <> m:72 var
+R16379:16379 Sm.SmKleene <> v:71 var
+R16392:16398 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16428:16437 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16399:16399 <> c:73
+R16407:16414 Coq.Vectors.Vector <> t ind
+R16416:16418 Coq.Init.Datatypes <> nat ind
+R16422:16424 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16425:16426 Sm.SmKleene <> nn:68 var
+binder 16402:16403 <> v':74
+R16438:16447 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R16555:16555 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16557:16558 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16588:16588 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16556:16556 Sm.SmKleene <> c:73 var
+R16559:16569 Coq.Vectors.Vector <> cons constr
+R16571:16573 Coq.Init.Datatypes <> nat ind
+R16575:16575 Sm.SmKleene <> m:72 var
+R16579:16581 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16582:16583 Sm.SmKleene <> nn:68 var
+R16586:16587 Sm.SmKleene <> v':74 var
+R16492:16492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16494:16495 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16553:16553 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16496:16508 Coq.Vectors.Vector <> append def
+R16535:16546 Coq.Vectors.Vector <> const def
+R16550:16551 Sm.SmKleene <> nn:68 var
+R16511:16521 Coq.Vectors.Vector <> cons constr
+R16523:16525 Coq.Init.Datatypes <> nat ind
+R16531:16531 Sm.SmKleene <> v:71 var
+R16475:16475 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16477:16478 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16481:16481 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16479:16480 Sm.SmKleene <> Pm:69 var
+R16451:16457 Undecidability.MinskyMachines.MMA <> mma_sss ind
+R16460:16460 Coq.Init.Datatypes <> S constr
+R16463:16463 Coq.Init.Datatypes <> S constr
+R16466:16466 Coq.Init.Datatypes <> S constr
+R16468:16469 Sm.SmKleene <> nn:68 var
+R16608:16612 Sm.SmKleene <> hcore abbrev
+binder 16604:16604 <> k:75
+binder 16615:16615 <> x:76
+binder 16617:16617 <> c:77
+binder 16619:16619 <> m:78
+R16639:16642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16631:16633 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16624:16628 Sm.SmKleene <> err proj
+R16630:16630 Sm.SmKleene <> k:75 var
+R16634:16638 Coq.Init.Datatypes <> false constr
+R16653:16656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16649:16651 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16643:16646 Sm.SmKleene <> pc proj
+R16648:16648 Sm.SmKleene <> k:75 var
+R16657:16657 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16693:16700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16944:16944 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 16665:16665 <> r:79
+R16678:16680 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16668:16673 Sm.SmKleene <> vals proj
+R16675:16675 Sm.SmKleene <> k:75 var
+R16677:16677 Sm.SmKleene <> r:79 var
+R16681:16686 Sm.SmKleene <> sm_in2 def
+R16688:16688 Sm.SmKleene <> x:76 var
+R16690:16690 Sm.SmKleene <> c:77 var
+R16692:16692 Sm.SmKleene <> r:79 var
+R16765:16772 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R16701:16701 Sm.SmKleene <> R:70 var
+R16764:16764 Sm.SmKleene <> m:78 var
+R16704:16714 Coq.Vectors.Vector <> cons constr
+R16716:16718 Coq.Init.Datatypes <> nat ind
+R16720:16720 Sm.SmKleene <> x:76 var
+R16725:16735 Coq.Vectors.Vector <> cons constr
+R16737:16739 Coq.Init.Datatypes <> nat ind
+R16741:16741 Sm.SmKleene <> c:77 var
+R16746:16755 Coq.Vectors.Vector <> nil constr
+R16757:16759 Coq.Init.Datatypes <> nat ind
+R16773:16779 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16781:16782 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16780:16780 <> n:80
+R16869:16885 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16783:16790 Sm.SmKleene <> halted def
+R16793:16803 Sm.SmMMAHost <> sm_mma_host def
+R16820:16821 Sm.SmKleene <> Pm:69 var
+R16806:16806 Coq.Init.Datatypes <> S constr
+R16809:16809 Coq.Init.Datatypes <> S constr
+R16812:16812 Coq.Init.Datatypes <> S constr
+R16814:16815 Sm.SmKleene <> nn:68 var
+R16825:16831 Sm.SmInterp <> sm_crun def
+R16833:16833 Sm.SmKleene <> n:80 var
+R16836:16846 Sm.SmMMAHost <> sm_mma_host def
+R16863:16864 Sm.SmKleene <> Pm:69 var
+R16849:16849 Coq.Init.Datatypes <> S constr
+R16852:16852 Coq.Init.Datatypes <> S constr
+R16855:16855 Coq.Init.Datatypes <> S constr
+R16857:16858 Sm.SmKleene <> nn:68 var
+R16867:16867 Sm.SmKleene <> k:75 var
+R16940:16942 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16886:16891 Sm.SmKleene <> vals proj
+R16894:16900 Sm.SmInterp <> sm_crun def
+R16902:16902 Sm.SmKleene <> n:80 var
+R16905:16915 Sm.SmMMAHost <> sm_mma_host def
+R16932:16933 Sm.SmKleene <> Pm:69 var
+R16918:16918 Coq.Init.Datatypes <> S constr
+R16921:16921 Coq.Init.Datatypes <> S constr
+R16924:16924 Coq.Init.Datatypes <> S constr
+R16926:16927 Sm.SmKleene <> nn:68 var
+R16936:16936 Sm.SmKleene <> k:75 var
+R16943:16943 Sm.SmKleene <> m:78 var
+R17013:17027 Sm.SmMMAHost <> sm_mma_host_out thm
+R17030:17030 Coq.Init.Datatypes <> S constr
+R17033:17033 Coq.Init.Datatypes <> S constr
+R17013:17027 Sm.SmMMAHost <> sm_mma_host_out thm
+R17030:17030 Coq.Init.Datatypes <> S constr
+R17033:17033 Coq.Init.Datatypes <> S constr
+R17059:17071 Sm.SmKleene <> sm_mmatch_in2 thm
+R17059:17071 Sm.SmKleene <> sm_mmatch_in2 thm
+prf 17098:17109 <> sm_mma_plain
+binder 17120:17120 <> N:81
+R17128:17131 Coq.Init.Datatypes <> list ind
+R17134:17141 Undecidability.MinskyMachines.MM <> mm_instr ind
+R17144:17146 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R17148:17148 Sm.SmKleene <> N:81 var
+binder 17123:17124 <> Pm:82
+binder 17153:17154 <> Sr:83
+R17157:17165 Sm.SmHostBlocks <> sm_within def
+R17167:17168 Sm.SmKleene <> Sr:83 var
+R17171:17181 Sm.SmMMAHost <> sm_mma_host def
+R17185:17186 Sm.SmKleene <> Pm:82 var
+R17183:17183 Sm.SmKleene <> N:81 var
+R17245:17255 Sm.SmMMAHost <> sm_mma_host def
+R17258:17268 Sm.SmMMAHost <> sm_mma_prog def
+R17288:17294 Coq.Lists.List <> map_map thm
+R17288:17294 Coq.Lists.List <> map_map thm
+R17288:17294 Coq.Lists.List <> map_map thm
+R17310:17319 Coq.Lists.List <> in_map_iff thm
+R17310:17319 Coq.Lists.List <> in_map_iff thm
+prf 17611:17627 <> sm_host_universal
+R17631:17637 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17654:17657 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17643:17646 Coq.Init.Datatypes <> list ind
+R17648:17653 Sm.SmKleene <> hinstr abbrev
+binder 17638:17639 <> Uh:84
+R17658:17658 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17696:17702 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 17666:17666 <> i:85
+R17676:17679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17669:17670 Coq.Lists.List <> In def
+R17674:17675 Sm.SmKleene <> Uh:84 var
+R17672:17672 Sm.SmKleene <> i:85 var
+R17689:17691 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17680:17686 Sm.SmKleene <> plain def
+R17688:17688 Sm.SmKleene <> i:85 var
+R17692:17695 Coq.Init.Datatypes <> true constr
+binder 17710:17710 <> c:86
+binder 17712:17712 <> x:87
+binder 17714:17714 <> y:88
+R17747:17751 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R17717:17728 Sm.SmKleene <> sm_hfun_from def
+R17730:17731 Sm.SmKleene <> Uh:84 var
+R17734:17739 Sm.SmKleene <> sm_in2 def
+R17741:17741 Sm.SmKleene <> x:87 var
+R17743:17743 Sm.SmKleene <> c:86 var
+R17746:17746 Sm.SmKleene <> y:88 var
+R17752:17755 Sm.SmKleene <> hfun abbrev
+R17758:17767 Sm.SmCodes <> sm_hdecode def
+R17769:17769 Sm.SmKleene <> c:86 var
+R17772:17772 Sm.SmKleene <> x:87 var
+R17774:17774 Sm.SmKleene <> y:88 var
+R17795:17804 Sm.SmFuel <> sm_uev_MMA thm
+R17834:17844 Sm.SmMMAHost <> sm_mma_host def
+R17847:17847 Coq.Init.Datatypes <> S constr
+R17850:17850 Coq.Init.Datatypes <> S constr
+R17853:17853 Coq.Init.Datatypes <> S constr
+R17834:17844 Sm.SmMMAHost <> sm_mma_host def
+R17847:17847 Coq.Init.Datatypes <> S constr
+R17850:17850 Coq.Init.Datatypes <> S constr
+R17853:17853 Coq.Init.Datatypes <> S constr
+R17898:17908 Sm.SmMMAHost <> sm_mma_host def
+R17911:17921 Sm.SmMMAHost <> sm_mma_prog def
+R17939:17945 Coq.Lists.List <> map_map thm
+R17939:17945 Coq.Lists.List <> map_map thm
+R17939:17945 Coq.Lists.List <> map_map thm
+R17965:17974 Coq.Lists.List <> in_map_iff thm
+R17965:17974 Coq.Lists.List <> in_map_iff thm
+R18062:18072 Sm.SmInterp <> sm_uev_spec thm
+R18062:18072 Sm.SmInterp <> sm_uev_spec thm
+R18062:18072 Sm.SmInterp <> sm_uev_spec thm
+R18085:18091 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18093:18094 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18092:18092 <> n:89
+R18107:18109 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18095:18100 Sm.SmInterp <> sm_uev def
+R18102:18102 Sm.SmKleene <> n:89 var
+R18110:18113 Coq.Init.Datatypes <> Some constr
+R18124:18130 Sm.SmFuel <> sm_Ruev def
+R18133:18143 Coq.Vectors.Vector <> cons constr
+R18145:18147 Coq.Init.Datatypes <> nat ind
+R18154:18164 Coq.Vectors.Vector <> cons constr
+R18166:18168 Coq.Init.Datatypes <> nat ind
+R18175:18184 Coq.Vectors.Vector <> nil constr
+R18186:18188 Coq.Init.Datatypes <> nat ind
+R18085:18091 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18093:18094 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18092:18092 <> n:90
+R18107:18109 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18095:18100 Sm.SmInterp <> sm_uev def
+R18102:18102 Sm.SmKleene <> n:90 var
+R18110:18113 Coq.Init.Datatypes <> Some constr
+R18124:18130 Sm.SmFuel <> sm_Ruev def
+R18133:18143 Coq.Vectors.Vector <> cons constr
+R18145:18147 Coq.Init.Datatypes <> nat ind
+R18154:18164 Coq.Vectors.Vector <> cons constr
+R18166:18168 Coq.Init.Datatypes <> nat ind
+R18175:18184 Coq.Vectors.Vector <> nil constr
+R18186:18188 Coq.Init.Datatypes <> nat ind
+R18208:18217 Sm.SmKleene <> sm_mma_two thm
+R18225:18231 Sm.SmFuel <> sm_Ruev def
+R18238:18246 Sm.SmKleene <> core_of proj
+R18249:18255 Sm.SmKleene <> start def
+R18258:18263 Sm.SmKleene <> sm_in2 def
+R18278:18284 Coq.Init.Logic <> eq_refl constr
+R18286:18292 Coq.Init.Logic <> eq_refl constr
+binder 18299:18299 <> r:91
+R18304:18310 Coq.Init.Logic <> eq_refl constr
+R18208:18217 Sm.SmKleene <> sm_mma_two thm
+R18225:18231 Sm.SmFuel <> sm_Ruev def
+R18238:18246 Sm.SmKleene <> core_of proj
+R18249:18255 Sm.SmKleene <> start def
+R18258:18263 Sm.SmKleene <> sm_in2 def
+R18278:18284 Coq.Init.Logic <> eq_refl constr
+R18286:18292 Coq.Init.Logic <> eq_refl constr
+binder 18299:18299 <> r:92
+R18304:18310 Coq.Init.Logic <> eq_refl constr
+R18208:18217 Sm.SmKleene <> sm_mma_two thm
+R18225:18231 Sm.SmFuel <> sm_Ruev def
+R18238:18246 Sm.SmKleene <> core_of proj
+R18249:18255 Sm.SmKleene <> start def
+R18258:18263 Sm.SmKleene <> sm_in2 def
+R18278:18284 Coq.Init.Logic <> eq_refl constr
+R18286:18292 Coq.Init.Logic <> eq_refl constr
+binder 18299:18299 <> r:93
+R18304:18310 Coq.Init.Logic <> eq_refl constr
+R18324:18335 Sm.SmKleene <> sm_hfun_from def
+R18378:18388 Sm.SmInterp <> sm_core_run thm
+R18378:18388 Sm.SmInterp <> sm_core_run thm
+R18378:18388 Sm.SmInterp <> sm_core_run thm
+R18378:18388 Sm.SmInterp <> sm_core_run thm
+R18378:18388 Sm.SmInterp <> sm_core_run thm
+prf 18638:18656 <> sm_second_recursion
+R18671:18674 Coq.Init.Datatypes <> list ind
+R18676:18681 Sm.SmKleene <> hinstr abbrev
+binder 18667:18667 <> T:94
+R18684:18690 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18706:18709 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18695:18698 Coq.Init.Datatypes <> list ind
+R18700:18705 Sm.SmKleene <> hinstr abbrev
+binder 18691:18691 <> e:95
+binder 18717:18717 <> x:96
+binder 18719:18719 <> y:97
+R18732:18736 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R18722:18725 Sm.SmKleene <> hfun abbrev
+R18727:18727 Sm.SmKleene <> e:95 var
+R18729:18729 Sm.SmKleene <> x:96 var
+R18731:18731 Sm.SmKleene <> y:97 var
+R18737:18743 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18745:18746 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18744:18744 <> d:98
+R18768:18771 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18747:18750 Sm.SmKleene <> hfun abbrev
+R18752:18752 Sm.SmKleene <> T:94 var
+R18755:18762 Sm.SmCodes <> sm_hcode def
+R18764:18764 Sm.SmKleene <> e:95 var
+R18767:18767 Sm.SmKleene <> d:98 var
+R18772:18775 Sm.SmKleene <> hfun abbrev
+R18778:18787 Sm.SmCodes <> sm_hdecode def
+R18789:18789 Sm.SmKleene <> d:98 var
+R18792:18792 Sm.SmKleene <> x:96 var
+R18794:18794 Sm.SmKleene <> y:97 var
+R18827:18834 Sm.SmCodes <> sm_hcode def
+R18827:18834 Sm.SmCodes <> sm_hcode def
+R18852:18860 Sm.SmFuel <> sm_ev_MMA thm
+R18852:18860 Sm.SmFuel <> sm_ev_MMA thm
+R18896:18906 Sm.SmMMAHost <> sm_mma_host def
+R18909:18909 Coq.Init.Datatypes <> S constr
+R18912:18912 Coq.Init.Datatypes <> S constr
+R18915:18915 Coq.Init.Datatypes <> S constr
+R18896:18906 Sm.SmMMAHost <> sm_mma_host def
+R18909:18909 Coq.Init.Datatypes <> S constr
+R18912:18912 Coq.Init.Datatypes <> S constr
+R18915:18915 Coq.Init.Datatypes <> S constr
+R18941:18949 Sm.SmCodes <> sm_kpcode def
+R18952:18962 Sm.SmMMAHost <> sm_mma_prog def
+R18965:18965 Coq.Init.Datatypes <> S constr
+R18968:18968 Coq.Init.Datatypes <> S constr
+R18971:18971 Coq.Init.Datatypes <> S constr
+R18941:18949 Sm.SmCodes <> sm_kpcode def
+R18952:18962 Sm.SmMMAHost <> sm_mma_prog def
+R18965:18965 Coq.Init.Datatypes <> S constr
+R18968:18968 Coq.Init.Datatypes <> S constr
+R18971:18971 Coq.Init.Datatypes <> S constr
+R19014:19016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19001:19010 Sm.SmCodes <> sm_hdecode def
+R19032:19041 Sm.SmCodes <> sm_hdecode def
+R19052:19062 Sm.SmMMAHost <> sm_mma_host def
+R19073:19087 Sm.SmCodes <> sm_kpdec_kpcode thm
+R19014:19016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19001:19010 Sm.SmCodes <> sm_hdecode def
+R19073:19087 Sm.SmCodes <> sm_kpdec_kpcode thm
+R19073:19087 Sm.SmCodes <> sm_kpdec_kpcode thm
+R19116:19122 Sm.SmCodes <> sm_spec def
+R19116:19122 Sm.SmCodes <> sm_spec def
+R19161:19163 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19150:19157 Sm.SmCodes <> sm_kspec def
+R19164:19171 Sm.SmCodes <> sm_hcode def
+R19188:19200 Sm.SmCodes <> sm_kspec_code thm
+R19161:19163 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19150:19157 Sm.SmCodes <> sm_kspec def
+R19164:19171 Sm.SmCodes <> sm_hcode def
+R19188:19200 Sm.SmCodes <> sm_kspec_code thm
+R19188:19200 Sm.SmCodes <> sm_kspec_code thm
+R19320:19331 Sm.SmKleene <> sm_spec_hfun thm
+R19320:19331 Sm.SmKleene <> sm_spec_hfun thm
+R19320:19331 Sm.SmKleene <> sm_spec_hfun thm
+R19346:19359 Sm.SmKleene <> sm_spec_phase1 thm
+R19346:19359 Sm.SmKleene <> sm_spec_phase1 thm
+R19415:19423 Sm.SmKleene <> core_of proj
+R19426:19431 Sm.SmHostRice <> sm_at1 def
+R19434:19443 Sm.SmKleene <> sm_spec_s1 def
+R19415:19423 Sm.SmKleene <> core_of proj
+R19426:19431 Sm.SmHostRice <> sm_at1 def
+R19434:19443 Sm.SmKleene <> sm_spec_s1 def
+R19473:19479 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19481:19482 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19480:19480 <> n:99
+R19512:19515 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19483:19490 Sm.SmKleene <> halted def
+R19496:19502 Sm.SmInterp <> sm_crun def
+R19504:19504 Sm.SmKleene <> n:99 var
+R19542:19544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19516:19521 Sm.SmKleene <> vals proj
+R19524:19530 Sm.SmInterp <> sm_crun def
+R19532:19532 Sm.SmKleene <> n:99 var
+R19473:19479 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19481:19482 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19480:19480 <> n:100
+R19512:19515 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19483:19490 Sm.SmKleene <> halted def
+R19496:19502 Sm.SmInterp <> sm_crun def
+R19504:19504 Sm.SmKleene <> n:100 var
+R19542:19544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19516:19521 Sm.SmKleene <> vals proj
+R19524:19530 Sm.SmInterp <> sm_crun def
+R19532:19532 Sm.SmKleene <> n:100 var
+R19593:19603 Sm.SmInterp <> sm_core_run thm
+R19593:19603 Sm.SmInterp <> sm_core_run thm
+R19593:19603 Sm.SmInterp <> sm_core_run thm
+R19593:19603 Sm.SmInterp <> sm_core_run thm
+R19593:19603 Sm.SmInterp <> sm_core_run thm
+R19674:19679 Sm.SmFuel <> sm_Rev def
+R19684:19694 Coq.Vectors.Vector <> cons constr
+R19696:19698 Coq.Init.Datatypes <> nat ind
+R19705:19715 Coq.Vectors.Vector <> cons constr
+R19717:19719 Coq.Init.Datatypes <> nat ind
+R19727:19736 Coq.Vectors.Vector <> nil constr
+R19738:19740 Coq.Init.Datatypes <> nat ind
+R19674:19679 Sm.SmFuel <> sm_Rev def
+R19684:19694 Coq.Vectors.Vector <> cons constr
+R19696:19698 Coq.Init.Datatypes <> nat ind
+R19705:19715 Coq.Vectors.Vector <> cons constr
+R19717:19719 Coq.Init.Datatypes <> nat ind
+R19727:19736 Coq.Vectors.Vector <> nil constr
+R19738:19740 Coq.Init.Datatypes <> nat ind
+R19770:19779 Sm.SmKleene <> sm_mma_two thm
+R19788:19793 Sm.SmFuel <> sm_Rev def
+R19816:19822 Coq.Init.Logic <> eq_refl constr
+R19770:19779 Sm.SmKleene <> sm_mma_two thm
+R19788:19793 Sm.SmFuel <> sm_Rev def
+R19816:19822 Coq.Init.Logic <> eq_refl constr
+R19842:19847 Sm.SmFuel <> sm_Rev def
+R19852:19862 Coq.Vectors.Vector <> cons constr
+R19864:19866 Coq.Init.Datatypes <> nat ind
+R19873:19883 Coq.Vectors.Vector <> cons constr
+R19885:19887 Coq.Init.Datatypes <> nat ind
+R19895:19904 Coq.Vectors.Vector <> nil constr
+R19906:19908 Coq.Init.Datatypes <> nat ind
+R19926:19932 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19934:19935 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19933:19933 <> n:101
+R19950:19952 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19936:19940 Sm.SmInterp <> sm_ev def
+R19944:19944 Sm.SmKleene <> n:101 var
+R19953:19956 Coq.Init.Datatypes <> Some constr
+R19842:19847 Sm.SmFuel <> sm_Rev def
+R19852:19862 Coq.Vectors.Vector <> cons constr
+R19864:19866 Coq.Init.Datatypes <> nat ind
+R19873:19883 Coq.Vectors.Vector <> cons constr
+R19885:19887 Coq.Init.Datatypes <> nat ind
+R19895:19904 Coq.Vectors.Vector <> nil constr
+R19906:19908 Coq.Init.Datatypes <> nat ind
+R19926:19932 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19934:19935 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19933:19933 <> n:102
+R19950:19952 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19936:19940 Sm.SmInterp <> sm_ev def
+R19944:19944 Sm.SmKleene <> n:102 var
+R19953:19956 Coq.Init.Datatypes <> Some constr
+R19972:19981 Sm.SmInterp <> sm_ev_spec thm
+R19972:19981 Sm.SmInterp <> sm_ev_spec thm
+R19972:19981 Sm.SmInterp <> sm_ev_spec thm
+R20002:20017 Sm.SmCodes <> sm_hdecode_hcode thm
+R20002:20017 Sm.SmCodes <> sm_hdecode_hcode thm
+R20002:20017 Sm.SmCodes <> sm_hdecode_hcode thm
+def 20361:20375 <> sm_computes_map
+R20382:20385 Coq.Init.Datatypes <> list ind
+R20387:20392 Sm.SmKleene <> hinstr abbrev
+binder 20378:20378 <> T:103
+R20411:20414 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20400:20403 Coq.Init.Datatypes <> list ind
+R20405:20410 Sm.SmKleene <> hinstr abbrev
+R20415:20418 Coq.Init.Datatypes <> list ind
+R20420:20425 Sm.SmKleene <> hinstr abbrev
+binder 20396:20396 <> F:104
+binder 20447:20447 <> p:105
+R20450:20453 Sm.SmKleene <> hfun abbrev
+R20455:20455 Sm.SmKleene <> T:103 var
+R20458:20465 Sm.SmCodes <> sm_hcode def
+R20467:20467 Sm.SmKleene <> p:105 var
+R20471:20478 Sm.SmCodes <> sm_hcode def
+R20481:20481 Sm.SmKleene <> F:104 var
+R20483:20483 Sm.SmKleene <> p:105 var
+prf 20497:20505 <> sm_kleene
+R20532:20535 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20521:20524 Coq.Init.Datatypes <> list ind
+R20526:20531 Sm.SmKleene <> hinstr abbrev
+R20536:20539 Coq.Init.Datatypes <> list ind
+R20541:20546 Sm.SmKleene <> hinstr abbrev
+binder 20517:20517 <> F:106
+R20554:20557 Coq.Init.Datatypes <> list ind
+R20559:20564 Sm.SmKleene <> hinstr abbrev
+binder 20550:20550 <> T:107
+R20589:20594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20570:20584 Sm.SmKleene <> sm_computes_map def
+R20586:20586 Sm.SmKleene <> T:107 var
+R20588:20588 Sm.SmKleene <> F:106 var
+R20595:20601 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20603:20604 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20602:20602 <> e:108
+binder 20612:20612 <> x:109
+binder 20614:20614 <> y:110
+R20627:20631 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R20617:20620 Sm.SmKleene <> hfun abbrev
+R20622:20622 Sm.SmKleene <> e:108 var
+R20624:20624 Sm.SmKleene <> x:109 var
+R20626:20626 Sm.SmKleene <> y:110 var
+R20632:20635 Sm.SmKleene <> hfun abbrev
+R20638:20638 Sm.SmKleene <> F:106 var
+R20640:20640 Sm.SmKleene <> e:108 var
+R20643:20643 Sm.SmKleene <> x:109 var
+R20645:20645 Sm.SmKleene <> y:110 var
+R20682:20700 Sm.SmKleene <> sm_second_recursion thm
+R20682:20700 Sm.SmKleene <> sm_second_recursion thm
+R20792:20802 Sm.SmHostBlocks <> sm_hfun_det thm
+R20817:20824 Sm.SmKleene <> heval def
+R20804:20815 Sm.SmKleene <> hprop_eqb def
+R20792:20802 Sm.SmHostBlocks <> sm_hfun_det thm
+R20817:20824 Sm.SmKleene <> heval def
+R20804:20815 Sm.SmKleene <> hprop_eqb def
+R20792:20802 Sm.SmHostBlocks <> sm_hfun_det thm
+R20817:20824 Sm.SmKleene <> heval def
+R20804:20815 Sm.SmKleene <> hprop_eqb def
+R20864:20879 Sm.SmCodes <> sm_hdecode_hcode thm
+R20864:20879 Sm.SmCodes <> sm_hdecode_hcode thm
+R20864:20879 Sm.SmCodes <> sm_hdecode_hcode thm
+R20920:20927 Sm.SmCodes <> sm_hcode def
+R20920:20927 Sm.SmCodes <> sm_hcode def
+R20970:20985 Sm.SmCodes <> sm_hdecode_hcode thm
+R20970:20985 Sm.SmCodes <> sm_hdecode_hcode thm
+R20970:20985 Sm.SmCodes <> sm_hdecode_hcode thm
+prf 21175:21189 <> sm_kleene_codes
+R21208:21211 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21205:21207 Coq.Init.Datatypes <> nat ind
+R21212:21214 Coq.Init.Datatypes <> nat ind
+binder 21201:21201 <> f:111
+R21222:21225 Coq.Init.Datatypes <> list ind
+R21227:21232 Sm.SmKleene <> hinstr abbrev
+binder 21218:21218 <> T:112
+R21238:21238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21263:21269 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 21246:21246 <> n:113
+R21249:21252 Sm.SmKleene <> hfun abbrev
+R21254:21254 Sm.SmKleene <> T:112 var
+R21256:21256 Sm.SmKleene <> n:113 var
+R21259:21259 Sm.SmKleene <> f:111 var
+R21261:21261 Sm.SmKleene <> n:113 var
+R21270:21276 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21278:21279 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 21277:21277 <> e:114
+binder 21287:21287 <> x:115
+binder 21289:21289 <> y:116
+R21315:21319 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R21292:21295 Sm.SmKleene <> hfun abbrev
+R21298:21307 Sm.SmCodes <> sm_hdecode def
+R21309:21309 Sm.SmKleene <> e:114 var
+R21312:21312 Sm.SmKleene <> x:115 var
+R21314:21314 Sm.SmKleene <> y:116 var
+R21320:21323 Sm.SmKleene <> hfun abbrev
+R21326:21335 Sm.SmCodes <> sm_hdecode def
+R21338:21338 Sm.SmKleene <> f:111 var
+R21340:21340 Sm.SmKleene <> e:114 var
+R21344:21344 Sm.SmKleene <> x:115 var
+R21346:21346 Sm.SmKleene <> y:116 var
+R21383:21401 Sm.SmKleene <> sm_second_recursion thm
+R21383:21401 Sm.SmKleene <> sm_second_recursion thm
+R21427:21434 Sm.SmCodes <> sm_hcode def
+R21427:21434 Sm.SmCodes <> sm_hcode def
+R21460:21475 Sm.SmCodes <> sm_hdecode_hcode thm
+R21460:21475 Sm.SmCodes <> sm_hdecode_hcode thm
+R21460:21475 Sm.SmCodes <> sm_hdecode_hcode thm
+R21522:21532 Sm.SmHostBlocks <> sm_hfun_det thm
+R21547:21554 Sm.SmKleene <> heval def
+R21534:21545 Sm.SmKleene <> hprop_eqb def
+R21522:21532 Sm.SmHostBlocks <> sm_hfun_det thm
+R21547:21554 Sm.SmKleene <> heval def
+R21534:21545 Sm.SmKleene <> hprop_eqb def
+R21522:21532 Sm.SmHostBlocks <> sm_hfun_det thm
+R21547:21554 Sm.SmKleene <> heval def
+R21534:21545 Sm.SmKleene <> hprop_eqb def
+R21617:21624 Sm.SmCodes <> sm_hcode def
+R21617:21624 Sm.SmCodes <> sm_hcode def
+def 21980:21989 <> sm_fun_ext
+R22008:22011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21997:22000 Coq.Init.Datatypes <> list ind
+R22002:22007 Sm.SmKleene <> hinstr abbrev
+binder 21992:21993 <> Pi:117
+binder 22037:22037 <> p:118
+binder 22039:22039 <> q:119
+R22042:22042 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22080:22084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 22050:22050 <> x:120
+binder 22052:22052 <> y:121
+R22065:22069 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22055:22058 Sm.SmKleene <> hfun abbrev
+R22060:22060 Sm.SmKleene <> p:118 var
+R22062:22062 Sm.SmKleene <> x:120 var
+R22064:22064 Sm.SmKleene <> y:121 var
+R22070:22073 Sm.SmKleene <> hfun abbrev
+R22075:22075 Sm.SmKleene <> q:119 var
+R22077:22077 Sm.SmKleene <> x:120 var
+R22079:22079 Sm.SmKleene <> y:121 var
+R22089:22092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22085:22086 Sm.SmKleene <> Pi:117 var
+R22088:22088 Sm.SmKleene <> p:118 var
+R22093:22094 Sm.SmKleene <> Pi:117 var
+R22096:22096 Sm.SmKleene <> q:119 var
+prf 22172:22191 <> sm_no_inside_decider
+R22219:22222 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22208:22211 Coq.Init.Datatypes <> list ind
+R22213:22218 Sm.SmKleene <> hinstr abbrev
+binder 22203:22204 <> Pi:122
+binder 22229:22231 <> yes:123
+binder 22233:22234 <> no:124
+R22252:22255 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22239:22248 Sm.SmKleene <> sm_fun_ext def
+R22250:22251 Sm.SmKleene <> Pi:122 var
+R22262:22265 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22256:22257 Sm.SmKleene <> Pi:122 var
+R22259:22261 Sm.SmKleene <> yes:123 var
+R22273:22278 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22266:22267 Coq.Init.Logic <> ::type_scope:'~'_x not
+R22268:22269 Sm.SmKleene <> Pi:122 var
+R22271:22272 Sm.SmKleene <> no:124 var
+R22301:22304 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22290:22293 Coq.Init.Datatypes <> list ind
+R22295:22300 Sm.SmKleene <> hinstr abbrev
+R22305:22308 Coq.Init.Datatypes <> bool ind
+binder 22286:22286 <> d:125
+R22313:22313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22376:22382 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22314:22320 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22322:22323 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22321:22321 <> T:126
+R22324:22338 Sm.SmKleene <> sm_computes_map def
+R22340:22340 Sm.SmKleene <> T:126 var
+binder 22347:22347 <> p:127
+R22355:22355 Sm.SmKleene <> d:125 var
+R22357:22357 Sm.SmKleene <> p:127 var
+R22372:22374 Sm.SmKleene <> yes:123 var
+R22364:22365 Sm.SmKleene <> no:124 var
+R22383:22385 Coq.Init.Logic <> ::type_scope:'~'_x not
+R22415:22415 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 22393:22393 <> p:128
+R22406:22410 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22399:22401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22396:22396 Sm.SmKleene <> d:125 var
+R22398:22398 Sm.SmKleene <> p:128 var
+R22402:22405 Coq.Init.Datatypes <> true constr
+R22411:22412 Sm.SmKleene <> Pi:122 var
+R22414:22414 Sm.SmKleene <> p:128 var
+R22480:22488 Sm.SmKleene <> sm_kleene thm
+R22480:22488 Sm.SmKleene <> sm_kleene thm
+binder 22532:22532 <> x:129
+binder 22534:22534 <> z:130
+R22547:22551 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22537:22540 Sm.SmKleene <> hfun abbrev
+R22544:22544 Sm.SmKleene <> x:129 var
+R22546:22546 Sm.SmKleene <> z:130 var
+R22552:22555 Sm.SmKleene <> hfun abbrev
+R22583:22583 Sm.SmKleene <> x:129 var
+R22585:22585 Sm.SmKleene <> z:130 var
+binder 22532:22532 <> x:131
+binder 22534:22534 <> z:132
+R22547:22551 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22537:22540 Sm.SmKleene <> hfun abbrev
+R22544:22544 Sm.SmKleene <> x:131 var
+R22546:22546 Sm.SmKleene <> z:132 var
+R22552:22555 Sm.SmKleene <> hfun abbrev
+R22583:22583 Sm.SmKleene <> x:131 var
+R22585:22585 Sm.SmKleene <> z:132 var
+prf 22911:22926 <> sm_host_rice_fun
+R22954:22957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22943:22946 Coq.Init.Datatypes <> list ind
+R22948:22953 Sm.SmKleene <> hinstr abbrev
+binder 22938:22939 <> Pi:133
+binder 22964:22966 <> yes:134
+binder 22968:22969 <> no:135
+R22987:22990 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22974:22983 Sm.SmKleene <> sm_fun_ext def
+R22985:22986 Sm.SmKleene <> Pi:133 var
+R22997:23000 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22991:22992 Sm.SmKleene <> Pi:133 var
+R22994:22996 Sm.SmKleene <> yes:134 var
+R23008:23011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23001:23002 Coq.Init.Logic <> ::type_scope:'~'_x not
+R23003:23004 Sm.SmKleene <> Pi:133 var
+R23006:23007 Sm.SmKleene <> no:135 var
+R23012:23022 Undecidability.Synthetic.Undecidability <> undecidable def
+R23024:23025 Sm.SmKleene <> Pi:133 var
+R23075:23086 Sm.SmHostRice <> sm_host_rice thm
+R23101:23108 Sm.SmKleene <> heval def
+R23088:23099 Sm.SmKleene <> hprop_eqb def
+R23075:23086 Sm.SmHostRice <> sm_host_rice thm
+R23101:23108 Sm.SmKleene <> heval def
+R23088:23099 Sm.SmKleene <> hprop_eqb def
+R23208:23221 Sm.SmHostBlocks <> sm_hequiv_hfun thm
+R23208:23221 Sm.SmHostBlocks <> sm_hequiv_hfun thm
+R23477:23482 Sm.SmKleene <> sm_smn thm
+R23503:23519 Sm.SmKleene <> sm_host_universal thm
+R23540:23558 Sm.SmKleene <> sm_second_recursion thm
+R23579:23587 Sm.SmKleene <> sm_kleene thm
+R23608:23622 Sm.SmKleene <> sm_kleene_codes thm
+R23643:23662 Sm.SmKleene <> sm_no_inside_decider thm
+R23683:23698 Sm.SmKleene <> sm_host_rice_fun thm

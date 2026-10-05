@@ -1,0 +1,2130 @@
+DIGEST 952f8be3f5e8b9699050828d79bbe6b2
+FSm.SmHostBlocks
+R1615:1618 Coq.Lists.List <> <> lib
+R1620:1624 Coq.Arith.Arith <> <> lib
+R1626:1628 Coq.micromega.Lia <> <> lib
+R1630:1633 Coq.Bool.Bool <> <> lib
+R1643:1655 Coq.Lists.List ListNotations <> mod
+R1666:1684 Minimal.EarnedMulti <> <> lib
+R1699:1717 Minimal.EarnedMulti <> <> modtype
+mod 1694:1694 <> M
+sec 1729:1734 <> Blocks
+binder 1747:1750 <> prop:1
+var 1770:1777 Blocks prop_eqb
+R1785:1788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1781:1784 Sm.SmHostBlocks <> Blocks.prop var
+R1793:1796 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1789:1792 Sm.SmHostBlocks <> Blocks.prop var
+R1797:1800 Coq.Init.Datatypes <> bool ind
+var 1812:1815 Blocks eval
+R1823:1826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1819:1822 Sm.SmHostBlocks <> Blocks.prop var
+R1830:1833 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1827:1829 Coq.Init.Datatypes <> nat ind
+R1834:1837 Coq.Init.Datatypes <> bool ind
+abbrev 1856:1860 <> instr
+R1867:1873 Sm.SmHostBlocks <> instr ind
+R1875:1878 Sm.SmHostBlocks <> Blocks.prop var
+abbrev 1897:1900 <> core
+R1907:1912 Sm.SmHostBlocks <> core rec
+R1914:1917 Sm.SmHostBlocks <> Blocks.prop var
+abbrev 1936:1940 <> state
+R1947:1953 Sm.SmHostBlocks <> state rec
+R1955:1958 Sm.SmHostBlocks <> Blocks.prop var
+abbrev 1977:1981 <> cexec
+R1987:1993 Sm.SmHostBlocks <> cexec def
+R2004:2007 Sm.SmHostBlocks <> Blocks.eval var
+R1995:2002 Sm.SmHostBlocks <> Blocks.prop_eqb var
+abbrev 2026:2029 <> exec
+R2035:2040 Sm.SmHostBlocks <> exec def
+R2051:2054 Sm.SmHostBlocks <> Blocks.eval var
+R2042:2049 Sm.SmHostBlocks <> Blocks.prop_eqb var
+abbrev 2073:2076 <> step
+R2082:2087 Sm.SmHostBlocks <> step def
+R2098:2101 Sm.SmHostBlocks <> Blocks.eval var
+R2089:2096 Sm.SmHostBlocks <> Blocks.prop_eqb var
+abbrev 2120:2127 <> run_prog
+R2133:2142 Sm.SmHostBlocks <> run_prog def
+R2153:2156 Sm.SmHostBlocks <> Blocks.eval var
+R2144:2151 Sm.SmHostBlocks <> Blocks.prop_eqb var
+def 2521:2526 <> sm_hin
+R2533:2535 Coq.Init.Datatypes <> nat ind
+binder 2529:2529 <> x:4
+R2543:2546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2540:2542 Coq.Init.Datatypes <> nat ind
+R2547:2549 Coq.Init.Datatypes <> nat ind
+binder 2558:2558 <> r:5
+R2566:2572 Coq.Arith.PeanoNat Nat eqb def
+R2574:2574 Sm.SmHostBlocks <> r:5 var
+R2583:2583 Sm.SmHostBlocks <> x:4 var
+def 2605:2613 <> sm_hstart
+R2620:2622 Coq.Init.Datatypes <> nat ind
+binder 2616:2616 <> x:6
+R2627:2631 Sm.SmHostBlocks <> state abbrev
+R2636:2642 Sm.SmHostBlocks <> start def
+R2645:2650 Sm.SmHostBlocks <> sm_hin def
+R2652:2652 Sm.SmHostBlocks <> x:6 var
+def 2746:2753 <> sm_hends
+R2760:2763 Coq.Init.Datatypes <> list ind
+R2765:2769 Sm.SmHostBlocks <> instr abbrev
+binder 2756:2756 <> P:7
+R2777:2779 Coq.Init.Datatypes <> nat ind
+binder 2773:2773 <> x:8
+R2787:2791 Sm.SmHostBlocks <> state abbrev
+binder 2783:2783 <> s:9
+R2806:2812 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2814:2815 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2813:2813 <> n:10
+R2846:2849 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2817:2819 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2816:2816 Sm.SmHostBlocks <> s:9 var
+R2820:2827 Sm.SmHostBlocks <> run_prog abbrev
+R2829:2829 Sm.SmHostBlocks <> n:10 var
+R2831:2831 Sm.SmHostBlocks <> P:7 var
+R2834:2842 Sm.SmHostBlocks <> sm_hstart def
+R2844:2844 Sm.SmHostBlocks <> x:8 var
+R2850:2857 Sm.SmHostBlocks <> halted def
+R2859:2859 Sm.SmHostBlocks <> P:7 var
+R2862:2870 Sm.SmHostBlocks <> core_of proj
+R2872:2872 Sm.SmHostBlocks <> s:9 var
+def 3080:3088 <> sm_hagree
+R3097:3101 Sm.SmHostBlocks <> state abbrev
+binder 3091:3091 <> s:11
+binder 3093:3093 <> t:12
+R3116:3116 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3174:3180 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3124:3124 <> r:13
+R3149:3151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3127:3132 Sm.SmHostBlocks <> vals proj
+R3135:3143 Sm.SmHostBlocks <> core_of proj
+R3145:3145 Sm.SmHostBlocks <> s:11 var
+R3148:3148 Sm.SmHostBlocks <> r:13 var
+R3152:3157 Sm.SmHostBlocks <> vals proj
+R3160:3168 Sm.SmHostBlocks <> core_of proj
+R3170:3170 Sm.SmHostBlocks <> t:12 var
+R3173:3173 Sm.SmHostBlocks <> r:13 var
+R3226:3231 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3202:3204 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3181:3187 Sm.SmHostBlocks <> facts proj
+R3190:3198 Sm.SmHostBlocks <> core_of proj
+R3200:3200 Sm.SmHostBlocks <> s:11 var
+R3205:3211 Sm.SmHostBlocks <> facts proj
+R3214:3222 Sm.SmHostBlocks <> core_of proj
+R3224:3224 Sm.SmHostBlocks <> t:12 var
+R3275:3280 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3252:3254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3232:3237 Sm.SmHostBlocks <> chan proj
+R3240:3248 Sm.SmHostBlocks <> core_of proj
+R3250:3250 Sm.SmHostBlocks <> s:11 var
+R3255:3260 Sm.SmHostBlocks <> chan proj
+R3263:3271 Sm.SmHostBlocks <> core_of proj
+R3273:3273 Sm.SmHostBlocks <> t:12 var
+R3322:3327 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3300:3302 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3281:3285 Sm.SmHostBlocks <> err proj
+R3288:3296 Sm.SmHostBlocks <> core_of proj
+R3298:3298 Sm.SmHostBlocks <> s:11 var
+R3303:3307 Sm.SmHostBlocks <> err proj
+R3310:3318 Sm.SmHostBlocks <> core_of proj
+R3320:3320 Sm.SmHostBlocks <> t:12 var
+R3343:3346 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3334:3336 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3328:3331 Sm.SmHostBlocks <> mu proj
+R3333:3333 Sm.SmHostBlocks <> s:11 var
+R3337:3340 Sm.SmHostBlocks <> mu proj
+R3342:3342 Sm.SmHostBlocks <> t:12 var
+R3355:3357 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3347:3352 Sm.SmHostBlocks <> cert proj
+R3354:3354 Sm.SmHostBlocks <> s:11 var
+R3358:3363 Sm.SmHostBlocks <> cert proj
+R3365:3365 Sm.SmHostBlocks <> t:12 var
+def 3518:3526 <> sm_hequiv
+R3535:3538 Coq.Init.Datatypes <> list ind
+R3540:3544 Sm.SmHostBlocks <> instr abbrev
+binder 3529:3529 <> P:14
+binder 3531:3531 <> Q:15
+binder 3566:3566 <> x:16
+R3573:3573 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3643:3652 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3722:3722 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3581:3581 <> s:17
+R3598:3601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3584:3591 Sm.SmHostBlocks <> sm_hends def
+R3593:3593 Sm.SmHostBlocks <> P:14 var
+R3595:3595 Sm.SmHostBlocks <> x:16 var
+R3597:3597 Sm.SmHostBlocks <> s:17 var
+R3602:3608 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3610:3611 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3609:3609 <> t:18
+R3626:3629 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3612:3619 Sm.SmHostBlocks <> sm_hends def
+R3621:3621 Sm.SmHostBlocks <> Q:15 var
+R3623:3623 Sm.SmHostBlocks <> x:16 var
+R3625:3625 Sm.SmHostBlocks <> t:18 var
+R3630:3638 Sm.SmHostBlocks <> sm_hagree def
+R3640:3640 Sm.SmHostBlocks <> s:17 var
+R3642:3642 Sm.SmHostBlocks <> t:18 var
+binder 3660:3660 <> t:19
+R3677:3680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3663:3670 Sm.SmHostBlocks <> sm_hends def
+R3672:3672 Sm.SmHostBlocks <> Q:15 var
+R3674:3674 Sm.SmHostBlocks <> x:16 var
+R3676:3676 Sm.SmHostBlocks <> t:19 var
+R3681:3687 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3689:3690 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3688:3688 <> s:20
+R3705:3708 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3691:3698 Sm.SmHostBlocks <> sm_hends def
+R3700:3700 Sm.SmHostBlocks <> P:14 var
+R3702:3702 Sm.SmHostBlocks <> x:16 var
+R3704:3704 Sm.SmHostBlocks <> s:20 var
+R3709:3717 Sm.SmHostBlocks <> sm_hagree def
+R3719:3719 Sm.SmHostBlocks <> s:20 var
+R3721:3721 Sm.SmHostBlocks <> t:19 var
+def 3854:3860 <> sm_hfun
+R3867:3870 Coq.Init.Datatypes <> list ind
+R3872:3876 Sm.SmHostBlocks <> instr abbrev
+binder 3863:3863 <> P:21
+R3886:3888 Coq.Init.Datatypes <> nat ind
+binder 3880:3880 <> x:22
+binder 3882:3882 <> y:23
+R3903:3909 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3911:3912 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3910:3910 <> s:24
+R3927:3930 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3913:3920 Sm.SmHostBlocks <> sm_hends def
+R3922:3922 Sm.SmHostBlocks <> P:21 var
+R3924:3924 Sm.SmHostBlocks <> x:22 var
+R3926:3926 Sm.SmHostBlocks <> s:24 var
+R3953:3955 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3931:3936 Sm.SmHostBlocks <> vals proj
+R3939:3947 Sm.SmHostBlocks <> core_of proj
+R3949:3949 Sm.SmHostBlocks <> s:24 var
+R3956:3956 Sm.SmHostBlocks <> y:23 var
+prf 3966:3978 <> sm_hagree_sym
+binder 3989:3989 <> s:25
+binder 3991:3991 <> t:26
+R4007:4010 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3994:4002 Sm.SmHostBlocks <> sm_hagree def
+R4004:4004 Sm.SmHostBlocks <> s:25 var
+R4006:4006 Sm.SmHostBlocks <> t:26 var
+R4011:4019 Sm.SmHostBlocks <> sm_hagree def
+R4021:4021 Sm.SmHostBlocks <> t:26 var
+R4023:4023 Sm.SmHostBlocks <> s:25 var
+prf 4151:4163 <> sm_hequiv_sym
+binder 4174:4174 <> P:27
+binder 4176:4176 <> Q:28
+R4192:4195 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4179:4187 Sm.SmHostBlocks <> sm_hequiv def
+R4189:4189 Sm.SmHostBlocks <> P:27 var
+R4191:4191 Sm.SmHostBlocks <> Q:28 var
+R4196:4204 Sm.SmHostBlocks <> sm_hequiv def
+R4206:4206 Sm.SmHostBlocks <> Q:28 var
+R4208:4208 Sm.SmHostBlocks <> P:27 var
+R4363:4375 Sm.SmHostBlocks <> sm_hagree_sym thm
+R4363:4375 Sm.SmHostBlocks <> sm_hagree_sym thm
+R4475:4487 Sm.SmHostBlocks <> sm_hagree_sym thm
+R4475:4487 Sm.SmHostBlocks <> sm_hagree_sym thm
+prf 4506:4519 <> sm_hequiv_hfun
+binder 4530:4530 <> P:29
+binder 4532:4532 <> Q:30
+R4548:4551 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4535:4543 Sm.SmHostBlocks <> sm_hequiv def
+R4545:4545 Sm.SmHostBlocks <> P:29 var
+R4547:4547 Sm.SmHostBlocks <> Q:30 var
+binder 4559:4559 <> x:31
+binder 4561:4561 <> y:32
+R4577:4581 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4564:4570 Sm.SmHostBlocks <> sm_hfun def
+R4572:4572 Sm.SmHostBlocks <> P:29 var
+R4574:4574 Sm.SmHostBlocks <> x:31 var
+R4576:4576 Sm.SmHostBlocks <> y:32 var
+R4582:4588 Sm.SmHostBlocks <> sm_hfun def
+R4590:4590 Sm.SmHostBlocks <> Q:30 var
+R4592:4592 Sm.SmHostBlocks <> x:31 var
+R4594:4594 Sm.SmHostBlocks <> y:32 var
+def 5223:5230 <> sm_cstep
+R5237:5240 Coq.Init.Datatypes <> list ind
+R5242:5246 Sm.SmHostBlocks <> instr abbrev
+binder 5233:5233 <> P:33
+R5254:5257 Sm.SmHostBlocks <> core abbrev
+binder 5250:5250 <> k:34
+R5262:5265 Sm.SmHostBlocks <> core abbrev
+R5278:5289 Sm.SmHostBlocks <> next_instr def
+R5291:5291 Sm.SmHostBlocks <> P:33 var
+R5293:5293 Sm.SmHostBlocks <> k:34 var
+R5300:5303 Coq.Init.Datatypes <> None constr
+R5308:5308 Sm.SmHostBlocks <> k:34 var
+R5312:5315 Coq.Init.Datatypes <> Some constr
+R5322:5326 Sm.SmHostBlocks <> cexec abbrev
+R5328:5328 Sm.SmHostBlocks <> k:34 var
+prf 5344:5355 <> sm_step_core
+binder 5366:5366 <> P:35
+binder 5368:5368 <> s:36
+R5391:5393 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5371:5379 Sm.SmHostBlocks <> core_of proj
+R5382:5385 Sm.SmHostBlocks <> step abbrev
+R5387:5387 Sm.SmHostBlocks <> P:35 var
+R5389:5389 Sm.SmHostBlocks <> s:36 var
+R5394:5401 Sm.SmHostBlocks <> sm_cstep def
+R5403:5403 Sm.SmHostBlocks <> P:35 var
+R5406:5414 Sm.SmHostBlocks <> core_of proj
+R5416:5416 Sm.SmHostBlocks <> s:36 var
+R5448:5451 Sm.SmHostBlocks <> step def
+R5454:5461 Sm.SmHostBlocks <> sm_cstep def
+R5474:5485 Sm.SmHostBlocks <> next_instr def
+R5490:5498 Sm.SmHostBlocks <> core_of proj
+R5474:5485 Sm.SmHostBlocks <> next_instr def
+R5490:5498 Sm.SmHostBlocks <> core_of proj
+prf 5530:5539 <> sm_run_add
+binder 5550:5550 <> a:37
+binder 5552:5552 <> b:38
+binder 5554:5554 <> P:39
+binder 5556:5556 <> s:40
+R5579:5581 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5559:5566 Sm.SmHostBlocks <> run_prog abbrev
+R5570:5572 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5569:5569 Sm.SmHostBlocks <> a:37 var
+R5573:5573 Sm.SmHostBlocks <> b:38 var
+R5576:5576 Sm.SmHostBlocks <> P:39 var
+R5578:5578 Sm.SmHostBlocks <> s:40 var
+R5582:5589 Sm.SmHostBlocks <> run_prog abbrev
+R5591:5591 Sm.SmHostBlocks <> b:38 var
+R5593:5593 Sm.SmHostBlocks <> P:39 var
+R5596:5603 Sm.SmHostBlocks <> run_prog abbrev
+R5605:5605 Sm.SmHostBlocks <> a:37 var
+R5607:5607 Sm.SmHostBlocks <> P:39 var
+R5609:5609 Sm.SmHostBlocks <> s:40 var
+R5634:5653 Sm.SmHostBlocks <> multi_run_prog_add thm
+R5634:5653 Sm.SmHostBlocks <> multi_run_prog_add thm
+prf 5668:5678 <> sm_run_succ
+binder 5689:5689 <> n:41
+binder 5691:5691 <> P:42
+binder 5693:5693 <> s:43
+R5714:5716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5696:5703 Sm.SmHostBlocks <> run_prog abbrev
+R5706:5706 Coq.Init.Datatypes <> S constr
+R5708:5708 Sm.SmHostBlocks <> n:41 var
+R5711:5711 Sm.SmHostBlocks <> P:42 var
+R5713:5713 Sm.SmHostBlocks <> s:43 var
+R5717:5724 Sm.SmHostBlocks <> run_prog abbrev
+R5726:5726 Sm.SmHostBlocks <> n:41 var
+R5728:5728 Sm.SmHostBlocks <> P:42 var
+R5731:5734 Sm.SmHostBlocks <> step abbrev
+R5736:5736 Sm.SmHostBlocks <> P:42 var
+R5738:5738 Sm.SmHostBlocks <> s:43 var
+prf 5774:5787 <> sm_halted_stay
+binder 5798:5798 <> n:44
+binder 5800:5800 <> P:45
+binder 5802:5802 <> s:46
+R5829:5832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5805:5812 Sm.SmHostBlocks <> halted def
+R5814:5814 Sm.SmHostBlocks <> P:45 var
+R5817:5825 Sm.SmHostBlocks <> core_of proj
+R5827:5827 Sm.SmHostBlocks <> s:46 var
+R5847:5849 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5833:5840 Sm.SmHostBlocks <> run_prog abbrev
+R5842:5842 Sm.SmHostBlocks <> n:44 var
+R5844:5844 Sm.SmHostBlocks <> P:45 var
+R5846:5846 Sm.SmHostBlocks <> s:46 var
+R5850:5850 Sm.SmHostBlocks <> s:46 var
+R5874:5896 Sm.SmHostBlocks <> multi_run_prog_halted thm
+R5874:5896 Sm.SmHostBlocks <> multi_run_prog_halted thm
+prf 5923:5937 <> sm_halted_after
+binder 5948:5948 <> a:47
+binder 5950:5950 <> b:48
+binder 5952:5952 <> P:49
+binder 5954:5954 <> s:50
+R5963:5968 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5958:5961 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5957:5957 Sm.SmHostBlocks <> a:47 var
+R5962:5962 Sm.SmHostBlocks <> b:48 var
+R6008:6011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5969:5976 Sm.SmHostBlocks <> halted def
+R5978:5978 Sm.SmHostBlocks <> P:49 var
+R5981:5989 Sm.SmHostBlocks <> core_of proj
+R5992:5999 Sm.SmHostBlocks <> run_prog abbrev
+R6001:6001 Sm.SmHostBlocks <> a:47 var
+R6003:6003 Sm.SmHostBlocks <> P:49 var
+R6005:6005 Sm.SmHostBlocks <> s:50 var
+R6026:6028 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6012:6019 Sm.SmHostBlocks <> run_prog abbrev
+R6021:6021 Sm.SmHostBlocks <> b:48 var
+R6023:6023 Sm.SmHostBlocks <> P:49 var
+R6025:6025 Sm.SmHostBlocks <> s:50 var
+R6029:6036 Sm.SmHostBlocks <> run_prog abbrev
+R6038:6038 Sm.SmHostBlocks <> a:47 var
+R6040:6040 Sm.SmHostBlocks <> P:49 var
+R6042:6042 Sm.SmHostBlocks <> s:50 var
+R6093:6096 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6102:6102 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6098:6100 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6093:6096 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6102:6102 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6098:6100 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6123:6132 Sm.SmHostBlocks <> sm_run_add thm
+R6123:6132 Sm.SmHostBlocks <> sm_run_add thm
+R6123:6132 Sm.SmHostBlocks <> sm_run_add thm
+R6141:6154 Sm.SmHostBlocks <> sm_halted_stay thm
+R6141:6154 Sm.SmHostBlocks <> sm_halted_stay thm
+prf 6231:6245 <> sm_hends_unique
+binder 6256:6256 <> P:51
+binder 6258:6258 <> x:52
+binder 6260:6260 <> s:53
+binder 6262:6262 <> t:54
+R6279:6282 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6265:6272 Sm.SmHostBlocks <> sm_hends def
+R6274:6274 Sm.SmHostBlocks <> P:51 var
+R6276:6276 Sm.SmHostBlocks <> x:52 var
+R6278:6278 Sm.SmHostBlocks <> s:53 var
+R6297:6300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6283:6290 Sm.SmHostBlocks <> sm_hends def
+R6292:6292 Sm.SmHostBlocks <> P:51 var
+R6294:6294 Sm.SmHostBlocks <> x:52 var
+R6296:6296 Sm.SmHostBlocks <> t:54 var
+R6302:6304 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6301:6301 Sm.SmHostBlocks <> s:53 var
+R6305:6305 Sm.SmHostBlocks <> t:54 var
+R6367:6375 Coq.Arith.Compare_dec <> le_ge_dec def
+R6367:6375 Coq.Arith.Compare_dec <> le_ge_dec def
+R6414:6428 Sm.SmHostBlocks <> sm_halted_after thm
+R6414:6428 Sm.SmHostBlocks <> sm_halted_after thm
+R6453:6467 Sm.SmHostBlocks <> sm_halted_after thm
+R6453:6467 Sm.SmHostBlocks <> sm_halted_after thm
+prf 6494:6504 <> sm_hfun_det
+binder 6515:6515 <> P:55
+binder 6517:6517 <> x:56
+binder 6519:6519 <> y:57
+binder 6521:6521 <> z:58
+R6537:6540 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6524:6530 Sm.SmHostBlocks <> sm_hfun def
+R6532:6532 Sm.SmHostBlocks <> P:55 var
+R6534:6534 Sm.SmHostBlocks <> x:56 var
+R6536:6536 Sm.SmHostBlocks <> y:57 var
+R6554:6557 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6541:6547 Sm.SmHostBlocks <> sm_hfun def
+R6549:6549 Sm.SmHostBlocks <> P:55 var
+R6551:6551 Sm.SmHostBlocks <> x:56 var
+R6553:6553 Sm.SmHostBlocks <> z:58 var
+R6559:6561 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6558:6558 Sm.SmHostBlocks <> y:57 var
+R6562:6562 Sm.SmHostBlocks <> z:58 var
+R6625:6639 Sm.SmHostBlocks <> sm_hends_unique thm
+R6625:6639 Sm.SmHostBlocks <> sm_hends_unique thm
+R6625:6639 Sm.SmHostBlocks <> sm_hends_unique thm
+def 6910:6914 <> sm_rj
+R6929:6931 Coq.Init.Datatypes <> nat ind
+binder 6917:6919 <> off:59
+binder 6921:6923 <> len:60
+binder 6925:6925 <> j:61
+R6936:6938 Coq.Init.Datatypes <> nat ind
+R6948:6948 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6956:6961 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6971:6971 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6950:6954 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R6955:6955 Sm.SmHostBlocks <> j:61 var
+R6963:6967 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R6962:6962 Sm.SmHostBlocks <> j:61 var
+R6968:6970 Sm.SmHostBlocks <> len:60 var
+R6991:6991 Coq.Init.Datatypes <> S constr
+R6997:6999 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6994:6996 Sm.SmHostBlocks <> len:60 var
+R7000:7002 Sm.SmHostBlocks <> off:59 var
+R6979:6981 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6978:6978 Sm.SmHostBlocks <> j:61 var
+R6982:6984 Sm.SmHostBlocks <> off:59 var
+def 7018:7022 <> sm_ri
+R7035:7037 Coq.Init.Datatypes <> nat ind
+binder 7025:7027 <> off:62
+binder 7029:7031 <> len:63
+R7045:7049 Sm.SmHostBlocks <> instr abbrev
+binder 7041:7041 <> i:64
+R7054:7058 Sm.SmHostBlocks <> instr abbrev
+R7071:7071 Sm.SmHostBlocks <> i:64 var
+R7078:7082 Sm.SmHostBlocks <> DEC constr
+R7091:7095 Sm.SmHostBlocks <> DEC constr
+R7100:7104 Sm.SmHostBlocks <> sm_rj def
+R7106:7108 Sm.SmHostBlocks <> off:62 var
+R7110:7112 Sm.SmHostBlocks <> len:63 var
+R7124:7124 Sm.SmHostBlocks <> i:64 var
+def 7143:7150 <> sm_reloc
+R7159:7161 Coq.Init.Datatypes <> nat ind
+binder 7153:7155 <> off:66
+R7169:7172 Coq.Init.Datatypes <> list ind
+R7174:7178 Sm.SmHostBlocks <> instr abbrev
+binder 7165:7165 <> B:67
+R7183:7186 Coq.Init.Datatypes <> list ind
+R7188:7192 Sm.SmHostBlocks <> instr abbrev
+R7199:7201 Coq.Lists.List <> map def
+R7226:7226 Sm.SmHostBlocks <> B:67 var
+R7204:7208 Sm.SmHostBlocks <> sm_ri def
+R7210:7212 Sm.SmHostBlocks <> off:66 var
+R7215:7220 Coq.Init.Datatypes <> length def
+R7222:7222 Sm.SmHostBlocks <> B:67 var
+prf 7236:7250 <> sm_reloc_length
+binder 7261:7263 <> off:68
+binder 7265:7265 <> B:69
+R7291:7293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7268:7273 Coq.Init.Datatypes <> length def
+R7276:7283 Sm.SmHostBlocks <> sm_reloc def
+R7285:7287 Sm.SmHostBlocks <> off:68 var
+R7289:7289 Sm.SmHostBlocks <> B:69 var
+R7294:7299 Coq.Init.Datatypes <> length def
+R7301:7301 Sm.SmHostBlocks <> B:69 var
+R7326:7333 Sm.SmHostBlocks <> sm_reloc def
+R7342:7351 Coq.Lists.List <> map_length thm
+R7342:7351 Coq.Lists.List <> map_length thm
+def 7412:7420 <> sm_embeds
+R7429:7432 Coq.Init.Datatypes <> list ind
+R7434:7438 Sm.SmHostBlocks <> instr abbrev
+binder 7423:7423 <> Q:70
+binder 7425:7425 <> B:71
+R7448:7450 Coq.Init.Datatypes <> nat ind
+binder 7442:7444 <> off:72
+binder 7472:7472 <> p:73
+R7493:7500 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7476:7479 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R7481:7484 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R7480:7480 Sm.SmHostBlocks <> p:73 var
+R7480:7480 Sm.SmHostBlocks <> p:73 var
+R7485:7490 Coq.Init.Datatypes <> length def
+R7492:7492 Sm.SmHostBlocks <> B:71 var
+R7520:7522 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7501:7507 Sm.SmHostBlocks <> fetch def
+R7513:7515 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7512:7512 Sm.SmHostBlocks <> p:73 var
+R7516:7518 Sm.SmHostBlocks <> off:72 var
+R7509:7509 Sm.SmHostBlocks <> Q:70 var
+R7523:7532 Coq.Init.Datatypes <> option_map def
+R7558:7564 Sm.SmHostBlocks <> fetch def
+R7568:7568 Sm.SmHostBlocks <> p:73 var
+R7566:7566 Sm.SmHostBlocks <> B:71 var
+R7535:7539 Sm.SmHostBlocks <> sm_ri def
+R7541:7543 Sm.SmHostBlocks <> off:72 var
+R7546:7551 Coq.Init.Datatypes <> length def
+R7553:7553 Sm.SmHostBlocks <> B:71 var
+prf 7579:7591 <> sm_embeds_app
+binder 7602:7602 <> A:74
+binder 7604:7604 <> B:75
+binder 7606:7606 <> C:76
+R7611:7619 Sm.SmHostBlocks <> sm_embeds def
+R7623:7626 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7622:7622 Sm.SmHostBlocks <> A:74 var
+R7648:7651 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7627:7634 Sm.SmHostBlocks <> sm_reloc def
+R7637:7642 Coq.Init.Datatypes <> length def
+R7644:7644 Sm.SmHostBlocks <> A:74 var
+R7647:7647 Sm.SmHostBlocks <> B:75 var
+R7652:7652 Sm.SmHostBlocks <> C:76 var
+R7655:7655 Sm.SmHostBlocks <> B:75 var
+R7658:7663 Coq.Init.Datatypes <> length def
+R7665:7665 Sm.SmHostBlocks <> A:74 var
+R7741:7743 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7738:7738 Coq.Init.Datatypes <> S constr
+R7744:7749 Coq.Init.Datatypes <> length def
+R7760:7760 Coq.Init.Datatypes <> S constr
+R7771:7773 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7763:7768 Coq.Init.Datatypes <> length def
+R7741:7743 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7738:7738 Coq.Init.Datatypes <> S constr
+R7744:7749 Coq.Init.Datatypes <> length def
+R7760:7760 Coq.Init.Datatypes <> S constr
+R7771:7773 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7763:7768 Coq.Init.Datatypes <> length def
+R7792:7798 Sm.SmHostBlocks <> fetch def
+R7811:7824 Coq.Lists.List <> nth_error_app2 thm
+R7811:7824 Coq.Lists.List <> nth_error_app2 thm
+R7811:7824 Coq.Lists.List <> nth_error_app2 thm
+R7855:7857 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7851:7853 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7843:7848 Coq.Init.Datatypes <> length def
+R7858:7863 Coq.Init.Datatypes <> length def
+R7855:7857 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7851:7853 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7843:7848 Coq.Init.Datatypes <> length def
+R7858:7863 Coq.Init.Datatypes <> length def
+R7920:7934 Sm.SmHostBlocks <> sm_reloc_length thm
+R7893:7906 Coq.Lists.List <> nth_error_app1 thm
+R7893:7906 Coq.Lists.List <> nth_error_app1 thm
+R7920:7934 Sm.SmHostBlocks <> sm_reloc_length thm
+R7920:7934 Sm.SmHostBlocks <> sm_reloc_length thm
+R7893:7906 Coq.Lists.List <> nth_error_app1 thm
+R7952:7959 Sm.SmHostBlocks <> sm_reloc def
+R7970:7982 Coq.Lists.List <> nth_error_map thm
+R7970:7982 Coq.Lists.List <> nth_error_map thm
+R7970:7982 Coq.Lists.List <> nth_error_map thm
+prf 8010:8026 <> sm_fetch_app_past
+R8044:8047 Coq.Init.Datatypes <> list ind
+R8049:8053 Sm.SmHostBlocks <> instr abbrev
+binder 8038:8038 <> A:77
+binder 8040:8040 <> B:78
+binder 8056:8056 <> n:79
+R8084:8087 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8080:8082 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8069:8071 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8061:8066 Coq.Init.Datatypes <> length def
+R8068:8068 Sm.SmHostBlocks <> A:77 var
+R8072:8077 Coq.Init.Datatypes <> length def
+R8079:8079 Sm.SmHostBlocks <> B:78 var
+R8083:8083 Sm.SmHostBlocks <> n:79 var
+R8106:8108 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8088:8094 Sm.SmHostBlocks <> fetch def
+R8105:8105 Sm.SmHostBlocks <> n:79 var
+R8098:8101 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8097:8097 Sm.SmHostBlocks <> A:77 var
+R8102:8102 Sm.SmHostBlocks <> B:78 var
+R8109:8112 Coq.Init.Datatypes <> None constr
+R8193:8206 Coq.Lists.List <> nth_error_None thm
+R8193:8206 Coq.Lists.List <> nth_error_None thm
+R8217:8226 Coq.Lists.List <> app_length thm
+R8217:8226 Coq.Lists.List <> app_length thm
+R8217:8226 Coq.Lists.List <> app_length thm
+prf 8246:8262 <> sm_fetch_app_left
+R8280:8283 Coq.Init.Datatypes <> list ind
+R8285:8289 Sm.SmHostBlocks <> instr abbrev
+binder 8274:8274 <> A:80
+binder 8276:8276 <> B:81
+binder 8292:8292 <> n:82
+R8310:8313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8298:8301 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8297:8297 Sm.SmHostBlocks <> n:82 var
+R8302:8307 Coq.Init.Datatypes <> length def
+R8309:8309 Sm.SmHostBlocks <> A:80 var
+R8332:8334 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8314:8320 Sm.SmHostBlocks <> fetch def
+R8331:8331 Sm.SmHostBlocks <> n:82 var
+R8324:8327 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8323:8323 Sm.SmHostBlocks <> A:80 var
+R8328:8328 Sm.SmHostBlocks <> B:81 var
+R8335:8341 Sm.SmHostBlocks <> fetch def
+R8345:8345 Sm.SmHostBlocks <> n:82 var
+R8343:8343 Sm.SmHostBlocks <> A:80 var
+R8426:8439 Coq.Lists.List <> nth_error_app1 thm
+R8426:8439 Coq.Lists.List <> nth_error_app1 thm
+prf 8459:8472 <> sm_fetch_range
+R8488:8491 Coq.Init.Datatypes <> list ind
+R8493:8497 Sm.SmHostBlocks <> instr abbrev
+binder 8484:8484 <> B:83
+binder 8500:8500 <> p:84
+binder 8502:8502 <> i:85
+R8525:8528 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8516:8518 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8505:8511 Sm.SmHostBlocks <> fetch def
+R8515:8515 Sm.SmHostBlocks <> p:84 var
+R8513:8513 Sm.SmHostBlocks <> B:83 var
+R8519:8522 Coq.Init.Datatypes <> Some constr
+R8524:8524 Sm.SmHostBlocks <> i:85 var
+R8530:8533 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R8535:8538 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R8534:8534 Sm.SmHostBlocks <> p:84 var
+R8534:8534 Sm.SmHostBlocks <> p:84 var
+R8539:8544 Coq.Init.Datatypes <> length def
+R8546:8546 Sm.SmHostBlocks <> B:83 var
+R8636:8638 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8639:8644 Coq.Init.Datatypes <> length def
+R8659:8672 Coq.Lists.List <> nth_error_Some thm
+R8636:8638 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8639:8644 Coq.Init.Datatypes <> length def
+R8659:8672 Coq.Lists.List <> nth_error_Some thm
+prf 8705:8716 <> sm_fetch_out
+R8732:8735 Coq.Init.Datatypes <> list ind
+R8737:8741 Sm.SmHostBlocks <> instr abbrev
+binder 8728:8728 <> B:86
+binder 8744:8744 <> p:87
+R8769:8772 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8747:8749 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8768:8768 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8751:8754 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R8756:8759 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R8755:8755 Sm.SmHostBlocks <> p:87 var
+R8755:8755 Sm.SmHostBlocks <> p:87 var
+R8760:8765 Coq.Init.Datatypes <> length def
+R8767:8767 Sm.SmHostBlocks <> B:86 var
+R8784:8786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8773:8779 Sm.SmHostBlocks <> fetch def
+R8783:8783 Sm.SmHostBlocks <> p:87 var
+R8781:8781 Sm.SmHostBlocks <> B:86 var
+R8787:8790 Coq.Init.Datatypes <> None constr
+R8869:8882 Coq.Lists.List <> nth_error_None thm
+R8869:8882 Coq.Lists.List <> nth_error_None thm
+prf 8902:8909 <> sm_rj_in
+binder 8920:8922 <> off:88
+binder 8924:8926 <> len:89
+binder 8928:8928 <> j:90
+R8944:8947 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8932:8935 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R8937:8940 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R8936:8936 Sm.SmHostBlocks <> j:90 var
+R8936:8936 Sm.SmHostBlocks <> j:90 var
+R8941:8943 Sm.SmHostBlocks <> len:89 var
+R8963:8965 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8948:8952 Sm.SmHostBlocks <> sm_rj def
+R8954:8956 Sm.SmHostBlocks <> off:88 var
+R8958:8960 Sm.SmHostBlocks <> len:89 var
+R8962:8962 Sm.SmHostBlocks <> j:90 var
+R8967:8969 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8966:8966 Sm.SmHostBlocks <> j:90 var
+R8970:8972 Sm.SmHostBlocks <> off:88 var
+R9011:9015 Sm.SmHostBlocks <> sm_rj def
+R9029:9029 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9037:9042 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9052:9052 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9031:9035 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R9044:9048 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R9060:9063 Coq.Init.Datatypes <> true constr
+R9029:9029 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9037:9042 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9052:9052 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R9031:9035 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R9044:9048 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R9060:9063 Coq.Init.Datatypes <> true constr
+R9101:9113 Coq.Bool.Bool <> andb_true_iff thm
+R9101:9113 Coq.Bool.Bool <> andb_true_iff thm
+R9129:9138 Coq.Arith.PeanoNat Nat leb_le thm
+R9129:9138 Coq.Arith.PeanoNat Nat leb_le thm
+R9129:9138 Coq.Arith.PeanoNat Nat leb_le thm
+prf 9158:9166 <> sm_rj_out
+binder 9177:9179 <> off:91
+binder 9181:9183 <> len:92
+binder 9185:9185 <> j:93
+R9205:9208 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9188:9190 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9204:9204 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9192:9195 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R9197:9200 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R9196:9196 Sm.SmHostBlocks <> j:93 var
+R9196:9196 Sm.SmHostBlocks <> j:93 var
+R9201:9203 Sm.SmHostBlocks <> len:92 var
+R9224:9226 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9209:9213 Sm.SmHostBlocks <> sm_rj def
+R9215:9217 Sm.SmHostBlocks <> off:91 var
+R9219:9221 Sm.SmHostBlocks <> len:92 var
+R9223:9223 Sm.SmHostBlocks <> j:93 var
+R9227:9227 Coq.Init.Datatypes <> S constr
+R9233:9235 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9230:9232 Sm.SmHostBlocks <> len:92 var
+R9236:9238 Sm.SmHostBlocks <> off:91 var
+R9278:9282 Sm.SmHostBlocks <> sm_rj def
+R9298:9302 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R9316:9320 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R9298:9302 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R9316:9320 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R9316:9320 Coq.Arith.PeanoNat <> ::nat_scope:x_'<=?'_x not
+R9366:9375 Coq.Arith.PeanoNat Nat leb_le thm
+R9366:9375 Coq.Arith.PeanoNat Nat leb_le thm
+R9390:9399 Coq.Arith.PeanoNat Nat leb_le thm
+R9390:9399 Coq.Arith.PeanoNat Nat leb_le thm
+prf 9425:9431 <> sm_rj_S
+binder 9442:9444 <> off:94
+binder 9446:9448 <> len:95
+binder 9450:9450 <> p:96
+R9466:9469 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9454:9457 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R9459:9462 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R9458:9458 Sm.SmHostBlocks <> p:96 var
+R9458:9458 Sm.SmHostBlocks <> p:96 var
+R9463:9465 Sm.SmHostBlocks <> len:95 var
+R9489:9491 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9470:9474 Sm.SmHostBlocks <> sm_rj def
+R9476:9478 Sm.SmHostBlocks <> off:94 var
+R9480:9482 Sm.SmHostBlocks <> len:95 var
+R9485:9485 Coq.Init.Datatypes <> S constr
+R9487:9487 Sm.SmHostBlocks <> p:96 var
+R9492:9492 Coq.Init.Datatypes <> S constr
+R9496:9498 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9495:9495 Sm.SmHostBlocks <> p:96 var
+R9499:9501 Sm.SmHostBlocks <> off:94 var
+R9544:9552 Coq.Arith.Compare_dec <> le_lt_dec def
+R9555:9555 Coq.Init.Datatypes <> S constr
+R9544:9552 Coq.Arith.Compare_dec <> le_lt_dec def
+R9555:9555 Coq.Init.Datatypes <> S constr
+R9591:9598 Sm.SmHostBlocks <> sm_rj_in thm
+R9591:9598 Sm.SmHostBlocks <> sm_rj_in thm
+R9591:9598 Sm.SmHostBlocks <> sm_rj_in thm
+R9625:9633 Sm.SmHostBlocks <> sm_rj_out thm
+R9625:9633 Sm.SmHostBlocks <> sm_rj_out thm
+R9625:9633 Sm.SmHostBlocks <> sm_rj_out thm
+def 9891:9897 <> sm_crel
+R9908:9911 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9905:9907 Coq.Init.Datatypes <> nat ind
+binder 9900:9901 <> Sr:97
+R9929:9931 Coq.Init.Datatypes <> nat ind
+binder 9919:9921 <> off:98
+binder 9923:9925 <> len:99
+R9942:9945 Sm.SmHostBlocks <> core abbrev
+binder 9935:9935 <> k:100
+binder 9937:9938 <> k':101
+R9960:9960 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9995:10001 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9968:9968 <> r:102
+R9981:9983 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9971:9976 Sm.SmHostBlocks <> vals proj
+R9978:9978 Sm.SmHostBlocks <> k:100 var
+R9980:9980 Sm.SmHostBlocks <> r:102 var
+R9984:9989 Sm.SmHostBlocks <> vals proj
+R9991:9992 Sm.SmHostBlocks <> k':101 var
+R9994:9994 Sm.SmHostBlocks <> r:102 var
+R10002:10002 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10045:10051 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 10010:10010 <> r:103
+R10017:10020 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10013:10014 Sm.SmHostBlocks <> Sr:97 var
+R10016:10016 Sm.SmHostBlocks <> r:103 var
+R10031:10033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10021:10026 Sm.SmHostBlocks <> vers proj
+R10028:10028 Sm.SmHostBlocks <> k:100 var
+R10030:10030 Sm.SmHostBlocks <> r:103 var
+R10034:10039 Sm.SmHostBlocks <> vers proj
+R10041:10042 Sm.SmHostBlocks <> k':101 var
+R10044:10044 Sm.SmHostBlocks <> r:103 var
+R10074:10077 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10061:10063 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10052:10058 Sm.SmHostBlocks <> facts proj
+R10060:10060 Sm.SmHostBlocks <> k:100 var
+R10064:10070 Sm.SmHostBlocks <> facts proj
+R10072:10073 Sm.SmHostBlocks <> k':101 var
+R10098:10101 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10086:10088 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10078:10083 Sm.SmHostBlocks <> chan proj
+R10085:10085 Sm.SmHostBlocks <> k:100 var
+R10089:10094 Sm.SmHostBlocks <> chan proj
+R10096:10097 Sm.SmHostBlocks <> k':101 var
+R10120:10125 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10109:10111 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10102:10106 Sm.SmHostBlocks <> err proj
+R10108:10108 Sm.SmHostBlocks <> k:100 var
+R10112:10116 Sm.SmHostBlocks <> err proj
+R10118:10119 Sm.SmHostBlocks <> k':101 var
+R10133:10135 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10126:10129 Sm.SmHostBlocks <> pc proj
+R10131:10132 Sm.SmHostBlocks <> k':101 var
+R10136:10140 Sm.SmHostBlocks <> sm_rj def
+R10142:10144 Sm.SmHostBlocks <> off:98 var
+R10146:10148 Sm.SmHostBlocks <> len:99 var
+R10151:10154 Sm.SmHostBlocks <> pc proj
+R10156:10156 Sm.SmHostBlocks <> k:100 var
+def 10172:10178 <> sm_srel
+R10189:10192 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10186:10188 Coq.Init.Datatypes <> nat ind
+binder 10181:10182 <> Sr:104
+R10210:10212 Coq.Init.Datatypes <> nat ind
+binder 10200:10202 <> off:105
+binder 10204:10206 <> len:106
+R10223:10227 Sm.SmHostBlocks <> state abbrev
+binder 10216:10216 <> s:107
+binder 10218:10219 <> s':108
+R10289:10292 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10242:10248 Sm.SmHostBlocks <> sm_crel def
+R10250:10251 Sm.SmHostBlocks <> Sr:104 var
+R10253:10255 Sm.SmHostBlocks <> off:105 var
+R10257:10259 Sm.SmHostBlocks <> len:106 var
+R10262:10270 Sm.SmHostBlocks <> core_of proj
+R10272:10272 Sm.SmHostBlocks <> s:107 var
+R10276:10284 Sm.SmHostBlocks <> core_of proj
+R10286:10287 Sm.SmHostBlocks <> s':108 var
+R10309:10312 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10299:10301 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10293:10296 Sm.SmHostBlocks <> mu proj
+R10298:10298 Sm.SmHostBlocks <> s:107 var
+R10302:10305 Sm.SmHostBlocks <> mu proj
+R10307:10308 Sm.SmHostBlocks <> s':108 var
+R10321:10323 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10313:10318 Sm.SmHostBlocks <> cert proj
+R10320:10320 Sm.SmHostBlocks <> s:107 var
+R10324:10329 Sm.SmHostBlocks <> cert proj
+R10331:10332 Sm.SmHostBlocks <> s':108 var
+def 10347:10355 <> sm_within
+R10366:10369 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10363:10365 Coq.Init.Datatypes <> nat ind
+binder 10358:10359 <> Sr:109
+R10381:10384 Coq.Init.Datatypes <> list ind
+R10386:10390 Sm.SmHostBlocks <> instr abbrev
+binder 10377:10377 <> B:110
+binder 10412:10412 <> i:111
+binder 10414:10414 <> r:112
+R10423:10426 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10417:10418 Coq.Lists.List <> In def
+R10422:10422 Sm.SmHostBlocks <> B:110 var
+R10420:10420 Sm.SmHostBlocks <> i:111 var
+R10448:10451 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10441:10443 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10427:10436 Sm.SmHostBlocks <> mentions def
+R10438:10438 Sm.SmHostBlocks <> i:111 var
+R10440:10440 Sm.SmHostBlocks <> r:112 var
+R10444:10447 Coq.Init.Datatypes <> true constr
+R10469:10472 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10461:10463 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10452:10458 Sm.SmHostBlocks <> plain def
+R10460:10460 Sm.SmHostBlocks <> i:111 var
+R10464:10468 Coq.Init.Datatypes <> false constr
+R10473:10474 Sm.SmHostBlocks <> Sr:109 var
+R10476:10476 Sm.SmHostBlocks <> r:112 var
+prf 10486:10495 <> sm_cost_ri
+binder 10506:10508 <> off:113
+binder 10510:10512 <> len:114
+binder 10514:10514 <> i:115
+R10541:10543 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10517:10522 Sm.SmHostBlocks <> cost def
+R10525:10529 Sm.SmHostBlocks <> sm_ri def
+R10531:10533 Sm.SmHostBlocks <> off:113 var
+R10535:10537 Sm.SmHostBlocks <> len:114 var
+R10539:10539 Sm.SmHostBlocks <> i:115 var
+R10544:10549 Sm.SmHostBlocks <> cost def
+R10551:10551 Sm.SmHostBlocks <> i:115 var
+prf 10605:10614 <> sm_ri_halt
+binder 10625:10627 <> off:116
+binder 10629:10631 <> len:117
+binder 10633:10633 <> i:118
+R10660:10664 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10651:10653 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10636:10640 Sm.SmHostBlocks <> sm_ri def
+R10642:10644 Sm.SmHostBlocks <> off:116 var
+R10646:10648 Sm.SmHostBlocks <> len:117 var
+R10650:10650 Sm.SmHostBlocks <> i:118 var
+R10654:10659 Sm.SmHostBlocks <> HALT constr
+R10666:10668 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10665:10665 Sm.SmHostBlocks <> i:118 var
+R10669:10674 Sm.SmHostBlocks <> HALT constr
+prf 10750:10761 <> sm_next_some
+R10777:10780 Coq.Init.Datatypes <> list ind
+R10782:10786 Sm.SmHostBlocks <> instr abbrev
+binder 10773:10773 <> P:119
+binder 10789:10789 <> k:120
+binder 10791:10791 <> i:121
+R10819:10824 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10810:10812 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10794:10805 Sm.SmHostBlocks <> next_instr def
+R10807:10807 Sm.SmHostBlocks <> P:119 var
+R10809:10809 Sm.SmHostBlocks <> k:120 var
+R10813:10816 Coq.Init.Datatypes <> Some constr
+R10818:10818 Sm.SmHostBlocks <> i:121 var
+R10840:10843 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10832:10834 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10825:10829 Sm.SmHostBlocks <> err proj
+R10831:10831 Sm.SmHostBlocks <> k:120 var
+R10835:10839 Coq.Init.Datatypes <> false constr
+R10871:10874 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10862:10864 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10844:10850 Sm.SmHostBlocks <> fetch def
+R10855:10858 Sm.SmHostBlocks <> pc proj
+R10860:10860 Sm.SmHostBlocks <> k:120 var
+R10852:10852 Sm.SmHostBlocks <> P:119 var
+R10865:10868 Coq.Init.Datatypes <> Some constr
+R10870:10870 Sm.SmHostBlocks <> i:121 var
+R10876:10879 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10875:10875 Sm.SmHostBlocks <> i:121 var
+R10880:10885 Sm.SmHostBlocks <> HALT constr
+R10920:10931 Sm.SmHostBlocks <> next_instr def
+R10949:10953 Sm.SmHostBlocks <> err proj
+R10949:10953 Sm.SmHostBlocks <> err proj
+R10989:10995 Sm.SmHostBlocks <> fetch def
+R11000:11003 Sm.SmHostBlocks <> pc proj
+R10989:10995 Sm.SmHostBlocks <> fetch def
+R11000:11003 Sm.SmHostBlocks <> pc proj
+prf 11101:11113 <> sm_next_intro
+R11129:11132 Coq.Init.Datatypes <> list ind
+R11134:11138 Sm.SmHostBlocks <> instr abbrev
+binder 11125:11125 <> P:122
+binder 11141:11141 <> k:123
+binder 11143:11143 <> i:124
+R11163:11166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11155:11157 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11148:11152 Sm.SmHostBlocks <> err proj
+R11154:11154 Sm.SmHostBlocks <> k:123 var
+R11158:11162 Coq.Init.Datatypes <> false constr
+R11194:11197 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11185:11187 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11167:11173 Sm.SmHostBlocks <> fetch def
+R11178:11181 Sm.SmHostBlocks <> pc proj
+R11183:11183 Sm.SmHostBlocks <> k:123 var
+R11175:11175 Sm.SmHostBlocks <> P:122 var
+R11188:11191 Coq.Init.Datatypes <> Some constr
+R11193:11193 Sm.SmHostBlocks <> i:124 var
+R11209:11212 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11199:11202 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R11198:11198 Sm.SmHostBlocks <> i:124 var
+R11203:11208 Sm.SmHostBlocks <> HALT constr
+R11229:11231 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11213:11224 Sm.SmHostBlocks <> next_instr def
+R11226:11226 Sm.SmHostBlocks <> P:122 var
+R11228:11228 Sm.SmHostBlocks <> k:123 var
+R11232:11235 Coq.Init.Datatypes <> Some constr
+R11237:11237 Sm.SmHostBlocks <> i:124 var
+R11279:11290 Sm.SmHostBlocks <> next_instr def
+prf 11364:11377 <> sm_block_cstep
+binder 11388:11389 <> Sr:125
+binder 11391:11391 <> Q:126
+binder 11393:11393 <> B:127
+binder 11395:11397 <> off:128
+binder 11399:11399 <> k:129
+binder 11401:11402 <> k':130
+binder 11404:11404 <> i:131
+R11426:11429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11409:11417 Sm.SmHostBlocks <> sm_embeds def
+R11419:11419 Sm.SmHostBlocks <> Q:126 var
+R11421:11421 Sm.SmHostBlocks <> B:127 var
+R11423:11425 Sm.SmHostBlocks <> off:128 var
+R11444:11447 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11430:11438 Sm.SmHostBlocks <> sm_within def
+R11440:11441 Sm.SmHostBlocks <> Sr:125 var
+R11443:11443 Sm.SmHostBlocks <> B:127 var
+R11478:11483 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11448:11454 Sm.SmHostBlocks <> sm_crel def
+R11456:11457 Sm.SmHostBlocks <> Sr:125 var
+R11459:11461 Sm.SmHostBlocks <> off:128 var
+R11464:11469 Coq.Init.Datatypes <> length def
+R11471:11471 Sm.SmHostBlocks <> B:127 var
+R11474:11474 Sm.SmHostBlocks <> k:129 var
+R11476:11477 Sm.SmHostBlocks <> k':130 var
+R11509:11514 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11500:11502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11484:11495 Sm.SmHostBlocks <> next_instr def
+R11497:11497 Sm.SmHostBlocks <> B:127 var
+R11499:11499 Sm.SmHostBlocks <> k:129 var
+R11503:11506 Coq.Init.Datatypes <> Some constr
+R11508:11508 Sm.SmHostBlocks <> i:131 var
+R11564:11569 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11532:11534 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11515:11526 Sm.SmHostBlocks <> next_instr def
+R11528:11528 Sm.SmHostBlocks <> Q:126 var
+R11530:11531 Sm.SmHostBlocks <> k':130 var
+R11535:11538 Coq.Init.Datatypes <> Some constr
+R11541:11545 Sm.SmHostBlocks <> sm_ri def
+R11547:11549 Sm.SmHostBlocks <> off:128 var
+R11552:11557 Coq.Init.Datatypes <> length def
+R11559:11559 Sm.SmHostBlocks <> B:127 var
+R11562:11562 Sm.SmHostBlocks <> i:131 var
+R11570:11576 Sm.SmHostBlocks <> sm_crel def
+R11578:11579 Sm.SmHostBlocks <> Sr:125 var
+R11581:11583 Sm.SmHostBlocks <> off:128 var
+R11586:11591 Coq.Init.Datatypes <> length def
+R11593:11593 Sm.SmHostBlocks <> B:127 var
+R11597:11601 Sm.SmHostBlocks <> cexec abbrev
+R11603:11603 Sm.SmHostBlocks <> k:129 var
+R11605:11605 Sm.SmHostBlocks <> i:131 var
+R11609:11613 Sm.SmHostBlocks <> cexec abbrev
+R11615:11616 Sm.SmHostBlocks <> k':130 var
+R11619:11623 Sm.SmHostBlocks <> sm_ri def
+R11625:11627 Sm.SmHostBlocks <> off:128 var
+R11630:11635 Coq.Init.Datatypes <> length def
+R11637:11637 Sm.SmHostBlocks <> B:127 var
+R11640:11640 Sm.SmHostBlocks <> i:131 var
+R11735:11746 Sm.SmHostBlocks <> sm_next_some thm
+R11735:11746 Sm.SmHostBlocks <> sm_next_some thm
+R11794:11797 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R11804:11807 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R11798:11801 Sm.SmHostBlocks <> pc proj
+R11798:11801 Sm.SmHostBlocks <> pc proj
+R11808:11813 Coq.Init.Datatypes <> length def
+R11829:11842 Sm.SmHostBlocks <> sm_fetch_range thm
+R11794:11797 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R11804:11807 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R11798:11801 Sm.SmHostBlocks <> pc proj
+R11798:11801 Sm.SmHostBlocks <> pc proj
+R11808:11813 Coq.Init.Datatypes <> length def
+R11829:11842 Sm.SmHostBlocks <> sm_fetch_range thm
+R11869:11870 Coq.Lists.List <> In def
+R11869:11870 Coq.Lists.List <> In def
+R11892:11895 Sm.SmHostBlocks <> pc proj
+R11892:11895 Sm.SmHostBlocks <> pc proj
+R11940:11951 Coq.Lists.List <> nth_error_In thm
+R11940:11951 Coq.Lists.List <> nth_error_In thm
+R11973:11980 Sm.SmHostBlocks <> sm_rj_in thm
+R11973:11980 Sm.SmHostBlocks <> sm_rj_in thm
+R11973:11980 Sm.SmHostBlocks <> sm_rj_in thm
+R12035:12037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12016:12022 Sm.SmHostBlocks <> fetch def
+R12027:12030 Sm.SmHostBlocks <> pc proj
+R12038:12041 Coq.Init.Datatypes <> Some constr
+R12044:12048 Sm.SmHostBlocks <> sm_ri def
+R12055:12060 Coq.Init.Datatypes <> length def
+R12035:12037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12016:12022 Sm.SmHostBlocks <> fetch def
+R12027:12030 Sm.SmHostBlocks <> pc proj
+R12038:12041 Coq.Init.Datatypes <> Some constr
+R12044:12048 Sm.SmHostBlocks <> sm_ri def
+R12055:12060 Coq.Init.Datatypes <> length def
+R12143:12145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12135:12139 Sm.SmHostBlocks <> err proj
+R12146:12150 Coq.Init.Datatypes <> false constr
+R12143:12145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12135:12139 Sm.SmHostBlocks <> err proj
+R12146:12150 Coq.Init.Datatypes <> false constr
+R12187:12199 Sm.SmHostBlocks <> sm_next_intro thm
+R12187:12199 Sm.SmHostBlocks <> sm_next_intro thm
+R12243:12252 Sm.SmHostBlocks <> sm_ri_halt thm
+R12243:12252 Sm.SmHostBlocks <> sm_ri_halt thm
+R12277:12283 Sm.SmHostBlocks <> cexec def
+R12367:12371 Sm.SmHostBlocks <> sm_ri def
+R12400:12406 Sm.SmHostBlocks <> sm_crel def
+R12466:12482 Sm.SmHostBlocks <> multi_val_write thm
+R12466:12482 Sm.SmHostBlocks <> multi_val_write thm
+R12466:12482 Sm.SmHostBlocks <> multi_val_write thm
+R12466:12482 Sm.SmHostBlocks <> multi_val_write thm
+R12466:12482 Sm.SmHostBlocks <> multi_val_write thm
+R12495:12501 Coq.Arith.PeanoNat Nat eqb def
+R12495:12501 Coq.Arith.PeanoNat Nat eqb def
+R12544:12560 Sm.SmHostBlocks <> multi_ver_write thm
+R12544:12560 Sm.SmHostBlocks <> multi_ver_write thm
+R12544:12560 Sm.SmHostBlocks <> multi_ver_write thm
+R12544:12560 Sm.SmHostBlocks <> multi_ver_write thm
+R12544:12560 Sm.SmHostBlocks <> multi_ver_write thm
+R12690:12696 Sm.SmHostBlocks <> sm_rj_S thm
+R12690:12696 Sm.SmHostBlocks <> sm_rj_S thm
+R12690:12696 Sm.SmHostBlocks <> sm_rj_S thm
+R12771:12776 Sm.SmHostBlocks <> vals proj
+R12771:12776 Sm.SmHostBlocks <> vals proj
+R12806:12812 Sm.SmHostBlocks <> sm_crel def
+R12860:12866 Sm.SmHostBlocks <> sm_rj_S thm
+R12860:12866 Sm.SmHostBlocks <> sm_rj_S thm
+R12860:12866 Sm.SmHostBlocks <> sm_rj_S thm
+R12907:12913 Sm.SmHostBlocks <> sm_crel def
+R12956:12972 Sm.SmHostBlocks <> multi_val_write thm
+R12956:12972 Sm.SmHostBlocks <> multi_val_write thm
+R12956:12972 Sm.SmHostBlocks <> multi_val_write thm
+R12956:12972 Sm.SmHostBlocks <> multi_val_write thm
+R12956:12972 Sm.SmHostBlocks <> multi_val_write thm
+R12985:12991 Coq.Arith.PeanoNat Nat eqb def
+R12985:12991 Coq.Arith.PeanoNat Nat eqb def
+R13036:13052 Sm.SmHostBlocks <> multi_ver_write thm
+R13036:13052 Sm.SmHostBlocks <> multi_ver_write thm
+R13036:13052 Sm.SmHostBlocks <> multi_ver_write thm
+R13036:13052 Sm.SmHostBlocks <> multi_ver_write thm
+R13036:13052 Sm.SmHostBlocks <> multi_ver_write thm
+R13269:13280 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13269:13280 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13338:13340 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13317:13326 Sm.SmHostBlocks <> check_ok def
+R13328:13331 Sm.SmHostBlocks <> Blocks.eval var
+R13341:13350 Sm.SmHostBlocks <> check_ok def
+R13352:13355 Sm.SmHostBlocks <> Blocks.eval var
+R13338:13340 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13317:13326 Sm.SmHostBlocks <> check_ok def
+R13328:13331 Sm.SmHostBlocks <> Blocks.eval var
+R13341:13350 Sm.SmHostBlocks <> check_ok def
+R13352:13355 Sm.SmHostBlocks <> Blocks.eval var
+R13379:13388 Sm.SmHostBlocks <> check_ok def
+R13462:13471 Sm.SmHostBlocks <> check_ok def
+R13473:13476 Sm.SmHostBlocks <> Blocks.eval var
+R13462:13471 Sm.SmHostBlocks <> check_ok def
+R13473:13476 Sm.SmHostBlocks <> Blocks.eval var
+R13500:13506 Sm.SmHostBlocks <> sm_crel def
+R13509:13521 Sm.SmHostBlocks <> record_fact def
+R13524:13530 Sm.SmHostBlocks <> claim def
+R13624:13630 Sm.SmHostBlocks <> sm_rj_S thm
+R13624:13630 Sm.SmHostBlocks <> sm_rj_S thm
+R13624:13630 Sm.SmHostBlocks <> sm_rj_S thm
+R13671:13677 Sm.SmHostBlocks <> sm_crel def
+R13680:13685 Sm.SmHostBlocks <> trap def
+R13733:13740 Sm.SmHostBlocks <> sm_rj_in thm
+R13733:13740 Sm.SmHostBlocks <> sm_rj_in thm
+R13733:13740 Sm.SmHostBlocks <> sm_rj_in thm
+R13848:13859 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13848:13859 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13909:13911 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13896:13902 Sm.SmHostBlocks <> claim def
+R13912:13918 Sm.SmHostBlocks <> claim def
+R13909:13911 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13896:13902 Sm.SmHostBlocks <> claim def
+R13912:13918 Sm.SmHostBlocks <> claim def
+R13942:13948 Sm.SmHostBlocks <> claim def
+R14029:14031 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14003:14013 Sm.SmHostBlocks <> commit_ok def
+R14015:14022 Sm.SmHostBlocks <> Blocks.prop_eqb var
+R14032:14042 Sm.SmHostBlocks <> commit_ok def
+R14044:14051 Sm.SmHostBlocks <> Blocks.prop_eqb var
+R14029:14031 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14003:14013 Sm.SmHostBlocks <> commit_ok def
+R14015:14022 Sm.SmHostBlocks <> Blocks.prop_eqb var
+R14032:14042 Sm.SmHostBlocks <> commit_ok def
+R14044:14051 Sm.SmHostBlocks <> Blocks.prop_eqb var
+R14075:14085 Sm.SmHostBlocks <> commit_ok def
+R14156:14166 Sm.SmHostBlocks <> commit_ok def
+R14168:14175 Sm.SmHostBlocks <> Blocks.prop_eqb var
+R14156:14166 Sm.SmHostBlocks <> commit_ok def
+R14168:14175 Sm.SmHostBlocks <> Blocks.prop_eqb var
+R14199:14205 Sm.SmHostBlocks <> sm_crel def
+R14208:14218 Sm.SmHostBlocks <> commit_to def
+R14279:14285 Sm.SmHostBlocks <> sm_rj_S thm
+R14279:14285 Sm.SmHostBlocks <> sm_rj_S thm
+R14279:14285 Sm.SmHostBlocks <> sm_rj_S thm
+R14326:14332 Sm.SmHostBlocks <> sm_crel def
+R14335:14340 Sm.SmHostBlocks <> trap def
+R14388:14395 Sm.SmHostBlocks <> sm_rj_in thm
+R14388:14395 Sm.SmHostBlocks <> sm_rj_in thm
+R14388:14395 Sm.SmHostBlocks <> sm_rj_in thm
+R14473:14475 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14459:14470 Sm.SmHostBlocks <> certify_ok def
+R14476:14487 Sm.SmHostBlocks <> certify_ok def
+R14473:14475 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14459:14470 Sm.SmHostBlocks <> certify_ok def
+R14476:14487 Sm.SmHostBlocks <> certify_ok def
+R14507:14518 Sm.SmHostBlocks <> certify_ok def
+R14584:14595 Sm.SmHostBlocks <> certify_ok def
+R14584:14595 Sm.SmHostBlocks <> certify_ok def
+R14615:14621 Sm.SmHostBlocks <> sm_crel def
+R14624:14629 Sm.SmHostBlocks <> goto def
+R14677:14683 Sm.SmHostBlocks <> sm_rj_S thm
+R14677:14683 Sm.SmHostBlocks <> sm_rj_S thm
+R14677:14683 Sm.SmHostBlocks <> sm_rj_S thm
+R14724:14730 Sm.SmHostBlocks <> sm_crel def
+R14733:14738 Sm.SmHostBlocks <> trap def
+R14786:14793 Sm.SmHostBlocks <> sm_rj_in thm
+R14786:14793 Sm.SmHostBlocks <> sm_rj_in thm
+R14786:14793 Sm.SmHostBlocks <> sm_rj_in thm
+prf 14833:14843 <> sm_fires_ri
+binder 14854:14856 <> off:132
+binder 14858:14860 <> len:133
+binder 14862:14862 <> k:134
+binder 14864:14865 <> k':135
+binder 14867:14867 <> i:136
+R14890:14893 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14879:14881 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14872:14876 Sm.SmHostBlocks <> err proj
+R14878:14878 Sm.SmHostBlocks <> k:134 var
+R14882:14886 Sm.SmHostBlocks <> err proj
+R14888:14889 Sm.SmHostBlocks <> k':135 var
+R14914:14919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14902:14904 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14894:14899 Sm.SmHostBlocks <> chan proj
+R14901:14901 Sm.SmHostBlocks <> k:134 var
+R14905:14910 Sm.SmHostBlocks <> chan proj
+R14912:14913 Sm.SmHostBlocks <> k':135 var
+R14931:14933 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14920:14926 Sm.SmHostBlocks <> fires def
+R14928:14928 Sm.SmHostBlocks <> k:134 var
+R14930:14930 Sm.SmHostBlocks <> i:136 var
+R14934:14940 Sm.SmHostBlocks <> fires def
+R14942:14943 Sm.SmHostBlocks <> k':135 var
+R14946:14950 Sm.SmHostBlocks <> sm_ri def
+R14952:14954 Sm.SmHostBlocks <> off:132 var
+R14956:14958 Sm.SmHostBlocks <> len:133 var
+R14960:14960 Sm.SmHostBlocks <> i:136 var
+R15047:15058 Sm.SmHostBlocks <> certify_ok def
+prf 15102:15114 <> sm_block_step
+binder 15125:15126 <> Sr:137
+binder 15128:15128 <> Q:138
+binder 15130:15130 <> B:139
+binder 15132:15134 <> off:140
+binder 15136:15136 <> s:141
+binder 15138:15139 <> s':142
+binder 15141:15141 <> i:143
+R15163:15166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15146:15154 Sm.SmHostBlocks <> sm_embeds def
+R15156:15156 Sm.SmHostBlocks <> Q:138 var
+R15158:15158 Sm.SmHostBlocks <> B:139 var
+R15160:15162 Sm.SmHostBlocks <> off:140 var
+R15181:15184 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15167:15175 Sm.SmHostBlocks <> sm_within def
+R15177:15178 Sm.SmHostBlocks <> Sr:137 var
+R15180:15180 Sm.SmHostBlocks <> B:139 var
+R15215:15220 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15185:15191 Sm.SmHostBlocks <> sm_srel def
+R15193:15194 Sm.SmHostBlocks <> Sr:137 var
+R15196:15198 Sm.SmHostBlocks <> off:140 var
+R15201:15206 Coq.Init.Datatypes <> length def
+R15208:15208 Sm.SmHostBlocks <> B:139 var
+R15211:15211 Sm.SmHostBlocks <> s:141 var
+R15213:15214 Sm.SmHostBlocks <> s':142 var
+R15258:15263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15249:15251 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15221:15232 Sm.SmHostBlocks <> next_instr def
+R15234:15234 Sm.SmHostBlocks <> B:139 var
+R15237:15245 Sm.SmHostBlocks <> core_of proj
+R15247:15247 Sm.SmHostBlocks <> s:141 var
+R15252:15255 Coq.Init.Datatypes <> Some constr
+R15257:15257 Sm.SmHostBlocks <> i:143 var
+R15325:15330 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15293:15295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15264:15275 Sm.SmHostBlocks <> next_instr def
+R15277:15277 Sm.SmHostBlocks <> Q:138 var
+R15280:15288 Sm.SmHostBlocks <> core_of proj
+R15290:15291 Sm.SmHostBlocks <> s':142 var
+R15296:15299 Coq.Init.Datatypes <> Some constr
+R15302:15306 Sm.SmHostBlocks <> sm_ri def
+R15308:15310 Sm.SmHostBlocks <> off:140 var
+R15313:15318 Coq.Init.Datatypes <> length def
+R15320:15320 Sm.SmHostBlocks <> B:139 var
+R15323:15323 Sm.SmHostBlocks <> i:143 var
+R15331:15337 Sm.SmHostBlocks <> sm_srel def
+R15339:15340 Sm.SmHostBlocks <> Sr:137 var
+R15342:15344 Sm.SmHostBlocks <> off:140 var
+R15347:15352 Coq.Init.Datatypes <> length def
+R15354:15354 Sm.SmHostBlocks <> B:139 var
+R15358:15361 Sm.SmHostBlocks <> step abbrev
+R15363:15363 Sm.SmHostBlocks <> B:139 var
+R15365:15365 Sm.SmHostBlocks <> s:141 var
+R15369:15372 Sm.SmHostBlocks <> step abbrev
+R15374:15374 Sm.SmHostBlocks <> Q:138 var
+R15376:15377 Sm.SmHostBlocks <> s':142 var
+R15454:15467 Sm.SmHostBlocks <> sm_block_cstep thm
+R15454:15467 Sm.SmHostBlocks <> sm_block_cstep thm
+R15550:15553 Sm.SmHostBlocks <> step def
+R15580:15586 Sm.SmHostBlocks <> sm_srel def
+R15589:15594 Sm.SmHostBlocks <> exec def
+R15636:15645 Sm.SmHostBlocks <> sm_cost_ri thm
+R15636:15645 Sm.SmHostBlocks <> sm_cost_ri thm
+R15636:15645 Sm.SmHostBlocks <> sm_cost_ri thm
+R15736:15746 Sm.SmHostBlocks <> sm_fires_ri thm
+R15753:15758 Coq.Init.Datatypes <> length def
+R15736:15746 Sm.SmHostBlocks <> sm_fires_ri thm
+R15753:15758 Coq.Init.Datatypes <> length def
+R15736:15746 Sm.SmHostBlocks <> sm_fires_ri thm
+R15753:15758 Coq.Init.Datatypes <> length def
+prf 15864:15879 <> sm_block_run_mid
+binder 15890:15891 <> Sr:144
+binder 15893:15893 <> Q:145
+binder 15895:15895 <> B:146
+binder 15897:15899 <> off:147
+R15921:15924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15904:15912 Sm.SmHostBlocks <> sm_embeds def
+R15914:15914 Sm.SmHostBlocks <> Q:145 var
+R15916:15916 Sm.SmHostBlocks <> B:146 var
+R15918:15920 Sm.SmHostBlocks <> off:147 var
+R15939:15944 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15925:15933 Sm.SmHostBlocks <> sm_within def
+R15935:15936 Sm.SmHostBlocks <> Sr:144 var
+R15938:15938 Sm.SmHostBlocks <> B:146 var
+binder 15952:15952 <> n:148
+binder 15954:15954 <> s:149
+binder 15956:15957 <> s':150
+R15990:15995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15960:15966 Sm.SmHostBlocks <> sm_srel def
+R15968:15969 Sm.SmHostBlocks <> Sr:144 var
+R15971:15973 Sm.SmHostBlocks <> off:147 var
+R15976:15981 Coq.Init.Datatypes <> length def
+R15983:15983 Sm.SmHostBlocks <> B:146 var
+R15986:15986 Sm.SmHostBlocks <> s:149 var
+R15988:15989 Sm.SmHostBlocks <> s':150 var
+R15996:15996 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16067:16073 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 16004:16004 <> m:151
+R16012:16015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16008:16010 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R16007:16007 Sm.SmHostBlocks <> m:151 var
+R16011:16011 Sm.SmHostBlocks <> n:148 var
+R16059:16062 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R16016:16027 Sm.SmHostBlocks <> next_instr def
+R16029:16029 Sm.SmHostBlocks <> B:146 var
+R16032:16040 Sm.SmHostBlocks <> core_of proj
+R16043:16050 Sm.SmHostBlocks <> run_prog abbrev
+R16052:16052 Sm.SmHostBlocks <> m:151 var
+R16054:16054 Sm.SmHostBlocks <> B:146 var
+R16056:16056 Sm.SmHostBlocks <> s:149 var
+R16063:16066 Coq.Init.Datatypes <> None constr
+R16074:16080 Sm.SmHostBlocks <> sm_srel def
+R16082:16083 Sm.SmHostBlocks <> Sr:144 var
+R16085:16087 Sm.SmHostBlocks <> off:147 var
+R16090:16095 Coq.Init.Datatypes <> length def
+R16097:16097 Sm.SmHostBlocks <> B:146 var
+R16101:16108 Sm.SmHostBlocks <> run_prog abbrev
+R16110:16110 Sm.SmHostBlocks <> n:148 var
+R16112:16112 Sm.SmHostBlocks <> B:146 var
+R16114:16114 Sm.SmHostBlocks <> s:149 var
+R16118:16125 Sm.SmHostBlocks <> run_prog abbrev
+R16127:16127 Sm.SmHostBlocks <> n:148 var
+R16129:16129 Sm.SmHostBlocks <> Q:145 var
+R16131:16132 Sm.SmHostBlocks <> s':150 var
+R16247:16258 Sm.SmHostBlocks <> next_instr def
+R16263:16271 Sm.SmHostBlocks <> core_of proj
+R16247:16258 Sm.SmHostBlocks <> next_instr def
+R16263:16271 Sm.SmHostBlocks <> core_of proj
+R16356:16368 Sm.SmHostBlocks <> sm_block_step thm
+R16356:16368 Sm.SmHostBlocks <> sm_block_step thm
+R16428:16438 Sm.SmHostBlocks <> sm_run_succ thm
+R16428:16438 Sm.SmHostBlocks <> sm_run_succ thm
+R16428:16438 Sm.SmHostBlocks <> sm_run_succ thm
+R16428:16438 Sm.SmHostBlocks <> sm_run_succ thm
+R16428:16438 Sm.SmHostBlocks <> sm_run_succ thm
+R16492:16502 Sm.SmHostBlocks <> sm_run_succ thm
+R16492:16502 Sm.SmHostBlocks <> sm_run_succ thm
+R16492:16502 Sm.SmHostBlocks <> sm_run_succ thm
+prf 16574:16592 <> sm_block_not_halted
+binder 16603:16604 <> Sr:152
+binder 16606:16606 <> Q:153
+binder 16608:16608 <> B:154
+binder 16610:16612 <> off:155
+binder 16614:16614 <> s:156
+binder 16616:16617 <> s':157
+R16639:16642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16622:16630 Sm.SmHostBlocks <> sm_embeds def
+R16632:16632 Sm.SmHostBlocks <> Q:153 var
+R16634:16634 Sm.SmHostBlocks <> B:154 var
+R16636:16638 Sm.SmHostBlocks <> off:155 var
+R16657:16660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16643:16651 Sm.SmHostBlocks <> sm_within def
+R16653:16654 Sm.SmHostBlocks <> Sr:152 var
+R16656:16656 Sm.SmHostBlocks <> B:154 var
+R16691:16696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16661:16667 Sm.SmHostBlocks <> sm_srel def
+R16669:16670 Sm.SmHostBlocks <> Sr:152 var
+R16672:16674 Sm.SmHostBlocks <> off:155 var
+R16677:16682 Coq.Init.Datatypes <> length def
+R16684:16684 Sm.SmHostBlocks <> B:154 var
+R16687:16687 Sm.SmHostBlocks <> s:156 var
+R16689:16690 Sm.SmHostBlocks <> s':157 var
+R16733:16736 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16725:16728 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R16697:16708 Sm.SmHostBlocks <> next_instr def
+R16710:16710 Sm.SmHostBlocks <> B:154 var
+R16713:16721 Sm.SmHostBlocks <> core_of proj
+R16723:16723 Sm.SmHostBlocks <> s:156 var
+R16729:16732 Coq.Init.Datatypes <> None constr
+R16766:16769 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R16737:16748 Sm.SmHostBlocks <> next_instr def
+R16750:16750 Sm.SmHostBlocks <> Q:153 var
+R16753:16761 Sm.SmHostBlocks <> core_of proj
+R16763:16764 Sm.SmHostBlocks <> s':157 var
+R16770:16773 Coq.Init.Datatypes <> None constr
+R16837:16848 Sm.SmHostBlocks <> next_instr def
+R16853:16861 Sm.SmHostBlocks <> core_of proj
+R16837:16848 Sm.SmHostBlocks <> next_instr def
+R16853:16861 Sm.SmHostBlocks <> core_of proj
+R16912:16924 Sm.SmHostBlocks <> sm_block_step thm
+R16912:16924 Sm.SmHostBlocks <> sm_block_step thm
+prf 17046:17060 <> sm_block_halted
+binder 17071:17072 <> Sr:158
+binder 17074:17074 <> Q:159
+binder 17076:17076 <> B:160
+binder 17078:17080 <> off:161
+binder 17082:17082 <> k:162
+binder 17084:17085 <> k':163
+R17107:17110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17090:17098 Sm.SmHostBlocks <> sm_embeds def
+R17100:17100 Sm.SmHostBlocks <> Q:159 var
+R17102:17102 Sm.SmHostBlocks <> B:160 var
+R17104:17106 Sm.SmHostBlocks <> off:161 var
+R17136:17139 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17119:17121 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17111:17116 Coq.Init.Datatypes <> length def
+R17118:17118 Sm.SmHostBlocks <> Q:159 var
+R17125:17127 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17122:17124 Sm.SmHostBlocks <> off:161 var
+R17128:17133 Coq.Init.Datatypes <> length def
+R17135:17135 Sm.SmHostBlocks <> B:160 var
+R17170:17175 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17140:17146 Sm.SmHostBlocks <> sm_crel def
+R17148:17149 Sm.SmHostBlocks <> Sr:158 var
+R17151:17153 Sm.SmHostBlocks <> off:161 var
+R17156:17161 Coq.Init.Datatypes <> length def
+R17163:17163 Sm.SmHostBlocks <> B:160 var
+R17166:17166 Sm.SmHostBlocks <> k:162 var
+R17168:17169 Sm.SmHostBlocks <> k':163 var
+R17188:17191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17176:17183 Sm.SmHostBlocks <> halted def
+R17185:17185 Sm.SmHostBlocks <> B:160 var
+R17187:17187 Sm.SmHostBlocks <> k:162 var
+R17192:17199 Sm.SmHostBlocks <> halted def
+R17201:17201 Sm.SmHostBlocks <> Q:159 var
+R17203:17204 Sm.SmHostBlocks <> k':163 var
+R17286:17293 Sm.SmHostBlocks <> halted def
+R17296:17307 Sm.SmHostBlocks <> next_instr def
+R17342:17346 Sm.SmHostBlocks <> err proj
+R17342:17346 Sm.SmHostBlocks <> err proj
+R17381:17389 Coq.Arith.Compare_dec <> le_lt_dec def
+R17394:17397 Sm.SmHostBlocks <> pc proj
+R17432:17440 Coq.Arith.Compare_dec <> le_lt_dec def
+R17443:17446 Sm.SmHostBlocks <> pc proj
+R17452:17457 Coq.Init.Datatypes <> length def
+R17381:17389 Coq.Arith.Compare_dec <> le_lt_dec def
+R17394:17397 Sm.SmHostBlocks <> pc proj
+R17432:17440 Coq.Arith.Compare_dec <> le_lt_dec def
+R17443:17446 Sm.SmHostBlocks <> pc proj
+R17452:17457 Coq.Init.Datatypes <> length def
+R17496:17503 Sm.SmHostBlocks <> sm_rj_in thm
+R17496:17503 Sm.SmHostBlocks <> sm_rj_in thm
+R17496:17503 Sm.SmHostBlocks <> sm_rj_in thm
+R17530:17533 Coq.Init.Logic <> conj constr
+R17530:17533 Coq.Init.Logic <> conj constr
+R17530:17533 Coq.Init.Logic <> conj constr
+R17558:17564 Sm.SmHostBlocks <> fetch def
+R17569:17572 Sm.SmHostBlocks <> pc proj
+R17558:17564 Sm.SmHostBlocks <> fetch def
+R17569:17572 Sm.SmHostBlocks <> pc proj
+R17648:17656 Sm.SmHostBlocks <> sm_rj_out thm
+R17648:17656 Sm.SmHostBlocks <> sm_rj_out thm
+R17648:17656 Sm.SmHostBlocks <> sm_rj_out thm
+R17674:17685 Sm.SmHostBlocks <> sm_fetch_out thm
+R17674:17685 Sm.SmHostBlocks <> sm_fetch_out thm
+R17674:17685 Sm.SmHostBlocks <> sm_fetch_out thm
+R17724:17732 Sm.SmHostBlocks <> sm_rj_out thm
+R17724:17732 Sm.SmHostBlocks <> sm_rj_out thm
+R17724:17732 Sm.SmHostBlocks <> sm_rj_out thm
+R17750:17761 Sm.SmHostBlocks <> sm_fetch_out thm
+R17750:17761 Sm.SmHostBlocks <> sm_fetch_out thm
+R17750:17761 Sm.SmHostBlocks <> sm_fetch_out thm
+prf 17796:17813 <> sm_block_run_final
+binder 17824:17825 <> Sr:164
+binder 17827:17827 <> Q:165
+binder 17829:17829 <> B:166
+binder 17831:17833 <> off:167
+R17855:17858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17838:17846 Sm.SmHostBlocks <> sm_embeds def
+R17848:17848 Sm.SmHostBlocks <> Q:165 var
+R17850:17850 Sm.SmHostBlocks <> B:166 var
+R17852:17854 Sm.SmHostBlocks <> off:167 var
+R17873:17876 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17859:17867 Sm.SmHostBlocks <> sm_within def
+R17869:17870 Sm.SmHostBlocks <> Sr:164 var
+R17872:17872 Sm.SmHostBlocks <> B:166 var
+R17902:17907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17885:17887 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17877:17882 Coq.Init.Datatypes <> length def
+R17884:17884 Sm.SmHostBlocks <> Q:165 var
+R17891:17893 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17888:17890 Sm.SmHostBlocks <> off:167 var
+R17894:17899 Coq.Init.Datatypes <> length def
+R17901:17901 Sm.SmHostBlocks <> B:166 var
+binder 17915:17915 <> n:168
+binder 17917:17917 <> s:169
+binder 17919:17920 <> s':170
+R17953:17958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17923:17929 Sm.SmHostBlocks <> sm_srel def
+R17931:17932 Sm.SmHostBlocks <> Sr:164 var
+R17934:17936 Sm.SmHostBlocks <> off:167 var
+R17939:17944 Coq.Init.Datatypes <> length def
+R17946:17946 Sm.SmHostBlocks <> B:166 var
+R17949:17949 Sm.SmHostBlocks <> s:169 var
+R17951:17952 Sm.SmHostBlocks <> s':170 var
+R17959:17965 Sm.SmHostBlocks <> sm_srel def
+R17967:17968 Sm.SmHostBlocks <> Sr:164 var
+R17970:17972 Sm.SmHostBlocks <> off:167 var
+R17975:17980 Coq.Init.Datatypes <> length def
+R17982:17982 Sm.SmHostBlocks <> B:166 var
+R17986:17993 Sm.SmHostBlocks <> run_prog abbrev
+R17995:17995 Sm.SmHostBlocks <> n:168 var
+R17997:17997 Sm.SmHostBlocks <> B:166 var
+R17999:17999 Sm.SmHostBlocks <> s:169 var
+R18003:18010 Sm.SmHostBlocks <> run_prog abbrev
+R18012:18012 Sm.SmHostBlocks <> n:168 var
+R18014:18014 Sm.SmHostBlocks <> Q:165 var
+R18016:18017 Sm.SmHostBlocks <> s':170 var
+R18130:18140 Sm.SmHostBlocks <> sm_run_succ thm
+R18130:18140 Sm.SmHostBlocks <> sm_run_succ thm
+R18130:18140 Sm.SmHostBlocks <> sm_run_succ thm
+R18130:18140 Sm.SmHostBlocks <> sm_run_succ thm
+R18130:18140 Sm.SmHostBlocks <> sm_run_succ thm
+R18155:18166 Sm.SmHostBlocks <> next_instr def
+R18171:18179 Sm.SmHostBlocks <> core_of proj
+R18155:18166 Sm.SmHostBlocks <> next_instr def
+R18171:18179 Sm.SmHostBlocks <> core_of proj
+R18216:18228 Sm.SmHostBlocks <> sm_block_step thm
+R18216:18228 Sm.SmHostBlocks <> sm_block_step thm
+R18310:18317 Sm.SmHostBlocks <> halted def
+R18322:18330 Sm.SmHostBlocks <> core_of proj
+R18354:18368 Sm.SmHostBlocks <> sm_block_halted thm
+R18382:18390 Sm.SmHostBlocks <> core_of proj
+R18310:18317 Sm.SmHostBlocks <> halted def
+R18322:18330 Sm.SmHostBlocks <> core_of proj
+R18354:18368 Sm.SmHostBlocks <> sm_block_halted thm
+R18382:18390 Sm.SmHostBlocks <> core_of proj
+R18456:18459 Sm.SmHostBlocks <> step def
+R18481:18488 Sm.SmHostBlocks <> halted def
+prf 18755:18767 <> sm_plain_exec
+binder 18778:18778 <> s:171
+binder 18780:18780 <> i:172
+R18799:18804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18792:18794 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18783:18789 Sm.SmHostBlocks <> plain def
+R18791:18791 Sm.SmHostBlocks <> i:172 var
+R18795:18798 Coq.Init.Datatypes <> true constr
+R18859:18864 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18835:18837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18805:18811 Sm.SmHostBlocks <> facts proj
+R18814:18822 Sm.SmHostBlocks <> core_of proj
+R18825:18828 Sm.SmHostBlocks <> exec abbrev
+R18830:18830 Sm.SmHostBlocks <> s:171 var
+R18832:18832 Sm.SmHostBlocks <> i:172 var
+R18838:18844 Sm.SmHostBlocks <> facts proj
+R18847:18855 Sm.SmHostBlocks <> core_of proj
+R18857:18857 Sm.SmHostBlocks <> s:171 var
+R18917:18922 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18894:18896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18865:18870 Sm.SmHostBlocks <> chan proj
+R18873:18881 Sm.SmHostBlocks <> core_of proj
+R18884:18887 Sm.SmHostBlocks <> exec abbrev
+R18889:18889 Sm.SmHostBlocks <> s:171 var
+R18891:18891 Sm.SmHostBlocks <> i:172 var
+R18897:18902 Sm.SmHostBlocks <> chan proj
+R18905:18913 Sm.SmHostBlocks <> core_of proj
+R18915:18915 Sm.SmHostBlocks <> s:171 var
+R18973:18978 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18951:18953 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18923:18927 Sm.SmHostBlocks <> err proj
+R18930:18938 Sm.SmHostBlocks <> core_of proj
+R18941:18944 Sm.SmHostBlocks <> exec abbrev
+R18946:18946 Sm.SmHostBlocks <> s:171 var
+R18948:18948 Sm.SmHostBlocks <> i:172 var
+R18954:18958 Sm.SmHostBlocks <> err proj
+R18961:18969 Sm.SmHostBlocks <> core_of proj
+R18971:18971 Sm.SmHostBlocks <> s:171 var
+R19003:19006 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18994:18996 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18979:18982 Sm.SmHostBlocks <> mu proj
+R18985:18988 Sm.SmHostBlocks <> exec abbrev
+R18990:18990 Sm.SmHostBlocks <> s:171 var
+R18992:18992 Sm.SmHostBlocks <> i:172 var
+R18997:19000 Sm.SmHostBlocks <> mu proj
+R19002:19002 Sm.SmHostBlocks <> s:171 var
+R19024:19026 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19007:19012 Sm.SmHostBlocks <> cert proj
+R19015:19018 Sm.SmHostBlocks <> exec abbrev
+R19020:19020 Sm.SmHostBlocks <> s:171 var
+R19022:19022 Sm.SmHostBlocks <> i:172 var
+R19027:19032 Sm.SmHostBlocks <> cert proj
+R19034:19034 Sm.SmHostBlocks <> s:171 var
+R19058:19075 Sm.SmHostBlocks <> multi_plain_step thm
+R19058:19075 Sm.SmHostBlocks <> multi_plain_step thm
+def 19165:19171 <> sm_incs
+R19180:19182 Coq.Init.Datatypes <> nat ind
+binder 19174:19174 <> r:173
+binder 19176:19176 <> c:174
+R19187:19190 Coq.Init.Datatypes <> list ind
+R19192:19196 Sm.SmHostBlocks <> instr abbrev
+R19201:19206 Coq.Lists.List <> repeat def
+R19218:19218 Sm.SmHostBlocks <> c:174 var
+R19209:19213 Sm.SmHostBlocks <> INC constr
+R19215:19215 Sm.SmHostBlocks <> r:173 var
+prf 19228:19241 <> sm_incs_length
+binder 19252:19252 <> r:175
+binder 19254:19254 <> c:176
+R19277:19279 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19257:19262 Coq.Init.Datatypes <> length def
+R19265:19271 Sm.SmHostBlocks <> sm_incs def
+R19273:19273 Sm.SmHostBlocks <> r:175 var
+R19275:19275 Sm.SmHostBlocks <> c:176 var
+R19280:19280 Sm.SmHostBlocks <> c:176 var
+R19304:19316 Coq.Lists.List <> repeat_length thm
+R19304:19316 Coq.Lists.List <> repeat_length thm
+prf 19331:19341 <> sm_incs_run
+binder 19352:19352 <> Q:177
+binder 19354:19354 <> r:178
+binder 19356:19356 <> c:179
+binder 19358:19360 <> off:180
+binder 19362:19362 <> s:181
+R19367:19367 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19429:19435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 19375:19375 <> p:182
+R19389:19392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19379:19382 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R19384:19387 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R19383:19383 Sm.SmHostBlocks <> p:182 var
+R19383:19383 Sm.SmHostBlocks <> p:182 var
+R19388:19388 Sm.SmHostBlocks <> c:179 var
+R19412:19414 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19393:19399 Sm.SmHostBlocks <> fetch def
+R19405:19407 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19404:19404 Sm.SmHostBlocks <> p:182 var
+R19408:19410 Sm.SmHostBlocks <> off:180 var
+R19401:19401 Sm.SmHostBlocks <> Q:177 var
+R19415:19418 Coq.Init.Datatypes <> Some constr
+R19421:19425 Sm.SmHostBlocks <> INC constr
+R19427:19427 Sm.SmHostBlocks <> r:178 var
+R19463:19466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19455:19457 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19436:19440 Sm.SmHostBlocks <> err proj
+R19443:19451 Sm.SmHostBlocks <> core_of proj
+R19453:19453 Sm.SmHostBlocks <> s:181 var
+R19458:19462 Coq.Init.Datatypes <> false constr
+R19493:19498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19485:19487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19467:19470 Sm.SmHostBlocks <> pc proj
+R19473:19481 Sm.SmHostBlocks <> core_of proj
+R19483:19483 Sm.SmHostBlocks <> s:181 var
+R19488:19488 Coq.Init.Datatypes <> S constr
+R19490:19492 Sm.SmHostBlocks <> off:180 var
+R19499:19499 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19637:19643 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 19507:19507 <> q:183
+R19547:19562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19510:19515 Sm.SmHostBlocks <> vals proj
+R19518:19526 Sm.SmHostBlocks <> core_of proj
+R19529:19536 Sm.SmHostBlocks <> run_prog abbrev
+R19538:19538 Sm.SmHostBlocks <> c:179 var
+R19540:19540 Sm.SmHostBlocks <> Q:177 var
+R19542:19542 Sm.SmHostBlocks <> s:181 var
+R19546:19546 Sm.SmHostBlocks <> q:183 var
+R19566:19572 Coq.Arith.PeanoNat Nat eqb def
+R19574:19574 Sm.SmHostBlocks <> q:183 var
+R19576:19576 Sm.SmHostBlocks <> r:178 var
+R19615:19620 Sm.SmHostBlocks <> vals proj
+R19623:19631 Sm.SmHostBlocks <> core_of proj
+R19633:19633 Sm.SmHostBlocks <> s:181 var
+R19636:19636 Sm.SmHostBlocks <> q:183 var
+R19605:19607 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19583:19588 Sm.SmHostBlocks <> vals proj
+R19591:19599 Sm.SmHostBlocks <> core_of proj
+R19601:19601 Sm.SmHostBlocks <> s:181 var
+R19604:19604 Sm.SmHostBlocks <> r:178 var
+R19608:19608 Sm.SmHostBlocks <> c:179 var
+R19644:19644 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19727:19733 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 19652:19652 <> q:184
+R19661:19664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19656:19659 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R19655:19655 Sm.SmHostBlocks <> q:184 var
+R19660:19660 Sm.SmHostBlocks <> r:178 var
+R19702:19704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19665:19670 Sm.SmHostBlocks <> vers proj
+R19673:19681 Sm.SmHostBlocks <> core_of proj
+R19684:19691 Sm.SmHostBlocks <> run_prog abbrev
+R19693:19693 Sm.SmHostBlocks <> c:179 var
+R19695:19695 Sm.SmHostBlocks <> Q:177 var
+R19697:19697 Sm.SmHostBlocks <> s:181 var
+R19701:19701 Sm.SmHostBlocks <> q:184 var
+R19705:19710 Sm.SmHostBlocks <> vers proj
+R19713:19721 Sm.SmHostBlocks <> core_of proj
+R19723:19723 Sm.SmHostBlocks <> s:181 var
+R19726:19726 Sm.SmHostBlocks <> q:184 var
+R19794:19799 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19770:19772 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19734:19740 Sm.SmHostBlocks <> facts proj
+R19743:19751 Sm.SmHostBlocks <> core_of proj
+R19754:19761 Sm.SmHostBlocks <> run_prog abbrev
+R19763:19763 Sm.SmHostBlocks <> c:179 var
+R19765:19765 Sm.SmHostBlocks <> Q:177 var
+R19767:19767 Sm.SmHostBlocks <> s:181 var
+R19773:19779 Sm.SmHostBlocks <> facts proj
+R19782:19790 Sm.SmHostBlocks <> core_of proj
+R19792:19792 Sm.SmHostBlocks <> s:181 var
+R19858:19863 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19835:19837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19800:19805 Sm.SmHostBlocks <> chan proj
+R19808:19816 Sm.SmHostBlocks <> core_of proj
+R19819:19826 Sm.SmHostBlocks <> run_prog abbrev
+R19828:19828 Sm.SmHostBlocks <> c:179 var
+R19830:19830 Sm.SmHostBlocks <> Q:177 var
+R19832:19832 Sm.SmHostBlocks <> s:181 var
+R19838:19843 Sm.SmHostBlocks <> chan proj
+R19846:19854 Sm.SmHostBlocks <> core_of proj
+R19856:19856 Sm.SmHostBlocks <> s:181 var
+R19906:19911 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19898:19900 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19864:19868 Sm.SmHostBlocks <> err proj
+R19871:19879 Sm.SmHostBlocks <> core_of proj
+R19882:19889 Sm.SmHostBlocks <> run_prog abbrev
+R19891:19891 Sm.SmHostBlocks <> c:179 var
+R19893:19893 Sm.SmHostBlocks <> Q:177 var
+R19895:19895 Sm.SmHostBlocks <> s:181 var
+R19901:19905 Coq.Init.Datatypes <> false constr
+R19959:19964 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19945:19947 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19912:19915 Sm.SmHostBlocks <> pc proj
+R19918:19926 Sm.SmHostBlocks <> core_of proj
+R19929:19936 Sm.SmHostBlocks <> run_prog abbrev
+R19938:19938 Sm.SmHostBlocks <> c:179 var
+R19940:19940 Sm.SmHostBlocks <> Q:177 var
+R19942:19942 Sm.SmHostBlocks <> s:181 var
+R19948:19948 Coq.Init.Datatypes <> S constr
+R19952:19954 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19951:19951 Sm.SmHostBlocks <> c:179 var
+R19955:19957 Sm.SmHostBlocks <> off:180 var
+R19995:19998 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19986:19988 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19965:19968 Sm.SmHostBlocks <> mu proj
+R19971:19978 Sm.SmHostBlocks <> run_prog abbrev
+R19980:19980 Sm.SmHostBlocks <> c:179 var
+R19982:19982 Sm.SmHostBlocks <> Q:177 var
+R19984:19984 Sm.SmHostBlocks <> s:181 var
+R19989:19992 Sm.SmHostBlocks <> mu proj
+R19994:19994 Sm.SmHostBlocks <> s:181 var
+R20022:20024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19999:20004 Sm.SmHostBlocks <> cert proj
+R20007:20014 Sm.SmHostBlocks <> run_prog abbrev
+R20016:20016 Sm.SmHostBlocks <> c:179 var
+R20018:20018 Sm.SmHostBlocks <> Q:177 var
+R20020:20020 Sm.SmHostBlocks <> s:181 var
+R20025:20030 Sm.SmHostBlocks <> cert proj
+R20032:20032 Sm.SmHostBlocks <> s:181 var
+R20156:20167 Coq.Arith.PeanoNat Nat eqb_spec thm
+R20156:20167 Coq.Arith.PeanoNat Nat eqb_spec thm
+R20232:20234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20204:20215 Sm.SmHostBlocks <> next_instr def
+R20220:20228 Sm.SmHostBlocks <> core_of proj
+R20235:20238 Coq.Init.Datatypes <> Some constr
+R20241:20245 Sm.SmHostBlocks <> INC constr
+R20232:20234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20204:20215 Sm.SmHostBlocks <> next_instr def
+R20220:20228 Sm.SmHostBlocks <> core_of proj
+R20235:20238 Coq.Init.Datatypes <> Some constr
+R20241:20245 Sm.SmHostBlocks <> INC constr
+R20264:20276 Sm.SmHostBlocks <> sm_next_intro thm
+R20264:20276 Sm.SmHostBlocks <> sm_next_intro thm
+R20353:20363 Sm.SmHostBlocks <> sm_run_succ thm
+R20353:20363 Sm.SmHostBlocks <> sm_run_succ thm
+R20353:20363 Sm.SmHostBlocks <> sm_run_succ thm
+R20392:20394 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20384:20387 Sm.SmHostBlocks <> step abbrev
+R20395:20398 Sm.SmHostBlocks <> exec abbrev
+R20403:20407 Sm.SmHostBlocks <> INC constr
+R20424:20427 Sm.SmHostBlocks <> step def
+R20392:20394 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20384:20387 Sm.SmHostBlocks <> step abbrev
+R20395:20398 Sm.SmHostBlocks <> exec abbrev
+R20403:20407 Sm.SmHostBlocks <> INC constr
+R20470:20482 Sm.SmHostBlocks <> sm_plain_exec thm
+R20487:20491 Sm.SmHostBlocks <> INC constr
+R20496:20502 Coq.Init.Logic <> eq_refl constr
+R20470:20482 Sm.SmHostBlocks <> sm_plain_exec thm
+R20487:20491 Sm.SmHostBlocks <> INC constr
+R20496:20502 Coq.Init.Logic <> eq_refl constr
+binder 20564:20564 <> q:185
+R20606:20626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20567:20572 Sm.SmHostBlocks <> vals proj
+R20575:20583 Sm.SmHostBlocks <> core_of proj
+R20586:20589 Sm.SmHostBlocks <> exec abbrev
+R20594:20598 Sm.SmHostBlocks <> INC constr
+R20605:20605 Sm.SmHostBlocks <> q:185 var
+R20630:20636 Coq.Arith.PeanoNat Nat eqb def
+R20638:20638 Sm.SmHostBlocks <> q:185 var
+R20679:20684 Sm.SmHostBlocks <> vals proj
+R20687:20695 Sm.SmHostBlocks <> core_of proj
+R20700:20700 Sm.SmHostBlocks <> q:185 var
+R20647:20647 Coq.Init.Datatypes <> S constr
+R20650:20655 Sm.SmHostBlocks <> vals proj
+R20658:20666 Sm.SmHostBlocks <> core_of proj
+binder 20564:20564 <> q:186
+R20606:20626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20567:20572 Sm.SmHostBlocks <> vals proj
+R20575:20583 Sm.SmHostBlocks <> core_of proj
+R20586:20589 Sm.SmHostBlocks <> exec abbrev
+R20594:20598 Sm.SmHostBlocks <> INC constr
+R20605:20605 Sm.SmHostBlocks <> q:186 var
+R20630:20636 Coq.Arith.PeanoNat Nat eqb def
+R20638:20638 Sm.SmHostBlocks <> q:186 var
+R20679:20684 Sm.SmHostBlocks <> vals proj
+R20687:20695 Sm.SmHostBlocks <> core_of proj
+R20700:20700 Sm.SmHostBlocks <> q:186 var
+R20647:20647 Coq.Init.Datatypes <> S constr
+R20650:20655 Sm.SmHostBlocks <> vals proj
+R20658:20666 Sm.SmHostBlocks <> core_of proj
+R20733:20739 Sm.SmHostBlocks <> cexec def
+R20762:20778 Sm.SmHostBlocks <> multi_val_write thm
+R20762:20778 Sm.SmHostBlocks <> multi_val_write thm
+R20762:20778 Sm.SmHostBlocks <> multi_val_write thm
+R20797:20808 Coq.Arith.PeanoNat Nat eqb_spec thm
+R20817:20828 Coq.Arith.PeanoNat Nat eqb_spec thm
+R20797:20808 Coq.Arith.PeanoNat Nat eqb_spec thm
+R20817:20828 Coq.Arith.PeanoNat Nat eqb_spec thm
+R20817:20828 Coq.Arith.PeanoNat Nat eqb_spec thm
+binder 20882:20882 <> q:187
+R20891:20894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20886:20889 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R20885:20885 Sm.SmHostBlocks <> q:187 var
+R20934:20936 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20895:20900 Sm.SmHostBlocks <> vers proj
+R20903:20911 Sm.SmHostBlocks <> core_of proj
+R20914:20917 Sm.SmHostBlocks <> exec abbrev
+R20922:20926 Sm.SmHostBlocks <> INC constr
+R20933:20933 Sm.SmHostBlocks <> q:187 var
+R20937:20942 Sm.SmHostBlocks <> vers proj
+R20945:20953 Sm.SmHostBlocks <> core_of proj
+R20958:20958 Sm.SmHostBlocks <> q:187 var
+binder 20882:20882 <> q:188
+R20891:20894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20886:20889 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R20885:20885 Sm.SmHostBlocks <> q:188 var
+R20934:20936 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20895:20900 Sm.SmHostBlocks <> vers proj
+R20903:20911 Sm.SmHostBlocks <> core_of proj
+R20914:20917 Sm.SmHostBlocks <> exec abbrev
+R20922:20926 Sm.SmHostBlocks <> INC constr
+R20933:20933 Sm.SmHostBlocks <> q:188 var
+R20937:20942 Sm.SmHostBlocks <> vers proj
+R20945:20953 Sm.SmHostBlocks <> core_of proj
+R20958:20958 Sm.SmHostBlocks <> q:188 var
+R20995:21001 Sm.SmHostBlocks <> cexec def
+R21024:21040 Sm.SmHostBlocks <> multi_ver_write thm
+R21024:21040 Sm.SmHostBlocks <> multi_ver_write thm
+R21024:21040 Sm.SmHostBlocks <> multi_ver_write thm
+R21059:21070 Coq.Arith.PeanoNat Nat eqb_spec thm
+R21059:21070 Coq.Arith.PeanoNat Nat eqb_spec thm
+R21161:21163 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21126:21129 Sm.SmHostBlocks <> pc proj
+R21132:21140 Sm.SmHostBlocks <> core_of proj
+R21143:21146 Sm.SmHostBlocks <> exec abbrev
+R21151:21155 Sm.SmHostBlocks <> INC constr
+R21164:21164 Coq.Init.Datatypes <> S constr
+R21167:21167 Coq.Init.Datatypes <> S constr
+R21161:21163 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21126:21129 Sm.SmHostBlocks <> pc proj
+R21132:21140 Sm.SmHostBlocks <> core_of proj
+R21143:21146 Sm.SmHostBlocks <> exec abbrev
+R21151:21155 Sm.SmHostBlocks <> INC constr
+R21164:21164 Coq.Init.Datatypes <> S constr
+R21167:21167 Coq.Init.Datatypes <> S constr
+R21196:21202 Sm.SmHostBlocks <> cexec def
+R21286:21286 Coq.Init.Datatypes <> S constr
+R21294:21297 Sm.SmHostBlocks <> exec abbrev
+R21302:21306 Sm.SmHostBlocks <> INC constr
+R21286:21286 Coq.Init.Datatypes <> S constr
+R21294:21297 Sm.SmHostBlocks <> exec abbrev
+R21302:21306 Sm.SmHostBlocks <> INC constr
+R21393:21395 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21396:21396 Coq.Init.Datatypes <> S constr
+R21412:21414 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21409:21409 Coq.Init.Datatypes <> S constr
+R21393:21395 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21396:21396 Coq.Init.Datatypes <> S constr
+R21412:21414 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21409:21409 Coq.Init.Datatypes <> S constr
+R21552:21563 Coq.Arith.PeanoNat Nat eqb_refl thm
+R21552:21563 Coq.Arith.PeanoNat Nat eqb_refl thm
+R21552:21563 Coq.Arith.PeanoNat Nat eqb_refl thm
+R21584:21590 Coq.Arith.PeanoNat Nat eqb def
+R21584:21590 Coq.Arith.PeanoNat Nat eqb def
+prf 21920:21931 <> sm_clear_run
+binder 21942:21942 <> Q:189
+binder 21944:21944 <> r:190
+binder 21946:21946 <> L:191
+binder 21948:21948 <> v:192
+binder 21950:21950 <> s:193
+R21985:21990 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21966:21968 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21955:21961 Sm.SmHostBlocks <> fetch def
+R21965:21965 Sm.SmHostBlocks <> L:191 var
+R21963:21963 Sm.SmHostBlocks <> Q:189 var
+R21969:21972 Coq.Init.Datatypes <> Some constr
+R21975:21979 Sm.SmHostBlocks <> DEC constr
+R21981:21981 Sm.SmHostBlocks <> r:190 var
+R21983:21983 Sm.SmHostBlocks <> L:191 var
+R22018:22021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22010:22012 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21991:21995 Sm.SmHostBlocks <> err proj
+R21998:22006 Sm.SmHostBlocks <> core_of proj
+R22008:22008 Sm.SmHostBlocks <> s:193 var
+R22013:22017 Coq.Init.Datatypes <> false constr
+R22044:22049 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22040:22042 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22022:22025 Sm.SmHostBlocks <> pc proj
+R22028:22036 Sm.SmHostBlocks <> core_of proj
+R22038:22038 Sm.SmHostBlocks <> s:193 var
+R22043:22043 Sm.SmHostBlocks <> L:191 var
+R22076:22081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22072:22074 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22050:22055 Sm.SmHostBlocks <> vals proj
+R22058:22066 Sm.SmHostBlocks <> core_of proj
+R22068:22068 Sm.SmHostBlocks <> s:193 var
+R22071:22071 Sm.SmHostBlocks <> r:190 var
+R22075:22075 Sm.SmHostBlocks <> v:192 var
+R22082:22082 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22199:22205 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 22090:22090 <> q:194
+R22134:22149 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22093:22098 Sm.SmHostBlocks <> vals proj
+R22101:22109 Sm.SmHostBlocks <> core_of proj
+R22112:22119 Sm.SmHostBlocks <> run_prog abbrev
+R22122:22122 Coq.Init.Datatypes <> S constr
+R22124:22124 Sm.SmHostBlocks <> v:192 var
+R22127:22127 Sm.SmHostBlocks <> Q:189 var
+R22129:22129 Sm.SmHostBlocks <> s:193 var
+R22133:22133 Sm.SmHostBlocks <> q:194 var
+R22153:22159 Coq.Arith.PeanoNat Nat eqb def
+R22161:22161 Sm.SmHostBlocks <> q:194 var
+R22163:22163 Sm.SmHostBlocks <> r:190 var
+R22177:22182 Sm.SmHostBlocks <> vals proj
+R22185:22193 Sm.SmHostBlocks <> core_of proj
+R22195:22195 Sm.SmHostBlocks <> s:193 var
+R22198:22198 Sm.SmHostBlocks <> q:194 var
+R22206:22206 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22293:22299 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 22214:22214 <> q:195
+R22223:22226 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22218:22221 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R22217:22217 Sm.SmHostBlocks <> q:195 var
+R22222:22222 Sm.SmHostBlocks <> r:190 var
+R22268:22270 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22227:22232 Sm.SmHostBlocks <> vers proj
+R22235:22243 Sm.SmHostBlocks <> core_of proj
+R22246:22253 Sm.SmHostBlocks <> run_prog abbrev
+R22256:22256 Coq.Init.Datatypes <> S constr
+R22258:22258 Sm.SmHostBlocks <> v:192 var
+R22261:22261 Sm.SmHostBlocks <> Q:189 var
+R22263:22263 Sm.SmHostBlocks <> s:193 var
+R22267:22267 Sm.SmHostBlocks <> q:195 var
+R22271:22276 Sm.SmHostBlocks <> vers proj
+R22279:22287 Sm.SmHostBlocks <> core_of proj
+R22289:22289 Sm.SmHostBlocks <> s:193 var
+R22292:22292 Sm.SmHostBlocks <> q:195 var
+R22364:22369 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22340:22342 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22300:22306 Sm.SmHostBlocks <> facts proj
+R22309:22317 Sm.SmHostBlocks <> core_of proj
+R22320:22327 Sm.SmHostBlocks <> run_prog abbrev
+R22330:22330 Coq.Init.Datatypes <> S constr
+R22332:22332 Sm.SmHostBlocks <> v:192 var
+R22335:22335 Sm.SmHostBlocks <> Q:189 var
+R22337:22337 Sm.SmHostBlocks <> s:193 var
+R22343:22349 Sm.SmHostBlocks <> facts proj
+R22352:22360 Sm.SmHostBlocks <> core_of proj
+R22362:22362 Sm.SmHostBlocks <> s:193 var
+R22432:22437 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22409:22411 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22370:22375 Sm.SmHostBlocks <> chan proj
+R22378:22386 Sm.SmHostBlocks <> core_of proj
+R22389:22396 Sm.SmHostBlocks <> run_prog abbrev
+R22399:22399 Coq.Init.Datatypes <> S constr
+R22401:22401 Sm.SmHostBlocks <> v:192 var
+R22404:22404 Sm.SmHostBlocks <> Q:189 var
+R22406:22406 Sm.SmHostBlocks <> s:193 var
+R22412:22417 Sm.SmHostBlocks <> chan proj
+R22420:22428 Sm.SmHostBlocks <> core_of proj
+R22430:22430 Sm.SmHostBlocks <> s:193 var
+R22484:22489 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22476:22478 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22438:22442 Sm.SmHostBlocks <> err proj
+R22445:22453 Sm.SmHostBlocks <> core_of proj
+R22456:22463 Sm.SmHostBlocks <> run_prog abbrev
+R22466:22466 Coq.Init.Datatypes <> S constr
+R22468:22468 Sm.SmHostBlocks <> v:192 var
+R22471:22471 Sm.SmHostBlocks <> Q:189 var
+R22473:22473 Sm.SmHostBlocks <> s:193 var
+R22479:22483 Coq.Init.Datatypes <> false constr
+R22533:22538 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22527:22529 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22490:22493 Sm.SmHostBlocks <> pc proj
+R22496:22504 Sm.SmHostBlocks <> core_of proj
+R22507:22514 Sm.SmHostBlocks <> run_prog abbrev
+R22517:22517 Coq.Init.Datatypes <> S constr
+R22519:22519 Sm.SmHostBlocks <> v:192 var
+R22522:22522 Sm.SmHostBlocks <> Q:189 var
+R22524:22524 Sm.SmHostBlocks <> s:193 var
+R22530:22530 Coq.Init.Datatypes <> S constr
+R22532:22532 Sm.SmHostBlocks <> L:191 var
+R22573:22576 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22564:22566 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22539:22542 Sm.SmHostBlocks <> mu proj
+R22545:22552 Sm.SmHostBlocks <> run_prog abbrev
+R22555:22555 Coq.Init.Datatypes <> S constr
+R22557:22557 Sm.SmHostBlocks <> v:192 var
+R22560:22560 Sm.SmHostBlocks <> Q:189 var
+R22562:22562 Sm.SmHostBlocks <> s:193 var
+R22567:22570 Sm.SmHostBlocks <> mu proj
+R22572:22572 Sm.SmHostBlocks <> s:193 var
+R22604:22606 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22577:22582 Sm.SmHostBlocks <> cert proj
+R22585:22592 Sm.SmHostBlocks <> run_prog abbrev
+R22595:22595 Coq.Init.Datatypes <> S constr
+R22597:22597 Sm.SmHostBlocks <> v:192 var
+R22600:22600 Sm.SmHostBlocks <> Q:189 var
+R22602:22602 Sm.SmHostBlocks <> s:193 var
+R22607:22612 Sm.SmHostBlocks <> cert proj
+R22614:22614 Sm.SmHostBlocks <> s:193 var
+R22734:22736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22706:22717 Sm.SmHostBlocks <> next_instr def
+R22722:22730 Sm.SmHostBlocks <> core_of proj
+R22737:22740 Coq.Init.Datatypes <> Some constr
+R22743:22747 Sm.SmHostBlocks <> DEC constr
+R22771:22783 Sm.SmHostBlocks <> sm_next_intro thm
+R22734:22736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22706:22717 Sm.SmHostBlocks <> next_instr def
+R22722:22730 Sm.SmHostBlocks <> core_of proj
+R22737:22740 Coq.Init.Datatypes <> Some constr
+R22743:22747 Sm.SmHostBlocks <> DEC constr
+R22771:22783 Sm.SmHostBlocks <> sm_next_intro thm
+R22869:22871 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22855:22862 Sm.SmHostBlocks <> run_prog abbrev
+R22872:22875 Sm.SmHostBlocks <> exec abbrev
+R22880:22884 Sm.SmHostBlocks <> DEC constr
+R22910:22913 Sm.SmHostBlocks <> step def
+R22869:22871 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22855:22862 Sm.SmHostBlocks <> run_prog abbrev
+R22872:22875 Sm.SmHostBlocks <> exec abbrev
+R22880:22884 Sm.SmHostBlocks <> DEC constr
+R22973:22985 Sm.SmHostBlocks <> sm_plain_exec thm
+R22990:22994 Sm.SmHostBlocks <> DEC constr
+R23001:23007 Coq.Init.Logic <> eq_refl constr
+R22973:22985 Sm.SmHostBlocks <> sm_plain_exec thm
+R22990:22994 Sm.SmHostBlocks <> DEC constr
+R23001:23007 Coq.Init.Logic <> eq_refl constr
+R23091:23093 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23061:23069 Sm.SmHostBlocks <> core_of proj
+R23072:23075 Sm.SmHostBlocks <> exec abbrev
+R23080:23084 Sm.SmHostBlocks <> DEC constr
+R23094:23099 Sm.SmHostBlocks <> goto def
+R23102:23110 Sm.SmHostBlocks <> core_of proj
+R23116:23116 Coq.Init.Datatypes <> S constr
+R23091:23093 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23061:23069 Sm.SmHostBlocks <> core_of proj
+R23072:23075 Sm.SmHostBlocks <> exec abbrev
+R23080:23084 Sm.SmHostBlocks <> DEC constr
+R23094:23099 Sm.SmHostBlocks <> goto def
+R23102:23110 Sm.SmHostBlocks <> core_of proj
+R23116:23116 Coq.Init.Datatypes <> S constr
+R23143:23149 Sm.SmHostBlocks <> cexec def
+R23249:23260 Coq.Arith.PeanoNat Nat eqb_spec thm
+R23249:23260 Coq.Arith.PeanoNat Nat eqb_spec thm
+R23497:23499 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23469:23480 Sm.SmHostBlocks <> next_instr def
+R23485:23493 Sm.SmHostBlocks <> core_of proj
+R23500:23503 Coq.Init.Datatypes <> Some constr
+R23506:23510 Sm.SmHostBlocks <> DEC constr
+R23534:23546 Sm.SmHostBlocks <> sm_next_intro thm
+R23497:23499 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23469:23480 Sm.SmHostBlocks <> next_instr def
+R23485:23493 Sm.SmHostBlocks <> core_of proj
+R23500:23503 Coq.Init.Datatypes <> Some constr
+R23506:23510 Sm.SmHostBlocks <> DEC constr
+R23534:23546 Sm.SmHostBlocks <> sm_next_intro thm
+R23612:23622 Sm.SmHostBlocks <> sm_run_succ thm
+R23612:23622 Sm.SmHostBlocks <> sm_run_succ thm
+R23612:23622 Sm.SmHostBlocks <> sm_run_succ thm
+R23651:23653 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23643:23646 Sm.SmHostBlocks <> step abbrev
+R23654:23657 Sm.SmHostBlocks <> exec abbrev
+R23662:23666 Sm.SmHostBlocks <> DEC constr
+R23685:23688 Sm.SmHostBlocks <> step def
+R23651:23653 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23643:23646 Sm.SmHostBlocks <> step abbrev
+R23654:23657 Sm.SmHostBlocks <> exec abbrev
+R23662:23666 Sm.SmHostBlocks <> DEC constr
+R23748:23760 Sm.SmHostBlocks <> sm_plain_exec thm
+R23765:23769 Sm.SmHostBlocks <> DEC constr
+R23776:23782 Coq.Init.Logic <> eq_refl constr
+R23748:23760 Sm.SmHostBlocks <> sm_plain_exec thm
+R23765:23769 Sm.SmHostBlocks <> DEC constr
+R23776:23782 Coq.Init.Logic <> eq_refl constr
+R23866:23868 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23836:23844 Sm.SmHostBlocks <> core_of proj
+R23847:23850 Sm.SmHostBlocks <> exec abbrev
+R23855:23859 Sm.SmHostBlocks <> DEC constr
+R23869:23875 Sm.SmHostBlocks <> write def
+R23878:23886 Sm.SmHostBlocks <> core_of proj
+R23866:23868 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23836:23844 Sm.SmHostBlocks <> core_of proj
+R23847:23850 Sm.SmHostBlocks <> exec abbrev
+R23855:23859 Sm.SmHostBlocks <> DEC constr
+R23869:23875 Sm.SmHostBlocks <> write def
+R23878:23886 Sm.SmHostBlocks <> core_of proj
+R23919:23925 Sm.SmHostBlocks <> cexec def
+R23977:23980 Sm.SmHostBlocks <> exec abbrev
+R23985:23989 Sm.SmHostBlocks <> DEC constr
+R23977:23980 Sm.SmHostBlocks <> exec abbrev
+R23985:23989 Sm.SmHostBlocks <> DEC constr
+R24144:24160 Sm.SmHostBlocks <> multi_val_write thm
+R24163:24174 Coq.Arith.PeanoNat Nat eqb_refl thm
+R24144:24160 Sm.SmHostBlocks <> multi_val_write thm
+R24144:24160 Sm.SmHostBlocks <> multi_val_write thm
+R24163:24174 Coq.Arith.PeanoNat Nat eqb_refl thm
+R24163:24174 Coq.Arith.PeanoNat Nat eqb_refl thm
+R24252:24268 Sm.SmHostBlocks <> multi_val_write thm
+R24252:24268 Sm.SmHostBlocks <> multi_val_write thm
+R24252:24268 Sm.SmHostBlocks <> multi_val_write thm
+R24289:24300 Coq.Arith.PeanoNat Nat eqb_spec thm
+R24309:24320 Coq.Arith.PeanoNat Nat eqb_spec thm
+R24289:24300 Coq.Arith.PeanoNat Nat eqb_spec thm
+R24309:24320 Coq.Arith.PeanoNat Nat eqb_spec thm
+R24309:24320 Coq.Arith.PeanoNat Nat eqb_spec thm
+R24405:24421 Sm.SmHostBlocks <> multi_ver_write thm
+R24405:24421 Sm.SmHostBlocks <> multi_ver_write thm
+R24405:24421 Sm.SmHostBlocks <> multi_ver_write thm
+R24442:24453 Coq.Arith.PeanoNat Nat eqb_spec thm
+R24442:24453 Coq.Arith.PeanoNat Nat eqb_spec thm
+R24665:24670 Sm.SmHostBlocks Blocks <> sec
+R24910:24925 Sm.SmHostBlocks <> sm_block_run_mid thm
+R24946:24963 Sm.SmHostBlocks <> sm_block_run_final thm
+R24984:25002 Sm.SmHostBlocks <> sm_block_not_halted thm
+R25023:25033 Sm.SmHostBlocks <> sm_incs_run thm
+R25054:25065 Sm.SmHostBlocks <> sm_clear_run thm
+R25086:25099 Sm.SmHostBlocks <> sm_hequiv_hfun thm
+R25120:25130 Sm.SmHostBlocks <> sm_hfun_det thm

@@ -1,30 +1,23 @@
 (** StructuralCoreCover: computational covers and record observations.
 
-    The strong form of the definitions in [StructuralCore], for machines
-    that run the VM underneath.
+    The strong form of the definitions in [StructuralCore].
 
-    The reference computation is the unbounded VM of ThieleCore. A cover
-    projects every source step to one reference step, preserves halting,
-    and covers all reference starting states. This states both directions
-    of the computational comparison with an explicit projection. It does
-    not identify arbitrary machines with Turing machines by a one-way
-    halting reduction.
+    A cover of one machine by another projects every source step to one
+    reference step, preserves halting, and covers all reference starting
+    states. This states both directions of the computational comparison
+    with an explicit projection. It does not identify arbitrary machines
+    with Turing machines by a one-way halting reduction.
 
-    An honest VM record extension has such a cover, a monotone ledger,
-    a permanent reading, A2, and a reachable step that writes the reading
-    from false to true. Initial certification alone does not suffice.
-    The record may be implemented with additional state. No physical cost
-    calibration is assumed.
+    A record is permanent when a raised reading stays raised, and it is
+    reachably written when some run from a starting state takes the reading
+    from false to true. Initial certification alone does not count as a
+    write. The record may be implemented with additional state. No physical
+    cost calibration is assumed.
 
     The observed core keeps the certification reading, ledger balance,
     step cost, and halting observation. Bisimulation may discard retained
     history. Ledger units and the starting balance are part of the
-    observation; no rescaling or stuttering is implicit.
-
-    This is a class of extensions of a specified computational model. Its
-    uniqueness conjecture is below. It does not require exact pricing, since
-    A2 is a lower bound, and the conjecture is false; [StructuralUniqueness]
-    gives the counterexample. *)
+    observation; no rescaling or stuttering is implicit. *)
 
 From Coq Require Import Arith.PeanoNat.
 From Kernel Require Import StructuralCore.
@@ -47,11 +40,6 @@ Definition reachable_record_write (M : RCM) : Prop :=
     rc_cert M (rc_run M n s) = false /\
     rc_cert M (rc_next M (rc_run M n s)) = true.
 
-Definition HonestVMExtension (M : RCM) : Prop :=
-  inhabited (ComputationalCover M ThieleCore) /\
-  ledger_carried M /\ rc_a2 M /\ record_permanent M /\
-  reachable_record_write M.
-
 Definition observed_core_bisim (M N : RCM)
     (R : rc_state M -> rc_state N -> Prop) : Prop :=
   (forall m, rc_init M m -> exists n, rc_init N n /\ R m n) /\
@@ -65,6 +53,3 @@ Definition observed_core_bisim (M N : RCM)
 
 Definition observed_core_equiv (M N : RCM) : Prop :=
   exists R, observed_core_bisim M N R.
-
-Definition honest_vm_extension_uniqueness : Prop :=
-  forall M, HonestVMExtension M -> observed_core_equiv M ThieleCore.

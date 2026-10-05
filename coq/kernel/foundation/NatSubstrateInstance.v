@@ -44,13 +44,9 @@
 From Coq Require Import Arith.PeanoNat Lia.
 From Kernel Require Import Substrate.
 (* Foundation-chain anchor: the nat substrate is one realization of the
-   abstract A2-respecting Substrate typeclass; the 51-opcode VM is
-   another. Importing VMState here ties this file to the kernel's
-   semantic foundation modules (VMState → VMStep → MuCostModel →
-   NoFreeInsight → ...) so the substrate-level result presented over
-   nat-coded programs can be cross-referenced from the VM-level corollary
-   in StructuralUndecidability.v. *)
-From Kernel Require Import VMState.
+   abstract Substrate typeclass, and the substrate-level result of
+   StructuralUndecidability.v fires for it. *)
+
 
 (** ** The minimal nat-coded substrate, parameterized by a decide function.
 
@@ -67,7 +63,7 @@ From Kernel Require Import VMState.
       * the substrate-internal recursion theorem for the diagonal
         flip transformer (the fixed point is code [2]).
 
-    A richer substrate language (more opcodes, more programs) is possible
+    A richer substrate language (more program codes) is possible
     but unnecessary for the substrate-level limitative theorem. The
     smaller the language, the cleaner the [Print Assumptions] gate. *)
 

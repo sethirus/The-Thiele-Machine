@@ -4,6 +4,10 @@
     MMA2 -> MM2 under [reduces_complement], starting from
     [PCPb_compl_undec].  Nothing is assumed. *)
 
+(* SCOPE NOTE: standalone proof scope. A fact about the vendored library's
+   two-counter machines, composed from the library's own reductions; no
+   Thiele machine is involved. *)
+
 From Undecidability.Synthetic Require Import Undecidability ReducibilityFacts.
 From Undecidability.PCP Require Import PCP PCP_undec.
 From Undecidability.PCP.Reductions Require PCPb_iff_iPCPb.

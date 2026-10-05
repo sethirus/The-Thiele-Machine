@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. This addressed RAM is an independent
-    comparison model; a record-axis or VM adapter is explicitly not claimed.
+    comparison model; a record-axis adapter is explicitly not claimed.
 
     Target propositions for an addressed random-access memory. *)
 

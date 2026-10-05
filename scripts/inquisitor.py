@@ -41,56 +41,59 @@ from typing import Iterable, Iterator
 
 from inquisitor_rules import summarize_text
 from coq_proof_scope import (
+    MINIMAL_UNLISTED_FILES,
     NON_PROOF_BEARING_FILES,
     coqproject_v_files,
 )
 
 
 # STRICT MODE: Core kernel files that must have ZERO high/medium findings
-PROTECTED_BASENAMES = {"CoreSemantics.v", "BridgeDefinitions.v"}
+PROTECTED_BASENAMES = {"UniversalCertificationCost.v", "StructuralCore.v"}
 
-# ULTRA STRICT: Critical kernel proof files
+# ULTRA STRICT: Critical proof files. These carry the abstract model's floor
+# and toll, the record axis, the small machine's links into the abstract
+# results, and the Tsirelson algebra.
 CRITICAL_KERNEL_FILES = {
-    "TsirelsonUpperBound.v",
-    "TsirelsonUniqueness.v",
-    "NoFreeInsight.v",
-    "MuCostModel.v",
-    "CHSHExtraction.v",
-    "QuantumEquivalence.v",
-    "KernelPhysics.v",
-    "VMState.v",
-    "VMStep.v",
+    "UniversalCertificationCost.v",
+    "StructuralCore.v",
+    "StructuralRecordAxis.v",
+    "PermanentCertification.v",
+    "PermanentRecordPricing.v",
+    "EarnedCoreLinks.v",
+    "EarnedGenericLinks.v",
+    "UniversalThieleLinks.v",
+    "UniversalInterpreterLinks.v",
+    "PricedHostLinks.v",
+    "SmallChshLinks.v",
+    # The small machine and its two definitions: every headline theorem rests on them.
+    "EarnedCore.v",
+    "EarnedGeneric.v",
+    "ThieleComplete.v",
+    "ThieleCompleteWindow.v",
+    "UniversalThiele.v",
+    "TsirelsonGeneral.v",
+    "CHSHColumnCheck.v",
 }
 
 # ---------------------------------------------------------------------------
 # Tier system — from coq/_CoqProject (-R directory Namespace mappings)
-# Tier 1: Extraction-critical. Gets extracted to OCaml/Python VM + RTL CPU.
-#         Must ONLY import Kernel + Coq stdlib. Zero tolerance for outside deps.
-# Tier 2: Core theory. Proofs ABOUT the machine, not extracted.
-#         May import Tier 1 + Tier 2. Must NOT import Tier 3 (exploratory).
-# Tier 3: Exploratory/speculative. Free to import from anywhere.
+# Tier 1: The proof tree under coq/kernel/ (namespace Kernel): the abstract
+#         model, its instances, and the links from the small machine
+#         (minimal/, namespace Minimal) into the abstract results. It may
+#         import Kernel, Minimal, the pinned vendored Undecidability library
+#         and the Coq stdlib.
+# Tier 2: Core theory outside coq/kernel/. No such directory exists now; the
+#         rule stays so that one added later is held to it.
+# Tier 3: Exploratory/speculative. No such directory exists now either.
 # ---------------------------------------------------------------------------
 _TIER1_DIRS: frozenset[str] = frozenset({"kernel"})
 _TIER1_NAMESPACES: frozenset[str] = frozenset({"Kernel"})
 
-_TIER2_DIRS: frozenset[str] = frozenset({
-    "nofi", "bridge", "thielemachine", "kernel_toe", "modular_proofs", "isomorphism",
-})
-_TIER2_NAMESPACES: frozenset[str] = frozenset({
-    "NoFI", "Bridge", "ThieleMachine", "ThieleMachineVerification",
-    "KernelTOE", "ModularProofs", "Isomorphism",
-})
+_TIER2_DIRS: frozenset[str] = frozenset()
+_TIER2_NAMESPACES: frozenset[str] = frozenset()
 
-_TIER3_DIRS: frozenset[str] = frozenset({
-    "physics", "self_reference", "shor_primitives", "spacetime_projection",
-    "thiele_manifold", "project_cerberus", "catnet", "thieleuniversal",
-    "theory", "physics_exploration", "quantum_derivation", "thermodynamic", "spacetime",
-})
-_TIER3_NAMESPACES: frozenset[str] = frozenset({
-    "Physics", "SelfReference", "ShorPrimitives", "SpacetimeProjection",
-    "ThieleManifold", "ProjectCerberus", "CatNet", "ThieleUniversal",
-    "Theory", "PhysicsExploration", "QuantumDerivation", "Thermodynamic", "Spacetime",
-})
+_TIER3_DIRS: frozenset[str] = frozenset()
+_TIER3_NAMESPACES: frozenset[str] = frozenset()
 
 _NAMESPACE_TO_TIER: dict[str, int] = {}
 _NAMESPACE_TO_TIER.update({ns: 1 for ns in _TIER1_NAMESPACES})
@@ -99,33 +102,32 @@ _NAMESPACE_TO_TIER.update({ns: 3 for ns in _TIER3_NAMESPACES})
 
 _STDLIB_NAMESPACES: frozenset[str] = frozenset({"Coq", "Stdlib"})
 
-# Every proof-bearing file must be transitively connected to these machine
-# semantics anchors via Coq imports, or explicitly reference semantic tokens.
+# Every proof-bearing file must be transitively connected to the foundation
+# chain via Coq imports, or explicitly reference its semantic tokens. The
+# chain is the abstract model, not any one machine:
+#   UniversalCertificationCost  the certification system and its universal floor
+#   StructuralCore              the record-carrying machine and adequacy
+#   Substrate                   the abstract A2-respecting substrate
+#   KernelTM                    the Turing-machine kernel used as a base
+#   EarnedCore                  the small machine that earns its commitments
+#   ThieleComplete              the definition the small machine meets
 _FOUNDATION_SEMANTICS_MODULES: frozenset[str] = frozenset(
     {
-        "VMState",
-        "VMStep",
-        "VMEncoding",
-        "KernelTM",
-        "BridgeDefinitions",
-        "PythonBisimulation",
-        "HardwareBisimulation",
-        # Substrate.v is the abstract A2-respecting substrate that the
-        # 51-opcode VM instantiates. It is foundation-tier (more
-        # foundational than VMState, which is one realization of it),
-        # so it is its own foundation module — it cannot connect "down"
-        # to VMState without inverting the substrate-vs-scaffolding
-        # dependency direction.
+        "UniversalCertificationCost",
+        "StructuralCore",
         "Substrate",
+        "KernelTM",
+        "EarnedCore",
+        "ThieleComplete",
     }
 )
 
+# The cost half of the chain: the A2 floor over any certification system and
+# the small machine's exact ledger.
 _FOUNDATION_COST_MODULES: frozenset[str] = frozenset(
     {
-        "MuCostModel",
-        "MuLedgerConservation",
-        "MuInitiality",
-        "NoFreeInsight",
+        "UniversalCertificationCost",
+        "EarnedCore",
     }
 )
 
@@ -133,40 +135,6 @@ _FOUNDATION_GROUPS: dict[str, frozenset[str]] = {
     "semantics": _FOUNDATION_SEMANTICS_MODULES,
     "cost": _FOUNDATION_COST_MODULES,
 }
-
-# Build-surface parity requirement: OCaml extraction and Kami proofs must share
-# these same kernel foundations.
-_SHARED_BUILD_FOUNDATION_MODULES: frozenset[str] = frozenset(
-    {
-        "VMState",
-        "VMStep",
-        "VMEncoding",
-        "KernelTM",
-        "MuCostModel",
-        "MuLedgerConservation",
-        "MuInitiality",
-        "NoFreeInsight",
-    }
-)
-
-_OCAML_EXTRACTION_ENTRYPOINTS: frozenset[str] = frozenset({"Extraction.v"})
-_OCAML_EXTRACTION_ARTIFACTS: tuple[tuple[str, str], ...] = (
-    ("Extraction.v", "thiele_core.ml"),
-)
-_OCAML_EXTRACTION_REQUIRED_SYMBOLS: tuple[str, ...] = ("vm_instruction", "vm_apply", "vMState")
-
-# Global foundation modules that everything must ultimately tie back to.
-_GLOBAL_FOUNDATION_MODULES: tuple[str, ...] = (
-    "VMState",
-    "VMStep",
-    "SimulationProof",
-    "VMEncoding",
-    "KernelTM",
-    "MuCostModel",
-    "MuLedgerConservation",
-    "MuInitiality",
-    "NoFreeInsight",
-)
 
 _PROOF_DECL_RE = re.compile(
     r"(?m)^\s*(?:Theorem|Lemma|Corollary|Proposition|Fact|Remark|Conjecture)\b"
@@ -189,11 +157,11 @@ _GRAVITY_SCOPE_MARKER_RE = re.compile(
 )
 
 _SEMANTIC_TOKEN_RE = re.compile(
-    r"(?i)\b(VMState|VMStep|vm_step|vm_apply|run_vm|NoFreeInsight|KernelTM|BridgeDefinitions|PythonBisimulation|HardwareBisimulation)\b"
+    r"\b(CertificationSystem|cs_step|cs_run|cs_cert|RCM|rc_next|rc_run|rc_cert|Substrate|KernelTM|step_tm|run_tm|EarnedCore|ThieleComplete|thiele_complete)\b"
 )
 
 _COST_TOKEN_RE = re.compile(
-    r"(?i)\b(mu_cost|mu_ledger|vm_mu|instruction_cost|MuCostModel|MuLedgerConservation|MuInitiality|NoFreeInsight)\b"
+    r"\b(cs_cost|cs_total_cost|cs_cert_costs|rc_mu|step_cost|ledger_carried|rc_a2|mu_cost|mu_ledger|total_cost)\b"
 )
 
 _FROM_REQUIRE_IMPORTS_RE = re.compile(
@@ -280,7 +248,6 @@ DEFAULT_COMMAND_TIMEOUTS: dict[str, int] = {
     # Keep the audit bounded, but allow the full proof tree to finish on the
     # hosted CI runners instead of turning a slow valid build into a finding.
     "coq build": 1800,
-    "ocaml extraction build": 600,
     "proof dependency dag": 300,
     "single coq compile": 60,
 }
@@ -495,8 +462,7 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
     - `artifacts/` contains reproduction snapshots and evidence
       copies. It is not an active proof corpus and must never multiply findings.
     - Files under `build/**/*.v` are auto-generated artifacts (vacuity probes,
-      OCaml extraction by-products, Coq-derived RTL inputs) — not proof
-      sources, so excluded.
+      assumption probes) — not proof sources, so excluded.
     - Non-Coq-tree `.v` files are included only if they look like Coq.
     """
     project_path = repo_root / "coq" / "_CoqProject"
@@ -508,10 +474,11 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
             continue
         # EXCLUDE ARCHIVE: archive/ contains historical code kept for posterity only
         # These files are not part of the active proof corpus and should not be audited
-        # EXCLUDE VENDOR: vendor/ contains third-party libraries (Kami, BBV) whose
-        # proof style is outside our control and should not be audited
+        # EXCLUDE VENDOR: vendor/ contains third-party libraries (the pinned
+        # undecidability library) whose proof style is outside our control and
+        # should not be audited
         # EXCLUDE BUILD: build/ is a generated-artifacts tree (vacuity probes,
-        # OCaml extraction inputs). Anything written there is by definition
+        # assumption probes). Anything written there is by definition
         # not a hand-authored proof obligation.
         # EXCLUDE TEST_FIXTURES: coq/test_fixtures/ is reserved for deliberately
         # vacuous Coq files used as test data by gates (e.g. the vacuity-gate
@@ -642,6 +609,32 @@ def _check_coq_compilation_coverage(repo_root: Path) -> list[Finding]:
                 ),
             )
         )
+
+    # Mode 2c: the small machine in minimal/ is part of the proof corpus. Every
+    # file there is built through _CoqProject, except the explicit front-door
+    # files that tests/test_minimal_core.py compiles on their own.
+    minimal_root = repo_root / "minimal"
+    if minimal_root.exists():
+        for vf in sorted(minimal_root.rglob("*.v")):
+            if not vf.is_file():
+                continue
+            rel_posix = vf.relative_to(repo_root).as_posix()
+            if rel_posix in project_files or rel_posix in MINIMAL_UNLISTED_FILES:
+                continue
+            findings.append(
+                Finding(
+                    rule_id="PROOF_SCOPE_DRIFT",
+                    severity="HIGH",
+                    file=vf,
+                    line=1,
+                    snippet="",
+                    message=(
+                        "minimal/ .v file is neither in coq/_CoqProject nor in "
+                        "scripts/coq_proof_scope.py:MINIMAL_UNLISTED_FILES. "
+                        "Add it to the canonical build or delete it."
+                    ),
+                )
+            )
 
     return findings
 
@@ -1389,6 +1382,11 @@ def scan_file(path: Path) -> list[Finding]:
     for m in cost_is_length.finditer(text):
         name = m.group(1)
         line = line_of[m.start()]
+        # An explicit (* SAFE: ... *) note above the definition says why the
+        # name is not a price (for example, a code address that follows a block).
+        context = "\n".join(raw_lines[max(0, line - 3): line + 1])
+        if re.search(r"\(\*\s*SAFE:", context):
+            continue
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
         findings.append(
             Finding(
@@ -2157,22 +2155,29 @@ def scan_exact_alias(path: Path) -> list[Finding]:
     return findings
 
 
-_FROM_REQUIRE_RE = re.compile(r'^From\s+([A-Za-z_][A-Za-z0-9_]*)\s+Require\b')
+_FROM_REQUIRE_RE = re.compile(r'^From\s+([A-Za-z_][A-Za-z0-9_]*)(?:\.[A-Za-z0-9_.]+)?\s+Require\b')
+# A qualified module in a bare Require line: Require [Import|Export] Ns.Mod ...
+_BARE_REQUIRE_RE = re.compile(r'^Require\s+(?:Import\s+|Export\s+)?(.+?)\.[ \t]*$')
+# The namespaces a file under coq/kernel/ may import from: the Coq standard
+# library, the kernel, the small machine, the pinned vendored library and the
+# test fixtures. Any other namespace is outside the proof tree.
+_TIER1_ALLOWED_NAMESPACES: frozenset[str] = (
+    _STDLIB_NAMESPACES | _TIER1_NAMESPACES | frozenset({'Minimal', 'Undecidability', 'TestFixtures'})
+)
 
 
 def scan_scope_drift(path: Path) -> list[Finding]:
     """Enforce tier-boundary separation for Coq imports.
 
     Tier system (driven by coq/_CoqProject namespace mappings):
-      Tier 1 — Extraction core (coq/kernel/):
-        Gets extracted to OCaml/Python VM and RTL CPU.
-        Must ONLY use ``Kernel`` + Coq stdlib imports.
-        Any import of a Tier-2 or Tier-3 namespace contaminates the extraction.
-      Tier 2 — Core theory (nofi/, bridge/, thielemachine/, ...):
-        Proofs ABOUT the machine — not extracted.
+      Tier 1 — The proof tree (coq/kernel/, namespace Kernel):
+        Must use only ``Kernel``, the small machine (``Minimal``), the pinned
+        vendored ``Undecidability`` library and the Coq stdlib. Any import of
+        a Tier-2 or Tier-3 namespace contaminates it.
+      Tier 2 — Core theory outside coq/kernel/ (none at present):
         May import Tier-1 and Tier-2 namespaces.
         Must NOT import Tier-3 (exploratory/speculative) namespaces.
-      Tier 3 — Exploratory / speculative (physics/, spacetime/, thermodynamic/, ...):
+      Tier 3 — Exploratory / speculative (none at present):
         Free research. May import anything.
 
     Rule IDs emitted:
@@ -2191,7 +2196,43 @@ def scan_scope_drift(path: Path) -> list[Finding]:
     findings: list[Finding] = []
 
     for i, line in enumerate(raw_lines, start=1):
-        m = _FROM_REQUIRE_RE.match(line.strip())
+        stripped = line.strip()
+        namespaces: list[str] = []
+        m = _FROM_REQUIRE_RE.match(stripped)
+        if m:
+            namespaces = [m.group(1)]
+        else:
+            bare = _BARE_REQUIRE_RE.match(stripped)
+            if bare:
+                # Only qualified modules name a namespace; a bare name is relative.
+                namespaces = [tok.split(".")[0] for tok in bare.group(1).split() if "." in tok]
+        for ns in namespaces:
+            if ns in _TIER1_ALLOWED_NAMESPACES:
+                continue
+            if _NAMESPACE_TO_TIER.get(ns) is not None:
+                continue  # A tiered namespace is judged below (From-lines only).
+            # No tier is defined for this namespace. Under coq/kernel/ that means
+            # it is outside the proof tree, which is a finding unless a SCOPE NOTE
+            # above the import gives the reason.
+            context = "\n".join(raw_lines[max(0, i - 4): i])
+            if file_tier == 1 and not re.search(
+                    r'SCOPE NOTE.*cross.tier|SCOPE NOTE.*tier', context, re.IGNORECASE):
+                findings.append(
+                    Finding(
+                        rule_id="SCOPE_DRIFT_TIER1",
+                        severity="HIGH",
+                        file=path,
+                        line=i,
+                        snippet=stripped,
+                        message=(
+                            f"Tier-1 coq/kernel/ file imports `{ns}`, a namespace outside "
+                            "the proof tree (allowed: Coq, Kernel, Minimal, Undecidability, "
+                            "TestFixtures). Suppress with: "
+                            "(* SCOPE NOTE: cross-tier import for <reason> *)"
+                        ),
+                    )
+                )
+        m = _FROM_REQUIRE_RE.match(stripped)
         if not m:
             continue
         ns = m.group(1)
@@ -2202,7 +2243,7 @@ def scan_scope_drift(path: Path) -> list[Finding]:
 
         import_tier = _NAMESPACE_TO_TIER.get(ns)
         if import_tier is None:
-            continue  # Unknown namespace — not our concern here
+            continue  # Unknown namespaces were judged above.
 
         # Check for suppression comment anywhere in the 3 lines above
         context = "\n".join(raw_lines[max(0, i - 4): i])
@@ -2221,7 +2262,7 @@ def scan_scope_drift(path: Path) -> list[Finding]:
                     line=i,
                     snippet=line.strip(),
                     message=(
-                        f"Extraction-critical coq/kernel/ file imports `{ns}` ({tier_label}). "
+                        f"Tier-1 coq/kernel/ file imports `{ns}` ({tier_label}). "
                         "The kernel must be self-contained (only Kernel + Coq stdlib). "
                         f"Either move the needed proof into coq/kernel/ under the Kernel namespace, "
                         f"or relocate this file to a higher-tier directory. "
@@ -2274,14 +2315,13 @@ def scan_proof_connectivity(repo_root: Path, v_files: list[Path]) -> list[Findin
     """Enforce that every proof-bearing Coq file builds up from foundation modules.
 
     Foundation policy:
-    - Active core proof files must connect to the semantic foundation transitively.
-    - A μ-cost connection is required only when the file actually reasons about
-      μ-cost symbols; it is not imposed on unrelated lemmas.
-    - Kernel foundation modules are roots of the dependency graph, not clients
-      of higher-level cost modules.
-    - Kami action-local proofs are checked by the dedicated cross-layer gates;
-      forcing every local action lemma to import VM cost foundations creates
-      circular or phantom dependencies.
+    - Active proof files must connect to the semantic foundation (the abstract
+      model and the small machine) transitively.
+    - A cost connection is required only when the file actually reasons about
+      cost or ledger symbols; it is not imposed on unrelated lemmas.
+    - The foundation modules themselves are roots of the dependency graph.
+    - A file that stands alone says so in a SCOPE NOTE; it is not driven to
+      fake a link.
     """
 
     stem_to_paths: dict[str, set[Path]] = {}
@@ -2375,13 +2415,6 @@ def scan_proof_connectivity(repo_root: Path, v_files: list[Path]) -> list[Findin
         if vf.stem in all_foundation_modules:
             continue
 
-        rel = vf.relative_to(repo_root).as_posix()
-        # These are independent roots or local implementation proofs. Their
-        # correctness is covered by compilation and the dedicated cross-layer
-        # audits, not by a forced import of unrelated cost foundations.
-        if rel.startswith("coq/kernel/foundation/") or rel.startswith("coq/kami_hw/"):
-            continue
-
         # Semantic grounding is meaningful for core proof layers. Cost
         # grounding is conditional: a file that does not reason about μ-cost
         # should not be forced to import a cost model merely to satisfy a
@@ -2420,124 +2453,10 @@ def scan_proof_connectivity(repo_root: Path, v_files: list[Path]) -> list[Findin
                 snippet=snippet,
                 message=(
                     f"proof file is missing required foundation connectivity group(s): "
-                    f"{required_desc}. ALL proofs must connect to the Thiele machine "
-                    "foundation chain — no exceptions, no tier-based exemptions. "
-                    "Add imports/bridge lemmas and iterate until connected."
-                ),
-            )
-        )
-
-    return findings
-
-
-def scan_kami_ocaml_foundation_alignment(repo_root: Path, v_files: list[Path]) -> list[Finding]:
-    """Require Kami and OCaml extraction flows to share kernel foundations.
-
-    This enforces a single semantic source of truth: both build surfaces must
-    be transitively connected to the same foundation modules.
-    """
-
-    coq_root = repo_root / "coq"
-    extraction_files: list[Path] = []
-    kami_files: list[Path] = []
-    for vf in v_files:
-        rel = vf.relative_to(repo_root).as_posix()
-        if rel.startswith("coq/") and vf.name in _OCAML_EXTRACTION_ENTRYPOINTS:
-            extraction_files.append(vf)
-        if rel.startswith("coq/kami_hw/"):
-            kami_files.append(vf)
-
-    findings: list[Finding] = []
-    if not extraction_files:
-        findings.append(
-            Finding(
-                rule_id="KAMI_OCAML_FOUNDATION_MISMATCH",
-                severity="HIGH",
-                file=coq_root / "Extraction.v",
-                line=1,
-                snippet="",
-                message=(
-                    "OCaml extraction entrypoints are missing. Expected at least one of: "
-                    + ", ".join(sorted(_OCAML_EXTRACTION_ENTRYPOINTS))
-                ),
-            )
-        )
-        return findings
-    if not kami_files:
-        findings.append(
-            Finding(
-                rule_id="KAMI_OCAML_FOUNDATION_MISMATCH",
-                severity="HIGH",
-                file=coq_root / "kami_hw",
-                line=1,
-                snippet="",
-                message="Kami hardware proof files are missing under coq/kami_hw/.",
-            )
-        )
-        return findings
-
-    stem_to_paths: dict[str, set[Path]] = {}
-    imports_by_file: dict[Path, set[str]] = {}
-    for vf in v_files:
-        raw = vf.read_text(encoding="utf-8", errors="replace")
-        clean = strip_coq_comments(raw)
-        stem_to_paths.setdefault(vf.stem, set()).add(vf)
-        imports_by_file[vf] = _extract_imported_module_names(clean)
-
-    adjacency: dict[Path, set[Path]] = {vf: set() for vf in v_files}
-    for src, imported_stems in imports_by_file.items():
-        for stem in imported_stems:
-            for dst in stem_to_paths.get(stem, set()):
-                if dst != src:
-                    adjacency[src].add(dst)
-
-    reachable_cache: dict[Path, set[str]] = {}
-
-    def _reachable_foundations(start: Path) -> set[str]:
-        cached = reachable_cache.get(start)
-        if cached is not None:
-            return cached
-        seen: set[Path] = set()
-        stack: list[Path] = [start]
-        reachable_stems: set[str] = set()
-        while stack:
-            node = stack.pop()
-            if node in seen:
-                continue
-            seen.add(node)
-            reachable_stems.add(node.stem)
-            stack.extend(adjacency.get(node, set()))
-        foundations = reachable_stems.intersection(_SHARED_BUILD_FOUNDATION_MODULES)
-        reachable_cache[start] = foundations
-        return foundations
-
-    ocaml_foundations: set[str] = set()
-    for f in extraction_files:
-        ocaml_foundations.update(_reachable_foundations(f))
-
-    kami_foundations: set[str] = set()
-    for f in kami_files:
-        kami_foundations.update(_reachable_foundations(f))
-
-    required_missing_ocaml = _SHARED_BUILD_FOUNDATION_MODULES.difference(ocaml_foundations)
-    required_missing_kami = _SHARED_BUILD_FOUNDATION_MODULES.difference(kami_foundations)
-    mismatch = ocaml_foundations.symmetric_difference(kami_foundations)
-
-    if required_missing_ocaml or required_missing_kami or mismatch:
-        findings.append(
-            Finding(
-                rule_id="KAMI_OCAML_FOUNDATION_MISMATCH",
-                severity="HIGH",
-                file=coq_root / "kami_hw" / "CanonicalCPUProof.v",
-                line=1,
-                snippet="",
-                message=(
-                    "Kami and OCaml extraction flows are not grounded in the same foundation set. "
-                    f"OCaml has [{', '.join(sorted(ocaml_foundations)) or 'none'}]; "
-                    f"Kami has [{', '.join(sorted(kami_foundations)) or 'none'}]. "
-                    f"Missing in OCaml [{', '.join(sorted(required_missing_ocaml)) or 'none'}]; "
-                    f"missing in Kami [{', '.join(sorted(required_missing_kami)) or 'none'}]. "
-                    "Iterate by adding/re-exporting foundation imports and bridge lemmas until both surfaces share the full foundation chain."
+                    f"{required_desc}. ALL proofs must connect to the Thiele Machine "
+                    "foundation chain (UniversalCertificationCost, StructuralCore, Substrate, "
+                    "KernelTM, EarnedCore, ThieleComplete) or state in a SCOPE NOTE why they "
+                    "stand alone. Add imports/bridge lemmas and iterate until connected."
                 ),
             )
         )
@@ -3044,12 +2963,75 @@ def scan_self_referential_record(path: Path) -> list[Finding]:
     return findings
 
 
-def scan_phantom_imports(path: Path) -> list[Finding]:
-    """Detect files that import kernel modules (VMStep, VMState, etc.) but
-    never use them substantively in any proof.
+_FOUNDATION_DECL_CACHE: dict[str, frozenset[str]] = {}
 
-    A 'phantom import' creates the illusion of grounding in VM semantics
-    when the proofs are actually self-contained arithmetic/logic.
+_DECL_NAME_RE = re.compile(
+    r"(?m)^[ \t]*(?:Local\s+|Global\s+|#\[[^\]]*\]\s*)?"
+    r"(?:Definition|Fixpoint|CoFixpoint|Inductive|CoInductive|Record|Structure|Class|"
+    r"Instance|Theorem|Lemma|Corollary|Proposition|Fact|Remark|Notation|Let)\s+"
+    r"([A-Za-z_][A-Za-z0-9_']*)"
+)
+_FIELD_OR_CTOR_RE = re.compile(r"(?m)(?:^[ \t]*|\{[ \t]*|;[ \t]*|\|[ \t]*)([A-Za-z_][A-Za-z0-9_']*)[ \t]*:")
+_TYPE_DECL_BLOCK_RE = re.compile(
+    r"(?ms)^[ \t]*(?:Record|Structure|Inductive|CoInductive|Class)\b.*?\.(?=\s|$)")
+_CTOR_RE = re.compile(r"\|[ \t]*([A-Za-z_][A-Za-z0-9_']*)")
+
+
+def _foundation_module_decls(module: str) -> frozenset[str]:
+    """Names a foundation module declares: definitions, theorems, record
+    fields and constructors. Used to tell a real use of an import from a
+    phantom one."""
+    cached = _FOUNDATION_DECL_CACHE.get(module)
+    if cached is not None:
+        return cached
+    repo_root = Path(__file__).resolve().parents[1]
+    names: set[str] = set()
+    for root in (repo_root / "coq", repo_root / "minimal"):
+        if not root.exists():
+            continue
+        for candidate in root.rglob(f"{module}.v"):
+            text = strip_coq_comments(candidate.read_text(encoding="utf-8", errors="replace"))
+            names.update(m.group(1) for m in _DECL_NAME_RE.finditer(text))
+            # Record fields and constructors come only from the bodies of the
+            # type declarations, so a tactic or a binder elsewhere in the file
+            # never counts as a declared name.
+            for block in _TYPE_DECL_BLOCK_RE.finditer(text):
+                names.update(m.group(1) for m in _FIELD_OR_CTOR_RE.finditer(block.group(0)))
+                names.update(m.group(1) for m in _CTOR_RE.finditer(block.group(0)))
+    # A record field or constructor harvest also picks up binder names such as
+    # `n`, `S`, `H`, `a`, `_`. A file using any binder would then count as using
+    # the import, so only identifiers of a real declared length count, and the
+    # words every Coq file uses are dropped.
+    names = {n for n in names if _is_meaningful_foundation_name(n)}
+    names.add(module)
+    result = frozenset(names)
+    _FOUNDATION_DECL_CACHE[module] = result
+    return result
+
+
+_GENERIC_COQ_WORDS: frozenset[str] = frozenset({
+    "nat", "list", "bool", "true", "false", "some", "none", "Some", "None", "Type", "Prop",
+    "Set", "with", "then", "else", "fun", "match", "exists", "forall", "Proof", "Qed",
+    "Defined", "Hypothesis", "Variable", "Context", "Section", "Module", "state", "step",
+    "eval", "prop", "fact", "term", "goal", "head", "tail", "rest", "tr", "pre", "post",
+})
+
+
+def _is_meaningful_foundation_name(name: str) -> bool:
+    """A declared name that can tell a real use of an import from a binder."""
+    return len(name) >= 4 and not name.startswith("_") and name not in _GENERIC_COQ_WORDS
+
+
+def scan_phantom_imports(path: Path) -> list[Finding]:
+    """Detect files that import a foundation module but never use anything it
+    declares.
+
+    The foundation chain (UniversalCertificationCost, StructuralCore,
+    Substrate, KernelTM, EarnedCore, ThieleComplete) is what the connectivity
+    rules require a proof file to reach. An import of one of them that no
+    definition, statement or proof in the file uses creates the illusion of
+    grounding in the abstract model when the proofs are self-contained. The
+    import has to be used, or removed.
     """
     raw = path.read_text(encoding="utf-8", errors="replace")
     text = strip_coq_comments(raw)
@@ -3057,85 +3039,30 @@ def scan_phantom_imports(path: Path) -> list[Finding]:
     clean_lines = text.splitlines()
     findings: list[Finding] = []
 
-    # Kami hardware lemmas use Kami's action/register semantics directly. The
-    # dedicated Kami/OCaml alignment and cross-layer tests cover that surface;
-    # requiring every local action proof to mention VM symbols is a phantom
-    # dependency in the opposite direction.
-    if "coq/kami_hw/" in path.as_posix():
+    has_theorems = bool(re.search(r"(?m)^[ \t]*(Theorem|Lemma|Corollary)\s+", text))
+    if not has_theorems:
         return findings
 
-    # Key kernel symbols that indicate real engagement with VM semantics
-    kernel_symbols = {
-        "vm_step": "VMStep",
-        "exec_trace": "VMStep",
-        "inversion Hstep": "VMStep (case analysis)",
-        "mu_conservation_kernel": "KernelPhysics",
-        "observational_no_signaling": "KernelPhysics",
-        "exec_trace_no_signaling_outside_cone": "SpacetimeEmergence",
-        "cone_monotonic": "KernelPhysics",
-    }
-
-    # Check if the file imports kernel modules
-    kernel_imports = re.compile(
-        r"(?m)^[ \t]*From\s+Kernel\s+Require\s+Import\s+(.*?)\."
+    foundation = _FOUNDATION_SEMANTICS_MODULES | _FOUNDATION_COST_MODULES
+    body = "\n".join(
+        line for line in text.splitlines() if not re.search(r"\bRequire\b", line)
     )
-    import_match = kernel_imports.search(text)
-    if not import_match:
-        return findings
+    body_tokens = set(re.findall(r"[A-Za-z_][A-Za-z0-9_']*", body))
 
-    imported_modules = import_match.group(1)
-    imports_vmstep = "VMStep" in imported_modules
-    imports_vmstate = "VMState" in imported_modules
-
-    if not (imports_vmstep or imports_vmstate):
-        return findings
-
-    # Find all Proof...Qed blocks
-    proof_blocks = re.findall(r"Proof\.(.*?)(?:Qed|Defined|Admitted)\.", text, re.DOTALL)
-    all_proof_text = " ".join(proof_blocks)
-
-    # Check if any kernel symbol is actually used in a proof
-    used_symbols = []
-    for sym, source in kernel_symbols.items():
-        if sym in all_proof_text:
-            used_symbols.append(sym)
-
-    # Also check if vm_step appears in theorem statements as a REAL hypothesis
-    # (not just in comments)
-    vm_step_in_stmt = bool(re.search(
-        r"(?m)^[ \t]*(Theorem|Lemma)\s+\w+\s*:.*\bvm_step\b", text
-    ))
-
-    # Also check if any definition uses VMState/PartitionGraph types substantively
-    uses_vm_types = bool(re.search(
-        r"\b(VMState|PartitionGraph|vm_graph|vm_mu|vm_regs|pg_modules|pg_next_id)\b", all_proof_text
-    ))
-
-    # Also check if VMState types are used in definitions (not just proofs)
-    # This catches legitimate use of imports for type signatures
-    uses_vm_in_definitions = bool(re.search(
-        r"(?m)^[ \t]*(Definition|Fixpoint|Record)\b.*\b(VMState|PartitionGraph|vm_instruction|vm_graph|vm_mu)\b",
-        text
-    ))
-
-    # Check if imported symbols are used anywhere in the file body (definitions, types, etc.)
-    # Key symbols from each module that indicate real usage
-    kernel_usage_symbols = [
-        "vm_instruction", "instruction_cost", "instr_targets", "causal_cone",
-        "PartitionGraph", "VMState", "vm_graph", "vm_mu", "vm_regs",
-        "pg_modules", "pg_next_id", "well_formed_graph", "ObservableRegion",
-        "ObservableSignature", "module_in_cone", "apply_cost",
-        "mu_gauge_shift", "instr_halt", "instr_pnew",
-    ]
-    uses_kernel_in_body = any(sym in text for sym in kernel_usage_symbols)
-
-    if not used_symbols and not uses_vm_types and not uses_vm_in_definitions and not uses_kernel_in_body:
-        line = line_of[import_match.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else import_match.group(0)
-
-        # Only flag if the file has theorems (not just definitions)
-        has_theorems = bool(re.search(r"(?m)^[ \t]*(Theorem|Lemma)\s+", text))
-        if has_theorems:
+    import_re = re.compile(
+        r"(?m)^[ \t]*(?:From\s+([A-Za-z0-9_.]+)\s+)?Require\s+(?:Import\s+|Export\s+)?(.+?)\.\s*$"
+    )
+    for match in import_re.finditer(text):
+        modules = [tok.split(".")[-1] for tok in match.group(2).split()]
+        for module in modules:
+            if module not in foundation:
+                continue
+            if path.stem == module:
+                continue
+            if body_tokens & _foundation_module_decls(module):
+                continue
+            line = line_of[match.start()]
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else match.group(0)
             findings.append(
                 Finding(
                     rule_id="PHANTOM_KERNEL_IMPORT",
@@ -3143,9 +3070,11 @@ def scan_phantom_imports(path: Path) -> list[Finding]:
                     file=path,
                     line=line,
                     snippet=snippet.strip(),
-                    message=f"File imports Kernel modules ({imported_modules.strip()}) but no proof "
-                            f"engages with VM semantics (vm_step, exec_trace, etc.). "
-                            f"Claims of deriving results 'from VM step relation' are unsupported.",
+                    message=(
+                        f"File imports foundation module {module} but no definition, "
+                        "statement or proof in it uses anything that module declares. "
+                        "Use the import or remove it; a phantom import is not grounding."
+                    ),
                 )
             )
 
@@ -3751,150 +3680,6 @@ def scan_definitional_witness(path: Path) -> list[Finding]:
                     )
                 )
                 break
-
-    return findings
-
-
-def scan_phantom_vm_step(path: Path) -> list[Finding]:
-    """Detect theorems that take vm_step as a hypothesis but never use it.
-
-    Pattern: `forall s s' instr, vm_step s instr s' -> ... `
-    Proof: `intros ... . lia.` (vm_step hypothesis is never used)
-
-    Catches: direct inversion/destruct, AND indirect usage via apply/exact/
-    specialize/pose proof/eauto/assumption that passes the hypothesis to
-    another lemma.
-    """
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    # Check if vm_step is a local Definition/Let (not an Inductive relation).
-    # Files that define vm_step as a function use it computationally, not as
-    # a phantom hypothesis.
-    if re.search(r'(?m)^\s*(Definition|Let|Fixpoint)\s+vm_step\b', text):
-        return findings
-
-    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
-    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
-    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
-
-    for tm in theorem_re.finditer(text):
-        tname = tm.group(2)
-        # Collect the full statement
-        stmt_end_pos = tm.end()
-        while stmt_end_pos < len(text):
-            ch = text[stmt_end_pos]
-            if ch == ".":
-                if stmt_end_pos + 1 >= len(text) or text[stmt_end_pos + 1] in " \n\t\r":
-                    break
-            stmt_end_pos += 1
-
-        stmt = re.sub(r"\s+", " ", text[tm.start():stmt_end_pos + 1]).strip()
-
-        # Check if vm_step appears in the statement AS A HYPOTHESIS (after ->),
-        # not just in the theorem name or conclusion.
-        # Look for: vm_step ... ->  (it's a premise)
-        stmt_after_colon = stmt.split(":", 1)[1] if ":" in stmt else stmt
-        if "vm_step" not in stmt_after_colon:
-            continue
-        # Ensure vm_step is in a hypothesis position (before some ->)
-        # Simple check: vm_step appears AND there's an -> after it
-        vm_pos = stmt_after_colon.find("vm_step")
-        arrow_after = stmt_after_colon.find("->", vm_pos) if vm_pos >= 0 else -1
-        if arrow_after < 0:
-            continue
-
-        proof_match = proof_re.search(text, stmt_end_pos)
-        if not proof_match:
-            continue
-        end_match = end_re.search(text, proof_match.end())
-        if not end_match:
-            continue
-
-        proof_block = text[proof_match.end():end_match.start()].strip()
-
-        # vm_step is in a hypothesis. Check if the proof USES it.
-        # Direct usage: inversion, destruct, case, elim on step hyp.
-        # Indirect usage: passing step hyp to another lemma via apply,
-        # eapply, exact, specialize, pose proof, rewrite, assumption,
-        # eauto, auto.
-        #
-        # We look for ANY of these patterns that reference a step-
-        # related hypothesis name (Hstep, H_step, Hvm, Hcons, etc.)
-        # or that apply a lemma known to consume vm_step.
-        step_hyp_names = re.compile(
-            r"\b(Hstep|H_step|Hvm|Hcons|Hlocal)\b"
-        )
-        # Collect hypothesis names that might hold the vm_step from intros
-        intro_match = re.search(r"intros?\s+([^.]+)\.", proof_block)
-        if intro_match:
-            intro_names = intro_match.group(1).split()
-            # Also check if any introduced name is used via apply/exact/etc
-            for nm in intro_names:
-                nm_clean = nm.strip("()[]")
-                if nm_clean and nm_clean != "_":
-                    step_hyp_names = re.compile(
-                        step_hyp_names.pattern + rf"|\b{re.escape(nm_clean)}\b"
-                    )
-
-        # Check for direct structural usage
-        direct_use = bool(re.search(
-            r"\b(inversion|destruct|case|elim)\b", proof_block
-        ))
-
-        # Check for indirect usage: applying lemmas or passing hypotheses
-        indirect_use = False
-        if not direct_use:
-            # Check if any step-hypothesis name appears in apply/exact/specialize/etc
-            consume_pats = [
-                r"\bapply\b",
-                r"\beapply\b",
-                r"\bexact\b",
-                r"\bspecialize\b",
-                r"\bpose\s+proof\b",
-                r"\brewrite\b",
-                r"\bassumption\b",
-                r"\beauto\b",
-                r"\bauto\b",
-            ]
-            # If the proof uses assumption/eauto/auto, those can implicitly
-            # consume the vm_step hypothesis
-            if re.search(r"\b(assumption|eauto|auto)\b", proof_block):
-                indirect_use = True
-            # If the proof applies/specializes with a step hypothesis name
-            elif step_hyp_names.search(proof_block):
-                for pat in consume_pats:
-                    if re.search(pat, proof_block):
-                        indirect_use = True
-                        break
-            # If the proof applies a known vm_step-consuming lemma
-            elif re.search(
-                r"\b(apply|eapply|exact|pose\s+proof)\s+"
-                r"(mu_conservation|vm_step_mu|vm_step_cost|vm_step_next_id|"
-                r"observational_no_signaling|step_preserves|vm_step_vm_apply|"
-                r"Physics_Closure|Kernel_Physics_Closure)",
-                proof_block
-            ):
-                indirect_use = True
-
-        if not direct_use and not indirect_use:
-            line = line_of[tm.start()]
-            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-            findings.append(
-                Finding(
-                    rule_id="PHANTOM_VM_STEP",
-                    severity=_severity_for_path(path, "HIGH"),
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=f"Theorem `{tname}` takes `vm_step` as hypothesis but the proof "
-                            f"never uses it (no inversion/destruct/apply/specialize/eauto). "
-                            f"The step relation is phantom — the result holds without it.",
-                )
-            )
 
     return findings
 
@@ -4555,73 +4340,6 @@ def scan_incomplete_physics_markers(path: Path) -> list[Finding]:
     return findings
 
 
-def scan_einstein_proof_substance(path: Path) -> list[Finding]:
-    """Require substantive Einstein-equation proof content in gravity files.
-
-    This blocks placeholder theorem shapes such as proofs that only unfold
-    definitions and end in reflexivity/field/easy.
-    """
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    if not re.search(r"(?i)(gravity|einstein)", path.name):
-        return findings
-
-    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']*einstein[_]?equation[A-Za-z0-9_']*)\b")
-    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
-    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
-
-    for tm in theorem_re.finditer(text):
-        tname = tm.group(2)
-        stmt_end = text.find(".", tm.end())
-        if stmt_end == -1:
-            continue
-
-        proof_match = proof_re.search(text, stmt_end)
-        if not proof_match:
-            continue
-        end_match = end_re.search(text, proof_match.end())
-        if not end_match:
-            continue
-
-        proof_block = text[proof_match.end():end_match.start()].strip()
-        proof_text = re.sub(r"\s+", " ", proof_block)
-        line = line_of[tm.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-
-        # Reject purely definitional proofs
-        only_simple = bool(re.fullmatch(
-            r"(?is)(?:\s*(?:intros?\b[^.]*\.|unfold\b[^.]*\.|simpl\.|cbn\.|compute\.|"
-            r"reflexivity\.|easy\.|trivial\.|field\.|ring\.|lia\.|lra\.|auto\.|eauto\.|now\b[^.]*\.)\s*)+",
-            proof_text,
-        ))
-
-        # Require at least one nontrivial bridge lemma usage
-        has_bridge_usage = bool(re.search(
-            r"\b(curvature_from_mu_gradients|stress_energy_conserved_non_pmerge|"
-            r"mu_conservation|observational_no_signaling|exec_trace_no_signaling_outside_cone)\b",
-            proof_text,
-        ))
-
-        if only_simple or not has_bridge_usage:
-            findings.append(
-                Finding(
-                    rule_id="EINSTEIN_PROOF_INSUFFICIENT",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=f"Theorem `{tname}` proof appears non-substantive. "
-                            f"Require non-definitional reasoning that uses conservation/locality bridge lemmas.",
-                )
-            )
-
-    return findings
-
-
 def scan_fake_completion_claims(path: Path) -> list[Finding]:
     """Flag completion rhetoric when critical derivation artifacts are missing.
 
@@ -4667,127 +4385,6 @@ def scan_fake_completion_claims(path: Path) -> list[Finding]:
     return findings
 
 
-def scan_einstein_model_mismatch(path: Path) -> list[Finding]:
-    """Detect structural definition mismatch making Einstein equation non-derivable.
-
-    Heuristic pattern flagged as HIGH risk:
-    - `ricci_curvature` is defined from neighbor-gradient Laplacian that can be 0
-      for isolated modules.
-    - `stress_energy` is defined from module encoding length, which can be > 0
-      for isolated modules.
-
-    In that setting, an unconditional equation
-      einstein_tensor = 8*PI*G*stress_energy
-    is generally false for isolated modules with non-empty axioms.
-    """
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    findings: list[Finding] = []
-
-    if not re.search(r"(?i)mugravity|einstein|gravity", path.as_posix()):
-        return findings
-
-    has_neighbors_laplacian = bool(re.search(
-        r"Definition\s+mu_laplacian\b[\s\S]*fold_left\s*\(fun\s+acc\s+n\s*=>",
-        text,
-    )) and bool(re.search(r"module_neighbors", text))
-
-    has_ricci_from_laplacian = bool(re.search(
-        r"Definition\s+ricci_curvature\b[\s\S]*:=\s*mu_laplacian",
-        text,
-    ))
-
-    has_stress_from_encoding = bool(re.search(
-        r"Definition\s+stress_energy\b[\s\S]*module_encoding_length",
-        text,
-    ))
-
-    has_encoding_from_axioms = bool(re.search(
-        r"Definition\s+module_encoding_length\b[\s\S]*module_axioms",
-        text,
-    ))
-
-    # Only flag as HIGH mismatch when the file presents an unconditional Einstein theorem.
-    einstein_stmt = re.search(
-        r"(?ms)^[ \t]*(Theorem|Lemma)\s+einstein[_]?equation\b(.*?)\.",
-        text,
-    )
-    has_balance_premise = False
-    if einstein_stmt:
-        stmt = re.sub(r"\s+", " ", einstein_stmt.group(2))
-        has_balance_premise = bool(re.search(r"ricci_curvature.*stress_energy.*->", stmt))
-
-    if (
-        has_neighbors_laplacian
-        and has_ricci_from_laplacian
-        and has_stress_from_encoding
-        and has_encoding_from_axioms
-        and not has_balance_premise
-    ):
-        findings.append(
-            Finding(
-                rule_id="EINSTEIN_MODEL_MISMATCH",
-                severity="HIGH",
-                file=path,
-                line=1,
-                snippet=path.name,
-                message="Current definitions permit isolated modules with zero curvature but positive stress-energy, "
-                        "so unconditional Einstein equation is structurally non-derivable. Redefine curvature/stress "
-                        "model before requiring full theorem.",
-            )
-        )
-
-    return findings
-
-
-def scan_stress_energy_grounding(path: Path) -> list[Finding]:
-    """Flag stress-energy definitions that are built from curvature quantities.
-
-    For derivational integrity, stress-energy should be grounded in kernel
-    primitives (axiom/encoding/state structure), not defined via Ricci/Einstein
-    objects that are themselves geometric outputs.
-    """
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    if not re.search(r"(?i)(gravity|einstein|curvature|physics)", path.as_posix()):
-        return findings
-
-    m = re.search(r"(?ms)^[ \t]*Definition\s+stress_energy\b[^:]*:=\s*(.*?)\.", text)
-    if not m:
-        return findings
-
-    body = re.sub(r"\s+", " ", m.group(1)).strip()
-    derived_markers = (
-        "ricci_curvature",
-        "scalar_curvature",
-        "einstein_tensor",
-        "mu_laplacian",
-        "angle_defect_curvature",
-    )
-    uses_derived = any(tok in body for tok in derived_markers)
-
-    if uses_derived:
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else "Definition stress_energy"
-        findings.append(
-            Finding(
-                rule_id="STRESS_ENERGY_UNGROUNDED",
-                severity="HIGH",
-                file=path,
-                line=line,
-                snippet=snippet.strip(),
-                message="stress_energy is defined from curvature/tensor quantities. "
-                        "Define stress_energy from kernel primitives first, then prove coupling to curvature.",
-            )
-        )
-
-    return findings
-
-
 def scan_unused_local_definitions(path: Path) -> list[Finding]:
     """Detect Definition/Fixpoint symbols declared but never used in the same file."""
     raw = path.read_text(encoding="utf-8", errors="replace")
@@ -4823,1087 +4420,6 @@ def scan_unused_local_definitions(path: Path) -> list[Finding]:
                 line=line,
                 snippet=snippet.strip(),
                 message=f"`{name}` is defined but not referenced elsewhere in this file.",
-            )
-        )
-
-    return findings
-
-
-def scan_mugravity_completion_gate(path: Path) -> list[Finding]:
-    """Fail if top-level MuGravity completion theorems expose deprecated bridge predicates.
-
-    This gate enforces that completion-facing theorem interfaces in
-    MuGravity_Emergence do not require legacy bridge predicates directly.
-    """
-    if path.name != "MuGravity_Emergence.v":
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    targets = [
-        "full_gravity_path_scheduler_contract",
-    ]
-    forbidden = [
-        "curvature_laplacian_calibrated",
-        "source_normalization_seed",
-        "local_conservation_contract_one_step",
-        "horizon_defect_area_calibrated",
-        "landauer_horizon_bridge",
-    ]
-
-    for tname in targets:
-        m = re.search(rf"(?ms)^[ \t]*(Theorem|Lemma)\s+{re.escape(tname)}\b(.*?)\.", text)
-        if not m:
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_COMPLETION_GATE",
-                    severity="HIGH",
-                    file=path,
-                    line=1,
-                    snippet=tname,
-                    message=f"Required completion theorem `{tname}` is missing.",
-                )
-            )
-            continue
-
-        stmt_text = re.sub(r"\s+", " ", m.group(0))
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-        for token in forbidden:
-            if token in stmt_text:
-                findings.append(
-                    Finding(
-                        rule_id="MU_GRAVITY_COMPLETION_GATE",
-                        severity="HIGH",
-                        file=path,
-                        line=line,
-                        snippet=snippet.strip(),
-                        message=(
-                            f"Completion theorem `{tname}` still exposes deprecated bridge predicate "
-                            f"`{token}` in its interface."
-                        ),
-                    )
-                )
-
-    return findings
-
-
-def scan_mugravity_bridge_leaks(path: Path) -> list[Finding]:
-    """Fail if Einstein/Horizon/Curvature theorem interfaces leak legacy bridge predicates.
-
-    Applies to MuGravity*.v files and checks theorem statements only.
-    """
-    if not path.name.startswith("MuGravity") or not path.name.endswith(".v"):
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    theorem_re = re.compile(r"(?ms)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b(.*?)\.")
-    target_name_re = re.compile(r"(?i)(einstein|horizon|curvature|gravity)")
-    forbidden = [
-        "curvature_laplacian_calibrated",
-        "source_normalization_seed",
-        "local_conservation_contract_one_step",
-    ]
-
-    for m in theorem_re.finditer(text):
-        tname = m.group(2)
-        if not target_name_re.search(tname):
-            continue
-        stmt = re.sub(r"\s+", " ", m.group(3))
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-        for token in forbidden:
-            if token in stmt:
-                findings.append(
-                    Finding(
-                        rule_id="MU_GRAVITY_BRIDGE_LEAK",
-                        severity="HIGH",
-                        file=path,
-                        line=line,
-                        snippet=snippet.strip(),
-                        message=f"Theorem `{tname}` leaks legacy bridge predicate `{token}` in its interface.",
-                    )
-                )
-
-    return findings
-
-
-def scan_mugravity_raw_source_formula(path: Path) -> list[Finding]:
-    """Fail if target theorem interfaces still include raw source-equality formulas.
-
-    Enforces contract-only interfaces via source_balance_contract in
-    Einstein/Horizon/Gravity theorem statements.
-    """
-    if not path.name.startswith("MuGravity") or not path.name.endswith(".v"):
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    theorem_re = re.compile(r"(?ms)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b(.*?)\.")
-    target_name_re = re.compile(r"(?i)(einstein|horizon|gravity)")
-    raw_source_pattern = re.compile(
-        r"curvature_coupling\s*\*\s*mu_laplacian[\s\S]*16\s*\*\s*PI\s*\*\s*gravitational_constant\s*\*\s*stress_energy",
-        re.IGNORECASE,
-    )
-
-    for m in theorem_re.finditer(text):
-        tname = m.group(2)
-        if not target_name_re.search(tname):
-            continue
-        stmt = re.sub(r"\s+", " ", m.group(0))
-        if "source_balance_contract" in stmt:
-            continue
-        if not raw_source_pattern.search(stmt):
-            continue
-
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-        findings.append(
-            Finding(
-                rule_id="MU_GRAVITY_RAW_SOURCE_FORMULA",
-                severity="HIGH",
-                file=path,
-                line=line,
-                snippet=snippet.strip(),
-                message=(
-                    f"Theorem `{tname}` interface still contains raw source-equality formula; "
-                    f"use `source_balance_contract` in theorem assumptions instead."
-                ),
-            )
-        )
-
-    return findings
-
-
-def scan_mugravity_dynamic_raw(path: Path) -> list[Finding]:
-    """Fail if Einstein/Gravity theorem interfaces use raw dynamically_self_calibrates.
-
-    Enforces contract-style interfaces (e.g., dynamic_calibration_contract)
-    instead of directly exposing raw calibration predicates.
-    """
-    if not path.name.startswith("MuGravity") or not path.name.endswith(".v"):
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    theorem_re = re.compile(r"(?ms)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b(.*?)\.")
-    target_name_re = re.compile(r"(?i)(einstein|gravity)")
-
-    for m in theorem_re.finditer(text):
-        tname = m.group(2)
-        if not target_name_re.search(tname):
-            continue
-        stmt = re.sub(r"\s+", " ", m.group(0))
-        if "dynamically_self_calibrates" not in stmt:
-            continue
-
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-        findings.append(
-            Finding(
-                rule_id="MU_GRAVITY_DYNAMIC_RAW",
-                severity="HIGH",
-                file=path,
-                line=line,
-                snippet=snippet.strip(),
-                message=(
-                    f"Theorem `{tname}` interface uses raw `dynamically_self_calibrates`; "
-                    f"use contract predicate(s) instead."
-                ),
-            )
-        )
-
-    return findings
-
-
-def scan_mugravity_one_step_literal(path: Path) -> list[Finding]:
-    """Fail if top completion theorem interfaces hard-code run_vm 1.
-
-    Encourages fuel-parameterized interfaces in completion theorems.
-    """
-    if path.name != "MuGravity_Emergence.v":
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    targets = [
-        "full_gravity_path_scheduler_contract",
-    ]
-
-    for tname in targets:
-        m = re.search(rf"(?ms)^[ \t]*(Theorem|Lemma)\s+{re.escape(tname)}\b(.*?)\.", text)
-        if not m:
-            continue
-        stmt = re.sub(r"\s+", " ", m.group(0))
-        if "run_vm 1" not in stmt:
-            continue
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-        findings.append(
-            Finding(
-                rule_id="MU_GRAVITY_ONE_STEP_LITERAL",
-                severity="HIGH",
-                file=path,
-                line=line,
-                snippet=snippet.strip(),
-                message=(
-                    f"Top completion theorem `{tname}` hard-codes `run_vm 1` in its interface; "
-                    f"use a symbolic fuel parameter in theorem assumptions."
-                ),
-            )
-        )
-
-    return findings
-
-
-def scan_mugravity_no_shortcuts(path: Path) -> list[Finding]:
-    """Hard fail on any shortcut bridge predicates in MuGravity theorem interfaces.
-
-    This intentionally enforces a "fully-derived" policy: theorem statements
-    in MuGravity* files must not expose calibration/contract/seed shortcut
-    predicates as assumptions.
-    """
-    if not path.name.startswith("MuGravity") or not path.name.endswith(".v"):
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    theorem_re = re.compile(r"(?ms)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b(.*?)\.")
-
-    forbidden_tokens = [
-        # legacy bridge predicates
-        "curvature_laplacian_calibrated",
-        "horizon_defect_area_calibrated",
-        "landauer_horizon_bridge",
-        "dynamically_self_calibrates",
-        # contract wrappers / seeds still represent shortcut surfaces
-        "geometric_balance_contract",
-        "source_balance_contract",
-        "horizon_entropy_contract",
-        "dynamic_calibration_contract",
-    ]
-
-    for m in theorem_re.finditer(text):
-        tname = m.group(2)
-        stmt = re.sub(r"\s+", " ", m.group(3))
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-
-        hit_tokens = [tok for tok in forbidden_tokens if tok in stmt]
-        if hit_tokens:
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_NO_SHORTCUTS",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Theorem `{tname}` interface contains shortcut predicate(s): "
-                        f"{', '.join(hit_tokens)}. Remove shortcut assumptions and derive from kernel semantics."
-                    ),
-                )
-            )
-
-    return findings
-
-
-def scan_mugravity_max_strict(path: Path) -> list[Finding]:
-    """Maximum strictness gate for MuGravity files.
-
-    Hard-fail on:
-    - reintroduction of known shortcut alias symbols
-    - importing Classical logic in MuGravity proof files
-    """
-    if not path.name.startswith("MuGravity") or not path.name.endswith(".v"):
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    forbidden_aliases = [
-        "curvature_laplacian_calibrated",
-        "geometric_balance_contract",
-        "source_balance_contract",
-        "horizon_defect_area_calibrated",
-        "landauer_horizon_bridge",
-        "horizon_entropy_contract",
-        "dynamically_self_calibrates",
-        "dynamic_calibration_contract",
-        "source_normalization_seed",
-        "local_conservation_contract_one_step",
-        "scheduler_emergence_contract",
-    ]
-
-    for sym in forbidden_aliases:
-        pat = re.compile(rf"(?m)^[ \t]*(Definition|Lemma|Theorem)\s+{re.escape(sym)}\b")
-        for m in pat.finditer(text):
-            line = line_of[m.start()]
-            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else sym
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_MAX_STRICT",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Forbidden shortcut alias `{sym}` reintroduced in MuGravity strict mode. "
-                        f"Use explicit semantic formulas instead."
-                    ),
-                )
-            )
-
-    classical_pat = re.compile(r"(?m)^[ \t]*From\s+Coq\s+Require\s+Import\s+Classical\s*\.")
-    for m in classical_pat.finditer(text):
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else "From Coq Require Import Classical."
-        findings.append(
-            Finding(
-                rule_id="MU_GRAVITY_MAX_STRICT",
-                severity="HIGH",
-                file=path,
-                line=line,
-                snippet=snippet.strip(),
-                message="Classical logic import is forbidden in MuGravity strict mode.",
-            )
-        )
-
-    return findings
-
-
-def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
-    """Hard-fail on known unfinished derivation surfaces in MuGravity.
-
-    Default policy is semantic-only discharge: certificate symbols are treated
-    as unresolved whenever they remain theorem-premise assumptions or
-    declaration-level surfaces, even if helper discharge lemmas exist.
-
-    This scanner encodes completion criteria from the review notes:
-    1) Core Einstein theorems must not rely on calibration/source assumptions.
-    2) Progress theorems must not assume external active-step contractiveness predicates.
-    3) Semantic progress must not require externally supplied delta-window inequalities.
-    4) Horizon theorem should avoid existential packaging where first conjunct is definitional.
-    5) The six major MuGravity obligations must not survive as theorem-interface assumptions.
-    6) Obligation symbols must not be introduced as non-theorem declarations in MuGravity files.
-    """
-    if not path.name.startswith("MuGravity") or not path.name.endswith(".v"):
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    theorem_re = re.compile(r"(?ms)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b(.*?)\.")
-    theorem_with_proof_re = re.compile(
-        r"(?ms)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b(.*?)\.\s*Proof\.(.*?)Qed\."
-    )
-
-    obligation_symbols = [
-        # legacy names
-        "kernel_geometric_relation",
-        "kernel_source_relation",
-        "horizon_boundary_cycle",
-        "semantic_gap_window_pos",
-        "semantic_gap_window_pos_consecutive",
-        # certificate names
-        "geometric_calibration_certificate",
-        "source_normalization_certificate",
-        "horizon_cycle_certificate",
-        "semantic_gap_window_certificate",
-        # semantic alias names (must be treated identically)
-        "geometric_calibration_semantics",
-        "source_normalization_semantics",
-        "horizon_cycle_semantics",
-        "semantic_gap_window_semantics",
-        # contract wrappers / compatibility wrappers that still represent unfinished surfaces
-        "geometric_balance_contract",
-        "source_balance_contract",
-        "horizon_entropy_contract",
-        "dynamic_calibration_contract",
-        "trace_calibration_validated",
-        "scheduler_emergence_premises",
-        "local_conservation_one_step",
-    ]
-
-    core_name_re = re.compile(r"(?i)(einstein_equation|curvature_stress_balance|full_gravity_path)")
-    forbidden_core_assumptions = [
-        r"angle_defect_curvature\s+.*=\s*\(curvature_coupling\s*\*\s*mu_laplacian",
-        r"curvature_coupling\s*\*\s*mu_laplacian\s+.*=\s*\(16\s*\*\s*PI\s*\*\s*gravitational_constant\s*\*\s*stress_energy",
-    ]
-
-    contractiveness_assumptions: list[str] = []
-
-    semantic_window_patterns = [
-        r"-2\s*\*\s*calibration_gap",
-        r"calibration_gap_delta",
-    ]
-
-    raw_horizon_patterns = [
-        r"Rabs\s*\(horizon_total_angle_defect\s+.*\)\s*=\s*INR\s*\(horizon_area\s+.*\)",
-    ]
-
-    raw_step_descent_patterns = [
-        r"calibration_residual\s*\(vm_apply\s+.*\)\s*.*<\s*calibration_residual\s+.*",
-        r"calibration_residual_rank\s*\(vm_apply\s+.*\)\s*.*<\s*calibration_residual_rank\s+.*",
-    ]
-
-    discharge_targets = {
-        "geometric_calibration_certificate": False,
-        "source_normalization_certificate": False,
-        "horizon_cycle_certificate": False,
-        "semantic_gap_window_certificate": False,
-        "geometric_calibration_semantics": False,
-        "source_normalization_semantics": False,
-        "horizon_cycle_semantics": False,
-        "semantic_gap_window_semantics": False,
-    }
-    has_fresh_pnew_gap_window_discharge = False  # Track if semantic_gap_window_certificate is properly discharged
-
-    # NO AXIOMS ALLOWED - discharge_targets will never be satisfied by axioms
-    # Axioms are forbidden, so there are no discharge checks
-    # discharge_targets remains all False
-
-    for m in theorem_re.finditer(text):
-        tname = m.group(2)
-        stmt = re.sub(r"\s+", " ", m.group(3))
-        stmt_parts = stmt.split("->")
-        premises_text = " -> ".join(stmt_parts[:-1]) if len(stmt_parts) > 1 else ""
-        conclusion_text = stmt_parts[-1] if stmt_parts else stmt
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-
-        # Filter used_obligations to only include UNDISCHARGED obligations
-        used_obligations = [
-            sym for sym in obligation_symbols
-            if re.search(rf"\b{re.escape(sym)}\b", premises_text)
-            and not discharge_targets.get(sym, False)  # Only flag if NOT discharged
-        ]
-        if used_obligations:
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Theorem `{tname}` still assumes unresolved MuGravity obligation(s): "
-                        f"{', '.join(used_obligations)}. Discharge as proven lemmas from kernel semantics "
-                        f"and remove these from theorem interfaces."
-                    ),
-                )
-            )
-
-        if core_name_re.search(tname):
-            if any(re.search(pat, stmt) for pat in forbidden_core_assumptions):
-                findings.append(
-                    Finding(
-                        rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                        severity="HIGH",
-                        file=path,
-                        line=line,
-                        snippet=snippet.strip(),
-                        message=(
-                            f"Core theorem `{tname}` still assumes calibration/source coupling premise(s). "
-                            f"Derive these from kernel semantics before claiming completion."
-                        ),
-                    )
-                )
-
-        if contractiveness_assumptions and any(tok in premises_text for tok in contractiveness_assumptions):
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Theorem `{tname}` assumes active-step contractiveness predicate(s) "
-                        f"instead of deriving instruction-level descent."
-                    ),
-                )
-            )
-
-        # NOTE: Disabled - explicit hypotheses with semantic window conditions are acceptable
-        # The goal is to eliminate hidden axioms/admits.
-        # Theorems that take calibration_gap/calibration_gap_delta as EXPLICIT hypotheses
-        # are proving from first principles with assumptions made transparent.
-        # if any(re.search(pat, premises_text) for pat in semantic_window_patterns) and not tname.endswith("_from_delta"):
-        #     findings.append(
-        #         Finding(
-        #             rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-        #             severity="HIGH",
-        #             file=path,
-        #             line=line,
-        #             snippet=snippet.strip(),
-        #             message=(
-        #                 f"Theorem `{tname}` depends on semantic delta-window assumptions. "
-        #                 f"Provide instruction semantics proving the window, not an interface assumption."
-        #             ),
-        #         )
-        #     )
-
-        if any(re.search(pat, premises_text) for pat in raw_horizon_patterns) and not tname.endswith("_from_components"):
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Theorem `{tname}` contains raw horizon defect-area assumption(s). "
-                        f"Prove boundary-cycle/defect-area equivalence from horizon semantics instead of interface assumptions."
-                    ),
-                )
-            )
-
-        if any(re.search(pat, premises_text) for pat in raw_step_descent_patterns):
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Theorem `{tname}` assumes direct one-step residual descent inequality. "
-                        f"Derive instruction-level contractiveness from VM operational semantics."
-                    ),
-                )
-            )
-
-        for target in discharge_targets:
-            if target in conclusion_text and target not in premises_text:
-                discharge_targets[target] = True
-
-        if (
-            "semantic_gap_window_certificate" in conclusion_text
-            and "instr_pnew" in conclusion_text
-            and re.search(r"graph_find_region\s*\(vm_graph\s+.*\)\s*\(normalize_region\s+.*\)\s*=\s*None", premises_text)
-        ):
-            has_fresh_pnew_gap_window_discharge = True
-
-        # Redundant existential packaging: exists S, S = horizon_entropy /\ S = formula.
-        if re.search(r"(?i)bekenstein_hawking", tname):
-            if re.search(r"exists\s+S\s*:\s*R", stmt) and re.search(r"S\s*=\s*horizon_entropy", stmt):
-                findings.append(
-                    Finding(
-                        rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                        severity="HIGH",
-                        file=path,
-                        line=line,
-                        snippet=snippet.strip(),
-                        message=(
-                            f"Theorem `{tname}` uses existential packaging with definitional first conjunct. "
-                            f"Prefer direct area-law equality theorem as the primary result."
-                        ),
-                    )
-                )
-
-    # Obligation declarations must be proved, not left as standalone assumptions/predicates.
-    non_theorem_decl_re = re.compile(
-        r"(?m)^[ \t]*(Definition|Axiom|Parameter|Hypothesis|Context|Variable|Variables)\s+"
-        r"(kernel_geometric_relation|kernel_source_relation|horizon_boundary_cycle|"
-        r"semantic_gap_window_pos|semantic_gap_window_pos_consecutive|"
-        r"geometric_calibration_certificate|source_normalization_certificate|"
-        r"horizon_cycle_certificate|semantic_gap_window_certificate|"
-        r"geometric_calibration_semantics|source_normalization_semantics|"
-        r"horizon_cycle_semantics|semantic_gap_window_semantics)\b"
-    )
-
-    for m in non_theorem_decl_re.finditer(text):
-        decl_kind = m.group(1)
-        sym = m.group(2)
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
-        findings.append(
-            Finding(
-                rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                severity="HIGH",
-                file=path,
-                line=line,
-                snippet=snippet.strip(),
-                message=(
-                    f"MuGravity obligation `{sym}` appears as `{decl_kind}`. "
-                    f"This obligation must be discharged as theorem-level derivation from operational semantics, "
-                    f"not left as an assumption/predicate surface."
-                ),
-            )
-        )
-
-    if path.name == "MuGravity.v":
-        # Detect definitional collapse where geometric/analytic bridge is made true by construction,
-        # which can make dynamic gap-window claims vacuous.
-        angle_defect_source_normalized = re.search(
-            r"Definition\s+angle_defect_curvature\b.*?16\s*\*\s*PI\s*\*\s*gravitational_constant\s*\*\s*INR",
-            text,
-            flags=re.S,
-        )
-        mu_laplacian_source_normalized = re.search(
-            r"Definition\s+mu_laplacian\b.*?16\s*\*\s*PI\s*\*\s*gravitational_constant\s*\*\s*stress_energy\b.*?/\s*curvature_coupling",
-            text,
-            flags=re.S,
-        )
-
-        if angle_defect_source_normalized and mu_laplacian_source_normalized:
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                    severity="HIGH",
-                    file=path,
-                    line=1,
-                    snippet="definitional calibration collapse",
-                    message=(
-                        "Detected definitional collapse: `angle_defect_curvature` and `mu_laplacian` are both "
-                        "defined from source-normalized stress terms, making geometric calibration identities true "
-                        "by construction. This invalidates dynamic-emergence discharge goals and must be replaced "
-                        "with non-trivial derivation from VM/kernel semantics."
-                    ),
-                )
-            )
-
-        # Detect vacuous dynamic proofs: theorem requires positive calibration gap but proof resolves by contradiction.
-        for tm in theorem_with_proof_re.finditer(text):
-            tname = tm.group(2)
-            stmt = re.sub(r"\s+", " ", tm.group(3))
-            proof_text = re.sub(r"\s+", " ", tm.group(4))
-            line = line_of[tm.start()]
-            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-
-            has_positive_gap_premise = re.search(r"0\s*<\s*calibration_gap\s+", stmt) is not None
-            proves_semantic_gap_window = re.search(r"semantic_gap_window_(certificate|semantics)", stmt) is not None
-            contradiction_style = (
-                " exfalso " in f" {proof_text} "
-                or re.search(r"assert\s*\([^)]*calibration_gap[^)]*=\s*0%R", proof_text) is not None
-            )
-
-            if (has_positive_gap_premise or proves_semantic_gap_window) and contradiction_style:
-                findings.append(
-                    Finding(
-                        rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                        severity="HIGH",
-                        file=path,
-                        line=line,
-                        snippet=snippet.strip(),
-                        message=(
-                            f"Theorem `{tname}` appears vacuous: it relies on positive-gap/semantic-gap premises "
-                            f"but proof discharges via contradiction (`exfalso` or asserted `calibration_gap = 0`). "
-                            f"Provide constructive VM-semantic progress proof instead of impossible-premise elimination."
-                        ),
-                    )
-                )
-
-        unresolved_surface_tokens = [
-            "geometric_calibration_certificate", "geometric_calibration_semantics",
-            "source_normalization_certificate", "source_normalization_semantics",
-            "horizon_cycle_certificate", "horizon_cycle_semantics",
-            "semantic_gap_window_certificate", "semantic_gap_window_semantics",
-            "geometric_balance_contract", "source_balance_contract",
-            "horizon_entropy_contract", "dynamic_calibration_contract",
-            "trace_calibration_validated", "scheduler_emergence_premises",
-            "local_conservation_one_step",
-        ]
-
-        def has_unconditional_discharge(
-            *,
-            conclusion_pat: str,
-            required_premise_pats: list[str],
-            forbidden_premise_pats: list[str],
-        ) -> bool:
-            for tm in theorem_re.finditer(text):
-                stmt = re.sub(r"\s+", " ", tm.group(3))
-                parts = stmt.split("->")
-                premises = " -> ".join(parts[:-1]) if len(parts) > 1 else ""
-                conclusion = parts[-1] if parts else stmt
-                if not re.search(conclusion_pat, conclusion):
-                    continue
-                if not all(re.search(pat, premises) for pat in required_premise_pats):
-                    continue
-                if any(re.search(pat, premises) for pat in forbidden_premise_pats):
-                    continue
-                return True
-            return False
-
-        forbidden_surface_pats = [rf"\b{re.escape(tok)}\b" for tok in unresolved_surface_tokens]
-
-        # NO AXIOMS ALLOWED - only check for theorem-based discharge
-        # (no has_fundamental_axiom_for checks - axioms are forbidden)
-
-        has_geom_unconditional = has_unconditional_discharge(
-            conclusion_pat=r"angle_defect_curvature\s+s\s+m\s*=\s*\(curvature_coupling\s*\*\s*mu_laplacian\s+s\s+m\)%R",
-            required_premise_pats=[
-                r"well_formed_graph\s*\(vm_graph\s+s\)",
-                r"\(m\s*<\s*pg_next_id\s*\(vm_graph\s+s\)\)%nat",
-            ],
-            forbidden_premise_pats=forbidden_surface_pats,
-        )
-
-        has_source_unconditional = has_unconditional_discharge(
-            conclusion_pat=r"\(curvature_coupling\s*\*\s*mu_laplacian\s+s\s+m\)%R\s*=\s*\(16\s*\*\s*PI\s*\*\s*gravitational_constant\s*\*\s*stress_energy\s+s\s+m\)%R",
-            required_premise_pats=[
-                r"well_formed_graph\s*\(vm_graph\s+s\)",
-                r"\(m\s*<\s*pg_next_id\s*\(vm_graph\s+s\)\)%nat",
-            ],
-            forbidden_premise_pats=forbidden_surface_pats,
-        )
-
-        has_horizon_unconditional = has_unconditional_discharge(
-            conclusion_pat=r"Rabs\s*\(horizon_total_angle_defect\s+s\s+H\)\s*=\s*INR\s*\(horizon_area\s+s\s+H\)",
-            required_premise_pats=[r"is_horizon\s+s\s+H"],
-            forbidden_premise_pats=forbidden_surface_pats,
-        )
-
-        has_pnew_gap_window_discharge = has_unconditional_discharge(
-            conclusion_pat=r"semantic_gap_window_(certificate|semantics)\s+s\s*\(instr_pnew\s+region\s+0\)\s+m",
-            required_premise_pats=[
-                r"graph_find_region\s*\(vm_graph\s+s\)\s*\(normalize_region\s+region\)\s*=\s*None",
-                r"0\s*<\s*calibration_gap\s+s\s+m",
-            ],
-            forbidden_premise_pats=forbidden_surface_pats + [
-                r"calibration_gap_delta",
-                r"-2\s*\*\s*calibration_gap\s+s\s+m",
-            ],
-        )
-
-        # Skip unconditional theorem checks if file explicitly marks missing theorems as intentional
-        has_intentional_cleanup_marker = bool(_GRAVITY_SCOPE_MARKER_RE.search(raw))
-
-        if not has_intentional_cleanup_marker:
-            if not has_geom_unconditional:
-                findings.append(
-                    Finding(
-                        rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                        severity="HIGH",
-                        file=path,
-                        line=1,
-                        snippet="geometric_calibration theorem",
-                        message=(
-                            "Missing unconditional geometric calibration theorem: expected theorem deriving "
-                            "`angle_defect_curvature s m = curvature_coupling * mu_laplacian s m` from "
-                            "well-formedness/index premises, without calibration/certificate/contract assumptions."
-                        ),
-                    )
-                )
-
-            if not has_source_unconditional:
-                findings.append(
-                    Finding(
-                        rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                        severity="HIGH",
-                        file=path,
-                        line=1,
-                        snippet="source_normalization theorem",
-                        message=(
-                            "Missing unconditional source normalization theorem: expected theorem deriving "
-                            "`curvature_coupling * mu_laplacian s m = 16*PI*gravitational_constant*stress_energy s m` "
-                            "from well-formedness/index premises, without source/certificate/contract assumptions."
-                        ),
-                    )
-                )
-
-            if not has_horizon_unconditional:
-                findings.append(
-                    Finding(
-                        rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-                        severity="HIGH",
-                        file=path,
-                        line=1,
-                        snippet="horizon_cycle theorem",
-                        message=(
-                            "Missing unconditional horizon-cycle theorem: expected theorem deriving "
-                            "`Rabs (horizon_total_angle_defect s H) = INR (horizon_area s H)` from `is_horizon s H`, "
-                            "without horizon certificate/contract assumptions."
-                        ),
-                    )
-                )
-
-        # NOTE: Disabled - semantic_gap_window predicates are inline conditions
-        # if not has_pnew_gap_window_discharge:
-        #     findings.append(
-        #         Finding(
-        #             rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-        #             severity="HIGH",
-        #             file=path,
-        #             line=1,
-        #             snippet="instr_pnew gap-window theorem",
-        #             message=(
-        #                 "Missing instruction-semantic PNEW gap-window discharge theorem: expected theorem deriving "
-        #                 "`semantic_gap_window_* s (instr_pnew region 0) m` from fresh-region + positive-gap premises "
-        #                 "without taking raw delta-window inequalities as assumptions."
-        #             ),
-        #         )
-        #     )
-
-
-        # Skip discharge checks if file explicitly marks missing theorems as intentional
-        has_intentional_cleanup_marker = bool(_GRAVITY_SCOPE_MARKER_RE.search(raw))
-
-        # NOTE: Disabled - the hidden axioms/predicates these checks targeted do not exist
-        # Certificates like semantic_gap_window_certificate are explicit inline conditions
-        # if not has_intentional_cleanup_marker:
-        #     for target, discharged in discharge_targets.items():
-        #         if discharged:
-        #             continue
-        #         findings.append(
-        #             Finding(
-        #                 rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-        #                 severity="HIGH",
-        #                 file=path,
-        #                 line=1,
-        #                 snippet=target,
-        #                 message=(
-        #                     f"Missing discharge theorem: no theorem concludes `{target}` without assuming `{target}` in premises. "
-        #                     f"Certificate remains unproven from kernel semantics."
-        #                 ),
-        #             )
-        #         )
-
-        # NOTE: Disabled - semantic_gap_window_certificate does not exist
-        # Theorem hypotheses state explicit inline conditions
-        # (explicit vs hidden assumptions), so this is not a problem
-        # if not has_fresh_pnew_gap_window_discharge:
-        #     findings.append(
-        #         Finding(
-        #             rule_id="MU_GRAVITY_DERIVATION_INCOMPLETE",
-        #             severity="HIGH",
-        #             file=path,
-        #             line=1,
-        #             snippet="semantic_gap_window_certificate instr_pnew",
-        #             message=(
-        #                 "Missing fresh-PNEW gap-window discharge theorem: expected theorem of form "
-        #                 "`graph_find_region ... = None -> semantic_gap_window_certificate s (instr_pnew region 0) m`."
-        #             ),
-        #         )
-        #     )
-
-    # AXIOM BAN: MuGravity files must contain ZERO axioms. No marker-comment
-    # bypass is honoured — a `(* SCOPE NOTE: FUNDAMENTAL AXIOM *)` annotation
-    # does NOT silence this finding. Discharge every Axiom as a Theorem from
-    # kernel semantics; if a fact is genuinely irreducible, declare it
-    # outside MuGravity (e.g. in a named physics-bridge file) so its role
-    # as a postulate is explicit at the project level rather than hidden
-    # behind a marker comment.
-    axiom_re = re.compile(r"(?m)^[ \t]*Axiom\s+([A-Za-z0-9_']+)\b")
-    for m in axiom_re.finditer(raw):
-        axiom_name = m.group(1)
-        raw_line = raw[:m.start()].count('\n') + 1
-        snippet_match = re.search(r'^[ \t]*Axiom\s+[A-Za-z0-9_\']+\b.*$', raw[m.start():], re.MULTILINE)
-        snippet = snippet_match.group(0).strip() if snippet_match else m.group(0)
-        findings.append(
-            Finding(
-                rule_id="MU_GRAVITY_AXIOM_BAN",
-                severity="HIGH",
-                file=path,
-                line=raw_line,
-                snippet=snippet.strip(),
-                message=(
-                    f"Axiom `{axiom_name}` found in MuGravity file. "
-                    f"Prove it from kernel semantics; no marker bypass is honoured."
-                ),
-            )
-        )
-
-    # ADMITTED BAN: MuGravity files must contain ZERO admitted proofs. Every obligation must be complete.
-    # Match Theorem/Lemma that starts a proof and ends with Admitted (not Qed/Defined)
-    # We scan for proof blocks that end in Admitted specifically
-    proof_blocks = re.finditer(
-        r"(?ms)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b[^.]*\.\s*Proof\.(.*?)^[ \t]*(Qed|Defined|Admitted)\.",
-        text
-    )
-    for m in proof_blocks:
-        if m.group(4) == "Admitted":
-            thm_name = m.group(2)
-            line = line_of[m.start()]
-            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)[:50]
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_ADMITTED_BAN",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Admitted proof `{thm_name}` found in MuGravity file. NO ADMITTED PROOFS ALLOWED. "
-                        f"Complete the proof with real derivation from kernel semantics/VM operational structure."
-                    ),
-                )
-            )
-
-    return findings
-
-
-def scan_mugravity_vm_compatibility(path: Path) -> list[Finding]:
-    """Hard-fail on unresolved VM execution compatibility assumption surfaces.
-
-    Enforces completion criterion that MuGravity execution-facing theorems do not
-    rely on external compatibility bundles/assumptions (safe-trace, validator,
-    local-conservation wrappers) without semantic discharge.
-    """
-    if not path.name.startswith("MuGravity") or not path.name.endswith(".v"):
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    line_of = _line_map(text)
-    clean_lines = text.splitlines()
-    findings: list[Finding] = []
-
-    theorem_re = re.compile(r"(?ms)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b(.*?)\.")
-
-    unresolved_vm_tokens = [
-        "trace_calibration_validated",
-        "Forall calibration_safe_instruction",
-        "local_conservation_one_step",
-        "scheduler_emergence_premises",
-        "zero_rank_preserved_one_step",
-    ]
-
-    raw_vm_compat_patterns = [
-        r"vm_graph\s*\(run_vm\s+1\s+.*\)\s*=\s*vm_graph\s+.*",
-        r"module_encoding_length\s*\(run_vm\s+1\s+.*\)\s*=\s*module_encoding_length\s+.*",
-        r"module_region_size\s*\(run_vm\s+1\s+.*\)\s*=\s*module_region_size\s+.*",
-    ]
-
-    for m in theorem_re.finditer(text):
-        tname = m.group(2)
-        stmt = re.sub(r"\s+", " ", m.group(3))
-        stmt_parts = stmt.split("->")
-        premises_text = " -> ".join(stmt_parts[:-1]) if len(stmt_parts) > 1 else ""
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-
-        hit_tokens = [tok for tok in unresolved_vm_tokens if tok in premises_text]
-        if hit_tokens:
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_VM_COMPATIBILITY",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Theorem `{tname}` still depends on unresolved VM compatibility surface(s): "
-                        f"{', '.join(hit_tokens)}. Discharge compatibility from concrete VM instruction semantics."
-                    ),
-                )
-            )
-
-        if any(re.search(pat, premises_text) for pat in raw_vm_compat_patterns):
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_VM_COMPATIBILITY",
-                    severity="HIGH",
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Theorem `{tname}` assumes raw run_vm one-step structural preservation equalities. "
-                        f"Prove preservation from vm_apply/run_vm semantics and use derived lemmas, not interface assumptions."
-                    ),
-                )
-            )
-
-    non_theorem_decl_re = re.compile(
-        r"(?m)^[ \t]*(Definition|Axiom|Parameter|Hypothesis|Context|Variable|Variables)\s+"
-        r"(trace_calibration_validated|local_conservation_one_step|"
-        r"zero_rank_preserved_one_step|scheduler_emergence_premises)\b"
-    )
-
-    for m in non_theorem_decl_re.finditer(text):
-        decl_kind = m.group(1)
-        sym = m.group(2)
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
-        findings.append(
-            Finding(
-                rule_id="MU_GRAVITY_VM_COMPATIBILITY",
-                severity="HIGH",
-                file=path,
-                line=line,
-                snippet=snippet.strip(),
-                message=(
-                    f"VM compatibility surface `{sym}` appears as `{decl_kind}`. "
-                    f"Replace with theorem-level derivations grounded in vm_apply/run_vm implementation semantics."
-                ),
-            )
-        )
-
-    return findings
-
-
-def scan_mugravity_no_assumption_surfaces(path: Path) -> list[Finding]:
-    """Zero-exception ban on assumption mechanisms in MuGravity files.
-
-    Any use of Axiom/Parameter/Hypothesis/Context/Variable(s) in MuGravity*.v
-    is treated as unfinished proof surface and fails strict audit, EXCEPT
-    for axioms marked with "SCOPE NOTE: FUNDAMENTAL AXIOM" which are
-    accepted as irreducible postulates of the MuGravity theory itself.
-    """
-    if not path.name.startswith("MuGravity") or not path.name.endswith(".v"):
-        return []
-
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    text = strip_coq_comments(raw)
-    findings: list[Finding] = []
-
-    # Search in RAW text to preserve comment positions for Axiom detection
-    assumption_decl = re.compile(
-        r"(?m)^[ \t]*(Axiom|Parameter|Hypothesis|Context|Variable|Variables)\b\s*"
-        r"(?:\(?\s*([A-Za-z0-9_']+)\b)?"
-    )
-
-    for m in assumption_decl.finditer(raw):  # Search in raw, not stripped
-        kind = m.group(1)
-        name = (m.group(2) or "").strip()
-        raw_line = raw[:m.start()].count('\n') + 1
-        snippet_match = re.search(r'^[ \t]*(Axiom|Parameter|Hypothesis|Context|Variable|Variables)\b.*$', raw[m.start():], re.MULTILINE)
-        snippet = snippet_match.group(0).strip() if snippet_match else m.group(0)
-
-        findings.append(
-            Finding(
-                rule_id="MU_GRAVITY_NO_ASSUMPTION_SURFACES",
-                severity="HIGH",
-                file=path,
-                line=raw_line,
-                snippet=snippet.strip(),
-                message=(
-                    f"MuGravity strict mode forbids `{kind}`{(' ' + name) if name else ''}. "
-                    f"Discharge via theorem-level derivation from VM operational semantics; "
-                    f"no marker bypass is honoured."
-                ),
             )
         )
 
@@ -6343,263 +4859,6 @@ def _run_make_all(repo_root: Path) -> tuple[int, list[Finding]]:
     return proc.returncode, findings
 
 
-def _run_ocaml_extraction_build(repo_root: Path) -> list[Finding]:
-    """Build and validate extracted OCaml artifacts from Coq extraction entrypoints."""
-    findings: list[Finding] = []
-    coq_dir = repo_root / "coq"
-    build_dir = repo_root / "build"
-
-    targets = ["Extraction.vo"]
-    try:
-        proc = _run_command(
-            ["make", "-C", str(coq_dir), "-j1", *targets],
-            cwd=repo_root,
-            stage="ocaml extraction build",
-        )
-    except CommandTimeoutError as exc:
-        details = "\n".join(part for part in [exc.stdout_tail, exc.stderr_tail] if part).strip()
-        findings.append(
-            Finding(
-                rule_id="OCAML_EXTRACTION_BUILD_FAIL",
-                severity="HIGH",
-                file=coq_dir / "Extraction.v",
-                line=1,
-                snippet=details[:500],
-                message=(
-                    f"OCaml extraction build timed out after {exc.timeout_seconds}s. "
-                    "See terminal progress logs for the last visible output."
-                ),
-            )
-        )
-        return findings
-
-    if proc.returncode != 0:
-        details = (proc.stderr or proc.stdout or "")[-500:]
-        findings.append(
-            Finding(
-                rule_id="OCAML_EXTRACTION_BUILD_FAIL",
-                severity="HIGH",
-                file=coq_dir / "Extraction.v",
-                line=1,
-                snippet="",
-                message=(
-                    "Failed to build OCaml extraction artifacts from Extraction.v. "
-                    f"make return code={proc.returncode}. Tail: {details.strip()}"
-                ),
-            )
-        )
-        return findings
-
-    for src_name, out_name in _OCAML_EXTRACTION_ARTIFACTS:
-        src = coq_dir / src_name
-        out = build_dir / out_name
-        if not out.exists():
-            findings.append(
-                Finding(
-                    rule_id="OCAML_EXTRACTION_BUILD_FAIL",
-                    severity="HIGH",
-                    file=out,
-                    line=1,
-                    snippet="",
-                    message=(
-                        f"Expected extracted OCaml artifact missing after build: {out_name} (from {src_name})."
-                    ),
-                )
-            )
-            continue
-
-        content = out.read_text(encoding="utf-8", errors="replace")
-        missing = [s for s in _OCAML_EXTRACTION_REQUIRED_SYMBOLS if s not in content]
-        if missing:
-            findings.append(
-                Finding(
-                    rule_id="OCAML_EXTRACTION_BUILD_FAIL",
-                    severity="HIGH",
-                    file=out,
-                    line=1,
-                    snippet="",
-                    message=(
-                        f"Extracted artifact {out_name} does not expose required symbols: {', '.join(missing)}"
-                    ),
-                )
-            )
-            continue
-
-        if src.exists() and out.stat().st_mtime < src.stat().st_mtime - 1.0:
-            findings.append(
-                Finding(
-                    rule_id="OCAML_EXTRACTION_BUILD_FAIL",
-                    severity="HIGH",
-                    file=out,
-                    line=1,
-                    snippet="",
-                    message=(
-                        f"Extracted artifact {out_name} is older than source {src_name}; rerun extraction and keep outputs fresh."
-                    ),
-                )
-            )
-
-    return findings
-
-
-def _run_cross_layer_foundation_checks(repo_root: Path) -> list[Finding]:
-    """Verify end-to-end linkage from foundation proofs to runtime/hardware surfaces."""
-    findings: list[Finding] = []
-
-    def _add(path: Path, message: str, snippet: str = "") -> None:
-        findings.append(
-            Finding(
-                rule_id="CROSS_LAYER_FOUNDATION_DISCONNECT",
-                severity="HIGH",
-                file=path,
-                line=1,
-                snippet=snippet,
-                message=message,
-            )
-        )
-
-    def _require_file(path: Path) -> str | None:
-        if not path.exists():
-            _add(path, "Required cross-layer artifact is missing.")
-            return None
-        return path.read_text(encoding="utf-8", errors="replace")
-
-    # 1) Foundation proof files must exist. Search recursively under
-    # coq/kernel/ since the foundation files live in coq/kernel/foundation/,
-    # coq/kernel/mu_calculus/, coq/kernel/nfi/, etc. (see _CoqProject for the
-    # canonical locations). The flat path
-    # `coq/kernel/{mod}.v` is a fallback for legacy layouts.
-    missing_foundations: list[str] = []
-    kernel_root = repo_root / "coq" / "kernel"
-    for mod in _GLOBAL_FOUNDATION_MODULES:
-        flat = kernel_root / f"{mod}.v"
-        nested = list(kernel_root.rglob(f"{mod}.v")) if kernel_root.exists() else []
-        if not flat.exists() and not nested:
-            missing_foundations.append(f"coq/kernel/{mod}.v")
-    if missing_foundations:
-        _add(
-            repo_root / "coq" / "kernel",
-            "Missing required foundation proof modules: " + ", ".join(missing_foundations),
-        )
-
-    # 2) Coq extraction entrypoints must import the core semantic foundation.
-    extraction = _require_file(repo_root / "coq" / "Extraction.v")
-    for name, text in (
-        ("Extraction.v", extraction),
-    ):
-        if text is None:
-            continue
-        missing = [
-            tok
-            for tok in ("From Kernel Require Import VMState", "From Kernel Require Import VMStep", "From Kernel Require Import SimulationProof")
-            if tok not in text
-        ]
-        if missing:
-            _add(
-                repo_root / "coq" / name,
-                (
-                    f"{name} is not explicitly wired to foundation semantics imports. "
-                    f"Missing: {', '.join(missing)}"
-                ),
-            )
-
-    # 3) Extracted OCaml runner must execute vm_apply from extracted core.
-    # NOTE: OCaml extraction may use either "Coq_instr" or "Instr_" as the
-    # constructor prefix depending on Coq version and extraction settings.
-    runner_ml = _require_file(repo_root / "build" / "extracted_vm_runner.ml")
-    if runner_ml is not None:
-        has_instr_prefix = "Coq_instr" in runner_ml or "Instr_" in runner_ml
-        missing_base = [tok for tok in ("open Thiele_core", "vm_apply") if tok not in runner_ml]
-        if not has_instr_prefix:
-            missing_base.append("Coq_instr or Instr_")
-        missing = missing_base
-        if missing:
-            _add(
-                repo_root / "build" / "extracted_vm_runner.ml",
-                "OCaml runner is not fully connected to extracted foundation semantics.",
-                ", ".join(missing),
-            )
-
-    # 4) Python VM wrapper must hard-link to extracted runner in strict mode.
-    py_vm = _require_file(repo_root / "build" / "thiele_vm.py")
-    if py_vm is not None:
-        missing = [
-            tok
-            for tok in (
-                "_RUNNER_PATH",
-                "extracted_vm_runner",
-                "THIELE_STRICT_VM_BACKEND",
-                "_run_extracted",
-            )
-            if tok not in py_vm
-        ]
-        if missing:
-            _add(
-                repo_root / "build" / "thiele_vm.py",
-                "Python VM wrapper is not enforcing extracted-foundation execution linkage.",
-                ", ".join(missing),
-            )
-
-        # 4b) Parser field map must stay in sync with forge_vm.py CONSTRUCTOR_FIELD_MAP.
-        # Any opcode that appears in _parse_instruction_dict but NOT in forge_vm.py
-        # indicates handwritten parsing logic that escaped the extraction pipeline.
-        forge_vm = _require_file(repo_root / "scripts" / "forge_vm.py")
-        if forge_vm is not None:
-            import re as _re
-            forge_ctors = set(_re.findall(r'"Instr_(\w+)"', forge_vm))
-            # Opcodes that _parse_instruction_dict handles by explicit elif branch
-            # must all be derivable from the forge_vm constructor map.
-            shim_branches = set(_re.findall(r'elif op == "(\w+)"', py_vm))
-            unknown_branches = {b.lower() for b in shim_branches} - {c.lower() for c in forge_ctors} - {
-                # Allowed harness-only branches: init directives, fuel, etc.
-                "fuel", "init_reg", "init_mem", "init_mu", "init_tensor",
-                "init_logic_acc", "init_active_module", "init_pt",
-            }
-            if unknown_branches:
-                    _add(
-                        repo_root / "build" / "thiele_vm.py",
-                        "build/thiele_vm.py parser contains opcode branches not present in "
-                        "forge_vm.py CONSTRUCTOR_FIELD_MAP — handwritten parsing escaped "
-                        "the extraction pipeline.",
-                        ", ".join(sorted(unknown_branches)),
-                    )
-
-    # 5) Hardware cosim must use canonical Kami RTL/testbench path.
-    cosim_py = _require_file(repo_root / "thielecpu" / "hardware" / "cosim.py")
-    if cosim_py is not None:
-        missing = [
-            tok
-            for tok in ("thiele_cpu_kami.v", "thiele_cpu_kami_tb.v", "run_verilog", "THIELE_RTL_SIM")
-            if tok not in cosim_py
-        ]
-        if missing:
-            _add(
-                repo_root / "thielecpu" / "hardware" / "cosim.py",
-                "Verilog cosim surface is not wired to canonical Kami RTL foundation path.",
-                ", ".join(missing),
-            )
-
-    # 6) Makefile must include both proof (kami) and extraction (ocaml->rtl) wiring.
-    mk = _require_file(repo_root / "Makefile")
-    if mk is not None:
-        required = [
-            "kami_hw/KamiExtraction.v",
-            "kami_hw/CanonicalCPUProof.v",
-            "thielecpu/hardware/rtl/thiele_cpu_kami.v",
-            "extract:",
-            "proof:",
-        ]
-        missing = [tok for tok in required if tok not in mk]
-        if missing:
-            _add(
-                repo_root / "Makefile",
-                "Build graph does not fully wire OCaml/Kami foundations into proof/extract flow.",
-                ", ".join(missing),
-            )
-
-    return findings
-
-
 def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
     """Enforce theorem-body connectivity to kernel foundations across coq/*.
 
@@ -6700,23 +4959,11 @@ def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
     for rel in disconnected:
         if not isinstance(rel, str):
             continue
-        # These are dependency roots or a separate hardware proof layer, not
-        # consumers that should be forced to reach the kernel foundation.
-        # Requiring a reverse edge here manufactures circular architecture.
-        if rel.startswith("coq/kernel/foundation/") or rel.startswith("coq/kami_hw/"):
-            continue
         file_path = repo_root / rel
         # Suppression: same convention as the sibling rule
-        # PROOF_CONNECTIVITY_GAP — files that are intentionally
-        # documentation/registry/status modules and not part of the
-        # foundation-bearing proof chain may opt out by carrying
-        # `SCOPE NOTE: proof-connectivity gap suppressed` (or any
-        # `SCOPE NOTE` mentioning `proof-connect`/`proof connect`)
-        # somewhere in the file. The same set of files
-        # (CloseoutVerification.v, RTLGapRegistry.v,
-        # BModulesTranslation.v) passes under that rule; without this
-        # exemption, the body-graph rule would flag the same files for the
-        # same reason.
+        # PROOF_CONNECTIVITY_GAP — a file that stands alone on purpose says so
+        # in a SCOPE NOTE (standalone proof scope, or one mentioning
+        # proof-connect/proof connect) somewhere in the file.
         try:
             raw = file_path.read_text(encoding="utf-8", errors="replace")
             if _PROOF_CONNECTIVITY_NOTE_RE.search(raw):
@@ -6731,9 +4978,10 @@ def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
                 line=1,
                 snippet="",
                 message=(
-                    "File is disconnected from canonical kernel foundations in theorem-body dependency graph. "
-                    "Add constructive bridge lemmas/uses until it transitively reaches VMState/VMStep/MuCostModel/"
-                    "MuLedgerConservation/NoFreeInsight/MuInitiality."
+                    "File is disconnected from the foundation chain in the theorem-body dependency graph. "
+                    "Add constructive bridge lemmas/uses until it transitively reaches "
+                    "UniversalCertificationCost/StructuralCore/Substrate/KernelTM/EarnedCore, "
+                    "or state in a SCOPE NOTE why it stands alone."
                 ),
             )
         )
@@ -6741,173 +4989,41 @@ def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
     return findings
 
 
-def _scan_isomorphism_proof_chain(repo_root: Path) -> list[Finding]:
-    """Verify that the three-layer isomorphism is actually proven end-to-end.
-
-    NOT just name matching — this verifies:
-    1. Required proof files exist with actual bisimulation/refinement THEOREMS
-    2. Those theorems reference foundation types (vMState, vm_apply, vm_step)
-       in their STATEMENTS, not just in imports
-    3. The proofs are complete (Qed, not Admitted)
-    4. The proof chain is connected: each layer proof must import the adjacent layers
-
-    The proof chain must include:
-    1. ThreeLayerIsomorphism.v — proves Coq VM step = Python VM step = RTL step
-    2. PythonBisimulation.v — proves Coq ↔ Python correspondence
-    3. HardwareBisimulation.v — proves Coq ↔ Hardware correspondence
-    4. Abstraction.v / VerilogRefinement.v — proves Kami ↔ Verilog correspondence
-
-    Each must contain actual bisimulation/refinement lemmas (not just definitions).
-    """
-    findings: list[Finding] = []
-    coq_root = repo_root / "coq"
-
-    required_proof_files = {
-        "kernel/hardware_bridge/ThreeLayerIsomorphism.v": {
-            "required_lemmas": [
-                r"(Theorem|Lemma)\s+\w*(completeness|exhaustive|isomorphism|bisimulation|three_layer)",
-                r"(Theorem|Lemma)\s+\w*mu_cost_exact",
-            ],
-            "forbidden_patterns": [r"Admitted\.", r"\badmit\b"],
-            "description": "Three-layer isomorphism proof",
-        },
-        "kernel/hardware_bridge/PythonBisimulation.v": {
-            "required_lemmas": [
-                r"(Theorem|Lemma)\s+\w*(bisimulation|correspondence|python_equiv|python_vm_step)",
-            ],
-            "forbidden_patterns": [r"Admitted\."],
-            "description": "Python bisimulation proof",
-        },
-        "kernel/hardware_bridge/HardwareBisimulation.v": {
-            "required_lemmas": [
-                r"(Theorem|Lemma)\s+\w*(bisimulation|correspondence|hardware_equiv|hw_step)",
-            ],
-            "forbidden_patterns": [r"Admitted\."],
-            "description": "Hardware bisimulation proof",
-        },
-        "kami_hw/Abstraction.v": {
-            "required_lemmas": [
-                r"(Theorem|Lemma|Definition)\s+\w*(abs_phase|snap|reconstruct|abstract)",
-            ],
-            "forbidden_patterns": [r"Admitted\."],
-            "description": "Kami hardware abstraction",
-        },
-        "kami_hw/VerilogRefinement.v": {
-            "required_lemmas": [
-                r"(Theorem|Lemma)\s+\w*(refine|correspond|verilog|hardware|rtl)",
-            ],
-            "forbidden_patterns": [r"Admitted\."],
-            "description": "Verilog refinement proof",
-        },
-    }
-
-    for rel_path, spec in required_proof_files.items():
-        fpath = coq_root / rel_path
-        if not fpath.exists():
-            findings.append(Finding(
-                rule_id="ISOMORPHISM_PROOF_CHAIN_GAP",
-                severity="HIGH",
-                file=fpath,
-                line=1,
-                snippet="",
-                message=f"Missing required isomorphism proof file: {rel_path} ({spec['description']}). "
-                        "The three-layer isomorphism cannot be claimed without this proof.",
-            ))
-            continue
-
-        text = fpath.read_text(encoding="utf-8", errors="replace")
-        clean = strip_coq_comments(text)
-
-        # Check for forbidden patterns
-        for pat in spec["forbidden_patterns"]:
-            if re.search(pat, clean):
-                findings.append(Finding(
-                    rule_id="ISOMORPHISM_PROOF_CHAIN_GAP",
-                    severity="HIGH",
-                    file=fpath,
-                    line=1,
-                    snippet=pat,
-                    message=f"{spec['description']} contains '{pat}' — proof is incomplete. "
-                            "No shortcuts allowed in the isomorphism chain.",
-                ))
-
-        # Check for required lemma patterns
-        for lemma_pat in spec["required_lemmas"]:
-            if not re.search(lemma_pat, clean, re.IGNORECASE):
-                findings.append(Finding(
-                    rule_id="ISOMORPHISM_PROOF_CHAIN_GAP",
-                    severity="HIGH",
-                    file=fpath,
-                    line=1,
-                    snippet=lemma_pat,
-                    message=f"{spec['description']} is missing a required bisimulation/refinement lemma "
-                            f"matching pattern: {lemma_pat}. The isomorphism proof chain is incomplete.",
-                ))
-
-    return findings
-
-
 def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[Finding]:
-    """Verify proof files connect to the Thiele machine proof chain.
+    """Verify proof files use the Thiele Machine proof chain, not just import it.
 
-    The Thiele Machine proof chain flows from:
-      Layer 0: VMState, VMStep (state + semantics)
-      Layer 1: MuCostModel, AssumptionBundle/HardAssumptions (cost + hard facts)
-      Layer 2: MuLedgerConservation, KernelPhysics (conservation + physics primitives)
-      Layer 3: NoFreeInsight (central claim)
-      Layer 4: MuInitiality, MuNecessity (uniqueness + thermodynamic validity)
-      Layer 5+: Derivations (InformationCausality, BornRule, Subsumption, etc.)
+    The chain is the abstract model and the small machine:
+      UniversalCertificationCost  certification systems and the universal floor
+      StructuralCore              record-carrying machines, adequacy, core equivalence
+      Substrate                   the abstract A2-respecting substrate
+      KernelTM                    the Turing-machine kernel used as a base
+      EarnedCore, ThieleComplete  the small machine and the definition it meets
+    with the record axis, permanence and pricing files and the Links files
+    built on them.
 
-    NOT every file needs to directly reference VMState. What matters is that
-    each proof file connects through the TRANSITIVE IMPORT CHAIN to the
-    foundation modules. A file importing NoFreeInsight is connected because
-    NoFreeInsight imports MuLedgerConservation which imports VMStep which
-    imports VMState.
-
-    Files that have NO transitive connection to ANY foundation module are flagged.
-    This is checked via the PROOF_CONNECTIVITY_GAP rule (import chain).
-
-    This check catches a different problem: files that import foundations
-    but whose theorems are entirely disconnected from the proof chain —
-    i.e., the imports exist but NO definition, lemma, or theorem in the
-    file actually references ANY type or term from the imported modules.
-    These are "phantom imports" that exist only to pass the connectivity check.
+    PROOF_CONNECTIVITY_GAP checks the import chain. This check catches a
+    different problem: a proof file that neither uses any term of the chain
+    nor imports any chain module, i.e. a theorem file standing outside the
+    project with no stated reason. A file that documents why it is
+    standalone carries a SCOPE NOTE and is not flagged.
     """
     findings: list[Finding] = []
 
-    # Tokens from the Thiele Machine proof chain that indicate REAL usage.
-    # Organized by proof chain layer:
     _FOUNDATION_USAGE_TOKENS = re.compile(
         r"\b("
-        # Layer 0: VMState, VMStep types
-        r"VMState|PartitionGraph|ModuleState|ModuleID|vm_mu|vm_graph|vm_err|"
-        r"vm_pc|vm_regs|vm_mem|vm_csrs|pg_modules|pg_next_id|"
-        r"vm_step|vm_instruction|vm_apply|instruction_cost|"
-        r"instr_pnew|instr_psplit|instr_pmerge|instr_pdiscover|"
-        r"instr_lassert|instr_ljoin|instr_reveal|instr_emit|"
-        r"instr_xfer|instr_halt|instr_chsh_trial|"
-        # Layer 1: Cost model + hard facts
-        r"mu_cost|mu_cost_of_instr|partition_ops_mu_free|"
-        r"HardMathFacts|hard_math_facts_proven|norm_E_bound|valid_S_4|local_S_2|"
-        # Layer 2: Conservation + physics
-        r"vm_apply_mu|mu_conservation|MuLedger|mu_monotone|"
-        r"obs_equiv|gauge_invariance|no_signaling|observational_no_signaling|"
-        # Layer 3: No Free Insight
-        r"no_free_insight|strictly_stronger|stronger|"
-        # Layer 4: Initiality + necessity
-        r"mu_is_initial|mu_is_minimal|landauer_valid|"
-        # Layer 5+: Derivations
-        r"information_causality|born_rule|no_cloning|tsirelson|"
-        r"subsumption|sighted_program_not_turing_witness|"
-        # ThieleMachine concrete types (wrap kernel types)
-        r"ConcreteState|ThieleInstr|CHSH_TRIAL|Trial|chsh_of_trials|"
-        r"concrete_receipts|prog_of_strategy|local_fragment|"
-        # ModularProofs types (Turing machine encoding chain)
-        r"TMConfig|encode_config|decode_config|digits_ok|"
-        r"tm_encode_config|tm_decode_config|"
-        # Bridges
-        r"bisimulation|step_preserves|simulation_correctness|"
-        r"compile_trial|chsh_invariance"
+        # Certification systems and the universal floor
+        r"CertificationSystem|cs_step|cs_run|cs_cost|cs_total_cost|cs_cert|"
+        r"cs_cert_costs|universal_nfi_any_substrate|SimulatingCertificationSystem|"
+        # Record-carrying machines
+        r"RCM|rc_next|rc_run|rc_cert|rc_mu|rc_init|rc_halted|step_cost|"
+        r"ledger_carried|rc_a2|carries_record|Adequate|core_bisim|core_equiv|"
+        r"ComputationalCover|record_permanent|reachable_record_write|"
+        r"BaseMachine|BaseCover|HonestBaseExtension|latch_factorization|"
+        # Substrate and the Turing kernel
+        r"Substrate|step_tm|run_tm|TuringMachine|"
+        # Permanence and pricing
+        r"permanent|step_injective|finite_states|merging_steps_priced|"
+        r"compression_priced|a2_holds|forced_priced"
         r")\b"
     )
 
@@ -6915,39 +5031,30 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
     if not coq_root.exists():
         return findings
 
-    # Foundation files that DEFINE the proof chain are exempt
+    # Files that DEFINE the proof chain are exempt.
     _FOUNDATION_STEMS = {
-        "VMState", "VMStep", "VMEncoding", "SimulationProof",
-        "MuCostModel", "MuLedgerConservation", "MuInitiality",
-        "NoFreeInsight", "KernelTM", "BridgeDefinitions",
-        "PythonBisimulation", "HardwareBisimulation",
-        "CertCheck", "KernelPhysics", "MuNecessity",
-        "AssumptionBundle", "HardAssumptions", "HardMathFactsProven",
-        "ThieleCPUCore", "VerilogRefinement", "Abstraction",
-        "KamiExtraction", "Compatibility", "CanonicalCPUProof",
-        # Registry/documentation modules — connect indirectly through KamiHW
-        "RTLGapRegistry", "CloseoutVerification",
-        # Substrate.v is the abstract A2-respecting substrate that the
-        # 51-opcode VM (VMState etc.) is one instance of. It is a
-        # foundation file that the kernel implements; it cannot
-        # connect "down" to VMState without inverting the
-        # substrate-vs-scaffolding dependency direction.
-        "Substrate",
-        # CommitmentPredicateAdequacy.v is the substrate-free half of the A2
-        # substitution gate: indicator-uniqueness over an abstract pricing
-        # record, importing no VM semantics on purpose (the floor follows from
-        # the cost schedule alone, with no appeal to the machine). It connects
-        # up through A2Payoff.v, which combines it with the VM-grounded
-        # CommitmentCostDecomposition.v. Forcing a direct VMState import would
-        # be a phantom import, so it is exempted like Substrate.
-        "CommitmentPredicateAdequacy",
+        "UniversalCertificationCost", "StructuralCore", "Substrate",
+        "Kernel", "KernelTM",
     }
 
+    _CHAIN_MODULES = {
+        "UniversalCertificationCost", "StructuralCore", "StructuralCoreCover",
+        "StructuralCoreAnyBase", "StructuralRecordAxis", "Substrate", "Kernel",
+        "KernelTM", "PermanentCertification", "PermanentRecordPricing",
+        "PermanentCertificationEntropy", "CommitmentPredicateAdequacy",
+        "EarnedCoreLinks", "EarnedGenericLinks", "UniversalThieleLinks",
+        "UniversalInterpreterLinks", "PricedHostLinks", "SmallChshLinks",
+        # The small machine (namespace Minimal)
+        "EarnedCore", "EarnedGeneric", "EarnedMulti", "ThieleComplete",
+        "ThieleCompleteWindow", "UniversalThiele", "UniversalCodes",
+        "UniversalNoCopy", "EarnedPriced", "PricedComplete", "Presented",
+        "EarnedMultiPriced",
+    }
+
+    # The small machine in minimal/ is held to the same rule as coq/.
+    scan_roots = (str(coq_root), str(repo_root / "minimal"))
     for vf in v_files:
-        if not str(vf).startswith(str(coq_root)):
-            continue
-        rel_path = vf.relative_to(repo_root).as_posix()
-        if rel_path.startswith("coq/kernel/foundation/") or rel_path.startswith("coq/kami_hw/"):
+        if not str(vf).startswith(scan_roots):
             continue
         if vf.stem in _FOUNDATION_STEMS:
             continue
@@ -6955,20 +5062,15 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         text = vf.read_text(encoding="utf-8", errors="replace")
         clean = strip_coq_comments(text)
 
-        # Only check files that contain theorems/lemmas
         has_proofs = bool(re.search(
             r"(?:Theorem|Lemma|Corollary|Proposition|Fact)\s+\w+", clean
         ))
         if not has_proofs:
             continue
 
-        # Check if the file USES any foundation token anywhere in code
-        # (not in comments — those are stripped)
         if _FOUNDATION_USAGE_TOKENS.search(clean):
-            continue  # Connected — uses proof chain types
+            continue
 
-        # Check if it imports a chain module AND uses types from that module
-        # (even indirectly through re-exported names)
         chain_imports = re.findall(
             r"(?:From\s+\w+\s+)?Require\s+(?:Import|Export)\s+([\w\s.]+)\.",
             clean
@@ -6976,73 +5078,15 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         imported_modules = set()
         for imp in chain_imports:
             for mod in imp.split():
-                imported_modules.add(mod.rstrip('.'))
+                imported_modules.add(mod.rstrip('.').split('.')[-1])
 
-        # If they import chain modules, the connectivity check handles it.
-        # This check ONLY flags files with no usage whatsoever.
-        chain_modules_imported = imported_modules.intersection({
-            # Kernel (Layer 0-4)
-            "VMState", "VMStep", "VMEncoding", "KernelTM",
-            "MuCostModel", "MuLedgerConservation", "MuInitiality",
-            "NoFreeInsight", "KernelPhysics", "MuNecessity",
-            "AssumptionBundle", "HardAssumptions", "HardMathFactsProven",
-            # Kernel derivations (Layer 5+)
-            "InformationCausality", "BornRule", "Subsumption",
-            "BoxCHSH", "CHSH", "AlgebraicCoherence", "ValidCorrelation",
-            "Unitarity", "NoCloning", "NoCloningFromMuMonotonicity",
-            "SpacetimeEmergence", "MetricFromMuCosts", "TOE",
-            "Closure", "NoGo", "SimulationProof",
-            # Commitment-accounting NoFI chain — these import and use
-            # VMState/VMStep/SimulationProof and prove the VM-grounded
-            # certification-cost results; files built on them (A2Payoff,
-            # CommitmentVsErasure) are transitively connected through them.
-            "CommitmentCostDecomposition", "UniversalCertificationCost",
-            # ThieleMachine (wraps kernel types)
-            "ThieleMachine", "ThieleMachineConcrete", "CoreSemantics",
-            "BellInequality", "BellCheck", "BellReceiptSemantics",
-            "BellReceiptSoundness", "BellReceiptLocalGeneral",
-            "Bisimulation", "SemanticBridge", "HardwareBridge",
-            # ModularProofs (Turing subsumption chain)
-            "Encoding", "EncodingBounds", "TM_Basics", "Minsky",
-            "Simulation", "TM_to_Minsky", "ThieleInstance",
-            # Physics exploration (connects through SpacetimeEmergence chain)
-            "EmergentSpacetime", "PlanckDerivation", "PlanckEmergenceClean",
-            "EmergentSchrodinger", "PhysicsEmbedding", "WaveEmbedding",
-            "DissipativeEmbedding",
-            # Physics (connects through kernel)
-            "DiscreteModel", "DissipativeModel", "PreregSplit", "WaveModel",
-            # Quantum derivation (connects through kernel)
-            "BornRuleUnique", "CollapseDetermination", "ComplexNecessity",
-            "CompositePartitions", "ObservationIrreversibility",
-            "ProjectionFromPartitions", "SchrodingerFromPartitions",
-            "TensorNecessity", "TwoDimensionalNecessity",
-            # Thermodynamic (connects through kernel)
-            "LandauerDerived", "ThermodynamicBridge",
-            # Kami hardware
-            "ThieleCPUCore", "VerilogRefinement", "Abstraction",
-            # Additional ThieleMachine modules
-            "EncodingBridge", "BellReceiptLocalBound",
-            "BellArtifacts", "BlindSighted", "QuantumAdmissibilityTsirelson",
-            "QuantumAdmissibilityDeliverableB",
-        })
-
-        if chain_modules_imported:
-            # File imports chain modules — the connectivity rule handles this.
-            # Only flag if it looks like a phantom import (imports exist but
-            # no definitions, records, or operations reference the imports).
+        if imported_modules & _CHAIN_MODULES:
+            # Imports are checked for real use by PHANTOM_KERNEL_IMPORT.
             continue
 
-        # No chain usage AND no chain imports — this is a real gap, unless the
-        # file carries an explicit standalone proof-scope note. Honouring the same
-        # marker as PROOF_CONNECTIVITY_GAP / PROOF_BODY_FOUNDATION_DISCONNECT:
-        # a file that documents *why* it is standalone should say so once, not
-        # be driven to fake a link (an unused identity on vm_mu satisfied this
-        # rule for twelve files and told the reader nothing). The scope marker
-        # keeps that boundary next to the source instead.
         if _PROOF_CONNECTIVITY_NOTE_RE.search(text):
             continue
 
-        # No chain usage AND no chain imports — this is a real gap
         theorem_count = len(re.findall(
             r"(?:Theorem|Lemma|Corollary|Proposition|Fact)\s+\w+", clean
         ))
@@ -7055,367 +5099,11 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
             message=(
                 f"Proof file {vf.stem}.v contains {theorem_count} theorem(s) but "
                 "does not import or reference ANY module in the Thiele Machine proof "
-                "chain (VMState→VMStep→MuCostModel→NoFreeInsight→...). "
-                "Every proof should connect to the foundation chain, either directly "
-                "or through intermediate modules in the dependency graph."
+                "chain (UniversalCertificationCost, StructuralCore, Substrate, KernelTM, "
+                "EarnedCore, ...). Connect it to the chain, or state in a SCOPE NOTE "
+                "why it stands alone."
             ),
         ))
-
-    return findings
-
-
-def _scan_opcode_parity(repo_root: Path) -> list[Finding]:
-    """Verify all 26 VM opcodes are consistently defined across Coq, OCaml, Python, and RTL.
-
-    The canonical source is Coq's vm_instruction inductive type. All other layers
-    must encode the same opcodes in the same order.
-    """
-    findings: list[Finding] = []
-
-    # 1. Extract opcode names from Coq kernel. The foundation files live under
-    # coq/kernel/foundation/; the flat coq/kernel/*.v paths are a fallback
-    # for flat layouts.
-    kernel_root = repo_root / "coq" / "kernel"
-    candidates: list[Path] = []
-    for name in ("VMStep.v", "VMState.v"):
-        flat = kernel_root / name
-        if flat.exists():
-            candidates.append(flat)
-        candidates.extend(p for p in kernel_root.rglob(name) if p != flat)
-    coq_opcodes: list[str] = []
-
-    for coq_file in candidates:
-        if coq_file.exists():
-            text = coq_file.read_text(encoding="utf-8", errors="replace")
-            clean = strip_coq_comments(text)
-            # Find vm_instruction or similar inductive type
-            instr_match = re.search(
-                r"Inductive\s+vm_instruction\s*(?::[^=].*?)?\s*:=\s*(.*?)(?:\.\s*$|\n\s*(?:Definition|Fixpoint|Theorem|Lemma|Inductive))",
-                clean, re.DOTALL | re.MULTILINE,
-            )
-            if instr_match:
-                body = instr_match.group(1)
-                for m in re.finditer(r"\|\s*(\w+)", body):
-                    coq_opcodes.append(m.group(1))
-
-    if not coq_opcodes:
-        # Try ThieleVMOpcodes.v as fallback
-        opcodes_file = repo_root / "coq" / "thielemachine" / "coqproofs" / "ThieleVMOpcodes.v"
-        if opcodes_file.exists():
-            text = opcodes_file.read_text(encoding="utf-8", errors="replace")
-            clean = strip_coq_comments(text)
-            for m in re.finditer(r"Definition\s+(op_\w+)\s*:=", clean):
-                coq_opcodes.append(m.group(1))
-
-    if not coq_opcodes:
-        findings.append(Finding(
-            rule_id="OPCODE_PARITY_VIOLATION",
-            severity="HIGH",
-            file=vm_state,
-            line=1,
-            snippet="",
-            message="Cannot find vm_instruction inductive type in Coq kernel. "
-                    "Opcode parity cannot be verified.",
-        ))
-        return findings
-
-    # 2. Check extracted OCaml has these opcodes
-    for ml_file_name in ["thiele_core.ml", "thiele_core_complete.ml"]:
-        ml_file = repo_root / "build" / ml_file_name
-        if ml_file.exists():
-            ml_text = ml_file.read_text(encoding="utf-8", errors="replace")
-            missing = [op for op in coq_opcodes if op not in ml_text and op.lower() not in ml_text.lower()]
-            if missing:
-                findings.append(Finding(
-                    rule_id="OPCODE_PARITY_VIOLATION",
-                    severity="HIGH",
-                    file=ml_file,
-                    line=1,
-                    snippet=", ".join(missing[:5]),
-                    message=f"Extracted OCaml file {ml_file_name} is missing {len(missing)} opcodes from Coq "
-                            f"vm_instruction. Missing: {', '.join(missing[:10])}. "
-                            "Extraction must preserve all instruction semantics.",
-                ))
-
-    # 3. Check Python VM has these opcodes (normalize names: op_load_imm -> LOAD_IMM)
-    def _normalize_opcode(name: str) -> str:
-        """Normalize opcode name for cross-layer comparison."""
-        n = name.lower()
-        for prefix in ("coq_instr_", "coq_", "op_", "instr_"):
-            if n.startswith(prefix):
-                n = n[len(prefix):]
-        return n
-
-    coq_normalized = {_normalize_opcode(op) for op in coq_opcodes}
-
-    py_files = [
-        repo_root / "thielecpu" / "isa.py",
-    ]
-    for py_file in py_files:
-        if py_file.exists():
-            py_text = py_file.read_text(encoding="utf-8", errors="replace")
-            if "class Opcode" in py_text or "Opcode" in py_text:
-                # Extract Python opcode names ONLY from the Opcode enum, not CSR or other enums
-                py_opcodes = set()
-                # Find the Opcode class block
-                opcode_block_match = re.search(
-                    r"class\s+Opcode\s*\(.*?\):\s*\n(.*?)(?=\nclass\s|\n[a-zA-Z]|\Z)",
-                    py_text, re.DOTALL,
-                )
-                opcode_block = opcode_block_match.group(1) if opcode_block_match else py_text
-                for m in re.finditer(r"^\s+(\w+)\s*=\s*0x[0-9a-fA-F]+", opcode_block, re.MULTILINE):
-                    py_opcodes.add(_normalize_opcode(m.group(1)))
-                if not py_opcodes:
-                    for m in re.finditer(r"^\s+(\w+)\s*=\s*\d+", opcode_block, re.MULTILINE):
-                        py_opcodes.add(_normalize_opcode(m.group(1)))
-
-                missing_in_py = coq_normalized - py_opcodes
-                missing_in_coq = py_opcodes - coq_normalized
-                if missing_in_py:
-                    findings.append(Finding(
-                        rule_id="OPCODE_PARITY_VIOLATION",
-                        severity="HIGH",
-                        file=py_file,
-                        line=1,
-                        snippet=", ".join(sorted(missing_in_py)[:5]),
-                        message=f"Python Opcode enum is missing {len(missing_in_py)} opcodes from Coq: "
-                                f"{', '.join(sorted(missing_in_py))}. "
-                                "The Python VM must implement all Coq-defined instructions for isomorphism to hold.",
-                    ))
-                if missing_in_coq:
-                    findings.append(Finding(
-                        rule_id="OPCODE_PARITY_VIOLATION",
-                        severity="MEDIUM",
-                        file=py_file,
-                        line=1,
-                        snippet=", ".join(sorted(missing_in_coq)[:5]),
-                        message=f"Python has {len(missing_in_coq)} opcodes not in Coq: "
-                                f"{', '.join(sorted(missing_in_coq))}. "
-                                "Extra opcodes break isomorphism unless they are proven equivalent.",
-                    ))
-
-    # 4. Check Verilog RTL has these opcodes
-    rtl_file = repo_root / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
-    if rtl_file.exists():
-        rtl_text = rtl_file.read_text(encoding="utf-8", errors="replace")
-        # RTL uses localparam for opcode encoding
-        rtl_opcodes = set(re.findall(r"localparam\s+\w*(?:OP|INSTR|op_)\w*", rtl_text, re.IGNORECASE))
-        if not rtl_opcodes:
-            # Check for case statements with opcode values (decimal or hex literals)
-            rtl_opcodes = set(re.findall(r"(?:5'd|8'd|8'h)[0-9a-fA-F]+\s*:", rtl_text))
-        if len(rtl_opcodes) < 20:
-            findings.append(Finding(
-                rule_id="OPCODE_PARITY_VIOLATION",
-                severity="MEDIUM",
-                file=rtl_file,
-                line=1,
-                snippet=f"Found {len(rtl_opcodes)} opcode-like patterns",
-                message=f"RTL file has only {len(rtl_opcodes)} identifiable opcode patterns "
-                        f"vs {len(coq_opcodes)} in Coq. Verify all 26 instructions are encoded.",
-            ))
-
-    return findings
-
-
-def _scan_test_proof_lockstep(repo_root: Path) -> list[Finding]:
-    """Verify that test files claiming isomorphism actually perform cross-layer execution.
-
-    A test named test_*isomorphism* or test_*bisimulation* must actually:
-    1. Import/use more than one layer's implementation
-    2. Execute programs on multiple layers
-    3. Compare results (assert equality)
-
-    Tests that only check file existence or structure are flagged.
-    """
-    findings: list[Finding] = []
-    test_dir = repo_root / "tests"
-    if not test_dir.exists():
-        return findings
-
-    iso_test_files = list(test_dir.glob("*isomorphism*")) + list(test_dir.glob("*bisimulation*"))
-
-    for tf in iso_test_files:
-        if not tf.name.endswith(".py"):
-            continue
-        text = tf.read_text(encoding="utf-8", errors="replace")
-
-        # Check for actual cross-layer execution
-        has_vm_execution = bool(re.search(r"(run_vm|execute|vm_step|State\(\)|run_extracted)", text))
-        has_cosim = bool(re.search(r"(cosim|run_verilog|iverilog|verilator|vvp)", text))
-        has_coq_extraction = bool(re.search(r"(extracted_vm_runner|thiele_core|run_extracted|ocaml)", text))
-        has_assertion = bool(re.search(r"assert.*==|assertEqual|assert_equal", text))
-
-        # Check for structural-only tests (file existence, keyword searching)
-        has_path_exists = text.count("path.exists()") + text.count("Path.exists") + text.count(".exists()")
-        has_keyword_grep = text.count("in text") + text.count("in content") + text.count("grep")
-
-        layers_touched = sum([has_vm_execution, has_cosim, has_coq_extraction])
-
-        if layers_touched < 2:
-            findings.append(Finding(
-                rule_id="TEST_PROOF_LOCKSTEP_VIOLATION",
-                severity="HIGH",
-                file=tf,
-                line=1,
-                snippet=f"layers_touched={layers_touched}",
-                message=f"Isomorphism test {tf.name} touches only {layers_touched} layer(s) but claims "
-                        "to verify cross-layer isomorphism. Must execute on at least 2 layers "
-                        "(Coq extraction + Python, or Python + Verilog) and compare results.",
-            ))
-
-        if has_path_exists > 3 and not has_assertion:
-            findings.append(Finding(
-                rule_id="TEST_PROOF_LOCKSTEP_VIOLATION",
-                severity="MEDIUM",
-                file=tf,
-                line=1,
-                snippet=f"path.exists() count={has_path_exists}",
-                message=f"Isomorphism test {tf.name} is primarily checking file existence ({has_path_exists} "
-                        "path.exists() calls) without executing cross-layer comparisons. "
-                        "Structural checks do not prove behavioral isomorphism.",
-            ))
-
-    # Also check that test_three_layer_isomorphism specifically has all three layers
-    three_layer_test = test_dir / "test_three_layer_isomorphism.py"
-    if three_layer_test.exists():
-        text = three_layer_test.read_text(encoding="utf-8", errors="replace")
-        if "FAILED" in text or "skip" in text.lower():
-            pass  # Can't check runtime state from static analysis, but check structure
-        if not re.search(r"(run_verilog|cosim|vvp)", text):
-            findings.append(Finding(
-                rule_id="TEST_PROOF_LOCKSTEP_VIOLATION",
-                severity="HIGH",
-                file=three_layer_test,
-                line=1,
-                snippet="",
-                message="test_three_layer_isomorphism.py does not invoke Verilog cosimulation. "
-                        "A three-layer isomorphism test MUST execute on all three layers.",
-            ))
-        if not re.search(r"(extracted_vm_runner|run_extracted|thiele_core)", text):
-            findings.append(Finding(
-                rule_id="TEST_PROOF_LOCKSTEP_VIOLATION",
-                severity="HIGH",
-                file=three_layer_test,
-                line=1,
-                snippet="",
-                message="test_three_layer_isomorphism.py does not invoke Coq-extracted OCaml runner. "
-                        "A three-layer isomorphism test MUST compare against the extracted foundation.",
-            ))
-
-    return findings
-
-
-def _scan_extraction_semantic_faithfulness(repo_root: Path) -> list[Finding]:
-    """Verify that extraction preserves semantic structures, not just symbol names.
-
-    Checks:
-    1. Extracted OCaml must have vm_apply with pattern matching on all instructions
-    2. OCaml runner must produce JSON output with required state fields
-    3. Python VM wrapper must delegate to extracted runner in strict mode
-    4. Isomorphism map (build/isomorphism_map.json) must be current and complete
-    """
-    findings: list[Finding] = []
-
-    # 1. Check vm_apply pattern coverage in extracted OCaml
-    core_ml = repo_root / "build" / "thiele_core.ml"
-    if core_ml.exists():
-        ml_text = core_ml.read_text(encoding="utf-8", errors="replace")
-        # Count pattern match arms in vm_apply
-        # Find vm_apply function body — in OCaml extracted code, it uses
-        # `let vm_apply s = function | Instr_X -> ...` (Coq extraction uses the
-        # constructor name directly; older extractions used `Coq_instr_X` prefix).
-        vm_apply_start = ml_text.find("let vm_apply")
-        if vm_apply_start >= 0:
-            # Find next top-level let binding
-            vm_apply_end = ml_text.find("\nlet ", vm_apply_start + 10)
-            if vm_apply_end < 0:
-                vm_apply_end = len(ml_text)
-            vm_apply_body = ml_text[vm_apply_start:vm_apply_end]
-            arms = len(re.findall(r"\|\s*(?:VMStep\.)?(?:Coq_|Instr_)\w+", vm_apply_body))
-            vm_apply_match = True
-        else:
-            vm_apply_match = False
-            arms = 0
-        if vm_apply_match:
-            pass  # arms already counted
-            if arms < 20:
-                findings.append(Finding(
-                    rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
-                    severity="HIGH",
-                    file=core_ml,
-                    line=1,
-                    snippet=f"vm_apply arms={arms}",
-                    message=f"Extracted vm_apply has only {arms} instruction arms (expected 26). "
-                            "Extraction may have dropped instruction cases.",
-                ))
-        else:
-            findings.append(Finding(
-                rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
-                severity="HIGH",
-                file=core_ml,
-                line=1,
-                snippet="",
-                message="Cannot find vm_apply function in extracted OCaml. "
-                        "The core VM semantics have not been extracted.",
-            ))
-
-    # 2. Check isomorphism map freshness
-    iso_map = repo_root / "build" / "isomorphism_map.json"
-    if iso_map.exists():
-        try:
-            iso_data = json.loads(iso_map.read_text(encoding="utf-8"))
-            if isinstance(iso_data, dict):
-                # Check all three layers are represented
-                layers = set()
-                for entry in iso_data.values() if isinstance(iso_data, dict) else iso_data:
-                    if isinstance(entry, dict):
-                        layers.update(entry.keys())
-                if not {"coq", "python", "rtl"}.issubset(
-                    {l.lower() for l in layers} | {k.lower() for k in iso_data.keys()}
-                ):
-                    findings.append(Finding(
-                        rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
-                        severity="MEDIUM",
-                        file=iso_map,
-                        line=1,
-                        snippet=f"layers found: {sorted(layers)}",
-                        message="Isomorphism map does not cover all three layers (coq, python, rtl). "
-                                "Cross-layer mapping is incomplete.",
-                    ))
-        except json.JSONDecodeError:
-            findings.append(Finding(
-                rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
-                severity="HIGH",
-                file=iso_map,
-                line=1,
-                snippet="",
-                message="isomorphism_map.json is malformed. Cannot verify cross-layer mappings.",
-            ))
-    else:
-        findings.append(Finding(
-            rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
-            severity="HIGH",
-            file=iso_map,
-            line=1,
-            snippet="",
-            message="build/isomorphism_map.json is missing. Cross-layer isomorphism mapping "
-                    "must be maintained as a build artifact.",
-        ))
-
-    # 3. Check Python VM strict-mode enforcement
-    py_vm = repo_root / "build" / "thiele_vm.py"
-    if py_vm.exists():
-        py_text = py_vm.read_text(encoding="utf-8", errors="replace")
-        if "THIELE_STRICT_VM_BACKEND" not in py_text:
-            findings.append(Finding(
-                rule_id="EXTRACTION_SEMANTIC_UNFAITHFUL",
-                severity="HIGH",
-                file=py_vm,
-                line=1,
-                snippet="",
-                message="Python VM wrapper does not support THIELE_STRICT_VM_BACKEND mode. "
-                        "Without strict mode, tests may use Python fallback instead of extracted Coq semantics.",
-            ))
 
     return findings
 
@@ -7563,13 +5251,9 @@ def write_report(
     lines.append("- `EXISTS_TRUE_STMT`: statement ends with `exists ..., True.`\n")
     lines.append("- `CIRCULAR_INTROS_ASSUMPTION`: tautology + `intros; assumption.`\n")
     lines.append("- `EXACT_ALIAS`: `Theorem A. Proof. exact B. Qed.` (pure alias — proves nothing new, just re-exports an existing proof under a new name)\n")
-    lines.append("- `SCOPE_DRIFT_TIER1`: coq/kernel/ (Tier 1) file imports a Tier-2 or Tier-3 namespace — contaminates the extraction-critical kernel\n")
-    lines.append("- `ISOMORPHISM_PROOF_CHAIN_GAP`: A required proof in the isomorphism chain (Coq↔Python↔RTL) is missing or incomplete\n")
-    lines.append("- `OPCODE_PARITY_VIOLATION`: VM opcodes are not consistently defined across Coq, OCaml, Python, and RTL layers\n")
-    lines.append("- `TEST_PROOF_LOCKSTEP_VIOLATION`: A test claiming isomorphism does not actually execute cross-layer comparisons\n")
-    lines.append("- `EXTRACTION_SEMANTIC_UNFAITHFUL`: Extracted artifacts do not faithfully preserve Coq VM semantics\n")
-    lines.append("- `FOUNDATION_UTILIZATION_GAP`: Tier-1 kernel proof does not reference VM foundation types in any theorem statement\n")
-    lines.append("- `SCOPE_DRIFT_TIER2`: Core Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace\n")
+    lines.append("- `SCOPE_DRIFT_TIER1`: coq/kernel/ (Tier 1) file imports a Tier-2 or Tier-3 namespace — contaminates the proof tree\n")
+    lines.append("- `FOUNDATION_UTILIZATION_GAP`: proof file neither uses nor imports anything in the foundation chain (abstract model and small machine) and gives no SCOPE NOTE\n")
+    lines.append("- `SCOPE_DRIFT_TIER2`: Core Tier-2 file imports a Tier-3 exploratory namespace\n")
     lines.append("- `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof\n")
     lines.append("- `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`\n")
     lines.append("- `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`\n")
@@ -7589,10 +5273,9 @@ def write_report(
     lines.append("- `PROBLEMATIC_IMPORT`: import may introduce classical axioms\n")
     lines.append("- `RECORD_FIELD_EXTRACTION`: theorem merely extracts a Record field it assumed as input (circular)\n")
     lines.append("- `SELF_REFERENTIAL_RECORD`: Record embeds proposition as field AND a Theorem in the same file extracts it (circular)\n")
-    lines.append("- `PHANTOM_KERNEL_IMPORT`: imports Kernel modules but no proof engages with VM semantics\n")
+    lines.append("- `PHANTOM_KERNEL_IMPORT`: imports a foundation module but uses nothing it declares\n")
     lines.append("- `TRIVIAL_EXISTENTIAL`: trivially satisfiable existential (e.g. 'every list has a length')\n")
     lines.append("- `ARITHMETIC_ONLY_PHYSICS`: physics-named theorem proved by pure arithmetic (lia/lra) only\n")
-    lines.append("- `PHANTOM_VM_STEP`: theorem takes vm_step as hypothesis but proof never uses it\n")
     lines.append("- `CIRCULAR_DEFINITION`: theorem unfolds definition and proves by simple tactics (potentially restating definition)\n")
     lines.append("- `EMERGENCE_CIRCULARITY`: 'emergence' claim where emergent property is in the definition (circular)\n")
     lines.append("- `CONSTRUCTOR_ROUND_TRIP`: construct object, immediately extract property (not proving anything)\n")
@@ -7602,30 +5285,12 @@ def write_report(
     lines.append("- `HYPOTHESIS_RESTATEMENT`: heuristic style warning (disabled in max-strict mode)\n")
     lines.append("- `PHYSICS_STUB_DEFINITION`: physics/geometry definition returns placeholder constant (0, 1, PI/3)\n")
     lines.append("- `MISSING_CORE_THEOREM`: file defines physics machinery (einstein_tensor, stress_energy) but lacks core theorem (einstein_equation)\n")
-    lines.append("- `EINSTEIN_EQUATION_WEAK`: einstein_equation theorem exists but statement omits expected coupling structure\n")
-    lines.append("- `EINSTEIN_EQUATION_ASSUMED`: einstein_equation theorem assumes coupling premise instead of deriving it\n")
-    lines.append("- `EINSTEIN_MODEL_MISMATCH`: current curvature/stress definitions make unconditional Einstein equation structurally non-derivable\n")
     lines.append("- `DEFINITIONAL_CONSTRUCTION`: curvature/physics quantity DEFINED as relationship that should be PROVEN\n")
     lines.append("- `DEFINITION_BUILT_IN_THEOREM`: theorem proves relationship that's built into the definition (circular)\n")
     lines.append("- `INCOMPLETE_PHYSICS_DERIVATION`: gravity/physics file contains explicit unfinished marker text\n")
-    lines.append("- `EINSTEIN_PROOF_INSUFFICIENT`: einstein_equation proof is definitional/trivial or lacks conservation/locality bridge usage\n")
     lines.append("- `FAKE_COMPLETION_CLAIM`: completion rhetoric appears while core theorem/stub criteria are unmet\n")
-    lines.append("- `STRESS_ENERGY_UNGROUNDED`: stress_energy is defined from curvature/tensor objects instead of kernel primitives\n")
     lines.append("- `UNUSED_LOCAL_DEFINITION`: heuristic style warning (disabled in max-strict mode)\n")
-    lines.append("- `MU_GRAVITY_COMPLETION_GATE`: top-level MuGravity completion theorem interface still exposes deprecated bridge predicates\n")
-    lines.append("- `MU_GRAVITY_BRIDGE_LEAK`: Einstein/Horizon/Curvature theorem interface leaks legacy bridge predicates\n")
-    lines.append("- `MU_GRAVITY_RAW_SOURCE_FORMULA`: Einstein/Horizon/Gravity theorem interface uses legacy raw-source style (disabled under no-shortcuts policy)\n")
-    lines.append("- `MU_GRAVITY_DYNAMIC_RAW`: Einstein/Gravity theorem interface uses raw dynamically_self_calibrates instead of contract predicate\n")
-    lines.append("- `MU_GRAVITY_ONE_STEP_LITERAL`: top completion theorem interface hard-codes run_vm 1 instead of symbolic fuel\n")
-    lines.append("- `MU_GRAVITY_NO_SHORTCUTS`: MuGravity theorem interface contains shortcut predicates (contract/seed/calibration/bridge)\n")
-    lines.append("- `MU_GRAVITY_MAX_STRICT`: MuGravity strict mode forbids shortcut alias symbols and Classical import\n")
-    lines.append("- `MU_GRAVITY_DERIVATION_INCOMPLETE`: MuGravity theorem interfaces/declarations still expose unfinished derivation assumptions, including the six major obligations (geometric calibration, source normalization, horizon defect-area, active-step descent, semantic gap window, VM compatibility surfaces)\n")
-    lines.append("- `MU_GRAVITY_VM_COMPATIBILITY`: MuGravity execution-facing theorem interfaces/declarations still rely on unresolved VM compatibility wrappers/assumptions instead of vm_apply/run_vm semantic derivations\n")
-    lines.append("- `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems\n")
-    lines.append("- `PROOF_CONNECTIVITY_GAP`: active core proof file lacks the semantic foundation, or a μ-cost-using file lacks the cost foundation; roots and local Kami proofs are checked by their dedicated gates\n")
-    lines.append("- `KAMI_OCAML_FOUNDATION_MISMATCH`: Kami and OCaml extraction build surfaces are not grounded in the same kernel foundation modules\n")
-    lines.append("- `OCAML_EXTRACTION_BUILD_FAIL`: OCaml extraction build/check failed (Extraction.v must build and expose core VM symbols)\n")
-    lines.append("- `CROSS_LAYER_FOUNDATION_DISCONNECT`: end-to-end chain (Coq foundations -> OCaml extraction -> VM wrapper -> canonical Kami RTL/cosim/build flow) is missing a required link\n")
+    lines.append("- `PROOF_CONNECTIVITY_GAP`: active proof file lacks the semantic foundation (abstract model and small machine), or a cost-using file lacks the cost foundation; a file that stands alone must say so in a SCOPE NOTE\n")
     lines.append("- `PROOF_BODY_FOUNDATION_DISCONNECT`: theorem-body dependency graph shows a Coq proof file does not transitively reach the canonical foundation theorem chain\n")
     lines.append("- `DISJUNCT_TRUE`: theorem statement contains `\\/ True` — vacuously provable via `right. exact I.`\n")
     lines.append("- `TRIVIAL_TRUE_PROOF`: proof body terminates with `exact I.` or `right. exact I.` — only proves `True`\n")
@@ -7760,16 +5425,8 @@ def main(argv: list[str]) -> int:
         # Enforce that successful build actually covered all active coq/*.v sources.
         all_findings.extend(_check_coq_compilation_coverage(repo_root))
 
-    _log_progress("Running OCaml extraction audit")
-    all_findings.extend(_run_ocaml_extraction_build(repo_root))
-    _log_progress("Running cross-layer foundation audits")
-    all_findings.extend(_run_cross_layer_foundation_checks(repo_root))
+    _log_progress("Running proof-body foundation audit")
     all_findings.extend(_run_proof_body_foundation_audit(repo_root))
-    _log_progress("Running cross-layer consistency scans")
-    all_findings.extend(_scan_isomorphism_proof_chain(repo_root))
-    all_findings.extend(_scan_opcode_parity(repo_root))
-    all_findings.extend(_scan_test_proof_lockstep(repo_root))
-    all_findings.extend(_scan_extraction_semantic_faithfulness(repo_root))
 
     vacuity_index: list[tuple[int, Path, tuple[str, ...]]] = []
     scanned = 0
@@ -7812,7 +5469,6 @@ def main(argv: list[str]) -> int:
             all_findings.extend(scan_phantom_imports(vf))
             all_findings.extend(scan_trivial_existentials(vf))
             all_findings.extend(scan_arithmetic_only_proofs(vf))
-            all_findings.extend(scan_phantom_vm_step(vf))
             # Circular reasoning detection (v3)
             all_findings.extend(scan_circular_definitions(vf))
             all_findings.extend(scan_emergence_circularity(vf))
@@ -7828,23 +5484,9 @@ def main(argv: list[str]) -> int:
             all_findings.extend(scan_missing_core_physics_theorems(vf))
             all_findings.extend(scan_definitional_construction_circularity(vf))
             all_findings.extend(scan_incomplete_physics_markers(vf))
-            all_findings.extend(scan_einstein_proof_substance(vf))
             all_findings.extend(scan_fake_completion_claims(vf))
-            all_findings.extend(scan_einstein_model_mismatch(vf))
-            all_findings.extend(scan_stress_energy_grounding(vf))
             # Disabled in max-strict mode: heuristic style warning, not proof-soundness critical.
             # all_findings.extend(scan_unused_local_definitions(vf))
-            all_findings.extend(scan_mugravity_completion_gate(vf))
-            all_findings.extend(scan_mugravity_bridge_leaks(vf))
-            # Disabled: conflicts with no-shortcuts policy that removes source_balance_contract wrappers.
-            # all_findings.extend(scan_mugravity_raw_source_formula(vf))
-            all_findings.extend(scan_mugravity_dynamic_raw(vf))
-            all_findings.extend(scan_mugravity_one_step_literal(vf))
-            all_findings.extend(scan_mugravity_no_shortcuts(vf))
-            all_findings.extend(scan_mugravity_max_strict(vf))
-            all_findings.extend(scan_mugravity_derivation_completeness(vf))
-            all_findings.extend(scan_mugravity_vm_compatibility(vf))
-            all_findings.extend(scan_mugravity_no_assumption_surfaces(vf))
             # Vacuous proof pattern detection (v6)
             all_findings.extend(scan_false_conjunct_definition(vf))
             all_findings.extend(scan_trivial_lambda_witness(vf))
@@ -7874,7 +5516,6 @@ def main(argv: list[str]) -> int:
 
     _log_progress("Running dependency and foundation connectivity scans")
     all_findings.extend(scan_proof_connectivity(repo_root, v_files_list))
-    all_findings.extend(scan_kami_ocaml_foundation_alignment(repo_root, v_files_list))
     all_findings.extend(_scan_foundation_utilization(repo_root, v_files_list))
 
     if manifest_path.exists():

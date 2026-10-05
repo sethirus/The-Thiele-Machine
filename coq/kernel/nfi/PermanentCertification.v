@@ -32,12 +32,10 @@
 
     Scope. The premise that merging steps cost at least one is Landauer's
     principle stated on the logic: it is a named premise here, not a
-    theorem about heat. The 51-opcode VM is not an instance, by design.
-    Its ledger is an unbounded natural, so its state space is infinite,
-    and its schedule prices the certifying merge while JUMP merges program
-    counters at zero declared cost ([FiniteCertMachine] proves both
-    halves). The theorem is about a permanent certificate on finite
-    hardware. *)
+    theorem about heat. A machine with an unbounded ledger is not an
+    instance: its state space is infinite. [FiniteCertMachine] gives a
+    finite machine that is one. The theorem is about a permanent
+    certificate on a finite machine. *)
 
 From Coq Require Import List Bool Arith Lia.
 From Coq Require Import Logic.FinFun.
@@ -291,6 +289,8 @@ Definition history_step (h : list bool) (_ : unit) : list bool := true :: h.
 Definition history_cert (h : list bool) : bool :=
   match h with [] => false | _ => true end.
 
+(* SAFE: four facts about the two-line history machine above, each closed
+   by computation. *)
 Theorem unbounded_history_escapes :
   step_injective history_step tt /\
   permanent history_step history_cert /\

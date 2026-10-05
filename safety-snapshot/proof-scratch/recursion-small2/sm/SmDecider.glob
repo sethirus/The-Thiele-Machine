@@ -1,0 +1,527 @@
+DIGEST 038f4595d82445dde5156d299f1ed5f1
+FSm.SmDecider
+R1210:1213 Coq.Lists.List <> <> lib
+R1215:1219 Coq.Arith.Arith <> <> lib
+R1221:1223 Coq.micromega.Lia <> <> lib
+R1225:1228 Coq.Bool.Bool <> <> lib
+R1230:1248 Coq.Logic.ConstructiveEpsilon <> <> lib
+R1258:1270 Coq.Lists.List ListNotations <> mod
+R1310:1325 Undecidability.L.Tactics.LTactics <> <> lib
+R1327:1340 Undecidability.L.Datatypes.LNat <> <> lib
+R1342:1359 Undecidability.L.Datatypes.LOptions <> <> lib
+R1363:1377 Undecidability.L.Datatypes.LProd <> <> lib
+R1379:1393 Undecidability.L.Datatypes.Lists <> <> lib
+R1395:1409 Undecidability.L.Datatypes.LBool <> <> lib
+R1462:1463 Undecidability.MinskyMachines.MM <> <> lib
+R1465:1467 Undecidability.MinskyMachines.MMA <> <> lib
+R1531:1560 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> <> lib
+R1571:1589 Minimal.EarnedMulti <> <> lib
+R1591:1612 Minimal.UniversalCodes <> <> lib
+R1630:1644 Sm.SmHostBlocks <> <> lib
+R1646:1655 Sm.SmCodes <> <> lib
+R1657:1667 Sm.SmInterp <> <> lib
+R1669:1678 Sm.SmEvalL <> <> lib
+R1680:1688 Sm.SmFuel <> <> lib
+R1690:1701 Sm.SmMMAHost <> <> lib
+R1703:1713 Sm.SmKleene <> <> lib
+R1728:1746 Minimal.EarnedMulti <> <> modtype
+mod 1723:1723 <> M
+R1762:1783 Minimal.UniversalCodes <> <> modtype
+mod 1756:1757 <> UC
+abbrev 1828:1833 <> hinstr
+R1840:1846 Sm.SmDecider <> instr ind
+R1848:1855 Sm.SmDecider <> hprop ind
+abbrev 1874:1877 <> hfun
+R1883:1889 Sm.SmHostBlocks <> sm_hfun def
+R1904:1911 Sm.SmDecider <> heval def
+R1891:1902 Sm.SmDecider <> hprop_eqb def
+abbrev 1930:1938 <> hrun_prog
+R1944:1953 Sm.SmDecider <> run_prog def
+R1968:1975 Sm.SmDecider <> heval def
+R1955:1966 Sm.SmDecider <> hprop_eqb def
+def 2067:2074 <> sm_flipf
+R2084:2087 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2097:2097 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2081:2083 Coq.Init.Datatypes <> nat ind
+R2091:2093 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2088:2090 Coq.Init.Datatypes <> nat ind
+R2094:2096 Coq.Init.Datatypes <> nat ind
+binder 2077:2077 <> w:1
+R2112:2114 Coq.Init.Datatypes <> nat ind
+binder 2101:2104 <> fuel:2
+binder 2106:2106 <> x:3
+binder 2108:2108 <> c:4
+R2119:2124 Coq.Init.Datatypes <> option ind
+R2126:2128 Coq.Init.Datatypes <> nat ind
+R2141:2147 Sm.SmInterp <> sm_kout def
+R2149:2152 Sm.SmDecider <> fuel:2 var
+R2155:2162 Sm.SmCodes <> sm_kpdec def
+R2165:2167 Coq.Init.Datatypes <> fst def
+R2169:2169 Sm.SmDecider <> w:1 var
+R2173:2173 Sm.SmDecider <> x:3 var
+R2184:2187 Coq.Init.Datatypes <> Some constr
+R2194:2197 Coq.Init.Datatypes <> Some constr
+R2203:2209 Coq.Arith.PeanoNat Nat eqb def
+R2237:2239 Coq.Init.Datatypes <> snd def
+R2242:2244 Coq.Init.Datatypes <> snd def
+R2246:2246 Sm.SmDecider <> w:1 var
+R2220:2222 Coq.Init.Datatypes <> fst def
+R2225:2227 Coq.Init.Datatypes <> snd def
+R2229:2229 Sm.SmDecider <> w:1 var
+R2254:2257 Coq.Init.Datatypes <> None constr
+R2262:2265 Coq.Init.Datatypes <> None constr
+inst 2284:2296 <> term_sm_flipf
+R2300:2309 Undecidability.L.Tactics.Computable <> computable class
+R2311:2318 Sm.SmDecider <> sm_flipf def
+prf 2349:2361 <> sm_flipf_mono
+binder 2372:2372 <> w:5
+binder 2374:2374 <> n:6
+binder 2376:2377 <> n':7
+binder 2379:2379 <> x:8
+binder 2381:2381 <> c:9
+binder 2383:2383 <> m:10
+R2413:2416 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2404:2406 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2388:2395 Sm.SmDecider <> sm_flipf def
+R2397:2397 Sm.SmDecider <> w:5 var
+R2399:2399 Sm.SmDecider <> n:6 var
+R2401:2401 Sm.SmDecider <> x:8 var
+R2403:2403 Sm.SmDecider <> c:9 var
+R2407:2410 Coq.Init.Datatypes <> Some constr
+R2412:2412 Sm.SmDecider <> m:10 var
+R2424:2427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2418:2421 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2417:2417 Sm.SmDecider <> n:6 var
+R2422:2423 Sm.SmDecider <> n':7 var
+R2445:2447 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2428:2435 Sm.SmDecider <> sm_flipf def
+R2437:2437 Sm.SmDecider <> w:5 var
+R2439:2440 Sm.SmDecider <> n':7 var
+R2442:2442 Sm.SmDecider <> x:8 var
+R2444:2444 Sm.SmDecider <> c:9 var
+R2448:2451 Coq.Init.Datatypes <> Some constr
+R2453:2453 Sm.SmDecider <> m:10 var
+R2499:2506 Sm.SmDecider <> sm_flipf def
+R2526:2532 Sm.SmInterp <> sm_kout def
+R2537:2544 Sm.SmCodes <> sm_kpdec def
+R2547:2549 Coq.Init.Datatypes <> fst def
+R2526:2532 Sm.SmInterp <> sm_kout def
+R2537:2544 Sm.SmCodes <> sm_kpdec def
+R2547:2549 Coq.Init.Datatypes <> fst def
+R2604:2615 Sm.SmInterp <> sm_kout_mono thm
+R2604:2615 Sm.SmInterp <> sm_kout_mono thm
+R2604:2615 Sm.SmInterp <> sm_kout_mono thm
+def 2663:2670 <> sm_Rflip
+R2680:2683 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2693:2693 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2677:2679 Coq.Init.Datatypes <> nat ind
+R2687:2689 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2684:2686 Coq.Init.Datatypes <> nat ind
+R2690:2692 Coq.Init.Datatypes <> nat ind
+binder 2673:2673 <> w:11
+R2701:2708 Coq.Vectors.Vector <> t ind
+R2710:2712 Coq.Init.Datatypes <> nat ind
+binder 2697:2697 <> v:12
+R2722:2724 Coq.Init.Datatypes <> nat ind
+binder 2718:2718 <> m:13
+R2739:2745 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2747:2748 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2746:2746 <> n:14
+R2801:2803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2749:2756 Sm.SmDecider <> sm_flipf def
+R2758:2758 Sm.SmDecider <> w:11 var
+R2760:2760 Sm.SmDecider <> n:14 var
+R2763:2771 Coq.Vectors.Vector <> hd def
+R2773:2773 Sm.SmDecider <> v:12 var
+R2777:2785 Coq.Vectors.Vector <> hd def
+R2788:2796 Coq.Vectors.Vector <> tl def
+R2798:2798 Sm.SmDecider <> v:12 var
+R2804:2807 Coq.Init.Datatypes <> Some constr
+R2809:2809 Sm.SmDecider <> m:13 var
+prf 2819:2829 <> sm_flip_MMA
+binder 2840:2840 <> w:15
+R2843:2856 Undecidability.MinskyMachines.MMA <> MMA_computable def
+R2859:2866 Sm.SmDecider <> sm_Rflip def
+R2868:2868 Sm.SmDecider <> w:15 var
+R2896:2925 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R2896:2925 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R2938:2958 Sm.SmFuel <> sm_L_computable_fuel2 thm
+R2964:2967 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2977:2977 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2961:2963 Coq.Init.Datatypes <> nat ind
+R2971:2973 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2968:2970 Coq.Init.Datatypes <> nat ind
+R2974:2976 Coq.Init.Datatypes <> nat ind
+R2982:2989 Sm.SmDecider <> sm_flipf def
+R2996:3008 Sm.SmDecider <> sm_flipf_mono thm
+R2938:2958 Sm.SmFuel <> sm_L_computable_fuel2 thm
+R2964:2967 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2977:2977 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2961:2963 Coq.Init.Datatypes <> nat ind
+R2971:2973 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2968:2970 Coq.Init.Datatypes <> nat ind
+R2974:2976 Coq.Init.Datatypes <> nat ind
+R2982:2989 Sm.SmDecider <> sm_flipf def
+R2996:3008 Sm.SmDecider <> sm_flipf_mono thm
+def 3032:3041 <> sm_decides
+R3048:3051 Coq.Init.Datatypes <> list ind
+R3053:3058 Sm.SmDecider <> hinstr abbrev
+binder 3044:3044 <> D:16
+R3078:3081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3067:3070 Coq.Init.Datatypes <> list ind
+R3072:3077 Sm.SmDecider <> hinstr abbrev
+binder 3062:3063 <> Pi:17
+binder 3107:3107 <> p:18
+R3110:3110 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3142:3147 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3178:3178 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3111:3117 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3119:3120 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3118:3118 <> b:19
+R3121:3124 Sm.SmDecider <> hfun abbrev
+R3126:3126 Sm.SmDecider <> D:16 var
+R3129:3136 Sm.SmCodes <> sm_hcode def
+R3138:3138 Sm.SmDecider <> p:18 var
+R3141:3141 Sm.SmDecider <> b:19 var
+R3169:3173 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3148:3151 Sm.SmDecider <> hfun abbrev
+R3153:3153 Sm.SmDecider <> D:16 var
+R3156:3163 Sm.SmCodes <> sm_hcode def
+R3165:3165 Sm.SmDecider <> p:18 var
+R3174:3175 Sm.SmDecider <> Pi:17 var
+R3177:3177 Sm.SmDecider <> p:18 var
+prf 3281:3295 <> sm_flip_program
+binder 3306:3306 <> w:20
+R3309:3315 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3331:3334 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3320:3323 Coq.Init.Datatypes <> list ind
+R3325:3330 Sm.SmDecider <> hinstr abbrev
+binder 3316:3316 <> T:21
+binder 3342:3342 <> x:22
+binder 3344:3344 <> m:23
+R3357:3361 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3347:3350 Sm.SmDecider <> hfun abbrev
+R3352:3352 Sm.SmDecider <> T:21 var
+R3354:3354 Sm.SmDecider <> x:22 var
+R3356:3356 Sm.SmDecider <> m:23 var
+R3362:3368 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3370:3371 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3369:3369 <> n:24
+R3388:3390 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3372:3379 Sm.SmDecider <> sm_flipf def
+R3381:3381 Sm.SmDecider <> w:20 var
+R3383:3383 Sm.SmDecider <> n:24 var
+R3385:3385 Sm.SmDecider <> x:22 var
+R3391:3394 Coq.Init.Datatypes <> Some constr
+R3396:3396 Sm.SmDecider <> m:23 var
+R3427:3437 Sm.SmDecider <> sm_flip_MMA thm
+R3427:3437 Sm.SmDecider <> sm_flip_MMA thm
+R3470:3480 Sm.SmMMAHost <> sm_mma_host def
+R3483:3483 Coq.Init.Datatypes <> S constr
+R3486:3486 Coq.Init.Datatypes <> S constr
+R3489:3489 Coq.Init.Datatypes <> S constr
+R3470:3480 Sm.SmMMAHost <> sm_mma_host def
+R3483:3483 Coq.Init.Datatypes <> S constr
+R3486:3486 Coq.Init.Datatypes <> S constr
+R3489:3489 Coq.Init.Datatypes <> S constr
+R3530:3537 Sm.SmDecider <> sm_Rflip def
+R3542:3552 Coq.Vectors.Vector <> cons constr
+R3554:3556 Coq.Init.Datatypes <> nat ind
+R3563:3573 Coq.Vectors.Vector <> cons constr
+R3575:3577 Coq.Init.Datatypes <> nat ind
+R3584:3593 Coq.Vectors.Vector <> nil constr
+R3595:3597 Coq.Init.Datatypes <> nat ind
+R3530:3537 Sm.SmDecider <> sm_Rflip def
+R3542:3552 Coq.Vectors.Vector <> cons constr
+R3554:3556 Coq.Init.Datatypes <> nat ind
+R3563:3573 Coq.Vectors.Vector <> cons constr
+R3575:3577 Coq.Init.Datatypes <> nat ind
+R3584:3593 Coq.Vectors.Vector <> nil constr
+R3595:3597 Coq.Init.Datatypes <> nat ind
+R3650:3659 Sm.SmKleene <> sm_mma_two thm
+R3668:3675 Sm.SmDecider <> sm_Rflip def
+R3685:3693 Sm.SmDecider <> core_of proj
+R3696:3704 Sm.SmHostBlocks <> sm_hstart def
+R3716:3722 Coq.Init.Logic <> eq_refl constr
+R3724:3730 Coq.Init.Logic <> eq_refl constr
+R3650:3659 Sm.SmKleene <> sm_mma_two thm
+R3668:3675 Sm.SmDecider <> sm_Rflip def
+R3685:3693 Sm.SmDecider <> core_of proj
+R3696:3704 Sm.SmHostBlocks <> sm_hstart def
+R3716:3722 Coq.Init.Logic <> eq_refl constr
+R3724:3730 Coq.Init.Logic <> eq_refl constr
+R3650:3659 Sm.SmKleene <> sm_mma_two thm
+R3668:3675 Sm.SmDecider <> sm_Rflip def
+R3685:3693 Sm.SmDecider <> core_of proj
+R3696:3704 Sm.SmHostBlocks <> sm_hstart def
+R3716:3722 Coq.Init.Logic <> eq_refl constr
+R3724:3730 Coq.Init.Logic <> eq_refl constr
+R3650:3659 Sm.SmKleene <> sm_mma_two thm
+R3668:3675 Sm.SmDecider <> sm_Rflip def
+R3685:3693 Sm.SmDecider <> core_of proj
+R3696:3704 Sm.SmHostBlocks <> sm_hstart def
+R3716:3722 Coq.Init.Logic <> eq_refl constr
+R3724:3730 Coq.Init.Logic <> eq_refl constr
+R3745:3751 Sm.SmHostBlocks <> sm_hfun def
+R3754:3761 Sm.SmHostBlocks <> sm_hends def
+R3805:3813 Sm.SmDecider <> hrun_prog abbrev
+R3818:3828 Sm.SmMMAHost <> sm_mma_host def
+R3831:3831 Coq.Init.Datatypes <> S constr
+R3834:3834 Coq.Init.Datatypes <> S constr
+R3837:3837 Coq.Init.Datatypes <> S constr
+R3850:3858 Sm.SmHostBlocks <> sm_hstart def
+R3805:3813 Sm.SmDecider <> hrun_prog abbrev
+R3818:3828 Sm.SmMMAHost <> sm_mma_host def
+R3831:3831 Coq.Init.Datatypes <> S constr
+R3834:3834 Coq.Init.Datatypes <> S constr
+R3837:3837 Coq.Init.Datatypes <> S constr
+R3850:3858 Sm.SmHostBlocks <> sm_hstart def
+R3928:3938 Sm.SmInterp <> sm_core_run thm
+R3928:3938 Sm.SmInterp <> sm_core_run thm
+R3928:3938 Sm.SmInterp <> sm_core_run thm
+R3967:3977 Sm.SmInterp <> sm_core_run thm
+R3967:3977 Sm.SmInterp <> sm_core_run thm
+R3967:3977 Sm.SmInterp <> sm_core_run thm
+R4043:4053 Sm.SmInterp <> sm_core_run thm
+R4043:4053 Sm.SmInterp <> sm_core_run thm
+R4043:4053 Sm.SmInterp <> sm_core_run thm
+R4103:4108 Sm.SmDecider <> vals proj
+R4110:4118 Sm.SmDecider <> core_of proj
+R4120:4128 Sm.SmHostBlocks <> sm_hstart def
+R4130:4136 Sm.SmDecider <> start def
+R4138:4149 Sm.SmDecider <> start_core def
+R4160:4165 Sm.SmHostBlocks <> sm_hin def
+R4168:4173 Sm.SmKleene <> sm_in2 def
+R4190:4196 Coq.Arith.PeanoNat Nat eqb def
+R4190:4196 Coq.Arith.PeanoNat Nat eqb def
+R4231:4237 Coq.Arith.PeanoNat Nat eqb def
+R4231:4237 Coq.Arith.PeanoNat Nat eqb def
+prf 4272:4289 <> sm_no_host_decider
+R4317:4320 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4306:4309 Coq.Init.Datatypes <> list ind
+R4311:4316 Sm.SmDecider <> hinstr abbrev
+binder 4301:4302 <> Pi:25
+binder 4327:4329 <> yes:26
+binder 4331:4332 <> no:27
+R4350:4353 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4337:4346 Sm.SmKleene <> sm_fun_ext def
+R4348:4349 Sm.SmDecider <> Pi:25 var
+R4360:4363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4354:4355 Sm.SmDecider <> Pi:25 var
+R4357:4359 Sm.SmDecider <> yes:26 var
+R4371:4376 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4364:4365 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4366:4367 Sm.SmDecider <> Pi:25 var
+R4369:4370 Sm.SmDecider <> no:27 var
+R4377:4378 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4379:4385 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4387:4388 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4386:4386 <> D:28
+R4389:4398 Sm.SmDecider <> sm_decides def
+R4400:4400 Sm.SmDecider <> D:28 var
+R4402:4403 Sm.SmDecider <> Pi:25 var
+binder 4544:4544 <> p:29
+R4547:4547 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R4549:4551 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R4555:4557 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R4579:4579 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R4552:4554 Coq.Init.Datatypes <> nat ind
+binder 4548:4548 <> b:30
+R4558:4561 Sm.SmDecider <> hfun abbrev
+R4566:4573 Sm.SmCodes <> sm_hcode def
+R4575:4575 Sm.SmDecider <> p:29 var
+R4578:4578 Sm.SmDecider <> b:30 var
+binder 4544:4544 <> p:31
+R4547:4547 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R4549:4551 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R4555:4557 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R4579:4579 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R4552:4554 Coq.Init.Datatypes <> nat ind
+binder 4548:4548 <> b:32
+R4558:4561 Sm.SmDecider <> hfun abbrev
+R4566:4573 Sm.SmCodes <> sm_hcode def
+R4575:4575 Sm.SmDecider <> p:31 var
+R4578:4578 Sm.SmDecider <> b:32 var
+R4614:4620 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4622:4623 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4621:4621 <> n:33
+R4624:4630 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4632:4633 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4631:4631 <> b:34
+R4680:4682 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4634:4640 Sm.SmInterp <> sm_kout def
+R4642:4642 Sm.SmDecider <> n:33 var
+R4645:4652 Sm.SmCodes <> sm_kpdec def
+R4655:4662 Sm.SmCodes <> sm_hcode def
+R4669:4676 Sm.SmCodes <> sm_hcode def
+R4683:4686 Coq.Init.Datatypes <> Some constr
+R4688:4688 Sm.SmDecider <> b:34 var
+R4614:4620 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4622:4623 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4621:4621 <> n:35
+R4624:4630 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4632:4633 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4631:4631 <> b:36
+R4680:4682 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4634:4640 Sm.SmInterp <> sm_kout def
+R4642:4642 Sm.SmDecider <> n:35 var
+R4645:4652 Sm.SmCodes <> sm_kpdec def
+R4655:4662 Sm.SmCodes <> sm_hcode def
+R4669:4676 Sm.SmCodes <> sm_hcode def
+R4683:4686 Coq.Init.Datatypes <> Some constr
+R4688:4688 Sm.SmDecider <> b:36 var
+R4708:4712 Coq.Init.Logic <> proj1 thm
+R4708:4712 Coq.Init.Logic <> proj1 thm
+R4753:4756 Sm.SmDecider <> hfun abbrev
+R4759:4768 Sm.SmCodes <> sm_hdecode def
+R4771:4778 Sm.SmCodes <> sm_hcode def
+R4785:4792 Sm.SmCodes <> sm_hcode def
+R4812:4827 Sm.SmCodes <> sm_hdecode_hcode thm
+R4753:4756 Sm.SmDecider <> hfun abbrev
+R4759:4768 Sm.SmCodes <> sm_hdecode def
+R4771:4778 Sm.SmCodes <> sm_hcode def
+R4785:4792 Sm.SmCodes <> sm_hcode def
+R4812:4827 Sm.SmCodes <> sm_hdecode_hcode thm
+R4812:4827 Sm.SmCodes <> sm_hdecode_hcode thm
+R4854:4858 Coq.Init.Logic <> proj2 thm
+R4861:4871 Sm.SmInterp <> sm_uev_spec thm
+R4854:4858 Coq.Init.Logic <> proj2 thm
+R4861:4871 Sm.SmInterp <> sm_uev_spec thm
+binder 4966:4966 <> n:37
+R4969:4969 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5035:5068 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5136:5136 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4970:4976 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4978:4979 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4977:4977 <> b:38
+R5026:5028 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4980:4986 Sm.SmInterp <> sm_kout def
+R4988:4988 Sm.SmDecider <> n:37 var
+R4991:4998 Sm.SmCodes <> sm_kpdec def
+R5001:5008 Sm.SmCodes <> sm_hcode def
+R5015:5022 Sm.SmCodes <> sm_hcode def
+R5029:5032 Coq.Init.Datatypes <> Some constr
+R5034:5034 Sm.SmDecider <> b:38 var
+R5069:5070 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5071:5077 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5079:5080 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5078:5078 <> b:39
+R5127:5129 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5081:5087 Sm.SmInterp <> sm_kout def
+R5089:5089 Sm.SmDecider <> n:37 var
+R5092:5099 Sm.SmCodes <> sm_kpdec def
+R5102:5109 Sm.SmCodes <> sm_hcode def
+R5116:5123 Sm.SmCodes <> sm_hcode def
+R5130:5133 Coq.Init.Datatypes <> Some constr
+R5135:5135 Sm.SmDecider <> b:39 var
+binder 4966:4966 <> n:40
+R4969:4969 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5035:5068 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5136:5136 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4970:4976 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4978:4979 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4977:4977 <> b:41
+R5026:5028 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4980:4986 Sm.SmInterp <> sm_kout def
+R4988:4988 Sm.SmDecider <> n:40 var
+R4991:4998 Sm.SmCodes <> sm_kpdec def
+R5001:5008 Sm.SmCodes <> sm_hcode def
+R5015:5022 Sm.SmCodes <> sm_hcode def
+R5029:5032 Coq.Init.Datatypes <> Some constr
+R5034:5034 Sm.SmDecider <> b:41 var
+R5069:5070 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5071:5077 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5079:5080 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5078:5078 <> b:42
+R5127:5129 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5081:5087 Sm.SmInterp <> sm_kout def
+R5089:5089 Sm.SmDecider <> n:40 var
+R5092:5099 Sm.SmCodes <> sm_kpdec def
+R5102:5109 Sm.SmCodes <> sm_hcode def
+R5116:5123 Sm.SmCodes <> sm_hcode def
+R5130:5133 Coq.Init.Datatypes <> Some constr
+R5135:5135 Sm.SmDecider <> b:42 var
+R5165:5171 Sm.SmInterp <> sm_kout def
+R5176:5183 Sm.SmCodes <> sm_kpdec def
+R5186:5193 Sm.SmCodes <> sm_hcode def
+R5200:5207 Sm.SmCodes <> sm_hcode def
+R5165:5171 Sm.SmInterp <> sm_kout def
+R5176:5183 Sm.SmCodes <> sm_kpdec def
+R5186:5193 Sm.SmCodes <> sm_hcode def
+R5200:5207 Sm.SmCodes <> sm_hcode def
+R5320:5365 Coq.Logic.ConstructiveEpsilon <> constructive_indefinite_ground_description_nat def
+R5320:5365 Coq.Logic.ConstructiveEpsilon <> constructive_indefinite_ground_description_nat def
+R5405:5411 Sm.SmInterp <> sm_kout def
+R5416:5423 Sm.SmCodes <> sm_kpdec def
+R5426:5433 Sm.SmCodes <> sm_hcode def
+R5440:5447 Sm.SmCodes <> sm_hcode def
+R5405:5411 Sm.SmInterp <> sm_kout def
+R5416:5423 Sm.SmCodes <> sm_kpdec def
+R5426:5433 Sm.SmCodes <> sm_hcode def
+R5440:5447 Sm.SmCodes <> sm_hcode def
+R5498:5513 Sm.SmCodes <> sm_hdecode_hcode thm
+R5498:5513 Sm.SmCodes <> sm_hdecode_hcode thm
+R5498:5513 Sm.SmCodes <> sm_hdecode_hcode thm
+R5525:5535 Sm.SmInterp <> sm_uev_spec thm
+R5525:5535 Sm.SmInterp <> sm_uev_spec thm
+binder 5630:5630 <> p:43
+R5635:5641 Coq.Arith.PeanoNat Nat eqb def
+R5644:5652 Coq.Init.Specif <> proj1_sig def
+R5663:5663 Sm.SmDecider <> p:43 var
+binder 5630:5630 <> p:44
+R5635:5641 Coq.Arith.PeanoNat Nat eqb def
+R5644:5652 Coq.Init.Specif <> proj1_sig def
+R5663:5663 Sm.SmDecider <> p:44 var
+R5680:5699 Sm.SmKleene <> sm_no_inside_decider thm
+R5680:5699 Sm.SmKleene <> sm_no_inside_decider thm
+R5740:5754 Sm.SmDecider <> sm_flip_program thm
+R5756:5756 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5767:5768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5796:5796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5757:5764 Sm.SmCodes <> sm_hcode def
+R5769:5769 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5781:5782 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5795:5795 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5770:5777 Sm.SmCodes <> sm_hcode def
+R5783:5790 Sm.SmCodes <> sm_hcode def
+R5740:5754 Sm.SmDecider <> sm_flip_program thm
+R5756:5756 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5767:5768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5796:5796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5757:5764 Sm.SmCodes <> sm_hcode def
+R5769:5769 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5781:5782 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5795:5795 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5770:5777 Sm.SmCodes <> sm_hcode def
+R5783:5790 Sm.SmCodes <> sm_hcode def
+R5922:5937 Sm.SmCodes <> sm_hdecode_hcode thm
+R5922:5937 Sm.SmCodes <> sm_hdecode_hcode thm
+R5922:5937 Sm.SmCodes <> sm_hdecode_hcode thm
+R5961:5965 Coq.Init.Logic <> proj2 thm
+R5968:5978 Sm.SmInterp <> sm_uev_spec thm
+R5961:5965 Coq.Init.Logic <> proj2 thm
+R5968:5978 Sm.SmInterp <> sm_uev_spec thm
+R6042:6049 Sm.SmDecider <> sm_flipf def
+R6057:6059 Coq.Init.Datatypes <> fst def
+R6061:6063 Coq.Init.Datatypes <> snd def
+R6074:6079 Sm.SmInterp <> sm_uev def
+R6133:6141 Coq.Init.Specif <> proj1_sig def
+R6155:6161 Coq.Arith.PeanoNat Nat eqb def
+R6155:6161 Coq.Arith.PeanoNat Nat eqb def
+R6242:6250 Coq.Init.Specif <> proj1_sig def
+R6284:6293 Coq.Arith.PeanoNat Nat eqb_eq thm
+R6284:6293 Coq.Arith.PeanoNat Nat eqb_eq thm
+R6319:6323 Coq.Init.Logic <> proj2 thm
+R6319:6323 Coq.Init.Logic <> proj2 thm
+R6368:6372 Coq.Init.Logic <> proj2 thm
+R6368:6372 Coq.Init.Logic <> proj2 thm
+R6405:6415 Sm.SmHostBlocks <> sm_hfun_det thm
+R6430:6437 Sm.SmDecider <> heval def
+R6417:6428 Sm.SmDecider <> hprop_eqb def
+R6405:6415 Sm.SmHostBlocks <> sm_hfun_det thm
+R6430:6437 Sm.SmDecider <> heval def
+R6417:6428 Sm.SmDecider <> hprop_eqb def
+R6405:6415 Sm.SmHostBlocks <> sm_hfun_det thm
+R6430:6437 Sm.SmDecider <> heval def
+R6417:6428 Sm.SmDecider <> hprop_eqb def
+R6493:6510 Sm.SmDecider <> sm_no_host_decider thm

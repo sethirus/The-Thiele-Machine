@@ -1,0 +1,154 @@
+DIGEST 339a5d52ebc1d657ee3176d497e5830e
+FSm.SmTallyL
+R942:942 Undecidability.L.L <> <> lib
+R944:959 Undecidability.L.Tactics.LTactics <> <> lib
+R961:974 Undecidability.L.Datatypes.LNat <> <> lib
+R976:993 Undecidability.L.Datatypes.LOptions <> <> lib
+R997:1011 Undecidability.L.Datatypes.LProd <> <> lib
+R1013:1027 Undecidability.L.Datatypes.Lists <> <> lib
+R1029:1043 Undecidability.L.Datatypes.LBool <> <> lib
+R1083:1105 Undecidability.L.Datatypes.List.List_nat <> <> lib
+R1158:1160 Undecidability.MinskyMachines.MMA <> <> lib
+R1224:1253 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> <> lib
+R1264:1285 Minimal.UniversalCodes <> <> lib
+R1303:1317 Sm.SmHostBlocks <> <> lib
+R1319:1328 Sm.SmCodes <> <> lib
+R1330:1340 Sm.SmInterp <> <> lib
+R1342:1351 Sm.SmEvalL <> <> lib
+R1353:1361 Sm.SmFuel <> <> lib
+R1363:1372 Sm.SmTally <> <> lib
+inst 1385:1398 <> term_sm2_kcost
+R1402:1411 Undecidability.L.Tactics.Computable <> computable class
+R1413:1421 Sm.SmTally <> sm2_kcost def
+inst 1454:1468 <> term_sm2_kfires
+R1472:1481 Undecidability.L.Tactics.Computable <> computable class
+R1483:1492 Sm.SmTally <> sm2_kfires def
+inst 1525:1538 <> term_sm2_kstep
+R1542:1551 Undecidability.L.Tactics.Computable <> computable class
+R1553:1561 Sm.SmTally <> sm2_kstep def
+inst 1594:1606 <> term_sm2_krun
+R1610:1619 Undecidability.L.Tactics.Computable <> computable class
+R1621:1628 Sm.SmTally <> sm2_krun def
+inst 1661:1675 <> term_sm2_kstart
+R1679:1688 Undecidability.L.Tactics.Computable <> computable class
+R1690:1699 Sm.SmTally <> sm2_kstart def
+inst 1732:1742 <> term_sm2_fe
+R1746:1755 Undecidability.L.Tactics.Computable <> computable class
+R1757:1762 Sm.SmTally <> sm2_fe def
+inst 1795:1805 <> term_sm2_nf
+R1809:1818 Undecidability.L.Tactics.Computable <> computable class
+R1820:1825 Sm.SmTally <> sm2_nf def
+inst 1858:1870 <> term_sm2_rest
+R1874:1883 Undecidability.L.Tactics.Computable <> computable class
+R1885:1892 Sm.SmTally <> sm2_rest def
+inst 1925:1937 <> term_sm2_comp
+R1941:1950 Undecidability.L.Tactics.Computable <> computable class
+R1952:1959 Sm.SmTally <> sm2_comp def
+inst 1992:2003 <> term_sm2_tal
+R2007:2016 Undecidability.L.Tactics.Computable <> computable class
+R2018:2024 Sm.SmTally <> sm2_tal def
+inst 2057:2067 <> term_sm2_ev
+R2071:2080 Undecidability.L.Tactics.Computable <> computable class
+R2082:2087 Sm.SmTally <> sm2_ev def
+def 2197:2203 <> sm2_evw
+R2213:2215 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2210:2212 Coq.Init.Datatypes <> nat ind
+R2216:2218 Coq.Init.Datatypes <> nat ind
+binder 2206:2206 <> w:1
+R2233:2235 Coq.Init.Datatypes <> nat ind
+binder 2222:2225 <> fuel:2
+binder 2227:2227 <> x:3
+binder 2229:2229 <> c:4
+R2240:2245 Coq.Init.Datatypes <> option ind
+R2247:2249 Coq.Init.Datatypes <> nat ind
+R2256:2261 Sm.SmTally <> sm2_ev def
+R2264:2266 Coq.Init.Datatypes <> fst def
+R2268:2268 Sm.SmTallyL <> w:1 var
+R2272:2274 Coq.Init.Datatypes <> snd def
+R2276:2276 Sm.SmTallyL <> w:1 var
+R2279:2282 Sm.SmTallyL <> fuel:2 var
+R2284:2284 Sm.SmTallyL <> x:3 var
+R2286:2286 Sm.SmTallyL <> c:4 var
+inst 2299:2310 <> term_sm2_evw
+R2314:2323 Undecidability.L.Tactics.Computable <> computable class
+R2325:2331 Sm.SmTallyL <> sm2_evw def
+def 2367:2373 <> sm2_Rev
+R2384:2386 Coq.Init.Datatypes <> nat ind
+binder 2376:2378 <> sel:5
+binder 2380:2380 <> t:6
+R2394:2401 Coq.Vectors.Vector <> t ind
+R2403:2405 Coq.Init.Datatypes <> nat ind
+binder 2390:2390 <> v:7
+R2415:2417 Coq.Init.Datatypes <> nat ind
+binder 2411:2411 <> m:8
+R2432:2438 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2440:2441 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2439:2439 <> n:9
+R2496:2498 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2442:2447 Sm.SmTally <> sm2_ev def
+R2449:2451 Sm.SmTallyL <> sel:5 var
+R2453:2453 Sm.SmTallyL <> t:6 var
+R2455:2455 Sm.SmTallyL <> n:9 var
+R2458:2466 Coq.Vectors.Vector <> hd def
+R2468:2468 Sm.SmTallyL <> v:7 var
+R2472:2480 Coq.Vectors.Vector <> hd def
+R2483:2491 Coq.Vectors.Vector <> tl def
+R2493:2493 Sm.SmTallyL <> v:7 var
+R2499:2502 Coq.Init.Datatypes <> Some constr
+R2504:2504 Sm.SmTallyL <> m:8 var
+prf 2516:2525 <> sm2_ev_MMA
+binder 2536:2538 <> sel:10
+binder 2540:2540 <> t:11
+R2543:2556 Undecidability.MinskyMachines.MMA <> MMA_computable def
+R2559:2565 Sm.SmTallyL <> sm2_Rev def
+R2571:2571 Sm.SmTallyL <> t:11 var
+R2567:2569 Sm.SmTallyL <> sel:10 var
+R2604:2633 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R2604:2633 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R2646:2666 Sm.SmFuel <> sm_L_computable_fuel2 thm
+R2672:2674 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2669:2671 Coq.Init.Datatypes <> nat ind
+R2675:2677 Coq.Init.Datatypes <> nat ind
+R2682:2688 Sm.SmTallyL <> sm2_evw def
+R2692:2692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2696:2697 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2699:2699 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 2717:2717 <> n:12
+binder 2719:2720 <> n':13
+binder 2722:2722 <> x:14
+binder 2724:2724 <> c:15
+binder 2726:2726 <> m:16
+binder 2728:2728 <> H:17
+binder 2730:2732 <> Hle:18
+R2737:2747 Sm.SmTally <> sm2_ev_mono thm
+R2755:2755 Sm.SmTallyL <> n:12 var
+R2757:2758 Sm.SmTallyL <> n':13 var
+R2760:2760 Sm.SmTallyL <> x:14 var
+R2762:2762 Sm.SmTallyL <> c:15 var
+R2764:2764 Sm.SmTallyL <> m:16 var
+R2766:2768 Sm.SmTallyL <> Hle:18 var
+R2770:2770 Sm.SmTallyL <> H:17 var
+R2646:2666 Sm.SmFuel <> sm_L_computable_fuel2 thm
+R2672:2674 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2669:2671 Coq.Init.Datatypes <> nat ind
+R2675:2677 Coq.Init.Datatypes <> nat ind
+R2682:2688 Sm.SmTallyL <> sm2_evw def
+R2692:2692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2696:2697 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2699:2699 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 2717:2717 <> n:19
+binder 2719:2720 <> n':20
+binder 2722:2722 <> x:21
+binder 2724:2724 <> c:22
+binder 2726:2726 <> m:23
+binder 2728:2728 <> H:24
+binder 2730:2732 <> Hle:25
+R2737:2747 Sm.SmTally <> sm2_ev_mono thm
+R2755:2755 Sm.SmTallyL <> n:19 var
+R2757:2758 Sm.SmTallyL <> n':20 var
+R2760:2760 Sm.SmTallyL <> x:21 var
+R2762:2762 Sm.SmTallyL <> c:22 var
+R2764:2764 Sm.SmTallyL <> m:23 var
+R2766:2768 Sm.SmTallyL <> Hle:25 var
+R2770:2770 Sm.SmTallyL <> H:24 var
+R2799:2808 Sm.SmTallyL <> sm2_ev_MMA thm

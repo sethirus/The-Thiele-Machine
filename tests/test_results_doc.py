@@ -1,11 +1,10 @@
 """docs/RESULTS.md states the settled results, and its citations are checked.
 
 Every identifier the document cites in a code span must be declared in
-coq/. Every cited theorem must appear in the assumption receipt, closed
-under the global context unless the document's "Standard-library axioms"
-list names it; a listed theorem may use only the standard-library axioms
-named there. The two result tables are checked against the Coq statements
-they summarize.
+coq/ or minimal/. Every cited theorem must appear in the assumption receipt,
+closed under the global context unless the document's "Standard-library
+axioms" list names it; a listed theorem may use only the standard-library
+axioms named there.
 """
 
 from __future__ import annotations
@@ -21,11 +20,10 @@ from check_assumption_receipt import theorem_results  # noqa: E402
 
 DOC = ROOT / "docs" / "RESULTS.md"
 COQ = ROOT / "coq"
+MINIMAL = ROOT / "minimal"
+SOURCE_ROOTS = (COQ, MINIMAL)
 PROBE = COQ / "AssumptionsProbeAll.v"
 RECEIPT_TEXT = ROOT / "artifacts" / "print_assumptions_all_proofs.txt"
-GENERALIZATION = COQ / "kernel" / "foundation" / "EventGeneralization.v"
-GENERALIZATION_TARGETS = COQ / "kernel" / "foundation" / "EventGeneralizationTargets.v"
-GENERIC_AUDIT = COQ / "kernel" / "nfi" / "EventGenericAudit.v"
 
 THEOREM_KINDS = {"Theorem", "Lemma", "Corollary", "Proposition", "Fact", "Remark"}
 DECLARATION = re.compile(
@@ -41,12 +39,6 @@ STDLIB_AXIOMS = {
     "Classical_Prop.classic",
     "FunctionalExtensionality.functional_extensionality_dep",
 }
-GENERIC_ROW = re.compile(
-    r"^\| `(\w+)` \| `(\w+)` \| (discharged|Landauer premise kept) \|$", re.MULTILINE
-)
-SPECIFIC_ROW = re.compile(
-    r"^\| `(\w+)` \| `(\w+)` \| (proved|refuted) \| `(\w+)` \|$", re.MULTILINE
-)
 
 
 def doc_text() -> str:
@@ -56,7 +48,7 @@ def doc_text() -> str:
 @lru_cache(maxsize=1)
 def declarations() -> dict[str, set[str]]:
     kinds: dict[str, set[str]] = {}
-    for path in COQ.rglob("*.v"):
+    for path in (p for root in SOURCE_ROOTS for p in root.rglob("*.v")):
         if path == PROBE:
             continue
         for kind, name in DECLARATION.findall(path.read_text(encoding="utf-8", errors="ignore")):
@@ -87,16 +79,6 @@ def stdlib_list(text: str) -> set[str]:
     return set(re.findall(r"^- `(\w+)`$", section, flags=re.MULTILINE))
 
 
-def theorem_statement(source: str, name: str) -> str:
-    match = re.search(
-        rf"^Theorem\s+{re.escape(name)}\s*:\s*(.*?)\.\s*(?:Proof\.|$)",
-        source,
-        flags=re.MULTILINE | re.DOTALL,
-    )
-    assert match is not None, f"missing theorem: {name}"
-    return " ".join(match.group(1).split())
-
-
 def test_every_cited_identifier_is_declared_in_coq():
     known = declarations()
     missing = sorted(name for name in cited_identifiers(doc_text()) if name not in known)
@@ -105,7 +87,7 @@ def test_every_cited_identifier_is_declared_in_coq():
 
 def test_cited_coq_files_exist():
     files = {span for span in re.findall(r"`([\w.]+\.v)`", doc_text())}
-    present = {path.name for path in COQ.rglob("*.v")}
+    present = {path.name for root in SOURCE_ROOTS for path in root.rglob("*.v")}
     assert files <= present, sorted(files - present)
 
 
@@ -127,33 +109,6 @@ def test_cited_theorems_match_the_assumption_receipt():
     assert listed == not_closed, (
         sorted(listed - not_closed), sorted(not_closed - listed)
     )
-
-
-def test_event_generic_table_names_closed_specializations():
-    rows = GENERIC_ROW.findall(doc_text())
-    assert len(rows) == 49
-    assert sum(status == "Landauer premise kept" for _, _, status in rows) == 4
-    audit = GENERIC_AUDIT.read_text(encoding="utf-8")
-    witnesses = [witness for _, witness, _ in rows]
-    assert len(set(witnesses)) == 49
-    for source, witness, _ in rows:
-        assert source in declarations(), source
-        assert re.search(rf"^(?:Theorem|Lemma|Definition)\s+{witness}\b", audit, re.MULTILINE), witness
-
-
-def test_certification_table_matches_event_generic_wrappers():
-    rows = SPECIFIC_ROW.findall(doc_text())
-    assert len(rows) == 55
-    assert sum(status == "proved" for _, _, status, _ in rows) == 19
-    assert sum(status == "refuted" for _, _, status, _ in rows) == 36
-    wrappers = GENERALIZATION.read_text(encoding="utf-8")
-    targets = GENERALIZATION_TARGETS.read_text(encoding="utf-8")
-    assert len({wrapper for *_, wrapper in rows}) == 55
-    for source, target, status, wrapper in rows:
-        assert source in declarations(), source
-        assert re.search(rf"^Definition\s+{target}\s*:\s*Prop", targets, re.MULTILINE), target
-        expected = target if status == "proved" else f"~ {target}"
-        assert theorem_statement(wrappers, wrapper) == expected, wrapper
 
 
 def test_document_is_ground_truth_not_a_log():
