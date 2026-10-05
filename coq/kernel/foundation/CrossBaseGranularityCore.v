@@ -1,7 +1,7 @@
 (** Cross-base equivalence that permits instruction stuttering. *)
 
 From Coq Require Import List Arith.PeanoNat.
-From Kernel Require Import StructuralCoreAnyBase Kernel KernelTM VMState VMStep VMUnboundedStep.
+From Kernel Require Import StructuralCoreAnyBase Kernel KernelTM.
 
 Definition base_run (B : BaseMachine) (n : nat) (s : b_state B) : b_state B :=
   Nat.iter n (b_next B) s.
@@ -40,7 +40,7 @@ Definition weak_equiv_preserves_record_latch : Prop :=
     weak_base_equiv B1 B2 O obs1 obs2 ->
     (record_axis_is_latch_on B1 <-> record_axis_is_latch_on B2).
 
-(** Adapters for executable semantics already present in the repository. *)
+(** The Turing-machine kernel as a base. *)
 Definition tm_base (p : program) : BaseMachine := {|
   b_state := state;
   b_next := step_tm p;
@@ -48,15 +48,5 @@ Definition tm_base (p : program) : BaseMachine := {|
   b_halted := fun s => fetch p s = T_Halt
 |}.
 
-Definition vm_base (p : list vm_instruction) : BaseMachine := {|
-  b_state := VMState;
-  b_next := run_vm_u 1 p;
-  b_init := fun _ => True;
-  b_halted := fun s => nth_error p s.(vm_pc) = None
-|}.
-
 Definition record_axis_is_latch_on_tm : Prop :=
   forall p, record_axis_is_latch_on (tm_base p).
-
-Definition record_axis_is_latch_on_vm : Prop :=
-  forall p, record_axis_is_latch_on (vm_base p).

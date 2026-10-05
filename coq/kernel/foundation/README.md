@@ -1,127 +1,58 @@
 # kernel/foundation
 
-The VM model itself, plus the Turing/classical fragment that the strictness
-results compare against.
+Substrates and record-carrying machines, the record axis over any base, and
+the links that make the small machine and the universal machine U instances of
+these records.
 
-This is the bottom of the proof tree. Every other subdirectory ultimately
-imports something here.
-
-## Files
+## Substrates, recursion and undecidability
 
 | File | Purpose |
 |---|---|
-| `VMState.v` | `VMState` record (mem, regs, pc, mu, certified, graph, csrs, witness, ...) |
-| `VMStep.v` | `vm_apply : VMState → vm_instruction → VMState` plus `instruction_cost` table |
-| `VMEncoding.v` | Canonical binary encoding `VMState ↔ list bool` (used by SimulationProof) |
-| `MuCostModel.v` | Partition ops are mu-free; mu-zero traces reveal nothing (`mu_zero_no_reveal`) |
-| `MuLedgerConservation.v` | `vm_apply_mu`: `vm_apply` preserves the cost ledger across the full instruction set |
-| `SimulationProof.v` | `exec_trace_from`, `reachable`, fold-equivalence with `run_instrs` |
-| `Definitions.v` | Shared utility predicates (region equiv, finite-region-equiv-class) |
-| `Locality.v` | Module-region observation locality lemmas |
-| `Persistence.v` | Long-term VM-state invariants under mixed traces |
-| `StateSpaceCounting.v` | Cardinality bounds on observable equivalence classes |
-| `Kernel.v` | Toy machine model used as the foundation-of-foundation comparator |
-| `KernelTM.v` | Standard Turing-machine semantics over `Kernel.program` |
-| `KernelThiele.v` | Costed toy step function (gives `H_ClaimTapeIsZero` an effect) |
-| `Subsumption.v` | Every Turing program is a Thiele program; reverse fails |
-| `ProperSubsumption.v` | Strict ISA inclusion witness |
-| `PartitionSeparation.v` | Partition ops are semantic in Thiele, syntactic in TM |
-| `DagRestriction.v` | Sub-Turing DAG variant: NoFI survives without backward jumps |
-| `ClassicalBound.v` | Classical CHSH bound on `μ=0` traces |
-| `ClassicalConservativity.v` | Classical-opcode runs, including runs that jump, leave the graph, the certificate address and certification unchanged |
-| `TuringClassicalEmbedding.v` | The classical-program notion and its embedding into the Thiele ISA |
-| `TuringStrictness.v` | Thiele strictly extends classical semantics: from every state a classical run reaches from `init_state`, one PNEW changes the module counter, which no classical run does |
-| `TuringCompletenessISA.v` | Simulates 2-counter Minsky machines through `vm_apply` (5 of the 51 opcodes: `load_imm`, `add`, `sub`, `jnez`, `jump`), bounded by the 64-bit word representation |
-| `Substrate.v` | Abstract computational substrate as a Coq typeclass; the 51-opcode VM is one realization |
-| `VMSubstrateInstance.v` | `VMState` as a `Substrate` instance, so the substrate-level `structural_shortcut_undecidable` applies to the concrete VM |
-| `NatSubstrateInstance.v` | A concrete `Substrate` over `nat`-coded programs, with the recursion theorem discharged by construction |
-| `VMInstructionEncoding.v` | Godel encoding from `list vm_instruction` to `nat` with a proven left inverse |
-| `VMBoundedDecidability.v` | Decidability of the bounded VM shortcut predicate, which compares full outcomes after 1000 steps; the recursion premise for every map on programs is false (`vm_full_recursion_premise_refuted`) |
-| `VMWitnessCounterMonotonicity.v` | Witness-counter buckets are monotone under `vm_step` |
-| `VMWord64BoundednessObstruction.v` | The bounded VM's register and memory file is a finite-state system; no finite program injects arbitrarily many distinct inputs into it |
-| `VMEncodedInputAccess.v` | No fixed VM program started from `vm_encode_concrete p` can report `p`'s final certification bit for every `p` through an output independent of the retained `vm_logic_acc`; every executable opcode commutes with replacing `vm_logic_acc` |
-| `VMCounterBranch.v` | Internal counter-dependent control under the unchanged PC-indexed runner, with an executable trap trampoline |
-| `VMTwoCounterAccess.v` | A candidate two-counter access layout under the unchanged ISA; its rejection theorem applies to this layout only |
-| `VMAlternativeCounterAccess.v` | An alternative diagonal witness layout under the existing ISA; it does not establish independent zero tests or universal computation |
-| `VMUnboundedCounterAccess.v` | One unbounded counter primitive in the existing abstract ISA (bucket difference `u - v`); not a universal interpreter |
-| `VMUnboundedStep.v` | `vm_apply_u`, the unbounded sibling of `vm_apply` (unmasked arithmetic) |
-| `VMUnboundedLedger.v` | Ledger and certification facts for `vm_apply_u`: each step adds the instruction cost to `vm_mu`, only `CERTIFY` switches `vm_certified` on |
-| `VMUnboundedExec.v` | Unbounded relational execution for the VM, separate from the bounded `vm_run` |
-| `VMUnboundedGuestEncoding.v` | Bridge between `get_slot`/`set_slot` on one packed `nat` and a guest's register file (`list nat`) |
-| `VMUnboundedInterpreterSlots.v` | Bit-slicing specification layer (`get_slot`, `set_slot`) for the self-interpreter |
-| `VMUnboundedInterpreterCode.v` | Host instruction sequences that compute `get_slot` and `set_slot` under `vm_apply_u`, with correctness proofs |
-| `VMUnboundedInterpreterCompose.v` | Subroutine-embedding infrastructure: straight-line helper code proved once at pc 0 and reused at any offset |
-| `VMUnboundedOpcodeAdd.v` | The ADD opcode block of the self-interpreter, proved against the guest's list-based register file |
-| `VMUnboundedMinskyInterpreter.v` | A fixed, data-driven interpreter for a two-counter Minsky guest packed into one unbounded natural |
-| `VMUnboundedMinskyEncoding.v` | Executable variable-width encoding for the fixed Minsky interpreter |
-| `VMUnboundedMinskyInterpreterProof.v` | One guest step is simulated by a finite, strictly positive execution of the single fixed host program |
-| `VMUnboundedMinskyCorrectness.v` | Multi-step and result correctness for the fixed unbounded interpreter |
-| `VMUnboundedCM2Encoding.v` | Program encoding for the CM2 variant (jump on successful decrement, zero falls through; Dudenhefner, FSCD 2022, Definition 2) |
-| `VMUnboundedCM2Interpreter.v` | The 60-instruction fixed host interpreter program for CM2 guests, with its boundary relation |
-| `VMUnboundedCM2InterpreterProof.v` | Decoding and per-step lemmas for the CM2 interpreter (`cm2_decode_correct`) |
-| `VMUnboundedCM2Correctness.v` | Run-level soundness and completeness of the CM2 interpreter boundary (`cm2_uniform_interpreter_run_simulation`) |
-| `VMUnboundedCM2Bridge.v` | Exact bridge to the pinned upstream two-counter machine semantics (MM2) |
-| `VMUnboundedCM2Applicability.v` | A nonterminating and a terminating CM2 instance that separate the CM2 control convention from the zero-branch one |
-| `VMUnboundedCM2IndependentStorage.v` | Independently usable storage and control for the CM2 simulation under unchanged ISA semantics |
-| `VMUnboundedCM2Specialization.v` | Effective specialization of MM2's first input, with exact two-direction terminal-result and host contracts |
-| `VMUnboundedCM2Limitative.v` | Reduction theorem for actual unbounded host halting; the upstream synthetic `undecidable` notion is kept, not replaced by `~ decidable` |
-| `VMUnboundedCM2OutputPredicate.v` | An output-value fact about actual host execution: reduction toward an explicitly named nontrivial extensional predicate (`zero_out_program`) |
-| `MM2ComplementUndec.v` | The complement of pinned MM2 halting is undecidable in the upstream synthetic sense, by composing the library's reductions from `PCPb_compl_undec` |
-| `VMSelfGuest.v` | The guest language of the uniform self-interpreter (an explicit fragment of the unbounded VM over guest registers 0..3) and its data encoding |
-| `VMSelfProgram.v` | The fixed host program `U` of the uniform self-interpreter and its phase lemmas under `run_vm_u` |
-| `VMSelfCorrect.v` | One guest step of the self-interpreter at an interpreter boundary |
-| `VMSelfRun.v` | Whole-run correctness of the self-interpreter; `g_run` equals the VM's own `run_vm_u` on `g_program p` |
-| `VMSelfUniversal.v` | The guest fragment is universal: `cm2_compile` translates every CM2 program into it |
-| `VMSelfLimitative.v` | Applicability of the self-interpreter: pinned MM2 halting reduces to halting of the fixed host program `U` |
-| `VMSelfRice.v` | Model of well-formed guest programs (`g_run`, `g_beh`, `g_equiv`) and Rice's theorem by reduction |
-| `VMSelfRiceUndec.v` | Rice's theorem for the self-interpreted unbounded model, its dual orientation, deciders realized by guest programs, and two named unbounded predicates |
-| `VMDynamicEvalTarget.v` | Decoder, fuel-bounded evaluator, and specialization constructor for the self-interpreted guest fragment (definitions) |
-| `VMDynamicEval.v` | Verified numeric dispatch and semantic s-m-n for the self-interpreted guest fragment |
-| `VMRecursionTarget.v` | Exact recursion-theorem and Rice targets for the self-interpreted guest; `vm_guest_recursion_theorem` is a `Prop` definition here |
-| `VMRecursionAudit.v` | Execution and Rice outcomes adjacent to the recursion-theorem target |
-| `VMMMAReduction.v` | Repeated output-preserving reduction of alternate Minsky machines to three counters |
-| `MMAOutputEpilogue.v` | Redirects every exit of an alternate Minsky program through an epilogue that moves counter zero into a fresh final counter |
-| `VMMMA3GuestCompiler.v` | Direct compiler from three-counter alternate Minsky machines to the four-register guest |
-| `VMGuestEvalNat.v` | The guest evaluator over natural numbers only (halving, parity, addition, multiplication), proved equal to the existing definitions |
-| `VMGuestEvalTuple.v` | The guest evaluator restated over nested pairs so that extraction to L applies, proved equal to the record form |
-| `VMGuestEvalL.v` | The guest evaluator extracted to the lambda calculus L with correctness proofs, and its Minsky machine via `L_computable_to_MMA_computable` |
-| `VMGuestMMAInit.v` | Cost-free guest prologue that turns the guest input into the start registers of a one-input `MMA_computable` program |
-| `VMGuestExactEpilogue.v` | Exact output epilogue for the four-register guest: decodes one number into all four guest registers and charges the mu ledger by an exact data-dependent amount |
-| `VMGuestMMAPipeline.v` | Composite guest program that evaluates a one-input alternate Minsky program with exact semantics |
-| `VMGuestRecursion.v` | The guest's internal recursion theorem, closed: `vm_guest_recursion_theorem_closed` |
-| `ReachableTraceRepresentative.v` | A trace for every reachable state, found by search over an enumeration of all traces; the generalized reachable-simulation iff holds without its representative premise (`generalized_reachable_simulation_holds`) |
-| `EarnedCoreLinks.v` | Links `minimal/EarnedCore.v` to the kernel's records: its halting problem is undecidable, it is a `CertificationSystem`, an adequate record-carrying machine, an honest extension of its base, and a latch |
-| `LRecursion.v` | Kleene's second recursion theorem and Rice's theorem for the lambda calculus L |
-| `StructuralCore.v` | Record-carrying machines, adequacy, and core equivalence (weak form) |
-| `StructuralCoreCover.v` | Computational covers and record observations: the strong form of the structural definitions, for machines that run the VM underneath |
-| `StructuralUniqueness.v` | The uniqueness conjectures of `StructuralCore` and `StructuralCoreCover` are false: a machine that bills CPU time is adequate and not the same |
-| `StructuralCoreSchedule.v` | Uniqueness up to the price schedule (definitions) |
-| `StructuralScheduleUniqueness.v` | Uniqueness up to the price schedule, in both strengths (`cert_record_schedule_uniqueness_holds`) |
-| `StructuralCoreAnyBase.v` | The record axis over any base: honest extension and latch factorization (definitions) |
-| `StructuralRecordAxis.v` | The record axis over any base is a latch (`record_axis_is_latch_holds`) |
-| `RecordAxisDiscrimination.v` | Which machines carry the record axis: every base does; a reversible base with unbounded memory does; a reversible machine with finite memory does not |
-| `RAMRecordAxis.v` | Tied and untied list-memory RAMs on the record axis; the tied RAM is an honest extension whose Boolean record factors as a latch, the untied RAM is not |
-| `CrossBaseGranularityCore.v` | Cross-base equivalence that permits instruction stuttering (definitions) |
-| `CrossBaseGranularityTransCore.v` | Transitivity of the weak cross-base equivalence |
-| `CrossBaseGranularity.v` | Generic and available-adapter outcomes for cross-base granularity |
-| `CrossBaseGranularityL.v` | An executable L base for the cross-base comparison: L's weak call-by-value step as a total function, stuttering on terms that do not step |
-| `CrossBaseGranularityRAM.v` | A unit-cost random-access machine base (Cook and Reckhow) for the cross-base comparison |
-| `EventSwapCore.v` | The VM's main results restated for an arbitrary latchable reading in place of certification (definitions) |
-| `EventSwapTheorem.v` | `swap_preserves_main_results` is refuted (`swap_preserves_main_results_refuted`); the five results hold for certification (`certification_main_results`) |
-| `EventGeneralizationTargets.v` | Propositions for replacing the certification reading by an arbitrary latchable reading (definitions only) |
-| `EventGeneralization.v` | Proofs and counterexamples for the propositions of `EventGeneralizationTargets.v` |
-| `GrowingRecordCore.v` | Targets for monotone multi-valued records (threshold latches plus a price schedule); definitions and propositions only |
-| `GrowingRecord.v` | Proved outcomes for the `GrowingRecordCore.v` targets, including `one_latch_refuted` |
-| `PricedRevocationCore.v` | Targets for classifying records that are revocable at a price |
-| `PricedRevocation.v` | Proved outcomes for the priced-revocation targets (`actual_revocation_excludes_permanence_holds`, `revocation_price_does_not_price_writes_refuted`) |
-| `ProbabilisticRecordCore.v` | Targets for probabilistic record machines with finite weights |
-| `ProbabilisticRecord.v` | Proved outcomes for the finite-weight probabilistic targets (`deterministic_latch_handles_branching_refuted`, `schedule_determines_probabilities_refuted`) |
+| `Substrate.v` | The abstract computational substrate as a Coq typeclass: programs, runs, behavioral equivalence, representability, and a recursion theorem as a premise |
+| `NatSubstrateInstance.v` | A substrate over `nat`-coded programs whose recursion theorem holds by construction (`nat_structural_shortcut_undecidable`, `nat_self_undecidable`) |
+| `LRecursion.v` | The weak call-by-value lambda calculus L built from its reduction rules: Kleene's second recursion theorem (`second_recursion`), Rice's theorem (`L_rice`) and undecidable halting (`L_halting_undecidable`) |
+| `MM2ComplementUndec.v` | The complement of two-counter halting is undecidable, composed from the vendored library's reductions (`MM2_HALTING_compl_undec`) |
+| `Kernel.v`, `KernelTM.v` | A toy Turing-machine-shaped machine with a cost field, and its bounded executor (`tm_is_turing_complete`) |
+| `ProperSubsumption.v` | Every Turing program of the toy machine runs as a Thiele program, and the toy Thiele step strictly extends it (`thiele_simulates_turing`, `thiele_strictly_extends_turing`) |
 
-## Load-bearing exports cited from the README
+## Record-carrying machines and the record axis
 
-- `vm_mu_not_classically_determined`, `mu_ledger_necessity` (in [coq/NecessityOfMuLedger.v](../../NecessityOfMuLedger.v))
-- `shadow_strictly_lossy` (in [witness/ShadowProjection.v](../witness/ShadowProjection.v))
+| File | Purpose |
+|---|---|
+| `StructuralCore.v` | Record-carrying machines, adequacy, and core equivalence, stated over an arbitrary deterministic machine |
+| `StructuralCoreCover.v` | The strong form: computational covers and record observations |
+| `StructuralCoreAnyBase.v` | The record axis over any base: honest extensions of a deterministic, record-free machine |
+| `StructuralRecordAxis.v` | The record axis over any base is a latch (`record_axis_is_latch_holds`, `record_pair_is_two_latches_holds`), and both premises do work (`toggle_not_latch`, `clock_record_not_driven`) |
+| `RecordAxisDiscrimination.v` | Every base carries the axis (`latch_core_honest`); a reversible base with unbounded memory carries it reversibly (`history_latch_honest`); with finite memory a permanent write is not injective (`finite_reversible_cannot_write`) |
+| `GrowingRecordCore.v`, `GrowingRecord.v` | Monotone multi-valued records decompose into threshold latches, and one latch does not suffice (`growing_record_decomposes_holds`, `one_latch_refuted`) |
+| `ProbabilisticRecordCore.v`, `ProbabilisticRecord.v` | Finite-weight branching records: a deterministic latch does not handle branching, and the schedule does not determine the weights |
+| `CrossBaseGranularityCore.v`, `CrossBaseGranularityTransCore.v`, `CrossBaseGranularity.v` | Weak base equivalence permitting stuttering, its equivalence laws, and its outcomes |
+| `CrossBaseGranularityL.v`, `CrossBaseGranularityRAM.v` | L and the Cook and Reckhow RAM as bases; the record axis is a latch over each |
+
+## The small machine and U, as instances
+
+| File | Purpose |
+|---|---|
+| `EarnedCoreLinks.v` | The small machine of `minimal/EarnedCore.v` as a certification system and a record-carrying machine: undecidable halting (`earned_core_halting_undecidable`), the floor, adequacy, honesty and the latch |
+| `EarnedGenericLinks.v` | The generic and sorted-list machines and every Thiele-complete machine as certification systems (`thiele_complete_floor`, `complete_cs_window_blind`) |
+| `UniversalThieleLinks.v` | The host of `minimal/UniversalThiele.v` and its guests as certification systems (`host_nfi`) |
+| `UniversalBridge.v` | A run of an alternate Minsky machine program is a run of the host machine of `minimal/EarnedMulti.v` |
+| `UniversalBlocks.v` | The building blocks of the universal interpreter, as host programs with host-level specifications |
+| `UniversalLayout.v` | The fixed host program U, as one concrete list of host instructions |
+| `UniversalPhases.v` | What U does for one guest instruction |
+| `UniversalSim.v` | U simulates every guest program of the small machine, one guest step at a time |
+| `UniversalRun.v` | Whole runs of U: simulation, halting, output, the earned flag, the exact ledger, and the Thiele completeness of the machine U runs on (`universal_thiele_complete`) |
+| `UniversalInterpreterLinks.v` | The universal interpreter host as a certification system; its halting problem is undecidable (`interp_halting_undecidable`) |
+| `CompilerCodes.v`, `CompilerChecker.v`, `CompilerInstrument.v`, `CompilerLifts.v`, `CompilerIcomp.v`, `CompilerRaBridge.v` | The compiler from mu-recursive algorithms to guest programs of the priced small machine: numbering of states and routines, the universal checker `cg_ueval`, instrumentation, lifts, and the bridge from recursive algorithms |
+| `Presentation.v`, `CompilerGuest.v`, `CompilerGuestRun.v` | A presentation of a machine by four mu-recursive algorithms (`cg_presentation`), the guest program `cg_guest` compiled from it, and the runs of that guest |
+| `UniversalPCodes.v`, `UniversalPBridge.v`, `UniversalPBlocks.v`, `UniversalPLayout.v`, `UniversalPPhases.v`, `UniversalPSim.v` | The priced counterpart of the universal interpreter: the fixed host program U_P on the machine of `minimal/EarnedMultiPriced.v`, built and verified block by block |
+| `UniversalPRun.v` | Whole runs of U_P: simulation, halting, output, the earned flag, the exact ledger, and the Thiele completeness of the priced host (`pu_universal_thiele_complete`) |
+| `PresentedUniversal.v` | One fixed machine U_P runs every computably presented Thiele machine, with the exact ledger up to a surcharge of at most 2 (`presented_universal`) |
+| `PresentedDemo.v` | A computably presented demonstration machine run on U_P (`pu_demo_exact`) |
+| `PricedHostLinks.v` | The priced interpreter host as a certification system; its halting problem is undecidable (`priced_interp_halting_undecidable`) |
+| `SmallChshLinks.v` | The small machine with the CHSH property as a certification system: a certified run pays at least 3 and its committed tally obeys the Tsirelson bound (`small_chsh_certified_floor`) |
 
 ## Imports
 
-Coq standard library, other `Kernel` modules (within `foundation/` and from `nfi/`, `mu_calculus/`, `witness/`, `quantum/`, `curvature/`, `frontier/`, `reductions/`), and, for the files built on the Coq Library of Undecidability Proofs (for example `MM2ComplementUndec.v`, `VMGuestEvalL.v`), that library.
+The vendored undecidability library (`Undecidability`) and `minimal/`
+(`Minimal`); `nfi/` for the certification-system record.

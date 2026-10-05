@@ -6,176 +6,118 @@
     "FunctionalExtensionality.functional_extensionality_dep",
     "ClassicalDedekindReals.sig_not_dec",
     "ClassicalDedekindReals.sig_forall_dec",
-    
-    "## PHYSICAL CONSTANTS (NORMALIZED UNITS) ##",
-    "k_B",
-    "k_B_value",
-    "T",
-    "T_value",
-    "hbar",
-    "hbar_pos",
-    "c_light",
-    "c_light_pos",
-    "k_B_pos",
-    "entropy_per_bit",
-    "entropy_per_bit_nonneg",
-    "SpacetimeState",
-    "LocalHorizon",
-    
-    "## MATHEMATICAL CONSTANTS ##",
-    "sqrt2",
-    "sqrt2_squared",
-    "sqrt2_positive",
-    "sqrt2_bounds",
-    "grothendieck_constant",
-    "grothendieck_value",
-    "grothendieck_inequality",
-    
-    "## STANDARD LINEAR ALGEBRA ##",
-    "PSD_diagonal_nonneg",
-    "PSD_cauchy_schwarz",
-    "PSD_off_diagonal_bound",
-    "schur_2x2_criterion",
-    "Gram_PSD",
-    "correlation_matrix_bounds",
-    
-    "## FINE'S THEOREM (STANDARD RESULT) ##",
-    "Fine_theorem",
-    "local_box_satisfies_minors",
-    
-    "## VM INTERFACE TYPES ##",
-    "VMState",
-    "vm_instruction",
-    "Box",
-    "box_apply",
-    "box_from_trace",
-    "mu_cost_of_instr",
-    "BoxCHSH_S",
-    "BoxCHSH_E",
-    "non_negative",
-    "normalized",
-    "is_ljoin",
-    "is_reveal",
-    "is_lassert",
-    
-    "## QUANTUM BOUNDS (STANDARD PHYSICS) ##",
-    "quantum_CHSH_bound",
-    "classical_CHSH_bound",
-    "npa_psd_implies_normalized",
-    "quantum_admissible_implies_no_supra_cert",
-    "optimal_is_npa_psd",
-    "optimal_achieves_tsirelson",
-    "nonfactorizable_is_npa_psd",
-    "normalized_E_bound",
-    
-    "## MU-COST INTERFACE ##",
-    "mu_zero_preserves_factorizable",
-    "mu_positive_enables_nonfactorizable",
-    "mu_positive_enables_tsirelson",
-    "mu_zero_classical_bound",
-    "mu_positive_exceeds_classical",
-    "mu_zero_classical_characterization",
-    "mu_positive_quantum_characterization",
-    "partition_claim_information_bound",
-    "state_space_reduction_bound"
+    "Classical_Prop.classic"
   ],
   "targets": [
     {
-      "require": "Kernel.NoFreeInsight",
-      "symbol": "NoFreeInsight.strengthening_requires_structure_addition"
+      "require": "Kernel.UniversalCertificationCost",
+      "symbol": "universal_nfi_any_substrate"
     },
     {
-      "require": "Kernel.RevelationRequirement",
-      "symbol": "RevelationProof.nonlocal_correlation_requires_revelation"
+      "require": "Kernel.UniversalCertificationCost",
+      "symbol": "host_represents_simulating_cert_system"
     },
     {
-      "require": "Kernel.KernelPhysics",
-      "symbol": "kernel_conservation_mu_gauge"
+      "require": "Kernel.PermanentCertification",
+      "symbol": "a2_from_merging_price_and_permanence"
     },
     {
-      "require": "Kernel.HonestNoFI_TheoremsWithoutAssumptions",
-      "symbol": "honest_information_reduction_requires_structure_addition"
+      "require": "Kernel.PermanentCertification",
+      "symbol": "permanent_certification_trace_floor"
     },
     {
-      "require": "Kernel.MuShannonQuantitative",
-      "symbol": "separation_requires_cert_count"
+      "require": "Kernel.StructuralRecordAxis",
+      "symbol": "record_axis_is_latch_holds"
     },
     {
-      "require": "Kernel.MuShannonQuantitative",
-      "symbol": "conditional_shannon_bound"
+      "require": "Kernel.QuantitativeNoFI",
+      "symbol": "universal_nfi_quantitative"
     },
     {
-      "require": "Kernel.QuantumPartitionPSD",
-      "symbol": "npa_psd_iff_column_contractive"
+      "require": "Kernel.EarnedCoreLinks",
+      "symbol": "earned_core_floor"
     },
     {
-      "require": "Kernel.QuantumPartitionPSD",
-      "symbol": "trace_column_contractive_iff_trace_npa_model"
+      "require": "Kernel.EarnedCoreLinks",
+      "symbol": "earned_core_halting_undecidable"
     },
     {
-      "require": "Kernel.MasterSummary",
-      "symbol": "master_summary_declares_no_hidden_project_assumptions"
+      "require": "Kernel.EarnedCoreLinks",
+      "symbol": "earned_core_is_latch"
     },
     {
-      "require": "Kernel.MasterSummary",
-      "symbol": "master_psd_iff_column_contractive"
+      "require": "Kernel.EarnedGenericLinks",
+      "symbol": "thiele_complete_floor"
     },
     {
-      "require": "Kernel.TsirelsonUpperBound",
-      "symbol": "mu_zero_chsh_bounded"
+      "require": "Kernel.EarnedGenericLinks",
+      "symbol": "complete_cs_window_blind"
     },
     {
-      "require": "Kernel.TsirelsonUpperBound",
-      "symbol": "mu_zero_implies_locc"
+      "require": "Kernel.UniversalInterpreterLinks",
+      "symbol": "interp_halting_undecidable"
+    },
+    {
+      "require": "Minimal.ThieleComplete",
+      "symbol": "earned_core_thiele_complete"
+    },
+    {
+      "require": "Minimal.ThieleComplete",
+      "symbol": "clock_not_thiele_complete"
+    },
+    {
+      "require": "Kernel.CHSHColumnCheck",
+      "symbol": "column_contractive_check_witness_npa_psd"
+    },
+    {
+      "require": "Kernel.CHSHColumnCheck",
+      "symbol": "npa_psd_implies_tsirelson_bound"
     },
     {
       "require": "Kernel.TsirelsonFromAlgebra",
       "symbol": "tsirelson_tight"
-    },
-    {
-      "require": "Kernel.MuCostModel",
-      "symbol": "mu_zero_no_reveal"
-    },
-    {
-      "require": "Kernel.CHSHExtraction",
-      "symbol": "chsh_algebraic_bound"
     }
   ],
   "symmetry_contracts": [
     {
-      "tag": "noether",
-      "file_regex": "KernelPhysics\\.v$",
+      "tag": "chsh_party_swap",
+      "file_regex": "TsirelsonGeneral\\.v$",
       "must_contain_regex": [
-        "kernel_conservation_mu_gauge",
-        "nat_action_composition"
+        "semantics_invariant_party_swap",
+        "tsirelson_from_column_bounds"
       ]
     }
   ],
   "paper_map": [
     {
-      "paper": "Theorem 3.5 No Free Insight",
-      "require": "Kernel.NoFreeInsight",
-      "symbol": "NoFreeInsight.strengthening_requires_structure_addition"
+      "paper": "No Free Insight: the universal floor",
+      "require": "Kernel.UniversalCertificationCost",
+      "symbol": "universal_nfi_any_substrate"
     },
     {
-      "paper": "Theorem 3.5 Honest No Free Insight",
-      "require": "Kernel.HonestNoFI_TheoremsWithoutAssumptions",
-      "symbol": "honest_information_reduction_requires_structure_addition"
+      "paper": "The toll derived from merge pricing and permanence",
+      "require": "Kernel.PermanentCertification",
+      "symbol": "a2_from_merging_price_and_permanence"
     },
     {
-      "paper": "Theorem 4.1 Tsirelson Bound from Accounting",
+      "paper": "The record axis is a latch",
+      "require": "Kernel.StructuralRecordAxis",
+      "symbol": "record_axis_is_latch_holds"
+    },
+    {
+      "paper": "The small machine is Thiele-complete",
+      "require": "Minimal.ThieleComplete",
+      "symbol": "earned_core_thiele_complete"
+    },
+    {
+      "paper": "PSD iff column contractive",
+      "require": "Kernel.CHSHColumnCheck",
+      "symbol": "npa_psd_iff_column_contractive"
+    },
+    {
+      "paper": "Tsirelson bound from algebra",
       "require": "Kernel.TsirelsonFromAlgebra",
       "symbol": "tsirelson_tight"
-    },
-    {
-      "paper": "Theorem 4.2 μ=0 implies LOCC",
-      "require": "Kernel.TsirelsonUpperBound",
-      "symbol": "mu_zero_implies_locc"
-    },
-    {
-      "paper": "Theorem 4.3 PSD iff Column Contractive",
-      "require": "Kernel.QuantumPartitionPSD",
-      "symbol": "npa_psd_iff_column_contractive"
     }
   ]
 }

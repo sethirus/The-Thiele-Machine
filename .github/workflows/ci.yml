@@ -27,29 +27,29 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
-  # Phase 0: build Coq + Kami once, publish the cache, expose its keys as
-  # job outputs. Both proof-check and extraction depend on this, so they
-  # share one build and run in parallel on top of it instead of each
-  # compiling Coq (~7m + ~7m sequential). proof-repro-gate is its
-  # own parallel branch because it requires an intentional clean rebuild
-  # and can't share the cache.
+  # Phase 0: build the Coq proof tree once (the abstract model, the small
+  # machine and the vendored undecidability modules it imports), publish the
+  # cache, expose its keys as job outputs. proof-check builds on it.
+  # proof-repro-gate is its own parallel branch because it requires an
+  # intentional clean rebuild and can't share the cache.
   build-coq:
-    name: Build Coq + Kami (shared cache primer)
+    name: Build Coq (shared cache primer)
     runs-on: ubuntu-latest
     outputs:
       coq-version: ${{ steps.toolchain.outputs.coq }}
       vendor-digest: ${{ steps.vendor-digest.outputs.digest }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Install Coq + OCaml
+      - name: Install Coq
         uses: ./.github/actions/apt-install
         with:
           packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
+        # The vendored L modules (L tactics, GenEncode, MuRec, the
+        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
+        # time. They stay in the build for the small-machine recursion theorem.
         uses: ./.github/actions/setup-metacoq
 
       - name: Capture toolchain version
@@ -62,28 +62,9 @@ jobs:
           echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
           echo "Coq: ${coq_version}"
 
-      - name: Cache vendor builds (bbv + kami)
-        id: cache-vendor
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
-
-      - name: Build vendored deps (bbv + kami)
-        if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: |
-          cd vendor/bbv && make -j4
-          cd ../..
-          bash scripts/fix_kami_coq18.sh
-          cd vendor/kami && make -j4
-
       - name: Compute vendor build digest
-        # Hash all vendor .vo files so the coq cache key tracks the actual
-        # vendor binary state — not just .v sources. Two vendor builds with
-        # identical sources can still produce .vo files with different
-        # module digests, which then make tracked coq/.vo files inconsistent.
+        # Hash the tracked vendored-library .vo files so the coq cache key
+        # tracks the actual vendor binary state, not just .v sources.
         id: vendor-digest
         run: |
           digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
@@ -95,14 +76,10 @@ jobs:
           echo "Vendor .vo digest: ${digest}"
 
       - name: Purge stale tracked Coq .vo files
-        # coq/**/*.vo are TRACKED in git (.gitignore: "coq/*.vo and coq/*.glob
-        # are tracked"). After git checkout they're on disk with timestamps
-        # that make `make` skip recompilation — but they reference whatever
-        # vendor/kami digests were current when the .vo was committed. If
-        # vendor was rebuilt, those digests no longer match and we get
-        # "inconsistent assumptions over library Kami.Semantics". Forcing a
-        # clean coq/ tree before the cache restore (or fresh build) is the
-        # only reliable fix without untracking the .vo files.
+        # coq/**/*.vo are tracked in git. After checkout they're on disk with
+        # timestamps that make `make` skip recompilation, and they may record
+        # library digests that no longer match. Start from a clean coq/ tree
+        # before the cache restore (or fresh build).
         run: make coq-clean
 
       - name: Cache Coq build
@@ -122,11 +99,13 @@ jobs:
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          # v4: the key for the proof tree without kami or bbv; caches under
+          # earlier keys describe a different tree and are not reused.
+          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
           # An earlier build of any source tree is a starting point; the
           # build step rebuilds what changed (scripts/coq_build_manifest.py).
           restore-keys: |
-            coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Build Coq proof tree
         if: steps.cache-coq.outputs.cache-hit != 'true'
@@ -160,24 +139,17 @@ jobs:
       OCAMLRUNPARAM: "l=64M"
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Install Coq + OCaml
+      - name: Install Coq
         uses: ./.github/actions/apt-install
         with:
           packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
+        # The vendored L modules (L tactics, GenEncode, MuRec, the
+        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
+        # time. They stay in the build for the small-machine recursion theorem.
         uses: ./.github/actions/setup-metacoq
-
-      - name: Restore vendor cache (built by build-coq)
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -205,16 +177,15 @@ jobs:
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v3-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v4-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
         # actions/cache restores .vo files with their original build-time
-        # mtimes (a few minutes ago, when build-coq ran), but actions/checkout
-        # sets every .v file to "now". make would then see .vo < .v for every
-        # file and rebuild the entire proof tree — ~7m of redundant work for
-        # a no-op. Bumping .vo mtimes past .v mtimes lets make see the cache
-        # as fresh. The cache key already pins source+vendor hashes, so this
-        # is mtime-cosmetic, not a correctness gap.
+        # mtimes, but actions/checkout sets every .v file to "now". make would
+        # then see .vo < .v for every file and rebuild the entire proof tree.
+        # Bumping .vo mtimes past .v mtimes lets make see the cache as fresh.
+        # The cache key already pins source+vendor hashes, so this is
+        # mtime-cosmetic, not a correctness gap.
         run: |
           # Vendored undecidability .vo files are tracked; a fresh checkout can
           # leave them older than their sources, which would rebuild the library
@@ -227,16 +198,14 @@ jobs:
 
       - name: Build Coq targets the cache did not cover
         # Inquisitor compiles with make -j1 under a 30-minute stage limit.
-        # When the restored cache leaves part of the tree to rebuild, that
-        # serial build can exceed the limit on a slow runner. Building in
-        # parallel here first makes Inquisitor's make a no-op; any
-        # compilation error still fails this job.
+        # Building in parallel here first makes Inquisitor's make a no-op;
+        # any compilation error still fails this job.
         run: make -C coq -j4
 
-      - name: Guard against Kami cheat axiom usage
+      - name: Guard against cheat-axiom usage
         run: |
-          if grep -r --include='*.v' -n -e 'apply cheat' -e 'exact cheat' coq/ | grep -v vendor/ | grep .; then
-            echo "FATAL: cheat axiom used in Thiele proofs (outside vendor/)"
+          if grep -r --include='*.v' -n -e 'apply cheat' -e 'exact cheat' coq/ minimal/ | grep .; then
+            echo "FATAL: cheat axiom used in Thiele proofs"
             exit 1
           fi
           echo "OK: no cheat axiom usage found in Thiele proofs"
@@ -252,13 +221,6 @@ jobs:
           # diagnostic before the heavier audits run.
           python -m pytest tests/test_coq_proof_scope.py -v
           python scripts/inquisitor.py --report INQUISITOR_REPORT.md
-
-      - name: Forge surface smoke test
-        run: |
-          python3 scripts/forge.py \
-            --input build/thiele_core.ml \
-            --out-python /tmp/_forge_smoke.py \
-            --check-only
 
       - name: Run bedrock assumption gate
         run: python scripts/inquisitor_assumption_gate.py
@@ -290,149 +252,39 @@ jobs:
 
   # Phase 1b: reproducibility gate — runs in PARALLEL with build-coq +
   # proof-check. The repro gate (scripts/proof_gate_reproducible.sh) does
-  # its own `make clean && make` to verify deterministic compilation, so
-  # it intentionally cannot share the cache build-coq produces. Pulling it
-  # out of proof-check turns the serial proof surface into a parallel branch.
+  # its own clean rebuild to verify deterministic compilation, so it
+  # intentionally cannot share the cache build-coq produces.
   proof-repro-gate:
     name: Proof reproducibility gate (clean rebuild + coqchk)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Install Coq + OCaml
+      - name: Install Coq
         uses: ./.github/actions/apt-install
         with:
           packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
+        # The vendored L modules (L tactics, GenEncode, MuRec, the
+        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
+        # time. They stay in the build for the small-machine recursion theorem.
         uses: ./.github/actions/setup-metacoq
-
-      - name: Capture toolchain version
-        id: toolchain
-        run: |
-          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
-          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
-
-      - name: Cache vendor builds (bbv + kami)
-        id: cache-vendor
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
-
-      - name: Build vendored deps (bbv + kami)
-        if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: |
-          cd vendor/bbv && make -j4
-          cd ../..
-          bash scripts/fix_kami_coq18.sh
-          cd vendor/kami && make -j4
 
       - name: Run reproducible proof gate
-        # Clean rebuild + zero-Admitted check + coqchk. Internally calls
-        # `make -C coq clean` and a bounded parallel Coq rebuild, so the
-        # cache is not (and cannot be) used here without oversubscribing the
-        # runner. THIELE_PROOF_JOBS can tune the width when needed.
+        # Clean rebuild + zero-Admitted check + coqchk of every module in
+        # coq/_CoqProject. Uses a bounded parallel Coq rebuild;
+        # THIELE_PROOF_JOBS can tune the width when needed.
         run: bash scripts/proof_gate_reproducible.sh
 
-  # Phase 2: OCaml extraction. Runs on top of the shared Coq cache from
-  # build-coq, in parallel with proof-check. Both jobs restore the same
-  # verified cache and neither job rebuilds Coq.
-  extraction:
-    name: OCaml extraction & 3-layer bisimulation
-    runs-on: ubuntu-latest
-    needs: build-coq
-    env:
-      OCAMLRUNPARAM: "l=64M"
-      THIELE_EXTRACTION_FULL: "1"
-    steps:
-      - uses: actions/checkout@v4
+      - name: Upload proof gate logs
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          submodules: recursive
+          name: proof-gate-logs
+          path: artifacts/proof_gate/
+          retention-days: 7
 
-      - name: Install Coq + OCaml
-        uses: ./.github/actions/apt-install
-        with:
-          packages: coq coinor-csdp ocaml ocaml-findlib
-
-      - name: Set up MetaCoq Template
-        uses: ./.github/actions/setup-metacoq
-
-      - name: Restore vendor cache (built by build-coq)
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements.txt
-
-      - name: Purge stale tracked Coq .vo files
-        run: make coq-clean
-
-      - name: Restore Coq build cache (built by build-coq)
-        uses: actions/cache@v4
-        with:
-          path: |
-            coq/**/*.vo
-            coq/**/*.vok
-            coq/**/*.vos
-            coq/**/*.glob
-            minimal/**/*.vo
-            minimal/**/*.vok
-            minimal/**/*.vos
-            minimal/**/*.glob
-            coq/Makefile
-            coq/Makefile.conf
-            coq/.Makefile.d
-            build/coq-build-manifest.json
-          key: coq-v3-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
-
-      - name: Refresh Coq artefact mtimes
-        # Same fix as in proof-check: actions/cache restores .vo files with
-        # their original build-time mtimes, but actions/checkout sets every
-        # .v file to "now". Without this, `make -j4` rebuilds the whole tree
-        # from scratch on cache hit (~7m of redundant work). Touching the
-        # cached files past the .v checkout time lets make see them as fresh.
-        run: |
-          # Vendored undecidability .vo files are tracked; a fresh checkout can
-          # leave them older than their sources, which would rebuild the library
-          # and everything above it. Refresh them first, then the coq/ outputs.
-          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
-          find coq minimal -name '*.vo' -exec touch {} +
-          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
-          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
-          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
-
-      - name: Verify fresh Coq extraction
-        run: python3 scripts/check_extraction.py --reference HEAD
-
-      - name: Compile extracted runner
-        run: |
-          ocamlfind ocamlc -I build -package str -linkpkg \
-            -o build/extracted_vm_runner \
-            build/thiele_core.mli \
-            build/thiele_core.ml \
-            build/extracted_vm_runner.ml
-
-      - name: Run 3-layer bisimulation tests
-        run: |
-          python -m pip install --quiet --upgrade pip
-          pip install --quiet -r requirements.txt
-          pip install --quiet -e . --no-deps
-          bash scripts/parity_extracted_only.sh
-
-  # Phase 3: Python tests (independent, can run in parallel with extraction)
   python-tests:
     name: Python unit tests
     runs-on: ubuntu-latest
@@ -440,57 +292,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: recursive
           # Some tests read earlier commits with git show, so fetch full history.
           fetch-depth: 0
 
       - name: Install runtime toolchain for Python tests
-        # Full toolchain so EVERY test pytest collects can actually run —
-        # no marker exclusion, no toolchain-missing skips. Specifically:
-        #   coq + coinor-csdp     → coq-marked tests (test_coq_compile_gate,
-        #                            test_extraction_freshness, test_coq_available)
-        #   ocaml + ocaml-findlib → build/extracted_vm_runner binary so
-        #                            test_quantitative_nfi's OCaml-runner
-        #                            agreement test stops skipping
-        #   iverilog + verilator + yosys → strict_rtl-marked cross-layer
-        #                                  bisimulation, RTL structural
-        #                                  coverage, hypothesis cross-layer
+        # Coq + csdp (+ OCaml for the MetaCoq build) so every coq-marked test
+        # pytest collects can run, with no toolchain-missing skips.
         uses: ./.github/actions/apt-install
         with:
-          packages: coq coinor-csdp ocaml ocaml-findlib iverilog verilator yosys
-
-      - name: Use the validated Verilator release
-        uses: ./.github/actions/setup-verilator
+          packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
+        # The vendored L modules (L tactics, GenEncode, MuRec, the
+        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
+        # time. They stay in the build for the small-machine recursion theorem.
         uses: ./.github/actions/setup-metacoq
 
       - name: Capture toolchain version
-        # Match the cache-key construction used by proof-check / extraction
-        # so all three jobs share the same vendor + Coq build caches.
+        # Match the cache-key construction used by build-coq so both jobs
+        # share the same Coq build cache.
         id: toolchain
         run: |
           coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
           echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
           echo "Coq: ${coq_version}"
-
-      - name: Cache vendor builds (bbv + kami)
-        # The source build and isolated extraction checker use these libraries.
-        id: cache-vendor
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
-
-      - name: Build vendored deps (bbv + kami)
-        if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: |
-          cd vendor/bbv && make -j4
-          cd ../..
-          bash scripts/fix_kami_coq18.sh
-          cd vendor/kami && make -j4
 
       - name: Compute vendor build digest
         id: vendor-digest
@@ -510,15 +335,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
-      - name: Set up Node.js
-        # trs-marked tests use a Node verifier (tests/test_trs10_node_verifier.py
-        # and friends). Node 24 matches the dedicated trs-receipts job.
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-
       - name: Purge stale tracked Coq .vo files
-        # Same pre-build cleanup proof-check uses.
         run: make coq-clean
 
       - name: Cache Coq build
@@ -538,18 +355,13 @@ jobs:
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
-          # An earlier build of any source tree is a starting point; the
-          # build step rebuilds what changed (scripts/coq_build_manifest.py).
+          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
           restore-keys: |
-            coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Refresh Coq artefact mtimes
         # The cache key pins source, toolchain, and vendor build digests.
         run: |
-          # Vendored undecidability .vo files are tracked; a fresh checkout can
-          # leave them older than their sources, which would rebuild the library
-          # and everything above it. Refresh them first, then the coq/ outputs.
           find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
           find coq minimal -name '*.vo' -exec touch {} +
           find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
@@ -563,9 +375,6 @@ jobs:
           set -Eeuo pipefail
           cd coq
           rm -f Makefile Makefile.conf .Makefile.d
-          # A partial cache restore (an earlier build) rebuilds exactly the
-          # sources whose content changed and their dependents; otherwise
-          # build from clean outputs.
           if python3 ../scripts/coq_build_manifest.py apply; then
             echo "Incremental build from an earlier cached build"
           else
@@ -575,132 +384,54 @@ jobs:
           make V=1 -j4
           python3 ../scripts/coq_build_manifest.py write
 
-      - name: Verify extraction against committed artifacts
-        run: python3 scripts/check_extraction.py --reference HEAD
-
       - name: Install dependencies
         run: |
           python -m pip install --quiet --upgrade pip
           pip install --quiet -r requirements.txt
           pip install --quiet -e . --no-deps
-
-      - name: Build OCaml extracted VM runner
-        # build/thiele_core.{ml,mli} and build/extracted_vm_runner.ml are
-        # tracked in git (extraction outputs committed alongside the spec
-        # change that produced them), so the runner is a pure ocamlc build
-        # — no coqc invocation needed here. This is what trs-receipts does.
-        run: |
-          ocamlfind ocamlc -I build -package str -linkpkg \
-            -o build/extracted_vm_runner \
-            build/thiele_core.mli \
-            build/thiele_core.ml \
-            build/extracted_vm_runner.ml
-
-      - name: Generate Kami BSV artifacts for RTL manifest tests
-        # The raw and cleaned BSV files are intentionally ignored build
-        # products, but the manifest and transform-audit tests consume them.
-        # Generate the deterministic Coq-extracted printer output from the
-        # tracked Target/PP/Main sources before running the full test suite.
-        shell: bash
-        run: |
-          set -Eeuo pipefail
-          cp scripts/Header.bsv build/kami_hw/Header.bsv
-          (
-            cd build/kami_hw
-            ocamlfind ocamlopt -package str -linkpkg \
-              Target.mli Target.ml PP.ml Main.ml \
-              -o kami_to_bsv
-            ./kami_to_bsv -top ThieleCPU thiele_hw.bsv
-          )
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          source = Path("build/kami_hw/thiele_hw.bsv")
-          target = Path("build/kami_hw/thiele_hw_clean.bsv")
-          lines = source.read_text(encoding="utf-8").splitlines()
-          clean = []
-          skip_wrapper = False
-          for line in lines:
-              if line.startswith(("module mkThieleCPU", "module mkTop")):
-                  skip_wrapper = True
-              if not skip_wrapper:
-                  clean.append(line)
-              if skip_wrapper and line.strip() == "endmodule":
-                  skip_wrapper = False
-          text = "import Vector::*;\n" + "\n".join(clean) + "\n"
-          text = re.sub(r"vec\(([^()]*)\)", r"unpack({\1})", text)
-          target.write_text(text, encoding="utf-8")
-          PY
-          python3 scripts/bsv_regfile_transform.py \
-            build/kami_hw/thiele_hw_clean.bsv \
-            build/kami_hw/thiele_hw_clean.bsv
 
       - name: Run pytest (FULL suite — no marker filter, no skips)
         # --strict-backends turns backend-missing skips into hard failures,
         # so a silently broken toolchain install cannot shrink this job.
         run: python -m pytest tests/ -q --tb=short --strict-backends
 
-  trs-receipts:
-    name: TRS receipt tests
+  # The book and the mathematical specification must build. This compiles
+  # them from source; the committed PDF/plaintext copies are refreshed by the
+  # regen workflow.
+  book-build:
+    name: Book build (monograph + math spec)
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements.txt
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-
-      - name: Install runtime toolchain for verifier matrix
+      - name: Install LaTeX toolchain
         uses: ./.github/actions/apt-install
         with:
-          packages: ocaml ocaml-findlib
+          packages: texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures texlive-science lmodern poppler-utils
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --quiet --upgrade pip
-          pip install --quiet -r requirements.txt
-          pip install --quiet -e . --no-deps
+      - name: Build the book and the specification
+        run: bash monograph/build_monograph.sh
 
-      - name: Compile extracted VM runner for Node verifier
-        run: |
-          ocamlfind ocamlc -I build -package str -linkpkg \
-            -o build/extracted_vm_runner \
-            build/thiele_core.mli \
-            build/thiele_core.ml \
-            build/extracted_vm_runner.ml
+      - name: Upload built PDFs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-build
+          path: |
+            monograph/monograph.pdf
+            monograph/monograph.txt
+            monograph/thiele_machine_math_spec.pdf
+            monograph/math_spec_plaintext.txt
+          if-no-files-found: ignore
+          retention-days: 7
 
-      - name: Run TRS receipt tests
-        run: |
-          python -m pytest \
-            tests/test_properties.py \
-            tests/test_execution_receipt_cli.py \
-            tests/test_trs10_standalone_verifier.py \
-            tests/test_trs10_fixture_layout.py \
-            tests/test_trs10_fixture_corpus.py \
-            tests/test_trs10_node_verifier.py \
-            tests/test_trs10_matrix_cases.py \
-            -q --tb=short --strict-backends
-
-  # Phase 4: Dependency audit (independent)
+  # Dependency audit (independent)
   dependencies:
     name: Dependency security scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -715,16 +446,13 @@ jobs:
           pip install --quiet pip-audit
 
       - name: Run pip-audit
-        run: |
-          # CVE-2025-53000: Windows-specific SVG->PDF vulnerability (not applicable to Linux CI)
-          # Documented in SECURITY.md
-          pip-audit -r requirements.txt --progress=off --ignore-vuln CVE-2025-53000
+        run: pip-audit -r requirements.txt --progress=off
 
   # Summary
   verify-summary:
     name: Verification Summary
     runs-on: ubuntu-latest
-    needs: [build-coq, proof-check, proof-repro-gate, extraction, python-tests, trs-receipts, dependencies]
+    needs: [build-coq, proof-check, proof-repro-gate, python-tests, book-build, dependencies]
     if: always()
     steps:
       - name: Check job results
@@ -734,27 +462,25 @@ jobs:
 
           | Component | Result |
           |-----------|--------|
-          | Build Coq + Kami (shared cache) | ${{ needs.build-coq.result }} |
-          | Proof verification (inquisitor + bedrock + forge) | ${{ needs.proof-check.result }} |
+          | Build Coq (shared cache) | ${{ needs.build-coq.result }} |
+          | Proof verification (inquisitor + bedrock gate + assumption receipt) | ${{ needs.proof-check.result }} |
           | Proof reproducibility gate (clean rebuild + coqchk) | ${{ needs.proof-repro-gate.result }} |
-          | Extraction (OCaml + Bisimulation) | ${{ needs.extraction.result }} |
           | Python Tests | ${{ needs.python-tests.result }} |
-          | TRS Receipts | ${{ needs.trs-receipts.result }} |
+          | Book build | ${{ needs.book-build.result }} |
           | Dependency Scan | ${{ needs.dependencies.result }} |
 
-          Critical path: build-coq → max(proof-check, extraction) in parallel with
-          proof-repro-gate, python-tests, trs-receipts, dependencies.
+          Critical path: build-coq → proof-check, in parallel with
+          proof-repro-gate, python-tests, book-build, dependencies.
 
-          For full verification including hardware synthesis + FPGA bitstream,
-          see the nightly run or use \`make closeout-gate\`.
+          The nightly CI (Full) adds the full kernel-conversion vacuity sweep.
           EOF
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Fail if any check failed
         # Every needed job must come back 'success'. Checking for explicit
         # 'failure' on a hand-kept list has two holes: a job missing from
-        # the list, and
-        # the 'skipped' result a job gets when its `needs` failed upstream
-        # — neither matched '== failure', so this step stayed green.
+        # the list, and the 'skipped' result a job gets when its `needs`
+        # failed upstream — neither matched '== failure', so this step
+        # stayed green.
         if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
         run: exit 1

@@ -12,19 +12,18 @@
 
     ClaimTapeIsZero(δ) is the key: it "magically" zeros the tape but costs δ μ-bits.
     This is a toy instruction for talking about search-space narrowing with an
-    explicit cost parameter. The stronger No Free Insight theorems live in the
-    VM and NoFI files.
+    explicit cost parameter. The stronger No Free Insight theorems live in
+    UniversalCertificationCost.v and the small machine (minimal/EarnedCore.v).
 
     The physical and complexity interpretations are not proved here. This file
     only gives the data types and basic tape helpers needed by examples.
 
     To challenge this file directly, find a mismatch in the definitions:
     tape access, tape extension, movement, or the classification of the toy
-    instruction as non-Turing. Broader physical falsification belongs in the
-    Landauer/NoFI bridge files.
+    instruction as non-Turing.
 
-    This file is a MINIMAL EXAMPLE, not the full VM. See VMState.v and VMStep.v
-    for the complete computational model.
+    This file is a MINIMAL EXAMPLE. The small machine that earns its
+    commitments is minimal/EarnedCore.v.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat.

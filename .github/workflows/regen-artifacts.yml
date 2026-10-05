@@ -1,8 +1,8 @@
 name: Regenerate artifacts
 
 # Runs the repository pre-commit hook on Linux for commits made on a machine
-# that cannot run it, then pushes the regenerated receipts, extraction,
-# manifests, PDFs, and Coq outputs as one follow-up commit.
+# that cannot run it, then pushes the regenerated receipts, manifests, PDFs,
+# and Coq outputs as one follow-up commit.
 #
 # Trigger: a push whose head commit message contains [regen], or a manual run.
 # The hook sees exactly the pushed changes as staged, the same as a local
@@ -39,18 +39,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
 
       - name: Install toolchain
         uses: ./.github/actions/apt-install
         with:
-          packages: coq coinor-csdp ocaml ocaml-findlib iverilog verilator yosys texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures texlive-science lmodern poppler-utils
-
-      - name: Use the validated Verilator release
-        uses: ./.github/actions/setup-verilator
+          packages: coq coinor-csdp ocaml ocaml-findlib texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures texlive-science lmodern poppler-utils
 
       - name: Set up MetaCoq Template
+        # The vendored L modules (L tactics, GenEncode, MuRec, the
+        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
+        # time. They stay in the build for the small-machine recursion theorem.
         uses: ./.github/actions/setup-metacoq
 
       - name: Capture toolchain version
@@ -64,32 +63,11 @@ jobs:
           python-version: "3.12"
           cache: pip
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-
       - name: Install Python dependencies
         run: |
           python -m pip install --quiet --upgrade pip
           pip install --quiet -r requirements.txt
           pip install --quiet -e . --no-deps
-
-      - name: Cache vendor builds (bbv + kami)
-        id: cache-vendor
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
-
-      - name: Build vendored deps (bbv + kami)
-        if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: |
-          cd vendor/bbv && make -j4
-          cd ../..
-          bash scripts/fix_kami_coq18.sh
-          cd vendor/kami && make -j4
 
       - name: Restore the incremental Coq build
         # Any earlier build serves as a starting point, matched by toolchain;
@@ -109,9 +87,11 @@ jobs:
             vendor/coq-undecidability/theories/**/*.vo
             vendor/coq-undecidability/theories/**/*.glob
             build/coq-build-manifest.json
-          key: coq-inc-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          # v3: the key for the proof tree without kami or bbv; caches under
+          # earlier keys describe a different tree and are not reused.
+          key: coq-inc-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            coq-inc-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-
+            coq-inc-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-
 
       - name: Mark exactly the changed Coq sources stale
         # Content digests, not checkout times, decide what make rebuilds: a
@@ -138,11 +118,6 @@ jobs:
           rm -f Makefile Makefile.conf .Makefile.d
           coq_makefile -f _CoqProject -o Makefile
           make -j4
-          # Extraction writes build/kami_hw and build/thiele_core.* as side
-          # effects; an incremental build may not recompile those files.
-          make -j1 -W kami_hw/KamiExtraction.v -W kami_hw/SystemExtraction.v -W Extraction.v \
-            -W ThieleMachineComplete.v kami_hw/KamiExtraction.vo kami_hw/SystemExtraction.vo \
-            Extraction.vo ThieleMachineComplete.vo
           cd ..
           git checkout -- vendor/coq-undecidability/theories/Makefile.coq \
             vendor/coq-undecidability/theories/Makefile.coq.conf \
@@ -166,58 +141,7 @@ jobs:
             vendor/coq-undecidability/theories/**/*.vo
             vendor/coq-undecidability/theories/**/*.glob
             build/coq-build-manifest.json
-          key: coq-inc-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
-
-      - name: Generate Kami BSV inputs for the RTL manifests
-        shell: bash
-        run: |
-          set -Eeuo pipefail
-          cp scripts/Header.bsv build/kami_hw/Header.bsv
-          (
-            cd build/kami_hw
-            ocamlfind ocamlopt -package str -linkpkg \
-              Target.mli Target.ml PP.ml Main.ml -o kami_to_bsv
-            ./kami_to_bsv -top ThieleCPU thiele_hw.bsv
-          )
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-          source = Path("build/kami_hw/thiele_hw.bsv")
-          target = Path("build/kami_hw/thiele_hw_clean.bsv")
-          clean, skip = [], False
-          for line in source.read_text(encoding="utf-8").splitlines():
-              if line.startswith(("module mkThieleCPU", "module mkTop")):
-                  skip = True
-              if not skip:
-                  clean.append(line)
-              if skip and line.strip() == "endmodule":
-                  skip = False
-          text = "import Vector::*;\n" + "\n".join(clean) + "\n"
-          target.write_text(re.sub(r"vec\(([^()]*)\)", r"unpack({\1})", text), encoding="utf-8")
-          PY
-          python3 scripts/bsv_regfile_transform.py \
-            build/kami_hw/thiele_hw_clean.bsv build/kami_hw/thiele_hw_clean.bsv
-
-      - name: Set up the Bluespec compiler
-        id: bsc
-        uses: ./.github/actions/setup-bsc
-
-      - name: Extract the CPU Verilog from the Coq model
-        # Coq -> Kami -> OCaml printer -> Bluespec -> bsc -> synthesis
-        # transform. The tracked Verilog is this output and nothing else.
-        env:
-          BLUESPECDIR: ${{ steps.bsc.outputs.bluespecdir }}
-        run: bash scripts/kami_extract.sh --skip-coq
-
-      - name: Upload the printed Bluespec
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: printed-bluespec
-          path: |
-            build/kami_hw/*.bsv
-            build/kami_hw/system/*.bsv
-          if-no-files-found: ignore
+          key: coq-inc-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Stage the pushed changes as one pending commit
         id: stage
@@ -250,11 +174,6 @@ jobs:
         run: |
           git ls-files -z --others --exclude-standard -- 'coq/*.vo' 'coq/*.glob'             'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'             | xargs -0 -r git add --
           git add -u -- 'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'
-          git add -- thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_system.v
-          # The extraction stages the RTL manifest hashes are tracked too.
-          git add -u -- build/kami_hw
-          # So are the extracted VM sources.
-          git add -u -- build/thiele_core.ml build/thiele_core.mli build/thiele_core_complete.ml build/thiele_core_complete.mli
           python3 scripts/check_hook_worktree.py --stage-generated
 
       - name: Restore the Print Assumptions answer cache

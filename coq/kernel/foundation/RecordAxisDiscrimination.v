@@ -3,7 +3,7 @@
     - Every base carries it. For any base and any event the base reaches
       from a starting state, the latch of that event, priced one unit per
       write, is an honest extension ([latch_core_honest]). A RAM, a Turing
-      machine, and the VM are all bases, so each carries the axis as itself
+      machine, and L are all bases, so each carries the axis as itself
       plus a latch.
     - A reversible base with unbounded memory carries it and stays
       reversible: keep every old record value in a history, and the whole

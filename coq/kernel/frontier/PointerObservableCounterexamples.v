@@ -74,8 +74,8 @@
 
 (* SCOPE NOTE: standalone proof scope; this file is a companion to
    PointerObservable.v and inherits its subject matter: it is about ecosystems
-   and record proliferation, not about VM semantics, and it states no theorem
-   mentioning VMState or vm_mu. Like PointerObservable.v, it has no formal
+   and record proliferation, not about a machine's semantics, and it states
+   no theorem mentioning a ledger. Like PointerObservable.v, it has no formal
    link to the mu-ledger; that link is the conjecture itself, argued in
    prose. Every theorem here is stated in PointerObservable.v's
    definitions. *)
@@ -414,14 +414,12 @@ End DigitalSignature.
     this development, and it is worth stating here because it frames the
     scope question.
 
-    [VerifierEscape_Substrate.v], [VerifierEscape_Hardness.v] and
-    [VerifierEscape_Interaction.v] construct three ways to obtain a sound and
-    complete verifier for a mu-sensitive claim: expose the structure in the
-    substrate, carry a commitment bit under an exact disclosure contract, or
-    interact. The middle file's name says hardness; its model has no hardness
-    assumption. [commitment_contract_verifier] builds the verifier from the
-    contract [CommitmentBitContract] at an abstract unit cost. The three are
-    constructions. Nothing proves they are the only routes.
+    There are three ways to obtain a sound and complete verifier for a
+    mu-sensitive claim: expose the structure in the substrate, carry a
+    commitment bit under an exact disclosure contract, or interact. The
+    commitment route needs no hardness assumption: the contract supplies
+    soundness at an abstract unit cost. This file constructs none of the
+    three, and nothing proves they are the only routes.
 
     ONLY THE SUBSTRATE ROUTE METERS. The commitment route buys soundness from
     a contract that, in a deployed system, a signature and its hardness
@@ -431,7 +429,7 @@ End DigitalSignature.
     That reframes the five disciplines of PointerObservableReductions.v, and
     reframes them downward. They are not five instances of a law covering
     forgery resistance in general. At most they are five instances of ONE of
-    the three routes this development constructs. Signatures sit on the
+    the three routes. Signatures sit on the
     second route, and their existence is not an anomaly to be explained away.
 
     THE CLAIMS, SEPARATED. Three distinct statements travel together in loose

@@ -1,8 +1,8 @@
 (** StructuralCoreAnyBase: the record axis over any base.
 
-    [StructuralCoreSchedule] compares machines that run the Thiele VM. This
-    file drops the VM. A base is any deterministic, record-free machine: a
-    Turing machine, a RAM, a reversible machine, the VM itself. Machines on
+    [StructuralCoreCover] compares machines through a cover of one
+    reference machine. This file fixes none. A base is any deterministic,
+    record-free machine: a Turing machine, a RAM, a reversible machine, L. Machines on
     different bases are not compared; a machine that multiplies unbounded
     numbers in one step and a Turing machine differ in cost, not in records.
 

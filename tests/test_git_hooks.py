@@ -122,17 +122,9 @@ def test_guard_stages_only_tracked_coq_compiler_outputs(repo):
 @pytest.fixture
 def pipeline(repo, tmp_path):
     outputs = [
-        "build/kami_hw/Target.ml", "build/kami_hw/Target.mli",
-        "build/kami_hw/Target_complete.ml", "build/kami_hw/Target_complete.mli",
-        "build/thiele_core.ml", "build/thiele_core.mli",
-        "build/thiele_core_complete.ml", "build/thiele_core_complete.mli",
-        "build/extracted_vm_runner", "build/extracted_vm_runner.ml", "thielecpu/vm.py",
-        "build/extracted_vm_runner.cmi", "build/extracted_vm_runner.cmo",
-        "build/thiele_core.cmi", "build/thiele_core.cmo",
         "artifacts/proof_dependency_dag.json", "artifacts/proof_dependency_connectivity.json",
         "artifacts/proof_dependency_file_graph.mmd", "artifacts/PROOF_FOUNDATION_AUDIT.md",
-        "artifacts/final_claim_audit/example.json", "artifacts/rtl_pipeline_manifest.json",
-        "artifacts/rtl_text_transform_audit.json", "INQUISITOR_REPORT.md",
+        "INQUISITOR_REPORT.md",
         "README.md",
         "CITATION.cff", "THIELE_MACHINE.txt", "monograph/monograph.tex",
         "monograph/monograph.pdf", "monograph/monograph.txt",
@@ -181,12 +173,9 @@ if name == "python3":
     if args[:2] == ["-m", "pytest"]:
         if os.environ.get("HOOK_TEST_MUTATE"):
             pathlib.Path("source with spaces.v").write_text("changed during tests\n")
-    elif args[0] == "scripts/generate_rtl_pipeline_manifest.py":
-        path = pathlib.Path("artifacts/rtl_pipeline_manifest.json")
-        fresh = hashlib.sha256(pathlib.Path("source with spaces.v").read_bytes()).hexdigest()
-        if "--check" in args:
-            sys.exit(0 if path.read_text() == fresh else 1)
-        path.write_text(fresh)
+    elif args[0] == "scripts/generate_proof_dependency_dag.py":
+        path = pathlib.Path("artifacts/proof_dependency_dag.json")
+        path.write_text(hashlib.sha256(pathlib.Path("source with spaces.v").read_bytes()).hexdigest())
 elif name == "bash" and args == ["scripts/generate_assumption_receipt.sh"]:
     for name in (os.environ["HOOK_TEST_ASSUMPTION_PROBE"], "artifacts/print_assumptions_all_proofs.json",
                  "artifacts/print_assumptions_all_proofs.txt", "artifacts/print_assumptions_all_proofs.csv",
@@ -198,8 +187,7 @@ elif name == "bash" and args == ["scripts/generate_assumption_receipt.sh"]:
         path.write_text("fresh receipt\n")
 ''')
     stub.chmod(0o755)
-    for name in ("python3", "make", "bash", "coqc", "coqtop", "coq_makefile", "ocamlfind",
-                 "ocamlc", "iverilog", "vvp", "verilator", "yosys", "node"):
+    for name in ("python3", "make", "bash", "coqc", "coqtop", "coq_makefile"):
         (binaries / name).symlink_to(stub)
     return repo, {"PATH": str(binaries) + os.pathsep + os.environ["PATH"],
                   "HOOK_TEST_ASSUMPTION_PROBE": FULL_ASSUMPTION_PROBE}
@@ -216,23 +204,23 @@ def test_hook_refreshes_manifest_and_tests_in_ci_mode(pipeline):
     git(repo, "add", "source with spaces.v")
     result = run_hook(pipeline)
     assert result.returncode == 0, result.stdout + result.stderr
-    assert git(repo, "show", ":artifacts/rtl_pipeline_manifest.json") == (
-        repo / "artifacts/rtl_pipeline_manifest.json").read_text()
+    assert git(repo, "show", ":artifacts/proof_dependency_dag.json") == (
+        repo / "artifacts/proof_dependency_dag.json").read_text()
     calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
     pytest_call = next(call for call in calls if call[1][:2] == ["-m", "pytest"])
     assert "--strict-backends" in pytest_call[1]
     assert pytest_call[2] == "true"
     if "-n" in pytest_call[1]:
         assert pytest_call[1][pytest_call[1].index("-n") + 1] == "0"
-    extraction = next(i for i, call in enumerate(calls) if "-W" in call[1])
-    manifest = next(i for i, call in enumerate(calls)
-                    if "scripts/generate_rtl_pipeline_manifest.py" in call[1])
-    assert extraction < manifest
+    build = next(i for i, call in enumerate(calls) if call[0] == "coq_makefile")
+    dag = next(i for i, call in enumerate(calls)
+               if "scripts/generate_proof_dependency_dag.py" in call[1])
+    tests = next(i for i, call in enumerate(calls) if call[1][:2] == ["-m", "pytest"])
+    assert build < dag < tests
 
 
-@pytest.mark.parametrize("failure", ["make", "forge_vm.py", "generate_proof_dependency_dag.py",
-                                    "generate_master_summary_artifacts.py", "audit_rtl_text_transforms.py",
-                                    "generate_rtl_pipeline_manifest.py", "pytest", "inquisitor.py"])
+@pytest.mark.parametrize("failure", ["make", "generate_proof_dependency_dag.py", "pytest",
+                                    "inquisitor.py"])
 def test_hook_blocks_tool_and_generator_failures(pipeline, failure):
     result = run_hook(pipeline, HOOK_TEST_FAIL=failure)
     assert result.returncode != 0
@@ -314,55 +302,35 @@ def test_hook_blocks_stale_assumption_receipt(pipeline):
     assert "injected failure" in result.stderr
 
 
-@pytest.mark.parametrize("state", ["deleted", "corrupt"])
-def test_hook_repairs_missing_or_corrupt_manifest(pipeline, state):
-    repo, _ = pipeline
-    path = repo / "artifacts/rtl_pipeline_manifest.json"
-    if state == "deleted":
-        git(repo, "rm", str(path))
-    else:
-        path.write_text("{broken json")
-        git(repo, "add", str(path))
-    result = run_hook(pipeline)
-    assert result.returncode == 0, result.stdout + result.stderr
-    assert git(repo, "show", ":artifacts/rtl_pipeline_manifest.json") == path.read_text()
-
-
 def test_hook_blocks_missing_backend(pipeline):
     repo, base_env = pipeline
     binaries = repo / ".git/test-bin"
-    (binaries / "node").unlink()
+    (binaries / "coq_makefile").unlink()
     (binaries / "git").symlink_to(shutil.which("git"))
     result = command(repo, "/bin/sh", ".githooks/pre-commit", env={"PATH": str(binaries)})
     assert result.returncode != 0
-    assert "required tool missing: node" in result.stderr
+    assert "required tool missing: coq_makefile" in result.stderr
 
 
-def test_guard_allows_only_reproducible_kami_compatibility_patch(repo, tmp_path):
+def test_guard_rejects_changes_inside_a_submodule(repo, tmp_path):
     vendor = tmp_path / ".git/vendor-source"
     vendor.mkdir()
     git(vendor, "init", "-q")
     git(vendor, "config", "user.email", "hook-test@example.invalid")
     git(vendor, "config", "user.name", "Hook test")
-    for width in (32, 64):
-        path = vendor / f"Kami/Ex/Multiplier{width}.v"
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text('Notation "w ~ 0" := (BWS BZero w): bword_scope.\n')
+    (vendor / "Lib.v").write_text("Definition lib := 0.\n")
     git(vendor, "add", ".")
     git(vendor, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "vendor fixture")
-    git(repo, "-c", "protocol.file.allow=always", "submodule", "add", str(vendor), "vendor/kami")
-    (repo / "scripts/fix_kami_coq18.sh").write_bytes((ROOT / "scripts/fix_kami_coq18.sh").read_bytes())
-    git(repo, "add", ".")
+    git(repo, "-c", "protocol.file.allow=always", "submodule", "add", str(vendor), "vendor/lib")
     git(repo, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "pin vendor")
-    command(repo, "bash", "scripts/fix_kami_coq18.sh", check=True)
     result = command(repo, sys.executable, "scripts/check_hook_worktree.py",
                      env={"GIT_INDEX_FILE": ".git/index"})
     assert result.returncode == 0, result.stderr
-    path = repo / "vendor/kami/Kami/Ex/Multiplier32.v"
+    path = repo / "vendor/lib/Lib.v"
     path.write_text(path.read_text() + "unexpected change\n")
     result = command(repo, sys.executable, "scripts/check_hook_worktree.py")
     assert result.returncode != 0
-    assert "vendor/kami/Kami/Ex/Multiplier32.v" in result.stderr
+    assert "vendor/lib/Lib.v" in result.stderr
 
 
 def _vacuity_calls(repo):
@@ -394,20 +362,3 @@ def test_hook_sweeps_every_target_when_an_entry_changes(pipeline):
     assert result.returncode == 0, result.stdout + result.stderr
     (args,) = _vacuity_calls(repo)
     assert args[args.index("--manifest") + 1] == "scripts/vacuity_targets.json"
-
-
-def test_kami_patch_leaves_already_patched_files_untouched(tmp_path):
-    (tmp_path / "scripts").mkdir()
-    script = tmp_path / "scripts/fix_kami_coq18.sh"
-    script.write_bytes((ROOT / "scripts/fix_kami_coq18.sh").read_bytes())
-    paths = []
-    for width in (32, 64):
-        path = tmp_path / f"vendor/kami/Kami/Ex/Multiplier{width}.v"
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text('Notation "w ~ 0" := (BWS BZero w): bword_scope.\n')
-        paths.append(path)
-    subprocess.run(["bash", str(script)], check=True, capture_output=True)
-    assert all("at level 7" in path.read_text() for path in paths)
-    before = [path.stat().st_mtime_ns for path in paths]
-    subprocess.run(["bash", str(script)], check=True, capture_output=True)
-    assert [path.stat().st_mtime_ns for path in paths] == before

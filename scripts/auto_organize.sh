@@ -16,11 +16,6 @@ mkdir -p artifacts/inventory
 find . -type d \( -name "__pycache__" -o -name ".pytest_cache" -o -name ".mypy_cache" \) -prune -exec rm -rf {} + 2>/dev/null || true
 find . -type f \( -name "*.pyc" -o -name "*.pyo" -o -name "*.vcd" \) -delete 2>/dev/null || true
 
-# Remove known empty transient benchmark folder if present.
-if [ -d "thielecpu/hardware/rtl/.benchmarks" ] && [ -z "$(ls -A "thielecpu/hardware/rtl/.benchmarks" 2>/dev/null)" ]; then
-  rmdir "thielecpu/hardware/rtl/.benchmarks" || true
-fi
-
 REPORT="artifacts/inventory/workspace_folder_audit.md"
 {
   echo "# Workspace Folder Audit"

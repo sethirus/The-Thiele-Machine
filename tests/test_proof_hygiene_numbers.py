@@ -50,21 +50,19 @@ def test_readme_proof_hygiene_numbers_match_receipt() -> None:
         ),
         "functional_extensionality_dep": (
             r"`functional_extensionality_dep`\s+\(([\d,]+)\)",
-            summary["unique_axioms_used"][
-                "FunctionalExtensionality.functional_extensionality_dep"
-            ],
+            summary["unique_axioms_used"].get("FunctionalExtensionality.functional_extensionality_dep", 0),
         ),
         "sig_forall_dec": (
             r"`sig_forall_dec` \(([\d,]+)\)",
-            summary["unique_axioms_used"]["ClassicalDedekindReals.sig_forall_dec"],
+            summary["unique_axioms_used"].get("ClassicalDedekindReals.sig_forall_dec", 0),
         ),
         "sig_not_dec": (
             r"`sig_not_dec`\s+\(([\d,]+)\)",
-            summary["unique_axioms_used"]["ClassicalDedekindReals.sig_not_dec"],
+            summary["unique_axioms_used"].get("ClassicalDedekindReals.sig_not_dec", 0),
         ),
         "classic": (
             r"`classic` \(([\d,]+)\)",
-            summary["unique_axioms_used"]["Classical_Prop.classic"],
+            summary["unique_axioms_used"].get("Classical_Prop.classic", 0),
         ),
     }
 

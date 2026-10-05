@@ -9,13 +9,9 @@
    bridge from the 5x5 Q_1 matrix to the 9x9 Q_{1+AB} matrix in the bipartite
    CHSH scenario (Navascues-Pironio-Acin 2008). *)
 
-From Kernel Require Import VMState VMStep.
-From Kernel Require Import SimulationProof.
 From Kernel Require Import NPAMomentMatrix.
 From Kernel Require Import ConstructivePSD.
-From Kernel Require Import MuLedgerQuantumBridge.
-From Kernel Require Import QuantumPartitionPSD.
-From Kernel Require Import CHSHExtraction.
+From Kernel Require Import CHSHColumnCheck.
 From Kernel Require Import TsirelsonGeneral.
 
 Require Import Coq.Reals.Reals.
@@ -551,7 +547,7 @@ Qed.
           exactly [I_4 − c c^T] with c = (e_{11}, e_{12}, e_{21}, e_{22}),
           which is PSD iff ||c||² ≤ 1, i.e. ∑ e_{ij}² ≤ 1.
     The integer-arithmetic check below verifies (a) via the existing
-    [column_contractive_check_witness] from VMStep.v plus (b) via a
+    [column_contractive_check_witness] from CHSHColumnCheck.v plus (b) via a
     sum-of-squares integer condition on the witness denominators.
 
     The Q_{1+AB} bridge therefore certifies the γ = 0 subset of Q_{1+AB}
@@ -574,9 +570,8 @@ Qed.
     where N_{xy} = same_{xy}+diff_{xy} and D_{xy} = same_{xy}−diff_{xy}.
     Dividing through by the positive denominator gives ∑ e_{ij}² ≤ 1. *)
 (** [sum_E_sq_check_witness] and [column_contractive_check_q1ab_kernel] are
-    defined in VMStep.v alongside the ISA, so the Z-arithmetic check is
-    visible to the new opcode [instr_chsh_lassert_1ab]. The Q_{1+AB}
-    integer check is re-exported here under a shorter name for the
+    defined in CHSHColumnCheck.v with the other integer checks. The
+    Q_{1+AB} integer check is re-exported here under a shorter name for the
     soundness theorems below. *)
 Definition column_contractive_check_q1ab : WitnessCounts -> bool :=
   column_contractive_check_q1ab_kernel.
@@ -608,7 +603,7 @@ Qed.
 (** The top 2×2 block: SAME as the level-1 column-contractivity quadratic
     form on (vB1, vB2). PSD iff the Q_1 column-contractivity conditions
     hold, by [psd2_quadratic_form_nonneg] from
-    [MuLedgerQuantumBridge.v]. *)
+    [CHSHColumnCheck.v]. *)
 Lemma q1ab_top_block_nonneg :
   forall e00 e01 e10 e11 vB1 vB2 : RealNumber,
     zero_marginal_column_contractive e00 e01 e10 e11 ->
@@ -843,77 +838,6 @@ Proof.
 Qed.
 
 (** ========================================================================
-    Section 8. Kernel-level bridge from CHSH_LASSERT to Q_{1+AB} PSD.
-
-    Design note. The mathematical content of this file (the 9×9 NPA
-    matrix, the column-contractivity predicate at level 1+AB, the
-    biconditional with PSD9, and the integer-arithmetic soundness theorem)
-    does not require modifying the VMStep ISA. The bridge theorem
-    below uses the *existing* [instr_chsh_lassert] opcode and adds an
-    explicit extra hypothesis [sum_E_sq_check_witness s.(vm_witness) = true]
-    for the Q_{1+AB} upgrade. This extra check can be promoted
-    into a kernel-side opcode (for example [instr_chsh_lassert_1ab])
-    by adding one constructor to
-    [vm_instruction] plus the corresponding ten or so pattern-match cases
-    spread across the foundation files; the proof obligation collapses to
-    the case-analysis-only conjunction of the two integer-check booleans.
-
-    The bridge theorem composes [chsh_lassert_no_trap_implies_state_column_contractive]
-    (from MuLedgerQuantumBridge.v) with [column_contractive_check_q1ab_sound_at_g_zero]
-    (above) and the reverse direction of the Q_{1+AB} biconditional.
-    ======================================================================== *)
-
-Theorem chsh_lassert_no_trap_with_sum_E_check_implies_q1ab_psd :
-  forall s mu_delta,
-    let s' := vm_apply s (instr_chsh_lassert mu_delta) in
-    s'.(vm_pc) = S s.(vm_pc) ->
-    s'.(vm_err) = s.(vm_err) ->
-    s.(vm_err) = false ->
-    sum_E_sq_check_witness s.(vm_witness) = true ->
-    PSD9 (q1ab_moment_matrix
-            (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
-            0 0 0 0 0).
-Proof.
-  intros s mu_delta s' Hpc Herr Herr0 HsumE.
-  (* From the existing kernel bridge, the witness passes the Q_1 check. *)
-  assert (Hchk : column_contractive_check_witness s.(vm_witness) = true).
-  { unfold s' in Herr. unfold vm_apply in Herr.
-    destruct (column_contractive_check_witness s.(vm_witness)) eqn:Echk.
-    - reflexivity.
-    - simpl in Herr. rewrite Herr0 in Herr. discriminate. }
-  (* Assemble the Q_{1+AB} integer check from the Q_1 check + the sum-E check. *)
-  assert (Hchk_q1ab : column_contractive_check_q1ab s.(vm_witness) = true).
-  { unfold column_contractive_check_q1ab, column_contractive_check_q1ab_kernel.
-    rewrite Hchk, HsumE. reflexivity. }
-  (* Apply the soundness theorem to get the real-valued predicate. *)
-  pose proof (column_contractive_check_q1ab_sound_at_g_zero s.(vm_witness) Hchk_q1ab) as Hccq.
-  (* Apply the reverse direction of the biconditional. *)
-  apply column_contractive_q1ab_implies_psd9.
-  unfold state_e00, state_e01, state_e10, state_e11. exact Hccq.
-Qed.
-
-(** Wrapper packaging the bridge result as a [npa_psd_q1ab]
-    statement at γ = 0. *)
-Theorem chsh_lassert_no_trap_with_sum_E_check_implies_npa_psd_q1ab :
-  forall s mu_delta,
-    let s' := vm_apply s (instr_chsh_lassert mu_delta) in
-    s'.(vm_pc) = S s.(vm_pc) ->
-    s'.(vm_err) = s.(vm_err) ->
-    s.(vm_err) = false ->
-    sum_E_sq_check_witness s.(vm_witness) = true ->
-    npa_psd_q1ab
-      (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
-      0 0 0 0 0.
-Proof.
-  intros s mu_delta s' Hpc Herr Herr0 HsumE.
-  unfold npa_psd_q1ab.
-  split.
-  - apply q1ab_moment_matrix_symmetric.
-  - apply (chsh_lassert_no_trap_with_sum_E_check_implies_q1ab_psd
-            s mu_delta Hpc Herr Herr0 HsumE).
-Qed.
-
-(** ========================================================================
     Section 9. Diagnostic: what does the γ = 0 check actually capture?
 
     The γ = 0 integer check verifies the standard Q_1 column-contractivity
@@ -934,7 +858,7 @@ Qed.
     Consequence. The γ = 0 specialization is sound for "correlators are
     inside the classical bound" but cannot certify quantum-but-not-
     classical correlators (which need γ ≠ 0 in the Q_{1+AB} witness).
-    The fuller Q_{1+AB} certification needs the opcode to accept γ
+    The fuller Q_{1+AB} certification needs the check to accept γ
     parameters from the caller; see Section 10.
     ======================================================================== *)
 
@@ -1013,65 +937,6 @@ Proof.
 Qed.
 
 (** ========================================================================
-    Section 11. Bridge for the new [instr_chsh_lassert_1ab] opcode.
-
-    The new opcode (added to [vm_instruction] in VMStep.v) runs the
-    composite integer check [column_contractive_check_q1ab_kernel]
-    (= Q_1 check ∧ ∑ E² ≤ 1) on the witness counters in a single step.
-    A successful step (PC advance + no err latch) is therefore directly
-    equivalent to the integer check returning true, which by Section 7
-    yields the real-valued [column_contractive_q1ab] at γ = 0, which by
-    Section 5 yields PSD9 of the 9×9 moment matrix at γ = 0.
-
-    No additional hypothesis is required: the integer check is performed
-    *by the opcode itself*, so the bridge is internal to the kernel.
-    ======================================================================== *)
-
-Theorem chsh_lassert_1ab_no_trap_implies_q1ab_psd :
-  forall (s : VMState) (mu_delta : nat),
-    let s' := vm_apply s (instr_chsh_lassert_1ab mu_delta) in
-    s'.(vm_pc) = S s.(vm_pc) ->
-    s'.(vm_err) = s.(vm_err) ->
-    s.(vm_err) = false ->
-    PSD9 (q1ab_moment_matrix
-            (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
-            0 0 0 0 0).
-Proof.
-  intros s mu_delta s' Hpc Herr Herr0.
-  (* "No trap" means the kernel-internal check passed. *)
-  assert (Hchk : column_contractive_check_q1ab_kernel s.(vm_witness) = true).
-  { unfold s' in Herr. unfold vm_apply in Herr.
-    destruct (column_contractive_check_q1ab_kernel s.(vm_witness)) eqn:Echk.
-    - reflexivity.
-    - simpl in Herr. rewrite Herr0 in Herr. discriminate. }
-  (* Apply the integer-to-real soundness theorem. *)
-  pose proof (column_contractive_check_q1ab_sound_at_g_zero s.(vm_witness) Hchk) as Hccq.
-  (* Apply the reverse direction of the biconditional. *)
-  apply column_contractive_q1ab_implies_psd9.
-  unfold state_e00, state_e01, state_e10, state_e11. exact Hccq.
-Qed.
-
-(** Wrapper: same bridge packaged as a [npa_psd_q1ab]
-    (= symmetric9 + PSD9) conclusion. *)
-Theorem chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab :
-  forall (s : VMState) (mu_delta : nat),
-    let s' := vm_apply s (instr_chsh_lassert_1ab mu_delta) in
-    s'.(vm_pc) = S s.(vm_pc) ->
-    s'.(vm_err) = s.(vm_err) ->
-    s.(vm_err) = false ->
-    npa_psd_q1ab
-      (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
-      0 0 0 0 0.
-Proof.
-  intros s mu_delta s' Hpc Herr Herr0.
-  unfold npa_psd_q1ab.
-  split.
-  - apply q1ab_moment_matrix_symmetric.
-  - apply (chsh_lassert_1ab_no_trap_implies_q1ab_psd
-             s mu_delta Hpc Herr Herr0).
-Qed.
-
-(** ========================================================================
     Section 12. γ_5-only extension: caller-supplied real check that admits
     γ_5 ≠ 0 (the 4-body moment ⟨A_1 A_2 B_1 B_2⟩) while keeping the other
     four γ_k = 0.
@@ -1105,8 +970,7 @@ Qed.
     aligned with the 4-body moment (positive e_{00}e_{11} + e_{01}e_{10})
     while shrinking it in others.
 
-    No new opcode is introduced. The check is a real-valued caller-side
-    obligation. Composition with [column_contractive_q1ab_implies_psd9]
+    The check is a real-valued caller-side obligation. Composition with [column_contractive_q1ab_implies_psd9]
     (Section 5) discharges the full PSD9 conclusion.
     ======================================================================== *)
 
@@ -1321,8 +1185,8 @@ Qed.
     Lifts Section 12's real-valued caller witness to a pure Z-arithmetic
     decision procedure on (correlator numerators/denominators, γ_5
     numerator/denominator). The check runs in O(1) Coq computation and
-    is the prerequisite for plumbing the γ_5-extended bridge through a
-    kernel-level opcode (which would supply a [WitnessCounts] for the
+    is the prerequisite for running the γ_5-extended bridge as a
+    check on trial counts (which supplies a [WitnessCounts] for the
     correlators and an additional (Ng5, Dg5) pair).
 
     The integer check is the conjunction of:
@@ -1337,9 +1201,8 @@ Qed.
                           + (D_{01}N_{10} − D_{10}N_{01})²·N_{00}²·N_{11}².
 
     Composed with the existing [column_contractive_check_witness] from
-    VMStep.v, the integer-witnessed check certifies PSD9 of the γ_5-
-    extended 9×9 NPA matrix at the witness-derived correlators. No
-    opcode is wired up to this check; it sits at the kernel-real layer. *)
+    CHSHColumnCheck.v, the integer-witnessed check certifies PSD9 of the
+    γ_5-extended 9×9 NPA matrix at the witness-derived correlators. *)
 
 (** Bridge lemma: state_bucket_correlation = IZR D / IZR N when N > 0
     (where D = same − diff, N = same + diff, both lifted to Z). *)
@@ -1515,7 +1378,7 @@ Proof.
   exact Hreal.
 Qed.
 
-(** Composite headline check: Q_1 integer check (existing from VMStep.v) +
+(** Composite headline check: Q_1 integer check (from CHSHColumnCheck.v) +
     γ_5 integer check ⟹ PSD9 of the γ_5-extended 9×9 NPA matrix at the
     witness-derived correlators and γ_5 = IZR Ng5 / IZR Dg5. *)
 Definition q1ab_g5_full_integer_check
@@ -2104,9 +1967,9 @@ Qed.
     cleared_B_num, cleared_det_M_num), the COMMON_Z scaling factor, the
     10 cleared_H_ij_Z entries (factored as mult_for_H_ij · cH_ij_per_entry),
     the 4 sym4_d_k_Z Z-arithmetic leading principal minors, and the 4
-    cleared_d_k composite minors are all defined in VMStep.v (kernel
-    foundation, no quantum dependency). They are imported via the
-    [From Kernel Require Import VMStep] above. *)
+    cleared_d_k composite minors are all defined in CHSHColumnCheck.v
+    (integer arithmetic, no real-number dependency). They are imported via
+    the [From Kernel Require Import CHSHColumnCheck] above. *)
 
 (** Helper: IZR of positive Z is nonzero. *)
 Lemma IZR_pos_neq_0 : forall n : Z, (0 < n)%Z -> (IZR n <> 0)%R.
@@ -2693,8 +2556,7 @@ Qed.
       (6) cleared_det_M_num > 0   (det_M = A·C_M − B² > 0);
       (7) cleared_d_k > 0 for k = 1, 2, 3, 4 (4×4 Sylvester PD on H_{γ_345}).
 *)
-(** The bool decider lives in VMStep.v as [q1ab_g345_check_z_kernel]
-    (kernel foundation). The local alias [q1ab_g345_caller_witness_z_abs]
+(** The bool decider lives in CHSHColumnCheck.v as [q1ab_g345_check_z_kernel]. The local alias [q1ab_g345_caller_witness_z_abs]
     forwards to it so the existing soundness theorem reads in the
     quantum-layer naming convention. *)
 Definition q1ab_g345_caller_witness_z_abs
@@ -2870,7 +2732,7 @@ Qed.
       Section 16.2   sym6 generic machinery + Schur step + sym6_qf_nonneg_from_pd
       Section 16.3   γ_12345 H specialization + qf-equals-residual
       Section 16.4   real-valued q1ab_g12345_minors_witness + PSD9 bridge
-      Section 16.5   cleared-Z integer layer (in VMStep.v, used here)
+      Section 16.5   cleared-Z integer layer (in CHSHColumnCheck.v, used here)
       Section 16.6   integer check + soundness + region diagnostic
     ======================================================================== *)
 
@@ -3572,8 +3434,8 @@ Qed.
     Lifts Section 16.4's real-valued [q1ab_g12345_minors_witness] to a
     bool decider on Z bucket counts. The kernel decider
     [q1ab_g12345_check_z_kernel] and all 21 cleared H-entries + 25
-    Schur-cascade Z helpers live in [VMStep.v Section 15.6] (foundation
-    tier, no quantum dependency). This section establishes:
+    Schur-cascade Z helpers live in [CHSHColumnCheck.v] (integer
+    arithmetic, no real-number dependency). This section establishes:
 
     (a) 21 bridge lemmas [cleared_g12345_HXX_Z_bridge]: each
         [IZR (cleared_g12345_HXX_Z(...)) = IZR (g12345_COMMON_Z(...)) *
@@ -5065,150 +4927,6 @@ Proof.
            HN00 HN01 HN10 HN11 HDg1 HDg2 HDg3 HDg4 HDg5 Hchk).
 Qed.
 
-(** Headline wrappers, one per slice (gamma = 0 above; gamma_5, gamma_345,
-    gamma_12345 below): a non-trapping step of the matching cert-opcode
-    implies [npa_psd_q1ab], defined as symmetric9 /\ PSD9 of the
-    9x9 moment matrix, at the witness- and bucket-derived rationals. *)
-
-(** Slice B (γ_5).  Direct application of [q1ab_g5_full_integer_check_sound],
-    which already concludes PSD9 at [state_bucket_correlation]-based
-    correlators; no IZR-bridge step needed. *)
-Theorem chsh_lassert_1ab_g5_no_trap_implies_npa_psd_q1ab :
-  forall (s : VMState) (mu_delta same_g5 diff_g5 : nat),
-    let s' := vm_apply s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5) in
-    s'.(vm_pc) = S s.(vm_pc) ->
-    s'.(vm_err) = s.(vm_err) ->
-    s.(vm_err) = false ->
-    npa_psd_q1ab
-      (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
-      0 0 0 0
-      (IZR (chsh_d_z same_g5 diff_g5) / IZR (chsh_n_z same_g5 diff_g5)).
-Proof.
-  intros s mu_delta sg5 dg5 s' Hpc Herr Herr0.
-  assert (Hchk : q1ab_g5_full_integer_check_kernel s.(vm_witness) sg5 dg5 = true).
-  { unfold s' in Herr. unfold vm_apply in Herr.
-    destruct (q1ab_g5_full_integer_check_kernel s.(vm_witness) sg5 dg5) eqn:Echk.
-    - reflexivity.
-    - simpl in Herr. rewrite Herr0 in Herr. discriminate. }
-  unfold npa_psd_q1ab. split.
-  - apply q1ab_moment_matrix_symmetric.
-  - unfold state_e00, state_e01, state_e10, state_e11.
-    apply (q1ab_g5_full_integer_check_sound
-             s.(vm_witness) (chsh_d_z sg5 dg5) (chsh_n_z sg5 dg5)).
-    exact Hchk.
-Qed.
-
-(** Slice C (γ_345).  The bool decider's positivity-of-N conjuncts are
-    extracted to bridge [state_bucket_correlation] to [IZR D / IZR N] before
-    invoking [q1ab_g345_caller_witness_z_abs_implies_psd9]. *)
-Theorem chsh_lassert_1ab_g345_no_trap_implies_npa_psd_q1ab :
-  forall (s : VMState)
-         (mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat),
-    let s' := vm_apply s (instr_chsh_lassert_1ab_g345 mu_delta
-                            same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5) in
-    s'.(vm_pc) = S s.(vm_pc) ->
-    s'.(vm_err) = s.(vm_err) ->
-    s.(vm_err) = false ->
-    npa_psd_q1ab
-      (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
-      0 0
-      (IZR (chsh_d_z same_g3 diff_g3) / IZR (chsh_n_z same_g3 diff_g3))
-      (IZR (chsh_d_z same_g4 diff_g4) / IZR (chsh_n_z same_g4 diff_g4))
-      (IZR (chsh_d_z same_g5 diff_g5) / IZR (chsh_n_z same_g5 diff_g5)).
-Proof.
-  intros s mu_delta sg3 dg3 sg4 dg4 sg5 dg5 s' Hpc Herr Herr0.
-  assert (Hchk : q1ab_g345_full_integer_check_kernel s.(vm_witness)
-                   sg3 dg3 sg4 dg4 sg5 dg5 = true).
-  { unfold s' in Herr. unfold vm_apply in Herr.
-    destruct (q1ab_g345_full_integer_check_kernel s.(vm_witness)
-                sg3 dg3 sg4 dg4 sg5 dg5) eqn:Echk.
-    - reflexivity.
-    - simpl in Herr. rewrite Herr0 in Herr. discriminate. }
-  unfold q1ab_g345_full_integer_check_kernel in Hchk.
-  apply Bool.andb_true_iff in Hchk. destruct Hchk as [_Hcc Hschur].
-  (* Extract N00..N11 positivity from the Schur kernel check (keeping the
-     full bool intact for downstream use). *)
-  pose proof Hschur as HschurCopy.
-  unfold q1ab_g345_check_z_kernel in HschurCopy.
-  rewrite !Bool.andb_true_iff in HschurCopy.
-  destruct HschurCopy as
-    [[[[[[[[[[[[[[[[[[[ HN00b HN01b] HN10b] HN11b]
-                     _HDg3b] _HDg4b] _HDg5b]
-                  _HNg3lo] _HNg3hi] _HNg4lo] _HNg4hi] _HNg5lo] _HNg5hi]
-        _HAposZ] _HCMposZ] _HdetMposZ]
-       _Hd1Z] _Hd2Z] _Hd3Z] _Hd4Z].
-  apply Z.ltb_lt in HN00b, HN01b, HN10b, HN11b.
-  unfold npa_psd_q1ab. split.
-  - apply q1ab_moment_matrix_symmetric.
-  - unfold state_e00, state_e01, state_e10, state_e11.
-    rewrite (state_bucket_correlation_to_IZR _ _ HN00b).
-    rewrite (state_bucket_correlation_to_IZR _ _ HN01b).
-    rewrite (state_bucket_correlation_to_IZR _ _ HN10b).
-    rewrite (state_bucket_correlation_to_IZR _ _ HN11b).
-    apply q1ab_g345_caller_witness_z_abs_implies_psd9.
-    exact Hschur.
-Qed.
-
-(** Slice D (full γ_12345).  Same pattern as slice C, but the cascade check
-    has nine positivity-of-N/Dg conjuncts which the headline corollary
-    [q1ab_g12345_caller_witness_z_abs_implies_psd9] expects as explicit
-    hypotheses; extract them from the bool check, then apply. *)
-Theorem chsh_lassert_1ab_g12345_no_trap_implies_npa_psd_q1ab :
-  forall (s : VMState)
-         (mu_delta same_g1 diff_g1 same_g2 diff_g2
-          same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat),
-    let s' := vm_apply s (instr_chsh_lassert_1ab_g12345 mu_delta
-                            same_g1 diff_g1 same_g2 diff_g2
-                            same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5) in
-    s'.(vm_pc) = S s.(vm_pc) ->
-    s'.(vm_err) = s.(vm_err) ->
-    s.(vm_err) = false ->
-    npa_psd_q1ab
-      (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
-      (IZR (chsh_d_z same_g1 diff_g1) / IZR (chsh_n_z same_g1 diff_g1))
-      (IZR (chsh_d_z same_g2 diff_g2) / IZR (chsh_n_z same_g2 diff_g2))
-      (IZR (chsh_d_z same_g3 diff_g3) / IZR (chsh_n_z same_g3 diff_g3))
-      (IZR (chsh_d_z same_g4 diff_g4) / IZR (chsh_n_z same_g4 diff_g4))
-      (IZR (chsh_d_z same_g5 diff_g5) / IZR (chsh_n_z same_g5 diff_g5)).
-Proof.
-  intros s mu_delta sg1 dg1 sg2 dg2 sg3 dg3 sg4 dg4 sg5 dg5 s' Hpc Herr Herr0.
-  assert (Hchk : q1ab_g12345_full_integer_check_kernel s.(vm_witness)
-                   sg1 dg1 sg2 dg2 sg3 dg3 sg4 dg4 sg5 dg5 = true).
-  { unfold s' in Herr. unfold vm_apply in Herr.
-    destruct (q1ab_g12345_full_integer_check_kernel s.(vm_witness)
-                sg1 dg1 sg2 dg2 sg3 dg3 sg4 dg4 sg5 dg5) eqn:Echk.
-    - reflexivity.
-    - simpl in Herr. rewrite Herr0 in Herr. discriminate. }
-  unfold q1ab_g12345_full_integer_check_kernel in Hchk.
-  apply Bool.andb_true_iff in Hchk. destruct Hchk as [_Hcc Hschur].
-  (* Extract all nine N00..N11, Dg1..Dg5 positivity facts as bools from a copy
-     of Hschur. *)
-  pose proof Hschur as HschurCopy.
-  unfold q1ab_g12345_check_z_kernel in HschurCopy.
-  rewrite !Bool.andb_true_iff in HschurCopy.
-  destruct HschurCopy as
-    [[[[[[[[[[[[[[[[[[[[[[[[
-      HN00b HN01b] HN10b] HN11b]
-      HDg1b] HDg2b] HDg3b] HDg4b] HDg5b]
-      _HNg1lo] _HNg1hi] _HNg2lo] _HNg2hi]
-      _HNg3lo] _HNg3hi] _HNg4lo] _HNg4hi] _HNg5lo] _HNg5hi]
-      _HH11pos] _HS6_22pos] _Hd1] _Hd2] _Hd3] _Hd4].
-  apply Z.ltb_lt in HN00b, HN01b, HN10b, HN11b,
-                    HDg1b, HDg2b, HDg3b, HDg4b, HDg5b.
-  unfold npa_psd_q1ab. split.
-  - apply q1ab_moment_matrix_symmetric.
-  - unfold state_e00, state_e01, state_e10, state_e11.
-    rewrite (state_bucket_correlation_to_IZR _ _ HN00b).
-    rewrite (state_bucket_correlation_to_IZR _ _ HN01b).
-    rewrite (state_bucket_correlation_to_IZR _ _ HN10b).
-    rewrite (state_bucket_correlation_to_IZR _ _ HN11b).
-    apply (q1ab_g12345_caller_witness_z_abs_implies_psd9
-             _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-             HN00b HN01b HN10b HN11b
-             HDg1b HDg2b HDg3b HDg4b HDg5b).
-    exact Hschur.
-Qed.
-
 (** ========================================================================
     Section 17. Regression guard: the four-body conjugate-cell sign.
 
@@ -5245,8 +4963,8 @@ Proof.
   - unfold q1ab_g5_caller_witness. split; [lra|nra].
 Qed.
 
-(** Opcode-layer guard: the integer kernel decider that
-    [instr_chsh_lassert_1ab_g5] actually runs accepts buckets whose CHSH is
+(** Integer-layer guard: the integer decider
+    [q1ab_g5_full_integer_check_kernel] accepts buckets whose CHSH is
     2.4 > 2 (correlators 3/5,3/5,3/5,-3/5 via same/diff = 4/1,4/1,4/1,1/4;
     γ_5 = -1/2 via the bucket pair (1,3)). On the pre-fix decider this
     evaluated to [false]. Pure computation. *)

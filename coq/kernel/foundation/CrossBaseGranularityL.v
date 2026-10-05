@@ -135,7 +135,7 @@ Proof.
 Qed.
 
 (** The record axis is a latch on the L base, by the same base-parametric
-    theorem used for the TM and VM bases. *)
+    theorem used for the TM base. *)
 Theorem record_axis_is_latch_on_l_holds : record_axis_is_latch_on l_base.
 Proof.
   intros M C Hhonest.

@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. These outcomes are about the
-    comparison machines and deliberately have no unused VM import.
+    comparison machines and deliberately have no unused kernel import.
 
     Proved outcomes for the RAM and Janus-like cases. *)
 

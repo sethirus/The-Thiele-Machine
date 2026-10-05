@@ -5,7 +5,7 @@
    of the README written out as theorems, and its whole value is that it imports
    nothing of mine: delete the repository and these still hold. It re-proves the
    cost floor and the non-invertible projection from scratch rather than reaching
-   for VMState, MuCostModel, or NoFreeInsight in the kernel. Wiring it into the
+   for EarnedCore, the small machine, or the floor theorems in the kernel. Wiring it into the
    foundation chain would pull the kernel back in and turn "a napkin holds it"
    into "a napkin plus the kernel holds it", which is the very claim this file
    exists to make good on. So it stays standalone on the Coq standard library,

@@ -27,13 +27,15 @@
     axioms, no Admitted.  Each theorem ends with Print Assumptions; every
     one reports "Closed under the global context".
 
-    This is a distillation.  The full kernel generalises each result:
-      1 -> coq/kernel/foundation/MuLedgerConservation.v  (vm_apply_mu)
-      2 -> coq/kernel/nfi/UniversalCertificationCost.v   (cs_cert_costs, any substrate)
-      3 -> coq/kernel/nfi/UniversalCertificationCost.v   (universal_nfi_any_substrate)
-      4 -> coq/kernel/foundation/VMStep.v                (vm_apply_preserves_certified_non_certify)
-      5 -> coq/ReceiptTheorem.v, coq/NecessityOfMuLedger.v
-      6 -> coq/kernel/foundation/ProperSubsumption.v, ClassicalConservativity.v
+    This is a distillation.  The same results, in fuller form:
+      1, 2, 4 -> minimal/EarnedCore.v  (mu_conservation, a2, only_certify_certifies,
+                 on the small machine whose commitments are earned)
+      3       -> minimal/EarnedCore.v  (nfi_floor), and
+                 coq/kernel/nfi/UniversalCertificationCost.v  (universal_nfi_any_substrate,
+                 the same floor over any substrate)
+      5       -> minimal/EarnedCore.v  (receipt_separation)
+      6       -> minimal/EarnedCore.v  (simulation_run, halting_correspondence), and
+                 coq/kernel/foundation/ProperSubsumption.v
 
     Build:  coqc minimal/MuCore.v        (seconds, from a clean checkout)
     Check:  every Print Assumptions line below must report

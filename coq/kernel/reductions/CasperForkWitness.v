@@ -27,7 +27,7 @@
       and the two other validators are not slashed. *)
 
 (* SCOPE NOTE: standalone proof scope. The Casper model is an abstract
-   protocol model with no VM semantics, and this file only instantiates it. *)
+   protocol model with no machine semantics, and this file only instantiates it. *)
 
 From Coq Require Import Arith.PeanoNat Lia Relations List.
 From Kernel Require Import CasperFFG CasperRecordReading.

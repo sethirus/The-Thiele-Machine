@@ -32,7 +32,7 @@
     So the law is not a new kind of cost reasoning. It is the potential
     method, applied to the certification reading. What the rest of the
     development adds is about that reading. [ShadowPricing] shows that on
-    the VM's two named windows no price computed from the observed
+    any window with a collision no price computed from the observed
     transition prices certification exactly. A potential read off the
     window gives a price of that kind, so it cannot replace the
     certification potential. No separation from those frameworks follows

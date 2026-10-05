@@ -47,6 +47,7 @@ from typing import FrozenSet, Iterable
 REPO_ROOT = Path(__file__).resolve().parents[1]
 COQ_DIR = REPO_ROOT / "coq"
 COQ_PROJECT = COQ_DIR / "_CoqProject"
+MINIMAL_DIR = REPO_ROOT / "minimal"
 
 
 # ---------------------------------------------------------------------------
@@ -61,14 +62,20 @@ COQ_PROJECT = COQ_DIR / "_CoqProject"
 FULL_ASSUMPTION_PROBE = "coq/AssumptionsProbeAll.v"
 
 NON_PROOF_BEARING_FILES: FrozenSet[str] = frozenset({
-    # Print Assumptions probe over Kernel.MasterSummary. Header explicitly
-    # marks it as a probe, not a proof obligation; excluded from _CoqProject.
-    "coq/AssumptionsProbe.v",
-
     # Auto-generated comprehensive Print Assumptions probe across every
     # addressable proof-bearing declaration; produced by
     # build/probe/build_full_probe.py. Not a proof obligation.
     FULL_ASSUMPTION_PROBE,
+})
+
+
+# minimal/ files that are deliberately outside coq/_CoqProject. Each is built
+# by tests/test_minimal_core.py and scripts/verify_core.sh with plain coqc, as
+# the front door a reader compiles before reading anything else. Every other
+# minimal/*.v file must be listed in coq/_CoqProject.
+MINIMAL_UNLISTED_FILES: FrozenSet[str] = frozenset({
+    "minimal/MuCore.v",
+    "minimal/Napkin.v",
 })
 
 
@@ -80,7 +87,7 @@ NON_PROOF_BEARING_FILES: FrozenSet[str] = frozenset({
 # ---------------------------------------------------------------------------
 
 DISK_SCAN_EXCLUDED_DIRS: FrozenSet[str] = frozenset({
-    "patches",     # Kami patch tree, applied to vendor/ at build time.
+    "patches",     # local patch trees, never part of the canonical build.
     "test_vscoq",  # IDE smoke files, not part of the canonical build.
     "_build",      # transient Coq build artefacts.
     "archive",     # archived proofs, outside the canonical build.
@@ -114,9 +121,10 @@ def coqproject_v_files(project_path: Path = COQ_PROJECT) -> FrozenSet[str]:
     return frozenset(out)
 
 
-def disk_v_files(coq_dir: Path = COQ_DIR) -> FrozenSet[str]:
+def disk_v_files(coq_dir: Path = COQ_DIR, minimal_dir: Path = MINIMAL_DIR) -> FrozenSet[str]:
     """Return the set of active .v files on disk as repo-relative POSIX
-    paths, excluding directories listed in DISK_SCAN_EXCLUDED_DIRS.
+    paths, excluding directories listed in DISK_SCAN_EXCLUDED_DIRS. The files
+    of minimal/ count too: the small machine is part of the proof corpus.
     """
     if not coq_dir.exists():
         return frozenset()
@@ -128,6 +136,10 @@ def disk_v_files(coq_dir: Path = COQ_DIR) -> FrozenSet[str]:
         if parts & DISK_SCAN_EXCLUDED_DIRS:
             continue
         out.add(vf.relative_to(REPO_ROOT).as_posix())
+    if minimal_dir.exists():
+        for vf in minimal_dir.rglob("*.v"):
+            if vf.is_file():
+                out.add(vf.relative_to(REPO_ROOT).as_posix())
     return frozenset(out)
 
 
@@ -167,12 +179,26 @@ def validate_alignment() -> list[str]:
         )
 
     # INV-3a: every disk .v is accounted for.
-    orphans = sorted(disk - project - NON_PROOF_BEARING_FILES)
+    orphans = sorted(disk - project - NON_PROOF_BEARING_FILES - MINIMAL_UNLISTED_FILES)
     if orphans:
         problems.append(
             "Disk .v files that are neither in _CoqProject nor in "
             "NON_PROOF_BEARING_FILES (add to one or the other, or delete):\n"
             + "\n".join(f"  {p}" for p in orphans)
+        )
+
+    # INV-4: the unlisted minimal/ files exist and are not in _CoqProject.
+    gone = sorted(p for p in MINIMAL_UNLISTED_FILES if not (REPO_ROOT / p).is_file())
+    if gone:
+        problems.append(
+            "MINIMAL_UNLISTED_FILES references files that do not exist on disk:\n"
+            + "\n".join(f"  {p}" for p in gone)
+        )
+    listed = sorted(MINIMAL_UNLISTED_FILES & project)
+    if listed:
+        problems.append(
+            "MINIMAL_UNLISTED_FILES entries are listed in _CoqProject (drop the entry):\n"
+            + "\n".join(f"  {p}" for p in listed)
         )
 
     # INV-3b: every _CoqProject entry exists on disk.
@@ -194,6 +220,7 @@ __all__ = [
     "COQ_PROJECT",
     "coqproject_v_files",
     "disk_v_files",
+    "MINIMAL_UNLISTED_FILES",
     "in_scope_v_files",
     "validate_alignment",
 ]

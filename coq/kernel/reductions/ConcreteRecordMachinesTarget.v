@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. These small RAM/reversible-machine
-    targets are comparison machines and do not claim a VM simulation.
+    targets are comparison machines and do not claim a simulation by a Thiele machine.
 
     Concrete machine targets. *)
 

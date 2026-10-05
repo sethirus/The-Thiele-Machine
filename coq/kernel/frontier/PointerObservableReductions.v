@@ -58,8 +58,8 @@
 (* SCOPE NOTE: standalone proof scope, with the same standing as
    PointerObservable.v, whose definitions every theorem here is stated in.
    The five ecosystems are minimal projections of deployed disciplines; none
-   of them mentions VMState, vm_step, vm_mu, MuCostModel or
-   instruction_cost, and none should: whatever evidential value the real
+   of them mentions a certification system or a ledger, and none
+   should: whatever evidential value the real
    disciplines carry comes from their owing this development nothing. *)
 From Kernel Require Import PointerObservable.
 

@@ -52,9 +52,9 @@
 *)
 
 (* SCOPE NOTE: standalone proof scope. This file is about
-   ecosystems and record proliferation, not VM semantics. No definition or
-   theorem here mentions VMState, vm_step, vm_mu, MuCostModel or
-   instruction_cost; the criterion is deliberately stated over an abstract
+   ecosystems and record proliferation, not a machine's semantics. No
+   definition or theorem here mentions a certification system or a ledger;
+   the criterion is deliberately stated over an abstract
    state type, so that a discipline owing nothing to this development could
    instantiate it.
 

@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. These are outcomes for the RFC 9162
-    verifier model, not the Thiele VM, so no unused VM import is asserted.
+    verifier model, not a Thiele machine, so no unused kernel import is asserted.
 
     Checked outcomes for the RFC 9162 executable Merkle verifier model. *)
 

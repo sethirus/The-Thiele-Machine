@@ -4,7 +4,7 @@ The repository supports a source-only native rebuild of the formal project. It u
 
 ## Prerequisites
 
-Install the native tools used by the gate: Python 3, GNU make, Coq 8.18 with the standard library, OCaml, `ocamlfind`, CSDP, and MetaCoq 1.2.1 for Coq 8.18, which the vendored L extraction tactics need (`scripts/install_metacoq.sh` builds it from pinned, checksum-verified source and installs it; it needs Coq-Equations and the Coq OCaml development libraries). The RTL gates additionally use `iverilog`, `verilator`, and/or `yosys` as required by the selected workflow.
+Install the native tools used by the gate: Python 3, GNU make, Coq 8.18 with the standard library, CSDP, OCaml with `ocamlfind`, and MetaCoq 1.2.1 for Coq 8.18, which the vendored L extraction tactics need (`scripts/install_metacoq.sh` builds it from pinned, checksum-verified source and installs it; it needs Coq-Equations and the Coq OCaml development libraries).
 
 ## Fresh source-only run
 
@@ -14,9 +14,9 @@ From the repository root:
 python3 scripts/reproduce_coq.py
 ```
 
-The runner creates a fresh directory under `artifacts/reproduction/`, which is ignored by Git. Use `--output PATH` to choose a location outside the source tree. It copies the active Coq sources, vendored bbv, Kami, the pinned Undecidability library, explicit build configuration, and the probe sources from [`tests/coq_probes/`](../tests/coq_probes/). It records the input hashes, tool paths and hashes, commands, exit codes, selected probes and checked libraries.
+The runner creates a fresh directory under `artifacts/reproduction/`, which is ignored by Git. Use `--output PATH` to choose a location outside the source tree. It copies the active Coq sources, the small-machine sources in `minimal/`, the pinned undecidability library, and the explicit build configuration. It records the input hashes, tool paths and hashes, commands, exit codes, selected probes and checked libraries.
 
-The default run builds bbv and Kami, regenerates the project Makefile, builds the full active Coq project, runs the contract probes, and invokes dependency-enabled `coqchk`. `--probe REPO_PATH.v` and `--library Logical.Name` replace the respective defaults. `--prepare-only` records the snapshot and commands without running the checks and is not a passing result.
+The default run regenerates the project Makefile, builds the vendored undecidability modules the project imports, builds the full active Coq project, and invokes dependency-enabled `coqchk` on every module. `--probe REPO_PATH.v` adds a probe file to compile against the built tree, and `--library Logical.Name` replaces the default list of checked libraries. `--prepare-only` records the snapshot and commands without running the checks and is not a passing result.
 
 A failed run can resume only from its captured snapshot:
 
@@ -32,9 +32,6 @@ Resume verifies the captured source and native tool hashes. A source change requ
 For development in the checkout:
 
 ```sh
-export COQPATH="$PWD/vendor/bbv/src:$PWD/vendor/kami"
-make -C vendor/bbv
-make -C vendor/kami
 make coq-gate
 ```
 

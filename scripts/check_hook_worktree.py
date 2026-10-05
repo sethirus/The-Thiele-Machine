@@ -12,7 +12,6 @@ import argparse
 import subprocess
 import sys
 from pathlib import Path
-import tempfile
 import os
 
 
@@ -34,29 +33,6 @@ def git_paths(*args: str) -> list[str]:
             for p in git_output(*args).split(b"\0") if p]
 
 
-def expected_kami_patch(paths: set[str]) -> bool:
-    """Allow only the compatibility patch CI applies to the pinned Kami source.
-
-    Replay the committed/staged patch script on pristine vendor files, rather
-    than ignoring dirty submodules or maintaining a second copy of its regexes.
-    """
-    allowed = {"Kami/Ex/Multiplier32.v", "Kami/Ex/Multiplier64.v"}
-    if not paths <= allowed:
-        return False
-    with tempfile.TemporaryDirectory(prefix="thiele-kami-patch-") as directory:
-        root = Path(directory)
-        script = root / "scripts/fix_kami_coq18.sh"
-        script.parent.mkdir()
-        script.write_bytes(subprocess.check_output(["git", "show", ":scripts/fix_kami_coq18.sh"]))
-        for name in allowed:
-            target = root / "vendor/kami" / name
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_bytes(git_output("-C", "vendor/kami", "show", f"HEAD:{name}"))
-        subprocess.run(["bash", str(script)], check=True, capture_output=True)
-        return all((root / "vendor/kami" / name).read_bytes() ==
-                   (Path("vendor/kami") / name).read_bytes() for name in paths)
-
-
 def submodule_problems() -> list[str]:
     problems = []
     entries = git_paths("ls-files", "--stage", "-z")
@@ -69,7 +45,7 @@ def submodule_problems() -> list[str]:
             continue
         changed = set(git_paths("-C", name, "diff", "HEAD", "--name-only", "-z"))
         untracked = git_paths("-C", name, "ls-files", "--others", "--exclude-standard", "-z")
-        if changed and not (name == "vendor/kami" and expected_kami_patch(changed)):
+        if changed:
             problems.extend(name + "/" + path for path in changed)
         problems.extend(name + "/" + path for path in untracked)
     return problems

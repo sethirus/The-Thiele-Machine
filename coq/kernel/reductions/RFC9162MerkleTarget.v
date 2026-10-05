@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. This file transcribes RFC 9162 verifier
-    control flow and deliberately imports no VM semantics; the comparison to
+    control flow and deliberately imports no machine semantics; the comparison to
     the record axis is a separately reported modeling classification.
 
     Executable vocabulary taken from RFC 9162 Sections 2.1.1, 2.1.3.2,

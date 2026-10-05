@@ -28,7 +28,12 @@
         Thiele-completeness, is the record earned_cs of EarnedCoreLinks.v
         step for step and cost for cost [earned_complete_agrees], and every
         Thiele-complete generic machine is generic_cs the same way
-        [generic_complete_agrees, sorted_complete_agrees].              *)
+        [generic_complete_agrees, sorted_complete_agrees];
+      - on that record, through every interface that makes the machine
+        Thiele-complete, no function of the base window (pc, (A, B)) gives
+        the record's reading or the interface's ledger on all runs from
+        loaded clean starts, by ThieleCompleteWindow.v
+        [complete_cs_window_blind].                                     *)
 
 From Coq Require Import List Arith Lia.
 From Coq Require Import Sorting.Sorted.
@@ -38,9 +43,11 @@ Require Kernel.EarnedCoreLinks.
 Require Minimal.EarnedCore.
 Require Minimal.EarnedGeneric.
 Require Minimal.ThieleComplete.
+Require Minimal.ThieleCompleteWindow.
 Module E := Minimal.EarnedCore.
 Module G := Minimal.EarnedGeneric.
 Module T := Minimal.ThieleComplete.
+Module W := Minimal.ThieleCompleteWindow.
 
 (* ================================================================= *)
 (* The machine over any property language.                            *)
@@ -241,6 +248,30 @@ Proof.
            T.sorted_machine_thiele_complete tr s).
 Qed.
 
+(* The record built from a Thiele-complete machine keeps its reading and
+   its ledger out of the base window: through any interface I that makes
+   the machine Thiele-complete, no function of the window (pc, (A, B)) of
+   the state a trace of the record reaches from a loaded clean start gives
+   the record's reading there, and none gives I's ledger. *)
+Theorem complete_cs_window_blind : forall (M : T.machine) (H : T.thiele_complete M)
+    (I : T.thiele_interface M),
+  T.thiele_complete_with I ->
+  (~ exists f : T.cm_conf -> bool, forall a b (tr : list (T.m_move M)),
+      f (W.base_window I (cs_run (@complete_cs M H) tr (T.load I a b)))
+      = cs_cert (@complete_cs M H) (cs_run (@complete_cs M H) tr (T.load I a b))) /\
+  (~ exists f : T.cm_conf -> nat, forall a b (tr : list (T.m_move M)),
+      f (W.base_window I (cs_run (@complete_cs M H) tr (T.load I a b)))
+      = T.ti_ledger I (cs_run (@complete_cs M H) tr (T.load I a b))).
+Proof.
+  intros M H I HI. split.
+  - intros [f Hf]. apply (W.complete_no_record_oracle M I HI).
+    exists f. intros a b tr. specialize (Hf a b tr).
+    rewrite complete_cs_run in Hf. exact Hf.
+  - intros [f Hf]. apply (W.complete_no_ledger_oracle M I HI).
+    exists f. intros a b tr. specialize (Hf a b tr).
+    rewrite complete_cs_run in Hf. exact Hf.
+Qed.
+
 Print Assumptions generic_cs.
 Print Assumptions earned_generic_floor.
 Print Assumptions earned_generic_certified_floor.
@@ -255,3 +286,4 @@ Print Assumptions thiele_complete_floor.
 Print Assumptions earned_complete_agrees.
 Print Assumptions generic_complete_agrees.
 Print Assumptions sorted_complete_agrees.
+Print Assumptions complete_cs_window_blind.

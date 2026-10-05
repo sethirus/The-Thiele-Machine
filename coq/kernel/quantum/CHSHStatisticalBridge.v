@@ -1,13 +1,19 @@
 (** This file connects aggregate [WitnessCounts] to two deterministic results.
-    It computes the CHSH statistic, proves the algebraic ceiling, exhibits one count pattern with value 4, proves that locally consistent deterministic counts stay within 2, and connects counted trial instructions to the W2 cost lower bound.
+    It computes the CHSH statistic, proves the algebraic ceiling, exhibits one count pattern with value 4, and proves that locally consistent deterministic counts stay within 2.
     It does not prove a Hoeffding bound, a confidence level, or a physical Bell-test conclusion. *)
+
+(* PROOF SCOPE: standalone algebra. Rational arithmetic on trial counts; no
+   machine is fixed. *)
 
 From Coq Require Import List Arith.PeanoNat Lia QArith QArith.Qabs ZArith Lra PArith.BinPos PArith.Pnat.
 Import ListNotations.
 
-From Kernel Require Import VMState VMStep SimulationProof
-                           AbstractNoFI UniversalCertificationCost
-                           QuantitativeNoFI CHSH.
+From Kernel Require Import CHSHColumnCheck.
+
+(** [is_bit n] holds when [n] is 0 or 1. A response table's four entries
+    must be bits. *)
+Definition is_bit (n : nat) : bool :=
+  orb (Nat.eqb n 0) (Nat.eqb n 1).
 
 Open Scope Q_scope.
 
@@ -89,7 +95,7 @@ Proof.
 Qed.
 
 (** [violation_wc] is one explicit count pattern with one trial per setting and CHSH value four.
-    It is a data witness, not a theorem that a VM trace constructs this pattern. *)
+    It is a data witness, not a theorem that some machine run constructs this pattern. *)
 
 Definition violation_wc : WitnessCounts :=
   {| wc_same_00 := 1; wc_diff_00 := 0;
@@ -149,7 +155,7 @@ Record WCLocallyConsistent (a0 a1 b0 b1 : nat) (wc : WitnessCounts) : Prop :=
       (wc_same_11 wc + wc_diff_11 wc > 0)%nat
   }.
 
-(** The local-count theorem below reduces the four response bits to the 16 finite cases, as in [CHSH.v]. *)
+(** The local-count theorem below reduces the four response bits to the 16 finite cases. *)
 
 (** A nonempty all-positive bucket has correlator one. *)
 Lemma correlator_pos_only : forall p : nat,
@@ -263,63 +269,13 @@ Qed.
 (** The file stops at the deterministic count result.
     A finite-sample confidence statement would need a probability model, sampling assumptions, and a separate formal development. *)
 
-(** This predicate records the aggregate-count condition [S > 2] for a VM state. *)
-Definition chsh_violation_certified (s : VMState) : Prop :=
-  chsh_stat_from_wc s.(vm_witness) > 2.
-
-(** A VM state satisfying the aggregate-count condition has no locally consistent valid response table. *)
-Theorem chsh_certification_not_local :
-  forall (s : VMState),
-    chsh_violation_certified s ->
-    forall (a0 a1 b0 b1 : nat),
-      is_bit a0 = true ->
-      is_bit a1 = true ->
-      is_bit b0 = true ->
-      is_bit b1 = true ->
-      ~WCLocallyConsistent a0 a1 b0 b1 s.(vm_witness).
-Proof.
-  intros s Hcert a0 a1 b0 b1 Ha0 Ha1 Hb0 Hb1.
-  unfold chsh_violation_certified in Hcert.
-  exact (chsh_stat_violation_not_local s.(vm_witness) Hcert
-           a0 a1 b0 b1 Ha0 Ha1 Hb0 Hb1).
-Qed.
-
 End BellInequality.
-
-(** The W2 results connect counted trial instructions to the witness-count threshold.
-    They do not infer a probability statement from the aggregate counts. *)
-
-(** The remaining lemmas use natural-number cost statements rather than rational expressions. *)
-Local Close Scope Q_scope.
 
 (** The explicit witness contains four counted trials. *)
 Lemma violation_wc_total :
   witness_total violation_wc = 4%nat.
 Proof. unfold witness_total, violation_wc. simpl. reflexivity. Qed.
 
-(** The execution-to-count bridge is [chsh_trial_count_lower_bound]; this aggregate model does not add a separate probability or sampling theorem. *)
-
-(** Four counted trials require at least four valid trial instructions under the W2 premises. *)
-Theorem four_trials_require_four_instructions :
-  forall (trace : list vm_instruction) (s0 : VMState),
-    witness_total s0.(vm_witness) = 0%nat ->
-    chsh_cert_n 4%nat (cs_run (chsh_cert_system_n 4%nat) trace s0) = true ->
-    cs_total_cost (chsh_cert_system_n 4%nat) trace >= 4%nat.
-Proof.
-  intros trace s0 Hinit Hcert.
-  exact (chsh_trial_count_lower_bound 4%nat trace s0 Hinit Hcert).
-Qed.
-
-(** In general, the W2 theorem gives one counted instruction per certified trial threshold. *)
-Corollary n_trials_require_n_instructions :
-  forall (n : nat) (trace : list vm_instruction) (s0 : VMState),
-    witness_total s0.(vm_witness) = 0%nat ->
-    chsh_cert_n n (cs_run (chsh_cert_system_n n) trace s0) = true ->
-    cs_total_cost (chsh_cert_system_n n) trace >= n.
-Proof.
-  intros n trace s0 Hinit Hcert.
-  exact (chsh_trial_count_lower_bound n trace s0 Hinit Hcert).
-Qed.
-
-(** The proved chain is: trial instructions update witness counts, the counts determine the chosen statistic, and a value above two excludes the stated deterministic local response tables.
+(** The proved chain is: the counts determine the chosen statistic, and a
+    value above two excludes the stated deterministic local response tables.
     Finite-sample confidence remains outside this aggregate-count model. *)

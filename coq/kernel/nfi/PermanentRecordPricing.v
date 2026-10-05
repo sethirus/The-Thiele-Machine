@@ -37,9 +37,8 @@
     them.
 
     Scope. The pricing premises stand for Landauer's principle and are named
-    premises, not theorems about heat. The 51-opcode VM is not an instance,
-    by design: its ledger is unbounded, and it prices the certifying merge
-    while JUMP merges at zero declared cost. *)
+    premises, not theorems about heat. A machine with an unbounded ledger
+    is not an instance; [FiniteCertMachine] is one. *)
 
 From Coq Require Import List Bool Arith Lia.
 From Coq Require Import Logic.FinFun.

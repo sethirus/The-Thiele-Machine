@@ -16,8 +16,8 @@
 
 (* SCOPE NOTE: standalone proof scope. The machines here are the demon and
    small cycles, stated over any step function and window, so the file
-   imports no VM semantics; the VM's own free narrowing is
-   [vm_observer_narrowing_at_zero_cost] in [KnowledgeNarrowing]. *)
+   imports no machine semantics; the demon's free narrowing is
+   [observer_narrowing_can_be_free] in [KnowledgeNarrowing]. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia FinFun.
 Import ListNotations.

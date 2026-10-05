@@ -11,12 +11,12 @@
       validator slashed at all ([finalization_without_slashing]).
 
     So Casper prices the revocation of its record, not the write. A2 prices
-    the write. The two fit the finite-hardware result: a record whose write
+    the write. The two fit the finite-machine result: a record whose write
     is free must be one that can be revoked, and Casper's finalization can
     be revoked, at the price of a slashed quorum. *)
 
 (* SCOPE NOTE: standalone proof scope. It reads the Casper FFG model
-   through the record axis; the Casper model imports no VM semantics. *)
+   through the record axis; the Casper model imports no machine semantics. *)
 
 From Coq Require Import Arith.PeanoNat Lia Relations Bool.
 From Kernel Require Import CasperFFG.

@@ -1,8 +1,11 @@
 (** Proved outcomes for the coordinator-free ecosystem game. *)
 
+(* SCOPE NOTE: standalone proof scope. The game is an abstract ecosystem of
+   observers and one event, with the same standing as PointerObservable.v;
+   no machine is fixed. *)
+
 From Coq Require Import Arith Bool Lia.
 From Kernel Require Import EcosystemGameTarget.
-From Kernel Require Import VMState VMStep VMUnboundedStep VMUnboundedLedger.
 
 Lemma toggle_game_positive : 0 < observer_count toggle_game.
 Proof. cbn. lia. Qed.
@@ -51,44 +54,5 @@ Proof.
   exact Hnext.
 Qed.
 
-(** * The VM's certification record is the durable case
-
-    Run the game on the VM itself: the state is a VM state, the event is
-    [vm_certified], every observer reads it, and a step executes one fixed
-    instruction. The VM's record is durable, so durable consensus gives
-    permanence, the property the toggle game lacks. *)
-Definition vm_certification_game (n : nat) (i : vm_instruction) : EcosystemGame := {|
-  game_state := VMState;
-  observer_count := n;
-  game_event := fun s => s.(vm_certified);
-  observer_view := fun _ s => s.(vm_certified);
-  game_step := fun s => vm_apply_u s i
-|}.
-
-Lemma vm_certification_game_consensus : forall n i,
-  observer_consensus (vm_certification_game n i).
-Proof. intros n i s a b _ _. reflexivity. Qed.
-
-Lemma vm_certification_game_authentic : forall n i,
-  observer_authenticity (vm_certification_game n i).
-Proof. intros n i s a _. reflexivity. Qed.
-
-Lemma vm_certification_game_durable : forall n i,
-  durable_views (vm_certification_game n i).
-Proof.
-  intros n i s a _ H. exact (vm_apply_u_certified_permanent s i H).
-Qed.
-
-Theorem vm_certification_is_permanent_consensus : forall n i,
-  0 < n -> event_permanent (vm_certification_game n i).
-Proof.
-  intros n i Hn.
-  apply durable_consensus_implies_permanence.
-  - exact Hn.
-  - apply vm_certification_game_authentic.
-  - apply vm_certification_game_durable.
-Qed.
-
 Print Assumptions toggle_game_refutes_strong_pointer_necessity.
 Print Assumptions durable_consensus_implies_permanence.
-Print Assumptions vm_certification_is_permanent_consensus.

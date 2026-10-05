@@ -7,7 +7,6 @@ Open Scope R_scope.
 From Kernel Require Import PermanentCertification.
 From Kernel Require Import PermanentRecordPricing.
 From Kernel Require Import PermanentCertificationEntropy.
-From Kernel Require Import VMState.
 
 Definition no_price_beyond_merges
     {S I : Type} (step : S -> I -> S)
@@ -23,17 +22,21 @@ Definition permanent_flip_logical_payment
     cert (step s i) = true ->
     ~ step_injective step i.
 
-Definition vm_mu_energy_at_scale (scale : R) (s : VMState) : R :=
-  INR (vm_mu s) * scale.
+(** A ledger reading in natural units, scaled to energy by a chosen factor. *)
+Definition mu_energy_at_scale {S : Type} (mu : S -> nat) (scale : R) (s : S) : R :=
+  INR (mu s) * scale.
 
+(** For any machine with a ledger reading, two scales assign one unit
+    different energies: the unit carries no joule value of its own. *)
 Definition no_intrinsic_joule_scale : Prop :=
-  exists e1 e2 : VMState -> R,
-    forall s, vm_mu s = 1%nat ->
-      e1 s = 1 /\ e2 s = 2 /\ e1 s <> e2 s.
+  forall (S : Type) (mu : S -> nat),
+    exists e1 e2 : S -> R,
+      forall s, mu s = 1%nat ->
+        e1 s = 1 /\ e2 s = 2 /\ e1 s <> e2 s.
 
 Definition mu_landauer_calibration (k_B T : R) : Prop :=
-  forall s, vm_mu s = 1%nat ->
-    vm_mu_energy_at_scale (k_B * T * ln 2) s = k_B * T * ln 2.
+  forall (S : Type) (mu : S -> nat) (s : S), mu s = 1%nat ->
+    mu_energy_at_scale mu (k_B * T * ln 2) s = k_B * T * ln 2.
 
 Definition landauer_permanence_heat_floor : Prop :=
   forall (S I : Type) (step : S -> I -> S) (cert : S -> bool)

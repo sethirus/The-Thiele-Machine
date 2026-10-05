@@ -108,15 +108,8 @@ Proof.
   exact (record_axis_is_latch_holds M _ C Hhonest).
 Qed.
 
-Theorem record_axis_is_latch_on_vm_holds : record_axis_is_latch_on_vm.
-Proof.
-  intros p M C Hhonest.
-  exact (record_axis_is_latch_holds M _ C Hhonest).
-Qed.
-
 Print Assumptions weak_base_equiv_refl_holds.
 Print Assumptions weak_base_equiv_sym_holds.
 Print Assumptions weak_base_equiv_trans_holds.
 Print Assumptions weak_equiv_preserves_record_latch_holds.
 Print Assumptions record_axis_is_latch_on_tm_holds.
-Print Assumptions record_axis_is_latch_on_vm_holds.

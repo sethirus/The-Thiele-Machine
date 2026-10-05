@@ -482,6 +482,7 @@ Proof.
 Qed.
 
 (* Every move of a Thiele-complete machine costs 0 or 1. *)
+(* SAFE: short on purpose: the bound is read off the exact-toll clause by cases on the kind of the move. *)
 Theorem complete_costs_at_most_one : forall M,
   thiele_complete M -> forall m : m_move M, m_cost M m <= 1.
 Proof.
@@ -533,6 +534,7 @@ Definition clock_base (rd : cm_conf -> bool) : universal_base (clock rd) :=
   mk_ub (clock rd) (fun x => x) (fun _ => True) (fun i => i) (fun a b => (1, (a, b)))
     (fun a b => eq_refl) (fun a b => I) (fun s i _ => conj eq_refl I).
 
+(* SAFE: short on purpose: every clock move costs 1 so the toll is arithmetic; the base is clock_base. *)
 Theorem clock_weakly_thiele_complete : forall rd,
   weakly_thiele_complete (clock rd).
 Proof.
@@ -543,6 +545,7 @@ Qed.
 Definition clock_cert_system (rd : cm_conf -> bool) : CertificationSystem :=
   as_cert_system (clock rd) (proj1 (clock_weakly_thiele_complete rd)).
 
+(* SAFE: short on purpose: a Thiele-complete machine has a free move (complete_has_free_move) and every clock move costs 1. *)
 Theorem clock_not_thiele_complete : forall rd, ~ thiele_complete (clock rd).
 Proof.
   intros rd H. destruct (complete_has_free_move _ H) as [m Hm].
@@ -562,6 +565,7 @@ Definition latch_clock_base (lt : cm_conf -> bool) : universal_base (latch_clock
     (fun a b => ((1, (a, b)), false))
     (fun a b => eq_refl) (fun a b => I) (fun s i _ => conj eq_refl I).
 
+(* SAFE: short on purpose: every move costs 1 so the toll is arithmetic; the base is latch_clock_base. *)
 Theorem latch_clock_weakly_thiele_complete : forall lt,
   weakly_thiele_complete (latch_clock lt).
 Proof.
@@ -569,6 +573,7 @@ Proof.
   intros s m _ _. simpl. lia.
 Qed.
 
+(* SAFE: short on purpose: a Thiele-complete machine has a free move (complete_has_free_move) and every move costs 1. *)
 Theorem latch_clock_not_thiele_complete : forall lt, ~ thiele_complete (latch_clock lt).
 Proof.
   intros lt H. destruct (complete_has_free_move _ H) as [m Hm].
@@ -601,6 +606,7 @@ Definition paid_latch_base : universal_base paid_latch :=
     (fun a b => eq_refl) (fun a b => I)
     (fun s i _ => match s with (x, f, l) => conj eq_refl I end).
 
+(* SAFE: short on purpose: only TICK raises the flag and it costs 1; the base is paid_latch_base. *)
 Theorem paid_latch_weakly_thiele_complete : weakly_thiele_complete paid_latch.
 Proof.
   split; [| exact (inhabits paid_latch_base)].
@@ -626,6 +632,7 @@ Proof.
   - intros [[x f] l] [i |]; simpl; lia.
 Qed.
 
+(* SAFE: short on purpose: reduces to one_move_record_excluded, proved above. *)
 Theorem paid_latch_not_thiele_complete : ~ thiele_complete paid_latch.
 Proof.
   apply one_move_record_excluded. exists PL_TICK.
@@ -646,6 +653,7 @@ Definition silent_interface : thiele_interface silent :=
     (fun _ _ => True) (fun _ _ => true) (fun _ _ _ => True)
     (fun _ => True) (fun _ => 0).
 
+(* SAFE: short on purpose: no move raises the record, so the toll premise is refuted at once; the base is silent_base. *)
 Theorem silent_weakly_thiele_complete : weakly_thiele_complete silent.
 Proof.
   split; [| exact (inhabits silent_base)]. intros s m _ H. discriminate.
