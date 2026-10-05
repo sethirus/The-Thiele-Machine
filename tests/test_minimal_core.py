@@ -20,10 +20,12 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 MUCORE = REPO_ROOT / "minimal" / "MuCore.v"
 EARNED = REPO_ROOT / "minimal" / "EarnedCore.v"
 UNIVERSAL = REPO_ROOT / "minimal" / "UniversalThiele.v"
+GENERIC = REPO_ROOT / "minimal" / "EarnedGeneric.v"
 DEMO = REPO_ROOT / "minimal" / "nofi_demo.py"
 EXPECTED_CLOSED = 10
-EARNED_EXPECTED_CLOSED = 29
-UNIVERSAL_EXPECTED_CLOSED = 19
+EARNED_EXPECTED_CLOSED = 33
+UNIVERSAL_EXPECTED_CLOSED = 22
+GENERIC_EXPECTED_CLOSED = 31
 
 
 def test_nofi_demo_self_checks():
@@ -115,6 +117,33 @@ def test_universal_thiele_compiles_axiom_free(tmp_path):
     closed = proc.stdout.count("Closed under the global context")
     assert closed == UNIVERSAL_EXPECTED_CLOSED, (
         f"expected {UNIVERSAL_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
+        + proc.stdout
+    )
+    assert "Axioms:" not in proc.stdout
+
+
+@pytest.mark.coq
+def test_earned_generic_compiles_axiom_free(tmp_path):
+    """minimal/EarnedGeneric.v, the small machine over any property language
+    with a checker proved equal to its meaning, including a "sorted" check on
+    a list encoded in a counter, compiles with plain coqc against the
+    standard library alone, and every theorem it prints assumptions for is
+    closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    work = tmp_path / "EarnedGeneric.v"
+    work.write_text(GENERIC.read_text())
+    proc = subprocess.run(
+        ["coqc", str(work)],
+        cwd=str(tmp_path),
+        capture_output=True,
+        text=True,
+        timeout=600,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    closed = proc.stdout.count("Closed under the global context")
+    assert closed == GENERIC_EXPECTED_CLOSED, (
+        f"expected {GENERIC_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
         + proc.stdout
     )
     assert "Axioms:" not in proc.stdout

@@ -860,6 +860,18 @@ An explicitly qualified citation keeps its own module identity.
 - `no_forging`: Every trace from a clean start satisfies no_forgery: each stored fact has a passing CHECK as its origin, with the stated untouched-counter condition when its version is current.
 - `certified_run_min_cost`: A trace from a clean start ending certified has total cost at least three and raises the ledger by at least three.
 - `min_cost_tight`: From every initial counter pair, four execution steps of CHECK at-least-zero, COMMIT of that claim, and CERTIFY halt with certification true and ledger three.
+- `run_prog_trapped`: A machine whose trap latch is set takes no further step: any number of program steps leaves its state unchanged.
+- `earned_run_check_can_fail`: The program CHECK is-zero on counter A, COMMIT of that claim, CERTIFY, run four steps from (a, b), certifies with ledger exactly three when a is 0, and traps with the flag down when a is not 0.
+- `earned_run_refused_forever`: From any start whose counter A is not 0, no number of steps of that program raises the flag.
+- `certified_channel_earned`: From a clean start, a trace ending certified leaves the channel naming a fact f, and the trace contains an earlier passing COMMIT whose claim is exactly f.
+- `channel_names_last_commit`: The run CHECK and COMMIT of is-zero on A, CERTIFY, then CHECK and COMMIT of is-zero on B, from (0, 0), ends certified with the channel naming the claim about B, not the one the flag rose on.
+- `generic_earned_certification_provenance`: For any property language with a Boolean checker proved equivalent to its meaning, every trace from a clean start ending certified contains a passing CHECK, then a passing COMMIT of the same property and counter at the same version with that counter untouched between them, then a passing CERTIFY.
+- `generic_checker_soundness`: For any such property language, from a clean start every stored fact whose version equals its counter's current version states a true property of that counter's current value.
+- `generic_no_forging`: For any such property language, every trace from a clean start satisfies no_forgery: each stored fact has a passing CHECK as its origin, with the untouched-counter condition when its version is current.
+- `generic_certified_run_min_cost`: For any such property language, a trace from a clean start ending certified has total cost at least three.
+- `sorted_run_certifies_iff`: With a counter value decoded to a list of naturals, the program CHECK sorted on counter A, COMMIT, CERTIFY, run four steps from (a, b), certifies if and only if the list decoded from a is sorted.
+- `sorted_run_certifies`: When the list decoded from a is sorted, that program certifies from (a, b) with ledger exactly three.
+- `sorted_run_refused_forever`: When the list decoded from a is not sorted, no number of steps of that program from (a, b) raises the flag.
 - `simulation_run`: Starting with the error flag false, any number of steps of a compiled two-counter program projects to the same number of two-counter steps and keeps the error flag false.
 - `earned_core_halting_undecidable`: Halting for the minimal earned-commitment machine is undecidable, by reduction from the vendored two-counter halting problem.
 
@@ -897,6 +909,8 @@ An explicitly qualified citation keeps its own module identity.
 - `demo_certifies`: The guest CHECK, COMMIT, CERTIFY, HALT loaded at (0, 0) raises the mirror on the third guest step, with the host's own flag down and 3 paid.
 - `demo_program_certifies`: Under the stored host program U the same guest raises the mirror at host step 7, with 3 paid.
 - `demo_forgery_fails`: The guest CERTIFY, CERTIFY traps, the mirror stays down after five guest steps, and the host pays 5.
+- `hexec_gprog`: No host move changes the stored guest program.
+- `host_mirror_earned`: Load the host with guest program P and guest start (x, y) and run any host trace; if the mirror is up, the guest state is the guest program's own run of some number of steps from (x, y), and the instructions it executed contain a passing CHECK, then a passing COMMIT of the same claim at the same version with the counter untouched between, then a passing CERTIFY.
 - `eval_iff`: For each property and number, the Boolean checker is true if and only if the arithmetic meaning of the property holds.
 - `facts_bounded_step`: A core whose fact list has at most fact_cap entries still meets that bound after any instruction.
 - `facts_keep`: Every fact already in the core table remains there after any instruction.

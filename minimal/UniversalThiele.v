@@ -90,6 +90,10 @@
          raises mrec at the third host move and pays 3; a guest that tries
          CERTIFY with nothing committed traps and mrec stays down
          [demo_certifies, demo_program_certifies, demo_forgery_fails].
+      7. The mirror stands on the guest's own earned chain: whatever the host
+         does, the guest state is the guest program's own run, so a raised
+         mirror means the guest ran a passing CHECK, then COMMIT of the same
+         claim, then CERTIFY  [host_mirror_earned].
 
     Dependencies: Coq standard library and EarnedCore.v. No axioms, no
     Admitted.                                                              *)
@@ -572,6 +576,83 @@ Theorem demo_forgery_fails :
   hmu (hrun (repeat (GSTEP 1) 5) (hload 0 0 forger_guest 0 0)) = 5.
 Proof. vm_compute. auto. Qed.
 
+(* ================================================================= *)
+(* 7. The mirror stands on the guest's own earned chain.              *)
+(* ================================================================= *)
+
+Lemma guest_run_prog_add : forall m n P g,
+  E.run_prog (m + n) P g = E.run_prog n P (E.run_prog m P g).
+Proof. induction m; intros; simpl; auto. Qed.
+
+(* One guest step under a budget is zero or one step of the guest program. *)
+Lemma gnext_steps : forall P g b, exists k, gnext P g b = E.run_prog k P g.
+Proof.
+  intros P g b. unfold gnext. destruct (gmove P g b) as [i |] eqn:Hm.
+  - apply gmove_spec in Hm as [Hn _]. exists 1. simpl. unfold E.step.
+    rewrite Hn. reflexivity.
+  - exists 0. reflexivity.
+Qed.
+
+Lemma hexec_guest : forall h i, exists k, gst (hexec h i) = E.run_prog k (gprog h) (gst h).
+Proof.
+  intros h [j | b]; simpl; [exists 0; reflexivity |].
+  destruct (E.err (hcore h)); simpl; [exists 0; reflexivity |].
+  apply gnext_steps.
+Qed.
+
+(* Whatever the host does, the guest state is the guest program's own run
+   from where it was, for some number of guest steps. *)
+Theorem guest_runs_own_program : forall tr h,
+  exists n, gst (hrun tr h) = E.run_prog n (gprog h) (gst h).
+Proof.
+  induction tr as [| i rest IH]; intros h; simpl; [exists 0; reflexivity |].
+  destruct (IH (hexec h i)) as [n Hn]. destruct (hexec_guest h i) as [k Hk].
+  rewrite hexec_gprog, Hk in Hn. exists (k + n).
+  rewrite guest_run_prog_add. exact Hn.
+Qed.
+
+(* So the guest state after any host run is the guest machine run on a
+   guest trace, namely the instructions that guest program executes. *)
+Corollary guest_runs_own_steps : forall tr h,
+  exists n gtr, gtr = E.trace_of n (gprog h) (gst h) /\ gst (hrun tr h) = E.run gtr (gst h).
+Proof.
+  intros tr h. destruct (guest_runs_own_program tr h) as [n Hn].
+  exists n, (E.trace_of n (gprog h) (gst h)). split; [reflexivity |].
+  rewrite Hn. apply E.run_prog_trace.
+Qed.
+
+(* A raised mirror, after any host run from a loaded start, stands on the
+   guest's own chain: inside the guest program's executed trace, a passing
+   CHECK, then COMMIT of the same claim at the same version with the counter
+   untouched between, then CERTIFY. *)
+Theorem host_mirror_earned : forall tr a b P x y,
+  mrec (hrun tr (hload a b P x y)) = true ->
+  exists n gtr pre1 p c mid1 mid2 post,
+    gtr = E.trace_of n P (E.start x y) /\
+    gst (hrun tr (hload a b P x y)) = E.run gtr (E.start x y) /\
+    gtr = pre1 ++ E.CHECK p c :: mid1 ++ E.COMMIT p c :: mid2 ++ E.CERTIFY :: post /\
+    E.check_ok (E.core_of (E.run pre1 (E.start x y))) p c = true /\
+    E.commit_ok (E.core_of (E.run (pre1 ++ E.CHECK p c :: mid1) (E.start x y))) p c
+      = true /\
+    E.certify_ok (E.core_of (E.run (pre1 ++ E.CHECK p c :: mid1 ++ E.COMMIT p c :: mid2)
+                               (E.start x y))) = true /\
+    E.ver (E.core_of (E.run pre1 (E.start x y))) c
+      = E.ver (E.core_of (E.run (pre1 ++ E.CHECK p c :: mid1) (E.start x y))) c /\
+    E.untouched (E.run (pre1 ++ [E.CHECK p c]) (E.start x y)) mid1 c.
+Proof.
+  intros tr a b P x y H.
+  pose proof (record_agreement tr _ (hload_agrees a b P x y)) as Ha.
+  unfold agrees in Ha. rewrite H in Ha.
+  destruct (guest_runs_own_steps tr (hload a b P x y)) as [n [gtr [Hg Hrun]]].
+  change (gprog (hload a b P x y)) with P in Hg.
+  change (gst (hload a b P x y)) with (E.start x y) in Hg, Hrun.
+  rewrite Hrun in Ha.
+  destruct (E.earned_certification_provenance (E.start x y) gtr (E.start_clean x y)
+              (eq_sym Ha))
+    as [pre1 [p [c [mid1 [mid2 [post [Htr [Hck [Hcm [Hok [Hv Hun]]]]]]]]]]].
+  exists n, gtr, pre1, p, c, mid1, mid2, post. auto 10.
+Qed.
+
 Print Assumptions host_toll.
 Print Assumptions host_own_toll.
 Print Assumptions host_mirror_toll.
@@ -591,3 +672,6 @@ Print Assumptions own_record_only_by_certify.
 Print Assumptions demo_certifies.
 Print Assumptions demo_program_certifies.
 Print Assumptions demo_forgery_fails.
+Print Assumptions guest_runs_own_program.
+Print Assumptions guest_runs_own_steps.
+Print Assumptions host_mirror_earned.

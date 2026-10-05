@@ -54,6 +54,15 @@
       7. Price. A certified run from a clean start costs at least 3, and a
          three-instruction program pays exactly 3  [certified_run_min_cost,
          min_cost_tight].
+      8. A check that can fail. The program CHECK "A is 0", COMMIT, CERTIFY
+         certifies from a start with A = 0, paying exactly 3, and from any
+         other start traps with the flag down, for every number of steps
+         [earned_run_check_can_fail, earned_run_refused_forever].
+      9. Which fact. A raised flag comes with a channel naming a fact that an
+         earlier passing COMMIT committed; a later commitment can replace it,
+         so the channel names the last earned commitment, not necessarily the
+         one the flag rose on  [certified_channel_earned,
+         channel_names_last_commit].
 
     Dependencies: Coq standard library only. No axioms, no Admitted.        *)
 
@@ -924,6 +933,88 @@ Proof.
   unfold state_A, state_B in *. rewrite Hw in HA. congruence.
 Qed.
 
+
+(* ================================================================= *)
+(* 8. The check can fail, and a failed check blocks the commitment.   *)
+(* ================================================================= *)
+
+(* A trapped machine takes no further step. *)
+Lemma run_prog_trapped : forall n P s,
+  err (core_of s) = true -> run_prog n P s = s.
+Proof.
+  induction n as [| n IH]; intros P s H; simpl; [reflexivity |].
+  unfold step, next_instr. rewrite H. apply IH. exact H.
+Qed.
+
+(* The same three instructions certify when counter A is 0, paying exactly
+   the floor, and trap with the flag down when it isn't. *)
+Theorem earned_run_check_can_fail : forall a b,
+  (a = 0 ->
+     cert (run_prog 4 earned_run (start a b)) = true /\
+     mu (run_prog 4 earned_run (start a b)) = 3) /\
+  (a <> 0 ->
+     cert (run_prog 4 earned_run (start a b)) = false /\
+     err (core_of (run_prog 4 earned_run (start a b))) = true).
+Proof.
+  intros a b. split; intro Ha.
+  - subst a. split; reflexivity.
+  - destruct a as [| a]; [contradiction |]. split; reflexivity.
+Qed.
+
+(* And no amount of further running raises it. *)
+Theorem earned_run_refused_forever : forall n a b,
+  a <> 0 -> cert (run_prog n earned_run (start a b)) = false.
+Proof.
+  intros n a b Ha. destruct a as [| a]; [contradiction |].
+  destruct n as [| n]; [reflexivity |].
+  simpl. rewrite run_prog_trapped; reflexivity.
+Qed.
+
+(* ================================================================= *)
+(* 9. Which fact the flag stands on.                                  *)
+(* ================================================================= *)
+
+(* Once the channel names a commitment, it always names one. *)
+Lemma chan_stays_some : forall tr s f,
+  chan (core_of s) = Some f -> exists g, chan (core_of (run tr s)) = Some g.
+Proof.
+  induction tr as [| i rest IH]; intros s f H; simpl; [eauto |].
+  destruct (chan_step (core_of s) i) as [Hs | [p [c [_ [_ Hch]]]]].
+  - apply (IH _ f). simpl. rewrite Hs. exact H.
+  - apply (IH _ (claim (core_of s) p c)). simpl. exact Hch.
+Qed.
+
+(* A raised flag comes with a channel naming a fact f, and some earlier
+   step was a passing COMMIT of exactly f. *)
+Theorem certified_channel_earned : forall s0 tr,
+  clean_start s0 -> cert (run tr s0) = true ->
+  exists f pre1 p c mid,
+    chan (core_of (run tr s0)) = Some f /\
+    tr = pre1 ++ COMMIT p c :: mid /\
+    commit_ok (core_of (run pre1 s0)) p c = true /\
+    f = claim (core_of (run pre1 s0)) p c.
+Proof.
+  intros s0 tr H0 H1. pose proof H0 as [_ [Hch Hc0]].
+  destruct (cert_first s0 tr Hc0 H1) as [pre [post [Htr [_ Hok]]]].
+  unfold certify_ok in Hok. apply andb_true_iff in Hok as [_ Hok].
+  destruct (chan (core_of (run pre s0))) as [g |] eqn:Hg; [| discriminate].
+  destruct (chan_stays_some (CERTIFY :: post) (run pre s0) g Hg) as [f Hf].
+  rewrite <- run_app, <- Htr in Hf.
+  destruct (chan_origin s0 tr f Hch Hf) as [pre1 [p [c [mid [Htr1 [Hcm Hfc]]]]]].
+  exists f, pre1, p, c, mid. auto.
+Qed.
+
+(* The channel names the last commitment, which need not be the one the
+   flag rose on: here the flag rose on "A is 0" and the channel ends on
+   "B is 0". *)
+Definition two_commit_run : list instr :=
+  [CHECK PZero CA; COMMIT PZero CA; CERTIFY; CHECK PZero CB; COMMIT PZero CB].
+
+Theorem channel_names_last_commit :
+  cert (run two_commit_run (start 0 0)) = true /\
+  chan (core_of (run two_commit_run (start 0 0))) = Some (mkfact PZero CB 0).
+Proof. vm_compute. auto. Qed.
+
 (* ================================================================= *)
 (* Assumption audit. Every line must print                            *)
 (* "Closed under the global context".                                 *)
@@ -958,3 +1049,7 @@ Print Assumptions receipt_separation.
 Print Assumptions no_mu_oracle.
 Print Assumptions no_cert_oracle.
 Print Assumptions no_commit_oracle.
+Print Assumptions earned_run_check_can_fail.
+Print Assumptions earned_run_refused_forever.
+Print Assumptions certified_channel_earned.
+Print Assumptions channel_names_last_commit.
