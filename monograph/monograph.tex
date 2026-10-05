@@ -235,6 +235,712 @@
 \clearpage
 
 %===========================================================================
+\phantomsection\section*{The point}
+\label{sec:point}
+%===========================================================================
+
+Here's the whole thing before any of the careful parts. I'm going to start with one small picture,
+take it apart, and keep asking what each piece means, as far down as I can get before I hit
+something that holds or something I can't get under. I'll tell you which. Then I'll put it back
+together at the end and you can check whether it still stands.
+
+One warning about how this went, because it explains the shape of everything after it. Most of the
+time I had the hunch first and found the names later. Over and over, somebody had been here before
+me. Sometimes that made my day. Sometimes it pissed me off. You'll see both.
+
+\subsection*{Two computers that end up the same}
+
+Put two computers on a table. Hand each of them the same list of a thousand numbers.
+
+The first one sorts it. It compares, swaps, walks the list again and again until nothing is out of
+order. Then it does one more thing: it walks the whole list front to back and checks that every
+number is no bigger than the one after it. That check could have failed. It passes. Then it tidies
+up after itself, wipes its scratch work, and leaves the sorted list in memory.
+
+The second one never looks at your list. Somebody typed the sorted version into it earlier, same
+thousand numbers, same order, and it puts them in memory.
+
+Now wait until both are done and look inside. Same bits in memory. Same bits on the screen. Set it
+up right, and you can, and it's the same everything, down to the last bit. One of them found
+something out about your list and stood behind it. The other one is holding identical bits and found
+out nothing. Wheel them out on a cart, swap them, wheel them back, and ask me which is which. I
+can't tell you. You can't tell me. And the part that bugs me most: built the ordinary way, neither
+machine can tell you either.
+
+Sure, while they ran they were different. One did thousands of comparisons, the other did a copy.
+But the runs are over and the runs are gone, and nobody was being sloppy. Ordinary computers are
+built to forget how their bits got there, on purpose. Later in this chapter there's the sentence
+where a physicist said so in 1961, and why he said it costs heat.
+
+Who cares? Anybody who's been handed a sheet that says ``all tests passed.'' Anybody who's looked at
+an inspection sticker on a windshield: the sticker looks the same whether somebody checked the
+brakes or somebody sold the sticker. An audit, a proof, a ledger, an AI that sounds very sure of
+itself: every one of them is a pile of bits that could have come out of either computer, and the
+question that matters is the one the bits can't answer. Did something establish this, or did it just
+print it?
+
+I'm going to call the difference \emph{established}. The first machine established that your list is
+sorted. The second has the same answer and established nothing. The rest of this chapter is me
+taking that one word apart.
+
+\subsection*{Look harder}
+
+The obvious answer is: just look harder. Don't look at the end, look at everything. So make the
+computers as lookable as computers get. Scale them up to the size of a warehouse, every wire a
+lamp that's lit or dark, every switch something you can walk up to and touch. Nothing hidden in a
+chip too small to see. Put both of them side by side and walk the floor.
+
+While they run, sure, you'd see the difference. One has a whole wing lighting up, comparing and
+swapping, and the other just copies. But they finish. The comparing wing goes dark. Now walk the
+floor and look at every single lamp. The sorted list is spelled out in lit and dark lamps in both,
+the same pattern, and everything else is dark in both, because both cleaned up.
+
+There is no lamp anywhere that says ``a check ran here and passed.'' Not hidden. Not encrypted. Just
+not there. You can see everything there is, and the thing I'm after isn't one of the things there
+is. Looking harder doesn't help, because the problem isn't that you can't see enough. It's that
+nothing was kept.
+
+That's the shape I want you to carry through the rest: it's not a visibility problem, it's a keeping
+problem.
+
+\subsection*{Computed, stored, established}
+
+Three words that get used like they're one.
+
+\emph{Computed} is about the steps. The first machine computed the sorted list. The second didn't.
+
+\emph{Stored} is about the bits. Both machines stored it.
+
+\emph{Established} is neither, and that's the whole problem. It isn't the steps, because they're gone. It
+isn't the bits, because they're identical. It's something like this: the first machine has a right
+to lean on ``this list is sorted,'' because it ran a test that could have failed, the test passed, the
+test was about this very list, and then the question got closed. The second machine has the same
+sentence and no right to it. That's a true fact about the two of them, and it's written down
+nowhere, in either one.
+
+Four words I'll hold still from here on. A \emph{check} is the test, the thing that could say no. A
+\emph{commit} is the closing, the question shut for good. The \emph{record} is whatever stays behind to say
+so. And \emph{established} is all three, about one thing.
+
+People say ``a right to lean on it'' about a lot of things that turn out to be vibes, so I had to find
+out whether this one was anything. So I went looking. Here's what I ran into.
+
+\subsection*{The clerk who forgets everything}
+
+The picture everybody passes around is a person with a pencil, a strip of paper and a short list of
+rules, and that's what a computer is. It's worth going back to the source, Alan Turing's 1936
+paper, and seeing how far he actually takes it.
+
+He takes it a long way. Back then a ``computer'' was a job, a human doing sums by hand, and Turing
+modelled that person. He's careful with the person's mind: whatever the clerk knows, beyond a
+handful of states, has to go down on the paper. Then he goes all the way. He imagines the clerk
+getting up, walking off, forgetting everything, and coming back later. To pick up where he left
+off, the clerk leaves himself ``a note of instructions,'' and Turing says that note \emph{is} the clerk's
+state of mind, as far as the computation is concerned. Marks on paper and a note. That's the whole
+state.
+
+My two computers are sitting right inside that. Suppose the clerk didn't write the note. Somebody
+slipped it under the door, in the right form, with the right instructions. He comes back, reads it,
+carries on, and every mark he makes from then on is exactly what he'd have made if he'd written it
+himself. Turing's model can't tell the clerk who did the work from the clerk who was handed a note
+saying he did. It was never asked to. Turing wanted something you could check without crawling into
+anybody's head, and a note on a desk is about as checkable as it gets. That's why the paper still
+works ninety years later. It's also why there's no place in it for the thing I'm after.
+
+So the founding picture of computing is a man who leaves his desk, forgets everything he was doing,
+and trusts a sticky note. I relate to him deeply.
+
+And now the question nobody needs answered to follow the argument, which is exactly the kind I
+can't leave alone: who were those clerks? Real people. Before machines took the word, a
+``computer'' was a job title. In the late 1800s the Harvard Observatory hired rooms full of women to
+do the arithmetic of the sky, cataloguing stars by hand for a fraction of a man's wage, and some of
+them found things the astronomers who hired them had missed. Rooms like that ran artillery tables in
+both world wars. So when Turing modelled ``the computer,'' he was modelling somebody's actual
+afternoon. Does that change the argument? Not a bit. But it changes the picture, for me anyway: the
+sticky note was always a person trusting another person's work, and the question of whether the
+work behind it was really done is older than any machine.
+
+\subsection*{Information doesn't have it either}
+
+My next guess was information: one machine got some, the other didn't. That one died fast. Claude
+Shannon, who turned information into a number in 1948, says on his first page that the meaning of a
+message is ``irrelevant to the engineering problem.'' His number measures how many messages you
+\emph{could} have sent, not what the one you sent did, which is exactly right for building telephone
+lines and exactly no help to me. Same message out of the same set, same number, for both computers.
+He'd give them the same number if one of them got hit by lightning and came out right by luck.
+
+Fine, look at the one message instead of the set. In the 1960s some people (Ray Solomonoff, Andrei
+Kolmogorov, Gregory Chaitin, separately) worked out how to measure the information in one string:
+the length of the shortest program that prints it. Same two computers, same string, same number. And
+then there's the thing in that theory I keep going back to and standing on, to see if it creaks.
+Running a program can't add this kind of information. What comes out can't hold more than what went
+in plus the program, give or take a little. Leonid Levin, who proved a general version of this, has
+a one-liner for it that's too good not to repeat: you can torture an uninformed witness all you
+want, you won't get information about the crime.
+
+Which means, as far as information goes, sorting your list told you nothing. The sorted list holds
+nothing that ``your list, plus the word \emph{sort}'' didn't already hold.
+
+And it turns out logic says the same thing in a different coat. The standard logic of knowing, the
+one Jaakko Hintikka worked out in 1962, has a property people call logical omniscience: if you know
+some facts, you automatically know everything that follows from them. So by that logic, once you
+knew every number on your list, you already knew whether it was sorted. Hintikka flagged the problem
+himself, in the same book, and people have been trying to fix it since. The fix that comes closest
+to me is Sergei Artemov's, from 1995: you only get to know a thing if you've built an actual
+justification for it, and the justification rides along with the claim. That's a reason traveling
+with the claim, which is almost a record. But it's a way of writing things down and reasoning about
+them. Nothing in it steps, and nothing in it pays.
+
+So the two most careful accounts I could find, one about bits and one about knowing, say the same
+thing: the sort added nothing.
+
+And yet you know something after the sort that you didn't before. You can read the smallest number
+off the first slot. You can stop worrying. Something happened. That's the clue, and it's the first
+solid thing I've got: whatever
+\emph{established} is, it isn't new bits. It's the same bits, \emph{settled}.
+
+\subsection*{The guy who got closest}
+
+Somebody had that clue before me, and he's the closest neighbour I've found, so he gets the most room
+and the hardest push.
+
+Charles Bennett, a physicist at IBM, wrote a paper in 1988 that starts where I just ended up:
+information isn't the same as value. His example is an almanac of where the moon and planets will
+be every day for a hundred years. It has no more information than the equations it was calculated
+from, but it saves you doing the calculating. So the value is the work. He called the amount of
+work a thing carries its \emph{depth}.
+
+Was this my idea, already done, by a guy at IBM? The only way to find out was to find where it
+parts from mine, because if I couldn't find that place I'd just be renaming his idea. And it's one
+word: \emph{plausibly}. Depth is the amount of work a thing was \emph{plausibly} made with. Bennett says
+straight out that you can't know how a message actually came to be; for all you know it came from
+flipping coins. Depth is read off the finished thing, the way a fossil's age is read off the
+fossil.
+
+Bring the two computers back. The sorted list in the first one has some depth. The identical list in
+the second has exactly the same depth, because depth looks at the list and nothing else. A
+photocopy of a deep thing is just as deep. Depth tells you \emph{some} work was done, somewhere, by
+someone. It's not a record that \emph{this} machine did it, and it's not a receipt for what doing it
+cost.
+
+So Bennett's standing right next to the line, on the other side of it, and as far as I can tell he
+got his own question right. He asked how much work a thing embodies. I'm asking who has the right to
+lean on it and what they paid to get there. His answer lives in the object. Mine, if I've got one,
+has to live in the machine.
+
+\subsection*{Statues that walk off}
+
+If it isn't in the information, maybe it's in the knowing, so I went and read the philosophers.
+And there it was again: people had been arguing about the difference between having the right
+answer and knowing it for a couple thousand years.
+
+Plato's version is a joke about statues. There was a story that the sculptor Daedalus made statues
+so lifelike they'd walk off if you didn't tie them down. Plato says true opinions are like that:
+they wander off, and they're not worth much until you tie them down with the reason why. Once
+they're tied down, they're knowledge, and they stay put. Knowledge tied to a reason, and knowledge
+that stays. Of everybody I'd have bet on to hand me that shape, Plato wasn't on the list.
+
+Then in 1963 a philosopher named Edmund Gettier broke the tidy version in three pages. Smith and Jones are up for the same job. Smith has good reason to think
+Jones will get it, and he's counted the coins in Jones's pocket: ten. So Smith figures, fairly, that
+the man who'll get the job has ten coins in his pocket. Then Smith gets the job, and, unknown to
+him, Smith also has ten coins in his pocket. True, believed, backed by a reason. Not knowledge. He
+was right by luck, because his reason was about the wrong pocket.
+
+That's the push that matters for a machine. Checking one pocket and committing to a claim about
+another is right by luck. So whatever a machine commits to, the check underneath has to be about
+\emph{this very claim}, and I'd better say exactly what that means, because it carries a lot of weight
+later.
+
+A check is about this very claim when four things hold. It tests the same property the commit names,
+not a cousin of it. It tests that property on the same thing the commit names, not the thing next to
+it. Nothing has written to that thing between the check and the commit, so it's still the same
+edition the check looked at. And the check is honest: it says yes when the property is true and no
+when it isn't, on every value it could ever be handed, not just this one. Break the first three and
+you're Smith with his ten coins. Break the fourth and the check is just a rubber stamp. Later in the
+book I build a machine whose step won't let a commit through unless the first three hold, and whose
+checks come with a proof of the fourth.
+
+And here's where I went further than this chapter needs, because the obvious next question is:
+does anything fix Gettier? People tried for years. The first patch is ``no false steps in the
+reasoning'': Smith's mistake was believing Jones would get the job, so rule that out. Then a
+philosopher named Alvin Goldman, crediting Carl Ginet, came back with barns. You're driving
+through a county that, unknown to you, is full of fake barns, just painted fronts propped up to look
+like the real thing. You look at the one real barn in the county and think ``that's a barn.'' True. Believed. Good
+reason, your own eyes, and no false step anywhere. And still you were lucky: if you'd glanced at
+the next one over you'd have believed the same thing and been wrong. Every patch gets a new barn,
+and as far as I can tell the arguing hasn't stopped. Which tells me something I'll keep: whether a
+check was good isn't only about this one case. It's about what the check would have done on the
+cases next door. Hold on to that, because it's the next section.
+
+\subsection*{What ``could have failed'' means}
+
+I keep saying the first machine's test \emph{could have failed}. Take that apart, because it's the
+piece everything else hangs off.
+
+The machine is deterministic. Given your list, the check was always going to pass. So in what sense
+could it have failed? In this sense: if your list had been out of order, the check would have said
+no. That's a claim about a different list, not about chance. Run the second machine on a scrambled
+list and it prints the same sorted list anyway, because it never looked. Run the first on a
+scrambled list and its check catches it. The first machine's answer follows the truth about your
+list; the second machine's would be the same either way.
+
+Here's the shape. A check is a question asked of every possible input, and it splits them into two
+piles: the ones it says yes to and the ones it says no to. ``Could have failed'' just means the no
+pile isn't empty. A check that says yes to everything has an empty no pile, and it establishes
+nothing, however long it runs and however official it looks. A philosopher, Robert Nozick, made a
+version of this a condition for knowing, in 1981: you know a thing only if, had it been false, you
+wouldn't believe it.
+
+Push on it once more, because this is where it really gives. ``Could have failed'' is a fact about the
+\emph{procedure}, about what the check would have done on other lists. It isn't a fact about the end
+state at all. Look at the first machine's memory when it's done: a sorted list. Nothing in those
+bits says ``and whatever made me would have caught a mistake.'' That's the warehouse again, every
+lamp visible and none of them saying it. The one thing that makes the first machine's answer
+worth more is exactly the kind of thing an end state can't hold. The only way a machine can own it
+is to write something down at the moment the check passes, and to have that something mean what it
+says. More than anything else in this chapter, that's why I ended up needing a record and not just
+a better answer.
+
+One more thing that tripped me up and then didn't. Rig a check to pass only on your one list. Is
+that cheating? No. It's a perfectly honest check of a different claim, ``this is that exact list,''
+and it has a big no pile: every other list. It establishes exactly that and nothing more. What a
+check establishes is whatever it's honest about.
+
+\subsection*{Settled, whether it's true or not}
+
+Then I ran into Charles Sanders Peirce, writing in 1877, and he said the thing I'd been running
+together without noticing. The point of inquiry, he says, is to get out of doubt and settle on a
+belief. And when someone objects that surely what people want is a \emph{true} belief, he answers like a
+guy who's watched a lot of arguments end: ``as soon as a firm belief is reached we are entirely
+satisfied, whether the belief be true or false.''
+
+That's funny, and then it isn't, because he's right. Settling and being right are two different
+events. A question can be closed on a wrong answer, and once it's closed it acts closed. Peirce cares
+a lot about which ways of settling hold up (science wins, for him, because it has to answer to
+something outside any one person), but the settling itself, the question snapping shut, is there
+every time, and it never comes with a guarantee.
+
+Karl Popper said it from the other side. Every test, he says, has to stop somewhere, at some
+statement somebody decides to accept, and nothing in the evidence forces you to stop there instead
+of one step further. You stop when you're satisfied. His picture is a jury: the verdict is a
+decision about what happened, and the jury deciding it doesn't make it true. Science, for him, is a
+building on piles driven into a swamp, and the piles stop where somebody's satisfied they'll hold,
+not where the ground gets firm.
+
+That swamp sent me further down, because it's the oldest problem in the book and it doesn't have a
+bottom. Ask why you believe something and you get a reason. Ask why you believe the reason and you
+get another one. Sextus Empiricus wrote down the ancient version, credited to someone called
+Agrippa, and in the 1960s a follower of Popper's, Hans Albert, gave it a name with a joke in it: the
+Münchhausen trilemma, after the baron who claimed he pulled himself out of a swamp by his own hair.
+Every chain of reasons does one of three things. It goes on forever. It loops back on itself. Or it
+stops somewhere, because somebody decided it stops. People have argued for a very long time about
+which of the three to live with. So ``when do I actually know, and when am I done checking?'' doesn't get a clean answer
+from anybody. What you can do is be honest about where you stopped and why. That's a lot of what
+the rest of this book is: every place it stops is written down, with its name on it, so you can
+decide whether you'd have stopped there too.
+
+Lay those two on top of each other and here's what shows through. The check is one act. The stopping
+is another. The check can run as long as you like and it never \emph{makes} you stop; at some point
+something decides, and the deciding is its own event. That's the second machine's whole trick: it
+skipped the check and kept the answer.
+
+And a logician said the part I didn't expect a logician to say. Per Martin-Löf, whose ideas sit
+underneath the kind of proof checker that checks this book, says a proof isn't an object, it's an
+act, and once it's done it's done, \emph{irrevocably}. You could say that's true of everything that ever
+happened. Fine. But it's the two computers again: the first machine's check happened, irrevocably,
+and the machine right now carries no trace of it. The past can't be undone. The \emph{record} of it can
+be lost, unless something keeps one. That gap is where this book lives.
+
+\subsection*{Turns out computing already had a word for it}
+
+Here's the slightly embarrassing part. Computing already has a word for this and uses it every
+day. Anyone who's used a database has seen it: COMMIT.
+
+A database does a pile of tentative work, and then there's one moment, the commit, written to a log,
+after which the change counts. Jim Gray, who more or less built the theory behind that, opens his
+1981 paper on it by saying the idea comes from contract law, and his example is a wedding. People
+negotiate, somebody asks, two people say ``I do,'' and from then on it's binding. If it was a mistake
+you don't erase it; you do another transaction to fix it, the way a bad contract gets a second
+contract and not a time machine.
+
+The wedding was a philosopher's example first. J. L. Austin, lecturing in 1955, said ``I do'' doesn't
+\emph{describe} a marriage, it \emph{makes} one, and sayings like that aren't true or false. They can misfire
+(the wrong person says it, a step gets skipped) but they can't be false. That's a commit exactly.
+Writing the commit record doesn't report that a question got closed. Writing it \emph{is} the closing.
+And a commit can't be false, only misfire: committed without the check, committed about the wrong
+pocket. Gettier and Peirce again, from a third direction.
+
+Robin Milner, building a proof checker in the 1970s, ran out of memory, so he decided to keep only
+the finished theorems and throw the proofs away, like a teacher rubbing out the blackboard to make
+room. The obvious worry is forgery: if the proofs are gone, what stops someone just writing a
+theorem down? His answer was beautiful. Theorems got their own type in the programming language, and
+the only way to make one was through the rules of logic. You couldn't forge one because the language
+wouldn't let you build it any other way. He named that language ML, for Meta Language. I wanted to
+call my machine the meta machine. I'm choosing to treat that as a coincidence and not a sign, which
+is more restraint than I usually manage.
+
+Bitcoin is the loud modern version. Its records can't be changed without redoing all the work that
+came after them, and a computer that drops off the network and comes back trusts the longest chain
+as the story of what happened while it was gone. That's Turing's clerk again, coming back to a note.
+The difference is that the clerk's note costs nothing to forge and Bitcoin's costs a mountain of
+work. It's the clearest case I know of somebody making a settled fact expensive to fake, and they got
+there by paying for a search, not by putting a price on the settling.
+
+And Bitcoin wasn't first. Pull on its footnotes: three of the eight
+references in the paper that started it point to Stuart Haber and Scott Stornetta, who in 1991
+worked out how to stamp a document with a time nobody could fake later, by chaining each stamp to
+the ones before it. A company built on their idea has been printing a short fingerprint of its
+chain in the classified ads of the New York Times, once a week, since 1995. Think about that for a
+second. To make a record nobody could quietly rewrite, they put it somewhere a million people would
+keep a copy of without even meaning to. That's the same move Zurek describes the world making with
+a measurement, and I'll get to him at the end.
+
+There are more fences like these: logs that can't quietly change, certificates you can check. Later
+in the book I take five of
+them apart. I lean on all of them. They work. I want that said plainly, because the next thing isn't
+``they're broken.''
+
+The next thing is where they sit. The database's commit is bits in a log, kept by a database
+program, on a machine whose own step will overwrite those bits the moment some instruction says to.
+Milner's guarantee is a type checker; it holds inside programs written in his language and nowhere
+else. Bitcoin is a protocol on ordinary computers that will do whatever they're told. Every one of them is a program or a rule, on top of a
+machine that can't tell my two computers apart. The machine underneath keeps nothing and charges
+nothing for what got settled.
+
+The obvious comeback: so put the rule one level lower, in the operating system, or what security
+people call a reference monitor, the small always-on piece everything has to pass through. Yes.
+Exactly that. A monitor that wouldn't let any program raise its record without paying would be doing
+the thing I'm talking about. In this book's words it would be \emph{implementing} the model, and I'd
+count that as agreement. What I care about isn't who builds the fence. It's what the fence has to
+obey, wherever it's built, and whether that's forced or just a good idea.
+
+\subsection*{What settling looks like}
+
+The next chapter ends with a pile of things sorted into buckets. Settling a question is that, plus
+one more thing.
+
+Picture every state the machine could be in as a field of dots. A yes-or-no question about the state
+splits the field into two rooms: yes and no. That's a sorting, the smallest one there is. And
+remember the no pile: if one of the rooms is empty, there's no sorting at all, just a field. Now the
+extra thing that makes it a settlement: once the machine is in the yes room, \emph{no step it can take
+leads back out}. The door opens one way. A settled question is a sorting plus a door that only
+swings in.
+
+At its best, what goes through the door is a relation: these numbers are in this order, these two
+things belong together. There's a chimpanzee named Sultan, later in the book, who fitted two short
+sticks into one long one and reached the food. Nothing new got added to the cage. Two sticks became
+one tool. That's what I'd want the door to be for.
+
+But the door doesn't care, and this is the honest edge of the whole picture. Hook the door to a
+check that says yes to everything and the machine walks through, settled, and wrong. Settled whether
+true or false, like Peirce said. A door that only swings one way tells you a question was closed. It
+doesn't tell you it was closed right. Price and correctness are two different books, and I keep
+both, separately.
+
+\subsection*{Why it has to cost}
+
+This is the part I'm proudest of, because once you've picked a record that stays, the choosing stops
+and the counting takes over. And the counting is chairs.
+
+Take any machine with a finite number of states. Its step is a function: give it a state and a move,
+it gives you back one state. Pick a yes-or-no reading of the state and make it permanent: no step
+ever turns a yes back into a no. Now suppose some step takes a state that reads no and lands it on
+one that reads yes. Then that step has to land two different states on one. It \emph{merges}.
+
+Do it with chairs. Draw a box on the floor, three chairs inside, one chair outside by the door. Four
+people, one per chair: the four states the machine could be in. The three inside already read yes.
+One step moves everybody at once, each to the chair the rule sends them to. Nobody inside may leave,
+because yes is permanent. The person by the door has to come in, because this is the step that flips
+them to yes. Now finish the move, one person per chair. You can't. Four people, three inside chairs:
+somebody shares. Maybe the newcomer ends up on a lap, maybe two insiders squeeze onto one chair;
+either way, two people end on one chair, and from where everyone's sitting you can't tell which two.
+That's the pigeonhole principle, which is old and not mine, and the checked version, with exactly
+those three conditions (finite, permanent, one flip), is in the chapter ``Why the toll isn't
+arbitrary.'' No physics in it anywhere. Counting.
+
+(How old is it? Older than you'd guess. A French Jesuit, Jean Leurechon, used it in 1622 to argue
+that two people somewhere must have exactly the same number of hairs on their heads, which is the
+kind of thing you can be completely sure of and never check. Its first proper name came two
+centuries later, from Dirichlet, who called it the drawer principle; the pigeons came later still. Is 1622 the bottom? I can't
+tell you. History is like that: it's where you start digging, not where you stop.)
+
+Turn it around and it gets better. A \emph{reversible} computer, one where every step can be run
+backwards, never merges anything, because a step you can undo never puts two people on one chair.
+Bennett, the same Bennett, showed in 1973 that any computation can be done reversibly if you give it
+room to keep its history while it works. But give a reversible computer a finite memory and, however
+much it computes, it can never raise a flag that stays up. It can always back up to before the
+flag. Settling needs exactly the kind of step a reversible computer refuses to take.
+
+Now the physics, as an assumption with its name on it. Rolf Landauer, at IBM, 1961, said that a step
+that can't be run backwards, that merges, ``requires a minimal heat generation.'' That's the rule
+people call Landauer's principle. On a finite machine, settling something for good takes a merge,
+and if Landauer's right, a merge costs. So on that assumption, establishing something for good can't
+be free.
+
+And here's the rest of his sentence, the one I promised at the start. That heat, he wrote, ``serves
+the purpose of standardizing signals and making them independent of their exact logical history.''
+That's my two computers, in 1961. Ordinary machines spend their merges, and their heat, on
+\emph{forgetting how the bits got there}, on purpose, so a 1 is a 1 no matter what path made it. That's
+why the sorter and the copier end up identical, and why the comparing wing goes dark. And the very
+same kind of step, a merge, is what it takes to close a door for good.
+
+So here's the deepest thing I can say about settling, and I'll say it carefully, because it's easy
+to say it bigger than it is. Not every forgetting settles anything: wiping a scratch pad closes no
+question. But on a finite machine, every settling forgets. The step that closes a question for good
+lands two states on one, somewhere, maybe not where you happen to be standing, and afterward nothing
+can tell which one it was. A verdict keeps the decision and lets go of the arguing. An ordinary
+computer pays for the forgetting and keeps nothing to show for it. What I want to know is what a
+machine looks like that pays for the same forgetting and keeps the receipt.
+
+Every assumption in that is a way out, and you should know where they are. Give the machine
+unlimited memory and it never has to merge; it can write its history down forever, and the chapter
+on the toll builds exactly that machine. Let the flag come back down and the chairs lose their grip.
+The merge the counting finds might happen among states the machine never actually visits, and then
+Landauer, who cares about what's actually possible, might charge nothing; there's a section on
+exactly when that bill comes to zero. And Landauer's principle is physics, not math. A group in Lyon
+measured the heat of erasing one bit in a tiny bead held by a laser, in 2012, and it has serious
+critics too, the philosopher John Norton among them. So the counting is proved and the price is an
+assumption, and I never let those two swap places.
+
+\subsection*{Somebody got there first, goddamn it}
+
+Bennett also says looking can be free. His famous move with Maxwell's demon (the whole story's later
+in the book) is that you can write down which side of a box a molecule is on without paying
+anything, as long as you write on a blank page. What costs is wiping the page to make room for the
+next one.
+
+I'd been sitting on this idea that \emph{committing} is what costs, not learning, and I thought: this
+one's mine, I finally had an original thought. Then I found Carlo Rovelli's 2024 paper, ``The
+Thermodynamic Cost of Choosing.'' Nope. Somebody got there first, goddamn it. A real physicist, with
+a real paper, saying that making a choice that sticks costs at least the same heat Landauer charges
+for erasing a bit. He even quotes a German saying, \emph{Wahl ist Leiden}, to choose is to suffer, and at
+that point what are you going to do but laugh.
+
+And then, taking him apart properly, it got good, because he seems to contradict Bennett. Bennett
+says measuring can be free; Rovelli says any measurement costs. So which is it? Look at what Rovelli
+calls a choice. A coin in the air hasn't chosen anything; it has to hit the ground and stop. And
+then the sentence I'd put on my wall: ``stabilization must be irreversible, otherwise it is not
+stabilization.'' Bennett's free measurement is one that could still be undone; that's \emph{why} it's
+free. Rovelli's choice is one that's been made to stay; that's why it costs. The way I read them,
+they're standing on opposite sides of the same door: learning on Bennett's side, committing on
+Rovelli's. (Bennett's demon still pays in the end, when it wipes the page.) Neither of them puts it
+that way, so push on it. But if it holds, it's the best sign I've got that the line I keep drawing
+between knowing and settling isn't something I made up.
+
+So he's my closest neighbour, and here's the difference, exactly. His is physics: a price in heat,
+at a temperature, for a choice that sticks. Mine is a rule in a model of computation: a charge in
+the machine's own count, on the step that flips a permanent reading on, with no temperature anywhere
+in it. Same instinct, different place. I'll take it. It's annoying to be second. It's worse to be
+alone and wrong.
+
+\subsection*{What the Thiele Machine is}
+
+So here's what I built, and which parts I was pushed into and which parts I chose, because you
+should know which is which.
+
+The Thiele Machine is a model of computation, the way Turing's machine is: math you can reason
+about, not a box you can buy. It has a few parts. A state. A step that moves the state. A record: a
+yes-or-no reading of the state that says whether something's been established. A charge on each kind
+of move, added up on a counter that only climbs. One rule, which I call the toll: the step that
+flips the record from no to yes has to cost at least one mark on that counter. And a window, what an
+outside observer gets to see, which is there because the two computers already showed you the
+problem: the usual window, the bits, can't see the record. The toll's first name, the one I gave it
+before I understood it, is No Free Insight.
+
+One what, and why one? One mark, in the model's own count. One because it's the least a whole-number
+count can charge and still not be free, and the toll only says \emph{not free}. The model doesn't say a
+mark is worth a joule or a dollar; whether it's worth anything physical is Landauer's assumption,
+named, and nowhere else. And one is just the floor: Part II shows that if you charge merges by how
+much they squeeze together, the price grows with the logarithm of the squeeze, roughly how many
+times a step halves the number of states it can tell apart.
+
+What was I pushed into? That on a finite machine, a record that never comes down can only be raised
+by a merge: counting, proved. That merges cost: physics, assumed. What did I choose? To put the
+count \emph{inside the step}, as part of what a step is, instead of in a log off to the side. Nothing
+forces that. It's my claim about where the account belongs, and the rest of the book is the case for
+it.
+
+About the name. I named it after myself, on purpose. Half of that is a joke and half of it is a
+stake in the ground. Turing got a machine, so here's mine. The longer story,
+meta machines and all, is in the next chapter.
+
+The names work the way Turing's do, and I'm going to be a little annoying about them. \emph{The Thiele
+Machine}, capital letters, is the model and nothing else. \emph{A Thiele machine}, lower case, is any
+particular system proved to fit the model, the way one rule table is a Turing machine; a two-box toy
+on a sheet of paper counts. A Thiele machine is \emph{Thiele-complete} when the machine under the record
+can compute anything a Turing machine can while still keeping the record and paying the toll. And a
+\emph{universal} Thiele machine is one fixed machine that runs other machines as guests, with each
+guest's record kept and its toll collected by the host's own step, not by the guest's good manners.
+
+\subsection*{The two computers, put back together}
+
+Here's the two-computer story again, rebuilt as Thiele machines, with the record and the counter
+written out, so you can watch it instead of taking my word. The prices are the ones on the smallest
+machine I build later: one mark each to check, to commit, and to certify (raise the record), and
+nothing for ordinary work like moving numbers around.
+
+\begingroup\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.205\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}>{\raggedright\arraybackslash}p{0.097\linewidth}@{}}
+\toprule
+\textbf{step} & \textbf{sorter does} & \textbf{record} & \textbf{counter} & \textbf{copier does} & \textbf{record} & \textbf{counter} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+start & nothing yet & no & 0 & nothing yet & no & 0 \\
+1 & sorts (lots of ordinary steps) & no & 0 & copies in the typed list & no & 0 \\
+2 & checks ``sorted'' on this list, this edition: passes & no & 1 & (no check) & no & 0 \\
+3 & commits to ``sorted,'' about this list, this edition & no & 2 & tries to commit: nothing checked, refused & no & 1 \\
+4 & certifies & \textbf{yes} & 3 & tries to certify: nothing committed, refused & no & 2 \\
+\end{longtable}
+\endgroup
+
+At the end, the bits on both machines are still the same sorted list. Everything else differs. The
+sorter's record is up and its counter reads 3. The copier's record is down, and it's paid 2 for two
+refusals, because on that machine a refused attempt still costs what it costs. Nothing the copier
+can do raises its record without first running a check of that very claim that passes. And no
+outside window that only shows the list can tell you which is which; the difference is all in the
+part the window doesn't show. Walk that warehouse now and there's finally a lamp that's lit in one
+and dark in the other.
+
+Now the honest half. Take away the small machine's rules and keep only the bare toll, and the copier
+has an easier move: pay one mark, flip the record to yes, done. The toll is satisfied. The receipt
+is real. It's a receipt for nothing. The bare toll prices the closing of the door, not the check
+behind it.
+
+\subsection*{What putting it in the step buys}
+
+So here's the hardest objection, and I'd rather make it myself. You defined a flag and a charge,
+then proved the charge gets paid when the flag goes up. That's your definitions agreeing with each
+other.
+
+On the bare model, that's fair, and the copier's receipt for nothing is the proof. What makes the
+record mean \emph{established} is the small machine's step, which won't let a commit through unless a
+check of that very claim passed, in the four-part sense from Gettier's pocket. And what it proves
+isn't about one program. It's this: on \emph{every} list of instructions anybody can write, starting
+clean, if the record is up, then somewhere earlier a check of exactly that claim, about exactly that
+edition, passed; then a commit of the same claim; then the certificate; with nothing touching the
+thing between the check and the commit.
+
+That ``every'' is the whole answer to what the step buys. A log kept by a program gives you a fact
+about that program: if the program's right, the log's right. The database's guarantee holds for work
+that goes through the database. A rule in the step gives you a fact about every program the machine
+can run, the buggy ones and the hostile ones too, because there's no way to run anything on it that
+isn't a string of its steps. That's what moving the rule down a level changes. Not what can be
+computed. \emph{Which} programs the guarantee covers: this one becomes every one. Most of the rest of the
+book is how far that ``every'' goes and where it stops.
+
+\subsection*{What it isn't}
+
+It isn't more computing power. Anything a Thiele machine computes, an ordinary computer computes
+too. The book proves that over any machine at all, an honest record is a switch the machine's own
+events flip once and nothing flips back; it watches the computing, it doesn't add to it. It isn't
+faster. It isn't quantum. It says nothing about which problems are hard.
+
+And an ordinary computer can keep a record like this. Give a Turing machine a spot for the record
+and a track for the counter, write its rules so it never sets the spot without bumping the counter,
+prove that, and it \emph{is} a Thiele machine, not a counterexample. What an ordinary universal computer
+can't do is make its own step enforce a record \emph{for the programs it runs}. When it runs another
+program, that program's record is just data on its tape, and a buggy program can flip it for free,
+because the host's step has no opinion about it. That gap, between the machine doing the stepping
+and the program it runs, is where the databases and the proof checkers and Bitcoin built their
+fences, and it's the gap the universal Thiele machine later in the book closes, for the programs of
+the small machine it's built on.
+
+\subsection*{What's proved, what's argued, and what I just believe}
+
+Every claim in this book has a status and I'll tell you which, every time. Here's the whole list at
+once, so you know what I'm on the hook for.
+
+Checked by a proof assistant, with every assumption printed, for any system with the named parts:
+anything that obeys the toll pays at least one mark to get from not-established to established
+(short enough that you'll prove it yourself on paper in Part II). On a finite machine whose record
+never comes down, the step that raises it merges, which is the chairs; with merging priced, the toll
+follows, and the price is an assumption with a name. Finding out can be free: you can learn
+something from a step that merged nothing and cost nothing, so the toll lands on committing, not
+learning. A window that shows a paid state and an unpaid one as the same can't price the step
+between them exactly, however clever it is. And over any machine, an honest record is a one-way
+switch on an event, with two choices left free: the price list and which event.
+
+On the smallest machine I could build, six instructions on two counters: everything in the table
+above, for every program, not just that one. A raised record always went through a passing check,
+then a commit, then a certificate, of exactly the same claim about exactly the same edition. Nothing
+gets into its list of checked facts without a check writing it. The cheapest certificate costs
+exactly three marks. It's Thiele-complete, because it does everything Marvin Minsky's two-counter
+machines do, and Minsky proved those can compute anything a Turing machine can. And a host built on
+it is a universal Thiele machine for its programs: its own step collects every guest's toll. A
+machine from somewhere else can come in as a guest and keep its computation and its toll, but not
+its own price list.
+
+Argued, not proved: that an account of computation \emph{should} carry what was established, and what it
+cost, in how it steps. That's what the proofs are there to test, and it's a claim about what
+matters, which no proof checker can check.
+
+Guessed at, with the ways to kill it written down: that the event worth recording is certification,
+because its records are the ones that get copied and relied on all over the place (the pointer
+conjecture, Part III).
+
+Not proved, and I'll say so every time it's tempting: any physical price for one mark, anything
+about real hardware that was ever switched on, or anything about which problems are hard.
+
+\subsection*{At the bottom: what I suspect and can't prove}
+
+This is underneath the proofs, so read it with the lights on. None of it is a theorem, and I'm not
+going to dress it up as one. It's why I care, and I'd rather you know that going in than catch me
+sneaking it in later.
+
+Physics has a word for the moment a question closes: \emph{measurement}. And the people who thought
+hardest about it keep describing it in this chapter's shape. Before a measurement, it could go
+either way. After, it's settled, and the result gets copied out into the world, the light and the
+air, so many times that it can't be taken back and everybody who looks agrees. Wojciech Zurek has
+spent decades on how that copying works. Rovelli's coin has to hit the ground.
+
+Niels Bohr said seeing anything at that scale depends on an apparatus that works irreversibly, like
+permanent marks on a photographic plate: a door that swings one way. John Wheeler went further and
+said every physical thing gets its existence from yes-or-no questions answered and registered, and
+boiled it down to ``it from bit.'' And Peirce, way before any of them, said the kind of settling worth
+trusting is the kind that has to answer to everybody.
+
+Lay that next to everything above and the parts line up: a check that could have come out either
+way, a result that's now settled, a price paid in forgetting, a record that stays. I suspect that
+isn't a coincidence. I suspect the event this book prices on a machine is the same kind of event
+physics calls a measurement, showing up in a different place. That's as far as I'll take it here,
+and it's a suspicion, not a finding.
+
+Now let me point the biggest gun I can find at it, and that's John Bell. In 1990 Bell wrote a short,
+furious essay against the word ``measurement,'' with a list of words he said have no place in a
+physics that wants to be precise. On the list: system, apparatus, environment, irreversible,
+information, and measurement, which he called the worst of all. I used half of them in the last few
+paragraphs without even trying. Bell would have taken my suspicion apart in an afternoon, and he'd
+have been right to, because every piece of it leans on words physics hasn't pinned down. Nothing in
+this book proves any of it. The proofs are about models and machines, and whenever physics shows up
+in them it shows up as an assumption with a name on it. The suspicion is why I went looking. It
+isn't what I found.
+
+\subsection*{Where this goes}
+
+So here's the picture, put back together. Two machines can hold the same bits and differ in what
+they've established, and you can't see it even walking the floor between them, because it was
+never kept. The difference isn't information; information theory says the sort added nothing new.
+It isn't depth; depth belongs to the bits, and a copy has just as much. It's an event: a check that
+could have said no, about this very claim, then a question closed for good, with no promise the
+answer's true. The could-have-said-no part lives in the procedure, not in the end state, so only a
+record can carry it. On a finite
+machine, a record that never comes down can only be raised by a merge, a kind of forgetting, the
+same kind ordinary computers pay heat for so their bits forget where they came from. If Landauer's
+right, that costs. The Thiele Machine puts the record and the charge in the step itself, and what
+that buys isn't more computing. It's a guarantee about every program instead of one.
+
+Every time I thought I'd found something new on the way down, somebody had a name for part of it
+already. Fine. I think the part nobody had put together is that last sentence, and the rest of the
+book is me trying to break it. First where I came from, then the word I couldn't define when I
+started, structure. Then the smallest thing that could carry the bill, on a sheet of paper, with one
+rule I'll hand you without a reason, and then the chapter where I find out whether I had to pick it.
+If it breaks there, the book ends there. I'd rather know.
+
+\clearpage
+
+%===========================================================================
 \phantomsection\section*{Before the book: the short version}
 \label{sec:shortversion}
 %===========================================================================
@@ -681,6 +1387,14 @@ them, and what follows is what I could reach, pushed on as hard as I know how. T
 I'm asking is that you push on it with me, out loud, at your own kitchen table, because the
 first time through I was the only one checking, and that's not enough people.
 
+The order I ran into them was a mess. Category theory came first, because I'd built one by
+feel before I knew it had a name, and everything else came in whatever order the next
+question dragged it in. I'm going to put them in the order they happened instead, because
+that's the order where each one leans on the last. And none of it is an oracle. History is where
+I start, not where I stop. It gets retold, smoothed over, and now and then made up outright
+(there's a drowning coming up that never happened), so every piece of it is a lead to check,
+and I check the parts I lean on.
+
 \subsection{A string, a square, and a drowning that didn't happen}
 
 Start with the oldest one, and start by doing it. Take a string. A guitar string, a rubber
@@ -803,6 +1517,19 @@ opinion,'' Euclid is the man who found a way out of that room, and I'm not embar
 I learned the way out from someone dead for two thousand three hundred years. Four hundred and
 sixty-five times he does the same trick, and the trick is everything.
 
+And then there's the one rule Euclid seems almost embarrassed by, and it's a hole worth falling into. His
+fifth postulate, the one about parallel lines, is long and awkward next to the others, and for two
+thousand years people tried to prove it from the rest so it wouldn't have to be assumed. Proclus
+tried. Mathematicians in Persia and the Arab world tried. In 1733 an Italian priest named Girolamo Saccheri spent a
+whole book assuming it was false so he could watch the contradiction arrive, and he got pages deep
+into what is now a perfectly good geometry before declaring that it was repugnant and stopping. A
+century later three people, separately, took the step he wouldn't: drop the postulate, and you
+don't get nonsense, you get other geometries that hold up just as well. Farkas Bolyai begged his
+son János to stay away from the problem, warning that it had swallowed years of his own life; the son went in anyway
+and came out with one of those geometries. Here's the part I keep: they found something real by
+refusing to believe one of the rules everyone accepted, and checking what happened without it.
+That's the push, two thousand years long.
+
 What is structure, to Euclid? Whatever the starting rules force. And when are two shapes the
 same? Here's the one you can do: cut out two paper triangles and lay one on the other. If
 they coincide, they're equal. That's his fourth common notion, and it's how he proves his
@@ -875,6 +1602,13 @@ Ernst Zermelo in 1908 and it's the one mathematics still stands on: you may only
 collection out of a collection you were \emph{already given}. You don't get to sort ``everything.''
 You sort a pile. I'll tell you now that this rule shows up again, later, in a place where I
 had to obey it or fall through the same hole, and I'll point at it when the book gets there.
+
+Frege's reply is worth hearing, because it's the best example I know of how to lose. He wrote
+back within days. He didn't hide it or argue around it. He said, more or less, that arithmetic was
+tottering, and in an appendix to the volume that was about to come out he wrote that hardly
+anything worse can happen to a scientific writer than having a foundation give way right after the
+work is finished. Then he tried to fix it. If I'm wrong about something in this book, and I'd bet
+I am somewhere, that's how I'd like to take it.
 
 \subsection{Choose the changes, keep what survives}
 
@@ -960,19 +1694,19 @@ section.
 
 \subsection{The structure is in the arrows}
 
-In 1945 Samuel Eilenberg and Saunders Mac Lane published a paper that founded a field now
-called category theory, and they said in plain words that it was a continuation of Klein. The
-move: stop asking what a thing is, and ask how it's carried. A category is some objects and
+This is the one I met first, backwards. I'd built it by feel, in a rendering engine, as
+``digital DNA,'' and only went looking for its name after the thing already ran. In 1945
+Samuel Eilenberg and Saunders Mac Lane published a paper that founded a field now called
+category theory, and they said in plain words that it was a continuation of Klein, which I'd
+have loved to know at the time. The move: stop asking what a thing is, and ask how it's
+carried. A category is some objects and
 some arrows between them, where arrows can be followed one after another and every object has
 a do-nothing arrow to itself, plus two rules that make the following dependable: following
 three arrows in a row gives the same result whether you pair up the first two or the last
 two, and the do-nothing arrow really does nothing when you tack it onto either end. That's
 the whole definition, and I know it sounds like nothing. The two rules are the part people
 skip, and they're the part you'll watch me have to prove later. What a thing \emph{is} is how it
-maps. You've already read how I came at this backwards, the
-way I come at everything: built by feel, in a rendering engine, as ``digital DNA,'' with the
-name and the founding paper turning up only after the thing already ran. For now the residue is the one Bourbaki
-missed: structure lives in the maps. Whether the thing I built honours that, you'll be able to
+maps. For now the residue is the one Bourbaki missed: structure lives in the maps. Whether the thing I built honours that, you'll be able to
 judge when I build the category in front of you, from scratch, later in this book.
 
 \subsection{Structure is the part that compresses}
@@ -981,6 +1715,7 @@ Play this one with me. I write ``th'' and you guess the next letter. You said ``
 right. Now ``the q'': you said ``u.'' Congratulations, you just measured the structure of English.
 In 1948 Claude Shannon measured it properly, in a paper that founded information theory, and
 found that about half of written English is ``determined by the structure of the language.''
+It's the reason a zip file of a long letter is so much smaller than the letter.
 Be careful what that says. It does not say that every other letter is fixed by the ones
 before it; you just guessed ``e'' after ``th'' and you could have been wrong (think ``than''). It
 says that, on average and over long stretches, about half of what's written could be
@@ -1084,7 +1819,8 @@ one I'm using, and when I slip you'll know what to look for.
 \subsection{The four parts of every computer}
 
 In 1936 Alan Turing described the machine that every computer you've ever touched is a
-version of, and he did it before any of them existed. Write down its parts; there are four.
+version of, and he did it before any of them existed. It's the clerk with the pencil from the
+opening chapter, written down as a machine. Write down its parts; there are four.
 A tape, divided into squares. A head that reads one square at a time and can write on it and
 move left or right. A finite list of states the head can be in. A table of rules: in this
 state, reading this symbol, do this. That's all, and two different things are true about it
@@ -1192,7 +1928,7 @@ it only pays if you kept the sorting somewhere you can read it back.
 
 And structure is always relative to a chosen frame. Klein's group. The vocabulary. The code
 you compress against. Parnas's criteria. Nobody gets to say ``the'' structure of a thing
-without saying from where, and I've caught myself doing it twice while writing this. On your
+without saying from where, and I do it constantly, so watch me for it. On your
 sheet: allow stretching as one of the moves and the rectangle walks over and joins the
 squares; allow only slides and turns and it doesn't. Same pile, same ink, different groups,
 because I chose different moves. The groups were never in the paper. They were in the paper
@@ -1314,8 +2050,7 @@ formal version says the same thing with fewer words and more squiggles, and you'
 it: it's the definition of a partition a few pages back (Definition~\ref{def:equiv-partition}). Non-empty
 buckets, nothing in two, nothing on the floor.
 
-Here's the part that isn't kindergarten, and it's the part I had to sit with longest. Why
-would that fact cost anything? Watch what it does to one question. Before the buckets, ``are
+Here's the part that isn't kindergarten. Why would that fact cost anything? Watch what it does to one question. Before the buckets, ``are
 these two in the same group?'' means working it out: go find the first one, go find the
 second one, apply the rule to each, compare. After the buckets, it's a glance: read the first
 one's bucket, read the second one's bucket, done. And the glance costs the same when the pile
@@ -1328,7 +2063,9 @@ for each block saying which bucket it went in. The partition is the fact; the ta
 way of holding the fact so it can be read back fast, and you had to build the table, and
 you have to store it, and it has to be the kind of thing you can read in one look (a bucket
 number, say, and not a list of every block in the bucket that you'd have to search through
-again). Take the table away and keep the partition and you're back to working it out. And
+again). Anybody who's used a database has met this table; it's what an index is, and an
+index is a thing you build, store, and keep up to date, not a thing you get for free. Take the
+table away and keep the partition and you're back to working it out. And
 sometimes there was never a search to save: if the rule is ``evens here, odds there,'' you can
 answer ``same group?'' by looking at the last digit of each, no buckets needed. So the honest
 residue is smaller than the sentence I wanted: holding a sorting in a form you can read back
@@ -17479,6 +18216,69 @@ this book's pointer conjecture.
 \noindent Karl Duncker (1945). On problem-solving. Psychological Monographs 58(5), whole no. 270. The candle problem.
 \par\medskip
 
+\noindent Ray J. Solomonoff (1964). A Formal Theory of Inductive Inference, Parts I and II. Information and Control 7(1), pp. 1--22, and 7(2), pp. 224--254.
+\par\medskip
+
+\noindent Gregory J. Chaitin (1966). On the Length of Programs for Computing Finite Binary Sequences. Journal of the ACM 13(4), pp. 547--569.
+\par\medskip
+
+\noindent Leonid A. Levin (1984). Randomness Conservation Inequalities; Information and Independence in Mathematical Theories. Information and Control 61(1), pp. 15--37. The line about the uninformed witness is Levin's, quoted as the epigraph of Luis Antunes, Lance Fortnow, Dieter van Melkebeek and N. V. Vinodchandran, Computational Depth: Concept and Applications, Theoretical Computer Science 354(3), 2006, pp. 391--404. \href{https://lance.fortnow.com/papers/files/depth-j.pdf}{Paper}.
+\par\medskip
+
+\noindent Charles H. Bennett (1988). Logical Depth and Physical Complexity. In Rolf Herken (ed.), The Universal Turing Machine: A Half-Century Survey, Oxford University Press, pp. 227--257.
+\par\medskip
+
+\noindent Jaakko Hintikka (1962). Knowledge and Belief: An Introduction to the Logic of the Two Notions. Cornell University Press. Logical omniscience is surveyed in the Stanford Encyclopedia of Philosophy entry on epistemic logic. \href{https://plato.stanford.edu/entries/logic-epistemic/}{Entry}.
+\par\medskip
+
+\noindent Sergei N. Artemov (1995). Operational Modal Logic. Technical Report MSI 95-29, Cornell University. The Logic of Proofs, the first justification logic, surveyed in the Stanford Encyclopedia of Philosophy entry on justification logic. \href{https://plato.stanford.edu/entries/logic-justification/}{Entry}.
+\par\medskip
+
+\noindent Plato. Meno 97d--98a. Daedalus's statues, and true opinions tied down by reasoning. Trans. W. R. M. Lamb, Plato in Twelve Volumes, vol. 3, Harvard University Press, 1967.
+\par\medskip
+
+\noindent Alvin I. Goldman (1976). Discrimination and Perceptual Knowledge. Journal of Philosophy 73(20), pp. 771--791. The fake-barn case, credited there to Carl Ginet.
+\par\medskip
+
+\noindent Robert Nozick (1981). Philosophical Explanations. Harvard University Press. Chapter 3, the sensitivity condition on knowledge.
+\par\medskip
+
+\noindent Charles S. Peirce (1877). The Fixation of Belief. Popular Science Monthly 12, pp. 1--15.
+\par\medskip
+
+\noindent Karl R. Popper (1959). The Logic of Scientific Discovery. Hutchinson. Translation of Logik der Forschung (1934). Section 30: basic statements, the jury, and the piles driven into a swamp.
+\par\medskip
+
+\noindent Sextus Empiricus. Outlines of Pyrrhonism I.164--177. The five modes attributed to Agrippa.
+\par\medskip
+
+\noindent Hans Albert (1968). Traktat über kritische Vernunft. J. C. B. Mohr (Paul Siebeck), Tübingen. English translation: Treatise on Critical Reason, Princeton University Press, 1985. The Münchhausen trilemma.
+\par\medskip
+
+\noindent Per Martin-Löf (1996). On the Meanings of the Logical Constants and the Justifications of the Logical Laws. Nordic Journal of Philosophical Logic 1(1), pp. 11--60. Lectures given in Siena in 1983.
+\par\medskip
+
+\noindent Gottlob Frege (1903). Grundgesetze der Arithmetik, vol. II. Hermann Pohle, Jena. The appendix answering Russell's paradox.
+\par\medskip
+
+\noindent Girolamo Saccheri (1733). Euclides ab omni naevo vindicatus. Milan.
+\par\medskip
+
+\noindent Roberto Bonola (1912). Non-Euclidean Geometry: A Critical and Historical Study of Its Development. Open Court; Dover reprint, 1955. The attempts on the parallel postulate from Proclus through the Islamic geometers and Saccheri, and Farkas Bolyai's letter to his son.
+\par\medskip
+
+\noindent Benoît Rittaud and Albrecht Heeffer (2014). The Pigeonhole Principle, Two Centuries before Dirichlet. The Mathematical Intelligencer 36(2), pp. 27--29. Jean Leurechon's use of the principle in 1622.
+\par\medskip
+
+\noindent Nicolas Bourbaki (1950). The Architecture of Mathematics. American Mathematical Monthly 57(4), pp. 221--232. The mother structures.
+\par\medskip
+
+\noindent Leo Corry (1992). Nicolas Bourbaki and the Concept of Mathematical Structure. Synthese 92(3), pp. 315--348.
+\par\medskip
+
+\noindent Peter D. Grünwald (2005). A Tutorial Introduction to the Minimum Description Length Principle. In Peter D. Grünwald, In Jae Myung and Mark A. Pitt (eds.), Advances in Minimum Description Length: Theory and Applications, MIT Press. \href{https://arxiv.org/abs/math/0406077}{arXiv: math/0406077}.
+\par\medskip
+
 \subsection{Cost, records and thermodynamics}
 
 \noindent Tobias Nipkow (2015). Amortized Complexity Verified. Interactive Theorem Proving, ITP 2015, LNCS 9236, pp. 310--324. \href{https://www.proof.cit.tum.de/~nipkow/pubs/itp15.pdf}{Author paper}. Extended treatment: Tobias Nipkow and Hauke Brinkop (2019), same title, Journal of Automated Reasoning 62(3), pp. 367--391. \href{https://doi.org/10.1007/s10817-018-9459-3}{DOI: 10.1007/s10817-018-9459-3}.
@@ -17655,6 +18455,24 @@ this book's pointer conjecture.
 \noindent Steven Shapin (1984). Pump and Circumstance: Robert Boyle's Literary Technology. Social Studies of Science 14(4), pp. 481--520. \href{https://doi.org/10.1177/030631284014004001}{DOI: 10.1177/030631284014004001}.
 \par\medskip
 
+\noindent Jim Gray (1981). The Transaction Concept: Virtues and Limitations. Proceedings of the 7th International Conference on Very Large Data Bases, pp. 144--154. \href{https://jimgray.azurewebsites.net/papers/thetransactionconcept.pdf}{Paper}.
+\par\medskip
+
+\noindent J. L. Austin (1962). How to Do Things with Words. Clarendon Press, Oxford. The William James Lectures, Harvard, 1955.
+\par\medskip
+
+\noindent Michael J. C. Gordon (2000). From LCF to HOL: a short history. In Gordon Plotkin, Colin Stirling and Mads Tofte (eds.), Proof, Language, and Interaction: Essays in Honour of Robin Milner, MIT Press, pp. 169--185. \href{https://www.cl.cam.ac.uk/archive/mjcg/papers/HolHistory.pdf}{Paper}.
+\par\medskip
+
+\noindent Satoshi Nakamoto (2008). Bitcoin: A Peer-to-Peer Electronic Cash System. \href{https://bitcoin.org/bitcoin.pdf}{Paper}.
+\par\medskip
+
+\noindent Stuart Haber and W. Scott Stornetta (1991). How to Time-Stamp a Digital Document. Journal of Cryptology 3(2), pp. 99--111.
+\par\medskip
+
+\noindent Arvind Narayanan and Jeremy Clark (2017). Bitcoin's Academic Pedigree. Communications of the ACM 60(12), pp. 36--45. The history of chained timestamps, including their weekly publication in the New York Times.
+\par\medskip
+
 \subsection{Computation, self-reference and checking}
 
 \noindent Edward F. Moore (1956). Gedanken-Experiments on Sequential Machines. In Claude E. Shannon and John McCarthy (eds.), Automata Studies, pp. 129--153. Princeton University Press. \href{https://www.cs.cmu.edu/~cdm/resources/Moore1956-gedanken-experiments.pdf}{Original paper}.
@@ -17819,6 +18637,12 @@ this book's pointer conjecture.
 \noindent Joonwon Choi, Muralidaran Vijayaraghavan, Benjamin Sherman, Adam Chlipala and Arvind (2017). Kami: A Platform for High-Level Parametric Hardware Specification and Its Modular Verification. Proceedings of the ACM on Programming Languages 1(ICFP), article 24. \href{https://adam.chlipala.net/papers/KamiICFP17/}{DOI: 10.1145/3110268}.
 \par\medskip
 
+\noindent David Alan Grier (2005). When Computers Were Human. Princeton University Press.
+\par\medskip
+
+\noindent Dava Sobel (2016). The Glass Universe: How the Ladies of the Harvard Observatory Took the Measure of the Stars. Viking.
+\par\medskip
+
 \subsection{Correlations and environmental records}
 
 \noindent Stephanie Wehner (2006). Tsirelson bounds for generalized Clauser-Horne-Shimony-Holt inequalities. Physical Review A 73, 022110. \href{https://arxiv.org/abs/quant-ph/0510076v2}{arXiv: quant-ph/0510076v2; DOI: 10.1103/PhysRevA.73.022110}.
@@ -17888,6 +18712,15 @@ this book's pointer conjecture.
 \par\medskip
 
 \noindent Wojciech H. Zurek (2009). Quantum Darwinism. Nature Physics 5, pp. 181--188. \href{https://arxiv.org/abs/0903.5082v1}{DOI: 10.1038/nphys1202; arXiv: 0903.5082v1}.
+\par\medskip
+
+\noindent Niels Bohr (1958). Atomic Physics and Human Knowledge. Wiley. The essay Unity of Knowledge (1954), p. 73.
+\par\medskip
+
+\noindent John A. Wheeler (1990). Information, Physics, Quantum: The Search for Links. In Wojciech H. Zurek (ed.), Complexity, Entropy and the Physics of Information, Addison-Wesley. First given at the 3rd International Symposium on Foundations of Quantum Mechanics, Tokyo, 1989.
+\par\medskip
+
+\noindent John S. Bell (1990). Against ``measurement''. Physics World 3(8), pp. 33--40.
 \par\medskip
 
 \end{document}
