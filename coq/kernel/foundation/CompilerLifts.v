@@ -5,7 +5,7 @@
     vendored mm_sss_env semantics (DEC jumps when the register is zero),
     allowed on registers below k only. XPAY adds 1 to the ledger. XEARN,
     when the fixed checker accepts URun r on the Godel code of the
-    registers and the record is not yet earned, adds 3 to the ledger and
+    registers and the record is still unearned, adds 3 to the ledger and
     raises both the certified flag and the earned mark. XHALT has no step.
 
     Target Y: two counters. YMMA J is a vendored alternate counter

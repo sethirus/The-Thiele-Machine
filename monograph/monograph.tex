@@ -1311,7 +1311,7 @@ you think you built it. That's why it's labelled a conviction. What it changes i
 the thing: like something that was already there, which means I can be wrong about its shape
 and the shape won't care. And to be exact about what ``found'' covers: the parts the counting
 forces on you, the latch shape and the merge. The event to record, the price list, and putting
-the count inside the step are choices, mine, and the first chapter said so where it sorted what
+the count inside the step are choices, mine, and ``The point'' said so where it sorted what
 I was pushed into from what I chose.
 
 What the Thiele Machine is. An abstract model of computation. A machine the way Turing's
@@ -1482,7 +1482,7 @@ transcripts and then for every Thiele-complete machine (Section~\ref{sec:windows
 through its own transition table. What I'm proposing is about why the extra distinctions
 matter. It isn't a theorem that every Turing-equivalent system lacks them. And if you want the
 list of what I think is new, it's the short one at the end of ``What's proved, what's argued,
-and what I just believe'' in the first chapter, the same four things the short version names,
+and what I just believe'' in ``The point,'' the same four things the short version names,
 and nothing bigger.
 
 \emph{Substrate versus scaffolding.} Two layers run through the book, and confusing them makes
@@ -1615,7 +1615,7 @@ Landauer's principle enters only as a premise with its name on it, never as some
 derived. Not a quantum computer or a claim about quantum behaviour. Not a verified chip or a
 verified device of any kind; a checked model and a checked machine, on paper and in Coq. Not a
 claim to priority on any idea in
-it. Not finished; the open questions are listed at the end.
+it. Not closed on every question: the ones I couldn't settle are listed at the end.
 
 \emph{What I do and don't know about prior work.} I came to this with no formal training in the
 fields it turned out to need, and I've read what I could reach, with every tool I had. The
@@ -1806,9 +1806,9 @@ Then within weeks I found out the engine I had built to draw pictures was genera
 
 I kept going, because by then I could not not keep going. I built a small custom language for describing scenes (the name for that is a domain-specific language, a DSL), then a program that read the language and caught my mistakes in it (a linter), then a way to type commands at the whole thing from a terminal (a command-line interface, a CLI). The night the engine first ran a program declaratively, meaning I told it what should happen and let it work out the how instead of my spelling out every step, I told my wife, Julie, I thought I was onto something. She said okay.
 
-Then I hit a wall, and it is the wall this whole document is about. Z3 could settle the small questions and fell over on the exact ones I needed answered, which left me staring down an infinite hallway of guess-and-test with no proof waiting at the end of it, ever. One night, not even working, I was watching a video about Flatland, the old story about a creature living in two dimensions who cannot so much as picture a third. And it landed on me sideways, all at once, the way the real ones always do. I said it out loud: I get it now. There is another axis. Classical computation only ever sees what it can read and write off its own surface, and there is a whole direction it is blind to, not because it is broken but because it was never built with an eye that points that way. I opened a new repo that same night and called the thing in it the Thiele Machine. The name began as a working title and became the name of the model. It carries the larger claim plainly: the machine treats structural state as part of computation.
+Then I hit a wall, and it is the wall this whole document is about. Z3 could settle the small questions and fell over on the exact ones I needed answered, which left me staring down an infinite hallway of guess-and-test with no proof waiting at the end of it, ever. One night, not even working, I was watching a video about Flatland, the old story about a creature living in two dimensions who cannot so much as picture a third. And it landed on me sideways, all at once, the way the real ones always do. I said it out loud: I get it now. There is another axis. Classical computation only ever sees what it can read and write off its own surface, and there is a whole direction it is blind to, not because it is broken but because it was never built with an eye that points that way. The two computers on the first pages of this book are my attempt to show you that blindness with something you can hold. I opened a new repo that same night and called the thing in it the Thiele Machine. The name began as a working title and became the name of the model. It carries the larger claim plainly: the machine treats structural state as part of computation.
 
-What survived the whole trip from there to here is not the code. Not one line of it. By the time the Coq proofs finally landed, every line of that first renderer had been thrown out and rewritten at least twice, probably more, and good riddance to all of it. What survived was a single architectural commitment I made early and never once let anyone talk me out of: structure is the state itself, the actual thing the machine runs on, not a metaphor laid over some realer state underneath. Category theory was the first language I found for that structure. It is not what the model is. The model asks for a state, a step, a ledger, and a window, and category theory appears nowhere in that list. It lived on for a while in a bigger machine I built on the way here, a fifty-one-instruction virtual machine with its own chip design, whose partition graph (groups, and arrows between them) was, in different words and different syntax, the same object as the category structure that came together in that first week and first ran morphisms correctly at two in the morning. That machine was useful for building and confusing for everything else, so it's set aside now, kept but out of this book. I did not write that code, not then and not now. I directed the models and refused everything they handed me until the morphisms composed the way the shape said they had to. The morphisms in that early code were objects that remembered where they came from; the records in the small machine I ended up with remember where they came from too, and you can walk up to one and challenge it. The receipt grew teeth. But the shape itself never moved. The shape was the substrate the entire time, and everything else, every renderer and language and proof, was me slowly learning to see what I had already built. By the shape I mean structure held as state. Not category theory. Category theory was just the first language I had for it.
+What survived the whole trip from there to here is not the code. Not one line of it. By the time the Coq proofs finally landed, every line of that first renderer had been thrown out and rewritten at least twice, probably more, and good riddance to all of it. What survived was a single architectural commitment I made early and never once let anyone talk me out of: structure is the state itself, the actual thing the machine runs on, not a metaphor laid over some realer state underneath. Category theory was the first language I found for that structure. It is not what the model is. The model asks for a state, a step, a ledger, and a window, and category theory appears nowhere in that list. It lived on for a while in a bigger machine I built on the way here, a fifty-one-instruction virtual machine with its own chip design, whose partition graph (groups, and arrows between them) was, in different words and different syntax, the same object as the category structure that came together in that first week and first ran morphisms correctly at two in the morning. That machine was useful for building and confusing for everything else, so it's set aside now, kept but out of this book. What building it showed me is that six instructions were enough for everything this book needs, and that the big one was mostly in the way. I did not write that code, not then and not now. I directed the models and refused everything they handed me until the morphisms composed the way the shape said they had to. The morphisms in that early code were objects that remembered where they came from; the records in the small machine I ended up with remember where they came from too, and you can walk up to one and challenge it. The receipt grew teeth. But the shape itself never moved. The shape was the substrate the entire time, and everything else, every renderer and language and proof, was me slowly learning to see what I had already built. By the shape I mean structure held as state. Not category theory. Category theory was just the first language I had for it.
 
 Formal verification was a graveyard of dead ends further on. The hardware came after that. Every step pulled back to show another layer underneath that I had not known was there, and I mean that as plainly as it sounds: I did not know what a Turing machine was when I started, I did not know what Coq was, I did not know most of the words in this document existed. I learned each one the same way, by walking face-first into a wall that needed it and not being let past until I had it. The needing always came first. The learning came after, dragged along behind the needing because it had no say in the matter.
 
@@ -2450,7 +2450,7 @@ closed doors are what you get to skip later. And because the moves were chosen, 
 relative. Read that way, the fourth thing sits in the middle: it's where the first three
 turn into something you can write down, and where the last three get their start.
 
-That's my reason for starting the next section with a sorting, and I want to be exact about
+That's my reason for starting the next subsection with a sorting, and I want to be exact about
 what kind of reason it is, because it's mine and not theirs. None of these people said
 ``start with a partition.'' Klein would tell you to start with the moves, Eilenberg and Mac Lane
 with the arrows, Shannon with the probabilities. What I can actually point at is narrower. In
@@ -2960,6 +2960,14 @@ it's true and useless. The toy on your paper has a YES box, so it isn't useless 
 would be natural to assume the system has to have at least one NO state and one YES state;
 the checked statement has no such clause, and that's on purpose, because a theorem that
 holds for no runs is still a theorem and the toy is where you supply the runs.
+
+The theorem also runs backwards, and that direction is one line. Suppose every run from a state
+reading no to a state reading yes costs at least one, whichever state you start from. A single
+move is a run of length one, so a move that takes no to yes costs at least one, which is the
+toll. The floor from every start and the toll are the same rule, and nobody has to choose
+between them. From one fixed start the floor asks for the toll only at the crossings you can
+reach without paying anything; a crossing you can only reach by paying has already cost at
+least one by the time you get there.
 
 And one more edge, because it's the first thing to bite when you ask a machine to stand behind
 more than one thing. The definition has \emph{one} reading in it. One question, one flag, one
@@ -4014,19 +4022,12 @@ squeeze. For a move that costs $c$, no state is landed on by more than $2^c$ sta
 state is landed on by exactly that many (stamp squeezes at most two states into one, jump to a
 slot squeezes four, and next-slot squeezes nothing).
 
-And the small machine of Part IV runs this eight-state machine. Look at the small machine through
-a window that shows its line number, read modulo four as the slot, and its flag. Compile stamp to
-the one instruction CERTIFY; compile next-slot to one INC of a counter; compile the jump to slot
-$a$ to a short block of four instructions, two of them paid COMMITs and the last one sending the
-line to $a$. Then from every state of one stated kind (it hasn't trapped, and it holds a committed
-claim, which CERTIFY needs), running a compiled move lands in the state the window says the
-eight-state machine's move lands in, and the ledger rises by exactly that move's charge, and the
-same holds for any list of moves. So the eight-state machine's toll comes through the window as the
-small machine's own: a run of compiled moves that takes the flag from down to up pays at least one
-(Section~\ref{sec:part3-on-machine} has the exact statements, what ``one stated kind'' means, and how
-a run from the start gets there). The small machine as a whole is still not merge-priced. CERTIFY
-merges and pays, and a counting-down DEC merges two full states for nothing, so the finite piece is a piece:
-the machine around it keeps the choice the chairs don't force.
+The machine Part IV builds runs this eight-state machine. Seen through a window that shows only a line
+number, read modulo four as the slot, and a flag, a short program of that machine does what the
+eight-state machine does, one move at a time, and pays exactly what the eight-state machine charges
+(Section~\ref{sec:part3-on-machine} has the construction and the exact statements). The machine as a
+whole is still not merge-priced: some of its free steps merge states, so the finite piece is a piece,
+and the machine around it keeps the choice the chairs don't force.
 
 And you haven't earned anything about \emph{what} the flag means. Four chairs don't know what they're certifying. The bill is for raising a flag that
 stays up. Whether raising that flag ever amounts to standing behind a structural fact, the
@@ -8478,6 +8479,27 @@ five specifications, read through my transcriptions, one prices the write (Secti
 And which event to record is a conjecture with a borrowed shape and a listed set of
 refutations (Section~\ref{sec:pointer}).
 
+The obvious question to ask of all that is whether the toll is the only way. A theorem saying so
+would be the best thing this book could hold: a short list of requirements that any account of
+what a step costs has to meet, whatever field it comes from, with the toll and the counter the
+only accounting left standing. I looked for that theorem, and the answer I can give you is no, and
+the no is small enough to check on three states. Call them blank, once and twice, with once and
+twice reading yes. The flip takes blank to once and leaves the other two where they are. The
+smooth takes both once and twice to twice and leaves blank alone. The smooth forgets something, so
+the price on merging from Section~\ref{sec:a2-not-arbitrary} charges it a mark. It raises nothing, so the toll
+leaves it free. Now try the requirements that sound neutral: no charge on a move that changes
+nothing, none on a move that forgets nothing, the same bill when you rename the states, a total
+that adds up along a run, a bill that looks only at the step, and one mark on the flip. The toll,
+read as the bill that charges the flip and nothing else, meets every one of them on this machine.
+So does the price on merging. They disagree on the
+smooth, so that list doesn't pick between them. What picks the toll is a requirement that names
+the record: over any run the total is never more than the number of times the reading went up.
+With the floor, that leaves exactly one bill, one mark per raise and nothing else
+(Section~\ref{sec:windows}), and it rules the price on merging out, because the smooth costs that price a
+mark and raises nothing. So the uniqueness is real and it's small. It holds once you've said which
+reading you're charging for, and which reading deserves the charge is the pointer conjecture,
+which is still a conjecture.
+
 What none of that is: a machine. Every theorem so far quantifies over ``any states, any
 steps,'' or is about a small copy of somebody else's system, or points forward at a thing I
 keep promising. That's the abstract part of the book, and it's done. From the next page on I
@@ -8497,12 +8519,12 @@ means, that's where it'll show. Part IV is the thing. Let's see if it holds weig
 
 Parts I to III never built anything. They said ``any states, any steps,'' and whenever a
 picture was needed, a board or some chairs or a cup stood in. Now I have to build a
-machine, and the first worry I have about that is a slightly embarrassing one. Say I built
-a big machine, with dozens of instructions, some picked for reasons and some picked
-because I had to pick something, and every theorem held of it. What would that show? That
-the model works, or that I'm good at stacking instructions until the proofs go through? A
-big machine is a wonderful place to hide a mistake. It's a garage so full of stuff that
-you could lose a car in it.
+machine, and the first worry I have about that is a slightly embarrassing one. I built a big
+one first, the one from the origin story, with dozens of instructions,
+some picked for reasons and some picked because I had to pick something, and theorems held of it.
+What does that show? That the model works, or that I'm good at stacking instructions until the
+proofs go through? A big machine is a wonderful place to hide a mistake. It's a garage so full
+of stuff that you could lose a car in it.
 
 So the machine in this book is a small one. The least I can build that still shows the whole
 model, every piece of it, with nothing waved at. If the idea only stands up with dozens of
@@ -11450,6 +11472,16 @@ same way. A fence at the middle step, and a fence that keeps out every one of th
 plans: each has all four correlators at plus or minus one, so the first diagonal is always
 one minus one minus one. Only diluted mixtures of plans get through.
 
+That point, one over root two in size in every entry, is four real numbers, and no tally of
+rounds ever lands on it. A tally's correlators are ratios of whole numbers, and the point needs each of
+them to be one over root two, which would make root two a fraction, and you killed that fraction
+with a pencil in Part I. That point and its mirror image, every sign flipped, are the only places
+the bound is reached (Remark~\ref{rem:chsh-equality} in the appendix). So a passing tally always has S squared strictly
+below eight. It can get as close as you like: the (17, 3) tally in the five examples below has
+S squared equal to 7.84, and tallies of the same shape with a fraction nearer one over root two
+get nearer still. Two root two is the least bound the check can promise, and no tally the check
+accepts ever reaches it.
+
 In 2007 Navascués, Pironio and Acín showed this is the first rung of a ladder: bigger tables
 of expected products, each PSD, each a necessary condition for quantum behaviour when its
 entries are left free, each rung tighter, and (their 2008 paper) converging to the quantum
@@ -13347,9 +13379,8 @@ only one checking, and I've met me, and that's not enough people. Now there's yo
 \label{sec:vocab}
 %===========================================================================
 
-I had been around computers my whole life and paid attention to people like John Carmack
-on how graphics actually get made, but I came in with none of the formal fields this work
-turned out to need. By the time the proofs compiled I'd needed enough of half a dozen of
+I came in with none of the formal fields this work turned out to need. By the time the
+proofs compiled I'd needed enough of half a dozen of
 them that I had to put down somewhere what those fields had words for. This appendix is that
 place. None of it is the argument. It's what I needed to be able to make it. Everything
 below is what I understood after I went and read about it; I'm not claiming to teach you
@@ -15302,7 +15333,9 @@ Each row has squared length $1/2 + 1/2 = 1$, and $S = 4/\sqrt 2 = 2\sqrt 2 = \sq
 This step is argued here, not checked in Coq. Equality $S^2 = 8$ under the row bounds forces
 equality in both steps of the proof above: the six squares must all vanish, which gives
 $a = b = c = -d$, and the rows must be tight, which gives $2a^2 = 1$. So the point of
-Theorem~\ref{thm:chsh-tight} and its negative are the only places the bound is reached.
+Theorem~\ref{thm:chsh-tight} and its negative are the only places the bound is reached. A tally's correlators are
+ratios of whole numbers and $2a^2 = 1$ has no such solution, so no tally reaches the bound; the integer
+check's passing tallies stay strictly below it and come as near as you like.
 \end{remark}
 
 \begin{lemma}[A rational constant above the bound, \code{rational\_tsirelson\_bound}]\label{lem:chsh-rational}
