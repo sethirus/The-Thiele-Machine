@@ -35,6 +35,13 @@
 
     Dependencies: Coq standard library only. No axioms, no Admitted.        *)
 
+(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose, as in
+   EarnedCore.v: this file imports nothing but the Coq standard library so
+   anyone can re-check it from a clean checkout. Its link to the abstract
+   record (the machine over any property language, and over the sorted-list
+   language, as a CertificationSystem with the trace cost floor) lives in
+   EarnedGenericLinks.v. *)
+
 From Coq Require Import List Arith Lia Bool.
 From Coq Require Import Sorting.Sorted.
 Import ListNotations.

@@ -21,11 +21,13 @@ MUCORE = REPO_ROOT / "minimal" / "MuCore.v"
 EARNED = REPO_ROOT / "minimal" / "EarnedCore.v"
 UNIVERSAL = REPO_ROOT / "minimal" / "UniversalThiele.v"
 GENERIC = REPO_ROOT / "minimal" / "EarnedGeneric.v"
+COMPLETE = REPO_ROOT / "minimal" / "ThieleComplete.v"
 DEMO = REPO_ROOT / "minimal" / "nofi_demo.py"
 EXPECTED_CLOSED = 10
 EARNED_EXPECTED_CLOSED = 33
 UNIVERSAL_EXPECTED_CLOSED = 22
 GENERIC_EXPECTED_CLOSED = 31
+COMPLETE_EXPECTED_CLOSED = 28
 
 
 def test_nofi_demo_self_checks():
@@ -144,6 +146,38 @@ def test_earned_generic_compiles_axiom_free(tmp_path):
     closed = proc.stdout.count("Closed under the global context")
     assert closed == GENERIC_EXPECTED_CLOSED, (
         f"expected {GENERIC_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
+        + proc.stdout
+    )
+    assert "Axioms:" not in proc.stdout
+
+
+@pytest.mark.coq
+def test_thiele_complete_compiles_axiom_free(tmp_path):
+    """minimal/ThieleComplete.v, the strong definition of a Thiele-complete
+    machine (universal base, earned record, exact toll, a check that can
+    fail), with the small machine proved to meet it and every clock machine
+    proved to fail it, compiles with plain coqc against EarnedCore.v,
+    EarnedGeneric.v and the standard library, and every theorem it prints
+    assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    (lib / "EarnedCore.v").write_text(EARNED.read_text())
+    (lib / "EarnedGeneric.v").write_text(GENERIC.read_text())
+    (lib / "ThieleComplete.v").write_text(COMPLETE.read_text())
+    for name in ("EarnedCore.v", "EarnedGeneric.v", "ThieleComplete.v"):
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+    closed = proc.stdout.count("Closed under the global context")
+    assert closed == COMPLETE_EXPECTED_CLOSED, (
+        f"expected {COMPLETE_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
         + proc.stdout
     )
     assert "Axioms:" not in proc.stdout

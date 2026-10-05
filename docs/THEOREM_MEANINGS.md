@@ -879,7 +879,7 @@ An explicitly qualified citation keeps its own module identity.
 - `base_blind`: Projecting an executed step to its core gives exactly the core transition, independently of the ledger and certification flag.
 - `cert_latch`: After an instruction, certification is the old flag OR the event fired by that instruction on the core.
 - `cert_permanent`: A true certification flag stays true under every instruction.
-- `committed_claim_holds`: From a clean start, a COMMIT guard that passes names a property true of the selected counter at that moment.
+- `committed_claim_holds` (`Minimal.EarnedCore.committed_claim_holds`): From a clean start, a COMMIT guard that passes names a property true of the selected counter at that moment.
 - `earned_commitment_provenance`: A COMMIT guard that passes after a clean-start trace has a prior passing CHECK of the same property and counter version, with that counter untouched between the CHECK and COMMIT.
 - `earned_core_floor`: A trace taking the minimal machine from uncertified to certified has total cost at least one, by the abstract certification-system floor.
 - `earned_core_honest`: The minimal machine with its program has a certification reading driven by, and permanent over, its projected core base.
