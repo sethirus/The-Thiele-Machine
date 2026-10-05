@@ -1,651 +1,237 @@
-DIGEST 9c5ca55172999c33a86648efff788f91
+DIGEST f5520a623403c666f977bf8175e1c563
 FKernel.StructuralCore
-R2311:2314 Coq.Lists.List <> <> lib
-R2316:2329 Coq.Arith.PeanoNat <> <> lib
-R2331:2333 Coq.micromega.Lia <> <> lib
-R2343:2355 Coq.Lists.List ListNotations <> mod
-R2408:2410 Undecidability.MinskyMachines.MM2 <> <> lib
-R2440:2446 Kernel.VMState <> <> lib
-R2448:2453 Kernel.VMStep <> <> lib
-R2455:2469 Kernel.VMUnboundedStep <> <> lib
-R2471:2487 Kernel.VMUnboundedLedger <> <> lib
-R2517:2541 Kernel.VMUnboundedCM2Interpreter <> <> lib
-R2543:2562 Kernel.VMUnboundedCM2Bridge <> <> lib
-R2592:2603 Kernel.MuInitiality <> <> lib
-rec 2636:2638 <> RCM
-proj 2654:2661 <> rc_state
-proj 2673:2679 <> rc_next
-proj 2707:2713 <> rc_init
-proj 2737:2743 <> rc_cert
-proj 2767:2771 <> rc_mu
-proj 2794:2802 <> rc_halted
-R2691:2694 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2683:2690 Kernel.StructuralCore <> rc_state:2 meth
-R2695:2702 Kernel.StructuralCore <> rc_state:2 meth
-R2725:2728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2717:2724 Kernel.StructuralCore <> rc_state:2 meth
-R2755:2758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2747:2754 Kernel.StructuralCore <> rc_state:2 meth
-R2759:2762 Coq.Init.Datatypes <> bool ind
-R2783:2786 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2775:2782 Kernel.StructuralCore <> rc_state:2 meth
-R2787:2789 Coq.Init.Datatypes <> nat ind
-R2814:2817 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2806:2813 Kernel.StructuralCore <> rc_state:2 meth
-def 2838:2843 <> rc_run
-R2850:2852 Kernel.StructuralCore <> RCM rec
-binder 2846:2846 <> M:8
-R2860:2862 Coq.Init.Datatypes <> nat ind
-binder 2856:2856 <> n:9
-R2870:2877 Kernel.StructuralCore <> rc_state proj
-R2879:2879 Kernel.StructuralCore <> M:8 var
-binder 2866:2866 <> s:10
-R2884:2891 Kernel.StructuralCore <> rc_state proj
-R2893:2893 Kernel.StructuralCore <> M:8 var
-R2900:2907 Coq.Arith.PeanoNat Nat iter def
-R2923:2923 Kernel.StructuralCore <> s:10 var
-R2912:2918 Kernel.StructuralCore <> rc_next proj
-R2920:2920 Kernel.StructuralCore <> M:8 var
-R2909:2909 Kernel.StructuralCore <> n:9 var
-def 2938:2946 <> step_cost
-R2953:2955 Kernel.StructuralCore <> RCM rec
-binder 2949:2949 <> M:11
-R2963:2970 Kernel.StructuralCore <> rc_state proj
-R2972:2972 Kernel.StructuralCore <> M:11 var
-binder 2959:2959 <> s:12
-R2977:2979 Coq.Init.Datatypes <> nat ind
-R3007:3009 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2986:2990 Kernel.StructuralCore <> rc_mu proj
-R2992:2992 Kernel.StructuralCore <> M:11 var
-R2995:3001 Kernel.StructuralCore <> rc_next proj
-R3003:3003 Kernel.StructuralCore <> M:11 var
-R3005:3005 Kernel.StructuralCore <> s:12 var
-R3010:3014 Kernel.StructuralCore <> rc_mu proj
-R3016:3016 Kernel.StructuralCore <> M:11 var
-R3018:3018 Kernel.StructuralCore <> s:12 var
-def 3033:3046 <> ledger_carried
-R3053:3055 Kernel.StructuralCore <> RCM rec
-binder 3049:3049 <> M:13
-binder 3077:3077 <> s:14
-R3089:3092 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3080:3084 Kernel.StructuralCore <> rc_mu proj
-R3086:3086 Kernel.StructuralCore <> M:13 var
-R3088:3088 Kernel.StructuralCore <> s:14 var
-R3093:3097 Kernel.StructuralCore <> rc_mu proj
-R3099:3099 Kernel.StructuralCore <> M:13 var
-R3102:3108 Kernel.StructuralCore <> rc_next proj
-R3110:3110 Kernel.StructuralCore <> M:13 var
-R3112:3112 Kernel.StructuralCore <> s:14 var
-def 3128:3132 <> rc_a2
-R3139:3141 Kernel.StructuralCore <> RCM rec
-binder 3135:3135 <> M:15
-binder 3163:3163 <> s:16
-R3185:3188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3177:3179 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3166:3172 Kernel.StructuralCore <> rc_cert proj
-R3174:3174 Kernel.StructuralCore <> M:15 var
-R3176:3176 Kernel.StructuralCore <> s:16 var
-R3180:3184 Coq.Init.Datatypes <> false constr
-R3219:3222 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3212:3214 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3189:3195 Kernel.StructuralCore <> rc_cert proj
-R3197:3197 Kernel.StructuralCore <> M:15 var
-R3200:3206 Kernel.StructuralCore <> rc_next proj
-R3208:3208 Kernel.StructuralCore <> M:15 var
-R3210:3210 Kernel.StructuralCore <> s:16 var
-R3215:3218 Coq.Init.Datatypes <> true constr
-R3236:3239 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3223:3231 Kernel.StructuralCore <> step_cost def
-R3233:3233 Kernel.StructuralCore <> M:15 var
-R3235:3235 Kernel.StructuralCore <> s:16 var
-def 3255:3268 <> carries_record
-R3275:3277 Kernel.StructuralCore <> RCM rec
-binder 3271:3271 <> M:17
-R3292:3298 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3302:3303 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3299:3299 <> s:18
-binder 3301:3301 <> n:19
-R3315:3318 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3304:3310 Kernel.StructuralCore <> rc_init proj
-R3312:3312 Kernel.StructuralCore <> M:17 var
-R3314:3314 Kernel.StructuralCore <> s:18 var
-R3343:3345 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3319:3325 Kernel.StructuralCore <> rc_cert proj
-R3327:3327 Kernel.StructuralCore <> M:17 var
-R3330:3335 Kernel.StructuralCore <> rc_run def
-R3337:3337 Kernel.StructuralCore <> M:17 var
-R3339:3339 Kernel.StructuralCore <> n:19 var
-R3341:3341 Kernel.StructuralCore <> s:18 var
-R3346:3349 Coq.Init.Datatypes <> true constr
-def 3591:3614 <> halting_problem_coverage
-R3621:3623 Kernel.StructuralCore <> RCM rec
-binder 3617:3617 <> M:20
-R3649:3659 Undecidability.MinskyMachines.MM2 <> MM2_PROBLEM def
-binder 3645:3645 <> P:21
-R3666:3672 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3675:3676 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3673:3674 <> s0:22
-R3689:3693 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3749:3749 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3677:3683 Kernel.StructuralCore <> rc_init proj
-R3685:3685 Kernel.StructuralCore <> M:20 var
-R3687:3688 Kernel.StructuralCore <> s0:22 var
-R3707:3711 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R3694:3704 Undecidability.MinskyMachines.MM2 <> MM2_HALTING def
-R3706:3706 Kernel.StructuralCore <> P:21 var
-R3712:3718 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3720:3721 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3719:3719 <> n:23
-R3722:3730 Kernel.StructuralCore <> rc_halted proj
-R3732:3732 Kernel.StructuralCore <> M:20 var
-R3735:3740 Kernel.StructuralCore <> rc_run def
-R3742:3742 Kernel.StructuralCore <> M:20 var
-R3744:3744 Kernel.StructuralCore <> n:23 var
-R3746:3747 Kernel.StructuralCore <> s0:22 var
-def 3764:3771 <> Adequate
-R3778:3780 Kernel.StructuralCore <> RCM rec
-binder 3774:3774 <> M:24
-R3811:3814 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3795:3808 Kernel.StructuralCore <> ledger_carried def
-R3810:3810 Kernel.StructuralCore <> M:24 var
-R3822:3825 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3815:3819 Kernel.StructuralCore <> rc_a2 def
-R3821:3821 Kernel.StructuralCore <> M:24 var
-R3842:3845 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3826:3839 Kernel.StructuralCore <> carries_record def
-R3841:3841 Kernel.StructuralCore <> M:24 var
-R3846:3869 Kernel.StructuralCore <> halting_problem_coverage def
-R3871:3871 Kernel.StructuralCore <> M:24 var
-def 3886:3895 <> core_bisim
-R3904:3906 Kernel.StructuralCore <> RCM rec
-binder 3898:3898 <> M:25
-binder 3900:3900 <> N:26
-R3924:3927 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3914:3921 Kernel.StructuralCore <> rc_state proj
-R3923:3923 Kernel.StructuralCore <> M:25 var
-R3938:3941 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3928:3935 Kernel.StructuralCore <> rc_state proj
-R3937:3937 Kernel.StructuralCore <> N:26 var
-binder 3910:3910 <> R:27
-R3960:3960 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4016:4022 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 3968:3968 <> m:28
-R3982:3985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3971:3977 Kernel.StructuralCore <> rc_init proj
-R3979:3979 Kernel.StructuralCore <> M:25 var
-R3981:3981 Kernel.StructuralCore <> m:28 var
-R3986:3992 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3994:3995 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3993:3993 <> n:29
-R4007:4010 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3996:4002 Kernel.StructuralCore <> rc_init proj
-R4004:4004 Kernel.StructuralCore <> N:26 var
-R4006:4006 Kernel.StructuralCore <> n:29 var
-R4011:4011 Kernel.StructuralCore <> R:27 var
-R4015:4015 Kernel.StructuralCore <> n:29 var
-R4013:4013 Kernel.StructuralCore <> m:28 var
-R4023:4023 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4079:4086 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4214:4214 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 4031:4031 <> n:30
-R4045:4048 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4034:4040 Kernel.StructuralCore <> rc_init proj
-R4042:4042 Kernel.StructuralCore <> N:26 var
-R4044:4044 Kernel.StructuralCore <> n:30 var
-R4049:4055 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4057:4058 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4056:4056 <> m:31
-R4070:4073 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4059:4065 Kernel.StructuralCore <> rc_init proj
-R4067:4067 Kernel.StructuralCore <> M:25 var
-R4069:4069 Kernel.StructuralCore <> m:31 var
-R4074:4074 Kernel.StructuralCore <> R:27 var
-R4078:4078 Kernel.StructuralCore <> n:30 var
-R4076:4076 Kernel.StructuralCore <> m:31 var
-binder 4094:4094 <> m:32
-binder 4096:4096 <> n:33
-R4104:4112 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4099:4099 Kernel.StructuralCore <> R:27 var
-R4103:4103 Kernel.StructuralCore <> n:33 var
-R4101:4101 Kernel.StructuralCore <> m:32 var
-R4138:4146 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4124:4126 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4113:4119 Kernel.StructuralCore <> rc_cert proj
-R4121:4121 Kernel.StructuralCore <> M:25 var
-R4123:4123 Kernel.StructuralCore <> m:32 var
-R4127:4133 Kernel.StructuralCore <> rc_cert proj
-R4135:4135 Kernel.StructuralCore <> N:26 var
-R4137:4137 Kernel.StructuralCore <> n:33 var
-R4176:4184 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4160:4162 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4147:4155 Kernel.StructuralCore <> step_cost def
-R4157:4157 Kernel.StructuralCore <> M:25 var
-R4159:4159 Kernel.StructuralCore <> m:32 var
-R4163:4171 Kernel.StructuralCore <> step_cost def
-R4173:4173 Kernel.StructuralCore <> N:26 var
-R4175:4175 Kernel.StructuralCore <> n:33 var
-R4185:4185 Kernel.StructuralCore <> R:27 var
-R4202:4208 Kernel.StructuralCore <> rc_next proj
-R4210:4210 Kernel.StructuralCore <> N:26 var
-R4212:4212 Kernel.StructuralCore <> n:33 var
-R4188:4194 Kernel.StructuralCore <> rc_next proj
-R4196:4196 Kernel.StructuralCore <> M:25 var
-R4198:4198 Kernel.StructuralCore <> m:32 var
-def 4229:4238 <> core_equiv
-R4247:4249 Kernel.StructuralCore <> RCM rec
-binder 4241:4241 <> M:34
-binder 4243:4243 <> N:35
-R4262:4268 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4270:4271 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4269:4269 <> R:36
-R4272:4281 Kernel.StructuralCore <> core_bisim def
-R4283:4283 Kernel.StructuralCore <> M:34 var
-R4285:4285 Kernel.StructuralCore <> N:35 var
-R4287:4287 Kernel.StructuralCore <> R:36 var
-def 4328:4338 <> thiele_next
-R4365:4367 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R4346:4349 Coq.Init.Datatypes <> list ind
-R4351:4364 Kernel.VMStep VMStep vm_instruction ind
-R4368:4374 Kernel.VMState <> VMState rec
-binder 4341:4342 <> ps:37
-R4398:4400 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R4379:4382 Coq.Init.Datatypes <> list ind
-R4384:4397 Kernel.VMStep VMStep vm_instruction ind
-R4401:4407 Kernel.VMState <> VMState rec
-R4414:4414 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4421:4422 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4451:4451 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4415:4417 Coq.Init.Datatypes <> fst def
-R4419:4420 Kernel.StructuralCore <> ps:37 var
-R4423:4430 Kernel.VMUnboundedStep <> run_vm_u def
-R4435:4437 Coq.Init.Datatypes <> fst def
-R4439:4440 Kernel.StructuralCore <> ps:37 var
-R4444:4446 Coq.Init.Datatypes <> snd def
-R4448:4449 Kernel.StructuralCore <> ps:37 var
-def 4466:4475 <> ThieleCore
-R4479:4481 Kernel.StructuralCore <> RCM rec
-R4491:4498 Kernel.StructuralCore <> rc_state proj
-R4491:4498 Kernel.StructuralCore <> rc_state proj
-R4491:4498 Kernel.StructuralCore <> rc_state proj
-R4536:4542 Kernel.StructuralCore <> rc_next proj
-R4536:4542 Kernel.StructuralCore <> rc_next proj
-R4562:4568 Kernel.StructuralCore <> rc_init proj
-R4562:4568 Kernel.StructuralCore <> rc_init proj
-R4590:4596 Kernel.StructuralCore <> rc_cert proj
-R4590:4596 Kernel.StructuralCore <> rc_cert proj
-R4638:4642 Kernel.StructuralCore <> rc_mu proj
-R4638:4642 Kernel.StructuralCore <> rc_mu proj
-R4677:4685 Kernel.StructuralCore <> rc_halted proj
-R4677:4685 Kernel.StructuralCore <> rc_halted proj
-R4522:4524 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R4503:4506 Coq.Init.Datatypes <> list ind
-R4508:4521 Kernel.VMStep VMStep vm_instruction ind
-R4525:4531 Kernel.VMState <> VMState rec
-R4547:4557 Kernel.StructuralCore <> thiele_next def
-R4582:4585 Coq.Init.Logic <> True ind
-binder 4605:4606 <> ps:38
-R4621:4632 Kernel.VMState <> vm_certified proj
-R4612:4614 Coq.Init.Datatypes <> snd def
-R4616:4617 Kernel.StructuralCore <> ps:38 var
-binder 4651:4652 <> ps:39
-R4667:4671 Kernel.VMState <> vm_mu proj
-R4658:4660 Coq.Init.Datatypes <> snd def
-R4662:4663 Kernel.StructuralCore <> ps:39 var
-binder 4694:4695 <> ps:40
-R4738:4741 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4720:4722 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4714:4718 Kernel.VMState <> vm_pc proj
-R4705:4707 Coq.Init.Datatypes <> snd def
-R4709:4710 Kernel.StructuralCore <> ps:40 var
-R4723:4728 Coq.Init.Datatypes <> length def
-R4731:4733 Coq.Init.Datatypes <> fst def
-R4735:4736 Kernel.StructuralCore <> ps:40 var
-R4761:4763 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4742:4749 Kernel.VMState <> read_reg def
-R4752:4754 Coq.Init.Datatypes <> snd def
-R4756:4757 Kernel.StructuralCore <> ps:40 var
-def 4827:4850 <> adequate_core_uniqueness
-binder 4871:4871 <> M:41
-R4884:4887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4874:4881 Kernel.StructuralCore <> Adequate def
-R4883:4883 Kernel.StructuralCore <> M:41 var
-R4888:4897 Kernel.StructuralCore <> core_equiv def
-R4899:4899 Kernel.StructuralCore <> M:41 var
-R4901:4910 Kernel.StructuralCore <> ThieleCore def
-prf 4990:5005 <> run_vm_u_stopped
-binder 5016:5016 <> n:42
-binder 5018:5018 <> p:43
-binder 5020:5020 <> s:44
-R5053:5056 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5046:5048 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5025:5033 Coq.Lists.List <> nth_error def
-R5040:5044 Kernel.VMState <> vm_pc proj
-R5037:5037 Kernel.StructuralCore <> s:44 var
-R5035:5035 Kernel.StructuralCore <> p:43 var
-R5049:5052 Coq.Init.Datatypes <> None constr
-R5071:5073 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5057:5064 Kernel.VMUnboundedStep <> run_vm_u def
-R5066:5066 Kernel.StructuralCore <> n:42 var
-R5068:5068 Kernel.StructuralCore <> p:43 var
-R5070:5070 Kernel.StructuralCore <> s:44 var
-R5074:5074 Kernel.StructuralCore <> s:44 var
-prf 5173:5185 <> run_vm_u_succ
-binder 5196:5196 <> n:45
-binder 5198:5198 <> p:46
-binder 5200:5200 <> s:47
-R5223:5225 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5205:5212 Kernel.VMUnboundedStep <> run_vm_u def
-R5215:5215 Coq.Init.Datatypes <> S constr
-R5217:5217 Kernel.StructuralCore <> n:45 var
-R5220:5220 Kernel.StructuralCore <> p:46 var
-R5222:5222 Kernel.StructuralCore <> s:47 var
-R5226:5233 Kernel.VMUnboundedStep <> run_vm_u def
-R5235:5235 Kernel.StructuralCore <> n:45 var
-R5237:5237 Kernel.StructuralCore <> p:46 var
-R5240:5247 Kernel.VMUnboundedStep <> run_vm_u def
-R5251:5251 Kernel.StructuralCore <> p:46 var
-R5253:5253 Kernel.StructuralCore <> s:47 var
-R5297:5305 Coq.Lists.List <> nth_error def
-R5310:5314 Kernel.VMState <> vm_pc proj
-R5297:5305 Coq.Lists.List <> nth_error def
-R5310:5314 Kernel.VMState <> vm_pc proj
-R5362:5377 Kernel.StructuralCore <> run_vm_u_stopped thm
-R5362:5377 Kernel.StructuralCore <> run_vm_u_stopped thm
-prf 5401:5415 <> thiele_core_run
-binder 5426:5426 <> n:48
-binder 5428:5428 <> p:49
-binder 5430:5430 <> s:50
-R5459:5461 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5433:5438 Kernel.StructuralCore <> rc_run def
-R5440:5449 Kernel.StructuralCore <> ThieleCore def
-R5451:5451 Kernel.StructuralCore <> n:48 var
-R5453:5453 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5455:5456 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5458:5458 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5454:5454 Kernel.StructuralCore <> p:49 var
-R5457:5457 Kernel.StructuralCore <> s:50 var
-R5462:5462 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5464:5465 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5480:5480 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5463:5463 Kernel.StructuralCore <> p:49 var
-R5466:5473 Kernel.VMUnboundedStep <> run_vm_u def
-R5475:5475 Kernel.StructuralCore <> n:48 var
-R5477:5477 Kernel.StructuralCore <> p:49 var
-R5479:5479 Kernel.StructuralCore <> s:50 var
-R5543:5548 Kernel.StructuralCore <> rc_run def
-R5564:5578 Coq.Arith.PeanoNat Nat iter_succ_r thm
-R5564:5578 Coq.Arith.PeanoNat Nat iter_succ_r thm
-R5564:5578 Coq.Arith.PeanoNat Nat iter_succ_r thm
-R5592:5598 Kernel.StructuralCore <> rc_next proj
-R5600:5609 Kernel.StructuralCore <> ThieleCore def
-R5611:5611 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5613:5614 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5616:5616 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5624:5624 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5626:5627 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5642:5642 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5628:5635 Kernel.VMUnboundedStep <> run_vm_u def
-R5592:5598 Kernel.StructuralCore <> rc_next proj
-R5600:5609 Kernel.StructuralCore <> ThieleCore def
-R5611:5611 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5613:5614 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5616:5616 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5624:5624 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5626:5627 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5642:5642 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5628:5635 Kernel.VMUnboundedStep <> run_vm_u def
-R5676:5688 Kernel.StructuralCore <> run_vm_u_succ thm
-R5676:5688 Kernel.StructuralCore <> run_vm_u_succ thm
-R5676:5688 Kernel.StructuralCore <> run_vm_u_succ thm
-prf 5723:5736 <> thiele_step_mu
-binder 5747:5747 <> p:51
-binder 5749:5749 <> s:52
-R5776:5780 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5754:5758 Kernel.VMState <> vm_mu proj
-R5761:5768 Kernel.VMUnboundedStep <> run_vm_u def
-R5772:5772 Kernel.StructuralCore <> p:51 var
-R5774:5774 Kernel.StructuralCore <> s:52 var
-R5788:5790 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5781:5785 Kernel.VMState <> vm_mu proj
-R5787:5787 Kernel.StructuralCore <> s:52 var
-R5797:5805 Coq.Lists.List <> nth_error def
-R5812:5816 Kernel.VMState <> vm_pc proj
-R5809:5809 Kernel.StructuralCore <> s:52 var
-R5807:5807 Kernel.StructuralCore <> p:51 var
-R5824:5827 Coq.Init.Datatypes <> Some constr
-R5834:5849 Kernel.VMStep VMStep instruction_cost def
-R5855:5858 Coq.Init.Datatypes <> None constr
-R5908:5916 Coq.Lists.List <> nth_error def
-R5921:5925 Kernel.VMState <> vm_pc proj
-R5939:5951 Kernel.VMUnboundedLedger <> vm_apply_u_mu thm
-R5908:5916 Coq.Lists.List <> nth_error def
-R5921:5925 Kernel.VMState <> vm_pc proj
-R5939:5951 Kernel.VMUnboundedLedger <> vm_apply_u_mu thm
-prf 5975:5992 <> thiele_core_ledger
-R5996:6009 Kernel.StructuralCore <> ledger_carried def
-R6011:6020 Kernel.StructuralCore <> ThieleCore def
-R6061:6064 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6054:6058 Kernel.VMState <> vm_mu proj
-R6065:6069 Kernel.VMState <> vm_mu proj
-R6072:6079 Kernel.VMUnboundedStep <> run_vm_u def
-R6061:6064 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6054:6058 Kernel.VMState <> vm_mu proj
-R6065:6069 Kernel.VMState <> vm_mu proj
-R6072:6079 Kernel.VMUnboundedStep <> run_vm_u def
-R6100:6113 Kernel.StructuralCore <> thiele_step_mu thm
-R6100:6113 Kernel.StructuralCore <> thiele_step_mu thm
-R6100:6113 Kernel.StructuralCore <> thiele_step_mu thm
-prf 6135:6148 <> thiele_core_a2
-R6152:6156 Kernel.StructuralCore <> rc_a2 def
-R6158:6167 Kernel.StructuralCore <> ThieleCore def
-R6200:6208 Kernel.StructuralCore <> step_cost def
-R6243:6246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6235:6237 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6221:6232 Kernel.VMState <> vm_certified proj
-R6238:6242 Coq.Init.Datatypes <> false constr
-R6283:6296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6276:6278 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6247:6258 Kernel.VMState <> vm_certified proj
-R6261:6268 Kernel.VMUnboundedStep <> run_vm_u def
-R6279:6282 Coq.Init.Datatypes <> true constr
-R6329:6332 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6319:6321 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R6297:6301 Kernel.VMState <> vm_mu proj
-R6304:6311 Kernel.VMUnboundedStep <> run_vm_u def
-R6322:6326 Kernel.VMState <> vm_mu proj
-R6243:6246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6235:6237 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6221:6232 Kernel.VMState <> vm_certified proj
-R6238:6242 Coq.Init.Datatypes <> false constr
-R6283:6296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6276:6278 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6247:6258 Kernel.VMState <> vm_certified proj
-R6261:6268 Kernel.VMUnboundedStep <> run_vm_u def
-R6279:6282 Coq.Init.Datatypes <> true constr
-R6329:6332 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6319:6321 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R6297:6301 Kernel.VMState <> vm_mu proj
-R6304:6311 Kernel.VMUnboundedStep <> run_vm_u def
-R6322:6326 Kernel.VMState <> vm_mu proj
-R6361:6374 Kernel.StructuralCore <> thiele_step_mu thm
-R6361:6374 Kernel.StructuralCore <> thiele_step_mu thm
-R6361:6374 Kernel.StructuralCore <> thiele_step_mu thm
-R6402:6410 Coq.Lists.List <> nth_error def
-R6415:6419 Kernel.VMState <> vm_pc proj
-R6402:6410 Coq.Lists.List <> nth_error def
-R6415:6419 Kernel.VMState <> vm_pc proj
-R6458:6489 Kernel.VMUnboundedLedger <> vm_apply_u_no_free_certification thm
-R6458:6489 Kernel.VMUnboundedLedger <> vm_apply_u_no_free_certification thm
-prf 6538:6563 <> thiele_core_carries_record
-R6567:6580 Kernel.StructuralCore <> carries_record def
-R6582:6591 Kernel.StructuralCore <> ThieleCore def
-R6610:6610 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6628:6629 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6640:6640 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6611:6611 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6627:6627 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6612:6624 Kernel.VMStep VMStep instr_certify constr
-R6630:6639 Kernel.MuInitiality <> init_state def
-R6610:6610 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6628:6629 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6640:6640 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6611:6611 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6627:6627 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6612:6624 Kernel.VMStep VMStep instr_certify constr
-R6630:6639 Kernel.MuInitiality <> init_state def
-R6660:6660 Coq.Init.Logic <> I constr
-R6660:6660 Coq.Init.Logic <> I constr
-prf 6695:6730 <> thiele_core_halting_problem_coverage
-R6734:6757 Kernel.StructuralCore <> halting_problem_coverage def
-R6759:6768 Kernel.StructuralCore <> ThieleCore def
-R6796:6796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6820:6821 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6849:6849 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6797:6819 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
-R6822:6835 Kernel.VMUnboundedCM2Bridge <> mm2_host_input def
-R6837:6846 Kernel.MuInitiality <> init_state def
-R6796:6796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6820:6821 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6849:6849 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6797:6819 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
-R6822:6835 Kernel.VMUnboundedCM2Bridge <> mm2_host_input def
-R6837:6846 Kernel.MuInitiality <> init_state def
-R6868:6868 Coq.Init.Logic <> I constr
-R6868:6868 Coq.Init.Logic <> I constr
-R6884:6903 Kernel.VMUnboundedCM2Bridge <> mm2_halting_host_iff thm
-R6884:6903 Kernel.VMUnboundedCM2Bridge <> mm2_halting_host_iff thm
-R6884:6903 Kernel.VMUnboundedCM2Bridge <> mm2_halting_host_iff thm
-R6913:6926 Kernel.VMUnboundedCM2Bridge <> cm2_host_halts def
-R6929:6938 Kernel.VMUnboundedCM2Interpreter <> cm2_halted def
-R6984:6998 Kernel.StructuralCore <> thiele_core_run thm
-R6984:6998 Kernel.StructuralCore <> thiele_core_run thm
-R6984:6998 Kernel.StructuralCore <> thiele_core_run thm
-R6984:6998 Kernel.StructuralCore <> thiele_core_run thm
-R6984:6998 Kernel.StructuralCore <> thiele_core_run thm
-R6984:6998 Kernel.StructuralCore <> thiele_core_run thm
-R6984:6998 Kernel.StructuralCore <> thiele_core_run thm
-prf 7030:7049 <> thiele_core_adequate
-R7053:7060 Kernel.StructuralCore <> Adequate def
-R7062:7071 Kernel.StructuralCore <> ThieleCore def
-R7097:7114 Kernel.StructuralCore <> thiele_core_ledger thm
-R7097:7114 Kernel.StructuralCore <> thiele_core_ledger thm
-R7136:7149 Kernel.StructuralCore <> thiele_core_a2 thm
-R7136:7149 Kernel.StructuralCore <> thiele_core_a2 thm
-R7171:7196 Kernel.StructuralCore <> thiele_core_carries_record thm
-R7206:7241 Kernel.StructuralCore <> thiele_core_halting_problem_coverage thm
-R7171:7196 Kernel.StructuralCore <> thiele_core_carries_record thm
-R7206:7241 Kernel.StructuralCore <> thiele_core_halting_problem_coverage thm
-def 7591:7601 <> HistoryCore
-R7605:7607 Kernel.StructuralCore <> RCM rec
-R7617:7624 Kernel.StructuralCore <> rc_state proj
-R7617:7624 Kernel.StructuralCore <> rc_state proj
-R7617:7624 Kernel.StructuralCore <> rc_state proj
-R7677:7683 Kernel.StructuralCore <> rc_next proj
-R7677:7683 Kernel.StructuralCore <> rc_next proj
-R7751:7757 Kernel.StructuralCore <> rc_init proj
-R7751:7757 Kernel.StructuralCore <> rc_init proj
-R7804:7810 Kernel.StructuralCore <> rc_cert proj
-R7804:7810 Kernel.StructuralCore <> rc_cert proj
-R7867:7871 Kernel.StructuralCore <> rc_mu proj
-R7867:7871 Kernel.StructuralCore <> rc_mu proj
-R7921:7929 Kernel.StructuralCore <> rc_halted proj
-R7921:7929 Kernel.StructuralCore <> rc_halted proj
-R7658:7660 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7648:7650 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7629:7632 Coq.Init.Datatypes <> list ind
-R7634:7647 Kernel.VMStep VMStep vm_instruction ind
-R7651:7657 Kernel.VMState <> VMState rec
-R7661:7664 Coq.Init.Datatypes <> list ind
-R7666:7672 Kernel.VMState <> VMState rec
-binder 7692:7692 <> x:53
-R7715:7715 Kernel.StructuralCore <> x:53 var
-R7702:7702 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7704:7705 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7707:7708 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7710:7710 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7720:7720 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7722:7723 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7738:7739 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7746:7746 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7724:7731 Kernel.VMUnboundedStep <> run_vm_u def
-R7741:7744 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-binder 7766:7766 <> x:55
-R7789:7789 Kernel.StructuralCore <> x:55 var
-R7776:7776 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7778:7779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7781:7782 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7784:7784 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7795:7797 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7798:7799 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-binder 7819:7819 <> x:57
-R7842:7842 Kernel.StructuralCore <> x:57 var
-R7829:7829 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7831:7832 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7834:7835 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7837:7837 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7850:7861 Kernel.VMState <> vm_certified proj
-binder 7880:7880 <> x:59
-R7903:7903 Kernel.StructuralCore <> x:59 var
-R7890:7890 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7892:7893 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7895:7896 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7898:7898 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7911:7915 Kernel.VMState <> vm_mu proj
-binder 7938:7938 <> x:61
-R7961:7961 Kernel.StructuralCore <> x:61 var
-R7948:7948 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7950:7951 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7953:7954 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7956:7956 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7990:7993 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7979:7981 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7973:7977 Kernel.VMState <> vm_pc proj
-R7982:7987 Coq.Init.Datatypes <> length def
-R8006:8008 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7994:8001 Kernel.VMState <> read_reg def
-prf 8024:8048 <> history_core_equiv_thiele
-R8052:8061 Kernel.StructuralCore <> core_equiv def
-R8063:8073 Kernel.StructuralCore <> HistoryCore def
-R8075:8084 Kernel.StructuralCore <> ThieleCore def
-binder 8108:8108 <> x:63
-binder 8110:8111 <> ps:64
-R8134:8134 Kernel.StructuralCore <> x:63 var
-R8121:8121 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8123:8124 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8126:8127 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8129:8129 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8141:8143 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8139:8140 Kernel.StructuralCore <> ps:64 var
-R8144:8144 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8146:8147 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8149:8149 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 8108:8108 <> x:66
-binder 8110:8111 <> ps:67
-R8134:8134 Kernel.StructuralCore <> x:66 var
-R8121:8121 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8123:8124 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8126:8127 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8129:8129 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8141:8143 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8139:8140 Kernel.StructuralCore <> ps:67 var
-R8144:8144 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8146:8147 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8149:8149 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8204:8204 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8206:8207 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8209:8209 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8204:8204 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8206:8207 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8209:8209 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8226:8226 Coq.Init.Logic <> I constr
-R8226:8226 Coq.Init.Logic <> I constr
-R8271:8271 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8273:8274 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8276:8277 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8280:8280 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8278:8279 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8271:8271 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8273:8274 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8276:8277 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8280:8280 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8278:8279 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1578:1581 Coq.Lists.List <> <> lib
+R1583:1596 Coq.Arith.PeanoNat <> <> lib
+R1598:1600 Coq.micromega.Lia <> <> lib
+R1610:1622 Coq.Lists.List ListNotations <> mod
+R1675:1677 Undecidability.MinskyMachines.MM2 <> <> lib
+rec 1710:1712 <> RCM
+proj 1728:1735 <> rc_state
+proj 1747:1753 <> rc_next
+proj 1781:1787 <> rc_init
+proj 1811:1817 <> rc_cert
+proj 1841:1845 <> rc_mu
+proj 1868:1876 <> rc_halted
+R1765:1768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1757:1764 Kernel.StructuralCore <> rc_state:2 meth
+R1769:1776 Kernel.StructuralCore <> rc_state:2 meth
+R1799:1802 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1791:1798 Kernel.StructuralCore <> rc_state:2 meth
+R1829:1832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1821:1828 Kernel.StructuralCore <> rc_state:2 meth
+R1833:1836 Coq.Init.Datatypes <> bool ind
+R1857:1860 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1849:1856 Kernel.StructuralCore <> rc_state:2 meth
+R1861:1863 Coq.Init.Datatypes <> nat ind
+R1888:1891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1880:1887 Kernel.StructuralCore <> rc_state:2 meth
+def 1912:1917 <> rc_run
+R1924:1926 Kernel.StructuralCore <> RCM rec
+binder 1920:1920 <> M:8
+R1934:1936 Coq.Init.Datatypes <> nat ind
+binder 1930:1930 <> n:9
+R1944:1951 Kernel.StructuralCore <> rc_state proj
+R1953:1953 Kernel.StructuralCore <> M:8 var
+binder 1940:1940 <> s:10
+R1958:1965 Kernel.StructuralCore <> rc_state proj
+R1967:1967 Kernel.StructuralCore <> M:8 var
+R1974:1981 Coq.Arith.PeanoNat Nat iter def
+R1997:1997 Kernel.StructuralCore <> s:10 var
+R1986:1992 Kernel.StructuralCore <> rc_next proj
+R1994:1994 Kernel.StructuralCore <> M:8 var
+R1983:1983 Kernel.StructuralCore <> n:9 var
+def 2012:2020 <> step_cost
+R2027:2029 Kernel.StructuralCore <> RCM rec
+binder 2023:2023 <> M:11
+R2037:2044 Kernel.StructuralCore <> rc_state proj
+R2046:2046 Kernel.StructuralCore <> M:11 var
+binder 2033:2033 <> s:12
+R2051:2053 Coq.Init.Datatypes <> nat ind
+R2081:2083 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2060:2064 Kernel.StructuralCore <> rc_mu proj
+R2066:2066 Kernel.StructuralCore <> M:11 var
+R2069:2075 Kernel.StructuralCore <> rc_next proj
+R2077:2077 Kernel.StructuralCore <> M:11 var
+R2079:2079 Kernel.StructuralCore <> s:12 var
+R2084:2088 Kernel.StructuralCore <> rc_mu proj
+R2090:2090 Kernel.StructuralCore <> M:11 var
+R2092:2092 Kernel.StructuralCore <> s:12 var
+def 2107:2120 <> ledger_carried
+R2127:2129 Kernel.StructuralCore <> RCM rec
+binder 2123:2123 <> M:13
+binder 2151:2151 <> s:14
+R2163:2166 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2154:2158 Kernel.StructuralCore <> rc_mu proj
+R2160:2160 Kernel.StructuralCore <> M:13 var
+R2162:2162 Kernel.StructuralCore <> s:14 var
+R2167:2171 Kernel.StructuralCore <> rc_mu proj
+R2173:2173 Kernel.StructuralCore <> M:13 var
+R2176:2182 Kernel.StructuralCore <> rc_next proj
+R2184:2184 Kernel.StructuralCore <> M:13 var
+R2186:2186 Kernel.StructuralCore <> s:14 var
+def 2202:2206 <> rc_a2
+R2213:2215 Kernel.StructuralCore <> RCM rec
+binder 2209:2209 <> M:15
+binder 2237:2237 <> s:16
+R2259:2262 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2251:2253 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2240:2246 Kernel.StructuralCore <> rc_cert proj
+R2248:2248 Kernel.StructuralCore <> M:15 var
+R2250:2250 Kernel.StructuralCore <> s:16 var
+R2254:2258 Coq.Init.Datatypes <> false constr
+R2293:2296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2286:2288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2263:2269 Kernel.StructuralCore <> rc_cert proj
+R2271:2271 Kernel.StructuralCore <> M:15 var
+R2274:2280 Kernel.StructuralCore <> rc_next proj
+R2282:2282 Kernel.StructuralCore <> M:15 var
+R2284:2284 Kernel.StructuralCore <> s:16 var
+R2289:2292 Coq.Init.Datatypes <> true constr
+R2310:2313 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2297:2305 Kernel.StructuralCore <> step_cost def
+R2307:2307 Kernel.StructuralCore <> M:15 var
+R2309:2309 Kernel.StructuralCore <> s:16 var
+def 2329:2342 <> carries_record
+R2349:2351 Kernel.StructuralCore <> RCM rec
+binder 2345:2345 <> M:17
+R2366:2372 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2376:2377 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2373:2373 <> s:18
+binder 2375:2375 <> n:19
+R2389:2392 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2378:2384 Kernel.StructuralCore <> rc_init proj
+R2386:2386 Kernel.StructuralCore <> M:17 var
+R2388:2388 Kernel.StructuralCore <> s:18 var
+R2417:2419 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2393:2399 Kernel.StructuralCore <> rc_cert proj
+R2401:2401 Kernel.StructuralCore <> M:17 var
+R2404:2409 Kernel.StructuralCore <> rc_run def
+R2411:2411 Kernel.StructuralCore <> M:17 var
+R2413:2413 Kernel.StructuralCore <> n:19 var
+R2415:2415 Kernel.StructuralCore <> s:18 var
+R2420:2423 Coq.Init.Datatypes <> true constr
+def 2665:2688 <> halting_problem_coverage
+R2695:2697 Kernel.StructuralCore <> RCM rec
+binder 2691:2691 <> M:20
+R2723:2733 Undecidability.MinskyMachines.MM2 <> MM2_PROBLEM def
+binder 2719:2719 <> P:21
+R2740:2746 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2749:2750 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2747:2748 <> s0:22
+R2763:2767 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2823:2823 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2751:2757 Kernel.StructuralCore <> rc_init proj
+R2759:2759 Kernel.StructuralCore <> M:20 var
+R2761:2762 Kernel.StructuralCore <> s0:22 var
+R2781:2785 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2768:2778 Undecidability.MinskyMachines.MM2 <> MM2_HALTING def
+R2780:2780 Kernel.StructuralCore <> P:21 var
+R2786:2792 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2794:2795 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2793:2793 <> n:23
+R2796:2804 Kernel.StructuralCore <> rc_halted proj
+R2806:2806 Kernel.StructuralCore <> M:20 var
+R2809:2814 Kernel.StructuralCore <> rc_run def
+R2816:2816 Kernel.StructuralCore <> M:20 var
+R2818:2818 Kernel.StructuralCore <> n:23 var
+R2820:2821 Kernel.StructuralCore <> s0:22 var
+def 2838:2845 <> Adequate
+R2852:2854 Kernel.StructuralCore <> RCM rec
+binder 2848:2848 <> M:24
+R2885:2888 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2869:2882 Kernel.StructuralCore <> ledger_carried def
+R2884:2884 Kernel.StructuralCore <> M:24 var
+R2896:2899 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2889:2893 Kernel.StructuralCore <> rc_a2 def
+R2895:2895 Kernel.StructuralCore <> M:24 var
+R2916:2919 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2900:2913 Kernel.StructuralCore <> carries_record def
+R2915:2915 Kernel.StructuralCore <> M:24 var
+R2920:2943 Kernel.StructuralCore <> halting_problem_coverage def
+R2945:2945 Kernel.StructuralCore <> M:24 var
+def 2960:2969 <> core_bisim
+R2978:2980 Kernel.StructuralCore <> RCM rec
+binder 2972:2972 <> M:25
+binder 2974:2974 <> N:26
+R2998:3001 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2988:2995 Kernel.StructuralCore <> rc_state proj
+R2997:2997 Kernel.StructuralCore <> M:25 var
+R3012:3015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3002:3009 Kernel.StructuralCore <> rc_state proj
+R3011:3011 Kernel.StructuralCore <> N:26 var
+binder 2984:2984 <> R:27
+R3034:3034 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3090:3096 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3042:3042 <> m:28
+R3056:3059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3045:3051 Kernel.StructuralCore <> rc_init proj
+R3053:3053 Kernel.StructuralCore <> M:25 var
+R3055:3055 Kernel.StructuralCore <> m:28 var
+R3060:3066 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3068:3069 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3067:3067 <> n:29
+R3081:3084 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3070:3076 Kernel.StructuralCore <> rc_init proj
+R3078:3078 Kernel.StructuralCore <> N:26 var
+R3080:3080 Kernel.StructuralCore <> n:29 var
+R3085:3085 Kernel.StructuralCore <> R:27 var
+R3089:3089 Kernel.StructuralCore <> n:29 var
+R3087:3087 Kernel.StructuralCore <> m:28 var
+R3097:3097 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3153:3160 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3288:3288 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3105:3105 <> n:30
+R3119:3122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3108:3114 Kernel.StructuralCore <> rc_init proj
+R3116:3116 Kernel.StructuralCore <> N:26 var
+R3118:3118 Kernel.StructuralCore <> n:30 var
+R3123:3129 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3131:3132 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3130:3130 <> m:31
+R3144:3147 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3133:3139 Kernel.StructuralCore <> rc_init proj
+R3141:3141 Kernel.StructuralCore <> M:25 var
+R3143:3143 Kernel.StructuralCore <> m:31 var
+R3148:3148 Kernel.StructuralCore <> R:27 var
+R3152:3152 Kernel.StructuralCore <> n:30 var
+R3150:3150 Kernel.StructuralCore <> m:31 var
+binder 3168:3168 <> m:32
+binder 3170:3170 <> n:33
+R3178:3186 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3173:3173 Kernel.StructuralCore <> R:27 var
+R3177:3177 Kernel.StructuralCore <> n:33 var
+R3175:3175 Kernel.StructuralCore <> m:32 var
+R3212:3220 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3198:3200 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3187:3193 Kernel.StructuralCore <> rc_cert proj
+R3195:3195 Kernel.StructuralCore <> M:25 var
+R3197:3197 Kernel.StructuralCore <> m:32 var
+R3201:3207 Kernel.StructuralCore <> rc_cert proj
+R3209:3209 Kernel.StructuralCore <> N:26 var
+R3211:3211 Kernel.StructuralCore <> n:33 var
+R3250:3258 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3234:3236 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3221:3229 Kernel.StructuralCore <> step_cost def
+R3231:3231 Kernel.StructuralCore <> M:25 var
+R3233:3233 Kernel.StructuralCore <> m:32 var
+R3237:3245 Kernel.StructuralCore <> step_cost def
+R3247:3247 Kernel.StructuralCore <> N:26 var
+R3249:3249 Kernel.StructuralCore <> n:33 var
+R3259:3259 Kernel.StructuralCore <> R:27 var
+R3276:3282 Kernel.StructuralCore <> rc_next proj
+R3284:3284 Kernel.StructuralCore <> N:26 var
+R3286:3286 Kernel.StructuralCore <> n:33 var
+R3262:3268 Kernel.StructuralCore <> rc_next proj
+R3270:3270 Kernel.StructuralCore <> M:25 var
+R3272:3272 Kernel.StructuralCore <> m:32 var
+def 3303:3312 <> core_equiv
+R3321:3323 Kernel.StructuralCore <> RCM rec
+binder 3315:3315 <> M:34
+binder 3317:3317 <> N:35
+R3336:3342 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3344:3345 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3343:3343 <> R:36
+R3346:3355 Kernel.StructuralCore <> core_bisim def
+R3357:3357 Kernel.StructuralCore <> M:34 var
+R3359:3359 Kernel.StructuralCore <> N:35 var
+R3361:3361 Kernel.StructuralCore <> R:36 var

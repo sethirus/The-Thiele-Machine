@@ -1,0 +1,168 @@
+DIGEST 36a9bc62bd96992ee696391effbb62e8
+FKernel.TPMQuoteGap
+R3340:3343 Coq.Lists.List <> <> lib
+R3345:3358 Coq.Arith.PeanoNat <> <> lib
+R3360:3363 Coq.Bool.Bool <> <> lib
+R3373:3385 Coq.Lists.List ListNotations <> mod
+R3415:3431 Kernel.ObservationPolicy <> <> lib
+sec 3443:3445 <> TPM
+var 3516:3516 TPM H
+R3523:3526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3520:3522 Coq.Init.Datatypes <> nat ind
+R3530:3533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3527:3529 Coq.Init.Datatypes <> nat ind
+R3534:3536 Coq.Init.Datatypes <> nat ind
+var 3548:3553 TPM digest
+R3560:3563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3557:3559 Coq.Init.Datatypes <> nat ind
+R3564:3566 Coq.Init.Datatypes <> nat ind
+def 3581:3590 <> pcr_extend
+R3606:3608 Coq.Init.Datatypes <> nat ind
+binder 3593:3595 <> pcr:3
+binder 3597:3602 <> digest:4
+R3613:3615 Coq.Init.Datatypes <> nat ind
+R3620:3620 Kernel.TPMQuoteGap <> TPM.H var
+R3622:3624 Kernel.TPMQuoteGap <> pcr:3 var
+R3626:3631 Kernel.TPMQuoteGap <> digest:4 var
+def 3718:3727 <> pcr_of_log
+R3736:3739 Coq.Init.Datatypes <> list ind
+R3741:3743 Coq.Init.Datatypes <> nat ind
+binder 3730:3732 <> log:5
+R3748:3750 Coq.Init.Datatypes <> nat ind
+R3755:3763 Coq.Lists.List <> fold_left def
+R3776:3778 Kernel.TPMQuoteGap <> log:5 var
+R3765:3774 Kernel.TPMQuoteGap <> pcr_extend def
+rec 3791:3798 <> Platform
+proj 3814:3825 <> measured_log
+proj 3841:3868 <> runtime_is_measured_software
+R3829:3832 Coq.Init.Datatypes <> list ind
+R3834:3836 Coq.Init.Datatypes <> nat ind
+R3872:3875 Coq.Init.Datatypes <> bool ind
+rec 3888:3892 <> Quote
+proj 3908:3923 <> quote_pcr_digest
+proj 3934:3944 <> quote_nonce
+R3927:3929 Coq.Init.Datatypes <> nat ind
+R3948:3950 Coq.Init.Datatypes <> nat ind
+def 3967:3971 <> quote
+R3982:3984 Coq.Init.Datatypes <> nat ind
+binder 3974:3978 <> nonce:12
+R3992:3999 Kernel.TPMQuoteGap <> Platform rec
+binder 3988:3988 <> p:13
+R4004:4008 Kernel.TPMQuoteGap <> Quote rec
+R4018:4033 Kernel.TPMQuoteGap <> quote_pcr_digest proj
+R4018:4033 Kernel.TPMQuoteGap <> quote_pcr_digest proj
+R4018:4033 Kernel.TPMQuoteGap <> quote_pcr_digest proj
+R4076:4086 Kernel.TPMQuoteGap <> quote_nonce proj
+R4076:4086 Kernel.TPMQuoteGap <> quote_nonce proj
+R4038:4043 Kernel.TPMQuoteGap <> TPM.digest var
+R4046:4055 Kernel.TPMQuoteGap <> pcr_of_log def
+R4058:4069 Kernel.TPMQuoteGap <> measured_log proj
+R4071:4071 Kernel.TPMQuoteGap <> p:13 var
+R4091:4095 Kernel.TPMQuoteGap <> nonce:12 var
+prf 4245:4259 <> quote_collision
+binder 4272:4276 <> nonce:14
+binder 4278:4280 <> log:15
+R4362:4368 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4287:4291 Kernel.TPMQuoteGap <> quote def
+R4293:4297 Kernel.TPMQuoteGap <> nonce:14 var
+R4302:4313 Kernel.TPMQuoteGap <> measured_log proj
+R4302:4313 Kernel.TPMQuoteGap <> measured_log proj
+R4302:4313 Kernel.TPMQuoteGap <> measured_log proj
+R4323:4350 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R4323:4350 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R4318:4320 Kernel.TPMQuoteGap <> log:15 var
+R4355:4358 Coq.Init.Datatypes <> true constr
+R4369:4373 Kernel.TPMQuoteGap <> quote def
+R4375:4379 Kernel.TPMQuoteGap <> nonce:14 var
+R4384:4395 Kernel.TPMQuoteGap <> measured_log proj
+R4384:4395 Kernel.TPMQuoteGap <> measured_log proj
+R4384:4395 Kernel.TPMQuoteGap <> measured_log proj
+R4405:4432 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R4405:4432 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R4400:4402 Kernel.TPMQuoteGap <> log:15 var
+R4437:4441 Coq.Init.Datatypes <> false constr
+prf 4736:4771 <> quote_cannot_attest_unmeasured_state
+binder 4784:4788 <> nonce:16
+R4795:4796 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4797:4803 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4826:4835 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4818:4821 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4813:4817 Kernel.TPMQuoteGap <> Quote rec
+R4822:4825 Coq.Init.Datatypes <> bool ind
+binder 4804:4809 <> decide:17
+binder 4843:4843 <> p:18
+R4868:4870 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4846:4851 Kernel.TPMQuoteGap <> decide:17 var
+R4854:4858 Kernel.TPMQuoteGap <> quote def
+R4860:4864 Kernel.TPMQuoteGap <> nonce:16 var
+R4866:4866 Kernel.TPMQuoteGap <> p:18 var
+R4871:4898 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R4900:4900 Kernel.TPMQuoteGap <> p:18 var
+R4945:4977 Kernel.ObservationPolicy <> decoding_requires_fiber_constancy thm
+R5009:5036 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R4980:4984 Kernel.TPMQuoteGap <> quote def
+R4945:4977 Kernel.ObservationPolicy <> decoding_requires_fiber_constancy thm
+R5009:5036 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R4980:4984 Kernel.TPMQuoteGap <> quote def
+R5075:5086 Kernel.TPMQuoteGap <> measured_log proj
+R5075:5086 Kernel.TPMQuoteGap <> measured_log proj
+R5075:5086 Kernel.TPMQuoteGap <> measured_log proj
+R5095:5122 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R5095:5122 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R5091:5092 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5127:5130 Coq.Init.Datatypes <> true constr
+R5157:5168 Kernel.TPMQuoteGap <> measured_log proj
+R5157:5168 Kernel.TPMQuoteGap <> measured_log proj
+R5157:5168 Kernel.TPMQuoteGap <> measured_log proj
+R5177:5204 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R5177:5204 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R5173:5174 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5209:5213 Coq.Init.Datatypes <> false constr
+R5238:5252 Kernel.TPMQuoteGap <> quote_collision thm
+R5260:5261 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5075:5086 Kernel.TPMQuoteGap <> measured_log proj
+R5075:5086 Kernel.TPMQuoteGap <> measured_log proj
+R5075:5086 Kernel.TPMQuoteGap <> measured_log proj
+R5095:5122 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R5095:5122 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R5091:5092 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5127:5130 Coq.Init.Datatypes <> true constr
+R5157:5168 Kernel.TPMQuoteGap <> measured_log proj
+R5157:5168 Kernel.TPMQuoteGap <> measured_log proj
+R5157:5168 Kernel.TPMQuoteGap <> measured_log proj
+R5177:5204 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R5177:5204 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R5173:5174 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5209:5213 Coq.Init.Datatypes <> false constr
+R5238:5252 Kernel.TPMQuoteGap <> quote_collision thm
+R5260:5261 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 5518:5546 <> quote_decides_measured_claims
+binder 5559:5563 <> nonce:19
+R5577:5580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5574:5576 Coq.Init.Datatypes <> nat ind
+R5581:5584 Coq.Init.Datatypes <> bool ind
+binder 5566:5570 <> claim:20
+R5592:5598 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5621:5628 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5613:5616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5608:5612 Kernel.TPMQuoteGap <> Quote rec
+R5617:5620 Coq.Init.Datatypes <> bool ind
+binder 5599:5604 <> decide:21
+binder 5636:5636 <> p:22
+R5661:5663 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5639:5644 Kernel.TPMQuoteGap <> decide:21 var
+R5647:5651 Kernel.TPMQuoteGap <> quote def
+R5653:5657 Kernel.TPMQuoteGap <> nonce:19 var
+R5659:5659 Kernel.TPMQuoteGap <> p:22 var
+R5664:5668 Kernel.TPMQuoteGap <> claim:20 var
+R5671:5676 Kernel.TPMQuoteGap <> TPM.digest var
+R5679:5688 Kernel.TPMQuoteGap <> pcr_of_log def
+R5691:5702 Kernel.TPMQuoteGap <> measured_log proj
+R5704:5704 Kernel.TPMQuoteGap <> p:22 var
+binder 5751:5751 <> q:23
+R5763:5778 Kernel.TPMQuoteGap <> quote_pcr_digest proj
+R5780:5780 Kernel.TPMQuoteGap <> q:23 var
+binder 5751:5751 <> q:24
+R5763:5778 Kernel.TPMQuoteGap <> quote_pcr_digest proj
+R5780:5780 Kernel.TPMQuoteGap <> q:24 var
+R5808:5810 Kernel.TPMQuoteGap TPM <> sec

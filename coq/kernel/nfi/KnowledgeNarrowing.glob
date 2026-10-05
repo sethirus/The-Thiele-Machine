@@ -1,858 +1,801 @@
-DIGEST 9e80e8daead2de513a2c5e8756ca6c31
+DIGEST f549ac25947465e2b2d1bb0befa550b1
 FKernel.KnowledgeNarrowing
-R2910:2913 Coq.Lists.List <> <> lib
-R2915:2918 Coq.Bool.Bool <> <> lib
-R2920:2933 Coq.Arith.PeanoNat <> <> lib
-R2935:2937 Coq.micromega.Lia <> <> lib
-R2947:2959 Coq.Lists.List ListNotations <> mod
-R2990:2996 Kernel.VMState <> <> lib
-R2998:3003 Kernel.VMStep <> <> lib
-R3005:3019 Kernel.SimulationProof <> <> lib
-R3021:3032 Kernel.MuInitiality <> <> lib
-R3062:3083 Kernel.PermanentCertification <> <> lib
-R3113:3134 Kernel.PermanentRecordPricing <> <> lib
-R3164:3180 Kernel.FiniteCertMachine <> <> lib
-sec 3220:3223 <> Runs
-var 3238:3238 Runs S
-var 3240:3240 Runs I
-var 3260:3263 Runs step
-R3268:3271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3267:3267 Kernel.KnowledgeNarrowing <> Runs.S var
-R3273:3276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3272:3272 Kernel.KnowledgeNarrowing <> Runs.I var
-R3277:3277 Kernel.KnowledgeNarrowing <> Runs.S var
-var 3289:3292 Runs cost
-R3297:3300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3296:3296 Kernel.KnowledgeNarrowing <> Runs.I var
-R3301:3303 Coq.Init.Datatypes <> nat ind
-var 3315:3320 Runs eq_dec
-R3337:3337 Kernel.KnowledgeNarrowing <> Runs.S var
-binder 3331:3331 <> a:5
-binder 3333:3333 <> b:6
-R3340:3340 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R3346:3350 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R3357:3357 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R3342:3344 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3341:3341 Kernel.KnowledgeNarrowing <> a:5 var
-R3345:3345 Kernel.KnowledgeNarrowing <> b:6 var
-R3352:3355 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R3351:3351 Kernel.KnowledgeNarrowing <> a:5 var
-R3356:3356 Kernel.KnowledgeNarrowing <> b:6 var
-def 3370:3372 <> run
-R3379:3379 Kernel.KnowledgeNarrowing <> Runs.S var
-binder 3375:3375 <> s:8
-R3387:3390 Coq.Init.Datatypes <> list ind
-R3392:3392 Kernel.KnowledgeNarrowing <> Runs.I var
-binder 3383:3383 <> t:9
-R3397:3397 Kernel.KnowledgeNarrowing <> Runs.S var
-R3410:3410 Kernel.KnowledgeNarrowing <> t:9 var
-R3421:3422 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3427:3427 Kernel.KnowledgeNarrowing <> s:8 var
-R3434:3437 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3444:3446 Kernel.KnowledgeNarrowing <> run:10 def
-R3449:3452 Kernel.KnowledgeNarrowing <> Runs.step var
-R3454:3454 Kernel.KnowledgeNarrowing <> s:8 var
-def 3479:3488 <> trace_cost
-R3495:3498 Coq.Init.Datatypes <> list ind
-R3500:3500 Kernel.KnowledgeNarrowing <> Runs.I var
-binder 3491:3491 <> t:12
-R3505:3507 Coq.Init.Datatypes <> nat ind
-R3520:3520 Kernel.KnowledgeNarrowing <> t:12 var
-R3531:3532 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3544:3547 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3560:3562 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3554:3557 Kernel.KnowledgeNarrowing <> Runs.cost var
-R3563:3572 Kernel.KnowledgeNarrowing <> trace_cost:13 def
-def 3672:3680 <> run_image
-R3687:3690 Coq.Init.Datatypes <> list ind
-R3692:3692 Kernel.KnowledgeNarrowing <> Runs.I var
-binder 3683:3683 <> t:15
-R3700:3703 Coq.Init.Datatypes <> list ind
-R3705:3705 Kernel.KnowledgeNarrowing <> Runs.S var
-binder 3696:3696 <> D:16
-R3710:3713 Coq.Init.Datatypes <> list ind
-R3715:3715 Kernel.KnowledgeNarrowing <> Runs.S var
-R3722:3726 Coq.Lists.List <> nodup def
-R3736:3738 Coq.Lists.List <> map def
-R3759:3759 Kernel.KnowledgeNarrowing <> D:16 var
-binder 3745:3745 <> s:17
-R3750:3752 Kernel.KnowledgeNarrowing <> run def
-R3754:3754 Kernel.KnowledgeNarrowing <> s:17 var
-R3756:3756 Kernel.KnowledgeNarrowing <> t:15 var
-R3728:3733 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
-prf 3770:3784 <> run_image_nodup
-binder 3795:3795 <> t:18
-binder 3797:3797 <> D:19
-R3800:3804 Coq.Lists.List <> NoDup ind
-R3807:3815 Kernel.KnowledgeNarrowing <> run_image def
-R3817:3817 Kernel.KnowledgeNarrowing <> t:18 var
-R3819:3819 Kernel.KnowledgeNarrowing <> D:19 var
-R3844:3854 Coq.Lists.List <> NoDup_nodup thm
-R3844:3854 Coq.Lists.List <> NoDup_nodup thm
-prf 3869:3882 <> run_image_spec
-binder 3895:3895 <> t:20
-binder 3897:3897 <> D:21
-binder 3899:3899 <> y:22
-R3922:3926 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R3902:3903 Coq.Lists.List <> In def
-R3908:3916 Kernel.KnowledgeNarrowing <> run_image def
-R3918:3918 Kernel.KnowledgeNarrowing <> t:20 var
-R3920:3920 Kernel.KnowledgeNarrowing <> D:21 var
-R3905:3905 Kernel.KnowledgeNarrowing <> y:22 var
-R3927:3933 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3935:3936 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3934:3934 <> s:23
-R3943:3946 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3937:3938 Coq.Lists.List <> In def
-R3942:3942 Kernel.KnowledgeNarrowing <> D:21 var
-R3940:3940 Kernel.KnowledgeNarrowing <> s:23 var
-R3954:3956 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3947:3949 Kernel.KnowledgeNarrowing <> run def
-R3951:3951 Kernel.KnowledgeNarrowing <> s:23 var
-R3953:3953 Kernel.KnowledgeNarrowing <> t:20 var
-R3957:3957 Kernel.KnowledgeNarrowing <> y:22 var
-R3990:3998 Kernel.KnowledgeNarrowing <> run_image def
-R4009:4016 Coq.Lists.List <> nodup_In thm
-R4019:4028 Coq.Lists.List <> in_map_iff thm
-R4009:4016 Coq.Lists.List <> nodup_In thm
-R4009:4016 Coq.Lists.List <> nodup_In thm
-R4019:4028 Coq.Lists.List <> in_map_iff thm
-R4019:4028 Coq.Lists.List <> in_map_iff thm
-prf 4101:4114 <> run_image_step
-binder 4127:4127 <> i:24
-binder 4129:4129 <> t:25
-binder 4131:4131 <> D:26
-R4201:4207 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4138:4143 Coq.Init.Datatypes <> length def
-R4146:4154 Kernel.KnowledgeNarrowing <> run_image def
-R4156:4156 Kernel.KnowledgeNarrowing <> t:25 var
-R4159:4163 Coq.Lists.List <> nodup def
-R4173:4175 Coq.Lists.List <> map def
-R4197:4197 Kernel.KnowledgeNarrowing <> D:26 var
-binder 4182:4182 <> s:27
-R4187:4190 Kernel.KnowledgeNarrowing <> Runs.step var
-R4192:4192 Kernel.KnowledgeNarrowing <> s:27 var
-R4194:4194 Kernel.KnowledgeNarrowing <> i:24 var
-R4165:4170 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
-R4208:4213 Coq.Init.Datatypes <> length def
-R4216:4224 Kernel.KnowledgeNarrowing <> run_image def
-R4228:4231 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4227:4227 Kernel.KnowledgeNarrowing <> i:24 var
-R4232:4232 Kernel.KnowledgeNarrowing <> t:25 var
-R4235:4235 Kernel.KnowledgeNarrowing <> D:26 var
-R4270:4284 Coq.Arith.PeanoNat Nat le_antisymm thm
-R4293:4309 Coq.Lists.List <> NoDup_incl_length thm
-R4322:4336 Kernel.KnowledgeNarrowing <> run_image_nodup thm
-R4362:4375 Kernel.KnowledgeNarrowing <> run_image_spec thm
-R4405:4418 Kernel.KnowledgeNarrowing <> run_image_spec thm
-R4270:4284 Coq.Arith.PeanoNat Nat le_antisymm thm
-R4293:4309 Coq.Lists.List <> NoDup_incl_length thm
-R4293:4309 Coq.Lists.List <> NoDup_incl_length thm
-R4322:4336 Kernel.KnowledgeNarrowing <> run_image_nodup thm
-R4322:4336 Kernel.KnowledgeNarrowing <> run_image_nodup thm
-R4322:4336 Kernel.KnowledgeNarrowing <> run_image_nodup thm
-R4322:4336 Kernel.KnowledgeNarrowing <> run_image_nodup thm
-R4362:4375 Kernel.KnowledgeNarrowing <> run_image_spec thm
-R4362:4375 Kernel.KnowledgeNarrowing <> run_image_spec thm
-R4405:4418 Kernel.KnowledgeNarrowing <> run_image_spec thm
-R4405:4418 Kernel.KnowledgeNarrowing <> run_image_spec thm
-R4431:4438 Coq.Lists.List <> nodup_In thm
-R4441:4450 Coq.Lists.List <> in_map_iff thm
-R4431:4438 Coq.Lists.List <> nodup_In thm
-R4441:4450 Coq.Lists.List <> in_map_iff thm
-R4530:4533 Kernel.KnowledgeNarrowing <> Runs.step var
-R4530:4533 Kernel.KnowledgeNarrowing <> Runs.step var
-R4572:4579 Coq.Lists.List <> nodup_In thm
-R4582:4591 Coq.Lists.List <> in_map_iff thm
-R4572:4579 Coq.Lists.List <> nodup_In thm
-R4582:4591 Coq.Lists.List <> in_map_iff thm
-prf 4723:4742 <> run_narrowing_priced
-R4783:4788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4748:4765 Kernel.PermanentRecordPricing <> compression_priced def
-R4777:4782 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
-R4772:4775 Kernel.KnowledgeNarrowing <> Runs.cost var
-R4767:4770 Kernel.KnowledgeNarrowing <> Runs.step var
-binder 4796:4796 <> t:28
-binder 4798:4798 <> D:29
-R4808:4811 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4801:4805 Coq.Lists.List <> NoDup ind
-R4807:4807 Kernel.KnowledgeNarrowing <> D:29 var
-R4820:4823 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4812:4817 Coq.Init.Datatypes <> length def
-R4819:4819 Kernel.KnowledgeNarrowing <> D:29 var
-R4840:4842 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R4825:4827 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R4828:4837 Kernel.KnowledgeNarrowing <> trace_cost def
-R4839:4839 Kernel.KnowledgeNarrowing <> t:28 var
-R4843:4848 Coq.Init.Datatypes <> length def
-R4851:4859 Kernel.KnowledgeNarrowing <> run_image def
-R4861:4861 Kernel.KnowledgeNarrowing <> t:28 var
-R4863:4863 Kernel.KnowledgeNarrowing <> D:29 var
-R4951:4959 Kernel.KnowledgeNarrowing <> run_image def
-R4977:4982 Coq.Lists.List <> map_id thm
-R4985:5001 Coq.Lists.List <> nodup_fixed_point thm
-R4977:4982 Coq.Lists.List <> map_id thm
-R4977:4982 Coq.Lists.List <> map_id thm
-R4985:5001 Coq.Lists.List <> nodup_fixed_point thm
-R4985:5001 Coq.Lists.List <> nodup_fixed_point thm
-R5040:5044 Coq.Lists.List <> nodup def
-R5054:5056 Coq.Lists.List <> map def
-binder 5063:5063 <> s:30
-R5068:5071 Kernel.KnowledgeNarrowing <> Runs.step var
-R5073:5073 Kernel.KnowledgeNarrowing <> s:30 var
-R5046:5051 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
-R5040:5044 Coq.Lists.List <> nodup def
-R5054:5056 Coq.Lists.List <> map def
-binder 5063:5063 <> s:31
-R5068:5071 Kernel.KnowledgeNarrowing <> Runs.step var
-R5073:5073 Kernel.KnowledgeNarrowing <> s:31 var
-R5046:5051 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
-R5128:5137 Kernel.PermanentRecordPricing <> image_size def
-R5184:5194 Coq.Lists.List <> NoDup_nodup thm
-R5184:5194 Coq.Lists.List <> NoDup_nodup thm
-R5239:5252 Kernel.KnowledgeNarrowing <> run_image_step thm
-R5239:5252 Kernel.KnowledgeNarrowing <> run_image_step thm
-R5239:5252 Kernel.KnowledgeNarrowing <> run_image_step thm
-R5278:5287 Kernel.KnowledgeNarrowing <> trace_cost def
-R5298:5310 Coq.Arith.PeanoNat Nat pow_add_r thm
-R5316:5328 Coq.Arith.PeanoNat Nat mul_assoc thm
-R5298:5310 Coq.Arith.PeanoNat Nat pow_add_r thm
-R5298:5310 Coq.Arith.PeanoNat Nat pow_add_r thm
-R5316:5328 Coq.Arith.PeanoNat Nat mul_assoc thm
-R5316:5328 Coq.Arith.PeanoNat Nat mul_assoc thm
-R5375:5377 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5366:5368 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R5369:5372 Kernel.KnowledgeNarrowing <> Runs.cost var
-R5378:5383 Coq.Init.Datatypes <> length def
-R5341:5352 Coq.Arith.PeanoNat Nat le_trans thm
-R5375:5377 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5366:5368 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R5369:5372 Kernel.KnowledgeNarrowing <> Runs.cost var
-R5378:5383 Coq.Init.Datatypes <> length def
-R5341:5352 Coq.Arith.PeanoNat Nat le_trans thm
-R5414:5430 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
-R5414:5430 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
-prf 5502:5525 <> run_narrowing_priced_log
-R5566:5571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5531:5548 Kernel.PermanentRecordPricing <> compression_priced def
-R5560:5565 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
-R5555:5558 Kernel.KnowledgeNarrowing <> Runs.cost var
-R5550:5553 Kernel.KnowledgeNarrowing <> Runs.step var
-binder 5579:5579 <> t:32
-binder 5581:5581 <> D:33
-R5595:5602 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5588:5592 Coq.Lists.List <> NoDup ind
-R5594:5594 Kernel.KnowledgeNarrowing <> D:33 var
-R5625:5628 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5603:5613 Coq.Arith.PeanoNat Nat log2_up def
-R5616:5621 Coq.Init.Datatypes <> length def
-R5623:5623 Kernel.KnowledgeNarrowing <> D:33 var
-R5641:5643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5629:5638 Kernel.KnowledgeNarrowing <> trace_cost def
-R5640:5640 Kernel.KnowledgeNarrowing <> t:32 var
-R5644:5654 Coq.Arith.PeanoNat Nat log2_up def
-R5657:5662 Coq.Init.Datatypes <> length def
-R5665:5673 Kernel.KnowledgeNarrowing <> run_image def
-R5675:5675 Kernel.KnowledgeNarrowing <> t:32 var
-R5677:5677 Kernel.KnowledgeNarrowing <> D:33 var
-R5727:5746 Kernel.KnowledgeNarrowing <> run_narrowing_priced thm
-R5727:5746 Kernel.KnowledgeNarrowing <> run_narrowing_priced thm
-R5782:5787 Coq.Init.Datatypes <> length def
-R5790:5798 Kernel.KnowledgeNarrowing <> run_image def
-R5782:5787 Coq.Init.Datatypes <> length def
-R5790:5798 Kernel.KnowledgeNarrowing <> run_image def
-R5835:5845 Coq.Arith.PeanoNat Nat mul_0_r thm
-R5835:5845 Coq.Arith.PeanoNat Nat mul_0_r thm
-R5835:5845 Coq.Arith.PeanoNat Nat mul_0_r thm
-R5870:5872 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5862:5867 Coq.Init.Datatypes <> length def
-R5870:5872 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5862:5867 Coq.Init.Datatypes <> length def
-R5917:5936 Coq.Arith.PeanoNat Nat log2_up_mul_pow2 thm
-R5917:5936 Coq.Arith.PeanoNat Nat log2_up_mul_pow2 thm
-R5917:5936 Coq.Arith.PeanoNat Nat log2_up_mul_pow2 thm
-R5956:5974 Coq.Arith.PeanoNat Nat log2_up_le_mono thm
-R5956:5974 Coq.Arith.PeanoNat Nat log2_up_le_mono thm
-R5985:5996 Coq.Arith.PeanoNat Nat mul_comm thm
-R5985:5996 Coq.Arith.PeanoNat Nat mul_comm thm
-R5985:5996 Coq.Arith.PeanoNat Nat mul_comm thm
-var 6060:6060 Runs O
-var 6080:6082 Runs obs
-R6087:6090 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6086:6086 Kernel.KnowledgeNarrowing <> Runs.S var
-R6091:6091 Kernel.KnowledgeNarrowing <> Runs.O var
-var 6103:6112 Runs obs_eq_dec
-R6129:6129 Kernel.KnowledgeNarrowing <> Runs.O var
-binder 6123:6123 <> a:36
-binder 6125:6125 <> b:37
-R6132:6132 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R6138:6142 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R6149:6149 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R6134:6136 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6133:6133 Kernel.KnowledgeNarrowing <> a:36 var
-R6137:6137 Kernel.KnowledgeNarrowing <> b:37 var
-R6144:6147 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R6143:6143 Kernel.KnowledgeNarrowing <> a:36 var
-R6148:6148 Kernel.KnowledgeNarrowing <> b:37 var
-def 6228:6239 <> states_along
-R6246:6246 Kernel.KnowledgeNarrowing <> Runs.S var
-binder 6242:6242 <> s:39
-R6254:6257 Coq.Init.Datatypes <> list ind
-R6259:6259 Kernel.KnowledgeNarrowing <> Runs.I var
-binder 6250:6250 <> t:40
-R6264:6267 Coq.Init.Datatypes <> list ind
-R6269:6269 Kernel.KnowledgeNarrowing <> Runs.S var
-R6282:6282 Kernel.KnowledgeNarrowing <> t:40 var
-R6293:6294 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6299:6299 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6301:6301 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R6300:6300 Kernel.KnowledgeNarrowing <> s:39 var
-R6308:6311 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R6319:6322 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R6318:6318 Kernel.KnowledgeNarrowing <> s:39 var
-R6323:6334 Kernel.KnowledgeNarrowing <> states_along:41 def
-R6337:6340 Kernel.KnowledgeNarrowing <> Runs.step var
-R6342:6342 Kernel.KnowledgeNarrowing <> s:39 var
-def 6441:6444 <> seen
-R6451:6451 Kernel.KnowledgeNarrowing <> Runs.S var
-binder 6447:6447 <> s:43
-R6459:6462 Coq.Init.Datatypes <> list ind
-R6464:6464 Kernel.KnowledgeNarrowing <> Runs.I var
-binder 6455:6455 <> t:44
-R6469:6472 Coq.Init.Datatypes <> list ind
-R6474:6474 Kernel.KnowledgeNarrowing <> Runs.O var
-R6479:6481 Coq.Lists.List <> map def
-R6488:6499 Kernel.KnowledgeNarrowing <> states_along def
-R6501:6501 Kernel.KnowledgeNarrowing <> s:43 var
-R6503:6503 Kernel.KnowledgeNarrowing <> t:44 var
-R6483:6485 Kernel.KnowledgeNarrowing <> Runs.obs var
-def 6519:6527 <> same_view
-R6534:6537 Coq.Init.Datatypes <> list ind
-R6539:6539 Kernel.KnowledgeNarrowing <> Runs.I var
-binder 6530:6530 <> t:45
-R6550:6550 Kernel.KnowledgeNarrowing <> Runs.S var
-binder 6543:6544 <> s0:46
-binder 6546:6546 <> s:47
-R6555:6558 Coq.Init.Datatypes <> bool ind
-R6568:6578 Coq.Lists.List <> list_eq_dec thm
-R6603:6606 Kernel.KnowledgeNarrowing <> seen def
-R6608:6609 Kernel.KnowledgeNarrowing <> s0:46 var
-R6611:6611 Kernel.KnowledgeNarrowing <> t:45 var
-R6592:6595 Kernel.KnowledgeNarrowing <> seen def
-R6597:6597 Kernel.KnowledgeNarrowing <> s:47 var
-R6599:6599 Kernel.KnowledgeNarrowing <> t:45 var
-R6580:6589 Kernel.KnowledgeNarrowing <> Runs.obs_eq_dec var
-R6629:6633 Coq.Init.Datatypes <> false constr
-R6619:6622 Coq.Init.Datatypes <> true constr
-def 6768:6776 <> knowledge
-R6787:6790 Coq.Init.Datatypes <> list ind
-R6792:6792 Kernel.KnowledgeNarrowing <> Runs.S var
-binder 6779:6783 <> Omega:48
-R6800:6803 Coq.Init.Datatypes <> list ind
-R6805:6805 Kernel.KnowledgeNarrowing <> Runs.I var
-binder 6796:6796 <> t:49
-R6814:6814 Kernel.KnowledgeNarrowing <> Runs.S var
-binder 6809:6810 <> s0:50
-R6819:6822 Coq.Init.Datatypes <> list ind
-R6824:6824 Kernel.KnowledgeNarrowing <> Runs.S var
-R6831:6836 Coq.Lists.List <> filter def
-R6855:6859 Kernel.KnowledgeNarrowing <> Omega:48 var
-R6839:6847 Kernel.KnowledgeNarrowing <> same_view def
-R6849:6849 Kernel.KnowledgeNarrowing <> t:49 var
-R6851:6852 Kernel.KnowledgeNarrowing <> s0:50 var
-prf 6869:6893 <> knowledge_contains_actual
-binder 6906:6910 <> Omega:51
-binder 6912:6912 <> t:52
-binder 6914:6915 <> s0:53
-R6929:6932 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6918:6919 Coq.Lists.List <> In def
-R6924:6928 Kernel.KnowledgeNarrowing <> Omega:51 var
-R6921:6922 Kernel.KnowledgeNarrowing <> s0:53 var
-R6933:6934 Coq.Lists.List <> In def
-R6940:6948 Kernel.KnowledgeNarrowing <> knowledge def
-R6950:6954 Kernel.KnowledgeNarrowing <> Omega:51 var
-R6956:6956 Kernel.KnowledgeNarrowing <> t:52 var
-R6958:6959 Kernel.KnowledgeNarrowing <> s0:53 var
-R6936:6937 Kernel.KnowledgeNarrowing <> s0:53 var
-R7000:7008 Kernel.KnowledgeNarrowing <> knowledge def
-R7017:7025 Coq.Lists.List <> filter_In thm
-R7017:7025 Coq.Lists.List <> filter_In thm
-R7057:7065 Kernel.KnowledgeNarrowing <> same_view def
-R7078:7088 Coq.Lists.List <> list_eq_dec thm
-R7114:7117 Kernel.KnowledgeNarrowing <> seen def
-R7102:7105 Kernel.KnowledgeNarrowing <> seen def
-R7090:7099 Kernel.KnowledgeNarrowing <> Runs.obs_eq_dec var
-R7078:7088 Coq.Lists.List <> list_eq_dec thm
-R7114:7117 Kernel.KnowledgeNarrowing <> seen def
-R7102:7105 Kernel.KnowledgeNarrowing <> seen def
-R7090:7099 Kernel.KnowledgeNarrowing <> Runs.obs_eq_dec var
-prf 7174:7190 <> knowledge_sublist
-binder 7203:7207 <> Omega:54
-binder 7209:7209 <> t:55
-binder 7211:7212 <> s0:56
-R7244:7247 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7215:7220 Coq.Init.Datatypes <> length def
-R7223:7231 Kernel.KnowledgeNarrowing <> knowledge def
-R7233:7237 Kernel.KnowledgeNarrowing <> Omega:54 var
-R7239:7239 Kernel.KnowledgeNarrowing <> t:55 var
-R7241:7242 Kernel.KnowledgeNarrowing <> s0:56 var
-R7248:7253 Coq.Init.Datatypes <> length def
-R7255:7259 Kernel.KnowledgeNarrowing <> Omega:54 var
-R7284:7292 Kernel.KnowledgeNarrowing <> knowledge def
-R7301:7316 Coq.Lists.List <> filter_length_le thm
-R7301:7316 Coq.Lists.List <> filter_length_le thm
-def 7502:7526 <> observer_narrowing_priced
-binder 7547:7551 <> Omega:57
-binder 7553:7553 <> t:58
-binder 7555:7556 <> s0:59
-R7574:7577 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7563:7567 Coq.Lists.List <> NoDup ind
-R7569:7573 Kernel.KnowledgeNarrowing <> Omega:57 var
-R7589:7596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7578:7579 Coq.Lists.List <> In def
-R7584:7588 Kernel.KnowledgeNarrowing <> Omega:57 var
-R7581:7582 Kernel.KnowledgeNarrowing <> s0:59 var
-R7669:7678 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7623:7625 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R7597:7607 Coq.Arith.PeanoNat Nat log2_up def
-R7610:7615 Coq.Init.Datatypes <> length def
-R7617:7621 Kernel.KnowledgeNarrowing <> Omega:57 var
-R7626:7636 Coq.Arith.PeanoNat Nat log2_up def
-R7639:7644 Coq.Init.Datatypes <> length def
-R7647:7655 Kernel.KnowledgeNarrowing <> knowledge def
-R7657:7661 Kernel.KnowledgeNarrowing <> Omega:57 var
-R7663:7663 Kernel.KnowledgeNarrowing <> t:58 var
-R7665:7666 Kernel.KnowledgeNarrowing <> s0:59 var
-R7679:7688 Kernel.KnowledgeNarrowing <> trace_cost def
-R7690:7690 Kernel.KnowledgeNarrowing <> t:58 var
-R7698:7701 Kernel.KnowledgeNarrowing Runs <> sec
-R7715:7717 Kernel.KnowledgeNarrowing <> run def
-R7715:7717 Kernel.KnowledgeNarrowing <> run def
-R7745:7754 Kernel.KnowledgeNarrowing <> trace_cost def
-R7745:7754 Kernel.KnowledgeNarrowing <> trace_cost def
-R7778:7786 Kernel.KnowledgeNarrowing <> run_image def
-R7778:7786 Kernel.KnowledgeNarrowing <> run_image def
-R7821:7829 Kernel.KnowledgeNarrowing <> knowledge def
-R7821:7829 Kernel.KnowledgeNarrowing <> knowledge def
-R7883:7907 Kernel.KnowledgeNarrowing <> observer_narrowing_priced def
-R7883:7907 Kernel.KnowledgeNarrowing <> observer_narrowing_priced def
-ind 8105:8114 <> DemonInstr
-constr 8126:8132 <> Measure
-constr 8136:8139 <> Wipe
-scheme 8105:8114 <> DemonInstr_rect
-scheme 8105:8114 <> DemonInstr_ind
-scheme 8105:8114 <> DemonInstr_rec
-scheme 8105:8114 <> DemonInstr_sind
-def 8154:8159 <> DState
-R8176:8178 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R8172:8175 Coq.Init.Datatypes <> bool ind
-R8179:8182 Coq.Init.Datatypes <> bool ind
-def 8203:8215 <> dstate_eq_dec
-R8232:8237 Kernel.KnowledgeNarrowing <> DState def
-binder 8226:8226 <> a:62
-binder 8228:8228 <> b:63
-R8240:8240 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R8246:8250 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R8257:8257 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R8242:8244 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8241:8241 Kernel.KnowledgeNarrowing <> a:62 var
-R8245:8245 Kernel.KnowledgeNarrowing <> b:63 var
-R8252:8255 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R8251:8251 Kernel.KnowledgeNarrowing <> a:62 var
-R8256:8256 Kernel.KnowledgeNarrowing <> b:63 var
-R8290:8302 Coq.Bool.Bool <> bool_dec thm
-R8290:8302 Coq.Bool.Bool <> bool_dec thm
-R8290:8302 Coq.Bool.Bool <> bool_dec thm
-def 8326:8330 <> dstep
-R8337:8342 Kernel.KnowledgeNarrowing <> DState def
-binder 8333:8333 <> s:64
-R8350:8359 Kernel.KnowledgeNarrowing <> DemonInstr ind
-binder 8346:8346 <> i:65
-R8364:8369 Kernel.KnowledgeNarrowing <> DState def
-R8391:8391 Kernel.KnowledgeNarrowing <> s:64 var
-R8381:8381 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8383:8384 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8386:8386 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8404:8404 Kernel.KnowledgeNarrowing <> i:65 var
-R8415:8421 Kernel.KnowledgeNarrowing <> Measure constr
-R8426:8426 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8428:8429 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8438:8438 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8430:8433 Coq.Init.Datatypes <> xorb def
-R8444:8447 Kernel.KnowledgeNarrowing <> Wipe constr
-R8452:8452 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8454:8455 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8461:8461 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8456:8460 Coq.Init.Datatypes <> false constr
-def 8482:8486 <> dcost
-R8493:8502 Kernel.KnowledgeNarrowing <> DemonInstr ind
-binder 8489:8489 <> i:68
-R8507:8509 Coq.Init.Datatypes <> nat ind
-R8522:8522 Kernel.KnowledgeNarrowing <> i:68 var
-R8529:8535 Kernel.KnowledgeNarrowing <> Measure constr
-R8544:8547 Kernel.KnowledgeNarrowing <> Wipe constr
-def 8571:8577 <> display
-R8584:8589 Kernel.KnowledgeNarrowing <> DState def
-binder 8580:8580 <> s:70
-R8594:8597 Coq.Init.Datatypes <> bool ind
-R8602:8604 Coq.Init.Datatypes <> snd def
-R8606:8606 Kernel.KnowledgeNarrowing <> s:70 var
-def 8621:8631 <> all_dstates
-R8635:8638 Coq.Init.Datatypes <> list ind
-R8640:8645 Kernel.KnowledgeNarrowing <> DState def
-R8652:8652 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8667:8668 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8682:8683 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8697:8698 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8711:8711 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8653:8653 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8659:8660 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8666:8666 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8654:8658 Coq.Init.Datatypes <> false constr
-R8661:8665 Coq.Init.Datatypes <> false constr
-R8669:8669 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8675:8676 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8681:8681 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8670:8674 Coq.Init.Datatypes <> false constr
-R8677:8680 Coq.Init.Datatypes <> true constr
-R8684:8684 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8689:8690 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8696:8696 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8685:8688 Coq.Init.Datatypes <> true constr
-R8691:8695 Coq.Init.Datatypes <> false constr
-R8699:8699 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8704:8705 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8710:8710 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8700:8703 Coq.Init.Datatypes <> true constr
-R8706:8709 Coq.Init.Datatypes <> true constr
-prf 8721:8734 <> dstates_finite
-R8738:8750 Kernel.PermanentCertification <> finite_states def
-R8752:8762 Kernel.KnowledgeNarrowing <> all_dstates def
-prf 8886:8908 <> measure_forgets_nothing
-R8912:8925 Kernel.PermanentCertification <> step_injective def
-R8933:8939 Kernel.KnowledgeNarrowing <> Measure constr
-R8927:8931 Kernel.KnowledgeNarrowing <> dstep def
-prf 9063:9073 <> wipe_merges
-R9077:9078 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9079:9092 Kernel.PermanentCertification <> step_injective def
-R9100:9103 Kernel.KnowledgeNarrowing <> Wipe constr
-R9094:9098 Kernel.KnowledgeNarrowing <> dstep def
-R9144:9144 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9150:9151 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9157:9157 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9145:9149 Coq.Init.Datatypes <> false constr
-R9152:9156 Coq.Init.Datatypes <> false constr
-R9159:9159 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9165:9166 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9171:9171 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9160:9164 Coq.Init.Datatypes <> false constr
-R9167:9170 Coq.Init.Datatypes <> true constr
-R9173:9179 Coq.Init.Logic <> eq_refl constr
-R9144:9144 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9150:9151 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9157:9157 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9145:9149 Coq.Init.Datatypes <> false constr
-R9152:9156 Coq.Init.Datatypes <> false constr
-R9159:9159 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9165:9166 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9171:9171 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9160:9164 Coq.Init.Datatypes <> false constr
-R9167:9170 Coq.Init.Datatypes <> true constr
-R9173:9179 Coq.Init.Logic <> eq_refl constr
-prf 9209:9225 <> demon_fiber_bound
-binder 9238:9238 <> i:71
-R9245:9248 Coq.Init.Datatypes <> list ind
-R9250:9255 Kernel.KnowledgeNarrowing <> DState def
-binder 9241:9241 <> D:72
-R9270:9277 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9263:9267 Coq.Lists.List <> NoDup ind
-R9269:9269 Kernel.KnowledgeNarrowing <> D:72 var
-binder 9285:9285 <> y:73
-R9363:9380 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R9288:9293 Coq.Init.Datatypes <> length def
-R9296:9301 Coq.Lists.List <> filter def
-R9361:9361 Kernel.KnowledgeNarrowing <> D:72 var
-R9304:9307 Kernel.FiniteCertMachine <> hits def
-R9358:9358 Kernel.KnowledgeNarrowing <> y:73 var
-binder 9342:9342 <> x:74
-R9347:9351 Kernel.KnowledgeNarrowing <> dstep def
-R9353:9353 Kernel.KnowledgeNarrowing <> x:74 var
-R9355:9355 Kernel.KnowledgeNarrowing <> i:71 var
-R9323:9335 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
-R9316:9321 Kernel.KnowledgeNarrowing <> DState def
-R9309:9314 Kernel.KnowledgeNarrowing <> DState def
-R9382:9384 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9385:9389 Kernel.KnowledgeNarrowing <> dcost def
-R9391:9391 Kernel.KnowledgeNarrowing <> i:71 var
-R9456:9461 Coq.Init.Datatypes <> length def
-R9464:9469 Coq.Lists.List <> filter def
-R9559:9569 Kernel.KnowledgeNarrowing <> all_dstates def
-R9472:9475 Kernel.FiniteCertMachine <> hits def
-binder 9510:9510 <> x:75
-R9515:9519 Kernel.KnowledgeNarrowing <> dstep def
-R9521:9521 Kernel.KnowledgeNarrowing <> x:75 var
-R9491:9503 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
-R9484:9489 Kernel.KnowledgeNarrowing <> DState def
-R9477:9482 Kernel.KnowledgeNarrowing <> DState def
-R9428:9439 Coq.Arith.PeanoNat Nat le_trans thm
-R9456:9461 Coq.Init.Datatypes <> length def
-R9464:9469 Coq.Lists.List <> filter def
-R9559:9569 Kernel.KnowledgeNarrowing <> all_dstates def
-R9472:9475 Kernel.FiniteCertMachine <> hits def
-binder 9510:9510 <> x:76
-R9515:9519 Kernel.KnowledgeNarrowing <> dstep def
-R9521:9521 Kernel.KnowledgeNarrowing <> x:76 var
-R9491:9503 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
-R9484:9489 Kernel.KnowledgeNarrowing <> DState def
-R9477:9482 Kernel.KnowledgeNarrowing <> DState def
-R9428:9439 Coq.Arith.PeanoNat Nat le_trans thm
-R9584:9600 Coq.Lists.List <> NoDup_incl_length thm
-R9610:9621 Coq.Lists.List <> NoDup_filter thm
-R9584:9600 Coq.Lists.List <> NoDup_incl_length thm
-R9610:9621 Coq.Lists.List <> NoDup_filter thm
-R9660:9668 Coq.Lists.List <> filter_In thm
-R9660:9668 Coq.Lists.List <> filter_In thm
-R9699:9707 Coq.Lists.List <> filter_In thm
-R9699:9707 Coq.Lists.List <> filter_In thm
-R9725:9729 Coq.Init.Logic <> proj2 thm
-R9731:9744 Kernel.KnowledgeNarrowing <> dstates_finite thm
-R9725:9729 Coq.Init.Logic <> proj2 thm
-R9731:9744 Kernel.KnowledgeNarrowing <> dstates_finite thm
-prf 9883:9906 <> demon_compression_priced
-R9910:9927 Kernel.PermanentRecordPricing <> compression_priced def
-R9941:9953 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
-R9935:9939 Kernel.KnowledgeNarrowing <> dcost def
-R9929:9933 Kernel.KnowledgeNarrowing <> dstep def
-R9987:9996 Kernel.PermanentRecordPricing <> image_size def
-R10007:10029 Kernel.FiniteCertMachine <> fiber_bound_compression thm
-R10007:10029 Kernel.FiniteCertMachine <> fiber_bound_compression thm
-R10063:10079 Kernel.KnowledgeNarrowing <> demon_fiber_bound thm
-R10063:10079 Kernel.KnowledgeNarrowing <> demon_fiber_bound thm
-prf 10169:10191 <> wipe_costs_at_least_one
-R10221:10224 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10211:10220 Kernel.KnowledgeNarrowing <> DemonInstr ind
-R10225:10227 Coq.Init.Datatypes <> nat ind
-binder 10204:10207 <> cost:77
-R10277:10280 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10234:10251 Kernel.PermanentRecordPricing <> compression_priced def
-R10264:10276 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
-R10259:10262 Kernel.KnowledgeNarrowing <> cost:77 var
-R10253:10257 Kernel.KnowledgeNarrowing <> dstep def
-R10290:10293 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10281:10284 Kernel.KnowledgeNarrowing <> cost:77 var
-R10286:10289 Kernel.KnowledgeNarrowing <> Wipe constr
-R10347:10350 Kernel.KnowledgeNarrowing <> Wipe constr
-R10352:10352 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10367:10368 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10382:10382 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10353:10353 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10359:10360 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10366:10366 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10354:10358 Coq.Init.Datatypes <> false constr
-R10361:10365 Coq.Init.Datatypes <> false constr
-R10369:10369 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10375:10376 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10381:10381 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10370:10374 Coq.Init.Datatypes <> false constr
-R10377:10380 Coq.Init.Datatypes <> true constr
-R10347:10350 Kernel.KnowledgeNarrowing <> Wipe constr
-R10352:10352 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10367:10368 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10382:10382 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10353:10353 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10359:10360 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10366:10366 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10354:10358 Coq.Init.Datatypes <> false constr
-R10361:10365 Coq.Init.Datatypes <> false constr
-R10369:10369 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10375:10376 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10381:10381 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10370:10374 Coq.Init.Datatypes <> false constr
-R10377:10380 Coq.Init.Datatypes <> true constr
-R10407:10411 Coq.Lists.List <> NoDup ind
-R10413:10413 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10428:10429 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10443:10443 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10414:10414 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10420:10421 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10427:10427 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10415:10419 Coq.Init.Datatypes <> false constr
-R10422:10426 Coq.Init.Datatypes <> false constr
-R10430:10430 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10436:10437 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10442:10442 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10431:10435 Coq.Init.Datatypes <> false constr
-R10438:10441 Coq.Init.Datatypes <> true constr
-R10407:10411 Coq.Lists.List <> NoDup ind
-R10413:10413 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10428:10429 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10443:10443 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10414:10414 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10420:10421 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10427:10427 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10415:10419 Coq.Init.Datatypes <> false constr
-R10422:10426 Coq.Init.Datatypes <> false constr
-R10430:10430 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10436:10437 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10442:10442 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10431:10435 Coq.Init.Datatypes <> false constr
-R10438:10441 Coq.Init.Datatypes <> true constr
-R10535:10544 Kernel.PermanentRecordPricing <> image_size def
-R10586:10589 Kernel.KnowledgeNarrowing <> Wipe constr
-R10586:10589 Kernel.KnowledgeNarrowing <> Wipe constr
-def 10707:10717 <> demon_prior
-R10721:10724 Coq.Init.Datatypes <> list ind
-R10726:10731 Kernel.KnowledgeNarrowing <> DState def
-R10736:10736 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10751:10752 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10766:10766 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R10737:10737 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10743:10744 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10750:10750 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10738:10742 Coq.Init.Datatypes <> false constr
-R10745:10749 Coq.Init.Datatypes <> false constr
-R10753:10753 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10758:10759 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10765:10765 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10754:10757 Coq.Init.Datatypes <> true constr
-R10760:10764 Coq.Init.Datatypes <> false constr
-prf 10778:10798 <> demon_observer_learns
-R10890:10895 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10886:10888 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10804:10809 Coq.Init.Datatypes <> length def
-R10812:10820 Kernel.KnowledgeNarrowing <> knowledge def
-R10872:10872 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10877:10878 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10884:10884 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10873:10876 Coq.Init.Datatypes <> true constr
-R10879:10883 Coq.Init.Datatypes <> false constr
-R10862:10862 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R10870:10870 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R10863:10869 Kernel.KnowledgeNarrowing <> Measure constr
-R10850:10860 Kernel.KnowledgeNarrowing <> demon_prior def
-R10836:10848 Coq.Bool.Bool <> bool_dec thm
-R10828:10834 Kernel.KnowledgeNarrowing <> display def
-R10822:10826 Kernel.KnowledgeNarrowing <> dstep def
-R10918:10923 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10914:10916 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10896:10901 Coq.Init.Datatypes <> length def
-R10903:10913 Kernel.KnowledgeNarrowing <> demon_prior def
-R10950:10952 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10924:10933 Kernel.KnowledgeNarrowing <> trace_cost def
-R10941:10941 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R10949:10949 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R10942:10948 Kernel.KnowledgeNarrowing <> Measure constr
-R10935:10939 Kernel.KnowledgeNarrowing <> dcost def
-prf 11116:11140 <> demon_machine_spread_kept
-R11206:11208 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11146:11151 Coq.Init.Datatypes <> length def
-R11154:11162 Kernel.KnowledgeNarrowing <> run_image def
-R11194:11204 Kernel.KnowledgeNarrowing <> demon_prior def
-R11184:11184 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11192:11192 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11185:11191 Kernel.KnowledgeNarrowing <> Measure constr
-R11170:11182 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
-R11164:11168 Kernel.KnowledgeNarrowing <> dstep def
-prf 11394:11423 <> observer_narrowing_can_be_free
-R11473:11478 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11429:11446 Kernel.PermanentRecordPricing <> compression_priced def
-R11460:11472 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
-R11454:11458 Kernel.KnowledgeNarrowing <> dcost def
-R11448:11452 Kernel.KnowledgeNarrowing <> dstep def
-R11479:11480 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11481:11505 Kernel.KnowledgeNarrowing <> observer_narrowing_priced def
-R11527:11539 Coq.Bool.Bool <> bool_dec thm
-R11519:11525 Kernel.KnowledgeNarrowing <> display def
-R11513:11517 Kernel.KnowledgeNarrowing <> dcost def
-R11507:11511 Kernel.KnowledgeNarrowing <> dstep def
-R11565:11588 Kernel.KnowledgeNarrowing <> demon_compression_priced thm
-R11565:11588 Kernel.KnowledgeNarrowing <> demon_compression_priced thm
-R11621:11631 Kernel.KnowledgeNarrowing <> demon_prior def
-R11633:11633 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11641:11641 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11634:11640 Kernel.KnowledgeNarrowing <> Measure constr
-R11643:11643 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11648:11649 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11655:11655 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11644:11647 Coq.Init.Datatypes <> true constr
-R11650:11654 Coq.Init.Datatypes <> false constr
-R11621:11631 Kernel.KnowledgeNarrowing <> demon_prior def
-R11633:11633 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11641:11641 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11634:11640 Kernel.KnowledgeNarrowing <> Measure constr
-R11643:11643 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11648:11649 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11655:11655 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11644:11647 Coq.Init.Datatypes <> true constr
-R11650:11654 Coq.Init.Datatypes <> false constr
-R11675:11679 Coq.Lists.List <> NoDup ind
-R11681:11691 Kernel.KnowledgeNarrowing <> demon_prior def
-R11675:11679 Coq.Lists.List <> NoDup ind
-R11681:11691 Kernel.KnowledgeNarrowing <> demon_prior def
-R11770:11771 Coq.Lists.List <> In def
-R11787:11797 Kernel.KnowledgeNarrowing <> demon_prior def
-R11773:11773 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11778:11779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11785:11785 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11774:11777 Coq.Init.Datatypes <> true constr
-R11780:11784 Coq.Init.Datatypes <> false constr
-R11770:11771 Coq.Lists.List <> In def
-R11787:11797 Kernel.KnowledgeNarrowing <> demon_prior def
-R11773:11773 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11778:11779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11785:11785 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11774:11777 Coq.Init.Datatypes <> true constr
-R11780:11784 Coq.Init.Datatypes <> false constr
-def 11979:11987 <> vm_hidden
-R11994:11996 Coq.Init.Datatypes <> nat ind
-binder 11990:11990 <> x:78
-R12001:12007 Kernel.VMState <> VMState rec
-R12012:12019 Kernel.SimulationProof <> vm_apply def
-R12021:12030 Kernel.MuInitiality <> init_state def
-R12033:12046 Kernel.VMStep VMStep instr_load_imm constr
-R12050:12050 Kernel.KnowledgeNarrowing <> x:78 var
-def 12108:12116 <> vm_window
-R12123:12129 Kernel.VMState <> VMState rec
-binder 12119:12119 <> s:79
-R12134:12136 Coq.Init.Datatypes <> nat ind
-R12141:12148 Kernel.VMState <> read_reg def
-R12150:12150 Kernel.KnowledgeNarrowing <> s:79 var
-def 12167:12176 <> vm_measure
-R12180:12193 Kernel.VMStep VMStep vm_instruction ind
-R12198:12210 Kernel.VMStep VMStep instr_xor_add constr
-prf 12228:12261 <> vm_observer_narrowing_at_zero_cost
-R12316:12321 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12290:12292 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12267:12275 Kernel.KnowledgeNarrowing <> vm_window def
-R12278:12286 Kernel.KnowledgeNarrowing <> vm_hidden def
-R12293:12301 Kernel.KnowledgeNarrowing <> vm_window def
-R12304:12312 Kernel.KnowledgeNarrowing <> vm_hidden def
-R12420:12425 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12367:12374 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R12322:12330 Kernel.KnowledgeNarrowing <> vm_window def
-R12333:12340 Kernel.SimulationProof <> vm_apply def
-R12343:12351 Kernel.KnowledgeNarrowing <> vm_hidden def
-R12356:12365 Kernel.KnowledgeNarrowing <> vm_measure def
-R12375:12383 Kernel.KnowledgeNarrowing <> vm_window def
-R12386:12393 Kernel.SimulationProof <> vm_apply def
-R12396:12404 Kernel.KnowledgeNarrowing <> vm_hidden def
-R12409:12418 Kernel.KnowledgeNarrowing <> vm_measure def
-R12457:12462 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12453:12455 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12426:12441 Kernel.VMStep VMStep instruction_cost def
-R12443:12452 Kernel.KnowledgeNarrowing <> vm_measure def
-R12530:12535 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12506:12508 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12500:12504 Kernel.VMState <> vm_mu proj
-R12464:12471 Kernel.SimulationProof <> vm_apply def
-R12474:12482 Kernel.KnowledgeNarrowing <> vm_hidden def
-R12487:12496 Kernel.KnowledgeNarrowing <> vm_measure def
-R12524:12528 Kernel.VMState <> vm_mu proj
-R12510:12518 Kernel.KnowledgeNarrowing <> vm_hidden def
-R12561:12564 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12557:12559 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12551:12555 Kernel.VMState <> vm_mu proj
-R12537:12545 Kernel.KnowledgeNarrowing <> vm_hidden def
-R12586:12588 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12580:12584 Kernel.VMState <> vm_mu proj
-R12566:12574 Kernel.KnowledgeNarrowing <> vm_hidden def
+R2645:2648 Coq.Lists.List <> <> lib
+R2650:2653 Coq.Bool.Bool <> <> lib
+R2655:2668 Coq.Arith.PeanoNat <> <> lib
+R2670:2672 Coq.micromega.Lia <> <> lib
+R2682:2694 Coq.Lists.List ListNotations <> mod
+R2725:2746 Kernel.PermanentCertification <> <> lib
+R2776:2797 Kernel.PermanentRecordPricing <> <> lib
+R2827:2843 Kernel.FiniteCertMachine <> <> lib
+sec 2883:2886 <> Runs
+var 2901:2901 Runs S
+var 2903:2903 Runs I
+var 2923:2926 Runs step
+R2931:2934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2930:2930 Kernel.KnowledgeNarrowing <> Runs.S var
+R2936:2939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2935:2935 Kernel.KnowledgeNarrowing <> Runs.I var
+R2940:2940 Kernel.KnowledgeNarrowing <> Runs.S var
+var 2952:2955 Runs cost
+R2960:2963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2959:2959 Kernel.KnowledgeNarrowing <> Runs.I var
+R2964:2966 Coq.Init.Datatypes <> nat ind
+var 2978:2983 Runs eq_dec
+R3000:3000 Kernel.KnowledgeNarrowing <> Runs.S var
+binder 2994:2994 <> a:5
+binder 2996:2996 <> b:6
+R3003:3003 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R3009:3013 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R3020:3020 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R3005:3007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3004:3004 Kernel.KnowledgeNarrowing <> a:5 var
+R3008:3008 Kernel.KnowledgeNarrowing <> b:6 var
+R3015:3018 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3014:3014 Kernel.KnowledgeNarrowing <> a:5 var
+R3019:3019 Kernel.KnowledgeNarrowing <> b:6 var
+def 3033:3035 <> run
+R3042:3042 Kernel.KnowledgeNarrowing <> Runs.S var
+binder 3038:3038 <> s:8
+R3050:3053 Coq.Init.Datatypes <> list ind
+R3055:3055 Kernel.KnowledgeNarrowing <> Runs.I var
+binder 3046:3046 <> t:9
+R3060:3060 Kernel.KnowledgeNarrowing <> Runs.S var
+R3073:3073 Kernel.KnowledgeNarrowing <> t:9 var
+R3084:3085 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3090:3090 Kernel.KnowledgeNarrowing <> s:8 var
+R3097:3100 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3107:3109 Kernel.KnowledgeNarrowing <> run:10 def
+R3112:3115 Kernel.KnowledgeNarrowing <> Runs.step var
+R3117:3117 Kernel.KnowledgeNarrowing <> s:8 var
+def 3142:3151 <> trace_cost
+R3158:3161 Coq.Init.Datatypes <> list ind
+R3163:3163 Kernel.KnowledgeNarrowing <> Runs.I var
+binder 3154:3154 <> t:12
+R3168:3170 Coq.Init.Datatypes <> nat ind
+R3183:3183 Kernel.KnowledgeNarrowing <> t:12 var
+R3194:3195 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3207:3210 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3223:3225 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3217:3220 Kernel.KnowledgeNarrowing <> Runs.cost var
+R3226:3235 Kernel.KnowledgeNarrowing <> trace_cost:13 def
+def 3335:3343 <> run_image
+R3350:3353 Coq.Init.Datatypes <> list ind
+R3355:3355 Kernel.KnowledgeNarrowing <> Runs.I var
+binder 3346:3346 <> t:15
+R3363:3366 Coq.Init.Datatypes <> list ind
+R3368:3368 Kernel.KnowledgeNarrowing <> Runs.S var
+binder 3359:3359 <> D:16
+R3373:3376 Coq.Init.Datatypes <> list ind
+R3378:3378 Kernel.KnowledgeNarrowing <> Runs.S var
+R3385:3389 Coq.Lists.List <> nodup def
+R3399:3401 Coq.Lists.List <> map def
+R3422:3422 Kernel.KnowledgeNarrowing <> D:16 var
+binder 3408:3408 <> s:17
+R3413:3415 Kernel.KnowledgeNarrowing <> run def
+R3417:3417 Kernel.KnowledgeNarrowing <> s:17 var
+R3419:3419 Kernel.KnowledgeNarrowing <> t:15 var
+R3391:3396 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
+prf 3433:3447 <> run_image_nodup
+binder 3458:3458 <> t:18
+binder 3460:3460 <> D:19
+R3463:3467 Coq.Lists.List <> NoDup ind
+R3470:3478 Kernel.KnowledgeNarrowing <> run_image def
+R3480:3480 Kernel.KnowledgeNarrowing <> t:18 var
+R3482:3482 Kernel.KnowledgeNarrowing <> D:19 var
+R3507:3517 Coq.Lists.List <> NoDup_nodup thm
+R3507:3517 Coq.Lists.List <> NoDup_nodup thm
+prf 3532:3545 <> run_image_spec
+binder 3558:3558 <> t:20
+binder 3560:3560 <> D:21
+binder 3562:3562 <> y:22
+R3585:3589 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3565:3566 Coq.Lists.List <> In def
+R3571:3579 Kernel.KnowledgeNarrowing <> run_image def
+R3581:3581 Kernel.KnowledgeNarrowing <> t:20 var
+R3583:3583 Kernel.KnowledgeNarrowing <> D:21 var
+R3568:3568 Kernel.KnowledgeNarrowing <> y:22 var
+R3590:3596 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3598:3599 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3597:3597 <> s:23
+R3606:3609 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3600:3601 Coq.Lists.List <> In def
+R3605:3605 Kernel.KnowledgeNarrowing <> D:21 var
+R3603:3603 Kernel.KnowledgeNarrowing <> s:23 var
+R3617:3619 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3610:3612 Kernel.KnowledgeNarrowing <> run def
+R3614:3614 Kernel.KnowledgeNarrowing <> s:23 var
+R3616:3616 Kernel.KnowledgeNarrowing <> t:20 var
+R3620:3620 Kernel.KnowledgeNarrowing <> y:22 var
+R3653:3661 Kernel.KnowledgeNarrowing <> run_image def
+R3672:3679 Coq.Lists.List <> nodup_In thm
+R3682:3691 Coq.Lists.List <> in_map_iff thm
+R3672:3679 Coq.Lists.List <> nodup_In thm
+R3672:3679 Coq.Lists.List <> nodup_In thm
+R3682:3691 Coq.Lists.List <> in_map_iff thm
+R3682:3691 Coq.Lists.List <> in_map_iff thm
+prf 3764:3777 <> run_image_step
+binder 3790:3790 <> i:24
+binder 3792:3792 <> t:25
+binder 3794:3794 <> D:26
+R3864:3870 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3801:3806 Coq.Init.Datatypes <> length def
+R3809:3817 Kernel.KnowledgeNarrowing <> run_image def
+R3819:3819 Kernel.KnowledgeNarrowing <> t:25 var
+R3822:3826 Coq.Lists.List <> nodup def
+R3836:3838 Coq.Lists.List <> map def
+R3860:3860 Kernel.KnowledgeNarrowing <> D:26 var
+binder 3845:3845 <> s:27
+R3850:3853 Kernel.KnowledgeNarrowing <> Runs.step var
+R3855:3855 Kernel.KnowledgeNarrowing <> s:27 var
+R3857:3857 Kernel.KnowledgeNarrowing <> i:24 var
+R3828:3833 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
+R3871:3876 Coq.Init.Datatypes <> length def
+R3879:3887 Kernel.KnowledgeNarrowing <> run_image def
+R3891:3894 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3890:3890 Kernel.KnowledgeNarrowing <> i:24 var
+R3895:3895 Kernel.KnowledgeNarrowing <> t:25 var
+R3898:3898 Kernel.KnowledgeNarrowing <> D:26 var
+R3933:3947 Coq.Arith.PeanoNat Nat le_antisymm thm
+R3956:3972 Coq.Lists.List <> NoDup_incl_length thm
+R3985:3999 Kernel.KnowledgeNarrowing <> run_image_nodup thm
+R4025:4038 Kernel.KnowledgeNarrowing <> run_image_spec thm
+R4068:4081 Kernel.KnowledgeNarrowing <> run_image_spec thm
+R3933:3947 Coq.Arith.PeanoNat Nat le_antisymm thm
+R3956:3972 Coq.Lists.List <> NoDup_incl_length thm
+R3956:3972 Coq.Lists.List <> NoDup_incl_length thm
+R3985:3999 Kernel.KnowledgeNarrowing <> run_image_nodup thm
+R3985:3999 Kernel.KnowledgeNarrowing <> run_image_nodup thm
+R3985:3999 Kernel.KnowledgeNarrowing <> run_image_nodup thm
+R3985:3999 Kernel.KnowledgeNarrowing <> run_image_nodup thm
+R4025:4038 Kernel.KnowledgeNarrowing <> run_image_spec thm
+R4025:4038 Kernel.KnowledgeNarrowing <> run_image_spec thm
+R4068:4081 Kernel.KnowledgeNarrowing <> run_image_spec thm
+R4068:4081 Kernel.KnowledgeNarrowing <> run_image_spec thm
+R4094:4101 Coq.Lists.List <> nodup_In thm
+R4104:4113 Coq.Lists.List <> in_map_iff thm
+R4094:4101 Coq.Lists.List <> nodup_In thm
+R4104:4113 Coq.Lists.List <> in_map_iff thm
+R4193:4196 Kernel.KnowledgeNarrowing <> Runs.step var
+R4193:4196 Kernel.KnowledgeNarrowing <> Runs.step var
+R4235:4242 Coq.Lists.List <> nodup_In thm
+R4245:4254 Coq.Lists.List <> in_map_iff thm
+R4235:4242 Coq.Lists.List <> nodup_In thm
+R4245:4254 Coq.Lists.List <> in_map_iff thm
+prf 4386:4405 <> run_narrowing_priced
+R4446:4451 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4411:4428 Kernel.PermanentRecordPricing <> compression_priced def
+R4440:4445 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
+R4435:4438 Kernel.KnowledgeNarrowing <> Runs.cost var
+R4430:4433 Kernel.KnowledgeNarrowing <> Runs.step var
+binder 4459:4459 <> t:28
+binder 4461:4461 <> D:29
+R4471:4474 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4464:4468 Coq.Lists.List <> NoDup ind
+R4470:4470 Kernel.KnowledgeNarrowing <> D:29 var
+R4483:4486 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4475:4480 Coq.Init.Datatypes <> length def
+R4482:4482 Kernel.KnowledgeNarrowing <> D:29 var
+R4503:4505 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4488:4490 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4491:4500 Kernel.KnowledgeNarrowing <> trace_cost def
+R4502:4502 Kernel.KnowledgeNarrowing <> t:28 var
+R4506:4511 Coq.Init.Datatypes <> length def
+R4514:4522 Kernel.KnowledgeNarrowing <> run_image def
+R4524:4524 Kernel.KnowledgeNarrowing <> t:28 var
+R4526:4526 Kernel.KnowledgeNarrowing <> D:29 var
+R4614:4622 Kernel.KnowledgeNarrowing <> run_image def
+R4640:4645 Coq.Lists.List <> map_id thm
+R4648:4664 Coq.Lists.List <> nodup_fixed_point thm
+R4640:4645 Coq.Lists.List <> map_id thm
+R4640:4645 Coq.Lists.List <> map_id thm
+R4648:4664 Coq.Lists.List <> nodup_fixed_point thm
+R4648:4664 Coq.Lists.List <> nodup_fixed_point thm
+R4703:4707 Coq.Lists.List <> nodup def
+R4717:4719 Coq.Lists.List <> map def
+binder 4726:4726 <> s:30
+R4731:4734 Kernel.KnowledgeNarrowing <> Runs.step var
+R4736:4736 Kernel.KnowledgeNarrowing <> s:30 var
+R4709:4714 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
+R4703:4707 Coq.Lists.List <> nodup def
+R4717:4719 Coq.Lists.List <> map def
+binder 4726:4726 <> s:31
+R4731:4734 Kernel.KnowledgeNarrowing <> Runs.step var
+R4736:4736 Kernel.KnowledgeNarrowing <> s:31 var
+R4709:4714 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
+R4791:4800 Kernel.PermanentRecordPricing <> image_size def
+R4847:4857 Coq.Lists.List <> NoDup_nodup thm
+R4847:4857 Coq.Lists.List <> NoDup_nodup thm
+R4902:4915 Kernel.KnowledgeNarrowing <> run_image_step thm
+R4902:4915 Kernel.KnowledgeNarrowing <> run_image_step thm
+R4902:4915 Kernel.KnowledgeNarrowing <> run_image_step thm
+R4941:4950 Kernel.KnowledgeNarrowing <> trace_cost def
+R4961:4973 Coq.Arith.PeanoNat Nat pow_add_r thm
+R4979:4991 Coq.Arith.PeanoNat Nat mul_assoc thm
+R4961:4973 Coq.Arith.PeanoNat Nat pow_add_r thm
+R4961:4973 Coq.Arith.PeanoNat Nat pow_add_r thm
+R4979:4991 Coq.Arith.PeanoNat Nat mul_assoc thm
+R4979:4991 Coq.Arith.PeanoNat Nat mul_assoc thm
+R5038:5040 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5029:5031 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R5032:5035 Kernel.KnowledgeNarrowing <> Runs.cost var
+R5041:5046 Coq.Init.Datatypes <> length def
+R5004:5015 Coq.Arith.PeanoNat Nat le_trans thm
+R5038:5040 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5029:5031 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R5032:5035 Kernel.KnowledgeNarrowing <> Runs.cost var
+R5041:5046 Coq.Init.Datatypes <> length def
+R5004:5015 Coq.Arith.PeanoNat Nat le_trans thm
+R5077:5093 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R5077:5093 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+prf 5165:5188 <> run_narrowing_priced_log
+R5229:5234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5194:5211 Kernel.PermanentRecordPricing <> compression_priced def
+R5223:5228 Kernel.KnowledgeNarrowing <> Runs.eq_dec var
+R5218:5221 Kernel.KnowledgeNarrowing <> Runs.cost var
+R5213:5216 Kernel.KnowledgeNarrowing <> Runs.step var
+binder 5242:5242 <> t:32
+binder 5244:5244 <> D:33
+R5258:5265 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5251:5255 Coq.Lists.List <> NoDup ind
+R5257:5257 Kernel.KnowledgeNarrowing <> D:33 var
+R5288:5291 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5266:5276 Coq.Arith.PeanoNat Nat log2_up def
+R5279:5284 Coq.Init.Datatypes <> length def
+R5286:5286 Kernel.KnowledgeNarrowing <> D:33 var
+R5304:5306 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5292:5301 Kernel.KnowledgeNarrowing <> trace_cost def
+R5303:5303 Kernel.KnowledgeNarrowing <> t:32 var
+R5307:5317 Coq.Arith.PeanoNat Nat log2_up def
+R5320:5325 Coq.Init.Datatypes <> length def
+R5328:5336 Kernel.KnowledgeNarrowing <> run_image def
+R5338:5338 Kernel.KnowledgeNarrowing <> t:32 var
+R5340:5340 Kernel.KnowledgeNarrowing <> D:33 var
+R5390:5409 Kernel.KnowledgeNarrowing <> run_narrowing_priced thm
+R5390:5409 Kernel.KnowledgeNarrowing <> run_narrowing_priced thm
+R5445:5450 Coq.Init.Datatypes <> length def
+R5453:5461 Kernel.KnowledgeNarrowing <> run_image def
+R5445:5450 Coq.Init.Datatypes <> length def
+R5453:5461 Kernel.KnowledgeNarrowing <> run_image def
+R5498:5508 Coq.Arith.PeanoNat Nat mul_0_r thm
+R5498:5508 Coq.Arith.PeanoNat Nat mul_0_r thm
+R5498:5508 Coq.Arith.PeanoNat Nat mul_0_r thm
+R5533:5535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5525:5530 Coq.Init.Datatypes <> length def
+R5533:5535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5525:5530 Coq.Init.Datatypes <> length def
+R5580:5599 Coq.Arith.PeanoNat Nat log2_up_mul_pow2 thm
+R5580:5599 Coq.Arith.PeanoNat Nat log2_up_mul_pow2 thm
+R5580:5599 Coq.Arith.PeanoNat Nat log2_up_mul_pow2 thm
+R5619:5637 Coq.Arith.PeanoNat Nat log2_up_le_mono thm
+R5619:5637 Coq.Arith.PeanoNat Nat log2_up_le_mono thm
+R5648:5659 Coq.Arith.PeanoNat Nat mul_comm thm
+R5648:5659 Coq.Arith.PeanoNat Nat mul_comm thm
+R5648:5659 Coq.Arith.PeanoNat Nat mul_comm thm
+var 5723:5723 Runs O
+var 5743:5745 Runs obs
+R5750:5753 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5749:5749 Kernel.KnowledgeNarrowing <> Runs.S var
+R5754:5754 Kernel.KnowledgeNarrowing <> Runs.O var
+var 5766:5775 Runs obs_eq_dec
+R5792:5792 Kernel.KnowledgeNarrowing <> Runs.O var
+binder 5786:5786 <> a:36
+binder 5788:5788 <> b:37
+R5795:5795 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5801:5805 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5812:5812 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5797:5799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5796:5796 Kernel.KnowledgeNarrowing <> a:36 var
+R5800:5800 Kernel.KnowledgeNarrowing <> b:37 var
+R5807:5810 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5806:5806 Kernel.KnowledgeNarrowing <> a:36 var
+R5811:5811 Kernel.KnowledgeNarrowing <> b:37 var
+def 5891:5902 <> states_along
+R5909:5909 Kernel.KnowledgeNarrowing <> Runs.S var
+binder 5905:5905 <> s:39
+R5917:5920 Coq.Init.Datatypes <> list ind
+R5922:5922 Kernel.KnowledgeNarrowing <> Runs.I var
+binder 5913:5913 <> t:40
+R5927:5930 Coq.Init.Datatypes <> list ind
+R5932:5932 Kernel.KnowledgeNarrowing <> Runs.S var
+R5945:5945 Kernel.KnowledgeNarrowing <> t:40 var
+R5956:5957 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5962:5962 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5964:5964 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5963:5963 Kernel.KnowledgeNarrowing <> s:39 var
+R5971:5974 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5982:5985 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5981:5981 Kernel.KnowledgeNarrowing <> s:39 var
+R5986:5997 Kernel.KnowledgeNarrowing <> states_along:41 def
+R6000:6003 Kernel.KnowledgeNarrowing <> Runs.step var
+R6005:6005 Kernel.KnowledgeNarrowing <> s:39 var
+def 6104:6107 <> seen
+R6114:6114 Kernel.KnowledgeNarrowing <> Runs.S var
+binder 6110:6110 <> s:43
+R6122:6125 Coq.Init.Datatypes <> list ind
+R6127:6127 Kernel.KnowledgeNarrowing <> Runs.I var
+binder 6118:6118 <> t:44
+R6132:6135 Coq.Init.Datatypes <> list ind
+R6137:6137 Kernel.KnowledgeNarrowing <> Runs.O var
+R6142:6144 Coq.Lists.List <> map def
+R6151:6162 Kernel.KnowledgeNarrowing <> states_along def
+R6164:6164 Kernel.KnowledgeNarrowing <> s:43 var
+R6166:6166 Kernel.KnowledgeNarrowing <> t:44 var
+R6146:6148 Kernel.KnowledgeNarrowing <> Runs.obs var
+def 6182:6190 <> same_view
+R6197:6200 Coq.Init.Datatypes <> list ind
+R6202:6202 Kernel.KnowledgeNarrowing <> Runs.I var
+binder 6193:6193 <> t:45
+R6213:6213 Kernel.KnowledgeNarrowing <> Runs.S var
+binder 6206:6207 <> s0:46
+binder 6209:6209 <> s:47
+R6218:6221 Coq.Init.Datatypes <> bool ind
+R6231:6241 Coq.Lists.List <> list_eq_dec thm
+R6266:6269 Kernel.KnowledgeNarrowing <> seen def
+R6271:6272 Kernel.KnowledgeNarrowing <> s0:46 var
+R6274:6274 Kernel.KnowledgeNarrowing <> t:45 var
+R6255:6258 Kernel.KnowledgeNarrowing <> seen def
+R6260:6260 Kernel.KnowledgeNarrowing <> s:47 var
+R6262:6262 Kernel.KnowledgeNarrowing <> t:45 var
+R6243:6252 Kernel.KnowledgeNarrowing <> Runs.obs_eq_dec var
+R6292:6296 Coq.Init.Datatypes <> false constr
+R6282:6285 Coq.Init.Datatypes <> true constr
+def 6431:6439 <> knowledge
+R6450:6453 Coq.Init.Datatypes <> list ind
+R6455:6455 Kernel.KnowledgeNarrowing <> Runs.S var
+binder 6442:6446 <> Omega:48
+R6463:6466 Coq.Init.Datatypes <> list ind
+R6468:6468 Kernel.KnowledgeNarrowing <> Runs.I var
+binder 6459:6459 <> t:49
+R6477:6477 Kernel.KnowledgeNarrowing <> Runs.S var
+binder 6472:6473 <> s0:50
+R6482:6485 Coq.Init.Datatypes <> list ind
+R6487:6487 Kernel.KnowledgeNarrowing <> Runs.S var
+R6494:6499 Coq.Lists.List <> filter def
+R6518:6522 Kernel.KnowledgeNarrowing <> Omega:48 var
+R6502:6510 Kernel.KnowledgeNarrowing <> same_view def
+R6512:6512 Kernel.KnowledgeNarrowing <> t:49 var
+R6514:6515 Kernel.KnowledgeNarrowing <> s0:50 var
+prf 6532:6556 <> knowledge_contains_actual
+binder 6569:6573 <> Omega:51
+binder 6575:6575 <> t:52
+binder 6577:6578 <> s0:53
+R6592:6595 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6581:6582 Coq.Lists.List <> In def
+R6587:6591 Kernel.KnowledgeNarrowing <> Omega:51 var
+R6584:6585 Kernel.KnowledgeNarrowing <> s0:53 var
+R6596:6597 Coq.Lists.List <> In def
+R6603:6611 Kernel.KnowledgeNarrowing <> knowledge def
+R6613:6617 Kernel.KnowledgeNarrowing <> Omega:51 var
+R6619:6619 Kernel.KnowledgeNarrowing <> t:52 var
+R6621:6622 Kernel.KnowledgeNarrowing <> s0:53 var
+R6599:6600 Kernel.KnowledgeNarrowing <> s0:53 var
+R6663:6671 Kernel.KnowledgeNarrowing <> knowledge def
+R6680:6688 Coq.Lists.List <> filter_In thm
+R6680:6688 Coq.Lists.List <> filter_In thm
+R6720:6728 Kernel.KnowledgeNarrowing <> same_view def
+R6741:6751 Coq.Lists.List <> list_eq_dec thm
+R6777:6780 Kernel.KnowledgeNarrowing <> seen def
+R6765:6768 Kernel.KnowledgeNarrowing <> seen def
+R6753:6762 Kernel.KnowledgeNarrowing <> Runs.obs_eq_dec var
+R6741:6751 Coq.Lists.List <> list_eq_dec thm
+R6777:6780 Kernel.KnowledgeNarrowing <> seen def
+R6765:6768 Kernel.KnowledgeNarrowing <> seen def
+R6753:6762 Kernel.KnowledgeNarrowing <> Runs.obs_eq_dec var
+prf 6837:6853 <> knowledge_sublist
+binder 6866:6870 <> Omega:54
+binder 6872:6872 <> t:55
+binder 6874:6875 <> s0:56
+R6907:6910 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6878:6883 Coq.Init.Datatypes <> length def
+R6886:6894 Kernel.KnowledgeNarrowing <> knowledge def
+R6896:6900 Kernel.KnowledgeNarrowing <> Omega:54 var
+R6902:6902 Kernel.KnowledgeNarrowing <> t:55 var
+R6904:6905 Kernel.KnowledgeNarrowing <> s0:56 var
+R6911:6916 Coq.Init.Datatypes <> length def
+R6918:6922 Kernel.KnowledgeNarrowing <> Omega:54 var
+R6947:6955 Kernel.KnowledgeNarrowing <> knowledge def
+R6964:6979 Coq.Lists.List <> filter_length_le thm
+R6964:6979 Coq.Lists.List <> filter_length_le thm
+def 7165:7189 <> observer_narrowing_priced
+binder 7210:7214 <> Omega:57
+binder 7216:7216 <> t:58
+binder 7218:7219 <> s0:59
+R7237:7240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7226:7230 Coq.Lists.List <> NoDup ind
+R7232:7236 Kernel.KnowledgeNarrowing <> Omega:57 var
+R7252:7259 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7241:7242 Coq.Lists.List <> In def
+R7247:7251 Kernel.KnowledgeNarrowing <> Omega:57 var
+R7244:7245 Kernel.KnowledgeNarrowing <> s0:59 var
+R7332:7341 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7286:7288 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7260:7270 Coq.Arith.PeanoNat Nat log2_up def
+R7273:7278 Coq.Init.Datatypes <> length def
+R7280:7284 Kernel.KnowledgeNarrowing <> Omega:57 var
+R7289:7299 Coq.Arith.PeanoNat Nat log2_up def
+R7302:7307 Coq.Init.Datatypes <> length def
+R7310:7318 Kernel.KnowledgeNarrowing <> knowledge def
+R7320:7324 Kernel.KnowledgeNarrowing <> Omega:57 var
+R7326:7326 Kernel.KnowledgeNarrowing <> t:58 var
+R7328:7329 Kernel.KnowledgeNarrowing <> s0:59 var
+R7342:7351 Kernel.KnowledgeNarrowing <> trace_cost def
+R7353:7353 Kernel.KnowledgeNarrowing <> t:58 var
+R7361:7364 Kernel.KnowledgeNarrowing Runs <> sec
+R7378:7380 Kernel.KnowledgeNarrowing <> run def
+R7378:7380 Kernel.KnowledgeNarrowing <> run def
+R7408:7417 Kernel.KnowledgeNarrowing <> trace_cost def
+R7408:7417 Kernel.KnowledgeNarrowing <> trace_cost def
+R7441:7449 Kernel.KnowledgeNarrowing <> run_image def
+R7441:7449 Kernel.KnowledgeNarrowing <> run_image def
+R7484:7492 Kernel.KnowledgeNarrowing <> knowledge def
+R7484:7492 Kernel.KnowledgeNarrowing <> knowledge def
+R7546:7570 Kernel.KnowledgeNarrowing <> observer_narrowing_priced def
+R7546:7570 Kernel.KnowledgeNarrowing <> observer_narrowing_priced def
+ind 7768:7777 <> DemonInstr
+constr 7789:7795 <> Measure
+constr 7799:7802 <> Wipe
+scheme 7768:7777 <> DemonInstr_rect
+scheme 7768:7777 <> DemonInstr_ind
+scheme 7768:7777 <> DemonInstr_rec
+scheme 7768:7777 <> DemonInstr_sind
+def 7817:7822 <> DState
+R7839:7841 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7835:7838 Coq.Init.Datatypes <> bool ind
+R7842:7845 Coq.Init.Datatypes <> bool ind
+def 7866:7878 <> dstate_eq_dec
+R7895:7900 Kernel.KnowledgeNarrowing <> DState def
+binder 7889:7889 <> a:62
+binder 7891:7891 <> b:63
+R7903:7903 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R7909:7913 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R7920:7920 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R7905:7907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7904:7904 Kernel.KnowledgeNarrowing <> a:62 var
+R7908:7908 Kernel.KnowledgeNarrowing <> b:63 var
+R7915:7918 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7914:7914 Kernel.KnowledgeNarrowing <> a:62 var
+R7919:7919 Kernel.KnowledgeNarrowing <> b:63 var
+R7953:7965 Coq.Bool.Bool <> bool_dec thm
+R7953:7965 Coq.Bool.Bool <> bool_dec thm
+R7953:7965 Coq.Bool.Bool <> bool_dec thm
+def 7989:7993 <> dstep
+R8000:8005 Kernel.KnowledgeNarrowing <> DState def
+binder 7996:7996 <> s:64
+R8013:8022 Kernel.KnowledgeNarrowing <> DemonInstr ind
+binder 8009:8009 <> i:65
+R8027:8032 Kernel.KnowledgeNarrowing <> DState def
+R8054:8054 Kernel.KnowledgeNarrowing <> s:64 var
+R8044:8044 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8046:8047 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8049:8049 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8067:8067 Kernel.KnowledgeNarrowing <> i:65 var
+R8078:8084 Kernel.KnowledgeNarrowing <> Measure constr
+R8089:8089 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8091:8092 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8101:8101 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8093:8096 Coq.Init.Datatypes <> xorb def
+R8107:8110 Kernel.KnowledgeNarrowing <> Wipe constr
+R8115:8115 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8117:8118 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8124:8124 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8119:8123 Coq.Init.Datatypes <> false constr
+def 8145:8149 <> dcost
+R8156:8165 Kernel.KnowledgeNarrowing <> DemonInstr ind
+binder 8152:8152 <> i:68
+R8170:8172 Coq.Init.Datatypes <> nat ind
+R8185:8185 Kernel.KnowledgeNarrowing <> i:68 var
+R8192:8198 Kernel.KnowledgeNarrowing <> Measure constr
+R8207:8210 Kernel.KnowledgeNarrowing <> Wipe constr
+def 8234:8240 <> display
+R8247:8252 Kernel.KnowledgeNarrowing <> DState def
+binder 8243:8243 <> s:70
+R8257:8260 Coq.Init.Datatypes <> bool ind
+R8265:8267 Coq.Init.Datatypes <> snd def
+R8269:8269 Kernel.KnowledgeNarrowing <> s:70 var
+def 8284:8294 <> all_dstates
+R8298:8301 Coq.Init.Datatypes <> list ind
+R8303:8308 Kernel.KnowledgeNarrowing <> DState def
+R8315:8315 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8330:8331 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8345:8346 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8360:8361 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8374:8374 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8316:8316 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8322:8323 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8329:8329 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8317:8321 Coq.Init.Datatypes <> false constr
+R8324:8328 Coq.Init.Datatypes <> false constr
+R8332:8332 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8338:8339 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8344:8344 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8333:8337 Coq.Init.Datatypes <> false constr
+R8340:8343 Coq.Init.Datatypes <> true constr
+R8347:8347 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8352:8353 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8359:8359 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8348:8351 Coq.Init.Datatypes <> true constr
+R8354:8358 Coq.Init.Datatypes <> false constr
+R8362:8362 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8367:8368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8373:8373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8363:8366 Coq.Init.Datatypes <> true constr
+R8369:8372 Coq.Init.Datatypes <> true constr
+prf 8384:8397 <> dstates_finite
+R8401:8413 Kernel.PermanentCertification <> finite_states def
+R8415:8425 Kernel.KnowledgeNarrowing <> all_dstates def
+prf 8549:8571 <> measure_forgets_nothing
+R8575:8588 Kernel.PermanentCertification <> step_injective def
+R8596:8602 Kernel.KnowledgeNarrowing <> Measure constr
+R8590:8594 Kernel.KnowledgeNarrowing <> dstep def
+prf 8726:8736 <> wipe_merges
+R8740:8741 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8742:8755 Kernel.PermanentCertification <> step_injective def
+R8763:8766 Kernel.KnowledgeNarrowing <> Wipe constr
+R8757:8761 Kernel.KnowledgeNarrowing <> dstep def
+R8807:8807 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8813:8814 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8820:8820 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8808:8812 Coq.Init.Datatypes <> false constr
+R8815:8819 Coq.Init.Datatypes <> false constr
+R8822:8822 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8828:8829 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8834:8834 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8823:8827 Coq.Init.Datatypes <> false constr
+R8830:8833 Coq.Init.Datatypes <> true constr
+R8836:8842 Coq.Init.Logic <> eq_refl constr
+R8807:8807 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8813:8814 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8820:8820 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8808:8812 Coq.Init.Datatypes <> false constr
+R8815:8819 Coq.Init.Datatypes <> false constr
+R8822:8822 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8828:8829 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8834:8834 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8823:8827 Coq.Init.Datatypes <> false constr
+R8830:8833 Coq.Init.Datatypes <> true constr
+R8836:8842 Coq.Init.Logic <> eq_refl constr
+prf 8872:8888 <> demon_fiber_bound
+binder 8901:8901 <> i:71
+R8908:8911 Coq.Init.Datatypes <> list ind
+R8913:8918 Kernel.KnowledgeNarrowing <> DState def
+binder 8904:8904 <> D:72
+R8933:8940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8926:8930 Coq.Lists.List <> NoDup ind
+R8932:8932 Kernel.KnowledgeNarrowing <> D:72 var
+binder 8948:8948 <> y:73
+R9026:9043 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8951:8956 Coq.Init.Datatypes <> length def
+R8959:8964 Coq.Lists.List <> filter def
+R9024:9024 Kernel.KnowledgeNarrowing <> D:72 var
+R8967:8970 Kernel.FiniteCertMachine <> hits def
+R9021:9021 Kernel.KnowledgeNarrowing <> y:73 var
+binder 9005:9005 <> x:74
+R9010:9014 Kernel.KnowledgeNarrowing <> dstep def
+R9016:9016 Kernel.KnowledgeNarrowing <> x:74 var
+R9018:9018 Kernel.KnowledgeNarrowing <> i:71 var
+R8986:8998 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
+R8979:8984 Kernel.KnowledgeNarrowing <> DState def
+R8972:8977 Kernel.KnowledgeNarrowing <> DState def
+R9045:9047 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R9048:9052 Kernel.KnowledgeNarrowing <> dcost def
+R9054:9054 Kernel.KnowledgeNarrowing <> i:71 var
+R9119:9124 Coq.Init.Datatypes <> length def
+R9127:9132 Coq.Lists.List <> filter def
+R9222:9232 Kernel.KnowledgeNarrowing <> all_dstates def
+R9135:9138 Kernel.FiniteCertMachine <> hits def
+binder 9173:9173 <> x:75
+R9178:9182 Kernel.KnowledgeNarrowing <> dstep def
+R9184:9184 Kernel.KnowledgeNarrowing <> x:75 var
+R9154:9166 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
+R9147:9152 Kernel.KnowledgeNarrowing <> DState def
+R9140:9145 Kernel.KnowledgeNarrowing <> DState def
+R9091:9102 Coq.Arith.PeanoNat Nat le_trans thm
+R9119:9124 Coq.Init.Datatypes <> length def
+R9127:9132 Coq.Lists.List <> filter def
+R9222:9232 Kernel.KnowledgeNarrowing <> all_dstates def
+R9135:9138 Kernel.FiniteCertMachine <> hits def
+binder 9173:9173 <> x:76
+R9178:9182 Kernel.KnowledgeNarrowing <> dstep def
+R9184:9184 Kernel.KnowledgeNarrowing <> x:76 var
+R9154:9166 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
+R9147:9152 Kernel.KnowledgeNarrowing <> DState def
+R9140:9145 Kernel.KnowledgeNarrowing <> DState def
+R9091:9102 Coq.Arith.PeanoNat Nat le_trans thm
+R9247:9263 Coq.Lists.List <> NoDup_incl_length thm
+R9273:9284 Coq.Lists.List <> NoDup_filter thm
+R9247:9263 Coq.Lists.List <> NoDup_incl_length thm
+R9273:9284 Coq.Lists.List <> NoDup_filter thm
+R9323:9331 Coq.Lists.List <> filter_In thm
+R9323:9331 Coq.Lists.List <> filter_In thm
+R9362:9370 Coq.Lists.List <> filter_In thm
+R9362:9370 Coq.Lists.List <> filter_In thm
+R9388:9392 Coq.Init.Logic <> proj2 thm
+R9394:9407 Kernel.KnowledgeNarrowing <> dstates_finite thm
+R9388:9392 Coq.Init.Logic <> proj2 thm
+R9394:9407 Kernel.KnowledgeNarrowing <> dstates_finite thm
+prf 9546:9569 <> demon_compression_priced
+R9573:9590 Kernel.PermanentRecordPricing <> compression_priced def
+R9604:9616 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
+R9598:9602 Kernel.KnowledgeNarrowing <> dcost def
+R9592:9596 Kernel.KnowledgeNarrowing <> dstep def
+R9650:9659 Kernel.PermanentRecordPricing <> image_size def
+R9670:9692 Kernel.FiniteCertMachine <> fiber_bound_compression thm
+R9670:9692 Kernel.FiniteCertMachine <> fiber_bound_compression thm
+R9726:9742 Kernel.KnowledgeNarrowing <> demon_fiber_bound thm
+R9726:9742 Kernel.KnowledgeNarrowing <> demon_fiber_bound thm
+prf 9832:9854 <> wipe_costs_at_least_one
+R9884:9887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9874:9883 Kernel.KnowledgeNarrowing <> DemonInstr ind
+R9888:9890 Coq.Init.Datatypes <> nat ind
+binder 9867:9870 <> cost:77
+R9940:9943 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9897:9914 Kernel.PermanentRecordPricing <> compression_priced def
+R9927:9939 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
+R9922:9925 Kernel.KnowledgeNarrowing <> cost:77 var
+R9916:9920 Kernel.KnowledgeNarrowing <> dstep def
+R9953:9956 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9944:9947 Kernel.KnowledgeNarrowing <> cost:77 var
+R9949:9952 Kernel.KnowledgeNarrowing <> Wipe constr
+R10010:10013 Kernel.KnowledgeNarrowing <> Wipe constr
+R10015:10015 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10030:10031 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10045:10045 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10016:10016 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10022:10023 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10029:10029 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10017:10021 Coq.Init.Datatypes <> false constr
+R10024:10028 Coq.Init.Datatypes <> false constr
+R10032:10032 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10038:10039 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10044:10044 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10033:10037 Coq.Init.Datatypes <> false constr
+R10040:10043 Coq.Init.Datatypes <> true constr
+R10010:10013 Kernel.KnowledgeNarrowing <> Wipe constr
+R10015:10015 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10030:10031 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10045:10045 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10016:10016 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10022:10023 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10029:10029 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10017:10021 Coq.Init.Datatypes <> false constr
+R10024:10028 Coq.Init.Datatypes <> false constr
+R10032:10032 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10038:10039 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10044:10044 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10033:10037 Coq.Init.Datatypes <> false constr
+R10040:10043 Coq.Init.Datatypes <> true constr
+R10070:10074 Coq.Lists.List <> NoDup ind
+R10076:10076 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10091:10092 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10106:10106 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10077:10077 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10083:10084 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10090:10090 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10078:10082 Coq.Init.Datatypes <> false constr
+R10085:10089 Coq.Init.Datatypes <> false constr
+R10093:10093 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10099:10100 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10105:10105 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10094:10098 Coq.Init.Datatypes <> false constr
+R10101:10104 Coq.Init.Datatypes <> true constr
+R10070:10074 Coq.Lists.List <> NoDup ind
+R10076:10076 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10091:10092 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10106:10106 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10077:10077 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10083:10084 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10090:10090 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10078:10082 Coq.Init.Datatypes <> false constr
+R10085:10089 Coq.Init.Datatypes <> false constr
+R10093:10093 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10099:10100 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10105:10105 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10094:10098 Coq.Init.Datatypes <> false constr
+R10101:10104 Coq.Init.Datatypes <> true constr
+R10198:10207 Kernel.PermanentRecordPricing <> image_size def
+R10249:10252 Kernel.KnowledgeNarrowing <> Wipe constr
+R10249:10252 Kernel.KnowledgeNarrowing <> Wipe constr
+def 10370:10380 <> demon_prior
+R10384:10387 Coq.Init.Datatypes <> list ind
+R10389:10394 Kernel.KnowledgeNarrowing <> DState def
+R10399:10399 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10414:10415 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10429:10429 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10400:10400 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10406:10407 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10413:10413 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10401:10405 Coq.Init.Datatypes <> false constr
+R10408:10412 Coq.Init.Datatypes <> false constr
+R10416:10416 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10421:10422 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10428:10428 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10417:10420 Coq.Init.Datatypes <> true constr
+R10423:10427 Coq.Init.Datatypes <> false constr
+prf 10441:10461 <> demon_observer_learns
+R10553:10558 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10549:10551 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10467:10472 Coq.Init.Datatypes <> length def
+R10475:10483 Kernel.KnowledgeNarrowing <> knowledge def
+R10535:10535 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10540:10541 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10547:10547 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10536:10539 Coq.Init.Datatypes <> true constr
+R10542:10546 Coq.Init.Datatypes <> false constr
+R10525:10525 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10533:10533 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10526:10532 Kernel.KnowledgeNarrowing <> Measure constr
+R10513:10523 Kernel.KnowledgeNarrowing <> demon_prior def
+R10499:10511 Coq.Bool.Bool <> bool_dec thm
+R10491:10497 Kernel.KnowledgeNarrowing <> display def
+R10485:10489 Kernel.KnowledgeNarrowing <> dstep def
+R10581:10586 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10577:10579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10559:10564 Coq.Init.Datatypes <> length def
+R10566:10576 Kernel.KnowledgeNarrowing <> demon_prior def
+R10613:10615 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10587:10596 Kernel.KnowledgeNarrowing <> trace_cost def
+R10604:10604 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10612:10612 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10605:10611 Kernel.KnowledgeNarrowing <> Measure constr
+R10598:10602 Kernel.KnowledgeNarrowing <> dcost def
+prf 10779:10803 <> demon_machine_spread_kept
+R10869:10871 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10809:10814 Coq.Init.Datatypes <> length def
+R10817:10825 Kernel.KnowledgeNarrowing <> run_image def
+R10857:10867 Kernel.KnowledgeNarrowing <> demon_prior def
+R10847:10847 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10855:10855 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10848:10854 Kernel.KnowledgeNarrowing <> Measure constr
+R10833:10845 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
+R10827:10831 Kernel.KnowledgeNarrowing <> dstep def
+prf 11057:11086 <> observer_narrowing_can_be_free
+R11136:11141 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11092:11109 Kernel.PermanentRecordPricing <> compression_priced def
+R11123:11135 Kernel.KnowledgeNarrowing <> dstate_eq_dec def
+R11117:11121 Kernel.KnowledgeNarrowing <> dcost def
+R11111:11115 Kernel.KnowledgeNarrowing <> dstep def
+R11142:11143 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11144:11168 Kernel.KnowledgeNarrowing <> observer_narrowing_priced def
+R11190:11202 Coq.Bool.Bool <> bool_dec thm
+R11182:11188 Kernel.KnowledgeNarrowing <> display def
+R11176:11180 Kernel.KnowledgeNarrowing <> dcost def
+R11170:11174 Kernel.KnowledgeNarrowing <> dstep def
+R11228:11251 Kernel.KnowledgeNarrowing <> demon_compression_priced thm
+R11228:11251 Kernel.KnowledgeNarrowing <> demon_compression_priced thm
+R11284:11294 Kernel.KnowledgeNarrowing <> demon_prior def
+R11296:11296 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11304:11304 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11297:11303 Kernel.KnowledgeNarrowing <> Measure constr
+R11306:11306 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11311:11312 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11318:11318 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11307:11310 Coq.Init.Datatypes <> true constr
+R11313:11317 Coq.Init.Datatypes <> false constr
+R11284:11294 Kernel.KnowledgeNarrowing <> demon_prior def
+R11296:11296 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11304:11304 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11297:11303 Kernel.KnowledgeNarrowing <> Measure constr
+R11306:11306 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11311:11312 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11318:11318 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11307:11310 Coq.Init.Datatypes <> true constr
+R11313:11317 Coq.Init.Datatypes <> false constr
+R11338:11342 Coq.Lists.List <> NoDup ind
+R11344:11354 Kernel.KnowledgeNarrowing <> demon_prior def
+R11338:11342 Coq.Lists.List <> NoDup ind
+R11344:11354 Kernel.KnowledgeNarrowing <> demon_prior def
+R11433:11434 Coq.Lists.List <> In def
+R11450:11460 Kernel.KnowledgeNarrowing <> demon_prior def
+R11436:11436 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11441:11442 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11448:11448 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11437:11440 Coq.Init.Datatypes <> true constr
+R11443:11447 Coq.Init.Datatypes <> false constr
+R11433:11434 Coq.Lists.List <> In def
+R11450:11460 Kernel.KnowledgeNarrowing <> demon_prior def
+R11436:11436 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11441:11442 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11448:11448 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11437:11440 Coq.Init.Datatypes <> true constr
+R11443:11447 Coq.Init.Datatypes <> false constr

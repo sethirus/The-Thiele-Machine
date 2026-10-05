@@ -1,0 +1,653 @@
+DIGEST 7078c331c21b0a6ca63250e688c6e55f
+FKernel.Realize
+R2350:2353 Coq.Lists.List <> <> lib
+R2355:2359 Coq.Arith.Arith <> <> lib
+R2361:2363 Coq.micromega.Lia <> <> lib
+R2365:2368 Coq.Bool.Bool <> <> lib
+R2378:2390 Coq.Lists.List ListNotations <> mod
+R2408:2426 Kernel.RealizeNames <> <> lib
+R2437:2458 Kernel.RealizePrograms <> <> lib
+def 2691:2704 <> rlz_small_exec
+R2709:2731 Minimal.EarnedCore <> exec def
+def 2745:2757 <> rlz_small_run
+R2762:2783 Minimal.EarnedCore <> run def
+def 2797:2810 <> rlz_small_step
+R2815:2837 Minimal.EarnedCore <> step def
+def 2851:2868 <> rlz_small_run_prog
+R2873:2899 Minimal.EarnedCore <> run_prog def
+def 2913:2930 <> rlz_small_trace_of
+R2935:2961 Minimal.EarnedCore <> trace_of def
+def 2975:2991 <> rlz_small_compile
+R2996:3021 Minimal.EarnedCore <> compile def
+def 3035:3049 <> rlz_small_start
+R3054:3077 Minimal.EarnedCore <> start def
+prf 3087:3103 <> rlz_small_exec_is
+R3121:3123 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3107:3120 Kernel.Realize <> rlz_small_exec def
+R3124:3129 Kernel.RealizeNames E exec def
+prf 3163:3178 <> rlz_small_run_is
+R3195:3197 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3182:3194 Kernel.Realize <> rlz_small_run def
+R3198:3202 Kernel.RealizeNames E run def
+prf 3236:3252 <> rlz_small_step_is
+R3270:3272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3256:3269 Kernel.Realize <> rlz_small_step def
+R3273:3278 Kernel.RealizeNames E step def
+prf 3312:3332 <> rlz_small_run_prog_is
+R3354:3356 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3336:3353 Kernel.Realize <> rlz_small_run_prog def
+R3357:3366 Kernel.RealizeNames E run_prog def
+prf 3400:3420 <> rlz_small_trace_of_is
+R3442:3444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3424:3441 Kernel.Realize <> rlz_small_trace_of def
+R3445:3454 Kernel.RealizeNames E trace_of def
+prf 3488:3507 <> rlz_small_compile_is
+R3528:3530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3511:3527 Kernel.Realize <> rlz_small_compile def
+R3531:3539 Kernel.RealizeNames E compile def
+prf 3573:3590 <> rlz_small_start_is
+R3609:3611 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3594:3608 Kernel.Realize <> rlz_small_start def
+R3612:3618 Kernel.RealizeNames E start def
+prf 3724:3755 <> rlz_small_halting_correspondence
+binder 3766:3766 <> M:1
+binder 3768:3768 <> a:2
+binder 3770:3770 <> b:3
+R3775:3775 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3827:3835 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3970:3970 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3776:3782 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3784:3785 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3783:3783 <> n:4
+R3820:3822 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3786:3792 Kernel.RealizeNames E mstep def
+R3794:3794 Kernel.Realize <> M:1 var
+R3797:3802 Kernel.RealizeNames E mrun def
+R3804:3804 Kernel.Realize <> n:4 var
+R3806:3806 Kernel.Realize <> M:1 var
+R3808:3808 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3810:3811 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3818:3818 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3812:3812 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3814:3815 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3817:3817 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3813:3813 Kernel.Realize <> a:2 var
+R3816:3816 Kernel.Realize <> b:3 var
+R3823:3826 Coq.Init.Datatypes <> None constr
+R3836:3842 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3844:3845 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3843:3843 <> n:5
+R3846:3853 Kernel.RealizeNames E halted def
+R3856:3872 Kernel.Realize <> rlz_small_compile def
+R3874:3874 Kernel.Realize <> M:1 var
+R3893:3901 Kernel.RealizeNames E core_of proj
+R3904:3921 Kernel.Realize <> rlz_small_run_prog def
+R3923:3923 Kernel.Realize <> n:5 var
+R3926:3942 Kernel.Realize <> rlz_small_compile def
+R3944:3944 Kernel.Realize <> M:1 var
+R3948:3962 Kernel.Realize <> rlz_small_start def
+R3964:3964 Kernel.Realize <> a:2 var
+R3966:3966 Kernel.Realize <> b:3 var
+R3986:4009 Kernel.RealizeNames E halting_correspondence thm
+R3986:4009 Kernel.RealizeNames E halting_correspondence thm
+prf 4026:4056 <> rlz_small_mu_conservation_trace
+binder 4067:4068 <> tr:6
+binder 4070:4070 <> s:7
+R4100:4102 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4075:4078 Kernel.RealizeNames E mu proj
+R4081:4093 Kernel.Realize <> rlz_small_run def
+R4095:4096 Kernel.Realize <> tr:6 var
+R4098:4098 Kernel.Realize <> s:7 var
+R4109:4111 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4103:4106 Kernel.RealizeNames E mu proj
+R4108:4108 Kernel.Realize <> s:7 var
+R4112:4123 Kernel.RealizeNames E total_cost def
+R4125:4126 Kernel.Realize <> tr:6 var
+R4142:4164 Kernel.RealizeNames E mu_conservation_trace thm
+R4142:4164 Kernel.RealizeNames E mu_conservation_trace thm
+prf 4181:4204 <> rlz_small_run_prog_trace
+binder 4215:4215 <> n:8
+binder 4217:4217 <> P:9
+binder 4219:4219 <> s:10
+R4248:4250 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4224:4241 Kernel.Realize <> rlz_small_run_prog def
+R4243:4243 Kernel.Realize <> n:8 var
+R4245:4245 Kernel.Realize <> P:9 var
+R4247:4247 Kernel.Realize <> s:10 var
+R4251:4263 Kernel.Realize <> rlz_small_run def
+R4266:4283 Kernel.Realize <> rlz_small_trace_of def
+R4285:4285 Kernel.Realize <> n:8 var
+R4287:4287 Kernel.Realize <> P:9 var
+R4289:4289 Kernel.Realize <> s:10 var
+R4292:4292 Kernel.Realize <> s:10 var
+R4308:4323 Kernel.RealizeNames E run_prog_trace thm
+R4308:4323 Kernel.RealizeNames E run_prog_trace thm
+def 4634:4647 <> rlz_multi_exec
+R4654:4677 Minimal.EarnedMulti <> exec def
+R4707:4729 Minimal.EarnedCore <> eval def
+R4679:4705 Minimal.EarnedCore <> prop_eqb def
+def 4743:4755 <> rlz_multi_run
+R4762:4784 Minimal.EarnedMulti <> run def
+R4814:4836 Minimal.EarnedCore <> eval def
+R4786:4812 Minimal.EarnedCore <> prop_eqb def
+def 4850:4863 <> rlz_multi_step
+R4870:4893 Minimal.EarnedMulti <> step def
+R4923:4945 Minimal.EarnedCore <> eval def
+R4895:4921 Minimal.EarnedCore <> prop_eqb def
+def 4959:4976 <> rlz_multi_run_prog
+R4983:5010 Minimal.EarnedMulti <> run_prog def
+R5040:5062 Minimal.EarnedCore <> eval def
+R5012:5038 Minimal.EarnedCore <> prop_eqb def
+def 5076:5093 <> rlz_multi_trace_of
+R5100:5127 Minimal.EarnedMulti <> trace_of def
+R5157:5179 Minimal.EarnedCore <> eval def
+R5129:5155 Minimal.EarnedCore <> prop_eqb def
+def 5193:5207 <> rlz_multi_start
+R5213:5237 Minimal.EarnedMulti <> start def
+R5239:5261 Minimal.EarnedCore <> prop ind
+prf 5271:5291 <> rlz_multi_run_prog_is
+R5313:5315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5295:5312 Kernel.Realize <> rlz_multi_run_prog def
+R5316:5325 Kernel.RealizeNames M run_prog def
+R5338:5343 Kernel.RealizeNames E eval def
+R5327:5336 Kernel.RealizeNames E prop_eqb def
+prf 5377:5393 <> rlz_multi_step_is
+R5411:5413 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5397:5410 Kernel.Realize <> rlz_multi_step def
+R5414:5419 Kernel.RealizeNames M step def
+R5432:5437 Kernel.RealizeNames E eval def
+R5421:5430 Kernel.RealizeNames E prop_eqb def
+prf 5471:5487 <> rlz_multi_exec_is
+R5505:5507 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5491:5504 Kernel.Realize <> rlz_multi_exec def
+R5508:5513 Kernel.RealizeNames M exec def
+R5526:5531 Kernel.RealizeNames E eval def
+R5515:5524 Kernel.RealizeNames E prop_eqb def
+prf 5565:5580 <> rlz_multi_run_is
+R5597:5599 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5584:5596 Kernel.Realize <> rlz_multi_run def
+R5600:5604 Kernel.RealizeNames M run def
+R5617:5622 Kernel.RealizeNames E eval def
+R5606:5615 Kernel.RealizeNames E prop_eqb def
+prf 5659:5689 <> rlz_multi_mu_conservation_trace
+binder 5700:5701 <> tr:11
+binder 5703:5703 <> s:12
+R5733:5735 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5708:5711 Kernel.RealizeNames M mu proj
+R5714:5726 Kernel.Realize <> rlz_multi_run def
+R5728:5729 Kernel.Realize <> tr:11 var
+R5731:5731 Kernel.Realize <> s:12 var
+R5742:5744 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5736:5739 Kernel.RealizeNames M mu proj
+R5741:5741 Kernel.Realize <> s:12 var
+R5745:5756 Kernel.RealizeNames M total_cost def
+R5758:5759 Kernel.Realize <> tr:11 var
+R5776:5804 Kernel.RealizeNames M multi_mu_conservation_trace thm
+R5817:5822 Kernel.RealizeNames E eval def
+R5806:5815 Kernel.RealizeNames E prop_eqb def
+R5776:5804 Kernel.RealizeNames M multi_mu_conservation_trace thm
+R5817:5822 Kernel.RealizeNames E eval def
+R5806:5815 Kernel.RealizeNames E prop_eqb def
+def 5843:5857 <> rlz_pmulti_exec
+R5864:5896 Minimal.EarnedMultiPriced <> pu_exec def
+R5926:5948 Minimal.EarnedCore <> eval def
+R5898:5924 Minimal.EarnedCore <> prop_eqb def
+def 5962:5975 <> rlz_pmulti_run
+R5982:6013 Minimal.EarnedMultiPriced <> pu_run def
+R6043:6065 Minimal.EarnedCore <> eval def
+R6015:6041 Minimal.EarnedCore <> prop_eqb def
+def 6079:6093 <> rlz_pmulti_step
+R6100:6132 Minimal.EarnedMultiPriced <> pu_step def
+R6162:6184 Minimal.EarnedCore <> eval def
+R6134:6160 Minimal.EarnedCore <> prop_eqb def
+def 6198:6216 <> rlz_pmulti_run_prog
+R6223:6259 Minimal.EarnedMultiPriced <> pu_run_prog def
+R6289:6311 Minimal.EarnedCore <> eval def
+R6261:6287 Minimal.EarnedCore <> prop_eqb def
+def 6325:6343 <> rlz_pmulti_trace_of
+R6350:6386 Minimal.EarnedMultiPriced <> pu_trace_of def
+R6416:6438 Minimal.EarnedCore <> eval def
+R6388:6414 Minimal.EarnedCore <> prop_eqb def
+def 6452:6467 <> rlz_pmulti_start
+R6473:6506 Minimal.EarnedMultiPriced <> pu_start def
+R6508:6530 Minimal.EarnedCore <> prop ind
+prf 6540:6561 <> rlz_pmulti_run_prog_is
+R6584:6586 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6565:6583 Kernel.Realize <> rlz_pmulti_run_prog def
+R6587:6600 Kernel.RealizeNames PM pu_run_prog def
+R6613:6618 Kernel.RealizeNames E eval def
+R6602:6611 Kernel.RealizeNames E prop_eqb def
+prf 6652:6669 <> rlz_pmulti_step_is
+R6688:6690 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6673:6687 Kernel.Realize <> rlz_pmulti_step def
+R6691:6700 Kernel.RealizeNames PM pu_step def
+R6713:6718 Kernel.RealizeNames E eval def
+R6702:6711 Kernel.RealizeNames E prop_eqb def
+prf 6752:6769 <> rlz_pmulti_exec_is
+R6788:6790 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6773:6787 Kernel.Realize <> rlz_pmulti_exec def
+R6791:6800 Kernel.RealizeNames PM pu_exec def
+R6813:6818 Kernel.RealizeNames E eval def
+R6802:6811 Kernel.RealizeNames E prop_eqb def
+prf 6852:6868 <> rlz_pmulti_run_is
+R6886:6888 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6872:6885 Kernel.Realize <> rlz_pmulti_run def
+R6889:6897 Kernel.RealizeNames PM pu_run def
+R6910:6915 Kernel.RealizeNames E eval def
+R6899:6908 Kernel.RealizeNames E prop_eqb def
+def 7393:7404 <> rlz_gen_exec
+R7409:7414 Kernel.RealizeNames G exec def
+R7428:7434 Kernel.RealizeNames G ceval def
+R7416:7426 Kernel.RealizeNames G cprop_eqb def
+def 7448:7458 <> rlz_gen_run
+R7463:7467 Kernel.RealizeNames G run def
+R7481:7487 Kernel.RealizeNames G ceval def
+R7469:7479 Kernel.RealizeNames G cprop_eqb def
+def 7501:7512 <> rlz_gen_step
+R7517:7522 Kernel.RealizeNames G step def
+R7536:7542 Kernel.RealizeNames G ceval def
+R7524:7534 Kernel.RealizeNames G cprop_eqb def
+def 7556:7571 <> rlz_gen_run_prog
+R7576:7585 Kernel.RealizeNames G run_prog def
+R7599:7605 Kernel.RealizeNames G ceval def
+R7587:7597 Kernel.RealizeNames G cprop_eqb def
+def 7619:7634 <> rlz_gen_trace_of
+R7639:7648 Kernel.RealizeNames G trace_of def
+R7662:7668 Kernel.RealizeNames G ceval def
+R7650:7660 Kernel.RealizeNames G cprop_eqb def
+def 7682:7694 <> rlz_gen_start
+R7700:7706 Kernel.RealizeNames G start def
+R7708:7714 Kernel.RealizeNames G cprop ind
+def 7729:7741 <> rlz_pgen_exec
+R7746:7755 Kernel.RealizeNames PG pr_exec def
+R7769:7775 Kernel.RealizeNames G ceval def
+R7757:7767 Kernel.RealizeNames G cprop_eqb def
+def 7789:7800 <> rlz_pgen_run
+R7805:7813 Kernel.RealizeNames PG pr_run def
+R7827:7833 Kernel.RealizeNames G ceval def
+R7815:7825 Kernel.RealizeNames G cprop_eqb def
+def 7847:7859 <> rlz_pgen_step
+R7864:7873 Kernel.RealizeNames PG pr_step def
+R7887:7893 Kernel.RealizeNames G ceval def
+R7875:7885 Kernel.RealizeNames G cprop_eqb def
+def 7907:7923 <> rlz_pgen_run_prog
+R7928:7941 Kernel.RealizeNames PG pr_run_prog def
+R7955:7961 Kernel.RealizeNames G ceval def
+R7943:7953 Kernel.RealizeNames G cprop_eqb def
+def 7975:7991 <> rlz_pgen_trace_of
+R7996:8009 Kernel.RealizeNames PG pr_trace_of def
+R8023:8029 Kernel.RealizeNames G ceval def
+R8011:8021 Kernel.RealizeNames G cprop_eqb def
+prf 8187:8206 <> rlz_pgen_extends_gen
+binder 8217:8217 <> n:13
+binder 8219:8219 <> P:14
+binder 8221:8221 <> s:15
+R8267:8269 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8226:8242 Kernel.Realize <> rlz_pgen_run_prog def
+R8244:8244 Kernel.Realize <> n:13 var
+R8247:8249 Coq.Lists.List <> map def
+R8263:8263 Kernel.Realize <> P:14 var
+R8251:8261 Kernel.RealizeNames PG pr_embed def
+R8266:8266 Kernel.Realize <> s:15 var
+R8270:8285 Kernel.Realize <> rlz_gen_run_prog def
+R8287:8287 Kernel.Realize <> n:13 var
+R8289:8289 Kernel.Realize <> P:14 var
+R8291:8291 Kernel.Realize <> s:15 var
+R8324:8328 Coq.Init.Logic <> proj1 thm
+R8331:8355 Kernel.RealizeNames PG priced_extends_generic thm
+R8369:8375 Kernel.RealizeNames G ceval def
+R8357:8367 Kernel.RealizeNames G cprop_eqb def
+R8324:8328 Coq.Init.Logic <> proj1 thm
+R8331:8355 Kernel.RealizeNames PG priced_extends_generic thm
+R8369:8375 Kernel.RealizeNames G ceval def
+R8357:8367 Kernel.RealizeNames G cprop_eqb def
+def 8839:8846 <> rlz_pair
+R8855:8857 Coq.Init.Datatypes <> nat ind
+binder 8849:8849 <> m:16
+binder 8851:8851 <> n:17
+R8862:8864 Coq.Init.Datatypes <> nat ind
+R8869:8869 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8879:8882 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8875:8877 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8871:8873 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8870:8870 Kernel.Realize <> n:17 var
+R8874:8874 Kernel.Realize <> n:17 var
+R8884:8886 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8887:8887 Kernel.Realize <> m:16 var
+def 8900:8906 <> rlz_unp
+R8920:8922 Coq.Init.Datatypes <> nat ind
+binder 8909:8912 <> fuel:18
+binder 8914:8914 <> x:19
+binder 8916:8916 <> m:20
+R8927:8932 Coq.Init.Datatypes <> option ind
+R8938:8940 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8935:8937 Coq.Init.Datatypes <> nat ind
+R8941:8943 Coq.Init.Datatypes <> nat ind
+R8957:8960 Kernel.Realize <> fuel:18 var
+R8976:8979 Coq.Init.Datatypes <> None constr
+R8985:8985 Coq.Init.Datatypes <> S constr
+R9004:9004 Kernel.Realize <> x:19 var
+R9024:9027 Coq.Init.Datatypes <> None constr
+R9037:9037 Coq.Init.Datatypes <> S constr
+R9047:9053 Coq.Arith.PeanoNat Nat odd def
+R9055:9055 Kernel.Realize <> x:19 var
+R9088:9094 Kernel.Realize <> rlz_unp:21 def
+R9112:9112 Coq.Init.Datatypes <> S constr
+R9114:9114 Kernel.Realize <> m:20 var
+R9099:9106 Coq.Arith.PeanoNat Nat div2 def
+R9108:9108 Kernel.Realize <> x:19 var
+R9062:9065 Coq.Init.Datatypes <> Some constr
+R9067:9067 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9069:9070 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9081:9081 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9068:9068 Kernel.Realize <> m:20 var
+R9071:9078 Coq.Arith.PeanoNat Nat div2 def
+R9080:9080 Kernel.Realize <> x:19 var
+def 9146:9155 <> rlz_unpair
+R9162:9164 Coq.Init.Datatypes <> nat ind
+binder 9158:9158 <> x:24
+R9169:9174 Coq.Init.Datatypes <> option ind
+R9180:9182 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9177:9179 Coq.Init.Datatypes <> nat ind
+R9183:9185 Coq.Init.Datatypes <> nat ind
+R9191:9197 Kernel.Realize <> rlz_unp def
+R9199:9199 Kernel.Realize <> x:24 var
+R9201:9201 Kernel.Realize <> x:24 var
+def 9218:9226 <> rlz_pcode
+R9233:9255 Minimal.EarnedCore <> prop ind
+binder 9229:9229 <> p:25
+R9260:9262 Coq.Init.Datatypes <> nat ind
+R9275:9275 Kernel.Realize <> p:25 var
+R9286:9309 Minimal.EarnedCore <> PZero constr
+R9320:9343 Minimal.EarnedCore <> PEven constr
+R9354:9375 Minimal.EarnedCore <> PGe constr
+R9383:9385 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+def 9407:9414 <> rlz_pdec
+R9421:9423 Coq.Init.Datatypes <> nat ind
+binder 9417:9417 <> n:27
+R9428:9450 Minimal.EarnedCore <> prop ind
+R9463:9463 Kernel.Realize <> n:27 var
+R9479:9502 Minimal.EarnedCore <> PZero constr
+R9513:9536 Minimal.EarnedCore <> PEven constr
+R9542:9542 Coq.Init.Datatypes <> S constr
+R9545:9545 Coq.Init.Datatypes <> S constr
+R9553:9574 Minimal.EarnedCore <> PGe constr
+def 9597:9605 <> rlz_ccode
+R9612:9633 Minimal.EarnedCore <> ctr ind
+binder 9608:9608 <> c:29
+R9638:9640 Coq.Init.Datatypes <> nat ind
+R9653:9653 Kernel.Realize <> c:29 var
+R9660:9680 Minimal.EarnedCore <> CA constr
+R9689:9709 Minimal.EarnedCore <> CB constr
+def 9733:9741 <> rlz_icode
+R9748:9771 Minimal.EarnedCore <> instr ind
+binder 9744:9744 <> i:31
+R9776:9778 Coq.Init.Datatypes <> nat ind
+R9791:9791 Kernel.Realize <> i:31 var
+R9802:9823 Minimal.EarnedCore <> INC constr
+R9830:9837 Kernel.Realize <> rlz_pair def
+R9842:9850 Kernel.Realize <> rlz_ccode def
+R9859:9880 Minimal.EarnedCore <> DEC constr
+R9889:9896 Kernel.Realize <> rlz_pair def
+R9901:9908 Kernel.Realize <> rlz_pair def
+R9911:9919 Kernel.Realize <> rlz_ccode def
+R9931:9953 Minimal.EarnedCore <> HALT constr
+R9958:9965 Kernel.Realize <> rlz_pair def
+R9975:9998 Minimal.EarnedCore <> CHECK constr
+R10007:10014 Kernel.Realize <> rlz_pair def
+R10019:10026 Kernel.Realize <> rlz_pair def
+R10029:10037 Kernel.Realize <> rlz_ccode def
+R10043:10051 Kernel.Realize <> rlz_pcode def
+R10061:10085 Minimal.EarnedCore <> COMMIT constr
+R10094:10101 Kernel.Realize <> rlz_pair def
+R10106:10113 Kernel.Realize <> rlz_pair def
+R10116:10124 Kernel.Realize <> rlz_ccode def
+R10130:10138 Kernel.Realize <> rlz_pcode def
+R10148:10173 Minimal.EarnedCore <> CERTIFY constr
+R10178:10185 Kernel.Realize <> rlz_pair def
+def 10210:10222 <> rlz_prog_code
+R10229:10232 Coq.Init.Datatypes <> list ind
+R10234:10257 Minimal.EarnedCore <> instr ind
+binder 10225:10225 <> P:33
+R10262:10264 Coq.Init.Datatypes <> nat ind
+R10271:10298 Minimal.EarnedGeneric <> encode def
+R10301:10303 Coq.Lists.List <> map def
+R10315:10315 Kernel.Realize <> P:33 var
+R10305:10313 Kernel.Realize <> rlz_icode def
+prf 10326:10336 <> rlz_pair_is
+R10348:10350 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10340:10347 Kernel.Realize <> rlz_pair def
+R10351:10357 Kernel.RealizeNames UC pair def
+prf 10391:10400 <> rlz_unp_is
+R10411:10413 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10404:10410 Kernel.Realize <> rlz_unp def
+R10414:10419 Kernel.RealizeNames UC unp def
+prf 10453:10465 <> rlz_unpair_is
+R10479:10481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10469:10478 Kernel.Realize <> rlz_unpair def
+R10482:10490 Kernel.RealizeNames UC unpair def
+prf 10524:10535 <> rlz_pcode_is
+R10548:10550 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10539:10547 Kernel.Realize <> rlz_pcode def
+R10551:10558 Kernel.RealizeNames UC pcode def
+prf 10592:10602 <> rlz_pdec_is
+R10614:10616 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10606:10613 Kernel.Realize <> rlz_pdec def
+R10617:10623 Kernel.RealizeNames UC pdec def
+prf 10657:10668 <> rlz_ccode_is
+R10681:10683 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10672:10680 Kernel.Realize <> rlz_ccode def
+R10684:10691 Kernel.RealizeNames UC ccode def
+prf 10725:10736 <> rlz_icode_is
+R10749:10751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10740:10748 Kernel.Realize <> rlz_icode def
+R10752:10759 Kernel.RealizeNames UC icode def
+prf 10793:10808 <> rlz_prog_code_is
+R10825:10827 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10812:10824 Kernel.Realize <> rlz_prog_code def
+R10828:10839 Kernel.RealizeNames UC prog_code def
+def 11037:11053 <> rlz_host_prop_eqb
+R11062:11089 Minimal.UniversalCodes <> hprop ind
+binder 11056:11056 <> p:34
+binder 11058:11058 <> q:35
+R11094:11097 Coq.Init.Datatypes <> bool ind
+R11113:11113 Kernel.Realize <> q:35 var
+R11110:11110 Kernel.Realize <> p:34 var
+R11120:11147 Minimal.UniversalCodes <> PSlot constr
+R11150:11177 Minimal.UniversalCodes <> PSlot constr
+R11182:11185 Coq.Init.Datatypes <> true constr
+def 11204:11216 <> rlz_host_eval
+R11223:11250 Minimal.UniversalCodes <> hprop ind
+binder 11219:11219 <> p:38
+R11258:11260 Coq.Init.Datatypes <> nat ind
+binder 11254:11254 <> x:39
+R11265:11268 Coq.Init.Datatypes <> bool ind
+R11281:11290 Kernel.Realize <> rlz_unpair def
+R11292:11292 Kernel.Realize <> x:39 var
+R11303:11306 Coq.Init.Datatypes <> Some constr
+R11308:11308 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11310:11311 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11313:11313 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11318:11340 Minimal.EarnedCore <> eval def
+R11343:11350 Kernel.Realize <> rlz_pdec def
+R11361:11364 Coq.Init.Datatypes <> None constr
+R11369:11373 Coq.Init.Datatypes <> false constr
+prf 11389:11408 <> rlz_host_prop_eqb_is
+R11429:11431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11412:11428 Kernel.Realize <> rlz_host_prop_eqb def
+R11432:11443 Kernel.RealizeNames UC hprop_eqb def
+prf 11477:11492 <> rlz_host_eval_is
+R11509:11511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11496:11508 Kernel.Realize <> rlz_host_eval def
+R11512:11519 Kernel.RealizeNames UC heval def
+def 11559:11571 <> rlz_host_exec
+R11578:11601 Minimal.EarnedMulti <> exec def
+R11621:11633 Kernel.Realize <> rlz_host_eval def
+R11603:11619 Kernel.Realize <> rlz_host_prop_eqb def
+def 11647:11658 <> rlz_host_run
+R11665:11687 Minimal.EarnedMulti <> run def
+R11707:11719 Kernel.Realize <> rlz_host_eval def
+R11689:11705 Kernel.Realize <> rlz_host_prop_eqb def
+def 11733:11745 <> rlz_host_step
+R11752:11775 Minimal.EarnedMulti <> step def
+R11795:11807 Kernel.Realize <> rlz_host_eval def
+R11777:11793 Kernel.Realize <> rlz_host_prop_eqb def
+def 11821:11837 <> rlz_host_run_prog
+R11844:11871 Minimal.EarnedMulti <> run_prog def
+R11891:11903 Kernel.Realize <> rlz_host_eval def
+R11873:11889 Kernel.Realize <> rlz_host_prop_eqb def
+def 11917:11933 <> rlz_host_trace_of
+R11940:11967 Minimal.EarnedMulti <> trace_of def
+R11987:11999 Kernel.Realize <> rlz_host_eval def
+R11969:11985 Kernel.Realize <> rlz_host_prop_eqb def
+def 12013:12026 <> rlz_host_start
+R12032:12056 Minimal.EarnedMulti <> start def
+R12058:12085 Minimal.UniversalCodes <> hprop ind
+def 12179:12194 <> rlz_host_program
+R12200:12203 Coq.Init.Datatypes <> list ind
+R12207:12231 Minimal.EarnedMulti <> instr ind
+R12233:12260 Minimal.UniversalCodes <> hprop ind
+R12268:12306 Kernel.RealizePrograms <> rlz_host_program def
+prf 12316:12334 <> rlz_host_program_is
+R12354:12356 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12338:12353 Kernel.Realize <> rlz_host_program def
+R12357:12360 Kernel.RealizeNames UL U def
+R12376:12417 Kernel.RealizePrograms <> rlz_host_program_is thm
+R12376:12417 Kernel.RealizePrograms <> rlz_host_program_is thm
+def 12590:12602 <> rlz_host_regs
+R12609:12612 Coq.Init.Datatypes <> list ind
+R12614:12637 Minimal.EarnedCore <> instr ind
+binder 12605:12605 <> P:40
+R12649:12651 Coq.Init.Datatypes <> nat ind
+binder 12641:12641 <> x:41
+binder 12643:12643 <> y:42
+binder 12645:12645 <> r:43
+R12656:12658 Coq.Init.Datatypes <> nat ind
+R12668:12674 Coq.Arith.PeanoNat Nat eqb def
+R12676:12676 Kernel.Realize <> r:43 var
+R12697:12703 Coq.Arith.PeanoNat Nat eqb def
+R12705:12705 Kernel.Realize <> r:43 var
+R12726:12732 Coq.Arith.PeanoNat Nat eqb def
+R12734:12734 Kernel.Realize <> r:43 var
+R12769:12775 Coq.Arith.PeanoNat Nat eqb def
+R12777:12777 Kernel.Realize <> r:43 var
+R12743:12755 Kernel.Realize <> rlz_prog_code def
+R12757:12757 Kernel.Realize <> P:40 var
+R12714:12714 Kernel.Realize <> y:42 var
+R12685:12685 Kernel.Realize <> x:41 var
+def 12808:12820 <> rlz_host_load
+R12827:12830 Coq.Init.Datatypes <> list ind
+R12832:12855 Minimal.EarnedCore <> instr ind
+binder 12823:12823 <> P:44
+R12865:12867 Coq.Init.Datatypes <> nat ind
+binder 12859:12859 <> x:45
+binder 12861:12861 <> y:46
+R12875:12899 Minimal.EarnedMulti <> state rec
+R12901:12928 Minimal.UniversalCodes <> hprop ind
+R12935:12948 Kernel.Realize <> rlz_host_start def
+R12951:12963 Kernel.Realize <> rlz_host_regs def
+R12965:12965 Kernel.Realize <> P:44 var
+R12967:12967 Kernel.Realize <> x:45 var
+R12969:12969 Kernel.Realize <> y:46 var
+prf 12980:12995 <> rlz_host_regs_is
+R13012:13014 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12999:13011 Kernel.Realize <> rlz_host_regs def
+R13015:13022 Kernel.RealizeNames US hregs def
+prf 13056:13071 <> rlz_host_load_is
+R13088:13090 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13075:13087 Kernel.Realize <> rlz_host_load def
+R13091:13098 Kernel.RealizeNames US hload def
+prf 13190:13209 <> rlz_host_run_prog_is
+R13232:13234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13215:13231 Kernel.Realize <> rlz_host_run_prog def
+R13235:13244 Kernel.RealizeNames M run_prog def
+R13259:13266 Kernel.RealizeNames UC heval def
+R13246:13257 Kernel.RealizeNames UC hprop_eqb def
+def 13440:13450 <> rlz_host_at
+R13457:13460 Coq.Init.Datatypes <> list ind
+R13462:13485 Minimal.EarnedCore <> instr ind
+binder 13453:13453 <> P:47
+R13497:13499 Coq.Init.Datatypes <> nat ind
+binder 13489:13489 <> x:48
+binder 13491:13491 <> y:49
+binder 13493:13493 <> n:50
+R13507:13531 Minimal.EarnedMulti <> state rec
+R13533:13560 Minimal.UniversalCodes <> hprop ind
+R13567:13583 Kernel.Realize <> rlz_host_run_prog def
+R13585:13585 Kernel.Realize <> n:50 var
+R13587:13602 Kernel.Realize <> rlz_host_program def
+R13605:13617 Kernel.Realize <> rlz_host_load def
+R13619:13619 Kernel.Realize <> P:47 var
+R13621:13621 Kernel.Realize <> x:48 var
+R13623:13623 Kernel.Realize <> y:49 var
+prf 13634:13647 <> rlz_host_at_is
+binder 13658:13658 <> P:51
+binder 13660:13660 <> x:52
+binder 13662:13662 <> y:53
+binder 13664:13664 <> n:54
+R13688:13690 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13669:13679 Kernel.Realize <> rlz_host_at def
+R13681:13681 Kernel.Realize <> P:51 var
+R13683:13683 Kernel.Realize <> x:52 var
+R13685:13685 Kernel.Realize <> y:53 var
+R13687:13687 Kernel.Realize <> n:54 var
+R13691:13700 Kernel.RealizeNames M run_prog def
+R13724:13724 Kernel.Realize <> n:54 var
+R13726:13729 Kernel.RealizeNames UL U def
+R13732:13739 Kernel.RealizeNames US hload def
+R13741:13741 Kernel.Realize <> P:51 var
+R13743:13743 Kernel.Realize <> x:52 var
+R13745:13745 Kernel.Realize <> y:53 var
+R13715:13722 Kernel.RealizeNames UC heval def
+R13702:13713 Kernel.RealizeNames UC hprop_eqb def
+R13771:13781 Kernel.Realize <> rlz_host_at def
+R13792:13810 Kernel.Realize <> rlz_host_program_is thm
+R13792:13810 Kernel.Realize <> rlz_host_program_is thm
+R13792:13810 Kernel.Realize <> rlz_host_program_is thm
+def 13930:13941 <> rlz_guest_at
+R13948:13951 Coq.Init.Datatypes <> list ind
+R13953:13976 Minimal.EarnedCore <> instr ind
+binder 13944:13944 <> P:55
+R13988:13990 Coq.Init.Datatypes <> nat ind
+binder 13980:13980 <> x:56
+binder 13982:13982 <> y:57
+binder 13984:13984 <> m:58
+R13997:14020 Minimal.EarnedCore <> state rec
+R14027:14044 Kernel.Realize <> rlz_small_run_prog def
+R14046:14046 Kernel.Realize <> m:58 var
+R14048:14048 Kernel.Realize <> P:55 var
+R14051:14065 Kernel.Realize <> rlz_small_start def
+R14067:14067 Kernel.Realize <> x:56 var
+R14069:14069 Kernel.Realize <> y:57 var
+def 14216:14241 <> rlz_host_halting_statement
+R14248:14251 Coq.Init.Datatypes <> list ind
+R14253:14259 Kernel.RealizeNames E instr ind
+binder 14244:14244 <> P:59
+R14269:14271 Coq.Init.Datatypes <> nat ind
+binder 14263:14263 <> x:60
+binder 14265:14265 <> y:61
+R14286:14286 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14342:14350 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14408:14408 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14287:14293 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14295:14296 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14294:14294 <> m:62
+R14297:14304 Kernel.RealizeNames E halted def
+R14306:14306 Kernel.Realize <> P:59 var
+R14309:14317 Kernel.RealizeNames E core_of proj
+R14320:14331 Kernel.Realize <> rlz_guest_at def
+R14333:14333 Kernel.Realize <> P:59 var
+R14335:14335 Kernel.Realize <> x:60 var
+R14337:14337 Kernel.Realize <> y:61 var
+R14339:14339 Kernel.Realize <> m:62 var
+R14351:14357 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14359:14360 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14358:14358 <> n:63
+R14361:14368 Kernel.RealizeNames M halted def
+R14370:14373 Kernel.RealizeNames UL U def
+R14376:14384 Kernel.RealizeNames M core_of proj
+R14387:14397 Kernel.Realize <> rlz_host_at def
+R14399:14399 Kernel.Realize <> P:59 var
+R14401:14401 Kernel.Realize <> x:60 var
+R14403:14403 Kernel.Realize <> y:61 var
+R14405:14405 Kernel.Realize <> n:63 var

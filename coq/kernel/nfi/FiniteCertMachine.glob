@@ -1,1151 +1,716 @@
-DIGEST 3d2aea224d99133f542bedf49bfb944b
+DIGEST a990f681d70a273eb7480a9c4ee03e48
 FKernel.FiniteCertMachine
-R1870:1873 Coq.Lists.List <> <> lib
-R1875:1878 Coq.Bool.Bool <> <> lib
-R1880:1893 Coq.Arith.PeanoNat <> <> lib
-R1895:1897 Coq.micromega.Lia <> <> lib
-R1917:1922 Coq.Strings.String <> <> lib
-R1932:1944 Coq.Lists.List ListNotations <> mod
-R1975:1981 Kernel.VMState <> <> lib
-R1983:1988 Kernel.VMStep <> <> lib
-R1990:2004 Kernel.SimulationProof <> <> lib
-R2034:2053 Kernel.MuLedgerConservation <> <> lib
-R2055:2064 Kernel.PrimeAxiom <> <> lib
-R2066:2077 Kernel.MuInitiality <> <> lib
-R2107:2128 Kernel.PermanentCertification <> <> lib
-R2158:2179 Kernel.PermanentRecordPricing <> <> lib
-sec 2374:2383 <> FiberBound
-var 2398:2398 FiberBound X
-var 2400:2400 FiberBound Y
-var 2420:2427 FiberBound eq_dec_T
-R2444:2444 Kernel.FiniteCertMachine <> FiberBound.Y var
-binder 2438:2438 <> a:3
-binder 2440:2440 <> b:4
-R2447:2447 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R2453:2457 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R2464:2464 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R2449:2451 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2448:2448 Kernel.FiniteCertMachine <> a:3 var
-R2452:2452 Kernel.FiniteCertMachine <> b:4 var
-R2459:2462 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R2458:2458 Kernel.FiniteCertMachine <> a:3 var
-R2463:2463 Kernel.FiniteCertMachine <> b:4 var
-var 2476:2476 FiberBound f
-R2481:2484 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2480:2480 Kernel.FiniteCertMachine <> FiberBound.X var
-R2485:2485 Kernel.FiniteCertMachine <> FiberBound.Y var
-def 2500:2503 <> hits
-R2510:2510 Kernel.FiniteCertMachine <> FiberBound.Y var
-binder 2506:2506 <> y:7
-R2518:2518 Kernel.FiniteCertMachine <> FiberBound.X var
-binder 2514:2514 <> x:8
-R2523:2526 Coq.Init.Datatypes <> bool ind
-R2536:2543 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R2546:2546 Kernel.FiniteCertMachine <> FiberBound.f var
-R2548:2548 Kernel.FiniteCertMachine <> x:8 var
-R2551:2551 Kernel.FiniteCertMachine <> y:7 var
-R2568:2572 Coq.Init.Datatypes <> false constr
-R2558:2561 Coq.Init.Datatypes <> true constr
-prf 2582:2600 <> filter_split_length
-R2619:2622 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2618:2618 Kernel.FiniteCertMachine <> FiberBound.X var
-R2623:2626 Coq.Init.Datatypes <> bool ind
-binder 2614:2614 <> p:9
-R2634:2637 Coq.Init.Datatypes <> list ind
-R2639:2639 Kernel.FiniteCertMachine <> FiberBound.X var
-binder 2630:2630 <> l:10
-R2708:2710 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2666:2668 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2647:2652 Coq.Init.Datatypes <> length def
-R2655:2660 Coq.Lists.List <> filter def
-R2664:2664 Kernel.FiniteCertMachine <> l:10 var
-R2662:2662 Kernel.FiniteCertMachine <> p:9 var
-R2669:2674 Coq.Init.Datatypes <> length def
-R2677:2682 Coq.Lists.List <> filter def
-R2706:2706 Kernel.FiniteCertMachine <> l:10 var
-binder 2689:2689 <> x:11
-R2694:2697 Coq.Init.Datatypes <> negb def
-R2700:2700 Kernel.FiniteCertMachine <> p:9 var
-R2702:2702 Kernel.FiniteCertMachine <> x:11 var
-R2711:2716 Coq.Init.Datatypes <> length def
-R2718:2718 Kernel.FiniteCertMachine <> l:10 var
-prf 2836:2858 <> fiber_bound_compression
-binder 2871:2871 <> K:12
-R2878:2881 Coq.Init.Datatypes <> list ind
-R2883:2883 Kernel.FiniteCertMachine <> FiberBound.X var
-binder 2874:2874 <> D:13
-R2898:2905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2891:2895 Coq.Lists.List <> NoDup ind
-R2897:2897 Kernel.FiniteCertMachine <> D:13 var
-R2906:2906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2948:2956 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 2914:2914 <> y:14
-R2943:2946 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2917:2922 Coq.Init.Datatypes <> length def
-R2925:2930 Coq.Lists.List <> filter def
-R2941:2941 Kernel.FiniteCertMachine <> D:13 var
-R2933:2936 Kernel.FiniteCertMachine <> hits def
-R2938:2938 Kernel.FiniteCertMachine <> y:14 var
-R2947:2947 Kernel.FiniteCertMachine <> K:12 var
-R2965:2968 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2957:2962 Coq.Init.Datatypes <> length def
-R2964:2964 Kernel.FiniteCertMachine <> D:13 var
-R2970:2972 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2969:2969 Kernel.FiniteCertMachine <> K:12 var
-R2973:2978 Coq.Init.Datatypes <> length def
-R2981:2985 Coq.Lists.List <> nodup def
-R2997:2999 Coq.Lists.List <> map def
-R3003:3003 Kernel.FiniteCertMachine <> D:13 var
-R3001:3001 Kernel.FiniteCertMachine <> FiberBound.f var
-R2987:2994 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R3041:3046 Coq.Init.Datatypes <> length def
-R3041:3046 Coq.Init.Datatypes <> length def
-R3110:3131 Coq.Init.Wf <> well_founded_induction thm
-R3133:3143 Coq.Arith.PeanoNat Nat lt_wf_0 thm
-R3110:3131 Coq.Init.Wf <> well_founded_induction thm
-R3133:3143 Coq.Arith.PeanoNat Nat lt_wf_0 thm
-R3250:3250 Kernel.FiniteCertMachine <> FiberBound.f var
-R3250:3250 Kernel.FiniteCertMachine <> FiberBound.f var
-R3270:3275 Coq.Lists.List <> filter def
-R3306:3309 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-binder 3282:3282 <> z:15
-R3287:3290 Coq.Init.Datatypes <> negb def
-R3293:3296 Kernel.FiniteCertMachine <> hits def
-R3300:3300 Kernel.FiniteCertMachine <> z:15 var
-R3270:3275 Coq.Lists.List <> filter def
-R3306:3309 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-binder 3282:3282 <> z:16
-R3287:3290 Coq.Init.Datatypes <> negb def
-R3293:3296 Kernel.FiniteCertMachine <> hits def
-R3300:3300 Kernel.FiniteCertMachine <> z:16 var
-R3338:3356 Kernel.FiniteCertMachine <> filter_split_length thm
-R3359:3362 Kernel.FiniteCertMachine <> hits def
-R3369:3372 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3338:3356 Kernel.FiniteCertMachine <> filter_split_length thm
-R3359:3362 Kernel.FiniteCertMachine <> hits def
-R3369:3372 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3430:3433 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3396:3401 Coq.Init.Datatypes <> length def
-R3404:3409 Coq.Lists.List <> filter def
-R3422:3425 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3412:3415 Kernel.FiniteCertMachine <> hits def
-R3430:3433 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3396:3401 Coq.Init.Datatypes <> length def
-R3404:3409 Coq.Lists.List <> filter def
-R3422:3425 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3412:3415 Kernel.FiniteCertMachine <> hits def
-R3470:3471 Coq.Lists.List <> In def
-R3476:3481 Coq.Lists.List <> filter def
-R3494:3497 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3484:3487 Kernel.FiniteCertMachine <> hits def
-R3470:3471 Coq.Lists.List <> In def
-R3476:3481 Coq.Lists.List <> filter def
-R3494:3497 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3484:3487 Kernel.FiniteCertMachine <> hits def
-R3517:3525 Coq.Lists.List <> filter_In thm
-R3517:3525 Coq.Lists.List <> filter_In thm
-R3571:3574 Kernel.FiniteCertMachine <> hits def
-R3587:3594 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R3597:3597 Kernel.FiniteCertMachine <> FiberBound.f var
-R3587:3594 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R3597:3597 Kernel.FiniteCertMachine <> FiberBound.f var
-R3660:3663 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3664:3669 Coq.Init.Datatypes <> length def
-R3672:3677 Coq.Lists.List <> filter def
-R3690:3693 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3680:3683 Kernel.FiniteCertMachine <> hits def
-R3660:3663 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3664:3669 Coq.Init.Datatypes <> length def
-R3672:3677 Coq.Lists.List <> filter def
-R3690:3693 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3680:3683 Kernel.FiniteCertMachine <> hits def
-R3717:3722 Coq.Lists.List <> filter def
-R3735:3738 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3725:3728 Kernel.FiniteCertMachine <> hits def
-R3717:3722 Coq.Lists.List <> filter def
-R3735:3738 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3725:3728 Kernel.FiniteCertMachine <> hits def
-R3804:3806 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R3796:3801 Coq.Init.Datatypes <> length def
-R3804:3806 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R3796:3801 Coq.Init.Datatypes <> length def
-R3849:3853 Coq.Lists.List <> NoDup ind
-R3868:3879 Coq.Lists.List <> NoDup_filter thm
-R3849:3853 Coq.Lists.List <> NoDup ind
-R3868:3879 Coq.Lists.List <> NoDup_filter thm
-binder 3922:3922 <> z:17
-R3951:3954 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3925:3930 Coq.Init.Datatypes <> length def
-R3933:3938 Coq.Lists.List <> filter def
-R3941:3944 Kernel.FiniteCertMachine <> hits def
-R3946:3946 Kernel.FiniteCertMachine <> z:17 var
-binder 3922:3922 <> z:18
-R3951:3954 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3925:3930 Coq.Init.Datatypes <> length def
-R3933:3938 Coq.Lists.List <> filter def
-R3941:3944 Kernel.FiniteCertMachine <> hits def
-R3946:3946 Kernel.FiniteCertMachine <> z:18 var
-R4004:4009 Coq.Init.Datatypes <> length def
-R4012:4017 Coq.Lists.List <> filter def
-R4030:4033 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4020:4023 Kernel.FiniteCertMachine <> hits def
-R3980:3991 Coq.Arith.PeanoNat Nat le_trans thm
-R4004:4009 Coq.Init.Datatypes <> length def
-R4012:4017 Coq.Lists.List <> filter def
-R4030:4033 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4020:4023 Kernel.FiniteCertMachine <> hits def
-R3980:3991 Coq.Arith.PeanoNat Nat le_trans thm
-R4055:4071 Coq.Lists.List <> NoDup_incl_length thm
-R4055:4071 Coq.Lists.List <> NoDup_incl_length thm
-R4090:4101 Coq.Lists.List <> NoDup_filter thm
-R4090:4101 Coq.Lists.List <> NoDup_filter thm
-R4145:4153 Coq.Lists.List <> filter_In thm
-R4145:4153 Coq.Lists.List <> filter_In thm
-R4191:4199 Coq.Lists.List <> filter_In thm
-R4191:4199 Coq.Lists.List <> filter_In thm
-R4257:4265 Coq.Lists.List <> filter_In thm
-R4257:4265 Coq.Lists.List <> filter_In thm
-R4337:4342 Coq.Init.Datatypes <> length def
-R4354:4360 Coq.Init.Logic <> eq_refl constr
-R4337:4342 Coq.Init.Datatypes <> length def
-R4354:4360 Coq.Init.Logic <> eq_refl constr
-R4439:4461 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4401:4406 Coq.Init.Datatypes <> length def
-R4410:4413 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4414:4418 Coq.Lists.List <> nodup def
-R4430:4432 Coq.Lists.List <> map def
-R4434:4434 Kernel.FiniteCertMachine <> FiberBound.f var
-R4420:4427 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R4462:4467 Coq.Init.Datatypes <> length def
-R4470:4474 Coq.Lists.List <> nodup def
-R4486:4488 Coq.Lists.List <> map def
-R4494:4497 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4490:4490 Kernel.FiniteCertMachine <> FiberBound.f var
-R4476:4483 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R4439:4461 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4401:4406 Coq.Init.Datatypes <> length def
-R4410:4413 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4414:4418 Coq.Lists.List <> nodup def
-R4430:4432 Coq.Lists.List <> map def
-R4434:4434 Kernel.FiniteCertMachine <> FiberBound.f var
-R4420:4427 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R4462:4467 Coq.Init.Datatypes <> length def
-R4470:4474 Coq.Lists.List <> nodup def
-R4486:4488 Coq.Lists.List <> map def
-R4494:4497 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4490:4490 Kernel.FiniteCertMachine <> FiberBound.f var
-R4476:4483 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R4518:4534 Coq.Lists.List <> NoDup_incl_length thm
-R4518:4534 Coq.Lists.List <> NoDup_incl_length thm
-R4567:4577 Coq.Lists.List <> NoDup_nodup thm
-R4567:4577 Coq.Lists.List <> NoDup_nodup thm
-R4606:4613 Coq.Lists.List <> nodup_In thm
-R4606:4613 Coq.Lists.List <> nodup_In thm
-R4637:4646 Coq.Lists.List <> in_map_iff thm
-R4637:4646 Coq.Lists.List <> in_map_iff thm
-R4704:4712 Coq.Lists.List <> filter_In thm
-R4704:4712 Coq.Lists.List <> filter_In thm
-R4749:4752 Kernel.FiniteCertMachine <> hits def
-R4802:4809 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R4802:4809 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R4893:4900 Coq.Lists.List <> nodup_In thm
-R4893:4900 Coq.Lists.List <> nodup_In thm
-R4909:4914 Coq.Lists.List <> in_map thm
-R4909:4914 Coq.Lists.List <> in_map thm
-R4952:4959 Coq.Lists.List <> nodup_In thm
-R4952:4959 Coq.Lists.List <> nodup_In thm
-R4968:4975 Coq.Lists.List <> nodup_In thm
-R4968:4975 Coq.Lists.List <> nodup_In thm
-R5000:5009 Coq.Lists.List <> in_map_iff thm
-R5000:5009 Coq.Lists.List <> in_map_iff thm
-R5050:5055 Coq.Lists.List <> in_map thm
-R5050:5055 Coq.Lists.List <> in_map thm
-R5081:5089 Coq.Lists.List <> filter_In thm
-R5081:5089 Coq.Lists.List <> filter_In thm
-R5131:5136 Coq.Init.Datatypes <> length def
-R5250:5272 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5210:5212 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5213:5213 Coq.Init.Datatypes <> S constr
-R5216:5221 Coq.Init.Datatypes <> length def
-R5224:5228 Coq.Lists.List <> nodup def
-R5240:5242 Coq.Lists.List <> map def
-R5244:5244 Kernel.FiniteCertMachine <> FiberBound.f var
-R5230:5237 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R5274:5276 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5277:5282 Coq.Init.Datatypes <> length def
-R5285:5289 Coq.Lists.List <> nodup def
-R5301:5303 Coq.Lists.List <> map def
-R5309:5312 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R5305:5305 Kernel.FiniteCertMachine <> FiberBound.f var
-R5291:5298 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R5336:5352 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
-R5250:5272 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5210:5212 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5213:5213 Coq.Init.Datatypes <> S constr
-R5216:5221 Coq.Init.Datatypes <> length def
-R5224:5228 Coq.Lists.List <> nodup def
-R5240:5242 Coq.Lists.List <> map def
-R5244:5244 Kernel.FiniteCertMachine <> FiberBound.f var
-R5230:5237 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R5274:5276 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R5277:5282 Coq.Init.Datatypes <> length def
-R5285:5289 Coq.Lists.List <> nodup def
-R5301:5303 Coq.Lists.List <> map def
-R5309:5312 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R5305:5305 Kernel.FiniteCertMachine <> FiberBound.f var
-R5291:5298 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
-R5336:5352 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
-R5380:5393 Coq.Arith.PeanoNat Nat mul_succ_r thm
-R5380:5393 Coq.Arith.PeanoNat Nat mul_succ_r thm
-R5380:5393 Coq.Arith.PeanoNat Nat mul_succ_r thm
-R5423:5432 Kernel.FiniteCertMachine FiberBound <> sec
-ind 5475:5478 <> Slot
-constr 5483:5484 <> L0
-constr 5488:5489 <> L1
-constr 5493:5494 <> L2
-constr 5498:5499 <> L3
-scheme 5475:5478 <> Slot_rect
-scheme 5475:5478 <> Slot_ind
-scheme 5475:5478 <> Slot_rec
-scheme 5475:5478 <> Slot_sind
-def 5514:5524 <> slot_eq_dec
-R5541:5544 Kernel.FiniteCertMachine <> Slot ind
-binder 5535:5535 <> a:21
-binder 5537:5537 <> b:22
-R5547:5547 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R5553:5557 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R5564:5564 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R5549:5551 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5548:5548 Kernel.FiniteCertMachine <> a:21 var
-R5552:5552 Kernel.FiniteCertMachine <> b:22 var
-R5559:5562 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5558:5558 Kernel.FiniteCertMachine <> a:21 var
-R5563:5563 Kernel.FiniteCertMachine <> b:22 var
-def 5612:5620 <> next_slot
-R5627:5630 Kernel.FiniteCertMachine <> Slot ind
-binder 5623:5623 <> p:23
-R5635:5638 Kernel.FiniteCertMachine <> Slot ind
-R5651:5651 Kernel.FiniteCertMachine <> p:23 var
-R5658:5659 Kernel.FiniteCertMachine <> L0 constr
-R5664:5665 Kernel.FiniteCertMachine <> L1 constr
-R5669:5670 Kernel.FiniteCertMachine <> L1 constr
-R5675:5676 Kernel.FiniteCertMachine <> L2 constr
-R5680:5681 Kernel.FiniteCertMachine <> L2 constr
-R5686:5687 Kernel.FiniteCertMachine <> L3 constr
-R5691:5692 Kernel.FiniteCertMachine <> L3 constr
-R5697:5698 Kernel.FiniteCertMachine <> L0 constr
-def 5717:5722 <> FState
-R5739:5741 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R5735:5738 Kernel.FiniteCertMachine <> Slot ind
-R5742:5745 Coq.Init.Datatypes <> bool ind
-def 5766:5778 <> fstate_eq_dec
-R5795:5800 Kernel.FiniteCertMachine <> FState def
-binder 5789:5789 <> a:25
-binder 5791:5791 <> b:26
-R5803:5803 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R5809:5813 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R5820:5820 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R5805:5807 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5804:5804 Kernel.FiniteCertMachine <> a:25 var
-R5808:5808 Kernel.FiniteCertMachine <> b:26 var
-R5815:5818 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5814:5814 Kernel.FiniteCertMachine <> a:25 var
-R5819:5819 Kernel.FiniteCertMachine <> b:26 var
-R5858:5865 Coq.Bool.Bool <> bool_dec thm
-R5868:5878 Kernel.FiniteCertMachine <> slot_eq_dec def
-R5858:5865 Coq.Bool.Bool <> bool_dec thm
-R5858:5865 Coq.Bool.Bool <> bool_dec thm
-R5868:5878 Kernel.FiniteCertMachine <> slot_eq_dec def
-R5868:5878 Kernel.FiniteCertMachine <> slot_eq_dec def
-ind 5901:5906 <> FInstr
-constr 5911:5918 <> FCertify
-constr 5922:5926 <> FJump
-constr 5941:5945 <> FNext
-R5933:5936 Kernel.FiniteCertMachine <> Slot ind
-binder 5929:5929 <> a:29
-scheme 5901:5906 <> FInstr_rect
-scheme 5901:5906 <> FInstr_ind
-scheme 5901:5906 <> FInstr_rec
-scheme 5901:5906 <> FInstr_sind
-def 5960:5964 <> fstep
-R5971:5976 Kernel.FiniteCertMachine <> FState def
-binder 5967:5967 <> x:30
-R5984:5989 Kernel.FiniteCertMachine <> FInstr ind
-binder 5980:5980 <> i:31
-R5994:5999 Kernel.FiniteCertMachine <> FState def
-R6012:6012 Kernel.FiniteCertMachine <> i:31 var
-R6023:6030 Kernel.FiniteCertMachine <> FCertify constr
-R6035:6035 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6053:6054 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6059:6059 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6036:6044 Kernel.FiniteCertMachine <> next_slot def
-R6047:6049 Coq.Init.Datatypes <> fst def
-R6051:6051 Kernel.FiniteCertMachine <> x:30 var
-R6055:6058 Coq.Init.Datatypes <> true constr
-R6065:6069 Kernel.FiniteCertMachine <> FJump constr
-R6076:6076 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6078:6079 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6085:6085 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6080:6082 Coq.Init.Datatypes <> snd def
-R6084:6084 Kernel.FiniteCertMachine <> x:30 var
-R6091:6095 Kernel.FiniteCertMachine <> FNext constr
-R6100:6100 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6118:6119 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6125:6125 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6101:6109 Kernel.FiniteCertMachine <> next_slot def
-R6112:6114 Coq.Init.Datatypes <> fst def
-R6116:6116 Kernel.FiniteCertMachine <> x:30 var
-R6120:6122 Coq.Init.Datatypes <> snd def
-R6124:6124 Kernel.FiniteCertMachine <> x:30 var
-def 6146:6150 <> fcert
-R6157:6162 Kernel.FiniteCertMachine <> FState def
-binder 6153:6153 <> x:33
-R6167:6170 Coq.Init.Datatypes <> bool ind
-R6175:6177 Coq.Init.Datatypes <> snd def
-R6179:6179 Kernel.FiniteCertMachine <> x:33 var
-def 6194:6198 <> fcost
-R6205:6210 Kernel.FiniteCertMachine <> FInstr ind
-binder 6201:6201 <> i:34
-R6215:6217 Coq.Init.Datatypes <> nat ind
-R6230:6230 Kernel.FiniteCertMachine <> i:34 var
-R6237:6244 Kernel.FiniteCertMachine <> FCertify constr
-R6253:6257 Kernel.FiniteCertMachine <> FJump constr
-R6268:6272 Kernel.FiniteCertMachine <> FNext constr
-def 6296:6306 <> all_fstates
-R6310:6313 Coq.Init.Datatypes <> list ind
-R6315:6320 Kernel.FiniteCertMachine <> FState def
-R6327:6327 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6339:6340 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6352:6353 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6365:6366 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6378:6382 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6393:6394 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6405:6406 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6417:6418 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6429:6429 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6328:6328 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6331:6332 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6338:6338 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6329:6330 Kernel.FiniteCertMachine <> L0 constr
-R6333:6337 Coq.Init.Datatypes <> false constr
-R6341:6341 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6344:6345 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6351:6351 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6342:6343 Kernel.FiniteCertMachine <> L1 constr
-R6346:6350 Coq.Init.Datatypes <> false constr
-R6354:6354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6357:6358 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6364:6364 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6355:6356 Kernel.FiniteCertMachine <> L2 constr
-R6359:6363 Coq.Init.Datatypes <> false constr
-R6367:6367 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6370:6371 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6377:6377 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6368:6369 Kernel.FiniteCertMachine <> L3 constr
-R6372:6376 Coq.Init.Datatypes <> false constr
-R6383:6383 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6386:6387 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6392:6392 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6384:6385 Kernel.FiniteCertMachine <> L0 constr
-R6388:6391 Coq.Init.Datatypes <> true constr
-R6395:6395 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6398:6399 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6404:6404 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6396:6397 Kernel.FiniteCertMachine <> L1 constr
-R6400:6403 Coq.Init.Datatypes <> true constr
-R6407:6407 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6410:6411 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6416:6416 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6408:6409 Kernel.FiniteCertMachine <> L2 constr
-R6412:6415 Coq.Init.Datatypes <> true constr
-R6419:6419 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6422:6423 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6428:6428 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6420:6421 Kernel.FiniteCertMachine <> L3 constr
-R6424:6427 Coq.Init.Datatypes <> true constr
-prf 6441:6450 <> fin_finite
-R6454:6466 Kernel.PermanentCertification <> finite_states def
-R6468:6478 Kernel.FiniteCertMachine <> all_fstates def
-prf 6613:6625 <> fin_permanent
-R6629:6637 Kernel.PermanentCertification <> permanent def
-R6645:6649 Kernel.FiniteCertMachine <> fcert def
-R6639:6643 Kernel.FiniteCertMachine <> fstep def
-prf 6782:6800 <> next_slot_injective
-binder 6811:6811 <> p:36
-binder 6813:6813 <> q:37
-R6841:6844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6827:6829 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6816:6824 Kernel.FiniteCertMachine <> next_slot def
-R6826:6826 Kernel.FiniteCertMachine <> p:36 var
-R6830:6838 Kernel.FiniteCertMachine <> next_slot def
-R6840:6840 Kernel.FiniteCertMachine <> q:37 var
-R6846:6848 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6845:6845 Kernel.FiniteCertMachine <> p:36 var
-R6849:6849 Kernel.FiniteCertMachine <> q:37 var
-prf 6926:6940 <> fnext_injective
-R6944:6957 Kernel.PermanentCertification <> step_injective def
-R6965:6969 Kernel.FiniteCertMachine <> FNext constr
-R6959:6963 Kernel.FiniteCertMachine <> fstep def
-R7051:7069 Kernel.FiniteCertMachine <> next_slot_injective thm
-R7051:7069 Kernel.FiniteCertMachine <> next_slot_injective thm
-prf 7113:7127 <> fcertify_merges
-R7131:7132 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7133:7146 Kernel.PermanentCertification <> step_injective def
-R7154:7161 Kernel.FiniteCertMachine <> FCertify constr
-R7148:7152 Kernel.FiniteCertMachine <> fstep def
-R7202:7202 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7205:7206 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7212:7212 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7203:7204 Kernel.FiniteCertMachine <> L0 constr
-R7207:7211 Coq.Init.Datatypes <> false constr
-R7214:7214 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7217:7218 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7223:7223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7215:7216 Kernel.FiniteCertMachine <> L0 constr
-R7219:7222 Coq.Init.Datatypes <> true constr
-R7225:7231 Coq.Init.Logic <> eq_refl constr
-R7202:7202 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7205:7206 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7212:7212 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7203:7204 Kernel.FiniteCertMachine <> L0 constr
-R7207:7211 Coq.Init.Datatypes <> false constr
-R7214:7214 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7217:7218 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7223:7223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7215:7216 Kernel.FiniteCertMachine <> L0 constr
-R7219:7222 Coq.Init.Datatypes <> true constr
-R7225:7231 Coq.Init.Logic <> eq_refl constr
-prf 7263:7274 <> fjump_merges
-binder 7285:7285 <> a:38
-R7288:7289 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7290:7303 Kernel.PermanentCertification <> step_injective def
-R7312:7316 Kernel.FiniteCertMachine <> FJump constr
-R7318:7318 Kernel.FiniteCertMachine <> a:38 var
-R7305:7309 Kernel.FiniteCertMachine <> fstep def
-R7363:7363 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7366:7367 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7373:7373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7364:7365 Kernel.FiniteCertMachine <> L0 constr
-R7368:7372 Coq.Init.Datatypes <> false constr
-R7375:7375 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7378:7379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7385:7385 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7376:7377 Kernel.FiniteCertMachine <> L1 constr
-R7380:7384 Coq.Init.Datatypes <> false constr
-R7387:7393 Coq.Init.Logic <> eq_refl constr
-R7363:7363 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7366:7367 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7373:7373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7364:7365 Kernel.FiniteCertMachine <> L0 constr
-R7368:7372 Coq.Init.Datatypes <> false constr
-R7375:7375 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7378:7379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7385:7385 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7376:7377 Kernel.FiniteCertMachine <> L1 constr
-R7380:7384 Coq.Init.Datatypes <> false constr
-R7387:7393 Coq.Init.Logic <> eq_refl constr
-prf 7504:7521 <> fin_merging_priced
-R7525:7544 Kernel.PermanentCertification <> merging_steps_priced def
-R7552:7556 Kernel.FiniteCertMachine <> fcost def
-R7546:7550 Kernel.FiniteCertMachine <> fstep def
-R7644:7658 Kernel.FiniteCertMachine <> fnext_injective thm
-R7644:7658 Kernel.FiniteCertMachine <> fnext_injective thm
-prf 7728:7742 <> fin_fiber_bound
-binder 7755:7755 <> i:39
-R7762:7765 Coq.Init.Datatypes <> list ind
-R7767:7772 Kernel.FiniteCertMachine <> FState def
-binder 7758:7758 <> D:40
-R7787:7794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7780:7784 Coq.Lists.List <> NoDup ind
-R7786:7786 Kernel.FiniteCertMachine <> D:40 var
-binder 7802:7802 <> y:41
-R7880:7897 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7805:7810 Coq.Init.Datatypes <> length def
-R7813:7818 Coq.Lists.List <> filter def
-R7878:7878 Kernel.FiniteCertMachine <> D:40 var
-R7821:7824 Kernel.FiniteCertMachine <> hits def
-R7875:7875 Kernel.FiniteCertMachine <> y:41 var
-binder 7859:7859 <> x:42
-R7864:7868 Kernel.FiniteCertMachine <> fstep def
-R7870:7870 Kernel.FiniteCertMachine <> x:42 var
-R7872:7872 Kernel.FiniteCertMachine <> i:39 var
-R7840:7852 Kernel.FiniteCertMachine <> fstate_eq_dec def
-R7833:7838 Kernel.FiniteCertMachine <> FState def
-R7826:7831 Kernel.FiniteCertMachine <> FState def
-R7899:7901 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R7902:7906 Kernel.FiniteCertMachine <> fcost def
-R7908:7908 Kernel.FiniteCertMachine <> i:39 var
-R7973:7978 Coq.Init.Datatypes <> length def
-R7981:7986 Coq.Lists.List <> filter def
-R8076:8086 Kernel.FiniteCertMachine <> all_fstates def
-R7989:7992 Kernel.FiniteCertMachine <> hits def
-binder 8027:8027 <> x:43
-R8032:8036 Kernel.FiniteCertMachine <> fstep def
-R8038:8038 Kernel.FiniteCertMachine <> x:43 var
-R8008:8020 Kernel.FiniteCertMachine <> fstate_eq_dec def
-R8001:8006 Kernel.FiniteCertMachine <> FState def
-R7994:7999 Kernel.FiniteCertMachine <> FState def
-R7945:7956 Coq.Arith.PeanoNat Nat le_trans thm
-R7973:7978 Coq.Init.Datatypes <> length def
-R7981:7986 Coq.Lists.List <> filter def
-R8076:8086 Kernel.FiniteCertMachine <> all_fstates def
-R7989:7992 Kernel.FiniteCertMachine <> hits def
-binder 8027:8027 <> x:44
-R8032:8036 Kernel.FiniteCertMachine <> fstep def
-R8038:8038 Kernel.FiniteCertMachine <> x:44 var
-R8008:8020 Kernel.FiniteCertMachine <> fstate_eq_dec def
-R8001:8006 Kernel.FiniteCertMachine <> FState def
-R7994:7999 Kernel.FiniteCertMachine <> FState def
-R7945:7956 Coq.Arith.PeanoNat Nat le_trans thm
-R8101:8117 Coq.Lists.List <> NoDup_incl_length thm
-R8127:8138 Coq.Lists.List <> NoDup_filter thm
-R8101:8117 Coq.Lists.List <> NoDup_incl_length thm
-R8127:8138 Coq.Lists.List <> NoDup_filter thm
-R8177:8185 Coq.Lists.List <> filter_In thm
-R8177:8185 Coq.Lists.List <> filter_In thm
-R8216:8224 Coq.Lists.List <> filter_In thm
-R8216:8224 Coq.Lists.List <> filter_In thm
-R8242:8246 Coq.Init.Logic <> proj2 thm
-R8248:8257 Kernel.FiniteCertMachine <> fin_finite thm
-R8242:8246 Coq.Init.Logic <> proj2 thm
-R8248:8257 Kernel.FiniteCertMachine <> fin_finite thm
-prf 8391:8412 <> fin_compression_priced
-R8418:8435 Kernel.PermanentRecordPricing <> compression_priced def
-R8449:8461 Kernel.FiniteCertMachine <> fstate_eq_dec def
-R8443:8447 Kernel.FiniteCertMachine <> fcost def
-R8437:8441 Kernel.FiniteCertMachine <> fstep def
-R8495:8504 Kernel.PermanentRecordPricing <> image_size def
-R8515:8537 Kernel.FiniteCertMachine <> fiber_bound_compression thm
-R8515:8537 Kernel.FiniteCertMachine <> fiber_bound_compression thm
-R8571:8585 Kernel.FiniteCertMachine <> fin_fiber_bound thm
-R8571:8585 Kernel.FiniteCertMachine <> fin_fiber_bound thm
-prf 8664:8688 <> fin_a2_from_merging_price
-R8692:8699 Kernel.PermanentCertification <> a2_holds def
-R8713:8717 Kernel.FiniteCertMachine <> fcost def
-R8707:8711 Kernel.FiniteCertMachine <> fcert def
-R8701:8705 Kernel.FiniteCertMachine <> fstep def
-R8736:8771 Kernel.PermanentCertification <> a2_from_merging_price_and_permanence thm
-R8816:8826 Kernel.FiniteCertMachine <> all_fstates def
-R8828:8837 Kernel.FiniteCertMachine <> fin_finite thm
-R8839:8851 Kernel.FiniteCertMachine <> fin_permanent thm
-R8853:8870 Kernel.FiniteCertMachine <> fin_merging_priced thm
-R8799:8803 Kernel.FiniteCertMachine <> fcost def
-R8793:8797 Kernel.FiniteCertMachine <> fcert def
-R8787:8791 Kernel.FiniteCertMachine <> fstep def
-R8780:8785 Kernel.FiniteCertMachine <> FInstr ind
-R8773:8778 Kernel.FiniteCertMachine <> FState def
-R8736:8771 Kernel.PermanentCertification <> a2_from_merging_price_and_permanence thm
-R8816:8826 Kernel.FiniteCertMachine <> all_fstates def
-R8828:8837 Kernel.FiniteCertMachine <> fin_finite thm
-R8839:8851 Kernel.FiniteCertMachine <> fin_permanent thm
-R8853:8870 Kernel.FiniteCertMachine <> fin_merging_priced thm
-R8799:8803 Kernel.FiniteCertMachine <> fcost def
-R8793:8797 Kernel.FiniteCertMachine <> fcert def
-R8787:8791 Kernel.FiniteCertMachine <> fstep def
-R8780:8785 Kernel.FiniteCertMachine <> FInstr ind
-R8773:8778 Kernel.FiniteCertMachine <> FState def
-prf 8888:8916 <> fin_a2_from_compression_price
-R8920:8927 Kernel.PermanentCertification <> a2_holds def
-R8941:8945 Kernel.FiniteCertMachine <> fcost def
-R8935:8939 Kernel.FiniteCertMachine <> fcert def
-R8929:8933 Kernel.FiniteCertMachine <> fstep def
-R8964:9003 Kernel.PermanentRecordPricing <> a2_from_compression_price_and_permanence thm
-R9062:9072 Kernel.FiniteCertMachine <> all_fstates def
-R9074:9083 Kernel.FiniteCertMachine <> fin_finite thm
-R9085:9097 Kernel.FiniteCertMachine <> fin_permanent thm
-R9099:9120 Kernel.FiniteCertMachine <> fin_compression_priced thm
-R9048:9060 Kernel.FiniteCertMachine <> fstate_eq_dec def
-R9031:9035 Kernel.FiniteCertMachine <> fcost def
-R9025:9029 Kernel.FiniteCertMachine <> fcert def
-R9019:9023 Kernel.FiniteCertMachine <> fstep def
-R9012:9017 Kernel.FiniteCertMachine <> FInstr ind
-R9005:9010 Kernel.FiniteCertMachine <> FState def
-R8964:9003 Kernel.PermanentRecordPricing <> a2_from_compression_price_and_permanence thm
-R9062:9072 Kernel.FiniteCertMachine <> all_fstates def
-R9074:9083 Kernel.FiniteCertMachine <> fin_finite thm
-R9085:9097 Kernel.FiniteCertMachine <> fin_permanent thm
-R9099:9120 Kernel.FiniteCertMachine <> fin_compression_priced thm
-R9048:9060 Kernel.FiniteCertMachine <> fstate_eq_dec def
-R9031:9035 Kernel.FiniteCertMachine <> fcost def
-R9025:9029 Kernel.FiniteCertMachine <> fcert def
-R9019:9023 Kernel.FiniteCertMachine <> fstep def
-R9012:9017 Kernel.FiniteCertMachine <> FInstr ind
-R9005:9010 Kernel.FiniteCertMachine <> FState def
-def 9180:9190 <> slot_of_nat
-R9197:9199 Coq.Init.Datatypes <> nat ind
-binder 9193:9193 <> n:45
-R9204:9207 Kernel.FiniteCertMachine <> Slot ind
-R9220:9220 Kernel.FiniteCertMachine <> n:45 var
-R9232:9233 Kernel.FiniteCertMachine <> L0 constr
-R9237:9237 Coq.Init.Datatypes <> S constr
-R9244:9252 Kernel.FiniteCertMachine <> next_slot def
-R9255:9265 Kernel.FiniteCertMachine <> slot_of_nat:46 def
-def 9287:9297 <> nat_of_slot
-R9304:9307 Kernel.FiniteCertMachine <> Slot ind
-binder 9300:9300 <> p:48
-R9312:9314 Coq.Init.Datatypes <> nat ind
-R9327:9327 Kernel.FiniteCertMachine <> p:48 var
-R9334:9335 Kernel.FiniteCertMachine <> L0 constr
-R9344:9345 Kernel.FiniteCertMachine <> L1 constr
-R9354:9355 Kernel.FiniteCertMachine <> L2 constr
-R9364:9365 Kernel.FiniteCertMachine <> L3 constr
-prf 9384:9402 <> slot_of_nat_of_slot
-binder 9413:9413 <> p:50
-R9443:9445 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9416:9426 Kernel.FiniteCertMachine <> slot_of_nat def
-R9429:9439 Kernel.FiniteCertMachine <> nat_of_slot def
-R9441:9441 Kernel.FiniteCertMachine <> p:50 var
-R9446:9446 Kernel.FiniteCertMachine <> p:50 var
-def 9573:9582 <> fin_window
-R9589:9595 Kernel.VMState <> VMState rec
-binder 9585:9585 <> s:51
-R9600:9605 Kernel.FiniteCertMachine <> FState def
-R9612:9612 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9634:9635 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9652:9652 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9613:9623 Kernel.FiniteCertMachine <> slot_of_nat def
-R9628:9632 Kernel.VMState <> vm_pc proj
-R9625:9625 Kernel.FiniteCertMachine <> s:51 var
-R9639:9650 Kernel.VMState <> vm_certified proj
-R9636:9636 Kernel.FiniteCertMachine <> s:51 var
-def 9667:9677 <> vm_instr_of
-R9684:9689 Kernel.FiniteCertMachine <> FInstr ind
-binder 9680:9680 <> i:52
-R9694:9707 Kernel.VMStep VMStep vm_instruction ind
-R9720:9720 Kernel.FiniteCertMachine <> i:52 var
-R9731:9738 Kernel.FiniteCertMachine <> FCertify constr
-R9743:9755 Kernel.VMStep VMStep instr_certify constr
-R9763:9767 Kernel.FiniteCertMachine <> FJump constr
-R9774:9783 Kernel.VMStep VMStep instr_jump constr
-R9786:9796 Kernel.FiniteCertMachine <> nat_of_slot def
-R9807:9811 Kernel.FiniteCertMachine <> FNext constr
-R9816:9831 Kernel.VMStep VMStep instr_checkpoint constr
-R9833:9850 Coq.Strings.String <> EmptyString constr
-prf 9935:9956 <> vm_runs_finite_machine
-R9974:9980 Kernel.VMState <> VMState rec
-binder 9970:9970 <> s:54
-R9988:9993 Kernel.FiniteCertMachine <> FInstr ind
-binder 9984:9984 <> i:55
-R10040:10042 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10001:10010 Kernel.FiniteCertMachine <> fin_window def
-R10013:10020 Kernel.SimulationProof <> vm_apply def
-R10022:10022 Kernel.FiniteCertMachine <> s:54 var
-R10025:10035 Kernel.FiniteCertMachine <> vm_instr_of def
-R10037:10037 Kernel.FiniteCertMachine <> i:55 var
-R10043:10047 Kernel.FiniteCertMachine <> fstep def
-R10050:10059 Kernel.FiniteCertMachine <> fin_window def
-R10061:10061 Kernel.FiniteCertMachine <> s:54 var
-R10064:10064 Kernel.FiniteCertMachine <> i:55 var
-R10118:10127 Kernel.FiniteCertMachine <> fin_window def
-R10166:10184 Kernel.FiniteCertMachine <> slot_of_nat_of_slot thm
-R10166:10184 Kernel.FiniteCertMachine <> slot_of_nat_of_slot thm
-R10166:10184 Kernel.FiniteCertMachine <> slot_of_nat_of_slot thm
-prf 10301:10320 <> vm_pays_finite_price
-R10338:10344 Kernel.VMState <> VMState rec
-binder 10334:10334 <> s:56
-R10352:10357 Kernel.FiniteCertMachine <> FInstr ind
-binder 10348:10348 <> i:57
-R10401:10403 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10395:10399 Kernel.VMState <> vm_mu proj
-R10366:10373 Kernel.SimulationProof <> vm_apply def
-R10375:10375 Kernel.FiniteCertMachine <> s:56 var
-R10378:10388 Kernel.FiniteCertMachine <> vm_instr_of def
-R10390:10390 Kernel.FiniteCertMachine <> i:57 var
-R10413:10415 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10407:10411 Kernel.VMState <> vm_mu proj
-R10404:10404 Kernel.FiniteCertMachine <> s:56 var
-R10416:10420 Kernel.FiniteCertMachine <> fcost def
-R10422:10422 Kernel.FiniteCertMachine <> i:57 var
-R10454:10464 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R10454:10464 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R10454:10464 Kernel.MuLedgerConservation <> vm_apply_mu thm
-def 10507:10510 <> frun
-R10521:10524 Coq.Init.Datatypes <> list ind
-R10526:10531 Kernel.FiniteCertMachine <> FInstr ind
-binder 10513:10517 <> trace:58
-R10539:10544 Kernel.FiniteCertMachine <> FState def
-binder 10535:10535 <> x:59
-R10549:10554 Kernel.FiniteCertMachine <> FState def
-R10567:10571 Kernel.FiniteCertMachine <> trace:58 var
-R10578:10579 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10584:10584 Kernel.FiniteCertMachine <> x:59 var
-R10589:10592 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R10601:10604 Kernel.FiniteCertMachine <> frun:60 def
-R10612:10616 Kernel.FiniteCertMachine <> fstep def
-R10618:10618 Kernel.FiniteCertMachine <> x:59 var
-def 10638:10648 <> fcost_total
-R10659:10662 Coq.Init.Datatypes <> list ind
-R10664:10669 Kernel.FiniteCertMachine <> FInstr ind
-binder 10651:10655 <> trace:62
-R10674:10676 Coq.Init.Datatypes <> nat ind
-R10689:10693 Kernel.FiniteCertMachine <> trace:62 var
-R10700:10701 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10711:10714 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R10730:10732 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10723:10727 Kernel.FiniteCertMachine <> fcost def
-R10733:10743 Kernel.FiniteCertMachine <> fcost_total:63 def
-def 10765:10775 <> vm_run_list
-R10786:10789 Coq.Init.Datatypes <> list ind
-R10791:10796 Kernel.FiniteCertMachine <> FInstr ind
-binder 10778:10782 <> trace:65
-R10804:10810 Kernel.VMState <> VMState rec
-binder 10800:10800 <> s:66
-R10815:10821 Kernel.VMState <> VMState rec
-R10834:10838 Kernel.FiniteCertMachine <> trace:65 var
-R10849:10850 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R10855:10855 Kernel.FiniteCertMachine <> s:66 var
-R10862:10865 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R10874:10884 Kernel.FiniteCertMachine <> vm_run_list:67 def
-R10892:10899 Kernel.SimulationProof <> vm_apply def
-R10901:10901 Kernel.FiniteCertMachine <> s:66 var
-R10904:10914 Kernel.FiniteCertMachine <> vm_instr_of def
-prf 11046:11065 <> vm_runs_finite_trace
-binder 11078:11082 <> trace:69
-R11089:11095 Kernel.VMState <> VMState rec
-binder 11085:11085 <> s:70
-R11163:11170 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11135:11137 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11103:11112 Kernel.FiniteCertMachine <> fin_window def
-R11115:11125 Kernel.FiniteCertMachine <> vm_run_list def
-R11127:11131 Kernel.FiniteCertMachine <> trace:69 var
-R11133:11133 Kernel.FiniteCertMachine <> s:70 var
-R11138:11141 Kernel.FiniteCertMachine <> frun def
-R11143:11147 Kernel.FiniteCertMachine <> trace:69 var
-R11150:11159 Kernel.FiniteCertMachine <> fin_window def
-R11161:11161 Kernel.FiniteCertMachine <> s:70 var
-R11200:11202 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11194:11198 Kernel.VMState <> vm_mu proj
-R11172:11182 Kernel.FiniteCertMachine <> vm_run_list def
-R11184:11188 Kernel.FiniteCertMachine <> trace:69 var
-R11190:11190 Kernel.FiniteCertMachine <> s:70 var
-R11212:11214 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11206:11210 Kernel.VMState <> vm_mu proj
-R11203:11203 Kernel.FiniteCertMachine <> s:70 var
-R11215:11225 Kernel.FiniteCertMachine <> fcost_total def
-R11227:11231 Kernel.FiniteCertMachine <> trace:69 var
-R11343:11350 Kernel.SimulationProof <> vm_apply def
-R11355:11365 Kernel.FiniteCertMachine <> vm_instr_of def
-R11343:11350 Kernel.SimulationProof <> vm_apply def
-R11355:11365 Kernel.FiniteCertMachine <> vm_instr_of def
-R11397:11418 Kernel.FiniteCertMachine <> vm_runs_finite_machine thm
-R11397:11418 Kernel.FiniteCertMachine <> vm_runs_finite_machine thm
-R11397:11418 Kernel.FiniteCertMachine <> vm_runs_finite_machine thm
-R11469:11488 Kernel.FiniteCertMachine <> vm_pays_finite_price thm
-R11469:11488 Kernel.FiniteCertMachine <> vm_pays_finite_price thm
-R11469:11488 Kernel.FiniteCertMachine <> vm_pays_finite_price thm
-prf 11711:11740 <> vm_fragment_certification_paid
-binder 11753:11757 <> trace:71
-R11764:11770 Kernel.VMState <> VMState rec
-binder 11760:11760 <> s:72
-R11802:11809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11794:11796 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11781:11792 Kernel.VMState <> vm_certified proj
-R11778:11778 Kernel.FiniteCertMachine <> s:72 var
-R11797:11801 Coq.Init.Datatypes <> false constr
-R11853:11860 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11846:11848 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11833:11844 Kernel.VMState <> vm_certified proj
-R11811:11821 Kernel.FiniteCertMachine <> vm_run_list def
-R11823:11827 Kernel.FiniteCertMachine <> trace:71 var
-R11829:11829 Kernel.FiniteCertMachine <> s:72 var
-R11849:11852 Coq.Init.Datatypes <> true constr
-R11890:11893 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11884:11888 Kernel.VMState <> vm_mu proj
-R11862:11872 Kernel.FiniteCertMachine <> vm_run_list def
-R11874:11878 Kernel.FiniteCertMachine <> trace:71 var
-R11880:11880 Kernel.FiniteCertMachine <> s:72 var
-R11903:11905 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11897:11901 Kernel.VMState <> vm_mu proj
-R11894:11894 Kernel.FiniteCertMachine <> s:72 var
-R11952:11971 Kernel.FiniteCertMachine <> vm_runs_finite_trace thm
-R11952:11971 Kernel.FiniteCertMachine <> vm_runs_finite_trace thm
-R12046:12049 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R12029:12039 Kernel.FiniteCertMachine <> fcost_total def
-R12046:12049 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R12029:12039 Kernel.FiniteCertMachine <> fcost_total def
-R12095:12097 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12075:12079 Kernel.FiniteCertMachine <> fcert def
-R12082:12091 Kernel.FiniteCertMachine <> fin_window def
-R12098:12102 Coq.Init.Datatypes <> false constr
-R12095:12097 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12075:12079 Kernel.FiniteCertMachine <> fcert def
-R12082:12091 Kernel.FiniteCertMachine <> fin_window def
-R12098:12102 Coq.Init.Datatypes <> false constr
-R12170:12172 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12137:12141 Kernel.FiniteCertMachine <> fcert def
-R12144:12147 Kernel.FiniteCertMachine <> frun def
-R12156:12165 Kernel.FiniteCertMachine <> fin_window def
-R12173:12176 Coq.Init.Datatypes <> true constr
-R12170:12172 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12137:12141 Kernel.FiniteCertMachine <> fcert def
-R12144:12147 Kernel.FiniteCertMachine <> frun def
-R12156:12165 Kernel.FiniteCertMachine <> fin_window def
-R12173:12176 Coq.Init.Datatypes <> true constr
-R12273:12282 Kernel.FiniteCertMachine <> fin_window def
-R12273:12282 Kernel.FiniteCertMachine <> fin_window def
-R12425:12429 Kernel.FiniteCertMachine <> fcert def
-R12432:12436 Kernel.FiniteCertMachine <> fstep def
-R12425:12429 Kernel.FiniteCertMachine <> fcert def
-R12432:12436 Kernel.FiniteCertMachine <> fstep def
-R12474:12498 Kernel.FiniteCertMachine <> fin_a2_from_merging_price thm
-R12474:12498 Kernel.FiniteCertMachine <> fin_a2_from_merging_price thm
-R12547:12551 Kernel.FiniteCertMachine <> fstep def
-R12547:12551 Kernel.FiniteCertMachine <> fstep def
-def 13263:13276 <> with_certified
-R13283:13289 Kernel.VMState <> VMState rec
-binder 13279:13279 <> s:73
-R13297:13300 Coq.Init.Datatypes <> bool ind
-binder 13293:13293 <> b:74
-R13305:13311 Kernel.VMState <> VMState rec
-R13321:13328 Kernel.VMState <> vm_graph proj
-R13321:13328 Kernel.VMState <> vm_graph proj
-R13321:13328 Kernel.VMState <> vm_graph proj
-R13352:13358 Kernel.VMState <> vm_csrs proj
-R13352:13358 Kernel.VMState <> vm_csrs proj
-R13381:13387 Kernel.VMState <> vm_regs proj
-R13381:13387 Kernel.VMState <> vm_regs proj
-R13410:13415 Kernel.VMState <> vm_mem proj
-R13410:13415 Kernel.VMState <> vm_mem proj
-R13437:13441 Kernel.VMState <> vm_pc proj
-R13437:13441 Kernel.VMState <> vm_pc proj
-R13462:13466 Kernel.VMState <> vm_mu proj
-R13462:13466 Kernel.VMState <> vm_mu proj
-R13487:13498 Kernel.VMState <> vm_mu_tensor proj
-R13487:13498 Kernel.VMState <> vm_mu_tensor proj
-R13526:13531 Kernel.VMState <> vm_err proj
-R13526:13531 Kernel.VMState <> vm_err proj
-R13553:13564 Kernel.VMState <> vm_logic_acc proj
-R13553:13564 Kernel.VMState <> vm_logic_acc proj
-R13592:13601 Kernel.VMState <> vm_mstatus proj
-R13592:13601 Kernel.VMState <> vm_mstatus proj
-R13627:13636 Kernel.VMState <> vm_witness proj
-R13627:13636 Kernel.VMState <> vm_witness proj
-R13662:13673 Kernel.VMState <> vm_certified proj
-R13662:13673 Kernel.VMState <> vm_certified proj
-R13336:13343 Kernel.VMState <> vm_graph proj
-R13333:13333 Kernel.FiniteCertMachine <> s:73 var
-R13366:13372 Kernel.VMState <> vm_csrs proj
-R13363:13363 Kernel.FiniteCertMachine <> s:73 var
-R13395:13401 Kernel.VMState <> vm_regs proj
-R13392:13392 Kernel.FiniteCertMachine <> s:73 var
-R13423:13428 Kernel.VMState <> vm_mem proj
-R13420:13420 Kernel.FiniteCertMachine <> s:73 var
-R13449:13453 Kernel.VMState <> vm_pc proj
-R13446:13446 Kernel.FiniteCertMachine <> s:73 var
-R13474:13478 Kernel.VMState <> vm_mu proj
-R13471:13471 Kernel.FiniteCertMachine <> s:73 var
-R13506:13517 Kernel.VMState <> vm_mu_tensor proj
-R13503:13503 Kernel.FiniteCertMachine <> s:73 var
-R13539:13544 Kernel.VMState <> vm_err proj
-R13536:13536 Kernel.FiniteCertMachine <> s:73 var
-R13572:13583 Kernel.VMState <> vm_logic_acc proj
-R13569:13569 Kernel.FiniteCertMachine <> s:73 var
-R13609:13618 Kernel.VMState <> vm_mstatus proj
-R13606:13606 Kernel.FiniteCertMachine <> s:73 var
-R13644:13653 Kernel.VMState <> vm_witness proj
-R13641:13641 Kernel.FiniteCertMachine <> s:73 var
-R13678:13678 Kernel.FiniteCertMachine <> b:74 var
-def 13696:13702 <> with_pc
-R13709:13715 Kernel.VMState <> VMState rec
-binder 13705:13705 <> s:75
-R13723:13725 Coq.Init.Datatypes <> nat ind
-binder 13719:13719 <> p:76
-R13730:13736 Kernel.VMState <> VMState rec
-R13746:13753 Kernel.VMState <> vm_graph proj
-R13746:13753 Kernel.VMState <> vm_graph proj
-R13746:13753 Kernel.VMState <> vm_graph proj
-R13777:13783 Kernel.VMState <> vm_csrs proj
-R13777:13783 Kernel.VMState <> vm_csrs proj
-R13806:13812 Kernel.VMState <> vm_regs proj
-R13806:13812 Kernel.VMState <> vm_regs proj
-R13835:13840 Kernel.VMState <> vm_mem proj
-R13835:13840 Kernel.VMState <> vm_mem proj
-R13862:13866 Kernel.VMState <> vm_pc proj
-R13862:13866 Kernel.VMState <> vm_pc proj
-R13879:13883 Kernel.VMState <> vm_mu proj
-R13879:13883 Kernel.VMState <> vm_mu proj
-R13904:13915 Kernel.VMState <> vm_mu_tensor proj
-R13904:13915 Kernel.VMState <> vm_mu_tensor proj
-R13943:13948 Kernel.VMState <> vm_err proj
-R13943:13948 Kernel.VMState <> vm_err proj
-R13970:13981 Kernel.VMState <> vm_logic_acc proj
-R13970:13981 Kernel.VMState <> vm_logic_acc proj
-R14009:14018 Kernel.VMState <> vm_mstatus proj
-R14009:14018 Kernel.VMState <> vm_mstatus proj
-R14044:14053 Kernel.VMState <> vm_witness proj
-R14044:14053 Kernel.VMState <> vm_witness proj
-R14079:14090 Kernel.VMState <> vm_certified proj
-R14079:14090 Kernel.VMState <> vm_certified proj
-R13761:13768 Kernel.VMState <> vm_graph proj
-R13758:13758 Kernel.FiniteCertMachine <> s:75 var
-R13791:13797 Kernel.VMState <> vm_csrs proj
-R13788:13788 Kernel.FiniteCertMachine <> s:75 var
-R13820:13826 Kernel.VMState <> vm_regs proj
-R13817:13817 Kernel.FiniteCertMachine <> s:75 var
-R13848:13853 Kernel.VMState <> vm_mem proj
-R13845:13845 Kernel.FiniteCertMachine <> s:75 var
-R13871:13871 Kernel.FiniteCertMachine <> p:76 var
-R13891:13895 Kernel.VMState <> vm_mu proj
-R13888:13888 Kernel.FiniteCertMachine <> s:75 var
-R13923:13934 Kernel.VMState <> vm_mu_tensor proj
-R13920:13920 Kernel.FiniteCertMachine <> s:75 var
-R13956:13961 Kernel.VMState <> vm_err proj
-R13953:13953 Kernel.FiniteCertMachine <> s:75 var
-R13989:14000 Kernel.VMState <> vm_logic_acc proj
-R13986:13986 Kernel.FiniteCertMachine <> s:75 var
-R14026:14035 Kernel.VMState <> vm_mstatus proj
-R14023:14023 Kernel.FiniteCertMachine <> s:75 var
-R14061:14070 Kernel.VMState <> vm_witness proj
-R14058:14058 Kernel.FiniteCertMachine <> s:75 var
-R14098:14109 Kernel.VMState <> vm_certified proj
-R14095:14095 Kernel.FiniteCertMachine <> s:75 var
-prf 14189:14208 <> certify_forgets_flag
-binder 14221:14221 <> s:77
-binder 14223:14223 <> d:78
-R14281:14287 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14230:14237 Kernel.SimulationProof <> vm_apply def
-R14240:14253 Kernel.FiniteCertMachine <> with_certified def
-R14255:14255 Kernel.FiniteCertMachine <> s:77 var
-R14257:14261 Coq.Init.Datatypes <> false constr
-R14265:14277 Kernel.VMStep VMStep instr_certify constr
-R14279:14279 Kernel.FiniteCertMachine <> d:78 var
-R14288:14295 Kernel.SimulationProof <> vm_apply def
-R14298:14311 Kernel.FiniteCertMachine <> with_certified def
-R14313:14313 Kernel.FiniteCertMachine <> s:77 var
-R14315:14318 Coq.Init.Datatypes <> true constr
-R14322:14334 Kernel.VMStep VMStep instr_certify constr
-R14336:14336 Kernel.FiniteCertMachine <> d:78 var
-prf 14386:14402 <> vm_certify_merges
-binder 14413:14413 <> d:79
-R14416:14417 Coq.Init.Logic <> ::type_scope:'~'_x not
-R14418:14431 Kernel.PermanentCertification <> step_injective def
-R14443:14455 Kernel.VMStep VMStep instr_certify constr
-R14457:14457 Kernel.FiniteCertMachine <> d:79 var
-R14433:14440 Kernel.SimulationProof <> vm_apply def
-R14505:14518 Kernel.FiniteCertMachine <> with_certified def
-R14520:14529 Kernel.MuInitiality <> init_state def
-R14531:14535 Coq.Init.Datatypes <> false constr
-R14539:14552 Kernel.FiniteCertMachine <> with_certified def
-R14554:14563 Kernel.MuInitiality <> init_state def
-R14565:14568 Coq.Init.Datatypes <> true constr
-R14591:14610 Kernel.FiniteCertMachine <> certify_forgets_flag thm
-R14612:14621 Kernel.MuInitiality <> init_state def
-R14505:14518 Kernel.FiniteCertMachine <> with_certified def
-R14520:14529 Kernel.MuInitiality <> init_state def
-R14531:14535 Coq.Init.Datatypes <> false constr
-R14539:14552 Kernel.FiniteCertMachine <> with_certified def
-R14554:14563 Kernel.MuInitiality <> init_state def
-R14565:14568 Coq.Init.Datatypes <> true constr
-R14591:14610 Kernel.FiniteCertMachine <> certify_forgets_flag thm
-R14612:14621 Kernel.MuInitiality <> init_state def
-R14637:14643 Coq.Init.Logic <> f_equal thm
-R14645:14656 Kernel.VMState <> vm_certified proj
-R14637:14643 Coq.Init.Logic <> f_equal thm
-R14645:14656 Kernel.VMState <> vm_certified proj
-prf 14795:14828 <> vm_certifying_step_is_priced_merge
-R14846:14852 Kernel.VMState <> VMState rec
-binder 14842:14842 <> s:80
-R14860:14873 Kernel.VMStep VMStep vm_instruction ind
-binder 14856:14856 <> i:81
-R14905:14912 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14897:14899 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14884:14895 Kernel.VMState <> vm_certified proj
-R14881:14881 Kernel.FiniteCertMachine <> s:80 var
-R14900:14904 Coq.Init.Datatypes <> false constr
-R14949:14956 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14942:14944 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14929:14940 Kernel.VMState <> vm_certified proj
-R14914:14921 Kernel.SimulationProof <> vm_apply def
-R14923:14923 Kernel.FiniteCertMachine <> s:80 var
-R14925:14925 Kernel.FiniteCertMachine <> i:81 var
-R14945:14948 Coq.Init.Datatypes <> true constr
-R14984:14987 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R14957:14958 Coq.Init.Logic <> ::type_scope:'~'_x not
-R14959:14972 Kernel.PermanentCertification <> step_injective def
-R14983:14983 Kernel.FiniteCertMachine <> i:81 var
-R14974:14981 Kernel.SimulationProof <> vm_apply def
-R15006:15009 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R14988:15003 Kernel.VMStep VMStep instruction_cost def
-R15005:15005 Kernel.FiniteCertMachine <> i:81 var
-R15053:15070 Kernel.PrimeAxiom <> vm_apply_certified thm
-R15053:15070 Kernel.PrimeAxiom <> vm_apply_certified thm
-R15053:15070 Kernel.PrimeAxiom <> vm_apply_certified thm
-R15151:15167 Kernel.FiniteCertMachine <> vm_certify_merges thm
-R15151:15167 Kernel.FiniteCertMachine <> vm_certify_merges thm
-prf 15277:15297 <> vm_jump_is_free_merge
-R15345:15348 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15303:15304 Coq.Init.Logic <> ::type_scope:'~'_x not
-R15305:15318 Kernel.PermanentCertification <> step_injective def
-R15330:15339 Kernel.VMStep VMStep instr_jump constr
-R15320:15327 Kernel.SimulationProof <> vm_apply def
-R15382:15384 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15349:15364 Kernel.VMStep VMStep instruction_cost def
-R15367:15376 Kernel.VMStep VMStep instr_jump constr
-R15455:15461 Kernel.FiniteCertMachine <> with_pc def
-R15463:15472 Kernel.MuInitiality <> init_state def
-R15478:15484 Kernel.FiniteCertMachine <> with_pc def
-R15486:15495 Kernel.MuInitiality <> init_state def
-R15500:15506 Coq.Init.Logic <> eq_refl constr
-R15455:15461 Kernel.FiniteCertMachine <> with_pc def
-R15463:15472 Kernel.MuInitiality <> init_state def
-R15478:15484 Kernel.FiniteCertMachine <> with_pc def
-R15486:15495 Kernel.MuInitiality <> init_state def
-R15500:15506 Coq.Init.Logic <> eq_refl constr
-R15519:15525 Coq.Init.Logic <> f_equal thm
-R15527:15531 Kernel.VMState <> vm_pc proj
-R15519:15525 Coq.Init.Logic <> f_equal thm
-R15527:15531 Kernel.VMState <> vm_pc proj
-prf 15828:15872 <> vm_prices_certifying_merge_leaves_others_free
-R15878:15878 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16062:16068 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15891:15897 Kernel.VMState <> VMState rec
-binder 15887:15887 <> s:82
-R15905:15918 Kernel.VMStep VMStep vm_instruction ind
-binder 15901:15901 <> i:83
-R15952:15961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15944:15946 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15931:15942 Kernel.VMState <> vm_certified proj
-R15928:15928 Kernel.FiniteCertMachine <> s:82 var
-R15947:15951 Coq.Init.Datatypes <> false constr
-R15998:16007 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15991:15993 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15978:15989 Kernel.VMState <> vm_certified proj
-R15963:15970 Kernel.SimulationProof <> vm_apply def
-R15972:15972 Kernel.FiniteCertMachine <> s:82 var
-R15974:15974 Kernel.FiniteCertMachine <> i:83 var
-R15994:15997 Coq.Init.Datatypes <> true constr
-R16035:16038 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16008:16009 Coq.Init.Logic <> ::type_scope:'~'_x not
-R16010:16023 Kernel.PermanentCertification <> step_injective def
-R16034:16034 Kernel.FiniteCertMachine <> i:83 var
-R16025:16032 Kernel.SimulationProof <> vm_apply def
-R16057:16060 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R16039:16054 Kernel.VMStep VMStep instruction_cost def
-R16056:16056 Kernel.FiniteCertMachine <> i:83 var
-R16069:16069 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16150:16156 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16070:16076 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16095:16096 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16081:16094 Kernel.VMStep VMStep vm_instruction ind
-binder 16077:16077 <> i:84
-R16124:16127 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16097:16098 Coq.Init.Logic <> ::type_scope:'~'_x not
-R16099:16112 Kernel.PermanentCertification <> step_injective def
-R16123:16123 Kernel.FiniteCertMachine <> i:84 var
-R16114:16121 Kernel.SimulationProof <> vm_apply def
-R16146:16148 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16128:16143 Kernel.VMStep VMStep instruction_cost def
-R16145:16145 Kernel.FiniteCertMachine <> i:84 var
-R16157:16158 Coq.Init.Logic <> ::type_scope:'~'_x not
-R16159:16178 Kernel.PermanentCertification <> merging_steps_priced def
-R16189:16204 Kernel.VMStep VMStep instruction_cost def
-R16180:16187 Kernel.SimulationProof <> vm_apply def
-R16230:16263 Kernel.FiniteCertMachine <> vm_certifying_step_is_priced_merge thm
-R16230:16263 Kernel.FiniteCertMachine <> vm_certifying_step_is_priced_merge thm
-R16287:16296 Kernel.VMStep VMStep instr_jump constr
-R16310:16330 Kernel.FiniteCertMachine <> vm_jump_is_free_merge thm
-R16287:16296 Kernel.VMStep VMStep instr_jump constr
-R16310:16330 Kernel.FiniteCertMachine <> vm_jump_is_free_merge thm
-R16364:16384 Kernel.FiniteCertMachine <> vm_jump_is_free_merge thm
-R16428:16437 Kernel.VMStep VMStep instr_jump constr
-R16428:16437 Kernel.VMStep VMStep instr_jump constr
+R1140:1143 Coq.Lists.List <> <> lib
+R1145:1148 Coq.Bool.Bool <> <> lib
+R1150:1163 Coq.Arith.PeanoNat <> <> lib
+R1165:1167 Coq.micromega.Lia <> <> lib
+R1177:1189 Coq.Lists.List ListNotations <> mod
+R1220:1241 Kernel.PermanentCertification <> <> lib
+R1271:1292 Kernel.PermanentRecordPricing <> <> lib
+sec 1487:1496 <> FiberBound
+var 1511:1511 FiberBound X
+var 1513:1513 FiberBound Y
+var 1533:1540 FiberBound eq_dec_T
+R1557:1557 Kernel.FiniteCertMachine <> FiberBound.Y var
+binder 1551:1551 <> a:3
+binder 1553:1553 <> b:4
+R1560:1560 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R1566:1570 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R1577:1577 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R1562:1564 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1561:1561 Kernel.FiniteCertMachine <> a:3 var
+R1565:1565 Kernel.FiniteCertMachine <> b:4 var
+R1572:1575 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1571:1571 Kernel.FiniteCertMachine <> a:3 var
+R1576:1576 Kernel.FiniteCertMachine <> b:4 var
+var 1589:1589 FiberBound f
+R1594:1597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1593:1593 Kernel.FiniteCertMachine <> FiberBound.X var
+R1598:1598 Kernel.FiniteCertMachine <> FiberBound.Y var
+def 1613:1616 <> hits
+R1623:1623 Kernel.FiniteCertMachine <> FiberBound.Y var
+binder 1619:1619 <> y:7
+R1631:1631 Kernel.FiniteCertMachine <> FiberBound.X var
+binder 1627:1627 <> x:8
+R1636:1639 Coq.Init.Datatypes <> bool ind
+R1649:1656 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R1659:1659 Kernel.FiniteCertMachine <> FiberBound.f var
+R1661:1661 Kernel.FiniteCertMachine <> x:8 var
+R1664:1664 Kernel.FiniteCertMachine <> y:7 var
+R1681:1685 Coq.Init.Datatypes <> false constr
+R1671:1674 Coq.Init.Datatypes <> true constr
+prf 1695:1713 <> filter_split_length
+R1732:1735 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1731:1731 Kernel.FiniteCertMachine <> FiberBound.X var
+R1736:1739 Coq.Init.Datatypes <> bool ind
+binder 1727:1727 <> p:9
+R1747:1750 Coq.Init.Datatypes <> list ind
+R1752:1752 Kernel.FiniteCertMachine <> FiberBound.X var
+binder 1743:1743 <> l:10
+R1821:1823 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1779:1781 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1760:1765 Coq.Init.Datatypes <> length def
+R1768:1773 Coq.Lists.List <> filter def
+R1777:1777 Kernel.FiniteCertMachine <> l:10 var
+R1775:1775 Kernel.FiniteCertMachine <> p:9 var
+R1782:1787 Coq.Init.Datatypes <> length def
+R1790:1795 Coq.Lists.List <> filter def
+R1819:1819 Kernel.FiniteCertMachine <> l:10 var
+binder 1802:1802 <> x:11
+R1807:1810 Coq.Init.Datatypes <> negb def
+R1813:1813 Kernel.FiniteCertMachine <> p:9 var
+R1815:1815 Kernel.FiniteCertMachine <> x:11 var
+R1824:1829 Coq.Init.Datatypes <> length def
+R1831:1831 Kernel.FiniteCertMachine <> l:10 var
+prf 1949:1971 <> fiber_bound_compression
+binder 1984:1984 <> K:12
+R1991:1994 Coq.Init.Datatypes <> list ind
+R1996:1996 Kernel.FiniteCertMachine <> FiberBound.X var
+binder 1987:1987 <> D:13
+R2011:2018 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2004:2008 Coq.Lists.List <> NoDup ind
+R2010:2010 Kernel.FiniteCertMachine <> D:13 var
+R2019:2019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2061:2069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2027:2027 <> y:14
+R2056:2059 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2030:2035 Coq.Init.Datatypes <> length def
+R2038:2043 Coq.Lists.List <> filter def
+R2054:2054 Kernel.FiniteCertMachine <> D:13 var
+R2046:2049 Kernel.FiniteCertMachine <> hits def
+R2051:2051 Kernel.FiniteCertMachine <> y:14 var
+R2060:2060 Kernel.FiniteCertMachine <> K:12 var
+R2078:2081 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2070:2075 Coq.Init.Datatypes <> length def
+R2077:2077 Kernel.FiniteCertMachine <> D:13 var
+R2083:2085 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2082:2082 Kernel.FiniteCertMachine <> K:12 var
+R2086:2091 Coq.Init.Datatypes <> length def
+R2094:2098 Coq.Lists.List <> nodup def
+R2110:2112 Coq.Lists.List <> map def
+R2116:2116 Kernel.FiniteCertMachine <> D:13 var
+R2114:2114 Kernel.FiniteCertMachine <> FiberBound.f var
+R2100:2107 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R2154:2159 Coq.Init.Datatypes <> length def
+R2154:2159 Coq.Init.Datatypes <> length def
+R2223:2244 Coq.Init.Wf <> well_founded_induction thm
+R2246:2256 Coq.Arith.PeanoNat Nat lt_wf_0 thm
+R2223:2244 Coq.Init.Wf <> well_founded_induction thm
+R2246:2256 Coq.Arith.PeanoNat Nat lt_wf_0 thm
+R2363:2363 Kernel.FiniteCertMachine <> FiberBound.f var
+R2363:2363 Kernel.FiniteCertMachine <> FiberBound.f var
+R2383:2388 Coq.Lists.List <> filter def
+R2419:2422 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+binder 2395:2395 <> z:15
+R2400:2403 Coq.Init.Datatypes <> negb def
+R2406:2409 Kernel.FiniteCertMachine <> hits def
+R2413:2413 Kernel.FiniteCertMachine <> z:15 var
+R2383:2388 Coq.Lists.List <> filter def
+R2419:2422 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+binder 2395:2395 <> z:16
+R2400:2403 Coq.Init.Datatypes <> negb def
+R2406:2409 Kernel.FiniteCertMachine <> hits def
+R2413:2413 Kernel.FiniteCertMachine <> z:16 var
+R2451:2469 Kernel.FiniteCertMachine <> filter_split_length thm
+R2472:2475 Kernel.FiniteCertMachine <> hits def
+R2482:2485 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2451:2469 Kernel.FiniteCertMachine <> filter_split_length thm
+R2472:2475 Kernel.FiniteCertMachine <> hits def
+R2482:2485 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2543:2546 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2509:2514 Coq.Init.Datatypes <> length def
+R2517:2522 Coq.Lists.List <> filter def
+R2535:2538 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2525:2528 Kernel.FiniteCertMachine <> hits def
+R2543:2546 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2509:2514 Coq.Init.Datatypes <> length def
+R2517:2522 Coq.Lists.List <> filter def
+R2535:2538 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2525:2528 Kernel.FiniteCertMachine <> hits def
+R2583:2584 Coq.Lists.List <> In def
+R2589:2594 Coq.Lists.List <> filter def
+R2607:2610 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2597:2600 Kernel.FiniteCertMachine <> hits def
+R2583:2584 Coq.Lists.List <> In def
+R2589:2594 Coq.Lists.List <> filter def
+R2607:2610 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2597:2600 Kernel.FiniteCertMachine <> hits def
+R2630:2638 Coq.Lists.List <> filter_In thm
+R2630:2638 Coq.Lists.List <> filter_In thm
+R2684:2687 Kernel.FiniteCertMachine <> hits def
+R2700:2707 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R2710:2710 Kernel.FiniteCertMachine <> FiberBound.f var
+R2700:2707 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R2710:2710 Kernel.FiniteCertMachine <> FiberBound.f var
+R2773:2776 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2777:2782 Coq.Init.Datatypes <> length def
+R2785:2790 Coq.Lists.List <> filter def
+R2803:2806 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2793:2796 Kernel.FiniteCertMachine <> hits def
+R2773:2776 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2777:2782 Coq.Init.Datatypes <> length def
+R2785:2790 Coq.Lists.List <> filter def
+R2803:2806 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2793:2796 Kernel.FiniteCertMachine <> hits def
+R2830:2835 Coq.Lists.List <> filter def
+R2848:2851 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2838:2841 Kernel.FiniteCertMachine <> hits def
+R2830:2835 Coq.Lists.List <> filter def
+R2848:2851 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2838:2841 Kernel.FiniteCertMachine <> hits def
+R2917:2919 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2909:2914 Coq.Init.Datatypes <> length def
+R2917:2919 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2909:2914 Coq.Init.Datatypes <> length def
+R2962:2966 Coq.Lists.List <> NoDup ind
+R2981:2992 Coq.Lists.List <> NoDup_filter thm
+R2962:2966 Coq.Lists.List <> NoDup ind
+R2981:2992 Coq.Lists.List <> NoDup_filter thm
+binder 3035:3035 <> z:17
+R3064:3067 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3038:3043 Coq.Init.Datatypes <> length def
+R3046:3051 Coq.Lists.List <> filter def
+R3054:3057 Kernel.FiniteCertMachine <> hits def
+R3059:3059 Kernel.FiniteCertMachine <> z:17 var
+binder 3035:3035 <> z:18
+R3064:3067 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3038:3043 Coq.Init.Datatypes <> length def
+R3046:3051 Coq.Lists.List <> filter def
+R3054:3057 Kernel.FiniteCertMachine <> hits def
+R3059:3059 Kernel.FiniteCertMachine <> z:18 var
+R3117:3122 Coq.Init.Datatypes <> length def
+R3125:3130 Coq.Lists.List <> filter def
+R3143:3146 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3133:3136 Kernel.FiniteCertMachine <> hits def
+R3093:3104 Coq.Arith.PeanoNat Nat le_trans thm
+R3117:3122 Coq.Init.Datatypes <> length def
+R3125:3130 Coq.Lists.List <> filter def
+R3143:3146 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3133:3136 Kernel.FiniteCertMachine <> hits def
+R3093:3104 Coq.Arith.PeanoNat Nat le_trans thm
+R3168:3184 Coq.Lists.List <> NoDup_incl_length thm
+R3168:3184 Coq.Lists.List <> NoDup_incl_length thm
+R3203:3214 Coq.Lists.List <> NoDup_filter thm
+R3203:3214 Coq.Lists.List <> NoDup_filter thm
+R3258:3266 Coq.Lists.List <> filter_In thm
+R3258:3266 Coq.Lists.List <> filter_In thm
+R3304:3312 Coq.Lists.List <> filter_In thm
+R3304:3312 Coq.Lists.List <> filter_In thm
+R3370:3378 Coq.Lists.List <> filter_In thm
+R3370:3378 Coq.Lists.List <> filter_In thm
+R3450:3455 Coq.Init.Datatypes <> length def
+R3467:3473 Coq.Init.Logic <> eq_refl constr
+R3450:3455 Coq.Init.Datatypes <> length def
+R3467:3473 Coq.Init.Logic <> eq_refl constr
+R3552:3574 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3514:3519 Coq.Init.Datatypes <> length def
+R3523:3526 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3527:3531 Coq.Lists.List <> nodup def
+R3543:3545 Coq.Lists.List <> map def
+R3547:3547 Kernel.FiniteCertMachine <> FiberBound.f var
+R3533:3540 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R3575:3580 Coq.Init.Datatypes <> length def
+R3583:3587 Coq.Lists.List <> nodup def
+R3599:3601 Coq.Lists.List <> map def
+R3607:3610 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3603:3603 Kernel.FiniteCertMachine <> FiberBound.f var
+R3589:3596 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R3552:3574 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3514:3519 Coq.Init.Datatypes <> length def
+R3523:3526 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3527:3531 Coq.Lists.List <> nodup def
+R3543:3545 Coq.Lists.List <> map def
+R3547:3547 Kernel.FiniteCertMachine <> FiberBound.f var
+R3533:3540 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R3575:3580 Coq.Init.Datatypes <> length def
+R3583:3587 Coq.Lists.List <> nodup def
+R3599:3601 Coq.Lists.List <> map def
+R3607:3610 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3603:3603 Kernel.FiniteCertMachine <> FiberBound.f var
+R3589:3596 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R3631:3647 Coq.Lists.List <> NoDup_incl_length thm
+R3631:3647 Coq.Lists.List <> NoDup_incl_length thm
+R3680:3690 Coq.Lists.List <> NoDup_nodup thm
+R3680:3690 Coq.Lists.List <> NoDup_nodup thm
+R3719:3726 Coq.Lists.List <> nodup_In thm
+R3719:3726 Coq.Lists.List <> nodup_In thm
+R3750:3759 Coq.Lists.List <> in_map_iff thm
+R3750:3759 Coq.Lists.List <> in_map_iff thm
+R3817:3825 Coq.Lists.List <> filter_In thm
+R3817:3825 Coq.Lists.List <> filter_In thm
+R3862:3865 Kernel.FiniteCertMachine <> hits def
+R3915:3922 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R3915:3922 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R4006:4013 Coq.Lists.List <> nodup_In thm
+R4006:4013 Coq.Lists.List <> nodup_In thm
+R4022:4027 Coq.Lists.List <> in_map thm
+R4022:4027 Coq.Lists.List <> in_map thm
+R4065:4072 Coq.Lists.List <> nodup_In thm
+R4065:4072 Coq.Lists.List <> nodup_In thm
+R4081:4088 Coq.Lists.List <> nodup_In thm
+R4081:4088 Coq.Lists.List <> nodup_In thm
+R4113:4122 Coq.Lists.List <> in_map_iff thm
+R4113:4122 Coq.Lists.List <> in_map_iff thm
+R4163:4168 Coq.Lists.List <> in_map thm
+R4163:4168 Coq.Lists.List <> in_map thm
+R4194:4202 Coq.Lists.List <> filter_In thm
+R4194:4202 Coq.Lists.List <> filter_In thm
+R4244:4249 Coq.Init.Datatypes <> length def
+R4363:4385 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4323:4325 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4326:4326 Coq.Init.Datatypes <> S constr
+R4329:4334 Coq.Init.Datatypes <> length def
+R4337:4341 Coq.Lists.List <> nodup def
+R4353:4355 Coq.Lists.List <> map def
+R4357:4357 Kernel.FiniteCertMachine <> FiberBound.f var
+R4343:4350 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R4387:4389 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4390:4395 Coq.Init.Datatypes <> length def
+R4398:4402 Coq.Lists.List <> nodup def
+R4414:4416 Coq.Lists.List <> map def
+R4422:4425 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4418:4418 Kernel.FiniteCertMachine <> FiberBound.f var
+R4404:4411 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R4449:4465 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R4363:4385 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4323:4325 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4326:4326 Coq.Init.Datatypes <> S constr
+R4329:4334 Coq.Init.Datatypes <> length def
+R4337:4341 Coq.Lists.List <> nodup def
+R4353:4355 Coq.Lists.List <> map def
+R4357:4357 Kernel.FiniteCertMachine <> FiberBound.f var
+R4343:4350 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R4387:4389 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4390:4395 Coq.Init.Datatypes <> length def
+R4398:4402 Coq.Lists.List <> nodup def
+R4414:4416 Coq.Lists.List <> map def
+R4422:4425 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4418:4418 Kernel.FiniteCertMachine <> FiberBound.f var
+R4404:4411 Kernel.FiniteCertMachine <> FiberBound.eq_dec_T var
+R4449:4465 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R4493:4506 Coq.Arith.PeanoNat Nat mul_succ_r thm
+R4493:4506 Coq.Arith.PeanoNat Nat mul_succ_r thm
+R4493:4506 Coq.Arith.PeanoNat Nat mul_succ_r thm
+R4536:4545 Kernel.FiniteCertMachine FiberBound <> sec
+ind 4588:4591 <> Slot
+constr 4596:4597 <> L0
+constr 4601:4602 <> L1
+constr 4606:4607 <> L2
+constr 4611:4612 <> L3
+scheme 4588:4591 <> Slot_rect
+scheme 4588:4591 <> Slot_ind
+scheme 4588:4591 <> Slot_rec
+scheme 4588:4591 <> Slot_sind
+def 4627:4637 <> slot_eq_dec
+R4654:4657 Kernel.FiniteCertMachine <> Slot ind
+binder 4648:4648 <> a:21
+binder 4650:4650 <> b:22
+R4660:4660 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4666:4670 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4677:4677 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4662:4664 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4661:4661 Kernel.FiniteCertMachine <> a:21 var
+R4665:4665 Kernel.FiniteCertMachine <> b:22 var
+R4672:4675 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4671:4671 Kernel.FiniteCertMachine <> a:21 var
+R4676:4676 Kernel.FiniteCertMachine <> b:22 var
+def 4725:4733 <> next_slot
+R4740:4743 Kernel.FiniteCertMachine <> Slot ind
+binder 4736:4736 <> p:23
+R4748:4751 Kernel.FiniteCertMachine <> Slot ind
+R4764:4764 Kernel.FiniteCertMachine <> p:23 var
+R4771:4772 Kernel.FiniteCertMachine <> L0 constr
+R4777:4778 Kernel.FiniteCertMachine <> L1 constr
+R4782:4783 Kernel.FiniteCertMachine <> L1 constr
+R4788:4789 Kernel.FiniteCertMachine <> L2 constr
+R4793:4794 Kernel.FiniteCertMachine <> L2 constr
+R4799:4800 Kernel.FiniteCertMachine <> L3 constr
+R4804:4805 Kernel.FiniteCertMachine <> L3 constr
+R4810:4811 Kernel.FiniteCertMachine <> L0 constr
+def 4830:4835 <> FState
+R4852:4854 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4848:4851 Kernel.FiniteCertMachine <> Slot ind
+R4855:4858 Coq.Init.Datatypes <> bool ind
+def 4879:4891 <> fstate_eq_dec
+R4908:4913 Kernel.FiniteCertMachine <> FState def
+binder 4902:4902 <> a:25
+binder 4904:4904 <> b:26
+R4916:4916 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4922:4926 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4933:4933 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4918:4920 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4917:4917 Kernel.FiniteCertMachine <> a:25 var
+R4921:4921 Kernel.FiniteCertMachine <> b:26 var
+R4928:4931 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4927:4927 Kernel.FiniteCertMachine <> a:25 var
+R4932:4932 Kernel.FiniteCertMachine <> b:26 var
+R4971:4978 Coq.Bool.Bool <> bool_dec thm
+R4981:4991 Kernel.FiniteCertMachine <> slot_eq_dec def
+R4971:4978 Coq.Bool.Bool <> bool_dec thm
+R4971:4978 Coq.Bool.Bool <> bool_dec thm
+R4981:4991 Kernel.FiniteCertMachine <> slot_eq_dec def
+R4981:4991 Kernel.FiniteCertMachine <> slot_eq_dec def
+ind 5014:5019 <> FInstr
+constr 5024:5031 <> FCertify
+constr 5035:5039 <> FJump
+constr 5054:5058 <> FNext
+R5046:5049 Kernel.FiniteCertMachine <> Slot ind
+binder 5042:5042 <> a:29
+scheme 5014:5019 <> FInstr_rect
+scheme 5014:5019 <> FInstr_ind
+scheme 5014:5019 <> FInstr_rec
+scheme 5014:5019 <> FInstr_sind
+def 5073:5077 <> fstep
+R5084:5089 Kernel.FiniteCertMachine <> FState def
+binder 5080:5080 <> x:30
+R5097:5102 Kernel.FiniteCertMachine <> FInstr ind
+binder 5093:5093 <> i:31
+R5107:5112 Kernel.FiniteCertMachine <> FState def
+R5125:5125 Kernel.FiniteCertMachine <> i:31 var
+R5136:5143 Kernel.FiniteCertMachine <> FCertify constr
+R5148:5148 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5166:5167 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5172:5172 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5149:5157 Kernel.FiniteCertMachine <> next_slot def
+R5160:5162 Coq.Init.Datatypes <> fst def
+R5164:5164 Kernel.FiniteCertMachine <> x:30 var
+R5168:5171 Coq.Init.Datatypes <> true constr
+R5178:5182 Kernel.FiniteCertMachine <> FJump constr
+R5189:5189 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5191:5192 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5198:5198 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5193:5195 Coq.Init.Datatypes <> snd def
+R5197:5197 Kernel.FiniteCertMachine <> x:30 var
+R5204:5208 Kernel.FiniteCertMachine <> FNext constr
+R5213:5213 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5231:5232 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5238:5238 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5214:5222 Kernel.FiniteCertMachine <> next_slot def
+R5225:5227 Coq.Init.Datatypes <> fst def
+R5229:5229 Kernel.FiniteCertMachine <> x:30 var
+R5233:5235 Coq.Init.Datatypes <> snd def
+R5237:5237 Kernel.FiniteCertMachine <> x:30 var
+def 5259:5263 <> fcert
+R5270:5275 Kernel.FiniteCertMachine <> FState def
+binder 5266:5266 <> x:33
+R5280:5283 Coq.Init.Datatypes <> bool ind
+R5288:5290 Coq.Init.Datatypes <> snd def
+R5292:5292 Kernel.FiniteCertMachine <> x:33 var
+def 5307:5311 <> fcost
+R5318:5323 Kernel.FiniteCertMachine <> FInstr ind
+binder 5314:5314 <> i:34
+R5328:5330 Coq.Init.Datatypes <> nat ind
+R5343:5343 Kernel.FiniteCertMachine <> i:34 var
+R5350:5357 Kernel.FiniteCertMachine <> FCertify constr
+R5366:5370 Kernel.FiniteCertMachine <> FJump constr
+R5381:5385 Kernel.FiniteCertMachine <> FNext constr
+def 5409:5419 <> all_fstates
+R5423:5426 Coq.Init.Datatypes <> list ind
+R5428:5433 Kernel.FiniteCertMachine <> FState def
+R5440:5440 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5452:5453 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5465:5466 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5478:5479 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5491:5495 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5506:5507 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5518:5519 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5530:5531 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5542:5542 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5441:5441 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5444:5445 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5451:5451 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5442:5443 Kernel.FiniteCertMachine <> L0 constr
+R5446:5450 Coq.Init.Datatypes <> false constr
+R5454:5454 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5457:5458 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5464:5464 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5455:5456 Kernel.FiniteCertMachine <> L1 constr
+R5459:5463 Coq.Init.Datatypes <> false constr
+R5467:5467 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5470:5471 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5477:5477 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5468:5469 Kernel.FiniteCertMachine <> L2 constr
+R5472:5476 Coq.Init.Datatypes <> false constr
+R5480:5480 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5483:5484 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5490:5490 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5481:5482 Kernel.FiniteCertMachine <> L3 constr
+R5485:5489 Coq.Init.Datatypes <> false constr
+R5496:5496 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5499:5500 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5505:5505 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5497:5498 Kernel.FiniteCertMachine <> L0 constr
+R5501:5504 Coq.Init.Datatypes <> true constr
+R5508:5508 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5511:5512 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5517:5517 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5509:5510 Kernel.FiniteCertMachine <> L1 constr
+R5513:5516 Coq.Init.Datatypes <> true constr
+R5520:5520 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5523:5524 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5529:5529 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5521:5522 Kernel.FiniteCertMachine <> L2 constr
+R5525:5528 Coq.Init.Datatypes <> true constr
+R5532:5532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5535:5536 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5541:5541 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5533:5534 Kernel.FiniteCertMachine <> L3 constr
+R5537:5540 Coq.Init.Datatypes <> true constr
+prf 5554:5563 <> fin_finite
+R5567:5579 Kernel.PermanentCertification <> finite_states def
+R5581:5591 Kernel.FiniteCertMachine <> all_fstates def
+prf 5726:5738 <> fin_permanent
+R5742:5750 Kernel.PermanentCertification <> permanent def
+R5758:5762 Kernel.FiniteCertMachine <> fcert def
+R5752:5756 Kernel.FiniteCertMachine <> fstep def
+prf 5895:5913 <> next_slot_injective
+binder 5924:5924 <> p:36
+binder 5926:5926 <> q:37
+R5954:5957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5940:5942 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5929:5937 Kernel.FiniteCertMachine <> next_slot def
+R5939:5939 Kernel.FiniteCertMachine <> p:36 var
+R5943:5951 Kernel.FiniteCertMachine <> next_slot def
+R5953:5953 Kernel.FiniteCertMachine <> q:37 var
+R5959:5961 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5958:5958 Kernel.FiniteCertMachine <> p:36 var
+R5962:5962 Kernel.FiniteCertMachine <> q:37 var
+prf 6039:6053 <> fnext_injective
+R6057:6070 Kernel.PermanentCertification <> step_injective def
+R6078:6082 Kernel.FiniteCertMachine <> FNext constr
+R6072:6076 Kernel.FiniteCertMachine <> fstep def
+R6164:6182 Kernel.FiniteCertMachine <> next_slot_injective thm
+R6164:6182 Kernel.FiniteCertMachine <> next_slot_injective thm
+prf 6226:6240 <> fcertify_merges
+R6244:6245 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6246:6259 Kernel.PermanentCertification <> step_injective def
+R6267:6274 Kernel.FiniteCertMachine <> FCertify constr
+R6261:6265 Kernel.FiniteCertMachine <> fstep def
+R6315:6315 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6318:6319 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6325:6325 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6316:6317 Kernel.FiniteCertMachine <> L0 constr
+R6320:6324 Coq.Init.Datatypes <> false constr
+R6327:6327 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6330:6331 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6336:6336 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6328:6329 Kernel.FiniteCertMachine <> L0 constr
+R6332:6335 Coq.Init.Datatypes <> true constr
+R6338:6344 Coq.Init.Logic <> eq_refl constr
+R6315:6315 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6318:6319 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6325:6325 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6316:6317 Kernel.FiniteCertMachine <> L0 constr
+R6320:6324 Coq.Init.Datatypes <> false constr
+R6327:6327 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6330:6331 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6336:6336 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6328:6329 Kernel.FiniteCertMachine <> L0 constr
+R6332:6335 Coq.Init.Datatypes <> true constr
+R6338:6344 Coq.Init.Logic <> eq_refl constr
+prf 6376:6387 <> fjump_merges
+binder 6398:6398 <> a:38
+R6401:6402 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6403:6416 Kernel.PermanentCertification <> step_injective def
+R6425:6429 Kernel.FiniteCertMachine <> FJump constr
+R6431:6431 Kernel.FiniteCertMachine <> a:38 var
+R6418:6422 Kernel.FiniteCertMachine <> fstep def
+R6476:6476 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6479:6480 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6486:6486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6477:6478 Kernel.FiniteCertMachine <> L0 constr
+R6481:6485 Coq.Init.Datatypes <> false constr
+R6488:6488 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6491:6492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6498:6498 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6489:6490 Kernel.FiniteCertMachine <> L1 constr
+R6493:6497 Coq.Init.Datatypes <> false constr
+R6500:6506 Coq.Init.Logic <> eq_refl constr
+R6476:6476 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6479:6480 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6486:6486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6477:6478 Kernel.FiniteCertMachine <> L0 constr
+R6481:6485 Coq.Init.Datatypes <> false constr
+R6488:6488 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6491:6492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6498:6498 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6489:6490 Kernel.FiniteCertMachine <> L1 constr
+R6493:6497 Coq.Init.Datatypes <> false constr
+R6500:6506 Coq.Init.Logic <> eq_refl constr
+prf 6617:6634 <> fin_merging_priced
+R6638:6657 Kernel.PermanentCertification <> merging_steps_priced def
+R6665:6669 Kernel.FiniteCertMachine <> fcost def
+R6659:6663 Kernel.FiniteCertMachine <> fstep def
+R6757:6771 Kernel.FiniteCertMachine <> fnext_injective thm
+R6757:6771 Kernel.FiniteCertMachine <> fnext_injective thm
+prf 6841:6855 <> fin_fiber_bound
+binder 6868:6868 <> i:39
+R6875:6878 Coq.Init.Datatypes <> list ind
+R6880:6885 Kernel.FiniteCertMachine <> FState def
+binder 6871:6871 <> D:40
+R6900:6907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6893:6897 Coq.Lists.List <> NoDup ind
+R6899:6899 Kernel.FiniteCertMachine <> D:40 var
+binder 6915:6915 <> y:41
+R6993:7010 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6918:6923 Coq.Init.Datatypes <> length def
+R6926:6931 Coq.Lists.List <> filter def
+R6991:6991 Kernel.FiniteCertMachine <> D:40 var
+R6934:6937 Kernel.FiniteCertMachine <> hits def
+R6988:6988 Kernel.FiniteCertMachine <> y:41 var
+binder 6972:6972 <> x:42
+R6977:6981 Kernel.FiniteCertMachine <> fstep def
+R6983:6983 Kernel.FiniteCertMachine <> x:42 var
+R6985:6985 Kernel.FiniteCertMachine <> i:39 var
+R6953:6965 Kernel.FiniteCertMachine <> fstate_eq_dec def
+R6946:6951 Kernel.FiniteCertMachine <> FState def
+R6939:6944 Kernel.FiniteCertMachine <> FState def
+R7012:7014 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7015:7019 Kernel.FiniteCertMachine <> fcost def
+R7021:7021 Kernel.FiniteCertMachine <> i:39 var
+R7086:7091 Coq.Init.Datatypes <> length def
+R7094:7099 Coq.Lists.List <> filter def
+R7189:7199 Kernel.FiniteCertMachine <> all_fstates def
+R7102:7105 Kernel.FiniteCertMachine <> hits def
+binder 7140:7140 <> x:43
+R7145:7149 Kernel.FiniteCertMachine <> fstep def
+R7151:7151 Kernel.FiniteCertMachine <> x:43 var
+R7121:7133 Kernel.FiniteCertMachine <> fstate_eq_dec def
+R7114:7119 Kernel.FiniteCertMachine <> FState def
+R7107:7112 Kernel.FiniteCertMachine <> FState def
+R7058:7069 Coq.Arith.PeanoNat Nat le_trans thm
+R7086:7091 Coq.Init.Datatypes <> length def
+R7094:7099 Coq.Lists.List <> filter def
+R7189:7199 Kernel.FiniteCertMachine <> all_fstates def
+R7102:7105 Kernel.FiniteCertMachine <> hits def
+binder 7140:7140 <> x:44
+R7145:7149 Kernel.FiniteCertMachine <> fstep def
+R7151:7151 Kernel.FiniteCertMachine <> x:44 var
+R7121:7133 Kernel.FiniteCertMachine <> fstate_eq_dec def
+R7114:7119 Kernel.FiniteCertMachine <> FState def
+R7107:7112 Kernel.FiniteCertMachine <> FState def
+R7058:7069 Coq.Arith.PeanoNat Nat le_trans thm
+R7214:7230 Coq.Lists.List <> NoDup_incl_length thm
+R7240:7251 Coq.Lists.List <> NoDup_filter thm
+R7214:7230 Coq.Lists.List <> NoDup_incl_length thm
+R7240:7251 Coq.Lists.List <> NoDup_filter thm
+R7290:7298 Coq.Lists.List <> filter_In thm
+R7290:7298 Coq.Lists.List <> filter_In thm
+R7329:7337 Coq.Lists.List <> filter_In thm
+R7329:7337 Coq.Lists.List <> filter_In thm
+R7355:7359 Coq.Init.Logic <> proj2 thm
+R7361:7370 Kernel.FiniteCertMachine <> fin_finite thm
+R7355:7359 Coq.Init.Logic <> proj2 thm
+R7361:7370 Kernel.FiniteCertMachine <> fin_finite thm
+prf 7504:7525 <> fin_compression_priced
+R7531:7548 Kernel.PermanentRecordPricing <> compression_priced def
+R7562:7574 Kernel.FiniteCertMachine <> fstate_eq_dec def
+R7556:7560 Kernel.FiniteCertMachine <> fcost def
+R7550:7554 Kernel.FiniteCertMachine <> fstep def
+R7608:7617 Kernel.PermanentRecordPricing <> image_size def
+R7628:7650 Kernel.FiniteCertMachine <> fiber_bound_compression thm
+R7628:7650 Kernel.FiniteCertMachine <> fiber_bound_compression thm
+R7684:7698 Kernel.FiniteCertMachine <> fin_fiber_bound thm
+R7684:7698 Kernel.FiniteCertMachine <> fin_fiber_bound thm
+prf 7777:7801 <> fin_a2_from_merging_price
+R7805:7812 Kernel.PermanentCertification <> a2_holds def
+R7826:7830 Kernel.FiniteCertMachine <> fcost def
+R7820:7824 Kernel.FiniteCertMachine <> fcert def
+R7814:7818 Kernel.FiniteCertMachine <> fstep def
+R7849:7884 Kernel.PermanentCertification <> a2_from_merging_price_and_permanence thm
+R7929:7939 Kernel.FiniteCertMachine <> all_fstates def
+R7941:7950 Kernel.FiniteCertMachine <> fin_finite thm
+R7952:7964 Kernel.FiniteCertMachine <> fin_permanent thm
+R7966:7983 Kernel.FiniteCertMachine <> fin_merging_priced thm
+R7912:7916 Kernel.FiniteCertMachine <> fcost def
+R7906:7910 Kernel.FiniteCertMachine <> fcert def
+R7900:7904 Kernel.FiniteCertMachine <> fstep def
+R7893:7898 Kernel.FiniteCertMachine <> FInstr ind
+R7886:7891 Kernel.FiniteCertMachine <> FState def
+R7849:7884 Kernel.PermanentCertification <> a2_from_merging_price_and_permanence thm
+R7929:7939 Kernel.FiniteCertMachine <> all_fstates def
+R7941:7950 Kernel.FiniteCertMachine <> fin_finite thm
+R7952:7964 Kernel.FiniteCertMachine <> fin_permanent thm
+R7966:7983 Kernel.FiniteCertMachine <> fin_merging_priced thm
+R7912:7916 Kernel.FiniteCertMachine <> fcost def
+R7906:7910 Kernel.FiniteCertMachine <> fcert def
+R7900:7904 Kernel.FiniteCertMachine <> fstep def
+R7893:7898 Kernel.FiniteCertMachine <> FInstr ind
+R7886:7891 Kernel.FiniteCertMachine <> FState def
+prf 8001:8029 <> fin_a2_from_compression_price
+R8033:8040 Kernel.PermanentCertification <> a2_holds def
+R8054:8058 Kernel.FiniteCertMachine <> fcost def
+R8048:8052 Kernel.FiniteCertMachine <> fcert def
+R8042:8046 Kernel.FiniteCertMachine <> fstep def
+R8077:8116 Kernel.PermanentRecordPricing <> a2_from_compression_price_and_permanence thm
+R8175:8185 Kernel.FiniteCertMachine <> all_fstates def
+R8187:8196 Kernel.FiniteCertMachine <> fin_finite thm
+R8198:8210 Kernel.FiniteCertMachine <> fin_permanent thm
+R8212:8233 Kernel.FiniteCertMachine <> fin_compression_priced thm
+R8161:8173 Kernel.FiniteCertMachine <> fstate_eq_dec def
+R8144:8148 Kernel.FiniteCertMachine <> fcost def
+R8138:8142 Kernel.FiniteCertMachine <> fcert def
+R8132:8136 Kernel.FiniteCertMachine <> fstep def
+R8125:8130 Kernel.FiniteCertMachine <> FInstr ind
+R8118:8123 Kernel.FiniteCertMachine <> FState def
+R8077:8116 Kernel.PermanentRecordPricing <> a2_from_compression_price_and_permanence thm
+R8175:8185 Kernel.FiniteCertMachine <> all_fstates def
+R8187:8196 Kernel.FiniteCertMachine <> fin_finite thm
+R8198:8210 Kernel.FiniteCertMachine <> fin_permanent thm
+R8212:8233 Kernel.FiniteCertMachine <> fin_compression_priced thm
+R8161:8173 Kernel.FiniteCertMachine <> fstate_eq_dec def
+R8144:8148 Kernel.FiniteCertMachine <> fcost def
+R8138:8142 Kernel.FiniteCertMachine <> fcert def
+R8132:8136 Kernel.FiniteCertMachine <> fstep def
+R8125:8130 Kernel.FiniteCertMachine <> FInstr ind
+R8118:8123 Kernel.FiniteCertMachine <> FState def
+def 8289:8299 <> slot_of_nat
+R8306:8308 Coq.Init.Datatypes <> nat ind
+binder 8302:8302 <> n:45
+R8313:8316 Kernel.FiniteCertMachine <> Slot ind
+R8329:8329 Kernel.FiniteCertMachine <> n:45 var
+R8341:8342 Kernel.FiniteCertMachine <> L0 constr
+R8346:8346 Coq.Init.Datatypes <> S constr
+R8353:8361 Kernel.FiniteCertMachine <> next_slot def
+R8364:8374 Kernel.FiniteCertMachine <> slot_of_nat:46 def
+def 8396:8406 <> nat_of_slot
+R8413:8416 Kernel.FiniteCertMachine <> Slot ind
+binder 8409:8409 <> p:48
+R8421:8423 Coq.Init.Datatypes <> nat ind
+R8436:8436 Kernel.FiniteCertMachine <> p:48 var
+R8443:8444 Kernel.FiniteCertMachine <> L0 constr
+R8453:8454 Kernel.FiniteCertMachine <> L1 constr
+R8463:8464 Kernel.FiniteCertMachine <> L2 constr
+R8473:8474 Kernel.FiniteCertMachine <> L3 constr
+prf 8493:8511 <> slot_of_nat_of_slot
+binder 8522:8522 <> p:50
+R8552:8554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8525:8535 Kernel.FiniteCertMachine <> slot_of_nat def
+R8538:8548 Kernel.FiniteCertMachine <> nat_of_slot def
+R8550:8550 Kernel.FiniteCertMachine <> p:50 var
+R8555:8555 Kernel.FiniteCertMachine <> p:50 var
+def 8604:8607 <> frun
+R8618:8621 Coq.Init.Datatypes <> list ind
+R8623:8628 Kernel.FiniteCertMachine <> FInstr ind
+binder 8610:8614 <> trace:51
+R8636:8641 Kernel.FiniteCertMachine <> FState def
+binder 8632:8632 <> x:52
+R8646:8651 Kernel.FiniteCertMachine <> FState def
+R8664:8668 Kernel.FiniteCertMachine <> trace:51 var
+R8675:8676 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8681:8681 Kernel.FiniteCertMachine <> x:52 var
+R8686:8689 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8698:8701 Kernel.FiniteCertMachine <> frun:53 def
+R8709:8713 Kernel.FiniteCertMachine <> fstep def
+R8715:8715 Kernel.FiniteCertMachine <> x:52 var
+def 8735:8745 <> fcost_total
+R8756:8759 Coq.Init.Datatypes <> list ind
+R8761:8766 Kernel.FiniteCertMachine <> FInstr ind
+binder 8748:8752 <> trace:55
+R8771:8773 Coq.Init.Datatypes <> nat ind
+R8786:8790 Kernel.FiniteCertMachine <> trace:55 var
+R8797:8798 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8808:8811 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8827:8829 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8820:8824 Kernel.FiniteCertMachine <> fcost def
+R8830:8840 Kernel.FiniteCertMachine <> fcost_total:56 def

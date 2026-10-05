@@ -1,332 +1,139 @@
-DIGEST 50c76aac8e178df79ae3b37d2e6628c6
+DIGEST 1c6c3dc1279da43d46e659874d712439
 FKernel.StructuralUndecidability
-R2011:2016 Coq.Setoids.Setoid <> <> lib
-R2046:2054 Kernel.Substrate <> <> lib
-R2415:2421 Kernel.VMState <> <> lib
-R2423:2428 Kernel.VMStep <> <> lib
-R2457:2493 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> <> lib
-R2522:2533 Kernel.MuInitiality <> <> lib
-R2562:2580 Kernel.SimpleMorphShortcut <> <> lib
-R2609:2627 Kernel.VMSubstrateInstance <> <> lib
-rec 3341:3361 <> WithShortcutPredicate
-proj 3756:3769 <> AdmitsShortcut
-proj 3870:3880 <> yes_program
-proj 3895:3912 <> yes_program_admits
-proj 4014:4023 <> no_program
-proj 4038:4055 <> no_program_refuses
-proj 4353:4379 <> admits_shortcut_extensional
-R3371:3379 Kernel.Substrate <> Substrate class
-binder 3365:3367 <> Sub:1
-R3780:3783 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3773:3779 Kernel.Substrate <> Program meth
-R3884:3890 Kernel.Substrate <> Program meth
-R3916:3929 Kernel.StructuralUndecidability <> AdmitsShortcut:3 meth
-R3931:3941 Kernel.StructuralUndecidability <> yes_program:4 meth
-R4027:4033 Kernel.Substrate <> Program meth
-R4059:4060 Coq.Init.Logic <> ::type_scope:'~'_x not
-R4061:4074 Kernel.StructuralUndecidability <> AdmitsShortcut:3 meth
-R4076:4085 Kernel.StructuralUndecidability <> no_program:6 meth
-binder 4394:4395 <> p1:8
-binder 4397:4398 <> p2:9
-R4423:4432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4407:4416 Kernel.Substrate <> prog_equiv meth
-R4421:4422 Kernel.StructuralUndecidability <> p2:9 var
-R4418:4419 Kernel.StructuralUndecidability <> p1:8 var
-R4450:4454 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R4433:4446 Kernel.StructuralUndecidability <> AdmitsShortcut:3 meth
-R4448:4449 Kernel.StructuralUndecidability <> p1:8 var
-R4455:4468 Kernel.StructuralUndecidability <> AdmitsShortcut:3 meth
-R4470:4471 Kernel.StructuralUndecidability <> p2:9 var
-sec 5017:5044 <> StructuralAxisUndecidability
-R5065:5073 Kernel.Substrate <> Substrate class
-binder 5059:5061 <> Sub:11
-R5085:5105 Kernel.StructuralUndecidability <> WithShortcutPredicate class
-R5107:5109 Kernel.StructuralUndecidability <> Sub:11 var
-binder 5078:5080 <> Wsp:12
-prf 5933:5963 <> structural_shortcut_undecidable
-R5971:5972 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5973:5980 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6005:6015 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5997:6000 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5990:5996 Kernel.Substrate <> Program meth
-R6001:6004 Coq.Init.Datatypes <> bool ind
-binder 5981:5986 <> decide:13
-R6085:6096 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6016:6028 Kernel.Substrate <> Representable meth
-binder 6035:6035 <> p:14
-R6043:6048 Kernel.StructuralUndecidability <> decide:13 var
-R6050:6050 Kernel.StructuralUndecidability <> p:14 var
-R6073:6083 Kernel.StructuralUndecidability <> yes_program meth
-R6057:6066 Kernel.StructuralUndecidability <> no_program meth
-binder 6104:6104 <> p:15
-R6122:6126 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R6115:6117 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6107:6112 Kernel.StructuralUndecidability <> decide:13 var
-R6114:6114 Kernel.StructuralUndecidability <> p:15 var
-R6118:6121 Coq.Init.Datatypes <> true constr
-R6127:6140 Kernel.StructuralUndecidability <> AdmitsShortcut meth
-R6142:6142 Kernel.StructuralUndecidability <> p:15 var
-R6442:6448 Kernel.Substrate <> Program meth
-binder 6438:6438 <> p:16
-R6483:6483 Kernel.StructuralUndecidability <> p:16 var
-R6506:6516 Kernel.StructuralUndecidability <> yes_program meth
-R6490:6499 Kernel.StructuralUndecidability <> no_program meth
-R6442:6448 Kernel.Substrate <> Program meth
-binder 6438:6438 <> p:17
-R6483:6483 Kernel.StructuralUndecidability <> p:17 var
-R6506:6516 Kernel.StructuralUndecidability <> yes_program meth
-R6490:6499 Kernel.StructuralUndecidability <> no_program meth
-R6740:6756 Kernel.Substrate <> recursion_theorem meth
-R6740:6756 Kernel.Substrate <> recursion_theorem meth
-R7181:7194 Kernel.StructuralUndecidability <> AdmitsShortcut meth
-R7181:7194 Kernel.StructuralUndecidability <> AdmitsShortcut meth
-R7247:7256 Kernel.Substrate <> prog_equiv meth
-R7260:7269 Kernel.StructuralUndecidability <> no_program meth
-R7247:7256 Kernel.Substrate <> prog_equiv meth
-R7260:7269 Kernel.StructuralUndecidability <> no_program meth
-R7343:7360 Kernel.StructuralUndecidability <> no_program_refuses meth
-R7343:7360 Kernel.StructuralUndecidability <> no_program_refuses meth
-R7376:7402 Kernel.StructuralUndecidability <> admits_shortcut_extensional meth
-R7406:7415 Kernel.StructuralUndecidability <> no_program meth
-R7376:7402 Kernel.StructuralUndecidability <> admits_shortcut_extensional meth
-R7406:7415 Kernel.StructuralUndecidability <> no_program meth
-R7750:7751 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7752:7765 Kernel.StructuralUndecidability <> AdmitsShortcut meth
-R7750:7751 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7752:7765 Kernel.StructuralUndecidability <> AdmitsShortcut meth
-R7868:7877 Kernel.Substrate <> prog_equiv meth
-R7881:7891 Kernel.StructuralUndecidability <> yes_program meth
-R7868:7877 Kernel.Substrate <> prog_equiv meth
-R7881:7891 Kernel.StructuralUndecidability <> yes_program meth
-R7984:8010 Kernel.StructuralUndecidability <> admits_shortcut_extensional meth
-R8014:8024 Kernel.StructuralUndecidability <> yes_program meth
-R7984:8010 Kernel.StructuralUndecidability <> admits_shortcut_extensional meth
-R8014:8024 Kernel.StructuralUndecidability <> yes_program meth
-R8044:8061 Kernel.StructuralUndecidability <> yes_program_admits meth
-R8044:8061 Kernel.StructuralUndecidability <> yes_program_admits meth
-R10550:10577 Kernel.StructuralUndecidability StructuralAxisUndecidability <> sec
-sec 10907:10927 <> DecidabilityCorollary
-R10948:10956 Kernel.Substrate <> Substrate class
-binder 10942:10944 <> Sub:18
-R10968:10988 Kernel.StructuralUndecidability <> WithShortcutPredicate class
-R10990:10992 Kernel.StructuralUndecidability <> Sub:18 var
-binder 10961:10963 <> Wsp:19
-prf 11369:11397 <> admits_shortcut_not_decidable
-binder 11427:11427 <> p:20
-R11430:11430 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R11447:11451 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R11470:11470 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R11431:11444 Kernel.StructuralUndecidability <> AdmitsShortcut meth
-R11446:11446 Kernel.StructuralUndecidability <> p:20 var
-R11452:11453 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11454:11467 Kernel.StructuralUndecidability <> AdmitsShortcut meth
-R11469:11469 Kernel.StructuralUndecidability <> p:20 var
-binder 11413:11416 <> Hdec:21
-R11592:11601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11480:11492 Kernel.Substrate <> Representable meth
-binder 11507:11507 <> p:22
-R11530:11533 Kernel.StructuralUndecidability <> Hdec:21 var
-R11535:11535 Kernel.StructuralUndecidability <> p:22 var
-R11552:11556 Coq.Init.Datatypes <> false constr
-R11542:11545 Coq.Init.Datatypes <> true constr
-R11580:11590 Kernel.StructuralUndecidability <> yes_program meth
-R11564:11573 Kernel.StructuralUndecidability <> no_program meth
-R11602:11606 Coq.Init.Logic <> False ind
-R11650:11680 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
-R11650:11680 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
-binder 11699:11699 <> p:23
-R11712:11712 Kernel.StructuralUndecidability <> p:23 var
-R11729:11733 Coq.Init.Datatypes <> false constr
-R11719:11722 Coq.Init.Datatypes <> true constr
-binder 11699:11699 <> p:24
-R11712:11712 Kernel.StructuralUndecidability <> p:24 var
-R11729:11733 Coq.Init.Datatypes <> false constr
-R11719:11722 Coq.Init.Datatypes <> true constr
-R11934:11954 Kernel.StructuralUndecidability DecidabilityCorollary <> sec
-def 14029:14051 <> vm_instantiation_target
-R14069:14072 Coq.Init.Datatypes <> list ind
-R14074:14087 Kernel.VMStep VMStep vm_instruction ind
-binder 14065:14065 <> p:25
-R14102:14109 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R14139:14145 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R14117:14119 Coq.Init.Datatypes <> nat ind
-binder 14110:14113 <> fuel:26
-R14132:14138 Kernel.VMState <> VMState rec
-binder 14123:14128 <> s_init:27
-R14146:14154 Coq.Init.Logic <> inhabited ind
-R14157:14179 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> SoundStructuralShortcut rec
-R14181:14184 Kernel.StructuralUndecidability <> fuel:26 var
-R14186:14186 Kernel.StructuralUndecidability <> p:25 var
-R14188:14193 Kernel.StructuralUndecidability <> s_init:27 var
-prf 14396:14428 <> vm_instantiation_target_witnessed
-R14434:14456 Kernel.StructuralUndecidability <> vm_instantiation_target def
-R14458:14475 Kernel.SimpleMorphShortcut <> simple_morph_trace def
-R14497:14506 Kernel.MuInitiality <> init_state def
-R14497:14506 Kernel.MuInitiality <> init_state def
-R14516:14523 Coq.Init.Logic <> inhabits constr
-R14525:14545 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
-R14516:14523 Coq.Init.Logic <> inhabits constr
-R14525:14545 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
-def 15677:15706 <> vm_admits_shortcut_extensional
-R15713:15716 Coq.Init.Datatypes <> list ind
-R15718:15731 Kernel.VMStep VMStep vm_instruction ind
-binder 15709:15709 <> p:28
-R15765:15767 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15746:15751 Kernel.VMSubstrateInstance <> vm_run def
-R15753:15753 Kernel.StructuralUndecidability <> p:28 var
-R15755:15764 Kernel.MuInitiality <> init_state def
-R15768:15773 Kernel.VMSubstrateInstance <> vm_run def
-R15775:15792 Kernel.SimpleMorphShortcut <> simple_morph_trace def
-R15794:15803 Kernel.MuInitiality <> init_state def
-prf 15813:15834 <> vm_admits_shortcut_yes
-R15840:15869 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R15871:15888 Kernel.SimpleMorphShortcut <> simple_morph_trace def
-R15905:15934 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-prf 15962:15982 <> vm_admits_shortcut_no
-R15988:15989 Coq.Init.Logic <> ::type_scope:'~'_x not
-R15990:16019 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R16023:16025 Coq.Init.Datatypes <> nil constr
-R16027:16040 Kernel.VMStep VMStep vm_instruction ind
-R16060:16089 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R16092:16097 Kernel.VMSubstrateInstance <> vm_run def
-prf 16598:16632 <> vm_admits_shortcut_extensional_resp
-binder 16645:16646 <> p1:29
-binder 16648:16649 <> p2:30
-R16656:16656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16692:16700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 16664:16664 <> s:31
-R16678:16680 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16667:16672 Kernel.VMSubstrateInstance <> vm_run def
-R16674:16675 Kernel.StructuralUndecidability <> p1:29 var
-R16677:16677 Kernel.StructuralUndecidability <> s:31 var
-R16681:16686 Kernel.VMSubstrateInstance <> vm_run def
-R16688:16689 Kernel.StructuralUndecidability <> p2:30 var
-R16691:16691 Kernel.StructuralUndecidability <> s:31 var
-R16734:16738 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R16701:16730 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R16732:16733 Kernel.StructuralUndecidability <> p1:29 var
-R16739:16768 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R16770:16771 Kernel.StructuralUndecidability <> p2:30 var
-R16809:16838 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R16857:16866 Kernel.MuInitiality <> init_state def
-R16857:16866 Kernel.MuInitiality <> init_state def
-R16857:16866 Kernel.MuInitiality <> init_state def
-prf 17431:17467 <> concrete_shortcut_implies_extensional
-R17515:17520 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17473:17495 Kernel.StructuralUndecidability <> vm_instantiation_target def
-R17497:17514 Kernel.SimpleMorphShortcut <> simple_morph_trace def
-R17521:17550 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R17552:17569 Kernel.SimpleMorphShortcut <> simple_morph_trace def
-R17597:17618 Kernel.StructuralUndecidability <> vm_admits_shortcut_yes thm
-R17597:17618 Kernel.StructuralUndecidability <> vm_admits_shortcut_yes thm
-sec 18431:18449 <> VMShortcutPredicate
-var 18463:18475 VMShortcutPredicate vm_encode_arg
-R18498:18501 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18479:18482 Coq.Init.Datatypes <> list ind
-R18484:18497 Kernel.VMStep VMStep vm_instruction ind
-R18502:18508 Kernel.VMState <> VMState rec
-var 18522:18539 VMShortcutPredicate vm_decode_safe_arg
-R18550:18553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18543:18549 Kernel.VMState <> VMState rec
-R18554:18557 Coq.Init.Datatypes <> list ind
-R18559:18572 Kernel.VMStep VMStep vm_instruction ind
-var 18588:18607 VMShortcutPredicate vm_encode_decode_arg
-binder 18622:18622 <> p:34
-R18661:18663 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18625:18642 Kernel.StructuralUndecidability <> VMShortcutPredicate.vm_decode_safe_arg var
-R18645:18657 Kernel.StructuralUndecidability <> VMShortcutPredicate.vm_encode_arg var
-R18659:18659 Kernel.StructuralUndecidability <> p:34 var
-R18664:18664 Kernel.StructuralUndecidability <> p:34 var
-var 18678:18697 VMShortcutPredicate vm_representable_arg
-R18705:18705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18748:18752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18725:18728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18706:18709 Coq.Init.Datatypes <> list ind
-R18711:18724 Kernel.VMStep VMStep vm_instruction ind
-R18729:18732 Coq.Init.Datatypes <> list ind
-R18734:18747 Kernel.VMStep VMStep vm_instruction ind
-var 18772:18795 VMShortcutPredicate vm_recursion_theorem_arg
-R18834:18837 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18815:18818 Coq.Init.Datatypes <> list ind
-R18820:18833 Kernel.VMStep VMStep vm_instruction ind
-R18838:18841 Coq.Init.Datatypes <> list ind
-R18843:18856 Kernel.VMStep VMStep vm_instruction ind
-binder 18811:18811 <> f:37
-R18888:18897 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18866:18885 Kernel.StructuralUndecidability <> VMShortcutPredicate.vm_representable_arg var
-R18887:18887 Kernel.StructuralUndecidability <> f:37 var
-R18898:18905 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R18929:18939 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R18910:18913 Coq.Init.Datatypes <> list ind
-R18915:18928 Kernel.VMStep VMStep vm_instruction ind
-binder 18906:18906 <> p:38
-binder 18947:18947 <> s:39
-R18960:18962 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18950:18955 Kernel.VMSubstrateInstance <> vm_run def
-R18957:18957 Kernel.StructuralUndecidability <> p:38 var
-R18959:18959 Kernel.StructuralUndecidability <> s:39 var
-R18963:18968 Kernel.VMSubstrateInstance <> vm_run def
-R18971:18971 Kernel.StructuralUndecidability <> f:37 var
-R18973:18973 Kernel.StructuralUndecidability <> p:38 var
-R18976:18976 Kernel.StructuralUndecidability <> s:39 var
-def 19082:19087 <> vm_sub
-R19091:19099 Kernel.Substrate <> Substrate class
-R19108:19119 Kernel.VMSubstrateInstance <> vm_substrate def
-R19247:19270 Kernel.StructuralUndecidability <> VMShortcutPredicate.vm_recursion_theorem_arg var
-R19209:19228 Kernel.StructuralUndecidability <> VMShortcutPredicate.vm_representable_arg var
-R19171:19190 Kernel.StructuralUndecidability <> VMShortcutPredicate.vm_encode_decode_arg var
-R19135:19152 Kernel.StructuralUndecidability <> VMShortcutPredicate.vm_decode_safe_arg var
-R19121:19133 Kernel.StructuralUndecidability <> VMShortcutPredicate.vm_encode_arg var
-def 19348:19363 <> vm_with_shortcut
-R19368:19388 Kernel.StructuralUndecidability <> WithShortcutPredicate class
-R19390:19395 Kernel.StructuralUndecidability <> vm_sub def
-R19426:19452 Kernel.StructuralUndecidability <> Build_WithShortcutPredicate constr
-R19454:19459 Kernel.StructuralUndecidability <> vm_sub def
-R19470:19499 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R19510:19527 Kernel.SimpleMorphShortcut <> simple_morph_trace def
-R19542:19544 Coq.Init.Datatypes <> nil constr
-R19546:19559 Kernel.VMStep VMStep vm_instruction ind
-R19426:19452 Kernel.StructuralUndecidability <> Build_WithShortcutPredicate constr
-R19454:19459 Kernel.StructuralUndecidability <> vm_sub def
-R19470:19499 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R19510:19527 Kernel.SimpleMorphShortcut <> simple_morph_trace def
-R19542:19544 Coq.Init.Datatypes <> nil constr
-R19546:19559 Kernel.VMStep VMStep vm_instruction ind
-R19620:19641 Kernel.StructuralUndecidability <> vm_admits_shortcut_yes thm
-R19620:19641 Kernel.StructuralUndecidability <> vm_admits_shortcut_yes thm
-R19687:19707 Kernel.StructuralUndecidability <> vm_admits_shortcut_no thm
-R19687:19707 Kernel.StructuralUndecidability <> vm_admits_shortcut_no thm
-R19787:19821 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional_resp thm
-R19787:19821 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional_resp thm
-prf 20722:20755 <> vm_structural_shortcut_undecidable
-R20763:20764 Coq.Init.Logic <> ::type_scope:'~'_x not
-R20765:20772 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R20809:20819 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R20801:20804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20782:20785 Coq.Init.Datatypes <> list ind
-R20787:20800 Kernel.VMStep VMStep vm_instruction ind
-R20805:20808 Coq.Init.Datatypes <> bool ind
-binder 20773:20778 <> decide:41
-R20964:20975 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20820:20839 Kernel.StructuralUndecidability <> VMShortcutPredicate.vm_representable_arg var
-binder 20856:20856 <> p:42
-R20864:20869 Kernel.StructuralUndecidability <> decide:41 var
-R20871:20871 Kernel.StructuralUndecidability <> p:42 var
-R20945:20962 Kernel.SimpleMorphShortcut <> simple_morph_trace def
-R20900:20902 Coq.Init.Datatypes <> nil constr
-R20904:20917 Kernel.VMStep VMStep vm_instruction ind
-binder 20983:20983 <> p:43
-R21001:21005 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R20994:20996 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20986:20991 Kernel.StructuralUndecidability <> decide:41 var
-R20993:20993 Kernel.StructuralUndecidability <> p:43 var
-R20997:21000 Coq.Init.Datatypes <> true constr
-R21006:21035 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
-R21037:21037 Kernel.StructuralUndecidability <> p:43 var
-R21061:21091 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
-R21093:21098 Kernel.StructuralUndecidability <> vm_sub def
-R21100:21115 Kernel.StructuralUndecidability <> vm_with_shortcut def
-R21061:21091 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
-R21093:21098 Kernel.StructuralUndecidability <> vm_sub def
-R21100:21115 Kernel.StructuralUndecidability <> vm_with_shortcut def
-R21131:21149 Kernel.StructuralUndecidability VMShortcutPredicate <> sec
+R1686:1691 Coq.Setoids.Setoid <> <> lib
+R1721:1729 Kernel.Substrate <> <> lib
+rec 2443:2463 <> WithShortcutPredicate
+proj 2726:2739 <> AdmitsShortcut
+proj 2840:2850 <> yes_program
+proj 2865:2882 <> yes_program_admits
+proj 2984:2993 <> no_program
+proj 3008:3025 <> no_program_refuses
+proj 3323:3349 <> admits_shortcut_extensional
+R2473:2481 Kernel.Substrate <> Substrate class
+binder 2467:2469 <> Sub:1
+R2750:2753 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2743:2749 Kernel.Substrate <> Program meth
+R2854:2860 Kernel.Substrate <> Program meth
+R2886:2899 Kernel.StructuralUndecidability <> AdmitsShortcut:3 meth
+R2901:2911 Kernel.StructuralUndecidability <> yes_program:4 meth
+R2997:3003 Kernel.Substrate <> Program meth
+R3029:3030 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3031:3044 Kernel.StructuralUndecidability <> AdmitsShortcut:3 meth
+R3046:3055 Kernel.StructuralUndecidability <> no_program:6 meth
+binder 3364:3365 <> p1:8
+binder 3367:3368 <> p2:9
+R3393:3402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3377:3386 Kernel.Substrate <> prog_equiv meth
+R3391:3392 Kernel.StructuralUndecidability <> p2:9 var
+R3388:3389 Kernel.StructuralUndecidability <> p1:8 var
+R3420:3424 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3403:3416 Kernel.StructuralUndecidability <> AdmitsShortcut:3 meth
+R3418:3419 Kernel.StructuralUndecidability <> p1:8 var
+R3425:3438 Kernel.StructuralUndecidability <> AdmitsShortcut:3 meth
+R3440:3441 Kernel.StructuralUndecidability <> p2:9 var
+sec 3859:3886 <> StructuralAxisUndecidability
+R3907:3915 Kernel.Substrate <> Substrate class
+binder 3901:3903 <> Sub:11
+R3927:3947 Kernel.StructuralUndecidability <> WithShortcutPredicate class
+R3949:3951 Kernel.StructuralUndecidability <> Sub:11 var
+binder 3920:3922 <> Wsp:12
+prf 4775:4805 <> structural_shortcut_undecidable
+R4813:4814 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4815:4822 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4847:4857 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4839:4842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4832:4838 Kernel.Substrate <> Program meth
+R4843:4846 Coq.Init.Datatypes <> bool ind
+binder 4823:4828 <> decide:13
+R4927:4938 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4858:4870 Kernel.Substrate <> Representable meth
+binder 4877:4877 <> p:14
+R4885:4890 Kernel.StructuralUndecidability <> decide:13 var
+R4892:4892 Kernel.StructuralUndecidability <> p:14 var
+R4915:4925 Kernel.StructuralUndecidability <> yes_program meth
+R4899:4908 Kernel.StructuralUndecidability <> no_program meth
+binder 4946:4946 <> p:15
+R4964:4968 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4957:4959 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4949:4954 Kernel.StructuralUndecidability <> decide:13 var
+R4956:4956 Kernel.StructuralUndecidability <> p:15 var
+R4960:4963 Coq.Init.Datatypes <> true constr
+R4969:4982 Kernel.StructuralUndecidability <> AdmitsShortcut meth
+R4984:4984 Kernel.StructuralUndecidability <> p:15 var
+R5284:5290 Kernel.Substrate <> Program meth
+binder 5280:5280 <> p:16
+R5325:5325 Kernel.StructuralUndecidability <> p:16 var
+R5348:5358 Kernel.StructuralUndecidability <> yes_program meth
+R5332:5341 Kernel.StructuralUndecidability <> no_program meth
+R5284:5290 Kernel.Substrate <> Program meth
+binder 5280:5280 <> p:17
+R5325:5325 Kernel.StructuralUndecidability <> p:17 var
+R5348:5358 Kernel.StructuralUndecidability <> yes_program meth
+R5332:5341 Kernel.StructuralUndecidability <> no_program meth
+R5582:5598 Kernel.Substrate <> recursion_theorem meth
+R5582:5598 Kernel.Substrate <> recursion_theorem meth
+R6023:6036 Kernel.StructuralUndecidability <> AdmitsShortcut meth
+R6023:6036 Kernel.StructuralUndecidability <> AdmitsShortcut meth
+R6089:6098 Kernel.Substrate <> prog_equiv meth
+R6102:6111 Kernel.StructuralUndecidability <> no_program meth
+R6089:6098 Kernel.Substrate <> prog_equiv meth
+R6102:6111 Kernel.StructuralUndecidability <> no_program meth
+R6185:6202 Kernel.StructuralUndecidability <> no_program_refuses meth
+R6185:6202 Kernel.StructuralUndecidability <> no_program_refuses meth
+R6218:6244 Kernel.StructuralUndecidability <> admits_shortcut_extensional meth
+R6248:6257 Kernel.StructuralUndecidability <> no_program meth
+R6218:6244 Kernel.StructuralUndecidability <> admits_shortcut_extensional meth
+R6248:6257 Kernel.StructuralUndecidability <> no_program meth
+R6592:6593 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6594:6607 Kernel.StructuralUndecidability <> AdmitsShortcut meth
+R6592:6593 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6594:6607 Kernel.StructuralUndecidability <> AdmitsShortcut meth
+R6710:6719 Kernel.Substrate <> prog_equiv meth
+R6723:6733 Kernel.StructuralUndecidability <> yes_program meth
+R6710:6719 Kernel.Substrate <> prog_equiv meth
+R6723:6733 Kernel.StructuralUndecidability <> yes_program meth
+R6826:6852 Kernel.StructuralUndecidability <> admits_shortcut_extensional meth
+R6856:6866 Kernel.StructuralUndecidability <> yes_program meth
+R6826:6852 Kernel.StructuralUndecidability <> admits_shortcut_extensional meth
+R6856:6866 Kernel.StructuralUndecidability <> yes_program meth
+R6886:6903 Kernel.StructuralUndecidability <> yes_program_admits meth
+R6886:6903 Kernel.StructuralUndecidability <> yes_program_admits meth
+R9115:9142 Kernel.StructuralUndecidability StructuralAxisUndecidability <> sec
+sec 9472:9492 <> DecidabilityCorollary
+R9513:9521 Kernel.Substrate <> Substrate class
+binder 9507:9509 <> Sub:18
+R9533:9553 Kernel.StructuralUndecidability <> WithShortcutPredicate class
+R9555:9557 Kernel.StructuralUndecidability <> Sub:18 var
+binder 9526:9528 <> Wsp:19
+prf 9934:9962 <> admits_shortcut_not_decidable
+binder 9992:9992 <> p:20
+R9995:9995 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R10012:10016 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R10035:10035 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R9996:10009 Kernel.StructuralUndecidability <> AdmitsShortcut meth
+R10011:10011 Kernel.StructuralUndecidability <> p:20 var
+R10017:10018 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10019:10032 Kernel.StructuralUndecidability <> AdmitsShortcut meth
+R10034:10034 Kernel.StructuralUndecidability <> p:20 var
+binder 9978:9981 <> Hdec:21
+R10157:10166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10045:10057 Kernel.Substrate <> Representable meth
+binder 10072:10072 <> p:22
+R10095:10098 Kernel.StructuralUndecidability <> Hdec:21 var
+R10100:10100 Kernel.StructuralUndecidability <> p:22 var
+R10117:10121 Coq.Init.Datatypes <> false constr
+R10107:10110 Coq.Init.Datatypes <> true constr
+R10145:10155 Kernel.StructuralUndecidability <> yes_program meth
+R10129:10138 Kernel.StructuralUndecidability <> no_program meth
+R10167:10171 Coq.Init.Logic <> False ind
+R10215:10245 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
+R10215:10245 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
+binder 10264:10264 <> p:23
+R10277:10277 Kernel.StructuralUndecidability <> p:23 var
+R10294:10298 Coq.Init.Datatypes <> false constr
+R10284:10287 Coq.Init.Datatypes <> true constr
+binder 10264:10264 <> p:24
+R10277:10277 Kernel.StructuralUndecidability <> p:24 var
+R10294:10298 Coq.Init.Datatypes <> false constr
+R10284:10287 Coq.Init.Datatypes <> true constr
+R10499:10519 Kernel.StructuralUndecidability DecidabilityCorollary <> sec

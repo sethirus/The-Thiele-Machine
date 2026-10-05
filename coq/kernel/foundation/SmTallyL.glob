@@ -1,0 +1,154 @@
+DIGEST 649b62834656620bcd4735ace7b57e1a
+FKernel.SmTallyL
+R1298:1298 Undecidability.L.L <> <> lib
+R1300:1315 Undecidability.L.Tactics.LTactics <> <> lib
+R1317:1330 Undecidability.L.Datatypes.LNat <> <> lib
+R1332:1349 Undecidability.L.Datatypes.LOptions <> <> lib
+R1353:1367 Undecidability.L.Datatypes.LProd <> <> lib
+R1369:1383 Undecidability.L.Datatypes.Lists <> <> lib
+R1385:1399 Undecidability.L.Datatypes.LBool <> <> lib
+R1439:1461 Undecidability.L.Datatypes.List.List_nat <> <> lib
+R1514:1516 Undecidability.MinskyMachines.MMA <> <> lib
+R1580:1609 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> <> lib
+R1620:1641 Minimal.UniversalCodes <> <> lib
+R1659:1678 Minimal.SmHostBlocks <> <> lib
+R1680:1694 Minimal.SmCodes <> <> lib
+R1696:1711 Minimal.SmInterp <> <> lib
+R1713:1726 Kernel.SmEvalL <> <> lib
+R1728:1740 Kernel.SmFuel <> <> lib
+R1742:1756 Minimal.SmTally <> <> lib
+inst 1769:1782 <> term_sm2_kcost
+R1786:1795 Undecidability.L.Tactics.Computable <> computable class
+R1797:1805 Minimal.SmTally <> sm2_kcost def
+inst 1838:1852 <> term_sm2_kfires
+R1856:1865 Undecidability.L.Tactics.Computable <> computable class
+R1867:1876 Minimal.SmTally <> sm2_kfires def
+inst 1909:1922 <> term_sm2_kstep
+R1926:1935 Undecidability.L.Tactics.Computable <> computable class
+R1937:1945 Minimal.SmTally <> sm2_kstep def
+inst 1978:1990 <> term_sm2_krun
+R1994:2003 Undecidability.L.Tactics.Computable <> computable class
+R2005:2012 Minimal.SmTally <> sm2_krun def
+inst 2045:2059 <> term_sm2_kstart
+R2063:2072 Undecidability.L.Tactics.Computable <> computable class
+R2074:2083 Minimal.SmTally <> sm2_kstart def
+inst 2116:2126 <> term_sm2_fe
+R2130:2139 Undecidability.L.Tactics.Computable <> computable class
+R2141:2146 Minimal.SmTally <> sm2_fe def
+inst 2179:2189 <> term_sm2_nf
+R2193:2202 Undecidability.L.Tactics.Computable <> computable class
+R2204:2209 Minimal.SmTally <> sm2_nf def
+inst 2242:2254 <> term_sm2_rest
+R2258:2267 Undecidability.L.Tactics.Computable <> computable class
+R2269:2276 Minimal.SmTally <> sm2_rest def
+inst 2309:2321 <> term_sm2_comp
+R2325:2334 Undecidability.L.Tactics.Computable <> computable class
+R2336:2343 Minimal.SmTally <> sm2_comp def
+inst 2376:2387 <> term_sm2_tal
+R2391:2400 Undecidability.L.Tactics.Computable <> computable class
+R2402:2408 Minimal.SmTally <> sm2_tal def
+inst 2441:2451 <> term_sm2_ev
+R2455:2464 Undecidability.L.Tactics.Computable <> computable class
+R2466:2471 Minimal.SmTally <> sm2_ev def
+def 2581:2587 <> sm2_evw
+R2597:2599 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2594:2596 Coq.Init.Datatypes <> nat ind
+R2600:2602 Coq.Init.Datatypes <> nat ind
+binder 2590:2590 <> w:1
+R2617:2619 Coq.Init.Datatypes <> nat ind
+binder 2606:2609 <> fuel:2
+binder 2611:2611 <> x:3
+binder 2613:2613 <> c:4
+R2624:2629 Coq.Init.Datatypes <> option ind
+R2631:2633 Coq.Init.Datatypes <> nat ind
+R2640:2645 Minimal.SmTally <> sm2_ev def
+R2648:2650 Coq.Init.Datatypes <> fst def
+R2652:2652 Kernel.SmTallyL <> w:1 var
+R2656:2658 Coq.Init.Datatypes <> snd def
+R2660:2660 Kernel.SmTallyL <> w:1 var
+R2663:2666 Kernel.SmTallyL <> fuel:2 var
+R2668:2668 Kernel.SmTallyL <> x:3 var
+R2670:2670 Kernel.SmTallyL <> c:4 var
+inst 2683:2694 <> term_sm2_evw
+R2698:2707 Undecidability.L.Tactics.Computable <> computable class
+R2709:2715 Kernel.SmTallyL <> sm2_evw def
+def 2751:2757 <> sm2_Rev
+R2768:2770 Coq.Init.Datatypes <> nat ind
+binder 2760:2762 <> sel:5
+binder 2764:2764 <> t:6
+R2778:2785 Coq.Vectors.Vector <> t ind
+R2787:2789 Coq.Init.Datatypes <> nat ind
+binder 2774:2774 <> v:7
+R2799:2801 Coq.Init.Datatypes <> nat ind
+binder 2795:2795 <> m:8
+R2816:2822 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2824:2825 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2823:2823 <> n:9
+R2880:2882 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2826:2831 Minimal.SmTally <> sm2_ev def
+R2833:2835 Kernel.SmTallyL <> sel:5 var
+R2837:2837 Kernel.SmTallyL <> t:6 var
+R2839:2839 Kernel.SmTallyL <> n:9 var
+R2842:2850 Coq.Vectors.Vector <> hd def
+R2852:2852 Kernel.SmTallyL <> v:7 var
+R2856:2864 Coq.Vectors.Vector <> hd def
+R2867:2875 Coq.Vectors.Vector <> tl def
+R2877:2877 Kernel.SmTallyL <> v:7 var
+R2883:2886 Coq.Init.Datatypes <> Some constr
+R2888:2888 Kernel.SmTallyL <> m:8 var
+prf 2900:2909 <> sm2_ev_MMA
+binder 2920:2922 <> sel:10
+binder 2924:2924 <> t:11
+R2927:2940 Undecidability.MinskyMachines.MMA <> MMA_computable def
+R2943:2949 Kernel.SmTallyL <> sm2_Rev def
+R2955:2955 Kernel.SmTallyL <> t:11 var
+R2951:2953 Kernel.SmTallyL <> sel:10 var
+R2988:3017 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R2988:3017 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R3030:3050 Kernel.SmFuel <> sm_L_computable_fuel2 thm
+R3056:3058 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3053:3055 Coq.Init.Datatypes <> nat ind
+R3059:3061 Coq.Init.Datatypes <> nat ind
+R3066:3072 Kernel.SmTallyL <> sm2_evw def
+R3076:3076 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3080:3081 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3083:3083 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 3101:3101 <> n:12
+binder 3103:3104 <> n':13
+binder 3106:3106 <> x:14
+binder 3108:3108 <> c:15
+binder 3110:3110 <> m:16
+binder 3112:3112 <> H:17
+binder 3114:3116 <> Hle:18
+R3121:3131 Minimal.SmTally <> sm2_ev_mono thm
+R3139:3139 Kernel.SmTallyL <> n:12 var
+R3141:3142 Kernel.SmTallyL <> n':13 var
+R3144:3144 Kernel.SmTallyL <> x:14 var
+R3146:3146 Kernel.SmTallyL <> c:15 var
+R3148:3148 Kernel.SmTallyL <> m:16 var
+R3150:3152 Kernel.SmTallyL <> Hle:18 var
+R3154:3154 Kernel.SmTallyL <> H:17 var
+R3030:3050 Kernel.SmFuel <> sm_L_computable_fuel2 thm
+R3056:3058 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3053:3055 Coq.Init.Datatypes <> nat ind
+R3059:3061 Coq.Init.Datatypes <> nat ind
+R3066:3072 Kernel.SmTallyL <> sm2_evw def
+R3076:3076 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3080:3081 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3083:3083 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 3101:3101 <> n:19
+binder 3103:3104 <> n':20
+binder 3106:3106 <> x:21
+binder 3108:3108 <> c:22
+binder 3110:3110 <> m:23
+binder 3112:3112 <> H:24
+binder 3114:3116 <> Hle:25
+R3121:3131 Minimal.SmTally <> sm2_ev_mono thm
+R3139:3139 Kernel.SmTallyL <> n:19 var
+R3141:3142 Kernel.SmTallyL <> n':20 var
+R3144:3144 Kernel.SmTallyL <> x:21 var
+R3146:3146 Kernel.SmTallyL <> c:22 var
+R3148:3148 Kernel.SmTallyL <> m:23 var
+R3150:3152 Kernel.SmTallyL <> Hle:25 var
+R3154:3154 Kernel.SmTallyL <> H:24 var
+R3183:3192 Kernel.SmTallyL <> sm2_ev_MMA thm

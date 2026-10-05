@@ -1,307 +1,269 @@
-DIGEST e35af69b8b70181575100809f9e7a4b6
+DIGEST 47a6a6d90831ed8333afa145fb49fd6c
 FKernel.HonestCostTracking
 R876:901 Kernel.UniversalCertificationCost <> <> lib
-R931:937 Kernel.VMState <> <> lib
-R967:972 Kernel.VMStep <> <> lib
-R1002:1012 Kernel.MuCostModel <> <> lib
-R1031:1044 Coq.Lists.List <> <> lib
-R1054:1066 Coq.Lists.List ListNotations <> mod
-R1084:1101 Coq.Arith.PeanoNat <> <> lib
-rec 1371:1387 <> CostBearingSystem
-proj 1409:1416 <> cb_state
-proj 1428:1435 <> cb_instr
-proj 1447:1453 <> cb_step
-proj 1494:1500 <> cb_cost
-proj 1524:1530 <> cb_cert
-R1466:1469 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1458:1465 Kernel.HonestCostTracking <> cb_state:2 meth
-R1478:1481 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1470:1477 Kernel.HonestCostTracking <> cb_instr:3 meth
-R1482:1489 Kernel.HonestCostTracking <> cb_state:2 meth
-R1513:1516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1505:1512 Kernel.HonestCostTracking <> cb_instr:3 meth
-R1517:1519 Coq.Init.Datatypes <> nat ind
-R1543:1546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1535:1542 Kernel.HonestCostTracking <> cb_state:2 meth
-R1547:1550 Coq.Init.Datatypes <> bool ind
-def 1566:1571 <> cb_run
-R1579:1595 Kernel.HonestCostTracking <> CostBearingSystem rec
-binder 1574:1575 <> CB:7
-R1623:1626 Coq.Init.Datatypes <> list ind
-R1629:1636 Kernel.HonestCostTracking <> cb_instr proj
-R1638:1639 Kernel.HonestCostTracking <> CB:7 var
-binder 1615:1619 <> trace:8
-R1664:1671 Kernel.HonestCostTracking <> cb_state proj
-R1673:1674 Kernel.HonestCostTracking <> CB:7 var
-binder 1660:1660 <> s:9
-R1679:1686 Kernel.HonestCostTracking <> cb_state proj
-R1688:1689 Kernel.HonestCostTracking <> CB:7 var
-R1702:1706 Kernel.HonestCostTracking <> trace:8 var
-R1717:1718 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1730:1730 Kernel.HonestCostTracking <> s:9 var
-R1737:1740 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1749:1754 Kernel.HonestCostTracking <> cb_run:10 def
-R1765:1771 Kernel.HonestCostTracking <> cb_step proj
-R1773:1774 Kernel.HonestCostTracking <> CB:7 var
-R1776:1776 Kernel.HonestCostTracking <> s:9 var
-R1756:1757 Kernel.HonestCostTracking <> CB:7 var
-def 1798:1810 <> cb_total_cost
-R1818:1834 Kernel.HonestCostTracking <> CostBearingSystem rec
-binder 1813:1814 <> CB:12
-R1869:1872 Coq.Init.Datatypes <> list ind
-R1875:1882 Kernel.HonestCostTracking <> cb_instr proj
-R1884:1885 Kernel.HonestCostTracking <> CB:12 var
-binder 1861:1865 <> trace:13
-R1891:1893 Coq.Init.Datatypes <> nat ind
-R1906:1910 Kernel.HonestCostTracking <> trace:13 var
-R1921:1922 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1941:1944 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1965:1967 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1953:1959 Kernel.HonestCostTracking <> cb_cost proj
-R1961:1962 Kernel.HonestCostTracking <> CB:12 var
-R1968:1980 Kernel.HonestCostTracking <> cb_total_cost:14 def
-R1982:1983 Kernel.HonestCostTracking <> CB:12 var
-def 2375:2396 <> dishonest_forge_system
-R2400:2416 Kernel.HonestCostTracking <> CostBearingSystem rec
-R2426:2433 Kernel.HonestCostTracking <> cb_state proj
-R2426:2433 Kernel.HonestCostTracking <> cb_state proj
-R2426:2433 Kernel.HonestCostTracking <> cb_state proj
-R2449:2456 Kernel.HonestCostTracking <> cb_instr proj
-R2449:2456 Kernel.HonestCostTracking <> cb_instr proj
-R2472:2478 Kernel.HonestCostTracking <> cb_step proj
-R2472:2478 Kernel.HonestCostTracking <> cb_step proj
-R2506:2512 Kernel.HonestCostTracking <> cb_cost proj
-R2506:2512 Kernel.HonestCostTracking <> cb_cost proj
-R2537:2543 Kernel.HonestCostTracking <> cb_cert proj
-R2537:2543 Kernel.HonestCostTracking <> cb_cert proj
-R2438:2441 Coq.Init.Datatypes <> bool ind
-R2461:2464 Coq.Init.Datatypes <> unit ind
-R2495:2498 Coq.Init.Datatypes <> true constr
-binder 2553:2553 <> b:16
-R2560:2560 Kernel.HonestCostTracking <> b:16 var
-def 2717:2737 <> dishonest_forge_trace
-R2741:2744 Coq.Init.Datatypes <> list ind
-R2747:2754 Kernel.HonestCostTracking <> cb_instr proj
-R2756:2777 Kernel.HonestCostTracking <> dishonest_forge_system def
-R2783:2783 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2786:2786 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R2784:2785 Coq.Init.Datatypes <> tt constr
-prf 2876:2903 <> dishonest_free_certification
-R2955:2960 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2947:2949 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2911:2917 Kernel.HonestCostTracking <> cb_cert proj
-R2919:2940 Kernel.HonestCostTracking <> dishonest_forge_system def
-R2942:2946 Coq.Init.Datatypes <> false constr
-R2950:2954 Coq.Init.Datatypes <> false constr
-R3066:3071 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3059:3061 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2961:2967 Kernel.HonestCostTracking <> cb_cert proj
-R2969:2990 Kernel.HonestCostTracking <> dishonest_forge_system def
-R3001:3006 Kernel.HonestCostTracking <> cb_run def
-R3008:3029 Kernel.HonestCostTracking <> dishonest_forge_system def
-R3031:3051 Kernel.HonestCostTracking <> dishonest_forge_trace def
-R3053:3057 Coq.Init.Datatypes <> false constr
-R3062:3065 Coq.Init.Datatypes <> true constr
-R3130:3132 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3072:3084 Kernel.HonestCostTracking <> cb_total_cost def
-R3086:3107 Kernel.HonestCostTracking <> dishonest_forge_system def
-R3109:3129 Kernel.HonestCostTracking <> dishonest_forge_trace def
-prf 3738:3776 <> honest_cost_tracking_strict_restriction
-R3853:3853 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4066:4144 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4360:4360 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3854:3861 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3952:3960 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3867:3883 Kernel.HonestCostTracking <> CostBearingSystem rec
-binder 3862:3863 <> CB:17
-R3902:3909 Kernel.HonestCostTracking <> cb_state proj
-R3911:3912 Kernel.HonestCostTracking <> CB:17 var
-binder 3897:3898 <> s0:18
-R3934:3937 Coq.Init.Datatypes <> list ind
-R3940:3947 Kernel.HonestCostTracking <> cb_instr proj
-R3949:3950 Kernel.HonestCostTracking <> CB:17 var
-binder 3926:3930 <> trace:19
-R3982:3991 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3974:3976 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3961:3967 Kernel.HonestCostTracking <> cb_cert proj
-R3969:3970 Kernel.HonestCostTracking <> CB:17 var
-R3972:3973 Kernel.HonestCostTracking <> s0:18 var
-R3977:3981 Coq.Init.Datatypes <> false constr
-R4030:4039 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4023:4025 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3992:3998 Kernel.HonestCostTracking <> cb_cert proj
-R4000:4001 Kernel.HonestCostTracking <> CB:17 var
-R4004:4009 Kernel.HonestCostTracking <> cb_run def
-R4011:4012 Kernel.HonestCostTracking <> CB:17 var
-R4014:4018 Kernel.HonestCostTracking <> trace:19 var
-R4020:4021 Kernel.HonestCostTracking <> s0:18 var
-R4026:4029 Coq.Init.Datatypes <> true constr
-R4062:4064 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4040:4052 Kernel.HonestCostTracking <> cb_total_cost def
-R4054:4055 Kernel.HonestCostTracking <> CB:17 var
-R4057:4061 Kernel.HonestCostTracking <> trace:19 var
-R4158:4176 Kernel.UniversalCertificationCost <> CertificationSystem rec
-binder 4153:4154 <> CS:20
-R4198:4201 Coq.Init.Datatypes <> list ind
-R4204:4211 Kernel.UniversalCertificationCost <> cs_instr proj
-R4213:4214 Kernel.HonestCostTracking <> CS:20 var
-binder 4190:4194 <> trace:21
-R4234:4241 Kernel.UniversalCertificationCost <> cs_state proj
-R4243:4244 Kernel.HonestCostTracking <> CS:20 var
-binder 4229:4230 <> s0:22
-R4275:4284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4267:4269 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4254:4260 Kernel.UniversalCertificationCost <> cs_cert proj
-R4262:4263 Kernel.HonestCostTracking <> CS:20 var
-R4265:4266 Kernel.HonestCostTracking <> s0:22 var
-R4270:4274 Coq.Init.Datatypes <> false constr
-R4323:4332 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4316:4318 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4285:4291 Kernel.UniversalCertificationCost <> cs_cert proj
-R4293:4294 Kernel.HonestCostTracking <> CS:20 var
-R4297:4302 Kernel.UniversalCertificationCost <> cs_run def
-R4304:4305 Kernel.HonestCostTracking <> CS:20 var
-R4307:4311 Kernel.HonestCostTracking <> trace:21 var
-R4313:4314 Kernel.HonestCostTracking <> s0:22 var
-R4319:4322 Coq.Init.Datatypes <> true constr
-R4355:4358 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4333:4345 Kernel.UniversalCertificationCost <> cs_total_cost def
-R4347:4348 Kernel.HonestCostTracking <> CS:20 var
-R4350:4354 Kernel.HonestCostTracking <> trace:21 var
-R4390:4411 Kernel.HonestCostTracking <> dishonest_forge_system def
-R4414:4418 Coq.Init.Datatypes <> false constr
-R4421:4441 Kernel.HonestCostTracking <> dishonest_forge_trace def
-R4390:4411 Kernel.HonestCostTracking <> dishonest_forge_system def
-R4414:4418 Coq.Init.Datatypes <> false constr
-R4421:4441 Kernel.HonestCostTracking <> dishonest_forge_trace def
-R4454:4481 Kernel.HonestCostTracking <> dishonest_free_certification thm
-R4454:4481 Kernel.HonestCostTracking <> dishonest_free_certification thm
-R4494:4520 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R4494:4520 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-prf 5005:5028 <> free_forgery_violates_A2
-R5047:5063 Kernel.HonestCostTracking <> CostBearingSystem rec
-binder 5042:5043 <> CB:23
-R5071:5078 Kernel.HonestCostTracking <> cb_state proj
-R5080:5081 Kernel.HonestCostTracking <> CB:23 var
-binder 5067:5067 <> s:24
-R5089:5096 Kernel.HonestCostTracking <> cb_instr proj
-R5098:5099 Kernel.HonestCostTracking <> CB:23 var
-binder 5085:5085 <> i:25
-R5129:5135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5121:5123 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5109:5115 Kernel.HonestCostTracking <> cb_cert proj
-R5117:5118 Kernel.HonestCostTracking <> CB:23 var
-R5120:5120 Kernel.HonestCostTracking <> s:24 var
-R5124:5128 Coq.Init.Datatypes <> false constr
-R5170:5176 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5163:5165 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5136:5142 Kernel.HonestCostTracking <> cb_cert proj
-R5144:5145 Kernel.HonestCostTracking <> CB:23 var
-R5148:5154 Kernel.HonestCostTracking <> cb_step proj
-R5156:5157 Kernel.HonestCostTracking <> CB:23 var
-R5159:5159 Kernel.HonestCostTracking <> s:24 var
-R5161:5161 Kernel.HonestCostTracking <> i:25 var
-R5166:5169 Coq.Init.Datatypes <> true constr
-R5193:5199 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5189:5191 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5177:5183 Kernel.HonestCostTracking <> cb_cost proj
-R5185:5186 Kernel.HonestCostTracking <> CB:23 var
-R5188:5188 Kernel.HonestCostTracking <> i:25 var
-R5200:5202 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5368:5368 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5216:5223 Kernel.HonestCostTracking <> cb_state proj
-R5225:5226 Kernel.HonestCostTracking <> CB:23 var
-binder 5211:5212 <> s':26
-R5235:5242 Kernel.HonestCostTracking <> cb_instr proj
-R5244:5245 Kernel.HonestCostTracking <> CB:23 var
-binder 5230:5231 <> i':27
-R5282:5297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5274:5276 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5261:5267 Kernel.HonestCostTracking <> cb_cert proj
-R5269:5270 Kernel.HonestCostTracking <> CB:23 var
-R5272:5273 Kernel.HonestCostTracking <> s':26 var
-R5277:5281 Coq.Init.Datatypes <> false constr
-R5334:5349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5327:5329 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5298:5304 Kernel.HonestCostTracking <> cb_cert proj
-R5306:5307 Kernel.HonestCostTracking <> CB:23 var
-R5310:5316 Kernel.HonestCostTracking <> cb_step proj
-R5318:5319 Kernel.HonestCostTracking <> CB:23 var
-R5321:5322 Kernel.HonestCostTracking <> s':26 var
-R5324:5325 Kernel.HonestCostTracking <> i':27 var
-R5330:5333 Coq.Init.Datatypes <> true constr
-R5363:5366 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5350:5356 Kernel.HonestCostTracking <> cb_cost proj
-R5358:5359 Kernel.HonestCostTracking <> CB:23 var
-R5361:5362 Kernel.HonestCostTracking <> i':27 var
-prf 5685:5718 <> dishonest_forge_system_violates_A2
-R5724:5726 Coq.Init.Logic <> ::type_scope:'~'_x not
-R6022:6022 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5739:5746 Kernel.HonestCostTracking <> cb_state proj
-R5748:5769 Kernel.HonestCostTracking <> dishonest_forge_system def
-binder 5735:5735 <> s:28
-R5789:5796 Kernel.HonestCostTracking <> cb_instr proj
-R5798:5819 Kernel.HonestCostTracking <> dishonest_forge_system def
-binder 5785:5785 <> i:29
-R5871:5882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5863:5865 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5831:5837 Kernel.HonestCostTracking <> cb_cert proj
-R5839:5860 Kernel.HonestCostTracking <> dishonest_forge_system def
-R5862:5862 Kernel.HonestCostTracking <> s:28 var
-R5866:5870 Coq.Init.Datatypes <> false constr
-R5973:5984 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5966:5968 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5883:5889 Kernel.HonestCostTracking <> cb_cert proj
-R5891:5912 Kernel.HonestCostTracking <> dishonest_forge_system def
-R5931:5937 Kernel.HonestCostTracking <> cb_step proj
-R5939:5960 Kernel.HonestCostTracking <> dishonest_forge_system def
-R5962:5962 Kernel.HonestCostTracking <> s:28 var
-R5964:5964 Kernel.HonestCostTracking <> i:29 var
-R5969:5972 Coq.Init.Datatypes <> true constr
-R6017:6020 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5985:5991 Kernel.HonestCostTracking <> cb_cost proj
-R5993:6014 Kernel.HonestCostTracking <> dishonest_forge_system def
-R6016:6016 Kernel.HonestCostTracking <> i:29 var
-R6041:6064 Kernel.HonestCostTracking <> free_forgery_violates_A2 thm
-R6066:6087 Kernel.HonestCostTracking <> dishonest_forge_system def
-R6089:6093 Coq.Init.Datatypes <> false constr
-R6095:6096 Coq.Init.Datatypes <> tt constr
-R6041:6064 Kernel.HonestCostTracking <> free_forgery_violates_A2 thm
-R6066:6087 Kernel.HonestCostTracking <> dishonest_forge_system def
-R6089:6093 Coq.Init.Datatypes <> false constr
-R6095:6096 Coq.Init.Datatypes <> tt constr
-prf 6809:6836 <> thiele_vm_is_in_honest_class
-R6842:6849 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6874:6880 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6855:6873 Kernel.UniversalCertificationCost <> CertificationSystem rec
-binder 6850:6851 <> CS:30
-R6902:6909 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6892:6894 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6881:6888 Kernel.UniversalCertificationCost <> cs_state proj
-R6890:6891 Kernel.HonestCostTracking <> CS:30 var
-R6895:6901 Kernel.VMState <> VMState rec
-binder 6917:6917 <> s:31
-binder 6919:6919 <> i:32
-R6942:6961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6934:6936 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6922:6928 Kernel.UniversalCertificationCost <> cs_cert proj
-R6930:6931 Kernel.HonestCostTracking <> CS:30 var
-R6933:6933 Kernel.HonestCostTracking <> s:31 var
-R6937:6941 Coq.Init.Datatypes <> false constr
-R6996:7015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6989:6991 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6962:6968 Kernel.UniversalCertificationCost <> cs_cert proj
-R6970:6971 Kernel.HonestCostTracking <> CS:30 var
-R6974:6980 Kernel.UniversalCertificationCost <> cs_step proj
-R6982:6983 Kernel.HonestCostTracking <> CS:30 var
-R6985:6985 Kernel.HonestCostTracking <> s:31 var
-R6987:6987 Kernel.HonestCostTracking <> i:32 var
-R6992:6995 Coq.Init.Datatypes <> true constr
-R7028:7031 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7016:7022 Kernel.UniversalCertificationCost <> cs_cost proj
-R7024:7025 Kernel.HonestCostTracking <> CS:30 var
-R7027:7027 Kernel.HonestCostTracking <> i:32 var
-R7051:7073 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-R7051:7073 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-R7110:7122 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R7110:7122 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R920:933 Coq.Lists.List <> <> lib
+R943:955 Coq.Lists.List ListNotations <> mod
+R973:990 Coq.Arith.PeanoNat <> <> lib
+rec 1272:1288 <> CostBearingSystem
+proj 1310:1317 <> cb_state
+proj 1329:1336 <> cb_instr
+proj 1348:1354 <> cb_step
+proj 1395:1401 <> cb_cost
+proj 1425:1431 <> cb_cert
+R1367:1370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1359:1366 Kernel.HonestCostTracking <> cb_state:2 meth
+R1379:1382 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1371:1378 Kernel.HonestCostTracking <> cb_instr:3 meth
+R1383:1390 Kernel.HonestCostTracking <> cb_state:2 meth
+R1414:1417 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1406:1413 Kernel.HonestCostTracking <> cb_instr:3 meth
+R1418:1420 Coq.Init.Datatypes <> nat ind
+R1444:1447 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1436:1443 Kernel.HonestCostTracking <> cb_state:2 meth
+R1448:1451 Coq.Init.Datatypes <> bool ind
+def 1467:1472 <> cb_run
+R1480:1496 Kernel.HonestCostTracking <> CostBearingSystem rec
+binder 1475:1476 <> CB:7
+R1524:1527 Coq.Init.Datatypes <> list ind
+R1530:1537 Kernel.HonestCostTracking <> cb_instr proj
+R1539:1540 Kernel.HonestCostTracking <> CB:7 var
+binder 1516:1520 <> trace:8
+R1565:1572 Kernel.HonestCostTracking <> cb_state proj
+R1574:1575 Kernel.HonestCostTracking <> CB:7 var
+binder 1561:1561 <> s:9
+R1580:1587 Kernel.HonestCostTracking <> cb_state proj
+R1589:1590 Kernel.HonestCostTracking <> CB:7 var
+R1603:1607 Kernel.HonestCostTracking <> trace:8 var
+R1618:1619 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1631:1631 Kernel.HonestCostTracking <> s:9 var
+R1638:1641 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1650:1655 Kernel.HonestCostTracking <> cb_run:10 def
+R1666:1672 Kernel.HonestCostTracking <> cb_step proj
+R1674:1675 Kernel.HonestCostTracking <> CB:7 var
+R1677:1677 Kernel.HonestCostTracking <> s:9 var
+R1657:1658 Kernel.HonestCostTracking <> CB:7 var
+def 1699:1711 <> cb_total_cost
+R1719:1735 Kernel.HonestCostTracking <> CostBearingSystem rec
+binder 1714:1715 <> CB:12
+R1770:1773 Coq.Init.Datatypes <> list ind
+R1776:1783 Kernel.HonestCostTracking <> cb_instr proj
+R1785:1786 Kernel.HonestCostTracking <> CB:12 var
+binder 1762:1766 <> trace:13
+R1792:1794 Coq.Init.Datatypes <> nat ind
+R1807:1811 Kernel.HonestCostTracking <> trace:13 var
+R1822:1823 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1842:1845 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1866:1868 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1854:1860 Kernel.HonestCostTracking <> cb_cost proj
+R1862:1863 Kernel.HonestCostTracking <> CB:12 var
+R1869:1881 Kernel.HonestCostTracking <> cb_total_cost:14 def
+R1883:1884 Kernel.HonestCostTracking <> CB:12 var
+def 2276:2297 <> dishonest_forge_system
+R2301:2317 Kernel.HonestCostTracking <> CostBearingSystem rec
+R2327:2334 Kernel.HonestCostTracking <> cb_state proj
+R2327:2334 Kernel.HonestCostTracking <> cb_state proj
+R2327:2334 Kernel.HonestCostTracking <> cb_state proj
+R2350:2357 Kernel.HonestCostTracking <> cb_instr proj
+R2350:2357 Kernel.HonestCostTracking <> cb_instr proj
+R2373:2379 Kernel.HonestCostTracking <> cb_step proj
+R2373:2379 Kernel.HonestCostTracking <> cb_step proj
+R2407:2413 Kernel.HonestCostTracking <> cb_cost proj
+R2407:2413 Kernel.HonestCostTracking <> cb_cost proj
+R2438:2444 Kernel.HonestCostTracking <> cb_cert proj
+R2438:2444 Kernel.HonestCostTracking <> cb_cert proj
+R2339:2342 Coq.Init.Datatypes <> bool ind
+R2362:2365 Coq.Init.Datatypes <> unit ind
+R2396:2399 Coq.Init.Datatypes <> true constr
+binder 2454:2454 <> b:16
+R2461:2461 Kernel.HonestCostTracking <> b:16 var
+def 2618:2638 <> dishonest_forge_trace
+R2642:2645 Coq.Init.Datatypes <> list ind
+R2648:2655 Kernel.HonestCostTracking <> cb_instr proj
+R2657:2678 Kernel.HonestCostTracking <> dishonest_forge_system def
+R2684:2684 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2687:2687 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2685:2686 Coq.Init.Datatypes <> tt constr
+prf 2777:2804 <> dishonest_free_certification
+R2856:2861 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2848:2850 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2812:2818 Kernel.HonestCostTracking <> cb_cert proj
+R2820:2841 Kernel.HonestCostTracking <> dishonest_forge_system def
+R2843:2847 Coq.Init.Datatypes <> false constr
+R2851:2855 Coq.Init.Datatypes <> false constr
+R2967:2972 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2960:2962 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2862:2868 Kernel.HonestCostTracking <> cb_cert proj
+R2870:2891 Kernel.HonestCostTracking <> dishonest_forge_system def
+R2902:2907 Kernel.HonestCostTracking <> cb_run def
+R2909:2930 Kernel.HonestCostTracking <> dishonest_forge_system def
+R2932:2952 Kernel.HonestCostTracking <> dishonest_forge_trace def
+R2954:2958 Coq.Init.Datatypes <> false constr
+R2963:2966 Coq.Init.Datatypes <> true constr
+R3031:3033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2973:2985 Kernel.HonestCostTracking <> cb_total_cost def
+R2987:3008 Kernel.HonestCostTracking <> dishonest_forge_system def
+R3010:3030 Kernel.HonestCostTracking <> dishonest_forge_trace def
+prf 3639:3677 <> honest_cost_tracking_strict_restriction
+R3754:3754 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3967:4045 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4261:4261 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3755:3762 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3853:3861 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3768:3784 Kernel.HonestCostTracking <> CostBearingSystem rec
+binder 3763:3764 <> CB:17
+R3803:3810 Kernel.HonestCostTracking <> cb_state proj
+R3812:3813 Kernel.HonestCostTracking <> CB:17 var
+binder 3798:3799 <> s0:18
+R3835:3838 Coq.Init.Datatypes <> list ind
+R3841:3848 Kernel.HonestCostTracking <> cb_instr proj
+R3850:3851 Kernel.HonestCostTracking <> CB:17 var
+binder 3827:3831 <> trace:19
+R3883:3892 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3875:3877 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3862:3868 Kernel.HonestCostTracking <> cb_cert proj
+R3870:3871 Kernel.HonestCostTracking <> CB:17 var
+R3873:3874 Kernel.HonestCostTracking <> s0:18 var
+R3878:3882 Coq.Init.Datatypes <> false constr
+R3931:3940 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3924:3926 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3893:3899 Kernel.HonestCostTracking <> cb_cert proj
+R3901:3902 Kernel.HonestCostTracking <> CB:17 var
+R3905:3910 Kernel.HonestCostTracking <> cb_run def
+R3912:3913 Kernel.HonestCostTracking <> CB:17 var
+R3915:3919 Kernel.HonestCostTracking <> trace:19 var
+R3921:3922 Kernel.HonestCostTracking <> s0:18 var
+R3927:3930 Coq.Init.Datatypes <> true constr
+R3963:3965 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3941:3953 Kernel.HonestCostTracking <> cb_total_cost def
+R3955:3956 Kernel.HonestCostTracking <> CB:17 var
+R3958:3962 Kernel.HonestCostTracking <> trace:19 var
+R4059:4077 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 4054:4055 <> CS:20
+R4099:4102 Coq.Init.Datatypes <> list ind
+R4105:4112 Kernel.UniversalCertificationCost <> cs_instr proj
+R4114:4115 Kernel.HonestCostTracking <> CS:20 var
+binder 4091:4095 <> trace:21
+R4135:4142 Kernel.UniversalCertificationCost <> cs_state proj
+R4144:4145 Kernel.HonestCostTracking <> CS:20 var
+binder 4130:4131 <> s0:22
+R4176:4185 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4168:4170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4155:4161 Kernel.UniversalCertificationCost <> cs_cert proj
+R4163:4164 Kernel.HonestCostTracking <> CS:20 var
+R4166:4167 Kernel.HonestCostTracking <> s0:22 var
+R4171:4175 Coq.Init.Datatypes <> false constr
+R4224:4233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4217:4219 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4186:4192 Kernel.UniversalCertificationCost <> cs_cert proj
+R4194:4195 Kernel.HonestCostTracking <> CS:20 var
+R4198:4203 Kernel.UniversalCertificationCost <> cs_run def
+R4205:4206 Kernel.HonestCostTracking <> CS:20 var
+R4208:4212 Kernel.HonestCostTracking <> trace:21 var
+R4214:4215 Kernel.HonestCostTracking <> s0:22 var
+R4220:4223 Coq.Init.Datatypes <> true constr
+R4256:4259 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4234:4246 Kernel.UniversalCertificationCost <> cs_total_cost def
+R4248:4249 Kernel.HonestCostTracking <> CS:20 var
+R4251:4255 Kernel.HonestCostTracking <> trace:21 var
+R4291:4312 Kernel.HonestCostTracking <> dishonest_forge_system def
+R4315:4319 Coq.Init.Datatypes <> false constr
+R4322:4342 Kernel.HonestCostTracking <> dishonest_forge_trace def
+R4291:4312 Kernel.HonestCostTracking <> dishonest_forge_system def
+R4315:4319 Coq.Init.Datatypes <> false constr
+R4322:4342 Kernel.HonestCostTracking <> dishonest_forge_trace def
+R4355:4382 Kernel.HonestCostTracking <> dishonest_free_certification thm
+R4355:4382 Kernel.HonestCostTracking <> dishonest_free_certification thm
+R4395:4421 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R4395:4421 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+prf 4906:4929 <> free_forgery_violates_A2
+R4948:4964 Kernel.HonestCostTracking <> CostBearingSystem rec
+binder 4943:4944 <> CB:23
+R4972:4979 Kernel.HonestCostTracking <> cb_state proj
+R4981:4982 Kernel.HonestCostTracking <> CB:23 var
+binder 4968:4968 <> s:24
+R4990:4997 Kernel.HonestCostTracking <> cb_instr proj
+R4999:5000 Kernel.HonestCostTracking <> CB:23 var
+binder 4986:4986 <> i:25
+R5030:5036 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5022:5024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5010:5016 Kernel.HonestCostTracking <> cb_cert proj
+R5018:5019 Kernel.HonestCostTracking <> CB:23 var
+R5021:5021 Kernel.HonestCostTracking <> s:24 var
+R5025:5029 Coq.Init.Datatypes <> false constr
+R5071:5077 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5064:5066 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5037:5043 Kernel.HonestCostTracking <> cb_cert proj
+R5045:5046 Kernel.HonestCostTracking <> CB:23 var
+R5049:5055 Kernel.HonestCostTracking <> cb_step proj
+R5057:5058 Kernel.HonestCostTracking <> CB:23 var
+R5060:5060 Kernel.HonestCostTracking <> s:24 var
+R5062:5062 Kernel.HonestCostTracking <> i:25 var
+R5067:5070 Coq.Init.Datatypes <> true constr
+R5094:5100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5090:5092 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5078:5084 Kernel.HonestCostTracking <> cb_cost proj
+R5086:5087 Kernel.HonestCostTracking <> CB:23 var
+R5089:5089 Kernel.HonestCostTracking <> i:25 var
+R5101:5103 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5269:5269 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5117:5124 Kernel.HonestCostTracking <> cb_state proj
+R5126:5127 Kernel.HonestCostTracking <> CB:23 var
+binder 5112:5113 <> s':26
+R5136:5143 Kernel.HonestCostTracking <> cb_instr proj
+R5145:5146 Kernel.HonestCostTracking <> CB:23 var
+binder 5131:5132 <> i':27
+R5183:5198 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5175:5177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5162:5168 Kernel.HonestCostTracking <> cb_cert proj
+R5170:5171 Kernel.HonestCostTracking <> CB:23 var
+R5173:5174 Kernel.HonestCostTracking <> s':26 var
+R5178:5182 Coq.Init.Datatypes <> false constr
+R5235:5250 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5228:5230 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5199:5205 Kernel.HonestCostTracking <> cb_cert proj
+R5207:5208 Kernel.HonestCostTracking <> CB:23 var
+R5211:5217 Kernel.HonestCostTracking <> cb_step proj
+R5219:5220 Kernel.HonestCostTracking <> CB:23 var
+R5222:5223 Kernel.HonestCostTracking <> s':26 var
+R5225:5226 Kernel.HonestCostTracking <> i':27 var
+R5231:5234 Coq.Init.Datatypes <> true constr
+R5264:5267 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5251:5257 Kernel.HonestCostTracking <> cb_cost proj
+R5259:5260 Kernel.HonestCostTracking <> CB:23 var
+R5262:5263 Kernel.HonestCostTracking <> i':27 var
+prf 5586:5619 <> dishonest_forge_system_violates_A2
+R5625:5627 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5923:5923 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5640:5647 Kernel.HonestCostTracking <> cb_state proj
+R5649:5670 Kernel.HonestCostTracking <> dishonest_forge_system def
+binder 5636:5636 <> s:28
+R5690:5697 Kernel.HonestCostTracking <> cb_instr proj
+R5699:5720 Kernel.HonestCostTracking <> dishonest_forge_system def
+binder 5686:5686 <> i:29
+R5772:5783 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5764:5766 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5732:5738 Kernel.HonestCostTracking <> cb_cert proj
+R5740:5761 Kernel.HonestCostTracking <> dishonest_forge_system def
+R5763:5763 Kernel.HonestCostTracking <> s:28 var
+R5767:5771 Coq.Init.Datatypes <> false constr
+R5874:5885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5867:5869 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5784:5790 Kernel.HonestCostTracking <> cb_cert proj
+R5792:5813 Kernel.HonestCostTracking <> dishonest_forge_system def
+R5832:5838 Kernel.HonestCostTracking <> cb_step proj
+R5840:5861 Kernel.HonestCostTracking <> dishonest_forge_system def
+R5863:5863 Kernel.HonestCostTracking <> s:28 var
+R5865:5865 Kernel.HonestCostTracking <> i:29 var
+R5870:5873 Coq.Init.Datatypes <> true constr
+R5918:5921 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5886:5892 Kernel.HonestCostTracking <> cb_cost proj
+R5894:5915 Kernel.HonestCostTracking <> dishonest_forge_system def
+R5917:5917 Kernel.HonestCostTracking <> i:29 var
+R5942:5965 Kernel.HonestCostTracking <> free_forgery_violates_A2 thm
+R5967:5988 Kernel.HonestCostTracking <> dishonest_forge_system def
+R5990:5994 Coq.Init.Datatypes <> false constr
+R5996:5997 Coq.Init.Datatypes <> tt constr
+R5942:5965 Kernel.HonestCostTracking <> free_forgery_violates_A2 thm
+R5967:5988 Kernel.HonestCostTracking <> dishonest_forge_system def
+R5990:5994 Coq.Init.Datatypes <> false constr
+R5996:5997 Coq.Init.Datatypes <> tt constr

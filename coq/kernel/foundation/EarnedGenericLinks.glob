@@ -1,759 +1,864 @@
-DIGEST 56059cbaab45aa773955e85be6a9012d
+DIGEST 6778d7f169ce5d73512ea96e5c9335e0
 FKernel.EarnedGenericLinks
-R1957:1960 Coq.Lists.List <> <> lib
-R1962:1966 Coq.Arith.Arith <> <> lib
-R1968:1970 Coq.micromega.Lia <> <> lib
-R1997:2010 Coq.Sorting.Sorted <> <> lib
-R2020:2032 Coq.Lists.List ListNotations <> mod
-R2062:2087 Kernel.UniversalCertificationCost <> <> lib
-R2098:2119 Kernel.EarnedCoreLinks <> <> lib
-R2130:2147 Minimal.EarnedCore <> <> lib
-R2158:2178 Minimal.EarnedGeneric <> <> lib
-R2189:2210 Minimal.ThieleComplete <> <> lib
-R2225:2242 Minimal.EarnedCore <> <> modtype
-mod 2220:2220 <> E
-R2257:2277 Minimal.EarnedGeneric <> <> modtype
-mod 2252:2252 <> G
-R2292:2313 Minimal.ThieleComplete <> <> modtype
-mod 2287:2287 <> T
-def 2676:2685 <> generic_cs
-binder 2688:2691 <> prop:1
-R2717:2720 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2713:2716 Kernel.EarnedGenericLinks <> prop:1 var
-R2725:2728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2721:2724 Kernel.EarnedGenericLinks <> prop:1 var
-R2729:2732 Coq.Init.Datatypes <> bool ind
-binder 2702:2709 <> prop_eqb:2
-R2751:2754 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2747:2750 Kernel.EarnedGenericLinks <> prop:1 var
-R2758:2761 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2755:2757 Coq.Init.Datatypes <> nat ind
-R2762:2765 Coq.Init.Datatypes <> bool ind
-binder 2740:2743 <> eval:3
-R2770:2788 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R2795:2808 Kernel.UniversalCertificationCost <> mk_cert_system constr
-R2812:2818 Kernel.EarnedGenericLinks <> state rec
-R2820:2823 Kernel.EarnedGenericLinks <> prop:1 var
-R2828:2834 Kernel.EarnedGenericLinks <> instr ind
-R2836:2839 Kernel.EarnedGenericLinks <> prop:1 var
-R2843:2848 Kernel.EarnedGenericLinks <> exec def
-R2859:2862 Kernel.EarnedGenericLinks <> eval:3 var
-R2850:2857 Kernel.EarnedGenericLinks <> prop_eqb:2 var
-R2871:2876 Kernel.EarnedGenericLinks <> cost def
-R2878:2881 Kernel.EarnedGenericLinks <> prop:1 var
-R2886:2891 Kernel.EarnedGenericLinks <> cert proj
-R2893:2896 Kernel.EarnedGenericLinks <> prop:1 var
-R2900:2911 Kernel.EarnedGenericLinks <> generic_a2 thm
-R2922:2925 Kernel.EarnedGenericLinks <> eval:3 var
-R2913:2920 Kernel.EarnedGenericLinks <> prop_eqb:2 var
-prf 2936:2949 <> generic_cs_run
-binder 2961:2964 <> prop:4
-R2990:2993 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2986:2989 Kernel.EarnedGenericLinks <> prop:4 var
-R2998:3001 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2994:2997 Kernel.EarnedGenericLinks <> prop:4 var
-R3002:3005 Coq.Init.Datatypes <> bool ind
-binder 2975:2982 <> prop_eqb:5
-R3024:3027 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3020:3023 Kernel.EarnedGenericLinks <> prop:4 var
-R3031:3034 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3028:3030 Coq.Init.Datatypes <> nat ind
-R3035:3038 Coq.Init.Datatypes <> bool ind
-binder 3013:3016 <> eval:6
-R3047:3050 Coq.Init.Datatypes <> list ind
-R3054:3060 Kernel.EarnedGenericLinks <> instr ind
-R3062:3065 Kernel.EarnedGenericLinks <> prop:4 var
-binder 3042:3043 <> tr:7
-R3075:3081 Kernel.EarnedGenericLinks <> state rec
-R3083:3086 Kernel.EarnedGenericLinks <> prop:4 var
-binder 3070:3070 <> s:8
-R3130:3132 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3092:3097 Kernel.UniversalCertificationCost <> cs_run def
-R3100:3109 Kernel.EarnedGenericLinks <> generic_cs def
-R3120:3123 Kernel.EarnedGenericLinks <> eval:6 var
-R3111:3118 Kernel.EarnedGenericLinks <> prop_eqb:5 var
-R3126:3127 Kernel.EarnedGenericLinks <> tr:7 var
-R3129:3129 Kernel.EarnedGenericLinks <> s:8 var
-R3133:3137 Kernel.EarnedGenericLinks <> run def
-R3153:3154 Kernel.EarnedGenericLinks <> tr:7 var
-R3156:3156 Kernel.EarnedGenericLinks <> s:8 var
-R3148:3151 Kernel.EarnedGenericLinks <> eval:6 var
-R3139:3146 Kernel.EarnedGenericLinks <> prop_eqb:5 var
-prf 3243:3257 <> generic_cs_cost
-binder 3269:3272 <> prop:9
-R3298:3301 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3294:3297 Kernel.EarnedGenericLinks <> prop:9 var
-R3306:3309 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3302:3305 Kernel.EarnedGenericLinks <> prop:9 var
-R3310:3313 Coq.Init.Datatypes <> bool ind
-binder 3283:3290 <> prop_eqb:10
-R3332:3335 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3328:3331 Kernel.EarnedGenericLinks <> prop:9 var
-R3339:3342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3336:3338 Coq.Init.Datatypes <> nat ind
-R3343:3346 Coq.Init.Datatypes <> bool ind
-binder 3321:3324 <> eval:11
-R3355:3358 Coq.Init.Datatypes <> list ind
-R3362:3368 Kernel.EarnedGenericLinks <> instr ind
-R3370:3373 Kernel.EarnedGenericLinks <> prop:9 var
-binder 3350:3351 <> tr:12
-R3423:3425 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3380:3392 Kernel.UniversalCertificationCost <> cs_total_cost def
-R3395:3404 Kernel.EarnedGenericLinks <> generic_cs def
-R3415:3418 Kernel.EarnedGenericLinks <> eval:11 var
-R3406:3413 Kernel.EarnedGenericLinks <> prop_eqb:10 var
-R3421:3422 Kernel.EarnedGenericLinks <> tr:12 var
-R3426:3437 Kernel.EarnedGenericLinks <> total_cost def
-R3439:3440 Kernel.EarnedGenericLinks <> tr:12 var
-prf 3596:3615 <> earned_generic_floor
-binder 3627:3630 <> prop:13
-R3656:3659 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3652:3655 Kernel.EarnedGenericLinks <> prop:13 var
-R3664:3667 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3660:3663 Kernel.EarnedGenericLinks <> prop:13 var
-R3668:3671 Coq.Init.Datatypes <> bool ind
-binder 3641:3648 <> prop_eqb:14
-R3690:3693 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3686:3689 Kernel.EarnedGenericLinks <> prop:13 var
-R3697:3700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3694:3696 Coq.Init.Datatypes <> nat ind
-R3701:3704 Coq.Init.Datatypes <> bool ind
-binder 3679:3682 <> eval:15
-R3713:3716 Coq.Init.Datatypes <> list ind
-R3720:3726 Kernel.EarnedGenericLinks <> instr ind
-R3728:3731 Kernel.EarnedGenericLinks <> prop:13 var
-binder 3708:3709 <> tr:16
-R3742:3748 Kernel.EarnedGenericLinks <> state rec
-R3750:3753 Kernel.EarnedGenericLinks <> prop:13 var
-binder 3736:3737 <> s0:17
-R3776:3779 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3768:3770 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3759:3764 Kernel.EarnedGenericLinks <> cert proj
-R3766:3767 Kernel.EarnedGenericLinks <> s0:17 var
-R3771:3775 Coq.Init.Datatypes <> false constr
-R3821:3826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3814:3816 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3780:3785 Kernel.EarnedGenericLinks <> cert proj
-R3788:3792 Kernel.EarnedGenericLinks <> run def
-R3808:3809 Kernel.EarnedGenericLinks <> tr:16 var
-R3811:3812 Kernel.EarnedGenericLinks <> s0:17 var
-R3803:3806 Kernel.EarnedGenericLinks <> eval:15 var
-R3794:3801 Kernel.EarnedGenericLinks <> prop_eqb:14 var
-R3817:3820 Coq.Init.Datatypes <> true constr
-R3842:3845 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3827:3838 Kernel.EarnedGenericLinks <> total_cost def
-R3840:3841 Kernel.EarnedGenericLinks <> tr:16 var
-R3912:3926 Kernel.EarnedGenericLinks <> generic_cs_cost thm
-R3912:3926 Kernel.EarnedGenericLinks <> generic_cs_cost thm
-R3912:3926 Kernel.EarnedGenericLinks <> generic_cs_cost thm
-R3961:3987 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R3990:3999 Kernel.EarnedGenericLinks <> generic_cs def
-R3961:3987 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R3990:3999 Kernel.EarnedGenericLinks <> generic_cs def
-R4037:4050 Kernel.EarnedGenericLinks <> generic_cs_run thm
-R4037:4050 Kernel.EarnedGenericLinks <> generic_cs_run thm
-R4037:4050 Kernel.EarnedGenericLinks <> generic_cs_run thm
-prf 4219:4248 <> earned_generic_certified_floor
-binder 4262:4265 <> prop:18
-R4291:4294 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4287:4290 Kernel.EarnedGenericLinks <> prop:18 var
-R4299:4302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4295:4298 Kernel.EarnedGenericLinks <> prop:18 var
-R4303:4306 Coq.Init.Datatypes <> bool ind
-binder 4276:4283 <> prop_eqb:19
-R4312:4312 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4354:4360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 4320:4320 <> p:20
-binder 4322:4322 <> q:21
-R4344:4348 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R4337:4339 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4325:4332 Kernel.EarnedGenericLinks <> prop_eqb:19 var
-R4336:4336 Kernel.EarnedGenericLinks <> q:21 var
-R4334:4334 Kernel.EarnedGenericLinks <> p:20 var
-R4340:4343 Coq.Init.Datatypes <> true constr
-R4350:4352 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4349:4349 Kernel.EarnedGenericLinks <> p:20 var
-R4353:4353 Kernel.EarnedGenericLinks <> q:21 var
-R4380:4383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4376:4379 Kernel.EarnedGenericLinks <> prop:18 var
-R4387:4390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4384:4386 Coq.Init.Datatypes <> nat ind
-R4391:4394 Coq.Init.Datatypes <> bool ind
-binder 4369:4372 <> eval:22
-R4403:4406 Coq.Init.Datatypes <> list ind
-R4410:4416 Kernel.EarnedGenericLinks <> instr ind
-R4418:4421 Kernel.EarnedGenericLinks <> prop:18 var
-binder 4398:4399 <> tr:23
-R4432:4438 Kernel.EarnedGenericLinks <> state rec
-R4440:4443 Kernel.EarnedGenericLinks <> prop:18 var
-binder 4426:4427 <> s0:24
-R4465:4470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4449:4461 Kernel.EarnedGenericLinks <> clean_start def
-R4463:4464 Kernel.EarnedGenericLinks <> s0:24 var
-R4554:4559 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4547:4549 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4471:4477 Kernel.UniversalCertificationCost <> cs_cert proj
-R4480:4489 Kernel.EarnedGenericLinks <> generic_cs def
-R4500:4503 Kernel.EarnedGenericLinks <> eval:22 var
-R4491:4498 Kernel.EarnedGenericLinks <> prop_eqb:19 var
-R4507:4512 Kernel.UniversalCertificationCost <> cs_run def
-R4515:4524 Kernel.EarnedGenericLinks <> generic_cs def
-R4535:4538 Kernel.EarnedGenericLinks <> eval:22 var
-R4526:4533 Kernel.EarnedGenericLinks <> prop_eqb:19 var
-R4541:4542 Kernel.EarnedGenericLinks <> tr:23 var
-R4544:4545 Kernel.EarnedGenericLinks <> s0:24 var
-R4550:4553 Coq.Init.Datatypes <> true constr
-R4603:4606 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4560:4572 Kernel.UniversalCertificationCost <> cs_total_cost def
-R4575:4584 Kernel.EarnedGenericLinks <> generic_cs def
-R4595:4598 Kernel.EarnedGenericLinks <> eval:22 var
-R4586:4593 Kernel.EarnedGenericLinks <> prop_eqb:19 var
-R4601:4602 Kernel.EarnedGenericLinks <> tr:23 var
-R4672:4686 Kernel.EarnedGenericLinks <> generic_cs_cost thm
-R4672:4686 Kernel.EarnedGenericLinks <> generic_cs_cost thm
-R4672:4686 Kernel.EarnedGenericLinks <> generic_cs_cost thm
-R4697:4710 Kernel.EarnedGenericLinks <> generic_cs_run thm
-R4697:4710 Kernel.EarnedGenericLinks <> generic_cs_run thm
-R4697:4710 Kernel.EarnedGenericLinks <> generic_cs_run thm
-R4731:4762 Kernel.EarnedGenericLinks <> generic_certified_run_min_cost thm
-R4731:4762 Kernel.EarnedGenericLinks <> generic_certified_run_min_cost thm
-prf 4978:5000 <> earned_generic_cs_sound
-binder 5014:5017 <> prop:25
-R5043:5046 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5039:5042 Kernel.EarnedGenericLinks <> prop:25 var
-R5051:5054 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5047:5050 Kernel.EarnedGenericLinks <> prop:25 var
-R5055:5058 Coq.Init.Datatypes <> bool ind
-binder 5028:5035 <> prop_eqb:26
-R5082:5085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5078:5081 Kernel.EarnedGenericLinks <> prop:25 var
-R5089:5092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5086:5088 Coq.Init.Datatypes <> nat ind
-R5093:5096 Coq.Init.Datatypes <> bool ind
-binder 5071:5074 <> eval:27
-R5112:5115 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5108:5111 Kernel.EarnedGenericLinks <> prop:25 var
-R5119:5122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5116:5118 Coq.Init.Datatypes <> nat ind
-binder 5100:5104 <> holds:28
-R5132:5132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5174:5180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5140:5140 <> p:29
-binder 5142:5142 <> v:30
-R5160:5164 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R5153:5155 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5145:5148 Kernel.EarnedGenericLinks <> eval:27 var
-R5152:5152 Kernel.EarnedGenericLinks <> v:30 var
-R5150:5150 Kernel.EarnedGenericLinks <> p:29 var
-R5156:5159 Coq.Init.Datatypes <> true constr
-R5165:5169 Kernel.EarnedGenericLinks <> holds:28 var
-R5173:5173 Kernel.EarnedGenericLinks <> v:30 var
-R5171:5171 Kernel.EarnedGenericLinks <> p:29 var
-R5195:5201 Kernel.EarnedGenericLinks <> state rec
-R5203:5206 Kernel.EarnedGenericLinks <> prop:25 var
-binder 5189:5190 <> s0:31
-R5215:5218 Coq.Init.Datatypes <> list ind
-R5222:5228 Kernel.EarnedGenericLinks <> instr ind
-R5230:5233 Kernel.EarnedGenericLinks <> prop:25 var
-binder 5210:5211 <> tr:32
-R5243:5248 Kernel.EarnedGenericLinks <> fact rec
-R5250:5253 Kernel.EarnedGenericLinks <> prop:25 var
-binder 5238:5238 <> f:33
-R5275:5280 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5259:5271 Kernel.EarnedGenericLinks <> clean_start def
-R5273:5274 Kernel.EarnedGenericLinks <> s0:31 var
-R5349:5354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5281:5282 Coq.Lists.List <> In def
-R5287:5293 Kernel.EarnedGenericLinks <> facts proj
-R5296:5304 Kernel.EarnedGenericLinks <> core_of proj
-R5307:5312 Kernel.UniversalCertificationCost <> cs_run def
-R5315:5324 Kernel.EarnedGenericLinks <> generic_cs def
-R5335:5338 Kernel.EarnedGenericLinks <> eval:27 var
-R5326:5333 Kernel.EarnedGenericLinks <> prop_eqb:26 var
-R5341:5342 Kernel.EarnedGenericLinks <> tr:32 var
-R5344:5345 Kernel.EarnedGenericLinks <> s0:31 var
-R5284:5284 Kernel.EarnedGenericLinks <> f:33 var
-R5438:5443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5364:5366 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5355:5361 Kernel.EarnedGenericLinks <> f_ver proj
-R5363:5363 Kernel.EarnedGenericLinks <> f:33 var
-R5367:5371 Kernel.EarnedGenericLinks <> ver def
-R5374:5382 Kernel.EarnedGenericLinks <> core_of proj
-R5385:5390 Kernel.UniversalCertificationCost <> cs_run def
-R5393:5402 Kernel.EarnedGenericLinks <> generic_cs def
-R5413:5416 Kernel.EarnedGenericLinks <> eval:27 var
-R5404:5411 Kernel.EarnedGenericLinks <> prop_eqb:26 var
-R5419:5420 Kernel.EarnedGenericLinks <> tr:32 var
-R5422:5423 Kernel.EarnedGenericLinks <> s0:31 var
-R5428:5434 Kernel.EarnedGenericLinks <> f_ctr proj
-R5436:5436 Kernel.EarnedGenericLinks <> f:33 var
-R5444:5448 Kernel.EarnedGenericLinks <> holds:28 var
-R5464:5468 Kernel.EarnedGenericLinks <> val def
-R5471:5479 Kernel.EarnedGenericLinks <> core_of proj
-R5482:5487 Kernel.UniversalCertificationCost <> cs_run def
-R5490:5499 Kernel.EarnedGenericLinks <> generic_cs def
-R5510:5513 Kernel.EarnedGenericLinks <> eval:27 var
-R5501:5508 Kernel.EarnedGenericLinks <> prop_eqb:26 var
-R5516:5517 Kernel.EarnedGenericLinks <> tr:32 var
-R5519:5520 Kernel.EarnedGenericLinks <> s0:31 var
-R5525:5531 Kernel.EarnedGenericLinks <> f_ctr proj
-R5533:5533 Kernel.EarnedGenericLinks <> f:33 var
-R5451:5458 Kernel.EarnedGenericLinks <> f_prop proj
-R5460:5460 Kernel.EarnedGenericLinks <> f:33 var
-R5613:5626 Kernel.EarnedGenericLinks <> generic_cs_run thm
-R5613:5626 Kernel.EarnedGenericLinks <> generic_cs_run thm
-R5613:5626 Kernel.EarnedGenericLinks <> generic_cs_run thm
-R5643:5669 Kernel.EarnedGenericLinks <> generic_checker_soundness thm
-R5643:5669 Kernel.EarnedGenericLinks <> generic_checker_soundness thm
-def 5951:5959 <> sorted_cs
-R5963:5981 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R5986:5995 Kernel.EarnedGenericLinks <> generic_cs def
-R6009:6015 Kernel.EarnedGenericLinks <> seval def
-R5997:6007 Kernel.EarnedGenericLinks <> sprop_eqb def
-prf 6027:6046 <> sorted_machine_floor
-R6063:6066 Coq.Init.Datatypes <> list ind
-R6070:6076 Kernel.EarnedGenericLinks <> instr ind
-R6078:6084 Kernel.EarnedGenericLinks <> sprop ind
-binder 6058:6059 <> tr:34
-R6095:6101 Kernel.EarnedGenericLinks <> state rec
-R6103:6109 Kernel.EarnedGenericLinks <> sprop ind
-binder 6089:6090 <> s0:35
-R6132:6135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6124:6126 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6115:6120 Kernel.EarnedGenericLinks <> cert proj
-R6122:6123 Kernel.EarnedGenericLinks <> s0:35 var
-R6127:6131 Coq.Init.Datatypes <> false constr
-R6183:6188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6176:6178 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6136:6141 Kernel.EarnedGenericLinks <> cert proj
-R6144:6148 Kernel.EarnedGenericLinks <> run def
-R6170:6171 Kernel.EarnedGenericLinks <> tr:34 var
-R6173:6174 Kernel.EarnedGenericLinks <> s0:35 var
-R6162:6168 Kernel.EarnedGenericLinks <> seval def
-R6150:6160 Kernel.EarnedGenericLinks <> sprop_eqb def
-R6179:6182 Coq.Init.Datatypes <> true constr
-R6204:6207 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6189:6200 Kernel.EarnedGenericLinks <> total_cost def
-R6202:6203 Kernel.EarnedGenericLinks <> tr:34 var
-R6250:6269 Kernel.EarnedGenericLinks <> earned_generic_floor thm
-R6271:6277 Kernel.EarnedGenericLinks <> sprop ind
-R6279:6289 Kernel.EarnedGenericLinks <> sprop_eqb def
-R6291:6297 Kernel.EarnedGenericLinks <> seval def
-R6250:6269 Kernel.EarnedGenericLinks <> earned_generic_floor thm
-R6271:6277 Kernel.EarnedGenericLinks <> sprop ind
-R6279:6289 Kernel.EarnedGenericLinks <> sprop_eqb def
-R6291:6297 Kernel.EarnedGenericLinks <> seval def
-prf 6327:6348 <> sorted_certified_floor
-R6367:6370 Coq.Init.Datatypes <> list ind
-R6374:6380 Kernel.EarnedGenericLinks <> instr ind
-R6382:6388 Kernel.EarnedGenericLinks <> sprop ind
-binder 6362:6363 <> tr:36
-R6399:6405 Kernel.EarnedGenericLinks <> state rec
-R6407:6413 Kernel.EarnedGenericLinks <> sprop ind
-binder 6393:6394 <> s0:37
-R6435:6440 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6419:6431 Kernel.EarnedGenericLinks <> clean_start def
-R6433:6434 Kernel.EarnedGenericLinks <> s0:37 var
-R6490:6495 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6483:6485 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6441:6447 Kernel.UniversalCertificationCost <> cs_cert proj
-R6449:6457 Kernel.EarnedGenericLinks <> sorted_cs def
-R6460:6465 Kernel.UniversalCertificationCost <> cs_run def
-R6467:6475 Kernel.EarnedGenericLinks <> sorted_cs def
-R6477:6478 Kernel.EarnedGenericLinks <> tr:36 var
-R6480:6481 Kernel.EarnedGenericLinks <> s0:37 var
-R6486:6489 Coq.Init.Datatypes <> true constr
-R6522:6525 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6496:6508 Kernel.UniversalCertificationCost <> cs_total_cost def
-R6510:6518 Kernel.EarnedGenericLinks <> sorted_cs def
-R6520:6521 Kernel.EarnedGenericLinks <> tr:36 var
-R6568:6597 Kernel.EarnedGenericLinks <> earned_generic_certified_floor thm
-R6599:6605 Kernel.EarnedGenericLinks <> sprop ind
-R6607:6617 Kernel.EarnedGenericLinks <> sprop_eqb def
-R6619:6632 Kernel.EarnedGenericLinks <> sprop_eqb_eq thm
-R6634:6640 Kernel.EarnedGenericLinks <> seval def
-R6568:6597 Kernel.EarnedGenericLinks <> earned_generic_certified_floor thm
-R6599:6605 Kernel.EarnedGenericLinks <> sprop ind
-R6607:6617 Kernel.EarnedGenericLinks <> sprop_eqb def
-R6619:6632 Kernel.EarnedGenericLinks <> sprop_eqb_eq thm
-R6634:6640 Kernel.EarnedGenericLinks <> seval def
-prf 6767:6781 <> sorted_cs_sound
-R6801:6807 Kernel.EarnedGenericLinks <> state rec
-R6809:6815 Kernel.EarnedGenericLinks <> sprop ind
-binder 6795:6796 <> s0:38
-R6824:6827 Coq.Init.Datatypes <> list ind
-R6831:6837 Kernel.EarnedGenericLinks <> instr ind
-R6839:6845 Kernel.EarnedGenericLinks <> sprop ind
-binder 6819:6820 <> tr:39
-R6854:6858 Kernel.EarnedGenericLinks <> ctr ind
-binder 6850:6850 <> c:40
-R6880:6885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6864:6876 Kernel.EarnedGenericLinks <> clean_start def
-R6878:6879 Kernel.EarnedGenericLinks <> s0:38 var
-R7010:7015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6886:6887 Coq.Lists.List <> In def
-R6965:6971 Kernel.EarnedGenericLinks <> facts proj
-R6974:6982 Kernel.EarnedGenericLinks <> core_of proj
-R6985:6990 Kernel.UniversalCertificationCost <> cs_run def
-R6992:7000 Kernel.EarnedGenericLinks <> sorted_cs def
-R7002:7003 Kernel.EarnedGenericLinks <> tr:39 var
-R7005:7006 Kernel.EarnedGenericLinks <> s0:38 var
-R6890:6897 Kernel.EarnedGenericLinks <> mkfact constr
-R6899:6907 Kernel.EarnedGenericLinks <> PSorted constr
-R6909:6909 Kernel.EarnedGenericLinks <> c:40 var
-R6912:6916 Kernel.EarnedGenericLinks <> ver def
-R6919:6927 Kernel.EarnedGenericLinks <> core_of proj
-R6930:6935 Kernel.UniversalCertificationCost <> cs_run def
-R6937:6945 Kernel.EarnedGenericLinks <> sorted_cs def
-R6947:6948 Kernel.EarnedGenericLinks <> tr:39 var
-R6950:6951 Kernel.EarnedGenericLinks <> s0:38 var
-R6955:6955 Kernel.EarnedGenericLinks <> c:40 var
-R7016:7021 Coq.Sorting.Sorted <> Sorted ind
-R7027:7034 Kernel.EarnedGenericLinks <> decode def
-R7037:7041 Kernel.EarnedGenericLinks <> val def
-R7044:7052 Kernel.EarnedGenericLinks <> core_of proj
-R7055:7060 Kernel.UniversalCertificationCost <> cs_run def
-R7062:7070 Kernel.EarnedGenericLinks <> sorted_cs def
-R7072:7073 Kernel.EarnedGenericLinks <> tr:39 var
-R7075:7076 Kernel.EarnedGenericLinks <> s0:38 var
-R7080:7080 Kernel.EarnedGenericLinks <> c:40 var
-R7023:7024 Coq.Init.Peano <> le ind
-R7127:7149 Kernel.EarnedGenericLinks <> earned_generic_cs_sound thm
-R7151:7157 Kernel.EarnedGenericLinks <> sprop ind
-R7159:7169 Kernel.EarnedGenericLinks <> sprop_eqb def
-R7171:7177 Kernel.EarnedGenericLinks <> seval def
-R7179:7186 Kernel.EarnedGenericLinks <> sholds def
-R7188:7198 Kernel.EarnedGenericLinks <> seval_iff thm
-R7226:7232 Coq.Init.Logic <> eq_refl constr
-R7127:7149 Kernel.EarnedGenericLinks <> earned_generic_cs_sound thm
-R7151:7157 Kernel.EarnedGenericLinks <> sprop ind
-R7159:7169 Kernel.EarnedGenericLinks <> sprop_eqb def
-R7171:7177 Kernel.EarnedGenericLinks <> seval def
-R7179:7186 Kernel.EarnedGenericLinks <> sholds def
-R7188:7198 Kernel.EarnedGenericLinks <> seval_iff thm
-R7226:7232 Coq.Init.Logic <> eq_refl constr
-prf 7328:7351 <> sorted_cs_demo_certifies
-R7428:7433 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7421:7423 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7357:7363 Kernel.UniversalCertificationCost <> cs_cert proj
-R7365:7373 Kernel.EarnedGenericLinks <> sorted_cs def
-R7376:7381 Kernel.UniversalCertificationCost <> cs_run def
-R7383:7391 Kernel.EarnedGenericLinks <> sorted_cs def
-R7393:7404 Kernel.EarnedGenericLinks <> sorted_run def
-R7407:7413 Kernel.EarnedGenericLinks <> start def
-R7424:7427 Coq.Init.Datatypes <> true constr
-R7470:7472 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7434:7446 Kernel.UniversalCertificationCost <> cs_total_cost def
-R7448:7456 Kernel.EarnedGenericLinks <> sorted_cs def
-R7458:7469 Kernel.EarnedGenericLinks <> sorted_run def
-prf 7529:7550 <> sorted_cs_demo_refused
-R7628:7633 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7620:7622 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7556:7562 Kernel.UniversalCertificationCost <> cs_cert proj
-R7564:7572 Kernel.EarnedGenericLinks <> sorted_cs def
-R7575:7580 Kernel.UniversalCertificationCost <> cs_run def
-R7582:7590 Kernel.EarnedGenericLinks <> sorted_cs def
-R7592:7603 Kernel.EarnedGenericLinks <> sorted_run def
-R7606:7612 Kernel.EarnedGenericLinks <> start def
-R7623:7627 Coq.Init.Datatypes <> false constr
-R7698:7700 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7634:7638 Kernel.EarnedGenericLinks <> err proj
-R7641:7649 Kernel.EarnedGenericLinks <> core_of proj
-R7652:7657 Kernel.UniversalCertificationCost <> cs_run def
-R7659:7667 Kernel.EarnedGenericLinks <> sorted_cs def
-R7669:7680 Kernel.EarnedGenericLinks <> sorted_run def
-R7683:7689 Kernel.EarnedGenericLinks <> start def
-R7701:7704 Coq.Init.Datatypes <> true constr
-def 8046:8052 <> weak_cs
-R8059:8067 Kernel.EarnedGenericLinks <> machine rec
-binder 8055:8055 <> M:41
-R8075:8098 Kernel.EarnedGenericLinks <> weakly_thiele_complete def
-R8100:8100 Kernel.EarnedGenericLinks <> M:41 var
-binder 8071:8071 <> H:42
-R8105:8123 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R8130:8143 Kernel.UniversalCertificationCost <> mk_cert_system constr
-R8146:8154 Kernel.EarnedGenericLinks <> m_state proj
-R8156:8156 Kernel.EarnedGenericLinks <> M:41 var
-R8160:8167 Kernel.EarnedGenericLinks <> m_move proj
-R8169:8169 Kernel.EarnedGenericLinks <> M:41 var
-R8173:8180 Kernel.EarnedGenericLinks <> m_step proj
-R8182:8182 Kernel.EarnedGenericLinks <> M:41 var
-R8186:8193 Kernel.EarnedGenericLinks <> m_cost proj
-R8195:8195 Kernel.EarnedGenericLinks <> M:41 var
-R8199:8208 Kernel.EarnedGenericLinks <> m_record proj
-R8210:8210 Kernel.EarnedGenericLinks <> M:41 var
-R8218:8222 Coq.Init.Logic <> proj1 thm
-R8224:8224 Kernel.EarnedGenericLinks <> H:42 var
-def 8343:8353 <> complete_cs
-R8360:8368 Kernel.EarnedGenericLinks <> machine rec
-binder 8356:8356 <> M:43
-R8376:8392 Kernel.EarnedGenericLinks <> thiele_complete def
-R8394:8394 Kernel.EarnedGenericLinks <> M:43 var
-binder 8372:8372 <> H:44
-R8399:8417 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R8425:8431 Kernel.EarnedGenericLinks <> weak_cs def
-R8433:8433 Kernel.EarnedGenericLinks <> M:43 var
-R8436:8460 Kernel.EarnedGenericLinks <> thiele_complete_is_weak thm
-R8462:8462 Kernel.EarnedGenericLinks <> M:43 var
-R8464:8464 Kernel.EarnedGenericLinks <> H:44 var
-prf 8475:8489 <> complete_cs_run
-R8505:8513 Kernel.EarnedGenericLinks <> machine rec
-binder 8501:8501 <> M:45
-R8521:8537 Kernel.EarnedGenericLinks <> thiele_complete def
-R8539:8539 Kernel.EarnedGenericLinks <> M:45 var
-binder 8517:8517 <> H:46
-R8552:8555 Coq.Init.Datatypes <> list ind
-R8558:8565 Kernel.EarnedGenericLinks <> m_move proj
-R8567:8567 Kernel.EarnedGenericLinks <> M:45 var
-binder 8547:8548 <> tr:47
-R8576:8584 Kernel.EarnedGenericLinks <> m_state proj
-R8586:8586 Kernel.EarnedGenericLinks <> M:45 var
-binder 8572:8572 <> s:48
-R8622:8624 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8592:8597 Kernel.UniversalCertificationCost <> cs_run def
-R8601:8611 Kernel.EarnedGenericLinks <> complete_cs def
-R8613:8613 Kernel.EarnedGenericLinks <> M:45 var
-R8615:8615 Kernel.EarnedGenericLinks <> H:46 var
-R8618:8619 Kernel.EarnedGenericLinks <> tr:47 var
-R8621:8621 Kernel.EarnedGenericLinks <> s:48 var
-R8625:8629 Kernel.EarnedGenericLinks <> run def
-R8631:8631 Kernel.EarnedGenericLinks <> M:45 var
-R8633:8634 Kernel.EarnedGenericLinks <> tr:47 var
-R8636:8636 Kernel.EarnedGenericLinks <> s:48 var
-prf 8799:8819 <> thiele_complete_floor
-R8835:8843 Kernel.EarnedGenericLinks <> machine rec
-binder 8831:8831 <> M:49
-R8851:8867 Kernel.EarnedGenericLinks <> thiele_complete def
-R8869:8869 Kernel.EarnedGenericLinks <> M:49 var
-binder 8847:8847 <> H:50
-R8882:8885 Coq.Init.Datatypes <> list ind
-R8888:8895 Kernel.EarnedGenericLinks <> m_move proj
-R8897:8897 Kernel.EarnedGenericLinks <> M:49 var
-binder 8877:8878 <> tr:51
-R8907:8915 Kernel.EarnedGenericLinks <> m_state proj
-R8917:8917 Kernel.EarnedGenericLinks <> M:49 var
-binder 8902:8903 <> s0:52
-R8946:8949 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8938:8940 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8923:8932 Kernel.EarnedGenericLinks <> m_record proj
-R8934:8934 Kernel.EarnedGenericLinks <> M:49 var
-R8936:8937 Kernel.EarnedGenericLinks <> s0:52 var
-R8941:8945 Coq.Init.Datatypes <> false constr
-R8985:8990 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8978:8980 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8950:8959 Kernel.EarnedGenericLinks <> m_record proj
-R8961:8961 Kernel.EarnedGenericLinks <> M:49 var
-R8964:8968 Kernel.EarnedGenericLinks <> run def
-R8970:8970 Kernel.EarnedGenericLinks <> M:49 var
-R8972:8973 Kernel.EarnedGenericLinks <> tr:51 var
-R8975:8976 Kernel.EarnedGenericLinks <> s0:52 var
-R8981:8984 Coq.Init.Datatypes <> true constr
-R9026:9029 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8991:9003 Kernel.UniversalCertificationCost <> cs_total_cost def
-R9007:9017 Kernel.EarnedGenericLinks <> complete_cs def
-R9019:9019 Kernel.EarnedGenericLinks <> M:49 var
-R9021:9021 Kernel.EarnedGenericLinks <> H:50 var
-R9024:9025 Kernel.EarnedGenericLinks <> tr:51 var
-R9075:9101 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R9105:9115 Kernel.EarnedGenericLinks <> complete_cs def
-R9075:9101 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R9105:9115 Kernel.EarnedGenericLinks <> complete_cs def
-R9143:9157 Kernel.EarnedGenericLinks <> complete_cs_run thm
-R9143:9157 Kernel.EarnedGenericLinks <> complete_cs_run thm
-R9143:9157 Kernel.EarnedGenericLinks <> complete_cs_run thm
-def 9266:9283 <> earned_complete_cs
-R9287:9305 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R9313:9323 Kernel.EarnedGenericLinks <> complete_cs def
-R9325:9340 Kernel.EarnedGenericLinks <> earned_machine def
-R9342:9370 Kernel.EarnedGenericLinks <> earned_core_thiele_complete thm
-prf 9459:9480 <> earned_complete_agrees
-R9497:9500 Coq.Init.Datatypes <> list ind
-R9502:9508 Kernel.EarnedGenericLinks <> instr ind
-binder 9492:9493 <> tr:53
-R9516:9522 Kernel.EarnedGenericLinks <> state rec
-binder 9512:9512 <> s:54
-R9598:9603 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9558:9560 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9528:9533 Kernel.UniversalCertificationCost <> cs_run def
-R9535:9552 Kernel.EarnedGenericLinks <> earned_complete_cs def
-R9554:9555 Kernel.EarnedGenericLinks <> tr:53 var
-R9557:9557 Kernel.EarnedGenericLinks <> s:54 var
-R9561:9566 Kernel.UniversalCertificationCost <> cs_run def
-R9568:9592 Kernel.EarnedCoreLinks <> earned_cs def
-R9594:9595 Kernel.EarnedGenericLinks <> tr:53 var
-R9597:9597 Kernel.EarnedGenericLinks <> s:54 var
-R9639:9641 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9604:9616 Kernel.UniversalCertificationCost <> cs_total_cost def
-R9618:9635 Kernel.EarnedGenericLinks <> earned_complete_cs def
-R9637:9638 Kernel.EarnedGenericLinks <> tr:53 var
-R9642:9654 Kernel.UniversalCertificationCost <> cs_total_cost def
-R9656:9680 Kernel.EarnedCoreLinks <> earned_cs def
-R9682:9683 Kernel.EarnedGenericLinks <> tr:53 var
-R9776:9781 Kernel.EarnedGenericLinks <> exec def
-R9776:9781 Kernel.EarnedGenericLinks <> exec def
-R9863:9877 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9820:9825 Kernel.UniversalCertificationCost <> cs_run def
-R9827:9844 Kernel.EarnedGenericLinks <> earned_complete_cs def
-R9852:9857 Kernel.EarnedGenericLinks <> exec def
-R9878:9883 Kernel.UniversalCertificationCost <> cs_run def
-R9885:9909 Kernel.EarnedCoreLinks <> earned_cs def
-R9917:9922 Kernel.EarnedGenericLinks <> exec def
-R9863:9877 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9820:9825 Kernel.UniversalCertificationCost <> cs_run def
-R9827:9844 Kernel.EarnedGenericLinks <> earned_complete_cs def
-R9852:9857 Kernel.EarnedGenericLinks <> exec def
-R9878:9883 Kernel.UniversalCertificationCost <> cs_run def
-R9885:9909 Kernel.EarnedCoreLinks <> earned_cs def
-R9917:9922 Kernel.EarnedGenericLinks <> exec def
-R10005:10019 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9965:9967 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9957:9962 Kernel.EarnedGenericLinks <> cost def
-R9968:9980 Kernel.UniversalCertificationCost <> cs_total_cost def
-R9982:9999 Kernel.EarnedGenericLinks <> earned_complete_cs def
-R10028:10030 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10020:10025 Kernel.EarnedGenericLinks <> cost def
-R10031:10043 Kernel.UniversalCertificationCost <> cs_total_cost def
-R10045:10069 Kernel.EarnedCoreLinks <> earned_cs def
-R10005:10019 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9965:9967 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9957:9962 Kernel.EarnedGenericLinks <> cost def
-R9968:9980 Kernel.UniversalCertificationCost <> cs_total_cost def
-R9982:9999 Kernel.EarnedGenericLinks <> earned_complete_cs def
-R10028:10030 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10020:10025 Kernel.EarnedGenericLinks <> cost def
-R10031:10043 Kernel.UniversalCertificationCost <> cs_total_cost def
-R10045:10069 Kernel.EarnedCoreLinks <> earned_cs def
-prf 10254:10276 <> generic_complete_agrees
-binder 10290:10293 <> prop:55
-R10319:10322 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10315:10318 Kernel.EarnedGenericLinks <> prop:55 var
-R10327:10330 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10323:10326 Kernel.EarnedGenericLinks <> prop:55 var
-R10331:10334 Coq.Init.Datatypes <> bool ind
-binder 10304:10311 <> prop_eqb:56
-R10349:10352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10345:10348 Kernel.EarnedGenericLinks <> prop:55 var
-R10356:10359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10353:10355 Coq.Init.Datatypes <> nat ind
-R10360:10363 Coq.Init.Datatypes <> bool ind
-binder 10338:10341 <> eval:57
-R10380:10396 Kernel.EarnedGenericLinks <> thiele_complete def
-R10399:10415 Kernel.EarnedGenericLinks <> generic_machine def
-R10426:10429 Kernel.EarnedGenericLinks <> eval:57 var
-R10417:10424 Kernel.EarnedGenericLinks <> prop_eqb:56 var
-binder 10376:10376 <> H:58
-R10448:10451 Coq.Init.Datatypes <> list ind
-R10455:10461 Kernel.EarnedGenericLinks <> instr ind
-R10463:10466 Kernel.EarnedGenericLinks <> prop:55 var
-binder 10443:10444 <> tr:59
-R10476:10482 Kernel.EarnedGenericLinks <> state rec
-R10484:10487 Kernel.EarnedGenericLinks <> prop:55 var
-binder 10471:10471 <> s:60
-R10564:10569 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10523:10525 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10493:10498 Kernel.UniversalCertificationCost <> cs_run def
-R10502:10512 Kernel.EarnedGenericLinks <> complete_cs def
-R10516:10516 Kernel.EarnedGenericLinks <> H:58 var
-R10519:10520 Kernel.EarnedGenericLinks <> tr:59 var
-R10522:10522 Kernel.EarnedGenericLinks <> s:60 var
-R10526:10531 Kernel.UniversalCertificationCost <> cs_run def
-R10534:10543 Kernel.EarnedGenericLinks <> generic_cs def
-R10554:10557 Kernel.EarnedGenericLinks <> eval:57 var
-R10545:10552 Kernel.EarnedGenericLinks <> prop_eqb:56 var
-R10560:10561 Kernel.EarnedGenericLinks <> tr:59 var
-R10563:10563 Kernel.EarnedGenericLinks <> s:60 var
-R10605:10607 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10570:10582 Kernel.UniversalCertificationCost <> cs_total_cost def
-R10586:10596 Kernel.EarnedGenericLinks <> complete_cs def
-R10600:10600 Kernel.EarnedGenericLinks <> H:58 var
-R10603:10604 Kernel.EarnedGenericLinks <> tr:59 var
-R10608:10620 Kernel.UniversalCertificationCost <> cs_total_cost def
-R10623:10632 Kernel.EarnedGenericLinks <> generic_cs def
-R10643:10646 Kernel.EarnedGenericLinks <> eval:57 var
-R10634:10641 Kernel.EarnedGenericLinks <> prop_eqb:56 var
-R10649:10650 Kernel.EarnedGenericLinks <> tr:59 var
-R10777:10782 Kernel.EarnedGenericLinks <> exec def
-R10777:10782 Kernel.EarnedGenericLinks <> exec def
-R10892:10906 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10835:10840 Kernel.UniversalCertificationCost <> cs_run def
-R10844:10854 Kernel.EarnedGenericLinks <> complete_cs def
-R10867:10872 Kernel.EarnedGenericLinks <> exec def
-R10907:10912 Kernel.UniversalCertificationCost <> cs_run def
-R10915:10924 Kernel.EarnedGenericLinks <> generic_cs def
-R10947:10952 Kernel.EarnedGenericLinks <> exec def
-R10892:10906 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10835:10840 Kernel.UniversalCertificationCost <> cs_run def
-R10844:10854 Kernel.EarnedGenericLinks <> complete_cs def
-R10867:10872 Kernel.EarnedGenericLinks <> exec def
-R10907:10912 Kernel.UniversalCertificationCost <> cs_run def
-R10915:10924 Kernel.EarnedGenericLinks <> generic_cs def
-R10947:10952 Kernel.EarnedGenericLinks <> exec def
-R11049:11063 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11009:11011 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11001:11006 Kernel.EarnedGenericLinks <> cost def
-R11012:11024 Kernel.UniversalCertificationCost <> cs_total_cost def
-R11028:11038 Kernel.EarnedGenericLinks <> complete_cs def
-R11072:11074 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11064:11069 Kernel.EarnedGenericLinks <> cost def
-R11075:11087 Kernel.UniversalCertificationCost <> cs_total_cost def
-R11090:11099 Kernel.EarnedGenericLinks <> generic_cs def
-R11049:11063 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11009:11011 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11001:11006 Kernel.EarnedGenericLinks <> cost def
-R11012:11024 Kernel.UniversalCertificationCost <> cs_total_cost def
-R11028:11038 Kernel.EarnedGenericLinks <> complete_cs def
-R11072:11074 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11064:11069 Kernel.EarnedGenericLinks <> cost def
-R11075:11087 Kernel.UniversalCertificationCost <> cs_total_cost def
-R11090:11099 Kernel.EarnedGenericLinks <> generic_cs def
-prf 11252:11273 <> sorted_complete_agrees
-R11292:11295 Coq.Init.Datatypes <> list ind
-R11299:11305 Kernel.EarnedGenericLinks <> instr ind
-R11307:11313 Kernel.EarnedGenericLinks <> sprop ind
-binder 11287:11288 <> tr:61
-R11323:11329 Kernel.EarnedGenericLinks <> state rec
-R11331:11337 Kernel.EarnedGenericLinks <> sprop ind
-binder 11318:11318 <> s:62
-R11428:11433 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11404:11406 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11343:11348 Kernel.UniversalCertificationCost <> cs_run def
-R11352:11362 Kernel.EarnedGenericLinks <> complete_cs def
-R11366:11397 Kernel.EarnedGenericLinks <> sorted_machine_thiele_complete thm
-R11400:11401 Kernel.EarnedGenericLinks <> tr:61 var
-R11403:11403 Kernel.EarnedGenericLinks <> s:62 var
-R11407:11412 Kernel.UniversalCertificationCost <> cs_run def
-R11414:11422 Kernel.EarnedGenericLinks <> sorted_cs def
-R11424:11425 Kernel.EarnedGenericLinks <> tr:61 var
-R11427:11427 Kernel.EarnedGenericLinks <> s:62 var
-R11500:11506 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11434:11446 Kernel.UniversalCertificationCost <> cs_total_cost def
-R11450:11460 Kernel.EarnedGenericLinks <> complete_cs def
-R11464:11495 Kernel.EarnedGenericLinks <> sorted_machine_thiele_complete thm
-R11498:11499 Kernel.EarnedGenericLinks <> tr:61 var
-R11507:11519 Kernel.UniversalCertificationCost <> cs_total_cost def
-R11521:11529 Kernel.EarnedGenericLinks <> sorted_cs def
-R11531:11532 Kernel.EarnedGenericLinks <> tr:61 var
-R11567:11589 Kernel.EarnedGenericLinks <> generic_complete_agrees thm
-R11591:11597 Kernel.EarnedGenericLinks <> sprop ind
-R11599:11609 Kernel.EarnedGenericLinks <> sprop_eqb def
-R11611:11617 Kernel.EarnedGenericLinks <> seval def
-R11630:11661 Kernel.EarnedGenericLinks <> sorted_machine_thiele_complete thm
-R11567:11589 Kernel.EarnedGenericLinks <> generic_complete_agrees thm
-R11591:11597 Kernel.EarnedGenericLinks <> sprop ind
-R11599:11609 Kernel.EarnedGenericLinks <> sprop_eqb def
-R11611:11617 Kernel.EarnedGenericLinks <> seval def
-R11630:11661 Kernel.EarnedGenericLinks <> sorted_machine_thiele_complete thm
-R11694:11703 Kernel.EarnedGenericLinks <> generic_cs def
-R11724:11743 Kernel.EarnedGenericLinks <> earned_generic_floor thm
-R11764:11793 Kernel.EarnedGenericLinks <> earned_generic_certified_floor thm
-R11814:11836 Kernel.EarnedGenericLinks <> earned_generic_cs_sound thm
-R11857:11876 Kernel.EarnedGenericLinks <> sorted_machine_floor thm
-R11897:11918 Kernel.EarnedGenericLinks <> sorted_certified_floor thm
-R11939:11953 Kernel.EarnedGenericLinks <> sorted_cs_sound thm
-R11974:11997 Kernel.EarnedGenericLinks <> sorted_cs_demo_certifies thm
-R12018:12039 Kernel.EarnedGenericLinks <> sorted_cs_demo_refused thm
-R12060:12070 Kernel.EarnedGenericLinks <> complete_cs def
-R12091:12111 Kernel.EarnedGenericLinks <> thiele_complete_floor thm
-R12132:12153 Kernel.EarnedGenericLinks <> earned_complete_agrees thm
-R12174:12196 Kernel.EarnedGenericLinks <> generic_complete_agrees thm
-R12217:12238 Kernel.EarnedGenericLinks <> sorted_complete_agrees thm
+R2289:2292 Coq.Lists.List <> <> lib
+R2294:2298 Coq.Arith.Arith <> <> lib
+R2300:2302 Coq.micromega.Lia <> <> lib
+R2329:2342 Coq.Sorting.Sorted <> <> lib
+R2352:2364 Coq.Lists.List ListNotations <> mod
+R2394:2419 Kernel.UniversalCertificationCost <> <> lib
+R2430:2451 Kernel.EarnedCoreLinks <> <> lib
+R2462:2479 Minimal.EarnedCore <> <> lib
+R2490:2510 Minimal.EarnedGeneric <> <> lib
+R2521:2542 Minimal.ThieleComplete <> <> lib
+R2553:2580 Minimal.ThieleCompleteWindow <> <> lib
+R2595:2612 Minimal.EarnedCore <> <> modtype
+mod 2590:2590 <> E
+R2627:2647 Minimal.EarnedGeneric <> <> modtype
+mod 2622:2622 <> G
+R2662:2683 Minimal.ThieleComplete <> <> modtype
+mod 2657:2657 <> T
+R2698:2725 Minimal.ThieleCompleteWindow <> <> modtype
+mod 2693:2693 <> W
+def 3088:3097 <> generic_cs
+binder 3100:3103 <> prop:1
+R3129:3132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3125:3128 Kernel.EarnedGenericLinks <> prop:1 var
+R3137:3140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3133:3136 Kernel.EarnedGenericLinks <> prop:1 var
+R3141:3144 Coq.Init.Datatypes <> bool ind
+binder 3114:3121 <> prop_eqb:2
+R3163:3166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3159:3162 Kernel.EarnedGenericLinks <> prop:1 var
+R3170:3173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3167:3169 Coq.Init.Datatypes <> nat ind
+R3174:3177 Coq.Init.Datatypes <> bool ind
+binder 3152:3155 <> eval:3
+R3182:3200 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R3207:3220 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R3224:3230 Kernel.EarnedGenericLinks <> state rec
+R3232:3235 Kernel.EarnedGenericLinks <> prop:1 var
+R3240:3246 Kernel.EarnedGenericLinks <> instr ind
+R3248:3251 Kernel.EarnedGenericLinks <> prop:1 var
+R3255:3260 Kernel.EarnedGenericLinks <> exec def
+R3271:3274 Kernel.EarnedGenericLinks <> eval:3 var
+R3262:3269 Kernel.EarnedGenericLinks <> prop_eqb:2 var
+R3283:3288 Kernel.EarnedGenericLinks <> cost def
+R3290:3293 Kernel.EarnedGenericLinks <> prop:1 var
+R3298:3303 Kernel.EarnedGenericLinks <> cert proj
+R3305:3308 Kernel.EarnedGenericLinks <> prop:1 var
+R3312:3323 Kernel.EarnedGenericLinks <> generic_a2 thm
+R3334:3337 Kernel.EarnedGenericLinks <> eval:3 var
+R3325:3332 Kernel.EarnedGenericLinks <> prop_eqb:2 var
+prf 3348:3361 <> generic_cs_run
+binder 3373:3376 <> prop:4
+R3402:3405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3398:3401 Kernel.EarnedGenericLinks <> prop:4 var
+R3410:3413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3406:3409 Kernel.EarnedGenericLinks <> prop:4 var
+R3414:3417 Coq.Init.Datatypes <> bool ind
+binder 3387:3394 <> prop_eqb:5
+R3436:3439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3432:3435 Kernel.EarnedGenericLinks <> prop:4 var
+R3443:3446 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3440:3442 Coq.Init.Datatypes <> nat ind
+R3447:3450 Coq.Init.Datatypes <> bool ind
+binder 3425:3428 <> eval:6
+R3459:3462 Coq.Init.Datatypes <> list ind
+R3466:3472 Kernel.EarnedGenericLinks <> instr ind
+R3474:3477 Kernel.EarnedGenericLinks <> prop:4 var
+binder 3454:3455 <> tr:7
+R3487:3493 Kernel.EarnedGenericLinks <> state rec
+R3495:3498 Kernel.EarnedGenericLinks <> prop:4 var
+binder 3482:3482 <> s:8
+R3542:3544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3504:3509 Kernel.UniversalCertificationCost <> cs_run def
+R3512:3521 Kernel.EarnedGenericLinks <> generic_cs def
+R3532:3535 Kernel.EarnedGenericLinks <> eval:6 var
+R3523:3530 Kernel.EarnedGenericLinks <> prop_eqb:5 var
+R3538:3539 Kernel.EarnedGenericLinks <> tr:7 var
+R3541:3541 Kernel.EarnedGenericLinks <> s:8 var
+R3545:3549 Kernel.EarnedGenericLinks <> run def
+R3565:3566 Kernel.EarnedGenericLinks <> tr:7 var
+R3568:3568 Kernel.EarnedGenericLinks <> s:8 var
+R3560:3563 Kernel.EarnedGenericLinks <> eval:6 var
+R3551:3558 Kernel.EarnedGenericLinks <> prop_eqb:5 var
+prf 3655:3669 <> generic_cs_cost
+binder 3681:3684 <> prop:9
+R3710:3713 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3706:3709 Kernel.EarnedGenericLinks <> prop:9 var
+R3718:3721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3714:3717 Kernel.EarnedGenericLinks <> prop:9 var
+R3722:3725 Coq.Init.Datatypes <> bool ind
+binder 3695:3702 <> prop_eqb:10
+R3744:3747 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3740:3743 Kernel.EarnedGenericLinks <> prop:9 var
+R3751:3754 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3748:3750 Coq.Init.Datatypes <> nat ind
+R3755:3758 Coq.Init.Datatypes <> bool ind
+binder 3733:3736 <> eval:11
+R3767:3770 Coq.Init.Datatypes <> list ind
+R3774:3780 Kernel.EarnedGenericLinks <> instr ind
+R3782:3785 Kernel.EarnedGenericLinks <> prop:9 var
+binder 3762:3763 <> tr:12
+R3835:3837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3792:3804 Kernel.UniversalCertificationCost <> cs_total_cost def
+R3807:3816 Kernel.EarnedGenericLinks <> generic_cs def
+R3827:3830 Kernel.EarnedGenericLinks <> eval:11 var
+R3818:3825 Kernel.EarnedGenericLinks <> prop_eqb:10 var
+R3833:3834 Kernel.EarnedGenericLinks <> tr:12 var
+R3838:3849 Kernel.EarnedGenericLinks <> total_cost def
+R3851:3852 Kernel.EarnedGenericLinks <> tr:12 var
+prf 4008:4027 <> earned_generic_floor
+binder 4039:4042 <> prop:13
+R4068:4071 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4064:4067 Kernel.EarnedGenericLinks <> prop:13 var
+R4076:4079 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4072:4075 Kernel.EarnedGenericLinks <> prop:13 var
+R4080:4083 Coq.Init.Datatypes <> bool ind
+binder 4053:4060 <> prop_eqb:14
+R4102:4105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4098:4101 Kernel.EarnedGenericLinks <> prop:13 var
+R4109:4112 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4106:4108 Coq.Init.Datatypes <> nat ind
+R4113:4116 Coq.Init.Datatypes <> bool ind
+binder 4091:4094 <> eval:15
+R4125:4128 Coq.Init.Datatypes <> list ind
+R4132:4138 Kernel.EarnedGenericLinks <> instr ind
+R4140:4143 Kernel.EarnedGenericLinks <> prop:13 var
+binder 4120:4121 <> tr:16
+R4154:4160 Kernel.EarnedGenericLinks <> state rec
+R4162:4165 Kernel.EarnedGenericLinks <> prop:13 var
+binder 4148:4149 <> s0:17
+R4188:4191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4180:4182 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4171:4176 Kernel.EarnedGenericLinks <> cert proj
+R4178:4179 Kernel.EarnedGenericLinks <> s0:17 var
+R4183:4187 Coq.Init.Datatypes <> false constr
+R4233:4238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4226:4228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4192:4197 Kernel.EarnedGenericLinks <> cert proj
+R4200:4204 Kernel.EarnedGenericLinks <> run def
+R4220:4221 Kernel.EarnedGenericLinks <> tr:16 var
+R4223:4224 Kernel.EarnedGenericLinks <> s0:17 var
+R4215:4218 Kernel.EarnedGenericLinks <> eval:15 var
+R4206:4213 Kernel.EarnedGenericLinks <> prop_eqb:14 var
+R4229:4232 Coq.Init.Datatypes <> true constr
+R4254:4257 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4239:4250 Kernel.EarnedGenericLinks <> total_cost def
+R4252:4253 Kernel.EarnedGenericLinks <> tr:16 var
+R4324:4338 Kernel.EarnedGenericLinks <> generic_cs_cost thm
+R4324:4338 Kernel.EarnedGenericLinks <> generic_cs_cost thm
+R4324:4338 Kernel.EarnedGenericLinks <> generic_cs_cost thm
+R4373:4399 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R4402:4411 Kernel.EarnedGenericLinks <> generic_cs def
+R4373:4399 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R4402:4411 Kernel.EarnedGenericLinks <> generic_cs def
+R4449:4462 Kernel.EarnedGenericLinks <> generic_cs_run thm
+R4449:4462 Kernel.EarnedGenericLinks <> generic_cs_run thm
+R4449:4462 Kernel.EarnedGenericLinks <> generic_cs_run thm
+prf 4631:4660 <> earned_generic_certified_floor
+binder 4674:4677 <> prop:18
+R4703:4706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4699:4702 Kernel.EarnedGenericLinks <> prop:18 var
+R4711:4714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4707:4710 Kernel.EarnedGenericLinks <> prop:18 var
+R4715:4718 Coq.Init.Datatypes <> bool ind
+binder 4688:4695 <> prop_eqb:19
+R4724:4724 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4766:4772 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4732:4732 <> p:20
+binder 4734:4734 <> q:21
+R4756:4760 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4749:4751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4737:4744 Kernel.EarnedGenericLinks <> prop_eqb:19 var
+R4748:4748 Kernel.EarnedGenericLinks <> q:21 var
+R4746:4746 Kernel.EarnedGenericLinks <> p:20 var
+R4752:4755 Coq.Init.Datatypes <> true constr
+R4762:4764 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4761:4761 Kernel.EarnedGenericLinks <> p:20 var
+R4765:4765 Kernel.EarnedGenericLinks <> q:21 var
+R4792:4795 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4788:4791 Kernel.EarnedGenericLinks <> prop:18 var
+R4799:4802 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4796:4798 Coq.Init.Datatypes <> nat ind
+R4803:4806 Coq.Init.Datatypes <> bool ind
+binder 4781:4784 <> eval:22
+R4815:4818 Coq.Init.Datatypes <> list ind
+R4822:4828 Kernel.EarnedGenericLinks <> instr ind
+R4830:4833 Kernel.EarnedGenericLinks <> prop:18 var
+binder 4810:4811 <> tr:23
+R4844:4850 Kernel.EarnedGenericLinks <> state rec
+R4852:4855 Kernel.EarnedGenericLinks <> prop:18 var
+binder 4838:4839 <> s0:24
+R4877:4882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4861:4873 Kernel.EarnedGenericLinks <> clean_start def
+R4875:4876 Kernel.EarnedGenericLinks <> s0:24 var
+R4966:4971 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4959:4961 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4883:4889 Kernel.UniversalCertificationCost <> cs_cert proj
+R4892:4901 Kernel.EarnedGenericLinks <> generic_cs def
+R4912:4915 Kernel.EarnedGenericLinks <> eval:22 var
+R4903:4910 Kernel.EarnedGenericLinks <> prop_eqb:19 var
+R4919:4924 Kernel.UniversalCertificationCost <> cs_run def
+R4927:4936 Kernel.EarnedGenericLinks <> generic_cs def
+R4947:4950 Kernel.EarnedGenericLinks <> eval:22 var
+R4938:4945 Kernel.EarnedGenericLinks <> prop_eqb:19 var
+R4953:4954 Kernel.EarnedGenericLinks <> tr:23 var
+R4956:4957 Kernel.EarnedGenericLinks <> s0:24 var
+R4962:4965 Coq.Init.Datatypes <> true constr
+R5015:5018 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4972:4984 Kernel.UniversalCertificationCost <> cs_total_cost def
+R4987:4996 Kernel.EarnedGenericLinks <> generic_cs def
+R5007:5010 Kernel.EarnedGenericLinks <> eval:22 var
+R4998:5005 Kernel.EarnedGenericLinks <> prop_eqb:19 var
+R5013:5014 Kernel.EarnedGenericLinks <> tr:23 var
+R5084:5098 Kernel.EarnedGenericLinks <> generic_cs_cost thm
+R5084:5098 Kernel.EarnedGenericLinks <> generic_cs_cost thm
+R5084:5098 Kernel.EarnedGenericLinks <> generic_cs_cost thm
+R5109:5122 Kernel.EarnedGenericLinks <> generic_cs_run thm
+R5109:5122 Kernel.EarnedGenericLinks <> generic_cs_run thm
+R5109:5122 Kernel.EarnedGenericLinks <> generic_cs_run thm
+R5143:5174 Kernel.EarnedGenericLinks <> generic_certified_run_min_cost thm
+R5143:5174 Kernel.EarnedGenericLinks <> generic_certified_run_min_cost thm
+prf 5390:5412 <> earned_generic_cs_sound
+binder 5426:5429 <> prop:25
+R5455:5458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5451:5454 Kernel.EarnedGenericLinks <> prop:25 var
+R5463:5466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5459:5462 Kernel.EarnedGenericLinks <> prop:25 var
+R5467:5470 Coq.Init.Datatypes <> bool ind
+binder 5440:5447 <> prop_eqb:26
+R5494:5497 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5490:5493 Kernel.EarnedGenericLinks <> prop:25 var
+R5501:5504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5498:5500 Coq.Init.Datatypes <> nat ind
+R5505:5508 Coq.Init.Datatypes <> bool ind
+binder 5483:5486 <> eval:27
+R5524:5527 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5520:5523 Kernel.EarnedGenericLinks <> prop:25 var
+R5531:5534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5528:5530 Coq.Init.Datatypes <> nat ind
+binder 5512:5516 <> holds:28
+R5544:5544 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5586:5592 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5552:5552 <> p:29
+binder 5554:5554 <> v:30
+R5572:5576 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5565:5567 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5557:5560 Kernel.EarnedGenericLinks <> eval:27 var
+R5564:5564 Kernel.EarnedGenericLinks <> v:30 var
+R5562:5562 Kernel.EarnedGenericLinks <> p:29 var
+R5568:5571 Coq.Init.Datatypes <> true constr
+R5577:5581 Kernel.EarnedGenericLinks <> holds:28 var
+R5585:5585 Kernel.EarnedGenericLinks <> v:30 var
+R5583:5583 Kernel.EarnedGenericLinks <> p:29 var
+R5607:5613 Kernel.EarnedGenericLinks <> state rec
+R5615:5618 Kernel.EarnedGenericLinks <> prop:25 var
+binder 5601:5602 <> s0:31
+R5627:5630 Coq.Init.Datatypes <> list ind
+R5634:5640 Kernel.EarnedGenericLinks <> instr ind
+R5642:5645 Kernel.EarnedGenericLinks <> prop:25 var
+binder 5622:5623 <> tr:32
+R5655:5660 Kernel.EarnedGenericLinks <> fact rec
+R5662:5665 Kernel.EarnedGenericLinks <> prop:25 var
+binder 5650:5650 <> f:33
+R5687:5692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5671:5683 Kernel.EarnedGenericLinks <> clean_start def
+R5685:5686 Kernel.EarnedGenericLinks <> s0:31 var
+R5761:5766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5693:5694 Coq.Lists.List <> In def
+R5699:5705 Kernel.EarnedGenericLinks <> facts proj
+R5708:5716 Kernel.EarnedGenericLinks <> core_of proj
+R5719:5724 Kernel.UniversalCertificationCost <> cs_run def
+R5727:5736 Kernel.EarnedGenericLinks <> generic_cs def
+R5747:5750 Kernel.EarnedGenericLinks <> eval:27 var
+R5738:5745 Kernel.EarnedGenericLinks <> prop_eqb:26 var
+R5753:5754 Kernel.EarnedGenericLinks <> tr:32 var
+R5756:5757 Kernel.EarnedGenericLinks <> s0:31 var
+R5696:5696 Kernel.EarnedGenericLinks <> f:33 var
+R5850:5855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5776:5778 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5767:5773 Kernel.EarnedGenericLinks <> f_ver proj
+R5775:5775 Kernel.EarnedGenericLinks <> f:33 var
+R5779:5783 Kernel.EarnedGenericLinks <> ver def
+R5786:5794 Kernel.EarnedGenericLinks <> core_of proj
+R5797:5802 Kernel.UniversalCertificationCost <> cs_run def
+R5805:5814 Kernel.EarnedGenericLinks <> generic_cs def
+R5825:5828 Kernel.EarnedGenericLinks <> eval:27 var
+R5816:5823 Kernel.EarnedGenericLinks <> prop_eqb:26 var
+R5831:5832 Kernel.EarnedGenericLinks <> tr:32 var
+R5834:5835 Kernel.EarnedGenericLinks <> s0:31 var
+R5840:5846 Kernel.EarnedGenericLinks <> f_ctr proj
+R5848:5848 Kernel.EarnedGenericLinks <> f:33 var
+R5856:5860 Kernel.EarnedGenericLinks <> holds:28 var
+R5876:5880 Kernel.EarnedGenericLinks <> val def
+R5883:5891 Kernel.EarnedGenericLinks <> core_of proj
+R5894:5899 Kernel.UniversalCertificationCost <> cs_run def
+R5902:5911 Kernel.EarnedGenericLinks <> generic_cs def
+R5922:5925 Kernel.EarnedGenericLinks <> eval:27 var
+R5913:5920 Kernel.EarnedGenericLinks <> prop_eqb:26 var
+R5928:5929 Kernel.EarnedGenericLinks <> tr:32 var
+R5931:5932 Kernel.EarnedGenericLinks <> s0:31 var
+R5937:5943 Kernel.EarnedGenericLinks <> f_ctr proj
+R5945:5945 Kernel.EarnedGenericLinks <> f:33 var
+R5863:5870 Kernel.EarnedGenericLinks <> f_prop proj
+R5872:5872 Kernel.EarnedGenericLinks <> f:33 var
+R6025:6038 Kernel.EarnedGenericLinks <> generic_cs_run thm
+R6025:6038 Kernel.EarnedGenericLinks <> generic_cs_run thm
+R6025:6038 Kernel.EarnedGenericLinks <> generic_cs_run thm
+R6055:6081 Kernel.EarnedGenericLinks <> generic_checker_soundness thm
+R6055:6081 Kernel.EarnedGenericLinks <> generic_checker_soundness thm
+def 6363:6371 <> sorted_cs
+R6375:6393 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R6398:6407 Kernel.EarnedGenericLinks <> generic_cs def
+R6421:6427 Kernel.EarnedGenericLinks <> seval def
+R6409:6419 Kernel.EarnedGenericLinks <> sprop_eqb def
+prf 6439:6458 <> sorted_machine_floor
+R6475:6478 Coq.Init.Datatypes <> list ind
+R6482:6488 Kernel.EarnedGenericLinks <> instr ind
+R6490:6496 Kernel.EarnedGenericLinks <> sprop ind
+binder 6470:6471 <> tr:34
+R6507:6513 Kernel.EarnedGenericLinks <> state rec
+R6515:6521 Kernel.EarnedGenericLinks <> sprop ind
+binder 6501:6502 <> s0:35
+R6544:6547 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6536:6538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6527:6532 Kernel.EarnedGenericLinks <> cert proj
+R6534:6535 Kernel.EarnedGenericLinks <> s0:35 var
+R6539:6543 Coq.Init.Datatypes <> false constr
+R6595:6600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6588:6590 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6548:6553 Kernel.EarnedGenericLinks <> cert proj
+R6556:6560 Kernel.EarnedGenericLinks <> run def
+R6582:6583 Kernel.EarnedGenericLinks <> tr:34 var
+R6585:6586 Kernel.EarnedGenericLinks <> s0:35 var
+R6574:6580 Kernel.EarnedGenericLinks <> seval def
+R6562:6572 Kernel.EarnedGenericLinks <> sprop_eqb def
+R6591:6594 Coq.Init.Datatypes <> true constr
+R6616:6619 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6601:6612 Kernel.EarnedGenericLinks <> total_cost def
+R6614:6615 Kernel.EarnedGenericLinks <> tr:34 var
+R6662:6681 Kernel.EarnedGenericLinks <> earned_generic_floor thm
+R6683:6689 Kernel.EarnedGenericLinks <> sprop ind
+R6691:6701 Kernel.EarnedGenericLinks <> sprop_eqb def
+R6703:6709 Kernel.EarnedGenericLinks <> seval def
+R6662:6681 Kernel.EarnedGenericLinks <> earned_generic_floor thm
+R6683:6689 Kernel.EarnedGenericLinks <> sprop ind
+R6691:6701 Kernel.EarnedGenericLinks <> sprop_eqb def
+R6703:6709 Kernel.EarnedGenericLinks <> seval def
+prf 6739:6760 <> sorted_certified_floor
+R6779:6782 Coq.Init.Datatypes <> list ind
+R6786:6792 Kernel.EarnedGenericLinks <> instr ind
+R6794:6800 Kernel.EarnedGenericLinks <> sprop ind
+binder 6774:6775 <> tr:36
+R6811:6817 Kernel.EarnedGenericLinks <> state rec
+R6819:6825 Kernel.EarnedGenericLinks <> sprop ind
+binder 6805:6806 <> s0:37
+R6847:6852 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6831:6843 Kernel.EarnedGenericLinks <> clean_start def
+R6845:6846 Kernel.EarnedGenericLinks <> s0:37 var
+R6902:6907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6895:6897 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6853:6859 Kernel.UniversalCertificationCost <> cs_cert proj
+R6861:6869 Kernel.EarnedGenericLinks <> sorted_cs def
+R6872:6877 Kernel.UniversalCertificationCost <> cs_run def
+R6879:6887 Kernel.EarnedGenericLinks <> sorted_cs def
+R6889:6890 Kernel.EarnedGenericLinks <> tr:36 var
+R6892:6893 Kernel.EarnedGenericLinks <> s0:37 var
+R6898:6901 Coq.Init.Datatypes <> true constr
+R6934:6937 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6908:6920 Kernel.UniversalCertificationCost <> cs_total_cost def
+R6922:6930 Kernel.EarnedGenericLinks <> sorted_cs def
+R6932:6933 Kernel.EarnedGenericLinks <> tr:36 var
+R6980:7009 Kernel.EarnedGenericLinks <> earned_generic_certified_floor thm
+R7011:7017 Kernel.EarnedGenericLinks <> sprop ind
+R7019:7029 Kernel.EarnedGenericLinks <> sprop_eqb def
+R7031:7044 Kernel.EarnedGenericLinks <> sprop_eqb_eq thm
+R7046:7052 Kernel.EarnedGenericLinks <> seval def
+R6980:7009 Kernel.EarnedGenericLinks <> earned_generic_certified_floor thm
+R7011:7017 Kernel.EarnedGenericLinks <> sprop ind
+R7019:7029 Kernel.EarnedGenericLinks <> sprop_eqb def
+R7031:7044 Kernel.EarnedGenericLinks <> sprop_eqb_eq thm
+R7046:7052 Kernel.EarnedGenericLinks <> seval def
+prf 7179:7193 <> sorted_cs_sound
+R7213:7219 Kernel.EarnedGenericLinks <> state rec
+R7221:7227 Kernel.EarnedGenericLinks <> sprop ind
+binder 7207:7208 <> s0:38
+R7236:7239 Coq.Init.Datatypes <> list ind
+R7243:7249 Kernel.EarnedGenericLinks <> instr ind
+R7251:7257 Kernel.EarnedGenericLinks <> sprop ind
+binder 7231:7232 <> tr:39
+R7266:7270 Kernel.EarnedGenericLinks <> ctr ind
+binder 7262:7262 <> c:40
+R7292:7297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7276:7288 Kernel.EarnedGenericLinks <> clean_start def
+R7290:7291 Kernel.EarnedGenericLinks <> s0:38 var
+R7422:7427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7298:7299 Coq.Lists.List <> In def
+R7377:7383 Kernel.EarnedGenericLinks <> facts proj
+R7386:7394 Kernel.EarnedGenericLinks <> core_of proj
+R7397:7402 Kernel.UniversalCertificationCost <> cs_run def
+R7404:7412 Kernel.EarnedGenericLinks <> sorted_cs def
+R7414:7415 Kernel.EarnedGenericLinks <> tr:39 var
+R7417:7418 Kernel.EarnedGenericLinks <> s0:38 var
+R7302:7309 Kernel.EarnedGenericLinks <> mkfact constr
+R7311:7319 Kernel.EarnedGenericLinks <> PSorted constr
+R7321:7321 Kernel.EarnedGenericLinks <> c:40 var
+R7324:7328 Kernel.EarnedGenericLinks <> ver def
+R7331:7339 Kernel.EarnedGenericLinks <> core_of proj
+R7342:7347 Kernel.UniversalCertificationCost <> cs_run def
+R7349:7357 Kernel.EarnedGenericLinks <> sorted_cs def
+R7359:7360 Kernel.EarnedGenericLinks <> tr:39 var
+R7362:7363 Kernel.EarnedGenericLinks <> s0:38 var
+R7367:7367 Kernel.EarnedGenericLinks <> c:40 var
+R7428:7433 Coq.Sorting.Sorted <> Sorted ind
+R7439:7446 Kernel.EarnedGenericLinks <> decode def
+R7449:7453 Kernel.EarnedGenericLinks <> val def
+R7456:7464 Kernel.EarnedGenericLinks <> core_of proj
+R7467:7472 Kernel.UniversalCertificationCost <> cs_run def
+R7474:7482 Kernel.EarnedGenericLinks <> sorted_cs def
+R7484:7485 Kernel.EarnedGenericLinks <> tr:39 var
+R7487:7488 Kernel.EarnedGenericLinks <> s0:38 var
+R7492:7492 Kernel.EarnedGenericLinks <> c:40 var
+R7435:7436 Coq.Init.Peano <> le ind
+R7539:7561 Kernel.EarnedGenericLinks <> earned_generic_cs_sound thm
+R7563:7569 Kernel.EarnedGenericLinks <> sprop ind
+R7571:7581 Kernel.EarnedGenericLinks <> sprop_eqb def
+R7583:7589 Kernel.EarnedGenericLinks <> seval def
+R7591:7598 Kernel.EarnedGenericLinks <> sholds def
+R7600:7610 Kernel.EarnedGenericLinks <> seval_iff thm
+R7638:7644 Coq.Init.Logic <> eq_refl constr
+R7539:7561 Kernel.EarnedGenericLinks <> earned_generic_cs_sound thm
+R7563:7569 Kernel.EarnedGenericLinks <> sprop ind
+R7571:7581 Kernel.EarnedGenericLinks <> sprop_eqb def
+R7583:7589 Kernel.EarnedGenericLinks <> seval def
+R7591:7598 Kernel.EarnedGenericLinks <> sholds def
+R7600:7610 Kernel.EarnedGenericLinks <> seval_iff thm
+R7638:7644 Coq.Init.Logic <> eq_refl constr
+prf 7740:7763 <> sorted_cs_demo_certifies
+R7840:7845 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7833:7835 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7769:7775 Kernel.UniversalCertificationCost <> cs_cert proj
+R7777:7785 Kernel.EarnedGenericLinks <> sorted_cs def
+R7788:7793 Kernel.UniversalCertificationCost <> cs_run def
+R7795:7803 Kernel.EarnedGenericLinks <> sorted_cs def
+R7805:7816 Kernel.EarnedGenericLinks <> sorted_run def
+R7819:7825 Kernel.EarnedGenericLinks <> start def
+R7836:7839 Coq.Init.Datatypes <> true constr
+R7882:7884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7846:7858 Kernel.UniversalCertificationCost <> cs_total_cost def
+R7860:7868 Kernel.EarnedGenericLinks <> sorted_cs def
+R7870:7881 Kernel.EarnedGenericLinks <> sorted_run def
+prf 7941:7962 <> sorted_cs_demo_refused
+R8040:8045 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8032:8034 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7968:7974 Kernel.UniversalCertificationCost <> cs_cert proj
+R7976:7984 Kernel.EarnedGenericLinks <> sorted_cs def
+R7987:7992 Kernel.UniversalCertificationCost <> cs_run def
+R7994:8002 Kernel.EarnedGenericLinks <> sorted_cs def
+R8004:8015 Kernel.EarnedGenericLinks <> sorted_run def
+R8018:8024 Kernel.EarnedGenericLinks <> start def
+R8035:8039 Coq.Init.Datatypes <> false constr
+R8110:8112 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8046:8050 Kernel.EarnedGenericLinks <> err proj
+R8053:8061 Kernel.EarnedGenericLinks <> core_of proj
+R8064:8069 Kernel.UniversalCertificationCost <> cs_run def
+R8071:8079 Kernel.EarnedGenericLinks <> sorted_cs def
+R8081:8092 Kernel.EarnedGenericLinks <> sorted_run def
+R8095:8101 Kernel.EarnedGenericLinks <> start def
+R8113:8116 Coq.Init.Datatypes <> true constr
+def 8458:8464 <> weak_cs
+R8471:8479 Kernel.EarnedGenericLinks <> machine rec
+binder 8467:8467 <> M:41
+R8487:8510 Kernel.EarnedGenericLinks <> weakly_thiele_complete def
+R8512:8512 Kernel.EarnedGenericLinks <> M:41 var
+binder 8483:8483 <> H:42
+R8517:8535 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R8542:8555 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R8558:8566 Kernel.EarnedGenericLinks <> m_state proj
+R8568:8568 Kernel.EarnedGenericLinks <> M:41 var
+R8572:8579 Kernel.EarnedGenericLinks <> m_move proj
+R8581:8581 Kernel.EarnedGenericLinks <> M:41 var
+R8585:8592 Kernel.EarnedGenericLinks <> m_step proj
+R8594:8594 Kernel.EarnedGenericLinks <> M:41 var
+R8598:8605 Kernel.EarnedGenericLinks <> m_cost proj
+R8607:8607 Kernel.EarnedGenericLinks <> M:41 var
+R8611:8620 Kernel.EarnedGenericLinks <> m_record proj
+R8622:8622 Kernel.EarnedGenericLinks <> M:41 var
+R8630:8634 Coq.Init.Logic <> proj1 thm
+R8636:8636 Kernel.EarnedGenericLinks <> H:42 var
+def 8755:8765 <> complete_cs
+R8772:8780 Kernel.EarnedGenericLinks <> machine rec
+binder 8768:8768 <> M:43
+R8788:8804 Kernel.EarnedGenericLinks <> thiele_complete def
+R8806:8806 Kernel.EarnedGenericLinks <> M:43 var
+binder 8784:8784 <> H:44
+R8811:8829 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R8837:8843 Kernel.EarnedGenericLinks <> weak_cs def
+R8845:8845 Kernel.EarnedGenericLinks <> M:43 var
+R8848:8872 Kernel.EarnedGenericLinks <> thiele_complete_is_weak thm
+R8874:8874 Kernel.EarnedGenericLinks <> M:43 var
+R8876:8876 Kernel.EarnedGenericLinks <> H:44 var
+prf 8887:8901 <> complete_cs_run
+R8917:8925 Kernel.EarnedGenericLinks <> machine rec
+binder 8913:8913 <> M:45
+R8933:8949 Kernel.EarnedGenericLinks <> thiele_complete def
+R8951:8951 Kernel.EarnedGenericLinks <> M:45 var
+binder 8929:8929 <> H:46
+R8964:8967 Coq.Init.Datatypes <> list ind
+R8970:8977 Kernel.EarnedGenericLinks <> m_move proj
+R8979:8979 Kernel.EarnedGenericLinks <> M:45 var
+binder 8959:8960 <> tr:47
+R8988:8996 Kernel.EarnedGenericLinks <> m_state proj
+R8998:8998 Kernel.EarnedGenericLinks <> M:45 var
+binder 8984:8984 <> s:48
+R9034:9036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9004:9009 Kernel.UniversalCertificationCost <> cs_run def
+R9013:9023 Kernel.EarnedGenericLinks <> complete_cs def
+R9025:9025 Kernel.EarnedGenericLinks <> M:45 var
+R9027:9027 Kernel.EarnedGenericLinks <> H:46 var
+R9030:9031 Kernel.EarnedGenericLinks <> tr:47 var
+R9033:9033 Kernel.EarnedGenericLinks <> s:48 var
+R9037:9041 Kernel.EarnedGenericLinks <> run def
+R9043:9043 Kernel.EarnedGenericLinks <> M:45 var
+R9045:9046 Kernel.EarnedGenericLinks <> tr:47 var
+R9048:9048 Kernel.EarnedGenericLinks <> s:48 var
+prf 9211:9231 <> thiele_complete_floor
+R9247:9255 Kernel.EarnedGenericLinks <> machine rec
+binder 9243:9243 <> M:49
+R9263:9279 Kernel.EarnedGenericLinks <> thiele_complete def
+R9281:9281 Kernel.EarnedGenericLinks <> M:49 var
+binder 9259:9259 <> H:50
+R9294:9297 Coq.Init.Datatypes <> list ind
+R9300:9307 Kernel.EarnedGenericLinks <> m_move proj
+R9309:9309 Kernel.EarnedGenericLinks <> M:49 var
+binder 9289:9290 <> tr:51
+R9319:9327 Kernel.EarnedGenericLinks <> m_state proj
+R9329:9329 Kernel.EarnedGenericLinks <> M:49 var
+binder 9314:9315 <> s0:52
+R9358:9361 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9350:9352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9335:9344 Kernel.EarnedGenericLinks <> m_record proj
+R9346:9346 Kernel.EarnedGenericLinks <> M:49 var
+R9348:9349 Kernel.EarnedGenericLinks <> s0:52 var
+R9353:9357 Coq.Init.Datatypes <> false constr
+R9397:9402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9390:9392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9362:9371 Kernel.EarnedGenericLinks <> m_record proj
+R9373:9373 Kernel.EarnedGenericLinks <> M:49 var
+R9376:9380 Kernel.EarnedGenericLinks <> run def
+R9382:9382 Kernel.EarnedGenericLinks <> M:49 var
+R9384:9385 Kernel.EarnedGenericLinks <> tr:51 var
+R9387:9388 Kernel.EarnedGenericLinks <> s0:52 var
+R9393:9396 Coq.Init.Datatypes <> true constr
+R9438:9441 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9403:9415 Kernel.UniversalCertificationCost <> cs_total_cost def
+R9419:9429 Kernel.EarnedGenericLinks <> complete_cs def
+R9431:9431 Kernel.EarnedGenericLinks <> M:49 var
+R9433:9433 Kernel.EarnedGenericLinks <> H:50 var
+R9436:9437 Kernel.EarnedGenericLinks <> tr:51 var
+R9487:9513 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R9517:9527 Kernel.EarnedGenericLinks <> complete_cs def
+R9487:9513 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R9517:9527 Kernel.EarnedGenericLinks <> complete_cs def
+R9555:9569 Kernel.EarnedGenericLinks <> complete_cs_run thm
+R9555:9569 Kernel.EarnedGenericLinks <> complete_cs_run thm
+R9555:9569 Kernel.EarnedGenericLinks <> complete_cs_run thm
+def 9678:9695 <> earned_complete_cs
+R9699:9717 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R9725:9735 Kernel.EarnedGenericLinks <> complete_cs def
+R9737:9752 Kernel.EarnedGenericLinks <> earned_machine def
+R9754:9782 Kernel.EarnedGenericLinks <> earned_core_thiele_complete thm
+prf 9871:9892 <> earned_complete_agrees
+R9909:9912 Coq.Init.Datatypes <> list ind
+R9914:9920 Kernel.EarnedGenericLinks <> instr ind
+binder 9904:9905 <> tr:53
+R9928:9934 Kernel.EarnedGenericLinks <> state rec
+binder 9924:9924 <> s:54
+R10010:10015 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9970:9972 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9940:9945 Kernel.UniversalCertificationCost <> cs_run def
+R9947:9964 Kernel.EarnedGenericLinks <> earned_complete_cs def
+R9966:9967 Kernel.EarnedGenericLinks <> tr:53 var
+R9969:9969 Kernel.EarnedGenericLinks <> s:54 var
+R9973:9978 Kernel.UniversalCertificationCost <> cs_run def
+R9980:10004 Kernel.EarnedCoreLinks <> earned_cs def
+R10006:10007 Kernel.EarnedGenericLinks <> tr:53 var
+R10009:10009 Kernel.EarnedGenericLinks <> s:54 var
+R10051:10053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10016:10028 Kernel.UniversalCertificationCost <> cs_total_cost def
+R10030:10047 Kernel.EarnedGenericLinks <> earned_complete_cs def
+R10049:10050 Kernel.EarnedGenericLinks <> tr:53 var
+R10054:10066 Kernel.UniversalCertificationCost <> cs_total_cost def
+R10068:10092 Kernel.EarnedCoreLinks <> earned_cs def
+R10094:10095 Kernel.EarnedGenericLinks <> tr:53 var
+R10188:10193 Kernel.EarnedGenericLinks <> exec def
+R10188:10193 Kernel.EarnedGenericLinks <> exec def
+R10275:10289 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10232:10237 Kernel.UniversalCertificationCost <> cs_run def
+R10239:10256 Kernel.EarnedGenericLinks <> earned_complete_cs def
+R10264:10269 Kernel.EarnedGenericLinks <> exec def
+R10290:10295 Kernel.UniversalCertificationCost <> cs_run def
+R10297:10321 Kernel.EarnedCoreLinks <> earned_cs def
+R10329:10334 Kernel.EarnedGenericLinks <> exec def
+R10275:10289 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10232:10237 Kernel.UniversalCertificationCost <> cs_run def
+R10239:10256 Kernel.EarnedGenericLinks <> earned_complete_cs def
+R10264:10269 Kernel.EarnedGenericLinks <> exec def
+R10290:10295 Kernel.UniversalCertificationCost <> cs_run def
+R10297:10321 Kernel.EarnedCoreLinks <> earned_cs def
+R10329:10334 Kernel.EarnedGenericLinks <> exec def
+R10417:10431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10377:10379 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10369:10374 Kernel.EarnedGenericLinks <> cost def
+R10380:10392 Kernel.UniversalCertificationCost <> cs_total_cost def
+R10394:10411 Kernel.EarnedGenericLinks <> earned_complete_cs def
+R10440:10442 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10432:10437 Kernel.EarnedGenericLinks <> cost def
+R10443:10455 Kernel.UniversalCertificationCost <> cs_total_cost def
+R10457:10481 Kernel.EarnedCoreLinks <> earned_cs def
+R10417:10431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10377:10379 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10369:10374 Kernel.EarnedGenericLinks <> cost def
+R10380:10392 Kernel.UniversalCertificationCost <> cs_total_cost def
+R10394:10411 Kernel.EarnedGenericLinks <> earned_complete_cs def
+R10440:10442 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10432:10437 Kernel.EarnedGenericLinks <> cost def
+R10443:10455 Kernel.UniversalCertificationCost <> cs_total_cost def
+R10457:10481 Kernel.EarnedCoreLinks <> earned_cs def
+prf 10666:10688 <> generic_complete_agrees
+binder 10702:10705 <> prop:55
+R10731:10734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10727:10730 Kernel.EarnedGenericLinks <> prop:55 var
+R10739:10742 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10735:10738 Kernel.EarnedGenericLinks <> prop:55 var
+R10743:10746 Coq.Init.Datatypes <> bool ind
+binder 10716:10723 <> prop_eqb:56
+R10761:10764 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10757:10760 Kernel.EarnedGenericLinks <> prop:55 var
+R10768:10771 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10765:10767 Coq.Init.Datatypes <> nat ind
+R10772:10775 Coq.Init.Datatypes <> bool ind
+binder 10750:10753 <> eval:57
+R10792:10808 Kernel.EarnedGenericLinks <> thiele_complete def
+R10811:10827 Kernel.EarnedGenericLinks <> generic_machine def
+R10838:10841 Kernel.EarnedGenericLinks <> eval:57 var
+R10829:10836 Kernel.EarnedGenericLinks <> prop_eqb:56 var
+binder 10788:10788 <> H:58
+R10860:10863 Coq.Init.Datatypes <> list ind
+R10867:10873 Kernel.EarnedGenericLinks <> instr ind
+R10875:10878 Kernel.EarnedGenericLinks <> prop:55 var
+binder 10855:10856 <> tr:59
+R10888:10894 Kernel.EarnedGenericLinks <> state rec
+R10896:10899 Kernel.EarnedGenericLinks <> prop:55 var
+binder 10883:10883 <> s:60
+R10976:10981 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10935:10937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10905:10910 Kernel.UniversalCertificationCost <> cs_run def
+R10914:10924 Kernel.EarnedGenericLinks <> complete_cs def
+R10928:10928 Kernel.EarnedGenericLinks <> H:58 var
+R10931:10932 Kernel.EarnedGenericLinks <> tr:59 var
+R10934:10934 Kernel.EarnedGenericLinks <> s:60 var
+R10938:10943 Kernel.UniversalCertificationCost <> cs_run def
+R10946:10955 Kernel.EarnedGenericLinks <> generic_cs def
+R10966:10969 Kernel.EarnedGenericLinks <> eval:57 var
+R10957:10964 Kernel.EarnedGenericLinks <> prop_eqb:56 var
+R10972:10973 Kernel.EarnedGenericLinks <> tr:59 var
+R10975:10975 Kernel.EarnedGenericLinks <> s:60 var
+R11017:11019 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10982:10994 Kernel.UniversalCertificationCost <> cs_total_cost def
+R10998:11008 Kernel.EarnedGenericLinks <> complete_cs def
+R11012:11012 Kernel.EarnedGenericLinks <> H:58 var
+R11015:11016 Kernel.EarnedGenericLinks <> tr:59 var
+R11020:11032 Kernel.UniversalCertificationCost <> cs_total_cost def
+R11035:11044 Kernel.EarnedGenericLinks <> generic_cs def
+R11055:11058 Kernel.EarnedGenericLinks <> eval:57 var
+R11046:11053 Kernel.EarnedGenericLinks <> prop_eqb:56 var
+R11061:11062 Kernel.EarnedGenericLinks <> tr:59 var
+R11189:11194 Kernel.EarnedGenericLinks <> exec def
+R11189:11194 Kernel.EarnedGenericLinks <> exec def
+R11304:11318 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11247:11252 Kernel.UniversalCertificationCost <> cs_run def
+R11256:11266 Kernel.EarnedGenericLinks <> complete_cs def
+R11279:11284 Kernel.EarnedGenericLinks <> exec def
+R11319:11324 Kernel.UniversalCertificationCost <> cs_run def
+R11327:11336 Kernel.EarnedGenericLinks <> generic_cs def
+R11359:11364 Kernel.EarnedGenericLinks <> exec def
+R11304:11318 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11247:11252 Kernel.UniversalCertificationCost <> cs_run def
+R11256:11266 Kernel.EarnedGenericLinks <> complete_cs def
+R11279:11284 Kernel.EarnedGenericLinks <> exec def
+R11319:11324 Kernel.UniversalCertificationCost <> cs_run def
+R11327:11336 Kernel.EarnedGenericLinks <> generic_cs def
+R11359:11364 Kernel.EarnedGenericLinks <> exec def
+R11461:11475 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11421:11423 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11413:11418 Kernel.EarnedGenericLinks <> cost def
+R11424:11436 Kernel.UniversalCertificationCost <> cs_total_cost def
+R11440:11450 Kernel.EarnedGenericLinks <> complete_cs def
+R11484:11486 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11476:11481 Kernel.EarnedGenericLinks <> cost def
+R11487:11499 Kernel.UniversalCertificationCost <> cs_total_cost def
+R11502:11511 Kernel.EarnedGenericLinks <> generic_cs def
+R11461:11475 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11421:11423 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11413:11418 Kernel.EarnedGenericLinks <> cost def
+R11424:11436 Kernel.UniversalCertificationCost <> cs_total_cost def
+R11440:11450 Kernel.EarnedGenericLinks <> complete_cs def
+R11484:11486 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11476:11481 Kernel.EarnedGenericLinks <> cost def
+R11487:11499 Kernel.UniversalCertificationCost <> cs_total_cost def
+R11502:11511 Kernel.EarnedGenericLinks <> generic_cs def
+prf 11664:11685 <> sorted_complete_agrees
+R11704:11707 Coq.Init.Datatypes <> list ind
+R11711:11717 Kernel.EarnedGenericLinks <> instr ind
+R11719:11725 Kernel.EarnedGenericLinks <> sprop ind
+binder 11699:11700 <> tr:61
+R11735:11741 Kernel.EarnedGenericLinks <> state rec
+R11743:11749 Kernel.EarnedGenericLinks <> sprop ind
+binder 11730:11730 <> s:62
+R11840:11845 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11816:11818 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11755:11760 Kernel.UniversalCertificationCost <> cs_run def
+R11764:11774 Kernel.EarnedGenericLinks <> complete_cs def
+R11778:11809 Kernel.EarnedGenericLinks <> sorted_machine_thiele_complete thm
+R11812:11813 Kernel.EarnedGenericLinks <> tr:61 var
+R11815:11815 Kernel.EarnedGenericLinks <> s:62 var
+R11819:11824 Kernel.UniversalCertificationCost <> cs_run def
+R11826:11834 Kernel.EarnedGenericLinks <> sorted_cs def
+R11836:11837 Kernel.EarnedGenericLinks <> tr:61 var
+R11839:11839 Kernel.EarnedGenericLinks <> s:62 var
+R11912:11918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11846:11858 Kernel.UniversalCertificationCost <> cs_total_cost def
+R11862:11872 Kernel.EarnedGenericLinks <> complete_cs def
+R11876:11907 Kernel.EarnedGenericLinks <> sorted_machine_thiele_complete thm
+R11910:11911 Kernel.EarnedGenericLinks <> tr:61 var
+R11919:11931 Kernel.UniversalCertificationCost <> cs_total_cost def
+R11933:11941 Kernel.EarnedGenericLinks <> sorted_cs def
+R11943:11944 Kernel.EarnedGenericLinks <> tr:61 var
+R11979:12001 Kernel.EarnedGenericLinks <> generic_complete_agrees thm
+R12003:12009 Kernel.EarnedGenericLinks <> sprop ind
+R12011:12021 Kernel.EarnedGenericLinks <> sprop_eqb def
+R12023:12029 Kernel.EarnedGenericLinks <> seval def
+R12042:12073 Kernel.EarnedGenericLinks <> sorted_machine_thiele_complete thm
+R11979:12001 Kernel.EarnedGenericLinks <> generic_complete_agrees thm
+R12003:12009 Kernel.EarnedGenericLinks <> sprop ind
+R12011:12021 Kernel.EarnedGenericLinks <> sprop_eqb def
+R12023:12029 Kernel.EarnedGenericLinks <> seval def
+R12042:12073 Kernel.EarnedGenericLinks <> sorted_machine_thiele_complete thm
+prf 12452:12475 <> complete_cs_window_blind
+R12491:12499 Kernel.EarnedGenericLinks <> machine rec
+binder 12487:12487 <> M:63
+R12507:12523 Kernel.EarnedGenericLinks <> thiele_complete def
+R12525:12525 Kernel.EarnedGenericLinks <> M:63 var
+binder 12503:12503 <> H:64
+R12537:12554 Kernel.EarnedGenericLinks <> thiele_interface rec
+R12556:12556 Kernel.EarnedGenericLinks <> M:63 var
+binder 12533:12533 <> I:65
+R12586:12591 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12562:12583 Kernel.EarnedGenericLinks <> thiele_complete_with def
+R12585:12585 Kernel.EarnedGenericLinks <> I:65 var
+R12592:12592 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12814:12821 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13029:13029 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12593:12594 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12595:12601 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12623:12624 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12615:12618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12606:12614 Kernel.EarnedGenericLinks <> cm_conf def
+R12619:12622 Coq.Init.Datatypes <> bool ind
+binder 12602:12602 <> f:66
+binder 12632:12632 <> a:67
+binder 12634:12634 <> b:68
+R12642:12645 Coq.Init.Datatypes <> list ind
+R12648:12655 Kernel.EarnedGenericLinks <> m_move proj
+R12657:12657 Kernel.EarnedGenericLinks <> M:63 var
+binder 12637:12638 <> tr:69
+R12733:12741 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12668:12668 Kernel.EarnedGenericLinks <> f:66 var
+R12671:12683 Kernel.EarnedGenericLinks <> base_window def
+R12688:12693 Kernel.UniversalCertificationCost <> cs_run def
+R12697:12707 Kernel.EarnedGenericLinks <> complete_cs def
+R12709:12709 Kernel.EarnedGenericLinks <> M:63 var
+R12711:12711 Kernel.EarnedGenericLinks <> H:64 var
+R12714:12715 Kernel.EarnedGenericLinks <> tr:69 var
+R12718:12723 Kernel.EarnedGenericLinks <> load def
+R12729:12729 Kernel.EarnedGenericLinks <> b:68 var
+R12727:12727 Kernel.EarnedGenericLinks <> a:67 var
+R12725:12725 Kernel.EarnedGenericLinks <> I:65 var
+R12685:12685 Kernel.EarnedGenericLinks <> I:65 var
+R12742:12748 Kernel.UniversalCertificationCost <> cs_cert proj
+R12752:12762 Kernel.EarnedGenericLinks <> complete_cs def
+R12764:12764 Kernel.EarnedGenericLinks <> M:63 var
+R12766:12766 Kernel.EarnedGenericLinks <> H:64 var
+R12770:12775 Kernel.UniversalCertificationCost <> cs_run def
+R12779:12789 Kernel.EarnedGenericLinks <> complete_cs def
+R12791:12791 Kernel.EarnedGenericLinks <> M:63 var
+R12793:12793 Kernel.EarnedGenericLinks <> H:64 var
+R12796:12797 Kernel.EarnedGenericLinks <> tr:69 var
+R12800:12805 Kernel.EarnedGenericLinks <> load def
+R12811:12811 Kernel.EarnedGenericLinks <> b:68 var
+R12809:12809 Kernel.EarnedGenericLinks <> a:67 var
+R12807:12807 Kernel.EarnedGenericLinks <> I:65 var
+R12822:12823 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12824:12830 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12851:12852 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12844:12847 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12835:12843 Kernel.EarnedGenericLinks <> cm_conf def
+R12848:12850 Coq.Init.Datatypes <> nat ind
+binder 12831:12831 <> f:70
+binder 12860:12860 <> a:71
+binder 12862:12862 <> b:72
+R12870:12873 Coq.Init.Datatypes <> list ind
+R12876:12883 Kernel.EarnedGenericLinks <> m_move proj
+R12885:12885 Kernel.EarnedGenericLinks <> M:63 var
+binder 12865:12866 <> tr:73
+R12961:12969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12896:12896 Kernel.EarnedGenericLinks <> f:70 var
+R12899:12911 Kernel.EarnedGenericLinks <> base_window def
+R12916:12921 Kernel.UniversalCertificationCost <> cs_run def
+R12925:12935 Kernel.EarnedGenericLinks <> complete_cs def
+R12937:12937 Kernel.EarnedGenericLinks <> M:63 var
+R12939:12939 Kernel.EarnedGenericLinks <> H:64 var
+R12942:12943 Kernel.EarnedGenericLinks <> tr:73 var
+R12946:12951 Kernel.EarnedGenericLinks <> load def
+R12957:12957 Kernel.EarnedGenericLinks <> b:72 var
+R12955:12955 Kernel.EarnedGenericLinks <> a:71 var
+R12953:12953 Kernel.EarnedGenericLinks <> I:65 var
+R12913:12913 Kernel.EarnedGenericLinks <> I:65 var
+R12970:12980 Kernel.EarnedGenericLinks <> ti_ledger proj
+R12985:12990 Kernel.UniversalCertificationCost <> cs_run def
+R12994:13004 Kernel.EarnedGenericLinks <> complete_cs def
+R13006:13006 Kernel.EarnedGenericLinks <> M:63 var
+R13008:13008 Kernel.EarnedGenericLinks <> H:64 var
+R13011:13012 Kernel.EarnedGenericLinks <> tr:73 var
+R13015:13020 Kernel.EarnedGenericLinks <> load def
+R13026:13026 Kernel.EarnedGenericLinks <> b:72 var
+R13024:13024 Kernel.EarnedGenericLinks <> a:71 var
+R13022:13022 Kernel.EarnedGenericLinks <> I:65 var
+R12982:12982 Kernel.EarnedGenericLinks <> I:65 var
+R13091:13117 Kernel.EarnedGenericLinks <> complete_no_record_oracle thm
+R13091:13117 Kernel.EarnedGenericLinks <> complete_no_record_oracle thm
+R13193:13207 Kernel.EarnedGenericLinks <> complete_cs_run thm
+R13193:13207 Kernel.EarnedGenericLinks <> complete_cs_run thm
+R13193:13207 Kernel.EarnedGenericLinks <> complete_cs_run thm
+R13252:13278 Kernel.EarnedGenericLinks <> complete_no_ledger_oracle thm
+R13252:13278 Kernel.EarnedGenericLinks <> complete_no_ledger_oracle thm
+R13354:13368 Kernel.EarnedGenericLinks <> complete_cs_run thm
+R13354:13368 Kernel.EarnedGenericLinks <> complete_cs_run thm
+R13354:13368 Kernel.EarnedGenericLinks <> complete_cs_run thm
+R13411:13420 Kernel.EarnedGenericLinks <> generic_cs def
+R13441:13460 Kernel.EarnedGenericLinks <> earned_generic_floor thm
+R13481:13510 Kernel.EarnedGenericLinks <> earned_generic_certified_floor thm
+R13531:13553 Kernel.EarnedGenericLinks <> earned_generic_cs_sound thm
+R13574:13593 Kernel.EarnedGenericLinks <> sorted_machine_floor thm
+R13614:13635 Kernel.EarnedGenericLinks <> sorted_certified_floor thm
+R13656:13670 Kernel.EarnedGenericLinks <> sorted_cs_sound thm
+R13691:13714 Kernel.EarnedGenericLinks <> sorted_cs_demo_certifies thm
+R13735:13756 Kernel.EarnedGenericLinks <> sorted_cs_demo_refused thm
+R13777:13787 Kernel.EarnedGenericLinks <> complete_cs def
+R13808:13828 Kernel.EarnedGenericLinks <> thiele_complete_floor thm
+R13849:13870 Kernel.EarnedGenericLinks <> earned_complete_agrees thm
+R13891:13913 Kernel.EarnedGenericLinks <> generic_complete_agrees thm
+R13934:13955 Kernel.EarnedGenericLinks <> sorted_complete_agrees thm
+R13976:13999 Kernel.EarnedGenericLinks <> complete_cs_window_blind thm

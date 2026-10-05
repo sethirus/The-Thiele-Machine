@@ -1,938 +1,938 @@
-DIGEST b93e5abc1f79efbc0813d7969c081dec
+DIGEST 2afdc2c427b9e2983ad29590277b8f53
 FKernel.CasperForkWitness
-R1668:1681 Coq.Arith.PeanoNat <> <> lib
-R1683:1685 Coq.micromega.Lia <> <> lib
-R1687:1695 Coq.Relations.Relations <> <> lib
-R1697:1700 Coq.Lists.List <> <> lib
-R1730:1738 Kernel.CasperFFG <> <> lib
-R1740:1758 Kernel.CasperRecordReading <> <> lib
-R1768:1780 Coq.Lists.List ListNotations <> mod
-ind 1825:1826 <> FV
-constr 1838:1839 <> VA
-constr 1843:1844 <> VB
-constr 1848:1849 <> VC
-scheme 1825:1826 <> FV_rect
-scheme 1825:1826 <> FV_ind
-scheme 1825:1826 <> FV_rec
-scheme 1825:1826 <> FV_sind
-def 1864:1872 <> fv_eq_dec
-R1889:1890 Kernel.CasperForkWitness <> FV ind
-binder 1883:1883 <> x:3
-binder 1885:1885 <> y:4
-R1893:1893 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R1899:1903 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R1910:1910 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R1895:1897 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1894:1894 Kernel.CasperForkWitness <> x:3 var
-R1898:1898 Kernel.CasperForkWitness <> y:4 var
-R1905:1908 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R1904:1904 Kernel.CasperForkWitness <> x:3 var
-R1909:1909 Kernel.CasperForkWitness <> y:4 var
-def 1958:1971 <> all_validators
-R1975:1978 Coq.Init.Datatypes <> list ind
-R1980:1981 Kernel.CasperForkWitness <> FV ind
-R1986:1986 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R1989:1990 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R1993:1994 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R1997:1997 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R1987:1988 Kernel.CasperForkWitness <> VA constr
-R1991:1992 Kernel.CasperForkWitness <> VB constr
-R1995:1996 Kernel.CasperForkWitness <> VC constr
-prf 2007:2029 <> all_validators_complete
-binder 2040:2040 <> x:5
-R2043:2044 Coq.Lists.List <> In def
-R2048:2061 Kernel.CasperForkWitness <> all_validators def
-R2046:2046 Kernel.CasperForkWitness <> x:5 var
-def 2148:2152 <> stake
-R2159:2160 Kernel.CasperForkWitness <> FV ind
-R2165:2167 Coq.Init.Datatypes <> nat ind
-def 2185:2190 <> weight
-R2197:2200 Coq.Init.Datatypes <> list ind
-R2202:2203 Kernel.CasperForkWitness <> FV ind
-binder 2193:2193 <> l:6
-R2208:2210 Coq.Init.Datatypes <> nat ind
-R2223:2223 Kernel.CasperForkWitness <> l:6 var
-R2234:2235 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2247:2250 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2263:2265 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2256:2260 Kernel.CasperForkWitness <> stake def
-R2266:2271 Kernel.CasperForkWitness <> weight:7 def
-def 2294:2304 <> total_stake
-R2308:2310 Coq.Init.Datatypes <> nat ind
-R2315:2320 Kernel.CasperForkWitness <> weight def
-R2322:2335 Kernel.CasperForkWitness <> all_validators def
-prf 2345:2357 <> weight_length
-binder 2368:2368 <> l:9
-R2379:2381 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2371:2376 Kernel.CasperForkWitness <> weight def
-R2378:2378 Kernel.CasperForkWitness <> l:9 var
-R2382:2387 Coq.Init.Datatypes <> length def
-R2389:2389 Kernel.CasperForkWitness <> l:9 var
-def 2558:2570 <> fork_quorum_1
-R2579:2582 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2577:2578 Kernel.CasperForkWitness <> FV ind
-binder 2573:2573 <> q:10
-R2601:2607 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2609:2610 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2608:2608 <> l:11
-R2618:2621 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2611:2615 Coq.Lists.List <> NoDup ind
-R2617:2617 Kernel.CasperForkWitness <> l:11 var
-R2622:2622 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2646:2650 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 2630:2630 <> n:12
-R2639:2642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2633:2634 Coq.Lists.List <> In def
-R2638:2638 Kernel.CasperForkWitness <> l:11 var
-R2636:2636 Kernel.CasperForkWitness <> n:12 var
-R2643:2643 Kernel.CasperForkWitness <> q:10 var
-R2645:2645 Kernel.CasperForkWitness <> n:12 var
-R2663:2666 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R2652:2654 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2655:2660 Kernel.CasperForkWitness <> weight def
-R2662:2662 Kernel.CasperForkWitness <> l:11 var
-R2668:2670 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2671:2681 Kernel.CasperForkWitness <> total_stake def
-def 2696:2708 <> fork_quorum_2
-R2717:2720 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2715:2716 Kernel.CasperForkWitness <> FV ind
-binder 2711:2711 <> q:13
-R2739:2745 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2747:2748 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2746:2746 <> l:14
-R2756:2759 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2749:2753 Coq.Lists.List <> NoDup ind
-R2755:2755 Kernel.CasperForkWitness <> l:14 var
-R2760:2760 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2784:2788 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 2768:2768 <> n:15
-R2777:2780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2771:2772 Coq.Lists.List <> In def
-R2776:2776 Kernel.CasperForkWitness <> l:14 var
-R2774:2774 Kernel.CasperForkWitness <> n:15 var
-R2781:2781 Kernel.CasperForkWitness <> q:13 var
-R2783:2783 Kernel.CasperForkWitness <> n:15 var
-R2801:2804 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R2790:2792 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2793:2798 Kernel.CasperForkWitness <> weight def
-R2800:2800 Kernel.CasperForkWitness <> l:14 var
-R2805:2815 Kernel.CasperForkWitness <> total_stake def
-prf 2825:2842 <> nodup_app_disjoint
-R2862:2865 Coq.Init.Datatypes <> list ind
-R2867:2868 Kernel.CasperForkWitness <> FV ind
-binder 2854:2855 <> l1:16
-binder 2857:2858 <> l2:17
-R2882:2885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2874:2878 Coq.Lists.List <> NoDup ind
-R2880:2881 Kernel.CasperForkWitness <> l1:16 var
-R2894:2897 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2886:2890 Coq.Lists.List <> NoDup ind
-R2892:2893 Kernel.CasperForkWitness <> l2:17 var
-R2898:2898 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2929:2933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 2906:2906 <> x:18
-R2916:2919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2909:2910 Coq.Lists.List <> In def
-R2914:2915 Kernel.CasperForkWitness <> l1:16 var
-R2912:2912 Kernel.CasperForkWitness <> x:18 var
-R2920:2921 Coq.Init.Logic <> ::type_scope:'~'_x not
-R2922:2923 Coq.Lists.List <> In def
-R2927:2928 Kernel.CasperForkWitness <> l2:17 var
-R2925:2925 Kernel.CasperForkWitness <> x:18 var
-R2934:2938 Coq.Lists.List <> NoDup ind
-R2943:2946 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R2941:2942 Kernel.CasperForkWitness <> l1:16 var
-R2947:2948 Kernel.CasperForkWitness <> l2:17 var
-R3110:3118 Coq.Lists.List <> in_app_or thm
-R3110:3118 Coq.Lists.List <> in_app_or thm
-R3185:3193 Coq.Init.Logic <> or_introl constr
-R3195:3201 Coq.Init.Logic <> eq_refl constr
-R3185:3193 Coq.Init.Logic <> or_introl constr
-R3195:3201 Coq.Init.Logic <> eq_refl constr
-prf 3450:3470 <> two_thirds_lists_meet
-R3489:3492 Coq.Init.Datatypes <> list ind
-R3494:3495 Kernel.CasperForkWitness <> FV ind
-binder 3481:3482 <> l1:19
-binder 3484:3485 <> l2:20
-R3508:3511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3500:3504 Coq.Lists.List <> NoDup ind
-R3506:3507 Kernel.CasperForkWitness <> l1:19 var
-R3520:3523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3512:3516 Coq.Lists.List <> NoDup ind
-R3518:3519 Kernel.CasperForkWitness <> l2:20 var
-R3538:3541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3525:3528 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3529:3534 Coq.Init.Datatypes <> length def
-R3536:3537 Kernel.CasperForkWitness <> l1:19 var
-R3556:3561 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3543:3546 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3547:3552 Coq.Init.Datatypes <> length def
-R3554:3555 Kernel.CasperForkWitness <> l2:20 var
-R3562:3568 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3570:3571 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3569:3569 <> x:21
-R3579:3582 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3572:3573 Coq.Lists.List <> In def
-R3577:3578 Kernel.CasperForkWitness <> l1:19 var
-R3575:3575 Kernel.CasperForkWitness <> x:21 var
-R3583:3584 Coq.Lists.List <> In def
-R3588:3589 Kernel.CasperForkWitness <> l2:20 var
-R3586:3586 Kernel.CasperForkWitness <> x:21 var
-R3645:3654 Coq.Lists.List <> Exists_dec thm
-R3692:3693 Kernel.CasperForkWitness <> FV ind
-binder 3688:3688 <> x:22
-R3698:3703 Coq.Lists.List <> in_dec thm
-R3715:3715 Kernel.CasperForkWitness <> x:22 var
-R3705:3713 Kernel.CasperForkWitness <> fv_eq_dec def
-R3665:3666 Kernel.CasperForkWitness <> FV ind
-binder 3661:3661 <> x:23
-R3671:3672 Coq.Lists.List <> In def
-R3674:3674 Kernel.CasperForkWitness <> x:23 var
-R3645:3654 Coq.Lists.List <> Exists_dec thm
-R3692:3693 Kernel.CasperForkWitness <> FV ind
-binder 3688:3688 <> x:24
-R3698:3703 Coq.Lists.List <> in_dec thm
-R3715:3715 Kernel.CasperForkWitness <> x:24 var
-R3705:3713 Kernel.CasperForkWitness <> fv_eq_dec def
-R3665:3666 Kernel.CasperForkWitness <> FV ind
-binder 3661:3661 <> x:25
-R3671:3672 Coq.Lists.List <> In def
-R3674:3674 Kernel.CasperForkWitness <> x:25 var
-R3753:3765 Coq.Lists.List <> Exists_exists thm
-R3753:3765 Coq.Lists.List <> Exists_exists thm
-binder 3823:3823 <> x:26
-R3833:3836 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3826:3827 Coq.Lists.List <> In def
-R3829:3829 Kernel.CasperForkWitness <> x:26 var
-R3837:3838 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3839:3840 Coq.Lists.List <> In def
-R3842:3842 Kernel.CasperForkWitness <> x:26 var
-binder 3823:3823 <> x:27
-R3833:3836 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3826:3827 Coq.Lists.List <> In def
-R3829:3829 Kernel.CasperForkWitness <> x:27 var
-R3837:3838 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3839:3840 Coq.Lists.List <> In def
-R3842:3842 Kernel.CasperForkWitness <> x:27 var
-R3890:3902 Coq.Lists.List <> Exists_exists thm
-R3890:3902 Coq.Lists.List <> Exists_exists thm
-R3952:3969 Kernel.CasperForkWitness <> nodup_app_disjoint thm
-R3952:3969 Kernel.CasperForkWitness <> nodup_app_disjoint thm
-R4011:4027 Coq.Lists.List <> NoDup_incl_length thm
-binder 4038:4038 <> x:28
-R4045:4067 Kernel.CasperForkWitness <> all_validators_complete thm
-R4069:4069 Kernel.CasperForkWitness <> x:28 var
-R4011:4027 Coq.Lists.List <> NoDup_incl_length thm
-binder 4038:4038 <> x:29
-R4045:4067 Kernel.CasperForkWitness <> all_validators_complete thm
-R4069:4069 Kernel.CasperForkWitness <> x:29 var
-R4093:4102 Coq.Lists.List <> app_length thm
-R4093:4102 Coq.Lists.List <> app_length thm
-R4093:4102 Coq.Lists.List <> app_length thm
-prf 4143:4167 <> fork_quorums_intersection
-binder 4178:4179 <> q1:30
-binder 4181:4182 <> q2:31
-R4203:4206 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4187:4199 Kernel.CasperForkWitness <> fork_quorum_1 def
-R4201:4202 Kernel.CasperForkWitness <> q1:30 var
-R4223:4228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4207:4219 Kernel.CasperForkWitness <> fork_quorum_1 def
-R4221:4222 Kernel.CasperForkWitness <> q2:31 var
-R4229:4235 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4238:4239 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4236:4237 <> q3:32
-R4256:4259 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4240:4252 Kernel.CasperForkWitness <> fork_quorum_2 def
-R4254:4255 Kernel.CasperForkWitness <> q3:32 var
-R4260:4260 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4283:4288 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4311:4311 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 4268:4268 <> n:33
-R4275:4278 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4271:4272 Kernel.CasperForkWitness <> q3:32 var
-R4274:4274 Kernel.CasperForkWitness <> n:33 var
-R4279:4280 Kernel.CasperForkWitness <> q1:30 var
-R4282:4282 Kernel.CasperForkWitness <> n:33 var
-binder 4296:4296 <> n:34
-R4303:4306 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4299:4300 Kernel.CasperForkWitness <> q3:32 var
-R4302:4302 Kernel.CasperForkWitness <> n:34 var
-R4307:4308 Kernel.CasperForkWitness <> q2:31 var
-R4310:4310 Kernel.CasperForkWitness <> n:34 var
-R4393:4405 Kernel.CasperForkWitness <> weight_length thm
-R4393:4405 Kernel.CasperForkWitness <> weight_length thm
-R4393:4405 Kernel.CasperForkWitness <> weight_length thm
-R4427:4437 Kernel.CasperForkWitness <> total_stake def
-R4483:4503 Kernel.CasperForkWitness <> two_thirds_lists_meet thm
-R4483:4503 Kernel.CasperForkWitness <> two_thirds_lists_meet thm
-binder 4580:4580 <> n:35
-R4589:4592 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4588:4588 Kernel.CasperForkWitness <> n:35 var
-R4596:4596 Kernel.CasperForkWitness <> n:35 var
-binder 4580:4580 <> n:36
-R4589:4592 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4588:4588 Kernel.CasperForkWitness <> n:36 var
-R4596:4596 Kernel.CasperForkWitness <> n:36 var
-R4650:4650 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4652:4652 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4650:4650 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4652:4652 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4788:4798 Kernel.CasperForkWitness <> total_stake def
-ind 4854:4855 <> FH
-constr 4867:4868 <> HG
-constr 4872:4874 <> HA1
-constr 4878:4880 <> HA2
-constr 4884:4886 <> HB1
-constr 4890:4892 <> HB2
-scheme 4854:4855 <> FH_rect
-scheme 4854:4855 <> FH_ind
-scheme 4854:4855 <> FH_rec
-scheme 4854:4855 <> FH_sind
-def 4907:4915 <> parent_of
-R4922:4923 Kernel.CasperForkWitness <> FH ind
-binder 4918:4918 <> h:39
-R4928:4933 Coq.Init.Datatypes <> option ind
-R4935:4936 Kernel.CasperForkWitness <> FH ind
-R4949:4949 Kernel.CasperForkWitness <> h:39 var
-R4960:4961 Kernel.CasperForkWitness <> HG constr
-R4966:4969 Coq.Init.Datatypes <> None constr
-R4975:4977 Kernel.CasperForkWitness <> HA1 constr
-R4982:4985 Coq.Init.Datatypes <> Some constr
-R4987:4988 Kernel.CasperForkWitness <> HG constr
-R4994:4996 Kernel.CasperForkWitness <> HA2 constr
-R5001:5004 Coq.Init.Datatypes <> Some constr
-R5006:5008 Kernel.CasperForkWitness <> HA1 constr
-R5014:5016 Kernel.CasperForkWitness <> HB1 constr
-R5021:5024 Coq.Init.Datatypes <> Some constr
-R5026:5027 Kernel.CasperForkWitness <> HG constr
-R5033:5035 Kernel.CasperForkWitness <> HB2 constr
-R5040:5043 Coq.Init.Datatypes <> Some constr
-R5045:5047 Kernel.CasperForkWitness <> HB1 constr
-def 5120:5130 <> fork_parent
-R5141:5142 Kernel.CasperForkWitness <> FH ind
-binder 5133:5134 <> h1:41
-binder 5136:5137 <> h2:42
-R5167:5169 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5155:5163 Kernel.CasperForkWitness <> parent_of def
-R5165:5166 Kernel.CasperForkWitness <> h2:42 var
-R5170:5173 Coq.Init.Datatypes <> Some constr
-R5175:5176 Kernel.CasperForkWitness <> h1:41 var
-prf 5186:5208 <> fork_at_most_one_parent
-binder 5219:5220 <> h1:43
-binder 5222:5223 <> h2:44
-binder 5225:5226 <> h3:45
-R5248:5251 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5231:5241 Kernel.CasperForkWitness <> fork_parent def
-R5243:5244 Kernel.CasperForkWitness <> h2:44 var
-R5246:5247 Kernel.CasperForkWitness <> h1:43 var
-R5269:5272 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5252:5262 Kernel.CasperForkWitness <> fork_parent def
-R5264:5265 Kernel.CasperForkWitness <> h3:45 var
-R5267:5268 Kernel.CasperForkWitness <> h1:43 var
-R5275:5277 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5273:5274 Kernel.CasperForkWitness <> h2:44 var
-R5278:5279 Kernel.CasperForkWitness <> h3:45 var
-R5298:5308 Kernel.CasperForkWitness <> fork_parent def
-def 5421:5432 <> fork_setting
-R5436:5448 Kernel.CasperFFG <> CasperSetting rec
-R5458:5466 Kernel.CasperFFG <> Validator proj
-R5458:5466 Kernel.CasperFFG <> Validator proj
-R5458:5466 Kernel.CasperFFG <> Validator proj
-R5477:5480 Kernel.CasperFFG <> Hash proj
-R5477:5480 Kernel.CasperFFG <> Hash proj
-R5491:5498 Kernel.CasperFFG <> quorum_1 proj
-R5491:5498 Kernel.CasperFFG <> quorum_1 proj
-R5520:5527 Kernel.CasperFFG <> quorum_2 proj
-R5520:5527 Kernel.CasperFFG <> quorum_2 proj
-R5549:5568 Kernel.CasperFFG <> quorums_intersection proj
-R5549:5568 Kernel.CasperFFG <> quorums_intersection proj
-R5602:5612 Kernel.CasperFFG <> hash_parent proj
-R5602:5612 Kernel.CasperFFG <> hash_parent proj
-R5632:5638 Kernel.CasperFFG <> genesis proj
-R5632:5638 Kernel.CasperFFG <> genesis proj
-R5649:5671 Kernel.CasperFFG <> hash_at_most_one_parent proj
-R5649:5671 Kernel.CasperFFG <> hash_at_most_one_parent proj
-R5471:5472 Kernel.CasperForkWitness <> FV ind
-R5485:5486 Kernel.CasperForkWitness <> FH ind
-R5503:5515 Kernel.CasperForkWitness <> fork_quorum_1 def
-R5532:5544 Kernel.CasperForkWitness <> fork_quorum_2 def
-R5573:5597 Kernel.CasperForkWitness <> fork_quorums_intersection thm
-R5617:5627 Kernel.CasperForkWitness <> fork_parent def
-R5643:5644 Kernel.CasperForkWitness <> HG constr
-R5676:5698 Kernel.CasperForkWitness <> fork_at_most_one_parent thm
-def 5777:5785 <> ancestors
-R5792:5793 Kernel.CasperForkWitness <> FH ind
-binder 5788:5788 <> h:46
-R5798:5801 Coq.Init.Datatypes <> list ind
-R5803:5804 Kernel.CasperForkWitness <> FH ind
-R5817:5817 Kernel.CasperForkWitness <> h:46 var
-R5828:5829 Kernel.CasperForkWitness <> HG constr
-R5834:5834 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5837:5837 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5835:5836 Kernel.CasperForkWitness <> HG constr
-R5843:5845 Kernel.CasperForkWitness <> HA1 constr
-R5850:5850 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5854:5855 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5858:5858 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5851:5853 Kernel.CasperForkWitness <> HA1 constr
-R5856:5857 Kernel.CasperForkWitness <> HG constr
-R5864:5866 Kernel.CasperForkWitness <> HA2 constr
-R5871:5871 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5875:5876 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1673:1686 Coq.Arith.PeanoNat <> <> lib
+R1688:1690 Coq.micromega.Lia <> <> lib
+R1692:1700 Coq.Relations.Relations <> <> lib
+R1702:1705 Coq.Lists.List <> <> lib
+R1735:1743 Kernel.CasperFFG <> <> lib
+R1745:1763 Kernel.CasperRecordReading <> <> lib
+R1773:1785 Coq.Lists.List ListNotations <> mod
+ind 1830:1831 <> FV
+constr 1843:1844 <> VA
+constr 1848:1849 <> VB
+constr 1853:1854 <> VC
+scheme 1830:1831 <> FV_rect
+scheme 1830:1831 <> FV_ind
+scheme 1830:1831 <> FV_rec
+scheme 1830:1831 <> FV_sind
+def 1869:1877 <> fv_eq_dec
+R1894:1895 Kernel.CasperForkWitness <> FV ind
+binder 1888:1888 <> x:3
+binder 1890:1890 <> y:4
+R1898:1898 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R1904:1908 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R1915:1915 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R1900:1902 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1899:1899 Kernel.CasperForkWitness <> x:3 var
+R1903:1903 Kernel.CasperForkWitness <> y:4 var
+R1910:1913 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1909:1909 Kernel.CasperForkWitness <> x:3 var
+R1914:1914 Kernel.CasperForkWitness <> y:4 var
+def 1963:1976 <> all_validators
+R1980:1983 Coq.Init.Datatypes <> list ind
+R1985:1986 Kernel.CasperForkWitness <> FV ind
+R1991:1991 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1994:1995 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1998:1999 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2002:2002 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1992:1993 Kernel.CasperForkWitness <> VA constr
+R1996:1997 Kernel.CasperForkWitness <> VB constr
+R2000:2001 Kernel.CasperForkWitness <> VC constr
+prf 2012:2034 <> all_validators_complete
+binder 2045:2045 <> x:5
+R2048:2049 Coq.Lists.List <> In def
+R2053:2066 Kernel.CasperForkWitness <> all_validators def
+R2051:2051 Kernel.CasperForkWitness <> x:5 var
+def 2153:2157 <> stake
+R2164:2165 Kernel.CasperForkWitness <> FV ind
+R2170:2172 Coq.Init.Datatypes <> nat ind
+def 2190:2195 <> weight
+R2202:2205 Coq.Init.Datatypes <> list ind
+R2207:2208 Kernel.CasperForkWitness <> FV ind
+binder 2198:2198 <> l:6
+R2213:2215 Coq.Init.Datatypes <> nat ind
+R2228:2228 Kernel.CasperForkWitness <> l:6 var
+R2239:2240 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2252:2255 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2268:2270 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2261:2265 Kernel.CasperForkWitness <> stake def
+R2271:2276 Kernel.CasperForkWitness <> weight:7 def
+def 2299:2309 <> total_stake
+R2313:2315 Coq.Init.Datatypes <> nat ind
+R2320:2325 Kernel.CasperForkWitness <> weight def
+R2327:2340 Kernel.CasperForkWitness <> all_validators def
+prf 2350:2362 <> weight_length
+binder 2373:2373 <> l:9
+R2384:2386 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2376:2381 Kernel.CasperForkWitness <> weight def
+R2383:2383 Kernel.CasperForkWitness <> l:9 var
+R2387:2392 Coq.Init.Datatypes <> length def
+R2394:2394 Kernel.CasperForkWitness <> l:9 var
+def 2563:2575 <> fork_quorum_1
+R2584:2587 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2582:2583 Kernel.CasperForkWitness <> FV ind
+binder 2578:2578 <> q:10
+R2606:2612 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2614:2615 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2613:2613 <> l:11
+R2623:2626 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2616:2620 Coq.Lists.List <> NoDup ind
+R2622:2622 Kernel.CasperForkWitness <> l:11 var
+R2627:2627 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2651:2655 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 2635:2635 <> n:12
+R2644:2647 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2638:2639 Coq.Lists.List <> In def
+R2643:2643 Kernel.CasperForkWitness <> l:11 var
+R2641:2641 Kernel.CasperForkWitness <> n:12 var
+R2648:2648 Kernel.CasperForkWitness <> q:10 var
+R2650:2650 Kernel.CasperForkWitness <> n:12 var
+R2668:2671 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2657:2659 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2660:2665 Kernel.CasperForkWitness <> weight def
+R2667:2667 Kernel.CasperForkWitness <> l:11 var
+R2673:2675 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2676:2686 Kernel.CasperForkWitness <> total_stake def
+def 2701:2713 <> fork_quorum_2
+R2722:2725 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2720:2721 Kernel.CasperForkWitness <> FV ind
+binder 2716:2716 <> q:13
+R2744:2750 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2752:2753 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2751:2751 <> l:14
+R2761:2764 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2754:2758 Coq.Lists.List <> NoDup ind
+R2760:2760 Kernel.CasperForkWitness <> l:14 var
+R2765:2765 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2789:2793 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 2773:2773 <> n:15
+R2782:2785 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2776:2777 Coq.Lists.List <> In def
+R2781:2781 Kernel.CasperForkWitness <> l:14 var
+R2779:2779 Kernel.CasperForkWitness <> n:15 var
+R2786:2786 Kernel.CasperForkWitness <> q:13 var
+R2788:2788 Kernel.CasperForkWitness <> n:15 var
+R2806:2809 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2795:2797 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2798:2803 Kernel.CasperForkWitness <> weight def
+R2805:2805 Kernel.CasperForkWitness <> l:14 var
+R2810:2820 Kernel.CasperForkWitness <> total_stake def
+prf 2830:2847 <> nodup_app_disjoint
+R2867:2870 Coq.Init.Datatypes <> list ind
+R2872:2873 Kernel.CasperForkWitness <> FV ind
+binder 2859:2860 <> l1:16
+binder 2862:2863 <> l2:17
+R2887:2890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2879:2883 Coq.Lists.List <> NoDup ind
+R2885:2886 Kernel.CasperForkWitness <> l1:16 var
+R2899:2902 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2891:2895 Coq.Lists.List <> NoDup ind
+R2897:2898 Kernel.CasperForkWitness <> l2:17 var
+R2903:2903 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2934:2938 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2911:2911 <> x:18
+R2921:2924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2914:2915 Coq.Lists.List <> In def
+R2919:2920 Kernel.CasperForkWitness <> l1:16 var
+R2917:2917 Kernel.CasperForkWitness <> x:18 var
+R2925:2926 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2927:2928 Coq.Lists.List <> In def
+R2932:2933 Kernel.CasperForkWitness <> l2:17 var
+R2930:2930 Kernel.CasperForkWitness <> x:18 var
+R2939:2943 Coq.Lists.List <> NoDup ind
+R2948:2951 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2946:2947 Kernel.CasperForkWitness <> l1:16 var
+R2952:2953 Kernel.CasperForkWitness <> l2:17 var
+R3115:3123 Coq.Lists.List <> in_app_or thm
+R3115:3123 Coq.Lists.List <> in_app_or thm
+R3190:3198 Coq.Init.Logic <> or_introl constr
+R3200:3206 Coq.Init.Logic <> eq_refl constr
+R3190:3198 Coq.Init.Logic <> or_introl constr
+R3200:3206 Coq.Init.Logic <> eq_refl constr
+prf 3455:3475 <> two_thirds_lists_meet
+R3494:3497 Coq.Init.Datatypes <> list ind
+R3499:3500 Kernel.CasperForkWitness <> FV ind
+binder 3486:3487 <> l1:19
+binder 3489:3490 <> l2:20
+R3513:3516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3505:3509 Coq.Lists.List <> NoDup ind
+R3511:3512 Kernel.CasperForkWitness <> l1:19 var
+R3525:3528 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3517:3521 Coq.Lists.List <> NoDup ind
+R3523:3524 Kernel.CasperForkWitness <> l2:20 var
+R3543:3546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3530:3533 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3534:3539 Coq.Init.Datatypes <> length def
+R3541:3542 Kernel.CasperForkWitness <> l1:19 var
+R3561:3566 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3548:3551 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3552:3557 Coq.Init.Datatypes <> length def
+R3559:3560 Kernel.CasperForkWitness <> l2:20 var
+R3567:3573 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3575:3576 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3574:3574 <> x:21
+R3584:3587 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3577:3578 Coq.Lists.List <> In def
+R3582:3583 Kernel.CasperForkWitness <> l1:19 var
+R3580:3580 Kernel.CasperForkWitness <> x:21 var
+R3588:3589 Coq.Lists.List <> In def
+R3593:3594 Kernel.CasperForkWitness <> l2:20 var
+R3591:3591 Kernel.CasperForkWitness <> x:21 var
+R3650:3659 Coq.Lists.List <> Exists_dec thm
+R3697:3698 Kernel.CasperForkWitness <> FV ind
+binder 3693:3693 <> x:22
+R3703:3708 Coq.Lists.List <> in_dec thm
+R3720:3720 Kernel.CasperForkWitness <> x:22 var
+R3710:3718 Kernel.CasperForkWitness <> fv_eq_dec def
+R3670:3671 Kernel.CasperForkWitness <> FV ind
+binder 3666:3666 <> x:23
+R3676:3677 Coq.Lists.List <> In def
+R3679:3679 Kernel.CasperForkWitness <> x:23 var
+R3650:3659 Coq.Lists.List <> Exists_dec thm
+R3697:3698 Kernel.CasperForkWitness <> FV ind
+binder 3693:3693 <> x:24
+R3703:3708 Coq.Lists.List <> in_dec thm
+R3720:3720 Kernel.CasperForkWitness <> x:24 var
+R3710:3718 Kernel.CasperForkWitness <> fv_eq_dec def
+R3670:3671 Kernel.CasperForkWitness <> FV ind
+binder 3666:3666 <> x:25
+R3676:3677 Coq.Lists.List <> In def
+R3679:3679 Kernel.CasperForkWitness <> x:25 var
+R3758:3770 Coq.Lists.List <> Exists_exists thm
+R3758:3770 Coq.Lists.List <> Exists_exists thm
+binder 3828:3828 <> x:26
+R3838:3841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3831:3832 Coq.Lists.List <> In def
+R3834:3834 Kernel.CasperForkWitness <> x:26 var
+R3842:3843 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3844:3845 Coq.Lists.List <> In def
+R3847:3847 Kernel.CasperForkWitness <> x:26 var
+binder 3828:3828 <> x:27
+R3838:3841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3831:3832 Coq.Lists.List <> In def
+R3834:3834 Kernel.CasperForkWitness <> x:27 var
+R3842:3843 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3844:3845 Coq.Lists.List <> In def
+R3847:3847 Kernel.CasperForkWitness <> x:27 var
+R3895:3907 Coq.Lists.List <> Exists_exists thm
+R3895:3907 Coq.Lists.List <> Exists_exists thm
+R3957:3974 Kernel.CasperForkWitness <> nodup_app_disjoint thm
+R3957:3974 Kernel.CasperForkWitness <> nodup_app_disjoint thm
+R4016:4032 Coq.Lists.List <> NoDup_incl_length thm
+binder 4043:4043 <> x:28
+R4050:4072 Kernel.CasperForkWitness <> all_validators_complete thm
+R4074:4074 Kernel.CasperForkWitness <> x:28 var
+R4016:4032 Coq.Lists.List <> NoDup_incl_length thm
+binder 4043:4043 <> x:29
+R4050:4072 Kernel.CasperForkWitness <> all_validators_complete thm
+R4074:4074 Kernel.CasperForkWitness <> x:29 var
+R4098:4107 Coq.Lists.List <> app_length thm
+R4098:4107 Coq.Lists.List <> app_length thm
+R4098:4107 Coq.Lists.List <> app_length thm
+prf 4148:4172 <> fork_quorums_intersection
+binder 4183:4184 <> q1:30
+binder 4186:4187 <> q2:31
+R4208:4211 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4192:4204 Kernel.CasperForkWitness <> fork_quorum_1 def
+R4206:4207 Kernel.CasperForkWitness <> q1:30 var
+R4228:4233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4212:4224 Kernel.CasperForkWitness <> fork_quorum_1 def
+R4226:4227 Kernel.CasperForkWitness <> q2:31 var
+R4234:4240 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4243:4244 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4241:4242 <> q3:32
+R4261:4264 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4245:4257 Kernel.CasperForkWitness <> fork_quorum_2 def
+R4259:4260 Kernel.CasperForkWitness <> q3:32 var
+R4265:4265 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4288:4293 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4316:4316 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4273:4273 <> n:33
+R4280:4283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4276:4277 Kernel.CasperForkWitness <> q3:32 var
+R4279:4279 Kernel.CasperForkWitness <> n:33 var
+R4284:4285 Kernel.CasperForkWitness <> q1:30 var
+R4287:4287 Kernel.CasperForkWitness <> n:33 var
+binder 4301:4301 <> n:34
+R4308:4311 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4304:4305 Kernel.CasperForkWitness <> q3:32 var
+R4307:4307 Kernel.CasperForkWitness <> n:34 var
+R4312:4313 Kernel.CasperForkWitness <> q2:31 var
+R4315:4315 Kernel.CasperForkWitness <> n:34 var
+R4398:4410 Kernel.CasperForkWitness <> weight_length thm
+R4398:4410 Kernel.CasperForkWitness <> weight_length thm
+R4398:4410 Kernel.CasperForkWitness <> weight_length thm
+R4432:4442 Kernel.CasperForkWitness <> total_stake def
+R4488:4508 Kernel.CasperForkWitness <> two_thirds_lists_meet thm
+R4488:4508 Kernel.CasperForkWitness <> two_thirds_lists_meet thm
+binder 4585:4585 <> n:35
+R4594:4597 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4593:4593 Kernel.CasperForkWitness <> n:35 var
+R4601:4601 Kernel.CasperForkWitness <> n:35 var
+binder 4585:4585 <> n:36
+R4594:4597 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4593:4593 Kernel.CasperForkWitness <> n:36 var
+R4601:4601 Kernel.CasperForkWitness <> n:36 var
+R4655:4655 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4657:4657 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4655:4655 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4657:4657 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4793:4803 Kernel.CasperForkWitness <> total_stake def
+ind 4859:4860 <> FH
+constr 4872:4873 <> HG
+constr 4877:4879 <> HA1
+constr 4883:4885 <> HA2
+constr 4889:4891 <> HB1
+constr 4895:4897 <> HB2
+scheme 4859:4860 <> FH_rect
+scheme 4859:4860 <> FH_ind
+scheme 4859:4860 <> FH_rec
+scheme 4859:4860 <> FH_sind
+def 4912:4920 <> parent_of
+R4927:4928 Kernel.CasperForkWitness <> FH ind
+binder 4923:4923 <> h:39
+R4933:4938 Coq.Init.Datatypes <> option ind
+R4940:4941 Kernel.CasperForkWitness <> FH ind
+R4954:4954 Kernel.CasperForkWitness <> h:39 var
+R4965:4966 Kernel.CasperForkWitness <> HG constr
+R4971:4974 Coq.Init.Datatypes <> None constr
+R4980:4982 Kernel.CasperForkWitness <> HA1 constr
+R4987:4990 Coq.Init.Datatypes <> Some constr
+R4992:4993 Kernel.CasperForkWitness <> HG constr
+R4999:5001 Kernel.CasperForkWitness <> HA2 constr
+R5006:5009 Coq.Init.Datatypes <> Some constr
+R5011:5013 Kernel.CasperForkWitness <> HA1 constr
+R5019:5021 Kernel.CasperForkWitness <> HB1 constr
+R5026:5029 Coq.Init.Datatypes <> Some constr
+R5031:5032 Kernel.CasperForkWitness <> HG constr
+R5038:5040 Kernel.CasperForkWitness <> HB2 constr
+R5045:5048 Coq.Init.Datatypes <> Some constr
+R5050:5052 Kernel.CasperForkWitness <> HB1 constr
+def 5125:5135 <> fork_parent
+R5146:5147 Kernel.CasperForkWitness <> FH ind
+binder 5138:5139 <> h1:41
+binder 5141:5142 <> h2:42
+R5172:5174 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5160:5168 Kernel.CasperForkWitness <> parent_of def
+R5170:5171 Kernel.CasperForkWitness <> h2:42 var
+R5175:5178 Coq.Init.Datatypes <> Some constr
+R5180:5181 Kernel.CasperForkWitness <> h1:41 var
+prf 5191:5213 <> fork_at_most_one_parent
+binder 5224:5225 <> h1:43
+binder 5227:5228 <> h2:44
+binder 5230:5231 <> h3:45
+R5253:5256 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5236:5246 Kernel.CasperForkWitness <> fork_parent def
+R5248:5249 Kernel.CasperForkWitness <> h2:44 var
+R5251:5252 Kernel.CasperForkWitness <> h1:43 var
+R5274:5277 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5257:5267 Kernel.CasperForkWitness <> fork_parent def
+R5269:5270 Kernel.CasperForkWitness <> h3:45 var
+R5272:5273 Kernel.CasperForkWitness <> h1:43 var
+R5280:5282 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5278:5279 Kernel.CasperForkWitness <> h2:44 var
+R5283:5284 Kernel.CasperForkWitness <> h3:45 var
+R5303:5313 Kernel.CasperForkWitness <> fork_parent def
+def 5426:5437 <> fork_setting
+R5441:5453 Kernel.CasperFFG <> CasperSetting rec
+R5463:5471 Kernel.CasperFFG <> Validator proj
+R5463:5471 Kernel.CasperFFG <> Validator proj
+R5463:5471 Kernel.CasperFFG <> Validator proj
+R5482:5485 Kernel.CasperFFG <> Hash proj
+R5482:5485 Kernel.CasperFFG <> Hash proj
+R5496:5503 Kernel.CasperFFG <> quorum_1 proj
+R5496:5503 Kernel.CasperFFG <> quorum_1 proj
+R5525:5532 Kernel.CasperFFG <> quorum_2 proj
+R5525:5532 Kernel.CasperFFG <> quorum_2 proj
+R5554:5573 Kernel.CasperFFG <> quorums_intersection proj
+R5554:5573 Kernel.CasperFFG <> quorums_intersection proj
+R5607:5617 Kernel.CasperFFG <> hash_parent proj
+R5607:5617 Kernel.CasperFFG <> hash_parent proj
+R5637:5643 Kernel.CasperFFG <> genesis proj
+R5637:5643 Kernel.CasperFFG <> genesis proj
+R5654:5676 Kernel.CasperFFG <> hash_at_most_one_parent proj
+R5654:5676 Kernel.CasperFFG <> hash_at_most_one_parent proj
+R5476:5477 Kernel.CasperForkWitness <> FV ind
+R5490:5491 Kernel.CasperForkWitness <> FH ind
+R5508:5520 Kernel.CasperForkWitness <> fork_quorum_1 def
+R5537:5549 Kernel.CasperForkWitness <> fork_quorum_2 def
+R5578:5602 Kernel.CasperForkWitness <> fork_quorums_intersection thm
+R5622:5632 Kernel.CasperForkWitness <> fork_parent def
+R5648:5649 Kernel.CasperForkWitness <> HG constr
+R5681:5703 Kernel.CasperForkWitness <> fork_at_most_one_parent thm
+def 5782:5790 <> ancestors
+R5797:5798 Kernel.CasperForkWitness <> FH ind
+binder 5793:5793 <> h:46
+R5803:5806 Coq.Init.Datatypes <> list ind
+R5808:5809 Kernel.CasperForkWitness <> FH ind
+R5822:5822 Kernel.CasperForkWitness <> h:46 var
+R5833:5834 Kernel.CasperForkWitness <> HG constr
+R5839:5839 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5842:5842 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5840:5841 Kernel.CasperForkWitness <> HG constr
+R5848:5850 Kernel.CasperForkWitness <> HA1 constr
+R5855:5855 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5859:5860 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5863:5863 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5856:5858 Kernel.CasperForkWitness <> HA1 constr
+R5861:5862 Kernel.CasperForkWitness <> HG constr
+R5869:5871 Kernel.CasperForkWitness <> HA2 constr
+R5876:5876 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
 R5880:5881 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5884:5884 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5872:5874 Kernel.CasperForkWitness <> HA2 constr
-R5877:5879 Kernel.CasperForkWitness <> HA1 constr
-R5882:5883 Kernel.CasperForkWitness <> HG constr
-R5890:5892 Kernel.CasperForkWitness <> HB1 constr
-R5897:5897 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5901:5902 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5905:5905 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5898:5900 Kernel.CasperForkWitness <> HB1 constr
-R5903:5904 Kernel.CasperForkWitness <> HG constr
-R5911:5913 Kernel.CasperForkWitness <> HB2 constr
-R5918:5918 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5922:5923 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5885:5886 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5889:5889 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5877:5879 Kernel.CasperForkWitness <> HA2 constr
+R5882:5884 Kernel.CasperForkWitness <> HA1 constr
+R5887:5888 Kernel.CasperForkWitness <> HG constr
+R5895:5897 Kernel.CasperForkWitness <> HB1 constr
+R5902:5902 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5906:5907 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5910:5910 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5903:5905 Kernel.CasperForkWitness <> HB1 constr
+R5908:5909 Kernel.CasperForkWitness <> HG constr
+R5916:5918 Kernel.CasperForkWitness <> HB2 constr
+R5923:5923 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
 R5927:5928 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5931:5931 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5919:5921 Kernel.CasperForkWitness <> HB2 constr
-R5924:5926 Kernel.CasperForkWitness <> HB1 constr
-R5929:5930 Kernel.CasperForkWitness <> HG constr
-prf 5947:5969 <> ancestors_parent_closed
-binder 5980:5980 <> x:48
-binder 5982:5982 <> y:49
-binder 5984:5984 <> z:50
-R6004:6007 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5989:5999 Kernel.CasperForkWitness <> fork_parent def
-R6001:6001 Kernel.CasperForkWitness <> x:48 var
-R6003:6003 Kernel.CasperForkWitness <> y:49 var
-R6026:6029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6008:6009 Coq.Lists.List <> In def
-R6014:6022 Kernel.CasperForkWitness <> ancestors def
-R6024:6024 Kernel.CasperForkWitness <> z:50 var
-R6011:6011 Kernel.CasperForkWitness <> y:49 var
-R6030:6031 Coq.Lists.List <> In def
-R6036:6044 Kernel.CasperForkWitness <> ancestors def
-R6046:6046 Kernel.CasperForkWitness <> z:50 var
-R6033:6033 Kernel.CasperForkWitness <> x:48 var
-R6066:6076 Kernel.CasperForkWitness <> fork_parent def
-prf 6195:6210 <> hash_ancestor_in
-binder 6221:6221 <> x:51
-binder 6223:6223 <> y:52
-R6258:6261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6228:6240 Kernel.CasperFFG <> hash_ancestor def
-R6255:6255 Kernel.CasperForkWitness <> x:51 var
-R6257:6257 Kernel.CasperForkWitness <> y:52 var
-R6242:6253 Kernel.CasperForkWitness <> fork_setting def
-R6262:6263 Coq.Lists.List <> In def
-R6268:6276 Kernel.CasperForkWitness <> ancestors def
-R6278:6278 Kernel.CasperForkWitness <> y:52 var
-R6265:6265 Kernel.CasperForkWitness <> x:51 var
-R6382:6404 Kernel.CasperForkWitness <> ancestors_parent_closed thm
-R6382:6404 Kernel.CasperForkWitness <> ancestors_parent_closed thm
-def 6556:6564 <> fork_vote
-R6571:6572 Kernel.CasperForkWitness <> FV ind
-binder 6567:6567 <> n:53
-R6580:6581 Kernel.CasperForkWitness <> FH ind
-binder 6576:6576 <> h:54
-R6593:6595 Coq.Init.Datatypes <> nat ind
-binder 6585:6585 <> t:55
-binder 6587:6589 <> src:56
-R6600:6603 Coq.Init.Datatypes <> bool ind
-R6625:6627 Kernel.CasperForkWitness <> src:56 var
-R6622:6622 Kernel.CasperForkWitness <> t:55 var
-R6619:6619 Kernel.CasperForkWitness <> h:54 var
-R6616:6616 Kernel.CasperForkWitness <> n:53 var
-R6638:6639 Kernel.CasperForkWitness <> VA constr
-R6642:6644 Kernel.CasperForkWitness <> HA1 constr
-R6655:6658 Coq.Init.Datatypes <> true constr
-R6664:6665 Kernel.CasperForkWitness <> VA constr
-R6668:6670 Kernel.CasperForkWitness <> HA2 constr
-R6681:6684 Coq.Init.Datatypes <> true constr
-R6690:6691 Kernel.CasperForkWitness <> VB constr
-R6694:6696 Kernel.CasperForkWitness <> HA1 constr
-R6707:6710 Coq.Init.Datatypes <> true constr
-R6716:6717 Kernel.CasperForkWitness <> VB constr
-R6720:6722 Kernel.CasperForkWitness <> HA2 constr
-R6733:6736 Coq.Init.Datatypes <> true constr
-R6742:6743 Kernel.CasperForkWitness <> VB constr
-R6746:6748 Kernel.CasperForkWitness <> HB1 constr
-R6759:6762 Coq.Init.Datatypes <> true constr
-R6768:6769 Kernel.CasperForkWitness <> VB constr
-R6772:6774 Kernel.CasperForkWitness <> HB2 constr
-R6785:6788 Coq.Init.Datatypes <> true constr
-R6794:6795 Kernel.CasperForkWitness <> VC constr
-R6798:6800 Kernel.CasperForkWitness <> HB1 constr
-R6811:6814 Coq.Init.Datatypes <> true constr
-R6820:6821 Kernel.CasperForkWitness <> VC constr
-R6824:6826 Kernel.CasperForkWitness <> HB2 constr
-R6837:6840 Coq.Init.Datatypes <> true constr
-R6860:6864 Coq.Init.Datatypes <> false constr
-def 6885:6894 <> fork_state
-R6898:6902 Kernel.CasperFFG <> State rec
-R6904:6915 Kernel.CasperForkWitness <> fork_setting def
-R6920:6923 Kernel.CasperFFG <> mkSt constr
-R6938:6946 Kernel.CasperForkWitness <> fork_vote def
-R6925:6936 Kernel.CasperForkWitness <> fork_setting def
-def 6995:7004 <> q_branch_a
-R7011:7012 Kernel.CasperForkWitness <> FV ind
-binder 7007:7007 <> n:61
-R7031:7034 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R7026:7028 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7025:7025 Kernel.CasperForkWitness <> n:61 var
-R7029:7030 Kernel.CasperForkWitness <> VA constr
-R7036:7038 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7035:7035 Kernel.CasperForkWitness <> n:61 var
-R7039:7040 Kernel.CasperForkWitness <> VB constr
-def 7054:7063 <> q_branch_b
-R7070:7071 Kernel.CasperForkWitness <> FV ind
-binder 7066:7066 <> n:62
-R7090:7093 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R7085:7087 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7084:7084 Kernel.CasperForkWitness <> n:62 var
-R7088:7089 Kernel.CasperForkWitness <> VB constr
-R7095:7097 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7094:7094 Kernel.CasperForkWitness <> n:62 var
-R7098:7099 Kernel.CasperForkWitness <> VC constr
-prf 7109:7125 <> q_branch_a_quorum
-R7129:7136 Kernel.CasperFFG <> quorum_1 proj
-R7138:7149 Kernel.CasperForkWitness <> fork_setting def
-R7151:7160 Kernel.CasperForkWitness <> q_branch_a def
-R7179:7179 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7182:7183 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7186:7186 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7180:7181 Kernel.CasperForkWitness <> VA constr
-R7184:7185 Kernel.CasperForkWitness <> VB constr
-R7179:7179 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7182:7183 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7186:7186 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7180:7181 Kernel.CasperForkWitness <> VA constr
-R7184:7185 Kernel.CasperForkWitness <> VB constr
-R7295:7304 Kernel.CasperForkWitness <> q_branch_a def
-R7325:7335 Kernel.CasperForkWitness <> total_stake def
-prf 7362:7378 <> q_branch_b_quorum
-R7382:7389 Kernel.CasperFFG <> quorum_1 proj
-R7391:7402 Kernel.CasperForkWitness <> fork_setting def
-R7404:7413 Kernel.CasperForkWitness <> q_branch_b def
-R7432:7432 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7435:7436 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7439:7439 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7433:7434 Kernel.CasperForkWitness <> VB constr
-R7437:7438 Kernel.CasperForkWitness <> VC constr
-R7432:7432 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7435:7436 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7439:7439 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7433:7434 Kernel.CasperForkWitness <> VB constr
-R7437:7438 Kernel.CasperForkWitness <> VC constr
-R7548:7557 Kernel.CasperForkWitness <> q_branch_b def
-R7578:7588 Kernel.CasperForkWitness <> total_stake def
-prf 7615:7622 <> one_step
-binder 7633:7634 <> h1:63
-binder 7636:7637 <> h2:64
-R7657:7660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7640:7650 Kernel.CasperForkWitness <> fork_parent def
-R7652:7653 Kernel.CasperForkWitness <> h1:63 var
-R7655:7656 Kernel.CasperForkWitness <> h2:64 var
-R7661:7672 Kernel.CasperFFG <> nth_ancestor ind
-R7689:7690 Kernel.CasperForkWitness <> h1:63 var
-R7692:7693 Kernel.CasperForkWitness <> h2:64 var
-R7674:7685 Kernel.CasperForkWitness <> fork_setting def
-R7729:7744 Kernel.CasperFFG <> nth_ancestor_nth constr
-R7775:7788 Kernel.CasperFFG <> nth_ancestor_0 constr
-R7790:7801 Kernel.CasperForkWitness <> fork_setting def
-R7746:7757 Kernel.CasperForkWitness <> fork_setting def
-R7729:7744 Kernel.CasperFFG <> nth_ancestor_nth constr
-R7775:7788 Kernel.CasperFFG <> nth_ancestor_0 constr
-R7790:7801 Kernel.CasperForkWitness <> fork_setting def
-R7746:7757 Kernel.CasperForkWitness <> fork_setting def
-prf 7824:7834 <> finalized_a
-R7838:7846 Kernel.CasperFFG <> finalized def
-R7861:7870 Kernel.CasperForkWitness <> fork_state def
-R7872:7881 Kernel.CasperForkWitness <> q_branch_a def
-R7883:7885 Kernel.CasperForkWitness <> HA1 constr
-R7889:7891 Kernel.CasperForkWitness <> HA2 constr
-R7848:7859 Kernel.CasperForkWitness <> fork_setting def
-R7945:7950 Kernel.CasperFFG <> follow constr
-R7965:7974 Kernel.CasperForkWitness <> fork_state def
-R7976:7977 Kernel.CasperForkWitness <> HG constr
-R7981:7990 Kernel.CasperForkWitness <> q_branch_a def
-R7992:7994 Kernel.CasperForkWitness <> HA1 constr
-R7952:7963 Kernel.CasperForkWitness <> fork_setting def
-R7945:7950 Kernel.CasperFFG <> follow constr
-R7965:7974 Kernel.CasperForkWitness <> fork_state def
-R7976:7977 Kernel.CasperForkWitness <> HG constr
-R7981:7990 Kernel.CasperForkWitness <> q_branch_a def
-R7992:7994 Kernel.CasperForkWitness <> HA1 constr
-R7952:7963 Kernel.CasperForkWitness <> fork_setting def
-R8039:8055 Kernel.CasperForkWitness <> q_branch_a_quorum thm
-R8039:8055 Kernel.CasperForkWitness <> q_branch_a_quorum thm
-R8131:8138 Kernel.CasperForkWitness <> one_step thm
-R8131:8138 Kernel.CasperForkWitness <> one_step thm
-R8179:8195 Kernel.CasperForkWitness <> q_branch_a_quorum thm
-R8179:8195 Kernel.CasperForkWitness <> q_branch_a_quorum thm
-R8267:8274 Kernel.CasperForkWitness <> one_step thm
-R8267:8274 Kernel.CasperForkWitness <> one_step thm
-prf 8309:8319 <> finalized_b
-R8323:8331 Kernel.CasperFFG <> finalized def
-R8346:8355 Kernel.CasperForkWitness <> fork_state def
-R8357:8366 Kernel.CasperForkWitness <> q_branch_b def
-R8368:8370 Kernel.CasperForkWitness <> HB1 constr
-R8374:8376 Kernel.CasperForkWitness <> HB2 constr
-R8333:8344 Kernel.CasperForkWitness <> fork_setting def
-R8430:8435 Kernel.CasperFFG <> follow constr
-R8450:8459 Kernel.CasperForkWitness <> fork_state def
-R8461:8462 Kernel.CasperForkWitness <> HG constr
-R8466:8475 Kernel.CasperForkWitness <> q_branch_b def
-R8477:8479 Kernel.CasperForkWitness <> HB1 constr
-R8437:8448 Kernel.CasperForkWitness <> fork_setting def
-R8430:8435 Kernel.CasperFFG <> follow constr
-R8450:8459 Kernel.CasperForkWitness <> fork_state def
-R8461:8462 Kernel.CasperForkWitness <> HG constr
-R8466:8475 Kernel.CasperForkWitness <> q_branch_b def
-R8477:8479 Kernel.CasperForkWitness <> HB1 constr
-R8437:8448 Kernel.CasperForkWitness <> fork_setting def
-R8524:8540 Kernel.CasperForkWitness <> q_branch_b_quorum thm
-R8524:8540 Kernel.CasperForkWitness <> q_branch_b_quorum thm
-R8616:8623 Kernel.CasperForkWitness <> one_step thm
-R8616:8623 Kernel.CasperForkWitness <> one_step thm
-R8664:8680 Kernel.CasperForkWitness <> q_branch_b_quorum thm
-R8664:8680 Kernel.CasperForkWitness <> q_branch_b_quorum thm
-R8752:8759 Kernel.CasperForkWitness <> one_step thm
-R8752:8759 Kernel.CasperForkWitness <> one_step thm
-prf 8794:8811 <> b1_not_ancestor_a1
-R8815:8816 Coq.Init.Logic <> ::type_scope:'~'_x not
-R8817:8829 Kernel.CasperFFG <> hash_ancestor def
-R8844:8846 Kernel.CasperForkWitness <> HB1 constr
-R8848:8850 Kernel.CasperForkWitness <> HA1 constr
-R8831:8842 Kernel.CasperForkWitness <> fork_setting def
-R8878:8893 Kernel.CasperForkWitness <> hash_ancestor_in thm
-R8878:8893 Kernel.CasperForkWitness <> hash_ancestor_in thm
-prf 8949:8966 <> a1_not_ancestor_b1
-R8970:8971 Coq.Init.Logic <> ::type_scope:'~'_x not
-R8972:8984 Kernel.CasperFFG <> hash_ancestor def
-R8999:9001 Kernel.CasperForkWitness <> HA1 constr
-R9003:9005 Kernel.CasperForkWitness <> HB1 constr
-R8986:8997 Kernel.CasperForkWitness <> fork_setting def
-R9033:9048 Kernel.CasperForkWitness <> hash_ancestor_in thm
-R9033:9048 Kernel.CasperForkWitness <> hash_ancestor_in thm
-prf 9156:9173 <> casper_fork_exists
-R9233:9238 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9179:9187 Kernel.CasperFFG <> finalized def
-R9202:9211 Kernel.CasperForkWitness <> fork_state def
-R9213:9222 Kernel.CasperForkWitness <> q_branch_a def
-R9224:9226 Kernel.CasperForkWitness <> HA1 constr
-R9230:9232 Kernel.CasperForkWitness <> HA2 constr
-R9189:9200 Kernel.CasperForkWitness <> fork_setting def
-R9293:9298 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9239:9247 Kernel.CasperFFG <> finalized def
-R9262:9271 Kernel.CasperForkWitness <> fork_state def
-R9273:9282 Kernel.CasperForkWitness <> q_branch_b def
-R9284:9286 Kernel.CasperForkWitness <> HB1 constr
-R9290:9292 Kernel.CasperForkWitness <> HB2 constr
-R9249:9260 Kernel.CasperForkWitness <> fork_setting def
-R9335:9340 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9299:9300 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9301:9313 Kernel.CasperFFG <> hash_ancestor def
-R9328:9330 Kernel.CasperForkWitness <> HB1 constr
-R9332:9334 Kernel.CasperForkWitness <> HA1 constr
-R9315:9326 Kernel.CasperForkWitness <> fork_setting def
-R9377:9382 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9341:9342 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9343:9355 Kernel.CasperFFG <> hash_ancestor def
-R9370:9372 Kernel.CasperForkWitness <> HA1 constr
-R9374:9376 Kernel.CasperForkWitness <> HB1 constr
-R9357:9368 Kernel.CasperForkWitness <> fork_setting def
-R9393:9398 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9386:9389 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R9383:9385 Kernel.CasperForkWitness <> HA1 constr
-R9390:9392 Kernel.CasperForkWitness <> HB1 constr
-R9440:9445 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9399:9415 Kernel.CasperFFG <> finalization_fork def
-R9430:9439 Kernel.CasperForkWitness <> fork_state def
-R9417:9428 Kernel.CasperForkWitness <> fork_setting def
-R9490:9495 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9446:9461 Kernel.CasperRecordReading <> finalized_record def
-R9476:9485 Kernel.CasperForkWitness <> fork_state def
-R9487:9489 Kernel.CasperForkWitness <> HA1 constr
-R9463:9474 Kernel.CasperForkWitness <> fork_setting def
-R9496:9511 Kernel.CasperRecordReading <> finalized_record def
-R9526:9535 Kernel.CasperForkWitness <> fork_state def
-R9537:9539 Kernel.CasperForkWitness <> HB1 constr
-R9513:9524 Kernel.CasperForkWitness <> fork_setting def
-R9568:9571 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R9565:9567 Kernel.CasperForkWitness <> HA1 constr
-R9572:9574 Kernel.CasperForkWitness <> HB1 constr
-R9568:9571 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R9565:9567 Kernel.CasperForkWitness <> HA1 constr
-R9572:9574 Kernel.CasperForkWitness <> HB1 constr
-R9610:9620 Kernel.CasperForkWitness <> finalized_a thm
-R9610:9620 Kernel.CasperForkWitness <> finalized_a thm
-R9640:9650 Kernel.CasperForkWitness <> finalized_b thm
-R9640:9650 Kernel.CasperForkWitness <> finalized_b thm
-R9672:9689 Kernel.CasperForkWitness <> b1_not_ancestor_a1 thm
-R9672:9689 Kernel.CasperForkWitness <> b1_not_ancestor_a1 thm
-R9709:9726 Kernel.CasperForkWitness <> a1_not_ancestor_b1 thm
-R9709:9726 Kernel.CasperForkWitness <> a1_not_ancestor_b1 thm
-R9774:9776 Kernel.CasperForkWitness <> HA1 constr
-R9779:9781 Kernel.CasperForkWitness <> HB1 constr
-R9784:9793 Kernel.CasperForkWitness <> q_branch_a def
-R9796:9805 Kernel.CasperForkWitness <> q_branch_b def
-R9814:9816 Kernel.CasperForkWitness <> HA2 constr
-R9819:9821 Kernel.CasperForkWitness <> HB2 constr
-R9774:9776 Kernel.CasperForkWitness <> HA1 constr
-R9779:9781 Kernel.CasperForkWitness <> HB1 constr
-R9784:9793 Kernel.CasperForkWitness <> q_branch_a def
-R9796:9805 Kernel.CasperForkWitness <> q_branch_b def
-R9814:9816 Kernel.CasperForkWitness <> HA2 constr
-R9819:9821 Kernel.CasperForkWitness <> HB2 constr
-R9835:9838 Coq.Init.Logic <> conj constr
-R9853:9856 Coq.Init.Logic <> conj constr
-R9877:9880 Coq.Init.Logic <> conj constr
-R9902:9905 Coq.Init.Logic <> conj constr
-R9907:9924 Kernel.CasperForkWitness <> a1_not_ancestor_b1 thm
-R9882:9899 Kernel.CasperForkWitness <> b1_not_ancestor_a1 thm
-R9858:9868 Kernel.CasperForkWitness <> finalized_b thm
-R9840:9850 Kernel.CasperForkWitness <> finalized_a thm
-R9835:9838 Coq.Init.Logic <> conj constr
-R9853:9856 Coq.Init.Logic <> conj constr
-R9877:9880 Coq.Init.Logic <> conj constr
-R9902:9905 Coq.Init.Logic <> conj constr
-R9907:9924 Kernel.CasperForkWitness <> a1_not_ancestor_b1 thm
-R9882:9899 Kernel.CasperForkWitness <> b1_not_ancestor_a1 thm
-R9858:9868 Kernel.CasperForkWitness <> finalized_b thm
-R9840:9850 Kernel.CasperForkWitness <> finalized_a thm
-R9954:9963 Kernel.CasperForkWitness <> q_branch_a def
-R9969:9971 Kernel.CasperForkWitness <> HA2 constr
-R9980:9990 Kernel.CasperForkWitness <> finalized_a thm
-R10013:10022 Kernel.CasperForkWitness <> q_branch_b def
-R10028:10030 Kernel.CasperForkWitness <> HB2 constr
-R10039:10049 Kernel.CasperForkWitness <> finalized_b thm
-R9954:9963 Kernel.CasperForkWitness <> q_branch_a def
-R9969:9971 Kernel.CasperForkWitness <> HA2 constr
-R9980:9990 Kernel.CasperForkWitness <> finalized_a thm
-R10013:10022 Kernel.CasperForkWitness <> q_branch_b def
-R10028:10030 Kernel.CasperForkWitness <> HB2 constr
-R10039:10049 Kernel.CasperForkWitness <> finalized_b thm
-def 10201:10208 <> slashers
-R10215:10216 Kernel.CasperForkWitness <> FV ind
-binder 10211:10211 <> n:65
-R10230:10232 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10229:10229 Kernel.CasperForkWitness <> n:65 var
-R10233:10234 Kernel.CasperForkWitness <> VB constr
-prf 10244:10250 <> vote_va
-binder 10261:10261 <> h:66
-binder 10263:10263 <> t:67
-binder 10265:10267 <> src:68
-R10297:10302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10290:10292 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10270:10278 Kernel.CasperForkWitness <> fork_vote def
-R10280:10281 Kernel.CasperForkWitness <> VA constr
-R10283:10283 Kernel.CasperForkWitness <> h:66 var
-R10285:10285 Kernel.CasperForkWitness <> t:67 var
-R10287:10289 Kernel.CasperForkWitness <> src:68 var
-R10293:10296 Coq.Init.Datatypes <> true constr
-R10303:10303 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10331:10336 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10364:10364 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10311:10314 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10305:10307 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10304:10304 Kernel.CasperForkWitness <> h:66 var
-R10308:10310 Kernel.CasperForkWitness <> HA1 constr
-R10320:10323 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10316:10318 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10315:10315 Kernel.CasperForkWitness <> t:67 var
-R10327:10329 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10324:10326 Kernel.CasperForkWitness <> src:68 var
-R10344:10347 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10338:10340 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10337:10337 Kernel.CasperForkWitness <> h:66 var
-R10341:10343 Kernel.CasperForkWitness <> HA2 constr
-R10353:10356 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10349:10351 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10348:10348 Kernel.CasperForkWitness <> t:67 var
-R10360:10362 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10357:10359 Kernel.CasperForkWitness <> src:68 var
-prf 10518:10524 <> vote_vc
-binder 10535:10535 <> h:69
-binder 10537:10537 <> t:70
-binder 10539:10541 <> src:71
-R10571:10576 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10564:10566 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10544:10552 Kernel.CasperForkWitness <> fork_vote def
-R10554:10555 Kernel.CasperForkWitness <> VC constr
-R10557:10557 Kernel.CasperForkWitness <> h:69 var
-R10559:10559 Kernel.CasperForkWitness <> t:70 var
-R10561:10563 Kernel.CasperForkWitness <> src:71 var
-R10567:10570 Coq.Init.Datatypes <> true constr
-R10577:10577 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10605:10610 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10638:10638 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10585:10588 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10579:10581 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10578:10578 Kernel.CasperForkWitness <> h:69 var
-R10582:10584 Kernel.CasperForkWitness <> HB1 constr
-R10594:10597 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10590:10592 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10589:10589 Kernel.CasperForkWitness <> t:70 var
-R10601:10603 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10598:10600 Kernel.CasperForkWitness <> src:71 var
-R10618:10621 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10612:10614 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10611:10611 Kernel.CasperForkWitness <> h:69 var
-R10615:10617 Kernel.CasperForkWitness <> HB2 constr
-R10627:10630 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10623:10625 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10622:10622 Kernel.CasperForkWitness <> t:70 var
-R10634:10636 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10631:10633 Kernel.CasperForkWitness <> src:71 var
-prf 10919:10944 <> two_link_voter_not_slashed
-binder 10955:10955 <> n:72
-binder 10957:10958 <> hx:73
-binder 10960:10961 <> hy:74
-R10966:10966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11078:11084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 10974:10974 <> h:75
-binder 10976:10976 <> t:76
-binder 10978:10980 <> src:77
-R11009:11017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11002:11004 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10983:10991 Kernel.CasperForkWitness <> fork_vote def
-R10993:10993 Kernel.CasperForkWitness <> n:72 var
-R10995:10995 Kernel.CasperForkWitness <> h:75 var
-R10997:10997 Kernel.CasperForkWitness <> t:76 var
-R10999:11001 Kernel.CasperForkWitness <> src:77 var
-R11005:11008 Coq.Init.Datatypes <> true constr
-R11018:11018 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R11045:11050 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R11077:11077 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R11025:11028 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11020:11022 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11019:11019 Kernel.CasperForkWitness <> h:75 var
-R11023:11024 Kernel.CasperForkWitness <> hx:73 var
-R11034:11037 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11030:11032 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11029:11029 Kernel.CasperForkWitness <> t:76 var
-R11041:11043 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11038:11040 Kernel.CasperForkWitness <> src:77 var
-R11057:11060 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11052:11054 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11051:11051 Kernel.CasperForkWitness <> h:75 var
-R11055:11056 Kernel.CasperForkWitness <> hy:74 var
-R11066:11069 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11062:11064 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11061:11061 Kernel.CasperForkWitness <> t:76 var
-R11073:11075 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11070:11072 Kernel.CasperForkWitness <> src:77 var
-R11085:11086 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11087:11093 Kernel.CasperFFG <> slashed def
-R11108:11117 Kernel.CasperForkWitness <> fork_state def
-R11119:11119 Kernel.CasperForkWitness <> n:72 var
-R11095:11106 Kernel.CasperForkWitness <> fork_setting def
-prf 11578:11598 <> casper_fork_slashable
-R11642:11647 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11604:11617 Kernel.CasperFFG <> quorum_slashed def
-R11632:11641 Kernel.CasperForkWitness <> fork_state def
-R11619:11630 Kernel.CasperForkWitness <> fork_setting def
-R11678:11683 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11648:11655 Kernel.CasperFFG <> quorum_2 proj
-R11657:11668 Kernel.CasperForkWitness <> fork_setting def
-R11670:11677 Kernel.CasperForkWitness <> slashers def
-R11684:11684 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11742:11748 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 11692:11692 <> n:78
-R11705:11708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11695:11702 Kernel.CasperForkWitness <> slashers def
-R11704:11704 Kernel.CasperForkWitness <> n:78 var
-R11709:11715 Kernel.CasperFFG <> slashed def
-R11730:11739 Kernel.CasperForkWitness <> fork_state def
-R11741:11741 Kernel.CasperForkWitness <> n:78 var
-R11717:11728 Kernel.CasperForkWitness <> fork_setting def
-R11793:11798 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11786:11788 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11749:11755 Coq.Arith.PeanoNat Nat leb def
-R11757:11767 Kernel.CasperForkWitness <> total_stake def
-R11771:11773 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R11774:11779 Kernel.CasperForkWitness <> weight def
-R11781:11781 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11784:11784 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11782:11783 Kernel.CasperForkWitness <> VB constr
-R11789:11792 Coq.Init.Datatypes <> true constr
-R11835:11840 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11799:11800 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11801:11807 Kernel.CasperFFG <> slashed def
-R11822:11831 Kernel.CasperForkWitness <> fork_state def
-R11833:11834 Kernel.CasperForkWitness <> VA constr
-R11809:11820 Kernel.CasperForkWitness <> fork_setting def
-R11841:11842 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11843:11849 Kernel.CasperFFG <> slashed def
-R11864:11873 Kernel.CasperForkWitness <> fork_state def
-R11875:11876 Kernel.CasperForkWitness <> VC constr
-R11851:11862 Kernel.CasperForkWitness <> fork_setting def
-R11938:11940 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11901:11907 Coq.Arith.PeanoNat Nat leb def
-R11909:11919 Kernel.CasperForkWitness <> total_stake def
-R11923:11925 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R11926:11931 Kernel.CasperForkWitness <> weight def
-R11933:11933 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11936:11936 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11934:11935 Kernel.CasperForkWitness <> VB constr
-R11941:11944 Coq.Init.Datatypes <> true constr
-R11938:11940 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11901:11907 Coq.Arith.PeanoNat Nat leb def
-R11909:11919 Kernel.CasperForkWitness <> total_stake def
-R11923:11925 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R11926:11931 Kernel.CasperForkWitness <> weight def
-R11933:11933 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11936:11936 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R11934:11935 Kernel.CasperForkWitness <> VB constr
-R11941:11944 Coq.Init.Datatypes <> true constr
-R11982:11999 Kernel.CasperFFG <> accountable_safety thm
-R11982:11999 Kernel.CasperFFG <> accountable_safety thm
-R12009:12013 Coq.Init.Logic <> proj1 thm
-R12016:12020 Coq.Init.Logic <> proj2 thm
-R12023:12027 Coq.Init.Logic <> proj2 thm
-R12030:12034 Coq.Init.Logic <> proj2 thm
-R12037:12041 Coq.Init.Logic <> proj2 thm
-R12044:12048 Coq.Init.Logic <> proj2 thm
-R12050:12067 Kernel.CasperForkWitness <> casper_fork_exists thm
-R12009:12013 Coq.Init.Logic <> proj1 thm
-R12016:12020 Coq.Init.Logic <> proj2 thm
-R12023:12027 Coq.Init.Logic <> proj2 thm
-R12030:12034 Coq.Init.Logic <> proj2 thm
-R12037:12041 Coq.Init.Logic <> proj2 thm
-R12044:12048 Coq.Init.Logic <> proj2 thm
-R12050:12067 Kernel.CasperForkWitness <> casper_fork_exists thm
-R12100:12100 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R12103:12103 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R12101:12102 Kernel.CasperForkWitness <> VB constr
-R12100:12100 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R12103:12103 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R12101:12102 Kernel.CasperForkWitness <> VB constr
-R12213:12222 Coq.Arith.PeanoNat Nat leb_le thm
-R12213:12222 Coq.Arith.PeanoNat Nat leb_le thm
-R12319:12321 Kernel.CasperForkWitness <> HA1 constr
-R12324:12326 Kernel.CasperForkWitness <> HB1 constr
-R12319:12321 Kernel.CasperForkWitness <> HA1 constr
-R12324:12326 Kernel.CasperForkWitness <> HB1 constr
-R12413:12438 Kernel.CasperForkWitness <> two_link_voter_not_slashed thm
-R12440:12441 Kernel.CasperForkWitness <> VA constr
-R12443:12445 Kernel.CasperForkWitness <> HA1 constr
-R12447:12449 Kernel.CasperForkWitness <> HA2 constr
-R12451:12457 Kernel.CasperForkWitness <> vote_va thm
-R12413:12438 Kernel.CasperForkWitness <> two_link_voter_not_slashed thm
-R12440:12441 Kernel.CasperForkWitness <> VA constr
-R12443:12445 Kernel.CasperForkWitness <> HA1 constr
-R12447:12449 Kernel.CasperForkWitness <> HA2 constr
-R12451:12457 Kernel.CasperForkWitness <> vote_va thm
-R12476:12501 Kernel.CasperForkWitness <> two_link_voter_not_slashed thm
-R12503:12504 Kernel.CasperForkWitness <> VC constr
-R12506:12508 Kernel.CasperForkWitness <> HB1 constr
-R12510:12512 Kernel.CasperForkWitness <> HB2 constr
-R12514:12520 Kernel.CasperForkWitness <> vote_vc thm
-R12476:12501 Kernel.CasperForkWitness <> two_link_voter_not_slashed thm
-R12503:12504 Kernel.CasperForkWitness <> VC constr
-R12506:12508 Kernel.CasperForkWitness <> HB1 constr
-R12510:12512 Kernel.CasperForkWitness <> HB2 constr
-R12514:12520 Kernel.CasperForkWitness <> vote_vc thm
-R12548:12565 Kernel.CasperForkWitness <> casper_fork_exists thm
-R12586:12606 Kernel.CasperForkWitness <> casper_fork_slashable thm
+R5932:5933 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5936:5936 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5924:5926 Kernel.CasperForkWitness <> HB2 constr
+R5929:5931 Kernel.CasperForkWitness <> HB1 constr
+R5934:5935 Kernel.CasperForkWitness <> HG constr
+prf 5952:5974 <> ancestors_parent_closed
+binder 5985:5985 <> x:48
+binder 5987:5987 <> y:49
+binder 5989:5989 <> z:50
+R6009:6012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5994:6004 Kernel.CasperForkWitness <> fork_parent def
+R6006:6006 Kernel.CasperForkWitness <> x:48 var
+R6008:6008 Kernel.CasperForkWitness <> y:49 var
+R6031:6034 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6013:6014 Coq.Lists.List <> In def
+R6019:6027 Kernel.CasperForkWitness <> ancestors def
+R6029:6029 Kernel.CasperForkWitness <> z:50 var
+R6016:6016 Kernel.CasperForkWitness <> y:49 var
+R6035:6036 Coq.Lists.List <> In def
+R6041:6049 Kernel.CasperForkWitness <> ancestors def
+R6051:6051 Kernel.CasperForkWitness <> z:50 var
+R6038:6038 Kernel.CasperForkWitness <> x:48 var
+R6071:6081 Kernel.CasperForkWitness <> fork_parent def
+prf 6200:6215 <> hash_ancestor_in
+binder 6226:6226 <> x:51
+binder 6228:6228 <> y:52
+R6263:6266 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6233:6245 Kernel.CasperFFG <> hash_ancestor def
+R6260:6260 Kernel.CasperForkWitness <> x:51 var
+R6262:6262 Kernel.CasperForkWitness <> y:52 var
+R6247:6258 Kernel.CasperForkWitness <> fork_setting def
+R6267:6268 Coq.Lists.List <> In def
+R6273:6281 Kernel.CasperForkWitness <> ancestors def
+R6283:6283 Kernel.CasperForkWitness <> y:52 var
+R6270:6270 Kernel.CasperForkWitness <> x:51 var
+R6387:6409 Kernel.CasperForkWitness <> ancestors_parent_closed thm
+R6387:6409 Kernel.CasperForkWitness <> ancestors_parent_closed thm
+def 6561:6569 <> fork_vote
+R6576:6577 Kernel.CasperForkWitness <> FV ind
+binder 6572:6572 <> n:53
+R6585:6586 Kernel.CasperForkWitness <> FH ind
+binder 6581:6581 <> h:54
+R6598:6600 Coq.Init.Datatypes <> nat ind
+binder 6590:6590 <> t:55
+binder 6592:6594 <> src:56
+R6605:6608 Coq.Init.Datatypes <> bool ind
+R6630:6632 Kernel.CasperForkWitness <> src:56 var
+R6627:6627 Kernel.CasperForkWitness <> t:55 var
+R6624:6624 Kernel.CasperForkWitness <> h:54 var
+R6621:6621 Kernel.CasperForkWitness <> n:53 var
+R6643:6644 Kernel.CasperForkWitness <> VA constr
+R6647:6649 Kernel.CasperForkWitness <> HA1 constr
+R6660:6663 Coq.Init.Datatypes <> true constr
+R6669:6670 Kernel.CasperForkWitness <> VA constr
+R6673:6675 Kernel.CasperForkWitness <> HA2 constr
+R6686:6689 Coq.Init.Datatypes <> true constr
+R6695:6696 Kernel.CasperForkWitness <> VB constr
+R6699:6701 Kernel.CasperForkWitness <> HA1 constr
+R6712:6715 Coq.Init.Datatypes <> true constr
+R6721:6722 Kernel.CasperForkWitness <> VB constr
+R6725:6727 Kernel.CasperForkWitness <> HA2 constr
+R6738:6741 Coq.Init.Datatypes <> true constr
+R6747:6748 Kernel.CasperForkWitness <> VB constr
+R6751:6753 Kernel.CasperForkWitness <> HB1 constr
+R6764:6767 Coq.Init.Datatypes <> true constr
+R6773:6774 Kernel.CasperForkWitness <> VB constr
+R6777:6779 Kernel.CasperForkWitness <> HB2 constr
+R6790:6793 Coq.Init.Datatypes <> true constr
+R6799:6800 Kernel.CasperForkWitness <> VC constr
+R6803:6805 Kernel.CasperForkWitness <> HB1 constr
+R6816:6819 Coq.Init.Datatypes <> true constr
+R6825:6826 Kernel.CasperForkWitness <> VC constr
+R6829:6831 Kernel.CasperForkWitness <> HB2 constr
+R6842:6845 Coq.Init.Datatypes <> true constr
+R6865:6869 Coq.Init.Datatypes <> false constr
+def 6890:6899 <> fork_state
+R6903:6907 Kernel.CasperFFG <> State rec
+R6909:6920 Kernel.CasperForkWitness <> fork_setting def
+R6925:6928 Kernel.CasperFFG <> mkSt constr
+R6943:6951 Kernel.CasperForkWitness <> fork_vote def
+R6930:6941 Kernel.CasperForkWitness <> fork_setting def
+def 7000:7009 <> q_branch_a
+R7016:7017 Kernel.CasperForkWitness <> FV ind
+binder 7012:7012 <> n:61
+R7036:7039 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R7031:7033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7030:7030 Kernel.CasperForkWitness <> n:61 var
+R7034:7035 Kernel.CasperForkWitness <> VA constr
+R7041:7043 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7040:7040 Kernel.CasperForkWitness <> n:61 var
+R7044:7045 Kernel.CasperForkWitness <> VB constr
+def 7059:7068 <> q_branch_b
+R7075:7076 Kernel.CasperForkWitness <> FV ind
+binder 7071:7071 <> n:62
+R7095:7098 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R7090:7092 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7089:7089 Kernel.CasperForkWitness <> n:62 var
+R7093:7094 Kernel.CasperForkWitness <> VB constr
+R7100:7102 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7099:7099 Kernel.CasperForkWitness <> n:62 var
+R7103:7104 Kernel.CasperForkWitness <> VC constr
+prf 7114:7130 <> q_branch_a_quorum
+R7134:7141 Kernel.CasperFFG <> quorum_1 proj
+R7143:7154 Kernel.CasperForkWitness <> fork_setting def
+R7156:7165 Kernel.CasperForkWitness <> q_branch_a def
+R7184:7184 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7187:7188 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7191:7191 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7185:7186 Kernel.CasperForkWitness <> VA constr
+R7189:7190 Kernel.CasperForkWitness <> VB constr
+R7184:7184 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7187:7188 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7191:7191 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7185:7186 Kernel.CasperForkWitness <> VA constr
+R7189:7190 Kernel.CasperForkWitness <> VB constr
+R7300:7309 Kernel.CasperForkWitness <> q_branch_a def
+R7330:7340 Kernel.CasperForkWitness <> total_stake def
+prf 7367:7383 <> q_branch_b_quorum
+R7387:7394 Kernel.CasperFFG <> quorum_1 proj
+R7396:7407 Kernel.CasperForkWitness <> fork_setting def
+R7409:7418 Kernel.CasperForkWitness <> q_branch_b def
+R7437:7437 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7440:7441 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7444:7444 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7438:7439 Kernel.CasperForkWitness <> VB constr
+R7442:7443 Kernel.CasperForkWitness <> VC constr
+R7437:7437 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7440:7441 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7444:7444 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7438:7439 Kernel.CasperForkWitness <> VB constr
+R7442:7443 Kernel.CasperForkWitness <> VC constr
+R7553:7562 Kernel.CasperForkWitness <> q_branch_b def
+R7583:7593 Kernel.CasperForkWitness <> total_stake def
+prf 7620:7627 <> one_step
+binder 7638:7639 <> h1:63
+binder 7641:7642 <> h2:64
+R7662:7665 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7645:7655 Kernel.CasperForkWitness <> fork_parent def
+R7657:7658 Kernel.CasperForkWitness <> h1:63 var
+R7660:7661 Kernel.CasperForkWitness <> h2:64 var
+R7666:7677 Kernel.CasperFFG <> nth_ancestor ind
+R7694:7695 Kernel.CasperForkWitness <> h1:63 var
+R7697:7698 Kernel.CasperForkWitness <> h2:64 var
+R7679:7690 Kernel.CasperForkWitness <> fork_setting def
+R7734:7749 Kernel.CasperFFG <> nth_ancestor_nth constr
+R7780:7793 Kernel.CasperFFG <> nth_ancestor_0 constr
+R7795:7806 Kernel.CasperForkWitness <> fork_setting def
+R7751:7762 Kernel.CasperForkWitness <> fork_setting def
+R7734:7749 Kernel.CasperFFG <> nth_ancestor_nth constr
+R7780:7793 Kernel.CasperFFG <> nth_ancestor_0 constr
+R7795:7806 Kernel.CasperForkWitness <> fork_setting def
+R7751:7762 Kernel.CasperForkWitness <> fork_setting def
+prf 7829:7839 <> finalized_a
+R7843:7851 Kernel.CasperFFG <> finalized def
+R7866:7875 Kernel.CasperForkWitness <> fork_state def
+R7877:7886 Kernel.CasperForkWitness <> q_branch_a def
+R7888:7890 Kernel.CasperForkWitness <> HA1 constr
+R7894:7896 Kernel.CasperForkWitness <> HA2 constr
+R7853:7864 Kernel.CasperForkWitness <> fork_setting def
+R7950:7955 Kernel.CasperFFG <> follow constr
+R7970:7979 Kernel.CasperForkWitness <> fork_state def
+R7981:7982 Kernel.CasperForkWitness <> HG constr
+R7986:7995 Kernel.CasperForkWitness <> q_branch_a def
+R7997:7999 Kernel.CasperForkWitness <> HA1 constr
+R7957:7968 Kernel.CasperForkWitness <> fork_setting def
+R7950:7955 Kernel.CasperFFG <> follow constr
+R7970:7979 Kernel.CasperForkWitness <> fork_state def
+R7981:7982 Kernel.CasperForkWitness <> HG constr
+R7986:7995 Kernel.CasperForkWitness <> q_branch_a def
+R7997:7999 Kernel.CasperForkWitness <> HA1 constr
+R7957:7968 Kernel.CasperForkWitness <> fork_setting def
+R8044:8060 Kernel.CasperForkWitness <> q_branch_a_quorum thm
+R8044:8060 Kernel.CasperForkWitness <> q_branch_a_quorum thm
+R8136:8143 Kernel.CasperForkWitness <> one_step thm
+R8136:8143 Kernel.CasperForkWitness <> one_step thm
+R8184:8200 Kernel.CasperForkWitness <> q_branch_a_quorum thm
+R8184:8200 Kernel.CasperForkWitness <> q_branch_a_quorum thm
+R8272:8279 Kernel.CasperForkWitness <> one_step thm
+R8272:8279 Kernel.CasperForkWitness <> one_step thm
+prf 8314:8324 <> finalized_b
+R8328:8336 Kernel.CasperFFG <> finalized def
+R8351:8360 Kernel.CasperForkWitness <> fork_state def
+R8362:8371 Kernel.CasperForkWitness <> q_branch_b def
+R8373:8375 Kernel.CasperForkWitness <> HB1 constr
+R8379:8381 Kernel.CasperForkWitness <> HB2 constr
+R8338:8349 Kernel.CasperForkWitness <> fork_setting def
+R8435:8440 Kernel.CasperFFG <> follow constr
+R8455:8464 Kernel.CasperForkWitness <> fork_state def
+R8466:8467 Kernel.CasperForkWitness <> HG constr
+R8471:8480 Kernel.CasperForkWitness <> q_branch_b def
+R8482:8484 Kernel.CasperForkWitness <> HB1 constr
+R8442:8453 Kernel.CasperForkWitness <> fork_setting def
+R8435:8440 Kernel.CasperFFG <> follow constr
+R8455:8464 Kernel.CasperForkWitness <> fork_state def
+R8466:8467 Kernel.CasperForkWitness <> HG constr
+R8471:8480 Kernel.CasperForkWitness <> q_branch_b def
+R8482:8484 Kernel.CasperForkWitness <> HB1 constr
+R8442:8453 Kernel.CasperForkWitness <> fork_setting def
+R8529:8545 Kernel.CasperForkWitness <> q_branch_b_quorum thm
+R8529:8545 Kernel.CasperForkWitness <> q_branch_b_quorum thm
+R8621:8628 Kernel.CasperForkWitness <> one_step thm
+R8621:8628 Kernel.CasperForkWitness <> one_step thm
+R8669:8685 Kernel.CasperForkWitness <> q_branch_b_quorum thm
+R8669:8685 Kernel.CasperForkWitness <> q_branch_b_quorum thm
+R8757:8764 Kernel.CasperForkWitness <> one_step thm
+R8757:8764 Kernel.CasperForkWitness <> one_step thm
+prf 8799:8816 <> b1_not_ancestor_a1
+R8820:8821 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8822:8834 Kernel.CasperFFG <> hash_ancestor def
+R8849:8851 Kernel.CasperForkWitness <> HB1 constr
+R8853:8855 Kernel.CasperForkWitness <> HA1 constr
+R8836:8847 Kernel.CasperForkWitness <> fork_setting def
+R8883:8898 Kernel.CasperForkWitness <> hash_ancestor_in thm
+R8883:8898 Kernel.CasperForkWitness <> hash_ancestor_in thm
+prf 8954:8971 <> a1_not_ancestor_b1
+R8975:8976 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8977:8989 Kernel.CasperFFG <> hash_ancestor def
+R9004:9006 Kernel.CasperForkWitness <> HA1 constr
+R9008:9010 Kernel.CasperForkWitness <> HB1 constr
+R8991:9002 Kernel.CasperForkWitness <> fork_setting def
+R9038:9053 Kernel.CasperForkWitness <> hash_ancestor_in thm
+R9038:9053 Kernel.CasperForkWitness <> hash_ancestor_in thm
+prf 9161:9178 <> casper_fork_exists
+R9238:9243 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9184:9192 Kernel.CasperFFG <> finalized def
+R9207:9216 Kernel.CasperForkWitness <> fork_state def
+R9218:9227 Kernel.CasperForkWitness <> q_branch_a def
+R9229:9231 Kernel.CasperForkWitness <> HA1 constr
+R9235:9237 Kernel.CasperForkWitness <> HA2 constr
+R9194:9205 Kernel.CasperForkWitness <> fork_setting def
+R9298:9303 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9244:9252 Kernel.CasperFFG <> finalized def
+R9267:9276 Kernel.CasperForkWitness <> fork_state def
+R9278:9287 Kernel.CasperForkWitness <> q_branch_b def
+R9289:9291 Kernel.CasperForkWitness <> HB1 constr
+R9295:9297 Kernel.CasperForkWitness <> HB2 constr
+R9254:9265 Kernel.CasperForkWitness <> fork_setting def
+R9340:9345 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9304:9305 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9306:9318 Kernel.CasperFFG <> hash_ancestor def
+R9333:9335 Kernel.CasperForkWitness <> HB1 constr
+R9337:9339 Kernel.CasperForkWitness <> HA1 constr
+R9320:9331 Kernel.CasperForkWitness <> fork_setting def
+R9382:9387 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9346:9347 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9348:9360 Kernel.CasperFFG <> hash_ancestor def
+R9375:9377 Kernel.CasperForkWitness <> HA1 constr
+R9379:9381 Kernel.CasperForkWitness <> HB1 constr
+R9362:9373 Kernel.CasperForkWitness <> fork_setting def
+R9398:9403 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9391:9394 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9388:9390 Kernel.CasperForkWitness <> HA1 constr
+R9395:9397 Kernel.CasperForkWitness <> HB1 constr
+R9445:9450 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9404:9420 Kernel.CasperFFG <> finalization_fork def
+R9435:9444 Kernel.CasperForkWitness <> fork_state def
+R9422:9433 Kernel.CasperForkWitness <> fork_setting def
+R9495:9500 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9451:9466 Kernel.CasperRecordReading <> finalized_record def
+R9481:9490 Kernel.CasperForkWitness <> fork_state def
+R9492:9494 Kernel.CasperForkWitness <> HA1 constr
+R9468:9479 Kernel.CasperForkWitness <> fork_setting def
+R9501:9516 Kernel.CasperRecordReading <> finalized_record def
+R9531:9540 Kernel.CasperForkWitness <> fork_state def
+R9542:9544 Kernel.CasperForkWitness <> HB1 constr
+R9518:9529 Kernel.CasperForkWitness <> fork_setting def
+R9573:9576 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9570:9572 Kernel.CasperForkWitness <> HA1 constr
+R9577:9579 Kernel.CasperForkWitness <> HB1 constr
+R9573:9576 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9570:9572 Kernel.CasperForkWitness <> HA1 constr
+R9577:9579 Kernel.CasperForkWitness <> HB1 constr
+R9615:9625 Kernel.CasperForkWitness <> finalized_a thm
+R9615:9625 Kernel.CasperForkWitness <> finalized_a thm
+R9645:9655 Kernel.CasperForkWitness <> finalized_b thm
+R9645:9655 Kernel.CasperForkWitness <> finalized_b thm
+R9677:9694 Kernel.CasperForkWitness <> b1_not_ancestor_a1 thm
+R9677:9694 Kernel.CasperForkWitness <> b1_not_ancestor_a1 thm
+R9714:9731 Kernel.CasperForkWitness <> a1_not_ancestor_b1 thm
+R9714:9731 Kernel.CasperForkWitness <> a1_not_ancestor_b1 thm
+R9779:9781 Kernel.CasperForkWitness <> HA1 constr
+R9784:9786 Kernel.CasperForkWitness <> HB1 constr
+R9789:9798 Kernel.CasperForkWitness <> q_branch_a def
+R9801:9810 Kernel.CasperForkWitness <> q_branch_b def
+R9819:9821 Kernel.CasperForkWitness <> HA2 constr
+R9824:9826 Kernel.CasperForkWitness <> HB2 constr
+R9779:9781 Kernel.CasperForkWitness <> HA1 constr
+R9784:9786 Kernel.CasperForkWitness <> HB1 constr
+R9789:9798 Kernel.CasperForkWitness <> q_branch_a def
+R9801:9810 Kernel.CasperForkWitness <> q_branch_b def
+R9819:9821 Kernel.CasperForkWitness <> HA2 constr
+R9824:9826 Kernel.CasperForkWitness <> HB2 constr
+R9840:9843 Coq.Init.Logic <> conj constr
+R9858:9861 Coq.Init.Logic <> conj constr
+R9882:9885 Coq.Init.Logic <> conj constr
+R9907:9910 Coq.Init.Logic <> conj constr
+R9912:9929 Kernel.CasperForkWitness <> a1_not_ancestor_b1 thm
+R9887:9904 Kernel.CasperForkWitness <> b1_not_ancestor_a1 thm
+R9863:9873 Kernel.CasperForkWitness <> finalized_b thm
+R9845:9855 Kernel.CasperForkWitness <> finalized_a thm
+R9840:9843 Coq.Init.Logic <> conj constr
+R9858:9861 Coq.Init.Logic <> conj constr
+R9882:9885 Coq.Init.Logic <> conj constr
+R9907:9910 Coq.Init.Logic <> conj constr
+R9912:9929 Kernel.CasperForkWitness <> a1_not_ancestor_b1 thm
+R9887:9904 Kernel.CasperForkWitness <> b1_not_ancestor_a1 thm
+R9863:9873 Kernel.CasperForkWitness <> finalized_b thm
+R9845:9855 Kernel.CasperForkWitness <> finalized_a thm
+R9959:9968 Kernel.CasperForkWitness <> q_branch_a def
+R9974:9976 Kernel.CasperForkWitness <> HA2 constr
+R9985:9995 Kernel.CasperForkWitness <> finalized_a thm
+R10018:10027 Kernel.CasperForkWitness <> q_branch_b def
+R10033:10035 Kernel.CasperForkWitness <> HB2 constr
+R10044:10054 Kernel.CasperForkWitness <> finalized_b thm
+R9959:9968 Kernel.CasperForkWitness <> q_branch_a def
+R9974:9976 Kernel.CasperForkWitness <> HA2 constr
+R9985:9995 Kernel.CasperForkWitness <> finalized_a thm
+R10018:10027 Kernel.CasperForkWitness <> q_branch_b def
+R10033:10035 Kernel.CasperForkWitness <> HB2 constr
+R10044:10054 Kernel.CasperForkWitness <> finalized_b thm
+def 10206:10213 <> slashers
+R10220:10221 Kernel.CasperForkWitness <> FV ind
+binder 10216:10216 <> n:65
+R10235:10237 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10234:10234 Kernel.CasperForkWitness <> n:65 var
+R10238:10239 Kernel.CasperForkWitness <> VB constr
+prf 10249:10255 <> vote_va
+binder 10266:10266 <> h:66
+binder 10268:10268 <> t:67
+binder 10270:10272 <> src:68
+R10302:10307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10295:10297 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10275:10283 Kernel.CasperForkWitness <> fork_vote def
+R10285:10286 Kernel.CasperForkWitness <> VA constr
+R10288:10288 Kernel.CasperForkWitness <> h:66 var
+R10290:10290 Kernel.CasperForkWitness <> t:67 var
+R10292:10294 Kernel.CasperForkWitness <> src:68 var
+R10298:10301 Coq.Init.Datatypes <> true constr
+R10308:10308 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R10336:10341 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R10369:10369 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R10316:10319 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10310:10312 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10309:10309 Kernel.CasperForkWitness <> h:66 var
+R10313:10315 Kernel.CasperForkWitness <> HA1 constr
+R10325:10328 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10321:10323 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10320:10320 Kernel.CasperForkWitness <> t:67 var
+R10332:10334 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10329:10331 Kernel.CasperForkWitness <> src:68 var
+R10349:10352 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10343:10345 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10342:10342 Kernel.CasperForkWitness <> h:66 var
+R10346:10348 Kernel.CasperForkWitness <> HA2 constr
+R10358:10361 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10354:10356 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10353:10353 Kernel.CasperForkWitness <> t:67 var
+R10365:10367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10362:10364 Kernel.CasperForkWitness <> src:68 var
+prf 10523:10529 <> vote_vc
+binder 10540:10540 <> h:69
+binder 10542:10542 <> t:70
+binder 10544:10546 <> src:71
+R10576:10581 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10569:10571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10549:10557 Kernel.CasperForkWitness <> fork_vote def
+R10559:10560 Kernel.CasperForkWitness <> VC constr
+R10562:10562 Kernel.CasperForkWitness <> h:69 var
+R10564:10564 Kernel.CasperForkWitness <> t:70 var
+R10566:10568 Kernel.CasperForkWitness <> src:71 var
+R10572:10575 Coq.Init.Datatypes <> true constr
+R10582:10582 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R10610:10615 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R10643:10643 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R10590:10593 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10584:10586 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10583:10583 Kernel.CasperForkWitness <> h:69 var
+R10587:10589 Kernel.CasperForkWitness <> HB1 constr
+R10599:10602 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10595:10597 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10594:10594 Kernel.CasperForkWitness <> t:70 var
+R10606:10608 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10603:10605 Kernel.CasperForkWitness <> src:71 var
+R10623:10626 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10617:10619 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10616:10616 Kernel.CasperForkWitness <> h:69 var
+R10620:10622 Kernel.CasperForkWitness <> HB2 constr
+R10632:10635 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10628:10630 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10627:10627 Kernel.CasperForkWitness <> t:70 var
+R10639:10641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10636:10638 Kernel.CasperForkWitness <> src:71 var
+prf 10924:10949 <> two_link_voter_not_slashed
+binder 10960:10960 <> n:72
+binder 10962:10963 <> hx:73
+binder 10965:10966 <> hy:74
+R10971:10971 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11083:11089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 10979:10979 <> h:75
+binder 10981:10981 <> t:76
+binder 10983:10985 <> src:77
+R11014:11022 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11007:11009 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10988:10996 Kernel.CasperForkWitness <> fork_vote def
+R10998:10998 Kernel.CasperForkWitness <> n:72 var
+R11000:11000 Kernel.CasperForkWitness <> h:75 var
+R11002:11002 Kernel.CasperForkWitness <> t:76 var
+R11004:11006 Kernel.CasperForkWitness <> src:77 var
+R11010:11013 Coq.Init.Datatypes <> true constr
+R11023:11023 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R11050:11055 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R11082:11082 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R11030:11033 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11025:11027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11024:11024 Kernel.CasperForkWitness <> h:75 var
+R11028:11029 Kernel.CasperForkWitness <> hx:73 var
+R11039:11042 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11035:11037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11034:11034 Kernel.CasperForkWitness <> t:76 var
+R11046:11048 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11043:11045 Kernel.CasperForkWitness <> src:77 var
+R11062:11065 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11057:11059 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11056:11056 Kernel.CasperForkWitness <> h:75 var
+R11060:11061 Kernel.CasperForkWitness <> hy:74 var
+R11071:11074 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11067:11069 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11066:11066 Kernel.CasperForkWitness <> t:76 var
+R11078:11080 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11075:11077 Kernel.CasperForkWitness <> src:77 var
+R11090:11091 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11092:11098 Kernel.CasperFFG <> slashed def
+R11113:11122 Kernel.CasperForkWitness <> fork_state def
+R11124:11124 Kernel.CasperForkWitness <> n:72 var
+R11100:11111 Kernel.CasperForkWitness <> fork_setting def
+prf 11583:11603 <> casper_fork_slashable
+R11647:11652 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11609:11622 Kernel.CasperFFG <> quorum_slashed def
+R11637:11646 Kernel.CasperForkWitness <> fork_state def
+R11624:11635 Kernel.CasperForkWitness <> fork_setting def
+R11683:11688 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11653:11660 Kernel.CasperFFG <> quorum_2 proj
+R11662:11673 Kernel.CasperForkWitness <> fork_setting def
+R11675:11682 Kernel.CasperForkWitness <> slashers def
+R11689:11689 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11747:11753 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11697:11697 <> n:78
+R11710:11713 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11700:11707 Kernel.CasperForkWitness <> slashers def
+R11709:11709 Kernel.CasperForkWitness <> n:78 var
+R11714:11720 Kernel.CasperFFG <> slashed def
+R11735:11744 Kernel.CasperForkWitness <> fork_state def
+R11746:11746 Kernel.CasperForkWitness <> n:78 var
+R11722:11733 Kernel.CasperForkWitness <> fork_setting def
+R11798:11803 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11791:11793 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11754:11760 Coq.Arith.PeanoNat Nat leb def
+R11762:11772 Kernel.CasperForkWitness <> total_stake def
+R11776:11778 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11779:11784 Kernel.CasperForkWitness <> weight def
+R11786:11786 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11789:11789 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11787:11788 Kernel.CasperForkWitness <> VB constr
+R11794:11797 Coq.Init.Datatypes <> true constr
+R11840:11845 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11804:11805 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11806:11812 Kernel.CasperFFG <> slashed def
+R11827:11836 Kernel.CasperForkWitness <> fork_state def
+R11838:11839 Kernel.CasperForkWitness <> VA constr
+R11814:11825 Kernel.CasperForkWitness <> fork_setting def
+R11846:11847 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11848:11854 Kernel.CasperFFG <> slashed def
+R11869:11878 Kernel.CasperForkWitness <> fork_state def
+R11880:11881 Kernel.CasperForkWitness <> VC constr
+R11856:11867 Kernel.CasperForkWitness <> fork_setting def
+R11943:11945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11906:11912 Coq.Arith.PeanoNat Nat leb def
+R11914:11924 Kernel.CasperForkWitness <> total_stake def
+R11928:11930 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11931:11936 Kernel.CasperForkWitness <> weight def
+R11938:11938 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11941:11941 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11939:11940 Kernel.CasperForkWitness <> VB constr
+R11946:11949 Coq.Init.Datatypes <> true constr
+R11943:11945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11906:11912 Coq.Arith.PeanoNat Nat leb def
+R11914:11924 Kernel.CasperForkWitness <> total_stake def
+R11928:11930 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11931:11936 Kernel.CasperForkWitness <> weight def
+R11938:11938 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11941:11941 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11939:11940 Kernel.CasperForkWitness <> VB constr
+R11946:11949 Coq.Init.Datatypes <> true constr
+R11987:12004 Kernel.CasperFFG <> accountable_safety thm
+R11987:12004 Kernel.CasperFFG <> accountable_safety thm
+R12014:12018 Coq.Init.Logic <> proj1 thm
+R12021:12025 Coq.Init.Logic <> proj2 thm
+R12028:12032 Coq.Init.Logic <> proj2 thm
+R12035:12039 Coq.Init.Logic <> proj2 thm
+R12042:12046 Coq.Init.Logic <> proj2 thm
+R12049:12053 Coq.Init.Logic <> proj2 thm
+R12055:12072 Kernel.CasperForkWitness <> casper_fork_exists thm
+R12014:12018 Coq.Init.Logic <> proj1 thm
+R12021:12025 Coq.Init.Logic <> proj2 thm
+R12028:12032 Coq.Init.Logic <> proj2 thm
+R12035:12039 Coq.Init.Logic <> proj2 thm
+R12042:12046 Coq.Init.Logic <> proj2 thm
+R12049:12053 Coq.Init.Logic <> proj2 thm
+R12055:12072 Kernel.CasperForkWitness <> casper_fork_exists thm
+R12105:12105 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12108:12108 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12106:12107 Kernel.CasperForkWitness <> VB constr
+R12105:12105 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12108:12108 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12106:12107 Kernel.CasperForkWitness <> VB constr
+R12218:12227 Coq.Arith.PeanoNat Nat leb_le thm
+R12218:12227 Coq.Arith.PeanoNat Nat leb_le thm
+R12324:12326 Kernel.CasperForkWitness <> HA1 constr
+R12329:12331 Kernel.CasperForkWitness <> HB1 constr
+R12324:12326 Kernel.CasperForkWitness <> HA1 constr
+R12329:12331 Kernel.CasperForkWitness <> HB1 constr
+R12418:12443 Kernel.CasperForkWitness <> two_link_voter_not_slashed thm
+R12445:12446 Kernel.CasperForkWitness <> VA constr
+R12448:12450 Kernel.CasperForkWitness <> HA1 constr
+R12452:12454 Kernel.CasperForkWitness <> HA2 constr
+R12456:12462 Kernel.CasperForkWitness <> vote_va thm
+R12418:12443 Kernel.CasperForkWitness <> two_link_voter_not_slashed thm
+R12445:12446 Kernel.CasperForkWitness <> VA constr
+R12448:12450 Kernel.CasperForkWitness <> HA1 constr
+R12452:12454 Kernel.CasperForkWitness <> HA2 constr
+R12456:12462 Kernel.CasperForkWitness <> vote_va thm
+R12481:12506 Kernel.CasperForkWitness <> two_link_voter_not_slashed thm
+R12508:12509 Kernel.CasperForkWitness <> VC constr
+R12511:12513 Kernel.CasperForkWitness <> HB1 constr
+R12515:12517 Kernel.CasperForkWitness <> HB2 constr
+R12519:12525 Kernel.CasperForkWitness <> vote_vc thm
+R12481:12506 Kernel.CasperForkWitness <> two_link_voter_not_slashed thm
+R12508:12509 Kernel.CasperForkWitness <> VC constr
+R12511:12513 Kernel.CasperForkWitness <> HB1 constr
+R12515:12517 Kernel.CasperForkWitness <> HB2 constr
+R12519:12525 Kernel.CasperForkWitness <> vote_vc thm
+R12553:12570 Kernel.CasperForkWitness <> casper_fork_exists thm
+R12591:12611 Kernel.CasperForkWitness <> casper_fork_slashable thm
