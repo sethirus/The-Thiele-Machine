@@ -936,6 +936,73 @@ An explicitly qualified citation keeps its own module identity.
 - `mu_conservation` (`Minimal.EarnedCore.mu_conservation`): Executing an instruction raises the minimal-machine ledger by exactly that instruction's cost.
 
 
+## Thiele-complete
+
+- `thiele_complete_is_weak`: Every Thiele-complete machine obeys the toll (a step raising its record costs at least one) and has a universal base, so it is weakly Thiele-complete.
+- `base_runs_every_program`: For every machine with a universal base, every two-counter program and every live state, running the program's compiled moves for n steps from that state shows, in the base's window, exactly the configuration the program reaches in n steps, and the state stays live.
+- `base_halting_correspondence`: For every machine with a universal base, a two-counter program halts from (1, (a, b)) exactly when running its compiled moves from the loaded state for (a, b) reaches a state whose window line holds no instruction.
+- `ledger_counts_record_moves`: Through any interface meeting the exact toll clause, the ledger after a run equals the ledger before it plus the number of CHECK, COMMIT and CERTIFY moves in the run.
+- `certificate_costs_three`: Through any interface making a machine Thiele-complete, a run from a clean state that ends with the record up contains at least three record moves and raises the ledger by at least three.
+- `check_can_fail`: Through any interface making a machine Thiele-complete, some CHECK of some claim fails at some loaded state, where the claim's meaning is false.
+- `some_run_certifies`: Through any interface making a machine Thiele-complete, some run from some loaded clean state ends with the record up.
+- `only_certify_raises`: Through any interface making a machine Thiele-complete, on a run from a clean state, a move that takes the record from down to up is a CERTIFY.
+- `complete_costs_at_most_one`: Every move of a Thiele-complete machine costs 0 or 1.
+- `complete_has_free_move`: Every Thiele-complete machine has a move that costs 0.
+- `one_move_record_excluded`: No machine with a move that raises the record from every state is Thiele-complete.
+- `never_certifies_excluded`: No machine whose record is down at every state is Thiele-complete.
+- `clock_weakly_thiele_complete`: The two-counter machine with every move costing 1 and any reading of its configuration as the record obeys the toll and has a universal base.
+- `clock_not_thiele_complete`: The two-counter machine with every move costing 1 and any reading of its configuration as the record is not Thiele-complete.
+- `latch_clock_weakly_thiele_complete`: The two-counter machine with every move costing 1 and a flag that latches once any chosen test of the configuration says yes obeys the toll and has a universal base.
+- `latch_clock_not_thiele_complete`: The two-counter machine with every move costing 1 and a flag that latches once any chosen test of the configuration says yes is not Thiele-complete.
+- `paid_latch_weakly_thiele_complete`: A free two-counter base with a ledger and one move TICK that costs 1 and raises a flag obeys the toll and has a universal base.
+- `paid_latch_meets_base_and_toll`: Read with TICK as CERTIFY, that paid latch meets the universal base clause and the exact toll clause.
+- `paid_latch_not_thiele_complete`: That paid latch is not Thiele-complete.
+- `silent_weakly_thiele_complete`: A free two-counter base whose record never rises obeys the toll and has a universal base.
+- `silent_meets_base_record_toll`: That silent machine, with one interface, meets the universal base clause, the earned record clause and the exact toll clause.
+- `silent_not_thiele_complete`: That silent machine is not Thiele-complete.
+- `earned_core_thiele_complete`: The small machine of EarnedCore.v, read with INC and DEC as base moves, CHECK and COMMIT of a property on a counter as record moves on that claim, CERTIFY as CERTIFY, clean starts as clean states and mu as the ledger, is Thiele-complete.
+- `earned_generic_thiele_complete`: The small machine over any property language with an exact claim equality and a checker equivalent to its meaning, in which some property is true of one number and false of another, is Thiele-complete.
+- `sorted_machine_thiele_complete`: The small machine whose property says a counter, decoded as a list, is sorted is Thiele-complete.
+- `thiele_complete_floor`: For every Thiele-complete machine, read as the certification system `complete_cs`, a trace from a state with the record down to a state with it up has total cost at least one.
+- `earned_complete_agrees`: The certification system built from the small machine's Thiele-completeness reaches the same state and charges the same total cost as `earned_cs` on every trace from every state.
+- `generic_complete_agrees`: For every property language, any certification system built from a proof that the generic small machine is Thiele-complete reaches the same state and charges the same total cost as `generic_cs` on every trace from every state.
+- `thiele_complete_hides`: Every Thiele-complete machine has an interface making it Thiele-complete through which no function of the base window gives the ledger, and none gives the record, at the end of every run from every loaded state.
+
+## The window of a Thiele-complete machine
+
+- `complete_every_window_printed`: For every machine and every interface making it Thiele-complete, and every state s, there is a loaded clean start and one base move of cost 0 from it that ends in a state with the same base window (pc, (A, B)) as s, the record down, and the ledger unchanged from the start.
+- `complete_hides_ledger`: For every machine and every interface making it Thiele-complete, there is a loaded clean start and two runs from it that end with the same base window, with different ledgers, the first at least 3 above the second.
+- `complete_hides_record`: For every machine and every interface making it Thiele-complete, there is a loaded clean start and two runs from it that end with the same base window, the record up after the first and down after the second.
+- `complete_no_ledger_oracle`: For every machine and every interface making it Thiele-complete, no function from base windows to numbers gives the interface's ledger at the end of every run from every loaded start.
+- `complete_no_record_oracle`: For every machine and every interface making it Thiele-complete, no function from base windows to Booleans gives the record at the end of every run from every loaded start.
+- `complete_cs_window_blind`: For every Thiele-complete machine and every interface making it Thiele-complete, on the CertificationSystem `complete_cs` built from the machine, no function of the base window of the state a trace reaches from a loaded start gives that state's reading, and none gives the interface's ledger there.
+
+
+## The universal interpreter
+
+- `U_simulation`: For every small-machine program P, start (x, y) and guest step count m, there is a host step count n such that, after m guest steps from (x, y) and n steps of the fixed host program U from the loaded host `hload P x y`, either the simulation relation `rel` holds with m at most n (the host is at U's head with its registers A and B, the guest program counter, the trap latch, the ledger, the flag, the fact table and the channel matching the guest's) or both machines have stopped and the halting relation `rel_halt` holds.
+- `hload_rel`: For every small-machine program P and start (x, y), the loaded host `hload P x y` stands in the simulation relation to the guest start (x, y), with no slot records and an empty channel.
+- `U_paid_sites`: The instructions of the fixed host program U that cost 1 are exactly the listed paid sites: one CHECK on each slot and one on the dead register for each guest counter, one COMMIT on each slot and one on the dead register for each guest counter, and one CERTIFY, 69 in all.
+- `U_step`: If `rel` holds between a guest state and a host state, then either the guest has halted and some host state reachable from the host stands in `rel_halt` with it, or the guest has not halted and some positive number of steps of U reach a host state that stands in `rel` with the guest's next state or, when that guest step traps, in `rel_halt` with it.
+- `universal_halting`: For every small-machine program P and start (x, y), the guest's run of P from (x, y) halts at some step if and only if the fixed program U run from `hload P x y` halts at some step.
+- `universal_output`: If the guest's run of P from (x, y) has halted at step m and U's run from `hload P x y` has halted at step n, the host's registers A and B hold the guest's counters A and B, and the host's trap latch, ledger and certified flag equal the guest's.
+- `universal_flag_iff`: For every P and (x, y), the guest's certified flag is up at some step of its run if and only if the host's certified flag is up at some step of U's run from `hload P x y`.
+- `universal_ledger_exact`: For every P and (x, y), each guest step count m has a host step count n at which `rel` (with m at most n) or `rel_halt` holds and the host ledger equals the guest ledger, and each host step count n has a guest step count m such that the host ledger at n lies between the guest ledger at m and the guest ledger at m + 1.
+- `universal_earned`: If the host flag is up after n steps of U from `hload P x y`, the instructions U executed contain a passing CHECK PSlot on a slot register SLOT c k with k below 16, then, with that slot untouched and its version unchanged, a passing COMMIT PSlot on the same slot, then the passing CERTIFY; the slot held `pair (pcode p) v` at the CHECK with the guest property p true of v; and the guest's own run from (x, y) contains a passing CHECK p c, then, with counter c untouched, a passing COMMIT p c, then a passing CERTIFY, with counter c holding v at its CHECK.
+- `U_run_on_host_machine`: For every P, (x, y) and n, running `host_machine` (the machine of EarnedMulti.v with the property PSlot, one move per instruction) on the instructions U executes in n steps from `hload P x y` gives exactly U's state after n steps.
+- `universal_thiele_complete`: The machine of EarnedMulti.v with the single property PSlot, read as a machine of ThieleComplete.v with one move per instruction, satisfies `thiele_complete`.
+- `pigeonhole_not_injective`: For any type, any finite list Q of its elements and any function f from the naturals whose every value lies in Q, f is not injective.
+- `pigeonhole_collision`: For any type with decidable equality, any finite list Q and any function f from the naturals whose every value lies in Q, there are two different naturals n and m with f n = f m.
+- `no_exact_copy_host`: For any host property language with an exact claim equality and any host checker, and any translation of guest properties into a finite list of host properties whose host check passes whenever the guest check passes on the same number, there are n different from m with `PGe n` different from `PGe m` and the same translation, such that the guest program CHECK (PGe n) A; COMMIT (PGe m) A traps within two steps from every start, and for every a at least n, every untrapped host state with fewer than 16 facts whose register R holds a, and every b, the guest's first step from (a, b) passes, its second traps, and the host's translated CHECK, COMMIT on R ends untrapped with the channel naming the committed claim at R's version.
+- `multi_cs_floor`: For any property language, claim equality and checker, a trace of the machine of EarnedMulti.v from a state with the flag down to a state with the flag up has total cost at least one, by `universal_nfi_any_substrate` on the record `multi_cs`.
+- `interp_cs_runs_U`: For every P, (x, y) and n, running the record `interp_cs` (the machine of EarnedMulti.v with PSlot) on the instructions U executes in n steps from `hload P x y` gives U's state after n steps.
+- `interp_U_certified_floor`: If the host flag is up after n steps of U from `hload P x y`, the instructions U executed have total cost at least three on `interp_cs`.
+- `interp_halting_iff`: For every P and (x, y), the small machine's halting predicate `EARNED_HALTING` holds of (P, x, y) exactly when U halts at some step from `hload P x y`.
+- `interp_halting_undecidable`: The halting predicate of the one fixed program U on loaded triples (P, x, y) is undecidable in the vendored library's synthetic sense, by reduction from the small machine's halting problem of `earned_core_halting_undecidable`.
+- `interp_complete_agrees`: For every host trace and host state, the record `complete_cs` built from `universal_thiele_complete` reaches the same state and charges the same total cost as `interp_cs`.
+- `interp_U_complete_floor`: If the host flag is up after n steps of U from `hload P x y`, the instructions U executed have total cost at least one on the record `complete_cs` built from `universal_thiele_complete`, by `thiele_complete_floor`.
+- `multi_cs_no_exact_copy`: For any host property language with an exact claim equality and any checker, and any translation of guest properties into a finite list of host properties whose host check passes whenever the guest check passes on the same number, there are n different from m with the same translation of `PGe n` and `PGe m` such that the guest program CHECK (PGe n) A; COMMIT (PGe m) A traps within two steps from every start, while on the record `multi_cs` the translated CHECK, COMMIT on a register holding a value a at least n, from any untrapped state with fewer than 16 facts, ends untrapped with the channel naming the committed claim at that register's version.
+
 ## Bit-search entitlement
 
 - `bit_search_entitlement`: With one to n honest supplied bit answers for an n-bit hidden value and n at most 64, the checked search has a strictly stronger posterior predicate, contains a structure addition, and pays at least the reduction in ceiling-log candidate counts.

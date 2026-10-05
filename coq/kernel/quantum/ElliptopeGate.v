@@ -59,11 +59,8 @@
   here.
 *)
 
-(* SCOPE NOTE: foundation connectivity, bridged to Thiele machine foundations. *)
-From Kernel Require Import VMState VMStep.
-From Kernel Require Import MuCostModel.
 From Kernel Require Import ConstructivePSD NPAMomentMatrix.
-From Kernel Require Import MuLedgerQuantumBridge.
+From Kernel Require Import CHSHColumnCheck.
 From Kernel Require Import QuantumPartitionPSD_1AB.
 From Kernel Require Import ElliptopeCompletion.
 

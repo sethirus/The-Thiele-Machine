@@ -36,11 +36,6 @@
     [PermanentCertification] is the second half of that sentence for
     certificates.
 
-    The VM shows the same thing. [XOR_ADD 2 1 0] copies register 1 into a
-    blank register 2 at zero cost, and an observer watching register 2 goes
-    from two candidate states to one while the ledger stays at zero
-    ([vm_observer_narrowing_at_zero_cost]).
-
     Scope. The price is the counting premise [compression_priced], which
     stands for Landauer's principle. It is a named premise, not a theorem
     about heat. The observer counterexample shows that compression pricing
@@ -51,7 +46,6 @@
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.
 
-From Kernel Require Import VMState VMStep SimulationProof MuInitiality.
 From Kernel Require Import PermanentCertification.
 From Kernel Require Import PermanentRecordPricing.
 From Kernel Require Import FiniteCertMachine.
@@ -300,22 +294,3 @@ Proof.
   assert (Hin : In (true, false) demon_prior) by (simpl; tauto).
   specialize (H Hnd Hin). vm_compute in H. lia.
 Qed.
-
-(** * The same thing in the VM *)
-
-(** Two reachable states that differ only in register 1. *)
-Definition vm_hidden (x : nat) : VMState := vm_apply init_state (instr_load_imm 1 x 0).
-
-(** The observer watches register 2. *)
-Definition vm_window (s : VMState) : nat := read_reg s 2.
-
-Definition vm_measure : vm_instruction := instr_xor_add 2 1 0.
-
-Theorem vm_observer_narrowing_at_zero_cost :
-  vm_window (vm_hidden 0) = vm_window (vm_hidden 1) /\
-  vm_window (vm_apply (vm_hidden 0) vm_measure)
-    <> vm_window (vm_apply (vm_hidden 1) vm_measure) /\
-  instruction_cost vm_measure = 0 /\
-  (vm_apply (vm_hidden 1) vm_measure).(vm_mu) = (vm_hidden 1).(vm_mu) /\
-  (vm_hidden 0).(vm_mu) = 0 /\ (vm_hidden 1).(vm_mu) = 0.
-Proof. vm_compute. repeat split; discriminate. Qed.

@@ -22,12 +22,20 @@ EARNED = REPO_ROOT / "minimal" / "EarnedCore.v"
 UNIVERSAL = REPO_ROOT / "minimal" / "UniversalThiele.v"
 GENERIC = REPO_ROOT / "minimal" / "EarnedGeneric.v"
 COMPLETE = REPO_ROOT / "minimal" / "ThieleComplete.v"
+WINDOW = REPO_ROOT / "minimal" / "ThieleCompleteWindow.v"
+MULTI = REPO_ROOT / "minimal" / "EarnedMulti.v"
+CODES = REPO_ROOT / "minimal" / "UniversalCodes.v"
+NOCOPY = REPO_ROOT / "minimal" / "UniversalNoCopy.v"
 DEMO = REPO_ROOT / "minimal" / "nofi_demo.py"
 EXPECTED_CLOSED = 10
 EARNED_EXPECTED_CLOSED = 33
 UNIVERSAL_EXPECTED_CLOSED = 22
 GENERIC_EXPECTED_CLOSED = 31
 COMPLETE_EXPECTED_CLOSED = 28
+WINDOW_EXPECTED_CLOSED = 10
+MULTI_EXPECTED_CLOSED = 37
+CODES_EXPECTED_CLOSED = 27
+NOCOPY_EXPECTED_CLOSED = 6
 
 
 def test_nofi_demo_self_checks():
@@ -178,6 +186,136 @@ def test_thiele_complete_compiles_axiom_free(tmp_path):
     closed = proc.stdout.count("Closed under the global context")
     assert closed == COMPLETE_EXPECTED_CLOSED, (
         f"expected {COMPLETE_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
+        + proc.stdout
+    )
+    assert "Axioms:" not in proc.stdout
+
+
+
+@pytest.mark.coq
+def test_thiele_complete_window_compiles_axiom_free(tmp_path):
+    """minimal/ThieleCompleteWindow.v, the proof that every Thiele-complete
+    machine keeps its record and its ledger out of its base window (two runs
+    from one clean start end in the same window, one certified and one
+    not, with ledgers at least 3 apart, so no function of the window gives
+    either), compiles with plain coqc against EarnedCore.v,
+    EarnedGeneric.v, ThieleComplete.v and the standard library, and every
+    theorem it prints assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    (lib / "EarnedCore.v").write_text(EARNED.read_text())
+    (lib / "EarnedGeneric.v").write_text(GENERIC.read_text())
+    (lib / "ThieleComplete.v").write_text(COMPLETE.read_text())
+    (lib / "ThieleCompleteWindow.v").write_text(WINDOW.read_text())
+    for name in (
+        "EarnedCore.v",
+        "EarnedGeneric.v",
+        "ThieleComplete.v",
+        "ThieleCompleteWindow.v",
+    ):
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+    closed = proc.stdout.count("Closed under the global context")
+    assert closed == WINDOW_EXPECTED_CLOSED, (
+        f"expected {WINDOW_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}"
+        + chr(10)
+        + proc.stdout
+    )
+    assert "Axioms:" not in proc.stdout
+
+@pytest.mark.coq
+def test_earned_multi_compiles_axiom_free(tmp_path):
+    """minimal/EarnedMulti.v, the small machine of EarnedGeneric.v with a
+    counter for every natural number, the host the universal program U runs
+    on, compiles with plain coqc against the standard library alone, and
+    every theorem it prints assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    (lib / "EarnedMulti.v").write_text(MULTI.read_text())
+    for name in ("EarnedMulti.v",):
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+    closed = proc.stdout.count("Closed under the global context")
+    assert closed == MULTI_EXPECTED_CLOSED, (
+        f"expected {MULTI_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
+        + proc.stdout
+    )
+    assert "Axioms:" not in proc.stdout
+
+
+@pytest.mark.coq
+def test_universal_codes_compiles_axiom_free(tmp_path):
+    """minimal/UniversalCodes.v, the numbers that write a guest program, its
+    properties and its claims into host counters, and the one host property
+    PSlot, compiles with plain coqc against EarnedCore.v, EarnedGeneric.v,
+    EarnedMulti.v and the standard library, and every theorem it prints
+    assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    (lib / "EarnedCore.v").write_text(EARNED.read_text())
+    (lib / "EarnedGeneric.v").write_text(GENERIC.read_text())
+    (lib / "EarnedMulti.v").write_text(MULTI.read_text())
+    (lib / "UniversalCodes.v").write_text(CODES.read_text())
+    for name in ("EarnedCore.v", "EarnedGeneric.v", "EarnedMulti.v", "UniversalCodes.v"):
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+    closed = proc.stdout.count("Closed under the global context")
+    assert closed == CODES_EXPECTED_CLOSED, (
+        f"expected {CODES_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
+        + proc.stdout
+    )
+    assert "Axioms:" not in proc.stdout
+
+
+@pytest.mark.coq
+def test_universal_no_copy_compiles_axiom_free(tmp_path):
+    """minimal/UniversalNoCopy.v, the pigeonhole lemma that rules out keeping
+    host facts on an exact copy of the guest counter, compiles with plain
+    coqc against EarnedCore.v, EarnedMulti.v and the standard library, and
+    every theorem it prints assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    (lib / "EarnedCore.v").write_text(EARNED.read_text())
+    (lib / "EarnedMulti.v").write_text(MULTI.read_text())
+    (lib / "UniversalNoCopy.v").write_text(NOCOPY.read_text())
+    for name in ("EarnedCore.v", "EarnedMulti.v", "UniversalNoCopy.v"):
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+    closed = proc.stdout.count("Closed under the global context")
+    assert closed == NOCOPY_EXPECTED_CLOSED, (
+        f"expected {NOCOPY_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
         + proc.stdout
     )
     assert "Axioms:" not in proc.stdout

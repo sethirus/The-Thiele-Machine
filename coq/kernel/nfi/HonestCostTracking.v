@@ -19,9 +19,6 @@
 *)
 
 From Kernel Require Import UniversalCertificationCost.
-From Kernel Require Import VMState.
-From Kernel Require Import VMStep.
-From Kernel Require Import MuCostModel.
 
 Require Import Coq.Lists.List.
 Import ListNotations.
@@ -158,27 +155,4 @@ Corollary dishonest_forge_system_violates_A2 :
 Proof.
   apply (free_forgery_violates_A2 dishonest_forge_system false tt);
     reflexivity.
-Qed.
-
-(** ** Connection to the Thiele cost foundation.
-
-    The Thiele VM's [vm_apply] cost-discipline ([instruction_cost] in
-    [VMStep.v]) is precisely the A2-respecting cost rule, so the Thiele
-    VM is a [CertificationSystem] (witnessed by [thiele_cert_addr_system]
-    in [UniversalCertificationCost.v]).  The well-formedness gap proven
-    above therefore says: any Thiele VM trace lives inside the honest
-    class; the only way to escape into the dishonest class is to build a
-    different cost model that violates A2.  The [free_forgery_violates_A2]
-    theorem is exactly the formal sense in which Thiele's ISA enforces
-    what TM ISAs leave to programmer discipline. *)
-Remark thiele_vm_is_in_honest_class :
-  exists (CS : CertificationSystem),
-    cs_state CS = VMState /\
-    forall s i, cs_cert CS s = false ->
-                cs_cert CS (cs_step CS s i) = true ->
-                cs_cost CS i >= 1.
-Proof.
-  exists thiele_cert_addr_system. split.
-  - reflexivity.
-  - apply cs_cert_costs.
 Qed.

@@ -61,10 +61,6 @@ COQ_PROJECT = COQ_DIR / "_CoqProject"
 FULL_ASSUMPTION_PROBE = "coq/AssumptionsProbeAll.v"
 
 NON_PROOF_BEARING_FILES: FrozenSet[str] = frozenset({
-    # Print Assumptions probe over Kernel.MasterSummary. Header explicitly
-    # marks it as a probe, not a proof obligation; excluded from _CoqProject.
-    "coq/AssumptionsProbe.v",
-
     # Auto-generated comprehensive Print Assumptions probe across every
     # addressable proof-bearing declaration; produced by
     # build/probe/build_full_probe.py. Not a proof obligation.
@@ -80,7 +76,7 @@ NON_PROOF_BEARING_FILES: FrozenSet[str] = frozenset({
 # ---------------------------------------------------------------------------
 
 DISK_SCAN_EXCLUDED_DIRS: FrozenSet[str] = frozenset({
-    "patches",     # Kami patch tree, applied to vendor/ at build time.
+    "patches",     # local patch trees, never part of the canonical build.
     "test_vscoq",  # IDE smoke files, not part of the canonical build.
     "_build",      # transient Coq build artefacts.
     "archive",     # archived proofs, outside the canonical build.

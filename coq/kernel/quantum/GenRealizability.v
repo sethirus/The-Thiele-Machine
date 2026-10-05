@@ -26,10 +26,8 @@ Local Open Scope R_scope.
 From Kernel Require Import ConstructivePSD.
 From Kernel Require Import MinorConstraints.   (* sum_n : nat -> (nat -> R) -> R *)
 From Kernel Require Import NPAMomentMatrix.     (* npa_psd, npa_to_matrix, zero_marginal_npa *)
-From Kernel Require Import MuLedgerQuantumBridge. (* zero_marginal_column_contractive *)
-From Kernel Require Import QuantumPartitionPSD.   (* column_contractive_iff_npa_psd *)
+From Kernel Require Import CHSHColumnCheck.  (* zero_marginal_column_contractive, column_contractive_iff_npa_psd *)
 From Kernel Require Import QuantumPartitionPSD_1AB. (* PSD9, quad9, nat_matrix_to_fin9, the dim-9 headline *)
-From Kernel Require Import VMState VMStep SimulationProof. (* VMState, vm_apply, instr_chsh_lassert: the dim-5 instance is a VM step *)
 
 (** Genuine quadratic form of a nat-indexed matrix over indices 0..top.
     Full double sum: every (i,j) pair, off-diagonal included. *)
@@ -457,35 +455,6 @@ Proof.
   - exact chsh_claim_is_zero_marginal_npa.
   - exact q1ab_claim_is_npa_psd_q1ab.
 Qed.
-
-(** ── The dim-5 instance is a VM step, not a free-floating matrix fact ─────── *)
-
-(** Everything above is pure linear algebra: a dimension-polymorphic PSD
-    predicate and its CHSH / Q_{1+AB} instances. This corollary ties that general
-    machinery back to the machine it generalizes. If a CHSH-LASSERT step does not
-    trap (it leaves the error flag clear, starting from a clean state), then the
-    correlators the VM derived from its own witness land inside the general
-    realizable set. It is
-    the same realizability projection run at dimension five, stated over the
-    actual machine state [s], so GenRealizable connects to vm_apply / VMState
-    instead of standing apart from the kernel it generalizes. Composition only:
-    the VM bridge supplies npa_psd of the witness-derived NPA matrix,
-    which is definitionally the explicit four-correlator matrix, and
-    chsh_claim_is_zero_marginal_npa carries it across into GenRealizable. *)
-Corollary vm_chsh_lassert_step_is_general_realizable :
-  forall (s : VMState) (mu_delta : nat),
-    let s' := vm_apply s (instr_chsh_lassert mu_delta) in
-    s'.(vm_err) = s.(vm_err) ->
-    s.(vm_err) = false ->
-    GenRealizable (chsh_claim (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)).
-Proof.
-  intros s mu_delta s' Herr Herr0.
-  apply (proj2 (chsh_claim_is_zero_marginal_npa
-                  (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s))).
-  exact (chsh_lassert_no_trap_implies_npa_psd s mu_delta Herr Herr0).
-Qed.
-
-Print Assumptions vm_chsh_lassert_step_is_general_realizable.
 
 Print Assumptions psd_n_convex.
 Print Assumptions deterministic_chsh_not_convex.

@@ -50,7 +50,7 @@ From Kernel Require Import Substrate.
    NoFreeInsight → ...) so the substrate-level result presented over
    nat-coded programs can be cross-referenced from the VM-level corollary
    in StructuralUndecidability.v. *)
-From Kernel Require Import VMState.
+
 
 (** ** The minimal nat-coded substrate, parameterized by a decide function.
 

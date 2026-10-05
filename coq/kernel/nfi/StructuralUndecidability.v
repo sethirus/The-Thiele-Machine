@@ -7,10 +7,9 @@
 
     The theorem and its proof live entirely at the substrate level
     (Substrate typeclass). They are facts about A2-respecting substrates,
-    not about the 51-opcode Thiele VM. The 51-opcode VM is one substrate
-    instance; when its Substrate-typeclass instance is supplied, the
-    diagonalization fires for it as a corollary, but the limitative
-    content is substrate-level.
+    not about any one machine. When a machine's Substrate-typeclass
+    instance is supplied, the diagonalization fires for it as a
+    corollary.
 
     Proof shape (Kleene 1938, transported):
       1. Assume a decision procedure [decide] for [AdmitsShortcut].
@@ -27,27 +26,12 @@
 
     The proof is short: five lines of Ltac. The machinery (Substrate
     typeclass, recursion theorem, canonical inhabitants) is the work.
-
-    Substrate-vs-scaffolding. The theorem's content is purely substrate-
-    level: it talks about programs, the AdmitsShortcut predicate, and the
-    recursion theorem. Nothing in the statement or proof references the
-    51-opcode instruction set. The opcodes are how the substrate is made
-    concrete enough to verify and synthesize, but the limitative result
-    is one level above. *)
+    Nothing in the statement or proof references an instruction set: it
+    talks about programs, the AdmitsShortcut predicate, and the recursion
+    theorem. *)
 
 From Coq Require Import Setoid.
 From Kernel Require Import Substrate.
-
-(** Concrete-witness imports. The abstract diagonalization in this
-    file is substrate-level. The connection definition at the bottom
-    of the file shows how AdmitsShortcut instantiates for the
-    51-opcode VM, by pointing at the concrete SoundStructuralShortcut
-    witness class and at the explicit VMSubstrateInstance. *)
-From Kernel Require Import VMState VMStep
-                           HonestNoFI_TheoremsWithoutAssumptions
-                           MuInitiality
-                           SimpleMorphShortcut
-                           VMSubstrateInstance.
 
 (** ** The abstract shortcut-admittance predicate
 
@@ -244,206 +228,3 @@ Section DecidabilityCorollary.
   Qed.
 
 End DecidabilityCorollary.
-
-(** ** Concrete witness class vs substrate-level predicate
-
-    Two different objects appear in this file's neighbourhood and it is
-    worth naming them sharply, because they live at different levels and
-    the substrate-level theorem is about exactly one of them.
-
-    The concrete [SoundStructuralShortcut fuel trace s_init] (defined
-    in HonestNoFI_TheoremsWithoutAssumptions.v) is presentational:
-    it bundles syntactic objects (a fuel budget, a trace, an initial
-    state, a decision tree, an observation function, a representative
-    reduction, etc.) that make sense at the VM level. It is the
-    constructive class of "shortcuts that gave their receipts": every
-    concrete realization of a structural shortcut in the 51-opcode VM
-    is an inhabitant.
-
-    The substrate-level predicate [vm_admits_shortcut_extensional]
-    below is behavioural: it asks whether a program's [vm_run] from
-    [init_state] coincides with the [vm_run] of a fixed canonical
-    reference (here, [simple_morph_trace]). It is the substrate-level
-    abstraction the diagonalization is about; by Rice's-theorem
-    reasoning, the extensional shape is the right level for a
-    limitative result, because any decision procedure for an
-    extensional property reduces to one for the underlying behavioural
-    equivalence class.
-
-    The relationship: every concrete [SoundStructuralShortcut] for
-    [simple_morph_trace] establishes the extensional witness for that
-    trace (the bridge lemma is reflexivity, because the extensional
-    predicate is defined relative to [simple_morph_trace] itself).
-    More generally, any program whose [vm_run] from [init_state]
-    matches that of a trace that has a concrete [SoundStructuralShortcut]
-    inhabits the extensional class for that reference trace. The
-    concrete class is rich (carries the receipts); the extensional
-    class is the substrate-parametric notion the diagonalization
-    operates on. They are not in tension; they are the same phenomenon
-    at two scopes. Neither collapses into the other. *)
-
-Definition vm_instantiation_target
-           (p : list vm_instruction) : Prop :=
-  exists (fuel : nat) (s_init : VMState),
-    inhabited (SoundStructuralShortcut fuel p s_init).
-
-(** Witnessed: the [vm_instantiation_target] predicate is non-trivial
-    because the canonical [simple_morph_shortcut] inhabits the
-    witness class for the [simple_morph_trace] program. *)
-Lemma vm_instantiation_target_witnessed :
-  vm_instantiation_target simple_morph_trace.
-Proof.
-  exists 5, init_state. exact (inhabits simple_morph_shortcut).
-Qed.
-
-(** ** The VM-specific structural-axis impossibility.
-
-    The substrate-level [structural_shortcut_undecidable] theorem
-    above is general; the VMState corollary follows by composing it
-    with the [vm_substrate] instance from [VMSubstrateInstance.v].
-    The composition is conditional on the four section parameters
-    that [vm_substrate] takes (the Goedel encoding plus the Kleene
-    recursion theorem applied to the 51-opcode VM); supplying them
-    discharges the VMState corollary in full.
-
-    The shape of the VM-specific predicate used here is extensional:
-    a VM program is in the predicate's positive class iff its
-    bounded run from [init_state] coincides with the bounded run of
-    [simple_morph_trace]. This is the structural-axis analog of
-    "this program produces the right answer" for a fixed reference
-    answer; Rice's theorem in the substrate would say the same shape
-    of result. *)
-
-(** Bridge to the abstract [WithShortcutPredicate]: define an
-    extensional predicate on VM programs using [vm_run] and pick
-    [simple_morph_trace] as the canonical "yes" reference. *)
-
-Definition vm_admits_shortcut_extensional (p : list vm_instruction) : Prop :=
-  vm_run p init_state = vm_run simple_morph_trace init_state.
-
-Lemma vm_admits_shortcut_yes :
-  vm_admits_shortcut_extensional simple_morph_trace.
-Proof. unfold vm_admits_shortcut_extensional. reflexivity. Qed.
-
-Lemma vm_admits_shortcut_no :
-  ~ vm_admits_shortcut_extensional (@nil vm_instruction).
-Proof.
-  unfold vm_admits_shortcut_extensional, vm_run.
-  intro Heq. injection Heq as Hstate.
-  (* For the empty trace, run_vm produces init_state for any fuel.
-     For simple_morph_trace, run_vm 1000 produces simple_morph_final
-     (modulo the fuel difference, simple_morph_final is fuel=5).
-     vm_compute reduces both sides to concrete VMState values; the
-     two values differ (they have different csr_cert_addr by
-     simple_morph_final_has_supra_cert), so Hstate is contradictory. *)
-  vm_compute in Hstate.
-  discriminate Hstate.
-Qed.
-
-Lemma vm_admits_shortcut_extensional_resp :
-  forall p1 p2,
-    (forall s, vm_run p1 s = vm_run p2 s) ->
-    vm_admits_shortcut_extensional p1 <-> vm_admits_shortcut_extensional p2.
-Proof.
-  intros p1 p2 Hext. unfold vm_admits_shortcut_extensional.
-  rewrite (Hext init_state). reflexivity.
-Qed.
-
-(** The concrete bridge: the existence of a
-    [SoundStructuralShortcut] for [simple_morph_trace] establishes the
-    extensional witness for [simple_morph_trace]. The bridge is
-    reflexivity by construction: the extensional predicate is defined
-    relative to [simple_morph_trace] as the canonical reference, and
-    [simple_morph_shortcut] inhabits the concrete class for that trace.
-    For any other program [p] with the same [vm_run] from [init_state],
-    [vm_admits_shortcut_extensional_resp] then transports the witness. *)
-Lemma concrete_shortcut_implies_extensional :
-  vm_instantiation_target simple_morph_trace ->
-  vm_admits_shortcut_extensional simple_morph_trace.
-Proof.
-  intros _. exact vm_admits_shortcut_yes.
-Qed.
-
-(** [WithShortcutPredicate] for [vm_substrate]: package the predicate
-    plus the two canonical inhabitants. This requires the four section
-    parameters of [vm_substrate] to be supplied (here the statement curries
-    under them and consumers discharge them at use-site). *)
-
-(* SCOPE NOTE: ABSTRACT INTERFACE. The Section below is the
-   VM-corollary plumbing layer. Its Section parameters are SECTION
-   PARAMETERS that become EXPLICIT FORALL premises on the contained
-   theorems when the Section closes. The VM-side encoding/representability
-   piece is separate engineering on the VM-specific instance; the
-   substrate-level limitative content does not depend on it (the
-   nat substrate already discharges the substrate-level theorem
-   unconditionally; see NatSubstrateInstance.v). *)
-Section VMShortcutPredicate.
-  Variable vm_encode_arg : list vm_instruction -> VMState.
-  Variable vm_decode_safe_arg : VMState -> list vm_instruction.
-  Hypothesis vm_encode_decode_arg :
-    forall p, vm_decode_safe_arg (vm_encode_arg p) = p.
-  Variable vm_representable_arg :
-    (list vm_instruction -> list vm_instruction) -> Prop.
-  Hypothesis vm_recursion_theorem_arg :
-    forall (f : list vm_instruction -> list vm_instruction),
-      vm_representable_arg f ->
-      exists (p : list vm_instruction),
-        forall s, vm_run p s = vm_run (f p) s.
-
-  (** The Substrate instance for VMState, with the section parameters
-      supplied. *)
-  Definition vm_sub : Substrate :=
-    vm_substrate vm_encode_arg vm_decode_safe_arg
-                 vm_encode_decode_arg
-                 vm_representable_arg
-                 vm_recursion_theorem_arg.
-
-  (** The [WithShortcutPredicate] instance over [vm_sub]. *)
-  Definition vm_with_shortcut : @WithShortcutPredicate vm_sub.
-  Proof.
-    refine
-      (@Build_WithShortcutPredicate vm_sub
-         vm_admits_shortcut_extensional
-         simple_morph_trace _
-         (@nil vm_instruction) _
-         _).
-    - (* yes_program_admits *)
-      exact vm_admits_shortcut_yes.
-    - (* no_program_refuses *)
-      exact vm_admits_shortcut_no.
-    - (* admits_shortcut_extensional *)
-      intros p1 p2 Hext.
-      apply vm_admits_shortcut_extensional_resp.
-      intro s. exact (Hext s).
-  Defined.
-
-  (** ** The VM-specific structural-axis impossibility theorem.
-
-      Specialized form of [structural_shortcut_undecidable] for the
-      51-opcode VM: there is no Coq function [decide : list
-      vm_instruction -> bool] whose corresponding diagonal flip
-      transformer is internally representable in the VM language and
-      that decides whether an arbitrary VM program admits the
-      extensional structural shortcut.
-
-      The internal-representability side condition is the substrate-
-      level analog of "this decider is itself a program of the model"
-      (Turing's halting result was about Turing-machine deciders for
-      the same reason). This is the substrate's own halting problem,
-      stated in the substrate's own terms.
-
-      The Section parameters become explicit forall premises when the
-      Section closes. *)
-
-  Theorem vm_structural_shortcut_undecidable :
-    ~ exists (decide : list vm_instruction -> bool),
-        vm_representable_arg
-          (fun p => if decide p
-                    then (@nil vm_instruction)
-                    else simple_morph_trace)
-        /\ forall p, decide p = true <-> vm_admits_shortcut_extensional p.
-  Proof.
-    exact (@structural_shortcut_undecidable vm_sub vm_with_shortcut).
-  Qed.
-
-End VMShortcutPredicate.
