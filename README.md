@@ -654,7 +654,7 @@ No physical board has run this design.
 | Document | Role |
 |---|---|
 | [THIELE_MACHINE.txt](THIELE_MACHINE.txt) | The model and the argument in plain text, no build details. Start here. |
-| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph, in six parts after a short version: the picture, the axiom, the logic (Parts I to III, the abstract model only), the machine (the small machine first, then the 51-opcode test bench), the hardware, and how to check it and where it ends. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the crosswalk from claims to Coq, and the CHSH derivation. |
+| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph, in six parts after an opening chapter, The point, and a short version: the picture, the axiom, the logic (Parts I to III, the abstract model only), the machine (the small machine first, then the 51-opcode test bench), the hardware, and how to check it and where it ends. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the crosswalk from claims to Coq, and the CHSH derivation. |
 | [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
 | [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v) | Audited ledger of the selected established claim set. |
 | [coq/README.md](coq/README.md) | Map of the active Coq proof tree. |
@@ -675,7 +675,7 @@ The software in this repository is Apache 2.0 licensed, including the license's 
   title        = {The Thiele Machine: A Computational Model with Explicit Structural Cost},
   author       = {Thiele, Devon},
   year         = {2026},
-  version      = {3.3.0},
+  version      = {4.0.0},
   doi          = {10.5281/zenodo.17316437},
   publisher    = {Zenodo},
   howpublished = {\url{https://doi.org/10.5281/zenodo.17316437}}

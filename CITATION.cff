@@ -5,7 +5,8 @@ authors:
   - family-names: Thiele
     given-names: Devon
 type: software
-version: 3.3.0
+version: 4.0.0
+date-released: 2026-10-04
 license: Apache-2.0
 repository-code: "https://github.com/sethirus/The-Thiele-Machine"
 url: "https://github.com/sethirus/The-Thiele-Machine"
@@ -27,7 +28,11 @@ abstract: >-
   minimal two-counter machine whose commitments are earned, where every
   certified run from a clean start contains a passing check of the committed
   claim and costs at least three, and a 51-opcode VM with hardware, a test
-  bench that prices commitments without checking that they were earned. A
+  bench that prices commitments without checking that they were earned. The
+  small machine is Thiele-complete, computing everything Minsky's two-counter
+  machines can while it keeps its record and pays its toll, and a universal
+  Thiele machine built on it runs any of its programs as a guest, with the
+  guest's record kept and its toll collected by the host's own step. A
   computation gives
   you an answer. What did it establish on the way there? Which distinctions
   did it keep? What did it cost to establish them? Certification is one point

@@ -2,7 +2,7 @@
 
 **Author:** Devon Thiele  
 **First public disclosure:** August 15, 2025 (repository creation; development began January 2025)  
-**Current date:** October 2026 (latest release v3.3.0)\
+**Current date:** October 2026 (latest release v4.0.0)\
 **Repository:** https://github.com/sethirus/The-Thiele-Machine  
 **License:** Apache 2.0 (software), CC-BY-SA-4.0 (monograph/documentation)  
 **Purpose of this document:** Defensive publication. This document records the concepts, source dates, and public repository locations intended to establish a dated public record. Whether a particular disclosure qualifies as prior art under 35 U.S.C. § 102 or Article 54 EPC is a legal determination; this document is not a legal opinion. It is submitted for indexing to IP.com and similar prior-art databases.
@@ -262,7 +262,7 @@ Inquisitor fails on HIGH or MEDIUM findings; LOW findings are reported without i
 | July 2026 | v3.1.0: existential PSD completion for CHSH correlators, a sound integer elliptope gate with interior and boundary certificates, and five synthetic pointer-observable models. `five_labeled_models_have_selected_pointer` is closed under the global context; it concerns only the chosen Boolean observer maps. Receipt: 281 files, 3,980 theorems probed, zero project-local axioms. |
 | September 10, 2026 | v3.2.0 and v3.2.1: observation adequacy with a constructed decoder, exact conditions for descent from instruction traces to reachable-state simulations, joint unit event floors, retained-history injectivity, and the hardware trace bridge over actual fetched instructions (`WFDrivenRun`). Receipt: 286 files, 4,026 theorems probed, zero project-local axioms. |
 | September 28, 2026 | v3.3.0: on a finite state space a certificate no step revokes can only be switched on by a merging step, so pricing merges yields A2, with the log bound, the Shannon-entropy form and a finite VM instance; a 122-instruction guest self-interpreter and Rice's theorem for the guest; retirement proofs of the CPU against the Kami model; the Kintex-7 design synthesized, placed, routed and written to a bitstream in CI. Receipt: 426 files, 12,934 theorems probed, zero project-local axioms. |
-| October 2026 | Public repository: the guest's internal recursion theorem; the full-VM recursion premise refuted for the class of all maps; the minimal earned-commitment machine (Concept 16); kernel and CPU partition capacity and memory-range traps; COMPOSE identity laws on stored arrows; the reachable-state limit of the partition geometry; board-top gate-level simulation, SymbiYosys properties, RTL/netlist equivalence and a power-on reset in the board wrapper. |
+| October 4, 2026 | v4.0.0: the monograph rewritten as one book about the abstract model, with the machines as witnesses; the small machine Thiele-complete and a universal Thiele machine built on it, enforcing every guest's record and toll in the host's own step; the guest's internal recursion theorem; the full-VM recursion premise refuted for the class of all maps; the minimal earned-commitment machine (Concept 16); kernel and CPU partition capacity and memory-range traps; COMPOSE identity laws on stored arrows; the reachable-state limit of the partition geometry; board-top gate-level simulation, SymbiYosys properties, RTL/netlist equivalence and a power-on reset in the board wrapper. |
 
 ---
 
