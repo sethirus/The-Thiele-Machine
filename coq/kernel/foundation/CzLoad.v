@@ -3,7 +3,7 @@
     Sequential composition needs a second machine whose start state is the
     output of the first.  A machine cannot read another machine's state, so
     the wire is a move: the loadable form of N has a move LOAD(a, b) that
-    sets its input to (a, b) while it has not yet taken a step of its own,
+    sets its input to (a, b) before it has taken a step of its own,
     and does nothing afterwards.  A state is either pristine (the loaded
     state of N for some (a, b)) or running (a state of N), and carries a
     count of what N's own moves have cost.
