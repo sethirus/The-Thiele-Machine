@@ -1,0 +1,578 @@
+DIGEST c484e9f2804a9337730bd8d56409a8d1
+FKernel.CzCS
+R1654:1657 Coq.Lists.List <> <> lib
+R1659:1662 Coq.Bool.Bool <> <> lib
+R1664:1677 Coq.Arith.PeanoNat <> <> lib
+R1679:1681 Coq.micromega.Lia <> <> lib
+R1691:1703 Coq.Lists.List ListNotations <> mod
+R1733:1738 Kernel.AxCore <> <> lib
+R1768:1774 Kernel.AxLatch <> <> lib
+R1804:1813 Kernel.AxComplete <> <> lib
+R1843:1848 Kernel.CzProd <> <> lib
+R1850:1857 Kernel.CzProdTC <> <> lib
+R1875:1907 Kernel.UniversalCertificationCost <> <> lib
+def 1922:1931 <> cmpz_cs_am
+R1938:1956 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 1934:1934 <> C:1
+R1961:1968 Kernel.AxComplete <> amachine rec
+R1970:1973 Coq.Init.Datatypes <> bool ind
+R1975:1981 Kernel.AxCore <> two_pre def
+R1988:1992 Kernel.AxComplete <> mk_am constr
+R1994:1997 Coq.Init.Datatypes <> bool ind
+R1999:2005 Kernel.AxCore <> two_pre def
+R2008:2015 Kernel.UniversalCertificationCost <> cs_state proj
+R2017:2017 Kernel.CzCS <> C:1 var
+R2021:2028 Kernel.UniversalCertificationCost <> cs_instr proj
+R2030:2030 Kernel.CzCS <> C:1 var
+R2034:2040 Kernel.UniversalCertificationCost <> cs_step proj
+R2042:2042 Kernel.CzCS <> C:1 var
+R2046:2052 Kernel.UniversalCertificationCost <> cs_cost proj
+R2054:2054 Kernel.CzCS <> C:1 var
+R2058:2064 Kernel.UniversalCertificationCost <> cs_cert proj
+R2066:2066 Kernel.CzCS <> C:1 var
+prf 2077:2087 <> cmpz_cs_run
+binder 2098:2098 <> C:2
+binder 2100:2101 <> tr:3
+binder 2103:2103 <> s:4
+R2119:2121 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2106:2111 Kernel.UniversalCertificationCost <> cs_run def
+R2113:2113 Kernel.CzCS <> C:2 var
+R2115:2116 Kernel.CzCS <> tr:3 var
+R2118:2118 Kernel.CzCS <> s:4 var
+R2122:2127 Kernel.AxComplete <> am_run def
+R2147:2147 Kernel.CzCS <> s:4 var
+R2144:2145 Kernel.CzCS <> tr:3 var
+R2130:2139 Kernel.CzCS <> cmpz_cs_am def
+R2141:2141 Kernel.CzCS <> C:2 var
+prf 2250:2265 <> cmpz_cs_total_eq
+binder 2276:2276 <> C:5
+binder 2278:2279 <> tr:6
+R2300:2302 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2282:2294 Kernel.UniversalCertificationCost <> cs_total_cost def
+R2296:2296 Kernel.CzCS <> C:5 var
+R2298:2299 Kernel.CzCS <> tr:6 var
+R2303:2311 Kernel.CzProd <> cmpz_cost def
+R2328:2329 Kernel.CzCS <> tr:6 var
+R2314:2323 Kernel.CzCS <> cmpz_cs_am def
+R2325:2325 Kernel.CzCS <> C:5 var
+R2425:2433 Kernel.CzProd <> cmpz_cost def
+def 2547:2563 <> cmpz_cs_pair_step
+R2574:2592 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 2566:2567 <> C1:7
+binder 2569:2570 <> C2:8
+R2615:2617 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2604:2611 Kernel.UniversalCertificationCost <> cs_state proj
+R2613:2614 Kernel.CzCS <> C1:7 var
+R2618:2625 Kernel.UniversalCertificationCost <> cs_state proj
+R2627:2628 Kernel.CzCS <> C2:8 var
+binder 2600:2600 <> s:9
+R2647:2649 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R2636:2643 Kernel.UniversalCertificationCost <> cs_instr proj
+R2645:2646 Kernel.CzCS <> C1:7 var
+R2650:2657 Kernel.UniversalCertificationCost <> cs_instr proj
+R2659:2660 Kernel.CzCS <> C2:8 var
+binder 2632:2632 <> m:10
+R2676:2678 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2665:2672 Kernel.UniversalCertificationCost <> cs_state proj
+R2674:2675 Kernel.CzCS <> C1:7 var
+R2679:2686 Kernel.UniversalCertificationCost <> cs_state proj
+R2688:2689 Kernel.CzCS <> C2:8 var
+R2702:2702 Kernel.CzCS <> m:10 var
+R2713:2715 Coq.Init.Datatypes <> inl constr
+R2722:2722 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2743:2744 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2750:2750 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2723:2729 Kernel.UniversalCertificationCost <> cs_step proj
+R2731:2732 Kernel.CzCS <> C1:7 var
+R2735:2737 Coq.Init.Datatypes <> fst def
+R2739:2739 Kernel.CzCS <> s:9 var
+R2745:2747 Coq.Init.Datatypes <> snd def
+R2749:2749 Kernel.CzCS <> s:9 var
+R2756:2758 Coq.Init.Datatypes <> inr constr
+R2765:2765 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2771:2772 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2793:2793 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2766:2768 Coq.Init.Datatypes <> fst def
+R2770:2770 Kernel.CzCS <> s:9 var
+R2773:2779 Kernel.UniversalCertificationCost <> cs_step proj
+R2781:2782 Kernel.CzCS <> C2:8 var
+R2785:2787 Coq.Init.Datatypes <> snd def
+R2789:2789 Kernel.CzCS <> s:9 var
+def 2814:2830 <> cmpz_cs_pair_cost
+R2841:2859 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 2833:2834 <> C1:12
+binder 2836:2837 <> C2:13
+R2878:2880 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R2867:2874 Kernel.UniversalCertificationCost <> cs_instr proj
+R2876:2877 Kernel.CzCS <> C1:12 var
+R2881:2888 Kernel.UniversalCertificationCost <> cs_instr proj
+R2890:2891 Kernel.CzCS <> C2:13 var
+binder 2863:2863 <> m:14
+R2896:2898 Coq.Init.Datatypes <> nat ind
+R2911:2911 Kernel.CzCS <> m:14 var
+R2918:2920 Coq.Init.Datatypes <> inl constr
+R2927:2933 Kernel.UniversalCertificationCost <> cs_cost proj
+R2935:2936 Kernel.CzCS <> C1:12 var
+R2942:2944 Coq.Init.Datatypes <> inr constr
+R2951:2957 Kernel.UniversalCertificationCost <> cs_cost proj
+R2959:2960 Kernel.CzCS <> C2:13 var
+def 2981:2990 <> cmpz_cs_or
+R3001:3019 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 2993:2994 <> C1:16
+binder 2996:2997 <> C2:17
+R3024:3042 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R3062:3075 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R3089:3091 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3078:3085 Kernel.UniversalCertificationCost <> cs_state proj
+R3092:3099 Kernel.UniversalCertificationCost <> cs_state proj
+R3117:3119 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R3106:3113 Kernel.UniversalCertificationCost <> cs_instr proj
+R3120:3127 Kernel.UniversalCertificationCost <> cs_instr proj
+R3146:3162 Kernel.CzCS <> cmpz_cs_pair_step def
+R3172:3188 Kernel.CzCS <> cmpz_cs_pair_cost def
+binder 3214:3214 <> s:18
+R3219:3221 Coq.Init.Datatypes <> orb def
+R3245:3251 Kernel.UniversalCertificationCost <> cs_cert proj
+R3257:3259 Coq.Init.Datatypes <> snd def
+R3261:3261 Kernel.CzCS <> s:18 var
+R3224:3230 Kernel.UniversalCertificationCost <> cs_cert proj
+R3236:3238 Coq.Init.Datatypes <> fst def
+R3240:3240 Kernel.CzCS <> s:18 var
+R3062:3075 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R3089:3091 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3078:3085 Kernel.UniversalCertificationCost <> cs_state proj
+R3092:3099 Kernel.UniversalCertificationCost <> cs_state proj
+R3117:3119 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R3106:3113 Kernel.UniversalCertificationCost <> cs_instr proj
+R3120:3127 Kernel.UniversalCertificationCost <> cs_instr proj
+R3146:3162 Kernel.CzCS <> cmpz_cs_pair_step def
+R3172:3188 Kernel.CzCS <> cmpz_cs_pair_cost def
+binder 3214:3214 <> s:19
+R3219:3221 Coq.Init.Datatypes <> orb def
+R3245:3251 Kernel.UniversalCertificationCost <> cs_cert proj
+R3257:3259 Coq.Init.Datatypes <> snd def
+R3261:3261 Kernel.CzCS <> s:19 var
+R3224:3230 Kernel.UniversalCertificationCost <> cs_cert proj
+R3236:3238 Coq.Init.Datatypes <> fst def
+R3240:3240 Kernel.CzCS <> s:19 var
+R3324:3336 Coq.Bool.Bool <> orb_false_iff thm
+R3324:3336 Coq.Bool.Bool <> orb_false_iff thm
+R3371:3381 Coq.Bool.Bool <> orb_false_r thm
+R3371:3381 Coq.Bool.Bool <> orb_false_r thm
+R3371:3381 Coq.Bool.Bool <> orb_false_r thm
+R3401:3413 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R3401:3413 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R3442:3454 Coq.Bool.Bool <> orb_false_iff thm
+R3442:3454 Coq.Bool.Bool <> orb_false_iff thm
+R3519:3531 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R3519:3531 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+def 3571:3581 <> cmpz_cs_and
+R3592:3610 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 3584:3585 <> C1:20
+binder 3587:3588 <> C2:21
+R3615:3633 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R3653:3666 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R3680:3682 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3669:3676 Kernel.UniversalCertificationCost <> cs_state proj
+R3683:3690 Kernel.UniversalCertificationCost <> cs_state proj
+R3708:3710 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R3697:3704 Kernel.UniversalCertificationCost <> cs_instr proj
+R3711:3718 Kernel.UniversalCertificationCost <> cs_instr proj
+R3737:3753 Kernel.CzCS <> cmpz_cs_pair_step def
+R3763:3779 Kernel.CzCS <> cmpz_cs_pair_cost def
+binder 3805:3805 <> s:22
+R3810:3813 Coq.Init.Datatypes <> andb def
+R3837:3843 Kernel.UniversalCertificationCost <> cs_cert proj
+R3849:3851 Coq.Init.Datatypes <> snd def
+R3853:3853 Kernel.CzCS <> s:22 var
+R3816:3822 Kernel.UniversalCertificationCost <> cs_cert proj
+R3828:3830 Coq.Init.Datatypes <> fst def
+R3832:3832 Kernel.CzCS <> s:22 var
+R3653:3666 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R3680:3682 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3669:3676 Kernel.UniversalCertificationCost <> cs_state proj
+R3683:3690 Kernel.UniversalCertificationCost <> cs_state proj
+R3708:3710 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R3697:3704 Kernel.UniversalCertificationCost <> cs_instr proj
+R3711:3718 Kernel.UniversalCertificationCost <> cs_instr proj
+R3737:3753 Kernel.CzCS <> cmpz_cs_pair_step def
+R3763:3779 Kernel.CzCS <> cmpz_cs_pair_cost def
+binder 3805:3805 <> s:23
+R3810:3813 Coq.Init.Datatypes <> andb def
+R3837:3843 Kernel.UniversalCertificationCost <> cs_cert proj
+R3849:3851 Coq.Init.Datatypes <> snd def
+R3853:3853 Kernel.CzCS <> s:23 var
+R3816:3822 Kernel.UniversalCertificationCost <> cs_cert proj
+R3828:3830 Coq.Init.Datatypes <> fst def
+R3832:3832 Kernel.CzCS <> s:23 var
+R3916:3928 Coq.Bool.Bool <> andb_true_iff thm
+R3916:3928 Coq.Bool.Bool <> andb_true_iff thm
+R3977:3987 Coq.Bool.Bool <> andb_true_r thm
+R3977:3987 Coq.Bool.Bool <> andb_true_r thm
+R3977:3987 Coq.Bool.Bool <> andb_true_r thm
+R4007:4019 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R4007:4019 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R4048:4060 Coq.Bool.Bool <> andb_true_iff thm
+R4048:4060 Coq.Bool.Bool <> andb_true_iff thm
+R4125:4137 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R4125:4137 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+prf 4172:4185 <> cmpz_cs_or_run
+binder 4196:4197 <> C1:24
+binder 4199:4200 <> C2:25
+binder 4202:4203 <> tr:26
+binder 4205:4205 <> s:27
+R4240:4246 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4210:4215 Kernel.UniversalCertificationCost <> cs_run def
+R4218:4227 Kernel.CzCS <> cmpz_cs_or def
+R4229:4230 Kernel.CzCS <> C1:24 var
+R4232:4233 Kernel.CzCS <> C2:25 var
+R4236:4237 Kernel.CzCS <> tr:26 var
+R4239:4239 Kernel.CzCS <> s:27 var
+R4247:4247 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4281:4282 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4317:4317 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4248:4253 Kernel.UniversalCertificationCost <> cs_run def
+R4255:4256 Kernel.CzCS <> C1:24 var
+R4259:4268 Kernel.CzProd <> cmpz_lefts def
+R4270:4271 Kernel.CzCS <> tr:26 var
+R4275:4277 Coq.Init.Datatypes <> fst def
+R4279:4279 Kernel.CzCS <> s:27 var
+R4283:4288 Kernel.UniversalCertificationCost <> cs_run def
+R4290:4291 Kernel.CzCS <> C2:25 var
+R4294:4304 Kernel.CzProd <> cmpz_rights def
+R4306:4307 Kernel.CzCS <> tr:26 var
+R4311:4313 Coq.Init.Datatypes <> snd def
+R4315:4315 Kernel.CzCS <> s:27 var
+prf 4459:4473 <> cmpz_cs_and_run
+binder 4484:4485 <> C1:28
+binder 4487:4488 <> C2:29
+binder 4490:4491 <> tr:30
+binder 4493:4493 <> s:31
+R4529:4535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4498:4503 Kernel.UniversalCertificationCost <> cs_run def
+R4506:4516 Kernel.CzCS <> cmpz_cs_and def
+R4518:4519 Kernel.CzCS <> C1:28 var
+R4521:4522 Kernel.CzCS <> C2:29 var
+R4525:4526 Kernel.CzCS <> tr:30 var
+R4528:4528 Kernel.CzCS <> s:31 var
+R4536:4536 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4570:4571 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4606:4606 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4537:4542 Kernel.UniversalCertificationCost <> cs_run def
+R4544:4545 Kernel.CzCS <> C1:28 var
+R4548:4557 Kernel.CzProd <> cmpz_lefts def
+R4559:4560 Kernel.CzCS <> tr:30 var
+R4564:4566 Coq.Init.Datatypes <> fst def
+R4568:4568 Kernel.CzCS <> s:31 var
+R4572:4577 Kernel.UniversalCertificationCost <> cs_run def
+R4579:4580 Kernel.CzCS <> C2:29 var
+R4583:4593 Kernel.CzProd <> cmpz_rights def
+R4595:4596 Kernel.CzCS <> tr:30 var
+R4600:4602 Coq.Init.Datatypes <> snd def
+R4604:4604 Kernel.CzCS <> s:31 var
+prf 4750:4765 <> cmpz_cs_or_total
+binder 4776:4777 <> C1:32
+binder 4779:4780 <> C2:33
+binder 4782:4783 <> tr:34
+R4823:4829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4788:4800 Kernel.UniversalCertificationCost <> cs_total_cost def
+R4803:4812 Kernel.CzCS <> cmpz_cs_or def
+R4814:4815 Kernel.CzCS <> C1:32 var
+R4817:4818 Kernel.CzCS <> C2:33 var
+R4821:4822 Kernel.CzCS <> tr:34 var
+R4862:4864 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4830:4842 Kernel.UniversalCertificationCost <> cs_total_cost def
+R4844:4845 Kernel.CzCS <> C1:32 var
+R4848:4857 Kernel.CzProd <> cmpz_lefts def
+R4859:4860 Kernel.CzCS <> tr:34 var
+R4865:4877 Kernel.UniversalCertificationCost <> cs_total_cost def
+R4879:4880 Kernel.CzCS <> C2:33 var
+R4883:4893 Kernel.CzProd <> cmpz_rights def
+R4895:4896 Kernel.CzCS <> tr:34 var
+prf 5015:5031 <> cmpz_cs_and_total
+binder 5042:5043 <> C1:35
+binder 5045:5046 <> C2:36
+binder 5048:5049 <> tr:37
+R5090:5096 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5054:5066 Kernel.UniversalCertificationCost <> cs_total_cost def
+R5069:5079 Kernel.CzCS <> cmpz_cs_and def
+R5081:5082 Kernel.CzCS <> C1:35 var
+R5084:5085 Kernel.CzCS <> C2:36 var
+R5088:5089 Kernel.CzCS <> tr:37 var
+R5129:5131 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5097:5109 Kernel.UniversalCertificationCost <> cs_total_cost def
+R5111:5112 Kernel.CzCS <> C1:35 var
+R5115:5124 Kernel.CzProd <> cmpz_lefts def
+R5126:5127 Kernel.CzCS <> tr:37 var
+R5132:5144 Kernel.UniversalCertificationCost <> cs_total_cost def
+R5146:5147 Kernel.CzCS <> C2:36 var
+R5150:5160 Kernel.CzProd <> cmpz_rights def
+R5162:5163 Kernel.CzCS <> tr:37 var
+prf 5364:5379 <> cmpz_cs_or_floor
+binder 5390:5391 <> C1:38
+binder 5393:5394 <> C2:39
+binder 5396:5397 <> tr:40
+binder 5399:5399 <> s:41
+R5440:5445 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5432:5434 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5404:5410 Kernel.UniversalCertificationCost <> cs_cert proj
+R5413:5422 Kernel.CzCS <> cmpz_cs_or def
+R5424:5425 Kernel.CzCS <> C1:38 var
+R5427:5428 Kernel.CzCS <> C2:39 var
+R5431:5431 Kernel.CzCS <> s:41 var
+R5435:5439 Coq.Init.Datatypes <> false constr
+R5512:5517 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5505:5507 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5446:5452 Kernel.UniversalCertificationCost <> cs_cert proj
+R5455:5464 Kernel.CzCS <> cmpz_cs_or def
+R5466:5467 Kernel.CzCS <> C1:38 var
+R5469:5470 Kernel.CzCS <> C2:39 var
+R5474:5479 Kernel.UniversalCertificationCost <> cs_run def
+R5482:5491 Kernel.CzCS <> cmpz_cs_or def
+R5493:5494 Kernel.CzCS <> C1:38 var
+R5496:5497 Kernel.CzCS <> C2:39 var
+R5500:5501 Kernel.CzCS <> tr:40 var
+R5503:5503 Kernel.CzCS <> s:41 var
+R5508:5511 Coq.Init.Datatypes <> true constr
+R5553:5556 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5518:5530 Kernel.UniversalCertificationCost <> cs_total_cost def
+R5533:5542 Kernel.CzCS <> cmpz_cs_or def
+R5544:5545 Kernel.CzCS <> C1:38 var
+R5547:5548 Kernel.CzCS <> C2:39 var
+R5551:5552 Kernel.CzCS <> tr:40 var
+R5603:5629 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R5632:5641 Kernel.CzCS <> cmpz_cs_or def
+R5603:5629 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R5632:5641 Kernel.CzCS <> cmpz_cs_or def
+prf 5738:5754 <> cmpz_cs_and_floor
+binder 5765:5766 <> C1:42
+binder 5768:5769 <> C2:43
+binder 5771:5772 <> tr:44
+binder 5774:5774 <> s:45
+R5805:5808 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5797:5799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5779:5785 Kernel.UniversalCertificationCost <> cs_cert proj
+R5787:5788 Kernel.CzCS <> C1:42 var
+R5791:5793 Coq.Init.Datatypes <> fst def
+R5795:5795 Kernel.CzCS <> s:45 var
+R5800:5804 Coq.Init.Datatypes <> false constr
+R5835:5840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5827:5829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5809:5815 Kernel.UniversalCertificationCost <> cs_cert proj
+R5817:5818 Kernel.CzCS <> C2:43 var
+R5821:5823 Coq.Init.Datatypes <> snd def
+R5825:5825 Kernel.CzCS <> s:45 var
+R5830:5834 Coq.Init.Datatypes <> false constr
+R5909:5914 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5902:5904 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5841:5847 Kernel.UniversalCertificationCost <> cs_cert proj
+R5850:5860 Kernel.CzCS <> cmpz_cs_and def
+R5862:5863 Kernel.CzCS <> C1:42 var
+R5865:5866 Kernel.CzCS <> C2:43 var
+R5870:5875 Kernel.UniversalCertificationCost <> cs_run def
+R5878:5888 Kernel.CzCS <> cmpz_cs_and def
+R5890:5891 Kernel.CzCS <> C1:42 var
+R5893:5894 Kernel.CzCS <> C2:43 var
+R5897:5898 Kernel.CzCS <> tr:44 var
+R5900:5900 Kernel.CzCS <> s:45 var
+R5905:5908 Coq.Init.Datatypes <> true constr
+R5951:5954 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5915:5927 Kernel.UniversalCertificationCost <> cs_total_cost def
+R5930:5940 Kernel.CzCS <> cmpz_cs_and def
+R5942:5943 Kernel.CzCS <> C1:42 var
+R5945:5946 Kernel.CzCS <> C2:43 var
+R5949:5950 Kernel.CzCS <> tr:44 var
+R6005:6019 Kernel.CzCS <> cmpz_cs_and_run thm
+R6005:6019 Kernel.CzCS <> cmpz_cs_and_run thm
+R6005:6019 Kernel.CzCS <> cmpz_cs_and_run thm
+R6047:6059 Coq.Bool.Bool <> andb_true_iff thm
+R6047:6059 Coq.Bool.Bool <> andb_true_iff thm
+R6091:6107 Kernel.CzCS <> cmpz_cs_and_total thm
+R6091:6107 Kernel.CzCS <> cmpz_cs_and_total thm
+R6091:6107 Kernel.CzCS <> cmpz_cs_and_total thm
+R6124:6150 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R6156:6165 Kernel.CzProd <> cmpz_lefts def
+R6172:6174 Coq.Init.Datatypes <> fst def
+R6124:6150 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R6156:6165 Kernel.CzProd <> cmpz_lefts def
+R6172:6174 Coq.Init.Datatypes <> fst def
+R6207:6233 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R6239:6249 Kernel.CzProd <> cmpz_rights def
+R6256:6258 Coq.Init.Datatypes <> snd def
+R6207:6233 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R6239:6249 Kernel.CzProd <> cmpz_rights def
+R6256:6258 Coq.Init.Datatypes <> snd def
+prf 6361:6377 <> cmpz_cs_and_tight
+binder 6388:6389 <> C1:46
+binder 6391:6392 <> C2:47
+binder 6394:6395 <> s1:48
+binder 6397:6398 <> s2:49
+R6407:6410 Coq.Init.Datatypes <> list ind
+R6413:6420 Kernel.UniversalCertificationCost <> cs_instr proj
+R6422:6423 Kernel.CzCS <> C1:46 var
+binder 6401:6403 <> tr1:50
+R6434:6437 Coq.Init.Datatypes <> list ind
+R6440:6447 Kernel.UniversalCertificationCost <> cs_instr proj
+R6449:6450 Kernel.CzCS <> C2:47 var
+binder 6428:6430 <> tr2:51
+R6478:6481 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6470:6472 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6457:6463 Kernel.UniversalCertificationCost <> cs_cert proj
+R6465:6466 Kernel.CzCS <> C1:46 var
+R6468:6469 Kernel.CzCS <> s1:48 var
+R6473:6477 Coq.Init.Datatypes <> false constr
+R6503:6508 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6495:6497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6482:6488 Kernel.UniversalCertificationCost <> cs_cert proj
+R6490:6491 Kernel.CzCS <> C2:47 var
+R6493:6494 Kernel.CzCS <> s2:49 var
+R6498:6502 Coq.Init.Datatypes <> false constr
+R6545:6548 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6538:6540 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6509:6515 Kernel.UniversalCertificationCost <> cs_cert proj
+R6517:6518 Kernel.CzCS <> C1:46 var
+R6521:6526 Kernel.UniversalCertificationCost <> cs_run def
+R6528:6529 Kernel.CzCS <> C1:46 var
+R6531:6533 Kernel.CzCS <> tr1:50 var
+R6535:6536 Kernel.CzCS <> s1:48 var
+R6541:6544 Coq.Init.Datatypes <> true constr
+R6573:6578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6569:6571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6549:6561 Kernel.UniversalCertificationCost <> cs_total_cost def
+R6563:6564 Kernel.CzCS <> C1:46 var
+R6566:6568 Kernel.CzCS <> tr1:50 var
+R6615:6618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6608:6610 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6579:6585 Kernel.UniversalCertificationCost <> cs_cert proj
+R6587:6588 Kernel.CzCS <> C2:47 var
+R6591:6596 Kernel.UniversalCertificationCost <> cs_run def
+R6598:6599 Kernel.CzCS <> C2:47 var
+R6601:6603 Kernel.CzCS <> tr2:51 var
+R6605:6606 Kernel.CzCS <> s2:49 var
+R6611:6614 Coq.Init.Datatypes <> true constr
+R6643:6648 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6639:6641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6619:6631 Kernel.UniversalCertificationCost <> cs_total_cost def
+R6633:6634 Kernel.CzCS <> C2:47 var
+R6636:6638 Kernel.CzCS <> tr2:51 var
+R6649:6655 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6693:6698 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6661:6664 Coq.Init.Datatypes <> list ind
+R6678:6680 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R6667:6674 Kernel.UniversalCertificationCost <> cs_instr proj
+R6676:6677 Kernel.CzCS <> C1:46 var
+R6681:6688 Kernel.UniversalCertificationCost <> cs_instr proj
+R6690:6691 Kernel.CzCS <> C2:47 var
+binder 6656:6657 <> tr:52
+R6774:6781 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6767:6769 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6699:6705 Kernel.UniversalCertificationCost <> cs_cert proj
+R6708:6718 Kernel.CzCS <> cmpz_cs_and def
+R6720:6721 Kernel.CzCS <> C1:46 var
+R6723:6724 Kernel.CzCS <> C2:47 var
+R6728:6733 Kernel.UniversalCertificationCost <> cs_run def
+R6736:6746 Kernel.CzCS <> cmpz_cs_and def
+R6748:6749 Kernel.CzCS <> C1:46 var
+R6751:6752 Kernel.CzCS <> C2:47 var
+R6755:6756 Kernel.CzCS <> tr:52 var
+R6758:6758 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6761:6762 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6765:6765 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6759:6760 Kernel.CzCS <> s1:48 var
+R6763:6764 Kernel.CzCS <> s2:49 var
+R6770:6773 Coq.Init.Datatypes <> true constr
+R6818:6820 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6782:6794 Kernel.UniversalCertificationCost <> cs_total_cost def
+R6797:6807 Kernel.CzCS <> cmpz_cs_and def
+R6809:6810 Kernel.CzCS <> C1:46 var
+R6812:6813 Kernel.CzCS <> C2:47 var
+R6816:6817 Kernel.CzCS <> tr:52 var
+R6900:6903 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6889:6891 Coq.Lists.List <> map def
+R6893:6895 Coq.Init.Datatypes <> inl constr
+R6904:6906 Coq.Lists.List <> map def
+R6908:6910 Coq.Init.Datatypes <> inr constr
+R6900:6903 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6889:6891 Coq.Lists.List <> map def
+R6893:6895 Coq.Init.Datatypes <> inl constr
+R6904:6906 Coq.Lists.List <> map def
+R6908:6910 Coq.Init.Datatypes <> inr constr
+R6937:6951 Kernel.CzCS <> cmpz_cs_and_run thm
+R6937:6951 Kernel.CzCS <> cmpz_cs_and_run thm
+R6937:6951 Kernel.CzCS <> cmpz_cs_and_run thm
+R6973:6986 Kernel.CzProd <> cmpz_lefts_app thm
+R6989:7003 Kernel.CzProd <> cmpz_rights_app thm
+R7019:7036 Kernel.CzProdTC <> cmpz_lefts_map_inl thm
+R7044:7051 Kernel.UniversalCertificationCost <> cs_instr proj
+R7060:7078 Kernel.CzProdTC <> cmpz_rights_map_inl thm
+R7086:7093 Kernel.UniversalCertificationCost <> cs_instr proj
+R7114:7131 Kernel.CzProdTC <> cmpz_lefts_map_inr thm
+R7139:7146 Kernel.UniversalCertificationCost <> cs_instr proj
+R7155:7173 Kernel.CzProdTC <> cmpz_rights_map_inr thm
+R7181:7188 Kernel.UniversalCertificationCost <> cs_instr proj
+R6973:6986 Kernel.CzProd <> cmpz_lefts_app thm
+R6973:6986 Kernel.CzProd <> cmpz_lefts_app thm
+R6989:7003 Kernel.CzProd <> cmpz_rights_app thm
+R6989:7003 Kernel.CzProd <> cmpz_rights_app thm
+R7019:7036 Kernel.CzProdTC <> cmpz_lefts_map_inl thm
+R7044:7051 Kernel.UniversalCertificationCost <> cs_instr proj
+R7019:7036 Kernel.CzProdTC <> cmpz_lefts_map_inl thm
+R7044:7051 Kernel.UniversalCertificationCost <> cs_instr proj
+R7060:7078 Kernel.CzProdTC <> cmpz_rights_map_inl thm
+R7086:7093 Kernel.UniversalCertificationCost <> cs_instr proj
+R7060:7078 Kernel.CzProdTC <> cmpz_rights_map_inl thm
+R7086:7093 Kernel.UniversalCertificationCost <> cs_instr proj
+R7114:7131 Kernel.CzProdTC <> cmpz_lefts_map_inr thm
+R7139:7146 Kernel.UniversalCertificationCost <> cs_instr proj
+R7114:7131 Kernel.CzProdTC <> cmpz_lefts_map_inr thm
+R7139:7146 Kernel.UniversalCertificationCost <> cs_instr proj
+R7155:7173 Kernel.CzProdTC <> cmpz_rights_map_inr thm
+R7181:7188 Kernel.UniversalCertificationCost <> cs_instr proj
+R7155:7173 Kernel.CzProdTC <> cmpz_rights_map_inr thm
+R7181:7188 Kernel.UniversalCertificationCost <> cs_instr proj
+R7208:7216 Coq.Lists.List <> app_nil_r thm
+R7208:7216 Coq.Lists.List <> app_nil_r thm
+R7208:7216 Coq.Lists.List <> app_nil_r thm
+R7267:7283 Kernel.CzCS <> cmpz_cs_and_total thm
+R7267:7283 Kernel.CzCS <> cmpz_cs_and_total thm
+R7267:7283 Kernel.CzCS <> cmpz_cs_and_total thm
+R7298:7311 Kernel.CzProd <> cmpz_lefts_app thm
+R7314:7328 Kernel.CzProd <> cmpz_rights_app thm
+R7344:7361 Kernel.CzProdTC <> cmpz_lefts_map_inl thm
+R7369:7376 Kernel.UniversalCertificationCost <> cs_instr proj
+R7385:7403 Kernel.CzProdTC <> cmpz_rights_map_inl thm
+R7411:7418 Kernel.UniversalCertificationCost <> cs_instr proj
+R7439:7456 Kernel.CzProdTC <> cmpz_lefts_map_inr thm
+R7464:7471 Kernel.UniversalCertificationCost <> cs_instr proj
+R7480:7498 Kernel.CzProdTC <> cmpz_rights_map_inr thm
+R7506:7513 Kernel.UniversalCertificationCost <> cs_instr proj
+R7298:7311 Kernel.CzProd <> cmpz_lefts_app thm
+R7298:7311 Kernel.CzProd <> cmpz_lefts_app thm
+R7314:7328 Kernel.CzProd <> cmpz_rights_app thm
+R7314:7328 Kernel.CzProd <> cmpz_rights_app thm
+R7344:7361 Kernel.CzProdTC <> cmpz_lefts_map_inl thm
+R7369:7376 Kernel.UniversalCertificationCost <> cs_instr proj
+R7344:7361 Kernel.CzProdTC <> cmpz_lefts_map_inl thm
+R7369:7376 Kernel.UniversalCertificationCost <> cs_instr proj
+R7385:7403 Kernel.CzProdTC <> cmpz_rights_map_inl thm
+R7411:7418 Kernel.UniversalCertificationCost <> cs_instr proj
+R7385:7403 Kernel.CzProdTC <> cmpz_rights_map_inl thm
+R7411:7418 Kernel.UniversalCertificationCost <> cs_instr proj
+R7439:7456 Kernel.CzProdTC <> cmpz_lefts_map_inr thm
+R7464:7471 Kernel.UniversalCertificationCost <> cs_instr proj
+R7439:7456 Kernel.CzProdTC <> cmpz_lefts_map_inr thm
+R7464:7471 Kernel.UniversalCertificationCost <> cs_instr proj
+R7480:7498 Kernel.CzProdTC <> cmpz_rights_map_inr thm
+R7506:7513 Kernel.UniversalCertificationCost <> cs_instr proj
+R7480:7498 Kernel.CzProdTC <> cmpz_rights_map_inr thm
+R7506:7513 Kernel.UniversalCertificationCost <> cs_instr proj
+R7533:7541 Coq.Lists.List <> app_nil_r thm
+R7533:7541 Coq.Lists.List <> app_nil_r thm
+R7533:7541 Coq.Lists.List <> app_nil_r thm
+R7580:7589 Kernel.CzCS <> cmpz_cs_or def
+R7610:7620 Kernel.CzCS <> cmpz_cs_and def
+R7641:7656 Kernel.CzCS <> cmpz_cs_or_total thm
+R7677:7693 Kernel.CzCS <> cmpz_cs_and_total thm
+R7714:7729 Kernel.CzCS <> cmpz_cs_or_floor thm
+R7750:7766 Kernel.CzCS <> cmpz_cs_and_floor thm
+R7787:7803 Kernel.CzCS <> cmpz_cs_and_tight thm

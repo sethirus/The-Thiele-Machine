@@ -1,0 +1,864 @@
+DIGEST a168239a8bcf1c4ec99489263aac8a4c
+FKernel.NecFCounter
+R1855:1858 Coq.Lists.List <> <> lib
+R1860:1864 Coq.Arith.Arith <> <> lib
+R1866:1868 Coq.micromega.Lia <> <> lib
+R1870:1873 Coq.Bool.Bool <> <> lib
+R1883:1895 Coq.Lists.List ListNotations <> mod
+R1925:1946 Kernel.PermanentCertification <> <> lib
+R1976:1998 Kernel.CostSemanticsComparison <> <> lib
+R2028:2036 Kernel.NecFFloor <> <> lib
+rec 2074:2091 <> NecFCounterMachine
+proj 2117:2130 <> nec_f_cm_state
+proj 2142:2154 <> nec_f_cm_move
+proj 2166:2179 <> nec_f_cm_apply
+proj 2236:2248 <> nec_f_cm_init
+proj 2270:2279 <> nec_f_cm_c
+proj 2307:2317 <> nec_f_cm_mu
+proj 2346:2361 <> nec_f_cm_mu_init
+proj 2398:2413 <> nec_f_cm_mu_step
+R2197:2200 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2183:2196 Kernel.NecFCounter <> nec_f_cm_state:2 meth
+R2214:2217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2201:2213 Kernel.NecFCounter <> nec_f_cm_move:3 meth
+R2218:2231 Kernel.NecFCounter <> nec_f_cm_state:2 meth
+R2252:2265 Kernel.NecFCounter <> nec_f_cm_state:2 meth
+R2296:2299 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2283:2295 Kernel.NecFCounter <> nec_f_cm_move:3 meth
+R2300:2302 Coq.Init.Datatypes <> nat ind
+R2335:2338 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2321:2334 Kernel.NecFCounter <> nec_f_cm_state:2 meth
+R2339:2341 Coq.Init.Datatypes <> nat ind
+R2390:2392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2365:2375 Kernel.NecFCounter <> nec_f_cm_mu:7 meth
+R2377:2389 Kernel.NecFCounter <> nec_f_cm_init:5 meth
+binder 2424:2424 <> s:9
+binder 2426:2426 <> i:10
+R2461:2463 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2429:2439 Kernel.NecFCounter <> nec_f_cm_mu:7 meth
+R2442:2455 Kernel.NecFCounter <> nec_f_cm_apply:4 meth
+R2459:2459 Kernel.NecFCounter <> i:10 var
+R2457:2457 Kernel.NecFCounter <> s:9 var
+R2477:2479 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2464:2474 Kernel.NecFCounter <> nec_f_cm_mu:7 meth
+R2476:2476 Kernel.NecFCounter <> s:9 var
+R2480:2489 Kernel.NecFCounter <> nec_f_cm_c:6 meth
+R2491:2491 Kernel.NecFCounter <> i:10 var
+sec 2505:2511 <> Counter
+var 2524:2524 Counter M
+R2528:2545 Kernel.NecFCounter <> NecFCounterMachine rec
+abbrev 2557:2558 <> St
+R2564:2577 Kernel.NecFCounter <> nec_f_cm_state proj
+R2579:2579 Kernel.NecFCounter <> Counter.M var
+abbrev 2592:2593 <> Mv
+R2599:2611 Kernel.NecFCounter <> nec_f_cm_move proj
+R2613:2613 Kernel.NecFCounter <> Counter.M var
+abbrev 2626:2630 <> apply
+R2636:2649 Kernel.NecFCounter <> nec_f_cm_apply proj
+R2651:2651 Kernel.NecFCounter <> Counter.M var
+abbrev 2664:2664 <> c
+R2670:2679 Kernel.NecFCounter <> nec_f_cm_c proj
+R2681:2681 Kernel.NecFCounter <> Counter.M var
+abbrev 2694:2695 <> mu
+R2701:2711 Kernel.NecFCounter <> nec_f_cm_mu proj
+R2713:2713 Kernel.NecFCounter <> Counter.M var
+abbrev 2726:2729 <> init
+R2735:2747 Kernel.NecFCounter <> nec_f_cm_init proj
+R2749:2749 Kernel.NecFCounter <> Counter.M var
+def 2763:2774 <> nec_f_cm_run
+R2781:2784 Coq.Init.Datatypes <> list ind
+R2786:2787 Kernel.NecFCounter <> Mv abbrev
+binder 2777:2777 <> t:13
+R2795:2796 Kernel.NecFCounter <> St abbrev
+binder 2791:2791 <> s:14
+R2801:2802 Kernel.NecFCounter <> St abbrev
+R2815:2815 Kernel.NecFCounter <> t:13 var
+R2822:2823 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2828:2828 Kernel.NecFCounter <> s:14 var
+R2833:2836 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2843:2854 Kernel.NecFCounter <> nec_f_cm_run:15 def
+R2860:2864 Kernel.NecFCounter <> apply abbrev
+R2866:2866 Kernel.NecFCounter <> s:14 var
+def 2886:2899 <> nec_f_cm_price
+R2906:2909 Coq.Init.Datatypes <> list ind
+R2911:2912 Kernel.NecFCounter <> Mv abbrev
+binder 2902:2902 <> t:17
+R2917:2919 Coq.Init.Datatypes <> nat ind
+R2932:2932 Kernel.NecFCounter <> t:17 var
+R2939:2940 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2950:2953 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2963:2965 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2960:2960 Kernel.NecFCounter <> c abbrev
+R2966:2979 Kernel.NecFCounter <> nec_f_cm_price:18 def
+prf 2998:3015 <> nec_f_conservation
+binder 3026:3026 <> t:20
+binder 3028:3028 <> s:21
+R3052:3054 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3031:3032 Kernel.NecFCounter <> mu abbrev
+R3035:3046 Kernel.NecFCounter <> nec_f_cm_run def
+R3048:3048 Kernel.NecFCounter <> t:20 var
+R3050:3050 Kernel.NecFCounter <> s:21 var
+R3059:3061 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3055:3056 Kernel.NecFCounter <> mu abbrev
+R3058:3058 Kernel.NecFCounter <> s:21 var
+R3062:3075 Kernel.NecFCounter <> nec_f_cm_price def
+R3077:3077 Kernel.NecFCounter <> t:20 var
+R3157:3172 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R3174:3174 Kernel.NecFCounter <> Counter.M var
+R3157:3172 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R3174:3174 Kernel.NecFCounter <> Counter.M var
+R3157:3172 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R3174:3174 Kernel.NecFCounter <> Counter.M var
+prf 3199:3220 <> nec_f_counter_monotone
+binder 3231:3231 <> t:22
+binder 3233:3233 <> s:23
+R3240:3243 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3236:3237 Kernel.NecFCounter <> mu abbrev
+R3239:3239 Kernel.NecFCounter <> s:23 var
+R3244:3245 Kernel.NecFCounter <> mu abbrev
+R3248:3259 Kernel.NecFCounter <> nec_f_cm_run def
+R3261:3261 Kernel.NecFCounter <> t:22 var
+R3263:3263 Kernel.NecFCounter <> s:23 var
+R3294:3311 Kernel.NecFCounter <> nec_f_conservation thm
+R3294:3311 Kernel.NecFCounter <> nec_f_conservation thm
+R3294:3311 Kernel.NecFCounter <> nec_f_conservation thm
+ind 3335:3348 <> nec_f_cm_reach
+constr 3368:3381 <> nec_f_cmr_init
+constr 3407:3420 <> nec_f_cmr_step
+R3354:3357 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3352:3353 Kernel.NecFCounter <> St abbrev
+R3385:3398 Kernel.NecFCounter <> nec_f_cm_reach:24 ind
+R3400:3403 Kernel.NecFCounter <> init abbrev
+binder 3431:3431 <> s:26
+binder 3433:3433 <> i:27
+R3452:3455 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3436:3449 Kernel.NecFCounter <> nec_f_cm_reach:24 ind
+R3451:3451 Kernel.NecFCounter <> s:26 var
+R3456:3469 Kernel.NecFCounter <> nec_f_cm_reach:24 ind
+R3472:3476 Kernel.NecFCounter <> apply abbrev
+R3478:3478 Kernel.NecFCounter <> s:26 var
+R3480:3480 Kernel.NecFCounter <> i:27 var
+scheme 3335:3348 <> nec_f_cm_reach_ind
+scheme 3335:3348 <> nec_f_cm_reach_sind
+prf 3564:3594 <> nec_f_initiality_reachable_rule
+R3613:3616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3611:3612 Kernel.NecFCounter <> St abbrev
+R3617:3619 Coq.Init.Datatypes <> nat ind
+binder 3607:3607 <> B:28
+R3636:3643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3632:3634 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3626:3626 Kernel.NecFCounter <> B:28 var
+R3628:3631 Kernel.NecFCounter <> init abbrev
+R3644:3644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3702:3710 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3652:3652 <> s:29
+binder 3654:3654 <> i:30
+R3673:3676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3657:3670 Kernel.NecFCounter <> nec_f_cm_reach ind
+R3672:3672 Kernel.NecFCounter <> s:29 var
+R3690:3692 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3677:3677 Kernel.NecFCounter <> B:28 var
+R3680:3684 Kernel.NecFCounter <> apply abbrev
+R3686:3686 Kernel.NecFCounter <> s:29 var
+R3688:3688 Kernel.NecFCounter <> i:30 var
+R3696:3698 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3693:3693 Kernel.NecFCounter <> B:28 var
+R3695:3695 Kernel.NecFCounter <> s:29 var
+R3699:3699 Kernel.NecFCounter <> c abbrev
+R3701:3701 Kernel.NecFCounter <> i:30 var
+binder 3718:3718 <> s:31
+R3737:3740 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3721:3734 Kernel.NecFCounter <> nec_f_cm_reach ind
+R3736:3736 Kernel.NecFCounter <> s:31 var
+R3744:3746 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3741:3741 Kernel.NecFCounter <> B:28 var
+R3743:3743 Kernel.NecFCounter <> s:31 var
+R3747:3748 Kernel.NecFCounter <> mu abbrev
+R3750:3750 Kernel.NecFCounter <> s:31 var
+R3834:3849 Kernel.NecFCounter <> nec_f_cm_mu_init proj
+R3851:3851 Kernel.NecFCounter <> Counter.M var
+R3834:3849 Kernel.NecFCounter <> nec_f_cm_mu_init proj
+R3851:3851 Kernel.NecFCounter <> Counter.M var
+R3834:3849 Kernel.NecFCounter <> nec_f_cm_mu_init proj
+R3851:3851 Kernel.NecFCounter <> Counter.M var
+R3901:3916 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R3918:3918 Kernel.NecFCounter <> Counter.M var
+R3901:3916 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R3918:3918 Kernel.NecFCounter <> Counter.M var
+R3901:3916 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R3918:3918 Kernel.NecFCounter <> Counter.M var
+prf 3978:3993 <> nec_f_initiality
+R4012:4015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4010:4011 Kernel.NecFCounter <> St abbrev
+R4016:4018 Coq.Init.Datatypes <> nat ind
+binder 4006:4006 <> B:32
+R4035:4042 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4031:4033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4025:4025 Kernel.NecFCounter <> B:32 var
+R4027:4030 Kernel.NecFCounter <> init abbrev
+R4043:4043 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4081:4089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4051:4051 <> s:33
+binder 4053:4053 <> i:34
+R4069:4071 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4056:4056 Kernel.NecFCounter <> B:32 var
+R4059:4063 Kernel.NecFCounter <> apply abbrev
+R4065:4065 Kernel.NecFCounter <> s:33 var
+R4067:4067 Kernel.NecFCounter <> i:34 var
+R4075:4077 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4072:4072 Kernel.NecFCounter <> B:32 var
+R4074:4074 Kernel.NecFCounter <> s:33 var
+R4078:4078 Kernel.NecFCounter <> c abbrev
+R4080:4080 Kernel.NecFCounter <> i:34 var
+binder 4097:4097 <> s:35
+R4116:4119 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4100:4113 Kernel.NecFCounter <> nec_f_cm_reach ind
+R4115:4115 Kernel.NecFCounter <> s:35 var
+R4123:4125 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4120:4120 Kernel.NecFCounter <> B:32 var
+R4122:4122 Kernel.NecFCounter <> s:35 var
+R4126:4127 Kernel.NecFCounter <> mu abbrev
+R4129:4129 Kernel.NecFCounter <> s:35 var
+R4166:4196 Kernel.NecFCounter <> nec_f_initiality_reachable_rule thm
+R4166:4196 Kernel.NecFCounter <> nec_f_initiality_reachable_rule thm
+prf 4394:4413 <> nec_f_initiality_iff
+R4432:4435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4430:4431 Kernel.NecFCounter <> St abbrev
+R4436:4438 Coq.Init.Datatypes <> nat ind
+binder 4426:4426 <> B:36
+R4455:4463 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4575:4575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4451:4453 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4445:4445 Kernel.NecFCounter <> B:36 var
+R4447:4450 Kernel.NecFCounter <> init abbrev
+R4464:4464 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4505:4516 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4574:4574 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+binder 4472:4472 <> s:37
+R4491:4494 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4475:4488 Kernel.NecFCounter <> nec_f_cm_reach ind
+R4490:4490 Kernel.NecFCounter <> s:37 var
+R4498:4500 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4495:4495 Kernel.NecFCounter <> B:36 var
+R4497:4497 Kernel.NecFCounter <> s:37 var
+R4501:4502 Kernel.NecFCounter <> mu abbrev
+R4504:4504 Kernel.NecFCounter <> s:37 var
+binder 4524:4524 <> s:38
+binder 4526:4526 <> i:39
+R4545:4548 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4529:4542 Kernel.NecFCounter <> nec_f_cm_reach ind
+R4544:4544 Kernel.NecFCounter <> s:38 var
+R4562:4564 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4549:4549 Kernel.NecFCounter <> B:36 var
+R4552:4556 Kernel.NecFCounter <> apply abbrev
+R4558:4558 Kernel.NecFCounter <> s:38 var
+R4560:4560 Kernel.NecFCounter <> i:39 var
+R4568:4570 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4565:4565 Kernel.NecFCounter <> B:36 var
+R4567:4567 Kernel.NecFCounter <> s:38 var
+R4571:4571 Kernel.NecFCounter <> c abbrev
+R4573:4573 Kernel.NecFCounter <> i:39 var
+R4656:4669 Kernel.NecFCounter <> nec_f_cmr_step constr
+R4656:4669 Kernel.NecFCounter <> nec_f_cmr_step constr
+R4656:4669 Kernel.NecFCounter <> nec_f_cmr_step constr
+R4703:4718 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R4720:4720 Kernel.NecFCounter <> Counter.M var
+R4703:4718 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R4720:4720 Kernel.NecFCounter <> Counter.M var
+R4747:4777 Kernel.NecFCounter <> nec_f_initiality_reachable_rule thm
+R4747:4777 Kernel.NecFCounter <> nec_f_initiality_reachable_rule thm
+prf 4870:4896 <> nec_f_conservation_iff_rule
+R4915:4918 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4913:4914 Kernel.NecFCounter <> St abbrev
+R4919:4921 Coq.Init.Datatypes <> nat ind
+binder 4909:4909 <> m:40
+R4928:4928 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4986:4996 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5034:5034 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+binder 4936:4936 <> t:41
+binder 4938:4938 <> s:42
+R4961:4963 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4941:4941 Kernel.NecFCounter <> m:40 var
+R4944:4955 Kernel.NecFCounter <> nec_f_cm_run def
+R4957:4957 Kernel.NecFCounter <> t:41 var
+R4959:4959 Kernel.NecFCounter <> s:42 var
+R4967:4969 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4964:4964 Kernel.NecFCounter <> m:40 var
+R4966:4966 Kernel.NecFCounter <> s:42 var
+R4970:4983 Kernel.NecFCounter <> nec_f_cm_price def
+R4985:4985 Kernel.NecFCounter <> t:41 var
+binder 5004:5004 <> s:43
+binder 5006:5006 <> i:44
+R5022:5024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5009:5009 Kernel.NecFCounter <> m:40 var
+R5012:5016 Kernel.NecFCounter <> apply abbrev
+R5018:5018 Kernel.NecFCounter <> s:43 var
+R5020:5020 Kernel.NecFCounter <> i:44 var
+R5028:5030 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5025:5025 Kernel.NecFCounter <> m:40 var
+R5027:5027 Kernel.NecFCounter <> s:43 var
+R5031:5031 Kernel.NecFCounter <> c abbrev
+R5033:5033 Kernel.NecFCounter <> i:44 var
+R5094:5094 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5096:5096 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5094:5094 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5096:5096 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+prf 5300:5335 <> nec_f_finite_counter_charges_nothing
+R5354:5357 Coq.Init.Datatypes <> list ind
+R5359:5360 Kernel.NecFCounter <> St abbrev
+binder 5348:5350 <> all:45
+R5380:5383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5363:5375 Kernel.PermanentCertification <> finite_states def
+R5377:5379 Kernel.NecFCounter <> all:45 var
+binder 5391:5391 <> i:46
+R5397:5399 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5394:5394 Kernel.NecFCounter <> c abbrev
+R5396:5396 Kernel.NecFCounter <> i:46 var
+R5493:5499 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5501:5502 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5500:5500 <> s:47
+binder 5510:5510 <> t:48
+R5531:5534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5513:5514 Coq.Lists.List <> In def
+R5523:5526 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5519:5522 Kernel.NecFCounter <> init abbrev
+R5516:5516 Kernel.NecFCounter <> t:48 var
+R5539:5542 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5535:5536 Kernel.NecFCounter <> mu abbrev
+R5538:5538 Kernel.NecFCounter <> t:48 var
+R5543:5544 Kernel.NecFCounter <> mu abbrev
+R5546:5546 Kernel.NecFCounter <> s:47 var
+R5493:5499 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5501:5502 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5500:5500 <> s:49
+binder 5510:5510 <> t:50
+R5531:5534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5513:5514 Coq.Lists.List <> In def
+R5523:5526 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5519:5522 Kernel.NecFCounter <> init abbrev
+R5516:5516 Kernel.NecFCounter <> t:50 var
+R5539:5542 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5535:5536 Kernel.NecFCounter <> mu abbrev
+R5538:5538 Kernel.NecFCounter <> t:50 var
+R5543:5544 Kernel.NecFCounter <> mu abbrev
+R5546:5546 Kernel.NecFCounter <> s:49 var
+R5570:5573 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5566:5569 Kernel.NecFCounter <> init abbrev
+R5570:5573 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5566:5569 Kernel.NecFCounter <> init abbrev
+R5625:5628 Kernel.NecFCounter <> init abbrev
+R5625:5628 Kernel.NecFCounter <> init abbrev
+R5683:5691 Coq.Arith.Compare_dec <> le_lt_dec def
+R5694:5695 Kernel.NecFCounter <> mu abbrev
+R5701:5702 Kernel.NecFCounter <> mu abbrev
+R5683:5691 Coq.Arith.Compare_dec <> le_lt_dec def
+R5694:5695 Kernel.NecFCounter <> mu abbrev
+R5701:5702 Kernel.NecFCounter <> mu abbrev
+R5916:5920 Kernel.NecFCounter <> apply abbrev
+R5928:5936 Coq.Init.Logic <> or_intror constr
+R5916:5920 Kernel.NecFCounter <> apply abbrev
+R5928:5936 Coq.Init.Logic <> or_intror constr
+R5967:5982 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R5984:5984 Kernel.NecFCounter <> Counter.M var
+R5967:5982 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R5984:5984 Kernel.NecFCounter <> Counter.M var
+R5967:5982 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R5984:5984 Kernel.NecFCounter <> Counter.M var
+R6009:6015 Kernel.NecFCounter Counter <> sec
+prf 6154:6186 <> nec_f_initiality_needs_zero_start
+R6203:6220 Kernel.NecFCounter <> NecFCounterMachine rec
+binder 6199:6199 <> M:51
+binder 6240:6240 <> s:52
+R6260:6262 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6245:6255 Kernel.NecFCounter <> nec_f_cm_mu proj
+R6257:6257 Kernel.NecFCounter <> M:51 var
+R6259:6259 Kernel.NecFCounter <> s:52 var
+binder 6231:6231 <> B:53
+R6272:6272 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6332:6341 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6374:6374 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 6280:6280 <> s:54
+binder 6282:6282 <> i:55
+R6309:6311 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6285:6285 Kernel.NecFCounter <> B:53 var
+R6288:6301 Kernel.NecFCounter <> nec_f_cm_apply proj
+R6303:6303 Kernel.NecFCounter <> M:51 var
+R6305:6305 Kernel.NecFCounter <> s:54 var
+R6307:6307 Kernel.NecFCounter <> i:55 var
+R6315:6317 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6312:6312 Kernel.NecFCounter <> B:53 var
+R6314:6314 Kernel.NecFCounter <> s:54 var
+R6318:6327 Kernel.NecFCounter <> nec_f_cm_c proj
+R6329:6329 Kernel.NecFCounter <> M:51 var
+R6331:6331 Kernel.NecFCounter <> i:55 var
+binder 6349:6349 <> s:56
+R6355:6358 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6352:6352 Kernel.NecFCounter <> B:53 var
+R6354:6354 Kernel.NecFCounter <> s:56 var
+R6359:6369 Kernel.NecFCounter <> nec_f_cm_mu proj
+R6371:6371 Kernel.NecFCounter <> M:51 var
+R6373:6373 Kernel.NecFCounter <> s:56 var
+R6440:6455 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R6440:6455 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R6440:6455 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+def 6702:6714 <> nec_f_idle_cm
+R6718:6735 Kernel.NecFCounter <> NecFCounterMachine rec
+R6745:6758 Kernel.NecFCounter <> nec_f_cm_state proj
+R6745:6758 Kernel.NecFCounter <> nec_f_cm_state proj
+R6745:6758 Kernel.NecFCounter <> nec_f_cm_state proj
+R6769:6781 Kernel.NecFCounter <> nec_f_cm_move proj
+R6769:6781 Kernel.NecFCounter <> nec_f_cm_move proj
+R6797:6810 Kernel.NecFCounter <> nec_f_cm_apply proj
+R6797:6810 Kernel.NecFCounter <> nec_f_cm_apply proj
+R6829:6841 Kernel.NecFCounter <> nec_f_cm_init proj
+R6829:6841 Kernel.NecFCounter <> nec_f_cm_init proj
+R6858:6867 Kernel.NecFCounter <> nec_f_cm_c proj
+R6858:6867 Kernel.NecFCounter <> nec_f_cm_c proj
+R6889:6899 Kernel.NecFCounter <> nec_f_cm_mu proj
+R6889:6899 Kernel.NecFCounter <> nec_f_cm_mu proj
+R6938:6953 Kernel.NecFCounter <> nec_f_cm_mu_init proj
+R6938:6953 Kernel.NecFCounter <> nec_f_cm_mu_init proj
+R6972:6987 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R6972:6987 Kernel.NecFCounter <> nec_f_cm_mu_step proj
+R6763:6766 Coq.Init.Datatypes <> bool ind
+R6786:6789 Coq.Init.Datatypes <> unit ind
+binder 6819:6819 <> s:57
+R6826:6826 Kernel.NecFCounter <> s:57 var
+R6846:6850 Coq.Init.Datatypes <> false constr
+binder 6908:6908 <> s:58
+R6916:6916 Kernel.NecFCounter <> s:58 var
+R6958:6964 Coq.Init.Logic <> eq_refl constr
+binder 6996:6996 <> s:59
+R7003:7008 Coq.Init.Logic <> eq_sym thm
+R7011:7021 Coq.Arith.PeanoNat Nat add_0_r thm
+prf 7039:7070 <> nec_f_initiality_needs_reachable
+R7093:7096 Coq.Init.Datatypes <> bool ind
+binder 7089:7089 <> s:60
+R7104:7104 Kernel.NecFCounter <> s:60 var
+binder 7080:7080 <> B:61
+R7160:7165 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7156:7158 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7125:7125 Kernel.NecFCounter <> B:61 var
+R7128:7140 Kernel.NecFCounter <> nec_f_cm_init proj
+R7142:7154 Kernel.NecFCounter <> nec_f_idle_cm def
+R7166:7166 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7250:7256 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7174:7174 <> s:62
+binder 7176:7176 <> i:63
+R7215:7217 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7179:7179 Kernel.NecFCounter <> B:61 var
+R7182:7195 Kernel.NecFCounter <> nec_f_cm_apply proj
+R7197:7209 Kernel.NecFCounter <> nec_f_idle_cm def
+R7211:7211 Kernel.NecFCounter <> s:62 var
+R7213:7213 Kernel.NecFCounter <> i:63 var
+R7221:7223 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7218:7218 Kernel.NecFCounter <> B:61 var
+R7220:7220 Kernel.NecFCounter <> s:62 var
+R7224:7233 Kernel.NecFCounter <> nec_f_cm_c proj
+R7235:7247 Kernel.NecFCounter <> nec_f_idle_cm def
+R7249:7249 Kernel.NecFCounter <> i:63 var
+R7292:7297 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7257:7258 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7259:7272 Kernel.NecFCounter <> nec_f_cm_reach ind
+R7288:7291 Coq.Init.Datatypes <> true constr
+R7274:7286 Kernel.NecFCounter <> nec_f_idle_cm def
+R7304:7307 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7298:7298 Kernel.NecFCounter <> B:61 var
+R7300:7303 Coq.Init.Datatypes <> true constr
+R7308:7318 Kernel.NecFCounter <> nec_f_cm_mu proj
+R7320:7332 Kernel.NecFCounter <> nec_f_idle_cm def
+R7334:7337 Coq.Init.Datatypes <> true constr
+R7444:7447 Coq.Init.Datatypes <> true constr
+R7444:7447 Coq.Init.Datatypes <> true constr
+sec 7616:7619 <> Fold
+var 7634:7634 Fold I
+var 7636:7636 Fold T
+var 7656:7660 Fold tstep
+R7665:7668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7664:7664 Kernel.NecFCounter <> Fold.T var
+R7670:7673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7669:7669 Kernel.NecFCounter <> Fold.I var
+R7674:7674 Kernel.NecFCounter <> Fold.T var
+var 7686:7687 Fold t0
+R7691:7691 Kernel.NecFCounter <> Fold.T var
+def 7706:7715 <> nec_f_fold
+R7722:7725 Coq.Init.Datatypes <> list ind
+R7727:7727 Kernel.NecFCounter <> Fold.I var
+binder 7718:7718 <> l:68
+R7732:7732 Kernel.NecFCounter <> Fold.T var
+R7737:7745 Coq.Lists.List <> fold_left def
+R7755:7756 Kernel.NecFCounter <> Fold.t0 var
+R7753:7753 Kernel.NecFCounter <> l:68 var
+R7747:7751 Kernel.NecFCounter <> Fold.tstep var
+prf 7892:7908 <> nec_f_fold_unique
+R7931:7934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7925:7928 Coq.Init.Datatypes <> list ind
+R7930:7930 Kernel.NecFCounter <> Fold.I var
+R7935:7935 Kernel.NecFCounter <> Fold.T var
+binder 7921:7921 <> g:69
+R7951:7958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7946:7948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7942:7942 Kernel.NecFCounter <> g:69 var
+R7944:7945 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7949:7950 Kernel.NecFCounter <> Fold.t0 var
+R7959:7959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8000:8008 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 7967:7967 <> l:70
+binder 7969:7969 <> i:71
+R7984:7986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7972:7972 Kernel.NecFCounter <> g:69 var
+R7976:7979 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7975:7975 Kernel.NecFCounter <> l:70 var
+R7980:7980 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7982:7982 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7981:7981 Kernel.NecFCounter <> i:71 var
+R7987:7991 Kernel.NecFCounter <> Fold.tstep var
+R7994:7994 Kernel.NecFCounter <> g:69 var
+R7996:7996 Kernel.NecFCounter <> l:70 var
+R7999:7999 Kernel.NecFCounter <> i:71 var
+binder 8016:8016 <> l:72
+R8022:8024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8019:8019 Kernel.NecFCounter <> g:69 var
+R8021:8021 Kernel.NecFCounter <> l:72 var
+R8025:8034 Kernel.NecFCounter <> nec_f_fold def
+R8036:8036 Kernel.NecFCounter <> l:72 var
+R8098:8104 Coq.Lists.List <> rev_ind thm
+R8098:8104 Coq.Lists.List <> rev_ind thm
+R8148:8157 Kernel.NecFCounter <> nec_f_fold def
+R8168:8180 Coq.Lists.List <> fold_left_app thm
+R8168:8180 Coq.Lists.List <> fold_left_app thm
+R8168:8180 Coq.Lists.List <> fold_left_app thm
+prf 8344:8366 <> nec_f_additive_is_price
+R8385:8388 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8384:8384 Kernel.NecFCounter <> Fold.I var
+R8389:8391 Coq.Init.Datatypes <> nat ind
+binder 8380:8380 <> c:73
+R8405:8408 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8399:8402 Coq.Init.Datatypes <> list ind
+R8404:8404 Kernel.NecFCounter <> Fold.I var
+R8409:8411 Coq.Init.Datatypes <> nat ind
+binder 8395:8395 <> g:74
+R8419:8419 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8457:8465 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8427:8427 <> l:75
+binder 8429:8430 <> l':76
+R8444:8446 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8433:8433 Kernel.NecFCounter <> g:74 var
+R8437:8440 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8436:8436 Kernel.NecFCounter <> l:75 var
+R8441:8442 Kernel.NecFCounter <> l':76 var
+R8450:8452 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8447:8447 Kernel.NecFCounter <> g:74 var
+R8449:8449 Kernel.NecFCounter <> l:75 var
+R8453:8453 Kernel.NecFCounter <> g:74 var
+R8455:8456 Kernel.NecFCounter <> l':76 var
+R8466:8466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8488:8496 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8474:8474 <> i:77
+R8482:8484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8477:8477 Kernel.NecFCounter <> g:74 var
+R8479:8479 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8481:8481 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8480:8480 Kernel.NecFCounter <> i:77 var
+R8485:8485 Kernel.NecFCounter <> c:73 var
+R8487:8487 Kernel.NecFCounter <> i:77 var
+binder 8504:8504 <> l:78
+R8510:8512 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8507:8507 Kernel.NecFCounter <> g:74 var
+R8509:8509 Kernel.NecFCounter <> l:78 var
+R8513:8522 Coq.Lists.List <> fold_right def
+R8551:8551 Kernel.NecFCounter <> l:78 var
+binder 8529:8529 <> i:79
+binder 8531:8533 <> acc:80
+R8541:8543 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8538:8538 Kernel.NecFCounter <> c:73 var
+R8540:8540 Kernel.NecFCounter <> i:79 var
+R8544:8546 Kernel.NecFCounter <> acc:80 var
+R8604:8606 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8602:8603 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8631:8632 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8634:8635 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8604:8606 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8602:8603 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8631:8632 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8634:8635 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8745:8748 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8761:8764 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8758:8758 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8760:8760 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8745:8748 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8761:8764 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8758:8758 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8760:8760 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+var 8796:8796 Fold S
+var 8815:8819 Fold apply
+R8824:8827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8823:8823 Kernel.NecFCounter <> Fold.S var
+R8829:8832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8828:8828 Kernel.NecFCounter <> Fold.I var
+R8833:8833 Kernel.NecFCounter <> Fold.S var
+var 8845:8846 Fold s0
+R8850:8850 Kernel.NecFCounter <> Fold.S var
+def 8865:8873 <> nec_f_src
+R8880:8883 Coq.Init.Datatypes <> list ind
+R8885:8885 Kernel.NecFCounter <> Fold.I var
+binder 8876:8876 <> l:84
+R8890:8890 Kernel.NecFCounter <> Fold.S var
+R8895:8903 Coq.Lists.List <> fold_left def
+R8913:8914 Kernel.NecFCounter <> Fold.s0 var
+R8911:8911 Kernel.NecFCounter <> l:84 var
+R8905:8909 Kernel.NecFCounter <> Fold.apply var
+def 9031:9043 <> nec_f_descent
+binder 9064:9064 <> l:85
+binder 9066:9067 <> l':86
+R9096:9099 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9081:9083 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9070:9078 Kernel.NecFCounter <> nec_f_src def
+R9080:9080 Kernel.NecFCounter <> l:85 var
+R9084:9092 Kernel.NecFCounter <> nec_f_src def
+R9094:9095 Kernel.NecFCounter <> l':86 var
+R9112:9114 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9100:9109 Kernel.NecFCounter <> nec_f_fold def
+R9111:9111 Kernel.NecFCounter <> l:85 var
+R9115:9124 Kernel.NecFCounter <> nec_f_fold def
+R9126:9127 Kernel.NecFCounter <> l':86 var
+def 9224:9237 <> nec_f_descends
+R9244:9244 Kernel.NecFCounter <> Fold.S var
+binder 9240:9240 <> s:87
+R9252:9252 Kernel.NecFCounter <> Fold.T var
+binder 9248:9248 <> t:88
+R9267:9273 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9275:9276 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9274:9274 <> l:89
+R9292:9295 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9288:9290 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9277:9285 Kernel.NecFCounter <> nec_f_src def
+R9287:9287 Kernel.NecFCounter <> l:89 var
+R9291:9291 Kernel.NecFCounter <> s:87 var
+R9308:9310 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9296:9305 Kernel.NecFCounter <> nec_f_fold def
+R9307:9307 Kernel.NecFCounter <> l:89 var
+R9311:9311 Kernel.NecFCounter <> t:88 var
+prf 9394:9419 <> nec_f_factor_gives_descent
+R9425:9425 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9485:9489 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9426:9432 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9443:9444 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9438:9441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9437:9437 Kernel.NecFCounter <> Fold.S var
+R9442:9442 Kernel.NecFCounter <> Fold.T var
+binder 9433:9433 <> h:90
+binder 9452:9452 <> l:91
+R9470:9472 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9455:9455 Kernel.NecFCounter <> h:90 var
+R9458:9466 Kernel.NecFCounter <> nec_f_src def
+R9468:9468 Kernel.NecFCounter <> l:91 var
+R9473:9482 Kernel.NecFCounter <> nec_f_fold def
+R9484:9484 Kernel.NecFCounter <> l:91 var
+R9490:9502 Kernel.NecFCounter <> nec_f_descent def
+prf 9734:9761 <> nec_f_descent_iff_functional
+R9780:9785 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9852:9852 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9767:9779 Kernel.NecFCounter <> nec_f_descent def
+binder 9793:9793 <> s:92
+binder 9795:9795 <> t:93
+binder 9797:9798 <> t':94
+R9819:9822 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9801:9814 Kernel.NecFCounter <> nec_f_descends def
+R9816:9816 Kernel.NecFCounter <> s:92 var
+R9818:9818 Kernel.NecFCounter <> t:93 var
+R9842:9845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9823:9836 Kernel.NecFCounter <> nec_f_descends def
+R9838:9838 Kernel.NecFCounter <> s:92 var
+R9840:9841 Kernel.NecFCounter <> t':94 var
+R9847:9849 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9846:9846 Kernel.NecFCounter <> t:93 var
+R9850:9851 Kernel.NecFCounter <> t':94 var
+R9978:9986 Kernel.NecFCounter <> nec_f_src def
+R9978:9986 Kernel.NecFCounter <> nec_f_src def
+R10040:10043 Kernel.NecFCounter Fold <> sec
+prf 10310:10340 <> nec_f_descent_fails_for_history
+R10430:10435 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10346:10371 Kernel.CostSemanticsComparison <> a2 def
+binder 10423:10423 <> b:95
+R10428:10428 Kernel.NecFCounter <> b:95 var
+R10403:10416 Kernel.NecFFloor <> nec_f_bit_cost def
+R10388:10401 Kernel.NecFFloor <> nec_f_bit_step def
+R10378:10386 Kernel.NecFFloor <> NecFBitOp ind
+R10373:10376 Coq.Init.Datatypes <> bool ind
+R10436:10437 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10438:10450 Kernel.NecFCounter <> nec_f_descent def
+R10522:10526 Coq.Init.Datatypes <> false constr
+R10507:10520 Kernel.NecFFloor <> nec_f_bit_step def
+R10502:10505 Coq.Init.Datatypes <> bool ind
+R10499:10500 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+binder 10484:10484 <> h:96
+binder 10486:10486 <> i:97
+R10492:10495 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R10491:10491 Kernel.NecFCounter <> i:97 var
+R10496:10496 Kernel.NecFCounter <> h:96 var
+R10463:10466 Coq.Init.Datatypes <> list ind
+R10468:10476 Kernel.NecFFloor <> NecFBitOp ind
+R10452:10460 Kernel.NecFFloor <> NecFBitOp ind
+R10552:10563 Kernel.NecFFloor <> nec_f_bit_a2 thm
+R10552:10563 Kernel.NecFFloor <> nec_f_bit_a2 thm
+R10594:10594 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10602:10602 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10595:10601 Kernel.NecFFloor <> NecFSet constr
+R10604:10604 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10614:10615 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10623:10623 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10605:10613 Kernel.NecFFloor <> NecFReset constr
+R10616:10622 Kernel.NecFFloor <> NecFSet constr
+R10625:10631 Coq.Init.Logic <> eq_refl constr
+R10594:10594 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10602:10602 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10595:10601 Kernel.NecFFloor <> NecFSet constr
+R10604:10604 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10614:10615 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10623:10623 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10605:10613 Kernel.NecFFloor <> NecFReset constr
+R10616:10622 Kernel.NecFFloor <> NecFSet constr
+R10625:10631 Coq.Init.Logic <> eq_refl constr
+R10644:10653 Kernel.NecFCounter <> nec_f_fold def
+sec 10746:10754 <> Potential
+var 10769:10769 Potential S
+var 10771:10771 Potential I
+var 10791:10794 Potential step
+R10799:10802 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10798:10798 Kernel.NecFCounter <> Potential.S var
+R10804:10807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10803:10803 Kernel.NecFCounter <> Potential.I var
+R10808:10808 Kernel.NecFCounter <> Potential.S var
+var 10820:10823 Potential cost
+R10828:10831 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10827:10827 Kernel.NecFCounter <> Potential.I var
+R10832:10834 Coq.Init.Datatypes <> nat ind
+abbrev 10847:10849 <> run
+R10855:10881 Kernel.CostSemanticsComparison <> run def
+R10887:10890 Kernel.NecFCounter <> Potential.step var
+R10885:10885 Kernel.NecFCounter <> Potential.I var
+R10883:10883 Kernel.NecFCounter <> Potential.S var
+abbrev 10903:10907 <> total
+R10913:10941 Kernel.CostSemanticsComparison <> total def
+R10945:10948 Kernel.NecFCounter <> Potential.cost var
+R10943:10943 Kernel.NecFCounter <> Potential.I var
+prf 11069:11093 <> nec_f_potential_bound_iff
+R11113:11116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11112:11112 Kernel.NecFCounter <> Potential.S var
+R11117:11119 Coq.Init.Datatypes <> nat ind
+binder 11106:11108 <> Phi:102
+R11160:11165 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11210:11210 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11126:11141 Kernel.CostSemanticsComparison <> amortized_nonneg def
+R11157:11159 Kernel.NecFCounter <> Phi:102 var
+R11152:11155 Kernel.NecFCounter <> Potential.cost var
+R11147:11150 Kernel.NecFCounter <> Potential.step var
+R11145:11145 Kernel.NecFCounter <> Potential.I var
+R11143:11143 Kernel.NecFCounter <> Potential.S var
+binder 11173:11173 <> t:103
+binder 11175:11175 <> s:104
+R11201:11204 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11185:11187 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11178:11182 Kernel.NecFCounter <> total abbrev
+R11184:11184 Kernel.NecFCounter <> t:103 var
+R11188:11190 Kernel.NecFCounter <> Phi:102 var
+R11193:11195 Kernel.NecFCounter <> run abbrev
+R11197:11197 Kernel.NecFCounter <> t:103 var
+R11199:11199 Kernel.NecFCounter <> s:104 var
+R11205:11207 Kernel.NecFCounter <> Phi:102 var
+R11209:11209 Kernel.NecFCounter <> s:104 var
+R11250:11270 Kernel.CostSemanticsComparison <> potential_telescoping thm
+R11250:11270 Kernel.CostSemanticsComparison <> potential_telescoping thm
+R11305:11305 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11307:11307 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11305:11305 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11307:11307 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+def 11345:11364 <> nec_f_zero_amortized
+R11374:11377 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11373:11373 Kernel.NecFCounter <> Potential.S var
+R11378:11380 Coq.Init.Datatypes <> nat ind
+binder 11367:11369 <> Phi:105
+R11388:11391 Coq.Init.Datatypes <> list ind
+R11393:11393 Kernel.NecFCounter <> Potential.I var
+binder 11384:11384 <> t:106
+R11401:11401 Kernel.NecFCounter <> Potential.S var
+binder 11397:11397 <> s:107
+R11422:11422 Kernel.NecFCounter <> t:106 var
+R11433:11434 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11439:11442 Coq.Init.Logic <> True ind
+R11449:11452 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R11490:11493 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11482:11484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11465:11467 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11459:11462 Kernel.NecFCounter <> Potential.cost var
+R11468:11470 Kernel.NecFCounter <> Phi:105 var
+R11473:11476 Kernel.NecFCounter <> Potential.step var
+R11478:11478 Kernel.NecFCounter <> s:107 var
+R11485:11487 Kernel.NecFCounter <> Phi:105 var
+R11489:11489 Kernel.NecFCounter <> s:107 var
+R11494:11513 Kernel.NecFCounter <> nec_f_zero_amortized:108 def
+R11523:11526 Kernel.NecFCounter <> Potential.step var
+R11528:11528 Kernel.NecFCounter <> s:107 var
+R11515:11517 Kernel.NecFCounter <> Phi:105 var
+prf 11625:11651 <> nec_f_potential_bound_exact
+binder 11664:11666 <> Phi:110
+binder 11668:11668 <> t:111
+binder 11670:11670 <> s:112
+R11701:11704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11673:11692 Kernel.NecFCounter <> nec_f_zero_amortized def
+R11694:11696 Kernel.NecFCounter <> Phi:110 var
+R11698:11698 Kernel.NecFCounter <> t:111 var
+R11700:11700 Kernel.NecFCounter <> s:112 var
+R11728:11730 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11712:11714 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11705:11709 Kernel.NecFCounter <> total abbrev
+R11711:11711 Kernel.NecFCounter <> t:111 var
+R11715:11717 Kernel.NecFCounter <> Phi:110 var
+R11720:11722 Kernel.NecFCounter <> run abbrev
+R11724:11724 Kernel.NecFCounter <> t:111 var
+R11726:11726 Kernel.NecFCounter <> s:112 var
+R11731:11733 Kernel.NecFCounter <> Phi:110 var
+R11735:11735 Kernel.NecFCounter <> s:112 var
+R11883:11891 Kernel.NecFCounter Potential <> sec
+prf 12051:12078 <> nec_f_potential_one_attained
+R12204:12209 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12084:12103 Kernel.NecFCounter <> nec_f_zero_amortized def
+R12155:12168 Kernel.CostSemanticsComparison <> cert_potential def
+binder 12180:12180 <> b:113
+R12185:12185 Kernel.NecFCounter <> b:113 var
+R12170:12173 Coq.Init.Datatypes <> bool ind
+R12189:12189 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12197:12197 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12190:12196 Kernel.NecFFloor <> NecFSet constr
+R12199:12203 Coq.Init.Datatypes <> false constr
+R12135:12148 Kernel.NecFFloor <> nec_f_bit_cost def
+R12120:12133 Kernel.NecFFloor <> nec_f_bit_step def
+R12110:12118 Kernel.NecFFloor <> NecFBitOp ind
+R12105:12108 Coq.Init.Datatypes <> bool ind
+R12274:12276 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12210:12238 Kernel.CostSemanticsComparison <> total def
+R12265:12265 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12273:12273 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12266:12272 Kernel.NecFFloor <> NecFSet constr
+R12250:12263 Kernel.NecFFloor <> nec_f_bit_cost def
+R12240:12248 Kernel.NecFFloor <> NecFBitOp ind
+R12323:12323 Coq.Init.Logic <> I constr
+R12323:12323 Coq.Init.Logic <> I constr
+R12366:12383 Kernel.NecFCounter <> nec_f_conservation thm
+R12404:12425 Kernel.NecFCounter <> nec_f_counter_monotone thm
+R12446:12476 Kernel.NecFCounter <> nec_f_initiality_reachable_rule thm
+R12497:12512 Kernel.NecFCounter <> nec_f_initiality thm
+R12533:12552 Kernel.NecFCounter <> nec_f_initiality_iff thm
+R12573:12599 Kernel.NecFCounter <> nec_f_conservation_iff_rule thm
+R12620:12655 Kernel.NecFCounter <> nec_f_finite_counter_charges_nothing thm
+R12676:12708 Kernel.NecFCounter <> nec_f_initiality_needs_zero_start thm
+R12729:12760 Kernel.NecFCounter <> nec_f_initiality_needs_reachable thm
+R12781:12797 Kernel.NecFCounter <> nec_f_fold_unique thm
+R12818:12840 Kernel.NecFCounter <> nec_f_additive_is_price thm
+R12861:12886 Kernel.NecFCounter <> nec_f_factor_gives_descent thm
+R12907:12934 Kernel.NecFCounter <> nec_f_descent_iff_functional thm
+R12955:12985 Kernel.NecFCounter <> nec_f_descent_fails_for_history thm
+R13006:13030 Kernel.NecFCounter <> nec_f_potential_bound_iff thm
+R13051:13077 Kernel.NecFCounter <> nec_f_potential_bound_exact thm
+R13098:13125 Kernel.NecFCounter <> nec_f_potential_one_attained thm

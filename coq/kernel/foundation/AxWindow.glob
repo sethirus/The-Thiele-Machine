@@ -1,0 +1,1090 @@
+DIGEST 29107c2ee7915a03413481b3ecc4f08c
+FKernel.AxWindow
+R2053:2056 Coq.Lists.List <> <> lib
+R2058:2061 Coq.Bool.Bool <> <> lib
+R2063:2076 Coq.Arith.PeanoNat <> <> lib
+R2078:2080 Coq.micromega.Lia <> <> lib
+R2090:2102 Coq.Lists.List ListNotations <> mod
+R2132:2144 Kernel.ShadowPricing <> <> lib
+R2174:2179 Kernel.AxCore <> <> lib
+sec 2191:2196 <> Window
+var 2209:2209 Window A
+var 2228:2228 Window P
+R2232:2235 Kernel.AxCore <> BPre rec
+R2237:2237 Kernel.AxWindow <> Window.A var
+var 2249:2249 Window X
+R2253:2257 Kernel.AxCore <> AxSys rec
+R2259:2259 Kernel.AxWindow <> Window.A var
+R2261:2261 Kernel.AxWindow <> Window.P var
+var 2273:2273 Window O
+var 2292:2294 Window obs
+R2312:2315 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2298:2305 Kernel.AxCore <> ax_state proj
+R2307:2307 Kernel.AxWindow <> Window.A var
+R2309:2309 Kernel.AxWindow <> Window.P var
+R2311:2311 Kernel.AxWindow <> Window.X var
+R2316:2316 Kernel.AxWindow <> Window.O var
+abbrev 2335:2335 <> S
+R2341:2348 Kernel.AxCore <> ax_state proj
+R2350:2350 Kernel.AxWindow <> Window.A var
+R2352:2352 Kernel.AxWindow <> Window.P var
+R2354:2354 Kernel.AxWindow <> Window.X var
+abbrev 2373:2373 <> I
+R2379:2386 Kernel.AxCore <> ax_instr proj
+R2388:2388 Kernel.AxWindow <> Window.A var
+R2390:2390 Kernel.AxWindow <> Window.P var
+R2392:2392 Kernel.AxWindow <> Window.X var
+abbrev 2411:2414 <> step
+R2420:2426 Kernel.AxCore <> ax_step proj
+R2428:2428 Kernel.AxWindow <> Window.A var
+R2430:2430 Kernel.AxWindow <> Window.P var
+R2432:2432 Kernel.AxWindow <> Window.X var
+abbrev 2451:2452 <> rc
+R2458:2463 Kernel.AxCore <> ax_rec proj
+R2465:2465 Kernel.AxWindow <> Window.A var
+R2467:2467 Kernel.AxWindow <> Window.P var
+R2469:2469 Kernel.AxWindow <> Window.X var
+def 2485:2498 <> ax_shadow_cost
+R2510:2513 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2509:2509 Kernel.AxWindow <> Window.O var
+R2515:2518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2514:2514 Kernel.AxWindow <> Window.O var
+R2519:2521 Coq.Init.Datatypes <> nat ind
+binder 2501:2505 <> price:6
+R2529:2529 Kernel.AxWindow <> S abbrev
+binder 2525:2525 <> s:7
+R2537:2537 Kernel.AxWindow <> I abbrev
+binder 2533:2533 <> i:8
+R2542:2544 Coq.Init.Datatypes <> nat ind
+R2551:2555 Kernel.AxWindow <> price:6 var
+R2566:2568 Kernel.AxWindow <> Window.obs var
+R2571:2574 Kernel.AxWindow <> step abbrev
+R2576:2576 Kernel.AxWindow <> s:7 var
+R2578:2578 Kernel.AxWindow <> i:8 var
+R2558:2560 Kernel.AxWindow <> Window.obs var
+R2562:2562 Kernel.AxWindow <> s:7 var
+def 2595:2608 <> ax_meets_floor
+R2619:2622 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2618:2618 Kernel.AxWindow <> S abbrev
+R2624:2627 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2623:2623 Kernel.AxWindow <> I abbrev
+R2628:2630 Coq.Init.Datatypes <> nat ind
+binder 2611:2614 <> cost:9
+binder 2652:2652 <> s:10
+binder 2654:2654 <> i:11
+R2678:2681 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2657:2664 Kernel.AxCore <> ax_exits def
+R2677:2677 Kernel.AxWindow <> i:11 var
+R2675:2675 Kernel.AxWindow <> s:10 var
+R2672:2672 Kernel.AxWindow <> Window.X var
+R2690:2693 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2682:2685 Kernel.AxWindow <> cost:9 var
+R2689:2689 Kernel.AxWindow <> i:11 var
+R2687:2687 Kernel.AxWindow <> s:10 var
+def 2709:2728 <> ax_never_overcharges
+R2739:2742 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2738:2738 Kernel.AxWindow <> S abbrev
+R2744:2747 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2743:2743 Kernel.AxWindow <> I abbrev
+R2748:2750 Coq.Init.Datatypes <> nat ind
+binder 2731:2734 <> cost:12
+binder 2772:2772 <> s:13
+binder 2774:2774 <> i:14
+R2800:2803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2777:2778 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2779:2786 Kernel.AxCore <> ax_exits def
+R2799:2799 Kernel.AxWindow <> i:14 var
+R2797:2797 Kernel.AxWindow <> s:13 var
+R2794:2794 Kernel.AxWindow <> Window.X var
+R2812:2814 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2804:2807 Kernel.AxWindow <> cost:12 var
+R2811:2811 Kernel.AxWindow <> i:14 var
+R2809:2809 Kernel.AxWindow <> s:13 var
+def 2830:2848 <> ax_window_collision
+R2862:2868 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2880:2885 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2869:2870 <> s1:15
+binder 2872:2873 <> i1:16
+binder 2875:2876 <> s2:17
+binder 2878:2879 <> i2:18
+R2901:2904 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2892:2894 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2886:2888 Kernel.AxWindow <> Window.obs var
+R2890:2891 Kernel.AxWindow <> s1:15 var
+R2895:2897 Kernel.AxWindow <> Window.obs var
+R2899:2900 Kernel.AxWindow <> s2:17 var
+R2940:2947 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2921:2923 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2905:2907 Kernel.AxWindow <> Window.obs var
+R2910:2913 Kernel.AxWindow <> step abbrev
+R2915:2916 Kernel.AxWindow <> s1:15 var
+R2918:2919 Kernel.AxWindow <> i1:16 var
+R2924:2926 Kernel.AxWindow <> Window.obs var
+R2929:2932 Kernel.AxWindow <> step abbrev
+R2934:2935 Kernel.AxWindow <> s2:17 var
+R2937:2938 Kernel.AxWindow <> i2:18 var
+R2971:2974 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2948:2955 Kernel.AxCore <> ax_exits def
+R2969:2970 Kernel.AxWindow <> i1:16 var
+R2966:2967 Kernel.AxWindow <> s1:15 var
+R2963:2963 Kernel.AxWindow <> Window.X var
+R2975:2976 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2977:2984 Kernel.AxCore <> ax_exits def
+R2998:2999 Kernel.AxWindow <> i2:18 var
+R2995:2996 Kernel.AxWindow <> s2:17 var
+R2992:2992 Kernel.AxWindow <> Window.X var
+prf 3011:3041 <> ax_window_collision_overcharges
+R3066:3071 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3047:3065 Kernel.AxWindow <> ax_window_collision def
+binder 3079:3083 <> price:19
+R3123:3130 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3086:3099 Kernel.AxWindow <> ax_meets_floor def
+R3102:3115 Kernel.AxWindow <> ax_shadow_cost def
+R3117:3121 Kernel.AxWindow <> price:19 var
+R3131:3137 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3141:3142 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3138:3138 <> s:20
+binder 3140:3140 <> i:21
+R3166:3169 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3143:3144 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3145:3152 Kernel.AxCore <> ax_exits def
+R3165:3165 Kernel.AxWindow <> i:21 var
+R3163:3163 Kernel.AxWindow <> s:20 var
+R3160:3160 Kernel.AxWindow <> Window.X var
+R3194:3197 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3170:3183 Kernel.AxWindow <> ax_shadow_cost def
+R3185:3189 Kernel.AxWindow <> price:19 var
+R3191:3191 Kernel.AxWindow <> s:20 var
+R3193:3193 Kernel.AxWindow <> i:21 var
+R3324:3337 Kernel.AxWindow <> ax_shadow_cost def
+prf 3407:3430 <> ax_window_no_exact_price
+R3455:3460 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3436:3454 Kernel.AxWindow <> ax_window_collision def
+binder 3468:3472 <> price:22
+R3479:3481 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3573:3573 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3519:3529 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3482:3495 Kernel.AxWindow <> ax_meets_floor def
+R3498:3511 Kernel.AxWindow <> ax_shadow_cost def
+R3513:3517 Kernel.AxWindow <> price:22 var
+R3530:3549 Kernel.AxWindow <> ax_never_overcharges def
+R3552:3565 Kernel.AxWindow <> ax_shadow_cost def
+R3567:3571 Kernel.AxWindow <> price:22 var
+R3629:3659 Kernel.AxWindow <> ax_window_collision_overcharges thm
+R3629:3659 Kernel.AxWindow <> ax_window_collision_overcharges thm
+def 3811:3823 <> ax_step_price
+R3830:3830 Kernel.AxWindow <> S abbrev
+binder 3826:3826 <> s:23
+R3838:3838 Kernel.AxWindow <> I abbrev
+binder 3834:3834 <> i:24
+R3843:3845 Coq.Init.Datatypes <> nat ind
+R3855:3860 Kernel.AxCore <> bp_leb proj
+R3862:3862 Kernel.AxWindow <> Window.A var
+R3864:3864 Kernel.AxWindow <> Window.P var
+R3867:3868 Kernel.AxWindow <> rc abbrev
+R3871:3874 Kernel.AxWindow <> step abbrev
+R3876:3876 Kernel.AxWindow <> s:23 var
+R3878:3878 Kernel.AxWindow <> i:24 var
+R3883:3884 Kernel.AxWindow <> rc abbrev
+R3886:3886 Kernel.AxWindow <> s:23 var
+prf 3913:3931 <> ax_step_price_exact
+R3965:3968 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3937:3950 Kernel.AxWindow <> ax_meets_floor def
+R3952:3964 Kernel.AxWindow <> ax_step_price def
+R3969:3988 Kernel.AxWindow <> ax_never_overcharges def
+R3990:4002 Kernel.AxWindow <> ax_step_price def
+R4046:4058 Kernel.AxWindow <> ax_step_price def
+R4075:4080 Kernel.AxCore <> bp_leb proj
+R4082:4082 Kernel.AxWindow <> Window.A var
+R4084:4084 Kernel.AxWindow <> Window.P var
+R4087:4088 Kernel.AxWindow <> rc abbrev
+R4091:4094 Kernel.AxWindow <> step abbrev
+R4103:4104 Kernel.AxWindow <> rc abbrev
+R4075:4080 Kernel.AxCore <> bp_leb proj
+R4082:4082 Kernel.AxWindow <> Window.A var
+R4084:4084 Kernel.AxWindow <> Window.P var
+R4087:4088 Kernel.AxWindow <> rc abbrev
+R4091:4094 Kernel.AxWindow <> step abbrev
+R4103:4104 Kernel.AxWindow <> rc abbrev
+R4182:4194 Kernel.AxWindow <> ax_step_price def
+R4211:4216 Kernel.AxCore <> bp_leb proj
+R4218:4218 Kernel.AxWindow <> Window.A var
+R4220:4220 Kernel.AxWindow <> Window.P var
+R4223:4224 Kernel.AxWindow <> rc abbrev
+R4227:4230 Kernel.AxWindow <> step abbrev
+R4239:4240 Kernel.AxWindow <> rc abbrev
+R4211:4216 Kernel.AxCore <> bp_leb proj
+R4218:4218 Kernel.AxWindow <> Window.A var
+R4220:4220 Kernel.AxWindow <> Window.P var
+R4223:4224 Kernel.AxWindow <> rc abbrev
+R4227:4230 Kernel.AxWindow <> step abbrev
+R4239:4240 Kernel.AxWindow <> rc abbrev
+R4299:4306 Kernel.AxCore <> ax_exits def
+R4309:4313 Kernel.AxCore <> bp_le def
+prf 4409:4435 <> ax_window_sees_record_exact
+R4456:4459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4455:4455 Kernel.AxWindow <> Window.O var
+R4460:4460 Kernel.AxWindow <> Window.A var
+binder 4448:4451 <> read:25
+R4463:4463 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4493:4501 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4471:4471 <> s:26
+R4478:4480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4474:4475 Kernel.AxWindow <> rc abbrev
+R4477:4477 Kernel.AxWindow <> s:26 var
+R4481:4484 Kernel.AxWindow <> read:25 var
+R4487:4489 Kernel.AxWindow <> Window.obs var
+R4491:4491 Kernel.AxWindow <> s:26 var
+R4502:4502 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4620:4628 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4503:4509 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4515:4516 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4510:4514 <> price:27
+R4554:4576 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4517:4530 Kernel.AxWindow <> ax_meets_floor def
+R4533:4546 Kernel.AxWindow <> ax_shadow_cost def
+R4548:4552 Kernel.AxWindow <> price:27 var
+R4577:4596 Kernel.AxWindow <> ax_never_overcharges def
+R4599:4612 Kernel.AxWindow <> ax_shadow_cost def
+R4614:4618 Kernel.AxWindow <> price:27 var
+R4629:4630 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4631:4649 Kernel.AxWindow <> ax_window_collision def
+binder 4703:4703 <> o:28
+binder 4705:4706 <> o':29
+R4714:4719 Kernel.AxCore <> bp_leb proj
+R4721:4721 Kernel.AxWindow <> Window.A var
+R4723:4723 Kernel.AxWindow <> Window.P var
+R4731:4732 Kernel.AxWindow <> o':29 var
+R4741:4741 Kernel.AxWindow <> o:28 var
+binder 4703:4703 <> o:30
+binder 4705:4706 <> o':31
+R4714:4719 Kernel.AxCore <> bp_leb proj
+R4721:4721 Kernel.AxWindow <> Window.A var
+R4723:4723 Kernel.AxWindow <> Window.P var
+R4731:4732 Kernel.AxWindow <> o':31 var
+R4741:4741 Kernel.AxWindow <> o:30 var
+binder 4785:4785 <> s:32
+binder 4787:4787 <> i:33
+R4875:4883 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4796:4809 Kernel.AxWindow <> ax_shadow_cost def
+binder 4816:4816 <> o:34
+binder 4818:4819 <> o':35
+R4827:4832 Kernel.AxCore <> bp_leb proj
+R4834:4834 Kernel.AxWindow <> Window.A var
+R4836:4836 Kernel.AxWindow <> Window.P var
+R4844:4845 Kernel.AxWindow <> o':35 var
+R4854:4854 Kernel.AxWindow <> o:34 var
+R4872:4872 Kernel.AxWindow <> s:32 var
+R4874:4874 Kernel.AxWindow <> i:33 var
+R4884:4896 Kernel.AxWindow <> ax_step_price def
+R4898:4898 Kernel.AxWindow <> s:32 var
+R4900:4900 Kernel.AxWindow <> i:33 var
+binder 4785:4785 <> s:36
+binder 4787:4787 <> i:37
+R4875:4883 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4796:4809 Kernel.AxWindow <> ax_shadow_cost def
+binder 4816:4816 <> o:38
+binder 4818:4819 <> o':39
+R4827:4832 Kernel.AxCore <> bp_leb proj
+R4834:4834 Kernel.AxWindow <> Window.A var
+R4836:4836 Kernel.AxWindow <> Window.P var
+R4844:4845 Kernel.AxWindow <> o':39 var
+R4854:4854 Kernel.AxWindow <> o:38 var
+R4872:4872 Kernel.AxWindow <> s:36 var
+R4874:4874 Kernel.AxWindow <> i:37 var
+R4884:4896 Kernel.AxWindow <> ax_step_price def
+R4898:4898 Kernel.AxWindow <> s:36 var
+R4900:4900 Kernel.AxWindow <> i:37 var
+R4929:4942 Kernel.AxWindow <> ax_shadow_cost def
+R4945:4957 Kernel.AxWindow <> ax_step_price def
+R4999:5002 Kernel.AxWindow <> step abbrev
+R4999:5002 Kernel.AxWindow <> step abbrev
+R4999:5002 Kernel.AxWindow <> step abbrev
+R5072:5076 Coq.Init.Logic <> proj1 thm
+R5078:5096 Kernel.AxWindow <> ax_step_price_exact thm
+R5108:5112 Coq.Init.Logic <> proj2 thm
+R5114:5132 Kernel.AxWindow <> ax_step_price_exact thm
+R5072:5076 Coq.Init.Logic <> proj1 thm
+R5078:5096 Kernel.AxWindow <> ax_step_price_exact thm
+R5108:5112 Coq.Init.Logic <> proj2 thm
+R5114:5132 Kernel.AxWindow <> ax_step_price_exact thm
+R5225:5232 Kernel.AxCore <> ax_exits def
+R5273:5277 Kernel.AxCore <> bp_le def
+R5313:5316 Kernel.AxWindow <> step abbrev
+R5313:5316 Kernel.AxWindow <> step abbrev
+R5313:5316 Kernel.AxWindow <> step abbrev
+R5378:5381 Kernel.AxWindow <> step abbrev
+R5378:5381 Kernel.AxWindow <> step abbrev
+R5378:5381 Kernel.AxWindow <> step abbrev
+var 5519:5528 Window obs_eq_dec
+R5545:5545 Kernel.AxWindow <> Window.O var
+binder 5539:5539 <> a:40
+binder 5541:5541 <> b:41
+R5548:5548 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5554:5558 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5565:5565 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R5550:5552 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5549:5549 Kernel.AxWindow <> a:40 var
+R5553:5553 Kernel.AxWindow <> b:41 var
+R5560:5563 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5559:5559 Kernel.AxWindow <> a:40 var
+R5564:5564 Kernel.AxWindow <> b:41 var
+prf 5577:5608 <> ax_window_exact_iff_no_collision
+R5629:5632 Coq.Init.Datatypes <> list ind
+R5634:5634 Kernel.AxWindow <> S abbrev
+binder 5622:5625 <> allS:43
+R5645:5648 Coq.Init.Datatypes <> list ind
+R5650:5650 Kernel.AxWindow <> I abbrev
+binder 5638:5641 <> allI:44
+R5658:5658 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5678:5682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5666:5666 <> s:45
+R5669:5670 Coq.Lists.List <> In def
+R5674:5677 Kernel.AxWindow <> allS:43 var
+R5672:5672 Kernel.AxWindow <> s:45 var
+R5683:5683 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5703:5712 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5864:5864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5691:5691 <> i:46
+R5694:5695 Coq.Lists.List <> In def
+R5699:5702 Kernel.AxWindow <> allI:44 var
+R5697:5697 Kernel.AxWindow <> i:46 var
+R5713:5713 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5832:5842 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5714:5720 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5726:5727 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5721:5725 <> price:47
+R5765:5788 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5728:5741 Kernel.AxWindow <> ax_meets_floor def
+R5744:5757 Kernel.AxWindow <> ax_shadow_cost def
+R5759:5763 Kernel.AxWindow <> price:47 var
+R5789:5808 Kernel.AxWindow <> ax_never_overcharges def
+R5811:5824 Kernel.AxWindow <> ax_shadow_cost def
+R5826:5830 Kernel.AxWindow <> price:47 var
+R5843:5844 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5845:5863 Kernel.AxWindow <> ax_window_collision def
+R5947:5970 Kernel.AxWindow <> ax_window_no_exact_price thm
+R5984:5987 Coq.Init.Logic <> conj constr
+R5947:5970 Kernel.AxWindow <> ax_window_no_exact_price thm
+R5984:5987 Coq.Init.Logic <> conj constr
+binder 6036:6036 <> o:48
+binder 6038:6039 <> o':49
+R6050:6056 Coq.Lists.List <> existsb def
+binder 6063:6063 <> s:50
+R6068:6074 Coq.Lists.List <> existsb def
+binder 6081:6081 <> i:51
+R6095:6098 Coq.Init.Datatypes <> andb def
+R6162:6165 Coq.Init.Datatypes <> andb def
+R6245:6248 Coq.Init.Datatypes <> negb def
+R6251:6256 Kernel.AxCore <> bp_leb proj
+R6258:6258 Kernel.AxWindow <> Window.A var
+R6260:6260 Kernel.AxWindow <> Window.P var
+R6263:6264 Kernel.AxWindow <> rc abbrev
+R6267:6270 Kernel.AxWindow <> step abbrev
+R6272:6272 Kernel.AxWindow <> s:50 var
+R6274:6274 Kernel.AxWindow <> i:51 var
+R6279:6280 Kernel.AxWindow <> rc abbrev
+R6282:6282 Kernel.AxWindow <> s:50 var
+R6171:6180 Kernel.AxWindow <> Window.obs_eq_dec var
+R6183:6185 Kernel.AxWindow <> Window.obs var
+R6188:6191 Kernel.AxWindow <> step abbrev
+R6193:6193 Kernel.AxWindow <> s:50 var
+R6195:6195 Kernel.AxWindow <> i:51 var
+R6199:6200 Kernel.AxWindow <> o':49 var
+R6217:6221 Coq.Init.Datatypes <> false constr
+R6207:6210 Coq.Init.Datatypes <> true constr
+R6104:6113 Kernel.AxWindow <> Window.obs_eq_dec var
+R6116:6118 Kernel.AxWindow <> Window.obs var
+R6120:6120 Kernel.AxWindow <> s:50 var
+R6123:6123 Kernel.AxWindow <> o:48 var
+R6140:6144 Coq.Init.Datatypes <> false constr
+R6130:6133 Coq.Init.Datatypes <> true constr
+binder 6036:6036 <> o:52
+binder 6038:6039 <> o':53
+R6050:6056 Coq.Lists.List <> existsb def
+binder 6063:6063 <> s:54
+R6068:6074 Coq.Lists.List <> existsb def
+binder 6081:6081 <> i:55
+R6095:6098 Coq.Init.Datatypes <> andb def
+R6162:6165 Coq.Init.Datatypes <> andb def
+R6245:6248 Coq.Init.Datatypes <> negb def
+R6251:6256 Kernel.AxCore <> bp_leb proj
+R6258:6258 Kernel.AxWindow <> Window.A var
+R6260:6260 Kernel.AxWindow <> Window.P var
+R6263:6264 Kernel.AxWindow <> rc abbrev
+R6267:6270 Kernel.AxWindow <> step abbrev
+R6272:6272 Kernel.AxWindow <> s:54 var
+R6274:6274 Kernel.AxWindow <> i:55 var
+R6279:6280 Kernel.AxWindow <> rc abbrev
+R6282:6282 Kernel.AxWindow <> s:54 var
+R6171:6180 Kernel.AxWindow <> Window.obs_eq_dec var
+R6183:6185 Kernel.AxWindow <> Window.obs var
+R6188:6191 Kernel.AxWindow <> step abbrev
+R6193:6193 Kernel.AxWindow <> s:54 var
+R6195:6195 Kernel.AxWindow <> i:55 var
+R6199:6200 Kernel.AxWindow <> o':53 var
+R6217:6221 Coq.Init.Datatypes <> false constr
+R6207:6210 Coq.Init.Datatypes <> true constr
+R6104:6113 Kernel.AxWindow <> Window.obs_eq_dec var
+R6116:6118 Kernel.AxWindow <> Window.obs var
+R6120:6120 Kernel.AxWindow <> s:54 var
+R6123:6123 Kernel.AxWindow <> o:52 var
+R6140:6144 Coq.Init.Datatypes <> false constr
+R6130:6133 Coq.Init.Datatypes <> true constr
+binder 6318:6318 <> o:56
+binder 6320:6321 <> o':57
+R6335:6335 Kernel.AxWindow <> o:56 var
+R6337:6338 Kernel.AxWindow <> o':57 var
+binder 6318:6318 <> o:58
+binder 6320:6321 <> o':59
+R6335:6335 Kernel.AxWindow <> o:58 var
+R6337:6338 Kernel.AxWindow <> o':59 var
+binder 6382:6382 <> s:60
+binder 6384:6384 <> i:61
+R6424:6459 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6417:6419 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6394:6396 Kernel.AxWindow <> Window.obs var
+R6398:6398 Kernel.AxWindow <> s:60 var
+R6402:6404 Kernel.AxWindow <> Window.obs var
+R6407:6410 Kernel.AxWindow <> step abbrev
+R6412:6412 Kernel.AxWindow <> s:60 var
+R6414:6414 Kernel.AxWindow <> i:61 var
+R6420:6423 Coq.Init.Datatypes <> true constr
+R6460:6467 Kernel.AxCore <> ax_exits def
+R6480:6480 Kernel.AxWindow <> i:61 var
+R6478:6478 Kernel.AxWindow <> s:60 var
+R6475:6475 Kernel.AxWindow <> Window.X var
+binder 6382:6382 <> s:62
+binder 6384:6384 <> i:63
+R6424:6459 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6417:6419 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6394:6396 Kernel.AxWindow <> Window.obs var
+R6398:6398 Kernel.AxWindow <> s:62 var
+R6402:6404 Kernel.AxWindow <> Window.obs var
+R6407:6410 Kernel.AxWindow <> step abbrev
+R6412:6412 Kernel.AxWindow <> s:62 var
+R6414:6414 Kernel.AxWindow <> i:63 var
+R6420:6423 Coq.Init.Datatypes <> true constr
+R6460:6467 Kernel.AxCore <> ax_exits def
+R6480:6480 Kernel.AxWindow <> i:63 var
+R6478:6478 Kernel.AxWindow <> s:62 var
+R6475:6475 Kernel.AxWindow <> Window.X var
+R6546:6559 Coq.Lists.List <> existsb_exists thm
+R6546:6559 Coq.Lists.List <> existsb_exists thm
+R6595:6608 Coq.Lists.List <> existsb_exists thm
+R6595:6608 Coq.Lists.List <> existsb_exists thm
+R6644:6656 Coq.Bool.Bool <> andb_true_iff thm
+R6644:6656 Coq.Bool.Bool <> andb_true_iff thm
+R6680:6692 Coq.Bool.Bool <> andb_true_iff thm
+R6680:6692 Coq.Bool.Bool <> andb_true_iff thm
+R6729:6738 Kernel.AxWindow <> Window.obs_eq_dec var
+R6741:6743 Kernel.AxWindow <> Window.obs var
+R6750:6752 Kernel.AxWindow <> Window.obs var
+R6729:6738 Kernel.AxWindow <> Window.obs_eq_dec var
+R6741:6743 Kernel.AxWindow <> Window.obs var
+R6750:6752 Kernel.AxWindow <> Window.obs var
+R6805:6814 Kernel.AxWindow <> Window.obs_eq_dec var
+R6817:6819 Kernel.AxWindow <> Window.obs var
+R6822:6825 Kernel.AxWindow <> step abbrev
+R6836:6838 Kernel.AxWindow <> Window.obs var
+R6841:6844 Kernel.AxWindow <> step abbrev
+R6805:6814 Kernel.AxWindow <> Window.obs_eq_dec var
+R6817:6819 Kernel.AxWindow <> Window.obs var
+R6822:6825 Kernel.AxWindow <> step abbrev
+R6836:6838 Kernel.AxWindow <> Window.obs var
+R6841:6844 Kernel.AxWindow <> step abbrev
+R6900:6905 Kernel.AxCore <> bp_leb proj
+R6907:6907 Kernel.AxWindow <> Window.A var
+R6909:6909 Kernel.AxWindow <> Window.P var
+R6912:6913 Kernel.AxWindow <> rc abbrev
+R6916:6919 Kernel.AxWindow <> step abbrev
+R6928:6929 Kernel.AxWindow <> rc abbrev
+R6900:6905 Kernel.AxCore <> bp_leb proj
+R6907:6907 Kernel.AxWindow <> Window.A var
+R6909:6909 Kernel.AxWindow <> Window.P var
+R6912:6913 Kernel.AxWindow <> rc abbrev
+R6916:6919 Kernel.AxWindow <> step abbrev
+R6928:6929 Kernel.AxWindow <> rc abbrev
+R7072:7079 Kernel.AxCore <> ax_exits def
+R7082:7086 Kernel.AxCore <> bp_le def
+R7121:7133 Coq.Bool.Bool <> negb_true_iff thm
+R7121:7133 Coq.Bool.Bool <> negb_true_iff thm
+R7121:7133 Coq.Bool.Bool <> negb_true_iff thm
+R7198:7205 Kernel.AxCore <> ax_exits def
+R7208:7212 Kernel.AxCore <> bp_le def
+R7262:7269 Kernel.AxCore <> ax_exits def
+R7272:7276 Kernel.AxCore <> bp_le def
+R7328:7341 Coq.Lists.List <> existsb_exists thm
+R7328:7341 Coq.Lists.List <> existsb_exists thm
+R7389:7402 Coq.Lists.List <> existsb_exists thm
+R7389:7402 Coq.Lists.List <> existsb_exists thm
+R7454:7463 Kernel.AxWindow <> Window.obs_eq_dec var
+R7466:7468 Kernel.AxWindow <> Window.obs var
+R7474:7476 Kernel.AxWindow <> Window.obs var
+R7454:7463 Kernel.AxWindow <> Window.obs_eq_dec var
+R7466:7468 Kernel.AxWindow <> Window.obs var
+R7474:7476 Kernel.AxWindow <> Window.obs var
+R7551:7560 Kernel.AxWindow <> Window.obs_eq_dec var
+R7563:7565 Kernel.AxWindow <> Window.obs var
+R7568:7571 Kernel.AxWindow <> step abbrev
+R7580:7582 Kernel.AxWindow <> Window.obs var
+R7585:7588 Kernel.AxWindow <> step abbrev
+R7551:7560 Kernel.AxWindow <> Window.obs_eq_dec var
+R7563:7565 Kernel.AxWindow <> Window.obs var
+R7568:7571 Kernel.AxWindow <> step abbrev
+R7580:7582 Kernel.AxWindow <> Window.obs var
+R7585:7588 Kernel.AxWindow <> step abbrev
+R7683:7688 Kernel.AxCore <> bp_leb proj
+R7690:7690 Kernel.AxWindow <> Window.A var
+R7692:7692 Kernel.AxWindow <> Window.P var
+R7695:7696 Kernel.AxWindow <> rc abbrev
+R7699:7702 Kernel.AxWindow <> step abbrev
+R7711:7712 Kernel.AxWindow <> rc abbrev
+R7683:7688 Kernel.AxCore <> bp_leb proj
+R7690:7690 Kernel.AxWindow <> Window.A var
+R7692:7692 Kernel.AxWindow <> Window.P var
+R7695:7696 Kernel.AxWindow <> rc abbrev
+R7699:7702 Kernel.AxWindow <> step abbrev
+R7711:7712 Kernel.AxWindow <> rc abbrev
+R7819:7832 Kernel.AxWindow <> ax_shadow_cost def
+R7858:7860 Kernel.AxWindow <> Window.obs var
+R7866:7868 Kernel.AxWindow <> Window.obs var
+R7871:7874 Kernel.AxWindow <> step abbrev
+R7858:7860 Kernel.AxWindow <> Window.obs var
+R7866:7868 Kernel.AxWindow <> Window.obs var
+R7871:7874 Kernel.AxWindow <> step abbrev
+R7957:7959 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7934:7936 Kernel.AxWindow <> Window.obs var
+R7942:7944 Kernel.AxWindow <> Window.obs var
+R7947:7950 Kernel.AxWindow <> step abbrev
+R7960:7963 Coq.Init.Datatypes <> true constr
+R7957:7959 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7934:7936 Kernel.AxWindow <> Window.obs var
+R7942:7944 Kernel.AxWindow <> Window.obs var
+R7947:7950 Kernel.AxWindow <> step abbrev
+R7960:7963 Coq.Init.Datatypes <> true constr
+R8037:8050 Kernel.AxWindow <> ax_shadow_cost def
+R8076:8078 Kernel.AxWindow <> Window.obs var
+R8084:8086 Kernel.AxWindow <> Window.obs var
+R8089:8092 Kernel.AxWindow <> step abbrev
+R8076:8078 Kernel.AxWindow <> Window.obs var
+R8084:8086 Kernel.AxWindow <> Window.obs var
+R8089:8092 Kernel.AxWindow <> step abbrev
+def 8328:8338 <> ax_shadowed
+R8345:8345 Kernel.AxWindow <> S abbrev
+binder 8341:8341 <> s:64
+R8353:8353 Kernel.AxWindow <> I abbrev
+binder 8349:8349 <> i:65
+R8368:8374 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8380:8381 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8375:8376 <> s':66
+binder 8378:8379 <> i':67
+R8396:8399 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8388:8390 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8382:8384 Kernel.AxWindow <> Window.obs var
+R8386:8387 Kernel.AxWindow <> s':66 var
+R8391:8393 Kernel.AxWindow <> Window.obs var
+R8395:8395 Kernel.AxWindow <> s:64 var
+R8433:8452 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8416:8418 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8400:8402 Kernel.AxWindow <> Window.obs var
+R8405:8408 Kernel.AxWindow <> step abbrev
+R8410:8411 Kernel.AxWindow <> s':66 var
+R8413:8414 Kernel.AxWindow <> i':67 var
+R8419:8421 Kernel.AxWindow <> Window.obs var
+R8424:8427 Kernel.AxWindow <> step abbrev
+R8429:8429 Kernel.AxWindow <> s:64 var
+R8431:8431 Kernel.AxWindow <> i:65 var
+R8453:8460 Kernel.AxCore <> ax_exits def
+R8474:8475 Kernel.AxWindow <> i':67 var
+R8471:8472 Kernel.AxWindow <> s':66 var
+R8468:8468 Kernel.AxWindow <> Window.X var
+def 8488:8504 <> ax_shadowed_count
+R8512:8515 Coq.Init.Datatypes <> list ind
+R8517:8517 Kernel.AxWindow <> I abbrev
+binder 8507:8508 <> tr:68
+R8525:8525 Kernel.AxWindow <> S abbrev
+binder 8521:8521 <> s:69
+binder 8542:8542 <> s:70
+binder 8544:8544 <> i:71
+R8547:8547 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R8563:8567 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R8585:8585 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R8548:8558 Kernel.AxWindow <> ax_shadowed def
+R8560:8560 Kernel.AxWindow <> s:70 var
+R8562:8562 Kernel.AxWindow <> i:71 var
+R8568:8569 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8570:8580 Kernel.AxWindow <> ax_shadowed def
+R8582:8582 Kernel.AxWindow <> s:70 var
+R8584:8584 Kernel.AxWindow <> i:71 var
+binder 8529:8531 <> dec:72
+binder 8607:8607 <> s:73
+binder 8609:8609 <> i:74
+R8612:8612 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R8634:8638 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R8662:8662 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R8613:8620 Kernel.AxCore <> ax_exits def
+R8633:8633 Kernel.AxWindow <> i:74 var
+R8631:8631 Kernel.AxWindow <> s:73 var
+R8628:8628 Kernel.AxWindow <> Window.X var
+R8639:8640 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8641:8648 Kernel.AxCore <> ax_exits def
+R8661:8661 Kernel.AxWindow <> i:74 var
+R8659:8659 Kernel.AxWindow <> s:73 var
+R8656:8656 Kernel.AxWindow <> Window.X var
+binder 8593:8596 <> decx:75
+R8667:8669 Coq.Init.Datatypes <> nat ind
+R8682:8683 Kernel.AxWindow <> tr:68 var
+R8694:8695 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8707:8710 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8725:8725 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8774:8783 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8729:8732 Kernel.AxWindow <> decx:75 var
+R8734:8734 Kernel.AxWindow <> s:69 var
+R8753:8755 Kernel.AxWindow <> dec:72 var
+R8757:8757 Kernel.AxWindow <> s:69 var
+R8784:8800 Kernel.AxWindow <> ax_shadowed_count:76 def
+R8822:8825 Kernel.AxWindow <> decx:75 var
+R8818:8820 Kernel.AxWindow <> dec:72 var
+R8808:8811 Kernel.AxWindow <> step abbrev
+R8813:8813 Kernel.AxWindow <> s:69 var
+prf 9020:9038 <> ax_overcharge_lower
+binder 9051:9055 <> price:78
+R9095:9100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9058:9071 Kernel.AxWindow <> ax_meets_floor def
+R9074:9087 Kernel.AxWindow <> ax_shadow_cost def
+R9089:9093 Kernel.AxWindow <> price:78 var
+binder 9122:9122 <> s:79
+binder 9124:9124 <> i:80
+R9127:9127 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R9143:9147 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R9165:9165 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R9128:9138 Kernel.AxWindow <> ax_shadowed def
+R9140:9140 Kernel.AxWindow <> s:79 var
+R9142:9142 Kernel.AxWindow <> i:80 var
+R9148:9149 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9150:9160 Kernel.AxWindow <> ax_shadowed def
+R9162:9162 Kernel.AxWindow <> s:79 var
+R9164:9164 Kernel.AxWindow <> i:80 var
+binder 9109:9111 <> dec:81
+binder 9192:9192 <> s:82
+binder 9194:9194 <> i:83
+R9197:9197 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R9219:9223 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R9247:9247 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R9198:9205 Kernel.AxCore <> ax_exits def
+R9218:9218 Kernel.AxWindow <> i:83 var
+R9216:9216 Kernel.AxWindow <> s:82 var
+R9213:9213 Kernel.AxWindow <> Window.X var
+R9224:9225 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9226:9233 Kernel.AxCore <> ax_exits def
+R9246:9246 Kernel.AxWindow <> i:83 var
+R9244:9244 Kernel.AxWindow <> s:82 var
+R9241:9241 Kernel.AxWindow <> Window.X var
+binder 9178:9181 <> decx:84
+binder 9259:9260 <> tr:85
+binder 9262:9262 <> s:86
+R9405:9412 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9285:9288 Coq.Init.Datatypes <> list ind
+R9290:9290 Kernel.AxWindow <> I abbrev
+binder 9281:9281 <> l:87
+R9298:9298 Kernel.AxWindow <> S abbrev
+binder 9294:9294 <> s:88
+R9303:9305 Coq.Init.Datatypes <> nat ind
+R9323:9323 Kernel.AxWindow <> l:87 var
+R9330:9331 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9341:9344 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9374:9376 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9350:9363 Kernel.AxWindow <> ax_shadow_cost def
+R9365:9369 Kernel.AxWindow <> price:78 var
+R9371:9371 Kernel.AxWindow <> s:88 var
+R9377:9381 Kernel.AxWindow <> total:89 var
+R9386:9389 Kernel.AxWindow <> step abbrev
+R9391:9391 Kernel.AxWindow <> s:88 var
+R9401:9402 Kernel.AxWindow <> tr:85 var
+R9404:9404 Kernel.AxWindow <> s:86 var
+R9413:9429 Kernel.AxWindow <> ax_shadowed_count def
+R9431:9432 Kernel.AxWindow <> tr:85 var
+R9434:9434 Kernel.AxWindow <> s:86 var
+R9436:9438 Kernel.AxWindow <> dec:81 var
+R9440:9443 Kernel.AxWindow <> decx:84 var
+R9558:9561 Kernel.AxWindow <> step abbrev
+R9558:9561 Kernel.AxWindow <> step abbrev
+R9757:9760 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9733:9746 Kernel.AxWindow <> ax_shadow_cost def
+R9757:9760 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9733:9746 Kernel.AxWindow <> ax_shadow_cost def
+R9778:9791 Kernel.AxWindow <> ax_shadow_cost def
+prf 9945:9963 <> ax_overcharge_tight
+binder 9993:9993 <> o:91
+binder 9995:9996 <> o':92
+R9999:9999 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R10105:10142 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R10250:10250 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R10000:10006 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10010:10011 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10007:10007 <> s:93
+binder 10009:10009 <> i:94
+R10021:10024 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10017:10019 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10012:10014 Kernel.AxWindow <> Window.obs var
+R10016:10016 Kernel.AxWindow <> s:93 var
+R10020:10020 Kernel.AxWindow <> o:91 var
+R10044:10083 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10039:10041 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10025:10027 Kernel.AxWindow <> Window.obs var
+R10030:10033 Kernel.AxWindow <> step abbrev
+R10035:10035 Kernel.AxWindow <> s:93 var
+R10037:10037 Kernel.AxWindow <> i:94 var
+R10042:10043 Kernel.AxWindow <> o':92 var
+R10084:10091 Kernel.AxCore <> ax_exits def
+R10104:10104 Kernel.AxWindow <> i:94 var
+R10102:10102 Kernel.AxWindow <> s:93 var
+R10099:10099 Kernel.AxWindow <> Window.X var
+R10143:10144 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10145:10151 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10155:10156 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10152:10152 <> s:95
+binder 10154:10154 <> i:96
+R10166:10169 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10162:10164 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10157:10159 Kernel.AxWindow <> Window.obs var
+R10161:10161 Kernel.AxWindow <> s:95 var
+R10165:10165 Kernel.AxWindow <> o:91 var
+R10189:10228 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10184:10186 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10170:10172 Kernel.AxWindow <> Window.obs var
+R10175:10178 Kernel.AxWindow <> step abbrev
+R10180:10180 Kernel.AxWindow <> s:95 var
+R10182:10182 Kernel.AxWindow <> i:96 var
+R10187:10188 Kernel.AxWindow <> o':92 var
+R10229:10236 Kernel.AxCore <> ax_exits def
+R10249:10249 Kernel.AxWindow <> i:96 var
+R10247:10247 Kernel.AxWindow <> s:95 var
+R10244:10244 Kernel.AxWindow <> Window.X var
+binder 9977:9982 <> decobs:97
+R10256:10262 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10268:10269 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10263:10267 <> price:98
+R10307:10314 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10270:10283 Kernel.AxWindow <> ax_meets_floor def
+R10286:10299 Kernel.AxWindow <> ax_shadow_cost def
+R10301:10305 Kernel.AxWindow <> price:98 var
+binder 10322:10322 <> s:99
+binder 10324:10324 <> i:100
+R10350:10359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10327:10328 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10329:10336 Kernel.AxCore <> ax_exits def
+R10349:10349 Kernel.AxWindow <> i:100 var
+R10347:10347 Kernel.AxWindow <> s:99 var
+R10344:10344 Kernel.AxWindow <> Window.X var
+R10360:10360 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10409:10420 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10470:10470 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10389:10393 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10385:10387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10361:10374 Kernel.AxWindow <> ax_shadow_cost def
+R10376:10380 Kernel.AxWindow <> price:98 var
+R10382:10382 Kernel.AxWindow <> s:99 var
+R10384:10384 Kernel.AxWindow <> i:100 var
+R10394:10404 Kernel.AxWindow <> ax_shadowed def
+R10406:10406 Kernel.AxWindow <> s:99 var
+R10408:10408 Kernel.AxWindow <> i:100 var
+R10438:10441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10421:10422 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10423:10433 Kernel.AxWindow <> ax_shadowed def
+R10435:10435 Kernel.AxWindow <> s:99 var
+R10437:10437 Kernel.AxWindow <> i:100 var
+R10466:10468 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10442:10455 Kernel.AxWindow <> ax_shadow_cost def
+R10457:10461 Kernel.AxWindow <> price:98 var
+R10463:10463 Kernel.AxWindow <> s:99 var
+R10465:10465 Kernel.AxWindow <> i:100 var
+binder 10510:10510 <> o:101
+binder 10512:10513 <> o':102
+R10528:10528 Kernel.AxWindow <> o:101 var
+R10530:10531 Kernel.AxWindow <> o':102 var
+binder 10510:10510 <> o:103
+binder 10512:10513 <> o':104
+R10528:10528 Kernel.AxWindow <> o:103 var
+R10530:10531 Kernel.AxWindow <> o':104 var
+R10581:10594 Kernel.AxWindow <> ax_shadow_cost def
+R10619:10621 Kernel.AxWindow <> Window.obs var
+R10627:10629 Kernel.AxWindow <> Window.obs var
+R10632:10635 Kernel.AxWindow <> step abbrev
+R10619:10621 Kernel.AxWindow <> Window.obs var
+R10627:10629 Kernel.AxWindow <> Window.obs var
+R10632:10635 Kernel.AxWindow <> step abbrev
+R10735:10748 Kernel.AxWindow <> ax_shadow_cost def
+R10773:10775 Kernel.AxWindow <> Window.obs var
+R10781:10783 Kernel.AxWindow <> Window.obs var
+R10786:10789 Kernel.AxWindow <> step abbrev
+R10773:10775 Kernel.AxWindow <> Window.obs var
+R10781:10783 Kernel.AxWindow <> Window.obs var
+R10786:10789 Kernel.AxWindow <> step abbrev
+R11271:11276 Kernel.AxWindow Window <> sec
+R11290:11303 Kernel.AxWindow <> ax_shadow_cost def
+R11290:11303 Kernel.AxWindow <> ax_shadow_cost def
+R11326:11339 Kernel.AxWindow <> ax_meets_floor def
+R11326:11339 Kernel.AxWindow <> ax_meets_floor def
+R11360:11379 Kernel.AxWindow <> ax_never_overcharges def
+R11360:11379 Kernel.AxWindow <> ax_never_overcharges def
+R11400:11418 Kernel.AxWindow <> ax_window_collision def
+R11400:11418 Kernel.AxWindow <> ax_window_collision def
+R11443:11455 Kernel.AxWindow <> ax_step_price def
+R11443:11455 Kernel.AxWindow <> ax_step_price def
+def 11707:11716 <> parity_sys
+R11720:11724 Kernel.AxCore <> AxSys rec
+R11726:11728 Coq.Init.Datatypes <> nat ind
+R11730:11736 Kernel.AxCore <> nat_pre def
+R11743:11750 Kernel.AxCore <> mk_axsys constr
+R11752:11754 Coq.Init.Datatypes <> nat ind
+R11756:11762 Kernel.AxCore <> nat_pre def
+R11764:11766 Coq.Init.Datatypes <> nat ind
+R11768:11771 Coq.Init.Datatypes <> unit ind
+binder 11778:11778 <> n:105
+R11785:11785 Coq.Init.Datatypes <> S constr
+R11787:11787 Kernel.AxWindow <> n:105 var
+binder 11808:11808 <> n:106
+R11813:11813 Kernel.AxWindow <> n:106 var
+prf 11826:11850 <> ax_exact_without_position
+R11856:11856 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11898:11904 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11864:11864 <> s:107
+R11867:11874 Kernel.AxCore <> ax_exits def
+R11896:11897 Coq.Init.Datatypes <> tt constr
+R11894:11894 Kernel.AxWindow <> s:107 var
+R11882:11891 Kernel.AxWindow <> parity_sys def
+R11958:11963 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11905:11906 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11907:11925 Kernel.AxWindow <> ax_window_collision def
+R11950:11957 Coq.Arith.PeanoNat Nat even def
+R11944:11947 Coq.Init.Datatypes <> bool ind
+R11927:11936 Kernel.AxWindow <> parity_sys def
+R11964:11964 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12156:12162 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11965:11971 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11977:11978 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11972:11976 <> price:108
+R12054:12074 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11979:11992 Kernel.AxWindow <> ax_meets_floor def
+R12006:12019 Kernel.AxWindow <> ax_shadow_cost def
+R12048:12052 Kernel.AxWindow <> price:108 var
+R12039:12046 Coq.Arith.PeanoNat Nat even def
+R12027:12036 Kernel.AxWindow <> parity_sys def
+R11994:12003 Kernel.AxWindow <> parity_sys def
+R12075:12094 Kernel.AxWindow <> ax_never_overcharges def
+R12108:12121 Kernel.AxWindow <> ax_shadow_cost def
+R12150:12154 Kernel.AxWindow <> price:108 var
+R12141:12148 Coq.Arith.PeanoNat Nat even def
+R12129:12138 Kernel.AxWindow <> parity_sys def
+R12096:12105 Kernel.AxWindow <> parity_sys def
+R12163:12164 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12165:12171 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12190:12191 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12183:12186 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12179:12182 Coq.Init.Datatypes <> bool ind
+R12187:12189 Coq.Init.Datatypes <> nat ind
+binder 12172:12175 <> read:109
+binder 12199:12199 <> s:110
+R12203:12205 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12202:12202 Kernel.AxWindow <> s:110 var
+R12206:12209 Kernel.AxWindow <> read:109 var
+R12212:12219 Coq.Arith.PeanoNat Nat even def
+R12221:12221 Kernel.AxWindow <> s:110 var
+binder 12255:12255 <> s:111
+R12258:12265 Kernel.AxCore <> ax_exits def
+R12287:12288 Coq.Init.Datatypes <> tt constr
+R12285:12285 Kernel.AxWindow <> s:111 var
+R12273:12282 Kernel.AxWindow <> parity_sys def
+binder 12255:12255 <> s:112
+R12258:12265 Kernel.AxCore <> ax_exits def
+R12287:12288 Coq.Init.Datatypes <> tt constr
+R12285:12285 Kernel.AxWindow <> s:112 var
+R12273:12282 Kernel.AxWindow <> parity_sys def
+R12312:12319 Kernel.AxCore <> ax_exits def
+R12337:12346 Kernel.AxCore <> nat_pre_le thm
+R12337:12346 Kernel.AxCore <> nat_pre_le thm
+R12337:12346 Kernel.AxCore <> nat_pre_le thm
+R12372:12373 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12374:12392 Kernel.AxWindow <> ax_window_collision def
+R12417:12424 Coq.Arith.PeanoNat Nat even def
+R12411:12414 Coq.Init.Datatypes <> bool ind
+R12394:12403 Kernel.AxWindow <> parity_sys def
+R12372:12373 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12374:12392 Kernel.AxWindow <> ax_window_collision def
+R12417:12424 Coq.Arith.PeanoNat Nat even def
+R12411:12414 Coq.Init.Datatypes <> bool ind
+R12394:12403 Kernel.AxWindow <> parity_sys def
+R12521:12524 Coq.Init.Logic <> conj constr
+R12531:12534 Coq.Init.Logic <> conj constr
+R12541:12544 Coq.Init.Logic <> conj constr
+R12521:12524 Coq.Init.Logic <> conj constr
+R12531:12534 Coq.Init.Logic <> conj constr
+R12541:12544 Coq.Init.Logic <> conj constr
+R12615:12628 Kernel.AxWindow <> ax_shadow_cost def
+prf 13006:13030 <> ax_threshold_window_blind
+R13036:13043 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13104:13110 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13048:13052 Kernel.AxCore <> AxSys rec
+R13054:13056 Coq.Init.Datatypes <> nat ind
+R13058:13064 Kernel.AxCore <> nat_pre def
+binder 13044:13044 <> X:113
+R13096:13099 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13074:13081 Kernel.AxCore <> ax_state proj
+R13083:13085 Coq.Init.Datatypes <> nat ind
+R13087:13093 Kernel.AxCore <> nat_pre def
+R13095:13095 Kernel.AxWindow <> X:113 var
+R13100:13103 Coq.Init.Datatypes <> bool ind
+binder 13068:13070 <> obs:114
+R13111:13111 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13164:13172 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 13119:13119 <> s:115
+R13127:13129 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13122:13124 Kernel.AxWindow <> obs:114 var
+R13126:13126 Kernel.AxWindow <> s:115 var
+R13130:13136 Coq.Arith.PeanoNat Nat leb def
+R13141:13146 Kernel.AxCore <> ax_rec proj
+R13148:13150 Coq.Init.Datatypes <> nat ind
+R13152:13158 Kernel.AxCore <> nat_pre def
+R13160:13160 Kernel.AxWindow <> X:113 var
+R13162:13162 Kernel.AxWindow <> s:115 var
+R13173:13191 Kernel.AxWindow <> ax_window_collision def
+R13195:13197 Kernel.AxWindow <> obs:114 var
+R13193:13193 Kernel.AxWindow <> X:113 var
+R13217:13224 Kernel.AxCore <> mk_axsys constr
+R13226:13228 Coq.Init.Datatypes <> nat ind
+R13230:13236 Kernel.AxCore <> nat_pre def
+R13238:13240 Coq.Init.Datatypes <> nat ind
+R13242:13245 Coq.Init.Datatypes <> bool ind
+binder 13252:13252 <> n:116
+binder 13254:13254 <> b:117
+R13262:13262 Kernel.AxWindow <> b:117 var
+R13276:13276 Coq.Init.Datatypes <> S constr
+R13278:13278 Kernel.AxWindow <> n:116 var
+R13269:13269 Kernel.AxWindow <> n:116 var
+binder 13299:13299 <> n:118
+R13304:13304 Kernel.AxWindow <> n:118 var
+R13217:13224 Kernel.AxCore <> mk_axsys constr
+R13226:13228 Coq.Init.Datatypes <> nat ind
+R13230:13236 Kernel.AxCore <> nat_pre def
+R13238:13240 Coq.Init.Datatypes <> nat ind
+R13242:13245 Coq.Init.Datatypes <> bool ind
+binder 13252:13252 <> n:119
+binder 13254:13254 <> b:120
+R13262:13262 Kernel.AxWindow <> b:120 var
+R13276:13276 Coq.Init.Datatypes <> S constr
+R13278:13278 Kernel.AxWindow <> n:119 var
+R13269:13269 Kernel.AxWindow <> n:119 var
+binder 13299:13299 <> n:121
+R13304:13304 Kernel.AxWindow <> n:121 var
+binder 13323:13323 <> n:122
+R13328:13334 Coq.Arith.PeanoNat Nat leb def
+R13338:13338 Kernel.AxWindow <> n:122 var
+binder 13323:13323 <> n:123
+R13328:13334 Coq.Arith.PeanoNat Nat leb def
+R13338:13338 Kernel.AxWindow <> n:123 var
+R13387:13391 Coq.Init.Datatypes <> false constr
+R13397:13400 Coq.Init.Datatypes <> true constr
+R13387:13391 Coq.Init.Datatypes <> false constr
+R13397:13400 Coq.Init.Datatypes <> true constr
+R13478:13485 Kernel.AxCore <> ax_exits def
+R13503:13512 Kernel.AxCore <> nat_pre_le thm
+R13503:13512 Kernel.AxCore <> nat_pre_le thm
+R13503:13512 Kernel.AxCore <> nat_pre_le thm
+R13531:13538 Kernel.AxCore <> ax_exits def
+R13556:13565 Kernel.AxCore <> nat_pre_le thm
+R13556:13565 Kernel.AxCore <> nat_pre_le thm
+R13556:13565 Kernel.AxCore <> nat_pre_le thm
+prf 13633:13669 <> two_point_shadow_cannot_price_exactly
+binder 13683:13683 <> S:124
+binder 13685:13685 <> I:125
+binder 13687:13687 <> O:126
+R13706:13709 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13705:13705 Kernel.AxWindow <> S:124 var
+R13711:13714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13710:13710 Kernel.AxWindow <> I:125 var
+R13715:13715 Kernel.AxWindow <> S:124 var
+binder 13698:13701 <> step:127
+R13727:13730 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13726:13726 Kernel.AxWindow <> S:124 var
+R13731:13734 Coq.Init.Datatypes <> bool ind
+binder 13719:13722 <> cert:128
+R13745:13748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13744:13744 Kernel.AxWindow <> S:124 var
+R13749:13749 Kernel.AxWindow <> O:126 var
+binder 13738:13740 <> obs:129
+R13787:13794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13757:13772 Kernel.ShadowPricing <> shadow_collision def
+R13784:13786 Kernel.AxWindow <> obs:129 var
+R13779:13782 Kernel.AxWindow <> cert:128 var
+R13774:13777 Kernel.AxWindow <> step:127 var
+binder 13802:13806 <> price:130
+R13809:13811 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13943:13943 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13862:13886 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13812:13822 Kernel.ShadowPricing <> meets_floor def
+R13835:13845 Kernel.ShadowPricing <> shadow_cost def
+R13856:13860 Kernel.AxWindow <> price:130 var
+R13852:13854 Kernel.AxWindow <> obs:129 var
+R13847:13850 Kernel.AxWindow <> step:127 var
+R13829:13832 Kernel.AxWindow <> cert:128 var
+R13824:13827 Kernel.AxWindow <> step:127 var
+R13887:13903 Kernel.ShadowPricing <> never_overcharges def
+R13916:13926 Kernel.ShadowPricing <> shadow_cost def
+R13937:13941 Kernel.AxWindow <> price:130 var
+R13933:13935 Kernel.AxWindow <> obs:129 var
+R13928:13931 Kernel.AxWindow <> step:127 var
+R13910:13913 Kernel.AxWindow <> cert:128 var
+R13905:13908 Kernel.AxWindow <> step:127 var
+R14019:14026 Kernel.AxCore <> mk_axsys constr
+R14028:14031 Coq.Init.Datatypes <> bool ind
+R14033:14039 Kernel.AxCore <> two_pre def
+R14019:14026 Kernel.AxCore <> mk_axsys constr
+R14028:14031 Coq.Init.Datatypes <> bool ind
+R14033:14039 Kernel.AxCore <> two_pre def
+binder 14093:14093 <> s:131
+binder 14095:14095 <> i:132
+R14119:14123 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14098:14105 Kernel.AxCore <> ax_exits def
+R14118:14118 Kernel.AxWindow <> i:132 var
+R14116:14116 Kernel.AxWindow <> s:131 var
+R14143:14145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14124:14128 Kernel.ShadowPricing <> flips def
+R14142:14142 Kernel.AxWindow <> i:132 var
+R14140:14140 Kernel.AxWindow <> s:131 var
+R14146:14149 Coq.Init.Datatypes <> true constr
+binder 14093:14093 <> s:133
+binder 14095:14095 <> i:134
+R14119:14123 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14098:14105 Kernel.AxCore <> ax_exits def
+R14118:14118 Kernel.AxWindow <> i:134 var
+R14116:14116 Kernel.AxWindow <> s:133 var
+R14143:14145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14124:14128 Kernel.ShadowPricing <> flips def
+R14142:14142 Kernel.AxWindow <> i:134 var
+R14140:14140 Kernel.AxWindow <> s:133 var
+R14146:14149 Coq.Init.Datatypes <> true constr
+R14176:14183 Kernel.AxCore <> ax_exits def
+R14186:14190 Kernel.ShadowPricing <> flips def
+R14193:14197 Kernel.AxCore <> bp_le def
+R14424:14442 Kernel.AxWindow <> ax_window_collision def
+R14424:14442 Kernel.AxWindow <> ax_window_collision def
+R14620:14643 Kernel.AxWindow <> ax_window_no_exact_price thm
+R14650:14656 Kernel.AxCore <> two_pre def
+R14645:14648 Coq.Init.Datatypes <> bool ind
+R14620:14643 Kernel.AxWindow <> ax_window_no_exact_price thm
+R14650:14656 Kernel.AxCore <> two_pre def
+R14645:14648 Coq.Init.Datatypes <> bool ind
+R14778:14782 Kernel.ShadowPricing <> flips def
+R14778:14782 Kernel.ShadowPricing <> flips def
+R14889:14919 Kernel.AxWindow <> ax_window_collision_overcharges thm
+R14940:14963 Kernel.AxWindow <> ax_window_no_exact_price thm
+R14984:15002 Kernel.AxWindow <> ax_step_price_exact thm
+R15023:15049 Kernel.AxWindow <> ax_window_sees_record_exact thm
+R15070:15101 Kernel.AxWindow <> ax_window_exact_iff_no_collision thm
+R15122:15140 Kernel.AxWindow <> ax_overcharge_lower thm
+R15161:15179 Kernel.AxWindow <> ax_overcharge_tight thm
+R15200:15224 Kernel.AxWindow <> ax_exact_without_position thm
+R15245:15269 Kernel.AxWindow <> ax_threshold_window_blind thm
+R15290:15326 Kernel.AxWindow <> two_point_shadow_cannot_price_exactly thm

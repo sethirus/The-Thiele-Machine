@@ -1,37 +1,100 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-06T00:24:39.910164+00:00",
+  "generated": "2026-10-06T10:29:16.228950+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "444f9a6686a652d578cfd058f7752bb1ba82ab732ccb5e65b7d4efbdea642127",
-  "probe_digest": "c34b288860b3e732a59fae5367c660d16ed809683232ec8f53ddc7f8cc258700",
+  "corpus_digest": "be964110a7d5c31c316c02a1eeb9a4cb4d25b0b8865e3a7f0beda4f5179e56ec",
+  "probe_digest": "92433d64b76f42634cbd89647ee342c178d0205478b943e1513469915850cebf",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "70f852ee029b6bb0808343ddf220544d219bc92433480347978b7de49b806089",
-  "files_probed": 167,
-  "addressable_theorems_probed": 3161,
-  "blocks_parsed": 3161,
+  "raw_output_sha256": "0cee80364375bb98b627735e04bdc63127605aa56b04a9eb3df7253f8a96d271",
+  "files_probed": 308,
+  "addressable_theorems_probed": 5369,
+  "blocks_parsed": 5369,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 3161,
-    "closed_under_global_context": 2807,
-    "depend_on_axioms": 354,
+    "theorems_probed": 5369,
+    "closed_under_global_context": 4882,
+    "depend_on_axioms": 487,
     "user_or_third_party_axiom_findings": 0,
-    "excluded_middle_users": 28,
-    "functional_extensionality_users": 332,
-    "real_completeness_axiom_users": 354,
+    "excluded_middle_users": 91,
+    "functional_extensionality_users": 460,
+    "real_completeness_axiom_users": 487,
     "unique_axioms_used": {
-      "ClassicalDedekindReals.sig_forall_dec": 354,
-      "FunctionalExtensionality.functional_extensionality_dep": 332,
-      "ClassicalDedekindReals.sig_not_dec": 84,
-      "Classical_Prop.classic": 28
+      "ClassicalDedekindReals.sig_forall_dec": 487,
+      "FunctionalExtensionality.functional_extensionality_dep": 460,
+      "ClassicalDedekindReals.sig_not_dec": 154,
+      "Classical_Prop.classic": 91
     }
   },
   "user_or_third_party_axiom_findings": [],
   "classical_logic_users": [
+    "Kernel.AxInfinite.ax_fibre_loss_nonneg",
+    "Kernel.AxInfinite.ax_fibre_loss_split",
+    "Kernel.AxInfinite.ax_inf_loss_bits",
+    "Kernel.AxInfinite.ax_loss_n_succ",
+    "Kernel.AxInfinite.ax_loss_n_growing",
+    "Kernel.AxInfinite.ax_loss_n_le",
+    "Kernel.AxInfinite.ax_inf_loss_series",
+    "Kernel.AxInfinite.ax_chain_rule",
+    "Kernel.AxInfinite.ax_entropy_split",
+    "Kernel.AxInfinite.ax_infinite_entropy_survives",
+    "Kernel.AxInfinite.ax_code_term",
+    "Kernel.AxInfinite.ax_gibbs_code",
+    "Kernel.AxInfinite.ax_gibbs_code_uniform",
+    "Kernel.AxInfinite.ax_ln2_pos",
+    "Kernel.AxInfinite.ax_geometric_loss",
+    "Kernel.AxInfinite.ax_block_term",
+    "Kernel.AxInfinite.ax_block_loss_unbounded",
+    "Kernel.AxInfinite.ax_block_no_toll",
+    "Kernel.AxInfinite.ax_toll_covers_landauer_minimum",
+    "Kernel.AxProb.ax_ln_le_sub",
+    "Kernel.AxProb.ax_ln_mono",
+    "Kernel.AxProb.ax_gibbs_term",
+    "Kernel.AxProb.ax_fibre_gibbs",
+    "Kernel.AxProb.ax_loss_le",
+    "Kernel.AxProb.ax_uniform_loss_exact",
+    "Kernel.AxProb.ax_ln_pow2",
+    "Kernel.AxProb.ax_priced_loss_tight",
+    "Kernel.AxProb.ax_priced_loss_bits",
+    "Kernel.NecFCalorimeter.nec_f_smaller_gap_iff",
+    "Kernel.NecFCalorimeter.nec_f_smaller_gap_negative_pair",
+    "Kernel.NecFCalorimeter.nec_f_landauer_gap_unique",
+    "Kernel.NecFEntropy.nec_f_entropy_invariant_iff_injective",
+    "Kernel.NecFEntropy.nec_f_drop_zero_of_support_injective",
+    "Kernel.NecFEntropy.nec_f_drop_pos_iff_support_merge",
+    "Kernel.NecFEntropy.nec_f_zero_drop_every_move_iff_one_state",
+    "Kernel.NecFEntropy.nec_f_entropy_toll_needs_finite",
+    "Kernel.NecFEntropy.nec_f_entropy_toll_needs_permanent",
+    "Kernel.NecFEntropy.nec_f_a2_without_entropy_pricing",
+    "Kernel.NecFEntropy.nec_f_heat_positive_needs_kT",
+    "Kernel.NecFEntropy.nec_f_full_support_needs_yes",
+    "Kernel.NecFEntropy.nec_f_full_support_needs_s",
+    "Kernel.NecFEntropyTight.nec_f_log2_div",
+    "Kernel.NecFEntropyTight.nec_f_entropy_bounds_attained",
+    "Kernel.NecFEntropyTight.nec_f_heat_floor_attained",
+    "Kernel.NecFEntropyTight.nec_f_three_entropy_q",
+    "Kernel.NecFEntropyTight.nec_f_three_entropy_p",
+    "Kernel.NecFEntropyTight.nec_f_heat_floor_needs_nonneg_kT",
+    "Kernel.NecFEntropyTight.nec_f_surprisal_half",
+    "Kernel.NecFEntropyTight.nec_f_surprisal_zero",
+    "Kernel.NecFEntropyTight.nec_f_surprisal_one",
+    "Kernel.NecFEntropyTight.nec_f_invariance_needs_complete_list",
+    "Kernel.NecFEntropyTight.nec_f_invariance_needs_nodup",
+    "Kernel.NecFEntropyTight.nec_f_ceiling_needs_permanent",
+    "Kernel.NecFGibbs.nec_f_ln_strict",
+    "Kernel.NecFGibbs.nec_f_entropy_eq_log_support",
+    "Kernel.NecFGibbs.nec_f_uniform_drop_exact_only_if_divides",
+    "Kernel.NecFGibbs.nec_f_uniform_drop_strict_unless_divides",
+    "Kernel.NecFGibbs.nec_f_step_entropy_invariant_uniform",
+    "Kernel.NecFSqueezeLog.nec_f_ln_le_iff",
+    "Kernel.NecFSqueezeLog.nec_f_squeeze_real_iff",
+    "Kernel.NecFSqueezeLog.nec_f_least_cost_is_ceiling",
+    "Kernel.NecFSqueezeLog.nec_f_one_halving_iff",
+    "Kernel.NecFSqueezeLog.nec_f_thinner_squeeze_below_one_bit",
     "Kernel.PermanentCertificationEntropy.ln2_pos",
     "Kernel.PermanentCertificationEntropy.ln_le_minus_one",
     "Kernel.PermanentCertificationEntropy.entropy_le_log_support",
@@ -64,9 +127,9 @@
   "unaddressable_theorems_in_functors_or_module_types": [],
   "by_namespace": {
     "Kernel": {
-      "theorems": 2222,
-      "closed": 1868,
-      "with_axioms": 354,
+      "theorems": 3943,
+      "closed": 3456,
+      "with_axioms": 487,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -75,8 +138,8 @@
       ]
     },
     "Minimal": {
-      "theorems": 930,
-      "closed": 930,
+      "theorems": 1417,
+      "closed": 1417,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -91,6 +154,256 @@
     "coq/kernel/category/AlgebraicCoherence.v": {
       "theorems": 19,
       "closed": 19,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxCgkAxis.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxCgkBoundary.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxCgkGuest.v": {
+      "theorems": 78,
+      "closed": 78,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxCgkHost.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxCgkLang.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxCgkRun.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxChain.v": {
+      "theorems": 17,
+      "closed": 17,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxComplete.v": {
+      "theorems": 16,
+      "closed": 16,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxComplete2.v": {
+      "theorems": 17,
+      "closed": 17,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxCore.v": {
+      "theorems": 17,
+      "closed": 17,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxDgFixed.v": {
+      "theorems": 25,
+      "closed": 25,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxDgLoops.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxDgPhase.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxDgPre.v": {
+      "theorems": 19,
+      "closed": 19,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxHost.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxHostClaims.v": {
+      "theorems": 29,
+      "closed": 29,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxInfinite.v": {
+      "theorems": 42,
+      "closed": 5,
+      "with_axioms": 37,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/AxLatch.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxLatch2.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxMerge.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxNecessity.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxProb.v": {
+      "theorems": 20,
+      "closed": 0,
+      "with_axioms": 20,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/AxRice.v": {
+      "theorems": 40,
+      "closed": 40,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxShadow.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxSmall.v": {
+      "theorems": 32,
+      "closed": 32,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxTwoPoint.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxUniversal.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/AxWindow.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpBlocks.v": {
+      "theorems": 39,
+      "closed": 39,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpCompile.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpExpr.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpFinal.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpFlat.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpGuest.v": {
+      "theorems": 25,
+      "closed": 25,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpHost.v": {
+      "theorems": 31,
+      "closed": 31,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpInline.v": {
+      "theorems": 35,
+      "closed": 35,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpLang.v": {
+      "theorems": 24,
+      "closed": 24,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpMM.v": {
+      "theorems": 25,
+      "closed": 25,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpPipeline.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CmpRun.v": {
+      "theorems": 33,
+      "closed": 33,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -160,6 +473,72 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/foundation/CzCS.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzCat.v": {
+      "theorems": 33,
+      "closed": 33,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzCounter.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzLoad.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzProd.v": {
+      "theorems": 21,
+      "closed": 21,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzProdTC.v": {
+      "theorems": 26,
+      "closed": 26,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzSelf.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzSeq.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzShadow.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzTower.v": {
+      "theorems": 33,
+      "closed": 33,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/CzWin.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/foundation/EarnedCoreLinks.v": {
       "theorems": 17,
       "closed": 17,
@@ -190,6 +569,42 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/foundation/LiftAxis.v": {
+      "theorems": 24,
+      "closed": 24,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/LiftExec.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/LiftHeadline.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/LiftModels.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/LiftModelsAll.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/LiftRAM.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/foundation/MM2ComplementUndec.v": {
       "theorems": 2,
       "closed": 2,
@@ -199,6 +614,230 @@
     "coq/kernel/foundation/NatSubstrateInstance.v": {
       "theorems": 7,
       "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecEChsh.v": {
+      "theorems": 24,
+      "closed": 4,
+      "with_axioms": 20,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/NecEChshInt.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecEFine.v": {
+      "theorems": 16,
+      "closed": 0,
+      "with_axioms": 16,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/NecEHost.v": {
+      "theorems": 26,
+      "closed": 26,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecFCalorimeter.v": {
+      "theorems": 5,
+      "closed": 0,
+      "with_axioms": 5,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/NecFCounter.v": {
+      "theorems": 17,
+      "closed": 17,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecFEntropy.v": {
+      "theorems": 11,
+      "closed": 0,
+      "with_axioms": 11,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/NecFEntropyTight.v": {
+      "theorems": 28,
+      "closed": 14,
+      "with_axioms": 14,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/NecFExtra.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecFFloor.v": {
+      "theorems": 22,
+      "closed": 22,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecFGibbs.v": {
+      "theorems": 5,
+      "closed": 0,
+      "with_axioms": 5,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/NecFMerge.v": {
+      "theorems": 29,
+      "closed": 29,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecFNarrowing.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecFPhysics.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecFQuant.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecFSqueeze.v": {
+      "theorems": 27,
+      "closed": 27,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecFSqueezeLog.v": {
+      "theorems": 6,
+      "closed": 1,
+      "with_axioms": 5,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/NecSMisc.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecSPoints.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecSPresented.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecSU.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecSUndec.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWArgued.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWCT.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWCasper.v": {
+      "theorems": 27,
+      "closed": 27,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWDiagonal.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWGrowing.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWLRice.v": {
+      "theorems": 24,
+      "closed": 24,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWLatch.v": {
+      "theorems": 17,
+      "closed": 17,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWModels.v": {
+      "theorems": 17,
+      "closed": 17,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWPointer.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NecWWindow.v": {
+      "theorems": 21,
+      "closed": 21,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -371,6 +1010,132 @@
     "coq/kernel/foundation/Substrate.v": {
       "theorems": 3,
       "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/Tc2Plain.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/Tc2PlainAdd.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcBridge.v": {
+      "theorems": 23,
+      "closed": 23,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcCodes.v": {
+      "theorems": 31,
+      "closed": 31,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcCompile.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcCompile0.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcCompose.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcEpi.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcFuel.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcGadget.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcGodel.v": {
+      "theorems": 16,
+      "closed": 16,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcInterp.v": {
+      "theorems": 26,
+      "closed": 26,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcMod.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcNoFine.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcNorm.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcPacked.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcPackedMMA.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcPlain.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcPrefix.v": {
+      "theorems": 28,
+      "closed": 28,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcRice.v": {
+      "theorems": 38,
+      "closed": 38,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TcRiceMM.v": {
+      "theorems": 6,
+      "closed": 6,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -850,6 +1615,12 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "minimal/AxDgBlock.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "minimal/BitSearch2.v": {
       "theorems": 16,
       "closed": 16,
@@ -875,6 +1646,18 @@
       "axiom_set": []
     },
     "minimal/CoveringNeeded2.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/CzLink.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/CzShared.v": {
       "theorems": 4,
       "closed": 4,
       "with_axioms": 0,
@@ -928,9 +1711,123 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "minimal/LiftConverse.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/LiftCore.v": {
+      "theorems": 38,
+      "closed": 38,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/LiftOneCounter.v": {
+      "theorems": 25,
+      "closed": 25,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/LiftPigeon.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "minimal/MultiThiele2.v": {
       "theorems": 7,
       "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecEEnt.v": {
+      "theorems": 47,
+      "closed": 47,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecESearch.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecSChain.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecSClean.v": {
+      "theorems": 31,
+      "closed": 31,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecSHost.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecSNoCopy.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecSWindow.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecTEarned.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecTGeneric.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecTLoop.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecTLoose.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecTPartition.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecTToll.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecTUnclean.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/NecTVerifier.v": {
+      "theorems": 5,
+      "closed": 5,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -985,6 +1882,54 @@
     "minimal/SmTally.v": {
       "theorems": 16,
       "closed": 16,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/Tc2Am.v": {
+      "theorems": 22,
+      "closed": 22,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/Tc2Chain.v": {
+      "theorems": 29,
+      "closed": 29,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/Tc2Collision.v": {
+      "theorems": 16,
+      "closed": 16,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/Tc2Embed.v": {
+      "theorems": 44,
+      "closed": 44,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/Tc2Forced.v": {
+      "theorems": 42,
+      "closed": 42,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/Tc2Mult.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/Tc2Stage.v": {
+      "theorems": 26,
+      "closed": 26,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/TcBlocks.v": {
+      "theorems": 30,
+      "closed": 30,
       "with_axioms": 0,
       "axiom_set": []
     },

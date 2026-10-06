@@ -1,0 +1,156 @@
+DIGEST 034aa7f9e2a60c31d364e3ace0b91bf7
+FUndecidability.L.Datatypes.LSum
+R37:52 Undecidability.L.Tactics.LTactics <> <> lib
+R54:68 Undecidability.L.Datatypes.LBool <> <> lib
+R108:124 Undecidability.L.Tactics.GenEncode <> <> lib
+sec 166:171 <> Fix_XY
+var 186:186 Fix_XY X
+var 188:188 Fix_XY Y
+var 210:213 Fix_XY intX
+R217:225 Undecidability.L.Tactics.Extract <> encodable class
+R227:227 Undecidability.L.Datatypes.LSum <> Fix_XY.X var
+var 241:244 Fix_XY intY
+R248:256 Undecidability.L.Tactics.Extract <> encodable class
+R258:258 Undecidability.L.Datatypes.LSum <> Fix_XY.Y var
+R277:287 Undecidability.L.Tactics.GenEncode <> tmGenEncode def
+R301:303 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R300:300 Undecidability.L.Datatypes.LSum <> Fix_XY.X var
+R304:304 Undecidability.L.Datatypes.LSum <> Fix_XY.Y var
+inst 371:384 <> encInj_sum_enc
+R391:396 Undecidability.L.Tactics.Computable <> encInj class
+R398:401 Undecidability.L.Datatypes.LSum <> Fix_XY.intX var
+binder 387:387 <> H:5
+R410:415 Undecidability.L.Tactics.Computable <> encInj class
+R417:420 Undecidability.L.Datatypes.LSum <> Fix_XY.intY var
+binder 405:406 <> H':6
+R425:430 Undecidability.L.Tactics.Computable <> encInj class
+R433:449 Undecidability.L.Datatypes.LSum <> encodable_sum_enc def
+inst 564:571 <> term_inl
+R575:584 Undecidability.L.Tactics.Computable <> computable class
+R588:590 Coq.Init.Datatypes <> inl constr
+R592:592 Undecidability.L.Datatypes.LSum <> Fix_XY.X var
+R594:594 Undecidability.L.Datatypes.LSum <> Fix_XY.Y var
+inst 659:666 <> term_inr
+R670:679 Undecidability.L.Tactics.Computable <> computable class
+R683:685 Coq.Init.Datatypes <> inr constr
+R687:687 Undecidability.L.Datatypes.LSum <> Fix_XY.X var
+R689:689 Undecidability.L.Datatypes.LSum <> Fix_XY.Y var
+R741:746 Undecidability.L.Datatypes.LSum Fix_XY <> sec
+sec 810:816 <> sum_eqb
+var 831:831 sum_eqb X
+var 833:833 sum_eqb Y
+var 854:859 sum_eqb eqb__X
+R864:867 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R863:863 Undecidability.L.Datatypes.LSum <> sum_eqb.X var
+R869:872 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R868:868 Undecidability.L.Datatypes.LSum <> sum_eqb.X var
+R873:876 Coq.Init.Datatypes <> bool ind
+var 890:896 sum_eqb spec__X
+binder 907:907 <> x:10
+binder 909:909 <> y:11
+R912:918 Coq.Bool.Bool <> reflect ind
+R922:924 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R921:921 Undecidability.L.Datatypes.LSum <> x:10 var
+R925:925 Undecidability.L.Datatypes.LSum <> y:11 var
+R929:934 Undecidability.L.Datatypes.LSum <> sum_eqb.eqb__X var
+R938:938 Undecidability.L.Datatypes.LSum <> y:11 var
+R936:936 Undecidability.L.Datatypes.LSum <> x:10 var
+var 953:958 sum_eqb eqb__Y
+R963:966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R962:962 Undecidability.L.Datatypes.LSum <> sum_eqb.Y var
+R968:971 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R967:967 Undecidability.L.Datatypes.LSum <> sum_eqb.Y var
+R972:975 Coq.Init.Datatypes <> bool ind
+var 989:995 sum_eqb spec__Y
+binder 1006:1006 <> x:14
+binder 1008:1008 <> y:15
+R1011:1017 Coq.Bool.Bool <> reflect ind
+R1021:1023 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1020:1020 Undecidability.L.Datatypes.LSum <> x:14 var
+R1024:1024 Undecidability.L.Datatypes.LSum <> y:15 var
+R1028:1033 Undecidability.L.Datatypes.LSum <> sum_eqb.eqb__Y var
+R1037:1037 Undecidability.L.Datatypes.LSum <> y:15 var
+R1035:1035 Undecidability.L.Datatypes.LSum <> x:14 var
+def 1055:1061 <> sum_eqb
+R1071:1073 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R1070:1070 Undecidability.L.Datatypes.LSum <> sum_eqb.X var
+R1074:1074 Undecidability.L.Datatypes.LSum <> sum_eqb.Y var
+binder 1064:1064 <> A:17
+binder 1066:1066 <> B:18
+R1092:1092 Undecidability.L.Datatypes.LSum <> B:18 var
+R1090:1090 Undecidability.L.Datatypes.LSum <> A:17 var
+R1105:1107 Coq.Init.Datatypes <> inl constr
+R1111:1113 Coq.Init.Datatypes <> inl constr
+R1120:1125 Undecidability.L.Datatypes.LSum <> sum_eqb.eqb__X var
+R1137:1139 Coq.Init.Datatypes <> inr constr
+R1143:1145 Coq.Init.Datatypes <> inr constr
+R1152:1157 Undecidability.L.Datatypes.LSum <> sum_eqb.eqb__Y var
+R1176:1180 Coq.Init.Datatypes <> false constr
+prf 1200:1211 <> sum_eqb_spec
+binder 1213:1213 <> A:21
+binder 1215:1215 <> B:22
+R1219:1225 Coq.Bool.Bool <> reflect ind
+R1229:1231 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1228:1228 Undecidability.L.Datatypes.LSum <> A:21 var
+R1232:1232 Undecidability.L.Datatypes.LSum <> B:22 var
+R1236:1242 Undecidability.L.Datatypes.LSum <> sum_eqb def
+R1246:1246 Undecidability.L.Datatypes.LSum <> B:22 var
+R1244:1244 Undecidability.L.Datatypes.LSum <> A:21 var
+R1343:1349 Undecidability.L.Datatypes.LSum <> sum_eqb.spec__X var
+R1343:1349 Undecidability.L.Datatypes.LSum <> sum_eqb.spec__X var
+R1398:1404 Undecidability.L.Datatypes.LSum <> sum_eqb.spec__Y var
+R1398:1404 Undecidability.L.Datatypes.LSum <> sum_eqb.spec__Y var
+R1448:1454 Undecidability.L.Datatypes.LSum sum_eqb <> sec
+R1493:1498 Undecidability.L.Functions.EqBool <> <> lib
+sec 1510:1512 <> int
+var 1527:1527 int X
+var 1529:1529 int Y
+R1553:1561 Undecidability.L.Tactics.Extract <> encodable class
+R1563:1563 Undecidability.L.Datatypes.LSum <> int.X var
+binder 1548:1549 <> HX:25
+R1572:1580 Undecidability.L.Tactics.Extract <> encodable class
+R1582:1582 Undecidability.L.Datatypes.LSum <> int.Y var
+binder 1567:1568 <> HY:26
+inst 1605:1610 <> eqbSum
+binder 1612:1612 <> f:27
+binder 1614:1614 <> g:28
+R1618:1625 Undecidability.L.Functions.EqBool <> eqbClass class
+R1631:1631 Undecidability.L.Datatypes.LSum <> int.X var
+R1634:1634 Undecidability.L.Datatypes.LSum <> f:27 var
+binder 1618:1634 <> H:29
+R1639:1646 Undecidability.L.Functions.EqBool <> eqbClass class
+R1652:1652 Undecidability.L.Datatypes.LSum <> int.Y var
+R1655:1655 Undecidability.L.Datatypes.LSum <> g:28 var
+binder 1639:1655 <> H0:30
+R1663:1670 Undecidability.L.Functions.EqBool <> eqbClass class
+R1673:1679 Undecidability.L.Datatypes.LSum <> sum_eqb def
+R1683:1683 Undecidability.L.Datatypes.LSum <> g:28 var
+R1681:1681 Undecidability.L.Datatypes.LSum <> f:27 var
+R1719:1730 Undecidability.L.Datatypes.LSum <> sum_eqb_spec thm
+R1719:1730 Undecidability.L.Datatypes.LSum <> sum_eqb_spec thm
+R1749:1756 Undecidability.L.Functions.EqBool <> eqb_spec thm
+R1749:1756 Undecidability.L.Functions.EqBool <> eqb_spec thm
+R1749:1756 Undecidability.L.Functions.EqBool <> eqb_spec thm
+inst 1785:1795 <> eqbComp_sum
+R1801:1807 Undecidability.L.Functions.EqBool <> eqbComp class
+R1809:1809 Undecidability.L.Datatypes.LSum <> int.X var
+R1815:1816 Undecidability.L.Datatypes.LSum <> int.HX var
+binder 1799:1799 <> H:33
+R1825:1831 Undecidability.L.Functions.EqBool <> eqbComp class
+R1833:1833 Undecidability.L.Datatypes.LSum <> int.Y var
+R1839:1840 Undecidability.L.Datatypes.LSum <> int.HY var
+binder 1822:1823 <> H':36
+R1849:1855 Undecidability.L.Functions.EqBool <> eqbComp class
+R1858:1860 Coq.Init.Datatypes <> sum ind
+R1864:1864 Undecidability.L.Datatypes.LSum <> int.Y var
+R1862:1862 Undecidability.L.Datatypes.LSum <> int.X var
+R1901:1907 Undecidability.L.Datatypes.LSum <> sum_eqb def
+R1934:1936 Undecidability.L.Functions.EqBool <> eqb def
+R1942:1942 Undecidability.L.Datatypes.LSum <> int.X var
+R1934:1936 Undecidability.L.Functions.EqBool <> eqb def
+R1942:1942 Undecidability.L.Datatypes.LSum <> int.X var
+R1971:1973 Undecidability.L.Functions.EqBool <> eqb def
+R1979:1979 Undecidability.L.Datatypes.LSum <> int.Y var
+R1971:1973 Undecidability.L.Functions.EqBool <> eqb def
+R1979:1979 Undecidability.L.Datatypes.LSum <> int.Y var
+R2009:2011 Undecidability.L.Datatypes.LSum int <> sec

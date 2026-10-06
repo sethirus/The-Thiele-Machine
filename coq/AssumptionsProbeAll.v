@@ -4,6 +4,46 @@
     are skipped here and recorded separately in the inventory. *)
 
 Require Kernel.AlgebraicCoherence.
+Require Kernel.AxCgkAxis.
+Require Kernel.AxCgkBoundary.
+Require Kernel.AxCgkGuest.
+Require Kernel.AxCgkHost.
+Require Kernel.AxCgkLang.
+Require Kernel.AxCgkRun.
+Require Kernel.AxChain.
+Require Kernel.AxComplete.
+Require Kernel.AxComplete2.
+Require Kernel.AxCore.
+Require Kernel.AxDgFixed.
+Require Kernel.AxDgLoops.
+Require Kernel.AxDgPhase.
+Require Kernel.AxDgPre.
+Require Kernel.AxHost.
+Require Kernel.AxHostClaims.
+Require Kernel.AxInfinite.
+Require Kernel.AxLatch.
+Require Kernel.AxLatch2.
+Require Kernel.AxMerge.
+Require Kernel.AxNecessity.
+Require Kernel.AxProb.
+Require Kernel.AxRice.
+Require Kernel.AxShadow.
+Require Kernel.AxSmall.
+Require Kernel.AxTwoPoint.
+Require Kernel.AxUniversal.
+Require Kernel.AxWindow.
+Require Kernel.CmpBlocks.
+Require Kernel.CmpCompile.
+Require Kernel.CmpExpr.
+Require Kernel.CmpFinal.
+Require Kernel.CmpFlat.
+Require Kernel.CmpGuest.
+Require Kernel.CmpHost.
+Require Kernel.CmpInline.
+Require Kernel.CmpLang.
+Require Kernel.CmpMM.
+Require Kernel.CmpPipeline.
+Require Kernel.CmpRun.
 Require Kernel.CompilerChecker.
 Require Kernel.CompilerCodes.
 Require Kernel.CompilerGuest.
@@ -17,6 +57,17 @@ Require Kernel.CrossBaseGranularityCore.
 Require Kernel.CrossBaseGranularityL.
 Require Kernel.CrossBaseGranularityRAM.
 Require Kernel.CrossBaseGranularityTransCore.
+Require Kernel.CzCS.
+Require Kernel.CzCat.
+Require Kernel.CzCounter.
+Require Kernel.CzLoad.
+Require Kernel.CzProd.
+Require Kernel.CzProdTC.
+Require Kernel.CzSelf.
+Require Kernel.CzSeq.
+Require Kernel.CzShadow.
+Require Kernel.CzTower.
+Require Kernel.CzWin.
 Require Kernel.EarnedCoreLinks.
 Require Kernel.EarnedGenericLinks.
 Require Kernel.GrowingRecord.
@@ -24,8 +75,46 @@ Require Kernel.GrowingRecordCore.
 Require Kernel.Kernel.
 Require Kernel.KernelTM.
 Require Kernel.LRecursion.
+Require Kernel.LiftAxis.
+Require Kernel.LiftExec.
+Require Kernel.LiftHeadline.
+Require Kernel.LiftModels.
+Require Kernel.LiftModelsAll.
+Require Kernel.LiftRAM.
 Require Kernel.MM2ComplementUndec.
 Require Kernel.NatSubstrateInstance.
+Require Kernel.NecEChsh.
+Require Kernel.NecEChshInt.
+Require Kernel.NecEFine.
+Require Kernel.NecEHost.
+Require Kernel.NecFCalorimeter.
+Require Kernel.NecFCounter.
+Require Kernel.NecFEntropy.
+Require Kernel.NecFEntropyTight.
+Require Kernel.NecFExtra.
+Require Kernel.NecFFloor.
+Require Kernel.NecFGibbs.
+Require Kernel.NecFMerge.
+Require Kernel.NecFNarrowing.
+Require Kernel.NecFPhysics.
+Require Kernel.NecFQuant.
+Require Kernel.NecFSqueeze.
+Require Kernel.NecFSqueezeLog.
+Require Kernel.NecSMisc.
+Require Kernel.NecSPoints.
+Require Kernel.NecSPresented.
+Require Kernel.NecSU.
+Require Kernel.NecSUndec.
+Require Kernel.NecWArgued.
+Require Kernel.NecWCT.
+Require Kernel.NecWCasper.
+Require Kernel.NecWDiagonal.
+Require Kernel.NecWGrowing.
+Require Kernel.NecWLRice.
+Require Kernel.NecWLatch.
+Require Kernel.NecWModels.
+Require Kernel.NecWPointer.
+Require Kernel.NecWWindow.
 Require Kernel.Presentation.
 Require Kernel.PresentedDemo.
 Require Kernel.PresentedUniversal.
@@ -60,6 +149,28 @@ Require Kernel.StructuralCoreAnyBase.
 Require Kernel.StructuralCoreCover.
 Require Kernel.StructuralRecordAxis.
 Require Kernel.Substrate.
+Require Kernel.Tc2Plain.
+Require Kernel.Tc2PlainAdd.
+Require Kernel.TcBridge.
+Require Kernel.TcCodes.
+Require Kernel.TcCompile.
+Require Kernel.TcCompile0.
+Require Kernel.TcCompose.
+Require Kernel.TcEpi.
+Require Kernel.TcEvalL.
+Require Kernel.TcFuel.
+Require Kernel.TcGadget.
+Require Kernel.TcGodel.
+Require Kernel.TcInterp.
+Require Kernel.TcMod.
+Require Kernel.TcNoFine.
+Require Kernel.TcNorm.
+Require Kernel.TcPacked.
+Require Kernel.TcPackedMMA.
+Require Kernel.TcPlain.
+Require Kernel.TcPrefix.
+Require Kernel.TcRice.
+Require Kernel.TcRiceMM.
 Require Kernel.UniversalBlocks.
 Require Kernel.UniversalBridge.
 Require Kernel.UniversalInterpreterLinks.
@@ -140,11 +251,14 @@ Require Kernel.TPMQuoteGap.
 Require Kernel.CalorimeterProtocol.
 Require Kernel.CalorimeterProtocolTarget.
 Require TestFixtures.VacuitySmoke.
+Require Minimal.AxDgBlock.
 Require Minimal.BitSearch2.
 Require Minimal.BitSearchMember2.
 Require Minimal.BitSearchObserved2.
 Require Minimal.CompressionSmall2.
 Require Minimal.CoveringNeeded2.
+Require Minimal.CzLink.
+Require Minimal.CzShared.
 Require Minimal.EarnedCore.
 Require Minimal.EarnedGeneric.
 Require Minimal.EarnedMulti.
@@ -153,7 +267,26 @@ Require Minimal.EarnedPriced.
 Require Minimal.EntitlementMore2.
 Require Minimal.EntitlementSmall.
 Require Minimal.FragmentSmall.
+Require Minimal.LiftConverse.
+Require Minimal.LiftCore.
+Require Minimal.LiftOneCounter.
+Require Minimal.LiftPigeon.
 Require Minimal.MultiThiele2.
+Require Minimal.NecEEnt.
+Require Minimal.NecESearch.
+Require Minimal.NecSChain.
+Require Minimal.NecSClean.
+Require Minimal.NecSHost.
+Require Minimal.NecSNoCopy.
+Require Minimal.NecSWindow.
+Require Minimal.NecTEarned.
+Require Minimal.NecTGeneric.
+Require Minimal.NecTLoop.
+Require Minimal.NecTLoose.
+Require Minimal.NecTPartition.
+Require Minimal.NecTToll.
+Require Minimal.NecTUnclean.
+Require Minimal.NecTVerifier.
 Require Minimal.Presented.
 Require Minimal.PricedComplete.
 Require Minimal.SmCodes.
@@ -163,6 +296,14 @@ Require Minimal.SmLoops.
 Require Minimal.SmLoops2.
 Require Minimal.SmLoops3.
 Require Minimal.SmTally.
+Require Minimal.Tc2Am.
+Require Minimal.Tc2Chain.
+Require Minimal.Tc2Collision.
+Require Minimal.Tc2Embed.
+Require Minimal.Tc2Forced.
+Require Minimal.Tc2Mult.
+Require Minimal.Tc2Stage.
+Require Minimal.TcBlocks.
 Require Minimal.ThieleComplete.
 Require Minimal.ThieleCompleteWindow.
 Require Minimal.TimeTax2.
@@ -191,6 +332,812 @@ Print Assumptions Kernel.AlgebraicCoherence.tsirelson_achieving_value.
 Print Assumptions Kernel.AlgebraicCoherence.tsirelson_rational_lower_witness.
 Print Assumptions Kernel.AlgebraicCoherence.algebraically_coherent_tsirelson_general.
 Print Assumptions Kernel.AlgebraicCoherence.algebraically_coherent_tsirelson_abs.
+(* === Kernel.AxCgkAxis : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxCgkAxis.ax_height_iff.
+Print Assumptions Kernel.AxCgkAxis.ax_chain_run.
+Print Assumptions Kernel.AxCgkAxis.ax_cgk_prun_mono.
+Print Assumptions Kernel.AxCgkAxis.ax_chain_levels.
+Print Assumptions Kernel.AxCgkAxis.ax_threshold_chain_host.
+(* === Kernel.AxCgkBoundary : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxCgkBoundary.ax_pr_run_cap.
+Print Assumptions Kernel.AxCgkBoundary.ax_guest_facts_cap.
+Print Assumptions Kernel.AxCgkBoundary.ax_cm_first_halt.
+Print Assumptions Kernel.AxCgkBoundary.ax_thermo_bounded.
+Print Assumptions Kernel.AxCgkBoundary.ax_chain_boundary.
+(* === Kernel.AxCgkGuest : 78 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_maxreg_in.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_xmax_in.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_cons.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_app.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_here1.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_here.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_in.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_set_rf.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_Pn_spec.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_Ps_spec.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_Pc_spec.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_Pr_spec.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_T_ge.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_T_fresh.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_src_reg.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_jmp0.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_next.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_dech.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_tr1.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_step.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_cost.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_erI.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_erS.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_tr2.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_jmp1.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_trE.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_incI0.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_erT.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_read.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_decB.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_earn.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_incI.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_decC1.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_decC2.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_decC3.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_jmpL.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_decI.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_trX.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_erT2.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_pl.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_pay.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_jmp3.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_sc_halt.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_k_gt.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_rf_high.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_rf_spare.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_eqv_zero_high.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_eqv_spare.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_in1.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_in2.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_block.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_block_p.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_one.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_dec0.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_decS.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_inc.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_pay.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_earn.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_dec_next.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_erase.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_transfert.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_payloop.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_set2_rf.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_move.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_halt.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_noraise.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_read2.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_setup.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_exit.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_loop.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_ltb_sub.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_check.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_e0_rf.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_e0_high.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_cert_max.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_prologue.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_step.
+Print Assumptions Kernel.AxCgkGuest.ax_cgk_x_stop.
+(* === Kernel.AxCgkHost : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxCgkHost.ax_cgk_grun_guest.
+Print Assumptions Kernel.AxCgkHost.ax_cgk_host_match.
+Print Assumptions Kernel.AxCgkHost.ax_cgk_grec_point.
+Print Assumptions Kernel.AxCgkHost.ax_cgk_host_points.
+Print Assumptions Kernel.AxCgkHost.ax_cgk_host_levels.
+Print Assumptions Kernel.AxCgkHost.ax_cgk_host_halting.
+Print Assumptions Kernel.AxCgkHost.ax_cgk_host_halt_point.
+(* === Kernel.AxCgkLang : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxCgkLang.ax_cgk_xstep_fun.
+Print Assumptions Kernel.AxCgkLang.ax_cgk_lift_mm.
+Print Assumptions Kernel.AxCgkLang.ax_cgk_simul_counter.
+Print Assumptions Kernel.AxCgkLang.ax_cgk_yexec_chk.
+Print Assumptions Kernel.AxCgkLang.ax_cgk_yexec_cmt.
+Print Assumptions Kernel.AxCgkLang.ax_cgk_icomp_sound.
+Print Assumptions Kernel.AxCgkLang.ax_cgk_compile_sound.
+Print Assumptions Kernel.AxCgkLang.ax_cgk_simul_start.
+Print Assumptions Kernel.AxCgkLang.ax_cgk_compile_steps.
+Print Assumptions Kernel.AxCgkLang.ax_cgk_compile_start.
+(* === Kernel.AxCgkRun : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxCgkRun.ax_cgk_y_phase.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_fetch_at.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_fetch_halt.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_head_instr.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_fetch_head.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_ystart_simul.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_y_head.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_point_facts.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_point_live.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_y_stop.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_yhalt_facts.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_yhalt_err.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_first_halt.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_cover.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_guest_matching_points.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_guest_halts_at.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_guest_halting_iff.
+Print Assumptions Kernel.AxCgkRun.ax_cgk_guest_facts_le.
+(* === Kernel.AxChain : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxChain.ax_cm_read_val_code.
+Print Assumptions Kernel.AxChain.ax_cm_run_halted.
+Print Assumptions Kernel.AxChain.ax_cm_run_add.
+Print Assumptions Kernel.AxChain.ax_cm_run_succ.
+Print Assumptions Kernel.AxChain.ax_cm_ledger_succ.
+Print Assumptions Kernel.AxChain.ax_cm_lat_ge_h.
+Print Assumptions Kernel.AxChain.ax_cm_lat_ge_start.
+Print Assumptions Kernel.AxChain.ax_cm_lat_succ.
+Print Assumptions Kernel.AxChain.ax_cm_lat_le.
+Print Assumptions Kernel.AxChain.ax_cm_run_some.
+Print Assumptions Kernel.AxChain.ax_cm_lat_iff.
+Print Assumptions Kernel.AxChain.ax_cm_bounded_of.
+Print Assumptions Kernel.AxChain.ax_cm_lat_le_from.
+Print Assumptions Kernel.AxChain.ax_cm_lat_mono.
+Print Assumptions Kernel.AxChain.ax_cm_gledger_ge.
+Print Assumptions Kernel.AxChain.ax_cm_gledger_le.
+Print Assumptions Kernel.AxChain.ax_cm_surcharge_le.
+(* === Kernel.AxComplete : 16 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxComplete.am_run_nil.
+Print Assumptions Kernel.AxComplete.am_run_cons.
+Print Assumptions Kernel.AxComplete.am_run_app.
+Print Assumptions Kernel.AxComplete.am_run_snoc.
+Print Assumptions Kernel.AxComplete.run_pt.
+Print Assumptions Kernel.AxComplete.am_axsys_run.
+Print Assumptions Kernel.AxComplete.ax_run_grows.
+Print Assumptions Kernel.AxComplete.ax_tc_a2.
+Print Assumptions Kernel.AxComplete.ax_record_moves_app.
+Print Assumptions Kernel.AxComplete.ax_tc_ledger_counts.
+Print Assumptions Kernel.AxComplete.ax_first_exit.
+Print Assumptions Kernel.AxComplete.flag_true_iff.
+Print Assumptions Kernel.AxComplete.flag_false_iff.
+Print Assumptions Kernel.AxComplete.r_ext.
+Print Assumptions Kernel.AxComplete.ax_witness_nontrivial.
+Print Assumptions Kernel.AxComplete.ax_pt_view_complete.
+(* === Kernel.AxComplete2 : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxComplete2.flag_fn_Hr.
+Print Assumptions Kernel.AxComplete2.flag_fn_false.
+Print Assumptions Kernel.AxComplete2.ax_flag_view_complete.
+Print Assumptions Kernel.AxComplete2.rm_eq.
+Print Assumptions Kernel.AxComplete2.ax_tc_certificate_three.
+Print Assumptions Kernel.AxComplete2.ax_tc_every_point_priced.
+Print Assumptions Kernel.AxComplete2.ax_tc_committed_claim_true.
+Print Assumptions Kernel.AxComplete2.ax_window_run.
+Print Assumptions Kernel.AxComplete2.ax_base_moves_blind.
+Print Assumptions Kernel.AxComplete2.ax_base_run_blind.
+Print Assumptions Kernel.AxComplete2.ax_tc_collision.
+Print Assumptions Kernel.AxComplete2.ax_tc_independence.
+Print Assumptions Kernel.AxComplete2.ax_tc_ledger_independence.
+Print Assumptions Kernel.AxComplete2.ax_tc_every_window_printed.
+Print Assumptions Kernel.AxComplete2.ax_tc_conservative.
+Print Assumptions Kernel.AxComplete2.ax_tc_halting_correspondence.
+Print Assumptions Kernel.AxComplete2.ax_tc_no_verifier.
+(* === Kernel.AxCore : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxCore.bp_le_refl.
+Print Assumptions Kernel.AxCore.bp_le_trans.
+Print Assumptions Kernel.AxCore.two_le.
+Print Assumptions Kernel.AxCore.two_antisym.
+Print Assumptions Kernel.AxCore.nat_pre_le.
+Print Assumptions Kernel.AxCore.ax_run_app.
+Print Assumptions Kernel.AxCore.ax_total_app.
+Print Assumptions Kernel.AxCore.ax_floor_iff_a2.
+Print Assumptions Kernel.AxCore.ax_cost_ge_exits.
+Print Assumptions Kernel.AxCore.ax_exit_is_strict_rise.
+Print Assumptions Kernel.AxCore.ax_view_a2.
+Print Assumptions Kernel.AxCore.cs_axsys_run.
+Print Assumptions Kernel.AxCore.cs_axsys_total.
+Print Assumptions Kernel.AxCore.cs_axsys_a2.
+Print Assumptions Kernel.AxCore.two_point_nfi.
+Print Assumptions Kernel.AxCore.bp_thresholds_determine.
+Print Assumptions Kernel.AxCore.thresholds_fail_on_preorder.
+(* === Kernel.AxDgFixed : 25 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxDgFixed.ax_dg_obs_sym.
+Print Assumptions Kernel.AxDgFixed.ax_dg_equiv_sym.
+Print Assumptions Kernel.AxDgFixed.ax_dg_obs_sm2.
+Print Assumptions Kernel.AxDgFixed.ax_dg_obs_hagree.
+Print Assumptions Kernel.AxDgFixed.ax_dg_fb_mono.
+Print Assumptions Kernel.AxDgFixed.ax_dg_Rb_MMA.
+Print Assumptions Kernel.AxDgFixed.ax_dg_enter.
+Print Assumptions Kernel.AxDgFixed.ax_dg_assemble.
+Print Assumptions Kernel.AxDgFixed.ax_dg_fixed.
+Print Assumptions Kernel.AxDgFixed.ax_dg_equiv_record.
+Print Assumptions Kernel.AxDgFixed.ax_dg_reads_of_obs.
+Print Assumptions Kernel.AxDgFixed.ax_dg_reads_hagree.
+Print Assumptions Kernel.AxDgFixed.ax_dg_diagonal_record.
+Print Assumptions Kernel.AxDgFixed.ax_dg_diagonal_threshold.
+Print Assumptions Kernel.AxDgFixed.ax_dg_ceqb_spec.
+Print Assumptions Kernel.AxDgFixed.ax_dg_incl_spec.
+Print Assumptions Kernel.AxDgFixed.ax_dg_claims_reads.
+Print Assumptions Kernel.AxDgFixed.ax_dg_claims_not_level2.
+Print Assumptions Kernel.AxDgFixed.ax_dg_pt_floor.
+Print Assumptions Kernel.AxDgFixed.ax_dg_step_check.
+Print Assumptions Kernel.AxDgFixed.ax_dg_pclaim_ends.
+Print Assumptions Kernel.AxDgFixed.ax_dg_pclaim_reaches.
+Print Assumptions Kernel.AxDgFixed.ax_dg_halt_floor.
+Print Assumptions Kernel.AxDgFixed.ax_dg_claim_undecidable.
+Print Assumptions Kernel.AxDgFixed.ax_dg_claim_diagonal.
+(* === Kernel.AxDgLoops : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxDgLoops.ax_dg_clean_ext.
+Print Assumptions Kernel.AxDgLoops.ax_dg_clean_pc.
+Print Assumptions Kernel.AxDgLoops.ax_dg_step_inc.
+Print Assumptions Kernel.AxDgLoops.ax_dg_step_dec_pos.
+Print Assumptions Kernel.AxDgLoops.ax_dg_step_dec_zero.
+Print Assumptions Kernel.AxDgLoops.ax_dg_move_gen.
+Print Assumptions Kernel.AxDgLoops.ax_dg_move.
+Print Assumptions Kernel.AxDgLoops.ax_dg_clear_gen.
+Print Assumptions Kernel.AxDgLoops.ax_dg_clear.
+Print Assumptions Kernel.AxDgLoops.ax_dg_clears.
+Print Assumptions Kernel.AxDgLoops.ax_dg_mma_instr.
+Print Assumptions Kernel.AxDgLoops.ax_dg_xstep.
+Print Assumptions Kernel.AxDgLoops.ax_dg_xrun.
+Print Assumptions Kernel.AxDgLoops.ax_dg_mma_out.
+(* === Kernel.AxDgPhase : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxDgPhase.ax_dg_N_ge.
+Print Assumptions Kernel.AxDgPhase.ax_dg_phaseA.
+Print Assumptions Kernel.AxDgPhase.ax_dg_phaseB.
+Print Assumptions Kernel.AxDgPhase.ax_dg_phaseC.
+Print Assumptions Kernel.AxDgPhase.ax_dg_phaseD.
+Print Assumptions Kernel.AxDgPhase.ax_dg_vD_eval.
+Print Assumptions Kernel.AxDgPhase.ax_dg_phaseE0.
+Print Assumptions Kernel.AxDgPhase.ax_dg_phaseE1.
+Print Assumptions Kernel.AxDgPhase.ax_dg_prelude.
+(* === Kernel.AxDgPre : 19 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxDgPre.ax_dg_seq.
+Print Assumptions Kernel.AxDgPre.ax_dg_rj_one.
+Print Assumptions Kernel.AxDgPre.ax_dg_plain_run.
+Print Assumptions Kernel.AxDgPre.ax_dg_halted_out.
+Print Assumptions Kernel.AxDgPre.ax_dg_lp_len.
+Print Assumptions Kernel.AxDgPre.ax_dg_Cl_len.
+Print Assumptions Kernel.AxDgPre.ax_dg_Pfx_len.
+Print Assumptions Kernel.AxDgPre.ax_dg_V_len.
+Print Assumptions Kernel.AxDgPre.ax_dg_fetch_pfx.
+Print Assumptions Kernel.AxDgPre.ax_dg_fetch_app_right.
+Print Assumptions Kernel.AxDgPre.ax_dg_fetch_A.
+Print Assumptions Kernel.AxDgPre.ax_dg_fetch_Cl.
+Print Assumptions Kernel.AxDgPre.ax_dg_fetch_D.
+Print Assumptions Kernel.AxDgPre.ax_dg_fetch_E.
+Print Assumptions Kernel.AxDgPre.ax_dg_embeds_pre.
+Print Assumptions Kernel.AxDgPre.ax_dg_embeds_no.
+Print Assumptions Kernel.AxDgPre.ax_dg_embeds_yes.
+Print Assumptions Kernel.AxDgPre.ax_dg_exit_no.
+Print Assumptions Kernel.AxDgPre.ax_dg_exit_yes.
+(* === Kernel.AxHost : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxHost.ax_rec_of_tables.
+Print Assumptions Kernel.AxHost.ax_universal_record.
+Print Assumptions Kernel.AxHost.ax_universal_content.
+Print Assumptions Kernel.AxHost.ax_chain_a2.
+Print Assumptions Kernel.AxHost.ax_chain_grows.
+Print Assumptions Kernel.AxHost.ax_prun_chain.
+Print Assumptions Kernel.AxHost.ax_chain_first_raise.
+Print Assumptions Kernel.AxHost.ax_surcharge_two_tight.
+Print Assumptions Kernel.AxHost.ax_surcharge_three_floor.
+(* === Kernel.AxHostClaims : 29 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxHostClaims.ax_fetch_in.
+Print Assumptions Kernel.AxHostClaims.ax_next_in.
+Print Assumptions Kernel.AxHostClaims.ax_claims_named_step.
+Print Assumptions Kernel.AxHostClaims.ax_claims_named_run.
+Print Assumptions Kernel.AxHostClaims.ax_claims_named.
+Print Assumptions Kernel.AxHostClaims.ax_cap_claims.
+Print Assumptions Kernel.AxHostClaims.ax_existsb_in.
+Print Assumptions Kernel.AxHostClaims.ax_map_eq_in.
+Print Assumptions Kernel.AxHostClaims.ax_vec_equiv.
+Print Assumptions Kernel.AxHostClaims.ax_nodup_map_pairs.
+Print Assumptions Kernel.AxHostClaims.ax_fixed_program_few.
+Print Assumptions Kernel.AxHostClaims.ax_fixed_program_no_infinite.
+Print Assumptions Kernel.AxHostClaims.ax_mem_snoc.
+Print Assumptions Kernel.AxHostClaims.ax_i1_zero.
+Print Assumptions Kernel.AxHostClaims.ax_nth_split.
+Print Assumptions Kernel.AxHostClaims.ax_fetch_inc.
+Print Assumptions Kernel.AxHostClaims.ax_i1_step.
+Print Assumptions Kernel.AxHostClaims.ax_i1_run.
+Print Assumptions Kernel.AxHostClaims.ax_i2_base.
+Print Assumptions Kernel.AxHostClaims.ax_fetch_chk2.
+Print Assumptions Kernel.AxHostClaims.ax_fetch_halt2.
+Print Assumptions Kernel.AxHostClaims.ax_i2_step.
+Print Assumptions Kernel.AxHostClaims.ax_i2_run.
+Print Assumptions Kernel.AxHostClaims.ax_chain_realized.
+Print Assumptions Kernel.AxHostClaims.ax_nodup_len_le.
+Print Assumptions Kernel.AxHostClaims.ax_strict_len.
+Print Assumptions Kernel.AxHostClaims.ax_chain_at_most_16.
+Print Assumptions Kernel.AxHostClaims.ax_chain_of_16_realized.
+Print Assumptions Kernel.AxHostClaims.ax_single_run_boundary.
+(* === Kernel.AxInfinite : 42 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxInfinite.ax_priced_spots.
+Print Assumptions Kernel.AxInfinite.ax_spots_priced.
+Print Assumptions Kernel.AxInfinite.ax_fibre_loss_nonneg.
+Print Assumptions Kernel.AxInfinite.ax_fibre_loss_split.
+Print Assumptions Kernel.AxInfinite.ax_inf_loss_bits.
+Print Assumptions Kernel.AxInfinite.ax_loss_n_succ.
+Print Assumptions Kernel.AxInfinite.ax_mass_n_succ.
+Print Assumptions Kernel.AxInfinite.ax_loss_n_growing.
+Print Assumptions Kernel.AxInfinite.ax_loss_n_le.
+Print Assumptions Kernel.AxInfinite.ax_inf_loss_series.
+Print Assumptions Kernel.AxInfinite.ax_chain_rule.
+Print Assumptions Kernel.AxInfinite.ax_entropy_split.
+Print Assumptions Kernel.AxInfinite.ax_infinite_entropy_survives.
+Print Assumptions Kernel.AxInfinite.ax_code_term.
+Print Assumptions Kernel.AxInfinite.ax_gibbs_code.
+Print Assumptions Kernel.AxInfinite.ax_gibbs_code_uniform.
+Print Assumptions Kernel.AxInfinite.ax_collapse_unpriceable.
+Print Assumptions Kernel.AxInfinite.ax_ln2_pos.
+Print Assumptions Kernel.AxInfinite.ax_rsum_app.
+Print Assumptions Kernel.AxInfinite.ax_rsum_seq_succ.
+Print Assumptions Kernel.AxInfinite.ax_inr_pow2_succ.
+Print Assumptions Kernel.AxInfinite.ax_inr_pow2_pos.
+Print Assumptions Kernel.AxInfinite.ax_pow2_gt.
+Print Assumptions Kernel.AxInfinite.ax_inv_pow2_cv.
+Print Assumptions Kernel.AxInfinite.ax_geo_mass_n.
+Print Assumptions Kernel.AxInfinite.ax_geometric_mass.
+Print Assumptions Kernel.AxInfinite.ax_geo_moment.
+Print Assumptions Kernel.AxInfinite.ax_geometric_loss.
+Print Assumptions Kernel.AxInfinite.ax_rsum_flat_map.
+Print Assumptions Kernel.AxInfinite.ax_rsum_map.
+Print Assumptions Kernel.AxInfinite.ax_nb_pos.
+Print Assumptions Kernel.AxInfinite.ax_mb_pos.
+Print Assumptions Kernel.AxInfinite.ax_mb_le_1.
+Print Assumptions Kernel.AxInfinite.ax_pb_in.
+Print Assumptions Kernel.AxInfinite.ax_blk_sum.
+Print Assumptions Kernel.AxInfinite.ax_block_mass_n.
+Print Assumptions Kernel.AxInfinite.ax_pb_nonneg.
+Print Assumptions Kernel.AxInfinite.ax_pow2_quad.
+Print Assumptions Kernel.AxInfinite.ax_block_term.
+Print Assumptions Kernel.AxInfinite.ax_block_loss_unbounded.
+Print Assumptions Kernel.AxInfinite.ax_block_no_toll.
+Print Assumptions Kernel.AxInfinite.ax_toll_covers_landauer_minimum.
+(* === Kernel.AxLatch : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxLatch.ax_driven_determined.
+Print Assumptions Kernel.AxLatch.ax_decompose.
+Print Assumptions Kernel.AxLatch.ax_factor_grows.
+Print Assumptions Kernel.AxLatch.ax_factor_determined.
+Print Assumptions Kernel.AxLatch.ax_factor_determined_up_to_equiv.
+Print Assumptions Kernel.AxLatch.ax_a2_iff_views.
+Print Assumptions Kernel.AxLatch.ax_a2_threshold_form.
+Print Assumptions Kernel.AxLatch.toggle_no_factorization.
+Print Assumptions Kernel.AxLatch.clock_no_factorization.
+Print Assumptions Kernel.AxLatch.indiscrete_loses_record.
+Print Assumptions Kernel.AxLatch.two_point_is_join_latch.
+Print Assumptions Kernel.AxLatch.two_point_record_axis_is_latch.
+Print Assumptions Kernel.AxLatch.chain3_not_join_latch.
+(* === Kernel.AxLatch2 : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxLatch2.product_pair_is_two_latches.
+Print Assumptions Kernel.AxLatch2.nth_repeat_false.
+Print Assumptions Kernel.AxLatch2.chain_vec_nth.
+Print Assumptions Kernel.AxLatch2.chain_vec_length.
+Print Assumptions Kernel.AxLatch2.chain_vec_le.
+Print Assumptions Kernel.AxLatch2.chain_vec_inj.
+Print Assumptions Kernel.AxLatch2.chain_seq_chain.
+Print Assumptions Kernel.AxLatch2.chain_bits_tight.
+Print Assumptions Kernel.AxLatch2.chain_bits_exact.
+(* === Kernel.AxMerge : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxMerge.ax_NoDup_map_inj.
+Print Assumptions Kernel.AxMerge.ax_up_spec.
+Print Assumptions Kernel.AxMerge.ax_up_nodup.
+Print Assumptions Kernel.AxMerge.ax_exit_merges_or_revokes.
+Print Assumptions Kernel.AxMerge.ax_growth_exit_merges.
+Print Assumptions Kernel.AxMerge.ax_a2_from_merge_price.
+Print Assumptions Kernel.AxMerge.ax_a2_iff_flipping_merges_priced.
+Print Assumptions Kernel.AxMerge.ax_nodup_app_disjoint.
+Print Assumptions Kernel.AxMerge.ax_flips_compression_bound.
+Print Assumptions Kernel.AxMerge.ax_a2_from_compression.
+Print Assumptions Kernel.AxMerge.two_point_permanent_flip_merges.
+Print Assumptions Kernel.AxMerge.history_escape.
+Print Assumptions Kernel.AxMerge.toggle_escape.
+Print Assumptions Kernel.AxMerge.free_merge_escape.
+(* === Kernel.AxNecessity : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxNecessity.ax_clock_weakly_complete.
+Print Assumptions Kernel.AxNecessity.ax_tc_has_free_move.
+Print Assumptions Kernel.AxNecessity.ax_clock_not_tc.
+Print Assumptions Kernel.AxNecessity.ax_clock_not_complete.
+Print Assumptions Kernel.AxNecessity.ax_nec_earned_chain.
+Print Assumptions Kernel.AxNecessity.ax_nec_toll_cost.
+Print Assumptions Kernel.AxNecessity.ax_nec_toll_ledger.
+Print Assumptions Kernel.AxNecessity.ax_nec_sound_check.
+Print Assumptions Kernel.AxNecessity.ax_nec_respect_same.
+Print Assumptions Kernel.AxNecessity.ax_nb_not_tc.
+Print Assumptions Kernel.AxNecessity.ax_nec_base.
+(* === Kernel.AxProb : 20 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxProb.ax_rsum_app_cons.
+Print Assumptions Kernel.AxProb.ax_rsum_le.
+Print Assumptions Kernel.AxProb.ax_rsum_ext.
+Print Assumptions Kernel.AxProb.ax_rsum_const.
+Print Assumptions Kernel.AxProb.ax_rsum_plus.
+Print Assumptions Kernel.AxProb.ax_rsum_minus.
+Print Assumptions Kernel.AxProb.ax_rsum_scal.
+Print Assumptions Kernel.AxProb.ax_rsum_scal_r.
+Print Assumptions Kernel.AxProb.ax_rsum_nonneg.
+Print Assumptions Kernel.AxProb.ax_rsum_ge_elt.
+Print Assumptions Kernel.AxProb.ax_ln_le_sub.
+Print Assumptions Kernel.AxProb.ax_ln_mono.
+Print Assumptions Kernel.AxProb.ax_gibbs_term.
+Print Assumptions Kernel.AxProb.ax_fibre_gibbs.
+Print Assumptions Kernel.AxProb.ax_fibre_loss_empty.
+Print Assumptions Kernel.AxProb.ax_loss_le.
+Print Assumptions Kernel.AxProb.ax_uniform_loss_exact.
+Print Assumptions Kernel.AxProb.ax_ln_pow2.
+Print Assumptions Kernel.AxProb.ax_priced_loss_tight.
+Print Assumptions Kernel.AxProb.ax_priced_loss_bits.
+(* === Kernel.AxRice : 40 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxRice.ax_req_sym.
+Print Assumptions Kernel.AxRice.ax_reach_req.
+Print Assumptions Kernel.AxRice.ax_reach_equiv_sym.
+Print Assumptions Kernel.AxRice.ax_record_equiv_sym.
+Print Assumptions Kernel.AxRice.ax_record_equiv_reach.
+Print Assumptions Kernel.AxRice.ax_hequiv_record.
+Print Assumptions Kernel.AxRice.ax_obs_equiv_record.
+Print Assumptions Kernel.AxRice.ax_obs_hagree.
+Print Assumptions Kernel.AxRice.ax_rice_threshold.
+Print Assumptions Kernel.AxRice.ax_rice_record.
+Print Assumptions Kernel.AxRice.ax_diagonal_record.
+Print Assumptions Kernel.AxRice.ax_diagonal_threshold.
+Print Assumptions Kernel.AxRice.ax_reaches_ext.
+Print Assumptions Kernel.AxRice.ax_reach_undecidable.
+Print Assumptions Kernel.AxRice.ax_pair_le.
+Print Assumptions Kernel.AxRice.ax_host_rec_obs.
+Print Assumptions Kernel.AxRice.ax_host_rec_hagree.
+Print Assumptions Kernel.AxRice.ax_host_floor_start.
+Print Assumptions Kernel.AxRice.ax_pt_facts_leb.
+Print Assumptions Kernel.AxRice.ax_facts_cap_run.
+Print Assumptions Kernel.AxRice.ax_facts_cap.
+Print Assumptions Kernel.AxRice.ax_facts_17_unreached.
+Print Assumptions Kernel.AxRice.ax_nth_repeat.
+Print Assumptions Kernel.AxRice.ax_fetch_chk.
+Print Assumptions Kernel.AxRice.ax_fetch_halt.
+Print Assumptions Kernel.AxRice.ax_inv_zero.
+Print Assumptions Kernel.AxRice.ax_inv_step.
+Print Assumptions Kernel.AxRice.ax_inv_run.
+Print Assumptions Kernel.AxRice.ax_facts_reach.
+Print Assumptions Kernel.AxRice.ax_prog_flag_ends.
+Print Assumptions Kernel.AxRice.ax_prog_chan_ends.
+Print Assumptions Kernel.AxRice.ax_prog_trap_ends.
+Print Assumptions Kernel.AxRice.ax_host_point_undecidable.
+Print Assumptions Kernel.AxRice.ax_host_point_diagonal.
+Print Assumptions Kernel.AxRice.ax_flag_undecidable.
+Print Assumptions Kernel.AxRice.ax_chan_undecidable.
+Print Assumptions Kernel.AxRice.ax_trap_undecidable.
+Print Assumptions Kernel.AxRice.ax_facts_undecidable.
+Print Assumptions Kernel.AxRice.ax_flag_diagonal.
+Print Assumptions Kernel.AxRice.ax_facts_17_trivial.
+(* === Kernel.AxShadow : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxShadow.ax_nodup_map_collision.
+Print Assumptions Kernel.AxShadow.ax_exit_collision.
+Print Assumptions Kernel.AxShadow.merge_in_fibre.
+Print Assumptions Kernel.AxShadow.ax_fibre_collapse_exit.
+Print Assumptions Kernel.AxShadow.ax_step_fibre_in_fibre.
+Print Assumptions Kernel.AxShadow.ax_eqb_spec.
+Print Assumptions Kernel.AxShadow.ax_filter_nodup_le.
+Print Assumptions Kernel.AxShadow.ax_compression_iff_fibres.
+Print Assumptions Kernel.AxShadow.shadow_merge_escape.
+Print Assumptions Kernel.AxShadow.ax_thresholds_separate.
+Print Assumptions Kernel.AxShadow.ax_threshold_view_separates.
+(* === Kernel.AxSmall : 32 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxSmall.aclaim_eqb_eq.
+Print Assumptions Kernel.AxSmall.set_leb_spec.
+Print Assumptions Kernel.AxSmall.claims_le.
+Print Assumptions Kernel.AxSmall.claims_lub_cons.
+Print Assumptions Kernel.AxSmall.as_run_core.
+Print Assumptions Kernel.AxSmall.as_exec_cases.
+Print Assumptions Kernel.AxSmall.as_set_grows.
+Print Assumptions Kernel.AxSmall.sm_base.
+Print Assumptions Kernel.AxSmall.sm_earned_exit.
+Print Assumptions Kernel.AxSmall.sm_earned.
+Print Assumptions Kernel.AxSmall.sm_toll.
+Print Assumptions Kernel.AxSmall.sm_chain_set.
+Print Assumptions Kernel.AxSmall.sm_chain_err.
+Print Assumptions Kernel.AxSmall.small_every_claim.
+Print Assumptions Kernel.AxSmall.sm_nonvac.
+Print Assumptions Kernel.AxSmall.small_axis_thiele_complete.
+Print Assumptions Kernel.AxSmall.small_record_is_join.
+Print Assumptions Kernel.AxSmall.sm_flag_inv.
+Print Assumptions Kernel.AxSmall.small_flag_agrees.
+Print Assumptions Kernel.AxSmall.small_projection_commutes.
+Print Assumptions Kernel.AxSmall.small_infinite_fibre.
+Print Assumptions Kernel.AxSmall.over_mono.
+Print Assumptions Kernel.AxSmall.over_exit_set_exit.
+Print Assumptions Kernel.AxSmall.as_set_nonfire.
+Print Assumptions Kernel.AxSmall.over_nec_join.
+Print Assumptions Kernel.AxSmall.err_stays.
+Print Assumptions Kernel.AxSmall.err_base.
+Print Assumptions Kernel.AxSmall.trap_rec_ok.
+Print Assumptions Kernel.AxSmall.trap_rec_err.
+Print Assumptions Kernel.AxSmall.sm_chain_trap.
+Print Assumptions Kernel.AxSmall.sm_chain_facts.
+Print Assumptions Kernel.AxSmall.trap_nec_growth.
+(* === Kernel.AxTwoPoint : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxTwoPoint.run_lift.
+Print Assumptions Kernel.AxTwoPoint.run_keeps_true.
+Print Assumptions Kernel.AxTwoPoint.two_exit.
+Print Assumptions Kernel.AxTwoPoint.two_not_le_false.
+Print Assumptions Kernel.AxTwoPoint.two_le_true_l.
+Print Assumptions Kernel.AxTwoPoint.two_le_iff.
+Print Assumptions Kernel.AxTwoPoint.lift_base_iff.
+Print Assumptions Kernel.AxTwoPoint.lift_toll_iff.
+Print Assumptions Kernel.AxTwoPoint.lift_nonvac_iff.
+Print Assumptions Kernel.AxTwoPoint.lift_earned_iff.
+Print Assumptions Kernel.AxTwoPoint.ax_tc_two_point_iff.
+(* === Kernel.AxUniversal : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxUniversal.ax_view_run.
+Print Assumptions Kernel.AxUniversal.ax_view_ledger.
+Print Assumptions Kernel.AxUniversal.ax_prun_grows.
+Print Assumptions Kernel.AxUniversal.ax_prun_mono.
+Print Assumptions Kernel.AxUniversal.ax_view_latch_iff.
+Print Assumptions Kernel.AxUniversal.ax_latches_determine_record.
+Print Assumptions Kernel.AxUniversal.ax_view_surcharge_le_two.
+Print Assumptions Kernel.AxUniversal.ax_threshold_universal.
+(* === Kernel.AxWindow : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.AxWindow.ax_window_collision_overcharges.
+Print Assumptions Kernel.AxWindow.ax_window_no_exact_price.
+Print Assumptions Kernel.AxWindow.ax_step_price_exact.
+Print Assumptions Kernel.AxWindow.ax_window_sees_record_exact.
+Print Assumptions Kernel.AxWindow.ax_window_exact_iff_no_collision.
+Print Assumptions Kernel.AxWindow.ax_overcharge_lower.
+Print Assumptions Kernel.AxWindow.ax_overcharge_tight.
+Print Assumptions Kernel.AxWindow.ax_exact_without_position.
+Print Assumptions Kernel.AxWindow.ax_threshold_window_blind.
+Print Assumptions Kernel.AxWindow.two_point_shadow_cannot_price_exactly.
+(* === Kernel.CmpBlocks : 39 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpBlocks.cmp_get_env.
+Print Assumptions Kernel.CmpBlocks.cmp_set_env.
+Print Assumptions Kernel.CmpBlocks.cmp_mmstep_ext.
+Print Assumptions Kernel.CmpBlocks.cmp_mmc_ext.
+Print Assumptions Kernel.CmpBlocks.cmp_reach0_refl.
+Print Assumptions Kernel.CmpBlocks.cmp_reach0_eq.
+Print Assumptions Kernel.CmpBlocks.cmp_reach0_at.
+Print Assumptions Kernel.CmpBlocks.cmp_reach0_trans.
+Print Assumptions Kernel.CmpBlocks.cmp_reach_eq.
+Print Assumptions Kernel.CmpBlocks.cmp_reach_at.
+Print Assumptions Kernel.CmpBlocks.cmp_reach_reach0.
+Print Assumptions Kernel.CmpBlocks.cmp_reach_trans0.
+Print Assumptions Kernel.CmpBlocks.cmp_reach0_trans_reach.
+Print Assumptions Kernel.CmpBlocks.cmp_reach_trans.
+Print Assumptions Kernel.CmpBlocks.cmp_stp_inc.
+Print Assumptions Kernel.CmpBlocks.cmp_stp_dec0.
+Print Assumptions Kernel.CmpBlocks.cmp_stp_decS.
+Print Assumptions Kernel.CmpBlocks.cmp_ins_at.
+Print Assumptions Kernel.CmpBlocks.cmp_sc_l.
+Print Assumptions Kernel.CmpBlocks.cmp_sc_r.
+Print Assumptions Kernel.CmpBlocks.cmp_clear_len.
+Print Assumptions Kernel.CmpBlocks.cmp_addmv_len.
+Print Assumptions Kernel.CmpBlocks.cmp_copy_len.
+Print Assumptions Kernel.CmpBlocks.cmp_sub_len.
+Print Assumptions Kernel.CmpBlocks.cmp_fin_len.
+Print Assumptions Kernel.CmpBlocks.cmp_eqblk_len.
+Print Assumptions Kernel.CmpBlocks.cmp_ltblk_len.
+Print Assumptions Kernel.CmpBlocks.cmp_blk_clear.
+Print Assumptions Kernel.CmpBlocks.cmp_loop_addmv.
+Print Assumptions Kernel.CmpBlocks.cmp_blk_addmv.
+Print Assumptions Kernel.CmpBlocks.cmp_loop_copy1.
+Print Assumptions Kernel.CmpBlocks.cmp_blk_copy.
+Print Assumptions Kernel.CmpBlocks.cmp_loop_sub.
+Print Assumptions Kernel.CmpBlocks.cmp_blk_sub.
+Print Assumptions Kernel.CmpBlocks.cmp_blk_fin.
+Print Assumptions Kernel.CmpBlocks.cmp_loop_eq.
+Print Assumptions Kernel.CmpBlocks.cmp_blk_eq.
+Print Assumptions Kernel.CmpBlocks.cmp_loop_lt.
+Print Assumptions Kernel.CmpBlocks.cmp_blk_lt.
+(* === Kernel.CmpCompile : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpCompile.cmp_mm_load_simul.
+Print Assumptions Kernel.CmpCompile.cmp_flat_length.
+Print Assumptions Kernel.CmpCompile.cmp_stageA_fwd.
+Print Assumptions Kernel.CmpCompile.cmp_stageA_bwd.
+Print Assumptions Kernel.CmpCompile.cmp_stageA.
+(* === Kernel.CmpExpr : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpExpr.cmp_cexp_len.
+Print Assumptions Kernel.CmpExpr.cmp_blk_incs.
+Print Assumptions Kernel.CmpExpr.cmp_cexp_spec.
+Print Assumptions Kernel.CmpExpr.cmp_cb_len.
+Print Assumptions Kernel.CmpExpr.cmp_cmp_spec.
+Print Assumptions Kernel.CmpExpr.cmp_cb_spec.
+(* === Kernel.CmpFinal : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpFinal.cmp_exec_iff.
+Print Assumptions Kernel.CmpFinal.cmp_final.
+(* === Kernel.CmpFlat : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpFlat.cmp_fi_ok_jmp.
+Print Assumptions Kernel.CmpFlat.cmp_fstep_fun.
+Print Assumptions Kernel.CmpFlat.cmp_fstep_total.
+Print Assumptions Kernel.CmpFlat.cmp_fc_length.
+Print Assumptions Kernel.CmpFlat.cmp_sub_left.
+Print Assumptions Kernel.CmpFlat.cmp_sub_right.
+Print Assumptions Kernel.CmpFlat.cmp_instr_at.
+Print Assumptions Kernel.CmpFlat.cmp_instr_sub.
+Print Assumptions Kernel.CmpFlat.cmp_step_then.
+Print Assumptions Kernel.CmpFlat.cmp_fc_fwd.
+Print Assumptions Kernel.CmpFlat.cmp_one_step.
+Print Assumptions Kernel.CmpFlat.cmp_first_step.
+Print Assumptions Kernel.CmpFlat.cmp_steps_fun.
+Print Assumptions Kernel.CmpFlat.cmp_fc_bwd.
+(* === Kernel.CmpGuest : 25 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpGuest.cmp_gicomp_length.
+Print Assumptions Kernel.CmpGuest.cmp_gstep_total.
+Print Assumptions Kernel.CmpGuest.cmp_gicomp_sound.
+Print Assumptions Kernel.CmpGuest.cmp_gwrap_map.
+Print Assumptions Kernel.CmpGuest.cmp_gwrap_length.
+Print Assumptions Kernel.CmpGuest.cmp_length_compiler_map.
+Print Assumptions Kernel.CmpGuest.cmp_link_map.
+Print Assumptions Kernel.CmpGuest.cmp_linker_map.
+Print Assumptions Kernel.CmpGuest.cmp_comp_map.
+Print Assumptions Kernel.CmpGuest.cmp_gerr_eq.
+Print Assumptions Kernel.CmpGuest.cmp_glink_eq.
+Print Assumptions Kernel.CmpGuest.cmp_gcode_eq.
+Print Assumptions Kernel.CmpGuest.cmp_gstep_lift.
+Print Assumptions Kernel.CmpGuest.cmp_g_complete.
+Print Assumptions Kernel.CmpGuest.cmp_xunlift.
+Print Assumptions Kernel.CmpGuest.cmp_icomp_xmm_map.
+Print Assumptions Kernel.CmpGuest.cmp_comp_ymma.
+Print Assumptions Kernel.CmpGuest.cmp_gcode_ymma.
+Print Assumptions Kernel.CmpGuest.cmp_ystep_ex.
+Print Assumptions Kernel.CmpGuest.cmp_pr_halted_out.
+Print Assumptions Kernel.CmpGuest.cmp_lift_run_conv.
+Print Assumptions Kernel.CmpGuest.cmp_pr_out_halted.
+Print Assumptions Kernel.CmpGuest.cmp_guest_final_of.
+Print Assumptions Kernel.CmpGuest.cmp_guest_fwd.
+Print Assumptions Kernel.CmpGuest.cmp_guest_bwd.
+(* === Kernel.CmpHost : 31 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpHost.cmp_hstep_fun.
+Print Assumptions Kernel.CmpHost.cmp_hcomp_length.
+Print Assumptions Kernel.CmpHost.cmp_hprog_one.
+Print Assumptions Kernel.CmpHost.cmp_hcomp_sound.
+Print Assumptions Kernel.CmpHost.cmp_mm_total.
+Print Assumptions Kernel.CmpHost.cmp_mm_fun2.
+Print Assumptions Kernel.CmpHost.cmp_hcode_length.
+Print Assumptions Kernel.CmpHost.cmp_hlink_start.
+Print Assumptions Kernel.CmpHost.cmp_hlink_out.
+Print Assumptions Kernel.CmpHost.cmp_hsubcode.
+Print Assumptions Kernel.CmpHost.cmp_host_sound.
+Print Assumptions Kernel.CmpHost.cmp_host_complete.
+Print Assumptions Kernel.CmpHost.cmp_host_output.
+Print Assumptions Kernel.CmpHost.cmp_host_output_conv.
+Print Assumptions Kernel.CmpHost.cmp_mm_hstep_total.
+Print Assumptions Kernel.CmpHost.cmp_hsame_refl.
+Print Assumptions Kernel.CmpHost.cmp_hsame_trans.
+Print Assumptions Kernel.CmpHost.cmp_hfetch.
+Print Assumptions Kernel.CmpHost.cmp_hfetch_none.
+Print Assumptions Kernel.CmpHost.cmp_hfetch_some.
+Print Assumptions Kernel.CmpHost.cmp_cexec_inc.
+Print Assumptions Kernel.CmpHost.cmp_cexec_dec.
+Print Assumptions Kernel.CmpHost.cmp_hstep_run.
+Print Assumptions Kernel.CmpHost.cmp_hhalted.
+Print Assumptions Kernel.CmpHost.cmp_hhalted_out.
+Print Assumptions Kernel.CmpHost.cmp_host_run_fwd.
+Print Assumptions Kernel.CmpHost.cmp_host_run_bwd.
+Print Assumptions Kernel.CmpHost.cmp_hrel_start.
+Print Assumptions Kernel.CmpHost.cmp_host_final_of.
+Print Assumptions Kernel.CmpHost.cmp_host_fwd.
+Print Assumptions Kernel.CmpHost.cmp_host_bwd.
+(* === Kernel.CmpInline : 35 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpInline.cmp_ashift_eval.
+Print Assumptions Kernel.CmpInline.cmp_bshift_eval.
+Print Assumptions Kernel.CmpInline.cmp_ashift_max.
+Print Assumptions Kernel.CmpInline.cmp_bshift_max.
+Print Assumptions Kernel.CmpInline.cmp_aeval_below.
+Print Assumptions Kernel.CmpInline.cmp_beval_below.
+Print Assumptions Kernel.CmpInline.cmp_seqs_eval.
+Print Assumptions Kernel.CmpInline.cmp_seqs_inv.
+Print Assumptions Kernel.CmpInline.cmp_runa_app.
+Print Assumptions Kernel.CmpInline.cmp_runa_cons.
+Print Assumptions Kernel.CmpInline.cmp_runa_block_out.
+Print Assumptions Kernel.CmpInline.cmp_runa_block_in.
+Print Assumptions Kernel.CmpInline.cmp_seqs_nocall.
+Print Assumptions Kernel.CmpInline.cmp_inl_nocall.
+Print Assumptions Kernel.CmpInline.cmp_lmax_ge.
+Print Assumptions Kernel.CmpInline.cmp_nth_avmax.
+Print Assumptions Kernel.CmpInline.cmp_procsz_np.
+Print Assumptions Kernel.CmpInline.cmp_pre_spec.
+Print Assumptions Kernel.CmpInline.cmp_post_spec.
+Print Assumptions Kernel.CmpInline.cmp_frame_aeval.
+Print Assumptions Kernel.CmpInline.cmp_frame_beval.
+Print Assumptions Kernel.CmpInline.cmp_wfs_mono.
+Print Assumptions Kernel.CmpInline.cmp_assigns_agree.
+Print Assumptions Kernel.CmpInline.cmp_inl_skip.
+Print Assumptions Kernel.CmpInline.cmp_inl_assign.
+Print Assumptions Kernel.CmpInline.cmp_inl_seq.
+Print Assumptions Kernel.CmpInline.cmp_inl_if.
+Print Assumptions Kernel.CmpInline.cmp_inl_while.
+Print Assumptions Kernel.CmpInline.cmp_inl_call.
+Print Assumptions Kernel.CmpInline.cmp_call_pre_frame.
+Print Assumptions Kernel.CmpInline.cmp_call_post_frame.
+Print Assumptions Kernel.CmpInline.cmp_inl_fwd.
+Print Assumptions Kernel.CmpInline.cmp_inl_bwd_aux.
+Print Assumptions Kernel.CmpInline.cmp_inl_bwd_all.
+Print Assumptions Kernel.CmpInline.cmp_inl_bwd.
+(* === Kernel.CmpLang : 24 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpLang.cmp_upd_same.
+Print Assumptions Kernel.CmpLang.cmp_upd_other.
+Print Assumptions Kernel.CmpLang.cmp_eqv_refl.
+Print Assumptions Kernel.CmpLang.cmp_eqv_sym.
+Print Assumptions Kernel.CmpLang.cmp_eqv_trans.
+Print Assumptions Kernel.CmpLang.cmp_upd_eqv.
+Print Assumptions Kernel.CmpLang.cmp_aeval_eqv.
+Print Assumptions Kernel.CmpLang.cmp_beval_eqv.
+Print Assumptions Kernel.CmpLang.cmp_assigns_eqv.
+Print Assumptions Kernel.CmpLang.cmp_args_eqv.
+Print Assumptions Kernel.CmpLang.cmp_ceval_ext.
+Print Assumptions Kernel.CmpLang.cmp_ceval_det.
+Print Assumptions Kernel.CmpLang.cmp_ceval_skip_inv.
+Print Assumptions Kernel.CmpLang.cmp_ceval_assign_inv.
+Print Assumptions Kernel.CmpLang.cmp_ceval_seq_inv.
+Print Assumptions Kernel.CmpLang.cmp_ceval_if_inv.
+Print Assumptions Kernel.CmpLang.cmp_ceval_while_inv.
+Print Assumptions Kernel.CmpLang.cmp_ceval_call_inv.
+Print Assumptions Kernel.CmpLang.cmp_lget_lset.
+Print Assumptions Kernel.CmpLang.cmp_lget_lset_eqv.
+Print Assumptions Kernel.CmpLang.cmp_lassigns_eqv.
+Print Assumptions Kernel.CmpLang.cmp_largs_eqv.
+Print Assumptions Kernel.CmpLang.cmp_interp_sound.
+Print Assumptions Kernel.CmpLang.cmp_interp_complete.
+(* === Kernel.CmpMM : 25 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpMM.cmp_blen_pos.
+Print Assumptions Kernel.CmpMM.cmp_icomp_length.
+Print Assumptions Kernel.CmpMM.cmp_fi_ok_true.
+Print Assumptions Kernel.CmpMM.cmp_aeval_simul.
+Print Assumptions Kernel.CmpMM.cmp_beval_simul.
+Print Assumptions Kernel.CmpMM.cmp_icomp_assign_core.
+Print Assumptions Kernel.CmpMM.cmp_icomp_jmpf_core.
+Print Assumptions Kernel.CmpMM.cmp_nop_prog.
+Print Assumptions Kernel.CmpMM.cmp_icomp_assign_eq.
+Print Assumptions Kernel.CmpMM.cmp_icomp_jmpf_eq.
+Print Assumptions Kernel.CmpMM.cmp_icomp_nop_eq.
+Print Assumptions Kernel.CmpMM.cmp_simul_pw.
+Print Assumptions Kernel.CmpMM.cmp_sound_nop.
+Print Assumptions Kernel.CmpMM.cmp_sound_assign.
+Print Assumptions Kernel.CmpMM.cmp_sound_jmpf.
+Print Assumptions Kernel.CmpMM.cmp_icomp_sound.
+Print Assumptions Kernel.CmpMM.cmp_mm_fun.
+Print Assumptions Kernel.CmpMM.cmp_code_length.
+Print Assumptions Kernel.CmpMM.cmp_link_start.
+Print Assumptions Kernel.CmpMM.cmp_link_out.
+Print Assumptions Kernel.CmpMM.cmp_mm_subcode.
+Print Assumptions Kernel.CmpMM.cmp_mm_sound.
+Print Assumptions Kernel.CmpMM.cmp_mm_complete.
+Print Assumptions Kernel.CmpMM.cmp_mm_output.
+Print Assumptions Kernel.CmpMM.cmp_mm_output_conv.
+(* === Kernel.CmpPipeline : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpPipeline.cmp_prog_regs_lt.
+Print Assumptions Kernel.CmpPipeline.cmp_gk_wf.
+Print Assumptions Kernel.CmpPipeline.cmp_load_zero.
+Print Assumptions Kernel.CmpPipeline.cmp_pipeline_host.
+Print Assumptions Kernel.CmpPipeline.cmp_guest_at_eq.
+Print Assumptions Kernel.CmpPipeline.cmp_out_lt_gk.
+Print Assumptions Kernel.CmpPipeline.cmp_out_lt_nv0.
+Print Assumptions Kernel.CmpPipeline.cmp_pipeline_guest.
+Print Assumptions Kernel.CmpPipeline.cmp_pipeline_guest_final.
+Print Assumptions Kernel.CmpPipeline.cmp_pipeline_U.
+Print Assumptions Kernel.CmpPipeline.cmp_pipeline.
+(* === Kernel.CmpRun : 33 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CmpRun.cr_get_0.
+Print Assumptions Kernel.CmpRun.cr_get_S.
+Print Assumptions Kernel.CmpRun.cr_divmod.
+Print Assumptions Kernel.CmpRun.cr_get_set_f.
+Print Assumptions Kernel.CmpRun.cr_get_set.
+Print Assumptions Kernel.CmpRun.cr_build_out.
+Print Assumptions Kernel.CmpRun.cr_build_in.
+Print Assumptions Kernel.CmpRun.cr_ptab_get.
+Print Assumptions Kernel.CmpRun.cr_ptab_none.
+Print Assumptions Kernel.CmpRun.cr_ptab_some.
+Print Assumptions Kernel.CmpRun.cr_rget_rset.
+Print Assumptions Kernel.CmpRun.cr_rel_set.
+Print Assumptions Kernel.CmpRun.cr_loadf_get.
+Print Assumptions Kernel.CmpRun.cr_load_rel.
+Print Assumptions Kernel.CmpRun.cr_run_none.
+Print Assumptions Kernel.CmpRun.cr_run_zero.
+Print Assumptions Kernel.CmpRun.cr_run_some.
+Print Assumptions Kernel.CmpRun.cr_next_spec.
+Print Assumptions Kernel.CmpRun.cr_step_inv.
+Print Assumptions Kernel.CmpRun.cr_step_of.
+Print Assumptions Kernel.CmpRun.cr_run_steps.
+Print Assumptions Kernel.CmpRun.cr_in_code_of.
+Print Assumptions Kernel.CmpRun.cr_run_sound.
+Print Assumptions Kernel.CmpRun.cmp_wfs_b_spec.
+Print Assumptions Kernel.CmpRun.cmp_wfp_from_spec.
+Print Assumptions Kernel.CmpRun.cmp_wf_b_spec.
+Print Assumptions Kernel.CmpRun.cmp_hostprog_eq.
+Print Assumptions Kernel.CmpRun.cmp_exec_run.
+Print Assumptions Kernel.CmpRun.cmp_exec_machine.
+Print Assumptions Kernel.CmpRun.cmp_exec_sound.
+Print Assumptions Kernel.CmpRun.cmp_exec_complete.
+Print Assumptions Kernel.CmpRun.cmp_exec_unhalted.
+Print Assumptions Kernel.CmpRun.cmp_exec_agrees.
 (* === Kernel.CompilerChecker : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CompilerChecker.cg_uprop_eqb_eq.
 Print Assumptions Kernel.CompilerChecker.cg_out_codeb_spec.
@@ -438,6 +1385,187 @@ Print Assumptions Kernel.CrossBaseGranularityRAM.ram_base_halted_stutters.
 Print Assumptions Kernel.CrossBaseGranularityRAM.ram_base_run_is_ram_run.
 Print Assumptions Kernel.CrossBaseGranularityRAM.ram_base_has_initial.
 Print Assumptions Kernel.CrossBaseGranularityRAM.record_axis_is_latch_on_ram_holds.
+(* === Kernel.CzCS : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzCS.cmpz_cs_run.
+Print Assumptions Kernel.CzCS.cmpz_cs_total_eq.
+Print Assumptions Kernel.CzCS.cmpz_cs_or_run.
+Print Assumptions Kernel.CzCS.cmpz_cs_and_run.
+Print Assumptions Kernel.CzCS.cmpz_cs_or_total.
+Print Assumptions Kernel.CzCS.cmpz_cs_and_total.
+Print Assumptions Kernel.CzCS.cmpz_cs_or_floor.
+Print Assumptions Kernel.CzCS.cmpz_cs_and_floor.
+Print Assumptions Kernel.CzCS.cmpz_cs_and_tight.
+(* === Kernel.CzCat : 33 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzCat.cmpz_hom_eq_refl.
+Print Assumptions Kernel.CzCat.cmpz_hom_eq_sym.
+Print Assumptions Kernel.CzCat.cmpz_hom_eq_trans.
+Print Assumptions Kernel.CzCat.cmpz_hom_eq_rec.
+Print Assumptions Kernel.CzCat.cmpz_hom_trace.
+Print Assumptions Kernel.CzCat.cmpz_hom_id_left.
+Print Assumptions Kernel.CzCat.cmpz_hom_id_right.
+Print Assumptions Kernel.CzCat.cmpz_hom_assoc.
+Print Assumptions Kernel.CzCat.cmpz_hom_comp_cong.
+Print Assumptions Kernel.CzCat.cmpz_prod_universal.
+Print Assumptions Kernel.CzCat.cmpz_unit_terminal.
+Print Assumptions Kernel.CzCat.cmpz_unit_not_tc.
+Print Assumptions Kernel.CzCat.cmpz_id_cost_exact.
+Print Assumptions Kernel.CzCat.cmpz_id_cost_ge.
+Print Assumptions Kernel.CzCat.cmpz_hom_trace_cost_ge.
+Print Assumptions Kernel.CzCat.cmpz_hom_trace_cost_exact.
+Print Assumptions Kernel.CzCat.cmpz_comp_cost_ge.
+Print Assumptions Kernel.CzCat.cmpz_comp_cost_exact.
+Print Assumptions Kernel.CzCat.cmpz_tensor_id.
+Print Assumptions Kernel.CzCat.cmpz_tensor_comp.
+Print Assumptions Kernel.CzCat.cmpz_tensor_cost_ge.
+Print Assumptions Kernel.CzCat.cmpz_swap_inv.
+Print Assumptions Kernel.CzCat.cmpz_assoc_iso.
+Print Assumptions Kernel.CzCat.cmpz_unit_r_iso.
+Print Assumptions Kernel.CzCat.cmpz_pentagon.
+Print Assumptions Kernel.CzCat.cmpz_triangle.
+Print Assumptions Kernel.CzCat.cmpz_hexagon.
+Print Assumptions Kernel.CzCat.cmpz_swap_cost_exact.
+Print Assumptions Kernel.CzCat.cmpz_assoc_cost_exact.
+Print Assumptions Kernel.CzCat.cmpz_unit_r_cost_exact.
+Print Assumptions Kernel.CzCat.cmpz_cost_total.
+Print Assumptions Kernel.CzCat.cmpz_sim_exit_cost.
+Print Assumptions Kernel.CzCat.cmpz_sim_cost_ge_exits.
+(* === Kernel.CzCounter : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzCounter.cmpz_interleaving_invariant.
+Print Assumptions Kernel.CzCounter.cmpz_or_weakly_complete.
+Print Assumptions Kernel.CzCounter.cmpz_or_clocks_not_complete.
+Print Assumptions Kernel.CzCounter.cmpz_sum_record_loses.
+(* === Kernel.CzLoad : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzLoad.cmpz_ld_load.
+Print Assumptions Kernel.CzLoad.cmpz_load_floor.
+Print Assumptions Kernel.CzLoad.cmpz_ld_running.
+Print Assumptions Kernel.CzLoad.cmpz_ld_running_stays.
+Print Assumptions Kernel.CzLoad.cmpz_ld_view_run.
+Print Assumptions Kernel.CzLoad.cmpz_ld_split.
+Print Assumptions Kernel.CzLoad.cmpz_ld_clean_run.
+Print Assumptions Kernel.CzLoad.cmpz_ld_inl_no_exit.
+Print Assumptions Kernel.CzLoad.cmpz_ld_prefix.
+Print Assumptions Kernel.CzLoad.cmpz_ld_earned.
+Print Assumptions Kernel.CzLoad.cmpz_ld_tc.
+Print Assumptions Kernel.CzLoad.cmpz_ld_late_load_ignored.
+Print Assumptions Kernel.CzLoad.cmpz_ld_order_matters.
+(* === Kernel.CzProd : 21 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzProd.cmpz_pair_le.
+Print Assumptions Kernel.CzProd.cmpz_pair_antisym.
+Print Assumptions Kernel.CzProd.cmpz_lefts_app.
+Print Assumptions Kernel.CzProd.cmpz_rights_app.
+Print Assumptions Kernel.CzProd.cmpz_lefts_split.
+Print Assumptions Kernel.CzProd.cmpz_rights_split.
+Print Assumptions Kernel.CzProd.cmpz_run_prod.
+Print Assumptions Kernel.CzProd.cmpz_run_prod_fst.
+Print Assumptions Kernel.CzProd.cmpz_run_prod_snd.
+Print Assumptions Kernel.CzProd.cmpz_rec_prod.
+Print Assumptions Kernel.CzProd.cmpz_cost_app.
+Print Assumptions Kernel.CzProd.cmpz_cost_prod.
+Print Assumptions Kernel.CzProd.cmpz_exits_inl_iff.
+Print Assumptions Kernel.CzProd.cmpz_exits_inr_iff.
+Print Assumptions Kernel.CzProd.cmpz_exit_count_prod.
+Print Assumptions Kernel.CzProd.cmpz_prod_a2_if.
+Print Assumptions Kernel.CzProd.cmpz_prod_a2_only_if.
+Print Assumptions Kernel.CzProd.cmpz_prod_a2_only_if_right.
+Print Assumptions Kernel.CzProd.cmpz_prod_a2_iff.
+Print Assumptions Kernel.CzProd.cmpz_prod_exit_cost.
+Print Assumptions Kernel.CzProd.cmpz_prod_floor.
+(* === Kernel.CzProdTC : 26 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzProdTC.cmpz_mapk_base_iff.
+Print Assumptions Kernel.CzProdTC.cmpz_lub_left.
+Print Assumptions Kernel.CzProdTC.cmpz_lub_right.
+Print Assumptions Kernel.CzProdTC.cmpz_load.
+Print Assumptions Kernel.CzProdTC.cmpz_record_move_inl.
+Print Assumptions Kernel.CzProdTC.cmpz_record_move_inr.
+Print Assumptions Kernel.CzProdTC.cmpz_earned_left.
+Print Assumptions Kernel.CzProdTC.cmpz_earned_right.
+Print Assumptions Kernel.CzProdTC.cmpz_prod_tc.
+Print Assumptions Kernel.CzProdTC.cmpz_prod_ledger_counts.
+Print Assumptions Kernel.CzProdTC.cmpz_record_moves_prod.
+Print Assumptions Kernel.CzProdTC.cmpz_prod_joint_certificate.
+Print Assumptions Kernel.CzProdTC.cmpz_prod_joint_certificate_tight.
+Print Assumptions Kernel.CzProdTC.cmpz_prod_thiele_complete.
+Print Assumptions Kernel.CzProdTC.cmpz_or_bit_iff.
+Print Assumptions Kernel.CzProdTC.cmpz_or_view_complete.
+Print Assumptions Kernel.CzProdTC.cmpz_record_moves_le_length.
+Print Assumptions Kernel.CzProdTC.cmpz_and_costs_six.
+Print Assumptions Kernel.CzProdTC.cmpz_and_not_complete.
+Print Assumptions Kernel.CzProdTC.cmpz_prog_trace.
+Print Assumptions Kernel.CzProdTC.cmpz_lefts_map_inl.
+Print Assumptions Kernel.CzProdTC.cmpz_rights_map_inl.
+Print Assumptions Kernel.CzProdTC.cmpz_lefts_map_inr.
+Print Assumptions Kernel.CzProdTC.cmpz_rights_map_inr.
+Print Assumptions Kernel.CzProdTC.cmpz_prod_runs_two.
+Print Assumptions Kernel.CzProdTC.cmpz_or_thiele_complete.
+(* === Kernel.CzSelf : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzSelf.cmpz_closed_prod.
+Print Assumptions Kernel.CzSelf.cmpz_closed_seq.
+Print Assumptions Kernel.CzSelf.cmpz_tower_self_similar.
+(* === Kernel.CzSeq : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzSeq.cmpz_seq_tc.
+Print Assumptions Kernel.CzSeq.cmpz_seq_cost.
+Print Assumptions Kernel.CzSeq.cmpz_seq_joint_certificate.
+Print Assumptions Kernel.CzSeq.cmpz_wired_moves_inl.
+Print Assumptions Kernel.CzSeq.cmpz_wired_moves_n.
+Print Assumptions Kernel.CzSeq.cmpz_seq_composes.
+Print Assumptions Kernel.CzSeq.cmpz_seq_composes_halting.
+Print Assumptions Kernel.CzSeq.cmpz_ld_a2_if.
+Print Assumptions Kernel.CzSeq.cmpz_ld_a2_only_if.
+Print Assumptions Kernel.CzSeq.cmpz_ld_unclean.
+(* === Kernel.CzShadow : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzShadow.cmpz_prod_shadow_theorem.
+Print Assumptions Kernel.CzShadow.cmpz_pair_independence_left.
+Print Assumptions Kernel.CzShadow.cmpz_pair_independence_right.
+Print Assumptions Kernel.CzShadow.cmpz_pair_ledger_independence.
+Print Assumptions Kernel.CzShadow.cmpz_pair_every_window_printed.
+(* === Kernel.CzTower : 33 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzTower.cmpz_mlatch_rd.
+Print Assumptions Kernel.CzTower.cmpz_bool_absorb.
+Print Assumptions Kernel.CzTower.cmpz_pres_run.
+Print Assumptions Kernel.CzTower.cmpz_presented_run_halted.
+Print Assumptions Kernel.CzTower.cmpz_mledger_halted.
+Print Assumptions Kernel.CzTower.cmpz_mlatch_halted.
+Print Assumptions Kernel.CzTower.cmpz_surcharge_halted.
+Print Assumptions Kernel.CzTower.cmpz_not_halted_before.
+Print Assumptions Kernel.CzTower.cmpz_surcharge_exact_two.
+Print Assumptions Kernel.CzTower.cmpz_surcharge_start_up.
+Print Assumptions Kernel.CzTower.cmpz_guest_run_eq.
+Print Assumptions Kernel.CzTower.cmpz_host_run_eq.
+Print Assumptions Kernel.CzTower.cmpz_guest_halted_iff.
+Print Assumptions Kernel.CzTower.cmpz_host_halted_iff.
+Print Assumptions Kernel.CzTower.cmpz_priced_link.
+Print Assumptions Kernel.CzTower.cmpz_compile_points.
+Print Assumptions Kernel.CzTower.cmpz_pres_halted_iff.
+Print Assumptions Kernel.CzTower.cmpz_pres_rec.
+Print Assumptions Kernel.CzTower.cmpz_pres_led.
+Print Assumptions Kernel.CzTower.cmpz_pres_state.
+Print Assumptions Kernel.CzTower.cmpz_compile_link.
+Print Assumptions Kernel.CzTower.cmpz_host_link.
+Print Assumptions Kernel.CzTower.cmpz_host_link_le_two.
+Print Assumptions Kernel.CzTower.cmpz_host_link_exact.
+Print Assumptions Kernel.CzTower.cmpz_host_link_start_up.
+Print Assumptions Kernel.CzTower.cmpz_presents_link.
+Print Assumptions Kernel.CzTower.cmpz_host_cost_le_one.
+Print Assumptions Kernel.CzTower.cmpz_presents_host_start.
+Print Assumptions Kernel.CzTower.cmpz_presents_host_cost.
+Print Assumptions Kernel.CzTower.cmpz_level_link.
+Print Assumptions Kernel.CzTower.cmpz_tower_presented.
+Print Assumptions Kernel.CzTower.cmpz_exact_sum.
+Print Assumptions Kernel.CzTower.cmpz_tower_presented_exact.
+(* === Kernel.CzWin : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzWin.cmpz_win_collision_iff.
+Print Assumptions Kernel.CzWin.cmpz_win_collision_left.
+Print Assumptions Kernel.CzWin.cmpz_win_collision_right.
+Print Assumptions Kernel.CzWin.cmpz_win_blind_left.
+Print Assumptions Kernel.CzWin.cmpz_win_blind_right.
+Print Assumptions Kernel.CzWin.cmpz_window_sees_record.
+Print Assumptions Kernel.CzWin.cmpz_ex_M_exits.
+Print Assumptions Kernel.CzWin.cmpz_ex_M_no_collision.
+Print Assumptions Kernel.CzWin.cmpz_ex_N_no_collision.
+Print Assumptions Kernel.CzWin.cmpz_ex_M_price.
+Print Assumptions Kernel.CzWin.cmpz_ex_N_price.
+Print Assumptions Kernel.CzWin.cmpz_exactness_not_preserved.
+Print Assumptions Kernel.CzWin.cmpz_exactness_not_preserved_price.
 (* === Kernel.EarnedCoreLinks : 17 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.EarnedCoreLinks.mm2_instr_at_iff.
 Print Assumptions Kernel.EarnedCoreLinks.mm2_step_iff.
@@ -537,6 +1665,63 @@ Print Assumptions Kernel.LRecursion.Omega_step.
 Print Assumptions Kernel.LRecursion.Omega_diverges.
 Print Assumptions Kernel.LRecursion.halts_extensional.
 Print Assumptions Kernel.LRecursion.L_halting_undecidable.
+(* === Kernel.LiftAxis : 24 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LiftAxis.lift_lax_run_fst.
+Print Assumptions Kernel.LiftAxis.lift_lax_next_cases.
+Print Assumptions Kernel.LiftAxis.lift_lax_grows.
+Print Assumptions Kernel.LiftAxis.lift_lax_step_eq.
+Print Assumptions Kernel.LiftAxis.lift_lax_next_certify_ok.
+Print Assumptions Kernel.LiftAxis.lift_lax_next_certify_no.
+Print Assumptions Kernel.LiftAxis.lift_lax_base_clause.
+Print Assumptions Kernel.LiftAxis.lift_lax_earned_exit.
+Print Assumptions Kernel.LiftAxis.lift_lax_earned_clause.
+Print Assumptions Kernel.LiftAxis.lift_lax_toll_clause.
+Print Assumptions Kernel.LiftAxis.lift_lax_chain_true.
+Print Assumptions Kernel.LiftAxis.lift_lax_chain_false.
+Print Assumptions Kernel.LiftAxis.lift_lax_nonvac_clause.
+Print Assumptions Kernel.LiftAxis.lift_lax_thiele_complete_with.
+Print Assumptions Kernel.LiftAxis.lift_lax_thiele_complete.
+Print Assumptions Kernel.LiftAxis.lift_wcn_eqb_eq.
+Print Assumptions Kernel.LiftAxis.lift_lax_window_thiele_complete.
+Print Assumptions Kernel.LiftAxis.lift_ax_tc_point_above_floor.
+Print Assumptions Kernel.LiftAxis.lift_ax_indiscrete_no_machine.
+Print Assumptions Kernel.LiftAxis.lift_ax_tc_exit_is_lub.
+Print Assumptions Kernel.LiftAxis.lift_V_no_join.
+Print Assumptions Kernel.LiftAxis.lift_V_not_a_lift_axis.
+Print Assumptions Kernel.LiftAxis.lift_V_record_stays_x.
+Print Assumptions Kernel.LiftAxis.lift_lax_flag_view.
+(* === Kernel.LiftExec : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LiftExec.lift_ex_sdec_scode.
+Print Assumptions Kernel.LiftExec.lift_ex_f_exec.
+Print Assumptions Kernel.LiftExec.lift_ex_sim.
+Print Assumptions Kernel.LiftExec.lift_ex_L_computable.
+(* === Kernel.LiftHeadline : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LiftHeadline.lift_presented_from_computable.
+Print Assumptions Kernel.LiftHeadline.lift_presented_runs_on_U.
+Print Assumptions Kernel.LiftHeadline.lift_computable_runs_on_U.
+Print Assumptions Kernel.LiftHeadline.lift_model_independence.
+(* === Kernel.LiftModels : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LiftModels.lift_ex_thiele_complete.
+Print Assumptions Kernel.LiftModels.lift_ram_thiele_complete.
+Print Assumptions Kernel.LiftModels.lift_ex_in_L.
+Print Assumptions Kernel.LiftModels.lift_ex_in_MMA.
+Print Assumptions Kernel.LiftModels.lift_mm2_instr_at_cm.
+Print Assumptions Kernel.LiftModels.lift_cm_fetch_map.
+Print Assumptions Kernel.LiftModels.lift_mm2_step_cm.
+Print Assumptions Kernel.LiftModels.lift_mm2_stop_cm.
+Print Assumptions Kernel.LiftModels.lift_mm2_terminates_cm.
+Print Assumptions Kernel.LiftModels.lift_mm2_halting_cm.
+Print Assumptions Kernel.LiftModels.lift_cm_halting_undecidable.
+Print Assumptions Kernel.LiftModels.lift_no_oc_translation.
+Print Assumptions Kernel.LiftModels.lift_no_oc_translation_undecidability.
+(* === Kernel.LiftModelsAll : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LiftModelsAll.lift_L_in_all_models.
+Print Assumptions Kernel.LiftModelsAll.lift_num_models_agree.
+Print Assumptions Kernel.LiftModelsAll.lift_ex_in_all_models.
+Print Assumptions Kernel.LiftModelsAll.lift_numeric_base.
+Print Assumptions Kernel.LiftModelsAll.lift_classic_bases.
+(* === Kernel.LiftRAM : 1 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LiftRAM.lift_ram_sim.
 (* === Kernel.MM2ComplementUndec : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.MM2ComplementUndec.PCPb_to_MM2.
 Print Assumptions Kernel.MM2ComplementUndec.MM2_HALTING_compl_undec.
@@ -548,6 +1733,500 @@ Print Assumptions Kernel.NatSubstrateInstance.nat_no_refuses.
 Print Assumptions Kernel.NatSubstrateInstance.nat_admits_extensional.
 Print Assumptions Kernel.NatSubstrateInstance.nat_structural_shortcut_undecidable.
 Print Assumptions Kernel.NatSubstrateInstance.nat_self_undecidable.
+(* === Kernel.NecEChsh : 24 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecEChsh.nec_e_sq2_descent.
+Print Assumptions Kernel.NecEChsh.nec_e_no_sqrt8.
+Print Assumptions Kernel.NecEChsh.nec_e_corr_frac.
+Print Assumptions Kernel.NecEChsh.nec_e_check_strict.
+Print Assumptions Kernel.NecEChsh.nec_e_check_never_tsirelson.
+Print Assumptions Kernel.NecEChsh.nec_e_near_check.
+Print Assumptions Kernel.NecEChsh.nec_e_near_score.
+Print Assumptions Kernel.NecEChsh.nec_e_check_sharp.
+Print Assumptions Kernel.NecEChsh.nec_e_pinned_tsirelson_tight.
+Print Assumptions Kernel.NecEChsh.nec_e_sampled_needed.
+Print Assumptions Kernel.NecEChsh.nec_e_facts_needed_for_meaning.
+Print Assumptions Kernel.NecEChsh.nec_e_clear_needs_positive.
+Print Assumptions Kernel.NecEChsh.nec_e_marginals_psd_not_contractive.
+Print Assumptions Kernel.NecEChsh.nec_e_marginals_contractive_not_psd.
+Print Assumptions Kernel.NecEChsh.nec_e_contractive_independent.
+Print Assumptions Kernel.NecEChsh.nec_e_row_bounds_needed.
+Print Assumptions Kernel.NecEChsh.nec_e_deterministic_not_pinned_psd.
+Print Assumptions Kernel.NecEChsh.nec_e_psd2_iff.
+Print Assumptions Kernel.NecEChsh.nec_e_discriminant_converse_false.
+Print Assumptions Kernel.NecEChsh.nec_e_sbc_31.
+Print Assumptions Kernel.NecEChsh.nec_e_sbc_13.
+Print Assumptions Kernel.NecEChsh.nec_e_gzero_tight.
+Print Assumptions Kernel.NecEChsh.nec_e_flag_needs_clean.
+Print Assumptions Kernel.NecEChsh.nec_e_g12345_stronger.
+(* === Kernel.NecEChshInt : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecEChshInt.nec_e_check_split.
+Print Assumptions Kernel.NecEChshInt.nec_e_check_iff_facts.
+Print Assumptions Kernel.NecEChshInt.nec_e_check_facts_irredundant.
+Print Assumptions Kernel.NecEChshInt.nec_e_d_sq.
+Print Assumptions Kernel.NecEChshInt.nec_e_check_refuses_deterministic.
+Print Assumptions Kernel.NecEChshInt.nec_e_check_refuses_all_plans.
+Print Assumptions Kernel.NecEChshInt.nec_e_local_bound_attained.
+Print Assumptions Kernel.NecEChshInt.nec_e_local_bound_needs_sampling.
+Print Assumptions Kernel.NecEChshInt.nec_e_local_bound_needs_bits.
+Print Assumptions Kernel.NecEChshInt.nec_e_violation_any_labels.
+Print Assumptions Kernel.NecEChshInt.nec_e_deterministic_tight.
+(* === Kernel.NecEFine : 16 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecEFine.nec_e_sum_n_lin.
+Print Assumptions Kernel.NecEFine.nec_e_sum_n_4.
+Print Assumptions Kernel.NecEFine.nec_e_sum_n_ext.
+Print Assumptions Kernel.NecEFine.nec_e_sum_n_bound.
+Print Assumptions Kernel.NecEFine.nec_e_factorizable_variant_bound.
+Print Assumptions Kernel.NecEFine.nec_e_fine_converse_false.
+Print Assumptions Kernel.NecEFine.nec_e_sum_n_comb.
+Print Assumptions Kernel.NecEFine.nec_e_sum_n_boundK.
+Print Assumptions Kernel.NecEFine.nec_e_det_term.
+Print Assumptions Kernel.NecEFine.nec_e_factorizable_linear.
+Print Assumptions Kernel.NecEFine.nec_e_fine_necessary.
+Print Assumptions Kernel.NecEFine.nec_e_pos_nonneg.
+Print Assumptions Kernel.NecEFine.nec_e_pos_diff.
+Print Assumptions Kernel.NecEFine.nec_e_pos_sum.
+Print Assumptions Kernel.NecEFine.nec_e_abs_cases.
+Print Assumptions Kernel.NecEFine.nec_e_fine_iff.
+(* === Kernel.NecEHost : 26 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecEHost.nec_e_hfun_det.
+Print Assumptions Kernel.NecEHost.nec_e_inc0_out.
+Print Assumptions Kernel.NecEHost.nec_e_is0_out.
+Print Assumptions Kernel.NecEHost.nec_e_hcode_nil.
+Print Assumptions Kernel.NecEHost.nec_e_nil_halt_same.
+Print Assumptions Kernel.NecEHost.nec_e_nil_halt_hequiv.
+Print Assumptions Kernel.NecEHost.nec_e_wall_needs_nontrivial.
+Print Assumptions Kernel.NecEHost.nec_e_wall_needs_extensional.
+Print Assumptions Kernel.NecEHost.nec_e_dec_const.
+Print Assumptions Kernel.NecEHost.nec_e_dec_nil.
+Print Assumptions Kernel.NecEHost.nec_e_rice_needs_nontrivial.
+Print Assumptions Kernel.NecEHost.nec_e_rice_needs_extensional.
+Print Assumptions Kernel.NecEHost.nec_e_guest_rice_needs_nontrivial.
+Print Assumptions Kernel.NecEHost.nec_e_guest_rice_needs_extensional.
+Print Assumptions Kernel.NecEHost.nec_e_trap_absorbs.
+Print Assumptions Kernel.NecEHost.nec_e_ff_MMA.
+Print Assumptions Kernel.NecEHost.nec_e_ff_program.
+Print Assumptions Kernel.NecEHost.nec_e_ff_computed.
+Print Assumptions Kernel.NecEHost.nec_e_noreg_cexec.
+Print Assumptions Kernel.NecEHost.nec_e_noreg_run.
+Print Assumptions Kernel.NecEHost.nec_e_ends_noreg.
+Print Assumptions Kernel.NecEHost.nec_e_ff_run_r.
+Print Assumptions Kernel.NecEHost.nec_e_ff_run.
+Print Assumptions Kernel.NecEHost.nec_e_no_fixed_point_facts.
+Print Assumptions Kernel.NecEHost.nec_e_no_fixed_point_versions.
+Print Assumptions Kernel.NecEHost.nec_e_kleene_needs_computable.
+(* === Kernel.NecFCalorimeter : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFCalorimeter.nec_f_smaller_gap_iff.
+Print Assumptions Kernel.NecFCalorimeter.nec_f_smaller_gap_negative_pair.
+Print Assumptions Kernel.NecFCalorimeter.nec_f_heat_determines_gap.
+Print Assumptions Kernel.NecFCalorimeter.nec_f_landauer_gap_unique.
+Print Assumptions Kernel.NecFCalorimeter.nec_f_scales_always_disagree.
+(* === Kernel.NecFCounter : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFCounter.nec_f_conservation.
+Print Assumptions Kernel.NecFCounter.nec_f_counter_monotone.
+Print Assumptions Kernel.NecFCounter.nec_f_initiality_reachable_rule.
+Print Assumptions Kernel.NecFCounter.nec_f_initiality.
+Print Assumptions Kernel.NecFCounter.nec_f_initiality_iff.
+Print Assumptions Kernel.NecFCounter.nec_f_conservation_iff_rule.
+Print Assumptions Kernel.NecFCounter.nec_f_finite_counter_charges_nothing.
+Print Assumptions Kernel.NecFCounter.nec_f_initiality_needs_zero_start.
+Print Assumptions Kernel.NecFCounter.nec_f_initiality_needs_reachable.
+Print Assumptions Kernel.NecFCounter.nec_f_fold_unique.
+Print Assumptions Kernel.NecFCounter.nec_f_additive_is_price.
+Print Assumptions Kernel.NecFCounter.nec_f_factor_gives_descent.
+Print Assumptions Kernel.NecFCounter.nec_f_descent_iff_functional.
+Print Assumptions Kernel.NecFCounter.nec_f_descent_fails_for_history.
+Print Assumptions Kernel.NecFCounter.nec_f_potential_bound_iff.
+Print Assumptions Kernel.NecFCounter.nec_f_potential_bound_exact.
+Print Assumptions Kernel.NecFCounter.nec_f_potential_one_attained.
+(* === Kernel.NecFEntropy : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFEntropy.nec_f_uniform_pair_pos.
+Print Assumptions Kernel.NecFEntropy.nec_f_entropy_invariant_iff_injective.
+Print Assumptions Kernel.NecFEntropy.nec_f_drop_zero_of_support_injective.
+Print Assumptions Kernel.NecFEntropy.nec_f_drop_pos_iff_support_merge.
+Print Assumptions Kernel.NecFEntropy.nec_f_zero_drop_every_move_iff_one_state.
+Print Assumptions Kernel.NecFEntropy.nec_f_entropy_toll_needs_finite.
+Print Assumptions Kernel.NecFEntropy.nec_f_entropy_toll_needs_permanent.
+Print Assumptions Kernel.NecFEntropy.nec_f_a2_without_entropy_pricing.
+Print Assumptions Kernel.NecFEntropy.nec_f_heat_positive_needs_kT.
+Print Assumptions Kernel.NecFEntropy.nec_f_full_support_needs_yes.
+Print Assumptions Kernel.NecFEntropy.nec_f_full_support_needs_s.
+(* === Kernel.NecFEntropyTight : 28 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFEntropyTight.nec_f_filter_prod_fst.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_zero_count.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_filter_none.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_finite.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_permanent.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_all_length.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_C_length.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_F_length.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_flip_list.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_CF_full.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_CF_nodup.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_count.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_gn_push.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_log2_div.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_entropy_bounds_attained.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_heat_floor_attained.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_three_finite.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_three_C.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_three_push.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_three_entropy_q.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_three_entropy_p.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_heat_floor_needs_nonneg_kT.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_surprisal_half.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_surprisal_zero.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_surprisal_one.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_invariance_needs_complete_list.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_invariance_needs_nodup.
+Print Assumptions Kernel.NecFEntropyTight.nec_f_ceiling_needs_permanent.
+(* === Kernel.NecFExtra : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFExtra.nec_f_fin_cost_minimal.
+Print Assumptions Kernel.NecFExtra.nec_f_fin_merge_pricing_jump_one.
+Print Assumptions Kernel.NecFExtra.nec_f_finite_injective_undoable.
+Print Assumptions Kernel.NecFExtra.nec_f_small_machine_infinite.
+(* === Kernel.NecFFloor : 22 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFFloor.nec_f_run_app.
+Print Assumptions Kernel.NecFFloor.nec_f_total_app.
+Print Assumptions Kernel.NecFFloor.nec_f_floor_iff_a2.
+Print Assumptions Kernel.NecFFloor.nec_f_free_reach_run.
+Print Assumptions Kernel.NecFFloor.nec_f_floor_at_iff_free_reach.
+Print Assumptions Kernel.NecFFloor.nec_f_floor_at_from_reachable_a2.
+Print Assumptions Kernel.NecFFloor.nec_f_cost_ge_rises.
+Print Assumptions Kernel.NecFFloor.nec_f_rises_pos.
+Print Assumptions Kernel.NecFFloor.nec_f_rises_iff_a2.
+Print Assumptions Kernel.NecFFloor.nec_f_rises_exact_iff.
+Print Assumptions Kernel.NecFFloor.nec_f_cs_run_is_run.
+Print Assumptions Kernel.NecFFloor.nec_f_cs_total_is_total.
+Print Assumptions Kernel.NecFFloor.nec_f_cs_cost_ge_rises.
+Print Assumptions Kernel.NecFFloor.nec_f_bit_a2.
+Print Assumptions Kernel.NecFFloor.nec_f_bit_rises_exact.
+Print Assumptions Kernel.NecFFloor.nec_f_bit_recertify_costs_two.
+Print Assumptions Kernel.NecFFloor.nec_f_floor_one_attained.
+Print Assumptions Kernel.NecFFloor.nec_f_floor_needs_no_start.
+Print Assumptions Kernel.NecFFloor.nec_f_free_stamp_floor_fails.
+Print Assumptions Kernel.NecFFloor.nec_f_door_free_reach_A.
+Print Assumptions Kernel.NecFFloor.nec_f_paid_door_floor.
+Print Assumptions Kernel.NecFFloor.nec_f_paid_door_not_a2.
+(* === Kernel.NecFGibbs : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFGibbs.nec_f_ln_strict.
+Print Assumptions Kernel.NecFGibbs.nec_f_entropy_eq_log_support.
+Print Assumptions Kernel.NecFGibbs.nec_f_uniform_drop_exact_only_if_divides.
+Print Assumptions Kernel.NecFGibbs.nec_f_uniform_drop_strict_unless_divides.
+Print Assumptions Kernel.NecFGibbs.nec_f_step_entropy_invariant_uniform.
+(* === Kernel.NecFMerge : 29 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFMerge.nec_f_yes_list_of_finite.
+Print Assumptions Kernel.NecFMerge.nec_f_flip_not_injective_on_yes_and_s.
+Print Assumptions Kernel.NecFMerge.nec_f_perm_flip_merges_yes_finite.
+Print Assumptions Kernel.NecFMerge.nec_f_flip_collision_in_yes_and_s.
+Print Assumptions Kernel.NecFMerge.nec_f_merge_or_revoke_yes_finite.
+Print Assumptions Kernel.NecFMerge.nec_f_toll_from_merges_yes_finite.
+Print Assumptions Kernel.NecFMerge.nec_f_a2_iff_flipping_merges_priced.
+Print Assumptions Kernel.NecFMerge.nec_f_merging_priced_weakens.
+Print Assumptions Kernel.NecFMerge.nec_f_repo_perm_flip_from_yes_finite.
+Print Assumptions Kernel.NecFMerge.nec_f_no_flip_no_merge.
+Print Assumptions Kernel.NecFMerge.nec_f_jump_merges_never_flips.
+Print Assumptions Kernel.NecFMerge.nec_f_collision_avoids_s.
+Print Assumptions Kernel.NecFMerge.nec_f_toll_needs_finite.
+Print Assumptions Kernel.NecFMerge.nec_f_toll_needs_permanent.
+Print Assumptions Kernel.NecFMerge.nec_f_a2_without_merge_pricing.
+Print Assumptions Kernel.NecFMerge.nec_f_merge_or_revoke_needs_finite.
+Print Assumptions Kernel.NecFMerge.nec_f_merge_only_flip.
+Print Assumptions Kernel.NecFMerge.nec_f_revoke_only_flip.
+Print Assumptions Kernel.NecFMerge.nec_f_merge_and_revoke_flip.
+Print Assumptions Kernel.NecFMerge.nec_f_forced_iff_merges_isolated.
+Print Assumptions Kernel.NecFMerge.nec_f_merges_forced.
+Print Assumptions Kernel.NecFMerge.nec_f_seen_true_zero.
+Print Assumptions Kernel.NecFMerge.nec_f_seen_true_ge.
+Print Assumptions Kernel.NecFMerge.nec_f_zero_seq_injective.
+Print Assumptions Kernel.NecFMerge.nec_f_true_seq_merges.
+Print Assumptions Kernel.NecFMerge.nec_f_forced_without_merge_under_continuity.
+Print Assumptions Kernel.NecFMerge.nec_f_forced_iff_merges_needs_decidability.
+Print Assumptions Kernel.NecFMerge.nec_f_forced_needs_finite.
+Print Assumptions Kernel.NecFMerge.nec_f_forced_needs_permanent.
+(* === Kernel.NecFNarrowing : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFNarrowing.nec_f_log_of_mul.
+Print Assumptions Kernel.NecFNarrowing.nec_f_halving_gives_bit_price.
+Print Assumptions Kernel.NecFNarrowing.nec_f_fiber_image_le_one.
+Print Assumptions Kernel.NecFNarrowing.nec_f_bit_price_gives_halving.
+Print Assumptions Kernel.NecFNarrowing.nec_f_bit_price_iff_halving.
+Print Assumptions Kernel.NecFNarrowing.nec_f_run_narrowing_bit.
+Print Assumptions Kernel.NecFNarrowing.nec_f_machine_narrowing_iff_halving.
+Print Assumptions Kernel.NecFNarrowing.nec_f_narrowing_needs_nodup.
+Print Assumptions Kernel.NecFNarrowing.nec_f_narrowing_equality.
+Print Assumptions Kernel.NecFNarrowing.nec_f_wipe_under_merge_pricing.
+Print Assumptions Kernel.NecFNarrowing.nec_f_wipe_one_attained.
+Print Assumptions Kernel.NecFNarrowing.nec_f_two_state_observer_free.
+Print Assumptions Kernel.NecFNarrowing.nec_f_one_state_observer_priced.
+Print Assumptions Kernel.NecFNarrowing.nec_f_seen_head.
+Print Assumptions Kernel.NecFNarrowing.nec_f_view_first_differs.
+Print Assumptions Kernel.NecFNarrowing.nec_f_view_constant.
+Print Assumptions Kernel.NecFNarrowing.nec_f_view_self.
+Print Assumptions Kernel.NecFNarrowing.nec_f_two_states_never_teach.
+(* === Kernel.NecFPhysics : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFPhysics.nec_f_dec_collapses.
+Print Assumptions Kernel.NecFPhysics.nec_f_small_premise_pair_fails.
+Print Assumptions Kernel.NecFPhysics.nec_f_small_free_collapse_is_merge.
+Print Assumptions Kernel.NecFPhysics.nec_f_small_premise_pair_on_flag.
+Print Assumptions Kernel.NecFPhysics.nec_f_nodup_map_inj.
+Print Assumptions Kernel.NecFPhysics.nec_f_finite_lift_forces_injective.
+Print Assumptions Kernel.NecFPhysics.nec_f_history_step_facts.
+(* === Kernel.NecFQuant : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFQuant.nec_f_raw_telescoping.
+Print Assumptions Kernel.NecFQuant.nec_f_qfloor_from_any_witness.
+Print Assumptions Kernel.NecFQuant.nec_f_qfloor_raw.
+Print Assumptions Kernel.NecFQuant.nec_f_cs_run_eq.
+Print Assumptions Kernel.NecFQuant.nec_f_cs_total_eq.
+Print Assumptions Kernel.NecFQuant.nec_f_repo_quantitative_from_raw.
+Print Assumptions Kernel.NecFQuant.nec_f_inc_run.
+Print Assumptions Kernel.NecFQuant.nec_f_inc_total.
+Print Assumptions Kernel.NecFQuant.nec_f_quant_tight.
+Print Assumptions Kernel.NecFQuant.nec_f_quant_needs_a6.
+Print Assumptions Kernel.NecFQuant.nec_f_quant_needs_a3.
+Print Assumptions Kernel.NecFQuant.nec_f_quant_needs_a5.
+(* === Kernel.NecFSqueeze : 27 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFSqueeze.nec_f_fin_eq.
+Print Assumptions Kernel.NecFSqueeze.nec_f_collect_values.
+Print Assumptions Kernel.NecFSqueeze.nec_f_enum_values.
+Print Assumptions Kernel.NecFSqueeze.nec_f_enum_length.
+Print Assumptions Kernel.NecFSqueeze.nec_f_enum_nodup.
+Print Assumptions Kernel.NecFSqueeze.nec_f_enum_full.
+Print Assumptions Kernel.NecFSqueeze.nec_f_nodup_prod.
+Print Assumptions Kernel.NecFSqueeze.nec_f_filter_prod_snd.
+Print Assumptions Kernel.NecFSqueeze.nec_f_nodup_map_on.
+Print Assumptions Kernel.NecFSqueeze.nec_f_pow_pos.
+Print Assumptions Kernel.NecFSqueeze.nec_f_grid_finite.
+Print Assumptions Kernel.NecFSqueeze.nec_f_grid_permanent.
+Print Assumptions Kernel.NecFSqueeze.nec_f_grid_fiber.
+Print Assumptions Kernel.NecFSqueeze.nec_f_grid_halving.
+Print Assumptions Kernel.NecFSqueeze.nec_f_grid_flips_spec.
+Print Assumptions Kernel.NecFSqueeze.nec_f_col0_count.
+Print Assumptions Kernel.NecFSqueeze.nec_f_grid_yes_count.
+Print Assumptions Kernel.NecFSqueeze.nec_f_grid_flips_count.
+Print Assumptions Kernel.NecFSqueeze.nec_f_squeeze_tight.
+Print Assumptions Kernel.NecFSqueeze.nec_f_in_firstn.
+Print Assumptions Kernel.NecFSqueeze.nec_f_squeeze_tight_every_k.
+Print Assumptions Kernel.NecFSqueeze.nec_f_grid_cost_least.
+Print Assumptions Kernel.NecFSqueeze.nec_f_injective_halving_free.
+Print Assumptions Kernel.NecFSqueeze.nec_f_squeeze_needs_finite.
+Print Assumptions Kernel.NecFSqueeze.nec_f_squeeze_needs_permanent.
+Print Assumptions Kernel.NecFSqueeze.nec_f_squeeze_needs_halving.
+Print Assumptions Kernel.NecFSqueeze.nec_f_rounded_log_form_weaker.
+(* === Kernel.NecFSqueezeLog : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFSqueezeLog.nec_f_ln_le_iff.
+Print Assumptions Kernel.NecFSqueezeLog.nec_f_squeeze_real_iff.
+Print Assumptions Kernel.NecFSqueezeLog.nec_f_least_cost_is_ceiling.
+Print Assumptions Kernel.NecFSqueezeLog.nec_f_least_cost_exists.
+Print Assumptions Kernel.NecFSqueezeLog.nec_f_one_halving_iff.
+Print Assumptions Kernel.NecFSqueezeLog.nec_f_thinner_squeeze_below_one_bit.
+(* === Kernel.NecSMisc : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecSMisc.nec_s_commit_traps_iff.
+Print Assumptions Kernel.NecSMisc.nec_s_certify_traps_iff.
+Print Assumptions Kernel.NecSMisc.nec_s_frag_needs_live.
+Print Assumptions Kernel.NecSMisc.nec_s_frag_toll_attained.
+Print Assumptions Kernel.NecSMisc.nec_s_loop_blank_run.
+Print Assumptions Kernel.NecSMisc.nec_s_tm_ledger_not_function_of_config.
+Print Assumptions Kernel.NecSMisc.nec_s_loop_one_run.
+Print Assumptions Kernel.NecSMisc.nec_s_tm_cost_bound_attained.
+(* === Kernel.NecSPoints : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecSPoints.nec_s_first_stop.
+Print Assumptions Kernel.NecSPoints.nec_s_after_stop.
+Print Assumptions Kernel.NecSPoints.nec_s_presented_points_every_n.
+Print Assumptions Kernel.NecSPoints.nec_s_presented_within_two_every_n.
+(* === Kernel.NecSPresented : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecSPresented.nec_s_never_toll.
+Print Assumptions Kernel.NecSPresented.nec_s_presented_all_iff_ct.
+Print Assumptions Kernel.NecSPresented.nec_s_host_at_floor.
+Print Assumptions Kernel.NecSPresented.nec_s_within_two_needs_no_start.
+Print Assumptions Kernel.NecSPresented.nec_s_flip_toll.
+Print Assumptions Kernel.NecSPresented.nec_s_flip_read_spec.
+Print Assumptions Kernel.NecSPresented.nec_s_within_two_attained.
+Print Assumptions Kernel.NecSPresented.nec_s_first_raise_latch.
+Print Assumptions Kernel.NecSPresented.nec_s_surcharge_zero_iff.
+Print Assumptions Kernel.NecSPresented.nec_s_pays.
+Print Assumptions Kernel.NecSPresented.nec_s_exact_host_iff_bool.
+Print Assumptions Kernel.NecSPresented.nec_s_exact_host_iff.
+Print Assumptions Kernel.NecSPresented.nec_s_pay_is_record_move.
+(* === Kernel.NecSU : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecSU.nec_s_U_complete_floor_three.
+Print Assumptions Kernel.NecSU.nec_s_witness_halts.
+Print Assumptions Kernel.NecSU.nec_s_U_floor_three_attained.
+Print Assumptions Kernel.NecSU.nec_s_grun_mu_step.
+Print Assumptions Kernel.NecSU.nec_s_host_ledger_is_guest_ledger.
+Print Assumptions Kernel.NecSU.nec_s_U_sim_bound_attained.
+Print Assumptions Kernel.NecSU.nec_s_U_earned_needs_load.
+(* === Kernel.NecSUndec : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecSUndec.nec_s_halting_decidable_classically.
+Print Assumptions Kernel.NecSUndec.nec_s_undecidable_is_relative.
+(* === Kernel.NecWArgued : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWArgued.nec_w_forgetful_window_no_counter.
+Print Assumptions Kernel.NecWArgued.nec_w_forgetful_window_no_flag.
+Print Assumptions Kernel.NecWArgued.nec_w_forget_needs_settable.
+Print Assumptions Kernel.NecWArgued.nec_w_billed_run.
+Print Assumptions Kernel.NecWArgued.nec_w_billed_step_cost.
+Print Assumptions Kernel.NecWArgued.nec_w_billed_honest.
+Print Assumptions Kernel.NecWArgued.nec_w_billed_same_latch.
+Print Assumptions Kernel.NecWArgued.nec_w_billed_same_up_to_schedule.
+Print Assumptions Kernel.NecWArgued.nec_w_observed_implies_schedule_bisim.
+Print Assumptions Kernel.NecWArgued.nec_w_outside_decider.
+(* === Kernel.NecWCT : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWCT.nec_w_inclusion_rejects_beyond.
+Print Assumptions Kernel.NecWCT.nec_w_ct_fold_step.
+Print Assumptions Kernel.NecWCT.nec_w_div2_le.
+Print Assumptions Kernel.NecWCT.nec_w_div2_lt.
+Print Assumptions Kernel.NecWCT.nec_w_shift_snd_le.
+Print Assumptions Kernel.NecWCT.nec_w_ct_nxt_decreases.
+Print Assumptions Kernel.NecWCT.nec_w_ct_fill_reaches_zero.
+Print Assumptions Kernel.NecWCT.nec_w_inclusion_accepts_iff.
+Print Assumptions Kernel.NecWCT.nec_w_inclusion_accepts_iff_symbolic.
+(* === Kernel.NecWCasper : 27 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWCasper.nec_w_anc_base.
+Print Assumptions Kernel.NecWCasper.nec_w_anc_concat.
+Print Assumptions Kernel.NecWCasper.nec_w_anc_other.
+Print Assumptions Kernel.NecWCasper.nec_w_nth_anc.
+Print Assumptions Kernel.NecWCasper.nec_w_link_epochs.
+Print Assumptions Kernel.NecWCasper.nec_w_link_anc.
+Print Assumptions Kernel.NecWCasper.nec_w_two_link_not_slashed.
+Print Assumptions Kernel.NecWCasper.nec_w_both_votes.
+Print Assumptions Kernel.NecWCasper.nec_w_dbl_vote_case.
+Print Assumptions Kernel.NecWCasper.nec_w_surround_case.
+Print Assumptions Kernel.NecWCasper.nec_w_crossing_link.
+Print Assumptions Kernel.NecWCasper.nec_w_same_epoch_distinct.
+Print Assumptions Kernel.NecWCasper.nec_w_distinct_justified_same_epoch.
+Print Assumptions Kernel.NecWCasper.nec_w_non_equal_case_ind.
+Print Assumptions Kernel.NecWCasper.nec_w_accountable_safety_no_parent_premise.
+Print Assumptions Kernel.NecWCasper.nec_w_nth_of_repo.
+Print Assumptions Kernel.NecWCasper.nec_w_link_of_repo.
+Print Assumptions Kernel.NecWCasper.nec_w_just_of_repo.
+Print Assumptions Kernel.NecWCasper.nec_w_fork_of_repo.
+Print Assumptions Kernel.NecWCasper.nec_w_accountable_safety_repo.
+Print Assumptions Kernel.NecWCasper.nec_w_only_a_third.
+Print Assumptions Kernel.NecWCasper.nec_w_only_c_third.
+Print Assumptions Kernel.NecWCasper.nec_w_third_nonempty.
+Print Assumptions Kernel.NecWCasper.nec_w_casper_first_class_one_third.
+Print Assumptions Kernel.NecWCasper.nec_w_vote_vb_slashed_only.
+Print Assumptions Kernel.NecWCasper.nec_w_two_thirds_two_members.
+Print Assumptions Kernel.NecWCasper.nec_w_casper_second_class_two_thirds.
+(* === Kernel.NecWDiagonal : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWDiagonal.nec_w_constant_true_predicate_decided.
+Print Assumptions Kernel.NecWDiagonal.nec_w_constant_false_predicate_decided.
+Print Assumptions Kernel.NecWDiagonal.nec_w_brun_equiv.
+Print Assumptions Kernel.NecWDiagonal.nec_w_rep_needed.
+Print Assumptions Kernel.NecWDiagonal.nec_w_extensional_needed.
+Print Assumptions Kernel.NecWDiagonal.nec_w_recursion_needed.
+Print Assumptions Kernel.NecWDiagonal.nec_w_nat_family_wrong_at_two.
+Print Assumptions Kernel.NecWDiagonal.nec_w_nat_family_one_error_tight.
+(* === Kernel.NecWGrowing : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWGrowing.nec_w_growing_from_driven_grows.
+Print Assumptions Kernel.NecWGrowing.nec_w_threshold_factor_implies_grows.
+Print Assumptions Kernel.NecWGrowing.nec_w_threshold_factor_relationally_driven.
+Print Assumptions Kernel.NecWGrowing.nec_w_clock_no_threshold_factorization.
+Print Assumptions Kernel.NecWGrowing.nec_w_two_valued_one_latch.
+Print Assumptions Kernel.NecWGrowing.nec_w_price_iff_needs_grows.
+Print Assumptions Kernel.NecWGrowing.nec_w_word_nth.
+Print Assumptions Kernel.NecWGrowing.nec_w_word_length.
+Print Assumptions Kernel.NecWGrowing.nec_w_up_head.
+Print Assumptions Kernel.NecWGrowing.nec_w_up_in.
+Print Assumptions Kernel.NecWGrowing.nec_w_up_length.
+Print Assumptions Kernel.NecWGrowing.nec_w_word_inj.
+Print Assumptions Kernel.NecWGrowing.nec_w_chain_attained.
+Print Assumptions Kernel.NecWGrowing.nec_w_chain_bound_tight.
+Print Assumptions Kernel.NecWGrowing.nec_w_det_latch_iff_no_branching.
+Print Assumptions Kernel.NecWGrowing.nec_w_schedule_not_normalized_probability.
+Print Assumptions Kernel.NecWGrowing.nec_w_weight_single.
+Print Assumptions Kernel.NecWGrowing.nec_w_no_branching_schedule_fixes_probability.
+(* === Kernel.NecWLRice : 24 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWLRice.nec_w_second_recursion_any_closed.
+Print Assumptions Kernel.NecWLRice.nec_w_recursion_theorem_any_closed.
+Print Assumptions Kernel.NecWLRice.nec_w_step_closed.
+Print Assumptions Kernel.NecWLRice.nec_w_star_closed.
+Print Assumptions Kernel.NecWLRice.nec_w_second_recursion_needs_closed.
+Print Assumptions Kernel.NecWLRice.nec_w_const_decider.
+Print Assumptions Kernel.NecWLRice.nec_w_ltrue_closed.
+Print Assumptions Kernel.NecWLRice.nec_w_lfalse_closed.
+Print Assumptions Kernel.NecWLRice.nec_w_rice_needs_both_witnesses.
+Print Assumptions Kernel.NecWLRice.nec_w_enc_case.
+Print Assumptions Kernel.NecWLRice.nec_w_is_lam_decider_run.
+Print Assumptions Kernel.NecWLRice.nec_w_rice_needs_extensional.
+Print Assumptions Kernel.NecWLRice.nec_w_app_halts_inv.
+Print Assumptions Kernel.NecWLRice.nec_w_px_halts.
+Print Assumptions Kernel.NecWLRice.nec_w_px_value_halts.
+Print Assumptions Kernel.NecWLRice.nec_w_no_value_equiv_omega.
+Print Assumptions Kernel.NecWLRice.nec_w_mk_app_closed.
+Print Assumptions Kernel.NecWLRice.nec_w_hbody_bound.
+Print Assumptions Kernel.NecWLRice.nec_w_hbody_subst.
+Print Assumptions Kernel.NecWLRice.nec_w_hbody_run.
+Print Assumptions Kernel.NecWLRice.nec_w_ltrue_select.
+Print Assumptions Kernel.NecWLRice.nec_w_lfalse_select.
+Print Assumptions Kernel.NecWLRice.nec_w_rice_any_witnesses.
+Print Assumptions Kernel.NecWLRice.nec_w_L_rice_corollary.
+(* === Kernel.NecWLatch : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWLatch.nec_w_latch_from_driven_permanent.
+Print Assumptions Kernel.NecWLatch.nec_w_latch_iff.
+Print Assumptions Kernel.NecWLatch.nec_w_record_axis_is_latch.
+Print Assumptions Kernel.NecWLatch.nec_w_toggle_meets_rest.
+Print Assumptions Kernel.NecWLatch.nec_w_clock_meets_rest.
+Print Assumptions Kernel.NecWLatch.nec_w_latch_event_determined.
+Print Assumptions Kernel.NecWLatch.nec_w_latch_event_not_unique.
+Print Assumptions Kernel.NecWLatch.nec_w_latch_honest_iff.
+Print Assumptions Kernel.NecWLatch.nec_w_latch_never_not_honest.
+Print Assumptions Kernel.NecWLatch.nec_w_history_honest_iff.
+Print Assumptions Kernel.NecWLatch.nec_w_history_injective_iff.
+Print Assumptions Kernel.NecWLatch.nec_w_reversible_needs_finite.
+Print Assumptions Kernel.NecWLatch.nec_w_reversible_needs_permanent.
+Print Assumptions Kernel.NecWLatch.nec_w_reversible_needs_injective.
+Print Assumptions Kernel.NecWLatch.nec_w_pair_iff.
+Print Assumptions Kernel.NecWLatch.nec_w_pair_toggle_not_two_latches.
+Print Assumptions Kernel.NecWLatch.nec_w_event_free_choice.
+(* === Kernel.NecWModels : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWModels.nec_w_warm_empty_invariant.
+Print Assumptions Kernel.NecWModels.nec_w_sstore_fresh_bound_exact.
+Print Assumptions Kernel.NecWModels.nec_w_sstore_empty_bound_exact.
+Print Assumptions Kernel.NecWModels.nec_w_one_step_free_iff_uncharged.
+Print Assumptions Kernel.NecWModels.nec_w_toy_universal_floor.
+Print Assumptions Kernel.NecWModels.nec_w_gas_clause_premises_needed.
+Print Assumptions Kernel.NecWModels.nec_w_no_overcharge_iff_pointwise.
+Print Assumptions Kernel.NecWModels.nec_w_quantitative_floor_iff_pointwise.
+Print Assumptions Kernel.NecWModels.nec_w_nn_forall_in.
+Print Assumptions Kernel.NecWModels.nec_w_nn_pairwise_dec.
+Print Assumptions Kernel.NecWModels.nec_w_in_dec.
+Print Assumptions Kernel.NecWModels.nec_w_nodup_cover.
+Print Assumptions Kernel.NecWModels.nec_w_logical_payment_cover_list.
+Print Assumptions Kernel.NecWModels.nec_w_logical_payment_premises_needed.
+Print Assumptions Kernel.NecWModels.nec_w_quote_decides_iff_digest.
+Print Assumptions Kernel.NecWModels.nec_w_vc_iff_certificate.
+Print Assumptions Kernel.NecWModels.nec_w_pcc_limit_tight.
+(* === Kernel.NecWPointer : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWPointer.nec_w_toy_observers_iff.
+Print Assumptions Kernel.NecWPointer.nec_w_blind_needs_in_range.
+Print Assumptions Kernel.NecWPointer.nec_w_blind_needs_event.
+Print Assumptions Kernel.NecWPointer.nec_w_blind_converse_refuted.
+Print Assumptions Kernel.NecWPointer.nec_w_wrong_observer_blocks.
+Print Assumptions Kernel.NecWPointer.nec_w_one_durable_observer_enough.
+Print Assumptions Kernel.NecWPointer.nec_w_durable_corollary.
+Print Assumptions Kernel.NecWPointer.nec_w_durable_premises_needed.
+Print Assumptions Kernel.NecWPointer.nec_w_durable_iff_permanent.
+(* === Kernel.NecWWindow : 21 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecWWindow.nec_w_fibre_converse_fails_without_section.
+Print Assumptions Kernel.NecWWindow.nec_w_decoder_iff_fibre_and_partial_section.
+Print Assumptions Kernel.NecWWindow.nec_w_fibre_iff_partial_section.
+Print Assumptions Kernel.NecWWindow.nec_w_fibre_section_corollary.
+Print Assumptions Kernel.NecWWindow.nec_w_surjective_converse_iff_unique_choice.
+Print Assumptions Kernel.NecWWindow.nec_w_exact_iff_flip_factors.
+Print Assumptions Kernel.NecWWindow.nec_w_factor_no_collision.
+Print Assumptions Kernel.NecWWindow.nec_w_shadowed_step_overcharged.
+Print Assumptions Kernel.NecWWindow.nec_w_oeqb_spec.
+Print Assumptions Kernel.NecWWindow.nec_w_flip_transition_spec.
+Print Assumptions Kernel.NecWWindow.nec_w_least_price_spec.
+Print Assumptions Kernel.NecWWindow.nec_w_finite_exact_iff_no_collision.
+Print Assumptions Kernel.NecWWindow.nec_w_run_overcharge_tight.
+Print Assumptions Kernel.NecWWindow.nec_w_general_converse_gives_wlem.
+Print Assumptions Kernel.NecWWindow.nec_w_exact_without_reading_in_view.
+Print Assumptions Kernel.NecWWindow.nec_w_commitment_escape_iff.
+Print Assumptions Kernel.NecWWindow.nec_w_unchecked_contract_iff.
+Print Assumptions Kernel.NecWWindow.nec_w_response_escape_iff.
+Print Assumptions Kernel.NecWWindow.nec_w_response_needs_transcript.
+Print Assumptions Kernel.NecWWindow.nec_w_verifier_iff_no_collision.
+Print Assumptions Kernel.NecWWindow.nec_w_factoring_verifier_iff_no_collision.
 (* === Kernel.Presentation : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Presentation.cg_read_val_code.
 Print Assumptions Kernel.Presentation.cg_read_val_junk.
@@ -1017,6 +2696,299 @@ Print Assumptions Kernel.StructuralRecordAxis.clock_record_not_driven.
 Print Assumptions Kernel.Substrate.prog_equiv_sym.
 Print Assumptions Kernel.Substrate.prog_equiv_trans.
 Print Assumptions Kernel.Substrate.mu_monotone_chain.
+(* === Kernel.Tc2Plain : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.Tc2Plain.tc2_plain_pf.
+Print Assumptions Kernel.Tc2Plain.tc2_mulprog_fun.
+Print Assumptions Kernel.Tc2Plain.tc2_cx_eq.
+Print Assumptions Kernel.Tc2Plain.tc2_fx_mono.
+Print Assumptions Kernel.Tc2Plain.tc2_fx_MMA.
+Print Assumptions Kernel.Tc2Plain.tc2_fcode_pcode.
+Print Assumptions Kernel.Tc2Plain.tc2_F_computed.
+Print Assumptions Kernel.Tc2Plain.tc2_plain_recursion_false.
+Print Assumptions Kernel.Tc2Plain.tc2_plain_recursion_refuted.
+Print Assumptions Kernel.Tc2Plain.tc2_plain_recursion_needs_LL.
+(* === Kernel.Tc2PlainAdd : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.Tc2PlainAdd.tc2_krep_eq.
+Print Assumptions Kernel.Tc2PlainAdd.tc2_addfx_mono.
+Print Assumptions Kernel.Tc2PlainAdd.tc2_addfx_MMA.
+Print Assumptions Kernel.Tc2PlainAdd.tc2_addcode_pcode.
+Print Assumptions Kernel.Tc2PlainAdd.tc2_Fadd_computed.
+Print Assumptions Kernel.Tc2PlainAdd.tc2_plain_recursion_needs_LL0.
+(* === Kernel.TcBridge : 23 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcBridge.tc_vec2.
+Print Assumptions Kernel.TcBridge.tc_vec2_ex.
+Print Assumptions Kernel.TcBridge.tc_ofvec_tovec.
+Print Assumptions Kernel.TcBridge.tc_ofvec_inj.
+Print Assumptions Kernel.TcBridge.tc_mstep_fetch.
+Print Assumptions Kernel.TcBridge.tc_mstep_none.
+Print Assumptions Kernel.TcBridge.tc_mstep_none_iff.
+Print Assumptions Kernel.TcBridge.tc_ctr_0.
+Print Assumptions Kernel.TcBridge.tc_ctr_1.
+Print Assumptions Kernel.TcBridge.tc_inst_forward.
+Print Assumptions Kernel.TcBridge.tc_inst_back.
+Print Assumptions Kernel.TcBridge.tc_fetch_conv.
+Print Assumptions Kernel.TcBridge.tc_step_iff.
+Print Assumptions Kernel.TcBridge.tc_steps_mrun.
+Print Assumptions Kernel.TcBridge.tc_mrun_steps.
+Print Assumptions Kernel.TcBridge.tc_steps_app.
+Print Assumptions Kernel.TcBridge.tc_steps_fwd.
+Print Assumptions Kernel.TcBridge.tc_steps_bwd.
+Print Assumptions Kernel.TcBridge.tc_steps_iff.
+Print Assumptions Kernel.TcBridge.tc_fetch_none_iff.
+Print Assumptions Kernel.TcBridge.tc_output_iff.
+Print Assumptions Kernel.TcBridge.tc_terminates_iff.
+Print Assumptions Kernel.TcBridge.tc_nonterm_never_stops.
+(* === Kernel.TcCodes : 31 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcCodes.tc_hb_correct.
+Print Assumptions Kernel.TcCodes.tc_hb_unique.
+Print Assumptions Kernel.TcCodes.tc_hb_spec.
+Print Assumptions Kernel.TcCodes.tc_unp_eq.
+Print Assumptions Kernel.TcCodes.tc_unpair_eq.
+Print Assumptions Kernel.TcCodes.tc_unpair_pair.
+Print Assumptions Kernel.TcCodes.tc_pair_ge.
+Print Assumptions Kernel.TcCodes.tc_lencode_ge.
+Print Assumptions Kernel.TcCodes.tc_ldec_encode.
+Print Assumptions Kernel.TcCodes.tc_ldecode_encode.
+Print Assumptions Kernel.TcCodes.tc_lencode_G.
+Print Assumptions Kernel.TcCodes.tc_kdec_kcode.
+Print Assumptions Kernel.TcCodes.tc_kpdec_kpcode.
+Print Assumptions Kernel.TcCodes.tc_cdec_ccode.
+Print Assumptions Kernel.TcCodes.tc_of_to_ki.
+Print Assumptions Kernel.TcCodes.tc_kcode_icode.
+Print Assumptions Kernel.TcCodes.tc_map_of_to.
+Print Assumptions Kernel.TcCodes.tc_pdec_pcode.
+Print Assumptions Kernel.TcCodes.tc_pcode_prog_code.
+Print Assumptions Kernel.TcCodes.tc_pcode_inj.
+Print Assumptions Kernel.TcCodes.tc_pcode_of.
+Print Assumptions Kernel.TcCodes.tc_kreloc_of.
+Print Assumptions Kernel.TcCodes.tc_vchain_length.
+Print Assumptions Kernel.TcCodes.tc_vchain_run.
+Print Assumptions Kernel.TcCodes.tc_incs_repeat.
+Print Assumptions Kernel.TcCodes.tc_kmulblock_eq.
+Print Assumptions Kernel.TcCodes.tc_kmulchain_eq.
+Print Assumptions Kernel.TcCodes.tc_knorm_eq.
+Print Assumptions Kernel.TcCodes.tc_spec_length_prefix.
+Print Assumptions Kernel.TcCodes.tc_kspec_prog_of.
+Print Assumptions Kernel.TcCodes.tc_kspec_code.
+(* === Kernel.TcCompile : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcCompile.gcr_succ.
+Print Assumptions Kernel.TcCompile.gcr_not_div.
+Print Assumptions Kernel.TcCompile.pr_not_zero.
+Print Assumptions Kernel.TcCompile.icomp_length_eq.
+Print Assumptions Kernel.TcCompile.icomp_eq_1.
+Print Assumptions Kernel.TcCompile.icomp_eq_2.
+Print Assumptions Kernel.TcCompile.icomp_eq_3.
+Print Assumptions Kernel.TcCompile.icomp_eq_4.
+Print Assumptions Kernel.TcCompile.icomp_sound.
+(* === Kernel.TcCompile0 : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcCompile0.icomp0_len.
+Print Assumptions Kernel.TcCompile0.gcr_succ.
+Print Assumptions Kernel.TcCompile0.gcr_not_div.
+Print Assumptions Kernel.TcCompile0.vec_change_back.
+Print Assumptions Kernel.TcCompile0.icomp0_sound.
+Print Assumptions Kernel.TcCompile0.tc_code0_indep.
+Print Assumptions Kernel.TcCompile0.tc_comp0_halts.
+Print Assumptions Kernel.TcCompile0.tc_comp0_terminates.
+Print Assumptions Kernel.TcCompile0.tc_comp0_complete.
+(* === Kernel.TcCompose : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcCompose.tc_compose_halts.
+Print Assumptions Kernel.TcCompose.tc_compile_ends.
+Print Assumptions Kernel.TcCompose.tc_ends_compile.
+(* === Kernel.TcEpi : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcEpi.tc_L_in.
+Print Assumptions Kernel.TcEpi.tc_epi_length.
+Print Assumptions Kernel.TcEpi.tc_epi_run.
+Print Assumptions Kernel.TcEpi.tc_cast_output.
+Print Assumptions Kernel.TcEpi.tc_cast_terminates.
+(* === Kernel.TcFuel : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcFuel.tc_mu_option_proc.
+Print Assumptions Kernel.TcFuel.tc_mu_option_equiv.
+Print Assumptions Kernel.TcFuel.tc_f2_total.
+Print Assumptions Kernel.TcFuel.tc_L_computable_fuel2.
+Print Assumptions Kernel.TcFuel.tc_ev_MMA.
+Print Assumptions Kernel.TcFuel.tc_uev_MMA.
+(* === Kernel.TcGadget : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcGadget.tc_AB.
+Print Assumptions Kernel.TcGadget.tc_change_A.
+Print Assumptions Kernel.TcGadget.tc_change_B.
+Print Assumptions Kernel.TcGadget.tc_posA.
+Print Assumptions Kernel.TcGadget.tc_posB.
+Print Assumptions Kernel.TcGadget.tc_mult.
+Print Assumptions Kernel.TcGadget.tc_incs.
+Print Assumptions Kernel.TcGadget.tc_decs.
+Print Assumptions Kernel.TcGadget.tc_div_yes.
+Print Assumptions Kernel.TcGadget.tc_div_no.
+Print Assumptions Kernel.TcGadget.tc_div_loop.
+(* === Kernel.TcGodel : 16 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcGodel.tc_gcd_1_r.
+Print Assumptions Kernel.TcGodel.tc_gcd_mul.
+Print Assumptions Kernel.TcGodel.tc_gcd_pow.
+Print Assumptions Kernel.TcGodel.tc_cons_pos0.
+Print Assumptions Kernel.TcGodel.tc_cons_nxt.
+Print Assumptions Kernel.TcGodel.tc_cons_inv.
+Print Assumptions Kernel.TcGodel.tc_enc_cons.
+Print Assumptions Kernel.TcGodel.tc_pow_pos.
+Print Assumptions Kernel.TcGodel.tc_enc_pos.
+Print Assumptions Kernel.TcGodel.tc_gcd_enc.
+Print Assumptions Kernel.TcGodel.tc_enc_succ.
+Print Assumptions Kernel.TcGodel.tc_enc_not_div.
+Print Assumptions Kernel.TcGodel.tc_prod_pos.
+Print Assumptions Kernel.TcGodel.tc_prod_div.
+Print Assumptions Kernel.TcGodel.tc_gcd_succ.
+Print Assumptions Kernel.TcGodel.tc_moduli_exist.
+(* === Kernel.TcInterp : 26 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcInterp.tc_keval_eq.
+Print Assumptions Kernel.TcInterp.tc_kfeq_eq.
+Print Assumptions Kernel.TcInterp.tc_kmem_eq.
+Print Assumptions Kernel.TcInterp.tc_fetch_of.
+Print Assumptions Kernel.TcInterp.tc_krel_halted.
+Print Assumptions Kernel.TcInterp.tc_val_rel.
+Print Assumptions Kernel.TcInterp.tc_ver_rel.
+Print Assumptions Kernel.TcInterp.tc_krel_step.
+Print Assumptions Kernel.TcInterp.tc_krel_run.
+Print Assumptions Kernel.TcInterp.tc_krel_start.
+Print Assumptions Kernel.TcInterp.tc_kout_ends.
+Print Assumptions Kernel.TcInterp.tc_kstep_halted.
+Print Assumptions Kernel.TcInterp.tc_krun_halted.
+Print Assumptions Kernel.TcInterp.tc_krun_add.
+Print Assumptions Kernel.TcInterp.tc_kout_mono.
+Print Assumptions Kernel.TcInterp.tc_klog_go_sound.
+Print Assumptions Kernel.TcInterp.tc_lt_pow2.
+Print Assumptions Kernel.TcInterp.tc_klog_go_complete.
+Print Assumptions Kernel.TcInterp.tc_klog_pow.
+Print Assumptions Kernel.TcInterp.tc_klog_sound.
+Print Assumptions Kernel.TcInterp.tc_kpk_mono.
+Print Assumptions Kernel.TcInterp.tc_kpk_pk.
+Print Assumptions Kernel.TcInterp.tc_uev_spec.
+Print Assumptions Kernel.TcInterp.tc_uev_mono.
+Print Assumptions Kernel.TcInterp.tc_ev_mono.
+Print Assumptions Kernel.TcInterp.tc_ev_spec.
+(* === Kernel.TcMod : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcMod.tc_ok_cons.
+Print Assumptions Kernel.TcMod.tc_moduli6.
+Print Assumptions Kernel.TcMod.tc_moduli_for.
+Print Assumptions Kernel.TcMod.tc_enc_zero.
+Print Assumptions Kernel.TcMod.tc_enc_three.
+(* === Kernel.TcNoFine : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcNoFine.tc_inv_step.
+Print Assumptions Kernel.TcNoFine.tc_inv_run.
+Print Assumptions Kernel.TcNoFine.tc_inv_start.
+Print Assumptions Kernel.TcNoFine.tc_pair_gt.
+Print Assumptions Kernel.TcNoFine.tc_pair_gt_l.
+Print Assumptions Kernel.TcNoFine.tc_lencode_gt.
+Print Assumptions Kernel.TcNoFine.tc_check_operand.
+Print Assumptions Kernel.TcNoFine.tc_fprog_records.
+Print Assumptions Kernel.TcNoFine.tc_no_fine_fixed_point.
+Print Assumptions Kernel.TcNoFine.tc_chkf_fuel_free.
+Print Assumptions Kernel.TcNoFine.tc_chk_MMA.
+Print Assumptions Kernel.TcNoFine.tc_pcode_fprog.
+Print Assumptions Kernel.TcNoFine.tc_no_fine_kleene.
+(* === Kernel.TcNorm : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcNorm.nicomp_len.
+Print Assumptions Kernel.TcNorm.nicomp_sound.
+Print Assumptions Kernel.TcNorm.tc_normcode_halts.
+Print Assumptions Kernel.TcNorm.tc_normcode_terminates.
+(* === Kernel.TcPacked : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcPacked.tc_ends_unique.
+Print Assumptions Kernel.TcPacked.tc_pk_unique.
+Print Assumptions Kernel.TcPacked.tc_pk2_unique.
+Print Assumptions Kernel.TcPacked.tc_const_zero.
+Print Assumptions Kernel.TcPacked.tc_MMA_to_packed.
+Print Assumptions Kernel.TcPacked.tc_universal.
+Print Assumptions Kernel.TcPacked.tc_smn.
+Print Assumptions Kernel.TcPacked.tc_second_recursion.
+Print Assumptions Kernel.TcPacked.tc_kleene.
+Print Assumptions Kernel.TcPacked.tc_kleene_codes.
+(* === Kernel.TcPackedMMA : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcPackedMMA.tc_Pp_length.
+Print Assumptions Kernel.TcPackedMMA.tc_Pp_halts.
+Print Assumptions Kernel.TcPackedMMA.tc_Pp_terminates.
+Print Assumptions Kernel.TcPackedMMA.tc_Pp_output.
+Print Assumptions Kernel.TcPackedMMA.tc_unit1_shape.
+Print Assumptions Kernel.TcPackedMMA.tc_mma_packed.
+(* === Kernel.TcPlain : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcPlain.tc_plain_is_packed.
+Print Assumptions Kernel.TcPlain.tc_rice_packed_fun.
+Print Assumptions Kernel.TcPlain.tc_adder_run.
+Print Assumptions Kernel.TcPlain.tc_adder_ends.
+Print Assumptions Kernel.TcPlain.tc_plain_fixed_point_additive.
+Print Assumptions Kernel.TcPlain.tc_plain_recursion_needs_LL.
+Print Assumptions Kernel.TcPlain.tc_plain_recursion_self_adder.
+(* === Kernel.TcPrefix : 28 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcPrefix.tc_gcd2_res.
+Print Assumptions Kernel.TcPrefix.tc_gcd3_res.
+Print Assumptions Kernel.TcPrefix.tc_res_hyp.
+Print Assumptions Kernel.TcPrefix.tc_coprime_not_div.
+Print Assumptions Kernel.TcPrefix.tc_gcd_pow3.
+Print Assumptions Kernel.TcPrefix.tc_not2.
+Print Assumptions Kernel.TcPrefix.tc_not3.
+Print Assumptions Kernel.TcPrefix.tc_p1_len.
+Print Assumptions Kernel.TcPrefix.tc_p2_len.
+Print Assumptions Kernel.TcPrefix.tc_p3_len.
+Print Assumptions Kernel.TcPrefix.tc_p5_len.
+Print Assumptions Kernel.TcPrefix.tc_p6_len.
+Print Assumptions Kernel.TcPrefix.tc_p7_len.
+Print Assumptions Kernel.TcPrefix.tc_p8_len.
+Print Assumptions Kernel.TcPrefix.tc_pre_length.
+Print Assumptions Kernel.TcPrefix.tc_sc.
+Print Assumptions Kernel.TcPrefix.tc_sc1.
+Print Assumptions Kernel.TcPrefix.tc_sc2.
+Print Assumptions Kernel.TcPrefix.tc_sc3.
+Print Assumptions Kernel.TcPrefix.tc_sc4.
+Print Assumptions Kernel.TcPrefix.tc_sc5.
+Print Assumptions Kernel.TcPrefix.tc_sc6.
+Print Assumptions Kernel.TcPrefix.tc_sc7.
+Print Assumptions Kernel.TcPrefix.tc_sc8.
+Print Assumptions Kernel.TcPrefix.tc_phase1.
+Print Assumptions Kernel.TcPrefix.tc_phase3.
+Print Assumptions Kernel.TcPrefix.tc_pre_halts.
+Print Assumptions Kernel.TcPrefix.tc_pre_diverges.
+(* === Kernel.TcRice : 38 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcRice.tc_PCPb_to_MMA2.
+Print Assumptions Kernel.TcRice.tc_MMA2_HALTING_compl_undec.
+Print Assumptions Kernel.TcRice.tc_agree_sym.
+Print Assumptions Kernel.TcRice.tc_equiv_sym.
+Print Assumptions Kernel.TcRice.tc_shape_fsh.
+Print Assumptions Kernel.TcRice.tc_gsrel_agree.
+Print Assumptions Kernel.TcRice.tc_gfinal_two.
+Print Assumptions Kernel.TcRice.tc_gfinal_one.
+Print Assumptions Kernel.TcRice.tc_gloop_runs.
+Print Assumptions Kernel.TcRice.tc_gloop_diverges.
+Print Assumptions Kernel.TcRice.tc_never_equiv.
+Print Assumptions Kernel.TcRice.tc_prefix_next.
+Print Assumptions Kernel.TcRice.tc_prefix_run.
+Print Assumptions Kernel.TcRice.tc_eprog_length.
+Print Assumptions Kernel.TcRice.tc_rice_prog_length.
+Print Assumptions Kernel.TcRice.tc_rice_embeds.
+Print Assumptions Kernel.TcRice.tc_not_stopped.
+Print Assumptions Kernel.TcRice.tc_steps_inside.
+Print Assumptions Kernel.TcRice.tc_start_window.
+Print Assumptions Kernel.TcRice.tc_rel_start.
+Print Assumptions Kernel.TcRice.tc_prog_halts.
+Print Assumptions Kernel.TcRice.tc_prog_diverges.
+Print Assumptions Kernel.TcRice.tc_prog_equiv_y.
+Print Assumptions Kernel.TcRice.tc_prog_equiv_loop.
+Print Assumptions Kernel.TcRice.tc_ext_compl.
+Print Assumptions Kernel.TcRice.tc_rice_loop.
+Print Assumptions Kernel.TcRice.tc_rice.
+Print Assumptions Kernel.TcRice.tc_rice_plain.
+Print Assumptions Kernel.TcRice.tc_rice_packed.
+Print Assumptions Kernel.TcRice.tc_rice_clean.
+Print Assumptions Kernel.TcRice.tc_equiv_mono.
+Print Assumptions Kernel.TcRice.tc_ext_mono.
+Print Assumptions Kernel.TcRice.tc_rice_dichotomy.
+Print Assumptions Kernel.TcRice.tc_halts_all_undecidable.
+Print Assumptions Kernel.TcRice.tc_halt_only_halted.
+Print Assumptions Kernel.TcRice.tc_halt_only_ends.
+Print Assumptions Kernel.TcRice.tc_inc_halt_ends.
+Print Assumptions Kernel.TcRice.tc_identity_undecidable.
+(* === Kernel.TcRiceMM : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TcRiceMM.tc_ms_ok.
+Print Assumptions Kernel.TcRiceMM.tc_gc2_one.
+Print Assumptions Kernel.TcRiceMM.tc_code_tovec.
+Print Assumptions Kernel.TcRiceMM.tc_simul_iff.
+Print Assumptions Kernel.TcRiceMM.tc_Q_halts.
+Print Assumptions Kernel.TcRiceMM.tc_Q_diverges.
 (* === Kernel.UniversalBlocks : 68 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UniversalBlocks.sc_app_l.
 Print Assumptions Kernel.UniversalBlocks.sc_app_r.
@@ -2518,6 +4490,17 @@ Print Assumptions TestFixtures.VacuitySmoke.smoke_addnSm.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_succ_nonzero.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_genuine_equality.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_modus_ponens.
+(* === Minimal.AxDgBlock : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.AxDgBlock.ax_dg_blind_shift.
+Print Assumptions Minimal.AxDgBlock.ax_dg_shift_eqb.
+Print Assumptions Minimal.AxDgBlock.ax_dg_existsb_shift.
+Print Assumptions Minimal.AxDgBlock.ax_dg_block_cstep.
+Print Assumptions Minimal.AxDgBlock.ax_dg_block_step.
+Print Assumptions Minimal.AxDgBlock.ax_dg_block_stop.
+Print Assumptions Minimal.AxDgBlock.ax_dg_block_go.
+Print Assumptions Minimal.AxDgBlock.ax_dg_block_run.
+Print Assumptions Minimal.AxDgBlock.ax_dg_blind_facts.
+Print Assumptions Minimal.AxDgBlock.ax_dg_blind_chan.
 (* === Minimal.BitSearch2 : 16 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.BitSearch2.ent2_in_all_bits.
 Print Assumptions Minimal.BitSearch2.ent2_agree_length.
@@ -2606,6 +4589,18 @@ Print Assumptions Minimal.CoveringNeeded2.ent2_start_inj.
 Print Assumptions Minimal.CoveringNeeded2.ent2_uncovered_posterior.
 Print Assumptions Minimal.CoveringNeeded2.ent2_uncovered_claim_false.
 Print Assumptions Minimal.CoveringNeeded2.ent2_no_cheap_covering.
+(* === Minimal.CzLink : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.CzLink.ds_run_add.
+Print Assumptions Minimal.CzLink.cmpz_link_id.
+Print Assumptions Minimal.CzLink.cmpz_link_compose.
+Print Assumptions Minimal.CzLink.cmpz_link_weaken.
+Print Assumptions Minimal.CzLink.cmpz_tower.
+Print Assumptions Minimal.CzLink.cmpz_tower_uniform.
+(* === Minimal.CzShared : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.CzShared.cmpz_shared_base_toll.
+Print Assumptions Minimal.CzShared.cmpz_shared_respect.
+Print Assumptions Minimal.CzShared.cmpz_shared_raises.
+Print Assumptions Minimal.CzShared.cmpz_shared_not_earned.
 (* === Minimal.EarnedCore : 69 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.EarnedCore.eval_iff.
 Print Assumptions Minimal.EarnedCore.fact_eqb_eq.
@@ -3075,6 +5070,85 @@ Print Assumptions Minimal.FragmentSmall.frag_small_certify_merges.
 Print Assumptions Minimal.FragmentSmall.frag_small_certifying_step_priced_merge.
 Print Assumptions Minimal.FragmentSmall.frag_small_dec_free_merge.
 Print Assumptions Minimal.FragmentSmall.frag_small_not_merge_priced.
+(* === Minimal.LiftConverse : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.LiftConverse.lift_reduct_universal.
+Print Assumptions Minimal.LiftConverse.lift_projection.
+Print Assumptions Minimal.LiftConverse.lift_projection_run.
+Print Assumptions Minimal.LiftConverse.lift_finite_branching_not_complete.
+Print Assumptions Minimal.LiftConverse.lift_stateless_two_moves.
+Print Assumptions Minimal.LiftConverse.lift_stateless_not_complete.
+Print Assumptions Minimal.LiftConverse.lift_ub_not_finitely_branching.
+Print Assumptions Minimal.LiftConverse.lift_finite_moves_not_a_base.
+Print Assumptions Minimal.LiftConverse.lift_canonical_nonvac_iff.
+(* === Minimal.LiftCore : 38 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.LiftCore.lift_lfact_eqb_eq.
+Print Assumptions Minimal.LiftCore.lift_lrun_nil.
+Print Assumptions Minimal.LiftCore.lift_lrun_cons.
+Print Assumptions Minimal.LiftCore.lift_lrun_app.
+Print Assumptions Minimal.LiftCore.lift_lrun_snoc.
+Print Assumptions Minimal.LiftCore.lift_mu_step.
+Print Assumptions Minimal.LiftCore.lift_cert_permanent.
+Print Assumptions Minimal.LiftCore.lift_base_blind.
+Print Assumptions Minimal.LiftCore.lift_cert_raise.
+Print Assumptions Minimal.LiftCore.lift_ver_mono.
+Print Assumptions Minimal.LiftCore.lift_ver_eq_base.
+Print Assumptions Minimal.LiftCore.lift_ver_mono_run.
+Print Assumptions Minimal.LiftCore.lift_ver_eq_base_run.
+Print Assumptions Minimal.LiftCore.lift_facts_step.
+Print Assumptions Minimal.LiftCore.lift_chan_step.
+Print Assumptions Minimal.LiftCore.lift_facts_prov.
+Print Assumptions Minimal.LiftCore.lift_chan_prov.
+Print Assumptions Minimal.LiftCore.lift_cert_first.
+Print Assumptions Minimal.LiftCore.lift_sim.
+Print Assumptions Minimal.LiftCore.lift_step_err.
+Print Assumptions Minimal.LiftCore.lift_step_check_ok.
+Print Assumptions Minimal.LiftCore.lift_step_check_fail.
+Print Assumptions Minimal.LiftCore.lift_step_commit_ok.
+Print Assumptions Minimal.LiftCore.lift_step_certify_ok.
+Print Assumptions Minimal.LiftCore.lift_base_clause.
+Print Assumptions Minimal.LiftCore.lift_earned_chain.
+Print Assumptions Minimal.LiftCore.lift_earned_clause.
+Print Assumptions Minimal.LiftCore.lift_toll_clause.
+Print Assumptions Minimal.LiftCore.lift_chain_true.
+Print Assumptions Minimal.LiftCore.lift_run_err.
+Print Assumptions Minimal.LiftCore.lift_chain_false.
+Print Assumptions Minimal.LiftCore.lift_nonvac_clause.
+Print Assumptions Minimal.LiftCore.lift_thiele_complete_with.
+Print Assumptions Minimal.LiftCore.lift_thiele_complete.
+Print Assumptions Minimal.LiftCore.lift_wc_eqb_eq.
+Print Assumptions Minimal.LiftCore.lift_wc_eval_iff.
+Print Assumptions Minimal.LiftCore.lift_window_nonvacuous.
+Print Assumptions Minimal.LiftCore.lift_window_thiele_complete.
+(* === Minimal.LiftOneCounter : 25 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.LiftOneCounter.lift_oc_f_some.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_f_none.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_iter_fixed.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_run_iter.
+Print Assumptions Minimal.LiftOneCounter.lift_cf_succ.
+Print Assumptions Minimal.LiftOneCounter.lift_cf_add.
+Print Assumptions Minimal.LiftOneCounter.lift_stopped_stays.
+Print Assumptions Minimal.LiftOneCounter.lift_alive_down.
+Print Assumptions Minimal.LiftOneCounter.lift_alive_pc.
+Print Assumptions Minimal.LiftOneCounter.lift_alive_iff_pc.
+Print Assumptions Minimal.LiftOneCounter.lift_cnt_step.
+Print Assumptions Minimal.LiftOneCounter.lift_rep_never.
+Print Assumptions Minimal.LiftOneCounter.lift_bounded_never.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_pos_shift.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_posrun_shift.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_bounded_dec.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_greatest_below.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_first_spec.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_ivt.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_caseB.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_halts_bound.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_halts_dec.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_embed_step.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_embed_run.
+Print Assumptions Minimal.LiftOneCounter.lift_oc_embed_halts.
+(* === Minimal.LiftPigeon : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.LiftPigeon.lift_pigeon_dec.
+Print Assumptions Minimal.LiftPigeon.lift_inj_le.
+Print Assumptions Minimal.LiftPigeon.lift_pigeon.
 (* === Minimal.MultiThiele2 : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.MultiThiele2.ent2_run_mmachine.
 Print Assumptions Minimal.MultiThiele2.ent2_msim.
@@ -3083,6 +5157,197 @@ Print Assumptions Minimal.MultiThiele2.ent2_prop_eqb_eq.
 Print Assumptions Minimal.MultiThiele2.ent2_chain_same.
 Print Assumptions Minimal.MultiThiele2.ent2_chain_holds.
 Print Assumptions Minimal.MultiThiele2.ent2_mmachine_complete.
+(* === Minimal.NecEEnt : 47 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecEEnt.nec_e_cover_bits_any.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_count_any.
+Print Assumptions Minimal.NecEEnt.nec_e_weighted_bits_any.
+Print Assumptions Minimal.NecEEnt.nec_e_reduction_post_pos.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_entitlement_stronger.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_entitlement_from_stronger.
+Print Assumptions Minimal.NecEEnt.nec_e_ecs_run.
+Print Assumptions Minimal.NecEEnt.nec_e_bits16.
+Print Assumptions Minimal.NecEEnt.nec_e_not_strict_if_equal.
+Print Assumptions Minimal.NecEEnt.nec_e_red16.
+Print Assumptions Minimal.NecEEnt.nec_e_red2.
+Print Assumptions Minimal.NecEEnt.nec_e_w16.
+Print Assumptions Minimal.NecEEnt.nec_e_w2.
+Print Assumptions Minimal.NecEEnt.nec_e_sub16.
+Print Assumptions Minimal.NecEEnt.nec_e_sub2.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_needs_eqb_sound.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_needs_eqb_refl.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_needs_inclusion.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_needs_distinguishing.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_needs_covering.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_needs_paid_depth.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_needs_start_no.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_needs_end_yes.
+Print Assumptions Minimal.NecEEnt.nec_e_commits.
+Print Assumptions Minimal.NecEEnt.nec_e_runk_cert.
+Print Assumptions Minimal.NecEEnt.nec_e_paid_runk.
+Print Assumptions Minimal.NecEEnt.nec_e_bill_runk.
+Print Assumptions Minimal.NecEEnt.nec_e_seq_bits.
+Print Assumptions Minimal.NecEEnt.nec_e_pow_ge2.
+Print Assumptions Minimal.NecEEnt.nec_e_cs_tight.
+Print Assumptions Minimal.NecEEnt.nec_e_representation_stronger.
+Print Assumptions Minimal.NecEEnt.nec_e_observed_stronger.
+Print Assumptions Minimal.NecEEnt.nec_e_earned_complete.
+Print Assumptions Minimal.NecEEnt.nec_e_chain_len.
+Print Assumptions Minimal.NecEEnt.nec_e_rep_needs_depth.
+Print Assumptions Minimal.NecEEnt.nec_e_rep_needs_covering.
+Print Assumptions Minimal.NecEEnt.nec_e_rep_needs_clean.
+Print Assumptions Minimal.NecEEnt.nec_e_rep_needs_record.
+Print Assumptions Minimal.NecEEnt.nec_e_rep_needs_distinguishing.
+Print Assumptions Minimal.NecEEnt.nec_e_rep_needs_eqb.
+Print Assumptions Minimal.NecEEnt.nec_e_rep_needs_inclusion.
+Print Assumptions Minimal.NecEEnt.nec_e_mrun_run.
+Print Assumptions Minimal.NecEEnt.nec_e_record_moves_mrun.
+Print Assumptions Minimal.NecEEnt.nec_e_rep_tight.
+Print Assumptions Minimal.NecEEnt.nec_e_pay_without_narrowing.
+Print Assumptions Minimal.NecEEnt.nec_e_questions_floor_stronger.
+Print Assumptions Minimal.NecEEnt.nec_e_tree_full_iff.
+(* === Minimal.NecESearch : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecESearch.nec_e_search_needs_a_question.
+Print Assumptions Minimal.NecESearch.nec_e_questions_cap_tight.
+Print Assumptions Minimal.NecESearch.nec_e_time_tax_one_paid_move.
+Print Assumptions Minimal.NecESearch.nec_e_time_tax_free_needed.
+(* === Minimal.NecSChain : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecSChain.nec_s_chain_costs_three.
+Print Assumptions Minimal.NecSChain.nec_s_cert_provenance_needs_clean.
+(* === Minimal.NecSClean : 31 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecSClean.nec_s_run_trapped.
+Print Assumptions Minimal.NecSClean.nec_s_total_cost_incs.
+Print Assumptions Minimal.NecSClean.nec_s_inc_step.
+Print Assumptions Minimal.NecSClean.nec_s_dec_step.
+Print Assumptions Minimal.NecSClean.nec_s_run_incs.
+Print Assumptions Minimal.NecSClean.nec_s_run_decs.
+Print Assumptions Minimal.NecSClean.nec_s_clean_conjuncts_each_buy_one.
+Print Assumptions Minimal.NecSClean.nec_s_floor_two.
+Print Assumptions Minimal.NecSClean.nec_s_min_cost_needs_flag_down.
+Print Assumptions Minimal.NecSClean.nec_s_min_cost_needs_empty_channel.
+Print Assumptions Minimal.NecSClean.nec_s_min_cost_needs_empty_table.
+Print Assumptions Minimal.NecSClean.nec_s_old_or_earned.
+Print Assumptions Minimal.NecSClean.nec_s_stale_commitment_provenance.
+Print Assumptions Minimal.NecSClean.nec_s_stale_certification_provenance.
+Print Assumptions Minimal.NecSClean.nec_s_stale_min_cost.
+Print Assumptions Minimal.NecSClean.nec_s_clean_is_stale.
+Print Assumptions Minimal.NecSClean.nec_s_nonstale_cheap.
+Print Assumptions Minimal.NecSClean.nec_s_floor3_iff.
+Print Assumptions Minimal.NecSClean.nec_s_witness_from_every_clean_start.
+Print Assumptions Minimal.NecSClean.nec_s_clean_certifiable_iff_untrapped.
+Print Assumptions Minimal.NecSClean.nec_s_soundness_from_sound.
+Print Assumptions Minimal.NecSClean.nec_s_clean_is_sound.
+Print Assumptions Minimal.NecSClean.nec_s_soundness_needs_live_half.
+Print Assumptions Minimal.NecSClean.nec_s_soundness_needs_no_future_half.
+Print Assumptions Minimal.NecSClean.nec_s_sound_or_trivial_step.
+Print Assumptions Minimal.NecSClean.nec_s_sound_or_trivial_run.
+Print Assumptions Minimal.NecSClean.nec_s_sound_not_necessary.
+Print Assumptions Minimal.NecSClean.nec_s_stale_fact_false.
+Print Assumptions Minimal.NecSClean.nec_s_soundness_needs_live_version.
+Print Assumptions Minimal.NecSClean.nec_s_no_forging_iff.
+Print Assumptions Minimal.NecSClean.nec_s_commitment_provenance_needs_table.
+(* === Minimal.NecSHost : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecSHost.nec_s_universal_needs_untrapped.
+Print Assumptions Minimal.NecSHost.nec_s_U_round_phase.
+Print Assumptions Minimal.NecSHost.nec_s_U_any_phase.
+Print Assumptions Minimal.NecSHost.nec_s_U_line_one.
+Print Assumptions Minimal.NecSHost.nec_s_U_off_phase_stuck.
+Print Assumptions Minimal.NecSHost.nec_s_phase_dec.
+Print Assumptions Minimal.NecSHost.nec_s_U_phase_iff.
+Print Assumptions Minimal.NecSHost.nec_s_hexec_guest_cert.
+Print Assumptions Minimal.NecSHost.nec_s_disagreement_persists.
+Print Assumptions Minimal.NecSHost.nec_s_mirror_needs_agreement.
+Print Assumptions Minimal.NecSHost.nec_s_simulated_record_needs_untrapped.
+Print Assumptions Minimal.NecSHost.nec_s_host_toll_needs_untrapped.
+Print Assumptions Minimal.NecSHost.nec_s_host_cost_cover_tight.
+Print Assumptions Minimal.NecSHost.nec_s_host_toll_attained.
+Print Assumptions Minimal.NecSHost.nec_s_mirror_rise_iff.
+Print Assumptions Minimal.NecSHost.nec_s_own_rise_iff.
+Print Assumptions Minimal.NecSHost.nec_s_guestless_converse_false.
+Print Assumptions Minimal.NecSHost.nec_s_mirror_earned_needs_load.
+(* === Minimal.NecSNoCopy : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecSNoCopy.nec_s_prop_eqb_eq.
+Print Assumptions Minimal.NecSNoCopy.nec_s_id_sound.
+Print Assumptions Minimal.NecSNoCopy.nec_s_id_no_collision.
+Print Assumptions Minimal.NecSNoCopy.nec_s_id_not_finite.
+Print Assumptions Minimal.NecSNoCopy.nec_s_id_host_pair_traps.
+Print Assumptions Minimal.NecSNoCopy.nec_s_nocopy_needs_finite_Q.
+Print Assumptions Minimal.NecSNoCopy.nec_s_nocopy_needs_sound_translation.
+Print Assumptions Minimal.NecSNoCopy.nec_s_guest_check_passes_iff.
+(* === Minimal.NecSWindow : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecSWindow.nec_s_separation_any_clean_start.
+Print Assumptions Minimal.NecSWindow.nec_s_same_ledger_different_flag.
+Print Assumptions Minimal.NecSWindow.nec_s_no_flag_oracle_even_with_ledger.
+Print Assumptions Minimal.NecSWindow.nec_s_no_mu_oracle_any_state.
+Print Assumptions Minimal.NecSWindow.nec_s_total_cost_decs.
+Print Assumptions Minimal.NecSWindow.nec_s_reach_window.
+Print Assumptions Minimal.NecSWindow.nec_s_cert_oracle_iff.
+Print Assumptions Minimal.NecSWindow.nec_s_clean_cert_oracle_iff_trapped.
+Print Assumptions Minimal.NecSWindow.nec_s_clean_commit_oracle_iff_trapped.
+Print Assumptions Minimal.NecSWindow.nec_s_only_order_certifies.
+Print Assumptions Minimal.NecSWindow.nec_s_commit_refuses_true_stale.
+Print Assumptions Minimal.NecSWindow.nec_s_versioned_refuses.
+Print Assumptions Minimal.NecSWindow.nec_s_versionless_unsound.
+Print Assumptions Minimal.NecSWindow.nec_s_simulation_needs_trap_down.
+Print Assumptions Minimal.NecSWindow.nec_s_toll_without_permanence.
+Print Assumptions Minimal.NecSWindow.nec_s_table_bound_attained.
+Print Assumptions Minimal.NecSWindow.nec_s_refused_from_any_flag_down_state.
+Print Assumptions Minimal.NecSWindow.nec_s_refused_any_continuation.
+(* === Minimal.NecTEarned : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecTEarned.zap_run_some.
+Print Assumptions Minimal.NecTEarned.nec_t_zap_meets_all_but_chain.
+Print Assumptions Minimal.NecTEarned.nec_t_zap_not_thiele_complete.
+(* === Minimal.NecTGeneric : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecTGeneric.nec_t_a1_iff_free_given_toll.
+Print Assumptions Minimal.NecTGeneric.nec_t_clean_runs_need_three_moves.
+Print Assumptions Minimal.NecTGeneric.nec_t_costs_zero_and_one_attained.
+Print Assumptions Minimal.NecTGeneric.nec_t_generic_needs_varying_property.
+Print Assumptions Minimal.NecTGeneric.nec_t_generic_needs_exact_eval.
+Print Assumptions Minimal.NecTGeneric.nec_t_generic_needs_exact_eqb.
+(* === Minimal.NecTLoop : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecTLoop.strip_app.
+Print Assumptions Minimal.NecTLoop.loop_run.
+Print Assumptions Minimal.NecTLoop.strip_split.
+Print Assumptions Minimal.NecTLoop.nec_t_loop_meets_all_but_ledger.
+Print Assumptions Minimal.NecTLoop.nec_t_loop_not_thiele_complete.
+(* === Minimal.NecTLoose : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecTLoose.nec_t_certificate_three_attained.
+Print Assumptions Minimal.NecTLoose.nec_t_complete_is_loose.
+Print Assumptions Minimal.NecTLoose.nb_allnop.
+Print Assumptions Minimal.NecTLoose.nb_nops.
+Print Assumptions Minimal.NecTLoose.nb_dead.
+Print Assumptions Minimal.NecTLoose.nb_N.
+Print Assumptions Minimal.NecTLoose.nb_M.
+Print Assumptions Minimal.NecTLoose.nb_K.
+Print Assumptions Minimal.NecTLoose.nb_Z.
+Print Assumptions Minimal.NecTLoose.nb_in_nbn.
+Print Assumptions Minimal.NecTLoose.nb_chain_run.
+Print Assumptions Minimal.NecTLoose.nec_t_nb_loose_complete.
+Print Assumptions Minimal.NecTLoose.nec_t_nb_not_thiele_complete.
+(* === Minimal.NecTPartition : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecTPartition.nec_t_rel_of_partition_equiv.
+Print Assumptions Minimal.NecTPartition.nec_t_blocks_of_equiv_partition.
+Print Assumptions Minimal.NecTPartition.nec_t_rel_round_trip.
+Print Assumptions Minimal.NecTPartition.nec_t_blocks_round_trip.
+Print Assumptions Minimal.NecTPartition.nec_t_nonempty_needed.
+Print Assumptions Minimal.NecTPartition.nec_t_cover_needed.
+Print Assumptions Minimal.NecTPartition.nec_t_disjoint_needed.
+(* === Minimal.NecTToll : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecTToll.run_cm.
+Print Assumptions Minimal.NecTToll.earned_chain_cm.
+Print Assumptions Minimal.NecTToll.nec_t_doubled_cost_meets_all_but_toll.
+Print Assumptions Minimal.NecTToll.nec_t_ledgerless_meets_all_but_ledger.
+Print Assumptions Minimal.NecTToll.nec_t_unsound_check_meets_all_but_soundness.
+Print Assumptions Minimal.NecTToll.nec_t_same_true_meets_all_but_respect.
+(* === Minimal.NecTUnclean : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecTUnclean.un_run_inl.
+Print Assumptions Minimal.NecTUnclean.un_complete.
+Print Assumptions Minimal.NecTUnclean.nec_t_unclean_start_breaks_only_certify.
+(* === Minimal.NecTVerifier : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.NecTVerifier.nec_t_ver_exists_implies_collision_free.
+Print Assumptions Minimal.NecTVerifier.nec_t_ver_collision_free_implies_exists.
+Print Assumptions Minimal.NecTVerifier.nec_t_ver_exists_iff_collision_free.
+Print Assumptions Minimal.NecTVerifier.nec_t_clock_has_bare_verifier.
+Print Assumptions Minimal.NecTVerifier.nec_t_weak_does_not_suffice.
 (* === Minimal.Presented : 27 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.Presented.presented_scode_inj.
 Print Assumptions Minimal.Presented.presented_icode_inj.
@@ -3255,6 +5520,230 @@ Print Assumptions Minimal.SmTally.sm2_reach_inv.
 Print Assumptions Minimal.SmTally.sm2_final_numbers.
 Print Assumptions Minimal.SmTally.sm2_ev_mono.
 Print Assumptions Minimal.SmTally.sm2_ev_spec.
+(* === Minimal.Tc2Am : 22 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Tc2Am.am_run_add.
+Print Assumptions Minimal.Tc2Am.am_run_S_l.
+Print Assumptions Minimal.Tc2Am.am_run_S_r.
+Print Assumptions Minimal.Tc2Am.am_hlt_stp.
+Print Assumptions Minimal.Tc2Am.am_hlt_run.
+Print Assumptions Minimal.Tc2Am.am_run_after.
+Print Assumptions Minimal.Tc2Am.am_stp_q.
+Print Assumptions Minimal.Tc2Am.am_run_q.
+Print Assumptions Minimal.Tc2Am.am_stp_step1.
+Print Assumptions Minimal.Tc2Am.am_stp_shB.
+Print Assumptions Minimal.Tc2Am.am_stp_shA.
+Print Assumptions Minimal.Tc2Am.am_run_shB.
+Print Assumptions Minimal.Tc2Am.am_run_shA.
+Print Assumptions Minimal.Tc2Am.am_sw_stp.
+Print Assumptions Minimal.Tc2Am.am_sw_run.
+Print Assumptions Minimal.Tc2Am.am_sw_hlt.
+Print Assumptions Minimal.Tc2Am.tc2_dup_or_nodup.
+Print Assumptions Minimal.Tc2Am.tc2_pigeon_b.
+Print Assumptions Minimal.Tc2Am.tc2_bex_dec.
+Print Assumptions Minimal.Tc2Am.tc2_ball_dec.
+Print Assumptions Minimal.Tc2Am.tc2_least.
+Print Assumptions Minimal.Tc2Am.tc2_pick_spec.
+(* === Minimal.Tc2Chain : 29 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Tc2Chain.ch_outs_unique.
+Print Assumptions Minimal.Tc2Chain.ch_outs_fwd.
+Print Assumptions Minimal.Tc2Chain.ch_outs_bwd.
+Print Assumptions Minimal.Tc2Chain.ch_stage_le.
+Print Assumptions Minimal.Tc2Chain.sl_both.
+Print Assumptions Minimal.Tc2Chain.st_next_iter.
+Print Assumptions Minimal.Tc2Chain.iface_of_any.
+Print Assumptions Minimal.Tc2Chain.am_usw_sw.
+Print Assumptions Minimal.Tc2Chain.am_sw_usw.
+Print Assumptions Minimal.Tc2Chain.am_b_sw.
+Print Assumptions Minimal.Tc2Chain.am_a_sw.
+Print Assumptions Minimal.Tc2Chain.am_swp_shA.
+Print Assumptions Minimal.Tc2Chain.am_swp_shB.
+Print Assumptions Minimal.Tc2Chain.am_shA_0.
+Print Assumptions Minimal.Tc2Chain.am_shB_0.
+Print Assumptions Minimal.Tc2Chain.am_run_usw.
+Print Assumptions Minimal.Tc2Chain.am_sw_inj.
+Print Assumptions Minimal.Tc2Chain.iface_A.
+Print Assumptions Minimal.Tc2Chain.ifB_leaf_out.
+Print Assumptions Minimal.Tc2Chain.ch_good_run.
+Print Assumptions Minimal.Tc2Chain.chain.
+Print Assumptions Minimal.Tc2Chain.ch_F_in.
+Print Assumptions Minimal.Tc2Chain.ch_F_dec.
+Print Assumptions Minimal.Tc2Chain.ch_outs_start.
+Print Assumptions Minimal.Tc2Chain.ch_collision.
+Print Assumptions Minimal.Tc2Chain.good_exists.
+Print Assumptions Minimal.Tc2Chain.coprime_mul.
+Print Assumptions Minimal.Tc2Chain.ch_prod_coprime.
+Print Assumptions Minimal.Tc2Chain.am_no_multiplier.
+(* === Minimal.Tc2Collision : 16 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Tc2Collision.tc2_run_add.
+Print Assumptions Minimal.Tc2Collision.tc2_after_halt.
+Print Assumptions Minimal.Tc2Collision.tc2_out_from.
+Print Assumptions Minimal.Tc2Collision.tc2_core_run_eq.
+Print Assumptions Minimal.Tc2Collision.tc2_collision.
+Print Assumptions Minimal.Tc2Collision.tc2_next_in.
+Print Assumptions Minimal.Tc2Collision.tc2_pe_step.
+Print Assumptions Minimal.Tc2Collision.tc2_pe_run.
+Print Assumptions Minimal.Tc2Collision.tc2_collision_pure.
+Print Assumptions Minimal.Tc2Collision.tc2_err_false.
+Print Assumptions Minimal.Tc2Collision.tc2_shift_step.
+Print Assumptions Minimal.Tc2Collision.tc2_shift_run.
+Print Assumptions Minimal.Tc2Collision.tc2_start_shift.
+Print Assumptions Minimal.Tc2Collision.tc2_safe_mono.
+Print Assumptions Minimal.Tc2Collision.tc2_shifted_run.
+Print Assumptions Minimal.Tc2Collision.tc2_slaving.
+(* === Minimal.Tc2Embed : 44 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Tc2Embed.tc2_fa_eqb_true.
+Print Assumptions Minimal.Tc2Embed.tc2_cl_in.
+Print Assumptions Minimal.Tc2Embed.tc2_cl_range.
+Print Assumptions Minimal.Tc2Embed.tc2_cl_out.
+Print Assumptions Minimal.Tc2Embed.tc2_inv_start.
+Print Assumptions Minimal.Tc2Embed.tc2_next_in.
+Print Assumptions Minimal.Tc2Embed.tc2_fetch_cl.
+Print Assumptions Minimal.Tc2Embed.tc2_abs_write.
+Print Assumptions Minimal.Tc2Embed.tc2_abs_goto.
+Print Assumptions Minimal.Tc2Embed.tc2_abs_trap.
+Print Assumptions Minimal.Tc2Embed.tc2_abs_record.
+Print Assumptions Minimal.Tc2Embed.tc2_abs_commit.
+Print Assumptions Minimal.Tc2Embed.tc2_existsb_commit.
+Print Assumptions Minimal.Tc2Embed.tc2_facts_write.
+Print Assumptions Minimal.Tc2Embed.tc2_inv_cexec.
+Print Assumptions Minimal.Tc2Embed.tc2_inv_step.
+Print Assumptions Minimal.Tc2Embed.tc2_nx_none.
+Print Assumptions Minimal.Tc2Embed.tc2_nx_some.
+Print Assumptions Minimal.Tc2Embed.tc2_sim_step.
+Print Assumptions Minimal.Tc2Embed.tc2_lu_in.
+Print Assumptions Minimal.Tc2Embed.tc2_flat_len.
+Print Assumptions Minimal.Tc2Embed.tc2_pw_pos.
+Print Assumptions Minimal.Tc2Embed.tc2_lu_len.
+Print Assumptions Minimal.Tc2Embed.tc2_thr_ge.
+Print Assumptions Minimal.Tc2Embed.tc2_fal_in.
+Print Assumptions Minimal.Tc2Embed.tc2_flat_len2.
+Print Assumptions Minimal.Tc2Embed.tc2_fal_len.
+Print Assumptions Minimal.Tc2Embed.tc2_lu_ok.
+Print Assumptions Minimal.Tc2Embed.tc2_lq_in.
+Print Assumptions Minimal.Tc2Embed.tc2_bump_ok.
+Print Assumptions Minimal.Tc2Embed.tc2_fetch_in.
+Print Assumptions Minimal.Tc2Embed.tc2_nx_okq.
+Print Assumptions Minimal.Tc2Embed.tc2_nx_step1.
+Print Assumptions Minimal.Tc2Embed.tc2_even_shift.
+Print Assumptions Minimal.Tc2Embed.tc2_eval_shift.
+Print Assumptions Minimal.Tc2Embed.tc2_nx_tameA.
+Print Assumptions Minimal.Tc2Embed.tc2_nx_tameB.
+Print Assumptions Minimal.Tc2Embed.tc2_am_stp.
+Print Assumptions Minimal.Tc2Embed.tc2_sim_run.
+Print Assumptions Minimal.Tc2Embed.tc2_inv_run.
+Print Assumptions Minimal.Tc2Embed.tc2_nxi_some.
+Print Assumptions Minimal.Tc2Embed.tc2_halted_iff.
+Print Assumptions Minimal.Tc2Embed.tc2_abs_start.
+Print Assumptions Minimal.Tc2Embed.tc2_pf_iff.
+(* === Minimal.Tc2Forced : 42 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Tc2Forced.fs_par_lt.
+Print Assumptions Minimal.Tc2Forced.fs_par_spec.
+Print Assumptions Minimal.Tc2Forced.fs_par_add2.
+Print Assumptions Minimal.Tc2Forced.fs_par_eq.
+Print Assumptions Minimal.Tc2Forced.fs_yrep_ge.
+Print Assumptions Minimal.Tc2Forced.fs_yrep_le.
+Print Assumptions Minimal.Tc2Forced.fs_yrep_mod.
+Print Assumptions Minimal.Tc2Forced.fo_s_0.
+Print Assumptions Minimal.Tc2Forced.fo_d_0.
+Print Assumptions Minimal.Tc2Forced.fo_S_some.
+Print Assumptions Minimal.Tc2Forced.fo_S_none.
+Print Assumptions Minimal.Tc2Forced.fs_corr.
+Print Assumptions Minimal.Tc2Forced.fo_add.
+Print Assumptions Minimal.Tc2Forced.fs_nx_bound.
+Print Assumptions Minimal.Tc2Forced.fo_step.
+Print Assumptions Minimal.Tc2Forced.fo_x_le.
+Print Assumptions Minimal.Tc2Forced.fo_d_bound.
+Print Assumptions Minimal.Tc2Forced.fo_p_lt.
+Print Assumptions Minimal.Tc2Forced.fs_nx_q.
+Print Assumptions Minimal.Tc2Forced.fo_q_in.
+Print Assumptions Minimal.Tc2Forced.fo_par.
+Print Assumptions Minimal.Tc2Forced.fs_nx_sh.
+Print Assumptions Minimal.Tc2Forced.fo_sh.
+Print Assumptions Minimal.Tc2Forced.fx_shA.
+Print Assumptions Minimal.Tc2Forced.fq_shA.
+Print Assumptions Minimal.Tc2Forced.fp_shA.
+Print Assumptions Minimal.Tc2Forced.fs_nx_shs.
+Print Assumptions Minimal.Tc2Forced.fs_cfg_eq.
+Print Assumptions Minimal.Tc2Forced.orb_pump_asc.
+Print Assumptions Minimal.Tc2Forced.fs_shA_of.
+Print Assumptions Minimal.Tc2Forced.orb_x_from.
+Print Assumptions Minimal.Tc2Forced.orb_pump_desc.
+Print Assumptions Minimal.Tc2Forced.orb_no_desc.
+Print Assumptions Minimal.Tc2Forced.orb_entry.
+Print Assumptions Minimal.Tc2Forced.in01.
+Print Assumptions Minimal.Tc2Forced.fs_Ax_in.
+Print Assumptions Minimal.Tc2Forced.orb_win.
+Print Assumptions Minimal.Tc2Forced.orb_stretch.
+Print Assumptions Minimal.Tc2Forced.fs_shA_0.
+Print Assumptions Minimal.Tc2Forced.fs_Sx_in_lS.
+Print Assumptions Minimal.Tc2Forced.orb_periodic.
+Print Assumptions Minimal.Tc2Forced.orb_class.
+(* === Minimal.Tc2Mult : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Tc2Mult.tc2_fact_pos.
+Print Assumptions Minimal.Tc2Mult.tc2_fact_div.
+Print Assumptions Minimal.Tc2Mult.tc2_fact_coprime.
+Print Assumptions Minimal.Tc2Mult.tc2_pw_mono.
+Print Assumptions Minimal.Tc2Mult.tc2_lq_len.
+Print Assumptions Minimal.Tc2Mult.tc2_q0_in.
+Print Assumptions Minimal.Tc2Mult.tc2_no_mult.
+(* === Minimal.Tc2Stage : 26 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Tc2Stage.real_none.
+Print Assumptions Minimal.Tc2Stage.real_some.
+Print Assumptions Minimal.Tc2Stage.st_fp_unique.
+Print Assumptions Minimal.Tc2Stage.st_any_mono.
+Print Assumptions Minimal.Tc2Stage.fs_shA_add.
+Print Assumptions Minimal.Tc2Stage.fo_d_diff.
+Print Assumptions Minimal.Tc2Stage.pump_D.
+Print Assumptions Minimal.Tc2Stage.pump_S.
+Print Assumptions Minimal.Tc2Stage.pump_D_even.
+Print Assumptions Minimal.Tc2Stage.fp_exist.
+Print Assumptions Minimal.Tc2Stage.fp_T_ge.
+Print Assumptions Minimal.Tc2Stage.fp_shift.
+Print Assumptions Minimal.Tc2Stage.fs_start_eq.
+Print Assumptions Minimal.Tc2Stage.st_fp_of_fpf.
+Print Assumptions Minimal.Tc2Stage.fs_nx_none_inv.
+Print Assumptions Minimal.Tc2Stage.fs_nx_some_inv.
+Print Assumptions Minimal.Tc2Stage.st_leaf_of_halt.
+Print Assumptions Minimal.Tc2Stage.st_nh_of_pump.
+Print Assumptions Minimal.Tc2Stage.bounded_range.
+Print Assumptions Minimal.Tc2Stage.pump0_bounded.
+Print Assumptions Minimal.Tc2Stage.st_bdd_of_pump.
+Print Assumptions Minimal.Tc2Stage.fo_x_from.
+Print Assumptions Minimal.Tc2Stage.st_next_of_pump.
+Print Assumptions Minimal.Tc2Stage.sl_type.
+Print Assumptions Minimal.Tc2Stage.st_all_list.
+Print Assumptions Minimal.Tc2Stage.sl_all.
+(* === Minimal.TcBlocks : 30 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.TcBlocks.tc_rj_in.
+Print Assumptions Minimal.TcBlocks.tc_rj_out.
+Print Assumptions Minimal.TcBlocks.tc_rj_S.
+Print Assumptions Minimal.TcBlocks.tc_grun_succ.
+Print Assumptions Minimal.TcBlocks.tc_grun_add.
+Print Assumptions Minimal.TcBlocks.tc_ghalted_after.
+Print Assumptions Minimal.TcBlocks.tc_greloc_length.
+Print Assumptions Minimal.TcBlocks.tc_gembeds_app.
+Print Assumptions Minimal.TcBlocks.tc_gfetch_range.
+Print Assumptions Minimal.TcBlocks.tc_gfetch_out.
+Print Assumptions Minimal.TcBlocks.tc_eqb_add.
+Print Assumptions Minimal.TcBlocks.tc_fsh_eqb.
+Print Assumptions Minimal.TcBlocks.tc_existsb_fsh.
+Print Assumptions Minimal.TcBlocks.tc_fsh_zero.
+Print Assumptions Minimal.TcBlocks.tc_fsh_opt_zero.
+Print Assumptions Minimal.TcBlocks.tc_gnext_some.
+Print Assumptions Minimal.TcBlocks.tc_gnext_intro.
+Print Assumptions Minimal.TcBlocks.tc_gri_halt.
+Print Assumptions Minimal.TcBlocks.tc_gcrel_val.
+Print Assumptions Minimal.TcBlocks.tc_gcrel_claim.
+Print Assumptions Minimal.TcBlocks.tc_gblock_cstep.
+Print Assumptions Minimal.TcBlocks.tc_gblock_step.
+Print Assumptions Minimal.TcBlocks.tc_gblock_run_mid.
+Print Assumptions Minimal.TcBlocks.tc_gblock_not_halted.
+Print Assumptions Minimal.TcBlocks.tc_gblock_halted.
+Print Assumptions Minimal.TcBlocks.tc_gblock_run_final.
+Print Assumptions Minimal.TcBlocks.tc_gplain_exec.
+Print Assumptions Minimal.TcBlocks.tc_compile_run.
+Print Assumptions Minimal.TcBlocks.tc_gfetch_app_left.
+Print Assumptions Minimal.TcBlocks.tc_gfetch_app_right.
 (* === Minimal.ThieleComplete : 42 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.ThieleComplete.run_app.
 Print Assumptions Minimal.ThieleComplete.base_runs_every_program.

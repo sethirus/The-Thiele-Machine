@@ -1,0 +1,210 @@
+DIGEST 5350d4988990ee0cfd355dc98a319d3b
+FKernel.CzSelf
+R829:832 Coq.Lists.List <> <> lib
+R834:838 Coq.Arith.Arith <> <> lib
+R840:842 Coq.micromega.Lia <> <> lib
+R844:847 Coq.Bool.Bool <> <> lib
+R857:869 Coq.Lists.List ListNotations <> mod
+R899:904 Kernel.AxCore <> <> lib
+R934:940 Kernel.AxLatch <> <> lib
+R970:979 Kernel.AxComplete <> <> lib
+R1009:1014 Kernel.CzProd <> <> lib
+R1016:1023 Kernel.CzProdTC <> <> lib
+R1025:1030 Kernel.CzLoad <> <> lib
+R1032:1036 Kernel.CzSeq <> <> lib
+R1038:1044 Kernel.CzTower <> <> lib
+R1075:1080 Minimal.CzLink <> <> lib
+R1098:1119 Kernel.UniversalPCodes <> <> lib
+R1121:1140 Kernel.UniversalPRun <> <> lib
+R1142:1166 Kernel.PresentedUniversal <> <> lib
+R1184:1200 Minimal.Presented <> <> lib
+R1202:1220 Kernel.Presentation <> <> lib
+R1231:1252 Minimal.ThieleComplete <> <> lib
+R1267:1288 Minimal.ThieleComplete <> <> modtype
+mod 1262:1262 <> T
+prf 1300:1315 <> cmpz_closed_prod
+binder 1327:1327 <> A:1
+binder 1329:1329 <> B:2
+binder 1331:1331 <> P:3
+binder 1333:1333 <> Q:4
+R1341:1348 Kernel.AxComplete <> amachine rec
+R1350:1350 Kernel.CzSelf <> A:1 var
+R1352:1352 Kernel.CzSelf <> P:3 var
+binder 1337:1337 <> M:5
+R1360:1367 Kernel.AxComplete <> amachine rec
+R1369:1369 Kernel.CzSelf <> B:2 var
+R1371:1371 Kernel.CzSelf <> Q:4 var
+binder 1356:1356 <> N:6
+R1397:1400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1377:1394 Kernel.AxComplete <> ax_thiele_complete def
+R1396:1396 Kernel.CzSelf <> M:5 var
+R1421:1424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1401:1418 Kernel.AxComplete <> ax_thiele_complete def
+R1420:1420 Kernel.CzSelf <> N:6 var
+R1425:1442 Kernel.AxComplete <> ax_thiele_complete def
+R1445:1453 Kernel.CzProd <> cmpz_prod def
+R1457:1457 Kernel.CzSelf <> N:6 var
+R1455:1455 Kernel.CzSelf <> M:5 var
+R1483:1507 Kernel.CzProdTC <> cmpz_prod_thiele_complete thm
+R1483:1507 Kernel.CzProdTC <> cmpz_prod_thiele_complete thm
+prf 1534:1548 <> cmpz_closed_seq
+binder 1560:1560 <> A:7
+binder 1562:1562 <> B:8
+binder 1564:1564 <> P:9
+binder 1566:1566 <> Q:10
+R1574:1581 Kernel.AxComplete <> amachine rec
+R1583:1583 Kernel.CzSelf <> A:7 var
+R1585:1585 Kernel.CzSelf <> P:9 var
+binder 1570:1570 <> M:11
+R1593:1600 Kernel.AxComplete <> amachine rec
+R1602:1602 Kernel.CzSelf <> B:8 var
+R1604:1604 Kernel.CzSelf <> Q:10 var
+binder 1589:1589 <> N:12
+R1617:1628 Kernel.AxComplete <> ax_interface rec
+R1630:1630 Kernel.CzSelf <> M:11 var
+binder 1612:1613 <> I1:13
+R1639:1650 Kernel.AxComplete <> ax_interface rec
+R1652:1652 Kernel.CzSelf <> N:12 var
+binder 1634:1635 <> I2:14
+R1671:1674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1658:1667 Kernel.AxComplete <> ax_tc_with def
+R1669:1670 Kernel.CzSelf <> I1:13 var
+R1688:1691 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1675:1684 Kernel.AxComplete <> ax_tc_with def
+R1686:1687 Kernel.CzSelf <> I2:14 var
+R1692:1709 Kernel.AxComplete <> ax_thiele_complete def
+R1712:1719 Kernel.CzSeq <> cmpz_seq def
+R1730:1731 Kernel.CzSelf <> I2:14 var
+R1727:1727 Kernel.CzSelf <> M:11 var
+R1784:1797 Kernel.CzSeq <> cmpz_seq_iface def
+R1784:1797 Kernel.CzSeq <> cmpz_seq_iface def
+R1814:1824 Kernel.CzSeq <> cmpz_seq_tc thm
+R1814:1824 Kernel.CzSeq <> cmpz_seq_tc thm
+prf 1854:1876 <> cmpz_tower_self_similar
+R1898:1901 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1895:1897 Coq.Init.Datatypes <> nat ind
+R1902:1918 Minimal.Presented <> presented_machine rec
+binder 1890:1891 <> Mp:15
+binder 1934:1934 <> i:16
+R1937:1951 Kernel.Presentation <> cg_presentation rec
+R1954:1955 Kernel.CzSelf <> Mp:15 var
+R1957:1957 Kernel.CzSelf <> i:16 var
+binder 1922:1923 <> pc:17
+binder 1978:1978 <> i:18
+R1981:1990 Kernel.CzSelf <> cs_state proj
+R1993:1998 Minimal.Presented <> pm_sys proj
+R2001:2002 Kernel.CzSelf <> Mp:15 var
+R2004:2004 Kernel.CzSelf <> i:18 var
+binder 1966:1967 <> s0:19
+binder 2025:2025 <> i:20
+R2049:2052 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2028:2035 Minimal.CzLink <> ds_state proj
+R2037:2048 Kernel.CzTower <> cmpz_ds_host def
+R2053:2060 Minimal.CzLink <> ds_state proj
+R2063:2074 Kernel.CzTower <> cmpz_ds_pres def
+R2077:2078 Kernel.CzSelf <> Mp:15 var
+R2081:2081 Coq.Init.Datatypes <> S constr
+R2083:2083 Kernel.CzSelf <> i:20 var
+binder 2014:2014 <> f:21
+binder 2089:2091 <> lo0:22
+binder 2093:2095 <> hi0:23
+R2100:2100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2220:2226 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2108:2108 <> i:24
+R2111:2126 Kernel.CzTower <> cmpz_presents_by def
+R2129:2130 Kernel.CzSelf <> Mp:15 var
+R2133:2133 Coq.Init.Datatypes <> S constr
+R2135:2135 Kernel.CzSelf <> i:24 var
+R2140:2141 Kernel.CzSelf <> s0:19 var
+R2144:2144 Coq.Init.Datatypes <> S constr
+R2146:2146 Kernel.CzSelf <> i:24 var
+R2150:2161 Kernel.CzTower <> cmpz_ds_host def
+R2179:2191 Kernel.PresentedUniversal <> pu_host_start def
+R2208:2209 Kernel.CzSelf <> s0:19 var
+R2211:2211 Kernel.CzSelf <> i:24 var
+R2201:2202 Kernel.CzSelf <> pc:17 var
+R2204:2204 Kernel.CzSelf <> i:24 var
+R2194:2195 Kernel.CzSelf <> Mp:15 var
+R2197:2197 Kernel.CzSelf <> i:24 var
+R2216:2216 Kernel.CzSelf <> f:21 var
+R2218:2218 Kernel.CzSelf <> i:24 var
+R2227:2227 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2344:2350 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2235:2235 <> n:25
+R2267:2275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2260:2262 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2238:2243 Minimal.Presented <> mlatch def
+R2253:2254 Kernel.CzSelf <> s0:19 var
+R2259:2259 Kernel.CzSelf <> n:25 var
+R2246:2247 Kernel.CzSelf <> Mp:15 var
+R2263:2266 Coq.Init.Datatypes <> true constr
+R2308:2311 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2279:2282 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2276:2278 Kernel.CzSelf <> lo0:22 var
+R2283:2291 Minimal.Presented <> surcharge def
+R2301:2302 Kernel.CzSelf <> s0:19 var
+R2307:2307 Kernel.CzSelf <> n:25 var
+R2294:2295 Kernel.CzSelf <> Mp:15 var
+R2337:2340 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2312:2320 Minimal.Presented <> surcharge def
+R2330:2331 Kernel.CzSelf <> s0:19 var
+R2336:2336 Kernel.CzSelf <> n:25 var
+R2323:2324 Kernel.CzSelf <> Mp:15 var
+R2341:2343 Kernel.CzSelf <> hi0:23 var
+R2384:2389 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2351:2367 Kernel.CzSelf <> thiele_complete def
+R2369:2383 Kernel.UniversalPRun <> pu_host_machine def
+binder 2397:2397 <> k:26
+R2400:2408 Minimal.CzLink <> cmpz_link rec
+R2411:2422 Kernel.CzTower <> cmpz_ds_pres def
+R2425:2426 Kernel.CzSelf <> Mp:15 var
+R2433:2444 Kernel.CzTower <> cmpz_ds_pres def
+R2447:2448 Kernel.CzSelf <> Mp:15 var
+R2451:2451 Coq.Init.Datatypes <> S constr
+R2453:2453 Kernel.CzSelf <> k:26 var
+R2463:2477 Kernel.CzTower <> cmpz_pres_start def
+R2487:2488 Kernel.CzSelf <> s0:19 var
+R2480:2481 Kernel.CzSelf <> Mp:15 var
+R2495:2509 Kernel.CzTower <> cmpz_pres_start def
+R2523:2524 Kernel.CzSelf <> s0:19 var
+R2527:2527 Coq.Init.Datatypes <> S constr
+R2529:2529 Kernel.CzSelf <> k:26 var
+R2512:2513 Kernel.CzSelf <> Mp:15 var
+R2516:2516 Coq.Init.Datatypes <> S constr
+R2518:2518 Kernel.CzSelf <> k:26 var
+R2542:2544 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2539:2541 Kernel.CzSelf <> lo0:22 var
+R2546:2548 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2549:2549 Kernel.CzSelf <> k:26 var
+R2556:2558 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2553:2555 Kernel.CzSelf <> hi0:23 var
+R2560:2562 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2563:2563 Kernel.CzSelf <> k:26 var
+R2571:2584 Minimal.CzLink <> cmpz_tower_rel def
+R2703:2703 Coq.Init.Datatypes <> S constr
+R2705:2705 Kernel.CzSelf <> k:26 var
+binder 2629:2629 <> i:27
+R2634:2646 Minimal.CzLink <> cmpz_rel_comp def
+binder 2683:2683 <> h:28
+binder 2685:2685 <> x:29
+R2695:2697 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2690:2690 Kernel.CzSelf <> f:21 var
+R2694:2694 Kernel.CzSelf <> h:28 var
+R2692:2692 Kernel.CzSelf <> i:27 var
+R2698:2698 Kernel.CzSelf <> x:29 var
+R2649:2661 Kernel.CzTower <> cmpz_rel_host def
+R2671:2672 Kernel.CzSelf <> pc:17 var
+R2674:2674 Kernel.CzSelf <> i:27 var
+R2664:2665 Kernel.CzSelf <> Mp:15 var
+R2667:2667 Kernel.CzSelf <> i:27 var
+binder 2591:2591 <> i:30
+R2596:2607 Kernel.CzTower <> cmpz_ds_pres def
+R2610:2611 Kernel.CzSelf <> Mp:15 var
+R2613:2613 Kernel.CzSelf <> i:30 var
+R2769:2796 Kernel.UniversalPRun <> pu_universal_thiele_complete thm
+R2769:2796 Kernel.UniversalPRun <> pu_universal_thiele_complete thm
+R2819:2844 Kernel.CzTower <> cmpz_tower_presented_exact thm
+R2819:2844 Kernel.CzTower <> cmpz_tower_presented_exact thm
+R2899:2914 Kernel.CzSelf <> cmpz_closed_prod thm
+R2935:2949 Kernel.CzSelf <> cmpz_closed_seq thm
+R2970:2992 Kernel.CzSelf <> cmpz_tower_self_similar thm
