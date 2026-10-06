@@ -240,12 +240,126 @@ jobs:
           path: build/realize/universal_runs.json
           retention-days: 30
 
+  # The verified compiler (CmpLang.v to CmpFinal.v) extracted from Coq to OCaml
+  # and run on a corpus, random programs and long runs (tests/test_cmp_compiler.py,
+  # with the slow cases). The answers, every source variable and the operation
+  # counts are compared with an independent python interpreter, and the dumped
+  # programs with python virtual machines; the measured source operations and
+  # host steps are kept as an artifact.
+  compiler-runs:
+    name: Extracted verified compiler on a corpus and random programs
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Coq and OCaml
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib libzarith-ocaml-dev
+
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
+
+      - name: Capture toolchain version
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+
+      - name: Compute vendor build digest
+        id: vendor-digest
+        run: |
+          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
+            | sort -z \
+            | xargs -0 sha256sum 2>/dev/null \
+            | sha256sum \
+            | cut -c1-16)
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - name: Purge stale tracked Coq .vo files
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+            coq/.Makefile.d
+            build/coq-build-manifest.json
+          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          restore-keys: |
+            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+
+      - name: Refresh Coq artefact mtimes
+        run: |
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
+
+      - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          rm -f Makefile Makefile.conf .Makefile.d
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
+          coq_makefile -f _CoqProject -o Makefile
+          make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
+
+      - name: Extract the compiler and its runner to OCaml and build the driver
+        run: bash scripts/cmp_extract.sh build/cmp
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          pip install --quiet -e . --no-deps
+
+      - name: Run the compiler tests, slow cases included
+        # A missing toolchain fails the tests (CI is set); the measured source
+        # operations, counter-machine steps and host steps go to the report.
+        env:
+          THIELE_CMP_DRIVER: ${{ github.workspace }}/build/cmp/cmp_driver
+          THIELE_CMP_REPORT: ${{ github.workspace }}/build/cmp/report.json
+        run: python -m pytest tests/test_cmp_compiler.py -q --tb=short --strict-backends
+
+      - name: Summarise the measured runs
+        if: always()
+        run: python3 scripts/cmp_report.py build/cmp/report.json
+
+      - name: Upload the measured runs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-runs
+          path: build/cmp/report.json
+          retention-days: 30
+
   # Final summary — waits for every parallel branch to finish so the rollup
   # table reflects their actual outcomes.
   verify-full:
     name: Full Verification Summary
     runs-on: ubuntu-latest
-    needs: [fast-verify, vacuity-audit, realize-universal]
+    needs: [fast-verify, vacuity-audit, realize-universal, compiler-runs]
     if: ${{ always() }}
     steps:
       - name: Generate summary
@@ -258,6 +372,7 @@ jobs:
           | Fast verify | ${{ needs.fast-verify.result }} |
           | Vacuity audit | ${{ needs.vacuity-audit.result }} |
           | Extracted U and U_P runs | ${{ needs.realize-universal.result }} |
+          | Extracted verified compiler | ${{ needs.compiler-runs.result }} |
           EOF
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
           cat /tmp/summary.md
@@ -270,7 +385,8 @@ jobs:
           for result in \
             "fast-verify=${{ needs.fast-verify.result }}" \
             "vacuity-audit=${{ needs.vacuity-audit.result }}" \
-            "realize-universal=${{ needs.realize-universal.result }}"
+            "realize-universal=${{ needs.realize-universal.result }}" \
+            "compiler-runs=${{ needs.compiler-runs.result }}"
           do
             echo "$result"
             case "$result" in
