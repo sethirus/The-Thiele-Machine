@@ -34,6 +34,7 @@ Require Kernel.ProbabilisticRecord.
 Require Kernel.ProbabilisticRecordCore.
 Require Kernel.ProperSubsumption.
 Require Kernel.Realize.
+Require Kernel.RealizeCompact.
 Require Kernel.RealizeNames.
 Require Kernel.RealizePriced.
 Require Kernel.RealizePrograms.
@@ -656,6 +657,67 @@ Print Assumptions Kernel.Realize.rlz_host_regs_is.
 Print Assumptions Kernel.Realize.rlz_host_load_is.
 Print Assumptions Kernel.Realize.rlz_host_run_prog_is.
 Print Assumptions Kernel.Realize.rlz_host_at_is.
+(* === Kernel.RealizeCompact : 60 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RealizeCompact.rlz_core_eqv_refl.
+Print Assumptions Kernel.RealizeCompact.rlz_core_eqv_trans.
+Print Assumptions Kernel.RealizeCompact.rlz_eqv_refl.
+Print Assumptions Kernel.RealizeCompact.rlz_eqv_trans.
+Print Assumptions Kernel.RealizeCompact.rlz_claim_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_check_ok_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_commit_ok_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_certify_ok_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_write_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_goto_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_trap_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_record_fact_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_commit_to_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_cexec_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_fires_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_exec_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_next_instr_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_step_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_run_prog_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_next_in.
+Print Assumptions Kernel.RealizeCompact.rlz_cexec_inv.
+Print Assumptions Kernel.RealizeCompact.rlz_step_inv.
+Print Assumptions Kernel.RealizeCompact.rlz_nth_tab.
+Print Assumptions Kernel.RealizeCompact.rlz_compact_eqv.
+Print Assumptions Kernel.RealizeCompact.rlz_compact_inv.
+Print Assumptions Kernel.RealizeCompact.rlz_sched_sound.
+Print Assumptions Kernel.RealizeCompact.rlzp_core_eqv_refl.
+Print Assumptions Kernel.RealizeCompact.rlzp_core_eqv_trans.
+Print Assumptions Kernel.RealizeCompact.rlzp_eqv_refl.
+Print Assumptions Kernel.RealizeCompact.rlzp_eqv_trans.
+Print Assumptions Kernel.RealizeCompact.rlzp_claim_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_check_ok_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_commit_ok_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_certify_ok_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_write_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_goto_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_trap_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_record_fact_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_commit_to_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_cexec_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_fires_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_exec_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_next_instr_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_step_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_run_prog_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_next_in.
+Print Assumptions Kernel.RealizeCompact.rlzp_cexec_inv.
+Print Assumptions Kernel.RealizeCompact.rlzp_step_inv.
+Print Assumptions Kernel.RealizeCompact.rlzp_nth_tab.
+Print Assumptions Kernel.RealizeCompact.rlzp_compact_eqv.
+Print Assumptions Kernel.RealizeCompact.rlzp_compact_inv.
+Print Assumptions Kernel.RealizeCompact.rlzp_sched_sound.
+Print Assumptions Kernel.RealizeCompact.rlz_host_program_below.
+Print Assumptions Kernel.RealizeCompact.rlz_phost_program_below.
+Print Assumptions Kernel.RealizeCompact.rlz_host_sched_app.
+Print Assumptions Kernel.RealizeCompact.rlz_phost_sched_app.
+Print Assumptions Kernel.RealizeCompact.rlz_host_sched_sound.
+Print Assumptions Kernel.RealizeCompact.rlz_phost_sched_sound.
+Print Assumptions Kernel.RealizeCompact.rlz_host_sched_sound_original.
+Print Assumptions Kernel.RealizeCompact.rlz_phost_sched_sound_original.
 (* === Kernel.RealizePriced : 41 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.RealizePriced.rlz_nxtprime_le.
 Print Assumptions Kernel.RealizePriced.rlz_scan_ok.
