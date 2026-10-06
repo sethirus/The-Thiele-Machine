@@ -688,6 +688,110 @@ old. Where they differ, the difference is honest: their subject is an idealised 
 unlimited time and memory, and mine is a machine with a finite table that establishes only the
 claims its program checks.
 
+\subsection*{Not a switch}
+
+So far I've been talking about \emph{established} as if it were a light switch: on or off, the first
+computer on and the second one off. That bothered me the whole time I was writing it, and for a
+while I couldn't say why. It felt too small, the way a word can be technically right and still not
+cover what you're pointing at. I don't trust that feeling on its own, because I've had it plenty of
+times about things that turned out to be nothing. So I went looking for something outside my own head
+that would either give the feeling something to stand on or show me I was imagining it.
+
+I didn't know what I was looking for, at first, beyond a rough shape: two things that look exactly the
+same and differ in how far something about them has been settled. So I started collecting anything
+that seemed to have that shape, and most of what I collected fell apart as soon as I looked at it
+closely. The way it fell apart turned out to matter more than the things themselves, so I'll go through
+it in the order it happened.
+
+The first batch was all hidden things. A pea under one of three cups. A tree, whose age you can't see
+from the outside. A forged painting that looks right until somebody tests the paint. A glass of gas,
+where the thermometer shows one temperature and underneath there are uncountably many arrangements of
+molecules that would all show the same reading. Plato's prisoners, who see shadows on a wall and not
+the things casting them. Every one of these looked promising for about a minute. Then I noticed they
+all fail the same way: look harder and the hidden thing shows up. Lift the cup. Cut the trunk and count
+the rings. Run the paint test. Look at the molecules, at least in principle. Turn around in the cave.
+In each case the hidden part is a fact about the object that better eyes could find. That isn't what
+the two computers have. You can see every lamp in the warehouse and not find the check.
+
+That failure gave me the first real tool I had, and it's a crude one. Give an observer perfect vision of
+the visible thing, as much detail as they want, and ask whether they could read the difference off it.
+If they could, it's something hidden, and that's not what I'm after. If they couldn't, it might be. I
+want to be honest about how much weight that test can hold. It's a judgment, and I'm the one making it,
+with whatever blind spots I have. Somebody careful can look straight at the evidence and still read it
+wrong, because of what they expected to see. So I treat the test as a way of sorting my own examples,
+not as a verdict, and if you find a case where it sorts wrongly, that tells me something about the test
+and about me.
+
+The second batch got past that test and failed a different way. A clock face reads three o'clock and
+doesn't show how many days have gone by; no amount of staring at the face tells you. A computer can keep
+a complete history of what it did, and Charles Bennett showed back in the 1970s, as I understand it,
+that a machine can keep such a history while it works and then erase it again without losing anything.
+Those are real extra directions, not hidden facts. But they're free, and they can be run back down, and
+neither of those fits what happened to the first computer, which did something that can't be undone
+and paid for it in work. If the standing I'm after could be added for free and taken back for free, it
+would just be bookkeeping. So that batch taught me what else I needed: something that only moves one way,
+and costs something to move.
+
+The third batch came closer and still didn't quite fit. A thermometer that records the highest
+temperature it has seen only moves one way, until somebody resets it, and resetting is easy and free.
+The labels on vaccine vials that change colour if the vaccine has been too warm only go one way, but
+they're chemistry, not a check anybody ran. A measurement only counts as traceable if there's an
+unbroken chain of calibrations behind it, which is a lot like what I want, except the chain can lapse,
+and even the official reference kilogram turned out to drift over the years. The rules of chess say
+(as best I can read them) that a king that can still castle and one that can't are in different
+positions even on an identical board, which passes the perfect-vision test, except that in chess the
+hidden part changes which moves are legal, and in the machine I'm building the record never touches the
+ordinary computing at all. Each of these got something right and missed something else.
+
+The one that fit best, and I want to say clearly that it only fit best among the ones I found, was the
+standing of a mathematical statement. Here's the version I could piece together from accounts, so
+check me on the details. In 1611 Kepler, in a short New Year's pamphlet about snowflakes, guessed that
+you can't pack equal balls any tighter than the way grocers stack oranges. He couldn't prove it. Around
+1998 Thomas Hales announced a proof that leaned on a great deal of computer work. As I understand it,
+the referees spent years on it and came back saying they were about ninety-nine percent sure and
+couldn't check the computer part. Hales went on to have the whole proof checked by a proof assistant,
+the same kind of tool that checks this book, and that work finished around 2014. The sentence never
+changed. Whether it's true never changed, as far as anyone can tell. What changed was how far it had
+been established, in stages: a guess, a claim, a referee's ninety-nine percent, a publication, a machine
+check. A perfect reader of the sentence can't see which stage it's at. It only moved one way. And each
+stage cost real work, by people running checks that could have failed.
+
+Then I tried to break that one too, because by this point I'd watched a lot of good-looking examples
+fall over. In the four-colour story, as I've seen it told, Alfred Kempe published a proof in 1879 that
+was accepted, and about eleven years later Percy Heawood found a hole in it. So standing can fall. I went
+back and forth on this for a while. Where I've landed for now is that the check that got Kempe's proof
+accepted couldn't see that particular hole. In the sense of the previous few pages, it was never a check
+that could have said no to that mistake, so what fell was never really earned in the first place. I'm
+aware that's a convenient reading for me, and I'm wary of convenient readings, especially my own. Take it
+as where I ended up rather than as a settled answer. It is, though, the reason the machine later in this
+book only lets a record go up on a check that can fail.
+
+Laying all of that out together is what changed my picture. If there are stages, then at each one
+there's a line, and the line has two sides: not this far yet, and at least this far. Each line amounts to
+its own yes-or-no question, and the answer to each can only ever change from no to yes. Maybe the switch
+wasn't wrong so much as incomplete. Maybe it was just the first of many lines, and the real shape is a
+direction with lines drawn across it. I've gone around many times on whether the lines create the
+direction or the direction comes first and the lines are just places where you cut it, and on whether yes
+and no are even different from each other until something draws the line between them. I don't have an
+answer to that. The one part I could actually settle is that a single switch isn't enough once there are
+three or more stages, and that is proved (Section~\ref{sec:latch} and the sections after it). The rest of
+this paragraph is me thinking out loud.
+
+Flatland, where this hunch started (Section~\ref{sec:origin}), turned out to belong in the first batch.
+When the sphere moves through the flat world, the circle the flat creatures see grows and shrinks, so the
+hidden direction changes their view, and a sharp enough flat observer could in principle work out where
+the sphere is. In this machine, as far as I can make out, you could move a state all the way along the
+established direction without changing a single bit of the ordinary machine. That may be exactly why the
+ordinary machine can't see it. It may also be why, if the direction is worth having, someone has to build
+it in on purpose and keep it on purpose. Whether keeping it costs anything is what the rest of this
+chapter tries to find out.
+
+None of these people were writing about what I'm writing about, and none of them is the reason any of
+this is true or false. I went through them because I needed something to test the feeling against, and
+most of what I tested failed. The failures told me what the thing isn't: not hidden, not free, not
+reversible, not steering. What's left after all that is narrower than what I started with, and I'm
+still not certain I've described it right.
+
 \subsection*{Turns out computing already had a word for it}
 
 Here's the slightly embarrassing part. Computing already has a word for this and uses it every
