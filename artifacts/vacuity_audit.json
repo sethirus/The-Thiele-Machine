@@ -89519,216 +89519,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 25,
-      "name": "tc_AB",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "tcA <> tcB",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 28,
-      "name": "tc_change_A",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_change_A__a.v\", line 3, characters 53-63:\nError: The reference vec_change was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.143 secs (0.119u,0.023s)\nChars 102 - 202 [Theorem~_vacuity_probe_a_tc_ch...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_change_A__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_change_A__b.v\", line 3, characters 53-63:\nError: The reference vec_change was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.145 secs (0.12u,0.025s)\nChars 102 - 202 [Theorem~_vacuity_probe_b_tc_ch...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_change_A__b.v",
-        "succeeded": false
-      },
-      "statement": "forall a b n, vec_change (tc_tovec a b) tcA n = tc_tovec n b",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 31,
-      "name": "tc_change_B",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_change_B__a.v\", line 3, characters 53-63:\nError: The reference vec_change was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.145 secs (0.121u,0.024s)\nChars 102 - 202 [Theorem~_vacuity_probe_a_tc_ch...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_change_B__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_change_B__b.v\", line 3, characters 53-63:\nError: The reference vec_change was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.147 secs (0.124u,0.022s)\nChars 102 - 202 [Theorem~_vacuity_probe_b_tc_ch...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_change_B__b.v",
-        "succeeded": false
-      },
-      "statement": "forall a b n, vec_change (tc_tovec a b) tcB n = tc_tovec a n",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 34,
-      "name": "tc_posA",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_posA__a.v\", line 3, characters 47-54:\nError: The reference vec_pos was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.141 secs (0.113u,0.027s)\nChars 102 - 180 [Theorem~_vacuity_probe_a_tc_po...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_posA__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_posA__b.v\", line 3, characters 47-54:\nError: The reference vec_pos was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.143 secs (0.12u,0.022s)\nChars 102 - 180 [Theorem~_vacuity_probe_b_tc_po...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_posA__b.v",
-        "succeeded": false
-      },
-      "statement": "forall a b, vec_pos (tc_tovec a b) tcA = a",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 37,
-      "name": "tc_posB",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_posB__a.v\", line 3, characters 47-54:\nError: The reference vec_pos was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.145 secs (0.117u,0.028s)\nChars 102 - 180 [Theorem~_vacuity_probe_a_tc_po...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_posB__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_posB__b.v\", line 3, characters 47-54:\nError: The reference vec_pos was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.142 secs (0.119u,0.022s)\nChars 102 - 180 [Theorem~_vacuity_probe_b_tc_po...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_posB__b.v",
-        "succeeded": false
-      },
-      "statement": "forall a b, vec_pos (tc_tovec a b) tcB = b",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 41,
-      "name": "tc_mult",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_mult__a.v\", line 3, characters 49-61:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.15 secs (0.125u,0.024s)\nChars 102 - 267 [Theorem~_vacuity_probe_a_tc_mu...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_mult__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_mult__b.v\", line 3, characters 49-61:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.144 secs (0.122u,0.022s)\nChars 102 - 267 [Theorem~_vacuity_probe_b_tc_mu...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_mult__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k i a, sss_progress (@mma_sss 2) (i, mma_mult_cst_with_zero tcA tcB k i) (i, tc_tovec a 0) (8 + k + i, tc_tovec (k * a) 0)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 52,
-      "name": "tc_incs",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_incs__a.v\", line 3, characters 51-62:\nError: The reference sss_compute was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.139 secs (0.105u,0.034s)\nChars 102 - 244 [Theorem~_vacuity_probe_a_tc_in...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_incs__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_incs__b.v\", line 3, characters 51-62:\nError: The reference sss_compute was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.14 secs (0.107u,0.033s)\nChars 102 - 244 [Theorem~_vacuity_probe_b_tc_in...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_incs__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k i a b, sss_compute (@mma_sss 2) (i, mma_incs tcA k) (i, tc_tovec a b) (k + i, tc_tovec (k + a) b)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 59,
-      "name": "tc_decs",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_decs__a.v\", line 3, characters 65-77:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.139 secs (0.12u,0.018s)\nChars 102 - 261 [Theorem~_vacuity_probe_a_tc_de...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_decs__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_decs__b.v\", line 3, characters 65-77:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.139 secs (0.111u,0.028s)\nChars 102 - 261 [Theorem~_vacuity_probe_b_tc_de...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_decs__b.v",
-        "succeeded": false
-      },
-      "statement": "forall p q k i a b, k <= a -> sss_progress (@mma_sss 2) (i, mma_decs tcA p q k i) (i, tc_tovec a b) (p, tc_tovec (a - k) b)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 68,
-      "name": "tc_div_yes",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_yes__a.v\", line 3, characters 80-92:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.139 secs (0.113u,0.026s)\nChars 102 - 279 [Theorem~_vacuity_probe_a_tc_di...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_yes__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_yes__b.v\", line 3, characters 80-92:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.144 secs (0.119u,0.025s)\nChars 102 - 279 [Theorem~_vacuity_probe_b_tc_di...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_yes__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k i j a a', 0 < k -> a = a' * k -> sss_progress (@mma_sss 2) (i, mma_div_branch tcA tcB k i j) (i, tc_tovec a 0) (j, tc_tovec a' 0)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 80,
-      "name": "tc_div_no",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_no__a.v\", line 3, characters 64-71:\nError: The reference divides was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.153 secs (0.131u,0.022s)\nChars 102 - 290 [Theorem~_vacuity_probe_a_tc_di...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_no__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_no__b.v\", line 3, characters 64-71:\nError: The reference divides was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.151 secs (0.124u,0.027s)\nChars 102 - 290 [Theorem~_vacuity_probe_b_tc_di...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_no__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k i j a, 0 < k -> ~ divides k a -> sss_progress (@mma_sss 2) (i, mma_div_branch tcA tcB k i j) (i, tc_tovec a 0) (16 + 7 * k + i, tc_tovec a 0)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/TcGadget.v",
-      "kind": "Lemma",
-      "line": 93,
-      "name": "tc_div_loop",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_loop__a.v\", line 3, characters 64-71:\nError: The reference divides was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.155 secs (0.127u,0.027s)\nChars 102 - 309 [Theorem~_vacuity_probe_a_tc_di...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_loop__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_loop__b.v\", line 3, characters 64-71:\nError: The reference divides was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.157 secs (0.136u,0.021s)\nChars 102 - 309 [Theorem~_vacuity_probe_b_tc_di...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_loop__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k i y, 0 < k -> ~ divides k y -> forall c, sss_compute (@mma_sss 2) (i, mma_div_branch tcA tcB k i i) (i, tc_tovec (y * k ^ c) 0) (16 + 7 * k + i, tc_tovec y 0)",
-      "status": "ok"
-    },
-    {
       "file": "coq/kernel/foundation/TcCodes.v",
       "kind": "Lemma",
       "line": 58,
@@ -95386,466 +95176,6 @@
         "succeeded": false
       },
       "statement": "L_computable lift_ex_rel",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 75,
-      "name": "lift_oc_f_some",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall P x y, lift_oc_step P x = Some y -> lift_oc_f P x = y",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 78,
-      "name": "lift_oc_f_none",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall P x, lift_oc_step P x = None -> lift_oc_f P x = x",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 81,
-      "name": "lift_oc_iter_fixed",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall P n x, lift_oc_f P x = x -> Nat.iter n (lift_oc_f P) x = x",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 87,
-      "name": "lift_oc_run_iter",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall n P x, lift_oc_run n P x = Nat.iter n (lift_oc_f P) x",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 107,
-      "name": "lift_cf_succ",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_succ__a.v\", line 3, characters 66-67:\nError: The reference f was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.115 secs (0.084u,0.03s)\nChars 109 - 189 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_succ__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_succ__b.v\", line 3, characters 66-67:\nError: The reference f was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.12 secs (0.09u,0.03s)\nChars 109 - 189 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_succ__b.v",
-        "succeeded": false
-      },
-      "statement": "forall t, lift_cf (S t) = f (lift_cf t)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 110,
-      "name": "lift_cf_add",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_add__a.v\", line 3, characters 80-81:\nError: The reference f was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.151 secs (0.131u,0.02s)\nChars 109 - 203 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_add__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_add__b.v\", line 3, characters 80-81:\nError: The reference f was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.119 secs (0.096u,0.022s)\nChars 109 - 203 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_add__b.v",
-        "succeeded": false
-      },
-      "statement": "forall a b, lift_cf (a + b) = Nat.iter a f (lift_cf b)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 113,
-      "name": "lift_stopped_stays",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_stopped_stays__a.v\", line 3, characters 71-72:\nError: The reference P was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.114 secs (0.091u,0.023s)\nChars 109 - 213 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_stopped_stays__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_stopped_stays__b.v\", line 3, characters 71-72:\nError: The reference P was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.115 secs (0.093u,0.022s)\nChars 109 - 213 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_stopped_stays__b.v",
-        "succeeded": false
-      },
-      "statement": "forall d y, lift_oc_step P y = None -> Nat.iter d f y = y",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 116,
-      "name": "lift_alive_down",
-      "probe_a": {
-        "coq_stderr_tail": "chine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_down__a.v\", line 3, characters 55-67:\nError: In environment\nt : list lift_oc_instr\ns : ?T\nThe term \"lift_alive t\" has type \"lift_oc_conf -> nat -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.117 secs (0.096u,0.021s)\nChars 109 - 203 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_down__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "chine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_down__b.v\", line 3, characters 55-67:\nError: In environment\nt : list lift_oc_instr\ns : ?T\nThe term \"lift_alive t\" has type \"lift_oc_conf -> nat -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.098u,0.018s)\nChars 109 - 203 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_down__b.v",
-        "succeeded": false
-      },
-      "statement": "forall t s, lift_alive t -> s <= t -> lift_alive s",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 125,
-      "name": "lift_alive_pc",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_pc__a.v\", line 3, characters 100-101:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.092u,0.023s)\nChars 109 - 211 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_pc__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_pc__b.v\", line 3, characters 100-101:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.115 secs (0.092u,0.023s)\nChars 109 - 211 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_pc__b.v",
-        "succeeded": false
-      },
-      "statement": "forall t, lift_alive t -> 1 <= lift_pcn t /\\ lift_pcn t <= k",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 134,
-      "name": "lift_alive_iff_pc",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_iff_pc__a.v\", line 3, characters 90-91:\nError: The reference P was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.093u,0.022s)\nChars 109 - 242 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_iff_pc__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_iff_pc__b.v\", line 3, characters 90-91:\nError: The reference P was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.114 secs (0.091u,0.023s)\nChars 109 - 242 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_iff_pc__b.v",
-        "succeeded": false
-      },
-      "statement": "forall y y', fst y = fst y' -> (lift_oc_step P y <> None <-> lift_oc_step P y' <> None)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 142,
-      "name": "lift_cnt_step",
-      "probe_a": {
-        "coq_stderr_tail": "rk/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cnt_step__a.v\", line 3, characters 61-64:\nError:\nIn environment\nt : nat\nThe term \"S t\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.117 secs (0.099u,0.018s)\nChars 109 - 229 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cnt_step__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "rk/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cnt_step__b.v\", line 3, characters 61-64:\nError:\nIn environment\nt : nat\nThe term \"S t\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.117 secs (0.092u,0.025s)\nChars 109 - 229 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cnt_step__b.v",
-        "succeeded": false
-      },
-      "statement": "forall t, lift_cnt (S t) <= lift_cnt t + 1 /\\ lift_cnt t <= lift_cnt (S t) + 1",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 150,
-      "name": "lift_rep_never",
-      "probe_a": {
-        "coq_stderr_tail": "-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_rep_never__a.v\", line 3, characters 71-72:\nError:\nIn environment\ni : nat\nj : nat\nThe term \"i\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.119 secs (0.099u,0.02s)\nChars 109 - 236 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_rep_never__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_rep_never__b.v\", line 3, characters 71-72:\nError:\nIn environment\ni : nat\nj : nat\nThe term \"i\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.117 secs (0.091u,0.026s)\nChars 109 - 236 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_rep_never__b.v",
-        "succeeded": false
-      },
-      "statement": "forall i j, i < j -> lift_cf i = lift_cf j -> lift_alive j -> forall t, lift_alive t",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 165,
-      "name": "lift_bounded_never",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_bounded_never__a.v\", line 3, characters 73-74:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.097u,0.018s)\nChars 109 - 271 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_bounded_never__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_bounded_never__b.v\", line 3, characters 73-74:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.118 secs (0.091u,0.027s)\nChars 109 - 271 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_bounded_never__b.v",
-        "succeeded": false
-      },
-      "statement": "forall Bm, (forall t, t <= k * (Bm + 1) -> lift_cnt t <= Bm) -> lift_alive (k * (Bm + 1)) -> forall t, lift_alive t",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 209,
-      "name": "lift_oc_pos_shift",
-      "probe_a": {
-        "coq_stderr_tail": "end\n          | None => None\n          end\n        with\n        | Some y => y\n        | None => (p, c)\n        end in\n      y) e)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.095u,0.021s)\nChars 109 - 304 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 305 - 311 [Proof.] 0. secs (0.u,0.s)\nChars 312 - 334 [(intros;~lazy;~exact~I).] 0.002 secs (0.001u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_pos_shift__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_pos_shift__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.095u,0.02s)\nChars 109 - 304 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 305 - 311 [Proof.] 0. secs (0.u,0.s)\nChars 312 - 342 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_pos_shift__b.v",
-        "succeeded": false
-      },
-      "statement": "forall P p c e, lift_oc_pos P (p, c) -> lift_oc_pos P (p, c + e) /\\ lift_oc_f P (p, c + e) = (fst (lift_oc_f P (p, c)), snd (lift_oc_f P (p, c)) + e)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 232,
-      "name": "lift_oc_posrun_shift",
-      "probe_a": {
-        "coq_stderr_tail": "end\n               with\n               | Some y => y\n               | None => F n0\n               end\n           end) D in\n      y) e)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.089u,0.027s)\nChars 109 - 366 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 367 - 373 [Proof.] 0. secs (0.u,0.s)\nChars 374 - 396 [(intros;~lazy;~exact~I).] 0.006 secs (0.005u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_posrun_shift__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "chine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_posrun_shift__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.118 secs (0.101u,0.017s)\nChars 109 - 366 [Theorem~_vacuity_probe_b_lift_...] 0.001 secs (0.001u,0.s)\nChars 367 - 373 [Proof.] 0. secs (0.u,0.s)\nChars 374 - 404 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_posrun_shift__b.v",
-        "succeeded": false
-      },
-      "statement": "forall P D p c, lift_oc_posrun P D (p, c) -> forall e, lift_oc_posrun P D (p, c + e) /\\ Nat.iter D (lift_oc_f P) (p, c + e) = (fst (Nat.iter D (lift_oc_f P) (p, c)), snd (Nat.iter D (lift_oc_f P) (p, c)) + e)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 254,
-      "name": "lift_oc_bounded_dec",
-      "probe_a": {
-        "coq_stderr_tail": "e term \"I\" has type \"True\" while it is expected to have type\n \"(exists m : nat, S m <= T /\\ Q m) \\/\n  (forall m : nat, S m <= T -> Q m -> False)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.094u,0.022s)\nChars 109 - 275 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 276 - 282 [Proof.] 0. secs (0.u,0.s)\nChars 283 - 305 [(intros;~lazy;~exact~I).] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_bounded_dec__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "iele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_bounded_dec__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.119 secs (0.098u,0.021s)\nChars 109 - 275 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 276 - 282 [Proof.] 0. secs (0.u,0.s)\nChars 283 - 313 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_bounded_dec__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (Q : nat -> Prop), (forall n, Q n \\/ ~ Q n) -> forall T, (exists m, m < T /\\ Q m) \\/ (forall m, m < T -> ~ Q m)",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 267,
-      "name": "lift_oc_greatest_below",
-      "probe_a": {
-        "coq_stderr_tail": "as type \"True\" while it is expected to have type\n \"exists z : nat,\n    S z <= t /\\ Q z /\\ (forall s : nat, S z <= s -> S s <= t -> Q s -> False)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.115 secs (0.103u,0.011s)\nChars 109 - 311 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 312 - 318 [Proof.] 0. secs (0.u,0.s)\nChars 319 - 341 [(intros;~lazy;~exact~I).] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_greatest_below__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "e-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_greatest_below__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.117 secs (0.096u,0.021s)\nChars 109 - 311 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 312 - 318 [Proof.] 0. secs (0.u,0.s)\nChars 319 - 349 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_greatest_below__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (Q : nat -> Prop), (forall n, Q n \\/ ~ Q n) -> forall t, (exists s, s < t /\\ Q s) -> exists z, z < t /\\ Q z /\\ forall s, z < s -> s < t -> ~ Q s",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 288,
-      "name": "lift_oc_first_spec",
-      "probe_a": {
-        "coq_stderr_tail": "t d} : nat :=\n      match d with\n      | 0 => s\n      | S d' => if Qb s then s else lift_oc_first Qb (S s) d'\n      end) Qb s d -> Qb m = false)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.097u,0.018s)\nChars 109 - 396 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 397 - 403 [Proof.] 0. secs (0.u,0.s)\nChars 404 - 426 [(intros;~lazy;~exact~I).] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_first_spec__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_first_spec__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.09u,0.025s)\nChars 109 - 396 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 397 - 403 [Proof.] 0. secs (0.u,0.s)\nChars 404 - 434 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_first_spec__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (Qb : nat -> bool) d s, (exists m, s <= m /\\ m <= s + d /\\ Qb m = true) -> s <= lift_oc_first Qb s d /\\ lift_oc_first Qb s d <= s + d /\\ Qb (lift_oc_first Qb s d) = true /\\ forall m, s <= m -> m < lift_oc_first Qb s d -> Qb m = false",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 320,
-      "name": "lift_oc_ivt",
-      "probe_a": {
-        "coq_stderr_tail": "Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_ivt__a.v\", line 3, characters 76-78:\nError:\nIn environment\ns1 : nat\ns0 : nat\nv : ?T\nThe term \"s0\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.118 secs (0.103u,0.015s)\nChars 109 - 263 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_ivt__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_ivt__b.v\", line 3, characters 76-78:\nError:\nIn environment\ns1 : nat\ns0 : nat\nv : ?T\nThe term \"s0\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.118 secs (0.098u,0.02s)\nChars 109 - 263 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_ivt__b.v",
-        "succeeded": false
-      },
-      "statement": "forall s1 s0 v, s0 <= s1 -> lift_cnt s0 <= v -> v <= lift_cnt s1 -> exists s, s0 <= s /\\ s <= s1 /\\ lift_cnt s = v",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 338,
-      "name": "lift_oc_caseB",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_caseB__a.v\", line 3, characters 101-102:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.097u,0.018s)\nChars 109 - 257 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_caseB__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_caseB__b.v\", line 3, characters 101-102:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.116 secs (0.096u,0.019s)\nChars 109 - 257 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_caseB__b.v",
-        "succeeded": false
-      },
-      "statement": "forall T, lift_alive T -> (exists t, t <= T /\\ lift_cnt 0 + k + 1 <= lift_cnt t) -> forall t, lift_alive t",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Theorem",
-      "line": 426,
-      "name": "lift_oc_halts_bound",
-      "probe_a": {
-        "coq_stderr_tail": "x in\n                       x), 0)\n               | S n0 => (j, n0)\n               end\n           end\n     | None => None\n     end = None)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.115 secs (0.097u,0.017s)\nChars 109 - 266 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 267 - 273 [Proof.] 0. secs (0.u,0.s)\nChars 274 - 296 [(intros;~lazy;~exact~I).] 0.014 secs (0.013u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "iele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_bound__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.114 secs (0.099u,0.015s)\nChars 109 - 266 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 267 - 273 [Proof.] 0. secs (0.u,0.s)\nChars 274 - 304 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall P x, lift_oc_halts P x <-> lift_oc_step P (lift_oc_run (length P * (snd x + length P + 1)) P x) = None",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Theorem",
-      "line": 450,
-      "name": "lift_oc_halts_dec",
-      "probe_a": {
-        "coq_stderr_tail": "x), 0)\n                | S n0 => (j, n0)\n                end\n            end\n      | None => None\n      end = None) -> False}\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.114 secs (0.094u,0.02s)\nChars 109 - 210 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 211 - 217 [Proof.] 0. secs (0.u,0.s)\nChars 218 - 240 [(intros;~lazy;~exact~I).] 0.005 secs (0.005u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_dec__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_dec__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.115 secs (0.095u,0.019s)\nChars 109 - 210 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 211 - 217 [Proof.] 0. secs (0.u,0.s)\nChars 218 - 248 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_dec__b.v",
-        "succeeded": false
-      },
-      "statement": "forall P x, {lift_oc_halts P x} + {~ lift_oc_halts P x}",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Lemma",
-      "line": 467,
-      "name": "lift_oc_embed_step",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_step__a.v\", line 3, characters 69-72:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.113 secs (0.095u,0.018s)\nChars 109 - 305 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_step__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_step__b.v\", line 3, characters 69-72:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.113 secs (0.099u,0.013s)\nChars 109 - 305 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_step__b.v",
-        "succeeded": false
-      },
-      "statement": "forall P x, T.cm_step (map lift_oc_to_cm P) (fst x, (snd x, 0)) = match lift_oc_step P x with | Some y => Some (fst y, (snd y, 0)) | None => None end",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Theorem",
-      "line": 481,
-      "name": "lift_oc_embed_run",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_run__a.v\", line 3, characters 71-74:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.113 secs (0.092u,0.02s)\nChars 109 - 279 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_run__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_run__b.v\", line 3, characters 71-74:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.114 secs (0.093u,0.02s)\nChars 109 - 279 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_run__b.v",
-        "succeeded": false
-      },
-      "statement": "forall n P x, T.cm_run n (map lift_oc_to_cm P) (fst x, (snd x, 0)) = (fst (lift_oc_run n P x), (snd (lift_oc_run n P x), 0))",
-      "status": "ok"
-    },
-    {
-      "file": "minimal/LiftOneCounter.v",
-      "kind": "Theorem",
-      "line": 494,
-      "name": "lift_oc_embed_halts",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_halts__a.v\", line 3, characters 81-84:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.118 secs (0.098u,0.019s)\nChars 109 - 296 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_halts__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_halts__b.v\", line 3, characters 81-84:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.146 secs (0.122u,0.023s)\nChars 109 - 296 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_halts__b.v",
-        "succeeded": false
-      },
-      "statement": "forall P x, (exists n, T.cm_step (map lift_oc_to_cm P) (T.cm_run n (map lift_oc_to_cm P) (fst x, (snd x, 0))) = None) <-> lift_oc_halts P x",
       "status": "ok"
     },
     {
@@ -104506,6 +103836,676 @@
         "succeeded": false
       },
       "statement": "forall (prop : Type) (prop_eqb : prop -> prop -> bool) (eval : prop -> nat -> bool) p nin out, cmp_wf p -> forall xs y, (cmp_src_computes p xs out y <-> exists fuel, cr_halted (cmp_exec p nin out xs fuel) = true /\\ cmp_answer out (cmp_exec p nin out xs fuel) = y) /\\ (cmp_src_computes p xs out y <-> exists n v2, @cmp_host_final prop (cmp_mm_prog p nin out) v2 (@cmp_host_at prop prop_eqb eval (cmp_mm_prog p nin out) (cmp_mm_load (cmp_nvF p nin out) xs) n) /\\ v2 (S out) = y) /\\ (cmp_src_computes p xs out y <-> exists n, Minimal.EarnedPriced.pr_halted (cmp_guest p nin out) (Minimal.EarnedGeneric.core_of (cmp_guest_at p nin out xs n)) /\\ cmp_guest_answer out (cmp_guest_at p nin out xs n) = y) /\\ (cmp_src_computes p xs out y <-> exists t, M.pu_halted U_P (M.core_of (cmp_U_at p nin out xs t)) /\\ cg_expo (qs (S out)) (hv (cmp_U_at p nin out xs t) pu_RB) = y /\\ hv (cmp_U_at p nin out xs t) pu_RA = 0 /\\ M.mu (cmp_U_at p nin out xs t) = 0 /\\ M.cert (cmp_U_at p nin out xs t) = false)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 30,
+      "name": "tc_AB",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "tcA <> tcB",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 33,
+      "name": "tc_change_A",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_change_A__a.v\", line 3, characters 53-63:\nError: The reference vec_change was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.193 secs (0.162u,0.03s)\nChars 102 - 202 [Theorem~_vacuity_probe_a_tc_ch...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_change_A__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_change_A__b.v\", line 3, characters 53-63:\nError: The reference vec_change was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.195 secs (0.163u,0.032s)\nChars 102 - 202 [Theorem~_vacuity_probe_b_tc_ch...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_change_A__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a b n, vec_change (tc_tovec a b) tcA n = tc_tovec n b",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 36,
+      "name": "tc_change_B",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_change_B__a.v\", line 3, characters 53-63:\nError: The reference vec_change was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.197 secs (0.167u,0.03s)\nChars 102 - 202 [Theorem~_vacuity_probe_a_tc_ch...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_change_B__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_change_B__b.v\", line 3, characters 53-63:\nError: The reference vec_change was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.198 secs (0.162u,0.036s)\nChars 102 - 202 [Theorem~_vacuity_probe_b_tc_ch...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_change_B__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a b n, vec_change (tc_tovec a b) tcB n = tc_tovec a n",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 39,
+      "name": "tc_posA",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_posA__a.v\", line 3, characters 47-54:\nError: The reference vec_pos was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.197 secs (0.168u,0.028s)\nChars 102 - 180 [Theorem~_vacuity_probe_a_tc_po...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_posA__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_posA__b.v\", line 3, characters 47-54:\nError: The reference vec_pos was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.195 secs (0.168u,0.027s)\nChars 102 - 180 [Theorem~_vacuity_probe_b_tc_po...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_posA__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a b, vec_pos (tc_tovec a b) tcA = a",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 42,
+      "name": "tc_posB",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_posB__a.v\", line 3, characters 47-54:\nError: The reference vec_pos was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.196 secs (0.168u,0.028s)\nChars 102 - 180 [Theorem~_vacuity_probe_a_tc_po...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_posB__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_posB__b.v\", line 3, characters 47-54:\nError: The reference vec_pos was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.198 secs (0.165u,0.032s)\nChars 102 - 180 [Theorem~_vacuity_probe_b_tc_po...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_posB__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a b, vec_pos (tc_tovec a b) tcB = b",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 46,
+      "name": "tc_mult",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_mult__a.v\", line 3, characters 49-61:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.194 secs (0.17u,0.023s)\nChars 102 - 267 [Theorem~_vacuity_probe_a_tc_mu...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_mult__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_mult__b.v\", line 3, characters 49-61:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.192 secs (0.165u,0.027s)\nChars 102 - 267 [Theorem~_vacuity_probe_b_tc_mu...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_mult__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k i a, sss_progress (@mma_sss 2) (i, mma_mult_cst_with_zero tcA tcB k i) (i, tc_tovec a 0) (8 + k + i, tc_tovec (k * a) 0)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 57,
+      "name": "tc_incs",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_incs__a.v\", line 3, characters 51-62:\nError: The reference sss_compute was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.191 secs (0.163u,0.028s)\nChars 102 - 244 [Theorem~_vacuity_probe_a_tc_in...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_incs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_incs__b.v\", line 3, characters 51-62:\nError: The reference sss_compute was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.194 secs (0.16u,0.034s)\nChars 102 - 244 [Theorem~_vacuity_probe_b_tc_in...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_incs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k i a b, sss_compute (@mma_sss 2) (i, mma_incs tcA k) (i, tc_tovec a b) (k + i, tc_tovec (k + a) b)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 64,
+      "name": "tc_decs",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_decs__a.v\", line 3, characters 65-77:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.198 secs (0.167u,0.031s)\nChars 102 - 261 [Theorem~_vacuity_probe_a_tc_de...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_decs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_decs__b.v\", line 3, characters 65-77:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.197 secs (0.167u,0.029s)\nChars 102 - 261 [Theorem~_vacuity_probe_b_tc_de...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_decs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall p q k i a b, k <= a -> sss_progress (@mma_sss 2) (i, mma_decs tcA p q k i) (i, tc_tovec a b) (p, tc_tovec (a - k) b)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 73,
+      "name": "tc_div_yes",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_yes__a.v\", line 3, characters 80-92:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.198 secs (0.171u,0.026s)\nChars 102 - 279 [Theorem~_vacuity_probe_a_tc_di...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_yes__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_yes__b.v\", line 3, characters 80-92:\nError: The reference sss_progress was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.199 secs (0.176u,0.022s)\nChars 102 - 279 [Theorem~_vacuity_probe_b_tc_di...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_yes__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k i j a a', 0 < k -> a = a' * k -> sss_progress (@mma_sss 2) (i, mma_div_branch tcA tcB k i j) (i, tc_tovec a 0) (j, tc_tovec a' 0)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 85,
+      "name": "tc_div_no",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_no__a.v\", line 3, characters 64-71:\nError: The reference divides was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.198 secs (0.168u,0.029s)\nChars 102 - 290 [Theorem~_vacuity_probe_a_tc_di...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_no__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_no__b.v\", line 3, characters 64-71:\nError: The reference divides was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.195 secs (0.159u,0.035s)\nChars 102 - 290 [Theorem~_vacuity_probe_b_tc_di...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_no__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k i j a, 0 < k -> ~ divides k a -> sss_progress (@mma_sss 2) (i, mma_div_branch tcA tcB k i j) (i, tc_tovec a 0) (16 + 7 * k + i, tc_tovec a 0)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/TcGadget.v",
+      "kind": "Lemma",
+      "line": 98,
+      "name": "tc_div_loop",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_loop__a.v\", line 3, characters 64-71:\nError: The reference divides was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.194 secs (0.162u,0.032s)\nChars 102 - 309 [Theorem~_vacuity_probe_a_tc_di...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_loop__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TcGadget__tc_div_loop__b.v\", line 3, characters 64-71:\nError: The reference divides was not found in the current environment.\n\nChars 65 - 101 [From~Kernel~Require~Import~TcG...] 0.194 secs (0.16u,0.033s)\nChars 102 - 309 [Theorem~_vacuity_probe_b_tc_di...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TcGadget__tc_div_loop__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k i y, 0 < k -> ~ divides k y -> forall c, sss_compute (@mma_sss 2) (i, mma_div_branch tcA tcB k i i) (i, tc_tovec (y * k ^ c) 0) (16 + 7 * k + i, tc_tovec y 0)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 81,
+      "name": "lift_oc_f_some",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall P x y, lift_oc_step P x = Some y -> lift_oc_f P x = y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 84,
+      "name": "lift_oc_f_none",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall P x, lift_oc_step P x = None -> lift_oc_f P x = x",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 87,
+      "name": "lift_oc_iter_fixed",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall P n x, lift_oc_f P x = x -> Nat.iter n (lift_oc_f P) x = x",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 93,
+      "name": "lift_oc_run_iter",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall n P x, lift_oc_run n P x = Nat.iter n (lift_oc_f P) x",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 113,
+      "name": "lift_cf_succ",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_succ__a.v\", line 3, characters 66-67:\nError: The reference f was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.167 secs (0.142u,0.025s)\nChars 109 - 189 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_succ__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_succ__b.v\", line 3, characters 66-67:\nError: The reference f was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.165 secs (0.137u,0.028s)\nChars 109 - 189 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_succ__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t, lift_cf (S t) = f (lift_cf t)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 116,
+      "name": "lift_cf_add",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_add__a.v\", line 3, characters 80-81:\nError: The reference f was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.171 secs (0.137u,0.033s)\nChars 109 - 203 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_add__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_add__b.v\", line 3, characters 80-81:\nError: The reference f was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.172 secs (0.144u,0.027s)\nChars 109 - 203 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cf_add__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a b, lift_cf (a + b) = Nat.iter a f (lift_cf b)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 119,
+      "name": "lift_stopped_stays",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_stopped_stays__a.v\", line 3, characters 71-72:\nError: The reference P was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.144u,0.023s)\nChars 109 - 213 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_stopped_stays__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_stopped_stays__b.v\", line 3, characters 71-72:\nError: The reference P was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.171 secs (0.139u,0.032s)\nChars 109 - 213 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_stopped_stays__b.v",
+        "succeeded": false
+      },
+      "statement": "forall d y, lift_oc_step P y = None -> Nat.iter d f y = y",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 122,
+      "name": "lift_alive_down",
+      "probe_a": {
+        "coq_stderr_tail": "chine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_down__a.v\", line 3, characters 55-67:\nError: In environment\nt : list lift_oc_instr\ns : ?T\nThe term \"lift_alive t\" has type \"lift_oc_conf -> nat -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.172 secs (0.146u,0.025s)\nChars 109 - 203 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_down__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_down__b.v\", line 3, characters 55-67:\nError: In environment\nt : list lift_oc_instr\ns : ?T\nThe term \"lift_alive t\" has type \"lift_oc_conf -> nat -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.171 secs (0.14u,0.03s)\nChars 109 - 203 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_down__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t s, lift_alive t -> s <= t -> lift_alive s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 131,
+      "name": "lift_alive_pc",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_pc__a.v\", line 3, characters 100-101:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.136u,0.032s)\nChars 109 - 211 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_pc__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_pc__b.v\", line 3, characters 100-101:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.134u,0.034s)\nChars 109 - 211 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_pc__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t, lift_alive t -> 1 <= lift_pcn t /\\ lift_pcn t <= k",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 140,
+      "name": "lift_alive_iff_pc",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_iff_pc__a.v\", line 3, characters 90-91:\nError: The reference P was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.167 secs (0.142u,0.024s)\nChars 109 - 242 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_iff_pc__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_iff_pc__b.v\", line 3, characters 90-91:\nError: The reference P was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.141u,0.027s)\nChars 109 - 242 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_alive_iff_pc__b.v",
+        "succeeded": false
+      },
+      "statement": "forall y y', fst y = fst y' -> (lift_oc_step P y <> None <-> lift_oc_step P y' <> None)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 148,
+      "name": "lift_cnt_step",
+      "probe_a": {
+        "coq_stderr_tail": "rk/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cnt_step__a.v\", line 3, characters 61-64:\nError:\nIn environment\nt : nat\nThe term \"S t\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.169 secs (0.146u,0.022s)\nChars 109 - 229 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cnt_step__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rk/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_cnt_step__b.v\", line 3, characters 61-64:\nError:\nIn environment\nt : nat\nThe term \"S t\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.136u,0.031s)\nChars 109 - 229 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_cnt_step__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t, lift_cnt (S t) <= lift_cnt t + 1 /\\ lift_cnt t <= lift_cnt (S t) + 1",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 156,
+      "name": "lift_rep_never",
+      "probe_a": {
+        "coq_stderr_tail": "Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_rep_never__a.v\", line 3, characters 71-72:\nError:\nIn environment\ni : nat\nj : nat\nThe term \"i\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.167 secs (0.148u,0.018s)\nChars 109 - 236 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_rep_never__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_rep_never__b.v\", line 3, characters 71-72:\nError:\nIn environment\ni : nat\nj : nat\nThe term \"i\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.137u,0.03s)\nChars 109 - 236 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_rep_never__b.v",
+        "succeeded": false
+      },
+      "statement": "forall i j, i < j -> lift_cf i = lift_cf j -> lift_alive j -> forall t, lift_alive t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 171,
+      "name": "lift_bounded_never",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_bounded_never__a.v\", line 3, characters 73-74:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.167 secs (0.145u,0.021s)\nChars 109 - 271 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_bounded_never__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_bounded_never__b.v\", line 3, characters 73-74:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.169 secs (0.149u,0.019s)\nChars 109 - 271 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_bounded_never__b.v",
+        "succeeded": false
+      },
+      "statement": "forall Bm, (forall t, t <= k * (Bm + 1) -> lift_cnt t <= Bm) -> lift_alive (k * (Bm + 1)) -> forall t, lift_alive t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 215,
+      "name": "lift_oc_pos_shift",
+      "probe_a": {
+        "coq_stderr_tail": "end\n          | None => None\n          end\n        with\n        | Some y => y\n        | None => (p, c)\n        end in\n      y) e)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.174 secs (0.148u,0.025s)\nChars 109 - 304 [Theorem~_vacuity_probe_a_lift_...] 0.001 secs (0.001u,0.s)\nChars 305 - 311 [Proof.] 0. secs (0.u,0.s)\nChars 312 - 334 [(intros;~lazy;~exact~I).] 0.003 secs (0.003u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_pos_shift__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_pos_shift__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.138u,0.03s)\nChars 109 - 304 [Theorem~_vacuity_probe_b_lift_...] 0.001 secs (0.001u,0.s)\nChars 305 - 311 [Proof.] 0. secs (0.u,0.s)\nChars 312 - 342 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_pos_shift__b.v",
+        "succeeded": false
+      },
+      "statement": "forall P p c e, lift_oc_pos P (p, c) -> lift_oc_pos P (p, c + e) /\\ lift_oc_f P (p, c + e) = (fst (lift_oc_f P (p, c)), snd (lift_oc_f P (p, c)) + e)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 238,
+      "name": "lift_oc_posrun_shift",
+      "probe_a": {
+        "coq_stderr_tail": "nd\n               with\n               | Some y => y\n               | None => F n0\n               end\n           end) D in\n      y) e)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.171 secs (0.136u,0.035s)\nChars 109 - 366 [Theorem~_vacuity_probe_a_lift_...] 0.001 secs (0.u,0.001s)\nChars 367 - 373 [Proof.] 0. secs (0.u,0.s)\nChars 374 - 396 [(intros;~lazy;~exact~I).] 0.01 secs (0.009u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_posrun_shift__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "achine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_posrun_shift__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.169 secs (0.139u,0.03s)\nChars 109 - 366 [Theorem~_vacuity_probe_b_lift_...] 0.001 secs (0.001u,0.s)\nChars 367 - 373 [Proof.] 0. secs (0.u,0.s)\nChars 374 - 404 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_posrun_shift__b.v",
+        "succeeded": false
+      },
+      "statement": "forall P D p c, lift_oc_posrun P D (p, c) -> forall e, lift_oc_posrun P D (p, c + e) /\\ Nat.iter D (lift_oc_f P) (p, c + e) = (fst (Nat.iter D (lift_oc_f P) (p, c)), snd (Nat.iter D (lift_oc_f P) (p, c)) + e)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 260,
+      "name": "lift_oc_bounded_dec",
+      "probe_a": {
+        "coq_stderr_tail": "e term \"I\" has type \"True\" while it is expected to have type\n \"(exists m : nat, S m <= T /\\ Q m) \\/\n  (forall m : nat, S m <= T -> Q m -> False)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.171 secs (0.145u,0.026s)\nChars 109 - 275 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 276 - 282 [Proof.] 0. secs (0.u,0.s)\nChars 283 - 305 [(intros;~lazy;~exact~I).] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_bounded_dec__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "iele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_bounded_dec__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.172 secs (0.145u,0.026s)\nChars 109 - 275 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 276 - 282 [Proof.] 0. secs (0.u,0.s)\nChars 283 - 313 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_bounded_dec__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (Q : nat -> Prop), (forall n, Q n \\/ ~ Q n) -> forall T, (exists m, m < T /\\ Q m) \\/ (forall m, m < T -> ~ Q m)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 273,
+      "name": "lift_oc_greatest_below",
+      "probe_a": {
+        "coq_stderr_tail": "e \"True\" while it is expected to have type\n \"exists z : nat,\n    S z <= t /\\ Q z /\\ (forall s : nat, S z <= s -> S s <= t -> Q s -> False)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.171 secs (0.139u,0.031s)\nChars 109 - 311 [Theorem~_vacuity_probe_a_lift_...] 0.001 secs (0.001u,0.s)\nChars 312 - 318 [Proof.] 0. secs (0.u,0.s)\nChars 319 - 341 [(intros;~lazy;~exact~I).] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_greatest_below__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_greatest_below__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.169 secs (0.138u,0.031s)\nChars 109 - 311 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 312 - 318 [Proof.] 0. secs (0.u,0.s)\nChars 319 - 349 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_greatest_below__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (Q : nat -> Prop), (forall n, Q n \\/ ~ Q n) -> forall t, (exists s, s < t /\\ Q s) -> exists z, z < t /\\ Q z /\\ forall s, z < s -> s < t -> ~ Q s",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 294,
+      "name": "lift_oc_first_spec",
+      "probe_a": {
+        "coq_stderr_tail": "=\n      match d with\n      | 0 => s\n      | S d' => if Qb s then s else lift_oc_first Qb (S s) d'\n      end) Qb s d -> Qb m = false)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.166 secs (0.136u,0.029s)\nChars 109 - 396 [Theorem~_vacuity_probe_a_lift_...] 0.001 secs (0.001u,0.s)\nChars 397 - 403 [Proof.] 0. secs (0.u,0.s)\nChars 404 - 426 [(intros;~lazy;~exact~I).] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_first_spec__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_first_spec__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.164 secs (0.136u,0.028s)\nChars 109 - 396 [Theorem~_vacuity_probe_b_lift_...] 0.001 secs (0.001u,0.s)\nChars 397 - 403 [Proof.] 0. secs (0.u,0.s)\nChars 404 - 434 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_first_spec__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (Qb : nat -> bool) d s, (exists m, s <= m /\\ m <= s + d /\\ Qb m = true) -> s <= lift_oc_first Qb s d /\\ lift_oc_first Qb s d <= s + d /\\ Qb (lift_oc_first Qb s d) = true /\\ forall m, s <= m -> m < lift_oc_first Qb s d -> Qb m = false",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 326,
+      "name": "lift_oc_ivt",
+      "probe_a": {
+        "coq_stderr_tail": "-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_ivt__a.v\", line 3, characters 76-78:\nError:\nIn environment\ns1 : nat\ns0 : nat\nv : ?T\nThe term \"s0\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.14u,0.028s)\nChars 109 - 263 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_ivt__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_ivt__b.v\", line 3, characters 76-78:\nError:\nIn environment\ns1 : nat\ns0 : nat\nv : ?T\nThe term \"s0\" has type \"nat\" while it is expected to have type\n \"list lift_oc_instr\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.17 secs (0.14u,0.029s)\nChars 109 - 263 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_ivt__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s1 s0 v, s0 <= s1 -> lift_cnt s0 <= v -> v <= lift_cnt s1 -> exists s, s0 <= s /\\ s <= s1 /\\ lift_cnt s = v",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 344,
+      "name": "lift_oc_caseB",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_caseB__a.v\", line 3, characters 101-102:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.17 secs (0.144u,0.026s)\nChars 109 - 257 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_caseB__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_caseB__b.v\", line 3, characters 101-102:\nError: The reference k was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.17 secs (0.144u,0.025s)\nChars 109 - 257 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_caseB__b.v",
+        "succeeded": false
+      },
+      "statement": "forall T, lift_alive T -> (exists t, t <= T /\\ lift_cnt 0 + k + 1 <= lift_cnt t) -> forall t, lift_alive t",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Theorem",
+      "line": 432,
+      "name": "lift_oc_halts_bound",
+      "probe_a": {
+        "coq_stderr_tail": "n\n                       x), 0)\n               | S n0 => (j, n0)\n               end\n           end\n     | None => None\n     end = None)\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.171 secs (0.149u,0.021s)\nChars 109 - 266 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 267 - 273 [Proof.] 0. secs (0.u,0.s)\nChars 274 - 296 [(intros;~lazy;~exact~I).] 0.025 secs (0.023u,0.001s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "iele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_bound__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.139u,0.028s)\nChars 109 - 266 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 267 - 273 [Proof.] 0. secs (0.u,0.s)\nChars 274 - 304 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall P x, lift_oc_halts P x <-> lift_oc_step P (lift_oc_run (length P * (snd x + length P + 1)) P x) = None",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Theorem",
+      "line": 456,
+      "name": "lift_oc_halts_dec",
+      "probe_a": {
+        "coq_stderr_tail": "x), 0)\n                | S n0 => (j, n0)\n                end\n            end\n      | None => None\n      end = None) -> False}\".\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.17 secs (0.134u,0.035s)\nChars 109 - 210 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)\nChars 211 - 217 [Proof.] 0. secs (0.u,0.s)\nChars 218 - 240 [(intros;~lazy;~exact~I).] 0.009 secs (0.008u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_dec__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_dec__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.169 secs (0.144u,0.024s)\nChars 109 - 210 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)\nChars 211 - 217 [Proof.] 0. secs (0.u,0.s)\nChars 218 - 248 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_halts_dec__b.v",
+        "succeeded": false
+      },
+      "statement": "forall P x, {lift_oc_halts P x} + {~ lift_oc_halts P x}",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Lemma",
+      "line": 473,
+      "name": "lift_oc_embed_step",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_step__a.v\", line 3, characters 69-72:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.169 secs (0.146u,0.022s)\nChars 109 - 305 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_step__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_step__b.v\", line 3, characters 69-72:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.169 secs (0.146u,0.022s)\nChars 109 - 305 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_step__b.v",
+        "succeeded": false
+      },
+      "statement": "forall P x, T.cm_step (map lift_oc_to_cm P) (fst x, (snd x, 0)) = match lift_oc_step P x with | Some y => Some (fst y, (snd y, 0)) | None => None end",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Theorem",
+      "line": 487,
+      "name": "lift_oc_embed_run",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_run__a.v\", line 3, characters 71-74:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.168 secs (0.133u,0.035s)\nChars 109 - 279 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_run__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_run__b.v\", line 3, characters 71-74:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.167 secs (0.137u,0.029s)\nChars 109 - 279 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_run__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n P x, T.cm_run n (map lift_oc_to_cm P) (fst x, (snd x, 0)) = (fst (lift_oc_run n P x), (snd (lift_oc_run n P x), 0))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/LiftOneCounter.v",
+      "kind": "Theorem",
+      "line": 500,
+      "name": "lift_oc_embed_halts",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_halts__a.v\", line 3, characters 81-84:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.169 secs (0.13u,0.038s)\nChars 109 - 296 [Theorem~_vacuity_probe_a_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_halts__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_halts__b.v\", line 3, characters 81-84:\nError: The reference map was not found in the current environment.\n\nChars 65 - 108 [From~Minimal~Require~Import~Li...] 0.17 secs (0.147u,0.022s)\nChars 109 - 296 [Theorem~_vacuity_probe_b_lift_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__LiftOneCounter__lift_oc_embed_halts__b.v",
+        "succeeded": false
+      },
+      "statement": "forall P x, (exists n, T.cm_step (map lift_oc_to_cm P) (T.cm_run n (map lift_oc_to_cm P) (fst x, (snd x, 0))) = None) <-> lift_oc_halts P x",
       "status": "ok"
     }
   ]
