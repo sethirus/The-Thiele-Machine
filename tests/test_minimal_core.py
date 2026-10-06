@@ -585,3 +585,66 @@ def test_entitlement_leftovers_compile_axiom_free(tmp_path):
                 f"receipts, saw {closed}\n" + proc.stdout
             )
             assert "Axioms:" not in proc.stdout
+
+
+NEC_CHAIN = (
+    "EarnedCore.v", "EarnedGeneric.v", "ThieleComplete.v", "EntitlementSmall.v",
+    "EntitlementMore2.v", "NecEEnt.v", "EarnedMulti.v", "MultiThiele2.v",
+    "BitSearch2.v", "BitSearchMember2.v", "TimeTax2.v", "NecESearch.v",
+    "NecSClean.v", "NecSChain.v", "UniversalThiele.v", "NecSHost.v",
+    "UniversalNoCopy.v", "NecSNoCopy.v", "NecSWindow.v", "NecTEarned.v",
+    "NecTGeneric.v", "NecTLoop.v", "NecTLoose.v", "NecTPartition.v",
+    "NecTToll.v", "NecTUnclean.v", "ThieleCompleteWindow.v", "VerifierSmall.v",
+    "NecTVerifier.v",
+)
+NEC_EXPECTED_CLOSED = {
+    "NecEEnt.v": 27,
+    "NecESearch.v": 4,
+    "NecSClean.v": 21,
+    "NecSChain.v": 2,
+    "NecSHost.v": 13,
+    "NecSNoCopy.v": 4,
+    "NecSWindow.v": 16,
+    "NecTEarned.v": 2,
+    "NecTGeneric.v": 6,
+    "NecTLoop.v": 2,
+    "NecTLoose.v": 4,
+    "NecTPartition.v": 7,
+    "NecTToll.v": 4,
+    "NecTUnclean.v": 1,
+    "NecTVerifier.v": 3,
+}
+
+
+@pytest.mark.coq
+def test_necessity_files_in_minimal_compile_axiom_free(tmp_path):
+    """The fifteen necessity files that stand on the small machine alone
+    (counterexamples that drop one premise of a small-machine theorem, the
+    exact toll and floor, the window oracle, the n-bit search) compile with
+    plain coqc against the standard library and the small-machine files, and
+    every theorem each one prints assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    for name in NEC_CHAIN:
+        (lib / name).write_text((MINIMAL_DIR / name).read_text())
+    for name in NEC_CHAIN:
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=900,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+        if name in NEC_EXPECTED_CLOSED:
+            closed = proc.stdout.count("Closed under the global context")
+            assert closed == NEC_EXPECTED_CLOSED[name], (
+                f"{name}: expected {NEC_EXPECTED_CLOSED[name]} closed-assumption "
+                f"receipts, saw {closed}\n" + proc.stdout
+            )
+            assert "Axioms:" not in proc.stdout
+    assert set(NEC_EXPECTED_CLOSED) == {
+        p.name for p in MINIMAL_DIR.glob("Nec*.v")
+    }, "every minimal/Nec*.v file needs an expected count"
