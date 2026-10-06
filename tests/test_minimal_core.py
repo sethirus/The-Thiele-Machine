@@ -714,3 +714,47 @@ def test_two_counter_minimal_files_compile_axiom_free(tmp_path):
                 f"receipts, saw {closed}\n" + proc.stdout
             )
             assert "Axioms:" not in proc.stdout
+
+
+LIFT_MINIMAL_CHAIN = (
+    "EarnedCore.v", "EarnedGeneric.v", "ThieleComplete.v", "LiftPigeon.v",
+    "LiftCore.v", "LiftConverse.v", "LiftOneCounter.v",
+)
+LIFT_MINIMAL_EXPECTED_CLOSED = {
+    "LiftPigeon.v": 0,
+    "LiftCore.v": 2,
+    "LiftConverse.v": 7,
+    "LiftOneCounter.v": 3,
+}
+
+
+@pytest.mark.coq
+def test_lifting_minimal_files_compile_axiom_free(tmp_path):
+    """The lifting of any universal base to a Thiele-complete machine
+    (LiftCore.v), the converse and the counterexamples (LiftConverse.v), the
+    pigeonhole principle (LiftPigeon.v) and the decision procedure for one
+    counter (LiftOneCounter.v) compile with plain coqc against
+    ThieleComplete.v and the standard library, and every theorem each one
+    prints assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    for name in LIFT_MINIMAL_CHAIN:
+        (lib / name).write_text((MINIMAL_DIR / name).read_text())
+    for name in LIFT_MINIMAL_CHAIN:
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=900,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+        if name in LIFT_MINIMAL_EXPECTED_CLOSED:
+            closed = proc.stdout.count("Closed under the global context")
+            assert closed == LIFT_MINIMAL_EXPECTED_CLOSED[name], (
+                f"{name}: expected {LIFT_MINIMAL_EXPECTED_CLOSED[name]} closed-assumption "
+                f"receipts, saw {closed}\n" + proc.stdout
+            )
+            assert "Axioms:" not in proc.stdout

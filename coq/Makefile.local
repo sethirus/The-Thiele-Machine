@@ -22,6 +22,7 @@ COQLIBS := $(subst -R . Top,,$(COQLIBS))
 UNDEC_DIR := ../vendor/coq-undecidability/theories
 UNDEC_MODULES := \
   FRACTRAN/FRACTRAN.vo FRACTRAN/Reductions/MM_FRACTRAN.vo FRACTRAN/Util/prime_seq.vo \
+  H10/H10.vo \
   L/Computability/MuRec.vo L/Datatypes/LBool.vo L/Datatypes/Lists.vo L/Datatypes/LNat.vo \
   L/Datatypes/LOptions.vo L/Datatypes/LProd.vo L/L.vo L/Tactics/GenEncode.vo L/Tactics/LTactics.vo \
   L/Util/ClosedLAdmissible.vo L/Util/L_facts.vo MinskyMachines/MM.vo MinskyMachines/MM2.vo \
@@ -32,14 +33,16 @@ UNDEC_MODULES := \
   MinskyMachines/Reductions/L_computable_closed_to_MMA_computable.vo \
   MinskyMachines/Reductions/L_computable_to_MMA_computable.vo \
   MinskyMachines/Reductions/MMA2_to_MM2.vo MinskyMachines/Util/MMA_pairing.vo MuRec/MuRec.vo \
-  MuRec/Util/ra_mm_env.vo MuRec/Util/recalg.vo PCP/PCP.vo PCP/PCP_undec.vo \
+  MuRec/Util/ra_mm_env.vo MuRec/Util/ra_sem_eq.vo MuRec/Util/recalg.vo \
+  PCP/PCP.vo PCP/PCP_undec.vo \
   PCP/Reductions/PCPb_iff_iPCPb.vo Shared/Libs/DLW/Code/compiler.vo \
   Shared/Libs/DLW/Code/compiler_correction.vo Shared/Libs/DLW/Code/sss.vo \
   Shared/Libs/DLW/Code/subcode.vo Shared/Libs/DLW/Utils/gcd.vo \
   Shared/Libs/DLW/Utils/godel_coding.vo Shared/Libs/DLW/Utils/prime.vo \
   Shared/Libs/DLW/Utils/utils.vo Shared/Libs/DLW/Vec/pos.vo Shared/Libs/DLW/Vec/vec.vo \
   StackMachines/BSM.vo StackMachines/Reductions/iPCPb_to_BSM_HALTING.vo \
-  Synthetic/ReducibilityFacts.vo Synthetic/Undecidability.vo TM/SBTM.vo
+  Synthetic/Models_Equivalent.vo Synthetic/ReducibilityFacts.vo Synthetic/Undecidability.vo \
+  TM/SBTM.vo TM/TM.vo
 $(addprefix $(UNDEC_DIR)/,$(UNDEC_MODULES)) &: $(shell find $(UNDEC_DIR) -name '*.v') $(UNDEC_DIR)/_CoqProject
 	$(MAKE) -C $(UNDEC_DIR) Makefile.coq
 	$(MAKE) -C $(UNDEC_DIR) -f Makefile.coq $(UNDEC_MODULES)

@@ -27,3 +27,9 @@ changes and listed in `UNDEC_MODULES` of `coq/Makefile.local`:
   `Shared/Libs/DLW/Code/compiler.v` and `Shared/Libs/DLW/Utils/{utils,gcd,prime}.v`.
 
 Their build dependencies come with them through the library's own makefile.
+
+The lifting theorem files (LiftModelsAll.v, LiftHeadline.v) also need the
+equivalence of the classical models, so `Synthetic/Models_Equivalent.v`,
+`H10/H10.v`, `TM/TM.v` and `MuRec/Util/ra_sem_eq.v` are listed too; the library's
+own makefile builds the rest of their closure (the Diophantine, Turing machine
+and reduction modules), all copied without source changes.

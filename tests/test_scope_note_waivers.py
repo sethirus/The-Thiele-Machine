@@ -170,6 +170,7 @@ WAIVED_FILES = [
     "minimal/EarnedMulti.v",
     "minimal/EarnedMultiPriced.v",
     "minimal/EarnedPriced.v",
+    "minimal/LiftPigeon.v",
     "minimal/MuCore.v",
     "minimal/Napkin.v",
     "minimal/NecTPartition.v",
