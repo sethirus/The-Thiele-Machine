@@ -179,8 +179,9 @@ Definition tc_chkf (d fuel x c : nat) : option nat :=
 
 Instance term_tc_chkf : computable tc_chkf. Proof. extract. Qed.
 
-Lemma tc_chkf_mono : forall n n' x c m, tc_chkf 0 n x c = Some m -> n <= n' -> tc_chkf 0 n' x c = Some m.
-Proof. intros n n' x c m H _. exact H. Qed.
+(* The function ignores its fuel, so any two fuels give the same value. *)
+Lemma tc_chkf_fuel_free : forall d n n' x c, tc_chkf d n x c = tc_chkf d n' x c.
+Proof. intros d n n' x c. reflexivity. Qed.
 
 Definition tc_Rchk (v : Vector.t nat 2) (m : nat) : Prop :=
   exists n, tc_chkf 0 n (Vector.hd v) (Vector.hd (Vector.tl v)) = Some m.
@@ -188,7 +189,7 @@ Definition tc_Rchk (v : Vector.t nat 2) (m : nat) : Prop :=
 Theorem tc_chk_MMA : MMA_computable tc_Rchk.
 Proof.
   apply L_computable_to_MMA_computable.
-  exact (@tc_L_computable_fuel2 nat _ tc_chkf _ 0 tc_chkf_mono).
+  exact (@tc_L_computable_fuel2 nat _ tc_chkf _ 0 (fun n n' x c m H _ => eq_trans (tc_chkf_fuel_free 0 n' n x c) H)).
 Qed.
 
 Lemma tc_pcode_fprog : forall p, tc_pcode (tc_fprog p) = UC.pair (UC.pair 3 (UC.pair 0 (tc_pcode p + 1 + 2))) 0.

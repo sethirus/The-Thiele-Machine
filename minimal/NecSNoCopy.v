@@ -36,8 +36,8 @@ Qed.
 (* ================================================================= *)
 
 (* The translation id meets the soundness hypothesis. *)
-Lemma nec_s_id_sound : forall p v, C.eval p v = true -> C.eval (id p) v = true.
-Proof. auto. Qed.
+Lemma nec_s_id_sound : forall p v, C.eval p v = true <-> C.eval (id p) v = true.
+Proof. intros p v. split; intro H; exact H. Qed.
 
 (* No collision. *)
 Lemma nec_s_id_no_collision : forall n m, n <> m -> id (C.PGe n) <> id (C.PGe m).
@@ -67,7 +67,7 @@ Proof.
 Qed.
 
 Theorem nec_s_nocopy_needs_finite_Q :
-  (forall p v, C.eval p v = true -> C.eval (id p) v = true) /\
+  (forall p v, C.eval p v = true <-> C.eval (id p) v = true) /\
   (forall Q : list C.prop, ~ (forall p, In (id p) Q)) /\
   ~ (exists n m, n <> m /\ id (C.PGe n) = id (C.PGe m)) /\
   (forall n m (R : nat) (vs : nat -> nat), n <> m ->
