@@ -9,7 +9,7 @@
     can [tc_div_loop].
 
     Dependencies: Coq standard library, the vendored coq-undecidability
-    library, TcBridge.v. No axioms and no unfinished proofs.                           *)
+    library, TcBridge.v, EarnedCore.v. No axioms and no unfinished proofs.                           *)
 
 From Coq Require Import List Arith Lia Bool.
 Import ListNotations.
@@ -17,6 +17,7 @@ From Undecidability.Shared.Libs.DLW Require Import utils gcd pos vec subcode sss
 From Undecidability.MinskyMachines Require Import MM MMA.
 From Undecidability.MinskyMachines.MMA Require Import mma_defs mma_utils.
 Require Import Kernel.TcBridge.
+Require Minimal.EarnedCore.
 Set Default Goal Selector "!".
 
 Definition tcA : pos 2 := pos1.

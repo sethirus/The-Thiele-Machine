@@ -75,19 +75,19 @@ Extract Inductive nat => "Z.t" ["Z.zero" "Z.succ"]
 (* plus, mult, minus are the names under which Coq elaborates + * - ; Nat.add,
    Nat.mul, Nat.sub are the same functions under their own names, and the
    extraction tables are keyed by the name, so both are given. *)
-Extract Constant plus => "Z.add".
-Extract Constant mult => "Z.mul".
-Extract Constant minus => "(fun n m -> Z.max Z.zero (Z.sub n m))".
-Extract Constant Nat.add => "Z.add".
-Extract Constant Nat.mul => "Z.mul".
-Extract Constant Nat.sub => "(fun n m -> Z.max Z.zero (Z.sub n m))".
-Extract Constant Nat.eqb => "Z.equal".
-Extract Constant Nat.leb => "Z.leq".
-Extract Constant Nat.ltb => "Z.lt".
-Extract Constant Nat.div => "(fun a b -> if Z.equal b Z.zero then Z.zero else Z.div a b)".
-Extract Constant Nat.modulo => "(fun a b -> if Z.equal b Z.zero then a else Z.rem a b)".
-Extract Constant Peano_dec.eq_nat_dec => "Z.equal".
-Extract Constant Nat.eq_dec => "Z.equal".
+Extract Constant plus => "Z.add". (* SAFE: Z.add is exact integer addition and nat is extracted as Z.t. *)
+Extract Constant mult => "Z.mul". (* SAFE: Z.mul is exact integer multiplication. *)
+Extract Constant minus => "(fun n m -> Z.max Z.zero (Z.sub n m))". (* SAFE: truncated subtraction, which is what nat subtraction is. *)
+Extract Constant Nat.add => "Z.add". (* SAFE: same function as plus under its other name. *)
+Extract Constant Nat.mul => "Z.mul". (* SAFE: same function as mult under its other name. *)
+Extract Constant Nat.sub => "(fun n m -> Z.max Z.zero (Z.sub n m))". (* SAFE: same function as minus under its other name. *)
+Extract Constant Nat.eqb => "Z.equal". (* SAFE: Z.equal tests integer equality. *)
+Extract Constant Nat.leb => "Z.leq". (* SAFE: Z.leq tests integer order. *)
+Extract Constant Nat.ltb => "Z.lt". (* SAFE: Z.lt tests strict integer order. *)
+Extract Constant Nat.div => "(fun a b -> if Z.equal b Z.zero then Z.zero else Z.div a b)". (* SAFE: floor division on naturals with Coq x/0 = 0. *)
+Extract Constant Nat.modulo => "(fun a b -> if Z.equal b Z.zero then a else Z.rem a b)". (* SAFE: remainder on naturals with Coq x mod 0 = x. *)
+Extract Constant Peano_dec.eq_nat_dec => "Z.equal". (* SAFE: a decision of equality on Z.t is the equality test. *)
+Extract Constant Nat.eq_dec => "Z.equal". (* SAFE: a decision of equality on Z.t is the equality test. *)
 
 (* nat and the arithmetic above are the only substitutions. Everything
    else, the compiler, the interpreter, the tries and the runner, is

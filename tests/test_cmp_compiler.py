@@ -51,6 +51,10 @@ import cmp_src as cs  # noqa: E402
 coq = pytest.mark.coq
 slow = pytest.mark.slow
 
+# Every test here runs the compiler extracted by coqc, so every test carries the
+# coq marker and with it the coq per-test timeout, as in test_realize.py.
+pytestmark = coq
+
 VM_LIMIT = 4_000_000          # steps up to which the python virtual machines are run
 REPORT = []                   # measurements, written at the end
 
