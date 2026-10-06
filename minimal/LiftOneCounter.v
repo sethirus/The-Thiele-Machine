@@ -34,6 +34,12 @@
 
     No axioms and no unfinished proofs.                                                  *)
 
+(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file is
+   about a different machine, one counter instead of two, and proves its
+   halting decidable from the standard library and LiftPigeon.v alone. It uses
+   nothing of the small machine. LiftModels.v consumes lift_oc_halts_dec next
+   to LiftCore.v, which carries the link to the abstract record. *)
+
 From Coq Require Import List Arith Lia.
 Import ListNotations.
 From Minimal Require Import LiftPigeon.

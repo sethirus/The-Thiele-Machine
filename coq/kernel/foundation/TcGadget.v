@@ -11,6 +11,11 @@
     Dependencies: Coq standard library, the vendored coq-undecidability
     library, TcBridge.v. No axioms and no unfinished proofs.                           *)
 
+(* SCOPE NOTE: foundation connectivity runs through TcBridge.v, which reads
+   these two counters as the small machine's (EarnedCore.v). This file only
+   restates the vendored gadgets on states (a, b) and uses nothing of the small
+   machine directly, so it names no module of the chain itself. *)
+
 From Coq Require Import List Arith Lia Bool.
 Import ListNotations.
 From Undecidability.Shared.Libs.DLW Require Import utils gcd pos vec subcode sss.
