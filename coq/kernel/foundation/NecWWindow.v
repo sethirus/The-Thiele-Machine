@@ -27,7 +27,6 @@ From Coq Require Import List Bool Arith Lia.
 Import ListNotations.
 From Kernel Require Import ObservationPolicy ShadowPricing.
 Require Import Minimal.VerifierSmall.
-Require Minimal.ThieleComplete.
 
 (* ================================================================= *)
 (** * 1. Decoders and fibres                                          *)

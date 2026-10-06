@@ -164,11 +164,14 @@ _COST_TOKEN_RE = re.compile(
     r"\b(cs_cost|cs_total_cost|cs_cert_costs|rc_mu|step_cost|ledger_carried|rc_a2|mu_cost|mu_ledger|total_cost)\b"
 )
 
+# Module paths are dotted (Minimal.EarnedCore), so only a dot that no name
+# follows ends the command; and a plain Require loads a module as surely as
+# Require Import does, so both count as an import edge.
 _FROM_REQUIRE_IMPORTS_RE = re.compile(
-    r"(?m)^\s*From\s+([A-Za-z0-9_.]+)\s+Require\s+(?:Import|Export)\s+([^\.]+)\."
+    r"(?m)^\s*From\s+([A-Za-z0-9_.]+)\s+Require\s+(?:(?:Import|Export)\s+)?((?:[^.]|\.(?=[A-Za-z0-9_]))+)\."
 )
 _REQUIRE_IMPORTS_RE = re.compile(
-    r"(?m)^\s*Require\s+(?:Import|Export)\s+([^\.]+)\."
+    r"(?m)^\s*Require\s+(?:(?:Import|Export)\s+)?((?:[^.]|\.(?=[A-Za-z0-9_]))+)\."
 )
 
 
