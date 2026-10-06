@@ -682,3 +682,50 @@ Theorem rlz_phost_run_prog_with_eq : forall n P s,
 Proof.
   intros n P s. apply rlz_pu_run_prog_ext. apply rlz_pu_heval_with_eq. intro i. reflexivity.
 Qed.
+
+(* ================================================================= *)
+(* Assumption audit. Every line must print                            *)
+(* "Closed under the global context".                                 *)
+(* ================================================================= *)
+
+Print Assumptions rlz_nxtprime_le.
+Print Assumptions rlz_scan_ok.
+Print Assumptions rlz_nxtprime_with_eq.
+Print Assumptions rlz_nxtprime_eq.
+Print Assumptions rlz_iter_ext.
+Print Assumptions rlz_qs_with_eq.
+Print Assumptions rlz_qs_eq.
+Print Assumptions rlz_expo_fuel_eq.
+Print Assumptions rlz_expo_eq.
+Print Assumptions rlz_idec_eq.
+Print Assumptions rlz_pdec_list_eq.
+Print Assumptions rlz_pdec_prog_eq.
+Print Assumptions rlz_rdec_eq.
+Print Assumptions rlz_exec_sim.
+Print Assumptions rlz_run_fuel_sim.
+Print Assumptions rlz_out_codeb_eq.
+Print Assumptions rlz_ueval_with_eq.
+Print Assumptions rlz_ueval_eq.
+Print Assumptions rlz_phost_prop_eqb_is.
+Print Assumptions rlz_pu_pdec_eq.
+Print Assumptions rlz_pu_heval_with_eq.
+Print Assumptions rlz_pu_heval_eq.
+Print Assumptions rlz_pu_check_ok_ext.
+Print Assumptions rlz_pu_cexec_ext.
+Print Assumptions rlz_pu_exec_ext.
+Print Assumptions rlz_pu_run_prog_ext.
+Print Assumptions rlz_pr_check_ok_ext.
+Print Assumptions rlz_pr_cexec_ext.
+Print Assumptions rlz_pr_exec_ext.
+Print Assumptions rlz_pr_run_prog_ext.
+Print Assumptions rlz_phost_program_is.
+Print Assumptions rlz_pu_ccode_eq.
+Print Assumptions rlz_pu_cpcode_eq.
+Print Assumptions rlz_pu_pcode_eq.
+Print Assumptions rlz_pu_icode_eq.
+Print Assumptions rlz_pu_prog_code_eq.
+Print Assumptions rlz_phost_load_eq.
+Print Assumptions rlz_phost_run_prog_eq.
+Print Assumptions rlz_phost_at_eq.
+Print Assumptions rlz_pguest_run_prog_eq.
+Print Assumptions rlz_phost_run_prog_with_eq.

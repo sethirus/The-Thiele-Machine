@@ -295,3 +295,44 @@ Definition rlz_guest_at (P : list Minimal.EarnedCore.instr) (x y m : nat)
 Definition rlz_host_halting_statement (P : list E.instr) (x y : nat) : Prop :=
   (exists m, E.halted P (E.core_of (rlz_guest_at P x y m))) <->
   (exists n, M.halted UL.U (M.core_of (rlz_host_at P x y n))).
+
+(* ================================================================= *)
+(* Assumption audit. Every line must print                            *)
+(* "Closed under the global context".                                 *)
+(* ================================================================= *)
+
+Print Assumptions rlz_small_exec_is.
+Print Assumptions rlz_small_run_is.
+Print Assumptions rlz_small_step_is.
+Print Assumptions rlz_small_run_prog_is.
+Print Assumptions rlz_small_trace_of_is.
+Print Assumptions rlz_small_compile_is.
+Print Assumptions rlz_small_start_is.
+Print Assumptions rlz_small_halting_correspondence.
+Print Assumptions rlz_small_mu_conservation_trace.
+Print Assumptions rlz_small_run_prog_trace.
+Print Assumptions rlz_multi_run_prog_is.
+Print Assumptions rlz_multi_step_is.
+Print Assumptions rlz_multi_exec_is.
+Print Assumptions rlz_multi_run_is.
+Print Assumptions rlz_multi_mu_conservation_trace.
+Print Assumptions rlz_pmulti_run_prog_is.
+Print Assumptions rlz_pmulti_step_is.
+Print Assumptions rlz_pmulti_exec_is.
+Print Assumptions rlz_pmulti_run_is.
+Print Assumptions rlz_pgen_extends_gen.
+Print Assumptions rlz_pair_is.
+Print Assumptions rlz_unp_is.
+Print Assumptions rlz_unpair_is.
+Print Assumptions rlz_pcode_is.
+Print Assumptions rlz_pdec_is.
+Print Assumptions rlz_ccode_is.
+Print Assumptions rlz_icode_is.
+Print Assumptions rlz_prog_code_is.
+Print Assumptions rlz_host_prop_eqb_is.
+Print Assumptions rlz_host_eval_is.
+Print Assumptions rlz_host_program_is.
+Print Assumptions rlz_host_regs_is.
+Print Assumptions rlz_host_load_is.
+Print Assumptions rlz_host_run_prog_is.
+Print Assumptions rlz_host_at_is.

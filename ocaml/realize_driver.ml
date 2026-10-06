@@ -27,6 +27,8 @@
      uhost NR STRIDE K X Y <guest>   U run on the guest: the state, then K
                                      states each STRIDE steps later
      puhost NR STRIDE K X Y <guest>  U_P run on the priced guest
+     urun NR MAXHEADS MAXSTEPS X Y <guest>   U run to its stop, with the states at the
+                                     loop head (see run_to_stop); purun the same for U_P
      pair M N | unpair X | qs I | heval X | puheval X
      progcode <prog> | puprogcode <prog>
 
@@ -193,6 +195,72 @@ let cmd_puhost () =
     print_ints (R.rlz_view_pslot nr !s)
   done
 
+(* A run of U (or U_P) to the stop. Steps one host step at a time, counts the
+   steps, records the state at each visit of the loop head (host pc 1, one per
+   guest step, as UniversalRun.v says) for the first MAXHEADS visits, and
+   stops when the host program stops or MAXSTEPS steps have run. Prints
+   "STEPS n stopped" (stopped is 1 or 0), "HEADS count", the recorded head
+   states and then the final state.
+
+   Every step is taken by the extracted rlz_host_sched (rlz_phost_sched) with
+   a one-entry schedule. The entry is true every compact_every steps, and a
+   true entry replaces the register storage by a table (RealizeCompact.v
+   proves that changes no register, version or other field). Without it the
+   register functions form a chain one layer longer for every write, and a
+   run of hundreds of millions of steps does not fit in memory. The default
+   is 100000 steps; the tests set REALIZE_COMPACT_EVERY to compact often. *)
+let compact_every =
+  match Sys.getenv_opt "REALIZE_COMPACT_EVERY" with
+  | Some s -> max 1 (int_of_string s)
+  | None -> 100000
+
+let run_to_stop ~view ~advance ~stopped ~pc nr maxheads maxsteps program s0 =
+  let s = ref s0 in
+  let steps = ref 0 in
+  let heads = ref 0 in
+  let recorded = ref [] in
+  while (not (stopped program !s)) && !steps < maxsteps do
+    if Z.equal (pc !s) Z.one then begin
+      incr heads;
+      if !heads <= maxheads then recorded := view nr !s :: !recorded
+    end;
+    incr steps;
+    s := advance (!steps mod compact_every = 0) !s
+  done;
+  let st = stopped program !s in
+  print_line (Printf.sprintf "STEPS %d %d" !steps (if st then 1 else 0));
+  print_line (Printf.sprintf "HEADS %d" !heads);
+  List.iter print_ints (List.rev !recorded);
+  print_ints (view nr !s)
+
+let table_size = Z.of_int 96
+
+let cmd_urun () =
+  let nr = Z.of_int (next_int ()) in
+  let maxheads = next_int () in
+  let maxsteps = next_int () in
+  let x = next_z () in
+  let y = next_z () in
+  let guest = read_prog R.rlz_mk_small in
+  if not (R.rlz_prog_below table_size R.rlz_host_program0) then failwith "U names a register above the table";
+  let g = R.rlz_host_regs guest x y in
+  run_to_stop ~view:R.rlz_view_slot ~advance:(fun b s -> R.rlz_host_sched g [ b ] s)
+    ~stopped:R.rlz_stopped_slot ~pc:R.rlz_pc_slot nr maxheads maxsteps R.rlz_host_program0
+    (R.rlz_host_load guest x y)
+
+let cmd_purun () =
+  let nr = Z.of_int (next_int ()) in
+  let maxheads = next_int () in
+  let maxsteps = next_int () in
+  let x = next_z () in
+  let y = next_z () in
+  let guest = read_prog R.rlz_mk_pguest in
+  if not (R.rlzp_prog_below table_size R.rlz_phost_program0) then failwith "U_P names a register above the table";
+  let g = R.rlz_phost_regs guest x y in
+  run_to_stop ~view:R.rlz_view_pslot ~advance:(fun b s -> R.rlz_phost_sched g [ b ] s)
+    ~stopped:R.rlz_stopped_pslot ~pc:R.rlz_pc_pslot nr maxheads maxsteps R.rlz_phost_program0
+    (R.rlz_phost_load guest x y)
+
 let cmd_pair () =
   let m = next_z () in
   let n = next_z () in
@@ -237,6 +305,8 @@ let () =
      | "pslot" -> cmd_pslot ()
      | "uhost" -> cmd_uhost ()
      | "puhost" -> cmd_puhost ()
+     | "urun" -> cmd_urun ()
+     | "purun" -> cmd_purun ()
      | "pair" -> cmd_pair ()
      | "unpair" -> cmd_unpair ()
      | "qs" -> cmd_qs ()

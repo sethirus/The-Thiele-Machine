@@ -297,10 +297,13 @@ jobs:
 
       - name: Install runtime toolchain for Python tests
         # Coq + csdp (+ OCaml for the MetaCoq build) so every coq-marked test
-        # pytest collects can run, with no toolchain-missing skips.
+        # pytest collects can run, with no toolchain-missing skips. OCaml and
+        # the zarith library are also what tests/test_realize_ocaml.py compiles
+        # the machines extracted from Coq with; that test fails, it does not
+        # skip, when they are missing.
         uses: ./.github/actions/apt-install
         with:
-          packages: coq coinor-csdp ocaml ocaml-findlib
+          packages: coq coinor-csdp ocaml ocaml-findlib libzarith-ocaml-dev
 
       - name: Set up MetaCoq Template
         # The vendored L modules (L tactics, GenEncode, MuRec, the

@@ -7,8 +7,8 @@
     aliases); each list is followed by an eq_refl proof that it is the
     original, so Coq's kernel checks the table.
 
-    Dependencies: UniversalLayout.v, UniversalPLayout.v. No axioms, no
-    Admitted.                                                              *)
+    Dependencies: UniversalLayout.v, UniversalPLayout.v. No axioms and no
+    unfinished proofs.                                                     *)
 
 (* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this
    file is data, checked against its source by the proofs below. *)
@@ -18,7 +18,7 @@ Import ListNotations.
 Require Minimal.EarnedMulti Minimal.EarnedMultiPriced Minimal.UniversalCodes
   Kernel.UniversalLayout Kernel.UniversalPCodes Kernel.UniversalPLayout.
 
-Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+Definition rlz_host_program_c0 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
   [Minimal.EarnedMulti.DEC 4 1;
   Minimal.EarnedMulti.DEC 8 2;
   Minimal.EarnedMulti.INC 2;
@@ -82,8 +82,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 9 (N.to_nat 62%N);
   Minimal.EarnedMulti.INC 7;
-  Minimal.EarnedMulti.DEC 7 (N.to_nat 66%N);
-  Minimal.EarnedMulti.INC 9;
+  Minimal.EarnedMulti.DEC 7 (N.to_nat 66%N)].
+
+Definition rlz_host_program_c1 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 9;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 66%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 70%N);
@@ -146,8 +148,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 50%N) (N.to_nat 126%N);
   Minimal.EarnedMulti.DEC (N.to_nat 18%N) (N.to_nat 126%N);
   Minimal.EarnedMulti.INC (N.to_nat 51%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 51%N) (N.to_nat 129%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 19%N) (N.to_nat 129%N);
+  Minimal.EarnedMulti.DEC (N.to_nat 51%N) (N.to_nat 129%N)].
+
+Definition rlz_host_program_c2 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 19%N) (N.to_nat 129%N);
   Minimal.EarnedMulti.INC (N.to_nat 52%N);
   Minimal.EarnedMulti.DEC (N.to_nat 52%N) (N.to_nat 132%N);
   Minimal.EarnedMulti.DEC (N.to_nat 20%N) (N.to_nat 132%N);
@@ -210,8 +214,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 70%N) (N.to_nat 190%N);
   Minimal.EarnedMulti.DEC (N.to_nat 38%N) (N.to_nat 190%N);
   Minimal.EarnedMulti.INC (N.to_nat 71%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 71%N) (N.to_nat 193%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 39%N) (N.to_nat 193%N);
+  Minimal.EarnedMulti.DEC (N.to_nat 71%N) (N.to_nat 193%N)].
+
+Definition rlz_host_program_c3 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 39%N) (N.to_nat 193%N);
   Minimal.EarnedMulti.INC (N.to_nat 72%N);
   Minimal.EarnedMulti.DEC (N.to_nat 72%N) (N.to_nat 196%N);
   Minimal.EarnedMulti.DEC (N.to_nat 40%N) (N.to_nat 196%N);
@@ -274,8 +280,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 8 1;
   Minimal.EarnedMulti.INC (N.to_nat 48%N);
   Minimal.EarnedMulti.DEC (N.to_nat 48%N) (N.to_nat 256%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 16%N) (N.to_nat 256%N);
-  Minimal.EarnedMulti.INC (N.to_nat 49%N);
+  Minimal.EarnedMulti.DEC (N.to_nat 16%N) (N.to_nat 256%N)].
+
+Definition rlz_host_program_c4 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC (N.to_nat 49%N);
   Minimal.EarnedMulti.DEC (N.to_nat 49%N) (N.to_nat 259%N);
   Minimal.EarnedMulti.DEC (N.to_nat 17%N) (N.to_nat 259%N);
   Minimal.EarnedMulti.INC (N.to_nat 50%N);
@@ -338,8 +346,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC (N.to_nat 65%N);
   Minimal.EarnedMulti.DEC (N.to_nat 65%N) (N.to_nat 319%N);
   Minimal.EarnedMulti.DEC (N.to_nat 33%N) (N.to_nat 319%N);
-  Minimal.EarnedMulti.INC (N.to_nat 66%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 66%N) (N.to_nat 322%N);
+  Minimal.EarnedMulti.INC (N.to_nat 66%N)].
+
+Definition rlz_host_program_c5 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 66%N) (N.to_nat 322%N);
   Minimal.EarnedMulti.DEC (N.to_nat 34%N) (N.to_nat 322%N);
   Minimal.EarnedMulti.INC (N.to_nat 67%N);
   Minimal.EarnedMulti.DEC (N.to_nat 67%N) (N.to_nat 325%N);
@@ -402,8 +412,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 6 (N.to_nat 380%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 385%N);
-  Minimal.EarnedMulti.INC 6;
-  Minimal.EarnedMulti.DEC 7 (N.to_nat 388%N);
+  Minimal.EarnedMulti.INC 6].
+
+Definition rlz_host_program_c6 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 7 (N.to_nat 388%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 376%N);
   Minimal.EarnedMulti.DEC 7 (N.to_nat 384%N);
@@ -466,8 +478,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1179%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 450%N);
-  Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 1239%N);
+  Minimal.EarnedMulti.INC 8].
+
+Definition rlz_host_program_c7 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 8 (N.to_nat 1239%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 453%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1299%N);
@@ -530,8 +544,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 16%N) (N.to_nat 509%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 513%N);
-  Minimal.EarnedMulti.INC (N.to_nat 16%N);
-  Minimal.EarnedMulti.DEC 6 (N.to_nat 512%N);
+  Minimal.EarnedMulti.INC (N.to_nat 16%N)].
+
+Definition rlz_host_program_c8 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 6 (N.to_nat 512%N);
   Minimal.EarnedMulti.INC (N.to_nat 16%N);
   Minimal.EarnedMulti.INC (N.to_nat 14%N);
   Minimal.EarnedMulti.INC 3;
@@ -594,8 +610,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 6 (N.to_nat 572%N);
   Minimal.EarnedMulti.INC (N.to_nat 17%N);
   Minimal.EarnedMulti.INC (N.to_nat 14%N);
-  Minimal.EarnedMulti.INC 3;
-  Minimal.EarnedMulti.INC 8;
+  Minimal.EarnedMulti.INC 3].
+
+Definition rlz_host_program_c9 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 1;
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 579%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 580%N);
@@ -658,8 +676,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 1;
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 639%N);
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 640%N);
-  Minimal.EarnedMulti.INC 0;
+  Minimal.EarnedMulti.DEC 8 (N.to_nat 640%N)].
+
+Definition rlz_host_program_c10 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 0;
   Minimal.EarnedMulti.DEC 0 (N.to_nat 645%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.INC 8;
@@ -722,8 +742,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 0;
   Minimal.EarnedMulti.DEC 0 (N.to_nat 705%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
-  Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 0 (N.to_nat 703%N);
+  Minimal.EarnedMulti.INC 8].
+
+Definition rlz_host_program_c11 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 0 (N.to_nat 703%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 709%N);
   Minimal.EarnedMulti.INC 0;
@@ -786,8 +808,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 0 (N.to_nat 763%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 769%N);
-  Minimal.EarnedMulti.INC 0;
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 768%N);
+  Minimal.EarnedMulti.INC 0].
+
+Definition rlz_host_program_c12 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 8 (N.to_nat 768%N);
   Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 770%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 771%N);
   Minimal.EarnedMulti.INC 6;
@@ -850,8 +874,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 8 (N.to_nat 828%N);
   Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 830%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 831%N);
-  Minimal.EarnedMulti.INC 6;
-  Minimal.EarnedMulti.DEC 6 (N.to_nat 836%N);
+  Minimal.EarnedMulti.INC 6].
+
+Definition rlz_host_program_c13 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 6 (N.to_nat 836%N);
   Minimal.EarnedMulti.INC (N.to_nat 13%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 834%N);
@@ -914,8 +940,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 6 (N.to_nat 896%N);
   Minimal.EarnedMulti.INC (N.to_nat 13%N);
   Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 6 (N.to_nat 894%N);
-  Minimal.EarnedMulti.INC 8;
+  Minimal.EarnedMulti.DEC 6 (N.to_nat 894%N)].
+
+Definition rlz_host_program_c14 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 900%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 899%N);
@@ -978,8 +1006,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 960%N);
   Minimal.EarnedMulti.INC 6;
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 959%N);
-  Minimal.EarnedMulti.DEC 7 (N.to_nat 961%N);
+  Minimal.EarnedMulti.DEC 8 (N.to_nat 959%N)].
+
+Definition rlz_host_program_c15 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 7 (N.to_nat 961%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 966%N);
   Minimal.EarnedMulti.INC 7;
@@ -1042,8 +1072,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1021%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1026%N);
-  Minimal.EarnedMulti.INC 7;
-  Minimal.EarnedMulti.INC 7;
+  Minimal.EarnedMulti.INC 7].
+
+Definition rlz_host_program_c16 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1024%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.INC 7;
@@ -1106,8 +1138,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1084%N);
   Minimal.EarnedMulti.INC 7;
-  Minimal.EarnedMulti.INC 7;
-  Minimal.EarnedMulti.DEC 7 (N.to_nat 1091%N);
+  Minimal.EarnedMulti.INC 7].
+
+Definition rlz_host_program_c17 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 7 (N.to_nat 1091%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1090%N);
   Minimal.EarnedMulti.INC 7;
@@ -1170,8 +1204,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1151%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1150%N);
-  Minimal.EarnedMulti.INC 7;
-  Minimal.EarnedMulti.DEC 7 (N.to_nat 1163%N);
+  Minimal.EarnedMulti.INC 7].
+
+Definition rlz_host_program_c18 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 7 (N.to_nat 1163%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1158%N);
   Minimal.EarnedMulti.INC 7;
@@ -1234,8 +1270,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1223%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1218%N);
-  Minimal.EarnedMulti.INC 7;
-  Minimal.EarnedMulti.INC 7;
+  Minimal.EarnedMulti.INC 7].
+
+Definition rlz_host_program_c19 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1216%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1222%N);
@@ -1298,8 +1336,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1276%N);
   Minimal.EarnedMulti.INC 7;
-  Minimal.EarnedMulti.DEC 7 (N.to_nat 1282%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
+  Minimal.EarnedMulti.DEC 7 (N.to_nat 1282%N)].
+
+Definition rlz_host_program_c20 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1281%N);
   Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 1274%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
@@ -1362,8 +1402,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1341%N);
   Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 1334%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1347%N);
+  Minimal.EarnedMulti.INC (N.to_nat 12%N)].
+
+Definition rlz_host_program_c21 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1347%N);
   Minimal.EarnedMulti.INC (N.to_nat 62%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1346%N);
   Minimal.EarnedMulti.CHECK Minimal.UniversalCodes.PSlot (N.to_nat 62%N);
@@ -1426,8 +1468,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1407%N);
   Minimal.EarnedMulti.INC (N.to_nat 63%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1406%N);
-  Minimal.EarnedMulti.CHECK Minimal.UniversalCodes.PSlot (N.to_nat 63%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 31%N) (N.to_nat 1409%N);
+  Minimal.EarnedMulti.CHECK Minimal.UniversalCodes.PSlot (N.to_nat 63%N)].
+
+Definition rlz_host_program_c22 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 31%N) (N.to_nat 1409%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 1413%N);
   Minimal.EarnedMulti.INC (N.to_nat 31%N);
@@ -1490,8 +1534,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 1472%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2261%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 1475%N);
-  Minimal.EarnedMulti.INC 8;
+  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 1475%N)].
+
+Definition rlz_host_program_c23 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2321%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 1478%N);
   Minimal.EarnedMulti.INC 8;
@@ -1554,8 +1600,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 6 (N.to_nat 1535%N);
   Minimal.EarnedMulti.INC (N.to_nat 32%N);
   Minimal.EarnedMulti.DEC 6 (N.to_nat 1534%N);
-  Minimal.EarnedMulti.INC (N.to_nat 32%N);
-  Minimal.EarnedMulti.INC (N.to_nat 15%N);
+  Minimal.EarnedMulti.INC (N.to_nat 32%N)].
+
+Definition rlz_host_program_c24 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC (N.to_nat 15%N);
   Minimal.EarnedMulti.INC 3;
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 1;
@@ -1618,8 +1666,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC (N.to_nat 15%N);
   Minimal.EarnedMulti.INC 3;
   Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 8 1;
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1601%N);
+  Minimal.EarnedMulti.DEC 8 1].
+
+Definition rlz_host_program_c25 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1601%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1602%N);
   Minimal.EarnedMulti.INC 1;
   Minimal.EarnedMulti.DEC 1 (N.to_nat 1607%N);
@@ -1682,8 +1732,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1661%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1662%N);
   Minimal.EarnedMulti.INC 1;
-  Minimal.EarnedMulti.DEC 1 (N.to_nat 1667%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
+  Minimal.EarnedMulti.DEC 1 (N.to_nat 1667%N)].
+
+Definition rlz_host_program_c26 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 1 (N.to_nat 1665%N);
   Minimal.EarnedMulti.INC 8;
@@ -1746,8 +1798,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 1 (N.to_nat 1725%N);
-  Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 1731%N);
+  Minimal.EarnedMulti.INC 8].
+
+Definition rlz_host_program_c27 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 8 (N.to_nat 1731%N);
   Minimal.EarnedMulti.INC 1;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1730%N);
   Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 1732%N);
@@ -1810,8 +1864,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1791%N);
   Minimal.EarnedMulti.INC 1;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1790%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 1792%N);
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 1793%N);
+  Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 1792%N)].
+
+Definition rlz_host_program_c28 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 8 (N.to_nat 1793%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 1798%N);
   Minimal.EarnedMulti.INC (N.to_nat 13%N);
@@ -1874,8 +1930,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1853%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 1858%N);
-  Minimal.EarnedMulti.INC (N.to_nat 13%N);
-  Minimal.EarnedMulti.INC 8;
+  Minimal.EarnedMulti.INC (N.to_nat 13%N)].
+
+Definition rlz_host_program_c29 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 1856%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1862%N);
@@ -1938,8 +1996,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 1916%N);
   Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 1922%N);
-  Minimal.EarnedMulti.INC 6;
+  Minimal.EarnedMulti.DEC 8 (N.to_nat 1922%N)].
+
+Definition rlz_host_program_c30 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1921%N);
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1923%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
@@ -2002,8 +2062,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 1981%N);
   Minimal.EarnedMulti.DEC 7 (N.to_nat 1983%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1988%N);
+  Minimal.EarnedMulti.INC (N.to_nat 12%N)].
+
+Definition rlz_host_program_c31 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1988%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 1986%N);
@@ -2066,8 +2128,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2048%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.INC 7;
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2046%N);
-  Minimal.EarnedMulti.INC 7;
+  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2046%N)].
+
+Definition rlz_host_program_c32 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 2053%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
@@ -2130,8 +2194,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 2113%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
-  Minimal.EarnedMulti.DEC 7 (N.to_nat 2112%N);
+  Minimal.EarnedMulti.INC (N.to_nat 12%N)].
+
+Definition rlz_host_program_c33 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 7 (N.to_nat 2112%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 2125%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
@@ -2194,8 +2260,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 7 (N.to_nat 2172%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 2185%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2180%N);
+  Minimal.EarnedMulti.INC (N.to_nat 12%N)].
+
+Definition rlz_host_program_c34 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2180%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2178%N);
@@ -2258,8 +2326,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2240%N);
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.INC 7;
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2238%N);
-  Minimal.EarnedMulti.INC 7;
+  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2238%N)].
+
+Definition rlz_host_program_c35 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 2244%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC 7 (N.to_nat 2243%N);
@@ -2322,8 +2392,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 7;
   Minimal.EarnedMulti.DEC 7 (N.to_nat 2304%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
-  Minimal.EarnedMulti.DEC 7 (N.to_nat 2303%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 2296%N);
+  Minimal.EarnedMulti.DEC 7 (N.to_nat 2303%N)].
+
+Definition rlz_host_program_c36 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 2296%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2309%N);
   Minimal.EarnedMulti.INC (N.to_nat 77%N);
@@ -2386,8 +2458,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 13%N) (N.to_nat 2356%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2369%N);
-  Minimal.EarnedMulti.INC (N.to_nat 78%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2368%N);
+  Minimal.EarnedMulti.INC (N.to_nat 78%N)].
+
+Definition rlz_host_program_c37 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2368%N);
   Minimal.EarnedMulti.CHECK Minimal.UniversalCodes.PSlot (N.to_nat 78%N);
   Minimal.EarnedMulti.DEC (N.to_nat 46%N) (N.to_nat 2371%N);
   Minimal.EarnedMulti.INC 6;
@@ -2450,8 +2524,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2428%N);
   Minimal.EarnedMulti.CHECK Minimal.UniversalCodes.PSlot (N.to_nat 79%N);
   Minimal.EarnedMulti.DEC (N.to_nat 47%N) (N.to_nat 2431%N);
-  Minimal.EarnedMulti.INC 6;
-  Minimal.EarnedMulti.DEC 6 (N.to_nat 2435%N);
+  Minimal.EarnedMulti.INC 6].
+
+Definition rlz_host_program_c38 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 6 (N.to_nat 2435%N);
   Minimal.EarnedMulti.INC (N.to_nat 47%N);
   Minimal.EarnedMulti.DEC 6 (N.to_nat 2434%N);
   Minimal.EarnedMulti.INC (N.to_nat 47%N);
@@ -2514,8 +2590,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2496%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3017%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
-  Minimal.EarnedMulti.INC 8;
+  Minimal.EarnedMulti.INC (N.to_nat 12%N)].
+
+Definition rlz_host_program_c39 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2502%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2492%N);
   Minimal.EarnedMulti.INC 8;
@@ -2578,8 +2656,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2559%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2558%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 2567%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2564%N);
+  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 2567%N)].
+
+Definition rlz_host_program_c40 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2564%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3027%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
@@ -2642,8 +2722,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 2621%N);
-  Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 2627%N);
+  Minimal.EarnedMulti.INC 8].
+
+Definition rlz_host_program_c41 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 8 (N.to_nat 2627%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2626%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 2635%N);
@@ -2706,8 +2788,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2685%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2686%N);
   Minimal.EarnedMulti.INC 6;
-  Minimal.EarnedMulti.DEC 6 (N.to_nat 2691%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
+  Minimal.EarnedMulti.DEC 6 (N.to_nat 2691%N)].
+
+Definition rlz_host_program_c42 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 2689%N);
   Minimal.EarnedMulti.INC 8;
@@ -2770,8 +2854,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2752%N);
   Minimal.EarnedMulti.INC (N.to_nat 24%N);
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 2751%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2753%N);
+  Minimal.EarnedMulti.DEC 8 (N.to_nat 2751%N)].
+
+Definition rlz_host_program_c43 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2753%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2754%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 2759%N);
@@ -2834,8 +2920,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 26%N) (N.to_nat 2816%N);
   Minimal.EarnedMulti.INC (N.to_nat 11%N);
   Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC (N.to_nat 26%N) (N.to_nat 2814%N);
-  Minimal.EarnedMulti.INC 8;
+  Minimal.EarnedMulti.DEC (N.to_nat 26%N) (N.to_nat 2814%N)].
+
+Definition rlz_host_program_c44 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2820%N);
   Minimal.EarnedMulti.INC (N.to_nat 26%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2819%N);
@@ -2898,8 +2986,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2877%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 2878%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2879%N);
-  Minimal.EarnedMulti.INC (N.to_nat 28%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 28%N) (N.to_nat 2884%N);
+  Minimal.EarnedMulti.INC (N.to_nat 28%N)].
+
+Definition rlz_host_program_c45 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 28%N) (N.to_nat 2884%N);
   Minimal.EarnedMulti.INC (N.to_nat 11%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC (N.to_nat 28%N) (N.to_nat 2882%N);
@@ -2962,8 +3052,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2934%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2944%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 2944%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2945%N);
+  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 2944%N)].
+
+Definition rlz_host_program_c46 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 2945%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 2946%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 2947%N);
   Minimal.EarnedMulti.INC (N.to_nat 30%N);
@@ -3026,8 +3118,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3092%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 3012%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3002%N);
+  Minimal.EarnedMulti.DEC 8 (N.to_nat 3012%N)].
+
+Definition rlz_host_program_c47 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3002%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3012%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 3012%N);
@@ -3090,8 +3184,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 3;
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 1;
-  Minimal.EarnedMulti.COMMIT Minimal.UniversalCodes.PSlot (N.to_nat 59%N);
-  Minimal.EarnedMulti.DEC 6 (N.to_nat 3073%N);
+  Minimal.EarnedMulti.COMMIT Minimal.UniversalCodes.PSlot (N.to_nat 59%N)].
+
+Definition rlz_host_program_c48 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 6 (N.to_nat 3073%N);
   Minimal.EarnedMulti.INC 3;
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 1;
@@ -3154,8 +3250,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3133%N);
   Minimal.EarnedMulti.INC (N.to_nat 33%N);
   Minimal.EarnedMulti.DEC (N.to_nat 33%N) (N.to_nat 3138%N);
-  Minimal.EarnedMulti.INC (N.to_nat 11%N);
-  Minimal.EarnedMulti.INC 8;
+  Minimal.EarnedMulti.INC (N.to_nat 11%N)].
+
+Definition rlz_host_program_c49 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC (N.to_nat 33%N) (N.to_nat 3136%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3142%N);
@@ -3218,8 +3316,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3198%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 3198%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3199%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 3200%N);
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 3201%N);
+  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 3200%N)].
+
+Definition rlz_host_program_c50 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 8 (N.to_nat 3201%N);
   Minimal.EarnedMulti.INC (N.to_nat 35%N);
   Minimal.EarnedMulti.DEC (N.to_nat 35%N) (N.to_nat 3206%N);
   Minimal.EarnedMulti.INC (N.to_nat 11%N);
@@ -3282,8 +3382,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3266%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3256%N);
-  Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 3266%N);
+  Minimal.EarnedMulti.INC 8].
+
+Definition rlz_host_program_c51 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 8 (N.to_nat 3266%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 3266%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3267%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 3268%N);
@@ -3346,8 +3448,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3328%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3675%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
-  Minimal.EarnedMulti.INC 8;
+  Minimal.EarnedMulti.INC (N.to_nat 12%N)].
+
+Definition rlz_host_program_c52 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3334%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3324%N);
   Minimal.EarnedMulti.INC 8;
@@ -3410,8 +3514,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3391%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3390%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 3399%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3396%N);
+  Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 3399%N)].
+
+Definition rlz_host_program_c53 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3396%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3685%N);
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
@@ -3474,8 +3580,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 3453%N);
-  Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 3459%N);
+  Minimal.EarnedMulti.INC 8].
+
+Definition rlz_host_program_c54 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 8 (N.to_nat 3459%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3458%N);
   Minimal.EarnedMulti.DEC (N.to_nat 11%N) (N.to_nat 3467%N);
@@ -3538,8 +3646,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3517%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3518%N);
   Minimal.EarnedMulti.INC 6;
-  Minimal.EarnedMulti.DEC 6 (N.to_nat 3523%N);
-  Minimal.EarnedMulti.INC (N.to_nat 12%N);
+  Minimal.EarnedMulti.DEC 6 (N.to_nat 3523%N)].
+
+Definition rlz_host_program_c55 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC (N.to_nat 12%N);
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 3521%N);
   Minimal.EarnedMulti.INC 8;
@@ -3602,8 +3712,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3584%N);
   Minimal.EarnedMulti.INC (N.to_nat 46%N);
-  Minimal.EarnedMulti.DEC 8 (N.to_nat 3583%N);
-  Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3585%N);
+  Minimal.EarnedMulti.DEC 8 (N.to_nat 3583%N)].
+
+Definition rlz_host_program_c56 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC (N.to_nat 12%N) (N.to_nat 3585%N);
   Minimal.EarnedMulti.DEC 8 (N.to_nat 3586%N);
   Minimal.EarnedMulti.INC 6;
   Minimal.EarnedMulti.DEC 6 (N.to_nat 3591%N);
@@ -3666,8 +3778,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.COMMIT Minimal.UniversalCodes.PSlot (N.to_nat 64%N);
   Minimal.EarnedMulti.DEC 6 (N.to_nat 3646%N);
   Minimal.EarnedMulti.INC 3;
-  Minimal.EarnedMulti.INC 8;
-  Minimal.EarnedMulti.DEC 8 1;
+  Minimal.EarnedMulti.INC 8].
+
+Definition rlz_host_program_c57 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.DEC 8 1;
   Minimal.EarnedMulti.COMMIT Minimal.UniversalCodes.PSlot (N.to_nat 65%N);
   Minimal.EarnedMulti.DEC 6 (N.to_nat 3651%N);
   Minimal.EarnedMulti.INC 3;
@@ -3730,8 +3844,10 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.DEC 8 1;
   Minimal.EarnedMulti.COMMIT Minimal.UniversalCodes.PSlot (N.to_nat 77%N);
   Minimal.EarnedMulti.DEC 6 (N.to_nat 3711%N);
-  Minimal.EarnedMulti.INC 3;
-  Minimal.EarnedMulti.INC 8;
+  Minimal.EarnedMulti.INC 3].
+
+Definition rlz_host_program_c58 (_ : unit) : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  [Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 1;
   Minimal.EarnedMulti.COMMIT Minimal.UniversalCodes.PSlot (N.to_nat 78%N);
   Minimal.EarnedMulti.DEC 6 (N.to_nat 3716%N);
@@ -3748,10 +3864,13 @@ Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.Universal
   Minimal.EarnedMulti.INC 8;
   Minimal.EarnedMulti.DEC 8 1].
 
+Definition rlz_host_program : list (@Minimal.EarnedMulti.instr Minimal.UniversalCodes.hprop) :=
+  rlz_host_program_c0 tt ++ (rlz_host_program_c1 tt ++ (rlz_host_program_c2 tt ++ (rlz_host_program_c3 tt ++ (rlz_host_program_c4 tt ++ (rlz_host_program_c5 tt ++ (rlz_host_program_c6 tt ++ (rlz_host_program_c7 tt ++ (rlz_host_program_c8 tt ++ (rlz_host_program_c9 tt ++ (rlz_host_program_c10 tt ++ (rlz_host_program_c11 tt ++ (rlz_host_program_c12 tt ++ (rlz_host_program_c13 tt ++ (rlz_host_program_c14 tt ++ (rlz_host_program_c15 tt ++ (rlz_host_program_c16 tt ++ (rlz_host_program_c17 tt ++ (rlz_host_program_c18 tt ++ (rlz_host_program_c19 tt ++ (rlz_host_program_c20 tt ++ (rlz_host_program_c21 tt ++ (rlz_host_program_c22 tt ++ (rlz_host_program_c23 tt ++ (rlz_host_program_c24 tt ++ (rlz_host_program_c25 tt ++ (rlz_host_program_c26 tt ++ (rlz_host_program_c27 tt ++ (rlz_host_program_c28 tt ++ (rlz_host_program_c29 tt ++ (rlz_host_program_c30 tt ++ (rlz_host_program_c31 tt ++ (rlz_host_program_c32 tt ++ (rlz_host_program_c33 tt ++ (rlz_host_program_c34 tt ++ (rlz_host_program_c35 tt ++ (rlz_host_program_c36 tt ++ (rlz_host_program_c37 tt ++ (rlz_host_program_c38 tt ++ (rlz_host_program_c39 tt ++ (rlz_host_program_c40 tt ++ (rlz_host_program_c41 tt ++ (rlz_host_program_c42 tt ++ (rlz_host_program_c43 tt ++ (rlz_host_program_c44 tt ++ (rlz_host_program_c45 tt ++ (rlz_host_program_c46 tt ++ (rlz_host_program_c47 tt ++ (rlz_host_program_c48 tt ++ (rlz_host_program_c49 tt ++ (rlz_host_program_c50 tt ++ (rlz_host_program_c51 tt ++ (rlz_host_program_c52 tt ++ (rlz_host_program_c53 tt ++ (rlz_host_program_c54 tt ++ (rlz_host_program_c55 tt ++ (rlz_host_program_c56 tt ++ (rlz_host_program_c57 tt ++ (rlz_host_program_c58 tt)))))))))))))))))))))))))))))))))))))))))))))))))))))))))).
+
 Lemma rlz_host_program_is : rlz_host_program = Kernel.UniversalLayout.U.
 Proof. vm_compute. reflexivity. Qed.
 
-Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+Definition rlz_phost_program_c0 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
   [Minimal.EarnedMultiPriced.DEC 4 1;
   Minimal.EarnedMultiPriced.DEC 8 2;
   Minimal.EarnedMultiPriced.INC 2;
@@ -3815,8 +3934,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 9 (N.to_nat 62%N);
   Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 66%N);
-  Minimal.EarnedMultiPriced.INC 9;
+  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 66%N)].
+
+Definition rlz_phost_program_c1 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 9;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 66%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 70%N);
@@ -3879,8 +4000,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC (N.to_nat 49%N) (N.to_nat 126%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 17%N) (N.to_nat 126%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 50%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 50%N) (N.to_nat 129%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 18%N) (N.to_nat 129%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 50%N) (N.to_nat 129%N)].
+
+Definition rlz_phost_program_c2 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC (N.to_nat 18%N) (N.to_nat 129%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 51%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 51%N) (N.to_nat 132%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 19%N) (N.to_nat 132%N);
@@ -3943,8 +4066,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC (N.to_nat 69%N) (N.to_nat 190%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 37%N) (N.to_nat 190%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 70%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 70%N) (N.to_nat 193%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 38%N) (N.to_nat 193%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 70%N) (N.to_nat 193%N)].
+
+Definition rlz_phost_program_c3 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC (N.to_nat 38%N) (N.to_nat 193%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 71%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 71%N) (N.to_nat 196%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 39%N) (N.to_nat 196%N);
@@ -4007,8 +4132,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 3;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 254%N);
   Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 1;
-  Minimal.EarnedMultiPriced.INC (N.to_nat 48%N);
+  Minimal.EarnedMultiPriced.DEC 8 1].
+
+Definition rlz_phost_program_c4 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 48%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 48%N) (N.to_nat 259%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 16%N) (N.to_nat 259%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 49%N);
@@ -4071,8 +4198,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 64%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 64%N) (N.to_nat 319%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 32%N) (N.to_nat 319%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 65%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 65%N) (N.to_nat 322%N);
+  Minimal.EarnedMultiPriced.INC (N.to_nat 65%N)].
+
+Definition rlz_phost_program_c5 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC (N.to_nat 65%N) (N.to_nat 322%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 33%N) (N.to_nat 322%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 66%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 66%N) (N.to_nat 325%N);
@@ -4135,8 +4264,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 384%N);
   Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 383%N);
-  Minimal.EarnedMultiPriced.INC 7;
+  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 383%N)].
+
+Definition rlz_phost_program_c6 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 388%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 391%N);
@@ -4199,8 +4330,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1122%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 450%N);
-  Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1182%N);
+  Minimal.EarnedMultiPriced.INC 8].
+
+Definition rlz_phost_program_c7 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1182%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 453%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1242%N);
@@ -4263,8 +4396,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 48%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 509%N);
   Minimal.EarnedMultiPriced.CHECK Kernel.UniversalPCodes.PSlot (N.to_nat 48%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 16%N) (N.to_nat 512%N);
-  Minimal.EarnedMultiPriced.INC 6;
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 16%N) (N.to_nat 512%N)].
+
+Definition rlz_phost_program_c8 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 516%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 16%N);
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 515%N);
@@ -4327,8 +4462,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 576%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 17%N);
-  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 575%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 17%N);
+  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 575%N)].
+
+Definition rlz_phost_program_c9 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 17%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 14%N);
   Minimal.EarnedMultiPriced.INC 3;
   Minimal.EarnedMultiPriced.INC 8;
@@ -4391,8 +4528,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 18%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 14%N);
   Minimal.EarnedMultiPriced.INC 3;
-  Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 1;
+  Minimal.EarnedMultiPriced.INC 8].
+
+Definition rlz_phost_program_c10 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 1;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 642%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 643%N);
   Minimal.EarnedMultiPriced.INC 0;
@@ -4455,8 +4594,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 1;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 702%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 703%N);
-  Minimal.EarnedMultiPriced.INC 0;
-  Minimal.EarnedMultiPriced.DEC 0 (N.to_nat 708%N);
+  Minimal.EarnedMultiPriced.INC 0].
+
+Definition rlz_phost_program_c11 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 0 (N.to_nat 708%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 0 (N.to_nat 706%N);
@@ -4519,8 +4660,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 0 (N.to_nat 768%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 0 (N.to_nat 766%N);
-  Minimal.EarnedMultiPriced.INC 8;
+  Minimal.EarnedMultiPriced.DEC 0 (N.to_nat 766%N)].
+
+Definition rlz_phost_program_c12 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 772%N);
   Minimal.EarnedMultiPriced.INC 0;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 771%N);
@@ -4583,8 +4726,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 832%N);
   Minimal.EarnedMultiPriced.INC 0;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 831%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 833%N);
+  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 831%N)].
+
+Definition rlz_phost_program_c13 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 833%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 834%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 839%N);
@@ -4647,8 +4792,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 893%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 894%N);
   Minimal.EarnedMultiPriced.INC 6;
-  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 899%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 13%N);
+  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 899%N)].
+
+Definition rlz_phost_program_c14 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 13%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 897%N);
   Minimal.EarnedMultiPriced.INC 8;
@@ -4711,8 +4858,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 13%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 957%N);
-  Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 963%N);
+  Minimal.EarnedMultiPriced.INC 8].
+
+Definition rlz_phost_program_c15 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 963%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 962%N);
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 964%N);
@@ -4775,8 +4924,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1023%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1022%N);
-  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1024%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
+  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1024%N)].
+
+Definition rlz_phost_program_c16 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1029%N);
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.INC 7;
@@ -4839,8 +4990,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1089%N);
   Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1087%N);
+  Minimal.EarnedMultiPriced.INC 7].
+
+Definition rlz_phost_program_c17 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1087%N);
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1094%N);
@@ -4903,8 +5056,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1147%N);
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1154%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
+  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1154%N)].
+
+Definition rlz_phost_program_c18 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1153%N);
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1166%N);
@@ -4967,8 +5122,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1213%N);
   Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1226%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
+  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1226%N)].
+
+Definition rlz_phost_program_c19 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1221%N);
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.INC 7;
@@ -5031,8 +5188,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1281%N);
   Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1279%N);
+  Minimal.EarnedMultiPriced.INC 7].
+
+Definition rlz_phost_program_c20 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1279%N);
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1285%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
@@ -5095,8 +5254,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1339%N);
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1345%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1344%N);
+  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N)].
+
+Definition rlz_phost_program_c21 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1344%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 1337%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1350%N);
@@ -5159,8 +5320,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1404%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 1397%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1410%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 63%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1410%N)].
+
+Definition rlz_phost_program_c22 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 63%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1409%N);
   Minimal.EarnedMultiPriced.CHECK Kernel.UniversalPCodes.PSlot (N.to_nat 63%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 31%N) (N.to_nat 1412%N);
@@ -5223,8 +5386,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 1472%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2204%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 1475%N);
-  Minimal.EarnedMultiPriced.INC 8;
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 1475%N)].
+
+Definition rlz_phost_program_c23 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2264%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 1478%N);
   Minimal.EarnedMultiPriced.INC 8;
@@ -5287,8 +5452,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.CHECK Kernel.UniversalPCodes.PSlot (N.to_nat 64%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 32%N) (N.to_nat 1534%N);
   Minimal.EarnedMultiPriced.INC 6;
-  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 1538%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 32%N);
+  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 1538%N)].
+
+Definition rlz_phost_program_c24 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 32%N);
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 1537%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 32%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 15%N);
@@ -5351,8 +5518,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 33%N);
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 1597%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 33%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 15%N);
-  Minimal.EarnedMultiPriced.INC 3;
+  Minimal.EarnedMultiPriced.INC (N.to_nat 15%N)].
+
+Definition rlz_phost_program_c25 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 3;
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 1;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1604%N);
@@ -5415,8 +5584,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 3;
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 1;
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1664%N);
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1665%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1664%N)].
+
+Definition rlz_phost_program_c26 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1665%N);
   Minimal.EarnedMultiPriced.INC 1;
   Minimal.EarnedMultiPriced.DEC 1 (N.to_nat 1670%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
@@ -5479,8 +5650,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1725%N);
   Minimal.EarnedMultiPriced.INC 1;
   Minimal.EarnedMultiPriced.DEC 1 (N.to_nat 1730%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.INC 8;
+  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N)].
+
+Definition rlz_phost_program_c27 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 1 (N.to_nat 1728%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1734%N);
@@ -5543,8 +5716,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 1 (N.to_nat 1788%N);
   Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1794%N);
-  Minimal.EarnedMultiPriced.INC 1;
+  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1794%N)].
+
+Definition rlz_phost_program_c28 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 1;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1793%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 1795%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1796%N);
@@ -5607,8 +5782,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 1;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1853%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 1855%N);
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1856%N);
-  Minimal.EarnedMultiPriced.INC 6;
+  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1856%N)].
+
+Definition rlz_phost_program_c29 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 1861%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 13%N);
   Minimal.EarnedMultiPriced.INC 8;
@@ -5671,8 +5848,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 1921%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 13%N);
-  Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 1919%N);
+  Minimal.EarnedMultiPriced.INC 8].
+
+Definition rlz_phost_program_c30 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 1919%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1925%N);
   Minimal.EarnedMultiPriced.INC 6;
@@ -5735,8 +5914,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 1979%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1985%N);
-  Minimal.EarnedMultiPriced.INC 6;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1984%N);
+  Minimal.EarnedMultiPriced.INC 6].
+
+Definition rlz_phost_program_c31 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 1984%N);
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 1986%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 1991%N);
@@ -5799,8 +5980,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2044%N);
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2046%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2051%N);
-  Minimal.EarnedMultiPriced.INC 7;
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2051%N)].
+
+Definition rlz_phost_program_c32 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2049%N);
   Minimal.EarnedMultiPriced.INC 7;
@@ -5863,8 +6046,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2109%N);
-  Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.INC 7;
+  Minimal.EarnedMultiPriced.INC 7].
+
+Definition rlz_phost_program_c33 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2116%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2115%N);
@@ -5927,8 +6112,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2176%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2175%N);
-  Minimal.EarnedMultiPriced.INC 7;
+  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2175%N)].
+
+Definition rlz_phost_program_c34 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2188%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2183%N);
@@ -5991,8 +6178,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2248%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2243%N);
-  Minimal.EarnedMultiPriced.INC 7;
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2243%N)].
+
+Definition rlz_phost_program_c35 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2241%N);
   Minimal.EarnedMultiPriced.INC 7;
@@ -6055,8 +6244,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.INC 7;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2301%N);
-  Minimal.EarnedMultiPriced.INC 7;
-  Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2307%N);
+  Minimal.EarnedMultiPriced.INC 7].
+
+Definition rlz_phost_program_c36 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2307%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2306%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 2299%N);
@@ -6119,8 +6310,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2367%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC 7 (N.to_nat 2366%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 2359%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 13%N) (N.to_nat 2359%N)].
+
+Definition rlz_phost_program_c37 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2372%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 78%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2371%N);
@@ -6183,8 +6376,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2432%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 79%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2431%N);
-  Minimal.EarnedMultiPriced.CHECK Kernel.UniversalPCodes.PSlot (N.to_nat 79%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2431%N)].
+
+Definition rlz_phost_program_c38 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.CHECK Kernel.UniversalPCodes.PSlot (N.to_nat 79%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 47%N) (N.to_nat 2434%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 2438%N);
@@ -6247,8 +6442,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2493%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 2502%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2499%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2499%N)].
+
+Definition rlz_phost_program_c39 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3020%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.INC 8;
@@ -6311,8 +6508,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 2556%N);
   Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2562%N);
-  Minimal.EarnedMultiPriced.INC 6;
+  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2562%N)].
+
+Definition rlz_phost_program_c40 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2561%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 2570%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2567%N);
@@ -6375,8 +6574,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2621%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 2626%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.INC 8;
+  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N)].
+
+Definition rlz_phost_program_c41 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 2624%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2630%N);
@@ -6439,8 +6640,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2687%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 22%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2686%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2688%N);
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2689%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2688%N)].
+
+Definition rlz_phost_program_c42 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2689%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 2694%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
@@ -6503,8 +6706,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 11%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 24%N) (N.to_nat 2749%N);
-  Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2755%N);
+  Minimal.EarnedMultiPriced.INC 8].
+
+Definition rlz_phost_program_c43 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2755%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 24%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2754%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2756%N);
@@ -6567,8 +6772,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 2813%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2814%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 26%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 26%N) (N.to_nat 2819%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 11%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 26%N) (N.to_nat 2819%N)].
+
+Definition rlz_phost_program_c44 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 11%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 26%N) (N.to_nat 2817%N);
   Minimal.EarnedMultiPriced.INC 8;
@@ -6631,8 +6838,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2879%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 2879%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2880%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 2881%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2880%N)].
+
+Definition rlz_phost_program_c45 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 2881%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2882%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 28%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 28%N) (N.to_nat 2887%N);
@@ -6695,8 +6904,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2947%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2937%N);
-  Minimal.EarnedMultiPriced.INC 8;
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2937%N)].
+
+Definition rlz_phost_program_c46 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 2947%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 2947%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 2948%N);
@@ -6759,8 +6970,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 3012%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3009%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3095%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3095%N)].
+
+Definition rlz_phost_program_c47 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3015%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3005%N);
@@ -6823,8 +7036,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 1;
   Minimal.EarnedMultiPriced.COMMIT Kernel.UniversalPCodes.PSlot (N.to_nat 58%N);
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3071%N);
-  Minimal.EarnedMultiPriced.INC 3;
-  Minimal.EarnedMultiPriced.INC 8;
+  Minimal.EarnedMultiPriced.INC 3].
+
+Definition rlz_phost_program_c48 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 1;
   Minimal.EarnedMultiPriced.COMMIT Kernel.UniversalPCodes.PSlot (N.to_nat 59%N);
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3076%N);
@@ -6887,8 +7102,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 3133%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3134%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 3135%N);
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3136%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 33%N);
+  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3136%N)].
+
+Definition rlz_phost_program_c49 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 33%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 33%N) (N.to_nat 3141%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 11%N);
   Minimal.EarnedMultiPriced.INC 8;
@@ -6951,8 +7168,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3201%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3191%N);
   Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3201%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 3201%N);
+  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3201%N)].
+
+Definition rlz_phost_program_c50 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 3201%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3202%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 3203%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3204%N);
@@ -7015,8 +7234,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3668%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3269%N);
+  Minimal.EarnedMultiPriced.INC 8].
+
+Definition rlz_phost_program_c51 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3269%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3259%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3269%N);
@@ -7079,8 +7300,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3325%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 3334%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3331%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3331%N)].
+
+Definition rlz_phost_program_c52 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3678%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
   Minimal.EarnedMultiPriced.INC 8;
@@ -7143,8 +7366,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3388%N);
   Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3394%N);
-  Minimal.EarnedMultiPriced.INC 6;
+  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3394%N)].
+
+Definition rlz_phost_program_c53 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3393%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 11%N) (N.to_nat 3402%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3399%N);
@@ -7207,8 +7432,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3453%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3458%N);
-  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
-  Minimal.EarnedMultiPriced.INC 8;
+  Minimal.EarnedMultiPriced.INC (N.to_nat 12%N)].
+
+Definition rlz_phost_program_c54 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3456%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3462%N);
@@ -7271,8 +7498,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3519%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 44%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3518%N);
-  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3520%N);
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3521%N);
+  Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3520%N)].
+
+Definition rlz_phost_program_c55 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3521%N);
   Minimal.EarnedMultiPriced.INC 6;
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3526%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 12%N);
@@ -7335,8 +7564,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC (N.to_nat 11%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC (N.to_nat 46%N) (N.to_nat 3581%N);
-  Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3587%N);
+  Minimal.EarnedMultiPriced.INC 8].
+
+Definition rlz_phost_program_c56 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3587%N);
   Minimal.EarnedMultiPriced.INC (N.to_nat 46%N);
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 3586%N);
   Minimal.EarnedMultiPriced.DEC (N.to_nat 12%N) (N.to_nat 3588%N);
@@ -7399,8 +7630,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.COMMIT Kernel.UniversalPCodes.PSlot (N.to_nat 80%N);
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 (N.to_nat 101%N);
-  Minimal.EarnedMultiPriced.COMMIT Kernel.UniversalPCodes.PSlot (N.to_nat 64%N);
-  Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3649%N);
+  Minimal.EarnedMultiPriced.COMMIT Kernel.UniversalPCodes.PSlot (N.to_nat 64%N)].
+
+Definition rlz_phost_program_c57 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3649%N);
   Minimal.EarnedMultiPriced.INC 3;
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 1;
@@ -7463,8 +7696,10 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3709%N);
   Minimal.EarnedMultiPriced.INC 3;
   Minimal.EarnedMultiPriced.INC 8;
-  Minimal.EarnedMultiPriced.DEC 8 1;
-  Minimal.EarnedMultiPriced.COMMIT Kernel.UniversalPCodes.PSlot (N.to_nat 77%N);
+  Minimal.EarnedMultiPriced.DEC 8 1].
+
+Definition rlz_phost_program_c58 (_ : unit) : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  [Minimal.EarnedMultiPriced.COMMIT Kernel.UniversalPCodes.PSlot (N.to_nat 77%N);
   Minimal.EarnedMultiPriced.DEC 6 (N.to_nat 3714%N);
   Minimal.EarnedMultiPriced.INC 3;
   Minimal.EarnedMultiPriced.INC 8;
@@ -7488,5 +7723,16 @@ Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.
   Minimal.EarnedMultiPriced.INC 8;
   Minimal.EarnedMultiPriced.DEC 8 1].
 
+Definition rlz_phost_program : list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop) :=
+  rlz_phost_program_c0 tt ++ (rlz_phost_program_c1 tt ++ (rlz_phost_program_c2 tt ++ (rlz_phost_program_c3 tt ++ (rlz_phost_program_c4 tt ++ (rlz_phost_program_c5 tt ++ (rlz_phost_program_c6 tt ++ (rlz_phost_program_c7 tt ++ (rlz_phost_program_c8 tt ++ (rlz_phost_program_c9 tt ++ (rlz_phost_program_c10 tt ++ (rlz_phost_program_c11 tt ++ (rlz_phost_program_c12 tt ++ (rlz_phost_program_c13 tt ++ (rlz_phost_program_c14 tt ++ (rlz_phost_program_c15 tt ++ (rlz_phost_program_c16 tt ++ (rlz_phost_program_c17 tt ++ (rlz_phost_program_c18 tt ++ (rlz_phost_program_c19 tt ++ (rlz_phost_program_c20 tt ++ (rlz_phost_program_c21 tt ++ (rlz_phost_program_c22 tt ++ (rlz_phost_program_c23 tt ++ (rlz_phost_program_c24 tt ++ (rlz_phost_program_c25 tt ++ (rlz_phost_program_c26 tt ++ (rlz_phost_program_c27 tt ++ (rlz_phost_program_c28 tt ++ (rlz_phost_program_c29 tt ++ (rlz_phost_program_c30 tt ++ (rlz_phost_program_c31 tt ++ (rlz_phost_program_c32 tt ++ (rlz_phost_program_c33 tt ++ (rlz_phost_program_c34 tt ++ (rlz_phost_program_c35 tt ++ (rlz_phost_program_c36 tt ++ (rlz_phost_program_c37 tt ++ (rlz_phost_program_c38 tt ++ (rlz_phost_program_c39 tt ++ (rlz_phost_program_c40 tt ++ (rlz_phost_program_c41 tt ++ (rlz_phost_program_c42 tt ++ (rlz_phost_program_c43 tt ++ (rlz_phost_program_c44 tt ++ (rlz_phost_program_c45 tt ++ (rlz_phost_program_c46 tt ++ (rlz_phost_program_c47 tt ++ (rlz_phost_program_c48 tt ++ (rlz_phost_program_c49 tt ++ (rlz_phost_program_c50 tt ++ (rlz_phost_program_c51 tt ++ (rlz_phost_program_c52 tt ++ (rlz_phost_program_c53 tt ++ (rlz_phost_program_c54 tt ++ (rlz_phost_program_c55 tt ++ (rlz_phost_program_c56 tt ++ (rlz_phost_program_c57 tt ++ (rlz_phost_program_c58 tt)))))))))))))))))))))))))))))))))))))))))))))))))))))))))).
+
 Lemma rlz_phost_program_is : rlz_phost_program = Kernel.UniversalPLayout.U_P.
 Proof. vm_compute. reflexivity. Qed.
+
+(* ================================================================= *)
+(* Assumption audit. Every line must print                            *)
+(* "Closed under the global context".                                 *)
+(* ================================================================= *)
+
+Print Assumptions rlz_host_program_is.
+Print Assumptions rlz_phost_program_is.

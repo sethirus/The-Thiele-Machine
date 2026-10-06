@@ -10,13 +10,17 @@ integers (thiele_small/flat.py gives the layout).
 
 The test needs coqc 8.18 with the project compiled (see tests/test_realize.py
 for THIELE_COQ_BUILD and THIELE_UNDEC), and OCaml: ocamlfind, ocamlopt and the
-zarith library (Ubuntu: apt install ocaml libzarith-ocaml-dev). When OCaml is
-missing the tests are skipped with that reason; the CI job `realize` installs
-it and runs them (see ocaml/README-ci.txt).
+zarith library (Ubuntu: apt install ocaml libzarith-ocaml-dev; on the
+Windows development PC the opam switch under %LOCALAPPDATA%/opam/default is
+found without touching PATH). A missing OCaml toolchain fails the test when
+CI=true, under GitHub Actions, with --strict-backends and with
+THIELE_STRICT_BACKENDS, so a skip cannot hide a lost install; the python job
+of ci.yml installs OCaml. Without CI=true the tests skip with the reason.
 
 Bounds: the same exhaustive-small and seeded random program sets as the Coq
-comparison, plus the larger guests of U and U_P that only the extracted code
-can run quickly (guest code up to 2^24).
+comparison, plus U and U_P run on guests to their stop, up to a program code
+of 2^19 (about 26 million host steps) here and 2^26 in the CI job
+realize-universal.
 """
 
 from __future__ import annotations
@@ -40,7 +44,7 @@ import realize_harness as rh  # noqa: E402
 from thiele_small import codes, flat, multi, priced, small, universal  # noqa: E402
 
 SEED = 20261005
-LIMIT_R = 1 << 20
+LIMIT_R = 1 << 16
 
 # Register values here are written in decimal and some have hundreds of thousands
 # of digits (a URun claim is 2^(2r+1) times an odd number).
@@ -50,29 +54,82 @@ if hasattr(sys, "set_int_max_str_digits"):
 coq = pytest.mark.coq
 
 
-def _ocaml_missing():
-    if not shutil.which("ocamlfind"):
-        return "ocamlfind not installed (apt install ocaml libzarith-ocaml-dev); runs in the CI job 'realize'"
-    r = subprocess.run(["ocamlfind", "query", "zarith"], capture_output=True, text=True)
+def _strict(config) -> bool:
+    return bool(
+        os.environ.get("GITHUB_ACTIONS")
+        or config.getoption("--strict-backends", default=False)
+        or os.environ.get("THIELE_STRICT_BACKENDS", "0").strip().lower() in {"1", "true", "yes", "on"}
+    )
+
+
+def _skip_or_fail(config, why, toolchain=False):
+    """A missing OCaml toolchain fails whenever CI=true (every automated run sets
+    it), so a skip cannot hide a lost install; other missing pieces fail under
+    the strict settings only."""
+    ci = os.environ.get("CI", "").strip().lower() in {"1", "true", "yes", "on"}
+    if _strict(config) or (toolchain and ci):
+        pytest.fail(why)
+    pytest.skip(why)
+
+
+def _opam_dirs():
+    """The tool directories of the default opam switch on Windows (where
+    ocamlfind is not on PATH): the switch's bin and the mingw runtime."""
+    base = os.environ.get("LOCALAPPDATA")
+    if not base:
+        return []
+    root = Path(base) / "opam"
+    dirs = [root / "default" / "bin",
+            root / ".cygwin" / "root" / "usr" / "x86_64-w64-mingw32" / "sys-root" / "mingw" / "bin"]
+    return [str(d) for d in dirs if d.is_dir()]
+
+
+def _ocaml_env():
+    """The environment to run the OCaml tools in: the one given, unless that has no
+    working ocamlfind with ocamlopt and zarith and the opam switch of the Windows
+    development PC does (a second ocamlfind there belongs to Coq Platform, which
+    ships no native compiler)."""
+    env = dict(os.environ)
+    if _ocaml_missing(env):
+        extra = _opam_dirs()
+        if extra:
+            alt = dict(env, PATH=os.pathsep.join(extra + [env.get("PATH", "")]))
+            if not _ocaml_missing(alt):
+                return alt
+    return env
+
+
+def _ocamlfind(env):
+    """The ocamlfind this environment's PATH names, as a full path (Windows looks
+    a bare program name up on the PATH of this process, not of env)."""
+    return shutil.which("ocamlfind", path=env.get("PATH"))
+
+
+def _ocaml_missing(env):
+    ocamlfind = _ocamlfind(env)
+    if not ocamlfind:
+        return "ocamlfind not installed (apt install ocaml ocaml-findlib libzarith-ocaml-dev)"
+    r = subprocess.run([ocamlfind, "query", "zarith"], capture_output=True, text=True, env=env)
     if r.returncode != 0:
-        return "the OCaml library zarith is not installed (apt install libzarith-ocaml-dev); runs in the CI job 'realize'"
-    r = subprocess.run(["ocamlfind", "ocamlopt", "-version"], capture_output=True, text=True)
+        return "the OCaml library zarith is not installed (apt install libzarith-ocaml-dev)"
+    r = subprocess.run([ocamlfind, "ocamlopt", "-version"], capture_output=True, text=True, env=env)
     if r.returncode != 0:
-        return "ocamlopt is not available (apt install ocaml); runs in the CI job 'realize'"
+        return "ocamlopt is not available (apt install ocaml)"
     return ""
 
 
 @pytest.fixture(scope="session")
-def runner(tmp_path_factory):
-    why = _ocaml_missing()
+def runner(request, tmp_path_factory):
+    env = _ocaml_env()
+    why = _ocaml_missing(env)
     if why:
-        pytest.skip(why)
+        _skip_or_fail(request.config, why, toolchain=True)
     coqc = rh.find_coqc()
     if not coqc:
-        pytest.skip("coqc 8.18 not found (set THIELE_COQC)")
+        _skip_or_fail(request.config, "coqc 8.18 not found (set THIELE_COQC)")
     flags, why = rh.prebuilt_flags()
     if flags is None:
-        pytest.skip(why)
+        _skip_or_fail(request.config, why)
     d = tmp_path_factory.mktemp("realize_ocaml")
     src = REPO / "ocaml" / "RealizeExtract.v"
     shutil.copyfile(src, d / "RealizeExtract.v")
@@ -82,15 +139,16 @@ def runner(tmp_path_factory):
         assert (d / f).exists(), f
     shutil.copyfile(REPO / "ocaml" / "realize_driver.ml", d / "realize_driver.ml")
     proc = subprocess.run(
-        ["ocamlfind", "ocamlopt", "-package", "zarith", "-linkpkg",
+        [_ocamlfind(env), "ocamlopt", "-package", "zarith", "-linkpkg",
          "realize_extracted.mli", "realize_extracted.ml", "realize_driver.ml", "-o", "realize_driver"],
-        cwd=str(d), capture_output=True, text=True)
+        cwd=str(d), capture_output=True, text=True, env=env)
     assert proc.returncode == 0, proc.stdout + proc.stderr
     exe = d / ("realize_driver.exe" if (d / "realize_driver.exe").exists() else "realize_driver")
 
-    def run(tokens, timeout=1800):
+    def run(tokens, timeout=1800, extra_env=None):
         text = " ".join(str(t) for t in tokens)
-        p = subprocess.run([str(exe)], input=text, capture_output=True, text=True, timeout=timeout)
+        p = subprocess.run([str(exe)], input=text, capture_output=True, text=True, timeout=timeout,
+                           env={**env, **(extra_env or {})})
         assert p.returncode == 0, p.stderr[-2000:]
         blocks, cur = [], []
         for line in p.stdout.splitlines():
@@ -101,6 +159,7 @@ def runner(tmp_path_factory):
                 cur.append(line)
         assert not cur
         return blocks
+    run.exe = exe
     return run
 
 
@@ -200,7 +259,7 @@ def _urun_claim_values(rng):
                 r = codes.cg_renc(ig, R, xS, xB, xT, m)
                 # The register holds 2^(2r+1) times an odd number, so r must be
                 # a number a machine can write down: a routine with a DEC has
-                # r near 2^(2^38), one with two INC instructions r near 2^520.
+                # r near 2^(2^38), one with two INC instructions r near 2^520; and unpair takes time proportional to r times the length of the register.
                 if r < LIMIT_R:
                     routines.append(r)
     routines = sorted(set(routines))
@@ -321,27 +380,64 @@ def test_extracted_U_P_matches_python_on_tiny_priced_guests(runner):
     _check_blocks(cases, runner(toks), exp, "U_P")
 
 
+# The guests below run U and U_P to their stop. scripts/realize_universal_runs.py
+# holds the guests and checks, against the python guest machine, that the host
+# stops when the guest stops, that each visit of U's loop head shows the guest
+# after one more step, and that at the stop the counters, ledger, flag and trap
+# latch are the guest's. The quick cases are in this test; the cases with a
+# record instruction (program code at least 2^24, hundreds of millions of host
+# steps) are run by the CI job `realize-universal` and by hand, see
+# ocaml/README-ci.txt.
+
+sys.path.insert(0, str(REPO / "scripts"))
+import realize_universal_runs as rur  # noqa: E402
+
+
 @coq
-@pytest.mark.slow
-def test_extracted_U_runs_a_guest_with_a_record_instruction(runner):
-    """U running the guest [CHECK PZero CA] from start 0 0. The guest checks
-    that A is 0, so its table gains one fact, its ledger is 1 and it stops
-    when pc runs off the program. The program code is 2^24 and U loops in
-    unary over it, so this is a run of hundreds of millions of host steps:
-    only the extracted code can do it. The host must end with RA = RB = 0,
-    one fact, ledger 1, no trap, and the flag down."""
-    P = [("CHECK", ("PZero",), 0)]
-    nr, stride, k = 96, 100_000_000, 8
-    blocks = runner(["uhost", nr, stride, k, 0, 0] + flat.prog_tokens(P), timeout=3000)
-    last = ints(blocks[0][-1])
-    pc, err, mu, cert = last[0], last[1], last[2], last[3]
-    chan = last[4]
-    assert chan == 0
-    nfacts = last[5]
-    assert nfacts == 1, last[:12]
-    assert (err, mu, cert) == (0, 1, 0)
-    vals = last[5 + 1 + 4 * nfacts + 1:][:nr]
-    assert vals[universal.RA] == 0 and vals[universal.RB] == 0
-    # the guest itself
-    g = small.run_prog(5, P, small.start(0, 0))
-    assert len(g.facts) == 1 and g.mu == 1 and not g.cert and not g.err
+@pytest.mark.parametrize("name", rur.QUICK)
+def test_extracted_U_and_U_P_run_their_guests_to_the_stop(runner, name):
+    r = rur.run_case(runner.exe, name, timeout=900)
+    assert r["ok"], r["problems"]
+    assert r["host_stopped"]
+    assert r["final"]["trap"] == 0
+
+
+@coq
+def test_extracted_U_counts_a_guest_loop_exactly(runner):
+    """dec-loop: A counts down from 2 over a program code of 2^19. The host
+    must end with RA = RB = 0 after exactly three guest steps and a host step
+    count that is the same however often the register storage is compacted."""
+    r = rur.run_case(runner.exe, "dec-loop", timeout=900)
+    assert r["ok"], r["problems"]
+    assert r["guest_steps"] == 3 and r["final"]["RA"] == 0 and r["final"]["RB"] == 0
+    assert r["host_steps"] == 25953317
+
+
+NEVER = 10 ** 9  # compact every NEVER steps: the register storage is never replaced
+
+
+@coq
+@pytest.mark.parametrize("every", [1, 7, 1000])
+def test_compacting_the_register_storage_changes_no_result(runner, every):
+    """RealizeCompact.v proves that replacing the register storage by a table
+    changes nothing. The extracted driver compacts every REALIZE_COMPACT_EVERY
+    steps; here it compacts every step, every seventh step and every thousandth
+    step, and everything it prints (the host state at each visit of the loop
+    head, the step count, the final state) must equal a run that never
+    compacts. The final state must also equal the state the plain extracted
+    host run (uhost, which is rlz_host_run_prog and does not use the schedule
+    function) reaches after the same number of steps."""
+    for name in ("inc-halt", "inc-inc-halt", "p-inc-halt", "p-inc-inc-halt"):
+        machine, P, x, y, _note = rur.CASES[name]
+        urun, uhost = ("urun", "uhost") if machine == "U" else ("purun", "puhost")
+        gp = flat.prog_tokens(P)
+        args = [urun, rur.NR, 1000, 10 ** 9, x, y] + gp
+        reference = runner(args, extra_env={"REALIZE_COMPACT_EVERY": str(NEVER)})
+        got = runner(args, extra_env={"REALIZE_COMPACT_EVERY": str(every)})
+        assert got == reference, (name, every)
+        steps = int(reference[0][0].split()[1])
+        assert steps > 0 and reference[0][0].split()[2] == "1", name
+        # state 0, then the state after `steps` steps, from the plain run
+        plain = runner([uhost, rur.NR, steps, 1, x, y] + gp)[0]
+        assert len(plain) == 2
+        assert plain[-1] == reference[0][-1], (name, every)

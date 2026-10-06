@@ -36,6 +36,9 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 
+# Instructions per chunk of a generated program literal (see lit in run).
+CHUNK = 64
+
 PRINT_V = r"""
 From Coq Require Import List.
 Require Import Kernel.RealizeNames.
@@ -121,8 +124,20 @@ def run(coqc, flags, out_dir: Path):
               "SLOT_A0": lay[4], "SLOT_B0": lay[5], "DEAD": lay[6]}
 
     def lit(name, trips, ctors, ty):
-        body = ";\n  ".join(term(t, ctors) for t in trips)
-        return "Definition %s : %s :=\n  [%s].\n" % (name, ty, body)
+        # A list literal of thousands of instructions extracts to straight-line code
+        # as long as the list, in the one function that initialises the module, and
+        # the OCaml compiler recurses over that length: it runs out of its 8 MB stack
+        # on Linux. Written as chunks of CHUNK instructions, each a function of unit
+        # (so each is compiled as a function of its own) joined by append, no function
+        # is longer than one chunk.
+        chunks = [trips[i:i + CHUNK] for i in range(0, len(trips), CHUNK)] or [[]]
+        parts = []
+        for k, ch in enumerate(chunks):
+            body = ";\n  ".join(term(t, ctors) for t in ch)
+            parts.append("Definition %s_c%d (_ : unit) : %s :=\n  [%s].\n" % (name, k, ty, body))
+        joined = " ++ (".join("%s_c%d tt" % (name, k) for k in range(len(chunks))) + ")" * (len(chunks) - 1)
+        parts.append("Definition %s : %s :=\n  %s.\n" % (name, ty, joined))
+        return "\n".join(parts)
 
     v_text = """(** RealizePrograms.v: the host programs U and U_P as literal lists.
 
@@ -133,8 +148,8 @@ def run(coqc, flags, out_dir: Path):
     aliases); each list is followed by an eq_refl proof that it is the
     original, so Coq's kernel checks the table.
 
-    Dependencies: UniversalLayout.v, UniversalPLayout.v. No axioms, no
-    Admitted.                                                              *)
+    Dependencies: UniversalLayout.v, UniversalPLayout.v. No axioms and no
+    unfinished proofs.                                                     *)
 
 (* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this
    file is data, checked against its source by the proofs below. *)
@@ -153,6 +168,14 @@ Proof. vm_compute. reflexivity. Qed.
           "list (@Minimal.EarnedMultiPriced.pu_instr Kernel.UniversalPCodes.pu_hprop)") + """
 Lemma rlz_phost_program_is : rlz_phost_program = Kernel.UniversalPLayout.U_P.
 Proof. vm_compute. reflexivity. Qed.
+
+(* ================================================================= *)
+(* Assumption audit. Every line must print                            *)
+(* "Closed under the global context".                                 *)
+(* ================================================================= *)
+
+Print Assumptions rlz_host_program_is.
+Print Assumptions rlz_phost_program_is.
 """
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "RealizePrograms.v").write_text(v_text, encoding="utf-8", newline="\n")

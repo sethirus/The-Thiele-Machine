@@ -643,3 +643,26 @@ An explicitly qualified citation keeps its own module identity.
 - `ent2_uncovered_posterior`: In the covering counterexample, a prior element is in the one-member posterior exactly when the chain on A at least 2 to the n minus 1 certifies on it.
 - `ent2_uncovered_claim_false`: For n at least 4, the chain on A at least 2 to the n minus 1 narrows a prior of 2 to the n states to one state, n index bits, for a ledger of 3, so the claim that the index-bit drop is at most the ledger rise is false for this run.
 - `ent2_no_cheap_covering`: For n at least 4, no tree of depth at most 3, with any representative observation, covers the prior onto the one-member posterior of the chain on A at least 2 to the n minus 1.
+
+## Extracted machines
+
+- `rlz_small_halting_correspondence`: The theorem of EarnedCore.v on the compilation of a two-counter machine to a program of the small machine, stated with the extracted names: a two-counter machine M halts from (a, b) exactly when its compiled program halts from the small machine's start state for (a, b).
+- `rlz_small_mu_conservation_trace`: With the extracted names, the ledger after running any trace of instructions from a state is the starting ledger plus the total cost of the trace.
+- `rlz_small_run_prog_trace`: With the extracted names, running a program for n steps from a state gives the same state as running the trace of the n instructions it executes.
+- `rlz_multi_mu_conservation_trace`: With the extracted names, on the multi-register host the ledger after running any trace of instructions is the starting ledger plus the total cost of the trace.
+- `rlz_pgen_extends_gen`: Running the embedding of an unpriced guest program on the priced guest machine for n steps gives the same state as running the program on the unpriced guest machine.
+- `rlz_host_program_is` (`Kernel.RealizePrograms.rlz_host_program_is`): The literal list of instructions that is extracted for the universal program equals U of UniversalLayout.v.
+- `rlz_host_run_prog_is`: The extracted run of the host over its one property PSlot is the run of EarnedMulti.v with the universal checker.
+- `rlz_host_at_is`: For every guest program P, start (x, y) and n, the extracted host state after n steps of the extracted U from the extracted loader is the state of the original host after n steps of U from `hload P x y`.
+- `rlz_nxtprime_eq`: The computable prime search of RealizePriced.v returns the next prime above n, the value of the vendored library's opaque next-prime function, for every n.
+- `rlz_qs_eq`: The computable prime stream of RealizePriced.v equals the vendored library's prime stream at every index.
+- `rlz_ueval_eq`: The universal checker written with the computable prime stream decides every property of the presented machines exactly as the universal checker of CompilerChecker.v does.
+- `rlz_pu_heval_eq`: The priced host's evaluation of a property at a value, written with the computable prime stream, equals the evaluation of UniversalPCodes.v for every property and value.
+- `rlz_phost_program_is` (`Kernel.RealizePrograms.rlz_phost_program_is`): The literal list of instructions that is extracted for the priced universal program equals U_P of UniversalPLayout.v.
+- `rlz_phost_load_eq`: For every priced guest program P and start (x, y), the extracted loader of the priced host gives the state of `pu_hload` on the original program.
+- `rlz_phost_run_prog_eq`: The extracted run of the priced host equals the run of EarnedMultiPriced.v with the universal checker, for every n, program and state.
+- `rlz_phost_at_eq`: For every priced guest program P, start (x, y) and n, the extracted priced host state after n steps of the extracted U_P from the extracted loader is the state of the original host after n steps of U_P from `pu_hload` of the original program.
+- `rlz_sched_sound`: For a program that names only registers below N and a state whose registers N and above hold g and have version zero, running any schedule of steps in which the registers below N are replaced by a table at chosen points gives, register by register and field by field, the state of running the same number of steps without any replacement.
+- `rlzp_sched_sound`: The same statement for the priced host: replacing the register storage by a table at any points of a run changes no register, version, fact, channel, trap latch, ledger or flag.
+- `rlz_host_sched_sound_original`: For every guest program P, start (x, y) and schedule, the extracted run of U with register storage replaced by a table at the scheduled points is, field by field, the run of the original host from `hload P x y` for as many steps as the schedule is long.
+- `rlz_phost_sched_sound_original`: For every priced guest program P, start (x, y) and schedule, the extracted run of U_P with register storage replaced by a table at the scheduled points is, field by field, the run of the original priced host from `pu_hload` of the original program.

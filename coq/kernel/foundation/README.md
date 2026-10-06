@@ -50,6 +50,8 @@ these records.
 | `PresentedUniversal.v` | One fixed machine U_P runs every computably presented Thiele machine, with the exact ledger up to a surcharge of at most 2 (`presented_universal`) |
 | `PresentedDemo.v` | A computably presented demonstration machine run on U_P (`pu_demo_exact`) |
 | `PricedHostLinks.v` | The priced interpreter host as a certification system; its halting problem is undecidable (`priced_interp_halting_undecidable`) |
+| `RealizeNames.v`, `RealizePrograms.v`, `Realize.v`, `RealizePriced.v` | The machines of `minimal/` and the host programs U and U_P under extractable names, each proved equal to the original it stands for (the programs as literal lists, the pairing and instruction codes as copies, the prime stream as a computable search); these are the only definitions extracted to OCaml (`ocaml/RealizeExtract.v`) |
+| `RealizeCompact.v` | Replacing the register storage of the host by a table at any step changes no register, version, fact, channel, latch, ledger or flag (`rlz_sched_sound`, `rlz_host_sched_sound`), so the extracted runs of U and U_P can be hundreds of millions of steps long |
 | `SmallChshLinks.v` | The small machine with the CHSH property as a certification system: a certified run pays at least 3 and its committed tally obeys the Tsirelson bound (`small_chsh_certified_floor`) |
 
 ## Imports

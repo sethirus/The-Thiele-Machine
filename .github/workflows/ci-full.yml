@@ -133,12 +133,119 @@ jobs:
               sys.exit(1)
           EOF
 
+  # The universal programs U and U_P, extracted from Coq to OCaml, run on
+  # guests that use the record instructions (program code at least 2^24, about
+  # 4 * 10^8 host steps each; scripts/realize_universal_runs.py). The cases are
+  # too long for the python job, which runs the quick ones. Each run is checked
+  # against the python guest machine: the host stops when the guest stops, each
+  # visit of the loop head shows the guest after one more step, and at the stop
+  # the counters, ledger, flag and trap latch are the guest's.
+  realize-universal:
+    name: Extracted U and U_P on guests with record instructions
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Coq and OCaml
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib libzarith-ocaml-dev
+
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
+
+      - name: Capture toolchain version
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+
+      - name: Compute vendor build digest
+        id: vendor-digest
+        run: |
+          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
+            | sort -z \
+            | xargs -0 sha256sum 2>/dev/null \
+            | sha256sum \
+            | cut -c1-16)
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - name: Purge stale tracked Coq .vo files
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+            coq/.Makefile.d
+            build/coq-build-manifest.json
+          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          restore-keys: |
+            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+
+      - name: Refresh Coq artefact mtimes
+        run: |
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
+
+      - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          rm -f Makefile Makefile.conf .Makefile.d
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
+          coq_makefile -f _CoqProject -o Makefile
+          make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
+
+      - name: Extract the machines to OCaml and build the driver
+        run: bash scripts/realize_extract.sh build/realize
+
+      - name: Run U and U_P on the guests with record instructions
+        # Every case must pass; a case that does not finish within the job
+        # limit fails the job. The cases are listed in
+        # scripts/realize_universal_runs.py.
+        run: |
+          python3 scripts/realize_universal_runs.py build/realize/realize_driver --jobs 4 \
+            --case check-true --case check-false --case inc-check --case check-inc \
+            --case p-check-true --case p-check-false \
+            --json build/realize/universal_runs.json
+
+      - name: Upload the measured runs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: realize-universal-runs
+          path: build/realize/universal_runs.json
+          retention-days: 30
+
   # Final summary — waits for every parallel branch to finish so the rollup
   # table reflects their actual outcomes.
   verify-full:
     name: Full Verification Summary
     runs-on: ubuntu-latest
-    needs: [fast-verify, vacuity-audit]
+    needs: [fast-verify, vacuity-audit, realize-universal]
     if: ${{ always() }}
     steps:
       - name: Generate summary
@@ -150,6 +257,7 @@ jobs:
           |-------|--------|
           | Fast verify | ${{ needs.fast-verify.result }} |
           | Vacuity audit | ${{ needs.vacuity-audit.result }} |
+          | Extracted U and U_P runs | ${{ needs.realize-universal.result }} |
           EOF
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
           cat /tmp/summary.md
@@ -161,7 +269,8 @@ jobs:
 
           for result in \
             "fast-verify=${{ needs.fast-verify.result }}" \
-            "vacuity-audit=${{ needs.vacuity-audit.result }}"
+            "vacuity-audit=${{ needs.vacuity-audit.result }}" \
+            "realize-universal=${{ needs.realize-universal.result }}"
           do
             echo "$result"
             case "$result" in

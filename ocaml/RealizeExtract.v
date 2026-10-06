@@ -51,6 +51,7 @@ From Coq Require Import List Arith Lia Bool Extraction.
 Import ListNotations.
 Require Import Kernel.Realize.
 Require Import Kernel.RealizePriced.
+Require Import Kernel.RealizeCompact.
 
 (* ================================================================= *)
 (* Input and output helpers.                                          *)
@@ -225,6 +226,24 @@ Definition rlz_view_pslot (n : nat) (s : @Minimal.EarnedMultiPriced.pu_state Ker
   ++ rlz_view_facts rlz_view_pslotfact (Minimal.EarnedMultiPriced.facts k)
   ++ rlz_view_regs n (Minimal.EarnedMultiPriced.vals k) (Minimal.EarnedMultiPriced.vers k).
 
+(* The views read the registers only through their values at 0 .. n-1, so two
+   states equal up to storage (RealizeCompact.v) have the same view. *)
+Lemma rlz_view_slot_eqv : forall n s t, rlz_eqv s t -> rlz_view_slot n s = rlz_view_slot n t.
+Proof.
+  intros n s t (Hk & Hm & Hc). destruct Hk as (Hv & Hr & Hp & Hf & Hch & He).
+  unfold rlz_view_slot, rlz_view_regs.
+  rewrite Hp, Hf, Hch, He, Hm, Hc.
+  rewrite (map_ext _ _ Hv), (map_ext _ _ Hr). reflexivity.
+Qed.
+
+Lemma rlz_view_pslot_eqv : forall n s t, rlzp_eqv s t -> rlz_view_pslot n s = rlz_view_pslot n t.
+Proof.
+  intros n s t (Hk & Hm & Hc). destruct Hk as (Hv & Hr & Hp & Hf & Hch & He).
+  unfold rlz_view_pslot, rlz_view_regs.
+  rewrite Hp, Hf, Hch, He, Hm, Hc.
+  rewrite (map_ext _ _ Hv), (map_ext _ _ Hr). reflexivity.
+Qed.
+
 (* Whether a program has stopped, as a bool. *)
 Definition rlz_stopped_small (P : list Minimal.EarnedCore.instr) (s : Minimal.EarnedCore.state) : bool :=
   match Minimal.EarnedCore.next_instr P (Minimal.EarnedCore.core_of s) with None => true | Some _ => false end.
@@ -242,6 +261,13 @@ Definition rlz_stopped_pslot (P : list (@Minimal.EarnedMultiPriced.pu_instr Kern
   (s : @Minimal.EarnedMultiPriced.pu_state Kernel.UniversalPCodes.pu_hprop) : bool :=
   match Minimal.EarnedMultiPriced.pu_next_instr P (Minimal.EarnedMultiPriced.core_of s) with
   | None => true | Some _ => false end.
+
+(* The program counter of a host state, for the driver's run to the stop. *)
+Definition rlz_pc_slot (s : @Minimal.EarnedMulti.state Minimal.UniversalCodes.hprop) : nat :=
+  Minimal.EarnedMulti.pc (Minimal.EarnedMulti.core_of s).
+
+Definition rlz_pc_pslot (s : @Minimal.EarnedMultiPriced.pu_state Kernel.UniversalPCodes.pu_hprop) : nat :=
+  Minimal.EarnedMultiPriced.pc (Minimal.EarnedMultiPriced.core_of s).
 
 (* ================================================================= *)
 (* Extraction settings.                                               *)
@@ -267,23 +293,23 @@ Extract Inductive nat => "Z.t" ["Z.zero" "Z.succ"]
 (* plus, mult, minus are the names under which Coq elaborates + * - ; Nat.add,
    Nat.mul, Nat.sub are the same functions under their own names, and the
    extraction tables are keyed by the name, so both are given. *)
-Extract Constant plus => "Z.add".
-Extract Constant mult => "Z.mul".
-Extract Constant minus => "(fun n m -> Z.max Z.zero (Z.sub n m))".
-Extract Constant Nat.add => "Z.add".
-Extract Constant Nat.mul => "Z.mul".
-Extract Constant Nat.sub => "(fun n m -> Z.max Z.zero (Z.sub n m))".
-Extract Constant Nat.eqb => "Z.equal".
-Extract Constant Nat.leb => "Z.leq".
-Extract Constant Nat.ltb => "Z.lt".
-Extract Constant Nat.pow => "(fun a b -> Z.pow a (Z.to_int b))".
-Extract Constant Nat.div => "(fun a b -> if Z.equal b Z.zero then Z.zero else Z.div a b)".
-Extract Constant Nat.modulo => "(fun a b -> if Z.equal b Z.zero then a else Z.rem a b)".
-Extract Constant Nat.div2 => "(fun n -> Z.div n (Z.of_int 2))".
-Extract Constant Nat.even => "(fun n -> Z.equal (Z.rem n (Z.of_int 2)) Z.zero)".
-Extract Constant Nat.odd => "(fun n -> not (Z.equal (Z.rem n (Z.of_int 2)) Z.zero))".
-Extract Constant Peano_dec.eq_nat_dec => "Z.equal".
-Extract Constant Nat.eq_dec => "Z.equal".
+Extract Constant plus => "Z.add". (* SAFE: Z.add is exact integer addition and nat is extracted as Z.t. *)
+Extract Constant mult => "Z.mul". (* SAFE: Z.mul is exact integer multiplication. *)
+Extract Constant minus => "(fun n m -> Z.max Z.zero (Z.sub n m))". (* SAFE: truncated subtraction, which is what nat subtraction is. *)
+Extract Constant Nat.add => "Z.add". (* SAFE: same function as plus under its other name. *)
+Extract Constant Nat.mul => "Z.mul". (* SAFE: same function as mult under its other name. *)
+Extract Constant Nat.sub => "(fun n m -> Z.max Z.zero (Z.sub n m))". (* SAFE: same function as minus under its other name. *)
+Extract Constant Nat.eqb => "Z.equal". (* SAFE: Z.equal tests integer equality. *)
+Extract Constant Nat.leb => "Z.leq". (* SAFE: Z.leq tests integer order. *)
+Extract Constant Nat.ltb => "Z.lt". (* SAFE: Z.lt tests strict integer order. *)
+Extract Constant Nat.pow => "(fun a b -> Z.pow a (Z.to_int b))". (* SAFE: integer power; a exponent too large for a machine int raises Overflow, which stops the run and never returns a wrong value. *)
+Extract Constant Nat.div => "(fun a b -> if Z.equal b Z.zero then Z.zero else Z.div a b)". (* SAFE: floor division on naturals with Coq x/0 = 0. *)
+Extract Constant Nat.modulo => "(fun a b -> if Z.equal b Z.zero then a else Z.rem a b)". (* SAFE: remainder on naturals with Coq x mod 0 = x. *)
+Extract Constant Nat.div2 => "(fun n -> Z.div n (Z.of_int 2))". (* SAFE: division by two. *)
+Extract Constant Nat.even => "(fun n -> Z.equal (Z.rem n (Z.of_int 2)) Z.zero)". (* SAFE: remainder two is zero. *)
+Extract Constant Nat.odd => "(fun n -> not (Z.equal (Z.rem n (Z.of_int 2)) Z.zero))". (* SAFE: the negation of even. *)
+Extract Constant Peano_dec.eq_nat_dec => "Z.equal". (* SAFE: a decision of equality on Z.t is the equality test. *)
+Extract Constant Nat.eq_dec => "Z.equal". (* SAFE: a decision of equality on Z.t is the equality test. *)
 
 (* nat and the arithmetic above are the only substitutions. Everything
    else, including fact, iter, the prime search and the machines, is
@@ -294,7 +320,9 @@ Extraction "realize_extracted.ml"
   rlz_mk_regs
   rlz_view_small rlz_view_multi rlz_view_pmulti rlz_view_slot rlz_view_pslot
   rlz_stopped_small rlz_stopped_multi rlz_stopped_pmulti rlz_stopped_slot
-  rlz_stopped_pslot
+  rlz_stopped_pslot rlz_pc_slot rlz_pc_pslot
+  rlz_host_regs rlz_phost_regs rlz_host_sched rlz_phost_sched
+  rlz_prog_below rlzp_prog_below
   rlz_small_exec rlz_small_run rlz_small_step rlz_small_run_prog
   rlz_small_trace_of rlz_small_compile rlz_small_start
   rlz_multi_exec rlz_multi_run rlz_multi_step rlz_multi_run_prog
