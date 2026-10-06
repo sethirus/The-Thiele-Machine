@@ -648,3 +648,20 @@ def test_necessity_files_in_minimal_compile_axiom_free(tmp_path):
     assert set(NEC_EXPECTED_CLOSED) == {
         p.name for p in MINIMAL_DIR.glob("Nec*.v")
     }, "every minimal/Nec*.v file needs an expected count"
+
+
+AXIS_DG_BLOCK_EXPECTED_CLOSED = 4
+
+
+@pytest.mark.coq
+def test_axis_diagonal_blocks_compile_axiom_free(tmp_path):
+    """minimal/AxDgBlock.v, the block lemmas of the content diagonal (a block
+    runs the same when the versions of the registers are shifted by a fixed
+    amount), compiles with plain coqc against the host files and the standard
+    library, and every theorem it prints assumptions for is closed."""
+    _compile_chain_expect_closed(
+        tmp_path,
+        ("EarnedCore.v", "EarnedGeneric.v", "EarnedMulti.v", "UniversalCodes.v",
+         "SmHostBlocks.v", "AxDgBlock.v"),
+        AXIS_DG_BLOCK_EXPECTED_CLOSED,
+    )

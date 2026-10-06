@@ -32,6 +32,14 @@ DECLARATION_RE = re.compile(
 
 WAIVED_FILES = [
     "coq/kernel/category/AlgebraicCoherence.v",
+    "coq/kernel/foundation/AxCgkBoundary.v",
+    "coq/kernel/foundation/AxCgkGuest.v",
+    "coq/kernel/foundation/AxCgkLang.v",
+    "coq/kernel/foundation/AxCgkRun.v",
+    "coq/kernel/foundation/AxChain.v",
+    "coq/kernel/foundation/AxDgLoops.v",
+    "coq/kernel/foundation/AxDgPhase.v",
+    "coq/kernel/foundation/AxDgPre.v",
     "coq/kernel/foundation/CompilerChecker.v",
     "coq/kernel/foundation/CompilerCodes.v",
     "coq/kernel/foundation/CompilerGuest.v",
@@ -136,6 +144,7 @@ WAIVED_FILES = [
     "coq/kernel/reductions/TPMQuoteGap.v",
     "coq/kernel/thermodynamic/CalorimeterProtocol.v",
     "coq/kernel/thermodynamic/CalorimeterProtocolTarget.v",
+    "minimal/AxDgBlock.v",
     "minimal/EarnedCore.v",
     "minimal/EarnedGeneric.v",
     "minimal/EarnedMulti.v",
