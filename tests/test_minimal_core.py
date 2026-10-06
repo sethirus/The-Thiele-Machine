@@ -665,3 +665,52 @@ def test_axis_diagonal_blocks_compile_axiom_free(tmp_path):
          "SmHostBlocks.v", "AxDgBlock.v"),
         AXIS_DG_BLOCK_EXPECTED_CLOSED,
     )
+
+
+TC_MINIMAL_CHAIN = (
+    "EarnedCore.v", "TcBlocks.v", "Tc2Am.v", "Tc2Forced.v", "Tc2Stage.v",
+    "Tc2Chain.v", "Tc2Collision.v", "Tc2Embed.v", "Tc2Mult.v",
+)
+TC_MINIMAL_EXPECTED_CLOSED = {
+    "TcBlocks.v": 0,
+    "Tc2Am.v": 3,
+    "Tc2Forced.v": 2,
+    "Tc2Stage.v": 1,
+    "Tc2Chain.v": 4,
+    "Tc2Collision.v": 4,
+    "Tc2Embed.v": 1,
+    "Tc2Mult.v": 1,
+}
+
+
+@pytest.mark.coq
+def test_two_counter_minimal_files_compile_axiom_free(tmp_path):
+    """The block lemmas of the two-counter Rice theorem (TcBlocks.v) and the
+    seven Tc2 files (the collision and slaving lemmas of a program that adds a
+    constant, the abstract tame machines, the stage recursion, the chain
+    argument, the embedding of the small machine, and the theorem that no
+    program multiplies every input by a number coprime to every small number)
+    compile with plain coqc against EarnedCore.v and the standard library, and
+    every theorem each one prints assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    for name in TC_MINIMAL_CHAIN:
+        (lib / name).write_text((MINIMAL_DIR / name).read_text())
+    for name in TC_MINIMAL_CHAIN:
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=900,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+        if name in TC_MINIMAL_EXPECTED_CLOSED:
+            closed = proc.stdout.count("Closed under the global context")
+            assert closed == TC_MINIMAL_EXPECTED_CLOSED[name], (
+                f"{name}: expected {TC_MINIMAL_EXPECTED_CLOSED[name]} closed-assumption "
+                f"receipts, saw {closed}\n" + proc.stdout
+            )
+            assert "Axioms:" not in proc.stdout
