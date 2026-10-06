@@ -165,6 +165,7 @@ WAIVED_FILES = [
     "coq/kernel/thermodynamic/CalorimeterProtocol.v",
     "coq/kernel/thermodynamic/CalorimeterProtocolTarget.v",
     "minimal/AxDgBlock.v",
+    "minimal/CzLink.v",
     "minimal/EarnedCore.v",
     "minimal/EarnedGeneric.v",
     "minimal/EarnedMulti.v",

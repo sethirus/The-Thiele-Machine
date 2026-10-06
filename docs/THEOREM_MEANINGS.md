@@ -1002,3 +1002,29 @@ An explicitly qualified citation keeps its own module identity.
 - `lift_computable_runs_on_U`: If the four code-level relations of a presentation are computable in any one of the seven models, there is a presentation that runs on the fixed host U_P with the same halting, record and ledger within the surcharge of two.
 - `lift_model_independence`: One closed statement that gathers the lifting onto the point and the axis, the converse that every Thiele-complete machine has a universal base, the failure of finitely branching and stateless bases, the classic bases in all seven models, the running of computably presented machines on U_P, the decidability of one-counter halting and the undecidability of two-counter halting.
 - `lift_ex_L_computable`: The step relation of the number-coded two-counter machine is computable in the lambda calculus L.
+- `cmpz_cost_prod`: In the product of two machines, where a move belongs to one machine and acts on its own part only, the cost of any interleaved run is the cost of its left moves run on the first machine plus the cost of its right moves run on the second.
+- `cmpz_prod_a2_iff`: The product of two machines pays the toll (every move that leaves the down-set of a record costs at least 1) if and only if both parts do, given a state of each.
+- `cmpz_interleaving_invariant`: Two interleavings of the same left moves and right moves reach the same product state at the same total cost.
+- `cmpz_prod_tc`: Two machines that are Thiele-complete under their interfaces give a product that is Thiele-complete under the product interface, with the record the pair of the two records and every certification keeping its own earned chain.
+- `cmpz_prod_thiele_complete`: The product of two Thiele-complete machines is a Thiele-complete machine over the product order.
+- `cmpz_or_thiele_complete`: The machine on pairs whose record is the OR of the two records is Thiele-complete in the book's point-level sense when both parts are.
+- `cmpz_prod_joint_certificate`: From a clean start, any run of the product that ends with a record at or above a pair of points, neither below its floor, has at least 6 record moves and raises the ledger by at least 6, and 6 is reached.
+- `cmpz_and_costs_six`: From a clean start of the product, every run that raises the AND of the two records has at least 6 record moves, so certifying both parts costs both certificates, 3 and 3.
+- `cmpz_and_not_complete`: The AND reading of the product's records is not Thiele-complete under the product interface, because the definition asks for a chain of 3 record moves and 6 are needed.
+- `cmpz_or_clocks_not_complete`: The product of two clocks is weakly Thiele-complete but not Thiele-complete, because it has no free move.
+- `cmpz_sum_record_loses`: Counting how many parts are certified loses which part was: two product states with the same count are separated by a threshold of the pair order and not by the count.
+- `cmpz_shared_not_earned`: When a second party writes counter A of the small machine without raising its version, the earned-record clause fails: a run that checks that A is 0, lets the silent write happen, then commits and certifies raises the flag with no earned chain.
+- `cmpz_exactness_not_preserved`: Two finite machines can each have an exact shadow price through a window, while the pair of windows collides on the product, because an invisible certification looks the same as a stutter.
+- `cmpz_prod_universal`: With record-preserving simulations as morphisms, the interleaved product is the categorical product: the projections are morphisms, a pairing exists and is unique.
+- `cmpz_unit_not_tc`: The machine with one state and no move is terminal for record-preserving simulations and is not Thiele-complete, so complete machines have products and no terminal object.
+- `cmpz_ld_unclean`: A hand-off that can land the second machine above its floor is a free certification, so the loadable form of the second machine no longer pays the toll.
+- `cmpz_seq_tc`: Running a machine, then handing its two output counters to a second machine through free loading moves, gives a Thiele-complete machine when both are.
+- `cmpz_seq_composes`: For any two counter programs, step counts and input there is a schedule, wiring the first window's two counters into the second machine, after which the first window shows the first program's run, the second shows the second program's run on the handed-over counters, and both are live.
+- `cmpz_link_compose`: Nesting by simulation composes: if Y runs X and Z runs Y, then Z runs X with the record bit equal at matched points, halting and the rising of the record corresponding, and the surcharge bounds adding.
+- `cmpz_tower`: A tower of k such links keeps the record bit exactly at every point, adds nothing while the record is down, and once it is up adds between the sum of the lower bounds and the sum of the upper bounds.
+- `cmpz_tower_uniform`: A tower of k links each with surcharge between lo and hi adds between k times lo and k times hi.
+- `cmpz_priced_link`: A priced guest program run by the fixed host U_P keeps its record, ledger and halting exactly, with surcharge 0.
+- `cmpz_compile_link`: A computably presented machine is run by its compiled guest with surcharge exactly the machine's own surcharge function, at every step count.
+- `cmpz_host_link_exact`: If the reading starts at no and every move a presented machine takes costs at most 1, running it on U_P adds exactly 2 to the ledger once its latch is up.
+- `cmpz_surcharge_exact_two`: For a presented machine whose reading starts at no and whose moves cost at most 1, the surcharge is exactly 2 whenever its latch is up, so the bound 2 is attained.
+- `cmpz_sim_cost_ge_exits`: A record-preserving simulation that reflects the order of records, into a machine that pays the toll, pays at least the number of guest exits over any run, so nesting only adds to the toll at every scale.

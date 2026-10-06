@@ -758,3 +758,42 @@ def test_lifting_minimal_files_compile_axiom_free(tmp_path):
                 f"receipts, saw {closed}\n" + proc.stdout
             )
             assert "Axioms:" not in proc.stdout
+
+
+COMPOSE_MINIMAL_CHAIN = (
+    "EarnedCore.v", "EarnedGeneric.v", "ThieleComplete.v", "CzLink.v", "CzShared.v",
+)
+COMPOSE_MINIMAL_EXPECTED_CLOSED = {"CzLink.v": 5, "CzShared.v": 3}
+
+
+@pytest.mark.coq
+def test_composition_minimal_files_compile_axiom_free(tmp_path):
+    """The abstract nesting of driven systems by simulation (CzLink.v: links
+    compose, towers keep the record and add surcharges) and the shared-resource
+    counterexample on the small machine (CzShared.v: composition keeps the
+    earned order only when the parts do not change what each other's claims
+    are about) compile with plain coqc against ThieleComplete.v and the
+    standard library, and every theorem each one prints assumptions for is
+    closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    for name in COMPOSE_MINIMAL_CHAIN:
+        (lib / name).write_text((MINIMAL_DIR / name).read_text())
+    for name in COMPOSE_MINIMAL_CHAIN:
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=900,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+        if name in COMPOSE_MINIMAL_EXPECTED_CLOSED:
+            closed = proc.stdout.count("Closed under the global context")
+            assert closed == COMPOSE_MINIMAL_EXPECTED_CLOSED[name], (
+                f"{name}: expected {COMPOSE_MINIMAL_EXPECTED_CLOSED[name]} closed-assumption "
+                f"receipts, saw {closed}\n" + proc.stdout
+            )
+            assert "Axioms:" not in proc.stdout
