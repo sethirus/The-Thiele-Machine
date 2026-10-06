@@ -307,7 +307,7 @@ swap, the check and its answer, written down as it happens. Wheel the computers 
 back, read the traces, and you'll know which one sorted. Problem solved?
 
 It's the right instinct, and it gets most of the way to this book. But take it apart, because
-``just keep the trace'' has three things wrong with it, and each one turns out to be a piece of
+``just keep the trace'' has three things wrong with it, and each one is a piece of
 what comes later.
 
 First, a trace is bits, and bits can be typed in. Whoever typed the sorted list into the second
@@ -464,7 +464,7 @@ want, you won't get information about the crime.
 Which means, as far as information goes, sorting your list told you nothing. The sorted list holds
 nothing that ``your list, plus the word \emph{sort}'' didn't already hold.
 
-And it turns out logic says the same thing in a different coat. The standard logic of knowing, the
+Logic says the same thing in a different coat. The standard logic of knowing, the
 one Jaakko Hintikka worked out in 1962, has a property people call logical omniscience: if you know
 some facts, you automatically know everything that follows from them. So by that logic, once you
 knew every number on your list, you already knew whether it was sorted. Hintikka flagged the problem
@@ -700,8 +700,8 @@ that would either give the feeling something to stand on or show me I was imagin
 I didn't know what I was looking for, at first, beyond a rough shape: two things that look exactly the
 same and differ in how far something about them has been settled. So I started collecting anything
 that seemed to have that shape, and most of what I collected fell apart as soon as I looked at it
-closely. The way it fell apart turned out to matter more than the things themselves, so I'll go through
-it in the order it happened.
+closely. How each one fell apart taught me more than the thing itself did, so I'll go through them
+in the order it happened.
 
 The first batch was all hidden things. A pea under one of three cups. A tree, whose age you can't see
 from the outside. A forged painting that looks right until somebody tests the paint. A glass of gas,
@@ -778,9 +778,10 @@ three or more stages, and that is proved (Section~\ref{sec:latch} and the sectio
 this paragraph is me thinking out loud.
 
 Flatland, where this hunch started (Section~\ref{sec:origin}), turned out to belong in the first batch.
-When the sphere moves through the flat world, the circle the flat creatures see grows and shrinks, so the
-hidden direction changes their view, and a sharp enough flat observer could in principle work out where
-the sphere is. In this machine, as far as I can make out, you could move a state all the way along the
+When the sphere passes through the flat world, the narrator sees a line whose ends fade wrong and whose
+length keeps changing, and when he feels it he finds a circle that grows and shrinks. The hidden direction
+leaks into his view, faintly, and a sharp enough flat observer could in principle work out where the
+sphere is. In this machine, as far as I can make out, you could move a state all the way along the
 established direction without changing a single bit of the ordinary machine. That may be exactly why the
 ordinary machine can't see it. It may also be why, if the direction is worth having, someone has to build
 it in on purpose and keep it on purpose. Whether keeping it costs anything is what the rest of this
@@ -789,10 +790,10 @@ chapter tries to find out.
 None of these people were writing about what I'm writing about, and none of them is the reason any of
 this is true or false. I went through them because I needed something to test the feeling against, and
 most of what I tested failed. The failures told me what the thing isn't: not hidden, not free, not
-reversible, not steering. What's left after all that is narrower than what I started with, and I'm
-still not certain I've described it right.
+reversible, not steering. What's left after all that is mostly a list of what it isn't, and I'm
+still not certain I've described what it is.
 
-\subsection*{Turns out computing already had a word for it}
+\subsection*{Computing already had a word for it}
 
 Here's the slightly embarrassing part. Computing already has a word for this and uses it every
 day. Anyone who's used a database has seen it: COMMIT.
@@ -965,8 +966,7 @@ That's my two computers, in 1961. Ordinary machines spend their merges, and thei
 why the sorter and the copier end up identical, and why the comparing wing goes dark. And the very
 same kind of step, a merge, is what it takes to close a door for good.
 
-So here's the deepest thing I can say about settling, and I'll say it carefully, because it's easy
-to say it bigger than it is. Not every forgetting settles anything: wiping a scratch pad closes no
+So here's the deepest thing I can say about settling. Not every forgetting settles anything: wiping a scratch pad closes no
 question. But on a finite machine, every settling forgets. The step that closes a question for good
 lands two states on one, somewhere, maybe not where you happen to be standing, and afterward nothing
 can tell which one it was. A verdict keeps the decision and lets go of the arguing. An ordinary
@@ -1069,7 +1069,7 @@ claim, then a certificate, with exactly one mark charged for each of those three
 each guest's record earned again by the host's own steps and each guest's toll paid on the host's
 own ledger, not left to the guest's good manners.
 
-The first bar, being a Thiele machine at all, is lower than it sounds, and I'd rather you hear
+The first bar, being a Thiele machine at all, is low, and I'd rather you hear
 it from me. A machine that charges one mark for every step it takes, whatever the step does,
 obeys the toll for any record you like; a clock is enough to make something a Thiele machine. If
 Thiele-complete only meant a Thiele machine that can compute anything, a clock bolted to a
@@ -1680,7 +1680,7 @@ guest's prices to within a surcharge of at most two, which no program on that ho
 general.
 And a computer that runs the small machine, your laptop say, isn't a Thiele machine either. It
 implements one, inside bounds, the way a laptop implements a Turing machine.
-Push on that comparison, because it's looser than it sounds, and the looseness is the
+Push on that comparison, because it's loose, and the looseness is the
 point. Does a laptop implement a Turing machine? Not exactly. Turing's tape never runs out,
 and a laptop's memory does; strictly, a laptop is a very large machine with finitely many
 states, and it behaves like a Turing machine only on computations that fit. Nobody minds,
@@ -1955,7 +1955,7 @@ Formal verification was a graveyard of dead ends further on. The hardware came a
 
 Large language models were my hands the whole way through, and I want the division of labor exact, because it is the thing people most want to get wrong about work like this. The hands had nothing like this to draw on: no reference implementation, no prior project to point at. The ideas, the architecture, the direction, the demand that the thing be true: those are mine, all of them, no asterisk. The symbol-pushing, the actual Coq and the actual math, the models produced and the proof checker judged. The proofs compile or they do not. I refused every one that did not. Coq is an obedient idiot. It checks the proof matches the statement. It does not check that the statement means what you think it means. A theorem can claim ``every cat that is also a prime number has whiskers'' and the proof can be three characters long and Coq will nod and stamp it. So I read every statement. The proofs you can't fake. The statements you can fake by accident, which is the more dangerous failure mode. I refused both kinds. However the symbols got onto the page, the argument on it is checkable by reading, and it would be exactly as right or as wrong if a million monkeys had typed it. The monkeys could not have refused.
 
-A word on what I actually do, because it is stranger than the usual split and it runs under everything after it. I do not write code or math by hand. I do not pick constants. I do not grind through derivations. I have never written a line of code on paper or in a notepad in my life. What I do is see, and direct, and refuse. When I take hold of an idea it does not stay a point. It opens up. It becomes a shape I can blow up and turn over and take apart, lay across another shape to find where the two of them touch, run forward and then back to where it started, zoom into until it is the only thing in the world and pull back until it is one dot in a field of other dots, and the whole time it stays wired to everything I have ever connected it to, the right connections and the wrong ones both, all of them live at once. I am not reading that field neutrally, the way a search would. The thing doing the looking is me, the whole of me, my gut and my mood and my stubbornness picking what lights up and which way I move through it, and that is the part you cannot lift out without turning me back into a search engine. So I see where a thing has to fit, the shape it is obligated to have, usually well before I could write it down in a single symbol. Then the model gives me the symbols, the proof checker takes them or throws them back, and I refuse anything that will not compile or does not match the shape I am holding. That refusal is the one thing in this entire document that is mine and only mine: the demand that it be true, and the throwing-out of everything that wasn't.
+A word on what I actually do, because it runs under everything after it. I do not write code or math by hand. I do not pick constants. I do not grind through derivations. I have never written a line of code on paper or in a notepad in my life. What I do is see, and direct, and refuse. When I take hold of an idea it does not stay a point. It opens up. It becomes a shape I can blow up and turn over and take apart, lay across another shape to find where the two of them touch, run forward and then back to where it started, zoom into until it is the only thing in the world and pull back until it is one dot in a field of other dots, and the whole time it stays wired to everything I have ever connected it to, the right connections and the wrong ones both, all of them live at once. I am not reading that field neutrally, the way a search would. The thing doing the looking is me, the whole of me, my gut and my mood and my stubbornness picking what lights up and which way I move through it, and that is the part you cannot lift out without turning me back into a search engine. So I see where a thing has to fit, the shape it is obligated to have, usually well before I could write it down in a single symbol. Then the model gives me the symbols, the proof checker takes them or throws them back, and I refuse anything that will not compile or does not match the shape I am holding. That refusal is the one thing in this entire document that is mine and only mine: the demand that it be true, and the throwing-out of everything that wasn't.
 
 I am telling you all of this because it is not background color, it is the engine. I did not come up through anywhere that hands you a foundation and says trust us, this part is settled. No professors, no colleagues, no field full of authority to lean back on when a claim got heavy. From the outside that is a deficit. From the inside it is the whole reason any of this is solid: when I meet a claim I either find the proof or I do not believe it, and that goes double for my own, because my own are the ones I most want to wave through. It is how I am built. It is the only way I know to hold a thing and actually trust that I am holding it.
 
@@ -2277,7 +2277,7 @@ work: it ``plays no actual role in the presentation of theories within the treat
 the chapter that defines it, almost nowhere. And I found no argument in their writing for why
 the mother structures number three. And the chapter on category theory,
 which they announced, never appeared. Why? The thing their definition left out was the \emph{maps},
-the ways of carrying a structure from one set to another, and it turned out the maps were
+the ways of carrying a structure from one set to another, and the maps were
 where the weight was. So I keep two things from Bourbaki. The right thing: relations on
 elements whose nature doesn't matter, which is Aristotle's bronze in different words. And the
 warning: a structure stated without its maps won't carry the work. I learned that one the
@@ -2540,7 +2540,7 @@ The same structure can be carried by different stuff. The statue in marble. Two 
 answer the same vocabulary the same way. This is the second thing again with one more change
 allowed: swap the material. Cut the square out of cardboard, or lay it out in string on the
 table, and if the relations survive, it's the same square in every way you agreed to care
-about. Aristotle's bronze turns out to be one more thing you agreed not to look at, and the
+about. Aristotle's bronze is one more thing you agreed not to look at, and the
 wooden sandwich is what happens when the material was never on that list.
 
 The first act of structure is a sameness that sorts a pile you were already given. Euclid's
@@ -2717,8 +2717,8 @@ again). Anybody who's used a database has met this table; it's what an index is,
 index is a thing you build, store, and keep up to date, not a thing you get for free. Take the
 table away and keep the partition and you're back to working it out. And
 sometimes there was never a search to save: if the rule is ``evens here, odds there,'' you can
-answer ``same group?'' by looking at the last digit of each, no buckets needed. So the honest
-residue is smaller than the sentence I wanted: holding a sorting in a form you can read back
+answer ``same group?'' by looking at the last digit of each, no buckets needed. So here's
+what survives: holding a sorting in a form you can read back
 is worth something, and building that form cost something, and those are already two
 different events. Building the table, storing it, checking that it's right, and deciding to
 \emph{rely} on it are four different things. The question this book is about lives in the gap
@@ -3233,7 +3233,7 @@ shape of the answer up front, because I don't want you reading forty paragraphs 
 whether there's a point: on a machine with a finite memory, where the flag once raised stays
 up, the step that raises it has to forget something, and forgetting is the one step Landauer's
 principle puts a price on, when what's forgotten wasn't already known (that last clause takes
-back more than it looks like, and I'll show you exactly how much). Three ``ifs'' in that
+a lot back, and I'll show you exactly how much). Three ``ifs'' in that
 sentence. Every one of them
 is a door you can walk out of, and I'm going to show you each door, because the doors are
 where the actual content is.
@@ -3834,7 +3834,7 @@ which side conditions, one of which (the temperature has to be taken as zero or 
 easy to skip and shouldn't be.
 
 Why does Shannon's number share a name with the physicists' entropy at all? There's a story
-everybody tells. Shannon, the story goes, wanted to call it uncertainty, and John von Neumann
+about it. Shannon wanted to call it uncertainty, and John von Neumann
 told him to call it entropy instead, for two reasons: the same formula already lived in
 statistical mechanics under that name, and nobody really knows what entropy is, so in an
 argument he'd always have the upper hand. It's a great story. It comes from Myron Tribus, who
@@ -4087,7 +4087,7 @@ the heat for a full spread (Corollary~\ref{cor:u04-full-support-heat}) needs cha
 yes-state, which is exactly what knowing the flag is down rules out. Whether the step also
 merges states that do carry chance depends on the step, and nothing here forces it to.
 
-So here's the sentence this section actually earns, and it's smaller than the one I'd like.
+So here's what this section actually earns.
 A device that has to raise a flag and keep it up correctly \emph{from every state it might be
 in}, including states where it can't tell whether the flag is already up, can't do it for
 free, on Landauer's premise; that's the design envelope, the worst case. A particular run from
@@ -4431,7 +4431,7 @@ settle it. I don't have to. The spreads in Section~\ref{sec:a2-not-arbitrary}'s 
 theorems are spreads over the states the device might be in when the step runs, and every
 theorem there holds whether you read those chances as ignorance or as physics; ``the floor
 comes from what you didn't know'' is the same sentence in either reading, with ``you'' being
-whoever built the spread. What I need from the fallacy is smaller than either side: the two
+whoever built the spread. What I need from the fallacy is only this: the two
 rows are different rows, and only one of them is the machine's.
 
 \subsection{The demon on a sheet of paper}
@@ -4671,8 +4671,8 @@ least twice the regret of the best strategy that keeps deciding as it goes. That
 published sentence I've found to ``committing isn't free'' with a number on it. Their price is
 reward lost, not a mark on a ledger, so it's a cousin, not a twin.
 
-So ``No Free Insight,'' the name I gave the toll before I understood it, is narrower than it
-sounds, and I'd rather tell you the narrowness than let the name do work it hasn't earned.
+So here's exactly what ``No Free Insight,'' the name I gave the toll before I understood it,
+covers, because I don't want the name doing work it hasn't earned.
 Insight in the sense of \emph{finding out} can be free. The insight the toll prices is the kind
 you've \emph{committed to}, written into a record the machine can't silently revise. Whether that
 narrower thing deserves the name is a fair thing to argue about; I kept the name because it's
@@ -5103,8 +5103,8 @@ flag, and about what happens to that claim when you can only see a window of the
 method is Tarjan's. The reading is mine, and I'm about to find out what it can and can't
 survive.
 
-And it turns out the flag potential has relatives in physics-flavoured mathematics too, which I
-found after the fact, the usual way. Resource theories study what you can turn into what when some
+The flag potential has relatives in physics-flavoured mathematics too, which I
+found after the fact. Resource theories study what you can turn into what when some
 operations are free: Bob Coecke, Tobias Fritz and Robert Spekkens gave the general definition in
 2016, Fritz worked out its algebra in 2017, and Tomáš Gonda and Spekkens catalogued the numbers
 that never go up under free operations, which they call monotones, in 2023. Read with ``certified''
@@ -5169,16 +5169,14 @@ you can't, and seeing why you can't is the content.
 
 \subsection{A cave, and the people who got good at it}
 
-You've probably heard a version of this, so let me tell it carefully, because the version
-that usually gets told is the wrong half. In the seventh book of the \emph{Republic}, Plato has
+This one is Plato's, and the part I need is near the end. In the seventh book of the \emph{Republic}, Plato has
 Socrates describe prisoners chained in a cave since childhood, facing a wall, with a fire
 behind them and people carrying objects along a walkway between the fire and their backs.
 All the prisoners have ever seen is the shadows on the wall. To them, Socrates says, the
-truth would be nothing but those shadows. That's the part people remember, and it usually
-gets used to say ``the real world is hidden from us,'' which is a thing Plato did believe and
-which is not what I need from the story.
+truth would be nothing but those shadows. Plato did believe the real world is hidden from us,
+and the cave says that too, but it's not what I need from the story.
 
-Here's the half that matters for this book, and it's one line further on. The prisoners,
+What I need is one line further on. The prisoners,
 Socrates says, hand out honours to whoever is quickest at spotting the shadows as they pass
 and best at guessing which comes next. Read that again. The prisoners \emph{get good at it}. They
 build a whole science of shadows, with experts and prizes, and it works, on shadows. What
@@ -5199,17 +5197,27 @@ you that no amount of staring at that square will change it.
 Now turn both a quarter turn. The card's shadow collapses to a line. The cube's stays a
 square. Now the wall-watcher knows. What changed? Not their cleverness. The \emph{window}. A
 second look from a different angle is a bigger window than one look, and it was bought with
-a turn and a second look. Edwin Abbott told this as a novel in 1884, \emph{Flatland}: a sphere
-visits a world of flat shapes and the only thing the flat shapes can see is a circle that
-grows and shrinks as the sphere moves through their plane; from one slice they can't
-reconstruct a sphere, and from the sequence of slices over time, they can start to. The
-escape from a window is never ``think harder.'' It's always ``a different window,'' and a
-different window always costs something: a turn, a second look, time.
+a turn and a second look. Edwin Abbott wrote a novel about a window like this in 1884,
+\emph{Flatland}. A Flatlander never sees a shape. Abbott's narrator says it in his first section: nothing was
+visible to them, or could be, except straight lines. Put a coin flat on a table and lower your
+eye to the table's edge, and the coin turns into a line; that's the whole view. What gives a
+Flatlander anything more is fog. A line that's near is bright and a line that runs off into the
+fog goes dim, so a trained eye can read a triangle or a pentagon off how fast the brightness
+fades toward the ends. The training takes years, and in the story only people with money get
+it. That's a window that got bigger, and it was paid for in time.
+
+Then a sphere comes through the narrator's plane. What his eye gets is a line whose ends fade
+too fast for any flat figure he knows, changing size in a way no flat figure could. He only
+settles that it's a circle by feeling it, and the circle grows from a point to its widest and
+shrinks back to nothing as the sphere rises through. From one slice he can't put a sphere
+together. From the slices one after another, seen and felt and argued over, he starts to.
+The escape from a window is never ``think harder.'' It's always ``a different window,'' and a
+different window always costs something: a turn, a second look, years of training, time.
 
 Who was Edwin Abbott? Not a mathematician by trade. He was headmaster of the City of London School
 for twenty-four years, a clergyman, and the author of more than forty books, a Shakespeare
 grammar among them. He put \emph{Flatland} out under the name ``A Square.'' His full name was
-Edwin Abbott Abbott, two A's, and people like to read the pen name as a joke on that, A squared;
+Edwin Abbott Abbott, two A's, and the pen name may be a joke on that, A squared;
 nice if true, but take it as a lead. Here's the part I like best, from a sketch
 of his life on the geometer Thomas Banchoff's pages: \emph{Flatland}, by far the most read thing
 he wrote, isn't mentioned at all in his obituary in the London \emph{Times} or in his entry in the
@@ -5599,7 +5607,7 @@ the fork and shouts which side she should come out of. If she knows the word, sh
 she doesn't, she gets away with it only when Victor happens to call the side she went in. Play
 it at the table with a coin for Victor's shout: one round, a cheat gets through half the time;
 twenty rounds, about one time in a million. And here's the part that belongs in this section. In
-the way the story is usually told, Victor ends up convinced, but a video of the whole thing
+the story, Victor ends up convinced, but a video of the whole thing
 convinces nobody else, because a staged run, where the two agreed beforehand which sides he'd
 shout, makes exactly the same recording. The recording is a window, and the real run and the fake
 one cast the same shadow. That's the cube in the cryptographers' favourite bedtime story, and it's
@@ -6953,8 +6961,7 @@ state, reachable or not, and that is what the clock's proof uses.
 
 \subsection{Is there only one such machine? No. One structure, two free choices.}
 
-Here's a sentence that's tempting and wrong, and the way it's wrong is more interesting
-than the sentence: ``there's only one honest way to carry a record.'' Three different things
+Here's a sentence that's tempting and wrong: ``there's only one honest way to carry a record.'' Three different things
 get squeezed into that breath, and I'll pull them apart.
 
 First claim: given the toll and a fixed price list, is there one way to keep the books? Yes;
@@ -8826,7 +8833,7 @@ can say for most things I've built.
 Here's what Parts II and III say the model adds to a machine. A \emph{record}: a flag that reads
 no or yes, ``certified'' or not. A \emph{toll}: the step that raises the flag costs something
 (Section~\ref{sec:toll}). A \emph{ledger}: the running total of those costs, a whole number that only climbs (Section~\ref{sec:counter}).
-And Section~\ref{sec:latch} proved a thing that turns out to make this whole chapter possible: over any base at
+And Section~\ref{sec:latch} proved the thing this whole chapter stands on: over any base at
 all, an honest record is a \emph{latch}, a bit that switches on at an event the base decides and
 never switches off (Theorem~\ref{thm:u11-latch}). The record watches the base. It doesn't
 compute anything the base couldn't compute without it.
@@ -10399,8 +10406,8 @@ machine writes out each complete configuration. Around the same time Donald Davi
 the National Physical Laboratory in 1947, where Turing was designing a computer, worked through
 the universal machine's tables and found more mistakes. (It's the same Davies who later named the
 \emph{packet} in packet switching.) His corrections were finally printed in Jack Copeland's
-collection \emph{The Essential Turing} in 2004. People like to call them some of the first bugs
-ever written, in a program for a computer that didn't exist yet, which is a lovely claim and a
+collection \emph{The Essential Turing} in 2004. They may be some of the first bugs
+ever written, in a program for a computer that didn't exist yet. That's a lovely claim and a
 hard one to check, so take it as a lead and not a fact. What it changes here: a universal machine
 is exactly the kind of construction where a careful person leaves a hole, $U$ has 3728 lines for
 a hole to hide in, and its theorems are checked by Coq one case at a time, which is the kind of
@@ -13543,7 +13550,7 @@ machine. Entitlement is defined as an object, a checked relation, and a paid eve
 lists, a tree and a covering somebody supplies, a run that paid a charged step for every level
 of the tree has paid for the index bits it commits to (no run is shown to have to pay them); on
 every Thiele-complete machine the same count is a theorem about its record moves, with the earned
-chain inside the run, and the covering turns out to be something the count can't do without; and it
+chain inside the run, and the count can't do without the covering; and it
 is a license to lean on a claim, not a proof that the claim is true.
 Insight, in the sense the toll prices, is a committed relation, not a feeling, and its floor
 is flat: at least one, however deep. The claim behind the flag is something a check could
