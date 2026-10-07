@@ -358,9 +358,8 @@ fingerprint times the amount you read has to be on the order of the whole file. 
 better than that against an opponent with limited computing, and you've shown that one-way
 functions exist, which is the hardness bet in its barest form. Their setting is a stored file. A
 growing trace is a different setting, but it's the same bet, with its terms written down. And squeezing traces that keep
-growing into a fixed number of bits has to land many traces on one fingerprint. That's a merge,
-the same merge as the people and chairs further down, where four people have to sit in three chairs, hidden behind how hard it is to find which traces share
-a seat. Fingerprints are great. They're not a way out of forgetting. They're a very clever way of
+growing into a fixed number of bits has to land many traces on one fingerprint. That's a merge, hidden behind how hard it is to find which traces share a seat. It's the
+same merge as the people and chairs further down, where four people have to sit in three chairs. Fingerprints are great. They're not a way out of forgetting. They're a very clever way of
 forgetting.
 
 So the real question was never ``save everything.'' It's this:
@@ -378,7 +377,7 @@ nothing in the rules of an ordinary computer makes the record paid for, permanen
 those three come in at different places, so here's where. Paid for is the model's one rule: in the
 Thiele Machine, the step that raises the record has to cost something. Permanent is a premise, the
 one the chairs need, and one of the conditions Part III puts on a record. Earned, meaning a check
-of this very claim passed first, isn't in the model's core at all; it's what the step of the small
+of this very claim passed first, isn't in the model's core at all. It's what the step of the small
 machine in Part IV enforces, proved for that machine and every program on it. One more word rides
 along with permanent, and it'll come up when I line my record up against other people's: dated. A
 record that goes up and stays up went up at some particular step, so it carries a when. A machine that charges one mark for every step it takes meets the first rule and none of
@@ -405,9 +404,9 @@ is shorter, so I'll keep saying it, and now you know what it's short for.)
 Four words I'll hold still from here on. A \emph{check} is the test, the thing that could say no. A
 \emph{commit} is the closing, the question shut for good, about that edition of that thing. The
 \emph{record} is whatever stays behind to say so. And \emph{established} is all three, about one thing.
-That's the working sense. The book cashes it at three depths, a paid closing in the bare model, an
-object with a checked relation and a paid event in Part III, and the whole chain on the small
-machine in Part IV, and each place says which one it means.
+That's the working sense. The book cashes it at three depths: a paid closing in the bare model; an
+object with a checked relation and a paid event, in Part III; and the whole chain on the small
+machine, in Part IV. Each place says which one it means.
 
 Which raises a fair question. What if the second machine, handed the typed-in list, runs the check
 on it? Then it has established that the list is sorted. Full stop. It didn't do the sorting and it
@@ -420,9 +419,9 @@ out whether this one was anything. So I went looking. Here's what I ran into.
 
 \subsection*{The clerk who forgets everything}
 
-The picture everybody passes around is a person with a pencil, a strip of paper and a short list of
-rules, and that's what a computer is. It's worth going back to the source, Alan Turing's 1936
-paper, and seeing how far he actually takes it.
+The picture of a computer I started with is a person with a pencil, a strip of paper and a short
+list of rules. So I went back to the source, Alan Turing's 1936 paper, to see how far he actually
+takes it.
 
 He takes it a long way. Back then a ``computer'' was a job, a human doing sums by hand, and Turing
 modelled that person. He's careful with the person's mind: whatever the clerk knows, beyond a
@@ -444,14 +443,12 @@ So the founding picture of computing is a man who leaves his desk, forgets every
 and trusts a sticky note. I relate to him deeply.
 
 And now the question nobody needs answered to follow the argument, which is exactly the kind I
-can't leave alone: who were those clerks? Real people. Before machines took the word, a
-``computer'' was a job title. In the late 1800s the Harvard Observatory hired rooms full of women to
+can't leave alone: who were those clerks? Real people. In the late 1800s the Harvard Observatory hired rooms full of women to
 do the arithmetic of the sky, cataloguing stars by hand for a fraction of a man's wage, and some of
 them made discoveries of their own, Henrietta Leavitt's way of telling how far away a star is among
 them. (I took the wages and the discoveries from Dava Sobel's history of those women, and from the
 historians at the American Institute of Physics, who put the men's hourly pay at nearly five times
-the women's.) Rooms like that ran artillery tables in
-both world wars. So when Turing modelled ``the computer,'' he was modelling somebody's actual
+the women's.) Rooms like that ran artillery tables in both world wars; that part I took from David Alan Grier's history of human computers. So when Turing modelled ``the computer,'' he was modelling somebody's actual
 afternoon. Does that change the argument? Not a bit. But it changes the picture, for me anyway: the
 sticky note was always a person trusting another person's work, and the question of whether the
 work behind it was really done is older than any machine.
@@ -467,11 +464,12 @@ He'd give them the same number if one of them got hit by lightning and came out 
 
 Fine, look at the one message instead of the set. In the 1960s three people, separately, worked
 out how to measure the information in one string: Ray Solomonoff, an American who was after a theory
-of guessing what comes next from what came before, Andrei Kolmogorov, the great Soviet mathematician, and Gregory Chaitin, an Argentine-American mathematician who later worked at IBM. Their measure is
+of guessing what comes next from what came before; Andrei Kolmogorov, the great Soviet mathematician; and Gregory Chaitin, an Argentine-American mathematician who later worked at IBM. Their measure is
 the length of the shortest program that prints the string. Same two computers, same string, same number. And
 then there's the thing in that theory I keep going back to and standing on, to see if it creaks.
 Running a program can't add this kind of information. What comes out can't hold more than what went
-in plus the program, give or take a little. Leonid Levin, who proved a general version of this, has
+in plus the program, give or take a little. Leonid Levin, who studied under Kolmogorov in Moscow and
+later left the Soviet Union to teach at Boston University, proved a general version of this, and he has
 a one-liner for it that's too good not to repeat: you can torture an uninformed witness all you
 want, you won't get information about the crime.
 
@@ -675,14 +673,15 @@ each premise of a case and also on the verdict can end up contradicting itself: 
 is consistent, and the court isn't. Christian List and Philip Pettit, political philosophers,
 turned that in 2002
 into a theorem. No way of combining people's yes-or-no judgments on connected questions
-meets a short list of reasonable-sounding conditions and always hands back a consistent,
+meets a short list of conditions that each look harmless on their own and always hands back a consistent,
 complete group judgment. A group's settling is a rule's settling, and which rule you pick
 decides which of the honest settlings sticks. I haven't tried to put a group on the
 machine, and that's where I'd expect the first wall to be.
 
 Popper's swamp sent me further down, because it's the oldest problem in the book and it doesn't have a
 bottom. Ask why you believe something and you get a reason. Ask why you believe the reason and you
-get another one. Sextus Empiricus wrote down the ancient version, credited to someone called
+get another one. Sextus Empiricus, a skeptic and doctor who lived probably in the second or third century and
+whose whole method was holding off judgment, wrote down the ancient version, credited to someone called
 Agrippa, and in the 1960s a follower of Popper's, Hans Albert, gave it a name with a joke in it: the
 Münchhausen trilemma, after the baron who claimed he pulled himself out of a swamp by his own hair.
 Every chain of reasons does one of three things. It goes on forever. It loops back on itself. Or it
@@ -692,7 +691,7 @@ from anybody. What you can do is be honest about where you stopped and why. That
 the rest of this book is: every place it stops is written down, with its name on it, so you can
 decide whether you'd have stopped there too.
 
-Lay those two on top of each other and here's what shows through. The check is one act. The stopping
+Lay Peirce and Popper on top of each other and here's what shows through. The check is one act. The stopping
 is another. The check can run as long as you like and it never \emph{makes} you stop; at some point
 something decides, and the deciding is its own event. That's the second machine's whole trick: it
 skipped the check and kept the answer.
@@ -710,7 +709,7 @@ be lost, unless something keeps one. That gap is where this book lives.
 Then the intuitionists got there first, which by now I should've expected. The Dutch mathematician L.~E.~J. Brouwer, who held that a mathematical truth is something a mind
 makes evident, argued from 1948 on about an idealised mathematician working in stages, the creating
 subject. The people after him only came clear to me once I sorted them by three words: the act, the
-object, and the trace the act leaves behind, which his sentence has no room for. The logician Georg Kreisel (1967), Austrian-born and then at Stanford, wrote it down as a formula: the subject has evidence for
+object, and the trace the act leaves behind, which Martin-Löf's sentence has no room for. The logician Georg Kreisel (1967), Austrian-born and then at Stanford, wrote it down as a formula: the subject has evidence for
 $A$ at stage $n$. That's a trace, something you can come back and ask about after the act is over. Anne Troelstra (1969), a Dutch logician who studied under Brouwer's student
 Arend Heyting and became one of the leading authorities on intuitionism, added that the
 subject never forgets what it has made evident, so the trace never fades. That's how Mark van Atten (2018), a philosopher in Paris who has spent years on Brouwer, credits it; the
@@ -721,9 +720,10 @@ end. And look at
 what that carries. It's tied to a stage; at any stage you can ask whether it's happened yet; it
 never goes away; and it's never wrong. Van Atten even says the subject can't just accept a proof
 handed to it from outside: it has to go through the steps and rebuild the evidence itself. That's
-the copier who runs the check. And G\"oran Sundholm, a philosopher of logic at Leiden who has long kept a proof as an act apart
-from a proof as an object (1998), and, as I understand his work, apart from its trace as well, worked through how that theory sits beside the thesis that
-every effective procedure is a program (2014), which is the side this book's machines live on. I
+the copier who runs the check. And then G\"oran Sundholm, a philosopher of logic at Leiden. He has long kept a proof as an act
+apart from a proof as an object (1998), and, as I understand his work, apart from its trace as well.
+In a 2014 paper he worked through how Brouwer's theory of the creating subject sits beside the thesis
+that every effective procedure is a program, which is the side this book's machines live on. I
 know that second paper only by what it sets out to do, so I lean on it lightly.
 
 Set their trace beside my record and the columns nearly all fill: their stage is my dated, their never
@@ -759,7 +759,7 @@ The first batch was all hidden things. A pea under one of three cups. A tree, wh
 from the outside. A forged painting that looks right until somebody tests the paint. A glass of gas,
 where the thermometer shows one temperature and underneath there are uncountably many arrangements of
 molecules that would all show the same reading. Plato's prisoners in the cave, who see shadows on a
-wall and not the things casting them (Section~\ref{sec:windows} tells their story). Every one of these looked promising for about a minute. Then I noticed they
+wall. The things casting them stay behind their backs (Section~\ref{sec:windows} tells their story). Every one of these looked promising for about a minute. Then I noticed they
 all fail the same way: look harder and the hidden thing shows up. Lift the cup. Cut the trunk and count
 the rings. Run the paint test. Look at the molecules, at least in principle. Turn around in the cave.
 In each case the hidden part is a fact about the object that better eyes could find. That isn't what
@@ -787,8 +787,9 @@ Landauer at the end for raising the question in the first place, which I like: t
 says forgetting costs is the one who asked whether you could get out of it. The history it keeps along the
 way is real extra information, sitting out where anyone could read it, so it isn't a hidden fact
 of the first batch's kind. And keeping it and unwinding it throws nothing away, so by Landauer's own reckoning it owes no heat;
-the steps and the scratch paper are the whole bill. It can also be run back down, and neither of those fits
-what happened to the first computer, which did something that can't be undone and paid for it in work.
+the steps and the scratch paper are the whole bill. It can also be run back down. Neither of those
+two, the keeping that owes no heat and the running back down, fits what happened to the first
+computer, which did something that can't be undone and paid for it in work.
 If the standing I'm after could be added for free and taken back for free, it would just be
 bookkeeping. So that batch taught me what else I needed: something that only moves one way, and costs
 something to move.
@@ -804,8 +805,8 @@ with a magnet, ``without a touch.'' A record anybody can reset with a magnet is 
 and Six would have been the first to say he wasn't the first to build one; his paper lists the
 thermometers that came before his.
 
-Since 1996 vials of vaccine bought through UNICEF have carried a small sticker, a square inside a
-circle. The square darkens as the vial takes on heat, and the darkening doesn't undo when the vial cools.
+Since 1996, starting with oral polio vaccine, vials of vaccine bought through UNICEF have carried
+a small sticker, a square inside a circle. The square darkens as the vial takes on heat, and the darkening doesn't undo when the vial cools.
 When the square matches the circle, the vaccine shouldn't be used. One way, and it can't be reset. But
 it's chemistry. The reaction in the square is chosen to run about as fast as the vaccine itself spoils,
 so the sticker is really reading the vaccine's own condition by a proxy. Nobody ran a check; the heat
@@ -865,7 +866,7 @@ Lay those dates out on the table and look at what moved. The sentence never chan
 of the question didn't even name the man who first said it. Whether it's true never changed, as far as
 anyone can tell. What changed was how far it had been established, and it changed in stages, each one
 paid for by somebody's work: a guess, a special case, a place on a list, a plan, an announcement, a
-panel's ninety-nine percent and their exhaustion, a printing, a machine check. A perfect reader of the
+panel's reported ninety-nine percent and their exhaustion, a printing, a machine check. A perfect reader of the
 sentence can't see which stage it's at. And it only ever moved one way.
 
 Then I tried to break that one too, because by this point I'd watched a lot of good-looking examples
@@ -902,8 +903,8 @@ less than anyone thought.
 Laying all of that out together is what changed my picture. If there are stages, then at each one
 there's a line, and the line has two sides: not this far yet, and at least this far. Each line amounts to
 its own yes-or-no question, and the answer to each can only ever change from no to yes, so long as the
-check behind it could have failed. Maybe the switch wasn't wrong so much as incomplete. Maybe it was
-just the first of many lines, and the real shape is a direction with lines drawn across it. I've gone
+check behind it could have failed. Maybe the switch wasn't wrong. Maybe it was just incomplete, the first of many lines, and the
+real shape is a direction with lines drawn across it. I've gone
 around many times on whether the lines create the direction or the direction comes first and the lines
 are just places where you cut it, and on whether yes and no are even different from each other until
 something draws the line between them. I don't have an answer to that. The one part I could actually
@@ -940,7 +941,7 @@ after which the change counts. Jim Gray, who more or less built the theory behin
 1981 paper on it by saying the idea comes from contract law, and his example is a wedding. People
 negotiate, somebody asks, two people say ``I do,'' and from then on it's binding. If it was a mistake
 you don't erase it; you do another transaction to fix it, the way a bad contract gets a second
-contract and not a time machine.
+contract. Nobody reaches for a time machine.
 
 The wedding was a philosopher's example first. The Oxford philosopher J. L. Austin, lecturing in 1955, said ``I do''
 \emph{makes} a marriage. It doesn't \emph{describe} one, and sayings like that aren't true or false. They can misfire
@@ -960,8 +961,8 @@ room. The obvious worry is forgery: if the proofs are gone, what stops someone j
 theorem down? His answer was beautiful. Theorems got their own type in the programming language, and
 the only way to make one was through the rules of logic. You couldn't forge one because the language
 wouldn't let you build it any other way. He named that language ML, for Meta Language. I wanted to
-call my machine the meta machine. I'm choosing to treat that as a coincidence and not a sign, which
-is more restraint than I usually manage.
+call my machine the meta machine. I'm choosing to treat that as a coincidence. Calling it a sign would be more my
+style, so this is more restraint than I usually manage.
 
 Bitcoin is the loud modern version. Its records can't be changed without redoing all the work that
 came after them, and a computer that drops off the network and comes back trusts the longest chain
@@ -970,11 +971,13 @@ The difference is that the clerk's note costs nothing to forge and Bitcoin's cos
 work. It's the clearest case I know of somebody making a settled fact expensive to fake, and they got
 there by paying for a search. The settling itself carries no price.
 
-That's a different job from the one the toll does, and it's worth saying before you read the toll as
-a deterrent. One mark deters nobody. Bitcoin's work is tied to something scarce, electricity and
-hardware; a mark in this book is tied to nothing. Eric Budish, an economist at the University of Chicago, worked out in 2025 what that tie has to cost: for Bitcoin's kind of trust to hold, the honest work has to stay expensive at every
-moment compared with what an attacker could win, and the bill grows in step with the value being
-protected. A flat mark can't do that job, and it isn't trying to. What makes a raised record mean something, on the
+That's a different job from the one this book's price does, the mark it charges for raising a
+record. I'll name that price the toll when I state it, a few pages on, and I'd rather say this now,
+before you read the toll as a deterrent. One mark deters nobody. Bitcoin's work is tied to something
+scarce, electricity and hardware; a mark in this book is tied to nothing. Eric Budish, an economist
+at the University of Chicago, built a model in 2025 of what that tie has to cost. As I read him, for
+Bitcoin's kind of trust to hold, the honest work has to stay expensive at every moment compared with
+what an attacker could win, and the bill grows in step with the value being protected. A flat mark can't do that job, and it isn't trying to. What makes a raised record mean something, on the
 machine where it means anything, is an order rule: check, then commit, then certify. That rule would
 work just as well at a price of zero. The price is there because, on the premises of the chairs a
 little further on, a finite machine that prices its merges can't avoid it. Scaring
@@ -984,9 +987,10 @@ choice made to match (Section~\ref{sec:smallest} says why).
 And Bitcoin wasn't first. Pull on its footnotes: three of the eight
 references in the paper that started it point to Stuart Haber and Scott Stornetta, who in 1991
 worked out how to stamp a document with a time nobody could fake later, by chaining each stamp to
-the ones before it. A company built on their idea, Surety, has been printing a short fingerprint of its
-chain in the classified ads of the New York Times, once a week, since 1995. I found that in a 2018
-piece by the journalist Daniel Oberhaus, which says the ad runs under ``Notices \& Lost and Found.'' Think about that for a
+the ones before it. A company built on their idea, Surety, printed a short fingerprint of its chain in the classified
+ads of the New York Times once a week from 1995, and it was still doing it in 2018. I found that in
+a piece the journalist Daniel Oberhaus wrote that year, which says the ad runs under ``Notices \&
+Lost and Found.'' Think about that for a
 second. To make a record nobody could quietly rewrite, they put it somewhere a million people would
 keep a copy of without even meaning to. A physicist named Wojciech Zurek has spent decades arguing that the world does the same thing with a measurement, copying the result into so many places that nobody can take it back. I'll get to him properly near the end of Part III.
 
@@ -1011,9 +1015,9 @@ obey, wherever it's built, and whether that's forced or just a good idea.
 
 That comeback has a history, and it's older than me by a lot. In 1972 James P. Anderson's planning
 study for the US Air Force described a reference monitor: a piece every access has to pass through,
-that can't be tampered with, and small enough to check. In 2000 Fred Schneider, a computer scientist at Cornell, worked out exactly
-which rules a monitor that only watches a run as it goes can enforce: the ones whose breaking shows
-up at some finite point, the kind computer scientists call safety rules. ``No certificate without an
+that can't be tampered with, and small enough to check. In 2000 Fred Schneider, a computer scientist at Cornell, argued that a monitor that only watches a
+run as it goes can enforce only rules whose breaking shows up at some finite point, the kind
+computer scientists call safety rules. ``No certificate without an
 earlier passing check and a commit'' is one of those. And in 2015 Arthur Azevedo de Amorim, a computer scientist then at the University of Pennsylvania, and six
 coauthors built monitors that check a rule at every single instruction, and proved them correct in
 Coq, the same proof checker this book uses. So putting a rule under every program, so nothing can
@@ -1191,8 +1195,8 @@ that up to one.
 
 What was I pushed into? That on a finite machine, a record that never comes down can only be raised
 by a merge: counting, proved. That merges cost: physics, assumed. What did I choose? To put the
-count \emph{inside the step}, as part of what a step is, instead of in a log off to the side. Nothing
-forces that. It's my claim about where the account belongs, and the rest of the book is the case for
+count \emph{inside the step}, as part of what a step is. Nothing forces that, and a log off to the
+side was always the other place it could go. It's my claim about where the account belongs, and the rest of the book is the case for
 it.
 
 About the name. I named it after myself, on purpose. Half of that is a joke and half of it is a
@@ -1228,7 +1232,7 @@ line it's on and the numbers it holds, can't tell you its record or its ledger.
 \subsection*{The two computers, put back together}
 
 Here's the two-computer story again, rebuilt as Thiele machines, with the record and the counter
-written out, so you can watch it instead of taking my word. The prices are the ones on the smallest
+written out, so you can watch it happen. You don't have to take my word. The prices are the ones on the smallest
 machine I build later: one mark each to check, to commit, and to certify (raise the record), and
 nothing for ordinary work like moving numbers around.
 
@@ -1316,8 +1320,8 @@ Second, the flag and the counter on their own are what people who verify program
 erase them and every program computes exactly what it did before (Section~\ref{sec:counter} has
 where that idea comes from). What isn't ghost on the small machine is
 the table of checked facts, which the step reads and refuses on, at run time, for every program. And
-the move of putting a rule under every program isn't mine either; it's the reference monitor's, and
-its history is a few sections back.
+the move of putting a rule under every program isn't mine either. It's the reference monitor's,
+and its history is a few sections back.
 
 \subsection*{What it isn't}
 
@@ -1366,8 +1370,7 @@ anything that obeys the toll pays at least one mark to get from not-established 
 (short enough that you'll prove it yourself on paper in Part II). On a finite machine whose record
 never comes down, the step that raises it merges, which is the chairs; with merging priced, the toll
 follows, and the price is an assumption with a name. Finding out can be free: you can learn
-something from a step that merged nothing and cost nothing, so the toll lands on committing.
-Learning goes free. A window that shows a paid state and an unpaid one as the same can't price the step
+something from a step that merged nothing and cost nothing, so the toll lands on committing. A window that shows a paid state and an unpaid one as the same can't price the step
 between them exactly, however clever it is. And over any machine, an honest record is a one-way
 switch on an event, with two choices left free: the price list and which event.
 
@@ -1413,7 +1416,7 @@ the German mathematician Ernst Zermelo's 1896 recurrence argument, about whether
 unpaid one alike can't price the step between them exactly: an old fact about functions, the
 1956 thought experiments of Edward Moore, at Bell Labs, on what you can learn about a machine you
 may only watch from outside, and the engineer Rudolf Kalman's observability, the same question
-asked of control systems, with a price put in. An honest permanent record, over
+asked of control systems. What I put in is a price. An honest permanent record, over
 any machine, is a latch on one event: the 1918 flip-flop and write-once memory are its neighbours.
 And the small machine, a definition of Thiele-complete that a clock can't meet, and a universal
 Thiele machine written as one fixed program: a record that's priced, and earned, under the reference
@@ -1459,8 +1462,10 @@ says irreversible, and getting from a record that stays to a merge is the chairs
 machine. Push on it and it gives at Zurek. In Zurek's picture the world settles a result by copying
 it, and copying merges nothing (Section~\ref{sec:pointer} pushes on that). As I read it, that's
 Bennett's free measurement, writing on a blank page. So physics' own word lands on both sides of
-Bennett and Rovelli's door: the chalk and the landing on the paying side, the copies on the free
-side. One piece already sticks out, and I'll leave it sticking out. Which picture a settling on a
+Bennett and Rovelli's door: the chalk on the paying side, the copies on the free side. The landing
+I'd put with the chalk, and when Section~\ref{sec:narrowing} pushes on Rovelli's paper it slides
+toward the free side, the side of finding out. So two pieces already stick out, and I'll leave them
+sticking out. Which picture a settling on a
 machine matches is part of the suspicion, and the suspicion doesn't settle it. That's as far as I'll
 take it here: a suspicion.
 
@@ -1488,12 +1493,13 @@ machine, a record that never comes down can only be raised by a merge, a kind of
 same kind ordinary computers pay heat for so their bits forget where they came from. If Landauer's
 right, that costs, for any device that has to settle things without already knowing which state
 it's in. The Thiele Machine puts the record and the charge in the step itself, and what
-that buys isn't more computing. It's a guarantee about every program instead of one.
+that buys isn't more computing. It's a guarantee about every program. A log kept by one program
+covers only that one.
 
 Every time I thought I'd found something new on the way down, somebody had a name for part of it
 already, and that last sentence is no exception: a rule under every program is the reference
-monitor's move, from 1972. Fine. What I think is put together here is smaller, and more than one
-thing: the four I listed under what's proved, several small things, each with its neighbours
+monitor's move, from 1972. Fine. What I think is put together here is smaller and more than one
+thing: the four small things I listed under what's proved, each with its neighbours
 named. There's no one big one.
 
 And the stuff from the start, the audit, the proof, the ledger, the test sheet, the sticker, the
@@ -1558,7 +1564,7 @@ which can't be avoided in general. The lambda calculus L gets a recursion theore
 does the machine that universal program runs on, with Rice's theorem beside it. On the two-counter
 machine itself Rice's theorem holds on every input, Kleene's holds with inputs written as powers of two,
 and with plain inputs Kleene's is false, which is proved too. An integer check
-on eight counts is earned on the small machine: a raised flag can stand on a passing check of the
+on eight counts is earned on the small machine's host: a raised flag can stand on a passing check of the
 counts, and the check passes exactly when every question pair was sampled and a fixed moment matrix
 is positive semidefinite, which forces Tsirelson's bound, the ceiling quantum mechanics puts on the
 score of a two-player game (Part IV builds the game, the matrix and the check from zero; it's there
@@ -1579,7 +1585,8 @@ I didn't invent a machine. I found one. That's how I see this work, and I'll be 
 about the difference between that conviction and a theorem before I do anything else.
 
 That sentence walks straight into one of the oldest fights in mathematics, so here's a short
-trip into it first. G. H. Hardy, in \emph{A Mathematician's Apology} in 1940, came down on
+trip into it first. G. H. Hardy, a Cambridge number theorist who wrote \emph{A Mathematician's Apology} in 1940 to
+defend doing mathematics for its own sake, came down on
 the found side about as hard as anyone ever has: mathematical reality, he wrote, lies outside
 the people who study it, and the theorems they like to call their creations are really just
 notes on what they saw there. The German mathematician Leopold Kronecker supposedly split the difference: God made the
@@ -1613,7 +1620,7 @@ Landauer's premise, with its name on it. The record exists only if something kee
 keeping it, priced, is what the model adds.
 
 What this book is. An argument, made with that model, about what an account of
-computation should preserve. The usual account describes a computation by what it reads and
+computation should preserve. Turing's account, and every account built on it, describes a computation by what it reads and
 writes. I think that account is a shadow, and that there's another axis, holding what the
 computation established and what that cost. Here's the argument in five steps, each with
 where it stands.
@@ -1623,8 +1630,10 @@ structure, pushed on with you through as many of the people who wrestled it befo
 could reach. It finds three
 different acts that people run together. Building and storing a sorting you can read back
 costs work and space. Forgetting where things came from costs heat, if Landauer is right.
-And standing behind a sorting, vouching for it, is a third act that nobody I read had put a
-price on. Whether it has one is the question the rest of the book takes up.
+And standing behind a sorting, vouching for it, is a third act, and nobody I read had put a
+price on it. The nearest was Rovelli's price on a choice that sticks, and his is a choice nobody
+could predict, which Section~\ref{sec:narrowing} shows is a different act. Whether vouching has a
+price is the question the rest of the book takes up.
 
 \emph{Establishing is not free.} If the step that turns uncertified into certified has to pay,
 every run from uncertified to certified has paid. Proved, for any system that follows that
@@ -1647,8 +1656,7 @@ a wider class of events every account must price. With one mark per halving, the
 writes a permanent record costs at least the base-two logarithm of how much it squeezes
 together (how many times it halves the number of states it can tell apart), and the same
 bound holds in bits of Shannon entropy, the standard measure of information. Proved, with
-the price as a premise. Second, where the machine I built stands, which is a Part IV fact
-and not a Part II one. The small machine of Part IV isn't such a machine: its counters have no
+the price as a premise. Second, where the machine I built stands, and that's a fact Part IV settles. The small machine of Part IV isn't such a machine: its counters have no
 top, so it isn't finite, and some of its free steps merge states too. On it the toll is a design
 choice the chairs don't force. What the chairs do reach is a finite piece: an eight-state machine,
 four slots and a flag, on which every premise is a theorem and the toll follows outright
@@ -1660,18 +1668,22 @@ Section~\ref{sec:part3-on-machine}).
 
 \emph{A window can hide what was paid.} Two runs can look identical through the usual window
 and differ in what they established and paid, and nothing reading only the window gets the
-difference back, so no price read off the window charges the certifying step exactly. Proved, for any
-window with such a pair; and the machine I built has such a pair for the window a Turing machine
-would point at it, the line and the counters, and so does every machine that meets the definition
-of Thiele-complete.
+difference back. The machine I built has such a pair for the window a Turing machine would point at
+it, the line and the counters, and every machine that meets the definition of Thiele-complete has
+one through its own window: two runs from one clean start that end looking the same, one certified
+and one not. Proved, both. And when two single steps look the same through a window, before and
+after, and only one of them certifies, no price read off that window charges the certifying step
+exactly. Proved, for any window with such a pair of steps.
 
 \emph{Leaning on a fact takes a paid history.} A computation is entitled to lean on a structural
 fact when it holds the object, a checked relation, and a paid event on its record. Defined,
 for the model, with a counting fact beside it: narrowing a list of rivals down takes at least
 the yes-or-no questions that name the survivors. The cost floor that ties those questions to
-steps a run actually paid for holds for any system with a counter, given lists, a tree and a
-covering that somebody supplies: if a run paid at least as many charged steps as the covering
-tree is deep, those payments cover the index bits. No run is shown to have to pay them. On every
+steps a run actually paid for holds for any system with a counter, once somebody supplies three
+things: the list of rivals before, the list of survivors after, and a tree of yes-or-no questions
+with enough leaves to cover the narrowing. Then if a run paid at least as many charged steps as that
+tree is deep, those payments cover the index bits, the questions it takes to point at one entry of
+the first list less the ones it takes for the second (Section~\ref{sec:entitlement}). No run is shown to have to pay them. On every
 Thiele-complete machine, the small machine included, the paid steps are the record moves, each
 exactly one mark, and a run from a clean start that ends with the record up, having narrowed a list
 that way, carries an earned chain and pays at least the index bits in record moves
@@ -1794,11 +1806,11 @@ doing the stepping,'' as against ``the program it runs.''
 
 So here's how the book keeps the two apart. Parts I to III are about any system with the
 pieces each result names, and their pictures are toys you can hold (two boxes on a sheet of
-paper, chairs in a room, a row of dots). My machine isn't one of them. My machine first appears in Part IV.
+paper, chairs in a room, a row of dots). My machine isn't one of them; it first appears in Part IV.
 Every Part III claim that has a machine instance gets that instance in Part IV, with
 its own checked name, and Part III says so in one sentence at most. When the origin story,
-a few pages on, says the shape ``was the substrate the entire time,'' it means this layer, the model's shape,
-and not any piece of the build. Same story with two more of its words. When it says ``the
+a few pages on, says the shape ``was the substrate the entire time,'' it means this layer, the model's shape.
+It doesn't mean any piece of the build. Same story with two more of its words. When it says ``the
 machine'' about the thing it named the Thiele Machine, or calls that thing a meta machine, it
 means the model; ``my machine'' is the build, and the build doesn't show up until Part IV.
 And when it lists what the model asks for (a state, a step, a ledger, a window), read the
@@ -1846,7 +1858,7 @@ programs, with the reading decided on every state. It matches the guest's haltin
 own flag on its own earned chain exactly when the guest's reading has said yes, and keeps the
 guest's prices to within a surcharge of at most two, which no program on that host can avoid in
 general.
-And a computer that runs the small machine, your laptop say, isn't a Thiele machine either. It
+And a computer that runs the small machine, your laptop say, isn't a Thiele machine. It
 implements one, inside bounds, the way a laptop implements a Turing machine.
 Push on that comparison, because it's loose, and the looseness is the
 point. Does a laptop implement a Turing machine? Not exactly. Turing's tape never runs out,
@@ -1901,7 +1913,7 @@ it. Not closed on every question: the ones I couldn't settle are listed at the e
 
 \emph{What I do and don't know about prior work.} I came to this with no formal training in the
 fields it turned out to need, and I've read what I could reach, with every tool I had. The
-prior-work map below is orientation. It doesn't pretend to be scholarship. For each piece of this book, who did
+prior-work map below is orientation. It doesn't pretend to be scholarship. For each piece of this book it says who did
 the thing it leans on, and what, if anything, this development adds. I'd welcome correction
 on any row.
 
@@ -1966,7 +1978,7 @@ mechanization, implementation, and synthesis.
 
 A few more labels I went and looked up don't get a row, because nothing in the book leans on
 them. They're neighbours, and I list them so you can see why I don't think the toll is one
-of them in a hat. Each is a claim inviting correction.
+of them under a new name. Each is a claim inviting correction.
 
 \begin{itemize}
 \item Linear logic (Girard 1987) treats an assumption as a resource that gets used up. It
@@ -2011,7 +2023,7 @@ code's execution cost back up to annotations on the source. There the cost decor
 program and survives compilation. Here it lives in the model's step rule.
 \item Reference monitors and execution monitors (Anderson 1972; Schneider 2000; Azevedo de
 Amorim and coauthors 2015). A small piece every action passes through, enforcing a rule on
-every program. Schneider showed that a monitor watching a run enforces exactly the rules whose
+every program. Schneider argued that a monitor watching a run can enforce only rules whose
 breaking shows up at a finite point, and ``no certificate without an earlier passing check and
 commit'' is one of those; the micro-policies check a tag rule at every instruction, proved in
 Coq. That's the move the small machine's step makes, so this one is the house itself. What's added is the edition-bound check-then-commit with a paid, permanent record on top,
@@ -2050,7 +2062,7 @@ consensus, and test-and-set, an instruction that writes a cell and reports what 
 on the consensus side. Palamidessi and coauthors compare messages that are used up with
 messages that stay, and the end of their study is a reduction from Minsky machines. A store
 that can refuse permanently, which is what the version rule does to a stale commit, looks like
-the non-monotonic side. I haven't written that encoding, so that's a pointer and not a claim.
+the non-monotonic side. I haven't written that encoding, so take it as a pointer. It isn't a claim.
 \item Constructor theory (Deutsch and Marletto 2015; Marletto 2016; Marletto, Vedral and
 coauthors 2022; Violaris and Marletto 2022): physics as which tasks a device that runs in a
 cycle can do, with irreversible meaning possible while the inverse isn't. It's the nearest
@@ -2127,9 +2139,9 @@ A word on what I actually do, because it runs under everything after it. I do no
 
 I am telling you all of this because it's the engine. I did not come up through anywhere that hands you a foundation and says trust us, this part is settled. No professors, no colleagues, no field full of authority to lean back on when a claim got heavy. From the outside that is a deficit. From the inside it is the whole reason any of this is solid: when I meet a claim I either find the proof or I do not believe it, and that goes double for my own, because my own are the ones I most want to wave through. It is how I am built. It is the only way I know to hold a thing and actually trust that I am holding it.
 
-So everything in here gets built from the ground up, and not as a courtesy to you. I build it because I do not believe I understand a thing until I have built it with my own hands, watched it stand up on its own, and tried to knock it over. I built this document the exact way I built the machine, brick by brick, refusing each brick until it held weight. That includes the parts you already knew cold before you opened this. I did not skip them for you, and I could not skip them for me.
+So everything in here gets built from the ground up. It isn't a courtesy to you. I build it because I do not believe I understand a thing until I have built it with my own hands, watched it stand up on its own, and tried to knock it over. I built this document the exact way I built the machine, brick by brick, refusing each brick until it held weight. That includes the parts you already knew cold before you opened this. I did not skip them for you, and I could not skip them for me.
 
-The vocabulary I had to go look up to do any of this sits at the back of the book, so the argument comes first. If a word stops you, it is there. If you already know this material, you never have to open it. But if you catch something in the basics that is wrong, I want to know, and I mean that as a real ask and not a polite one. Nothing in here is correct just because I wrote it. Especially the parts I wrote.
+The vocabulary I had to go look up to do any of this sits at the back of the book, so the argument comes first. If a word stops you, it is there. If you already know this material, you never have to open it. But if you catch something in the basics that is wrong, I want to know, and I mean that as a real ask. It isn't politeness. Nothing in here is correct just because I wrote it. Especially the parts I wrote.
 
 \textbf{On the name.} I wanted to call it the meta machine. Then, in October 2021, Facebook renamed its company Meta: a company taking a term for self-reference as its name and draining the word of meaning in the same motion. So I went one level up, where this machine already lives. The most meta move available, for a machine that runs on meta-level reasoning, was to put my own name on the cover and take the word back. That's the whole of it, a meta move on a meta machine. It happens to be my dad's name too, and my wife's now. So I asked them before I did it. They said go ahead.
 
@@ -2337,7 +2349,7 @@ doesn't hold everywhere. It holds exactly where the material was never doing the
 that's a sharper thing than Aristotle said: structure is what survives a change of material,
 in the places where the material didn't matter. Why do I care? Because this whole book bets
 that the record is a form. The material shouldn't matter: the same rule whether it sits on a tape, on a
-table of counters or on a lambda term, and I don't get to just say it is. Section~\ref{sec:latch}
+table of counters or on a lambda term. I don't get to just say so. Section~\ref{sec:latch}
 is where that bet gets checked, over any base at all, and Part IV builds it once, on the smallest
 base I could find (Section~\ref{sec:smallest}). Aristotle is the one who told me what the bet
 means.
@@ -2452,8 +2464,8 @@ treatise looking for the place where this formal definition of structure actuall
 work: it ``plays no actual role in the presentation of theories within the treatise.'' Outside
 the chapter that defines it, almost nowhere. And I found no argument in their writing for why
 the mother structures number three. And the chapter on category theory,
-which they promised their readers, never appeared; Corry is where I found that too. Why? The thing their definition left out was the \emph{maps},
-the ways of carrying a structure from one set to another, and the maps were
+which they promised their readers, never appeared; Corry is where I found that too, and Ralf Kr\"omer's 2006 history of Bourbaki and categories in the 1950s follows the attempt. Why did the definition sit idle? Here's my reading: the thing their definition left out was the
+\emph{maps}, the ways of carrying a structure from one set to another, and the maps were
 where the weight was. So I keep two things from Bourbaki. The right thing: relations on
 elements whose nature doesn't matter, which is Aristotle's bronze in different words. And the
 warning: a structure stated without its maps won't carry the work. I learned that one the
@@ -2503,7 +2515,7 @@ same three-hop path, and if they came out different, two people who built the sa
 different orders would hold two different arrows, which is a bug: the chain is the thing, and
 how you assembled it isn't. The identity laws say that tacking the do-nothing loop onto either
 end of an arrow gives back the arrow. If the loop changed things, it wouldn't be the loop. Six
-words, objects, arrows, composition, identities, associativity, identity laws, and that's all of
+terms, objects, arrows, composition, identities, associativity, identity laws, and that's all of
 Eilenberg and Mac Lane's definition.
 
 Composing relations is older than the definition, too. Who put a name on that move first? I went looking. Augustus De Morgan, writing on the logic of relations around
@@ -2627,8 +2639,8 @@ charging for the wrong thing, and for a while I wasn't sure which one I'd built.
 
 And now notice that the word just changed meaning on you, and on me, and I'd rather point at
 it than let it slide. Shannon and Rissanen and Vereshchagin mean \emph{regularity}: a pattern that
-lets you say something shorter. Tarski, a few pages back, and Halmos, coming up, mean a set
-with named relations on it, and
+lets you say something shorter. Tarski, a few pages back, and Paul Halmos, a Hungarian-American mathematician whose short
+textbook on sets is coming up, mean a set with named relations on it, and
 those two are not the same thing. Here's the test, and you can run it: number a thousand
 objects, flip a coin for each, heads goes in group one, tails in group two. That's a perfectly
 good sorting in the set theorist's sense, every object in exactly one group. And the list of
@@ -2652,9 +2664,10 @@ opening chapter, written down as a machine. Write down its parts; there are four
 A tape, divided into squares. A head that reads one square at a time and can write on it and
 move left or right. A finite list of states the head can be in. A table of rules: in this
 state, reading this symbol, do this. That's all, and two different things are true about it
-that get run together. Every other formal recipe for ``a procedure'' that anyone has written
-down since computes exactly what this one does; those are theorems, proved one pairing at a
-time, and Turing proved the first of them himself. That it also captures everything a person
+that get run together. Every other recipe anyone has proposed as a general formalization of ``a procedure,'' before or
+since, computes exactly what this one does; those are theorems, proved one pairing at a
+time, and Turing himself sketched one of them, the pairing with the logician Alonzo Church's lambda
+calculus, in an appendix to the 1936 paper. That it also captures everything a person
 could ever carry out by rote, everything ``computable'' in the plain-English sense, is a
 claim, called the Church-Turing thesis, and nobody has proved it, because the plain-English
 side isn't a mathematical object. Turing himself kept those two apart in the 1936 paper, and
@@ -2771,7 +2784,7 @@ relative. Read that way, the fourth thing sits in the middle: it's where the fir
 turn into something you can write down, and where the last three get their start.
 
 That's my reason for starting the next subsection with a sorting, and I want to be exact about
-what kind of reason it is, because it's mine and not theirs. None of these people said
+what kind of reason it is, because it's mine. None of these people said
 ``start with a partition.'' Klein would tell you to start with the moves, Eilenberg and Mac Lane
 with the arrows, Shannon with the probabilities. What I can actually point at is narrower. In
 the framings about when two things are the same shape or the same kind (Euclid laying one
@@ -2807,9 +2820,9 @@ fourth thing on the overlay, the sorting of a given pile, now with a name and a 
 Here it is in the exact form, since this is the first place the book uses one. A \emph{set} is a
 pile, $x \in X$ means ``$x$ is in the pile $X$,'' and a \emph{relation} on $X$ is any rule $\sim$
 that, for each pair of things, says whether $x \sim y$ holds. A few more marks show up below,
-and each is a word in disguise. $S_1, \ldots, S_k$ are the buckets, numbered one to $k$. A
-cap, $S_j \cap S_l$, is ``what the two buckets share,'' a cup, $S_1 \cup \cdots \cup S_k$, is
-``everything in any bucket,'' and $\emptyset$ is the empty pile. And curly braces with a colon,
+and each is a word in disguise. The buckets are written $S_j$, with $j$ saying which bucket (finitely many
+buckets in every example here, though nothing below needs that). A cap, $S_j \cap S_l$, is ``what
+the two buckets share,'' and $\emptyset$ is the empty pile. And curly braces with a colon,
 $\{\, y \in X : y \sim x \,\}$, mean ``the pile of every $y$ in $X$ for which $y \sim x$
 holds''; the theorem writes that pile $[x]$, the things that count as the same as $x$.
 
@@ -2817,9 +2830,9 @@ holds''; the theorem writes that pile $[x]$, the things that count as the same a
 A relation $\sim$ on a set $X$ is an \emph{equivalence relation} when it is reflexive
 ($x \sim x$), symmetric ($x \sim y$ implies $y \sim x$), and transitive ($x \sim y$ and
 $y \sim z$ imply $x \sim z$). A \emph{partition} of $X$ is a collection of non-empty subsets of $X$,
-the blocks, such that every member of $X$ lies in exactly one block. Spelled out for blocks
-$S_1, \ldots, S_k$: each $S_j$ is non-empty, no two share a member ($S_j \cap S_l = \emptyset$
-when $j \ne l$), and together they cover everything ($S_1 \cup \cdots \cup S_k = X$).
+the blocks, such that every member of $X$ lies in exactly one block. Spelled out, with the blocks written $S_j$: each $S_j$ is non-empty, no two share a member
+($S_j \cap S_l = \emptyset$ when $j \ne l$), and together they cover everything (every member of
+$X$ lies in some $S_j$).
 \end{definition}
 
 \begin{theorem}[Sameness and sorting are one object]\label{thm:equiv-partition}
@@ -2925,17 +2938,20 @@ label, then two different blocks can leave the same label behind, and that is a 
 step, the kind Landauer charges for. Both are things people call ``sorting into buckets.'' Only
 the second loses a distinction. So the bucket by itself doesn't hand you a Landauer bill; the
 \emph{forgetting} does, when there is forgetting, and whether a given machine forgets is a
-question about that machine, which has to be answered on the page and not waved at here.
+question about that machine. It has to be answered on the page, and I won't wave at it here.
 Rissanen says a model is paid for in the bits it takes to state, and Grünwald says the price
 depends on the code. Parnas says a bad cut is paid for later, at two in the morning. And
-that's where it stops. I couldn't find anyone who says that the moment you \emph{vouch} for a
-grouping, the moment you stand behind ``these belong together'' instead of just arranging them
-that way, has a price of its own. That could mean nobody says it. It could mean I didn't find
+that's where it stops. Rovelli, back in the opening chapter, prices a choice that sticks, and his
+choice is one nobody could predict, which Section~\ref{sec:narrowing} shows is a different act. I
+couldn't find anyone who says that the moment you \emph{vouch} for a grouping, the moment you stand
+behind ``these belong together,'' has a price of its own. Just arranging them that way is a
+different act. That could mean nobody says it. It could mean I didn't find
 the person who does. I honestly can't tell you which.
 
 So that's where I am at the end of one word. Holding a sorting in readable form is worth
 something and cost something, forgetting where things came from costs heat, and standing
-behind a sorting is a different act from either, and nobody I found has priced it. You can
+behind a sorting is a different act from either, and nobody I found has priced it. (Rovelli's
+price is on a choice nobody could predict, and that's a different act again.) You can
 walk back through all of that and tell me where it breaks. Maybe there's no such bill. Maybe
 I'm about to spend a book chasing a charge that nobody owes, which would be an extremely me
 thing to do. The next section is me trying to find out whether that charge is real on any machine at all, mine or anybody's, and if the answer comes back no, you should stop
@@ -13494,7 +13510,7 @@ than a board with nothing to hold it up against, and that's the trade this editi
 
 The small machine checks whether a number is zero, even, or at least something. That's a
 fine way to show the chain, and a dull thing to certify. Here's a check worth earning, built
-from zero, and then the one thing the small machine does with it, which is smaller and more
+from zero, and then the one thing the small machine's host does with it, which is smaller and more
 exact than ``it checks for quantum behaviour,'' a sentence that's tempting and wrong.
 The short version, so you know where this is going: the check never computes the famous
 number and never writes down the famous bound. It tests seven facts about integers in eight
@@ -13536,7 +13552,7 @@ and ``differ'' as 1: each of the four answers appears twice on the left, so the 
 even number, and the right sides add to one). Sharing a
 coin before the game to pick a plan at random doesn't help; a mixture of numbers no larger
 than three-quarters is no larger than three-quarters. Arthur Fine, a philosopher of physics at the
-University of Washington who has spent much of his work on Einstein and the quantum theory, proved
+University of Washington who has given much of his work to Einstein and the quantum theory, proved
 in 1982 that the
 whole ``pre-agreed answers, no influence between rooms'' story is \emph{exactly} the mixtures of
 those sixteen lists, one scoreboard for all four questions at once; the sixteen are the
@@ -13645,19 +13661,21 @@ first. Popescu and Rohrlich's initials stuck, but the big review of the field by
 and four coauthors credits boxes like it to Peter Rastall and, separately, to Leonid Khalfin and
 Tsirelson himself, both in 1985, nine years before. Then the question that really matters: if
 relativity isn't what stops things at 2.83, what is? People have tried candidates. In 2005 the
-computer scientist Wim van Dam, who works on quantum computing, showed that with enough PR boxes, Bob could work out any yes-or-no function of both
+computer scientist Wim van Dam, who works on the theory of quantum computing, argued, in a paper on
+the implausible consequences of such boxes, that with enough PR boxes, Bob could work out any yes-or-no function of both
 their inputs after Alice sends him a single bit, which would make the whole question of how much
 two parties need to talk collapse, and that's a strong hint the boxes are too good to be real.
 In 2009 Marcin Pawłowski and five coauthors proposed a principle they called information
 causality: Bob can't get more information about Alice's data than the bits she actually sends
-him. Ordinary and quantum physics both obey it, and any theory that beats 2.83 breaks it. It
+him. They argue that ordinary and quantum physics both obey it, and that any theory that beats 2.83
+breaks it. It
 recovers part of the quantum boundary. The rest of the boundary stays out of its reach.
 Which principle fixes 2.83 is still an open question, and this book won't answer it. The
 check below is a fence at the middle step.
 
 \subsection{Five sentences that are easy to say by accident}
 
-Every one of these is easy to say by accident, so here they are, each with what I can stand behind
+Here they are, each with what I can stand behind
 beside it.
 
 ``Faster than light.'' Nothing travels. Each room alone sees fair coins; the correlation shows
@@ -13672,8 +13690,8 @@ Yanbao Zhang, Scott Glancy and Emanuel Knill, at NIST in Boulder, work through f
 and the book doesn't solve it. The way they solve it is worth knowing, because it has the shape
 of this book's record. Turn each round into a small bet that no local plan can expect to win,
 even a plan that remembers every earlier round, multiply the bets as the rounds come in, and
-the French mathematician Jean Ville's inequality, from his 1939 thesis, the one that brought
-martingales into probability, says the chance the product ever climbs past one over $\delta$
+the French mathematician Jean Ville's inequality, from his 1939 thesis, one of the works that
+started the theory of martingales, says the chance the product ever climbs past one over $\delta$
 is at most $\delta$. So a flag can go up for good the moment the product crosses, with its error
 stated up front. It needs one thing the small machine doesn't have: settings drawn underneath the
 program, where the program can't choose them. And how much can one round tell you? Wim van Dam, Richard Gill and
@@ -13707,7 +13725,7 @@ and 1.2 is too big a dot product for two arrows of length one. That's the whole 
 generalised to bigger tables.
 
 Now the table. Rows and columns labelled I, A0, A1, B0, B1 (the identity, Alice's two
-questions, Bob's two). Diagonal all ones. The I row and column all zero (that's ``zero
+questions, Bob's two). Diagonal all ones. The I row and column zero off the diagonal (that's ``zero
 marginals'': the table takes each answer alone to average to zero, a fair coin; the counts
 record no marginals and the check doesn't test this). A0 with A1 zero, B0 with B1 zero (no round asks
 Alice both questions, so no tally holds that average, and the table sets it to zero). Those
@@ -13727,7 +13745,7 @@ one, one): first diagonal is one minus one minus one, negative, \emph{fails}, th
 and it's a perfectly legal classical play. The PR box (one, one, one, minus one): fails the
 same way. A fence at the middle step, and a fence that keeps out every one of the sixteen
 plans: each has all four correlators at plus or minus one, so the first diagonal is always
-one minus one minus one. Only diluted mixtures of plans get through.
+one minus one minus one. Of the classical plays, only diluted mixtures of plans get through.
 
 That point, one over root two in size in every entry, is four real numbers, and no tally of rounds
 ever lands on it. A tally's correlators are ratios of whole numbers, and the point needs each of
@@ -13771,7 +13789,7 @@ the pinning, and his paper never pins anything.
 
 Eight counts: for each of the four question pairs, one counting rounds where the answers
 matched and one where they differed. A round is one bump to one count, after checking all four
-inputs are bits; nothing is tested and no marginals are recorded. Then the check reads the
+inputs are bits; nothing else is tested, and no marginals are recorded. Then the check reads the
 eight and tests seven integer facts. For each pair, let N be same plus different and D be same
 minus different (so E is D over N). The seven: the four N are strictly positive (every pair was
 sampled; a pair with no rounds is rejected outright, and never read as a correlator of zero); A, which is N00
@@ -13877,12 +13895,12 @@ exactly such a tally: it reaches $S = 2$ and the check throws it out.
 
 None of that algebra is new, and I don't want it to read as if it were. Tsirelson's bound has
 been formalised before, in Isabelle/HOL by Mnacho Echenim and Mehdi Mhalla, computer
-scientists at Grenoble (2023), and in Lean's Mathlib, and
+scientists at Grenoble (2023), and in Lean's mathlib, and
 Navascués, Pironio and Acín already analyse this very matrix by Schur complement and discuss
 the level above it. What I think is mine here is smaller: an integer decision procedure on
 the counts, and a checked link from ``the check passed'' to PSD to the bound.
 
-\subsection{The check, earned on the small machine}
+\subsection{The check, earned on the host machine}
 
 Now put it on the machine. A check on the small machine is a property: a checker, which is a
 little program that says yes or no, a meaning, which is a statement, and a proof that the two
@@ -13937,8 +13955,9 @@ Corollary~\ref{cor:u23-notrap-bound}.
 Checked as \code{small\_chsh\_check\_iff}, \code{small\_chsh\_clear\_denominators},
 \code{small\_chsh\_psd\_iff\_contractive}, \code{small\_chsh\_psd\_tsirelson},
 \code{small\_chsh\_check\_tsirelson}, \code{small\_chsh\_eval\_iff} and
-\code{small\_chsh\_tally\_of\_code} (SmallChshCheck.v, SmallChshMachine.v). Part (4) is a single checked
-theorem, \code{small\_chsh\_check\_tsirelson}, with both bounds in one statement. The strict form of part (4), and the closeness, are checked as
+\code{small\_chsh\_tally\_of\_code} (SmallChshCheck.v, SmallChshMachine.v). The non-strict bounds of
+part (4) are a single checked theorem, \code{small\_chsh\_check\_tsirelson}, with both bounds in one
+statement. The strict form of part (4), and the closeness, are checked as
 \code{nec\_e\_check\_strict}, \code{nec\_e\_check\_never\_tsirelson} and
 \code{nec\_e\_check\_sharp} (NecEChsh.v).
 
@@ -13952,8 +13971,10 @@ t \;=\; \mathit{pre} \cdot \text{CHECK PCHSH } c \cdot \mathit{mid}_1 \cdot \tex
 and with $v$ the value of $c$ after $\mathit{pre}$: the tally of $v$ passes the seven integer facts;
 every pair was sampled and the pinned matrix is symmetric and PSD; its score satisfies $S^2 \le 8$
 and $|S| \le 2\sqrt 2$, and in fact $S^2 < 8$, though passing tallies come as close to 8 as you
-like; and $c$ still held $v$ when the COMMIT ran. The same holds for any stored
-program: if its run from a start raises the flag, the trace it executed has that shape. Conversely,
+like; and $c$ still held $v$ when the COMMIT ran. For any stored program run from a clean start
+that raises the flag, the trace it executed contains a CHECK PCHSH $c$ that passed, and the tally
+$c$ held when it ran passes the seven integer facts, has every pair sampled and the pinned matrix
+symmetric and PSD, and has $S^2 \le 8$ and $|S| \le 2\sqrt 2$. Conversely,
 for a counter $c$ holding the packing of a tally $t$, the three instructions CHECK PCHSH $c$,
 COMMIT PCHSH $c$, CERTIFY raise the flag if and only if $t$ passes the check, and then the ledger
 reads exactly 3; if $t$ fails, the trap goes up at the CHECK and no number of further steps raises
@@ -14013,8 +14034,9 @@ pair was sampled, the four empirical ratios satisfy three polynomial inequalitie
 fixed five-by-five is PSD, hence S squared is at most eight. It does \emph{not} guarantee that
 the tally came from honest play (a program chooses its own trial inputs and can tally whatever
 it likes for nothing, including four rounds that put S at four). It does not guarantee any
-marginal is zero (no marginals are recorded and none are tested). It does not guarantee any
-quantum state exists, or that the correlators lie in the quantum set rather than a larger fence.
+marginal is zero (no marginals are recorded and none are tested). It does not, by anything proved
+here, put a quantum state behind the counts. That the correlators of a passing tally are quantum
+ones is the cited result of Tsirelson, Landau and Masanes, and I haven't proved it.
 And it fails the tally of every single plan, honest classical play included. It has no margin
 for sampling noise either. Honest play at Tsirelson's point aims at correlators of plus or minus
 one over root two, and there every pair of squared correlators the check adds up comes to exactly
@@ -14025,19 +14047,19 @@ check certifies a \emph{shape} of the tally. What the shape means is a question 
 supplied the rounds.
 
 And notice which way the fence faces. The most practical use anyone has found for a Bell test,
-certified randomness, needs the opposite bound. Stefano Pironio and colleagues (2010) showed that
-a Bell violation, with settings the devices can't choose, certifies that the outputs are random,
+certified randomness, needs the opposite bound. Stefano Pironio and colleagues (2010) argued, and backed
+with an experiment, that a Bell violation, with settings the devices can't choose, certifies that the outputs are random,
 and Rotem Arnon-Friedman, Fr\'ed\'eric Dupuis, Omar Fawzi, Renato Renner and Thomas Vidick (2018)
 made the accounting tight with what they call entropy accumulation. A string printed in advance
 passes no such test, so it's the cleanest case I know, outside this book, of a check that can
-fail separating output that was established from output that was printed. That needs $S$
+fail, separating output that was established from output that was printed. That needs $S$
 bounded from below, with an error probability. This check bounds $S$ from above and fails every
 single plan, so it's a fence that keeps out the super-quantum and the fixed plan. As a
 nonlocality test it's no use. The deployed version exists, too: Gautam Kavuri and colleagues, physicists at NIST and
 the University of Colorado (2025), run a
 public randomness beacon whose outputs each trace back through a Bell test to a public record,
 the nearest working system I know to a certified claim written down for good. And records cut
-both ways there. Jonathan Barrett, Roger Colbeck and Adrian Kent (2013) showed that a device
+both ways there. Jonathan Barrett, Roger Colbeck and Adrian Kent (2013) pointed out that a device
 which keeps its own memory of earlier rounds can leak it through outputs it makes public later,
 so reusing a device can undo a guarantee the user thought was settled. A permanent record in the
 wrong box is an attack.
@@ -14056,8 +14078,9 @@ eight.
 
 The second rung: a nine-by-nine table on I, the four questions, and the four Alice-Bob
 \emph{products}, with the correlators and five extra free numbers for three- and four-body
-entries. Its PSD is again equivalent to a contraction-like condition (\code{q1ab\_psd\_iff\_column\_contractive}),
-with a cascade of two Schur steps down to a four-by-four that Sylvester's criterion closes.
+entries. Its PSD is again equivalent to a contraction-like condition (\code{q1ab\_psd\_iff\_column\_contractive}).
+The check for it proves something stronger, that the matrix is positive definite, by a cascade of
+two Schur steps down to a four-by-four that Sylvester's criterion closes.
 Sylvester's name on a test about matrices fits in a way I enjoy, because the word
 \emph{matrix} is his. In 1850, in the \emph{Philosophical Magazine}, the English
 mathematician James Joseph Sylvester used it for an ``oblong arrangement of
@@ -14130,8 +14153,8 @@ Fine's own theorem, in the form that speaks of correlations, is proved separatel
 equivalence: a table of four correlators comes from a local model exactly when each is between
 $-1$ and $1$ and all eight CHSH inequalities hold (\code{nec\_e\_fine\_iff}, NecEFine.v). And one more thing about tallies, which the guarantee paragraph above already used: a free
 tally is not thereby classical (the four rounds with S equal to four). The correlators (one,
-one, one, minus one) are the PR box, which no classical play produces; the classical vertex that fails the
-check is (one, one, one, one).
+one, one, minus one) are the PR box, which no classical play produces; the classical vertex this
+section used, which fails the check like every plan, is (one, one, one, one).
 
 That's the game, the number, the two walls, and the check. Last of the machine sections:
 what all this costs against physics.
@@ -14154,8 +14177,8 @@ and a theorem that a state with one mark, at the scale kT ln 2 per mark, carries
 energy (\code{calibrated\_mu\_landauer\_energy}, proving the predicate \code{mu\_landauer\_calibration} for
 every k and T). Read that for exactly what it is: a unit conversion, true by definition,
 with the scale as a free input. Nothing in it picks the scale. The theorem would be just as
-true with the scale set to a dollar a mark, and I'd rather say that than let the name
-``Landauer'' in it do any work. What \emph{would} connect marks to joules is the premise in Section~\ref{sec:a2-not-arbitrary},
+true with the scale set to a dollar a mark. I'd say that out loud, so the name
+``Landauer'' in it does no work. What \emph{would} connect marks to joules is the premise in Section~\ref{sec:a2-not-arbitrary},
 \code{landauer\_heat}, and that one is an assumption with a name that nothing proves. And even
 as a scale, $k_B T \ln 2$ a mark is the floor for one particular squeeze, a halving.
 Corollary~\ref{cor:heat-floor}'s floor for a flip that brings $k$ states into a room already
@@ -14219,7 +14242,7 @@ whether they can hold together.
 
 Here's the one piece of this section that I think is good physics discipline, and it's a
 consistency test. Suppose you want to claim the counter tracks dissipation. You need two
-premises: that a positively charged step dissipates something positive, and an upper
+premises: that every step you've chosen to count dissipates at least one unit, and an upper
 calibration that bounds dissipation by the charge. Can those two hold at once? There's a
 theorem saying exactly when (\code{calibrated\_model\_exists\_iff\_positive\_cost}): a model
 satisfying both exists precisely when every operation you've chosen to count (the statement
@@ -14263,8 +14286,8 @@ history list (push it onto the front each step; below, $s :: h$ is the list $h$ 
 on the front) and every fixed-instruction step becomes injective, while the step you can see
 stays the same; the line number can collapse to one place while the bigger state keeps
 its past. The free merge, lifted to a machine with
-history, isn't a merge. So ``this step merged, therefore it dissipated'' is not a sentence
-about the visible step alone; it's a sentence about the whole state including whatever
+history, isn't a merge. So ``this step merged, therefore it dissipated'' can't be said of the
+visible step alone. It's a sentence about the whole state including whatever
 history is retained, and a physical model has to say what's retained. The
 permanent-certificate theorem in Section~\ref{sec:a2-not-arbitrary} supplies that for the certifying step on finite memory.
 For the rest of a machine's steps it's unsaid.
@@ -14351,7 +14374,8 @@ Here's a fair question: is there a prediction the permanent-certificate theorems
 Landauer's principle alone doesn't? No, and the reason is short. The smallest case, one certified state and one
 flipping in, is ``set a bit to one whatever it held,'' which is the reset Landauer described
 and Bérut measured; Landauer's own name for it is ``restore to one.'' The general bound, kT ln((m plus k) over m) for squeezing m plus k
-equally likely states into m, is Landauer's formula for that squeeze. What the permanence
+equally likely states into m, is what Landauer's principle gives for that squeeze, at kT ln 2 for
+each bit removed. What the permanence
 theorems add is the \emph{derivation}: which premises about a machine (finite, permanent) make
 the certifying step a reset, so that Landauer applies to it. That's a result about the
 machine. Physics gets nothing new from it, and that's the right size for it.
@@ -14400,17 +14424,18 @@ if n is positive, n plus one is too, and the compiler checks that the function r
 that type, the way it would check that a function from integers to strings really returns
 strings. This correspondence between proofs and programs has a name, Curry-Howard, after
 two people who noticed it separately decades apart, and Coq's foundation, the Calculus of
-Inductive Constructions, from Coquand, Huet and Paulin-Mohring in the late 1980s, is a type system built to
-exploit it. The ``inductive'' part means you define your own recursive types (numbers, lists,
-trees, machine states) inside the system instead of having them handed down as primitives,
-so the foundation is explicit; nothing is smuggled.
+Inductive Constructions, is a type system built to exploit it. Coquand worked it out with
+Christine Paulin-Mohring, a logician and computer scientist best known for developing Coq,
+on top of the Calculus of Constructions he and Huet had made; their paper on it was given in 1988
+and printed in 1990, so the late 1980s is as close as I'd date it. The ``inductive'' part means you
+define your own recursive types (numbers, lists, trees, machine states) inside the system. Nothing
+is handed down as a primitive, so the foundation is explicit; nothing is smuggled.
 
 ``Decades apart'' undersells it, and the gap is worth a side trip. Haskell Curry noticed in 1934
 that the type of a function from $A$ to $B$ reads like the claim ``$A$ implies $B$,'' and that
 the types his functions could have lined up with the claims you can prove; he and Robert Feys
 pushed it further in 1958. William Howard wrote the sharper version in 1969, and then it went
-around as a photocopied manuscript until 1980, when it was finally printed in a collection of
-essays for Curry. So the idea under the tool this book is checked with spent its first eleven
+around as a photocopied manuscript until 1980, when it was finally printed in a collection of essays for Curry. (Philip Wadler's 2015 survey, ``Propositions as Types,'' tells this story.) So the idea under the tool this book is checked with spent its first eleven
 years as a stack of photocopies. Is that the bottom? No. Reading a proof of ``if $A$ then $B$''
 as a method that turns any proof of $A$ into a proof of $B$ is older still: the intuitionists
 had it in the 1920s and 1930s, Brouwer, Heyting and Kolmogorov, which is why people also call
@@ -14448,16 +14473,18 @@ proof (in 1976) needed a computer to check fewer than two thousand configuration
 announcement's count, and was distrusted for exactly that reason. Gonthier redid it in Coq, working
 from a later version of the proof by Neil Robertson, Daniel Sanders, Paul Seymour and Robin Thomas
 (1997), so that the \emph{checker} was the small, auditable thing and the cases were the program. That's de Bruijn's criterion applied to mathematics itself: the thing you have
-to trust is the small kernel. The big proof only has to get past it. The name is Henk Barendregt's, after Nicolaas
+to trust is the small kernel. The big proof only has to get past it. The name is that of Henk
+Barendregt, a Dutch logician known for his work on the lambda calculus and type theory, after Nicolaas
 de Bruijn, whose Automath project, begun in 1967, kept the part of a proof checker you have to
 trust small: a system meets the criterion when its proofs can be checked by a small independent
 program that a person could read.
 
 The 1976 proof deserves its own side trip. Kenneth Appel and Wolfgang Haken did it at the
 University of Illinois, and the mathematics department changed the slogan on its postage meter
-to ``Four colors suffice.'' The slogan it replaced had been on the department's mail since the
-middle 1960s, and it said that $2^{11213} - 1$ is prime, a prime Don Gillies, in the same
-university's computer science department, had found. Think about that for a second. For years
+to ``Four colors suffice.'' The slogan it replaced had been on the department's mail since soon
+after 1963, and it said that $2^{11213} - 1$ is prime, a prime Don Gillies, a professor at the
+same university who helped design its ILLIAC II computer, had found in 1963 while checking that
+machine out. Think about that for a second. For years
 on end a mathematics department stamped its mail with results nobody could have checked by
 hand, first one and then the other, and both were right. So was the distrust of the 1976 proof
 wrong? I don't think so. The worry was never that the computer lied. It was that nobody could
@@ -14526,10 +14553,12 @@ to believe have no spare key cut into them.
 claimed on the runs tried. They can't show the programs always do. Edsger Dijkstra had a sentence for
 this, and the version in his 1976 book starts by admitting he'd already said it many times:
 program testing ``can be quite effective for showing the presence of bugs, but is hopelessly
-inadequate for showing their absence.'' (I'm quoting it as John Harrison quotes it, from that
+inadequate for showing their absence.'' (I'm quoting it as John Harrison, who was then proving
+floating-point hardware correct at Intel, quotes it in a 2007 survey, from that
 book.) That's why this item says \emph{tested}. It never says \emph{proved}.
 \item The physics. Anywhere a theorem has Landauer's principle or a calorimeter in it, the
-physical premise is named and assumed (Section~\ref{sec:a2-not-arbitrary}, Section~\ref{sec:landauer}), never derived.
+physical premise is named and assumed (Section~\ref{sec:a2-not-arbitrary}, Section~\ref{sec:landauer}).
+Nothing here derives it.
 \item Whoever sets the start and whoever reads the record. Every guarantee about the record is
 about programs run from a clean start on a step that does what its definition says. The
 operator who chooses the start, a reset, a device running the machine, and anyone reading a
@@ -14542,13 +14571,13 @@ fence).
 Every link on that list is a place where Ken Thompson's compiler from Section~\ref{sec:diagonal}
 could sit unseen: a translator that plants something and re-plants it when it translates
 itself. Coq's own binary, the compiler that built it, the operating system under both. I don't
-believe any of them does. I can't prove it, and the discipline of this section is to say so
-rather than to let ``formally verified'' cover a chain whose bottom is trust.
+believe any of them does. I can't prove it, and the discipline of this section is to say so.
+``Formally verified'' doesn't cover a chain whose bottom is trust.
 
 And a planted knife isn't the only way a trusted link goes wrong. Sometimes nobody plants
 anything and the thing at the bottom is just wrong. In 1994 Thomas Nicely, a mathematics
 professor at Lynchburg College who was computing with twin primes and their reciprocals, found
-that his new Intel Pentium got some divisions wrong. The example everybody passes around is
+that his new Intel Pentium got some divisions wrong. The standard example is
 4,195,835 divided by 3,145,727, which the bad chips got wrong in the fourth decimal place.
 Intel's explanation was missing entries in a table inside the divider: five of them, it said,
 dropped by a script. Intel set aside about \$475 million to cover it.
@@ -14559,7 +14588,7 @@ missing entries, left out by a mistake in the table's mathematical definition, o
 five ever mattered. So Intel's own explanation, repeated for thirty years, had the effect right
 and the cause off, and it took somebody reading the actual silicon to say so. Floating-point
 arithmetic went on to become one of the places where formal verification earned its keep in
-industry; John Harrison, who did that work at Intel, brings up this very bug in a 2007 survey
+industry; Harrison, who did that work at Intel, brings up this very bug in his 2007 survey
 of it. Does any of that touch this book? Only at the bottom of the list above. Every proof here
 was checked by a program running on some processor, and nobody here has read that processor's
 tables off the silicon either. That's why the processor is on the list as trusted. I can't give it a
@@ -14635,8 +14664,8 @@ That's the checker. What's left is to tell you how to break what it checked.
 
 Every main claim in this book comes with the exact shape of the thing that would kill it. I
 went to the trouble on purpose. A claim you can't break is a claim that wasn't saying
-anything, and I'd rather hand you a loaded gun pointed at my own work than a sentence too
-vague to aim at. So these are written as instructions: here is the trace to find, the
+anything. So I'm handing you a loaded gun pointed at my own work, with every sentence sharp
+enough to aim at. These are written as instructions: here is the trace to find, the
 object to build, the theorem to exhibit. Build one and the proof tree falls, and I mean that
 as an invitation.
 
@@ -14675,7 +14704,7 @@ meeting the halving premise where one step switches k states on beside m certifi
 two to the cost times m is less than m plus k; \code{permanent\_flips\_compression\_bound} falls.
 For merge-or-revoke, a finite machine and an injective instruction that switches a reading on
 without switching it off anywhere; \code{flip\_merges\_or\_revokes} falls. A move that merges and
-also revokes isn't a counterexample to anything; it's the three cards. For the eight-state
+also revokes counts against nothing. It's the three cards. For the eight-state
 machine, a move of it that merges two states and costs nothing; \code{fin\_merging\_priced} falls.
 
 \emph{The bill in bits (Section~\ref{sec:a2-not-arbitrary}).} Exhibit a finite machine with a permanent certificate, a move that
@@ -14693,7 +14722,7 @@ nothing.
 \emph{Learning is free (Section~\ref{sec:narrowing}).} Show that the four-state demon's measure step merges two states,
 or that its observer's candidate list doesn't shrink. \code{observer\_narrowing\_can\_be\_free}
 falls. A different price schedule that charges the measure step is allowed and isn't a
-counterexample; the claim is ``not forced,'' not ``always free.''
+counterexample. The claim is ``not forced.'' It never says ``always free.''
 
 \emph{The counter (Section~\ref{sec:counter}; on the small machine, Section~\ref{sec:smallest}).}
 Find a state of the small machine and an instruction such that the ledger after is anything
@@ -14911,7 +14940,7 @@ Of
 that list, the toll derivation as a rule on a ledger (Ouldridge and Wolpert priced the same
 merge in entropy first), the pricing form of the window fact, and the latch form are
 the only pieces I'd call new statements, and only in the sense that I didn't find them stated
-where I looked. The fourth thing I'd name is built and checked rather than new in idea: a
+where I looked. The fourth thing I'd name is built and checked, and its idea isn't new: a
 record that's priced, and on the small machine earned, under the reference monitor's
 every-program move, which is old and isn't mine. Appendix~\ref{sec:whats-mine} names the same four the same
 way, with the prior work beside each.
@@ -14932,7 +14961,7 @@ If a line here ever says more than its section does, the section is right and th
 wrong. ``By unfolding'' after it means the proof does little more than read the answer off the
 definitions, a case split whose every branch is a line: true, checked, and carrying almost
 nothing the definitions didn't already say. If you're counting results, count those
-differently; I'd rather mark them than let them pad the list.
+differently. I mark them so they don't pad the list.
 
 Ledger is a good word for it, and it's older than bookkeeping. Around 1400 a \emph{ledger} was a
 book that lay permanently in one place, a big church breviary, say, from the old verb
@@ -15243,7 +15272,7 @@ Rice's theorem on the host machine, for properties that depend on everything a p
 Rice's theorem for two-counter programs, from the clean start & proved; the fact table isn't compared & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:guest-rice} \\
 s-m-n, and a universal host program for host programs & proved, with no premise on register 2 & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:host-smn} \\
 Kleene's recursion theorem on the host machine & proved; the fixed point is of the function & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:host-kleene} \\
-Kleene's recursion theorem up to the record on the host machine: stopping, register 0, trap latch, ledger exactly, flag, number of facts, whether the channel is empty & proved; the host program pays after it has computed, not step for step, and simulates $T$ & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:host-kleene-record} \\
+Kleene's recursion theorem up to the record on the host machine: stopping, register 0, trap latch, ledger exactly, flag, number of facts, whether the channel is empty & proved; the host program simulates the program $T$ that carries out the transformation, marks and all, and pays for the whole record in one go once it has computed & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:host-kleene-record} \\
 A fixed point of full behaviour (every register, what the facts name) on the host machine & refuted for registers (\code{sm2\_no\_exact}), and for the fact table, the channel and the versions (\code{nec\_e\_no\_fixed\_point\_facts} and \code{nec\_e\_no\_fixed\_point\_versions}, NecEHost.v) & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:host-no-exact} \\
 No inside decider with a representable flip, and no host decider, for functional properties of host programs & proved (the recursion premise is a theorem there) & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:host-wall} \\
 Rice's theorem for two-counter programs on every input (stop, counters, trap latch, ledger, flag, and what each fact and the channel are about) & proved & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:tc-rice} \\
@@ -15328,7 +15357,8 @@ and an integer check that implies a bound by algebra. Outside it:
 everything that follows. This is the fence. I built it myself, so lean on it before you
 trust it.
 
-G. K. Chesterton has a famous fence, in a 1929 book called \emph{The Thing}. A reformer finds a
+G. K. Chesterton, the English writer who has been called the prince of paradox, has a famous
+fence, in a 1929 book called \emph{The Thing}. A reformer finds a
 fence across a road, can't see what it's for, and wants it cleared away; the wiser one tells
 him to go off and find out why it was put there, and only then come back and argue for tearing
 it down. This section runs the other way round. Every post below comes labelled with what it's
@@ -15346,7 +15376,7 @@ breaks the bridge for its whole instruction set (Section~\ref{sec:landauer}), an
 dynamics don't fix the energy scale. No joule value attaches to one mark without thermal and
 device premises (Section~\ref{sec:a2-not-arbitrary}, Section~\ref{sec:landauer}).
 Once you pick the start and the price list, the number is forced by arithmetic, and
-it isn't energy. The rest of that paragraph is the list of what I'd need before it could be.
+it isn't energy. What I'd need before it could be is the list at the top of this paragraph.
 
 \emph{Class separation.} The witnesses show specific windows losing specific fields. They don't
 stop a conventional simulator from keeping those fields in its encoding. No separation of
@@ -15355,8 +15385,8 @@ Section~\ref{sec:smallest}).
 I'll be blunt about why I'm careful here. Whether P equals NP is one of the seven problems the
 Clay Mathematics Institute put a million dollars on, at a meeting in Paris in May 2000. One of
 the seven has been solved since, the Poincaré conjecture, by Grigori Perelman. P versus NP
-hasn't. If a two-state collision on my machine settled it, somebody would be owed a million
-dollars, and it wouldn't be me. A window that loses a field is a fact about that window. A
+hasn't. If a two-state collision on my machine settled it, I'd be owed a million
+dollars. Nobody owes me anything. A window that loses a field is a fact about that window. A
 complexity class is a fact about what every possible program can do within a budget, and
 nothing in these collisions reaches that far.
 
@@ -15567,7 +15597,7 @@ an honest record is a latch, with two free choices, the event and the price list
 substrate'' is false and ``one structure, many price lists'' is true once the event is fixed. No
 procedure the substrate itself can represent decides the shortcut predicate, given a
 recursion theorem, by the same diagonal that broke Frege's floor, and the machine's answer is
-to record the commitment rather than automate the judgement. Of five record disciplines I
+to record the commitment. It leaves the judgement unautomated. Of five record disciplines I
 modelled in fragments, one prices the write. And which event to record is a conjecture, with
 its refutations listed.
 
@@ -15600,8 +15630,8 @@ the word Landauer in a file name suggests. The places where the machine came up 
 idea stayed on the page: its free steps merge states, so the toll on it is a choice the chairs
 don't force, and a check that can't fail certifies for three like any other. Part V was how to
 check it and how to break it. Every result carries the shape of the thing that would
-kill it, gathered in one place (Section~\ref{sec:falsification}): a run from uncertified to certified with the counter
-never rising; a contractive correlator whose pinned matrix isn't positive semidefinite; a
+kill it, gathered in one place (Section~\ref{sec:falsification}): a state of the small machine
+and an instruction after which the ledger goes down; a contractive correlator whose pinned matrix isn't positive semidefinite; a
 certification system that follows the toll and certifies at total cost zero; a function on
 numbers that correctly decides the shortcut predicate of the substrate built from it. Any one
 of them brings down the theorem it matches. I hunted. I came up empty. For a theorem Coq has
@@ -15627,7 +15657,7 @@ earned (Theorem~\ref{thm:u34-cert-earned}), under the move of guaranteeing somet
 every program. That move isn't mine at all. It's the reference monitor's (Anderson, 1972),
 made precise for monitors that watch a run (Schneider, 2000), and verified in Coq for monitors
 checked at every instruction (Azevedo de Amorim and coauthors, 2015). What's put together under
-it here, built and checked rather than new in idea, is the check bound to the edition it looked
+it here is built and checked, and its idea isn't new: the check bound to the edition it looked
 at, the toll paid on top, and universal programs that carry both to every program of the small
 machine and to every computably presented Thiele machine, earning their own flag as they go.
 Appendix~\ref{sec:whats-mine} sorts all four with sources.
@@ -15637,9 +15667,9 @@ thing.
 
 In the game: an integer check on eight counts forces a five-by-five matrix to be positive
 semidefinite, and from there the Tsirelson bound follows, and the chain never once reaches for
-physics. No Hilbert space, no operators, no observables. The route through the matrix isn't
-mine; it's the first rung of a ladder Navascués, Pironio and Acín built in 2007, and the
-semidefinite road to Tsirelson's bound is older than that. What's here is the check that runs in
+physics. No Hilbert space, no operators, no observables. The route through the matrix is the
+first rung of a ladder Navascués, Pironio and Acín built in 2007. None of that route is mine, and
+the semidefinite road to Tsirelson's bound is older than that. What's here is the check that runs in
 whole numbers, and the checked link from ``the check passed'' to the bound. It's algebra you can
 follow line by line, and the assumption audit on that link finds exactly three standard
 axioms from Coq's own library (two that come with its real numbers, and functional
@@ -15654,7 +15684,8 @@ inside the substrate and the substrate supplies the fixed point; in L the fixed 
 proved from the reduction rules and the diagonal is Rice's theorem. On the small machine's host,
 Kleene's recursion theorem and Rice's theorem are proved for its own programs, so the wall stands
 there by proof, with its premise a theorem: no host program decides a property of what a program
-computes (Section~\ref{sec:small-diagonal}).
+computes that some program has and some lacks; such a property is undecidable in the library's
+sense (Section~\ref{sec:small-diagonal}).
 
 What this book doesn't settle, by my count. Whether the toll is the \emph{right} thing to price, as against a
 wall or a penalty for contradiction, which is what the five real systems mostly built.
@@ -15739,7 +15770,7 @@ every bit left or right, which multiplies or divides by a power of two. Popcount
 count of one-bits in a value. Hexadecimal is base 16, digits 0 to 9 then A to F, written
 with a 0x prefix: 0xFF is 255.
 
-A trap, on a CPU, means execution goes to a fixed handler instead of advancing, the chip's
+A trap, on a CPU, means execution jumps to a fixed handler and the program stops advancing, the chip's
 ``this went wrong.'' On the small machine a trap is one bit that goes up when an instruction
 refuses, and then the core stops moving. An ISA, instruction set architecture, is the list of
 every instruction a CPU recognises, each identified by an opcode, a numeric tag the CPU
@@ -15851,7 +15882,7 @@ everything else, including the parts doing the new work: the versions, the table
 facts, the channel, the ledger and the flag. Nothing is wrong with it. It's a perfectly good
 function. It just costs you what made the state more than a pair of counters. A quotient is the operation of declaring two things the same when
 they agree on what you chose to look at and working with the classes instead. A projection
-does exactly that: it doesn't just drop fields one at a time, it glues together states that
+does exactly that. Dropping fields one at a time also glues together states that
 the dropped fields kept apart. The fibre of a function over a value is
 everything the function sends to that value. An injection sends no two inputs to the same
 output; a surjection covers every output. Decidable means an algorithm always halts with a
@@ -15861,14 +15892,13 @@ bounded by a power of the input size; P is the problems solvable that way, NP th
 where a candidate solution can be \emph{checked} that way, and whether the two are the same is
 open.
 
-``Kernel'' wears three hats in this book, and I'd rather point that out than let it ambush
+``Kernel'' wears three hats in this book, so here they are before one of them ambushes
 you. First, mathematics: the kernel of a map is what it sends to the identity, and for a
 projection the useful version is the relation ``these two states project to the same thing.''
-Second, the proofs, where the hat comes in two sizes: the kernel tier is the part of the Coq
-development the main theorems live in (Section~\ref{sec:coq}), holding the model's theorems
-and the link files that tie the small machine to them, and the files are where the model is
-written down (the model is the mathematics written in them);
-and Coq's own kernel is the small checker that accepts or rejects every proof. Third, the
+Second, the proofs, where the hat comes in two sizes: the kernel tier, the part of the Coq
+development where the model is written down and its main theorems live (Section~\ref{sec:coq}),
+with the link files that tie the small machine to them;
+and Coq's own kernel, the small checker that accepts or rejects every proof. Third, the
 operating-system kernel, which I never use and mention only so you know it isn't meant. The
 sentence around the word always says which one is.
 
@@ -15882,7 +15912,7 @@ along a row: for each entry, delete its row and column, take the determinant of 
 multiply by the entry, alternate the signs, and add up; the recursion bottoms out at two by
 two. A principal submatrix is what you get by choosing some of the indices and keeping only
 those rows and the same columns; its determinant is a principal minor. A symmetric matrix is
-PSD exactly when every principal submatrix is, every one of them, and the game check uses
+PSD exactly when every principal minor is at least zero, every one of them, and the game check uses
 the three-by-three ones (Appendix~\ref{sub:chsh-five}). The Schur complement turns a question
 about a block matrix into a question about a smaller one. For a symmetric block matrix with
 corner block $P$, off-diagonal block $Q$ and other corner $R$, it's $R - Q^{\mathsf T} P^{-1}
@@ -15901,7 +15931,7 @@ too few chairs is that, and so is the proof that a permanent flag can only be ra
 step that forgets something. Landauer's principle (Rolf Landauer, 1961): a step that wipes
 information, lowering the entropy of what a machine holds by some number of bits, gives off
 at least Boltzmann's constant times the temperature times the natural log of two in heat per
-bit. In this book it's always a premise with its name on it, never derived (Section~\ref{sec:a2-not-arbitrary}, Section~\ref{sec:landauer}).
+bit. In this book it's always a premise with its name on it. Nothing here derives it (Section~\ref{sec:a2-not-arbitrary}, Section~\ref{sec:landauer}).
 Entropy, in Claude Shannon's sense: for a spread of chances over states, roughly the average number
 of yes-or-no questions you'd need to pin the state down, so an even spread over $n$ states
 has $\log_2 n$ bits. A spread, in this book, is just a list of chances that add up to one.
@@ -15972,8 +16002,8 @@ to only one of the two layers, the entry says which.
 A \emph{partition} is a sorting of a pile into groups, nothing in two groups and nothing left
 over (Section~\ref{sec:structure}). A \emph{certification system} is a state type, moves, a step, a cost per move, and a
 yes-or-no reading, plus one rule, the \emph{toll}: a move that turns the reading from no to yes
-costs at least one (Section~\ref{sec:toll}). The files call that rule A2 in one of their two numbered lists
-(Appendix~\ref{sec:assumptions}). A move \emph{merges} when two different starting states land on
+costs at least one (Section~\ref{sec:toll}). The files call that rule A2 in the numbering their
+certification records use (Appendix~\ref{sec:assumptions}). A move \emph{merges} when two different starting states land on
 the same end; one that never does is \emph{injective}, it forgets nothing. A reading is
 \emph{permanent} when no move turns it from yes back to no (Section~\ref{sec:a2-not-arbitrary}).
 
@@ -16089,9 +16119,9 @@ $N$. Neither A4 nor the toll is used.
 
 Checked as \code{universal\_nfi\_quantitative} (QuantitativeNoFI.v). A3 and A4 bound opposite
 directions, and neither implies the other: witness 1, cost 0, witness 0 satisfies A3 and
-breaks A4, and witness 0, cost 0, witness 1 does the reverse. The record is a general shape;
-the small machine's own floor of three is proved directly (Theorem~\ref{thm:u34-min-price}),
-not through this record.
+breaks A4, and witness 0, cost 0, witness 1 does the reverse. The record is a general shape.
+The small machine's own floor of three is proved directly (Theorem~\ref{thm:u34-min-price})
+and never goes through it.
 
 Here are the labels side by side, so none of them is left without a meaning.
 
@@ -16141,13 +16171,13 @@ Three remarks on the table. First, the recursion premise holds by construction f
 family and by proof for L (Section~\ref{sec:diagonal}) and for the programs of the small machine's
 host (Section~\ref{sec:small-diagonal}).
 Second, the class
-\code{Substrate} (Substrate.v) carries a different rule from the toll, mu\_\allowbreak{}monotone: the counter
+\code{Substrate} (Substrate.v) carries a different rule from the toll, \code{mu\_monotone}: the counter
 never goes down on a step. Neither implies the other, and the diagonal uses neither. Third, merge pricing is Landauer's principle taken in its worst case over
 what the machine might be holding: it charges every merging move, while the principle in its
 general form charges only for uncertainty actually removed, when the step can be driven by a
-protocol timed from outside it (Theorem~\ref{thm:known-state}); under time-symmetric control even
-a known state pays for a move that doesn't undo itself (Riechers, Boyd, Wimsatt and Crutchfield,
-2020).
+protocol timed from outside it (Theorem~\ref{thm:known-state}). Under time-symmetric control,
+Riechers, Boyd, Wimsatt and Crutchfield (2020) argue, even a known state pays for a move that
+doesn't undo itself.
 
 \subsection{The axioms of the checker itself}
 
@@ -16165,8 +16195,8 @@ doesn't mean.
 %===========================================================================
 
 Every chapter of this book leans on somebody, and I've named them where I lean. This appendix
-does a different job, and it's the one where I'd most like to be caught out early rather than
-late. For each thing the book could be accused of claiming as its own, it says what was
+does a different job, and it's the one where I'd most like to be caught out, and caught out
+early. For each thing the book could be accused of claiming as its own, it says what was
 already known, what this work actually defines, builds, proves, or connects, and what kind of
 contribution that is. Six kinds, and they aren't the same claim: a \emph{new result} (a statement
 nobody had); a \emph{new proof} of something known; a \emph{mechanization} (a known result checked by a
@@ -16224,16 +16254,16 @@ analysis of hypothesis testing with finite memory (1970), a machine that settles
 falling into states it never leaves does worse than one that doesn't, so a decision held for
 good costs memory states. Heat never enters their analysis. And the counting under the theorem is older than
 any of that, twice over. Theorem~\ref{thm:perm-flip-merges} is the finite, discrete cousin of the
-recurrence argument Zermelo, using Poincaré's theorem of 1890, turned on Boltzmann in 1896, aimed
-at a reading instead of at entropy, and Bocchieri and Loinger gave the quantum recurrence in
+recurrence argument Zermelo, using Poincaré's theorem of 1890, turned on Boltzmann in 1896, here
+aimed at a reading. Zermelo aimed it at entropy, and Bocchieri and Loinger gave the quantum recurrence in
 1957. In automata form it is classical: a finite machine whose moves are all one-to-one
 reshuffles recognises only group languages, and the inputs that raise a permanent reading form a
 language that is never one of those unless it is empty (Pin's 1992 paper on reversible automata
 is the reference I'd check; automata theorists treat the step as folklore), and going quantum
 doesn't change it (Brodsky and Pippenger, 2002: quantum finite automata that measure once, at
 the end, accept with bounded error exactly the group languages). The closest of all is recent.
-Ouldridge and Wolpert (2023) proved that if the smallest automaton for a language has a step
-that merges states, every automaton for it does, and recognising it on a device that repeats
+Ouldridge and Wolpert (2023) give a proof that if the smallest automaton for a language has a step
+that merges states, every automaton for it does, and argue that recognising it on a device that repeats
 one local step produces entropy, while a language whose smallest automaton only reshuffles can
 be recognised for free; one of their worked examples is the strings with no $b$, the complement
 of the latch's language. That's the core with a physical price already on it. And the
@@ -16254,8 +16284,8 @@ pricing words), the merge-or-revoke dichotomy for a single move, the squeeze and
 for a permanent flip, and a built counterexample for each premise; and the mechanization of all
 of it (Section~\ref{sec:a2-not-arbitrary}). Kind: the core is classical, and somebody else's: Zermelo's in
 physics, folklore in automata theory, with Pin's paper as the place to check it. The pricing
-form isn't wholly mine either: priced in entropy, for automata, it's Ouldridge and Wolpert's,
-derived from the physics instead of assumed. What's mine is the price as a named rule on a
+form isn't wholly mine either: priced in entropy, for automata, it's Ouldridge and Wolpert's.
+They derive the price from the physics. I assume mine. What's mine is the price as a named rule on a
 ledger, the toll derived from it, its single-move and counted forms, the counterexamples, and
 the mechanized proofs, and the physics is a named premise and is Landauer's. Searches: the core
 turned up in the places just named, and its physical price in Ouldridge and Wolpert; I didn't
@@ -16294,8 +16324,9 @@ fingerprints is Naor and Rothblum's lower bound for checking a stored file (2005
 is Haeberlen and Kuznetsov's (2009), that only omission and commission faults can be detected from outside,
 and in philosophy it is Easwaran's transferability (2009). Mine: stating the pricing
 version (no window price is exact across a collision), exhibiting a colliding pair for the
-small machine's window, and the theorem that every Thiele-complete machine has such a pair for
-the window its base shows (Section~\ref{sec:windows}, Section~\ref{sec:smallest}). Kind:
+small machine's window, and the theorem that every Thiele-complete machine has two runs from one
+clean start that end looking the same through the window its base shows, one certified and one
+not (\code{complete\_hides\_record}; Section~\ref{sec:windows}, Section~\ref{sec:smallest}). Kind:
 mechanization of an elementary lemma, plus specific facts about the machine and the definition.
 
 \subsection{5. Structural entitlement and its bound}
@@ -16362,7 +16393,7 @@ chain from ``the counts pass'' to ``the pinned level-one matrix is positive semi
 level-$1+AB$ cascade and an elliptope gate in whole numbers, with a soundness proof
 (Section~\ref{sec:chsh} and its derivation appendix). Kind: mechanization, with a new proof of a
 known equivalence in one slice. I found no prior formalization taking counts as input, and
-that's a report on where I looked. Everything that exists is a bigger place. The same check earned on
+that's a report on where I looked, and the literature is bigger than where I looked. The same check earned on
 the small machine's host, a raised flag standing on it, is built and checked; the idea isn't new
 (Section~\ref{sec:chsh}).
 
@@ -16386,7 +16417,8 @@ deserves a record, with definitions, a toy, and refutations of two stronger form
 
 Known: one-way counters that give order and termination are old: Turing's 1949 note on
 checking a large routine, Floyd's ranking functions (1967), Lamport's clocks (1978).
-Carrying a run's cost beside its result is the writer cost of Danner and Licata and the
+Carrying a run's cost beside its result is the writer cost of Danner, Licata and Ramyaa (2015)
+and of Danner and Licata (2022), and the
 graded effect semantics of Katsumata (2014), with a working-language version in Orchard,
 Liepelt and Eades (2019). The receipt side of time credits is Mével, Jourdan and Pottier's
 (2019): in their Coq-checked extension of the Iris logic every step uses up a credit and
@@ -16424,7 +16456,7 @@ theorem is a value only the logic's rules can build (Gordon, Milner and Wadswort
 without an earlier commit'' is also a correspondence assertion in the sense of Woo and Lam
 (1993), which Gordon and Jeffrey (2003) check with a type system, and a store of commitments
 that the rules of a dialogue keep, each speaker's updated by the rules as the moves are made, is
-Hamblin's (1970, chapter 8, on formal dialectic); the difference from the first is
+Hamblin's (1970, chapter 8, on formal dialectic); the difference from all three is
 again that here the step enforces it. A check that
 blesses a value and a write that takes the blessing away is close kin to dynamic taint tracking,
 whose labels go back to Denning's lattice model of information flow (1976), with the blessing
@@ -16479,7 +16511,8 @@ machine, with the record and the toll carried through. The universality is borro
 small machine and from Minsky. And the same program with one paid move added, $U_P$, runs every
 computably presented Thiele machine, with its halting matched, its reading carried as a latch on
 the host's own earned flag whose claim is that reading, and its prices to within a surcharge of
-at most two that no program on the host can avoid in general (Section~\ref{sec:presented-universal});
+at most two when the reading starts at no, which no program on the host can avoid for a raise
+that costs less than three (Section~\ref{sec:presented-universal});
 the compiler that carries the guest onto two counters is the library's. Kind for that part:
 implementation and mechanization again. That a universal machine runs any computable machine is
 Turing's; what's carried through here is the record, earned again, and the prices, exact up to
@@ -16504,7 +16537,7 @@ the fibre fact of item 4 plus one observation, that a universal base prints any 
 I'm not claiming the definition is the only reasonable one, or that LCF kernels, reference
 monitors and proof-carrying code are all Thiele-complete machines in disguise; Hamlen, Morrisett
 and Schneider's sorting says such mechanisms genuinely differ, and the book doesn't have a
-robustness theorem to set against that.
+theorem showing the definition holds up across such differences.
 
 \subsection{What that adds up to}
 
@@ -16525,11 +16558,13 @@ Thiele-complete that a clock fails, and universal programs that carry both to ev
 small-machine program and to every computably presented Thiele machine, earning their own flag).
 The first is a ledger
 form of a core that's classical and already priced in physics; the second and third are small exact statements I didn't find
-stated where I looked; the fourth is built and checked rather than new in idea. Under all four sits a
+stated where I looked; the fourth is built and checked, and its idea isn't new. Under all four sits a
 large body of mechanized proof that
-ties those statements to one small machine and the programs that run on it, and my best attempt at saying which is which,
+ties those statements to one small machine and the programs that run on it. Around it is my best
+attempt at saying which is which,
 which you should check as hard as anything else in here. Item 2's core was Zermelo's, and
-folklore among automata theorists, with Pin's paper as the place to check it, before it was mine, and its price in physics was Ouldridge and Wolpert's. If someone shows me
+folklore among automata theorists, with Pin's paper as the place to check it, long before I found
+it, and its price in physics was Ouldridge and Wolpert's. If someone shows me
 its ledger form, the pricing form in item 4, or item 6
 stated earlier, I'll move it up the list and be glad to, and a little embarrassed, in that order.
 
@@ -16756,7 +16791,7 @@ Theorem \ref{thm:running-compiler}: The compiler is correct (the compiled progra
 Definition \ref{def:u23-pinned}: Correlators from the counts; the pinned matrix & \S\ref{sec:chsh} & stated in the text &  \\
 Theorem \ref{thm:u23-notrap-psd}: The integer check implies the pinned matrix is PSD & \S\ref{sec:chsh} & \code{column\_contractive\_check\_witness\_sound} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{column\_contractive\_check\_witness\_npa\_psd} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{npa\_psd\_iff\_column\_contractive} {\footnotesize(if and only if)} {\footnotesize(\code{CHSHColumnCheck.v})} & FE, RD\newline FE, RD\newline FE, RD \\
 Theorem \ref{thm:u23-psd-tsirelson}: PSD forces the Tsirelson bound & \S\ref{sec:chsh} & \code{npa\_psd\_implies\_tsirelson\_bound} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{npa\_psd\_zero\_marginal\_implies\_row\_bounds} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{chsh\_gap\_is\_sum\_of\_squares} {\footnotesize(\code{TsirelsonFromAlgebra.v})} & FE, RD\newline FE, RD\newline FE, RD \\
-Corollary \ref{cor:u23-notrap-bound}: A passed check means the bound & \S\ref{sec:chsh} & the composition of Theorem~\ref{thm:u23-notrap-psd} and Theorem~\ref{thm:u23-psd-tsirelson}\newline \code{nec\_e\_check\_strict} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_never\_tsirelson} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_no\_sqrt8} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_sharp} {\footnotesize(\code{NecEChsh.v})} & \newline FE, RD\newline FE, RD\newline none\newline FE, RD \\
+Corollary \ref{cor:u23-notrap-bound}: A passed check means the bound & \S\ref{sec:chsh} & the composition of Theorem~\ref{thm:u23-notrap-psd} and Theorem~\ref{thm:u23-psd-tsirelson}\newline \code{nec\_e\_check\_strict} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_never\_tsirelson} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_no\_sqrt8} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_sharp} {\footnotesize(\code{NecEChsh.v})} & \mbox{}\newline FE, RD\newline FE, RD\newline none\newline FE, RD \\
 Definition \ref{def:chsh-packed}: The packed tally, and the property PCHSH & \S\ref{sec:chsh} & \code{small\_chsh\_tally} {\footnotesize(\code{SmallChshCheck.v})}\newline \code{small\_chsh\_tally\_of} {\footnotesize(\code{SmallChshMachine.v})}\newline \code{small\_chsh\_meaning} {\footnotesize(\code{SmallChshCheck.v})} & def\newline def\newline def \\
 Theorem \ref{thm:chsh-exact}: The check is exact & \S\ref{sec:chsh} & \code{small\_chsh\_check\_iff} {\footnotesize(\code{SmallChshCheck.v})}\newline \code{small\_chsh\_clear\_denominators} {\footnotesize(\code{SmallChshCheck.v})}\newline \code{small\_chsh\_psd\_iff\_contractive} {\footnotesize(\code{SmallChshCheck.v})}\newline \code{small\_chsh\_check\_tsirelson} {\footnotesize(\code{SmallChshCheck.v})}\newline \code{small\_chsh\_eval\_iff} {\footnotesize(\code{SmallChshMachine.v})}\newline \code{small\_chsh\_psd\_tsirelson} {\footnotesize(\code{SmallChshCheck.v})}\newline \code{small\_chsh\_tally\_of\_code} {\footnotesize(\code{SmallChshMachine.v})}\newline \code{nec\_e\_check\_strict} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_never\_tsirelson} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_sharp} {\footnotesize(\code{NecEChsh.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline none\newline FE, RD\newline FE, RD\newline FE, RD \\
 Theorem \ref{thm:chsh-earned}: A raised flag stands on the check & \S\ref{sec:chsh} & \code{small\_chsh\_flag\_implies\_tsirelson} {\footnotesize(\code{SmallChshMachine.v})}\newline \code{small\_chsh\_program\_flag\_implies\_tsirelson} {\footnotesize(\code{SmallChshMachine.v})}\newline \code{small\_chsh\_chain\_certifies\_iff} {\footnotesize(\code{SmallChshMachine.v})}\newline \code{small\_chsh\_tally\_certifies} {\footnotesize(\code{SmallChshMachine.v})}\newline \code{small\_chsh\_tally\_refused\_forever} {\footnotesize(\code{SmallChshMachine.v})}\newline \code{small\_chsh\_tally\_certifies\_iff} {\footnotesize(\code{SmallChshMachine.v})}\newline \code{nec\_e\_check\_strict} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_sharp} {\footnotesize(\code{NecEChsh.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
@@ -19060,6 +19095,36 @@ this book's pointer conjecture.
 \noindent Janet Metcalfe (1986). Premonitions of insight predict impending error. Journal of Experimental Psychology: Learning, Memory, and Cognition 12(4), pp. 623--634. \href{https://doi.org/10.1037/0278-7393.12.4.623}{DOI: 10.1037/0278-7393.12.4.623}. High warmth before an insight answer goes with the answer being wrong.
 \par\medskip
 
+\noindent Benjamin Morison (2014, revised 2026). Sextus Empiricus. Stanford Encyclopedia of Philosophy. \href{https://plato.stanford.edu/entries/sextus-empiricus/}{Entry}. The source for his dates, his medicine and his skepticism.
+\par\medskip
+
+\noindent Trinity College, Cambridge. Godfrey Harold Hardy. \href{https://explore.trin.cam.ac.uk/assets/hardy/}{Page}. Hardy as Sadleirian Professor at Cambridge, and the 1940 essay.
+\par\medskip
+
+\noindent Wikipedia. A Mathematician's Apology. \href{https://en.wikipedia.org/wiki/A_Mathematician\%27s_Apology}{Article}. The essay as a defence of mathematics pursued for its own sake.
+\par\medskip
+
+\noindent John J. O'Connor and Edmund F. Robertson. Paul Richard Halmos. MacTutor History of Mathematics. \href{https://mathshistory.st-andrews.ac.uk/Biographies/Halmos/}{Biography}.
+\par\medskip
+
+\noindent Boston University (2019). Leonid Levin, BU computer scientist, elected to National Academy of Sciences. \href{https://www.bu.edu/articles/2019/leonid-levin}{Article}. Kolmogorov as his advisor, his leaving the Soviet Union, and Boston University from 1980.
+\par\medskip
+
+\noindent Hartley (unit). Wikipedia entry: the hartley, also called the ban or the dit, the unit of information for logarithms to base ten, named after Ralph Hartley and listed in IEC 80000-13. \href{https://en.wikipedia.org/wiki/Hartley_(unit)}{Entry}.
+\par\medskip
+
+\noindent Murray Gell-Mann (1964). A schematic model of baryons and mesons. Physics Letters 8(3), pp. 214--215. The paper that named the quark. \href{https://doi.org/10.1016/S0031-9163(64)92001-3}{DOI: 10.1016/S0031-9163(64)92001-3}.
+\par\medskip
+
+\noindent Timothy Yenter and Ezio Vailati (2003, revised 2024). Samuel Clarke. Stanford Encyclopedia of Philosophy. \href{https://plato.stanford.edu/entries/clarke/}{Entry}. Clarke as the British philosopher and theologian who defended Newton's natural philosophy in his letters with Leibniz.
+\par\medskip
+
+\noindent Sophia of Hanover. Wikipedia. \href{https://en.wikipedia.org/wiki/Sophia_of_Hanover}{Article}. Her friendship with Leibniz from 1676 to 1714 and her part in laying out the Herrenhausen Gardens.
+\par\medskip
+
+\noindent Max Black. Wikipedia. \href{https://en.wikipedia.org/wiki/Max_Black}{Article}. The Russian-born British-American philosopher, at Cornell from 1946, and his 1952 paper on two spheres.
+\par\medskip
+
 \subsection{Cost, records and thermodynamics}
 
 \noindent Tobias Nipkow (2015). Amortized Complexity Verified. Interactive Theorem Proving, ITP 2015, LNCS 9236, pp. 310--324. \href{https://www.proof.cit.tum.de/~nipkow/pubs/itp15.pdf}{Author paper}. Extended treatment: Tobias Nipkow and Hauke Brinkop (2019), same title, Journal of Automated Reasoning 62(3), pp. 367--391. \href{https://doi.org/10.1007/s10817-018-9459-3}{DOI: 10.1007/s10817-018-9459-3}.
@@ -19686,6 +19751,30 @@ this book's pointer conjecture.
 \noindent Joe DeBlasio (2025). Discussion: removal of one-6962-log requirement. Chromium ct-policy mailing list, 17 November 2025. \href{https://groups.google.com/a/chromium.org/g/ct-policy/c/amrnTiDFdwM/m/mCyPDc4TAwAJ}{Post}.
 \par\medskip
 
+\noindent Tom Furtwangler (2017). The vaccine vial monitor: the world's smartest sticker. PATH, 6 November 2017. \href{https://www.path.org/articles/vaccine-vial-monitor-worlds-smartest-sticker/}{Article}. The stickers first sold in 1996, for oral polio vaccine.
+\par\medskip
+
+\noindent Hans Reichenbach (1956). The Direction of Time. University of California Press; Dover reprint. \href{https://plato.stanford.edu/entries/reichenbach/}{Stanford Encyclopedia of Philosophy entry on Reichenbach}. Cited by Rovelli (2024) as the first to notice that any measurement is dissipative.
+\par\medskip
+
+\noindent Walter J. Boyne (2013). The Checklist. Air Force Magazine, August 2013, pp. 52--56. The Model 299 crash of 30 October 1935: the locked controls, the earlier written routines from 1911 on, and the judgement that ``it took the Model 299 crash to institutionalize its use.'' \href{https://www.airandspaceforces.com/article/0813checklist/}{Article}.
+\par\medskip
+
+\noindent Walter J. Boyne. Wikipedia entry: United States Air Force officer, aviation historian, director of the National Air and Space Museum (acting from 1982, director 1983--1986). \href{https://en.wikipedia.org/wiki/Walter_J._Boyne}{Entry}.
+\par\medskip
+
+\noindent Programmable ROM. Wikipedia entry, History section: invented in 1956 by Wen Tsing Chow, of the Arma Division of the American Bosch Arma Corporation in Garden City, New York, at the request of the United States Air Force, to store the targeting constants of the Atlas E/F's airborne digital computer. \href{https://en.wikipedia.org/wiki/Programmable_ROM}{Entry}.
+\par\medskip
+
+\noindent Tom Leinster. Wikipedia. \href{https://en.wikipedia.org/wiki/Tom_Leinster}{Article}. A British mathematician known for his work on category theory, at Glasgow and then Edinburgh. John C. Baez, Wikipedia, \href{https://en.wikipedia.org/wiki/John_C._Baez}{Article}: mathematical physicist at the University of California, Riverside, working on higher categories and applied category theory. Tobias Fritz's category-theoretic approach to probability: \href{https://arxiv.org/a/fritz_t_1}{arXiv listing}.
+\par\medskip
+
+\noindent University of Waterloo, Department of Pure Mathematics (2020). We remember Distinguished Professor Emeritus János Aczél. \href{https://uwaterloo.ca/pure-mathematics/news/we-remember-distinguished-professor-emeritus-janos-aczel}{Notice}. Aczél at Waterloo from 1965, founder of Aequationes Mathematicae. Bruno Forte at Waterloo: \href{https://mathgenealogy.com/id.php?id=30611}{Mathematics Genealogy Project}.
+\par\medskip
+
+\noindent Omer Tamuz, Caltech, \href{https://www.hss.caltech.edu/people/omer-tamuz}{faculty page}; Philipp Strack, Yale, \href{https://economics.yale.edu/people/philipp-strack}{faculty page}; Luciano Pomatto, Caltech, \href{https://hss.caltech.edu/documents/3303/HSS_New_Faces_2016-2017_FINAL.pdf}{HSS new faculty 2016--17}. The economists behind the 2023 cost-of-information paper.
+\par\medskip
+
 \subsection{Computation, self-reference and checking}
 
 \noindent Edward F. Moore (1956). Gedanken-Experiments on Sequential Machines. In Claude E. Shannon and John McCarthy (eds.), Automata Studies, pp. 129--153. Princeton University Press. \href{https://www.cs.cmu.edu/~cdm/resources/Moore1956-gedanken-experiments.pdf}{Original paper}.
@@ -20264,6 +20353,75 @@ this book's pointer conjecture.
 \noindent Charles E. Mackenzie (1980). Coded Character Sets: History and Development. Addison-Wesley. The design history of ASCII, including the placing of the lower-case letters so that each differs from its capital by one bit.
 \par\medskip
 
+\noindent Harry Deutsch and Oliver Marshall (2021, revised 2022). Alonzo Church. Stanford Encyclopedia of Philosophy. \href{https://plato.stanford.edu/entries/church/}{Entry}.
+\par\medskip
+
+\noindent Donald E. Knuth (n.d.). Home page, Stanford University: ``Professor Emeritus of The Art of Computer Programming at Stanford University.'' \href{https://www-cs-faculty.stanford.edu/~knuth/}{Page}.
+\par\medskip
+
+\noindent M. Sampath, R. Sengupta, S. Lafortune, K. Sinnamohideen and D. C. Teneketzis (1996). Failure diagnosis using discrete-event models. IEEE Transactions on Control Systems Technology 4(2), pp. 105--124. Its first page gives Sampath, Sengupta, Lafortune and Teneketzis at the University of Michigan and Sinnamohideen at Johnson Controls. \href{https://doi.org/10.1109/87.486338}{DOI: 10.1109/87.486338}.
+\par\medskip
+
+\noindent Anooshiravan Saboori (2011). Verification and Enforcement of State-Based Notions of Opacity in Discrete Event Systems. PhD thesis, University of Illinois at Urbana-Champaign; adviser Christoforos N. Hadjicostis. \href{https://www.ideals.illinois.edu/items/18316}{IDEALS}.
+\par\medskip
+
+\noindent Bertrand Russell (1903). The Principles of Mathematics. Cambridge University Press. Chapter X, The Contradiction, \S100: ``I was led to it in the endeavour to reconcile Cantor's proof that there can be no greatest cardinal number with the very plausible supposition that the class of all terms \ldots\ has necessarily the greatest possible number of members.'' \href{https://fair-use.org/bertrand-russell/the-principles-of-mathematics/s100}{Text of \S100}.
+\par\medskip
+
+\noindent Alan M. Turing (1937). Computability and $\lambda$-definability. Journal of Symbolic Logic 2(4), pp. 153--163. \href{https://doi.org/10.2307/2268280}{DOI: 10.2307/2268280}. The computable functions are the $\lambda$-definable functions of Church and the general recursive functions.
+\par\medskip
+
+\noindent Dana Scott (1962). A system of functional abstraction. Lectures delivered at the University of California, Berkeley, 1962--63; unpublished. The origin of the Scott encoding, as given in Mogensen--Scott encoding, Wikipedia, \href{https://en.wikipedia.org/wiki/Mogensen\%E2\%80\%93Scott_encoding}{Article}.
+\par\medskip
+
+\noindent Dana Scott. Wikipedia. \href{https://en.wikipedia.org/wiki/Dana_Scott}{Article}. Logician, doctorate at Princeton under Alonzo Church, 1976 Turing Award with Michael Rabin, domain theory and models of the lambda calculus.
+\par\medskip
+
+\noindent J. Barkley Rosser. Wikipedia. \href{https://en.wikipedia.org/wiki/J._Barkley_Rosser}{Article}. A student of Alonzo Church at Princeton; Rosser's trick (1936) weakens Gödel's $\omega$-consistency premise to consistency.
+\par\medskip
+
+\noindent Ken Thompson. Wikipedia. \href{https://en.wikipedia.org/wiki/Ken_Thompson}{Article}. At Bell Labs he designed and implemented the original Unix operating system; 1983 Turing Award with Dennis Ritchie.
+\par\medskip
+
+\noindent Yiannis N. Moschovakis (2010). Kleene's amazing second recursion theorem. Bulletin of Symbolic Logic 16(2), pp. 189--239. Extended abstract in the CSL 2009 proceedings: ``This little gem is stated unbilled and proved (completely) in the last two lines of \S2 of the short note Kleene (1938).'' \href{https://www.math.ucla.edu/~ynm/papers/ynmcsl2009.pdf}{Extended abstract}.
+\par\medskip
+
+\noindent Rocq (formerly Coq). Wikipedia. \href{https://en.wikipedia.org/wiki/Rocq}{Article}. The old name as a play on Thierry Coquand and the Calculus of Constructions, from a French tradition of naming research development tools after animals; Coquand's work on the calculus of inductive constructions with Christine Paulin-Mohring.
+\par\medskip
+
+\noindent Thierry Coquand and G\'erard Huet (1988). The calculus of constructions. Information and Computation 76(2--3), pp. 95--120. \href{https://doi.org/10.1016/0890-5401(88)90005-3}{DOI: 10.1016/0890-5401(88)90005-3}.
+\par\medskip
+
+\noindent Thierry Coquand and Christine Paulin-Mohring (1990). Inductively defined types. In COLOG-88, International Conference on Computer Logic, Tallinn, 1988, Lecture Notes in Computer Science 417, Springer, pp. 50--66. \href{https://doi.org/10.1007/3-540-52335-9_47}{DOI: 10.1007/3-540-52335-9\_47}.
+\par\medskip
+
+\noindent Christine Paulin-Mohring. Wikipedia. \href{https://en.wikipedia.org/wiki/Christine_Paulin-Mohring}{Article}. A mathematical logician and computer scientist best known for developing the interactive theorem prover Rocq, formerly Coq.
+\par\medskip
+
+\noindent Henk Barendregt. Wikipedia. \href{https://en.wikipedia.org/wiki/Henk_Barendregt}{Article}. A Dutch logician known for his work in lambda calculus and type theory.
+\par\medskip
+
+\noindent Donald B. Gillies (1964). Three new Mersenne primes and a statistical theory. Mathematics of Computation 18, pp. 93--97. \href{https://doi.org/10.1090/S0025-5718-1964-0159774-6}{DOI: 10.1090/S0025-5718-1964-0159774-6}.
+\par\medskip
+
+\noindent Donald B. Gillies. Wikipedia. \href{https://en.wikipedia.org/wiki/Donald_B._Gillies}{Article}. A professor at the University of Illinois from 1956 who designed the pipeline control of ILLIAC II and, during its check-out, found three new Mersenne primes; the mathematics department's postal meter cancellation for the largest of them, used until Appel and Haken's four-colour proof of 1976.
+\par\medskip
+
+\noindent ILLIAC II. Wikipedia. \href{https://en.wikipedia.org/wiki/ILLIAC_II}{Article}. Gillies's 1963 search for Mersenne primes during the machine's check-out, and the UIUC postal cancellation that recorded the largest.
+\par\medskip
+
+\noindent Chris K. Caldwell (ed.). Prime Curios! page for $2^{11213}-1$. The Prime Pages. \href{https://t5k.org/curios/cpage/787.html}{Web page}. The Illinois mathematics department's postage meter changed to stamp ``$2^{11213}-1$ is prime'' after the 1963 find.
+\par\medskip
+
+\noindent University of Illinois Distributed Museum. Four Colors Suffice. \href{https://distributedmuseum.illinois.edu/?p=2793}{Web page}. The ``four colors suffice'' postmark the Department of Mathematics stamped on its outgoing mail for years after the proof.
+\par\medskip
+
+\noindent Siebel School of Computing and Data Science, University of Illinois. Donald B. Gillies Memorial Lecture. \href{https://siebelschool.illinois.edu/news/speaker-series/donald-b-gillies-memorial-lecture}{Web page}. The three primes found while checking out ILLIAC II, ``commemorated by the Mathematics Department with a postage mark stamped on all outgoing mail'' for nearly a decade.
+\par\medskip
+
+\noindent G. K. Chesterton. Wikipedia. \href{https://en.wikipedia.org/wiki/G._K._Chesterton}{Article}. An English writer, referred to as the ``prince of paradox''.
+\par\medskip
+
 \subsection{Correlations and environmental records}
 
 \noindent Stephanie Wehner (2006). Tsirelson bounds for generalized Clauser-Horne-Shimony-Holt inequalities. Physical Review A 73, 022110. \href{https://arxiv.org/abs/quant-ph/0510076v2}{arXiv: quant-ph/0510076v2; DOI: 10.1103/PhysRevA.73.022110}.
@@ -20441,6 +20599,9 @@ this book's pointer conjecture.
 \par\medskip
 
 \noindent James Joseph Sylvester (1850). Additions to the articles ``On a new class of theorems'' and ``On Pascal's theorem''. Philosophical Magazine, pp. 363--370; reprinted in The Collected Mathematical Papers of James Joseph Sylvester, vol. 1, Cambridge University Press, 1904, pp. 145--151. The ``oblong arrangement of terms'' passage is quoted in Jeff Miller's \href{https://mathshistory.st-andrews.ac.uk/Miller/mathword/m/}{Earliest Known Uses of Some of the Words of Mathematics (M)}, entry ``matrix''.
+\par\medskip
+
+\noindent Wim van Dam. Scientific biography. University of California, Santa Barbara. \href{https://sites.cs.ucsb.edu/~vandam/biography.html}{Web page}. Research on the theory of quantum computation and quantum communication; professor of computer science and physics at UC Santa Barbara.
 \par\medskip
 
 \end{document}
