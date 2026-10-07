@@ -149,7 +149,7 @@ Over any order of places, the toll holds exactly when the floor does, a run cost
 When there are finitely many states, the record never moves down and the ordinary machine forgets nothing, every step the toll charges collapses two different states of one fibre (two states the ordinary machine sees as the same) into one, and under the halving price (one unit per halving of the number of distinct states) the bill in bits is, on average, never less than what was collapsed (`ax_fibre_collapse_exit`, `ax_priced_loss_bits`).
 The base doesn't have to be two counters: any machine with a universal base, plus the earned layer and a table with room for one fact, is Thiele-complete as long as some claim comes out true at one start and false at another, and the same holds in seven models of computation through the vendored library (`lift_thiele_complete`, `lift_num_models_agree`, Lift*.v); one counter is too few (`lift_oc_halts_bound`).
 Thiele machines compose side by side and one after another, and the failures are proved too (`cmpz_prod_tc`, `cmpz_seq_tc`, `cmpz_shared_not_earned`, Cz*.v).
-A small structured language compiles, through proved stages, all the way to a guest of U_P, a second fixed program (3735 instructions for a host with one paid move) that runs every computably presented Thiele machine, and at every stage the compiled program halts with y exactly when the source program computes y (`cmp_final`, CmpFinal.v). The compiler and the machines are extracted to OCaml; a Python machine written by hand is checked step by step against the Coq definitions, and the extracted code is checked against that Python machine ([ocaml/](ocaml/), [thiele_small/](thiele_small/)).
+A small structured language compiles, through proved stages, all the way to a guest of U_P, a second fixed program (3735 instructions for a host with one paid move) that runs every computably presented Thiele machine, and, for a program whose procedures call only procedures defined before them, at every stage the compiled program halts with y exactly when the source program computes y (`cmp_final`, CmpFinal.v). The compiler and the machines are extracted to OCaml; a Python machine written by hand is checked step by step against the Coq definitions, and the extracted code is checked against that Python machine ([ocaml/](ocaml/), [thiele_small/](thiele_small/)).
 On the two-counter machine itself, Rice's theorem (the logician Henry Rice proved it in his 1951 doctoral thesis and published it in 1953: no program decides a property of what programs do, unless the property holds of every program or of none) holds on every set of inputs, Kleene's recursion theorem (stated and proved by the logician Stephen Kleene in 1938) holds with inputs written as powers of two, and with plain inputs Kleene's is false: some computable map F has no program e that is equivalent to F(e) (`tc_rice`, `tc_kleene`, `tc2_plain_recursion_false`).
 
 Then `make verify` runs [minimal/nofi_demo.py](minimal/nofi_demo.py), which rebuilds the quantitative floor with none of my code anywhere near it.
@@ -313,34 +313,36 @@ computation is a latch on an event; on a finite machine, writing it merges
 states; and a Thiele-complete machine's own window does not recover it.
 Certification is one instance of the event. No theorem selects it uniquely.
 
-A monotone record driven by the base computation decomposes into threshold latches, over any partial order of values. It does not in general
-decompose into one latch. Revocable and probabilistic records do not inherit the same
-uniqueness theorem. The two-state calorimeter protocol
-fixes distributions, a Hamiltonian, a discrete master equation, and exact bath
-heat, but also proves that those dynamics do not determine the energy gap.
-The ledger therefore has no intrinsic joule value without thermal and device
-premises (`mu_has_no_intrinsic_joule_value`).
+A monotone record driven by the base computation decomposes into threshold
+latches, over any partial order of values. It does not in general decompose
+into one latch. Revocable and probabilistic records do not inherit the same
+uniqueness theorem. The two-state calorimeter protocol fixes distributions, a
+Hamiltonian, a discrete master equation, and exact bath heat, but also proves
+that those dynamics do not determine the energy gap. The ledger therefore has
+no intrinsic joule value without thermal and device premises
+(`mu_has_no_intrinsic_joule_value`).
 
 The RFC 9162 verifier covers the iterative inclusion and consistency control
 flow and executable examples. Collision resistance and signed-tree-head
-authenticity are outside it. The PCC checker is a small role model, the RAM result covers
-addressed list memory, the reversible-machine result covers arithmetic update
-cores, and the TPM theorem is a countermodel to authenticity from an
-unconstrained signature interface. None is presented as a complete deployed
-security system. The graded, writer, potential, and linear-resource results
-are comparisons. None is a full cost-framework embedding.
+authenticity are outside it. The PCC checker is a small memory-bounds model,
+the RAM result covers addressed list memory, the reversible-machine result
+covers arithmetic update cores, and the TPM theorem is a countermodel to
+authenticity from an unconstrained signature interface. None is presented as a
+complete deployed security system. The graded, writer, potential, and linear-
+resource results are comparisons. None is a full cost-framework embedding.
 
-The twelve-event observer-map survey proves its formal classifications and
-the expected behavior under an event swap. Its MAC-labelled counterexample is
-a fact about the chosen observer map; its real-system interpretation depends
-on that modeling choice. More generally, a closed two-observer toggle game refutes the
-claim that consensus, exact observation, and coordinator-free evolution force
-permanent commits. Adding durable observation makes permanence immediate, so
-it does not select certification independently. Five narrow real-system consequences reduce to known local
-indistinguishability or durability arguments, while five stronger candidates
-lack the required protocol or hardware semantics. None supplies a novel result
-that both needs the record axis and is ready for external use. The pointer
-criterion is a conjecture; its proposed strong necessity theorem is refuted.
+The twelve-event observer-map survey proves its formal classifications and the
+expected behavior under an event swap. Its MAC-labelled counterexample is a
+fact about the chosen observer map; its real-system interpretation depends on
+that modeling choice. More generally, a closed two-observer toggle game
+refutes the claim that consensus, exact observation, and coordinator-free
+evolution force permanent commits. Adding durable observation makes permanence
+immediate, so it does not select certification independently. Five narrow
+real-system consequences reduce to known local indistinguishability or
+durability arguments, while five stronger candidates lack the required
+protocol or hardware semantics. None supplies a novel result that both needs
+the record axis and is ready for external use. The pointer criterion is a
+conjecture; its proposed strong necessity theorem is refuted.
 
 ## Repository Layout
 
@@ -459,7 +461,7 @@ Two independent receipts track proof assumptions.
 
 The generated assumption receipt reports 5,369 addressable theorems probed across 308 files and no user/project-local axiom findings.
 The split: 4,882 close under the global context outright, and the remaining 487 lean only on Coq-stdlib axiom families.
-Those families are `functional_extensionality_dep` (460), the classical-reals pair `sig_forall_dec` (487) and `sig_not_dec` (154), and `classic` (91); and none of them uses `eq_rect_eq` (0).
+Those families are `functional_extensionality_dep` (460), the classical-reals pair `sig_forall_dec` (487) and `sig_not_dec` (154), and `classic` (91). No theorem uses `eq_rect_eq` (0).
 Those families enter through the real-number layers; the minimal core uses none of them.
 These counts are written by the receipt generator on Linux, never by hand.
 "Zero axioms" here means zero project-local axioms, the same convention the monograph uses.

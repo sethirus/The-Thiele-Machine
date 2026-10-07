@@ -1372,8 +1372,9 @@ anything that obeys the toll pays at least one mark to get from not-established 
 (short enough that you'll prove it yourself on paper in Part II). On a finite machine whose record
 never comes down, the step that raises it merges, which is the chairs; with merging priced, the toll
 follows, and the price is an assumption with a name. Finding out can be free: you can learn
-something from a step that merged nothing and cost nothing, so the toll lands on committing. A window that shows a paid state and an unpaid one as the same can't price the step
-between them exactly, however clever it is. And over any machine, an honest record is a one-way
+something from a step that merged nothing and cost nothing, so the toll lands on committing. A window that shows a certifying step and a quiet one
+alike, before and after, can't price
+certification exactly, however clever it is. And over any machine, an honest record is a one-way
 switch on an event, with two choices left free: the price list and which event.
 
 On the smallest machine I could build, six instructions on two counters: the chain in the table
@@ -1414,8 +1415,9 @@ Which of the proved part is new? Not one big thing, and I'd be suspicious of me 
 By my own sorting at the back (Appendix~\ref{sec:whats-mine}) it's four smaller ones, each with its
 neighbours standing right there. The toll derived from finiteness, permanence and a price on
 merging: the pigeonhole principle, Landauer and Bennett on merging, and the finite heart of
-the German mathematician Ernst Zermelo's 1896 recurrence argument, about whether a closed box of gas has to come back around to where it started, are all next to it. A window that shows a paid state and an
-unpaid one alike can't price the step between them exactly: an old fact about functions, the
+the German mathematician Ernst Zermelo's 1896 recurrence argument, about whether a closed box of gas has to come back around to where it started, are all next to it. A window that shows a certifying step and a
+quiet one alike, before
+and after, can't price certification exactly: an old fact about functions, the
 1956 thought experiments of Edward Moore, at Bell Labs, on what you can learn about a machine you
 may only watch from outside, and the engineer Rudolf Kalman's observability, the same question
 asked of control systems. What I put in is a price. An honest permanent record, over
@@ -1937,7 +1939,7 @@ somebody else's. The table below is my best attempt at finding out whose.
 What I compare each time is what a result is \emph{about}. Landauer's bound is about heat, a
 physical cost under a thermodynamic model. No Free Lunch (an optimisation result, in the
 list below the table) is about averages over a whole spread of problems. The toll is a floor on one kind of step, the step that turns a
-certification reading on. Exact pricing adds a second rule on top: never charge more. So the
+certification reading on. Exact pricing adds a second rule on top: charge nothing on a step that doesn't turn it on. So the
 comparisons are about the shape of each result. They aren't claims about who got somewhere
 first, and they don't show that certification is the only event worth pricing.
 
@@ -1983,8 +1985,10 @@ already known with sources, and sorts what's added into new result, new proof,
 mechanization, implementation, synthesis, or conjecture. Most of the right column is
 mechanization, implementation, and synthesis.
 
-A few more labels I went and looked up don't get a row, because nothing in the book leans on
-them. They're neighbours, and I list them so you can see why I don't think the toll is one
+A few more labels I went and looked up are neighbours. Some of them also sit in
+the table above,
+and one, the reference monitor, is the move the small machine's step makes. I list them
+so you can see why I don't think the toll is one
 of them under a new name. Each is a claim inviting correction.
 
 \begin{itemize}
@@ -3495,7 +3499,8 @@ possible states land on one state, and after the move you can no longer tell, fr
 everyone is sitting, which of the two it was. The move forgot something.
 
 That's the whole argument, and I want to name the piece of mathematics that did the work,
-because it's old and it's not mine. If you put more things into fewer boxes than there are
+because it's old and it's not mine. If you put things into fewer boxes
+than there are
 things, some box gets two. People call it the pigeonhole principle; it's the one from the
 opening chapter, where Jean Leurechon used it in 1622 to argue that two people somewhere have
 the same number of hairs, and the first name for it I could find came from Dirichlet, who used it in 1842 and later called it the drawer principle. It's the kind of fact a child accepts and a
@@ -3769,8 +3774,9 @@ Take one coin. The rule is: turn it over. Heads is YES, tails is NO. Every move 
 (turn it over again), so nothing is forgotten. Tails goes to heads: that's a flip, NO to YES.
 And heads goes to tails: the same move takes the flag back down somewhere else. Two states,
 finite as it gets, and the move that raises the flag forgets nothing, so a schedule that
-charges only for forgetting is allowed to charge it nothing. The file states the one move's
-bijection and its on-then-off behaviour (\code{revocable\_certificate\_escapes}); that the coin is
+charges only for forgetting is allowed to charge it nothing. The file states that the one move
+forgets nothing
+(it is injective) and its on-then-off behaviour (\code{revocable\_certificate\_escapes}); that the coin is
 finite and that the price may be zero are written in \code{toggle\_escape} (AxMerge.v), which
 prices the turn at zero, meets merge pricing, and fails the toll.
 The thing that walked out the door is permanence.
@@ -5103,7 +5109,7 @@ stated limit. In 2021 a change called EIP-3529 cut the refunds sharply (none for
 self-destruct, a smaller one for clearing storage, and a cap of one fifth of the gas used).
 The written reasons are the gas token and those overfull blocks. I read both as the same
 lesson: a counter that goes down was being leaned on at the place where it went down.
-Ethereum comes back in Section~\ref{sec:models} as one of five small models of systems people actually run, and
+Ethereum's gas comes back in Section~\ref{sec:models} as one of five small models of systems people actually run, and
 it's the only one of the five that prices a write at all, and it's instructive that the part
 they had to fix was the part that could fall.
 
@@ -5336,7 +5342,9 @@ program. On loop-free programs the two agree on the nose: on every run that does
 counter rises by exactly the grade. The argument is conservation set beside the grade rule; the
 counter's rise is the sum of the charges along the run, and the grade rule adds the same charges
 in the same order. Loops break the agreement, and in one direction only. A loop that runs a paid
-check that always passes once for every unit in some register costs that register's value on
+check, one that always
+passes and is charged one, once for every
+unit in some register costs that register's value on
 entry, and no fixed whole number is an exact grade for it; a grade that's a function of the
 inputs, the kind cost-aware type theories like calf (Niu, Sterling, Grodin and Harper, 2022)
 allow, gets exactness back. So the counter carries their semantics exactly, agrees with fixed
@@ -5470,7 +5478,8 @@ you can't, and seeing why you can't is the content.
 \subsection{A cave, and the people who got good at it}
 
 This one is Plato's, and the part I need is near the end. In the seventh book of the \emph{Republic}, Plato has
-Socrates describe prisoners chained in a cave since childhood, facing a wall, with a fire
+Socrates, the main speaker of the dialogue,
+describe prisoners chained in a cave since childhood, facing a wall, with a fire
 behind them and people carrying objects along a walkway between the fire and their backs.
 All the prisoners have ever seen is the shadows on the wall. To them, Socrates says, the
 truth would be nothing but those shadows. Further on, Socrates reads the story out himself: the
@@ -5506,7 +5515,8 @@ visible to them, or could be, except straight lines. Put a coin flat on a table 
 eye to the table's edge, and the coin turns into a line; that's the whole view. What gives a
 Flatlander anything more is fog. A line that's near is bright and a line that runs off into the
 fog goes dim, so a trained eye can read a triangle or a pentagon off how fast the brightness
-fades toward the ends. The training takes years, and in the story only people with money get
+fades toward the ends. The training takes time and money, and in
+the story only people with money get
 it. That's a window that got bigger, and it was paid for in time.
 
 Then a sphere comes through the narrator's plane. What his eye gets is a line whose ends fade
@@ -5515,7 +5525,7 @@ settles that it's a circle by feeling it, and the circle grows from a point to i
 shrinks back to nothing as the sphere rises through. From one slice he can't put a sphere
 together. From the slices one after another, seen and felt and argued over, he starts to.
 The escape from a window is never ``think harder.'' It's always ``a different window,'' and a
-different window always costs something: a turn, a second look, years of training, time.
+different window always costs something: a turn, a second look, training, time.
 
 Who was Edwin Abbott? Not a mathematician by trade. He was headmaster of the City of London School
 for twenty-four years, a clergyman, and the author of more than forty books, a Shakespeare
@@ -6319,8 +6329,9 @@ can look at it, which is the most I'd claim.
 So here's what I mean by entitlement, and it has three parts, and I'll try to earn each.
 
 A run is entitled to a claim when three things are present. First, an \emph{object}, carried in
-the state: a grouping, a relation between groups, a counter, a package of constraints. Not a
-belief; a thing you could print. Second, a \emph{checked relation} between that object and the
+the state: a grouping, a relation between groups, a counter, a package of constraints. That's a
+thing you could
+print. A belief doesn't count. Second, a \emph{checked relation} between that object and the
 claim: a test that was actually run, with its result on hand. ``A test exists'' doesn't count. Third, an
 \emph{event on the record} that says this object was put there and paid for, so that anyone
 auditing the run can point back at the moment the claim was marked.
@@ -6727,8 +6738,10 @@ why anything was deleted. So the condition rules out deleting too much for the t
 paid for. It doesn't rule out deleting for no reason. A run can satisfy every hypothesis of
 the count and have ruled nothing out on purpose; the count prices the size of the drop. It says
 nothing about the honesty of it. And the covering can't just be dropped. On the small machine one yes-or-no
-question with a big constant in it narrows $n$ bits down to one candidate for a ledger of three,
-so the bound is false without it (Section~\ref{sec:part3-on-machine}).
+question with a big constant in it
+narrows $2^n$ candidates to one, $n$ index bits, for a ledger of
+three,
+so for any $n \ge 4$ the bound is false without it (Section~\ref{sec:part3-on-machine}).
 
 Here's a side trip worth taking, because it looks like it breaks the count and doesn't. Two
 information theorists, Rudolf
@@ -6802,7 +6815,7 @@ rise, so for a system that obeys conservation it's the special case. Three thing
 feed nothing, and I'm naming them here so you don't have to find them: (H3) isn't used
 by any of the three
 conclusions; from (H1) only the inclusion is used, and the gap goes unused; and in (H2)
-the words ``not in $\Omega'$'' go unused, since a candidate whose observation differs from every survivor's can't be a survivor itself.
+the words ``not in $\Omega'$'' go unused, since a candidate whose observation differs from every survivor's can't be a survivor itself. And (H4)'s $|\Omega'| > 0$ is used in that proof but can be dropped too: the covering forces it once the prior has a member (\code{nec\_e\_cs\_entitlement\_stronger}, NecEEnt.v).
 
 A statement like that is true by packaging: it takes the hypotheses in and hands the
 conclusions back, and the right word for it is a checklist. A checklist for leaning on a claim.
@@ -7095,7 +7108,7 @@ That's a \emph{latch}. Electrical engineers have had the circuit since 1918, whe
 physicists teaching engineering in London, William Eccles, a radio pioneer, and Frank Jordan,
 applied for a patent on a two-valve arrangement that holds whichever state you last put it
 in; it became the flip-flop, and the registers and caches in the device you're reading this on
-descend from it. The simplest version has one input, ``set,'' and the rule \emph{new state = old state or set}: once set, it stays set, and there's no reset wire. The cup is that circuit:
+descend from it. Cut its reset wire and what's left has one input, ``set,'' and the rule \emph{new state = old state or set}: once set, it stays set. The cup is that circuit:
 a flip-flop with its reset wire cut off.
 
 (Eccles and Jordan didn't call it a flip-flop. Their 1919 paper calls it a \emph{trigger relay}.
@@ -7578,7 +7591,8 @@ with the cup and the die. Charge a coin for every roll, six or not. The cup turn
 same roll as before. You've changed the bill and nothing about the record. A machine that
 charges for CPU time is honest and isn't the one that doesn't.
 
-But the billed machine isn't a different \emph{structure}. It's the same machine with a different
+But the billed machine isn't a different \emph{structure}. It's the same record, steps and
+halting with a different
 price list. So the claim worth keeping is sameness \emph{up to the price schedule}: compare two
 machines by their record, their halting and their steps, through their maps down to the
 base, and don't compare charges. Fix which event the record is, and the bill stops mattering;
@@ -8835,7 +8849,7 @@ compute says true exactly when the property holds) in the same file. The file us
 
 That's the wall on paper, on a family built to fit it, and on one outside model with nothing
 assumed. The machine built in Part IV fills in this same shape with nothing assumed either: on
-its host machine, the one with a counter for every number that the universal program runs on,
+its host machine, the one the universal program runs on, which has a counter for every whole number,
 programs are numbers, Kleene's recursion theorem is a theorem, and so is Rice's, and the fixed point
 can be taken to agree on what the program computes and also on the ledger and the flag
 (Section~\ref{sec:small-diagonal}).
@@ -9924,8 +9938,10 @@ row of cups, each one a latch; the toll over the whole row is the old toll on ev
 straight strip of $n + 1$ stages needs exactly $n$ cups (Section~\ref{sec:direction}). When the
 ordinary machine forgets nothing, the toll prices crushing two states of one fibre, and a window
 can price exactly by seeing the cups move (Section~\ref{sec:shadow-exact}). No inside procedure whose flip a substrate can represent decides a shortcut property,
-given a recursion theorem, which the nat family has by construction and
-L has by proof. What a
+given a recursion theorem, which the nat family has by construction. L
+isn't a substrate, and
+on L the same diagonal is proved again
+from a recursion theorem it has by proof. What a
 record can do is carry the commitment (Section~\ref{sec:diagonal}). Of
 five specifications, read through my transcriptions, one prices the write (Section~\ref{sec:models}).
 And which event to record is a conjecture with a borrowed shape and a listed set of
@@ -11030,7 +11046,8 @@ costs 0, with a commitment already in the channel 1, and with a live fact alread
 (\code{nec\_s\_clean\_conjuncts\_each\_buy\_one}, \code{nec\_s\_min\_cost\_needs\_flag\_down},
 \code{nec\_s\_min\_cost\_needs\_empty\_channel} and \code{nec\_s\_min\_cost\_needs\_empty\_table}). The
 exact condition is \code{nec\_s\_floor3\_iff}: every run from a state that raises the flag costs at
-least three exactly when the flag is down and either the trap is up or the channel is empty and
+least three exactly when the flag is down and one of two things holds: the trap is up,
+or the channel is empty and
 every fact in the table is about an older version of its counter. And three is paid exactly from
 every clean start whose trap is down (\code{nec\_s\_witness\_from\_every\_clean\_start}). All of these
 are in NecSClean.v, except \code{nfi\_floor}, which is in EarnedCore.v.
@@ -11542,7 +11559,7 @@ Checked as \code{universal\_halting} and \code{universal\_output} (UniversalRun.
 
 \begin{theorem}[The host's flag is the guest's, and its ledger is exact]\label{thm:u34-U-flag}
 (1) The guest's flag is up at some step of its run if and only if the host's flag is up at some
-step of $U$'s run. (2) For every $m$ there's an $n$ at which the two are related or both stopped,
+step of $U$'s run. (2) For every $m$ there's an $n$ at which the two are related, with $m \le n$, or both stopped,
 with $\mu(\mathrm{hrun}(n)) = \mu(\mathrm{grun}(m))$. And for every $n$ there's an $m$ with
 $\mu(\mathrm{grun}(m)) \le \mu(\mathrm{hrun}(n)) \le \mu(\mathrm{grun}(m + 1))$: in between
 matching points, the host's ledger never gets ahead of the guest's next step.
@@ -12099,7 +12116,8 @@ of the machine that has no record. (The no-bare-verifier result is in Section~\r
 next to the collision it comes from.)
 
 \textbf{The eight-state machine, run by the small machine.} Look at the small machine through a
-window that shows two things: its line number read modulo four, which I'll call its \emph{slot},
+window that shows two things: its line number read modulo four, which I'll call its \emph{slot} (the
+eight-state machine's word from Section~\ref{sec:a2-not-arbitrary}, unrelated to $U$'s slot registers),
 and its flag. Call a state \emph{live} when its trap latch is down, the fact ``$A \ge 0$'' about
 $A$'s current version is in its table, and its channel holds a commitment, which is what CERTIFY
 needs in order to run.
@@ -12782,8 +12800,9 @@ carried-out $F$ with no $e$ equivalent to $F(e)$ on plain inputs, all closed.
 The case split in the stages is decided by running for a bounded number of steps, so no excluded
 middle goes in. For a long time I couldn't read Schroeppel's own memo. I went looking again and
 found the scan. As I read it, his route is close in spirit: he trades a two-counter machine that
-starts with one counter empty for a machine with one register that can only add, multiply and
-divide by fixed numbers, each of those built out of one of the program's loops, and that's the
+starts with one counter empty for a machine with one register that can only add,
+multiply and
+divide by fixed numbers and take one away, each of those built out of one of the program's loops, and that's the
 stages here under another name. I haven't followed his proof line by line; this one is checked. The $c$ it uses is astronomically bigger than anything a real
 multiplier needs, and finding the best bound is a question I leave alone.
 
@@ -13203,8 +13222,9 @@ do. (3) Read through ``either flag is up,'' two certification systems side by si
 certification system with floor one; read through ``both flags are up,'' a run that starts with both
 flags down and ends with both up costs at least two, and two is reached when each part can certify
 for one. (4) Two Thiele-complete machines side by side
-are a Thiele-complete machine. (5) In that pair, a run from a clean start that ends with each side at or above a point that isn't
-at or below its floor makes at least six record moves and raises the ledger by at least
+are a Thiele-complete machine. (5) In that pair, call a side's \emph{floor} the place on its record axis where its clean states sit. A run from
+a clean start that ends with each side at or above a point that isn't
+at or below that side's floor makes at least six record moves and raises the ledger by at least
 six, and six is reached. (6) The pair of records is the product in the precise sense: for any machine
 mapping into both, preserving records, there's exactly one map into the pair that does both jobs.
 \end{theorem}
@@ -13285,7 +13305,7 @@ bench it's a second hand reaching into a bin while the box isn't looking. Two wr
 a check that's out of date by the time anybody leans on it. The small machine's version rule is
 exactly the fix, and this is what happens without it: the commitment goes through on a claim about a
 thing that changed underneath it. Database people and the people who build processors have been
-fighting this one for decades under names like ``lost update'' and ``time of check to time of use.''
+fighting this one since at least Kung and Robinson's paper of 1981 and the Livermore report of 1987, and the opening chapter called it time of check to time of use.
 Here it's a theorem about the record, and the version number is what makes it go away. The second
 hand can still reach in. With the version, its reach shows on the tally, and the COMMIT traps.
 
@@ -13532,7 +13552,7 @@ simulation of one at the level of gates, and no board ever ran any of this. The 
 as Coq definitions, as extracted OCaml, and as a Python program written by hand, and those three
 agree on every step anybody has checked. That's the whole of what ``it runs'' means in this book.
 
-I'd love to see it in metal some day. But two builds that can be held against each other on every step are worth a lot to
+I'd love to see it in metal some day. But builds that can be held against each other on every step are worth a lot to
 me.
 A board with nothing to hold it up against isn't, and that's the trade this edition made.
 
@@ -13602,7 +13622,8 @@ one that got the name.
 
 The ceiling is easy to reach and costs nothing to write down. Tally one round per question
 pair with both players answering zero every time: after the recoding every answer is plus one,
-so all four correlators are one, the all-ones plan, which matches on every pair and so wins the
+so all four correlators are one. That's the plan that answers zero to everything,
+which matches on every pair and so wins the
 three pairs that ask for a match, $S = 1 + 1 + 1 - 1 = 2$. On the small machine's host a tally like
 that is a few INCs on counters, and INC is free. Nothing in it says the rounds were played; anybody can
 tally anything for nothing. The other side, that no finite mixture of plans beats two, is
@@ -13638,7 +13659,8 @@ inequality rules out the \emph{pair} of assumptions together, called local reali
 before you ask, and no influence across the gap). Either one alone survives it. And where does a
 paper like that get published? In a brand-new journal called \emph{Physics Physique Fizika}, which
 charged authors no page fees and in fact paid them by the word, ten cents a word, and which folded in
-1968 after four volumes. I went looking for that count, and the sources don't agree on it: four is the
+1968 after four volumes, or
+three. I went looking for that count, and the sources don't agree on it: four is the
 number the American Physical Society's archive of the journal gives, and Iulia Georgescu, writing
 about the journal in \emph{Physics World} in 2026, says three. She's also where the ten cents comes
 from. As Andrew Whitaker tells it in his biography of Bell, the journal gave out no free copies,
@@ -13744,7 +13766,7 @@ the short version; the next part builds both.) It doesn't, and the direction mat
 implies the five-by-five table, pinned in a way the next part explains, is PSD, and that
 implies S squared is at most eight; both are proved. Whether the
 correlators of a PSD table like that are the correlators of some quantum strategy is the
-cited result of Tsirelson and of Lawrence Landau and Lluís Masanes, who found the exact edge
+cited result of Tsirelson and of Lawrence Landau, whose 1969 Berkeley thesis was on the quantum theory of local observables, and Lluís Masanes, then at the University of Barcelona, who found the exact edge
 for this game (next part), and I haven't proved it here. Failing says
 nothing: the check is sound and not complete, and quantum behaviour can fail it. Every one
 of the sixteen plans fails it (\code{nec\_e\_check\_refuses\_all\_plans}), and I'll show you why. What it guarantees is in one paragraph, once
@@ -13944,7 +13966,8 @@ the counts, and a checked link from ``the check passed'' to PSD to the bound.
 Now put it on the machine. A check on the small machine is a property: a checker, which is a
 little program that says yes or no, a meaning, which is a statement, and a proof that the two
 agree. The version of the small machine with its property language left open
-(Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances}) takes any property that comes
+(Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances}) takes any property language with an exact equality
+test whose properties come
 with those three things, and for every one of them a raised flag stands on a passing CHECK of
 one claim, a COMMIT of the same claim with nothing touched in between, and a CERTIFY, for three.
 So here's the plan for the game. Pack the eight counts into one counter, as a list, the way the
@@ -14443,7 +14466,7 @@ unless the program genuinely matches the statement you claimed. You can't talk i
 maybe.
 
 The name is a joke three ways at once, and it's worth knowing before you say it out loud in
-English. \emph{Coq} is French for rooster. It's also a nod to Thierry Coquand, who worked out the
+English. \emph{Coq} is French for rooster. It's also a nod to Thierry Coquand, a French computer scientist and mathematician, now at the University of Gothenburg, who worked out the
 logic it started from with
 Gérard Huet, a French computer scientist at INRIA, and to that logic's initials, CoC, for the Calculus of
 Constructions; and there's a French habit of naming research tools after animals. The English
@@ -15267,21 +15290,20 @@ The window cannot recover the ledger, flag or commitment permission & proved on 
 Clean-start certification costs at least three & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-min-price} \\
 A certificate whose check could have failed costs exactly three, and when that check fails the program is refused forever & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tight} \\
 The step refuses trivial checks & not claimed; ``is at least 0'' passes every value and certifies for three too & Section~\ref{sec:smallest} \\
-Provenance, checker soundness, no forging and the floor of three hold for any property language whose checker is proved to mean what it says, a sorted list read out of a counter included & proved on the small machine (\code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refused\_forever}, EarnedGeneric.v) & Section~\ref{sec:smallest} \\
+Provenance, checker soundness, no forging and the floor of three hold for any property language with an exact equality test and a checker proved to mean what it says, a sorted list read out of a counter included & proved on the small machine (\code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refused\_forever}, EarnedGeneric.v) & Section~\ref{sec:smallest} \\
 The channel names the last earned commitment, and a later commit can replace it & proved on the small machine (\code{certified\_channel\_earned} and \code{channel\_names\_last\_commit}, EarnedCore.v) & Section~\ref{sec:smallest} \\
 The guarantees hold against whoever sets the start, a reset, or a second writer that doesn't bump versions & not claimed; they are about programs from a clean start, one step at a time & Section~\ref{sec:smallest}, Section~\ref{sec:scope} \\
 Thiele-complete means a universal base that is free and can't touch the record, an earned record with a checker proved to mean its claims, an exact toll of one mark per check, commit and certificate, and a claim whose check can fail & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
 Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three per certificate, has a check that fails and a run that certifies, and raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
 A clock (every move charged, any reading or any latch as the record) obeys the toll with a universal base and is not Thiele-complete; nor is any machine whose every move costs something & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the base and toll clauses and fails, and a silent machine meets three clauses and fails & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
-The small machine, the same machine over any property with a proved checker, and the sorted-list machine are Thiele-complete & proved on the small machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
+The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are Thiele-complete & proved on the small machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
 Every Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-window} \\
 No fixed host program can keep the guest's facts on an exact copy of a guest counter & proved, for any host property language and any translation into a finite list of host properties & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-nocopy} \\
 One fixed program $U$, in the small machine's own instruction kinds and with no guest step built in, runs every small-machine program from every start, step for step, with halting and answers matched & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-sim}, Theorem~\ref{thm:u34-U-halting} \\
 $U$'s flag rises exactly when the guest's would, and its ledger equals the guest's at every matching point & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-flag} \\
 $U$'s raised flag stands on $U$'s own check, commit and certificate on a slot, and on the guest's own earned chain for the same claim & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-earned} \\
 $U$'s host is Thiele-complete, and whether $U$ halts on a loaded guest is undecidable & proved on the host machine; undecidable in the library's sense & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-complete} \\
-
 The simpler host runs any small-machine program as a guest, and halts with any two-counter program & proved on the small machine, by construction: its guest step runs the guest's own step as a primitive; the guest program is held as a list & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-universal} \\
 The simpler host's mirror always equals the guest's flag & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-mirror} \\
 The simpler host's step collects the guest's toll, and its ledger covers the guest's & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-host-toll} \\
@@ -15290,7 +15312,6 @@ The simpler host's own instructions never touch the guest & proved on the small 
 The simpler host's raised mirror means the guest's own run checked, committed and certified the same claim & proved on the small machine (\code{host\_mirror\_earned}, UniversalThiele.v) & Section~\ref{sec:universal-host} \\
 The simpler host is a certification system & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-host-instance} \\
 The simpler host's ledger equals the guest's & not claimed; a guest step with budget $b$ costs $b$ whatever the guest instruction cost, so its ledger only covers the guest's; $U$'s is exact & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-host-toll} \\
-
 \end{longtable}
 \endgroup
 
@@ -15522,8 +15543,9 @@ with plain inputs (Section~\ref{sec:small-diagonal}).
 \emph{The five models.} Each is a fragment transcribed from a specification, with a named
 theorem and a named limit: the Casper transcription has no deposits or fork choice; the gas
 fragment omits the refund cap; the attestation fragment has no signatures; the transparency
-verifier covers control flow and leaves collision resistance out; the proof-carrying checker is a
-three-instruction role model. None is a claim about the real system beyond its fragment
+verifier covers control flow and leaves collision resistance out; the proof-carrying checker is
+a
+three-instruction memory-bounds language. None is a claim about the real system beyond its fragment
 (Section~\ref{sec:models}).
 
 \emph{The machine.} Part IV has one small machine, with the hosts that run it,
@@ -15589,8 +15611,9 @@ This machine only: its six instructions and their prices, its sixteen slots, its
 pair, and the encodings its universal programs use.
 
 \emph{What I'm proposing beyond that.} That the axis belongs in the step; that certification is
-the event worth recording; that this is a structural account of computation, more than a
-cost model. Those reach further than any theorem here, and no theorem here puts an
+the event worth recording; that this is a structural account of computation,
+with a cost model as one part
+of it. Those reach further than any theorem here, and no theorem here puts an
 unavoidable physical price on every observable change. They're the argument, and the
 argument is what the rest of the book was. What kind of claim is that? A proposal about which
 distinctions an account of computation ought to draw, and no proof settles an ``ought''. The
@@ -15744,7 +15767,8 @@ Walk the warehouse again. On an ordinary machine there's still no lamp for what 
 and nothing in this book changes that. On the small machine there is one: a flag and a counter
 you can read off the state, and a theorem that, from a clean start, the flag can't be up unless
 a check of that very claim, about that very edition, passed first, where a claim can be any
-property whose checker is proved to mean what it says, ``this counter, read as a list, is
+property, in a language with an exact
+equality test, whose checker is proved to mean what it says, ``this counter, read as a list, is
 sorted'' among them (\code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refused\_forever}, EarnedGeneric.v). That's the one lamp I set
 out to light. It's a lamp for whoever can read this machine's state. A ``tests passed'' sheet
 fits it only when the test is a checker proved to mean what it says; the sticker and the very
@@ -15899,7 +15923,8 @@ says no such model produces certain correlations quantum mechanics does. No-sign
 neither side's marginal depends on the other's setting. Quantum-realisable means compatible
 with some quantum state and measurements; the NPA hierarchy gives a ladder of necessary
 tests, each a positive-semidefiniteness condition on a moment matrix, and no single rung is
-sufficient in general. The PR box is the no-signalling correlation that wins the game every
+known to be sufficient in general
+(Chaturvedi's 2026 preprint argues none is, even for this game). The PR box is the no-signalling correlation that wins the game every
 time, stronger than quantum mechanics allows. Cauchy-Schwarz is
 the inequality that a dot product is bounded by the product of the lengths. The Tsirelson
 bound is two root two, the largest game score quantum mechanics allows; the classical bound
@@ -16080,7 +16105,8 @@ edition number: it starts at 0 and goes up by one every time the counter is writ
 edition never comes back. A \emph{fact} is a property, a counter and a version together, such as
 ``$A$ is even, as of edition 3''; the properties come from a fixed language of three, \emph{is zero},
 \emph{is even} and \emph{is at least $n$}. The same theorems also hold for any property language
-whose checker is proved to mean what it says, and one such language reads a counter as a list
+with an exact
+equality test whose checker is proved to mean what it says, and one such language reads a counter as a list
 and asks whether it's sorted (\code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refused\_forever}, EarnedGeneric.v). The \emph{fact table} holds up to sixteen facts, and the only way
 in is a CHECK that passed; nothing ever leaves it. The small machine's \emph{channel} holds one
 committed fact or nothing, and COMMIT puts a fact there only if the table has it about the
@@ -16529,7 +16555,8 @@ was checked first about the same edition, that nothing is forged, that nothing i
 that the channel names the last earned commitment (\code{certified\_channel\_earned} and \code{channel\_names\_last\_commit}, EarnedCore.v), and that the cheapest
 certificate whose check could have failed costs exactly three and no less (the step doesn't
 police trivial checks, so one that can't fail costs three too); the same theorems for any
-property language whose checker is proved to mean what it says, a sorted list read out of a
+property language with an exact equality
+test whose checker is proved to mean what it says, a sorted list read out of a
 counter included (\code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refused\_forever}, EarnedGeneric.v); and the step-for-step match with
 the library's machine, so halting is undecidable for it (Section~\ref{sec:smallest}).
 Kind: an instance of monitor enforcement, implemented and mechanized, with two things on top
@@ -16580,7 +16607,7 @@ rewriters and static analysis can each enforce, and they differ. Mine: a definit
 Thiele-complete with four clauses (a free universal base that can't touch the record, an earned
 record, an exact toll on the three record acts, and a check that can fail), the proofs that every
 clock-style machine and a paid latch and a silent machine fail it while the small machine, the
-same machine over any property with a proved checker, and the universal program's host meet it,
+same machine over any property language with an exact equality test, a proved checker and a property that holds of one number and fails of another, and the universal program's host meet it,
 and the theorem that every machine meeting it hides its record and ledger from its own window
 (Section~\ref{sec:smallest}). Kind: a definition with short consequences. The window theorem is
 the fibre fact of item 4 plus one observation, that a universal base prints any window for free.
@@ -16812,7 +16839,7 @@ Theorem \ref{thm:u34-host-toll}: The host's step collects the guest's toll & \S\
 Theorem \ref{thm:u34-no-free-host}: No free host certification & \S\ref{sec:smallest} & \code{no\_free\_host\_certification\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{no\_free\_host\_certification} {\footnotesize(\code{UniversalThiele.v})}\newline \code{no\_free\_host\_certification\_program} {\footnotesize(\code{UniversalThiele.v})}\newline \code{guestless\_runs\_leave\_mirror} {\footnotesize(\code{UniversalThiele.v})}\newline \code{own\_record\_only\_by\_certify} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-host-instance}: The host is a Thiele machine & \S\ref{sec:smallest} & \code{host\_toll} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_own\_toll} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_mirror\_toll} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_nfi} {\footnotesize(\code{UniversalThieleLinks.v})}\newline \code{host\_cs} {\footnotesize(\code{UniversalThieleLinks.v})}\newline \code{host\_mirror\_cs} {\footnotesize(\code{UniversalThieleLinks.v})}\newline \code{guest\_cs} {\footnotesize(\code{UniversalThieleLinks.v})} & none\newline none\newline none\newline none\newline def\newline def\newline def \\
 Remark \ref{rem:u34-host-runs}: Two guests, run & \S\ref{sec:smallest} & \code{demo\_certifies} {\footnotesize(\code{UniversalThiele.v})}\newline \code{demo\_program\_certifies} {\footnotesize(\code{UniversalThiele.v})}\newline \code{demo\_forgery\_fails} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none \\
-In the text: the same chain for any property with a proved checker, ``sorted'' included & \S\ref{sec:smallest} & \code{generic\_earned\_certification\_provenance} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_checker\_soundness} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_no\_forging} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_certified\_run\_min\_cost} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_certifies\_iff} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_refused\_forever} {\footnotesize(\code{EarnedGeneric.v})} & none\newline none\newline none\newline none\newline none\newline none \\
+In the text: the same chain for any property language with an exact equality test and a proved checker, ``sorted'' included & \S\ref{sec:smallest} & \code{generic\_earned\_certification\_provenance} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_checker\_soundness} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_no\_forging} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_certified\_run\_min\_cost} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_certifies\_iff} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_refused\_forever} {\footnotesize(\code{EarnedGeneric.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 In the text: the channel names the last earned commitment & \S\ref{sec:smallest} & \code{certified\_channel\_earned} {\footnotesize(\code{EarnedCore.v})}\newline \code{channel\_names\_last\_commit} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
 In the text: a raised mirror means the guest's own run earned it & \S\ref{sec:smallest} & \code{host\_mirror\_earned} {\footnotesize(\code{UniversalThiele.v})} & none \\
 Theorem \ref{thm:u34-presented}: One host runs every computably presented Thiele machine & \S\ref{sec:smallest} & \code{presented\_universal} {\footnotesize(\code{PresentedUniversal.v})}\newline \code{presented\_universal\_halting} {\footnotesize(if and only if)}, \code{presented\_universal\_points}, \code{presented\_universal\_halt\_point}, \code{presented\_universal\_flag\_iff} {\footnotesize(if and only if)}, \code{presented\_universal\_earned} {\footnotesize(\code{PresentedUniversal.v})}\newline \code{pu\_universal\_halting} {\footnotesize(if and only if)}, \code{pu\_universal\_flag\_iff} {\footnotesize(if and only if)}, \code{pu\_universal\_ledger\_exact}, \code{pu\_universal\_earned}, \code{pu\_universal\_thiele\_complete} {\footnotesize(\code{UniversalPRun.v})} & none\newline none\newline none \\
@@ -16893,7 +16920,7 @@ Lemma \ref{lem:chsh-nine-sos}: Three squares plus the residual, \code{quad9\_q1a
 Theorem \ref{thm:chsh-nine-iff}: PSD at level 1+AB, \code{q1ab\_psd\_iff\_column\_contractive} & \S\ref{sec:chsh-derivation} & \code{q1ab\_psd\_iff\_column\_contractive} {\footnotesize(if and only if)} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{column\_contractive\_q1ab\_implies\_psd9} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{psd9\_implies\_column\_contractive\_q1ab} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{PSD9} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{column\_contractive\_q1ab} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline FE, RD\newline FE, RD\newline def\newline def \\
 Lemma \ref{lem:chsh-schur-step}: Fraction-free Schur step & \S\ref{sec:chsh-derivation} & \code{sym6\_Schur\_identity} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym5\_Schur\_identity} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym6\_qf\_nonneg\_from\_pd} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym5\_qf\_nonneg\_from\_pd} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 Lemma \ref{lem:chsh-sylvester}: Sylvester for 4x4, \code{sym4\_qf\_nonneg\_from\_pd} & \S\ref{sec:chsh-derivation} & \code{sym4\_qf\_nonneg\_from\_pd} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym4\_LDLT\_identity} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym4\_d1} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym4\_d4} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym4\_Q2} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline FE, RD\newline def\newline def\newline def \\
-Definition \ref{def:chsh-g12345}: What the integer check computes & \S\ref{sec:chsh-derivation} & \code{g12345\_COMMON\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{cleared\_g12345\_H11\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{cleared\_g12345\_H56\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{schur\_step\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{q1ab\_g12345\_check\_z\_kernel} {\footnotesize(\code{CHSHColumnCheck.v})} & def\newline def\newline def\newline def\newline def \\
+Definition \ref{def:chsh-g12345}: What the integer check computes & \S\ref{sec:chsh-derivation} & \code{g12345\_COMMON\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{cleared\_g12345\_H11\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{cleared\_g12345\_H66\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{schur\_step\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{q1ab\_g12345\_check\_z\_kernel} {\footnotesize(\code{CHSHColumnCheck.v})} & def\newline def\newline def\newline def\newline def \\
 Theorem \ref{thm:chsh-g12345}: The full 1+AB check implies PSD & \S\ref{sec:chsh-derivation} & \code{q1ab\_g12345\_caller\_witness\_z\_abs\_sound} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{q1ab\_g12345\_minors\_witness\_implies\_psd9} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline FE, RD \\
 Remark \ref{rem:chsh-interior}: Interior only & \S\ref{sec:chsh-derivation} & argued in the text &  \\
 Theorem \ref{thm:chsh-gzero}: The zero-moment check sits inside the classical bound & \S\ref{sec:chsh-derivation} & \code{q1ab\_check\_at\_gzero\_forces\_unit\_ball} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{q1ab\_check\_at\_gzero\_implies\_classical\_bound} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{q1ab\_residual\_g\_zero\_decomp} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{column\_contractive\_check\_q1ab\_sound\_at\_g\_zero} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{column\_contractive\_check\_q1ab} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline def \\
@@ -17346,7 +17373,8 @@ $P$ from \texttt{start x y}; \texttt{hrun P x y n} is $n$ program steps of the o
 program \texttt{U} from the host loaded with $P$, $x$ and $y$. The first theorem: the
 guest halts at some step exactly when \texttt{U} does. The second: the guest's flag is up at some
 step exactly when the host's is. The third: for every guest step count there's a host step count
-where the two are related, or both stopped, with equal ledgers; and every host point's ledger lies
+where the two are related,
+with the host count at least the guest count, or both stopped, with equal ledgers; and every host point's ledger lies
 between the guest's at some step and at the step after. \texttt{rel} and \texttt{rel\_halt} are the
 relations Theorem~\ref{thm:u34-U-sim} spells out. The fourth: the host machine, the small machine
 with a register for every whole number and the one property \code{PSlot}, read one move per
@@ -17507,11 +17535,11 @@ shows an observation no survivor shows; the start is clean; the run ends with th
 posterior's membership test accepts the decoded run; the tree is no deeper than the number of record
 moves in the run; the posterior is non-empty; and the covering is by fibres, as
 \code{ent\_reduction} spells out. Conclusions in order: the posterior's test is strictly stronger; the
-run contains the earned chain; that chain's claim holds at its CHECK and at its COMMIT; the index
+run contains the earned chain; some CHECK of a claim and a later COMMIT of the same claim appear in the run, with the claim holding at both; the index
 bits are at most the record moves; the record moves are exactly the ledger's rise; and the rise is at
 least 3. Theorem~\ref{thm:ent-machine} says exactly this, with the hypotheses numbered (M1) to (M6)
-and the conclusions numbered (1) to (5), and it folds the chain and its meanings into one
-conclusion where the Coq lists them as two.
+and the conclusions numbered (1) to (5), and it says one thing more in (2): there the meanings hold at the chain's own CHECK and COMMIT. The Coq's third conclusion is a separate existential that doesn't name
+the chain; the printed form follows from it with the last two parts of clause (b), a passing check means the claim holds and an unchanged thing keeps it holding.
 
 \subsection{A raised flag stands on the CHSH check}
 
@@ -17699,7 +17727,7 @@ nonnegative and sum to 1, so $-2 = \sum_\lambda p(\lambda)(-2) \le S \le
 Fine's 1982 theorem is an equivalence between several descriptions of local models and the
 Bell inequalities. \code{fine\_theorem} proves one direction: a finite factorizable model obeys
 the bound. Its converse, as it's stated, is false (\code{nec\_e\_fine\_converse\_false}); the
-equivalence in the form Fine meant, for correlations, with all eight inequalities, is
+equivalence in the form Fine meant, for correlations, with each correlator between $-1$ and $1$ and all eight inequalities, is
 \code{nec\_e\_fine\_iff}. And \code{fine\_theorem} covers only finitely many hidden states
 ($\lambda \le \lambda_{\max}$). An arbitrary probability space is outside it. The transfer to rational
 boxes is \code{local\_box\_CHSH\_bound} (kernel/quantum/MinorConstraints.v): if
@@ -20479,7 +20507,7 @@ this book's pointer conjecture.
 \noindent Rocq (formerly Coq). Wikipedia. \href{https://en.wikipedia.org/wiki/Rocq}{Article}. The old name as a play on Thierry Coquand and the Calculus of Constructions, from a French tradition of naming research development tools after animals; Coquand's work on the calculus of inductive constructions with Christine Paulin-Mohring.
 \par\medskip
 
-\noindent Thierry Coquand and G\'erard Huet (1988). The calculus of constructions. Information and Computation 76(2--3), pp. 95--120. \href{https://doi.org/10.1016/0890-5401(88)90005-3}{DOI: 10.1016/0890-5401(88)90005-3}. Huet as a French computer scientist at INRIA: \href{https://en.wikipedia.org/wiki/G\%C3\%A9rard_Huet}{Wikipedia, ``G\'erard Huet''}.
+\noindent Thierry Coquand and G\'erard Huet (1988). The calculus of constructions. Information and Computation 76(2--3), pp. 95--120. \href{https://doi.org/10.1016/0890-5401(88)90005-3}{DOI: 10.1016/0890-5401(88)90005-3}. Huet as a French computer scientist at INRIA: \href{https://en.wikipedia.org/wiki/G\%C3\%A9rard_Huet}{Wikipedia, ``G\'erard Huet''}. Coquand as a French computer scientist and mathematician at the University of Gothenburg: \href{https://en.wikipedia.org/wiki/Thierry_Coquand}{Wikipedia, ``Thierry Coquand''}.
 \par\medskip
 
 \noindent Thierry Coquand and Christine Paulin-Mohring (1990). Inductively defined types. In COLOG-88, International Conference on Computer Logic, Tallinn, 1988, Lecture Notes in Computer Science 417, Springer, pp. 50--66. \href{https://doi.org/10.1007/3-540-52335-9_47}{DOI: 10.1007/3-540-52335-9\_47}.
@@ -20532,7 +20560,7 @@ this book's pointer conjecture.
 \noindent Stephanie Wehner (2006). Tsirelson bounds for generalized Clauser-Horne-Shimony-Holt inequalities. Physical Review A 73, 022110. \href{https://arxiv.org/abs/quant-ph/0510076v2}{arXiv: quant-ph/0510076v2; DOI: 10.1103/PhysRevA.73.022110}.
 \par\medskip
 
-\noindent Lawrence J. Landau (1988). Empirical two-point correlation functions. Foundations of Physics 18, pp. 449--460. \href{https://link.springer.com/article/10.1007/BF00732549}{DOI: 10.1007/BF00732549}.
+\noindent Lawrence J. Landau (1988). Empirical two-point correlation functions. Foundations of Physics 18, pp. 449--460. \href{https://link.springer.com/article/10.1007/BF00732549}{DOI: 10.1007/BF00732549}. Landau's 1969 Berkeley thesis, ``Some Aspects of the Quantum Theory of Local Observables'': \href{https://www.mathgenealogy.org/id.php?id=61987}{Mathematics Genealogy Project}.
 \par\medskip
 
 \noindent Mnacho Echenim and Mehdi Mhalla (2023). A formalization of the CHSH inequality and Tsirelson's upper-bound in Isabelle/HOL. Journal of Automated Reasoning 68(1), article 2 (print 2024). \href{https://arxiv.org/abs/2306.12535v1}{arXiv: 2306.12535v1}; \href{https://doi.org/10.1007/s10817-023-09689-9}{DOI: 10.1007/s10817-023-09689-9}.
@@ -20577,7 +20605,7 @@ this book's pointer conjecture.
 \noindent Sandu Popescu and Daniel Rohrlich (1994). Quantum nonlocality as an axiom. Foundations of Physics 24, pp. 379--385. \href{https://doi.org/10.1007/BF02058098}{DOI: 10.1007/BF02058098}.
 \par\medskip
 
-\noindent Lluís Masanes (2003). Necessary and sufficient condition for quantum-generated correlations. \href{https://arxiv.org/abs/quant-ph/0309137v1}{arXiv: quant-ph/0309137v1}.
+\noindent Lluís Masanes (2003). Necessary and sufficient condition for quantum-generated correlations. \href{https://arxiv.org/abs/quant-ph/0309137v1}{arXiv: quant-ph/0309137v1}. The paper gives his affiliation as the Universitat de Barcelona.
 \par\medskip
 
 \noindent Miguel Navascués, Stefano Pironio and Antonio Acín (2007). Bounding the Set of Quantum Correlations. Physical Review Letters 98, 010401. \href{https://arxiv.org/abs/quant-ph/0607119v2}{DOI: 10.1103/PhysRevLett.98.010401; arXiv: quant-ph/0607119v2}.
