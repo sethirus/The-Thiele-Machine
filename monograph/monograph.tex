@@ -251,7 +251,10 @@ Put two computers on a table. Hand each of them the same list of a thousand numb
 The first one sorts it. It compares, swaps, walks the list again and again until nothing is out of
 order. Then it does one more thing: it walks the whole list front to back and checks that every
 number is no bigger than the one after it. That check could have failed. It passes. Then it tidies
-up after itself, wipes its scratch work, and leaves the sorted list in memory.
+up after itself, wipes its scratch work, and leaves the sorted list in memory. (That check compares
+neighbours, so what it settles is that the output is in order. That the output holds your
+thousand numbers and no others is a second claim, and it would take a second check comparing the
+output with the input. When I say sorted below, I mean in order.)
 
 The second one never looks at your list. Somebody typed the sorted version into it earlier, same
 thousand numbers, same order, and it puts them in memory.
@@ -381,7 +384,9 @@ of this very claim passed first, isn't in the model's core at all. It's what the
 machine in Part IV enforces, proved for that machine and every program on it run from a clean start. One more word rides
 along with permanent, and it'll come up when I line my record up against other people's: dated. A
 record that goes up and stays up went up at some particular step. The first raising occurs at a
-definite step in the execution history. The latch itself does not store that step number. A machine that charges one mark for every step it takes meets the first rule, and the charging does
+definite step in the execution history. The latch itself does not store that step number. So
+dated, in this book, means dated in the execution history, and carrying a timestamp is a
+different property that the record doesn't have. A machine that charges one mark for every step it takes meets the first rule, and the charging does
 nothing toward
 the others, and I'll keep pointing that out.
 
@@ -501,7 +506,9 @@ scientists who work on what programming languages mean, in 2018 turned justifica
 history of the computation that made them, and Samuel Bucheli, Meghdad Ghari and Thomas Studer, three logicians, Studer the head of the logic group at Bern, put justifications on a time line in 2017, where they persist and change.
 
 Line that up against the margin this book wants: earned, paid for, permanent, dated. Artemov's
-reason is nearly earned, the steps and the sizes are prices, the time line is a date. What none of it has
+reason is nearly earned, the steps and the sizes are prices, the time line is a date. Their
+time line keeps its dates. Mine is dated only in the execution history: the raise happened at a
+definite step, and the latch doesn't keep the step number. What none of it has
 is the closing of a question as a step with a price. Their prices are on reasoning, and the Bern
 justifications change, the one thing a closed question doesn't do. Push on mine, though, and it gives twice. Artemov's margin holds the reason itself, and mine only
 says a check passed. And their prices grow with how hard the thing was to know. This book charges the
@@ -616,8 +623,9 @@ it. The copier that never checks has no corresponding rejection.
 
 Here's the shape. A check is a question asked of every possible input, and it splits them into two
 piles: the ones it says yes to and the ones it says no to. ``Could have failed'' just means the no
-pile isn't empty. A check that says yes to everything has an empty no pile, and it establishes
-nothing, however long it runs and however official it looks. A philosopher, Robert Nozick, made a
+pile isn't empty. A check that says yes to everything has an empty no pile, and it distinguishes no
+inputs, however long it runs and however official it looks. It can still be sound, when its
+property holds of everything, and then it's sound and tells you nothing you didn't have. A philosopher, Robert Nozick, made a
 version of this a condition for knowing, in 1981: you know a thing only if, had it been false, you
 wouldn't believe it.
 
@@ -626,10 +634,12 @@ Push on it once more, because this is where it really gives. ``Could have failed
 state at all. Look at the first machine's memory when it's done: a sorted list. Nothing in those
 bits says ``and whatever made me would have caught a mistake.'' That's the warehouse again, every
 lamp visible and none of them saying it. The one thing that makes the first machine's answer
-worth more is exactly the kind of thing an end state can't hold. The only way a machine can own it
+worth more is exactly the kind of thing those bits can't hold: the copier ends with the same
+bits, and neither machine kept anything else. An end state can hold more than the answer, and the
+only way a machine can own this
 is to write something down at the moment the check passes, and to have that something mean what it
 says. More than anything else in this chapter, that's why I ended up needing a record. A better
-answer wouldn't have done it. Even then the record only carries half of it. It can say this check ran on this
+answer wouldn't have done it. Even then the record only carries half of it. It can say a check ran on an
 edition and passed. That the check would have said no on a bad list is a fact about the checker,
 and that half rides on a proof about the checker, which somebody outside the machine has to read
 and accept. Where that kind of chain of reasons stops is the swamp of the philosopher Karl Popper, a little further down.
@@ -730,7 +740,8 @@ that every effective procedure is a program, which is the side this book's machi
 know that second paper only by what it sets out to do, so I lean on it lightly.
 
 Set their trace beside my record and the columns nearly all fill: their stage is my dated, their never
-forgetting my permanent, their never wrong my earned. The empty one is the price, and I think
+forgetting my permanent, their never wrong my earned. Their stage is written into the trace,
+though, and my dated is only a step in the run that the latch doesn't keep. The empty one is the price, and I think
 I see why. For a mind with unlimited memory, never forgetting costs nothing. A finite machine pays to
 keep anything for good, and that's the chairs, still to come.
 So it's the closest thing to my \emph{established} that I've found. The formula is around sixty
@@ -1317,7 +1328,9 @@ From a clean start, a raised flag guarantees that some claim went through a pass
 matching commitment about the same edition, and a successful certification. The flag retains
 that historical fact. The channel names the latest earned commitment, which need not be the
 commitment on which the flag first rose. The final state does not, in general, identify the claim
-certified at that first rise or the step at which it occurred.
+certified at that first rise or the step at which it occurred. And the flag doesn't say the
+claim still holds, at the certification or at the end, since the counter can change after the
+commitment.
 
 That ``every'' is the whole answer to what the step buys. A log kept by a program gives you a fact
 about that program: if the program's right, the log's right. The database's guarantee holds for work
@@ -1513,9 +1526,10 @@ So here's the picture, put back together. Two machines can hold the same bits an
 they've established, and you can't see it even walking the floor between them, because it was
 never kept. The difference isn't information; information theory says the sort added nothing new.
 It isn't depth; depth belongs to the bits, and a copy has just as much. It's an event: a check that
-could have said no, about this very claim, then a question closed for good, with no promise the
-answer's true. The could-have-said-no part lives in the procedure. The end state can't hold it, so only a
-record can carry it. On a finite
+could have said no, about the claim, then a question closed for good, with no promise the
+answer's true. The could-have-said-no part lives in the procedure. Two end states with the same
+bits and nothing else kept can't tell it apart, so only a record written into the state can carry
+it. On a finite
 machine, a record that never comes down can only be raised by a merge, a kind of forgetting, the
 same kind ordinary computers pay heat for so their bits forget where they came from. If Landauer's
 right, that costs, for any device that has to settle things without already knowing which state
@@ -9033,8 +9047,10 @@ does Löb stop it? My first guess was that Löb stops it, since a record looked 
 Here's where I landed instead, and mostly it's a relief. Hold two things side by
 side: ``there's a receipt for this somewhere,'' and the receipt in your hand. Löb's theorem is
 about \emph{provability}, the bare claim that some proof exists, the receipt somewhere. A record of the kind this book
-keeps is a different animal: a dated event, this check, of this claim, passed. The receipt in your
-hand. Sergei Artemov, the logician from the opening chapter, drew
+keeps is a different animal: an event, a check of some claim that passed, a commitment to
+it, and a certificate, at a definite step of the run. The receipt in your hand. It doesn't say
+which claim or which step, as the two runs in Section~\ref{sec:small-diagonal} show; it says the
+event happened. Sergei Artemov, the logician from the opening chapter, drew
 exactly that line in 2001, between implicit provability (``there is a proof'') and explicit
 evidence (``this is a proof''). As I read him, for explicit evidence the reflection step ``if
 this is a proof of $F$, then $F$'' is harmless, while for the bare ``there is a proof'' it's what
@@ -10895,7 +10911,11 @@ handed to the customer. That last part I only have from histories of the company
 machine, so hold it the way you'd hold any company's story about itself. The order is right
 either way: first a total that can tell you something's wrong, then a list that tells you where.
 The ledger $\mu$ is the dial. Theorem~\ref{thm:u34-cert-earned} is the list: which CHECK, of
-which claim, about which edition, before which COMMIT.
+which claim, about which edition, before which COMMIT. The theorem supplies that list about the
+run. The machine doesn't keep it as data anyone can read back from the end state, and nothing
+in the theorem gives a procedure for rebuilding it from there. A fact in the table holds a
+property, a counter and a version number. That's neither the counter's value back then nor a
+log of what happened in between.
 
 Read Theorem~\ref{thm:u34-cert-earned} once more for what it \emph{doesn't} say. Between the CHECK
 and the COMMIT, the counter is untouched. Between the COMMIT and the CERTIFY, it isn't
@@ -10905,7 +10925,10 @@ current when you committed. The certificate is historical: it says ``this was ch
 committed about this edition,'' and it says nothing about whether that's still true. I think
 that's the right meaning for a
 certificate (a birth certificate doesn't expire when the baby grows), but it's a meaning,
-and you should know which one you're getting.
+and you should know which one you're getting. So a certificate doesn't say the claim holds at
+the CERTIFY, and it doesn't say the claim holds at the end of the run. A CERTIFY that rechecked
+the version would give a different guarantee. That's a possible extension, and the historical
+theorem doesn't need it.
 
 \subsection{What a passing check means}
 
@@ -10940,6 +10963,10 @@ So, on a run from a clean start, a live fact means
 exactly this: one of three arithmetic properties holds of one counter's
 current value. Not ``the program is correct.'' Not ``the number is interesting.'' The property,
 of the value, now. That's all ``checked'' means on this machine, and it's enough to be true.
+Three events stay separate here. The property holding of the value is one. A CHECK passing is
+another: a CHECK of a property that holds still doesn't pass when the table is full or the trap
+is already up. A certification is a third, and it needs a COMMIT and a CERTIFY after the CHECK.
+So a CHECK that didn't pass says nothing about whether its property is false.
 
 So who checked the checker? Nothing on the record did. From a clean start, the record
 carries the run's half of
@@ -13025,8 +13052,19 @@ an edition. It says nothing about whether the claim is still true.
 happened, once. After that it stays up, and later CERTIFYs change nothing. The channel is the
 part that names a fact: with the flag up from a clean start, it names a fact that some earlier
 passing COMMIT committed (\code{certified\_channel\_earned} and \code{channel\_names\_last\_commit}, EarnedCore.v). But a later commitment replaces it, so at the end
-it names the last earned commitment, which needn't be the one the flag rose on. Several claims
-need a latch each.
+it names the last earned commitment, which needn't be the one the flag rose on. Two runs from
+$\mathrm{start}(0, 0)$ show it, worked from the instruction table. First run: CHECK \emph{is zero}
+$A$; CHECK \emph{is zero} $B$; COMMIT \emph{is zero} $A$; CERTIFY; COMMIT \emph{is zero} $B$.
+Second run: the same five instructions with the last two swapped, so COMMIT \emph{is zero} $B$
+comes before CERTIFY. Both end in the same state: both counters 0 at version 0, both facts in the
+table, the channel holding (\emph{zero}, $B$, 0), the trap down, a ledger of five and the flag
+up. In the first run the flag rose at step four, on the commitment about $A$. In the second it
+rose at step five, on the commitment about $B$. So the flag is an ever-certified latch: it says
+an earned chain happened at some step, and the end state doesn't say which claim or which step.
+A receipt naming the claim the flag first rose on would need that claim kept where nothing can
+overwrite it; a receipt with a time on it would also need the step number kept; and several
+certifications that each last would need a record richer than one flag. None of those is built
+or proved here. They're extensions. Several claims need a latch each.
 \item \textbf{Sixteen checks per run, ever.} Facts never leave and the table holds sixteen, so a run
 gets at most sixteen passing CHECKs in its whole life, and the seventeenth traps. A
 certificate needs only one, so this costs nothing for the theorems, but it's a hard wall
@@ -15861,7 +15899,7 @@ computes everything Minsky's two-counter machines can, so its halting is
 undecidable. Earned commitments and universality are proved there. So is what
 Thiele-complete has to mean: a universal base that's free and can't touch the record, a record that stays up once it's
 up, an earned
-record, one mark for each check, commit and certificate, and a check that can fail. Every clock,
+record, one mark for each check, commit and certificate, and some claim whose check can fail. Every clock,
 every machine that charges for computing, fails it; the small machine meets it; and every machine
 that meets it hides its record and its ledger from its own window. And so is a universal Thiele
 machine, with its scope said plainly: one fixed program, $U$, written in the small machine's own
@@ -16798,7 +16836,7 @@ enforce, and they differ; Wai Wong (1995), on a neighbouring track, recorded
 and checked HOL proofs so a theorem could carry its derivation. Mine: a definition of
 Thiele-complete with four clauses (a free universal base that can't touch the record and a record that stays up once it's
 up, an earned
-record, an exact toll on the three record acts, and a check that can fail), the proofs that every
+record, an exact toll on the three record acts, and some claim whose check can fail), the proofs that every
 clock-style machine and a paid latch and a silent machine fail it while the small machine, the
 same machine over any property language with an exact equality test, a proved checker and a property that holds of one number and fails of another, and the universal program's host meet it,
 and the theorem that every machine meeting it hides its record and ledger from its own window
