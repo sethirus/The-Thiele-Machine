@@ -216,7 +216,7 @@ Three results carry the weight.
 
 One more result is close to definitional. Give the extension a record that never switches off, that some paid step writes, that follows A2, and whose next value depends only on the base state and on itself. Then the base and the record move as a latch on one event (`record_axis_is_latch_holds`). That follows from two of those conditions, permanence and being driven, in a few lines. Both conditions do work: a record that can switch back off isn't a latch (`toggle_not_latch`), and a record switched on by a hidden clock isn't driven by the computation (`clock_record_not_driven`).
 
-The record doesn't have to be one bit. Let its values sit in any order, where some values count as at or below others. Then the toll holds exactly when the floor does (`ax_floor_iff_a2`), and a run costs at least the number of steps that move its record to a value that isn't at or below the one it had (`ax_cost_ge_exits`). A straight strip of n + 1 stages needs exactly n latches (`chain_bits_exact`). On finitely many states with a growing record, when the ordinary machine forgets nothing, a step that moves the record up has to send two states that look the same to the ordinary machine to one state (`ax_fibre_collapse_exit`), and under the halving price the bits that collapse loses are, on average, never more than the step's price (`ax_priced_loss_bits`).
+The record doesn't have to be one bit. Let its values sit in any order, where some values count as at or below others. Then the toll holds exactly when the floor does (`ax_floor_iff_a2`), and a run costs at least the number of steps that move its record to a value that isn't at or below the one it had (`ax_cost_ge_exits`). A straight strip of n + 1 stages needs exactly n latches (`chain_bits_exact`). On finitely many states with a growing record, when the ordinary machine forgets nothing, a step that moves the record up has to send two states that look the same to the ordinary machine to one state (`ax_fibre_collapse_exit`), and under the halving price the bits the collapse loses are, on average, never more than the step's price (`ax_priced_loss_bits`).
 
 So the picture is one structure with many price lists. The Turing machine is what's left when you drop the latch. What stays free is which event, the price list, and the base. Machines on different bases aren't compared here; that's complexity theory's question. The pointer question asks which event gets latched; the criterion offered here is conjectural.
 
@@ -251,7 +251,7 @@ merges states. Every Thiele-complete machine hides its record and its ledger
 from its own window. Certification is an instance. No theorem selects it as the
 one event every system must record.
 
-A finite growing record decomposes into threshold latches. It does not in general
+A growing record driven by the base computation decomposes into threshold latches, over any partial order of values. It does not in general
 decompose into one latch. Revocable and probabilistic records do not inherit the same
 uniqueness theorem. A two-state master-equation calorimeter computes exact heat
 and simultaneously shows that the population dynamics do not determine the

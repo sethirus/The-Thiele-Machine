@@ -5,12 +5,12 @@ completeness, the universal machine, the record axis and the events it can
 carry, recursion and undecidability, pricing and physics, and the real systems
 the repository models. Further settled results are stated, with their premises
 and declarations, in the mathematical specification
-(monograph/thiele_machine_math_spec.tex) and are not repeated here: the CHSH
-and Tsirelson bounds, the lifting of every universal base of every model of
+(monograph/thiele_machine_math_spec.tex) and are not repeated here: the CHSH bounds and the bound named for Boris Tsirelson, who showed
+in 1980 that quantum correlations give a CHSH value of at most 2√2, the lifting of every universal base of every model of
 computation, the composition of Thiele-complete machines, the priced host's
 program U_P and the computably presented machines it runs, the verified
-compiler and its extraction to OCaml, Rice's and Kleene's theorems for the
-two-counter machine, the record over any order, and the results showing that
+compiler and its extraction to OCaml, the theorem of the logician Henry Rice (1953) and the recursion
+theorem of the logician Stephen Kleene (1938) for the two-counter machine, the record over any order, and the results showing that
 each premise and each clause is needed. Each result below names the Coq
 declarations that carry it and has one of four statuses:
 

@@ -60,7 +60,7 @@ This is a mathematical reference for the Thiele Machine: a model of computation 
 
 Coq establishes that conclusions follow from premises. It does \emph{not} establish that premises model physical reality. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the model or a stated machine, \textbf{(C)}~conditional results that hold under a named premise no machine fact discharges, and \textbf{(R)}~refutations, where a theorem states the negation of a proposed claim and a named construction supplies the counterexample. One proposal, the pointer criterion of Chapter~\ref{ch:external}, has no proof; it carries a fourth tag, conjecture.
 
-The core claims are structural (S): No Free Insight for every certification system; on finite machines, the toll derived from merge pricing for permanent certificates; the window and pricing results; the small machine's earned provenance, checker soundness and minimum price; Thiele completeness of the small machine; the window theorem for every Thiele-complete machine; the lifting of every universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete machines; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the record axis over any base and the toll over any order of records; the recursion theorem and Rice's theorem for L, and Rice's theorem for the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix. The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
+The core claims are structural (S): No Free Insight for every certification system; on finite machines, the toll derived from merge pricing for permanent certificates; the window and pricing results; the small machine's earned provenance, checker soundness and minimum price; Thiele completeness of the small machine; the window theorem for every Thiele-complete machine; the lifting of every universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete machines; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the record axis over any base and the toll over any order of records; the recursion theorem and Rice's theorem (the logician Henry Rice proved in 1953 that no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix. The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
 \end{abstract}
 
 \tableofcontents
@@ -143,7 +143,7 @@ Coq: \texttt{joint\_floor\_is\_least}. On pairs of Booleans, two independent coo
 Independent state coordinates do not by themselves force additive cost.
 
 \begin{theorem}[Exact pricing] \textbf{(S)}
-For trusted local-predicate pricing systems, a schedule that charges exactly one on the steps its predicate marks meets the certification floor and never overcharges exactly when its predicate marks precisely the certification flips.
+For trusted local-predicate pricing systems, a schedule meets the certification floor and never overcharges exactly when it charges on precisely the certification flips, one unit each, and nothing elsewhere.
 Coq: \texttt{exact\_commitment\_pricing\_characterization}.
 \end{theorem}
 
@@ -415,7 +415,7 @@ The interpreter, shape check, compiler and runner, and the host programs U and U
 \chapter{Recursion and Undecidability}\label{ch:undecidability}
 
 \begin{definition}[Substrate]
-A substrate supplies states, programs, a partial run function, a ledger that no step decreases, an encoding of programs into states with a decoder, behavioral equivalence (equal runs from every state), a representability predicate on program transformers, and Kleene's recursion theorem for representable transformers as a field (class \texttt{Substrate}). A shortcut predicate on programs respects behavioral equivalence and has one accepted and one rejected canonical program (class \texttt{WithShortcutPredicate}).
+A substrate supplies states, programs, a partial run function, a ledger that no step decreases, an encoding of programs into states with a decoder, behavioral equivalence (equal runs from every state), a representability predicate on program transformers, and the recursion theorem stated and proved by the logician Stephen Kleene in 1938, for representable transformers, as a field (class \texttt{Substrate}). A shortcut predicate on programs respects behavioral equivalence and has one accepted and one rejected canonical program (class \texttt{WithShortcutPredicate}).
 \end{definition}
 
 \begin{theorem}[Structural undecidability] \textbf{(S)}
@@ -472,7 +472,7 @@ Every base carries it: the base plus a latch on any event it reaches, charging o
 \section{Growing and probabilistic records}
 
 \begin{theorem} \textbf{(S)}
-A growing record in a partial order satisfies a complete family of threshold-latch equations and keeps its price schedule (\texttt{growing\_record\_decomposes\_holds}). A monotone chain of pairwise-distinct $k$-bit vectors has at most $k+1$ members (\texttt{chain\_needs\_bits\_holds}).
+A record whose next value is a function of the base state and its current value, that only grows in a partial order, whose ledger charges every strict change, and that changes at some reachable step satisfies a complete family of threshold-latch equations and keeps its price schedule (\texttt{growing\_record\_decomposes\_holds}). A monotone chain of pairwise-distinct $k$-bit vectors has at most $k+1$ members (\texttt{chain\_needs\_bits\_holds}).
 \end{theorem}
 
 \begin{theorem} \textbf{(R)}
@@ -604,7 +604,7 @@ CHSH and Tsirelson & \texttt{coq/kernel/quantum/CHSHColumnCheck.v}, \texttt{coq/
 The check on the multi-register machine & \texttt{coq/kernel/quantum/SmallChshCheck.v}, \texttt{coq/kernel/quantum/SmallChshMachine.v}, \texttt{coq/kernel/foundation/NecEChsh.v}, \texttt{coq/kernel/foundation/NecEChshInt.v} \\
 Calorimeter & \texttt{coq/kernel/thermodynamic/CalorimeterProtocol.v} \\
 External models & \texttt{coq/kernel/reductions/RFC9162Merkle.v}, \texttt{coq/kernel/reductions/NeculaPCC.v}, \texttt{coq/kernel/reductions/TPMQuoteAuthenticity.v}, \texttt{coq/kernel/reductions/CasperFFG.v} \\
-Pointer criterion & \texttt{coq/kernel/frontier/PointerObservable.v}, \texttt{coq/kernel/frontier/RecordProliferationSurvey.v}, \texttt{coq/kernel/frontier/EcosystemGame.v}, \texttt{coq/kernel/frontier/PointerObservableCounterexamples.v} \\
+Pointer criterion & \texttt{coq/kernel/frontier/PointerObservable.v}, \texttt{coq/kernel/frontier/}\allowbreak\texttt{RecordProliferationSurvey.v}, \texttt{coq/kernel/frontier/EcosystemGame.v}, \texttt{coq/kernel/frontier/PointerObservableCounterexamples.v} \\
 \end{longtable}
 \endgroup
 
