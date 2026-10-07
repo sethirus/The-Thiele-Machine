@@ -380,7 +380,8 @@ one the chairs need, and one of the conditions Part III puts on a record. Earned
 of this very claim passed first, isn't in the model's core at all. It's what the step of the small
 machine in Part IV enforces, proved for that machine and every program on it run from a clean start. One more word rides
 along with permanent, and it'll come up when I line my record up against other people's: dated. A
-record that goes up and stays up went up at some particular step, so it carries a when. A machine that charges one mark for every step it takes meets the first rule, and the charging does
+record that goes up and stays up went up at some particular step. The first raising occurs at a
+definite step in the execution history. The latch itself does not store that step number. A machine that charges one mark for every step it takes meets the first rule, and the charging does
 nothing toward
 the others, and I'll keep pointing that out.
 
@@ -607,11 +608,11 @@ I keep saying the first machine's test \emph{could have failed}. Take that apart
 piece everything else hangs off.
 
 The machine is deterministic. Given your list, the check was always going to pass. So in what sense
-could it have failed? In this sense: if your list had been out of order, the check would have said
-no. That's a claim about a different list. Chance has nothing to do with it. Run the second machine on a scrambled
-list and it prints the same sorted list anyway, because it never looked. Run the first on a
-scrambled list and its check catches it. The first machine's answer follows the truth about your
-list; the second machine's would be the same either way.
+could it have failed? By ``could have failed'' I mean this: hand the checking stage an out-of-order
+candidate output and it says no. I do not mean hand the whole sorter an unsorted input; putting
+that input in order is its job. The relevant counterfactual is a defective candidate reaching the
+checker. An ordinary unsorted input reaching the sorter isn't it. Chance has nothing to do with
+it. The copier that never checks has no corresponding rejection.
 
 Here's the shape. A check is a question asked of every possible input, and it splits them into two
 piles: the ones it says yes to and the ones it says no to. ``Could have failed'' just means the no
@@ -639,7 +640,8 @@ and it has a big no pile: every other list. It establishes exactly that and noth
 check establishes is whatever it's honest about.
 
 Put that next to the empty no pile and the two fit together: a check establishes what it's honest
-about, and a check whose no pile is empty is honest about nothing, so it establishes nothing. One
+about. An empty no-pile means the check distinguishes no inputs. It can still be sound for a
+property that holds on every input; soundness and nontriviality are different requirements. One
 thing I'll say plainly now, so it doesn't ambush you in Part IV: the small machine I build there
 doesn't police this. Its step makes sure a commit was checked first, about the same thing, by a
 checker proved honest. It doesn't stop you asking a question that can't come out no, like ``is this
@@ -890,7 +892,8 @@ examined the double swap. A check that never looked at a step can't have said no
 sense of the previous few pages, the part that fell was never earned in the first place. I'm aware
 that's a convenient reading for me, and I'm wary of convenient readings, especially my own. Take it as
 where I ended up. It isn't a settled answer. It is, though, the reason the machine later in this
-book only lets a record go up on a check that could fail.
+book only lets its record go up after a passing, sound check and a matching commitment. It supports
+nontrivial claims whose checks can fail. It does not require every certified claim to be nontrivial.
 
 And then the part I didn't expect. The four-colour statement was true all along. Kenneth Appel and
 Wolfgang Haken, two mathematicians at the University of Illinois, proved it in 1976 with a computer, and the proof was met with suspicion for years; a
@@ -1122,8 +1125,8 @@ Every assumption in that is a way out, and you should know where they are. Give 
 unlimited memory and it never has to merge; it can write its history down forever, and the chapter
 ``Why the toll isn't arbitrary'' builds exactly that machine. Let the flag come back down and the chairs lose their grip.
 And the heat isn't owed by every run. Landauer's principle, in the general form Part II adopts,
-charges for what you didn't know, so one run from a known start, with its controls timed from
-outside, owes no heat at all; the floor
+charges for what you didn't know, so for one run from a known start, with its controls timed from
+outside, the premise supplies no positive heat floor (which doesn't show the device gives off none); the floor
 bites for a device that has to cope with states it can't tell apart, which is how devices get
 built (Theorem~\ref{thm:known-state}). The toll still charges its mark on that run, because the
 toll is a rule about the move, and the move doesn't know who's watching. And Landauer's principle is physics. No proof in this book reaches it. In 2012 a group in Lyon
@@ -1266,7 +1269,7 @@ sorter's record is up and its counter reads 3. The copier's record is down, and 
 refusals, because on that machine a refused attempt still costs what it costs. (Read those as two
 separate attempts. Written as one stored program, the copier would stop at its first refusal and
 pay 1.) Nothing the copier
-can do raises its record without first running a check of that very claim that passes. And no
+can do raises its record without first running a passing check of the claim it then commits to. And no
 outside window that only shows the list can tell you which is which; the difference is all in the
 part the window doesn't show. Walk that warehouse now and there's finally a lamp that's lit in one
 and dark in the other.
@@ -1306,9 +1309,15 @@ record mean \emph{established} is the small machine's step, which won't let a co
 check of that very claim passed, meeting the first three of the four conditions from Gettier's
 pocket, with the fourth, an honest checker, proved about the checker separately. And what it proves
 isn't about one program. It's this: on \emph{every} list of instructions anybody can write, starting
-clean, if the record is up, then somewhere earlier a check of exactly that claim, about exactly that
-edition, passed; then a commit of the same claim; then the certificate; with nothing touching the
+clean, if the record is up, then somewhere earlier a check of some claim, about some edition,
+passed; then a commit of that same claim; then the certificate; with nothing touching the
 thing between the check and the commit.
+
+From a clean start, a raised flag guarantees that some claim went through a passing check, a
+matching commitment about the same edition, and a successful certification. The flag retains
+that historical fact. The channel names the latest earned commitment, which need not be the
+commitment on which the flag first rose. The final state does not, in general, identify the claim
+certified at that first rise or the step at which it occurred.
 
 That ``every'' is the whole answer to what the step buys. A log kept by a program gives you a fact
 about that program: if the program's right, the log's right. The database's guarantee holds for work
@@ -1394,8 +1403,8 @@ passing check,
 then a commit, then a certificate, of exactly the same claim
 about exactly the same edition; nothing
 gets into its list of checked facts
-without a check writing it; and every certificate costs at least
-three marks, and three is enough: check ``this counter is zero,'' commit to it, certify, and when the
+without a check writing it. Every run from a clean start that ends with the flag raised has
+incurred at least three marks of instruction cost, and this bound is attained: check ``this counter is zero,'' commit to it, certify, and when the
 counter is zero that pays exactly three; when it isn't, the check traps with the flag down and
 nothing after that ever raises it. The machine doesn't stop you asking a question that can't come
 out no, and I say so where it matters. It's Thiele-complete in the strong sense from a few pages
@@ -1591,7 +1600,7 @@ counts, and the check passes exactly when every question pair was sampled and a 
 is positive semidefinite, which forces Tsirelson's bound, the ceiling quantum mechanics puts on the
 score of a two-player game (Part IV builds the game, the matrix and the check from zero; it's there
 as a check with a striking result, to show the toll charges the same however deep the check is. It isn't there
-as a physics tool). The count of what narrowing a list of rivals costs holds for the record moves of
+as a physics tool). Under the stated covering and payment conditions, the index-bit narrowing bound applies to the record moves of
 every Thiele-complete machine; a finite machine with eight states (four slots and a flag) runs on the small machine and, after
 a two-mark setup, pays
 exactly its own charges; and on every Thiele-complete machine no checker that sees only the clean
@@ -1792,6 +1801,17 @@ keep them apart. The generic
 flag-raising step pays to set a flag; it checks nothing. A claim that something is actually
 \emph{true} needs explicit witnesses and a checker proved sound, and some results here are of
 that kind; the generic accounting law isn't one of them. It's a law about marks.
+
+\emph{The universal certification result.} The universal certification result is this: when the
+yes-state set is finite and the reading is permanent, every move that raises the reading merges
+states. Consequently, every cost schedule satisfying merge pricing charges that move at least one
+mark, and every run from no to yes costs at least one. This is a theorem over all systems
+satisfying those premises. It isn't a property peculiar to the implementation in Part IV
+(\code{nec\_f\_perm\_flip\_merges\_yes\_finite} and \code{nec\_f\_toll\_from\_merges\_yes\_finite},
+NecFMerge.v). Three layers stay separate through the book. The first is the structural fact that a
+permanent raise merges states, which needs no prices at all. The second is the pricing premise,
+merge pricing, which turns that fact into a ledger bound. The third is the small machine of Part IV,
+which enforces earned certification on top of both.
 
 \emph{The proved core, in three steps.} Anything that follows the toll pays something to get from
 uncertified to certified. A window that shows two states as the same, when they disagree on
@@ -4067,9 +4087,11 @@ On a finite machine with a permanent reading and a cost satisfying the halving p
 $m$ be the number of states that read yes, and let a move $i$ turn $k$ different no-states
 to yes. Then
 \[
-m + k \;\le\; 2^{\mathrm{cost}(i)} \cdot m, \qquad\text{and so, when } k \ge 1,\qquad
+m + k \;\le\; 2^{\mathrm{cost}(i)} \cdot m, \qquad\text{and, when } m \ge 1,\qquad
 \mathrm{cost}(i) \;\ge\; \log_2 \frac{m+k}{m}.
 \]
+The counting inequality holds as stated. When $m \ge 1$, it is equivalent to the displayed
+logarithmic lower bound.
 \end{theorem}
 
 \begin{proof}
@@ -4334,7 +4356,7 @@ to carry out any operation, so no entropy changes and no heat is given off, and 
 all ZERO to ONE involves no entropy change either, because neither row carries any
 information.
 
-\begin{theorem}[A known state owes nothing]\label{thm:known-state}
+\begin{theorem}[A known state gets no heat floor from the premise]\label{thm:known-state}
 On a finite machine, if the spread puts all its chance on one state $s$, then any move removes
 zero bits, and Premise~\ref{prem:landauer} for that move holds exactly when $Q \ge 0$.
 \end{theorem}
@@ -4346,8 +4368,8 @@ $\Delta H = 0$ and the premise reads $Q \ge 0$.
 
 Checked as \code{known\_state\_step\_removes\_no\_entropy} and \code{known\_state\_flip\_forces\_no\_heat} (PermanentCertificationEntropy.v).
 
-Be careful with that one, because it's easy to overread. ``A known state
-owes nothing'' does not mean a stamping machine run on a known-blank sheet gives off no heat.
+Be careful with that one, because it's easy to overread. ``The premise sets no heat floor for a known
+state'' does not mean a stamping machine run on a known-blank sheet gives off no heat.
 A fixed device that merges states dissipates on known input too; Bennett calls that
 wasteful, because entropy goes out into the room with nothing taken from the data. What the
 theorem says is only that the \emph{premise} sets no floor there. The floor comes from what you
@@ -4373,7 +4395,7 @@ control the known-state stamp isn't free after all, and the more reliable you wa
 though. Erasure is nonreciprocal, and so is a counter of three or more values that steps forward
 and wraps around, which merges nothing, so their bound is about what the
 controls are allowed to do, records or no records. So read Theorem~\ref{thm:known-state} with its control written in:
-a known state owes nothing on Landauer's premise when the step can be driven by a protocol timed
+Landauer's premise sets no positive heat floor for a known state when the step can be driven by a protocol timed
 from outside it. The same goes for Theorem~\ref{thm:forced-iff-merge}. On a machine whose move names can be decided equal or different,
 the moves every
 merge-pricing schedule must charge are exactly the merging moves, and that's true against merge
@@ -4382,18 +4404,15 @@ and unchecked, the nonreciprocal
 ones, the wrapping counter included. Which moves the physics forces a price on depends on what
 the controls can do.
 
-Now follow that all the way down, because it reaches further than one stamp. A machine that
-runs a fixed rulebook from a start it knows is in a known state at every step: no coin under
-any cup, ever. So on the premise as Maroney and Sagawa state it, with the controls timed from outside, the
-step where such a run raises its flag owes no heat at all. Not ``might owe nothing.'' Owes nothing. And spreading
-the start out over many inputs doesn't rescue much. The merge the chairs guarantee is between
-the state that flips and some state already reading yes. Run the step only when it's known
-that the flag is down, which is the ordinary first raise, and the spread puts no chance on any
-state already reading yes, so that particular merge removes nothing:
-Theorem~\ref{thm:u04-point-sum}'s strict term needs \emph{both} states to carry chance, and
-the heat for a full spread (Corollary~\ref{cor:u04-full-support-heat}) needs chance on every
-yes-state, which is exactly what knowing the flag is down rules out. Whether the step also
-merges states that do carry chance depends on the step, and nothing here forces it to.
+A deterministic run from a known start has a known state at every step. For such a run, the
+adopted entropy-loss premise reduces to $Q \ge 0$: it supplies no positive heat lower bound.
+That does not establish that a particular device attains zero heat. The chairs guarantee a
+collision among the already-yes states together with the entering no-state. They do not
+guarantee that the entering state takes part in the collision (a four-state machine where it
+doesn't is \code{nec\_f\_collision\_avoids\_s}, NecFMerge.v). For an input distribution
+supported only on no-states, this counting argument alone therefore forces no positive entropy
+loss. Whether other states in that support merge depends on the move. The operation-level
+ledger toll still follows under merge pricing.
 
 So here's what this section actually earns.
 A device with finitely many states that has to raise a flag and keep it up
@@ -4579,7 +4598,7 @@ at last, with $1-\lambda$ the long-run chance of the starting state. It isn't ne
 nothing in it needs a record, since an autonomous reset to a fixed state obeys the same bound,
 and the time-symmetric-control result above covers the same ground with an error rate in place
 of the time ratio. And it isn't the theorem I said I didn't have. It's a first honest step
-toward it, and it pins down where ``a known state owes nothing'' needs its outside clock.
+toward it, and it pins down where ``the premise sets no heat floor for a known state'' needs its outside clock.
 
 The next section is about a different door entirely. Forgetting has had its section; the
 question now is whether \emph{finding out} costs, because the demon's whole trick was that it knew which way the
@@ -14780,7 +14799,41 @@ silently revise a theorem in this edition. The procedure below describes the com
 proof build. With Python 3, GNU make, Coq 8.18 and its standard library, CSDP, OCaml with
 its ocamlfind tool, and MetaCoq 1.2.1 for Coq 8.18 (the vendored lambda-calculus files need it)
 installed,
-run this from the root of a checkout of the sources at a fixed revision:
+run this from the root of a checkout of the sources at a fixed revision. The revision this edition was checked against is
+this one:
+
+\begin{verbatim}
+Companion sources:
+  https://github.com/sethirus/The-Thiele-Machine
+  branch handoff/native-recursion-2026-10-01
+Revision used for this edition:
+  7a3fc08dbc6168e4c749aa6fcfbbee6e68899884
+  (last change to the proof sources:
+   961a97da442b16204aab12affac64225f796223c)
+Dependency snapshot:
+  Coq 8.18.0 (Ubuntu 24.04 packages), MetaCoq 1.2.1
+  (scripts/install_metacoq.sh), vendored Coq Library of
+  Undecidability Proofs at upstream commit
+  8880e198bdc44cba1bd901f1fee701a95fc440ae (coq-8.18
+  branch; vendor/coq-undecidability/UPSTREAM.md)
+Build command:
+  python3 scripts/reproduce_coq.py
+Audit report for this revision:
+  artifacts/print_assumptions_all_proofs.json
+  SHA-256 0e1d96d9588a7808024b60aadfa8a06e
+          f5b60142bc5f2f10d61a753393c67210
+  corpus digest be964110a7d5c31c316c02a1eeb9a4cb
+                4d25b0b8865e3a7f0beda4f5179e56ec
+Manuscript source for this edition:
+  monograph/monograph.tex at the release commit; a file
+  can't print its own checksum, so take it with
+  git rev-parse RELEASE:monograph/monograph.tex
+\end{verbatim}
+
+The counts this book reports from the assumption audit (5,369 theorems in 308 files) are the ones
+in that report, and they belong to that revision. A change to the proof sources changes the
+corpus digest; the audit then has to be run again and its counts read afresh.
+With those installed, run:
 
 \begin{verbatim}
 python3 scripts/reproduce_coq.py
@@ -14865,8 +14918,8 @@ doesn't drop; \code{entropy\_drop\_pos\_of\_support\_merge} falls. A heat measur
 below what the bound asks doesn't touch either theorem. It refutes the premise
 \code{landauer\_heat} for that device, which is Landauer's principle, and that's a fight with
 physics. The counting stays where it was. And a certifying step from a state already known that gives
-off no heat isn't a counterexample: \code{known\_state\_flip\_forces\_no\_heat} says that case owes
-nothing.
+off no heat isn't a counterexample: \code{known\_state\_flip\_forces\_no\_heat} says the premise sets no positive
+floor there.
 
 \emph{Learning is free (Section~\ref{sec:narrowing}).} Show that the four-state demon's measure step merges two states,
 or that its observer's candidate list doesn't shrink. \code{observer\_narrowing\_can\_be\_free}
@@ -15195,7 +15248,7 @@ Landauer's principle & assumed (premise) & Section~\ref{sec:a2-not-arbitrary}, P
 Heat floor of a permanent flip & proved (premises: Landauer, $k_B T \ge 0$, the even spread) & Section~\ref{sec:a2-not-arbitrary}, Corollary~\ref{cor:heat-floor} \\
 Positive heat for any full spread & proved (premises: Landauer, $k_B T > 0$) & Section~\ref{sec:a2-not-arbitrary}, Corollary~\ref{cor:u04-full-support-heat} \\
 Entropy pricing gives the toll & definition; proved (premise: entropy pricing) & Section~\ref{sec:a2-not-arbitrary}, Definition~\ref{def:u04-entropy-priced}, Theorem~\ref{thm:u04-entropy-toll} \\
-A known state owes nothing & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:known-state} \\
+On a known state the premise sets no positive heat floor & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:known-state} \\
 The bits removed, one term per state & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:u04-point-sum} \\
 Landauer's principle is true of the world & not claimed; a named premise, with its critics named & Section~\ref{sec:a2-not-arbitrary} \\
 Any machine worth building is of this kind & not claimed & Section~\ref{sec:a2-not-arbitrary} \\
@@ -15380,7 +15433,7 @@ From a clean start, provenance, checker soundness, no forging and the floor of t
 With the flag up from a clean start, the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it & proved on the small machine (\code{certified\_channel\_earned} and \code{channel\_names\_last\_commit}, EarnedCore.v) & Section~\ref{sec:smallest} \\
 The guarantees hold against whoever sets the start, a reset, or a second writer that doesn't bump versions & not claimed; they are about programs from a clean start, one step at a time & Section~\ref{sec:smallest}, Section~\ref{sec:scope} \\
 Thiele-complete means a universal base that is free and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, an exact toll of one mark per check, commit and certificate, and a claim whose check can fail & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
-Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three per certificate from a clean state, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
+Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three on any run from a clean state that ends with the record up, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
 A clock (every move charged, any reading or any latch as the record) obeys the toll with a universal base and is not Thiele-complete; nor is any machine whose every move costs something & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the base and toll clauses and fails, and a silent machine meets three clauses and fails & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
 The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are Thiele-complete & proved on the small machine and on the generic machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
@@ -15692,7 +15745,7 @@ instructions every such price must charge. Every finite machine paying per halvi
 machine's own narrowing bound. Every machine extending a base with a driven, permanent
 record: the latch. Every window through which a certifying and a non-certifying step look
 alike: no exact price from the window. Every machine meeting the definition of Thiele-complete: a free move, at least three
-per certificate from a clean state, and a window blind to the record
+marks on any run from a clean state that ends certified, and a window blind to the record
 and the ledger. Any eight counts: the integer check and its PSD bridge, which are mathematics.
 This machine only: its six instructions and their prices, its sixteen slots, its own colliding
 pair, and the encodings its universal programs use.
@@ -15855,7 +15908,7 @@ And the two computers from the first pages, the sorter and the copier, holding t
 Walk the warehouse again. On an ordinary machine there's still no lamp for what the sorter did,
 and nothing in this book changes that. On the small machine there is one: a flag and a counter
 you can read off the state, and a theorem that, from a clean start, the flag can't be up unless
-a check of that very claim, about that very edition, passed first, where a claim can be any
+some claim went through a passing check, a commit about the same edition and a certificate, in that order, where a claim can be any
 property, in a language with an exact
 equality test, whose checker is proved to mean what it says, ``this counter, read as a list, is
 sorted'' among them (\code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refused\_forever}, EarnedGeneric.v). That's the one lamp I set
@@ -16147,7 +16200,8 @@ record. \emph{Thiele-complete} means more (Definition~\ref{def:u34-thiele-comple
 universal base whose moves are free and can't touch the record, a record that
 stays up once it's up and is raised from a
 clean state only after a passing check, a commitment to the same claim and a certificate, one mark for each of those
-three acts, and a claim whose check could fail. Every clock-style machine fails it; the small
+three acts, and a claim whose check, commit and certificate raise the record on some loaded starts
+and leave it down on others. Every clock-style machine fails it; the small
 machine meets it; and every machine that meets it hides its record
 and ledger from its own window. A \emph{universal} Thiele machine is one fixed program that runs
 any machine of a stated class as a guest, with the guest's record earned again and its toll paid
@@ -16804,7 +16858,7 @@ Corollary \ref{cor:heat-floor}: Heat floor of a permanent flip & \S\ref{sec:a2-n
 Corollary \ref{cor:u04-full-support-heat}: Positive heat for any full spread & \S\ref{sec:a2-not-arbitrary} & \code{permanent\_flip\_full\_support\_entropy\_drop\_positive} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{permanent\_flip\_full\_support\_heat\_positive} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Definition \ref{def:u04-entropy-priced}: Entropy-priced & \S\ref{sec:a2-not-arbitrary} & stated in the text &  \\
 Theorem \ref{thm:u04-entropy-toll}: The toll from entropy pricing & \S\ref{sec:a2-not-arbitrary} & \code{a2\_from\_entropy\_price\_and\_permanence} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_priced\_trace\_floor} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{certification\_system\_from\_entropy\_price} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline def \\
-Theorem \ref{thm:known-state}: A known state owes nothing & \S\ref{sec:a2-not-arbitrary} & \code{known\_state\_step\_removes\_no\_entropy} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{known\_state\_flip\_forces\_no\_heat} {\footnotesize(if and only if)} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
+Theorem \ref{thm:known-state}: A known state gets no heat floor from the premise & \S\ref{sec:a2-not-arbitrary} & \code{known\_state\_step\_removes\_no\_entropy} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{known\_state\_flip\_forces\_no\_heat} {\footnotesize(if and only if)} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Theorem \ref{thm:u04-point-sum}: The bits removed, one term per state & \S\ref{sec:a2-not-arbitrary} & \code{entropy\_drop\_as\_point\_sum} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_nonneg} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_pos\_of\_support\_merge} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
 Theorem \ref{thm:machine-narrowing}: The machine's own narrowing is priced & \S\ref{sec:narrowing} & \code{run\_narrowing\_priced\_log} {\footnotesize(\code{KnowledgeNarrowing.v})} & none \\
 Definition \ref{def:knowledge}: What an observer knows & \S\ref{sec:narrowing} & \code{knowledge} {\footnotesize(\code{KnowledgeNarrowing.v})} & def \\
