@@ -66,7 +66,9 @@ those three acts and nothing for anything else; and a claim whose check could
 have failed.
 
 - **Proved.** The small machine is Thiele-complete, and so are the same
-  machine over any property with a proved checker and the sorted-list machine.
+  machine over any property language with an exact equality test, a proved
+  checker and some property true of one number and false of another, and the
+  sorted-list machine.
   Coq: `earned_core_thiele_complete`, `earned_generic_thiele_complete`,
   `sorted_machine_thiele_complete`.
 - **Proved.** In every Thiele-complete machine the ledger counts the record
@@ -354,7 +356,7 @@ the event is a modeling choice that proofs cannot make. The formal
 definitions and the selected model instances are proved only inside their
 observer maps.
 
-- **Proved.** Twelve candidate events over six observer maps proliferate
+- **Proved.** Twelve candidate events over seven observer maps proliferate
   exactly as follows. Coq: `twelve_candidate_measurements_checked`.
 
   | Event | Observer map | Proliferates |

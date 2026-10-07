@@ -169,8 +169,8 @@ Coq: \texttt{a2\_from\_merging\_price\_and\_permanence}; the trace form is \text
 Each premise is needed. Unbounded history escapes (\texttt{unbounded\_history\_escapes}), a revocable certificate escapes (\texttt{revocable\_certificate\_escapes}), and an unpriced merge escapes (\texttt{free\_merge\_escapes}).
 
 \begin{theorem}[The size of the bill] \textbf{(S)}
-With $m$ certified states and $k$ uncertified states that one instruction switches on, the instruction collapses at least $k$ states (\texttt{permanent\_flips\_collapse\_at\_least}). Priced one unit per halving of the number of distinct states, it costs at least $\log_2((m+k)/m)$.
-Coq: \texttt{permanent\_flips\_log\_bound}.
+With $m$ certified states and $k$ uncertified states that one instruction switches on, the instruction collapses at least $k$ states (\texttt{permanent\_flips\_collapse\_at\_least}). Priced one unit per halving of the number of distinct states, its cost $c$ satisfies $m + k \le 2^c m$, so $c \ge \log_2((m+k)/m)$; in rounded-up logarithms, $\lceil\log_2(m+k)\rceil \le c + \lceil\log_2 m\rceil$.
+Coq: \texttt{permanent\_flips\_compression\_bound}, \texttt{permanent\_flips\_log\_bound}.
 \end{theorem}
 
 \begin{theorem}[Which flips are forced] \textbf{(S)}
@@ -474,7 +474,7 @@ The addressed-RAM and reversible-update files prove only their named fragments. 
 
 \section{The pointer criterion}
 
-The pointer-observable criterion proposes that the event a step rule is forced to price is singled out by redundant record proliferation across observers. Twelve candidate events over six observer maps proliferate as stated (\texttt{twelve\_candidate\_measurements\_checked}). The MAC-labelled model does not proliferate (\texttt{mac\_model\_not\_proliferating}); applying that to a real system depends on the observer model. A two-observer toggle game with consensus, authenticity and coordinator-free updates revokes its event (\texttt{toggle\_game\_refutes\_strong\_pointer\_necessity}), so those properties do not force permanence. Durable views do imply permanence, by making persistence a premise (\texttt{durable\_consensus\_implies\_permanence}). The external consequence survey contains five narrow statements already known from their governing specifications and five stronger statements without enough protocol or hardware semantics; no surveyed consequence is simultaneously record-axis dependent, novel, and ready for use. The pointer criterion is a conjecture.
+The pointer-observable criterion proposes that the event a step rule is forced to price is singled out by redundant record proliferation across observers. Twelve candidate events over seven observer maps proliferate as stated (\texttt{twelve\_candidate\_measurements\_checked}). The MAC-labelled model does not proliferate (\texttt{mac\_model\_not\_proliferating}); applying that to a real system depends on the observer model. A two-observer toggle game with consensus, authenticity and coordinator-free updates revokes its event (\texttt{toggle\_game\_refutes\_strong\_pointer\_necessity}), so those properties do not force permanence. Durable views do imply permanence, by making persistence a premise (\texttt{durable\_consensus\_implies\_permanence}). The external consequence survey contains five narrow statements already known from their governing specifications and five stronger statements without enough protocol or hardware semantics; no surveyed consequence is simultaneously record-axis dependent, novel, and ready for use. The pointer criterion is a conjecture.
 
 %=============================================================================
 \appendix
