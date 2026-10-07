@@ -184,7 +184,7 @@ An explicitly qualified citation keeps its own module identity.
 - `tsirelson_from_row_bounds` (`Kernel.TsirelsonGeneral.tsirelson_from_row_bounds`): If `E00^2 + E01^2 <= 1` and `E10^2 + E11^2 <= 1`, the CHSH value squared is at most 8.
 - `algebraically_coherent_tsirelson_general`: Algebraically coherent rational correlators have CHSH value squared at most 8.
 - `quadratic_nonneg_discriminant`: If `a + 2bt + ct^2 >= 0` for every real `t`, then `b^2 <= ac`.
-- `column_contractive_iff_npa_psd`: Four correlators are column-contractive exactly when their zero-marginal NPA moment matrix is symmetric and PSD. PSD of this matrix is NPA's level-1 test, not quantum realizability.
+- `column_contractive_iff_npa_psd`: Four correlators are column-contractive exactly when their zero-marginal NPA moment matrix is symmetric and PSD. PSD of this matrix is NPA's level-1 test. It does not by itself give quantum realizability.
 - `zero_marginal_npa_column_contractive_implies_psd`: The three column-contractivity inequalities imply the zero-marginal NPA matrix is PSD.
 - `npa_psd_implies_column_contractive`: PSD of the zero-marginal NPA matrix implies column contractivity.
 - `column_contractive_iff_general_realizable`: Column contractivity is equivalent to the dimension-generic PSD predicate at size five.
@@ -257,7 +257,7 @@ An explicitly qualified citation keeps its own module identity.
 
 ## Models from other fields
 
-- `quote_cannot_attest_unmeasured_state`: In the scoped TPM quote-field abstraction, whose quote authenticity is assumed externally rather than modeled, no function of the selected-PCR digest and nonce returns the additional runtime Boolean for every platform.
+- `quote_cannot_attest_unmeasured_state`: In the scoped TPM quote-field abstraction, whose quote authenticity is not modeled (it is assumed externally), no function of the selected-PCR digest and nonce returns the additional runtime Boolean for every platform.
 - `quote_decides_measured_claims`: In the same model, every supplied Boolean function of the retained selected-PCR digest is computed by some Boolean function of the quote.
 - `persistent_write_priced`: In the transcribed Prague `sstore` gas and refund arithmetic, for one storage slot that is empty at the start of a transaction, any sequence of stores that leaves it nonzero has gas charged minus refund counter of at least 20000; the EIP-3529 refund cap is outside the model.
 - `revoked_write_nearly_free`: In the same model, setting a cold empty slot to one and clearing it again costs 2300 net, while setting it and leaving it set costs 22100.
@@ -367,7 +367,7 @@ An explicitly qualified citation keeps its own module identity.
 - `committed_claim_holds` (`Minimal.EarnedCore.committed_claim_holds`): From a clean start, a COMMIT guard that passes names a property true of the selected counter at that moment.
 - `earned_commitment_provenance`: A COMMIT guard that passes after a clean-start trace has a prior passing CHECK of the same property and counter version, with that counter untouched between the CHECK and COMMIT.
 - `earned_core_floor`: A trace taking the minimal machine from uncertified to certified has total cost at least one, by the abstract certification-system floor.
-- `earned_core_honest`: The minimal machine with its program has a certification reading driven by, and permanent over, its projected core base.
+- `earned_core_honest`: The minimal machine with its program is an honest extension of its projected core base: its certification reading is driven by that base and never switches off, its ledger never decreases, A2 holds, and some reachable step writes the reading.
 - `earned_core_is_latch`: There exists an event on the minimal machine core base whose latch reproduces its certification reading.
 - `universal_simulation`: A host that is not trapped, after n guest-step moves with budget 1, holds the guest state that n steps of the guest program reach, with the guest program unchanged and the host still not trapped.
 - `universal_program_simulation`: From line 1 and not trapped, 3n steps of the stored host program U leave the guest where n steps of its own program put it.
@@ -1016,7 +1016,7 @@ An explicitly qualified citation keeps its own module identity.
 - `tc_pk_unique`: A two-counter program started on a packed input gives at most one packed output.
 - `tc_universal`: There is one two-counter program U such that, started with 2 to the x times 3 to the e in counter A, it stops with exactly 2 to the y in counter A if and only if the program numbered e, started on 2 to the x, stops with exactly 2 to the y.
 - `tc_smn`: Fixing the second input to c by a program of c copies of multiply-by-3 followed by V gives a program that, on the packed input x, produces y exactly when V on the packed pair (x, c) produces y.
-- `tc_MMA_to_packed`: Every relation on numbers computed by a vendored Minsky register program is computed, on packed inputs and with exact output, by a two-counter program.
+- `tc_MMA_to_packed`: Every relation from two numbers to a number computed by a program of the vendored library's alternate Minsky machines (MMA) is computed, on packed inputs and with exact output, by a two-counter program.
 - `tc_second_recursion`: For every two-counter program T there is a program e such that, on every packed input, e produces y exactly when the program whose number T computes from the number of e produces y.
 - `tc_kleene`: For every transformation F of two-counter programs that some program carries out on program numbers, there is a program e that behaves the same as F(e) on every packed input, with the same packed outputs.
 - `tc_kleene_codes`: For every function f on numbers that some two-counter program computes on packed inputs, there is a number e such that the program numbered e and the program numbered f(e) have the same packed function.

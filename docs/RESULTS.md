@@ -149,8 +149,8 @@ The questions here ask how much of a machine the record axis pins down.
   (`record_pair_is_two_latches`). Coq: `record_axis_is_latch_holds`,
   `record_pair_is_two_latches_holds`.
 - **Proved.** Both premises do work: a record that can switch back off is not
-  a latch, and a record switched on by a hidden clock is permanent but not
-  driven by the computation. Coq: `toggle_not_latch`, `toggle_not_permanent`,
+  a latch, and a record switched on by a hidden clock
+is permanent and is not driven by the computation. Coq: `toggle_not_latch`, `toggle_not_permanent`,
   `clock_record_permanent`, `clock_record_not_driven`.
 - **Proved.** Every base can carry the axis: the base plus a latch on any
   event it reaches, charging one unit when the latch sets, is an honest
