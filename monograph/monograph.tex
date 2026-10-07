@@ -800,9 +800,9 @@ away. It costs about twice the steps and a lot of scratch paper, and that's all 
 Landauer at the end for raising the question in the first place, which I like: the man whose principle
 says forgetting costs is the one who asked whether you could get out of it. The history it keeps along the
 way is real extra information, sitting out where anyone could read it, so it isn't a hidden fact
-of the first batch's kind. And keeping it and unwinding it throws nothing away, so by Landauer's own reckoning it owes no heat;
+of the first batch's kind. And keeping it and unwinding it throws nothing away, so by Landauer's own reckoning it carries no heat floor;
 the steps and the scratch paper are the whole bill. It can also be run back down. Neither of those
-two, the keeping that owes no heat and the running back down, fits what happened to the first
+two, the keeping that carries no floor and the running back down, fits what happened to the first
 computer, which did something that can't be undone and paid for it in work.
 If the standing I'm after could be added for free and taken back for free, it would just be
 bookkeeping. So that batch taught me what else I needed: something that only moves one way, and costs
@@ -1250,7 +1250,9 @@ machine of Part IV meets it, and so does the same machine over any properties wi
 a checker
 proved to mean what it says, as long as one of them is true of some number and false of another, sorted lists included. And every machine that meets it has the same
 blind spot built in, also by theorem: the part a Turing machine would call the whole machine, the
-line it's on and the numbers it holds, can't tell you its record or its ledger.
+line it's on and the numbers it holds, can't tell you its record or its ledger. That's about an
+observer who sees only where a run ended. One who also has the program and the start can work
+both out.
 
 \subsection*{The two computers, put back together}
 
@@ -1618,7 +1620,9 @@ counts, and the check passes exactly when every question pair was sampled and a 
 is positive semidefinite, which forces Tsirelson's bound, the ceiling quantum mechanics puts on the
 score of a two-player game (Part IV builds the game, the matrix and the check from zero; it's there
 as a check with a striking result, to show the toll charges the same however deep the check is. It isn't there
-as a physics tool). Under the stated covering and payment conditions, the index-bit narrowing bound applies to the record moves of
+as a physics tool. The check is exact about the tally it's handed, for one pinned matrix; it
+doesn't sort data into quantum and not, and a tally above two doesn't by itself rule out a local
+model with chance in it). Under the stated covering and payment conditions, the index-bit narrowing bound applies to the record moves of
 every Thiele-complete machine; a finite machine with eight states (four slots and a flag) runs on the small machine and, after
 a two-mark setup, pays
 exactly its own charges; and on every Thiele-complete machine no checker that sees only the clean
@@ -1737,7 +1741,9 @@ steps a run actually paid for holds for any system with a counter, once somebody
 things: the list of rivals before, the list of survivors after, and a tree of yes-or-no questions
 with enough leaves to cover the narrowing. Then if a run paid at least as many charged steps as that
 tree is deep, those payments cover the index bits, the questions it takes to point at one entry of
-the first list less the ones it takes for the second (Section~\ref{sec:entitlement}). No run is shown to have to pay them. On every
+the first list less the ones it takes for the second (Section~\ref{sec:entitlement}). No run is shown to have to pay them. The
+run doesn't hand back the tree, and nothing in it says why a candidate was dropped; the lists
+count repeats, and the index bits aren't the number of questions anybody asked. On every
 Thiele-complete machine, the small machine included, the paid steps are the record moves, each
 exactly one mark, and a run from a clean start that ends with the record up, having narrowed a list
 that way, carries an earned chain and pays at least the index bits in record moves
@@ -2040,7 +2046,7 @@ You aren't meant to follow it yet.
 \bottomrule
 \endlastfoot
 Landauer 1961; Bennett 1973, 1982, 2003; Zermelo 1896; Bocchieri and Loinger 1957; Pin 1992; Brodsky and Pippenger 2002; Ouldridge and Wolpert 2023; Murashita, Funo and Ueda 2014 & erasure and merging cost; measurement can be free; recurrence (a step that loses nothing, on finitely many states, comes back around); machines whose moves all reshuffle states recognise only group languages; a language whose smallest automaton has to merge states costs entropy to recognise; a step with no way back has a logarithmic entropy floor & the ledger form of a counting core that's classical (recurrence's finite cousin, folklore for permutation automata) and already priced in entropy for automata: the price as a named rule on a ledger, a certification toll derived from finiteness, permanence and that rule, with merge-or-revoke, the squeeze and entropy forms, and each premise's counterexample built \\
-Maroney 2009; Sagawa and Ueda 2009; Sagawa 2014 & thermodynamic bounds that depend on the actual spread over states; a known state can be reset for free under control timed from outside; time-symmetric control charges every nonreciprocal move & the certificate-specific entropy bound with its support and permanence premises out in the open; heat still needs the Landauer premise, and no new physical law is proved \\
+Maroney 2009; Sagawa and Ueda 2009; Sagawa 2014 & thermodynamic bounds that depend on the actual spread over states; a known state's reset has no Landauer floor under control timed from outside; time-symmetric control charges every nonreciprocal move & the certificate-specific entropy bound with its support and permanence premises out in the open; heat still needs the Landauer premise, and no new physical law is proved \\
 Shannon 1948; Hartley 1928 & entropy and log-of-count bounds & the same squeeze bound in counted states and, from an even spread, in bits, for a permanent flip \\
 Tarjan 1985; Lyapunov 1892; Nipkow; Charguéraud and Pottier & the potential method, already mechanized & the toll as that method with the flag as potential \\
 Katsumata 2014; Orchard, Liepelt and Eades 2019; Danner and Licata & cost carried as a grade that composes with the computation & a run's cost as a writer cost and as a grade fixed before the run; the counter rides in the state, put there by the step rule, and it is their writer exactly, while their type systems and before-the-run checking of grades are not embedded, by design \\
@@ -2529,11 +2535,13 @@ I started, and I'd been saying ``the structure of'' things for years.
 In 1918 Emmy Noether, who at the time wasn't allowed to qualify for a university teaching post
 because she was a woman, and for a while taught courses advertised under David Hilbert's name, proved something that physicists still
 treat as close to holy. Take a physical system whose laws can be written the way most of
-physics is written, as ``of all the paths the system could take, it takes the one that makes a
-certain total smallest'' (the total is called the action, and that's all I'll say about it
-here). For such a system, every continuous symmetry of the laws comes with a quantity that is
-conserved. If the laws don't care \emph{where} you are, momentum is conserved. If they don't care
-\emph{when} it is, energy is. A symmetry isn't decoration. It has a consequence downstream that
+physics is written, as ``of all the paths the system could take, it takes one that makes a
+certain total stationary'' (the total is called the action, and stationary means a small change
+to the path doesn't change the total to first order; the path needn't make it smallest, and
+that's all I'll say about it here). For such a system, every continuous symmetry that leaves the
+action unchanged comes with a quantity that is conserved. If the action doesn't change when you
+shift everything in space, momentum is conserved. If it doesn't change when you shift everything
+in time, energy is. A symmetry isn't decoration. It has a consequence downstream that
 you can measure with instruments. I can't hand you this one to do at the table; the proof
 needs calculus I'd have to build first and I'd lose you and probably me, and the ``written
 as an action'' condition is doing real work that I'm not going to unpack here. What I can hand you is the
@@ -3436,9 +3444,11 @@ And one more edge, because it's the first thing to bite when you ask a machine t
 more than one thing. The definition has \emph{one} reading in it. One question, one flag, one
 toll on its crossing. Once the flag is up, a second claim has nowhere to go: raising a flag
 that's already up doesn't move anything. So a second claim needs a reading of its own, and a
-third claim a third: one reading per claim, each with its own toll. Part III builds that
-properly, as a family of flags, one per threshold, each charged when it goes up
-(Theorem~\ref{thm:u11-growing}), and the same theorem sends the bill for finiteness: a record
+third claim a third: one reading per claim, each with its own crossing. Part III builds that
+properly, as a family of flags, one per threshold, with a step that raises any of them charged
+at least one (Theorem~\ref{thm:u11-growing}). A step that raises three at once still owes at
+least one, and nothing in the toll makes the charges add up flag by flag. Charges that add need
+the composition assumptions for independent machines. The same theorem sends the bill for finiteness: a record
 held in $k$ bits that only ever turns bits on can take at most $k + 1$ different values, so it
 can go up at most $k$ times. A finite machine can keep only so many things up for good in its
 whole life. That's the opening chapter's ``you can't keep all of it,'' turned into a count.
@@ -4483,7 +4493,7 @@ sentence. It never means the run sentence.
 Here's the general case, and it's the one that shows you where the bits go. Split the bill
 state by state. Each state $x$ you might be in carries its chance $p(x)$ along to where it
 lands, $\mathrm{step}(x, i)$, and finds whatever other chance landed there too. If nobody else
-landed there, it owes nothing. If others did, it owes the difference between how crowded its
+landed there, its term is zero. If others did, its term is the difference between how crowded its
 landing spot is and how much of the crowd it brought.
 
 \begin{theorem}[The bits removed, one term per state]\label{thm:u04-point-sum}
@@ -4653,6 +4663,14 @@ nothing in it needs a record, since an autonomous reset to a fixed state obeys t
 and the time-symmetric-control result above covers the same ground with an error rate in place
 of the time ratio. And it isn't the theorem I said I didn't have. It's a first honest step
 toward it, and it pins down where ``the premise sets no heat floor for a known state'' needs its outside clock.
+Hold that argument to what it says. The entropy is added up from the moment the device sits in
+the known no-state $s$ until it has settled, over one whole relaxation. The starting spread is
+all on $s$, and $\pi$ is the device's long-run spread. The inequality rests on fixed rates,
+finitely many states, every state reachable from every other, a reverse for every hop, and local
+detailed balance to read the entropy as heat. It's one bound on one relaxation, and it doesn't
+charge each certification again. It also isn't the permanence of the finite-state theorems on a
+noisy device: on this device the flag comes back down, and $T_{\mathrm{up}}$ and
+$T_{\mathrm{down}}$ are average stretches. None of it is in the checked corpus.
 
 The next section is about a different door entirely. Forgetting has had its section; the
 question now is whether \emph{finding out} costs, because the demon's whole trick was that it knew which way the
@@ -7308,8 +7326,14 @@ Booleans, and its \emph{latch} is the step $(b, r) \mapsto (\mathrm{next}_B(b),\
 Now the theorem. Under those rules, the base state and the record move \emph{exactly} as a latch:
 the record switches on at the first base state where some event holds, and never off, and
 the event is read off the extension's own rule by asking it what it does when the record is
-off (stated exactly below). Everything else the extension carries, all the hidden
-state, shows up only in its ledger; it can't leak into the record's behaviour.
+off (stated exactly below). That's a statement about what the base and the record do together.
+The hidden state the extension carries can't push the record anywhere (R1) doesn't allow, since
+the record's next value is a function of the base state and the record's own value. The theorem
+doesn't say the whole extension is a bare latch machine, and it doesn't make hidden state show up
+anywhere in particular: an extension can carry a field that touches neither the record nor the
+ledger. And the event is pinned down only on base states that some state with the record off
+covers; on a base state with no such state above it, $f(b, \mathrm{off})$ is whatever (R1)'s
+function says, and nothing in a run ever consults it.
 
 I promised the content was in the definition, and here's what that means: the proof is a
 short case split on whether the record is already on, and it uses only \emph{two} of the five
@@ -7957,6 +7981,11 @@ decoding can produce at most two values, and the record takes three. (5) Each st
 chain adds at least one set bit, and there are only $k$ bits.
 \end{proof}
 
+Two cautions about that. In (1) each threshold's event may read the record's current value, so
+the events aren't all functions of the base alone. And (3) charges a step when it switches some
+threshold on: a step that switches on three thresholds at once owes at least one, and nothing
+here makes the charges add up per threshold.
+
 Checked as \code{growing\_record\_decomposes\_holds}, \code{thresholds\_determine\_record\_holds},
 \code{record\_price\_iff\_threshold\_price\_holds}, \code{one\_latch\_refuted} and \code{chain\_needs\_bits\_holds}
 (GrowingRecord.v), with the definitions in GrowingRecordCore.v. The order need not be finite;
@@ -8176,7 +8205,10 @@ stay at $1$.
 
 Checked as \code{chain\_bits\_exact} (AxLatch2.v) and \code{chain3\_not\_join\_latch} (AxLatch.v).
 
-So five stages need four cups. One won't do it, and three won't either. The switch isn't wrong.
+So five stages need four cups. One won't do it, and three won't either. Cups that only turn up,
+that is: $n$ write-once threshold bits. An ordinary binary counter holds $n + 1$ stages in about
+$\log_2(n + 1)$ bits, because its bits go down as well as up, and the theorem says nothing against
+that. The switch isn't wrong.
 It's the first line, and a straight strip with more than two places needs more of them, exactly one
 fewer than it has stages. A direction that branches needs at least as many cups as the steps in its
 longest strict climb, and it can need more. Put three places above a bottom, none of them above another. The longest
@@ -8300,8 +8332,10 @@ of everything it can't see, and what does the toll cost in terms of that shape?
 \subsection{The ordinary machine is a shadow}
 
 Take any machine with a record and a ledger, and sweep both off the table, the cups and the
-counter. What's left is a machine that steps the same way and knows nothing about either. Call that
-the \emph{shadow}. Over any one state of the shadow there's a pile of full states, one for each
+counter. What's left is a machine that steps the same way and knows nothing about either, provided
+the step's effect on everything else never depends on the cups or the counter: sweeping them off
+has to commute with the step. A system whose control reads its record or its ledger has no shadow
+in this sense. Where the premise holds, call what's left the \emph{shadow}. Over any one state of the shadow there's a pile of full states, one for each
 place the record could be, with its own cups up, and each value the ledger could hold, all of them
 casting that same shadow. Section~\ref{sec:windows} already called the pile over a point the
 \emph{fibre} over it. The shadow is one particular window, the one that shows everything except the
@@ -8479,7 +8513,7 @@ with it, and every theorem above it stands, because none of them used it.
 Put the two sections together and here's the shape I've been circling since the Flatland night.
 The ordinary machine is the shadow of a machine with a row of cups beside it. Over every shadow
 state there's a whole fibre, a pile of states that differ only in their cups and their ledger, and
-the ordinary machine can't tell them apart because nothing in its step ever looks at the cups. On a machine that pays the toll, a
+the ordinary machine can't tell them apart, on a machine whose step never looks at the cups. On a machine that pays the toll, a
 step that
 turns a cup over costs, whichever cup it is and however many it turns, and on a machine with finitely many states whose record
 only grows, when the
@@ -10078,8 +10112,9 @@ Over any base a record that is driven by the computation and never comes
 down is a latch, with two free choices, the price list and the event
 (Section~\ref{sec:latch}). With more than two places, a record that is driven by the computation
 and climbs a partial order is a
-row of cups, each one a latch; the toll over the whole row is the old toll on every cup, and a
-straight strip of $n + 1$ stages needs exactly $n$ cups (Section~\ref{sec:direction}). When the
+row of cups, each one a latch; the toll over the whole row charges at least one on any step that
+turns up some cup, and a
+straight strip of $n + 1$ stages needs exactly $n$ cups that only turn up (Section~\ref{sec:direction}). When the
 machine has finitely many states, its record only grows, and the
 ordinary machine forgets nothing, the toll prices crushing two states of one fibre, and a window
 can price exactly by seeing the cups move (Section~\ref{sec:shadow-exact}). No inside procedure whose flip a substrate can represent decides a shortcut property,
@@ -10484,25 +10519,32 @@ The real kinship is older, and it's somewhere else. Picture the table and the co
 by many processors, with CHECK, COMMIT and CERTIFY each done as one indivisible step. Maurice
 Herlihy (1991), a computer scientist who has spent his career on how many processors can share
 memory safely, ranked shared objects by how many processors each one can bring to agree on a
-single value with nobody ever waiting on anybody, and that object would sit at the top, able
-to bring any number to agree. The reason isn't that COMMIT is a store-conditional. It's that
-the object contains a sticky bit, the idea of Serge
-Plotkin (1989), a Stanford computer scientist working on distributed algorithms: a cell the first writer jams for good
-and everyone after can read. Put a write that kills every fact about a counter together with a
-commitment other processors can see, and you have a sticky bit. The trap is another one. Take the version rule away,
-let failures change nothing, and let checked properties only ever turn true, and everything in
-the object only grows; then it drops to the bottom rung, the level of plain memory, which is
+single value with nobody ever waiting on anybody. Test-and-set, an instruction that writes a
+cell and reports what was there, brings exactly two. A sticky bit, the idea of Serge
+Plotkin (1989), a Stanford computer scientist working on distributed algorithms, is a cell the
+first writer jams for good, with the first writer's value, and everyone after can read it; it
+brings any number. My guess is that the shared object would sit at the top with the sticky bit,
+because a write that kills every fact about a counter, together with a commitment other
+processors can see, looks like a way to build one. A guess is all it is. Ranking the object
+would take its operations, what each one returns, which steps are indivisible, how it starts and
+which processes run it, and then a proof that every processor decides, they all decide the same
+value, the value is one somebody proposed, and nobody waits. The trap alone doesn't do it: it
+records that something trapped, and it doesn't hand everyone the first writer's value. Take the
+version rule away, let failures change nothing, and let checked properties only ever turn true,
+and everything in the object only grows; my guess is that then it drops to the bottom rung, the
+level of plain memory, which is
 the shared-memory face of what the database researchers Joseph Hellerstein and Peter Alvaro
 (2020), at Berkeley and Santa Cruz, call CALM, where
-monotone means nobody has to coordinate. The toll changes neither answer. That split is argued
-here on paper. No Coq proof stands behind it, and neither half is mine: the top is Plotkin's and the bottom is
-the monotone fact that field already knows.
+monotone means nobody has to coordinate. That would need its own argument too. The toll
+changes neither guess. No proof stands behind either half, on paper or in Coq, and neither idea is
+mine: the top is Plotkin's and the bottom is the monotone fact that field already knows.
 
 Process-calculus people have a statement of the same split. Johannes \AA{}man Pohjola and
 Joachim Parrow (2016) prove on paper that no model whose parallel composition is monotonic, where a
 neighbouring process can never stop a step, has a consensus process, and one of their examples
 of a model that does is test-and-set, an instruction that writes a cell and reports what was
-there, which is a sticky bit under another name. A store that can refuse permanently, as
+there. Test-and-set isn't a sticky bit: in Herlihy's ranking it brings two processors to agree,
+and a sticky bit brings any number. A store that can refuse permanently, as
 the version rule does to a stale commit, sits on the non-monotonic side. I haven't written that
 encoding either, so it's a pointer.
 
@@ -11509,6 +11551,14 @@ Checked as \code{complete\_every\_window\_printed}, \code{complete\_hides\_recor
 \code{complete\_hides\_ledger}, \code{complete\_no\_record\_oracle},
 \code{complete\_no\_ledger\_oracle} and \code{thiele\_complete\_hides} (ThieleCompleteWindow.v),
 and \code{complete\_cs\_window\_blind} (EarnedGenericLinks.v).
+
+The observer in that theorem sees one thing, the final window. An observer who sees the window
+before and after each step, or the whole trace of windows, or who is also handed the program and
+the start, is a different observer, and the collision says nothing about them; given the program
+and the start, the run is fixed and so is its record. The theorem's two runs also start from the
+same loaded state, so they're reachable witnesses, which is stronger than two arbitrary states
+that happen to look alike. And ``no function of the window gives the record'' is all it says. It
+doesn't say the window tells you nothing about it.
 
 Notice how little that took, and say it out loud so nobody mistakes it for more. It's the fibre
 fact from Section~\ref{sec:windows} plus one observation: a universal base can print any window
@@ -13553,7 +13603,8 @@ CzWin.v, CzCounter.v), all closed.
 Item (1) is one flag for two boxes. It costs what two certifications cost, six record moves, and the
 definition wants a claim that three can settle, so a single flag over both panels, read through
 the pair's interface, is too expensive
-to meet the definition.
+to meet the definition. That's this interface. Nothing here shows that no other interface on the
+pair could meet it, and item (4) shows the pair meeting it through a richer record.
 
 Item (3) is the one with the most teeth, because it's the opening chapter's bug, the file checked and then swapped. On the
 bench it's a second hand reaching into a bin while the box isn't looking. Two writers, one value, and
@@ -13577,16 +13628,19 @@ again by the host. What's new is putting those links in a row, a box in a box in
 what the outermost one pays.
 
 My first guess was that it could pay less. A host that's clever about how it runs the guest might
-skip some of the guest's bills. That would have been bad news for every toll in this book, and the
-first item below says it can't happen.
+skip some of the guest's bills. The first item below puts a floor under that: the host pays at
+least one for each step where the guest's record went up. It's a floor on rises, and it doesn't
+keep the guest's whole bill.
 
 \begin{theorem}[Nesting]\label{thm:parts-nesting}
 (1) If a host that pays the toll simulates a guest faithfully, with a record map that reflects the
 order, then every run of the guest is matched by a run of the host that costs at least the number
-of the guest's steps that turned a cup over. (2) A small-machine guest on $U_P$ is carried with
+of the guest's steps that turned a cup over. (2) In each link the surcharge is 0 while the guest's record is down, and the bounds below hold
+at the points where it's up. A small-machine guest on $U_P$ is carried with
 surcharge exactly 0. A computably presented machine whose reading starts at no is carried, through
-its compiled guest, with surcharge at most 2, and exactly 2 when moreover every move costs at most
-one. One whose reading starts at yes is carried with surcharge exactly 3. (3) Links compose, and their surcharges add: a tower of
+its compiled guest, with surcharge at most 2, and exactly 2 once its reading has first said yes
+when moreover every move costs at most one. One whose reading starts at yes is carried with
+surcharge exactly 3. (3) Links compose, and their surcharges add: a tower of
 $k$ links has surcharge between the sums of their lower and upper bounds.
 (4) A tower of presented machines, each level running the next on $U_P$, adds exactly 2 for every level above the first, on top of the first level's own surcharge,
 provided every level's host run is itself presented by the next.
@@ -13598,8 +13652,12 @@ Checked as \code{cmpz\_sim\_cost\_ge\_exits}, \code{cmpz\_priced\_link}, \code{c
 CzSelf.v), all closed.
 
 Item (1) is the cleanest sentence in the chapter. However you build the outer box, as long as it pays
-its own toll and doesn't lie about the inner box's record, it pays at least what the inner record
-climbed. Nesting can add cost. It can't take any away.
+its own toll and doesn't lie about the inner box's record, it pays at least one for every step
+where the inner record climbed. That's a floor on the climbs, and it isn't the inner box's whole
+bill. A guest can charge a hundred for one rise while a host charges one for the matching rise,
+and both pay their tolls. Keeping the whole bill takes a further demand on the simulation, that
+it carry the guest's costs too, and for $U_P$ that's the separate ledger theorem of
+Section~\ref{sec:presented-universal}, with its surcharge.
 
 The premise in (4) is a real limit, and I want to say exactly what it is. Two links are
 unconditional: from a presented machine to its compiled guest, and from that guest to $U_P$ running it. Going deeper needs the
@@ -14545,18 +14603,25 @@ Checked as \code{calibrated\_mu\_landauer\_energy} (PricingPhysicsAudit.v), whic
 \code{mu\_landauer\_calibration} (PricingPhysicsTarget.v) for all $k_B$ and $T$, and
 \code{mu\_has\_no\_intrinsic\_joule\_value} (PricingPhysicsAudit.v). The physics is the premise of
 Section~\ref{sec:a2-not-arbitrary}, restated here once in the form the next theorems test. In words first: a \emph{dissipation}
-hands each instruction a whole number of heat units, each unit worth kT ln 2. Landauer's
-principle, in that currency, says an instruction that takes at least one state where some yes-or-no
+hands each instruction a whole number of heat units, each unit worth kT ln 2. The floor premise
+says an instruction that takes at least one state where some yes-or-no
 property is false to a state where it's true, and never sends a true one back to false,
-dissipates at least one unit. The calibration says no instruction dissipates more units than the counter charges
+dissipates at least one unit. That's a different statement from Landauer's principle as
+Premise~\ref{prem:landauer} has it. That one depends on the spread over states,
+$Q \ge k_B T \ln 2 \cdot \Delta H$, and gives nothing for a known state. This one gives every such
+instruction a floor of one whole unit, whatever the spread. To get the second from the first
+you'd need more, at the least a spread with a full bit of uncertainty removed at every such
+step, and the known-state theorem and the narrow squeeze of Section~\ref{sec:a2-not-arbitrary}
+show that isn't automatic. So I give it its own name, \emph{structural dissipation pricing}. The calibration says no instruction dissipates more units than the counter charges
 it. One word about that word: ``dissipation'' here means heat handed to the surroundings, in the
 sense Section~\ref{sec:a2-not-arbitrary} took from Sagawa: a bill for where the forgotten bit goes.
 It has nothing to do with waste, or with doing the job badly. Two premises, nothing proved about either,
 and the only question is whether they can sit in the same room:
 
-\begin{premise}[Landauer, in units of the counter]\label{prem:u24-landauer-pair}
+\begin{premise}[Structural dissipation pricing]\label{prem:u24-landauer-pair}
 A \emph{dissipation} is a function $\delta$ from instructions to naturals, counted in units of
-$k_B T \ln 2$. Landauer's principle, in this vocabulary (Premise~\ref{prem:landauer} of Section~\ref{sec:a2-not-arbitrary}):
+$k_B T \ln 2$. The \emph{floor}, a hypothesis separate from Premise~\ref{prem:landauer} of
+Section~\ref{sec:a2-not-arbitrary}:
 every instruction that collapses a yes-or-no property has $\delta(i) \ge 1$, where $i$
 \emph{collapses} $P$ when some state with $P$ false is sent to a state with $P$ true and every
 state with $P$ true is sent to one with $P$ true. The \emph{calibration}: $\delta(i) \le
@@ -14606,6 +14671,13 @@ and it costs 1; apply (1).
 Checked as \code{calibrated\_model\_exists\_iff\_positive\_cost}, with the definition
 \code{calibrated\_positive\_model}, and \code{bit\_model\_has\_satisfiable\_calibration}
 (ObservationPolicy.v).
+
+Three statements are in play, and each points its own way. Energy at a scale, $\mu \cdot c$, is a
+conversion and points nowhere. The calibration, $\delta(i) \le \mathrm{cost}(i)$, puts the charge
+above the dissipation: an upper bound. Landauer's principle puts the heat above an entropy loss: a
+lower bound. The theorem above says the assumptions can hold together. That's compatibility,
+and it isn't evidence. It doesn't make the ledger the least energy anything needs, and it doesn't
+make it the heat anything gives off.
 
 But now the history escape from Section~\ref{sec:a2-not-arbitrary}, pointed at a machine. Keep the previous state in a
 history list (push it onto the front each step; below, $s :: h$ is the list $h$ with $s$ put
@@ -15672,7 +15744,7 @@ A flag raised on the host machine from a clean start stands on a passing CHECK o
 Five tallies: 12/5 and 14/5 certify; 16/5, the PR box and the all-ones plan are refused forever & proved & Section~\ref{sec:chsh}, Proposition~\ref{prop:chsh-demos} \\
 The tally was played, or was honest, or puts a bound on nature & not claimed; it is placed in a counter for free & Section~\ref{sec:chsh} \\
 The calibration is a unit conversion & definition; proved & Section~\ref{sec:landauer}, Definition~\ref{def:u24-scale}, Theorem~\ref{thm:u24-calibration} \\
-Landauer in counter units; dissipation at most cost & assumed (premise) & Section~\ref{sec:landauer}, Premise~\ref{prem:u24-landauer-pair} \\
+Structural dissipation pricing (a whole-unit floor on collapsing instructions, separate from Landauer's principle); dissipation at most cost & assumed (premise) & Section~\ref{sec:landauer}, Premise~\ref{prem:u24-landauer-pair} \\
 The premises fit when every counted step costs at least one, and fit a one-bit reset & proved & Section~\ref{sec:landauer}, Theorem~\ref{thm:u24-consistency} \\
 The small machine's whole instruction set fails the premise pair & proved (\code{nec\_f\_small\_premise\_pair\_fails}); its free steps merge (\code{nec\_f\_small\_free\_collapse\_is\_merge}, NecFPhysics.v) & Section~\ref{sec:landauer} \\
 Keeping history makes every step injective & proved & Section~\ref{sec:landauer}, Theorem~\ref{thm:u24-history} \\
@@ -15915,8 +15987,8 @@ instructions every such price must charge. Every finite machine paying per halvi
 machine's own narrowing bound. Every machine extending a base with a driven, permanent
 record: the latch. Every window through which a certifying and a non-certifying step look
 alike: no exact price from the window. Every machine meeting the definition of Thiele-complete: a free move, at least three
-marks on any run from a clean state that ends certified, and a window blind to the record
-and the ledger. Any eight counts: the integer check and its PSD bridge, which are mathematics.
+marks on any run from a clean state that ends certified, and a final window that doesn't
+determine the record or the ledger. Any eight counts: the integer check and its PSD bridge, which are mathematics.
 This machine only: its six instruction kinds and their prices, its sixteen slots, its own colliding
 pair, and the encodings its universal programs use.
 
@@ -15963,7 +16035,9 @@ is arithmetic once the schedule is chosen. A window in which a raising step and 
 look the same can't price the raise exactly, by a fact about functions far older than the
 machine. Entitlement is defined as an object, a checked relation, and a paid event; given
 lists, a tree and a covering somebody supplies, a run that paid a charged step for every level
-of the tree has paid for the index bits it commits to (no run is shown to have to pay them); on
+of the tree has paid for the index bits it commits to (no run is shown to have to pay them, the
+run doesn't recover the tree, the lists count repeats, and the index bits aren't the questions
+anybody asked); on
 every Thiele-complete machine the same count, for a run from a clean start, is a theorem about its record moves, with the earned
 chain inside the run, and the count can't do without the covering; and it
 is a license to lean on a claim. It doesn't prove the claim true.
@@ -16004,7 +16078,7 @@ that host, run from a clean start, can avoid when the guest certifies with its w
 programs it runs; $U$ and $U_P$ show a fixed interpreter can. All of it is proved in Coq with
 nothing assumed: each file prints the assumptions of every headline theorem, and every line
 comes back closed. Then a check worth earning, the two-player game with an integer test whose
-pass forces Tsirelson's bound, and what the counter has to do with physics, which is less than
+pass forces Tsirelson's bound for the tally it's handed, and what the counter has to do with physics, which is less than
 the word Landauer in a file name suggests. The places where the machine came up short of the
 idea stayed on the page: its free steps merge states, so the toll on it is a choice the chairs
 don't force, and a check that can't fail certifies for three like any other. Part V was how to
@@ -17197,7 +17271,7 @@ Definition \ref{def:u23-genrealizable}: The size-generic PSD test & \S\ref{sec:c
 Corollary \ref{cor:u23-general}: The level-1 test is the size-five case & \S\ref{sec:chsh} & \code{column\_contractive\_iff\_general\_realizable} {\footnotesize(\code{GenRealizability.v})}\newline \code{column\_contractive\_q1ab\_iff\_general\_realizable} {\footnotesize(\code{GenRealizability.v})} & FE, RD\newline FE, RD \\
 Definition \ref{def:u24-scale}: Energy at a scale & \S\ref{sec:landauer} & stated in the text &  \\
 Theorem \ref{thm:u24-calibration}: The calibration is a unit conversion & \S\ref{sec:landauer} & \code{calibrated\_mu\_landauer\_energy} {\footnotesize(\code{PricingPhysicsAudit.v})}\newline \code{mu\_has\_no\_intrinsic\_joule\_value} {\footnotesize(\code{PricingPhysicsAudit.v})}\newline \code{mu\_landauer\_calibration} {\footnotesize(\code{PricingPhysicsTarget.v})} & FE, RD, EM\newline FE, RD\newline def \\
-Premise \ref{prem:u24-landauer-pair}: Landauer, in units of the counter & \S\ref{sec:landauer} & assumed; never proved &  \\
+Premise \ref{prem:u24-landauer-pair}: Structural dissipation pricing & \S\ref{sec:landauer} & assumed; never proved &  \\
 Theorem \ref{thm:u24-consistency}: When the premises can hold together & \S\ref{sec:landauer} & \code{calibrated\_model\_exists\_iff\_positive\_cost} {\footnotesize(\code{ObservationPolicy.v})}\newline \code{bit\_model\_has\_satisfiable\_calibration} {\footnotesize(\code{ObservationPolicy.v})}\newline \code{calibrated\_positive\_model} {\footnotesize(\code{ObservationPolicy.v})} & none\newline none\newline def \\
 Theorem \ref{thm:u24-history}: Keeping history makes every step injective & \S\ref{sec:landauer} & \code{retained\_history\_step\_injective} {\footnotesize(\code{ObservationPolicy.v})} & none \\
 Definition \ref{def:u24-calorimeter}: The two-state protocol & \S\ref{sec:landauer} & stated in the text &  \\
