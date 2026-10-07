@@ -10010,12 +10010,12 @@ jump to line $j$, and if it's empty, just go to the next line. That's it. No mem
 tape, no arithmetic beyond plus one and minus one. When the line you're on has no
 instruction, the machine stops.
 
-What Minsky showed is that two bins are enough to compute anything a Turing machine can
+What Minsky proved, by hand, is that two bins are enough to compute anything a Turing machine can
 compute, as long as you're willing to pack the input in a strange way. The trick is to keep
 many numbers inside one number, as the powers of different primes ($2^x 3^y 5^z$ holds
 three numbers in one), and to do arithmetic on the exponents by multiplying and dividing
 with the second bin as scratch space. It's slow. Exponentially slow. A
-two-counter machine doing your taxes would finish sometime after the sun doesn't. But
+two-counter machine doing your taxes would finish sometime after the sun burns out. But
 ``universal'' is a claim about what's \emph{possible}. Pleasant doesn't come into it, and on that
 claim two bins of pebbles are as strong as anything.
 
@@ -10045,8 +10045,8 @@ publisher describes it, shows that typed lambda
 calculi and a certain kind of category are essentially the same thing. Pebbles to category
 theory in one career, twenty-five years end to end. Does any of it change the argument? No. The
 library and I use Minsky's version and Minsky's name. But a bare machine that several people
-reach for in the same year looks less like anybody's invention and more like a shape that was
-sitting there.
+reach for in the same year looks like a shape that was sitting there. It doesn't look much like
+anybody's invention.
 
 The title of Minsky's 1961 paper is the clue I can't leave alone. It's about ``Post's problem of
 tag.'' Who's Post, and what's tag? Emil Post was a logician, a fresh PhD from Columbia, who in
@@ -10062,7 +10062,7 @@ that tells you, for every starting word, which of those happens. He worked at it
 later called it hopeless, and as far as I can tell it still is: a hundred years on, nobody knows
 whether that one little game, with that one rule, can be decided. Stephen Wolfram, the physicist
 who built Mathematica, wrote a 2021
-article on it that tells the Princeton story, and it's where I'd start. Minsky's paper showed that tag
+article on it that tells the Princeton story, and it's where I'd start. In that paper Minsky proved by hand that tag
 games in general can compute anything, which is why Post's name is on it. It didn't settle Post's
 own game. And the chase goes one step further. In 2008 Liesbeth De Mol, a historian and philosopher
 of computing who wrote her doctoral work on tag systems, turned
@@ -10095,7 +10095,7 @@ a new value is a new edition.
 \item A \emph{fact table}: a list of facts. A \emph{fact} is three things stuck together: a property, a
 counter, and a version. ``$A$ is even, as of edition 3'' is a fact. The table has room for
 sixteen. Why sixteen? It's a pick, with no derivation behind it, and what the pick costs is
-in the last subsection of this chapter, the one on what the machine doesn't do.
+in the subsection near the end of this chapter on what the machine doesn't do.
 \item A \emph{channel}: either empty, or holding one fact. This is where a commitment sits.
 \item A \emph{trap}: one bit, down at the start. When it goes up, the machine has refused something,
 and it stays up.
@@ -10114,11 +10114,12 @@ $0 \le i < N$, and each thing's number is how many things came before it. He rep
 programmers on the language Mesa, which allowed all four conventions, found the other three a
 steady source of clumsiness and mistakes, and he points out that FORTRAN starts at one. Does that
 settle it? It settles which convention is tidier, by an argument you can check. It doesn't settle
-which convention somebody else's work used, and that's the trap: Minsky numbers lines from 1,
-and so does this machine, because matching the library's two-counter machine line for line is
-worth more here than tidiness. Is zero the right place to start
-counting? I can't tell you. Dijkstra's note doesn't claim to either; it shows which way makes
-fewer mistakes, which is a different and more useful thing.
+which convention somebody else's work used, and that's the trap: the library's two-counter
+machine, which it calls a Minsky machine, numbers its lines from 1, and so does this machine,
+because matching it line for line is worth more here than tidiness. Is zero the right place to
+start counting? Dijkstra's title says it is, and I can't tell you more than that. What his note
+carries is an argument about which way makes fewer mistakes. That part you can check for
+yourself, and it's the more useful thing to have.
 
 Everything in that list is the \emph{core}, the part the base moves. Outside the core sit the two
 pieces from the model: the ledger $\mu$ and the flag. The machine never reads either of
@@ -10160,8 +10161,8 @@ Then push on it, because Boole's ``or'' isn't quite the one a checker uses. His 
 sense for things that can't both hold at once, so ``x or y'' with both of them true had no
 meaning in his system. William Stanley Jevons, an English economist who also worked on logic, read
 ``or'' as ``either or both,'' which gives ``x or x is x,'' the same trick as before. He wrote to
-Boole in 1863 saying plus ought to work that way, and the next year he put it in a book called
-\emph{Pure Logic}, in 1864. Boole wouldn't have it, since it broke the
+Boole in 1863 saying plus ought to work that way, and in 1864 he put it in a book called
+\emph{Pure Logic}. Boole wouldn't have it, since it broke the
 tie to ordinary algebra his whole system stood on. The ``or'' in every programming language I know
 is the inclusive one Jevons argued for. Does that change anything about the checker? No; the crank turns the same way. It
 changes the picture: the ``or'' a checker uses is the one the man who invented the algebra
@@ -10186,9 +10187,10 @@ column of four-digit numbers and hand someone only the total, and they have to r
 sum at one sitting, because the carries tie every column to the one before it. Hand them the
 total of each column as well, and the job falls apart into small checks they can do one at a
 time. That's a claim hung on a point in the middle of the work, so the person checking never
-has to hold all of it at once. The paper got its due mostly later: in 1984 F. L. Morris and
-C. B. Jones republished it, with its misprints corrected, as an early program proof by Alan
-Turing. Does any of that change the machine? No. It changes the date on the idea, and it tells
+has to hold all of it at once. The paper got its due mostly later: in 1984 two computer scientists, F. L. Morris of Syracuse
+University and C. B. Jones of Manchester University, who had worked on it together at Oxford,
+republished it, with its misprints corrected, as an early program proof by Alan
+Turing. Theirs is the text I read, and the column of numbers is Turing's own example in it. Does any of that change the machine? No. It changes the date on the idea, and it tells
 you something I like: the first person to ask how you'd check a program put the claims in the
 middle of it. He didn't save them for the end.
 
@@ -10290,7 +10292,7 @@ here on paper. No Coq proof stands behind it, and neither half is mine: the top 
 the monotone fact that field already knows.
 
 Process-calculus people have a statement of the same split. Johannes \AA{}man Pohjola and
-Joachim Parrow (2016) show that no model whose parallel composition is monotonic, where a
+Joachim Parrow (2016) prove on paper that no model whose parallel composition is monotonic, where a
 neighbouring process can never stop a step, has a consensus process, and one of their examples
 of a model that does is test-and-set, an instruction that writes a cell and reports what was
 there, which is a sticky bit under another name. A store that can refuse permanently, as
@@ -10311,8 +10313,8 @@ Notice what \emph{isn't} a write. DEC on a counter that's already 0 doesn't chan
 it doesn't change the version. It's a test that happens to move the line number.
 
 \textbf{The fact table.} Facts go in and never come out. Nothing erases them and nothing
-overwrites them. When the table is full, a seventeenth CHECK doesn't push an old fact out to
-make room; it traps. That's a choice with a bill attached, and I'll put the bill in the
+overwrites them. When the table is full, a seventeenth CHECK traps. It doesn't push an old fact out to
+make room. That's a choice with a bill attached, and I'll put the bill in the
 section on what this machine doesn't do.
 
 \textbf{Traps.} Any failure puts the trap up and changes nothing else in the core; the ledger
@@ -10412,8 +10414,8 @@ chapter.
 
 Others walked into the same line from communication. Three theoretical computer scientists,
 Oded Goldreich, Brendan Juba and Madhu Sudan
-(2012), built a theory of communication aimed at goals instead of messages, with a partner you may
-not understand, and the central notion is \emph{sensing}: being able to tell, from what you see,
+(2012), built a theory of communication with a partner you may not understand, in which getting a
+message across counts only as a way to reach a goal, and the central notion is \emph{sensing}: being able to tell, from what you see,
 whether you're making progress. The sensing they ask for is \emph{safe}: when there's no progress
 it says so, and so it never reports a success that didn't happen. Their main result, as I read it,
 is that safe sensing, with a partner who could help if you spoke its language, is enough for one
@@ -10604,8 +10606,8 @@ Checked as \code{earned\_core\_honest} and \code{earned\_core\_is\_latch} (Earne
 by \code{record\_axis\_is\_latch\_holds}; the step-level facts are \code{cert\_latch} and \code{base\_blind}
 (EarnedCore.v).
 
-So far, nothing new. The toll, the floor and the latch are things Part III already promised
-about any machine of this kind. The next subsection is the part Part III couldn't give.
+So far, nothing new. The toll, the floor and the latch are things Parts II and III already
+promised about any machine of this kind. The next subsection is the part neither of them could give.
 
 \subsection{Commitments are earned}
 
@@ -10690,8 +10692,8 @@ If that rings a bell, it should. It's Milner's move from the opening chapter: in
 a value that only the rules of the logic can build, so nobody can just print one (Milner and two
 colleagues on his Edinburgh project, Michael Gordon and Christopher Wadsworth, wrote the system up
 in 1979, and Gordon, who went on to build the HOL prover at Cambridge, told its history in
-2000). Here the thing nobody can print is one bit, and what guards it is one step rule instead of
-a type checker. Same architecture, much lower down.
+2000). Here the thing nobody can print is one bit, and what guards it is one step rule. Milner's guard
+was a type checker. Same architecture, much lower down.
 
 A provenance theorem is also an itemised receipt, and the itemised receipt has a history that's
 exactly this gap. James Ritty ran a saloon in Dayton, Ohio, and believed some of his staff were
@@ -10764,7 +10766,7 @@ about this run, carried by the record, and a fact about the checker, carried by 
 whoever reads the record has to accept. That's the Münchhausen trilemma from the opening chapter
 taking its third horn on purpose: the chain of reasons stops at a proof, named and on the page,
 where you can decide whether you'd have stopped there too. And the entitlement it gives is the
-reader's. The machine doesn't know anything; it keeps the order.
+reader's. The machine doesn't know anything. It keeps the order.
 
 The question in that paragraph is older than any checker, and its most famous wording isn't
 about what you'd guess. ``Who will guard the guardians?'' gets quoted about governments and police
@@ -10858,7 +10860,7 @@ Checked as \code{facts\_keep}, \code{full\_table\_traps} and \code{facts\_bounde
 Why trap instead of making room? Because ``making room'' means deciding which fact dies, and a
 fact that can die is a fact whose absence you have to explain later. A table that only grows
 is a history you can read back, and the provenance proofs above lean on exactly that. The
-bill for it is real, though, and it's in the last subsection of this chapter, the one on
+bill for it is real, though, and it's in the subsection near the end of this chapter on
 what the machine doesn't do.
 
 \subsection{The window can't see the record}
@@ -10917,12 +10919,15 @@ looked carelessly. Because it isn't there to see.
 Two things the same in everything you look at and still two things: philosophy has an old fight
 about exactly that, and it's worth a detour, because it tells you which side of the fight these
 theorems stand on. Leibniz said that for real things it can't happen. There are no two
-individuals indiscernible from each other, he wrote to Samuel Clarke in 1716, and he told a story
-to go with it. A clever gentleman of his acquaintance, talking with him in front of the Electress
-Sophia in the garden at Herrenhausen, thought he could find two leaves perfectly alike. She dared
+individuals indiscernible from each other, he wrote in 1716 to Samuel Clarke, the English
+philosopher and theologian who was taking Newton's side against him in an exchange of letters,
+and he told a story to go with it. A clever gentleman of his acquaintance, talking with him in
+front of the Electress Sophia of Hanover, Leibniz's friend and patron, in the garden at
+Herrenhausen she had helped lay out, thought he could find two leaves perfectly alike. She dared
 him to. He ``ran all over the Garden a long time'' looking, and it was ``to no purpose.'' You can
 run his search tonight with a handful of anything, leaves or coins or grains of rice: look hard
-enough and every pair differs somewhere. Then in 1952 Max Black pushed back with a universe you
+enough and every pair differs somewhere. Then in 1952 Max Black, a Russian-born philosopher
+teaching at Cornell, pushed back with a universe you
 can't build at the table. Nothing in it but two iron spheres, the same size, the same colour, the
 same everything, some distance apart. Name a difference between them. There isn't one, and there
 are still two of them. People have argued about Black's spheres ever since, and I'm not going to
@@ -11032,7 +11037,7 @@ everything two counters can, a ledger that's exact, a toll the universal floor a
 flag that's a latch of the base, a window that can't see the record, and a commitment that
 can't happen unless a check of the same claim, on the same edition, came first and was
 right. Every result above is closed: Coq reports no assumptions for any of them. That isn't
-my say-so. Each of the two files ends by asking Coq to print the assumptions of each headline
+my say-so. EarnedCore.v and its link file, EarnedCoreLinks.v, each end by asking Coq to print the assumptions of each headline
 theorem, and the build of Section~\ref{sec:coq} compiles them and fails unless every one comes
 back closed. The
 project-wide audit of Section~\ref{sec:coq} lists these files too, and every theorem in them comes
@@ -11106,9 +11111,13 @@ checker, and Section~\ref{sec:diagonal} says why nothing of arithmetic strength 
 Nor does it ask the checker to be something a machine could run. Clause (b) wants a yes or no for
 every claim at every state, sound for the claim's meaning, and nothing in it says that answer has
 to be computable. Every instance in this book has a checker that's an actual program, so anything
-those machines certify could be listed by a program that runs them. But hand the definition a
-checker that's an oracle, one that knows which programs run forever, and it's still met, and the
-machine certifies claims no program could ever confirm. So ``a Thiele-complete machine certifies
+those machines certify could be listed by a program that runs them. Inside Coq with no extra
+assumptions that's all there can be, since every checker you can write there is a program, the
+same point I made about what ``undecidable'' means in the library. An oracle gets in two other
+ways: read the definition as ordinary mathematics, where any function counts, or add an axiom
+that hands Coq a function knowing which programs run forever. Hand the definition a checker like
+that and it's still met, and the machine certifies claims no program could ever confirm. Nothing
+in this book builds one. So ``a Thiele-complete machine certifies
 exactly the claims a program could list'' is true only with ``and its checker is computable''
 added, and the definition doesn't require that.
 
@@ -11151,7 +11160,7 @@ Checked as \code{thiele\_complete\_is\_weak}, \code{base\_runs\_every\_program},
 \code{only\_certify\_raises}, \code{complete\_costs\_at\_most\_one} and
 \code{complete\_has\_free\_move} (ThieleComplete.v).
 
-The last line of (6) is the one that kills the clock.
+The second half of (6), that some move costs 0, is the one that kills the clock.
 
 \begin{theorem}[A clock is a Thiele machine and isn't Thiele-complete]\label{thm:u34-clock}
 Take the two-counter machine, let every move cost 1, and take as the record any yes/no
@@ -11283,7 +11292,7 @@ collected by the host's own steps. No program running on the host has to keep a 
 
 And I want it the hard way. The easy way is to give the host a move that means ``take one step
 of the guest,'' and then ``it runs any guest'' is true because I wrote it that way. There's a host
-like that at the end of this section, after the two programs, and it's useful as a picture, but it isn't Turing's kind of
+like that two subsections on, after the two programs, and it's useful as a picture, but it isn't Turing's kind of
 universal. Turing's universal machine has no instruction for ``do what the machine on the tape
 would do.'' It has the same kind of instructions every other Turing machine has, and one fixed
 table, and the table does the reading and the deciding and the carrying out. That's the bar
@@ -11404,7 +11413,7 @@ per line, until it holds the one at the guest's line, and splits that into opcod
 Then a chain of DECs on the opcode sends it to one of six handlers.
 
 \begin{itemize}
-\item INC $c$: INC the guest's counter $c$, nudge every slot about $c$ and zero its mirror, add
+\item INC $c$: INC the guest's counter $c$, nudge every slot about $c$ and zero its mirrors, add
 one to the guest's line, back to line 1.
 \item DEC $c$ $j$: DEC the guest's counter $c$. If it was 0, add one to the guest's line. If it
 wasn't, nudge every slot about $c$, zero its mirrors, and set the guest's line to $j$. Back to
@@ -11637,7 +11646,7 @@ The program is $U$ with one more handler: a seventh branch on the guest's opcode
 runs the host's own PAY once. Call it $U_P$; it's 3735 instructions, with 70 paid sites, the 69
 of $U$ plus the PAY. The guest it runs is a program of the small machine with PAY added, and that
 guest is where the presented machine goes. Its four programs are compiled into two counters, by
-the packing Minsky used, with the vendored library's compiler from computable functions to
+the packing Minsky used, with the undecidability library's compiler from computable functions to
 counter machines doing the hard part; the guest keeps the presented machine's state coded in its
 counter $B$, takes one of its moves by running the compiled step, pays the move's price in PAYs,
 and, when the compiled reading says yes, checks, commits and certifies. The host's one property
@@ -11752,7 +11761,7 @@ at all. Section~\ref{sec:running} says what was run.
 There's a much simpler host than $U$, and I keep it in the book because it's easy to read and
 it shows the copy rule in one line. Its universality is by construction: it has a move that runs
 one guest step by calling the small machine's own step. So it isn't the universal Thiele machine
-of this book; $U$ is. Read it as a picture of what $U$ does the long way, and as a host that
+of this book. $U$ is. Read it as a picture of what $U$ does the long way, and as a host that
 starts from any guest state at all, clean or not.
 
 It carries a guest inside its own state: the guest's program as data, the guest's counters, its
@@ -11807,8 +11816,8 @@ touches the guest's state or the mirror (the second sentence of that same theore
 move of either kind rewrites the guest's program (\code{hexec\_gprog}, UniversalThiele.v). And
 the mirror is tied to the guest's earned chain: if it's up, the guest's own run contains a
 passing CHECK, then a COMMIT of the same claim, then a CERTIFY (\code{host\_mirror\_earned}, UniversalThiele.v). So this
-host runs any guest by construction and keeps the guest's record by theorem, with a copy of the
-guest's flag rather than a flag it earns itself. $U$ does both the long way: it runs the guest
+host runs any guest by construction and keeps the guest's record by theorem, as a copy of the
+guest's flag. It never earns a flag of its own. $U$ does both the long way: it runs the guest
 with its own instructions, and it earns its own flag.
 
 \begin{theorem}[The host runs any guest]\label{thm:u34-universal}
@@ -11934,8 +11943,8 @@ ordinary instructions, plus an exact ledger and a flag of its own.
 \subsection{The machine versus the program it runs}
 \label{sec:machine-vs-program}
 
-All three hosts in this chapter come down to one distinction, and it's worth saying on its own
-because people run the two halves together: \emph{the machine doing the stepping} (what the
+All three hosts in this chapter come down to one distinction, and it's worth saying on its own,
+because the two halves are easy to run together: \emph{the machine doing the stepping} (what the
 machine is) and \emph{the program it runs} (what runs on it). The toll of Section~\ref{sec:toll}
 is a property of the machine doing the stepping. A rule a program keeps holds as long as the
 program keeps it.
@@ -12033,11 +12042,11 @@ One limit on all of this, so it isn't read as more. Certification is one event. 
 of observable a machine might carry would each need their own event, their own evidence and
 their own cost law, and nothing here supplies those.
 
-\subsection{Part III's results, run on this machine}
+\subsection{Parts II and III, run on this machine}
 \label{sec:part3-on-machine}
 
-Part III proved its counts and its collisions for any system with the named pieces, and it left
-a promise: that the machine of this part would be put through them. Here it is. The eight-state
+Parts II and III proved their counts and their collisions for any system with the named pieces,
+and they left a promise: that the machine of this part would be put through them. Here it is. The eight-state
 machine of Section~\ref{sec:a2-not-arbitrary} gets run by the small machine, price for price.
 Structural entitlement, the count of what narrowing a list of rivals costs, is proved for every
 Thiele-complete machine, with the small machine as a worked member, a larger search on the host
@@ -12095,13 +12104,13 @@ Checked as \code{frag\_runs\_finite\_machine}, \code{frag\_pays\_finite\_price},
 \code{frag\_runs\_finite\_trace}, \code{frag\_certification\_paid}, \code{frag\_setup\_live},
 \code{frag\_program\_runs} and \code{frag\_program\_earned} (FragmentSmall.v), with the room argument
 for the eight-state machine itself as \code{frag\_fin\_toll} and \code{frag\_cert\_system} in the same
-file. Two reservations, said now. The setup's claim is true of every value, so its CHECK can't
+file. Three reservations, said now. The setup's claim is true of every value, so its CHECK can't
 fail; it's there because the small machine won't CERTIFY without a checked, committed claim. It
 isn't there as a test. And the jump's price of two is two paid COMMITs, a choice a program makes that the
 machine allows and doesn't force. The window is a projection, too: the small machine's full state
 keeps far more than eight states' worth.
 
-And the whole machine is not the piece.
+And the whole small machine isn't the eight-state piece it runs. It merges some states for free.
 
 \begin{theorem}[The small machine's merges]\label{thm:frag-merge-split}
 (1) A move of the small machine that takes the flag from down to up is CERTIFY; CERTIFY merges two
@@ -12159,12 +12168,12 @@ added up. (5) is Theorem~\ref{thm:u34-tc-consequences}(3).
 \end{proof}
 
 Checked as \code{ent\_representation} (EntitlementSmall.v), whose Coq statement is printed in
-Section~\ref{sec:coq-statements}. It's a checklist, as I said above, and the small print is the
+Section~\ref{sec:coq-statements}. It's a checklist, as I said in Section~\ref{sec:entitlement}, and the small print is the
 same kind: (M3)'s second half feeds no conclusion, only the record's being up is used; the gap in
 (M1) is unused, only the inclusion; and the first clause of (M6), the representative observation,
 isn't used by the count either. What the machine adds to Theorem~\ref{thm:ent-cs} is conclusions
 (2), (4) and (5): the payment is the machine's own three acts, each at exactly one, and a raised
-record carries the earned chain, which is more than the older phrase ``a structure was added.''
+record carries the earned chain.
 The packaged form, a record of the fifteen things a shortcut has to supply, with a theorem that
 every inhabitant lands in the bound, is \code{ent\_shortcut} and \code{ent\_every\_shortcut\_lands\_here}.
 The count with the tree thrown away, in the form I use below, is \code{ent\_complete\_tree\_bound}.
@@ -12394,8 +12403,8 @@ in register 1 and every other register 0, with a clean table, it halts with $y$ 
 
 Rice first, because it's the shorter road. The American logician Henry Rice proved in 1953, from
 his doctoral thesis, that no program decides any
-property of what programs \emph{do}, as opposed to how they're written, unless every program has
-it or none does. The road from halting is a single detour. Take a property of what programs do,
+property of what programs \emph{do} unless every program has
+it or none does. Properties of how a program is written aren't covered. The road from halting is a single detour. Take a property of what programs do,
 a program $y$ that has it, and a program $n$ that doesn't. Given an instance of two-counter halting,
 a Minsky program $H$ with starting counters $a$ and $b$, build a host program that first loads $a$
 and $b$ into two fresh registers, then runs a copy of $H$ moved onto those registers, then empties
@@ -12493,12 +12502,13 @@ instructions that a host program can be read off from, instruction for instructi
 supply the program that computes the evaluator. The fixed-point argument below is not theirs.
 \end{proof}
 
-Checked as \code{sm2\_smn\_all} (SmSmnAll.v), an if-and-only-if in both directions that carries no premise on register 2, and
+Checked as \code{sm2\_smn\_all} (SmSmnAll.v), an if and only if statement that carries no premise on register 2, and
 \code{sm\_host\_universal} (SmKleene.v); the narrower form of (1), with the premise, is still there as
 \code{sm\_smn}. The numbering is \code{sm\_hcode}, \code{sm\_hdecode} and \code{sm\_hdecode\_hcode}
 (SmCodes.v). Be exact about one
-thing: $U$ is not that universal program. $U$ runs two-counter guests, and two-counter guests can't
-run the evaluator. $W$ runs host programs, and it can, because it's a host program on a machine
+thing: $U$ is not that universal program. $U$ runs two-counter guests, and a two-counter guest
+given its input plainly can't run the evaluator. With inputs written as powers of two one can, as
+Theorem~\ref{thm:tc-kleene} near the end of this subsection shows. $W$ runs host programs, and it can, because it's a host program on a machine
 with registers.
 
 \begin{theorem}[Kleene's recursion theorem on the host machine]\label{thm:host-kleene}
@@ -12750,14 +12760,15 @@ The guests of $U_P$ are every Thiele machine whose driver, step, prices and read
 by programs, with the reading decided on every state. Each keeps its computation and its halting;
 its reading becomes the host's flag as a latch, raised on an earned chain whose claim is the
 guest's own reading; and its prices become the host's ledger, exactly, except for a surcharge of
-at most two at the move where the reading first says yes, which no program on that host can avoid
-when that move costs less than three (Theorems~\ref{thm:u34-presented}
+at most two at the move where the reading first says yes, when the reading starts at no. The
+surcharge is zero when that move costs three or more, and it can't always be avoided: when the
+guest certifies with a ledger below three, no program on that host matches its ledger exactly (Theorems~\ref{thm:u34-presented}
 and~\ref{thm:u34-presented-surcharge}). Picture a clerk who'll stamp anybody's receipt. He copies
 it onto his own forms, bills at your rates to within two, and the stamp at the bottom is one he
 earned by checking your own reading. He didn't copy it.
 
 What's outside the class is outside the theorems. A machine whose reading no program decides
-(an oracle checker, say, which the definition of Thiele-complete allows) doesn't come in. Nor
+(an oracle checker, say, which the definition of Thiele-complete doesn't rule out) doesn't come in. Nor
 does a machine whose next move is nobody's computation. Nor does a guest that starts with a table
 of facts nobody checked: the guests start where their presentation says, and the host from a clean
 start.
@@ -12765,7 +12776,7 @@ start.
 And here's why insisting on no built-in step is the point. A plain interpreter on an ordinary
 computer runs guests too, but then the guest's record is data the interpreter's program updates
 by convention, which is exactly the position of the ordinary programmable computer from the front
-matter. That's a fact about how such interpreters are built. It says nothing about what they can do: $U$ and
+matter and Section~\ref{sec:machine-vs-program}. That's a fact about how such interpreters are built. It says nothing about what they can do: $U$ and
 $U_P$ are fixed interpreters, and their record isn't kept by convention. Nothing in them raises the
 host's flag except the host's own CERTIFY, and the host's step won't let that pass without a
 COMMIT, or the COMMIT without a CHECK on a slot nobody has touched. The guest's record isn't data
@@ -12819,7 +12830,7 @@ need a latch each.
 \item \textbf{Sixteen checks per run, ever.} Facts never leave and the table holds sixteen, so a run
 gets at most sixteen passing CHECKs in its whole life, and the seventeenth traps. A
 certificate needs only one, so this costs nothing for the theorems, but it's a hard wall
-for any program that wants to keep checking forever, and this machine's small version of the
+for any program that wants to keep checking forever, and it's this machine's small version of the
 opening chapter's ``you can't keep all of it.''
 \item \textbf{The clean start matters.} Provenance, soundness, no forging and the price of three are
 all stated from a clean start. Hand the machine a table pre-loaded with facts nobody
@@ -12832,7 +12843,9 @@ flag's value to you.
 \item \textbf{The universal programs have stated guests.} $U$ runs every one of this machine's
 programs from every start, with halting, answers, flag and ledger matched exactly. $U_P$ runs every
 computably presented Thiele machine, with its reading decided by a program, its record carried as
-a latch, and its ledger matched to within a surcharge of two that can't be avoided in general. A
+a latch, and its ledger matched to within a surcharge of at most two when its reading starts at
+no, and of three when it starts at yes. When the guest certifies with a ledger below three, no
+program on that host matches its ledger exactly. A
 machine outside that class, with a reading no program decides, isn't covered by either. The
 simpler host with the built-in guest step pays one per guest step whatever the step was, so its
 ledger is at least the guest's and usually more; $U$'s is exact, and $U_P$'s is exact up to the
@@ -13005,9 +13018,10 @@ several years by Yannick Forster, Dominique Larchey-Wendling, Gert Smolka and ma
 Coq that seven models of computation compute the same relations on numbers: the weak call-by-value
 lambda calculus L, Turing machines, two kinds of Minsky machine, binary stack machines, John
 Conway's FRACTRAN (Conway was the English mathematician best known for the Game of Life), and the
-$\mu$-recursive functions. Conway's model I know only by its place on that
-list, so I'll say nothing about it beyond that. I didn't re-prove the agreement, and I'd rather lean
-on their proof than on mine. Their proof is checked by the same proof assistant as mine, so leaning
+$\mu$-recursive functions. Conway's model I know only as a step on the library's road to two counters
+(Section~\ref{sec:smallest}) and by its place on that
+list, so I'll say nothing about it beyond that. I didn't re-prove the agreement. I lean
+on their proof. Their proof is checked by the same proof assistant as mine, so leaning
 on it costs me nothing in certainty. What I proved is the joint where my boxes meet theirs.
 
 \begin{theorem}[The base doesn't matter]\label{thm:lift-models}
@@ -13174,9 +13188,9 @@ and the wrong half is item (4).
 
 \begin{theorem}[One after the other]\label{thm:parts-seq}
 (1) Running one Thiele-complete machine and then handing its two counters to another through free
-loads gives a Thiele-complete machine. (2) For any two counter programs, it computes the composite:
-some schedule leaves the first machine's window where the first program leaves its input and the
-second's where the second program leaves that result. (3) The hand-off keeps the toll when every
+loads gives a Thiele-complete machine. (2) For any two programs of the two-counter machine, it computes the composite:
+some schedule leaves the first machine's window where the first program takes the input, and the
+second's where the second program takes that result. (3) The hand-off keeps the toll when every
 state it can load into sits at one level of the second machine's record. (4) If some load lands
 the second machine at a record that isn't at or below another load's, the hand-off loses the toll:
 it's a certification nobody paid for.
@@ -13248,9 +13262,9 @@ first item below says it can't happen.
 (1) If a host that pays the toll simulates a guest faithfully, with a record map that reflects the
 order, then every run of the guest is matched by a run of the host that costs at least the number
 of the guest's steps that turned a cup over. (2) A small-machine guest on $U_P$ is carried with
-surcharge exactly 0. A computably presented machine is carried, through its compiled guest, with
-surcharge at most 2, exactly 2 when its reading starts at no and every move costs at most one, and
-exactly 3 when its reading starts at yes. (3) Links compose, and their surcharges add: a tower of
+surcharge exactly 0. A computably presented machine whose reading starts at no is carried, through
+its compiled guest, with surcharge at most 2, and exactly 2 when moreover every move costs at most
+one. One whose reading starts at yes is carried with surcharge exactly 3. (3) Links compose, and their surcharges add: a tower of
 $k$ links has surcharge between the sums of their lower and upper bounds.
 (4) A tower of presented machines, each level running the next on $U_P$, adds exactly 2 per level,
 provided every level's host run is itself presented by the next.
@@ -13265,8 +13279,8 @@ Item (1) is the cleanest sentence in the chapter. However you build the outer bo
 its own toll and doesn't lie about the inner box's record, it pays at least what the inner record
 climbed. Nesting can add cost. It can't take any away.
 
-The premise in (4) is a real limit, and I want to say exactly what it is. Two levels are
-unconditional: a presented machine, its compiled guest, and $U_P$ running it. Going deeper needs the
+The premise in (4) is a real limit, and I want to say exactly what it is. Two links are
+unconditional: from a presented machine to its compiled guest, and from that guest to $U_P$ running it. Going deeper needs the
 host's own run, at each level, to be presented as a machine the next level up can run, and the
 host keeps a register for every whole number, which doesn't have a one-to-one code in a single
 number the way a presented machine needs. So the box that has to fit inside the next one has more
@@ -13330,8 +13344,10 @@ word of warning. Coq's whole numbers never overflow. A machine word does, and th
 you what that cost Ariane 5 (Section~\ref{sec:straight}). So the extraction maps Coq's whole numbers
 to an OCaml library of unbounded integers, and each arithmetic operation is mapped by hand to that
 library's version of it. Those are the hand-written substitutions in the trusted path: one line
-that maps Coq's whole numbers onto the library's integers, a few that map Coq's Booleans, lists,
-pairs and options onto OCaml's own, and the arithmetic operations, seventeen in one file and
+that maps Coq's whole numbers onto the library's integers, a few that map Coq's Booleans,
+decisions, lists, pairs, options and its one-value type onto OCaml's own, two that map Coq's
+``and'' and ``or'' onto OCaml's, two in one file that map the hosts' one-value property types onto
+OCaml's unit, and the arithmetic operations, seventeen in one file and
 thirteen in the other. Each arithmetic line carries a one-line justification next to it: addition is addition, subtraction stops at zero the way Coq's does, division by zero gives
 zero the way Coq's does. The rest is Coq's own definitions. The hand-written code outside that is two
 drivers, which read input, print output, and count steps while they call the extracted step function
@@ -13375,7 +13391,8 @@ the hand-written machine copies them. That's what having them on the page is for
 Now the universal program, which is where I expected trouble. The guest I wanted to run first was
 the obvious one, a guest that goes the whole way: CHECK, COMMIT, CERTIFY, flag up, run inside $U$ on
 the built machine. Here's why that's not what ran. $U$ keeps the whole guest program as one number,
-a power of two whose exponent adds up codes for the guest's instructions, and it reads that number
+a number that grows like two raised to the sum of the codes for the guest's instructions (for a
+guest of one instruction it's exactly a power of two), and it reads that number
 the only way a counter can, one unit at a time. So its speed depends on the code, and the code grows
 fast: a guest with one CHECK in it has code $2^{24}$, and a guest with the whole chain has a code near
 $2^{100}$.
