@@ -70,7 +70,7 @@ An explicitly qualified citation keeps its own module identity.
 - `permanent_write_has_logical_payment`: On a finite state space, if instruction `i` keeps the record on wherever it is on, and some state goes from record off to record on under `i`, then `i` is not injective.
 - `record_pair_is_two_latches_holds`: Under the same conditions for two records, the pair evolves as two latches whose events may each read the other record.
 - `toggle_not_latch`: A record on a counter base that flips at every step is driven by the computation and is not the latch of any event.
-- `clock_record_not_driven`: A record switched on by a hidden clock at its fifth tick never switches off and is not driven by the computation.
+- `clock_record_not_driven`: The record switched on by a hidden clock at its fifth tick is not driven by the computation.
 - `latch_core_honest`: For any base and any event it reaches from a starting state, the machine that latches that event and charges one unit per write is an honest extension of the base.
 - `history_latch_injective`: If the base step is injective, the latch that also keeps every earlier record value has an injective step.
 - `history_latch_honest`: That history-keeping latch is an honest extension of its base whenever the base reaches the event.
@@ -86,7 +86,7 @@ An explicitly qualified citation keeps its own module identity.
 - `permanent_flip_uniform_entropy_drop`: From the uniform distribution on the `m + k` states in play, the step removes at least `log2((m + k)/m)` bits.
 - `a2_from_entropy_price_and_permanence`: On a finite state space with permanent certification, a whole-unit cost that covers the bits each instruction removes meets A2.
 - `entropy_priced_trace_floor`: Under the same premises, a trace from uncertified to certified costs at least one.
-- `permanent_flip_heat_floor`: Under the named premise `landauer_heat`, the uniform permanent flip dissipates at least `kT ln((m + k)/m)`.
+- `permanent_flip_heat_floor`: On a finite state space with a permanent reading, under the named premise `landauer_heat` and with `0 <= kT`, a flip of k > 0 states beside m certified ones, from the uniform distribution on those m + k states, dissipates at least `kT ln((m + k)/m)`.
 - `permanent_flip_heat_positive`: Under the same premise, with `k` at least one and positive temperature, that heat is positive.
 - `entropy_drop_as_point_sum`: For nonnegative weights `p` on a repeat-free list of every state, the entropy a deterministic step removes equals a sum over states of positive probability of `p(x) (log2 q(f x) - log2 p(x))`.
 - `entropy_drop_nonneg`: Under the same premises, that entropy drop is never negative.
@@ -360,7 +360,7 @@ An explicitly qualified citation keeps its own module identity.
 - `simulation_run`: Starting with the error flag false, any number of steps of a compiled two-counter program projects to the same number of two-counter steps and keeps the error flag false.
 - `earned_core_halting_undecidable`: Halting for the minimal earned-commitment machine is undecidable, by reduction from the vendored two-counter halting problem.
 
-- `a2`: Any minimal-machine step turning certification from false to true costs at least one.
+- `a2` (`Minimal.EarnedCore.a2`): Any minimal-machine step turning certification from false to true costs at least one.
 - `base_blind`: Projecting an executed step to its core gives exactly the core transition, independently of the ledger and certification flag.
 - `cert_latch`: After an instruction, certification is the old flag OR the event fired by that instruction on the core.
 - `cert_permanent`: A true certification flag stays true under every instruction.
@@ -376,12 +376,12 @@ An explicitly qualified citation keeps its own module identity.
 - `record_agreement`: Every host trace keeps the host's mirror equal to the guest's certified flag.
 - `record_agreement_program`: Every run of a stored host program keeps the host's mirror equal to the guest's certified flag.
 - `hload_agrees`: A freshly loaded host's mirror equals its guest's certified flag.
-- `simulated_record`: After n guest steps under the host, the mirror is the guest's certified flag after n steps of its own program.
+- `simulated_record`: For a host that is not trapped and whose mirror equals its guest's certified flag, after n guest steps the mirror is the guest's certified flag after n steps of its own program.
 - `toll_enforced_by_host_step`: When a guest step with budget b takes the guest's flag from down to up, the host's mirror goes from down to up in that same host step, the host's ledger rises by exactly b, and b is at least 1.
 - `every_guest_crossing_is_a_host_crossing`: A guest crossing between its steps n and n+1 is the mirror's crossing between host moves n and n+1, which costs 1.
 - `host_pays_for_guest`: One host move raises the guest's ledger by no more than it raises the host's.
 - `host_cost_covers_guest`: Over every host trace, the host's ledger grows at least as much as the guest's.
-- `simulated_cost`: The guest's total cost over n steps is at most the host's total cost over the matching n guest-step moves.
+- `simulated_cost`: For a host that is not trapped, the guest's total cost over n steps is at most the host's total cost over the matching n guest-step moves.
 - `no_free_host_certification_step`: If one host move raises the mirror, it is a guest step with budget at least 1 on an untrapped host whose guest's next instruction is CERTIFY, and the guest's flag crossed in that step.
 - `no_free_host_certification`: Any host trace that raises the mirror contains a guest step with budget at least 1 in which the guest's flag crossed.
 - `no_free_host_certification_program`: Any run of a stored host program that raises the mirror contains such a guest step.
@@ -406,14 +406,14 @@ An explicitly qualified citation keeps its own module identity.
 - `mm2_step_iff`: A vendored two-counter step is equivalent to the translated executable two-counter step returning the same successor.
 - `mm2_stop_iff`: The vendored two-counter stopping predicate is equivalent to the translated executable step returning None.
 - `mm2_terminates_iff`: Vendored two-counter termination is equivalent to reaching an executable stopping configuration after finitely many translated steps.
-- `mu_conservation_trace`: The minimal-machine ledger after a trace equals its initial value plus the sum of instruction costs.
-- `nfi_floor`: Any trace taking the minimal-machine flag from false to true has total cost at least one.
-- `no_cert_oracle`: No function of the two-counter window recovers the certification flag on every trace from start 0 0.
+- `mu_conservation_trace` (`Minimal.EarnedCore.mu_conservation_trace`): The minimal-machine ledger after a trace equals its initial value plus the sum of instruction costs.
+- `nfi_floor` (`Minimal.EarnedCore.nfi_floor`): Any trace taking the minimal-machine flag from false to true has total cost at least one.
+- `no_cert_oracle` (`Minimal.EarnedCore.no_cert_oracle`): In minimal/EarnedCore.v, no function of the two-counter window recovers the certification flag on every trace from start 0 0; minimal/MuCore.v proves the same for its strict shadow and `st_cert` over every state, and minimal/Napkin.v for its own shadow.
 - `no_commit_oracle`: No function of the two-counter window decides whether COMMIT of counter A being zero would pass on every trace from start 0 0.
 - `no_forging_step`: Appending any instruction to a trace preserves its no-forgery property.
-- `only_certify_certifies`: A step changing certification from false to true must be CERTIFY with its guard satisfied.
+- `only_certify_certifies` (`Minimal.EarnedCore.only_certify_certifies`): A step changing certification from false to true must be CERTIFY with its guard satisfied.
 - `program_certified_min_cost`: A program run from a standard start that ends certified has ledger at least three.
-- `receipt_separation`: Two concrete traces have the same two-counter window and versions but different ledgers, certification flags, fact tables, and permission to commit counter A being zero.
+- `receipt_separation` (`Minimal.EarnedCore.receipt_separation`): In minimal/EarnedCore.v, two concrete traces have the same two-counter window and versions but different ledgers, certification flags, fact tables, and permission to commit counter A being zero; in minimal/MuCore.v, one CERTIFY and one STORE from the empty state give the same strict shadow, with ledgers 1 and 0 and the flag up and down.
 - `simulation_step`: From an error-free core, translated two-counter stopping agrees with minimal-machine halting, and each two-counter successor is the projected core successor with error still false.
 - `sound_step`: Every core instruction preserves the invariant that fact versions do not exceed current versions and current-version facts hold of their counters.
 - `uncommitted_certify_traps`: If the certification guard fails, CERTIFY raises the core error flag and leaves the certification flag unchanged.

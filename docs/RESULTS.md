@@ -77,7 +77,7 @@ at least one and its base is universal. Thiele-complete
 asks for four clauses (minimal/ThieleComplete.v): a universal base whose moves
 are free and cannot touch the record; a record that rises only after a passing
 check of a claim, a commitment to that same claim with nothing it is about
-changed in between, and a certificate; an exact toll, one mark for each of
+changed in between, and a certificate, with the checker proved to mean what it says; an exact toll, one mark for each of
 those three acts and nothing for anything else; and a claim whose check could
 have failed.
 
@@ -149,8 +149,9 @@ The questions here ask how much of a machine the record axis pins down.
   (`record_pair_is_two_latches`). Coq: `record_axis_is_latch_holds`,
   `record_pair_is_two_latches_holds`.
 - **Proved.** Both premises do work: a record that can switch back off is not
-  a latch, and a record switched on by a hidden clock
-is permanent and is not driven by the computation. Coq: `toggle_not_latch`, `toggle_not_permanent`,
+    a latch, and a record switched on by a hidden clock
+is permanent and is not
+  driven by the computation. Coq: `toggle_not_latch`, `toggle_not_permanent`,
   `clock_record_permanent`, `clock_record_not_driven`.
 - **Proved.** Every base can carry the axis: the base plus a latch on any
   event it reaches, charging one unit when the latch sets, is an honest

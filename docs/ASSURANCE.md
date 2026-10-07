@@ -37,4 +37,4 @@ Earlier releases of this repository carried a 51-instruction virtual machine, a 
 - **Assumed**: supplied as a premise of a theorem or gate.
 - **Outside scope**: deliberately not claimed by the model or gate.
 
-Real limitations stay visible in the relevant theorem and document. The documentation does not describe the order in which a result was discovered, repaired, or deferred.
+Real limitations stay visible in the relevant theorem and document. Apart from the dated timeline in TECHNICAL_DISCLOSURE.md and the monograph's own history, the documentation does not describe the order in which a result was discovered, repaired, or deferred.
