@@ -3046,8 +3046,8 @@ Push on that and you've found what double entry actually is: a trap for slips. A
 careful liar walks straight through it. Pacioli knew. The scholar Forrester reads him as reporting that in many places the
 books were taken to the local consul to be authenticated before a single entry went in. The
 stamp is a witness again, from outside. The two columns are the discipline; the stamp is the
-claim that someone other than you will stand behind the fact that these books, and not some
-others, are the books. Keep both halves separate in your head. One is a method. The other is a
+claim that someone other than you will stand behind the fact that these are the books.
+No other set gets that stamp. Keep both halves separate in your head. One is a method. The other is a
 commitment.
 
 And then I found the place where this got turned into a motto. The Royal Society, founded
@@ -3105,8 +3105,7 @@ one framing where a record genuinely costs, and what it charges for is a search:
 tries it took to find a lucky number. An empty block costs the same work as a full one. So the
 work prices the search. The moment anything becomes certified costs nothing extra. Robert Floyd
 and Tony Hoare, two computer scientists asking how you'd prove a program does what it's
-supposed to, in 1967
-and 1969, attached claims to points in a program (``whenever you get here, this is true''), and
+supposed to, attached claims to points in a program in 1967 and 1969 (``whenever you get here, this is true''), and
 the claim is backed by a proof that's paid for off the machine. And the certificates of
 complexity theory, which go back to Stephen Cook's 1971 work on NP, are strings designed to be cheap to check:
 hand me the certificate and I can confirm the claim quickly. Whether they're also expensive
@@ -3115,8 +3114,8 @@ settled is only the cheap half. That's the opposite of a price on vouching: the 
 goal is that checking a claim costs nearly nothing. And from statistics, a ledger that runs the
 other way: Dean Foster and Robert Stine's alpha-investing (2008) runs a long string of tests
 against a budget of allowed false alarms, where every test spends some of the budget and every
-discovery, a rejection that stands, pays some back. So there are records that don't come down
-and a ledger, with the price on the test and the commitment earning some back.
+discovery, a rejection that stands, pays some back. So there are ledgers like that too: the price sits on the test, and a discovery
+that stands earns some of it back.
 
 \subsection{What they all agree on, and who they rule out}
 
@@ -3148,7 +3147,7 @@ of people and their risk. Paper has nothing to do with it.
 
 Accounting: the record checks itself for slips. The two columns. And here's a thing to keep
 straight: the second column is \emph{not} an outside witness. It's you,
-checking you. It catches a dropped digit; it doesn't catch a careful liar, as you saw. It
+checking you. It catches a dropped digit. A careful liar gets past it, as you saw. It
 belongs on this list as its own job, separate from the seven seals.
 
 Cheap checking: a record whose correctness can be confirmed for much less than it cost to
@@ -3165,7 +3164,7 @@ everything I had, and that's where it ran out. If the bill exists, nobody in thi
 wrote it down, and that's either because it isn't there or because the one person who did
 write it down is on a shelf I never found. So I'm going to have to try it myself, on the
 smallest thing I can build, and let you watch. And I'll have to be honest about which of the
-five jobs the small thing even attempts, because it's not going to be all of them.
+five jobs the small thing even attempts, because the answer is going to be none.
 
 \subsection{The smallest thing that could carry the bill}
 
@@ -3179,7 +3178,7 @@ is a flag. Whether a flag can ever be made to \emph{mean} that something was che
 relied on is a real question, and it's not this section's; I'll build toward it later, and
 until then please read YES as ``the flag is up'' and nothing more. Where the state is: which
 box you're in. That's the whole state, one bit. Then draw a line under the boxes for tally
-marks. The marks are not part of the state; they're the running total you keep beside it as
+marks. The marks sit outside the state. They're the running total you keep beside it as
 you play, the way you'd keep score beside a board game.
 
 Now give yourself three moves. STAY: you don't move, no mark. WORK: you don't move either (it's
@@ -3222,7 +3221,7 @@ grows because the costs are whole numbers, zero or more. (A machine could keep t
 total inside its state too; that's an extra part beyond the five, and Section~\ref{sec:counter} builds it.) There's no window, no observer
 who sees only part of the state; that's a later question and it gets its own section. And
 the cost depends only on the move's name; where you are when you make it doesn't matter, which is a
-real simplification and I'll say so when it matters.
+real simplification, and I'll flag it where it counts.
 
 One rule, which I'll call the toll. For every state and every move: if the reading is NO
 before the move and YES after it, the move's cost is at least one mark. That's all. It says
@@ -3291,14 +3290,14 @@ yes, not what any move does beyond the reading before and after.
 
 Where to check it: the record's six fields are \code{cs\_state}, \code{cs\_instr}, \code{cs\_step}, \code{cs\_cost},
 \code{cs\_cert}, and the toll \code{cs\_cert\_costs}; the theorem is \code{universal\_nfi\_any\_substrate}, in the
-same file; and the checked proof is the induction above, step for step, so the names identify
-the companion formalization and the argument is the one on this page. One honest edge:
+same file; and the checked proof is the induction above, step for step. One honest edge:
 the theorem does not assume that a YES state exists. If no state ever
-reads YES, the theorem is true for no runs at all, which is a mathematician's way of saying
+reads YES, no run meets the theorem's hypothesis, so it's true of every run and tells you
+nothing about any of them, which is a mathematician's way of saying
 it's true and useless. The toy on your paper has a YES box, so it isn't useless there. It
 would be natural to assume the system has to have at least one NO state and one YES state;
 the checked statement has no such clause, and that's on purpose, because a theorem that
-holds for no runs is still a theorem and the toy is where you supply the runs.
+applies to no run is still a theorem and the toy is where you supply the runs.
 
 The theorem also runs backwards, and that direction is one line. Suppose every run from a state
 reading no to a state reading yes costs at least one, whichever state you start from. A single
@@ -3312,7 +3311,8 @@ And the bound of one is the smallest case of a count. Under the toll a run costs
 of times it takes the reading from no to yes, with no permanence assumed
 (\code{nec\_f\_cost\_ge\_rises}). That bound for every run is again the same rule as the toll
 (\code{nec\_f\_rises\_iff\_a2}). And it is reached for every count: on a one-bit machine whose set
-costs one and whose reset is free, setting and resetting $k$ times from no rises $k$ times and costs
+costs one and whose reset is free, setting and resetting $k$ times from no takes the reading
+from no to yes $k$ times and costs
 exactly $k$ (\code{nec\_f\_bit\_rises\_exact}). All of these are in NecFFloor.v.
 
 And one more edge, because it's the first thing to bite when you ask a machine to stand behind
@@ -3387,8 +3387,7 @@ the marks. It depends on the reading you give the pair. Take a reading that can 
 when one of the parts' readings goes up, like ``either flag is up'' or ``both are'': then any
 crossing of the pair is a crossing of a part, that part's toll charged it, and the pair obeys
 the toll. Take ``the first flag is up and the second is down,'' and it doesn't: that reading
-turns on when the second flag falls, and nothing charges a fall. That's an argument on this
-page. The first two readings are checked: read through ``either flag is up'' the pair is a
+turns on when the second flag falls, and nothing charges a fall. The first two readings are checked: read through ``either flag is up'' the pair is a
 certification system whose floor is one. Read through ``both are,'' a run that starts with both
 flags down and ends with both up costs at least two, and two is reached when each part can
 raise its own flag for one (Section~\ref{sec:parts}).
@@ -3471,7 +3470,7 @@ That's the whole argument, and I want to name the piece of mathematics that did 
 because it's old and it's not mine. If you put more things into fewer boxes than there are
 things, some box gets two. People call it the pigeonhole principle; it's the one from the
 opening chapter, where Jean Leurechon used it in 1622 to argue that two people somewhere have
-the same number of hairs, and the first name for it came from Dirichlet, who used it in 1842 and later called it the drawer principle. It's the kind of fact a child accepts and a
+the same number of hairs, and the first name for it I could find came from Dirichlet, who used it in 1842 and later called it the drawer principle. It's the kind of fact a child accepts and a
 mathematician spends a career finding new uses for. Here the use is: a step that forgets
 nothing is a one-to-one shuffle, a one-to-one shuffle of a finite set of chairs hits every
 chair, so the inside chairs are all taken by insiders, so there's no room for the newcomer.
@@ -3589,7 +3588,7 @@ language can be recognised with no entropy produced at all. One of their worked 
 the strings with no $b$ in them, which is my flag turned inside out: the runs that raise it are
 exactly the strings that have seen a $b$. So the chairs, a real price on them, and the escape
 when you already know which chair you're in are all in their paper, three years before this
-book, with the price derived from the physics of the device rather than assumed.
+book. Their price is derived from the physics of the device. Mine is assumed.
 
 There's a fourth neighbour, more a cousin than a relative, because it speaks another
 language. Constructor theory is David Deutsch and Chiara Marletto's programme for stating
@@ -3611,7 +3610,7 @@ outcome stays in an information variable. That's a second, theory-independent wa
 that a record that stays makes the step irreversible.
 
 So what I can claim here is narrower again, and I'd rather say exactly how. Is even the pricing
-form theirs? In physics, yes: a merge the language can't avoid costs entropy, and they derived
+form Ouldridge and Wolpert's? In physics, yes: a merge the language can't avoid costs entropy, and they derived
 that. What I didn't find in their paper is the price as a named rule about a move, one a
 machine charges on a ledger whether or not anybody's physics is right (put a price on merging
 and the flip has to pay it, which is the next subsection), and what I get out of that rule: the
@@ -3673,7 +3672,7 @@ section, with its jump made free, meets the toll without merge pricing
 (\code{nec\_f\_a2\_without\_merge\_pricing}). All four are in NecFMerge.v.
 
 One more way to see the same thing, because it answers a rival I'd otherwise owe you. The
-rival says: don't price certification, price \emph{erasure}, and keep an honest flag that reports
+rival says: leave certification alone. Price \emph{erasure}, and keep an honest flag that reports
 when something was erased. Fine; but a system can set its certificate at cost zero with its
 erasure flag reporting nothing, exactly because the certifying move merged two states and
 the flag didn't say so (\code{commit\_without\_erasure\_system\_is\_not\_honest}). Make the erasure
@@ -3708,14 +3707,16 @@ where a new guest still gets a room: everybody moves from room $n$ to room $n+1$
 comes free. That's the chairs argument losing its grip, told as a joke about a front desk.
 And here's the part worth checking: Hilbert never published it. The hotel became famous
 because George Gamow put it in a popular book in 1947, and for a long time it wasn't clear Hilbert had told it at all. The historian of science Helge
-Kragh first guessed that Gamow had made it up. Then Tilman Sauer pointed him to Hilbert's lecture
+Kragh first guessed that Gamow had made it up. Then Tilman Sauer, a historian of science who
+had co-edited a volume of Hilbert's lectures on the foundations of physics, pointed him to Hilbert's lecture
 notes, which had just been printed in 2013, and in 2014 Kragh took his guess back in a paper called
 ``The True (?) Story of Hilbert's Infinite Hotel.'' Keep the question mark. Even Kragh's own paper
-puts the lecture in January 1924 in one place and January 1925 in another. Still, a story
-everybody repeated has a real lecture behind it, and I've learned not to count on that. Bring it back to the table. In the room, the person from the door had nowhere
+puts the lecture in January 1924 in one place and January 1925 in another. Still, this time a story
+everybody repeated turned out to have a real lecture behind it. I've learned not to count on that
+happening. Bring it back to the table. In the room, the person from the door had nowhere
 to sit because the chairs ran out. In Hilbert's hotel they never do, so everybody shifts one
-over and nobody has to share. The strip machine is that hotel. It doesn't change the
-argument; it shows you the argument was about running out of chairs all along.
+over and nobody has to share. The strip machine is that hotel. The argument stays the same.
+What the hotel shows you is that it was about running out of chairs all along.
 
 What walked out the door is the finiteness premise. Now cut the strip to eight boxes and run
 it for real: eight boxes, nine moves. On the ninth move there's nowhere to write. To keep going you have to reuse a box, and
@@ -3732,8 +3733,7 @@ not contain a sentence saying ``and this machine is infinite''; that's something
 see about a list of unbounded length, but no Coq statement says it. And it contains no cost
 at all. ``Certifies for free'' is written in a second theorem, \code{history\_escape}
 (AxMerge.v): there the strip is counted as a number, each move adds one at a cost of zero,
-nothing merges, merge pricing holds, and the toll fails. I'd
-rather mark where the words outrun the file than let them run.
+nothing merges, merge pricing holds, and the toll fails. So I'm marking the place where the words outrun the file.
 
 \subsection{Door two: let the flag come back down}
 
@@ -3828,7 +3828,7 @@ Permanent: stamped stays stamped. Flip: blank goes to stamped. Forgets: both she
 the same stamped sheet. Everything the room argument needs is here, and the move merges. Now
 set the price of that move to zero. The toll fails, and you can watch it fail: the flag went
 up for nothing.
-That's \code{free\_merge\_escapes}, and what walked out the door is the charge on forgetting. (The
+That's \code{free\_merge\_escapes} (PermanentCertification.v), and what walked out the door is the charge on forgetting. (The
 same file shows that a price of one on that move satisfies all three premises,
 \code{priced\_reset\_satisfies\_premises}, so the premises can hold together; door three is about
 whether they must.) Nothing in counting stops you from setting that price to zero. Only a
@@ -3839,8 +3839,8 @@ the cup below will show, is owed only for what you didn't know. So the premise i
 claim taken in its worst case over what the machine might be holding, and that's the
 version the counting needs.
 
-Here is what Landauer said, in 1961, as exactly as I can put it after reading the paper
-rather than the summaries. A logical operation with no single-valued inverse (a step that
+Here is what Landauer said, in 1961, as exactly as I can put it. I went past the
+summaries and read the paper itself. A logical operation with no single-valued inverse (a step that
 forgets, in this book's words) must produce heat, ``typically of the order of kT'' per operation, where
 k is Boltzmann's constant and T is the temperature; and for the specific case of resetting
 one bit whose value you don't know, the minimum is kT times the natural log of 2, about 0.69
@@ -3913,7 +3913,7 @@ its size as it moves; quantum mechanics is unitary, which is one-to-one too. So 
 section says a step merged two states, where did the difference go? Out of the machine. The
 merge is in the machine's own description, the states its reading is about. The machine
 together with everything around it still runs one-to-one, and the distinction the machine
-forgot doesn't vanish; it gets pushed out into the surroundings, mostly as heat. The
+forgot survives. It gets pushed out into the surroundings, mostly as heat. The
 surroundings are door one's endless strip. That door is always open for the universe as a
 whole and shut for the machine, because the machine isn't the universe and its memory fills.
 Read that way, Landauer's premise is the claim that pushing a distinction out of a finite
@@ -3961,7 +3961,8 @@ constant ``is frequently termed Boltzmann's constant, although to the best of my
 Boltzmann himself never introduced it,'' and guessed that Boltzmann never believed anyone could
 measure it accurately. I'd assumed Planck named it after Boltzmann. His own words point the other
 way: it was other people calling it that. Who first did, I couldn't pin down; one recent paper
-points to Paul Ehrenfest in 1906, the year Boltzmann died, and I haven't checked that myself. So
+points to Paul Ehrenfest in 1906, the year Boltzmann died, and I haven't checked that myself.
+Ehrenfest was an Austrian physicist who had done his doctorate under Boltzmann in Vienna. So
 the most famous constant in this corner of physics wears the name of a man who didn't write it
 down. Does that change the bill? No. But look at the job the
 constant does in that equation. Take it away and what's left is the logarithm of a count,
@@ -3990,8 +3991,8 @@ $2^{\mathrm{cost}(i)}$ members. The other: any list $D$ splits by where its memb
 each part fits inside one pile, so $|D|$ is at most the number of landing spots times the
 worst pile-up, which is the premise. So the halving price asks a move to pay for the worst it
 could ever do, whichever state it's actually handed. That's worst case on purpose, and it has
-a home in physics. In the branch of thermodynamics that prices one run that
-has to succeed every time, rather than an average over many, Philippe Faist, Frédéric
+a home in physics. In the branch of thermodynamics that prices a single run that
+has to succeed every time, with no averaging over many runs, Philippe Faist, Frédéric
 Dupuis, Jonathan Oppenheim and Renato Renner worked out in 2015 the least work any logical
 process needs, and when every input might occur and no error is allowed, their bound comes to
 $k_B T \ln 2$ times exactly that logarithm. Take an AND gate as the example: three inputs
@@ -4043,7 +4044,8 @@ least what this one charges (\code{ent2\_frag\_cost\_minimal}). Third, the squee
 equality there: the stamp turns four blank sheets on beside four already on, and
 $4 + 4 = 2^{1} \cdot 4$ (\code{ent2\_frag\_bound\_attained}). Fourth, and this is the limit, the small
 machine of Part IV as a whole does not meet the halving price, whatever procedure you use to decide
-whether two of its states are equal, because a free DEC lands two different full states on one
+whether two of its states are equal, because one of its free moves, the one that takes one off
+a number the machine holds, lands two different states of the whole machine on the same
 state (\code{ent2\_small\_not\_compression\_priced}; the pair is in
 Theorem~\ref{thm:frag-merge-split}). So on that machine the toll is the rule I chose, as I said it
 was, and now that's a theorem (CompressionSmall2.v), where before it was a remark.
@@ -4070,7 +4072,7 @@ which side conditions, one of which (the temperature has to be taken as zero or 
 easy to skip and shouldn't be.
 
 Why does Shannon's number share a name with the physicists' entropy at all? There's a story
-about it. Shannon wanted to call it uncertainty, and John von Neumann
+about it. Shannon wanted to call it uncertainty, and the mathematician John von Neumann
 told him to call it entropy instead, for two reasons: the same formula already lived in
 statistical mechanics under that name, and nobody really knows what entropy is, so in an
 argument he'd always have the upper hand. It's a great story. It comes from Myron Tribus, who spent years tying information theory to
@@ -4381,10 +4383,10 @@ again. And you've earned this: if forgetting
 is charged for, the toll follows, and if forgetting is charged per halving, the size of the
 toll follows too; each of those derivations hands back a system with the five parts and the
 toll, so Section~\ref{sec:toll}'s floor applies to it as it stands.
-That's the rule from Section~\ref{sec:toll}, derived rather than declared, with every premise named, for any
-finite machine with a flag that stays up.
+That's the rule from Section~\ref{sec:toll}, now derived, with every premise named, for any
+finite machine with a flag that stays up. In that section I only declared it.
 
-Here's what you haven't earned, and I'd rather list it than have you assume it. You haven't
+Here's what you haven't earned. I'm listing it so you don't assume it. You haven't
 earned that forgetting costs anything in the world; that's Landauer, it's measured for beads
 and argued over for the general case, and in the checked work it's an assumption with a name.
 And even granting it, Landauer charges a run that knows where it is nothing at all (the lifted
@@ -4397,7 +4399,7 @@ for it as a whole. And you can't patch that by giving the total a ceiling. A tot
 climbs, held in finite memory, eventually either stops at its top, and then two different
 histories leave the same top value, which is a merge, or rolls back over to zero, and then it
 doesn't only climb. So any running total a finite machine keeps for itself has a horizon:
-it's honest up to its width and no further. And a price list that charges the step that raises the flag, but lets
+it's honest up to its width and no further. And a machine whose price list charges the step that raises the flag, but lets
 some other step merge two states for nothing, raises the flag honestly and still doesn't
 charge for forgetting in general, so the merge-pricing premise fails for it. Either one puts
 a machine outside these theorems as stated, though a finite piece of it can still sit
@@ -4526,7 +4528,7 @@ at least as much, probably more. Finding out. Every time a machine rules out a p
 it did. If forgetting a bit costs, does learning one cost too? I had a strong feeling about
 this, and you probably have it too, so here it is first: learning is the expensive part. Most
 physicists had that feeling as well, for a long time. It's why the demon took a hundred and fifteen
-years to exorcise. This section is me finding out where the feeling goes wrong. Or didn't. ``Exorcise'' is the word the people who think it worked like to
+years to exorcise. Or didn't. This section is me finding out where the feeling goes wrong. ``Exorcise'' is the word the people who think it worked like to
 use. John Earman and John Norton, the doubters from the last section, called their two-part
 paper on it ``Exorcist XIV: The Wrath of Maxwell's Demon,'' and I read that Roman numeral as a
 joke about how many times the demon has been declared gone. So hold the word loosely. I'm
@@ -4598,7 +4600,7 @@ starts blank. After looking, the notepad says ``left'' or ``right.'' Two possibl
 ``left''; right, ``right''). Nothing merged. Two in, two out, and you can read the before off the
 after. Copying what you see onto a blank page forgets nothing, and a step that forgets nothing
 is a step Landauer doesn't charge for. Brillouin had priced one particular way of looking
-(bouncing light) and took it as the price of getting information at all. Bennett showed a way of looking that doesn't pay it.
+(bouncing light) and took it as the price of getting information at all. Bennett gave a way of looking that, on his account, doesn't pay it.
 
 So where is the bill? The being has one notepad and a lot of molecules. After the first
 molecule the page is full. To do the next one it has to wipe the page. And \emph{wiping} takes two
@@ -4666,8 +4668,9 @@ off yours doesn't move it.
 
 And here I have to be fair to Jaynes, because he'd argue with where I just took his phrase. In
 a 1965 paper on Gibbs's and Boltzmann's entropies he wrote that entropy is ``an anthropomorphic
-concept'' (a phrase he credited to Eugene Wigner): a property not of the physical system but
-of the particular experiments you or I choose to do on it. So for Jaynes the second law is
+concept'' (a phrase he credited to the physicist Eugene Wigner), and by that he meant a property
+of the particular experiments you or I choose to do on a physical system. On his account the
+system alone doesn't carry it. So for Jaynes the second law is
 about what's known too, and the line I'd have liked to draw, that the second law has opinions
 about the machine and none about you, is exactly the line he'd refuse. Who's right is one of
 the oldest fights in statistical physics, Jaynes's reading against Boltzmann's, and I can't
@@ -4790,8 +4793,8 @@ loses its physics. I can't referee that one either.
 
 \subsection{Who holds the pen changes the bill}
 
-Now the part that I think is the most beautiful fact in here, and the way to find it isn't
-by thinking; it's by playing with the four dots. Run MEASURE \emph{twice}. The first copies the
+Now the part that I think is the most beautiful fact in here. You find it by playing
+with the four dots. Thinking about them won't get you there. Run MEASURE \emph{twice}. The first copies the
 hidden bit onto the display. The second adds the hidden bit in again, and adding a bit twice
 with a light-switch add gets you back where you were: the display is blank again. Check the
 arrows: 10 to 11 to 10. The display went full and then blank, and nothing merged, and the
@@ -4805,7 +4808,7 @@ and ``regardless'' is exactly the many-to-one. Bennett has the general form of t
 notes: he lists the ``erasure of one of two copies of data known to be identical'' among the
 logically reversible operations, because you're removing a duplicate, and no information is
 destroyed. And it goes further than Bennett in
-work that came after him: Lídia del Rio and colleagues in 2011 showed that the cost of erasing a
+work that came after him: the quantum physicist Lídia del Rio and colleagues argued in 2011 that the cost of erasing a
 system depends on how much the eraser already knows about it, down to zero and in the
 quantum case past zero. The bill for clearing a record is sent to whoever clears it, and it's
 smaller the more they know. Try it with a card under a cup and a sticky note: write the
@@ -4878,7 +4881,8 @@ merging; the toll comes from a merge, the opposite shape. His stability is for a
 stabilization means something only on times that aren't too long next to the time it takes
 things to thermalize, and past that nothing stays chosen; my permanence is forever (and the
 last section owned up that forever is an idealization). And he doesn't stand beside Bennett at
-all: he holds that any measurement is dissipative, credits the point to Reichenbach, and
+all: he holds that any measurement is dissipative, credits the point to the philosopher of
+science Hans Reichenbach, and
 doesn't cite Bennett. So what Rovelli and I share is a sentence, that a choice that sticks
 costs something like Landauer's bill. There's no shared mechanism. Push on it and his coin hitting the
 ground, a fact gained from something nobody could predict, sits closer to what this section
@@ -4945,7 +4949,7 @@ it one.
 
 And one more boundary. This whole section is about a machine that's finite and deterministic
 and a watcher who crosses candidates off a list. There's no quantum anything in it. This narrowing has nothing to do with ``observation
-collapses the state,'' whatever ``watching narrows things down'' might call to mind: the
+collapses the state'': the
 narrowing here is bookkeeping in the watcher's
 list, the machine never notices, and the result would be the same if the watcher were a
 filing cabinet. In 2010 a group in Tokyo (Toyabe, Sagawa, Ueda, Muneyuki and Sano) did
@@ -4973,8 +4977,7 @@ toy. For anything that's going to run on its own, with nobody tallying, the tota
 somewhere the machine can reach, which means the machine can, in principle, reach it. So
 this section is about what a counter has to be before you're allowed to call it a receipt.
 I mean the counter of \emph{any} machine whose state carries
-a running total that every step bumps by whatever a price list says that step costs, whichever
-machine that is. Section~\ref{sec:toll}'s
+a running total that every step bumps by whatever a price list says that step costs. Section~\ref{sec:toll}'s
 five parts don't need one (there the total was a sum you did on the side), so this is one
 piece added to the five, and the facts below are about anything that has it. I'll give
 you the answer first, because it's short, and then spend the section on why each word is
@@ -5036,7 +5039,7 @@ what happened before what. His answer is a counter per machine with two rules: a
 you do anything, and when a message arrives carrying the sender's count, jump your own counter
 above it (never below your own). Those counters, he showed, respect cause and effect: if this
 caused that, this has the smaller number. And they do it ``with no actual timing mechanism,''
-his words; they're not clocks at all. Try it with three people passing notes and you'll see
+his words; they're clocks only in name. Try it with three people passing notes and you'll see
 it work in two minutes, and then let one of them reset their counter to zero after reading a
 note, and watch a reply come out numbered \emph{before} the note it replies to. A counter that
 goes down can't be leaned on for order.
@@ -5191,9 +5194,10 @@ same state. If they leave the target in two different states, there's no single 
 to send that state. That's the whole obstruction, and it's exact: the map from states exists
 on the reachable ones precisely when equal states always come from lists that agree on the
 other side. Call that the \emph{descent} condition, because it's what
-lets the fold come down from lists to states. A toll plus a reading that agrees doesn't force
-it to happen. A machine that keeps its whole history as its state obeys any toll you like and
-still never comes down. So the fold is unique on lists, and that's what the word ``initial''
+lets the fold come down from lists to states. A toll doesn't force it. Take the one-bit machine whose set costs one and whose
+reset is free. It obeys the toll, yet a single set and a reset followed by a set leave its
+bit in the same state. A target that keeps its whole history as its state tells those two
+runs apart, so nothing comes down. So the fold is unique on lists, and that's what the word ``initial''
 earns. It doesn't make anybody's states initial among everything that obeys the toll, and I
 won't say it does. The fold and the descent condition are checked over any machine: the fold
 is the one such map (\code{nec\_f\_fold\_unique}), descent holds exactly when each reachable
@@ -5202,7 +5206,7 @@ factors through gives descent (\code{nec\_f\_factor\_gives\_descent}), all in Ne
 history-keeping machine is the example that shows where descent fails
 (\code{nec\_f\_descent\_fails\_for\_history}).
 
-And the borrowed word has a home, which I'd rather point at than pretend I built. That lists
+And the borrowed word has a home. I didn't build it, so I'll point at it. That lists
 of moves are the starting object, and that a machine's behaviour factors through its reachable
 states exactly when a condition like descent holds, is the theory of minimal realization. Joseph
 Goguen put it as a universal property in 1973, in a paper whose title says it outright,
@@ -5215,8 +5219,9 @@ is doing nothing here, just as I said.
 
 Now a thing I first took as a let-down. It would be nice to have a new kind of
 cost argument. This isn't one. The toll is a case of a technique that
-algorithm people have used since 1985 and that physicists had, in a different costume, in
-1892, and I'd rather tell you it's old than let you think I invented it.
+algorithm people have used since 1985 and that a mathematician studying the stability of
+motion had, in a different costume, in
+1892. I'm telling you it's old so you don't think I invented it.
 
 The trick is called the potential method, and here's the whole of it. Give every state a
 number, call it the potential, that measures how much ``owing'' is stored up in that state.
@@ -5308,8 +5313,8 @@ grades wherever a fixed grade can be exact, and where a run's cost depends on it
 the exact number that a fixed grade can only bound. What has no counterpart in the step is the
 checking ahead of time: a type checker turning a program away before it runs.
 
-There's one more neighbour, closer than any of those, and I'd rather name it than wait for
-somebody to name it at me. A number the step keeps up to date and nothing else ever reads is
+There's one more neighbour, closer than any of those, and I'll name it before
+somebody names it at me. A number the step keeps up to date and nothing else ever reads is
 what program-proof people call an \emph{auxiliary variable}, or \emph{ghost} state. Susan Owicki
 and David Gries added auxiliary variables to parallel programs in 1976, because some true facts
 about such a program can't be proved without one, under the rule that an auxiliary variable
@@ -5364,7 +5369,7 @@ state-dependent-cost results \code{flips\_le\_cost} and \code{a2\_and\_aara\_iff
 So what's new, if the method isn't? Only where it's pointed. The potential method is a way of
 proving things about costs. What this book adds is a claim about \emph{which} potential, the
 flag, and about what happens to that claim when you can only see a window of the state. The
-method is Tarjan's. The reading is mine, and I'm about to find out what it can and can't
+method is Tarjan's and Sleator's. The reading is mine, and I'm about to find out what it can and can't
 survive.
 
 The flag potential has relatives in physics-flavoured mathematics too, which I
