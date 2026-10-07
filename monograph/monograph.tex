@@ -1190,7 +1190,11 @@ So here's what I built, and which parts I was pushed into and which parts I chos
 should know which is which.
 
 The Thiele Machine is a model of computation, the way Turing's machine is: math you can reason
-about. You can't buy it in a box. It has a few parts. A state. A step that moves the state. A record: a
+about. You can't buy it in a box. It isn't a device, a CPU or an instruction set; those are things
+you build to carry it, and Part IV builds one, as small as I could make it. Unlike a Turing
+machine, it computes nothing new. It adds what a computation \emph{establishes}, and what
+establishing it cost. The event it accounts for happens on any computer, whether anybody keeps
+track of it or not, and the record exists only if something keeps it. It has a few parts. A state. A step that moves the state. A record: a
 yes-or-no reading of the state that says whether something's been established. A charge on each kind
 of move, added up on a counter that only climbs. One rule, which I call the toll: the step that
 flips the record from no to yes has to cost at least one mark on that counter. And a window, what an
@@ -1367,7 +1371,8 @@ faster. It isn't quantum. It says nothing about which problems are hard.
 
 And an ordinary computer can keep a record like this. Give a Turing machine a spot for the record
 and a track for the counter, write its rules so it never sets the spot without bumping the counter,
-prove that, and it \emph{is} a Thiele machine. It's no counterexample. What an ordinary programmable
+prove that, and it \emph{is} a Thiele machine. It's no counterexample
+(Section~\ref{sec:machine-vs-program}). What an ordinary programmable
 computer, as built, doesn't do is make its own step enforce a record \emph{for the programs it runs}.
 When it runs another program, that program's record is just data in memory the program can write,
 and a buggy program can flip it for free, because the host's step has no opinion about it. Could it
@@ -1385,13 +1390,14 @@ of those, as the simple picture. The universal Thiele machine doesn't get that m
 program, written in the small machine's own six kinds of instruction on a host with more counters,
 and it fetches, decodes and carries out each guest instruction itself, the way Turing's universal
 machine does. The theorems are about that program: it halts exactly when its guest halts, with the
-guest's answer in its counters; its flag goes up exactly when the guest's would, by its own check,
-its own commit and its own certificate; its ledger matches the guest's mark for mark; and the
-machine it runs on is Thiele-complete (Section~\ref{sec:universal-host}). Its guests are the small
-machine's programs, which compute everything. Add one move that pays a mark and does nothing else,
+guest's answer in its counters; its flag goes up at some step of its run exactly when the guest's
+goes up at some step of the guest's, by its own check, its own commit and its own certificate; its
+ledger equals the guest's at every point where the two runs match; and the machine it runs on is
+Thiele-complete (Section~\ref{sec:universal-host}). Its guests are the small machine's programs,
+from every clean start, and those programs compute everything. Add one move that pays a mark and does nothing else,
 and the same kind of program runs every Thiele machine
-whose next move, step, prices and reading are computed by programs: it halts when the guest's run stops, its flag goes up exactly when the guest's reading
-has said yes, on a chain whose check is the guest's own reading, and its ledger is the guest's prices plus at most two marks at the raise when the guest's reading starts at no (when
+whose next move, step, prices and reading are computed by programs: it halts when the guest's run stops, its flag goes up at some point exactly when the guest's reading
+is yes at some state of its run, on a chain whose check is the guest's own reading, and its ledger is the guest's prices plus at most two marks at the raise when the guest's reading starts at no (when
 it starts at yes, the host has to raise its flag at once and pays three on a ledger of nothing), a surcharge no program on that host, run from a clean start, can avoid when the guest's whole ledger at the raise is below three (Section~\ref{sec:presented-universal}). A Thiele machine whose
 reading no program decides isn't covered, and I say exactly where the edges are.
 
@@ -1427,14 +1433,8 @@ out no, and I say so where it matters. It's Thiele-complete in the strong sense 
 back, and that sense has teeth: every clock-style machine, one that charges for computing, fails
 it, and every machine that meets it hides its record and its ledger from its own window, both by
 theorem. Its computing is that of the two-counter machines of Marvin Minsky, one of the founders of artificial intelligence at MIT, which Minsky proved can compute
-anything a Turing machine can. And there's a universal Thiele machine on top of it: one fixed
-program, with no guest step built in, that runs every program of the small machine, halts when
-the guest halts, raises its own flag exactly when the guest's would, on its own earned chain, and
-keeps a ledger equal to the guest's. With one paid move added, one fixed program runs every
-computably presented Thiele machine, a machine from anywhere whose choice
-of next move, step, prices and decided reading are programs: halting matched, its record carried as a latch and raised on the host's own
-earned chain about the guest's own reading, its prices matched to within a surcharge of at most two when
-the guest's reading starts at no, which can't be avoided in general.
+anything a Turing machine can. The two universal programs described under ``What it isn't'' run
+on top of it, and what they're proved to do is said there.
 
 Argued only: that an account of computation \emph{should} carry what was established, and what it
 cost, in how it steps. The proofs show that it hangs together, what it follows from, and what it
@@ -1578,62 +1578,22 @@ state, a step rule, a cost for each move and a yes-or-no certification reading, 
 step turning the reading from no to yes costs at least one unit (I call that rule the toll,
 and its first name, the one I gave it before I understood it, is No Free Insight; Part II
 builds it). On top of that core go a counter that adds up the costs and only climbs, and a window
-that says what an observer sees. Here's what's proved,
-in Coq (a proof assistant: software that checks every step of a proof), with every premise
-printed. Any system that follows the toll pays something to get from uncertified to
-certified. With finitely many yes-states and a reading that is never taken back, every move that raises the
-reading merges states; consequently every schedule that prices merges charges that move, and every
-run from no to yes has positive total cost. That's the universal certification result, and
-Landauer's principle (the physicist's rule that forgetting costs heat) is a named premise for
-pricing merges. A measurement that forgets
-nothing can be priced at zero. A window that shows a certifying step and a
-quiet one alike, before and
-after, can't price certification exactly. Over any base machine, an honest permanent record is
-a latch on an event (a switch the event flips once and nothing flips back). And no decider
-whose flip a substrate can
-represent decides which programs admit a shortcut, given a recursion theorem (the fact
-that a program can act as though it held its own code). ``Admits a shortcut'' there is a label for any
-property of programs that two programs doing the same thing always share, and that some programs have
-and some don't; Section~\ref{sec:diagonal} says why the label is all the argument gets to see. A substrate is the model's bare
-shape, a kind of state and a
-rule for stepping; each theorem adds whatever extra pieces it
-asks for, and here
-the extra pieces are programs written as states and that recursion theorem.
-All of that is about the model: any system with the named pieces. One machine carries the
-model in this book, and it's a Thiele machine in the sense a few pages on pins down: six
-instructions on two counters, where commitments are earned and universality is proved. It's
-Thiele-complete under a definition no clock meets (computing free and unable to touch the record, a record that stays up once it's up and, from a clean start,
-is earned, each of the
-three acts priced at exactly one, and one claim whose check, commit and certificate raise the record on some inputs and not on others), every machine that meets that definition hides its record and
-its ledger from its own window, and one fixed program in its own instruction kinds, with no step
-of any guest built in, runs every program of it with halting, flag and ledger matched exactly:
-a universal Thiele machine. Add one move that pays a mark and does nothing else, and one fixed
-program runs every Thiele machine whose next move, step, prices and
-reading are computed by programs, the reading decided on every state: halting matched, the guest's reading carried as a latch on the
-host's own earned flag, and the guest's prices matched to within a surcharge of at most two marks
-when the guest's reading starts at no, which can't be avoided in general. The lambda calculus L gets a recursion theorem by proof, and so
-does the machine that universal program runs on, with Rice's theorem beside it. On the two-counter
-machine itself Rice's theorem holds on every input, Kleene's holds with inputs written as powers of two, for the function the program computes though not for the facts it records,
-and with plain inputs Kleene's is false, which is proved too. An integer check
-on eight counts is earned on the small machine's host: a flag raised from a clean start can stand on a passing check of the
-counts, and the check passes exactly when every question pair was sampled and a fixed moment matrix
-is positive semidefinite, which forces Tsirelson's bound, the ceiling quantum mechanics puts on the
-score of a two-player game (Part IV builds the game, the matrix and the check from zero; it's there
-as a check with a striking result, to show the toll charges the same however deep the check is. It isn't there
-as a physics tool. The check is exact about the tally it's handed, for one pinned matrix; it
-doesn't sort data into quantum and not, and a tally above two doesn't by itself rule out a local
-model with chance in it). Under the stated covering and payment conditions, the index-bit narrowing bound applies to the record moves of
-every Thiele-complete machine; a finite machine with eight states (four slots and a flag) runs on the small machine and, after
-a two-mark setup, pays
-exactly its own charges; and on every Thiele-complete machine no checker that sees only the clean
-start and the final window is both sound and complete about the record. Not proved: a physical price for one mark, any separation of complexity classes, that
-certification is the event worth recording (that's a conjecture), or anything about a physical
-device running any of it. Of all that, what I'd call new is several small things. There isn't one big one. They are the
-toll derived from finiteness, permanence and a price on merging; a window that can't price it
-exactly; the latch shape of a permanent record; and a
-priced record, earned on the small machine, under the reference monitor's every-program move,
-carried by one fixed universal program to every program of it and to every computably presented
-Thiele machine, which is built and checked though the idea under it isn't new. Appendix~\ref{sec:whats-mine} puts each beside the work it leans on.
+that says what an observer sees. The headline result is proved in Coq (a proof assistant: software
+that checks every step of a proof), with every premise printed. With finitely many yes-states and
+a reading that is never taken back, every move that raises the reading merges states; consequently
+every schedule that prices merges charges that move, and every run from no to yes has positive
+total cost. That's the universal certification result, and Landauer's principle (the physicist's
+rule that forgetting costs heat) is a named premise for pricing merges. Around it the book proves
+that finding out can be free, that a window can hide what was paid, that an honest permanent record
+over any machine is a latch on one event (a switch the event flips once and nothing flips back),
+and that a system can't decide, by a procedure it can itself represent, every property of its own
+programs that depends only on what they do. All of that is about any system with the named pieces.
+Part IV builds one machine that carries the model, six instruction kinds on two counters, on which
+commitments are earned, and two universal programs on a host with more counters: one runs every
+program of that machine, and one runs every Thiele machine whose workings a program can compute,
+each guest's record earned again by the host. The five steps below are the argument in order, with
+where each stands. ``What's proved, what's argued, and what I just believe,'' back in ``The
+point,'' sorts the claims by status and names the few that are new, each beside its neighbours.
 
 I didn't invent a machine. I found one. That's how I see this work, and I'll be straight
 about the difference between that conviction and a theorem before I do anything else.
@@ -1656,22 +1616,6 @@ and the shape won't care. And to be exact about what ``found'' covers: the parts
 forces on you, the latch shape and the merge. The event to record, the price list, and putting
 the count inside the step are choices, mine, and ``The point'' said so where it sorted what
 I was pushed into from what I chose.
-
-What the Thiele Machine is. An abstract model of computation. A machine the way Turing's
-machine is a machine: mathematics you can reason about. It isn't a device. It isn't a CPU or an
-instruction set; those are things you build to carry it, and Part IV builds one, as small as I
-could make it. The model is small. A state. A step rule. A record. A counter that only climbs. A rule for
-which steps have to pay. And a window: what an observer is allowed to see. Like a Turing
-machine, it's a precise way to say what a computation is. Unlike a Turing machine, it
-computes nothing new. It adds what a computation \emph{establishes}, and what establishing it
-cost. The event it accounts for happens on any computer, whether anybody keeps track of it
-or not. What Turing's model doesn't have is a place for the record of that event, or
-anything that enforces one. A Turing machine can be programmed to keep the record, and then
-it obeys the toll and it's a Thiele machine in its own right. But when it runs some other
-program's record as data on its tape, nothing in its own step enforces it
-(Section~\ref{sec:machine-vs-program}). The event's physical cost comes in only under
-Landauer's premise, with its name on it. The record exists only if something keeps it, and
-keeping it, priced, is what the model adds.
 
 What this book is. An argument, made with that model, about what an account of
 computation should preserve. Turing's account, and every account built on it, describes a computation by what it reads and
@@ -1758,9 +1702,14 @@ adopted is argued, and no test settles it. What's proved around it: over
 any base machine, an honest record is a latch on an event, with two free choices, the
 price list and the event; no decider whose flip a substrate can
 itself represent decides which
-programs admit a shortcut (in the label sense given above), given a recursion theorem, by the same self-referring trick, the
+programs admit a shortcut, given a recursion theorem (the fact that a program can act as though
+it held its own code). ``Admits a shortcut'' there is a label for any property of programs that
+two programs doing the same thing always share, and that some programs have and some don't;
+Section~\ref{sec:diagonal} says why the label is all the argument gets to see. A substrate is the
+model's bare shape, a kind of state and a rule for stepping, and here the extra pieces it's asked
+for are programs written as states and that recursion theorem. The wall comes by the same self-referring trick, the
 diagonal, that put a hole in the foundations for arithmetic built by the German logician Gottlob Frege (Part I tells that
-story); and which event deserves the record is a conjecture, with its refutations listed.
+story). Which event deserves the record is a conjecture, with its refutations listed.
 
 Certification is one point I could pin down. It gave me a law I could state, a machine I
 could build and run, and proofs I could put in front of someone who didn't share my
@@ -1770,7 +1719,8 @@ the argument.
 How the book is laid out. Part I is the picture: how I got here, and what structure is.
 Part II is the axiom: the smallest thing that could carry a bill, and why its one rule
 isn't arbitrary. Part III is the logic: the counter, the windows, entitlement, insight, the
-latch, the whole direction, the exact shadow, the diagonal, five real systems, and a conjecture. Parts I to III never use my
+latch, the whole direction, the exact shadow, the diagonal (the lambda calculus L gets its
+recursion theorem there by proof), five real systems, and a conjecture. Parts I to III never use my
 machine; every claim in them is about any system with the pieces it names, and the pictures
 are toys. Part IV builds one machine, the smallest honest machine I could make: two
 counters, six instruction kinds, a table of checked facts, a ledger and a flag. On it a flag raised from a
@@ -1780,8 +1730,17 @@ that order, and it computes everything Minsky's two-counter machines can, so whe
 is undecidable. There Thiele-complete gets its definition, the one a clock fails, and the
 universal Thiele machine gets built as one fixed program that runs every program of the small
 machine and earns its own flag, and then, with one paid move added, every computably presented
-Thiele machine. Then a check worth earning, the two-player game and its integer test, and what
-the counter has to do with physics. Part V is how to check all of it and how to break it. The
+Thiele machine. The machine that universal program runs on gets Kleene's recursion theorem by
+proof too, with Rice's theorem beside it; on the two-counter machine itself Rice's theorem holds on
+every input, Kleene's holds with inputs written as powers of two, for the function the program
+computes though not for the facts it records, and with plain inputs Kleene's is false, which is
+proved too. Then a check worth earning, the two-player game and its integer test: a flag raised
+from a clean start can stand on a passing check of eight counts, and the check passes exactly when
+every question pair was sampled and a fixed moment matrix is positive semidefinite, which forces
+Tsirelson's bound, the ceiling quantum mechanics puts on the score of a two-player game, for the
+tally it's handed. It's there to show the toll charges the same however deep the check is. It isn't
+a physics tool: it doesn't sort data into quantum and not, and a tally above two doesn't by itself
+rule out a local model with chance in it. Then what the counter has to do with physics. Part V is how to check all of it and how to break it. The
 vocabulary I had to learn is at the back.
 
 If you want the argument without the whole tour, read ``The point'' and this short version, then
@@ -1815,10 +1774,8 @@ chapter of ways to break it (Section~\ref{sec:falsification}).
 \label{sec:straight}
 %===========================================================================
 
-\emph{What this project is.} An argument about what an account of computation should preserve,
-made with an abstract model built to carry it. Its central proposal is that what a
-computation established, and what establishing it cost, belong in how it steps. The working
-form of that proposal is structural entitlement: a computation is entitled to lean on a
+\emph{What this project is.} The short version gave the argument. This section is the fine
+print it stands on, starting with the working form of its proposal, structural entitlement: a computation is entitled to lean on a
 structural fact when it holds the object, a checked relation, and a history that earned
 it. The model, its laws, and the instructions of any one build are different things, and I
 keep them apart. The generic
@@ -1849,8 +1806,7 @@ transcripts and then for every Thiele-complete machine (Section~\ref{sec:windows
 through its own transition table. What I'm proposing is about why the extra distinctions
 matter. It isn't a theorem that every Turing-equivalent system lacks them. And if you want the
 list of what I think is new, it's the short one at the end of ``What's proved, what's argued,
-and what I just believe'' in ``The point,'' the same four things the short version names,
-and nothing bigger.
+and what I just believe'' in ``The point,'' four small things, and nothing bigger.
 
 \emph{The layers, once.} The core definition (Definition~\ref{def:certsys}) is a certification
 system: states, moves, a step, a cost for each move, a yes-or-no reading, and the toll. Everything
