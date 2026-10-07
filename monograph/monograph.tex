@@ -1387,9 +1387,10 @@ once, so you know what I'm on the hook for.
 
 Checked by a proof assistant, with every assumption printed, for any system with the named parts:
 anything that obeys the toll pays at least one mark to get from not-established to established
-(short enough that you'll prove it yourself on paper in Part II). On a finite machine whose record
-never comes down, the step that raises it merges, which is the chairs; with merging priced, the toll
-follows, and the price is an assumption with a name. Finding out can be free: you can learn
+(short enough that you'll prove it yourself on paper in Part II). With finitely many yes-states and a record
+that never comes down, every move that raises it merges states, which is the chairs; consequently
+every schedule that prices merges charges that move, and every run from no to yes has positive total
+cost. The price is an assumption with a name. Finding out can be free: you can learn
 something from a step that merged nothing and cost nothing, so the toll lands on committing. A window that shows a certifying step and a quiet one
 alike, before and after, can't price
 certification exactly, however clever it is. And over any machine, an honest record is a one-way
@@ -1556,16 +1557,19 @@ If it breaks there, the book ends there. I'd rather know.
 \label{sec:shortversion}
 %===========================================================================
 
-\emph{The book in one paragraph.} The Thiele Machine is an abstract model of computation: a
-state, a step rule, a counter that only climbs, a rule that the step turning a certification
-reading from no to yes costs at least one unit on that counter (I call that rule the toll,
+\emph{The book in one paragraph.} The Thiele Machine is an abstract model of computation. Its core is a
+state, a step rule, a cost for each move and a yes-or-no certification reading, with one rule: the
+step turning the reading from no to yes costs at least one unit (I call that rule the toll,
 and its first name, the one I gave it before I understood it, is No Free Insight; Part II
-builds it), and a window that says what an observer sees. Here's what's proved,
+builds it). On top of that core go a counter that adds up the costs and only climbs, and a window
+that says what an observer sees. Here's what's proved,
 in Coq (a proof assistant: software that checks every step of a proof), with every premise
 printed. Any system that follows the toll pays something to get from uncertified to
-certified. On a finite machine whose certificate is never taken back, the certifying step
-merges states, so the toll follows from pricing merges, with Landauer's principle (the
-physicist's rule that forgetting costs heat) as a named premise. A measurement that forgets
+certified. With finitely many yes-states and a reading that is never taken back, every move that raises the
+reading merges states; consequently every schedule that prices merges charges that move, and every
+run from no to yes has positive total cost. That's the universal certification result, and
+Landauer's principle (the physicist's rule that forgetting costs heat) is a named premise for
+pricing merges. A measurement that forgets
 nothing can be priced at zero. A window that shows a certifying step and a
 quiet one alike, before and
 after, can't price certification exactly. Over any base machine, an honest permanent record is
@@ -1828,6 +1832,16 @@ list of what I think is new, it's the short one at the end of ``What's proved, w
 and what I just believe'' in ``The point,'' the same four things the short version names,
 and nothing bigger.
 
+\emph{The layers, once.} The core definition (Definition~\ref{def:certsys}) is a certification
+system: states, moves, a step, a cost for each move, a yes-or-no reading, and the toll. Everything
+else is added on top, and each theorem names what it adds. First come extra structures and
+requirements: a ledger that sums the costs, a window, permanence of the reading, a price on
+merges. Then an earned implementation, the small machine of Part IV, with a checker proved sound
+and a provenance theorem. Then an interface, Thiele-complete, that any machine can be read through.
+Then a universal interpreter for a stated class of guests. The bare definition doesn't ask the step
+to be computable, so when I say the record adds no computing power, I mean relative to a fixed
+base.
+
 \emph{Substrate versus scaffolding.} Two layers run through the book, and confusing them makes
 the theorems quietly stop meaning what they say. The \emph{substrate} is the shape: a kind of
 state and a rule for stepping. Different theorems ask that shape for different extra pieces,
@@ -1984,9 +1998,20 @@ somebody else's. The table below is my best attempt at finding out whose.
 What I compare each time is what a result is \emph{about}. Landauer's bound is about heat, a
 physical cost under a thermodynamic model. No Free Lunch (an optimisation result, in the
 list below the table) is about averages over a whole spread of problems. The toll is a floor on one kind of step, the step that turns a
-certification reading on. Exact pricing adds a second rule on top: charge nothing on a step that doesn't turn it on. So the
+certification reading on. Rise-only pricing adds a second rule on top: charge nothing on a step that doesn't turn it on. So the
 comparisons are about the shape of each result. They aren't claims about who got somewhere
 first, and they don't show that certification is the only event worth pricing.
+
+\emph{Three kinds of exact.} The word exact does three jobs in this book, and each job keeps one
+name. \emph{Rise-only pricing} charges at least one mark on every step that raises the reading and
+nothing on any other step; its tightest bill, one mark per raise and nothing else, is the
+\emph{exact schedule}. \emph{Instruction-exact pricing} charges every instruction a fixed listed
+price. On the small machine of Part~IV that's one mark each for CHECK, COMMIT and CERTIFY and
+nothing for the rest, and the definition of Thiele-complete calls it the \emph{exact toll}. CHECK
+and COMMIT raise no flag, so the small machine is instruction-exact without being rise-only, and
+no rule is broken by that. \emph{Simulation-exact accounting} is a host whose ledger equals its
+guest's ledger at every point where the two runs match, as the universal program $U$'s does. A
+machine can meet any one of the three and fail the others.
 
 The right-hand column uses words the book only builds later (the latch, the fibre, the
 universal program, the integer check, the matrix test), so read it as a list of places to go.
@@ -3815,6 +3840,18 @@ at all. ``Certifies for free'' is written in a second theorem, \code{history\_es
 (AxMerge.v): there the strip is counted as a number, each move adds one at a cost of zero,
 nothing merges, merge pricing holds, and the toll fails. So I'm marking the place where the words outrun the file.
 
+\emph{Which state is being counted.} Whether a move merges depends on what the state keeps. The
+strip keeps its history, so nothing merges; cut it to eight boxes and the reuse merges.
+Section~\ref{sec:landauer} proves the general form (Theorem~\ref{thm:u24-history}): keep the
+previous state alongside the current one and every fixed-instruction step is one-to-one. So a merge
+price is a fact about a move on a stated state space. Each price derived in this book is derived
+on the whole state its definition gives, and three things go with it: which state that is, what
+lies outside it (nothing outside it is charged), and whether the move is one primitive instruction
+or a composite run of several. Relabelling the states one-to-one changes no price, since it sends
+merges to merges and one-to-one moves to one-to-one moves. Adding history to the state, or
+projecting part of the state away, changes the machine being modelled, and the price can change
+with it.
+
 \subsection{Door two: let the flag come back down}
 
 Take one coin. The rule is: turn it over. Heads is YES, tails is NO. Every move is undoable
@@ -4085,7 +4122,9 @@ it's handed, and it counts it in marks. Joules don't come into it.
 \begin{theorem}[The squeeze bound]\label{thm:squeeze}
 On a finite machine with a permanent reading and a cost satisfying the halving price, let
 $m$ be the number of states that read yes, and let a move $i$ turn $k$ different no-states
-to yes. Then
+to yes. Three numbers, then: $m$ counts every yes-state of the machine, reachable or not; $k$
+counts a list of distinct no-states that the move turns to yes, and the move may turn others too;
+and $\mathrm{cost}(i)$ is the price the cost assigns to the move. Then
 \[
 m + k \;\le\; 2^{\mathrm{cost}(i)} \cdot m, \qquad\text{and, when } m \ge 1,\qquad
 \mathrm{cost}(i) \;\ge\; \log_2 \frac{m+k}{m}.
@@ -4110,8 +4149,9 @@ $k = 1$ the bound says $\mathrm{cost}(i) \ge 1$, which is the toll again
 
 The bound is reached for every $m \ge 1$ and every cost $c$. Whenever $m + k \le 2^c m$, a finite
 machine with a permanent reading and the halving price has $m$ yes-states and a move of cost
-exactly $c$ that turns $k$ no-states to yes, and no cost meeting the halving price on that machine
-charges the move less than $c$ (\code{nec\_f\_squeeze\_tight\_every\_k} and
+exactly $c$ that turns a listed $k$ distinct no-states to yes. The move turns every other no-state
+of that machine to yes as well, $(2^c - 1)m$ of them in all. No cost meeting the halving price on
+that machine charges the move less than $c$ (\code{nec\_f\_squeeze\_tight\_every\_k} and
 \code{nec\_f\_grid\_cost\_least}, NecFSqueeze.v). So the least whole-number cost that meets the bound
 is exactly $\lceil \log_2 \frac{m+k}{m} \rceil$ (\code{nec\_f\_least\_cost\_exists} and
 \code{nec\_f\_least\_cost\_is\_ceiling}, NecFSqueezeLog.v).
@@ -4720,8 +4760,11 @@ machine's own row by more halvings than it paid for. That's the theorem just bel
 it's the Section~\ref{sec:a2-not-arbitrary} squeeze bound run forward along a whole program. That section took it one step at a time. No new idea;
 the same chairs.
 
-Exactly. Write $\lceil \log_2 n \rceil$ for ``log base two of $n$, rounded up,'' the number of
-yes-or-no questions it takes to pick one of $n$ things. For a run $t$ and a list $D$ of
+Exactly. Write $\lceil \log_2 n \rceil$ for the index-bit count of $n$: the smallest whole number
+$k$ with $2^k \ge n$, the number of yes-or-no questions it takes to pick one of $n$ things. It is $0$
+at $n = 1$, and I set it to $0$ at $n = 0$ too, a convention for empty lists, since the logarithm
+of zero isn't a number. Wherever I write an ordinary logarithm without the rounding, its argument
+is positive. For a run $t$ and a list $D$ of
 starting states, let $\mathrm{img}_t(D)$ be the set of states the run can end in, starting
 from somewhere in $D$, and write $|\mathrm{img}_t(D)|$ for how many there are (in Section~\ref{sec:a2-not-arbitrary} the
 symbol for one move already meant the count; here I need the set and its size both). Let
@@ -5116,8 +5159,10 @@ sentence is a \emph{floor}: it says the run paid at least this much. If the coun
 down, a run could pay the toll, get its flag, and then take the payment back, and the floor
 would be a floor on nothing; ``this run cost at least one'' would be true of a run that ended
 having cost nothing. So a counter that can fall is an accountant you can lean on to revise the
-books, and a floor stated in terms of it isn't a floor. The counter only climbing is not a
-flourish. It's what makes ``at least'' mean something. (In Section~\ref{sec:toll}'s abstract theorem the total is
+books, and a floor stated in terms of it isn't a floor. The counter only climbing is not a flourish. It's what makes ``at least'' mean something.
+This ledger records cumulative charges, each a whole number of marks and none negative, so it
+never decreases. A refundable balance, one that pays money back, would be a different accounting
+object with a different invariant, and the floor here says nothing about it. (In Section~\ref{sec:toll}'s abstract theorem the total is
 a sum of whole numbers and climbing comes for free; this paragraph is about why a total
 \emph{stored in the state}, where a step could in principle write it, has to be designed so that
 no step ever lowers it.)
@@ -5883,7 +5928,7 @@ photograph. If the window shows the reading, then ``one when the reading goes fr
 up, zero otherwise'' is exact, and such a window has no pair like the one above. That's enough.
 It isn't the only way: a window can hide the flag and still have no colliding pair, in
 which case a bill from the photographs can be exact; what ShadowPricing.v proves the other way is
-only that a colliding pair rules exact pricing out. And ``exact'' here has a definition: at least
+only that a colliding pair rules exact pricing out. And ``exact'' here means rise-only pricing: at least
 one on every step that raises the flag, nothing on any step that doesn't. That's all the
 clerk's problem needs, and the bill ``one for a raise, zero otherwise'' meets it
 (\code{step\_price\_is\_exact}). So it's exact about \emph{which} steps get charged. It isn't exact about \emph{how much}, and it
@@ -6715,9 +6760,8 @@ the test is strictly stronger; narrow it without one, and the test may not have 
 Here are the words and the count, for any system with Section~\ref{sec:counter}'s counter. A \emph{list} is a finite list
 of candidates, repeats allowed, and $|\Omega|$ is the length of the list $\Omega$, repeats
 counted. $\lceil \log_2 x \rceil$ is the base-two logarithm of $x$ rounded up: the smallest
-$k\in\mathbb{N}$ with $2^k \ge x$. At $x=0$ this index-bit count is defined to
-be $0$ as well; the notation $\lceil\log_2 0\rceil=0$ here is a convention for empty
-lists, since the logarithm of zero isn't a number at all. And $a \mathbin{\dot{-}} b$ is subtraction on whole numbers that stops at
+$k\in\mathbb{N}$ with $2^k \ge x$. At $x=0$ it is $0$, the convention for empty lists set in
+Section~\ref{sec:narrowing}. And $a \mathbin{\dot{-}} b$ is subtraction on whole numbers that stops at
 zero, so $3 \mathbin{\dot{-}} 5 = 0$.
 
 \begin{definition}[Decision tree]\label{def:u08-dtree}
@@ -11264,15 +11308,16 @@ in this book builds one. So ``a Thiele-complete machine certifies
 exactly the claims a program could list'' is true only with ``and its checker is computable''
 added, and the definition doesn't require that.
 
-One word needs pinning before the theorems, because this book uses ``exact'' for two different
-things and they don't agree. In clause (c), an \emph{exact toll} means each of the three acts,
-CHECK and COMMIT included, costs exactly one, so the ledger counts the acts that make a claim.
-Back in Section~\ref{sec:counter}, one of the cited results (\code{a2\_and\_aara\_iff\_exact}) is
-about a different exactness, which I'll call the \emph{exact schedule}: one mark on the step that raises the flag and nothing on any other step. Measured
-against the flag alone, the small machine isn't exact in that second sense, since CHECK and
-COMMIT raise no flag and cost one each; measured the way (c) asks, it is. Neither is wrong.
-They answer different questions: does the ledger count the acts, or does it charge the flag and
-only the flag? When I say exact toll I mean the first, and exact schedule means the second.
+One word needs pinning before the theorems, using the three names set at the front of the book.
+In clause (c), the \emph{exact toll} is instruction-exact pricing: each of the three acts, CHECK
+and COMMIT included, costs exactly one, so the ledger counts the acts that make a claim. Back in
+Section~\ref{sec:counter}, one of the cited results (\code{a2\_and\_aara\_iff\_exact}) is about
+rise-only pricing in its tightest bill, the \emph{exact schedule}: one mark on the step that
+raises the flag and nothing on any other step. Measured against the flag alone, the small machine
+isn't rise-only, since CHECK and COMMIT raise no flag and cost one each; measured the way (c)
+asks, it is instruction-exact. Neither is wrong. They answer different questions: does the ledger
+count the acts, or does it charge the flag and only the flag? Simulation-exact accounting, the
+third name, comes up with the universal program $U$ below.
 
 \begin{theorem}[What every Thiele-complete machine has]\label{thm:u34-tc-consequences}
 Let a machine be Thiele-complete through an interface. (1) It obeys the toll and has a
@@ -11945,9 +11990,9 @@ instruction, an INC say, still pays one for the move.
 So the host's ledger is closer to a clock than to a receipt for its guests: one unit per guest
 step, whatever the step was. It never falls behind the guest's own bill (part (3) of
 Theorem~\ref{thm:u34-host-toll} below), and it matches that bill only when every guest step
-happens to cost one. Could a cleverer host charge exactly? Not with a price read off the move
-alone. $\mathrm{GSTEP}\ 1$ is the same move whether the guest's next instruction is a free INC or
-a paid CHECK, so one price can't match both. A host that charges exactly has to be built the
+happens to cost one. Could a cleverer host have simulation-exact accounting, a ledger equal to
+its guest's? Not with a price read off the move alone. $\mathrm{GSTEP}\ 1$ is the same move whether the guest's next instruction is a free INC or
+a paid CHECK, so one price can't match both. A simulation-exact host has to be built the
 other way, with no guest step to put a price on: that's $U$, which pays only on the record moves
 it runs itself, so its ledger equals its guest's (Theorem~\ref{thm:u34-U-flag}).
 
@@ -15779,8 +15824,8 @@ of names, was a sorting of a pile, and the thing nobody I read had priced was th
 stand behind the sorting. That was Part I, and it ended with a question.
 
 The question got an exact form in Part II: five parts, one rule, one theorem you proved at
-the table. Then the rule stopped being only my preference. On a finite machine where the flag
-stays up, raising it forgets something, and if forgetting is charged for, the way Landauer's
+the table. Then the rule stopped being only my preference. With finitely many yes-states and a flag
+that stays up, every move that raises it merges states, and if forgetting is charged for, the way Landauer's
 principle charges for it in its worst case, the toll follows. That's a derivation under three
 premises you can refuse one at a time, each with its counterexample built. It isn't a proof that
 every computation has to adopt the rule; and the charge on forgetting is a named premise with
