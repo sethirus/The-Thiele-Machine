@@ -1179,11 +1179,12 @@ Machine}, capital letters, is the model and nothing else. \emph{A Thiele machine
 particular system proved to fit the model, the way one rule table is a Turing machine; a two-box toy
 on a sheet of paper counts. A Thiele machine is \emph{Thiele-complete} when the machine under the
 record can compute anything a Turing machine can, for free and without ever touching the record,
-and the record goes up only after a check that could have failed, then a commitment to the same
-claim, then a certificate, with exactly one mark charged for each of those three acts. And a
+and the record goes up only after a check of some claim passes, then a commitment to that same
+claim, then a certificate, with exactly one mark charged for each of those three acts, and at least
+one claim on the machine has a check that can come out no. And a
 \emph{universal} Thiele machine is one fixed program that runs other machines as guests, with
 each guest's record earned again by the host's own steps and each guest's toll paid on the host's
-own ledger, not left to the guest's good manners.
+own ledger. Nothing is left to the guest's good manners.
 
 The first bar, being a Thiele machine at all, is low, and I'd rather you hear
 it from me. A machine that charges one mark for every step it takes, whatever the step does,
@@ -1324,8 +1325,7 @@ machine's programs, which compute everything. Add one move that pays a mark and 
 and the same kind of program runs every Thiele machine whose step, prices and reading are computed
 by programs: it halts when the guest's run stops, its flag goes up exactly when the guest's reading
 has said yes, on a chain whose check is the guest's own reading, and its ledger is the guest's
-prices plus at most two marks at the raise, a surcharge no program on that host can avoid when the
-raising move costs less than three (Section~\ref{sec:presented-universal}). A Thiele machine whose
+prices plus at most two marks at the raise, a surcharge no program on that host can avoid when the guest's whole ledger at the raise is below three (Section~\ref{sec:presented-universal}). A Thiele machine whose
 reading no program decides isn't covered, and I say exactly where the edges are.
 
 \subsection*{What's proved, what's argued, and what I just believe}
@@ -3334,8 +3334,10 @@ crossing of the pair is a crossing of a part, that part's toll charged it, and t
 the toll. Take ``the first flag is up and the second is down,'' and it doesn't: that reading
 turns on when the second flag falls, and nothing charges a fall. That's an argument on this
 page. The first two readings are checked: read through ``either flag is up'' the pair is a
-certification system whose floor is one, and read through ``both are'' it's one whose floor is two,
-and two is reached (Section~\ref{sec:parts}). The third is still an argument on this page. One
+certification system whose floor is one. Read through ``both are,'' a run that starts with both
+flags down and ends with both up costs at least two, and two is reached (Section~\ref{sec:parts}).
+From a start with one flag already up, one raise is enough, so two is a floor for the clean start
+only. The third is still an argument on this page. One
 product of this kind is checked here too, a host machine running a guest, read through ``the host's
 own flag or its copy of the guest's'' (Theorem~\ref{thm:u34-host-instance}). Whether every way of
 building one machine out of others keeps the toll is a bigger question, and Section~\ref{sec:parts}
@@ -6658,8 +6660,9 @@ stalled and crashed, and two men died of their injuries, the Army's pilot, Major
 Boeing's chief test pilot, Leslie Tower. The airplane was fine. The crew had left the gust locks
 on, the clamps that hold the control surfaces still while the plane sits on the ground. There's a
 famous line that a newspaper called it too much airplane for one man to fly. I couldn't find that
-line in any paper from 1935; the earliest place I could find it is a book from 2007, so take it as a
-lead. What I can find is what came after. The answer wasn't more skill, it was a card: a list of
+line in any paper from 1935; the earliest place I could find it is a New Yorker article from December 2007 by Atul Gawande, a
+surgeon who writes about how people get complicated work right, and he names no newspaper, so take
+it as a lead. What I can find is what came after. The answer was a card: a list of
 things to check, in order, every time, and the crews of the airplane worked through written
 checklists for each phase of flight. It wasn't the first written routine for a pilot; those go back
 before the First World War. It's where the checklist became the way a crew flew. The airplane went
@@ -7851,8 +7854,10 @@ stay at $1$.
 Checked as \code{chain\_bits\_exact} (AxLatch2.v) and \code{chain3\_not\_join\_latch} (AxLatch.v).
 
 So five stages need four cups. One won't do it, and three won't either. The switch isn't wrong.
-It's the first line, and a direction with more than two places needs more of them, exactly as many
-as the longest strict climb it allows.
+It's the first line, and a straight strip with more than two places needs more of them, exactly one
+fewer than it has stages. A direction that branches needs at least as many cups as the steps in its
+longest strict climb, and it can need more. Put three places above a bottom, none of them above another. The longest
+climb is one step, and one cup can't tell four places apart.
 
 People got here before me, and from a direction I didn't expect, which was programming for many
 processors at once. Lindsey Kuper and Ryan Newton's LVars (2013), ``lattice-based data structures
@@ -9600,8 +9605,7 @@ events; the public-log and signature models proliferate theirs.
 \begin{proof}
 (1) Recording would require $E(s_0) \iff F_i(s_0)$, and the left side is true while the right
 is false. (2) Observer 0's fragment is true exactly when the event holds. Apply (1) with observer 1 and
-the state (true, true). The other three refutations apply (1) to a blind observer of their
-own model, and the two confirmations hold by definition.
+the state (true, true). The other two refutations apply (1) to a blind observer of their own model, and the two confirmations hold by definition.
 \end{proof}
 
 Checked as \code{blind\_observer\_blocks\_proliferation} and \code{labeled\_model\_verdicts}
@@ -10795,9 +10799,9 @@ flag that's a latch of the base, a window that can't see the record, and a commi
 can't happen unless a check of the same claim, on the same edition, came first and was
 right. Every result above is closed: Coq reports no assumptions for any of them. That isn't
 my say-so. The file ends by asking Coq to print the assumptions of each headline theorem, and
-the checks of Section~\ref{sec:coq} compile it and fail unless every one comes back closed. (The
-project-wide audit behind the crosswalk doesn't list these files, which is why its rows mark
-them differently.) The base
+the build of Section~\ref{sec:coq} compiles it and fails unless every one comes back closed. The
+project-wide audit of Section~\ref{sec:coq} lists these files too, and every theorem in them comes
+back closed there as well. The base
 file uses nothing but Coq's standard library, so you can check it with nothing else
 installed; the link file adds only the book's own abstract records and the library of
 undecidability proofs.
@@ -12289,9 +12293,9 @@ check, commit and certify.
 \begin{proof}
 The construction is Theorem~\ref{thm:host-kleene}'s, with a different evaluator. The first step is to
 see that a record is small. From a clean start, a host program that stops has a record I can read off
-five numbers: what it left in register 0; how many facts the table holds; 1 if the trap latch is up and
-0 if not; 1 if the flag is up and 0 if not; and what is left of the ledger once the facts, the trap and
-the flag are paid for, which I'll call the commits. The record obeys a short rulebook. The table holds
+five numbers, in this order: what it left in register 0; how many facts the table holds; what is
+left of the ledger once the facts, the trap and the flag are paid for, which I'll call the commits;
+1 if the flag is up and 0 if not; and 1 if the trap latch is up and 0 if not. The record obeys a short rulebook. The table holds
 at most sixteen facts. The latch is a single bit. A commit needs a fact behind it, a certify needs a
 commit, and the channel is empty exactly when no commit was paid. The ledger is the facts, plus the
 commits, plus the flag, plus the trap, and that's all of it. Those are the only properties of a record
@@ -12314,7 +12318,7 @@ evaluator to its own number, as before.
 
 Checked as \code{sm2\_kleene\_obs} (SmFixedPoint.v), with the five numbers as \code{sm2\_final\_numbers}
 and the evaluator's specification as \code{sm2\_ev\_spec} (SmTally.v) and the replay program as
-\code{sm2\_VG\_forward} and \code{sm2\_VG\_halt} (SmFixed.v), where the trap latch is up exactly when the fifth number is 1 and the flag exactly when the third is positive; \code{sm2\_kleene\_fun} gives back the
+\code{sm2\_VG\_forward} and \code{sm2\_VG\_halt} (SmFixed.v), where the trap latch is up exactly when the fifth number is 1 and the flag exactly when the fourth is positive; \code{sm2\_kleene\_fun} gives back the
 version that compares only the function. Two limits, and the second one is a theorem. First, $e$ pays
 after it has computed everything. It is not the way $U$ runs a guest, mirroring every move: $e$ pays
 the counts, CHECKs, then COMMITs, then the CERTIFY, whatever order $F(e)$ used, so the order of the
@@ -12880,8 +12884,9 @@ this one is exactly the old one. Checked as \code{ax\_tc\_two\_point\_iff} (AxTw
 machine's cost of its moves, and the order in which levers on the two boxes were interleaved doesn't
 change where the pair ends up or what it paid. (2) The pair pays the toll exactly when both machines
 do. (3) Read through ``either flag is up,'' two certification systems side by side are a
-certification system with floor one; read through ``both flags are up,'' they're one with floor two,
-and two is reached when each part can certify for one. (4) Two Thiele-complete machines side by side
+certification system with floor one; read through ``both flags are up,'' a run that starts with both
+flags down and ends with both up costs at least two, and two is reached when each part can certify
+for one. (4) Two Thiele-complete machines side by side
 are a Thiele-complete machine. (5) In that pair, a run from a clean start that ends with each side at
 or above a point above its floor makes at least six record moves and raises the ledger by at least
 six, and six is reached. (6) The pair of records is the product in the precise sense: for any machine
@@ -13068,15 +13073,16 @@ here, and the guest codes $U$ reads go up near $2^{100}$, so they'd wrap around 
 word of warning. Coq's whole numbers never overflow. A machine word does, and the book already told
 you what that cost Ariane 5 (Section~\ref{sec:straight}). So the extraction maps Coq's whole numbers
 to an OCaml library of unbounded integers, and each arithmetic operation is mapped by hand to that
-library's version of it. Those mapping lines are the only hand-written substitutions in the trusted
-path, seventeen in one file and thirteen in the other, and each one carries a one-line justification
-next to it: addition is addition, subtraction stops at zero the way Coq's does, division by zero gives
+library's version of it. Those are the hand-written substitutions in the trusted path: one line
+that maps Coq's whole numbers onto the library's integers, a few that map Coq's Booleans, lists,
+pairs and options onto OCaml's own, and the arithmetic operations, seventeen in one file and
+thirteen in the other. Each arithmetic line carries a one-line justification next to it: addition is addition, subtraction stops at zero the way Coq's does, division by zero gives
 zero the way Coq's does. The rest is Coq's own definitions. The hand-written code outside that is two
 drivers, which read input, print output, and count steps while they call the extracted step function
 in a loop.
 
 What you're trusting, if you trust a run: Coq's extraction, the OCaml compiler, the integer
-library, those thirty mapping lines and the two drivers. None of that is proved. All of it is small
+library, those mapping lines and the two drivers. None of that is proved. All of it is small
 and old and used by a lot of people. That's a reason to trust it. It isn't a proof.
 
 \subsection{A second machine, written by hand, to check the first}
@@ -14181,14 +14187,15 @@ by the matrix proofs behind the game check; and, in some theorems, the law of ex
 (every proposition is true or false). The count, from the full audit:
 the full-corpus probe covers 5,369 named theorems across 308 files: 4,882 close under the global Coq context outright, and 487 use only Coq standard-library assumptions.
 Zero project-local axioms appear in any of the 5,369 dependency trees.
-The small machine's files sit outside that probe, under minimal/: the small machine, its
+The small machine's files, under minimal/, are inside that probe too, and every one of their 1,417
+probed theorems comes back closed under Coq's own rules, with no axiom at all. They are the small machine, its
 version for any property language, the simpler host, the definition of Thiele-complete and its
 window theorem, the host machine with a register for every whole number, the numbers that write
-a guest program down, and the pigeonhole (Section~\ref{sec:smallest}). Each ends by printing the
-assumptions of every headline theorem in it, and the test suite compiles every one of them and
-fails unless every one of those lines says the theorem is closed under Coq's own rules, with no
-axiom at all. A lemma a closed theorem uses is closed with it. So for those files ``nothing
-assumed'' means exactly that, and the evidence is the files' own printout, not the big audit. The
+a guest program down, and the pigeonhole (Section~\ref{sec:smallest}). Each also ends by printing the assumptions of
+every headline theorem in it, and the build fails unless every one of those lines says the theorem
+is closed. A lemma a closed theorem uses is closed with it. So for those files ``nothing assumed''
+means exactly that, and two separate printouts say so. Only two small files, MuCore.v and Napkin.v,
+sit outside the big audit, and they are built and checked on their own. The
 universal program's own files, which lean on the vendored library's counter-machine blocks, sit
 in the kernel tree with the other link files, and they also end by printing their headline
 theorems' assumptions; so do the files of the priced host, the compiler from computable
@@ -14277,10 +14284,9 @@ markers in maintained source). Its rules are heuristics. They point at places to
 a theorem means what it should, and they can't promise every empty premise got caught.
 
 So none of this is foolproof, the checker and the auditor included, and I don't treat it as if
-it were. That's the reason some of the theorems are runs. The worked examples in Part IV, the
-earned run that pays exactly three and the one that traps for good, the two guests run on the
-simpler host, the demonstration machine run on the universal host, are computed by Coq from
-the definitions, not described, and the tests are written to fail when a headline theorem
+it were. That's the reason some of the theorems are runs. The worked examples in Part IV, the earned run that pays exactly three and the one that traps for good, and the two guests run on
+the simpler host, are computed by Coq from the definitions. The demonstration machine on the priced
+host is different: its numbers are proved, and nobody has run it. The tests are written to fail when a headline theorem
 quietly stops coming back closed. A proof can be hollow in a way nobody spots. A definition that
 has to produce the numbers on the page, run by the checker itself, is harder to fool, and when it
 disagrees, it tells you where to look.
@@ -14303,9 +14309,9 @@ python3 scripts/reproduce_coq.py
 
 That copies the sources into a fresh directory and works only from the copy: it builds the
 part of the vendored Coq Library of Undecidability Proofs the proofs use, regenerates the build
-file, rebuilds every proof from
-source, runs the contract probes that re-check the named theorems and their assumptions, and
-runs Coq's independent checker over the result. It reuses no compiled proof from the
+file, rebuilds every proof from source, and runs Coq's independent checker over every module the
+project lists. Extra probe files that re-check named theorems can be added with \texttt{--probe};
+none run by default. It reuses no compiled proof from the
 checkout, and it writes its pass file only after every stage passes. A failed run resumes
 from the snapshot it captured, and a change to the sources needs a fresh run:
 
@@ -16223,21 +16229,11 @@ Coq's own rules. The other entries name the standard-library assumptions it uses
 functional extensionality on dependent functions, RD is the pair of decidability principles
 that come with the real numbers, and EM is excluded middle. ``def'' marks a definition, which
 has nothing to assume.
-``closed (file)'' marks a theorem of the small machine's files under minimal/ (EarnedCore.v,
-EarnedGeneric.v, UniversalThiele.v, ThieleComplete.v, ThieleCompleteWindow.v, EarnedMulti.v,
-UniversalCodes.v and UniversalNoCopy.v, with the files that carry the entitlement, fragment,
-verifier, search, time-tax and recursion results of Part IV: EntitlementSmall.v, FragmentSmall.v,
-VerifierSmall.v, MultiThiele2.v, BitSearch2.v, BitSearchMember2.v, BitSearchObserved2.v,
-EntitlementMore2.v, CompressionSmall2.v, TimeTax2.v, CoveringNeeded2.v and the recursion files
-SmHostBlocks.v, SmHostRice.v, SmCodes.v, SmInterp.v, SmEvalL.v, SmFuel.v, SmMMAHost.v, SmKleene.v,
-SmDecider.v and SmGuestRice.v), which the project-wide audit doesn't list: each file
-ends by printing the assumptions of every headline theorem, the checks compile it and fail
-unless every one of those lines says closed, and a lemma that a printed theorem uses is closed
-with it. The universal program's files under coq/kernel/foundation (UniversalLayout.v,
-UniversalSim.v, UniversalRun.v and UniversalInterpreterLinks.v) are in the kernel tree, so the
-project-wide audit covers them, and they also print their own headline theorems' assumptions;
-so do the priced host's files and the presented-machine files (UniversalPRun.v,
-PresentedUniversal.v, PresentedDemo.v and their neighbours). ``+N''
+The audit covers every file the project builds, the small machine's files under minimal/ and the
+kernel tree under coq/kernel alike; only MuCore.v and Napkin.v, which are built and checked on their
+own, sit outside it. The small machine's files, the universal program's files and the priced host's
+files also end by printing the assumptions of their own headline theorems, and the build fails
+unless every one of those lines says closed. ``+N''
 after a file means $N$ other files in the tree define a name spelled the same way; the row gives
 the file this result uses. A premise or a conjecture has no Coq name on purpose: it's assumed, or it's a conjecture the book states and doesn't claim, and the
 section that states it says so.
@@ -16267,10 +16263,10 @@ Corollary \ref{cor:permanent-forced}: Permanent records are forced & \S\ref{sec:
 Premise \ref{prem:halving}: Halving price & \S\ref{sec:a2-not-arbitrary} & \code{compression\_priced} {\footnotesize(\code{PermanentRecordPricing.v})} & def \\
 Theorem \ref{thm:squeeze}: The squeeze bound & \S\ref{sec:a2-not-arbitrary} & \code{a2\_from\_compression\_price\_and\_permanence} {\footnotesize(\code{PermanentRecordPricing.v})}\newline \code{permanent\_flips\_compression\_bound} {\footnotesize(\code{PermanentRecordPricing.v})}\newline \code{permanent\_flips\_log\_bound} {\footnotesize(\code{PermanentRecordPricing.v})}\newline \code{permanent\_flips\_collapse\_at\_least} {\footnotesize(\code{PermanentCertification.v})} & none\newline none\newline none\newline none \\
 In the text: an eight-state machine meets every premise & \S\ref{sec:a2-not-arbitrary} & \code{fin\_finite}, \code{fin\_permanent}, \code{fin\_merging\_priced}, \code{fin\_a2\_from\_merging\_price}, \code{fiber\_bound\_compression} {\footnotesize(\code{FiniteCertMachine.v})} & none \\
-In the text: each move's price is the halvings in its largest squeeze; the halving price holds exactly when no pile-up exceeds $2^{\mathrm{cost}}$ & \S\ref{sec:a2-not-arbitrary} & \code{frag\_price\_is\_squeeze} {\footnotesize(\code{FragmentSmall.v})}\newline \code{ent2\_compression\_priced\_iff\_fibres} {\footnotesize(\code{CompressionSmall2.v})}\newline \code{ent2\_frag\_compression\_priced} {\footnotesize(\code{CompressionSmall2.v})}\newline \code{ent2\_frag\_toll\_by\_compression} {\footnotesize(\code{CompressionSmall2.v})}\newline \code{ent2\_frag\_cost\_minimal} {\footnotesize(\code{CompressionSmall2.v})}\newline and 1 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
+In the text: each move's price is the halvings in its largest squeeze; the halving price holds exactly when no pile-up exceeds $2^{\mathrm{cost}}$ & \S\ref{sec:a2-not-arbitrary} & \code{frag\_price\_is\_squeeze} {\footnotesize(\code{FragmentSmall.v})}\newline \code{ent2\_compression\_priced\_iff\_fibres} {\footnotesize(\code{CompressionSmall2.v})}\newline \code{ent2\_frag\_compression\_priced} {\footnotesize(\code{CompressionSmall2.v})}\newline \code{ent2\_frag\_toll\_by\_compression} {\footnotesize(\code{CompressionSmall2.v})}\newline \code{ent2\_frag\_cost\_minimal} {\footnotesize(\code{CompressionSmall2.v})}\newline and 1 more & none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:frag-small}: The eight-state machine, compiled & \S\ref{sec:smallest} & stated in the text &  \\
-Theorem \ref{thm:frag-small}: The small machine runs the eight-state machine & \S\ref{sec:smallest} & \code{frag\_runs\_finite\_machine} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_pays\_finite\_price} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_runs\_finite\_trace} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_certification\_paid} {\footnotesize(\code{FragmentSmall.v})}\newline and 5 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:frag-merge-split}: The small machine's merges & \S\ref{sec:smallest} & \code{frag\_small\_certify\_merges} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_small\_certifying\_step\_priced\_merge} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_small\_dec\_free\_merge} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_small\_not\_merge\_priced} {\footnotesize(\code{FragmentSmall.v})}\newline and 1 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
+Theorem \ref{thm:frag-small}: The small machine runs the eight-state machine & \S\ref{sec:smallest} & \code{frag\_runs\_finite\_machine} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_pays\_finite\_price} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_runs\_finite\_trace} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_certification\_paid} {\footnotesize(\code{FragmentSmall.v})}\newline and 5 more & none\newline none\newline none\newline none \\
+Theorem \ref{thm:frag-merge-split}: The small machine's merges & \S\ref{sec:smallest} & \code{frag\_small\_certify\_merges} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_small\_certifying\_step\_priced\_merge} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_small\_dec\_free\_merge} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_small\_not\_merge\_priced} {\footnotesize(\code{FragmentSmall.v})}\newline and 1 more & none\newline none\newline none\newline none \\
 Theorem \ref{thm:u04-injective-entropy}: A move that forgets nothing removes no bits & \S\ref{sec:a2-not-arbitrary} & \code{step\_entropy\_invariant\_if\_injective} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM \\
 Theorem \ref{thm:entropy-ceiling}: Entropy after a permanent flip & \S\ref{sec:a2-not-arbitrary} & \code{permanent\_step\_entropy\_ceiling} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{permanent\_flip\_uniform\_entropy\_drop} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Premise \ref{prem:landauer}: Landauer's principle, as a premise & \S\ref{sec:a2-not-arbitrary} & \code{landauer\_heat} {\footnotesize(\code{PermanentCertificationEntropy.v})} & def \\
@@ -16292,22 +16288,22 @@ Theorem \ref{thm:potential}: The toll is the potential method & \S\ref{sec:count
 Theorem \ref{thm:fibre}: Decoders need constant fibres & \S\ref{sec:windows} & \code{decoding\_requires\_fiber\_constancy} {\footnotesize(\code{ObservationPolicy.v})}\newline \code{selected\_representatives\_give\_decoder} {\footnotesize(\code{ObservationPolicy.v})} & none\newline none \\
 Theorem \ref{thm:shadow-price}: No exact window price across a collision & \S\ref{sec:windows} & \code{shadow\_floor\_overcharges} {\footnotesize(\code{ShadowPricing.v})}\newline \code{shadow\_cannot\_price\_exactly} {\footnotesize(\code{ShadowPricing.v})}\newline \code{window\_showing\_reading\_prices\_exactly} {\footnotesize(\code{ShadowPricing.v})}\newline \code{window\_showing\_reading\_has\_no\_collision} {\footnotesize(\code{ShadowPricing.v})} & none\newline none\newline none\newline none \\
 Definition \ref{def:u21-escape-relations}: Three richer transcripts and their explanations & \S\ref{sec:windows} & stated in the text & \\
-Theorem \ref{thm:u21-escapes}: Three conditional escapes & \S\ref{sec:windows} & \code{ver\_full\_state\_escape} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_commitment\_escape} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_honest\_meets\_contract} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_unchecked\_breaks\_contract} {\footnotesize(\code{VerifierSmall.v})}\newline and 1 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-In the text: the same collision survives into any richer transcript that keeps it & \S\ref{sec:windows} & \code{ver\_collision\_blocks} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_no\_factor} {\footnotesize(\code{VerifierSmall.v})} & closed (file)\newline closed (file) \\
-Theorem \ref{thm:ver-complete}: No bare verifier on a Thiele-complete machine & \S\ref{sec:windows} & \code{ver\_complete\_no\_record\_verifier} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_complete\_no\_ledger\_verifier} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_small\_no\_ledger\_verifier} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_corollary} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_small\_corollary} {\footnotesize(\code{VerifierSmall.v})} & closed (file)\newline closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
+Theorem \ref{thm:u21-escapes}: Three conditional escapes & \S\ref{sec:windows} & \code{ver\_full\_state\_escape} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_commitment\_escape} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_honest\_meets\_contract} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_unchecked\_breaks\_contract} {\footnotesize(\code{VerifierSmall.v})}\newline and 1 more & none\newline none\newline none\newline none \\
+In the text: the same collision survives into any richer transcript that keeps it & \S\ref{sec:windows} & \code{ver\_collision\_blocks} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_no\_factor} {\footnotesize(\code{VerifierSmall.v})} & none\newline none \\
+Theorem \ref{thm:ver-complete}: No bare verifier on a Thiele-complete machine & \S\ref{sec:windows} & \code{ver\_complete\_no\_record\_verifier} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_complete\_no\_ledger\_verifier} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_small\_no\_ledger\_verifier} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_corollary} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_small\_corollary} {\footnotesize(\code{VerifierSmall.v})} & none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u08-entitlement}: Entitlement & \S\ref{sec:entitlement} & stated in the text &  \\
 Definition \ref{def:u08-dtree}: Decision tree & \S\ref{sec:entitlement} & stated in the text &  \\
 Lemma \ref{lem:u08-tree-width}: A tree is no wider than two to its depth & \S\ref{sec:entitlement} & \code{decision\_tree\_leaves\_le\_pow2\_depth} {\footnotesize(\code{DecisionTreeBound.v})}\newline \code{decision\_tree\_log2\_up\_leaf\_bound} {\footnotesize(\code{DecisionTreeBound.v})} & none\newline none \\
-Theorem \ref{thm:u08-count}: Paid narrowing, counted & \S\ref{sec:entitlement} & \code{ent\_cs\_count} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{nec\_e\_cs\_count\_any} {\footnotesize(\code{NecEEnt.v})}\newline \code{nec\_e\_cs\_tight} {\footnotesize(\code{NecEEnt.v})}\newline \code{nec\_f\_conservation} {\footnotesize(\code{NecFCounter.v})} & closed (file)\newline none\newline none\newline none \\
-Theorem \ref{thm:ent-cs}: Structural entitlement, over any certification system & \S\ref{sec:entitlement} & \code{ent\_narrowing\_strengthens} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_cs\_count} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_cs\_entitlement} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_leaves\_le\_pow2} {\footnotesize(\code{EntitlementSmall.v})}\newline and 1 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:ent-machine}: Structural entitlement represented & \S\ref{sec:smallest} & \code{ent\_representation} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_every\_shortcut\_lands\_here} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_complete\_tree\_bound} {\footnotesize(\code{EntitlementSmall.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:ent-questions}: A floor with no supplied tree & \S\ref{sec:smallest} & \code{ent\_questions\_floor} {\footnotesize(\code{EntitlementSmall.v})} & closed (file) \\
-Theorem \ref{thm:ent-observed}: What the record adds & \S\ref{sec:smallest} & \code{ent2\_record\_adds} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_upgrade\_iff} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_observed\_representation} {\footnotesize(\code{EntitlementMore2.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-In the text: weights and the partition form & \S\ref{sec:smallest} & \code{ent2\_weighted\_bits} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_weighted\_cs} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_weighted\_representation} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_weighted\_expected\_bound} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_partition\_to\_reduction} {\footnotesize(\code{EntitlementMore2.v})}\newline and 7 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Proposition \ref{prop:ent-small}: The eight-cup member & \S\ref{sec:smallest} & \code{ent\_small\_certifies\_iff} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_posterior\_is\_certified} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_instance} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_questions} {\footnotesize(\code{EntitlementSmall.v})}\newline and 2 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:ent-search}: A search through $n$ bits & \S\ref{sec:smallest} & \code{ent2\_mmachine\_complete} {\footnotesize(\code{MultiThiele2.v})}\newline \code{ent2\_bit\_search} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_certifies\_iff} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_questions\_floor} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_questions\_cap} {\footnotesize(\code{BitSearch2.v})}\newline and 4 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-In the text: the covering can't be dropped & \S\ref{sec:smallest} & \code{ent2\_uncovered\_posterior} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_uncovered\_claim\_false} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_no\_cheap\_covering} {\footnotesize(\code{CoveringNeeded2.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:time-tax}: The time tax & \S\ref{sec:smallest} & \code{ent2\_free\_run\_shift} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_free\_cannot\_decide\_fast} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_chain\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_time\_tax} {\footnotesize(\code{TimeTax2.v})}\newline and 3 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
+Theorem \ref{thm:u08-count}: Paid narrowing, counted & \S\ref{sec:entitlement} & \code{ent\_cs\_count} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{nec\_e\_cs\_count\_any} {\footnotesize(\code{NecEEnt.v})}\newline \code{nec\_e\_cs\_tight} {\footnotesize(\code{NecEEnt.v})}\newline \code{nec\_f\_conservation} {\footnotesize(\code{NecFCounter.v})} & none\newline none\newline none\newline none \\
+Theorem \ref{thm:ent-cs}: Structural entitlement, over any certification system & \S\ref{sec:entitlement} & \code{ent\_narrowing\_strengthens} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_cs\_count} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_cs\_entitlement} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_leaves\_le\_pow2} {\footnotesize(\code{EntitlementSmall.v})}\newline and 1 more & none\newline none\newline none\newline none \\
+Theorem \ref{thm:ent-machine}: Structural entitlement represented & \S\ref{sec:smallest} & \code{ent\_representation} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_every\_shortcut\_lands\_here} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_complete\_tree\_bound} {\footnotesize(\code{EntitlementSmall.v})} & none\newline none\newline none \\
+Theorem \ref{thm:ent-questions}: A floor with no supplied tree & \S\ref{sec:smallest} & \code{ent\_questions\_floor} {\footnotesize(\code{EntitlementSmall.v})} & none \\
+Theorem \ref{thm:ent-observed}: What the record adds & \S\ref{sec:smallest} & \code{ent2\_record\_adds} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_upgrade\_iff} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_observed\_representation} {\footnotesize(\code{EntitlementMore2.v})} & none\newline none\newline none \\
+In the text: weights and the partition form & \S\ref{sec:smallest} & \code{ent2\_weighted\_bits} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_weighted\_cs} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_weighted\_representation} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_weighted\_expected\_bound} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_partition\_to\_reduction} {\footnotesize(\code{EntitlementMore2.v})}\newline and 7 more & none\newline none\newline none\newline none\newline none \\
+Proposition \ref{prop:ent-small}: The eight-cup member & \S\ref{sec:smallest} & \code{ent\_small\_certifies\_iff} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_posterior\_is\_certified} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_instance} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_questions} {\footnotesize(\code{EntitlementSmall.v})}\newline and 2 more & none\newline none\newline none\newline none \\
+Theorem \ref{thm:ent-search}: A search through $n$ bits & \S\ref{sec:smallest} & \code{ent2\_mmachine\_complete} {\footnotesize(\code{MultiThiele2.v})}\newline \code{ent2\_bit\_search} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_certifies\_iff} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_questions\_floor} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_questions\_cap} {\footnotesize(\code{BitSearch2.v})}\newline and 4 more & none\newline none\newline none\newline none\newline none \\
+In the text: the covering can't be dropped & \S\ref{sec:smallest} & \code{ent2\_uncovered\_posterior} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_uncovered\_claim\_false} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_no\_cheap\_covering} {\footnotesize(\code{CoveringNeeded2.v})} & none\newline none\newline none \\
+Theorem \ref{thm:time-tax}: The time tax & \S\ref{sec:smallest} & \code{ent2\_free\_run\_shift} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_free\_cannot\_decide\_fast} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_chain\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_time\_tax} {\footnotesize(\code{TimeTax2.v})}\newline and 3 more & none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u09-events}: Certified insight event, raw observation & \S\ref{sec:insight} & stated in the text &  \\
 Remark \ref{rem:u09-three}: What the toll prices, and what it doesn't & \S\ref{sec:insight} & argued in the text &  \\
 Remark \ref{rem:u09-no-wait}: Nothing makes the crossing wait & \S\ref{sec:insight} & argued in the text &  \\
@@ -16364,36 +16360,36 @@ Theorem \ref{thm:u14-blind}: One blind observer is enough & \S\ref{sec:pointer} 
 Definition \ref{def:u14-game}: Observation game & \S\ref{sec:pointer} & stated in the text &  \\
 Theorem \ref{thm:u14-toggle}: Agreement does not buy permanence; durability does & \S\ref{sec:pointer} & \code{toggle\_game\_refutes\_strong\_pointer\_necessity} {\footnotesize(\code{EcosystemGame.v})}\newline \code{durable\_consensus\_implies\_permanence} {\footnotesize(\code{EcosystemGame.v})} & none\newline none \\
 Definition \ref{def:u34-props}: Properties, checker, meaning & \S\ref{sec:smallest} & stated in the text &  \\
-Lemma \ref{lem:u34-eval}: The checker says what it means & \S\ref{sec:smallest} & \code{eval\_iff} {\footnotesize(\code{EarnedCore.v})} & closed (file) \\
+Lemma \ref{lem:u34-eval}: The checker says what it means & \S\ref{sec:smallest} & \code{eval\_iff} {\footnotesize(\code{EarnedCore.v})} & none \\
 Definition \ref{def:u34-state}: Core, state, claim, start & \S\ref{sec:smallest} & stated in the text &  \\
 Definition \ref{def:u34-step}: Instructions, costs, the step & \S\ref{sec:smallest} & \code{cexec} {\footnotesize(\code{EarnedCore.v})}\newline \code{exec} {\footnotesize(\code{EarnedCore.v})}\newline \code{run} {\footnotesize(\code{EarnedCore.v}, +10)}\newline \code{total\_cost} {\footnotesize(\code{EarnedCore.v}, +1)}\newline and 2 more & def\newline def\newline def\newline def \\
 Definition \ref{def:u34-minsky}: Two-counter program, compile, window & \S\ref{sec:smallest} & stated in the text &  \\
-Theorem \ref{thm:u34-simulation}: Step for step & \S\ref{sec:smallest} & \code{simulation\_step} {\footnotesize(\code{EarnedCore.v})}\newline \code{simulation\_run} {\footnotesize(\code{EarnedCore.v})} & closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-halting}: Halting matches & \S\ref{sec:smallest} & \code{halting\_correspondence} {\footnotesize(\code{EarnedCore.v})} & closed (file) \\
+Theorem \ref{thm:u34-simulation}: Step for step & \S\ref{sec:smallest} & \code{simulation\_step} {\footnotesize(\code{EarnedCore.v})}\newline \code{simulation\_run} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
+Theorem \ref{thm:u34-halting}: Halting matches & \S\ref{sec:smallest} & \code{halting\_correspondence} {\footnotesize(\code{EarnedCore.v})} & none \\
 Theorem \ref{thm:u34-undecidable}: Halting is undecidable for this machine & \S\ref{sec:smallest} & \code{mm2\_step\_iff} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{mm2\_stop\_iff} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{mm2\_terminates\_iff} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{mm2\_halting\_iff} {\footnotesize(if and only if)} {\footnotesize(\code{EarnedCoreLinks.v})}\newline and 1 more & none\newline none\newline none\newline none \\
-Theorem \ref{thm:u34-toll}: Ledger, toll, permanence & \S\ref{sec:smallest} & \code{mu\_conservation} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{mu\_conservation\_trace} {\footnotesize(\code{EarnedCore.v}, +1)}\newline \code{only\_certify\_certifies} {\footnotesize(\code{EarnedCore.v}, +1)}\newline \code{a2} {\footnotesize(\code{EarnedCore.v}, +3)}\newline and 1 more & none\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-instance}: An instance of the certification system & \S\ref{sec:smallest} & \code{earned\_core\_floor} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{universal\_nfi\_any\_substrate} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{nfi\_floor} {\footnotesize(\code{EarnedCore.v}, +1)}\newline \code{earned\_cs} {\footnotesize(\code{EarnedCoreLinks.v})} & none\newline none\newline closed (file)\newline def \\
-Theorem \ref{thm:u34-latch}: The flag is a latch of the base & \S\ref{sec:smallest} & \code{earned\_core\_honest} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{earned\_core\_is\_latch} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{cert\_latch} {\footnotesize(\code{EarnedCore.v})}\newline and 1 more & none\newline none\newline none\newline closed (file) \\
+Theorem \ref{thm:u34-toll}: Ledger, toll, permanence & \S\ref{sec:smallest} & \code{mu\_conservation} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{mu\_conservation\_trace} {\footnotesize(\code{EarnedCore.v}, +1)}\newline \code{only\_certify\_certifies} {\footnotesize(\code{EarnedCore.v}, +1)}\newline \code{a2} {\footnotesize(\code{EarnedCore.v}, +3)}\newline and 1 more & none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-instance}: An instance of the certification system & \S\ref{sec:smallest} & \code{earned\_core\_floor} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{universal\_nfi\_any\_substrate} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{nfi\_floor} {\footnotesize(\code{EarnedCore.v}, +1)}\newline \code{earned\_cs} {\footnotesize(\code{EarnedCoreLinks.v})} & none\newline none\newline none\newline def \\
+Theorem \ref{thm:u34-latch}: The flag is a latch of the base & \S\ref{sec:smallest} & \code{earned\_core\_honest} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{earned\_core\_is\_latch} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{cert\_latch} {\footnotesize(\code{EarnedCore.v})}\newline and 1 more & none\newline none\newline none\newline none \\
 Definition \ref{def:u34-untouched}: Untouched & \S\ref{sec:smallest} & \code{untouched} {\footnotesize(\code{EarnedCore.v})} & def \\
-Theorem \ref{thm:u34-commit-earned}: A commitment was checked first & \S\ref{sec:smallest} & \code{earned\_commitment\_provenance} {\footnotesize(\code{EarnedCore.v})} & closed (file) \\
-Theorem \ref{thm:u34-cert-earned}: A raised flag was checked, then committed, then certified & \S\ref{sec:smallest} & \code{earned\_certification\_provenance} {\footnotesize(\code{EarnedCore.v})} & closed (file) \\
-Theorem \ref{thm:u34-failures}: Unearned steps trap and change no claim & \S\ref{sec:smallest} & \code{unearned\_commit\_traps} {\footnotesize(\code{EarnedCore.v})}\newline \code{uncommitted\_certify\_traps} {\footnotesize(\code{EarnedCore.v})} & closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-soundness}: Checker soundness & \S\ref{sec:smallest} & \code{checker\_soundness} {\footnotesize(\code{EarnedCore.v})}\newline \code{committed\_claim\_holds} {\footnotesize(\code{EarnedCore.v})}\newline \code{sound\_step} {\footnotesize(\code{EarnedCore.v})}\newline \code{sound} {\footnotesize(\code{EarnedCore.v})} & closed (file)\newline closed (file)\newline closed (file)\newline def \\
+Theorem \ref{thm:u34-commit-earned}: A commitment was checked first & \S\ref{sec:smallest} & \code{earned\_commitment\_provenance} {\footnotesize(\code{EarnedCore.v})} & none \\
+Theorem \ref{thm:u34-cert-earned}: A raised flag was checked, then committed, then certified & \S\ref{sec:smallest} & \code{earned\_certification\_provenance} {\footnotesize(\code{EarnedCore.v})} & none \\
+Theorem \ref{thm:u34-failures}: Unearned steps trap and change no claim & \S\ref{sec:smallest} & \code{unearned\_commit\_traps} {\footnotesize(\code{EarnedCore.v})}\newline \code{uncommitted\_certify\_traps} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
+Theorem \ref{thm:u34-soundness}: Checker soundness & \S\ref{sec:smallest} & \code{checker\_soundness} {\footnotesize(\code{EarnedCore.v})}\newline \code{committed\_claim\_holds} {\footnotesize(\code{EarnedCore.v})}\newline \code{sound\_step} {\footnotesize(\code{EarnedCore.v})}\newline \code{sound} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline none\newline def \\
 Definition \ref{def:u34-earned}: Earned fact; no forgery & \S\ref{sec:smallest} & stated in the text &  \\
-Theorem \ref{thm:u34-no-forging}: No forging & \S\ref{sec:smallest} & \code{facts\_step} {\footnotesize(\code{EarnedCore.v})}\newline \code{no\_forging\_step} {\footnotesize(\code{EarnedCore.v})}\newline \code{no\_forging} {\footnotesize(\code{EarnedCore.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-bounded}: Bounded table, no eviction & \S\ref{sec:smallest} & \code{facts\_keep} {\footnotesize(\code{EarnedCore.v})}\newline \code{full\_table\_traps} {\footnotesize(\code{EarnedCore.v})}\newline \code{facts\_bounded\_step} {\footnotesize(\code{EarnedCore.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-separation}: Same window, different record & \S\ref{sec:smallest} & \code{receipt\_separation} {\footnotesize(\code{EarnedCore.v}, +1)} & closed (file) \\
-Theorem \ref{thm:u34-no-oracle}: No window oracle & \S\ref{sec:smallest} & \code{no\_mu\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_cert\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_commit\_oracle} {\footnotesize(\code{EarnedCore.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-min-price}: The minimum price of a certificate & \S\ref{sec:smallest} & \code{certified\_run\_min\_cost} {\footnotesize(\code{EarnedCore.v})}\newline \code{program\_certified\_min\_cost} {\footnotesize(\code{EarnedCore.v})} & closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-tight}: Three is tight & \S\ref{sec:smallest} & \code{earned\_run\_check\_can\_fail} {\footnotesize(\code{EarnedCore.v})}\newline \code{earned\_run\_refused\_forever} {\footnotesize(\code{EarnedCore.v})}\newline \code{earned\_run} {\footnotesize(\code{EarnedCore.v})}\newline \code{min\_cost\_tight} {\footnotesize(\code{EarnedCore.v})} & closed (file)\newline closed (file)\newline def\newline closed (file) \\
+Theorem \ref{thm:u34-no-forging}: No forging & \S\ref{sec:smallest} & \code{facts\_step} {\footnotesize(\code{EarnedCore.v})}\newline \code{no\_forging\_step} {\footnotesize(\code{EarnedCore.v})}\newline \code{no\_forging} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline none \\
+Theorem \ref{thm:u34-bounded}: Bounded table, no eviction & \S\ref{sec:smallest} & \code{facts\_keep} {\footnotesize(\code{EarnedCore.v})}\newline \code{full\_table\_traps} {\footnotesize(\code{EarnedCore.v})}\newline \code{facts\_bounded\_step} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline none \\
+Theorem \ref{thm:u34-separation}: Same window, different record & \S\ref{sec:smallest} & \code{receipt\_separation} {\footnotesize(\code{EarnedCore.v}, +1)} & none \\
+Theorem \ref{thm:u34-no-oracle}: No window oracle & \S\ref{sec:smallest} & \code{no\_mu\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_cert\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_commit\_oracle} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline none \\
+Theorem \ref{thm:u34-min-price}: The minimum price of a certificate & \S\ref{sec:smallest} & \code{certified\_run\_min\_cost} {\footnotesize(\code{EarnedCore.v})}\newline \code{program\_certified\_min\_cost} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
+Theorem \ref{thm:u34-tight}: Three is tight & \S\ref{sec:smallest} & \code{earned\_run\_check\_can\_fail} {\footnotesize(\code{EarnedCore.v})}\newline \code{earned\_run\_refused\_forever} {\footnotesize(\code{EarnedCore.v})}\newline \code{earned\_run} {\footnotesize(\code{EarnedCore.v})}\newline \code{min\_cost\_tight} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline def\newline none \\
 Definition \ref{def:u34-thiele-complete}: Thiele-complete & \S\ref{sec:smallest} & \code{thiele\_interface} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_with} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})} & def\newline def\newline def\newline def \\
-Theorem \ref{thm:u34-tc-consequences}: What every Thiele-complete machine has & \S\ref{sec:smallest} & \code{thiele\_complete\_is\_weak} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_halting\_correspondence} {\footnotesize(\code{ThieleComplete.v})}\newline \code{certificate\_costs\_three} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})}\newline and 6 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-clock}: A clock is a Thiele machine and isn't Thiele-complete & \S\ref{sec:smallest} & \code{clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})} & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-tc-clauses}: Each clause does work & \S\ref{sec:smallest} & \code{paid\_latch\_meets\_base\_and\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_meets\_base\_record\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline and 4 more & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-tc-instances}: The small machine, the generic one and the sorted one are Thiele-complete & \S\ref{sec:smallest} & \code{earned\_core\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{earned\_generic\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{sorted\_machine\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_floor} {\footnotesize(\code{EarnedGenericLinks.v})}\newline and 2 more & closed (file)\newline closed (file)\newline closed (file)\newline none \\
-Theorem \ref{thm:u34-tc-window}: Every Thiele-complete machine hides its record and its ledger from its window & \S\ref{sec:smallest} & \code{complete\_every\_window\_printed} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_record\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_ledger\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_cs\_window\_blind} {\footnotesize(\code{EarnedGenericLinks.v})}\newline and 3 more & closed (file)\newline closed (file)\newline closed (file)\newline none \\
+Theorem \ref{thm:u34-tc-consequences}: What every Thiele-complete machine has & \S\ref{sec:smallest} & \code{thiele\_complete\_is\_weak} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_halting\_correspondence} {\footnotesize(\code{ThieleComplete.v})}\newline \code{certificate\_costs\_three} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})}\newline and 6 more & none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-clock}: A clock is a Thiele machine and isn't Thiele-complete & \S\ref{sec:smallest} & \code{clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-tc-clauses}: Each clause does work & \S\ref{sec:smallest} & \code{paid\_latch\_meets\_base\_and\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_meets\_base\_record\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline and 4 more & none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-tc-instances}: The small machine, the generic one and the sorted one are Thiele-complete & \S\ref{sec:smallest} & \code{earned\_core\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{earned\_generic\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{sorted\_machine\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_floor} {\footnotesize(\code{EarnedGenericLinks.v})}\newline and 2 more & none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-tc-window}: Every Thiele-complete machine hides its record and its ledger from its window & \S\ref{sec:smallest} & \code{complete\_every\_window\_printed} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_record\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_ledger\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_cs\_window\_blind} {\footnotesize(\code{EarnedGenericLinks.v})}\newline and 3 more & none\newline none\newline none\newline none \\
 Definition \ref{def:u34-multi}: The host machine & \S\ref{sec:smallest} & \code{pair} {\footnotesize(\code{UniversalCodes.v})}\newline \code{pcode} {\footnotesize(\code{UniversalCodes.v})}\newline \code{heval} {\footnotesize(\code{UniversalCodes.v})}\newline \code{hholds} {\footnotesize(\code{UniversalCodes.v})} & def\newline def\newline def\newline def \\
-Theorem \ref{thm:u34-nocopy}: No host fact on an exact copy of the guest's counter & \S\ref{sec:smallest} & \code{pigeonhole\_collision} {\footnotesize(\code{UniversalNoCopy.v})}\newline \code{no\_exact\_copy\_host} {\footnotesize(\code{UniversalNoCopy.v})}\newline \code{multi\_cs\_no\_exact\_copy} {\footnotesize(\code{UniversalInterpreterLinks.v})} & closed (file)\newline closed (file)\newline none \\
+Theorem \ref{thm:u34-nocopy}: No host fact on an exact copy of the guest's counter & \S\ref{sec:smallest} & \code{pigeonhole\_collision} {\footnotesize(\code{UniversalNoCopy.v})}\newline \code{no\_exact\_copy\_host} {\footnotesize(\code{UniversalNoCopy.v})}\newline \code{multi\_cs\_no\_exact\_copy} {\footnotesize(\code{UniversalInterpreterLinks.v})} & none\newline none\newline none \\
 Definition \ref{def:u34-U}: The program $U$, and loading a guest & \S\ref{sec:smallest} & \code{U} {\footnotesize(\code{UniversalLayout.v}, +2)}\newline \code{hload} {\footnotesize(\code{UniversalSim.v}, +1)}\newline \code{prog\_code} {\footnotesize(\code{UniversalCodes.v})}\newline \code{U\_paid\_sites} {\footnotesize(\code{UniversalLayout.v})} & def\newline def\newline def\newline none \\
 Theorem \ref{thm:u34-U-sim}: $U$ keeps pace with its guest & \S\ref{sec:smallest} & \code{hload\_rel} {\footnotesize(\code{UniversalSim.v})}\newline \code{U\_step} {\footnotesize(\code{UniversalSim.v})}\newline \code{U\_simulation} {\footnotesize(\code{UniversalRun.v})} & none\newline none\newline none \\
 Theorem \ref{thm:u34-U-halting}: Halting and answers match & \S\ref{sec:smallest} & \code{universal\_halting} {\footnotesize(\code{UniversalRun.v})}\newline \code{universal\_output} {\footnotesize(\code{UniversalRun.v})} & none\newline none \\
@@ -16401,27 +16397,27 @@ Theorem \ref{thm:u34-U-flag}: The host's flag is the guest's, and its ledger is 
 Theorem \ref{thm:u34-U-earned}: The host earns its own flag & \S\ref{sec:smallest} & \code{universal\_earned} {\footnotesize(\code{UniversalRun.v})} & none \\
 Theorem \ref{thm:u34-U-complete}: The host is Thiele-complete, and $U$'s halting is undecidable & \S\ref{sec:smallest} & \code{universal\_thiele\_complete} {\footnotesize(\code{UniversalRun.v})}\newline \code{U\_run\_on\_host\_machine} {\footnotesize(\code{UniversalRun.v})}\newline \code{interp\_halting\_undecidable} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_U\_certified\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline and 4 more & none\newline none\newline none\newline none \\
 Definition \ref{def:u34-host}: The host & \S\ref{sec:smallest} & \code{hexec} {\footnotesize(\code{UniversalThiele.v})}\newline \code{U} {\footnotesize(\code{UniversalThiele.v})} & def\newline def \\
-Theorem \ref{thm:u34-universal}: The host runs any guest & \S\ref{sec:smallest} & \code{universal\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{universal\_program\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_thiele\_complete} {\footnotesize(\code{UniversalThiele.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-mirror}: The copy is the record & \S\ref{sec:smallest} & \code{record\_agreement\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{record\_agreement} {\footnotesize(\code{UniversalThiele.v})}\newline \code{simulated\_record} {\footnotesize(\code{UniversalThiele.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-host-toll}: The host's step collects the guest's toll & \S\ref{sec:smallest} & \code{toll\_enforced\_by\_host\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{every\_guest\_crossing\_is\_a\_host\_crossing} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_cost\_covers\_guest} {\footnotesize(\code{UniversalThiele.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-no-free-host}: No free host certification & \S\ref{sec:smallest} & \code{no\_free\_host\_certification\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{guestless\_runs\_leave\_mirror} {\footnotesize(\code{UniversalThiele.v})}\newline \code{own\_record\_only\_by\_certify} {\footnotesize(\code{UniversalThiele.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:u34-host-instance}: The host is a Thiele machine & \S\ref{sec:smallest} & \code{host\_toll} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_nfi} {\footnotesize(\code{UniversalThieleLinks.v})}\newline \code{host\_cs} {\footnotesize(\code{UniversalThieleLinks.v})} & closed (file)\newline none\newline def \\
-Remark \ref{rem:u34-host-runs}: Two guests, run & \S\ref{sec:smallest} & \code{demo\_certifies} {\footnotesize(\code{UniversalThiele.v})}\newline \code{demo\_program\_certifies} {\footnotesize(\code{UniversalThiele.v})}\newline \code{demo\_forgery\_fails} {\footnotesize(\code{UniversalThiele.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-In the text: the same chain for any property with a proved checker, ``sorted'' included & \S\ref{sec:smallest} & \code{generic\_earned\_certification\_provenance} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_checker\_soundness} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_no\_forging} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_certified\_run\_min\_cost} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_certifies\_iff} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_refused\_forever} {\footnotesize(\code{EarnedGeneric.v})} & closed (file) \\
-In the text: the channel names the last earned commitment & \S\ref{sec:smallest} & \code{certified\_channel\_earned} {\footnotesize(\code{EarnedCore.v})}\newline \code{channel\_names\_last\_commit} {\footnotesize(\code{EarnedCore.v})} & closed (file) \\
-In the text: a raised mirror means the guest's own run earned it & \S\ref{sec:smallest} & \code{host\_mirror\_earned} {\footnotesize(\code{UniversalThiele.v})} & closed (file) \\
+Theorem \ref{thm:u34-universal}: The host runs any guest & \S\ref{sec:smallest} & \code{universal\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{universal\_program\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_thiele\_complete} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none \\
+Theorem \ref{thm:u34-mirror}: The copy is the record & \S\ref{sec:smallest} & \code{record\_agreement\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{record\_agreement} {\footnotesize(\code{UniversalThiele.v})}\newline \code{simulated\_record} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none \\
+Theorem \ref{thm:u34-host-toll}: The host's step collects the guest's toll & \S\ref{sec:smallest} & \code{toll\_enforced\_by\_host\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{every\_guest\_crossing\_is\_a\_host\_crossing} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_cost\_covers\_guest} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none \\
+Theorem \ref{thm:u34-no-free-host}: No free host certification & \S\ref{sec:smallest} & \code{no\_free\_host\_certification\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{guestless\_runs\_leave\_mirror} {\footnotesize(\code{UniversalThiele.v})}\newline \code{own\_record\_only\_by\_certify} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none \\
+Theorem \ref{thm:u34-host-instance}: The host is a Thiele machine & \S\ref{sec:smallest} & \code{host\_toll} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_nfi} {\footnotesize(\code{UniversalThieleLinks.v})}\newline \code{host\_cs} {\footnotesize(\code{UniversalThieleLinks.v})} & none\newline none\newline def \\
+Remark \ref{rem:u34-host-runs}: Two guests, run & \S\ref{sec:smallest} & \code{demo\_certifies} {\footnotesize(\code{UniversalThiele.v})}\newline \code{demo\_program\_certifies} {\footnotesize(\code{UniversalThiele.v})}\newline \code{demo\_forgery\_fails} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none \\
+In the text: the same chain for any property with a proved checker, ``sorted'' included & \S\ref{sec:smallest} & \code{generic\_earned\_certification\_provenance} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_checker\_soundness} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_no\_forging} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_certified\_run\_min\_cost} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_certifies\_iff} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_refused\_forever} {\footnotesize(\code{EarnedGeneric.v})} & none \\
+In the text: the channel names the last earned commitment & \S\ref{sec:smallest} & \code{certified\_channel\_earned} {\footnotesize(\code{EarnedCore.v})}\newline \code{channel\_names\_last\_commit} {\footnotesize(\code{EarnedCore.v})} & none \\
+In the text: a raised mirror means the guest's own run earned it & \S\ref{sec:smallest} & \code{host\_mirror\_earned} {\footnotesize(\code{UniversalThiele.v})} & none \\
 Theorem \ref{thm:u34-presented}: One host runs every computably presented Thiele machine & \S\ref{sec:smallest} & \code{presented\_universal} {\footnotesize(\code{PresentedUniversal.v})}\newline \code{presented\_universal\_halting}, \code{presented\_universal\_points}, \code{presented\_universal\_halt\_point}, \code{presented\_universal\_flag\_iff}, \code{presented\_universal\_earned} {\footnotesize(\code{PresentedUniversal.v})}\newline \code{pu\_universal\_ledger\_exact}, \code{pu\_universal\_earned}, \code{pu\_universal\_thiele\_complete} {\footnotesize(\code{UniversalPRun.v})} & none\newline none\newline none \\
 Theorem \ref{thm:u34-presented-surcharge}: Exact, within two, and no better & \S\ref{sec:smallest} & \code{presented\_universal\_surcharge\_le\_two}, \code{presented\_universal\_exact}, \code{presented\_universal\_no\_exact\_below\_three}, \code{presented\_universal\_U\_no\_exact\_below\_three} {\footnotesize(\code{PresentedUniversal.v})} & none \\
 In the text: a demonstration machine on the priced host & \S\ref{sec:smallest} & \code{pu\_demo\_computably\_presented}, \code{pu\_demo\_never\_halts}, \code{pu\_demo\_flag\_rises}, \code{pu\_demo\_exact}, \code{pu\_demo\_earned} {\footnotesize(\code{PresentedDemo.v})} & none \\
 Theorem \ref{thm:u19-tm-lift}: A counter beside a Turing machine changes nothing & \S\ref{sec:smallest} & \code{thiele\_simulates\_turing\_gen} {\footnotesize(\code{ProperSubsumption.v})}\newline \code{thiele\_simulates\_turing} {\footnotesize(\code{ProperSubsumption.v})} & none\newline none \\
 Definition \ref{def:host-same}: Behaving the same, on the host & \S\ref{sec:small-diagonal} & \code{sm\_hequiv} {\footnotesize(\code{SmHostBlocks.v})}\newline \code{sm\_hext} {\footnotesize(\code{SmHostRice.v})} & def\newline def \\
-Theorem \ref{thm:host-rice}: Rice's theorem on the host machine & \S\ref{sec:small-diagonal} & \code{sm\_host\_rice} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_rice\_prog\_halts} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_rice\_prog\_diverges} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_host\_rice\_fun} {\footnotesize(\code{SmKleene.v})} & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:guest-rice}: Rice's theorem for the small machine, from the clean start & \S\ref{sec:small-diagonal} & \code{sm\_guest\_rice} {\footnotesize(\code{SmGuestRice.v})}\newline \code{sm\_guest\_halting\_clean\_undecidable} {\footnotesize(\code{SmGuestRice.v})} & closed (file)\newline closed (file) \\
-Theorem \ref{thm:host-smn}: s-m-n, and a universal program for host programs (each an if and only if) & \S\ref{sec:small-diagonal} & \code{sm2\_smn\_all} {\footnotesize(\code{SmSmnAll.v})}\newline \code{sm\_smn} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_host\_universal} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_hdecode\_hcode} {\footnotesize(\code{SmCodes.v})} & closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:host-kleene}: Kleene's recursion theorem on the host machine (equivalence of what the two compute) & \S\ref{sec:small-diagonal} & \code{sm\_second\_recursion} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_kleene} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_kleene\_codes} {\footnotesize(\code{SmKleene.v})} & closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:host-kleene-record}: The recursion theorem, up to the record (latch and flag up exactly when the numbers say) & \S\ref{sec:small-diagonal} & \code{sm2\_kleene\_obs} {\footnotesize(\code{SmFixedPoint.v})}\newline \code{sm2\_kleene\_fun} {\footnotesize(\code{SmFixedPoint.v})}\newline \code{sm2\_final\_numbers} {\footnotesize(\code{SmTally.v})}\newline \code{sm2\_ev\_spec} {\footnotesize(\code{SmTally.v})}\newline \code{sm2\_VG\_forward} {\footnotesize(\code{SmFixed.v})}\newline \code{sm2\_VG\_halt} {\footnotesize(\code{SmFixed.v})}\newline \code{sm2\_while} {\footnotesize(\code{SmLoops.v})}\newline \code{sm2\_mma\_ctx} {\footnotesize(\code{SmMMAOff.v})} & closed (file)\newline closed (file)\newline closed (file)\newline closed (file)\newline closed (file)\newline closed (file)\newline closed (file)\newline closed (file) \\
-Theorem \ref{thm:host-no-exact}: No fixed point of full behaviour & \S\ref{sec:small-diagonal} & \code{sm2\_no\_exact} {\footnotesize(\code{SmNoExact.v})}\newline \code{sm2\_reg\_bound} {\footnotesize(\code{SmNoExact.v})} & closed (file)\newline closed (file) \\
-Theorem \ref{thm:host-wall}: The diagonal on the host machine (no decider right exactly when the property holds) & \S\ref{sec:small-diagonal} & \code{sm\_no\_inside\_decider} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_no\_host\_decider} {\footnotesize(\code{SmDecider.v})} & closed (file)\newline closed (file) \\
+Theorem \ref{thm:host-rice}: Rice's theorem on the host machine & \S\ref{sec:small-diagonal} & \code{sm\_host\_rice} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_rice\_prog\_halts} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_rice\_prog\_diverges} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_host\_rice\_fun} {\footnotesize(\code{SmKleene.v})} & none\newline none\newline none\newline none \\
+Theorem \ref{thm:guest-rice}: Rice's theorem for the small machine, from the clean start & \S\ref{sec:small-diagonal} & \code{sm\_guest\_rice} {\footnotesize(\code{SmGuestRice.v})}\newline \code{sm\_guest\_halting\_clean\_undecidable} {\footnotesize(\code{SmGuestRice.v})} & none\newline none \\
+Theorem \ref{thm:host-smn}: s-m-n, and a universal program for host programs (each an if and only if) & \S\ref{sec:small-diagonal} & \code{sm2\_smn\_all} {\footnotesize(\code{SmSmnAll.v})}\newline \code{sm\_smn} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_host\_universal} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_hdecode\_hcode} {\footnotesize(\code{SmCodes.v})} & none\newline none\newline none\newline none \\
+Theorem \ref{thm:host-kleene}: Kleene's recursion theorem on the host machine (equivalence of what the two compute) & \S\ref{sec:small-diagonal} & \code{sm\_second\_recursion} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_kleene} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_kleene\_codes} {\footnotesize(\code{SmKleene.v})} & none\newline none\newline none \\
+Theorem \ref{thm:host-kleene-record}: The recursion theorem, up to the record (latch and flag up exactly when the numbers say) & \S\ref{sec:small-diagonal} & \code{sm2\_kleene\_obs} {\footnotesize(\code{SmFixedPoint.v})}\newline \code{sm2\_kleene\_fun} {\footnotesize(\code{SmFixedPoint.v})}\newline \code{sm2\_final\_numbers} {\footnotesize(\code{SmTally.v})}\newline \code{sm2\_ev\_spec} {\footnotesize(\code{SmTally.v})}\newline \code{sm2\_VG\_forward} {\footnotesize(\code{SmFixed.v})}\newline \code{sm2\_VG\_halt} {\footnotesize(\code{SmFixed.v})}\newline \code{sm2\_while} {\footnotesize(\code{SmLoops.v})}\newline \code{sm2\_mma\_ctx} {\footnotesize(\code{SmMMAOff.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:host-no-exact}: No fixed point of full behaviour & \S\ref{sec:small-diagonal} & \code{sm2\_no\_exact} {\footnotesize(\code{SmNoExact.v})}\newline \code{sm2\_reg\_bound} {\footnotesize(\code{SmNoExact.v})} & none\newline none \\
+Theorem \ref{thm:host-wall}: The diagonal on the host machine (no decider right exactly when the property holds) & \S\ref{sec:small-diagonal} & \code{sm\_no\_inside\_decider} {\footnotesize(\code{SmKleene.v})}\newline \code{sm\_no\_host\_decider} {\footnotesize(\code{SmDecider.v})} & none\newline none \\
 Theorem \ref{thm:tc-rice}: Rice's theorem for the two-counter machine, on any inputs & \S\ref{sec:small-diagonal} & \code{tc\_rice} {\footnotesize(\code{TcRice.v})}\newline \code{tc\_rice\_dichotomy} {\footnotesize(\code{TcRice.v})} & none\newline none \\
 Theorem \ref{thm:tc-kleene}: Kleene for the two-counter machine, inputs written as powers of two (some $e$ is equivalent to $F(e)$) & \S\ref{sec:small-diagonal} & \code{tc\_universal} {\footnotesize(\code{TcPacked.v})}\newline \code{tc\_smn} {\footnotesize(\code{TcPacked.v})}\newline \code{tc\_second\_recursion} {\footnotesize(\code{TcPacked.v})}\newline \code{tc\_kleene} {\footnotesize(\code{TcPacked.v})}\newline and 1 more & none\newline none\newline none\newline none \\
 Theorem \ref{thm:no-plain-recursion}: No plain recursion on two counters (some $F$ has no $e$ equivalent to $F(e)$) & \S\ref{sec:small-diagonal} & \code{tc2\_no\_mult} {\footnotesize(\code{Tc2Mult.v})}\newline \code{am\_no\_multiplier} {\footnotesize(\code{Tc2Chain.v})}\newline \code{tc2\_plain\_recursion\_false} {\footnotesize(\code{Tc2Plain.v})} & none\newline none\newline none \\
@@ -17713,8 +17709,8 @@ slack, at $S = 2.8$.
 \subsection{F. Level 1+AB}
 \label{sub:chsh-q1ab}
 
-The source indexes Alice's observables $A_1, A_2$ and Bob's $B_1, B_2$; I keep the book's
-$A_0, A_1, B_0, B_1$, so the Coq $e_{11}$ is $E_{00}$ here, and so on. The five extra
+The source's comments index Alice's observables $A_1, A_2$ and Bob's $B_1, B_2$, so its
+$\langle A_1 B_1\rangle$ is $E_{00}$ here. The Coq variables themselves are already named in the book's order, from $e_{00}$ to $e_{11}$. The five extra
 parameters are named in the record \code{Q1ABMoments} (kernel/quantum/QuantumPartitionPSD\_\allowbreak{}1AB.v):
 $\gamma_1$ for $\langle A_0 A_1 B_0 \rangle$, $\gamma_2$ for $\langle A_0 A_1 B_1 \rangle$,
 $\gamma_3$ for $\langle A_0 B_0 B_1 \rangle$, $\gamma_4$ for $\langle A_1 B_0 B_1 \rangle$,
@@ -18937,6 +18933,9 @@ this book's pointer conjecture.
 \par\medskip
 
 \noindent Gaius. Institutes, book 2, sections 104, 119 and 147 (second century). The will by bronze and balance before five witnesses, a scale-holder and the buyer of the estate (104); a will sealed by seven witnesses (119, 147). \href{https://droitromain.univ-grenoble-alpes.fr/Anglica/gai2_Poste.htm}{Text and translation}.
+\par\medskip
+
+\noindent Atul Gawande (2007). The Checklist. The New Yorker, 10 December 2007. The earliest place the line ``too much airplane for one man to fly'' turns up that I could find; it names no newspaper. \href{https://www.newyorker.com/magazine/2007/12/10/the-checklist}{Article}.
 \par\medskip
 
 \noindent Henry Sumner Maine (1861). Ancient Law. John Murray, London, chapter VI. The seven seals of the praetor's will as the seven people of the older mock sale. \href{https://www.gutenberg.org/ebooks/22910}{Project Gutenberg 22910}.
