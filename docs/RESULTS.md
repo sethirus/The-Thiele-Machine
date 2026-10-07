@@ -61,10 +61,10 @@ each.
   `earned_core_floor`, `earned_core_adequate`, `earned_core_honest`,
   `earned_core_is_latch`.
 - **Proved.** For the machine over any property language with an exact
-  equality test and a proved checker, provenance, checker soundness, no
-  forging, the floor and the minimum cost of three hold, and its
-  certification system is sound. Sorted lists are one instance, with a run
-  that certifies and a run that is refused. Coq:
+  equality test and a proved checker, the floor holds, and from a clean start
+  provenance, checker soundness, no forging and the minimum cost of three
+  hold, and its certification system is sound. Sorted lists are one instance,
+  with a run that certifies and a run that is refused. Coq:
   `generic_earned_certification_provenance`, `generic_checker_soundness`,
   `generic_no_forging`, `generic_nfi_floor`, `generic_certified_run_min_cost`,
   `earned_generic_cs_sound`, `sorted_cs_sound`, `sorted_cs_demo_certifies`,
@@ -88,10 +88,10 @@ anything else; and a claim whose check could have failed.
   Coq: `earned_core_thiele_complete`, `earned_generic_thiele_complete`,
   `sorted_machine_thiele_complete`.
 - **Proved.** In every Thiele-complete machine the ledger counts the record
-  moves, a certificate costs at least three, the claim a certificate stands
-  on holds at its CHECK and still holds at its COMMIT, the check can fail,
-  some run certifies, and only CERTIFY raises the record.
-  Coq: `ledger_counts_record_moves`, `certificate_costs_three`,
+  moves; from a clean start, a certificate costs at least three, the claim it
+  stands on holds at its CHECK and still holds at its COMMIT, and only CERTIFY
+  raises the record; the check can fail, and some run certifies. Coq:
+  `ledger_counts_record_moves`, `certificate_costs_three`,
   `committed_claim_holds` (the theorem of that name in `ThieleComplete.v`),
   `check_can_fail`, `some_run_certifies`, `only_certify_raises`.
 - **Refuted.** Weak Thiele completeness implies Thiele completeness. Every
@@ -114,15 +114,16 @@ anything else; and a claim whose check could have failed.
 ## The universal machine
 
 - **Proved.** A host built on the small machine runs any of its programs as a
-  guest, keeps a mirror equal to the guest's certified flag, and raises the
-  mirror only in a guest step that passed CERTIFY, charged in that step, for
-  every sequence of host moves. Coq: `record_agreement`,
-  `no_free_host_certification_step`, `no_free_host_certification`, with the
-  host's certification floor `host_nfi`. On this host, a machine from
-  elsewhere enters through the two-counter encoding, and its own price list is
-  not kept. On the priced host's program U_P, a computably presented machine
-  keeps its own ledger plus a surcharge, which is at most 2 when the machine's
-  reading starts at no (see the specification).
+  guest, keeps a mirror that, from a loaded host, equals the guest's certified
+  flag, and raises the mirror only in a guest step that passed CERTIFY,
+  charged in that step, for every sequence of host moves. Coq:
+  `record_agreement`, `no_free_host_certification_step`,
+  `no_free_host_certification`, with the host's certification floor
+  `host_nfi`. On this host, a machine from elsewhere enters through the
+  two-counter encoding, and its own price list is not kept. On the priced
+  host's program U_P, a computably presented machine keeps its own ledger plus
+  a surcharge, which is at most 2 when the machine's reading starts at no (see
+  the specification).
 - **Proved.** U is one fixed program of the small machine's own instruction
   kinds, with no guest step built into anything. It runs every program of the
   small machine from every start: each guest step is matched by a later U

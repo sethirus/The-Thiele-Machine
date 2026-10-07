@@ -169,14 +169,14 @@ Coq: \texttt{a2\_from\_merging\_price\_and\_permanence}; the trace form is \text
 Each premise is needed. Unbounded history escapes (\texttt{unbounded\_history\_escapes}), a revocable certificate escapes (\texttt{revocable\_certificate\_escapes}), and an unpriced merge escapes (\texttt{free\_merge\_escapes}).
 
 \begin{theorem}[The size of the bill] \textbf{(S)}
-With $m$ certified states and $k$ uncertified states that one instruction switches on, the instruction collapses at least $k$ states (\texttt{permanent\_flips\_collapse\_at\_least}). Priced one unit per halving of the number of distinct states, its cost $c$ satisfies $m + k \le 2^c m$, so $c \ge \log_2((m+k)/m)$; in rounded-up logarithms, $\lceil\log_2(m+k)\rceil \le c + \lceil\log_2 m\rceil$.
+On a finite state space with a permanent certificate, with $m$ certified states and $k$ uncertified states that one instruction switches on, the instruction collapses at least $k$ states (\texttt{permanent\_flips\_collapse\_at\_least}). Priced one unit per halving of the number of distinct states, its cost $c$ satisfies $m + k \le 2^c m$, so $c \ge \log_2((m+k)/m)$; in rounded-up logarithms, $\lceil\log_2(m+k)\rceil \le c + \lceil\log_2 m\rceil$.
 Coq: \texttt{permanent\_flips\_compression\_bound}, \texttt{permanent\_flips\_log\_bound}.
 \end{theorem}
 
 These bounds are tight, and A2 is equivalent to the floor. For every system, A2 holds exactly when every run from an uncertified state to a certified one costs at least $1$ (\texttt{nec\_f\_floor\_iff\_a2}). For every $m$ and $c$, a grid machine with $m$ certified states and one move of cost $c$ flips $2^c m - m$ states, so the bound $m + k \le 2^c m$ of the theorem above is met with equality (\texttt{nec\_f\_squeeze\_tight}). Its rounded-logarithm form is strictly weaker: $m = 3$, $k = 1$ and cost $0$ meet the rounded form and fail $m + k \le 2^c m$ (\texttt{nec\_f\_rounded\_log\_form\_weaker}).
 
 \begin{theorem}[Which flips are forced] \textbf{(S)}
-Over all schedules that price merges, an instruction is forced to have positive price if and only if it merges two states (\texttt{forced\_priced\_iff\_merges}). An instruction that switches a reading on either merges or switches it off somewhere else (\texttt{flip\_merges\_or\_revokes}). So every permanent-record write is forced, and the only free flips are revocable ones.
+When instructions have decidable equality, over all schedules that price merges, an instruction is forced to have positive price if and only if it merges two states (\texttt{forced\_priced\_iff\_merges}). An instruction that switches a reading on either merges or switches it off somewhere else (\texttt{flip\_merges\_or\_revokes}). So every permanent-record write is forced, and the only free flips are revocable ones.
 \end{theorem}
 
 \begin{theorem}[Refutation] \textbf{(R)}
@@ -301,7 +301,7 @@ Coq: \texttt{thiele\_complete} in \texttt{minimal/ThieleComplete.v}.
 \end{definition}
 
 \begin{theorem}[Consequences] \textbf{(S)}
-In every Thiele-complete machine: the ledger counts the record moves (\texttt{ledger\_counts\_record\_moves}); a certificate costs at least $3$ (\texttt{certificate\_costs\_three}); the claim a certificate stands on held when it was checked and still held when it was committed (\texttt{Minimal.ThieleComplete.committed\_claim\_holds}); some check fails (\texttt{check\_can\_fail}); some run certifies (\texttt{some\_run\_certifies}); the move raising the record from a clean start is a CERTIFY (\texttt{only\_certify\_raises}); and some move costs $0$ (\texttt{complete\_has\_free\_move}).
+In every Thiele-complete machine: the ledger counts the record moves (\texttt{ledger\_counts\_record\_moves}); a certificate reached from a clean start costs at least $3$ (\texttt{certificate\_costs\_three}); the claim such a certificate stands on held when it was checked and still held when it was committed (\texttt{Minimal.ThieleComplete.committed\_claim\_holds}); some check fails (\texttt{check\_can\_fail}); some run certifies (\texttt{some\_run\_certifies}); the move raising the record from a clean start is a CERTIFY (\texttt{only\_certify\_raises}); and some move costs $0$ (\texttt{complete\_has\_free\_move}).
 \end{theorem}
 
 \begin{theorem}[Machines that meet it] \textbf{(S)}
@@ -327,7 +327,7 @@ Every Thiele-complete machine is a certification system with the trace floor, an
 \section{Every model of computation}
 
 \begin{theorem}[Lifting] \textbf{(S)}
-For any machine with a universal base in the sense of clause (a), any claim language over its states and any fact-table capacity of at least $1$, if some claim is true at one loaded start and false at another, the machine that adds the earned layer (base moves that raise a version, and CHECK, COMMIT and CERTIFY costing $1$ each) is Thiele-complete (\texttt{lift\_thiele\_complete}). With the window claims (a register of the window is at least $n$, or the program line is $n$) the premise on claims always holds (\texttt{lift\_window\_thiele\_complete}). Conversely, every Thiele-complete machine has an interface making it Thiele-complete whose base moves form a universal base (\texttt{lift\_reduct\_universal}).
+For any machine with a universal base in the sense of clause (a), any claim language over its states that has an exact equality test and a checker proved equal to its meaning, and any fact-table capacity of at least $1$, if some claim is true at one loaded start and false at another, the machine that adds the earned layer (base moves that raise a version, and CHECK, COMMIT and CERTIFY costing $1$ each) is Thiele-complete (\texttt{lift\_thiele\_complete}). With the window claims (a register of the window is at least $n$, or the program line is $n$) the premise on claims always holds (\texttt{lift\_window\_thiele\_complete}). Conversely, every Thiele-complete machine has an interface making it Thiele-complete whose base moves form a universal base (\texttt{lift\_reduct\_universal}).
 \end{theorem}
 
 \begin{theorem}[Limits of lifting] \textbf{(R)}
@@ -335,7 +335,7 @@ A base whose moves have only finitely many different effects at each state (one 
 \end{theorem}
 
 \begin{theorem}[Models of computation] \textbf{(S)}
-A relation on numbers computable in any one of the seven models of the vendored library (the lambda calculus L, the alternate Minsky machines MMA, Turing machines, binary stack machines, Minsky machines MM, FRACTRAN and mu-recursive functions) is computable in all of them (\texttt{lift\_num\_models\_agree}). The number-coded two-counter machine has a universal base, its step relation is computable in all seven models, and the window lifts, with a fact table of $16$, of that machine and of the random-access machine are Thiele-complete (\texttt{lift\_classic\_bases}). Over any record that is a preorder with binary joins (Chapter~\ref{ch:record}), every universal base lifts to a machine that is Thiele-complete on the axis, given a claim whose point is not at or below the floor and which is true at one load and false at another (\texttt{lift\_lax\_thiele\_complete}). When every record is below every other, no machine over that axis is Thiele-complete (\texttt{lift\_ax\_indiscrete\_no\_machine}).
+A relation on numbers computable in any one of the seven models of the vendored library (the lambda calculus L, the alternate Minsky machines MMA, Turing machines, binary stack machines, Minsky machines MM, FRACTRAN and mu-recursive functions) is computable in all of them (\texttt{lift\_num\_models\_agree}). The number-coded two-counter machine has a universal base, its step relation is computable in all seven models, and the window lifts, with a fact table of $16$, of that machine and of the random-access machine are Thiele-complete (\texttt{lift\_classic\_bases}). Over any record that is a preorder with binary joins (Chapter~\ref{ch:record}), every universal base, with a claim language that has an exact equality test and a proved checker and a fact table with room for one fact, lifts to a machine that is Thiele-complete on the axis, given a claim whose point is not at or below the floor and which is true at one load and false at another (\texttt{lift\_lax\_thiele\_complete}). When every record is below every other, no machine over that axis is Thiele-complete (\texttt{lift\_ax\_indiscrete\_no\_machine}).
 \end{theorem}
 
 \section{Composition}
@@ -364,7 +364,7 @@ Take any interface that makes a machine Thiele-complete. Charging every move twi
 \section{The universal host}
 
 \begin{theorem} \textbf{(S)}
-The host of \texttt{minimal/UniversalThiele.v} runs any small-machine program as a guest. Its mirror of the guest's flag always equals that flag (\texttt{record\_agreement}). The mirror rises only in a guest step that passed CERTIFY, charged in that same host step (\texttt{no\_free\_host\_certification\_step}, \texttt{toll\_enforced\_by\_host\_step}). The host is a certification system with the trace floor (\texttt{host\_nfi}).
+The host of \texttt{minimal/UniversalThiele.v} runs any small-machine program as a guest. From a loaded host, or any state where the two agree, its mirror of the guest's flag always equals that flag (\texttt{record\_agreement}, \texttt{hload\_agrees}). The mirror rises only in a guest step that passed CERTIFY, charged in that same host step (\texttt{no\_free\_host\_certification\_step}, \texttt{toll\_enforced\_by\_host\_step}). The host is a certification system with the trace floor (\texttt{host\_nfi}).
 \end{theorem}
 
 On this host, a machine from elsewhere enters through the two-counter encoding, and its computation and the toll are kept. Its own price list is not kept. On U\textsubscript{P}, in the section on the priced host below, a computably presented machine keeps its own ledger plus a surcharge.
