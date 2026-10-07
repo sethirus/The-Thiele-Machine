@@ -88,9 +88,9 @@ An explicitly qualified citation keeps its own module identity.
 - `entropy_priced_trace_floor`: Under the same premises, a trace from uncertified to certified costs at least one.
 - `permanent_flip_heat_floor`: Under the named premise `landauer_heat`, the uniform permanent flip dissipates at least `kT ln((m + k)/m)`.
 - `permanent_flip_heat_positive`: Under the same premise, with `k` at least one and positive temperature, that heat is positive.
-- `entropy_drop_as_point_sum`: The entropy a deterministic step removes equals a sum over states of positive probability of `p(x) (log2 q(f x) - log2 p(x))`.
-- `entropy_drop_nonneg`: That entropy drop is never negative.
-- `entropy_drop_pos_of_support_merge`: The drop is positive when two different states of positive probability land on the same state.
+- `entropy_drop_as_point_sum`: For nonnegative weights `p` on a repeat-free list of every state, the entropy a deterministic step removes equals a sum over states of positive probability of `p(x) (log2 q(f x) - log2 p(x))`.
+- `entropy_drop_nonneg`: Under the same premises, that entropy drop is never negative.
+- `entropy_drop_pos_of_support_merge`: Under the same premises, the drop is positive when two different states of positive probability land on the same state.
 - `permanent_flip_full_support_entropy_drop_positive`: A permanent flip removes positive entropy from any distribution positive on the certified states and the flipping state.
 - `permanent_flip_full_support_heat_positive`: Under `landauer_heat` with positive temperature, that flip forces positive heat.
 - `known_state_step_removes_no_entropy`: A step from a point mass removes no entropy.
@@ -1063,7 +1063,7 @@ An explicitly qualified citation keeps its own module identity.
 - `cmpz_prod_tc`: Two machines that are Thiele-complete under their interfaces give a product that is Thiele-complete under the product interface, with the record the pair of the two records and every certification keeping its own earned chain.
 - `cmpz_prod_thiele_complete`: The product of two Thiele-complete machines is a Thiele-complete machine over the product order.
 - `cmpz_or_thiele_complete`: The machine on pairs whose record is the OR of the two records is Thiele-complete in the book's point-level sense when both parts are.
-- `cmpz_prod_joint_certificate`: From a clean start, any run of the product that ends with a record at or above a pair of points, neither below its floor, has at least 6 record moves and raises the ledger by at least 6.
+- `cmpz_prod_joint_certificate`: From a clean start, any run of the product that ends with a record at or above a pair of points, neither of them at or below its part's floor, has at least 6 record moves and raises the ledger by at least 6.
 - `cmpz_and_costs_six`: From a clean start of the product, every run that raises the AND of the two records has at least 6 record moves, so certifying both parts costs both certificates, 3 and 3.
 - `cmpz_and_not_complete`: The point-level interface that reads the product of two machines Thiele-complete on the axis through "both flags are up" fails the non-vacuity clause.
 - `cmpz_or_clocks_not_complete`: The product of two clocks is weakly Thiele-complete but not Thiele-complete, because it has no free move.
