@@ -1409,7 +1409,7 @@ alike, before and after, can't price
 certification exactly, however clever it is. And over any machine, an honest record is a one-way
 switch on an event, with two choices left free: the price list and which event.
 
-On the smallest machine I could build, six instructions on two counters: the chain in the table
+On the smallest machine I could build, six instruction kinds on two counters: the chain in the table
 above (check, commit, certify, same claim, same edition), for every program anybody can write, that one included, with
 claims about any property that comes with a checker proved to mean it and an exact test for telling properties apart, ``sorted'' included
 (Section~\ref{sec:smallest}). From a clean start, a raised record always went through a
@@ -1436,7 +1436,7 @@ the guest's reading starts at no, which can't be avoided in general.
 
 Argued only: that an account of computation \emph{should} carry what was established, and what it
 cost, in how it steps. The proofs show that it hangs together, what it follows from, and what it
-costs (six instructions and three marks, on the small machine); whether it ought to be adopted is
+costs (six instruction kinds and three marks, on the small machine); whether it ought to be adopted is
 argued, and it's a claim about what matters, which no proof checker can check.
 
 Guessed at, with the ways to kill it written down: that the event worth recording is certification,
@@ -1767,7 +1767,7 @@ isn't arbitrary. Part III is the logic: the counter, the windows, entitlement, i
 latch, the whole direction, the exact shadow, the diagonal, five real systems, and a conjecture. Parts I to III never use my
 machine; every claim in them is about any system with the pieces it names, and the pictures
 are toys. Part IV builds one machine, the smallest honest machine I could make: two
-counters, six instructions, a table of checked facts, a ledger and a flag. On it a flag raised from a
+counters, six instruction kinds, a table of checked facts, a ledger and a flag. On it a flag raised from a
 clean start
 provably went through a passing check, a commitment and a certification of the same claim, in
 that order, and it computes everything Minsky's two-counter machines can, so whether it halts
@@ -1873,7 +1873,7 @@ mean by \emph{the model}, and the name Thiele Machine belongs to the model. The 
 everything that holds the shape up so you can touch it, and when I say \emph{my machine}, \emph{the
 small machine}, \emph{the machine I build} or \emph{the build}, this is what I mean: the machine
 of Part IV, with its two counters and their versions, its table of checked facts, its channel,
-trap, ledger and flag, its six instructions and their prices, the host with a register for every
+trap, ledger and flag, its six instruction kinds and their prices, the host with a register for every
 whole number, the universal programs that run on that host, and the Coq files that define all of
 it. The build fills in several extensions at once and borrows, for any one theorem, only
 the extension that theorem names. Let that line blur and a theorem stated over one extension
@@ -1904,7 +1904,7 @@ that thing between the check and the commit), and so is universality, through Mi
 borrowed from the Coq undecidability library. Then one fixed program, on a host made of the same
 kinds of instruction with more counters, runs every program of it, and with one paid move added,
 every computably presented Thiele machine. None of that is the model. It shows the model fits in
-six instructions.
+six instruction kinds.
 
 The names again, this time with every part pinned down, because I'll hold to them for the rest
 of the book. \emph{The Thiele Machine}, with
@@ -2056,7 +2056,7 @@ Bell, CHSH, Tsirelson, Wehner, NPA, Landau, Masanes, Fine; Echenim and Mhalla 20
 Buterin and Griffith; Wood; TCG; RFC 9162; Necula & five record disciplines & five fragments read through one question: is the write priced \\
 Zurek 2009; Ollivier, Poulin and Zurek 2004; Blume-Kohout and Zurek 2006 & pointer states and redundancy & a conjecture borrowing the shape, with the gap to the physics stated \\
 Leroy 2009; Klein et al. 2009 & the discipline of saying where the proof stops & the list of what's trusted, in one place \\
-Minsky 1961, 1967; Forster, Larchey-Wendling and coauthors 2019, 2020 & two-counter machines are universal, and their halting is undecidable, checked in Coq & a six-instruction machine on two counters where earned commitments, no forging and an exact minimum price of three are theorems, with halting reduced to the library's \\
+Minsky 1961, 1967; Forster, Larchey-Wendling and coauthors 2019, 2020 & two-counter machines are universal, and their halting is undecidable, checked in Coq & a machine of six instruction kinds on two counters where earned commitments, no forging and an exact minimum price of three are theorems, with halting reduced to the library's \\
 Forster and Smolka 2017; the Coq Library of Undecidability; Norrish 2011 & L as a model of computation in Coq; counter-machine constructions; a compiler from computable functions to counter machines & L's recursion theorem, Rice and halting, checked; the library's compiler used to put every computably presented Thiele machine on the universal host \\
 Turing 1936; Post 1947; Popek and Goldberg 1974; Hamlen, Morrisett and Schneider 2006 & the universal machine as one fixed table; hosts that keep guests apart; which policies a monitor can enforce & a definition of Thiele-complete that every clock fails; one fixed program in the small machine's own instruction kinds that runs every program of it with halting, flag and ledger exact, earning its own flag; and one fixed program, with a paid move added, that runs every computably presented Thiele machine, its ledger exact to within a surcharge of at most two marks when the guest's reading starts at no, which can't be avoided in general \\
 \end{longtable}
@@ -2224,7 +2224,7 @@ I kept going, because by then I could not not keep going. I built a small custom
 
 Then I hit a wall, and it is the wall this whole document is about. Z3 could settle the small questions and fell over on the exact ones I needed answered, which left me staring down an infinite hallway of guess-and-test with no proof waiting at the end of it, ever. One night, not even working, I was watching a video about Flatland, the old story about a creature living in two dimensions who cannot so much as picture a third. And it landed on me sideways, all at once, the way the real ones always do. I said it out loud: I get it now. There is another axis. Classical computation only ever sees what it can read and write off its own surface, and there is a whole direction it is blind to. It isn't broken. It was just never built with an eye that points that way. The two computers on the first pages of this book are my attempt to show you that blindness with something you can hold. I opened a new repo that same night and called the thing in it the Thiele Machine. The name began as a working title and became the name of the model. It carries the larger claim plainly: the machine treats structural state as part of computation.
 
-What survived the whole trip from there to here is not the code. Not one line of it. By the time the Coq proofs finally landed, every line of that first renderer had been thrown out and rewritten at least twice, probably more, and good riddance to all of it. What survived was a single architectural commitment I made early and never once let anyone talk me out of: structure is the state itself, the actual thing the machine runs on. It is no metaphor laid over some realer state underneath. Category theory was the first language I found for that structure. It is not what the model is. The model asks for a state, a step, a record, a ledger, and a window, and category theory appears nowhere in that list. It lived on for a while in a bigger machine I built on the way here, a fifty-one-instruction virtual machine with its own chip design, whose partition graph (groups, and arrows between them) was, in different words and different syntax, the same object as the category structure that came together in that first week and first ran morphisms correctly at two in the morning. That machine was useful for building and confusing for everything else, so it's set aside now, kept but out of this book. What building it showed me is that six instructions were enough for everything this book needs, and that the big one was mostly in the way. I did not write that code, not then and not now. I directed the models and refused everything they handed me until the morphisms composed the way the shape said they had to. The morphisms in that early code were objects that remembered where they came from; the records in the small machine I ended up with remember where they came from too, and you can walk up to one and challenge it. The receipt grew teeth. But the shape itself never moved. The shape was the substrate the entire time, and everything else, every renderer and language and proof, was me slowly learning to see what I had already built. By the shape I mean structure held as state. Not category theory. Category theory was just the first language I had for it.
+What survived the whole trip from there to here is not the code. Not one line of it. By the time the Coq proofs finally landed, every line of that first renderer had been thrown out and rewritten at least twice, probably more, and good riddance to all of it. What survived was a single architectural commitment I made early and never once let anyone talk me out of: structure is the state itself, the actual thing the machine runs on. It is no metaphor laid over some realer state underneath. Category theory was the first language I found for that structure. It is not what the model is. The model asks for a state, a step, a record, a ledger, and a window, and category theory appears nowhere in that list. It lived on for a while in a bigger machine I built on the way here, a fifty-one-instruction virtual machine with its own chip design, whose partition graph (groups, and arrows between them) was, in different words and different syntax, the same object as the category structure that came together in that first week and first ran morphisms correctly at two in the morning. That machine was useful for building and confusing for everything else, so it's set aside now, kept but out of this book. What building it showed me is that six instruction kinds were enough for everything this book needs, and that the big one was mostly in the way. I did not write that code, not then and not now. I directed the models and refused everything they handed me until the morphisms composed the way the shape said they had to. The morphisms in that early code were objects that remembered where they came from; the records in the small machine I ended up with remember where they came from too, and you can walk up to one and challenge it. The receipt grew teeth. But the shape itself never moved. The shape was the substrate the entire time, and everything else, every renderer and language and proof, was me slowly learning to see what I had already built. By the shape I mean structure held as state. Not category theory. Category theory was just the first language I had for it.
 
 Formal verification was a graveyard of dead ends further on. The hardware came after that, in the bigger machine I set aside, and none of it is in this book. Every step pulled back to show another layer underneath that I had not known was there, and I mean that plainly: I did not know what a Turing machine was when I started, I did not know what Coq was, I did not know most of the words in this document existed. I learned each one the same way, by walking face-first into a wall that needed it and not being let past until I had it. The needing always came first. The learning came after, dragged along behind the needing because it had no say in the matter.
 
@@ -8773,7 +8773,12 @@ question, and a wall for it would need a different theorem. The nearest thing I 
 Blum's speedup theorem, from 1967, and it goes somewhere stranger: there are computable functions
 with no fastest program at all, where every program for the function has another that's faster on
 all but finitely many inputs. That's a fact about cost. It isn't a wall about deciding, and nothing
-in this book proves anything in that territory.
+in this book proves anything in that territory. Each use of the wall also names its sameness. In
+the substrate theorem it's the substrate's own $\simeq$; on L it's what a term computes; on the
+small machine's host, in Section~\ref{sec:small-diagonal}, it's everything a program ends with,
+the record included. A particular notion of shortcut gets the wall only after someone proves it
+behaves alike on programs that are the same in the sense in use, and holds of one program and
+fails of another.
 
 The answer is no, under premises. The proof is the two index cards, and I'll give you the
 premises because they're the whole content. Suppose there were such a decider, one that says yes
@@ -10158,7 +10163,10 @@ So the machine in this book is a small one. The least I can build that still sho
 model, every piece of it, with nothing waved at. If the idea only stands up with dozens of
 instructions holding it, the idea belongs to those instructions. The model can't claim it. If it
 stands up on six, the six are the idea, and you can hold all of them in your head at once, which
-is more than I can say for most things I've built.
+is more than I can say for most things I've built. Six kinds, to be exact: each takes operands, a
+counter or a property or a line to jump to, so the instructions themselves are unboundedly many.
+And smallest, in this chapter's title, is my account of building it. No comparison class, no
+measure of size and no proof of minimality stands behind the word.
 
 \subsection{What the model actually asks for}
 
@@ -10393,7 +10401,7 @@ Turing. Theirs is the text I read, and the column of numbers is Turing's own exa
 you something I like: the first person to ask how you'd check a program put the claims in the
 middle of it. He didn't save them for the end.
 
-Now the six instructions.
+Now the six instruction kinds.
 
 \begingroup\small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.242\linewidth}>{\raggedright\arraybackslash}p{0.344\linewidth}>{\raggedright\arraybackslash}p{0.344\linewidth}@{}}
@@ -11007,8 +11015,11 @@ rewrite useful, and Benja Fallenstein and Nate Soares (2015), researchers at the
 Intelligence Research Institute in Berkeley, survey agents that reason about their
 successors through formal proofs a fixed checker accepts. Same architecture, aimed at a different
 question: they want to know when a machine may trust a smarter version of itself, and this
-machine only wants to know whether a flag was earned. Section~\ref{sec:diagonal} says why the
-checker's proof has to live outside.
+machine only wants to know whether a flag was earned. Keeping the checker's proof outside the
+machine is my design choice. The nearest theorem, in Section~\ref{sec:diagonal}, is narrower: no
+procedure the substrate can represent decides, for every program, a property that depends only
+on behaviour and holds of one program and fails of another. It doesn't say a machine can't check
+a proof about a checker, or verify a restricted part of itself.
 
 Soundness rules out a lying checker. It doesn't rule out a pointless question: \emph{at least 0}
 has a perfectly sound checker and an empty no pile, as the worked run showed.
@@ -11038,7 +11049,7 @@ has no forgery.
 \end{theorem}
 
 \begin{proof}
-The first part is a case for each of the six instructions: only a passing CHECK adds
+The first part is a case for each of the six instruction kinds: only a passing CHECK adds
 anything, and it adds exactly its claim. For the second, a new fact is earned by the CHECK
 that just wrote it; an old fact stays earned, and if it's still live after the new
 instruction, its counter's version didn't move, so the new instruction didn't touch the
@@ -11230,7 +11241,7 @@ Checked as \code{earned\_run\_check\_can\_fail} and \code{earned\_run\_refused\_
 fail, CHECK \emph{at least 0} $A$; COMMIT \emph{at least 0} $A$; CERTIFY, certifies from every
 start for exactly 3 (\code{min\_cost\_tight}, with that program named \code{witness}). So the
 floor of three is reachable from any start at all, and that's the machine declining to police
-trivial checks. On that program the machine establishes nothing.
+trivial checks. On that program the check distinguishes no inputs.
 
 That's the worked run from the start of the chapter, now as a theorem. The floor is 3, and a
 run whose check could have failed pays exactly 3, so 3 is the price. The bound has no slack
@@ -11245,7 +11256,7 @@ under the name the query complexity of certification: how many questions an algo
 ask a black-box function to hand back a small certificate for its answer. Their count moves
 with the function. Mine doesn't move at all.
 
-And that's every piece of the model, standing on six instructions: a base that computes
+And that's every piece of the model, standing on six instruction kinds: a base that computes
 everything two counters can, a ledger that's exact, a toll the universal floor applies to, a
 flag that's a latch of the base, a window that can't see the record, and, from a clean start, a commitment that can't
 happen unless a check of the same claim,
@@ -11321,7 +11332,10 @@ to certify.
 And look where the checker's honesty sits. In (b), ``a passing check means its claim holds''
 is a field of the interface, proved once, outside every run, exactly where it sat for the small
 machine (Lemma~\ref{lem:u34-eval}). The definition doesn't ask the machine to vouch for its own
-checker, and Section~\ref{sec:diagonal} says why nothing of arithmetic strength could.
+checker. The nearest reasons not to ask are Gödel's second theorem, about a system proving its
+own consistency, and the diagonal of Section~\ref{sec:diagonal}, about deciding a property of every
+program. Neither forbids a machine checking a proof about a checker, so keeping that proof
+outside is a choice.
 Nor does it ask the checker to be something a machine could run. Clause (b) wants a yes or no for
 every claim at every state, sound for the claim's meaning, and nothing in it says that answer has
 to be computable. Every instance in this book has a checker that's an actual program, so anything
@@ -11375,6 +11389,14 @@ Checked as \code{thiele\_complete\_is\_weak}, \code{base\_runs\_every\_program},
 \code{certificate\_costs\_three}, \code{check\_can\_fail}, \code{some\_run\_certifies},
 \code{only\_certify\_raises}, \code{complete\_costs\_at\_most\_one} and
 \code{complete\_has\_free\_move} (ThieleComplete.v).
+
+Each item in the proof names the clause it comes from, and that's all the definition gives.
+A Thiele-complete machine needn't have a fact table, a CHECK that traps when it fails, a COMMIT
+that looks anything up, or claims about counters. The definition asks for an earned chain on the
+runs that raise the record and leaves the rest to the machine. So the small machine's table
+provenance, its trap, and its channel are facts about that machine, and they don't carry over to
+every machine that meets the definition. Its claims can be any labels its interface names, and
+its checker can be an oracle, as the paragraph above says.
 
 The second half of (6), that some move costs 0, is the one that kills the clock.
 
@@ -11570,12 +11592,15 @@ write in.
 \textbf{Two facts that force the design.} Why more counters? Because of two facts, and the program
 looks the way it does because of them.
 
-The first is about reading. On this machine the only way to find out what's in a counter is to
-take pebbles out (DEC) and put them back (INC), and both of those are writes, so the counter's
-version goes up. A fact is about one version. So a counter the program reads can never hold a
-live fact, and the guest's counters are exactly the ones the program has to read, to decide which
-way a DEC jumps and to check a property. The host can't keep the guest's facts on its copies of
-the guest's counters.
+The first is about reading. On this machine a program that wants a counter's value in its own
+control flow has to take pebbles out (DEC) and put them back (INC), and every INC, and every DEC
+on a counter above 0, is a write, so the counter's version goes up. A fact is about one version,
+so a read done that way kills every live fact about the counter. Not every look is a write:
+CHECK reads a value without writing it, a DEC on 0 changes no version, and a fresh CHECK after
+such a read can make a new live fact. But the guest's counters are exactly the ones the host has
+to read by taking pebbles out, again and again, to decide which way a DEC jumps and to work out
+a property's answer, and each of those reads kills whatever fact was kept there. So the host
+can't keep the guest's facts on its copies of the guest's counters.
 
 The second says that even if reading were free, a fixed program couldn't. It's the pigeonhole.
 
@@ -11618,7 +11643,10 @@ INC as 0, DEC as 1, HALT as 2, CHECK as 3, COMMIT as 4, CERTIFY as 5), and the l
 packed with $\langle \cdot, \cdot \rangle$, the empty list as 0. Register 3 is the guest's line.
 Registers 4 to 13 are scratch. Registers 14 and 15 count how many CHECKs on $A$ and on $B$ have
 passed. Registers 16 to 47 are \emph{mirrors}, sixteen for each guest counter, and registers 48 to
-79 are the slots, sixteen for each guest counter, because the guest's table holds sixteen. Register
+79 are the slots, sixteen for each guest counter. The guest's table holds sixteen facts in
+total, across both counters, and all sixteen can be about one counter, so the host gives each
+counter room for all of them. That's a host reservation, and the guest's own capacity stays
+sixteen in all. Register
 80 is a dead end that's never written.
 
 Each guest step goes like this. At line 1 the program copies the program number and the guest's
@@ -11785,9 +11813,9 @@ and \code{multi\_cs\_floor}, \code{interp\_U\_certified\_floor}, \code{interp\_U
 (UniversalInterpreterLinks.v).
 
 Put it together, plainly. One fixed program, 3728 instructions of the small machine's six kinds,
-with no guest step built into anything, runs every program of the small machine from every start.
+with no guest step built into anything, runs every program of the small machine from every clean start $\mathrm{start}(x, y)$.
 It halts exactly when its guest halts, with the guest's answer in its first two registers. Its
-flag goes up exactly when the guest's would, by its own check, its own commit and its own
+flag goes up at some step of its run exactly when the guest's goes up at some step of the guest's run, by its own check, its own commit and its own
 certificate. Its ledger is the guest's, mark for mark, wherever the two line up. And the machine
 it runs on is Thiele-complete. Since the small machine runs every two-counter program, $U$ runs
 every computation. That's the universal Thiele machine of this book, for the small machine's
@@ -11798,7 +11826,7 @@ y)$; the whole-run theorems are about loaded hosts, and only the one-step theore
 related pair. The host's property reads the small machine's three-word language, so a guest with
 a different property language needs a different host property; the host of the next subsection
 has one, a single property that reads a universal claim language. Sixteen slots per counter is
-the guest's table size. The host just matches it.
+the guest's whole table size, reserved for each counter in case every fact is about that one.
 And it's slow: every guest step unpacks the program number from the front,
 on a machine where copying a number means moving it a pebble at a time.
 
@@ -11851,11 +11879,20 @@ on every state there is. Run from a start $s_0$, the driver's moves give one run
 \emph{ledger} after $n$ moves is the sum of their prices, and its \emph{latch} after $n$ moves
 says whether the reading has been yes at any state so far.
 
-The host needs one thing the small machine doesn't have: a paid move that certifies nothing. Without it the host can only charge one per
-CHECK, COMMIT or CERTIFY, and a guest whose moves cost seven can't be billed seven. So the host
-machine gets a seventh instruction, PAY: it costs one, goes to the next line, and changes
-nothing else; it never raises the flag. Read through the definition of Thiele-complete, PAY is a
-check of a claim that never holds, so the host stays Thiele-complete with it
+The host gets one thing the small machine doesn't have: a paid move that certifies nothing. On
+the small machine every charge comes from a CHECK, a COMMIT or a CERTIFY, and those can bill
+seven: one passing CHECK and six COMMITs of the same claim cost seven and raise no flag. But
+every passing CHECK takes one of the table's sixteen entries for good, every COMMIT rewrites the
+channel, and a failing CHECK traps. So the host machine gets a seventh instruction kind, PAY: it
+costs one, goes to the next line, and changes nothing else; it never raises the flag, takes no
+table entry and leaves the channel alone. That's why the compiler uses it. I haven't proved that
+no host without PAY could do the same job some other way, and I don't claim it.
+
+The definition of Thiele-complete sorts every paid move into CHECK, COMMIT or CERTIFY, so PAY
+has to be filed under one of them, and it's filed as a CHECK of the empty claim, a claim that
+never holds. That's a filing for the interface. It isn't what PAY does on the machine: a CHECK
+that fails on this machine traps, and PAY goes on to the next line. With PAY filed that way the
+host stays Thiele-complete
 (\code{pu\_universal\_thiele\_complete}, UniversalPRun.v), and its floor of three for a flag
 raised from a clean start
 still holds with PAY present (\code{pu\_multi\_certified\_run\_min\_cost}, EarnedMultiPriced.v).
@@ -11872,6 +11909,24 @@ is fixed too: a claim is either one of the small machine's three words about a n
 reading program $r$ on the coded state $v$,'' and the host's checker evaluates that with one
 fixed routine for every presented machine there is. So nothing in $U_P$ knows any particular
 presented machine. The machine arrives as data, the way Turing's guests arrived on the tape.
+
+A fixed checker that runs whatever program it's handed and always answers needs saying how, so
+here is the routine. A claim of the second kind carries a number $r$. The checker decodes $r$
+as a counter-machine routine: its instructions, where they sit, which register holds the
+answer, which register holds the fuel, and how many registers to load. If $r$ doesn't decode to a
+routine, the answer is no. Otherwise the checker loads the routine's registers from $v$, reads a
+fuel number $f$ out of $v$ too (the fuel register's entry in $v$'s prime factorisation), runs the
+routine for at most $f$ steps, and says yes exactly when by then the routine has left its code
+with 1 in its answer register. Every input gets an answer within $f$ steps, so the checker is
+total, and what it means is that bounded run: yes if and only if the routine halts within the
+fuel the value carries, with answer 1 (\code{cg\_ueval\_total} and \code{cg\_ueval\_iff},
+CompilerChecker.v, through the host's one property \code{pu\_heval}, UniversalPCodes.v). That's
+how it stays clear of the diagonal. A total evaluator $E$ that agreed with every total yes-or-no
+program on that program's code alone would let $g(n) = \neg E(n, n)$ contradict itself at its own
+code. This checker never evaluates a program on its code alone: the fuel comes with the claim's
+value. The guest compiled from $M$ runs $M$'s reading routine itself and puts at least the step
+count it took into the fuel register, and at such a value the checker says yes if and only if the
+reading says yes (\code{cg\_checker\_exact}).
 
 \begin{theorem}[One host runs every computably presented Thiele machine]\label{thm:u34-presented}
 Let $M$ be a computably presented Thiele machine and $s_0$ a start state. Load $U_P$ with the guest
@@ -11909,10 +11964,28 @@ separately as \code{presented\_universal\_halting}, \code{presented\_universal\_
 \code{pu\_universal\_flag\_iff}, \code{pu\_universal\_ledger\_exact} and \code{pu\_universal\_earned}
 (UniversalPRun.v).
 
+Two things the theorem doesn't say. First, the host's flag is $M$'s latch. If $M$'s reading says
+yes at some state and no at a later one, the host's flag stays up, so it says the reading was yes
+somewhere in the run, and it doesn't say the reading is yes now. Second, what the host
+re-establishes is the reading: the claim it checked is ``$M$'s reading program says yes of this
+coded state,'' and that's all. A bare certification system needn't tie its reading to anything
+true about sorting, proofs or the world outside. If $M$'s reading is meant to say a list is
+sorted, that it does is a separate correctness theorem about the reading, and the host doesn't
+supply it. The two universal programs also keep their own guests: $U$ runs the small machine's
+programs over its three words about numbers, and $U_P$ runs computably presented machines over
+the universal claim language.
+
 Now the surcharge, because that's where the ledger stops being exact, and it can't be helped. The
 host raises its flag the only way the host machine allows, by a CHECK, a COMMIT and a CERTIFY, and
 those cost three. If $M$'s first move that turns its reading to yes costs at least three, the host
-pays the difference in PAYs and nothing more is owed. If it costs less, the host can't match it.
+pays the difference in PAYs and nothing more is owed. If it costs less, the host pays three there
+anyway, which is the larger of three and the move's price. The surcharge starts at that move:
+while $M$'s latch is down it's zero, so a run that never certifies is matched exactly. Whether
+anything could do better depends on what $M$ paid before. When $M$'s whole ledger at the raise is
+below three, no program on the host machine can match it, since a raised host flag costs three
+from a clean start. When $M$ paid more than that earlier, nothing here says this compiler's
+surcharge is the least possible: part (1) of the theorem below bounds this compiler, and part (3) is the only lower
+bound proved.
 
 \begin{theorem}[Exact, within two, and no better]\label{thm:u34-presented-surcharge}
 Let $M$, $s_0$ and the loaded host be as in Theorem~\ref{thm:u34-presented}, and let $M$'s reading
@@ -11966,7 +12039,7 @@ yes and then back to no is carried as ``it was yes once.''
 \item \textbf{The ledger is exact up to the surcharge.} When the reading starts at no, at most two,
 and zero when the first raising
 move costs three or more; when it starts at yes, three. And no program on this host, run from a clean start,
-can do better for a raise that costs less than three.
+can do better when the guest certifies with its whole ledger below three.
 \item \textbf{Prices in whole units, paid one at a time.} A move that costs a million is a million
 PAYs. Nothing here is fast, and the compiler's packing is Minsky's, so it's slower still.
 \item \textbf{Proved; never run.} The demonstration machine's numbers come from theorems. Nobody
@@ -12976,7 +13049,9 @@ difference between a recursion theorem and none.
 \subsection{What the universal machine covers, and what it doesn't}
 
 Here's what that covers, said plainly, a sentence at a time. The guests of $U$ are this
-chapter's programs, every one of them, from every start. That's the stated class. It's the same
+chapter's programs, every one of them, from every clean start $\mathrm{start}(x, y)$. That's the stated class.
+The whole-run theorems don't cover a guest handed facts in its table, a commitment in its channel
+or a raised flag at the start; the one-step simulation, by itself, works from any related pair. It's the same
 kind of class Turing's universal machine has: a fixed instruction set, and a finite program held
 as data, here packed into one number the way Turing packed his into a description number. Each
 guest keeps its computation, its halting, its answer, its record and its prices, exactly: the
@@ -13069,7 +13144,11 @@ or proved here. They're extensions. Several claims need a latch each.
 gets at most sixteen passing CHECKs in its whole life, and the seventeenth traps. A
 certificate needs only one, so this costs nothing for the theorems, but it's a hard wall
 for any program that wants to keep checking forever, and it's this machine's small version of the
-opening chapter's ``you can't keep all of it.''
+opening chapter's ``you can't keep all of it.'' A CHECK that repeats a claim already in the
+table, same property, same counter, same edition, passes again and takes another entry. So the
+wall is sixteen passing CHECKs, and sixteen different claims is a different count. Removing
+duplicates, evicting old facts or collecting dead ones would each be a different design, and each
+would need its own invariants proved.
 \item \textbf{The clean start matters.} Provenance, soundness, no forging and the price of three are
 all stated from a clean start. Hand the machine a table pre-loaded with facts nobody
 checked, and of course none of that follows. The theorems are about what the machine
@@ -13079,7 +13158,7 @@ written, with nothing else writing to the machine. They say nothing about whoeve
 restores the start, about a reset, about a device that misbehaves, or about whoever carries the
 flag's value to you.
 \item \textbf{The universal programs have stated guests.} $U$ runs every one of this machine's
-programs from every start, with halting, answers, flag and ledger matched exactly. $U_P$ runs every
+programs from every clean start $\mathrm{start}(x, y)$, with halting, answers, flag and ledger matched (the flag over the whole run, the ledger at matching points). $U_P$ runs every
 computably presented Thiele machine, with its reading decided by a program, its record carried as
 a latch, and its ledger matched to within a surcharge of at most two when its reading starts at
 no, and of three when it starts at yes. When the guest certifies with a ledger below three, no program on
@@ -15122,7 +15201,7 @@ never says yes, or the other way round; \code{presented\_universal\_flag\_iff} f
 reading starting at no, a step the machine reaches at which every point of
 $U_P$'s run that matches it has a ledger more than two above the
 machine's; \code{presented\_universal\_surcharge\_le\_two} falls. A program on the host machine,
-from a clean start, that matches a raise costing less than three exactly;
+from a clean start, that matches exactly a guest certified with its whole ledger below three;
 \code{presented\_universal\_no\_exact\_below\_three} falls. A machine whose reading no program
 decides isn't a counterexample. It's outside the class, and the book says so.
 
@@ -15212,8 +15291,8 @@ every clock fails and the window blindness of every machine meeting it, the univ
 the guest's at every matching point, and its own flag earned, the priced
 program $U_P$ that runs every computably presented Thiele machine with its reading latched, its
 flag earned on the guest's own reading and its ledger within two of the guest's when the
-reading starts at no, a surcharge no program on that host, run from a clean start, can avoid for a raise that costs less than
-three,
+reading starts at no, a surcharge no program on that host, run from a clean start, can avoid when the guest certifies
+with its whole ledger below three,
 and the simpler host's mirror, its isolation and its refusal to certify for free. The substrate
 diagonal and the L results, with Rice's and Kleene's theorems on the machine's host and Rice's from
 the clean start on the two-counter machine. The integer check, exact for every pair being sampled and the pinned matrix being PSD
@@ -15479,7 +15558,7 @@ The floor raised to a threshold & proved (premises: the witness starts at zero, 
 \subsection{Claims about the machine}
 
 Part IV built one small machine and the hosts that run it, and the ledger keeps them apart from the
-model. The machine is the small one of Section~\ref{sec:smallest}, two counters and six instructions, where commitments are earned
+model. The machine is the small one of Section~\ref{sec:smallest}, two counters and six instruction kinds, where commitments are earned
 and universality is proved, with the definition of Thiele-complete that every machine can be
 held against, the universal program $U$ on a host made of the same instruction kinds, and the
 priced program $U_P$ that runs every computably presented Thiele machine. Every line in the
@@ -15509,8 +15588,8 @@ No stored fact is forged on a clean-start trace & proved on the small machine, u
 Bounded table keeps facts and traps when full & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-bounded} \\
 Equal computational windows can hide different records & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-separation} \\
 The window cannot recover the ledger, flag or commitment permission & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-no-oracle} \\
-Clean-start certification costs at least three & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-min-price} \\
-A certificate whose check could have failed costs exactly three, and when that check fails the program is refused forever & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tight} \\
+From a clean start, a run ending with the flag up adds at least three to the ledger & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-min-price} \\
+That minimum of three is reached by a run whose check could have failed, and when that check fails the program is refused forever & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tight} \\
 The step refuses trivial checks & not claimed; ``is at least 0'' passes every value and certifies for three too & Section~\ref{sec:smallest} \\
 From a clean start, provenance, checker soundness, no forging and the floor of three hold for any property language with an exact equality test and a checker proved to mean what it says, a sorted list read out of a counter included & proved on the generic machine (\code{generic\_earned\_certification\_provenance}, \code{generic\_checker\_soundness}, \code{generic\_no\_forging}, \code{generic\_certified\_run\_min\_cost}; the sorted list as \code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refused\_forever}, EarnedGeneric.v) & Section~\ref{sec:smallest} \\
 With the flag up from a clean start, the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it & proved on the small machine (\code{certified\_channel\_earned} and \code{channel\_names\_last\_commit}, EarnedCore.v) & Section~\ref{sec:smallest} \\
@@ -15522,8 +15601,8 @@ Each clause does work: a paid latch meets the base and toll clauses and fails, a
 The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are Thiele-complete & proved on the small machine and on the generic machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
 Every Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-window} \\
 No fixed host program can keep the guest's facts on an exact copy of a guest counter & proved, for any host property language and any translation into a finite list of host properties & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-nocopy} \\
-One fixed program $U$, in the small machine's own instruction kinds and with no guest step built in, runs every small-machine program from every start, step for step, with halting and answers matched & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-sim}, Theorem~\ref{thm:u34-U-halting} \\
-$U$'s flag rises exactly when the guest's would, and its ledger equals the guest's at every matching point & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-flag} \\
+One fixed program $U$, in the small machine's own instruction kinds and with no guest step built in, runs every small-machine program from every clean start $\mathrm{start}(x, y)$, step for step, with halting and answers matched & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-sim}, Theorem~\ref{thm:u34-U-halting} \\
+$U$'s flag rises at some step if and only if the guest's does, and its ledger equals the guest's at every matching point & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-flag} \\
 $U$'s raised flag stands on $U$'s own check, commit and certificate on a slot, and on the guest's own earned chain for the same claim & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-earned} \\
 $U$'s host is Thiele-complete, and whether $U$ halts on a loaded guest is undecidable & proved on the host machine; undecidable in the library's sense & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-complete} \\
 The simpler host runs any small-machine program as a guest, and halts with any two-counter program & proved on the small machine, by construction: its guest step runs the guest's own step as a primitive; the guest program is held as a list & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-universal} \\
@@ -15548,7 +15627,7 @@ The simpler host's ledger equals the guest's & not claimed; a guest step with bu
 One fixed program $U_P$, $U$ with one paid move added, runs every computably presented Thiele machine: halting matched, the state decoded at every matching point, the host's flag up exactly when the guest's reading has been yes, and the host's ledger the guest's plus a surcharge & proved on the priced host & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented} \\
 $U_P$'s raised flag stands on its own check, commit and certificate on a slot whose claim is the guest's own reading of a state where it said yes & proved on the priced host & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented} \\
 The surcharge is at most two when the reading starts at no, and zero when the first raising move costs at least three & proved & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented-surcharge} \\
-No program on the host machine matches a raise that cost less than three exactly & proved, for every program from a clean start & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented-surcharge} \\
+No program on the host machine, run from a clean start, exactly matches a guest certified with its whole ledger below three & proved, for every program from a clean start & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented-surcharge} \\
 The priced host is Thiele-complete, with the paid move read as a check that never passes & proved & Section~\ref{sec:presented-universal} \\
 A demonstration machine (one move of price three, reading ``at least three'') runs on $U_P$, with the host's ledger exactly $3n$ at the host time matching move $n$ & proved; never run & Section~\ref{sec:presented-universal} \\
 A machine whose reading no program decides, or whose next move no program computes, runs on $U_P$ & not claimed; outside the class & Section~\ref{sec:presented-universal} \\
@@ -15637,7 +15716,7 @@ says more than its home does, that's my mistake, and I'd want to hear about it.
 This is the line around what I've proved. Inside it: an accounting law for one event, a
 derivation of that law from premises each with its own counterexample, a set of windows
 that provably lose it, a record axis that's a latch over any base, a diagonal that holds by
-proof on L, a six-instruction machine on which commitments are earned and which computes what
+proof on L, a machine of six instruction kinds on which commitments are earned and which computes what
 two counters can, one fixed program in its instruction kinds, run on a host with more
 counters and one paid move, that runs every computably presented Thiele machine,
 and an integer check that implies a bound by algebra. Outside it:
@@ -15681,7 +15760,7 @@ nothing in these collisions reaches that far.
 about evaluating lists of instructions: pick where a target starts, and there's exactly one
 way to fold a list into it (Section~\ref{sec:counter}, checked as
 \code{nec\_f\_fold\_unique}). The counter's uniqueness
-assumes a schedule. Exact pricing assumes an event, and a reference count that says what
+assumes a schedule. Rise-only pricing assumes an event, and a reference count that says what
 charging too much means (Section~\ref{sec:windows}). Those results make the construction precise. None of them
 shows that the schedule I chose, or the event I chose, is physically necessary.
 
@@ -15747,6 +15826,14 @@ and they're outside this fence. A record read by someone who didn't watch it bei
 as good as their reason to believe the box that shows it. The ways across that I know of, a quote
 over measured state and a proof that travels on its own, are in Section~\ref{sec:windows} and
 Section~\ref{sec:models}, and this book builds neither.
+What the guarantee gives inside the fence is safety: no program forges the chain. Availability is
+a different promise, and it isn't given. A hostile program can put the trap up or fill the table,
+and after that nothing useful gets done. The proofs also use Coq's whole numbers, which never
+overflow, so versions and the ledger grow without bound. A build with fixed-width counters,
+versions or ledger has to stop before any of them wraps, failing safe with the trap up, because a
+wrapped version could make an old fact look live again and a wrapped ledger would fall.
+Starting, restoring, resetting and that overflow stop belong to the implementation, and none of
+them is proved here.
 
 \emph{The diagonal on the machine.} What's proved for the small machine's programs is that
 halting is undecidable in the library's synthetic sense, for them and for the universal program
@@ -15772,9 +15859,9 @@ three-instruction memory-bounds language. None is a claim about the real system 
 
 \emph{The machine.} Part IV has one small machine, with the hosts that run it,
 and here's its fence. The small machine of
-Section~\ref{sec:smallest} (two counters, six instructions) is where commitments are
+Section~\ref{sec:smallest} (two counters, six instruction kinds) is where commitments are
 earned: from a clean start, a raised flag went through a passing check, a commitment and a certification of the
-same claim, nothing is forged, and the cheapest certificate costs exactly three, a price reached
+same claim, nothing is forged, and the cheapest such run adds exactly three to the ledger, a price reached
 by a check that could have failed (the step doesn't police trivial checks: a check that can't
 fail certifies for three too). It's also
 where universality is proved, by matching Minsky's two-counter machines step for step and
@@ -15782,15 +15869,15 @@ borrowing their undecidable halting from the Coq library. It's Thiele-complete u
 definition every clock-style machine fails, and every machine meeting that definition hides its
 record and ledger from its own window. The universal Thiele machine is one fixed program, $U$,
 on a host with the small machine's instruction kinds and more counters, with no guest step built
-in: it runs every program of the small machine from every start, halts when the guest halts, raises
-its own flag by its own check, commit and certificate exactly when the guest's flag would rise,
+in: it runs every program of the small machine from every clean start $\mathrm{start}(x, y)$, halts when the guest halts, raises
+its own flag by its own check, commit and certificate if and only if the guest's flag rises somewhere in the guest's run,
 and keeps a ledger equal to the guest's at every matching point. With one paid move added, one
 fixed program, $U_P$, runs every computably presented Thiele machine: its step, prices and
 reading computed by programs, the reading decided on every state, the run fixed by a driver. The
 host halts when the guest stops, its flag is the latch of the guest's reading, raised on its own
 earned chain whose claim is that reading, and its ledger is the guest's plus a surcharge of at
-most two when the reading starts at no, a surcharge no program on that host, run from a clean start, can avoid for a raise
-that costs less than three. A machine whose reading no program decides is outside. A simpler
+most two when the reading starts at no, a surcharge no program on that host, run from a clean start, can avoid when the guest certifies
+with its whole ledger below three. A machine whose reading no program decides is outside. A simpler
 host with a guest step built in runs guests by construction and keeps a mirror of the guest's
 flag; its ledger only covers the guest's. The small machine's check price is flat, its fact table holds sixteen,
 and its certificate is historical (Section~\ref{sec:smallest} lists the rest).
@@ -15830,7 +15917,7 @@ record: the latch. Every window through which a certifying and a non-certifying 
 alike: no exact price from the window. Every machine meeting the definition of Thiele-complete: a free move, at least three
 marks on any run from a clean state that ends certified, and a window blind to the record
 and the ledger. Any eight counts: the integer check and its PSD bridge, which are mathematics.
-This machine only: its six instructions and their prices, its sixteen slots, its own colliding
+This machine only: its six instruction kinds and their prices, its sixteen slots, its own colliding
 pair, and the encodings its universal programs use.
 
 \emph{What I'm proposing beyond that.} That the axis belongs in the step; that certification is
@@ -15841,7 +15928,7 @@ unavoidable physical price on every observable change. They're the argument, and
 argument is what the rest of the book was. What kind of claim is that? A proposal about which
 distinctions an account of computation ought to draw, and no proof settles an ``ought''. The
 proofs show the proposal hangs together, follows from premises I've named, and costs little
-(six instructions on the small machine); whether anyone should adopt it is something I
+(six instruction kinds on the small machine); whether anyone should adopt it is something I
 argue for and can't prove.
 Here's what would weaken it: if every use people have for the record turned out to be
 recoverable from a log the program writes plus a correctness proof about the program, or if the
@@ -15891,10 +15978,10 @@ to record the commitment. It leaves the judgement unautomated. Of five record di
 modelled in fragments, one prices the write. And which event to record is a conjecture, with
 its refutations listed.
 
-Part IV built one small machine, two counters and six instructions, with hosts to run it, and on
+Part IV built one small machine, two counters and six instruction kinds, with hosts to run it, and on
 it the model stands whole: from a clean start, a raised flag was checked, then committed, then certified, on the
-same edition of the same counter, nothing gets forged, the cheapest certificate whose check
-could have failed costs exactly three (the step doesn't police trivial checks), and it
+same edition of the same counter, nothing gets forged, the cheapest run to a raised flag adds
+exactly three to the ledger, and a run whose check could have failed reaches that three (the step doesn't police trivial checks), and it
 computes everything Minsky's two-counter machines can, so its halting is
 undecidable. Earned commitments and universality are proved there. So is what
 Thiele-complete has to mean: a universal base that's free and can't touch the record, a record that stays up once it's
@@ -15904,8 +15991,8 @@ every machine that charges for computing, fails it; the small machine meets it; 
 that meets it hides its record and its ledger from its own window. And so is a universal Thiele
 machine, with its scope said plainly: one fixed program, $U$, written in the small machine's own
 six kinds of instruction on a host with more counters, with no guest step built in, that runs
-every small-machine program from every start, halts exactly when its guest halts, raises its own
-flag by its own check, commit and certificate exactly when the guest's would, and keeps a ledger
+every small-machine program from every clean start $\mathrm{start}(x, y)$, halts exactly when its guest halts, raises its own
+flag by its own check, commit and certificate if and only if the guest's rises somewhere in its run, and keeps a ledger
 equal to the
 guest's at every matching point. And then the bigger version of the same thing: with one paid move added,
 one fixed program, $U_P$, runs every computably presented Thiele machine, a machine from
@@ -15913,7 +16000,7 @@ anywhere whose driver, step, prices and reading are computed by programs. It hal
 stops, raises its own flag on its own earned chain exactly when the guest's reading has said
 yes, with the guest's own reading as the claim it checked, and, when the guest's reading starts at no, keeps the guest's prices
 to within a surcharge of at most two, which no program on
-that host, run from a clean start, can avoid for a raise that costs less than three. An ordinary programmable computer, as built, doesn't do that for the
+that host, run from a clean start, can avoid when the guest certifies with its whole ledger below three. An ordinary programmable computer, as built, doesn't do that for the
 programs it runs; $U$ and $U_P$ show a fixed interpreter can. All of it is proved in Coq with
 nothing assumed: each file prints the assumptions of every headline theorem, and every line
 comes back closed. Then a check worth earning, the two-player game with an integer test whose
@@ -16272,7 +16359,7 @@ whatever extension a theorem names, and nothing else; the word never means my ma
 never the side of a simulation that does the stepping (\hyperref[sec:straight]{Let me be straight with you}). \emph{My machine} (also the machine I
 build, the build, the small machine, the smallest honest machine, Section~\ref{sec:smallest})
 is the concrete machine of Part IV that fills in those pieces at once: two counters with their
-versions, a table of checked facts, a channel, a trap, a ledger and a flag, six instructions
+versions, a table of checked facts, a channel, a trap, a ledger and a flag, six instruction kinds
 and their prices, with its hosts and universal programs. The \emph{scaffolding} is that machine
 and everything built on it, and Part IV lives there. \emph{A Thiele
 machine}, lower case, is any system proved to be an instance of the certification system
@@ -16294,8 +16381,8 @@ small-machine program with halting and flag exact and its ledger equal to the gu
 (Section~\ref{sec:presented-universal}), the same program with one paid move added, that runs
 every \emph{computably presented} Thiele machine, one whose driver, step, prices and reading are computed by programs with
 the reading decided on every state, keeping its reading as a latch
-and, when the reading starts at no, its prices to within two, a surcharge no program on that host, run from a clean start, can avoid for a raise that
-costs less than three. The simpler host with a built-in guest
+and, when the reading starts at no, its prices to within two, a surcharge no program on that host, run from a clean start, can avoid when the guest certifies
+with its whole ledger below three. The simpler host with a built-in guest
 step runs guests by construction and keeps a mirror of the guest's flag. A computer running the
 small machine isn't a Thiele machine; it implements one, inside bounds, the way a laptop
 implements a Turing machine. When a word below belongs
@@ -16344,7 +16431,7 @@ then nothing in the core moves again. A commitment is \emph{earned} when a passi
 fact in the table first, about the same edition, with no write to that counter in between; on
 the small machine every flag raised from a clean start is earned, and that's a theorem.
 CHECK, COMMIT and CERTIFY cost one each and everything else costs nothing,
-so from a clean start the cheapest certificate costs exactly three, and a check that could have failed reaches it: CHECK
+so from a clean start a run ending with the flag up adds at least three to the ledger, and a run whose check could have failed adds exactly three: CHECK
 \emph{is zero} on $A$, COMMIT, CERTIFY, from a start where $A$ is 0. The step doesn't police
 trivial checks; \emph{is at least 0} passes every value and certifies for three too. The
 \emph{host machine} is the small machine with a counter, called a \emph{register}, for every
@@ -16777,11 +16864,11 @@ later'' is built and deployed in Garg and Pfenning's proof-carrying file system 
 logic lets a policy's consequences change with time and state, and in Sirer and coauthors'
 logical attestation for the Nexus operating system (2011), unforgeable statements about programs
 used as credentials; those are the closest systems I've found to check, commit, certify. Mine: a
-six-instruction machine on two counters, with a version
+machine of six instruction kinds on two counters, with a version
 for each counter, a bounded fact table and a channel; its theorems that, from a clean start, a committed fact was checked
 first about the same edition, that nothing is forged, that nothing is evicted,
-that with the flag up from a clean start the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it, as a two-commit run shows (\code{certified\_channel\_earned} and \code{channel\_names\_last\_commit}, EarnedCore.v), and that the cheapest
-certificate whose check could have failed costs exactly three and no less (the step doesn't
+that with the flag up from a clean start the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it, as a two-commit run shows (\code{certified\_channel\_earned} and \code{channel\_names\_last\_commit}, EarnedCore.v), and that a run from a clean start to a raised flag adds at least three to
+the ledger, with three reached by a run whose check could have failed (the step doesn't
 police trivial checks, so one that can't fail costs three too); the same theorems for any
 property language with an exact equality
 test whose checker is proved to mean what it says, a sorted list read out of a
@@ -16801,8 +16888,8 @@ beside it out of each other's state is what a virtual machine monitor promises (
 Goldberg, 1974). Compiling computable functions into counter machines is checked in the Coq
 Library of Undecidability. Mine: one fixed program, $U$, written in the small machine's own six kinds of
 instruction on a host with a register for every whole number, with no guest step built in, that
-runs every program of the small machine from every start, halts exactly when its guest does, raises
-its own flag by its own check, commit and certificate exactly when the guest's would rise, and
+runs every program of the small machine from every clean start $\mathrm{start}(x, y)$, halts exactly when its guest does, raises
+its own flag by its own check, commit and certificate if and only if the guest's rises somewhere in its run, and
 keeps a ledger equal to the guest's at every matching point; its host machine is Thiele-complete,
 and whether $U$ halts on a loaded guest is undecidable (Section~\ref{sec:universal-host}). Two
 small facts force its shape, and they're stated there: reading a counter on this machine writes
@@ -16816,8 +16903,8 @@ machine, with the record and the toll carried through. The universality is borro
 small machine and from Minsky. And the same program with one paid move added, $U_P$, runs every
 computably presented Thiele machine, with its halting matched, its reading carried as a latch on
 the host's own earned flag whose claim is that reading, and its prices to within a surcharge of
-at most two when the reading starts at no, which no program on the host, run from a clean start, can avoid for a raise
-that costs less than three (Section~\ref{sec:presented-universal});
+at most two when the reading starts at no, which no program on the host, run from a clean start, can avoid when the guest certifies with
+its whole ledger below three (Section~\ref{sec:presented-universal});
 the compiler that carries the guest onto two counters is the library's. Kind for that part:
 implementation and mechanization again. That a universal machine runs any computable machine is
 Turing's; what's carried through here is the record, earned again, and the prices, exact up to

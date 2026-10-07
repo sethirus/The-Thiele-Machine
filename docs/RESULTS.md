@@ -49,8 +49,8 @@ each.
 - **Proved.** On a run from a clean start, a fact whose counter has not been
   written since its check names a true claim about that counter.
   Coq: `checker_soundness`.
-- **Proved.** From a clean start a certified run costs at least three, and
-  three is reached. Coq: `certified_run_min_cost`, `min_cost_tight`.
+- **Proved.** From a clean start, a run ending with the flag up adds at least
+  three to the ledger, and three is reached. Coq: `certified_run_min_cost`, `min_cost_tight`.
 - **Proved.** The showcase check can fail, and a run whose check fails is
   refused forever. Coq: `earned_run_check_can_fail`,
   `earned_run_refused_forever`.
@@ -93,9 +93,10 @@ leave it down on others.
   Coq: `earned_core_thiele_complete`, `earned_generic_thiele_complete`,
   `sorted_machine_thiele_complete`.
 - **Proved.** In every Thiele-complete machine the ledger counts the record
-  moves; from a clean start, a certificate costs at least three, the claim it
-  stands on holds at its CHECK and still holds at its COMMIT, and only CERTIFY
-  raises the record; the check can fail, and some run certifies. Coq:
+  moves; from a clean start, a run that raises the record adds at least three
+  to the ledger, the claim it stands on holds at its CHECK and still holds at
+  its COMMIT, and only CERTIFY raises the record; the check can fail, and
+  some run certifies. Coq:
   `ledger_counts_record_moves`, `certificate_costs_three`,
   `committed_claim_holds` (the theorem of that name in `ThieleComplete.v`),
   `check_can_fail`, `some_run_certifies`, `only_certify_raises`.
@@ -131,12 +132,13 @@ leave it down on others.
   the specification).
 - **Proved.** U is one fixed program of the small machine's own instruction
   kinds, with no guest step built into anything. It runs every program of the
-  small machine from every start: each guest step is matched by a later U
-  state, or both have halted. Coq: `U_simulation`.
+  small machine from every clean start start(x, y): each guest step is
+  matched by a later U state, or both have halted. Coq: `U_simulation`.
 - **Proved.** U halts exactly when its guest halts, with the guest's answer in
   its first two registers. Coq: `universal_halting`, `universal_output`.
-- **Proved.** U's flag goes up exactly when the guest's would, by its own
-  check, its own commit and its own certificate. Coq: `universal_flag_iff`,
+- **Proved.** U's flag goes up at some step of its run if and only if the
+  guest's goes up at some step of the guest's run, by its own check, its own
+  commit and its own certificate. Coq: `universal_flag_iff`,
   `universal_earned`.
 - **Proved.** U's ledger equals the guest's wherever the two runs line up, and
   lies between two consecutive guest ledgers everywhere else.
