@@ -1024,7 +1024,7 @@ coauthors built monitors that check a rule at every single instruction, and prov
 Coq, the same proof checker this book uses. So putting a rule under every program, so nothing can
 get around it, is their move. I didn't invent it. What I'm putting under that move is narrower: a record that
 has to be paid for, on the small machine one that has to be earned, and a reason, from counting,
-why a finite machine that prices its merges can't make that price zero.
+why a finite machine that prices its merges can't make the price of a record that never comes down zero.
 
 \subsection*{What settling looks like}
 
@@ -1208,12 +1208,17 @@ The names work the way Turing's do, and I'm going to be a little annoying about 
 Machine}, capital letters, is the model and nothing else. \emph{A Thiele machine}, lower case, is any
 particular system proved to fit the model, the way one rule table is a Turing machine; a two-box toy
 on a sheet of paper counts. A Thiele machine is \emph{Thiele-complete} when the machine under the
-record can compute anything a Turing machine can, for free and without ever touching the record,
+record can compute anything a Turing machine can, for free and without ever touching the record;
 a record that
-goes up stays up, and, from a clean start, the record goes up only after a check of some claim passes, by
+goes up stays up; and, from
+a clean start, the record goes up only after a check of some claim passes,
+by
 a checker proved to
-mean what it says, then a commitment to that same claim with nothing it's about changed in between, then a certificate, with exactly one mark charged for each of those three acts, and at least
-one claim on the machine has a check that can come out no. And a
+mean what it says, then a commitment to that same claim with nothing
+it's about changed in between, then a certificate, with exactly one mark charged for each
+of those three acts; and at least
+one claim on the machine has a check, commit
+and certificate that raise the record on some inputs and leave it down on others. And a
 \emph{universal} Thiele machine is one fixed program that runs other machines as guests, with
 each guest's record earned again by the host's own steps and each guest's toll paid on the host's
 own ledger. Nothing is left to the guest's good manners.
@@ -1568,8 +1573,9 @@ the extra pieces are programs written as states and that recursion theorem.
 All of that is about the model: any system with the named pieces. One machine carries the
 model in this book, and it's a Thiele machine in the sense a few pages on pins down: six
 instructions on two counters, where commitments are earned and universality is proved. It's
-Thiele-complete under a definition no clock meets (computing free, the record earned, each of the
-three acts priced at exactly one), every machine that meets that definition hides its record and
+Thiele-complete under a definition no clock meets (computing free and unable to touch the record, a record that stays up once it's up and, from a clean start,
+is earned, each of the
+three acts priced at exactly one, and one claim whose check, commit and certificate raise the record on some inputs and not on others), every machine that meets that definition hides its record and
 its ledger from its own window, and one fixed program in its own instruction kinds, with no step
 of any guest built in, runs every program of it with halting, flag and ledger matched exactly:
 a universal Thiele machine. Add one move that pays a mark and does nothing else, and one fixed
@@ -1867,8 +1873,9 @@ universal base whose moves are free and can't touch the record, and a record tha
 only after a
 passing check of a claim, then a commitment to that same claim with nothing it's about changed in
 between, then a certificate, with the checker proved to mean what it says. An exact toll: one
-mark for each of those three acts and nothing for anything else. And a claim whose check could
-have failed. Every clock-style machine fails the definition, because it charges for computing, whatever its
+mark for each of those three acts and nothing for anything else. And a claim whose check, commit and certificate
+raise the record
+on some loaded starts and leave it down on others. Every clock-style machine fails the definition, because it charges for computing, whatever its
 record, and every machine that meets the definition hides its record and its ledger from its own window, both by theorem. The small machine
 meets it, and so does the same machine over any properties with an exact test for telling two of
 them apart and a proved checker, as long as one of them can come out both ways, sorted lists
@@ -3836,7 +3843,7 @@ The rule: T0 goes to T1, T1 goes to T2, T2 goes to T1. T0 gains the star (a flip
 it (a revocation). T0 and T2 both land on T1 (a merge). So this move is priced, by the
 forgetting rule, and yet it writes nothing permanent; it takes a star away in the same breath.
 ``The priced moves are exactly the permanent records'' is false, and the file proves it false
-with these three cards. What's true is one direction: every permanent raise is a priced move.
+with these three cards. What's true is one direction: on a finite machine whose move names can be decided equal or different, every permanent raise is a priced move.
 The other direction has the three cards standing in it. And ``priced'' here has an exact
 meaning worth one sentence: a move is \emph{forced to be priced} when every schedule that charges
 for forgetting charges it, and that holds exactly when the move forgets something, with no finiteness needed at all. A way
@@ -3956,7 +3963,7 @@ no computation: dynamics that keeps every patch of states the same size can't cr
 of states into a small one. The counting core of this section, that a step losing nothing can't
 carry a no-state into a set that stays up, is that point in finite, discrete form. And if you
 want the best case for the premise itself, the one I found is James Ladyman, Stuart Presnell,
-Anthony Short and Berry Groisman (2007): from the Kelvin statement of the second law they derive
+Anthony Short and Berry Groisman (2007): from one of the standard statements of the second law, the one named for Kelvin, they derive
 that a logically irreversible operation can't be carried out thermodynamically reversibly by any
 of their L-machines. That's the merge-pricing premise with an argument under it, and if you want
 to argue with the premise, that's the paper to argue with.
@@ -4060,7 +4067,7 @@ On a finite machine with a permanent reading and a cost satisfying the halving p
 $m$ be the number of states that read yes, and let a move $i$ turn $k$ different no-states
 to yes. Then
 \[
-m + k \;\le\; 2^{\mathrm{cost}(i)} \cdot m, \qquad\text{equivalently}\qquad
+m + k \;\le\; 2^{\mathrm{cost}(i)} \cdot m, \qquad\text{and so, when } k \ge 1,\qquad
 \mathrm{cost}(i) \;\ge\; \log_2 \frac{m+k}{m}.
 \]
 \end{theorem}
@@ -4389,9 +4396,11 @@ yes-state, which is exactly what knowing the flag is down rules out. Whether the
 merges states that do carry chance depends on the step, and nothing here forces it to.
 
 So here's what this section actually earns.
-A device that has to raise a flag and keep it up correctly \emph{from every state it might be
-in}, including states where it can't tell whether the flag is already up, can't do it for
-free, on Landauer's premise; that's the design envelope, the worst case. A particular run from
+A device with finitely many states that has to raise a flag and keep it up
+correctly \emph{from every state it might be
+in}, including states where it can't tell whether the
+flag is already up, can't do it for
+free at any temperature above zero, on Landauer's premise; that's the design envelope, the worst case. A particular run from
 a start it knows can, on the same premise, as long as something outside the step does the
 timing. What stays forced in every case is the toll as a
 rule about the move, because the rule can't ask what the run knows. Wherever this book says
@@ -4495,7 +4504,7 @@ and the machine around it keeps the choice the chairs don't force.
 And you haven't earned anything about \emph{what} the flag means. Four chairs don't know what they're certifying. The bill is for raising a flag that
 stays up. Whether raising that flag ever amounts to standing behind a structural fact, the
 ``vouching'' I keep promising and keep not delivering, is a question for the machine of Part IV,
-and here it has moved exactly this far: if that flag stays up, it was paid for.
+and here it has moved exactly this far: on a finite machine that charges for every merge, if that flag stays up, it was paid for.
 
 One last thing, because it should nag at you. The toll is forced by the
 premises, but the premises were chosen, and ``permanent'' in particular was chosen by me. Why
@@ -5368,10 +5377,13 @@ charge, and grade every program the way Katsumata's discipline does, adding grad
 program. On loop-free programs the two agree on the nose: on every run that doesn't trap, the
 counter rises by exactly the grade. The argument is conservation set beside the grade rule; the
 counter's rise is the sum of the charges along the run, and the grade rule adds the same charges
-in the same order. Loops break the agreement, and in one direction only. A loop that runs a paid
-check, one that always
-passes and is charged one, once for every
-unit in some register costs that register's value on
+in the same order. Loops break the agreement, and in one direction only. A loop that runs a
+paid
+check once for every unit
+in some register, where the check
+always
+passes and is charged one,
+costs that register's value on
 entry, and no fixed whole number is an exact grade for it; a grade that's a function of the
 inputs, the kind cost-aware type theories like calf (Niu, Sterling, Grodin and Harper, 2022)
 allow, gets exactness back. So the counter carries their semantics exactly, agrees with fixed
@@ -7310,7 +7322,7 @@ Checked as \code{history\_latch\_injective}, \code{history\_latch\_honest} and
 \code{permanent\_flip\_is\_not\_injective} (PermanentCertification.v).
 
 So a base that never merges can still carry a record, if it's allowed to grow a history that
-never ends. A finite one can't. On a finite machine the record's first write is a merge, and
+never ends. A machine with finitely many states can't carry one without merging: on a finite machine the record's first write is a merge, and
 Section~\ref{sec:a2-not-arbitrary} already put the price on that.
 
 Process-calculus people ran into the same thing from the other side. Vincent Danos and Jean
@@ -7598,7 +7610,8 @@ on and off, so no $f$ of the base state and the record can give both.
 \end{proof}
 
 Checked as \code{clock\_record\_permanent} and \code{clock\_record\_not\_driven} (StructuralRecordAxis.v). ``Driven'' is a condition on every
-state, reachable or not, and that is what the clock's proof uses.
+state. The clock makes every state a starting state, so the two states the proof compares are
+both ones a run can begin at, even though a clock started at $(0, 0, \mathrm{off})$ would never reach $(0, 5, \mathrm{off})$.
 
 \subsection{Is there only one such machine? No. One structure, two free choices.}
 
@@ -7700,7 +7713,8 @@ plugged in, and made deterministic by letting a term with no step left to take s
 itself). On each, the latch form holds, by the one generic theorem applied to that base
 (the checked names are listed with the formal statement below). So a register machine
 with an honest record is a register machine plus a cup. So is a lambda calculus. (There's one
-more instance, the machine I build later, where the flag is shown to be a latch directly, in
+more instance, the machine I build later, where a particular flag is shown to
+be an honest record and the same theorem makes it a latch, in
 Section~\ref{sec:smallest}.)
 
 Here are the three bases explicitly. A base needs a state, a next-state function,
@@ -8396,7 +8410,8 @@ ordinary machine forgets nothing, what that cost pays
 for is exactly crushing two states of one
 fibre into one. A window can send the right bill without seeing the cups, if it sees them move.
 And on a machine with the halving price, where each unit of cost pays for at most one halving, the
-bill in bits is, on average, never less than what got crushed.
+bill in bits, times the weight of the spread,
+is never less than what got crushed on average.
 
 What I haven't shown is that any of this is out there in the world, that nature keeps a direction
 like this over its own shadows. That's a belief of mine, and nothing in this book proves it. What
@@ -10023,7 +10038,7 @@ their paper, they proved that, for maps that preserve a probability measure,
 Shannon entropy is up to a constant factor the only
 measure of information loss that is functorial, convex-linear and continuous. J\'anos Acz\'el and Bruno Forte, mathematicians at the University
 of Waterloo who worked on functional equations, and C.\
-T.\ Ng, who had taken his doctorate there under Acz\'el in 1971, in a paper of 1974, asked which entropies deserve to be called
+T.\ Ng, who had taken his doctorate there under Acz\'el in 1971, asked in a paper of 1974 which entropies deserve to be called
 natural, and proved, by their account, that the entropies with
 a short list of natural properties are exactly the linear combinations of Shannon's and Hartley's, where
 Hartley's is the log of the count, so even for merges the choice between the average and the
@@ -10858,11 +10873,13 @@ the current version.
 Checked as \code{checker\_soundness} and \code{committed\_claim\_holds} (EarnedCore.v), through the
 invariant \code{sound} and its one-step form \code{sound\_step}.
 
-So a live fact means exactly this: one of three arithmetic properties holds of one counter's
+So, on a run from a clean start, a live fact means
+exactly this: one of three arithmetic properties holds of one counter's
 current value. Not ``the program is correct.'' Not ``the number is interesting.'' The property,
 of the value, now. That's all ``checked'' means on this machine, and it's enough to be true.
 
-So who checked the checker? Nothing on the record did. The record carries the run's half of
+So who checked the checker? Nothing on the record did. From a clean start, the record
+carries the run's half of
 the story: a CHECK, then a COMMIT of the same claim about the same edition, then a CERTIFY. The
 other half, that the checker says yes exactly when the property holds, isn't in any run. It's
 Lemma~\ref{lem:u34-eval}, a proof about the little program the step calls, checked once by Coq
@@ -11202,8 +11219,9 @@ Defined as \code{thiele\_interface}, \code{thiele\_complete\_with} and \code{thi
 easy notion as \code{weakly\_thiele\_complete}.
 
 Read the four clauses as four plain sentences. (a) It computes anything a Turing machine can,
-and the computing can't reach the record: the base moves are the two-counter machine, and they
-leave the record exactly where it was. (b) From a clean start, the record goes up only on
+and the computing can't reach the record: the base moves are the two-counter machine, they
+leave the record exactly
+where it was, and a record that goes up stays up. (b) From a clean start, the record goes up only on
 top of the small machine's chain: a check that passed, a commitment
 to the same claim with nothing changed underneath, then a certificate. (c) Computing is free and each of the three acts costs one, so the ledger
 counts the acts. The steps in between go free. (d) Somewhere there's a claim whose check could have said no. A
@@ -11240,7 +11258,8 @@ only the flag? When I say exact toll I mean the first, and exact schedule means 
 \begin{theorem}[What every Thiele-complete machine has]\label{thm:u34-tc-consequences}
 Let a machine be Thiele-complete through an interface. (1) It obeys the toll and has a
 universal base, so it's weakly Thiele-complete; its base runs every two-counter program step
-for step, with halting matched. (2) Along any run, the ledger rises by exactly the number of
+for step from every live state,
+and halting from a loaded state matches halting from the configuration it shows. (2) Along any run, the ledger rises by exactly the number of
 CHECK, COMMIT and CERTIFY moves in it. (3) A run from a clean state that ends with the record up
 contains at least three of those moves and raises the ledger by at least 3. (4) Some CHECK fails
 at some loaded state, on a claim that is false there, and some run from some loaded state raises
@@ -11746,8 +11765,9 @@ CHECK, COMMIT or CERTIFY, and a guest whose moves cost seven can't be billed sev
 machine gets a seventh instruction, PAY: it costs one, goes to the next line, and changes
 nothing else; it never raises the flag. Read through the definition of Thiele-complete, PAY is a
 check of a claim that never holds, so the host stays Thiele-complete with it
-(\code{pu\_universal\_thiele\_complete}, UniversalPRun.v), and its floor of three for a raised
-flag still holds with PAY present (\code{pu\_multi\_certified\_run\_min\_cost}, EarnedMultiPriced.v).
+(\code{pu\_universal\_thiele\_complete}, UniversalPRun.v), and its floor of three for a flag
+raised from a clean start
+still holds with PAY present (\code{pu\_multi\_certified\_run\_min\_cost}, EarnedMultiPriced.v).
 
 The program is $U$ with one more handler: a seventh branch on the guest's opcode, for PAY, that
 runs the host's own PAY once. Call it $U_P$; it's 3735 instructions, with 70 paid sites, the 69
@@ -11852,8 +11872,9 @@ driver.
 \item \textbf{The record is the latch.} The host's flag is up once $M$'s reading has been yes at
 any state of the run, which is exactly the latch of Section~\ref{sec:latch}. A reading that goes
 yes and then back to no is carried as ``it was yes once.''
-\item \textbf{The ledger is exact up to the surcharge.} At most two, zero when the first raising
-move costs three or more, and no program on this host, run from a clean start,
+\item \textbf{The ledger is exact up to the surcharge.} When the reading starts at no, at most two,
+and zero when the first raising
+move costs three or more; when it starts at yes, three. And no program on this host, run from a clean start,
 can do better for a raise that costs less than three.
 \item \textbf{Prices in whole units, paid one at a time.} A move that costs a million is a million
 PAYs. Nothing here is fast, and the compiler's packing is Minsky's, so it's slower still.
@@ -13048,7 +13069,8 @@ no CHECK behind it. Thiele-complete rules out both. So the meter and the light c
 everything else the box already had: its costs, its record, all of it, except the states, the levers
 and what each lever does to the state.
 
-Then bolt on the panel the small machine has, and nothing else: a version number that every lever
+Then bolt on a panel cut down from the small machine's, and nothing else:
+one version number for the whole box that every lever
 raises, which is the tally, a table with room for at least one fact, and three new moves, CHECK,
 COMMIT and CERTIFY, at one mark each, with every lever free. Call that the \emph{lift} of the
 machine.
@@ -14089,7 +14111,8 @@ for some counter $c$, \[ \tau \;=\; \mathit{pre} \cdot \text{CHECK PCHSH } c \cd
 and with $v$ the value of $c$ after $\mathit{pre}$: the tally of $v$ passes the seven integer facts;
 every pair was sampled and the pinned matrix is symmetric and PSD; its score satisfies $S^2 \le 8$
 and $|S| \le 2\sqrt 2$, and in fact $S^2 < 8$, though passing tallies come as close to 8 as you
-like; and $c$ still held $v$ when the COMMIT ran. For any stored program run from a clean start
+like; and $c$ still held $v$ when the COMMIT ran. For any stored program run from a fresh start (counters set, every
+version 0, line 1, the ledger at 0)
 that raises the flag, the trace it executed contains a CHECK PCHSH $c$ that passed, and the tally
 $c$ held when it ran passes the seven integer facts, has every pair sampled and the pinned matrix
 symmetric and PSD, and has $S^2 \le 8$ and $|S| \le 2\sqrt 2$. Conversely,
@@ -15356,7 +15379,7 @@ The step refuses trivial checks & not claimed; ``is at least 0'' passes every va
 From a clean start, provenance, checker soundness, no forging and the floor of three hold for any property language with an exact equality test and a checker proved to mean what it says, a sorted list read out of a counter included & proved on the generic machine (\code{generic\_earned\_certification\_provenance}, \code{generic\_checker\_soundness}, \code{generic\_no\_forging}, \code{generic\_certified\_run\_min\_cost}; the sorted list as \code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refused\_forever}, EarnedGeneric.v) & Section~\ref{sec:smallest} \\
 With the flag up from a clean start, the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it & proved on the small machine (\code{certified\_channel\_earned} and \code{channel\_names\_last\_commit}, EarnedCore.v) & Section~\ref{sec:smallest} \\
 The guarantees hold against whoever sets the start, a reset, or a second writer that doesn't bump versions & not claimed; they are about programs from a clean start, one step at a time & Section~\ref{sec:smallest}, Section~\ref{sec:scope} \\
-Thiele-complete means a universal base that is free and can't touch the record, an earned record with a checker proved to mean its claims, an exact toll of one mark per check, commit and certificate, and a claim whose check can fail & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
+Thiele-complete means a universal base that is free and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, an exact toll of one mark per check, commit and certificate, and a claim whose check can fail & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
 Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three per certificate from a clean state, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
 A clock (every move charged, any reading or any latch as the record) obeys the toll with a universal base and is not Thiele-complete; nor is any machine whose every move costs something & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the base and toll clauses and fails, and a silent machine meets three clauses and fails & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
@@ -15738,7 +15761,8 @@ same edition of the same counter, nothing gets forged, the cheapest certificate 
 could have failed costs exactly three (the step doesn't police trivial checks), and it
 computes everything Minsky's two-counter machines can, so its halting is
 undecidable. Earned commitments and universality are proved there. So is what
-Thiele-complete has to mean: a universal base that's free and can't touch the record, an earned
+Thiele-complete has to mean: a universal base that's free and can't touch the record, a record that stays up once it's
+up, an earned
 record, one mark for each check, commit and certificate, and a check that can fail. Every clock,
 every machine that charges for computing, fails it; the small machine meets it; and every machine
 that meets it hides its record and its ledger from its own window. And so is a universal Thiele
@@ -16673,7 +16697,8 @@ classified which policies execution monitors, program
 rewriters and static analysis can each
 enforce, and they differ; Wai Wong (1995), on a neighbouring track, recorded
 and checked HOL proofs so a theorem could carry its derivation. Mine: a definition of
-Thiele-complete with four clauses (a free universal base that can't touch the record, an earned
+Thiele-complete with four clauses (a free universal base that can't touch the record and a record that stays up once it's
+up, an earned
 record, an exact toll on the three record acts, and a check that can fail), the proofs that every
 clock-style machine and a paid latch and a silent machine fail it while the small machine, the
 same machine over any property language with an exact equality test, a proved checker and a property that holds of one number and fails of another, and the universal program's host meet it,
@@ -17407,7 +17432,8 @@ bare chain raises the record from a loaded state exactly when the claim holds th
 holds at one loaded state and fails at another. \code{thiele\_complete} asks for one interface
 meeting all four. \texttt{clock} is the two-counter machine with every move costing 1 and any
 reading of its configuration as the record. Definition~\ref{def:u34-thiele-complete} says
-exactly this. Theorem~\ref{thm:u34-clock} says the last line and more: the clock is weakly
+this and adds the weaker
+notion, weakly Thiele-complete (\code{weakly\_thiele\_complete}, not printed here). Theorem~\ref{thm:u34-clock} says the last line and more: the clock is weakly
 Thiele-complete (\code{clock\_weakly\_thiele\_complete}), a flag that switches on at the first yes
 behaves the same way (\code{latch\_clock\_weakly\_thiele\_complete} and
 \code{latch\_clock\_not\_thiele\_complete}), and no machine whose every move costs at least 1 is
@@ -17607,7 +17633,7 @@ moves in the run; the posterior is non-empty; and the covering is by fibres, as
 \code{ent\_reduction} spells out. Conclusions in order: the posterior's test is strictly stronger; the
 run contains the earned chain; some CHECK of a claim and a later COMMIT of the same claim appear in the run, with the claim holding at both; the index
 bits are at most the record moves; the record moves are exactly the ledger's rise; and the rise is at
-least 3. Theorem~\ref{thm:ent-machine} says exactly this, with the hypotheses numbered (M1) to (M6)
+least 3. Theorem~\ref{thm:ent-machine} says this, with the hypotheses numbered (M1) to (M6)
 and the conclusions numbered (1) to (5), and it says one thing more in (2): there the meanings hold at the chain's own CHECK and COMMIT. The Coq's third conclusion is a separate existential that doesn't name
 the chain; the printed form follows from it with the last two parts of clause (b), a passing check means the claim holds and an unchanged thing keeps it holding.
 
