@@ -298,8 +298,8 @@ steps on the other.
 
 ## Pricing and physics
 
-- **Proved.** Under every cost schedule that prices merges, no injective
-  instruction is forced to have positive price; forced price is exactly
+- **Proved.** For instructions with decidable equality, under every cost
+  schedule that prices merges, no injective instruction is forced to have positive price; forced price is exactly
   non-injectivity (`no_price_beyond_merges`). It is a direct corollary of
   `forced_priced_iff_merges` and says nothing about schedules outside that
   class. Coq: `no_forced_price_beyond_merges`.
