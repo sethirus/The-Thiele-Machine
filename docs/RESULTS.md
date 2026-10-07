@@ -5,14 +5,17 @@ completeness, the universal machine, the record axis and the events it can
 carry, recursion and undecidability, pricing and physics, and the real systems
 the repository models. Further settled results are stated, with their premises
 and declarations, in the mathematical specification
-(monograph/thiele_machine_math_spec.tex) and are not repeated here: the CHSH bounds and the bound named for Boris Tsirelson, who showed
-in 1980 that quantum correlations give a CHSH value of at most 2√2, the lifting of every universal base of every model of
-computation, the composition of Thiele-complete machines, the priced host's
-program U_P and the computably presented machines it runs, the verified
-compiler and its extraction to OCaml, the theorem of the logician Henry Rice (1953) and the recursion
-theorem of the logician Stephen Kleene (1938) for the two-counter machine, the record over any order, and the results showing that
-each premise and each clause is needed. Each result below names the Coq
-declarations that carry it and has one of four statuses:
+(monograph/thiele_machine_math_spec.tex) and are not repeated here: the CHSH
+bounds and the bound named for Boris Tsirelson, who showed in 1980 that
+quantum correlations give a CHSH value of at most 2√2, the lifting of every
+universal base of every model of computation, the composition of
+Thiele-complete machines, the priced host's program U_P and the computably
+presented machines it runs, the verified compiler and its extraction to OCaml,
+the theorem of the logician Henry Rice (1953) and the recursion theorem of the
+logician Stephen Kleene (1938) for the two-counter machine, the record over
+any order, and the results showing that each premise and each clause is
+needed. Each result below names the Coq declarations that carry it and has one
+of four statuses:
 
 - **Proved.** A Coq theorem states the result.
 - **Refuted.** A Coq theorem states its negation, and a named declaration
@@ -73,13 +76,13 @@ each.
 ## Thiele completeness
 
 A machine is weakly Thiele-complete when a step that raises its record costs
-at least one and its base is universal. Thiele-complete
-asks for four clauses (minimal/ThieleComplete.v): a universal base whose moves
-are free and cannot touch the record; a record that rises only after a passing
-check of a claim, a commitment to that same claim with nothing it is about
-changed in between, and a certificate, with the checker proved to mean what
-it says; an exact toll, one mark for each of those three acts and nothing for
-anything else; and a claim whose check could have failed.
+at least one and its base is universal. Thiele-complete asks for four clauses
+(minimal/ThieleComplete.v): a universal base whose moves are free and cannot
+touch the record; a record that, from a clean start, rises only after a
+passing check of a claim, a commitment to that same claim with nothing it is
+about changed in between, and a certificate, with the checker proved to mean
+what it says; an exact toll, one mark for each of those three acts and nothing
+for anything else; and a claim whose check could have failed.
 
 - **Proved.** The small machine is Thiele-complete, and so are the same
   machine over any property language with an exact equality test, a proved
@@ -171,7 +174,8 @@ A growing record takes values in a partial order and only moves up
   lemma: the threshold events are built from the driving function, and the
   schedule is a premise carried through. Coq: `growing_record_decomposes_holds`.
 - **Proved.** The complete family of lower thresholds determines the record
-  value (`thresholds_determine_record`). Coq: `thresholds_determine_record_holds`.
+  value (`thresholds_determine_record`). Coq:
+  `thresholds_determine_record_holds`.
 - **Proved.** On a growing record, pricing every strict value change is
   equivalent to pricing every false-to-true threshold flip
   (`record_price_iff_threshold_price`).
@@ -259,7 +263,8 @@ steps on the other.
 - **Proved.** A tied RAM appends the overwritten value to its record on every
   write; an untied RAM leaves its record unchanged, and equal base values do
   not determine an untied record. Coq: `ram_tied_overwrite_records_old_value`,
-  `ram_untied_overwrite_has_no_record`, `ram_untied_record_not_determined_by_base`.
+  `ram_untied_overwrite_has_no_record`,
+  `ram_untied_record_not_determined_by_base`.
 - **Proved.** Unbounded and modular arithmetic updates are undone by their
   syntactic inverses. These are reversible cores in the style of Janus, the
   reversible programming language that Christopher Lutz and Howard Derby
@@ -300,8 +305,9 @@ steps on the other.
 ## Pricing and physics
 
 - **Proved.** For instructions with decidable equality, under every cost
-  schedule that prices merges, no injective instruction is forced to have positive price; forced price is exactly
-  non-injectivity (`no_price_beyond_merges`). It is a direct corollary of
+  schedule that prices merges, no injective instruction is forced to have
+  positive price (`no_price_beyond_merges`); with `forced_priced_iff_merges`,
+  forced price is exactly non-injectivity. It is a direct corollary of
   `forced_priced_iff_merges` and says nothing about schedules outside that
   class. Coq: `no_forced_price_beyond_merges`.
 - **Proved** at the logical level. A permanent finite write is a many-to-one
@@ -309,10 +315,10 @@ steps on the other.
   Coq: `permanent_write_has_logical_payment`. Economic, cryptographic, and
   heat payment each need a premise about that level and are not derived.
 - **Proved.** An eight-state machine with four program slots and a
-  certification flag meets the three premises of the finite argument as theorems:
-  it is finite, its certificate is permanent, its certify step and its jumps
-  merge states, its advance step does not, and its cost rule prices exactly
-  the merges, so A2 holds. Coq: `fin_finite`, `fin_permanent`,
+  certification flag meets the three premises of the finite argument as
+  theorems: it is finite, its certificate is permanent, its certify step and
+  its jumps merge states, its advance step does not, and its cost rule prices
+  exactly the merges, so A2 holds. Coq: `fin_finite`, `fin_permanent`,
   `fcertify_merges`, `fnext_injective`, `fin_merging_priced`,
   `fin_a2_from_merging_price`.
 - **Refuted.** Mu has an intrinsic joule value (`no_intrinsic_joule_scale`
@@ -336,8 +342,8 @@ steps on the other.
   from a permanent record write to a many-to-one step.
 - **Proved.** A two-state calorimeter protocol: a canonical reset from
   half-excited to ground satisfies a discrete master equation exactly, and at
-  fixed Hamiltonian the bath receives `Delta / 2`.
-  Coq: `canonical_reset_satisfies_master_equation`, `canonical_reset_heat_exact`.
+  fixed Hamiltonian the bath receives `Delta / 2`. Coq:
+  `canonical_reset_satisfies_master_equation`, `canonical_reset_heat_exact`.
 - **Proved**, with the scale built in: choosing the gap `2 k_B T ln 2` gives
   heat `k_B T ln 2`. Coq: `selected_gap_gives_landauer_heat`.
 - **Refuted.** The master equation and a one-unit ledger change force the
@@ -381,27 +387,24 @@ audit-log theorem.
   Coq: `tpm_interface_authenticity_refuted`. Authenticity needs a trusted-key
   or unforgeability premise.
 - **Proved**: five narrow countermodels, each for a point that a governing
-  source already addresses. A Certificate Transparency client's local view cannot
-  detect a split log (`ct_local_view_insufficient`; RFC 9162, Section 11.3,
-  "Misbehaving Logs", <https://www.rfc-editor.org/rfc/rfc9162.html>). A quote
-  checker must bind its selection of platform configuration registers, the
-  PCR selection (`tpm_selection_binding_is_necessary`;
-  tpm2-tools advisory GHSA-8rjm-5f5f-h4q6, CVE-2024-29039, on
-  tpm2_checkquote and an altered PCR selection,
-  <https://www.tenable.com/cve/CVE-2024-29039>). A local chain suffix does not
-  fix the trusted anchor (`weak_subjective_suffix_insufficient`; Ethereum's
-  weak-subjectivity guidance,
-  <https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/weak-subjectivity/>).
-  An acknowledged commit needs a durable commit record
+  source already addresses. A Certificate Transparency client's local view
+  cannot detect a split log (`ct_local_view_insufficient`; RFC 9162, Section
+  11.3, "Misbehaving Logs", <https://www.rfc-editor.org/rfc/rfc9162.html>). A
+  quote checker must bind its selection of platform configuration registers,
+  the PCR selection (`tpm_selection_binding_is_necessary`; tpm2-tools advisory
+  GHSA-8rjm-5f5f-h4q6, CVE-2024-29039, on tpm2_checkquote and an altered PCR
+  selection, <https://www.tenable.com/cve/CVE-2024-29039>). A local chain
+  suffix does not fix the trusted anchor
+  (`weak_subjective_suffix_insufficient`; Ethereum's weak-subjectivity
+  guidance, <https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/weak-subjectivity/>). An acknowledged commit needs a durable commit record
   (`wal_ack_requires_durability`; PostgreSQL documentation, Write-Ahead
   Logging (WAL), <https://www.postgresql.org/docs/current/wal-intro.html>). A
   current local log does not establish a past event
   (`audit_local_snapshot_insufficient`; NIST SP 800-92, Guide to Computer
   Security Log Management, Karen Kent and Murugiah Souppaya, 2006,
-  <https://csrc.nist.gov/pubs/sp/800/92/final>). Each is a generic
-  two-state collision or durability counterexample that does not need the
-  record axis. No surveyed consequence is both new and specific to the
-  record axis.
+  <https://csrc.nist.gov/pubs/sp/800/92/final>). Each is a generic two-state
+  collision or durability counterexample that does not need the record axis.
+  No surveyed consequence is both new and specific to the record axis.
 
 ## The pointer criterion
 
