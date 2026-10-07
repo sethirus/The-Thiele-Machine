@@ -491,7 +491,7 @@ himself, in the same book, and people have been trying to fix it since. The fixe
 until I asked each one the same thing: when it lets you write \emph{known} next to ``sorted,'' what
 does it make you write in the margin? Hintikka's margin is empty. Each fix writes one thing there.
 
-The fix that comes closest to me is from 1995, by Sergei Artemov, a logician now at the City University of New York
+The fix that comes closest to me is from 1995, by Sergei Artemov, a logician at the City University of New York as of 2026
 who studied under that same Kolmogorov (the 1995 report came out of Cornell). He wanted a logic that could
 name the proof itself. What I think he's saying: you only get to know a thing if you've built an actual
 justification for it, and the justification rides along with the claim. That's a reason traveling
@@ -1996,8 +1996,10 @@ integer check and Tsirelson's bound from the short version) is pure mathematics,
 Landauer's principle enters only as a premise with
 its name on it. Nothing here derives it. Not a quantum computer or a claim about quantum behaviour. Not a verified chip or a
 verified device of any kind; a checked model and a checked machine, on paper and in Coq. Not a
-claim to priority on any idea in
-it. Not closed on every question: the ones I couldn't settle are listed at the end.
+claim to priority on the ideas it builds from. What it does add, with the closest earlier work
+beside each item and the difference spelled out, is sorted in Appendix~\ref{sec:whats-mine}:
+chiefly the price as a named rule on a ledger, the universal certification result derived from
+it, and a checked machine and universal interpreters that carry it. Not closed on every question: the ones I couldn't settle are listed at the end.
 
 \emph{What I do and don't know about prior work.} I came to this with no formal training in the
 fields it turned out to need, and I've read what I could reach, with every tool I had. The
@@ -8933,7 +8935,7 @@ program 2. The correct decider exists; its flip just isn't one of the substrate'
 did it.) Undecidable from inside and decided cleanly from outside, at the same time, about
 the same property. That's not a paradox. It's two different people asking.
 
-And the one where the recursion theorem is \emph{proved} from the rules, with nothing assumed, which is why it exists:
+And the one where the recursion theorem is \emph{proved} from the rules, closed under the global context, which is why it exists:
 \emph{L}, the weak call-by-value lambda calculus that Yannick Forster and Gert Smolka presented in
 2017 as a model of computation in Coq, and which a group at Saarland has since used as the
 seed of a whole library of undecidable problems. The development here builds its own copy of
@@ -8942,7 +8944,7 @@ L from the reduction rules, so the L results below assume nothing from that libr
 follows (\code{L\_halting\_undecidable}), and the diagonal is reproved in the shape of the substrate
 theorem (\code{L\_structural\_shortcut\_undecidable}), for any property of programs that depends only
 on what they compute and that holds of one program and fails of another. The statement
-mentions no shortcut. That's the diagonal for a fixed model with nothing assumed. It isn't an instance of the generic class
+mentions no shortcut. That's the diagonal for a fixed model, closed under the global context, with its hypotheses in its statement. It isn't an instance of the generic class
 (the class wants a run map that always answers, with a state or with nothing, and L's evaluation
 can run forever without ever answering), so it's the argument \emph{reproved}. The
 generic theorem isn't \emph{applied} here. Both are true; they're different sentences.
@@ -9017,8 +9019,8 @@ Checked as \code{second\_recursion}, \code{L\_recursion\_theorem}, \code{L\_rice
 (LRecursion.v), with the quoting term's specification \code{Q\_spec} and the substrate-shaped form \code{L\_structural\_shortcut\_undecidable} (no decider whose flip L can
 compute says true exactly when the property holds) in the same file. The file uses only Coq's standard library.
 
-That's the wall on paper, on a family built to fit it, and on one outside model with nothing
-assumed. The machine built in Part IV fills in this same shape with nothing assumed either: on
+That's the wall on paper, on a family built to fit it, and on one outside model, closed under the global
+context. The machine built in Part IV fills in this same shape, closed the same way: on
 its host machine, the one the universal program runs on, which has a counter for every whole number,
 programs are numbers, Kleene's recursion theorem is a theorem, and so is Rice's, and the fixed point
 can be taken to agree on what the program computes and also on the ledger and the flag
@@ -10734,8 +10736,8 @@ prove is that their machine and my INC/DEC fragment are the same machine, step f
 and then borrow their theorem.
 
 One honest wrinkle about what ``undecidable'' means in that library, because it isn't the
-textbook sentence. Every function you can write in Coq is a program, so ``decidable'' there
-means ``some Coq function answers it.'' Coq by itself can't prove that \emph{no} Coq function
+textbook sentence. Every function you can write in Coq is a program, so in that library
+``decidable'' means ``some Coq function answers it.'' Coq by itself can't prove that \emph{no} Coq function
 answers a question without an extra assumption about what programs are. So the library
 says the strongest thing it can without one: if anything decided this, then the questions
 on which a single-tape Turing machine \emph{doesn't} halt could be listed by a program, which is
@@ -12064,7 +12066,7 @@ Checked as \code{presented\_universal\_surcharge\_le\_two}, \code{presented\_uni
 already yes at the start, the host has to raise its flag at once, and that costs three on top of
 a ledger of nothing.
 
-And one machine run all the way, so the class isn't empty. Its states are whole numbers, its one
+And one machine carried all the way, by proof, so the class isn't empty. Its states are whole numbers, its one
 move adds one and costs three, its driver always picks that move, and its reading is ``at least
 three.'' The four programs are written out from the library's building blocks and proved to compute
 those four things. Loaded into $U_P$ from 0, the host never halts, its flag goes up, at the host
@@ -12072,7 +12074,7 @@ time matching move $n$ its ledger is exactly $3n$ and its flag is up exactly whe
 the raised flag stands on a host chain whose slot claims the machine's own reading of a state at
 least three (\code{pu\_demo\_computably\_presented}, \code{pu\_demo\_never\_halts},
 \code{pu\_demo\_flag\_rises}, \code{pu\_demo\_exact} and \code{pu\_demo\_earned},
-PresentedDemo.v).
+PresentedDemo.v). That's proved. Nothing executes $U_P$ on that guest.
 
 Now the limits, each of which is in the statement, said plainly.
 
@@ -13696,7 +13698,20 @@ suspicious of a book about a machine that never once got built and switched on.
 
 So this chapter builds it twice from the same drawings, once by Coq's own machinery and once by hand,
 switches both on, and compares them step by step. It says exactly what ran, exactly what didn't, and what you'd
-have to trust to believe the parts that did.
+have to trust to believe the parts that did. Here's the short version first.
+
+\begin{center}
+\begin{tabular}{@{}p{0.42\linewidth}p{0.5\linewidth}@{}}
+\textbf{What} & \textbf{Status} \\ \hline
+The small machine & run: Coq, extracted OCaml and Python agree on every step \\
+The host machines, with and without PAY & run, the same three ways \\
+$U$ and $U_P$ on tiny guests & run, extracted, against the Python guest \\
+$U$ or $U_P$ on a guest that certifies & proved, not run \\
+Source programs through the compiler & run as far as the host program \\
+The two-counter guest and $U_P$ running it & proved, not run \\
+The presented machine carried by $U_P$ & proved, not run \\
+\end{tabular}
+\end{center}
 
 \subsection{Taking the coat off}
 
@@ -13756,7 +13771,12 @@ more on each host. Against the extracted OCaml, the same exhaustive and random s
 again, $U$ and $U_P$ on tiny guests, and the runs below. They agree on every step of every
 one. I also broke the machine on purpose, giving it a fact table one too small, a free
 CHECK, a commitment that ignores versions, and a write that doesn't bump the version, and each break
-gets caught.
+gets caught. A second set pins the boundaries this book draws in words, and most of those runs
+succeed: two runs that end in the same state with different first certifications, a check that
+can't fail certifying from every start, six commitments billing seven without a flag, a write
+after the commitment and a flag over a claim that's now false, sixteen copies of one CHECK filling
+the table, a CERTIFY costing one at a ledger already at two, and a merge between two yes-states
+that leaves the entering state alone.
 
 That's evidence. It isn't proof, and Section~\ref{sec:coq} says why Dijkstra would want me to say so.
 What it is, is three routes to the same numbers: Coq computing inside itself, the code Coq extracted,
@@ -13798,7 +13818,9 @@ scale. That's about twelve host steps for every unit of the guest's code, for ev
 is exponential in the size of the guest. A guest with one CERTIFY in it would have code $2^{32}$, about
 fifty billion host steps, and at the measured rate of about 650,000 steps a second it would take
 something like twenty-two hours, nearly a day. The guest I wanted, with the whole
-chain, has a code near $2^{100}$, and no computer will ever finish it. So $U$ on a guest that
+chain, has a code near $2^{100}$, which at the same twelve steps a unit is more than $10^{31}$
+host steps a guest step; at the measured rate, with this encoding on that computer, that's
+around $10^{18}$ years. So $U$ on a guest that
 certifies is proved. It isn't run. I'm not going to dress that up. Runs this long only fit in memory
 at all because the host's register store can be squeezed during the run without changing any state,
 which is a theorem too. Checked as \code{rlz\_sched\_sound} (RealizeCompact.v).
@@ -13826,7 +13848,9 @@ two-counter guest, and the guest to a run of $U_P$.
 For every source program with no recursion, and every input: the program computes $y$ exactly when
 the runner (the Coq function that gets extracted) halts with $y$ for some amount of fuel; exactly when the compiled host program
 halts with $y$; exactly when the two-counter guest halts with $y$; and exactly when $U_P$ running that
-guest halts with $y$, with its first counter at 0, its ledger at 0 and its flag down. The runner also
+guest halts with $y$, with its first counter at 0, its ledger at 0 and its flag down. So compiling
+a program computes its answer and certifies nothing: the compiler is a route to answers, and a
+certification has to be written into the source as a CHECK, a COMMIT and a CERTIFY. The runner also
 takes exactly as many steps as the host program does, with the rest of its fuel left over, and a run
 that doesn't halt has used all its fuel.
 \end{theorem}
@@ -14802,7 +14826,7 @@ unless the program genuinely matches the statement you claimed. You can't talk i
 maybe.
 
 The name is a joke three ways at once, and it's worth knowing before you say it out loud in
-English. \emph{Coq} is French for rooster. It's also a nod to Thierry Coquand, a French computer scientist and mathematician, now at the University of Gothenburg, who worked out the
+English. \emph{Coq} is French for rooster. It's also a nod to Thierry Coquand, a French computer scientist and mathematician, at the University of Gothenburg as of 2026, who worked out the
 logic it started from with
 Gérard Huet, a French computer scientist at INRIA, and to that logic's initials, CoC, for the Calculus of
 Constructions; and there's a French habit of naming research tools after animals. The English
@@ -14919,17 +14943,23 @@ version for any property language, the simpler host, the definition of Thiele-co
 window theorem, the host machine with a register for every whole number, the numbers that write
 a guest program down, and the pigeonhole (Section~\ref{sec:smallest}), and the files that run Parts II and III on that machine and the diagonal on its programs (Sections~\ref{sec:part3-on-machine} and~\ref{sec:small-diagonal}). Each also ends by printing the assumptions of
 every headline theorem in it, and every one
-of those lines says the theorem is closed. A lemma a closed theorem uses is closed with it. So for those files ``nothing assumed''
-means exactly that, and two separate printouts say so. Only two small files under minimal/,
+of those lines says the theorem is closed. A lemma a closed theorem uses is closed with it. So for those files every headline
+theorem is closed under the global context, resting on no axiom of mine or of the standard
+library, and two separate printouts say so. That isn't the same as having no premises: each
+theorem keeps the hypotheses written in its own statement. Only two small files under minimal/,
 MuCore.v and Napkin.v,
-sit outside the big audit, and they are built and checked on their own. The
+sit outside the big audit, and they are built and checked on their own by
+\texttt{bash scripts/verify\_core.sh}, which compiles each from a clean slate with \texttt{coqc},
+fails on any \texttt{Axioms:} line, and expects ten closed theorems from MuCore.v and seven from
+Napkin.v. The
 universal program's own files, which lean on the vendored library's counter-machine blocks, sit
 in the kernel tree with the other link files, and they also end by printing their headline
 theorems' assumptions; so do the files of the priced host, the compiler from computable
 functions and the theorem for every computably presented Thiele machine.
-In plain words: every theorem in the audit either needs nothing at all or leans only on those
-standard-library assumptions, none of mine. Those counts are of the sources at this
-edition. Add a theorem and the counts move. The shape, nothing of mine assumed anywhere, is what every
+In plain words: every theorem in the audit either uses no axiom at all or uses only those
+standard-library axioms, none of mine. The hypotheses in each statement are a separate matter, and
+they stay. Those counts are of the sources at this
+edition. Add a theorem and the counts move. The shape, no axiom of mine anywhere, is what every
 edition has to keep.
 
 \subsection{What you're trusting, in one place}
@@ -15089,6 +15119,42 @@ python3 scripts/reproduce_coq.py --resume \
 The run has to pass. Don't stop at the pass: read the theorem
 types and their global dependencies, because a closed report doesn't make a theorem's own
 premises go away.
+
+Each other result this book reports has its own command, run from the root of the same
+checkout. The tests that need Coq skip without coqc 8.18 and a compiled tree; the two
+environment variables that point them at one are named in tests/realize\_harness.py.
+
+\begin{verbatim}
+Full assumption inventory (regenerate, then compare):
+  make assumption-receipt
+  make assumption-receipt-check
+The custom auditor (its warnings are heuristics):
+  python3 scripts/inquisitor.py \
+    --report INQUISITOR_REPORT.md
+The two files outside the audit:
+  bash scripts/verify_core.sh
+Extraction to OCaml:
+  scripts/realize_extract.sh build/realize
+Python against Coq, with the deliberate breaks of
+the small machine (the test named
+test_mutations_of_the_small_machine_are_caught):
+  python3 -m pytest tests/test_realize.py
+Python against the extracted OCaml:
+  python3 -m pytest tests/test_realize_ocaml.py
+The compiler runs:
+  python3 -m pytest tests/test_cmp_compiler.py
+The U and U_P runs in Running it, with steps and times:
+  python3 scripts/realize_universal_runs.py \
+    build/realize/realize_driver \
+    --case all --json runs.json
+The edition's numbers against the receipt and the Coq:
+  python3 -m pytest tests/test_edition_numbers.py
+The semantic boundaries, runs that show what a pass means:
+  python3 -m pytest tests/test_semantic_boundaries.py
+\end{verbatim}
+
+The auditor's warnings are heuristics. A constant witness or a plain tautology can be the
+right construction, and a warning isn't a defect until somebody shows one.
 
 That's the checker. What's left is to tell you how to break what it checked.
 
@@ -15752,7 +15818,7 @@ The heat is fixed by the chosen gap & definition; proved & Section~\ref{sec:land
 The counter is physical dissipation, in joules & not claimed & Section~\ref{sec:landauer} \\
 Permanence predicts more than Landauer & not claimed & Section~\ref{sec:landauer} \\
 Zero Admitted; a handful of standard assumptions & fact from the assumption audit, true of the sources at this edition & Section~\ref{sec:coq} \\
-The small machine's files, the Thiele-complete files and the universal programs' files assume nothing & fact from each file's own printed assumptions, every one closed, and from the full audit, which finds every probed theorem under minimal/ closed & Section~\ref{sec:coq} \\
+The small machine's files, the Thiele-complete files and the universal programs' files use no axioms & fact from each file's own printed assumptions, every one closed, and from the full audit, which finds every probed theorem under minimal/ closed & Section~\ref{sec:coq} \\
 The theorems prove physical reality, or Coq's consistency & not claimed & Section~\ref{sec:coq} \\
 \end{longtable}
 \endgroup
@@ -16076,7 +16142,7 @@ yes, with the guest's own reading as the claim it checked, and, when the guest's
 to within a surcharge of at most two, which no program on
 that host, run from a clean start, can avoid when the guest certifies with its whole ledger below three. An ordinary programmable computer, as built, doesn't do that for the
 programs it runs; $U$ and $U_P$ show a fixed interpreter can. All of it is proved in Coq with
-nothing assumed: each file prints the assumptions of every headline theorem, and every line
+no axioms: each file prints the assumptions of every headline theorem, and every line
 comes back closed. Then a check worth earning, the two-player game with an integer test whose
 pass forces Tsirelson's bound for the tally it's handed, and what the counter has to do with physics, which is less than
 the word Landauer in a file name suggests. The places where the machine came up short of the
@@ -16207,8 +16273,8 @@ which has a kind of state and a step rule and nothing about widths or slots, and
 machine of Part IV needs very little of it: its two counters have no width at all, and hold any
 whole number.
 
-A word is a chunk of bits the CPU treats as one unit, these days usually 32 bits (0 to about
-4 billion) or 64 (0 to about 18 quintillion). The abstract model doesn't care which width.
+A word is a chunk of bits the CPU treats as one unit, in 2026 usually 64 bits (0 to about
+18 quintillion) on a desktop or server and 32 (0 to about 4 billion) on many small devices. The abstract model doesn't care which width.
 
 A register is a named storage slot inside the CPU that holds one word, the fastest place to
 read or write. Memory is a longer list of word-sized slots accessed by index, the address. The
@@ -16679,7 +16745,7 @@ are, from the audit's clean bill, or from a good story about who came before. Th
 the work was checked. They don't tell you it's new. Thousands of checked theorems could,
 in principle, be thousands of careful ways of agreeing with Tarjan.
 
-\subsection{1. The universal floor and the potential method}
+\subsection{The universal floor and the potential method}
 
 Known: the potential method of amortized analysis, a function on states whose drop bounds
 the cost of a run, is Tarjan's (1985), and it has been mechanized more than once (Nipkow in
@@ -16704,7 +16770,7 @@ proved about a program from outside. It's also exactly the gap. In his method th
 the proof. The one move I chose was to put them in the step, where no program takes a step
 without it being counted. Same arithmetic, different place.
 
-\subsection{2. The toll from finiteness, permanence, and a price on merges}
+\subsection{The toll from finiteness, permanence, and a price on merges}
 
 Known: that steps which merge states (no single-valued inverse) are what Landauer's principle
 charges for is Landauer's (1961), sharpened by Bennett (1973, 1982, 2003; the words ``the erasure of a bit
@@ -16758,7 +16824,7 @@ find the ledger form or the derived toll stated anywhere I looked, and nobody's 
 whole field, mine least of all; I found no mechanization of Landauer's principle in Coq,
 Isabelle, or Lean.
 
-\subsection{3. Learning free, committing priced}
+\subsection{Learning free, committing priced}
 
 Known: that measurement can be done at no fundamental cost and the cost sits in erasing the
 record is Bennett's resolution of Maxwell's demon (1982), with the quantitative trade-off by
@@ -16774,7 +16840,7 @@ and illustration of a known physical point inside my ledger. Not a new physical 
 Bennett did the hard part in 1982; I built a toy with four dots on it and got Coq to agree
 with him.
 
-\subsection{4. Windows that can't price what they hide}
+\subsection{Windows that can't price what they hide}
 
 Known: a function of an observation is constant on the observation's fibres; that's
 elementary, and the systems version of it is Moore's distinguishing experiments (1956),
@@ -16794,7 +16860,7 @@ clean start that end looking the same through the window its base shows, one cer
 not (\code{complete\_hides\_record}; Section~\ref{sec:windows}, Section~\ref{sec:smallest}). Kind:
 mechanization of an elementary lemma, plus specific facts about the machine and the definition.
 
-\subsection{5. Structural entitlement and its bound}
+\subsection{Structural entitlement and its bound}
 
 Known: decision-tree counting bounds (a tree that tells $N$ cases apart has depth at least
 $\log_2 N$); certifying algorithms that hand over checkable certificates (McConnell,
@@ -16809,7 +16875,7 @@ every Thiele-complete machine on a run from a clean start, with the earned chain
 checks in place of a tree, and a counterexample showing the covering can't be dropped
 (Section~\ref{sec:part3-on-machine}).
 
-\subsection{6. The record axis is a latch}
+\subsection{The record axis is a latch}
 
 Known: monotone, write-once state is old: the latch (Eccles and Jordan, 1918), sticky bits
 (Plotkin, 1989), grow-only state in replicated data types (Shapiro and coauthors), history
@@ -16832,7 +16898,7 @@ form (I found no prior statement in the searches I ran), built from old notions;
 is mechanized, and so is the agreement up to the price list
 (\code{nec\_w\_billed\_same\_up\_to\_schedule}).
 
-\subsection{7. The diagonal and L}
+\subsection{The diagonal and L}
 
 Known: Kleene's recursion theorem and Rice's theorem; Lawvere's fixed-point form (1969) and
 Yanofsky's retelling (2003); mechanized recursion theorems and Rice (Norrish in HOL4, 2011;
@@ -16845,7 +16911,7 @@ and Kleene's refuted for plain inputs (Section~\ref{sec:small-diagonal}).
 Kind: checked instances of known theorems of computability. They hold for any model with
 universality and s-m-n, and the work is in building those for this machine.
 
-\subsection{8. The game check}
+\subsection{The game check}
 
 Known: that positive semidefiniteness of a correlation matrix gives the Tsirelson bound is
 Tsirelson's (1980) and Stephanie Wehner's semidefinite proof (2006), from a paper on Tsirelson bounds for generalized CHSH inequalities; the moment-matrix hierarchy, the
@@ -16862,7 +16928,7 @@ that's a report on where I looked, and the literature is bigger than where I loo
 the small machine's host, a raised flag standing on it, is built and checked; the idea isn't new
 (Section~\ref{sec:chsh}).
 
-\subsection{9. Five record disciplines, one question}
+\subsection{Five record disciplines, one question}
 
 Known: each system and its guarantee belongs to its designers: Casper (Buterin and Griffith,
 2017), Ethereum's storage gas and refunds (EIP-2200, EIP-3529), extend-only TPM registers,
@@ -16870,7 +16936,7 @@ Certificate Transparency (RFC 9162), proof-carrying code. Mine: asking all five 
 write is priced, with a small checked fragment of each (Section~\ref{sec:models}). Kind:
 synthesis and an organizing reading; the fragments are not verifications of those systems.
 
-\subsection{10. The pointer conjecture}
+\subsection{The pointer conjecture}
 
 Known: Zurek's quantum Darwinism (2009), with Ollivier, Poulin and Zurek (2004) and
 Blume-Kohout and Zurek (2006): preferred states are the ones whose records proliferate
@@ -16878,7 +16944,7 @@ redundantly in the environment. Mine: borrowing that shape for the question of w
 deserves a record, with definitions, a toy, and refutations of two stronger forms
 (Section~\ref{sec:pointer}). Kind: conjecture. No claim about quantum physics.
 
-\subsection{11. The counter as a receipt}
+\subsection{The counter as a receipt}
 
 Known: one-way counters that give order and termination are old: Turing's 1949 note on
 checking a large routine, Floyd's ranking functions (1967), Lamport's clocks (1978).
@@ -16905,7 +16971,7 @@ grade can only bound; that's argued in Section~\ref{sec:counter}, with no checke
 behind it, and cost-aware
 type theories such as calf get exactness back with grades that depend on the inputs.
 
-\subsection{12. The small machine}
+\subsection{The small machine}
 
 Known: two-counter machines are Minsky's (1961, 1967), and the undecidability of their
 halting is checked in the Coq Library of Undecidability (Forster, Larchey-Wendling and
@@ -16954,7 +17020,7 @@ it checked, and a toll is paid for the commitment. The universality and the
 undecidability are borrowed, and the other properties are short consequences of the step
 rule. Whether the design is new I can't say, and I make no claim beyond the proofs.
 
-\subsection{13. The universal host}
+\subsection{The universal host}
 
 Known: Turing's universal machine (1936), which runs any machine given as data, and the
 universal register machines that run two-counter programs. Keeping a guest and the code running
@@ -16984,7 +17050,7 @@ implementation and mechanization again. That a universal machine runs any comput
 Turing's; what's carried through here is the record, earned again, and the prices, exact up to
 the surcharge, and I didn't find that put together where I looked.
 
-\subsection{14. Thiele-complete, defined so a clock fails}
+\subsection{Thiele-complete, defined so a clock fails}
 
 Known: Turing completeness, and the observation every theorist makes in four seconds, that a
 toll alone is cheap: a machine that charges for every step pays any toll. Enforcement mechanisms
@@ -17069,9 +17135,17 @@ and doesn't claim it. The section that states each one says so.
 This table is an index of companion formalizations. The statements, hypotheses and
 arguments are in the numbered sections it points to. An audit status reports the
 recorded check; running a later version does not change a claim in this book.
+Each row has one of three relations to its Coq names. Most are \emph{equivalent}: one Coq
+statement, or one per numbered part, says what the numbered statement says. A few are
+\emph{assembled}: the numbered statement follows from the listed Coq results by a step done in
+the text, and the row says so, as Corollary~\ref{cor:u23-notrap-bound}'s does with ``the
+composition of.'' No row is meant to say more than its Coq names, and where the prose does,
+the prose is wrong. A name and its file fix the constant, the revision is the one in
+Section~\ref{sec:coq}, and Section~\ref{sec:coq-statements} prints twenty-one of the
+statements with their premises and that comparison made.
 
 \begingroup\small
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth}p{0.05\linewidth}>{\raggedright\arraybackslash}p{0.47\linewidth}>{\raggedright\arraybackslash}p{0.11\linewidth}@{}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth}p{0.07\linewidth}>{\raggedright\arraybackslash}p{0.45\linewidth}>{\raggedright\arraybackslash}p{0.11\linewidth}@{}}
 \toprule
 \textbf{Result} & \textbf{Sec.} & \textbf{Coq name and file} & \textbf{Axioms} \\
 \midrule
@@ -17329,15 +17403,15 @@ Theorem \ref{thm:chsh-gate-sound}: Soundness of the gate, \code{elliptope\_check
 \endgroup
 
 %===========================================================================
-\section{The exact words of eighteen results}
+\section{The exact words of twenty-one results}
 \label{sec:coq-statements}
 %===========================================================================
 
 This book states its theorems in its own words, and Section~\ref{sec:coq} says why that's a
 risk: the checker confirms a proof matches its statement. Whether my sentence matches the
-statement is a question the checker never asks. So here are the statements themselves for eighteen of the results the argument
-leans on hardest. Each is copied from its file with the comments taken out and nothing else
-changed, and each comes with its file, a plain reading, and a line on whether the book's
+statement is a question the checker never asks. So here are the statements themselves for twenty-one of the results the argument
+leans on hardest. Each is copied from its file with the comments taken out and a few long lines
+broken to fit the page, which Coq doesn't notice, and nothing else changed, and each comes with its file, a plain reading, and a line on whether the book's
 printed version says exactly that, more, or less. You don't need to read Coq to use this. Put
 the printed theorem next to the block and check that every premise in the block turns up in the
 sentence. That's the whole test. These are the statements this book was checked against; if a
@@ -17678,7 +17752,8 @@ Definition universal_base_clause : Prop :=
 Definition earned_chain (s0 : m_state M) (tr : list (m_move M)) : Prop :=
   exists pre c chk mid1 cmt mid2 crt post,
     tr = pre ++ chk :: mid1 ++ cmt :: mid2 ++ crt :: post /\
-    ti_kind I chk = KCheck c /\ ti_kind I cmt = KCommit c /\ ti_kind I crt = KCertify /\
+    ti_kind I chk = KCheck c /\ ti_kind I cmt = KCommit c /\
+      ti_kind I crt = KCertify /\
     ti_check I (run M pre s0) c = true /\
     (forall t1 t2, mid1 = t1 ++ t2 ->
        ti_same I c (run M pre s0) (run M (pre ++ chk :: t1) s0)) /\
@@ -17687,7 +17762,8 @@ Definition earned_chain (s0 : m_state M) (tr : list (m_move M)) : Prop :=
 
 Definition earned_record_clause : Prop :=
   (forall s, ti_clean I s -> m_record M s = false) /\
-  (forall s0 tr, ti_clean I s0 -> m_record M (run M tr s0) = true -> earned_chain s0 tr) /\
+  (forall s0 tr, ti_clean I s0 -> m_record M (run M tr s0) = true ->
+    earned_chain s0 tr) /\
   (forall s c, ti_check I s c = true -> ti_meaning I c s) /\
   (forall c s s', ti_same I c s s' -> ti_meaning I c s -> ti_meaning I c s').
 
@@ -17700,14 +17776,16 @@ Definition exact_toll_clause : Prop :=
 
 Definition non_vacuity_clause : Prop :=
   exists c chk cmt crt,
-    ti_kind I chk = KCheck c /\ ti_kind I cmt = KCommit c /\ ti_kind I crt = KCertify /\
+    ti_kind I chk = KCheck c /\ ti_kind I cmt = KCommit c /\
+      ti_kind I crt = KCertify /\
     (forall a b, m_record M (run M [chk; cmt; crt] (load a b)) = true <->
                  ti_meaning I c (load a b)) /\
     (exists a b, ti_meaning I c (load a b)) /\
     (exists a b, ~ ti_meaning I c (load a b)).
 
 Definition thiele_complete_with : Prop :=
-  universal_base_clause /\ earned_record_clause /\ exact_toll_clause /\ non_vacuity_clause.
+  universal_base_clause /\ earned_record_clause /\ exact_toll_clause /\
+    non_vacuity_clause.
 
 Definition thiele_complete (M : machine) : Prop :=
   exists I : thiele_interface M, thiele_complete_with I.
@@ -17748,7 +17826,8 @@ Theorem universal_halting : forall P x y,
   (exists n, M.halted U (M.core_of (hrun P x y n))).
 
 Theorem universal_flag_iff : forall P x y,
-  (exists m, E.cert (grun P x y m) = true) <-> (exists n, M.cert (hrun P x y n) = true).
+  (exists m, E.cert (grun P x y m) = true) <->
+    (exists n, M.cert (hrun P x y n) = true).
 
 Theorem universal_ledger_exact : forall P x y,
   (forall m, exists n,
@@ -17778,6 +17857,85 @@ says the first and more: at halting the registers, the traps, the ledgers and th
 and more: $U$'s run is a run of the host, the floor on the cost of a run that raises the flag, and the
 undecidability of $U$'s halting, each with its own Coq theorem in the table of
 Section~\ref{sec:crosswalk}.
+
+\subsection{The universal reading checker}
+
+{\raggedright \code{cg\_run\_check}, \code{cg\_ueval} and \code{cg\_ueval\_iff}, coq/kernel/foundation/CompilerChecker.v.\par}
+
+{\scriptsize
+\begin{verbatim}
+Definition cg_run_check (rc : cg_routine_code) (v : nat) : bool :=
+  match rc with
+  | (ig, R, xS, xB, xT, m) =>
+      let st := cg_mme_run_fuel (cg_expo (qs xT) v) (ig, R) (ig, cg_env_chk m v) in
+      cg_out_codeb (ig, R) (fst st) && Nat.eqb (get_env (snd st) xB) 1
+  end.
+
+Definition cg_ueval (p : cg_uprop) (v : nat) : bool :=
+  match p with
+  | UBase q => G.ceval q v
+  | URun r =>
+      match cg_rdec r with
+      | Some rc => cg_run_check rc v
+      | None => false
+      end
+  end.
+
+Theorem cg_ueval_iff : forall p v, cg_ueval p v = true <-> cg_uholds p v.
+\end{verbatim}}
+
+In plain words: a claim is either one of the counter language's words, checked as before, or a
+number $r$ naming a reading routine. For the second kind the checker decodes $r$; a code that
+names no routine gets false. Otherwise it reads the registers and a fuel number $t$ out of the
+value, runs the routine for at most $t$ steps, and says yes exactly when the routine has left its
+code with 1 in its answer register. The theorem says the checker's yes is the claim's meaning,
+which for a routine is that bounded run. Section~\ref{sec:presented-universal} says exactly this.
+The checker answers on every input because it's a Coq function that always returns
+(\code{cg\_ueval\_total}).
+
+\subsection{The surcharge can't always be avoided}
+
+{\raggedright \code{presented\_universal\_no\_exact\_below\_three}, coq/kernel/foundation/PresentedUniversal.v.\par}
+
+{\scriptsize
+\begin{verbatim}
+Theorem presented_universal_no_exact_below_three :
+  forall (Mp : presented_machine) (s0 : T.cs_state (pm_sys Mp)) (n : nat),
+  mlatch Mp s0 n = true -> mledger Mp s0 n < 3 ->
+  forall (h0 : hstate) (tr : list (@M.pu_instr pu_hprop)),
+  M.pu_clean_start h0 ->
+  ~ (M.cert (hrun_l tr h0) = mlatch Mp s0 n /\
+     M.mu (hrun_l tr h0) = M.mu h0 + mledger Mp s0 n).
+\end{verbatim}}
+
+In plain words: if a presented machine's latch is up after $n$ moves while its ledger is below
+three, then no list of host instructions, run from a clean host start, ends with the host's flag
+equal to that latch and the host's ledger raised by exactly that ledger.
+Theorem~\ref{thm:u34-presented-surcharge}(3) says exactly this. It's about the guest's whole
+ledger at that point. A guest whose one raising move is cheap but whose earlier moves already
+paid three or more isn't covered.
+
+\subsection{Nesting pays for every rise}
+
+{\raggedright \code{cmpz\_sim\_cost\_ge\_exits}, coq/kernel/foundation/CzCat.v.\par}
+
+{\scriptsize
+\begin{verbatim}
+Theorem cmpz_sim_cost_ge_exits : forall {X Y} (f : cmpz_hom X Y),
+  (forall a b, bp_le (ob_P Y) (h_rec f a) (h_rec f b) -> bp_le (ob_P X) a b) ->
+  ax_a2 (X := am_axsys (ob_M Y)) ->
+  forall (tr : list (am_move (ob_M X))) s, exists tr' : list (am_move (ob_M Y)),
+    h_state f (am_run (ob_M X) tr s) = am_run (ob_M Y) tr' (h_state f s) /\
+    cmpz_cost (ob_M Y) tr' >= cmpz_exit_count (ob_M X) tr s.
+\end{verbatim}}
+
+In plain words: take a simulation $f$ of a guest $X$ inside a host $Y$, whose record map reflects
+the order, and let $Y$ pay its toll. Then every list of the guest's moves, from any state, is
+matched by a list of the host's moves that lands on the image of the guest's end state and costs
+at least the number of guest steps whose new record isn't at or below the old one.
+Theorem~\ref{thm:parts-nesting}(1) says exactly this, with ``faithfully'' meaning that $f$ is a
+simulation. It bounds the host's cost by the guest's rises. It says nothing about the guest's
+other charges.
 
 \subsection{The copy is the record, on the simpler host}
 
@@ -18024,7 +18182,7 @@ item gives the exact statement with all its hypotheses, the steps a reader needs
 it, and the Coq name with its file; the file paths in this appendix are under coq/. Nothing here identifies any matrix with a quantum
 state. Where the reading ``quantum'' appears, it is a cited result from outside the kernel.
 
-\subsection{A. Setting and notation}
+\subsection{Setting and notation}
 \label{sub:chsh-notation}
 
 \begin{definition}[Settings, outcomes, correlators]\label{def:chsh-setting}
@@ -18070,7 +18228,7 @@ convention. The CHSH score of a tally, \code{chsh\_stat\_from\_wc} (CHSHStatisti
 adds the first three correlators and obtains $-E_{11}$ by swapping the two counters of the
 last bucket.
 
-\subsection{B. The classical bound}
+\subsection{The classical bound}
 \label{sub:chsh-classical}
 
 \begin{lemma}[Deterministic strategies]\label{lem:chsh-deterministic}
@@ -18160,7 +18318,7 @@ The theorem rules out one explanation, a single four-bit plan used on every roun
 nothing about a local model that redraws its hidden state every round; Section~\ref{sec:chsh} gives a four-round
 coin-flip tally with score 4.
 
-\subsection{C. Tsirelson's bound from algebra}
+\subsection{Tsirelson's bound from algebra}
 \label{sub:chsh-tsirelson-algebra}
 
 \begin{lemma}[The six-square identity, \code{chsh\_gap\_is\_sum\_of\_squares}]\label{lem:chsh-sos}
@@ -18239,7 +18397,7 @@ The constant is the four-decimal round-up of $2\sqrt 2 = 2.8284271\ldots$; the g
 $7.3 \times 10^{-5}$. It lets rational code test ``above the Tsirelson bound'' without a square
 root. It plays no part in the integer check of item E.
 
-\subsection{D. The zero-marginal 5x5 moment matrix}
+\subsection{The zero-marginal 5x5 moment matrix}
 \label{sub:chsh-five}
 
 \begin{definition}[The pinned level-1 matrix]\label{def:chsh-five}
@@ -18454,7 +18612,7 @@ classical tallies. That correlators with a PSD completion are exactly those reac
 quantum measurements is Tsirelson's theorem, cited and not proved here (item H).
 \end{remark}
 
-\subsection{E. The integer check}
+\subsection{The integer check}
 \label{sub:chsh-integer}
 
 \begin{definition}[\code{column\_contractive\_check\_witness}]\label{def:chsh-check}
@@ -18552,7 +18710,7 @@ $C = 3 \cdot 8 \cdot 10 \cdot 5 + 8 \cdot (-3) \cdot 5 \cdot 10 = 0$. It passes 
 slack, at $S = 2.8$.
 
 
-\subsection{F. Level 1+AB}
+\subsection{Level 1+AB}
 \label{sub:chsh-q1ab}
 
 The source's comments index Alice's observables $A_1, A_2$ and Bob's $B_1, B_2$, so its
@@ -18843,7 +19001,7 @@ Each of the four 1+AB checks (CHSHColumnCheck.v) contains
 level-1 check and inherits $S^2 \le 8$ from item E. That is a composition I did by reading
 the definitions; the source has no single theorem stating it.
 
-\subsection{G. The elliptope completion}
+\subsection{The elliptope completion}
 \label{sub:chsh-elliptope}
 
 \begin{definition}[Completion and membership]\label{def:chsh-elliptope}
@@ -18983,7 +19141,7 @@ through the second branch with pivots $(1, 1, 0, 0)$.
 The gate is a decider with a soundness proof, and that's all it is: no property of the small
 machine is built from it.
 
-\subsection{H. What is not proved}
+\subsection{What is not proved}
 \label{sub:chsh-not-proved}
 
 The following are cited results and open questions. None of them is proved here, and none is a
@@ -19024,7 +19182,7 @@ quantum set even in this simplest Bell scenario. Nothing in this book checks tha
 Statistics and physics. Nothing here says how many rounds make a tally informative, and
 nothing says the counters came from honest play; a program can INC whatever counts it likes.
 
-\subsection{I. Prior work}
+\subsection{Prior work}
 \label{sub:chsh-prior}
 
 Tsirelson's 1980 paper gives the bound $2\sqrt 2$ for quantum correlations, and his theorem
