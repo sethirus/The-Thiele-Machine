@@ -83,7 +83,8 @@ from a clean start, rises only after a passing check of a claim, a commitment
 to that same claim with nothing it is about changed in between, and a
 certificate, with the checker proved to mean what it says; an exact toll, one
 mark for each of those three acts and nothing for anything else; and a claim
-whose check could have failed.
+whose check, commit and certificate raise the record on some loaded starts and
+leave it down on others.
 
 - **Proved.** The small machine is Thiele-complete, and so are the same
   machine over any property language with an exact equality test, a proved
