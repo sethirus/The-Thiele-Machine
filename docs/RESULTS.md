@@ -3,8 +3,16 @@
 This file states the settled results about the small machine, Thiele
 completeness, the universal machine, the record axis and the events it can
 carry, recursion and undecidability, pricing and physics, and the real systems
-the repository models. Each result names the Coq declarations that carry it
-and has one of four statuses:
+the repository models. Further settled results are stated, with their premises
+and declarations, in the mathematical specification
+(monograph/thiele_machine_math_spec.tex) and are not repeated here: the CHSH
+and Tsirelson bounds, the lifting of every universal base of every model of
+computation, the composition of Thiele-complete machines, the priced host's
+program U_P and the computably presented machines it runs, the verified
+compiler and its extraction to OCaml, Rice's and Kleene's theorems for the
+two-counter machine, the record over any order, and the results showing that
+each premise and each clause is needed. Each result below names the Coq
+declarations that carry it and has one of four statuses:
 
 - **Proved.** A Coq theorem states the result.
 - **Refuted.** A Coq theorem states its negation, and a named declaration
@@ -110,8 +118,11 @@ have failed.
   mirror only in a guest step that passed CERTIFY, charged in that step, for
   every sequence of host moves. Coq: `record_agreement`,
   `no_free_host_certification_step`, `no_free_host_certification`, with the
-  host's certification floor `host_nfi`. A machine from elsewhere enters
-  through the two-counter encoding; its own price list is not kept.
+  host's certification floor `host_nfi`. On this host, a machine from
+  elsewhere enters through the two-counter encoding, and its own price list is
+  not kept. On the priced host's program U_P, a computably presented machine
+  keeps its own ledger plus a surcharge, which is at most 2 when the machine's
+  reading starts at no (see the specification).
 - **Proved.** U is one fixed program of the small machine's own instruction
   kinds, with no guest step built into anything. It runs every program of the
   small machine from every start: each guest step is matched by a later U
@@ -230,7 +241,9 @@ steps on the other.
   Coq: `weak_equiv_preserves_record_latch_holds`.
 - **Proved.** The record axis is a latch over three concrete bases: the toy
   Turing machine, the Cook and Reckhow unit-cost RAM over natural numbers
-  (indirect load and store, conditional jumps), and the lambda calculus L
+  (the random-access machine Stephen Cook and Robert Reckhow defined to
+  measure time bounds, Journal of Computer and System Sciences 7, 1973;
+  indirect load and store, conditional jumps), and the lambda calculus L
   under weak call-by-value reduction.
   Coq: `record_axis_is_latch_on_tm_holds`, `record_axis_is_latch_on_ram_holds`,
   `record_axis_is_latch_on_l_holds`.
@@ -277,7 +290,7 @@ steps on the other.
   Wuttke later checked in Coq that L and Turing machines simulate each other
   (ITP 2021). The Turing-completeness of L is not re-proved in the
   repository's own files; it comes from the models-equivalence theorem of the
-  vendored Coq Library of Undecidability
+  vendored Coq Library of Undecidability Proofs
   (vendor/coq-undecidability/theories/Synthetic/Models_Equivalent.v), which is
   checked with the build.
 - **Proved.** The complement of two-counter halting is undecidable, from the
@@ -295,7 +308,7 @@ steps on the other.
   Coq: `permanent_write_has_logical_payment`. Economic, cryptographic, and
   heat payment each need a premise about that level and are not derived.
 - **Proved.** An eight-state machine with four program slots and a
-  certification flag meets both premises of the finite argument as theorems:
+  certification flag meets the three premises of the finite argument as theorems:
   it is finite, its certificate is permanent, its certify step and its jumps
   merge states, its advance step does not, and its cost rule prices exactly
   the merges, so A2 holds. Coq: `fin_finite`, `fin_permanent`,
@@ -307,15 +320,19 @@ steps on the other.
 - **Proved**, with the scale supplied as an argument: at the Landauer scale
   `k_B T ln 2`, one mu unit is `k_B T ln 2` (`mu_landauer_calibration`), the
   product of the ledger and the scale. Coq: `calibrated_mu_landauer_energy`.
+  The scale is named for Rolf Landauer, who argued at IBM in 1961 that a step
+  that cannot be run backwards requires a minimal heat generation.
   Fixing the scale is a premise; nothing here measures it.
-- **Conditional.** Given the `landauer_heat` premise, flipping a permanent
-  reading on a finite state space releases heat at least the logarithmic
-  floor (`landauer_permanence_heat_floor`). Coq:
+- **Conditional.** Given the `landauer_heat` premise and `0 <= kT`, flipping a
+  permanent reading on a finite state space, with m certified states and k > 0
+  flipping ones and starting from the uniform distribution on those m + k
+  states, releases heat at least `kT ln((m + k)/m)`
+  (`landauer_permanence_heat_floor`). Coq:
   `permanence_heat_floor_uses_landauer`, through `permanent_flip_heat_floor`.
   The finite-state entropy is invariant under permutation of the state
-  enumeration: `semantics_entropy_permutation_invariant`. Both formulas are
-  known from Landauer's principle; the checked content is the link from a
-  permanent record write to a many-to-one step.
+  enumeration: `semantics_entropy_permutation_invariant`. The heat floor is
+  Landauer's principle applied to this step; the checked content is the link
+  from a permanent record write to a many-to-one step.
 - **Proved.** A two-state calorimeter protocol: a canonical reset from
   half-excited to ground satisfies a discrete master equation exactly, and at
   fixed Hamiltonian the bath receives `Delta / 2`.
@@ -354,8 +371,10 @@ audit-log theorem.
   certificate entails it, and an out-of-range access is rejected.
   Coq: `pcc_checker_accepts_iff_vc`, `pcc_certificate_implies_vc`,
   `pcc_unsafe_program_rejected`, `pcc_safe_instance`. This mirrors the roles
-  of Necula's PCC; it is not that system.
-- **Refuted.** A bare sign/verify interface implies TPM quote authenticity.
+  in George C. Necula's proof-carrying code (PCC, POPL 1997), where a program
+  ships with a proof that it is safe. The full system is outside this model.
+- **Refuted.** A bare sign/verify interface implies the authenticity of a
+  Trusted Platform Module (TPM) quote.
   Counterexample: a scheme that always signs false and accepts every
   signature accepts true (`degenerate_accepts_forgery`).
   Coq: `tpm_interface_authenticity_refuted`. Authenticity needs a trusted-key
@@ -364,7 +383,8 @@ audit-log theorem.
   source already addresses. A Certificate Transparency client's local view cannot
   detect a split log (`ct_local_view_insufficient`; RFC 9162, Section 11.3,
   "Misbehaving Logs", <https://www.rfc-editor.org/rfc/rfc9162.html>). A quote
-  checker must bind the PCR selection (`tpm_selection_binding_is_necessary`;
+  checker must bind its selection of platform configuration registers, the
+  PCR selection (`tpm_selection_binding_is_necessary`;
   tpm2-tools advisory GHSA-8rjm-5f5f-h4q6, CVE-2024-29039, on
   tpm2_checkquote and an altered PCR selection,
   <https://www.tenable.com/cve/CVE-2024-29039>). A local chain suffix does not
@@ -430,8 +450,10 @@ observer maps.
   translations) is another system; formalizing it is outside the Thiele
   Machine.
 - **Full embeddings of four cost calculi.** Graded modal effect semantics
-  (Orchard, Liepelt, and Eades), the Danner, Licata, and Ramyaa cost
-  translation, automatic amortized resource analysis, and linear-logic
+  (Dominic Orchard, Vilem Liepelt and Harley Eades, who put grades into the
+  types of a working language, ICFP 2019), the cost translation of the
+  programming-language researchers Norman Danner, Daniel Licata and Ramyaa
+  (ICFP 2015), automatic amortized resource analysis, and linear-logic
   resource semantics are other systems. The repository proves the fragments
   it uses: `a2_and_aara_iff_exact`, `flips_le_cost`,
   `certification_system_is_potential_method`, `nfi_by_potential`.
