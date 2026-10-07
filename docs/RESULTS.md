@@ -11,17 +11,19 @@ and has one of four statuses:
   supplies the counterexample.
 - **Conditional.** A Coq theorem states the result under a named premise
   that no machine fact discharges. The premise is a hypothesis of the
-  statement, not an axiom.
+  statement; no axiom is added for it.
 - **Not formalized here.** The question lies outside the formal development.
   The reason is given in one line.
 
 Every theorem cited below is closed under the global context, except the ones
 listed under "Standard-library axioms" at the end, which use only the Coq
-standard library's real-number and classical axioms. No cited theorem uses a
-project axiom. `tests/test_results_doc.py` checks that every cited declaration
-exists in `coq/` or `minimal/` and that these statuses agree with the
-assumption receipt in `artifacts/print_assumptions_all_proofs.txt`, which the
-receipt generator writes on Linux.
+standard library's real-number, classical-logic and functional-extensionality
+axioms. No cited theorem uses a project axiom. `tests/test_results_doc.py`
+checks that every cited declaration exists in `coq/` or `minimal/` and that
+each cited theorem's axiom status (closed, or using only the standard-library
+axioms listed at the end) agrees with the assumption receipt in
+`artifacts/print_assumptions_all_proofs.txt`, which the receipt generator
+writes on Linux.
 
 ## The small machine
 
@@ -37,7 +39,7 @@ each.
   written since its check names a true claim about that counter.
   Coq: `checker_soundness`.
 - **Proved.** From a clean start a certified run costs at least three, and
-  three is reached. Coq: `certified_run_min_cost`.
+  three is reached. Coq: `certified_run_min_cost`, `min_cost_tight`.
 - **Proved.** The showcase check can fail, and a run whose check fails is
   refused forever. Coq: `earned_run_check_can_fail`,
   `earned_run_refused_forever`.
@@ -50,14 +52,20 @@ each.
   record as a latch. Coq: `earned_core_halting_undecidable`,
   `earned_core_floor`, `earned_core_adequate`, `earned_core_honest`,
   `earned_core_is_latch`.
-- **Proved.** The same chain holds for the machine over any property with a
-  proved checker; sorted lists are one instance, with a run that certifies and
-  a run that is refused. Coq: `earned_generic_cs_sound`, `sorted_cs_sound`,
-  `sorted_cs_demo_certifies`, `sorted_cs_demo_refused`.
+- **Proved.** For the machine over any property language with an exact
+  equality test and a proved checker, provenance, checker soundness, no
+  forging, the floor and the minimum cost of three hold, and its
+  certification system is sound. Sorted lists are one instance, with a run
+  that certifies and a run that is refused. Coq:
+  `generic_earned_certification_provenance`, `generic_checker_soundness`,
+  `generic_no_forging`, `generic_nfi_floor`, `generic_certified_run_min_cost`,
+  `earned_generic_cs_sound`, `sorted_cs_sound`, `sorted_cs_demo_certifies`,
+  `sorted_cs_demo_refused`.
 
 ## Thiele completeness
 
-A machine is weakly Thiele-complete when its base is universal. Thiele-complete
+A machine is weakly Thiele-complete when a step that raises its record costs
+at least one and its base is universal. Thiele-complete
 asks for four clauses (minimal/ThieleComplete.v): a universal base whose moves
 are free and cannot touch the record; a record that rises only after a passing
 check of a claim, a commitment to that same claim with nothing it is about
@@ -72,17 +80,19 @@ have failed.
   Coq: `earned_core_thiele_complete`, `earned_generic_thiele_complete`,
   `sorted_machine_thiele_complete`.
 - **Proved.** In every Thiele-complete machine the ledger counts the record
-  moves, a certificate costs at least three, a committed claim holds, the
-  check can fail, some run certifies, and only CERTIFY raises the record.
+  moves, a certificate costs at least three, the claim a certificate stands
+  on holds at its CHECK and still holds at its COMMIT, the check can fail,
+  some run certifies, and only CERTIFY raises the record.
   Coq: `ledger_counts_record_moves`, `certificate_costs_three`,
-  `committed_claim_holds`, `check_can_fail`, `some_run_certifies`,
-  `only_certify_raises`.
+  `committed_claim_holds` (the theorem of that name in `ThieleComplete.v`),
+  `check_can_fail`, `some_run_certifies`, `only_certify_raises`.
 - **Refuted.** Weak Thiele completeness implies Thiele completeness. Every
   clock-style machine is weakly Thiele-complete and fails the definition,
   whatever its record; so do a latched clock, a paid latch and a silent
   machine. Coq: `clock_weakly_thiele_complete`, `clock_not_thiele_complete`,
-  `latch_clock_not_thiele_complete`, `paid_latch_not_thiele_complete`,
-  `silent_not_thiele_complete`.
+  `latch_clock_weakly_thiele_complete`, `latch_clock_not_thiele_complete`,
+  `paid_latch_weakly_thiele_complete`, `paid_latch_not_thiele_complete`,
+  `silent_weakly_thiele_complete`, `silent_not_thiele_complete`.
 - **Proved.** Every Thiele-complete machine hides its record and its ledger
   from its own window: two runs from one clean start end at the same window,
   one certified with its ledger at least three marks higher, the other
@@ -162,17 +172,19 @@ A growing record takes values in a partial order and only moves up
 - **Proved.** A pairwise-distinct, pointwise-monotone chain of k-bit vectors
   has at most k + 1 members (`chain_needs_bits`). A chain through n
   distinct values in this representation needs at least n - 1 bits. The
-  bound concerns monotone Boolean-vector encodings, not arbitrary encodings.
-  Coq: `chain_needs_bits_holds`.
+  bound concerns monotone Boolean-vector encodings only; other encodings are
+  outside it. Coq: `chain_needs_bits_holds`.
 
 ## Accountable finality
 
 - **Proved.** In the Casper FFG model, two finalized blocks on conflicting
   branches imply a quorum whose votes satisfy a slashing condition. The proof
   is constructive. Coq: `accountable_safety`, `conflicting_records_are_priced`,
-  with the key step `distinct_justified_same_epoch_slashes`. This is the known
-  accountable-safety theorem of Casper FFG. It shows that slashable votes
-  exist, not that a slash is executed or that finality is deleted.
+  with the key step `distinct_justified_same_epoch_slashes`. This is the
+  accountable-safety theorem of Casper FFG, the finality gadget Vitalik
+  Buterin and Virgil Griffith proposed for Ethereum in 2017. It shows that
+  slashable votes exist. Whether a slash is executed, or finality deleted, is
+  outside the model.
 - **Proved.** The premise of accountable safety is inhabited: a concrete
   three-validator fork finalizes two conflicting blocks and its slashed
   quorum is computed. Coq: `casper_fork_exists`, `casper_fork_slashable`.
@@ -235,8 +247,11 @@ steps on the other.
   not determine an untied record. Coq: `ram_tied_overwrite_records_old_value`,
   `ram_untied_overwrite_has_no_record`, `ram_untied_record_not_determined_by_base`.
 - **Proved.** Unbounded and modular arithmetic updates are undone by their
-  syntactic inverses. These are Janus-like reversible cores, not the full Janus
-  language. Coq: `janus_like_unbounded_inverse`, `janus_like_bounded_inverse`.
+  syntactic inverses. These are reversible cores in the style of Janus, the
+  reversible programming language that Christopher Lutz and Howard Derby
+  wrote at Caltech in 1982 and that Tetsuo Yokoyama and Robert Glück gave a
+  formal semantics in 2007. The full Janus language is outside the model.
+  Coq: `janus_like_unbounded_inverse`, `janus_like_bounded_inverse`.
 - **Proved.** In list memory, a write to an existing cell reads back, the
   tied step appends exactly the address and old value, the untied record never
   changes, and both machines agree on memory and program counter. Coq:
@@ -255,8 +270,16 @@ steps on the other.
   `nat_structural_shortcut_undecidable`, `nat_self_undecidable`.
 - **Proved.** The lambda calculus L, built from its reduction rules, has the
   second recursion theorem, Rice's theorem and an undecidable halting problem.
-  Coq: `second_recursion`, `L_rice`, `L_halting_undecidable`. The
-  Turing-completeness of L is cited from Forster and Smolka, not re-proved.
+  Coq: `second_recursion`, `L_rice`, `L_halting_undecidable`. L is the
+  calculus Yannick Forster and Gert Smolka presented as a model of
+  computation for computability theory in Coq (Interactive Theorem Proving,
+  ITP 2017), and Yannick Forster, Fabian Kunze, Gert Smolka and Maximilian
+  Wuttke later checked in Coq that L and Turing machines simulate each other
+  (ITP 2021). The Turing-completeness of L is not re-proved in the
+  repository's own files; it comes from the models-equivalence theorem of the
+  vendored Coq Library of Undecidability
+  (vendor/coq-undecidability/theories/Synthetic/Models_Equivalent.v), which is
+  checked with the build.
 - **Proved.** The complement of two-counter halting is undecidable, from the
   vendored two-counter result. Coq: `MM2_HALTING_compl_undec`.
 
@@ -281,9 +304,10 @@ steps on the other.
 - **Refuted.** Mu has an intrinsic joule value (`no_intrinsic_joule_scale`
   states the refutation). Two distinct external scales fit the same
   natural-number ledger. Coq: `mu_has_no_intrinsic_joule_value`.
-- **Conditional.** At the Landauer scale `k_B T ln 2`, one mu unit is
-  `k_B T ln 2` (`mu_landauer_calibration`). Coq: `calibrated_mu_landauer_energy`.
-  Fixing the scale is a premise, not a measurement.
+- **Proved**, with the scale supplied as an argument: at the Landauer scale
+  `k_B T ln 2`, one mu unit is `k_B T ln 2` (`mu_landauer_calibration`), the
+  product of the ledger and the scale. Coq: `calibrated_mu_landauer_energy`.
+  Fixing the scale is a premise; nothing here measures it.
 - **Conditional.** Given the `landauer_heat` premise, flipping a permanent
   reading on a finite state space releases heat at least the logarithmic
   floor (`landauer_permanence_heat_floor`). Coq:
@@ -300,7 +324,8 @@ steps on the other.
   heat `k_B T ln 2`. Coq: `selected_gap_gives_landauer_heat`.
 - **Refuted.** The master equation and a one-unit ledger change force the
   Landauer bound. Counterexample: the same reset with gap `k_B T ln 2` releases
-  half that heat; gaps one and two have identical dynamics and different heat.
+  half that heat; two different gaps give the same dynamics, which do not
+  depend on the gap, and different heat.
   Coq: `smaller_gap_refutes_unconditional_landauer_floor`,
   `master_equation_does_not_fix_heat_scale`. Ruling the smaller gap out needs
   a thermal premise such as local detailed balance, or device evidence.
@@ -335,16 +360,24 @@ audit-log theorem.
   signature accepts true (`degenerate_accepts_forgery`).
   Coq: `tpm_interface_authenticity_refuted`. Authenticity needs a trusted-key
   or unforgeability premise.
-- **Proved**, and known from the governing sources, five narrow
-  countermodels: a Certificate Transparency client's local view cannot detect
-  a split log (`ct_local_view_insufficient`, RFC 9162 Section 11.3); a quote
-  checker must bind the PCR selection (`tpm_selection_binding_is_necessary`,
-  tpm2-tools advisory GHSA-8rjm-5f5f-h4q6); a local chain suffix does not fix
-  the trusted anchor (`weak_subjective_suffix_insufficient`, Ethereum's
-  weak-subjectivity guidance); an acknowledged commit needs a durable commit
-  record (`wal_ack_requires_durability`, PostgreSQL WAL documentation); and a
+- **Proved**: five narrow countermodels, each for a point that a governing
+  source already addresses. A Certificate Transparency client's local view cannot
+  detect a split log (`ct_local_view_insufficient`; RFC 9162, Section 11.3,
+  "Misbehaving Logs", <https://www.rfc-editor.org/rfc/rfc9162.html>). A quote
+  checker must bind the PCR selection (`tpm_selection_binding_is_necessary`;
+  tpm2-tools advisory GHSA-8rjm-5f5f-h4q6, CVE-2024-29039, on
+  tpm2_checkquote and an altered PCR selection,
+  <https://www.tenable.com/cve/CVE-2024-29039>). A local chain suffix does not
+  fix the trusted anchor (`weak_subjective_suffix_insufficient`; Ethereum's
+  weak-subjectivity guidance,
+  <https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/weak-subjectivity/>).
+  An acknowledged commit needs a durable commit record
+  (`wal_ack_requires_durability`; PostgreSQL documentation, Write-Ahead
+  Logging (WAL), <https://www.postgresql.org/docs/current/wal-intro.html>). A
   current local log does not establish a past event
-  (`audit_local_snapshot_insufficient`, NIST SP 800-92). Each is a generic
+  (`audit_local_snapshot_insufficient`; NIST SP 800-92, Guide to Computer
+  Security Log Management, Karen Kent and Murugiah Souppaya, 2006,
+  <https://csrc.nist.gov/pubs/sp/800/92/final>). Each is a generic
   two-state collision or durability counterexample that does not need the
   record axis. No surveyed consequence is both new and specific to the
   record axis.
