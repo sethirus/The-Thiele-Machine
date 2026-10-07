@@ -483,7 +483,7 @@ make proof-undeniable
 | Document | Role |
 |---|---|
 | [THIELE_MACHINE.txt](THIELE_MACHINE.txt) | The model and the argument in plain text. Start here. |
-| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph: the picture, the axiom, the logic (the abstract model only), then the machine (the small machine, the universal machine, every model, building from parts, running it, the CHSH check, and the counter against physics), then how to check it and where it ends. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the crosswalk from claims to Coq, the exact words of eighteen theorems, the CHSH derivation, the construction of the quoting operation, and the sources. |
+| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph: the picture, the axiom, the logic (the abstract model only), then the machine (the small machine, the universal machine, every model, building from parts, running it, the CHSH check, and the counter against physics), then how to check it and where it ends. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the crosswalk from claims to Coq, the exact words of eighteen results, the CHSH derivation, the construction of the quoting operation, and the sources. |
 | [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
 | [docs/THEOREM_MEANINGS.md](docs/THEOREM_MEANINGS.md) | What each theorem the book cites says, in plain words. |
 | [docs/RESULTS.md](docs/RESULTS.md) | The settled questions and their exact statements. |
