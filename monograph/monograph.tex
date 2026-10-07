@@ -1905,8 +1905,8 @@ machine and a lambda calculus, and none of them computes one function more after
 separation of any other kind. Not a theory of everything. Not a claim that computation is
 physics, or that physics is computation. Not a physics result: the game result (the
 integer check and Tsirelson's bound from the short version) is pure mathematics, and
-Landauer's principle enters only as a premise with its name on it, never as something
-derived. Not a quantum computer or a claim about quantum behaviour. Not a verified chip or a
+Landauer's principle enters only as a premise with
+its name on it. Nothing here derives it. Not a quantum computer or a claim about quantum behaviour. Not a verified chip or a
 verified device of any kind; a checked model and a checked machine, on paper and in Coq. Not a
 claim to priority on any idea in
 it. Not closed on every question: the ones I couldn't settle are listed at the end.
@@ -2416,8 +2416,8 @@ them from being a pile of unrelated hobbies. Felix Klein, twenty-three years old
 professorship at Erlangen, published an answer in a program paper that people still call the
 Erlangen program. Pick a set of allowed changes: rotations, stretches, whatever you decide.
 Then a geometry is the study of the properties that \emph{stay the same} under those changes. Pick
-a different set of changes and you get a different geometry on the very same page. Euclid's
-is the one where you may slide and turn a shape but not stretch it. And here's the part I'd
+a different set of changes and you get a different geometry on the very same page. Euclid's is the one where you may slide and
+turn a shape, and stretching it is off limits. And here's the part I'd
 underline if this were my book, which it is: in Klein's scheme any group of changes can define
 a geometry. The choice is free. Nobody tells you which changes to allow.
 
@@ -2609,8 +2609,8 @@ at all, even though it's still sort of there if you squint. So ``is there struct
 turned into a question with a number on each side, and a break-even point you can find
 yourself: somewhere between four and five spoiled digits, in this code.
 
-And now change the code, because I promised you'd see the numbers move. Say I'd used six digits
-for each exception's place instead of five (wasteful, but nobody stopped me). Then four
+And now change the code, because I promised you'd see the numbers move. Say I'd used six digits for each
+exception's place (wasteful, but nobody stopped me). Then four
 spoiled digits cost $8 + 5 + 4 \times 6 = 37$, and the tie is gone; the pattern stopped paying
 one spoiled digit sooner. Same row, same pattern, different verdict, and the only thing that
 changed was a convention I chose. That's Grünwald's footnote, and it's why I won't let you
@@ -3146,7 +3146,7 @@ the balance sheet, which is how the Justice Department described the scheme in 2
 auditor, Arthur Andersen, shredded the paper. Andersen was convicted for the shredding that
 year, and the Supreme Court threw the conviction out in 2005 over how the jury had been
 instructed; either way, those books recorded nothing. But notice this job doesn't need a
-witness at all, only a copy: a hash chain nobody signed is still hard to change quietly, so
+witness at all. A copy will do: a hash chain nobody signed is still hard to change quietly, so
 long as somebody else holds the latest link, because a chain with no copy anywhere can be
 rewritten from end to end and recomputed, and nobody would know.
 
@@ -3553,9 +3553,9 @@ own paper a careful logical argument.)
 Now look at the chairs again. A step that forgets nothing, on a finite set, is a reshuffle:
 it moves everybody around in loops, and every loop comes back to where it started. A flag
 that goes up and stays up is exactly a quantity that climbs and never comes back down. So a
-reshuffle can't carry one, which is Zermelo's objection with the infinities taken out. On a
-finite set you don't need Poincaré's theorem, only the loops, and you don't wait an enormous
-time, only as many steps as there are chairs. Zermelo was aiming it at the second law. Flags never came into it. The quantum version came in 1957, when P. Bocchieri and A. Loinger proved the same return
+reshuffle can't carry one, which is Zermelo's objection with the infinities taken out. On a finite set the loops are enough, and
+Poincaré's theorem isn't needed. And the wait is
+as many steps as there are chairs. Nothing enormous. Zermelo was aiming it at the second law. Flags never came into it. The quantum version came in 1957, when P. Bocchieri and A. Loinger proved the same return
 for a closed quantum system whose energies come in separate levels, so going quantum isn't a way
 out of the room either, not for a closed system that never sheds anything.
 
@@ -3801,8 +3801,8 @@ forgetting rule, and yet it writes nothing permanent; it takes a star away in th
 with these three cards. What's true is one direction: every permanent raise is a priced move.
 The other direction has the three cards standing in it. And ``priced'' here has an exact
 meaning worth one sentence: a move is \emph{forced to be priced} when every schedule that charges
-for forgetting charges it, and that holds exactly when the move forgets something, with no
-finiteness needed at all, only a way to tell two move names apart.
+for forgetting charges it, and that holds exactly when the move forgets something, with no finiteness needed at all. A way
+to tell two move names apart is enough.
 
 \begin{definition}[Forced to be priced]\label{def:forced-priced}
 A move $i$ is \emph{forced to be priced} when every cost function satisfying merge pricing
@@ -5063,8 +5063,8 @@ goes down can't be leaned on for order.
 Where did Lamport get it? In the notes he keeps on his own papers, he says the timestamps came
 from an earlier note by Paul Johnson and Bob Thomas on keeping copies of a database in step,
 whose algorithm wasn't quite right: it let things happen in an order that broke cause and
-effect. What let him see the fix, he says, was special relativity, which teaches that there's no
-one order of events everybody agrees on, only the order of what could have caused what. And he
+effect. What let him see the fix, he says, was special relativity, which teaches that the one order of events everybody agrees on
+is the order of what could have caused what. And he
 passes on a line from Jim Gray, the same Gray as the commit at the start of the book: Gray had
 heard two opinions of the paper, that it was trivial and that it was brilliant. Lamport's
 answer is that he can't argue with the first and isn't inclined to argue with the second.
@@ -5427,8 +5427,8 @@ it shows, and a window that forgets the flag is never flag-complete. Take any st
 two copies of it, one with the counter set to 1 and one with it set to 2, everything else
 held still. The window shows the same thing for both, so any rule gives the same answer for
 both, and one of the two answers is wrong. The flag is the same argument with yes and no. On
-the stick: a window that shows you the wood's colour and its length but not the notches can't
-tell you what's owed, and staring harder at the colour won't help. (The argument needs a
+the stick: a window that shows you the wood's colour and its
+length, and hides the notches, can't tell you what's owed, and staring harder at the colour won't help. (The argument needs a
 state space where the counter can be changed on its own, the rest held still; that's what
 ``forgets'' quietly assumes. The machine I build later is such a space, and it has a checked
 pair of its own: two runs with the same window, one paid and one not
@@ -5921,8 +5921,8 @@ design. What it says is that a verifier that only reads what the bare window kee
 that pair.
 
 Economists got to the same wall by another road. Jerry Green and Jean-Jacques Laffont (1986)
-asked what a mechanism can do when people can't claim just anything about themselves, only what
-their situation lets them back up, and Jesse Bull and Joel Watson (2007) built that into
+asked what a mechanism can do when people can claim about themselves only
+what their situation lets them back up, and Jesse Bull and Joel Watson (2007) built that into
 mechanism design as \emph{hard evidence}. In their terms, an audit can tell apart only the cases
 the evidence on offer tells apart. That's the cube with a ledger in it.
 
@@ -6552,8 +6552,8 @@ Ralph Hartley, an electronics researcher at the lab that became Bell Labs, writi
 System Technical Journal in 1928, before
 Shannon, measured information exactly this way: the logarithm
 of the number of possibilities, no probabilities, just a count. That's the measure here, and
-I'll say plainly it's Hartley's. Shannon's would need a distribution over the list, and there
-isn't one, only the list's length.
+I'll say plainly it's Hartley's. Shannon's would need a distribution over the list,
+and there isn't one. There's just the list's length.
 
 Here's the same count with something you can hold. Put three coins under three cups. Each coin
 is heads or tails, so there are eight possible rows under the cups. Someone hands you two
@@ -7468,7 +7468,7 @@ is a different thing. So the cost I named a paragraph ago is a cost in what a re
 Computing power doesn't pay it.
 
 Drop ``driven by the computation.'' Take a base that counts, and a record that switches on at
-the fifth tick of a \emph{hidden clock}, whatever the base is doing. It's permanent; it's not driven by the computation. This is a \emph{timestamp}. A timestamp is not evidence. It says \emph{when}. It doesn't say \emph{what happened}, and a record
+the fifth tick of a \emph{hidden clock}, whatever the base is doing. It's permanent. The computation doesn't drive it. This is a \emph{timestamp}. A timestamp is not evidence. It says \emph{when}. It doesn't say \emph{what happened}, and a record
 switched by an outside party or a clock records that party or that clock and leaves the computation
 out. Try it with the die:
 play twenty rolls with the rule ``turn the cup after roll seven no matter what,'' and notice
@@ -8103,7 +8103,7 @@ has room for the history. With infinitely many states it always has room.
 Knock out growth. Take a two-state machine whose record flips back and forth between two places, so
 a cup goes up on one step and gets knocked back down on the next. The two states just trade chairs,
 so nothing merges, and the price list is honest about merges. The step that turns the cup up pays
-nothing. What it does instead of merging is the other branch of (1): the state that had the cup up
+nothing. It doesn't merge. It takes the other branch of (1): the state that had the cup up
 gets moved to where it's down. It revokes.
 
 Knock out the price on merges. A two-state machine that stamps every state with yes turns the cup
@@ -8334,11 +8334,11 @@ Flatland night promised me. It's also the part of it that held when I pushed.
 \subsection{Shortcuts}
 
 Here's the question every machine with a record has to face, and no amount of good design makes it
-go away. A cup is worth turning over because something later glances at it instead of working the
-thing out again: that's Section~\ref{sec:structure}'s glance, reading a block's bucket off the
-table instead of applying the rule from scratch. Call any move like that a \emph{shortcut}, and
-call it \emph{sound} when it gives the answer the long way would have given. (That gloss is about
-cost, leaning instead of redoing, and the wall I'm about to show you doesn't look at cost at all;
+go away. A cup is worth turning over because something later glances at it
+and doesn't have to work the thing out again: that's Section~\ref{sec:structure}'s glance, reading
+a block's bucket off the table without applying the rule from scratch. Call any move like that a \emph{shortcut}, and
+call it \emph{sound} when it gives the answer the long way would have given. (That gloss is about cost, leaning on what
+was done so nothing is redone, and the wall I'm about to show you doesn't look at cost at all;
 the next section says exactly what it does look at.) So: can a machine \emph{decide}, from inside,
 whether its own shortcuts are sound? That's a wall, and it's the same wall the logician Kurt Gödel and Turing hit, and
 I have to show you that it's there before I show you anything that pretends to be on the other side
@@ -8597,7 +8597,7 @@ records for some programs, or only for restricted inputs, or with outside eviden
 what the wall rules out.
 
 So in the theorem ``shortcut'' is a label. The plain-words gloss at the end of
-Section~\ref{sec:shadow-exact}, leaning on a record instead of working the thing out again, is about
+Section~\ref{sec:shadow-exact}, leaning on a record so the thing isn't worked out again, is about
 \emph{how} a program gets its answer, and how is exactly what extensionality throws away: the
 theorem only gets to see what programs do, and it treats any two that do the same as one. A
 question like ``is there a cheaper program that gives the same answers?'' isn't the theorem's
@@ -9257,8 +9257,8 @@ Replicated services put the same kind of record somewhere else: inside each repl
 replica that's been taken over still can't make it say two different things. Byung-Gon Chun and
 coauthors' attested append-only memory (A2M, 2007) is a log a replica can only add to; Dave Levin
 and coauthors' TrInc (2009) shrinks that to a trusted counter; MinBFT (Giuliana Veronese and
-coauthors, 2013) uses a trusted counter to reach agreement with $2f+1$ replicas instead of the
-usual $3f+1$ when $f$ of them can lie; and Damysus (Jérémie Decouchant, David Kozhaya, Vincent
+coauthors, 2013) uses a trusted counter to reach agreement with $2f+1$ replicas when $f$ of
+them can lie, where the usual count is $3f+1$; and Damysus (Jérémie Decouchant, David Kozhaya, Vincent
 Rahli and Jiangshan Yu, 2022) has a small trusted service, the Checker, that keeps a monotonic
 counter of where the protocol is. Allen Clement, Flavio Junqueira, Aniket Kate and Rodrigo
 Rodrigues (2012) worked out, with proofs, what such a record buys, and as I read their result it's
@@ -10872,7 +10872,7 @@ and preserves the table. Every other instruction preserves it as well.
 
 Checked as \code{facts\_keep}, \code{full\_table\_traps} and \code{facts\_bounded\_step} (EarnedCore.v).
 
-Why trap instead of making room? Because ``making room'' means deciding which fact dies, and a
+Why trap? Why not make room? Because ``making room'' means deciding which fact dies, and a
 fact that can die is a fact whose absence you have to explain later. A table that only grows
 is a history you can read back, and the provenance proofs above lean on exactly that. The
 bill for it is real, though, and it's in the subsection near the end of this chapter on
