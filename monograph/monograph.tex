@@ -7814,7 +7814,7 @@ single switch isn't enough once there are three or more stages, and I pointed he
 where I pay that off, and where I find out how much of the rest survives being pushed on.
 
 The cup of Section~\ref{sec:latch} has two positions. Everything the book has proved about the
-toll so far, the floor, the merges, the squeeze, the windows, was proved for a cup. The question
+toll so far (the floor, the merges, the squeeze, the windows) was proved for a cup. The question
 for this section is blunt: if the record has more places to be than up and down, how many of
 those results come along, and which ones break?
 
@@ -7842,8 +7842,8 @@ check it, and neither of those is above the other: a refereed proof hasn't been 
 and a machine-checked proof hasn't been refereed. Draw it as a diamond. \emph{Nothing} at the
 bottom, \emph{refereed} on the left, \emph{machine-checked} on the right, \emph{both} at the top.
 Moving up the diamond is still only ever moving up, but now there are two ways up from the
-bottom, and the two middle points don't compare. That's what a \emph{partial} order is: an order
-in which some pairs simply aren't comparable. Put a cup on each point that isn't the bottom, one
+bottom, and the two middle points don't compare. That's what a \emph{partial} order allows: some pairs
+simply aren't comparable. Put a cup on each point that isn't the bottom, one
 for ``at least refereed,'' one for ``at least machine-checked,'' one for ``both.'' Each cup is
 still a latch. The record is now a place on the diamond, and the three cups together tell you
 which place.
@@ -7867,8 +7867,9 @@ are a straight strip that never ends.
 The cups say the same thing in their own terms. For a place $a$, the cup for $a$ asks ``has the
 record reached at least $a$?'', so with the record at $x$ it's up exactly when $a \le x$, and I
 write its answer as $[a \le x]$. In the row of cups I said the cups together tell you which place
-the record is at. On the strip and the diamond you can check that with your eyes, so I took it
-as given, and it was my first guess for every order.
+the record is at. On the strip and the diamond you can check that with your eyes, and part (2) of
+Theorem~\ref{thm:u11-growing} already proved it whenever the order is partial, though I hadn't asked
+what in that proof was doing the work. My first guess was that it held for every order.
 
 Why bother with the bare preorder at all, when every strip on the table is a partial order? Because
 I wanted to see what the third rule was doing, and the way to see what a rule does is to take it
@@ -8159,7 +8160,8 @@ exact.
 \begin{theorem}[Window prices over a direction]\label{thm:dir-window}
 (1) If the window has a collision, every window price that meets the floor charges at least one for
 some step that turns no cup over, so no window price is exact. (2) On a machine with finitely many
-states and moves, an exact window price exists exactly when the window has no collision. (3) Along
+states and moves, whose views can be told apart by a yes-or-no test, an exact window price exists
+exactly when the window has no collision. (3) Along
 any run, a window price that meets the floor charges at least the number of steps that turn no cup
 over but look, through the window, like a step that does. When it can be decided, for each pair of
 views, whether some step showing them turns a cup over, some window price meets the floor and, among
@@ -8208,7 +8210,7 @@ somewhere sends two different states to one landing spot; (2) if the shadow's st
 forgets nothing, sending different shadow states to different shadow states, then those two states
 are in the same shadow fibre, and every landing pile of the move lies inside one fibre; (3) without
 that premise it can fail: there's a two-state machine whose two states sit in different fibres and
-whose shadow step forgets, so the merge the toll pays for lands two states from different fibres
+whose shadow step forgets, so the merge at the step that turns the cup over lands two states from different fibres
 and no fibre loses a point. (4) The halving price, which says a move of cost $c$ shrinks any
 collection of states by at most a factor of $2^c$, holds exactly when every landing pile has at most
 $2^c$ states, on a machine of any size.
@@ -8363,7 +8365,8 @@ first proof of the fact. The first was in 1874, by a harder road through the rea
 Now look at what the argument \emph{did}, because it's going to do the same thing again and again,
 in new clothes, and I want you to recognise it each time. (Not every name below is a
 flipped diagonal in the table sense. Kleene's theorem is the tool that makes the diagonal
-buildable, Rice's is the general form, and Thompson's is an attack that uses the same
+buildable, Rice's is the general form, and the last one, from Ken Thompson, who built the
+original Unix operating system at Bell Labs, is an attack that uses the same
 trick.) There was a table: rows are the things being
 listed, columns are questions, each cell says ``does row i do column j.'' There was the
 diagonal: the cells where a thing is asked about \emph{itself}. There was a flip: something with no
@@ -8374,12 +8377,13 @@ touched. Table, diagonal, flip, and the assumption eats itself. Hold those four.
 \subsection{The same move, again and again}
 
 Russell, 1902, from Section~\ref{sec:structure}: the collection of all collections that don't contain themselves.
-That's Cantor's flipped diagonal with ``contains'' as the table, and Russell said as much; he
-got there by running Cantor's argument on a supposed collection of everything. What got
+That's Cantor's flipped diagonal with ``contains'' as the table, and Russell said as much, in
+\emph{The Principles of Mathematics} in 1903. He got there, he wrote, by running Cantor's argument
+on a supposed collection of everything, which ought to be the biggest collection there is. What got
 refuted was the assumed object, the collection of everything, and Zermelo's fix was to stop
 assuming it.
 
-Jules Richard, 1905: some English phrases define real numbers (``the ratio of a circle's
+Jules Richard, 1905: some phrases (his were in French) define real numbers (``the ratio of a circle's
 circumference to its diameter''); there are only countably many phrases, so list the numbers
 they define in order; run Cantor's diagonal down their decimal expansions and you get a real
 number no phrase defines, except that you just defined it, in the phrase that describes the
@@ -8398,17 +8402,19 @@ in-te-ger, not, name-a-ble, in, few-er, than, nine-teen, syl-la-bles. Eighteen. 
 syllables it has named the number that can't be named in fewer than nineteen. Same lesson as Richard's, in a smaller coat: ``nameable'' is a word about the
 language, used inside the language, and that's where the bite is.
 
-Kurt Gödel, 1931, with an improvement by Barkley Rosser in 1936: the big one, and I'll say exactly
+Kurt Gödel, 1931, with an improvement in 1936 by Barkley Rosser, a logician who had studied under
+Alonzo Church at Princeton and whose trick lets the theorem assume only that the system is
+consistent: the big one, and I'll say exactly
 what it says, because every word of it is carrying weight. Take any consistent formal system with a mechanically checkable list
 of axioms that can do a bit of arithmetic. Then there are sentences it can neither prove nor
 refute. The engine is a lemma that lets you build, for any property you can write down, a
 sentence that the system proves \emph{equivalent} to that property holding of the sentence's own
 code number. Apply it to ``not provable'' and you get a sentence equivalent, inside the
 system, to its own unprovability. Table: sentences by code. Diagonal: a sentence about its
-own code. Flip: provable to not-provable. Two cautions the Stanford Encyclopedia stresses and
-I'll repeat: the sentence doesn't literally ``say'' anything about itself, it's provably
-\emph{equivalent} to a claim about its code, which is less mystical and more exact; and the
-theorem doesn't say the sentence is unknowable, it says \emph{this one system} can't settle it.
+own code. Flip: provable to not-provable. Two cautions the Stanford Encyclopedia stresses, and
+I'll repeat them. The sentence doesn't literally ``say'' anything about itself. It's provably
+\emph{equivalent} to a claim about its code, which is less mystical and more exact. And the
+theorem doesn't say the sentence is unknowable. It says \emph{this one system} can't settle it.
 
 And how did the world take it? Mostly, at first, it didn't. Gödel, twenty-four years old,
 announced the first theorem during a round-table discussion on the last day of a conference in
@@ -8444,11 +8450,13 @@ buildable, the Contrarian has to be able to ``hand me to the Checker.'' Kleene's
 recursion theorem says: for any transformation of programs you can compute, there's a
 program that behaves exactly as if it had been handed its own source code. Any program may
 be written as though it already had a copy of itself in hand. He stated it almost in passing, in a paper
-on something else, and proved it in two lines, and Yiannis Moschovakis calls it a little
-gem, and it's the reason ``programs that print their own source'' exist in
+on something else, and proved it in the last two lines of one of its sections. I have that count
+from Yiannis Moschovakis, a logician at UCLA and Athens who wrote a 2009 paper on it called
+``Kleene's Amazing Second Recursion Theorem,'' and he calls it a little
+gem. It's the reason ``programs that print their own source'' exist in
 every programming language (they're called quines, after a philosopher I'll come to in a moment; try ``Print the
 following twice, the second time in quotes: `Print the following twice, the second time in
-quotes:''' and obey it). Self-reference in computation isn't a paradox. It's a construction.
+quotes:'\,'' and obey it). Self-reference in computation isn't a paradox. It's a construction.
 The paradoxes happened only when someone assumed an \emph{unrestricted} collection or language;
 the theorem happens when you build the self-referrer honestly.
 
@@ -8465,8 +8473,8 @@ instruction above. That's Kleene's trick in plain English, and it's why the para
 look so alike. The paradox is what you get when the copy asserts something about its own truth.
 The tool is what you get when the copy just does something.
 
-Henry Rice, 1953, whom you met briefly in Section~\ref{sec:windows}: the general form. Any property that depends only on what a program \emph{does}
-(not how it's written), and that's true of some programs and false of others, has no
+Henry Rice, 1953, whom you met briefly in Section~\ref{sec:windows}: the general form. Any property that depends only on what a program \emph{does},
+whatever its text, and that's true of some programs and false of others, has no
 algorithm that decides it for all programs. ``Does this program halt'' is one such property.
 ``Does this program ever output 7'' is another. ``Does this program contain an if-statement''
 isn't, because that's about the text. One standard proof goes straight through Kleene.
@@ -8498,10 +8506,10 @@ independently made compiler, use the result to compile that source again, and co
 output bit for bit with the suspect binary. If they match, the binary really is what its source
 says, unless both compilers were poisoned in the same way. The trust doesn't vanish. It moves,
 from one compiler to the claim that two unrelated ones weren't rigged together. That's the shape
-of every stopping point in this book: you don't reach the bottom, you reach a place where you can
+of every stopping point in this book. You don't reach the bottom. You reach a place where you can
 say exactly what you're trusting.
 
-Bill Lawvere, 1969, showed all of these are one theorem in disguise: if a set can be mapped
+Bill Lawvere, in 1969, proved a fixed-point theorem that, as I read it, makes all of these one theorem in disguise: if a set can be mapped
 onto all the functions from itself to some target, then every function on the target has a
 fixed point; so if the target has a function with no fixed point (a flip), no such covering
 exists. Cantor, Russell, Gödel, halting, as instances of one shape. Noson Yanofsky retold it
@@ -8606,7 +8614,7 @@ than classical halting. And
 here's something about its proof that I want you to have: it never touches the counter,
 the toll, or the step relation. It uses the recursion theorem, representability of the flip,
 the two witnesses, and extensionality, and nothing else. (The file's header calls the
-substrates it covers ones that respect the toll, which reads as if the toll were needed. The
+substrates it covers ones that respect the toll. The
 proof uses neither the toll nor the counter's climbing. It's the diagonal, clean.)
 
 Here's the setting and the wall, with every word pinned down so you can poke at it.
@@ -8711,7 +8719,8 @@ follows (\code{L\_halting\_undecidable}), and the diagonal is reproved in the sh
 theorem (\code{L\_structural\_shortcut\_undecidable}), for any property of programs that depends only
 on what they compute and that holds of one program and fails of another. The statement
 mentions no shortcut. That's the diagonal for a fixed model with nothing assumed. It isn't an instance of the generic class
-(L's runs aren't total in the way the class wants), so it's the argument \emph{reproved}. The
+(the class wants a run map that always answers, with a state or with nothing, and L's evaluation
+can run forever without ever answering), so it's the argument \emph{reproved}. The
 generic theorem isn't \emph{applied} here. Both are true; they're different sentences.
 
 Here's what that string of words means, because L is the strangest thing in this book that
@@ -8720,16 +8729,19 @@ a programming language with one idea in it: functions. A term is one of three th
 variable. A function, written $\lambda$ followed by its body, the body saying what to do with
 whatever you hand it. Or one term applied to another, written side by side. Running a program
 is one move, over and over: when a function meets an argument, put the argument into the body
-where the variable was. No numbers, no memory, no instructions, and Turing showed in 1937 that
+where the variable was. No numbers, no memory, no instructions, and in 1937 Turing published a proof that
 it computes exactly what his machines compute. ``Weak call-by-value'' is two house rules about
 the order of moves: an argument is run down to a finished function (a \emph{value}) before it's
 put in, and nothing runs inside a function that hasn't been handed anything yet. Variables
-are written as numbers counting how many $\lambda$s back they were bound (Nicolaas de Bruijn's
-trick, so two variables can never get mixed up by sharing a name), and a term is \emph{closed}
+are written as numbers counting how many $\lambda$s back they were bound (a trick of Nicolaas
+de Bruijn, who ran the Automath proof-checking project at Eindhoven from 1967 and comes back in
+Section~\ref{sec:coq}; it means two variables can never get mixed up by sharing a name), and a term is \emph{closed}
 when every variable in it is bound inside it, so it leans on nothing outside. Last piece: to
 hand a program to a program, L needs a way to write any term as data, the way a program's
 source is a string you can pass around. The one used here is the \emph{Scott encoding}, named for
-Dana Scott, and all you need about it is that every term $t$ gets one \emph{code}, written
+Dana Scott, a student of Church's who went on to build mathematical models of the lambda calculus
+itself. As far as I can trace it, the encoding first appeared in lecture notes of his from Berkeley
+in 1962 that he never published. All you need about it is that every term $t$ gets one \emph{code}, written
 $\ulcorner t \urcorner$, and the code is itself a closed value. Two tools get built on top of
 that in the proof: a \emph{quoting} term $Q$ that takes the code of a term to the code of that
 code (a program that prints its own source needs exactly this move), and a \emph{fixed-point
@@ -8838,7 +8850,7 @@ record can check its own shortcuts on autopilot, because that's a wall, the same
 showed you the bricks. And it tells you what a record \emph{can} do, which is the thing Part III
 has been about since the counter: it can carry a shortcut \emph{with its receipt}, so that the question
 ``was this earned'' is answered by an event you can point at. No decider has to exist for that,
-which is lucky, because none can. The diagonal says you can't automate the judgement. The latch
+which is lucky, because no inside one can. The diagonal says you can't automate the judgement. The latch
 says you can record the commitment. Those are different jobs, and a record does the second.
 
 The diagonal has a famous cousin that seems like it ought to bite a record too, so let me walk
@@ -8846,7 +8858,7 @@ right up to it. Gödel's second theorem says a consistent system strong enough f
 prove its own consistency, and Martin Löb, a logician answering another logician's question, sharpened that in 1955: if such a system proves ``if this
 is provable, it's true,'' it already proves the thing itself. So can a record vouch for itself, and
 does Löb stop it? My first guess was that Löb stops it, since a record looked like a system talking about itself.
-Here's where I landed instead, and it's a relief more than a discovery. Hold two things side by
+Here's where I landed instead, and mostly it's a relief. Hold two things side by
 side: ``there's a receipt for this somewhere,'' and the receipt in your hand. Löb's theorem is
 about \emph{provability}, the bare claim that some proof exists, the receipt somewhere. A record of the kind this book
 keeps is a different animal: a dated event, this check, of this claim, passed. The receipt in your
@@ -8958,9 +8970,10 @@ Austin, itself based on Yoichi Hirai's proof in Isabelle, another proof checker;
 quorum intersection as a premise. A \emph{quorum} is a set of validators big enough to act, here
 two thirds of the stake, and \emph{quorum intersection} is the arithmetic of the three-validator
 example: two thirds plus two thirds is four thirds, so any two quorums share at least a
-third. The fragment doesn't do that arithmetic; it takes the overlap as given. No deposits,
+third. The fragment takes the overlap as given. It doesn't do that arithmetic. No deposits,
 no rewards, no fork choice (the rule for picking a branch to build on), no connection to
-anything else in this book. \code{accountable\_safety}: a finalization fork implies a slashed quorum. And
+anything else in this book. \code{accountable\_safety}: a finalization fork implies that a set of
+validators the size of that overlap, at least a third of the stake, is slashed. And
 \code{finalization\_without\_slashing}: a one-validator chain finalizes and nobody's slashed, which
 is the ``write is free'' sentence in a degenerate setting, and only there.
 
@@ -9039,8 +9052,8 @@ September 2022, in the switch people called the Merge, Ethereum stopped choosing
 of work at all and went over to proof of stake. So the checkpoints and the two slashing rules
 above are one part of a system that holds real money today, and the transcription is of that
 part's safety proof as the 2017 design states it. Everything between the two, the fork choice
-and the rest of the running protocol, is the gap between my photocopy and the kitchen that I walk
-through near the end of this section. Does any of that move the price? No. Finalizing is still
+and the rest of the running protocol, is the gap between my transcription and the running system, which I walk
+through near the end of this section with a photocopied recipe and a kitchen. Does any of that move the price? No. Finalizing is still
 free for an honest validator; what costs is contradicting yourself.
 
 \subsection{Gas: the one that prices the write}
@@ -9193,7 +9206,7 @@ transparency are here). Or it can be physical, energy spent, which none of these
 specifications touches. And the record's permanence is only as long as the register lives: a
 platform's registers are cleared when it resets, so the permanence is per boot.
 
-Why the registers, then, and not something that lasts? Because the quote is what a remote asker
+Why the registers, then, when something that lasts would make a better record? Because the quote is what a remote asker
 reads, and the registers are what it signs. The same chip has longer-lived records, and they're
 closer to the cup than anything else in this section. Version 2.0 of its specification has
 storage slots of a kind it calls a bit field, changed only by a command that ORs new bits into the
@@ -9320,8 +9333,8 @@ only the few hashes sitting beside the climb from that leaf to the root, the \em
 redo the climb yourself. A second check, \emph{consistency}, shows that a bigger tree is a smaller
 one with leaves added on the end and nothing rewritten. The record is a leaf in the tree.
 
-Priced? Nothing. The RFC says it in its first section: logs don't \emph{prevent} misissuance;
-they let interested parties \emph{detect} it afterward. And a log that shows different views to
+Priced? Nothing. The RFC says it in its first section: logs let interested parties \emph{detect} misissuance
+afterward. They don't \emph{prevent} it. And a log that shows different views to
 different people (a \emph{split view}) can defeat the auditing, so logs are still trusted parties.
 What it buys is visibility.
 
@@ -9589,7 +9602,7 @@ published a proof that, as I read it, makes something like it generic: under any
 about a system only through its environment get at most classical information, about one and
 the same measurement of the system. That's their theorem behind the word ``objective,'' and it's a
 statement about separate fragments, which is exactly the part I didn't keep.
-Xiao-Liang Qi and Daniel Ranard (2021) sharpened it into a statement about every possible
+Xiao-Liang Qi and Daniel Ranard (2021), as I read their paper, sharpened it into a statement about every possible
 evolution of system and environment: everywhere in the environment outside a region of fixed
 size, whatever an observer can learn about the system is classical, read off one fixed
 measurement. A statement about every evolution and every input is the quantum cousin of what the
@@ -9616,11 +9629,11 @@ prose is where the conjecture lives.
 The independence I dropped is exactly what the conjecture's closest published neighbour keeps.
 Jess Riedel, Zurek and Michael Zwolak (2016) took histories of a closed quantum system, the
 story a whole sequence of events tells, and asked which of them the world keeps records of in
-many separate pieces of the environment. Redundant records in separate pieces make a history
+many separate pieces of the environment. As I read their paper, redundant records in separate pieces make a history
 consistent, so ordinary yes-or-no reasoning about it works, and they pick out a small set of
 histories from the huge number that are merely consistent: in their words, an objective past.
 That's ``what proliferates is what counts'' in quantum form, with the disjointness in it, and it
-came before this book. Halliwell (1999) had already carried the link between records and
+came before this book. Halliwell (1999), as I understand him, had already carried the link between records and
 consistent histories from pure starting states to mixed ones, where the records still exist but
 are necessarily imperfect.
 
@@ -9900,14 +9913,19 @@ which is still a conjecture.
 
 The uniqueness theorems that do exist are about pricing information loss, and they're worth
 a look because they say what kind of bill the price on merging is. John Baez, Tobias Fritz
-and Tom Leinster (2011) showed that Shannon entropy is the only measure of information loss,
+and Tom Leinster (2011), mathematicians who work in category theory, the mathematics Lawvere's
+diagonal theorem came from, asked what a measure of information loss has to look like. As I read
+their paper, they proved that up to a constant factor Shannon entropy is the only measure of information loss,
 for maps that preserve a probability measure, that is functorial, convex-linear and
-continuous. J\'anos Acz\'el, Bruno Forte and C.\ T.\ Ng (1974) showed that the entropies with
+continuous. J\'anos Acz\'el, Bruno Forte and C.\ T.\ Ng (1974), mathematicians at the University
+of Waterloo who worked on functional equations, asked which entropies deserve to be called
+natural, and proved, by their account, that the entropies with
 a short list of natural properties are exactly the linear combinations of Shannon's and Hartley's, where
 Hartley's is the log of the count, so even for merges the choice between the average and the
 worst case is a real choice. Both price merges. Neither prices raises, so neither picks out the toll, and
 that's the three-state example in a bigger room. On the other side of the fence, Luciano
-Pomatto, Philipp Strack and Omer Tamuz (2023) proved a uniqueness result for what it costs to
+Pomatto, Philipp Strack and Omer Tamuz (2023), economists at Caltech and Yale who asked what
+learning something should cost, proved, by their account, a uniqueness result for what it costs to
 \emph{acquire} information, with constant marginal costs. That's a price on producing a
 signal, a different bill from the free learning of Section~\ref{sec:narrowing}.
 
