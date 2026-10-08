@@ -14134,8 +14134,10 @@ about 2.83, a win rate of about eighty-five percent. Boris Tsirelson, a Soviet m
 a \emph{ceiling}: quantum correlations violate Bell, but only up to there. That ceiling, and the
 state that reaches it, are checked for strategies in finite dimension, with real amplitudes
 (\code{qs\_tsirelson} and \code{qs\_tsirelson\_reached}, QuantumStrategies.v) and with complex
-ones (\code{qc\_tsirelson} and \code{qc\_tsirelson\_reached}, QuantumStrategiesComplex.v); for
-infinite dimension I cite Tsirelson. What's checked below, besides, is the algebra.
+ones (\code{qc\_tsirelson} and \code{qc\_tsirelson\_reached}, QuantumStrategiesComplex.v); and
+the ceiling holds in any dimension at all, infinitely many levels included
+(\code{ta\_tsirelson}, TsirelsonAlgebraic.v; the next part says how). What's checked
+below, besides, is the algebra.
 
 And the wall above that, which is the one I find most instructive. In 1994 the physicists
 Sandu Popescu and Daniel Rohrlich asked: what if you only demand that nothing can be \emph{signalled}, that Alice's
@@ -14702,9 +14704,23 @@ $\arcsin\tfrac35 + \arcsin\tfrac45 = \tfrac{\pi}{2}$ by the 3-4-5 triangle
 
 \subsection{What isn't proved}
 
-Infinite dimension. Every quantum strategy in a Coq statement here acts on finitely many levels.
-Quantum mechanics also allows systems with infinitely many, and for strategies on those, Tsirelson's
-bound and the arcsine edge stay cited. The real and complex finite cases above are what's checked.
+One step on paper, and then nothing about dimension. Quantum mechanics also allows systems with
+infinitely many levels, and the checks don't need finitely many. Whatever the dimension, a shared
+state $v$ gives an expectation on the operators the players measure with:
+$x \mapsto \mathrm{Re}\,\langle v, x\,v\rangle$. That one line is the step on paper. The
+proofs use only what that expectation always has: you can add, multiply, scale and take
+adjoints, the product spreads over sums, and the expectation of $x^*x$ is never negative. Each
+measurement is its own adjoint with the expectation of its square at most one, which covers
+unsharp measurements too, and Alice's commute with Bob's. That last demand is weaker than putting
+them on two separate systems, so the result covers the wider, commuting model as well. On that
+footing Tsirelson's sum of squares goes through, and the CHSH value is at most $2\sqrt2$
+(\code{ta\_tsirelson}). The same nonnegative form, with each diagonal entry raised to one,
+completes the correlator table to a PSD matrix (\code{ta\_realizable}), so the four arcsine
+inequalities hold (\code{ta\_arcsine}), and with a unit the full first-level moment matrix,
+marginals and all, is PSD (\code{ta\_npa\_psd}, all in TsirelsonAlgebraic.v). The other
+direction needs no help from infinity: every point inside the arcsine edge is reached on two
+eight-level systems.
+
 Also: the finite-mixture theorem (\code{fine\_theorem} in the source)
 proves only one direction, that a finite local model satisfies the bound, and its converse as
 stated is false: a table with $S = 0$ that no local model produces (\code{nec\_e\_fine\_converse\_false}).
@@ -17533,6 +17549,7 @@ Remark \ref{rem:chsh-equality}: Where equality can happen & \S\ref{sec:chsh-deri
 In the text: quantum strategies with real amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, a two-qubit one reaches $2\sqrt 2$, and deterministic plans are strategies & \S\ref{sec:chsh-derivation} & \code{qs\_tsirelson} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_deterministic\_plan} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_corr\_dot} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_npa\_psd} {\footnotesize(\code{QuantumStrategies.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 In the text: quantum strategies with complex amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, and the two-qubit one reaches $2\sqrt 2$ & \S\ref{sec:chsh-derivation} & \code{qc\_tsirelson} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_corr\_dot} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_npa\_psd} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_gram\_psd} {\footnotesize(\code{QuantumStrategiesComplex.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 In the text: Tsirelson's representation: the completion set is exactly the set of correlator tables of quantum strategies in finite dimension, real or complex {\footnotesize(if and only if)}; every PSD matrix is a Gram matrix; four anticommuting real symmetric involutions on eight levels & \S\ref{sec:chsh-derivation} & \code{tr\_representation} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_representation\_complex} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_elliptope\_quantum} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_quantum\_elliptope} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_complex\_elliptope} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_gram} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_gamma\_clifford} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_corr\_inner} {\footnotesize(\code{TsirelsonRepresentation.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
+In the text: in any dimension, for any expectation on an algebra of observables where Alice's commute with Bob's, Tsirelson's bound holds, the correlators have a PSD completion and satisfy the arcsine inequalities, and the first-level moment matrix with marginals is PSD & \S\ref{sec:chsh} & \code{ta\_quad\_nonneg} {\footnotesize(\code{TsirelsonAlgebraic.v})}\newline \code{ta\_tsirelson} {\footnotesize(\code{TsirelsonAlgebraic.v})}\newline \code{ta\_realizable} {\footnotesize(\code{TsirelsonAlgebraic.v})}\newline \code{ta\_arcsine} {\footnotesize(\code{TsirelsonAlgebraic.v})}\newline \code{ta\_npa\_psd} {\footnotesize(\code{TsirelsonAlgebraic.v})}\newline \code{ta\_classical\_instance} {\footnotesize(\code{TsirelsonAlgebraic.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD, EM\newline FE, RD\newline FE, RD \\
 In the text: the arcsine characterization of Landau and Masanes: a table has a PSD completion, and is a quantum table, exactly when its entries lie in $[-1,1]$ and its arcsines pass four inequalities {\footnotesize(if and only if)}; the angle on the sphere obeys the triangle inequality; two boundary points & \S\ref{sec:chsh-derivation} & \code{am\_arcsine} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_quantum\_arcsine} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_necessary} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_sufficient} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_sphere\_triangle} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_pythagorean\_boundary} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_tsirelson\_boundary} {\footnotesize(\code{ArcsineBoundary.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
 Lemma \ref{lem:chsh-rational}: A rational constant above the bound, \code{rational\_tsirelson\_bound} & \S\ref{sec:chsh-derivation} & \code{rational\_tsirelson\_bound} {\footnotesize(\code{TsirelsonFromAlgebra.v})} & FE, RD \\
 Definition \ref{def:chsh-five}: The pinned level-1 matrix & \S\ref{sec:chsh-derivation} & \code{zero\_marginal\_npa} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{NPAMomentMatrix} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{npa\_to\_matrix} {\footnotesize(\code{NPAMomentMatrix.v})} & def\newline def\newline def \\
@@ -19341,7 +19358,8 @@ completion set (\code{am\_arcsine}) and, through Tsirelson's representation, wit
 set (\code{am\_quantum\_arcsine}). The point $(3/5, 4/5, 4/5, -3/5)$ is on the boundary:
 $\arcsin \tfrac35 + \arcsin \tfrac45 = \tfrac{\pi}{2}$ by the 3-4-5 triangle, so the sum is $\pi$
 (\code{am\_pythagorean\_boundary}); Tsirelson's point is on it too (\code{am\_tsirelson\_boundary}).
-What stays outside every Coq statement is infinite dimension.
+The necessary direction holds in any dimension, for any expectation on an algebra of
+observables in which Alice's commute with Bob's (\code{ta\_arcsine}, TsirelsonAlgebraic.v).
 
 Equality with the quantum set. That the completion set of item G is exactly the set of
 quantum correlators is Tsirelson's representation theorem, and it is proved in finite dimension:
@@ -19349,7 +19367,8 @@ quantum correlators is Tsirelson's representation theorem, and it is proved in f
 ones (TsirelsonRepresentation.v), with two eight-level systems enough for every point. That PSD of the level-1 moment matrix is necessary for
 quantum behaviour is proved for strategies in finite dimension, with real amplitudes
 (\code{qs\_npa\_psd}, QuantumStrategies.v) and with complex ones (\code{qc\_npa\_psd},
-QuantumStrategiesComplex.v); for infinite dimension it remains the cited NPA reading.
+QuantumStrategiesComplex.v), and in any dimension, marginals included, for any expectation on
+an algebra of observables (\code{ta\_npa\_psd}, TsirelsonAlgebraic.v).
 
 Achievability. Theorem~\ref{thm:chsh-tight} is a point of $\mathbb{R}^4$. A state and
 measurements that reach it are built in QuantumStrategies.v: the two-qubit state

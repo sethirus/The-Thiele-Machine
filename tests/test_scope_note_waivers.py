@@ -161,6 +161,7 @@ WAIVED_FILES = [
     "coq/kernel/quantum/SchurComplement.v",
     "coq/kernel/quantum/SmallChshCheck.v",
     "coq/kernel/quantum/SmallChshMachine.v",
+    "coq/kernel/quantum/TsirelsonAlgebraic.v",
     "coq/kernel/quantum/TsirelsonFromAlgebra.v",
     "coq/kernel/quantum/TsirelsonGeneral.v",
     "coq/kernel/quantum/TsirelsonRepresentation.v",
