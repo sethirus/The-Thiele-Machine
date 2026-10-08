@@ -4604,7 +4604,7 @@ So: moves picked from outside, no; a closed machine or a repeating program, yes
 repetitions, from a flag down at the start and up at every repetition from some point on).
 
 And one limited piece of the chances-and-time-spans version, argued here in continuous time, with
-its discrete-time core checked,
+its discrete-time core, its convergence and its continuous-time rate checked,
 because it shows exactly where the known-state escape stops. Take a device with no outside hand
 at all: a little random process hopping among finitely many states at rates that never change,
 with the usual physical conditions (every hop has a reverse hop, and the rates obey local
@@ -4645,8 +4645,20 @@ exceeds $-\ln\pi(s)$ and reaches it in the limit exactly when that remainder goe
 for a start among the no-states (\code{re\_known\_start\_vs\_set}); the flow from the no-states to the
 yes-states equals the flow back (\code{re\_flux\_balance}); and with each mean stretch taken as its
 mass over that flow, $-\ln\pi(\mathrm{no}) = \ln(1 + T_{\mathrm{up}}/T_{\mathrm{down}})$
-(\code{re\_stretch\_ratio}). What stays argued is the continuous-time form, the run's convergence
-to $\pi$, and the fact that mass over flow is the mean stretch length.
+(\code{re\_stretch\_ratio}). The run's convergence is checked too, under the condition named for Wolfgang Doeblin, a
+German-born French mathematician, son of the novelist Alfred Döblin, who took his doctorate at the
+Sorbonne in 1938 for work on chains like this one and died in June 1940, at twenty-five. The
+condition is that every row of the chain puts at least a fixed share $\delta$ of $\pi$ on every
+state: each step shrinks the distance to $\pi$ by the factor $1-\delta$, the spread converges to
+$\pi$ at every state, and the entropy produced from the known start converges to $-\ln\pi(s)$,
+falling short of it after $T$ steps by at most $(4/m)(1-\delta)^{2T}$, with $m$ the smallest weight
+of $\pi$ (\code{rc\_contract}, \code{rc\_converges}, \code{rc\_known\_start\_gap} and
+\code{rc\_known\_start\_limit}, RelaxationConvergence.v). In continuous time, for any positive
+solution of the master equation, the relative entropy to $\pi$ falls at exactly the entropy
+production rate, which is never negative, so it never rises (\code{rcd\_D\_derivative},
+\code{rcd\_sigma\_nonneg} and \code{rcd\_D\_monotone}, RelaxationContinuous.v). What stays
+argued is the total over a continuous-time relaxation, which takes integrating that rate out to
+infinity, and the fact that mass over flow is the mean stretch length.
 
 The next section is about a different door entirely. Forgetting has had its section; the
 question now is whether \emph{finding out} costs, because the demon's whole trick was that it knew which way the
@@ -17215,6 +17227,7 @@ Theorem \ref{thm:known-state}: A known state gets no heat floor from the premise
 Theorem \ref{thm:u04-point-sum}: The bits removed, one term per state & \S\ref{sec:a2-not-arbitrary} & \code{entropy\_drop\_as\_point\_sum} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_nonneg} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_pos\_of\_support\_merge} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
 In the text: a repeated move, a closed machine or a repeating word, raising the flag for good from a start whose flag is down, merges two states the run visits; moves picked from outside need not; the strip machine has no finite list of its states & \S\ref{sec:a2-not-arbitrary} & \code{nec\_f\_orbit\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_repeat\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_closed\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_word\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_outside\_moves\_no\_merge} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_history\_infinite} {\footnotesize(\code{NecFPaperToys.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 In the text: on a finite chain with detailed balance, one step's entropy production is the drop in relative entropy and is nonnegative; from a known start the total is at most $-\ln\pi(s)$; the flows balance & \S\ref{sec:a2-not-arbitrary} & \code{re\_sigma\_is\_drop} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_sigma\_nonneg} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_relative\_entropy\_monotone} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_total} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_bound} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_vs\_set} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_flux\_balance} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_stretch\_ratio} {\footnotesize(\code{RelaxationEntropy.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
+In the text: under Doeblin's condition the chain converges to its steady spread and the entropy from a known start converges to $-\ln\pi(s)$; in continuous time the relative entropy falls at the production rate & \S\ref{sec:a2-not-arbitrary} & \code{rc\_contract} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rc\_converges} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rc\_known\_start\_gap} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rc\_known\_start\_limit} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rcd\_sigma\_nonneg} {\footnotesize(\code{RelaxationContinuous.v})}\newline \code{rcd\_D\_derivative} {\footnotesize(\code{RelaxationContinuous.v})}\newline \code{rcd\_D\_monotone} {\footnotesize(\code{RelaxationContinuous.v})} & FE, RD\newline FE, RD\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
 Theorem \ref{thm:machine-narrowing}: The machine's own narrowing is priced & \S\ref{sec:narrowing} & \code{run\_narrowing\_priced\_log} {\footnotesize(\code{KnowledgeNarrowing.v})} & none \\
 Definition \ref{def:knowledge}: What an observer knows & \S\ref{sec:narrowing} & \code{knowledge} {\footnotesize(\code{KnowledgeNarrowing.v})} & def \\
 Theorem \ref{thm:observer-free}: An observer can learn for free & \S\ref{sec:narrowing} & \code{observer\_narrowing\_can\_be\_free} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{demon\_observer\_learns} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{demon\_machine\_spread\_kept} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{measure\_forgets\_nothing} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{wipe\_merges} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{wipe\_costs\_at\_least\_one} {\footnotesize(\code{KnowledgeNarrowing.v})} & none\newline none\newline none\newline none\newline none\newline none \\
@@ -20572,6 +20585,9 @@ this book's pointer conjecture.
 \par\medskip
 
 \noindent Georg Cantor (1891). Über eine elementare Frage der Mannigfaltigkeitslehre. Jahresbericht der Deutschen Mathematiker-Vereinigung 1, pp. 75--78.
+\par\medskip
+
+\noindent Wolfgang Doeblin. His life (birth in Berlin in 1915, doctorate at the Sorbonne in 1938, work on Markov chains, death in June 1940) is from J. J. O'Connor and E. F. Robertson, ``Wolfgang Doeblin,'' MacTutor History of Mathematics archive, University of St Andrews, \href{https://mathshistory.st-andrews.ac.uk/Biographies/Doeblin/}{mathshistory.st-andrews.ac.uk}.
 \par\medskip
 
 \noindent Jules Richard (1905). Les principes des mathématiques et le problème des ensembles. Revue générale des sciences pures et appliquées 16(12), pp. 541--543. English translation in Jean van Heijenoort (ed.), From Frege to Gödel, Harvard University Press, 1967, pp. 142--144. His life (school posts, doctorate, geometry) is from J. J. O'Connor and E. F. Robertson, ``Jules Antoine Richard,'' MacTutor History of Mathematics archive, University of St Andrews, \href{https://mathshistory.st-andrews.ac.uk/Biographies/Richard_Jules/}{mathshistory.st-andrews.ac.uk}.

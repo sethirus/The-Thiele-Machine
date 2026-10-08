@@ -184,6 +184,8 @@ WAIVED_FILES = [
     "coq/kernel/reductions/TPMQuoteGap.v",
     "coq/kernel/thermodynamic/CalorimeterProtocol.v",
     "coq/kernel/thermodynamic/CalorimeterProtocolTarget.v",
+    "coq/kernel/thermodynamic/RelaxationContinuous.v",
+    "coq/kernel/thermodynamic/RelaxationConvergence.v",
     "coq/kernel/thermodynamic/RelaxationEntropy.v",
     "minimal/AxDgBlock.v",
     "minimal/CzLink.v",
