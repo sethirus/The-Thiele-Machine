@@ -14029,7 +14029,10 @@ counts worth refereeing happened upstream of it.
 What quantum play does: if the players share an entangled pair and choose what to measure
 from their question, the best they can do is S equals two times the square root of two,
 about 2.83, a win rate of about eighty-five percent. Boris Tsirelson, a Soviet mathematician who later taught at Tel Aviv University, in a 1980 paper called ``Quantum generalizations of Bell's inequality,'' proved that that's
-a \emph{ceiling}: quantum correlations violate Bell, but only up to there. I cite that and haven't checked it here; what's checked below is the algebra.
+a \emph{ceiling}: quantum correlations violate Bell, but only up to there. That ceiling, and the
+state that reaches it, are checked for strategies with real amplitudes in finite dimension
+(\code{qs\_tsirelson} and \code{qs\_tsirelson\_reached}, QuantumStrategies.v); for complex
+amplitudes I cite Tsirelson. What's checked below, besides, is the algebra.
 
 And the wall above that, which is the one I find most instructive. In 1994 the physicists
 Sandu Popescu and Daniel Rohrlich asked: what if you only demand that nothing can be \emph{signalled}, that Alice's
@@ -17366,7 +17369,7 @@ Remark \ref{rem:chsh-equality}: Where equality can happen & \S\ref{sec:chsh-deri
 In the text: quantum strategies with real amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, a two-qubit one reaches $2\sqrt 2$, and deterministic plans are strategies & \S\ref{sec:chsh-derivation} & \code{qs\_tsirelson} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_deterministic\_plan} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_corr\_dot} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_npa\_psd} {\footnotesize(\code{QuantumStrategies.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 Lemma \ref{lem:chsh-rational}: A rational constant above the bound, \code{rational\_tsirelson\_bound} & \S\ref{sec:chsh-derivation} & \code{rational\_tsirelson\_bound} {\footnotesize(\code{TsirelsonFromAlgebra.v})} & FE, RD \\
 Definition \ref{def:chsh-five}: The pinned level-1 matrix & \S\ref{sec:chsh-derivation} & \code{zero\_marginal\_npa} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{NPAMomentMatrix} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{npa\_to\_matrix} {\footnotesize(\code{NPAMomentMatrix.v})} & def\newline def\newline def \\
-Lemma \ref{lem:chsh-schur}: Schur complement, the standard form & \S\ref{sec:chsh-derivation} & argued in the text; no Coq theorem &  \\
+Lemma \ref{lem:chsh-schur}: Schur complement, the standard form & \S\ref{sec:chsh-derivation} & \code{schur\_identity} {\footnotesize(\code{SchurComplement.v})}\newline \code{schur\_complement\_psd} {\footnotesize(\code{SchurComplement.v})} & FE, RD\newline FE, RD \\
 Definition \ref{def:chsh-cc}: Column contractive, \code{zero\_marginal\_column\_contractive} & \S\ref{sec:chsh-derivation} & \code{zero\_marginal\_column\_contractive} {\footnotesize(\code{CHSHColumnCheck.v})} & def \\
 Lemma \ref{lem:chsh-psd2}: The 2x2 test, \code{psd2\_quadratic\_form\_nonneg} & \S\ref{sec:chsh-derivation} & \code{psd2\_quadratic\_form\_nonneg} {\footnotesize(\code{CHSHColumnCheck.v})} & FE, RD \\
 Theorem \ref{thm:chsh-cc-psd}: Contractive implies PSD & \S\ref{sec:chsh-derivation} & \code{zero\_marginal\_npa\_column\_contractive\_implies\_psd} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{PSD5} {\footnotesize(\code{ConstructivePSD.v})} & FE, RD\newline def \\
@@ -18457,7 +18460,10 @@ $u = -P^{-1} Q w$. So the form is nonnegative for all $(u, w)$ exactly when the 
 is nonnegative for all $w$.
 \end{proof}
 
-The Coq proofs do not invoke this lemma abstractly. They carry out its one instance with
+The lemma is checked in general form, for finite index sets and any symmetric $P$ with a symmetric
+inverse, as \code{schur\_identity} and \code{schur\_complement\_psd} (SchurComplement.v); the
+forward direction needs no positivity at all, and the converse needs $P$ positive semidefinite.
+The proofs of the checks don't invoke it abstractly. They carry out its one instance with
 $P = I_2$, $Q = E$, $R = I_2$, where the complement is
 \[
 I_2 - E^{\mathsf T} E =
@@ -19153,9 +19159,8 @@ machine is built from it.
 \subsection{What is not proved}
 \label{sub:chsh-not-proved}
 
-The following are cited results and open questions. None of them is proved here, and none is a
-Coq theorem in this development, except the one converse named under the completeness of the
-checks.
+The following are cited results and open questions. Where part of one is now proved, the
+paragraph names the theorem and the part that stays cited.
 
 The arcsine boundary. For two settings and two outcomes per side, Tsirelson, Landau (1988) and
 Masanes (2003) give theorems characterizing the correlators reachable by quantum measurements:

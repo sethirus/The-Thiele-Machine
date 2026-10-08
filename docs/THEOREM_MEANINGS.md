@@ -1171,3 +1171,5 @@ An explicitly qualified citation keeps its own module identity.
 - `re_stretch_ratio`: For any positive flow J and positive mass of the no-states, -ln of that mass equals ln (1 + (mass of yes-states / J) / (mass of no-states / J)).
 - `am_no_power_of_two`: No abstract two-counter machine with a finite control (counters read only through zero and parity above a threshold), started from a listed control state with x in counter A and 0 in counter B, stops with 2^x in counter A for every x.
 - `tc2_no_pow`: No program of the small machine, started on x in counter A and nothing in counter B, stops with 2^x in counter A for every x.
+- `schur_identity`: For finite index lists, a symmetric P with a symmetric inverse Pinv, any Q and a symmetric R, the block form u^T P u + 2 u^T Q w + w^T R w equals (u + z)^T P (u + z) + w^T (R - Q^T Pinv Q) w with z = Pinv Q w, for all u and w.
+- `schur_complement_psd`: Under the same hypotheses and with P positive semidefinite, the block form is nonnegative for all u and w if and only if the complement R - Q^T Pinv Q is positive semidefinite.
