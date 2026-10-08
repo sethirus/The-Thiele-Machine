@@ -67,6 +67,7 @@ WAIVED_FILES = [
     "coq/kernel/foundation/NecEChshEquality.v",
     "coq/kernel/foundation/NecEChshInt.v",
     "coq/kernel/foundation/NecEFine.v",
+    "coq/kernel/foundation/NecFCups.v",
     "coq/kernel/foundation/NecWCT.v",
     "coq/kernel/foundation/NecWCasper.v",
     "coq/kernel/foundation/NecWLRice.v",

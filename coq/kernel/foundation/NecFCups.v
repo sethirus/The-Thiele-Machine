@@ -6,6 +6,11 @@
       same cups up ([nec_f_non_partial_cups_fail]), and the cups fix the place
       if and only if the order is antisymmetric ([nec_f_cups_iff_partial]). *)
 
+(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose: this file
+   is order theory about the threshold readout of AxCore.v's preorders, the
+   converse of [bp_thresholds_determine]. It touches no machine; AxCore.v is
+   where the readout meets the record axis. *)
+
 From Kernel Require Import AxCore.
 
 Theorem nec_f_same_rung_same_cups : forall A (P : BPre A) x y,
