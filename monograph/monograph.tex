@@ -10510,21 +10510,36 @@ single value with nobody ever waiting on anybody. Test-and-set, an instruction t
 cell and reports what was there, brings exactly two. A sticky bit, the idea of Serge
 Plotkin (1989), a Stanford computer scientist working on distributed algorithms, is a cell the
 first writer jams for good, with the first writer's value, and everyone after can read it; it
-brings any number. My guess is that the shared object would sit at the top with the sticky bit,
+brings any number. I guessed that the shared object would sit at the top with the sticky bit,
 because a write that kills every fact about a counter, together with a commitment other
-processors can see, looks like a way to build one. A guess is all it is. Ranking the object
-would take its operations, what each one returns, which steps are indivisible, how it starts and
-which processes run it, and then a proof that every processor decides, they all decide the same
-value, the value is one somebody proposed, and nobody waits. The trap alone doesn't do it: it
-records that something trapped, and it doesn't hand everyone the first writer's value. Take the
-version rule away, let failures change nothing, and let checked properties only ever turn true,
-and everything in the object only grows; my guess is that then it drops to the bottom rung, the
-level of plain memory, which is
-the shared-memory face of what the database researchers Joseph Hellerstein and Peter Alvaro
-(2020), at Berkeley and Santa Cruz, call CALM, where
-monotone means nobody has to coordinate. That would need its own argument too. The toll
-changes neither guess. No proof stands behind either half, on paper or in Coq, and neither idea is
-mine: the top is Plotkin's and the bottom is the monotone fact that field already knows.
+processors can see, looks like a way to build one. Ranking the object takes its operations, what
+each one returns, which steps are indivisible, how it starts and which processes run it, and then
+a proof that every processor decides, they all decide the same value, the value is one somebody
+proposed, and nobody waits. Here it is, with every instruction one indivisible step and the whole
+state readable, and the object is at the top. The reason is the order of the fact table. Each
+processor CHECKs a property that holds of a counter at zero, PZero to propose 0 and PEven to
+propose 1, then reads the table and decides the bit of its oldest fact. The table only gains
+entries at the front, and a CHECK that finds it full trips the trap, after which nothing moves, so
+the first CHECK of the run fixes the oldest fact for good. Every processor that decides decides
+that bit, the bit is somebody's proposal, and each one decides after two of its own steps
+whatever the others do (\code{sc\_agreement}, \code{sc\_validity}, \code{sc\_wait\_free},
+SmallConsensus.v). The version rule and the commitment play no part. The trap alone doesn't do
+it: it records that something trapped, and it doesn't hand everyone the first writer's value.
+
+Now take the version rule away, let failures change nothing, keep only the properties ``at least
+$n$'' so that a checked property only ever turns true, drop the decrement, and make the fact
+table, the commitments and the flag sets and latches that only grow. I guessed that then the
+object drops to the bottom rung, the level of plain memory, which is the shared-memory face of
+what the database researchers Joseph Hellerstein and Peter Alvaro (2020), at Berkeley and Santa
+Cruz, call CALM, where monotone means nobody has to coordinate. That's proved too, by Herlihy's
+own kind of argument. Let the updates return nothing and let the whole state be readable. If at
+every state, of any two updates, one leaves the state alone, or the two commute, or one
+overwrites the other, then no protocol brings two processors to agreement with nobody waiting
+(\code{mc\_no\_consensus}). The monotone object has that property, with registers beside it,
+because an instruction that would succeed still succeeds after anything else has run
+(\code{mc\_mono\_interfere}, \code{mc\_mono\_no\_consensus}, MonotoneConsensus.v). The toll
+changes neither result. Neither idea is mine: the top is Plotkin's and the bottom is the monotone
+fact that field already knows.
 
 Process-calculus people have a statement of the same split. Johannes \AA{}man Pohjola and
 Joachim Parrow (2016) prove on paper that no model whose parallel composition is monotonic, where a
@@ -10533,7 +10548,7 @@ of a model that does is test-and-set, an instruction that writes a cell and repo
 there. Test-and-set isn't a sticky bit: in Herlihy's ranking it brings two processors to agree,
 and a sticky bit brings any number. A store that can refuse permanently, as
 the version rule does to a stale commit, sits on the non-monotonic side. I haven't written that
-encoding either, so it's a pointer.
+encoding, so it's a pointer.
 
 Security people know the pattern by a third name. A check that blesses a value, and a write
 that takes the blessing away, is close kin to dynamic taint tracking, where a label rides along
@@ -17330,6 +17345,7 @@ Theorem \ref{thm:u34-presented}: One host runs every computably presented Thiele
 Theorem \ref{thm:u34-presented-surcharge}: Exact, within two, and no better & \S\ref{sec:smallest} & \code{presented\_universal\_surcharge\_le\_two}, \code{presented\_universal\_exact}, \code{presented\_universal\_no\_exact\_below\_three}, \code{presented\_universal\_U\_no\_exact\_below\_three} {\footnotesize(\code{PresentedUniversal.v})} & none \\
 In the text: a demonstration machine on the priced host & \S\ref{sec:smallest} & \code{pu\_demo\_computably\_presented}, \code{pu\_demo\_never\_halts}, \code{pu\_demo\_flag\_rises}, \code{pu\_demo\_exact}, \code{pu\_demo\_earned} {\footnotesize(\code{PresentedDemo.v})} & none \\
 Theorem \ref{thm:u19-tm-lift}: A counter beside a Turing machine changes nothing & \S\ref{sec:smallest} & \code{thiele\_simulates\_turing\_gen} {\footnotesize(\code{ProperSubsumption.v})}\newline \code{thiele\_simulates\_turing} {\footnotesize(\code{ProperSubsumption.v})} & none\newline none \\
+In the text: the shared small machine brings any number of processors to wait-free agreement; with everything growing, no protocol brings two to agreement & \S\ref{sec:smallest} & \code{sc\_agreement} {\footnotesize(\code{SmallConsensus.v})}\newline \code{sc\_validity} {\footnotesize(\code{SmallConsensus.v})}\newline \code{sc\_wait\_free} {\footnotesize(\code{SmallConsensus.v})}\newline \code{mc\_no\_consensus} {\footnotesize(\code{MonotoneConsensus.v})}\newline \code{mc\_mono\_interfere} {\footnotesize(\code{MonotoneConsensus.v})}\newline \code{mc\_mono\_no\_consensus} {\footnotesize(\code{MonotoneConsensus.v})} & none\newline none\newline none\newline none\newline FE\newline FE \\
 Definition \ref{def:host-same}: Behaving the same, on the host & \S\ref{sec:small-diagonal} & \code{sm\_hequiv} {\footnotesize(\code{SmHostBlocks.v})}\newline \code{sm\_hext} {\footnotesize(\code{SmHostRice.v})} & def\newline def \\
 Theorem \ref{thm:host-rice}: Rice's theorem on the host machine & \S\ref{sec:small-diagonal} & \code{sm\_host\_rice} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_rice\_prog\_halts} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_rice\_prog\_diverges} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_host\_rice\_fun} {\footnotesize(\code{SmKleene.v})} & none\newline none\newline none\newline none \\
 Theorem \ref{thm:guest-rice}: Rice's theorem for the small machine, from the clean start & \S\ref{sec:small-diagonal} & \code{sm\_guest\_rice} {\footnotesize(\code{SmGuestRice.v})}\newline \code{sm\_guest\_halting\_clean\_undecidable} {\footnotesize(\code{SmGuestRice.v})} & none\newline none \\

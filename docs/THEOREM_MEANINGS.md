@@ -1188,6 +1188,12 @@ An explicitly qualified citation keeps its own module identity.
 - `am_quantum_arcsine`: A correlator table lies in that arcsine region if and only if it is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
 - `am_pythagorean_boundary`: The table (3/5, 4/5, 4/5, -3/5) lies in the arcsine region, and asin (3/5) + asin (4/5) + asin (4/5) - asin (-3/5) = pi, so it is on the boundary.
 - `am_tsirelson_boundary`: The table (1/sqrt 2, 1/sqrt 2, 1/sqrt 2, -1/sqrt 2) lies in the arcsine region with arcsine sum exactly pi, so it is on the boundary.
+- `sc_agreement`: When processes share the small machine's state, each running CHECK of PZero (to propose 0) or PEven (to propose 1) on counter A and then reading the oldest fact, any two processes that have decided under any schedule decided the same bit.
+- `sc_validity`: In that protocol, under any schedule, every decided bit is the proposal of some process.
+- `sc_wait_free`: In that protocol, a process that has taken two steps has decided, whatever the other processes did.
+- `mc_no_consensus`: For any shared object whose updates return nothing, with reads of the whole state, if at every state any two updates are such that one leaves the state unchanged, they commute, or one overwrites the other, then no protocol for two processes is wait-free, agrees and is valid for binary consensus.
+- `mc_mono_interfere`: In the monotone variant of the small machine (no versions, failed instructions change nothing, properties "counter >= n" only, no decrement, facts, commitments and flags that only grow) with registers, at every state any two instructions are such that one changes nothing, they commute, or one overwrites the other.
+- `mc_mono_no_consensus`: No protocol over the monotone variant of the small machine, with registers, solves wait-free binary consensus for two processes.
 - `re_gibbs`: For two probability vectors on a finite list of states, where the second is positive wherever the first is, the relative entropy of the first against the second is nonnegative.
 - `re_pi_stationary`: On a finite chain whose rows sum to one and whose positive distribution pi satisfies detailed balance, one step of the chain leaves pi unchanged at every state of the list.
 - `re_sigma_is_drop`: On such a chain, for any nonnegative vector p, the entropy produced in one step (the relative entropy of the forward flow p x P x y against the backward flow (pP) y P y x) equals the relative entropy of p to pi minus that of pP to pi.
