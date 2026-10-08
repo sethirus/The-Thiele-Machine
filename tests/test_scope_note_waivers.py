@@ -205,6 +205,7 @@ WAIVED_FILES = [
     "minimal/Tc2Am.v",
     "minimal/Tc2Chain.v",
     "minimal/Tc2Forced.v",
+    "minimal/Tc2Pow.v",
     "minimal/Tc2Stage.v",
     "minimal/ThieleComplete.v",
     "minimal/ThieleCompleteWindow.v",

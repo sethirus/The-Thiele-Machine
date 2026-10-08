@@ -1169,3 +1169,5 @@ An explicitly qualified citation keeps its own module identity.
 - `re_known_start_vs_set`: For a list of states containing s, -ln pi(s) is at least -ln of the total pi-mass of the list.
 - `re_flux_balance`: On such a chain, the pi-weighted flow from the states reading no to the states reading yes equals the flow from yes back to no.
 - `re_stretch_ratio`: For any positive flow J and positive mass of the no-states, -ln of that mass equals ln (1 + (mass of yes-states / J) / (mass of no-states / J)).
+- `am_no_power_of_two`: No abstract two-counter machine with a finite control (counters read only through zero and parity above a threshold), started from a listed control state with x in counter A and 0 in counter B, stops with 2^x in counter A for every x.
+- `tc2_no_pow`: No program of the small machine, started on x in counter A and nothing in counter B, stops with 2^x in counter A for every x.
