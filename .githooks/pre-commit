@@ -132,8 +132,13 @@ stage artifacts/proof_dependency_dag.json artifacts/proof_dependency_connectivit
     artifacts/proof_dependency_file_graph.mmd artifacts/PROOF_FOUNDATION_AUDIT.md
 
 # Every collected test runs, with a missing Coq toolchain treated as a
-# failure. Match CI's sequential execution explicitly.
-if python3 -c 'import xdist' >/dev/null 2>&1; then
+# failure. Match CI's sequential execution explicitly. The regeneration
+# runner sets THIELE_HOOK_SKIP_PYTEST: the CI run it dispatches on the
+# regenerated commit runs this same suite, so running it here as well only
+# doubles the wait.
+if [ -n "${THIELE_HOOK_SKIP_PYTEST:-}" ]; then
+    echo "[pre-commit] pytest skipped here: CI runs the full suite on the regenerated commit"
+elif python3 -c 'import xdist' >/dev/null 2>&1; then
     run python3 -m pytest tests/ -q --tb=short --strict-backends -n 0
 else
     run python3 -m pytest tests/ -q --tb=short --strict-backends

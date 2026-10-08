@@ -195,6 +195,9 @@ jobs:
         env:
           # Hosted runners are slower than a Codespace; smaller Print Assumptions
           # batches with a longer limit, as generate_assumption_receipt.sh advises.
+          # CI, dispatched on the regenerated commit below, runs the full
+          # pytest suite; the hook skips its identical run here.
+          THIELE_HOOK_SKIP_PYTEST: "1"
           THIELE_ASSUMPTION_BATCH_SIZE: "500"
           THIELE_ASSUMPTION_TIMEOUT: "1800"
           THIELE_ASSUMPTION_WORK_DIR: build/probe/assumption-cache
