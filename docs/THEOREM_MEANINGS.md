@@ -1169,6 +1169,17 @@ An explicitly qualified citation keeps its own module identity.
 - `qc_gram_psd`: The level-1 moment matrix filled with the inner products of five unit vectors of a finite real inner-product space passes npa_psd.
 - `qc_npa_correlators`: The moment matrix built from a strategy with complex amplitudes has the strategy's four correlators in its correlator entries.
 - `qc_npa_psd`: For every valid quantum strategy with complex amplitudes in finite dimension, its level-1 moment matrix (marginals, correlators and self-correlations, each the real part of an inner product) passes npa_psd.
+- `tr_gram`: Every symmetric n x n real matrix whose quadratic form is nonnegative is a Gram matrix: there are vectors u_0, ..., u_{n-1} in R^n with u_i . u_j equal to the (i, j) entry for all i, j < n.
+- `tr_gamma_clifford`: The four real symmetric 8 x 8 matrices X(x)1(x)1, Z(x)1(x)1, Y(x)Y(x)X and Y(x)Y(x)Z (with Y = [[0,1],[-1,0]]) satisfy gamma_m gamma_n + gamma_n gamma_m = 2 delta_mn times the identity.
+- `tr_gamma_trace`: For those four matrices, the sum over all entries of gamma_m times gamma_n entrywise is 8 when m = n and 0 otherwise.
+- `tr_corr_inner`: In the maximally entangled state of two 8-level systems, the correlator of the observables sum_m a_m gamma_m and sum_m b_m gamma_m equals the inner product of a and b in R^4.
+- `tr_strategy_valid`: For unit vectors a0, a1, b0, b1 in R^4, the maximally entangled state with observables sum_m a_m gamma_m is a valid quantum strategy with real amplitudes.
+- `tr_elliptope_quantum`: Every correlator table with a PSD completion (elliptope_realizable) is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
+- `tr_vectors_elliptope`: For any four unit vectors U0, U1, V0, V1 of a finite real inner-product space, the table of cross inner products U_x . V_y has a PSD completion.
+- `tr_quantum_elliptope`: The correlator table of every valid quantum strategy with real amplitudes in finite dimension has a PSD completion.
+- `tr_complex_elliptope`: The correlator table of every valid quantum strategy with complex amplitudes in finite dimension has a PSD completion.
+- `tr_representation`: A correlator table has a PSD completion if and only if it is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
+- `tr_representation_complex`: A correlator table has a PSD completion if and only if it is the correlator table of a valid quantum strategy with complex amplitudes on two 8-level systems.
 - `re_gibbs`: For two probability vectors on a finite list of states, where the second is positive wherever the first is, the relative entropy of the first against the second is nonnegative.
 - `re_pi_stationary`: On a finite chain whose rows sum to one and whose positive distribution pi satisfies detailed balance, one step of the chain leaves pi unchanged at every state of the list.
 - `re_sigma_is_drop`: On such a chain, for any nonnegative vector p, the entropy produced in one step (the relative entropy of the forward flow p x P x y against the backward flow (pP) y P y x) equals the relative entropy of p to pi minus that of pP to pi.

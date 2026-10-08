@@ -14095,10 +14095,11 @@ the sentence has to stay. And ``the PSD test proves the data is
 quantum.'' (PSD is short for positive semidefinite, the property of the five-by-five table from
 the short version; the next part builds both.) It doesn't, and the direction matters. Passing
 implies the five-by-five table, pinned in a way the next part explains, is PSD, and that
-implies S squared is at most eight; both are proved. Whether the
-correlators of a PSD table like that are the correlators of some quantum strategy is the
-cited result of Tsirelson and of Lawrence Landau, whose 1969 Berkeley thesis was on the quantum theory of local observables, and Lluís Masanes, then at the University of Barcelona, who found the exact edge
-for this game (next part), and I haven't proved it here. Failing says nothing about whether the play was quantum: the check is complete for
+implies S squared is at most eight; both are proved. The
+correlators of a PSD table like that are the correlators of some quantum strategy. That's
+Tsirelson's representation theorem, and it's proved here: the strategy is built on two systems of eight
+levels each (\code{tr\_representation}, TsirelsonRepresentation.v). The exact edge of the quantum set
+for this game is the cited result of Lawrence Landau, whose 1969 Berkeley thesis was on the quantum theory of local observables, and Lluís Masanes, then at the University of Barcelona (next part), and I haven't proved it here. Failing says nothing about whether the play was quantum: the check is complete for
 the pinned matrix, the quantum set is wider than that, and quantum behaviour can fail it. Every one
 of the sixteen plans fails it (\code{nec\_e\_check\_refuses\_all\_plans}), and I'll show you why. What it guarantees is in one paragraph, once
 the check is on the host machine.
@@ -14434,9 +14435,11 @@ fixed five-by-five is PSD, hence S squared is at most eight. It does \emph{not} 
 the tally came from honest play (a program can INC
 whatever counts it likes
 for nothing, including four rounds that put S at four). It does not guarantee any
-marginal is zero (no marginals are recorded and none are tested). It does not, by anything proved
-here, put a quantum state behind the counts. That the correlators of a passing tally are quantum
-ones is the cited result of Tsirelson, Landau and Masanes, and I haven't proved it.
+marginal is zero (no marginals are recorded and none are tested). It does not put the players'
+state behind the counts. What it does give is a quantum strategy with the same correlators: a
+passing tally's correlators have a PSD completion (\code{zero\_marginal\_implies\_elliptope}), and
+every point with one is the correlator table of a strategy on two eight-level systems
+(\code{tr\_representation}).
 And it fails the tally of every single plan, honest classical play included. It has no margin
 for sampling noise either. Honest play at Tsirelson's point aims at correlators of plus or minus
 one over root two, and there every pair of squared correlators the check adds up comes to exactly
@@ -14544,8 +14547,12 @@ mathematics; none of the small machine's properties is the elliptope check.
 
 \subsection{What isn't proved}
 
-The arc-sine curve. That every point of these sets comes from a quantum strategy. Those are the
-cited external results, and the files say so in their scope notes. The other direction and the
+The arc-sine curve. That's the cited external result, and the files say so in their scope notes.
+That every point of the elliptope comes from a quantum strategy is proved: the completion is
+a Gram matrix (\code{tr\_gram}), and four real symmetric eight-by-eight matrices that square to the
+identity and anticommute in pairs (\code{tr\_gamma\_clifford}) turn its vectors into observables
+whose correlators in the maximally entangled state are the vectors' inner products
+(\code{tr\_corr\_inner}, \code{tr\_representation}, all in TsirelsonRepresentation.v). The other direction and the
 reaching are proved, for strategies in finite dimension with real or complex amplitudes: every
 such strategy has $S^2 \le 8$ (\code{qs\_tsirelson}, \code{qc\_tsirelson}), its level-1 moment
 matrix, marginals included, passes the same PSD test (\code{qs\_npa\_psd}, \code{qc\_npa\_psd}),
@@ -15081,8 +15088,8 @@ Build command:
   python3 scripts/reproduce_coq.py
 Audit report for this revision:
   artifacts/print_assumptions_all_proofs.json
-  SHA-256 0e1d96d9588a7808024b60aadfa8a06e
-          f5b60142bc5f2f10d61a753393c67210
+  SHA-256 dac80f5d0862c790b72379be585ead7c
+          6970407decbd9f33a4d25205109f55ed
   corpus digest be964110a7d5c31c316c02a1eeb9a4cb
                 4d25b0b8865e3a7f0beda4f5179e56ec
 Manuscript source for this edition:
@@ -15800,7 +15807,8 @@ A tally above two isn't one plan replayed & proved & Appendix~\ref{sec:chsh-deri
 A tally above two proves nonlocality; a pass proves the data quantum & not claimed & Section~\ref{sec:chsh} \\
 A finite local model meets the bound & proved; Fine's theorem in correlation form is proved as an iff (\code{nec\_e\_fine\_iff}), and the converse of \code{fine\_theorem} as stated is false (\code{nec\_e\_fine\_converse\_false}, NecEFine.v) & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-fine} \\
 The elliptope gate is sound; the PR box fails it & proved & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-gate-sound} \\
-The arc-sine boundary; that every PSD completion comes from a quantum strategy & not claimed (cited; unproved here) & Appendix~\ref{sec:chsh-derivation} \\
+The arc-sine boundary & not claimed (cited; unproved here) & Appendix~\ref{sec:chsh-derivation} \\
+Every PSD completion comes from a quantum strategy, and the completion set is exactly the set of quantum correlator tables in finite dimension, real or complex & proved & Appendix~\ref{sec:chsh-derivation} \\
 A two-qubit strategy reaches $2\sqrt{2}$; every strategy in finite dimension, with real or complex amplitudes, has $S^2 \le 8$ and a PSD level-1 moment matrix; every deterministic plan is such a strategy & proved & Appendix~\ref{sec:chsh-derivation} \\
 The integer route to the bound is new mathematics & not claimed; the route is NPA's & Section~\ref{sec:chsh} \\
 The integer check passes exactly when every pair was sampled and the pinned matrix is PSD & proved & Section~\ref{sec:chsh}, Theorem~\ref{thm:chsh-exact} \\
@@ -16914,11 +16922,11 @@ universality and s-m-n, and the work is in building those for this machine.
 Known: that positive semidefiniteness of a correlation matrix gives the Tsirelson bound is
 Tsirelson's (1980) and Stephanie Wehner's semidefinite proof (2006), from a paper on Tsirelson bounds for generalized CHSH inequalities; the moment-matrix hierarchy, the
 Schur-complement analysis of this very level-one matrix and the level $1+AB$ are Navascués, Pironio
-and Acín's (2007, 2008); the arcsine characterization is Landau's (1988) and Masanes's (2003); and Tsirelson's bound has already been checked by machine, in Isabelle/HOL (Echenim
+and Acín's (2007, 2008); that every point with a PSD completion is the correlator table of a quantum strategy, built from anticommuting observables in a maximally entangled state, is Tsirelson's too (1980); the arcsine characterization is Landau's (1988) and Masanes's (2003); and Tsirelson's bound has already been checked by machine, in Isabelle/HOL (Echenim
 and Mhalla, 2023) and in Lean's mathlib. Rational sum-of-squares certificates are Helfried Peyrl and Pablo A. Parrilo's
 (2008), from a paper on computing sum-of-squares decompositions with rational coefficients. Mine: a decision procedure in integer arithmetic on outcome counts; a checked
 chain from ``the counts pass'' to ``the pinned level-one matrix is positive semidefinite'' to
-``$S^2 \le 8$''; proofs of the contraction equivalence by explicit test vectors; and the
+``$S^2 \le 8$''; a checked proof of the representation in finite dimension, real or complex, on two eight-level systems; proofs of the contraction equivalence by explicit test vectors; and the
 level-$1+AB$ cascade and an elliptope gate in whole numbers, with a soundness proof
 (Section~\ref{sec:chsh} and its derivation appendix). Kind: mechanization, with a new proof of a
 known equivalence in one slice. I found no prior formalization taking counts as input, and
@@ -17371,6 +17379,7 @@ Theorem \ref{thm:chsh-tight}: Tightness & \S\ref{sec:chsh-derivation} & \code{ts
 Remark \ref{rem:chsh-equality}: Where equality can happen & \S\ref{sec:chsh-derivation} & \code{nec\_e\_check\_strict} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_never\_tsirelson} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_sharp} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_no\_sqrt8} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_equality\_forces\_point} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_equality\_two\_points} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_no\_rational\_half\_square} {\footnotesize(\code{NecEChshEquality.v})} & FE, RD\newline FE, RD\newline FE, RD\newline none\newline FE, RD\newline FE, RD\newline FE, RD \\
 In the text: quantum strategies with real amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, a two-qubit one reaches $2\sqrt 2$, and deterministic plans are strategies & \S\ref{sec:chsh-derivation} & \code{qs\_tsirelson} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_deterministic\_plan} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_corr\_dot} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_npa\_psd} {\footnotesize(\code{QuantumStrategies.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 In the text: quantum strategies with complex amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, and the two-qubit one reaches $2\sqrt 2$ & \S\ref{sec:chsh-derivation} & \code{qc\_tsirelson} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_corr\_dot} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_npa\_psd} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_gram\_psd} {\footnotesize(\code{QuantumStrategiesComplex.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
+In the text: Tsirelson's representation: the completion set is exactly the set of correlator tables of quantum strategies in finite dimension, real or complex {\footnotesize(if and only if)}; every PSD matrix is a Gram matrix; four anticommuting real symmetric involutions on eight levels & \S\ref{sec:chsh-derivation} & \code{tr\_representation} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_representation\_complex} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_elliptope\_quantum} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_quantum\_elliptope} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_complex\_elliptope} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_gram} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_gamma\_clifford} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_corr\_inner} {\footnotesize(\code{TsirelsonRepresentation.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 Lemma \ref{lem:chsh-rational}: A rational constant above the bound, \code{rational\_tsirelson\_bound} & \S\ref{sec:chsh-derivation} & \code{rational\_tsirelson\_bound} {\footnotesize(\code{TsirelsonFromAlgebra.v})} & FE, RD \\
 Definition \ref{def:chsh-five}: The pinned level-1 matrix & \S\ref{sec:chsh-derivation} & \code{zero\_marginal\_npa} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{NPAMomentMatrix} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{npa\_to\_matrix} {\footnotesize(\code{NPAMomentMatrix.v})} & def\newline def\newline def \\
 Lemma \ref{lem:chsh-schur}: Schur complement, the standard form {\footnotesize(if and only if)} & \S\ref{sec:chsh-derivation} & \code{schur\_identity} {\footnotesize(\code{SchurComplement.v})}\newline \code{schur\_complement\_psd} {\footnotesize(\code{SchurComplement.v})} & FE, RD\newline FE, RD \\
@@ -18621,13 +18630,15 @@ correlators to admit some PSD completion (item G, \code{zero\_marginal\_implies\
 is not necessary: the all-ones plan has a completion but fails here. So a check built on
 $M(E)$ is sound for the completion set and not complete for it, and it rejects some honest
 classical tallies. That correlators with a PSD completion are exactly those reachable by
-quantum measurements is Tsirelson's theorem, and half of it is proved here in finite dimension,
-for real and for complex amplitudes: a strategy's correlators are inner products of unit vectors
+quantum measurements is Tsirelson's theorem, and both halves are proved here in finite dimension.
+For real and for complex amplitudes, a strategy's correlators are inner products of unit vectors
 (\code{qs\_corr\_dot}, \code{qs\_uvec\_unit} and \code{qs\_vvec\_unit}; with complex amplitudes,
 \code{qc\_corr\_dot}, \code{qc\_uvec\_unit} and \code{qc\_vvec\_unit}, the vectors read as real
 ones of twice the length) and its level-1 moment matrix is PSD (\code{qs\_npa\_psd},
-\code{qc\_npa\_psd}). The other half, that every PSD completion comes from a
-quantum strategy, is cited (item H).
+\code{qc\_npa\_psd}), so they have a PSD completion (\code{tr\_quantum\_elliptope},
+\code{tr\_complex\_elliptope}). The other half, that every PSD completion comes from a quantum
+strategy, is \code{tr\_representation}: the strategy is built on two eight-level systems from
+the completion's Gram vectors (item H).
 \end{remark}
 
 \subsection{The integer check}
@@ -19178,8 +19189,9 @@ comment: $\arcsin \tfrac35 + \arcsin \tfrac45 = \tfrac{\pi}{2}$ by the 3-4-5 tri
 sum is $\pi$. It is correct arithmetic about a cited characterization.
 
 Equality with the quantum set. That the completion set of item G is exactly the set of
-quantum correlators is Tsirelson's representation theorem, cited in the header of
-ElliptopeCompletion.v and not proved. That PSD of the level-1 moment matrix is necessary for
+quantum correlators is Tsirelson's representation theorem, and it is proved in finite dimension:
+\code{tr\_representation} for real amplitudes and \code{tr\_representation\_complex} for complex
+ones (TsirelsonRepresentation.v), with two eight-level systems enough for every point. That PSD of the level-1 moment matrix is necessary for
 quantum behaviour is proved for strategies in finite dimension, with real amplitudes
 (\code{qs\_npa\_psd}, QuantumStrategies.v) and with complex ones (\code{qc\_npa\_psd},
 QuantumStrategiesComplex.v); for infinite dimension it remains the cited NPA reading.

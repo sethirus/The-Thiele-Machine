@@ -58,7 +58,8 @@
 
   Scope: this is the correlator completion model, with zero marginals and
   free within-party cross moments. Its identification with quantum correlators
-  uses the external Tsirelson representation theorem. The proofs here concern
+  is Tsirelson's representation theorem, proved in TsirelsonRepresentation.v
+  ([tr_representation], [tr_representation_complex]). The proofs here concern
   the completed matrix and its quadratic form. Complete behaviors, including
   specified marginals, are a different object.
 *)
