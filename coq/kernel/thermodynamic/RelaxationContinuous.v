@@ -6,7 +6,7 @@
 
       d/dt p t x = sum_y (p t y q y x - p t x q x y)
 
-    and stays positive. Write D for the relative entropy to pi and sigma for
+    and is positive at every time after 0. Write D for the relative entropy to pi and sigma for
     the entropy production rate,
 
       sigma = 1/2 sum_x sum_y (p x q x y - p y q y x)
@@ -100,16 +100,16 @@ Proof.
 Qed.
 
 Variable p : R -> X -> R.
-Hypothesis p_pos : forall t x, 0 < p t x.
+Hypothesis p_pos : forall t x, 0 < t -> 0 < p t x.
 Hypothesis master : forall t x, derivable_pt_lim (fun s => p s x) t (rcd_flow (p t) x).
 
-Lemma rcd_term_deriv : forall t x,
+Lemma rcd_term_deriv : forall t x, 0 < t ->
   derivable_pt_lim (fun s => p s x * ln (p s x / pi x)) t (rcd_flow (p t) x * (rcd_L (p t) x + 1)).
 Proof.
-  intros t x. set (d := rcd_flow (p t) x).
+  intros t x Ht. set (d := rcd_flow (p t) x).
   assert (Hu : derivable_pt_lim (mult_fct (fun s => p s x) (fct_cte (/ pi x))) t (d * / pi x + p t x * 0)).
   { apply (derivable_pt_lim_mult (fun s => p s x) (fct_cte (/ pi x))); [apply master | apply derivable_pt_lim_const]. }
-  assert (Hpos : 0 < p t x / pi x) by (apply Rdiv_lt_0_compat; [apply p_pos | apply pi_pos]).
+  assert (Hpos : 0 < p t x / pi x) by (apply Rdiv_lt_0_compat; [apply p_pos; exact Ht | apply pi_pos]).
   assert (Hl : derivable_pt_lim (comp ln (mult_fct (fun s => p s x) (fct_cte (/ pi x)))) t
                  (/ (p t x / pi x) * (d * / pi x + p t x * 0))).
   { apply derivable_pt_lim_comp; [exact Hu |]. apply derivable_pt_lim_ln. exact Hpos. }
@@ -117,7 +117,7 @@ Proof.
     t d _ (master t x) Hl) as Hm.
   eapply rcd_lim_ext; [exact Hm |].
   unfold comp, mult_fct, fct_cte, rcd_L. unfold Rdiv.
-  pose proof (p_pos t x). pose proof (pi_pos x). field. split; lra.
+  pose proof (p_pos t x Ht). pose proof (pi_pos x). field. split; lra.
 Qed.
 
 Lemma rcd_flow_total : forall r, sumL LX (rcd_flow r) = 0.
@@ -149,51 +149,51 @@ Proof.
 Qed.
 
 (** The relative entropy falls at exactly the production rate. *)
-Theorem rcd_D_derivative : forall t, derivable_pt_lim (fun s => rcd_D (p s)) t (- rcd_sigma (p t)).
+Theorem rcd_D_derivative : forall t, 0 < t -> derivable_pt_lim (fun s => rcd_D (p s)) t (- rcd_sigma (p t)).
 Proof.
-  intro t. unfold rcd_D.
+  intros t Ht. unfold rcd_D.
   eapply rcd_lim_ext.
   - apply (rcd_sum_deriv LX (fun x s => p s x * ln (p s x / pi x)) (fun x => rcd_flow (p t) x * (rcd_L (p t) x + 1)) t).
-    intros x _. apply rcd_term_deriv.
+    intros x _. apply rcd_term_deriv. exact Ht.
   - transitivity (sumL LX (fun x => rcd_flow (p t) x * rcd_L (p t) x) + sumL LX (rcd_flow (p t))).
     + rewrite <- sumL_plus. apply sumL_ext. intros. ring.
     + rewrite rcd_flow_total, rcd_flow_L. ring.
 Qed.
 
 (** So the relative entropy never rises along the run. *)
-Theorem rcd_D_monotone : forall t1 t2, t1 <= t2 -> rcd_D (p t2) <= rcd_D (p t1).
+Theorem rcd_D_monotone : forall t1 t2, 0 < t1 -> t1 <= t2 -> rcd_D (p t2) <= rcd_D (p t1).
 Proof.
-  intros t1 t2 H. destruct (Req_dec t1 t2) as [-> | Hne]; [lra |].
+  intros t1 t2 H1 H. destruct (Req_dec t1 t2) as [-> | Hne]; [lra |].
   destruct (MVT_cor2 (fun s => rcd_D (p s)) (fun s => - rcd_sigma (p s)) t1 t2 ltac:(lra)
-    (fun c _ => rcd_D_derivative c)) as [c [Hc _]].
-  pose proof (rcd_sigma_nonneg (p c) (p_pos c)). nra.
+    (fun c Hc => rcd_D_derivative c ltac:(lra))) as [c [Hc Hcr]].
+  pose proof (rcd_sigma_nonneg (p c) (fun x => p_pos c x ltac:(lra))). nra.
 Qed.
 
 (** ** The entropy produced over a window of time *)
 
-Lemma rcd_neg_D_deriv : forall t,
+Lemma rcd_neg_D_deriv : forall t, 0 < t ->
   derivable_pt_lim (opp_fct (fun s => rcd_D (p s))) t (rcd_sigma (p t)).
 Proof.
-  intro t. eapply rcd_lim_ext; [apply derivable_pt_lim_opp; apply rcd_D_derivative | ring].
+  intros t Ht. eapply rcd_lim_ext; [apply derivable_pt_lim_opp; apply rcd_D_derivative; exact Ht | ring].
 Qed.
 
-Definition rcd_window (a b : R) (Hab : a <= b) : Newton_integrable (fun t => rcd_sigma (p t)) a b.
+Definition rcd_window (a b : R) (Ha : 0 < a) (Hab : a <= b) : Newton_integrable (fun t => rcd_sigma (p t)) a b.
 Proof.
   exists (opp_fct (fun s => rcd_D (p s))). left. split; [| exact Hab].
-  intros x _. exists (exist _ (rcd_sigma (p x)) (rcd_neg_D_deriv x)). reflexivity.
+  intros x Hx. exists (exist _ (rcd_sigma (p x)) (rcd_neg_D_deriv x ltac:(lra))). reflexivity.
 Defined.
 
 (** The entropy produced between times a and b, the integral of the
     production rate, is the drop in relative entropy, and so it is never
     negative and never more than the relative entropy at time a. *)
-Theorem rcd_produced_window : forall a b (Hab : a <= b),
-  NewtonInt (fun t => rcd_sigma (p t)) a b (rcd_window a b Hab) = rcd_D (p a) - rcd_D (p b).
-Proof. intros a b Hab. unfold NewtonInt, rcd_window. simpl. unfold opp_fct. ring. Qed.
+Theorem rcd_produced_window : forall a b (Ha : 0 < a) (Hab : a <= b),
+  NewtonInt (fun t => rcd_sigma (p t)) a b (rcd_window a b Ha Hab) = rcd_D (p a) - rcd_D (p b).
+Proof. intros a b Ha Hab. unfold NewtonInt, rcd_window. simpl. unfold opp_fct. ring. Qed.
 
-Theorem rcd_produced_bounds : forall a b (Hab : a <= b), 0 <= rcd_D (p b) ->
-  0 <= NewtonInt (fun t => rcd_sigma (p t)) a b (rcd_window a b Hab) <= rcd_D (p a).
+Theorem rcd_produced_bounds : forall a b (Ha : 0 < a) (Hab : a <= b), 0 <= rcd_D (p b) ->
+  0 <= NewtonInt (fun t => rcd_sigma (p t)) a b (rcd_window a b Ha Hab) <= rcd_D (p a).
 Proof.
-  intros a b Hab H0. rewrite rcd_produced_window. pose proof (rcd_D_monotone a b Hab). lra.
+  intros a b Ha Hab H0. rewrite rcd_produced_window. pose proof (rcd_D_monotone a b Ha Hab). lra.
 Qed.
 
 End Continuous.
