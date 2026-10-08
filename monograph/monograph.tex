@@ -15086,8 +15086,8 @@ functional extensionality on dependent functions (two functions that agree every
 equal); two decidability principles that come with the standard library's real numbers, used
 by the matrix proofs behind the game check; and, in some theorems, the law of excluded middle
 (every proposition is true or false). The count, from the full audit:
-the full-corpus probe covers 5,694 named theorems across 329 files: 4,994 close under the global Coq context outright, and 700 use only Coq standard-library assumptions.
-Zero project-local axioms appear in any of the 5,694 dependency trees.
+the full-corpus probe covers 5,733 named theorems across 330 files: 4,994 close under the global Coq context outright, and 739 use only Coq standard-library assumptions.
+Zero project-local axioms appear in any of the 5,733 dependency trees.
 The small machine's files, under minimal/, are inside that probe too, and every one of their 1,417
 probed theorems comes back closed under Coq's own rules, with no axiom at all. Among them are the small machine,
 its
@@ -15235,17 +15235,17 @@ Build command:
   python3 scripts/reproduce_coq.py
 Audit report for this revision:
   artifacts/print_assumptions_all_proofs.json
-  SHA-256 5593bab7c2d530be3a8e01cb6db3064d
-          3067dc6e42c90bf002d548747b085a26
-  corpus digest 474aeae4584b453c784e61043844288f
-                adac166f09bf299de47bfa45316e9527
+  SHA-256 983146687391f10764b6da80544f944e
+          d4e0a0585b4013d239649c6fc98e8fde
+  corpus digest 2e0ecee106e4b5829b07d0f11ec34827
+                55da754e8cd18d2dcd2531ee2e0928e3
 Manuscript source for this edition:
   monograph/monograph.tex at the release commit; a file
   can't print its own checksum, so take it with
   git rev-parse RELEASE:monograph/monograph.tex
 \end{verbatim}
 
-The counts this book reports from the assumption audit (5,694 theorems in 329 files) are the ones
+The counts this book reports from the assumption audit (5,733 theorems in 330 files) are the ones
 in that report, and they belong to that revision. A change to the proof sources changes the
 corpus digest; the audit then has to be run again and its counts read afresh.
 With those installed, run:

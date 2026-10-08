@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 5563,
-    "total": 5563,
+    "ok": 5602,
+    "total": 5602,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -108456,6 +108456,786 @@
         "succeeded": false
       },
       "statement": "forall eps, 0 < eps -> exists del, 0 < del /\\ forall a (Ha : 0 < a), a < del -> exists T, forall b (Hab : a <= b), T <= b -> Rabs (NewtonInt (fun t => sigma (p t)) a b (rcd_window X LX q pi pi_pos p p_pos master a b Ha Hab) - (- ln (pi s0))) < eps",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 85,
+      "name": "rsc_UU",
+      "probe_a": {
+        "coq_stderr_tail": "ild/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_UU__a.v\", line 3, characters 44-51:\nError:\nIn environment\nx : Type\nThe term \"rsc_U x\" has type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.147u,0.019s)\nChars 121 - 193 [Theorem~_vacuity_probe_a_rsc_U...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_UU__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "uild/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_UU__b.v\", line 3, characters 44-51:\nError:\nIn environment\nx : Type\nThe term \"rsc_U x\" has type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.137u,0.03s)\nChars 121 - 193 [Theorem~_vacuity_probe_b_rsc_U...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_UU__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, rsc_U x * rsc_U x = rsc_U x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 88,
+      "name": "rsc_UN",
+      "probe_a": {
+        "coq_stderr_tail": "ild/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_UN__a.v\", line 3, characters 44-51:\nError:\nIn environment\nx : Type\nThe term \"rsc_U x\" has type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.134u,0.035s)\nChars 121 - 187 [Theorem~_vacuity_probe_a_rsc_U...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_UN__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ild/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_UN__b.v\", line 3, characters 44-51:\nError:\nIn environment\nx : Type\nThe term \"rsc_U x\" has type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.142u,0.025s)\nChars 121 - 187 [Theorem~_vacuity_probe_b_rsc_U...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_UN__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, rsc_U x + rsc_N x = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 91,
+      "name": "rsc_U01",
+      "probe_a": {
+        "coq_stderr_tail": "ne/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_U01__a.v\", line 3, characters 55-56:\nError:\nIn environment\nx : Type\nThe term \"0\" has type \"nat\" while it is expected to have type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.144u,0.024s)\nChars 121 - 193 [Theorem~_vacuity_probe_a_rsc_U...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_U01__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ne/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_U01__b.v\", line 3, characters 55-56:\nError:\nIn environment\nx : Type\nThe term \"0\" has type \"nat\" while it is expected to have type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.141u,0.025s)\nChars 121 - 193 [Theorem~_vacuity_probe_b_rsc_U...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_U01__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, rsc_U x = 0 \\/ rsc_U x = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 94,
+      "name": "rsc_U_nonneg",
+      "probe_a": {
+        "coq_stderr_tail": "cuity_probes/Kernel__RelaxationStretchContinuous__rsc_U_nonneg__a.v\", line 3, characters 55-62:\nError:\nIn environment\nx : Type\nThe term \"rsc_U x\" has type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.139u,0.029s)\nChars 121 - 184 [Theorem~_vacuity_probe_a_rsc_U...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_U_nonneg__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "cuity_probes/Kernel__RelaxationStretchContinuous__rsc_U_nonneg__b.v\", line 3, characters 55-62:\nError:\nIn environment\nx : Type\nThe term \"rsc_U x\" has type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.165 secs (0.139u,0.026s)\nChars 121 - 184 [Theorem~_vacuity_probe_b_rsc_U...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_U_nonneg__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, 0 <= rsc_U x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 97,
+      "name": "rsc_N_nonneg",
+      "probe_a": {
+        "coq_stderr_tail": "cuity_probes/Kernel__RelaxationStretchContinuous__rsc_N_nonneg__a.v\", line 3, characters 55-62:\nError:\nIn environment\nx : Type\nThe term \"rsc_N x\" has type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.166 secs (0.138u,0.027s)\nChars 121 - 184 [Theorem~_vacuity_probe_a_rsc_N...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_N_nonneg__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "cuity_probes/Kernel__RelaxationStretchContinuous__rsc_N_nonneg__b.v\", line 3, characters 55-62:\nError:\nIn environment\nx : Type\nThe term \"rsc_N x\" has type\n \"(x -> bool) -> x -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.166 secs (0.136u,0.029s)\nChars 121 - 184 [Theorem~_vacuity_probe_b_rsc_N...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_N_nonneg__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, 0 <= rsc_N x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 100,
+      "name": "rsc_sum_le",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_sum_le__a.v\", line 3, characters 55-56:\nError: The reference X was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.14u,0.027s)\nChars 121 - 252 [Theorem~_vacuity_probe_a_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_sum_le__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_sum_le__b.v\", line 3, characters 55-56:\nError: The reference X was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.145u,0.023s)\nChars 121 - 252 [Theorem~_vacuity_probe_b_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_sum_le__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (L : list X) (f g : X -> R), (forall a, In a L -> f a <= g a) -> sumL L f <= sumL L g",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 106,
+      "name": "rsc_le_sum",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_le_sum__a.v\", line 3, characters 55-56:\nError: The reference X was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.13u,0.036s)\nChars 121 - 255 [Theorem~_vacuity_probe_a_rsc_l...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_le_sum__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_le_sum__b.v\", line 3, characters 55-56:\nError: The reference X was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.135u,0.031s)\nChars 121 - 255 [Theorem~_vacuity_probe_b_rsc_l...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_le_sum__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (L : list X) (f : X -> R) a, (forall b, In b L -> 0 <= f b) -> In a L -> f a <= sumL L f",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 115,
+      "name": "rsc_out_nonneg",
+      "probe_a": {
+        "coq_stderr_tail": "sc_out_nonneg__a.v\", line 3, characters 57-66:\nError:\nIn environment\nx : Type\nThe term \"rsc_out x\" has type\n \"list x ->\n  (x -> x -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  x -> Rdefinitions.RbaseSymbolsImpl.R\" while it is expected to have type\n \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.144u,0.022s)\nChars 121 - 188 [Theorem~_vacuity_probe_a_rsc_o...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_out_nonneg__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "sc_out_nonneg__b.v\", line 3, characters 57-66:\nError:\nIn environment\nx : Type\nThe term \"rsc_out x\" has type\n \"list x ->\n  (x -> x -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  x -> Rdefinitions.RbaseSymbolsImpl.R\" while it is expected to have type\n \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.142u,0.025s)\nChars 121 - 188 [Theorem~_vacuity_probe_b_rsc_o...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_out_nonneg__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, 0 <= rsc_out x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 119,
+      "name": "rsc_out_split",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_out_split__a.v\", line 3, characters 63-67:\nError: The reference sumL was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.143u,0.025s)\nChars 121 - 256 [Theorem~_vacuity_probe_a_rsc_o...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_out_split__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_out_split__b.v\", line 3, characters 63-67:\nError: The reference sumL was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.135u,0.033s)\nChars 121 - 256 [Theorem~_vacuity_probe_b_rsc_o...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_out_split__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, rsc_out x = sumL LX (fun y => rsc_U y * q x y) + sumL LX (fun y => rsc_N y * q x y)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 127,
+      "name": "rsc_into_N",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_into_N__a.v\", line 3, characters 48-50:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.144u,0.023s)\nChars 121 - 232 [Theorem~_vacuity_probe_a_rsc_i...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_into_N__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_into_N__b.v\", line 3, characters 48-50:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.17 secs (0.133u,0.036s)\nChars 121 - 232 [Theorem~_vacuity_probe_b_rsc_i...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_into_N__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, In x LX -> c * rsc_massN <= sumL LX (fun y => rsc_N y * q x y)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 134,
+      "name": "rsc_massN_pos",
+      "probe_a": {
+        "coq_stderr_tail": "__rsc_massN_pos__a.v\", line 3, characters 45-54:\nError:\nThe term \"rsc_massN\" has type\n \"forall X : Type,\n  list X ->\n  (X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  (X -> bool) -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.14u,0.028s)\nChars 121 - 176 [Theorem~_vacuity_probe_a_rsc_m...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_massN_pos__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "_rsc_massN_pos__b.v\", line 3, characters 45-54:\nError:\nThe term \"rsc_massN\" has type\n \"forall X : Type,\n  list X ->\n  (X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  (X -> bool) -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.142u,0.024s)\nChars 121 - 176 [Theorem~_vacuity_probe_b_rsc_m...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_massN_pos__b.v",
+        "succeeded": false
+      },
+      "statement": "0 < rsc_massN",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Theorem",
+      "line": 152,
+      "name": "rsc_mass_over_flow",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mass_over_flow__a.v\", line 3, characters 81-85:\nError: The reference sumL was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.166 secs (0.136u,0.03s)\nChars 121 - 251 [Theorem~_vacuity_probe_a_rsc_m...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mass_over_flow__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mass_over_flow__b.v\", line 3, characters 81-85:\nError: The reference sumL was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.148u,0.019s)\nChars 121 - 251 [Theorem~_vacuity_probe_b_rsc_m...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mass_over_flow__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h, rsc_leave h -> rsc_Phi * sumL LX (fun y => rsc_entry y * h y) = rsc_massU",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 183,
+      "name": "rsc_Lam_pos",
+      "probe_a": {
+        "coq_stderr_tail": "chContinuous__rsc_Lam_pos__a.v\", line 3, characters 43-50:\nError:\nThe term \"rsc_Lam\" has type\n \"forall X : Type,\n  list X ->\n  (X -> X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  Rdefinitions.RbaseSymbolsImpl.R\" while it is expected to have type \n\"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.145u,0.023s)\nChars 121 - 172 [Theorem~_vacuity_probe_a_rsc_L...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_Lam_pos__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "chContinuous__rsc_Lam_pos__b.v\", line 3, characters 43-50:\nError:\nThe term \"rsc_Lam\" has type\n \"forall X : Type,\n  list X ->\n  (X -> X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  Rdefinitions.RbaseSymbolsImpl.R\" while it is expected to have type \n\"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.166 secs (0.131u,0.035s)\nChars 121 - 172 [Theorem~_vacuity_probe_b_rsc_L...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_Lam_pos__b.v",
+        "succeeded": false
+      },
+      "statement": "0 < rsc_Lam",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 188,
+      "name": "rsc_A_nonneg",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_A_nonneg__a.v\", line 3, characters 50-52:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.142u,0.026s)\nChars 121 - 211 [Theorem~_vacuity_probe_a_rsc_A...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_A_nonneg__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_A_nonneg__b.v\", line 3, characters 50-52:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.135u,0.032s)\nChars 121 - 211 [Theorem~_vacuity_probe_b_rsc_A...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_A_nonneg__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, In x LX -> 0 <= 1 - rsc_out x / rsc_Lam",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 202,
+      "name": "rsc_M_pos",
+      "probe_a": {
+        "coq_stderr_tail": "racters 41-46:\nError:\nThe term \"rsc_M\" has type\n \"forall X : Type,\n  list X ->\n  (X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  (X -> bool) ->\n  Rdefinitions.RbaseSymbolsImpl.R -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.145u,0.022s)\nChars 121 - 168 [Theorem~_vacuity_probe_a_rsc_M...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_M_pos__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "racters 41-46:\nError:\nThe term \"rsc_M\" has type\n \"forall X : Type,\n  list X ->\n  (X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  (X -> bool) ->\n  Rdefinitions.RbaseSymbolsImpl.R -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"nat\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.137u,0.031s)\nChars 121 - 168 [Theorem~_vacuity_probe_b_rsc_M...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_M_pos__b.v",
+        "succeeded": false
+      },
+      "statement": "0 < rsc_M",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 217,
+      "name": "rsc_step_mono",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_step_mono__a.v\", line 3, characters 66-68:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.166 secs (0.133u,0.032s)\nChars 121 - 267 [Theorem~_vacuity_probe_a_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_step_mono__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_step_mono__b.v\", line 3, characters 66-68:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.135u,0.032s)\nChars 121 - 267 [Theorem~_vacuity_probe_b_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_step_mono__b.v",
+        "succeeded": false
+      },
+      "statement": "forall g1 g2, (forall y, In y LX -> g1 y <= g2 y) -> forall x, In x LX -> rsc_step g1 x <= rsc_step g2 x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 229,
+      "name": "rsc_step_bound",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_step_bound__a.v\", line 3, characters 63-65:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.138u,0.029s)\nChars 121 - 265 [Theorem~_vacuity_probe_a_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_step_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_step_bound__b.v\", line 3, characters 63-65:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.14u,0.029s)\nChars 121 - 265 [Theorem~_vacuity_probe_b_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_step_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall g, (forall y, In y LX -> 0 <= g y <= rsc_M) -> forall x, In x LX -> 0 <= rsc_step g x <= rsc_M",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 263,
+      "name": "rsc_it_bound",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_it_bound__a.v\", line 3, characters 52-54:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.138u,0.03s)\nChars 121 - 209 [Theorem~_vacuity_probe_a_rsc_i...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_it_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_it_bound__b.v\", line 3, characters 52-54:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.145u,0.022s)\nChars 121 - 209 [Theorem~_vacuity_probe_b_rsc_i...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_it_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n x, In x LX -> 0 <= rsc_it n x <= rsc_M",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 270,
+      "name": "rsc_it_grow",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_it_grow__a.v\", line 3, characters 51-53:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.138u,0.03s)\nChars 121 - 212 [Theorem~_vacuity_probe_a_rsc_i...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_it_grow__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_it_grow__b.v\", line 3, characters 51-53:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.139u,0.029s)\nChars 121 - 212 [Theorem~_vacuity_probe_b_rsc_i...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_it_grow__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n x, In x LX -> rsc_it n x <= rsc_it (S n) x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 279,
+      "name": "rsc_seq_ub",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_seq_ub__a.v\", line 3, characters 48-54:\nError: The reference has_ub was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.14u,0.026s)\nChars 121 - 188 [Theorem~_vacuity_probe_a_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_seq_ub__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_seq_ub__b.v\", line 3, characters 48-54:\nError: The reference has_ub was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.147u,0.021s)\nChars 121 - 188 [Theorem~_vacuity_probe_b_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_seq_ub__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, has_ub (rsc_seq x)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 286,
+      "name": "rsc_cv_ext",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_ext__a.v\", line 3, characters 59-60:\nError: The reference R was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.146u,0.021s)\nChars 121 - 234 [Theorem~_vacuity_probe_a_rsc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_ext__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_ext__b.v\", line 3, characters 59-60:\nError: The reference R was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.166 secs (0.14u,0.026s)\nChars 121 - 234 [Theorem~_vacuity_probe_b_rsc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_ext__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (u v : nat -> R) l, (forall n, u n = v n) -> Un_cv u l -> Un_cv v l",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 289,
+      "name": "rsc_cv_const",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_const__a.v\", line 3, characters 50-55:\nError: The reference Un_cv was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.166 secs (0.141u,0.024s)\nChars 121 - 192 [Theorem~_vacuity_probe_a_rsc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_const__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_const__b.v\", line 3, characters 50-55:\nError: The reference Un_cv was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.137u,0.032s)\nChars 121 - 192 [Theorem~_vacuity_probe_b_rsc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_const__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, Un_cv (fun _ => k) k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 292,
+      "name": "rsc_h_lim",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_h_lim__a.v\", line 3, characters 47-49:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.131u,0.037s)\nChars 121 - 217 [Theorem~_vacuity_probe_a_rsc_h...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_h_lim__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_h_lim__b.v\", line 3, characters 47-49:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.131u,0.037s)\nChars 121 - 217 [Theorem~_vacuity_probe_b_rsc_h...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_h_lim__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, In x LX -> Un_cv (fun n => rsc_it n x) (rsc_h x)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 304,
+      "name": "rsc_cv_sum",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_sum__a.v\", line 3, characters 55-56:\nError: The reference X was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.135u,0.032s)\nChars 121 - 346 [Theorem~_vacuity_probe_a_rsc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_sum__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_sum__b.v\", line 3, characters 55-56:\nError: The reference X was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.142u,0.024s)\nChars 121 - 346 [Theorem~_vacuity_probe_b_rsc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_cv_sum__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (L : list X) (a : nat -> X -> R) (l k : X -> R), (forall y, In y L -> Un_cv (fun n => a n y) (l y)) -> Un_cv (fun n => sumL L (fun y => k y * a n y)) (sumL L (fun y => k y * l y))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 315,
+      "name": "rsc_h_fix",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_h_fix__a.v\", line 3, characters 47-49:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.14u,0.028s)\nChars 121 - 206 [Theorem~_vacuity_probe_a_rsc_h...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_h_fix__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_h_fix__b.v\", line 3, characters 47-49:\nError: The reference In was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.134u,0.034s)\nChars 121 - 206 [Theorem~_vacuity_probe_b_rsc_h...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_h_fix__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x, In x LX -> rsc_h x = rsc_step rsc_h x",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Theorem",
+      "line": 340,
+      "name": "rsc_leave_exists",
+      "probe_a": {
+        "coq_stderr_tail": "l X : Type,\n  list X ->\n  (X -> X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  (X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  (X -> bool) ->\n  Rdefinitions.RbaseSymbolsImpl.R -> X -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"Type\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.142u,0.026s)\nChars 121 - 181 [Theorem~_vacuity_probe_a_rsc_l...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_leave_exists__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "l X : Type,\n  list X ->\n  (X -> X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  (X -> Rdefinitions.RbaseSymbolsImpl.R) ->\n  (X -> bool) ->\n  Rdefinitions.RbaseSymbolsImpl.R -> X -> Rdefinitions.RbaseSymbolsImpl.R\"\nwhile it is expected to have type \"Type\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.139u,0.029s)\nChars 121 - 181 [Theorem~_vacuity_probe_b_rsc_l...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_leave_exists__b.v",
+        "succeeded": false
+      },
+      "statement": "rsc_leave rsc_h",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Corollary",
+      "line": 352,
+      "name": "rsc_mean_leave",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mean_leave__a.v\", line 3, characters 52-56:\nError: The reference sumL was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.166 secs (0.136u,0.029s)\nChars 121 - 226 [Theorem~_vacuity_probe_a_rsc_m...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mean_leave__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mean_leave__b.v\", line 3, characters 52-56:\nError: The reference sumL was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.138u,0.029s)\nChars 121 - 226 [Theorem~_vacuity_probe_b_rsc_m...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mean_leave__b.v",
+        "succeeded": false
+      },
+      "statement": "rsc_Phi * sumL LX (fun y => rsc_entry y * rsc_h y) = rsc_massU",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 370,
+      "name": "rsc_G_deriv",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_deriv__a.v\", line 3, characters 51-67:\nError: The reference derivable_pt_lim was not found in the current\nenvironment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.136u,0.031s)\nChars 121 - 303 [Theorem~_vacuity_probe_a_rsc_G...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_deriv__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_deriv__b.v\", line 3, characters 51-67:\nError: The reference derivable_pt_lim was not found in the current\nenvironment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.146u,0.023s)\nChars 121 - 303 [Theorem~_vacuity_probe_b_rsc_G...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_deriv__b.v",
+        "succeeded": false
+      },
+      "statement": "forall g t, derivable_pt_lim (rsc_G g) t (- sumL LX (fun x => rsc_U x * s t x * (rsc_out x * g x - sumL LX (fun y => rsc_U y * q x y * g y))))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 394,
+      "name": "rsc_F_deriv",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_F_deriv__a.v\", line 3, characters 74-90:\nError: The reference derivable_pt_lim was not found in the current\nenvironment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.143u,0.024s)\nChars 121 - 236 [Theorem~_vacuity_probe_a_rsc_F...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_F_deriv__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_F_deriv__b.v\", line 3, characters 74-90:\nError: The reference derivable_pt_lim was not found in the current\nenvironment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.145u,0.023s)\nChars 121 - 236 [Theorem~_vacuity_probe_b_rsc_F...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_F_deriv__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h, rsc_leave h -> forall t, derivable_pt_lim (rsc_G h) t (- rsc_S t)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 403,
+      "name": "rsc_S_deriv",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_deriv__a.v\", line 3, characters 49-65:\nError: The reference derivable_pt_lim was not found in the current\nenvironment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.133u,0.034s)\nChars 121 - 271 [Theorem~_vacuity_probe_a_rsc_S...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_deriv__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_deriv__b.v\", line 3, characters 49-65:\nError: The reference derivable_pt_lim was not found in the current\nenvironment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.138u,0.03s)\nChars 121 - 271 [Theorem~_vacuity_probe_b_rsc_S...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_deriv__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t, derivable_pt_lim rsc_S t (- sumL LX (fun x => rsc_U x * s t x * sumL LX (fun y => rsc_N y * q x y)))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Theorem",
+      "line": 413,
+      "name": "rsc_S_start",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_start__a.v\", line 3, characters 45-46:\nError: The term \"0\" has type \"nat\" while it is expected to have type \"Type\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.143u,0.024s)\nChars 121 - 172 [Theorem~_vacuity_probe_a_rsc_S...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_start__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_start__b.v\", line 3, characters 45-46:\nError: The term \"0\" has type \"nat\" while it is expected to have type \"Type\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.139u,0.03s)\nChars 121 - 172 [Theorem~_vacuity_probe_b_rsc_S...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_start__b.v",
+        "succeeded": false
+      },
+      "statement": "rsc_S 0 = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 422,
+      "name": "rsc_S_nonneg",
+      "probe_a": {
+        "coq_stderr_tail": "ner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_nonneg__a.v\", line 3, characters 71-72:\nError:\nIn environment\nt : nat\nThe term \"t\" has type \"nat\" while it is expected to have type \"Type\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.137u,0.031s)\nChars 121 - 194 [Theorem~_vacuity_probe_a_rsc_S...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_nonneg__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_nonneg__b.v\", line 3, characters 71-72:\nError:\nIn environment\nt : nat\nThe term \"t\" has type \"nat\" while it is expected to have type \"Type\".\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.139u,0.028s)\nChars 121 - 194 [Theorem~_vacuity_probe_b_rsc_S...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_nonneg__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t, 0 <= t -> 0 <= rsc_S t",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Theorem",
+      "line": 430,
+      "name": "rsc_S_decay",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_decay__a.v\", line 3, characters 70-73:\nError: The reference exp was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.133u,0.033s)\nChars 121 - 219 [Theorem~_vacuity_probe_a_rsc_S...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_decay__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_decay__b.v\", line 3, characters 70-73:\nError: The reference exp was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.14u,0.027s)\nChars 121 - 219 [Theorem~_vacuity_probe_b_rsc_S...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_S_decay__b.v",
+        "succeeded": false
+      },
+      "statement": "forall b, 0 <= b -> rsc_S b <= exp (- (c * rsc_massN * b))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 462,
+      "name": "rsc_negG_deriv",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_negG_deriv__a.v\", line 3, characters 77-93:\nError: The reference derivable_pt_lim was not found in the current\nenvironment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.149u,0.02s)\nChars 121 - 247 [Theorem~_vacuity_probe_a_rsc_n...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_negG_deriv__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_negG_deriv__b.v\", line 3, characters 77-93:\nError: The reference derivable_pt_lim was not found in the current\nenvironment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.142u,0.024s)\nChars 121 - 247 [Theorem~_vacuity_probe_b_rsc_n...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_negG_deriv__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h, rsc_leave h -> forall t, derivable_pt_lim (opp_fct (rsc_G h)) t (rsc_S t)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 475,
+      "name": "rsc_G_start",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_start__a.v\", line 3, characters 61-65:\nError: The reference sumL was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.14u,0.027s)\nChars 121 - 219 [Theorem~_vacuity_probe_a_rsc_G...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_start__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_start__b.v\", line 3, characters 61-65:\nError: The reference sumL was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.133u,0.034s)\nChars 121 - 219 [Theorem~_vacuity_probe_b_rsc_G...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_start__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h, rsc_G h 0 = sumL LX (fun y => rsc_entry y * h y)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Theorem",
+      "line": 481,
+      "name": "rsc_window_value",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_window_value__a.v\", line 3, characters 89-98:\nError: The reference NewtonInt was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.167 secs (0.138u,0.028s)\nChars 121 - 287 [Theorem~_vacuity_probe_a_rsc_w...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_window_value__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_window_value__b.v\", line 3, characters 89-98:\nError: The reference NewtonInt was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.14u,0.027s)\nChars 121 - 287 [Theorem~_vacuity_probe_b_rsc_w...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_window_value__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h (Hh : rsc_leave h) T (HT : 0 <= T), NewtonInt rsc_S 0 T (rsc_window h Hh T HT) = rsc_massU / rsc_Phi - rsc_G h T",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Lemma",
+      "line": 489,
+      "name": "rsc_G_small",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_small__a.v\", line 3, characters 61-65:\nError: The reference Rabs was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.144u,0.023s)\nChars 121 - 242 [Theorem~_vacuity_probe_a_rsc_G...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_small__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_small__b.v\", line 3, characters 61-65:\nError: The reference Rabs was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.168 secs (0.139u,0.029s)\nChars 121 - 242 [Theorem~_vacuity_probe_b_rsc_G...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_G_small__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h T, 0 <= T -> Rabs (rsc_G h T) <= sumL LX (fun y => Rabs (h y)) * rsc_S T",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Theorem",
+      "line": 508,
+      "name": "rsc_mean_stretch_time",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mean_stretch_time__a.v\", line 3, characters 139-143:\nError: The reference Rabs was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.151u,0.018s)\nChars 121 - 338 [Theorem~_vacuity_probe_a_rsc_m...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mean_stretch_time__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mean_stretch_time__b.v\", line 3, characters 139-143:\nError: The reference Rabs was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.141u,0.027s)\nChars 121 - 338 [Theorem~_vacuity_probe_b_rsc_m...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_mean_stretch_time__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h (Hh : rsc_leave h) eps, 0 < eps -> exists T0, forall T (HT : 0 <= T), T0 <= T -> Rabs (NewtonInt rsc_S 0 T (rsc_window h Hh T HT) - rsc_massU / rsc_Phi) < eps",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
+      "kind": "Corollary",
+      "line": 535,
+      "name": "rsc_stretch_identity",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_stretch_identity__a.v\", line 3, characters 117-121:\nError: The reference Rabs was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.138u,0.031s)\nChars 121 - 334 [Theorem~_vacuity_probe_a_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_stretch_identity__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_stretch_identity__b.v\", line 3, characters 117-121:\nError: The reference Rabs was not found in the current environment.\n\nChars 65 - 120 [From~Kernel~Require~Import~Rel...] 0.169 secs (0.139u,0.029s)\nChars 121 - 334 [Theorem~_vacuity_probe_b_rsc_s...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RelaxationStretchContinuous__rsc_stretch_identity__b.v",
+        "succeeded": false
+      },
+      "statement": "forall eps, 0 < eps -> exists T0, forall T (HT : 0 <= T), T0 <= T -> Rabs (NewtonInt rsc_S 0 T (rsc_window rsc_h rsc_leave_exists T HT) - rsc_massU / rsc_Phi) < eps",
       "status": "ok"
     }
   ]

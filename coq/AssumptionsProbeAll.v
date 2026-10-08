@@ -267,6 +267,7 @@ Require Kernel.RelaxationContinuousLimit.
 Require Kernel.RelaxationConvergence.
 Require Kernel.RelaxationEntropy.
 Require Kernel.RelaxationStretch.
+Require Kernel.RelaxationStretchContinuous.
 Require TestFixtures.VacuitySmoke.
 Require Minimal.AxDgBlock.
 Require Minimal.BitSearch2.
@@ -4781,6 +4782,46 @@ Print Assumptions Kernel.RelaxationStretch.rs_u_nonneg.
 Print Assumptions Kernel.RelaxationStretch.rs_left_pow.
 Print Assumptions Kernel.RelaxationStretch.rs_rate_nonneg.
 Print Assumptions Kernel.RelaxationStretch.rs_mean_stretch.
+(* === Kernel.RelaxationStretchContinuous : 39 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_UU.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_UN.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_U01.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_U_nonneg.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_N_nonneg.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_sum_le.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_le_sum.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_out_nonneg.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_out_split.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_into_N.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_massN_pos.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_mass_over_flow.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_Lam_pos.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_A_nonneg.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_M_pos.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_step_mono.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_step_bound.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_it_bound.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_it_grow.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_seq_ub.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_cv_ext.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_cv_const.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_h_lim.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_cv_sum.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_h_fix.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_leave_exists.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_mean_leave.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_G_deriv.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_F_deriv.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_S_deriv.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_S_start.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_S_nonneg.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_S_decay.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_negG_deriv.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_G_start.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_window_value.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_G_small.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_mean_stretch_time.
+Print Assumptions Kernel.RelaxationStretchContinuous.rsc_stretch_identity.
 (* === TestFixtures.VacuitySmoke : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions TestFixtures.VacuitySmoke.smoke_literal_true.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_unfolds_to_true.

@@ -1,33 +1,33 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-08T04:40:11.466013+00:00",
+  "generated": "2026-10-08T05:24:33.511461+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "474aeae4584b453c784e61043844288fadac166f09bf299de47bfa45316e9527",
-  "probe_digest": "97046f807716d0f70a0d68148485d082c0ab39b6b175ebe71fc758f891678c70",
+  "corpus_digest": "2e0ecee106e4b5829b07d0f11ec3482755da754e8cd18d2dcd2531ee2e0928e3",
+  "probe_digest": "be7e51d772110b6793057bb5d8846d8f2c9b2f955aa3bec3906e6e4a88b6d98e",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "ea2e8a75f679019ab33f846a2bdef1cf8878850d1907455196e302d7ee8e4908",
-  "files_probed": 329,
-  "addressable_theorems_probed": 5694,
-  "blocks_parsed": 5694,
+  "raw_output_sha256": "34410ab675715e06eb95323c277be9b261f898d62182840e9832caabfe0a0e20",
+  "files_probed": 330,
+  "addressable_theorems_probed": 5733,
+  "blocks_parsed": 5733,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 5694,
+    "theorems_probed": 5733,
     "closed_under_global_context": 4994,
-    "depend_on_axioms": 700,
+    "depend_on_axioms": 739,
     "user_or_third_party_axiom_findings": 0,
-    "excluded_middle_users": 145,
-    "functional_extensionality_users": 665,
-    "real_completeness_axiom_users": 694,
+    "excluded_middle_users": 148,
+    "functional_extensionality_users": 703,
+    "real_completeness_axiom_users": 733,
     "unique_axioms_used": {
-      "ClassicalDedekindReals.sig_forall_dec": 694,
-      "FunctionalExtensionality.functional_extensionality_dep": 665,
-      "ClassicalDedekindReals.sig_not_dec": 231,
-      "Classical_Prop.classic": 145
+      "ClassicalDedekindReals.sig_forall_dec": 733,
+      "FunctionalExtensionality.functional_extensionality_dep": 703,
+      "ClassicalDedekindReals.sig_not_dec": 238,
+      "Classical_Prop.classic": 148
     }
   },
   "user_or_third_party_axiom_findings": [],
@@ -176,14 +176,17 @@
     "Kernel.RelaxationEntropy.re_known_start_total",
     "Kernel.RelaxationEntropy.re_known_start_bound",
     "Kernel.RelaxationEntropy.re_known_start_vs_set",
-    "Kernel.RelaxationEntropy.re_stretch_ratio"
+    "Kernel.RelaxationEntropy.re_stretch_ratio",
+    "Kernel.RelaxationStretchContinuous.rsc_S_decay",
+    "Kernel.RelaxationStretchContinuous.rsc_mean_stretch_time",
+    "Kernel.RelaxationStretchContinuous.rsc_stretch_identity"
   ],
   "unaddressable_theorems_in_functors_or_module_types": [],
   "by_namespace": {
     "Kernel": {
-      "theorems": 4206,
+      "theorems": 4245,
       "closed": 3512,
-      "with_axioms": 694,
+      "with_axioms": 733,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -1814,6 +1817,17 @@
       "with_axioms": 11,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/thermodynamic/RelaxationStretchContinuous.v": {
+      "theorems": 39,
+      "closed": 0,
+      "with_axioms": 39,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
