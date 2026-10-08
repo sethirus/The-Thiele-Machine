@@ -16,19 +16,17 @@
       the step that did not certify.
     - If the window shows the reading, a shadow account prices exactly.
 
-    So exact pricing needs the reading in what the account carries. On the
-    VM both windows the book names, [bare_observable] and [forget], have such
-    a collision from the clean start: [CERTIFY] against a [JUMP] with the
-    same visible effect. The exact price lives in the step, or in a window
-    that shows certification; the read/write shadow cannot carry it. *)
+    So exact pricing needs the reading in what the account carries. The
+    exact price lives in the step, or in a window that shows certification;
+    a shadow with a collision cannot carry it. *)
+
+(* SCOPE NOTE: standalone proof scope. Stated over an arbitrary step
+   function, certification reading and window; any certification system
+   is an instance, and none is fixed here. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.
 
-From Kernel Require Import VMState VMStep SimulationProof.
-From Kernel Require Import NecessityAbstract.
-From Kernel Require Import BlindnessRepresentation.
-From Kernel Require Import ProjectionNonExistence.
 
 Section ShadowPricing.
 
@@ -135,44 +133,3 @@ Arguments shadow_cost {S I O}.
 Arguments meets_floor {S I}.
 Arguments never_overcharges {S I}.
 Arguments shadow_collision {S I O}.
-
-(** * The VM *)
-
-Definition vm_cert (s : VMState) : bool := s.(vm_certified).
-
-(** From the clean start, [CERTIFY 0] and [JUMP 1 0] leave the same program
-    counter, registers, and memory. One certifies, the other does not. *)
-Theorem vm_bare_observable_collision :
-  shadow_collision vm_apply vm_cert bare_observable.
-Proof.
-  exists abs_zero, (instr_certify 0), abs_zero, (instr_jump 1 0).
-  repeat split; reflexivity.
-Qed.
-
-(** From the clean start, [CERTIFY 0] and [JUMP 1 1] also agree on the
-    ledger, so the four-field [forget] window has a collision too. *)
-Theorem vm_forget_collision :
-  shadow_collision vm_apply vm_cert forget.
-Proof.
-  exists abs_zero, (instr_certify 0), abs_zero, (instr_jump 1 1).
-  repeat split; reflexivity.
-Qed.
-
-(** No account that prices from the bare shadow prices VM certification
-    exactly. *)
-Theorem vm_bare_shadow_cannot_price_exactly :
-  forall price,
-    ~ (meets_floor vm_apply vm_cert (shadow_cost vm_apply bare_observable price) /\
-       never_overcharges vm_apply vm_cert (shadow_cost vm_apply bare_observable price)).
-Proof.
-  apply shadow_cannot_price_exactly. exact vm_bare_observable_collision.
-Qed.
-
-(** The same holds with the ledger in the window. *)
-Theorem vm_forget_shadow_cannot_price_exactly :
-  forall price,
-    ~ (meets_floor vm_apply vm_cert (shadow_cost vm_apply forget price) /\
-       never_overcharges vm_apply vm_cert (shadow_cost vm_apply forget price)).
-Proof.
-  apply shadow_cannot_price_exactly. exact vm_forget_collision.
-Qed.

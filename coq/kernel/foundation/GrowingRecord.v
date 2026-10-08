@@ -1,9 +1,10 @@
-(** Closed outcomes for the frozen monotone multi-valued record targets. *)
+(** Proved outcomes for the monotone multi-valued record targets of
+    [GrowingRecordCore]. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.
 
-From Kernel Require Import StructuralCore StructuralCoreRound4 GrowingRecordCore.
+From Kernel Require Import StructuralCore StructuralCoreAnyBase GrowingRecordCore.
 
 Theorem growing_record_decomposes_holds : growing_record_decomposes.
 Proof.

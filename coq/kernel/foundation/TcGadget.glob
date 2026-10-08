@@ -1,0 +1,355 @@
+DIGEST 75ac4d57046f48af75dd8daf47746241
+FKernel.TcGadget
+R983:986 Coq.Lists.List <> <> lib
+R988:992 Coq.Arith.Arith <> <> lib
+R994:996 Coq.micromega.Lia <> <> lib
+R998:1001 Coq.Bool.Bool <> <> lib
+R1011:1023 Coq.Lists.List ListNotations <> mod
+R1077:1081 Undecidability.Shared.Libs.DLW.Utils.utils <> <> lib
+R1083:1085 Undecidability.Shared.Libs.DLW.Utils.gcd <> <> lib
+R1087:1089 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R1091:1093 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R1095:1101 Undecidability.Shared.Libs.DLW.Code.subcode <> <> lib
+R1103:1105 Undecidability.Shared.Libs.DLW.Code.sss <> <> lib
+R1158:1159 Undecidability.MinskyMachines.MM <> <> lib
+R1161:1163 Undecidability.MinskyMachines.MMA <> <> lib
+R1220:1227 Undecidability.MinskyMachines.MMA.mma_defs <> <> lib
+R1229:1237 Undecidability.MinskyMachines.MMA.mma_utils <> <> lib
+R1255:1269 Kernel.TcBridge <> <> lib
+def 1315:1317 <> tcA
+R1321:1323 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R1330:1333 Undecidability.Shared.Libs.DLW.Vec.pos <> pos1 abbrev
+def 1347:1349 <> tcB
+R1353:1355 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R1362:1365 Undecidability.Shared.Libs.DLW.Vec.pos <> pos0 abbrev
+prf 1375:1379 <> tc_AB
+R1386:1389 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1383:1385 Kernel.TcGadget <> tcA def
+R1390:1392 Kernel.TcGadget <> tcB def
+R1409:1411 Kernel.TcGadget <> tcA def
+R1414:1416 Kernel.TcGadget <> tcB def
+prf 1445:1455 <> tc_change_A
+binder 1466:1466 <> a:1
+binder 1468:1468 <> b:2
+binder 1470:1470 <> n:3
+R1504:1506 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1473:1482 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_change def
+R1503:1503 Kernel.TcGadget <> n:3 var
+R1499:1501 Kernel.TcGadget <> tcA def
+R1485:1492 Kernel.TcBridge <> tc_tovec def
+R1494:1494 Kernel.TcGadget <> a:1 var
+R1496:1496 Kernel.TcGadget <> b:2 var
+R1507:1514 Kernel.TcBridge <> tc_tovec def
+R1516:1516 Kernel.TcGadget <> n:3 var
+R1518:1518 Kernel.TcGadget <> b:2 var
+prf 1553:1563 <> tc_change_B
+binder 1574:1574 <> a:4
+binder 1576:1576 <> b:5
+binder 1578:1578 <> n:6
+R1612:1614 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1581:1590 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_change def
+R1611:1611 Kernel.TcGadget <> n:6 var
+R1607:1609 Kernel.TcGadget <> tcB def
+R1593:1600 Kernel.TcBridge <> tc_tovec def
+R1602:1602 Kernel.TcGadget <> a:4 var
+R1604:1604 Kernel.TcGadget <> b:5 var
+R1615:1622 Kernel.TcBridge <> tc_tovec def
+R1624:1624 Kernel.TcGadget <> a:4 var
+R1626:1626 Kernel.TcGadget <> n:6 var
+prf 1661:1667 <> tc_posA
+binder 1678:1678 <> a:7
+binder 1680:1680 <> b:8
+R1709:1711 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1683:1689 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos def
+R1706:1708 Kernel.TcGadget <> tcA def
+R1692:1699 Kernel.TcBridge <> tc_tovec def
+R1701:1701 Kernel.TcGadget <> a:7 var
+R1703:1703 Kernel.TcGadget <> b:8 var
+R1712:1712 Kernel.TcGadget <> a:7 var
+prf 1747:1753 <> tc_posB
+binder 1764:1764 <> a:9
+binder 1766:1766 <> b:10
+R1795:1797 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1769:1775 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos def
+R1792:1794 Kernel.TcGadget <> tcB def
+R1778:1785 Kernel.TcBridge <> tc_tovec def
+R1787:1787 Kernel.TcGadget <> a:9 var
+R1789:1789 Kernel.TcGadget <> b:10 var
+R1798:1798 Kernel.TcGadget <> b:10 var
+prf 1894:1900 <> tc_mult
+binder 1911:1911 <> k:11
+binder 1913:1913 <> i:12
+binder 1915:1915 <> a:13
+R1920:1931 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R2008:2008 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2018:2019 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2038:2038 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2014:2016 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2010:2012 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2013:2013 Kernel.TcGadget <> k:11 var
+R2017:2017 Kernel.TcGadget <> i:12 var
+R2020:2027 Kernel.TcBridge <> tc_tovec def
+R2031:2033 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2030:2030 Kernel.TcGadget <> k:11 var
+R2034:2034 Kernel.TcGadget <> a:13 var
+R1990:1990 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1992:1993 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2006:2006 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1991:1991 Kernel.TcGadget <> i:12 var
+R1994:2001 Kernel.TcBridge <> tc_tovec def
+R2003:2003 Kernel.TcGadget <> a:13 var
+R1946:1946 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1948:1949 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1984:1984 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1947:1947 Kernel.TcGadget <> i:12 var
+R1950:1971 Undecidability.MinskyMachines.MMA.mma_utils <> mma_mult_cst_with_zero def
+R1983:1983 Kernel.TcGadget <> i:12 var
+R1981:1981 Kernel.TcGadget <> k:11 var
+R1977:1979 Kernel.TcGadget <> tcB def
+R1973:1975 Kernel.TcGadget <> tcA def
+R1935:1941 Undecidability.MinskyMachines.MMA <> mma_sss ind
+R2070:2100 Undecidability.MinskyMachines.MMA.mma_utils <> mma_mult_cst_with_zero_progress thm
+R2070:2100 Undecidability.MinskyMachines.MMA.mma_utils <> mma_mult_cst_with_zero_progress thm
+R2113:2117 Kernel.TcGadget <> tc_AB thm
+R2113:2117 Kernel.TcGadget <> tc_AB thm
+prf 2195:2201 <> tc_incs
+binder 2212:2212 <> k:14
+binder 2214:2214 <> i:15
+binder 2216:2216 <> a:16
+binder 2218:2218 <> b:17
+R2223:2233 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute def
+R2286:2286 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2292:2293 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2312:2312 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2288:2290 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2287:2287 Kernel.TcGadget <> k:14 var
+R2291:2291 Kernel.TcGadget <> i:15 var
+R2294:2301 Kernel.TcBridge <> tc_tovec def
+R2305:2307 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2304:2304 Kernel.TcGadget <> k:14 var
+R2308:2308 Kernel.TcGadget <> a:16 var
+R2311:2311 Kernel.TcGadget <> b:17 var
+R2268:2268 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2270:2271 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2284:2284 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2269:2269 Kernel.TcGadget <> i:15 var
+R2272:2279 Kernel.TcBridge <> tc_tovec def
+R2281:2281 Kernel.TcGadget <> a:16 var
+R2283:2283 Kernel.TcGadget <> b:17 var
+R2248:2248 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2250:2251 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2266:2266 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2249:2249 Kernel.TcGadget <> i:15 var
+R2252:2259 Undecidability.MinskyMachines.MMA.mma_utils <> mma_incs def
+R2265:2265 Kernel.TcGadget <> k:14 var
+R2261:2263 Kernel.TcGadget <> tcA def
+R2237:2243 Undecidability.MinskyMachines.MMA <> mma_sss ind
+R2346:2361 Undecidability.MinskyMachines.MMA.mma_utils <> mma_incs_compute thm
+R2346:2361 Undecidability.MinskyMachines.MMA.mma_utils <> mma_incs_compute thm
+prf 2421:2427 <> tc_decs
+binder 2438:2438 <> p:18
+binder 2440:2440 <> q:19
+binder 2442:2442 <> k:20
+binder 2444:2444 <> i:21
+binder 2446:2446 <> a:22
+binder 2448:2448 <> b:23
+R2457:2462 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2452:2455 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2451:2451 Kernel.TcGadget <> k:20 var
+R2456:2456 Kernel.TcGadget <> a:22 var
+R2463:2474 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R2533:2533 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2535:2536 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2555:2555 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2534:2534 Kernel.TcGadget <> p:18 var
+R2537:2544 Kernel.TcBridge <> tc_tovec def
+R2548:2550 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2547:2547 Kernel.TcGadget <> a:22 var
+R2551:2551 Kernel.TcGadget <> k:20 var
+R2554:2554 Kernel.TcGadget <> b:23 var
+R2515:2515 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2517:2518 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2531:2531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2516:2516 Kernel.TcGadget <> i:21 var
+R2519:2526 Kernel.TcBridge <> tc_tovec def
+R2528:2528 Kernel.TcGadget <> a:22 var
+R2530:2530 Kernel.TcGadget <> b:23 var
+R2489:2489 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2491:2492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2513:2513 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2490:2490 Kernel.TcGadget <> i:21 var
+R2493:2500 Undecidability.MinskyMachines.MMA.mma_utils <> mma_decs def
+R2512:2512 Kernel.TcGadget <> i:21 var
+R2510:2510 Kernel.TcGadget <> k:20 var
+R2508:2508 Kernel.TcGadget <> q:19 var
+R2506:2506 Kernel.TcGadget <> p:18 var
+R2502:2504 Kernel.TcGadget <> tcA def
+R2478:2484 Undecidability.MinskyMachines.MMA <> mma_sss ind
+R2596:2615 Undecidability.MinskyMachines.MMA.mma_utils <> mma_decs_le_progress thm
+R2596:2615 Undecidability.MinskyMachines.MMA.mma_utils <> mma_decs_le_progress thm
+prf 2702:2711 <> tc_div_yes
+binder 2722:2722 <> k:24
+binder 2724:2724 <> i:25
+binder 2726:2726 <> j:26
+binder 2728:2728 <> a:27
+binder 2730:2731 <> a':28
+R2741:2744 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2737:2739 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2740:2740 Kernel.TcGadget <> k:24 var
+R2755:2760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2746:2748 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2745:2745 Kernel.TcGadget <> a:27 var
+R2751:2753 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2749:2750 Kernel.TcGadget <> a':28 var
+R2754:2754 Kernel.TcGadget <> k:24 var
+R2761:2772 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R2839:2839 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2841:2842 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2856:2856 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2840:2840 Kernel.TcGadget <> j:26 var
+R2843:2850 Kernel.TcBridge <> tc_tovec def
+R2852:2853 Kernel.TcGadget <> a':28 var
+R2821:2821 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2823:2824 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2837:2837 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2822:2822 Kernel.TcGadget <> i:25 var
+R2825:2832 Kernel.TcBridge <> tc_tovec def
+R2834:2834 Kernel.TcGadget <> a:27 var
+R2787:2787 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2789:2790 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2819:2819 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2788:2788 Kernel.TcGadget <> i:25 var
+R2791:2804 Undecidability.MinskyMachines.MMA.mma_utils <> mma_div_branch def
+R2818:2818 Kernel.TcGadget <> j:26 var
+R2816:2816 Kernel.TcGadget <> i:25 var
+R2814:2814 Kernel.TcGadget <> k:24 var
+R2810:2812 Kernel.TcGadget <> tcB def
+R2806:2808 Kernel.TcGadget <> tcA def
+R2776:2782 Undecidability.MinskyMachines.MMA <> mma_sss ind
+R2899:2923 Undecidability.MinskyMachines.MMA.mma_utils <> mma_div_branch_0_progress thm
+R2899:2923 Undecidability.MinskyMachines.MMA.mma_utils <> mma_div_branch_0_progress thm
+R2951:2955 Kernel.TcGadget <> tc_AB thm
+R2951:2955 Kernel.TcGadget <> tc_AB thm
+prf 3032:3040 <> tc_div_no
+binder 3051:3051 <> k:29
+binder 3053:3053 <> i:30
+binder 3055:3055 <> j:31
+binder 3057:3057 <> a:32
+R3067:3070 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3063:3065 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3066:3066 Kernel.TcGadget <> k:29 var
+R3084:3089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3071:3072 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3073:3079 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R3083:3083 Kernel.TcGadget <> a:32 var
+R3081:3081 Kernel.TcGadget <> k:29 var
+R3090:3101 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R3168:3168 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3183:3184 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3197:3197 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3179:3181 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3171:3173 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3175:3177 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3178:3178 Kernel.TcGadget <> k:29 var
+R3182:3182 Kernel.TcGadget <> i:30 var
+R3185:3192 Kernel.TcBridge <> tc_tovec def
+R3194:3194 Kernel.TcGadget <> a:32 var
+R3150:3150 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3152:3153 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3166:3166 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3151:3151 Kernel.TcGadget <> i:30 var
+R3154:3161 Kernel.TcBridge <> tc_tovec def
+R3163:3163 Kernel.TcGadget <> a:32 var
+R3116:3116 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3118:3119 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3148:3148 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3117:3117 Kernel.TcGadget <> i:30 var
+R3120:3133 Undecidability.MinskyMachines.MMA.mma_utils <> mma_div_branch def
+R3147:3147 Kernel.TcGadget <> j:31 var
+R3145:3145 Kernel.TcGadget <> i:30 var
+R3143:3143 Kernel.TcGadget <> k:29 var
+R3139:3141 Kernel.TcGadget <> tcB def
+R3135:3137 Kernel.TcGadget <> tcA def
+R3105:3111 Undecidability.MinskyMachines.MMA <> mma_sss ind
+R3237:3261 Undecidability.MinskyMachines.MMA.mma_utils <> mma_div_branch_1_progress thm
+R3237:3261 Undecidability.MinskyMachines.MMA.mma_utils <> mma_div_branch_1_progress thm
+R3274:3278 Kernel.TcGadget <> tc_AB thm
+R3274:3278 Kernel.TcGadget <> tc_AB thm
+prf 3395:3405 <> tc_div_loop
+binder 3416:3416 <> k:33
+binder 3418:3418 <> i:34
+binder 3420:3420 <> y:35
+R3428:3431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3424:3426 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3427:3427 Kernel.TcGadget <> k:33 var
+R3445:3448 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3432:3433 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3434:3440 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R3444:3444 Kernel.TcGadget <> y:35 var
+R3442:3442 Kernel.TcGadget <> k:33 var
+binder 3456:3456 <> c:36
+R3461:3471 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute def
+R3552:3552 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3567:3568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3581:3581 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3563:3565 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3555:3557 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3559:3561 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3562:3562 Kernel.TcGadget <> k:33 var
+R3566:3566 Kernel.TcGadget <> i:34 var
+R3569:3576 Kernel.TcBridge <> tc_tovec def
+R3578:3578 Kernel.TcGadget <> y:35 var
+R3524:3524 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3526:3527 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3550:3550 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3525:3525 Kernel.TcGadget <> i:34 var
+R3528:3535 Kernel.TcBridge <> tc_tovec def
+R3539:3541 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3538:3538 Kernel.TcGadget <> y:35 var
+R3543:3545 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3542:3542 Kernel.TcGadget <> k:33 var
+R3546:3546 Kernel.TcGadget <> c:36 var
+R3486:3486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3488:3489 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3518:3518 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3487:3487 Kernel.TcGadget <> i:34 var
+R3490:3503 Undecidability.MinskyMachines.MMA.mma_utils <> mma_div_branch def
+R3517:3517 Kernel.TcGadget <> i:34 var
+R3515:3515 Kernel.TcGadget <> i:34 var
+R3513:3513 Kernel.TcGadget <> k:33 var
+R3509:3511 Kernel.TcGadget <> tcB def
+R3505:3507 Kernel.TcGadget <> tcA def
+R3475:3481 Undecidability.MinskyMachines.MMA <> mma_sss ind
+R3665:3667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3657:3659 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3661:3663 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3665:3667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3657:3659 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3661:3663 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3709:3728 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R3709:3728 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R3737:3745 Kernel.TcGadget <> tc_div_no thm
+R3737:3745 Kernel.TcGadget <> tc_div_no thm
+R3787:3789 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3777:3779 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3781:3783 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3784:3784 Coq.Init.Datatypes <> S constr
+R3790:3790 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3800:3803 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3792:3794 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3796:3798 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3787:3789 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3777:3779 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3781:3783 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3784:3784 Coq.Init.Datatypes <> S constr
+R3790:3790 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3800:3803 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3792:3794 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3796:3798 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3851:3867 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute_trans thm
+R3877:3896 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R3905:3914 Kernel.TcGadget <> tc_div_yes thm
+R3851:3867 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute_trans thm
+R3877:3896 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R3905:3914 Kernel.TcGadget <> tc_div_yes thm
+R3979:3989 Kernel.TcGadget <> tc_div_loop thm

@@ -1,0 +1,340 @@
+DIGEST 31e669df8c603adff7fe032a3ac025fe
+FUndecidability.L.Util.NaryApp
+R37:44 Undecidability.L.Tactics.LTactics <> <> lib
+R62:107 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> <> lib
+R125:130 Coq.Vectors.Vector <> <> lib
+R132:135 Coq.Lists.List <> <> lib
+R145:157 Coq.Lists.List ListNotations <> mod
+R167:181 Coq.Vectors.Vector VectorNotations <> mod
+R191:201 Undecidability.L.Util.L_facts L_Notations <> mod
+def 214:221 <> many_lam
+binder 223:223 <> k:1
+binder 225:225 <> s:2
+R236:236 Undecidability.L.Util.NaryApp <> k:1 var
+R248:248 Undecidability.L.Util.NaryApp <> s:2 var
+R252:252 Coq.Init.Datatypes <> S constr
+R259:261 Undecidability.L.L <> lam constr
+R264:271 Undecidability.L.Util.NaryApp <> many_lam:3 def
+R275:275 Undecidability.L.Util.NaryApp <> s:2 var
+R273:273 Undecidability.L.Util.NaryApp <> k:1 var
+prf 290:303 <> subst_many_lam
+binder 305:305 <> k:5
+binder 307:307 <> n:6
+binder 309:309 <> u:7
+binder 311:311 <> s:8
+R341:343 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R317:321 Undecidability.L.L <> subst def
+R324:331 Undecidability.L.Util.NaryApp <> many_lam def
+R335:335 Undecidability.L.Util.NaryApp <> s:8 var
+R333:333 Undecidability.L.Util.NaryApp <> k:5 var
+R338:338 Undecidability.L.Util.NaryApp <> n:6 var
+R340:340 Undecidability.L.Util.NaryApp <> u:7 var
+R344:351 Undecidability.L.Util.NaryApp <> many_lam def
+R356:360 Undecidability.L.L <> subst def
+R362:362 Undecidability.L.Util.NaryApp <> s:8 var
+R366:368 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R365:365 Undecidability.L.Util.NaryApp <> k:5 var
+R369:369 Undecidability.L.Util.NaryApp <> n:6 var
+R372:372 Undecidability.L.Util.NaryApp <> u:7 var
+R353:353 Undecidability.L.Util.NaryApp <> k:5 var
+def 492:499 <> many_app
+binder 501:501 <> k:9
+binder 503:503 <> s:10
+R510:517 Coq.Vectors.Vector <> t ind
+R519:522 Undecidability.L.L <> term ind
+R524:524 Undecidability.L.Util.NaryApp <> k:9 var
+binder 506:506 <> v:11
+R541:541 Undecidability.L.Util.NaryApp <> v:11 var
+R554:563 Coq.Vectors.Vector <> nil constr
+R568:568 Undecidability.L.Util.NaryApp <> s:10 var
+R576:586 Coq.Vectors.Vector <> cons constr
+R597:604 Undecidability.L.Util.NaryApp <> many_app:12 def
+R618:618 Undecidability.L.Util.NaryApp <> v:11 var
+R607:611 Undecidability.L.L <> app constr
+R613:613 Undecidability.L.Util.NaryApp <> s:10 var
+prf 636:649 <> subst_many_app
+binder 651:651 <> k:14
+R658:665 Coq.Vectors.Vector <> t ind
+R667:670 Undecidability.L.L <> term ind
+R672:672 Undecidability.L.Util.NaryApp <> k:14 var
+binder 654:654 <> v:15
+binder 675:675 <> n:16
+binder 677:677 <> u:17
+binder 679:679 <> s:18
+R709:711 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R685:689 Undecidability.L.L <> subst def
+R692:699 Undecidability.L.Util.NaryApp <> many_app def
+R703:703 Undecidability.L.Util.NaryApp <> v:15 var
+R701:701 Undecidability.L.Util.NaryApp <> s:18 var
+R706:706 Undecidability.L.Util.NaryApp <> n:16 var
+R708:708 Undecidability.L.Util.NaryApp <> u:17 var
+R712:719 Undecidability.L.Util.NaryApp <> many_app def
+R736:745 Coq.Vectors.Vector <> map def
+R770:770 Undecidability.L.Util.NaryApp <> v:15 var
+binder 752:752 <> s:19
+R757:761 Undecidability.L.L <> subst def
+R763:763 Undecidability.L.Util.NaryApp <> s:19 var
+R765:765 Undecidability.L.Util.NaryApp <> n:16 var
+R767:767 Undecidability.L.Util.NaryApp <> u:17 var
+R722:726 Undecidability.L.L <> subst def
+R728:728 Undecidability.L.Util.NaryApp <> s:18 var
+R730:730 Undecidability.L.Util.NaryApp <> n:16 var
+R732:732 Undecidability.L.Util.NaryApp <> u:17 var
+prf 861:876 <> equiv_many_app_L
+binder 878:878 <> k:20
+R885:892 Coq.Vectors.Vector <> t ind
+R894:897 Undecidability.L.L <> term ind
+R899:899 Undecidability.L.Util.NaryApp <> k:20 var
+binder 881:881 <> v:21
+binder 902:902 <> s:22
+binder 904:904 <> t:23
+R916:919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R911:914 Undecidability.L.Util.L_facts <> :::x_'=='_x not
+R910:910 Undecidability.L.Util.NaryApp <> s:22 var
+R915:915 Undecidability.L.Util.NaryApp <> t:23 var
+R932:935 Undecidability.L.Util.L_facts <> :::x_'=='_x not
+R920:927 Undecidability.L.Util.NaryApp <> many_app def
+R931:931 Undecidability.L.Util.NaryApp <> v:21 var
+R929:929 Undecidability.L.Util.NaryApp <> s:22 var
+R936:943 Undecidability.L.Util.NaryApp <> many_app def
+R947:947 Undecidability.L.Util.NaryApp <> v:21 var
+R945:945 Undecidability.L.Util.NaryApp <> t:23 var
+def 1063:1070 <> tabulate
+binder 1073:1073 <> X:24
+R1088:1090 Coq.Init.Datatypes <> nat ind
+binder 1084:1084 <> n:25
+R1105:1108 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1098:1102 Coq.Vectors.Fin <> t ind
+R1104:1104 Undecidability.L.Util.NaryApp <> n:25 var
+R1109:1109 Undecidability.L.Util.NaryApp <> X:24 var
+binder 1094:1094 <> f:26
+R1125:1132 Coq.Vectors.Vector <> t ind
+R1134:1134 Undecidability.L.Util.NaryApp <> X:24 var
+R1136:1136 Undecidability.L.Util.NaryApp <> n:25 var
+R1149:1149 Undecidability.L.Util.NaryApp <> n:25 var
+R1164:1164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1177:1181 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1172:1175 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1165:1169 Coq.Vectors.Fin <> t ind
+R1171:1171 Undecidability.L.Util.NaryApp <> m:28 var
+R1176:1176 Undecidability.L.Util.NaryApp <> X:24 var
+R1182:1182 Coq.Vectors.Vector <> t ind
+R1184:1184 Undecidability.L.Util.NaryApp <> X:24 var
+R1186:1186 Undecidability.L.Util.NaryApp <> m:28 var
+R1212:1213 Coq.Vectors.VectorDef VectorNotations ::vector_scope:'['_']' not
+R1219:1219 Coq.Init.Datatypes <> S constr
+binder 1230:1230 <> f:29
+R1243:1246 Coq.Vectors.VectorDef VectorNotations ::vector_scope:x_'::'_x not
+R1235:1235 Undecidability.L.Util.NaryApp <> f:29 var
+R1237:1242 Coq.Vectors.Fin <> F1 constr
+R1248:1255 Undecidability.L.Util.NaryApp <> tabulate:27 def
+binder 1266:1266 <> i:30
+R1271:1271 Undecidability.L.Util.NaryApp <> f:29 var
+R1274:1279 Coq.Vectors.Fin <> FS constr
+R1281:1281 Undecidability.L.Util.NaryApp <> i:30 var
+R1291:1291 Undecidability.L.Util.NaryApp <> f:26 var
+def 1306:1314 <> many_vars
+binder 1316:1316 <> k:31
+R1322:1329 Undecidability.L.Util.NaryApp <> tabulate def
+binder 1345:1345 <> i:32
+R1351:1353 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1350:1350 Undecidability.L.Util.NaryApp <> k:31 var
+R1354:1354 Coq.Init.Datatypes <> S constr
+R1357:1365 Coq.Init.Specif <> proj1_sig def
+R1368:1377 Coq.Vectors.Fin <> to_nat def
+R1379:1379 Undecidability.L.Util.NaryApp <> i:32 var
+R1337:1337 Undecidability.L.Util.NaryApp <> k:31 var
+prf 1393:1404 <> tabulate_ext
+binder 1407:1407 <> X:33
+binder 1410:1410 <> k:34
+binder 1412:1413 <> f1:35
+binder 1415:1416 <> f2:36
+R1422:1422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1449:1453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 1430:1430 <> i:37
+R1437:1439 Coq.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R1444:1447 Coq.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R1448:1448 Undecidability.L.Util.NaryApp <> X:33 var
+R1433:1434 Undecidability.L.Util.NaryApp <> f1:35 var
+R1436:1436 Undecidability.L.Util.NaryApp <> i:37 var
+R1440:1441 Undecidability.L.Util.NaryApp <> f2:36 var
+R1443:1443 Undecidability.L.Util.NaryApp <> i:37 var
+R1474:1476 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1454:1461 Undecidability.L.Util.NaryApp <> tabulate def
+R1472:1473 Undecidability.L.Util.NaryApp <> f1:35 var
+R1469:1469 Undecidability.L.Util.NaryApp <> k:34 var
+R1477:1484 Undecidability.L.Util.NaryApp <> tabulate def
+R1486:1487 Undecidability.L.Util.NaryApp <> f2:36 var
+prf 1594:1604 <> many_vars_S
+binder 1606:1606 <> n:38
+R1627:1629 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1612:1620 Undecidability.L.Util.NaryApp <> many_vars def
+R1623:1623 Coq.Init.Datatypes <> S constr
+R1625:1625 Undecidability.L.Util.NaryApp <> n:38 var
+R1631:1634 Coq.Vectors.VectorDef VectorNotations ::vector_scope:x_'::'_x not
+R1630:1630 Undecidability.L.Util.NaryApp <> n:38 var
+R1635:1643 Undecidability.L.Util.NaryApp <> many_vars def
+R1645:1645 Undecidability.L.Util.NaryApp <> n:38 var
+R1678:1686 Undecidability.L.Util.NaryApp <> many_vars def
+R1701:1712 Undecidability.L.Util.NaryApp <> tabulate_ext thm
+R1701:1712 Undecidability.L.Util.NaryApp <> tabulate_ext thm
+R1734:1743 Coq.Vectors.Fin <> to_nat def
+R1734:1743 Coq.Vectors.Fin <> to_nat def
+def 1788:1797 <> many_subst
+binder 1800:1800 <> k:39
+binder 1803:1803 <> s:40
+binder 1805:1805 <> n:41
+R1812:1819 Coq.Vectors.Vector <> t ind
+R1821:1824 Undecidability.L.L <> term ind
+R1826:1826 Undecidability.L.Util.NaryApp <> k:39 var
+binder 1808:1808 <> v:42
+R1841:1841 Undecidability.L.Util.NaryApp <> v:42 var
+R1852:1853 Coq.Vectors.VectorDef VectorNotations ::vector_scope:'['_']' not
+R1858:1858 Undecidability.L.Util.NaryApp <> s:40 var
+R1864:1874 Coq.Vectors.Vector <> cons constr
+R1885:1894 Undecidability.L.Util.NaryApp <> many_subst:43 def
+R1918:1918 Undecidability.L.Util.NaryApp <> v:42 var
+R1916:1916 Undecidability.L.Util.NaryApp <> n:41 var
+R1897:1901 Undecidability.L.L <> subst def
+R1903:1903 Undecidability.L.Util.NaryApp <> s:40 var
+R1907:1909 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1906:1906 Undecidability.L.Util.NaryApp <> n:41 var
+R1910:1910 Undecidability.L.Util.NaryApp <> k:39 var
+prf 1936:1943 <> beta_red
+binder 1945:1945 <> s:45
+binder 1947:1947 <> t:46
+binder 1949:1950 <> t':47
+R1962:1965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1954:1959 Undecidability.L.Util.L_facts <> lambda def
+R1961:1961 Undecidability.L.Util.NaryApp <> t:46 var
+R1983:1986 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1968:1971 Undecidability.L.Util.L_facts <> :::x_'=='_x not
+R1966:1967 Undecidability.L.Util.NaryApp <> t':47 var
+R1972:1976 Undecidability.L.L <> subst def
+R1978:1978 Undecidability.L.Util.NaryApp <> s:45 var
+R1982:1982 Undecidability.L.Util.NaryApp <> t:46 var
+R1996:1999 Undecidability.L.Util.L_facts <> :::x_'=='_x not
+R1988:1990 Undecidability.L.L <> lam constr
+R1992:1992 Undecidability.L.Util.NaryApp <> s:45 var
+R1995:1995 Undecidability.L.Util.NaryApp <> t:46 var
+R2000:2001 Undecidability.L.Util.NaryApp <> t':47 var
+prf 2064:2072 <> many_beta
+binder 2074:2074 <> k:48
+R2081:2088 Coq.Vectors.Vector <> t ind
+R2090:2093 Undecidability.L.L <> term ind
+R2095:2095 Undecidability.L.Util.NaryApp <> k:48 var
+binder 2077:2077 <> v:49
+binder 2098:2098 <> s:50
+R2105:2105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2139:2145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2113:2113 <> x:51
+R2129:2132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2116:2124 Coq.Vectors.Vector <> In ind
+R2128:2128 Undecidability.L.Util.NaryApp <> v:49 var
+R2126:2126 Undecidability.L.Util.NaryApp <> x:51 var
+R2133:2136 Undecidability.L.Util.L_facts <> proc def
+R2138:2138 Undecidability.L.Util.NaryApp <> x:51 var
+R2171:2174 Undecidability.L.Util.L_facts <> :::x_'=='_x not
+R2146:2153 Undecidability.L.Util.NaryApp <> many_app def
+R2170:2170 Undecidability.L.Util.NaryApp <> v:49 var
+R2156:2163 Undecidability.L.Util.NaryApp <> many_lam def
+R2167:2167 Undecidability.L.Util.NaryApp <> s:50 var
+R2165:2165 Undecidability.L.Util.NaryApp <> k:48 var
+R2175:2184 Undecidability.L.Util.NaryApp <> many_subst def
+R2190:2190 Undecidability.L.Util.NaryApp <> v:49 var
+R2186:2186 Undecidability.L.Util.NaryApp <> s:50 var
+R2270:2285 Undecidability.L.Util.NaryApp <> equiv_many_app_L thm
+R2270:2285 Undecidability.L.Util.NaryApp <> equiv_many_app_L thm
+R2270:2285 Undecidability.L.Util.NaryApp <> equiv_many_app_L thm
+R2270:2285 Undecidability.L.Util.NaryApp <> equiv_many_app_L thm
+R2299:2306 Undecidability.L.Util.NaryApp <> beta_red thm
+R2299:2306 Undecidability.L.Util.NaryApp <> beta_red thm
+R2361:2374 Undecidability.L.Util.NaryApp <> subst_many_lam thm
+R2361:2374 Undecidability.L.Util.NaryApp <> subst_many_lam thm
+R2361:2374 Undecidability.L.Util.NaryApp <> subst_many_lam thm
+R2387:2389 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2387:2389 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+prf 2487:2500 <> many_subst_app
+R2509:2512 Undecidability.L.L <> term ind
+binder 2503:2503 <> s:52
+binder 2505:2505 <> t:53
+binder 2516:2516 <> k:54
+binder 2519:2519 <> n:55
+R2526:2533 Coq.Vectors.Vector <> t ind
+R2535:2538 Undecidability.L.L <> term ind
+R2540:2540 Undecidability.L.Util.NaryApp <> k:54 var
+binder 2522:2522 <> v:56
+R2567:2569 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2547:2556 Undecidability.L.Util.NaryApp <> many_subst def
+R2566:2566 Undecidability.L.Util.NaryApp <> v:56 var
+R2564:2564 Undecidability.L.Util.NaryApp <> n:55 var
+R2559:2559 Undecidability.L.Util.NaryApp <> s:52 var
+R2561:2561 Undecidability.L.Util.NaryApp <> t:53 var
+R2571:2580 Undecidability.L.Util.NaryApp <> many_subst def
+R2586:2586 Undecidability.L.Util.NaryApp <> v:56 var
+R2584:2584 Undecidability.L.Util.NaryApp <> n:55 var
+R2582:2582 Undecidability.L.Util.NaryApp <> s:52 var
+R2590:2599 Undecidability.L.Util.NaryApp <> many_subst def
+R2605:2605 Undecidability.L.Util.NaryApp <> v:56 var
+R2603:2603 Undecidability.L.Util.NaryApp <> n:55 var
+R2601:2601 Undecidability.L.Util.NaryApp <> t:53 var
+prf 2702:2720 <> many_subst_many_app
+R2727:2730 Undecidability.L.L <> term ind
+binder 2723:2723 <> s:57
+binder 2734:2734 <> k:58
+binder 2737:2737 <> n:59
+R2747:2754 Coq.Vectors.Vector <> t ind
+R2756:2759 Undecidability.L.L <> term ind
+R2761:2761 Undecidability.L.Util.NaryApp <> k:58 var
+binder 2740:2741 <> ts:60
+binder 2743:2743 <> v:61
+R2798:2800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2768:2777 Undecidability.L.Util.NaryApp <> many_subst def
+R2797:2797 Undecidability.L.Util.NaryApp <> v:61 var
+R2795:2795 Undecidability.L.Util.NaryApp <> n:59 var
+R2780:2787 Undecidability.L.Util.NaryApp <> many_app def
+R2791:2792 Undecidability.L.Util.NaryApp <> ts:60 var
+R2789:2789 Undecidability.L.Util.NaryApp <> s:57 var
+R2801:2808 Undecidability.L.Util.NaryApp <> many_app def
+R2830:2839 Coq.Vectors.Vector <> map def
+R2869:2870 Undecidability.L.Util.NaryApp <> ts:60 var
+binder 2846:2846 <> t:62
+R2851:2860 Undecidability.L.Util.NaryApp <> many_subst def
+R2866:2866 Undecidability.L.Util.NaryApp <> v:61 var
+R2864:2864 Undecidability.L.Util.NaryApp <> n:59 var
+R2862:2862 Undecidability.L.Util.NaryApp <> t:62 var
+R2811:2820 Undecidability.L.Util.NaryApp <> many_subst def
+R2826:2826 Undecidability.L.Util.NaryApp <> v:61 var
+R2824:2824 Undecidability.L.Util.NaryApp <> n:59 var
+R2822:2822 Undecidability.L.Util.NaryApp <> s:57 var
+R2939:2943 Coq.Vectors.Vector <> case0 def
+R2939:2943 Coq.Vectors.Vector <> case0 def
+R2975:2980 Coq.Vectors.Vector <> caseS' def
+R2975:2980 Coq.Vectors.Vector <> caseS' def
+R3014:3027 Undecidability.L.Util.NaryApp <> subst_many_app thm
+R3014:3027 Undecidability.L.Util.NaryApp <> subst_many_app thm
+R3014:3027 Undecidability.L.Util.NaryApp <> subst_many_app thm
+R3048:3061 Undecidability.L.Util.NaryApp <> many_subst_app thm
+R3048:3061 Undecidability.L.Util.NaryApp <> many_subst_app thm
+R3048:3061 Undecidability.L.Util.NaryApp <> many_subst_app thm
+R3081:3094 Coq.Vectors.Vector <> map_map thm
+R3081:3094 Coq.Vectors.Vector <> map_map thm
+R3081:3094 Coq.Vectors.Vector <> map_map thm
+prf 3109:3125 <> many_subst_closed
+R3132:3135 Undecidability.L.L <> term ind
+binder 3128:3128 <> s:63
+binder 3139:3139 <> k:64
+binder 3142:3142 <> n:65
+R3149:3156 Coq.Vectors.Vector <> t ind
+R3158:3161 Undecidability.L.L <> term ind
+R3163:3163 Undecidability.L.Util.NaryApp <> k:64 var
+binder 3145:3145 <> v:66
+R3178:3181 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3170:3175 Undecidability.L.L <> closed def
+R3177:3177 Undecidability.L.Util.NaryApp <> s:63 var
+R3198:3200 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3182:3191 Undecidability.L.Util.NaryApp <> many_subst def
+R3197:3197 Undecidability.L.Util.NaryApp <> v:66 var
+R3195:3195 Undecidability.L.Util.NaryApp <> n:65 var
+R3193:3193 Undecidability.L.Util.NaryApp <> s:63 var
+R3201:3201 Undecidability.L.Util.NaryApp <> s:63 var

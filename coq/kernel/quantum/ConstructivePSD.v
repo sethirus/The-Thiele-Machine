@@ -12,15 +12,15 @@
 
   These are finite real-algebra consequences of the definitions in this file.
   A later module may connect selected inequalities to a correlation model or a
-  VM cost sector, but those bridges are not supplied here. A falsification of
+  cost model, but those bridges are not supplied here. A falsification of
   one of the stated consequences would require a symmetric M with
   v^T M v >= 0 for all v that nevertheless violates that consequence.
 *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
@@ -52,7 +52,7 @@ Definition fin_to_nat {n} (i : Fin.t n) : nat := proj1_sig (Fin.to_nat i).
 Definition Matrix5 : Type := Fin5 -> Fin5 -> RealNumber.
 Definition Matrix4 : Type := Fin4 -> Fin4 -> RealNumber.
 
-(** Compatibility: nat-indexed matrix type for legacy code *)
+(** Nat-indexed matrix type, used by the nat-indexed modules. *)
 Definition Matrix (n : nat) : Type := nat -> nat -> RealNumber.
 
 (** Conversion from nat-indexed to Fin-indexed matrices *)
@@ -111,7 +111,7 @@ Lemma Rabs_sq_le : forall x, Rabs x <= 1 -> x * x <= 1.
 Proof.
   intros x H.
   pose proof (Rabs_le_inv x H) as [Hlow Hhigh].
-  (* From -1 <= x <= 1 we have x*x <= 1 *)
+  (* From -1 <= x <= 1, x*x <= 1 *)
   assert (Hprod: 0 <= (1 - x) * (1 + x)).
   { apply Rmult_le_pos; lra. }
   assert (Heq: 1 - x * x = (1 - x) * (1 + x)) by ring.
@@ -174,7 +174,7 @@ Proof.
   ).
   {
     (* Proving LHS (combined sum) equals sum of sums *)
-    (* We merge the sums together *)
+    (* Merge the sums together *)
     repeat rewrite <- sum_fin5_linear.
     apply f_equal. apply functional_extensionality; intro i.
     (* Now merge inner sums *)
@@ -382,12 +382,12 @@ Proof.
     + (* c < 0: Parabola opens downward, must eventually be negative *)
       exfalso.
       (* Complete the square: a + 2bt + ct^2 = c(t + b/c)^2 + (a - b^2/c) *)
-      (* We want this to be < 0 for some t *)
+      (* Goal: this is < 0 for some t *)
       (* c(t+b/c)^2 < -(a - b^2/c) = b^2/c - a *)
       (* (t+b/c)^2 > (b^2/c - a) / c = b^2/c^2 - a/c *)
-      (* Since c < 0, RHS is real. We can choose t such that square is large enough. *)
+      (* Since c < 0, RHS is real. Choose t so the square is large enough. *)
       
-      (* Let K = b^2/c^2 - a/c + 1. If we make (t+b/c)^2 = |K| + 1, it's strictly > RHS. *)
+      (* Let K = |b^2/c^2 - a/c| + 1. With (t+b/c)^2 = K, it's strictly > RHS. *)
       pose (K := Rabs (b*b/(c*c) - a/c) + 1).
       pose (t := sqrt K - b/c).
       specialize (H t).
@@ -595,27 +595,27 @@ Proof.
   
   (* Define the Schur complement form S(v2, v3) *)
   (* S(v2, v3) = (1-x^2)v2^2 + (1-y^2)v3^2 + 2(z-xy)v2v3 *)
-  (* We show that S corresponds to quad M on a specific vector *)
+  (* S corresponds to quad M on a specific vector *)
   
   assert (HSchur : forall v2 v3, 
     (1 - x^2) * v2^2 + 2 * (z - x * y) * v2 * v3 + (1 - y^2) * v3^2 >= 0).
   {
     intros v2 v3.
     (* Construct test vector V = - (x*v2 + y*v3) * ei + v2 * ej + v3 * ek *)
-    (* For simplicity, we define the vector functionally *)
+    (* For simplicity, the vector is defined functionally *)
     pose (V := fun idx => 
       if Fin.eq_dec idx i then - (x * v2 + y * v3) 
       else if Fin.eq_dec idx j then v2
       else if Fin.eq_dec idx k then v3
       else 0).
 
-    (* We assume distinct indices for this argument. If indices overlap, result is trivial or 0 *)
+    (* The main argument takes distinct indices. If indices overlap, the result is trivial or 0 *)
     destruct (Fin.eq_dec i j) as [Eij | Neij].
     { (* i = j: x = M i i = 1, so det = 1 - 1 - y^2 - z^2 + 2*1*y*z = (y-z)^2 >= 0 *)
       subst j. unfold x. rewrite Hii.
       assert (Hz_eq: z = y) by (unfold z, y; rewrite Hsym; reflexivity).
       rewrite Hz_eq.
-      (* Now we need (1-1)*v2^2 + 2*(y-1*y)*v2*v3 + (1-y^2)*v3^2 >= 0 *)
+      (* Goal: (1-1)*v2^2 + 2*(y-1*y)*v2*v3 + (1-y^2)*v3^2 >= 0 *)
       (* = 0 + 0 + (1-y^2)*v3^2 *)
       replace ((1 - 1 ^ 2) * v2 ^ 2 + 2 * (y - 1 * y) * v2 * v3 + (1 - y ^ 2) * v3 ^ 2)
         with ((1 - y ^ 2) * v3 ^ 2) by ring.
@@ -658,18 +658,17 @@ Proof.
       nra.
     }
 
-    (* Now we can assume indices are distinct *)
+    (* From here the indices are distinct *)
     (* Expand quad5 M V. It contains terms for i, j, k only. *)
-    (* Since indices distinct, we can use linearity/bilinearity *)
-    (* Actually easier: define V as linear combo of e_basis. *)
+    (* Since the indices are distinct, linearity/bilinearity applies *)
+    (* Define V as a linear combination of e_basis. *)
     pose (V_lin := fun (idx : Fin5) => (- (x * v2 + y * v3)) * e_basis i idx + v2 * e_basis j idx + v3 * e_basis k idx).
-    (* Prove V = V_lin? Or just use V_lin directly in Hpsd. *)
-    (* Update V to V_lin *)
+    (* V_lin is used directly in Hpsd. *)
     
     (* Expanding quad5 M V_lin is done in Hexp *)
     (* quad (A + B) = quad A + 2 bil A B + quad B *)
-    (* Here we have 3 terms A+B+C. ((A+B)+C) *)
-    (* Let's just trust that quad M (c1 e1 + c2 e2 + c3 e3) = sum c_a c_b M_ab *)
+    (* Three terms: A+B+C = ((A+B)+C) *)
+    (* quad M (c1 e1 + c2 e2 + c3 e3) = sum c_a c_b M_ab (quad5_e_combo_3, used in Hexp) *)
     (* = c1^2 M11 + c2^2 M22 + c3^2 M33 + 2c1c2 M12 + 2c1c3 M13 + 2c2c3 M23 *)
     
     pose (c1 := - (x * v2 + y * v3)).
@@ -723,7 +722,7 @@ Qed.
 (** Indices: A0=1, B0=3, B1=4. Minor A0B0B1 corresponds to {i1, i3, i4} *)
 (** Indices: A1=2, B0=3, B1=4. Minor A1B0B1 corresponds to {i2, i3, i4} *)
 
-(** We provide the generic lemma instead of specific axioms. *)
+(** A generic lemma takes the place of specific axioms. *)
 
 
 (** PSD Convexity Lemma *)

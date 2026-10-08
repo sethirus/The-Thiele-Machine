@@ -1,0 +1,905 @@
+DIGEST 73b51ff7bb3f979285369877099665bd
+FKernel.NecSPresented
+R1821:1824 Coq.Lists.List <> <> lib
+R1826:1830 Coq.Arith.Arith <> <> lib
+R1832:1834 Coq.micromega.Lia <> <> lib
+R1836:1839 Coq.Bool.Bool <> <> lib
+R1849:1861 Coq.Lists.List ListNotations <> mod
+R1915:1919 Undecidability.Shared.Libs.DLW.Utils.utils <> <> lib
+R1921:1923 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R1925:1927 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R1976:1981 Undecidability.MuRec.Util.recalg <> <> lib
+R1992:2013 Minimal.ThieleComplete <> <> lib
+R2031:2047 Minimal.Presented <> <> lib
+R2049:2067 Kernel.Presentation <> <> lib
+R2085:2106 Kernel.UniversalPCodes <> <> lib
+R2108:2130 Kernel.UniversalPBridge <> <> lib
+R2132:2154 Kernel.UniversalPLayout <> <> lib
+R2158:2177 Kernel.UniversalPRun <> <> lib
+R2195:2219 Kernel.PresentedUniversal <> <> lib
+R2221:2240 Kernel.PresentedDemo <> <> lib
+R2255:2276 Minimal.ThieleComplete <> <> modtype
+mod 2250:2250 <> T
+abbrev 2295:2300 <> hstate
+R2307:2316 Kernel.UniversalPBridge M pu_state rec
+R2318:2325 Kernel.UniversalPCodes <> pu_hprop ind
+abbrev 2344:2349 <> hrun_l
+R2355:2362 Kernel.UniversalPBridge M pu_run def
+R2377:2384 Kernel.UniversalPCodes <> pu_heval def
+R2364:2375 Kernel.UniversalPCodes <> pu_hprop_eqb def
+def 2618:2626 <> nec_s_CT1
+R2654:2657 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2651:2653 Coq.Init.Datatypes <> nat ind
+R2658:2660 Coq.Init.Datatypes <> nat ind
+binder 2647:2647 <> f:1
+R2663:2669 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2682:2683 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2674:2679 Undecidability.MuRec.MuRec <> recalg ind
+binder 2670:2670 <> r:2
+binder 2691:2691 <> v:3
+R2694:2699 Undecidability.MuRec.Util.recalg <> ra_rel def
+R2719:2719 Kernel.NecSPresented <> f:1 var
+R2721:2721 Kernel.NecSPresented <> v:3 var
+R2705:2708 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R2704:2704 Kernel.NecSPresented <> v:3 var
+R2709:2715 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R2701:2701 Kernel.NecSPresented <> r:2 var
+def 2736:2744 <> nec_s_CT2
+R2772:2775 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2769:2771 Coq.Init.Datatypes <> nat ind
+R2779:2782 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2776:2778 Coq.Init.Datatypes <> nat ind
+R2783:2785 Coq.Init.Datatypes <> nat ind
+binder 2765:2765 <> g:4
+R2792:2798 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2811:2812 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2803:2808 Undecidability.MuRec.MuRec <> recalg ind
+binder 2799:2799 <> r:5
+binder 2820:2820 <> v:6
+binder 2822:2822 <> w:7
+R2825:2830 Undecidability.MuRec.Util.recalg <> ra_rel def
+R2855:2855 Kernel.NecSPresented <> g:4 var
+R2859:2859 Kernel.NecSPresented <> w:7 var
+R2857:2857 Kernel.NecSPresented <> v:6 var
+R2836:2839 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R2835:2835 Kernel.NecSPresented <> v:6 var
+R2841:2844 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R2840:2840 Kernel.NecSPresented <> w:7 var
+R2845:2851 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R2832:2832 Kernel.NecSPresented <> r:5 var
+prf 2870:2885 <> nec_s_never_toll
+R2907:2910 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2904:2906 Coq.Init.Datatypes <> nat ind
+R2914:2917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2911:2913 Coq.Init.Datatypes <> nat ind
+R2918:2920 Coq.Init.Datatypes <> nat ind
+binder 2897:2900 <> step:8
+R2934:2937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2931:2933 Coq.Init.Datatypes <> nat ind
+R2938:2940 Coq.Init.Datatypes <> nat ind
+binder 2924:2927 <> cost:9
+binder 2943:2943 <> s:10
+binder 2945:2945 <> i:11
+R2982:2985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2974:2976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2959:2961 Coq.Init.Datatypes <> nat ind
+R2966:2970 Coq.Init.Datatypes <> false constr
+R2973:2973 Kernel.NecSPresented <> s:10 var
+R2977:2981 Coq.Init.Datatypes <> false constr
+R3026:3029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3019:3021 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2995:2997 Coq.Init.Datatypes <> nat ind
+R3002:3006 Coq.Init.Datatypes <> false constr
+R3010:3013 Kernel.NecSPresented <> step:8 var
+R3017:3017 Kernel.NecSPresented <> i:11 var
+R3015:3015 Kernel.NecSPresented <> s:10 var
+R3022:3025 Coq.Init.Datatypes <> true constr
+R3036:3039 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3030:3033 Kernel.NecSPresented <> cost:9 var
+R3035:3035 Kernel.NecSPresented <> i:11 var
+def 3151:3168 <> nec_s_cost_machine
+R3178:3181 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3175:3177 Coq.Init.Datatypes <> nat ind
+R3182:3184 Coq.Init.Datatypes <> nat ind
+binder 3171:3171 <> f:12
+R3189:3205 Minimal.Presented <> presented_machine rec
+R3212:3223 Minimal.Presented <> mk_presented constr
+R3230:3245 Kernel.NecSPresented <> mk_cert_system constr
+R3247:3249 Coq.Init.Datatypes <> nat ind
+R3251:3253 Coq.Init.Datatypes <> nat ind
+binder 3260:3260 <> s:13
+R3267:3267 Kernel.NecSPresented <> s:13 var
+R3270:3270 Kernel.NecSPresented <> f:12 var
+R3282:3286 Coq.Init.Datatypes <> false constr
+R3297:3312 Kernel.NecSPresented <> nec_s_never_toll thm
+binder 3319:3319 <> s:14
+R3326:3326 Kernel.NecSPresented <> s:14 var
+R3329:3329 Kernel.NecSPresented <> f:12 var
+R3347:3350 Coq.Init.Datatypes <> None constr
+binder 3358:3358 <> s:15
+R3363:3363 Kernel.NecSPresented <> s:15 var
+binder 3371:3371 <> v:16
+R3376:3379 Coq.Init.Datatypes <> Some constr
+R3381:3381 Kernel.NecSPresented <> v:16 var
+binder 3389:3389 <> i:17
+R3394:3394 Kernel.NecSPresented <> i:17 var
+binder 3402:3402 <> v:18
+R3407:3410 Coq.Init.Datatypes <> Some constr
+R3412:3412 Kernel.NecSPresented <> v:18 var
+binder 3424:3424 <> s:19
+R3429:3435 Coq.Init.Logic <> eq_refl constr
+binder 3443:3443 <> i:20
+R3448:3454 Coq.Init.Logic <> eq_refl constr
+def 3532:3549 <> nec_s_step_machine
+R3559:3562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3556:3558 Coq.Init.Datatypes <> nat ind
+R3566:3569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3563:3565 Coq.Init.Datatypes <> nat ind
+R3570:3572 Coq.Init.Datatypes <> nat ind
+binder 3552:3552 <> g:21
+R3577:3593 Minimal.Presented <> presented_machine rec
+R3600:3611 Minimal.Presented <> mk_presented constr
+R3618:3633 Kernel.NecSPresented <> mk_cert_system constr
+R3635:3637 Coq.Init.Datatypes <> nat ind
+R3639:3641 Coq.Init.Datatypes <> nat ind
+R3643:3643 Kernel.NecSPresented <> g:21 var
+R3668:3672 Coq.Init.Datatypes <> false constr
+R3683:3698 Kernel.NecSPresented <> nec_s_never_toll thm
+R3700:3700 Kernel.NecSPresented <> g:21 var
+R3731:3734 Coq.Init.Datatypes <> None constr
+binder 3742:3742 <> s:22
+R3747:3747 Kernel.NecSPresented <> s:22 var
+binder 3755:3755 <> v:23
+R3760:3763 Coq.Init.Datatypes <> Some constr
+R3765:3765 Kernel.NecSPresented <> v:23 var
+binder 3773:3773 <> i:24
+R3778:3778 Kernel.NecSPresented <> i:24 var
+binder 3786:3786 <> v:25
+R3791:3794 Coq.Init.Datatypes <> Some constr
+R3796:3796 Kernel.NecSPresented <> v:25 var
+binder 3808:3808 <> s:26
+R3813:3819 Coq.Init.Logic <> eq_refl constr
+binder 3827:3827 <> i:27
+R3832:3838 Coq.Init.Logic <> eq_refl constr
+prf 3851:3876 <> nec_s_presented_all_iff_ct
+R3882:3882 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3940:3946 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3969:3969 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3895:3911 Minimal.Presented <> presented_machine rec
+binder 3890:3891 <> Mp:28
+R3914:3936 Kernel.Presentation <> cg_computably_presented def
+R3938:3939 Kernel.NecSPresented <> Mp:28 var
+R3956:3959 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3947:3955 Kernel.NecSPresented <> nec_s_CT1 def
+R3960:3968 Kernel.NecSPresented <> nec_s_CT2 def
+R4036:4053 Kernel.NecSPresented <> nec_s_cost_machine def
+R4036:4053 Kernel.NecSPresented <> nec_s_cost_machine def
+R4082:4091 Kernel.Presentation <> cg_cost_ra proj
+R4082:4091 Kernel.Presentation <> cg_cost_ra proj
+R4114:4125 Kernel.Presentation <> cg_cost_spec proj
+R4114:4125 Kernel.Presentation <> cg_cost_spec proj
+R4162:4179 Kernel.NecSPresented <> nec_s_step_machine def
+R4162:4179 Kernel.NecSPresented <> nec_s_step_machine def
+R4208:4217 Kernel.Presentation <> cg_step_ra proj
+R4208:4217 Kernel.Presentation <> cg_step_ra proj
+R4243:4254 Kernel.Presentation <> cg_step_spec proj
+R4243:4254 Kernel.Presentation <> cg_step_spec proj
+binder 4310:4310 <> v:29
+R4321:4327 Minimal.Presented <> pm_sdec proj
+R4332:4332 Kernel.NecSPresented <> v:29 var
+R4368:4371 Coq.Init.Datatypes <> Some constr
+R4378:4388 Kernel.Presentation <> cg_next_val def
+R4397:4400 Coq.Init.Datatypes <> None constr
+binder 4310:4310 <> v:30
+R4321:4327 Minimal.Presented <> pm_sdec proj
+R4332:4332 Kernel.NecSPresented <> v:30 var
+R4368:4371 Coq.Init.Datatypes <> Some constr
+R4378:4388 Kernel.Presentation <> cg_next_val def
+R4397:4400 Coq.Init.Datatypes <> None constr
+binder 4447:4447 <> v:31
+binder 4449:4449 <> w:32
+R4474:4480 Minimal.Presented <> pm_idec proj
+R4485:4485 Kernel.NecSPresented <> w:32 var
+R4460:4466 Minimal.Presented <> pm_sdec proj
+R4471:4471 Kernel.NecSPresented <> v:31 var
+R4523:4526 Coq.Init.Datatypes <> Some constr
+R4531:4534 Coq.Init.Datatypes <> Some constr
+R4541:4548 Minimal.Presented <> pm_scode proj
+R4554:4562 Kernel.NecSPresented <> cs_step proj
+R4565:4570 Minimal.Presented <> pm_sys proj
+binder 4447:4447 <> v:33
+binder 4449:4449 <> w:34
+R4474:4480 Minimal.Presented <> pm_idec proj
+R4485:4485 Kernel.NecSPresented <> w:34 var
+R4460:4466 Minimal.Presented <> pm_sdec proj
+R4471:4471 Kernel.NecSPresented <> v:33 var
+R4523:4526 Coq.Init.Datatypes <> Some constr
+R4531:4534 Coq.Init.Datatypes <> Some constr
+R4541:4548 Minimal.Presented <> pm_scode proj
+R4554:4562 Kernel.NecSPresented <> cs_step proj
+R4565:4570 Minimal.Presented <> pm_sys proj
+binder 4662:4662 <> w:35
+R4673:4679 Minimal.Presented <> pm_idec proj
+R4684:4684 Kernel.NecSPresented <> w:35 var
+R4720:4723 Coq.Init.Datatypes <> Some constr
+R4730:4738 Kernel.NecSPresented <> cs_cost proj
+R4741:4746 Minimal.Presented <> pm_sys proj
+R4756:4759 Coq.Init.Datatypes <> None constr
+binder 4662:4662 <> w:36
+R4673:4679 Minimal.Presented <> pm_idec proj
+R4684:4684 Kernel.NecSPresented <> w:36 var
+R4720:4723 Coq.Init.Datatypes <> Some constr
+R4730:4738 Kernel.NecSPresented <> cs_cost proj
+R4741:4746 Minimal.Presented <> pm_sys proj
+R4756:4759 Coq.Init.Datatypes <> None constr
+R4802:4812 Kernel.Presentation <> cg_read_val def
+R4802:4812 Kernel.Presentation <> cg_read_val def
+R4856:4873 Kernel.Presentation <> cg_mk_presentation constr
+R4856:4873 Kernel.Presentation <> cg_mk_presentation constr
+R4932:4939 Minimal.Presented <> pm_scode proj
+R4932:4939 Minimal.Presented <> pm_scode proj
+R4962:4974 Minimal.Presented <> pm_sdec_scode proj
+R4962:4974 Minimal.Presented <> pm_sdec_scode proj
+R4962:4974 Minimal.Presented <> pm_sdec_scode proj
+R5025:5032 Minimal.Presented <> pm_scode proj
+R5041:5048 Minimal.Presented <> pm_icode proj
+R5025:5032 Minimal.Presented <> pm_scode proj
+R5041:5048 Minimal.Presented <> pm_icode proj
+R5077:5089 Minimal.Presented <> pm_sdec_scode proj
+R5092:5104 Minimal.Presented <> pm_idec_icode proj
+R5077:5089 Minimal.Presented <> pm_sdec_scode proj
+R5077:5089 Minimal.Presented <> pm_sdec_scode proj
+R5092:5104 Minimal.Presented <> pm_idec_icode proj
+R5092:5104 Minimal.Presented <> pm_idec_icode proj
+R5152:5159 Minimal.Presented <> pm_icode proj
+R5152:5159 Minimal.Presented <> pm_icode proj
+R5182:5194 Minimal.Presented <> pm_idec_icode proj
+R5182:5194 Minimal.Presented <> pm_idec_icode proj
+R5182:5194 Minimal.Presented <> pm_idec_icode proj
+prf 5441:5459 <> nec_s_host_at_floor
+binder 5470:5471 <> Mp:37
+binder 5473:5474 <> pc:38
+binder 5476:5477 <> s0:39
+binder 5479:5479 <> t:40
+R5521:5524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5514:5516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5484:5489 Kernel.UniversalPBridge M cert proj
+R5492:5501 Kernel.PresentedUniversal <> pu_host_at def
+R5509:5510 Kernel.NecSPresented <> s0:39 var
+R5512:5512 Kernel.NecSPresented <> t:40 var
+R5506:5507 Kernel.NecSPresented <> pc:38 var
+R5503:5504 Kernel.NecSPresented <> Mp:37 var
+R5517:5520 Coq.Init.Datatypes <> true constr
+R5553:5556 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5525:5528 Kernel.UniversalPBridge M mu proj
+R5531:5540 Kernel.PresentedUniversal <> pu_host_at def
+R5548:5549 Kernel.NecSPresented <> s0:39 var
+R5551:5551 Kernel.NecSPresented <> t:40 var
+R5545:5546 Kernel.NecSPresented <> pc:38 var
+R5542:5543 Kernel.NecSPresented <> Mp:37 var
+R5600:5609 Kernel.PresentedUniversal <> pu_host_at def
+R5612:5618 Kernel.UniversalPRun <> pu_hrun def
+R5632:5644 Kernel.PresentedUniversal <> pu_host_start def
+R5632:5644 Kernel.PresentedUniversal <> pu_host_start def
+R5673:5697 Kernel.UniversalPBridge M pu_multi_run_prog_trace thm
+R5712:5719 Kernel.UniversalPCodes <> pu_heval def
+R5699:5710 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R5673:5697 Kernel.UniversalPBridge M pu_multi_run_prog_trace thm
+R5712:5719 Kernel.UniversalPCodes <> pu_heval def
+R5699:5710 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R5673:5697 Kernel.UniversalPBridge M pu_multi_run_prog_trace thm
+R5712:5719 Kernel.UniversalPCodes <> pu_heval def
+R5699:5710 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R5740:5772 Kernel.UniversalPBridge M pu_multi_certified_run_min_cost thm
+R5827:5839 Kernel.PresentedUniversal <> pu_host_start def
+R5854:5875 Kernel.UniversalPBridge M pu_multi_start_clean thm
+R5803:5810 Kernel.UniversalPCodes <> pu_heval def
+R5787:5801 Kernel.UniversalPCodes <> pu_hprop_eqb_eq thm
+R5774:5785 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R5740:5772 Kernel.UniversalPBridge M pu_multi_certified_run_min_cost thm
+R5827:5839 Kernel.PresentedUniversal <> pu_host_start def
+R5854:5875 Kernel.UniversalPBridge M pu_multi_start_clean thm
+R5803:5810 Kernel.UniversalPCodes <> pu_heval def
+R5787:5801 Kernel.UniversalPCodes <> pu_hprop_eqb_eq thm
+R5774:5785 Kernel.UniversalPCodes <> pu_hprop_eqb def
+prf 6139:6169 <> nec_s_within_two_needs_no_start
+R6210:6215 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6203:6205 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6175:6183 Kernel.NecSPresented <> cs_cert proj
+R6186:6191 Minimal.Presented <> pm_sys proj
+R6193:6199 Kernel.PresentedDemo <> pu_demo def
+R6206:6209 Coq.Init.Datatypes <> true constr
+R6241:6244 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6234:6236 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6216:6221 Minimal.Presented <> mlatch def
+R6223:6229 Kernel.PresentedDemo <> pu_demo def
+R6237:6240 Coq.Init.Datatypes <> true constr
+R6268:6271 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6264:6266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6245:6251 Minimal.Presented <> mledger def
+R6253:6259 Kernel.PresentedDemo <> pu_demo def
+R6297:6302 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6293:6295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6272:6280 Minimal.Presented <> surcharge def
+R6282:6288 Kernel.PresentedDemo <> pu_demo def
+R6303:6305 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6464:6464 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6306:6312 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6314:6322 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6313:6313 <> t:41
+R6386:6396 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6365:6367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6323:6328 Kernel.UniversalPBridge M cert proj
+R6331:6340 Kernel.PresentedUniversal <> pu_host_at def
+R6363:6363 Kernel.NecSPresented <> t:41 var
+R6350:6359 Kernel.PresentedDemo <> pu_demo_pc def
+R6342:6348 Kernel.PresentedDemo <> pu_demo def
+R6368:6373 Minimal.Presented <> mlatch def
+R6375:6381 Kernel.PresentedDemo <> pu_demo def
+R6437:6440 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6397:6400 Kernel.UniversalPBridge M mu proj
+R6403:6412 Kernel.PresentedUniversal <> pu_host_at def
+R6435:6435 Kernel.NecSPresented <> t:41 var
+R6422:6431 Kernel.PresentedDemo <> pu_demo_pc def
+R6414:6420 Kernel.PresentedDemo <> pu_demo def
+R6460:6462 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6441:6447 Minimal.Presented <> mledger def
+R6449:6455 Kernel.PresentedDemo <> pu_demo def
+R6604:6609 Minimal.Presented <> mlatch def
+R6611:6617 Kernel.PresentedDemo <> pu_demo def
+R6629:6632 Coq.Init.Datatypes <> true constr
+R6604:6609 Minimal.Presented <> mlatch def
+R6611:6617 Kernel.PresentedDemo <> pu_demo def
+R6629:6632 Coq.Init.Datatypes <> true constr
+R6651:6657 Minimal.Presented <> mledger def
+R6659:6665 Kernel.PresentedDemo <> pu_demo def
+R6651:6657 Minimal.Presented <> mledger def
+R6659:6665 Kernel.PresentedDemo <> pu_demo def
+R6700:6718 Kernel.NecSPresented <> nec_s_host_at_floor thm
+R6720:6726 Kernel.PresentedDemo <> pu_demo def
+R6728:6737 Kernel.PresentedDemo <> pu_demo_pc def
+R6700:6718 Kernel.NecSPresented <> nec_s_host_at_floor thm
+R6720:6726 Kernel.PresentedDemo <> pu_demo def
+R6728:6737 Kernel.PresentedDemo <> pu_demo_pc def
+prf 7097:7111 <> nec_s_flip_toll
+R7127:7129 Coq.Init.Datatypes <> nat ind
+binder 7123:7123 <> s:42
+R7137:7140 Coq.Init.Datatypes <> unit ind
+binder 7133:7133 <> i:43
+R7165:7168 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7157:7159 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7146:7152 Coq.Arith.PeanoNat Nat leb def
+R7156:7156 Kernel.NecSPresented <> s:42 var
+R7160:7164 Coq.Init.Datatypes <> false constr
+R7191:7194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7184:7186 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7169:7175 Coq.Arith.PeanoNat Nat leb def
+R7180:7180 Coq.Init.Datatypes <> S constr
+R7182:7182 Kernel.NecSPresented <> s:42 var
+R7187:7190 Coq.Init.Datatypes <> true constr
+R7196:7199 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+def 7240:7253 <> nec_s_flip_sys
+R7257:7277 Kernel.NecSPresented <> CertificationSystem rec
+R7284:7299 Kernel.NecSPresented <> mk_cert_system constr
+R7301:7303 Coq.Init.Datatypes <> nat ind
+R7305:7308 Coq.Init.Datatypes <> unit ind
+binder 7315:7315 <> s:44
+R7322:7322 Coq.Init.Datatypes <> S constr
+R7324:7324 Kernel.NecSPresented <> s:44 var
+binder 7345:7345 <> s:45
+R7350:7356 Coq.Arith.PeanoNat Nat leb def
+R7360:7360 Kernel.NecSPresented <> s:45 var
+R7363:7377 Kernel.NecSPresented <> nec_s_flip_toll thm
+def 7392:7401 <> nec_s_flip
+R7405:7421 Minimal.Presented <> presented_machine rec
+R7428:7439 Minimal.Presented <> mk_presented constr
+R7441:7454 Kernel.NecSPresented <> nec_s_flip_sys def
+R7466:7469 Coq.Init.Datatypes <> Some constr
+R7471:7472 Coq.Init.Datatypes <> tt constr
+binder 7480:7480 <> s:46
+R7485:7485 Kernel.NecSPresented <> s:46 var
+binder 7493:7493 <> v:47
+R7498:7501 Coq.Init.Datatypes <> Some constr
+R7503:7503 Kernel.NecSPresented <> v:47 var
+R7533:7536 Coq.Init.Datatypes <> Some constr
+R7538:7539 Coq.Init.Datatypes <> tt constr
+binder 7547:7547 <> s:48
+R7552:7558 Coq.Init.Logic <> eq_refl constr
+R7561:7572 Kernel.PresentedDemo <> pu_demo_idec thm
+def 7587:7604 <> nec_s_flip_cost_ra
+R7608:7613 Undecidability.MuRec.MuRec <> recalg ind
+R7620:7626 Undecidability.MuRec.MuRec <> ra_comp constr
+R7639:7645 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R7629:7634 Undecidability.MuRec.MuRec <> ra_cst constr
+prf 7655:7674 <> nec_s_flip_read_spec
+binder 7685:7685 <> v:49
+R7690:7695 Undecidability.MuRec.Util.recalg <> ra_rel def
+R7722:7732 Kernel.Presentation <> cg_read_val def
+R7745:7745 Kernel.NecSPresented <> v:49 var
+R7734:7743 Kernel.NecSPresented <> nec_s_flip def
+R7708:7711 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R7707:7707 Kernel.NecSPresented <> v:49 var
+R7712:7718 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R7697:7704 Kernel.PresentedDemo <> pu_ra_sg def
+R7776:7786 Kernel.Presentation <> cg_read_val def
+R7788:7797 Kernel.NecSPresented <> nec_s_flip def
+R7811:7817 Coq.Arith.PeanoNat Nat eqb def
+R7776:7786 Kernel.Presentation <> cg_read_val def
+R7788:7797 Kernel.NecSPresented <> nec_s_flip def
+R7811:7817 Coq.Arith.PeanoNat Nat eqb def
+R7849:7861 Kernel.PresentedDemo <> pu_ra_sg_spec thm
+R7849:7861 Kernel.PresentedDemo <> pu_ra_sg_spec thm
+R7875:7885 Kernel.Presentation <> cg_read_val def
+R7903:7914 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7903:7914 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7903:7914 Coq.Arith.PeanoNat Nat eqb_refl thm
+def 7959:7971 <> nec_s_flip_pc
+R7975:7989 Kernel.Presentation <> cg_presentation rec
+R7991:8000 Kernel.NecSPresented <> nec_s_flip def
+R8020:8037 Kernel.Presentation <> cg_mk_presentation constr
+R8050:8064 Kernel.PresentedDemo <> pu_demo_next_ra def
+R8066:8080 Kernel.PresentedDemo <> pu_demo_step_ra def
+R8082:8099 Kernel.NecSPresented <> nec_s_flip_cost_ra def
+R8113:8120 Kernel.PresentedDemo <> pu_ra_sg def
+R8128:8147 Kernel.NecSPresented <> nec_s_flip_read_spec thm
+R8039:8048 Kernel.NecSPresented <> nec_s_flip def
+R8020:8037 Kernel.Presentation <> cg_mk_presentation constr
+R8050:8064 Kernel.PresentedDemo <> pu_demo_next_ra def
+R8066:8080 Kernel.PresentedDemo <> pu_demo_step_ra def
+R8082:8099 Kernel.NecSPresented <> nec_s_flip_cost_ra def
+R8113:8120 Kernel.PresentedDemo <> pu_ra_sg def
+R8128:8147 Kernel.NecSPresented <> nec_s_flip_read_spec thm
+R8039:8048 Kernel.NecSPresented <> nec_s_flip def
+R8170:8179 Kernel.PresentedDemo <> pu_ra_cst1 thm
+R8170:8179 Kernel.PresentedDemo <> pu_ra_cst1 thm
+R8205:8214 Kernel.PresentedDemo <> pu_ra_comp thm
+R8230:8233 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R8234:8240 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R8205:8214 Kernel.PresentedDemo <> pu_ra_comp thm
+R8230:8233 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R8234:8240 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R8259:8273 Undecidability.MuRec.Util.recalg <> ra_rel_fix_succ thm
+R8259:8273 Undecidability.MuRec.Util.recalg <> ra_rel_fix_succ thm
+R8259:8273 Undecidability.MuRec.Util.recalg <> ra_rel_fix_succ thm
+R8326:8336 Kernel.PresentedDemo <> pu_ra_proj0 thm
+R8342:8345 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R8347:8350 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R8351:8357 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R8326:8336 Kernel.PresentedDemo <> pu_ra_proj0 thm
+R8342:8345 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R8347:8350 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R8351:8357 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R8381:8390 Kernel.PresentedDemo <> pu_ra_cst1 thm
+R8381:8390 Kernel.PresentedDemo <> pu_ra_cst1 thm
+prf 8411:8435 <> nec_s_within_two_attained
+R8467:8470 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8463:8465 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8441:8447 Minimal.Presented <> mledger def
+R8449:8458 Kernel.NecSPresented <> nec_s_flip def
+R8499:8504 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8492:8494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8471:8476 Minimal.Presented <> mlatch def
+R8478:8487 Kernel.NecSPresented <> nec_s_flip def
+R8495:8498 Coq.Init.Datatypes <> true constr
+R8533:8538 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8529:8531 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8505:8513 Minimal.Presented <> surcharge def
+R8515:8524 Kernel.NecSPresented <> nec_s_flip def
+R8539:8539 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8785:8792 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8960:8960 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8540:8546 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8548:8554 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8547:8547 <> t:50
+R8637:8645 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8628:8630 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8555:8563 Kernel.PresentedUniversal <> pu_decode def
+R8577:8578 Kernel.UniversalPBridge <> hv abbrev
+R8581:8590 Kernel.PresentedUniversal <> pu_host_at def
+R8619:8619 Kernel.NecSPresented <> t:50 var
+R8603:8615 Kernel.NecSPresented <> nec_s_flip_pc def
+R8592:8601 Kernel.NecSPresented <> nec_s_flip def
+R8622:8626 Kernel.UniversalPLayout <> pu_RB def
+R8565:8574 Kernel.NecSPresented <> nec_s_flip def
+R8631:8634 Coq.Init.Datatypes <> Some constr
+R8721:8729 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8692:8694 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8646:8649 Kernel.UniversalPBridge M mu proj
+R8652:8661 Kernel.PresentedUniversal <> pu_host_at def
+R8690:8690 Kernel.NecSPresented <> t:50 var
+R8674:8686 Kernel.NecSPresented <> nec_s_flip_pc def
+R8663:8672 Kernel.NecSPresented <> nec_s_flip def
+R8717:8719 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8695:8701 Minimal.Presented <> mledger def
+R8703:8712 Kernel.NecSPresented <> nec_s_flip def
+R8778:8780 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8730:8735 Kernel.UniversalPBridge M cert proj
+R8738:8747 Kernel.PresentedUniversal <> pu_host_at def
+R8776:8776 Kernel.NecSPresented <> t:50 var
+R8760:8772 Kernel.NecSPresented <> nec_s_flip_pc def
+R8749:8758 Kernel.NecSPresented <> nec_s_flip def
+R8781:8784 Coq.Init.Datatypes <> true constr
+binder 8800:8800 <> t:51
+R8875:8883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8851:8853 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8803:8808 Kernel.UniversalPBridge M cert proj
+R8811:8820 Kernel.PresentedUniversal <> pu_host_at def
+R8849:8849 Kernel.NecSPresented <> t:51 var
+R8833:8845 Kernel.NecSPresented <> nec_s_flip_pc def
+R8822:8831 Kernel.NecSPresented <> nec_s_flip def
+R8854:8859 Minimal.Presented <> mlatch def
+R8861:8870 Kernel.NecSPresented <> nec_s_flip def
+R8930:8933 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8884:8887 Kernel.UniversalPBridge M mu proj
+R8890:8899 Kernel.PresentedUniversal <> pu_host_at def
+R8928:8928 Kernel.NecSPresented <> t:51 var
+R8912:8924 Kernel.NecSPresented <> nec_s_flip_pc def
+R8901:8910 Kernel.NecSPresented <> nec_s_flip def
+R8956:8958 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8934:8940 Minimal.Presented <> mledger def
+R8942:8951 Kernel.NecSPresented <> nec_s_flip def
+R9065:9090 Kernel.PresentedUniversal <> presented_universal_points thm
+binder 9142:9142 <> m:52
+R9103:9115 Kernel.NecSPresented <> nec_s_flip_pc def
+R9092:9101 Kernel.NecSPresented <> nec_s_flip def
+R9065:9090 Kernel.PresentedUniversal <> presented_universal_points thm
+binder 9142:9142 <> m:53
+R9103:9115 Kernel.NecSPresented <> nec_s_flip_pc def
+R9092:9101 Kernel.NecSPresented <> nec_s_flip def
+R9284:9289 Minimal.Presented <> mlatch def
+R9291:9300 Kernel.NecSPresented <> nec_s_flip def
+R9312:9315 Coq.Init.Datatypes <> true constr
+R9284:9289 Minimal.Presented <> mlatch def
+R9291:9300 Kernel.NecSPresented <> nec_s_flip def
+R9312:9315 Coq.Init.Datatypes <> true constr
+R9336:9342 Minimal.Presented <> mledger def
+R9344:9353 Kernel.NecSPresented <> nec_s_flip def
+R9336:9342 Minimal.Presented <> mledger def
+R9344:9353 Kernel.NecSPresented <> nec_s_flip def
+R9384:9402 Kernel.NecSPresented <> nec_s_host_at_floor thm
+R9404:9413 Kernel.NecSPresented <> nec_s_flip def
+R9415:9427 Kernel.NecSPresented <> nec_s_flip_pc def
+R9384:9402 Kernel.NecSPresented <> nec_s_host_at_floor thm
+R9404:9413 Kernel.NecSPresented <> nec_s_flip def
+R9415:9427 Kernel.NecSPresented <> nec_s_flip_pc def
+prf 9746:9768 <> nec_s_first_raise_latch
+binder 9779:9780 <> Mp:54
+binder 9782:9782 <> n:55
+binder 9784:9784 <> s:56
+binder 9786:9786 <> i:57
+R9818:9821 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9809:9811 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9791:9801 Minimal.Presented <> first_raise def
+R9806:9806 Kernel.NecSPresented <> s:56 var
+R9808:9808 Kernel.NecSPresented <> n:55 var
+R9803:9804 Kernel.NecSPresented <> Mp:54 var
+R9812:9815 Coq.Init.Datatypes <> Some constr
+R9817:9817 Kernel.NecSPresented <> i:57 var
+R9835:9837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9822:9827 Minimal.Presented <> mlatch def
+R9832:9832 Kernel.NecSPresented <> s:56 var
+R9834:9834 Kernel.NecSPresented <> n:55 var
+R9829:9830 Kernel.NecSPresented <> Mp:54 var
+R9838:9841 Coq.Init.Datatypes <> true constr
+R9929:9937 Kernel.NecSPresented <> cs_cert proj
+R9940:9945 Minimal.Presented <> pm_sys proj
+R9929:9937 Kernel.NecSPresented <> cs_cert proj
+R9940:9945 Minimal.Presented <> pm_sys proj
+R9990:9998 Kernel.NecSPresented <> cs_cert proj
+R10001:10006 Minimal.Presented <> pm_sys proj
+R9990:9998 Kernel.NecSPresented <> cs_cert proj
+R10001:10006 Minimal.Presented <> pm_sys proj
+R10061:10067 Minimal.Presented <> pm_next proj
+R10061:10067 Minimal.Presented <> pm_next proj
+R10117:10125 Kernel.NecSPresented <> cs_cert proj
+R10128:10133 Minimal.Presented <> pm_sys proj
+R10140:10148 Kernel.NecSPresented <> cs_step proj
+R10151:10156 Minimal.Presented <> pm_sys proj
+R10117:10125 Kernel.NecSPresented <> cs_cert proj
+R10128:10133 Minimal.Presented <> pm_sys proj
+R10140:10148 Kernel.NecSPresented <> cs_step proj
+R10151:10156 Minimal.Presented <> pm_sys proj
+prf 10264:10287 <> nec_s_surcharge_zero_iff
+binder 10298:10299 <> Mp:58
+binder 10301:10302 <> s0:59
+R10339:10345 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10461:10461 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10331:10333 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10307:10315 Kernel.NecSPresented <> cs_cert proj
+R10318:10323 Minimal.Presented <> pm_sys proj
+R10325:10326 Kernel.NecSPresented <> Mp:58 var
+R10329:10330 Kernel.NecSPresented <> s0:59 var
+R10334:10338 Coq.Init.Datatypes <> false constr
+R10346:10346 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10378:10387 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10460:10460 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+binder 10354:10354 <> n:60
+R10374:10376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10357:10365 Minimal.Presented <> surcharge def
+R10370:10371 Kernel.NecSPresented <> s0:59 var
+R10373:10373 Kernel.NecSPresented <> n:60 var
+R10367:10368 Kernel.NecSPresented <> Mp:58 var
+binder 10395:10395 <> n:61
+binder 10397:10397 <> i:62
+R10428:10431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10419:10421 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10400:10410 Minimal.Presented <> first_raise def
+R10415:10416 Kernel.NecSPresented <> s0:59 var
+R10418:10418 Kernel.NecSPresented <> n:61 var
+R10412:10413 Kernel.NecSPresented <> Mp:58 var
+R10422:10425 Coq.Init.Datatypes <> Some constr
+R10427:10427 Kernel.NecSPresented <> i:62 var
+R10455:10458 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10432:10440 Kernel.NecSPresented <> cs_cost proj
+R10443:10448 Minimal.Presented <> pm_sys proj
+R10450:10451 Kernel.NecSPresented <> Mp:58 var
+R10454:10454 Kernel.NecSPresented <> i:62 var
+R10543:10551 Minimal.Presented <> surcharge def
+R10554:10563 Minimal.Presented <> raise_cost def
+R10584:10606 Kernel.NecSPresented <> nec_s_first_raise_latch thm
+R10584:10606 Kernel.NecSPresented <> nec_s_first_raise_latch thm
+R10584:10606 Kernel.NecSPresented <> nec_s_first_raise_latch thm
+R10661:10669 Minimal.Presented <> surcharge def
+R10682:10687 Minimal.Presented <> mlatch def
+R10682:10687 Minimal.Presented <> mlatch def
+R10737:10762 Minimal.Presented <> presented_first_raise_spec thm
+R10737:10762 Minimal.Presented <> presented_first_raise_spec thm
+R10823:10832 Minimal.Presented <> raise_cost def
+prf 11106:11115 <> nec_s_pays
+binder 11126:11126 <> L:63
+R11133:11138 Kernel.NecSPresented <> hstate abbrev
+binder 11129:11129 <> s:64
+R11189:11194 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11178:11180 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11144:11149 Kernel.UniversalPBridge M cert proj
+R11152:11157 Kernel.NecSPresented <> hrun_l abbrev
+R11160:11165 Coq.Lists.List <> repeat def
+R11173:11173 Kernel.NecSPresented <> L:63 var
+R11167:11171 Kernel.UniversalPBridge M PAY constr
+R11176:11176 Kernel.NecSPresented <> s:64 var
+R11181:11186 Kernel.UniversalPBridge M cert proj
+R11188:11188 Kernel.NecSPresented <> s:64 var
+R11227:11229 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11195:11198 Kernel.UniversalPBridge M mu proj
+R11201:11206 Kernel.NecSPresented <> hrun_l abbrev
+R11209:11214 Coq.Lists.List <> repeat def
+R11222:11222 Kernel.NecSPresented <> L:63 var
+R11216:11220 Kernel.UniversalPBridge M PAY constr
+R11225:11225 Kernel.NecSPresented <> s:64 var
+R11236:11238 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11230:11233 Kernel.UniversalPBridge M mu proj
+R11235:11235 Kernel.NecSPresented <> s:64 var
+R11239:11239 Kernel.NecSPresented <> L:63 var
+R11340:11348 Kernel.UniversalPBridge M pu_exec def
+R11374:11378 Kernel.UniversalPBridge M PAY constr
+R11363:11370 Kernel.UniversalPCodes <> pu_heval def
+R11350:11361 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R11340:11348 Kernel.UniversalPBridge M pu_exec def
+R11374:11378 Kernel.UniversalPBridge M PAY constr
+R11363:11370 Kernel.UniversalPCodes <> pu_heval def
+R11350:11361 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R11427:11437 Coq.Bool.Bool <> orb_false_r thm
+R11427:11437 Coq.Bool.Bool <> orb_false_r thm
+R11427:11437 Coq.Bool.Bool <> orb_false_r thm
+prf 11482:11506 <> nec_s_exact_host_iff_bool
+R11522:11525 Coq.Init.Datatypes <> bool ind
+binder 11518:11518 <> b:65
+R11533:11535 Coq.Init.Datatypes <> nat ind
+binder 11529:11529 <> L:66
+R11541:11541 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11657:11665 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11685:11685 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11542:11549 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11565:11566 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11555:11560 Kernel.NecSPresented <> hstate abbrev
+binder 11550:11551 <> h0:67
+binder 11563:11564 <> tr:68
+R11586:11594 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11567:11582 Kernel.UniversalPBridge M pu_clean_start def
+R11584:11585 Kernel.NecSPresented <> h0:67 var
+R11620:11623 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11616:11618 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11595:11600 Kernel.UniversalPBridge M cert proj
+R11603:11608 Kernel.NecSPresented <> hrun_l abbrev
+R11610:11611 Kernel.NecSPresented <> tr:68 var
+R11613:11614 Kernel.NecSPresented <> h0:67 var
+R11619:11619 Kernel.NecSPresented <> b:65 var
+R11643:11645 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11624:11627 Kernel.UniversalPBridge M mu proj
+R11630:11635 Kernel.NecSPresented <> hrun_l abbrev
+R11637:11638 Kernel.NecSPresented <> tr:68 var
+R11640:11641 Kernel.NecSPresented <> h0:67 var
+R11653:11655 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11646:11649 Kernel.UniversalPBridge M mu proj
+R11651:11652 Kernel.NecSPresented <> h0:67 var
+R11656:11656 Kernel.NecSPresented <> L:66 var
+R11675:11678 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R11667:11669 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11666:11666 Kernel.NecSPresented <> b:65 var
+R11670:11674 Coq.Init.Datatypes <> false constr
+R11680:11683 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11684:11684 Kernel.NecSPresented <> L:66 var
+R11806:11838 Kernel.UniversalPBridge M pu_multi_certified_run_min_cost thm
+R11869:11876 Kernel.UniversalPCodes <> pu_heval def
+R11853:11867 Kernel.UniversalPCodes <> pu_hprop_eqb_eq thm
+R11840:11851 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R11806:11838 Kernel.UniversalPBridge M pu_multi_certified_run_min_cost thm
+R11869:11876 Kernel.UniversalPCodes <> pu_heval def
+R11853:11867 Kernel.UniversalPCodes <> pu_hprop_eqb_eq thm
+R11840:11851 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R11959:11968 Kernel.UniversalPBridge M pu_start def
+R11986:11991 Coq.Lists.List <> repeat def
+R11993:11997 Kernel.UniversalPBridge M PAY constr
+R11959:11968 Kernel.UniversalPBridge M pu_start def
+R11986:11991 Coq.Lists.List <> repeat def
+R11993:11997 Kernel.UniversalPBridge M PAY constr
+R12023:12044 Kernel.UniversalPBridge M pu_multi_start_clean thm
+R12023:12044 Kernel.UniversalPBridge M pu_multi_start_clean thm
+R12066:12075 Kernel.NecSPresented <> nec_s_pays thm
+R12080:12089 Kernel.UniversalPBridge M pu_start def
+R12066:12075 Kernel.NecSPresented <> nec_s_pays thm
+R12080:12089 Kernel.UniversalPBridge M pu_start def
+R12160:12185 Kernel.UniversalPBridge M pu_multi_chain_certifies thm
+R12268:12272 Kernel.UniversalPCodes <> PSlot constr
+R12289:12301 Kernel.UniversalPRun <> pu_hholds_one thm
+R12255:12266 Kernel.UniversalPCodes <> pu_heval_iff thm
+R12225:12233 Kernel.UniversalPCodes <> pu_hholds def
+R12216:12223 Kernel.UniversalPCodes <> pu_heval def
+R12200:12214 Kernel.UniversalPCodes <> pu_hprop_eqb_eq thm
+R12187:12198 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12160:12185 Kernel.UniversalPBridge M pu_multi_chain_certifies thm
+R12268:12272 Kernel.UniversalPCodes <> PSlot constr
+R12289:12301 Kernel.UniversalPRun <> pu_hholds_one thm
+R12255:12266 Kernel.UniversalPCodes <> pu_heval_iff thm
+R12225:12233 Kernel.UniversalPCodes <> pu_hholds def
+R12216:12223 Kernel.UniversalPCodes <> pu_heval def
+R12200:12214 Kernel.UniversalPCodes <> pu_hprop_eqb_eq thm
+R12187:12198 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12333:12357 Kernel.UniversalPBridge M pu_multi_run_prog_trace thm
+R12372:12379 Kernel.UniversalPCodes <> pu_heval def
+R12359:12370 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12333:12357 Kernel.UniversalPBridge M pu_multi_run_prog_trace thm
+R12372:12379 Kernel.UniversalPCodes <> pu_heval def
+R12359:12370 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12333:12357 Kernel.UniversalPBridge M pu_multi_run_prog_trace thm
+R12372:12379 Kernel.UniversalPCodes <> pu_heval def
+R12359:12370 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12409:12418 Kernel.UniversalPBridge M pu_start def
+R12429:12436 Kernel.UniversalPBridge M pu_reg def
+R12552:12566 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R12457:12469 Kernel.UniversalPBridge M pu_trace_of def
+R12496:12505 Kernel.UniversalPBridge M pu_chain def
+R12507:12511 Kernel.UniversalPCodes <> PSlot constr
+R12517:12526 Kernel.UniversalPBridge M pu_start def
+R12537:12544 Kernel.UniversalPBridge M pu_reg def
+R12484:12491 Kernel.UniversalPCodes <> pu_heval def
+R12471:12482 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12567:12572 Coq.Lists.List <> repeat def
+R12582:12584 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R12574:12578 Kernel.UniversalPBridge M PAY constr
+R12409:12418 Kernel.UniversalPBridge M pu_start def
+R12429:12436 Kernel.UniversalPBridge M pu_reg def
+R12552:12566 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R12457:12469 Kernel.UniversalPBridge M pu_trace_of def
+R12496:12505 Kernel.UniversalPBridge M pu_chain def
+R12507:12511 Kernel.UniversalPCodes <> PSlot constr
+R12517:12526 Kernel.UniversalPBridge M pu_start def
+R12537:12544 Kernel.UniversalPBridge M pu_reg def
+R12484:12491 Kernel.UniversalPCodes <> pu_heval def
+R12471:12482 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12567:12572 Coq.Lists.List <> repeat def
+R12582:12584 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R12574:12578 Kernel.UniversalPBridge M PAY constr
+R12612:12633 Kernel.UniversalPBridge M pu_multi_start_clean thm
+R12612:12633 Kernel.UniversalPBridge M pu_multi_start_clean thm
+R12656:12673 Kernel.UniversalPBridge M pu_multi_run_app thm
+R12688:12695 Kernel.UniversalPCodes <> pu_heval def
+R12675:12686 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12656:12673 Kernel.UniversalPBridge M pu_multi_run_app thm
+R12688:12695 Kernel.UniversalPCodes <> pu_heval def
+R12675:12686 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12656:12673 Kernel.UniversalPBridge M pu_multi_run_app thm
+R12688:12695 Kernel.UniversalPCodes <> pu_heval def
+R12675:12686 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R12735:12740 Kernel.NecSPresented <> hrun_l abbrev
+R12743:12748 Coq.Lists.List <> repeat def
+R12758:12760 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R12750:12754 Kernel.UniversalPBridge M PAY constr
+R12735:12740 Kernel.NecSPresented <> hrun_l abbrev
+R12743:12748 Coq.Lists.List <> repeat def
+R12758:12760 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R12750:12754 Kernel.UniversalPBridge M PAY constr
+R12792:12801 Kernel.NecSPresented <> nec_s_pays thm
+R12805:12807 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R12792:12801 Kernel.NecSPresented <> nec_s_pays thm
+R12805:12807 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R12918:12927 Kernel.UniversalPBridge M pu_start def
+R12945:12950 Coq.Lists.List <> repeat def
+R12952:12956 Kernel.UniversalPBridge M PAY constr
+R12918:12927 Kernel.UniversalPBridge M pu_start def
+R12945:12950 Coq.Lists.List <> repeat def
+R12952:12956 Kernel.UniversalPBridge M PAY constr
+R12984:13005 Kernel.UniversalPBridge M pu_multi_start_clean thm
+R12984:13005 Kernel.UniversalPBridge M pu_multi_start_clean thm
+R13029:13038 Kernel.NecSPresented <> nec_s_pays thm
+R13043:13052 Kernel.UniversalPBridge M pu_start def
+R13029:13038 Kernel.NecSPresented <> nec_s_pays thm
+R13043:13052 Kernel.UniversalPBridge M pu_start def
+prf 13103:13122 <> nec_s_exact_host_iff
+R13139:13155 Minimal.Presented <> presented_machine rec
+binder 13134:13135 <> Mp:69
+R13164:13173 Kernel.NecSPresented <> cs_state proj
+R13176:13181 Minimal.Presented <> pm_sys proj
+R13183:13184 Kernel.NecSPresented <> Mp:69 var
+binder 13159:13160 <> s0:70
+binder 13188:13188 <> n:71
+R13193:13193 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13341:13349 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13396:13396 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13194:13201 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13217:13218 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13207:13212 Kernel.NecSPresented <> hstate abbrev
+binder 13202:13203 <> h0:72
+binder 13215:13216 <> tr:73
+R13238:13246 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13219:13234 Kernel.UniversalPBridge M pu_clean_start def
+R13236:13237 Kernel.NecSPresented <> h0:72 var
+R13285:13293 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13268:13270 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13247:13252 Kernel.UniversalPBridge M cert proj
+R13255:13260 Kernel.NecSPresented <> hrun_l abbrev
+R13262:13263 Kernel.NecSPresented <> tr:73 var
+R13265:13266 Kernel.NecSPresented <> h0:72 var
+R13271:13276 Minimal.Presented <> mlatch def
+R13281:13282 Kernel.NecSPresented <> s0:70 var
+R13284:13284 Kernel.NecSPresented <> n:71 var
+R13278:13279 Kernel.NecSPresented <> Mp:69 var
+R13313:13315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13294:13297 Kernel.UniversalPBridge M mu proj
+R13300:13305 Kernel.NecSPresented <> hrun_l abbrev
+R13307:13308 Kernel.NecSPresented <> tr:73 var
+R13310:13311 Kernel.NecSPresented <> h0:72 var
+R13323:13325 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13316:13319 Kernel.UniversalPBridge M mu proj
+R13321:13322 Kernel.NecSPresented <> h0:72 var
+R13326:13332 Minimal.Presented <> mledger def
+R13337:13338 Kernel.NecSPresented <> s0:70 var
+R13340:13340 Kernel.NecSPresented <> n:71 var
+R13334:13335 Kernel.NecSPresented <> Mp:69 var
+R13372:13375 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13364:13366 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13350:13355 Minimal.Presented <> mlatch def
+R13360:13361 Kernel.NecSPresented <> s0:70 var
+R13363:13363 Kernel.NecSPresented <> n:71 var
+R13357:13358 Kernel.NecSPresented <> Mp:69 var
+R13367:13371 Coq.Init.Datatypes <> false constr
+R13377:13380 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13381:13387 Minimal.Presented <> mledger def
+R13392:13393 Kernel.NecSPresented <> s0:70 var
+R13395:13395 Kernel.NecSPresented <> n:71 var
+R13389:13390 Kernel.NecSPresented <> Mp:69 var
+R13420:13444 Kernel.NecSPresented <> nec_s_exact_host_iff_bool thm
+R13420:13444 Kernel.NecSPresented <> nec_s_exact_host_iff_bool thm
+R13471:13496 Kernel.NecSPresented <> nec_s_presented_all_iff_ct thm
+R13517:13535 Kernel.NecSPresented <> nec_s_host_at_floor thm
+R13556:13586 Kernel.NecSPresented <> nec_s_within_two_needs_no_start thm
+R13607:13631 Kernel.NecSPresented <> nec_s_within_two_attained thm
+R13652:13675 Kernel.NecSPresented <> nec_s_surcharge_zero_iff thm
+R13696:13720 Kernel.NecSPresented <> nec_s_exact_host_iff_bool thm
+R13741:13760 Kernel.NecSPresented <> nec_s_exact_host_iff thm
+prf 14205:14228 <> nec_s_pay_is_record_move
+R14243:14260 Kernel.NecSPresented <> thiele_interface rec
+R14262:14276 Kernel.UniversalPRun <> pu_host_machine def
+binder 14239:14239 <> I:74
+R14302:14305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14281:14299 Kernel.NecSPresented <> exact_toll_clause def
+R14301:14301 Kernel.NecSPresented <> I:74 var
+R14323:14326 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14306:14314 Kernel.NecSPresented <> ti_kind proj
+R14318:14322 Kernel.UniversalPBridge M PAY constr
+R14316:14316 Kernel.NecSPresented <> I:74 var
+R14327:14333 Kernel.NecSPresented <> KBase constr
+R14380:14384 Kernel.UniversalPBridge M PAY constr
+R14380:14384 Kernel.UniversalPBridge M PAY constr
+R14395:14407 Kernel.NecSPresented <> record_move def
+R14477:14500 Kernel.NecSPresented <> nec_s_pay_is_record_move thm

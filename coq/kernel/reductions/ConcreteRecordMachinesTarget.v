@@ -1,7 +1,7 @@
 (** SCOPE NOTE: standalone proof scope. These small RAM/reversible-machine
-    targets are comparison machines and do not claim a VM simulation.
+    targets are comparison machines and do not claim a simulation by a Thiele machine.
 
-    Frozen concrete machine targets for Part 5.3. *)
+    Concrete machine targets. *)
 
 From Coq Require Import List Arith.PeanoNat ZArith Lia.
 Import ListNotations.

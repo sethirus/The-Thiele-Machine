@@ -1,7 +1,7 @@
 (** SCOPE NOTE: standalone proof scope. This addressed RAM is an independent
-    comparison model; a Round 4 or VM adapter is explicitly not claimed.
+    comparison model; a record-axis adapter is explicitly not claimed.
 
-    Round-2 actual random-access memory target for Part 5.3. *)
+    Target propositions for an addressed random-access memory. *)
 
 From Coq Require Import List Arith.PeanoNat.
 Import ListNotations.

@@ -1,0 +1,245 @@
+DIGEST 288998c62d2f723784508f88ce838d07
+FKernel.Tc2PlainAdd
+R1516:1519 Coq.Lists.List <> <> lib
+R1521:1525 Coq.Arith.Arith <> <> lib
+R1527:1529 Coq.micromega.Lia <> <> lib
+R1531:1534 Coq.Bool.Bool <> <> lib
+R1544:1556 Coq.Lists.List ListNotations <> mod
+R1596:1611 Undecidability.L.Tactics.LTactics <> <> lib
+R1613:1626 Undecidability.L.Datatypes.LNat <> <> lib
+R1628:1645 Undecidability.L.Datatypes.LOptions <> <> lib
+R1649:1663 Undecidability.L.Datatypes.LProd <> <> lib
+R1665:1679 Undecidability.L.Datatypes.Lists <> <> lib
+R1681:1695 Undecidability.L.Datatypes.LBool <> <> lib
+R1748:1750 Undecidability.MinskyMachines.MMA <> <> lib
+R1814:1843 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> <> lib
+R1854:1875 Minimal.UniversalCodes <> <> lib
+R1893:1908 Minimal.TcBlocks <> <> lib
+R1910:1922 Kernel.TcRice <> <> lib
+R1924:1937 Kernel.TcCodes <> <> lib
+R1939:1953 Kernel.TcInterp <> <> lib
+R1955:1968 Kernel.TcEvalL <> <> lib
+R1970:1982 Kernel.TcFuel <> <> lib
+R1984:1998 Kernel.TcPacked <> <> lib
+R2000:2013 Kernel.TcPlain <> <> lib
+R2031:2046 Minimal.Tc2Embed <> <> lib
+R2048:2062 Minimal.Tc2Mult <> <> lib
+R2064:2078 Kernel.Tc2Plain <> <> lib
+R2093:2110 Minimal.EarnedCore <> <> modtype
+mod 2088:2088 <> E
+def 2154:2161 <> tc2_krep
+R2168:2170 Coq.Init.Datatypes <> nat ind
+binder 2164:2164 <> k:1
+R2175:2178 Coq.Init.Datatypes <> list ind
+R2180:2184 Kernel.TcCodes <> tc_ki ind
+R2195:2195 Kernel.Tc2PlainAdd <> k:1 var
+R2207:2208 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2212:2212 Coq.Init.Datatypes <> S constr
+R2228:2231 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2219:2225 Kernel.TcCodes <> tc_KInc constr
+R2232:2239 Kernel.Tc2PlainAdd <> tc2_krep:2 def
+prf 2255:2265 <> tc2_krep_eq
+binder 2276:2276 <> k:4
+R2303:2305 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2279:2281 Coq.Lists.List <> map def
+R2292:2299 Kernel.Tc2PlainAdd <> tc2_krep def
+R2301:2301 Kernel.Tc2PlainAdd <> k:4 var
+R2283:2289 Kernel.TcCodes <> tc_ofki def
+R2306:2313 Kernel.TcPlain <> tc_adder def
+R2315:2315 Kernel.Tc2PlainAdd <> k:4 var
+inst 2414:2426 <> term_tc2_krep
+R2430:2439 Undecidability.L.Tactics.Computable <> computable class
+R2441:2448 Kernel.Tc2PlainAdd <> tc2_krep def
+def 2509:2514 <> tc2_L0
+R2521:2523 Coq.Init.Datatypes <> nat ind
+binder 2517:2517 <> s:5
+R2528:2530 Coq.Init.Datatypes <> nat ind
+R2535:2540 Kernel.Tc2Plain <> tc2_cx def
+R2542:2542 Kernel.Tc2PlainAdd <> s:5 var
+R2647:2652 Kernel.Tc2Plain <> tc2_cx def
+def 2667:2677 <> tc2_addcode
+R2684:2686 Coq.Init.Datatypes <> nat ind
+binder 2680:2680 <> n:6
+R2691:2693 Coq.Init.Datatypes <> nat ind
+R2700:2708 Kernel.TcCodes <> tc_kpcode def
+R2711:2713 Coq.Lists.List <> map def
+R2725:2732 Kernel.Tc2PlainAdd <> tc2_krep def
+R2763:2765 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2735:2740 Kernel.Tc2PlainAdd <> tc2_L0 def
+R2743:2748 Coq.Init.Datatypes <> length def
+R2751:2758 Kernel.TcCodes <> tc_kpdec def
+R2760:2760 Kernel.Tc2PlainAdd <> n:6 var
+R2715:2722 Kernel.TcCodes <> tc_knorm def
+inst 2782:2792 <> term_tc2_L0
+R2796:2805 Undecidability.L.Tactics.Computable <> computable class
+R2807:2812 Kernel.Tc2PlainAdd <> tc2_L0 def
+inst 2845:2860 <> term_tc2_addcode
+R2864:2873 Undecidability.L.Tactics.Computable <> computable class
+R2875:2885 Kernel.Tc2PlainAdd <> tc2_addcode def
+def 2921:2929 <> tc2_addfx
+R2945:2947 Coq.Init.Datatypes <> nat ind
+binder 2932:2932 <> d:7
+binder 2934:2937 <> fuel:8
+binder 2939:2939 <> x:9
+binder 2941:2941 <> c:10
+R2952:2957 Coq.Init.Datatypes <> option ind
+R2959:2961 Coq.Init.Datatypes <> nat ind
+R2966:2969 Coq.Init.Datatypes <> Some constr
+R2972:2982 Kernel.Tc2PlainAdd <> tc2_addcode def
+R2984:2984 Kernel.Tc2PlainAdd <> x:9 var
+inst 2998:3011 <> term_tc2_addfx
+R3015:3024 Undecidability.L.Tactics.Computable <> computable class
+R3026:3034 Kernel.Tc2PlainAdd <> tc2_addfx def
+R3071:3076 Kernel.Tc2Plain <> tc2_cx def
+prf 3086:3099 <> tc2_addfx_mono
+binder 3110:3110 <> n:11
+binder 3112:3113 <> n':12
+binder 3115:3115 <> x:13
+binder 3117:3117 <> c:14
+binder 3119:3119 <> m:15
+R3148:3151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3139:3141 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3122:3130 Kernel.Tc2PlainAdd <> tc2_addfx def
+R3138:3138 Kernel.Tc2PlainAdd <> c:14 var
+R3136:3136 Kernel.Tc2PlainAdd <> x:13 var
+R3134:3134 Kernel.Tc2PlainAdd <> n:11 var
+R3142:3145 Coq.Init.Datatypes <> Some constr
+R3147:3147 Kernel.Tc2PlainAdd <> m:15 var
+R3159:3162 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3153:3156 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3152:3152 Kernel.Tc2PlainAdd <> n:11 var
+R3157:3158 Kernel.Tc2PlainAdd <> n':12 var
+R3181:3183 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3163:3171 Kernel.Tc2PlainAdd <> tc2_addfx def
+R3180:3180 Kernel.Tc2PlainAdd <> c:14 var
+R3178:3178 Kernel.Tc2PlainAdd <> x:13 var
+R3175:3176 Kernel.Tc2PlainAdd <> n':12 var
+R3184:3187 Coq.Init.Datatypes <> Some constr
+R3189:3189 Kernel.Tc2PlainAdd <> m:15 var
+def 3248:3257 <> tc2_Raddfx
+R3264:3271 Coq.Vectors.Vector <> t ind
+R3273:3275 Coq.Init.Datatypes <> nat ind
+binder 3260:3260 <> v:16
+R3285:3287 Coq.Init.Datatypes <> nat ind
+binder 3281:3281 <> m:17
+R3302:3308 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3310:3311 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3309:3309 <> n:18
+R3365:3367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3312:3320 Kernel.Tc2PlainAdd <> tc2_addfx def
+R3341:3349 Coq.Vectors.Vector <> hd def
+R3352:3360 Coq.Vectors.Vector <> tl def
+R3362:3362 Kernel.Tc2PlainAdd <> v:16 var
+R3327:3335 Coq.Vectors.Vector <> hd def
+R3337:3337 Kernel.Tc2PlainAdd <> v:16 var
+R3324:3324 Kernel.Tc2PlainAdd <> n:18 var
+R3368:3371 Coq.Init.Datatypes <> Some constr
+R3373:3373 Kernel.Tc2PlainAdd <> m:17 var
+prf 3385:3397 <> tc2_addfx_MMA
+R3401:3414 Undecidability.MinskyMachines.MMA <> MMA_computable def
+R3416:3425 Kernel.Tc2PlainAdd <> tc2_Raddfx def
+R3443:3472 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R3443:3472 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R3485:3505 Kernel.TcFuel <> tc_L_computable_fuel2 thm
+R3507:3509 Coq.Init.Datatypes <> nat ind
+R3513:3521 Kernel.Tc2PlainAdd <> tc2_addfx def
+R3527:3540 Kernel.Tc2PlainAdd <> tc2_addfx_mono thm
+R3485:3505 Kernel.TcFuel <> tc_L_computable_fuel2 thm
+R3507:3509 Coq.Init.Datatypes <> nat ind
+R3513:3521 Kernel.Tc2PlainAdd <> tc2_addfx def
+R3527:3540 Kernel.Tc2PlainAdd <> tc2_addfx_mono thm
+def 3561:3568 <> tc2_Fadd
+R3575:3578 Coq.Init.Datatypes <> list ind
+R3580:3586 Kernel.Tc2PlainAdd <> instr ind
+binder 3571:3571 <> p:19
+R3591:3594 Coq.Init.Datatypes <> list ind
+R3596:3602 Kernel.Tc2PlainAdd <> instr ind
+R3607:3614 Kernel.TcPlain <> tc_adder def
+R3634:3636 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3617:3622 Kernel.Tc2PlainAdd <> tc2_L0 def
+R3625:3630 Coq.Init.Datatypes <> length def
+R3632:3632 Kernel.Tc2PlainAdd <> p:19 var
+prf 3648:3664 <> tc2_addcode_pcode
+binder 3675:3675 <> p:20
+R3702:3704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3678:3688 Kernel.Tc2PlainAdd <> tc2_addcode def
+R3691:3698 Kernel.TcCodes <> tc_pcode def
+R3700:3700 Kernel.Tc2PlainAdd <> p:20 var
+R3705:3712 Kernel.TcCodes <> tc_pcode def
+R3715:3722 Kernel.Tc2PlainAdd <> tc2_Fadd def
+R3724:3724 Kernel.Tc2PlainAdd <> p:20 var
+R3791:3793 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3761:3766 Coq.Init.Datatypes <> length def
+R3769:3776 Kernel.TcCodes <> tc_kpdec def
+R3779:3786 Kernel.TcCodes <> tc_pcode def
+R3794:3799 Coq.Init.Datatypes <> length def
+R3791:3793 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3761:3766 Coq.Init.Datatypes <> length def
+R3769:3776 Kernel.TcCodes <> tc_kpdec def
+R3779:3786 Kernel.TcCodes <> tc_pcode def
+R3794:3799 Coq.Init.Datatypes <> length def
+R3816:3823 Kernel.TcCodes <> tc_pcode def
+R3834:3848 Kernel.TcCodes <> tc_kpdec_kpcode thm
+R3834:3848 Kernel.TcCodes <> tc_kpdec_kpcode thm
+R3834:3848 Kernel.TcCodes <> tc_kpdec_kpcode thm
+R3857:3866 Coq.Lists.List <> map_length thm
+R3857:3866 Coq.Lists.List <> map_length thm
+R3880:3890 Kernel.Tc2PlainAdd <> tc2_addcode def
+R3912:3919 Kernel.Tc2PlainAdd <> tc2_Fadd def
+R3933:3943 Kernel.Tc2PlainAdd <> tc2_krep_eq thm
+R3933:3943 Kernel.Tc2PlainAdd <> tc2_krep_eq thm
+R3933:3943 Kernel.Tc2PlainAdd <> tc2_krep_eq thm
+R3955:3962 Kernel.TcCodes <> tc_pcode def
+R3982:3988 Coq.Lists.List <> map_map thm
+R3982:3988 Coq.Lists.List <> map_map thm
+R3982:3988 Coq.Lists.List <> map_map thm
+R3997:4003 Coq.Lists.List <> map_ext thm
+R3997:4003 Coq.Lists.List <> map_ext thm
+R4021:4031 Kernel.TcCodes <> tc_knorm_eq thm
+R4021:4031 Kernel.TcCodes <> tc_knorm_eq thm
+prf 4048:4064 <> tc2_Fadd_computed
+R4068:4074 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4091:4092 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4079:4082 Coq.Init.Datatypes <> list ind
+R4084:4090 Kernel.Tc2PlainAdd <> instr ind
+binder 4075:4075 <> T:21
+R4093:4107 Kernel.TcPacked <> tc_computes_map def
+R4111:4118 Kernel.Tc2PlainAdd <> tc2_Fadd def
+R4109:4109 Kernel.Tc2PlainAdd <> T:21 var
+R4140:4155 Kernel.TcPacked <> tc_MMA_to_packed thm
+R4157:4169 Kernel.Tc2PlainAdd <> tc2_addfx_MMA thm
+R4140:4155 Kernel.TcPacked <> tc_MMA_to_packed thm
+R4157:4169 Kernel.Tc2PlainAdd <> tc2_addfx_MMA thm
+R4217:4222 Kernel.TcPacked <> tc_pk2 def
+R4242:4249 Kernel.TcCodes <> tc_pcode def
+R4252:4259 Kernel.Tc2PlainAdd <> tc2_Fadd def
+R4227:4234 Kernel.TcCodes <> tc_pcode def
+R4217:4222 Kernel.TcPacked <> tc_pk2 def
+R4242:4249 Kernel.TcCodes <> tc_pcode def
+R4252:4259 Kernel.Tc2PlainAdd <> tc2_Fadd def
+R4227:4234 Kernel.TcCodes <> tc_pcode def
+R4288:4297 Kernel.Tc2PlainAdd <> tc2_Raddfx def
+R4324:4332 Kernel.Tc2PlainAdd <> tc2_addfx def
+R4350:4366 Kernel.Tc2PlainAdd <> tc2_addcode_pcode thm
+R4350:4366 Kernel.Tc2PlainAdd <> tc2_addcode_pcode thm
+R4380:4384 Kernel.TcInterp <> tc_pk def
+R4387:4392 Kernel.TcPacked <> tc_pk2 def
+R4408:4418 Coq.Arith.PeanoNat Nat pow_0_r thm
+R4421:4431 Coq.Arith.PeanoNat Nat mul_1_r thm
+R4408:4418 Coq.Arith.PeanoNat Nat pow_0_r thm
+R4408:4418 Coq.Arith.PeanoNat Nat pow_0_r thm
+R4421:4431 Coq.Arith.PeanoNat Nat mul_1_r thm
+R4421:4431 Coq.Arith.PeanoNat Nat mul_1_r thm
+prf 4534:4562 <> tc2_plain_recursion_needs_LL0
+R4578:4581 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4566:4570 Kernel.TcPlain <> tc_LL def
+R4572:4577 Kernel.Tc2PlainAdd <> tc2_L0 def
+R4582:4583 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4584:4601 Kernel.Tc2Plain <> tc2_PlainRecursion def
+R4632:4648 Kernel.Tc2PlainAdd <> tc2_Fadd_computed thm
+R4671:4698 Kernel.Tc2Plain <> tc2_plain_recursion_needs_LL thm
+R4700:4705 Kernel.Tc2PlainAdd <> tc2_L0 def
+R4671:4698 Kernel.Tc2Plain <> tc2_plain_recursion_needs_LL thm
+R4700:4705 Kernel.Tc2PlainAdd <> tc2_L0 def
+R4741:4757 Kernel.Tc2PlainAdd <> tc2_Fadd_computed thm
+R4778:4806 Kernel.Tc2PlainAdd <> tc2_plain_recursion_needs_LL0 thm

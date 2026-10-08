@@ -1,7 +1,6 @@
 (** UniversalCertificationCost: any sound certification mechanism costs.
 
-    This file pushes No Free Insight one layer more abstract. AbstractNoFI.v is
-    still tied to the Thiele instruction vocabulary. Here the state type and the
+    This file states No Free Insight with nothing fixed. The state type and the
     instruction type are both left abstract, and the theorem only asks for one
     premise: if a single step changes the system from uncertified to certified,
     that step has to cost at least 1.
@@ -18,8 +17,6 @@
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.
 
-From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI.
-
 (**
 
   CertificationSystem is parameterized over both state and instruction type.
@@ -31,7 +28,7 @@ Record CertificationSystem := mk_cert_system {
   (** The state space of the computational system. *)
   cs_state : Type;
 
-  (** The instruction type.  Fully abstract — could be vm_instruction,
+  (** The instruction type.  Fully abstract: could be a machine instruction,
       a proof term, a network packet, a thermodynamic process, anything. *)
   cs_instr : Type;
 
@@ -84,7 +81,7 @@ Fixpoint cs_total_cost (CS : CertificationSystem)
     has total cost ≥ 1.
 
     Induction on the trace.
-    - Base: empty trace — cert cannot go from false to true → contradiction.
+    - Base: empty trace; cert cannot go from false to true → contradiction.
     - Step (i :: rest):
         Case A: i certifies (cert goes false→true at step 1).
           → A2 gives cost i ≥ 1.
@@ -142,74 +139,88 @@ Proof.
   subst trace. simpl in Htrue. rewrite Hfalse in Htrue. discriminate.
 Qed.
 
-(**
+(** A system run by a host.
 
-    Instantiation of CertificationSystem for the Thiele VM's
-    csr_cert_addr channel (thiele_cert_bool = csr_cert_addr ≠ 0).
+    A certification system [Guest] is simulated by a host certification
+    system [Host] when a map sends guest states to host states and guest
+    instructions to host instruction lists, so that one guest step is the
+    host running the translated list, and the guest reading is the host
+    reading of the image. Nothing about either system is fixed. *)
 
-    A2 is discharged by no_free_certification from AbstractNoFI.v:
-      ∀ s i, cert_addr = 0 → cert_addr after ≠ 0 → instruction_cost i ≥ 1
-*)
+Record SimulatingCertificationSystem (Host : CertificationSystem) := {
+  scs_base   : CertificationSystem ;
+  scs_decode : scs_base.(cs_instr) -> list (cs_instr Host) ;
+  scs_embed  : scs_base.(cs_state) -> cs_state Host ;
+  scs_step_commutes :
+    forall (s : scs_base.(cs_state)) (i : scs_base.(cs_instr)),
+      scs_embed (scs_base.(cs_step) s i) =
+      cs_run Host (scs_decode i) (scs_embed s) ;
+  scs_cert_reflects :
+    forall (s : scs_base.(cs_state)),
+      scs_base.(cs_cert) s = cs_cert Host (scs_embed s)
+}.
 
-(** thiele_cs_A: The Thiele VM as a CertificationSystem, cert_addr channel. *)
-Definition thiele_cert_addr_system : CertificationSystem :=
-  {|
-    cs_state := VMState;
-    cs_instr := vm_instruction;
-    cs_step  := vm_apply;
-    cs_cost  := instruction_cost;
-    cs_cert  := thiele_cert_bool;
+Arguments scs_base {Host}.
+Arguments scs_decode {Host}.
+Arguments scs_embed {Host}.
+Arguments scs_step_commutes {Host}.
+Arguments scs_cert_reflects {Host}.
 
-    (** A2: discharged by no_free_certification *)
-    cs_cert_costs :=
-      fun s i Hfalse Htrue =>
-        no_free_certification s i
-          (proj1 (thiele_cert_bool_zero_iff s) Hfalse)
-          (proj1 (thiele_cert_bool_nonzero_iff (vm_apply s i)) Htrue)
-  |}.
-
-(** Theorem: Thiele VM (cert_addr channel) satisfies universal NoFI. *)
-Theorem thiele_universal_nfi_cert_addr :
-  forall (trace : list vm_instruction) (s0 : VMState),
-    thiele_cert_bool s0 = false ->
-    thiele_cert_bool (cs_run thiele_cert_addr_system trace s0) = true ->
-    cs_total_cost thiele_cert_addr_system trace >= 1.
+Lemma cs_run_app :
+  forall (CS : CertificationSystem) (t1 t2 : list (cs_instr CS)) (s : cs_state CS),
+    cs_run CS (t1 ++ t2) s = cs_run CS t2 (cs_run CS t1 s).
 Proof.
-  intros trace s0 Hfalse Htrue.
-  exact (universal_nfi_any_substrate thiele_cert_addr_system trace s0 Hfalse Htrue).
+  intros CS t1. induction t1 as [| i rest IH]; intros t2 s; simpl.
+  - reflexivity.
+  - apply IH.
 Qed.
 
-(**
-
-    Instantiation for the vm_certified channel (CERTIFY opcode).
-
-    A2 is discharged by no_free_certification_certified from AbstractNoFI.v:
-      ∀ s i, vm_certified = false → vm_certified after = true →
-             instruction_cost i ≥ 1
-*)
-
-(** thiele_cs_B: The Thiele VM as a CertificationSystem, vm_certified channel. *)
-Definition thiele_certified_system : CertificationSystem :=
-  {|
-    cs_state := VMState;
-    cs_instr := vm_instruction;
-    cs_step  := vm_apply;
-    cs_cost  := instruction_cost;
-    cs_cert  := (fun s => s.(vm_certified));
-
-    (** A2: discharged by no_free_certification_certified *)
-    cs_cert_costs := no_free_certification_certified
-  |}.
-
-(** Theorem: Thiele VM (vm_certified channel) satisfies universal NoFI. *)
-Theorem thiele_universal_nfi_certified :
-  forall (trace : list vm_instruction) (s0 : VMState),
-    s0.(vm_certified) = false ->
-    (cs_run thiele_certified_system trace s0).(vm_certified) = true ->
-    cs_total_cost thiele_certified_system trace >= 1.
+Lemma cs_total_cost_app :
+  forall (CS : CertificationSystem) (t1 t2 : list (cs_instr CS)),
+    cs_total_cost CS (t1 ++ t2) = cs_total_cost CS t1 + cs_total_cost CS t2.
 Proof.
-  intros trace s0 Hfalse Htrue.
-  exact (universal_nfi_any_substrate thiele_certified_system trace s0 Hfalse Htrue).
+  intros CS t1. induction t1 as [| i rest IH]; intros t2; simpl.
+  - reflexivity.
+  - rewrite IH. lia.
+Qed.
+
+(** The guest run, embedded, is the host running the concatenated
+    translations. *)
+Lemma scs_run_embed :
+  forall (Host : CertificationSystem) (SCS : SimulatingCertificationSystem Host)
+         (trace : list (cs_instr (scs_base SCS)))
+         (s0 : cs_state (scs_base SCS)),
+    scs_embed SCS (cs_run (scs_base SCS) trace s0) =
+    cs_run Host (concat (map (scs_decode SCS) trace)) (scs_embed SCS s0).
+Proof.
+  intros Host SCS trace.
+  induction trace as [| i rest IH]; intros s0; simpl.
+  - reflexivity.
+  - rewrite IH, cs_run_app, (scs_step_commutes SCS s0 i). reflexivity.
+Qed.
+
+(** A guest run that certifies is a host run that certifies, and the host
+    pays at least one unit for it. The host's floor is the host's own A2;
+    the guest's cost function plays no part in the second half. *)
+Theorem host_represents_simulating_cert_system :
+  forall (Host : CertificationSystem) (SCS : SimulatingCertificationSystem Host)
+         (s0 : cs_state (scs_base SCS))
+         (trace : list (cs_instr (scs_base SCS))),
+    cs_cert (scs_base SCS) s0 = false ->
+    cs_cert (scs_base SCS) (cs_run (scs_base SCS) trace s0) = true ->
+    cs_total_cost (scs_base SCS) trace >= 1 /\
+    cs_cert Host (cs_run Host (concat (map (scs_decode SCS) trace))
+                                (scs_embed SCS s0)) = true /\
+    cs_total_cost Host (concat (map (scs_decode SCS) trace)) >= 1.
+Proof.
+  intros Host SCS s0 trace Hpre Hpost.
+  assert (Hhost : cs_cert Host (cs_run Host (concat (map (scs_decode SCS) trace))
+                                  (scs_embed SCS s0)) = true).
+  { rewrite <- scs_run_embed, <- (scs_cert_reflects SCS). exact Hpost. }
+  split; [exact (universal_nfi_any_substrate (scs_base SCS) trace s0 Hpre Hpost) |].
+  split; [exact Hhost |].
+  apply (universal_nfi_any_substrate Host _ (scs_embed SCS s0)); [| exact Hhost].
+  rewrite <- (scs_cert_reflects SCS). exact Hpre.
 Qed.
 
 (** The abstract theorem applies to every supplied [CertificationSystem] whose
@@ -218,213 +229,3 @@ Qed.
     counterexample to the conclusion. This file proves only the unit floor;
     a bound tied to witness complexity would require additional fields and a
     separate theorem. *)
-
-(**
-
-    Any CertificationSystem with a simulation morphism into the Thiele VM
-    is "faithfully represented" by Thiele:
-
-    (1) Cost lower bound (already from universal_nfi_any_substrate)
-    (2) The embedded Thiele execution certifies (genuinely new content)
-
-    The record adds a cert-reflection field connecting the external cert
-    indicator to vm_certified of the embedded state.  Without this, one
-    cannot derive part (2) from the embedding alone — the external system's
-    notion of "certified" could be unrelated to Thiele's vm_certified.
-*)
-
-Record SimulatingCertificationSystem := {
-  scs_base   : CertificationSystem ;
-  scs_decode : scs_base.(cs_instr) -> vm_instruction ;
-  scs_embed  : scs_base.(cs_state) -> VMState ;
-  scs_step_commutes :
-    forall (s : scs_base.(cs_state)) (i : scs_base.(cs_instr)),
-      scs_embed (scs_base.(cs_step) s i) =
-      vm_apply (scs_embed s) (scs_decode i) ;
-  scs_cost_preserved :
-    forall (i : scs_base.(cs_instr)),
-      scs_base.(cs_cost) i >= instruction_cost (scs_decode i) ;
-  scs_cert_reflects :
-    forall (s : scs_base.(cs_state)),
-      scs_base.(cs_cert) s = (scs_embed s).(vm_certified)
-}.
-
-(** Helper: cs_run embeds into fold_left vm_apply via scs_step_commutes. *)
-Lemma scs_run_embed :
-  forall (SCS : SimulatingCertificationSystem)
-         (trace : list (SCS.(scs_base).(cs_instr)))
-         (s0 : SCS.(scs_base).(cs_state)),
-    SCS.(scs_embed) (cs_run SCS.(scs_base) trace s0) =
-    fold_left vm_apply (map SCS.(scs_decode) trace) (SCS.(scs_embed) s0).
-Proof.
-  intros SCS trace.
-  induction trace as [| i rest IH]; intros s0; simpl.
-  - reflexivity.
-  - rewrite IH. f_equal.
-    exact (SCS.(scs_step_commutes) s0 i).
-Qed.
-
-(** THE REPRESENTATION THEOREM
-
-    Part (1): cost lower bound — follows directly from universal_nfi_any_substrate
-              applied to scs_base.  Not new, but included for completeness.
-
-    Part (2): the embedded Thiele execution certifies.  This IS new.
-              Uses scs_cert_reflects + scs_run_embed to transfer the
-              external cert indicator into vm_certified of the embedded state.
-*)
-Theorem thiele_represents_simulating_cert_system :
-  forall (SCS : SimulatingCertificationSystem)
-         (s0  : SCS.(scs_base).(cs_state))
-         (trace : list (SCS.(scs_base).(cs_instr))),
-    SCS.(scs_base).(cs_cert) s0 = false ->
-    SCS.(scs_base).(cs_cert) (cs_run SCS.(scs_base) trace s0) = true ->
-    (* (1) cost lower bound *)
-    cs_total_cost SCS.(scs_base) trace >= 1 /\
-    (* (2) the execution embeds into a Thiele certified execution *)
-    (fold_left vm_apply (map SCS.(scs_decode) trace)
-       (SCS.(scs_embed) s0)).(vm_certified) = true.
-Proof.
-  intros SCS s0 trace Hpre Hpost.
-  split.
-  - (* Part 1: universal_nfi_any_substrate *)
-    exact (universal_nfi_any_substrate SCS.(scs_base) trace s0 Hpre Hpost).
-  - (* Part 2: embedded execution certifies *)
-    rewrite <- scs_run_embed.
-    rewrite <- SCS.(scs_cert_reflects).
-    exact Hpost.
-Qed.
-
-(** Thiele itself is trivially a SimulatingCertificationSystem (identity morphism). *)
-Definition thiele_self_simulating : SimulatingCertificationSystem :=
-  {| scs_base   := thiele_certified_system ;
-     scs_decode := fun i => i ;
-     scs_embed  := fun s => s ;
-     scs_step_commutes := fun _ _ => eq_refl ;
-     scs_cost_preserved := fun _ => le_n _ ;
-     scs_cert_reflects  := fun _ => eq_refl |}.
-
-(**
-
-    Defines a category of certified-cost machines (objects = CertCostMachine,
-    morphisms = CertCostMorphism) and proves that the Thiele VM is an
-    initial object: there is a unique morphism from Thiele to any other
-    machine in the category.
-
-    DESIGN:
-    - CertCostMachine uses vm_instruction as the instruction type
-      (morphisms preserve instructions literally, only mapping states).
-    - Thiele is initial because vm_apply is the canonical step function:
-      any other machine M with the same instruction set has a unique
-      simulation from Thiele via the identity on instructions.
-    - Uniqueness follows from step-commutation: any morphism phi must
-      satisfy phi(vm_apply s i) = M.step (phi s) i for all s, i.
-      Given a starting state, this determines phi on all reachable states.
-
-    CAVEAT:
-    Full uniqueness (exists! phi. ...) requires that the morphism map is
-    uniquely determined on ALL states, not just reachable ones.  We prove:
-    - Existence of a morphism (assuming M provides a witness map)
-    - Agreement on reachable states (any two morphisms agree on traces)
-    The stronger unique-on-all-states version would need state surjectivity
-    or a reachability restriction on the category.
-*)
-
-(** CertCostMachine: a system with the Thiele instruction set,
-    a step function, a cost function, a cert indicator, and the
-    A2 axiom (cert costs >= 1). *)
-Record CertCostMachine := {
-  ccm_state  : Type ;
-  ccm_step   : ccm_state -> vm_instruction -> ccm_state ;
-  ccm_cost   : vm_instruction -> nat ;
-  ccm_cert   : ccm_state -> bool ;
-  ccm_cert_costs :
-    forall (s : ccm_state) (i : vm_instruction),
-      ccm_cert s = false ->
-      ccm_cert (ccm_step s i) = true ->
-      ccm_cost i >= 1
-}.
-
-(** CertCostMorphism: simulation between CertCostMachines.
-    Maps states, commutes with step, and preserves cost lower bounds. *)
-Record CertCostMorphism (M N : CertCostMachine) := {
-  ccm_map : M.(ccm_state) -> N.(ccm_state) ;
-  ccm_map_step :
-    forall (s : M.(ccm_state)) (i : vm_instruction),
-      ccm_map (M.(ccm_step) s i) = N.(ccm_step) (ccm_map s) i ;
-  ccm_map_cert :
-    forall (s : M.(ccm_state)),
-      M.(ccm_cert) s = N.(ccm_cert) (ccm_map s)
-}.
-
-(** The Thiele VM as a CertCostMachine. *)
-Definition thiele_cert_cost_machine : CertCostMachine :=
-  {| ccm_state      := VMState ;
-     ccm_step       := vm_apply ;
-     ccm_cost       := instruction_cost ;
-     ccm_cert       := fun s => s.(vm_certified) ;
-     ccm_cert_costs := no_free_certification_certified |}.
-
-(** EXISTENCE: For any CertCostMachine M with a simulation map from Thiele,
-    the map is a CertCostMorphism. *)
-Theorem thiele_morphism_exists :
-  forall (M : CertCostMachine)
-         (phi : VMState -> M.(ccm_state))
-         (Hstep : forall s i, phi (vm_apply s i) = M.(ccm_step) (phi s) i)
-         (Hcert : forall s, s.(vm_certified) = M.(ccm_cert) (phi s)),
-    CertCostMorphism thiele_cert_cost_machine M.
-Proof.
-  intros M phi Hstep Hcert.
-  exact (Build_CertCostMorphism thiele_cert_cost_machine M phi Hstep Hcert).
-Qed.
-
-(** AGREEMENT ON REACHABLE STATES: Any two morphisms from Thiele to M
-    that agree on an initial state agree on all states reachable from it.
-    This is reachability-restricted uniqueness. *)
-Theorem thiele_morphism_unique_on_traces :
-  forall (M : CertCostMachine)
-         (phi1 phi2 : CertCostMorphism thiele_cert_cost_machine M)
-         (s0 : VMState)
-         (trace : list vm_instruction),
-    ccm_map _ _ phi1 s0 = ccm_map _ _ phi2 s0 ->
-    ccm_map _ _ phi1 (fold_left vm_apply trace s0) =
-    ccm_map _ _ phi2 (fold_left vm_apply trace s0).
-Proof.
-  intros M phi1 phi2 s0 trace Hinit.
-  revert s0 Hinit.
-  induction trace as [| i rest IH]; intros s0 Hinit; simpl.
-  - exact Hinit.
-  - apply IH.
-    change (vm_apply s0 i) with (ccm_step thiele_cert_cost_machine s0 i).
-    rewrite (ccm_map_step _ _ phi1 s0 i).
-    rewrite (ccm_map_step _ _ phi2 s0 i).
-    rewrite Hinit.
-    reflexivity.
-Qed.
-
-(** IDENTITY MORPHISM: Thiele has an identity morphism to itself. *)
-Definition thiele_id_morphism : CertCostMorphism thiele_cert_cost_machine thiele_cert_cost_machine :=
-  Build_CertCostMorphism thiele_cert_cost_machine thiele_cert_cost_machine
-    (fun s => s) (fun _ _ => eq_refl) (fun _ => eq_refl).
-
-(** CertCostMachine lifts to CertificationSystem. *)
-Definition ccm_to_cert_system (M : CertCostMachine) : CertificationSystem :=
-  {| cs_state := M.(ccm_state) ;
-     cs_instr := vm_instruction ;
-     cs_step  := M.(ccm_step) ;
-     cs_cost  := M.(ccm_cost) ;
-     cs_cert  := M.(ccm_cert) ;
-     cs_cert_costs := M.(ccm_cert_costs) |}.
-
-(** Every CertCostMachine satisfies universal NoFI. *)
-Corollary ccm_universal_nfi :
-  forall (M : CertCostMachine)
-         (trace : list vm_instruction)
-         (s0 : M.(ccm_state)),
-    M.(ccm_cert) s0 = false ->
-    M.(ccm_cert) (cs_run (ccm_to_cert_system M) trace s0) = true ->
-    cs_total_cost (ccm_to_cert_system M) trace >= 1.
-Proof.
-  intros M trace s0 Hpre Hpost.
-  exact (universal_nfi_any_substrate (ccm_to_cert_system M) trace s0 Hpre Hpost).
-Qed.

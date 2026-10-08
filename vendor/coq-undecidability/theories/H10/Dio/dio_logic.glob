@@ -1,0 +1,2090 @@
+DIGEST df3aa1822af462385d138613576e8ab4
+FUndecidability.H10.Dio.dio_logic
+R730:734 Coq.Arith.Arith <> <> lib
+R736:738 Coq.Init.Nat <> <> lib
+R740:745 Coq.ZArith.ZArith <> <> lib
+R747:749 Coq.micromega.Lia <> <> lib
+R813:821 Undecidability.Shared.Libs.DLW.Utils.utils_tac <> <> lib
+R823:825 Undecidability.Shared.Libs.DLW.Utils.gcd <> <> lib
+R827:830 Undecidability.Shared.Libs.DLW.Utils.sums <> <> lib
+R832:853 Undecidability.Shared.Libs.DLW.Utils.bounded_quantification <> <> lib
+def 1031:1043 <> de_bruijn_ext
+binder 1046:1046 <> X:1
+R1058:1061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1055:1057 Coq.Init.Datatypes <> nat ind
+R1062:1062 Undecidability.H10.Dio.dio_logic <> X:1 var
+binder 1050:1051 <> ν:2
+binder 1065:1065 <> x:3
+binder 1080:1080 <> n:4
+R1093:1093 Undecidability.H10.Dio.dio_logic <> n:4 var
+R1113:1113 Undecidability.H10.Dio.dio_logic <> x:3 var
+R1121:1121 Coq.Init.Datatypes <> S constr
+R1128:1129 Undecidability.H10.Dio.dio_logic <> ν:2 var
+R1131:1131 Undecidability.H10.Dio.dio_logic <> n:4 var
+R1164:1176 Undecidability.H10.Dio.dio_logic <> de_bruijn_ext def
+not 1150:1150 <> :::x_'·'_x
+binder 1262:1262 <> n:7
+R1271:1271 Coq.Init.Datatypes <> S constr
+R1273:1273 Undecidability.H10.Dio.dio_logic <> n:7 var
+not 1245:1245 <> :::x_'⭳'
+prf 1332:1349 <> de_bruijn_ext_proj
+binder 1351:1351 <> X:8
+R1362:1365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1359:1361 Coq.Init.Datatypes <> nat ind
+R1366:1366 Undecidability.H10.Dio.dio_logic <> X:8 var
+binder 1354:1355 <> ν:9
+binder 1369:1369 <> x:10
+binder 1371:1371 <> n:11
+R1387:1389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1375:1375 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R1381:1386 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R1377:1378 Undecidability.H10.Dio.dio_logic <> :::x_'·'_x not
+R1379:1380 Undecidability.H10.Dio.dio_logic <> ν:9 var
+R1376:1376 Undecidability.H10.Dio.dio_logic <> x:10 var
+R1386:1386 Undecidability.H10.Dio.dio_logic <> n:11 var
+R1390:1391 Undecidability.H10.Dio.dio_logic <> ν:9 var
+R1393:1393 Undecidability.H10.Dio.dio_logic <> n:11 var
+prf 1427:1444 <> de_bruijn_proj_ext
+binder 1446:1446 <> X:12
+R1457:1460 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1454:1456 Coq.Init.Datatypes <> nat ind
+R1461:1461 Undecidability.H10.Dio.dio_logic <> X:12 var
+binder 1449:1450 <> ν:13
+binder 1464:1464 <> n:14
+R1485:1487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1468:1468 Undecidability.H10.Dio.dio_logic <> :::x_'·'_x not
+R1473:1476 Undecidability.H10.Dio.dio_logic <> :::x_'·'_x not
+R1482:1484 Undecidability.H10.Dio.dio_logic <> :::x_'·'_x not
+R1479:1481 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R1477:1478 Undecidability.H10.Dio.dio_logic <> ν:13 var
+R1469:1470 Undecidability.H10.Dio.dio_logic <> ν:13 var
+R1484:1484 Undecidability.H10.Dio.dio_logic <> n:14 var
+R1488:1489 Undecidability.H10.Dio.dio_logic <> ν:13 var
+R1491:1491 Undecidability.H10.Dio.dio_logic <> n:14 var
+ind 1579:1584 <> dio_op
+constr 1589:1594 <> do_add
+constr 1598:1603 <> do_mul
+scheme 1579:1584 <> dio_op_rect
+scheme 1579:1584 <> dio_op_ind
+scheme 1579:1584 <> dio_op_rec
+scheme 1579:1584 <> dio_op_sind
+def 1696:1704 <> de_op_sem
+R1711:1716 Undecidability.H10.Dio.dio_logic <> dio_op ind
+binder 1707:1707 <> o:17
+R1730:1730 Undecidability.H10.Dio.dio_logic <> o:17 var
+R1743:1748 Undecidability.H10.Dio.dio_logic <> do_add constr
+R1753:1756 Coq.Init.Peano <> plus abbrev
+R1764:1769 Undecidability.H10.Dio.dio_logic <> do_mul constr
+R1774:1777 Coq.Init.Peano <> mult abbrev
+def 1798:1806 <> df_op_sem
+R1813:1818 Undecidability.H10.Dio.dio_logic <> dio_op ind
+binder 1809:1809 <> o:19
+R1832:1832 Undecidability.H10.Dio.dio_logic <> o:19 var
+R1845:1850 Undecidability.H10.Dio.dio_logic <> do_add constr
+R1855:1856 Coq.Init.Logic <> or ind
+R1864:1869 Undecidability.H10.Dio.dio_logic <> do_mul constr
+R1874:1876 Coq.Init.Logic <> and ind
+ind 2289:2299 <> dio_formula
+constr 2314:2319 <> df_cst
+constr 2368:2372 <> df_eq
+constr 2414:2418 <> df_op
+constr 2476:2481 <> df_bin
+constr 2543:2549 <> df_exst
+R2336:2338 Coq.Init.Datatypes <> nat ind
+binder 2332:2332 <> x:23
+R2346:2348 Coq.Init.Datatypes <> nat ind
+binder 2342:2342 <> n:24
+R2352:2362 Undecidability.H10.Dio.dio_logic <> dio_formula:21 ind
+R2392:2394 Coq.Init.Datatypes <> nat ind
+binder 2386:2386 <> x:25
+binder 2388:2388 <> y:26
+R2398:2408 Undecidability.H10.Dio.dio_logic <> dio_formula:21 ind
+R2436:2441 Undecidability.H10.Dio.dio_logic <> dio_op ind
+binder 2432:2432 <> o:27
+R2453:2455 Coq.Init.Datatypes <> nat ind
+binder 2445:2445 <> x:28
+binder 2447:2447 <> y:29
+binder 2449:2449 <> z:30
+R2459:2469 Undecidability.H10.Dio.dio_logic <> dio_formula:21 ind
+R2498:2503 Undecidability.H10.Dio.dio_logic <> dio_op ind
+binder 2494:2494 <> o:31
+R2513:2523 Undecidability.H10.Dio.dio_logic <> dio_formula:21 ind
+binder 2507:2507 <> f:32
+binder 2509:2509 <> g:33
+R2527:2537 Undecidability.H10.Dio.dio_logic <> dio_formula:21 ind
+R2564:2567 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2553:2563 Undecidability.H10.Dio.dio_logic <> dio_formula:21 ind
+R2568:2578 Undecidability.H10.Dio.dio_logic <> dio_formula:21 ind
+scheme 2289:2299 <> dio_formula_rect
+scheme 2289:2299 <> dio_formula_ind
+scheme 2289:2299 <> dio_formula_rec
+scheme 2289:2299 <> dio_formula_sind
+abbrev 2591:2596 <> df_add
+R2602:2606 Undecidability.H10.Dio.dio_logic <> df_op constr
+R2608:2613 Undecidability.H10.Dio.dio_logic <> do_add constr
+abbrev 2626:2631 <> df_mul
+R2637:2641 Undecidability.H10.Dio.dio_logic <> df_op constr
+R2643:2648 Undecidability.H10.Dio.dio_logic <> do_mul constr
+abbrev 2661:2667 <> df_conj
+R2673:2678 Undecidability.H10.Dio.dio_logic <> df_bin constr
+R2680:2685 Undecidability.H10.Dio.dio_logic <> do_mul constr
+abbrev 2698:2704 <> df_disj
+R2710:2715 Undecidability.H10.Dio.dio_logic <> df_bin constr
+R2717:2722 Undecidability.H10.Dio.dio_logic <> do_add constr
+R2748:2754 Undecidability.H10.Dio.dio_logic <> df_exst constr
+not 2736:2736 <> :::'∃'_x
+R2818:2824 Undecidability.H10.Dio.dio_logic <> df_conj abbrev
+not 2804:2804 <> :::x_'∧'_x
+R2910:2916 Undecidability.H10.Dio.dio_logic <> df_disj abbrev
+not 2896:2896 <> :::x_'∨'_x
+R3017:3022 Undecidability.H10.Dio.dio_logic <> df_cst constr
+not 2995:2995 <> :::x_'≐'_'⌞'_x_'⌟'
+R3126:3130 Undecidability.H10.Dio.dio_logic <> df_eq constr
+not 3112:3112 <> :::x_'≐'_x
+R3232:3237 Undecidability.H10.Dio.dio_logic <> df_add abbrev
+not 3212:3212 <> :::x_'≐'_x_'⨢'_x
+R3366:3371 Undecidability.H10.Dio.dio_logic <> df_mul abbrev
+not 3346:3346 <> :::x_'≐'_x_'⨰'_x
+sec 3629:3652 <> diophantine_logic_basics
+def 3667:3673 <> df_size
+binder 3675:3675 <> f:34
+R3690:3690 Undecidability.H10.Dio.dio_logic <> f:34 var
+R3705:3710 Undecidability.H10.Dio.dio_logic <> df_cst constr
+R3732:3736 Undecidability.H10.Dio.dio_logic <> df_eq constr
+R3759:3763 Undecidability.H10.Dio.dio_logic <> df_op constr
+R3786:3791 Undecidability.H10.Dio.dio_logic <> df_bin constr
+R3816:3818 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3804:3806 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3807:3813 Undecidability.H10.Dio.dio_logic <> df_size:35 def
+R3815:3815 Undecidability.H10.Dio.dio_logic <> f:34 var
+R3819:3825 Undecidability.H10.Dio.dio_logic <> df_size:35 def
+R3840:3846 Undecidability.H10.Dio.dio_logic <> df_exst constr
+R3858:3860 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3861:3867 Undecidability.H10.Dio.dio_logic <> df_size:35 def
+R3869:3869 Undecidability.H10.Dio.dio_logic <> f:34 var
+def 3997:4005 <> df_size_Z
+binder 4007:4007 <> f:37
+R4023:4023 Undecidability.H10.Dio.dio_logic <> f:37 var
+R4038:4043 Undecidability.H10.Dio.dio_logic <> df_cst constr
+R4065:4069 Undecidability.H10.Dio.dio_logic <> df_eq constr
+R4092:4096 Undecidability.H10.Dio.dio_logic <> df_op constr
+R4119:4124 Undecidability.H10.Dio.dio_logic <> df_bin constr
+R4151:4153 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4137:4139 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4140:4148 Undecidability.H10.Dio.dio_logic <> df_size_Z:38 def
+R4150:4150 Undecidability.H10.Dio.dio_logic <> f:37 var
+R4154:4162 Undecidability.H10.Dio.dio_logic <> df_size_Z:38 def
+R4177:4183 Undecidability.H10.Dio.dio_logic <> df_exst constr
+R4195:4197 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R4198:4206 Undecidability.H10.Dio.dio_logic <> df_size_Z:38 def
+R4208:4208 Undecidability.H10.Dio.dio_logic <> f:37 var
+prf 4230:4243 <> df_size_Z_spec
+binder 4245:4245 <> f:40
+R4260:4262 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4249:4257 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R4259:4259 Undecidability.H10.Dio.dio_logic <> f:40 var
+R4263:4270 Coq.ZArith.BinInt Z of_nat def
+R4273:4279 Undecidability.H10.Dio.dio_logic <> df_size def
+R4281:4281 Undecidability.H10.Dio.dio_logic <> f:40 var
+R4349:4355 Undecidability.H10.Dio.dio_logic <> df_size def
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4400:4412 Coq.ZArith.Znat Nat2Z inj_add thm
+R4422:4430 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R4438:4446 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4372:4385 Coq.ZArith.Znat Nat2Z inj_succ thm
+R4400:4412 Coq.ZArith.Znat Nat2Z inj_add thm
+R4400:4412 Coq.ZArith.Znat Nat2Z inj_add thm
+R4400:4412 Coq.ZArith.Znat Nat2Z inj_add thm
+R4400:4412 Coq.ZArith.Znat Nat2Z inj_add thm
+R4400:4412 Coq.ZArith.Znat Nat2Z inj_add thm
+R4400:4412 Coq.ZArith.Znat Nat2Z inj_add thm
+R4438:4446 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R4438:4446 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R4438:4446 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R4438:4446 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R4438:4446 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+def 4527:4533 <> df_pred
+binder 4535:4535 <> f:41
+binder 4537:4538 <> ν:42
+R4838:4844 Undecidability.H10.Dio.dio_logic <> df_pred:43 def
+R4553:4553 Undecidability.H10.Dio.dio_logic <> f:41 var
+R4568:4573 Undecidability.H10.Dio.dio_logic <> df_cst constr
+R4590:4592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4586:4587 Undecidability.H10.Dio.dio_logic <> ν:42 var
+R4603:4607 Undecidability.H10.Dio.dio_logic <> df_eq constr
+R4625:4627 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4621:4622 Undecidability.H10.Dio.dio_logic <> ν:42 var
+R4628:4629 Undecidability.H10.Dio.dio_logic <> ν:42 var
+R4641:4645 Undecidability.H10.Dio.dio_logic <> df_op constr
+R4663:4665 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4659:4660 Undecidability.H10.Dio.dio_logic <> ν:42 var
+R4666:4674 Undecidability.H10.Dio.dio_logic <> de_op_sem def
+R4686:4687 Undecidability.H10.Dio.dio_logic <> ν:42 var
+R4679:4680 Undecidability.H10.Dio.dio_logic <> ν:42 var
+R4700:4705 Undecidability.H10.Dio.dio_logic <> df_bin constr
+R4718:4726 Undecidability.H10.Dio.dio_logic <> df_op_sem def
+R4744:4746 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R4748:4753 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R4752:4753 Undecidability.H10.Dio.dio_logic <> ν:42 var
+R4731:4733 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R4735:4740 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R4734:4734 Undecidability.H10.Dio.dio_logic <> f:41 var
+R4739:4740 Undecidability.H10.Dio.dio_logic <> ν:42 var
+R4764:4770 Undecidability.H10.Dio.dio_logic <> df_exst constr
+R4782:4788 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4790:4791 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4789:4789 <> n:45
+R4792:4794 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R4796:4804 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R4795:4795 Undecidability.H10.Dio.dio_logic <> f:41 var
+R4801:4802 Undecidability.H10.Dio.dio_logic <> :::x_'·'_x not
+R4803:4804 Undecidability.H10.Dio.dio_logic <> ν:42 var
+R4800:4800 Undecidability.H10.Dio.dio_logic <> n:45 var
+R4838:4844 Undecidability.H10.Dio.dio_logic <> df_pred def
+not 4822:4822 diophantine_logic_basics :::'⟦'_x_'⟧'
+prf 4930:4940 <> df_pred_cst
+binder 4942:4942 <> x:46
+binder 4944:4944 <> n:47
+binder 4946:4947 <> ν:48
+R4973:4976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4985:4985 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4951:4953 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R4967:4972 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R4955:4962 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_'⌞'_x_'⌟' not
+R4964:4966 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_'⌞'_x_'⌟' not
+R4954:4954 Undecidability.H10.Dio.dio_logic <> x:46 var
+R4963:4963 Undecidability.H10.Dio.dio_logic <> n:47 var
+R4971:4972 Undecidability.H10.Dio.dio_logic <> ν:48 var
+R4981:4983 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4977:4978 Undecidability.H10.Dio.dio_logic <> ν:48 var
+R4980:4980 Undecidability.H10.Dio.dio_logic <> x:46 var
+R4984:4984 Undecidability.H10.Dio.dio_logic <> n:47 var
+prf 5023:5032 <> df_pred_eq
+binder 5034:5034 <> x:49
+binder 5036:5036 <> y:50
+binder 5038:5039 <> ν:51
+R5059:5062 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5074:5074 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5043:5045 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5053:5058 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5047:5051 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x not
+R5046:5046 Undecidability.H10.Dio.dio_logic <> x:49 var
+R5052:5052 Undecidability.H10.Dio.dio_logic <> y:50 var
+R5057:5058 Undecidability.H10.Dio.dio_logic <> ν:51 var
+R5067:5069 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5063:5064 Undecidability.H10.Dio.dio_logic <> ν:51 var
+R5066:5066 Undecidability.H10.Dio.dio_logic <> x:49 var
+R5070:5071 Undecidability.H10.Dio.dio_logic <> ν:51 var
+R5073:5073 Undecidability.H10.Dio.dio_logic <> y:50 var
+prf 5112:5122 <> df_pred_add
+binder 5124:5124 <> x:52
+binder 5126:5126 <> y:53
+binder 5128:5128 <> z:54
+binder 5130:5131 <> ν:55
+R5157:5160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5179:5179 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5135:5137 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5151:5156 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5139:5143 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨢'_x not
+R5145:5149 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨢'_x not
+R5138:5138 Undecidability.H10.Dio.dio_logic <> x:52 var
+R5144:5144 Undecidability.H10.Dio.dio_logic <> y:53 var
+R5150:5150 Undecidability.H10.Dio.dio_logic <> z:54 var
+R5155:5156 Undecidability.H10.Dio.dio_logic <> ν:55 var
+R5165:5167 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5161:5162 Undecidability.H10.Dio.dio_logic <> ν:55 var
+R5164:5164 Undecidability.H10.Dio.dio_logic <> x:52 var
+R5172:5174 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5168:5169 Undecidability.H10.Dio.dio_logic <> ν:55 var
+R5171:5171 Undecidability.H10.Dio.dio_logic <> y:53 var
+R5175:5176 Undecidability.H10.Dio.dio_logic <> ν:55 var
+R5178:5178 Undecidability.H10.Dio.dio_logic <> z:54 var
+prf 5217:5227 <> df_pred_mul
+binder 5229:5229 <> x:56
+binder 5231:5231 <> y:57
+binder 5233:5233 <> z:58
+binder 5235:5236 <> ν:59
+R5262:5265 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5284:5284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5240:5242 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5256:5261 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5244:5248 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨰'_x not
+R5250:5254 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨰'_x not
+R5243:5243 Undecidability.H10.Dio.dio_logic <> x:56 var
+R5249:5249 Undecidability.H10.Dio.dio_logic <> y:57 var
+R5255:5255 Undecidability.H10.Dio.dio_logic <> z:58 var
+R5260:5261 Undecidability.H10.Dio.dio_logic <> ν:59 var
+R5270:5272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5266:5267 Undecidability.H10.Dio.dio_logic <> ν:59 var
+R5269:5269 Undecidability.H10.Dio.dio_logic <> x:56 var
+R5277:5279 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R5273:5274 Undecidability.H10.Dio.dio_logic <> ν:59 var
+R5276:5276 Undecidability.H10.Dio.dio_logic <> y:57 var
+R5280:5281 Undecidability.H10.Dio.dio_logic <> ν:59 var
+R5283:5283 Undecidability.H10.Dio.dio_logic <> z:58 var
+prf 5324:5335 <> df_pred_conj
+binder 5337:5337 <> f:60
+binder 5339:5339 <> g:61
+binder 5341:5342 <> ν:62
+R5362:5365 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5390:5390 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5346:5348 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5356:5361 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5350:5354 Undecidability.H10.Dio.dio_logic <> :::x_'∧'_x not
+R5349:5349 Undecidability.H10.Dio.dio_logic <> f:60 var
+R5355:5355 Undecidability.H10.Dio.dio_logic <> g:61 var
+R5360:5361 Undecidability.H10.Dio.dio_logic <> ν:62 var
+R5376:5379 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5366:5368 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5370:5375 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5369:5369 Undecidability.H10.Dio.dio_logic <> f:60 var
+R5374:5375 Undecidability.H10.Dio.dio_logic <> ν:62 var
+R5380:5382 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5384:5389 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5383:5383 Undecidability.H10.Dio.dio_logic <> g:61 var
+R5388:5389 Undecidability.H10.Dio.dio_logic <> ν:62 var
+prf 5428:5439 <> df_pred_disj
+binder 5441:5441 <> f:63
+binder 5443:5443 <> g:64
+binder 5445:5446 <> ν:65
+R5466:5469 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5494:5494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5450:5452 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5460:5465 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5454:5458 Undecidability.H10.Dio.dio_logic <> :::x_'∨'_x not
+R5453:5453 Undecidability.H10.Dio.dio_logic <> f:63 var
+R5459:5459 Undecidability.H10.Dio.dio_logic <> g:64 var
+R5464:5465 Undecidability.H10.Dio.dio_logic <> ν:65 var
+R5480:5483 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R5470:5472 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5474:5479 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5473:5473 Undecidability.H10.Dio.dio_logic <> f:63 var
+R5478:5479 Undecidability.H10.Dio.dio_logic <> ν:65 var
+R5484:5486 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5488:5493 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5487:5487 Undecidability.H10.Dio.dio_logic <> g:64 var
+R5492:5493 Undecidability.H10.Dio.dio_logic <> ν:65 var
+prf 5532:5543 <> df_pred_exst
+binder 5545:5545 <> f:66
+binder 5547:5548 <> ν:67
+R5565:5567 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5552:5554 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5559:5564 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5555:5557 Undecidability.H10.Dio.dio_logic <> :::'∃'_x not
+R5558:5558 Undecidability.H10.Dio.dio_logic <> f:66 var
+R5563:5564 Undecidability.H10.Dio.dio_logic <> ν:67 var
+R5568:5574 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5576:5577 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5575:5575 <> n:68
+R5578:5580 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5582:5590 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5581:5581 Undecidability.H10.Dio.dio_logic <> f:66 var
+R5587:5588 Undecidability.H10.Dio.dio_logic <> :::x_'·'_x not
+R5589:5590 Undecidability.H10.Dio.dio_logic <> ν:67 var
+R5586:5586 Undecidability.H10.Dio.dio_logic <> n:68 var
+prf 5652:5662 <> df_pred_ext
+binder 5664:5664 <> f:69
+binder 5666:5667 <> ν:70
+binder 5669:5670 <> ω:71
+R5674:5674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5696:5700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5682:5682 <> x:72
+R5689:5691 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5685:5686 Undecidability.H10.Dio.dio_logic <> ν:70 var
+R5688:5688 Undecidability.H10.Dio.dio_logic <> x:72 var
+R5692:5693 Undecidability.H10.Dio.dio_logic <> ω:71 var
+R5695:5695 Undecidability.H10.Dio.dio_logic <> x:72 var
+R5711:5715 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5701:5703 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5705:5710 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5704:5704 Undecidability.H10.Dio.dio_logic <> f:69 var
+R5709:5710 Undecidability.H10.Dio.dio_logic <> ν:70 var
+R5716:5718 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5720:5725 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R5719:5719 Undecidability.H10.Dio.dio_logic <> f:69 var
+R5724:5725 Undecidability.H10.Dio.dio_logic <> ω:71 var
+def 6032:6039 <> der_lift
+binder 6041:6042 <> ρ:73
+binder 6044:6044 <> x:74
+R6055:6055 Undecidability.H10.Dio.dio_logic <> x:74 var
+R6071:6071 Coq.Init.Datatypes <> S constr
+R6078:6078 Coq.Init.Datatypes <> S constr
+R6081:6082 Undecidability.H10.Dio.dio_logic <> ρ:73 var
+R6084:6084 Undecidability.H10.Dio.dio_logic <> x:74 var
+def 6104:6109 <> df_ren
+binder 6111:6112 <> ρ:76
+binder 6114:6114 <> f:77
+R6417:6422 Undecidability.H10.Dio.dio_logic <> df_ren:78 def
+R6129:6129 Undecidability.H10.Dio.dio_logic <> f:77 var
+R6144:6149 Undecidability.H10.Dio.dio_logic <> df_cst constr
+R6161:6166 Undecidability.H10.Dio.dio_logic <> df_cst constr
+R6169:6170 Undecidability.H10.Dio.dio_logic <> ρ:76 var
+R6185:6189 Undecidability.H10.Dio.dio_logic <> df_eq constr
+R6202:6206 Undecidability.H10.Dio.dio_logic <> df_eq constr
+R6216:6217 Undecidability.H10.Dio.dio_logic <> ρ:76 var
+R6209:6210 Undecidability.H10.Dio.dio_logic <> ρ:76 var
+R6230:6234 Undecidability.H10.Dio.dio_logic <> df_op constr
+R6247:6251 Undecidability.H10.Dio.dio_logic <> df_op constr
+R6270:6271 Undecidability.H10.Dio.dio_logic <> ρ:76 var
+R6263:6264 Undecidability.H10.Dio.dio_logic <> ρ:76 var
+R6256:6257 Undecidability.H10.Dio.dio_logic <> ρ:76 var
+R6284:6289 Undecidability.H10.Dio.dio_logic <> df_bin constr
+R6301:6306 Undecidability.H10.Dio.dio_logic <> df_bin constr
+R6321:6323 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6326:6328 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6324:6325 Undecidability.H10.Dio.dio_logic <> ρ:76 var
+R6311:6313 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6316:6318 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6314:6315 Undecidability.H10.Dio.dio_logic <> ρ:76 var
+R6310:6310 Undecidability.H10.Dio.dio_logic <> f:77 var
+R6338:6344 Undecidability.H10.Dio.dio_logic <> df_exst constr
+R6355:6361 Undecidability.H10.Dio.dio_logic <> df_exst constr
+R6364:6366 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6378:6380 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6367:6374 Undecidability.H10.Dio.dio_logic <> der_lift def
+R6376:6377 Undecidability.H10.Dio.dio_logic <> ρ:76 var
+R6363:6363 Undecidability.H10.Dio.dio_logic <> f:77 var
+R6417:6422 Undecidability.H10.Dio.dio_logic <> df_ren def
+not 6398:6398 diophantine_logic_basics :::x_'⦃'_x_'⦄'
+prf 6439:6449 <> df_ren_size
+binder 6451:6452 <> ρ:80
+binder 6454:6454 <> f:81
+R6475:6477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6458:6464 Undecidability.H10.Dio.dio_logic <> df_size def
+R6467:6469 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6472:6474 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6470:6471 Undecidability.H10.Dio.dio_logic <> ρ:80 var
+R6466:6466 Undecidability.H10.Dio.dio_logic <> f:81 var
+R6478:6484 Undecidability.H10.Dio.dio_logic <> df_size def
+R6486:6486 Undecidability.H10.Dio.dio_logic <> f:81 var
+prf 6576:6588 <> df_ren_size_Z
+binder 6590:6591 <> ρ:82
+binder 6593:6593 <> f:83
+R6616:6618 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6597:6605 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R6608:6610 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6613:6615 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6611:6612 Undecidability.H10.Dio.dio_logic <> ρ:82 var
+R6607:6607 Undecidability.H10.Dio.dio_logic <> f:83 var
+R6619:6627 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R6629:6629 Undecidability.H10.Dio.dio_logic <> f:83 var
+R6654:6667 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R6685:6695 Undecidability.H10.Dio.dio_logic <> df_ren_size thm
+R6654:6667 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R6654:6667 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R6654:6667 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R6654:6667 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R6685:6695 Undecidability.H10.Dio.dio_logic <> df_ren_size thm
+prf 6758:6768 <> df_pred_ren
+binder 6770:6770 <> f:84
+binder 6772:6773 <> ν:85
+binder 6775:6776 <> ρ:86
+R6798:6802 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6780:6782 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R6792:6797 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R6784:6786 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6789:6791 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R6787:6788 Undecidability.H10.Dio.dio_logic <> ρ:86 var
+R6783:6783 Undecidability.H10.Dio.dio_logic <> f:84 var
+R6796:6797 Undecidability.H10.Dio.dio_logic <> ν:85 var
+R6803:6805 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R6807:6830 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R6806:6806 Undecidability.H10.Dio.dio_logic <> f:84 var
+binder 6816:6816 <> x:87
+R6821:6822 Undecidability.H10.Dio.dio_logic <> ν:85 var
+R6825:6826 Undecidability.H10.Dio.dio_logic <> ρ:86 var
+R6828:6828 Undecidability.H10.Dio.dio_logic <> x:87 var
+R7048:7058 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+R7048:7058 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+R7048:7058 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+prf 7100:7111 <> df_pred_lift
+binder 7113:7113 <> f:88
+binder 7115:7116 <> ν:89
+R7137:7141 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7120:7122 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R7131:7136 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R7124:7126 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R7128:7130 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::x_'⦃'_x_'⦄' not
+R7127:7127 Coq.Init.Datatypes <> S constr
+R7123:7123 Undecidability.H10.Dio.dio_logic <> f:88 var
+R7135:7136 Undecidability.H10.Dio.dio_logic <> ν:89 var
+R7142:7144 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R7146:7154 Undecidability.H10.Dio.dio_logic diophantine_logic_basics :::'⟦'_x_'⟧' not
+R7145:7145 Undecidability.H10.Dio.dio_logic <> f:88 var
+R7152:7154 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R7150:7151 Undecidability.H10.Dio.dio_logic <> ν:89 var
+R7172:7182 Undecidability.H10.Dio.dio_logic <> df_pred_ren thm
+R7172:7182 Undecidability.H10.Dio.dio_logic <> df_pred_ren thm
+R7196:7219 Undecidability.H10.Dio.dio_logic diophantine_logic_basics <> sec
+R7254:7260 Undecidability.H10.Dio.dio_logic <> df_pred def
+not 7238:7238 <> :::'⟦'_x_'⟧'
+R7300:7305 Undecidability.H10.Dio.dio_logic <> df_ren def
+not 7281:7281 <> :::x_'⦃'_x_'⦄'
+def 7610:7616 <> dio_rel
+binder 7618:7618 <> R:90
+R7623:7624 Coq.Init.Specif <> ::type_scope:'{'_x_'|'_x_'}' not
+R7626:7628 Coq.Init.Specif <> ::type_scope:'{'_x_'|'_x_'}' not
+R7659:7660 Coq.Init.Specif <> ::type_scope:'{'_x_'|'_x_'}' not
+binder 7625:7625 <> f:91
+binder 7636:7637 <> ν:92
+R7650:7654 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7640:7642 Undecidability.H10.Dio.dio_logic <> :::'⟦'_x_'⟧' not
+R7644:7649 Undecidability.H10.Dio.dio_logic <> :::'⟦'_x_'⟧' not
+R7643:7643 Undecidability.H10.Dio.dio_logic <> f:91 var
+R7648:7649 Undecidability.H10.Dio.dio_logic <> ν:92 var
+R7655:7655 Undecidability.H10.Dio.dio_logic <> R:90 var
+R7657:7658 Undecidability.H10.Dio.dio_logic <> ν:92 var
+abbrev 7672:7676 <> 𝔻R
+R7681:7687 Undecidability.H10.Dio.dio_logic <> dio_rel def
+sec 8381:8406 <> dio_rel_closure_properties
+R8433:8433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8444:8448 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8437:8440 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8434:8436 Coq.Init.Datatypes <> nat ind
+R8441:8443 Coq.Init.Datatypes <> nat ind
+prf 8463:8473 <> dio_rel_cst
+binder 8475:8475 <> x:93
+binder 8477:8477 <> n:94
+R8481:8485 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 8492:8493 <> ν:95
+R8502:8504 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8498:8499 Undecidability.H10.Dio.dio_logic <> ν:95 var
+R8501:8501 Undecidability.H10.Dio.dio_logic <> x:93 var
+R8505:8505 Undecidability.H10.Dio.dio_logic <> n:94 var
+R8527:8534 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_'⌞'_x_'⌟' not
+R8536:8538 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_'⌞'_x_'⌟' not
+R8527:8534 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_'⌞'_x_'⌟' not
+R8536:8538 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_'⌞'_x_'⌟' not
+prf 8591:8600 <> dio_rel_eq
+binder 8602:8602 <> x:96
+binder 8604:8604 <> y:97
+R8608:8612 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 8619:8620 <> ν:98
+R8629:8631 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8625:8626 Undecidability.H10.Dio.dio_logic <> ν:98 var
+R8628:8628 Undecidability.H10.Dio.dio_logic <> x:96 var
+R8632:8633 Undecidability.H10.Dio.dio_logic <> ν:98 var
+R8635:8635 Undecidability.H10.Dio.dio_logic <> y:97 var
+R8657:8661 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x not
+R8657:8661 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x not
+prf 8697:8707 <> dio_rel_add
+binder 8709:8709 <> x:99
+binder 8711:8711 <> y:100
+binder 8713:8713 <> z:101
+R8717:8721 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 8728:8729 <> ν:102
+R8738:8740 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8734:8735 Undecidability.H10.Dio.dio_logic <> ν:102 var
+R8737:8737 Undecidability.H10.Dio.dio_logic <> x:99 var
+R8745:8747 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R8741:8742 Undecidability.H10.Dio.dio_logic <> ν:102 var
+R8744:8744 Undecidability.H10.Dio.dio_logic <> y:100 var
+R8748:8749 Undecidability.H10.Dio.dio_logic <> ν:102 var
+R8751:8751 Undecidability.H10.Dio.dio_logic <> z:101 var
+R8773:8777 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨢'_x not
+R8779:8783 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨢'_x not
+R8773:8777 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨢'_x not
+R8779:8783 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨢'_x not
+prf 8837:8847 <> dio_rel_mul
+binder 8849:8849 <> x:103
+binder 8851:8851 <> y:104
+binder 8853:8853 <> z:105
+R8857:8861 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 8868:8869 <> ν:106
+R8878:8880 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8874:8875 Undecidability.H10.Dio.dio_logic <> ν:106 var
+R8877:8877 Undecidability.H10.Dio.dio_logic <> x:103 var
+R8885:8887 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R8881:8882 Undecidability.H10.Dio.dio_logic <> ν:106 var
+R8884:8884 Undecidability.H10.Dio.dio_logic <> y:104 var
+R8888:8889 Undecidability.H10.Dio.dio_logic <> ν:106 var
+R8891:8891 Undecidability.H10.Dio.dio_logic <> z:105 var
+R8913:8917 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨰'_x not
+R8919:8924 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨰'_x not
+R8913:8917 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨰'_x not
+R8919:8924 Undecidability.H10.Dio.dio_logic <> :::x_'≐'_x_'⨰'_x not
+prf 8979:8990 <> dio_rel_conj
+binder 8992:8992 <> R:107
+binder 8994:8994 <> S:108
+R9005:9008 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8998:9002 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R9004:9004 Undecidability.H10.Dio.dio_logic <> R:107 var
+R9016:9019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9009:9013 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R9015:9015 Undecidability.H10.Dio.dio_logic <> S:108 var
+R9020:9024 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 9031:9032 <> ν:109
+R9041:9044 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9037:9037 Undecidability.H10.Dio.dio_logic <> R:107 var
+R9039:9040 Undecidability.H10.Dio.dio_logic <> ν:109 var
+R9045:9045 Undecidability.H10.Dio.dio_logic <> S:108 var
+R9047:9048 Undecidability.H10.Dio.dio_logic <> ν:109 var
+R9103:9107 Undecidability.H10.Dio.dio_logic <> :::x_'∧'_x not
+R9103:9107 Undecidability.H10.Dio.dio_logic <> :::x_'∧'_x not
+R9142:9153 Undecidability.H10.Dio.dio_logic <> df_pred_conj thm
+R9142:9153 Undecidability.H10.Dio.dio_logic <> df_pred_conj thm
+R9142:9153 Undecidability.H10.Dio.dio_logic <> df_pred_conj thm
+prf 9191:9202 <> dio_rel_disj
+binder 9204:9204 <> R:110
+binder 9206:9206 <> S:111
+R9217:9220 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9210:9214 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R9216:9216 Undecidability.H10.Dio.dio_logic <> R:110 var
+R9228:9231 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9221:9225 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R9227:9227 Undecidability.H10.Dio.dio_logic <> S:111 var
+R9232:9236 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 9243:9244 <> ν:112
+R9253:9256 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9249:9249 Undecidability.H10.Dio.dio_logic <> R:110 var
+R9251:9252 Undecidability.H10.Dio.dio_logic <> ν:112 var
+R9257:9257 Undecidability.H10.Dio.dio_logic <> S:111 var
+R9259:9260 Undecidability.H10.Dio.dio_logic <> ν:112 var
+R9315:9319 Undecidability.H10.Dio.dio_logic <> :::x_'∨'_x not
+R9315:9319 Undecidability.H10.Dio.dio_logic <> :::x_'∨'_x not
+R9354:9365 Undecidability.H10.Dio.dio_logic <> df_pred_disj thm
+R9354:9365 Undecidability.H10.Dio.dio_logic <> df_pred_disj thm
+R9354:9365 Undecidability.H10.Dio.dio_logic <> df_pred_disj thm
+prf 9403:9414 <> dio_rel_exst
+R9424:9427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9421:9423 Coq.Init.Datatypes <> nat ind
+R9428:9428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9439:9443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9432:9435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9429:9431 Coq.Init.Datatypes <> nat ind
+R9436:9438 Coq.Init.Datatypes <> nat ind
+binder 9417:9417 <> K:113
+R9502:9505 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9470:9474 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 9481:9482 <> ν:114
+R9487:9487 Undecidability.H10.Dio.dio_logic <> K:113 var
+R9498:9500 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R9496:9497 Undecidability.H10.Dio.dio_logic <> ν:114 var
+R9490:9491 Undecidability.H10.Dio.dio_logic <> ν:114 var
+R9506:9510 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 9517:9518 <> ν:115
+R9523:9529 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9531:9532 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9530:9530 <> x:116
+R9533:9533 Undecidability.H10.Dio.dio_logic <> K:113 var
+R9537:9538 Undecidability.H10.Dio.dio_logic <> ν:115 var
+R9535:9535 Undecidability.H10.Dio.dio_logic <> x:116 var
+R9580:9582 Undecidability.H10.Dio.dio_logic <> :::'∃'_x not
+R9580:9582 Undecidability.H10.Dio.dio_logic <> :::'∃'_x not
+R9621:9632 Undecidability.H10.Dio.dio_logic <> df_pred_exst thm
+R9621:9632 Undecidability.H10.Dio.dio_logic <> df_pred_exst thm
+R9621:9632 Undecidability.H10.Dio.dio_logic <> df_pred_exst thm
+prf 9731:9743 <> dio_rel_equiv
+binder 9745:9745 <> R:117
+binder 9747:9747 <> S:118
+R9751:9751 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9776:9780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 9759:9760 <> ν:119
+R9767:9771 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9763:9763 Undecidability.H10.Dio.dio_logic <> S:118 var
+R9765:9766 Undecidability.H10.Dio.dio_logic <> ν:119 var
+R9772:9772 Undecidability.H10.Dio.dio_logic <> R:117 var
+R9774:9775 Undecidability.H10.Dio.dio_logic <> ν:119 var
+R9788:9791 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9781:9785 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R9787:9787 Undecidability.H10.Dio.dio_logic <> R:117 var
+R9792:9796 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R9798:9798 Undecidability.H10.Dio.dio_logic <> S:118 var
+prf 9907:9917 <> dio_rel_ren
+binder 9919:9919 <> R:120
+binder 9921:9922 <> ρ:121
+R9933:9936 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9926:9930 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R9932:9932 Undecidability.H10.Dio.dio_logic <> R:120 var
+R9937:9941 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 9948:9949 <> ν:122
+R9954:9954 Undecidability.H10.Dio.dio_logic <> R:120 var
+binder 9961:9961 <> n:123
+R9966:9967 Undecidability.H10.Dio.dio_logic <> ν:122 var
+R9970:9971 Undecidability.H10.Dio.dio_logic <> ρ:121 var
+R9973:9973 Undecidability.H10.Dio.dio_logic <> n:123 var
+R10018:10020 Undecidability.H10.Dio.dio_logic <> :::x_'⦃'_x_'⦄' not
+R10023:10025 Undecidability.H10.Dio.dio_logic <> :::x_'⦃'_x_'⦄' not
+R10018:10020 Undecidability.H10.Dio.dio_logic <> :::x_'⦃'_x_'⦄' not
+R10023:10025 Undecidability.H10.Dio.dio_logic <> :::x_'⦃'_x_'⦄' not
+R10059:10069 Undecidability.H10.Dio.dio_logic <> df_pred_ren thm
+R10059:10069 Undecidability.H10.Dio.dio_logic <> df_pred_ren thm
+R10059:10069 Undecidability.H10.Dio.dio_logic <> df_pred_ren thm
+R10100:10125 Undecidability.H10.Dio.dio_logic dio_rel_closure_properties <> sec
+def 10533:10539 <> dio_fun
+binder 10541:10541 <> t:124
+R10546:10550 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 10557:10558 <> ν:125
+R10567:10569 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10563:10564 Undecidability.H10.Dio.dio_logic <> ν:125 var
+R10570:10570 Undecidability.H10.Dio.dio_logic <> t:124 var
+R10574:10576 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R10572:10573 Undecidability.H10.Dio.dio_logic <> ν:125 var
+abbrev 10589:10593 <> 𝔻F
+R10598:10604 Undecidability.H10.Dio.dio_logic <> dio_fun def
+prf 10613:10623 <> dio_fun_var
+binder 10625:10625 <> x:126
+R10629:10633 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 10640:10641 <> ν:127
+R10646:10647 Undecidability.H10.Dio.dio_logic <> ν:127 var
+R10649:10649 Undecidability.H10.Dio.dio_logic <> x:126 var
+R10666:10675 Undecidability.H10.Dio.dio_logic <> dio_rel_eq thm
+R10666:10675 Undecidability.H10.Dio.dio_logic <> dio_rel_eq thm
+prf 10693:10703 <> dio_fun_cst
+binder 10705:10705 <> c:128
+R10709:10713 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R10725:10725 Undecidability.H10.Dio.dio_logic <> c:128 var
+R10747:10757 Undecidability.H10.Dio.dio_logic <> dio_rel_cst thm
+R10747:10757 Undecidability.H10.Dio.dio_logic <> dio_rel_cst thm
+prf 10775:10788 <> dio_fun_add_im
+binder 10790:10790 <> x:129
+binder 10792:10792 <> y:130
+R10796:10800 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 10807:10808 <> ν:131
+R10817:10819 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R10813:10814 Undecidability.H10.Dio.dio_logic <> ν:131 var
+R10816:10816 Undecidability.H10.Dio.dio_logic <> x:129 var
+R10820:10821 Undecidability.H10.Dio.dio_logic <> ν:131 var
+R10823:10823 Undecidability.H10.Dio.dio_logic <> y:130 var
+R10840:10850 Undecidability.H10.Dio.dio_logic <> dio_rel_add thm
+R10840:10850 Undecidability.H10.Dio.dio_logic <> dio_rel_add thm
+prf 10868:10881 <> dio_fun_mul_im
+binder 10883:10883 <> x:132
+binder 10885:10885 <> y:133
+R10889:10893 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 10900:10901 <> ν:134
+R10910:10912 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R10906:10907 Undecidability.H10.Dio.dio_logic <> ν:134 var
+R10909:10909 Undecidability.H10.Dio.dio_logic <> x:132 var
+R10913:10914 Undecidability.H10.Dio.dio_logic <> ν:134 var
+R10916:10916 Undecidability.H10.Dio.dio_logic <> y:133 var
+R10933:10943 Undecidability.H10.Dio.dio_logic <> dio_rel_mul thm
+R10933:10943 Undecidability.H10.Dio.dio_logic <> dio_rel_mul thm
+prf 10964:10976 <> dio_fun_equiv
+binder 10978:10978 <> r:135
+binder 10980:10980 <> s:136
+R10984:10984 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11007:11011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 10992:10993 <> ν:137
+R11000:11002 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10996:10996 Undecidability.H10.Dio.dio_logic <> s:136 var
+R10998:10999 Undecidability.H10.Dio.dio_logic <> ν:137 var
+R11003:11003 Undecidability.H10.Dio.dio_logic <> r:135 var
+R11005:11006 Undecidability.H10.Dio.dio_logic <> ν:137 var
+R11019:11022 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11012:11016 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R11018:11018 Undecidability.H10.Dio.dio_logic <> r:135 var
+R11023:11027 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R11029:11029 Undecidability.H10.Dio.dio_logic <> s:136 var
+R11058:11070 Undecidability.H10.Dio.dio_logic <> dio_rel_equiv thm
+R11058:11070 Undecidability.H10.Dio.dio_logic <> dio_rel_equiv thm
+prf 11127:11137 <> dio_fun_ren
+binder 11139:11139 <> t:138
+binder 11141:11141 <> f:139
+R11152:11155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11145:11149 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R11151:11151 Undecidability.H10.Dio.dio_logic <> t:138 var
+R11156:11160 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 11167:11168 <> ν:140
+R11173:11173 Undecidability.H10.Dio.dio_logic <> t:138 var
+binder 11180:11180 <> n:141
+R11185:11186 Undecidability.H10.Dio.dio_logic <> ν:140 var
+R11189:11189 Undecidability.H10.Dio.dio_logic <> f:139 var
+R11191:11191 Undecidability.H10.Dio.dio_logic <> n:141 var
+R11234:11241 Undecidability.H10.Dio.dio_logic <> der_lift def
+R11210:11220 Undecidability.H10.Dio.dio_logic <> dio_rel_ren thm
+R11234:11241 Undecidability.H10.Dio.dio_logic <> der_lift def
+R11210:11220 Undecidability.H10.Dio.dio_logic <> dio_rel_ren thm
+sec 11265:11295 <> utilities_for_better_efficiency
+R11330:11342 Undecidability.H10.Dio.dio_logic <> dio_rel_equiv thm
+prf 11369:11383 <> dio_rel_cst_sym
+binder 11385:11385 <> x:142
+binder 11387:11387 <> n:143
+R11391:11395 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 11402:11403 <> ν:144
+R11409:11411 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11408:11408 Undecidability.H10.Dio.dio_logic <> n:143 var
+R11412:11413 Undecidability.H10.Dio.dio_logic <> ν:144 var
+R11415:11415 Undecidability.H10.Dio.dio_logic <> x:142 var
+R11437:11447 Undecidability.H10.Dio.dio_logic <> dio_rel_cst thm
+R11437:11447 Undecidability.H10.Dio.dio_logic <> dio_rel_cst thm
+prf 11472:11486 <> dio_rel_add_sym
+binder 11488:11488 <> x:145
+binder 11490:11490 <> y:146
+binder 11492:11492 <> z:147
+R11496:11500 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 11507:11508 <> ν:148
+R11524:11526 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11517:11519 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R11513:11514 Undecidability.H10.Dio.dio_logic <> ν:148 var
+R11516:11516 Undecidability.H10.Dio.dio_logic <> y:146 var
+R11520:11521 Undecidability.H10.Dio.dio_logic <> ν:148 var
+R11523:11523 Undecidability.H10.Dio.dio_logic <> z:147 var
+R11527:11528 Undecidability.H10.Dio.dio_logic <> ν:148 var
+R11530:11530 Undecidability.H10.Dio.dio_logic <> x:145 var
+R11552:11562 Undecidability.H10.Dio.dio_logic <> dio_rel_add thm
+R11552:11562 Undecidability.H10.Dio.dio_logic <> dio_rel_add thm
+prf 11589:11603 <> dio_rel_mul_sym
+binder 11605:11605 <> x:149
+binder 11607:11607 <> y:150
+binder 11609:11609 <> z:151
+R11613:11617 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 11624:11625 <> ν:152
+R11641:11643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11634:11636 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11630:11631 Undecidability.H10.Dio.dio_logic <> ν:152 var
+R11633:11633 Undecidability.H10.Dio.dio_logic <> y:150 var
+R11637:11638 Undecidability.H10.Dio.dio_logic <> ν:152 var
+R11640:11640 Undecidability.H10.Dio.dio_logic <> z:151 var
+R11644:11645 Undecidability.H10.Dio.dio_logic <> ν:152 var
+R11647:11647 Undecidability.H10.Dio.dio_logic <> x:149 var
+R11669:11679 Undecidability.H10.Dio.dio_logic <> dio_rel_mul thm
+R11669:11679 Undecidability.H10.Dio.dio_logic <> dio_rel_mul thm
+prf 11706:11716 <> dio_rel_fun
+binder 11718:11718 <> x:153
+binder 11720:11720 <> t:154
+R11731:11734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11724:11728 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R11730:11730 Undecidability.H10.Dio.dio_logic <> t:154 var
+R11735:11739 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 11746:11747 <> ν:155
+R11756:11758 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11752:11753 Undecidability.H10.Dio.dio_logic <> ν:155 var
+R11755:11755 Undecidability.H10.Dio.dio_logic <> x:153 var
+R11759:11759 Undecidability.H10.Dio.dio_logic <> t:154 var
+R11761:11762 Undecidability.H10.Dio.dio_logic <> ν:155 var
+binder 11819:11819 <> n:156
+R11838:11838 Undecidability.H10.Dio.dio_logic <> n:156 var
+R11880:11880 Coq.Init.Datatypes <> S constr
+R11887:11887 Undecidability.H10.Dio.dio_logic <> n:156 var
+R11785:11795 Undecidability.H10.Dio.dio_logic <> dio_rel_ren thm
+binder 11819:11819 <> n:158
+R11838:11838 Undecidability.H10.Dio.dio_logic <> n:158 var
+R11880:11880 Coq.Init.Datatypes <> S constr
+R11887:11887 Undecidability.H10.Dio.dio_logic <> n:158 var
+R11785:11795 Undecidability.H10.Dio.dio_logic <> dio_rel_ren thm
+prf 11923:11937 <> dio_rel_fun_sym
+binder 11939:11939 <> x:160
+binder 11941:11941 <> t:161
+R11952:11955 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11945:11949 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R11951:11951 Undecidability.H10.Dio.dio_logic <> t:161 var
+R11956:11960 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 11967:11968 <> ν:162
+R11977:11979 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11973:11973 Undecidability.H10.Dio.dio_logic <> t:161 var
+R11975:11976 Undecidability.H10.Dio.dio_logic <> ν:162 var
+R11980:11981 Undecidability.H10.Dio.dio_logic <> ν:162 var
+R11983:11983 Undecidability.H10.Dio.dio_logic <> x:160 var
+R12015:12025 Undecidability.H10.Dio.dio_logic <> dio_rel_fun thm
+R12015:12025 Undecidability.H10.Dio.dio_logic <> dio_rel_fun thm
+R12047:12077 Undecidability.H10.Dio.dio_logic utilities_for_better_efficiency <> sec
+prf 12086:12099 <> dio_rel_fun_eq
+binder 12101:12101 <> r:163
+binder 12103:12103 <> t:164
+R12114:12117 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12107:12111 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R12113:12113 Undecidability.H10.Dio.dio_logic <> r:163 var
+R12125:12128 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12118:12122 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R12124:12124 Undecidability.H10.Dio.dio_logic <> t:164 var
+R12129:12133 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 12140:12141 <> ν:165
+R12150:12152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12146:12146 Undecidability.H10.Dio.dio_logic <> r:163 var
+R12148:12149 Undecidability.H10.Dio.dio_logic <> ν:165 var
+R12153:12153 Undecidability.H10.Dio.dio_logic <> t:164 var
+R12155:12156 Undecidability.H10.Dio.dio_logic <> ν:165 var
+binder 12235:12236 <> ν:166
+R12241:12247 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12249:12250 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12248:12248 <> x:167
+R12259:12262 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12252:12254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12251:12251 Undecidability.H10.Dio.dio_logic <> x:167 var
+R12257:12258 Undecidability.H10.Dio.dio_logic <> ν:166 var
+R12264:12266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12263:12263 Undecidability.H10.Dio.dio_logic <> x:167 var
+R12269:12270 Undecidability.H10.Dio.dio_logic <> ν:166 var
+R12206:12218 Undecidability.H10.Dio.dio_logic <> dio_rel_equiv thm
+binder 12235:12236 <> ν:168
+R12241:12247 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12249:12250 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12248:12248 <> x:169
+R12259:12262 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12252:12254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12251:12251 Undecidability.H10.Dio.dio_logic <> x:169 var
+R12257:12258 Undecidability.H10.Dio.dio_logic <> ν:168 var
+R12264:12266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12263:12263 Undecidability.H10.Dio.dio_logic <> x:169 var
+R12269:12270 Undecidability.H10.Dio.dio_logic <> ν:168 var
+R12206:12218 Undecidability.H10.Dio.dio_logic <> dio_rel_equiv thm
+R12390:12401 Undecidability.H10.Dio.dio_logic <> dio_rel_exst thm
+R12404:12415 Undecidability.H10.Dio.dio_logic <> dio_rel_conj thm
+R12390:12401 Undecidability.H10.Dio.dio_logic <> dio_rel_exst thm
+R12404:12415 Undecidability.H10.Dio.dio_logic <> dio_rel_conj thm
+R12929:12942 Undecidability.H10.Dio.dio_logic <> dio_fun_mul_im thm
+R12902:12915 Undecidability.H10.Dio.dio_logic <> dio_fun_add_im thm
+R12878:12888 Undecidability.H10.Dio.dio_logic <> dio_fun_cst thm
+R12854:12864 Undecidability.H10.Dio.dio_logic <> dio_fun_var thm
+R13258:13271 Undecidability.H10.Dio.dio_logic <> dio_rel_fun_eq thm
+R13214:13228 Undecidability.H10.Dio.dio_logic <> dio_rel_fun_sym thm
+R13169:13179 Undecidability.H10.Dio.dio_logic <> dio_rel_fun thm
+R13438:13449 Undecidability.H10.Dio.dio_logic <> dio_rel_disj thm
+R13386:13397 Undecidability.H10.Dio.dio_logic <> dio_rel_conj thm
+R13334:13345 Undecidability.H10.Dio.dio_logic <> dio_rel_exst thm
+R13812:13816 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R13812:13816 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R13845:13849 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R13845:13849 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R14014:14018 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R14014:14018 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R14084:14088 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R14084:14088 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R14101:14113 Undecidability.H10.Dio.dio_logic <> dio_fun_equiv thm
+R14031:14043 Undecidability.H10.Dio.dio_logic <> dio_rel_equiv thm
+R14218:14230 Undecidability.H10.Dio.dio_logic <> dio_rel_equiv thm
+prf 14710:14721 <> dio_fun_plus
+binder 14723:14723 <> r:170
+binder 14725:14725 <> t:171
+R14736:14739 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14729:14733 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R14735:14735 Undecidability.H10.Dio.dio_logic <> r:170 var
+R14747:14750 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14740:14744 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R14746:14746 Undecidability.H10.Dio.dio_logic <> t:171 var
+R14751:14755 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 14762:14763 <> ν:172
+R14772:14774 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R14768:14768 Undecidability.H10.Dio.dio_logic <> r:170 var
+R14770:14771 Undecidability.H10.Dio.dio_logic <> ν:172 var
+R14775:14775 Undecidability.H10.Dio.dio_logic <> t:171 var
+R14777:14778 Undecidability.H10.Dio.dio_logic <> ν:172 var
+binder 14830:14831 <> ν:173
+R14836:14842 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14846:14847 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14843:14843 <> b:174
+binder 14845:14845 <> c:175
+R14860:14863 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14852:14854 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14848:14849 Undecidability.H10.Dio.dio_logic <> ν:173 var
+R14856:14858 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R14855:14855 Undecidability.H10.Dio.dio_logic <> b:174 var
+R14859:14859 Undecidability.H10.Dio.dio_logic <> c:175 var
+R14875:14878 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14865:14867 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14864:14864 Undecidability.H10.Dio.dio_logic <> b:174 var
+R14872:14874 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R14870:14871 Undecidability.H10.Dio.dio_logic <> ν:173 var
+R14880:14882 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14879:14879 Undecidability.H10.Dio.dio_logic <> c:175 var
+R14887:14889 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R14885:14886 Undecidability.H10.Dio.dio_logic <> ν:173 var
+binder 14830:14831 <> ν:176
+R14836:14842 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14846:14847 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14843:14843 <> b:177
+binder 14845:14845 <> c:178
+R14860:14863 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14852:14854 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14848:14849 Undecidability.H10.Dio.dio_logic <> ν:176 var
+R14856:14858 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R14855:14855 Undecidability.H10.Dio.dio_logic <> b:177 var
+R14859:14859 Undecidability.H10.Dio.dio_logic <> c:178 var
+R14875:14878 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14865:14867 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14864:14864 Undecidability.H10.Dio.dio_logic <> b:177 var
+R14872:14874 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R14870:14871 Undecidability.H10.Dio.dio_logic <> ν:176 var
+R14880:14882 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14879:14879 Undecidability.H10.Dio.dio_logic <> c:178 var
+R14887:14889 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R14885:14886 Undecidability.H10.Dio.dio_logic <> ν:176 var
+R14939:14941 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R14949:14951 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R14939:14941 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R14949:14951 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+prf 15021:15032 <> dio_fun_mult
+binder 15034:15034 <> r:179
+binder 15036:15036 <> t:180
+R15047:15050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15040:15044 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R15046:15046 Undecidability.H10.Dio.dio_logic <> r:179 var
+R15058:15061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15051:15055 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R15057:15057 Undecidability.H10.Dio.dio_logic <> t:180 var
+R15062:15066 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 15073:15074 <> ν:181
+R15083:15085 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R15079:15079 Undecidability.H10.Dio.dio_logic <> r:179 var
+R15081:15082 Undecidability.H10.Dio.dio_logic <> ν:181 var
+R15086:15086 Undecidability.H10.Dio.dio_logic <> t:180 var
+R15088:15089 Undecidability.H10.Dio.dio_logic <> ν:181 var
+binder 15141:15142 <> ν:182
+R15147:15153 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15157:15158 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15154:15154 <> b:183
+binder 15156:15156 <> c:184
+R15171:15174 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15163:15165 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15159:15160 Undecidability.H10.Dio.dio_logic <> ν:182 var
+R15167:15169 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R15166:15166 Undecidability.H10.Dio.dio_logic <> b:183 var
+R15170:15170 Undecidability.H10.Dio.dio_logic <> c:184 var
+R15186:15189 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15176:15178 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15175:15175 Undecidability.H10.Dio.dio_logic <> b:183 var
+R15183:15185 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R15181:15182 Undecidability.H10.Dio.dio_logic <> ν:182 var
+R15191:15193 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15190:15190 Undecidability.H10.Dio.dio_logic <> c:184 var
+R15198:15200 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R15196:15197 Undecidability.H10.Dio.dio_logic <> ν:182 var
+binder 15141:15142 <> ν:185
+R15147:15153 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15157:15158 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15154:15154 <> b:186
+binder 15156:15156 <> c:187
+R15171:15174 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15163:15165 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15159:15160 Undecidability.H10.Dio.dio_logic <> ν:185 var
+R15167:15169 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R15166:15166 Undecidability.H10.Dio.dio_logic <> b:186 var
+R15170:15170 Undecidability.H10.Dio.dio_logic <> c:187 var
+R15186:15189 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15176:15178 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15175:15175 Undecidability.H10.Dio.dio_logic <> b:186 var
+R15183:15185 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R15181:15182 Undecidability.H10.Dio.dio_logic <> ν:185 var
+R15191:15193 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15190:15190 Undecidability.H10.Dio.dio_logic <> c:187 var
+R15198:15200 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R15196:15197 Undecidability.H10.Dio.dio_logic <> ν:185 var
+R15249:15251 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R15259:15261 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R15249:15251 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R15259:15261 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+prf 15400:15409 <> example_eq
+R15413:15417 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 15424:15425 <> ν:188
+R15434:15436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15430:15431 Undecidability.H10.Dio.dio_logic <> ν:188 var
+R15437:15438 Undecidability.H10.Dio.dio_logic <> ν:188 var
+sec 15635:15644 <> True_False
+prf 15795:15806 <> dio_rel_True
+R15810:15814 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R15826:15829 Coq.Init.Logic <> True ind
+R15869:15875 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15877:15878 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15876:15876 <> x:189
+R15880:15882 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15879:15879 Undecidability.H10.Dio.dio_logic <> x:189 var
+R15869:15875 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15877:15878 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15876:15876 <> x:190
+R15880:15882 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15879:15879 Undecidability.H10.Dio.dio_logic <> x:190 var
+prf 15955:15967 <> dio_rel_False
+R15971:15975 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R15987:15991 Coq.Init.Logic <> False ind
+R16031:16037 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16039:16040 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16038:16038 <> x:191
+R16046:16049 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16042:16044 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16041:16041 Undecidability.H10.Dio.dio_logic <> x:191 var
+R16051:16053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16050:16050 Undecidability.H10.Dio.dio_logic <> x:191 var
+R16031:16037 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16039:16040 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16038:16038 <> x:192
+R16046:16049 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16042:16044 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16041:16041 Undecidability.H10.Dio.dio_logic <> x:192 var
+R16051:16053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16050:16050 Undecidability.H10.Dio.dio_logic <> x:192 var
+R16132:16141 Undecidability.H10.Dio.dio_logic True_False <> sec
+prf 16215:16227 <> dio_rel_le_im
+binder 16229:16229 <> x:193
+binder 16231:16231 <> y:194
+R16235:16239 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 16246:16247 <> ν:195
+R16256:16259 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16252:16253 Undecidability.H10.Dio.dio_logic <> ν:195 var
+R16255:16255 Undecidability.H10.Dio.dio_logic <> x:193 var
+R16260:16261 Undecidability.H10.Dio.dio_logic <> ν:195 var
+R16263:16263 Undecidability.H10.Dio.dio_logic <> y:194 var
+binder 16294:16295 <> ν:196
+R16300:16306 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16308:16309 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16307:16307 <> a:197
+R16314:16316 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16310:16311 Undecidability.H10.Dio.dio_logic <> ν:196 var
+R16318:16320 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R16317:16317 Undecidability.H10.Dio.dio_logic <> a:197 var
+R16321:16322 Undecidability.H10.Dio.dio_logic <> ν:196 var
+binder 16294:16295 <> ν:198
+R16300:16306 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16308:16309 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16307:16307 <> a:199
+R16314:16316 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16310:16311 Undecidability.H10.Dio.dio_logic <> ν:198 var
+R16318:16320 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R16317:16317 Undecidability.H10.Dio.dio_logic <> a:199 var
+R16321:16322 Undecidability.H10.Dio.dio_logic <> ν:198 var
+R16384:16386 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R16384:16386 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+prf 16443:16455 <> dio_rel_lt_im
+binder 16457:16457 <> x:200
+binder 16459:16459 <> y:201
+R16463:16467 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 16474:16475 <> ν:202
+R16484:16486 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R16480:16481 Undecidability.H10.Dio.dio_logic <> ν:202 var
+R16483:16483 Undecidability.H10.Dio.dio_logic <> x:200 var
+R16487:16488 Undecidability.H10.Dio.dio_logic <> ν:202 var
+R16490:16490 Undecidability.H10.Dio.dio_logic <> y:201 var
+binder 16521:16522 <> ν:203
+R16527:16533 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16539:16540 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16534:16534 <> a:204
+binder 16536:16536 <> b:205
+binder 16538:16538 <> c:206
+R16556:16559 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16545:16547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16541:16542 Undecidability.H10.Dio.dio_logic <> ν:203 var
+R16549:16551 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R16548:16548 Undecidability.H10.Dio.dio_logic <> c:206 var
+R16552:16553 Undecidability.H10.Dio.dio_logic <> ν:203 var
+R16565:16568 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16561:16563 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16560:16560 Undecidability.H10.Dio.dio_logic <> b:205 var
+R16570:16572 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16569:16569 Undecidability.H10.Dio.dio_logic <> c:206 var
+R16574:16576 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R16573:16573 Undecidability.H10.Dio.dio_logic <> a:204 var
+R16577:16577 Undecidability.H10.Dio.dio_logic <> b:205 var
+binder 16521:16522 <> ν:207
+R16527:16533 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16539:16540 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16534:16534 <> a:208
+binder 16536:16536 <> b:209
+binder 16538:16538 <> c:210
+R16556:16559 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16545:16547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16541:16542 Undecidability.H10.Dio.dio_logic <> ν:207 var
+R16549:16551 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R16548:16548 Undecidability.H10.Dio.dio_logic <> c:210 var
+R16552:16553 Undecidability.H10.Dio.dio_logic <> ν:207 var
+R16565:16568 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16561:16563 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16560:16560 Undecidability.H10.Dio.dio_logic <> b:209 var
+R16570:16572 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16569:16569 Undecidability.H10.Dio.dio_logic <> c:210 var
+R16574:16576 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R16573:16573 Undecidability.H10.Dio.dio_logic <> a:208 var
+R16577:16577 Undecidability.H10.Dio.dio_logic <> b:209 var
+R16643:16644 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R16637:16639 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R16656:16658 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R16643:16644 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R16637:16639 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R16656:16658 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+prf 16733:16746 <> dio_rel_div_im
+binder 16748:16748 <> x:211
+binder 16750:16750 <> y:212
+R16754:16758 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 16765:16766 <> ν:213
+R16771:16777 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R16787:16788 Undecidability.H10.Dio.dio_logic <> ν:213 var
+R16790:16790 Undecidability.H10.Dio.dio_logic <> y:212 var
+R16780:16781 Undecidability.H10.Dio.dio_logic <> ν:213 var
+R16783:16783 Undecidability.H10.Dio.dio_logic <> x:211 var
+binder 16822:16823 <> ν:214
+R16828:16834 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16836:16837 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16835:16835 <> a:215
+R16842:16844 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16838:16839 Undecidability.H10.Dio.dio_logic <> ν:214 var
+R16846:16848 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R16845:16845 Undecidability.H10.Dio.dio_logic <> a:215 var
+R16849:16850 Undecidability.H10.Dio.dio_logic <> ν:214 var
+binder 16822:16823 <> ν:216
+R16828:16834 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16836:16837 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16835:16835 <> a:217
+R16842:16844 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16838:16839 Undecidability.H10.Dio.dio_logic <> ν:216 var
+R16846:16848 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R16845:16845 Undecidability.H10.Dio.dio_logic <> a:217 var
+R16849:16850 Undecidability.H10.Dio.dio_logic <> ν:216 var
+R16865:16871 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+prf 17009:17018 <> dio_rel_le
+binder 17020:17020 <> r:218
+binder 17022:17022 <> t:219
+R17033:17036 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17026:17030 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R17032:17032 Undecidability.H10.Dio.dio_logic <> r:218 var
+R17044:17047 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17037:17041 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R17043:17043 Undecidability.H10.Dio.dio_logic <> t:219 var
+R17048:17052 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 17059:17060 <> ν:220
+R17069:17072 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R17065:17065 Undecidability.H10.Dio.dio_logic <> r:218 var
+R17067:17068 Undecidability.H10.Dio.dio_logic <> ν:220 var
+R17073:17073 Undecidability.H10.Dio.dio_logic <> t:219 var
+R17075:17076 Undecidability.H10.Dio.dio_logic <> ν:220 var
+binder 17123:17124 <> ν:221
+R17129:17135 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17139:17140 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17136:17136 <> a:222
+binder 17138:17138 <> b:223
+R17147:17150 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17142:17145 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R17141:17141 Undecidability.H10.Dio.dio_logic <> a:222 var
+R17146:17146 Undecidability.H10.Dio.dio_logic <> b:223 var
+R17159:17162 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17152:17154 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17151:17151 Undecidability.H10.Dio.dio_logic <> a:222 var
+R17157:17158 Undecidability.H10.Dio.dio_logic <> ν:221 var
+R17164:17166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17163:17163 Undecidability.H10.Dio.dio_logic <> b:223 var
+R17169:17170 Undecidability.H10.Dio.dio_logic <> ν:221 var
+binder 17123:17124 <> ν:224
+R17129:17135 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17139:17140 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17136:17136 <> a:225
+binder 17138:17138 <> b:226
+R17147:17150 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17142:17145 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R17141:17141 Undecidability.H10.Dio.dio_logic <> a:225 var
+R17146:17146 Undecidability.H10.Dio.dio_logic <> b:226 var
+R17159:17162 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17152:17154 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17151:17151 Undecidability.H10.Dio.dio_logic <> a:225 var
+R17157:17158 Undecidability.H10.Dio.dio_logic <> ν:224 var
+R17164:17166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17163:17163 Undecidability.H10.Dio.dio_logic <> b:226 var
+R17169:17170 Undecidability.H10.Dio.dio_logic <> ν:224 var
+prf 17289:17298 <> dio_rel_lt
+binder 17300:17300 <> r:227
+binder 17302:17302 <> t:228
+R17313:17316 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17306:17310 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R17312:17312 Undecidability.H10.Dio.dio_logic <> r:227 var
+R17324:17327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17317:17321 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R17323:17323 Undecidability.H10.Dio.dio_logic <> t:228 var
+R17328:17332 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 17339:17340 <> ν:229
+R17349:17351 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17345:17345 Undecidability.H10.Dio.dio_logic <> r:227 var
+R17347:17348 Undecidability.H10.Dio.dio_logic <> ν:229 var
+R17352:17352 Undecidability.H10.Dio.dio_logic <> t:228 var
+R17354:17355 Undecidability.H10.Dio.dio_logic <> ν:229 var
+binder 17402:17403 <> ν:230
+R17408:17414 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17418:17419 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17415:17415 <> a:231
+binder 17417:17417 <> b:232
+R17425:17428 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17421:17423 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17420:17420 Undecidability.H10.Dio.dio_logic <> a:231 var
+R17424:17424 Undecidability.H10.Dio.dio_logic <> b:232 var
+R17437:17440 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17430:17432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17429:17429 Undecidability.H10.Dio.dio_logic <> a:231 var
+R17435:17436 Undecidability.H10.Dio.dio_logic <> ν:230 var
+R17442:17444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17441:17441 Undecidability.H10.Dio.dio_logic <> b:232 var
+R17447:17448 Undecidability.H10.Dio.dio_logic <> ν:230 var
+binder 17402:17403 <> ν:233
+R17408:17414 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17418:17419 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17415:17415 <> a:234
+binder 17417:17417 <> b:235
+R17425:17428 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17421:17423 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17420:17420 Undecidability.H10.Dio.dio_logic <> a:234 var
+R17424:17424 Undecidability.H10.Dio.dio_logic <> b:235 var
+R17437:17440 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17430:17432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17429:17429 Undecidability.H10.Dio.dio_logic <> a:234 var
+R17435:17436 Undecidability.H10.Dio.dio_logic <> ν:233 var
+R17442:17444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17441:17441 Undecidability.H10.Dio.dio_logic <> b:235 var
+R17447:17448 Undecidability.H10.Dio.dio_logic <> ν:233 var
+prf 17641:17651 <> dio_rel_neq
+binder 17653:17653 <> r:236
+binder 17655:17655 <> t:237
+R17666:17669 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17659:17663 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R17665:17665 Undecidability.H10.Dio.dio_logic <> r:236 var
+R17677:17680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17670:17674 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R17676:17676 Undecidability.H10.Dio.dio_logic <> t:237 var
+R17681:17685 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 17692:17693 <> ν:238
+R17702:17705 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R17698:17698 Undecidability.H10.Dio.dio_logic <> r:236 var
+R17700:17701 Undecidability.H10.Dio.dio_logic <> ν:238 var
+R17706:17706 Undecidability.H10.Dio.dio_logic <> t:237 var
+R17708:17709 Undecidability.H10.Dio.dio_logic <> ν:238 var
+binder 17756:17756 <> v:239
+R17761:17767 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17771:17772 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17768:17768 <> a:240
+binder 17770:17770 <> b:241
+R17773:17773 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17788:17792 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17779:17782 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17775:17777 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17774:17774 Undecidability.H10.Dio.dio_logic <> a:240 var
+R17778:17778 Undecidability.H10.Dio.dio_logic <> b:241 var
+R17784:17786 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17783:17783 Undecidability.H10.Dio.dio_logic <> b:241 var
+R17787:17787 Undecidability.H10.Dio.dio_logic <> a:240 var
+R17800:17803 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17794:17796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17793:17793 Undecidability.H10.Dio.dio_logic <> a:240 var
+R17799:17799 Undecidability.H10.Dio.dio_logic <> v:239 var
+R17805:17807 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17804:17804 Undecidability.H10.Dio.dio_logic <> b:241 var
+R17810:17810 Undecidability.H10.Dio.dio_logic <> v:239 var
+binder 17756:17756 <> v:242
+R17761:17767 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17771:17772 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17768:17768 <> a:243
+binder 17770:17770 <> b:244
+R17773:17773 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17788:17792 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17779:17782 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17775:17777 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17774:17774 Undecidability.H10.Dio.dio_logic <> a:243 var
+R17778:17778 Undecidability.H10.Dio.dio_logic <> b:244 var
+R17784:17786 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17783:17783 Undecidability.H10.Dio.dio_logic <> b:244 var
+R17787:17787 Undecidability.H10.Dio.dio_logic <> a:243 var
+R17800:17803 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17794:17796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17793:17793 Undecidability.H10.Dio.dio_logic <> a:243 var
+R17799:17799 Undecidability.H10.Dio.dio_logic <> v:242 var
+R17805:17807 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17804:17804 Undecidability.H10.Dio.dio_logic <> b:244 var
+R17810:17810 Undecidability.H10.Dio.dio_logic <> v:242 var
+prf 17918:17928 <> dio_rel_div
+binder 17930:17930 <> r:245
+binder 17932:17932 <> t:246
+R17943:17946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17936:17940 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R17942:17942 Undecidability.H10.Dio.dio_logic <> r:245 var
+R17954:17957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17947:17951 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R17953:17953 Undecidability.H10.Dio.dio_logic <> t:246 var
+R17958:17962 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 17969:17970 <> ν:247
+R17975:17981 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R17991:17991 Undecidability.H10.Dio.dio_logic <> t:246 var
+R17993:17994 Undecidability.H10.Dio.dio_logic <> ν:247 var
+R17984:17984 Undecidability.H10.Dio.dio_logic <> r:245 var
+R17986:17987 Undecidability.H10.Dio.dio_logic <> ν:247 var
+binder 18042:18042 <> v:248
+R18047:18053 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18057:18058 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18054:18054 <> a:249
+binder 18056:18056 <> b:250
+R18070:18073 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18059:18065 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R18069:18069 Undecidability.H10.Dio.dio_logic <> b:250 var
+R18067:18067 Undecidability.H10.Dio.dio_logic <> a:249 var
+R18081:18084 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18075:18077 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18074:18074 Undecidability.H10.Dio.dio_logic <> a:249 var
+R18080:18080 Undecidability.H10.Dio.dio_logic <> v:248 var
+R18086:18088 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18085:18085 Undecidability.H10.Dio.dio_logic <> b:250 var
+R18091:18091 Undecidability.H10.Dio.dio_logic <> v:248 var
+binder 18042:18042 <> v:251
+R18047:18053 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18057:18058 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18054:18054 <> a:252
+binder 18056:18056 <> b:253
+R18070:18073 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18059:18065 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R18069:18069 Undecidability.H10.Dio.dio_logic <> b:253 var
+R18067:18067 Undecidability.H10.Dio.dio_logic <> a:252 var
+R18081:18084 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18075:18077 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18074:18074 Undecidability.H10.Dio.dio_logic <> a:252 var
+R18080:18080 Undecidability.H10.Dio.dio_logic <> v:251 var
+R18086:18088 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18085:18085 Undecidability.H10.Dio.dio_logic <> b:253 var
+R18091:18091 Undecidability.H10.Dio.dio_logic <> v:251 var
+prf 18328:18337 <> example_le
+R18341:18345 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 18352:18353 <> ν:254
+R18362:18365 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R18358:18359 Undecidability.H10.Dio.dio_logic <> ν:254 var
+R18366:18367 Undecidability.H10.Dio.dio_logic <> ν:254 var
+prf 18482:18491 <> example_lt
+R18495:18499 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 18506:18507 <> ν:255
+R18516:18518 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18512:18513 Undecidability.H10.Dio.dio_logic <> ν:255 var
+R18519:18520 Undecidability.H10.Dio.dio_logic <> ν:255 var
+prf 18635:18645 <> example_div
+R18649:18653 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 18660:18661 <> ν:256
+R18666:18672 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R18682:18683 Undecidability.H10.Dio.dio_logic <> ν:256 var
+R18675:18676 Undecidability.H10.Dio.dio_logic <> ν:256 var
+sec 18798:18808 <> dio_fun_rem
+var 18913:18921 dio_fun_rem rem_equiv
+binder 18923:18923 <> p:257
+binder 18925:18925 <> x:258
+binder 18927:18927 <> r:259
+R18942:18967 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R18932:18934 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18931:18931 Undecidability.H10.Dio.dio_logic <> r:259 var
+R18935:18937 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem def
+R18941:18941 Undecidability.H10.Dio.dio_logic <> p:257 var
+R18939:18939 Undecidability.H10.Dio.dio_logic <> x:258 var
+R18968:18974 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18980:18981 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18975:18976 <> x':260
+binder 18978:18979 <> p':261
+R18988:18991 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18984:18986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18982:18983 Undecidability.H10.Dio.dio_logic <> x':260 var
+R18987:18987 Undecidability.H10.Dio.dio_logic <> x:258 var
+R18998:19038 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19142:19143 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18994:18996 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18992:18993 Undecidability.H10.Dio.dio_logic <> p':261 var
+R18997:18997 Undecidability.H10.Dio.dio_logic <> p:257 var
+R19039:19039 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R19057:19096 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R19141:19141 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R19046:19050 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19042:19044 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19040:19041 Undecidability.H10.Dio.dio_logic <> p':261 var
+R19053:19055 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19051:19052 Undecidability.H10.Dio.dio_logic <> x':260 var
+R19056:19056 Undecidability.H10.Dio.dio_logic <> r:259 var
+R19104:19107 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19099:19102 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R19097:19098 Undecidability.H10.Dio.dio_logic <> p':261 var
+R19114:19117 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19109:19111 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R19108:19108 Undecidability.H10.Dio.dio_logic <> r:259 var
+R19112:19113 Undecidability.H10.Dio.dio_logic <> p':261 var
+R19118:19124 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19126:19127 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19125:19125 <> n:262
+R19130:19132 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19128:19129 Undecidability.H10.Dio.dio_logic <> x':260 var
+R19137:19139 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R19134:19134 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R19133:19133 Undecidability.H10.Dio.dio_logic <> n:262 var
+R19135:19136 Undecidability.H10.Dio.dio_logic <> p':261 var
+R19140:19140 Undecidability.H10.Dio.dio_logic <> r:259 var
+R19231:19240 Coq.Arith.Peano_dec <> eq_nat_dec abbrev
+R19231:19240 Coq.Arith.Peano_dec <> eq_nat_dec abbrev
+R19305:19309 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem_0 thm
+R19305:19309 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem_0 thm
+R19305:19309 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem_0 thm
+R19369:19381 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec2 thm
+R19369:19381 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec2 thm
+R19408:19410 Undecidability.Shared.Libs.DLW.Utils.gcd <> div def
+R19423:19435 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec1 thm
+R19408:19410 Undecidability.Shared.Libs.DLW.Utils.gcd <> div def
+R19423:19435 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec1 thm
+R19531:19535 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem_0 thm
+R19531:19535 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem_0 thm
+R19531:19535 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem_0 thm
+R19568:19575 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem_prop thm
+R19568:19575 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem_prop thm
+prf 19607:19617 <> dio_fun_rem
+binder 19619:19619 <> p:263
+binder 19621:19621 <> x:264
+R19632:19635 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19625:19629 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R19631:19631 Undecidability.H10.Dio.dio_logic <> p:263 var
+R19643:19646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19636:19640 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R19642:19642 Undecidability.H10.Dio.dio_logic <> x:264 var
+R19647:19651 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 19658:19659 <> ν:265
+R19664:19666 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem def
+R19676:19676 Undecidability.H10.Dio.dio_logic <> p:263 var
+R19678:19679 Undecidability.H10.Dio.dio_logic <> ν:265 var
+R19669:19669 Undecidability.H10.Dio.dio_logic <> x:264 var
+R19671:19672 Undecidability.H10.Dio.dio_logic <> ν:265 var
+binder 19715:19715 <> v:266
+R19720:19728 Undecidability.H10.Dio.dio_logic <> dio_fun_rem.rem_equiv var
+R19749:19749 Undecidability.H10.Dio.dio_logic <> v:266 var
+R19743:19745 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R19742:19742 Undecidability.H10.Dio.dio_logic <> v:266 var
+R19734:19736 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R19733:19733 Undecidability.H10.Dio.dio_logic <> v:266 var
+binder 19715:19715 <> v:267
+R19720:19728 Undecidability.H10.Dio.dio_logic <> dio_fun_rem.rem_equiv var
+R19749:19749 Undecidability.H10.Dio.dio_logic <> v:267 var
+R19743:19745 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R19742:19742 Undecidability.H10.Dio.dio_logic <> v:267 var
+R19734:19736 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R19733:19733 Undecidability.H10.Dio.dio_logic <> v:267 var
+R19772:19782 Undecidability.H10.Dio.dio_logic dio_fun_rem <> sec
+prf 19849:19867 <> dio_fun_rem_example
+R19871:19875 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 19882:19883 <> ν:268
+R19888:19890 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem def
+R19900:19901 Undecidability.H10.Dio.dio_logic <> ν:268 var
+R19893:19894 Undecidability.H10.Dio.dio_logic <> ν:268 var
+sec 20030:20045 <> dio_rel_ndivides
+var 20101:20111 dio_rel_ndivides ndivides_eq
+binder 20113:20113 <> x:269
+binder 20115:20115 <> y:270
+R20134:20138 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R20119:20121 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20133:20133 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20122:20128 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R20132:20132 Undecidability.H10.Dio.dio_logic <> y:270 var
+R20130:20130 Undecidability.H10.Dio.dio_logic <> x:269 var
+R20154:20157 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20144:20147 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20140:20142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20139:20139 Undecidability.H10.Dio.dio_logic <> x:269 var
+R20149:20152 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R20148:20148 Undecidability.H10.Dio.dio_logic <> y:270 var
+R20158:20164 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20168:20169 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20165:20165 <> a:271
+binder 20167:20167 <> b:272
+R20179:20182 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20171:20173 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20170:20170 Undecidability.H10.Dio.dio_logic <> y:270 var
+R20177:20177 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R20175:20175 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R20174:20174 Undecidability.H10.Dio.dio_logic <> a:271 var
+R20176:20176 Undecidability.H10.Dio.dio_logic <> x:269 var
+R20178:20178 Undecidability.H10.Dio.dio_logic <> b:272 var
+R20184:20186 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R20188:20190 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<'_x not
+R20187:20187 Undecidability.H10.Dio.dio_logic <> b:272 var
+R20187:20187 Undecidability.H10.Dio.dio_logic <> b:272 var
+R20191:20191 Undecidability.H10.Dio.dio_logic <> x:269 var
+R20313:20321 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_0 thm
+R20313:20321 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_0 thm
+R20347:20349 Undecidability.Shared.Libs.DLW.Utils.gcd <> div def
+R20354:20354 Coq.Init.Datatypes <> S constr
+R20362:20364 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem def
+R20369:20369 Coq.Init.Datatypes <> S constr
+R20347:20349 Undecidability.Shared.Libs.DLW.Utils.gcd <> div def
+R20354:20354 Coq.Init.Datatypes <> S constr
+R20362:20364 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem def
+R20369:20369 Coq.Init.Datatypes <> S constr
+R20399:20411 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec1 thm
+R20399:20411 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec1 thm
+R20432:20445 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_rem_eq thm
+R20432:20445 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_rem_eq thm
+R20432:20445 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_rem_eq thm
+R20476:20488 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec2 thm
+R20493:20493 Coq.Init.Datatypes <> S constr
+R20476:20488 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec2 thm
+R20493:20493 Coq.Init.Datatypes <> S constr
+R20608:20620 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_0_inv thm
+R20608:20620 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_0_inv thm
+R20639:20652 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_rem_eq thm
+R20639:20652 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_rem_eq thm
+R20639:20652 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_rem_eq thm
+R20672:20684 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec1 thm
+R20672:20684 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec1 thm
+R20672:20684 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec1 thm
+R20712:20723 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_uniq thm
+R20712:20723 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_uniq thm
+R20755:20767 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec2 thm
+R20755:20767 Undecidability.Shared.Libs.DLW.Utils.gcd <> div_rem_spec2 thm
+prf 20792:20807 <> dio_rel_ndivides
+binder 20809:20809 <> x:273
+binder 20811:20811 <> y:274
+R20822:20825 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20815:20819 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R20821:20821 Undecidability.H10.Dio.dio_logic <> x:273 var
+R20833:20836 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20826:20830 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R20832:20832 Undecidability.H10.Dio.dio_logic <> y:274 var
+R20837:20841 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 20848:20849 <> ν:275
+R20854:20855 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20856:20862 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R20872:20872 Undecidability.H10.Dio.dio_logic <> y:274 var
+R20874:20875 Undecidability.H10.Dio.dio_logic <> ν:275 var
+R20865:20865 Undecidability.H10.Dio.dio_logic <> x:273 var
+R20867:20868 Undecidability.H10.Dio.dio_logic <> ν:275 var
+binder 20911:20911 <> v:276
+R20916:20926 Undecidability.H10.Dio.dio_logic <> dio_rel_ndivides.ndivides_eq var
+R20937:20937 Undecidability.H10.Dio.dio_logic <> v:276 var
+R20931:20931 Undecidability.H10.Dio.dio_logic <> v:276 var
+binder 20911:20911 <> v:277
+R20916:20926 Undecidability.H10.Dio.dio_logic <> dio_rel_ndivides.ndivides_eq var
+R20937:20937 Undecidability.H10.Dio.dio_logic <> v:277 var
+R20931:20931 Undecidability.H10.Dio.dio_logic <> v:277 var
+R20958:20973 Undecidability.H10.Dio.dio_logic dio_rel_ndivides <> sec
+prf 20988:21007 <> dio_rel_ndiv_example
+R21011:21015 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 21022:21023 <> ν:278
+R21028:21029 Coq.Init.Logic <> ::type_scope:'~'_x not
+R21030:21036 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R21046:21047 Undecidability.H10.Dio.dio_logic <> ν:278 var
+R21039:21040 Undecidability.H10.Dio.dio_logic <> ν:278 var
+R21067:21082 Undecidability.H10.Dio.dio_logic <> dio_rel_ndivides thm
+R21067:21082 Undecidability.H10.Dio.dio_logic <> dio_rel_ndivides thm
+sec 21168:21186 <> dio_rel_not_divides
+var 21249:21262 dio_rel_not_divides not_divides_eq
+binder 21264:21264 <> p:279
+binder 21266:21266 <> x:280
+R21283:21287 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R21270:21271 Coq.Init.Logic <> ::type_scope:'~'_x not
+R21272:21278 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R21282:21282 Undecidability.H10.Dio.dio_logic <> x:280 var
+R21280:21280 Undecidability.H10.Dio.dio_logic <> p:279 var
+R21295:21298 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R21288:21290 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem def
+R21294:21294 Undecidability.H10.Dio.dio_logic <> p:279 var
+R21292:21292 Undecidability.H10.Dio.dio_logic <> x:280 var
+R21319:21332 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_rem_eq thm
+R21319:21332 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_rem_eq thm
+R21319:21332 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides_rem_eq thm
+prf 21356:21374 <> dio_rel_not_divides
+binder 21376:21376 <> x:281
+binder 21378:21378 <> p:282
+R21389:21392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21382:21386 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R21388:21388 Undecidability.H10.Dio.dio_logic <> x:281 var
+R21400:21403 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21393:21397 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R21399:21399 Undecidability.H10.Dio.dio_logic <> p:282 var
+R21404:21408 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 21415:21416 <> ν:283
+R21421:21422 Coq.Init.Logic <> ::type_scope:'~'_x not
+R21423:21429 Undecidability.Shared.Libs.DLW.Utils.gcd <> divides def
+R21439:21439 Undecidability.H10.Dio.dio_logic <> p:282 var
+R21441:21442 Undecidability.H10.Dio.dio_logic <> ν:283 var
+R21432:21432 Undecidability.H10.Dio.dio_logic <> x:281 var
+R21434:21435 Undecidability.H10.Dio.dio_logic <> ν:283 var
+binder 21478:21478 <> v:284
+R21483:21496 Undecidability.H10.Dio.dio_logic <> dio_rel_not_divides.not_divides_eq var
+R21507:21507 Undecidability.H10.Dio.dio_logic <> v:284 var
+R21501:21501 Undecidability.H10.Dio.dio_logic <> v:284 var
+binder 21478:21478 <> v:285
+R21483:21496 Undecidability.H10.Dio.dio_logic <> dio_rel_not_divides.not_divides_eq var
+R21507:21507 Undecidability.H10.Dio.dio_logic <> v:285 var
+R21501:21501 Undecidability.H10.Dio.dio_logic <> v:285 var
+R21528:21546 Undecidability.H10.Dio.dio_logic dio_rel_not_divides <> sec
+prf 21619:21637 <> example_rem_strange
+R21641:21645 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 21652:21653 <> ν:286
+R21675:21677 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21658:21660 Undecidability.Shared.Libs.DLW.Utils.gcd <> rem def
+R21670:21671 Undecidability.H10.Dio.dio_logic <> ν:286 var
+R21663:21664 Undecidability.H10.Dio.dio_logic <> ν:286 var
+R21682:21684 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R21678:21679 Undecidability.H10.Dio.dio_logic <> ν:286 var
+R21685:21686 Undecidability.H10.Dio.dio_logic <> ν:286 var
+sec 21987:22001 <> dio_rel_compose
+var 22017:22017 dio_rel_compose f
+var 22043:22043 dio_rel_compose R
+R22021:22021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22032:22036 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22025:22028 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22022:22024 Coq.Init.Datatypes <> nat ind
+R22029:22031 Coq.Init.Datatypes <> nat ind
+R22037:22039 Coq.Init.Datatypes <> nat ind
+R22050:22053 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22047:22049 Coq.Init.Datatypes <> nat ind
+R22054:22054 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22065:22069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22058:22061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22055:22057 Coq.Init.Datatypes <> nat ind
+R22062:22064 Coq.Init.Datatypes <> nat ind
+var 22091:22092 dio_rel_compose Hf
+var 22120:22121 dio_rel_compose HR
+R22096:22100 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R22102:22102 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.f var
+R22125:22129 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 22136:22137 <> ν:290
+R22142:22142 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.R var
+R22153:22155 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R22151:22152 Undecidability.H10.Dio.dio_logic <> ν:290 var
+R22145:22146 Undecidability.H10.Dio.dio_logic <> ν:290 var
+prf 22169:22183 <> dio_rel_compose
+R22187:22191 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 22198:22199 <> ν:292
+R22204:22204 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.R var
+R22213:22214 Undecidability.H10.Dio.dio_logic <> ν:292 var
+R22207:22207 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.f var
+R22209:22210 Undecidability.H10.Dio.dio_logic <> ν:292 var
+binder 22261:22261 <> v:293
+R22266:22272 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22274:22275 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22273:22273 <> y:294
+R22283:22286 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22277:22279 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22276:22276 Undecidability.H10.Dio.dio_logic <> y:294 var
+R22280:22280 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.f var
+R22282:22282 Undecidability.H10.Dio.dio_logic <> v:293 var
+R22287:22287 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.R var
+R22291:22291 Undecidability.H10.Dio.dio_logic <> v:293 var
+R22289:22289 Undecidability.H10.Dio.dio_logic <> y:294 var
+binder 22261:22261 <> v:295
+R22266:22272 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22274:22275 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22273:22273 <> y:296
+R22283:22286 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22277:22279 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22276:22276 Undecidability.H10.Dio.dio_logic <> y:296 var
+R22280:22280 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.f var
+R22282:22282 Undecidability.H10.Dio.dio_logic <> v:295 var
+R22287:22287 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.R var
+R22291:22291 Undecidability.H10.Dio.dio_logic <> v:295 var
+R22289:22289 Undecidability.H10.Dio.dio_logic <> y:296 var
+R22340:22340 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.f var
+R22340:22340 Undecidability.H10.Dio.dio_logic <> dio_rel_compose.f var
+R22404:22418 Undecidability.H10.Dio.dio_logic dio_rel_compose <> sec
+sec 22430:22444 <> dio_fun_compose
+var 22460:22460 dio_fun_compose f
+var 22486:22487 dio_fun_compose Hf
+var 22512:22512 dio_fun_compose g
+var 22538:22539 dio_fun_compose Hg
+R22464:22464 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22475:22479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22468:22471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22465:22467 Coq.Init.Datatypes <> nat ind
+R22472:22474 Coq.Init.Datatypes <> nat ind
+R22480:22482 Coq.Init.Datatypes <> nat ind
+R22491:22495 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+R22497:22497 Undecidability.H10.Dio.dio_logic <> f:297 var
+R22519:22522 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22516:22518 Coq.Init.Datatypes <> nat ind
+R22523:22525 Coq.Init.Datatypes <> nat ind
+R22543:22547 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 22554:22555 <> ν:300
+R22560:22560 Undecidability.H10.Dio.dio_logic <> g:299 var
+R22563:22564 Undecidability.H10.Dio.dio_logic <> ν:300 var
+prf 22581:22595 <> dio_fun_compose
+R22599:22603 Undecidability.H10.Dio.dio_logic <> 𝔻F abbrev
+binder 22610:22611 <> ν:302
+R22616:22616 Undecidability.H10.Dio.dio_logic <> dio_fun_compose.g var
+R22619:22619 Undecidability.H10.Dio.dio_logic <> dio_fun_compose.f var
+R22621:22622 Undecidability.H10.Dio.dio_logic <> ν:302 var
+binder 22675:22675 <> v:303
+R22680:22686 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22688:22689 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22687:22687 <> y:304
+R22700:22703 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22691:22693 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22690:22690 Undecidability.H10.Dio.dio_logic <> y:304 var
+R22694:22694 Undecidability.H10.Dio.dio_logic <> dio_fun_compose.f var
+R22697:22699 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R22696:22696 Undecidability.H10.Dio.dio_logic <> v:303 var
+R22707:22709 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22704:22704 Undecidability.H10.Dio.dio_logic <> v:303 var
+R22710:22710 Undecidability.H10.Dio.dio_logic <> dio_fun_compose.g var
+R22712:22712 Undecidability.H10.Dio.dio_logic <> y:304 var
+binder 22675:22675 <> v:305
+R22680:22686 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22688:22689 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22687:22687 <> y:306
+R22700:22703 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22691:22693 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22690:22690 Undecidability.H10.Dio.dio_logic <> y:306 var
+R22694:22694 Undecidability.H10.Dio.dio_logic <> dio_fun_compose.f var
+R22697:22699 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R22696:22696 Undecidability.H10.Dio.dio_logic <> v:305 var
+R22707:22709 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22704:22704 Undecidability.H10.Dio.dio_logic <> v:305 var
+R22710:22710 Undecidability.H10.Dio.dio_logic <> dio_fun_compose.g var
+R22712:22712 Undecidability.H10.Dio.dio_logic <> y:306 var
+R22759:22759 Undecidability.H10.Dio.dio_logic <> dio_fun_compose.f var
+R22763:22765 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R22759:22759 Undecidability.H10.Dio.dio_logic <> dio_fun_compose.f var
+R22763:22765 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R22827:22841 Undecidability.H10.Dio.dio_logic dio_fun_compose <> sec
+sec 23161:23175 <> multiple_exists
+def 23191:23200 <> df_mexists
+binder 23202:23202 <> n:307
+binder 23204:23204 <> f:308
+R23219:23219 Undecidability.H10.Dio.dio_logic <> n:307 var
+R23242:23242 Undecidability.H10.Dio.dio_logic <> f:308 var
+R23252:23252 Coq.Init.Datatypes <> S constr
+R23259:23268 Undecidability.H10.Dio.dio_logic <> df_mexists:309 def
+R23273:23275 Undecidability.H10.Dio.dio_logic <> :::'∃'_x not
+R23276:23276 Undecidability.H10.Dio.dio_logic <> f:308 var
+R23270:23270 Undecidability.H10.Dio.dio_logic <> n:307 var
+prf 23296:23310 <> df_mexists_size
+binder 23312:23312 <> n:311
+binder 23314:23314 <> f:312
+R23342:23344 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23318:23324 Undecidability.H10.Dio.dio_logic <> df_size def
+R23327:23336 Undecidability.H10.Dio.dio_logic <> df_mexists def
+R23340:23340 Undecidability.H10.Dio.dio_logic <> f:312 var
+R23338:23338 Undecidability.H10.Dio.dio_logic <> n:311 var
+R23346:23348 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R23345:23345 Undecidability.H10.Dio.dio_logic <> n:311 var
+R23349:23355 Undecidability.H10.Dio.dio_logic <> df_size def
+R23357:23357 Undecidability.H10.Dio.dio_logic <> f:312 var
+prf 23469:23485 <> df_mexists_size_Z
+binder 23487:23487 <> n:313
+binder 23489:23489 <> f:314
+R23519:23521 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23493:23501 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R23504:23513 Undecidability.H10.Dio.dio_logic <> df_mexists def
+R23517:23517 Undecidability.H10.Dio.dio_logic <> f:314 var
+R23515:23515 Undecidability.H10.Dio.dio_logic <> n:313 var
+R23533:23535 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R23523:23530 Coq.ZArith.BinInt Z of_nat def
+R23532:23532 Undecidability.H10.Dio.dio_logic <> n:313 var
+R23536:23544 Undecidability.H10.Dio.dio_logic <> df_size_Z def
+R23546:23546 Undecidability.H10.Dio.dio_logic <> f:314 var
+R23573:23586 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R23589:23603 Undecidability.H10.Dio.dio_logic <> df_mexists_size thm
+R23606:23618 Coq.ZArith.Znat Nat2Z inj_add thm
+R23621:23634 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R23573:23586 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R23573:23586 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R23589:23603 Undecidability.H10.Dio.dio_logic <> df_mexists_size thm
+R23589:23603 Undecidability.H10.Dio.dio_logic <> df_mexists_size thm
+R23606:23618 Coq.ZArith.Znat Nat2Z inj_add thm
+R23606:23618 Coq.ZArith.Znat Nat2Z inj_add thm
+R23621:23634 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+R23621:23634 Undecidability.H10.Dio.dio_logic <> df_size_Z_spec thm
+prf 23817:23831 <> df_mexists_spec
+binder 23833:23833 <> n:315
+binder 23835:23835 <> f:316
+binder 23837:23838 <> ν:317
+R23876:23887 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R23853:23855 Undecidability.H10.Dio.dio_logic <> :::'⟦'_x_'⟧' not
+R23870:23875 Undecidability.H10.Dio.dio_logic <> :::'⟦'_x_'⟧' not
+R23856:23865 Undecidability.H10.Dio.dio_logic <> df_mexists def
+R23869:23869 Undecidability.H10.Dio.dio_logic <> f:316 var
+R23867:23867 Undecidability.H10.Dio.dio_logic <> n:315 var
+R23874:23875 Undecidability.H10.Dio.dio_logic <> ν:317 var
+R23888:23894 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R23897:23898 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 23895:23896 <> π:318
+R23899:23901 Undecidability.H10.Dio.dio_logic <> :::'⟦'_x_'⟧' not
+R23903:23957 Undecidability.H10.Dio.dio_logic <> :::'⟦'_x_'⟧' not
+R23902:23902 Undecidability.H10.Dio.dio_logic <> f:316 var
+binder 23912:23912 <> i:319
+R23920:23928 Coq.Arith.Compare_dec <> le_lt_dec def
+R23930:23930 Undecidability.H10.Dio.dio_logic <> n:315 var
+R23932:23932 Undecidability.H10.Dio.dio_logic <> i:319 var
+R23953:23954 Undecidability.H10.Dio.dio_logic <> π:318 var
+R23956:23956 Undecidability.H10.Dio.dio_logic <> i:319 var
+R23939:23940 Undecidability.H10.Dio.dio_logic <> ν:317 var
+R23944:23944 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R23943:23943 Undecidability.H10.Dio.dio_logic <> i:319 var
+R23945:23945 Undecidability.H10.Dio.dio_logic <> n:315 var
+R24123:24133 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+R24123:24133 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+R24123:24133 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+R24170:24179 Undecidability.H10.Dio.dio_logic <> df_mexists def
+R24249:24260 Undecidability.H10.Dio.dio_logic <> df_pred_exst thm
+R24249:24260 Undecidability.H10.Dio.dio_logic <> df_pred_exst thm
+R24249:24260 Undecidability.H10.Dio.dio_logic <> df_pred_exst thm
+binder 24308:24308 <> i:320
+R24319:24319 Undecidability.H10.Dio.dio_logic <> i:320 var
+R24335:24335 Coq.Init.Datatypes <> S constr
+R24345:24345 Undecidability.H10.Dio.dio_logic <> i:320 var
+binder 24308:24308 <> i:322
+R24319:24319 Undecidability.H10.Dio.dio_logic <> i:322 var
+R24335:24335 Coq.Init.Datatypes <> S constr
+R24345:24345 Undecidability.H10.Dio.dio_logic <> i:322 var
+R24378:24388 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+R24378:24388 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+R24406:24414 Coq.Arith.Compare_dec <> le_lt_dec def
+R24468:24468 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24469:24469 Coq.Init.Datatypes <> S constr
+R24468:24468 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24469:24469 Coq.Init.Datatypes <> S constr
+R24517:24519 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24514:24514 Coq.Init.Datatypes <> S constr
+R24520:24520 Coq.Init.Datatypes <> S constr
+R24532:24532 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24517:24519 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24514:24514 Coq.Init.Datatypes <> S constr
+R24520:24520 Coq.Init.Datatypes <> S constr
+R24532:24532 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24572:24580 Coq.Arith.Compare_dec <> le_lt_dec def
+R24583:24583 Coq.Init.Datatypes <> S constr
+R24589:24589 Coq.Init.Datatypes <> S constr
+R24619:24627 Coq.Arith.Compare_dec <> le_lt_dec def
+R24572:24580 Coq.Arith.Compare_dec <> le_lt_dec def
+R24583:24583 Coq.Init.Datatypes <> S constr
+R24589:24589 Coq.Init.Datatypes <> S constr
+R24619:24627 Coq.Arith.Compare_dec <> le_lt_dec def
+R24619:24627 Coq.Arith.Compare_dec <> le_lt_dec def
+binder 24666:24666 <> i:324
+R24675:24675 Coq.Init.Datatypes <> S constr
+R24677:24677 Undecidability.H10.Dio.dio_logic <> i:324 var
+binder 24666:24666 <> i:325
+R24675:24675 Coq.Init.Datatypes <> S constr
+R24677:24677 Undecidability.H10.Dio.dio_logic <> i:325 var
+R24698:24709 Undecidability.H10.Dio.dio_logic <> df_pred_exst thm
+R24698:24709 Undecidability.H10.Dio.dio_logic <> df_pred_exst thm
+R24698:24709 Undecidability.H10.Dio.dio_logic <> df_pred_exst thm
+R24753:24763 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+R24753:24763 Undecidability.H10.Dio.dio_logic <> df_pred_ext thm
+R24810:24810 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24811:24811 Coq.Init.Datatypes <> S constr
+R24810:24810 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24811:24811 Coq.Init.Datatypes <> S constr
+R24866:24868 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24863:24863 Coq.Init.Datatypes <> S constr
+R24869:24869 Coq.Init.Datatypes <> S constr
+R24881:24881 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24866:24868 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24863:24863 Coq.Init.Datatypes <> S constr
+R24869:24869 Coq.Init.Datatypes <> S constr
+R24881:24881 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R24910:24918 Coq.Arith.Compare_dec <> le_lt_dec def
+R24948:24956 Coq.Arith.Compare_dec <> le_lt_dec def
+R24959:24959 Coq.Init.Datatypes <> S constr
+R24965:24965 Coq.Init.Datatypes <> S constr
+R24995:25003 Coq.Arith.Compare_dec <> le_lt_dec def
+R24948:24956 Coq.Arith.Compare_dec <> le_lt_dec def
+R24959:24959 Coq.Init.Datatypes <> S constr
+R24965:24965 Coq.Init.Datatypes <> S constr
+R24995:25003 Coq.Arith.Compare_dec <> le_lt_dec def
+R24995:25003 Coq.Arith.Compare_dec <> le_lt_dec def
+R24406:24414 Coq.Arith.Compare_dec <> le_lt_dec def
+R24910:24918 Coq.Arith.Compare_dec <> le_lt_dec def
+R25034:25048 Undecidability.H10.Dio.dio_logic multiple_exists <> sec
+sec 25224:25242 <> dio_rel_finite_conj
+R25267:25270 Undecidability.Shared.Libs.DLW.Utils.sums <> msum def
+R25272:25275 Coq.Init.Peano <> plus abbrev
+not 25257:25257 dio_rel_finite_conj :::'∑'
+def 25295:25301 <> df_true
+R25306:25314 Coq.Init.Specif <> proj1_sig def
+R25316:25327 Undecidability.H10.Dio.dio_logic <> dio_rel_True thm
+prf 25338:25349 <> df_true_size
+R25368:25370 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25353:25359 Undecidability.H10.Dio.dio_logic <> df_size def
+R25361:25367 Undecidability.H10.Dio.dio_logic <> df_true def
+prf 25409:25420 <> df_true_spec
+binder 25422:25423 <> ν:326
+R25445:25449 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R25427:25433 Undecidability.H10.Dio.dio_logic <> df_pred def
+R25443:25444 Undecidability.H10.Dio.dio_logic <> ν:326 var
+R25435:25441 Undecidability.H10.Dio.dio_logic <> df_true def
+R25450:25453 Coq.Init.Logic <> True ind
+R25472:25480 Coq.Init.Specif <> proj2_sig def
+R25482:25493 Undecidability.H10.Dio.dio_logic <> dio_rel_True thm
+R25472:25480 Coq.Init.Specif <> proj2_sig def
+R25482:25493 Undecidability.H10.Dio.dio_logic <> dio_rel_True thm
+def 25514:25521 <> df_mconj
+binder 25523:25523 <> n:327
+binder 25525:25525 <> f:328
+R25540:25540 Undecidability.H10.Dio.dio_logic <> n:327 var
+R25563:25569 Undecidability.H10.Dio.dio_logic <> df_true def
+R25579:25579 Coq.Init.Datatypes <> S constr
+R25589:25593 Undecidability.H10.Dio.dio_logic <> :::x_'∧'_x not
+R25586:25586 Undecidability.H10.Dio.dio_logic <> f:328 var
+R25594:25601 Undecidability.H10.Dio.dio_logic <> df_mconj:329 def
+R25606:25608 Undecidability.H10.Dio.dio_logic <> :::x_'⭳' not
+R25605:25605 Undecidability.H10.Dio.dio_logic <> f:328 var
+R25603:25603 Undecidability.H10.Dio.dio_logic <> n:327 var
+prf 25627:25639 <> df_mconj_size
+binder 25641:25641 <> n:331
+binder 25643:25643 <> f:332
+R25669:25671 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25647:25653 Undecidability.H10.Dio.dio_logic <> df_size def
+R25656:25663 Undecidability.H10.Dio.dio_logic <> df_mconj def
+R25667:25667 Undecidability.H10.Dio.dio_logic <> f:332 var
+R25665:25665 Undecidability.H10.Dio.dio_logic <> n:331 var
+R25675:25675 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R25673:25673 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R25674:25674 Undecidability.H10.Dio.dio_logic <> n:331 var
+R25676:25705 Undecidability.H10.Dio.dio_logic dio_rel_finite_conj :::'∑' not
+binder 25687:25687 <> i:333
+R25692:25698 Undecidability.H10.Dio.dio_logic <> df_size def
+R25701:25701 Undecidability.H10.Dio.dio_logic <> f:332 var
+R25703:25703 Undecidability.H10.Dio.dio_logic <> i:333 var
+R25680:25680 Undecidability.H10.Dio.dio_logic <> n:331 var
+prf 25820:25832 <> df_mconj_spec
+binder 25834:25834 <> n:334
+binder 25836:25836 <> f:335
+binder 25838:25839 <> ν:336
+R25868:25872 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R25843:25849 Undecidability.H10.Dio.dio_logic <> df_pred def
+R25866:25867 Undecidability.H10.Dio.dio_logic <> ν:336 var
+R25852:25859 Undecidability.H10.Dio.dio_logic <> df_mconj def
+R25863:25863 Undecidability.H10.Dio.dio_logic <> f:335 var
+R25861:25861 Undecidability.H10.Dio.dio_logic <> n:334 var
+binder 25880:25880 <> i:337
+R25888:25891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25884:25886 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R25883:25883 Undecidability.H10.Dio.dio_logic <> i:337 var
+R25887:25887 Undecidability.H10.Dio.dio_logic <> n:334 var
+R25892:25898 Undecidability.H10.Dio.dio_logic <> df_pred def
+R25906:25907 Undecidability.H10.Dio.dio_logic <> ν:336 var
+R25901:25901 Undecidability.H10.Dio.dio_logic <> f:335 var
+R25903:25903 Undecidability.H10.Dio.dio_logic <> i:337 var
+R25982:25989 Undecidability.H10.Dio.dio_logic <> df_mconj def
+R26006:26017 Undecidability.H10.Dio.dio_logic <> df_true_spec thm
+R26006:26017 Undecidability.H10.Dio.dio_logic <> df_true_spec thm
+R26006:26017 Undecidability.H10.Dio.dio_logic <> df_true_spec thm
+R26060:26071 Undecidability.H10.Dio.dio_logic <> df_pred_conj thm
+R26060:26071 Undecidability.H10.Dio.dio_logic <> df_pred_conj thm
+R26060:26071 Undecidability.H10.Dio.dio_logic <> df_pred_conj thm
+prf 26205:26223 <> dio_rel_finite_conj
+binder 26225:26225 <> n:338
+R26235:26238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26232:26234 Coq.Init.Datatypes <> nat ind
+R26239:26239 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26250:26254 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26243:26246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26240:26242 Coq.Init.Datatypes <> nat ind
+R26247:26249 Coq.Init.Datatypes <> nat ind
+binder 26228:26228 <> R:339
+R26272:26272 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26303:26313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 26280:26280 <> i:340
+R26288:26291 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26284:26286 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R26283:26283 Undecidability.H10.Dio.dio_logic <> i:340 var
+R26287:26287 Undecidability.H10.Dio.dio_logic <> n:338 var
+R26292:26296 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+R26299:26299 Undecidability.H10.Dio.dio_logic <> R:339 var
+R26301:26301 Undecidability.H10.Dio.dio_logic <> i:340 var
+R26314:26318 Undecidability.H10.Dio.dio_logic <> 𝔻R abbrev
+binder 26325:26326 <> ν:341
+binder 26338:26338 <> i:342
+R26346:26349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26342:26344 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R26341:26341 Undecidability.H10.Dio.dio_logic <> i:342 var
+R26345:26345 Undecidability.H10.Dio.dio_logic <> n:338 var
+R26350:26350 Undecidability.H10.Dio.dio_logic <> R:339 var
+R26354:26355 Undecidability.H10.Dio.dio_logic <> ν:341 var
+R26352:26352 Undecidability.H10.Dio.dio_logic <> i:342 var
+R26426:26432 Undecidability.H10.Dio.dio_logic <> df_true def
+R26392:26413 Undecidability.Shared.Libs.DLW.Utils.bounded_quantification <> fmap_reifier_t_default def
+R26426:26432 Undecidability.H10.Dio.dio_logic <> df_true def
+R26392:26413 Undecidability.Shared.Libs.DLW.Utils.bounded_quantification <> fmap_reifier_t_default def
+R26481:26488 Undecidability.H10.Dio.dio_logic <> df_mconj def
+R26481:26488 Undecidability.H10.Dio.dio_logic <> df_mconj def
+R26527:26539 Undecidability.H10.Dio.dio_logic <> df_mconj_spec thm
+R26527:26539 Undecidability.H10.Dio.dio_logic <> df_mconj_spec thm
+R26527:26539 Undecidability.H10.Dio.dio_logic <> df_mconj_spec thm
+R26627:26645 Undecidability.H10.Dio.dio_logic dio_rel_finite_conj <> sec

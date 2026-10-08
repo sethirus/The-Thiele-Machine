@@ -1,382 +1,298 @@
-DIGEST 2bfd8595b5883448d03217510b42bf45
+DIGEST 54371558c4fe54402675bc62a7f4c898
 FKernel.ShadowPricing
-R1289:1292 Coq.Lists.List <> <> lib
-R1294:1297 Coq.Bool.Bool <> <> lib
-R1299:1312 Coq.Arith.PeanoNat <> <> lib
-R1314:1316 Coq.micromega.Lia <> <> lib
-R1326:1338 Coq.Lists.List ListNotations <> mod
-R1369:1375 Kernel.VMState <> <> lib
-R1377:1382 Kernel.VMStep <> <> lib
-R1384:1398 Kernel.SimulationProof <> <> lib
-R1428:1444 Kernel.NecessityAbstract <> <> lib
-R1474:1496 Kernel.BlindnessRepresentation <> <> lib
-R1526:1547 Kernel.ProjectionNonExistence <> <> lib
-sec 1559:1571 <> ShadowPricing
-var 1586:1586 ShadowPricing S
-var 1588:1588 ShadowPricing I
-var 1590:1590 ShadowPricing O
-var 1610:1613 ShadowPricing step
-R1618:1621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1617:1617 Kernel.ShadowPricing <> ShadowPricing.S var
-R1623:1626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1622:1622 Kernel.ShadowPricing <> ShadowPricing.I var
-R1627:1627 Kernel.ShadowPricing <> ShadowPricing.S var
-var 1639:1642 ShadowPricing cert
-R1647:1650 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1646:1646 Kernel.ShadowPricing <> ShadowPricing.S var
-R1651:1654 Coq.Init.Datatypes <> bool ind
-var 1666:1668 ShadowPricing obs
-R1673:1676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1672:1672 Kernel.ShadowPricing <> ShadowPricing.S var
-R1677:1677 Kernel.ShadowPricing <> ShadowPricing.O var
-def 1730:1734 <> flips
-R1741:1741 Kernel.ShadowPricing <> ShadowPricing.S var
-binder 1737:1737 <> s:7
-R1749:1749 Kernel.ShadowPricing <> ShadowPricing.I var
-binder 1745:1745 <> i:8
-R1754:1757 Coq.Init.Datatypes <> bool ind
-R1777:1780 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R1764:1767 Coq.Init.Datatypes <> negb def
-R1770:1773 Kernel.ShadowPricing <> ShadowPricing.cert var
-R1775:1775 Kernel.ShadowPricing <> s:7 var
-R1781:1784 Kernel.ShadowPricing <> ShadowPricing.cert var
-R1787:1790 Kernel.ShadowPricing <> ShadowPricing.step var
-R1792:1792 Kernel.ShadowPricing <> s:7 var
-R1794:1794 Kernel.ShadowPricing <> i:8 var
-def 1868:1878 <> shadow_cost
-R1890:1893 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1889:1889 Kernel.ShadowPricing <> ShadowPricing.O var
-R1895:1898 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1894:1894 Kernel.ShadowPricing <> ShadowPricing.O var
-R1899:1901 Coq.Init.Datatypes <> nat ind
-binder 1881:1885 <> price:9
-R1909:1909 Kernel.ShadowPricing <> ShadowPricing.S var
-binder 1905:1905 <> s:10
-R1917:1917 Kernel.ShadowPricing <> ShadowPricing.I var
-binder 1913:1913 <> i:11
-R1922:1924 Coq.Init.Datatypes <> nat ind
-R1931:1935 Kernel.ShadowPricing <> price:9 var
-R1946:1948 Kernel.ShadowPricing <> ShadowPricing.obs var
-R1951:1954 Kernel.ShadowPricing <> ShadowPricing.step var
-R1956:1956 Kernel.ShadowPricing <> s:10 var
-R1958:1958 Kernel.ShadowPricing <> i:11 var
-R1938:1940 Kernel.ShadowPricing <> ShadowPricing.obs var
-R1942:1942 Kernel.ShadowPricing <> s:10 var
-def 1975:1985 <> meets_floor
-R1996:1999 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1995:1995 Kernel.ShadowPricing <> ShadowPricing.S var
-R2001:2004 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2000:2000 Kernel.ShadowPricing <> ShadowPricing.I var
-R2005:2007 Coq.Init.Datatypes <> nat ind
-binder 1988:1991 <> cost:12
-binder 2029:2029 <> s:13
-binder 2031:2031 <> i:14
-R2050:2053 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2043:2045 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2034:2038 Kernel.ShadowPricing <> flips def
-R2040:2040 Kernel.ShadowPricing <> s:13 var
-R2042:2042 Kernel.ShadowPricing <> i:14 var
-R2046:2049 Coq.Init.Datatypes <> true constr
-R2062:2065 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R2054:2057 Kernel.ShadowPricing <> cost:12 var
-R2061:2061 Kernel.ShadowPricing <> i:14 var
-R2059:2059 Kernel.ShadowPricing <> s:13 var
-def 2081:2097 <> never_overcharges
-R2108:2111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2107:2107 Kernel.ShadowPricing <> ShadowPricing.S var
-R2113:2116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2112:2112 Kernel.ShadowPricing <> ShadowPricing.I var
-R2117:2119 Coq.Init.Datatypes <> nat ind
-binder 2100:2103 <> cost:15
-binder 2141:2141 <> s:16
-binder 2143:2143 <> i:17
-R2163:2166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2155:2157 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2146:2150 Kernel.ShadowPricing <> flips def
-R2152:2152 Kernel.ShadowPricing <> s:16 var
-R2154:2154 Kernel.ShadowPricing <> i:17 var
-R2158:2162 Coq.Init.Datatypes <> false constr
-R2175:2177 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2167:2170 Kernel.ShadowPricing <> cost:15 var
-R2174:2174 Kernel.ShadowPricing <> i:17 var
-R2172:2172 Kernel.ShadowPricing <> s:16 var
-def 2281:2296 <> shadow_collision
-R2310:2316 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2328:2333 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2317:2318 <> s1:18
-binder 2320:2321 <> i1:19
-binder 2323:2324 <> s2:20
-binder 2326:2327 <> i2:21
-R2349:2356 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2340:2342 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2334:2336 Kernel.ShadowPricing <> ShadowPricing.obs var
-R2338:2339 Kernel.ShadowPricing <> s1:18 var
-R2343:2345 Kernel.ShadowPricing <> ShadowPricing.obs var
-R2347:2348 Kernel.ShadowPricing <> s2:20 var
-R2392:2399 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2373:2375 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2357:2359 Kernel.ShadowPricing <> ShadowPricing.obs var
-R2362:2365 Kernel.ShadowPricing <> ShadowPricing.step var
-R2367:2368 Kernel.ShadowPricing <> s1:18 var
-R2370:2371 Kernel.ShadowPricing <> i1:19 var
-R2376:2378 Kernel.ShadowPricing <> ShadowPricing.obs var
-R2381:2384 Kernel.ShadowPricing <> ShadowPricing.step var
-R2386:2387 Kernel.ShadowPricing <> s2:20 var
-R2389:2390 Kernel.ShadowPricing <> i2:21 var
-R2418:2425 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2411:2413 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2400:2404 Kernel.ShadowPricing <> flips def
-R2406:2407 Kernel.ShadowPricing <> s1:18 var
-R2409:2410 Kernel.ShadowPricing <> i1:19 var
-R2414:2417 Coq.Init.Datatypes <> true constr
-R2437:2439 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2426:2430 Kernel.ShadowPricing <> flips def
-R2432:2433 Kernel.ShadowPricing <> s2:20 var
-R2435:2436 Kernel.ShadowPricing <> i2:21 var
-R2440:2444 Coq.Init.Datatypes <> false constr
-prf 2544:2567 <> shadow_floor_overcharges
-R2589:2594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2573:2588 Kernel.ShadowPricing <> shadow_collision def
-binder 2602:2606 <> price:22
-R2644:2651 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2613:2623 Kernel.ShadowPricing <> meets_floor def
-R2626:2636 Kernel.ShadowPricing <> shadow_cost def
-R2638:2642 Kernel.ShadowPricing <> price:22 var
-R2652:2658 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2662:2663 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2659:2659 <> s:23
-binder 2661:2661 <> i:24
-R2681:2684 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2673:2675 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2664:2668 Kernel.ShadowPricing <> flips def
-R2670:2670 Kernel.ShadowPricing <> s:23 var
-R2672:2672 Kernel.ShadowPricing <> i:24 var
-R2676:2680 Coq.Init.Datatypes <> false constr
-R2706:2709 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R2685:2695 Kernel.ShadowPricing <> shadow_cost def
-R2697:2701 Kernel.ShadowPricing <> price:22 var
-R2703:2703 Kernel.ShadowPricing <> s:23 var
-R2705:2705 Kernel.ShadowPricing <> i:24 var
-R2836:2846 Kernel.ShadowPricing <> shadow_cost def
-prf 2954:2980 <> shadow_cannot_price_exactly
-R3002:3007 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2986:3001 Kernel.ShadowPricing <> shadow_collision def
-binder 3015:3019 <> price:25
-R3026:3028 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3108:3108 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3060:3070 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3029:3039 Kernel.ShadowPricing <> meets_floor def
-R3042:3052 Kernel.ShadowPricing <> shadow_cost def
-R3054:3058 Kernel.ShadowPricing <> price:25 var
-R3071:3087 Kernel.ShadowPricing <> never_overcharges def
-R3090:3100 Kernel.ShadowPricing <> shadow_cost def
-R3102:3106 Kernel.ShadowPricing <> price:25 var
-R3164:3187 Kernel.ShadowPricing <> shadow_floor_overcharges thm
-R3164:3187 Kernel.ShadowPricing <> shadow_floor_overcharges thm
-def 3346:3355 <> step_price
-R3362:3362 Kernel.ShadowPricing <> ShadowPricing.S var
-binder 3358:3358 <> s:26
-R3370:3370 Kernel.ShadowPricing <> ShadowPricing.I var
-binder 3366:3366 <> i:27
-R3375:3377 Coq.Init.Datatypes <> nat ind
-R3387:3391 Kernel.ShadowPricing <> flips def
-R3393:3393 Kernel.ShadowPricing <> s:26 var
-R3395:3395 Kernel.ShadowPricing <> i:27 var
-prf 3421:3439 <> step_price_is_exact
-R3467:3470 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3445:3455 Kernel.ShadowPricing <> meets_floor def
-R3457:3466 Kernel.ShadowPricing <> step_price def
-R3471:3487 Kernel.ShadowPricing <> never_overcharges def
-R3489:3498 Kernel.ShadowPricing <> step_price def
-R3538:3547 Kernel.ShadowPricing <> step_price def
-R3569:3570 Coq.Init.Peano <> ge def
-R3579:3582 Coq.Init.Peano <> le_n constr
-R3579:3582 Coq.Init.Peano <> le_n constr
-prf 3669:3705 <> window_showing_reading_prices_exactly
-R3726:3729 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3725:3725 Kernel.ShadowPricing <> ShadowPricing.O var
-R3730:3733 Coq.Init.Datatypes <> bool ind
-binder 3718:3721 <> read:28
-R3740:3740 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3772:3780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 3748:3748 <> s:29
-R3757:3759 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3751:3754 Kernel.ShadowPricing <> ShadowPricing.cert var
-R3756:3756 Kernel.ShadowPricing <> s:29 var
-R3760:3763 Kernel.ShadowPricing <> read:28 var
-R3766:3768 Kernel.ShadowPricing <> ShadowPricing.obs var
-R3770:3770 Kernel.ShadowPricing <> s:29 var
-R3781:3787 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3793:3800 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3788:3792 <> price:30
-R3832:3835 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3801:3811 Kernel.ShadowPricing <> meets_floor def
+R1301:1304 Coq.Lists.List <> <> lib
+R1306:1309 Coq.Bool.Bool <> <> lib
+R1311:1324 Coq.Arith.PeanoNat <> <> lib
+R1326:1328 Coq.micromega.Lia <> <> lib
+R1338:1350 Coq.Lists.List ListNotations <> mod
+sec 1363:1375 <> ShadowPricing
+var 1390:1390 ShadowPricing S
+var 1392:1392 ShadowPricing I
+var 1394:1394 ShadowPricing O
+var 1414:1417 ShadowPricing step
+R1422:1425 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1421:1421 Kernel.ShadowPricing <> ShadowPricing.S var
+R1427:1430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1426:1426 Kernel.ShadowPricing <> ShadowPricing.I var
+R1431:1431 Kernel.ShadowPricing <> ShadowPricing.S var
+var 1443:1446 ShadowPricing cert
+R1451:1454 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1450:1450 Kernel.ShadowPricing <> ShadowPricing.S var
+R1455:1458 Coq.Init.Datatypes <> bool ind
+var 1470:1472 ShadowPricing obs
+R1477:1480 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1476:1476 Kernel.ShadowPricing <> ShadowPricing.S var
+R1481:1481 Kernel.ShadowPricing <> ShadowPricing.O var
+def 1534:1538 <> flips
+R1545:1545 Kernel.ShadowPricing <> ShadowPricing.S var
+binder 1541:1541 <> s:7
+R1553:1553 Kernel.ShadowPricing <> ShadowPricing.I var
+binder 1549:1549 <> i:8
+R1558:1561 Coq.Init.Datatypes <> bool ind
+R1581:1584 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1568:1571 Coq.Init.Datatypes <> negb def
+R1574:1577 Kernel.ShadowPricing <> ShadowPricing.cert var
+R1579:1579 Kernel.ShadowPricing <> s:7 var
+R1585:1588 Kernel.ShadowPricing <> ShadowPricing.cert var
+R1591:1594 Kernel.ShadowPricing <> ShadowPricing.step var
+R1596:1596 Kernel.ShadowPricing <> s:7 var
+R1598:1598 Kernel.ShadowPricing <> i:8 var
+def 1672:1682 <> shadow_cost
+R1694:1697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1693:1693 Kernel.ShadowPricing <> ShadowPricing.O var
+R1699:1702 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1698:1698 Kernel.ShadowPricing <> ShadowPricing.O var
+R1703:1705 Coq.Init.Datatypes <> nat ind
+binder 1685:1689 <> price:9
+R1713:1713 Kernel.ShadowPricing <> ShadowPricing.S var
+binder 1709:1709 <> s:10
+R1721:1721 Kernel.ShadowPricing <> ShadowPricing.I var
+binder 1717:1717 <> i:11
+R1726:1728 Coq.Init.Datatypes <> nat ind
+R1735:1739 Kernel.ShadowPricing <> price:9 var
+R1750:1752 Kernel.ShadowPricing <> ShadowPricing.obs var
+R1755:1758 Kernel.ShadowPricing <> ShadowPricing.step var
+R1760:1760 Kernel.ShadowPricing <> s:10 var
+R1762:1762 Kernel.ShadowPricing <> i:11 var
+R1742:1744 Kernel.ShadowPricing <> ShadowPricing.obs var
+R1746:1746 Kernel.ShadowPricing <> s:10 var
+def 1779:1789 <> meets_floor
+R1800:1803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1799:1799 Kernel.ShadowPricing <> ShadowPricing.S var
+R1805:1808 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1804:1804 Kernel.ShadowPricing <> ShadowPricing.I var
+R1809:1811 Coq.Init.Datatypes <> nat ind
+binder 1792:1795 <> cost:12
+binder 1833:1833 <> s:13
+binder 1835:1835 <> i:14
+R1854:1857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1847:1849 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1838:1842 Kernel.ShadowPricing <> flips def
+R1844:1844 Kernel.ShadowPricing <> s:13 var
+R1846:1846 Kernel.ShadowPricing <> i:14 var
+R1850:1853 Coq.Init.Datatypes <> true constr
+R1866:1869 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1858:1861 Kernel.ShadowPricing <> cost:12 var
+R1865:1865 Kernel.ShadowPricing <> i:14 var
+R1863:1863 Kernel.ShadowPricing <> s:13 var
+def 1885:1901 <> never_overcharges
+R1912:1915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1911:1911 Kernel.ShadowPricing <> ShadowPricing.S var
+R1917:1920 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1916:1916 Kernel.ShadowPricing <> ShadowPricing.I var
+R1921:1923 Coq.Init.Datatypes <> nat ind
+binder 1904:1907 <> cost:15
+binder 1945:1945 <> s:16
+binder 1947:1947 <> i:17
+R1967:1970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1959:1961 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1950:1954 Kernel.ShadowPricing <> flips def
+R1956:1956 Kernel.ShadowPricing <> s:16 var
+R1958:1958 Kernel.ShadowPricing <> i:17 var
+R1962:1966 Coq.Init.Datatypes <> false constr
+R1979:1981 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1971:1974 Kernel.ShadowPricing <> cost:15 var
+R1978:1978 Kernel.ShadowPricing <> i:17 var
+R1976:1976 Kernel.ShadowPricing <> s:16 var
+def 2085:2100 <> shadow_collision
+R2114:2120 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2132:2137 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2121:2122 <> s1:18
+binder 2124:2125 <> i1:19
+binder 2127:2128 <> s2:20
+binder 2130:2131 <> i2:21
+R2153:2160 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2144:2146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2138:2140 Kernel.ShadowPricing <> ShadowPricing.obs var
+R2142:2143 Kernel.ShadowPricing <> s1:18 var
+R2147:2149 Kernel.ShadowPricing <> ShadowPricing.obs var
+R2151:2152 Kernel.ShadowPricing <> s2:20 var
+R2196:2203 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2177:2179 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2161:2163 Kernel.ShadowPricing <> ShadowPricing.obs var
+R2166:2169 Kernel.ShadowPricing <> ShadowPricing.step var
+R2171:2172 Kernel.ShadowPricing <> s1:18 var
+R2174:2175 Kernel.ShadowPricing <> i1:19 var
+R2180:2182 Kernel.ShadowPricing <> ShadowPricing.obs var
+R2185:2188 Kernel.ShadowPricing <> ShadowPricing.step var
+R2190:2191 Kernel.ShadowPricing <> s2:20 var
+R2193:2194 Kernel.ShadowPricing <> i2:21 var
+R2222:2229 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2215:2217 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2204:2208 Kernel.ShadowPricing <> flips def
+R2210:2211 Kernel.ShadowPricing <> s1:18 var
+R2213:2214 Kernel.ShadowPricing <> i1:19 var
+R2218:2221 Coq.Init.Datatypes <> true constr
+R2241:2243 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2230:2234 Kernel.ShadowPricing <> flips def
+R2236:2237 Kernel.ShadowPricing <> s2:20 var
+R2239:2240 Kernel.ShadowPricing <> i2:21 var
+R2244:2248 Coq.Init.Datatypes <> false constr
+prf 2348:2371 <> shadow_floor_overcharges
+R2393:2398 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2377:2392 Kernel.ShadowPricing <> shadow_collision def
+binder 2406:2410 <> price:22
+R2448:2455 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2417:2427 Kernel.ShadowPricing <> meets_floor def
+R2430:2440 Kernel.ShadowPricing <> shadow_cost def
+R2442:2446 Kernel.ShadowPricing <> price:22 var
+R2456:2462 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2466:2467 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2463:2463 <> s:23
+binder 2465:2465 <> i:24
+R2485:2488 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2477:2479 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2468:2472 Kernel.ShadowPricing <> flips def
+R2474:2474 Kernel.ShadowPricing <> s:23 var
+R2476:2476 Kernel.ShadowPricing <> i:24 var
+R2480:2484 Coq.Init.Datatypes <> false constr
+R2510:2513 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2489:2499 Kernel.ShadowPricing <> shadow_cost def
+R2501:2505 Kernel.ShadowPricing <> price:22 var
+R2507:2507 Kernel.ShadowPricing <> s:23 var
+R2509:2509 Kernel.ShadowPricing <> i:24 var
+R2640:2650 Kernel.ShadowPricing <> shadow_cost def
+prf 2758:2784 <> shadow_cannot_price_exactly
+R2806:2811 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2790:2805 Kernel.ShadowPricing <> shadow_collision def
+binder 2819:2823 <> price:25
+R2830:2832 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2912:2912 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2864:2874 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2833:2843 Kernel.ShadowPricing <> meets_floor def
+R2846:2856 Kernel.ShadowPricing <> shadow_cost def
+R2858:2862 Kernel.ShadowPricing <> price:25 var
+R2875:2891 Kernel.ShadowPricing <> never_overcharges def
+R2894:2904 Kernel.ShadowPricing <> shadow_cost def
+R2906:2910 Kernel.ShadowPricing <> price:25 var
+R2968:2991 Kernel.ShadowPricing <> shadow_floor_overcharges thm
+R2968:2991 Kernel.ShadowPricing <> shadow_floor_overcharges thm
+def 3150:3159 <> step_price
+R3166:3166 Kernel.ShadowPricing <> ShadowPricing.S var
+binder 3162:3162 <> s:26
+R3174:3174 Kernel.ShadowPricing <> ShadowPricing.I var
+binder 3170:3170 <> i:27
+R3179:3181 Coq.Init.Datatypes <> nat ind
+R3191:3195 Kernel.ShadowPricing <> flips def
+R3197:3197 Kernel.ShadowPricing <> s:26 var
+R3199:3199 Kernel.ShadowPricing <> i:27 var
+prf 3225:3243 <> step_price_is_exact
+R3271:3274 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3249:3259 Kernel.ShadowPricing <> meets_floor def
+R3261:3270 Kernel.ShadowPricing <> step_price def
+R3275:3291 Kernel.ShadowPricing <> never_overcharges def
+R3293:3302 Kernel.ShadowPricing <> step_price def
+R3342:3351 Kernel.ShadowPricing <> step_price def
+R3373:3374 Coq.Init.Peano <> ge def
+R3383:3386 Coq.Init.Peano <> le_n constr
+R3383:3386 Coq.Init.Peano <> le_n constr
+prf 3473:3509 <> window_showing_reading_prices_exactly
+R3530:3533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3529:3529 Kernel.ShadowPricing <> ShadowPricing.O var
+R3534:3537 Coq.Init.Datatypes <> bool ind
+binder 3522:3525 <> read:28
+R3544:3544 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3576:3584 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3552:3552 <> s:29
+R3561:3563 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3555:3558 Kernel.ShadowPricing <> ShadowPricing.cert var
+R3560:3560 Kernel.ShadowPricing <> s:29 var
+R3564:3567 Kernel.ShadowPricing <> read:28 var
+R3570:3572 Kernel.ShadowPricing <> ShadowPricing.obs var
+R3574:3574 Kernel.ShadowPricing <> s:29 var
+R3585:3591 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3597:3604 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3592:3596 <> price:30
+R3636:3639 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3605:3615 Kernel.ShadowPricing <> meets_floor def
+R3618:3628 Kernel.ShadowPricing <> shadow_cost def
+R3630:3634 Kernel.ShadowPricing <> price:30 var
+R3640:3656 Kernel.ShadowPricing <> never_overcharges def
+R3659:3669 Kernel.ShadowPricing <> shadow_cost def
+R3671:3675 Kernel.ShadowPricing <> price:30 var
+binder 3721:3721 <> o:31
+binder 3723:3724 <> o':32
+R3745:3748 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3732:3735 Coq.Init.Datatypes <> negb def
+R3743:3743 Kernel.ShadowPricing <> o:31 var
+R3754:3755 Kernel.ShadowPricing <> o':32 var
+binder 3721:3721 <> o:33
+binder 3723:3724 <> o':34
+R3745:3748 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3732:3735 Coq.Init.Datatypes <> negb def
+R3743:3743 Kernel.ShadowPricing <> o:33 var
+R3754:3755 Kernel.ShadowPricing <> o':34 var
+binder 3796:3796 <> s:35
+binder 3798:3798 <> i:36
+R3885:3900 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R3814:3824 Kernel.ShadowPricing <> shadow_cost def
-R3826:3830 Kernel.ShadowPricing <> price:30 var
-R3836:3852 Kernel.ShadowPricing <> never_overcharges def
-R3855:3865 Kernel.ShadowPricing <> shadow_cost def
-R3867:3871 Kernel.ShadowPricing <> price:30 var
-binder 3917:3917 <> o:31
-binder 3919:3920 <> o':32
-R3941:3944 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3928:3931 Coq.Init.Datatypes <> negb def
-R3939:3939 Kernel.ShadowPricing <> o:31 var
-R3950:3951 Kernel.ShadowPricing <> o':32 var
-binder 3917:3917 <> o:33
-binder 3919:3920 <> o':34
-R3941:3944 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3928:3931 Coq.Init.Datatypes <> negb def
-R3939:3939 Kernel.ShadowPricing <> o:33 var
-R3950:3951 Kernel.ShadowPricing <> o':34 var
-binder 3992:3992 <> s:35
-binder 3994:3994 <> i:36
-R4081:4096 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4010:4020 Kernel.ShadowPricing <> shadow_cost def
-binder 4027:4027 <> o:37
-binder 4029:4030 <> o':38
-R4051:4054 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R4038:4041 Coq.Init.Datatypes <> negb def
-R4049:4049 Kernel.ShadowPricing <> o:37 var
-R4060:4061 Kernel.ShadowPricing <> o':38 var
-R4078:4078 Kernel.ShadowPricing <> s:35 var
-R4080:4080 Kernel.ShadowPricing <> i:36 var
-R4097:4106 Kernel.ShadowPricing <> step_price def
-R4108:4108 Kernel.ShadowPricing <> s:35 var
-R4110:4110 Kernel.ShadowPricing <> i:36 var
-binder 3992:3992 <> s:39
-binder 3994:3994 <> i:40
-R4081:4096 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4010:4020 Kernel.ShadowPricing <> shadow_cost def
-binder 4027:4027 <> o:41
-binder 4029:4030 <> o':42
-R4051:4054 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R4038:4041 Coq.Init.Datatypes <> negb def
-R4049:4049 Kernel.ShadowPricing <> o:41 var
-R4060:4061 Kernel.ShadowPricing <> o':42 var
-R4078:4078 Kernel.ShadowPricing <> s:39 var
-R4080:4080 Kernel.ShadowPricing <> i:40 var
-R4097:4106 Kernel.ShadowPricing <> step_price def
-R4108:4108 Kernel.ShadowPricing <> s:39 var
-R4110:4110 Kernel.ShadowPricing <> i:40 var
-R4137:4147 Kernel.ShadowPricing <> shadow_cost def
-R4150:4159 Kernel.ShadowPricing <> step_price def
-R4162:4166 Kernel.ShadowPricing <> flips def
-R4206:4209 Kernel.ShadowPricing <> ShadowPricing.step var
-R4206:4209 Kernel.ShadowPricing <> ShadowPricing.step var
-R4206:4209 Kernel.ShadowPricing <> ShadowPricing.step var
-R4276:4285 Kernel.ShadowPricing <> step_price def
-R4311:4312 Coq.Init.Peano <> ge def
-R4321:4324 Coq.Init.Peano <> le_n constr
-R4321:4324 Coq.Init.Peano <> le_n constr
-prf 4413:4451 <> window_showing_reading_has_no_collision
-R4472:4475 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4471:4471 Kernel.ShadowPricing <> ShadowPricing.O var
-R4476:4479 Coq.Init.Datatypes <> bool ind
-binder 4464:4467 <> read:43
-R4486:4486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4518:4526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 4494:4494 <> s:44
-R4503:4505 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4497:4500 Kernel.ShadowPricing <> ShadowPricing.cert var
-R4502:4502 Kernel.ShadowPricing <> s:44 var
-R4506:4509 Kernel.ShadowPricing <> read:43 var
-R4512:4514 Kernel.ShadowPricing <> ShadowPricing.obs var
-R4516:4516 Kernel.ShadowPricing <> s:44 var
-R4527:4528 Coq.Init.Logic <> ::type_scope:'~'_x not
-R4529:4544 Kernel.ShadowPricing <> shadow_collision def
-R4629:4633 Kernel.ShadowPricing <> flips def
-R4678:4681 Kernel.ShadowPricing <> ShadowPricing.step var
-R4678:4681 Kernel.ShadowPricing <> ShadowPricing.step var
-R4678:4681 Kernel.ShadowPricing <> ShadowPricing.step var
-R4729:4732 Kernel.ShadowPricing <> ShadowPricing.step var
-R4729:4732 Kernel.ShadowPricing <> ShadowPricing.step var
-R4729:4732 Kernel.ShadowPricing <> ShadowPricing.step var
-R4832:4844 Kernel.ShadowPricing ShadowPricing <> sec
-R4858:4862 Kernel.ShadowPricing <> flips def
-R4858:4862 Kernel.ShadowPricing <> flips def
-R4881:4891 Kernel.ShadowPricing <> shadow_cost def
-R4881:4891 Kernel.ShadowPricing <> shadow_cost def
-R4912:4922 Kernel.ShadowPricing <> meets_floor def
-R4912:4922 Kernel.ShadowPricing <> meets_floor def
-R4941:4957 Kernel.ShadowPricing <> never_overcharges def
-R4941:4957 Kernel.ShadowPricing <> never_overcharges def
-R4976:4991 Kernel.ShadowPricing <> shadow_collision def
-R4976:4991 Kernel.ShadowPricing <> shadow_collision def
-def 5031:5037 <> vm_cert
-R5044:5050 Kernel.VMState <> VMState rec
-binder 5040:5040 <> s:45
-R5055:5058 Coq.Init.Datatypes <> bool ind
-R5066:5077 Kernel.VMState <> vm_certified proj
-R5063:5063 Kernel.ShadowPricing <> s:45 var
-prf 5240:5267 <> vm_bare_observable_collision
-R5273:5288 Kernel.ShadowPricing <> shadow_collision def
-R5307:5321 Kernel.ProjectionNonExistence <> bare_observable def
-R5299:5305 Kernel.ShadowPricing <> vm_cert def
-R5290:5297 Kernel.SimulationProof <> vm_apply def
-R5340:5347 Kernel.NecessityAbstract <> abs_zero def
-R5351:5363 Kernel.VMStep VMStep instr_certify constr
-R5369:5376 Kernel.NecessityAbstract <> abs_zero def
-R5380:5389 Kernel.VMStep VMStep instr_jump constr
-R5340:5347 Kernel.NecessityAbstract <> abs_zero def
-R5351:5363 Kernel.VMStep VMStep instr_certify constr
-R5369:5376 Kernel.NecessityAbstract <> abs_zero def
-R5380:5389 Kernel.VMStep VMStep instr_jump constr
-prf 5581:5599 <> vm_forget_collision
-R5605:5620 Kernel.ShadowPricing <> shadow_collision def
-R5639:5644 Kernel.BlindnessRepresentation <> forget def
-R5631:5637 Kernel.ShadowPricing <> vm_cert def
-R5622:5629 Kernel.SimulationProof <> vm_apply def
-R5663:5670 Kernel.NecessityAbstract <> abs_zero def
-R5674:5686 Kernel.VMStep VMStep instr_certify constr
-R5692:5699 Kernel.NecessityAbstract <> abs_zero def
-R5703:5712 Kernel.VMStep VMStep instr_jump constr
-R5663:5670 Kernel.NecessityAbstract <> abs_zero def
-R5674:5686 Kernel.VMStep VMStep instr_certify constr
-R5692:5699 Kernel.NecessityAbstract <> abs_zero def
-R5703:5712 Kernel.VMStep VMStep instr_jump constr
-prf 5851:5885 <> vm_bare_shadow_cannot_price_exactly
-binder 5898:5902 <> price:46
-R5909:5911 Coq.Init.Logic <> ::type_scope:'~'_x not
-R6075:6075 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5985:5995 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5912:5922 Kernel.ShadowPricing <> meets_floor def
-R5942:5952 Kernel.ShadowPricing <> shadow_cost def
-R5979:5983 Kernel.ShadowPricing <> price:46 var
-R5963:5977 Kernel.ProjectionNonExistence <> bare_observable def
-R5954:5961 Kernel.SimulationProof <> vm_apply def
-R5933:5939 Kernel.ShadowPricing <> vm_cert def
-R5924:5931 Kernel.SimulationProof <> vm_apply def
-R5996:6012 Kernel.ShadowPricing <> never_overcharges def
-R6032:6042 Kernel.ShadowPricing <> shadow_cost def
-R6069:6073 Kernel.ShadowPricing <> price:46 var
-R6053:6067 Kernel.ProjectionNonExistence <> bare_observable def
-R6044:6051 Kernel.SimulationProof <> vm_apply def
-R6023:6029 Kernel.ShadowPricing <> vm_cert def
-R6014:6021 Kernel.SimulationProof <> vm_apply def
-R6093:6119 Kernel.ShadowPricing <> shadow_cannot_price_exactly thm
-R6093:6119 Kernel.ShadowPricing <> shadow_cannot_price_exactly thm
-R6128:6155 Kernel.ShadowPricing <> vm_bare_observable_collision thm
-R6128:6155 Kernel.ShadowPricing <> vm_bare_observable_collision thm
-prf 6225:6261 <> vm_forget_shadow_cannot_price_exactly
-binder 6274:6278 <> price:47
-R6285:6287 Coq.Init.Logic <> ::type_scope:'~'_x not
-R6433:6433 Coq.Init.Logic <> ::type_scope:'~'_x not
-R6352:6362 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6288:6298 Kernel.ShadowPricing <> meets_floor def
-R6318:6328 Kernel.ShadowPricing <> shadow_cost def
-R6346:6350 Kernel.ShadowPricing <> price:47 var
-R6339:6344 Kernel.BlindnessRepresentation <> forget def
-R6330:6337 Kernel.SimulationProof <> vm_apply def
-R6309:6315 Kernel.ShadowPricing <> vm_cert def
-R6300:6307 Kernel.SimulationProof <> vm_apply def
-R6363:6379 Kernel.ShadowPricing <> never_overcharges def
-R6399:6409 Kernel.ShadowPricing <> shadow_cost def
-R6427:6431 Kernel.ShadowPricing <> price:47 var
-R6420:6425 Kernel.BlindnessRepresentation <> forget def
-R6411:6418 Kernel.SimulationProof <> vm_apply def
-R6390:6396 Kernel.ShadowPricing <> vm_cert def
-R6381:6388 Kernel.SimulationProof <> vm_apply def
-R6451:6477 Kernel.ShadowPricing <> shadow_cannot_price_exactly thm
-R6451:6477 Kernel.ShadowPricing <> shadow_cannot_price_exactly thm
-R6486:6504 Kernel.ShadowPricing <> vm_forget_collision thm
-R6486:6504 Kernel.ShadowPricing <> vm_forget_collision thm
+binder 3831:3831 <> o:37
+binder 3833:3834 <> o':38
+R3855:3858 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3842:3845 Coq.Init.Datatypes <> negb def
+R3853:3853 Kernel.ShadowPricing <> o:37 var
+R3864:3865 Kernel.ShadowPricing <> o':38 var
+R3882:3882 Kernel.ShadowPricing <> s:35 var
+R3884:3884 Kernel.ShadowPricing <> i:36 var
+R3901:3910 Kernel.ShadowPricing <> step_price def
+R3912:3912 Kernel.ShadowPricing <> s:35 var
+R3914:3914 Kernel.ShadowPricing <> i:36 var
+binder 3796:3796 <> s:39
+binder 3798:3798 <> i:40
+R3885:3900 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3814:3824 Kernel.ShadowPricing <> shadow_cost def
+binder 3831:3831 <> o:41
+binder 3833:3834 <> o':42
+R3855:3858 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3842:3845 Coq.Init.Datatypes <> negb def
+R3853:3853 Kernel.ShadowPricing <> o:41 var
+R3864:3865 Kernel.ShadowPricing <> o':42 var
+R3882:3882 Kernel.ShadowPricing <> s:39 var
+R3884:3884 Kernel.ShadowPricing <> i:40 var
+R3901:3910 Kernel.ShadowPricing <> step_price def
+R3912:3912 Kernel.ShadowPricing <> s:39 var
+R3914:3914 Kernel.ShadowPricing <> i:40 var
+R3941:3951 Kernel.ShadowPricing <> shadow_cost def
+R3954:3963 Kernel.ShadowPricing <> step_price def
+R3966:3970 Kernel.ShadowPricing <> flips def
+R4010:4013 Kernel.ShadowPricing <> ShadowPricing.step var
+R4010:4013 Kernel.ShadowPricing <> ShadowPricing.step var
+R4010:4013 Kernel.ShadowPricing <> ShadowPricing.step var
+R4080:4089 Kernel.ShadowPricing <> step_price def
+R4115:4116 Coq.Init.Peano <> ge def
+R4125:4128 Coq.Init.Peano <> le_n constr
+R4125:4128 Coq.Init.Peano <> le_n constr
+prf 4217:4255 <> window_showing_reading_has_no_collision
+R4276:4279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4275:4275 Kernel.ShadowPricing <> ShadowPricing.O var
+R4280:4283 Coq.Init.Datatypes <> bool ind
+binder 4268:4271 <> read:43
+R4290:4290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4322:4330 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4298:4298 <> s:44
+R4307:4309 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4301:4304 Kernel.ShadowPricing <> ShadowPricing.cert var
+R4306:4306 Kernel.ShadowPricing <> s:44 var
+R4310:4313 Kernel.ShadowPricing <> read:43 var
+R4316:4318 Kernel.ShadowPricing <> ShadowPricing.obs var
+R4320:4320 Kernel.ShadowPricing <> s:44 var
+R4331:4332 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4333:4348 Kernel.ShadowPricing <> shadow_collision def
+R4433:4437 Kernel.ShadowPricing <> flips def
+R4482:4485 Kernel.ShadowPricing <> ShadowPricing.step var
+R4482:4485 Kernel.ShadowPricing <> ShadowPricing.step var
+R4482:4485 Kernel.ShadowPricing <> ShadowPricing.step var
+R4533:4536 Kernel.ShadowPricing <> ShadowPricing.step var
+R4533:4536 Kernel.ShadowPricing <> ShadowPricing.step var
+R4533:4536 Kernel.ShadowPricing <> ShadowPricing.step var
+R4636:4648 Kernel.ShadowPricing ShadowPricing <> sec
+R4662:4666 Kernel.ShadowPricing <> flips def
+R4662:4666 Kernel.ShadowPricing <> flips def
+R4685:4695 Kernel.ShadowPricing <> shadow_cost def
+R4685:4695 Kernel.ShadowPricing <> shadow_cost def
+R4716:4726 Kernel.ShadowPricing <> meets_floor def
+R4716:4726 Kernel.ShadowPricing <> meets_floor def
+R4745:4761 Kernel.ShadowPricing <> never_overcharges def
+R4745:4761 Kernel.ShadowPricing <> never_overcharges def
+R4780:4795 Kernel.ShadowPricing <> shadow_collision def
+R4780:4795 Kernel.ShadowPricing <> shadow_collision def

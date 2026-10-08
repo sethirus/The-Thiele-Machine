@@ -1,437 +1,437 @@
-DIGEST 0d3f55b6a475a3309cc8b808001b3120
+DIGEST 640cd0e16b3732520c2fd361356be759
 FKernel.NPAMomentMatrix
-R1169:1173 Coq.Reals.Reals <> <> lib
-R1175:1177 Coq.micromega.Lra <> <> lib
-R1179:1181 Coq.micromega.Lia <> <> lib
-R1183:1186 Coq.Lists.List <> <> lib
-R1196:1208 Coq.Lists.List ListNotations <> mod
-R1265:1279 Kernel.ConstructivePSD <> <> lib
-ind 1963:1973 <> NPAOperator
-constr 1987:1990 <> Op_I
-constr 2027:2031 <> Op_A0
-constr 2078:2082 <> Op_A1
-constr 2129:2133 <> Op_B0
-constr 2178:2182 <> Op_B1
-R1997:2007 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
-R2037:2047 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
-R2088:2098 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
-R2139:2149 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
-R2188:2198 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
-scheme 1963:1973 <> NPAOperator_rect
-scheme 1963:1973 <> NPAOperator_ind
-scheme 1963:1973 <> NPAOperator_rec
-scheme 1963:1973 <> NPAOperator_sind
-def 2690:2697 <> op_index
-R2705:2715 Kernel.NPAMomentMatrix <> NPAOperator ind
-binder 2700:2701 <> op:3
-R2720:2722 Coq.Init.Datatypes <> nat ind
-R2735:2736 Kernel.NPAMomentMatrix <> op:3 var
-R2747:2750 Kernel.NPAMomentMatrix <> Op_I constr
-R2766:2770 Kernel.NPAMomentMatrix <> Op_A0 constr
-R2785:2789 Kernel.NPAMomentMatrix <> Op_A1 constr
-R2804:2808 Kernel.NPAMomentMatrix <> Op_B0 constr
-R2823:2827 Kernel.NPAMomentMatrix <> Op_B1 constr
-rec 3387:3402 <> CHSHCorrelations
-proj 3418:3420 <> E00
-proj 3452:3454 <> E01
-proj 3486:3488 <> E10
-proj 3520:3522 <> E11
-R3424:3424 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3458:3458 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3492:3492 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3526:3526 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 3942:3948 <> S_value
-R3955:3970 Kernel.NPAMomentMatrix <> CHSHCorrelations rec
-binder 3951:3951 <> c:10
-R3975:3975 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4009:4011 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3999:4001 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3989:3991 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3985:3987 Kernel.NPAMomentMatrix <> E00 proj
-R3982:3982 Kernel.NPAMomentMatrix <> c:10 var
-R3995:3997 Kernel.NPAMomentMatrix <> E01 proj
-R3992:3992 Kernel.NPAMomentMatrix <> c:10 var
-R4005:4007 Kernel.NPAMomentMatrix <> E10 proj
-R4002:4002 Kernel.NPAMomentMatrix <> c:10 var
-R4015:4017 Kernel.NPAMomentMatrix <> E11 proj
-R4012:4012 Kernel.NPAMomentMatrix <> c:10 var
-rec 4770:4784 <> NPAMomentMatrix
-proj 4834:4840 <> npa_EA0
-proj 4849:4855 <> npa_EA1
-proj 4864:4870 <> npa_EB0
-proj 4879:4885 <> npa_EB1
-proj 4920:4926 <> npa_E00
-proj 4935:4941 <> npa_E01
-proj 4950:4956 <> npa_E10
-proj 4965:4971 <> npa_E11
-proj 5007:5016 <> npa_rho_AA
-proj 5047:5056 <> npa_rho_BB
-R4844:4844 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4859:4859 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4874:4874 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4889:4889 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4930:4930 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4945:4945 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4960:4960 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4975:4975 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5020:5020 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5060:5060 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 5150:5162 <> npa_to_matrix
-R5171:5185 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 5165:5167 <> npa:22
-R5190:5195 Kernel.ConstructivePSD <> Matrix def
-binder 5208:5208 <> i:23
-binder 5210:5210 <> j:24
-R5228:5228 Kernel.NPAMomentMatrix <> j:24 var
-R5225:5225 Kernel.NPAMomentMatrix <> i:23 var
-R5302:5308 Kernel.NPAMomentMatrix <> npa_EA0 proj
-R5297:5299 Kernel.NPAMomentMatrix <> npa:22 var
-R5338:5344 Kernel.NPAMomentMatrix <> npa_EA1 proj
-R5333:5335 Kernel.NPAMomentMatrix <> npa:22 var
-R5374:5380 Kernel.NPAMomentMatrix <> npa_EB0 proj
-R5369:5371 Kernel.NPAMomentMatrix <> npa:22 var
-R5410:5416 Kernel.NPAMomentMatrix <> npa_EB1 proj
-R5405:5407 Kernel.NPAMomentMatrix <> npa:22 var
-R5463:5469 Kernel.NPAMomentMatrix <> npa_EA0 proj
-R5458:5460 Kernel.NPAMomentMatrix <> npa:22 var
-R5523:5532 Kernel.NPAMomentMatrix <> npa_rho_AA proj
+R1130:1134 Coq.Reals.Reals <> <> lib
+R1136:1138 Coq.micromega.Lra <> <> lib
+R1140:1142 Coq.micromega.Lia <> <> lib
+R1144:1147 Coq.Lists.List <> <> lib
+R1157:1169 Coq.Lists.List ListNotations <> mod
+R1226:1240 Kernel.ConstructivePSD <> <> lib
+ind 1924:1934 <> NPAOperator
+constr 1948:1951 <> Op_I
+constr 1988:1992 <> Op_A0
+constr 2039:2043 <> Op_A1
+constr 2090:2094 <> Op_B0
+constr 2139:2143 <> Op_B1
+R1958:1968 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
+R1998:2008 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
+R2049:2059 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
+R2100:2110 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
+R2149:2159 Kernel.NPAMomentMatrix <> NPAOperator:1 ind
+scheme 1924:1934 <> NPAOperator_rect
+scheme 1924:1934 <> NPAOperator_ind
+scheme 1924:1934 <> NPAOperator_rec
+scheme 1924:1934 <> NPAOperator_sind
+def 2651:2658 <> op_index
+R2666:2676 Kernel.NPAMomentMatrix <> NPAOperator ind
+binder 2661:2662 <> op:3
+R2681:2683 Coq.Init.Datatypes <> nat ind
+R2696:2697 Kernel.NPAMomentMatrix <> op:3 var
+R2708:2711 Kernel.NPAMomentMatrix <> Op_I constr
+R2727:2731 Kernel.NPAMomentMatrix <> Op_A0 constr
+R2746:2750 Kernel.NPAMomentMatrix <> Op_A1 constr
+R2765:2769 Kernel.NPAMomentMatrix <> Op_B0 constr
+R2784:2788 Kernel.NPAMomentMatrix <> Op_B1 constr
+rec 3348:3363 <> CHSHCorrelations
+proj 3379:3381 <> E00
+proj 3413:3415 <> E01
+proj 3447:3449 <> E10
+proj 3481:3483 <> E11
+R3385:3385 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3419:3419 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3453:3453 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3487:3487 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 3903:3909 <> S_value
+R3916:3931 Kernel.NPAMomentMatrix <> CHSHCorrelations rec
+binder 3912:3912 <> c:10
+R3936:3936 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3970:3972 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3960:3962 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3950:3952 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3946:3948 Kernel.NPAMomentMatrix <> E00 proj
+R3943:3943 Kernel.NPAMomentMatrix <> c:10 var
+R3956:3958 Kernel.NPAMomentMatrix <> E01 proj
+R3953:3953 Kernel.NPAMomentMatrix <> c:10 var
+R3966:3968 Kernel.NPAMomentMatrix <> E10 proj
+R3963:3963 Kernel.NPAMomentMatrix <> c:10 var
+R3976:3978 Kernel.NPAMomentMatrix <> E11 proj
+R3973:3973 Kernel.NPAMomentMatrix <> c:10 var
+rec 4731:4745 <> NPAMomentMatrix
+proj 4795:4801 <> npa_EA0
+proj 4810:4816 <> npa_EA1
+proj 4825:4831 <> npa_EB0
+proj 4840:4846 <> npa_EB1
+proj 4881:4887 <> npa_E00
+proj 4896:4902 <> npa_E01
+proj 4911:4917 <> npa_E10
+proj 4926:4932 <> npa_E11
+proj 4968:4977 <> npa_rho_AA
+proj 5008:5017 <> npa_rho_BB
+R4805:4805 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4820:4820 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4835:4835 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4850:4850 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4891:4891 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4906:4906 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4921:4921 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4936:4936 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4981:4981 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5021:5021 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 5111:5123 <> npa_to_matrix
+R5132:5146 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 5126:5128 <> npa:22
+R5151:5156 Kernel.ConstructivePSD <> Matrix def
+binder 5169:5169 <> i:23
+binder 5171:5171 <> j:24
+R5189:5189 Kernel.NPAMomentMatrix <> j:24 var
+R5186:5186 Kernel.NPAMomentMatrix <> i:23 var
+R5263:5269 Kernel.NPAMomentMatrix <> npa_EA0 proj
+R5258:5260 Kernel.NPAMomentMatrix <> npa:22 var
+R5299:5305 Kernel.NPAMomentMatrix <> npa_EA1 proj
+R5294:5296 Kernel.NPAMomentMatrix <> npa:22 var
+R5335:5341 Kernel.NPAMomentMatrix <> npa_EB0 proj
+R5330:5332 Kernel.NPAMomentMatrix <> npa:22 var
+R5371:5377 Kernel.NPAMomentMatrix <> npa_EB1 proj
+R5366:5368 Kernel.NPAMomentMatrix <> npa:22 var
+R5424:5430 Kernel.NPAMomentMatrix <> npa_EA0 proj
+R5419:5421 Kernel.NPAMomentMatrix <> npa:22 var
+R5484:5493 Kernel.NPAMomentMatrix <> npa_rho_AA proj
+R5479:5481 Kernel.NPAMomentMatrix <> npa:22 var
+R5523:5529 Kernel.NPAMomentMatrix <> npa_E00 proj
 R5518:5520 Kernel.NPAMomentMatrix <> npa:22 var
-R5562:5568 Kernel.NPAMomentMatrix <> npa_E00 proj
-R5557:5559 Kernel.NPAMomentMatrix <> npa:22 var
-R5598:5604 Kernel.NPAMomentMatrix <> npa_E01 proj
-R5593:5595 Kernel.NPAMomentMatrix <> npa:22 var
-R5651:5657 Kernel.NPAMomentMatrix <> npa_EA1 proj
-R5646:5648 Kernel.NPAMomentMatrix <> npa:22 var
-R5687:5696 Kernel.NPAMomentMatrix <> npa_rho_AA proj
-R5682:5684 Kernel.NPAMomentMatrix <> npa:22 var
-R5750:5756 Kernel.NPAMomentMatrix <> npa_E10 proj
-R5745:5747 Kernel.NPAMomentMatrix <> npa:22 var
-R5786:5792 Kernel.NPAMomentMatrix <> npa_E11 proj
-R5781:5783 Kernel.NPAMomentMatrix <> npa:22 var
-R5839:5845 Kernel.NPAMomentMatrix <> npa_EB0 proj
-R5834:5836 Kernel.NPAMomentMatrix <> npa:22 var
-R5875:5881 Kernel.NPAMomentMatrix <> npa_E00 proj
-R5870:5872 Kernel.NPAMomentMatrix <> npa:22 var
-R5911:5917 Kernel.NPAMomentMatrix <> npa_E10 proj
-R5906:5908 Kernel.NPAMomentMatrix <> npa:22 var
-R5971:5980 Kernel.NPAMomentMatrix <> npa_rho_BB proj
-R5966:5968 Kernel.NPAMomentMatrix <> npa:22 var
-R6027:6033 Kernel.NPAMomentMatrix <> npa_EB1 proj
-R6022:6024 Kernel.NPAMomentMatrix <> npa:22 var
-R6063:6069 Kernel.NPAMomentMatrix <> npa_E01 proj
-R6058:6060 Kernel.NPAMomentMatrix <> npa:22 var
-R6099:6105 Kernel.NPAMomentMatrix <> npa_E11 proj
-R6094:6096 Kernel.NPAMomentMatrix <> npa:22 var
-R6135:6144 Kernel.NPAMomentMatrix <> npa_rho_BB proj
-R6130:6132 Kernel.NPAMomentMatrix <> npa:22 var
-def 6461:6467 <> npa_psd
-R6476:6490 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 6470:6472 <> npa:27
-R6514:6531 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R6534:6546 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R6548:6550 Kernel.NPAMomentMatrix <> npa:27 var
-binder 6509:6509 <> M:28
-R6570:6573 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6558:6567 Kernel.ConstructivePSD <> symmetric5 def
-R6569:6569 Kernel.NPAMomentMatrix <> M:28 var
-R6574:6577 Kernel.ConstructivePSD <> PSD5 def
-R6579:6579 Kernel.NPAMomentMatrix <> M:28 var
-def 6594:6610 <> zero_marginal_npa
-R6631:6631 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 6613:6615 <> E00:29
-binder 6617:6619 <> E01:30
-binder 6621:6623 <> E10:31
-binder 6625:6627 <> E11:32
-R6636:6650 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-R6660:6666 Kernel.NPAMomentMatrix <> npa_EA0 proj
-R6660:6666 Kernel.NPAMomentMatrix <> npa_EA0 proj
-R6660:6666 Kernel.NPAMomentMatrix <> npa_EA0 proj
-R6676:6682 Kernel.NPAMomentMatrix <> npa_EA1 proj
-R6676:6682 Kernel.NPAMomentMatrix <> npa_EA1 proj
-R6692:6698 Kernel.NPAMomentMatrix <> npa_EB0 proj
-R6692:6698 Kernel.NPAMomentMatrix <> npa_EB0 proj
-R6708:6714 Kernel.NPAMomentMatrix <> npa_EB1 proj
-R6708:6714 Kernel.NPAMomentMatrix <> npa_EB1 proj
-R6724:6730 Kernel.NPAMomentMatrix <> npa_E00 proj
-R6724:6730 Kernel.NPAMomentMatrix <> npa_E00 proj
-R6742:6748 Kernel.NPAMomentMatrix <> npa_E01 proj
-R6742:6748 Kernel.NPAMomentMatrix <> npa_E01 proj
-R6760:6766 Kernel.NPAMomentMatrix <> npa_E10 proj
-R6760:6766 Kernel.NPAMomentMatrix <> npa_E10 proj
-R6778:6784 Kernel.NPAMomentMatrix <> npa_E11 proj
-R6778:6784 Kernel.NPAMomentMatrix <> npa_E11 proj
-R6796:6805 Kernel.NPAMomentMatrix <> npa_rho_AA proj
-R6796:6805 Kernel.NPAMomentMatrix <> npa_rho_AA proj
-R6815:6824 Kernel.NPAMomentMatrix <> npa_rho_BB proj
-R6815:6824 Kernel.NPAMomentMatrix <> npa_rho_BB proj
-R6735:6737 Kernel.NPAMomentMatrix <> E00:29 var
-R6753:6755 Kernel.NPAMomentMatrix <> E01:30 var
-R6771:6773 Kernel.NPAMomentMatrix <> E10:31 var
-R6789:6791 Kernel.NPAMomentMatrix <> E11:32 var
-def 6848:6867 <> zero_marginal_matrix
-R6888:6888 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 6870:6872 <> E00:33
-binder 6874:6876 <> E01:34
-binder 6878:6880 <> E10:35
-binder 6882:6884 <> E11:36
-R6893:6898 Kernel.ConstructivePSD <> Matrix def
-R6908:6920 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R6923:6939 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R6941:6943 Kernel.NPAMomentMatrix <> E00:33 var
-R6945:6947 Kernel.NPAMomentMatrix <> E01:34 var
-R6949:6951 Kernel.NPAMomentMatrix <> E10:35 var
-R6953:6955 Kernel.NPAMomentMatrix <> E11:36 var
-def 6971:6984 <> correlator_4x4
-R7005:7005 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 6987:6989 <> E00:37
-binder 6991:6993 <> E01:38
-binder 6995:6997 <> E10:39
-binder 6999:7001 <> E11:40
-R7010:7015 Kernel.ConstructivePSD <> Matrix def
-binder 7029:7029 <> i:41
-binder 7031:7031 <> j:42
-R7050:7050 Kernel.NPAMomentMatrix <> j:42 var
-R7047:7047 Kernel.NPAMomentMatrix <> i:41 var
-R7100:7102 Kernel.NPAMomentMatrix <> E00:37 var
-R7114:7116 Kernel.NPAMomentMatrix <> E01:38 var
-R7161:7163 Kernel.NPAMomentMatrix <> E10:39 var
-R7175:7177 Kernel.NPAMomentMatrix <> E11:40 var
-R7194:7196 Kernel.NPAMomentMatrix <> E00:37 var
-R7208:7210 Kernel.NPAMomentMatrix <> E10:39 var
-R7253:7255 Kernel.NPAMomentMatrix <> E01:38 var
-R7267:7269 Kernel.NPAMomentMatrix <> E11:40 var
-def 7370:7380 <> npa_to_chsh
-R7389:7403 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 7383:7385 <> npa:45
-R7408:7423 Kernel.NPAMomentMatrix <> CHSHCorrelations rec
-R7433:7435 Kernel.NPAMomentMatrix <> E00 proj
-R7433:7435 Kernel.NPAMomentMatrix <> E00 proj
-R7433:7435 Kernel.NPAMomentMatrix <> E00 proj
-R7457:7459 Kernel.NPAMomentMatrix <> E01 proj
-R7457:7459 Kernel.NPAMomentMatrix <> E01 proj
-R7481:7483 Kernel.NPAMomentMatrix <> E10 proj
-R7481:7483 Kernel.NPAMomentMatrix <> E10 proj
-R7505:7507 Kernel.NPAMomentMatrix <> E11 proj
-R7505:7507 Kernel.NPAMomentMatrix <> E11 proj
-R7445:7451 Kernel.NPAMomentMatrix <> npa_E00 proj
-R7440:7442 Kernel.NPAMomentMatrix <> npa:45 var
-R7469:7475 Kernel.NPAMomentMatrix <> npa_E01 proj
-R7464:7466 Kernel.NPAMomentMatrix <> npa:45 var
-R7493:7499 Kernel.NPAMomentMatrix <> npa_E10 proj
-R7488:7490 Kernel.NPAMomentMatrix <> npa:45 var
-R7517:7523 Kernel.NPAMomentMatrix <> npa_E11 proj
-R7512:7514 Kernel.NPAMomentMatrix <> npa:45 var
-prf 8123:8138 <> npa_diagonal_one
-R8156:8170 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 8150:8152 <> npa:46
-R8178:8181 Kernel.ConstructivePSD <> Fin5 abbrev
-binder 8174:8174 <> i:47
-R8229:8231 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8187:8204 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R8207:8219 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R8221:8223 Kernel.NPAMomentMatrix <> npa:46 var
-R8226:8226 Kernel.NPAMomentMatrix <> i:47 var
-R8228:8228 Kernel.NPAMomentMatrix <> i:47 var
-R8267:8284 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R8287:8299 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R8314:8323 Coq.Vectors.Fin <> to_nat def
-R8314:8323 Coq.Vectors.Fin <> to_nat def
-def 8467:8470 <> idx1
-R8474:8477 Kernel.ConstructivePSD <> Fin5 abbrev
-R8482:8487 Coq.Vectors.Fin <> FS constr
-R8489:8494 Coq.Vectors.Fin <> F1 constr
-def 8508:8511 <> idx2
-R8515:8518 Kernel.ConstructivePSD <> Fin5 abbrev
-R8523:8528 Coq.Vectors.Fin <> FS constr
-R8531:8536 Coq.Vectors.Fin <> FS constr
-R8538:8543 Coq.Vectors.Fin <> F1 constr
-def 8558:8561 <> idx3
-R8565:8568 Kernel.ConstructivePSD <> Fin5 abbrev
-R8573:8578 Coq.Vectors.Fin <> FS constr
-R8581:8586 Coq.Vectors.Fin <> FS constr
-R8589:8594 Coq.Vectors.Fin <> FS constr
-R8596:8601 Coq.Vectors.Fin <> F1 constr
-def 8617:8620 <> idx4
-R8624:8627 Kernel.ConstructivePSD <> Fin5 abbrev
-R8632:8637 Coq.Vectors.Fin <> FS constr
-R8640:8645 Coq.Vectors.Fin <> FS constr
-R8648:8653 Coq.Vectors.Fin <> FS constr
-R8656:8661 Coq.Vectors.Fin <> FS constr
-R8663:8668 Coq.Vectors.Fin <> F1 constr
-prf 8714:8729 <> npa_E00_position
-R8747:8761 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 8741:8743 <> npa:48
-R8815:8817 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8767:8784 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R8787:8799 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R8801:8803 Kernel.NPAMomentMatrix <> npa:48 var
-R8806:8809 Kernel.NPAMomentMatrix <> idx1 def
-R8811:8814 Kernel.NPAMomentMatrix <> idx3 def
-R8823:8829 Kernel.NPAMomentMatrix <> npa_E00 proj
-R8818:8820 Kernel.NPAMomentMatrix <> npa:48 var
-R8860:8877 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R8880:8892 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R8895:8898 Kernel.NPAMomentMatrix <> idx1 def
-R8901:8904 Kernel.NPAMomentMatrix <> idx3 def
-prf 8974:8989 <> npa_E01_position
-R9007:9021 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 9001:9003 <> npa:49
-R9075:9077 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9027:9044 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R9047:9059 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R9061:9063 Kernel.NPAMomentMatrix <> npa:49 var
-R9066:9069 Kernel.NPAMomentMatrix <> idx1 def
-R9071:9074 Kernel.NPAMomentMatrix <> idx4 def
-R9083:9089 Kernel.NPAMomentMatrix <> npa_E01 proj
-R9078:9080 Kernel.NPAMomentMatrix <> npa:49 var
-R9120:9137 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R9140:9152 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R9155:9158 Kernel.NPAMomentMatrix <> idx1 def
-R9161:9164 Kernel.NPAMomentMatrix <> idx4 def
-prf 9234:9249 <> npa_E10_position
-R9267:9281 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 9261:9263 <> npa:50
-R9335:9337 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9287:9304 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R9307:9319 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R9321:9323 Kernel.NPAMomentMatrix <> npa:50 var
-R9326:9329 Kernel.NPAMomentMatrix <> idx2 def
-R9331:9334 Kernel.NPAMomentMatrix <> idx3 def
-R9343:9349 Kernel.NPAMomentMatrix <> npa_E10 proj
-R9338:9340 Kernel.NPAMomentMatrix <> npa:50 var
-R9380:9397 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R9400:9412 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R9415:9418 Kernel.NPAMomentMatrix <> idx2 def
-R9421:9424 Kernel.NPAMomentMatrix <> idx3 def
-prf 9494:9509 <> npa_E11_position
-R9527:9541 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 9521:9523 <> npa:51
-R9595:9597 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9547:9564 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R9567:9579 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R9581:9583 Kernel.NPAMomentMatrix <> npa:51 var
-R9586:9589 Kernel.NPAMomentMatrix <> idx2 def
-R9591:9594 Kernel.NPAMomentMatrix <> idx4 def
-R9603:9609 Kernel.NPAMomentMatrix <> npa_E11 proj
-R9598:9600 Kernel.NPAMomentMatrix <> npa:51 var
-R9640:9657 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R9660:9672 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R9675:9678 Kernel.NPAMomentMatrix <> idx2 def
-R9681:9684 Kernel.NPAMomentMatrix <> idx4 def
-prf 9787:9805 <> npa_rho_BB_position
-R9823:9837 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 9817:9819 <> npa:52
-R9891:9893 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9843:9860 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R9863:9875 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R9877:9879 Kernel.NPAMomentMatrix <> npa:52 var
-R9882:9885 Kernel.NPAMomentMatrix <> idx3 def
-R9887:9890 Kernel.NPAMomentMatrix <> idx4 def
-R9899:9908 Kernel.NPAMomentMatrix <> npa_rho_BB proj
-R9894:9896 Kernel.NPAMomentMatrix <> npa:52 var
-R9939:9956 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R9959:9971 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R9974:9977 Kernel.NPAMomentMatrix <> idx3 def
-R9980:9983 Kernel.NPAMomentMatrix <> idx4 def
-prf 10056:10074 <> npa_rho_AA_position
-R10092:10106 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 10086:10088 <> npa:53
-R10160:10162 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10112:10129 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R10132:10144 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R10146:10148 Kernel.NPAMomentMatrix <> npa:53 var
-R10151:10154 Kernel.NPAMomentMatrix <> idx1 def
-R10156:10159 Kernel.NPAMomentMatrix <> idx2 def
-R10168:10177 Kernel.NPAMomentMatrix <> npa_rho_AA proj
-R10163:10165 Kernel.NPAMomentMatrix <> npa:53 var
-R10208:10225 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R10228:10240 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R10243:10246 Kernel.NPAMomentMatrix <> idx1 def
-R10249:10252 Kernel.NPAMomentMatrix <> idx2 def
-prf 10289:10314 <> npa_psd_implies_normalized
-R10332:10346 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 10326:10328 <> npa:54
-R10363:10368 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10352:10358 Kernel.NPAMomentMatrix <> npa_psd def
-R10360:10362 Kernel.NPAMomentMatrix <> npa:54 var
-R10394:10399 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10389:10392 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10369:10372 Coq.Reals.Rbasic_fun <> Rabs def
-R10380:10386 Kernel.NPAMomentMatrix <> npa_E00 proj
-R10375:10377 Kernel.NPAMomentMatrix <> npa:54 var
-R10425:10430 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10420:10423 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10400:10403 Coq.Reals.Rbasic_fun <> Rabs def
-R10411:10417 Kernel.NPAMomentMatrix <> npa_E01 proj
-R10406:10408 Kernel.NPAMomentMatrix <> npa:54 var
-R10456:10461 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10451:10454 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10431:10434 Coq.Reals.Rbasic_fun <> Rabs def
-R10442:10448 Kernel.NPAMomentMatrix <> npa_E10 proj
-R10437:10439 Kernel.NPAMomentMatrix <> npa:54 var
-R10482:10485 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10462:10465 Coq.Reals.Rbasic_fun <> Rabs def
-R10473:10479 Kernel.NPAMomentMatrix <> npa_E11 proj
-R10468:10470 Kernel.NPAMomentMatrix <> npa:54 var
-R10534:10551 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R10554:10566 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R10534:10551 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R10554:10566 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R10642:10657 Kernel.NPAMomentMatrix <> npa_E00_position thm
-R10642:10657 Kernel.NPAMomentMatrix <> npa_E00_position thm
-R10642:10657 Kernel.NPAMomentMatrix <> npa_E00_position thm
-R10670:10692 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
-R10670:10692 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
-R10715:10730 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10715:10730 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10715:10730 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10752:10767 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10752:10767 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10752:10767 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10813:10828 Kernel.NPAMomentMatrix <> npa_E01_position thm
-R10813:10828 Kernel.NPAMomentMatrix <> npa_E01_position thm
-R10813:10828 Kernel.NPAMomentMatrix <> npa_E01_position thm
-R10841:10863 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
-R10841:10863 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
-R10886:10901 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10886:10901 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10886:10901 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10923:10938 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10923:10938 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10923:10938 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R10984:10999 Kernel.NPAMomentMatrix <> npa_E10_position thm
-R10984:10999 Kernel.NPAMomentMatrix <> npa_E10_position thm
-R10984:10999 Kernel.NPAMomentMatrix <> npa_E10_position thm
-R11012:11034 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
-R11012:11034 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
-R11057:11072 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11057:11072 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11057:11072 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11094:11109 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11094:11109 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11094:11109 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11155:11170 Kernel.NPAMomentMatrix <> npa_E11_position thm
-R11155:11170 Kernel.NPAMomentMatrix <> npa_E11_position thm
-R11155:11170 Kernel.NPAMomentMatrix <> npa_E11_position thm
-R11183:11205 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
-R11183:11205 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
-R11228:11243 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11228:11243 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11228:11243 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11265:11280 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11265:11280 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-R11265:11280 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
-prf 11354:11376 <> npa_to_matrix_symmetric
-R11394:11408 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
-binder 11388:11390 <> npa:55
-R11414:11423 Kernel.ConstructivePSD <> symmetric5 def
-R11426:11443 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R11446:11458 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R11460:11462 Kernel.NPAMomentMatrix <> npa:55 var
-R11501:11510 Kernel.ConstructivePSD <> symmetric5 def
-R11513:11530 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R11533:11545 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R11720:11729 Coq.Vectors.Fin <> to_nat def
-R11720:11729 Coq.Vectors.Fin <> to_nat def
-R11758:11767 Coq.Vectors.Fin <> to_nat def
-R11758:11767 Coq.Vectors.Fin <> to_nat def
+R5559:5565 Kernel.NPAMomentMatrix <> npa_E01 proj
+R5554:5556 Kernel.NPAMomentMatrix <> npa:22 var
+R5612:5618 Kernel.NPAMomentMatrix <> npa_EA1 proj
+R5607:5609 Kernel.NPAMomentMatrix <> npa:22 var
+R5648:5657 Kernel.NPAMomentMatrix <> npa_rho_AA proj
+R5643:5645 Kernel.NPAMomentMatrix <> npa:22 var
+R5711:5717 Kernel.NPAMomentMatrix <> npa_E10 proj
+R5706:5708 Kernel.NPAMomentMatrix <> npa:22 var
+R5747:5753 Kernel.NPAMomentMatrix <> npa_E11 proj
+R5742:5744 Kernel.NPAMomentMatrix <> npa:22 var
+R5800:5806 Kernel.NPAMomentMatrix <> npa_EB0 proj
+R5795:5797 Kernel.NPAMomentMatrix <> npa:22 var
+R5836:5842 Kernel.NPAMomentMatrix <> npa_E00 proj
+R5831:5833 Kernel.NPAMomentMatrix <> npa:22 var
+R5872:5878 Kernel.NPAMomentMatrix <> npa_E10 proj
+R5867:5869 Kernel.NPAMomentMatrix <> npa:22 var
+R5932:5941 Kernel.NPAMomentMatrix <> npa_rho_BB proj
+R5927:5929 Kernel.NPAMomentMatrix <> npa:22 var
+R5988:5994 Kernel.NPAMomentMatrix <> npa_EB1 proj
+R5983:5985 Kernel.NPAMomentMatrix <> npa:22 var
+R6024:6030 Kernel.NPAMomentMatrix <> npa_E01 proj
+R6019:6021 Kernel.NPAMomentMatrix <> npa:22 var
+R6060:6066 Kernel.NPAMomentMatrix <> npa_E11 proj
+R6055:6057 Kernel.NPAMomentMatrix <> npa:22 var
+R6096:6105 Kernel.NPAMomentMatrix <> npa_rho_BB proj
+R6091:6093 Kernel.NPAMomentMatrix <> npa:22 var
+def 6422:6428 <> npa_psd
+R6437:6451 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 6431:6433 <> npa:27
+R6475:6492 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R6495:6507 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R6509:6511 Kernel.NPAMomentMatrix <> npa:27 var
+binder 6470:6470 <> M:28
+R6531:6534 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6519:6528 Kernel.ConstructivePSD <> symmetric5 def
+R6530:6530 Kernel.NPAMomentMatrix <> M:28 var
+R6535:6538 Kernel.ConstructivePSD <> PSD5 def
+R6540:6540 Kernel.NPAMomentMatrix <> M:28 var
+def 6555:6571 <> zero_marginal_npa
+R6592:6592 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6574:6576 <> E00:29
+binder 6578:6580 <> E01:30
+binder 6582:6584 <> E10:31
+binder 6586:6588 <> E11:32
+R6597:6611 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+R6621:6627 Kernel.NPAMomentMatrix <> npa_EA0 proj
+R6621:6627 Kernel.NPAMomentMatrix <> npa_EA0 proj
+R6621:6627 Kernel.NPAMomentMatrix <> npa_EA0 proj
+R6637:6643 Kernel.NPAMomentMatrix <> npa_EA1 proj
+R6637:6643 Kernel.NPAMomentMatrix <> npa_EA1 proj
+R6653:6659 Kernel.NPAMomentMatrix <> npa_EB0 proj
+R6653:6659 Kernel.NPAMomentMatrix <> npa_EB0 proj
+R6669:6675 Kernel.NPAMomentMatrix <> npa_EB1 proj
+R6669:6675 Kernel.NPAMomentMatrix <> npa_EB1 proj
+R6685:6691 Kernel.NPAMomentMatrix <> npa_E00 proj
+R6685:6691 Kernel.NPAMomentMatrix <> npa_E00 proj
+R6703:6709 Kernel.NPAMomentMatrix <> npa_E01 proj
+R6703:6709 Kernel.NPAMomentMatrix <> npa_E01 proj
+R6721:6727 Kernel.NPAMomentMatrix <> npa_E10 proj
+R6721:6727 Kernel.NPAMomentMatrix <> npa_E10 proj
+R6739:6745 Kernel.NPAMomentMatrix <> npa_E11 proj
+R6739:6745 Kernel.NPAMomentMatrix <> npa_E11 proj
+R6757:6766 Kernel.NPAMomentMatrix <> npa_rho_AA proj
+R6757:6766 Kernel.NPAMomentMatrix <> npa_rho_AA proj
+R6776:6785 Kernel.NPAMomentMatrix <> npa_rho_BB proj
+R6776:6785 Kernel.NPAMomentMatrix <> npa_rho_BB proj
+R6696:6698 Kernel.NPAMomentMatrix <> E00:29 var
+R6714:6716 Kernel.NPAMomentMatrix <> E01:30 var
+R6732:6734 Kernel.NPAMomentMatrix <> E10:31 var
+R6750:6752 Kernel.NPAMomentMatrix <> E11:32 var
+def 6809:6828 <> zero_marginal_matrix
+R6849:6849 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6831:6833 <> E00:33
+binder 6835:6837 <> E01:34
+binder 6839:6841 <> E10:35
+binder 6843:6845 <> E11:36
+R6854:6859 Kernel.ConstructivePSD <> Matrix def
+R6869:6881 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R6884:6900 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R6902:6904 Kernel.NPAMomentMatrix <> E00:33 var
+R6906:6908 Kernel.NPAMomentMatrix <> E01:34 var
+R6910:6912 Kernel.NPAMomentMatrix <> E10:35 var
+R6914:6916 Kernel.NPAMomentMatrix <> E11:36 var
+def 6932:6945 <> correlator_4x4
+R6966:6966 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6948:6950 <> E00:37
+binder 6952:6954 <> E01:38
+binder 6956:6958 <> E10:39
+binder 6960:6962 <> E11:40
+R6971:6976 Kernel.ConstructivePSD <> Matrix def
+binder 6990:6990 <> i:41
+binder 6992:6992 <> j:42
+R7011:7011 Kernel.NPAMomentMatrix <> j:42 var
+R7008:7008 Kernel.NPAMomentMatrix <> i:41 var
+R7061:7063 Kernel.NPAMomentMatrix <> E00:37 var
+R7075:7077 Kernel.NPAMomentMatrix <> E01:38 var
+R7122:7124 Kernel.NPAMomentMatrix <> E10:39 var
+R7136:7138 Kernel.NPAMomentMatrix <> E11:40 var
+R7155:7157 Kernel.NPAMomentMatrix <> E00:37 var
+R7169:7171 Kernel.NPAMomentMatrix <> E10:39 var
+R7214:7216 Kernel.NPAMomentMatrix <> E01:38 var
+R7228:7230 Kernel.NPAMomentMatrix <> E11:40 var
+def 7331:7341 <> npa_to_chsh
+R7350:7364 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 7344:7346 <> npa:45
+R7369:7384 Kernel.NPAMomentMatrix <> CHSHCorrelations rec
+R7394:7396 Kernel.NPAMomentMatrix <> E00 proj
+R7394:7396 Kernel.NPAMomentMatrix <> E00 proj
+R7394:7396 Kernel.NPAMomentMatrix <> E00 proj
+R7418:7420 Kernel.NPAMomentMatrix <> E01 proj
+R7418:7420 Kernel.NPAMomentMatrix <> E01 proj
+R7442:7444 Kernel.NPAMomentMatrix <> E10 proj
+R7442:7444 Kernel.NPAMomentMatrix <> E10 proj
+R7466:7468 Kernel.NPAMomentMatrix <> E11 proj
+R7466:7468 Kernel.NPAMomentMatrix <> E11 proj
+R7406:7412 Kernel.NPAMomentMatrix <> npa_E00 proj
+R7401:7403 Kernel.NPAMomentMatrix <> npa:45 var
+R7430:7436 Kernel.NPAMomentMatrix <> npa_E01 proj
+R7425:7427 Kernel.NPAMomentMatrix <> npa:45 var
+R7454:7460 Kernel.NPAMomentMatrix <> npa_E10 proj
+R7449:7451 Kernel.NPAMomentMatrix <> npa:45 var
+R7478:7484 Kernel.NPAMomentMatrix <> npa_E11 proj
+R7473:7475 Kernel.NPAMomentMatrix <> npa:45 var
+prf 8084:8099 <> npa_diagonal_one
+R8117:8131 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 8111:8113 <> npa:46
+R8139:8142 Kernel.ConstructivePSD <> Fin5 abbrev
+binder 8135:8135 <> i:47
+R8190:8192 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8148:8165 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R8168:8180 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R8182:8184 Kernel.NPAMomentMatrix <> npa:46 var
+R8187:8187 Kernel.NPAMomentMatrix <> i:47 var
+R8189:8189 Kernel.NPAMomentMatrix <> i:47 var
+R8228:8245 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R8248:8260 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R8275:8284 Coq.Vectors.Fin <> to_nat def
+R8275:8284 Coq.Vectors.Fin <> to_nat def
+def 8428:8431 <> idx1
+R8435:8438 Kernel.ConstructivePSD <> Fin5 abbrev
+R8443:8448 Coq.Vectors.Fin <> FS constr
+R8450:8455 Coq.Vectors.Fin <> F1 constr
+def 8469:8472 <> idx2
+R8476:8479 Kernel.ConstructivePSD <> Fin5 abbrev
+R8484:8489 Coq.Vectors.Fin <> FS constr
+R8492:8497 Coq.Vectors.Fin <> FS constr
+R8499:8504 Coq.Vectors.Fin <> F1 constr
+def 8519:8522 <> idx3
+R8526:8529 Kernel.ConstructivePSD <> Fin5 abbrev
+R8534:8539 Coq.Vectors.Fin <> FS constr
+R8542:8547 Coq.Vectors.Fin <> FS constr
+R8550:8555 Coq.Vectors.Fin <> FS constr
+R8557:8562 Coq.Vectors.Fin <> F1 constr
+def 8578:8581 <> idx4
+R8585:8588 Kernel.ConstructivePSD <> Fin5 abbrev
+R8593:8598 Coq.Vectors.Fin <> FS constr
+R8601:8606 Coq.Vectors.Fin <> FS constr
+R8609:8614 Coq.Vectors.Fin <> FS constr
+R8617:8622 Coq.Vectors.Fin <> FS constr
+R8624:8629 Coq.Vectors.Fin <> F1 constr
+prf 8675:8690 <> npa_E00_position
+R8708:8722 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 8702:8704 <> npa:48
+R8776:8778 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8728:8745 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R8748:8760 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R8762:8764 Kernel.NPAMomentMatrix <> npa:48 var
+R8767:8770 Kernel.NPAMomentMatrix <> idx1 def
+R8772:8775 Kernel.NPAMomentMatrix <> idx3 def
+R8784:8790 Kernel.NPAMomentMatrix <> npa_E00 proj
+R8779:8781 Kernel.NPAMomentMatrix <> npa:48 var
+R8821:8838 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R8841:8853 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R8856:8859 Kernel.NPAMomentMatrix <> idx1 def
+R8862:8865 Kernel.NPAMomentMatrix <> idx3 def
+prf 8935:8950 <> npa_E01_position
+R8968:8982 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 8962:8964 <> npa:49
+R9036:9038 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8988:9005 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R9008:9020 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R9022:9024 Kernel.NPAMomentMatrix <> npa:49 var
+R9027:9030 Kernel.NPAMomentMatrix <> idx1 def
+R9032:9035 Kernel.NPAMomentMatrix <> idx4 def
+R9044:9050 Kernel.NPAMomentMatrix <> npa_E01 proj
+R9039:9041 Kernel.NPAMomentMatrix <> npa:49 var
+R9081:9098 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R9101:9113 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R9116:9119 Kernel.NPAMomentMatrix <> idx1 def
+R9122:9125 Kernel.NPAMomentMatrix <> idx4 def
+prf 9195:9210 <> npa_E10_position
+R9228:9242 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 9222:9224 <> npa:50
+R9296:9298 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9248:9265 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R9268:9280 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R9282:9284 Kernel.NPAMomentMatrix <> npa:50 var
+R9287:9290 Kernel.NPAMomentMatrix <> idx2 def
+R9292:9295 Kernel.NPAMomentMatrix <> idx3 def
+R9304:9310 Kernel.NPAMomentMatrix <> npa_E10 proj
+R9299:9301 Kernel.NPAMomentMatrix <> npa:50 var
+R9341:9358 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R9361:9373 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R9376:9379 Kernel.NPAMomentMatrix <> idx2 def
+R9382:9385 Kernel.NPAMomentMatrix <> idx3 def
+prf 9455:9470 <> npa_E11_position
+R9488:9502 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 9482:9484 <> npa:51
+R9556:9558 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9508:9525 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R9528:9540 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R9542:9544 Kernel.NPAMomentMatrix <> npa:51 var
+R9547:9550 Kernel.NPAMomentMatrix <> idx2 def
+R9552:9555 Kernel.NPAMomentMatrix <> idx4 def
+R9564:9570 Kernel.NPAMomentMatrix <> npa_E11 proj
+R9559:9561 Kernel.NPAMomentMatrix <> npa:51 var
+R9601:9618 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R9621:9633 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R9636:9639 Kernel.NPAMomentMatrix <> idx2 def
+R9642:9645 Kernel.NPAMomentMatrix <> idx4 def
+prf 9745:9763 <> npa_rho_BB_position
+R9781:9795 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 9775:9777 <> npa:52
+R9849:9851 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9801:9818 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R9821:9833 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R9835:9837 Kernel.NPAMomentMatrix <> npa:52 var
+R9840:9843 Kernel.NPAMomentMatrix <> idx3 def
+R9845:9848 Kernel.NPAMomentMatrix <> idx4 def
+R9857:9866 Kernel.NPAMomentMatrix <> npa_rho_BB proj
+R9852:9854 Kernel.NPAMomentMatrix <> npa:52 var
+R9897:9914 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R9917:9929 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R9932:9935 Kernel.NPAMomentMatrix <> idx3 def
+R9938:9941 Kernel.NPAMomentMatrix <> idx4 def
+prf 10014:10032 <> npa_rho_AA_position
+R10050:10064 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 10044:10046 <> npa:53
+R10118:10120 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10070:10087 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R10090:10102 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R10104:10106 Kernel.NPAMomentMatrix <> npa:53 var
+R10109:10112 Kernel.NPAMomentMatrix <> idx1 def
+R10114:10117 Kernel.NPAMomentMatrix <> idx2 def
+R10126:10135 Kernel.NPAMomentMatrix <> npa_rho_AA proj
+R10121:10123 Kernel.NPAMomentMatrix <> npa:53 var
+R10166:10183 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R10186:10198 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R10201:10204 Kernel.NPAMomentMatrix <> idx1 def
+R10207:10210 Kernel.NPAMomentMatrix <> idx2 def
+prf 10247:10272 <> npa_psd_implies_normalized
+R10290:10304 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 10284:10286 <> npa:54
+R10321:10326 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10310:10316 Kernel.NPAMomentMatrix <> npa_psd def
+R10318:10320 Kernel.NPAMomentMatrix <> npa:54 var
+R10352:10357 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10347:10350 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10327:10330 Coq.Reals.Rbasic_fun <> Rabs def
+R10338:10344 Kernel.NPAMomentMatrix <> npa_E00 proj
+R10333:10335 Kernel.NPAMomentMatrix <> npa:54 var
+R10383:10388 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10378:10381 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10358:10361 Coq.Reals.Rbasic_fun <> Rabs def
+R10369:10375 Kernel.NPAMomentMatrix <> npa_E01 proj
+R10364:10366 Kernel.NPAMomentMatrix <> npa:54 var
+R10414:10419 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10409:10412 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10389:10392 Coq.Reals.Rbasic_fun <> Rabs def
+R10400:10406 Kernel.NPAMomentMatrix <> npa_E10 proj
+R10395:10397 Kernel.NPAMomentMatrix <> npa:54 var
+R10440:10443 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10420:10423 Coq.Reals.Rbasic_fun <> Rabs def
+R10431:10437 Kernel.NPAMomentMatrix <> npa_E11 proj
+R10426:10428 Kernel.NPAMomentMatrix <> npa:54 var
+R10492:10509 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R10512:10524 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R10492:10509 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R10512:10524 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R10600:10615 Kernel.NPAMomentMatrix <> npa_E00_position thm
+R10600:10615 Kernel.NPAMomentMatrix <> npa_E00_position thm
+R10600:10615 Kernel.NPAMomentMatrix <> npa_E00_position thm
+R10628:10650 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
+R10628:10650 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
+R10673:10688 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10673:10688 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10673:10688 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10710:10725 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10710:10725 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10710:10725 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10771:10786 Kernel.NPAMomentMatrix <> npa_E01_position thm
+R10771:10786 Kernel.NPAMomentMatrix <> npa_E01_position thm
+R10771:10786 Kernel.NPAMomentMatrix <> npa_E01_position thm
+R10799:10821 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
+R10799:10821 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
+R10844:10859 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10844:10859 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10844:10859 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10881:10896 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10881:10896 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10881:10896 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R10942:10957 Kernel.NPAMomentMatrix <> npa_E10_position thm
+R10942:10957 Kernel.NPAMomentMatrix <> npa_E10_position thm
+R10942:10957 Kernel.NPAMomentMatrix <> npa_E10_position thm
+R10970:10992 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
+R10970:10992 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
+R11015:11030 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11015:11030 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11015:11030 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11052:11067 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11052:11067 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11052:11067 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11113:11128 Kernel.NPAMomentMatrix <> npa_E11_position thm
+R11113:11128 Kernel.NPAMomentMatrix <> npa_E11_position thm
+R11113:11128 Kernel.NPAMomentMatrix <> npa_E11_position thm
+R11141:11163 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
+R11141:11163 Kernel.ConstructivePSD <> PSD5_off_diagonal_bound thm
+R11186:11201 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11186:11201 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11186:11201 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11223:11238 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11223:11238 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+R11223:11238 Kernel.NPAMomentMatrix <> npa_diagonal_one thm
+prf 11312:11334 <> npa_to_matrix_symmetric
+R11352:11366 Kernel.NPAMomentMatrix <> NPAMomentMatrix rec
+binder 11346:11348 <> npa:55
+R11372:11381 Kernel.ConstructivePSD <> symmetric5 def
+R11384:11401 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R11404:11416 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R11418:11420 Kernel.NPAMomentMatrix <> npa:55 var
+R11459:11468 Kernel.ConstructivePSD <> symmetric5 def
+R11471:11488 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R11491:11503 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R11678:11687 Coq.Vectors.Fin <> to_nat def
+R11678:11687 Coq.Vectors.Fin <> to_nat def
+R11716:11725 Coq.Vectors.Fin <> to_nat def
+R11716:11725 Coq.Vectors.Fin <> to_nat def

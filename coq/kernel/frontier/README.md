@@ -1,53 +1,31 @@
 # kernel/frontier
 
-F1, F2, and F3 frontier closure files. Each addresses a named boundary in the
-current claim surface. The filenames keep the frontier results distinct from
-the public claim names in the root README.
+Files that bound a named boundary of the claims: observation and the window
+theorem, the pointer-observable criterion, the record-proliferation survey,
+and the ecosystem game.
 
-These files either close or formally bound a frontier claim. Each file header
-states the requirement it addresses and the exact theorem surface it supplies.
+Each file header states the requirement it addresses and the exact theorem
+surface it supplies.
 
-## F1 — physical-reversibility / A2 derivation
+## Observation and pointer observables
 
-| File | Round | Purpose |
-|---|---|---|
-| `F1_LogicalErasure.v` | R1 | Single-step A2 from physical reversibility + Landauer |
-| `F1_AbstractedBridge.v` | — | Substrate-abstracted version of the F1 bridge |
-| `F1_StrongForm.v` | — | Stronger form of the A2 derivation |
-| `F1_TraceLevelA2.v` | R3 | Multi-step extension via `universal_nfi_any_substrate` |
-
-## F2 — algebraic coherence vs. cost axioms
-
-Settles whether NPA-1 minor inequalities follow from cost axioms alone.
-
-| File | Round | Purpose |
-|---|---|---|
-| `F2_MinorIndependence.v` | R1 | **Negative result**: PR-box VMState satisfies cost axioms but violates `algebraically_coherent` |
-| `F2_MinorFromWitnessLocality.v` | R2 | **Positive**: cost axioms + witness-locality DO entail `algebraically_coherent` |
-| `F2_PerMinorFromCostCoherent.v` | R3 | Per-minor existence form derivable from cost axioms alone |
-
-## F3 — non-separable cross-link inequalities
-
-Single-conclusion Coq inequalities that compose multiple chain constants.
-
-| File | Round | Purpose |
-|---|---|---|
-| `F3_CrossLink.v` | R1 | LASSERT byte coefficient + Tsirelson constant in one bound |
-| `F3_TripleCrossLink.v` | R2 | LASSERT + Tsirelson + μ-hierarchy in one bound |
-| `F3_MuLaplacianSum.v` | — | Sum-zero lemma for the discrete μ-Laplacian |
-| `F3_PartitionTopologyCrossLink.v` | — | Partition-topology cross-link |
-| `F3_PlusOneStructural.v` | — | **README's named open problem `OP-Plus-One`** — investigation of the +1 in `triangle_angle` |
+| File | Purpose |
+|---|---|
+| `ObservationPolicy.v` | Observation, event pricing, and retained history; cost units are abstract naturals, not measured heat |
+| `PointerObservable.v` | The pointer-observable criterion: definitions, the conjecture schema, and a non-vacuity witness |
+| `PointerObservableReductions.v` | The five metering disciplines as pointer-observable ecosystems, one small model each |
+| `PointerObservableCounterexamples.v` | Systems that resist forgery and do not proliferate records; the Coq models fix only the observer maps |
+| `RecordProliferationSurveyTarget.v` | Twelve candidate events and a swapped winner, stated over standalone observer maps (definitions) |
+| `RecordProliferationSurvey.v` | Checked measurements for the twelve candidate events and the swapped event (`twelve_candidate_measurements_checked`, `swapped_event_is_pointer_checked`) |
+| `EcosystemGameTarget.v` | The coordinator-free ecosystem game: an abstract distributed observation game with consensus, authenticity, and coordinator-free update (definitions) |
+| `EcosystemGame.v` | Proved outcomes for the ecosystem game: a toggle game with consensus, authenticity, and coordinator-free updates whose event is revoked (`toggle_game_refutes_strong_pointer_necessity`); a positive observer count, authenticity, and durable views imply the event is permanent (`durable_consensus_implies_permanence`) |
 
 ## Load-bearing exports
 
-Each F-file is the closure of a documented frontier item; they don't get
-re-imported elsewhere because the published statement is the export.
-
-`F3_PlusOneStructural.v` records the **OP-Plus-One** boundary: the +1 in
-`triangle_angle` is treated as a Tikhonov regularizer, not as an A2 cost floor.
-The file does not promote that interpretation to a physical derivation.
+Each file's published statement is its export. `ObservationPolicy.v` is
+also imported by the window example in `reductions/TPMQuoteGap.v`.
 
 ## Imports
 
-`foundation/`, `mu_calculus/`, `nfi/`, plus quantum/curvature for cross-link
-constants.
+The Coq standard library, and each other: the survey and the reductions
+import `PointerObservable.v`, and the game imports its target file.

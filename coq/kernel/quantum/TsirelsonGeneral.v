@@ -9,8 +9,8 @@
     constraints (e00^2 + e01^2 <= 1, e10^2 + e11^2 <= 1), the CHSH
     expression S = e00 + e01 + e10 - e11 satisfies S^2 <= 8.
 
-    The Tsirelson bound is not a property of quantum mechanics specifically --
-    it's a property of ANY correlation matrix satisfying PSD minor constraints.
+    The Tsirelson bound is not a property of quantum mechanics specifically.
+    It's a property of ANY correlation matrix satisfying PSD minor constraints.
     Quantum mechanics happens to saturate this bound (achievable at 1/sqrt(2)),
     but the bound itself is purely algebraic.
 
@@ -19,8 +19,8 @@
     4(a^2 + b^2 + c^2 + d^2), which is a sum-of-squares identity.
 *)
 
-From Kernel Require Import VMState VMStep.
-From Kernel Require Import MuCostModel.
+(* PROOF SCOPE: standalone algebra. Real-number inequalities about four
+   correlators; no machine is fixed. *)
 
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
@@ -112,37 +112,6 @@ Proof.
   lra.
 Qed.
 
-(** ** vm_step-semantics invariance of the algebraic CHSH bound.
-
-    The Tsirelson bound is a property of four real correlators. The
-    lemma below makes the run-vm/step-semantics connection explicit: if
-    [vm_step s instr s'] takes the machine from one state to another,
-    and we have row-bound hypotheses on any four correlators, then the
-    bound itself is preserved across the step (it is a property of the
-    numbers, not of the executing state). The proof inverts the
-    [vm_step] relation to confirm the conclusion does not depend on which
-    constructor produced [s'], engaging the step hypothesis. This
-    anchors the file's algebraic results to the [vm_step] semantics. *)
-Lemma vm_step_invariant_tsirelson_bound :
-  forall (s s' : VMState) (instr : vm_instruction) (e00 e01 e10 e11 : R),
-    vm_step s instr s' ->
-    e00*e00 + e01*e01 <= 1 ->
-    e10*e10 + e11*e11 <= 1 ->
-    (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 8.
-Proof.
-  intros s s' instr e00 e01 e10 e11 Hstep Hrow1 Hrow2.
-  (* Engage Hstep: invert to confirm the bound's truth value
-     is independent of which step constructor produced s'. *)
-  inversion Hstep; subst;
-    apply tsirelson_from_row_bounds; assumption.
-Qed.
-
-(**
-    COROLLARIES WITH STANDARD NOTATION
- These are definitional lemmas - pure algebra, not physics analogies.
-    The CHSH acronym is historical nomenclature for the expression e00+e01+e10-e11.
-    *)
-
 (** Definitional lemma: CHSH is just the algebraic expression e00+e01+e10-e11 *)
 Definition CHSH (e00 e01 e10 e11 : R) : R := e00 + e01 + e10 - e11.
 
@@ -155,6 +124,29 @@ Corollary tsirelson_bound_squared :
 Proof.
   intros. unfold CHSH, Rsqr.
   apply tsirelson_from_row_bounds; assumption.
+Qed.
+
+(** Swapping the two parties' roles leaves the CHSH value unchanged: Alice's
+    second setting and Bob's second setting trade places, and the expression
+    is symmetric under that trade. *)
+Lemma semantics_invariant_party_swap :
+  forall e00 e01 e10 e11 : R,
+    CHSH e00 e01 e10 e11 = CHSH e00 e10 e01 e11.
+Proof.
+  intros. unfold CHSH. ring.
+Qed.
+
+(** So the bound also holds when the norm constraints are on the columns of
+    the correlator matrix instead of its rows. *)
+Corollary tsirelson_from_column_bounds :
+  forall e00 e01 e10 e11 : R,
+    e00*e00 + e10*e10 <= 1 ->
+    e01*e01 + e11*e11 <= 1 ->
+    (CHSH e00 e01 e10 e11)² <= 8.
+Proof.
+  intros e00 e01 e10 e11 Hcol0 Hcol1.
+  rewrite semantics_invariant_party_swap.
+  apply tsirelson_bound_squared; assumption.
 Qed.
 
 (**
@@ -233,7 +225,7 @@ Qed.
 Lemma four_over_sqrt2 : 4 * sqrt2inv = sqrt8.
 Proof.
   unfold sqrt2inv, sqrt8.
-  (* We need: 4 * (1 / sqrt 2) = sqrt 8 *)
+  (* Goal: 4 * (1 / sqrt 2) = sqrt 8 *)
   (* Simplify: 4 / sqrt 2 = sqrt 8 *)
   (* Square both sides: 16 / 2 = 8 ✓ *)
   assert (Hneq: sqrt 2 <> 0) by (apply Rgt_not_eq; exact sqrt2_pos).
@@ -274,6 +266,7 @@ Definition minor_constraint_zero_marginal (e1 e2 : R) : Prop :=
   1 - e1*e1 - e2*e2 >= 0.
 
 (** ARITHMETIC HELPER: algebraic rearrangement [1 - a - b >= 0 <-> a + b <= 1]. *)
+(* SAFE: a one-step rearrangement of the definition, closed by lra. *)
 Lemma minor_implies_row_bound :
   forall e1 e2 : R,
     minor_constraint_zero_marginal e1 e2 ->

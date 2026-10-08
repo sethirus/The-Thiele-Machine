@@ -1,59 +1,59 @@
-DIGEST 38b3d320719ccffb791b86860a145588
+DIGEST 963580e821a1e2fd513ecdf7219e9a86
 FKernel.TPMQuoteAuthenticityTarget
-R240:243 Coq.Bool.Bool <> <> lib
-R245:258 Coq.Arith.PeanoNat <> <> lib
-rec 269:283 <> SignatureScheme
-proj 292:300 <> PublicKey
-proj 312:320 <> SecretKey
-proj 332:340 <> Signature
-proj 352:355 <> sign
-proj 392:397 <> verify
-R368:371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R359:367 Kernel.TPMQuoteAuthenticityTarget <> SecretKey:3 meth
-R375:378 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R372:374 Coq.Init.Datatypes <> nat ind
-R379:387 Kernel.TPMQuoteAuthenticityTarget <> Signature:4 meth
-R410:413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R401:409 Kernel.TPMQuoteAuthenticityTarget <> PublicKey:2 meth
-R417:420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R414:416 Coq.Init.Datatypes <> nat ind
-R430:433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R421:429 Kernel.TPMQuoteAuthenticityTarget <> Signature:4 meth
-R434:437 Coq.Init.Datatypes <> bool ind
-def 454:471 <> quote_authenticity
-R478:492 Kernel.TPMQuoteAuthenticityTarget <> SignatureScheme rec
-binder 474:474 <> S:7
-R520:528 Kernel.TPMQuoteAuthenticityTarget <> PublicKey proj
-R530:530 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
-binder 515:516 <> pk:8
-binder 533:539 <> message:9
-R548:556 Kernel.TPMQuoteAuthenticityTarget <> Signature proj
-R558:558 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
-binder 542:544 <> sig:10
-R596:603 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R589:591 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R566:571 Kernel.TPMQuoteAuthenticityTarget <> verify proj
-R573:573 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
-R575:576 Kernel.TPMQuoteAuthenticityTarget <> pk:8 var
-R578:584 Kernel.TPMQuoteAuthenticityTarget <> message:9 var
-R586:588 Kernel.TPMQuoteAuthenticityTarget <> sig:10 var
-R592:595 Coq.Init.Datatypes <> true constr
-R604:610 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R627:628 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R616:624 Kernel.TPMQuoteAuthenticityTarget <> SecretKey proj
-R626:626 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
-binder 611:612 <> sk:11
-R632:634 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R629:631 Kernel.TPMQuoteAuthenticityTarget <> sig:10 var
-R635:638 Kernel.TPMQuoteAuthenticityTarget <> sign proj
-R640:640 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
-R642:643 Kernel.TPMQuoteAuthenticityTarget <> sk:11 var
-R645:651 Kernel.TPMQuoteAuthenticityTarget <> message:9 var
-def 666:697 <> unconditional_quote_authenticity
-R722:736 Kernel.TPMQuoteAuthenticityTarget <> SignatureScheme rec
-binder 718:718 <> S:12
-R739:756 Kernel.TPMQuoteAuthenticityTarget <> quote_authenticity def
-R758:758 Kernel.TPMQuoteAuthenticityTarget <> S:12 var
-def 907:936 <> interface_authenticity_refuted
-R950:951 Coq.Init.Logic <> ::type_scope:'~'_x not
-R952:983 Kernel.TPMQuoteAuthenticityTarget <> unconditional_quote_authenticity def
+R242:245 Coq.Bool.Bool <> <> lib
+R247:260 Coq.Arith.PeanoNat <> <> lib
+rec 271:285 <> SignatureScheme
+proj 294:302 <> PublicKey
+proj 314:322 <> SecretKey
+proj 334:342 <> Signature
+proj 354:357 <> sign
+proj 394:399 <> verify
+R370:373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R361:369 Kernel.TPMQuoteAuthenticityTarget <> SecretKey:3 meth
+R377:380 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R374:376 Coq.Init.Datatypes <> nat ind
+R381:389 Kernel.TPMQuoteAuthenticityTarget <> Signature:4 meth
+R412:415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R403:411 Kernel.TPMQuoteAuthenticityTarget <> PublicKey:2 meth
+R419:422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R416:418 Coq.Init.Datatypes <> nat ind
+R432:435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R423:431 Kernel.TPMQuoteAuthenticityTarget <> Signature:4 meth
+R436:439 Coq.Init.Datatypes <> bool ind
+def 456:473 <> quote_authenticity
+R480:494 Kernel.TPMQuoteAuthenticityTarget <> SignatureScheme rec
+binder 476:476 <> S:7
+R522:530 Kernel.TPMQuoteAuthenticityTarget <> PublicKey proj
+R532:532 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
+binder 517:518 <> pk:8
+binder 535:541 <> message:9
+R550:558 Kernel.TPMQuoteAuthenticityTarget <> Signature proj
+R560:560 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
+binder 544:546 <> sig:10
+R598:605 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R591:593 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R568:573 Kernel.TPMQuoteAuthenticityTarget <> verify proj
+R575:575 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
+R577:578 Kernel.TPMQuoteAuthenticityTarget <> pk:8 var
+R580:586 Kernel.TPMQuoteAuthenticityTarget <> message:9 var
+R588:590 Kernel.TPMQuoteAuthenticityTarget <> sig:10 var
+R594:597 Coq.Init.Datatypes <> true constr
+R606:612 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R629:630 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R618:626 Kernel.TPMQuoteAuthenticityTarget <> SecretKey proj
+R628:628 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
+binder 613:614 <> sk:11
+R634:636 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R631:633 Kernel.TPMQuoteAuthenticityTarget <> sig:10 var
+R637:640 Kernel.TPMQuoteAuthenticityTarget <> sign proj
+R642:642 Kernel.TPMQuoteAuthenticityTarget <> S:7 var
+R644:645 Kernel.TPMQuoteAuthenticityTarget <> sk:11 var
+R647:653 Kernel.TPMQuoteAuthenticityTarget <> message:9 var
+def 668:699 <> unconditional_quote_authenticity
+R724:738 Kernel.TPMQuoteAuthenticityTarget <> SignatureScheme rec
+binder 720:720 <> S:12
+R741:758 Kernel.TPMQuoteAuthenticityTarget <> quote_authenticity def
+R760:760 Kernel.TPMQuoteAuthenticityTarget <> S:12 var
+def 909:938 <> interface_authenticity_refuted
+R952:953 Coq.Init.Logic <> ::type_scope:'~'_x not
+R954:985 Kernel.TPMQuoteAuthenticityTarget <> unconditional_quote_authenticity def

@@ -36,8 +36,8 @@
     from the reduction rules, not assumed and not built in by definition. *)
 
 (* SCOPE NOTE: standalone proof scope. L is a separate model of computation.
-   This file imports no VM semantics on purpose: its point is a recursion
-   theorem proved inside a model the VM does not supply. *)
+   This file imports no kernel semantics on purpose: its point is a
+   recursion theorem proved inside a model of its own. *)
 
 From Coq Require Import Arith.PeanoNat Lia.
 

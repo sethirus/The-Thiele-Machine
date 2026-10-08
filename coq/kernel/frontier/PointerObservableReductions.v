@@ -1,15 +1,14 @@
 (** The five metering disciplines as pointer-observable ecosystems: the
     conjecture's picture, one small model per discipline.
 
-  The monograph's pointer-observable section names, as the successor to the
-  "is certification the forced event?" question, the pointer-observable
-  criterion: certification is singled out among meterable events by
-  REDUNDANT RECORD PROLIFERATION. PointerObservable.v gives that criterion
-  a formal skeleton and one toy witness. This file gives the monograph's
-  five INFORMAL instantiations (the section on the five minimal models) a
+  The pointer-observable criterion is the successor to the "is
+  certification the forced event?" question: certification is singled out
+  among meterable events by REDUNDANT RECORD PROLIFERATION.
+  PointerObservable.v gives that criterion a formal skeleton and one toy
+  witness. This file gives five informal instantiations a
   small formal shape each: for five disciplines taken from deployed systems
-  -- proof-of-stake finality, gas metering, trusted-execution attestation,
-  certificate transparency, proof-carrying verification -- it builds an
+  (proof-of-stake finality, gas metering, trusted-execution attestation,
+  certificate transparency, proof-carrying verification) it builds an
   [Ecosystem], designates the metered event and a canonical rival meterable
   event, and proves [unique_pointer_among]: in the model the metered event
   proliferates across the observers, the rival does not.
@@ -19,9 +18,9 @@
   observer (finalized blocks by every full node; committed transitions by
   every replica; attestations by every relying party; log inclusions by
   every mirror/auditor; checked certificates by every consumer), while a
-  canonical rival meterable event -- the internal work/scratch/noise/
+  canonical rival meterable event (the internal work/scratch/noise/
   latency/prover-effort a thermodynamics- or complexity-minded designer
-  might reach for -- is recorded by no one. That sentence is about the real
+  might reach for) is recorded by no one. That sentence is about the real
   disciplines. It is argued in prose, not checked. The five ecosystems are
   deliberately minimal PROJECTIONS, not protocol models: no execution,
   keys, logs, checkers, or adversaries are in them. All five are one
@@ -30,15 +29,15 @@
   the claim that each real discipline has that observer shape.
 
   What this delivers: five checked instances of that calculation (each
-  closes under the global context in the assumption receipt -- zero axioms
+  closes under the global context in the assumption receipt, zero axioms
   of any kind) plus the aggregate
   [five_labeled_models_have_selected_pointer], an instance of the indexed
   schema [pointer_criterion_holds_indexed].
 
-  What this does NOT deliver, fenced exactly as the monograph fences it: it
-  does not prove the conjecture. Which event is "metered" and which is
-  "rival" is the modeler's designation here, precisely as the open-problem
-  fence says. The models do not show that the real disciplines discriminate
+  What this does NOT deliver: it does not prove the conjecture. Which
+  event is "metered" and which is "rival" is the modeler's designation
+  here, precisely as the open problem leaves it. The models do not show
+  that the real disciplines discriminate
   this way, and five copies of one construction are not convergence. The
   convergence, if it is there, is in the disciplines themselves, which owe
   each other nothing. That is argued in prose, and it is evidence for the
@@ -48,7 +47,7 @@
   not by a Qed.
 
   Falsification, at this level: argue that one of the five real disciplines
-  does not have the observer shape its model gives it -- that its metered
+  does not have the observer shape its model gives it: that its metered
   event is not mirrored by every observer, or that its rival is. Or argue a
   designated rival is not a faithful stand-in for a real meterable event of
   that discipline. Both are modeling disputes, and the honest place for
@@ -59,8 +58,8 @@
 (* SCOPE NOTE: standalone proof scope, with the same standing as
    PointerObservable.v, whose definitions every theorem here is stated in.
    The five ecosystems are minimal projections of deployed disciplines; none
-   of them mentions VMState, vm_step, vm_mu, MuCostModel or
-   instruction_cost, and none should: whatever evidential value the real
+   of them mentions a certification system or a ledger, and none
+   should: whatever evidential value the real
    disciplines carry comes from their owing this development nothing. *)
 From Kernel Require Import PointerObservable.
 
@@ -131,7 +130,7 @@ End MirrorEcosystem.
 
 (** * Discipline 1: Proof-of-stake finality *)
 
-(** Metered: a block is finalized -- every full node on the network stores
+(** Metered: a block is finalized; every full node on the network stores
     the finalization. Rival: the proposer did positive work, which no node
     records. (The A2-lens companion of this discipline is
     [nothing_at_stake_is_free_forgery] in the reductions development.) *)
@@ -151,7 +150,7 @@ Qed.
 
 (** * Discipline 2: Gas metering *)
 
-(** Metered: a state transition is committed -- every replica re-executes
+(** Metered: a state transition is committed; every replica re-executes
     and stores it. Rival: an intermediate scratch value was nonzero, stored
     by no one. (A2-lens companion: [gas_schedule_exactness].) *)
 Record GasState := { gas_committed : bool; gas_scratch : nat }.
@@ -170,7 +169,7 @@ Qed.
 
 (** * Discipline 3: Trusted-execution attestation *)
 
-(** Metered: an attestation is issued -- every relying party verifies and
+(** Metered: an attestation is issued; every relying party verifies and
     archives it. Rival: the enclave's internal measurement register held a
     transient value, recorded by no one. (A2-lens companion:
     [attestation_cannot_factor_through_bare_transcript].) *)
@@ -190,7 +189,7 @@ Qed.
 
 (** * Discipline 4: Certificate transparency *)
 
-(** Metered: a certificate is included in the log -- the log is mirrored,
+(** Metered: a certificate is included in the log; the log is mirrored,
     gossiped, and audited by design. Rival: the submission latency, which
     no mirror records. (A2-lens companion:
     [abstract_bare_verifier_impossible].) *)
@@ -210,7 +209,7 @@ Qed.
 
 (** * Discipline 5: Proof-carrying verification *)
 
-(** Metered: a carried certificate is checked -- every consumer of the code
+(** Metered: a carried certificate is checked; every consumer of the code
     re-checks it. Rival: the prover's internal effort, which no consumer
     records. (A2-lens companion: [bare_pcc_impossible].) *)
 Record PCCState := { pcc_checked : bool; pcc_prover_steps : nat }.
@@ -257,7 +256,7 @@ Definition labeled_rivals
 (** In every model the metered event is the unique pointer among its
     rivals: the pointer-observable criterion's shape, calculated at models
     of five independently evolved metering designs. The calculation is five
-    copies of [mirror_unique_pointer]. The evidence for the monograph's
+    copies of [mirror_unique_pointer]. The evidence for the
     conjecture is the prose claim that the real designs share this shape;
     this theorem is not a proof of it (the fence in the file header). *)
 Theorem five_labeled_models_have_selected_pointer :

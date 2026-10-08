@@ -1,0 +1,588 @@
+DIGEST 4d4064adf5a8230fdc4b1fc6181eb91b
+FKernel.CrossBaseGranularityRAM
+R530:533 Coq.Lists.List <> <> lib
+R535:548 Coq.Arith.PeanoNat <> <> lib
+R578:598 Kernel.StructuralCoreAnyBase <> <> lib
+R600:619 Kernel.StructuralRecordAxis <> <> lib
+R621:644 Kernel.CrossBaseGranularityCore <> <> lib
+R654:666 Coq.Lists.List ListNotations <> mod
+ind 698:705 <> RAMInstr
+constr 719:724 <> RConst
+constr 764:767 <> RAdd
+constr 817:820 <> RSub
+constr 889:896 <> RLoadInd
+constr 940:948 <> RStoreInd
+constr 991:998 <> RJumpPos
+constr 1056:1060 <> RJump
+constr 1105:1109 <> RHalt
+R733:735 Coq.Init.Datatypes <> nat ind
+binder 727:727 <> i:3
+binder 729:729 <> c:4
+R778:780 Coq.Init.Datatypes <> nat ind
+binder 770:770 <> i:5
+binder 772:772 <> j:6
+binder 774:774 <> k:7
+R831:833 Coq.Init.Datatypes <> nat ind
+binder 823:823 <> i:8
+binder 825:825 <> j:9
+binder 827:827 <> k:10
+R905:907 Coq.Init.Datatypes <> nat ind
+binder 899:899 <> i:11
+binder 901:901 <> j:12
+R957:959 Coq.Init.Datatypes <> nat ind
+binder 951:951 <> i:13
+binder 953:953 <> j:14
+R1012:1014 Coq.Init.Datatypes <> nat ind
+binder 1001:1001 <> j:15
+binder 1003:1008 <> target:16
+R1072:1074 Coq.Init.Datatypes <> nat ind
+binder 1063:1068 <> target:17
+scheme 698:705 <> RAMInstr_rect
+scheme 698:705 <> RAMInstr_ind
+scheme 698:705 <> RAMInstr_rec
+scheme 698:705 <> RAMInstr_sind
+rec 1120:1122 <> RAM
+proj 1138:1145 <> ram_regs
+proj 1163:1168 <> ram_pc
+R1152:1155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1149:1151 Coq.Init.Datatypes <> nat ind
+R1156:1158 Coq.Init.Datatypes <> nat ind
+R1172:1174 Coq.Init.Datatypes <> nat ind
+def 1191:1193 <> reg
+R1200:1202 Kernel.CrossBaseGranularityRAM <> RAM rec
+binder 1196:1196 <> s:21
+R1210:1212 Coq.Init.Datatypes <> nat ind
+binder 1206:1206 <> i:22
+R1217:1219 Coq.Init.Datatypes <> nat ind
+R1224:1231 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R1233:1233 Kernel.CrossBaseGranularityRAM <> s:21 var
+R1235:1235 Kernel.CrossBaseGranularityRAM <> i:22 var
+def 1250:1256 <> set_reg
+R1266:1269 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1263:1265 Coq.Init.Datatypes <> nat ind
+R1270:1272 Coq.Init.Datatypes <> nat ind
+binder 1259:1259 <> r:23
+R1282:1284 Coq.Init.Datatypes <> nat ind
+binder 1276:1276 <> i:24
+binder 1278:1278 <> v:25
+R1292:1295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1289:1291 Coq.Init.Datatypes <> nat ind
+R1296:1298 Coq.Init.Datatypes <> nat ind
+binder 1309:1309 <> k:26
+R1317:1323 Coq.Arith.PeanoNat Nat eqb def
+R1325:1325 Kernel.CrossBaseGranularityRAM <> k:26 var
+R1327:1327 Kernel.CrossBaseGranularityRAM <> i:24 var
+R1341:1341 Kernel.CrossBaseGranularityRAM <> r:23 var
+R1343:1343 Kernel.CrossBaseGranularityRAM <> k:26 var
+R1334:1334 Kernel.CrossBaseGranularityRAM <> v:25 var
+def 1358:1365 <> with_reg
+R1372:1374 Kernel.CrossBaseGranularityRAM <> RAM rec
+binder 1368:1368 <> s:27
+R1384:1386 Coq.Init.Datatypes <> nat ind
+binder 1378:1378 <> i:28
+binder 1380:1380 <> v:29
+R1391:1393 Kernel.CrossBaseGranularityRAM <> RAM rec
+R1403:1410 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R1403:1410 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R1403:1410 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R1441:1446 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R1441:1446 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R1415:1421 Kernel.CrossBaseGranularityRAM <> set_reg def
+R1424:1431 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R1433:1433 Kernel.CrossBaseGranularityRAM <> s:27 var
+R1436:1436 Kernel.CrossBaseGranularityRAM <> i:28 var
+R1438:1438 Kernel.CrossBaseGranularityRAM <> v:29 var
+R1451:1451 Coq.Init.Datatypes <> S constr
+R1454:1459 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R1461:1461 Kernel.CrossBaseGranularityRAM <> s:27 var
+def 1480:1486 <> jump_to
+R1493:1495 Kernel.CrossBaseGranularityRAM <> RAM rec
+binder 1489:1489 <> s:30
+R1508:1510 Coq.Init.Datatypes <> nat ind
+binder 1499:1504 <> target:31
+R1515:1517 Kernel.CrossBaseGranularityRAM <> RAM rec
+R1527:1534 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R1527:1534 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R1527:1534 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R1551:1556 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R1551:1556 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R1539:1546 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R1548:1548 Kernel.CrossBaseGranularityRAM <> s:30 var
+R1561:1566 Kernel.CrossBaseGranularityRAM <> target:31 var
+def 1654:1661 <> ram_exec
+R1670:1677 Kernel.CrossBaseGranularityRAM <> RAMInstr ind
+binder 1664:1666 <> ins:32
+R1685:1687 Kernel.CrossBaseGranularityRAM <> RAM rec
+binder 1681:1681 <> s:33
+R1692:1694 Kernel.CrossBaseGranularityRAM <> RAM rec
+R1707:1709 Kernel.CrossBaseGranularityRAM <> ins:32 var
+R1720:1725 Kernel.CrossBaseGranularityRAM <> RConst constr
+R1734:1741 Kernel.CrossBaseGranularityRAM <> with_reg def
+R1743:1743 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1753:1756 Kernel.CrossBaseGranularityRAM <> RAdd constr
+R1767:1774 Kernel.CrossBaseGranularityRAM <> with_reg def
+R1776:1776 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1788:1790 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1781:1783 Kernel.CrossBaseGranularityRAM <> reg def
+R1785:1785 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1791:1793 Kernel.CrossBaseGranularityRAM <> reg def
+R1795:1795 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1804:1807 Kernel.CrossBaseGranularityRAM <> RSub constr
+R1818:1825 Kernel.CrossBaseGranularityRAM <> with_reg def
+R1827:1827 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1839:1841 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1832:1834 Kernel.CrossBaseGranularityRAM <> reg def
+R1836:1836 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1842:1844 Kernel.CrossBaseGranularityRAM <> reg def
+R1846:1846 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1855:1862 Kernel.CrossBaseGranularityRAM <> RLoadInd constr
+R1871:1878 Kernel.CrossBaseGranularityRAM <> with_reg def
+R1880:1880 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1885:1887 Kernel.CrossBaseGranularityRAM <> reg def
+R1889:1889 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1892:1894 Kernel.CrossBaseGranularityRAM <> reg def
+R1896:1896 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1906:1914 Kernel.CrossBaseGranularityRAM <> RStoreInd constr
+R1923:1930 Kernel.CrossBaseGranularityRAM <> with_reg def
+R1932:1932 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1935:1937 Kernel.CrossBaseGranularityRAM <> reg def
+R1939:1939 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1945:1947 Kernel.CrossBaseGranularityRAM <> reg def
+R1949:1949 Kernel.CrossBaseGranularityRAM <> s:33 var
+R1958:1965 Kernel.CrossBaseGranularityRAM <> RJumpPos constr
+R1988:1994 Coq.Arith.PeanoNat Nat ltb def
+R1999:2001 Kernel.CrossBaseGranularityRAM <> reg def
+R2003:2003 Kernel.CrossBaseGranularityRAM <> s:33 var
+R2035:2041 Kernel.CrossBaseGranularityRAM <> jump_to def
+R2043:2043 Kernel.CrossBaseGranularityRAM <> s:33 var
+R2046:2046 Coq.Init.Datatypes <> S constr
+R2049:2054 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R2056:2056 Kernel.CrossBaseGranularityRAM <> s:33 var
+R2013:2019 Kernel.CrossBaseGranularityRAM <> jump_to def
+R2021:2021 Kernel.CrossBaseGranularityRAM <> s:33 var
+R2064:2068 Kernel.CrossBaseGranularityRAM <> RJump constr
+R2080:2086 Kernel.CrossBaseGranularityRAM <> jump_to def
+R2088:2088 Kernel.CrossBaseGranularityRAM <> s:33 var
+R2101:2105 Kernel.CrossBaseGranularityRAM <> RHalt constr
+R2110:2110 Kernel.CrossBaseGranularityRAM <> s:33 var
+def 2131:2139 <> ram_fetch
+R2146:2149 Coq.Init.Datatypes <> list ind
+R2151:2158 Kernel.CrossBaseGranularityRAM <> RAMInstr ind
+binder 2142:2142 <> p:35
+R2166:2168 Kernel.CrossBaseGranularityRAM <> RAM rec
+binder 2162:2162 <> s:36
+R2173:2178 Coq.Init.Datatypes <> option ind
+R2180:2187 Kernel.CrossBaseGranularityRAM <> RAMInstr ind
+R2194:2202 Coq.Lists.List <> nth_error def
+R2207:2212 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R2214:2214 Kernel.CrossBaseGranularityRAM <> s:36 var
+R2204:2204 Kernel.CrossBaseGranularityRAM <> p:35 var
+def 2230:2239 <> ram_halted
+R2246:2249 Coq.Init.Datatypes <> list ind
+R2251:2258 Kernel.CrossBaseGranularityRAM <> RAMInstr ind
+binder 2242:2242 <> p:37
+R2266:2268 Kernel.CrossBaseGranularityRAM <> RAM rec
+binder 2262:2262 <> s:38
+R2289:2297 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R2299:2299 Kernel.CrossBaseGranularityRAM <> p:37 var
+R2301:2301 Kernel.CrossBaseGranularityRAM <> s:38 var
+R2312:2315 Coq.Init.Datatypes <> None constr
+R2319:2322 Coq.Init.Datatypes <> Some constr
+R2324:2328 Kernel.CrossBaseGranularityRAM <> RHalt constr
+R2333:2336 Coq.Init.Logic <> True ind
+R2333:2336 Coq.Init.Logic <> True ind
+R2342:2345 Coq.Init.Datatypes <> Some constr
+R2352:2356 Coq.Init.Logic <> False ind
+def 2472:2479 <> ram_step
+R2486:2489 Coq.Init.Datatypes <> list ind
+R2491:2498 Kernel.CrossBaseGranularityRAM <> RAMInstr ind
+binder 2482:2482 <> p:39
+R2506:2508 Kernel.CrossBaseGranularityRAM <> RAM rec
+binder 2502:2502 <> s:40
+R2513:2515 Kernel.CrossBaseGranularityRAM <> RAM rec
+R2528:2536 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R2538:2538 Kernel.CrossBaseGranularityRAM <> p:39 var
+R2540:2540 Kernel.CrossBaseGranularityRAM <> s:40 var
+R2551:2554 Coq.Init.Datatypes <> Some constr
+R2563:2570 Kernel.CrossBaseGranularityRAM <> ram_exec def
+R2576:2576 Kernel.CrossBaseGranularityRAM <> s:40 var
+R2582:2585 Coq.Init.Datatypes <> None constr
+R2590:2590 Kernel.CrossBaseGranularityRAM <> s:40 var
+prf 2630:2641 <> set_reg_same
+binder 2652:2652 <> r:41
+binder 2654:2654 <> i:42
+binder 2656:2656 <> v:43
+R2674:2676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2659:2665 Kernel.CrossBaseGranularityRAM <> set_reg def
+R2667:2667 Kernel.CrossBaseGranularityRAM <> r:41 var
+R2669:2669 Kernel.CrossBaseGranularityRAM <> i:42 var
+R2671:2671 Kernel.CrossBaseGranularityRAM <> v:43 var
+R2673:2673 Kernel.CrossBaseGranularityRAM <> i:42 var
+R2677:2677 Kernel.CrossBaseGranularityRAM <> v:43 var
+R2708:2714 Kernel.CrossBaseGranularityRAM <> set_reg def
+R2725:2736 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2725:2736 Coq.Arith.PeanoNat Nat eqb_refl thm
+R2725:2736 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 2764:2776 <> set_reg_other
+binder 2787:2787 <> r:44
+binder 2789:2789 <> i:45
+binder 2791:2791 <> v:46
+binder 2793:2793 <> k:47
+R2802:2805 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2797:2800 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2796:2796 Kernel.CrossBaseGranularityRAM <> k:47 var
+R2801:2801 Kernel.CrossBaseGranularityRAM <> i:45 var
+R2821:2823 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2806:2812 Kernel.CrossBaseGranularityRAM <> set_reg def
+R2814:2814 Kernel.CrossBaseGranularityRAM <> r:44 var
+R2816:2816 Kernel.CrossBaseGranularityRAM <> i:45 var
+R2818:2818 Kernel.CrossBaseGranularityRAM <> v:46 var
+R2820:2820 Kernel.CrossBaseGranularityRAM <> k:47 var
+R2824:2824 Kernel.CrossBaseGranularityRAM <> r:44 var
+R2826:2826 Kernel.CrossBaseGranularityRAM <> k:47 var
+R2865:2871 Kernel.CrossBaseGranularityRAM <> set_reg def
+R2886:2897 Coq.Arith.PeanoNat Nat eqb_spec thm
+R2886:2897 Coq.Arith.PeanoNat Nat eqb_spec thm
+prf 3022:3046 <> ram_store_indirect_writes
+binder 3059:3059 <> p:48
+binder 3061:3061 <> s:49
+binder 3063:3063 <> i:50
+binder 3065:3065 <> j:51
+R3108:3115 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3085:3087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3072:3080 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R3082:3082 Kernel.CrossBaseGranularityRAM <> p:48 var
+R3084:3084 Kernel.CrossBaseGranularityRAM <> s:49 var
+R3088:3091 Coq.Init.Datatypes <> Some constr
+R3094:3102 Kernel.CrossBaseGranularityRAM <> RStoreInd constr
+R3104:3104 Kernel.CrossBaseGranularityRAM <> i:50 var
+R3106:3106 Kernel.CrossBaseGranularityRAM <> j:51 var
+R3144:3146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3116:3118 Kernel.CrossBaseGranularityRAM <> reg def
+R3121:3128 Kernel.CrossBaseGranularityRAM <> ram_step def
+R3130:3130 Kernel.CrossBaseGranularityRAM <> p:48 var
+R3132:3132 Kernel.CrossBaseGranularityRAM <> s:49 var
+R3136:3138 Kernel.CrossBaseGranularityRAM <> reg def
+R3140:3140 Kernel.CrossBaseGranularityRAM <> s:49 var
+R3142:3142 Kernel.CrossBaseGranularityRAM <> i:50 var
+R3147:3149 Kernel.CrossBaseGranularityRAM <> reg def
+R3151:3151 Kernel.CrossBaseGranularityRAM <> s:49 var
+R3153:3153 Kernel.CrossBaseGranularityRAM <> j:51 var
+R3190:3197 Kernel.CrossBaseGranularityRAM <> ram_step def
+R3227:3229 Kernel.CrossBaseGranularityRAM <> reg def
+R3250:3261 Kernel.CrossBaseGranularityRAM <> set_reg_same thm
+R3250:3261 Kernel.CrossBaseGranularityRAM <> set_reg_same thm
+prf 3348:3370 <> ram_load_indirect_reads
+binder 3383:3383 <> p:52
+binder 3385:3385 <> s:53
+binder 3387:3387 <> i:54
+binder 3389:3389 <> j:55
+R3431:3438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3409:3411 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3396:3404 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R3406:3406 Kernel.CrossBaseGranularityRAM <> p:52 var
+R3408:3408 Kernel.CrossBaseGranularityRAM <> s:53 var
+R3412:3415 Coq.Init.Datatypes <> Some constr
+R3418:3425 Kernel.CrossBaseGranularityRAM <> RLoadInd constr
+R3427:3427 Kernel.CrossBaseGranularityRAM <> i:54 var
+R3429:3429 Kernel.CrossBaseGranularityRAM <> j:55 var
+R3459:3461 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3439:3441 Kernel.CrossBaseGranularityRAM <> reg def
+R3444:3451 Kernel.CrossBaseGranularityRAM <> ram_step def
+R3453:3453 Kernel.CrossBaseGranularityRAM <> p:52 var
+R3455:3455 Kernel.CrossBaseGranularityRAM <> s:53 var
+R3458:3458 Kernel.CrossBaseGranularityRAM <> i:54 var
+R3462:3464 Kernel.CrossBaseGranularityRAM <> reg def
+R3466:3466 Kernel.CrossBaseGranularityRAM <> s:53 var
+R3469:3471 Kernel.CrossBaseGranularityRAM <> reg def
+R3473:3473 Kernel.CrossBaseGranularityRAM <> s:53 var
+R3475:3475 Kernel.CrossBaseGranularityRAM <> j:55 var
+R3513:3520 Kernel.CrossBaseGranularityRAM <> ram_step def
+R3550:3552 Kernel.CrossBaseGranularityRAM <> reg def
+R3573:3584 Kernel.CrossBaseGranularityRAM <> set_reg_same thm
+R3573:3584 Kernel.CrossBaseGranularityRAM <> set_reg_same thm
+prf 3655:3678 <> ram_store_indirect_frame
+binder 3691:3691 <> p:56
+binder 3693:3693 <> s:57
+binder 3695:3695 <> i:58
+binder 3697:3697 <> j:59
+binder 3699:3699 <> k:60
+R3742:3745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3719:3721 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3706:3714 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R3716:3716 Kernel.CrossBaseGranularityRAM <> p:56 var
+R3718:3718 Kernel.CrossBaseGranularityRAM <> s:57 var
+R3722:3725 Coq.Init.Datatypes <> Some constr
+R3728:3736 Kernel.CrossBaseGranularityRAM <> RStoreInd constr
+R3738:3738 Kernel.CrossBaseGranularityRAM <> i:58 var
+R3740:3740 Kernel.CrossBaseGranularityRAM <> j:59 var
+R3758:3765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3747:3750 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3746:3746 Kernel.CrossBaseGranularityRAM <> k:60 var
+R3751:3753 Kernel.CrossBaseGranularityRAM <> reg def
+R3755:3755 Kernel.CrossBaseGranularityRAM <> s:57 var
+R3757:3757 Kernel.CrossBaseGranularityRAM <> i:58 var
+R3786:3788 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3766:3768 Kernel.CrossBaseGranularityRAM <> reg def
+R3771:3778 Kernel.CrossBaseGranularityRAM <> ram_step def
+R3780:3780 Kernel.CrossBaseGranularityRAM <> p:56 var
+R3782:3782 Kernel.CrossBaseGranularityRAM <> s:57 var
+R3785:3785 Kernel.CrossBaseGranularityRAM <> k:60 var
+R3789:3791 Kernel.CrossBaseGranularityRAM <> reg def
+R3793:3793 Kernel.CrossBaseGranularityRAM <> s:57 var
+R3795:3795 Kernel.CrossBaseGranularityRAM <> k:60 var
+R3837:3844 Kernel.CrossBaseGranularityRAM <> ram_step def
+R3874:3876 Kernel.CrossBaseGranularityRAM <> reg def
+R3892:3904 Kernel.CrossBaseGranularityRAM <> set_reg_other thm
+R3892:3904 Kernel.CrossBaseGranularityRAM <> set_reg_other thm
+prf 4073:4091 <> ram_store_then_load
+binder 4104:4104 <> p:61
+binder 4106:4106 <> s:62
+binder 4108:4108 <> a:63
+binder 4110:4112 <> src:64
+binder 4114:4116 <> dst:65
+R4161:4168 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4136:4138 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4123:4131 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R4133:4133 Kernel.CrossBaseGranularityRAM <> p:61 var
+R4135:4135 Kernel.CrossBaseGranularityRAM <> s:62 var
+R4139:4142 Coq.Init.Datatypes <> Some constr
+R4145:4153 Kernel.CrossBaseGranularityRAM <> RStoreInd constr
+R4155:4155 Kernel.CrossBaseGranularityRAM <> a:63 var
+R4157:4159 Kernel.CrossBaseGranularityRAM <> src:64 var
+R4219:4226 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4195:4197 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4169:4177 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R4179:4179 Kernel.CrossBaseGranularityRAM <> p:61 var
+R4182:4189 Kernel.CrossBaseGranularityRAM <> ram_step def
+R4191:4191 Kernel.CrossBaseGranularityRAM <> p:61 var
+R4193:4193 Kernel.CrossBaseGranularityRAM <> s:62 var
+R4198:4201 Coq.Init.Datatypes <> Some constr
+R4204:4211 Kernel.CrossBaseGranularityRAM <> RLoadInd constr
+R4213:4215 Kernel.CrossBaseGranularityRAM <> dst:65 var
+R4217:4217 Kernel.CrossBaseGranularityRAM <> a:63 var
+R4239:4246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4234:4237 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4227:4229 Kernel.CrossBaseGranularityRAM <> reg def
+R4231:4231 Kernel.CrossBaseGranularityRAM <> s:62 var
+R4233:4233 Kernel.CrossBaseGranularityRAM <> a:63 var
+R4238:4238 Kernel.CrossBaseGranularityRAM <> a:63 var
+R4282:4284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4247:4249 Kernel.CrossBaseGranularityRAM <> reg def
+R4252:4259 Kernel.CrossBaseGranularityRAM <> ram_step def
+R4261:4261 Kernel.CrossBaseGranularityRAM <> p:61 var
+R4264:4271 Kernel.CrossBaseGranularityRAM <> ram_step def
+R4273:4273 Kernel.CrossBaseGranularityRAM <> p:61 var
+R4275:4275 Kernel.CrossBaseGranularityRAM <> s:62 var
+R4279:4281 Kernel.CrossBaseGranularityRAM <> dst:65 var
+R4285:4287 Kernel.CrossBaseGranularityRAM <> reg def
+R4289:4289 Kernel.CrossBaseGranularityRAM <> s:62 var
+R4291:4293 Kernel.CrossBaseGranularityRAM <> src:64 var
+R4348:4370 Kernel.CrossBaseGranularityRAM <> ram_load_indirect_reads thm
+R4348:4370 Kernel.CrossBaseGranularityRAM <> ram_load_indirect_reads thm
+R4348:4370 Kernel.CrossBaseGranularityRAM <> ram_load_indirect_reads thm
+R4396:4419 Kernel.CrossBaseGranularityRAM <> ram_store_indirect_frame thm
+R4396:4419 Kernel.CrossBaseGranularityRAM <> ram_store_indirect_frame thm
+R4396:4419 Kernel.CrossBaseGranularityRAM <> ram_store_indirect_frame thm
+R4396:4419 Kernel.CrossBaseGranularityRAM <> ram_store_indirect_frame thm
+R4446:4470 Kernel.CrossBaseGranularityRAM <> ram_store_indirect_writes thm
+R4446:4470 Kernel.CrossBaseGranularityRAM <> ram_store_indirect_writes thm
+prf 4594:4611 <> ram_jump_pos_taken
+binder 4624:4624 <> p:66
+binder 4626:4626 <> s:67
+binder 4628:4628 <> j:68
+binder 4630:4635 <> target:69
+R4682:4685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4655:4657 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4642:4650 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R4652:4652 Kernel.CrossBaseGranularityRAM <> p:66 var
+R4654:4654 Kernel.CrossBaseGranularityRAM <> s:67 var
+R4658:4661 Coq.Init.Datatypes <> Some constr
+R4664:4671 Kernel.CrossBaseGranularityRAM <> RJumpPos constr
+R4673:4673 Kernel.CrossBaseGranularityRAM <> j:68 var
+R4675:4680 Kernel.CrossBaseGranularityRAM <> target:69 var
+R4697:4704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4687:4689 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4690:4692 Kernel.CrossBaseGranularityRAM <> reg def
+R4694:4694 Kernel.CrossBaseGranularityRAM <> s:67 var
+R4696:4696 Kernel.CrossBaseGranularityRAM <> j:68 var
+R4726:4728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4705:4710 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R4713:4720 Kernel.CrossBaseGranularityRAM <> ram_step def
+R4722:4722 Kernel.CrossBaseGranularityRAM <> p:66 var
+R4724:4724 Kernel.CrossBaseGranularityRAM <> s:67 var
+R4729:4734 Kernel.CrossBaseGranularityRAM <> target:69 var
+R4781:4788 Kernel.CrossBaseGranularityRAM <> ram_step def
+R4817:4826 Coq.Arith.PeanoNat Nat ltb_lt thm
+R4817:4826 Coq.Arith.PeanoNat Nat ltb_lt thm
+prf 4878:4899 <> ram_jump_pos_not_taken
+binder 4912:4912 <> p:70
+binder 4914:4914 <> s:71
+binder 4916:4916 <> j:72
+binder 4918:4923 <> target:73
+R4970:4973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4943:4945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4930:4938 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R4940:4940 Kernel.CrossBaseGranularityRAM <> p:70 var
+R4942:4942 Kernel.CrossBaseGranularityRAM <> s:71 var
+R4946:4949 Coq.Init.Datatypes <> Some constr
+R4952:4959 Kernel.CrossBaseGranularityRAM <> RJumpPos constr
+R4961:4961 Kernel.CrossBaseGranularityRAM <> j:72 var
+R4963:4968 Kernel.CrossBaseGranularityRAM <> target:73 var
+R4985:4992 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4981:4983 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4974:4976 Kernel.CrossBaseGranularityRAM <> reg def
+R4978:4978 Kernel.CrossBaseGranularityRAM <> s:71 var
+R4980:4980 Kernel.CrossBaseGranularityRAM <> j:72 var
+R5014:5016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4993:4998 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R5001:5008 Kernel.CrossBaseGranularityRAM <> ram_step def
+R5010:5010 Kernel.CrossBaseGranularityRAM <> p:70 var
+R5012:5012 Kernel.CrossBaseGranularityRAM <> s:71 var
+R5017:5017 Coq.Init.Datatypes <> S constr
+R5020:5025 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R5027:5027 Kernel.CrossBaseGranularityRAM <> s:71 var
+R5073:5080 Kernel.CrossBaseGranularityRAM <> ram_step def
+prf 5185:5203 <> ram_halted_stutters
+binder 5214:5214 <> p:74
+binder 5216:5216 <> s:75
+R5233:5236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5219:5228 Kernel.CrossBaseGranularityRAM <> ram_halted def
+R5230:5230 Kernel.CrossBaseGranularityRAM <> p:74 var
+R5232:5232 Kernel.CrossBaseGranularityRAM <> s:75 var
+R5249:5251 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5237:5244 Kernel.CrossBaseGranularityRAM <> ram_step def
+R5246:5246 Kernel.CrossBaseGranularityRAM <> p:74 var
+R5248:5248 Kernel.CrossBaseGranularityRAM <> s:75 var
+R5252:5252 Kernel.CrossBaseGranularityRAM <> s:75 var
+R5286:5295 Kernel.CrossBaseGranularityRAM <> ram_halted def
+R5298:5305 Kernel.CrossBaseGranularityRAM <> ram_step def
+R5325:5333 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+R5325:5333 Kernel.CrossBaseGranularityRAM <> ram_fetch def
+def 5626:5641 <> ram_pointer_demo
+R5645:5648 Coq.Init.Datatypes <> list ind
+R5650:5657 Kernel.CrossBaseGranularityRAM <> RAMInstr ind
+R5664:5664 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5678:5679 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5692:5693 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5699:5699 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5665:5673 Kernel.CrossBaseGranularityRAM <> RStoreInd constr
+R5680:5687 Kernel.CrossBaseGranularityRAM <> RLoadInd constr
+R5694:5698 Kernel.CrossBaseGranularityRAM <> RHalt constr
+def 5714:5727 <> ram_demo_input
+R5739:5741 Coq.Init.Datatypes <> nat ind
+binder 5730:5733 <> addr:76
+binder 5735:5735 <> v:77
+R5746:5748 Kernel.CrossBaseGranularityRAM <> RAM rec
+R5758:5765 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R5758:5765 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R5758:5765 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R5813:5818 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R5813:5818 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R5770:5776 Kernel.CrossBaseGranularityRAM <> set_reg def
+R5779:5785 Kernel.CrossBaseGranularityRAM <> set_reg def
+R5802:5805 Kernel.CrossBaseGranularityRAM <> addr:76 var
+R5810:5810 Kernel.CrossBaseGranularityRAM <> v:77 var
+def 5838:5858 <> ram_pointer_demo_runs
+R5873:5880 Coq.Arith.PeanoNat Nat iter def
+R5913:5926 Kernel.CrossBaseGranularityRAM <> ram_demo_input def
+R5885:5892 Kernel.CrossBaseGranularityRAM <> ram_step def
+R5894:5909 Kernel.CrossBaseGranularityRAM <> ram_pointer_demo def
+binder 5868:5868 <> s:78
+R5957:5960 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5952:5954 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5942:5944 Kernel.CrossBaseGranularityRAM <> reg def
+R5946:5946 Kernel.CrossBaseGranularityRAM <> s:78 var
+R5973:5976 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5968:5970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5961:5963 Kernel.CrossBaseGranularityRAM <> reg def
+R5965:5965 Kernel.CrossBaseGranularityRAM <> s:78 var
+R5977:5986 Kernel.CrossBaseGranularityRAM <> ram_halted def
+R5988:6003 Kernel.CrossBaseGranularityRAM <> ram_pointer_demo def
+R6005:6005 Kernel.CrossBaseGranularityRAM <> s:78 var
+def 6077:6084 <> ram_base
+R6091:6094 Coq.Init.Datatypes <> list ind
+R6096:6103 Kernel.CrossBaseGranularityRAM <> RAMInstr ind
+binder 6087:6087 <> p:79
+R6108:6118 Kernel.StructuralCoreAnyBase <> BaseMachine rec
+R6128:6134 Kernel.StructuralCoreAnyBase <> b_state proj
+R6128:6134 Kernel.StructuralCoreAnyBase <> b_state proj
+R6128:6134 Kernel.StructuralCoreAnyBase <> b_state proj
+R6146:6151 Kernel.StructuralCoreAnyBase <> b_next proj
+R6146:6151 Kernel.StructuralCoreAnyBase <> b_next proj
+R6170:6175 Kernel.StructuralCoreAnyBase <> b_init proj
+R6170:6175 Kernel.StructuralCoreAnyBase <> b_init proj
+R6205:6212 Kernel.StructuralCoreAnyBase <> b_halted proj
+R6205:6212 Kernel.StructuralCoreAnyBase <> b_halted proj
+R6139:6141 Kernel.CrossBaseGranularityRAM <> RAM rec
+R6156:6163 Kernel.CrossBaseGranularityRAM <> ram_step def
+R6165:6165 Kernel.CrossBaseGranularityRAM <> p:79 var
+binder 6184:6184 <> s:80
+R6197:6199 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6189:6194 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R6196:6196 Kernel.CrossBaseGranularityRAM <> s:80 var
+R6217:6226 Kernel.CrossBaseGranularityRAM <> ram_halted def
+R6228:6228 Kernel.CrossBaseGranularityRAM <> p:79 var
+prf 6349:6372 <> ram_base_halted_stutters
+binder 6385:6385 <> p:81
+binder 6387:6387 <> s:82
+R6413:6416 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6390:6397 Kernel.StructuralCoreAnyBase <> b_halted proj
+R6400:6407 Kernel.CrossBaseGranularityRAM <> ram_base def
+R6409:6409 Kernel.CrossBaseGranularityRAM <> p:81 var
+R6412:6412 Kernel.CrossBaseGranularityRAM <> s:82 var
+R6438:6440 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6417:6422 Kernel.StructuralCoreAnyBase <> b_next proj
+R6425:6432 Kernel.CrossBaseGranularityRAM <> ram_base def
+R6434:6434 Kernel.CrossBaseGranularityRAM <> p:81 var
+R6437:6437 Kernel.CrossBaseGranularityRAM <> s:82 var
+R6441:6441 Kernel.CrossBaseGranularityRAM <> s:82 var
+R6469:6487 Kernel.CrossBaseGranularityRAM <> ram_halted_stutters thm
+R6469:6487 Kernel.CrossBaseGranularityRAM <> ram_halted_stutters thm
+prf 6539:6561 <> ram_base_run_is_ram_run
+binder 6574:6574 <> p:83
+binder 6576:6576 <> n:84
+binder 6578:6578 <> s:85
+R6606:6608 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6581:6588 Kernel.CrossBaseGranularityCore <> base_run def
+R6591:6598 Kernel.CrossBaseGranularityRAM <> ram_base def
+R6600:6600 Kernel.CrossBaseGranularityRAM <> p:83 var
+R6603:6603 Kernel.CrossBaseGranularityRAM <> n:84 var
+R6605:6605 Kernel.CrossBaseGranularityRAM <> s:85 var
+R6609:6616 Coq.Arith.PeanoNat Nat iter def
+R6633:6633 Kernel.CrossBaseGranularityRAM <> s:85 var
+R6621:6628 Kernel.CrossBaseGranularityRAM <> ram_step def
+R6630:6630 Kernel.CrossBaseGranularityRAM <> p:83 var
+R6618:6618 Kernel.CrossBaseGranularityRAM <> n:84 var
+prf 6756:6775 <> ram_base_has_initial
+binder 6786:6786 <> p:86
+R6789:6795 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6797:6798 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6796:6796 <> s:87
+R6799:6804 Kernel.StructuralCoreAnyBase <> b_init proj
+R6807:6814 Kernel.CrossBaseGranularityRAM <> ram_base def
+R6816:6816 Kernel.CrossBaseGranularityRAM <> p:86 var
+R6819:6819 Kernel.CrossBaseGranularityRAM <> s:87 var
+R6850:6857 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R6850:6857 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R6850:6857 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R6874:6879 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R6874:6879 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R6850:6857 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R6850:6857 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R6850:6857 Kernel.CrossBaseGranularityRAM <> ram_regs proj
+R6874:6879 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+R6874:6879 Kernel.CrossBaseGranularityRAM <> ram_pc proj
+prf 7034:7066 <> record_axis_is_latch_on_ram_holds
+binder 7077:7077 <> p:88
+R7080:7102 Kernel.CrossBaseGranularityCore <> record_axis_is_latch_on def
+R7105:7112 Kernel.CrossBaseGranularityRAM <> ram_base def
+R7114:7114 Kernel.CrossBaseGranularityRAM <> p:88 var
+R7158:7183 Kernel.StructuralRecordAxis <> record_axis_is_latch_holds thm
+R7158:7183 Kernel.StructuralRecordAxis <> record_axis_is_latch_holds thm
+R7225:7243 Kernel.CrossBaseGranularityRAM <> ram_store_then_load thm
+R7264:7281 Kernel.CrossBaseGranularityRAM <> ram_jump_pos_taken thm
+R7302:7320 Kernel.CrossBaseGranularityRAM <> ram_halted_stutters thm
+R7341:7361 Kernel.CrossBaseGranularityRAM <> ram_pointer_demo_runs ex
+R7382:7401 Kernel.CrossBaseGranularityRAM <> ram_base_has_initial thm
+R7422:7454 Kernel.CrossBaseGranularityRAM <> record_axis_is_latch_on_ram_holds thm

@@ -1,9 +1,9 @@
 (**
   Tsirelson bound: non-circular bridge.
 
-  This file exists because the old archived derivation baked the target bound
-  into the definition and therefore could not justify it. The replacement
-  route is to import the standalone algebraic derivation from
+  This file exists because a derivation that bakes the target bound into the
+  definition cannot justify it. The route here is to import the standalone
+  algebraic derivation from
   TsirelsonGeneral.v and then connect that result back into the mu-cost
   framework.
 
@@ -33,9 +33,9 @@
     *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
@@ -62,15 +62,15 @@ Local Open Scope R_scope.
     - tsirelson_achievable:
         ∃ correlators with row bounds satisfied and S = √8 (tight)
 
-    We re-derive the core result here for self-containment,
-    then connect it to the μ-cost framework. *)
+    The core result is re-derived here for self-containment,
+    then connected to the μ-cost framework. *)
 
 (**
 
     For any four real numbers satisfying row constraints,
     their CHSH combination (a + b + c - d) is bounded by √8 = 2√2.
 
-    This is pure algebra — no physics, no Hilbert spaces, no quantum. *)
+    This is pure algebra: no physics, no Hilbert spaces, no quantum. *)
 
 (** The CHSH expression: sum of four correlators with one sign flip *)
 Definition CHSH_value (e00 e01 e10 e11 : R) : R :=
@@ -131,7 +131,7 @@ Qed.
 
 (**
 
-    KEY POINT: The number 2√2 ≈ 2.828... appears NOWHERE in our axioms.
+    KEY POINT: The number 2√2 ≈ 2.828... appears NOWHERE in the axioms.
     It emerges as √8 from the algebraic computation:
       row bounds  →  Σeᵢ² ≤ 2  →  S² ≤ 4·2 = 8  →  |S| ≤ √8
 
@@ -140,9 +140,8 @@ Qed.
     - Factor 2: from two row bounds, each ≤ 1
 
     Neither 2√2 nor √8 is a magic number. It's 4 × 2 = 8 under a
-    square root. This is why the approach in TsirelsonDerivation.v
-    (archived) of putting 2√2 in the definition was circular — it
-    assumed the answer. *)
+    square root. This is why putting 2√2 in a definition is
+    circular: it assumes the answer. *)
 
 (** √8 = 2√2: explicit computation *)
 Lemma sqrt8_eq_2sqrt2 : sqrt 8 = 2 * sqrt 2.
@@ -229,24 +228,22 @@ Qed.
     Nothing in this file identifies the variables with a physical experiment
     or assigns the gap between the classical and Tsirelson values to [mu]. Any
     such interpretation requires a separate bridge from the correlator model
-    to the VM and to an experimental implementation. *)
+    to a machine and to an experimental implementation. *)
 
-(** Summary: Non-circular derivation chain for Tsirelson *)
+(** Summary: derivation chain for Tsirelson *)
 (**
-    1. VMState.v, VMStep.v           -> Machine primitives (no physics)
-    2. ClassicalBound.v              -> μ=0 gives |S| ≤ 2 (16 cases)
-    3. TsirelsonGeneral.v (this tie) -> Pure algebra gives S² ≤ 8
-    4. HardMathFactsProven.v (archived) -> Q-arithmetic mechanization
-    5. NonCircularityAudit.v         -> Formal defense against circularity
+    1. ValidCorrelation.v, MinorConstraints.v -> classical bound |S| ≤ 2
+    2. TsirelsonGeneral.v                     -> pure algebra gives S² ≤ 8
+    3. Q-arithmetic mechanization (rational bound below)
 
     The bound 2√2 is COMPUTED from algebraic constraints, not assumed.
-    TsirelsonDerivation.v's (archived) circular definition is superseded by this chain.
 *)
 
 (**
 
-    The machine hardware uses Q16.16 fixed-point arithmetic.
-    We verify that the rational bound 5657/2000 > 2√2 is valid. *)
+    A rational upper bound for 2√2: sqrt 8 < 5657/2000. The bound is stated
+    over the reals; the integer checks in CHSHColumnCheck.v decide CHSH
+    conditions in integer arithmetic and do not use this constant. *)
 
 Lemma rational_tsirelson_bound :
   sqrt 8 < 5657 / 2000.
@@ -276,11 +273,10 @@ Qed.
     2. TIGHTNESS: The bound √8 = 2√2 is exactly achieved by e = ±1/√2.
 
     3. NON-CIRCULARITY: The bound is COMPUTED from algebra, not defined.
-       TsirelsonDerivation.v's (archived) circular approach is superseded.
 
-    4. HARDWARE LINK: Rational bound 5657/2000 > 2√2 verified for Q16.16.
+    4. RATIONAL BOUND: 5657/2000 > 2√2, proved as rational_tsirelson_bound.
     The Tsirelson bound 2√2 is not a property of quantum mechanics.
-    It is a property of constrained quadratic forms in R^4 — pure algebra.
+    It is a property of constrained quadratic forms in R^4: pure algebra.
     The NPA moment matrix constraints (from consistency of observations)
     combined with the Cauchy-Schwarz inequality produce the bound.
 

@@ -1,11 +1,11 @@
 # INQUISITOR REPORT
-Generated: 2026-10-01 03:11:11Z (UTC)
-Scanned: 491 Coq files across the repo
+Generated: 2026-10-08 07:35:30Z (UTC)
+Scanned: 335 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
 - LOW: 0
-- SCOPE NOTES: 353 in-source scope markers across 159 files (261 SCOPE NOTE, 92 SAFE markers)
+- SCOPE NOTES: 195 in-source scope markers across 163 files (165 SCOPE NOTE, 30 SAFE markers)
   - Read the severity counts as *unsuppressed* findings. Each scope note silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
 
 ## Rules
@@ -28,13 +28,9 @@ Scanned: 491 Coq files across the repo
 - `EXISTS_TRUE_STMT`: statement ends with `exists ..., True.`
 - `CIRCULAR_INTROS_ASSUMPTION`: tautology + `intros; assumption.`
 - `EXACT_ALIAS`: `Theorem A. Proof. exact B. Qed.` (pure alias — proves nothing new, just re-exports an existing proof under a new name)
-- `SCOPE_DRIFT_TIER1`: coq/kernel/ (Tier 1) file imports a Tier-2 or Tier-3 namespace — contaminates the extraction-critical kernel
-- `ISOMORPHISM_PROOF_CHAIN_GAP`: A required proof in the isomorphism chain (Coq↔Python↔RTL) is missing or incomplete
-- `OPCODE_PARITY_VIOLATION`: VM opcodes are not consistently defined across Coq, OCaml, Python, and RTL layers
-- `TEST_PROOF_LOCKSTEP_VIOLATION`: A test claiming isomorphism does not actually execute cross-layer comparisons
-- `EXTRACTION_SEMANTIC_UNFAITHFUL`: Extracted artifacts do not faithfully preserve Coq VM semantics
-- `FOUNDATION_UTILIZATION_GAP`: Tier-1 kernel proof does not reference VM foundation types in any theorem statement
-- `SCOPE_DRIFT_TIER2`: Core Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace
+- `SCOPE_DRIFT_TIER1`: coq/kernel/ (Tier 1) file imports a Tier-2 or Tier-3 namespace — contaminates the proof tree
+- `FOUNDATION_UTILIZATION_GAP`: proof file neither uses nor imports anything in the foundation chain (abstract model and small machine) and gives no SCOPE NOTE
+- `SCOPE_DRIFT_TIER2`: Core Tier-2 file imports a Tier-3 exploratory namespace
 - `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof
 - `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`
 - `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`
@@ -54,10 +50,9 @@ Scanned: 491 Coq files across the repo
 - `PROBLEMATIC_IMPORT`: import may introduce classical axioms
 - `RECORD_FIELD_EXTRACTION`: theorem merely extracts a Record field it assumed as input (circular)
 - `SELF_REFERENTIAL_RECORD`: Record embeds proposition as field AND a Theorem in the same file extracts it (circular)
-- `PHANTOM_KERNEL_IMPORT`: imports Kernel modules but no proof engages with VM semantics
+- `PHANTOM_KERNEL_IMPORT`: imports a foundation module but uses nothing it declares
 - `TRIVIAL_EXISTENTIAL`: trivially satisfiable existential (e.g. 'every list has a length')
 - `ARITHMETIC_ONLY_PHYSICS`: physics-named theorem proved by pure arithmetic (lia/lra) only
-- `PHANTOM_VM_STEP`: theorem takes vm_step as hypothesis but proof never uses it
 - `CIRCULAR_DEFINITION`: theorem unfolds definition and proves by simple tactics (potentially restating definition)
 - `EMERGENCE_CIRCULARITY`: 'emergence' claim where emergent property is in the definition (circular)
 - `CONSTRUCTOR_ROUND_TRIP`: construct object, immediately extract property (not proving anything)
@@ -67,30 +62,12 @@ Scanned: 491 Coq files across the repo
 - `HYPOTHESIS_RESTATEMENT`: heuristic style warning (disabled in max-strict mode)
 - `PHYSICS_STUB_DEFINITION`: physics/geometry definition returns placeholder constant (0, 1, PI/3)
 - `MISSING_CORE_THEOREM`: file defines physics machinery (einstein_tensor, stress_energy) but lacks core theorem (einstein_equation)
-- `EINSTEIN_EQUATION_WEAK`: einstein_equation theorem exists but statement omits expected coupling structure
-- `EINSTEIN_EQUATION_ASSUMED`: einstein_equation theorem assumes coupling premise instead of deriving it
-- `EINSTEIN_MODEL_MISMATCH`: current curvature/stress definitions make unconditional Einstein equation structurally non-derivable
 - `DEFINITIONAL_CONSTRUCTION`: curvature/physics quantity DEFINED as relationship that should be PROVEN
 - `DEFINITION_BUILT_IN_THEOREM`: theorem proves relationship that's built into the definition (circular)
 - `INCOMPLETE_PHYSICS_DERIVATION`: gravity/physics file contains explicit unfinished marker text
-- `EINSTEIN_PROOF_INSUFFICIENT`: einstein_equation proof is definitional/trivial or lacks conservation/locality bridge usage
 - `FAKE_COMPLETION_CLAIM`: completion rhetoric appears while core theorem/stub criteria are unmet
-- `STRESS_ENERGY_UNGROUNDED`: stress_energy is defined from curvature/tensor objects instead of kernel primitives
 - `UNUSED_LOCAL_DEFINITION`: heuristic style warning (disabled in max-strict mode)
-- `MU_GRAVITY_COMPLETION_GATE`: top-level MuGravity completion theorem interface still exposes deprecated bridge predicates
-- `MU_GRAVITY_BRIDGE_LEAK`: Einstein/Horizon/Curvature theorem interface leaks legacy bridge predicates
-- `MU_GRAVITY_RAW_SOURCE_FORMULA`: Einstein/Horizon/Gravity theorem interface uses legacy raw-source style (disabled under no-shortcuts policy)
-- `MU_GRAVITY_DYNAMIC_RAW`: Einstein/Gravity theorem interface uses raw dynamically_self_calibrates instead of contract predicate
-- `MU_GRAVITY_ONE_STEP_LITERAL`: top completion theorem interface hard-codes run_vm 1 instead of symbolic fuel
-- `MU_GRAVITY_NO_SHORTCUTS`: MuGravity theorem interface contains shortcut predicates (contract/seed/calibration/bridge)
-- `MU_GRAVITY_MAX_STRICT`: MuGravity strict mode forbids shortcut alias symbols and Classical import
-- `MU_GRAVITY_DERIVATION_INCOMPLETE`: MuGravity theorem interfaces/declarations still expose unfinished derivation assumptions, including the six major obligations (geometric calibration, source normalization, horizon defect-area, active-step descent, semantic gap window, VM compatibility surfaces)
-- `MU_GRAVITY_VM_COMPATIBILITY`: MuGravity execution-facing theorem interfaces/declarations still rely on unresolved VM compatibility wrappers/assumptions instead of vm_apply/run_vm semantic derivations
-- `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems
-- `PROOF_CONNECTIVITY_GAP`: active core proof file lacks the semantic foundation, or a μ-cost-using file lacks the cost foundation; roots and local Kami proofs are checked by their dedicated gates
-- `KAMI_OCAML_FOUNDATION_MISMATCH`: Kami and OCaml extraction build surfaces are not grounded in the same kernel foundation modules
-- `OCAML_EXTRACTION_BUILD_FAIL`: OCaml extraction build/check failed (Extraction.v must build and expose core VM symbols)
-- `CROSS_LAYER_FOUNDATION_DISCONNECT`: end-to-end chain (Coq foundations -> OCaml extraction -> VM wrapper -> canonical Kami RTL/cosim/build flow) is missing a required link
+- `PROOF_CONNECTIVITY_GAP`: active proof file lacks the semantic foundation (abstract model and small machine), or a cost-using file lacks the cost foundation; a file that stands alone must say so in a SCOPE NOTE
 - `PROOF_BODY_FOUNDATION_DISCONNECT`: theorem-body dependency graph shows a Coq proof file does not transitively reach the canonical foundation theorem chain
 - `DISJUNCT_TRUE`: theorem statement contains `\/ True` — vacuously provable via `right. exact I.`
 - `TRIVIAL_TRUE_PROOF`: proof body terminates with `exact I.` or `right. exact I.` — only proves `True`

@@ -1,30 +1,30 @@
 THE THIELE MACHINE
 A distillation: state, accounting, and what the proofs establish
 
-Devon Thiele -- September 2026, v3.3.0
+Devon Thiele
 
 I didn't invent a machine. I found one.
 
-That is my conviction. The Thiele Machine is how I put it on the table: definitions, executable rules, proofs, and a VM somebody else can run. The conviction is mine. The proofs are public, and anyone can check them.
+That is my conviction. The Thiele Machine is how I put it on the table: definitions, executable rules, proofs, and a small machine somebody else can run. The conviction is mine. The proofs are public, and anyone can check them.
 
-What the Thiele Machine is: an abstract model of computation. It is a machine the way Turing's machine is a machine: mathematics you can reason about, not a device. It is not a CPU. It is not an instruction set, a VM, a graph, or category theory. Those are things I built with it, or things it can carry. Section 1 below is the whole model.
+What the Thiele Machine is: an abstract model of computation. It is a machine the way Turing's machine is a machine: mathematics you can reason about. It is not a device. It is not a CPU. It is not an instruction set, a VM, a graph, or category theory. Sections 1 and 2 below are the whole model, and the window comes in Section 4.
 
-What this is: an argument, made with that model, about what an account of computation should preserve. The usual account describes a computation by what it reads and writes. I think that account is a shadow. There is another axis: what the computation established, and what establishing it cost.
+What this is: an argument, made with that model, about what an account of computation should preserve. An ordinary description of a computation says what it reads and writes. I think that description is a shadow. There is another axis: what the computation established, and what establishing it cost.
 
-  1. The shadow loses something real. Proved, for each window I name. (Sections 4, 6, 9.)
-  2. Establishing is not free. Proved, for any system that follows A2. On finite memory with a certificate that can't be revoked, A2 itself follows from Landauer's principle (PermanentCertification.v). A finite piece of the VM is such a machine, and the VM runs it at exactly that price (FiniteCertMachine.v). (Sections 2, 3.)
-  3. Leaning on a fact takes a paid history. Defined; the cost floor is proved for shortcuts that hand over their receipts. (Section 10.)
-  4. So the axis belongs in the step. Proposed. This is what the proofs are there to test. Part of it is proved. An exact price for certification can't be computed from the window, because a certifying step and a non-certifying one can look the same through it, and the VM has such a pair (ShadowPricing.v). And on finite memory, an account that prices merges the way Landauer's principle does already charges every permanent-record write, at least the logarithm of the squeeze, in counted states or in bits (PermanentRecordPricing.v, PermanentCertificationEntropy.v).
-  5. Which events every account has to price. Certification is the one I pinned down. On finite hardware the must-price events are the merges; every permanent-record write is one, and a flip escapes the price only by being revocable. "Exactly the permanent records" is false (three-state counterexample). No theorem selects another universal class of priced events.
-  6. What carries the weight. Every machine can carry the record axis, as itself plus a latch on an event it reaches. On the VM the record can't be read back off the shadow. On finite hardware, writing a permanent record merges states, so pricing merges prices the write. Proved. A record that never switches off and whose update is driven by the base computation is a latch on one event; both premises are essential. The pointer question asks which event gets latched; no theorem here selects one uniquely. (Section 12.)
+  1. The shadow loses something real. Proved, for every Thiele-complete machine and its own window. (Sections 4, 9.)
+  2. Establishing is not free. Proved, for any system that follows A2. On finite memory with a certificate that can't be revoked, A2 itself follows from the premise that every merging step costs at least one (PermanentCertification.v). That premise is Landauer's principle in its worst case, counted in merged states. Rolf Landauer, a physicist at IBM, argued in 1961 that a computer has to give off heat whenever it throws information away; I use his principle only as a named premise. An eight-state machine meets both premises, and both are theorems about it (FiniteCertMachine.v). (Sections 2, 3.)
+  3. Leaning on a fact takes a paid history. Defined in general. On the small machine it is a theorem: on a run from a clean start, a commitment goes through only on a fact a passing check wrote. (Section 10.)
+  4. So the axis belongs in the step. Proposed. This is what the proofs are there to test. Part of it is proved. An exact price for certification can't be computed from a window that shows a certifying step and a non-certifying one the same way (ShadowPricing.v), and every Thiele-complete machine has the same kind of collision between runs: two runs from one clean start that end looking the same through its own window, one certified and one not (Section 9). And on finite memory, an account that charges one unit for every halving of the number of distinct states, Landauer's principle in counting form, already charges a permanent-record write that switches k states on, with m already certified, at least log2((m+k)/m), in counted states, or in bits from the uniform distribution on those m + k states (PermanentRecordPricing.v, PermanentCertificationEntropy.v).
+  5. Which events every account has to price. Certification is the one I pinned down. On a finite machine whose instructions have decidable equality, the must-price events are the merges; every permanent-record write is one, and a flip escapes the price only by being revocable. "Exactly the permanent records" is false (three-state counterexample). No theorem selects another universal class of priced events.
+  6. What carries the weight. Every machine can carry the record axis, as itself plus a latch on an event it reaches. Every Thiele-complete machine hides its record and its ledger from its own window. On a finite machine, writing a permanent record merges states, so pricing merges prices the write. Proved. A record that never switches off and whose update is driven by the base computation is a latch on one event; both premises are essential. The pointer question asks which event gets latched; no theorem here selects one uniquely. (Section 12.)
 
 A computation gives you an answer. I want to know what it had to establish to get there, which distinctions it kept along the way, and what keeping them cost. Certification is the one place I could pin that down hard. The idea reaches further than that one place. The proofs don't. They cover the events, views, and machines their statements name, and nothing past them.
 
-Here is the picture. The machine carries two things an ordinary description leaves out: structure, and a ledger of what that structure cost. Now look at the machine through a narrower window, one that only shows memory, registers, and where the program is. Two states can look identical through that window and still be different underneath. Ask a question whose answer depends on the difference, and nothing looking only through the window can answer it right every time. Not with any amount of cleverness. The information isn't in the window.
+Here is the picture. The machine carries two things an ordinary description leaves out: a record of what it established, and a ledger of what establishing it cost. Now look at the machine through a narrower window, one that only shows its registers and where the program is. Two states can look identical through that window and still be different underneath. Ask a question whose answer depends on the difference, and nothing looking only through the window can answer it right every time. Not with any amount of cleverness. The information isn't in the window.
 
 That's a fact about the window. It isn't a fact about computers. Ordinary memory can hold the whole state, ledger included, and an ordinary machine can follow the same accounting rule step for step. The blindness is in the view. The hardware isn't blind. So every comparison in here names four things: the state, the steps allowed, the window, and what you're trusting the implementation to do.
 
-One more line I keep drawing. Paying for certification doesn't make anything true. The generic CERTIFY instruction flips a flag and charges for it. It checks nothing. Other instructions do check things, and each of those has its own soundness proof. Calling the flag "certified" doesn't give it one.
+One more line I keep drawing. Paying for certification doesn't make anything true. A rule that flips a flag and charges for it checks nothing, and calling the flag "certified" doesn't give it a soundness proof. The small machine, minimal/EarnedCore.v, goes the other way. There, on a run from a clean start, a commitment goes through only on a fact that a passing check wrote, certification goes through only after a commitment, and every certified run from a clean start contains that check, that commitment, and the certification, in that order (`earned_certification_provenance`). Pricing commitments is one thing. That machine earns them.
 
 I built this to be examined. Below, what I built and what the proofs show about it stay on one side. What I'm asking you to consider stays on the other.
 
@@ -37,14 +37,14 @@ A computation is a line of steps. Each step takes the state the machine is in an
   I      instructions: the moves it can make.
   step   the step rule: given a state s and an instruction i, it gives the next state, step(s, i).
   c      a cost for each instruction: a whole number, never negative, written c(i).
-  P      a yes/no reading on states: P(s) is 0 or 1. In the VM it's the certification field. In another system P could be worked out from other state, like whether a counter is even or odd. It doesn't need its own storage slot.
+  P      a yes/no reading on states: P(s) is 0 or 1. On the small machine it's the certification flag. In another system P could be worked out from other state, like whether a counter is even or odd. It doesn't need its own storage slot.
   mu     the ledger: a whole number every state carries. It starts at 0, and each step adds the cost of the instruction it ran: mu(step(s, i)) = mu(s) + c(i). Nothing else touches it. Call that conservation. The ledger is exactly the sum of what got charged.
 
 A substrate is (S, I, step, c, P), with mu riding along on every state. Five pieces of structure, and one field that just adds them up.
 
 Picking these out doesn't make the machine special. It makes the accounting visible. A bare transition system doesn't have to name a P, a c, or a mu. An ordinary machine can still carry all three in memory and keep the same rule. Turing equivalence is about which functions you can compute. It doesn't pick an accounting policy for you.
 
-Two small proofs make that concrete. `counter_certification_system` uses a counter as the state, its parity as P, and a cost of 1 per step. `receipt_encoding_roundtrip` shows ordinary list memory holding a ledger and a certification value with nothing lost. Both live in `coq/tests/ClaimBoundaryRegression.v`.
+Two instances make that concrete. The eight-state machine in FiniteCertMachine.v has four program slots and a certification flag. The small machine in minimal/EarnedCore.v has two counters, a table of checked facts, a certification flag and a ledger, and it runs any two-counter program.
 
 
 2. THE AXIOM
@@ -68,20 +68,20 @@ Claim. In any substrate satisfying A2, any run that starts uncertified (P = 0) a
 
 Proof. By conservation, the run's total cost is mu at the end minus mu at the start. P only ever reads 0 or 1, so some single step takes it from 0 to 1. By A2 that step cost at least 1. Every other step cost at least 0. A sum of non-negative numbers with one term at least 1 is at least 1.
 
-It holds for any substrate satisfying A2. It doesn't care what the states look like, what the instructions are, or what the step rule does. A2, conservation, and non-negative costs are all it uses.
+It holds for any substrate satisfying A2. It doesn't care what the states look like, what the instructions are, or what the step rule does. A2, conservation, and non-negative costs are all it uses (`universal_nfi_any_substrate`).
 
 
 4. REPRESENTATION AND ENFORCEMENT
 
 A2 isn't a property of a machine on its own. It's a property of a step rule together with the P and the c you point at. Keep the same transitions, point at a different P or charge a different c, and A2 can stop holding. So I name those choices every time.
 
-An ordinary machine can enforce A2. Put P and mu in ordinary memory, and write transitions that update them the way the rule says. Those transitions keep A2. Showing that a particular implementation really follows them takes an implementation proof, or you trust it. That's true of this VM too.
+An ordinary machine can enforce A2. Put P and mu in ordinary memory, and write transitions that update them the way the rule says. Those transitions keep A2. Showing that a particular implementation really follows them takes an implementation proof, or you trust it.
 
 Somebody can always write a different rule that breaks A2. That's a different implementation. It says nothing against the first one. And giving P and mu their own fields doesn't stop an implementation from updating them wrong.
 
-Seeing is a separate question from enforcing. Take a window that shows memory, registers, and the program counter, and hides the certification field and the ledger. If two reachable states look the same through that window and one is certified while the other isn't, nothing reading only the window can tell you which is which on every reachable state. That's about this window. It isn't about every way of storing the state.
+Seeing is a separate question from enforcing. Take a window that shows the base machine's registers and the program counter, and hides the certification flag and the ledger. If two reachable states look the same through that window and one is certified while the other isn't, nothing reading only the window can tell you which is which on every reachable state. That's about this window. It isn't about every way of storing the state.
 
-The general version says exactly when a window is good enough. Group together the states that look the same through it. A question can be answered from the window only if every state in a group gives the same answer. Hand over one sample state from each group and that same condition builds the answering function. A wider window can pass where a narrower one fails.
+The general version says exactly when a window is good enough. Group together the states that look the same through it. A question can be answered from the window only if every state in a group gives the same answer (`decoding_requires_fiber_constancy`). Hand over one sample state from each group and that same condition builds the answering function (`selected_representatives_give_decoder`). A wider window can pass where a narrower one fails.
 
 
 5. THE BUGGY SIMULATOR
@@ -92,43 +92,39 @@ A machine built to A2 has no such step among the ones it allows. That follows fr
 
 An ordinary machine can allow exactly those steps too. It can also simulate a machine that breaks A2 without breaking A2 itself. The simulated flag is just data to the host. It isn't necessarily the host's own P. Mix those two levels up and you get an impossibility claim that isn't true.
 
+The universal host in minimal/UniversalThiele.v shows the other side of that. It runs any small-machine program as a guest, keeps a mirror of the guest's flag that, from a loaded host, always equals that flag (`record_agreement`, `hload_agrees`), and its mirror rises only in a guest step that passed CERTIFY, charged in that same host step (`no_free_host_certification_step`). The guest's toll is collected by the host's own step. Nothing is left to the guest's data.
+
 So the real question is always the same. Which updates does the implementation allow, and what evidence ties them to the rule? Having a field for it, or a type that mentions it, doesn't settle that.
 
 
-6. LIFTING, PROJECTION, AND VERIFICATION
+6. LIFTING AND PROJECTION
 
-Going up is free. Take any ordinary transition system, keep its states and steps exactly as they are, leave P at 0 forever, and charge nothing. A2 holds, because nothing ever flips. The original computation sits inside the accounting model untouched, and no new computable functions appear. The VM adds more instructions on top. It's one way of building the idea out. There are others.
+Going up is free. Take any ordinary transition system, keep its states and steps exactly as they are, leave P at 0 forever, and charge nothing. A2 holds, because nothing ever flips. The original computation sits inside the accounting model untouched, and no new computable functions appear. The small machine adds three priced instructions on top of a two-counter machine. It's one way of building the idea out. There are others.
 
-Going down loses things. The VM's strict window forgets the ledger, the certification flag, and the graph. The separation proofs hand over pairs of states that collide in that window and need different answers. That proves no decoder works across the whole domain. It doesn't mean every state you observe has more than one state behind it.
+Going down loses things. A window that forgets the ledger and the certification flag has colliding states: two states it shows the same way that need different answers. That proves no decoder works across the whole domain. It doesn't mean every state you observe has more than one state behind it.
 
 Giving P and mu separate fields is convenient. It isn't a theorem about the smallest possible representation. Another encoding can pack them into one value, and in some systems one of them is already a function of other state. What has to be kept depends on the question you're asking and which states are allowed.
 
-A2 sets a floor. It doesn't set a price list. Charging more than 1 is allowed, and steps that flip nothing can still cost something. Exact unit pricing only comes out once you add a second rule: never charge more than the number of certification flips. And several unit floors can share one charge. Two independent things being true at once doesn't force their costs to add.
-
-The verifier result is just as exact about its reach. Suppose a transcript can't tell apart two runs, one where a mu-dependent claim holds and one where it doesn't. Completeness says accept the first. Strong soundness says don't accept while the second is still possible. Nothing reading that transcript alone can do both.
-
-The repository builds three ways out, each giving the verifier extra evidence under its own premises: see the full state, check a commitment bit whose honesty an exact contract guarantees (in a deployed system a hardness assumption would have to carry that weight), or ask the prover a question it has to answer. The bit contract is not a cryptographic-security theorem. None of this shows those three are the only ways out, or that ordinary computing can't keep the information around. And the collision has to actually happen for the transcript you're talking about.
+A2 sets a floor. It doesn't set a price list. Charging more than 1 is allowed, and steps that flip nothing can still cost something. Exact unit pricing only comes out once you add a second rule: never charge more than the number of certification flips. And several unit floors can share one charge. Two independent things being true at once doesn't force their costs to add (`independent_coordinates_joint_change_costs_one`).
 
 
 7. WHAT THIS DOES AND DOES NOT CLAIM
 
 What it does: it makes one accounting discipline explicit and follows it all the way through. No Free Insight takes the local rule, where one step pays, and stretches it over a whole run. The observation results say exactly when a window loses what a question needs. These are mathematical results about the models they name.
 
-What it doesn't: it doesn't add new computable functions. It doesn't say ordinary machines can't enforce invariants. It doesn't put a physical price on every change to structure. The VM itself lets some structural changes happen at zero cost.
+What it doesn't: it doesn't add new computable functions. It doesn't say ordinary machines can't enforce invariants. It doesn't put a physical price on every change to structure. The small machine's counter instructions are free, and some of them merge states.
 
-Anything physical needs its own argument. `full_vm_f1_premises_incompatible` proves that the full instruction set's free jumps can't live alongside the stated pair of universal collapse-price and cost-calibration premises. A program counter collapsing to one place doesn't prove anything was physically erased, either. Keep the old state in a longer history and no two states land on the same next state for a fixed instruction.
+Anything physical needs its own argument. A program counter collapsing to one place doesn't prove anything was physically erased. Keep the old state in a longer history and no two states land on the same next state for a fixed instruction.
 
-That escape needs memory that grows without bound. Take it away and the certifying step can't dodge. `permanent_flip_is_not_injective` proves that on a finite state space, with a certificate no step revokes, the step that switches the certificate on merges two states. Price every merging step at one or more, as Landauer's principle does in the worst case over what the machine might hold, and A2 follows (`a2_from_merging_price_and_permanence`). The honest version of the erasure rival sends the same bill (`honest_erasure_accounting_implies_a2`). Each premise is needed, and the file builds a counterexample for each: unbounded history, a revocable certificate, an unpriced reset. The full VM isn't an instance, and that is a design choice. Its ledger is unbounded: every step that switches the certification flag on merges two states and costs at least one, while JUMP 0 0 is a zero-cost merge (`vm_prices_certifying_merge_leaves_others_free`). Thus the schedule does not price every merge; this theorem does not classify all remaining merges. Pricing every merge would charge every overwrite, and whether every account must do that is the physics question. A finite piece of the VM is an instance. Four program slots and a certification flag make eight states, and CERTIFY 0, JUMP a 2, and CHECKPOINT "" 0 run that machine through the window (pc mod 4, certified), with mu rising by exactly the price each merge demands (`vm_runs_finite_trace`). The JUMP price of two is the program's choice; the VM allows it and doesn't force it. The merging price is a named premise. The units are merged states, not joules. None of the pieces is new. Setting a flag to true whatever it held is Landauer's own example of an irreversible step, finite memory forcing erasure is Bennett's point, and the counting is the pigeonhole. What is added is the link for every implementation of a certificate that lasts, checked in Coq.
+That escape needs memory that grows without bound. Take it away and the certifying step can't dodge. `permanent_flip_is_not_injective` proves that on a finite state space, with a certificate no step revokes, the step that switches the certificate on merges two states. Price every merging step at one or more, as Landauer's principle does in the worst case over what the machine might hold, and A2 follows (`a2_from_merging_price_and_permanence`). An erasure-accounting system whose erasure flag reports every merge sends the same bill (`honest_erasure_accounting_implies_a2`). Each premise is needed, and the file builds a counterexample for each: unbounded history, a revocable certificate, an unpriced reset. Pricing every merge would charge every overwrite, and whether every account must do that is the physics question. The eight-state machine is an instance. Four program slots and a certification flag make eight states; its certify step and its jumps merge states, its advance step doesn't, and its cost rule prices exactly the merges, so A2 holds there as a theorem (`fin_a2_from_merging_price`). The merging price is a named premise. The units count merged states. Joules come in only under a further premise, two paragraphs down. None of the pieces is new. Setting a flag to true whatever it held is Landauer's own example of an irreversible step. Finite memory forcing erasure is Landauer's point too, as Charles Bennett reports it: Bennett, Landauer's younger colleague at IBM, built in 1973 a machine that computes without throwing anything away, and he credits Landauer with the warning that its tape would have to be erased before it could be reused. The counting is the pigeonhole. What is added is the link for every implementation of a certificate that lasts, checked in Coq.
 
-The bill has a size, too. Price one unit per halving and switching k states on, with m already certified, costs at least log2((m+k)/m): `permanent_flips_log_bound`, attained by a four-state stamp that pays exactly two. And it settles which flips a finite machine must pay for. An instruction is forced to be priced exactly when it merges (`forced_priced_iff_merges`). An instruction that switches a reading on either merges or switches it off somewhere else (`flip_merges_or_revokes`). So every permanent-record write is forced, and the only free flips are revocable ones. The converse fails: a three-state instruction can flip, revoke, and merge at once (`forced_price_without_permanent_record`), so "exactly the permanent records" is false.
+The bill has a size, too. Price one unit per halving and switching k states on, with m already certified, costs at least log2((m+k)/m): `permanent_flips_compression_bound` (m + k <= 2^cost * m; its rounded-up form is `permanent_flips_log_bound`), attained by a four-state stamp that pays exactly two. And it settles which flips a finite machine must pay for. When instructions have decidable equality, an instruction is forced to be priced exactly when it merges (`forced_priced_iff_merges`). An instruction that switches a reading on either merges or switches it off somewhere else (`flip_merges_or_revokes`). So every permanent-record write is forced, and the only free flips are revocable ones. The converse fails: a three-state instruction can flip, revoke, and merge at once (`forced_price_without_permanent_record`), so "exactly the permanent records" is false.
 
-The same bound holds in bits. After a permanent step, any distribution on the m certified states and the k flipping ones has Shannon entropy at most log2 m (`permanent_step_entropy_ceiling`). From the uniform distribution the step removes at least log2((m+k)/m) bits (`permanent_flip_uniform_entropy_drop`), and a step that forgets nothing removes none (`step_entropy_invariant_if_injective`). Joules come in only through Landauer's principle, stated as the named premise `landauer_heat`. Under it the flip dissipates at least k_B T ln((m+k)/m) (`permanent_flip_heat_floor`). The uniform distribution isn't needed: any distribution that leaves every certified state and the flipping one possible forces positive heat (`permanent_flip_full_support_heat_positive`). And a machine known in advance to be in one state loses no entropy, so the premise forces no heat (`known_state_flip_forces_no_heat`). The heat comes from uncertainty about the state. No device has been measured.
+The same bound holds in bits. After a permanent step, any distribution on the m certified states and the k flipping ones has Shannon entropy at most log2 m (`permanent_step_entropy_ceiling`). From the uniform distribution the step removes at least log2((m+k)/m) bits (`permanent_flip_uniform_entropy_drop`), and a step that forgets nothing removes none (`step_entropy_invariant_if_injective`). Joules come in only through Landauer's principle, stated as the named premise `landauer_heat`. Under it, with a temperature that isn't negative, the flip from the uniform distribution dissipates at least k_B T ln((m+k)/m) (`permanent_flip_heat_floor`). The uniform distribution isn't needed: at a positive temperature, any distribution that leaves every certified state and the flipping one possible forces positive heat (`permanent_flip_full_support_heat_positive`). And a machine known in advance to be in one state loses no entropy, so the premise forces no heat (`known_state_flip_forces_no_heat`). The heat comes from uncertainty about the state. No device has been measured.
 
-The exact price also has to live in the step. If two steps look the same through a window before and after, and only one certifies, no price computed from that window meets the floor without billing the other (`shadow_cannot_price_exactly`). The VM has such a pair for both windows I name: CERTIFY 0 against JUMP 1 0, and against JUMP 1 1 once the ledger is in view (`vm_bare_shadow_cannot_price_exactly`, `vm_forget_shadow_cannot_price_exactly`). A window that shows certification prices it exactly.
+The exact price also has to live in the step. If two steps look the same through a window before and after, and only one certifies, no price computed from that window meets the floor without billing the other (`shadow_cannot_price_exactly`). Every Thiele-complete machine has the same kind of collision between runs: two runs from one clean start that end looking the same through its own window, one certified and one not (Section 9). A window that shows certification prices it exactly (`window_showing_reading_prices_exactly`).
 
-Narrowing splits the same way. On a finite machine that prices merges, the machine's own spread of possible states can't shrink for free: each halving along a run is paid for, and the run itself is the witness (`run_narrowing_priced_log`). What an observer knows can shrink without a forced charge. A step that adds a hidden bit into a blank display forgets nothing, and `observer_narrowing_can_be_free` exhibits one admissible merge-priced cost that assigns it zero; the lower-bound rule also permits overcharging. Wiping the display for the next reading is a merge, and it costs at least one (`wipe_costs_at_least_one`). The insight No Free Insight prices is certified insight: committing to what you learned, in a record the machine can't take back. Raw learning need not carry a positive charge.
-
-The hardware model follows the instructions actually fetched, the program counter, the fuel, and the state, under `WFDrivenRun`. Generated RTL still sits behind the compiler and backend trust boundary named in the pipeline manifest. Synthesis, simulation, and the FPGA bitstream add evidence. They don't turn that boundary into a Coq proof.
+Narrowing splits the same way. On a finite machine priced one unit per halving, the machine's own spread of possible states can't shrink for free: each halving along a run is paid for, and the run itself is the witness (`run_narrowing_priced_log`). What an observer knows can shrink without a forced charge. A step that adds a hidden bit into a blank display forgets nothing, and `observer_narrowing_can_be_free` exhibits one admissible merge-priced cost that assigns it zero; the lower-bound rule also permits overcharging. Wiping the display for the next reading is a merge, and it costs at least one (`wipe_costs_at_least_one`). The insight No Free Insight prices is certified insight: committing to what you learned, in a record the machine can't take back. Raw learning need not carry a positive charge.
 
 The sections below state more results, each with its own premises. A2 alone doesn't supply them.
 
@@ -139,93 +135,88 @@ This is the old diagonal trick, pointed at structure. Suppose something could lo
 
 For the trick to work the substrate has to carry some extra machinery, and A2 doesn't give you any of it.
 
-First, a recursion theorem. That's Kleene's: any way of transforming programs that the substrate can itself run has a fixed point, a program that behaves exactly like its own transformed image.
+First, a recursion theorem. That's Kleene's: the logician Stephen Kleene stated and proved it in 1938. Any way of transforming programs that the substrate can itself run has a fixed point, a program that behaves exactly like its own transformed image.
 
-Second, a predicate on programs. The formal interface calls it `AdmitsShortcut`. What it means has to be supplied by the instance. The name alone doesn't tie it to Section 10's quantitative witnesses. It needs two properties. Programs that behave the same get the same answer. And the substrate fixes two canonical programs, one the predicate accepts and one it rejects.
+Second, a predicate on programs. The formal interface calls it `AdmitsShortcut`. What it means has to be supplied by the instance. It needs two properties. Programs that behave the same get the same answer. And the substrate fixes two canonical programs, one the predicate accepts and one it rejects.
 
-Theorem. No decider the substrate can run as one of its own programs gets this predicate right on every program.
+Theorem. No decider whose flip (run it, then branch to one of the two canonical programs) the substrate can represent as one of its own programs gets this predicate right on every program, saying yes exactly when the program admits a shortcut (`structural_shortcut_undecidable`).
 
 Proof. Suppose D is such a decider. Build f: given a program p, run D(p). If D says yes, output the canonical program the predicate rejects. If no, output the one it accepts. For the recursion theorem to apply, f has to be one of the substrate's own programs. That takes one more premise, and I name it: the substrate's programs are closed under "run a program, then branch to one of two fixed programs." Being able to run D doesn't give you that for free. Grant it, and the recursion theorem hands back a program q that behaves exactly like f(q). Now look at D(q). If D says q admits a shortcut, then f(q) is the program that doesn't, and q behaves like f(q), so q doesn't. D was wrong. If D says q doesn't, the same step makes q one that does. Either answer is wrong, so D can't exist.
 
-That's the Kleene/Rice pattern run through an abstract program interface. It holds under that interface's recursion, representability, closure, same-behavior, and nontriviality premises. The VM instance carries its recursion-theorem premise. The separate natural-number substrate meets the premise by construction: its fixed-point program is defined to copy the transformer's output. L meets it the honest way. L is the weak call-by-value lambda calculus, a Turing-complete model, built here from scratch. Its recursion theorem is proved from the reduction rules (`second_recursion`), and the same diagonal gives Rice's theorem for L and the undecidability of L halting (`L_rice`, `L_halting_undecidable`). The twelve-instruction guest fragment has a numeric decoder, a fuel-bounded evaluator whose result is its actual VM execution, and semantic s-m-n specialization (`g_decode_guest_code_roundtrip`, `g_eval_is_actual_vm_execution`, `g_smn`). Those are host-level Coq functions, not guest-callable programs. The internal recursion theorem requires the evaluator and numeric specializer to be represented inside that same guest fragment; no theorem here supplies that representation.
+That's the Kleene/Rice pattern run through an abstract program interface. (Henry Rice, a logician, proved in his 1951 doctoral thesis, published in 1953, that no program decides a property that depends only on what programs do, unless the property holds of every program or of none.) It holds under that interface's recursion, representability, closure, same-behavior, and nontriviality premises. The natural-number substrate meets the recursion premise by construction: its fixed-point program is defined to copy the transformer's output (`nat_structural_shortcut_undecidable`). L meets it by proof. L is the weak call-by-value lambda calculus, built here from scratch. Yannick Forster and Gert Smolka, at Saarland University, presented L in Coq in 2017 as a model of computation, and their group later checked in Coq that L and Turing machines can run each other (Forster, Kunze, Smolka and Wuttke, 2021). I cite L's Turing-completeness from that work and don't prove it again here. Its recursion theorem is proved from the reduction rules (`second_recursion`), and the same diagonal gives Rice's theorem for L and the undecidability of L halting (`L_rice`, `L_halting_undecidable`). For the small machine, halting is undecidable by reduction from the vendored two-counter result (EarnedCoreLinks.v).
 
 The proof doesn't go through a Turing-machine simulator. That doesn't show the predicate is unrelated to halting, or that it sits at a different Turing degree. Those would need their own definitions and proofs. And deciding a predicate over arbitrary programs is a different job from reading one yes/no field out of a state someone hands you.
 
 The diagonal even works in a model where mu is always zero and A2 never has anything to charge. The contradiction comes from recursion and same-behavior. Cost plays no part. That's the whole point of this result.
+
+On the two-counter machine itself the diagonal splits three ways. Rice's theorem holds on every set of inputs: a property of programs that can't tell apart two programs behaving the same on those inputs, true of one program and false of another, is undecidable (`tc_rice`). Kleene's recursion theorem holds when inputs are written as powers of two (`tc_kleene`). With plain inputs it fails: some transformation F, carried out by a two-counter program on program numbers, has no program e equivalent to F(e), that is, computing the same function on plain inputs (`tc2_plain_recursion_false`), because no program multiplies every plain input by `tc2_c` of its own length (`tc2_no_mult`).
 
 
 9. COST LEDGER OBSERVABILITY
 
 Two runs look identical through the window and leave different bills.
 
-Start at `init_state`: mu = 0, certification off. Run one does CERTIFY with delta = 0. It costs 1 and turns the flag on. Run two does PNEW on an empty region with delta = 0. It costs 0 and changes the graph. Both move the program counter forward by one and leave memory and registers alone. A window that only shows those three things sees the same picture both times. The ledgers read 1 and 0.
+Take any Thiele-complete machine. The definition hands over a clean start and a run from it that certifies; by the definition, that run passed a check, a commitment and a certificate. The window shows the base: where its program is and its two registers. The base is universal, so base moves alone can reach whatever the first run's window shows, and base moves never touch the record or the ledger. That gives a second run from the same start. Both runs end at the same window. The first ends certified, with its ledger at least three marks higher than where it started. The second ends uncertified, with its ledger unchanged (`complete_two_runs`).
 
-So no function of that window recovers the ledger on every reachable VM state.
+So no function of that window recovers the record, and no function of it recovers the ledger, on every reachable state (`complete_hides_record`, `complete_hides_ledger`). Every Thiele-complete machine is blind this way in its own window (`thiele_complete_hides`). The small machine is one, so is the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, sorted lists included, and so is the host the universal machine U runs on.
 
-It takes this instruction set, this starting state, this cost schedule, and this window. A2 gives the certification flip its floor. It doesn't give you a free PNEW or matching windows. This isn't a separation theorem for every A2 system.
-
-Change the schedule to allow free certification and this particular pair stops differing in cost. Just dropping A2 as an assumption doesn't change the VM's schedule, though, and it doesn't make every ledger separation go away. A wider window that shows mu tells the two runs apart at a glance.
+It takes the definition of Thiele-complete and that machine's own window. This isn't a separation theorem for every A2 system. A wider window that shows mu tells the two runs apart at a glance.
 
 It's an information-loss result. The window can't answer a question its colliding states disagree on. It doesn't say the ledger can't be stored in ordinary memory, and it doesn't say that paying proves anything.
 
 
-10. QUANTITATIVE COST LOWER BOUND
+10. EARNED COMMITMENTS
 
-Now a number. Picture a pile of candidates, everything still in play. A shortcut narrows the pile. If it narrows it by asking yes/no questions laid out as a tree, and the run pays for every level of that tree, then the ledger pays at least the number of halvings it takes to get from the big pile down to the small one.
+A computation is entitled to lean on a structural fact when it holds the evidence and a history that earned it. That is a definition. On the small machine it becomes a theorem.
 
-That's the idea. The formal version only covers shortcuts that hand over their receipts.
+The machine has two counters, a table of checked facts, and three priced instructions: CHECK, COMMIT and CERTIFY. A CHECK evaluates a claim about one counter and, if it passes, writes a fact naming that claim and the counter's current version. A COMMIT goes through only on a fact in the table for that counter at its current version. CERTIFY goes through only after a COMMIT. Anything else traps.
 
-Witness class. A "sound structural shortcut" (`SoundStructuralShortcut`) is a package the shortcut has to hand over:
-  - a finite prior list Omega, the candidates in play before it runs;
-  - a strictly shorter posterior list Omega', the ones left after;
-  - an observation that separates at least one eliminated candidate from every survivor;
-  - a certified posterior predicate;
-  - a binary (yes/no) decision tree;
-  - a map from prior entries to posterior representatives, with a bound on how many land on each;
-  - a guarantee that the run realizes the tree.
-The last one carries the weight. It says the run executes at least as many cert-setter instructions as the tree is deep. This class isn't "any decision procedure". It's the procedures that hand over the tree and that guarantee.
+  - From a clean start, every certified run contains a passing CHECK, then a passing COMMIT of that same claim with the counter untouched in between, then CERTIFY (`earned_certification_provenance`).
+  - From a clean start, a fact whose counter hasn't been written since its check names a true claim about that counter (`checker_soundness`).
+  - From a clean start a certified run costs at least 3 (`certified_run_min_cost`), and 3 is reached.
+  - The showcase check can fail, and a run whose check fails is refused forever (`earned_run_check_can_fail`, `earned_run_refused_forever`).
 
-Theorem. For any sound structural shortcut with prior list Omega and nonempty posterior list Omega', the run that realizes it satisfies
-  log_2^up |Omega| - log_2^up |Omega'| <= Delta mu,
-where log_2^up n is log base 2 of n rounded up, |Omega| is a list length with duplicates counted, and Delta mu is how much the ledger rose over the run. The feel of log_2^up n is "how many yes/no questions it takes to pick one thing out of n". That's only the feel. It isn't a count of questions the VM asked, and it isn't Shannon entropy.
+Thiele-complete asks for exactly this shape, on any machine (minimal/ThieleComplete.v). Four clauses. A universal base whose moves are free and can't touch the record, and a record that stays up once it's up. A record that, from a clean start, rises only after a passing check of a claim, a commitment to that same claim with nothing it's about changed in between, and a certificate, with the checker proved to mean what it says. An exact toll, one mark for each of those three acts and nothing for anything else. And a claim whose check, commit and certificate raise the record on some loaded starts and leave it down on others. The small machine meets it (`earned_core_thiele_complete`). Every clock-style machine fails it, whatever its record (`clock_not_thiele_complete`). The weaker bar, the toll plus a universal base and nothing else, is nearly empty: a clock bolted to a computer clears it.
 
-Proof sketch. Call the tree T, its leaf count L, and its depth d. Three pieces click together.
-  First, a cover: |Omega| <= L * |Omega'|. Group the prior entries by which posterior representative they map to. That makes |Omega'| groups, and the supplied bound caps each group at L.
-  Second, take log_2^up of both sides. It never goes down as its input grows, so the inequality survives: log_2^up|Omega| <= log_2^up(L * |Omega'|). And the rounded log of a product is at most the sum of the rounded logs: log_2^up(L * |Omega'|) <= log_2^up L + log_2^up|Omega'|. So log_2^up|Omega| - log_2^up|Omega'| <= log_2^up L. A binary tree of depth d has at most 2^d leaves, so log_2^up L <= d.
-  Third, the cost. The realizes-the-tree guarantee says the run executes at least d cert-setters. In the VM every cert-setter costs at least 1, and conservation makes the ledger the sum of step costs. So Delta mu >= d.
-Chained: log_2^up|Omega| - log_2^up|Omega'| <= log_2^up L <= d <= Delta mu.
+The universal machine U goes further. It is one fixed program of 3728 instructions of the small machine's own six kinds, with no guest step built into anything, and it runs every program of the small machine from every clean start start(x, y) (UniversalRun.v). It halts exactly when its guest halts, with the guest's answer in its first two registers (`universal_halting`, `universal_output`). Its flag goes up at some step of its run if and only if the guest's goes up at some step of the guest's run, by its own check, its own commit and its own certificate (`universal_flag_iff`, `universal_earned`). Its ledger is the guest's, mark for mark, wherever the two line up (`universal_ledger_exact`). And the machine it runs on is Thiele-complete (`universal_thiele_complete`).
 
-What it doesn't claim. It doesn't say an arbitrary run has to pay log_2(n) for an n-way decision. A run that doesn't hand over the realized-tree receipt has no depth guarantee, so the chain has nothing to hang from. It might run one cert-setter and the bound says nothing about it. No unconditional Shannon-style bound on every deterministic single run is claimed.
+A second fixed program, U_P, carries this to machines from anywhere. It is 3735 instructions for the multi-register host with one paid move, PAY, and it runs every computably presented Thiele machine: a certification system whose driver (the move it takes next), step, prices and reading are computed by algorithms on number codes. It halts exactly when that machine does, shows the machine's state at every step before the halt, raises its flag exactly when the machine's reading turns yes, and earns that flag by its own check, commit and certificate (`presented_universal`). When the machine starts with its reading at no, the host's ledger is the machine's plus a surcharge of at most two (`presented_universal_surcharge_le_two`), and the surcharge is zero whenever the machine's first raising move costs at least three (`presented_universal_exact`). It can't always be zero: when the machine raises its record with a ledger below three, no host run from a clean start matches it exactly (`presented_universal_no_exact_below_three`).
 
-What it does claim. When a binary tree the run realizes carries the narrowing, mu pays at least the drop in log_2^up of the list length. The direction is the safe one. mu gets a floor. It's never set equal to anything and never given physical units. The floor can even be 0 when the list got shorter but the rounded log didn't move (4 down to 3). So it never overstates the narrowing. The run can't pay less than this, and the tree's depth, which the run's cert-setters cover, is what lifts the floor up to mu. Compression has a floor, and paid, certified observation sets it.
+The base doesn't have to be two counters. Put the earned layer (CHECK, COMMIT and CERTIFY, one mark each) on any machine with a universal base, over a claim language with an exact equality test and a checker proved to mean what it says, give it a table with room for one fact and a claim that comes out true at one start and false at another, and the result is Thiele-complete (`lift_thiele_complete`). It goes the other way too: the base moves of any Thiele-complete machine form a universal base (`lift_reduct_universal`). A base with finitely many moves never lifts, and neither does one whose step ignores where it is (`lift_finite_branching_not_complete`, `lift_stateless_not_complete`). Seven models of computation (Turing machines, binary stack machines, Minsky machines, alternate Minsky machines whose decrement jumps when the register is positive, FRACTRAN, mu-recursive functions and L) compute the same relations on numbers through the vendored library (`lift_num_models_agree`), so the lift works whichever of them computes the base step (`lift_numeric_base`). One counter is too few: its halting is decidable (`lift_oc_halts_dec`, `lift_oc_halts_bound`).
 
-What holds the chain together. The last link needs every cert-setter to cost at least 1. That's the VM's cost floor, the concrete version of what A2 asks for. Take it away and cert-setters could cost zero, their count would stop bounding Delta mu, and the chain snaps at the end. The first two links come from the supplied tree and bound. No cost rule touches them.
+Thiele machines compose. Two Thiele-complete machines side by side make a Thiele-complete product, each certification keeping its own earned chain (`cmpz_prod_tc`), and running one and handing its two output counters to a second through free loading moves gives a Thiele-complete machine too (`cmpz_seq_tc`). Sharing breaks it: when a second party writes a counter without raising its version, a run can check, let the silent write happen, then commit and certify with no earned chain behind the flag (`cmpz_shared_not_earned`).
+
+And the machines run. A small structured language (whole-number variables, addition, subtraction cut off at zero, comparisons, if, while, and procedures without recursion) compiles through proved stages to a guest of U_P: for a well-formed program, the source computes y exactly when the extracted runner, the host program, the two-counter guest and U_P running it all halt with y (`cmp_final`). The machines and the compiler are extracted from Coq to OCaml, with whole numbers mapped to unbounded integers; those mapping lines and the drivers are trusted without proof. A second machine, written by hand in Python (thiele_small/), is checked step by step against the Coq definitions, and the extracted code is checked against it. U on a guest that certifies is proved and not run. No chip was built for the small machine.
+
+What it doesn't claim. The check a commitment rests on is the machine's own checker for its own claims. That a claim is worth committing to, or that the checker is the right one for some outside purpose, is not a theorem here. The definition doesn't ask the checker to be computable.
 
 
-11. COMPARING TWO COST MODELS
+11. COMPARING COST MODELS
 
-Two meters can watch the same instruction and read different numbers. The VM's payload-sensitive schedule charges LASSERT `flen * 8 + S(delta)`. The formula-length contract ties `flen * 8` to the formula's encoded bit length B, which gives a B + 1 floor in the stated successful-certification case. An abstract instruction counter watching the same step reads 1. That's a comparison between two chosen meters. It isn't a speedup, a runtime lower bound for every implementation, or something A2 gives you on its own.
+Two meters can watch the same instruction and read different numbers. That's a comparison between two chosen meters. It isn't a speedup, a runtime lower bound for every implementation, or something A2 gives you on its own.
 
-The B + 1 floor needs the formula-length and additive-pricing contracts of the result you're using. A2 says a false-to-true certification step costs at least 1. If some other rule says the same step costs at least B, the two together give `cost >= max(B, 1)`. They don't give `cost >= B + 1`. For B >= 1, charging B satisfies both. Getting them to add takes another premise, or a schedule chosen that way.
+A2 is the potential method with one particular potential: one on uncertified states, zero on certified ones. A step system satisfies A2 exactly when every step has non-negative amortized cost under that potential (`a2_iff_nonnegative_amortized_cost`), and No Free Insight is then the potential method's telescoping bound (`nfi_by_potential`). The ledger is the writer monad over the natural numbers under addition. Those are local correspondences. None embeds a cited cost framework (CostSemanticsComparison.v).
 
-So name the VM's schedule and the payload-pricing contracts out loud. A rising mu doesn't measure physical information erased. And counting one abstract LASSERT doesn't show an ordinary RAM can check an arbitrary B-bit assertion in one physical or primitive step.
+Floors don't add on their own. A2 says a false-to-true certification step costs at least 1. If some other rule says the same step costs at least B, the two together give cost >= max(B, 1). They don't give cost >= B + 1. For B >= 1, charging B satisfies both. Getting them to add takes another premise, or a schedule chosen that way.
 
 To compare speed you have to fix the same task, the same representation, the same primitive instructions, and the same cost meter on both sides. Comparing two different meters doesn't give you a speed difference.
 
 
 12. THE RECORD AXIS
 
-Take any deterministic machine that keeps no record: a Turing machine, a RAM, a reversible machine, the VM. Call it the base. A machine extends the base when it runs the base step for step through a map down to it, carrying whatever hidden state it likes.
+Take any deterministic machine that keeps no record: a Turing machine, a RAM, a reversible machine, a two-counter machine. Call it the base. A machine extends the base when it runs the base step for step through a map down to it, carrying whatever hidden state it likes.
 
 Three results carry the weight.
 
-  Every base can carry the axis. For any event the base reaches, the base plus a latch on that event, charging one unit when the latch sets, is an honest extension of it (`latch_core_honest`). A reversible base with unbounded memory can carry one and stay reversible, by keeping every earlier record value (`history_latch_honest`). With finite memory it can't: there, a step that writes a permanent record is not injective (`finite_reversible_cannot_write`).
+  Every base can carry the axis. For any event the base reaches, the base plus a latch on that event, charging one unit when the latch sets, is an honest extension of it (`latch_core_honest`). A reversible base with unbounded memory can carry one and stay reversible, by keeping every earlier record value (`history_latch_injective`, `history_latch_honest`). With finite memory it can't: there, a step that writes a permanent record is not injective (`finite_reversible_cannot_write`).
 
-  The record isn't in the shadow. On the VM, no function of the named windows returns certification or mu (`cert_not_function_of_forget`, `mu_not_function_of_bare_observable`; Sections 4, 6, 9).
+  The record isn't in the shadow. Every Thiele-complete machine hides its record and its ledger from its own window (`complete_hides_record`, `complete_hides_ledger`; Section 9).
 
-  On finite hardware, writing a permanent record merges two states (`permanent_flip_is_not_injective`). So an account that prices merges already prices the write (`a2_from_merging_price_and_permanence`).
+  On a finite machine, writing a permanent record merges two states (`permanent_flip_is_not_injective`). So an account that prices merges already prices the write (`a2_from_merging_price_and_permanence`).
 
-One more result is close to definitional. Give the extension a record that never switches off, that some paid step writes, that follows A2, and whose next value depends only on the base state and on itself. Then the base and the record move as a latch on one event (`uniqueness_round4_holds`). That follows from the two conditions in a few lines. Both conditions do work: a record that can switch back off isn't a latch (`toggle_not_latch`), and a record switched on by a hidden clock isn't driven by the computation (`clock_record_not_driven`).
+One more result is close to definitional. Give the extension a record that never switches off, that some paid step writes, that follows A2, and whose next value depends only on the base state and on itself. Then the base and the record move as a latch on one event (`record_axis_is_latch_holds`). That follows from two of those conditions, permanence and being driven, in a few lines. Both conditions do work: a record that can switch back off isn't a latch (`toggle_not_latch`), and a record switched on by a hidden clock isn't driven by the computation (`clock_record_not_driven`).
+
+The record doesn't have to be one bit. Let its values sit in any order, where some values count as at or below others. Then the toll holds exactly when the floor does (`ax_floor_iff_a2`), and under the toll a run costs at least the number of steps that move its record to a value that isn't at or below the one it had (`ax_cost_ge_exits`). A straight strip of n + 1 stages needs exactly n latches (`chain_bits_exact`). On finitely many states with a growing record, when the ordinary machine forgets nothing, a step that moves the record up has to send two states that look the same to the ordinary machine to one state (`ax_fibre_collapse_exit`), and under the halving price the bits the collapse loses are, on average, never more than the step's price (`ax_priced_loss_bits`).
 
 So the picture is one structure with many price lists. The Turing machine is what's left when you drop the latch. What stays free is which event, the price list, and the base. Machines on different bases aren't compared here; that's complexity theory's question. The pointer question asks which event gets latched; the criterion offered here is conjectural.
 
@@ -237,15 +228,17 @@ Read the definitions before the theorem names. An implication can check out in C
 Where to push:
 
   1. The accounting theorem. Look at A2, non-negative costs, and conservation, then walk the run argument in Section 3. Whether a particular event deserves that price is a modeling question. The implication doesn't answer it.
-  2. Observation and verifier results. Pin down the window, the question, the states allowed, and the colliding pair. Check the claim on exactly that. An encoding that keeps more is a fair comparison. Don't let wording rule it out.
-  3. Implementation claims. Look at which steps are allowed and at the abstraction relation. For generated RTL, include the WFDrivenRun preconditions and the named compiler/backend boundary.
+  2. Observation results. Pin down the window, the question, the states allowed, and the colliding pair. Check the claim on exactly that. An encoding that keeps more is a fair comparison. Don't let wording rule it out.
+  3. Thiele-complete. Read the four clauses in minimal/ThieleComplete.v and check that each one does work: the clock-style machines and the other excluded machines in that file each fail a named clause.
   4. The diagonal. Look at the recursion and representability premises. Keep a predicate over arbitrary programs apart from a yes/no read of a state you've been handed. Don't read "this proof didn't go through halting" as "this can't be reduced to halting".
-  5. Section 10's bound. Look at the tree, the representative/fiber premise, and the depth-and-payment condition. They're part of the result. The bound isn't claimed for every deterministic decision run.
-  6. Payload-cost claims. Find the actual schedule and the premise that makes charges add. Keep that meter apart from runtime and from physical heat.
+  5. The universal machine. Check what U's theorems quantify over: every program of the small machine, every clean start start(x, y), and the ledger only where the two runs line up.
+  6. Cost comparisons. Find the actual schedule and the premise that makes charges add. Keep that meter apart from runtime and from physical heat.
 
-The formal inventory contains the permanent-certificate results, shadow pricing, the entropy forms, and the finite VM instance. The one-file development, ThieleMachineComplete.v, has the kernel VM's 51 instructions and definitions; a test enforces that correspondence. The assumption receipt covers 13,391 statements across 477 files: 6,033 closed under the global context and 7,358 depending on standard-library assumptions. It rejects project-local axioms. Closure under the global context does not erase a theorem's explicit hypotheses.
+The premises get the same pressure as the claims. For the headline results, the proofs also build the case where a premise is dropped and the result fails. The small machine's floor of three needs every part of a clean start: drop the empty table, the empty channel or the flag being down, and a cheaper run to a raised flag exists (`nec_s_min_cost_needs_empty_table`, `nec_s_min_cost_needs_empty_channel`, `nec_s_min_cost_needs_flag_down`). The toll from entropy pricing needs finitely many states and a permanent reading (`nec_f_entropy_toll_needs_finite`, `nec_f_entropy_toll_needs_permanent`). A window that forgets the counter can't recover it, and that needs a counter that can be set on its own (`nec_w_forget_needs_settable`). The ledger is the only book that starts at zero and grows by each move's price, on every reachable state (`nec_f_conservation`, `nec_f_initiality`). And A2 doesn't need the merge price: the eight-state machine with its jumps made free still meets A2, while a jump that merges two states costs nothing (`nec_f_a2_without_merge_pricing`).
 
-Start with `README.md` and the proof contracts it links. Run `make verify`, `make verify-claims`, and `make verify-research` in the documented build environment. They give you reproducible evidence about what they check. They don't certify every reading of an essay.
+The formal inventory contains the abstract model and No Free Insight, the permanent-certificate results, shadow pricing, the entropy forms, the eight-state finite instance, the record-axis results, the small machine with earned commitments (minimal/EarnedCore.v, standard library only), the definition of Thiele-complete with the machines that meet it and the ones that fail it, the window theorem, a host that runs small-machine programs as guests and collects their toll in its own step (minimal/UniversalThiele.v), and the universal machine U. It also contains the record over any order of values, the lift of the earned layer to any universal base and to seven models of computation, composition of Thiele-complete machines, the fixed host U_P for every computably presented Thiele machine, a verified compiler to it with its extraction to OCaml and a hand-written Python machine to check against, Rice and Kleene for the two-counter machine, and a counterexample for each headline premise. The assumption receipt covers 5,762 statements across 332 files: 5,006 closed under the global context and 756 depending on standard-library assumptions. Those counts are written by the receipt generator on Linux, never by hand. It rejects project-local axioms. Closure under the global context does not erase a theorem's explicit hypotheses.
+
+To run the checks, follow `README.md`. Run `make verify` and `make verify-research` in the documented build environment. They give you reproducible evidence about what they check. They don't certify every reading of an essay.
 
 I want this to hold up when someone reads it closely. If a definition misses what I was reaching for, or a sentence says more than its theorem, I want it fixed, even when the proof compiles.
 
@@ -253,37 +246,37 @@ I want this to hold up when someone reads it closely. If a definition misses wha
 14. EXACT SCOPE
 
 The central proved picture is the record axis. A permanent record driven by the
-base computation is a latch on an event. On finite hardware a permanent write
-merges states. The VM's named projections do not recover its record.
-Certification is an instance, not a theorem selecting the one event every
-system must record.
+base computation is a latch on an event. On a finite machine a permanent write
+merges states. Every Thiele-complete machine hides its record and its ledger
+from its own window. Certification is an instance. No theorem selects it as the
+one event every system must record.
 
-A finite growing record decomposes into threshold latches, but not in general
+A growing record driven by the base computation decomposes into threshold
+latches, over any partial order of values. It does not in general decompose
 into one latch. Revocable and probabilistic records do not inherit the same
-uniqueness theorem. The guest VM has a direct Rice reduction, verified dynamic
-dispatch, and semantic s-m-n specialization, but no internal recursion theorem:
-the evaluator and numeric specializer are not guest-callable. A two-state
-master-equation calorimeter computes exact heat and simultaneously shows that
-the population dynamics do not determine the Hamiltonian scale. Physical
-calibration requires thermal and device premises; mu has no intrinsic joule value.
+uniqueness theorem. A two-state master-equation calorimeter computes exact
+heat and simultaneously shows that the population dynamics do not determine
+the Hamiltonian scale. Physical calibration requires thermal and device
+premises; mu has no intrinsic joule value.
 
 The RFC 9162 verifier covers iterative Merkle-proof control flow, the PCC file
 is a small checker model, the RAM result uses addressed list memory, the
 reversible-machine result covers arithmetic update cores, and the TPM result
 is a signature-interface countermodel. They are not complete deployed security
-systems. The cost-framework files establish local correspondences, not full
-cost-framework embeddings.
+systems. The cost-framework files establish local correspondences. None is a
+full cost-framework embedding.
 
 The twelve-event observer survey proves a MAC-labelled counterexample in its
 chosen observer map and behaves correctly when the proliferating event is
-swapped. Its application to real systems depends on the observer model. The external
-consequence search found five known local arguments and five stronger targets
-without enough protocol or hardware semantics; none was both record-axis
-dependent, novel, and ready for external use. Consensus, exact observation, and
-a shared coordinator-free update do not force a permanent record; a closed
-two-observer toggle game refutes that stronger proposal. Durability does imply
-permanence, but only by making persistence a premise. The pointer criterion
-is therefore a conjecture.
+swapped. Its application to real systems depends on the observer model. The
+external consequence survey lists five narrow consequences that reduce to
+known local arguments and five stronger targets without enough protocol or
+hardware semantics; none is at once record-axis dependent, novel, and ready
+for external use. Consensus, exact observation, and a shared coordinator-free
+update do not force a permanent record; a closed two-observer toggle game
+refutes that stronger proposal. Durability does imply permanence. It does so
+by making persistence a premise. The pointer criterion is therefore a
+conjecture.
 
 
 ------------------------------------------------------------

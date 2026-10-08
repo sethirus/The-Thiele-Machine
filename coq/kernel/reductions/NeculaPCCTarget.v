@@ -1,7 +1,7 @@
 (** SCOPE NOTE: standalone proof scope. This toy PCC fragment is checked on its
-    own terms and has no formal bridge to the Thiele VM.
+    own terms and has no formal bridge to a Thiele machine.
 
-    Frozen core model of the PCC consumer pipeline described by Necula,
+    Core model of the PCC consumer pipeline described by Necula,
     POPL 1997, Sections 2--4: policy, verification condition, certificate,
     and a small trusted proof checker.  This is a memory-access fragment,
     not the paper's full DEC Alpha case study. *)

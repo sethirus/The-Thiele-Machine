@@ -1,7 +1,7 @@
 (** SCOPE NOTE: standalone proof scope. This signature-interface countermodel
-    is independent of the VM and proves no TPM-to-VM correspondence.
+    is independent of the kernel and proves no TPM-to-machine correspondence.
 
-    Frozen authenticity boundary for the TPM quote abstraction. *)
+    Authenticity boundary for the TPM quote abstraction. *)
 
 From Coq Require Import Bool Arith.PeanoNat.
 

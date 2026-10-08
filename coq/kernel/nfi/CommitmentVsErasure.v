@@ -13,7 +13,7 @@
 
     The separation is semantic, not about trace validation.  A trusted erasure
     law can certify without erasing, at total cost 0.  A trusted A2 law cannot
-    certify at total cost 0.  This is the first substitution-test target:
+    certify at total cost 0.  This is a substitution-test target:
     the theorem talks about commitment specifically, and the erasure law is not
     a substitute for it under equal trust.
 *)

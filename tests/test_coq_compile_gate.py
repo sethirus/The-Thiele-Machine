@@ -39,23 +39,24 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 COQ_DIR = REPO_ROOT / "coq"
 COQ_PROJECT = COQ_DIR / "_CoqProject"
 
-# Phase-A physics files and MinimalExtraction.v have been archived.
-# Extraction.v is the sole active top-level file.
+# coq/ has no active top-level files; every proof lives under coq/kernel/.
 REQUIRED_KERNEL_PHYSICS_FILES: list[str] = []
 
 # Production kernel files where bare (non-Section) Axiom/Parameter are forbidden.
 # Derived from the canonical in-scope set (coq/_CoqProject minus probes) filtered
-# to kernel/, so it spans every kernel subdirectory recursively. The previous
-# non-recursive ``glob("*.v")`` matched zero files (kernel/ has no top-level .v),
+# to kernel/, so it spans every kernel subdirectory recursively. A
+# non-recursive ``glob("*.v")`` would match zero files (kernel/ has no top-level .v),
 # silently turning this gate into a no-op.
 import sys as _sys
 _sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from coq_proof_scope import coqproject_v_files as _coqproject_v_files  # type: ignore
 
+MINIMAL_DIR = REPO_ROOT / "minimal"
+# The small machine lives in minimal/ and carries every headline theorem, so it
+# is held to the same text rules as the kernel.
 KERNEL_PROD_FILES = sorted(
-    REPO_ROOT / rel
-    for rel in _coqproject_v_files()
-    if rel.startswith("coq/kernel/")
+    {REPO_ROOT / rel for rel in _coqproject_v_files() if rel.startswith("coq/kernel/")}
+    | set(MINIMAL_DIR.glob("*.v"))
 )
 assert KERNEL_PROD_FILES, (
     "KERNEL_PROD_FILES is empty — the kernel scan would be a no-op. "
@@ -146,9 +147,9 @@ def test_required_physics_files_compiled():
 # whose reviewers most need it -- someone auditing the "zero Admitted" claim
 # from a clean checkout without Coq installed.
 def test_zero_admits_in_coq_sources():
-    """No .v file in coq/ (excluding patches/) may contain Admitted."""
+    """No .v file in coq/ or minimal/ (excluding patches/) may contain Admitted."""
     offenders: list[str] = []
-    for vf in COQ_DIR.rglob("*.v"):
+    for vf in list(COQ_DIR.rglob("*.v")) + list(MINIMAL_DIR.glob("*.v")):
         if "patches" in vf.parts:
             continue
         text = vf.read_text(encoding="utf-8")
@@ -296,3 +297,13 @@ def test_coqproject_count_matches_v_files():
 
     problems = validate_alignment()
     assert not problems, "\n\n".join(problems)
+
+
+def test_text_gates_cover_the_small_machine_directory():
+    """The Makefile and the proof-gate script grep for Admitted over minimal/ as
+    well as coq/, and the compile-gate scans above include minimal/."""
+    assert any(p.parent == MINIMAL_DIR for p in KERNEL_PROD_FILES)
+    makefile = (REPO_ROOT / "Makefile").read_text(encoding="utf-8")
+    script = (REPO_ROOT / "scripts" / "proof_gate_reproducible.sh").read_text(encoding="utf-8")
+    assert "coq/ minimal/ --include='*.v'" in makefile
+    assert script.count('"$COQ_DIR" "$MINIMAL_DIR"') == 2

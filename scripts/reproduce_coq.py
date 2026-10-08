@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Rebuild repository Coq sources and vendored dependencies in a fresh local tree.
+"""Rebuild repository Coq sources and the vendored library in a fresh local tree.
 
-Requires native Coq/OCaml, GNU make and CSDP. Never installs packages, downloads
+Requires native Coq, GNU make and CSDP. Never installs packages, downloads
 sources, invokes a container runtime, or copies precompiled proof objects.
 """
 from __future__ import annotations
@@ -20,28 +20,17 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-FOLDERS = ('coq', 'vendor/bbv', 'vendor/kami',
-           'vendor/coq-undecidability/theories')
+FOLDERS = ('coq', 'minimal', 'vendor/coq-undecidability/theories')
 CONFIGS = ('coq/_CoqProject', 'coq/Makefile.local',
-           'vendor/bbv/Makefile', 'vendor/bbv/_CoqProject',
-           'vendor/kami/Makefile', 'vendor/kami/_CoqProject',
            'vendor/coq-undecidability/theories/Makefile',
            'vendor/coq-undecidability/theories/_CoqProject',
            'vendor/coq-undecidability/LICENSE',
            'vendor/coq-undecidability/UPSTREAM.md',
-           'scripts/reproduce_coq.py', 'scripts/check_coq_probe.py')
-DEFAULT_PROBES = ('tests/coq_probes/cm2_delivery.v',
-                  'tests/coq_probes/dispatch_delivery.v',
-                  'tests/coq_probes/core_execution.v',
-                  'tests/coq_probes/dispatch_observation/Contracts.v',
-                  'tests/coq_probes/dispatch_observation/FamilyContracts.v',
-                  'tests/coq_probes/dispatch_observation/CastProbe.v',
-                  'tests/coq_probes/specialization/Contracts.v',
-                  'tests/coq_probes/self_interpreter/Contracts.v',
-                  'tests/coq_probes/rice/Contracts.v',
-                  'tests/coq_probes/c1_c2/Contracts.v',
-                  'tests/coq_probes/c2_dispatch/Contracts.v',
-                  'tests/coq_probes/c2_invariants/Contracts.v')
+           'scripts/reproduce_coq.py')
+# Extra Coq probe files run with the project load path after the build
+# (pass --probe). None ship by default: coqchk below re-checks every module
+# the project lists.
+DEFAULT_PROBES: tuple[str, ...] = ()
 _ROOT_RE = re.compile(r'^-(R|Q)\s+(\S+)\s+(\S+)$')
 
 
@@ -159,16 +148,12 @@ def main() -> int:
             target.write_bytes(path.read_bytes())
             manifest[str(name)] = {'sha256': digest(target), 'bytes': target.stat().st_size}
         assert not any(source.rglob('*.vo'))
-        (source / 'build/kami_hw').mkdir(parents=True)
-        (source / 'vendor/kami/Kami/Ext/Ocaml').mkdir(parents=True, exist_ok=True)
         (output / 'source-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     flags = []
     for line in (source / 'coq/_CoqProject').read_text().splitlines():
         if line.startswith(('-R ', '-Q ', '-I ')):
             flags.extend(shlex.split(line))
     commands = [
-        ('bbv-build', source, ['make', '-C', 'vendor/bbv', f'-j{args.jobs}']),
-        ('kami-build', source, ['make', '-C', 'vendor/kami', f'-j{args.jobs}']),
         ('project-makefile', source / 'coq', ['coq_makefile', '-f', '_CoqProject', '-o', 'Makefile']),
         ('coq-build', source, ['make', '-C', 'coq', f'-j{args.jobs}']),
     ]
@@ -177,8 +162,9 @@ def main() -> int:
                  for i, p in enumerate(probes)]
     commands.append(('coqchk', source / 'coq', ['coqchk', '-silent', '-o', *flags, *libraries]))
     env = os.environ.copy()
-    # Replace inherited project lookup paths: only this snapshot's libraries.
-    env['COQPATH'] = os.pathsep.join(str(source / f) for f in ('vendor/bbv/src', 'vendor/kami'))
+    # Replace inherited project lookup paths: the snapshot's own load path
+    # (from _CoqProject) is the only one used.
+    env['COQPATH'] = ''
     env.pop('COQBIN', None)
     env['OCAMLRUNPARAM'] = 'l=64M'
     report = {'started_utc': datetime.now(timezone.utc).isoformat(),
@@ -204,7 +190,7 @@ def main() -> int:
     print(f'Reproduction directory: {output}', flush=True)
     if args.prepare_only:
         return 0
-    required = ('coqc', 'coqtop', 'coqchk', 'coq_makefile', 'ocamlc', 'make', 'csdp')
+    required = ('coqc', 'coqtop', 'coqchk', 'coq_makefile', 'make', 'csdp')
     report['tools'] = {name: shutil.which(name) for name in required}
     missing_tools = [name for name in required if report['tools'][name] is None]
     if missing_tools:
@@ -218,7 +204,7 @@ def main() -> int:
     report['tool_sha256'] = tool_hashes
     with (output / 'tool-versions.log').open('w') as log:
         for cmd in (['coqc', '--version'], ['coqchk', '--version'],
-                    ['ocamlc', '-version'], ['make', '--version']):
+                    ['make', '--version']):
             subprocess.run(cmd, stdout=log, stderr=subprocess.STDOUT, env=env, check=True)
     soft, hard = resource.getrlimit(resource.RLIMIT_STACK)
     wanted = 64 * 1024 * 1024

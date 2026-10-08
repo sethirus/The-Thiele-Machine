@@ -1,7 +1,7 @@
 (** SCOPE NOTE: standalone proof scope. These proofs close the independent
-    two-state models and do not use VM semantic anchors.
+    two-state models and do not use the kernel's semantic anchors.
 
-    Closed proofs of the frozen top-five narrow consequences. *)
+    Proofs of the top-five narrow consequences. *)
 
 From Coq Require Import Bool Arith.PeanoNat.
 From Kernel Require Import RealSystemConsequencesTarget.

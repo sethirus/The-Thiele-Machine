@@ -1,7 +1,7 @@
-(** Frozen cross-base equivalence that permits instruction stuttering. *)
+(** Cross-base equivalence that permits instruction stuttering. *)
 
 From Coq Require Import List Arith.PeanoNat.
-From Kernel Require Import StructuralCoreRound4 Kernel KernelTM VMState VMStep VMUnboundedStep.
+From Kernel Require Import StructuralCoreAnyBase Kernel KernelTM.
 
 Definition base_run (B : BaseMachine) (n : nat) (s : b_state B) : b_state B :=
   Nat.iter n (b_next B) s.
@@ -18,9 +18,9 @@ Definition weak_base_equiv
       (exists n, R (b_next B1 x) (base_run B2 n y)) /\
       (exists n, R (base_run B1 n x) (b_next B2 y)).
 
-Definition round4_property (B : BaseMachine) : Prop :=
+Definition record_axis_is_latch_on (B : BaseMachine) : Prop :=
   forall (M : StructuralCore.RCM) (C : BaseCover M B),
-    HonestExtension4 M B C -> exists h, latch_factorization M B C h.
+    HonestBaseExtension M B C -> exists h, latch_factorization M B C h.
 
 Definition weak_base_equiv_refl : Prop :=
   forall (B : BaseMachine) (O : Type) (obs : b_state B -> O),
@@ -32,15 +32,15 @@ Definition weak_base_equiv_sym : Prop :=
     weak_base_equiv B1 B2 O obs1 obs2 ->
     weak_base_equiv B2 B1 O obs2 obs1.
 
-(** Round 4 is parametric in the base, so the equivalence premise is not
-    needed to establish the property on either side. *)
-Definition weak_equiv_preserves_round4 : Prop :=
+(** The record axis property is parametric in the base, so the equivalence
+    premise is not needed to establish the property on either side. *)
+Definition weak_equiv_preserves_record_latch : Prop :=
   forall (B1 B2 : BaseMachine) (O : Type)
          (obs1 : b_state B1 -> O) (obs2 : b_state B2 -> O),
     weak_base_equiv B1 B2 O obs1 obs2 ->
-    (round4_property B1 <-> round4_property B2).
+    (record_axis_is_latch_on B1 <-> record_axis_is_latch_on B2).
 
-(** Adapters for executable semantics already present in the repository. *)
+(** The Turing-machine kernel as a base. *)
 Definition tm_base (p : program) : BaseMachine := {|
   b_state := state;
   b_next := step_tm p;
@@ -48,15 +48,5 @@ Definition tm_base (p : program) : BaseMachine := {|
   b_halted := fun s => fetch p s = T_Halt
 |}.
 
-Definition vm_base (p : list vm_instruction) : BaseMachine := {|
-  b_state := VMState;
-  b_next := run_vm_u 1 p;
-  b_init := fun _ => True;
-  b_halted := fun s => nth_error p s.(vm_pc) = None
-|}.
-
-Definition round4_tm_target : Prop :=
-  forall p, round4_property (tm_base p).
-
-Definition round4_vm_target : Prop :=
-  forall p, round4_property (vm_base p).
+Definition record_axis_is_latch_on_tm : Prop :=
+  forall p, record_axis_is_latch_on (tm_base p).

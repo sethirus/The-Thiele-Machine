@@ -5,9 +5,9 @@
     premises in these definitions. *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
@@ -62,7 +62,7 @@ Qed.
 
 (** [chsh_bound_4] is the triangle-inequality consequence of the four
     absolute-value premises. It is an algebraic bound for this rational record;
-    it does not classify physical correlations or mention the VM ledger. *)
+    it does not classify physical correlations or mention a ledger. *)
 Theorem chsh_bound_4 : forall c : Correlators,
   Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\ Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 ->
   Qabs (S_from_correlators c) <= 4.
@@ -273,8 +273,9 @@ Qed.
 
 (** General bound: |S| <= 4 from correlation bounds.
 
-    This is the strongest general theorem in this file. The symmetric lemmas
-    above are stronger, but they have symmetric hypotheses. *)
+    This bound needs only |E| <= 1 for the four correlators, and it gives 4.
+    The symmetric lemmas above give the smaller bound 5657/2000, but they
+    assume symmetric correlators and the minor conditions. *)
 Theorem chsh_general_bound : forall c : Correlators,
   Qabs (E00 c) <= 1 -> Qabs (E01 c) <= 1 -> 
   Qabs (E10 c) <= 1 -> Qabs (E11 c) <= 1 ->
@@ -341,7 +342,7 @@ Qed.
 
 (** [tsirelson_rational_lower_witness] is a lower-bound witness for the selected rational
     predicate. It gives existence at [28284/10000]; it is not an exact
-    optimizer theorem and carries no VM or ledger claim. *)
+    optimizer theorem and carries no machine or ledger claim. *)
 Theorem tsirelson_rational_lower_witness :
   exists c : Correlators,
     algebraically_coherent c /\
@@ -358,7 +359,7 @@ Qed.
     rational predicate. The proof uses its minor witnesses and an SOS
     certificate over [Q]. *)
 
-(* SCOPE NOTE: foundation connectivity — the theorem uses the minor witnesses
+(* SCOPE NOTE: foundation connectivity; the theorem uses the minor witnesses
    and [psatz Q 4] supplies the required rational SOS certificate. *)
 Theorem algebraically_coherent_tsirelson_general :
   forall c : Correlators,

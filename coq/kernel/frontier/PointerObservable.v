@@ -1,12 +1,12 @@
 (** The pointer-observable criterion, formalized: definitions, the
     conjecture schema, and a non-vacuity witness.
 
-  The monograph's pointer-observable section names the successor to the
-  open question "is certification the event a step rule is forced to
-  price?": the conjecture that certification is singled out among meterable
-  events by REDUNDANT RECORD PROLIFERATION -- its records are copied,
-  checked, and stored across independent substrates that do not otherwise
-  share state, while rival meterable events leave no such trail.
+  The pointer-observable criterion is the successor to the open question
+  "is certification the event a step rule is forced to price?": the
+  conjecture that certification is singled out among meterable events by
+  REDUNDANT RECORD PROLIFERATION: its records are copied, checked, and
+  stored across independent substrates that do not otherwise share state,
+  while rival meterable events leave no such trail.
 
   None of that world is in the formal objects below. They have indexed
   Boolean observers and nothing else: no deployment, no independence
@@ -23,8 +23,8 @@
      UNIQUE POINTER among a finite list of rival events when it
      proliferates and no rival does ([unique_pointer_among]).
 
-  2. THE CONJECTURE SCHEMA. The monograph's conjecture quantifies over
-     deployed, independently evolved metering disciplines -- an empirical
+  2. THE CONJECTURE SCHEMA. The conjecture quantifies over
+     deployed, independently evolved metering disciplines, an empirical
      class, not a formal one. What is formalizable today is the schema:
      given a class [C] of ecosystems with a designated metered event and
      designated rivals, the criterion holds for [C] when every metered
@@ -41,27 +41,27 @@
      the work-counter event does not ([toy_work_not_proliferating]);
      certification is the unique pointer among the two
      ([toy_cert_unique_pointer]). This witnesses
-     that the definitions are satisfiable and discriminating -- it is a
+     that the definitions are satisfiable and discriminating; it is a
      sanity instance, not evidence for the conjecture, and the file says
      so in its own name for it.
 
   Falsification of the criterion's usefulness, at this level: show the
-  definitions are degenerate -- e.g., exhibit that every event trivially
+  definitions are degenerate: e.g., exhibit that every event trivially
   proliferates in every ecosystem with at least one observer, or that no
   event can. The toy instance refutes both degeneracies at once.
 *)
 
 (* SCOPE NOTE: standalone proof scope. This file is about
-   ecosystems and record proliferation, not VM semantics. No definition or
-   theorem here mentions VMState, vm_step, vm_mu, MuCostModel or
-   instruction_cost; the criterion is deliberately stated over an abstract
+   ecosystems and record proliferation, not a machine's semantics. No
+   definition or theorem here mentions a certification system or a ledger;
+   the criterion is deliberately stated over an abstract
    state type, so that a discipline owing nothing to this development could
    instantiate it.
 
    The audit is waived rather than satisfied: importing the kernel without
    using it would assert a bridge that isn't here. The connection to the
    mu-ledger is made by the conjecture the criterion is about, argued in
-   prose in the monograph, not by an import line. *)
+   prose, not by an import line. *)
 
 From Coq Require Import List Lia.
 Import ListNotations.
@@ -93,9 +93,9 @@ Definition redundantly_proliferating
 
 (** Unique pointer among a designated family of rival events: the event
     proliferates and no rival in the list does. Uniqueness is relative to
-    the named rivals on purpose: absolute uniqueness is false for free
-    (an event's complement proliferates whenever it does), and the
-    conjecture's content is about the events a step rule could
+    the named rivals on purpose: absolute uniqueness is false for free (any
+    event equal to [E] on every state proliferates whenever [E] does), and
+    the conjecture's content is about the events a step rule could
     meaningfully meter, not about Boolean algebra. *)
 Definition unique_pointer_among
   (eco : Ecosystem)
@@ -109,11 +109,12 @@ Definition unique_pointer_among
 (** A metering-discipline class: a predicate on ecosystems, a designated
     metered event for each member, and its designated rival events. The
     criterion holds for the class when every member's metered event is the
-    unique pointer among its rivals. The monograph's conjecture is this
-    schema instantiated at models of real disciplines (proof-of-stake
-    finality, gas metering, TEE attestation, certificate transparency,
-    proof-carrying verification). Those models do not exist yet;
-    constructing them is the successor project. The word "metered" is a
+    unique pointer among its rivals. The conjecture is this schema
+    instantiated at models of real disciplines (proof-of-stake finality,
+    gas metering, TEE attestation, certificate transparency, proof-carrying
+    verification). PointerObservableReductions.v builds one small observer
+    map per discipline; models faithful to the real disciplines are not
+    built here. The word "metered" is a
     label here: the definition contains no metering semantics. *)
 Definition pointer_criterion_holds
   (C : Ecosystem -> Prop)
@@ -127,7 +128,7 @@ Definition pointer_criterion_holds
 Module ReplicatedLedgerToy.
 
 (** Global state: a certification flag and a work counter. Three
-    observers, each mirroring the certification flag and nothing else --
+    observers, each mirroring the certification flag and nothing else,
     the caricature of a network of full nodes replicating finality while
     nobody replicates anyone's loop counter. *)
 Record ToyState := {

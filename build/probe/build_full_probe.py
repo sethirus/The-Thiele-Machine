@@ -191,8 +191,8 @@ def main():
     print(f"# Coq files: {len(coq_files)}")
 
     probe_lines = [
-        "(** Comprehensive Print Assumptions probe — every addressable proof-bearing",
-        "    declaration across every .v file in the repository (excluding vendor/kami,",
+        "(** Comprehensive Print Assumptions probe: every addressable proof-bearing",
+        "    declaration across every .v file in the repository (excluding vendor/,",
         "    coq/archive/). Generated; do not edit. Functor and Module-Type interiors",
         "    are skipped here and recorded separately in the inventory. *)",
         "",
@@ -204,11 +204,22 @@ def main():
     total_addr = 0
     total_unaddr = 0
 
+    # Files outside coq/ are probed when coq/_CoqProject compiles them (the
+    # small-machine files in minimal/ under the Minimal root); a file compiled
+    # only on its own, with a bare module name, is outside the receipt.
+    listed_outside = {
+        (ROOT / "coq" / line.strip()).resolve()
+        for line in (ROOT / "coq" / "_CoqProject").read_text().splitlines()
+        if line.strip().endswith(".v") and line.strip().startswith("../")
+    }
     for vfile in coq_files:
         rel = vfile.relative_to(ROOT)
-        if rel.parts[0] != "coq":
+        if rel.parts[0] == "coq":
+            rel_in_coq = Path(*rel.parts[1:])
+        elif vfile.resolve() in listed_outside:
+            rel_in_coq = Path("..", *rel.parts)
+        else:
             continue
-        rel_in_coq = Path(*rel.parts[1:])
         qmod = qualified_module_name(rel_in_coq)
         text = vfile.read_text(encoding="utf-8", errors="replace")
         parsed = parse_theorems(text)
@@ -239,20 +250,13 @@ def main():
     probe_lines += [""]
     probe_lines += print_lines
 
-    # Extras: explicit probes for theorems that come from functor instantiation.
-    # The Coq sources show:
-    #   coq/nofi/Instance_Kernel.v: Module KernelNoFI_Theorem := NoFreeInsight_Theorem.NoFreeInsight(KernelNoFI).
-    # So the functor-internal theorem `no_free_insight` is reachable as
-    # NoFI.Instance_Kernel.KernelNoFI_Theorem.no_free_insight.
-    probe_lines.append("")
-    probe_lines.append("(* === Explicit probes for functor-instantiated names === *)")
-    probe_lines.append("Print Assumptions NoFI.Instance_Kernel.KernelNoFI_Theorem.no_free_insight.")
-
-    extras = [{
-        "full_name": "NoFI.Instance_Kernel.KernelNoFI_Theorem.no_free_insight",
-        "source_functor": "NoFI.NoFreeInsight_Theorem.NoFreeInsight",
-        "instantiation_site": "coq/nofi/Instance_Kernel.v:102",
-    }]
+    # Extras: explicit probes for theorems reachable only through a functor
+    # instantiation (a functor's interior is not addressable by the scan
+    # above). The corpus has none at present; each one added here needs its
+    # Print Assumptions line and an entry recording where it is instantiated.
+    extras: list[dict[str, str]] = []
+    for extra in extras:
+        probe_lines.append("Print Assumptions " + extra["full_name"] + ".")
 
     probe_text = "\n".join(probe_lines) + "\n"
     out_v = ROOT / "coq" / "AssumptionsProbeAll.v"

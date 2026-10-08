@@ -1,0 +1,87 @@
+DIGEST 9af3cb86e91a40287115e6d78e6dc165
+FKernel.UniversalThieleLinks
+R192:217 Kernel.UniversalCertificationCost <> <> lib
+R228:245 Minimal.EarnedCore <> <> lib
+R256:278 Minimal.UniversalThiele <> <> lib
+R293:310 Minimal.EarnedCore <> <> modtype
+mod 288:288 <> E
+R325:347 Minimal.UniversalThiele <> <> modtype
+mod 320:320 <> U
+def 406:412 <> host_cs
+R416:434 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R441:454 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R456:463 Kernel.UniversalThieleLinks <> hstate rec
+R465:472 Kernel.UniversalThieleLinks <> hinstr ind
+R474:480 Kernel.UniversalThieleLinks <> hexec def
+R482:488 Kernel.UniversalThieleLinks <> hcost def
+R490:496 Kernel.UniversalThieleLinks <> hread def
+R498:508 Kernel.UniversalThieleLinks <> host_toll thm
+def 585:598 <> host_mirror_cs
+R602:620 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R627:640 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R642:649 Kernel.UniversalThieleLinks <> hstate rec
+R651:658 Kernel.UniversalThieleLinks <> hinstr ind
+R660:666 Kernel.UniversalThieleLinks <> hexec def
+R668:674 Kernel.UniversalThieleLinks <> hcost def
+R676:681 Kernel.UniversalThieleLinks <> mrec proj
+R683:700 Kernel.UniversalThieleLinks <> host_mirror_toll thm
+def 764:771 <> guest_cs
+R775:793 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R800:813 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R815:821 Kernel.UniversalThieleLinks <> state rec
+R823:829 Kernel.UniversalThieleLinks <> instr ind
+R831:836 Kernel.UniversalThieleLinks <> exec def
+R838:843 Kernel.UniversalThieleLinks <> cost def
+R845:850 Kernel.UniversalThieleLinks <> cert proj
+R852:855 Kernel.UniversalThieleLinks <> a2 thm
+prf 865:875 <> host_cs_run
+binder 886:887 <> tr:1
+binder 889:889 <> h:2
+R911:913 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R892:897 Kernel.UniversalCertificationCost <> cs_run def
+R899:905 Kernel.UniversalThieleLinks <> host_cs def
+R907:908 Kernel.UniversalThieleLinks <> tr:1 var
+R910:910 Kernel.UniversalThieleLinks <> h:2 var
+R914:919 Kernel.UniversalThieleLinks <> hrun def
+R921:922 Kernel.UniversalThieleLinks <> tr:1 var
+R924:924 Kernel.UniversalThieleLinks <> h:2 var
+prf 981:992 <> host_cs_cost
+binder 1003:1004 <> tr:3
+R1031:1033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1007:1019 Kernel.UniversalCertificationCost <> cs_total_cost def
+R1021:1027 Kernel.UniversalThieleLinks <> host_cs def
+R1029:1030 Kernel.UniversalThieleLinks <> tr:3 var
+R1034:1046 Kernel.UniversalThieleLinks <> htotal_cost def
+R1048:1049 Kernel.UniversalThieleLinks <> tr:3 var
+prf 1208:1215 <> host_nfi
+binder 1226:1227 <> tr:4
+binder 1229:1229 <> h:5
+R1251:1254 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1243:1245 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1234:1240 Kernel.UniversalThieleLinks <> hread def
+R1242:1242 Kernel.UniversalThieleLinks <> h:5 var
+R1246:1250 Coq.Init.Datatypes <> false constr
+R1283:1286 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1276:1278 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1255:1261 Kernel.UniversalThieleLinks <> hread def
+R1264:1269 Kernel.UniversalThieleLinks <> hrun def
+R1271:1272 Kernel.UniversalThieleLinks <> tr:4 var
+R1274:1274 Kernel.UniversalThieleLinks <> h:5 var
+R1279:1282 Coq.Init.Datatypes <> true constr
+R1303:1306 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1287:1299 Kernel.UniversalThieleLinks <> htotal_cost def
+R1301:1302 Kernel.UniversalThieleLinks <> tr:4 var
+R1349:1360 Kernel.UniversalThieleLinks <> host_cs_cost thm
+R1349:1360 Kernel.UniversalThieleLinks <> host_cs_cost thm
+R1349:1360 Kernel.UniversalThieleLinks <> host_cs_cost thm
+R1372:1398 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R1400:1406 Kernel.UniversalThieleLinks <> host_cs def
+R1372:1398 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R1400:1406 Kernel.UniversalThieleLinks <> host_cs def
+R1435:1445 Kernel.UniversalThieleLinks <> host_cs_run thm
+R1435:1445 Kernel.UniversalThieleLinks <> host_cs_run thm
+R1435:1445 Kernel.UniversalThieleLinks <> host_cs_run thm
+R1482:1489 Kernel.UniversalThieleLinks <> host_nfi thm
+R1510:1516 Kernel.UniversalThieleLinks <> host_cs def
+R1537:1550 Kernel.UniversalThieleLinks <> host_mirror_cs def
+R1571:1578 Kernel.UniversalThieleLinks <> guest_cs def

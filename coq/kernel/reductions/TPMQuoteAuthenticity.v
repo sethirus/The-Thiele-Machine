@@ -1,5 +1,5 @@
 (** SCOPE NOTE: standalone proof scope. The countermodel concerns only the
-    frozen signature interface and imports no VM semantics.
+    signature interface and imports no machine semantics.
 
     A closed countermodel showing why TPM quote authenticity needs a
     cryptographic trust premise, not merely a sign/verify interface. *)

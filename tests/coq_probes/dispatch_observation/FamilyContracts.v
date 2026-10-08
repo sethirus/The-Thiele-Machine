@@ -1,7 +1,0 @@
-From KamiHW Require Import DispatchAddFamily.
-Set Printing Depth 1000.
-Print dispatch_add_family_state.
-Print dispatch_add_family_result.
-Print dispatch_add_family_post.
-Check dispatch_add_family_actual_execution.
-Print Assumptions dispatch_add_family_actual_execution.

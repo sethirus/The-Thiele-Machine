@@ -1,133 +1,133 @@
-DIGEST 4aea7b835d399766adf945ecdc27c8b0
+DIGEST 58d6f6f14fc662c539bb9b493abbbb2d
 FKernel.RealSystemConsequencesTarget
-R343:346 Coq.Bool.Bool <> <> lib
-R348:361 Coq.Arith.PeanoNat <> <> lib
-rec 372:384 <> CTClientState
-proj 393:404 <> ct_local_sth
-proj 415:433 <> ct_world_consistent
-R408:410 Coq.Init.Datatypes <> nat ind
-R437:440 Coq.Init.Datatypes <> bool ind
-def 456:468 <> ct_local_view
-R475:487 Kernel.RealSystemConsequencesTarget <> CTClientState rec
-binder 471:471 <> s:4
-R492:494 Coq.Init.Datatypes <> nat ind
-R499:510 Kernel.RealSystemConsequencesTarget <> ct_local_sth proj
-R512:512 Kernel.RealSystemConsequencesTarget <> s:4 var
-def 526:571 <> ct_local_view_cannot_decide_global_consistency
-R585:586 Coq.Init.Logic <> ::type_scope:'~'_x not
-R587:593 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R614:621 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R606:609 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R603:605 Coq.Init.Datatypes <> nat ind
-R610:613 Coq.Init.Datatypes <> bool ind
-binder 594:599 <> decide:5
-binder 629:629 <> s:6
-R656:658 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R632:637 Kernel.RealSystemConsequencesTarget <> decide:5 var
-R640:652 Kernel.RealSystemConsequencesTarget <> ct_local_view def
-R654:654 Kernel.RealSystemConsequencesTarget <> s:6 var
-R659:677 Kernel.RealSystemConsequencesTarget <> ct_world_consistent proj
-R679:679 Kernel.RealSystemConsequencesTarget <> s:6 var
-rec 690:706 <> TPMSelectionInput
-proj 715:730 <> signed_selection
-proj 741:758 <> supplied_selection
-proj 769:792 <> composite_digest_matches
-R734:736 Coq.Init.Datatypes <> nat ind
-R762:764 Coq.Init.Datatypes <> nat ind
-R796:799 Coq.Init.Datatypes <> bool ind
-def 815:836 <> incomplete_quote_check
-R843:859 Kernel.RealSystemConsequencesTarget <> TPMSelectionInput rec
-binder 839:839 <> s:11
-R864:867 Coq.Init.Datatypes <> bool ind
-R874:897 Kernel.RealSystemConsequencesTarget <> composite_digest_matches proj
-R899:899 Kernel.RealSystemConsequencesTarget <> s:11 var
-def 913:961 <> incomplete_quote_check_accepts_selection_mismatch
-R975:981 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R983:984 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 982:982 <> s:12
-R1016:1031 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1009:1011 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R985:1006 Kernel.RealSystemConsequencesTarget <> incomplete_quote_check def
-R1008:1008 Kernel.RealSystemConsequencesTarget <> s:12 var
-R1012:1015 Coq.Init.Datatypes <> true constr
-R1050:1053 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R1032:1047 Kernel.RealSystemConsequencesTarget <> signed_selection proj
-R1049:1049 Kernel.RealSystemConsequencesTarget <> s:12 var
-R1054:1071 Kernel.RealSystemConsequencesTarget <> supplied_selection proj
-R1073:1073 Kernel.RealSystemConsequencesTarget <> s:12 var
-rec 1084:1102 <> WeakSubjectiveState
-proj 1111:1125 <> ws_local_suffix
-proj 1136:1152 <> ws_trusted_anchor
-R1129:1131 Coq.Init.Datatypes <> nat ind
-R1156:1159 Coq.Init.Datatypes <> bool ind
-def 1175:1188 <> ws_suffix_view
-R1195:1213 Kernel.RealSystemConsequencesTarget <> WeakSubjectiveState rec
-binder 1191:1191 <> s:16
-R1218:1220 Coq.Init.Datatypes <> nat ind
-R1225:1239 Kernel.RealSystemConsequencesTarget <> ws_local_suffix proj
-R1241:1241 Kernel.RealSystemConsequencesTarget <> s:16 var
-def 1255:1289 <> suffix_cannot_decide_trusted_anchor
-R1303:1304 Coq.Init.Logic <> ::type_scope:'~'_x not
-R1305:1311 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1332:1339 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1324:1327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1321:1323 Coq.Init.Datatypes <> nat ind
-R1328:1331 Coq.Init.Datatypes <> bool ind
-binder 1312:1317 <> decide:17
-binder 1347:1347 <> s:18
-R1375:1377 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1350:1355 Kernel.RealSystemConsequencesTarget <> decide:17 var
-R1358:1371 Kernel.RealSystemConsequencesTarget <> ws_suffix_view def
-R1373:1373 Kernel.RealSystemConsequencesTarget <> s:18 var
-R1378:1394 Kernel.RealSystemConsequencesTarget <> ws_trusted_anchor proj
-R1396:1396 Kernel.RealSystemConsequencesTarget <> s:18 var
-rec 1407:1414 <> WALState
-proj 1423:1436 <> wal_client_ack
-proj 1448:1472 <> wal_commit_record_durable
-R1440:1443 Coq.Init.Datatypes <> bool ind
-R1476:1479 Coq.Init.Datatypes <> bool ind
-def 1495:1515 <> crash_recovers_commit
-R1522:1529 Kernel.RealSystemConsequencesTarget <> WALState rec
-binder 1518:1518 <> s:22
-R1534:1537 Coq.Init.Datatypes <> bool ind
-R1544:1568 Kernel.RealSystemConsequencesTarget <> wal_commit_record_durable proj
-R1570:1570 Kernel.RealSystemConsequencesTarget <> s:22 var
-def 1584:1621 <> ack_without_durable_commit_can_be_lost
-R1635:1641 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1643:1644 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 1642:1642 <> s:23
-R1668:1671 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1661:1663 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1645:1658 Kernel.RealSystemConsequencesTarget <> wal_client_ack proj
-R1660:1660 Kernel.RealSystemConsequencesTarget <> s:23 var
-R1664:1667 Coq.Init.Datatypes <> true constr
-R1695:1697 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1672:1692 Kernel.RealSystemConsequencesTarget <> crash_recovers_commit def
-R1694:1694 Kernel.RealSystemConsequencesTarget <> s:23 var
-R1698:1702 Coq.Init.Datatypes <> false constr
-rec 1713:1722 <> AuditState
-proj 1731:1753 <> audit_current_local_log
-proj 1765:1784 <> audit_event_occurred
-R1757:1760 Coq.Init.Datatypes <> bool ind
-R1788:1791 Coq.Init.Datatypes <> bool ind
-def 1807:1822 <> audit_local_view
-R1829:1838 Kernel.RealSystemConsequencesTarget <> AuditState rec
-binder 1825:1825 <> s:27
-R1843:1846 Coq.Init.Datatypes <> bool ind
-R1851:1873 Kernel.RealSystemConsequencesTarget <> audit_current_local_log proj
-R1875:1875 Kernel.RealSystemConsequencesTarget <> s:27 var
-def 1889:1927 <> current_local_log_cannot_decide_history
-R1941:1942 Coq.Init.Logic <> ::type_scope:'~'_x not
-R1943:1949 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1971:1978 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1963:1966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1959:1962 Coq.Init.Datatypes <> bool ind
-R1967:1970 Coq.Init.Datatypes <> bool ind
-binder 1950:1955 <> decide:28
-binder 1986:1986 <> s:29
-R2016:2018 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1989:1994 Kernel.RealSystemConsequencesTarget <> decide:28 var
-R1997:2012 Kernel.RealSystemConsequencesTarget <> audit_local_view def
-R2014:2014 Kernel.RealSystemConsequencesTarget <> s:29 var
-R2019:2038 Kernel.RealSystemConsequencesTarget <> audit_event_occurred proj
-R2040:2040 Kernel.RealSystemConsequencesTarget <> s:29 var
+R339:342 Coq.Bool.Bool <> <> lib
+R344:357 Coq.Arith.PeanoNat <> <> lib
+rec 368:380 <> CTClientState
+proj 389:400 <> ct_local_sth
+proj 411:429 <> ct_world_consistent
+R404:406 Coq.Init.Datatypes <> nat ind
+R433:436 Coq.Init.Datatypes <> bool ind
+def 452:464 <> ct_local_view
+R471:483 Kernel.RealSystemConsequencesTarget <> CTClientState rec
+binder 467:467 <> s:4
+R488:490 Coq.Init.Datatypes <> nat ind
+R495:506 Kernel.RealSystemConsequencesTarget <> ct_local_sth proj
+R508:508 Kernel.RealSystemConsequencesTarget <> s:4 var
+def 522:567 <> ct_local_view_cannot_decide_global_consistency
+R581:582 Coq.Init.Logic <> ::type_scope:'~'_x not
+R583:589 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R610:617 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R602:605 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R599:601 Coq.Init.Datatypes <> nat ind
+R606:609 Coq.Init.Datatypes <> bool ind
+binder 590:595 <> decide:5
+binder 625:625 <> s:6
+R652:654 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R628:633 Kernel.RealSystemConsequencesTarget <> decide:5 var
+R636:648 Kernel.RealSystemConsequencesTarget <> ct_local_view def
+R650:650 Kernel.RealSystemConsequencesTarget <> s:6 var
+R655:673 Kernel.RealSystemConsequencesTarget <> ct_world_consistent proj
+R675:675 Kernel.RealSystemConsequencesTarget <> s:6 var
+rec 686:702 <> TPMSelectionInput
+proj 711:726 <> signed_selection
+proj 737:754 <> supplied_selection
+proj 765:788 <> composite_digest_matches
+R730:732 Coq.Init.Datatypes <> nat ind
+R758:760 Coq.Init.Datatypes <> nat ind
+R792:795 Coq.Init.Datatypes <> bool ind
+def 811:832 <> incomplete_quote_check
+R839:855 Kernel.RealSystemConsequencesTarget <> TPMSelectionInput rec
+binder 835:835 <> s:11
+R860:863 Coq.Init.Datatypes <> bool ind
+R870:893 Kernel.RealSystemConsequencesTarget <> composite_digest_matches proj
+R895:895 Kernel.RealSystemConsequencesTarget <> s:11 var
+def 909:957 <> incomplete_quote_check_accepts_selection_mismatch
+R971:977 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R979:980 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 978:978 <> s:12
+R1012:1027 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1005:1007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R981:1002 Kernel.RealSystemConsequencesTarget <> incomplete_quote_check def
+R1004:1004 Kernel.RealSystemConsequencesTarget <> s:12 var
+R1008:1011 Coq.Init.Datatypes <> true constr
+R1046:1049 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1028:1043 Kernel.RealSystemConsequencesTarget <> signed_selection proj
+R1045:1045 Kernel.RealSystemConsequencesTarget <> s:12 var
+R1050:1067 Kernel.RealSystemConsequencesTarget <> supplied_selection proj
+R1069:1069 Kernel.RealSystemConsequencesTarget <> s:12 var
+rec 1080:1098 <> WeakSubjectiveState
+proj 1107:1121 <> ws_local_suffix
+proj 1132:1148 <> ws_trusted_anchor
+R1125:1127 Coq.Init.Datatypes <> nat ind
+R1152:1155 Coq.Init.Datatypes <> bool ind
+def 1171:1184 <> ws_suffix_view
+R1191:1209 Kernel.RealSystemConsequencesTarget <> WeakSubjectiveState rec
+binder 1187:1187 <> s:16
+R1214:1216 Coq.Init.Datatypes <> nat ind
+R1221:1235 Kernel.RealSystemConsequencesTarget <> ws_local_suffix proj
+R1237:1237 Kernel.RealSystemConsequencesTarget <> s:16 var
+def 1251:1285 <> suffix_cannot_decide_trusted_anchor
+R1299:1300 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1301:1307 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1328:1335 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1320:1323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1317:1319 Coq.Init.Datatypes <> nat ind
+R1324:1327 Coq.Init.Datatypes <> bool ind
+binder 1308:1313 <> decide:17
+binder 1343:1343 <> s:18
+R1371:1373 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1346:1351 Kernel.RealSystemConsequencesTarget <> decide:17 var
+R1354:1367 Kernel.RealSystemConsequencesTarget <> ws_suffix_view def
+R1369:1369 Kernel.RealSystemConsequencesTarget <> s:18 var
+R1374:1390 Kernel.RealSystemConsequencesTarget <> ws_trusted_anchor proj
+R1392:1392 Kernel.RealSystemConsequencesTarget <> s:18 var
+rec 1403:1410 <> WALState
+proj 1419:1432 <> wal_client_ack
+proj 1444:1468 <> wal_commit_record_durable
+R1436:1439 Coq.Init.Datatypes <> bool ind
+R1472:1475 Coq.Init.Datatypes <> bool ind
+def 1491:1511 <> crash_recovers_commit
+R1518:1525 Kernel.RealSystemConsequencesTarget <> WALState rec
+binder 1514:1514 <> s:22
+R1530:1533 Coq.Init.Datatypes <> bool ind
+R1540:1564 Kernel.RealSystemConsequencesTarget <> wal_commit_record_durable proj
+R1566:1566 Kernel.RealSystemConsequencesTarget <> s:22 var
+def 1580:1617 <> ack_without_durable_commit_can_be_lost
+R1631:1637 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1639:1640 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1638:1638 <> s:23
+R1664:1667 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1657:1659 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1641:1654 Kernel.RealSystemConsequencesTarget <> wal_client_ack proj
+R1656:1656 Kernel.RealSystemConsequencesTarget <> s:23 var
+R1660:1663 Coq.Init.Datatypes <> true constr
+R1691:1693 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1668:1688 Kernel.RealSystemConsequencesTarget <> crash_recovers_commit def
+R1690:1690 Kernel.RealSystemConsequencesTarget <> s:23 var
+R1694:1698 Coq.Init.Datatypes <> false constr
+rec 1709:1718 <> AuditState
+proj 1727:1749 <> audit_current_local_log
+proj 1761:1780 <> audit_event_occurred
+R1753:1756 Coq.Init.Datatypes <> bool ind
+R1784:1787 Coq.Init.Datatypes <> bool ind
+def 1803:1818 <> audit_local_view
+R1825:1834 Kernel.RealSystemConsequencesTarget <> AuditState rec
+binder 1821:1821 <> s:27
+R1839:1842 Coq.Init.Datatypes <> bool ind
+R1847:1869 Kernel.RealSystemConsequencesTarget <> audit_current_local_log proj
+R1871:1871 Kernel.RealSystemConsequencesTarget <> s:27 var
+def 1885:1923 <> current_local_log_cannot_decide_history
+R1937:1938 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1939:1945 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1967:1974 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1959:1962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1955:1958 Coq.Init.Datatypes <> bool ind
+R1963:1966 Coq.Init.Datatypes <> bool ind
+binder 1946:1951 <> decide:28
+binder 1982:1982 <> s:29
+R2012:2014 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1985:1990 Kernel.RealSystemConsequencesTarget <> decide:28 var
+R1993:2008 Kernel.RealSystemConsequencesTarget <> audit_local_view def
+R2010:2010 Kernel.RealSystemConsequencesTarget <> s:29 var
+R2015:2034 Kernel.RealSystemConsequencesTarget <> audit_event_occurred proj
+R2036:2036 Kernel.RealSystemConsequencesTarget <> s:29 var

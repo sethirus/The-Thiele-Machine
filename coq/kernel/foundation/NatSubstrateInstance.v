@@ -1,10 +1,10 @@
-(** NatSubstrateInstance.v — a concrete [Substrate] over [nat]-coded
+(** NatSubstrateInstance.v: a concrete [Substrate] over [nat]-coded
     programs, with the recursion theorem discharged unconditionally.
 
     The substrate-level [structural_shortcut_undecidable] theorem
     (StructuralUndecidability.v) is conditional on the substrate's
     [Substrate] typeclass instance. To fire the theorem unconditionally,
-    we need at least one concrete instance with all fields discharged
+    at least one concrete instance with all fields discharged is needed
     (no [Hypothesis], no [Axiom], no [Section] parameter that survives).
 
     This file delivers exactly that: a minimal substrate whose programs
@@ -12,9 +12,9 @@
     [eval] is a Coq Fixpoint. [Representable] is given a concrete
     constructive definition. [recursion_theorem] is proved by Kleene
     diagonalization internal to the substrate's own language: for any
-    Coq function [decide : nat -> bool], we exhibit a self-aware
+    Coq function [decide : nat -> bool], there is a self-aware
     program (code [2]) whose [eval] equals "if [decide] of-self then
-    [no] else [yes]" — i.e., is a fixed point of the diagonal flip
+    [no] else [yes]"; that is, it is a fixed point of the diagonal flip
     transformer for [decide]. The construction is uniform in [decide];
     each Coq decide-function gets its own substrate via the parameter,
     so the diagonalization fires for every Coq decide-function under
@@ -25,7 +25,7 @@
     is about Turing-machine deciders, because that's the substrate
     Turing was studying). Any Coq function whose corresponding diagonal
     flip transformer is internally representable in the nat substrate
-    is — by the proof below — not a correct decider for the substrate's
+    is, by the proof below, not a correct decider for the substrate's
     structural-shortcut predicate. The internal-representability scope
     is named explicitly and is load-bearing for the theorem. The
     construction in this file shows the scope is non-trivial: every
@@ -44,13 +44,9 @@
 From Coq Require Import Arith.PeanoNat Lia.
 From Kernel Require Import Substrate.
 (* Foundation-chain anchor: the nat substrate is one realization of the
-   abstract A2-respecting Substrate typeclass; the 51-opcode VM is
-   another. Importing VMState here ties this file to the kernel's
-   semantic foundation modules (VMState → VMStep → MuCostModel →
-   NoFreeInsight → ...) so the substrate-level result presented over
-   nat-coded programs can be cross-referenced from the VM-level corollary
-   in StructuralUndecidability.v. *)
-From Kernel Require Import VMState.
+   abstract Substrate typeclass, and the substrate-level result of
+   StructuralUndecidability.v fires for it. *)
+
 
 (** ** The minimal nat-coded substrate, parameterized by a decide function.
 
@@ -67,7 +63,7 @@ From Kernel Require Import VMState.
       * the substrate-internal recursion theorem for the diagonal
         flip transformer (the fixed point is code [2]).
 
-    A richer substrate language (more opcodes, more programs) is possible
+    A richer substrate language (more program codes) is possible
     but unnecessary for the substrate-level limitative theorem. The
     smaller the language, the cleaner the [Print Assumptions] gate. *)
 
@@ -116,7 +112,7 @@ Section NatSub.
   (** Internal representability for the nat substrate.
 
       [nat_Representable f] holds iff [f] is the diagonal flip
-      transformer for the substrate's own [d] — that is, [f p = 0]
+      transformer for the substrate's own [d]; that is, [f p = 0]
       when [d p = true], and [f p = 1] when [d p = false]. The
       transformer's range is exactly the substrate's two distinguished
       constants ([no] = 1, [yes] = 0). Any Coq function whose action
@@ -130,7 +126,7 @@ Section NatSub.
 
       The witness is fixed: code [2] (the self-aware flip program).
       Its [nat_run] behavior is, by definition, "if [d 2 = true] then
-      [Some 0] else [Some 1]" — which, after substituting via [Hrep 2],
+      [Some 0] else [Some 1]", which, after substituting via [Hrep 2],
       is exactly [nat_run (f 2) s] for any [s]. *)
   Lemma nat_recursion_theorem :
     forall (f : nat_Program -> nat_Program),
@@ -172,16 +168,14 @@ Section NatShortcut.
 
   (** A nat program "admits the shortcut" iff its [nat_run d] returns
       [Some 1] on input [0]. By construction:
-        - code [0] (the yes program) returns [Some 1] always — admits.
-        - code [1] (the no program) returns [Some 0] always — refuses.
+        - code [0] (the yes program) returns [Some 1] always, so it admits.
+        - code [1] (the no program) returns [Some 0] always, so it refuses.
       Extensionality holds trivially because the predicate is defined
       via [nat_run d 0]. *)
   Definition nat_admits (p : nat) : Prop :=
     nat_run d p 0 = Some 1.
 
-  (* nat_yes_admits inlined into nat_with_shortcut below (single caller). *)
-
-  Lemma nat_no_refuses : ~ nat_admits 1.
+    Lemma nat_no_refuses : ~ nat_admits 1.
   Proof. unfold nat_admits, nat_run. discriminate. Qed.
 
   Lemma nat_admits_extensional :
@@ -214,8 +208,8 @@ End NatShortcut.
     [structural_shortcut_undecidable] applies to [nat_substrate d]
     with [nat_with_shortcut d]. The theorem says: no decider whose
     diagonal flip transformer is [nat_Representable]-in-this-substrate
-    correctly decides [nat_admits d]. The unique such decider — by
-    the definition of [nat_Representable] — is [d] itself. So the
+    correctly decides [nat_admits d]. The unique such decider (by
+    the definition of [nat_Representable]) is [d] itself. So the
     theorem's content for this substrate is: [d] is not a correct
     decider for [nat_admits d]. The substrate cannot internally
     decide its own structural-shortcut membership predicate.
@@ -246,7 +240,7 @@ Qed.
     For any Coq function [d], [d] itself is in particular a candidate
     decider whose diagonal flip transformer is [nat_Representable]
     (by direct unfolding of the definition). The substrate-level
-    theorem then says [d] is not a correct decider — the substrate
+    theorem then says [d] is not a correct decider: the substrate
     cannot internally decide its own predicate via [d]. *)
 
 Corollary nat_self_undecidable :

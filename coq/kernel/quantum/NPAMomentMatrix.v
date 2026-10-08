@@ -12,9 +12,9 @@
   *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
@@ -284,7 +284,7 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** rho_BB is at position (3, 4) — zero in zero_marginal_npa *)
+(** rho_BB is at position (3, 4): zero in zero_marginal_npa *)
 Lemma npa_rho_BB_position : forall (npa : NPAMomentMatrix),
   nat_matrix_to_fin5 (npa_to_matrix npa) idx3 idx4 = npa.(npa_rho_BB).
 Proof.
@@ -357,8 +357,6 @@ Qed.
     ✓ NPA PSD defined (PSD + symmetric)
     ✓ Bounds: NPA PSD → correlators normalized
 
-    COMPLETED (via alternate route):
-    Tsirelson bound proved in TsirelsonGeneral.v / TsirelsonFromAlgebra.v
-    via pure algebra, not NPA optimization. The NPA→Tsirelson path was
-    superseded.
+    Tsirelson bound: proved in TsirelsonGeneral.v / TsirelsonFromAlgebra.v
+    via pure algebra, not NPA optimization.
     *)

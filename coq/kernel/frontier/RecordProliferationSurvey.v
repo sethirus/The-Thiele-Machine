@@ -1,7 +1,7 @@
-(** SCOPE NOTE: standalone proof scope. These measurements concern the frozen
-    observer maps, not VM semantics or real-system security.
+(** SCOPE NOTE: standalone proof scope. These measurements concern fixed
+    observer maps, not a machine's semantics or real-system security.
 
-    Closed Part 6 measurements and the event-swap check. *)
+    Measurements over the observer maps and the event-swap check. *)
 
 From Coq Require Import List Lia Bool.
 Import ListNotations.

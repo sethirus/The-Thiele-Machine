@@ -1,0 +1,1766 @@
+DIGEST c865b63574b80112cabb2a5bf78cffb4
+FKernel.CmpMM
+R2320:2323 Coq.Lists.List <> <> lib
+R2325:2329 Coq.Arith.Arith <> <> lib
+R2331:2333 Coq.micromega.Lia <> <> lib
+R2335:2338 Coq.Bool.Bool <> <> lib
+R2348:2360 Coq.Lists.List ListNotations <> mod
+R2414:2418 Undecidability.Shared.Libs.DLW.Utils.utils <> <> lib
+R2420:2422 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R2424:2426 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R2428:2434 Undecidability.Shared.Libs.DLW.Code.subcode <> <> lib
+R2436:2438 Undecidability.Shared.Libs.DLW.Code.sss <> <> lib
+R2497:2504 Undecidability.Shared.Libs.DLW.Code.compiler <> <> lib
+R2506:2524 Undecidability.Shared.Libs.DLW.Code.compiler_correction <> <> lib
+R2577:2578 Undecidability.MinskyMachines.MM <> <> lib
+R2637:2639 Undecidability.MinskyMachines.MMenv.env <> <> lib
+R2641:2648 Undecidability.MinskyMachines.MMenv.mme_defs <> <> lib
+R2666:2679 Kernel.CmpLang <> <> lib
+R2681:2696 Kernel.CmpInline <> <> lib
+R2698:2711 Kernel.CmpFlat <> <> lib
+R2713:2728 Kernel.CmpBlocks <> <> lib
+R2730:2743 Kernel.CmpExpr <> <> lib
+abbrev 2762:2767 <> mmstep
+R2774:2783 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env ind
+R2785:2787 Coq.Init.Datatypes <> nat ind
+R2789:2798 Coq.Arith.Peano_dec <> eq_nat_dec abbrev
+prf 2809:2820 <> cmp_blen_pos
+binder 2831:2831 <> b:1
+R2835:2838 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2839:2846 Kernel.CmpExpr <> cmp_blen def
+R2848:2848 Kernel.CmpMM <> b:1 var
+def 2956:2963 <> cmp_ilen
+R2971:2973 Coq.Init.Datatypes <> nat ind
+binder 2966:2967 <> nv:2
+R2981:2986 Kernel.CmpFlat <> cmp_fi ind
+binder 2977:2977 <> I:3
+R2991:2993 Coq.Init.Datatypes <> nat ind
+R3006:3006 Kernel.CmpMM <> I:3 var
+R3017:3023 Kernel.CmpFlat <> FAssign constr
+R3035:3043 Kernel.CmpFlat <> cmp_fi_ok def
+R3045:3046 Kernel.CmpMM <> nv:2 var
+R3048:3048 Kernel.CmpMM <> I:3 var
+R3065:3067 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3055:3062 Kernel.CmpExpr <> cmp_alen def
+R3081:3085 Kernel.CmpFlat <> FJmpF constr
+R3097:3105 Kernel.CmpFlat <> cmp_fi_ok def
+R3107:3108 Kernel.CmpMM <> nv:2 var
+R3110:3110 Kernel.CmpMM <> I:3 var
+R3117:3124 Kernel.CmpExpr <> cmp_blen def
+R3139:3142 Kernel.CmpFlat <> FJmp constr
+def 3170:3178 <> cmp_icomp
+R3186:3188 Coq.Init.Datatypes <> nat ind
+binder 3181:3182 <> nv:5
+R3201:3204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3198:3200 Coq.Init.Datatypes <> nat ind
+R3205:3207 Coq.Init.Datatypes <> nat ind
+binder 3192:3194 <> lnk:6
+R3215:3217 Coq.Init.Datatypes <> nat ind
+binder 3211:3211 <> i:7
+R3225:3230 Kernel.CmpFlat <> cmp_fi ind
+binder 3221:3221 <> I:8
+R3235:3238 Coq.Init.Datatypes <> list ind
+R3240:3245 Kernel.CmpBlocks <> cmp_mi def
+R3258:3258 Kernel.CmpMM <> I:8 var
+R3269:3275 Kernel.CmpFlat <> FAssign constr
+R3293:3301 Kernel.CmpFlat <> cmp_fi_ok def
+R3303:3304 Kernel.CmpMM <> nv:5 var
+R3306:3306 Kernel.CmpMM <> I:8 var
+R3457:3457 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3478:3478 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3458:3463 Undecidability.MinskyMachines.MM <> mm_dec constr
+R3468:3470 Kernel.CmpMM <> lnk:6 var
+R3473:3473 Coq.Init.Datatypes <> S constr
+R3475:3475 Kernel.CmpMM <> i:7 var
+R3346:3349 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3321:3328 Kernel.CmpExpr <> cmp_cexp def
+R3331:3331 Coq.Init.Datatypes <> S constr
+R3333:3334 Kernel.CmpMM <> nv:5 var
+R3340:3342 Kernel.CmpMM <> lnk:6 var
+R3344:3344 Kernel.CmpMM <> i:7 var
+R3386:3397 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3350:3358 Kernel.CmpBlocks <> cmp_clear def
+R3366:3368 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3361:3363 Kernel.CmpMM <> lnk:6 var
+R3365:3365 Kernel.CmpMM <> i:7 var
+R3369:3376 Kernel.CmpExpr <> cmp_alen def
+R3382:3382 Coq.Init.Datatypes <> S constr
+R3398:3406 Kernel.CmpBlocks <> cmp_addmv def
+R3427:3429 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3414:3416 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3409:3411 Kernel.CmpMM <> lnk:6 var
+R3413:3413 Kernel.CmpMM <> i:7 var
+R3417:3424 Kernel.CmpExpr <> cmp_alen def
+R3434:3434 Coq.Init.Datatypes <> S constr
+R3436:3437 Kernel.CmpMM <> nv:5 var
+R3441:3441 Coq.Init.Datatypes <> S constr
+R3484:3488 Kernel.CmpFlat <> FJmpF constr
+R3506:3514 Kernel.CmpFlat <> cmp_fi_ok def
+R3516:3517 Kernel.CmpMM <> nv:5 var
+R3519:3519 Kernel.CmpMM <> I:8 var
+R3575:3575 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3596:3596 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3576:3581 Undecidability.MinskyMachines.MM <> mm_dec constr
+R3586:3588 Kernel.CmpMM <> lnk:6 var
+R3591:3591 Coq.Init.Datatypes <> S constr
+R3593:3593 Kernel.CmpMM <> i:7 var
+R3526:3531 Kernel.CmpExpr <> cmp_cb def
+R3534:3534 Coq.Init.Datatypes <> S constr
+R3536:3537 Kernel.CmpMM <> nv:5 var
+R3543:3545 Kernel.CmpMM <> lnk:6 var
+R3547:3547 Kernel.CmpMM <> i:7 var
+R3551:3553 Kernel.CmpMM <> lnk:6 var
+R3556:3556 Coq.Init.Datatypes <> S constr
+R3558:3558 Kernel.CmpMM <> i:7 var
+R3563:3565 Kernel.CmpMM <> lnk:6 var
+R3602:3605 Kernel.CmpFlat <> FJmp constr
+R3612:3612 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3629:3629 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3613:3618 Undecidability.MinskyMachines.MM <> mm_dec constr
+R3623:3625 Kernel.CmpMM <> lnk:6 var
+prf 3645:3660 <> cmp_icomp_length
+binder 3671:3672 <> nv:10
+binder 3674:3676 <> lnk:11
+binder 3678:3678 <> i:12
+binder 3680:3680 <> I:13
+R3712:3714 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3683:3688 Coq.Init.Datatypes <> length def
+R3691:3699 Kernel.CmpMM <> cmp_icomp def
+R3701:3702 Kernel.CmpMM <> nv:10 var
+R3704:3706 Kernel.CmpMM <> lnk:11 var
+R3708:3708 Kernel.CmpMM <> i:12 var
+R3710:3710 Kernel.CmpMM <> I:13 var
+R3715:3722 Kernel.CmpMM <> cmp_ilen def
+R3724:3725 Kernel.CmpMM <> nv:10 var
+R3727:3727 Kernel.CmpMM <> I:13 var
+R3810:3818 Kernel.CmpFlat <> cmp_fi_ok def
+R3824:3830 Kernel.CmpFlat <> FAssign constr
+R3810:3818 Kernel.CmpFlat <> cmp_fi_ok def
+R3824:3830 Kernel.CmpFlat <> FAssign constr
+R3869:3878 Coq.Lists.List <> app_length thm
+R3881:3892 Kernel.CmpExpr <> cmp_cexp_len thm
+R3869:3878 Coq.Lists.List <> app_length thm
+R3869:3878 Coq.Lists.List <> app_length thm
+R3869:3878 Coq.Lists.List <> app_length thm
+R3881:3892 Kernel.CmpExpr <> cmp_cexp_len thm
+R3881:3892 Kernel.CmpExpr <> cmp_cexp_len thm
+R3921:3929 Kernel.CmpFlat <> cmp_fi_ok def
+R3935:3939 Kernel.CmpFlat <> FJmpF constr
+R3921:3929 Kernel.CmpFlat <> cmp_fi_ok def
+R3935:3939 Kernel.CmpFlat <> FJmpF constr
+R3971:3980 Kernel.CmpExpr <> cmp_cb_len thm
+R3971:3980 Kernel.CmpExpr <> cmp_cb_len thm
+def 4090:4098 <> cmp_simul
+R4106:4108 Coq.Init.Datatypes <> nat ind
+binder 4101:4102 <> nv:14
+R4116:4122 Kernel.CmpLang <> cmp_env def
+binder 4112:4112 <> v:15
+R4130:4132 Undecidability.MinskyMachines.MMenv.env <> env def
+R4138:4140 Coq.Init.Datatypes <> nat ind
+R4134:4136 Coq.Init.Datatypes <> nat ind
+binder 4126:4126 <> w:16
+R4162:4165 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4158:4160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4155:4155 Kernel.CmpMM <> w:16 var
+R4166:4166 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4200:4205 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4236:4236 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4174:4174 <> r:17
+R4183:4186 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4178:4180 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4177:4177 Kernel.CmpMM <> r:17 var
+R4181:4182 Kernel.CmpMM <> nv:14 var
+R4194:4196 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4187:4187 Kernel.CmpMM <> w:16 var
+R4190:4190 Coq.Init.Datatypes <> S constr
+R4192:4192 Kernel.CmpMM <> r:17 var
+R4197:4197 Kernel.CmpMM <> v:15 var
+R4199:4199 Kernel.CmpMM <> r:17 var
+binder 4213:4213 <> r:18
+R4225:4228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4220:4223 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4216:4216 Coq.Init.Datatypes <> S constr
+R4218:4219 Kernel.CmpMM <> nv:14 var
+R4224:4224 Kernel.CmpMM <> r:18 var
+R4232:4234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4229:4229 Kernel.CmpMM <> w:16 var
+R4231:4231 Kernel.CmpMM <> r:18 var
+prf 4246:4259 <> cmp_fi_ok_true
+binder 4270:4271 <> nv:19
+binder 4273:4273 <> I:20
+R4297:4300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4290:4292 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4276:4284 Kernel.CmpFlat <> cmp_fi_ok def
+R4286:4287 Kernel.CmpMM <> nv:19 var
+R4289:4289 Kernel.CmpMM <> I:20 var
+R4293:4296 Coq.Init.Datatypes <> true constr
+R4313:4316 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4301:4310 Kernel.CmpFlat <> cmp_fi_max def
+R4312:4312 Kernel.CmpMM <> I:20 var
+R4317:4318 Kernel.CmpMM <> nv:19 var
+R4350:4358 Kernel.CmpFlat <> cmp_fi_ok def
+R4372:4381 Coq.Arith.PeanoNat Nat leb_le thm
+R4372:4381 Coq.Arith.PeanoNat Nat leb_le thm
+prf 4405:4419 <> cmp_aeval_simul
+binder 4430:4431 <> nv:21
+binder 4433:4433 <> v:22
+binder 4435:4435 <> w:23
+binder 4437:4437 <> a:24
+R4456:4459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4440:4448 Kernel.CmpMM <> cmp_simul def
+R4450:4451 Kernel.CmpMM <> nv:21 var
+R4453:4453 Kernel.CmpMM <> v:22 var
+R4455:4455 Kernel.CmpMM <> w:23 var
+R4477:4482 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4471:4474 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4460:4468 Kernel.CmpLang <> cmp_avmax def
+R4470:4470 Kernel.CmpMM <> a:24 var
+R4475:4476 Kernel.CmpMM <> nv:21 var
+R4513:4515 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4483:4491 Kernel.CmpLang <> cmp_aeval def
+binder 4498:4498 <> x:25
+R4503:4503 Kernel.CmpMM <> w:23 var
+R4506:4506 Coq.Init.Datatypes <> S constr
+R4508:4508 Kernel.CmpMM <> x:25 var
+R4512:4512 Kernel.CmpMM <> a:24 var
+R4516:4524 Kernel.CmpLang <> cmp_aeval def
+R4526:4526 Kernel.CmpMM <> v:22 var
+R4528:4528 Kernel.CmpMM <> a:24 var
+R4581:4595 Kernel.CmpInline <> cmp_aeval_below thm
+R4581:4595 Kernel.CmpInline <> cmp_aeval_below thm
+prf 4638:4652 <> cmp_beval_simul
+binder 4663:4664 <> nv:26
+binder 4666:4666 <> v:27
+binder 4668:4668 <> w:28
+binder 4670:4670 <> b:29
+R4689:4692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4673:4681 Kernel.CmpMM <> cmp_simul def
+R4683:4684 Kernel.CmpMM <> nv:26 var
+R4686:4686 Kernel.CmpMM <> v:27 var
+R4688:4688 Kernel.CmpMM <> w:28 var
+R4710:4715 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4704:4707 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4693:4701 Kernel.CmpLang <> cmp_bvmax def
+R4703:4703 Kernel.CmpMM <> b:29 var
+R4708:4709 Kernel.CmpMM <> nv:26 var
+R4746:4748 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4716:4724 Kernel.CmpLang <> cmp_beval def
+binder 4731:4731 <> x:30
+R4736:4736 Kernel.CmpMM <> w:28 var
+R4739:4739 Coq.Init.Datatypes <> S constr
+R4741:4741 Kernel.CmpMM <> x:30 var
+R4745:4745 Kernel.CmpMM <> b:29 var
+R4749:4757 Kernel.CmpLang <> cmp_beval def
+R4759:4759 Kernel.CmpMM <> v:27 var
+R4761:4761 Kernel.CmpMM <> b:29 var
+R4814:4828 Kernel.CmpInline <> cmp_beval_below thm
+R4814:4828 Kernel.CmpInline <> cmp_beval_below thm
+prf 4872:4892 <> cmp_icomp_assign_core
+binder 4903:4904 <> nv:31
+binder 4906:4907 <> a0:32
+binder 4909:4909 <> x:33
+binder 4911:4911 <> e:34
+binder 4913:4913 <> v:35
+binder 4915:4916 <> w1:36
+R4951:4954 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4945:4948 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4921:4930 Kernel.CmpFlat <> cmp_fi_max def
+R4933:4939 Kernel.CmpFlat <> FAssign constr
+R4941:4941 Kernel.CmpMM <> x:33 var
+R4943:4943 Kernel.CmpMM <> e:34 var
+R4949:4950 Kernel.CmpMM <> nv:31 var
+R4972:4977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4955:4963 Kernel.CmpMM <> cmp_simul def
+R4965:4966 Kernel.CmpMM <> nv:31 var
+R4968:4968 Kernel.CmpMM <> v:35 var
+R4970:4971 Kernel.CmpMM <> w1:36 var
+R4978:4984 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4987:4992 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4985:4986 <> w2:37
+R5172:5179 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4993:5001 Kernel.CmpBlocks <> cmp_reach def
+R5003:5003 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5006:5007 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5132:5132 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5004:5005 Kernel.CmpMM <> a0:32 var
+R5028:5031 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5008:5015 Kernel.CmpExpr <> cmp_cexp def
+R5018:5018 Coq.Init.Datatypes <> S constr
+R5020:5021 Kernel.CmpMM <> nv:31 var
+R5024:5024 Kernel.CmpMM <> e:34 var
+R5026:5027 Kernel.CmpMM <> a0:32 var
+R5065:5087 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5032:5040 Kernel.CmpBlocks <> cmp_clear def
+R5045:5047 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5043:5044 Kernel.CmpMM <> a0:32 var
+R5048:5055 Kernel.CmpExpr <> cmp_alen def
+R5057:5057 Kernel.CmpMM <> e:34 var
+R5061:5061 Coq.Init.Datatypes <> S constr
+R5063:5063 Kernel.CmpMM <> x:33 var
+R5088:5096 Kernel.CmpBlocks <> cmp_addmv def
+R5114:5116 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5101:5103 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5099:5100 Kernel.CmpMM <> a0:32 var
+R5104:5111 Kernel.CmpExpr <> cmp_alen def
+R5113:5113 Kernel.CmpMM <> e:34 var
+R5121:5121 Coq.Init.Datatypes <> S constr
+R5123:5124 Kernel.CmpMM <> nv:31 var
+R5128:5128 Coq.Init.Datatypes <> S constr
+R5130:5130 Kernel.CmpMM <> x:33 var
+R5140:5141 Kernel.CmpMM <> a0:32 var
+R5143:5144 Kernel.CmpMM <> w1:36 var
+R5149:5152 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5167:5167 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5147:5148 Kernel.CmpMM <> a0:32 var
+R5163:5165 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5153:5160 Kernel.CmpExpr <> cmp_alen def
+R5162:5162 Kernel.CmpMM <> e:34 var
+R5170:5171 Kernel.CmpMM <> w2:37 var
+R5180:5188 Kernel.CmpMM <> cmp_simul def
+R5190:5191 Kernel.CmpMM <> nv:31 var
+R5194:5200 Kernel.CmpLang <> cmp_upd def
+R5202:5202 Kernel.CmpMM <> v:35 var
+R5204:5204 Kernel.CmpMM <> x:33 var
+R5207:5215 Kernel.CmpLang <> cmp_aeval def
+R5217:5217 Kernel.CmpMM <> v:35 var
+R5219:5219 Kernel.CmpMM <> e:34 var
+R5223:5224 Kernel.CmpMM <> w2:37 var
+R5272:5281 Kernel.CmpFlat <> cmp_fi_max def
+R5366:5373 Kernel.CmpExpr <> cmp_alen def
+R5366:5373 Kernel.CmpExpr <> cmp_alen def
+R5389:5389 Coq.Init.Datatypes <> S constr
+R5389:5389 Coq.Init.Datatypes <> S constr
+R5408:5408 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5411:5412 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5492:5492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5428:5431 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5413:5420 Kernel.CmpExpr <> cmp_cexp def
+R5457:5460 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5432:5440 Kernel.CmpBlocks <> cmp_clear def
+R5445:5447 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5453:5453 Coq.Init.Datatypes <> S constr
+R5461:5469 Kernel.CmpBlocks <> cmp_addmv def
+R5479:5481 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5474:5476 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5488:5488 Coq.Init.Datatypes <> S constr
+R5408:5408 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5411:5412 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5492:5492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5428:5431 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5413:5420 Kernel.CmpExpr <> cmp_cexp def
+R5457:5460 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5432:5440 Kernel.CmpBlocks <> cmp_clear def
+R5445:5447 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5453:5453 Coq.Init.Datatypes <> S constr
+R5461:5469 Kernel.CmpBlocks <> cmp_addmv def
+R5479:5481 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5474:5476 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5488:5488 Coq.Init.Datatypes <> S constr
+R5532:5536 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R5511:5511 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5514:5515 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5531:5531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5516:5523 Kernel.CmpExpr <> cmp_cexp def
+R5595:5598 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5570:5578 Kernel.CmpBlocks <> cmp_clear def
+R5583:5585 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5591:5591 Coq.Init.Datatypes <> S constr
+R5599:5607 Kernel.CmpBlocks <> cmp_addmv def
+R5617:5619 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5612:5614 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5626:5626 Coq.Init.Datatypes <> S constr
+R5550:5557 Kernel.CmpBlocks <> cmp_sc_l thm
+R5639:5650 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+R5532:5536 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R5511:5511 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5514:5515 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5531:5531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5516:5523 Kernel.CmpExpr <> cmp_cexp def
+R5595:5598 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5570:5578 Kernel.CmpBlocks <> cmp_clear def
+R5583:5585 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5591:5591 Coq.Init.Datatypes <> S constr
+R5599:5607 Kernel.CmpBlocks <> cmp_addmv def
+R5617:5619 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5612:5614 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5626:5626 Coq.Init.Datatypes <> S constr
+R5550:5557 Kernel.CmpBlocks <> cmp_sc_l thm
+R5639:5650 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+R5705:5709 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R5669:5669 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5677:5678 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5704:5704 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5672:5674 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5679:5687 Kernel.CmpBlocks <> cmp_clear def
+R5692:5694 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5700:5700 Coq.Init.Datatypes <> S constr
+R5705:5709 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R5669:5669 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5677:5678 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5704:5704 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5672:5674 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5679:5687 Kernel.CmpBlocks <> cmp_clear def
+R5692:5694 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5700:5700 Coq.Init.Datatypes <> S constr
+R5744:5752 Kernel.CmpBlocks <> cmp_addmv def
+R5762:5764 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5757:5759 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5771:5771 Coq.Init.Datatypes <> S constr
+R5724:5731 Kernel.CmpBlocks <> cmp_sc_l thm
+R5744:5752 Kernel.CmpBlocks <> cmp_addmv def
+R5762:5764 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5757:5759 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5771:5771 Coq.Init.Datatypes <> S constr
+R5724:5731 Kernel.CmpBlocks <> cmp_sc_l thm
+R5808:5815 Kernel.CmpExpr <> cmp_cexp def
+R5788:5795 Kernel.CmpBlocks <> cmp_sc_r thm
+R5856:5867 Kernel.CmpExpr <> cmp_cexp_len thm
+R5890:5901 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+R5808:5815 Kernel.CmpExpr <> cmp_cexp def
+R5788:5795 Kernel.CmpBlocks <> cmp_sc_r thm
+R5856:5867 Kernel.CmpExpr <> cmp_cexp_len thm
+R5856:5867 Kernel.CmpExpr <> cmp_cexp_len thm
+R5890:5901 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+R5968:5972 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R5922:5922 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5934:5935 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5967:5967 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5930:5932 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5925:5927 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5936:5944 Kernel.CmpBlocks <> cmp_addmv def
+R5954:5956 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5949:5951 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5963:5963 Coq.Init.Datatypes <> S constr
+R5968:5972 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R5922:5922 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5934:5935 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5967:5967 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5930:5932 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5925:5927 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5936:5944 Kernel.CmpBlocks <> cmp_addmv def
+R5954:5956 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5949:5951 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5963:5963 Coq.Init.Datatypes <> S constr
+R6022:6025 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6007:6014 Kernel.CmpExpr <> cmp_cexp def
+R6026:6034 Kernel.CmpBlocks <> cmp_clear def
+R6039:6041 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6047:6047 Coq.Init.Datatypes <> S constr
+R5987:5994 Kernel.CmpBlocks <> cmp_sc_r thm
+R6079:6088 Coq.Lists.List <> app_length thm
+R6091:6102 Kernel.CmpExpr <> cmp_cexp_len thm
+R6022:6025 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6007:6014 Kernel.CmpExpr <> cmp_cexp def
+R6026:6034 Kernel.CmpBlocks <> cmp_clear def
+R6039:6041 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6047:6047 Coq.Init.Datatypes <> S constr
+R5987:5994 Kernel.CmpBlocks <> cmp_sc_r thm
+R6079:6088 Coq.Lists.List <> app_length thm
+R6079:6088 Coq.Lists.List <> app_length thm
+R6091:6102 Kernel.CmpExpr <> cmp_cexp_len thm
+R6091:6102 Kernel.CmpExpr <> cmp_cexp_len thm
+R6142:6150 Coq.Lists.List <> app_assoc thm
+R6142:6150 Coq.Lists.List <> app_assoc thm
+R6142:6150 Coq.Lists.List <> app_assoc thm
+R6159:6170 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+R6159:6170 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+R6189:6197 Kernel.CmpLang <> cmp_aeval def
+binder 6204:6204 <> z:38
+R6213:6213 Coq.Init.Datatypes <> S constr
+R6215:6215 Kernel.CmpMM <> z:38 var
+R6189:6197 Kernel.CmpLang <> cmp_aeval def
+binder 6204:6204 <> z:39
+R6213:6213 Coq.Init.Datatypes <> S constr
+R6215:6215 Kernel.CmpMM <> z:39 var
+R6243:6245 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6246:6254 Kernel.CmpLang <> cmp_aeval def
+R6284:6298 Kernel.CmpMM <> cmp_aeval_simul thm
+R6243:6245 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6246:6254 Kernel.CmpLang <> cmp_aeval def
+R6284:6298 Kernel.CmpMM <> cmp_aeval_simul thm
+R6336:6342 Kernel.CmpLang <> cmp_upd def
+R6336:6342 Kernel.CmpLang <> cmp_upd def
+R6375:6377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6404:6416 Kernel.CmpLang <> cmp_upd_other thm
+R6375:6377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6404:6416 Kernel.CmpLang <> cmp_upd_other thm
+R6404:6416 Kernel.CmpLang <> cmp_upd_other thm
+R6462:6468 Kernel.CmpLang <> cmp_upd def
+R6474:6474 Coq.Init.Datatypes <> S constr
+R6462:6468 Kernel.CmpLang <> cmp_upd def
+R6474:6474 Coq.Init.Datatypes <> S constr
+R6503:6505 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6532:6544 Kernel.CmpLang <> cmp_upd_other thm
+R6503:6505 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6532:6544 Kernel.CmpLang <> cmp_upd_other thm
+R6532:6544 Kernel.CmpLang <> cmp_upd_other thm
+R6581:6590 Kernel.CmpBlocks <> cmp_reach0 def
+R6603:6605 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6581:6590 Kernel.CmpBlocks <> cmp_reach0 def
+R6603:6605 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6626:6638 Kernel.CmpExpr <> cmp_cexp_spec thm
+binder 6684:6684 <> r:40
+binder 6686:6687 <> Hr:41
+R6695:6695 Kernel.CmpMM <> r:40 var
+R6697:6698 Kernel.CmpMM <> Hr:41 var
+R6626:6638 Kernel.CmpExpr <> cmp_cexp_spec thm
+binder 6684:6684 <> r:42
+binder 6686:6687 <> Hr:43
+R6695:6695 Kernel.CmpMM <> r:42 var
+R6697:6698 Kernel.CmpMM <> Hr:43 var
+R6720:6728 Kernel.CmpBlocks <> cmp_reach def
+R6735:6737 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6753:6755 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6748:6750 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6720:6728 Kernel.CmpBlocks <> cmp_reach def
+R6735:6737 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6753:6755 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6748:6750 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6775:6787 Kernel.CmpBlocks <> cmp_blk_clear thm
+R6794:6796 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6802:6802 Coq.Init.Datatypes <> S constr
+R6775:6787 Kernel.CmpBlocks <> cmp_blk_clear thm
+R6794:6796 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6802:6802 Coq.Init.Datatypes <> S constr
+R6847:6855 Kernel.CmpBlocks <> cmp_reach def
+R6867:6869 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6862:6864 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6888:6890 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6884:6886 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6879:6881 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+binder 6916:6916 <> y:44
+R6924:6930 Coq.Arith.PeanoNat Nat eqb def
+R6932:6932 Kernel.CmpMM <> y:44 var
+R6951:6957 Coq.Arith.PeanoNat Nat eqb def
+R6959:6959 Kernel.CmpMM <> y:44 var
+R6962:6962 Coq.Init.Datatypes <> S constr
+R6996:6996 Kernel.CmpMM <> y:44 var
+R6980:6982 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6976:6976 Coq.Init.Datatypes <> S constr
+R6847:6855 Kernel.CmpBlocks <> cmp_reach def
+R6867:6869 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6862:6864 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6888:6890 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6884:6886 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6879:6881 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+binder 6916:6916 <> y:45
+R6924:6930 Coq.Arith.PeanoNat Nat eqb def
+R6932:6932 Kernel.CmpMM <> y:45 var
+R6951:6957 Coq.Arith.PeanoNat Nat eqb def
+R6959:6959 Kernel.CmpMM <> y:45 var
+R6962:6962 Coq.Init.Datatypes <> S constr
+R6996:6996 Kernel.CmpMM <> y:45 var
+R6980:6982 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6976:6976 Coq.Init.Datatypes <> S constr
+R7012:7024 Kernel.CmpBlocks <> cmp_blk_addmv thm
+R7036:7038 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7031:7033 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7045:7045 Coq.Init.Datatypes <> S constr
+R7012:7024 Kernel.CmpBlocks <> cmp_blk_addmv thm
+R7036:7038 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7031:7033 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7045:7045 Coq.Init.Datatypes <> S constr
+R7134:7148 Kernel.CmpBlocks <> cmp_reach_trans thm
+R7134:7148 Kernel.CmpBlocks <> cmp_reach_trans thm
+R7187:7208 Kernel.CmpBlocks <> cmp_reach0_trans_reach thm
+R7187:7208 Kernel.CmpBlocks <> cmp_reach0_trans_reach thm
+binder 7247:7247 <> y:46
+R7255:7261 Coq.Arith.PeanoNat Nat eqb def
+R7263:7263 Kernel.CmpMM <> y:46 var
+R7282:7288 Coq.Arith.PeanoNat Nat eqb def
+R7290:7290 Kernel.CmpMM <> y:46 var
+R7293:7293 Coq.Init.Datatypes <> S constr
+R7327:7327 Kernel.CmpMM <> y:46 var
+R7311:7313 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7307:7307 Coq.Init.Datatypes <> S constr
+binder 7247:7247 <> y:47
+R7255:7261 Coq.Arith.PeanoNat Nat eqb def
+R7263:7263 Kernel.CmpMM <> y:47 var
+R7282:7288 Coq.Arith.PeanoNat Nat eqb def
+R7290:7290 Kernel.CmpMM <> y:47 var
+R7293:7293 Coq.Init.Datatypes <> S constr
+R7327:7327 Kernel.CmpMM <> y:47 var
+R7311:7313 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7307:7307 Coq.Init.Datatypes <> S constr
+R7351:7362 Kernel.CmpBlocks <> cmp_reach_at thm
+R7351:7362 Kernel.CmpBlocks <> cmp_reach_at thm
+binder 7417:7417 <> r:48
+R7426:7429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7421:7423 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7420:7420 Kernel.CmpMM <> r:48 var
+R7438:7440 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7434:7434 Coq.Init.Datatypes <> S constr
+R7436:7436 Kernel.CmpMM <> r:48 var
+R7443:7443 Kernel.CmpMM <> r:48 var
+binder 7417:7417 <> r:49
+R7426:7429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7421:7423 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7420:7420 Kernel.CmpMM <> r:49 var
+R7438:7440 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7434:7434 Coq.Init.Datatypes <> S constr
+R7436:7436 Kernel.CmpMM <> r:49 var
+R7443:7443 Kernel.CmpMM <> r:49 var
+R7470:7478 Kernel.CmpMM <> cmp_simul def
+R7516:7522 Kernel.CmpLang <> cmp_upd def
+R7576:7582 Kernel.CmpLang <> cmp_upd def
+R7730:7736 Kernel.CmpLang <> cmp_upd def
+prf 7799:7817 <> cmp_icomp_jmpf_core
+binder 7828:7829 <> nv:50
+binder 7831:7832 <> a0:51
+binder 7834:7834 <> b:52
+binder 7836:7837 <> lt:53
+binder 7839:7840 <> lf:54
+binder 7842:7842 <> v:55
+binder 7844:7845 <> w1:56
+R7865:7868 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7859:7862 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7848:7856 Kernel.CmpLang <> cmp_bvmax def
+R7858:7858 Kernel.CmpMM <> b:52 var
+R7863:7864 Kernel.CmpMM <> nv:50 var
+R7886:7891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7869:7877 Kernel.CmpMM <> cmp_simul def
+R7879:7880 Kernel.CmpMM <> nv:50 var
+R7882:7882 Kernel.CmpMM <> v:55 var
+R7884:7885 Kernel.CmpMM <> w1:56 var
+R7892:7898 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7901:7902 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7899:7900 <> w2:57
+R7987:8003 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7903:7911 Kernel.CmpBlocks <> cmp_reach def
+R7913:7913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7916:7917 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7942:7942 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7914:7915 Kernel.CmpMM <> a0:51 var
+R7918:7923 Kernel.CmpExpr <> cmp_cb def
+R7926:7926 Coq.Init.Datatypes <> S constr
+R7928:7929 Kernel.CmpMM <> nv:50 var
+R7932:7932 Kernel.CmpMM <> b:52 var
+R7934:7935 Kernel.CmpMM <> a0:51 var
+R7937:7938 Kernel.CmpMM <> lt:53 var
+R7940:7941 Kernel.CmpMM <> lf:54 var
+R7944:7945 Kernel.CmpMM <> a0:51 var
+R7947:7948 Kernel.CmpMM <> w1:56 var
+R7954:7962 Kernel.CmpLang <> cmp_beval def
+R7964:7964 Kernel.CmpMM <> v:55 var
+R7966:7966 Kernel.CmpMM <> b:52 var
+R7981:7982 Kernel.CmpMM <> lf:54 var
+R7973:7974 Kernel.CmpMM <> lt:53 var
+R7985:7986 Kernel.CmpMM <> w2:57 var
+R8004:8012 Kernel.CmpMM <> cmp_simul def
+R8014:8015 Kernel.CmpMM <> nv:50 var
+R8017:8017 Kernel.CmpMM <> v:55 var
+R8019:8020 Kernel.CmpMM <> w2:57 var
+R8177:8191 Kernel.CmpMM <> cmp_beval_simul thm
+R8177:8191 Kernel.CmpMM <> cmp_beval_simul thm
+R8177:8191 Kernel.CmpMM <> cmp_beval_simul thm
+R8222:8232 Kernel.CmpExpr <> cmp_cb_spec thm
+R8237:8237 Coq.Init.Datatypes <> S constr
+R8252:8252 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8255:8256 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8281:8281 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8257:8262 Kernel.CmpExpr <> cmp_cb def
+R8265:8265 Coq.Init.Datatypes <> S constr
+R8287:8298 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+R8222:8232 Kernel.CmpExpr <> cmp_cb_spec thm
+R8237:8237 Coq.Init.Datatypes <> S constr
+R8252:8252 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8255:8256 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8281:8281 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8257:8262 Kernel.CmpExpr <> cmp_cb def
+R8265:8265 Coq.Init.Datatypes <> S constr
+R8287:8298 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+prf 8334:8345 <> cmp_nop_prog
+binder 8356:8356 <> a:58
+binder 8358:8358 <> k:59
+R8368:8371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8365:8367 Coq.Init.Datatypes <> nat ind
+R8372:8374 Coq.Init.Datatypes <> nat ind
+binder 8361:8361 <> w:60
+R8385:8390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8381:8383 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8378:8378 Kernel.CmpMM <> w:60 var
+R8391:8402 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R8436:8436 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8438:8439 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8441:8441 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8437:8437 Kernel.CmpMM <> k:59 var
+R8440:8440 Kernel.CmpMM <> w:60 var
+R8429:8429 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8431:8432 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8434:8434 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8430:8430 Kernel.CmpMM <> a:58 var
+R8433:8433 Kernel.CmpMM <> w:60 var
+R8411:8411 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8413:8414 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8427:8427 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8412:8412 Kernel.CmpMM <> a:58 var
+R8415:8415 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8426:8426 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8416:8421 Undecidability.MinskyMachines.MM <> mm_dec constr
+R8425:8425 Kernel.CmpMM <> k:59 var
+R8404:8409 Kernel.CmpMM <> mmstep abbrev
+R8477:8488 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R8534:8534 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8536:8537 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8539:8539 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8500:8520 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_DEC_0 thm
+R8550:8561 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+R8573:8583 Kernel.CmpBlocks <> cmp_get_env thm
+R8534:8534 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8536:8537 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8539:8539 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8500:8520 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_DEC_0 thm
+R8550:8561 Undecidability.Shared.Libs.DLW.Code.subcode <> subcode_refl thm
+R8573:8583 Kernel.CmpBlocks <> cmp_get_env thm
+R8573:8583 Kernel.CmpBlocks <> cmp_get_env thm
+prf 8633:8651 <> cmp_icomp_assign_eq
+binder 8662:8663 <> nv:61
+binder 8665:8667 <> lnk:62
+binder 8669:8669 <> i:63
+binder 8671:8671 <> x:64
+binder 8673:8673 <> e:65
+R8709:8714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8702:8704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8676:8684 Kernel.CmpFlat <> cmp_fi_ok def
+R8686:8687 Kernel.CmpMM <> nv:61 var
+R8690:8696 Kernel.CmpFlat <> FAssign constr
+R8698:8698 Kernel.CmpMM <> x:64 var
+R8700:8700 Kernel.CmpMM <> e:65 var
+R8705:8708 Coq.Init.Datatypes <> true constr
+R8747:8751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8715:8723 Kernel.CmpMM <> cmp_icomp def
+R8725:8726 Kernel.CmpMM <> nv:61 var
+R8728:8730 Kernel.CmpMM <> lnk:62 var
+R8732:8732 Kernel.CmpMM <> i:63 var
+R8735:8741 Kernel.CmpFlat <> FAssign constr
+R8743:8743 Kernel.CmpMM <> x:64 var
+R8745:8745 Kernel.CmpMM <> e:65 var
+R8777:8780 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8752:8759 Kernel.CmpExpr <> cmp_cexp def
+R8762:8762 Coq.Init.Datatypes <> S constr
+R8764:8765 Kernel.CmpMM <> nv:61 var
+R8768:8768 Kernel.CmpMM <> e:65 var
+R8771:8773 Kernel.CmpMM <> lnk:62 var
+R8775:8775 Kernel.CmpMM <> i:63 var
+R8817:8820 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8781:8789 Kernel.CmpBlocks <> cmp_clear def
+R8797:8799 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8792:8794 Kernel.CmpMM <> lnk:62 var
+R8796:8796 Kernel.CmpMM <> i:63 var
+R8800:8807 Kernel.CmpExpr <> cmp_alen def
+R8809:8809 Kernel.CmpMM <> e:65 var
+R8813:8813 Coq.Init.Datatypes <> S constr
+R8815:8815 Kernel.CmpMM <> x:64 var
+R8821:8829 Kernel.CmpBlocks <> cmp_addmv def
+R8850:8852 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8837:8839 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8832:8834 Kernel.CmpMM <> lnk:62 var
+R8836:8836 Kernel.CmpMM <> i:63 var
+R8840:8847 Kernel.CmpExpr <> cmp_alen def
+R8849:8849 Kernel.CmpMM <> e:65 var
+R8857:8857 Coq.Init.Datatypes <> S constr
+R8859:8860 Kernel.CmpMM <> nv:61 var
+R8864:8864 Coq.Init.Datatypes <> S constr
+R8866:8866 Kernel.CmpMM <> x:64 var
+R8907:8915 Kernel.CmpMM <> cmp_icomp def
+prf 8954:8970 <> cmp_icomp_jmpf_eq
+binder 8981:8982 <> nv:66
+binder 8984:8986 <> lnk:67
+binder 8988:8988 <> i:68
+binder 8990:8990 <> b:69
+binder 8992:8992 <> j:70
+R9026:9031 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9019:9021 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8995:9003 Kernel.CmpFlat <> cmp_fi_ok def
+R9005:9006 Kernel.CmpMM <> nv:66 var
+R9009:9013 Kernel.CmpFlat <> FJmpF constr
+R9015:9015 Kernel.CmpMM <> b:69 var
+R9017:9017 Kernel.CmpMM <> j:70 var
+R9022:9025 Coq.Init.Datatypes <> true constr
+R9062:9064 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9032:9040 Kernel.CmpMM <> cmp_icomp def
+R9042:9043 Kernel.CmpMM <> nv:66 var
+R9045:9047 Kernel.CmpMM <> lnk:67 var
+R9049:9049 Kernel.CmpMM <> i:68 var
+R9052:9056 Kernel.CmpFlat <> FJmpF constr
+R9058:9058 Kernel.CmpMM <> b:69 var
+R9060:9060 Kernel.CmpMM <> j:70 var
+R9065:9070 Kernel.CmpExpr <> cmp_cb def
+R9073:9073 Coq.Init.Datatypes <> S constr
+R9075:9076 Kernel.CmpMM <> nv:66 var
+R9079:9079 Kernel.CmpMM <> b:69 var
+R9082:9084 Kernel.CmpMM <> lnk:67 var
+R9086:9086 Kernel.CmpMM <> i:68 var
+R9090:9092 Kernel.CmpMM <> lnk:67 var
+R9095:9095 Coq.Init.Datatypes <> S constr
+R9097:9097 Kernel.CmpMM <> i:68 var
+R9102:9104 Kernel.CmpMM <> lnk:67 var
+R9106:9106 Kernel.CmpMM <> j:70 var
+R9147:9155 Kernel.CmpMM <> cmp_icomp def
+prf 9194:9209 <> cmp_icomp_nop_eq
+binder 9220:9221 <> nv:71
+binder 9223:9225 <> lnk:72
+binder 9227:9227 <> i:73
+binder 9229:9229 <> I:74
+R9254:9259 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9246:9248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9232:9240 Kernel.CmpFlat <> cmp_fi_ok def
+R9242:9243 Kernel.CmpMM <> nv:71 var
+R9245:9245 Kernel.CmpMM <> I:74 var
+R9249:9253 Coq.Init.Datatypes <> false constr
+R9280:9282 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9260:9268 Kernel.CmpMM <> cmp_icomp def
+R9270:9271 Kernel.CmpMM <> nv:71 var
+R9273:9275 Kernel.CmpMM <> lnk:72 var
+R9277:9277 Kernel.CmpMM <> i:73 var
+R9279:9279 Kernel.CmpMM <> I:74 var
+R9283:9283 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9304:9304 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9284:9289 Undecidability.MinskyMachines.MM <> mm_dec constr
+R9294:9296 Kernel.CmpMM <> lnk:72 var
+R9299:9299 Coq.Init.Datatypes <> S constr
+R9301:9301 Kernel.CmpMM <> i:73 var
+R9379:9387 Kernel.CmpMM <> cmp_icomp def
+R9425:9433 Kernel.CmpMM <> cmp_icomp def
+R9472:9484 Kernel.CmpFlat <> cmp_fi_ok_jmp thm
+R9472:9484 Kernel.CmpFlat <> cmp_fi_ok_jmp thm
+R9472:9484 Kernel.CmpFlat <> cmp_fi_ok_jmp thm
+prf 9519:9530 <> cmp_simul_pw
+binder 9541:9542 <> nv:75
+binder 9544:9544 <> v:76
+binder 9546:9547 <> w3:77
+binder 9549:9550 <> w2:78
+R9570:9573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9553:9561 Kernel.CmpMM <> cmp_simul def
+R9563:9564 Kernel.CmpMM <> nv:75 var
+R9566:9566 Kernel.CmpMM <> v:76 var
+R9568:9569 Kernel.CmpMM <> w2:78 var
+R9574:9574 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9596:9600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 9582:9582 <> y:79
+R9589:9591 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9585:9586 Kernel.CmpMM <> w3:77 var
+R9588:9588 Kernel.CmpMM <> y:79 var
+R9592:9593 Kernel.CmpMM <> w2:78 var
+R9595:9595 Kernel.CmpMM <> y:79 var
+R9601:9609 Kernel.CmpMM <> cmp_simul def
+R9611:9612 Kernel.CmpMM <> nv:75 var
+R9614:9614 Kernel.CmpMM <> v:76 var
+R9616:9617 Kernel.CmpMM <> w3:77 var
+prf 9810:9822 <> cmp_sound_nop
+binder 9833:9834 <> nv:80
+binder 9836:9838 <> lnk:81
+binder 9840:9840 <> I:82
+binder 9842:9843 <> i1:83
+binder 9845:9845 <> v:84
+binder 9847:9848 <> w1:85
+R9873:9876 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9865:9867 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9851:9859 Kernel.CmpFlat <> cmp_fi_ok def
+R9861:9862 Kernel.CmpMM <> nv:80 var
+R9864:9864 Kernel.CmpMM <> I:82 var
+R9868:9872 Coq.Init.Datatypes <> false constr
+R9894:9899 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9877:9885 Kernel.CmpMM <> cmp_simul def
+R9887:9888 Kernel.CmpMM <> nv:80 var
+R9890:9890 Kernel.CmpMM <> v:84 var
+R9892:9893 Kernel.CmpMM <> w1:85 var
+R9900:9906 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9909:9910 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9907:9908 <> w2:86
+R9992:9995 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9911:9922 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R9976:9976 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9987:9988 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9991:9991 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9977:9979 Kernel.CmpMM <> lnk:81 var
+R9982:9982 Coq.Init.Datatypes <> S constr
+R9984:9985 Kernel.CmpMM <> i1:83 var
+R9989:9990 Kernel.CmpMM <> w2:86 var
+R9963:9963 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9970:9971 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9974:9974 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9964:9966 Kernel.CmpMM <> lnk:81 var
+R9968:9969 Kernel.CmpMM <> i1:83 var
+R9972:9973 Kernel.CmpMM <> w1:85 var
+R9931:9931 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9938:9939 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9961:9961 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9932:9934 Kernel.CmpMM <> lnk:81 var
+R9936:9937 Kernel.CmpMM <> i1:83 var
+R9940:9948 Kernel.CmpMM <> cmp_icomp def
+R9950:9951 Kernel.CmpMM <> nv:80 var
+R9953:9955 Kernel.CmpMM <> lnk:81 var
+R9957:9958 Kernel.CmpMM <> i1:83 var
+R9960:9960 Kernel.CmpMM <> I:82 var
+R9924:9929 Kernel.CmpMM <> mmstep abbrev
+R9996:10004 Kernel.CmpMM <> cmp_simul def
+R10006:10007 Kernel.CmpMM <> nv:80 var
+R10009:10009 Kernel.CmpMM <> v:84 var
+R10011:10012 Kernel.CmpMM <> w2:86 var
+R10101:10116 Kernel.CmpMM <> cmp_icomp_nop_eq thm
+R10101:10116 Kernel.CmpMM <> cmp_icomp_nop_eq thm
+R10101:10116 Kernel.CmpMM <> cmp_icomp_nop_eq thm
+R10140:10151 Kernel.CmpMM <> cmp_nop_prog thm
+R10140:10151 Kernel.CmpMM <> cmp_nop_prog thm
+R10161:10165 Coq.Init.Logic <> proj1 thm
+R10161:10165 Coq.Init.Logic <> proj1 thm
+prf 10186:10201 <> cmp_sound_assign
+binder 10212:10213 <> nv:87
+binder 10215:10217 <> lnk:88
+binder 10219:10219 <> x:89
+binder 10221:10221 <> a:90
+binder 10223:10224 <> i1:91
+binder 10226:10226 <> v:92
+binder 10228:10229 <> w1:93
+R10267:10270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10260:10262 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10234:10242 Kernel.CmpFlat <> cmp_fi_ok def
+R10244:10245 Kernel.CmpMM <> nv:87 var
+R10248:10254 Kernel.CmpFlat <> FAssign constr
+R10256:10256 Kernel.CmpMM <> x:89 var
+R10258:10258 Kernel.CmpMM <> a:90 var
+R10263:10266 Coq.Init.Datatypes <> true constr
+R10318:10321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10281:10283 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10271:10273 Kernel.CmpMM <> lnk:88 var
+R10276:10276 Coq.Init.Datatypes <> S constr
+R10278:10279 Kernel.CmpMM <> i1:91 var
+R10309:10311 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10284:10291 Kernel.CmpMM <> cmp_ilen def
+R10293:10294 Kernel.CmpMM <> nv:87 var
+R10297:10303 Kernel.CmpFlat <> FAssign constr
+R10305:10305 Kernel.CmpMM <> x:89 var
+R10307:10307 Kernel.CmpMM <> a:90 var
+R10312:10314 Kernel.CmpMM <> lnk:88 var
+R10316:10317 Kernel.CmpMM <> i1:91 var
+R10339:10344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10322:10330 Kernel.CmpMM <> cmp_simul def
+R10332:10333 Kernel.CmpMM <> nv:87 var
+R10335:10335 Kernel.CmpMM <> v:92 var
+R10337:10338 Kernel.CmpMM <> w1:93 var
+R10345:10351 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10354:10355 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10352:10353 <> w2:94
+R10449:10465 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10356:10367 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R10433:10433 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10444:10445 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10448:10448 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10434:10436 Kernel.CmpMM <> lnk:88 var
+R10439:10439 Coq.Init.Datatypes <> S constr
+R10441:10442 Kernel.CmpMM <> i1:91 var
+R10446:10447 Kernel.CmpMM <> w2:94 var
+R10420:10420 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10427:10428 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10431:10431 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10421:10423 Kernel.CmpMM <> lnk:88 var
+R10425:10426 Kernel.CmpMM <> i1:91 var
+R10429:10430 Kernel.CmpMM <> w1:93 var
+R10376:10376 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10383:10384 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10418:10418 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10377:10379 Kernel.CmpMM <> lnk:88 var
+R10381:10382 Kernel.CmpMM <> i1:91 var
+R10385:10393 Kernel.CmpMM <> cmp_icomp def
+R10395:10396 Kernel.CmpMM <> nv:87 var
+R10398:10400 Kernel.CmpMM <> lnk:88 var
+R10402:10403 Kernel.CmpMM <> i1:91 var
+R10406:10412 Kernel.CmpFlat <> FAssign constr
+R10414:10414 Kernel.CmpMM <> x:89 var
+R10416:10416 Kernel.CmpMM <> a:90 var
+R10369:10374 Kernel.CmpMM <> mmstep abbrev
+R10466:10474 Kernel.CmpMM <> cmp_simul def
+R10476:10477 Kernel.CmpMM <> nv:87 var
+R10480:10486 Kernel.CmpLang <> cmp_upd def
+R10488:10488 Kernel.CmpMM <> v:92 var
+R10490:10490 Kernel.CmpMM <> x:89 var
+R10493:10501 Kernel.CmpLang <> cmp_aeval def
+R10503:10503 Kernel.CmpMM <> v:92 var
+R10505:10505 Kernel.CmpMM <> a:90 var
+R10509:10510 Kernel.CmpMM <> w2:94 var
+R10599:10602 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10575:10584 Kernel.CmpFlat <> cmp_fi_max def
+R10587:10593 Kernel.CmpFlat <> FAssign constr
+R10617:10630 Kernel.CmpMM <> cmp_fi_ok_true thm
+R10599:10602 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10575:10584 Kernel.CmpFlat <> cmp_fi_max def
+R10587:10593 Kernel.CmpFlat <> FAssign constr
+R10617:10630 Kernel.CmpMM <> cmp_fi_ok_true thm
+R10652:10659 Kernel.CmpMM <> cmp_ilen def
+R10700:10720 Kernel.CmpMM <> cmp_icomp_assign_core thm
+R10700:10720 Kernel.CmpMM <> cmp_icomp_assign_core thm
+R10829:10847 Kernel.CmpMM <> cmp_icomp_assign_eq thm
+R10829:10847 Kernel.CmpMM <> cmp_icomp_assign_eq thm
+R10829:10847 Kernel.CmpMM <> cmp_icomp_assign_eq thm
+R10918:10918 Coq.Init.Datatypes <> S constr
+R10937:10940 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10955:10955 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10951:10953 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10941:10948 Kernel.CmpExpr <> cmp_alen def
+R10918:10918 Coq.Init.Datatypes <> S constr
+R10937:10940 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10955:10955 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10951:10953 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10941:10948 Kernel.CmpExpr <> cmp_alen def
+R10988:10999 Kernel.CmpMM <> cmp_simul_pw thm
+R10988:10999 Kernel.CmpMM <> cmp_simul_pw thm
+prf 11041:11054 <> cmp_sound_jmpf
+binder 11065:11066 <> nv:95
+binder 11068:11070 <> lnk:96
+binder 11072:11072 <> b:97
+binder 11074:11074 <> j:98
+binder 11076:11077 <> i1:99
+binder 11079:11079 <> v:100
+binder 11081:11082 <> w1:101
+R11093:11096 Coq.Init.Datatypes <> bool ind
+binder 11085:11089 <> taken:102
+R11133:11136 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11126:11128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11102:11110 Kernel.CmpFlat <> cmp_fi_ok def
+R11112:11113 Kernel.CmpMM <> nv:95 var
+R11116:11120 Kernel.CmpFlat <> FJmpF constr
+R11122:11122 Kernel.CmpMM <> b:97 var
+R11124:11124 Kernel.CmpMM <> j:98 var
+R11129:11132 Coq.Init.Datatypes <> true constr
+R11158:11161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11150:11152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11137:11145 Kernel.CmpLang <> cmp_beval def
+R11147:11147 Kernel.CmpMM <> v:100 var
+R11149:11149 Kernel.CmpMM <> b:97 var
+R11153:11157 Kernel.CmpMM <> taken:102 var
+R11179:11184 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11162:11170 Kernel.CmpMM <> cmp_simul def
+R11172:11173 Kernel.CmpMM <> nv:95 var
+R11175:11175 Kernel.CmpMM <> v:100 var
+R11177:11178 Kernel.CmpMM <> w1:101 var
+R11185:11191 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11194:11195 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11192:11193 <> w2:103
+R11327:11330 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11196:11207 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R11286:11286 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11322:11323 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11326:11326 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11290:11294 Kernel.CmpMM <> taken:102 var
+R11317:11319 Kernel.CmpMM <> lnk:96 var
+R11321:11321 Kernel.CmpMM <> j:98 var
+R11301:11303 Kernel.CmpMM <> lnk:96 var
+R11306:11306 Coq.Init.Datatypes <> S constr
+R11308:11309 Kernel.CmpMM <> i1:99 var
+R11324:11325 Kernel.CmpMM <> w2:103 var
+R11258:11258 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11265:11266 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11269:11269 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11259:11261 Kernel.CmpMM <> lnk:96 var
+R11263:11264 Kernel.CmpMM <> i1:99 var
+R11267:11268 Kernel.CmpMM <> w1:101 var
+R11216:11216 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11223:11224 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11256:11256 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11217:11219 Kernel.CmpMM <> lnk:96 var
+R11221:11222 Kernel.CmpMM <> i1:99 var
+R11225:11233 Kernel.CmpMM <> cmp_icomp def
+R11235:11236 Kernel.CmpMM <> nv:95 var
+R11238:11240 Kernel.CmpMM <> lnk:96 var
+R11242:11243 Kernel.CmpMM <> i1:99 var
+R11246:11250 Kernel.CmpFlat <> FJmpF constr
+R11252:11252 Kernel.CmpMM <> b:97 var
+R11254:11254 Kernel.CmpMM <> j:98 var
+R11209:11214 Kernel.CmpMM <> mmstep abbrev
+R11331:11339 Kernel.CmpMM <> cmp_simul def
+R11341:11342 Kernel.CmpMM <> nv:95 var
+R11344:11344 Kernel.CmpMM <> v:100 var
+R11346:11347 Kernel.CmpMM <> w2:103 var
+R11430:11433 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11419:11427 Kernel.CmpLang <> cmp_bvmax def
+R11448:11461 Kernel.CmpMM <> cmp_fi_ok_true thm
+R11430:11433 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11419:11427 Kernel.CmpLang <> cmp_bvmax def
+R11448:11461 Kernel.CmpMM <> cmp_fi_ok_true thm
+R11495:11513 Kernel.CmpMM <> cmp_icomp_jmpf_core thm
+R11535:11535 Coq.Init.Datatypes <> S constr
+R11495:11513 Kernel.CmpMM <> cmp_icomp_jmpf_core thm
+R11535:11535 Coq.Init.Datatypes <> S constr
+R11642:11658 Kernel.CmpMM <> cmp_icomp_jmpf_eq thm
+R11642:11658 Kernel.CmpMM <> cmp_icomp_jmpf_eq thm
+R11642:11658 Kernel.CmpMM <> cmp_icomp_jmpf_eq thm
+R11756:11767 Kernel.CmpMM <> cmp_simul_pw thm
+R11756:11767 Kernel.CmpMM <> cmp_simul_pw thm
+prf 11811:11825 <> cmp_icomp_sound
+binder 11836:11837 <> nv:104
+R11840:11865 Undecidability.Shared.Libs.DLW.Code.compiler_correction <> instruction_compiler_sound def
+R11905:11913 Kernel.CmpMM <> cmp_simul def
+R11915:11916 Kernel.CmpMM <> nv:104 var
+R11897:11902 Kernel.CmpMM <> mmstep abbrev
+R11883:11891 Kernel.CmpFlat <> cmp_fstep ind
+R11893:11894 Kernel.CmpMM <> nv:104 var
+R11868:11876 Kernel.CmpMM <> cmp_icomp def
+R11878:11879 Kernel.CmpMM <> nv:104 var
+R11985:12000 Kernel.CmpMM <> cmp_icomp_length thm
+R11985:12000 Kernel.CmpMM <> cmp_icomp_length thm
+R11985:12000 Kernel.CmpMM <> cmp_icomp_length thm
+R12046:12058 Kernel.CmpMM <> cmp_sound_nop thm
+R12046:12058 Kernel.CmpMM <> cmp_sound_nop thm
+R12085:12100 Kernel.CmpMM <> cmp_sound_assign thm
+R12085:12100 Kernel.CmpMM <> cmp_sound_assign thm
+R12157:12160 Coq.Init.Datatypes <> true constr
+R12127:12140 Kernel.CmpMM <> cmp_sound_jmpf thm
+R12157:12160 Coq.Init.Datatypes <> true constr
+R12127:12140 Kernel.CmpMM <> cmp_sound_jmpf thm
+R12218:12222 Coq.Init.Datatypes <> false constr
+R12188:12201 Kernel.CmpMM <> cmp_sound_jmpf thm
+R12218:12222 Coq.Init.Datatypes <> false constr
+R12188:12201 Kernel.CmpMM <> cmp_sound_jmpf thm
+R12282:12290 Kernel.CmpMM <> cmp_icomp def
+R12300:12311 Kernel.CmpMM <> cmp_nop_prog thm
+R12300:12311 Kernel.CmpMM <> cmp_nop_prog thm
+R12321:12325 Coq.Init.Logic <> proj1 thm
+R12321:12325 Coq.Init.Logic <> proj1 thm
+prf 12564:12573 <> cmp_mm_fun
+binder 12584:12584 <> I:105
+binder 12586:12587 <> st:106
+binder 12589:12591 <> st1:107
+binder 12593:12595 <> st2:108
+R12613:12616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12598:12603 Kernel.CmpMM <> mmstep abbrev
+R12610:12612 Kernel.CmpMM <> st1:107 var
+R12607:12608 Kernel.CmpMM <> st:106 var
+R12605:12605 Kernel.CmpMM <> I:105 var
+R12632:12635 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12617:12622 Kernel.CmpMM <> mmstep abbrev
+R12629:12631 Kernel.CmpMM <> st2:108 var
+R12626:12627 Kernel.CmpMM <> st:106 var
+R12624:12624 Kernel.CmpMM <> I:105 var
+R12639:12641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12636:12638 Kernel.CmpMM <> st1:107 var
+R12642:12644 Kernel.CmpMM <> st2:108 var
+R12688:12701 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env_fun thm
+R12688:12701 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env_fun thm
+def 12728:12734 <> cmp_err
+R12742:12744 Coq.Init.Datatypes <> nat ind
+binder 12737:12738 <> nv:109
+R12756:12758 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R12753:12755 Coq.Init.Datatypes <> nat ind
+R12759:12762 Coq.Init.Datatypes <> list ind
+R12764:12769 Kernel.CmpFlat <> cmp_fi ind
+binder 12748:12749 <> Px:110
+R12778:12780 Coq.Init.Datatypes <> nat ind
+binder 12773:12774 <> iQ:111
+R12785:12787 Coq.Init.Datatypes <> nat ind
+R12796:12798 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12794:12795 Kernel.CmpMM <> iQ:111 var
+R12799:12813 Undecidability.Shared.Libs.DLW.Code.compiler <> length_compiler def
+R12830:12832 Coq.Init.Datatypes <> snd def
+R12834:12835 Kernel.CmpMM <> Px:110 var
+R12816:12823 Kernel.CmpMM <> cmp_ilen def
+R12825:12826 Kernel.CmpMM <> nv:109 var
+def 12851:12858 <> cmp_link
+R12866:12868 Coq.Init.Datatypes <> nat ind
+binder 12861:12862 <> nv:112
+R12880:12882 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R12877:12879 Coq.Init.Datatypes <> nat ind
+R12883:12886 Coq.Init.Datatypes <> list ind
+R12888:12893 Kernel.CmpFlat <> cmp_fi ind
+binder 12872:12873 <> Px:113
+R12902:12904 Coq.Init.Datatypes <> nat ind
+binder 12897:12898 <> iQ:114
+R12912:12915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12909:12911 Coq.Init.Datatypes <> nat ind
+R12916:12918 Coq.Init.Datatypes <> nat ind
+R12925:12930 Undecidability.Shared.Libs.DLW.Code.compiler <> linker def
+R12953:12959 Kernel.CmpMM <> cmp_err def
+R12961:12962 Kernel.CmpMM <> nv:112 var
+R12964:12965 Kernel.CmpMM <> Px:113 var
+R12967:12968 Kernel.CmpMM <> iQ:114 var
+R12949:12950 Kernel.CmpMM <> iQ:114 var
+R12946:12947 Kernel.CmpMM <> Px:113 var
+R12933:12940 Kernel.CmpMM <> cmp_ilen def
+R12942:12943 Kernel.CmpMM <> nv:112 var
+def 12984:12991 <> cmp_code
+R12999:13001 Coq.Init.Datatypes <> nat ind
+binder 12994:12995 <> nv:115
+R13013:13015 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13010:13012 Coq.Init.Datatypes <> nat ind
+R13016:13019 Coq.Init.Datatypes <> list ind
+R13021:13026 Kernel.CmpFlat <> cmp_fi ind
+binder 13005:13006 <> Px:116
+R13035:13037 Coq.Init.Datatypes <> nat ind
+binder 13030:13031 <> iQ:117
+R13042:13045 Coq.Init.Datatypes <> list ind
+R13047:13052 Kernel.CmpBlocks <> cmp_mi def
+R13059:13066 Undecidability.Shared.Libs.DLW.Code.compiler <> compiler def
+R13104:13110 Kernel.CmpMM <> cmp_err def
+R13112:13113 Kernel.CmpMM <> nv:115 var
+R13115:13116 Kernel.CmpMM <> Px:116 var
+R13118:13119 Kernel.CmpMM <> iQ:117 var
+R13100:13101 Kernel.CmpMM <> iQ:117 var
+R13097:13098 Kernel.CmpMM <> Px:116 var
+R13084:13091 Kernel.CmpMM <> cmp_ilen def
+R13093:13094 Kernel.CmpMM <> nv:115 var
+R13069:13077 Kernel.CmpMM <> cmp_icomp def
+R13079:13080 Kernel.CmpMM <> nv:115 var
+prf 13130:13144 <> cmp_code_length
+binder 13155:13156 <> nv:118
+binder 13158:13159 <> Px:119
+binder 13161:13162 <> iQ:120
+R13191:13193 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13165:13170 Coq.Init.Datatypes <> length def
+R13173:13180 Kernel.CmpMM <> cmp_code def
+R13182:13183 Kernel.CmpMM <> nv:118 var
+R13185:13186 Kernel.CmpMM <> Px:119 var
+R13188:13189 Kernel.CmpMM <> iQ:120 var
+R13194:13208 Undecidability.Shared.Libs.DLW.Code.compiler <> length_compiler def
+R13225:13227 Coq.Init.Datatypes <> snd def
+R13229:13230 Kernel.CmpMM <> Px:119 var
+R13211:13218 Kernel.CmpMM <> cmp_ilen def
+R13220:13221 Kernel.CmpMM <> nv:118 var
+R13256:13263 Kernel.CmpMM <> cmp_code def
+R13272:13286 Undecidability.Shared.Libs.DLW.Code.compiler <> compiler_length thm
+R13289:13304 Kernel.CmpMM <> cmp_icomp_length thm
+R13272:13286 Undecidability.Shared.Libs.DLW.Code.compiler <> compiler_length thm
+R13289:13304 Kernel.CmpMM <> cmp_icomp_length thm
+prf 13319:13332 <> cmp_link_start
+binder 13343:13344 <> nv:121
+binder 13346:13347 <> Px:122
+binder 13349:13350 <> iQ:123
+R13379:13381 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13353:13360 Kernel.CmpMM <> cmp_link def
+R13362:13363 Kernel.CmpMM <> nv:121 var
+R13365:13366 Kernel.CmpMM <> Px:122 var
+R13368:13369 Kernel.CmpMM <> iQ:123 var
+R13372:13374 Coq.Init.Datatypes <> fst def
+R13376:13377 Kernel.CmpMM <> Px:122 var
+R13382:13383 Kernel.CmpMM <> iQ:123 var
+R13408:13415 Kernel.CmpMM <> cmp_link def
+R13425:13441 Undecidability.Shared.Libs.DLW.Code.compiler <> linker_code_start thm
+R13444:13451 Kernel.CmpMM <> cmp_ilen def
+R13425:13441 Undecidability.Shared.Libs.DLW.Code.compiler <> linker_code_start thm
+R13444:13451 Kernel.CmpMM <> cmp_ilen def
+prf 13474:13485 <> cmp_link_out
+binder 13496:13497 <> nv:124
+binder 13499:13500 <> Px:125
+binder 13502:13503 <> iQ:126
+binder 13505:13505 <> j:127
+R13523:13526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13510:13517 Undecidability.Shared.Libs.DLW.Code.subcode <> out_code def
+R13521:13522 Kernel.CmpMM <> Px:125 var
+R13519:13519 Kernel.CmpMM <> j:127 var
+R13546:13548 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13527:13534 Kernel.CmpMM <> cmp_link def
+R13536:13537 Kernel.CmpMM <> nv:124 var
+R13539:13540 Kernel.CmpMM <> Px:125 var
+R13542:13543 Kernel.CmpMM <> iQ:126 var
+R13545:13545 Kernel.CmpMM <> j:127 var
+R13551:13553 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13549:13550 Kernel.CmpMM <> iQ:126 var
+R13554:13568 Undecidability.Shared.Libs.DLW.Code.compiler <> length_compiler def
+R13585:13587 Coq.Init.Datatypes <> snd def
+R13589:13590 Kernel.CmpMM <> Px:125 var
+R13571:13578 Kernel.CmpMM <> cmp_ilen def
+R13580:13581 Kernel.CmpMM <> nv:124 var
+R13631:13638 Kernel.CmpMM <> cmp_link def
+R13653:13666 Undecidability.Shared.Libs.DLW.Code.compiler <> linker_out_err thm
+R13671:13678 Kernel.CmpMM <> cmp_ilen def
+R13691:13697 Kernel.CmpMM <> cmp_err def
+R13653:13666 Undecidability.Shared.Libs.DLW.Code.compiler <> linker_out_err thm
+R13671:13678 Kernel.CmpMM <> cmp_ilen def
+R13691:13697 Kernel.CmpMM <> cmp_err def
+R13653:13666 Undecidability.Shared.Libs.DLW.Code.compiler <> linker_out_err thm
+R13671:13678 Kernel.CmpMM <> cmp_ilen def
+R13691:13697 Kernel.CmpMM <> cmp_err def
+R13653:13666 Undecidability.Shared.Libs.DLW.Code.compiler <> linker_out_err thm
+R13671:13678 Kernel.CmpMM <> cmp_ilen def
+R13691:13697 Kernel.CmpMM <> cmp_err def
+R13653:13666 Undecidability.Shared.Libs.DLW.Code.compiler <> linker_out_err thm
+R13671:13678 Kernel.CmpMM <> cmp_ilen def
+R13691:13697 Kernel.CmpMM <> cmp_err def
+R13749:13755 Kernel.CmpMM <> cmp_err def
+prf 13775:13788 <> cmp_mm_subcode
+binder 13799:13800 <> nv:128
+binder 13802:13803 <> Px:129
+binder 13805:13806 <> iQ:130
+binder 13808:13808 <> i:131
+binder 13810:13812 <> rho:132
+R13834:13839 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13827:13831 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R13817:13817 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13819:13820 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13826:13826 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13818:13818 Kernel.CmpMM <> i:131 var
+R13821:13821 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R13825:13825 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R13822:13824 Kernel.CmpMM <> rho:132 var
+R13832:13833 Kernel.CmpMM <> Px:129 var
+R13929:13934 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13901:13905 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R13840:13840 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13860:13861 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13900:13900 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13841:13848 Kernel.CmpMM <> cmp_link def
+R13850:13851 Kernel.CmpMM <> nv:128 var
+R13853:13854 Kernel.CmpMM <> Px:129 var
+R13856:13857 Kernel.CmpMM <> iQ:130 var
+R13859:13859 Kernel.CmpMM <> i:131 var
+R13862:13870 Kernel.CmpMM <> cmp_icomp def
+R13872:13873 Kernel.CmpMM <> nv:128 var
+R13876:13883 Kernel.CmpMM <> cmp_link def
+R13885:13886 Kernel.CmpMM <> nv:128 var
+R13888:13889 Kernel.CmpMM <> Px:129 var
+R13891:13892 Kernel.CmpMM <> iQ:130 var
+R13895:13895 Kernel.CmpMM <> i:131 var
+R13897:13899 Kernel.CmpMM <> rho:132 var
+R13906:13906 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13909:13910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13928:13928 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13907:13908 Kernel.CmpMM <> iQ:130 var
+R13911:13918 Kernel.CmpMM <> cmp_code def
+R13920:13921 Kernel.CmpMM <> nv:128 var
+R13923:13924 Kernel.CmpMM <> Px:129 var
+R13926:13927 Kernel.CmpMM <> iQ:130 var
+R13960:13962 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13935:13942 Kernel.CmpMM <> cmp_link def
+R13944:13945 Kernel.CmpMM <> nv:128 var
+R13947:13948 Kernel.CmpMM <> Px:129 var
+R13950:13951 Kernel.CmpMM <> iQ:130 var
+R13955:13957 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13958:13958 Kernel.CmpMM <> i:131 var
+R13978:13980 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13963:13970 Kernel.CmpMM <> cmp_ilen def
+R13972:13973 Kernel.CmpMM <> nv:128 var
+R13975:13977 Kernel.CmpMM <> rho:132 var
+R13981:13988 Kernel.CmpMM <> cmp_link def
+R13990:13991 Kernel.CmpMM <> nv:128 var
+R13993:13994 Kernel.CmpMM <> Px:129 var
+R13996:13997 Kernel.CmpMM <> iQ:130 var
+R13999:13999 Kernel.CmpMM <> i:131 var
+R14045:14060 Undecidability.Shared.Libs.DLW.Code.compiler <> compiler_subcode thm
+R14120:14126 Kernel.CmpMM <> cmp_err def
+R14092:14107 Kernel.CmpMM <> cmp_icomp_length thm
+R14078:14085 Kernel.CmpMM <> cmp_ilen def
+R14063:14071 Kernel.CmpMM <> cmp_icomp def
+R14045:14060 Undecidability.Shared.Libs.DLW.Code.compiler <> compiler_subcode thm
+R14120:14126 Kernel.CmpMM <> cmp_err def
+R14092:14107 Kernel.CmpMM <> cmp_icomp_length thm
+R14078:14085 Kernel.CmpMM <> cmp_ilen def
+R14063:14071 Kernel.CmpMM <> cmp_icomp def
+prf 14162:14173 <> cmp_mm_sound
+binder 14184:14185 <> nv:133
+binder 14187:14188 <> Px:134
+binder 14190:14191 <> iQ:135
+binder 14193:14194 <> i1:136
+binder 14196:14197 <> v1:137
+binder 14199:14200 <> i2:138
+binder 14202:14203 <> v2:139
+binder 14205:14206 <> w1:140
+R14229:14232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14211:14219 Kernel.CmpMM <> cmp_simul def
+R14221:14222 Kernel.CmpMM <> nv:133 var
+R14224:14225 Kernel.CmpMM <> v1:137 var
+R14227:14228 Kernel.CmpMM <> w1:140 var
+R14280:14285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14233:14243 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute def
+R14272:14272 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14275:14276 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14279:14279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14273:14274 Kernel.CmpMM <> i2:138 var
+R14277:14278 Kernel.CmpMM <> v2:139 var
+R14263:14263 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14266:14267 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14270:14270 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14264:14265 Kernel.CmpMM <> i1:136 var
+R14268:14269 Kernel.CmpMM <> v1:137 var
+R14260:14261 Kernel.CmpMM <> Px:134 var
+R14246:14254 Kernel.CmpFlat <> cmp_fstep ind
+R14256:14257 Kernel.CmpMM <> nv:133 var
+R14286:14292 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14295:14296 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14293:14294 <> w2:141
+R14315:14322 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14297:14305 Kernel.CmpMM <> cmp_simul def
+R14307:14308 Kernel.CmpMM <> nv:133 var
+R14310:14311 Kernel.CmpMM <> v2:139 var
+R14313:14314 Kernel.CmpMM <> w2:141 var
+R14323:14333 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute def
+R14393:14393 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14414:14415 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14418:14418 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14394:14401 Kernel.CmpMM <> cmp_link def
+R14403:14404 Kernel.CmpMM <> nv:133 var
+R14406:14407 Kernel.CmpMM <> Px:134 var
+R14409:14410 Kernel.CmpMM <> iQ:135 var
+R14412:14413 Kernel.CmpMM <> i2:138 var
+R14416:14417 Kernel.CmpMM <> w2:141 var
+R14366:14366 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14387:14388 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14391:14391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14367:14374 Kernel.CmpMM <> cmp_link def
+R14376:14377 Kernel.CmpMM <> nv:133 var
+R14379:14380 Kernel.CmpMM <> Px:134 var
+R14382:14383 Kernel.CmpMM <> iQ:135 var
+R14385:14386 Kernel.CmpMM <> i1:136 var
+R14389:14390 Kernel.CmpMM <> w1:140 var
+R14342:14342 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14345:14346 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14364:14364 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14343:14344 Kernel.CmpMM <> iQ:135 var
+R14347:14354 Kernel.CmpMM <> cmp_code def
+R14356:14357 Kernel.CmpMM <> nv:133 var
+R14359:14360 Kernel.CmpMM <> Px:134 var
+R14362:14363 Kernel.CmpMM <> iQ:135 var
+R14335:14340 Kernel.CmpMM <> mmstep abbrev
+R14477:14490 Undecidability.Shared.Libs.DLW.Code.compiler_correction <> compiler_sound thm
+R14634:14637 Coq.Init.Logic <> conj constr
+R14605:14618 Kernel.CmpMM <> cmp_mm_subcode thm
+R14580:14580 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14583:14584 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14602:14602 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14585:14592 Kernel.CmpMM <> cmp_code def
+R14561:14568 Kernel.CmpMM <> cmp_link def
+R14529:14543 Kernel.CmpMM <> cmp_icomp_sound thm
+R14507:14522 Kernel.CmpMM <> cmp_icomp_length thm
+R14493:14500 Kernel.CmpMM <> cmp_ilen def
+R14477:14490 Undecidability.Shared.Libs.DLW.Code.compiler_correction <> compiler_sound thm
+R14634:14637 Coq.Init.Logic <> conj constr
+R14605:14618 Kernel.CmpMM <> cmp_mm_subcode thm
+R14580:14580 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14583:14584 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14602:14602 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14585:14592 Kernel.CmpMM <> cmp_code def
+R14561:14568 Kernel.CmpMM <> cmp_link def
+R14529:14543 Kernel.CmpMM <> cmp_icomp_sound thm
+R14507:14522 Kernel.CmpMM <> cmp_icomp_length thm
+R14493:14500 Kernel.CmpMM <> cmp_ilen def
+prf 14662:14676 <> cmp_mm_complete
+binder 14687:14688 <> nv:142
+binder 14690:14691 <> Px:143
+binder 14693:14694 <> iQ:144
+binder 14696:14697 <> i1:145
+binder 14699:14700 <> v1:146
+binder 14702:14703 <> w1:147
+binder 14705:14706 <> st:148
+R14729:14732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14711:14719 Kernel.CmpMM <> cmp_simul def
+R14721:14722 Kernel.CmpMM <> nv:142 var
+R14724:14725 Kernel.CmpMM <> v1:146 var
+R14727:14728 Kernel.CmpMM <> w1:147 var
+R14804:14809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14733:14742 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R14802:14803 Kernel.CmpMM <> st:148 var
+R14775:14775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14796:14797 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14800:14800 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14776:14783 Kernel.CmpMM <> cmp_link def
+R14785:14786 Kernel.CmpMM <> nv:142 var
+R14788:14789 Kernel.CmpMM <> Px:143 var
+R14791:14792 Kernel.CmpMM <> iQ:144 var
+R14794:14795 Kernel.CmpMM <> i1:145 var
+R14798:14799 Kernel.CmpMM <> w1:147 var
+R14751:14751 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14754:14755 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14773:14773 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14752:14753 Kernel.CmpMM <> iQ:144 var
+R14756:14763 Kernel.CmpMM <> cmp_code def
+R14765:14766 Kernel.CmpMM <> nv:142 var
+R14768:14769 Kernel.CmpMM <> Px:143 var
+R14771:14772 Kernel.CmpMM <> iQ:144 var
+R14744:14749 Kernel.CmpMM <> mmstep abbrev
+R14810:14816 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14825:14826 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14817:14818 <> i2:149
+binder 14820:14821 <> v2:150
+binder 14823:14824 <> w2:151
+R14845:14848 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14827:14835 Kernel.CmpMM <> cmp_simul def
+R14837:14838 Kernel.CmpMM <> nv:142 var
+R14840:14841 Kernel.CmpMM <> v2:150 var
+R14843:14844 Kernel.CmpMM <> w2:151 var
+R14895:14902 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14849:14858 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R14887:14887 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14890:14891 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14894:14894 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14888:14889 Kernel.CmpMM <> i2:149 var
+R14892:14893 Kernel.CmpMM <> v2:150 var
+R14878:14878 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14881:14882 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14885:14885 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14879:14880 Kernel.CmpMM <> i1:145 var
+R14883:14884 Kernel.CmpMM <> v1:146 var
+R14875:14876 Kernel.CmpMM <> Px:143 var
+R14861:14869 Kernel.CmpFlat <> cmp_fstep ind
+R14871:14872 Kernel.CmpMM <> nv:142 var
+R14903:14912 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R14972:14973 Kernel.CmpMM <> st:148 var
+R14945:14945 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14966:14967 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14970:14970 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14946:14953 Kernel.CmpMM <> cmp_link def
+R14955:14956 Kernel.CmpMM <> nv:142 var
+R14958:14959 Kernel.CmpMM <> Px:143 var
+R14961:14962 Kernel.CmpMM <> iQ:144 var
+R14964:14965 Kernel.CmpMM <> i2:149 var
+R14968:14969 Kernel.CmpMM <> w2:151 var
+R14921:14921 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14924:14925 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14943:14943 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14922:14923 Kernel.CmpMM <> iQ:144 var
+R14926:14933 Kernel.CmpMM <> cmp_code def
+R14935:14936 Kernel.CmpMM <> nv:142 var
+R14938:14939 Kernel.CmpMM <> Px:143 var
+R14941:14942 Kernel.CmpMM <> iQ:144 var
+R14914:14919 Kernel.CmpMM <> mmstep abbrev
+R15029:15046 Undecidability.Shared.Libs.DLW.Code.compiler_correction <> compiler_complete' thm
+R15204:15207 Coq.Init.Logic <> conj constr
+R15172:15185 Kernel.CmpMM <> cmp_mm_subcode thm
+R15149:15156 Kernel.CmpMM <> cmp_link def
+R15128:15142 Kernel.CmpMM <> cmp_icomp_sound thm
+R15105:15114 Kernel.CmpMM <> cmp_mm_fun thm
+R15085:15099 Kernel.CmpFlat <> cmp_fstep_total thm
+R15063:15078 Kernel.CmpMM <> cmp_icomp_length thm
+R15049:15056 Kernel.CmpMM <> cmp_ilen def
+R15029:15046 Undecidability.Shared.Libs.DLW.Code.compiler_correction <> compiler_complete' thm
+R15204:15207 Coq.Init.Logic <> conj constr
+R15172:15185 Kernel.CmpMM <> cmp_mm_subcode thm
+R15149:15156 Kernel.CmpMM <> cmp_link def
+R15128:15142 Kernel.CmpMM <> cmp_icomp_sound thm
+R15105:15114 Kernel.CmpMM <> cmp_mm_fun thm
+R15085:15099 Kernel.CmpFlat <> cmp_fstep_total thm
+R15063:15078 Kernel.CmpMM <> cmp_icomp_length thm
+R15049:15056 Kernel.CmpMM <> cmp_ilen def
+prf 15372:15384 <> cmp_mm_output
+binder 15395:15396 <> nv:152
+binder 15398:15399 <> Px:153
+binder 15401:15402 <> iQ:154
+binder 15404:15405 <> v1:155
+binder 15407:15408 <> i2:156
+binder 15410:15411 <> v2:157
+binder 15413:15414 <> w1:158
+R15437:15440 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15419:15427 Kernel.CmpMM <> cmp_simul def
+R15429:15430 Kernel.CmpMM <> nv:152 var
+R15432:15433 Kernel.CmpMM <> v1:155 var
+R15435:15436 Kernel.CmpMM <> w1:158 var
+R15491:15496 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15441:15450 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R15483:15483 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15486:15487 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15490:15490 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15484:15485 Kernel.CmpMM <> i2:156 var
+R15488:15489 Kernel.CmpMM <> v2:157 var
+R15470:15470 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15477:15478 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15481:15481 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15471:15473 Coq.Init.Datatypes <> fst def
+R15475:15476 Kernel.CmpMM <> Px:153 var
+R15479:15480 Kernel.CmpMM <> v1:155 var
+R15467:15468 Kernel.CmpMM <> Px:153 var
+R15453:15461 Kernel.CmpFlat <> cmp_fstep ind
+R15463:15464 Kernel.CmpMM <> nv:152 var
+R15497:15503 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15506:15507 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15504:15505 <> w2:159
+R15526:15533 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15508:15516 Kernel.CmpMM <> cmp_simul def
+R15518:15519 Kernel.CmpMM <> nv:152 var
+R15521:15522 Kernel.CmpMM <> v2:157 var
+R15524:15525 Kernel.CmpMM <> w2:159 var
+R15534:15543 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R15585:15585 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15617:15618 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15621:15621 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15588:15590 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15586:15587 Kernel.CmpMM <> iQ:154 var
+R15591:15596 Coq.Init.Datatypes <> length def
+R15599:15606 Kernel.CmpMM <> cmp_code def
+R15608:15609 Kernel.CmpMM <> nv:152 var
+R15611:15612 Kernel.CmpMM <> Px:153 var
+R15614:15615 Kernel.CmpMM <> iQ:154 var
+R15619:15620 Kernel.CmpMM <> w2:159 var
+R15576:15576 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15579:15580 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15583:15583 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15577:15578 Kernel.CmpMM <> iQ:154 var
+R15581:15582 Kernel.CmpMM <> w1:158 var
+R15552:15552 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15555:15556 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15574:15574 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15553:15554 Kernel.CmpMM <> iQ:154 var
+R15557:15564 Kernel.CmpMM <> cmp_code def
+R15566:15567 Kernel.CmpMM <> nv:152 var
+R15569:15570 Kernel.CmpMM <> Px:153 var
+R15572:15573 Kernel.CmpMM <> iQ:154 var
+R15545:15550 Kernel.CmpMM <> mmstep abbrev
+R15687:15698 Kernel.CmpMM <> cmp_mm_sound thm
+R15687:15698 Kernel.CmpMM <> cmp_mm_sound thm
+R15758:15771 Kernel.CmpMM <> cmp_link_start thm
+R15775:15786 Kernel.CmpMM <> cmp_link_out thm
+R15758:15771 Kernel.CmpMM <> cmp_link_start thm
+R15758:15771 Kernel.CmpMM <> cmp_link_start thm
+R15775:15786 Kernel.CmpMM <> cmp_link_out thm
+R15775:15786 Kernel.CmpMM <> cmp_link_out thm
+R15868:15882 Kernel.CmpMM <> cmp_code_length thm
+R15868:15882 Kernel.CmpMM <> cmp_code_length thm
+R15868:15882 Kernel.CmpMM <> cmp_code_length thm
+R15907:15914 Undecidability.Shared.Libs.DLW.Code.subcode <> out_code def
+R15917:15924 Undecidability.Shared.Libs.DLW.Code.subcode <> code_end def
+R15932:15934 Coq.Init.Datatypes <> fst def
+R15936:15938 Coq.Init.Datatypes <> snd def
+R15955:15965 Coq.Arith.PeanoNat Nat le_refl thm
+R15955:15965 Coq.Arith.PeanoNat Nat le_refl thm
+prf 16169:16186 <> cmp_mm_output_conv
+binder 16197:16198 <> nv:160
+binder 16200:16201 <> Px:161
+binder 16203:16204 <> iQ:162
+binder 16206:16207 <> v1:163
+binder 16209:16209 <> j:164
+binder 16211:16212 <> w1:165
+binder 16214:16215 <> w2:166
+R16238:16243 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16220:16228 Kernel.CmpMM <> cmp_simul def
+R16230:16231 Kernel.CmpMM <> nv:160 var
+R16233:16234 Kernel.CmpMM <> v1:163 var
+R16236:16237 Kernel.CmpMM <> w1:165 var
+R16302:16307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16244:16253 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R16295:16295 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16297:16298 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16301:16301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16296:16296 Kernel.CmpMM <> j:164 var
+R16299:16300 Kernel.CmpMM <> w2:166 var
+R16286:16286 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16289:16290 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16293:16293 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16287:16288 Kernel.CmpMM <> iQ:162 var
+R16291:16292 Kernel.CmpMM <> w1:165 var
+R16262:16262 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16265:16266 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16284:16284 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16263:16264 Kernel.CmpMM <> iQ:162 var
+R16267:16274 Kernel.CmpMM <> cmp_code def
+R16276:16277 Kernel.CmpMM <> nv:160 var
+R16279:16280 Kernel.CmpMM <> Px:161 var
+R16282:16283 Kernel.CmpMM <> iQ:162 var
+R16255:16260 Kernel.CmpMM <> mmstep abbrev
+R16308:16314 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16320:16321 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16315:16316 <> i2:167
+binder 16318:16319 <> v2:168
+R16340:16343 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16322:16330 Kernel.CmpMM <> cmp_simul def
+R16332:16333 Kernel.CmpMM <> nv:160 var
+R16335:16336 Kernel.CmpMM <> v2:168 var
+R16338:16339 Kernel.CmpMM <> w2:166 var
+R16394:16401 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16344:16353 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R16386:16386 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16389:16390 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16393:16393 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16387:16388 Kernel.CmpMM <> i2:167 var
+R16391:16392 Kernel.CmpMM <> v2:168 var
+R16373:16373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16380:16381 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16384:16384 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16374:16376 Coq.Init.Datatypes <> fst def
+R16378:16379 Kernel.CmpMM <> Px:161 var
+R16382:16383 Kernel.CmpMM <> v1:163 var
+R16370:16371 Kernel.CmpMM <> Px:161 var
+R16356:16364 Kernel.CmpFlat <> cmp_fstep ind
+R16366:16367 Kernel.CmpMM <> nv:160 var
+R16403:16405 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16402:16402 Kernel.CmpMM <> j:164 var
+R16408:16410 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16406:16407 Kernel.CmpMM <> iQ:162 var
+R16411:16416 Coq.Init.Datatypes <> length def
+R16419:16426 Kernel.CmpMM <> cmp_code def
+R16428:16429 Kernel.CmpMM <> nv:160 var
+R16431:16432 Kernel.CmpMM <> Px:161 var
+R16434:16435 Kernel.CmpMM <> iQ:162 var
+R16498:16507 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R16573:16573 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16575:16576 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16579:16579 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16540:16540 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16567:16568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16571:16571 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16541:16548 Kernel.CmpMM <> cmp_link def
+R16560:16562 Coq.Init.Datatypes <> fst def
+R16516:16516 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16519:16520 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16538:16538 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16521:16528 Kernel.CmpMM <> cmp_code def
+R16509:16514 Kernel.CmpMM <> mmstep abbrev
+R16598:16611 Kernel.CmpMM <> cmp_link_start thm
+R16498:16507 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R16573:16573 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16575:16576 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16579:16579 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16540:16540 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16567:16568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16571:16571 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16541:16548 Kernel.CmpMM <> cmp_link def
+R16560:16562 Coq.Init.Datatypes <> fst def
+R16516:16516 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16519:16520 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16538:16538 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16521:16528 Kernel.CmpMM <> cmp_code def
+R16509:16514 Kernel.CmpMM <> mmstep abbrev
+R16598:16611 Kernel.CmpMM <> cmp_link_start thm
+R16598:16611 Kernel.CmpMM <> cmp_link_start thm
+R16637:16651 Kernel.CmpMM <> cmp_mm_complete thm
+R16663:16665 Coq.Init.Datatypes <> fst def
+R16677:16677 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16679:16680 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16683:16683 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16637:16651 Kernel.CmpMM <> cmp_mm_complete thm
+R16663:16665 Coq.Init.Datatypes <> fst def
+R16677:16677 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16679:16680 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16683:16683 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16816:16818 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16796:16803 Kernel.CmpMM <> cmp_link def
+R16821:16823 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16824:16829 Coq.Init.Datatypes <> length def
+R16832:16839 Kernel.CmpMM <> cmp_code def
+R16816:16818 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16796:16803 Kernel.CmpMM <> cmp_link def
+R16821:16823 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16824:16829 Coq.Init.Datatypes <> length def
+R16832:16839 Kernel.CmpMM <> cmp_code def
+R16865:16879 Kernel.CmpMM <> cmp_code_length thm
+R16865:16879 Kernel.CmpMM <> cmp_code_length thm
+R16865:16879 Kernel.CmpMM <> cmp_code_length thm
+R16888:16899 Kernel.CmpMM <> cmp_link_out thm
+R16888:16899 Kernel.CmpMM <> cmp_link_out thm
+R16931:16938 Undecidability.Shared.Libs.DLW.Code.subcode <> out_code def
+R16974:16974 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16977:16978 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16996:16996 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16979:16986 Kernel.CmpMM <> cmp_code def
+R16941:16943 Coq.Init.Datatypes <> fst def
+R16945:16945 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16966:16967 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16971:16971 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16946:16953 Kernel.CmpMM <> cmp_link def
+R16931:16938 Undecidability.Shared.Libs.DLW.Code.subcode <> out_code def
+R16974:16974 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16977:16978 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16996:16996 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16979:16986 Kernel.CmpMM <> cmp_code def
+R16941:16943 Coq.Init.Datatypes <> fst def
+R16945:16945 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16966:16967 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16971:16971 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16946:16953 Kernel.CmpMM <> cmp_link def
+R17009:17011 Coq.Init.Datatypes <> fst def
+R17034:17041 Undecidability.Shared.Libs.DLW.Code.subcode <> out_code def
+R17044:17051 Undecidability.Shared.Libs.DLW.Code.subcode <> code_end def
+R17059:17061 Coq.Init.Datatypes <> fst def
+R17063:17065 Coq.Init.Datatypes <> snd def
+R17082:17092 Coq.Arith.PeanoNat Nat le_refl thm
+R17082:17092 Coq.Arith.PeanoNat Nat le_refl thm
+R17111:17126 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute_stop thm
+R17111:17126 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute_stop thm
+R17263:17277 Kernel.CmpMM <> cmp_icomp_sound thm
+R17298:17310 Kernel.CmpMM <> cmp_mm_output thm
+R17331:17348 Kernel.CmpMM <> cmp_mm_output_conv thm

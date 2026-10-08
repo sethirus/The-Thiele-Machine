@@ -1,0 +1,2292 @@
+DIGEST c691078ccdef92eba6f1724caff8369e
+FKernel.RealizeCompact
+R2467:2470 Coq.Lists.List <> <> lib
+R2472:2476 Coq.Arith.Arith <> <> lib
+R2478:2480 Coq.micromega.Lia <> <> lib
+R2482:2485 Coq.Bool.Bool <> <> lib
+R2495:2507 Coq.Lists.List ListNotations <> mod
+R2525:2543 Kernel.RealizeNames <> <> lib
+R2554:2567 Kernel.Realize <> <> lib
+R2569:2588 Kernel.RealizePriced <> <> lib
+sec 2816:2822 <> Compact
+binder 2834:2837 <> prop:1
+var 2857:2864 Compact prop_eqb
+R2872:2875 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2868:2871 Kernel.RealizeCompact <> Compact.prop var
+R2880:2883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2876:2879 Kernel.RealizeCompact <> Compact.prop var
+R2884:2887 Coq.Init.Datatypes <> bool ind
+var 2899:2902 Compact eval
+R2910:2913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2906:2909 Kernel.RealizeCompact <> Compact.prop var
+R2917:2920 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2914:2916 Coq.Init.Datatypes <> nat ind
+R2921:2924 Coq.Init.Datatypes <> bool ind
+def 2993:3004 <> rlz_instr_ok
+R3011:3013 Coq.Init.Datatypes <> nat ind
+binder 3007:3007 <> N:4
+R3023:3047 Minimal.EarnedMulti <> instr ind
+R3049:3052 Kernel.RealizeCompact <> Compact.prop var
+binder 3017:3017 <> i:5
+R3058:3061 Coq.Init.Datatypes <> bool ind
+R3074:3074 Kernel.RealizeCompact <> i:5 var
+R3085:3107 Minimal.EarnedMulti <> INC constr
+R3114:3120 Coq.Arith.PeanoNat Nat ltb def
+R3124:3124 Kernel.RealizeCompact <> N:4 var
+R3130:3152 Minimal.EarnedMulti <> DEC constr
+R3161:3167 Coq.Arith.PeanoNat Nat ltb def
+R3171:3171 Kernel.RealizeCompact <> N:4 var
+R3177:3201 Minimal.EarnedMulti <> CHECK constr
+R3210:3216 Coq.Arith.PeanoNat Nat ltb def
+R3220:3220 Kernel.RealizeCompact <> N:4 var
+R3226:3251 Minimal.EarnedMulti <> COMMIT constr
+R3260:3266 Coq.Arith.PeanoNat Nat ltb def
+R3270:3270 Kernel.RealizeCompact <> N:4 var
+R3281:3284 Coq.Init.Datatypes <> true constr
+def 3305:3318 <> rlz_prog_below
+R3325:3327 Coq.Init.Datatypes <> nat ind
+binder 3321:3321 <> N:7
+R3335:3338 Coq.Init.Datatypes <> list ind
+R3342:3366 Minimal.EarnedMulti <> instr ind
+R3368:3371 Kernel.RealizeCompact <> Compact.prop var
+binder 3331:3331 <> P:8
+R3377:3380 Coq.Init.Datatypes <> bool ind
+R3387:3393 Coq.Lists.List <> forallb def
+R3412:3412 Kernel.RealizeCompact <> P:8 var
+R3396:3407 Kernel.RealizeCompact <> rlz_instr_ok def
+R3409:3409 Kernel.RealizeCompact <> N:7 var
+def 3427:3433 <> rlz_tab
+R3440:3442 Coq.Init.Datatypes <> nat ind
+binder 3436:3436 <> N:9
+R3453:3456 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3450:3452 Coq.Init.Datatypes <> nat ind
+R3457:3459 Coq.Init.Datatypes <> nat ind
+binder 3446:3446 <> f:10
+R3464:3467 Coq.Init.Datatypes <> list ind
+R3469:3471 Coq.Init.Datatypes <> nat ind
+R3476:3478 Coq.Lists.List <> map def
+R3483:3485 Coq.Lists.List <> seq def
+R3489:3489 Kernel.RealizeCompact <> N:9 var
+R3480:3480 Kernel.RealizeCompact <> f:10 var
+def 3652:3667 <> rlz_compact_core
+R3674:3676 Coq.Init.Datatypes <> nat ind
+binder 3670:3670 <> N:11
+R3687:3690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3684:3686 Coq.Init.Datatypes <> nat ind
+R3691:3693 Coq.Init.Datatypes <> nat ind
+binder 3680:3680 <> g:12
+R3703:3726 Minimal.EarnedMulti <> core rec
+R3728:3731 Kernel.RealizeCompact <> Compact.prop var
+binder 3697:3697 <> k:13
+R3739:3762 Minimal.EarnedMulti <> core rec
+R3764:3767 Kernel.RealizeCompact <> Compact.prop var
+R3785:3791 Kernel.RealizeCompact <> rlz_tab def
+R3793:3793 Kernel.RealizeCompact <> N:11 var
+R3796:3819 Minimal.EarnedMulti <> vals proj
+R3821:3821 Kernel.RealizeCompact <> k:13 var
+binder 3779:3780 <> tv:14
+R3839:3845 Kernel.RealizeCompact <> rlz_tab def
+R3847:3847 Kernel.RealizeCompact <> N:11 var
+R3850:3873 Minimal.EarnedMulti <> vers proj
+R3875:3875 Kernel.RealizeCompact <> k:13 var
+binder 3833:3834 <> tr:15
+R3883:3908 Minimal.EarnedMulti <> mkcore constr
+binder 3915:3915 <> r:16
+R3923:3929 Coq.Arith.PeanoNat Nat ltb def
+R3931:3931 Kernel.RealizeCompact <> r:16 var
+R3933:3933 Kernel.RealizeCompact <> N:11 var
+R3956:3956 Kernel.RealizeCompact <> g:12 var
+R3958:3958 Kernel.RealizeCompact <> r:16 var
+R3940:3942 Coq.Lists.List <> nth def
+R3946:3947 Kernel.RealizeCompact <> tv:14 var
+R3944:3944 Kernel.RealizeCompact <> r:16 var
+binder 3979:3979 <> r:17
+R3987:3993 Coq.Arith.PeanoNat Nat ltb def
+R3995:3995 Kernel.RealizeCompact <> r:17 var
+R3997:3997 Kernel.RealizeCompact <> N:11 var
+R4004:4006 Coq.Lists.List <> nth def
+R4010:4011 Kernel.RealizeCompact <> tr:15 var
+R4008:4008 Kernel.RealizeCompact <> r:17 var
+R4037:4058 Minimal.EarnedMulti <> pc proj
+R4060:4060 Kernel.RealizeCompact <> k:13 var
+R4064:4088 Minimal.EarnedMulti <> facts proj
+R4090:4090 Kernel.RealizeCompact <> k:13 var
+R4094:4117 Minimal.EarnedMulti <> chan proj
+R4119:4119 Kernel.RealizeCompact <> k:13 var
+R4123:4145 Minimal.EarnedMulti <> err proj
+R4147:4147 Kernel.RealizeCompact <> k:13 var
+def 4163:4173 <> rlz_compact
+R4180:4182 Coq.Init.Datatypes <> nat ind
+binder 4176:4176 <> N:18
+R4193:4196 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4190:4192 Coq.Init.Datatypes <> nat ind
+R4197:4199 Coq.Init.Datatypes <> nat ind
+binder 4186:4186 <> g:19
+R4209:4233 Minimal.EarnedMulti <> state rec
+R4235:4238 Kernel.RealizeCompact <> Compact.prop var
+binder 4203:4203 <> s:20
+R4246:4270 Minimal.EarnedMulti <> state rec
+R4272:4275 Kernel.RealizeCompact <> Compact.prop var
+R4283:4306 Minimal.EarnedMulti <> mkst constr
+R4309:4324 Kernel.RealizeCompact <> rlz_compact_core def
+R4326:4326 Kernel.RealizeCompact <> N:18 var
+R4328:4328 Kernel.RealizeCompact <> g:19 var
+R4331:4357 Minimal.EarnedMulti <> core_of proj
+R4359:4359 Kernel.RealizeCompact <> s:20 var
+R4364:4385 Minimal.EarnedMulti <> mu proj
+R4387:4387 Kernel.RealizeCompact <> s:20 var
+R4391:4414 Minimal.EarnedMulti <> cert proj
+R4416:4416 Kernel.RealizeCompact <> s:20 var
+def 4499:4510 <> rlz_core_eqv
+R4521:4544 Minimal.EarnedMulti <> core rec
+R4546:4549 Kernel.RealizeCompact <> Compact.prop var
+binder 4513:4513 <> k:21
+binder 4515:4515 <> l:22
+R4565:4565 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4635:4639 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4573:4573 <> r:23
+R4604:4606 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4576:4599 Minimal.EarnedMulti <> vals proj
+R4601:4601 Kernel.RealizeCompact <> k:21 var
+R4603:4603 Kernel.RealizeCompact <> r:23 var
+R4607:4630 Minimal.EarnedMulti <> vals proj
+R4632:4632 Kernel.RealizeCompact <> l:22 var
+R4634:4634 Kernel.RealizeCompact <> r:23 var
+R4640:4640 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4710:4716 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4648:4648 <> r:24
+R4679:4681 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4651:4674 Minimal.EarnedMulti <> vers proj
+R4676:4676 Kernel.RealizeCompact <> k:21 var
+R4678:4678 Kernel.RealizeCompact <> r:24 var
+R4682:4705 Minimal.EarnedMulti <> vers proj
+R4707:4707 Kernel.RealizeCompact <> l:22 var
+R4709:4709 Kernel.RealizeCompact <> r:24 var
+R4768:4771 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4741:4743 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4717:4738 Minimal.EarnedMulti <> pc proj
+R4740:4740 Kernel.RealizeCompact <> k:21 var
+R4744:4765 Minimal.EarnedMulti <> pc proj
+R4767:4767 Kernel.RealizeCompact <> l:22 var
+R4829:4832 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4799:4801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4772:4796 Minimal.EarnedMulti <> facts proj
+R4798:4798 Kernel.RealizeCompact <> k:21 var
+R4802:4826 Minimal.EarnedMulti <> facts proj
+R4828:4828 Kernel.RealizeCompact <> l:22 var
+R4888:4893 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4859:4861 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4833:4856 Minimal.EarnedMulti <> chan proj
+R4858:4858 Kernel.RealizeCompact <> k:21 var
+R4862:4885 Minimal.EarnedMulti <> chan proj
+R4887:4887 Kernel.RealizeCompact <> l:22 var
+R4919:4921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4894:4916 Minimal.EarnedMulti <> err proj
+R4918:4918 Kernel.RealizeCompact <> k:21 var
+R4922:4944 Minimal.EarnedMulti <> err proj
+R4946:4946 Kernel.RealizeCompact <> l:22 var
+def 4961:4967 <> rlz_eqv
+R4978:5002 Minimal.EarnedMulti <> state rec
+R5004:5007 Kernel.RealizeCompact <> Compact.prop var
+binder 4970:4970 <> s:25
+binder 4972:4972 <> t:26
+R5099:5102 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5023:5034 Kernel.RealizeCompact <> rlz_core_eqv def
+R5037:5063 Minimal.EarnedMulti <> core_of proj
+R5065:5065 Kernel.RealizeCompact <> s:25 var
+R5069:5095 Minimal.EarnedMulti <> core_of proj
+R5097:5097 Kernel.RealizeCompact <> t:26 var
+R5154:5157 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5127:5129 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5103:5124 Minimal.EarnedMulti <> mu proj
+R5126:5126 Kernel.RealizeCompact <> s:25 var
+R5130:5151 Minimal.EarnedMulti <> mu proj
+R5153:5153 Kernel.RealizeCompact <> t:26 var
+R5184:5186 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5158:5181 Minimal.EarnedMulti <> cert proj
+R5183:5183 Kernel.RealizeCompact <> s:25 var
+R5187:5210 Minimal.EarnedMulti <> cert proj
+R5212:5212 Kernel.RealizeCompact <> t:26 var
+prf 5222:5238 <> rlz_core_eqv_refl
+binder 5249:5249 <> k:27
+R5252:5263 Kernel.RealizeCompact <> rlz_core_eqv def
+R5265:5265 Kernel.RealizeCompact <> k:27 var
+R5267:5267 Kernel.RealizeCompact <> k:27 var
+prf 5318:5335 <> rlz_core_eqv_trans
+binder 5346:5346 <> k:28
+binder 5348:5348 <> l:29
+binder 5350:5350 <> m:30
+R5369:5372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5353:5364 Kernel.RealizeCompact <> rlz_core_eqv def
+R5366:5366 Kernel.RealizeCompact <> k:28 var
+R5368:5368 Kernel.RealizeCompact <> l:29 var
+R5389:5392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5373:5384 Kernel.RealizeCompact <> rlz_core_eqv def
+R5386:5386 Kernel.RealizeCompact <> l:29 var
+R5388:5388 Kernel.RealizeCompact <> m:30 var
+R5393:5404 Kernel.RealizeCompact <> rlz_core_eqv def
+R5406:5406 Kernel.RealizeCompact <> k:28 var
+R5408:5408 Kernel.RealizeCompact <> m:30 var
+prf 5647:5658 <> rlz_eqv_refl
+binder 5669:5669 <> s:31
+R5672:5678 Kernel.RealizeCompact <> rlz_eqv def
+R5680:5680 Kernel.RealizeCompact <> s:31 var
+R5682:5682 Kernel.RealizeCompact <> s:31 var
+R5709:5712 Coq.Init.Logic <> conj constr
+R5717:5720 Coq.Init.Logic <> conj constr
+R5736:5752 Kernel.RealizeCompact <> rlz_core_eqv_refl thm
+R5709:5712 Coq.Init.Logic <> conj constr
+R5717:5720 Coq.Init.Logic <> conj constr
+R5736:5752 Kernel.RealizeCompact <> rlz_core_eqv_refl thm
+prf 5796:5808 <> rlz_eqv_trans
+binder 5819:5819 <> s:32
+binder 5821:5821 <> t:33
+binder 5823:5823 <> u:34
+R5837:5840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5826:5832 Kernel.RealizeCompact <> rlz_eqv def
+R5834:5834 Kernel.RealizeCompact <> s:32 var
+R5836:5836 Kernel.RealizeCompact <> t:33 var
+R5852:5855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5841:5847 Kernel.RealizeCompact <> rlz_eqv def
+R5849:5849 Kernel.RealizeCompact <> t:33 var
+R5851:5851 Kernel.RealizeCompact <> u:34 var
+R5856:5862 Kernel.RealizeCompact <> rlz_eqv def
+R5864:5864 Kernel.RealizeCompact <> s:32 var
+R5866:5866 Kernel.RealizeCompact <> u:34 var
+R5935:5938 Coq.Init.Logic <> conj constr
+R5943:5946 Coq.Init.Logic <> conj constr
+R5963:5980 Kernel.RealizeCompact <> rlz_core_eqv_trans thm
+R5935:5938 Coq.Init.Logic <> conj constr
+R5943:5946 Coq.Init.Logic <> conj constr
+R5963:5980 Kernel.RealizeCompact <> rlz_core_eqv_trans thm
+prf 6090:6102 <> rlz_claim_eqv
+binder 6113:6113 <> k:35
+binder 6115:6115 <> l:36
+binder 6117:6117 <> p:37
+binder 6119:6119 <> r:38
+R6138:6141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6122:6133 Kernel.RealizeCompact <> rlz_core_eqv def
+R6135:6135 Kernel.RealizeCompact <> k:35 var
+R6137:6137 Kernel.RealizeCompact <> l:36 var
+R6173:6175 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6142:6166 Minimal.EarnedMulti <> claim def
+R6168:6168 Kernel.RealizeCompact <> k:35 var
+R6170:6170 Kernel.RealizeCompact <> p:37 var
+R6172:6172 Kernel.RealizeCompact <> r:38 var
+R6176:6200 Minimal.EarnedMulti <> claim def
+R6202:6202 Kernel.RealizeCompact <> l:36 var
+R6204:6204 Kernel.RealizeCompact <> p:37 var
+R6206:6206 Kernel.RealizeCompact <> r:38 var
+R6253:6277 Minimal.EarnedMulti <> claim def
+prf 6317:6332 <> rlz_check_ok_eqv
+binder 6343:6343 <> k:39
+binder 6345:6345 <> l:40
+binder 6347:6347 <> p:41
+binder 6349:6349 <> r:42
+R6368:6373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6352:6363 Kernel.RealizeCompact <> rlz_core_eqv def
+R6365:6365 Kernel.RealizeCompact <> k:39 var
+R6367:6367 Kernel.RealizeCompact <> l:40 var
+R6413:6415 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6374:6401 Minimal.EarnedMulti <> check_ok def
+R6408:6408 Kernel.RealizeCompact <> k:39 var
+R6410:6410 Kernel.RealizeCompact <> p:41 var
+R6412:6412 Kernel.RealizeCompact <> r:42 var
+R6403:6406 Kernel.RealizeCompact <> Compact.eval var
+R6416:6443 Minimal.EarnedMulti <> check_ok def
+R6450:6450 Kernel.RealizeCompact <> l:40 var
+R6452:6452 Kernel.RealizeCompact <> p:41 var
+R6454:6454 Kernel.RealizeCompact <> r:42 var
+R6445:6448 Kernel.RealizeCompact <> Compact.eval var
+R6519:6546 Minimal.EarnedMulti <> check_ok def
+prf 6596:6612 <> rlz_commit_ok_eqv
+binder 6623:6623 <> k:43
+binder 6625:6625 <> l:44
+binder 6627:6627 <> p:45
+binder 6629:6629 <> r:46
+R6648:6653 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6632:6643 Kernel.RealizeCompact <> rlz_core_eqv def
+R6645:6645 Kernel.RealizeCompact <> k:43 var
+R6647:6647 Kernel.RealizeCompact <> l:44 var
+R6698:6700 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6654:6682 Minimal.EarnedMulti <> commit_ok def
+R6693:6693 Kernel.RealizeCompact <> k:43 var
+R6695:6695 Kernel.RealizeCompact <> p:45 var
+R6697:6697 Kernel.RealizeCompact <> r:46 var
+R6684:6691 Kernel.RealizeCompact <> Compact.prop_eqb var
+R6701:6729 Minimal.EarnedMulti <> commit_ok def
+R6740:6740 Kernel.RealizeCompact <> l:44 var
+R6742:6742 Kernel.RealizeCompact <> p:45 var
+R6744:6744 Kernel.RealizeCompact <> r:46 var
+R6731:6738 Kernel.RealizeCompact <> Compact.prop_eqb var
+R6828:6856 Minimal.EarnedMulti <> commit_ok def
+R6878:6890 Kernel.RealizeCompact <> rlz_claim_eqv thm
+R6878:6890 Kernel.RealizeCompact <> rlz_claim_eqv thm
+R6878:6890 Kernel.RealizeCompact <> rlz_claim_eqv thm
+prf 6929:6946 <> rlz_certify_ok_eqv
+binder 6957:6957 <> k:47
+binder 6959:6959 <> l:48
+R6978:6983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6962:6973 Kernel.RealizeCompact <> rlz_core_eqv def
+R6975:6975 Kernel.RealizeCompact <> k:47 var
+R6977:6977 Kernel.RealizeCompact <> l:48 var
+R7016:7018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6984:7013 Minimal.EarnedMulti <> certify_ok def
+R7015:7015 Kernel.RealizeCompact <> k:47 var
+R7019:7048 Minimal.EarnedMulti <> certify_ok def
+R7050:7050 Kernel.RealizeCompact <> l:48 var
+R7111:7140 Minimal.EarnedMulti <> certify_ok def
+prf 7186:7198 <> rlz_write_eqv
+binder 7209:7209 <> k:49
+binder 7211:7211 <> l:50
+binder 7213:7213 <> r:51
+binder 7215:7215 <> n:52
+binder 7217:7217 <> j:53
+R7236:7241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7220:7231 Kernel.RealizeCompact <> rlz_core_eqv def
+R7233:7233 Kernel.RealizeCompact <> k:49 var
+R7235:7235 Kernel.RealizeCompact <> l:50 var
+R7242:7253 Kernel.RealizeCompact <> rlz_core_eqv def
+R7256:7280 Minimal.EarnedMulti <> write def
+R7282:7282 Kernel.RealizeCompact <> k:49 var
+R7284:7284 Kernel.RealizeCompact <> r:51 var
+R7286:7286 Kernel.RealizeCompact <> n:52 var
+R7288:7288 Kernel.RealizeCompact <> j:53 var
+R7292:7316 Minimal.EarnedMulti <> write def
+R7318:7318 Kernel.RealizeCompact <> l:50 var
+R7320:7320 Kernel.RealizeCompact <> r:51 var
+R7322:7322 Kernel.RealizeCompact <> n:52 var
+R7324:7324 Kernel.RealizeCompact <> j:53 var
+R7392:7416 Minimal.EarnedMulti <> write def
+R7419:7430 Kernel.RealizeCompact <> rlz_core_eqv def
+R7492:7514 Minimal.EarnedMulti <> upd def
+R7527:7533 Coq.Arith.PeanoNat Nat eqb def
+R7527:7533 Coq.Arith.PeanoNat Nat eqb def
+R7587:7609 Minimal.EarnedMulti <> upd def
+R7622:7628 Coq.Arith.PeanoNat Nat eqb def
+R7622:7628 Coq.Arith.PeanoNat Nat eqb def
+prf 7686:7697 <> rlz_goto_eqv
+binder 7708:7708 <> k:54
+binder 7710:7710 <> l:55
+binder 7712:7712 <> j:56
+R7731:7736 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7715:7726 Kernel.RealizeCompact <> rlz_core_eqv def
+R7728:7728 Kernel.RealizeCompact <> k:54 var
+R7730:7730 Kernel.RealizeCompact <> l:55 var
+R7737:7748 Kernel.RealizeCompact <> rlz_core_eqv def
+R7751:7774 Minimal.EarnedMulti <> goto def
+R7776:7776 Kernel.RealizeCompact <> k:54 var
+R7778:7778 Kernel.RealizeCompact <> j:56 var
+R7782:7805 Minimal.EarnedMulti <> goto def
+R7807:7807 Kernel.RealizeCompact <> l:55 var
+R7809:7809 Kernel.RealizeCompact <> j:56 var
+R7873:7896 Minimal.EarnedMulti <> goto def
+R7899:7910 Kernel.RealizeCompact <> rlz_core_eqv def
+prf 7964:7975 <> rlz_trap_eqv
+binder 7986:7986 <> k:57
+binder 7988:7988 <> l:58
+R8007:8012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7991:8002 Kernel.RealizeCompact <> rlz_core_eqv def
+R8004:8004 Kernel.RealizeCompact <> k:57 var
+R8006:8006 Kernel.RealizeCompact <> l:58 var
+R8013:8024 Kernel.RealizeCompact <> rlz_core_eqv def
+R8027:8050 Minimal.EarnedMulti <> trap def
+R8052:8052 Kernel.RealizeCompact <> k:57 var
+R8056:8079 Minimal.EarnedMulti <> trap def
+R8081:8081 Kernel.RealizeCompact <> l:58 var
+R8143:8166 Minimal.EarnedMulti <> trap def
+R8169:8180 Kernel.RealizeCompact <> rlz_core_eqv def
+prf 8234:8252 <> rlz_record_fact_eqv
+binder 8263:8263 <> k:59
+binder 8265:8265 <> l:60
+binder 8267:8267 <> f:61
+R8286:8291 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8270:8281 Kernel.RealizeCompact <> rlz_core_eqv def
+R8283:8283 Kernel.RealizeCompact <> k:59 var
+R8285:8285 Kernel.RealizeCompact <> l:60 var
+R8292:8303 Kernel.RealizeCompact <> rlz_core_eqv def
+R8306:8336 Minimal.EarnedMulti <> record_fact def
+R8338:8338 Kernel.RealizeCompact <> k:59 var
+R8340:8340 Kernel.RealizeCompact <> f:61 var
+R8344:8374 Minimal.EarnedMulti <> record_fact def
+R8376:8376 Kernel.RealizeCompact <> l:60 var
+R8378:8378 Kernel.RealizeCompact <> f:61 var
+R8442:8472 Minimal.EarnedMulti <> record_fact def
+R8475:8486 Kernel.RealizeCompact <> rlz_core_eqv def
+prf 8552:8568 <> rlz_commit_to_eqv
+binder 8579:8579 <> k:62
+binder 8581:8581 <> l:63
+binder 8583:8583 <> f:64
+R8602:8607 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8586:8597 Kernel.RealizeCompact <> rlz_core_eqv def
+R8599:8599 Kernel.RealizeCompact <> k:62 var
+R8601:8601 Kernel.RealizeCompact <> l:63 var
+R8608:8619 Kernel.RealizeCompact <> rlz_core_eqv def
+R8622:8650 Minimal.EarnedMulti <> commit_to def
+R8652:8652 Kernel.RealizeCompact <> k:62 var
+R8654:8654 Kernel.RealizeCompact <> f:64 var
+R8658:8686 Minimal.EarnedMulti <> commit_to def
+R8688:8688 Kernel.RealizeCompact <> l:63 var
+R8690:8690 Kernel.RealizeCompact <> f:64 var
+R8754:8782 Minimal.EarnedMulti <> commit_to def
+R8785:8796 Kernel.RealizeCompact <> rlz_core_eqv def
+prf 8862:8874 <> rlz_cexec_eqv
+binder 8885:8885 <> k:65
+binder 8887:8887 <> l:66
+R8896:8920 Minimal.EarnedMulti <> instr ind
+R8922:8925 Kernel.RealizeCompact <> Compact.prop var
+binder 8890:8890 <> i:67
+R8946:8951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8930:8941 Kernel.RealizeCompact <> rlz_core_eqv def
+R8943:8943 Kernel.RealizeCompact <> k:65 var
+R8945:8945 Kernel.RealizeCompact <> l:66 var
+R8952:8963 Kernel.RealizeCompact <> rlz_core_eqv def
+R8966:8990 Minimal.EarnedMulti <> cexec def
+R9006:9006 Kernel.RealizeCompact <> k:65 var
+R9008:9008 Kernel.RealizeCompact <> i:67 var
+R9001:9004 Kernel.RealizeCompact <> Compact.eval var
+R8992:8999 Kernel.RealizeCompact <> Compact.prop_eqb var
+R9012:9036 Minimal.EarnedMulti <> cexec def
+R9052:9052 Kernel.RealizeCompact <> l:66 var
+R9054:9054 Kernel.RealizeCompact <> i:67 var
+R9047:9050 Kernel.RealizeCompact <> Compact.eval var
+R9038:9045 Kernel.RealizeCompact <> Compact.prop_eqb var
+R9139:9163 Minimal.EarnedMulti <> cexec def
+R9193:9215 Minimal.EarnedMulti <> err proj
+R9193:9215 Minimal.EarnedMulti <> err proj
+R9320:9332 Kernel.RealizeCompact <> rlz_write_eqv thm
+R9320:9332 Kernel.RealizeCompact <> rlz_write_eqv thm
+R9384:9407 Minimal.EarnedMulti <> vals proj
+R9384:9407 Minimal.EarnedMulti <> vals proj
+R9436:9447 Kernel.RealizeCompact <> rlz_goto_eqv thm
+R9436:9447 Kernel.RealizeCompact <> rlz_goto_eqv thm
+R9471:9483 Kernel.RealizeCompact <> rlz_write_eqv thm
+R9471:9483 Kernel.RealizeCompact <> rlz_write_eqv thm
+R9524:9539 Kernel.RealizeCompact <> rlz_check_ok_eqv thm
+R9557:9569 Kernel.RealizeCompact <> rlz_claim_eqv thm
+R9524:9539 Kernel.RealizeCompact <> rlz_check_ok_eqv thm
+R9524:9539 Kernel.RealizeCompact <> rlz_check_ok_eqv thm
+R9557:9569 Kernel.RealizeCompact <> rlz_claim_eqv thm
+R9557:9569 Kernel.RealizeCompact <> rlz_claim_eqv thm
+R9597:9624 Minimal.EarnedMulti <> check_ok def
+R9626:9629 Kernel.RealizeCompact <> Compact.eval var
+R9597:9624 Minimal.EarnedMulti <> check_ok def
+R9626:9629 Kernel.RealizeCompact <> Compact.eval var
+R9651:9669 Kernel.RealizeCompact <> rlz_record_fact_eqv thm
+R9651:9669 Kernel.RealizeCompact <> rlz_record_fact_eqv thm
+R9693:9704 Kernel.RealizeCompact <> rlz_trap_eqv thm
+R9693:9704 Kernel.RealizeCompact <> rlz_trap_eqv thm
+R9732:9748 Kernel.RealizeCompact <> rlz_commit_ok_eqv thm
+R9766:9778 Kernel.RealizeCompact <> rlz_claim_eqv thm
+R9732:9748 Kernel.RealizeCompact <> rlz_commit_ok_eqv thm
+R9732:9748 Kernel.RealizeCompact <> rlz_commit_ok_eqv thm
+R9766:9778 Kernel.RealizeCompact <> rlz_claim_eqv thm
+R9766:9778 Kernel.RealizeCompact <> rlz_claim_eqv thm
+R9806:9834 Minimal.EarnedMulti <> commit_ok def
+R9836:9843 Kernel.RealizeCompact <> Compact.prop_eqb var
+R9806:9834 Minimal.EarnedMulti <> commit_ok def
+R9836:9843 Kernel.RealizeCompact <> Compact.prop_eqb var
+R9865:9881 Kernel.RealizeCompact <> rlz_commit_to_eqv thm
+R9865:9881 Kernel.RealizeCompact <> rlz_commit_to_eqv thm
+R9905:9916 Kernel.RealizeCompact <> rlz_trap_eqv thm
+R9905:9916 Kernel.RealizeCompact <> rlz_trap_eqv thm
+R9944:9961 Kernel.RealizeCompact <> rlz_certify_ok_eqv thm
+R9944:9961 Kernel.RealizeCompact <> rlz_certify_ok_eqv thm
+R9944:9961 Kernel.RealizeCompact <> rlz_certify_ok_eqv thm
+R9992:10021 Minimal.EarnedMulti <> certify_ok def
+R9992:10021 Minimal.EarnedMulti <> certify_ok def
+R10039:10050 Kernel.RealizeCompact <> rlz_goto_eqv thm
+R10039:10050 Kernel.RealizeCompact <> rlz_goto_eqv thm
+R10074:10085 Kernel.RealizeCompact <> rlz_trap_eqv thm
+R10074:10085 Kernel.RealizeCompact <> rlz_trap_eqv thm
+prf 10109:10121 <> rlz_fires_eqv
+binder 10132:10132 <> k:68
+binder 10134:10134 <> l:69
+R10143:10167 Minimal.EarnedMulti <> instr ind
+R10169:10172 Kernel.RealizeCompact <> Compact.prop var
+binder 10137:10137 <> i:70
+R10193:10196 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10177:10188 Kernel.RealizeCompact <> rlz_core_eqv def
+R10190:10190 Kernel.RealizeCompact <> k:68 var
+R10192:10192 Kernel.RealizeCompact <> l:69 var
+R10226:10228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10197:10221 Minimal.EarnedMulti <> fires def
+R10223:10223 Kernel.RealizeCompact <> k:68 var
+R10225:10225 Kernel.RealizeCompact <> i:70 var
+R10229:10253 Minimal.EarnedMulti <> fires def
+R10255:10255 Kernel.RealizeCompact <> l:69 var
+R10257:10257 Kernel.RealizeCompact <> i:70 var
+R10292:10316 Minimal.EarnedMulti <> fires def
+R10356:10373 Kernel.RealizeCompact <> rlz_certify_ok_eqv thm
+R10356:10373 Kernel.RealizeCompact <> rlz_certify_ok_eqv thm
+prf 10397:10408 <> rlz_exec_eqv
+binder 10419:10419 <> s:71
+binder 10421:10421 <> t:72
+R10430:10454 Minimal.EarnedMulti <> instr ind
+R10456:10459 Kernel.RealizeCompact <> Compact.prop var
+binder 10424:10424 <> i:73
+R10475:10480 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10464:10470 Kernel.RealizeCompact <> rlz_eqv def
+R10472:10472 Kernel.RealizeCompact <> s:71 var
+R10474:10474 Kernel.RealizeCompact <> t:72 var
+R10481:10487 Kernel.RealizeCompact <> rlz_eqv def
+R10490:10513 Minimal.EarnedMulti <> exec def
+R10529:10529 Kernel.RealizeCompact <> s:71 var
+R10531:10531 Kernel.RealizeCompact <> i:73 var
+R10524:10527 Kernel.RealizeCompact <> Compact.eval var
+R10515:10522 Kernel.RealizeCompact <> Compact.prop_eqb var
+R10535:10558 Minimal.EarnedMulti <> exec def
+R10574:10574 Kernel.RealizeCompact <> t:72 var
+R10576:10576 Kernel.RealizeCompact <> i:73 var
+R10569:10572 Kernel.RealizeCompact <> Compact.eval var
+R10560:10567 Kernel.RealizeCompact <> Compact.prop_eqb var
+R10625:10648 Minimal.EarnedMulti <> exec def
+R10651:10657 Kernel.RealizeCompact <> rlz_eqv def
+R10677:10680 Coq.Init.Logic <> conj constr
+R10685:10688 Coq.Init.Logic <> conj constr
+R10677:10680 Coq.Init.Logic <> conj constr
+R10685:10688 Coq.Init.Logic <> conj constr
+R10707:10719 Kernel.RealizeCompact <> rlz_cexec_eqv thm
+R10707:10719 Kernel.RealizeCompact <> rlz_cexec_eqv thm
+R10778:10790 Kernel.RealizeCompact <> rlz_fires_eqv thm
+R10778:10790 Kernel.RealizeCompact <> rlz_fires_eqv thm
+R10778:10790 Kernel.RealizeCompact <> rlz_fires_eqv thm
+prf 10828:10845 <> rlz_next_instr_eqv
+R10861:10864 Coq.Init.Datatypes <> list ind
+R10868:10892 Minimal.EarnedMulti <> instr ind
+R10894:10897 Kernel.RealizeCompact <> Compact.prop var
+binder 10857:10857 <> P:74
+binder 10901:10901 <> k:75
+binder 10903:10903 <> l:76
+R10922:10927 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10906:10917 Kernel.RealizeCompact <> rlz_core_eqv def
+R10919:10919 Kernel.RealizeCompact <> k:75 var
+R10921:10921 Kernel.RealizeCompact <> l:76 var
+R10962:10964 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10928:10957 Minimal.EarnedMulti <> next_instr def
+R10959:10959 Kernel.RealizeCompact <> P:74 var
+R10961:10961 Kernel.RealizeCompact <> k:75 var
+R10965:10994 Minimal.EarnedMulti <> next_instr def
+R10996:10996 Kernel.RealizeCompact <> P:74 var
+R10998:10998 Kernel.RealizeCompact <> l:76 var
+R11061:11090 Minimal.EarnedMulti <> next_instr def
+prf 11134:11145 <> rlz_step_eqv
+R11161:11164 Coq.Init.Datatypes <> list ind
+R11168:11192 Minimal.EarnedMulti <> instr ind
+R11194:11197 Kernel.RealizeCompact <> Compact.prop var
+binder 11157:11157 <> P:77
+binder 11201:11201 <> s:78
+binder 11203:11203 <> t:79
+R11217:11222 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11206:11212 Kernel.RealizeCompact <> rlz_eqv def
+R11214:11214 Kernel.RealizeCompact <> s:78 var
+R11216:11216 Kernel.RealizeCompact <> t:79 var
+R11223:11229 Kernel.RealizeCompact <> rlz_eqv def
+R11232:11255 Minimal.EarnedMulti <> step def
+R11271:11271 Kernel.RealizeCompact <> P:77 var
+R11273:11273 Kernel.RealizeCompact <> s:78 var
+R11266:11269 Kernel.RealizeCompact <> Compact.eval var
+R11257:11264 Kernel.RealizeCompact <> Compact.prop_eqb var
+R11277:11300 Minimal.EarnedMulti <> step def
+R11316:11316 Kernel.RealizeCompact <> P:77 var
+R11318:11318 Kernel.RealizeCompact <> t:79 var
+R11311:11314 Kernel.RealizeCompact <> Compact.eval var
+R11302:11309 Kernel.RealizeCompact <> Compact.prop_eqb var
+R11380:11403 Minimal.EarnedMulti <> step def
+R11420:11437 Kernel.RealizeCompact <> rlz_next_instr_eqv thm
+R11420:11437 Kernel.RealizeCompact <> rlz_next_instr_eqv thm
+R11420:11437 Kernel.RealizeCompact <> rlz_next_instr_eqv thm
+R11462:11491 Minimal.EarnedMulti <> next_instr def
+R11496:11522 Minimal.EarnedMulti <> core_of proj
+R11549:11560 Kernel.RealizeCompact <> rlz_exec_eqv thm
+R11462:11491 Minimal.EarnedMulti <> next_instr def
+R11496:11522 Minimal.EarnedMulti <> core_of proj
+R11549:11560 Kernel.RealizeCompact <> rlz_exec_eqv thm
+prf 11595:11610 <> rlz_run_prog_eqv
+binder 11621:11621 <> n:80
+R11628:11631 Coq.Init.Datatypes <> list ind
+R11635:11659 Minimal.EarnedMulti <> instr ind
+R11661:11664 Kernel.RealizeCompact <> Compact.prop var
+binder 11624:11624 <> P:81
+binder 11668:11668 <> s:82
+binder 11670:11670 <> t:83
+R11684:11689 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11673:11679 Kernel.RealizeCompact <> rlz_eqv def
+R11681:11681 Kernel.RealizeCompact <> s:82 var
+R11683:11683 Kernel.RealizeCompact <> t:83 var
+R11690:11696 Kernel.RealizeCompact <> rlz_eqv def
+R11699:11726 Minimal.EarnedMulti <> run_prog def
+R11742:11742 Kernel.RealizeCompact <> n:80 var
+R11744:11744 Kernel.RealizeCompact <> P:81 var
+R11746:11746 Kernel.RealizeCompact <> s:82 var
+R11737:11740 Kernel.RealizeCompact <> Compact.eval var
+R11728:11735 Kernel.RealizeCompact <> Compact.prop_eqb var
+R11750:11777 Minimal.EarnedMulti <> run_prog def
+R11793:11793 Kernel.RealizeCompact <> n:80 var
+R11795:11795 Kernel.RealizeCompact <> P:81 var
+R11797:11797 Kernel.RealizeCompact <> t:83 var
+R11788:11791 Kernel.RealizeCompact <> Compact.eval var
+R11779:11786 Kernel.RealizeCompact <> Compact.prop_eqb var
+R11889:11900 Kernel.RealizeCompact <> rlz_step_eqv thm
+R11889:11900 Kernel.RealizeCompact <> rlz_step_eqv thm
+def 11993:12000 <> rlz_cinv
+R12007:12009 Coq.Init.Datatypes <> nat ind
+binder 12003:12003 <> N:84
+R12020:12023 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12017:12019 Coq.Init.Datatypes <> nat ind
+R12024:12026 Coq.Init.Datatypes <> nat ind
+binder 12013:12013 <> g:85
+R12036:12059 Minimal.EarnedMulti <> core rec
+R12061:12064 Kernel.RealizeCompact <> Compact.prop var
+binder 12030:12030 <> k:86
+binder 12087:12087 <> r:87
+R12096:12099 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12091:12094 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12090:12090 Kernel.RealizeCompact <> N:84 var
+R12095:12095 Kernel.RealizeCompact <> r:87 var
+R12134:12137 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12128:12130 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12100:12123 Minimal.EarnedMulti <> vals proj
+R12125:12125 Kernel.RealizeCompact <> k:86 var
+R12127:12127 Kernel.RealizeCompact <> r:87 var
+R12131:12131 Kernel.RealizeCompact <> g:85 var
+R12133:12133 Kernel.RealizeCompact <> r:87 var
+R12166:12168 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12138:12161 Minimal.EarnedMulti <> vers proj
+R12163:12163 Kernel.RealizeCompact <> k:86 var
+R12165:12165 Kernel.RealizeCompact <> r:87 var
+def 12184:12190 <> rlz_inv
+R12197:12199 Coq.Init.Datatypes <> nat ind
+binder 12193:12193 <> N:88
+R12210:12213 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12207:12209 Coq.Init.Datatypes <> nat ind
+R12214:12216 Coq.Init.Datatypes <> nat ind
+binder 12203:12203 <> g:89
+R12226:12250 Minimal.EarnedMulti <> state rec
+R12252:12255 Kernel.RealizeCompact <> Compact.prop var
+binder 12220:12220 <> s:90
+R12271:12278 Kernel.RealizeCompact <> rlz_cinv def
+R12280:12280 Kernel.RealizeCompact <> N:88 var
+R12282:12282 Kernel.RealizeCompact <> g:89 var
+R12285:12311 Minimal.EarnedMulti <> core_of proj
+R12313:12313 Kernel.RealizeCompact <> s:90 var
+prf 12324:12334 <> rlz_next_in
+R12350:12353 Coq.Init.Datatypes <> list ind
+R12357:12381 Minimal.EarnedMulti <> instr ind
+R12383:12386 Kernel.RealizeCompact <> Compact.prop var
+binder 12346:12346 <> P:91
+R12397:12420 Minimal.EarnedMulti <> core rec
+R12422:12425 Kernel.RealizeCompact <> Compact.prop var
+binder 12391:12391 <> k:92
+binder 12429:12429 <> i:93
+R12475:12478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12466:12468 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12432:12461 Minimal.EarnedMulti <> next_instr def
+R12463:12463 Kernel.RealizeCompact <> P:91 var
+R12465:12465 Kernel.RealizeCompact <> k:92 var
+R12469:12472 Coq.Init.Datatypes <> Some constr
+R12474:12474 Kernel.RealizeCompact <> i:93 var
+R12479:12480 Coq.Lists.List <> In def
+R12484:12484 Kernel.RealizeCompact <> P:91 var
+R12482:12482 Kernel.RealizeCompact <> i:93 var
+R12519:12548 Minimal.EarnedMulti <> next_instr def
+R12568:12590 Minimal.EarnedMulti <> err proj
+R12568:12590 Minimal.EarnedMulti <> err proj
+R12623:12647 Minimal.EarnedMulti <> fetch def
+R12665:12686 Minimal.EarnedMulti <> pc proj
+R12665:12686 Minimal.EarnedMulti <> pc proj
+R12731:12739 Coq.Lists.List <> nth_error def
+R12731:12739 Coq.Lists.List <> nth_error def
+R12788:12799 Coq.Lists.List <> nth_error_In thm
+R12788:12799 Coq.Lists.List <> nth_error_In thm
+prf 12886:12898 <> rlz_cexec_inv
+binder 12909:12909 <> N:94
+binder 12911:12911 <> g:95
+binder 12913:12913 <> k:96
+R12922:12946 Minimal.EarnedMulti <> instr ind
+R12948:12951 Kernel.RealizeCompact <> Compact.prop var
+binder 12916:12916 <> i:97
+R12979:12982 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12972:12974 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12956:12967 Kernel.RealizeCompact <> rlz_instr_ok def
+R12969:12969 Kernel.RealizeCompact <> N:94 var
+R12971:12971 Kernel.RealizeCompact <> i:97 var
+R12975:12978 Coq.Init.Datatypes <> true constr
+R12997:13002 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12983:12990 Kernel.RealizeCompact <> rlz_cinv def
+R12992:12992 Kernel.RealizeCompact <> N:94 var
+R12994:12994 Kernel.RealizeCompact <> g:95 var
+R12996:12996 Kernel.RealizeCompact <> k:96 var
+R13003:13010 Kernel.RealizeCompact <> rlz_cinv def
+R13012:13012 Kernel.RealizeCompact <> N:94 var
+R13014:13014 Kernel.RealizeCompact <> g:95 var
+R13017:13041 Minimal.EarnedMulti <> cexec def
+R13057:13057 Kernel.RealizeCompact <> k:96 var
+R13059:13059 Kernel.RealizeCompact <> i:97 var
+R13052:13055 Kernel.RealizeCompact <> Compact.eval var
+R13043:13050 Kernel.RealizeCompact <> Compact.prop_eqb var
+R13101:13125 Minimal.EarnedMulti <> cexec def
+R13138:13160 Minimal.EarnedMulti <> err proj
+R13138:13160 Minimal.EarnedMulti <> err proj
+R13247:13256 Coq.Arith.PeanoNat Nat ltb_lt thm
+R13247:13256 Coq.Arith.PeanoNat Nat ltb_lt thm
+R13272:13296 Minimal.EarnedMulti <> write def
+R13299:13306 Kernel.RealizeCompact <> rlz_cinv def
+R13340:13362 Minimal.EarnedMulti <> upd def
+R13390:13392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13379:13385 Coq.Arith.PeanoNat Nat eqb def
+R13393:13397 Coq.Init.Datatypes <> false constr
+R13410:13420 Coq.Arith.PeanoNat Nat eqb_neq thm
+R13390:13392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13379:13385 Coq.Arith.PeanoNat Nat eqb def
+R13393:13397 Coq.Init.Datatypes <> false constr
+R13410:13420 Coq.Arith.PeanoNat Nat eqb_neq thm
+R13476:13485 Coq.Arith.PeanoNat Nat ltb_lt thm
+R13476:13485 Coq.Arith.PeanoNat Nat ltb_lt thm
+R13504:13527 Minimal.EarnedMulti <> vals proj
+R13504:13527 Minimal.EarnedMulti <> vals proj
+R13573:13597 Minimal.EarnedMulti <> write def
+R13600:13607 Kernel.RealizeCompact <> rlz_cinv def
+R13643:13665 Minimal.EarnedMulti <> upd def
+R13693:13695 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13682:13688 Coq.Arith.PeanoNat Nat eqb def
+R13696:13700 Coq.Init.Datatypes <> false constr
+R13713:13723 Coq.Arith.PeanoNat Nat eqb_neq thm
+R13693:13695 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13682:13688 Coq.Arith.PeanoNat Nat eqb def
+R13696:13700 Coq.Init.Datatypes <> false constr
+R13713:13723 Coq.Arith.PeanoNat Nat eqb_neq thm
+R13799:13826 Minimal.EarnedMulti <> check_ok def
+R13828:13831 Kernel.RealizeCompact <> Compact.eval var
+R13799:13826 Minimal.EarnedMulti <> check_ok def
+R13828:13831 Kernel.RealizeCompact <> Compact.eval var
+R13865:13893 Minimal.EarnedMulti <> commit_ok def
+R13895:13902 Kernel.RealizeCompact <> Compact.prop_eqb var
+R13865:13893 Minimal.EarnedMulti <> commit_ok def
+R13895:13902 Kernel.RealizeCompact <> Compact.prop_eqb var
+R13936:13965 Minimal.EarnedMulti <> certify_ok def
+R13936:13965 Minimal.EarnedMulti <> certify_ok def
+prf 13993:14004 <> rlz_step_inv
+binder 14015:14015 <> N:98
+binder 14017:14017 <> g:99
+R14024:14027 Coq.Init.Datatypes <> list ind
+R14031:14055 Minimal.EarnedMulti <> instr ind
+R14057:14060 Kernel.RealizeCompact <> Compact.prop var
+binder 14020:14020 <> P:100
+binder 14064:14064 <> s:101
+R14092:14095 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14085:14087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14067:14080 Kernel.RealizeCompact <> rlz_prog_below def
+R14082:14082 Kernel.RealizeCompact <> N:98 var
+R14084:14084 Kernel.RealizeCompact <> P:100 var
+R14088:14091 Coq.Init.Datatypes <> true constr
+R14109:14114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14096:14102 Kernel.RealizeCompact <> rlz_inv def
+R14104:14104 Kernel.RealizeCompact <> N:98 var
+R14106:14106 Kernel.RealizeCompact <> g:99 var
+R14108:14108 Kernel.RealizeCompact <> s:101 var
+R14115:14121 Kernel.RealizeCompact <> rlz_inv def
+R14123:14123 Kernel.RealizeCompact <> N:98 var
+R14125:14125 Kernel.RealizeCompact <> g:99 var
+R14128:14151 Minimal.EarnedMulti <> step def
+R14167:14167 Kernel.RealizeCompact <> P:100 var
+R14169:14169 Kernel.RealizeCompact <> s:101 var
+R14162:14165 Kernel.RealizeCompact <> Compact.eval var
+R14153:14160 Kernel.RealizeCompact <> Compact.prop_eqb var
+R14211:14234 Minimal.EarnedMulti <> step def
+R14249:14278 Minimal.EarnedMulti <> next_instr def
+R14283:14309 Minimal.EarnedMulti <> core_of proj
+R14249:14278 Minimal.EarnedMulti <> next_instr def
+R14283:14309 Minimal.EarnedMulti <> core_of proj
+R14353:14363 Kernel.RealizeCompact <> rlz_next_in thm
+R14353:14363 Kernel.RealizeCompact <> rlz_next_in thm
+R14378:14391 Kernel.RealizeCompact <> rlz_prog_below def
+R14408:14421 Coq.Lists.List <> forallb_forall thm
+R14408:14421 Coq.Lists.List <> forallb_forall thm
+R14408:14421 Coq.Lists.List <> forallb_forall thm
+R14439:14462 Minimal.EarnedMulti <> exec def
+R14465:14471 Kernel.RealizeCompact <> rlz_inv def
+R14487:14499 Kernel.RealizeCompact <> rlz_cexec_inv thm
+R14487:14499 Kernel.RealizeCompact <> rlz_cexec_inv thm
+prf 14546:14556 <> rlz_nth_tab
+binder 14567:14567 <> N:102
+binder 14569:14569 <> f:103
+binder 14571:14571 <> r:104
+R14579:14582 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14575:14577 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14574:14574 Kernel.RealizeCompact <> r:104 var
+R14578:14578 Kernel.RealizeCompact <> N:102 var
+R14604:14606 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14583:14585 Coq.Lists.List <> nth def
+R14590:14596 Kernel.RealizeCompact <> rlz_tab def
+R14598:14598 Kernel.RealizeCompact <> N:102 var
+R14600:14600 Kernel.RealizeCompact <> f:103 var
+R14587:14587 Kernel.RealizeCompact <> r:104 var
+R14607:14607 Kernel.RealizeCompact <> f:103 var
+R14609:14609 Kernel.RealizeCompact <> r:104 var
+R14644:14650 Kernel.RealizeCompact <> rlz_tab def
+R14697:14706 Coq.Lists.List <> map_length thm
+R14709:14718 Coq.Lists.List <> seq_length thm
+R14664:14672 Coq.Lists.List <> nth_indep thm
+R14664:14672 Coq.Lists.List <> nth_indep thm
+R14697:14706 Coq.Lists.List <> map_length thm
+R14697:14706 Coq.Lists.List <> map_length thm
+R14709:14718 Coq.Lists.List <> seq_length thm
+R14709:14718 Coq.Lists.List <> seq_length thm
+R14664:14672 Coq.Lists.List <> nth_indep thm
+R14741:14747 Coq.Lists.List <> map_nth thm
+R14750:14756 Coq.Lists.List <> seq_nth thm
+R14741:14747 Coq.Lists.List <> map_nth thm
+R14741:14747 Coq.Lists.List <> map_nth thm
+R14750:14756 Coq.Lists.List <> seq_nth thm
+R14750:14756 Coq.Lists.List <> seq_nth thm
+prf 14795:14809 <> rlz_compact_eqv
+binder 14820:14820 <> N:105
+binder 14822:14822 <> g:106
+binder 14824:14824 <> s:107
+R14840:14843 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14827:14833 Kernel.RealizeCompact <> rlz_inv def
+R14835:14835 Kernel.RealizeCompact <> N:105 var
+R14837:14837 Kernel.RealizeCompact <> g:106 var
+R14839:14839 Kernel.RealizeCompact <> s:107 var
+R14844:14850 Kernel.RealizeCompact <> rlz_eqv def
+R14853:14863 Kernel.RealizeCompact <> rlz_compact def
+R14865:14865 Kernel.RealizeCompact <> N:105 var
+R14867:14867 Kernel.RealizeCompact <> g:106 var
+R14869:14869 Kernel.RealizeCompact <> s:107 var
+R14872:14872 Kernel.RealizeCompact <> s:107 var
+R14908:14914 Kernel.RealizeCompact <> rlz_eqv def
+R14917:14928 Kernel.RealizeCompact <> rlz_core_eqv def
+R14931:14941 Kernel.RealizeCompact <> rlz_compact def
+R14944:14959 Kernel.RealizeCompact <> rlz_compact_core def
+R15025:15031 Coq.Arith.PeanoNat Nat ltb def
+R15025:15031 Coq.Arith.PeanoNat Nat ltb def
+R15057:15066 Coq.Arith.PeanoNat Nat ltb_lt thm
+R15057:15066 Coq.Arith.PeanoNat Nat ltb_lt thm
+R15080:15090 Kernel.RealizeCompact <> rlz_nth_tab thm
+R15080:15090 Kernel.RealizeCompact <> rlz_nth_tab thm
+R15114:15123 Coq.Arith.PeanoNat Nat ltb_ge thm
+R15114:15123 Coq.Arith.PeanoNat Nat ltb_ge thm
+R15148:15152 Coq.Init.Logic <> proj1 thm
+R15148:15152 Coq.Init.Logic <> proj1 thm
+R15188:15194 Coq.Arith.PeanoNat Nat ltb def
+R15188:15194 Coq.Arith.PeanoNat Nat ltb def
+R15220:15229 Coq.Arith.PeanoNat Nat ltb_lt thm
+R15220:15229 Coq.Arith.PeanoNat Nat ltb_lt thm
+R15243:15253 Kernel.RealizeCompact <> rlz_nth_tab thm
+R15243:15253 Kernel.RealizeCompact <> rlz_nth_tab thm
+R15277:15286 Coq.Arith.PeanoNat Nat ltb_ge thm
+R15277:15286 Coq.Arith.PeanoNat Nat ltb_ge thm
+R15311:15315 Coq.Init.Logic <> proj2 thm
+R15311:15315 Coq.Init.Logic <> proj2 thm
+prf 15340:15354 <> rlz_compact_inv
+binder 15365:15365 <> N:108
+binder 15367:15367 <> g:109
+binder 15369:15369 <> s:110
+R15372:15378 Kernel.RealizeCompact <> rlz_inv def
+R15380:15380 Kernel.RealizeCompact <> N:108 var
+R15382:15382 Kernel.RealizeCompact <> g:109 var
+R15385:15395 Kernel.RealizeCompact <> rlz_compact def
+R15397:15397 Kernel.RealizeCompact <> N:108 var
+R15399:15399 Kernel.RealizeCompact <> g:109 var
+R15401:15401 Kernel.RealizeCompact <> s:110 var
+R15435:15441 Kernel.RealizeCompact <> rlz_inv def
+R15444:15451 Kernel.RealizeCompact <> rlz_cinv def
+R15454:15464 Kernel.RealizeCompact <> rlz_compact def
+R15467:15482 Kernel.RealizeCompact <> rlz_compact_core def
+R15513:15522 Coq.Arith.PeanoNat Nat ltb_ge thm
+R15513:15522 Coq.Arith.PeanoNat Nat ltb_ge thm
+def 15652:15660 <> rlz_sched
+R15667:15669 Coq.Init.Datatypes <> nat ind
+binder 15663:15663 <> N:111
+R15680:15683 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15677:15679 Coq.Init.Datatypes <> nat ind
+R15684:15686 Coq.Init.Datatypes <> nat ind
+binder 15673:15673 <> g:112
+R15694:15697 Coq.Init.Datatypes <> list ind
+R15701:15725 Minimal.EarnedMulti <> instr ind
+R15727:15730 Kernel.RealizeCompact <> Compact.prop var
+binder 15690:15690 <> P:113
+R15743:15746 Coq.Init.Datatypes <> list ind
+R15748:15751 Coq.Init.Datatypes <> bool ind
+binder 15735:15739 <> sched:114
+R15763:15787 Minimal.EarnedMulti <> state rec
+R15789:15792 Kernel.RealizeCompact <> Compact.prop var
+binder 15757:15757 <> s:115
+R15800:15824 Minimal.EarnedMulti <> state rec
+R15826:15829 Kernel.RealizeCompact <> Compact.prop var
+R15843:15847 Kernel.RealizeCompact <> sched:114 var
+R15858:15859 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R15864:15864 Kernel.RealizeCompact <> s:115 var
+R15871:15874 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15886:15894 Kernel.RealizeCompact <> rlz_sched:116 def
+R15989:16012 Minimal.EarnedMulti <> step def
+R16028:16028 Kernel.RealizeCompact <> P:113 var
+R16030:16030 Kernel.RealizeCompact <> s:115 var
+R16023:16026 Kernel.RealizeCompact <> Compact.eval var
+R16014:16021 Kernel.RealizeCompact <> Compact.prop_eqb var
+R15923:15933 Kernel.RealizeCompact <> rlz_compact def
+R15935:15935 Kernel.RealizeCompact <> N:111 var
+R15937:15937 Kernel.RealizeCompact <> g:112 var
+R15940:15963 Minimal.EarnedMulti <> step def
+R15979:15979 Kernel.RealizeCompact <> P:113 var
+R15981:15981 Kernel.RealizeCompact <> s:115 var
+R15974:15977 Kernel.RealizeCompact <> Compact.eval var
+R15965:15972 Kernel.RealizeCompact <> Compact.prop_eqb var
+R15900:15900 Kernel.RealizeCompact <> P:113 var
+R15898:15898 Kernel.RealizeCompact <> g:112 var
+R15896:15896 Kernel.RealizeCompact <> N:111 var
+prf 16272:16286 <> rlz_sched_sound
+binder 16297:16297 <> N:118
+binder 16299:16299 <> g:119
+R16306:16309 Coq.Init.Datatypes <> list ind
+R16313:16337 Minimal.EarnedMulti <> instr ind
+R16339:16342 Kernel.RealizeCompact <> Compact.prop var
+binder 16302:16302 <> P:120
+binder 16346:16350 <> sched:121
+binder 16352:16352 <> s:122
+R16382:16385 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16375:16377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16357:16370 Kernel.RealizeCompact <> rlz_prog_below def
+R16372:16372 Kernel.RealizeCompact <> N:118 var
+R16374:16374 Kernel.RealizeCompact <> P:120 var
+R16378:16381 Coq.Init.Datatypes <> true constr
+R16399:16404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16386:16392 Kernel.RealizeCompact <> rlz_inv def
+R16394:16394 Kernel.RealizeCompact <> N:118 var
+R16396:16396 Kernel.RealizeCompact <> g:119 var
+R16398:16398 Kernel.RealizeCompact <> s:122 var
+R16405:16411 Kernel.RealizeCompact <> rlz_eqv def
+R16414:16422 Kernel.RealizeCompact <> rlz_sched def
+R16424:16424 Kernel.RealizeCompact <> N:118 var
+R16426:16426 Kernel.RealizeCompact <> g:119 var
+R16428:16428 Kernel.RealizeCompact <> P:120 var
+R16430:16434 Kernel.RealizeCompact <> sched:121 var
+R16436:16436 Kernel.RealizeCompact <> s:122 var
+R16440:16467 Minimal.EarnedMulti <> run_prog def
+R16484:16489 Coq.Init.Datatypes <> length def
+R16491:16495 Kernel.RealizeCompact <> sched:121 var
+R16498:16498 Kernel.RealizeCompact <> P:120 var
+R16500:16500 Kernel.RealizeCompact <> s:122 var
+R16478:16481 Kernel.RealizeCompact <> Compact.eval var
+R16469:16476 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16597:16608 Kernel.RealizeCompact <> rlz_eqv_refl thm
+R16597:16608 Kernel.RealizeCompact <> rlz_eqv_refl thm
+R16629:16635 Kernel.RealizeCompact <> rlz_inv def
+R16642:16665 Minimal.EarnedMulti <> step def
+R16676:16679 Kernel.RealizeCompact <> Compact.eval var
+R16667:16674 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16697:16708 Kernel.RealizeCompact <> rlz_step_inv thm
+R16629:16635 Kernel.RealizeCompact <> rlz_inv def
+R16642:16665 Minimal.EarnedMulti <> step def
+R16676:16679 Kernel.RealizeCompact <> Compact.eval var
+R16667:16674 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16697:16708 Kernel.RealizeCompact <> rlz_step_inv thm
+R16741:16747 Kernel.RealizeCompact <> rlz_inv def
+R16830:16853 Minimal.EarnedMulti <> step def
+R16864:16867 Kernel.RealizeCompact <> Compact.eval var
+R16855:16862 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16764:16774 Kernel.RealizeCompact <> rlz_compact def
+R16781:16804 Minimal.EarnedMulti <> step def
+R16815:16818 Kernel.RealizeCompact <> Compact.eval var
+R16806:16813 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16741:16747 Kernel.RealizeCompact <> rlz_inv def
+R16830:16853 Minimal.EarnedMulti <> step def
+R16864:16867 Kernel.RealizeCompact <> Compact.eval var
+R16855:16862 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16764:16774 Kernel.RealizeCompact <> rlz_compact def
+R16781:16804 Minimal.EarnedMulti <> step def
+R16815:16818 Kernel.RealizeCompact <> Compact.eval var
+R16806:16813 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16901:16915 Kernel.RealizeCompact <> rlz_compact_inv thm
+R16901:16915 Kernel.RealizeCompact <> rlz_compact_inv thm
+R16951:16957 Kernel.RealizeCompact <> rlz_eqv def
+R17036:17059 Minimal.EarnedMulti <> step def
+R17070:17073 Kernel.RealizeCompact <> Compact.eval var
+R17061:17068 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16970:16980 Kernel.RealizeCompact <> rlz_compact def
+R16987:17010 Minimal.EarnedMulti <> step def
+R17021:17024 Kernel.RealizeCompact <> Compact.eval var
+R17012:17019 Kernel.RealizeCompact <> Compact.prop_eqb var
+R17110:17133 Minimal.EarnedMulti <> step def
+R17144:17147 Kernel.RealizeCompact <> Compact.eval var
+R17135:17142 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16951:16957 Kernel.RealizeCompact <> rlz_eqv def
+R17036:17059 Minimal.EarnedMulti <> step def
+R17070:17073 Kernel.RealizeCompact <> Compact.eval var
+R17061:17068 Kernel.RealizeCompact <> Compact.prop_eqb var
+R16970:16980 Kernel.RealizeCompact <> rlz_compact def
+R16987:17010 Minimal.EarnedMulti <> step def
+R17021:17024 Kernel.RealizeCompact <> Compact.eval var
+R17012:17019 Kernel.RealizeCompact <> Compact.prop_eqb var
+R17110:17133 Minimal.EarnedMulti <> step def
+R17144:17147 Kernel.RealizeCompact <> Compact.eval var
+R17135:17142 Kernel.RealizeCompact <> Compact.prop_eqb var
+R17181:17195 Kernel.RealizeCompact <> rlz_compact_eqv thm
+R17216:17227 Kernel.RealizeCompact <> rlz_eqv_refl thm
+R17181:17195 Kernel.RealizeCompact <> rlz_compact_eqv thm
+R17216:17227 Kernel.RealizeCompact <> rlz_eqv_refl thm
+R17244:17256 Kernel.RealizeCompact <> rlz_eqv_trans thm
+R17244:17256 Kernel.RealizeCompact <> rlz_eqv_trans thm
+R17295:17310 Kernel.RealizeCompact <> rlz_run_prog_eqv thm
+R17295:17310 Kernel.RealizeCompact <> rlz_run_prog_eqv thm
+R17334:17340 Kernel.RealizeCompact Compact <> sec
+sec 17568:17575 <> Compactp
+binder 17587:17590 <> prop:123
+var 17610:17617 Compactp prop_eqb
+R17625:17628 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17621:17624 Kernel.RealizeCompact <> Compactp.prop var
+R17633:17636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17629:17632 Kernel.RealizeCompact <> Compactp.prop var
+R17637:17640 Coq.Init.Datatypes <> bool ind
+var 17652:17655 Compactp eval
+R17663:17666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17659:17662 Kernel.RealizeCompact <> Compactp.prop var
+R17670:17673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17667:17669 Coq.Init.Datatypes <> nat ind
+R17674:17677 Coq.Init.Datatypes <> bool ind
+def 17746:17758 <> rlzp_instr_ok
+R17765:17767 Coq.Init.Datatypes <> nat ind
+binder 17761:17761 <> N:126
+R17777:17810 Minimal.EarnedMultiPriced <> pu_instr ind
+R17812:17815 Kernel.RealizeCompact <> Compactp.prop var
+binder 17771:17771 <> i:127
+R17821:17824 Coq.Init.Datatypes <> bool ind
+R17837:17837 Kernel.RealizeCompact <> i:127 var
+R17848:17876 Minimal.EarnedMultiPriced <> INC constr
+R17883:17889 Coq.Arith.PeanoNat Nat ltb def
+R17893:17893 Kernel.RealizeCompact <> N:126 var
+R17899:17927 Minimal.EarnedMultiPriced <> DEC constr
+R17936:17942 Coq.Arith.PeanoNat Nat ltb def
+R17946:17946 Kernel.RealizeCompact <> N:126 var
+R17952:17982 Minimal.EarnedMultiPriced <> CHECK constr
+R17991:17997 Coq.Arith.PeanoNat Nat ltb def
+R18001:18001 Kernel.RealizeCompact <> N:126 var
+R18007:18038 Minimal.EarnedMultiPriced <> COMMIT constr
+R18047:18053 Coq.Arith.PeanoNat Nat ltb def
+R18057:18057 Kernel.RealizeCompact <> N:126 var
+R18068:18071 Coq.Init.Datatypes <> true constr
+def 18092:18106 <> rlzp_prog_below
+R18113:18115 Coq.Init.Datatypes <> nat ind
+binder 18109:18109 <> N:129
+R18123:18126 Coq.Init.Datatypes <> list ind
+R18130:18163 Minimal.EarnedMultiPriced <> pu_instr ind
+R18165:18168 Kernel.RealizeCompact <> Compactp.prop var
+binder 18119:18119 <> P:130
+R18174:18177 Coq.Init.Datatypes <> bool ind
+R18184:18190 Coq.Lists.List <> forallb def
+R18210:18210 Kernel.RealizeCompact <> P:130 var
+R18193:18205 Kernel.RealizeCompact <> rlzp_instr_ok def
+R18207:18207 Kernel.RealizeCompact <> N:129 var
+def 18225:18232 <> rlzp_tab
+R18239:18241 Coq.Init.Datatypes <> nat ind
+binder 18235:18235 <> N:131
+R18252:18255 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18249:18251 Coq.Init.Datatypes <> nat ind
+R18256:18258 Coq.Init.Datatypes <> nat ind
+binder 18245:18245 <> f:132
+R18263:18266 Coq.Init.Datatypes <> list ind
+R18268:18270 Coq.Init.Datatypes <> nat ind
+R18275:18277 Coq.Lists.List <> map def
+R18282:18284 Coq.Lists.List <> seq def
+R18288:18288 Kernel.RealizeCompact <> N:131 var
+R18279:18279 Kernel.RealizeCompact <> f:132 var
+def 18451:18467 <> rlzp_compact_core
+R18474:18476 Coq.Init.Datatypes <> nat ind
+binder 18470:18470 <> N:133
+R18487:18490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18484:18486 Coq.Init.Datatypes <> nat ind
+R18491:18493 Coq.Init.Datatypes <> nat ind
+binder 18480:18480 <> g:134
+R18503:18535 Minimal.EarnedMultiPriced <> pu_core rec
+R18537:18540 Kernel.RealizeCompact <> Compactp.prop var
+binder 18497:18497 <> k:135
+R18548:18580 Minimal.EarnedMultiPriced <> pu_core rec
+R18582:18585 Kernel.RealizeCompact <> Compactp.prop var
+R18603:18610 Kernel.RealizeCompact <> rlzp_tab def
+R18612:18612 Kernel.RealizeCompact <> N:133 var
+R18615:18644 Minimal.EarnedMultiPriced <> vals proj
+R18646:18646 Kernel.RealizeCompact <> k:135 var
+binder 18597:18598 <> tv:136
+R18664:18671 Kernel.RealizeCompact <> rlzp_tab def
+R18673:18673 Kernel.RealizeCompact <> N:133 var
+R18676:18705 Minimal.EarnedMultiPriced <> vers proj
+R18707:18707 Kernel.RealizeCompact <> k:135 var
+binder 18658:18659 <> tr:137
+R18715:18746 Minimal.EarnedMultiPriced <> mkcore constr
+binder 18753:18753 <> r:138
+R18761:18767 Coq.Arith.PeanoNat Nat ltb def
+R18769:18769 Kernel.RealizeCompact <> r:138 var
+R18771:18771 Kernel.RealizeCompact <> N:133 var
+R18794:18794 Kernel.RealizeCompact <> g:134 var
+R18796:18796 Kernel.RealizeCompact <> r:138 var
+R18778:18780 Coq.Lists.List <> nth def
+R18784:18785 Kernel.RealizeCompact <> tv:136 var
+R18782:18782 Kernel.RealizeCompact <> r:138 var
+binder 18817:18817 <> r:139
+R18825:18831 Coq.Arith.PeanoNat Nat ltb def
+R18833:18833 Kernel.RealizeCompact <> r:139 var
+R18835:18835 Kernel.RealizeCompact <> N:133 var
+R18842:18844 Coq.Lists.List <> nth def
+R18848:18849 Kernel.RealizeCompact <> tr:137 var
+R18846:18846 Kernel.RealizeCompact <> r:139 var
+R18875:18902 Minimal.EarnedMultiPriced <> pc proj
+R18904:18904 Kernel.RealizeCompact <> k:135 var
+R18908:18938 Minimal.EarnedMultiPriced <> facts proj
+R18940:18940 Kernel.RealizeCompact <> k:135 var
+R18944:18973 Minimal.EarnedMultiPriced <> chan proj
+R18975:18975 Kernel.RealizeCompact <> k:135 var
+R18979:19007 Minimal.EarnedMultiPriced <> err proj
+R19009:19009 Kernel.RealizeCompact <> k:135 var
+def 19025:19036 <> rlzp_compact
+R19043:19045 Coq.Init.Datatypes <> nat ind
+binder 19039:19039 <> N:140
+R19056:19059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19053:19055 Coq.Init.Datatypes <> nat ind
+R19060:19062 Coq.Init.Datatypes <> nat ind
+binder 19049:19049 <> g:141
+R19072:19105 Minimal.EarnedMultiPriced <> pu_state rec
+R19107:19110 Kernel.RealizeCompact <> Compactp.prop var
+binder 19066:19066 <> s:142
+R19118:19151 Minimal.EarnedMultiPriced <> pu_state rec
+R19153:19156 Kernel.RealizeCompact <> Compactp.prop var
+R19164:19193 Minimal.EarnedMultiPriced <> mkst constr
+R19196:19212 Kernel.RealizeCompact <> rlzp_compact_core def
+R19214:19214 Kernel.RealizeCompact <> N:140 var
+R19216:19216 Kernel.RealizeCompact <> g:141 var
+R19219:19251 Minimal.EarnedMultiPriced <> core_of proj
+R19253:19253 Kernel.RealizeCompact <> s:142 var
+R19258:19285 Minimal.EarnedMultiPriced <> mu proj
+R19287:19287 Kernel.RealizeCompact <> s:142 var
+R19291:19320 Minimal.EarnedMultiPriced <> cert proj
+R19322:19322 Kernel.RealizeCompact <> s:142 var
+def 19405:19417 <> rlzp_core_eqv
+R19428:19460 Minimal.EarnedMultiPriced <> pu_core rec
+R19462:19465 Kernel.RealizeCompact <> Compactp.prop var
+binder 19420:19420 <> k:143
+binder 19422:19422 <> l:144
+R19481:19481 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19563:19567 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 19489:19489 <> r:145
+R19526:19528 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19492:19521 Minimal.EarnedMultiPriced <> vals proj
+R19523:19523 Kernel.RealizeCompact <> k:143 var
+R19525:19525 Kernel.RealizeCompact <> r:145 var
+R19529:19558 Minimal.EarnedMultiPriced <> vals proj
+R19560:19560 Kernel.RealizeCompact <> l:144 var
+R19562:19562 Kernel.RealizeCompact <> r:145 var
+R19568:19568 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19650:19656 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 19576:19576 <> r:146
+R19613:19615 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19579:19608 Minimal.EarnedMultiPriced <> vers proj
+R19610:19610 Kernel.RealizeCompact <> k:143 var
+R19612:19612 Kernel.RealizeCompact <> r:146 var
+R19616:19645 Minimal.EarnedMultiPriced <> vers proj
+R19647:19647 Kernel.RealizeCompact <> l:144 var
+R19649:19649 Kernel.RealizeCompact <> r:146 var
+R19720:19723 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19687:19689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19657:19684 Minimal.EarnedMultiPriced <> pc proj
+R19686:19686 Kernel.RealizeCompact <> k:143 var
+R19690:19717 Minimal.EarnedMultiPriced <> pc proj
+R19719:19719 Kernel.RealizeCompact <> l:144 var
+R19793:19796 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19757:19759 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19724:19754 Minimal.EarnedMultiPriced <> facts proj
+R19756:19756 Kernel.RealizeCompact <> k:143 var
+R19760:19790 Minimal.EarnedMultiPriced <> facts proj
+R19792:19792 Kernel.RealizeCompact <> l:144 var
+R19864:19869 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19829:19831 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19797:19826 Minimal.EarnedMultiPriced <> chan proj
+R19828:19828 Kernel.RealizeCompact <> k:143 var
+R19832:19861 Minimal.EarnedMultiPriced <> chan proj
+R19863:19863 Kernel.RealizeCompact <> l:144 var
+R19901:19903 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19870:19898 Minimal.EarnedMultiPriced <> err proj
+R19900:19900 Kernel.RealizeCompact <> k:143 var
+R19904:19932 Minimal.EarnedMultiPriced <> err proj
+R19934:19934 Kernel.RealizeCompact <> l:144 var
+def 19949:19956 <> rlzp_eqv
+R19967:20000 Minimal.EarnedMultiPriced <> pu_state rec
+R20002:20005 Kernel.RealizeCompact <> Compactp.prop var
+binder 19959:19959 <> s:147
+binder 19961:19961 <> t:148
+R20110:20113 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20021:20033 Kernel.RealizeCompact <> rlzp_core_eqv def
+R20036:20068 Minimal.EarnedMultiPriced <> core_of proj
+R20070:20070 Kernel.RealizeCompact <> s:147 var
+R20074:20106 Minimal.EarnedMultiPriced <> core_of proj
+R20108:20108 Kernel.RealizeCompact <> t:148 var
+R20177:20180 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20144:20146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20114:20141 Minimal.EarnedMultiPriced <> mu proj
+R20143:20143 Kernel.RealizeCompact <> s:147 var
+R20147:20174 Minimal.EarnedMultiPriced <> mu proj
+R20176:20176 Kernel.RealizeCompact <> t:148 var
+R20213:20215 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20181:20210 Minimal.EarnedMultiPriced <> cert proj
+R20212:20212 Kernel.RealizeCompact <> s:147 var
+R20216:20245 Minimal.EarnedMultiPriced <> cert proj
+R20247:20247 Kernel.RealizeCompact <> t:148 var
+prf 20257:20274 <> rlzp_core_eqv_refl
+binder 20285:20285 <> k:149
+R20288:20300 Kernel.RealizeCompact <> rlzp_core_eqv def
+R20302:20302 Kernel.RealizeCompact <> k:149 var
+R20304:20304 Kernel.RealizeCompact <> k:149 var
+prf 20355:20373 <> rlzp_core_eqv_trans
+binder 20384:20384 <> k:150
+binder 20386:20386 <> l:151
+binder 20388:20388 <> m:152
+R20408:20411 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20391:20403 Kernel.RealizeCompact <> rlzp_core_eqv def
+R20405:20405 Kernel.RealizeCompact <> k:150 var
+R20407:20407 Kernel.RealizeCompact <> l:151 var
+R20429:20432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20412:20424 Kernel.RealizeCompact <> rlzp_core_eqv def
+R20426:20426 Kernel.RealizeCompact <> l:151 var
+R20428:20428 Kernel.RealizeCompact <> m:152 var
+R20433:20445 Kernel.RealizeCompact <> rlzp_core_eqv def
+R20447:20447 Kernel.RealizeCompact <> k:150 var
+R20449:20449 Kernel.RealizeCompact <> m:152 var
+prf 20688:20700 <> rlzp_eqv_refl
+binder 20711:20711 <> s:153
+R20714:20721 Kernel.RealizeCompact <> rlzp_eqv def
+R20723:20723 Kernel.RealizeCompact <> s:153 var
+R20725:20725 Kernel.RealizeCompact <> s:153 var
+R20752:20755 Coq.Init.Logic <> conj constr
+R20760:20763 Coq.Init.Logic <> conj constr
+R20779:20796 Kernel.RealizeCompact <> rlzp_core_eqv_refl thm
+R20752:20755 Coq.Init.Logic <> conj constr
+R20760:20763 Coq.Init.Logic <> conj constr
+R20779:20796 Kernel.RealizeCompact <> rlzp_core_eqv_refl thm
+prf 20840:20853 <> rlzp_eqv_trans
+binder 20864:20864 <> s:154
+binder 20866:20866 <> t:155
+binder 20868:20868 <> u:156
+R20883:20886 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20871:20878 Kernel.RealizeCompact <> rlzp_eqv def
+R20880:20880 Kernel.RealizeCompact <> s:154 var
+R20882:20882 Kernel.RealizeCompact <> t:155 var
+R20899:20902 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20887:20894 Kernel.RealizeCompact <> rlzp_eqv def
+R20896:20896 Kernel.RealizeCompact <> t:155 var
+R20898:20898 Kernel.RealizeCompact <> u:156 var
+R20903:20910 Kernel.RealizeCompact <> rlzp_eqv def
+R20912:20912 Kernel.RealizeCompact <> s:154 var
+R20914:20914 Kernel.RealizeCompact <> u:156 var
+R20983:20986 Coq.Init.Logic <> conj constr
+R20991:20994 Coq.Init.Logic <> conj constr
+R21011:21029 Kernel.RealizeCompact <> rlzp_core_eqv_trans thm
+R20983:20986 Coq.Init.Logic <> conj constr
+R20991:20994 Coq.Init.Logic <> conj constr
+R21011:21029 Kernel.RealizeCompact <> rlzp_core_eqv_trans thm
+prf 21139:21152 <> rlzp_claim_eqv
+binder 21163:21163 <> k:157
+binder 21165:21165 <> l:158
+binder 21167:21167 <> p:159
+binder 21169:21169 <> r:160
+R21189:21192 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21172:21184 Kernel.RealizeCompact <> rlzp_core_eqv def
+R21186:21186 Kernel.RealizeCompact <> k:157 var
+R21188:21188 Kernel.RealizeCompact <> l:158 var
+R21233:21235 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21193:21226 Minimal.EarnedMultiPriced <> pu_claim def
+R21228:21228 Kernel.RealizeCompact <> k:157 var
+R21230:21230 Kernel.RealizeCompact <> p:159 var
+R21232:21232 Kernel.RealizeCompact <> r:160 var
+R21236:21269 Minimal.EarnedMultiPriced <> pu_claim def
+R21271:21271 Kernel.RealizeCompact <> l:158 var
+R21273:21273 Kernel.RealizeCompact <> p:159 var
+R21275:21275 Kernel.RealizeCompact <> r:160 var
+R21322:21355 Minimal.EarnedMultiPriced <> pu_claim def
+prf 21395:21411 <> rlzp_check_ok_eqv
+binder 21422:21422 <> k:161
+binder 21424:21424 <> l:162
+binder 21426:21426 <> p:163
+binder 21428:21428 <> r:164
+R21448:21453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21431:21443 Kernel.RealizeCompact <> rlzp_core_eqv def
+R21445:21445 Kernel.RealizeCompact <> k:161 var
+R21447:21447 Kernel.RealizeCompact <> l:162 var
+R21502:21504 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21454:21490 Minimal.EarnedMultiPriced <> pu_check_ok def
+R21497:21497 Kernel.RealizeCompact <> k:161 var
+R21499:21499 Kernel.RealizeCompact <> p:163 var
+R21501:21501 Kernel.RealizeCompact <> r:164 var
+R21492:21495 Kernel.RealizeCompact <> Compactp.eval var
+R21505:21541 Minimal.EarnedMultiPriced <> pu_check_ok def
+R21548:21548 Kernel.RealizeCompact <> l:162 var
+R21550:21550 Kernel.RealizeCompact <> p:163 var
+R21552:21552 Kernel.RealizeCompact <> r:164 var
+R21543:21546 Kernel.RealizeCompact <> Compactp.eval var
+R21617:21653 Minimal.EarnedMultiPriced <> pu_check_ok def
+prf 21703:21720 <> rlzp_commit_ok_eqv
+binder 21731:21731 <> k:165
+binder 21733:21733 <> l:166
+binder 21735:21735 <> p:167
+binder 21737:21737 <> r:168
+R21757:21762 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21740:21752 Kernel.RealizeCompact <> rlzp_core_eqv def
+R21754:21754 Kernel.RealizeCompact <> k:165 var
+R21756:21756 Kernel.RealizeCompact <> l:166 var
+R21816:21818 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21763:21800 Minimal.EarnedMultiPriced <> pu_commit_ok def
+R21811:21811 Kernel.RealizeCompact <> k:165 var
+R21813:21813 Kernel.RealizeCompact <> p:167 var
+R21815:21815 Kernel.RealizeCompact <> r:168 var
+R21802:21809 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R21819:21856 Minimal.EarnedMultiPriced <> pu_commit_ok def
+R21867:21867 Kernel.RealizeCompact <> l:166 var
+R21869:21869 Kernel.RealizeCompact <> p:167 var
+R21871:21871 Kernel.RealizeCompact <> r:168 var
+R21858:21865 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R21955:21992 Minimal.EarnedMultiPriced <> pu_commit_ok def
+R22014:22027 Kernel.RealizeCompact <> rlzp_claim_eqv thm
+R22014:22027 Kernel.RealizeCompact <> rlzp_claim_eqv thm
+R22014:22027 Kernel.RealizeCompact <> rlzp_claim_eqv thm
+prf 22066:22084 <> rlzp_certify_ok_eqv
+binder 22095:22095 <> k:169
+binder 22097:22097 <> l:170
+R22117:22122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22100:22112 Kernel.RealizeCompact <> rlzp_core_eqv def
+R22114:22114 Kernel.RealizeCompact <> k:169 var
+R22116:22116 Kernel.RealizeCompact <> l:170 var
+R22164:22166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22123:22161 Minimal.EarnedMultiPriced <> pu_certify_ok def
+R22163:22163 Kernel.RealizeCompact <> k:169 var
+R22167:22205 Minimal.EarnedMultiPriced <> pu_certify_ok def
+R22207:22207 Kernel.RealizeCompact <> l:170 var
+R22268:22306 Minimal.EarnedMultiPriced <> pu_certify_ok def
+prf 22352:22365 <> rlzp_write_eqv
+binder 22376:22376 <> k:171
+binder 22378:22378 <> l:172
+binder 22380:22380 <> r:173
+binder 22382:22382 <> n:174
+binder 22384:22384 <> j:175
+R22404:22409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22387:22399 Kernel.RealizeCompact <> rlzp_core_eqv def
+R22401:22401 Kernel.RealizeCompact <> k:171 var
+R22403:22403 Kernel.RealizeCompact <> l:172 var
+R22410:22422 Kernel.RealizeCompact <> rlzp_core_eqv def
+R22425:22458 Minimal.EarnedMultiPriced <> pu_write def
+R22460:22460 Kernel.RealizeCompact <> k:171 var
+R22462:22462 Kernel.RealizeCompact <> r:173 var
+R22464:22464 Kernel.RealizeCompact <> n:174 var
+R22466:22466 Kernel.RealizeCompact <> j:175 var
+R22470:22503 Minimal.EarnedMultiPriced <> pu_write def
+R22505:22505 Kernel.RealizeCompact <> l:172 var
+R22507:22507 Kernel.RealizeCompact <> r:173 var
+R22509:22509 Kernel.RealizeCompact <> n:174 var
+R22511:22511 Kernel.RealizeCompact <> j:175 var
+R22579:22612 Minimal.EarnedMultiPriced <> pu_write def
+R22615:22627 Kernel.RealizeCompact <> rlzp_core_eqv def
+R22689:22720 Minimal.EarnedMultiPriced <> pu_upd def
+R22733:22739 Coq.Arith.PeanoNat Nat eqb def
+R22733:22739 Coq.Arith.PeanoNat Nat eqb def
+R22793:22824 Minimal.EarnedMultiPriced <> pu_upd def
+R22837:22843 Coq.Arith.PeanoNat Nat eqb def
+R22837:22843 Coq.Arith.PeanoNat Nat eqb def
+prf 22901:22913 <> rlzp_goto_eqv
+binder 22924:22924 <> k:176
+binder 22926:22926 <> l:177
+binder 22928:22928 <> j:178
+R22948:22953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22931:22943 Kernel.RealizeCompact <> rlzp_core_eqv def
+R22945:22945 Kernel.RealizeCompact <> k:176 var
+R22947:22947 Kernel.RealizeCompact <> l:177 var
+R22954:22966 Kernel.RealizeCompact <> rlzp_core_eqv def
+R22969:23001 Minimal.EarnedMultiPriced <> pu_goto def
+R23003:23003 Kernel.RealizeCompact <> k:176 var
+R23005:23005 Kernel.RealizeCompact <> j:178 var
+R23009:23041 Minimal.EarnedMultiPriced <> pu_goto def
+R23043:23043 Kernel.RealizeCompact <> l:177 var
+R23045:23045 Kernel.RealizeCompact <> j:178 var
+R23109:23141 Minimal.EarnedMultiPriced <> pu_goto def
+R23144:23156 Kernel.RealizeCompact <> rlzp_core_eqv def
+prf 23210:23222 <> rlzp_trap_eqv
+binder 23233:23233 <> k:179
+binder 23235:23235 <> l:180
+R23255:23260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23238:23250 Kernel.RealizeCompact <> rlzp_core_eqv def
+R23252:23252 Kernel.RealizeCompact <> k:179 var
+R23254:23254 Kernel.RealizeCompact <> l:180 var
+R23261:23273 Kernel.RealizeCompact <> rlzp_core_eqv def
+R23276:23308 Minimal.EarnedMultiPriced <> pu_trap def
+R23310:23310 Kernel.RealizeCompact <> k:179 var
+R23314:23346 Minimal.EarnedMultiPriced <> pu_trap def
+R23348:23348 Kernel.RealizeCompact <> l:180 var
+R23410:23442 Minimal.EarnedMultiPriced <> pu_trap def
+R23445:23457 Kernel.RealizeCompact <> rlzp_core_eqv def
+prf 23511:23530 <> rlzp_record_fact_eqv
+binder 23541:23541 <> k:181
+binder 23543:23543 <> l:182
+binder 23545:23545 <> f:183
+R23565:23570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23548:23560 Kernel.RealizeCompact <> rlzp_core_eqv def
+R23562:23562 Kernel.RealizeCompact <> k:181 var
+R23564:23564 Kernel.RealizeCompact <> l:182 var
+R23571:23583 Kernel.RealizeCompact <> rlzp_core_eqv def
+R23586:23625 Minimal.EarnedMultiPriced <> pu_record_fact def
+R23627:23627 Kernel.RealizeCompact <> k:181 var
+R23629:23629 Kernel.RealizeCompact <> f:183 var
+R23633:23672 Minimal.EarnedMultiPriced <> pu_record_fact def
+R23674:23674 Kernel.RealizeCompact <> l:182 var
+R23676:23676 Kernel.RealizeCompact <> f:183 var
+R23740:23779 Minimal.EarnedMultiPriced <> pu_record_fact def
+R23782:23794 Kernel.RealizeCompact <> rlzp_core_eqv def
+prf 23860:23877 <> rlzp_commit_to_eqv
+binder 23888:23888 <> k:184
+binder 23890:23890 <> l:185
+binder 23892:23892 <> f:186
+R23912:23917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23895:23907 Kernel.RealizeCompact <> rlzp_core_eqv def
+R23909:23909 Kernel.RealizeCompact <> k:184 var
+R23911:23911 Kernel.RealizeCompact <> l:185 var
+R23918:23930 Kernel.RealizeCompact <> rlzp_core_eqv def
+R23933:23970 Minimal.EarnedMultiPriced <> pu_commit_to def
+R23972:23972 Kernel.RealizeCompact <> k:184 var
+R23974:23974 Kernel.RealizeCompact <> f:186 var
+R23978:24015 Minimal.EarnedMultiPriced <> pu_commit_to def
+R24017:24017 Kernel.RealizeCompact <> l:185 var
+R24019:24019 Kernel.RealizeCompact <> f:186 var
+R24083:24120 Minimal.EarnedMultiPriced <> pu_commit_to def
+R24123:24135 Kernel.RealizeCompact <> rlzp_core_eqv def
+prf 24201:24214 <> rlzp_cexec_eqv
+binder 24225:24225 <> k:187
+binder 24227:24227 <> l:188
+R24236:24269 Minimal.EarnedMultiPriced <> pu_instr ind
+R24271:24274 Kernel.RealizeCompact <> Compactp.prop var
+binder 24230:24230 <> i:189
+R24296:24301 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24279:24291 Kernel.RealizeCompact <> rlzp_core_eqv def
+R24293:24293 Kernel.RealizeCompact <> k:187 var
+R24295:24295 Kernel.RealizeCompact <> l:188 var
+R24302:24314 Kernel.RealizeCompact <> rlzp_core_eqv def
+R24317:24350 Minimal.EarnedMultiPriced <> pu_cexec def
+R24366:24366 Kernel.RealizeCompact <> k:187 var
+R24368:24368 Kernel.RealizeCompact <> i:189 var
+R24361:24364 Kernel.RealizeCompact <> Compactp.eval var
+R24352:24359 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R24372:24405 Minimal.EarnedMultiPriced <> pu_cexec def
+R24421:24421 Kernel.RealizeCompact <> l:188 var
+R24423:24423 Kernel.RealizeCompact <> i:189 var
+R24416:24419 Kernel.RealizeCompact <> Compactp.eval var
+R24407:24414 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R24508:24541 Minimal.EarnedMultiPriced <> pu_cexec def
+R24571:24599 Minimal.EarnedMultiPriced <> err proj
+R24571:24599 Minimal.EarnedMultiPriced <> err proj
+R24706:24719 Kernel.RealizeCompact <> rlzp_write_eqv thm
+R24706:24719 Kernel.RealizeCompact <> rlzp_write_eqv thm
+R24771:24800 Minimal.EarnedMultiPriced <> vals proj
+R24771:24800 Minimal.EarnedMultiPriced <> vals proj
+R24829:24841 Kernel.RealizeCompact <> rlzp_goto_eqv thm
+R24829:24841 Kernel.RealizeCompact <> rlzp_goto_eqv thm
+R24865:24878 Kernel.RealizeCompact <> rlzp_write_eqv thm
+R24865:24878 Kernel.RealizeCompact <> rlzp_write_eqv thm
+R24919:24935 Kernel.RealizeCompact <> rlzp_check_ok_eqv thm
+R24953:24966 Kernel.RealizeCompact <> rlzp_claim_eqv thm
+R24919:24935 Kernel.RealizeCompact <> rlzp_check_ok_eqv thm
+R24919:24935 Kernel.RealizeCompact <> rlzp_check_ok_eqv thm
+R24953:24966 Kernel.RealizeCompact <> rlzp_claim_eqv thm
+R24953:24966 Kernel.RealizeCompact <> rlzp_claim_eqv thm
+R24994:25030 Minimal.EarnedMultiPriced <> pu_check_ok def
+R25032:25035 Kernel.RealizeCompact <> Compactp.eval var
+R24994:25030 Minimal.EarnedMultiPriced <> pu_check_ok def
+R25032:25035 Kernel.RealizeCompact <> Compactp.eval var
+R25057:25076 Kernel.RealizeCompact <> rlzp_record_fact_eqv thm
+R25057:25076 Kernel.RealizeCompact <> rlzp_record_fact_eqv thm
+R25100:25112 Kernel.RealizeCompact <> rlzp_trap_eqv thm
+R25100:25112 Kernel.RealizeCompact <> rlzp_trap_eqv thm
+R25140:25157 Kernel.RealizeCompact <> rlzp_commit_ok_eqv thm
+R25175:25188 Kernel.RealizeCompact <> rlzp_claim_eqv thm
+R25140:25157 Kernel.RealizeCompact <> rlzp_commit_ok_eqv thm
+R25140:25157 Kernel.RealizeCompact <> rlzp_commit_ok_eqv thm
+R25175:25188 Kernel.RealizeCompact <> rlzp_claim_eqv thm
+R25175:25188 Kernel.RealizeCompact <> rlzp_claim_eqv thm
+R25216:25253 Minimal.EarnedMultiPriced <> pu_commit_ok def
+R25255:25262 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R25216:25253 Minimal.EarnedMultiPriced <> pu_commit_ok def
+R25255:25262 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R25284:25301 Kernel.RealizeCompact <> rlzp_commit_to_eqv thm
+R25284:25301 Kernel.RealizeCompact <> rlzp_commit_to_eqv thm
+R25325:25337 Kernel.RealizeCompact <> rlzp_trap_eqv thm
+R25325:25337 Kernel.RealizeCompact <> rlzp_trap_eqv thm
+R25365:25383 Kernel.RealizeCompact <> rlzp_certify_ok_eqv thm
+R25365:25383 Kernel.RealizeCompact <> rlzp_certify_ok_eqv thm
+R25365:25383 Kernel.RealizeCompact <> rlzp_certify_ok_eqv thm
+R25414:25452 Minimal.EarnedMultiPriced <> pu_certify_ok def
+R25414:25452 Minimal.EarnedMultiPriced <> pu_certify_ok def
+R25470:25482 Kernel.RealizeCompact <> rlzp_goto_eqv thm
+R25470:25482 Kernel.RealizeCompact <> rlzp_goto_eqv thm
+R25506:25518 Kernel.RealizeCompact <> rlzp_trap_eqv thm
+R25506:25518 Kernel.RealizeCompact <> rlzp_trap_eqv thm
+R25555:25567 Kernel.RealizeCompact <> rlzp_goto_eqv thm
+R25555:25567 Kernel.RealizeCompact <> rlzp_goto_eqv thm
+prf 25591:25604 <> rlzp_fires_eqv
+binder 25615:25615 <> k:190
+binder 25617:25617 <> l:191
+R25626:25659 Minimal.EarnedMultiPriced <> pu_instr ind
+R25661:25664 Kernel.RealizeCompact <> Compactp.prop var
+binder 25620:25620 <> i:192
+R25686:25689 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25669:25681 Kernel.RealizeCompact <> rlzp_core_eqv def
+R25683:25683 Kernel.RealizeCompact <> k:190 var
+R25685:25685 Kernel.RealizeCompact <> l:191 var
+R25728:25730 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25690:25723 Minimal.EarnedMultiPriced <> pu_fires def
+R25725:25725 Kernel.RealizeCompact <> k:190 var
+R25727:25727 Kernel.RealizeCompact <> i:192 var
+R25731:25764 Minimal.EarnedMultiPriced <> pu_fires def
+R25766:25766 Kernel.RealizeCompact <> l:191 var
+R25768:25768 Kernel.RealizeCompact <> i:192 var
+R25803:25836 Minimal.EarnedMultiPriced <> pu_fires def
+R25876:25894 Kernel.RealizeCompact <> rlzp_certify_ok_eqv thm
+R25876:25894 Kernel.RealizeCompact <> rlzp_certify_ok_eqv thm
+prf 25918:25930 <> rlzp_exec_eqv
+binder 25941:25941 <> s:193
+binder 25943:25943 <> t:194
+R25952:25985 Minimal.EarnedMultiPriced <> pu_instr ind
+R25987:25990 Kernel.RealizeCompact <> Compactp.prop var
+binder 25946:25946 <> i:195
+R26007:26012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25995:26002 Kernel.RealizeCompact <> rlzp_eqv def
+R26004:26004 Kernel.RealizeCompact <> s:193 var
+R26006:26006 Kernel.RealizeCompact <> t:194 var
+R26013:26020 Kernel.RealizeCompact <> rlzp_eqv def
+R26023:26055 Minimal.EarnedMultiPriced <> pu_exec def
+R26071:26071 Kernel.RealizeCompact <> s:193 var
+R26073:26073 Kernel.RealizeCompact <> i:195 var
+R26066:26069 Kernel.RealizeCompact <> Compactp.eval var
+R26057:26064 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R26077:26109 Minimal.EarnedMultiPriced <> pu_exec def
+R26125:26125 Kernel.RealizeCompact <> t:194 var
+R26127:26127 Kernel.RealizeCompact <> i:195 var
+R26120:26123 Kernel.RealizeCompact <> Compactp.eval var
+R26111:26118 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R26176:26208 Minimal.EarnedMultiPriced <> pu_exec def
+R26211:26218 Kernel.RealizeCompact <> rlzp_eqv def
+R26238:26241 Coq.Init.Logic <> conj constr
+R26246:26249 Coq.Init.Logic <> conj constr
+R26238:26241 Coq.Init.Logic <> conj constr
+R26246:26249 Coq.Init.Logic <> conj constr
+R26268:26281 Kernel.RealizeCompact <> rlzp_cexec_eqv thm
+R26268:26281 Kernel.RealizeCompact <> rlzp_cexec_eqv thm
+R26340:26353 Kernel.RealizeCompact <> rlzp_fires_eqv thm
+R26340:26353 Kernel.RealizeCompact <> rlzp_fires_eqv thm
+R26340:26353 Kernel.RealizeCompact <> rlzp_fires_eqv thm
+prf 26391:26409 <> rlzp_next_instr_eqv
+R26425:26428 Coq.Init.Datatypes <> list ind
+R26432:26465 Minimal.EarnedMultiPriced <> pu_instr ind
+R26467:26470 Kernel.RealizeCompact <> Compactp.prop var
+binder 26421:26421 <> P:196
+binder 26474:26474 <> k:197
+binder 26476:26476 <> l:198
+R26496:26501 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26479:26491 Kernel.RealizeCompact <> rlzp_core_eqv def
+R26493:26493 Kernel.RealizeCompact <> k:197 var
+R26495:26495 Kernel.RealizeCompact <> l:198 var
+R26545:26547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26502:26540 Minimal.EarnedMultiPriced <> pu_next_instr def
+R26542:26542 Kernel.RealizeCompact <> P:196 var
+R26544:26544 Kernel.RealizeCompact <> k:197 var
+R26548:26586 Minimal.EarnedMultiPriced <> pu_next_instr def
+R26588:26588 Kernel.RealizeCompact <> P:196 var
+R26590:26590 Kernel.RealizeCompact <> l:198 var
+R26653:26691 Minimal.EarnedMultiPriced <> pu_next_instr def
+prf 26735:26747 <> rlzp_step_eqv
+R26763:26766 Coq.Init.Datatypes <> list ind
+R26770:26803 Minimal.EarnedMultiPriced <> pu_instr ind
+R26805:26808 Kernel.RealizeCompact <> Compactp.prop var
+binder 26759:26759 <> P:199
+binder 26812:26812 <> s:200
+binder 26814:26814 <> t:201
+R26829:26834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26817:26824 Kernel.RealizeCompact <> rlzp_eqv def
+R26826:26826 Kernel.RealizeCompact <> s:200 var
+R26828:26828 Kernel.RealizeCompact <> t:201 var
+R26835:26842 Kernel.RealizeCompact <> rlzp_eqv def
+R26845:26877 Minimal.EarnedMultiPriced <> pu_step def
+R26893:26893 Kernel.RealizeCompact <> P:199 var
+R26895:26895 Kernel.RealizeCompact <> s:200 var
+R26888:26891 Kernel.RealizeCompact <> Compactp.eval var
+R26879:26886 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R26899:26931 Minimal.EarnedMultiPriced <> pu_step def
+R26947:26947 Kernel.RealizeCompact <> P:199 var
+R26949:26949 Kernel.RealizeCompact <> t:201 var
+R26942:26945 Kernel.RealizeCompact <> Compactp.eval var
+R26933:26940 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R27011:27043 Minimal.EarnedMultiPriced <> pu_step def
+R27060:27078 Kernel.RealizeCompact <> rlzp_next_instr_eqv thm
+R27060:27078 Kernel.RealizeCompact <> rlzp_next_instr_eqv thm
+R27060:27078 Kernel.RealizeCompact <> rlzp_next_instr_eqv thm
+R27103:27141 Minimal.EarnedMultiPriced <> pu_next_instr def
+R27146:27178 Minimal.EarnedMultiPriced <> core_of proj
+R27205:27217 Kernel.RealizeCompact <> rlzp_exec_eqv thm
+R27103:27141 Minimal.EarnedMultiPriced <> pu_next_instr def
+R27146:27178 Minimal.EarnedMultiPriced <> core_of proj
+R27205:27217 Kernel.RealizeCompact <> rlzp_exec_eqv thm
+prf 27252:27268 <> rlzp_run_prog_eqv
+binder 27279:27279 <> n:202
+R27286:27289 Coq.Init.Datatypes <> list ind
+R27293:27326 Minimal.EarnedMultiPriced <> pu_instr ind
+R27328:27331 Kernel.RealizeCompact <> Compactp.prop var
+binder 27282:27282 <> P:203
+binder 27335:27335 <> s:204
+binder 27337:27337 <> t:205
+R27352:27357 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27340:27347 Kernel.RealizeCompact <> rlzp_eqv def
+R27349:27349 Kernel.RealizeCompact <> s:204 var
+R27351:27351 Kernel.RealizeCompact <> t:205 var
+R27358:27365 Kernel.RealizeCompact <> rlzp_eqv def
+R27368:27404 Minimal.EarnedMultiPriced <> pu_run_prog def
+R27420:27420 Kernel.RealizeCompact <> n:202 var
+R27422:27422 Kernel.RealizeCompact <> P:203 var
+R27424:27424 Kernel.RealizeCompact <> s:204 var
+R27415:27418 Kernel.RealizeCompact <> Compactp.eval var
+R27406:27413 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R27428:27464 Minimal.EarnedMultiPriced <> pu_run_prog def
+R27480:27480 Kernel.RealizeCompact <> n:202 var
+R27482:27482 Kernel.RealizeCompact <> P:203 var
+R27484:27484 Kernel.RealizeCompact <> t:205 var
+R27475:27478 Kernel.RealizeCompact <> Compactp.eval var
+R27466:27473 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R27576:27588 Kernel.RealizeCompact <> rlzp_step_eqv thm
+R27576:27588 Kernel.RealizeCompact <> rlzp_step_eqv thm
+def 27681:27689 <> rlzp_cinv
+R27696:27698 Coq.Init.Datatypes <> nat ind
+binder 27692:27692 <> N:206
+R27709:27712 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27706:27708 Coq.Init.Datatypes <> nat ind
+R27713:27715 Coq.Init.Datatypes <> nat ind
+binder 27702:27702 <> g:207
+R27725:27757 Minimal.EarnedMultiPriced <> pu_core rec
+R27759:27762 Kernel.RealizeCompact <> Compactp.prop var
+binder 27719:27719 <> k:208
+binder 27785:27785 <> r:209
+R27794:27797 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27789:27792 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R27788:27788 Kernel.RealizeCompact <> N:206 var
+R27793:27793 Kernel.RealizeCompact <> r:209 var
+R27838:27841 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R27832:27834 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27798:27827 Minimal.EarnedMultiPriced <> vals proj
+R27829:27829 Kernel.RealizeCompact <> k:208 var
+R27831:27831 Kernel.RealizeCompact <> r:209 var
+R27835:27835 Kernel.RealizeCompact <> g:207 var
+R27837:27837 Kernel.RealizeCompact <> r:209 var
+R27876:27878 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27842:27871 Minimal.EarnedMultiPriced <> vers proj
+R27873:27873 Kernel.RealizeCompact <> k:208 var
+R27875:27875 Kernel.RealizeCompact <> r:209 var
+def 27894:27901 <> rlzp_inv
+R27908:27910 Coq.Init.Datatypes <> nat ind
+binder 27904:27904 <> N:210
+R27921:27924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27918:27920 Coq.Init.Datatypes <> nat ind
+R27925:27927 Coq.Init.Datatypes <> nat ind
+binder 27914:27914 <> g:211
+R27937:27970 Minimal.EarnedMultiPriced <> pu_state rec
+R27972:27975 Kernel.RealizeCompact <> Compactp.prop var
+binder 27931:27931 <> s:212
+R27991:27999 Kernel.RealizeCompact <> rlzp_cinv def
+R28001:28001 Kernel.RealizeCompact <> N:210 var
+R28003:28003 Kernel.RealizeCompact <> g:211 var
+R28006:28038 Minimal.EarnedMultiPriced <> core_of proj
+R28040:28040 Kernel.RealizeCompact <> s:212 var
+prf 28051:28062 <> rlzp_next_in
+R28078:28081 Coq.Init.Datatypes <> list ind
+R28085:28118 Minimal.EarnedMultiPriced <> pu_instr ind
+R28120:28123 Kernel.RealizeCompact <> Compactp.prop var
+binder 28074:28074 <> P:213
+R28134:28166 Minimal.EarnedMultiPriced <> pu_core rec
+R28168:28171 Kernel.RealizeCompact <> Compactp.prop var
+binder 28128:28128 <> k:214
+binder 28175:28175 <> i:215
+R28230:28233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28221:28223 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28178:28216 Minimal.EarnedMultiPriced <> pu_next_instr def
+R28218:28218 Kernel.RealizeCompact <> P:213 var
+R28220:28220 Kernel.RealizeCompact <> k:214 var
+R28224:28227 Coq.Init.Datatypes <> Some constr
+R28229:28229 Kernel.RealizeCompact <> i:215 var
+R28234:28235 Coq.Lists.List <> In def
+R28239:28239 Kernel.RealizeCompact <> P:213 var
+R28237:28237 Kernel.RealizeCompact <> i:215 var
+R28274:28312 Minimal.EarnedMultiPriced <> pu_next_instr def
+R28332:28360 Minimal.EarnedMultiPriced <> err proj
+R28332:28360 Minimal.EarnedMultiPriced <> err proj
+R28393:28426 Minimal.EarnedMultiPriced <> pu_fetch def
+R28444:28471 Minimal.EarnedMultiPriced <> pc proj
+R28444:28471 Minimal.EarnedMultiPriced <> pc proj
+R28516:28524 Coq.Lists.List <> nth_error def
+R28516:28524 Coq.Lists.List <> nth_error def
+R28573:28584 Coq.Lists.List <> nth_error_In thm
+R28573:28584 Coq.Lists.List <> nth_error_In thm
+prf 28671:28684 <> rlzp_cexec_inv
+binder 28695:28695 <> N:216
+binder 28697:28697 <> g:217
+binder 28699:28699 <> k:218
+R28708:28741 Minimal.EarnedMultiPriced <> pu_instr ind
+R28743:28746 Kernel.RealizeCompact <> Compactp.prop var
+binder 28702:28702 <> i:219
+R28775:28778 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28768:28770 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28751:28763 Kernel.RealizeCompact <> rlzp_instr_ok def
+R28765:28765 Kernel.RealizeCompact <> N:216 var
+R28767:28767 Kernel.RealizeCompact <> i:219 var
+R28771:28774 Coq.Init.Datatypes <> true constr
+R28794:28799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28779:28787 Kernel.RealizeCompact <> rlzp_cinv def
+R28789:28789 Kernel.RealizeCompact <> N:216 var
+R28791:28791 Kernel.RealizeCompact <> g:217 var
+R28793:28793 Kernel.RealizeCompact <> k:218 var
+R28800:28808 Kernel.RealizeCompact <> rlzp_cinv def
+R28810:28810 Kernel.RealizeCompact <> N:216 var
+R28812:28812 Kernel.RealizeCompact <> g:217 var
+R28815:28848 Minimal.EarnedMultiPriced <> pu_cexec def
+R28864:28864 Kernel.RealizeCompact <> k:218 var
+R28866:28866 Kernel.RealizeCompact <> i:219 var
+R28859:28862 Kernel.RealizeCompact <> Compactp.eval var
+R28850:28857 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R28908:28941 Minimal.EarnedMultiPriced <> pu_cexec def
+R28954:28982 Minimal.EarnedMultiPriced <> err proj
+R28954:28982 Minimal.EarnedMultiPriced <> err proj
+R29071:29080 Coq.Arith.PeanoNat Nat ltb_lt thm
+R29071:29080 Coq.Arith.PeanoNat Nat ltb_lt thm
+R29096:29129 Minimal.EarnedMultiPriced <> pu_write def
+R29132:29140 Kernel.RealizeCompact <> rlzp_cinv def
+R29174:29205 Minimal.EarnedMultiPriced <> pu_upd def
+R29233:29235 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29222:29228 Coq.Arith.PeanoNat Nat eqb def
+R29236:29240 Coq.Init.Datatypes <> false constr
+R29253:29263 Coq.Arith.PeanoNat Nat eqb_neq thm
+R29233:29235 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29222:29228 Coq.Arith.PeanoNat Nat eqb def
+R29236:29240 Coq.Init.Datatypes <> false constr
+R29253:29263 Coq.Arith.PeanoNat Nat eqb_neq thm
+R29319:29328 Coq.Arith.PeanoNat Nat ltb_lt thm
+R29319:29328 Coq.Arith.PeanoNat Nat ltb_lt thm
+R29347:29376 Minimal.EarnedMultiPriced <> vals proj
+R29347:29376 Minimal.EarnedMultiPriced <> vals proj
+R29422:29455 Minimal.EarnedMultiPriced <> pu_write def
+R29458:29466 Kernel.RealizeCompact <> rlzp_cinv def
+R29502:29533 Minimal.EarnedMultiPriced <> pu_upd def
+R29561:29563 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29550:29556 Coq.Arith.PeanoNat Nat eqb def
+R29564:29568 Coq.Init.Datatypes <> false constr
+R29581:29591 Coq.Arith.PeanoNat Nat eqb_neq thm
+R29561:29563 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29550:29556 Coq.Arith.PeanoNat Nat eqb def
+R29564:29568 Coq.Init.Datatypes <> false constr
+R29581:29591 Coq.Arith.PeanoNat Nat eqb_neq thm
+R29667:29703 Minimal.EarnedMultiPriced <> pu_check_ok def
+R29705:29708 Kernel.RealizeCompact <> Compactp.eval var
+R29667:29703 Minimal.EarnedMultiPriced <> pu_check_ok def
+R29705:29708 Kernel.RealizeCompact <> Compactp.eval var
+R29742:29779 Minimal.EarnedMultiPriced <> pu_commit_ok def
+R29781:29788 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R29742:29779 Minimal.EarnedMultiPriced <> pu_commit_ok def
+R29781:29788 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R29822:29860 Minimal.EarnedMultiPriced <> pu_certify_ok def
+R29822:29860 Minimal.EarnedMultiPriced <> pu_certify_ok def
+R29887:29919 Minimal.EarnedMultiPriced <> pu_goto def
+R29922:29930 Kernel.RealizeCompact <> rlzp_cinv def
+prf 29962:29974 <> rlzp_step_inv
+binder 29985:29985 <> N:220
+binder 29987:29987 <> g:221
+R29994:29997 Coq.Init.Datatypes <> list ind
+R30001:30034 Minimal.EarnedMultiPriced <> pu_instr ind
+R30036:30039 Kernel.RealizeCompact <> Compactp.prop var
+binder 29990:29990 <> P:222
+binder 30043:30043 <> s:223
+R30072:30075 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30065:30067 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30046:30060 Kernel.RealizeCompact <> rlzp_prog_below def
+R30062:30062 Kernel.RealizeCompact <> N:220 var
+R30064:30064 Kernel.RealizeCompact <> P:222 var
+R30068:30071 Coq.Init.Datatypes <> true constr
+R30090:30095 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30076:30083 Kernel.RealizeCompact <> rlzp_inv def
+R30085:30085 Kernel.RealizeCompact <> N:220 var
+R30087:30087 Kernel.RealizeCompact <> g:221 var
+R30089:30089 Kernel.RealizeCompact <> s:223 var
+R30096:30103 Kernel.RealizeCompact <> rlzp_inv def
+R30105:30105 Kernel.RealizeCompact <> N:220 var
+R30107:30107 Kernel.RealizeCompact <> g:221 var
+R30110:30142 Minimal.EarnedMultiPriced <> pu_step def
+R30158:30158 Kernel.RealizeCompact <> P:222 var
+R30160:30160 Kernel.RealizeCompact <> s:223 var
+R30153:30156 Kernel.RealizeCompact <> Compactp.eval var
+R30144:30151 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R30202:30234 Minimal.EarnedMultiPriced <> pu_step def
+R30249:30287 Minimal.EarnedMultiPriced <> pu_next_instr def
+R30292:30324 Minimal.EarnedMultiPriced <> core_of proj
+R30249:30287 Minimal.EarnedMultiPriced <> pu_next_instr def
+R30292:30324 Minimal.EarnedMultiPriced <> core_of proj
+R30368:30379 Kernel.RealizeCompact <> rlzp_next_in thm
+R30368:30379 Kernel.RealizeCompact <> rlzp_next_in thm
+R30394:30408 Kernel.RealizeCompact <> rlzp_prog_below def
+R30425:30438 Coq.Lists.List <> forallb_forall thm
+R30425:30438 Coq.Lists.List <> forallb_forall thm
+R30425:30438 Coq.Lists.List <> forallb_forall thm
+R30456:30488 Minimal.EarnedMultiPriced <> pu_exec def
+R30491:30498 Kernel.RealizeCompact <> rlzp_inv def
+R30514:30527 Kernel.RealizeCompact <> rlzp_cexec_inv thm
+R30514:30527 Kernel.RealizeCompact <> rlzp_cexec_inv thm
+prf 30574:30585 <> rlzp_nth_tab
+binder 30596:30596 <> N:224
+binder 30598:30598 <> f:225
+binder 30600:30600 <> r:226
+R30608:30611 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30604:30606 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R30603:30603 Kernel.RealizeCompact <> r:226 var
+R30607:30607 Kernel.RealizeCompact <> N:224 var
+R30634:30636 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30612:30614 Coq.Lists.List <> nth def
+R30619:30626 Kernel.RealizeCompact <> rlzp_tab def
+R30628:30628 Kernel.RealizeCompact <> N:224 var
+R30630:30630 Kernel.RealizeCompact <> f:225 var
+R30616:30616 Kernel.RealizeCompact <> r:226 var
+R30637:30637 Kernel.RealizeCompact <> f:225 var
+R30639:30639 Kernel.RealizeCompact <> r:226 var
+R30674:30681 Kernel.RealizeCompact <> rlzp_tab def
+R30728:30737 Coq.Lists.List <> map_length thm
+R30740:30749 Coq.Lists.List <> seq_length thm
+R30695:30703 Coq.Lists.List <> nth_indep thm
+R30695:30703 Coq.Lists.List <> nth_indep thm
+R30728:30737 Coq.Lists.List <> map_length thm
+R30728:30737 Coq.Lists.List <> map_length thm
+R30740:30749 Coq.Lists.List <> seq_length thm
+R30740:30749 Coq.Lists.List <> seq_length thm
+R30695:30703 Coq.Lists.List <> nth_indep thm
+R30772:30778 Coq.Lists.List <> map_nth thm
+R30781:30787 Coq.Lists.List <> seq_nth thm
+R30772:30778 Coq.Lists.List <> map_nth thm
+R30772:30778 Coq.Lists.List <> map_nth thm
+R30781:30787 Coq.Lists.List <> seq_nth thm
+R30781:30787 Coq.Lists.List <> seq_nth thm
+prf 30826:30841 <> rlzp_compact_eqv
+binder 30852:30852 <> N:227
+binder 30854:30854 <> g:228
+binder 30856:30856 <> s:229
+R30873:30876 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30859:30866 Kernel.RealizeCompact <> rlzp_inv def
+R30868:30868 Kernel.RealizeCompact <> N:227 var
+R30870:30870 Kernel.RealizeCompact <> g:228 var
+R30872:30872 Kernel.RealizeCompact <> s:229 var
+R30877:30884 Kernel.RealizeCompact <> rlzp_eqv def
+R30887:30898 Kernel.RealizeCompact <> rlzp_compact def
+R30900:30900 Kernel.RealizeCompact <> N:227 var
+R30902:30902 Kernel.RealizeCompact <> g:228 var
+R30904:30904 Kernel.RealizeCompact <> s:229 var
+R30907:30907 Kernel.RealizeCompact <> s:229 var
+R30943:30950 Kernel.RealizeCompact <> rlzp_eqv def
+R30953:30965 Kernel.RealizeCompact <> rlzp_core_eqv def
+R30968:30979 Kernel.RealizeCompact <> rlzp_compact def
+R30982:30998 Kernel.RealizeCompact <> rlzp_compact_core def
+R31064:31070 Coq.Arith.PeanoNat Nat ltb def
+R31064:31070 Coq.Arith.PeanoNat Nat ltb def
+R31096:31105 Coq.Arith.PeanoNat Nat ltb_lt thm
+R31096:31105 Coq.Arith.PeanoNat Nat ltb_lt thm
+R31119:31130 Kernel.RealizeCompact <> rlzp_nth_tab thm
+R31119:31130 Kernel.RealizeCompact <> rlzp_nth_tab thm
+R31154:31163 Coq.Arith.PeanoNat Nat ltb_ge thm
+R31154:31163 Coq.Arith.PeanoNat Nat ltb_ge thm
+R31188:31192 Coq.Init.Logic <> proj1 thm
+R31188:31192 Coq.Init.Logic <> proj1 thm
+R31228:31234 Coq.Arith.PeanoNat Nat ltb def
+R31228:31234 Coq.Arith.PeanoNat Nat ltb def
+R31260:31269 Coq.Arith.PeanoNat Nat ltb_lt thm
+R31260:31269 Coq.Arith.PeanoNat Nat ltb_lt thm
+R31283:31294 Kernel.RealizeCompact <> rlzp_nth_tab thm
+R31283:31294 Kernel.RealizeCompact <> rlzp_nth_tab thm
+R31318:31327 Coq.Arith.PeanoNat Nat ltb_ge thm
+R31318:31327 Coq.Arith.PeanoNat Nat ltb_ge thm
+R31352:31356 Coq.Init.Logic <> proj2 thm
+R31352:31356 Coq.Init.Logic <> proj2 thm
+prf 31381:31396 <> rlzp_compact_inv
+binder 31407:31407 <> N:230
+binder 31409:31409 <> g:231
+binder 31411:31411 <> s:232
+R31414:31421 Kernel.RealizeCompact <> rlzp_inv def
+R31423:31423 Kernel.RealizeCompact <> N:230 var
+R31425:31425 Kernel.RealizeCompact <> g:231 var
+R31428:31439 Kernel.RealizeCompact <> rlzp_compact def
+R31441:31441 Kernel.RealizeCompact <> N:230 var
+R31443:31443 Kernel.RealizeCompact <> g:231 var
+R31445:31445 Kernel.RealizeCompact <> s:232 var
+R31479:31486 Kernel.RealizeCompact <> rlzp_inv def
+R31489:31497 Kernel.RealizeCompact <> rlzp_cinv def
+R31500:31511 Kernel.RealizeCompact <> rlzp_compact def
+R31514:31530 Kernel.RealizeCompact <> rlzp_compact_core def
+R31561:31570 Coq.Arith.PeanoNat Nat ltb_ge thm
+R31561:31570 Coq.Arith.PeanoNat Nat ltb_ge thm
+def 31700:31709 <> rlzp_sched
+R31716:31718 Coq.Init.Datatypes <> nat ind
+binder 31712:31712 <> N:233
+R31729:31732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R31726:31728 Coq.Init.Datatypes <> nat ind
+R31733:31735 Coq.Init.Datatypes <> nat ind
+binder 31722:31722 <> g:234
+R31743:31746 Coq.Init.Datatypes <> list ind
+R31750:31783 Minimal.EarnedMultiPriced <> pu_instr ind
+R31785:31788 Kernel.RealizeCompact <> Compactp.prop var
+binder 31739:31739 <> P:235
+R31801:31804 Coq.Init.Datatypes <> list ind
+R31806:31809 Coq.Init.Datatypes <> bool ind
+binder 31793:31797 <> sched:236
+R31821:31854 Minimal.EarnedMultiPriced <> pu_state rec
+R31856:31859 Kernel.RealizeCompact <> Compactp.prop var
+binder 31815:31815 <> s:237
+R31867:31900 Minimal.EarnedMultiPriced <> pu_state rec
+R31902:31905 Kernel.RealizeCompact <> Compactp.prop var
+R31919:31923 Kernel.RealizeCompact <> sched:236 var
+R31934:31935 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R31940:31940 Kernel.RealizeCompact <> s:237 var
+R31947:31950 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R31962:31971 Kernel.RealizeCompact <> rlzp_sched:238 def
+R32076:32108 Minimal.EarnedMultiPriced <> pu_step def
+R32124:32124 Kernel.RealizeCompact <> P:235 var
+R32126:32126 Kernel.RealizeCompact <> s:237 var
+R32119:32122 Kernel.RealizeCompact <> Compactp.eval var
+R32110:32117 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R32000:32011 Kernel.RealizeCompact <> rlzp_compact def
+R32013:32013 Kernel.RealizeCompact <> N:233 var
+R32015:32015 Kernel.RealizeCompact <> g:234 var
+R32018:32050 Minimal.EarnedMultiPriced <> pu_step def
+R32066:32066 Kernel.RealizeCompact <> P:235 var
+R32068:32068 Kernel.RealizeCompact <> s:237 var
+R32061:32064 Kernel.RealizeCompact <> Compactp.eval var
+R32052:32059 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R31977:31977 Kernel.RealizeCompact <> P:235 var
+R31975:31975 Kernel.RealizeCompact <> g:234 var
+R31973:31973 Kernel.RealizeCompact <> N:233 var
+prf 32368:32383 <> rlzp_sched_sound
+binder 32394:32394 <> N:240
+binder 32396:32396 <> g:241
+R32403:32406 Coq.Init.Datatypes <> list ind
+R32410:32443 Minimal.EarnedMultiPriced <> pu_instr ind
+R32445:32448 Kernel.RealizeCompact <> Compactp.prop var
+binder 32399:32399 <> P:242
+binder 32452:32456 <> sched:243
+binder 32458:32458 <> s:244
+R32489:32492 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32482:32484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32463:32477 Kernel.RealizeCompact <> rlzp_prog_below def
+R32479:32479 Kernel.RealizeCompact <> N:240 var
+R32481:32481 Kernel.RealizeCompact <> P:242 var
+R32485:32488 Coq.Init.Datatypes <> true constr
+R32507:32512 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32493:32500 Kernel.RealizeCompact <> rlzp_inv def
+R32502:32502 Kernel.RealizeCompact <> N:240 var
+R32504:32504 Kernel.RealizeCompact <> g:241 var
+R32506:32506 Kernel.RealizeCompact <> s:244 var
+R32513:32520 Kernel.RealizeCompact <> rlzp_eqv def
+R32523:32532 Kernel.RealizeCompact <> rlzp_sched def
+R32534:32534 Kernel.RealizeCompact <> N:240 var
+R32536:32536 Kernel.RealizeCompact <> g:241 var
+R32538:32538 Kernel.RealizeCompact <> P:242 var
+R32540:32544 Kernel.RealizeCompact <> sched:243 var
+R32546:32546 Kernel.RealizeCompact <> s:244 var
+R32550:32586 Minimal.EarnedMultiPriced <> pu_run_prog def
+R32603:32608 Coq.Init.Datatypes <> length def
+R32610:32614 Kernel.RealizeCompact <> sched:243 var
+R32617:32617 Kernel.RealizeCompact <> P:242 var
+R32619:32619 Kernel.RealizeCompact <> s:244 var
+R32597:32600 Kernel.RealizeCompact <> Compactp.eval var
+R32588:32595 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R32716:32728 Kernel.RealizeCompact <> rlzp_eqv_refl thm
+R32716:32728 Kernel.RealizeCompact <> rlzp_eqv_refl thm
+R32749:32756 Kernel.RealizeCompact <> rlzp_inv def
+R32763:32795 Minimal.EarnedMultiPriced <> pu_step def
+R32806:32809 Kernel.RealizeCompact <> Compactp.eval var
+R32797:32804 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R32827:32839 Kernel.RealizeCompact <> rlzp_step_inv thm
+R32749:32756 Kernel.RealizeCompact <> rlzp_inv def
+R32763:32795 Minimal.EarnedMultiPriced <> pu_step def
+R32806:32809 Kernel.RealizeCompact <> Compactp.eval var
+R32797:32804 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R32827:32839 Kernel.RealizeCompact <> rlzp_step_inv thm
+R32872:32879 Kernel.RealizeCompact <> rlzp_inv def
+R32972:33004 Minimal.EarnedMultiPriced <> pu_step def
+R33015:33018 Kernel.RealizeCompact <> Compactp.eval var
+R33006:33013 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R32896:32907 Kernel.RealizeCompact <> rlzp_compact def
+R32914:32946 Minimal.EarnedMultiPriced <> pu_step def
+R32957:32960 Kernel.RealizeCompact <> Compactp.eval var
+R32948:32955 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R32872:32879 Kernel.RealizeCompact <> rlzp_inv def
+R32972:33004 Minimal.EarnedMultiPriced <> pu_step def
+R33015:33018 Kernel.RealizeCompact <> Compactp.eval var
+R33006:33013 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R32896:32907 Kernel.RealizeCompact <> rlzp_compact def
+R32914:32946 Minimal.EarnedMultiPriced <> pu_step def
+R32957:32960 Kernel.RealizeCompact <> Compactp.eval var
+R32948:32955 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R33052:33067 Kernel.RealizeCompact <> rlzp_compact_inv thm
+R33052:33067 Kernel.RealizeCompact <> rlzp_compact_inv thm
+R33103:33110 Kernel.RealizeCompact <> rlzp_eqv def
+R33199:33231 Minimal.EarnedMultiPriced <> pu_step def
+R33242:33245 Kernel.RealizeCompact <> Compactp.eval var
+R33233:33240 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R33123:33134 Kernel.RealizeCompact <> rlzp_compact def
+R33141:33173 Minimal.EarnedMultiPriced <> pu_step def
+R33184:33187 Kernel.RealizeCompact <> Compactp.eval var
+R33175:33182 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R33282:33314 Minimal.EarnedMultiPriced <> pu_step def
+R33325:33328 Kernel.RealizeCompact <> Compactp.eval var
+R33316:33323 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R33103:33110 Kernel.RealizeCompact <> rlzp_eqv def
+R33199:33231 Minimal.EarnedMultiPriced <> pu_step def
+R33242:33245 Kernel.RealizeCompact <> Compactp.eval var
+R33233:33240 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R33123:33134 Kernel.RealizeCompact <> rlzp_compact def
+R33141:33173 Minimal.EarnedMultiPriced <> pu_step def
+R33184:33187 Kernel.RealizeCompact <> Compactp.eval var
+R33175:33182 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R33282:33314 Minimal.EarnedMultiPriced <> pu_step def
+R33325:33328 Kernel.RealizeCompact <> Compactp.eval var
+R33316:33323 Kernel.RealizeCompact <> Compactp.prop_eqb var
+R33362:33377 Kernel.RealizeCompact <> rlzp_compact_eqv thm
+R33398:33410 Kernel.RealizeCompact <> rlzp_eqv_refl thm
+R33362:33377 Kernel.RealizeCompact <> rlzp_compact_eqv thm
+R33398:33410 Kernel.RealizeCompact <> rlzp_eqv_refl thm
+R33427:33440 Kernel.RealizeCompact <> rlzp_eqv_trans thm
+R33427:33440 Kernel.RealizeCompact <> rlzp_eqv_trans thm
+R33479:33495 Kernel.RealizeCompact <> rlzp_run_prog_eqv thm
+R33479:33495 Kernel.RealizeCompact <> rlzp_run_prog_eqv thm
+R33519:33526 Kernel.RealizeCompact Compactp <> sec
+def 33915:33928 <> rlz_table_size
+R33932:33934 Coq.Init.Datatypes <> nat ind
+prf 33950:33971 <> rlz_host_program_below
+R34038:34040 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33977:33990 Kernel.RealizeCompact <> rlz_prog_below def
+R33992:34005 Kernel.RealizeCompact <> rlz_table_size def
+R34007:34037 Kernel.Realize <> rlz_host_program def
+R34041:34044 Coq.Init.Datatypes <> true constr
+prf 34091:34113 <> rlz_phost_program_below
+R34188:34190 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34119:34133 Kernel.RealizeCompact <> rlzp_prog_below def
+R34135:34148 Kernel.RealizeCompact <> rlz_table_size def
+R34150:34187 Kernel.RealizePriced <> rlz_phost_program def
+R34191:34194 Coq.Init.Datatypes <> true constr
+def 34456:34469 <> rlz_host_sched
+R34479:34482 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34476:34478 Coq.Init.Datatypes <> nat ind
+R34483:34485 Coq.Init.Datatypes <> nat ind
+binder 34472:34472 <> g:245
+R34497:34500 Coq.Init.Datatypes <> list ind
+R34502:34505 Coq.Init.Datatypes <> bool ind
+binder 34489:34493 <> sched:246
+R34516:34540 Minimal.EarnedMulti <> state rec
+R34542:34569 Minimal.UniversalCodes <> hprop ind
+binder 34511:34511 <> s:247
+R34577:34601 Minimal.EarnedMulti <> state rec
+R34603:34630 Minimal.UniversalCodes <> hprop ind
+R34637:34645 Kernel.RealizeCompact <> rlz_sched def
+R34713:34726 Kernel.RealizeCompact <> rlz_table_size def
+R34728:34728 Kernel.RealizeCompact <> g:245 var
+R34730:34760 Kernel.Realize <> rlz_host_program def
+R34762:34766 Kernel.RealizeCompact <> sched:246 var
+R34768:34768 Kernel.RealizeCompact <> s:247 var
+R34680:34707 Kernel.Realize <> rlz_host_eval def
+R34647:34678 Kernel.Realize <> rlz_host_prop_eqb def
+def 34783:34797 <> rlz_phost_sched
+R34807:34810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34804:34806 Coq.Init.Datatypes <> nat ind
+R34811:34813 Coq.Init.Datatypes <> nat ind
+binder 34800:34800 <> g:248
+R34825:34828 Coq.Init.Datatypes <> list ind
+R34830:34833 Coq.Init.Datatypes <> bool ind
+binder 34817:34821 <> sched:249
+R34844:34877 Minimal.EarnedMultiPriced <> pu_state rec
+R34879:34909 Kernel.UniversalPCodes <> pu_hprop ind
+binder 34839:34839 <> s:250
+R34917:34950 Minimal.EarnedMultiPriced <> pu_state rec
+R34952:34982 Kernel.UniversalPCodes <> pu_hprop ind
+R34989:34998 Kernel.RealizeCompact <> rlzp_sched def
+R35078:35091 Kernel.RealizeCompact <> rlz_table_size def
+R35093:35093 Kernel.RealizeCompact <> g:248 var
+R35095:35132 Kernel.RealizePriced <> rlz_phost_program def
+R35134:35138 Kernel.RealizeCompact <> sched:249 var
+R35140:35140 Kernel.RealizeCompact <> s:250 var
+R35040:35072 Kernel.RealizePriced <> rlz_pu_heval def
+R35000:35038 Kernel.RealizePriced <> rlz_phost_prop_eqb def
+prf 35226:35243 <> rlz_host_sched_app
+binder 35254:35254 <> g:251
+binder 35256:35257 <> l1:252
+binder 35259:35260 <> l2:253
+binder 35262:35262 <> s:254
+R35296:35298 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35267:35280 Kernel.RealizeCompact <> rlz_host_sched def
+R35282:35282 Kernel.RealizeCompact <> g:251 var
+R35287:35290 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R35285:35286 Kernel.RealizeCompact <> l1:252 var
+R35291:35292 Kernel.RealizeCompact <> l2:253 var
+R35295:35295 Kernel.RealizeCompact <> s:254 var
+R35299:35312 Kernel.RealizeCompact <> rlz_host_sched def
+R35314:35314 Kernel.RealizeCompact <> g:251 var
+R35316:35317 Kernel.RealizeCompact <> l2:253 var
+R35320:35333 Kernel.RealizeCompact <> rlz_host_sched def
+R35335:35335 Kernel.RealizeCompact <> g:251 var
+R35337:35338 Kernel.RealizeCompact <> l1:252 var
+R35340:35340 Kernel.RealizeCompact <> s:254 var
+prf 35455:35473 <> rlz_phost_sched_app
+binder 35484:35484 <> g:255
+binder 35486:35487 <> l1:256
+binder 35489:35490 <> l2:257
+binder 35492:35492 <> s:258
+R35527:35529 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35497:35511 Kernel.RealizeCompact <> rlz_phost_sched def
+R35513:35513 Kernel.RealizeCompact <> g:255 var
+R35518:35521 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R35516:35517 Kernel.RealizeCompact <> l1:256 var
+R35522:35523 Kernel.RealizeCompact <> l2:257 var
+R35526:35526 Kernel.RealizeCompact <> s:258 var
+R35530:35544 Kernel.RealizeCompact <> rlz_phost_sched def
+R35546:35546 Kernel.RealizeCompact <> g:255 var
+R35548:35549 Kernel.RealizeCompact <> l2:257 var
+R35552:35566 Kernel.RealizeCompact <> rlz_phost_sched def
+R35568:35568 Kernel.RealizeCompact <> g:255 var
+R35570:35571 Kernel.RealizeCompact <> l1:256 var
+R35573:35573 Kernel.RealizeCompact <> s:258 var
+prf 35940:35959 <> rlz_host_sched_sound
+binder 35970:35970 <> P:259
+binder 35972:35972 <> x:260
+binder 35974:35974 <> y:261
+binder 35976:35980 <> sched:262
+R35985:35991 Kernel.RealizeCompact <> rlz_eqv def
+R35994:36007 Kernel.RealizeCompact <> rlz_host_sched def
+R36010:36037 Kernel.Realize <> rlz_host_regs def
+R36039:36039 Kernel.RealizeCompact <> P:259 var
+R36041:36041 Kernel.RealizeCompact <> x:260 var
+R36043:36043 Kernel.RealizeCompact <> y:261 var
+R36046:36050 Kernel.RealizeCompact <> sched:262 var
+R36066:36093 Kernel.Realize <> rlz_host_load def
+R36095:36095 Kernel.RealizeCompact <> P:259 var
+R36097:36097 Kernel.RealizeCompact <> x:260 var
+R36099:36099 Kernel.RealizeCompact <> y:261 var
+R36114:36139 Kernel.Realize <> rlz_host_at def
+R36141:36141 Kernel.RealizeCompact <> P:259 var
+R36143:36143 Kernel.RealizeCompact <> x:260 var
+R36145:36145 Kernel.RealizeCompact <> y:261 var
+R36148:36153 Coq.Init.Datatypes <> length def
+R36155:36159 Kernel.RealizeCompact <> sched:262 var
+R36200:36213 Kernel.RealizeCompact <> rlz_host_sched def
+R36216:36241 Kernel.Realize <> rlz_host_at def
+R36252:36266 Kernel.RealizeCompact <> rlz_sched_sound thm
+R36276:36297 Kernel.RealizeCompact <> rlz_host_program_below thm
+R36252:36266 Kernel.RealizeCompact <> rlz_sched_sound thm
+R36276:36297 Kernel.RealizeCompact <> rlz_host_program_below thm
+R36312:36318 Kernel.RealizeCompact <> rlz_inv def
+R36321:36328 Kernel.RealizeCompact <> rlz_cinv def
+R36331:36358 Kernel.Realize <> rlz_host_load def
+R36361:36389 Kernel.Realize <> rlz_host_start def
+prf 36447:36467 <> rlz_phost_sched_sound
+binder 36478:36478 <> P:263
+binder 36480:36480 <> x:264
+binder 36482:36482 <> y:265
+binder 36484:36488 <> sched:266
+R36493:36500 Kernel.RealizeCompact <> rlzp_eqv def
+R36503:36517 Kernel.RealizeCompact <> rlz_phost_sched def
+R36520:36554 Kernel.RealizePriced <> rlz_phost_regs def
+R36556:36556 Kernel.RealizeCompact <> P:263 var
+R36558:36558 Kernel.RealizeCompact <> x:264 var
+R36560:36560 Kernel.RealizeCompact <> y:265 var
+R36563:36567 Kernel.RealizeCompact <> sched:266 var
+R36584:36618 Kernel.RealizePriced <> rlz_phost_load def
+R36620:36620 Kernel.RealizeCompact <> P:263 var
+R36622:36622 Kernel.RealizeCompact <> x:264 var
+R36624:36624 Kernel.RealizeCompact <> y:265 var
+R36640:36672 Kernel.RealizePriced <> rlz_phost_at def
+R36674:36674 Kernel.RealizeCompact <> P:263 var
+R36676:36676 Kernel.RealizeCompact <> x:264 var
+R36678:36678 Kernel.RealizeCompact <> y:265 var
+R36681:36686 Coq.Init.Datatypes <> length def
+R36688:36692 Kernel.RealizeCompact <> sched:266 var
+R36733:36747 Kernel.RealizeCompact <> rlz_phost_sched def
+R36750:36782 Kernel.RealizePriced <> rlz_phost_at def
+R36793:36808 Kernel.RealizeCompact <> rlzp_sched_sound thm
+R36818:36840 Kernel.RealizeCompact <> rlz_phost_program_below thm
+R36793:36808 Kernel.RealizeCompact <> rlzp_sched_sound thm
+R36818:36840 Kernel.RealizeCompact <> rlz_phost_program_below thm
+R36855:36862 Kernel.RealizeCompact <> rlzp_inv def
+R36865:36873 Kernel.RealizeCompact <> rlzp_cinv def
+R36876:36910 Kernel.RealizePriced <> rlz_phost_load def
+R36913:36948 Kernel.RealizePriced <> rlz_phost_start def
+prf 37072:37100 <> rlz_host_sched_sound_original
+binder 37111:37111 <> P:267
+binder 37113:37113 <> x:268
+binder 37115:37115 <> y:269
+binder 37117:37121 <> sched:270
+R37126:37132 Kernel.RealizeCompact <> rlz_eqv def
+R37135:37148 Kernel.RealizeCompact <> rlz_host_sched def
+R37151:37178 Kernel.Realize <> rlz_host_regs def
+R37180:37180 Kernel.RealizeCompact <> P:267 var
+R37182:37182 Kernel.RealizeCompact <> x:268 var
+R37184:37184 Kernel.RealizeCompact <> y:269 var
+R37187:37191 Kernel.RealizeCompact <> sched:270 var
+R37207:37234 Kernel.Realize <> rlz_host_load def
+R37236:37236 Kernel.RealizeCompact <> P:267 var
+R37238:37238 Kernel.RealizeCompact <> x:268 var
+R37240:37240 Kernel.RealizeCompact <> y:269 var
+R37255:37282 Minimal.EarnedMulti <> run_prog def
+R37360:37365 Coq.Init.Datatypes <> length def
+R37367:37371 Kernel.RealizeCompact <> sched:270 var
+R37374:37397 Kernel.UniversalLayout <> U def
+R37400:37424 Kernel.UniversalSim <> hload def
+R37426:37426 Kernel.RealizeCompact <> P:267 var
+R37428:37428 Kernel.RealizeCompact <> x:268 var
+R37430:37430 Kernel.RealizeCompact <> y:269 var
+R37317:37344 Minimal.UniversalCodes <> heval def
+R37284:37315 Minimal.UniversalCodes <> hprop_eqb def
+R37475:37503 Kernel.Realize <> rlz_host_at_is thm
+R37475:37503 Kernel.Realize <> rlz_host_at_is thm
+R37475:37503 Kernel.Realize <> rlz_host_at_is thm
+R37512:37531 Kernel.RealizeCompact <> rlz_host_sched_sound thm
+R37512:37531 Kernel.RealizeCompact <> rlz_host_sched_sound thm
+prf 37550:37579 <> rlz_phost_sched_sound_original
+binder 37590:37590 <> P:271
+binder 37592:37592 <> x:272
+binder 37594:37594 <> y:273
+binder 37596:37600 <> sched:274
+R37605:37612 Kernel.RealizeCompact <> rlzp_eqv def
+R37615:37629 Kernel.RealizeCompact <> rlz_phost_sched def
+R37632:37666 Kernel.RealizePriced <> rlz_phost_regs def
+R37668:37668 Kernel.RealizeCompact <> P:271 var
+R37670:37670 Kernel.RealizeCompact <> x:272 var
+R37672:37672 Kernel.RealizeCompact <> y:273 var
+R37675:37679 Kernel.RealizeCompact <> sched:274 var
+R37696:37730 Kernel.RealizePriced <> rlz_phost_load def
+R37732:37732 Kernel.RealizeCompact <> P:271 var
+R37734:37734 Kernel.RealizeCompact <> x:272 var
+R37736:37736 Kernel.RealizeCompact <> y:273 var
+R37752:37788 Minimal.EarnedMultiPriced <> pu_run_prog def
+R37873:37878 Coq.Init.Datatypes <> length def
+R37880:37884 Kernel.RealizeCompact <> sched:274 var
+R37887:37913 Kernel.UniversalPLayout <> U_P def
+R37930:37958 Kernel.UniversalPSim <> pu_hload def
+R37961:37963 Coq.Lists.List <> map def
+R37996:37996 Kernel.RealizeCompact <> P:271 var
+R37965:37994 Kernel.RealizePriced <> rlz_to_pr def
+R37999:37999 Kernel.RealizeCompact <> x:272 var
+R38001:38001 Kernel.RealizeCompact <> y:273 var
+R37840:37870 Kernel.UniversalPCodes <> pu_heval def
+R37790:37824 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R38046:38081 Kernel.RealizePriced <> rlz_phost_at_eq thm
+R38046:38081 Kernel.RealizePriced <> rlz_phost_at_eq thm
+R38046:38081 Kernel.RealizePriced <> rlz_phost_at_eq thm
+R38090:38110 Kernel.RealizeCompact <> rlz_phost_sched_sound thm
+R38090:38110 Kernel.RealizeCompact <> rlz_phost_sched_sound thm
+R38428:38442 Kernel.RealizeCompact <> rlz_sched_sound thm
+R38463:38478 Kernel.RealizeCompact <> rlzp_sched_sound thm
+R38499:38520 Kernel.RealizeCompact <> rlz_host_program_below thm
+R38541:38563 Kernel.RealizeCompact <> rlz_phost_program_below thm
+R38584:38601 Kernel.RealizeCompact <> rlz_host_sched_app thm
+R38622:38640 Kernel.RealizeCompact <> rlz_phost_sched_app thm
+R38661:38680 Kernel.RealizeCompact <> rlz_host_sched_sound thm
+R38701:38721 Kernel.RealizeCompact <> rlz_phost_sched_sound thm
+R38742:38770 Kernel.RealizeCompact <> rlz_host_sched_sound_original thm
+R38791:38820 Kernel.RealizeCompact <> rlz_phost_sched_sound_original thm

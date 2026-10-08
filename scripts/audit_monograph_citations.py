@@ -49,54 +49,26 @@ NON_COQ_TOKENS = {
     # Coq stdlib types / functions (lowercase or capitalized) referenced in prose
     "nodup", "option", "In", "Some", "string",
     "nodup_fixed_point",  # Coq.Lists.List
-    # Bluespec / Verilog signal names referenced in prose ("Mirrors the RTL X register")
-    "logic_acc",
-    # Interpretive labels for the kinetic/potential μ decomposition (chapter 3
-    # explicitly tags these "a.k.a." — they are not Coq identifiers, the
-    # kernel records a single counter vm_mu).
-    "mu_execution", "mu_discovery",
     # Illustrative ReceiptPredicate examples mentioned in chapter 3 / 5 prose
     # AND in NoFreeInsight.v COMMENTS (not as actual Coq definitions). The
     # chapters explicitly introduce them with "for example".
     "chsh_compatible", "chsh_quantum", "chsh_supra",
     "P_classical", "P_quantum", "P_specific", "P_any", "P_strong", "P_weak",
     "P1", "P2",
-    # TRS-1.0 receipt JSON field names / kind values (not Coq identifiers)
-    "fileset", "global_digest",
     # JSON output field names (Python harness output, not Coq identifiers)
     "error", "graph",
-    # Python helper functions in tests/ (not Coq identifiers)
-    "_run_both",
-    # Identifiers explicitly described as NON-existent fields/opcodes in the monograph
-    # (the monograph discusses these to clarify they are NOT in the Coq kernel).
-    # The monograph is correct that they don't exist; the audit shouldn't flag them.
-    "vm_heap", "vm_output", "vm_imem",  # explicitly disclaimed at line 581
-    "INIT_PT", "INIT_ACTIVE_MODULE",     # explicitly described as harness commands, not VM ops
-    "ThieleVM",                          # explicitly disclaimed in chapter 13: "There is no ThieleVM class"
-    "decode_instruction",                # explicitly clarified in chapter 4: kernel does not bit-decode
     # CLI / tools / non-Coq filenames
-    "cosim", "yosys", "iverilog", "verilator", "make", "pytest",
-    "coqtop", "coqc", "coqchk", "ocamlfind", "vvp", "Makefile", "nextpnr-xilinx", "xc7frames2bit",
-    "fasm2frames", "openFPGALoader",
+    "make", "pytest",
+    "coqtop", "coqc", "coqchk", "Makefile",
     # External library / language modules referenced in prose (not Coq identifiers)
     "json", "Yojson", "Int64",
     # Coq stdlib types / library modules referenced in prose
-    "nat", "Option", "R", "Classical", "Decidable", "ProofIrrelevance", "KamiHW",
+    "nat", "Option", "R", "Classical", "Decidable", "ProofIrrelevance",
     # Coq operators / arithmetic functions referenced in prose
     "sub", "eqb",
     # Coq stdlib coercion Z->R used in the CHSH integer-check soundness proof
-    # (the monograph describes it correctly; it is not a VM opcode instr_izr).
+    # (the monograph describes it correctly; it is not a declaration here).
     "IZR",
-    # Verilog / Bluespec keywords and generated module / port / wire names
-    # (these come from the Kami-generated RTL, not from Coq identifiers).
-    "wire", "reg", "case",
-    "mkModule1", "loadInstr", "WILL_FIRE_RL_step", "RST_N",
-    "getMuTensor0", "getMuTensor3", "getWcSame00", "getWcDiff11",
-    # Verilog wire / signal names referenced from RTL code listings
-    "overflow",
-    # Python class / field / constant names from thielecpu/vm.py and
-    # related runtime modules (not Coq identifiers).
-    "RegionGraph", "partition_masks", "WORD64_MASK", "partitionGraph",
     # Pseudocode parameter / JSON field names from experiment-protocol prose
     # (defined in the algorithm listings or emitted by the experiment harness,
     # not in the Coq kernel)
@@ -131,18 +103,14 @@ NON_COQ_TOKENS = {
     "TPM2_Quote",
     # The machines themselves, typeset in code font as proper names.
     "Thiele", "Turing",
-    # Kami HW objects: a morphism struct flag and an RTL rule name. Real, but
-    # carried in the graph-morphism / Kami representation, not as a top-level
-    # Coq declaration the indexer walks.
-    "is_identity", "chsh_lassert_fsm",
     # Substrate-typeclass field names and the prose-proof pseudocode of the
     # halting-shaped-wall section: illustrative names in the informal
     # Kleene-diagonal argument, not Coq declarations.
     "Program", "AdmitsShortcut", "recursion_theorem", "prog_equiv",
     "yes_program", "no_program", "decide", "flip", "f",
     # Descriptive grouping name for the 8 wc_* CHSH counters (not itself a
-    # Coq type), and shorthand for the CHSH_LASSERT_1AB_G12345 opcode variant.
-    "WitnessCount", "_g12345",
+    # Coq type).
+    "WitnessCount",
 }
 
 
@@ -177,9 +145,9 @@ def find_top_level_decls(coq_roots):
     record_comment_re = re.compile(r"\(\*.*?\*\)", re.DOTALL)
     record_field_re = re.compile(r"^\s*([a-z_][A-Za-z0-9_']*)\s*:")
     # Inductive header (starts a block whose body we scan linearly until the
-    # next top-level keyword). The previous regex tried `[^.]+?\.` to bound
-    # the body, but real Inductive bodies routinely contain dots inside
-    # subterms like `s.(vm_graph)`, so it terminated early and missed most
+    # next top-level keyword). A regex using `[^.]+?\.` to bound the body
+    # would terminate early, because real Inductive bodies routinely contain
+    # dots inside subterms like `s.(vm_graph)`, and would miss most
     # constructors of large inductive types like `vm_step`.
     inductive_header_re = re.compile(
         r"^\s*(?:CoInductive|Inductive)\s+([A-Za-z_][A-Za-z0-9_']*)",
@@ -285,20 +253,22 @@ def find_top_level_decls(coq_roots):
                         if re.fullmatch(r"[a-z_][A-Za-z0-9_']*", name):
                             line = text.count("\n", 0, body_start + pm.start()) + 1
                             table[name].append(f"{rel}:{line}")
+    # The minimal machine cites the vendored undecidability result directly.
+    # Resolve it from the checked-in source, rather than exempting its name.
+    external = REPO / "vendor/coq-undecidability/theories/MinskyMachines/MM2_undec.v"
+    if external.exists():
+        source = record_comment_re.sub("", external.read_text(encoding="utf-8"))
+        for match in re.finditer(r"^\s*(?:Theorem|Lemma|Corollary)\s+([A-Za-z_][\w']*)", source, re.M):
+            table[match.group(1)].append(str(external.relative_to(REPO)))
     return table
 
 
 def find_files_by_basename(coq_roots):
     """Return dict {basename: [path, ...]} for every .v file the monograph can
-    cite — both Coq sources under coq/ AND Verilog sources under
-    thielecpu/hardware/rtl/ and rtl_harness/. Vendor and archive trees are
-    excluded."""
+    cite: the Coq sources under coq/ and minimal/. Vendor and archive trees
+    are excluded."""
     table = defaultdict(list)
-    extra_roots = [
-        REPO / "thielecpu" / "hardware" / "rtl",
-        REPO / "rtl_harness",
-    ]
-    for root in list(coq_roots) + extra_roots:
+    for root in list(coq_roots):
         if not root.exists():
             continue
         for vf in root.rglob("*.v"):

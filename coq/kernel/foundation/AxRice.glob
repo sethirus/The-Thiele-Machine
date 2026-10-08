@@ -1,0 +1,1764 @@
+DIGEST af29f9f5b163a8d8370bdbaad2aeb881
+FKernel.AxRice
+R3999:4002 Coq.Lists.List <> <> lib
+R4004:4008 Coq.Arith.Arith <> <> lib
+R4010:4012 Coq.micromega.Lia <> <> lib
+R4014:4017 Coq.Bool.Bool <> <> lib
+R4027:4039 Coq.Lists.List ListNotations <> mod
+R4087:4100 Undecidability.Synthetic.Undecidability <> <> lib
+R4130:4135 Kernel.AxCore <> <> lib
+R4146:4164 Minimal.EarnedMulti <> <> lib
+R4166:4187 Minimal.UniversalCodes <> <> lib
+R4205:4224 Minimal.SmHostBlocks <> <> lib
+R4226:4242 Kernel.SmHostRice <> <> lib
+R4244:4258 Kernel.SmKleene <> <> lib
+R4260:4278 Kernel.SmFixedPoint <> <> lib
+R4293:4311 Minimal.EarnedMulti <> <> modtype
+mod 4288:4288 <> M
+R4327:4348 Minimal.UniversalCodes <> <> modtype
+mod 4321:4322 <> UC
+abbrev 4367:4372 <> hinstr
+R4379:4385 Kernel.AxRice <> instr ind
+R4387:4394 Kernel.AxRice <> hprop ind
+abbrev 4413:4418 <> hstate
+R4425:4431 Kernel.AxRice <> state rec
+R4433:4440 Kernel.AxRice <> hprop ind
+abbrev 4459:4463 <> hends
+R4469:4476 Minimal.SmHostBlocks <> sm_hends def
+R4491:4498 Kernel.AxRice <> heval def
+R4478:4489 Kernel.AxRice <> hprop_eqb def
+abbrev 4517:4522 <> hequiv
+R4528:4536 Minimal.SmHostBlocks <> sm_hequiv def
+R4551:4558 Kernel.AxRice <> heval def
+R4538:4549 Kernel.AxRice <> hprop_eqb def
+abbrev 4577:4585 <> hrun_prog
+R4591:4600 Kernel.AxRice <> run_prog def
+R4615:4622 Kernel.AxRice <> heval def
+R4602:4613 Kernel.AxRice <> hprop_eqb def
+abbrev 4641:4646 <> hagree
+R4653:4661 Minimal.SmHostBlocks <> sm_hagree def
+R4663:4670 Kernel.AxRice <> hprop ind
+sec 4770:4777 <> Readings
+var 4790:4790 Readings A
+var 4809:4809 Readings P
+R4813:4816 Kernel.AxCore <> BPre rec
+R4818:4818 Kernel.AxRice <> Readings.A var
+var 4830:4831 Readings rd
+R4841:4844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4835:4840 Kernel.AxRice <> hstate abbrev
+R4845:4845 Kernel.AxRice <> Readings.A var
+def 4860:4865 <> ax_req
+R4874:4874 Kernel.AxRice <> Readings.A var
+binder 4868:4868 <> x:4
+binder 4870:4870 <> y:5
+R4898:4901 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4887:4891 Kernel.AxCore <> bp_le def
+R4897:4897 Kernel.AxRice <> y:5 var
+R4895:4895 Kernel.AxRice <> x:4 var
+R4893:4893 Kernel.AxRice <> Readings.P var
+R4902:4906 Kernel.AxCore <> bp_le def
+R4912:4912 Kernel.AxRice <> x:4 var
+R4910:4910 Kernel.AxRice <> y:5 var
+R4908:4908 Kernel.AxRice <> Readings.P var
+prf 4922:4931 <> ax_req_sym
+binder 4942:4942 <> x:6
+binder 4944:4944 <> y:7
+R4957:4960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4947:4952 Kernel.AxRice <> ax_req def
+R4956:4956 Kernel.AxRice <> y:7 var
+R4954:4954 Kernel.AxRice <> x:6 var
+R4961:4966 Kernel.AxRice <> ax_req def
+R4970:4970 Kernel.AxRice <> x:6 var
+R4968:4968 Kernel.AxRice <> y:7 var
+def 5103:5110 <> ax_reach
+R5117:5117 Kernel.AxRice <> Readings.A var
+binder 5113:5113 <> a:8
+R5125:5130 Kernel.AxRice <> hstate abbrev
+binder 5121:5121 <> s:9
+R5135:5138 Coq.Init.Datatypes <> bool ind
+R5143:5148 Kernel.AxCore <> bp_leb proj
+R5150:5150 Kernel.AxRice <> Readings.A var
+R5152:5152 Kernel.AxRice <> Readings.P var
+R5154:5154 Kernel.AxRice <> a:8 var
+R5157:5158 Kernel.AxRice <> Readings.rd var
+R5160:5160 Kernel.AxRice <> s:9 var
+prf 5171:5182 <> ax_reach_req
+binder 5193:5193 <> a:10
+binder 5195:5195 <> x:11
+binder 5197:5197 <> y:12
+R5210:5213 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5200:5205 Kernel.AxRice <> ax_req def
+R5209:5209 Kernel.AxRice <> y:12 var
+R5207:5207 Kernel.AxRice <> x:11 var
+R5228:5230 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5214:5219 Kernel.AxCore <> bp_leb proj
+R5221:5221 Kernel.AxRice <> Readings.A var
+R5223:5223 Kernel.AxRice <> Readings.P var
+R5225:5225 Kernel.AxRice <> a:10 var
+R5227:5227 Kernel.AxRice <> x:11 var
+R5231:5236 Kernel.AxCore <> bp_leb proj
+R5238:5238 Kernel.AxRice <> Readings.A var
+R5240:5240 Kernel.AxRice <> Readings.P var
+R5242:5242 Kernel.AxRice <> a:10 var
+R5244:5244 Kernel.AxRice <> y:12 var
+R5286:5299 Coq.Bool.Bool <> eq_true_iff_eq thm
+R5286:5299 Coq.Bool.Bool <> eq_true_iff_eq thm
+R5329:5336 Kernel.AxCore <> bp_trans proj
+R5338:5338 Kernel.AxRice <> Readings.A var
+R5340:5340 Kernel.AxRice <> Readings.P var
+R5329:5336 Kernel.AxCore <> bp_trans proj
+R5338:5338 Kernel.AxRice <> Readings.A var
+R5340:5340 Kernel.AxRice <> Readings.P var
+R5367:5374 Kernel.AxCore <> bp_trans proj
+R5376:5376 Kernel.AxRice <> Readings.A var
+R5378:5378 Kernel.AxRice <> Readings.P var
+R5367:5374 Kernel.AxCore <> bp_trans proj
+R5376:5376 Kernel.AxRice <> Readings.A var
+R5378:5378 Kernel.AxRice <> Readings.P var
+def 5481:5495 <> ax_reads_hagree
+binder 5516:5516 <> s:13
+binder 5518:5518 <> t:14
+R5531:5534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5521:5526 Kernel.AxRice <> hagree abbrev
+R5528:5528 Kernel.AxRice <> s:13 var
+R5530:5530 Kernel.AxRice <> t:14 var
+R5535:5540 Kernel.AxRice <> ax_req def
+R5550:5551 Kernel.AxRice <> Readings.rd var
+R5553:5553 Kernel.AxRice <> t:14 var
+R5543:5544 Kernel.AxRice <> Readings.rd var
+R5546:5546 Kernel.AxRice <> s:13 var
+def 5668:5679 <> ax_reads_obs
+binder 5700:5700 <> s:15
+binder 5702:5702 <> t:16
+R5716:5719 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5705:5711 Kernel.SmFixedPoint <> sm2_obs def
+R5713:5713 Kernel.AxRice <> s:15 var
+R5715:5715 Kernel.AxRice <> t:16 var
+R5720:5725 Kernel.AxRice <> ax_req def
+R5735:5736 Kernel.AxRice <> Readings.rd var
+R5738:5738 Kernel.AxRice <> t:16 var
+R5728:5729 Kernel.AxRice <> Readings.rd var
+R5731:5731 Kernel.AxRice <> s:15 var
+def 5803:5816 <> ax_reach_equiv
+R5823:5823 Kernel.AxRice <> Readings.A var
+binder 5819:5819 <> a:17
+R5833:5836 Coq.Init.Datatypes <> list ind
+R5838:5843 Kernel.AxRice <> hinstr abbrev
+binder 5827:5827 <> p:18
+binder 5829:5829 <> q:19
+binder 5865:5865 <> x:20
+R5872:5872 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5950:5959 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6037:6037 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5880:5880 <> s:21
+R5894:5897 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5883:5887 Kernel.AxRice <> hends abbrev
+R5889:5889 Kernel.AxRice <> p:18 var
+R5891:5891 Kernel.AxRice <> x:20 var
+R5893:5893 Kernel.AxRice <> s:21 var
+R5898:5904 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5906:5907 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5905:5905 <> t:22
+R5919:5922 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5908:5912 Kernel.AxRice <> hends abbrev
+R5914:5914 Kernel.AxRice <> q:19 var
+R5916:5916 Kernel.AxRice <> x:20 var
+R5918:5918 Kernel.AxRice <> t:22 var
+R5935:5937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5923:5930 Kernel.AxRice <> ax_reach def
+R5934:5934 Kernel.AxRice <> s:21 var
+R5932:5932 Kernel.AxRice <> a:17 var
+R5938:5945 Kernel.AxRice <> ax_reach def
+R5949:5949 Kernel.AxRice <> t:22 var
+R5947:5947 Kernel.AxRice <> a:17 var
+binder 5967:5967 <> t:23
+R5981:5984 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5970:5974 Kernel.AxRice <> hends abbrev
+R5976:5976 Kernel.AxRice <> q:19 var
+R5978:5978 Kernel.AxRice <> x:20 var
+R5980:5980 Kernel.AxRice <> t:23 var
+R5985:5991 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5993:5994 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5992:5992 <> s:24
+R6006:6009 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5995:5999 Kernel.AxRice <> hends abbrev
+R6001:6001 Kernel.AxRice <> p:18 var
+R6003:6003 Kernel.AxRice <> x:20 var
+R6005:6005 Kernel.AxRice <> s:24 var
+R6022:6024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6010:6017 Kernel.AxRice <> ax_reach def
+R6021:6021 Kernel.AxRice <> s:24 var
+R6019:6019 Kernel.AxRice <> a:17 var
+R6025:6032 Kernel.AxRice <> ax_reach def
+R6036:6036 Kernel.AxRice <> t:23 var
+R6034:6034 Kernel.AxRice <> a:17 var
+def 6106:6120 <> ax_record_equiv
+R6129:6132 Coq.Init.Datatypes <> list ind
+R6134:6139 Kernel.AxRice <> hinstr abbrev
+binder 6123:6123 <> p:25
+binder 6125:6125 <> q:26
+binder 6161:6161 <> x:27
+R6168:6168 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6239:6248 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6319:6319 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 6176:6176 <> s:28
+R6190:6193 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6179:6183 Kernel.AxRice <> hends abbrev
+R6185:6185 Kernel.AxRice <> p:25 var
+R6187:6187 Kernel.AxRice <> x:27 var
+R6189:6189 Kernel.AxRice <> s:28 var
+R6194:6200 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6202:6203 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6201:6201 <> t:29
+R6215:6218 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6204:6208 Kernel.AxRice <> hends abbrev
+R6210:6210 Kernel.AxRice <> q:26 var
+R6212:6212 Kernel.AxRice <> x:27 var
+R6214:6214 Kernel.AxRice <> t:29 var
+R6219:6224 Kernel.AxRice <> ax_req def
+R6234:6235 Kernel.AxRice <> Readings.rd var
+R6237:6237 Kernel.AxRice <> t:29 var
+R6227:6228 Kernel.AxRice <> Readings.rd var
+R6230:6230 Kernel.AxRice <> s:28 var
+binder 6256:6256 <> t:30
+R6270:6273 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6259:6263 Kernel.AxRice <> hends abbrev
+R6265:6265 Kernel.AxRice <> q:26 var
+R6267:6267 Kernel.AxRice <> x:27 var
+R6269:6269 Kernel.AxRice <> t:30 var
+R6274:6280 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6282:6283 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6281:6281 <> s:31
+R6295:6298 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6284:6288 Kernel.AxRice <> hends abbrev
+R6290:6290 Kernel.AxRice <> p:25 var
+R6292:6292 Kernel.AxRice <> x:27 var
+R6294:6294 Kernel.AxRice <> s:31 var
+R6299:6304 Kernel.AxRice <> ax_req def
+R6314:6315 Kernel.AxRice <> Readings.rd var
+R6317:6317 Kernel.AxRice <> t:30 var
+R6307:6308 Kernel.AxRice <> Readings.rd var
+R6310:6310 Kernel.AxRice <> s:31 var
+prf 6329:6346 <> ax_reach_equiv_sym
+binder 6357:6357 <> a:32
+binder 6359:6359 <> p:33
+binder 6361:6361 <> q:34
+R6384:6387 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6364:6377 Kernel.AxRice <> ax_reach_equiv def
+R6383:6383 Kernel.AxRice <> q:34 var
+R6381:6381 Kernel.AxRice <> p:33 var
+R6379:6379 Kernel.AxRice <> a:32 var
+R6388:6401 Kernel.AxRice <> ax_reach_equiv def
+R6407:6407 Kernel.AxRice <> p:33 var
+R6405:6405 Kernel.AxRice <> q:34 var
+R6403:6403 Kernel.AxRice <> a:32 var
+prf 6683:6701 <> ax_record_equiv_sym
+binder 6712:6712 <> p:35
+binder 6714:6714 <> q:36
+R6736:6739 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6717:6731 Kernel.AxRice <> ax_record_equiv def
+R6735:6735 Kernel.AxRice <> q:36 var
+R6733:6733 Kernel.AxRice <> p:35 var
+R6740:6754 Kernel.AxRice <> ax_record_equiv def
+R6758:6758 Kernel.AxRice <> p:35 var
+R6756:6756 Kernel.AxRice <> q:36 var
+R6906:6915 Kernel.AxRice <> ax_req_sym thm
+R6906:6915 Kernel.AxRice <> ax_req_sym thm
+R7014:7023 Kernel.AxRice <> ax_req_sym thm
+R7014:7023 Kernel.AxRice <> ax_req_sym thm
+prf 7123:7143 <> ax_record_equiv_reach
+binder 7154:7154 <> a:37
+binder 7156:7156 <> p:38
+binder 7158:7158 <> q:39
+R7180:7183 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7161:7175 Kernel.AxRice <> ax_record_equiv def
+R7179:7179 Kernel.AxRice <> q:39 var
+R7177:7177 Kernel.AxRice <> p:38 var
+R7184:7197 Kernel.AxRice <> ax_reach_equiv def
+R7203:7203 Kernel.AxRice <> q:39 var
+R7201:7201 Kernel.AxRice <> p:38 var
+R7199:7199 Kernel.AxRice <> a:37 var
+R7360:7367 Kernel.AxRice <> ax_reach def
+R7376:7387 Kernel.AxRice <> ax_reach_req thm
+R7376:7387 Kernel.AxRice <> ax_reach_req thm
+R7492:7499 Kernel.AxRice <> ax_reach def
+R7508:7519 Kernel.AxRice <> ax_reach_req thm
+R7508:7519 Kernel.AxRice <> ax_reach_req thm
+prf 7658:7673 <> ax_hequiv_record
+R7692:7695 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7677:7691 Kernel.AxRice <> ax_reads_hagree def
+binder 7703:7703 <> p:40
+binder 7705:7705 <> q:41
+R7718:7721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7708:7713 Kernel.AxRice <> hequiv abbrev
+R7715:7715 Kernel.AxRice <> p:40 var
+R7717:7717 Kernel.AxRice <> q:41 var
+R7722:7736 Kernel.AxRice <> ax_record_equiv def
+R7740:7740 Kernel.AxRice <> q:41 var
+R7738:7738 Kernel.AxRice <> p:40 var
+prf 8146:8164 <> ax_obs_equiv_record
+R8180:8183 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8168:8179 Kernel.AxRice <> ax_reads_obs def
+binder 8191:8191 <> p:42
+binder 8193:8193 <> q:43
+R8213:8216 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8196:8208 Kernel.SmFixedPoint <> sm2_obs_equiv def
+R8210:8210 Kernel.AxRice <> p:42 var
+R8212:8212 Kernel.AxRice <> q:43 var
+R8217:8231 Kernel.AxRice <> ax_record_equiv def
+R8235:8235 Kernel.AxRice <> q:43 var
+R8233:8233 Kernel.AxRice <> p:42 var
+prf 8563:8575 <> ax_obs_hagree
+R8591:8594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8579:8590 Kernel.AxRice <> ax_reads_obs def
+R8595:8609 Kernel.AxRice <> ax_reads_hagree def
+R8706:8712 Kernel.SmFixedPoint <> sm2_obs def
+prf 8941:8957 <> ax_rice_threshold
+R8976:8979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8961:8975 Kernel.AxRice <> ax_reads_hagree def
+binder 8987:8987 <> a:44
+R9006:9009 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8995:8998 Coq.Init.Datatypes <> list ind
+R9000:9005 Kernel.AxRice <> hinstr abbrev
+binder 8990:8991 <> Pi:45
+binder 9016:9016 <> y:46
+binder 9018:9018 <> n:47
+R9023:9023 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9072:9078 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 9031:9031 <> p:48
+binder 9033:9033 <> q:49
+R9056:9059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9036:9049 Kernel.AxRice <> ax_reach_equiv def
+R9055:9055 Kernel.AxRice <> q:49 var
+R9053:9053 Kernel.AxRice <> p:48 var
+R9051:9051 Kernel.AxRice <> a:44 var
+R9064:9067 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9060:9061 Kernel.AxRice <> Pi:45 var
+R9063:9063 Kernel.AxRice <> p:48 var
+R9068:9069 Kernel.AxRice <> Pi:45 var
+R9071:9071 Kernel.AxRice <> q:49 var
+R9083:9086 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9079:9080 Kernel.AxRice <> Pi:45 var
+R9082:9082 Kernel.AxRice <> y:46 var
+R9093:9096 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9087:9088 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9089:9090 Kernel.AxRice <> Pi:45 var
+R9092:9092 Kernel.AxRice <> n:47 var
+R9097:9107 Undecidability.Synthetic.Undecidability <> undecidable def
+R9109:9110 Kernel.AxRice <> Pi:45 var
+R9162:9173 Kernel.SmHostRice <> sm_host_rice thm
+R9188:9195 Kernel.AxRice <> heval def
+R9175:9186 Kernel.AxRice <> hprop_eqb def
+R9162:9173 Kernel.SmHostRice <> sm_host_rice thm
+R9188:9195 Kernel.AxRice <> heval def
+R9175:9186 Kernel.AxRice <> hprop_eqb def
+R9292:9312 Kernel.AxRice <> ax_record_equiv_reach thm
+R9292:9312 Kernel.AxRice <> ax_record_equiv_reach thm
+R9321:9336 Kernel.AxRice <> ax_hequiv_record thm
+R9321:9336 Kernel.AxRice <> ax_hequiv_record thm
+prf 9365:9378 <> ax_rice_record
+R9397:9400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9382:9396 Kernel.AxRice <> ax_reads_hagree def
+R9425:9428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9414:9417 Coq.Init.Datatypes <> list ind
+R9419:9424 Kernel.AxRice <> hinstr abbrev
+binder 9409:9410 <> Pi:50
+binder 9435:9435 <> y:51
+binder 9437:9437 <> n:52
+R9442:9442 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9490:9496 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 9450:9450 <> p:53
+binder 9452:9452 <> q:54
+R9474:9477 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9455:9469 Kernel.AxRice <> ax_record_equiv def
+R9473:9473 Kernel.AxRice <> q:54 var
+R9471:9471 Kernel.AxRice <> p:53 var
+R9482:9485 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9478:9479 Kernel.AxRice <> Pi:50 var
+R9481:9481 Kernel.AxRice <> p:53 var
+R9486:9487 Kernel.AxRice <> Pi:50 var
+R9489:9489 Kernel.AxRice <> q:54 var
+R9501:9504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9497:9498 Kernel.AxRice <> Pi:50 var
+R9500:9500 Kernel.AxRice <> y:51 var
+R9511:9514 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9505:9506 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9507:9508 Kernel.AxRice <> Pi:50 var
+R9510:9510 Kernel.AxRice <> n:52 var
+R9515:9525 Undecidability.Synthetic.Undecidability <> undecidable def
+R9527:9528 Kernel.AxRice <> Pi:50 var
+R9578:9589 Kernel.SmHostRice <> sm_host_rice thm
+R9604:9611 Kernel.AxRice <> heval def
+R9591:9602 Kernel.AxRice <> hprop_eqb def
+R9578:9589 Kernel.SmHostRice <> sm_host_rice thm
+R9604:9611 Kernel.AxRice <> heval def
+R9591:9602 Kernel.AxRice <> hprop_eqb def
+R9708:9723 Kernel.AxRice <> ax_hequiv_record thm
+R9708:9723 Kernel.AxRice <> ax_hequiv_record thm
+prf 9817:9834 <> ax_diagonal_record
+R9850:9853 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9838:9849 Kernel.AxRice <> ax_reads_obs def
+R9878:9881 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9867:9870 Coq.Init.Datatypes <> list ind
+R9872:9877 Kernel.AxRice <> hinstr abbrev
+binder 9862:9863 <> Pi:55
+binder 9888:9890 <> yes:56
+binder 9892:9893 <> no:57
+R9898:9898 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9946:9952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 9906:9906 <> p:58
+binder 9908:9908 <> q:59
+R9930:9933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9911:9925 Kernel.AxRice <> ax_record_equiv def
+R9929:9929 Kernel.AxRice <> q:59 var
+R9927:9927 Kernel.AxRice <> p:58 var
+R9938:9941 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9934:9935 Kernel.AxRice <> Pi:55 var
+R9937:9937 Kernel.AxRice <> p:58 var
+R9942:9943 Kernel.AxRice <> Pi:55 var
+R9945:9945 Kernel.AxRice <> q:59 var
+R9959:9962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9953:9954 Kernel.AxRice <> Pi:55 var
+R9956:9958 Kernel.AxRice <> yes:56 var
+R9970:9975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9963:9964 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9965:9966 Kernel.AxRice <> Pi:55 var
+R9968:9969 Kernel.AxRice <> no:57 var
+R9998:10001 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9987:9990 Coq.Init.Datatypes <> list ind
+R9992:9997 Kernel.AxRice <> hinstr abbrev
+R10002:10005 Coq.Init.Datatypes <> bool ind
+binder 9983:9983 <> d:60
+R10010:10010 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10073:10079 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10011:10017 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10019:10020 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10018:10018 <> T:61
+R10021:10035 Kernel.SmKleene <> sm_computes_map def
+R10037:10037 Kernel.AxRice <> T:61 var
+binder 10044:10044 <> p:62
+R10052:10052 Kernel.AxRice <> d:60 var
+R10054:10054 Kernel.AxRice <> p:62 var
+R10069:10071 Kernel.AxRice <> yes:56 var
+R10061:10062 Kernel.AxRice <> no:57 var
+R10080:10082 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10112:10112 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 10090:10090 <> p:63
+R10103:10107 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10096:10098 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10093:10093 Kernel.AxRice <> d:60 var
+R10095:10095 Kernel.AxRice <> p:63 var
+R10099:10102 Coq.Init.Datatypes <> true constr
+R10108:10109 Kernel.AxRice <> Pi:55 var
+R10111:10111 Kernel.AxRice <> p:63 var
+R10180:10193 Kernel.SmFixedPoint <> sm2_kleene_obs thm
+R10180:10193 Kernel.SmFixedPoint <> sm2_kleene_obs thm
+R10228:10246 Kernel.AxRice <> ax_obs_equiv_record thm
+R10228:10246 Kernel.AxRice <> ax_obs_equiv_record thm
+R10422:10440 Kernel.AxRice <> ax_record_equiv_sym thm
+R10422:10440 Kernel.AxRice <> ax_record_equiv_sym thm
+prf 10503:10523 <> ax_diagonal_threshold
+R10539:10542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10527:10538 Kernel.AxRice <> ax_reads_obs def
+binder 10550:10550 <> a:64
+R10569:10572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10558:10561 Coq.Init.Datatypes <> list ind
+R10563:10568 Kernel.AxRice <> hinstr abbrev
+binder 10553:10554 <> Pi:65
+binder 10579:10581 <> yes:66
+binder 10583:10584 <> no:67
+R10589:10589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10638:10644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 10597:10597 <> p:68
+binder 10599:10599 <> q:69
+R10622:10625 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10602:10615 Kernel.AxRice <> ax_reach_equiv def
+R10621:10621 Kernel.AxRice <> q:69 var
+R10619:10619 Kernel.AxRice <> p:68 var
+R10617:10617 Kernel.AxRice <> a:64 var
+R10630:10633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10626:10627 Kernel.AxRice <> Pi:65 var
+R10629:10629 Kernel.AxRice <> p:68 var
+R10634:10635 Kernel.AxRice <> Pi:65 var
+R10637:10637 Kernel.AxRice <> q:69 var
+R10651:10654 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10645:10646 Kernel.AxRice <> Pi:65 var
+R10648:10650 Kernel.AxRice <> yes:66 var
+R10662:10667 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10655:10656 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10657:10658 Kernel.AxRice <> Pi:65 var
+R10660:10661 Kernel.AxRice <> no:67 var
+R10690:10693 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10679:10682 Coq.Init.Datatypes <> list ind
+R10684:10689 Kernel.AxRice <> hinstr abbrev
+R10694:10697 Coq.Init.Datatypes <> bool ind
+binder 10675:10675 <> d:70
+R10702:10702 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10765:10771 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10703:10709 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10711:10712 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10710:10710 <> T:71
+R10713:10727 Kernel.SmKleene <> sm_computes_map def
+R10729:10729 Kernel.AxRice <> T:71 var
+binder 10736:10736 <> p:72
+R10744:10744 Kernel.AxRice <> d:70 var
+R10746:10746 Kernel.AxRice <> p:72 var
+R10761:10763 Kernel.AxRice <> yes:66 var
+R10753:10754 Kernel.AxRice <> no:67 var
+R10772:10774 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10804:10804 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 10782:10782 <> p:73
+R10795:10799 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10788:10790 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10785:10785 Kernel.AxRice <> d:70 var
+R10787:10787 Kernel.AxRice <> p:73 var
+R10791:10794 Coq.Init.Datatypes <> true constr
+R10800:10801 Kernel.AxRice <> Pi:65 var
+R10803:10803 Kernel.AxRice <> p:73 var
+R10874:10887 Kernel.SmFixedPoint <> sm2_kleene_obs thm
+R10874:10887 Kernel.SmFixedPoint <> sm2_kleene_obs thm
+R10922:10942 Kernel.AxRice <> ax_record_equiv_reach thm
+R10947:10965 Kernel.AxRice <> ax_obs_equiv_record thm
+R10922:10942 Kernel.AxRice <> ax_record_equiv_reach thm
+R10947:10965 Kernel.AxRice <> ax_obs_equiv_record thm
+R11142:11159 Kernel.AxRice <> ax_reach_equiv_sym thm
+R11142:11159 Kernel.AxRice <> ax_reach_equiv_sym thm
+def 11301:11310 <> ax_reaches
+R11317:11317 Kernel.AxRice <> Readings.A var
+binder 11313:11313 <> a:74
+R11325:11328 Coq.Init.Datatypes <> list ind
+R11330:11335 Kernel.AxRice <> hinstr abbrev
+binder 11321:11321 <> p:75
+R11350:11356 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11360:11361 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11357:11357 <> x:76
+binder 11359:11359 <> s:77
+R11373:11376 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11362:11366 Kernel.AxRice <> hends abbrev
+R11368:11368 Kernel.AxRice <> p:75 var
+R11370:11370 Kernel.AxRice <> x:76 var
+R11372:11372 Kernel.AxRice <> s:77 var
+R11389:11391 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11377:11384 Kernel.AxRice <> ax_reach def
+R11388:11388 Kernel.AxRice <> s:77 var
+R11386:11386 Kernel.AxRice <> a:74 var
+R11392:11395 Coq.Init.Datatypes <> true constr
+prf 11405:11418 <> ax_reaches_ext
+binder 11429:11429 <> a:78
+binder 11431:11431 <> p:79
+binder 11433:11433 <> q:80
+R11456:11459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11436:11449 Kernel.AxRice <> ax_reach_equiv def
+R11455:11455 Kernel.AxRice <> q:80 var
+R11453:11453 Kernel.AxRice <> p:79 var
+R11451:11451 Kernel.AxRice <> a:78 var
+R11474:11477 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11460:11469 Kernel.AxRice <> ax_reaches def
+R11473:11473 Kernel.AxRice <> p:79 var
+R11471:11471 Kernel.AxRice <> a:78 var
+R11478:11487 Kernel.AxRice <> ax_reaches def
+R11491:11491 Kernel.AxRice <> q:80 var
+R11489:11489 Kernel.AxRice <> a:78 var
+prf 11847:11866 <> ax_reach_undecidable
+R11885:11888 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11870:11884 Kernel.AxRice <> ax_reads_hagree def
+binder 11896:11896 <> a:81
+binder 11898:11898 <> y:82
+R11917:11922 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11903:11912 Kernel.AxRice <> ax_reaches def
+R11916:11916 Kernel.AxRice <> y:82 var
+R11914:11914 Kernel.AxRice <> a:81 var
+R11923:11923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11976:11982 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 11931:11931 <> x:83
+R11968:11970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11934:11941 Kernel.AxRice <> ax_reach def
+R11947:11955 Minimal.SmHostBlocks <> sm_hstart def
+R11957:11964 Kernel.AxRice <> hprop ind
+R11966:11966 Kernel.AxRice <> x:83 var
+R11943:11943 Kernel.AxRice <> a:81 var
+R11971:11975 Coq.Init.Datatypes <> false constr
+R11983:11993 Undecidability.Synthetic.Undecidability <> undecidable def
+R11996:12005 Kernel.AxRice <> ax_reaches def
+R12007:12007 Kernel.AxRice <> a:81 var
+R12054:12070 Kernel.AxRice <> ax_rice_threshold thm
+R12120:12120 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12127:12127 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12121:12126 Kernel.AxRice <> HALT constr
+R12091:12100 Kernel.AxRice <> ax_reaches def
+R12054:12070 Kernel.AxRice <> ax_rice_threshold thm
+R12120:12120 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12127:12127 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12121:12126 Kernel.AxRice <> HALT constr
+R12091:12100 Kernel.AxRice <> ax_reaches def
+R12162:12175 Kernel.AxRice <> ax_reaches_ext thm
+R12162:12175 Kernel.AxRice <> ax_reaches_ext thm
+binder 12281:12281 <> m:84
+R12328:12330 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12284:12292 Kernel.AxRice <> hrun_prog abbrev
+R12294:12294 Kernel.AxRice <> m:84 var
+R12296:12296 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12303:12303 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12297:12302 Kernel.AxRice <> HALT constr
+R12307:12315 Minimal.SmHostBlocks <> sm_hstart def
+R12317:12324 Kernel.AxRice <> hprop ind
+R12332:12340 Minimal.SmHostBlocks <> sm_hstart def
+R12342:12349 Kernel.AxRice <> hprop ind
+binder 12281:12281 <> m:85
+R12328:12330 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12284:12292 Kernel.AxRice <> hrun_prog abbrev
+R12294:12294 Kernel.AxRice <> m:85 var
+R12296:12296 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12303:12303 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12297:12302 Kernel.AxRice <> HALT constr
+R12307:12315 Minimal.SmHostBlocks <> sm_hstart def
+R12317:12324 Kernel.AxRice <> hprop ind
+R12332:12340 Minimal.SmHostBlocks <> sm_hstart def
+R12342:12349 Kernel.AxRice <> hprop ind
+R12515:12522 Kernel.AxRice Readings <> sec
+R12544:12560 Kernel.AxRice <> ax_rice_threshold thm
+R12581:12594 Kernel.AxRice <> ax_rice_record thm
+R12615:12635 Kernel.AxRice <> ax_diagonal_threshold thm
+R12656:12673 Kernel.AxRice <> ax_diagonal_record thm
+R12694:12713 Kernel.AxRice <> ax_reach_undecidable thm
+def 12805:12815 <> ax_pair_pre
+binder 12818:12818 <> A:86
+binder 12820:12820 <> B:87
+R12835:12838 Kernel.AxCore <> BPre rec
+R12840:12840 Kernel.AxRice <> A:86 var
+binder 12831:12831 <> P:88
+R12848:12851 Kernel.AxCore <> BPre rec
+R12853:12853 Kernel.AxRice <> B:87 var
+binder 12844:12844 <> Q:89
+R12858:12861 Kernel.AxCore <> BPre rec
+R12865:12867 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R12864:12864 Kernel.AxRice <> A:86 var
+R12868:12868 Kernel.AxRice <> B:87 var
+R12891:12896 Kernel.AxCore <> bp_leb proj
+R12891:12896 Kernel.AxCore <> bp_leb proj
+R12891:12896 Kernel.AxCore <> bp_leb proj
+binder 12905:12905 <> x:90
+binder 12907:12907 <> y:91
+R12938:12941 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R12912:12917 Kernel.AxCore <> bp_leb proj
+R12924:12926 Coq.Init.Datatypes <> fst def
+R12928:12928 Kernel.AxRice <> x:90 var
+R12932:12934 Coq.Init.Datatypes <> fst def
+R12936:12936 Kernel.AxRice <> y:91 var
+R12942:12947 Kernel.AxCore <> bp_leb proj
+R12954:12956 Coq.Init.Datatypes <> snd def
+R12958:12958 Kernel.AxRice <> x:90 var
+R12962:12964 Coq.Init.Datatypes <> snd def
+R12966:12966 Kernel.AxRice <> y:91 var
+R12891:12896 Kernel.AxCore <> bp_leb proj
+R12891:12896 Kernel.AxCore <> bp_leb proj
+R12891:12896 Kernel.AxCore <> bp_leb proj
+binder 12905:12905 <> x:92
+binder 12907:12907 <> y:93
+R12938:12941 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R12912:12917 Kernel.AxCore <> bp_leb proj
+R12924:12926 Coq.Init.Datatypes <> fst def
+R12928:12928 Kernel.AxRice <> x:92 var
+R12932:12934 Coq.Init.Datatypes <> fst def
+R12936:12936 Kernel.AxRice <> y:93 var
+R12942:12947 Kernel.AxCore <> bp_leb proj
+R12954:12956 Coq.Init.Datatypes <> snd def
+R12958:12958 Kernel.AxRice <> x:92 var
+R12962:12964 Coq.Init.Datatypes <> snd def
+R12966:12966 Kernel.AxRice <> y:93 var
+R12995:13001 Kernel.AxCore <> bp_refl proj
+R12995:13001 Kernel.AxCore <> bp_refl proj
+R12995:13001 Kernel.AxCore <> bp_refl proj
+R12995:13001 Kernel.AxCore <> bp_refl proj
+R12995:13001 Kernel.AxCore <> bp_refl proj
+R13047:13059 Coq.Bool.Bool <> andb_true_iff thm
+R13047:13059 Coq.Bool.Bool <> andb_true_iff thm
+R13087:13099 Coq.Bool.Bool <> andb_true_iff thm
+R13087:13099 Coq.Bool.Bool <> andb_true_iff thm
+R13131:13143 Coq.Bool.Bool <> andb_true_iff thm
+R13131:13143 Coq.Bool.Bool <> andb_true_iff thm
+R13161:13168 Kernel.AxCore <> bp_trans proj
+R13198:13205 Kernel.AxCore <> bp_trans proj
+R13161:13168 Kernel.AxCore <> bp_trans proj
+R13198:13205 Kernel.AxCore <> bp_trans proj
+prf 13244:13253 <> ax_pair_le
+binder 13265:13265 <> A:94
+binder 13267:13267 <> B:95
+R13282:13285 Kernel.AxCore <> BPre rec
+R13287:13287 Kernel.AxRice <> A:94 var
+binder 13278:13278 <> P:96
+R13295:13298 Kernel.AxCore <> BPre rec
+R13300:13300 Kernel.AxRice <> B:95 var
+binder 13291:13291 <> Q:97
+binder 13303:13303 <> x:98
+binder 13305:13305 <> y:99
+R13337:13341 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13310:13314 Kernel.AxCore <> bp_le def
+R13336:13336 Kernel.AxRice <> y:99 var
+R13334:13334 Kernel.AxRice <> x:98 var
+R13317:13327 Kernel.AxRice <> ax_pair_pre def
+R13331:13331 Kernel.AxRice <> Q:97 var
+R13329:13329 Kernel.AxRice <> P:96 var
+R13365:13368 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13342:13346 Kernel.AxCore <> bp_le def
+R13359:13361 Coq.Init.Datatypes <> fst def
+R13363:13363 Kernel.AxRice <> y:99 var
+R13351:13353 Coq.Init.Datatypes <> fst def
+R13355:13355 Kernel.AxRice <> x:98 var
+R13348:13348 Kernel.AxRice <> P:96 var
+R13369:13373 Kernel.AxCore <> bp_le def
+R13386:13388 Coq.Init.Datatypes <> snd def
+R13390:13390 Kernel.AxRice <> y:99 var
+R13378:13380 Coq.Init.Datatypes <> snd def
+R13382:13382 Kernel.AxRice <> x:98 var
+R13375:13375 Kernel.AxRice <> Q:97 var
+R13430:13434 Kernel.AxCore <> bp_le def
+R13452:13464 Coq.Bool.Bool <> andb_true_iff thm
+R13452:13464 Coq.Bool.Bool <> andb_true_iff thm
+R13452:13464 Coq.Bool.Bool <> andb_true_iff thm
+def 13571:13581 <> ax_host_pre
+R13585:13588 Kernel.AxCore <> BPre rec
+R13595:13598 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13618:13618 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13591:13594 Coq.Init.Datatypes <> bool ind
+R13602:13605 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13617:13617 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13599:13601 Coq.Init.Datatypes <> nat ind
+R13610:13612 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13606:13609 Coq.Init.Datatypes <> bool ind
+R13613:13616 Coq.Init.Datatypes <> bool ind
+R13626:13636 Kernel.AxRice <> ax_pair_pre def
+R13647:13657 Kernel.AxRice <> ax_pair_pre def
+R13668:13678 Kernel.AxRice <> ax_pair_pre def
+R13688:13694 Kernel.AxCore <> two_pre def
+R13680:13686 Kernel.AxCore <> two_pre def
+R13659:13665 Kernel.AxCore <> nat_pre def
+R13638:13644 Kernel.AxCore <> two_pre def
+def 13711:13721 <> ax_chan_set
+R13728:13733 Kernel.AxRice <> hstate abbrev
+binder 13724:13724 <> s:100
+R13738:13741 Coq.Init.Datatypes <> bool ind
+R13754:13759 Kernel.AxRice <> chan proj
+R13762:13770 Kernel.AxRice <> core_of proj
+R13772:13772 Kernel.AxRice <> s:100 var
+R13780:13783 Coq.Init.Datatypes <> Some constr
+R13790:13793 Coq.Init.Datatypes <> true constr
+R13797:13800 Coq.Init.Datatypes <> None constr
+R13805:13809 Coq.Init.Datatypes <> false constr
+def 13828:13838 <> ax_host_rec
+R13845:13850 Kernel.AxRice <> hstate abbrev
+binder 13841:13841 <> s:101
+R13859:13862 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13882:13882 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13855:13858 Coq.Init.Datatypes <> bool ind
+R13866:13869 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13881:13881 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13863:13865 Coq.Init.Datatypes <> nat ind
+R13874:13876 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R13870:13873 Coq.Init.Datatypes <> bool ind
+R13877:13880 Coq.Init.Datatypes <> bool ind
+R13889:13889 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13898:13899 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13970:13970 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13890:13895 Kernel.AxRice <> cert proj
+R13897:13897 Kernel.AxRice <> s:101 var
+R13900:13900 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13931:13932 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13969:13969 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13901:13906 Coq.Init.Datatypes <> length def
+R13909:13915 Kernel.AxRice <> facts proj
+R13918:13926 Kernel.AxRice <> core_of proj
+R13928:13928 Kernel.AxRice <> s:101 var
+R13933:13933 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13947:13948 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13968:13968 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13934:13944 Kernel.AxRice <> ax_chan_set def
+R13946:13946 Kernel.AxRice <> s:101 var
+R13949:13953 Kernel.AxRice <> err proj
+R13956:13964 Kernel.AxRice <> core_of proj
+R13966:13966 Kernel.AxRice <> s:101 var
+def 13985:13997 <> ax_host_floor
+R14005:14008 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R14028:14028 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R14001:14004 Coq.Init.Datatypes <> bool ind
+R14012:14015 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R14027:14027 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R14009:14011 Coq.Init.Datatypes <> nat ind
+R14020:14022 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R14016:14019 Coq.Init.Datatypes <> bool ind
+R14023:14026 Coq.Init.Datatypes <> bool ind
+R14033:14033 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14039:14040 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14060:14060 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14034:14038 Coq.Init.Datatypes <> false constr
+R14041:14041 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14043:14044 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14059:14059 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14045:14045 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14051:14052 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14058:14058 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14046:14050 Coq.Init.Datatypes <> false constr
+R14053:14057 Coq.Init.Datatypes <> false constr
+prf 14208:14222 <> ax_host_rec_obs
+R14226:14237 Kernel.AxRice <> ax_reads_obs def
+R14251:14261 Kernel.AxRice <> ax_host_rec def
+R14239:14249 Kernel.AxRice <> ax_host_pre def
+R14295:14301 Kernel.SmFixedPoint <> sm2_obs def
+R14385:14387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14372:14382 Kernel.AxRice <> ax_chan_set def
+R14388:14398 Kernel.AxRice <> ax_chan_set def
+R14385:14387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14372:14382 Kernel.AxRice <> ax_chan_set def
+R14388:14398 Kernel.AxRice <> ax_chan_set def
+R14415:14425 Kernel.AxRice <> ax_chan_set def
+R14438:14443 Kernel.AxRice <> chan proj
+R14446:14454 Kernel.AxRice <> core_of proj
+R14493:14498 Kernel.AxRice <> chan proj
+R14501:14509 Kernel.AxRice <> core_of proj
+R14438:14443 Kernel.AxRice <> chan proj
+R14446:14454 Kernel.AxRice <> core_of proj
+R14493:14498 Kernel.AxRice <> chan proj
+R14501:14509 Kernel.AxRice <> core_of proj
+R14493:14498 Kernel.AxRice <> chan proj
+R14501:14509 Kernel.AxRice <> core_of proj
+R14576:14580 Coq.Init.Logic <> proj2 thm
+R14585:14591 Coq.Init.Logic <> eq_refl constr
+R14576:14580 Coq.Init.Logic <> proj2 thm
+R14585:14591 Coq.Init.Logic <> eq_refl constr
+R14641:14645 Coq.Init.Logic <> proj1 thm
+R14650:14656 Coq.Init.Logic <> eq_refl constr
+R14641:14645 Coq.Init.Logic <> proj1 thm
+R14650:14656 Coq.Init.Logic <> eq_refl constr
+R14710:14712 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14697:14707 Kernel.AxRice <> ax_host_rec def
+R14713:14723 Kernel.AxRice <> ax_host_rec def
+R14710:14712 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14697:14707 Kernel.AxRice <> ax_host_rec def
+R14713:14723 Kernel.AxRice <> ax_host_rec def
+R14740:14750 Kernel.AxRice <> ax_host_rec def
+R14821:14830 Kernel.AxCore <> bp_le_refl thm
+R14821:14830 Kernel.AxCore <> bp_le_refl thm
+R14821:14830 Kernel.AxCore <> bp_le_refl thm
+prf 14845:14862 <> ax_host_rec_hagree
+R14866:14880 Kernel.AxRice <> ax_reads_hagree def
+R14894:14904 Kernel.AxRice <> ax_host_rec def
+R14882:14892 Kernel.AxRice <> ax_host_pre def
+R14920:14932 Kernel.AxRice <> ax_obs_hagree thm
+R14920:14932 Kernel.AxRice <> ax_obs_hagree thm
+R14941:14955 Kernel.AxRice <> ax_host_rec_obs thm
+R14941:14955 Kernel.AxRice <> ax_host_rec_obs thm
+prf 15011:15029 <> ax_host_floor_start
+binder 15040:15040 <> x:102
+R15078:15080 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15043:15053 Kernel.AxRice <> ax_host_rec def
+R15057:15065 Minimal.SmHostBlocks <> sm_hstart def
+R15067:15074 Kernel.AxRice <> hprop ind
+R15076:15076 Kernel.AxRice <> x:102 var
+R15081:15093 Kernel.AxRice <> ax_host_floor def
+def 15174:15183 <> ax_pt_flag
+R15191:15194 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15214:15214 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15187:15190 Coq.Init.Datatypes <> bool ind
+R15198:15201 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15213:15213 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15195:15197 Coq.Init.Datatypes <> nat ind
+R15206:15208 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15202:15205 Coq.Init.Datatypes <> bool ind
+R15209:15212 Coq.Init.Datatypes <> bool ind
+R15219:15219 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15224:15225 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15245:15245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15220:15223 Coq.Init.Datatypes <> true constr
+R15226:15226 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15228:15229 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15244:15244 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15230:15230 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15236:15237 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15243:15243 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15231:15235 Coq.Init.Datatypes <> false constr
+R15238:15242 Coq.Init.Datatypes <> false constr
+def 15259:15269 <> ax_pt_facts
+R15276:15278 Coq.Init.Datatypes <> nat ind
+binder 15272:15272 <> k:103
+R15287:15290 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15310:15310 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15283:15286 Coq.Init.Datatypes <> bool ind
+R15294:15297 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15309:15309 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15291:15293 Coq.Init.Datatypes <> nat ind
+R15302:15304 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15298:15301 Coq.Init.Datatypes <> bool ind
+R15305:15308 Coq.Init.Datatypes <> bool ind
+R15315:15315 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15321:15322 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15342:15342 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15316:15320 Coq.Init.Datatypes <> false constr
+R15323:15323 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15325:15326 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15341:15341 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15324:15324 Kernel.AxRice <> k:103 var
+R15327:15327 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15333:15334 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15340:15340 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15328:15332 Coq.Init.Datatypes <> false constr
+R15335:15339 Coq.Init.Datatypes <> false constr
+def 15356:15365 <> ax_pt_chan
+R15373:15376 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15396:15396 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15369:15372 Coq.Init.Datatypes <> bool ind
+R15380:15383 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15395:15395 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15377:15379 Coq.Init.Datatypes <> nat ind
+R15388:15390 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15384:15387 Coq.Init.Datatypes <> bool ind
+R15391:15394 Coq.Init.Datatypes <> bool ind
+R15401:15401 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15407:15408 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15427:15427 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15402:15406 Coq.Init.Datatypes <> false constr
+R15409:15409 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15411:15412 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15426:15426 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15413:15413 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15418:15419 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15425:15425 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15414:15417 Coq.Init.Datatypes <> true constr
+R15420:15424 Coq.Init.Datatypes <> false constr
+def 15441:15450 <> ax_pt_trap
+R15458:15461 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15481:15481 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15454:15457 Coq.Init.Datatypes <> bool ind
+R15465:15468 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15480:15480 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15462:15464 Coq.Init.Datatypes <> nat ind
+R15473:15475 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15469:15472 Coq.Init.Datatypes <> bool ind
+R15476:15479 Coq.Init.Datatypes <> bool ind
+R15486:15486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15492:15493 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15512:15512 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15487:15491 Coq.Init.Datatypes <> false constr
+R15494:15494 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15496:15497 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15511:15511 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15498:15498 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15504:15505 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15510:15510 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15499:15503 Coq.Init.Datatypes <> false constr
+R15506:15509 Coq.Init.Datatypes <> true constr
+prf 15522:15536 <> ax_pt_facts_leb
+binder 15547:15547 <> k:104
+binder 15549:15549 <> c:105
+binder 15551:15551 <> m:106
+binder 15553:15554 <> b1:107
+binder 15556:15557 <> b2:108
+R15617:15619 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15562:15567 Kernel.AxCore <> bp_leb proj
+R15571:15581 Kernel.AxRice <> ax_host_pre def
+R15584:15594 Kernel.AxRice <> ax_pt_facts def
+R15596:15596 Kernel.AxRice <> k:104 var
+R15599:15599 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15601:15602 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15616:15616 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15600:15600 Kernel.AxRice <> c:105 var
+R15603:15603 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15605:15606 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15615:15615 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15604:15604 Kernel.AxRice <> m:106 var
+R15607:15607 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15610:15611 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15614:15614 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15608:15609 Kernel.AxRice <> b1:107 var
+R15612:15613 Kernel.AxRice <> b2:108 var
+R15620:15626 Coq.Arith.PeanoNat Nat leb def
+R15628:15628 Kernel.AxRice <> k:104 var
+R15630:15630 Kernel.AxRice <> m:106 var
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+R15694:15704 Coq.Bool.Bool <> andb_true_r thm
+prf 15814:15829 <> ax_facts_cap_run
+binder 15840:15840 <> n:109
+binder 15842:15842 <> p:110
+R15849:15854 Kernel.AxRice <> hstate abbrev
+binder 15845:15845 <> s:111
+R15904:15909 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15890:15893 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R15860:15865 Coq.Init.Datatypes <> length def
+R15868:15874 Kernel.AxRice <> facts proj
+R15877:15885 Kernel.AxRice <> core_of proj
+R15887:15887 Kernel.AxRice <> s:111 var
+R15894:15903 Kernel.AxRice <> fact_cap def
+R15956:15959 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R15910:15915 Coq.Init.Datatypes <> length def
+R15918:15924 Kernel.AxRice <> facts proj
+R15927:15935 Kernel.AxRice <> core_of proj
+R15938:15946 Kernel.AxRice <> hrun_prog abbrev
+R15948:15948 Kernel.AxRice <> n:109 var
+R15950:15950 Kernel.AxRice <> p:110 var
+R15952:15952 Kernel.AxRice <> s:111 var
+R15960:15969 Kernel.AxRice <> fact_cap def
+R16059:16064 Kernel.AxRice <> step def
+R16077:16088 Kernel.AxRice <> next_instr def
+R16093:16101 Kernel.AxRice <> core_of proj
+R16077:16088 Kernel.AxRice <> next_instr def
+R16093:16101 Kernel.AxRice <> core_of proj
+R16139:16144 Kernel.AxRice <> exec def
+R16160:16185 Kernel.AxRice <> multi_facts_bounded_step thm
+R16160:16185 Kernel.AxRice <> multi_facts_bounded_step thm
+prf 16266:16277 <> ax_facts_cap
+binder 16288:16288 <> p:112
+binder 16290:16290 <> x:113
+binder 16292:16292 <> n:114
+R16365:16368 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16297:16302 Coq.Init.Datatypes <> length def
+R16305:16311 Kernel.AxRice <> facts proj
+R16314:16322 Kernel.AxRice <> core_of proj
+R16325:16333 Kernel.AxRice <> hrun_prog abbrev
+R16335:16335 Kernel.AxRice <> n:114 var
+R16337:16337 Kernel.AxRice <> p:112 var
+R16341:16349 Minimal.SmHostBlocks <> sm_hstart def
+R16351:16358 Kernel.AxRice <> hprop ind
+R16360:16360 Kernel.AxRice <> x:113 var
+R16411:16420 Kernel.AxRice <> fact_cap def
+R16411:16420 Kernel.AxRice <> fact_cap def
+R16429:16444 Kernel.AxRice <> ax_facts_cap_run thm
+R16429:16444 Kernel.AxRice <> ax_facts_cap_run thm
+prf 16545:16565 <> ax_facts_17_unreached
+binder 16576:16576 <> k:115
+binder 16578:16578 <> p:116
+binder 16580:16580 <> x:117
+binder 16582:16582 <> s:118
+R16594:16597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16589:16592 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16593:16593 Kernel.AxRice <> k:115 var
+R16609:16612 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16598:16602 Kernel.AxRice <> hends abbrev
+R16604:16604 Kernel.AxRice <> p:116 var
+R16606:16606 Kernel.AxRice <> x:117 var
+R16608:16608 Kernel.AxRice <> s:118 var
+R16663:16665 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16613:16620 Kernel.AxRice <> ax_reach def
+R16662:16662 Kernel.AxRice <> s:118 var
+R16647:16657 Kernel.AxRice <> ax_pt_facts def
+R16659:16659 Kernel.AxRice <> k:115 var
+R16634:16644 Kernel.AxRice <> ax_host_rec def
+R16622:16632 Kernel.AxRice <> ax_host_pre def
+R16666:16670 Coq.Init.Datatypes <> false constr
+R16726:16737 Kernel.AxRice <> ax_facts_cap thm
+R16726:16737 Kernel.AxRice <> ax_facts_cap thm
+R16761:16768 Kernel.AxRice <> ax_reach def
+R16771:16781 Kernel.AxRice <> ax_host_rec def
+R16792:16806 Kernel.AxRice <> ax_pt_facts_leb thm
+R16792:16806 Kernel.AxRice <> ax_pt_facts_leb thm
+R16792:16806 Kernel.AxRice <> ax_pt_facts_leb thm
+R16817:16826 Coq.Arith.PeanoNat Nat leb_gt thm
+R16817:16826 Coq.Arith.PeanoNat Nat leb_gt thm
+def 16890:16895 <> ax_chk
+R16899:16904 Kernel.AxRice <> hinstr abbrev
+R16909:16915 Kernel.AxRice <> CHECK constr
+R16917:16924 Kernel.AxRice <> PSlot constr
+def 16941:16953 <> ax_prog_facts
+R16960:16962 Coq.Init.Datatypes <> nat ind
+binder 16956:16956 <> k:119
+R16967:16970 Coq.Init.Datatypes <> list ind
+R16972:16977 Kernel.AxRice <> hinstr abbrev
+R16991:16995 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17023:17023 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16984:16988 Kernel.AxRice <> INC constr
+R17011:17014 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R16996:17001 Coq.Lists.List <> repeat def
+R17010:17010 Kernel.AxRice <> k:119 var
+R17003:17008 Kernel.AxRice <> ax_chk def
+R17015:17015 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17022:17022 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17016:17021 Kernel.AxRice <> HALT constr
+def 17038:17049 <> ax_prog_flag
+R17053:17056 Coq.Init.Datatypes <> list ind
+R17058:17063 Kernel.AxRice <> hinstr abbrev
+R17070:17070 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17078:17079 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17098:17099 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17119:17120 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17130:17131 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17138:17138 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17071:17075 Kernel.AxRice <> INC constr
+R17080:17086 Kernel.AxRice <> CHECK constr
+R17088:17095 Kernel.AxRice <> PSlot constr
+R17100:17107 Kernel.AxRice <> COMMIT constr
+R17109:17116 Kernel.AxRice <> PSlot constr
+R17121:17129 Kernel.AxRice <> CERTIFY constr
+R17132:17137 Kernel.AxRice <> HALT constr
+def 17153:17164 <> ax_prog_chan
+R17168:17171 Coq.Init.Datatypes <> list ind
+R17173:17178 Kernel.AxRice <> hinstr abbrev
+R17185:17185 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17193:17194 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17213:17214 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17234:17235 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17242:17242 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17186:17190 Kernel.AxRice <> INC constr
+R17195:17201 Kernel.AxRice <> CHECK constr
+R17203:17210 Kernel.AxRice <> PSlot constr
+R17215:17222 Kernel.AxRice <> COMMIT constr
+R17224:17231 Kernel.AxRice <> PSlot constr
+R17236:17241 Kernel.AxRice <> HALT constr
+def 17257:17268 <> ax_prog_trap
+R17272:17275 Coq.Init.Datatypes <> list ind
+R17277:17282 Kernel.AxRice <> hinstr abbrev
+R17287:17287 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17306:17307 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17314:17314 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R17288:17294 Kernel.AxRice <> CHECK constr
+R17296:17303 Kernel.AxRice <> PSlot constr
+R17308:17313 Kernel.AxRice <> HALT constr
+prf 17324:17336 <> ax_nth_repeat
+R17352:17357 Kernel.AxRice <> hinstr abbrev
+binder 17348:17348 <> x:120
+binder 17360:17360 <> k:121
+binder 17362:17362 <> j:122
+R17370:17373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17366:17368 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17365:17365 Kernel.AxRice <> j:122 var
+R17369:17369 Kernel.AxRice <> k:121 var
+R17398:17400 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17374:17382 Coq.Lists.List <> nth_error def
+R17397:17397 Kernel.AxRice <> j:122 var
+R17385:17390 Coq.Lists.List <> repeat def
+R17394:17394 Kernel.AxRice <> k:121 var
+R17392:17392 Kernel.AxRice <> x:120 var
+R17401:17404 Coq.Init.Datatypes <> Some constr
+R17406:17406 Kernel.AxRice <> x:120 var
+prf 17551:17562 <> ax_fetch_chk
+binder 17573:17573 <> k:123
+binder 17575:17575 <> j:124
+R17583:17586 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17579:17581 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17578:17578 Kernel.AxRice <> j:124 var
+R17582:17582 Kernel.AxRice <> k:123 var
+R17622:17624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17587:17593 Kernel.AxRice <> fetch def
+R17614:17614 Coq.Init.Datatypes <> S constr
+R17617:17617 Coq.Init.Datatypes <> S constr
+R17619:17619 Kernel.AxRice <> j:124 var
+R17596:17608 Kernel.AxRice <> ax_prog_facts def
+R17610:17610 Kernel.AxRice <> k:123 var
+R17625:17628 Coq.Init.Datatypes <> Some constr
+R17630:17635 Kernel.AxRice <> ax_chk def
+R17669:17681 Kernel.AxRice <> ax_prog_facts def
+R17684:17690 Kernel.AxRice <> fetch def
+R17737:17749 Coq.Lists.List <> repeat_length thm
+R17710:17723 Coq.Lists.List <> nth_error_app1 thm
+R17710:17723 Coq.Lists.List <> nth_error_app1 thm
+R17737:17749 Coq.Lists.List <> repeat_length thm
+R17737:17749 Coq.Lists.List <> repeat_length thm
+R17710:17723 Coq.Lists.List <> nth_error_app1 thm
+R17771:17783 Kernel.AxRice <> ax_nth_repeat thm
+R17771:17783 Kernel.AxRice <> ax_nth_repeat thm
+prf 17808:17820 <> ax_fetch_halt
+binder 17831:17831 <> k:125
+R17869:17871 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17834:17840 Kernel.AxRice <> fetch def
+R17861:17861 Coq.Init.Datatypes <> S constr
+R17864:17864 Coq.Init.Datatypes <> S constr
+R17866:17866 Kernel.AxRice <> k:125 var
+R17843:17855 Kernel.AxRice <> ax_prog_facts def
+R17857:17857 Kernel.AxRice <> k:125 var
+R17872:17875 Coq.Init.Datatypes <> Some constr
+R17877:17882 Kernel.AxRice <> HALT constr
+R17910:17922 Kernel.AxRice <> ax_prog_facts def
+R17925:17931 Kernel.AxRice <> fetch def
+R17978:17990 Coq.Lists.List <> repeat_length thm
+R17951:17964 Coq.Lists.List <> nth_error_app2 thm
+R17951:17964 Coq.Lists.List <> nth_error_app2 thm
+R17978:17990 Coq.Lists.List <> repeat_length thm
+R17978:17990 Coq.Lists.List <> repeat_length thm
+R17951:17964 Coq.Lists.List <> nth_error_app2 thm
+R18009:18021 Coq.Lists.List <> repeat_length thm
+R18024:18035 Coq.Arith.PeanoNat Nat sub_diag thm
+R18009:18021 Coq.Lists.List <> repeat_length thm
+R18009:18021 Coq.Lists.List <> repeat_length thm
+R18024:18035 Coq.Arith.PeanoNat Nat sub_diag thm
+R18024:18035 Coq.Arith.PeanoNat Nat sub_diag thm
+def 18101:18106 <> ax_inv
+R18113:18115 Coq.Init.Datatypes <> nat ind
+binder 18109:18109 <> j:126
+R18123:18128 Kernel.AxRice <> hstate abbrev
+binder 18119:18119 <> s:127
+R18170:18173 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18162:18164 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18143:18147 Kernel.AxRice <> err proj
+R18150:18158 Kernel.AxRice <> core_of proj
+R18160:18160 Kernel.AxRice <> s:127 var
+R18165:18169 Coq.Init.Datatypes <> false constr
+R18202:18207 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18192:18194 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18174:18177 Kernel.AxRice <> pc proj
+R18180:18188 Kernel.AxRice <> core_of proj
+R18190:18190 Kernel.AxRice <> s:127 var
+R18195:18195 Coq.Init.Datatypes <> S constr
+R18198:18198 Coq.Init.Datatypes <> S constr
+R18200:18200 Kernel.AxRice <> j:126 var
+R18234:18237 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18230:18232 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18208:18213 Kernel.AxRice <> vals proj
+R18216:18224 Kernel.AxRice <> core_of proj
+R18226:18226 Kernel.AxRice <> s:127 var
+R18264:18269 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18260:18262 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18238:18243 Kernel.AxRice <> vers proj
+R18246:18254 Kernel.AxRice <> core_of proj
+R18256:18256 Kernel.AxRice <> s:127 var
+R18304:18307 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18300:18302 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18270:18275 Coq.Init.Datatypes <> length def
+R18278:18284 Kernel.AxRice <> facts proj
+R18287:18295 Kernel.AxRice <> core_of proj
+R18297:18297 Kernel.AxRice <> s:127 var
+R18303:18303 Kernel.AxRice <> j:126 var
+R18335:18338 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18328:18330 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18308:18313 Kernel.AxRice <> chan proj
+R18316:18324 Kernel.AxRice <> core_of proj
+R18326:18326 Kernel.AxRice <> s:127 var
+R18331:18334 Coq.Init.Datatypes <> None constr
+R18347:18349 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18339:18344 Kernel.AxRice <> cert proj
+R18346:18346 Kernel.AxRice <> s:127 var
+R18350:18354 Coq.Init.Datatypes <> false constr
+prf 18364:18374 <> ax_inv_zero
+binder 18385:18385 <> k:128
+R18388:18393 Kernel.AxRice <> ax_inv def
+R18398:18406 Kernel.AxRice <> hrun_prog abbrev
+R18411:18423 Kernel.AxRice <> ax_prog_facts def
+R18425:18425 Kernel.AxRice <> k:128 var
+R18430:18438 Minimal.SmHostBlocks <> sm_hstart def
+R18440:18447 Kernel.AxRice <> hprop ind
+R18479:18484 Kernel.AxRice <> ax_inv def
+prf 18526:18536 <> ax_inv_step
+binder 18547:18547 <> k:129
+binder 18549:18549 <> j:130
+binder 18551:18551 <> s:131
+R18561:18564 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18557:18559 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18556:18556 Kernel.AxRice <> j:130 var
+R18560:18560 Kernel.AxRice <> k:129 var
+R18572:18575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18566:18569 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R18565:18565 Kernel.AxRice <> k:129 var
+R18586:18591 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18576:18581 Kernel.AxRice <> ax_inv def
+R18585:18585 Kernel.AxRice <> s:131 var
+R18583:18583 Kernel.AxRice <> j:130 var
+R18592:18597 Kernel.AxRice <> ax_inv def
+R18606:18611 Kernel.AxRice <> step def
+R18636:18648 Kernel.AxRice <> ax_prog_facts def
+R18650:18650 Kernel.AxRice <> k:129 var
+R18653:18653 Kernel.AxRice <> s:131 var
+R18626:18633 Kernel.AxRice <> heval def
+R18613:18624 Kernel.AxRice <> hprop_eqb def
+R18600:18600 Coq.Init.Datatypes <> S constr
+R18602:18602 Kernel.AxRice <> j:130 var
+R18790:18792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18746:18757 Kernel.AxRice <> next_instr def
+R18760:18772 Kernel.AxRice <> ax_prog_facts def
+R18778:18786 Kernel.AxRice <> core_of proj
+R18793:18796 Coq.Init.Datatypes <> Some constr
+R18798:18803 Kernel.AxRice <> ax_chk def
+R18790:18792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18746:18757 Kernel.AxRice <> next_instr def
+R18760:18772 Kernel.AxRice <> ax_prog_facts def
+R18778:18786 Kernel.AxRice <> core_of proj
+R18793:18796 Coq.Init.Datatypes <> Some constr
+R18798:18803 Kernel.AxRice <> ax_chk def
+R18818:18829 Kernel.AxRice <> next_instr def
+R18850:18861 Kernel.AxRice <> ax_fetch_chk thm
+R18850:18861 Kernel.AxRice <> ax_fetch_chk thm
+R18850:18861 Kernel.AxRice <> ax_fetch_chk thm
+R18944:18946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18900:18909 Kernel.AxRice <> check_ok def
+R18921:18929 Kernel.AxRice <> core_of proj
+R18934:18941 Kernel.AxRice <> PSlot constr
+R18911:18918 Kernel.AxRice <> heval def
+R18947:18950 Coq.Init.Datatypes <> true constr
+R18944:18946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18900:18909 Kernel.AxRice <> check_ok def
+R18921:18929 Kernel.AxRice <> core_of proj
+R18934:18941 Kernel.AxRice <> PSlot constr
+R18911:18918 Kernel.AxRice <> heval def
+R18947:18950 Coq.Init.Datatypes <> true constr
+R18965:18974 Kernel.AxRice <> check_ok def
+R19019:19026 Kernel.AxRice <> heval def
+R19028:19035 Kernel.AxRice <> PSlot constr
+R19045:19048 Coq.Init.Datatypes <> true constr
+R19019:19026 Kernel.AxRice <> heval def
+R19028:19035 Kernel.AxRice <> PSlot constr
+R19045:19048 Coq.Init.Datatypes <> true constr
+R19083:19092 Coq.Arith.PeanoNat Nat ltb_lt thm
+R19083:19092 Coq.Arith.PeanoNat Nat ltb_lt thm
+R19102:19111 Kernel.AxRice <> fact_cap def
+R19130:19135 Kernel.AxRice <> step def
+R19160:19165 Kernel.AxRice <> ax_chk def
+R19179:19201 Kernel.AxRice <> multi_exec_check_pass thm
+R19227:19234 Kernel.AxRice <> PSlot constr
+R19216:19223 Kernel.AxRice <> heval def
+R19203:19214 Kernel.AxRice <> hprop_eqb def
+R19179:19201 Kernel.AxRice <> multi_exec_check_pass thm
+R19227:19234 Kernel.AxRice <> PSlot constr
+R19216:19223 Kernel.AxRice <> heval def
+R19203:19214 Kernel.AxRice <> hprop_eqb def
+R19179:19201 Kernel.AxRice <> multi_exec_check_pass thm
+R19227:19234 Kernel.AxRice <> PSlot constr
+R19216:19223 Kernel.AxRice <> heval def
+R19203:19214 Kernel.AxRice <> hprop_eqb def
+R19253:19258 Kernel.AxRice <> ax_inv def
+prf 19371:19380 <> ax_inv_run
+binder 19391:19391 <> k:132
+binder 19393:19393 <> j:133
+R19402:19405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19397:19400 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R19396:19396 Kernel.AxRice <> j:133 var
+R19401:19401 Kernel.AxRice <> k:132 var
+R19413:19418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19407:19410 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R19406:19406 Kernel.AxRice <> k:132 var
+R19419:19424 Kernel.AxRice <> ax_inv def
+R19429:19437 Kernel.AxRice <> hrun_prog abbrev
+R19440:19440 Coq.Init.Datatypes <> S constr
+R19442:19442 Kernel.AxRice <> j:133 var
+R19446:19458 Kernel.AxRice <> ax_prog_facts def
+R19460:19460 Kernel.AxRice <> k:132 var
+R19465:19473 Minimal.SmHostBlocks <> sm_hstart def
+R19475:19482 Kernel.AxRice <> hprop ind
+R19426:19426 Kernel.AxRice <> j:133 var
+R19560:19570 Kernel.AxRice <> ax_inv_zero thm
+R19560:19570 Kernel.AxRice <> ax_inv_zero thm
+R19585:19605 Kernel.AxRice <> multi_run_prog_succ thm
+R19585:19605 Kernel.AxRice <> multi_run_prog_succ thm
+R19585:19605 Kernel.AxRice <> multi_run_prog_succ thm
+R19614:19624 Kernel.AxRice <> ax_inv_step thm
+R19614:19624 Kernel.AxRice <> ax_inv_step thm
+prf 19675:19688 <> ax_facts_reach
+binder 19699:19699 <> k:134
+R19709:19714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19703:19706 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R19702:19702 Kernel.AxRice <> k:134 var
+R19715:19721 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19723:19724 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19722:19722 <> s:135
+R19752:19755 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19725:19729 Kernel.AxRice <> hends abbrev
+R19732:19744 Kernel.AxRice <> ax_prog_facts def
+R19746:19746 Kernel.AxRice <> k:134 var
+R19751:19751 Kernel.AxRice <> s:135 var
+R19769:19771 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19756:19766 Kernel.AxRice <> ax_host_rec def
+R19768:19768 Kernel.AxRice <> s:135 var
+R19772:19772 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19778:19779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19799:19799 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19773:19777 Coq.Init.Datatypes <> false constr
+R19780:19780 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19782:19783 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19798:19798 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19781:19781 Kernel.AxRice <> k:134 var
+R19784:19784 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19790:19791 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19797:19797 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19785:19789 Coq.Init.Datatypes <> false constr
+R19792:19796 Coq.Init.Datatypes <> false constr
+R19834:19842 Kernel.AxRice <> hrun_prog abbrev
+R19845:19845 Coq.Init.Datatypes <> S constr
+R19851:19863 Kernel.AxRice <> ax_prog_facts def
+R19870:19878 Minimal.SmHostBlocks <> sm_hstart def
+R19880:19887 Kernel.AxRice <> hprop ind
+R19834:19842 Kernel.AxRice <> hrun_prog abbrev
+R19845:19845 Coq.Init.Datatypes <> S constr
+R19851:19863 Kernel.AxRice <> ax_prog_facts def
+R19870:19878 Minimal.SmHostBlocks <> sm_hstart def
+R19880:19887 Kernel.AxRice <> hprop ind
+R19908:19917 Kernel.AxRice <> ax_inv_run thm
+R19920:19923 Coq.Init.Peano <> le_n constr
+R19908:19917 Kernel.AxRice <> ax_inv_run thm
+R19920:19923 Coq.Init.Peano <> le_n constr
+R19994:19994 Coq.Init.Datatypes <> S constr
+R19994:19994 Coq.Init.Datatypes <> S constr
+R20035:20042 Kernel.AxRice <> halted def
+R20045:20056 Kernel.AxRice <> next_instr def
+R20076:20088 Kernel.AxRice <> ax_fetch_halt thm
+R20076:20088 Kernel.AxRice <> ax_fetch_halt thm
+R20076:20088 Kernel.AxRice <> ax_fetch_halt thm
+R20115:20125 Kernel.AxRice <> ax_host_rec def
+R20128:20138 Kernel.AxRice <> ax_chan_set def
+prf 20270:20286 <> ax_prog_flag_ends
+R20290:20296 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20298:20299 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20297:20297 <> s:136
+R20322:20327 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20300:20304 Kernel.AxRice <> hends abbrev
+R20306:20317 Kernel.AxRice <> ax_prog_flag def
+R20321:20321 Kernel.AxRice <> s:136 var
+R20341:20343 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20328:20338 Kernel.AxRice <> ax_host_rec def
+R20340:20340 Kernel.AxRice <> s:136 var
+R20344:20344 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20349:20350 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20369:20369 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20345:20348 Coq.Init.Datatypes <> true constr
+R20351:20351 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20353:20354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20368:20368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20355:20355 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20360:20361 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20367:20367 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20356:20359 Coq.Init.Datatypes <> true constr
+R20362:20366 Coq.Init.Datatypes <> false constr
+R20389:20397 Kernel.AxRice <> hrun_prog abbrev
+R20401:20412 Kernel.AxRice <> ax_prog_flag def
+R20416:20424 Minimal.SmHostBlocks <> sm_hstart def
+R20426:20433 Kernel.AxRice <> hprop ind
+R20389:20397 Kernel.AxRice <> hrun_prog abbrev
+R20401:20412 Kernel.AxRice <> ax_prog_flag def
+R20416:20424 Minimal.SmHostBlocks <> sm_hstart def
+R20426:20433 Kernel.AxRice <> hprop ind
+prf 20551:20567 <> ax_prog_chan_ends
+R20571:20577 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20579:20580 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20578:20578 <> s:137
+R20603:20608 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20581:20585 Kernel.AxRice <> hends abbrev
+R20587:20598 Kernel.AxRice <> ax_prog_chan def
+R20602:20602 Kernel.AxRice <> s:137 var
+R20622:20624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20609:20619 Kernel.AxRice <> ax_host_rec def
+R20621:20621 Kernel.AxRice <> s:137 var
+R20625:20625 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20631:20632 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20651:20651 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20626:20630 Coq.Init.Datatypes <> false constr
+R20633:20633 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20635:20636 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20650:20650 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20637:20637 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20642:20643 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20649:20649 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20638:20641 Coq.Init.Datatypes <> true constr
+R20644:20648 Coq.Init.Datatypes <> false constr
+R20671:20679 Kernel.AxRice <> hrun_prog abbrev
+R20683:20694 Kernel.AxRice <> ax_prog_chan def
+R20698:20706 Minimal.SmHostBlocks <> sm_hstart def
+R20708:20715 Kernel.AxRice <> hprop ind
+R20671:20679 Kernel.AxRice <> hrun_prog abbrev
+R20683:20694 Kernel.AxRice <> ax_prog_chan def
+R20698:20706 Minimal.SmHostBlocks <> sm_hstart def
+R20708:20715 Kernel.AxRice <> hprop ind
+prf 20833:20849 <> ax_prog_trap_ends
+R20853:20859 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20861:20862 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20860:20860 <> s:138
+R20885:20890 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20863:20867 Kernel.AxRice <> hends abbrev
+R20869:20880 Kernel.AxRice <> ax_prog_trap def
+R20884:20884 Kernel.AxRice <> s:138 var
+R20904:20906 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20891:20901 Kernel.AxRice <> ax_host_rec def
+R20903:20903 Kernel.AxRice <> s:138 var
+R20907:20907 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20913:20914 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20933:20933 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20908:20912 Coq.Init.Datatypes <> false constr
+R20915:20915 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20917:20918 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20932:20932 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20919:20919 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20925:20926 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20931:20931 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20920:20924 Coq.Init.Datatypes <> false constr
+R20927:20930 Coq.Init.Datatypes <> true constr
+R20953:20961 Kernel.AxRice <> hrun_prog abbrev
+R20965:20976 Kernel.AxRice <> ax_prog_trap def
+R20980:20988 Minimal.SmHostBlocks <> sm_hstart def
+R20990:20997 Kernel.AxRice <> hprop ind
+R20953:20961 Kernel.AxRice <> hrun_prog abbrev
+R20965:20976 Kernel.AxRice <> ax_prog_trap def
+R20980:20988 Minimal.SmHostBlocks <> sm_hstart def
+R20990:20997 Kernel.AxRice <> hprop ind
+def 21172:21186 <> ax_host_reaches
+R21197:21200 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R21220:21220 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R21193:21196 Coq.Init.Datatypes <> bool ind
+R21204:21207 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R21219:21219 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R21201:21203 Coq.Init.Datatypes <> nat ind
+R21212:21214 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R21208:21211 Coq.Init.Datatypes <> bool ind
+R21215:21218 Coq.Init.Datatypes <> bool ind
+binder 21189:21189 <> a:139
+R21236:21239 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21225:21228 Coq.Init.Datatypes <> list ind
+R21230:21235 Kernel.AxRice <> hinstr abbrev
+R21250:21259 Kernel.AxRice <> ax_reaches def
+R21285:21285 Kernel.AxRice <> a:139 var
+R21273:21283 Kernel.AxRice <> ax_host_rec def
+R21261:21271 Kernel.AxRice <> ax_host_pre def
+prf 21457:21481 <> ax_host_point_undecidable
+binder 21492:21492 <> a:140
+binder 21494:21494 <> y:141
+R21518:21523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21499:21513 Kernel.AxRice <> ax_host_reaches def
+R21517:21517 Kernel.AxRice <> y:141 var
+R21515:21515 Kernel.AxRice <> a:140 var
+R21568:21573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21560:21562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21524:21529 Kernel.AxCore <> bp_leb proj
+R21533:21543 Kernel.AxRice <> ax_host_pre def
+R21545:21545 Kernel.AxRice <> a:140 var
+R21547:21559 Kernel.AxRice <> ax_host_floor def
+R21563:21567 Coq.Init.Datatypes <> false constr
+R21574:21584 Undecidability.Synthetic.Undecidability <> undecidable def
+R21587:21601 Kernel.AxRice <> ax_host_reaches def
+R21603:21603 Kernel.AxRice <> a:140 var
+R21643:21662 Kernel.AxRice <> ax_reach_undecidable thm
+R21664:21681 Kernel.AxRice <> ax_host_rec_hagree thm
+R21643:21662 Kernel.AxRice <> ax_reach_undecidable thm
+R21664:21681 Kernel.AxRice <> ax_host_rec_hagree thm
+R21706:21713 Kernel.AxRice <> ax_reach def
+R21724:21742 Kernel.AxRice <> ax_host_floor_start thm
+R21724:21742 Kernel.AxRice <> ax_host_floor_start thm
+R21724:21742 Kernel.AxRice <> ax_host_floor_start thm
+prf 21769:21790 <> ax_host_point_diagonal
+binder 21801:21801 <> a:142
+binder 21803:21803 <> y:143
+R21827:21832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21808:21822 Kernel.AxRice <> ax_host_reaches def
+R21826:21826 Kernel.AxRice <> y:143 var
+R21824:21824 Kernel.AxRice <> a:142 var
+R21877:21882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21869:21871 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21833:21838 Kernel.AxCore <> bp_leb proj
+R21842:21852 Kernel.AxRice <> ax_host_pre def
+R21854:21854 Kernel.AxRice <> a:142 var
+R21856:21868 Kernel.AxRice <> ax_host_floor def
+R21872:21876 Coq.Init.Datatypes <> false constr
+R21905:21908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21894:21897 Coq.Init.Datatypes <> list ind
+R21899:21904 Kernel.AxRice <> hinstr abbrev
+R21909:21912 Coq.Init.Datatypes <> bool ind
+binder 21890:21890 <> d:144
+R21919:21919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21986:21994 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21920:21926 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21928:21929 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 21927:21927 <> T:145
+R21930:21944 Kernel.SmKleene <> sm_computes_map def
+R21946:21946 Kernel.AxRice <> T:145 var
+binder 21953:21953 <> p:146
+R21961:21961 Kernel.AxRice <> d:144 var
+R21963:21963 Kernel.AxRice <> p:146 var
+R21984:21984 Kernel.AxRice <> y:143 var
+R21970:21970 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R21977:21977 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R21971:21976 Kernel.AxRice <> HALT constr
+R21995:21997 Coq.Init.Logic <> ::type_scope:'~'_x not
+R22042:22042 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 22005:22005 <> p:147
+R22018:22022 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22011:22013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22008:22008 Kernel.AxRice <> d:144 var
+R22010:22010 Kernel.AxRice <> p:147 var
+R22014:22017 Coq.Init.Datatypes <> true constr
+R22023:22037 Kernel.AxRice <> ax_host_reaches def
+R22041:22041 Kernel.AxRice <> p:147 var
+R22039:22039 Kernel.AxRice <> a:142 var
+R22086:22106 Kernel.AxRice <> ax_diagonal_threshold thm
+R22177:22177 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22184:22184 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22178:22183 Kernel.AxRice <> HALT constr
+R22140:22154 Kernel.AxRice <> ax_host_reaches def
+R22108:22122 Kernel.AxRice <> ax_host_rec_obs thm
+R22086:22106 Kernel.AxRice <> ax_diagonal_threshold thm
+R22177:22177 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22184:22184 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22178:22183 Kernel.AxRice <> HALT constr
+R22140:22154 Kernel.AxRice <> ax_host_reaches def
+R22108:22122 Kernel.AxRice <> ax_host_rec_obs thm
+R22219:22232 Kernel.AxRice <> ax_reaches_ext thm
+R22219:22232 Kernel.AxRice <> ax_reaches_ext thm
+binder 22337:22337 <> m:148
+R22384:22386 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22340:22348 Kernel.AxRice <> hrun_prog abbrev
+R22350:22350 Kernel.AxRice <> m:148 var
+R22352:22352 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22359:22359 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22353:22358 Kernel.AxRice <> HALT constr
+R22363:22371 Minimal.SmHostBlocks <> sm_hstart def
+R22373:22380 Kernel.AxRice <> hprop ind
+R22388:22396 Minimal.SmHostBlocks <> sm_hstart def
+R22398:22405 Kernel.AxRice <> hprop ind
+binder 22337:22337 <> m:149
+R22384:22386 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22340:22348 Kernel.AxRice <> hrun_prog abbrev
+R22350:22350 Kernel.AxRice <> m:149 var
+R22352:22352 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22359:22359 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R22353:22358 Kernel.AxRice <> HALT constr
+R22363:22371 Minimal.SmHostBlocks <> sm_hstart def
+R22373:22380 Kernel.AxRice <> hprop ind
+R22388:22396 Minimal.SmHostBlocks <> sm_hstart def
+R22398:22405 Kernel.AxRice <> hprop ind
+R22530:22537 Kernel.AxRice <> ax_reach def
+R22554:22572 Kernel.AxRice <> ax_host_floor_start thm
+R22554:22572 Kernel.AxRice <> ax_host_floor_start thm
+R22554:22572 Kernel.AxRice <> ax_host_floor_start thm
+prf 22713:22731 <> ax_flag_undecidable
+R22735:22745 Undecidability.Synthetic.Undecidability <> undecidable def
+R22748:22762 Kernel.AxRice <> ax_host_reaches def
+R22764:22773 Kernel.AxRice <> ax_pt_flag def
+R22793:22817 Kernel.AxRice <> ax_host_point_undecidable thm
+R22843:22854 Kernel.AxRice <> ax_prog_flag def
+R22825:22834 Kernel.AxRice <> ax_pt_flag def
+R22793:22817 Kernel.AxRice <> ax_host_point_undecidable thm
+R22843:22854 Kernel.AxRice <> ax_prog_flag def
+R22825:22834 Kernel.AxRice <> ax_pt_flag def
+R22872:22888 Kernel.AxRice <> ax_prog_flag_ends thm
+R22951:22958 Kernel.AxRice <> ax_reach def
+prf 23043:23061 <> ax_chan_undecidable
+R23065:23075 Undecidability.Synthetic.Undecidability <> undecidable def
+R23078:23092 Kernel.AxRice <> ax_host_reaches def
+R23094:23103 Kernel.AxRice <> ax_pt_chan def
+R23123:23147 Kernel.AxRice <> ax_host_point_undecidable thm
+R23173:23184 Kernel.AxRice <> ax_prog_chan def
+R23155:23164 Kernel.AxRice <> ax_pt_chan def
+R23123:23147 Kernel.AxRice <> ax_host_point_undecidable thm
+R23173:23184 Kernel.AxRice <> ax_prog_chan def
+R23155:23164 Kernel.AxRice <> ax_pt_chan def
+R23202:23218 Kernel.AxRice <> ax_prog_chan_ends thm
+R23281:23288 Kernel.AxRice <> ax_reach def
+prf 23373:23391 <> ax_trap_undecidable
+R23395:23405 Undecidability.Synthetic.Undecidability <> undecidable def
+R23408:23422 Kernel.AxRice <> ax_host_reaches def
+R23424:23433 Kernel.AxRice <> ax_pt_trap def
+R23453:23477 Kernel.AxRice <> ax_host_point_undecidable thm
+R23503:23514 Kernel.AxRice <> ax_prog_trap def
+R23485:23494 Kernel.AxRice <> ax_pt_trap def
+R23453:23477 Kernel.AxRice <> ax_host_point_undecidable thm
+R23503:23514 Kernel.AxRice <> ax_prog_trap def
+R23485:23494 Kernel.AxRice <> ax_pt_trap def
+R23532:23548 Kernel.AxRice <> ax_prog_trap_ends thm
+R23611:23618 Kernel.AxRice <> ax_reach def
+prf 23703:23722 <> ax_facts_undecidable
+binder 23733:23733 <> k:150
+R23742:23745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23737:23740 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R23741:23741 Kernel.AxRice <> k:150 var
+R23753:23758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23747:23750 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R23746:23746 Kernel.AxRice <> k:150 var
+R23759:23769 Undecidability.Synthetic.Undecidability <> undecidable def
+R23772:23786 Kernel.AxRice <> ax_host_reaches def
+R23789:23799 Kernel.AxRice <> ax_pt_facts def
+R23801:23801 Kernel.AxRice <> k:150 var
+R23841:23865 Kernel.AxRice <> ax_host_point_undecidable thm
+R23894:23906 Kernel.AxRice <> ax_prog_facts def
+R23873:23883 Kernel.AxRice <> ax_pt_facts def
+R23841:23865 Kernel.AxRice <> ax_host_point_undecidable thm
+R23894:23906 Kernel.AxRice <> ax_prog_facts def
+R23873:23883 Kernel.AxRice <> ax_pt_facts def
+R23927:23940 Kernel.AxRice <> ax_facts_reach thm
+R23927:23940 Kernel.AxRice <> ax_facts_reach thm
+R24008:24015 Kernel.AxRice <> ax_reach def
+R24038:24052 Kernel.AxRice <> ax_pt_facts_leb thm
+R24038:24052 Kernel.AxRice <> ax_pt_facts_leb thm
+R24038:24052 Kernel.AxRice <> ax_pt_facts_leb thm
+R24061:24072 Coq.Arith.PeanoNat Nat leb_refl thm
+R24061:24072 Coq.Arith.PeanoNat Nat leb_refl thm
+R24086:24098 Kernel.AxRice <> ax_host_floor def
+R24109:24123 Kernel.AxRice <> ax_pt_facts_leb thm
+R24109:24123 Kernel.AxRice <> ax_pt_facts_leb thm
+R24109:24123 Kernel.AxRice <> ax_pt_facts_leb thm
+R24132:24141 Coq.Arith.PeanoNat Nat leb_gt thm
+R24132:24141 Coq.Arith.PeanoNat Nat leb_gt thm
+prf 24165:24180 <> ax_flag_diagonal
+R24206:24209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24195:24198 Coq.Init.Datatypes <> list ind
+R24200:24205 Kernel.AxRice <> hinstr abbrev
+R24210:24213 Coq.Init.Datatypes <> bool ind
+binder 24191:24191 <> d:151
+R24218:24218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24296:24302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24219:24225 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R24227:24228 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 24226:24226 <> T:152
+R24229:24243 Kernel.SmKleene <> sm_computes_map def
+R24245:24245 Kernel.AxRice <> T:152 var
+binder 24252:24252 <> p:153
+R24260:24260 Kernel.AxRice <> d:151 var
+R24262:24262 Kernel.AxRice <> p:153 var
+R24283:24294 Kernel.AxRice <> ax_prog_flag def
+R24269:24269 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R24276:24276 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R24270:24275 Kernel.AxRice <> HALT constr
+R24303:24305 Coq.Init.Logic <> ::type_scope:'~'_x not
+R24359:24359 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 24313:24313 <> p:154
+R24326:24330 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R24319:24321 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24316:24316 Kernel.AxRice <> d:151 var
+R24318:24318 Kernel.AxRice <> p:154 var
+R24322:24325 Coq.Init.Datatypes <> true constr
+R24331:24345 Kernel.AxRice <> ax_host_reaches def
+R24358:24358 Kernel.AxRice <> p:154 var
+R24347:24356 Kernel.AxRice <> ax_pt_flag def
+R24378:24399 Kernel.AxRice <> ax_host_point_diagonal thm
+R24425:24436 Kernel.AxRice <> ax_prog_flag def
+R24407:24416 Kernel.AxRice <> ax_pt_flag def
+R24378:24399 Kernel.AxRice <> ax_host_point_diagonal thm
+R24425:24436 Kernel.AxRice <> ax_prog_flag def
+R24407:24416 Kernel.AxRice <> ax_pt_flag def
+R24454:24470 Kernel.AxRice <> ax_prog_flag_ends thm
+R24533:24540 Kernel.AxRice <> ax_reach def
+prf 24743:24761 <> ax_facts_17_trivial
+binder 24772:24772 <> p:155
+R24775:24776 Coq.Init.Logic <> ::type_scope:'~'_x not
+R24777:24791 Kernel.AxRice <> ax_host_reaches def
+R24810:24810 Kernel.AxRice <> p:155 var
+R24794:24804 Kernel.AxRice <> ax_pt_facts def
+R24859:24879 Kernel.AxRice <> ax_facts_17_unreached thm
+R24882:24885 Coq.Init.Peano <> le_n constr
+R24859:24879 Kernel.AxRice <> ax_facts_17_unreached thm
+R24882:24885 Coq.Init.Peano <> le_n constr
+R24859:24879 Kernel.AxRice <> ax_facts_17_unreached thm
+R24882:24885 Coq.Init.Peano <> le_n constr
+R24940:24951 Kernel.AxRice <> ax_facts_cap thm
+R24972:24992 Kernel.AxRice <> ax_facts_17_unreached thm
+R25013:25026 Kernel.AxRice <> ax_facts_reach thm
+R25047:25071 Kernel.AxRice <> ax_host_point_undecidable thm
+R25092:25113 Kernel.AxRice <> ax_host_point_diagonal thm
+R25134:25152 Kernel.AxRice <> ax_flag_undecidable thm
+R25173:25191 Kernel.AxRice <> ax_chan_undecidable thm
+R25212:25230 Kernel.AxRice <> ax_trap_undecidable thm
+R25251:25270 Kernel.AxRice <> ax_facts_undecidable thm
+R25291:25306 Kernel.AxRice <> ax_flag_diagonal thm
+R25327:25345 Kernel.AxRice <> ax_facts_17_trivial thm
+R25366:25380 Kernel.AxRice <> ax_host_rec_obs thm

@@ -1,7 +1,7 @@
 (** Exact finite-weight targets for probabilistic record machines. *)
 
 (* SCOPE NOTE: standalone proof scope. This finite-weight countermodel is
-   substrate-independent and intentionally imports no Thiele VM semantics. *)
+   substrate-independent and intentionally imports no machine semantics. *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
 Import ListNotations.

@@ -37,6 +37,7 @@ def test_preparation_copies_dependency_sources_without_compiled_objects(source_r
     assert not list((output / 'source').rglob('*.vo'))
     assert not list((output / 'source').rglob('Makefile.coq'))
     assert (output / 'source/vendor/coq-undecidability/theories/Proof.v').is_file()
+    assert (output / 'source/minimal/Proof.v').is_file()
     report = json.loads((output / 'reproduction.json').read_text())
     assert report['status'] == 'prepared'
     assert all(c['exit_code'] is None for c in report['commands'])
@@ -63,7 +64,9 @@ def test_failed_build_is_recorded_and_stops_later_checks(source_repo, monkeypatc
     report = json.loads((output / 'reproduction.json').read_text())
     assert report['status'] == 'failed'
     assert report['exit_code'] != 0
-    assert report['commands'][1]['exit_code'] is None
+    # The build is the first command that runs make -C; nothing after it ran.
+    build = next(i for i, c in enumerate(report['commands']) if '-C' in c['argv'])
+    assert all(c['exit_code'] is None for c in report['commands'][build + 1:])
     assert not (output / 'result.txt').exists()
     assert sum('-C' in cmd for cmd in calls) == 1
 
@@ -86,7 +89,7 @@ def test_resume_keeps_completed_build_and_preserves_failed_log(source_repo, monk
     monkeypatch.setattr(runner.shutil, 'which', lambda _: sys.executable)
 
     def first_run(cmd, **kwargs):
-        return subprocess.CompletedProcess(cmd, 2 if 'vendor/kami' in cmd else 0)
+        return subprocess.CompletedProcess(cmd, 2 if cmd[:3] == ['make', '-C', 'coq'] else 0)
 
     monkeypatch.setattr(runner.subprocess, 'run', first_run)
     assert runner.main() == 2
@@ -99,7 +102,8 @@ def test_resume_keeps_completed_build_and_preserves_failed_log(source_repo, monk
     monkeypatch.setattr(runner.subprocess, 'run', resumed_run)
     monkeypatch.setattr(sys, 'argv', ['reproduce_coq.py', '--output', str(output), '--resume'])
     assert runner.main() == 0
-    assert not any('vendor/bbv' in cmd for cmd in calls)
-    assert any('vendor/kami' in cmd for cmd in calls)
-    assert list(output.glob('kami-build.*.log'))
+    # The completed step is not rerun; the failed build is.
+    assert not any(cmd[0] == 'coq_makefile' for cmd in calls)
+    assert any(cmd[:3] == ['make', '-C', 'coq'] for cmd in calls)
+    assert list(output.glob('coq-build.*.log'))
     assert (output / 'result.txt').read_text() == 'passed\n'

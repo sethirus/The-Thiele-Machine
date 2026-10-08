@@ -1,10 +1,10 @@
 (** StructuralRecordAxis: the record axis over any base is a latch.
 
     Every honest extension of a base factors as a latch of one base event
-    ([uniqueness_round4_holds]): the base state and the record evolve exactly
+    ([record_axis_is_latch_holds]): the base state and the record evolve exactly
     as "switch on at the first base state where h holds, never switch off."
     Two permanent records factor as two latches, each of whose events may
-    read the other record ([uniqueness_round4_pair_holds]).
+    read the other record ([record_pair_is_two_latches_holds]).
 
     Both conditions of the entry do work.
 
@@ -15,12 +15,12 @@
       ([clock_record_not_driven]). *)
 
 From Coq Require Import Bool Arith.PeanoNat Lia.
-From Kernel Require Import StructuralCore StructuralCoreRound2.
-From Kernel Require Import StructuralCoreRound4.
+From Kernel Require Import StructuralCore StructuralCoreCover.
+From Kernel Require Import StructuralCoreAnyBase.
 
 (** * One record *)
 
-Theorem uniqueness_round4_holds : uniqueness_round4.
+Theorem record_axis_is_latch_holds : record_axis_is_latch.
 Proof.
   intros M B C [[f Hf] [_ [_ [Hperm _]]]].
   exists (fun b => f b false).
@@ -33,7 +33,7 @@ Qed.
 
 (** * Two records *)
 
-Theorem uniqueness_round4_pair_holds : uniqueness_round4_pair.
+Theorem record_pair_is_two_latches_holds : record_pair_is_two_latches.
 Proof.
   intros M B C c1 c2 [[f Hf] [_ [_ [Hp1 Hp2]]]].
   exists (fun b r2 => fst (f b false r2)), (fun b r1 => snd (f b r1 false)).
@@ -125,7 +125,7 @@ Proof.
   simpl in Ha, Hb. rewrite <- Ha in Hb. discriminate.
 Qed.
 
-Print Assumptions uniqueness_round4_holds.
-Print Assumptions uniqueness_round4_pair_holds.
+Print Assumptions record_axis_is_latch_holds.
+Print Assumptions record_pair_is_two_latches_holds.
 Print Assumptions toggle_not_latch.
 Print Assumptions clock_record_not_driven.

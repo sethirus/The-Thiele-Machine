@@ -1,0 +1,416 @@
+DIGEST 3bfcdd09f7ef7614945b1b28ce9f81b5
+FKernel.LiftModels
+R1139:1142 Coq.Lists.List <> <> lib
+R1144:1148 Coq.Arith.Arith <> <> lib
+R1150:1152 Coq.micromega.Lia <> <> lib
+R1154:1157 Coq.Bool.Bool <> <> lib
+R1167:1179 Coq.Lists.List ListNotations <> mod
+R1206:1233 Coq.Relations.Relation_Operators <> <> lib
+R1235:1264 Coq.Relations.Operators_Properties <> <> lib
+R1312:1325 Undecidability.Synthetic.Undecidability <> <> lib
+R1366:1369 Undecidability.TM.SBTM <> <> lib
+R1422:1424 Undecidability.MinskyMachines.MM2 <> <> lib
+R1426:1434 Undecidability.MinskyMachines.MM2_undec <> <> lib
+R1436:1438 Undecidability.MinskyMachines.MMA <> <> lib
+R1502:1531 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> <> lib
+R1571:1571 Undecidability.L.L <> <> lib
+R1582:1603 Minimal.ThieleComplete <> <> lib
+R1618:1639 Minimal.ThieleComplete <> <> modtype
+mod 1613:1613 <> T
+R1670:1677 Minimal.LiftCore <> <> lib
+R1679:1692 Minimal.LiftOneCounter <> <> lib
+R1722:1729 Kernel.LiftExec <> <> lib
+R1731:1737 Kernel.LiftRAM <> <> lib
+prf 1783:1805 <> lift_ex_thiele_complete
+R1811:1827 Kernel.LiftRAM T thiele_complete def
+R1830:1841 Minimal.LiftCore <> lift_machine def
+R1860:1875 Minimal.LiftCore <> lift_window_lang def
+R1877:1891 Kernel.LiftExec <> lift_ex_machine def
+R1893:1904 Kernel.LiftExec <> lift_ex_base def
+R1843:1857 Kernel.LiftExec <> lift_ex_machine def
+R1925:1951 Minimal.LiftCore <> lift_window_thiele_complete thm
+R1925:1951 Minimal.LiftCore <> lift_window_thiele_complete thm
+prf 1973:1996 <> lift_ram_thiele_complete
+R2002:2018 Kernel.LiftRAM T thiele_complete def
+R2021:2032 Minimal.LiftCore <> lift_machine def
+R2052:2067 Minimal.LiftCore <> lift_window_lang def
+R2069:2084 Kernel.LiftRAM <> lift_ram_machine def
+R2086:2098 Kernel.LiftRAM <> lift_ram_base def
+R2034:2049 Kernel.LiftRAM <> lift_ram_machine def
+R2119:2145 Minimal.LiftCore <> lift_window_thiele_complete thm
+R2119:2145 Minimal.LiftCore <> lift_window_thiele_complete thm
+prf 2242:2253 <> lift_ex_in_L
+R2257:2268 Undecidability.L.L <> L_computable def
+R2270:2280 Kernel.LiftExec <> lift_ex_rel def
+R2296:2315 Kernel.LiftExec <> lift_ex_L_computable thm
+R2296:2315 Kernel.LiftExec <> lift_ex_L_computable thm
+prf 2332:2345 <> lift_ex_in_MMA
+R2349:2362 Undecidability.MinskyMachines.MMA <> MMA_computable def
+R2364:2374 Kernel.LiftExec <> lift_ex_rel def
+R2390:2419 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R2390:2419 Undecidability.MinskyMachines.Reductions.L_computable_to_MMA_computable <> L_computable_to_MMA_computable thm
+R2428:2447 Kernel.LiftExec <> lift_ex_L_computable thm
+R2428:2447 Kernel.LiftExec <> lift_ex_L_computable thm
+def 2545:2554 <> lift_to_cm
+R2561:2569 Undecidability.MinskyMachines.MM2 <> mm2_instr ind
+binder 2557:2557 <> i:1
+R2574:2583 Kernel.LiftRAM T cm_instr ind
+R2596:2596 Kernel.LiftModels <> i:1 var
+R2607:2615 Undecidability.MinskyMachines.MM2 <> mm2_inc_a constr
+R2620:2625 Kernel.LiftRAM T CINC constr
+R2627:2630 Kernel.LiftRAM T RA constr
+R2636:2644 Undecidability.MinskyMachines.MM2 <> mm2_inc_b constr
+R2649:2654 Kernel.LiftRAM T CINC constr
+R2656:2659 Kernel.LiftRAM T RB constr
+R2665:2673 Undecidability.MinskyMachines.MM2 <> mm2_dec_a constr
+R2680:2685 Kernel.LiftRAM T CDEC constr
+R2687:2690 Kernel.LiftRAM T RA constr
+R2698:2706 Undecidability.MinskyMachines.MM2 <> mm2_dec_b constr
+R2713:2718 Kernel.LiftRAM T CDEC constr
+R2720:2723 Kernel.LiftRAM T RB constr
+def 2746:2759 <> lift_mm2_fetch
+R2766:2769 Coq.Init.Datatypes <> list ind
+R2771:2779 Undecidability.MinskyMachines.MM2 <> mm2_instr ind
+binder 2762:2762 <> P:3
+R2787:2789 Coq.Init.Datatypes <> nat ind
+binder 2783:2783 <> n:4
+R2794:2799 Coq.Init.Datatypes <> option ind
+R2801:2809 Undecidability.MinskyMachines.MM2 <> mm2_instr ind
+R2822:2822 Kernel.LiftModels <> n:4 var
+R2834:2837 Coq.Init.Datatypes <> None constr
+R2841:2841 Coq.Init.Datatypes <> S constr
+R2848:2856 Coq.Lists.List <> nth_error def
+R2858:2858 Kernel.LiftModels <> P:3 var
+prf 2874:2893 <> lift_mm2_instr_at_cm
+R2909:2917 Undecidability.MinskyMachines.MM2 <> mm2_instr ind
+binder 2905:2905 <> r:6
+binder 2920:2920 <> i:7
+binder 2922:2922 <> P:8
+R2945:2949 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2927:2938 Undecidability.MinskyMachines.MM2 <> mm2_instr_at def
+R2944:2944 Kernel.LiftModels <> P:8 var
+R2942:2942 Kernel.LiftModels <> i:7 var
+R2940:2940 Kernel.LiftModels <> r:6 var
+R2968:2970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2950:2963 Kernel.LiftModels <> lift_mm2_fetch def
+R2967:2967 Kernel.LiftModels <> i:7 var
+R2965:2965 Kernel.LiftModels <> P:8 var
+R2971:2974 Coq.Init.Datatypes <> Some constr
+R2976:2976 Kernel.LiftModels <> r:6 var
+R3059:3072 Coq.Lists.List <> nth_error_app2 thm
+R3059:3072 Coq.Lists.List <> nth_error_app2 thm
+R3059:3072 Coq.Lists.List <> nth_error_app2 thm
+R3090:3101 Coq.Arith.PeanoNat Nat sub_diag thm
+R3090:3101 Coq.Arith.PeanoNat Nat sub_diag thm
+R3090:3101 Coq.Arith.PeanoNat Nat sub_diag thm
+R3190:3204 Coq.Lists.List <> nth_error_split thm
+R3190:3204 Coq.Lists.List <> nth_error_split thm
+prf 3296:3312 <> lift_cm_fetch_map
+binder 3323:3323 <> P:9
+binder 3325:3325 <> i:10
+R3361:3363 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3330:3339 Kernel.LiftRAM T cm_fetch def
+R3342:3344 Coq.Lists.List <> map def
+R3357:3357 Kernel.LiftModels <> P:9 var
+R3346:3355 Kernel.LiftModels <> lift_to_cm def
+R3360:3360 Kernel.LiftModels <> i:10 var
+R3370:3383 Kernel.LiftModels <> lift_mm2_fetch def
+R3387:3387 Kernel.LiftModels <> i:10 var
+R3385:3385 Kernel.LiftModels <> P:9 var
+R3394:3397 Coq.Init.Datatypes <> Some constr
+R3404:3407 Coq.Init.Datatypes <> Some constr
+R3410:3419 Kernel.LiftModels <> lift_to_cm def
+R3426:3429 Coq.Init.Datatypes <> None constr
+R3434:3437 Coq.Init.Datatypes <> None constr
+R3501:3513 Coq.Lists.List <> nth_error_map thm
+R3501:3513 Coq.Lists.List <> nth_error_map thm
+R3501:3513 Coq.Lists.List <> nth_error_map thm
+R3528:3536 Coq.Lists.List <> nth_error def
+R3528:3536 Coq.Lists.List <> nth_error def
+prf 3569:3584 <> lift_mm2_step_cm
+binder 3595:3595 <> P:11
+binder 3597:3597 <> x:12
+binder 3599:3599 <> y:13
+R3618:3622 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3604:3611 Undecidability.MinskyMachines.MM2 <> mm2_step def
+R3617:3617 Kernel.LiftModels <> y:13 var
+R3615:3615 Kernel.LiftModels <> x:12 var
+R3613:3613 Kernel.LiftModels <> P:11 var
+R3653:3655 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3623:3631 Kernel.LiftRAM T cm_step def
+R3634:3636 Coq.Lists.List <> map def
+R3649:3649 Kernel.LiftModels <> P:11 var
+R3638:3647 Kernel.LiftModels <> lift_to_cm def
+R3652:3652 Kernel.LiftModels <> x:12 var
+R3656:3659 Coq.Init.Datatypes <> Some constr
+R3661:3661 Kernel.LiftModels <> y:13 var
+R3702:3709 Undecidability.MinskyMachines.MM2 <> mm2_step def
+R3712:3720 Kernel.LiftRAM T cm_step def
+R3740:3756 Kernel.LiftModels <> lift_cm_fetch_map thm
+R3740:3756 Kernel.LiftModels <> lift_cm_fetch_map thm
+R3740:3756 Kernel.LiftModels <> lift_cm_fetch_map thm
+R3797:3816 Kernel.LiftModels <> lift_mm2_instr_at_cm thm
+R3797:3816 Kernel.LiftModels <> lift_mm2_instr_at_cm thm
+R3905:3918 Kernel.LiftModels <> lift_mm2_fetch def
+R3905:3918 Kernel.LiftModels <> lift_mm2_fetch def
+R4004:4023 Kernel.LiftModels <> lift_mm2_instr_at_cm thm
+R4004:4023 Kernel.LiftModels <> lift_mm2_instr_at_cm thm
+prf 4149:4164 <> lift_mm2_stop_cm
+binder 4175:4175 <> P:14
+binder 4177:4177 <> x:15
+R4192:4196 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4180:4187 Undecidability.MinskyMachines.MM2 <> mm2_stop def
+R4191:4191 Kernel.LiftModels <> x:15 var
+R4189:4189 Kernel.LiftModels <> P:14 var
+R4227:4229 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4197:4205 Kernel.LiftRAM T cm_step def
+R4208:4210 Coq.Lists.List <> map def
+R4223:4223 Kernel.LiftModels <> P:14 var
+R4212:4221 Kernel.LiftModels <> lift_to_cm def
+R4226:4226 Kernel.LiftModels <> x:15 var
+R4230:4233 Coq.Init.Datatypes <> None constr
+R4264:4271 Undecidability.MinskyMachines.MM2 <> mm2_stop def
+R4304:4312 Kernel.LiftRAM T cm_step def
+R4315:4317 Coq.Lists.List <> map def
+R4319:4328 Kernel.LiftModels <> lift_to_cm def
+R4304:4312 Kernel.LiftRAM T cm_step def
+R4315:4317 Coq.Lists.List <> map def
+R4319:4328 Kernel.LiftModels <> lift_to_cm def
+R4402:4417 Kernel.LiftModels <> lift_mm2_step_cm thm
+R4402:4417 Kernel.LiftModels <> lift_mm2_step_cm thm
+R4455:4470 Kernel.LiftModels <> lift_mm2_step_cm thm
+R4455:4470 Kernel.LiftModels <> lift_mm2_step_cm thm
+prf 4503:4524 <> lift_mm2_terminates_cm
+binder 4535:4535 <> P:16
+binder 4537:4537 <> x:17
+R4560:4566 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4542:4555 Undecidability.MinskyMachines.MM2 <> mm2_terminates def
+R4559:4559 Kernel.LiftModels <> x:17 var
+R4557:4557 Kernel.LiftModels <> P:16 var
+R4567:4573 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4575:4576 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4574:4574 <> n:18
+R4639:4641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4577:4585 Kernel.LiftRAM T cm_step def
+R4588:4590 Coq.Lists.List <> map def
+R4603:4603 Kernel.LiftModels <> P:16 var
+R4592:4601 Kernel.LiftModels <> lift_to_cm def
+R4607:4614 Kernel.LiftRAM T cm_run def
+R4616:4616 Kernel.LiftModels <> n:18 var
+R4619:4621 Coq.Lists.List <> map def
+R4634:4634 Kernel.LiftModels <> P:16 var
+R4623:4632 Kernel.LiftModels <> lift_to_cm def
+R4637:4637 Kernel.LiftModels <> x:17 var
+R4642:4645 Coq.Init.Datatypes <> None constr
+R4676:4689 Undecidability.MinskyMachines.MM2 <> mm2_terminates def
+R4733:4748 Coq.Relations.Operators_Properties <> clos_rt_rt1n_iff thm
+R4733:4748 Coq.Relations.Operators_Properties <> clos_rt_rt1n_iff thm
+R4829:4844 Kernel.LiftModels <> lift_mm2_stop_cm thm
+R4829:4844 Kernel.LiftModels <> lift_mm2_stop_cm thm
+R4905:4905 Coq.Init.Datatypes <> S constr
+R4905:4905 Coq.Init.Datatypes <> S constr
+R4930:4945 Kernel.LiftModels <> lift_mm2_step_cm thm
+R4930:4945 Kernel.LiftModels <> lift_mm2_step_cm thm
+R4961:4968 Kernel.LiftRAM T cm_run def
+R5003:5011 Kernel.LiftRAM T cm_step def
+R5014:5016 Coq.Lists.List <> map def
+R5018:5027 Kernel.LiftModels <> lift_to_cm def
+R5041:5044 Coq.Init.Datatypes <> Some constr
+R5003:5011 Kernel.LiftRAM T cm_step def
+R5014:5016 Coq.Lists.List <> map def
+R5018:5027 Kernel.LiftModels <> lift_to_cm def
+R5041:5044 Coq.Init.Datatypes <> Some constr
+R5203:5209 Coq.Relations.Relation_Operators <> rt_refl constr
+R5219:5234 Kernel.LiftModels <> lift_mm2_stop_cm thm
+R5203:5209 Coq.Relations.Relation_Operators <> rt_refl constr
+R5219:5234 Kernel.LiftModels <> lift_mm2_stop_cm thm
+R5277:5285 Kernel.LiftRAM T cm_step def
+R5288:5290 Coq.Lists.List <> map def
+R5292:5301 Kernel.LiftModels <> lift_to_cm def
+R5277:5285 Kernel.LiftRAM T cm_step def
+R5288:5290 Coq.Lists.List <> map def
+R5292:5301 Kernel.LiftModels <> lift_to_cm def
+R5421:5428 Coq.Relations.Relation_Operators <> rt_trans constr
+R5445:5451 Coq.Relations.Relation_Operators <> rt_step constr
+R5454:5469 Kernel.LiftModels <> lift_mm2_step_cm thm
+R5421:5428 Coq.Relations.Relation_Operators <> rt_trans constr
+R5445:5451 Coq.Relations.Relation_Operators <> rt_step constr
+R5454:5469 Kernel.LiftModels <> lift_mm2_step_cm thm
+R5527:5533 Coq.Relations.Relation_Operators <> rt_refl constr
+R5543:5558 Kernel.LiftModels <> lift_mm2_stop_cm thm
+R5527:5533 Coq.Relations.Relation_Operators <> rt_refl constr
+R5543:5558 Kernel.LiftModels <> lift_mm2_stop_cm thm
+def 5666:5680 <> lift_CM_HALTING
+R5708:5710 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5702:5704 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5687:5690 Coq.Init.Datatypes <> list ind
+R5692:5701 Kernel.LiftRAM T cm_instr ind
+R5705:5707 Coq.Init.Datatypes <> nat ind
+R5711:5713 Coq.Init.Datatypes <> nat ind
+binder 5683:5683 <> q:19
+R5746:5746 Kernel.LiftModels <> q:19 var
+R5733:5733 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5735:5736 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5738:5739 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5741:5741 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5753:5759 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5761:5762 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5760:5760 <> n:21
+R5801:5803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5763:5771 Kernel.LiftRAM T cm_step def
+R5776:5783 Kernel.LiftRAM T cm_run def
+R5785:5785 Kernel.LiftModels <> n:21 var
+R5789:5789 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5791:5792 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5799:5799 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5793:5793 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5795:5796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5798:5798 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5804:5807 Coq.Init.Datatypes <> None constr
+prf 5819:5837 <> lift_mm2_halting_cm
+binder 5848:5848 <> P:22
+binder 5850:5850 <> a:23
+binder 5852:5852 <> b:24
+R5878:5882 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5857:5867 Undecidability.MinskyMachines.MM2 <> MM2_HALTING def
+R5869:5869 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5871:5872 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5874:5875 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5877:5877 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5870:5870 Kernel.LiftModels <> P:22 var
+R5873:5873 Kernel.LiftModels <> a:23 var
+R5876:5876 Kernel.LiftModels <> b:24 var
+R5883:5897 Kernel.LiftModels <> lift_CM_HALTING def
+R5899:5899 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5916:5917 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5919:5920 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5922:5922 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5900:5902 Coq.Lists.List <> map def
+R5915:5915 Kernel.LiftModels <> P:22 var
+R5904:5913 Kernel.LiftModels <> lift_to_cm def
+R5918:5918 Kernel.LiftModels <> a:23 var
+R5921:5921 Kernel.LiftModels <> b:24 var
+R5959:5980 Kernel.LiftModels <> lift_mm2_terminates_cm thm
+R5959:5980 Kernel.LiftModels <> lift_mm2_terminates_cm thm
+prf 5997:6023 <> lift_cm_halting_undecidable
+R6027:6037 Undecidability.Synthetic.Undecidability <> undecidable def
+R6039:6053 Kernel.LiftModels <> lift_CM_HALTING def
+R6072:6103 Undecidability.Synthetic.Undecidability <> undecidability_from_reducibility thm
+R6105:6121 Undecidability.MinskyMachines.MM2_undec <> MM2_HALTING_undec thm
+R6072:6103 Undecidability.Synthetic.Undecidability <> undecidability_from_reducibility thm
+R6105:6121 Undecidability.MinskyMachines.MM2_undec <> MM2_HALTING_undec thm
+binder 6139:6139 <> q:25
+R6162:6162 Kernel.LiftModels <> q:25 var
+R6149:6149 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6151:6152 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6154:6155 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6157:6157 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6167:6167 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6184:6185 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6187:6188 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6190:6190 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6168:6170 Coq.Lists.List <> map def
+R6172:6181 Kernel.LiftModels <> lift_to_cm def
+binder 6139:6139 <> q:27
+R6162:6162 Kernel.LiftModels <> q:27 var
+R6149:6149 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6151:6152 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6154:6155 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6157:6157 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6167:6167 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6184:6185 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6187:6188 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6190:6190 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6168:6170 Coq.Lists.List <> map def
+R6172:6181 Kernel.LiftModels <> lift_to_cm def
+R6220:6238 Kernel.LiftModels <> lift_mm2_halting_cm thm
+R6220:6238 Kernel.LiftModels <> lift_mm2_halting_cm thm
+prf 6567:6588 <> lift_no_oc_translation
+R6632:6635 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6626:6628 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6620:6622 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6605:6608 Coq.Init.Datatypes <> list ind
+R6610:6619 Kernel.LiftRAM T cm_instr ind
+R6623:6625 Coq.Init.Datatypes <> nat ind
+R6629:6631 Coq.Init.Datatypes <> nat ind
+R6654:6656 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6636:6639 Coq.Init.Datatypes <> list ind
+R6641:6653 Minimal.LiftOneCounter <> lift_oc_instr ind
+R6657:6668 Minimal.LiftOneCounter <> lift_oc_conf def
+binder 6600:6601 <> tr:29
+R6674:6674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6746:6752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6682:6682 <> q:30
+R6702:6706 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6685:6699 Kernel.LiftModels <> lift_CM_HALTING def
+R6701:6701 Kernel.LiftModels <> q:30 var
+R6707:6719 Minimal.LiftOneCounter <> lift_oc_halts def
+R6722:6724 Coq.Init.Datatypes <> fst def
+R6727:6728 Kernel.LiftModels <> tr:29 var
+R6730:6730 Kernel.LiftModels <> q:30 var
+R6735:6737 Coq.Init.Datatypes <> snd def
+R6740:6741 Kernel.LiftModels <> tr:29 var
+R6743:6743 Kernel.LiftModels <> q:30 var
+R6753:6761 Undecidability.Synthetic.Definitions <> decidable def
+R6763:6777 Kernel.LiftModels <> lift_CM_HALTING def
+binder 6814:6814 <> q:31
+R6822:6838 Minimal.LiftOneCounter <> lift_oc_halts_dec thm
+R6841:6843 Coq.Init.Datatypes <> fst def
+R6849:6849 Kernel.LiftModels <> q:31 var
+R6854:6856 Coq.Init.Datatypes <> snd def
+R6862:6862 Kernel.LiftModels <> q:31 var
+R6881:6885 Coq.Init.Datatypes <> false constr
+R6871:6874 Coq.Init.Datatypes <> true constr
+binder 6814:6814 <> q:32
+R6822:6838 Minimal.LiftOneCounter <> lift_oc_halts_dec thm
+R6841:6843 Coq.Init.Datatypes <> fst def
+R6849:6849 Kernel.LiftModels <> q:32 var
+R6854:6856 Coq.Init.Datatypes <> snd def
+R6862:6862 Kernel.LiftModels <> q:32 var
+R6881:6885 Coq.Init.Datatypes <> false constr
+R6871:6874 Coq.Init.Datatypes <> true constr
+R6907:6914 Undecidability.Synthetic.Definitions <> reflects def
+R6927:6943 Minimal.LiftOneCounter <> lift_oc_halts_dec thm
+R6946:6948 Coq.Init.Datatypes <> fst def
+R6959:6961 Coq.Init.Datatypes <> snd def
+R6927:6943 Minimal.LiftOneCounter <> lift_oc_halts_dec thm
+R6946:6948 Coq.Init.Datatypes <> fst def
+R6959:6961 Coq.Init.Datatypes <> snd def
+prf 7149:7185 <> lift_no_oc_translation_undecidability
+R7229:7232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7223:7225 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7217:7219 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7202:7205 Coq.Init.Datatypes <> list ind
+R7207:7216 Kernel.LiftRAM T cm_instr ind
+R7220:7222 Coq.Init.Datatypes <> nat ind
+R7226:7228 Coq.Init.Datatypes <> nat ind
+R7251:7253 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7233:7236 Coq.Init.Datatypes <> list ind
+R7238:7250 Minimal.LiftOneCounter <> lift_oc_instr ind
+R7254:7265 Minimal.LiftOneCounter <> lift_oc_conf def
+binder 7197:7198 <> tr:33
+R7271:7271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7343:7349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 7279:7279 <> q:34
+R7299:7303 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7282:7296 Kernel.LiftModels <> lift_CM_HALTING def
+R7298:7298 Kernel.LiftModels <> q:34 var
+R7304:7316 Minimal.LiftOneCounter <> lift_oc_halts def
+R7319:7321 Coq.Init.Datatypes <> fst def
+R7324:7325 Kernel.LiftModels <> tr:33 var
+R7327:7327 Kernel.LiftModels <> q:34 var
+R7332:7334 Coq.Init.Datatypes <> snd def
+R7337:7338 Kernel.LiftModels <> tr:33 var
+R7340:7340 Kernel.LiftModels <> q:34 var
+R7350:7359 Undecidability.Synthetic.Definitions <> enumerable def
+R7362:7371 Undecidability.Synthetic.Definitions <> complement def
+R7373:7381 Undecidability.TM.SBTM <> SBTM_HALT def
+R7414:7440 Kernel.LiftModels <> lift_cm_halting_undecidable thm
+R7444:7465 Kernel.LiftModels <> lift_no_oc_translation thm
+R7414:7440 Kernel.LiftModels <> lift_cm_halting_undecidable thm
+R7444:7465 Kernel.LiftModels <> lift_no_oc_translation thm
+R7499:7521 Kernel.LiftModels <> lift_ex_thiele_complete thm
+R7542:7565 Kernel.LiftModels <> lift_ram_thiele_complete thm
+R7586:7599 Kernel.LiftModels <> lift_ex_in_MMA thm
+R7620:7646 Kernel.LiftModels <> lift_cm_halting_undecidable thm
+R7667:7703 Kernel.LiftModels <> lift_no_oc_translation_undecidability thm

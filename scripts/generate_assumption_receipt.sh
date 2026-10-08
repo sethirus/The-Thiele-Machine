@@ -20,10 +20,9 @@ python3 build/probe/build_full_probe.py
 # Build the load-path flags from coq/Makefile.conf's COQMF_COQLIBS_NOML, which
 # is what coq_makefile actually passes to coqc. Reading _CoqProject directly is
 # NOT equivalent: coq_makefile synthesises `-I .` and `-R . Top` for the root
-# directory, and coq/ has ~15 root-level .v files (NecessityOfMuLedger.v,
-# MuCodingTheorem.v, ThieleMachineComplete.v, ...) reachable only through that
-# mapping. Without it coqtop emits
-#   Error: Cannot find a physical path bound to logical path MuCodingTheorem.
+# directory, and a root-level .v file under coq/ would be reachable only
+# through that mapping. Without it coqtop emits
+#   Error: Cannot find a physical path bound to logical path <Root>.
 # and silently drops Print Assumptions blocks, leaving the receipt short
 # without any single query obviously failing -- which is why the aggregator
 # hard-fails on block/query misalignment rather than trusting the count.
@@ -31,9 +30,9 @@ mapfile -t COQ_ARGS < <(
     python3 - <<'PY'
 import pathlib, shlex, sys
 coqroot = pathlib.Path("coq").resolve()
-# coq/Makefile includes Makefile.conf -- NOT Makefile.coq.conf, which is a
+# coq/Makefile includes Makefile.conf -- NOT Makefile.coq.conf, which can be a
 # stale leftover from an older coq_makefile invocation and is missing at least
-# `-R kernel/reductions Kernel`. Reading the wrong one made coqtop fail on
+# `-R kernel/reductions Kernel`. Reading the wrong one makes coqtop fail on
 # Kernel.GasMetering and Kernel.PoSFinality. Read what the build reads.
 conf = coqroot / "Makefile.conf"
 libs = None
@@ -51,8 +50,8 @@ while i < len(toks):
     if toks[i] in ("-R", "-Q") and i + 2 < len(toks):
         # Drop `-R . Top`, exactly as coq/Makefile.local does before invoking
         # coqc. coq_makefile synthesises it, but the corpus is NOT compiled
-        # with it: the root-level .vo files therefore contain bare libraries
-        # (VerifierModel, MuCodingTheorem, ...), not Top.-prefixed ones.
+        # with it: root-level .vo files therefore contain bare libraries,
+        # not Top.-prefixed ones.
         # Passing it to coqtop makes every root Require fail with
         #   "contains library X and not library Top.X"
         # which silently drops ~555 Print Assumptions blocks. Root modules are

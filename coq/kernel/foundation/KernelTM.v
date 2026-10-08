@@ -1,6 +1,6 @@
 (** KernelTM: bounded execution for the toy machine in [Kernel.v].
 
-    This file defines bounded fetch, step, and run functions for the minimal machine in [Kernel.v]. It is a toy executor, not a proof that Turing machines form a formal subcategory of the full Thiele VM.
+    This file defines bounded fetch, step, and run functions for the minimal machine in [Kernel.v]. It is a toy executor, not a proof that Turing machines form a formal subcategory of any Thiele machine.
 
     - fetch: Get instruction from program at current state
     - step_tm: Execute one instruction (Write, Move, Branch, Halt, ClaimTapeIsZero)
@@ -10,14 +10,13 @@
     Instructions T_Write, T_Move, T_Branch, T_Halt are standard Turing operations.
     H_ClaimTapeIsZero is present in the syntax, but this executor treats it as
     an advance-only branch: it does not zero the tape and does not charge μ.
-    Costful or tape-zeroing semantics belong to the separate costed step
-    function in [KernelThiele.v].
+    Costful or tape-zeroing semantics are not given here.
 
     [tm_is_turing_complete] reuses the machine's own program, so the theorem is tautological by construction. The useful content is the explicit [step_tm] and [run_tm] definition.
 
     The review boundary is the stated toy semantics: [H_ClaimTapeIsZero] must not be treated elsewhere as if it erased the tape or charged μ.
 
-    This file is a minimal example for testing. The full VM is defined by [VMState] and [VMStep].
+    This file is a minimal example for testing. The small machine that earns its commitments is minimal/EarnedCore.v.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat.

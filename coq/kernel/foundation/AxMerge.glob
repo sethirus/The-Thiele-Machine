@@ -1,0 +1,976 @@
+DIGEST dcad2562ba7876a592cd02da99575f87
+FKernel.AxMerge
+R2017:2020 Coq.Lists.List <> <> lib
+R2022:2025 Coq.Bool.Bool <> <> lib
+R2027:2040 Coq.Arith.PeanoNat <> <> lib
+R2042:2044 Coq.micromega.Lia <> <> lib
+R2054:2066 Coq.Lists.List ListNotations <> mod
+R2096:2117 Kernel.PermanentCertification <> <> lib
+R2147:2152 Kernel.AxCore <> <> lib
+prf 2162:2177 <> ax_NoDup_map_inj
+binder 2189:2189 <> X:1
+binder 2191:2191 <> Y:2
+R2207:2210 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2206:2206 Kernel.AxMerge <> X:1 var
+R2211:2211 Kernel.AxMerge <> Y:2 var
+binder 2202:2202 <> f:3
+R2219:2222 Coq.Init.Datatypes <> list ind
+R2224:2224 Kernel.AxMerge <> X:1 var
+binder 2215:2215 <> l:4
+R2230:2230 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2281:2287 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2238:2238 <> x:5
+binder 2240:2240 <> y:6
+R2249:2252 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2243:2244 Coq.Lists.List <> In def
+R2248:2248 Kernel.AxMerge <> l:4 var
+R2246:2246 Kernel.AxMerge <> x:5 var
+R2259:2262 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2253:2254 Coq.Lists.List <> In def
+R2258:2258 Kernel.AxMerge <> l:4 var
+R2256:2256 Kernel.AxMerge <> y:6 var
+R2272:2275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2266:2268 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2263:2263 Kernel.AxMerge <> f:3 var
+R2265:2265 Kernel.AxMerge <> x:5 var
+R2269:2269 Kernel.AxMerge <> f:3 var
+R2271:2271 Kernel.AxMerge <> y:6 var
+R2277:2279 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2276:2276 Kernel.AxMerge <> x:5 var
+R2280:2280 Kernel.AxMerge <> y:6 var
+R2295:2298 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2288:2292 Coq.Lists.List <> NoDup ind
+R2294:2294 Kernel.AxMerge <> l:4 var
+R2299:2303 Coq.Lists.List <> NoDup ind
+R2306:2308 Coq.Lists.List <> map def
+R2312:2312 Kernel.AxMerge <> l:4 var
+R2310:2310 Kernel.AxMerge <> f:3 var
+R2488:2497 Coq.Lists.List <> in_map_iff thm
+R2488:2497 Coq.Lists.List <> in_map_iff thm
+R2536:2538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2536:2538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+sec 2744:2748 <> Merge
+var 2761:2761 Merge A
+var 2780:2780 Merge P
+R2784:2787 Kernel.AxCore <> BPre rec
+R2789:2789 Kernel.AxMerge <> Merge.A var
+var 2801:2801 Merge X
+R2805:2809 Kernel.AxCore <> AxSys rec
+R2811:2811 Kernel.AxMerge <> Merge.A var
+R2813:2813 Kernel.AxMerge <> Merge.P var
+abbrev 2832:2832 <> S
+R2838:2845 Kernel.AxCore <> ax_state proj
+R2847:2847 Kernel.AxMerge <> Merge.A var
+R2849:2849 Kernel.AxMerge <> Merge.P var
+R2851:2851 Kernel.AxMerge <> Merge.X var
+abbrev 2870:2870 <> I
+R2876:2883 Kernel.AxCore <> ax_instr proj
+R2885:2885 Kernel.AxMerge <> Merge.A var
+R2887:2887 Kernel.AxMerge <> Merge.P var
+R2889:2889 Kernel.AxMerge <> Merge.X var
+abbrev 2908:2911 <> step
+R2917:2923 Kernel.AxCore <> ax_step proj
+R2925:2925 Kernel.AxMerge <> Merge.A var
+R2927:2927 Kernel.AxMerge <> Merge.P var
+R2929:2929 Kernel.AxMerge <> Merge.X var
+abbrev 2948:2949 <> rc
+R2955:2960 Kernel.AxCore <> ax_rec proj
+R2962:2962 Kernel.AxMerge <> Merge.A var
+R2964:2964 Kernel.AxMerge <> Merge.P var
+R2966:2966 Kernel.AxMerge <> Merge.X var
+abbrev 2985:2988 <> cost
+R2994:3000 Kernel.AxCore <> ax_cost proj
+R3002:3002 Kernel.AxMerge <> Merge.A var
+R3004:3004 Kernel.AxMerge <> Merge.P var
+R3006:3006 Kernel.AxMerge <> Merge.X var
+def 3022:3030 <> ax_finite
+R3039:3042 Coq.Init.Datatypes <> list ind
+R3044:3044 Kernel.AxMerge <> S abbrev
+binder 3033:3035 <> all:10
+R3066:3069 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3057:3061 Coq.Lists.List <> NoDup ind
+R3063:3065 Kernel.AxMerge <> all:10 var
+binder 3077:3077 <> s:11
+R3080:3081 Coq.Lists.List <> In def
+R3085:3087 Kernel.AxMerge <> all:10 var
+R3083:3083 Kernel.AxMerge <> s:11 var
+def 3102:3118 <> ax_step_injective
+R3125:3125 Kernel.AxMerge <> I abbrev
+binder 3121:3121 <> i:12
+binder 3147:3147 <> a:13
+binder 3149:3149 <> b:14
+R3171:3174 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3160:3162 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3152:3155 Kernel.AxMerge <> step abbrev
+R3157:3157 Kernel.AxMerge <> a:13 var
+R3159:3159 Kernel.AxMerge <> i:12 var
+R3163:3166 Kernel.AxMerge <> step abbrev
+R3168:3168 Kernel.AxMerge <> b:14 var
+R3170:3170 Kernel.AxMerge <> i:12 var
+R3176:3178 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3175:3175 Kernel.AxMerge <> a:13 var
+R3179:3179 Kernel.AxMerge <> b:14 var
+def 3237:3241 <> ax_up
+R3250:3253 Coq.Init.Datatypes <> list ind
+R3255:3255 Kernel.AxMerge <> S abbrev
+binder 3244:3246 <> all:15
+R3263:3263 Kernel.AxMerge <> Merge.A var
+binder 3259:3259 <> a:16
+R3268:3271 Coq.Init.Datatypes <> list ind
+R3273:3273 Kernel.AxMerge <> S abbrev
+R3280:3285 Coq.Lists.List <> filter def
+R3318:3320 Kernel.AxMerge <> all:15 var
+binder 3292:3292 <> t:17
+R3297:3302 Kernel.AxCore <> bp_leb proj
+R3304:3304 Kernel.AxMerge <> Merge.A var
+R3306:3306 Kernel.AxMerge <> Merge.P var
+R3308:3308 Kernel.AxMerge <> a:16 var
+R3311:3312 Kernel.AxMerge <> rc abbrev
+R3314:3314 Kernel.AxMerge <> t:17 var
+prf 3330:3339 <> ax_up_spec
+binder 3350:3352 <> all:18
+binder 3354:3354 <> a:19
+R3370:3375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3357:3365 Kernel.AxMerge <> ax_finite def
+R3367:3369 Kernel.AxMerge <> all:18 var
+binder 3383:3383 <> t:20
+R3404:3408 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3386:3387 Coq.Lists.List <> In def
+R3392:3396 Kernel.AxMerge <> ax_up def
+R3398:3400 Kernel.AxMerge <> all:18 var
+R3402:3402 Kernel.AxMerge <> a:19 var
+R3389:3389 Kernel.AxMerge <> t:20 var
+R3409:3413 Kernel.AxCore <> bp_le def
+R3420:3421 Kernel.AxMerge <> rc abbrev
+R3423:3423 Kernel.AxMerge <> t:20 var
+R3417:3417 Kernel.AxMerge <> a:19 var
+R3415:3415 Kernel.AxMerge <> Merge.P var
+R3468:3472 Kernel.AxMerge <> ax_up def
+R3483:3491 Coq.Lists.List <> filter_In thm
+R3483:3491 Coq.Lists.List <> filter_In thm
+R3483:3491 Coq.Lists.List <> filter_In thm
+prf 3584:3594 <> ax_up_nodup
+binder 3605:3607 <> all:21
+binder 3609:3609 <> a:22
+R3625:3628 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3612:3620 Kernel.AxMerge <> ax_finite def
+R3622:3624 Kernel.AxMerge <> all:21 var
+R3629:3633 Coq.Lists.List <> NoDup ind
+R3636:3640 Kernel.AxMerge <> ax_up def
+R3642:3644 Kernel.AxMerge <> all:21 var
+R3646:3646 Kernel.AxMerge <> a:22 var
+R3685:3696 Coq.Lists.List <> NoDup_filter thm
+R3685:3696 Coq.Lists.List <> NoDup_filter thm
+prf 3867:3891 <> ax_exit_merges_or_revokes
+binder 3904:3906 <> all:23
+binder 3908:3908 <> s:24
+binder 3910:3910 <> i:25
+R3926:3929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3913:3921 Kernel.AxMerge <> ax_finite def
+R3923:3925 Kernel.AxMerge <> all:23 var
+R3951:3958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3930:3937 Kernel.AxCore <> ax_exits def
+R3950:3950 Kernel.AxMerge <> i:25 var
+R3948:3948 Kernel.AxMerge <> s:24 var
+R3945:3945 Kernel.AxMerge <> Merge.X var
+R3980:3987 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3959:3960 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3961:3977 Kernel.AxMerge <> ax_step_injective def
+R3979:3979 Kernel.AxMerge <> i:25 var
+R3988:3994 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3996:3997 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3995:3995 <> t:26
+R4028:4045 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3998:4002 Kernel.AxCore <> bp_le def
+R4023:4024 Kernel.AxMerge <> rc abbrev
+R4026:4026 Kernel.AxMerge <> t:26 var
+R4007:4008 Kernel.AxMerge <> rc abbrev
+R4011:4014 Kernel.AxMerge <> step abbrev
+R4016:4016 Kernel.AxMerge <> s:24 var
+R4018:4018 Kernel.AxMerge <> i:25 var
+R4004:4004 Kernel.AxMerge <> Merge.P var
+R4046:4047 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4048:4052 Kernel.AxCore <> bp_le def
+R4073:4074 Kernel.AxMerge <> rc abbrev
+R4077:4080 Kernel.AxMerge <> step abbrev
+R4082:4082 Kernel.AxMerge <> t:26 var
+R4084:4084 Kernel.AxMerge <> i:25 var
+R4057:4058 Kernel.AxMerge <> rc abbrev
+R4061:4064 Kernel.AxMerge <> step abbrev
+R4066:4066 Kernel.AxMerge <> s:24 var
+R4068:4068 Kernel.AxMerge <> i:25 var
+R4054:4054 Kernel.AxMerge <> Merge.P var
+R4135:4136 Kernel.AxMerge <> rc abbrev
+R4139:4142 Kernel.AxMerge <> step abbrev
+R4135:4136 Kernel.AxMerge <> rc abbrev
+R4139:4142 Kernel.AxMerge <> step abbrev
+R4163:4167 Kernel.AxMerge <> ax_up def
+R4163:4167 Kernel.AxMerge <> ax_up def
+R4189:4195 Coq.Lists.List <> existsb def
+binder 4202:4202 <> t:27
+R4207:4210 Coq.Init.Datatypes <> negb def
+R4213:4218 Kernel.AxCore <> bp_leb proj
+R4220:4220 Kernel.AxMerge <> Merge.A var
+R4222:4222 Kernel.AxMerge <> Merge.P var
+R4227:4228 Kernel.AxMerge <> rc abbrev
+R4231:4234 Kernel.AxMerge <> step abbrev
+R4236:4236 Kernel.AxMerge <> t:27 var
+R4189:4195 Coq.Lists.List <> existsb def
+binder 4202:4202 <> t:28
+R4207:4210 Coq.Init.Datatypes <> negb def
+R4213:4218 Kernel.AxCore <> bp_leb proj
+R4220:4220 Kernel.AxMerge <> Merge.A var
+R4222:4222 Kernel.AxMerge <> Merge.P var
+R4227:4228 Kernel.AxMerge <> rc abbrev
+R4231:4234 Kernel.AxMerge <> step abbrev
+R4236:4236 Kernel.AxMerge <> t:28 var
+R4271:4284 Coq.Lists.List <> existsb_exists thm
+R4271:4284 Coq.Lists.List <> existsb_exists thm
+R4339:4348 Kernel.AxMerge <> ax_up_spec thm
+R4339:4348 Kernel.AxMerge <> ax_up_spec thm
+R4395:4399 Kernel.AxCore <> bp_le def
+binder 4490:4490 <> t:29
+R4499:4502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4493:4494 Coq.Lists.List <> In def
+R4496:4496 Kernel.AxMerge <> t:29 var
+R4503:4507 Kernel.AxCore <> bp_le def
+R4514:4515 Kernel.AxMerge <> rc abbrev
+R4518:4521 Kernel.AxMerge <> step abbrev
+R4523:4523 Kernel.AxMerge <> t:29 var
+R4509:4509 Kernel.AxMerge <> Merge.P var
+binder 4490:4490 <> t:30
+R4499:4502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4493:4494 Coq.Lists.List <> In def
+R4496:4496 Kernel.AxMerge <> t:30 var
+R4503:4507 Kernel.AxCore <> bp_le def
+R4514:4515 Kernel.AxMerge <> rc abbrev
+R4518:4521 Kernel.AxMerge <> step abbrev
+R4523:4523 Kernel.AxMerge <> t:30 var
+R4509:4509 Kernel.AxMerge <> Merge.P var
+R4557:4561 Kernel.AxCore <> bp_le def
+R4580:4585 Kernel.AxCore <> bp_leb proj
+R4587:4587 Kernel.AxMerge <> Merge.A var
+R4589:4589 Kernel.AxMerge <> Merge.P var
+R4594:4595 Kernel.AxMerge <> rc abbrev
+R4598:4601 Kernel.AxMerge <> step abbrev
+R4580:4585 Kernel.AxCore <> bp_leb proj
+R4587:4587 Kernel.AxMerge <> Merge.A var
+R4589:4589 Kernel.AxMerge <> Merge.P var
+R4594:4595 Kernel.AxMerge <> rc abbrev
+R4598:4601 Kernel.AxMerge <> step abbrev
+R4721:4723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4665:4671 Coq.Lists.List <> existsb def
+binder 4678:4678 <> t:31
+R4683:4686 Coq.Init.Datatypes <> negb def
+R4689:4694 Kernel.AxCore <> bp_leb proj
+R4696:4696 Kernel.AxMerge <> Merge.A var
+R4698:4698 Kernel.AxMerge <> Merge.P var
+R4703:4704 Kernel.AxMerge <> rc abbrev
+R4707:4710 Kernel.AxMerge <> step abbrev
+R4712:4712 Kernel.AxMerge <> t:31 var
+R4724:4727 Coq.Init.Datatypes <> true constr
+R4721:4723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4665:4671 Coq.Lists.List <> existsb def
+binder 4678:4678 <> t:32
+R4683:4686 Coq.Init.Datatypes <> negb def
+R4689:4694 Kernel.AxCore <> bp_leb proj
+R4696:4696 Kernel.AxMerge <> Merge.A var
+R4698:4698 Kernel.AxMerge <> Merge.P var
+R4703:4704 Kernel.AxMerge <> rc abbrev
+R4707:4710 Kernel.AxMerge <> step abbrev
+R4712:4712 Kernel.AxMerge <> t:32 var
+R4724:4727 Coq.Init.Datatypes <> true constr
+R4745:4758 Coq.Lists.List <> existsb_exists thm
+R4745:4758 Coq.Lists.List <> existsb_exists thm
+R4855:4856 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4857:4858 Coq.Lists.List <> In def
+R4855:4856 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4857:4858 Coq.Lists.List <> In def
+R4888:4897 Kernel.AxMerge <> ax_up_spec thm
+R4888:4897 Kernel.AxMerge <> ax_up_spec thm
+R4953:4957 Coq.Lists.List <> NoDup ind
+R4961:4964 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4953:4957 Coq.Lists.List <> NoDup ind
+R4961:4964 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5007:5017 Kernel.AxMerge <> ax_up_nodup thm
+R5007:5017 Kernel.AxMerge <> ax_up_nodup thm
+R5054:5058 Coq.Lists.List <> NoDup ind
+R5061:5063 Coq.Lists.List <> map def
+R5087:5090 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+binder 5070:5070 <> t:33
+R5075:5078 Kernel.AxMerge <> step abbrev
+R5080:5080 Kernel.AxMerge <> t:33 var
+R5054:5058 Coq.Lists.List <> NoDup ind
+R5061:5063 Coq.Lists.List <> map def
+R5087:5090 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+binder 5070:5070 <> t:34
+R5075:5078 Kernel.AxMerge <> step abbrev
+R5080:5080 Kernel.AxMerge <> t:34 var
+R5109:5124 Kernel.AxMerge <> ax_NoDup_map_inj thm
+R5109:5124 Kernel.AxMerge <> ax_NoDup_map_inj thm
+R5209:5212 Coq.Lists.List <> incl def
+R5215:5217 Coq.Lists.List <> map def
+R5241:5244 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+binder 5224:5224 <> t:35
+R5229:5232 Kernel.AxMerge <> step abbrev
+R5234:5234 Kernel.AxMerge <> t:35 var
+R5209:5212 Coq.Lists.List <> incl def
+R5215:5217 Coq.Lists.List <> map def
+R5241:5244 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+binder 5224:5224 <> t:36
+R5229:5232 Kernel.AxMerge <> step abbrev
+R5234:5234 Kernel.AxMerge <> t:36 var
+R5278:5287 Coq.Lists.List <> in_map_iff thm
+R5278:5287 Coq.Lists.List <> in_map_iff thm
+R5352:5361 Kernel.AxMerge <> ax_up_spec thm
+R5352:5361 Kernel.AxMerge <> ax_up_spec thm
+R5382:5391 Kernel.AxCore <> bp_le_refl thm
+R5382:5391 Kernel.AxCore <> bp_le_refl thm
+R5409:5418 Kernel.AxMerge <> ax_up_spec thm
+R5409:5418 Kernel.AxMerge <> ax_up_spec thm
+R5475:5491 Coq.Lists.List <> NoDup_incl_length thm
+R5475:5491 Coq.Lists.List <> NoDup_incl_length thm
+R5526:5535 Coq.Lists.List <> map_length thm
+R5526:5535 Coq.Lists.List <> map_length thm
+R5526:5535 Coq.Lists.List <> map_length thm
+prf 5647:5667 <> ax_growth_exit_merges
+binder 5680:5682 <> all:37
+binder 5684:5684 <> s:38
+binder 5686:5686 <> i:39
+R5702:5705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5689:5697 Kernel.AxMerge <> ax_finite def
+R5699:5701 Kernel.AxMerge <> all:37 var
+R5723:5726 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5706:5713 Kernel.AxCore <> ax_grows def
+R5721:5721 Kernel.AxMerge <> Merge.X var
+R5748:5755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5727:5734 Kernel.AxCore <> ax_exits def
+R5747:5747 Kernel.AxMerge <> i:39 var
+R5745:5745 Kernel.AxMerge <> s:38 var
+R5742:5742 Kernel.AxMerge <> Merge.X var
+R5756:5757 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5758:5774 Kernel.AxMerge <> ax_step_injective def
+R5776:5776 Kernel.AxMerge <> i:39 var
+R5828:5852 Kernel.AxMerge <> ax_exit_merges_or_revokes thm
+R5828:5852 Kernel.AxMerge <> ax_exit_merges_or_revokes thm
+R5943:5953 Kernel.AxCore <> bp_le_trans thm
+R5943:5953 Kernel.AxCore <> bp_le_trans thm
+def 6074:6090 <> ax_merging_priced
+binder 6111:6111 <> i:40
+R6135:6138 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6114:6115 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6116:6132 Kernel.AxMerge <> ax_step_injective def
+R6134:6134 Kernel.AxMerge <> i:40 var
+R6145:6148 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6139:6142 Kernel.AxMerge <> cost abbrev
+R6144:6144 Kernel.AxMerge <> i:40 var
+prf 6240:6261 <> ax_a2_from_merge_price
+binder 6274:6276 <> all:41
+R6292:6295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6279:6287 Kernel.AxMerge <> ax_finite def
+R6289:6291 Kernel.AxMerge <> all:41 var
+R6313:6316 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6296:6303 Kernel.AxCore <> ax_grows def
+R6311:6311 Kernel.AxMerge <> Merge.X var
+R6334:6341 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6317:6333 Kernel.AxMerge <> ax_merging_priced def
+R6342:6346 Kernel.AxCore <> ax_a2 def
+R6354:6354 Kernel.AxMerge <> Merge.X var
+R6415:6435 Kernel.AxMerge <> ax_growth_exit_merges thm
+R6415:6435 Kernel.AxMerge <> ax_growth_exit_merges thm
+prf 6619:6650 <> ax_a2_iff_flipping_merges_priced
+binder 6663:6665 <> all:42
+R6681:6684 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6668:6676 Kernel.AxMerge <> ax_finite def
+R6678:6680 Kernel.AxMerge <> all:42 var
+R6702:6710 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6818:6818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6685:6692 Kernel.AxCore <> ax_grows def
+R6700:6700 Kernel.AxMerge <> Merge.X var
+R6725:6734 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6711:6715 Kernel.AxCore <> ax_a2 def
+R6723:6723 Kernel.AxMerge <> Merge.X var
+binder 6742:6742 <> i:43
+R6745:6745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6777:6781 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6746:6752 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6754:6755 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6753:6753 <> s:44
+R6756:6763 Kernel.AxCore <> ax_exits def
+R6776:6776 Kernel.AxMerge <> i:43 var
+R6774:6774 Kernel.AxMerge <> s:44 var
+R6771:6771 Kernel.AxMerge <> Merge.X var
+R6803:6806 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6782:6783 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6784:6800 Kernel.AxMerge <> ax_step_injective def
+R6802:6802 Kernel.AxMerge <> i:43 var
+R6813:6816 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6807:6810 Kernel.AxMerge <> cost abbrev
+R6812:6812 Kernel.AxMerge <> i:43 var
+R6967:6987 Kernel.AxMerge <> ax_growth_exit_merges thm
+R6967:6987 Kernel.AxMerge <> ax_growth_exit_merges thm
+var 7045:7050 Merge eq_dec
+R7067:7067 Kernel.AxMerge <> S abbrev
+binder 7061:7061 <> a:45
+binder 7063:7063 <> b:46
+R7070:7070 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R7076:7080 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R7087:7087 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R7072:7074 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7071:7071 Kernel.AxMerge <> a:45 var
+R7075:7075 Kernel.AxMerge <> b:46 var
+R7082:7085 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7081:7081 Kernel.AxMerge <> a:45 var
+R7086:7086 Kernel.AxMerge <> b:46 var
+def 7102:7114 <> ax_image_size
+R7121:7121 Kernel.AxMerge <> I abbrev
+binder 7117:7117 <> i:48
+R7129:7132 Coq.Init.Datatypes <> list ind
+R7134:7134 Kernel.AxMerge <> S abbrev
+binder 7125:7125 <> D:49
+R7139:7141 Coq.Init.Datatypes <> nat ind
+R7148:7153 Coq.Init.Datatypes <> length def
+R7156:7160 Coq.Lists.List <> nodup def
+R7170:7172 Coq.Lists.List <> map def
+R7194:7194 Kernel.AxMerge <> D:49 var
+binder 7179:7179 <> t:50
+R7184:7187 Kernel.AxMerge <> step abbrev
+R7189:7189 Kernel.AxMerge <> t:50 var
+R7191:7191 Kernel.AxMerge <> i:48 var
+R7162:7167 Kernel.AxMerge <> Merge.eq_dec var
+def 7290:7310 <> ax_compression_priced
+binder 7331:7331 <> i:51
+binder 7333:7333 <> D:52
+R7343:7346 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7336:7340 Coq.Lists.List <> NoDup ind
+R7342:7342 Kernel.AxMerge <> D:52 var
+R7355:7358 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7347:7352 Coq.Init.Datatypes <> length def
+R7354:7354 Kernel.AxMerge <> D:52 var
+R7369:7371 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7360:7362 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7363:7366 Kernel.AxMerge <> cost abbrev
+R7368:7368 Kernel.AxMerge <> i:51 var
+R7372:7384 Kernel.AxMerge <> ax_image_size def
+R7386:7386 Kernel.AxMerge <> i:51 var
+R7388:7388 Kernel.AxMerge <> D:52 var
+prf 7398:7418 <> ax_nodup_app_disjoint
+R7437:7440 Coq.Init.Datatypes <> list ind
+R7442:7442 Kernel.AxMerge <> S abbrev
+binder 7430:7430 <> l:53
+binder 7432:7433 <> l':54
+R7455:7458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7448:7452 Coq.Lists.List <> NoDup ind
+R7454:7454 Kernel.AxMerge <> l:53 var
+R7467:7470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7459:7463 Coq.Lists.List <> NoDup ind
+R7465:7466 Kernel.AxMerge <> l':54 var
+R7471:7471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7501:7505 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 7479:7479 <> a:55
+R7488:7491 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7482:7483 Coq.Lists.List <> In def
+R7487:7487 Kernel.AxMerge <> l:53 var
+R7485:7485 Kernel.AxMerge <> a:55 var
+R7492:7493 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7494:7495 Coq.Lists.List <> In def
+R7499:7500 Kernel.AxMerge <> l':54 var
+R7497:7497 Kernel.AxMerge <> a:55 var
+R7506:7510 Coq.Lists.List <> NoDup ind
+R7514:7517 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7513:7513 Kernel.AxMerge <> l:53 var
+R7518:7519 Kernel.AxMerge <> l':54 var
+R7695:7703 Coq.Lists.List <> in_app_or thm
+R7695:7703 Coq.Lists.List <> in_app_or thm
+R7780:7788 Coq.Init.Logic <> or_introl constr
+R7790:7796 Coq.Init.Logic <> eq_refl constr
+R7780:7788 Coq.Init.Logic <> or_introl constr
+R7790:7796 Coq.Init.Logic <> eq_refl constr
+prf 8008:8033 <> ax_flips_compression_bound
+binder 8046:8048 <> all:56
+binder 8050:8050 <> a:57
+binder 8052:8052 <> i:58
+binder 8054:8054 <> F:59
+R8074:8077 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8061:8069 Kernel.AxMerge <> ax_finite def
+R8071:8073 Kernel.AxMerge <> all:56 var
+R8095:8098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8078:8085 Kernel.AxCore <> ax_grows def
+R8093:8093 Kernel.AxMerge <> Merge.X var
+R8120:8127 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8099:8119 Kernel.AxMerge <> ax_compression_priced def
+R8135:8142 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8128:8132 Coq.Lists.List <> NoDup ind
+R8134:8134 Kernel.AxMerge <> F:59 var
+R8143:8143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8211:8219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8151:8151 <> s:60
+R8160:8163 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8154:8155 Coq.Lists.List <> In def
+R8159:8159 Kernel.AxMerge <> F:59 var
+R8157:8157 Kernel.AxMerge <> s:60 var
+R8182:8185 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8164:8165 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8166:8170 Kernel.AxCore <> bp_le def
+R8177:8178 Kernel.AxMerge <> rc abbrev
+R8180:8180 Kernel.AxMerge <> s:60 var
+R8174:8174 Kernel.AxMerge <> a:57 var
+R8172:8172 Kernel.AxMerge <> Merge.P var
+R8186:8190 Kernel.AxCore <> bp_le def
+R8197:8198 Kernel.AxMerge <> rc abbrev
+R8201:8204 Kernel.AxMerge <> step abbrev
+R8206:8206 Kernel.AxMerge <> s:60 var
+R8208:8208 Kernel.AxMerge <> i:58 var
+R8194:8194 Kernel.AxMerge <> a:57 var
+R8192:8192 Kernel.AxMerge <> Merge.P var
+R8251:8254 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8228:8230 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8220:8225 Coq.Init.Datatypes <> length def
+R8227:8227 Kernel.AxMerge <> F:59 var
+R8231:8236 Coq.Init.Datatypes <> length def
+R8239:8243 Kernel.AxMerge <> ax_up def
+R8245:8247 Kernel.AxMerge <> all:56 var
+R8249:8249 Kernel.AxMerge <> a:57 var
+R8265:8267 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8256:8258 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8259:8262 Kernel.AxMerge <> cost abbrev
+R8264:8264 Kernel.AxMerge <> i:58 var
+R8268:8273 Coq.Init.Datatypes <> length def
+R8276:8280 Kernel.AxMerge <> ax_up def
+R8282:8284 Kernel.AxMerge <> all:56 var
+R8286:8286 Kernel.AxMerge <> a:57 var
+R8352:8356 Kernel.AxMerge <> ax_up def
+R8352:8356 Kernel.AxMerge <> ax_up def
+R8383:8387 Coq.Lists.List <> NoDup ind
+R8402:8412 Kernel.AxMerge <> ax_up_nodup thm
+R8383:8387 Coq.Lists.List <> NoDup ind
+R8402:8412 Kernel.AxMerge <> ax_up_nodup thm
+binder 8452:8452 <> t:61
+R8461:8465 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8455:8456 Coq.Lists.List <> In def
+R8458:8458 Kernel.AxMerge <> t:61 var
+R8466:8470 Kernel.AxCore <> bp_le def
+R8477:8478 Kernel.AxMerge <> rc abbrev
+R8480:8480 Kernel.AxMerge <> t:61 var
+R8472:8472 Kernel.AxMerge <> Merge.P var
+R8494:8503 Kernel.AxMerge <> ax_up_spec thm
+binder 8452:8452 <> t:62
+R8461:8465 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8455:8456 Coq.Lists.List <> In def
+R8458:8458 Kernel.AxMerge <> t:62 var
+R8466:8470 Kernel.AxCore <> bp_le def
+R8477:8478 Kernel.AxMerge <> rc abbrev
+R8480:8480 Kernel.AxMerge <> t:62 var
+R8472:8472 Kernel.AxMerge <> Merge.P var
+R8494:8503 Kernel.AxMerge <> ax_up_spec thm
+R8535:8539 Coq.Lists.List <> NoDup ind
+R8543:8546 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8535:8539 Coq.Lists.List <> NoDup ind
+R8543:8546 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8562:8582 Kernel.AxMerge <> ax_nodup_app_disjoint thm
+R8562:8582 Kernel.AxMerge <> ax_nodup_app_disjoint thm
+R8663:8667 Coq.Init.Logic <> proj1 thm
+R8663:8667 Coq.Init.Logic <> proj1 thm
+R8706:8709 Coq.Lists.List <> incl def
+R8712:8716 Coq.Lists.List <> nodup def
+R8726:8728 Coq.Lists.List <> map def
+R8752:8755 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+binder 8735:8735 <> t:63
+R8740:8743 Kernel.AxMerge <> step abbrev
+R8745:8745 Kernel.AxMerge <> t:63 var
+R8718:8723 Kernel.AxMerge <> Merge.eq_dec var
+R8706:8709 Coq.Lists.List <> incl def
+R8712:8716 Coq.Lists.List <> nodup def
+R8726:8728 Coq.Lists.List <> map def
+R8752:8755 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+binder 8735:8735 <> t:64
+R8740:8743 Kernel.AxMerge <> step abbrev
+R8745:8745 Kernel.AxMerge <> t:64 var
+R8718:8723 Kernel.AxMerge <> Merge.eq_dec var
+R8788:8795 Coq.Lists.List <> nodup_In thm
+R8788:8795 Coq.Lists.List <> nodup_In thm
+R8814:8823 Coq.Lists.List <> in_map_iff thm
+R8814:8823 Coq.Lists.List <> in_map_iff thm
+R8869:8877 Coq.Lists.List <> in_app_or thm
+R8869:8877 Coq.Lists.List <> in_app_or thm
+R8914:8918 Coq.Init.Logic <> proj2 thm
+R8914:8918 Coq.Init.Logic <> proj2 thm
+R8965:8975 Kernel.AxCore <> bp_le_trans thm
+R8965:8975 Kernel.AxCore <> bp_le_trans thm
+R9044:9047 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9020:9032 Kernel.AxMerge <> ax_image_size def
+R9038:9041 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R9048:9053 Coq.Init.Datatypes <> length def
+R9044:9047 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9020:9032 Kernel.AxMerge <> ax_image_size def
+R9038:9041 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R9048:9053 Coq.Init.Datatypes <> length def
+R9069:9085 Coq.Lists.List <> NoDup_incl_length thm
+R9095:9105 Coq.Lists.List <> NoDup_nodup thm
+R9069:9085 Coq.Lists.List <> NoDup_incl_length thm
+R9095:9105 Coq.Lists.List <> NoDup_nodup thm
+R9149:9152 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R9149:9152 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R9178:9187 Coq.Lists.List <> app_length thm
+R9178:9187 Coq.Lists.List <> app_length thm
+R9178:9187 Coq.Lists.List <> app_length thm
+R9238:9240 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9229:9231 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R9232:9235 Kernel.AxMerge <> cost abbrev
+R9241:9253 Kernel.AxMerge <> ax_image_size def
+R9259:9262 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R9204:9215 Coq.Arith.PeanoNat Nat le_trans thm
+R9290:9306 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R9238:9240 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9229:9231 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R9232:9235 Kernel.AxMerge <> cost abbrev
+R9241:9253 Kernel.AxMerge <> ax_image_size def
+R9259:9262 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R9204:9215 Coq.Arith.PeanoNat Nat le_trans thm
+R9290:9306 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+prf 9376:9397 <> ax_a2_from_compression
+binder 9410:9412 <> all:65
+R9428:9431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9415:9423 Kernel.AxMerge <> ax_finite def
+R9425:9427 Kernel.AxMerge <> all:65 var
+R9449:9452 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9432:9439 Kernel.AxCore <> ax_grows def
+R9447:9447 Kernel.AxMerge <> Merge.X var
+R9474:9481 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9453:9473 Kernel.AxMerge <> ax_compression_priced def
+R9482:9486 Kernel.AxCore <> ax_a2 def
+R9494:9494 Kernel.AxMerge <> Merge.X var
+R9554:9555 Kernel.AxMerge <> rc abbrev
+R9558:9561 Kernel.AxMerge <> step abbrev
+R9554:9555 Kernel.AxMerge <> rc abbrev
+R9558:9561 Kernel.AxMerge <> step abbrev
+R9585:9586 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9587:9591 Kernel.AxCore <> bp_le def
+R9598:9599 Kernel.AxMerge <> rc abbrev
+R9593:9593 Kernel.AxMerge <> Merge.P var
+R9585:9586 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9587:9591 Kernel.AxCore <> bp_le def
+R9598:9599 Kernel.AxMerge <> rc abbrev
+R9593:9593 Kernel.AxMerge <> Merge.P var
+binder 9641:9642 <> s':66
+R9654:9657 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9645:9646 Coq.Lists.List <> In def
+R9651:9651 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9653:9653 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9648:9649 Kernel.AxMerge <> s':66 var
+R9677:9680 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9658:9659 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9660:9664 Kernel.AxCore <> bp_le def
+R9671:9672 Kernel.AxMerge <> rc abbrev
+R9674:9675 Kernel.AxMerge <> s':66 var
+R9666:9666 Kernel.AxMerge <> Merge.P var
+R9681:9685 Kernel.AxCore <> bp_le def
+R9692:9693 Kernel.AxMerge <> rc abbrev
+R9696:9699 Kernel.AxMerge <> step abbrev
+R9701:9702 Kernel.AxMerge <> s':66 var
+R9687:9687 Kernel.AxMerge <> Merge.P var
+binder 9641:9642 <> s':67
+R9654:9657 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9645:9646 Coq.Lists.List <> In def
+R9651:9651 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9653:9653 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9648:9649 Kernel.AxMerge <> s':67 var
+R9677:9680 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9658:9659 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9660:9664 Kernel.AxCore <> bp_le def
+R9671:9672 Kernel.AxMerge <> rc abbrev
+R9674:9675 Kernel.AxMerge <> s':67 var
+R9666:9666 Kernel.AxMerge <> Merge.P var
+R9681:9685 Kernel.AxCore <> bp_le def
+R9692:9693 Kernel.AxMerge <> rc abbrev
+R9696:9699 Kernel.AxMerge <> step abbrev
+R9701:9702 Kernel.AxMerge <> s':67 var
+R9687:9687 Kernel.AxMerge <> Merge.P var
+R9760:9769 Kernel.AxCore <> bp_le_refl thm
+R9760:9769 Kernel.AxCore <> bp_le_refl thm
+R9789:9814 Kernel.AxMerge <> ax_flips_compression_bound thm
+R9824:9824 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9826:9826 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9860:9869 Coq.Lists.List <> NoDup_cons constr
+R9892:9900 Coq.Lists.List <> NoDup_nil constr
+R9874:9879 Coq.Lists.List <> in_nil thm
+R9789:9814 Kernel.AxMerge <> ax_flips_compression_bound thm
+R9824:9824 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9826:9826 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9860:9869 Coq.Lists.List <> NoDup_cons constr
+R9892:9900 Coq.Lists.List <> NoDup_nil constr
+R9874:9879 Coq.Lists.List <> in_nil thm
+R9935:9938 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9939:9944 Coq.Init.Datatypes <> length def
+R9947:9951 Kernel.AxMerge <> ax_up def
+R9935:9938 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9939:9944 Coq.Init.Datatypes <> length def
+R9947:9951 Kernel.AxMerge <> ax_up def
+R9980:9981 Coq.Lists.List <> In def
+R9995:9999 Kernel.AxMerge <> ax_up def
+R9984:9987 Kernel.AxMerge <> step abbrev
+R10026:10035 Kernel.AxMerge <> ax_up_spec thm
+R10056:10065 Kernel.AxCore <> bp_le_refl thm
+R9980:9981 Coq.Lists.List <> In def
+R9995:9999 Kernel.AxMerge <> ax_up def
+R9984:9987 Kernel.AxMerge <> step abbrev
+R10026:10035 Kernel.AxMerge <> ax_up_spec thm
+R10056:10065 Kernel.AxCore <> bp_le_refl thm
+R10083:10087 Kernel.AxMerge <> ax_up def
+R10083:10087 Kernel.AxMerge <> ax_up def
+R10154:10157 Kernel.AxMerge <> cost abbrev
+R10154:10157 Kernel.AxMerge <> cost abbrev
+R10208:10212 Kernel.AxMerge Merge <> sec
+R10226:10234 Kernel.AxMerge <> ax_finite def
+R10226:10234 Kernel.AxMerge <> ax_finite def
+R10255:10271 Kernel.AxMerge <> ax_step_injective def
+R10255:10271 Kernel.AxMerge <> ax_step_injective def
+R10294:10310 Kernel.AxMerge <> ax_merging_priced def
+R10294:10310 Kernel.AxMerge <> ax_merging_priced def
+R10331:10335 Kernel.AxMerge <> ax_up def
+R10331:10335 Kernel.AxMerge <> ax_up def
+R10356:10380 Kernel.AxMerge <> ax_exit_merges_or_revokes thm
+R10356:10380 Kernel.AxMerge <> ax_exit_merges_or_revokes thm
+R10411:10431 Kernel.AxMerge <> ax_growth_exit_merges thm
+R10411:10431 Kernel.AxMerge <> ax_growth_exit_merges thm
+R10464:10485 Kernel.AxMerge <> ax_a2_from_merge_price thm
+R10464:10485 Kernel.AxMerge <> ax_a2_from_merge_price thm
+prf 10568:10598 <> two_point_permanent_flip_merges
+binder 10612:10612 <> S:68
+binder 10614:10614 <> I:69
+R10633:10636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10632:10632 Kernel.AxMerge <> S:68 var
+R10638:10641 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10637:10637 Kernel.AxMerge <> I:69 var
+R10642:10642 Kernel.AxMerge <> S:68 var
+binder 10625:10628 <> step:70
+R10654:10657 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10653:10653 Kernel.AxMerge <> S:68 var
+R10658:10661 Coq.Init.Datatypes <> bool ind
+binder 10646:10649 <> cert:71
+R10671:10674 Coq.Init.Datatypes <> list ind
+R10676:10676 Kernel.AxMerge <> S:68 var
+binder 10665:10667 <> all:72
+binder 10679:10679 <> s:73
+binder 10681:10681 <> i:74
+R10705:10708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10688:10700 Kernel.PermanentCertification <> finite_states def
+R10702:10704 Kernel.AxMerge <> all:72 var
+R10728:10735 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10709:10717 Kernel.PermanentCertification <> permanent def
+R10724:10727 Kernel.AxMerge <> cert:71 var
+R10719:10722 Kernel.AxMerge <> step:70 var
+R10750:10753 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10742:10744 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10736:10739 Kernel.AxMerge <> cert:71 var
+R10741:10741 Kernel.AxMerge <> s:73 var
+R10745:10749 Coq.Init.Datatypes <> false constr
+R10776:10783 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10769:10771 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10754:10757 Kernel.AxMerge <> cert:71 var
+R10760:10763 Kernel.AxMerge <> step:70 var
+R10767:10767 Kernel.AxMerge <> i:74 var
+R10765:10765 Kernel.AxMerge <> s:73 var
+R10772:10775 Coq.Init.Datatypes <> true constr
+R10784:10785 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10786:10799 Kernel.PermanentCertification <> step_injective def
+R10806:10806 Kernel.AxMerge <> i:74 var
+R10801:10804 Kernel.AxMerge <> step:70 var
+R10880:10887 Kernel.AxCore <> mk_axsys constr
+R10889:10892 Coq.Init.Datatypes <> bool ind
+R10894:10900 Kernel.AxCore <> two_pre def
+R10880:10887 Kernel.AxCore <> mk_axsys constr
+R10889:10892 Coq.Init.Datatypes <> bool ind
+R10894:10900 Kernel.AxCore <> two_pre def
+R10946:10953 Kernel.AxCore <> ax_grows def
+R10946:10953 Kernel.AxCore <> ax_grows def
+R10998:11002 Kernel.AxCore <> bp_le def
+R11114:11121 Kernel.AxCore <> ax_exits def
+R11114:11121 Kernel.AxCore <> ax_exits def
+R11149:11156 Kernel.AxCore <> ax_exits def
+R11173:11177 Kernel.AxCore <> bp_le def
+R11231:11251 Kernel.AxMerge <> ax_growth_exit_merges thm
+R11231:11251 Kernel.AxMerge <> ax_growth_exit_merges thm
+def 11513:11523 <> history_sys
+R11527:11531 Kernel.AxCore <> AxSys rec
+R11533:11535 Coq.Init.Datatypes <> nat ind
+R11537:11543 Kernel.AxCore <> nat_pre def
+R11550:11557 Kernel.AxCore <> mk_axsys constr
+R11559:11561 Coq.Init.Datatypes <> nat ind
+R11563:11569 Kernel.AxCore <> nat_pre def
+R11571:11573 Coq.Init.Datatypes <> nat ind
+R11575:11578 Coq.Init.Datatypes <> unit ind
+binder 11585:11585 <> n:75
+R11592:11592 Coq.Init.Datatypes <> S constr
+R11594:11594 Kernel.AxMerge <> n:75 var
+binder 11615:11615 <> n:76
+R11620:11620 Kernel.AxMerge <> n:76 var
+prf 11633:11646 <> history_escape
+R11679:11684 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11652:11659 Kernel.AxCore <> ax_grows def
+R11667:11677 Kernel.AxMerge <> history_sys def
+R11714:11719 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11685:11701 Kernel.AxMerge <> ax_merging_priced def
+R11703:11713 Kernel.AxMerge <> history_sys def
+R11752:11757 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11720:11736 Kernel.AxMerge <> ax_step_injective def
+R11750:11751 Coq.Init.Datatypes <> tt constr
+R11738:11748 Kernel.AxMerge <> history_sys def
+R11758:11758 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11801:11807 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11766:11766 <> s:77
+R11769:11776 Kernel.AxCore <> ax_exits def
+R11799:11800 Coq.Init.Datatypes <> tt constr
+R11797:11797 Kernel.AxMerge <> s:77 var
+R11784:11794 Kernel.AxMerge <> history_sys def
+R11808:11809 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11810:11814 Kernel.AxCore <> ax_a2 def
+R11822:11832 Kernel.AxMerge <> history_sys def
+binder 11866:11866 <> s:78
+R11869:11876 Kernel.AxCore <> ax_exits def
+R11899:11900 Coq.Init.Datatypes <> tt constr
+R11897:11897 Kernel.AxMerge <> s:78 var
+R11884:11894 Kernel.AxMerge <> history_sys def
+binder 11866:11866 <> s:79
+R11869:11876 Kernel.AxCore <> ax_exits def
+R11899:11900 Coq.Init.Datatypes <> tt constr
+R11897:11897 Kernel.AxMerge <> s:79 var
+R11884:11894 Kernel.AxMerge <> history_sys def
+R11924:11931 Kernel.AxCore <> ax_exits def
+R11949:11958 Kernel.AxCore <> nat_pre_le thm
+R11949:11958 Kernel.AxCore <> nat_pre_le thm
+R11949:11958 Kernel.AxCore <> nat_pre_le thm
+R12015:12024 Kernel.AxCore <> nat_pre_le thm
+R12015:12024 Kernel.AxCore <> nat_pre_le thm
+R12015:12024 Kernel.AxCore <> nat_pre_le thm
+R12184:12185 Coq.Init.Datatypes <> tt constr
+R12184:12185 Coq.Init.Datatypes <> tt constr
+def 12325:12334 <> toggle_sys
+R12338:12342 Kernel.AxCore <> AxSys rec
+R12344:12347 Coq.Init.Datatypes <> bool ind
+R12349:12355 Kernel.AxCore <> two_pre def
+R12362:12369 Kernel.AxCore <> mk_axsys constr
+R12371:12374 Coq.Init.Datatypes <> bool ind
+R12376:12382 Kernel.AxCore <> two_pre def
+R12384:12387 Coq.Init.Datatypes <> bool ind
+R12389:12392 Coq.Init.Datatypes <> unit ind
+binder 12399:12399 <> b:80
+R12406:12409 Coq.Init.Datatypes <> negb def
+R12411:12411 Kernel.AxMerge <> b:80 var
+binder 12432:12432 <> b:81
+R12437:12437 Kernel.AxMerge <> b:81 var
+prf 12450:12462 <> toggle_escape
+R12502:12507 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12468:12476 Kernel.AxMerge <> ax_finite def
+R12489:12489 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12495:12496 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12501:12501 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12490:12494 Coq.Init.Datatypes <> false constr
+R12497:12500 Coq.Init.Datatypes <> true constr
+R12478:12487 Kernel.AxMerge <> toggle_sys def
+R12536:12541 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12508:12524 Kernel.AxMerge <> ax_merging_priced def
+R12526:12535 Kernel.AxMerge <> toggle_sys def
+R12577:12582 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12542:12549 Kernel.AxCore <> ax_exits def
+R12575:12576 Coq.Init.Datatypes <> tt constr
+R12569:12573 Coq.Init.Datatypes <> false constr
+R12557:12566 Kernel.AxMerge <> toggle_sys def
+R12611:12616 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12583:12584 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12585:12592 Kernel.AxCore <> ax_grows def
+R12600:12609 Kernel.AxMerge <> toggle_sys def
+R12617:12618 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12619:12623 Kernel.AxCore <> ax_a2 def
+R12631:12640 Kernel.AxMerge <> toggle_sys def
+R12667:12674 Kernel.AxCore <> ax_exits def
+R12700:12701 Coq.Init.Datatypes <> tt constr
+R12694:12698 Coq.Init.Datatypes <> false constr
+R12682:12691 Kernel.AxMerge <> toggle_sys def
+R12719:12726 Kernel.AxCore <> ax_exits def
+R12729:12733 Kernel.AxCore <> bp_le def
+R12667:12674 Kernel.AxCore <> ax_exits def
+R12700:12701 Coq.Init.Datatypes <> tt constr
+R12694:12698 Coq.Init.Datatypes <> false constr
+R12682:12691 Kernel.AxMerge <> toggle_sys def
+R13018:13021 Coq.Init.Datatypes <> true constr
+R13023:13024 Coq.Init.Datatypes <> tt constr
+R13018:13021 Coq.Init.Datatypes <> true constr
+R13023:13024 Coq.Init.Datatypes <> tt constr
+R13035:13039 Kernel.AxCore <> bp_le def
+R13100:13104 Coq.Init.Datatypes <> false constr
+R13106:13107 Coq.Init.Datatypes <> tt constr
+R13100:13104 Coq.Init.Datatypes <> false constr
+R13106:13107 Coq.Init.Datatypes <> tt constr
+def 13219:13227 <> stamp_sys
+R13231:13235 Kernel.AxCore <> AxSys rec
+R13237:13240 Coq.Init.Datatypes <> bool ind
+R13242:13248 Kernel.AxCore <> two_pre def
+R13255:13262 Kernel.AxCore <> mk_axsys constr
+R13264:13267 Coq.Init.Datatypes <> bool ind
+R13269:13275 Kernel.AxCore <> two_pre def
+R13277:13280 Coq.Init.Datatypes <> bool ind
+R13282:13285 Coq.Init.Datatypes <> unit ind
+R13299:13302 Coq.Init.Datatypes <> true constr
+binder 13323:13323 <> b:82
+R13328:13328 Kernel.AxMerge <> b:82 var
+prf 13341:13357 <> free_merge_escape
+R13396:13401 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13363:13371 Kernel.AxMerge <> ax_finite def
+R13383:13383 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13389:13390 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13395:13395 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13384:13388 Coq.Init.Datatypes <> false constr
+R13391:13394 Coq.Init.Datatypes <> true constr
+R13373:13381 Kernel.AxMerge <> stamp_sys def
+R13427:13432 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13402:13409 Kernel.AxCore <> ax_grows def
+R13417:13425 Kernel.AxMerge <> stamp_sys def
+R13462:13467 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13433:13434 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13435:13451 Kernel.AxMerge <> ax_merging_priced def
+R13453:13461 Kernel.AxMerge <> stamp_sys def
+R13468:13469 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13470:13474 Kernel.AxCore <> ax_a2 def
+R13482:13490 Kernel.AxMerge <> stamp_sys def
+R13516:13517 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13518:13534 Kernel.AxMerge <> ax_step_injective def
+R13546:13547 Coq.Init.Datatypes <> tt constr
+R13536:13544 Kernel.AxMerge <> stamp_sys def
+R13516:13517 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13518:13534 Kernel.AxMerge <> ax_step_injective def
+R13546:13547 Coq.Init.Datatypes <> tt constr
+R13536:13544 Kernel.AxMerge <> stamp_sys def
+R13584:13588 Coq.Init.Datatypes <> false constr
+R13590:13593 Coq.Init.Datatypes <> true constr
+R13595:13601 Coq.Init.Logic <> eq_refl constr
+R13584:13588 Coq.Init.Datatypes <> false constr
+R13590:13593 Coq.Init.Datatypes <> true constr
+R13595:13601 Coq.Init.Logic <> eq_refl constr
+R13637:13644 Kernel.AxCore <> ax_exits def
+R13669:13670 Coq.Init.Datatypes <> tt constr
+R13663:13667 Coq.Init.Datatypes <> false constr
+R13652:13660 Kernel.AxMerge <> stamp_sys def
+R13688:13695 Kernel.AxCore <> ax_exits def
+R13698:13702 Kernel.AxCore <> bp_le def
+R13637:13644 Kernel.AxCore <> ax_exits def
+R13669:13670 Coq.Init.Datatypes <> tt constr
+R13663:13667 Coq.Init.Datatypes <> false constr
+R13652:13660 Kernel.AxMerge <> stamp_sys def
+R13878:13882 Kernel.AxCore <> bp_le def
+R13932:13933 Coq.Init.Datatypes <> tt constr
+R13932:13933 Coq.Init.Datatypes <> tt constr
+R13984:13988 Coq.Init.Datatypes <> false constr
+R13990:13991 Coq.Init.Datatypes <> tt constr
+R13984:13988 Coq.Init.Datatypes <> false constr
+R13990:13991 Coq.Init.Datatypes <> tt constr
+R14040:14064 Kernel.AxMerge <> ax_exit_merges_or_revokes thm
+R14085:14105 Kernel.AxMerge <> ax_growth_exit_merges thm
+R14126:14147 Kernel.AxMerge <> ax_a2_from_merge_price thm
+R14168:14199 Kernel.AxMerge <> ax_a2_iff_flipping_merges_priced thm
+R14220:14245 Kernel.AxMerge <> ax_flips_compression_bound thm
+R14266:14287 Kernel.AxMerge <> ax_a2_from_compression thm
+R14308:14338 Kernel.AxMerge <> two_point_permanent_flip_merges thm
+R14359:14372 Kernel.AxMerge <> history_escape thm
+R14393:14405 Kernel.AxMerge <> toggle_escape thm
+R14426:14442 Kernel.AxMerge <> free_merge_escape thm

@@ -1,0 +1,896 @@
+DIGEST d58f2545f2393373dfe68ff9ff8072e6
+FKernel.NecFFloor
+R1135:1138 Coq.Lists.List <> <> lib
+R1140:1153 Coq.Arith.PeanoNat <> <> lib
+R1155:1157 Coq.micromega.Lia <> <> lib
+R1159:1162 Coq.Bool.Bool <> <> lib
+R1172:1184 Coq.Lists.List ListNotations <> mod
+R1214:1239 Kernel.UniversalCertificationCost <> <> lib
+R1269:1291 Kernel.CostSemanticsComparison <> <> lib
+sec 1385:1388 <> Bare
+var 1403:1403 Bare S
+var 1405:1405 Bare I
+var 1425:1428 Bare step
+R1433:1436 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1432:1432 Kernel.NecFFloor <> Bare.S var
+R1438:1441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1437:1437 Kernel.NecFFloor <> Bare.I var
+R1442:1442 Kernel.NecFFloor <> Bare.S var
+var 1454:1457 Bare cost
+R1462:1465 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1461:1461 Kernel.NecFFloor <> Bare.I var
+R1466:1468 Coq.Init.Datatypes <> nat ind
+var 1480:1483 Bare cert
+R1488:1491 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1487:1487 Kernel.NecFFloor <> Bare.S var
+R1492:1495 Coq.Init.Datatypes <> bool ind
+abbrev 1508:1510 <> run
+R1516:1542 Kernel.CostSemanticsComparison <> run def
+R1548:1551 Kernel.NecFFloor <> Bare.step var
+R1546:1546 Kernel.NecFFloor <> Bare.I var
+R1544:1544 Kernel.NecFFloor <> Bare.S var
+abbrev 1564:1568 <> total
+R1574:1602 Kernel.CostSemanticsComparison <> total def
+R1606:1609 Kernel.NecFFloor <> Bare.cost var
+R1604:1604 Kernel.NecFFloor <> Bare.I var
+def 1625:1646 <> nec_f_floor_everywhere
+binder 1667:1667 <> t:6
+binder 1669:1669 <> s:7
+R1686:1689 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1678:1680 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1672:1675 Kernel.NecFFloor <> Bare.cert var
+R1677:1677 Kernel.NecFFloor <> s:7 var
+R1681:1685 Coq.Init.Datatypes <> false constr
+R1711:1714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1704:1706 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1690:1693 Kernel.NecFFloor <> Bare.cert var
+R1696:1698 Kernel.NecFFloor <> run abbrev
+R1700:1700 Kernel.NecFFloor <> t:6 var
+R1702:1702 Kernel.NecFFloor <> s:7 var
+R1707:1710 Coq.Init.Datatypes <> true constr
+R1722:1725 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1715:1719 Kernel.NecFFloor <> total abbrev
+R1721:1721 Kernel.NecFFloor <> t:6 var
+def 1741:1754 <> nec_f_floor_at
+R1762:1762 Kernel.NecFFloor <> Bare.S var
+binder 1757:1758 <> s0:8
+binder 1784:1784 <> t:9
+R1809:1812 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1802:1804 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1787:1790 Kernel.NecFFloor <> Bare.cert var
+R1793:1795 Kernel.NecFFloor <> run abbrev
+R1797:1797 Kernel.NecFFloor <> t:9 var
+R1799:1800 Kernel.NecFFloor <> s0:8 var
+R1805:1808 Coq.Init.Datatypes <> true constr
+R1820:1823 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1813:1817 Kernel.NecFFloor <> total abbrev
+R1819:1819 Kernel.NecFFloor <> t:9 var
+prf 1834:1846 <> nec_f_run_app
+binder 1857:1858 <> t1:10
+binder 1860:1861 <> t2:11
+binder 1863:1863 <> s:12
+R1882:1884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1866:1868 Kernel.NecFFloor <> run abbrev
+R1873:1876 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1871:1872 Kernel.NecFFloor <> t1:10 var
+R1877:1878 Kernel.NecFFloor <> t2:11 var
+R1881:1881 Kernel.NecFFloor <> s:12 var
+R1885:1887 Kernel.NecFFloor <> run abbrev
+R1889:1890 Kernel.NecFFloor <> t2:11 var
+R1893:1895 Kernel.NecFFloor <> run abbrev
+R1897:1898 Kernel.NecFFloor <> t1:10 var
+R1900:1900 Kernel.NecFFloor <> s:12 var
+prf 1998:2012 <> nec_f_total_app
+binder 2023:2024 <> t1:13
+binder 2026:2027 <> t2:14
+R2046:2048 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2030:2034 Kernel.NecFFloor <> total abbrev
+R2039:2042 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2037:2038 Kernel.NecFFloor <> t1:13 var
+R2043:2044 Kernel.NecFFloor <> t2:14 var
+R2057:2059 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2049:2053 Kernel.NecFFloor <> total abbrev
+R2055:2056 Kernel.NecFFloor <> t1:13 var
+R2060:2064 Kernel.NecFFloor <> total abbrev
+R2066:2067 Kernel.NecFFloor <> t2:14 var
+prf 2235:2252 <> nec_f_floor_iff_a2
+R2279:2283 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2258:2259 Kernel.CostSemanticsComparison <> a2 def
+R2275:2278 Kernel.NecFFloor <> Bare.cert var
+R2270:2273 Kernel.NecFFloor <> Bare.cost var
+R2265:2268 Kernel.NecFFloor <> Bare.step var
+R2263:2263 Kernel.NecFFloor <> Bare.I var
+R2261:2261 Kernel.NecFFloor <> Bare.S var
+R2284:2305 Kernel.NecFFloor <> nec_f_floor_everywhere def
+R2356:2371 Kernel.CostSemanticsComparison <> nfi_by_potential thm
+R2387:2390 Kernel.NecFFloor <> Bare.cert var
+R2382:2385 Kernel.NecFFloor <> Bare.cost var
+R2377:2380 Kernel.NecFFloor <> Bare.step var
+R2375:2375 Kernel.NecFFloor <> Bare.I var
+R2373:2373 Kernel.NecFFloor <> Bare.S var
+R2356:2371 Kernel.CostSemanticsComparison <> nfi_by_potential thm
+R2387:2390 Kernel.NecFFloor <> Bare.cert var
+R2382:2385 Kernel.NecFFloor <> Bare.cost var
+R2377:2380 Kernel.NecFFloor <> Bare.step var
+R2375:2375 Kernel.NecFFloor <> Bare.I var
+R2373:2373 Kernel.NecFFloor <> Bare.S var
+R2447:2447 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2449:2449 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2447:2447 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2449:2449 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+ind 2557:2572 <> nec_f_free_reach
+constr 2600:2612 <> nec_f_fr_refl
+constr 2641:2653 <> nec_f_fr_step
+R2580:2580 Kernel.NecFFloor <> Bare.S var
+binder 2575:2576 <> s0:15
+R2586:2589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2585:2585 Kernel.NecFFloor <> Bare.S var
+R2616:2631 Kernel.NecFFloor <> nec_f_free_reach:16 ind
+R2636:2637 Kernel.NecFFloor <> s0:15 var
+R2633:2634 Kernel.NecFFloor <> s0:15 var
+binder 2664:2664 <> r:18
+binder 2666:2666 <> i:19
+R2690:2693 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2669:2684 Kernel.NecFFloor <> nec_f_free_reach:16 ind
+R2689:2689 Kernel.NecFFloor <> r:18 var
+R2686:2687 Kernel.NecFFloor <> s0:15 var
+R2704:2711 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2700:2702 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2694:2697 Kernel.NecFFloor <> Bare.cost var
+R2699:2699 Kernel.NecFFloor <> i:19 var
+R2712:2727 Kernel.NecFFloor <> nec_f_free_reach:16 ind
+R2733:2736 Kernel.NecFFloor <> Bare.step var
+R2738:2738 Kernel.NecFFloor <> r:18 var
+R2740:2740 Kernel.NecFFloor <> i:19 var
+R2729:2730 Kernel.NecFFloor <> s0:15 var
+scheme 2557:2572 <> nec_f_free_reach_ind
+scheme 2557:2572 <> nec_f_free_reach_sind
+prf 2751:2770 <> nec_f_free_reach_run
+binder 2783:2784 <> s0:20
+binder 2786:2786 <> r:21
+R2810:2813 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2789:2804 Kernel.NecFFloor <> nec_f_free_reach ind
+R2806:2807 Kernel.NecFFloor <> s0:20 var
+R2809:2809 Kernel.NecFFloor <> r:21 var
+R2814:2820 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2822:2823 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2821:2821 <> u:22
+R2835:2838 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2831:2833 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2824:2828 Kernel.NecFFloor <> total abbrev
+R2830:2830 Kernel.NecFFloor <> u:22 var
+R2847:2849 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2839:2841 Kernel.NecFFloor <> run abbrev
+R2843:2843 Kernel.NecFFloor <> u:22 var
+R2845:2846 Kernel.NecFFloor <> s0:20 var
+R2850:2850 Kernel.NecFFloor <> r:21 var
+R2921:2922 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2921:2922 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2988:2991 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2992:2992 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2994:2994 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2988:2991 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2992:2992 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2994:2994 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3019:3033 Kernel.NecFFloor <> nec_f_total_app thm
+R3019:3033 Kernel.NecFFloor <> nec_f_total_app thm
+R3019:3033 Kernel.NecFFloor <> nec_f_total_app thm
+R3062:3074 Kernel.NecFFloor <> nec_f_run_app thm
+R3062:3074 Kernel.NecFFloor <> nec_f_run_app thm
+R3062:3074 Kernel.NecFFloor <> nec_f_run_app thm
+def 3203:3220 <> nec_f_a2_free_from
+R3228:3228 Kernel.NecFFloor <> Bare.S var
+binder 3223:3224 <> s0:23
+binder 3250:3250 <> r:24
+binder 3252:3252 <> i:25
+R3276:3279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3255:3270 Kernel.NecFFloor <> nec_f_free_reach ind
+R3272:3273 Kernel.NecFFloor <> s0:23 var
+R3275:3275 Kernel.NecFFloor <> r:24 var
+R3294:3297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3286:3288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3280:3283 Kernel.NecFFloor <> Bare.cert var
+R3285:3285 Kernel.NecFFloor <> r:24 var
+R3289:3293 Coq.Init.Datatypes <> false constr
+R3320:3327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3313:3315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3298:3301 Kernel.NecFFloor <> Bare.cert var
+R3304:3307 Kernel.NecFFloor <> Bare.step var
+R3309:3309 Kernel.NecFFloor <> r:24 var
+R3311:3311 Kernel.NecFFloor <> i:25 var
+R3316:3319 Coq.Init.Datatypes <> true constr
+R3334:3337 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3328:3331 Kernel.NecFFloor <> Bare.cost var
+R3333:3333 Kernel.NecFFloor <> i:25 var
+prf 3469:3497 <> nec_f_floor_at_iff_free_reach
+binder 3510:3511 <> s0:26
+R3529:3536 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3521:3523 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3514:3517 Kernel.NecFFloor <> Bare.cert var
+R3519:3520 Kernel.NecFFloor <> s0:26 var
+R3524:3528 Coq.Init.Datatypes <> false constr
+R3554:3558 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3537:3550 Kernel.NecFFloor <> nec_f_floor_at def
+R3552:3553 Kernel.NecFFloor <> s0:26 var
+R3559:3576 Kernel.NecFFloor <> nec_f_a2_free_from def
+R3578:3579 Kernel.NecFFloor <> s0:26 var
+R3656:3675 Kernel.NecFFloor <> nec_f_free_reach_run thm
+R3656:3675 Kernel.NecFFloor <> nec_f_free_reach_run thm
+R3725:3728 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3729:3729 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3731:3731 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3725:3728 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3729:3729 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3731:3731 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3748:3760 Kernel.NecFFloor <> nec_f_run_app thm
+R3769:3783 Kernel.NecFFloor <> nec_f_total_app thm
+R3748:3760 Kernel.NecFFloor <> nec_f_run_app thm
+R3748:3760 Kernel.NecFFloor <> nec_f_run_app thm
+R3769:3783 Kernel.NecFFloor <> nec_f_total_app thm
+R3769:3783 Kernel.NecFFloor <> nec_f_total_app thm
+binder 3880:3880 <> t:27
+binder 3882:3882 <> s:28
+R3906:3909 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3885:3900 Kernel.NecFFloor <> nec_f_free_reach ind
+R3905:3905 Kernel.NecFFloor <> s:28 var
+R3924:3948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3916:3918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3910:3913 Kernel.NecFFloor <> Bare.cert var
+R3915:3915 Kernel.NecFFloor <> s:28 var
+R3919:3923 Coq.Init.Datatypes <> false constr
+R3970:3973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3963:3965 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3949:3952 Kernel.NecFFloor <> Bare.cert var
+R3955:3957 Kernel.NecFFloor <> run abbrev
+R3959:3959 Kernel.NecFFloor <> t:27 var
+R3961:3961 Kernel.NecFFloor <> s:28 var
+R3966:3969 Coq.Init.Datatypes <> true constr
+R3981:3984 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3974:3978 Kernel.NecFFloor <> total abbrev
+R3980:3980 Kernel.NecFFloor <> t:27 var
+binder 3880:3880 <> t:29
+binder 3882:3882 <> s:30
+R3906:3909 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3885:3900 Kernel.NecFFloor <> nec_f_free_reach ind
+R3905:3905 Kernel.NecFFloor <> s:30 var
+R3924:3948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3916:3918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3910:3913 Kernel.NecFFloor <> Bare.cert var
+R3915:3915 Kernel.NecFFloor <> s:30 var
+R3919:3923 Coq.Init.Datatypes <> false constr
+R3970:3973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3963:3965 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3949:3952 Kernel.NecFFloor <> Bare.cert var
+R3955:3957 Kernel.NecFFloor <> run abbrev
+R3959:3959 Kernel.NecFFloor <> t:29 var
+R3961:3961 Kernel.NecFFloor <> s:30 var
+R3966:3969 Coq.Init.Datatypes <> true constr
+R3981:3984 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3974:3978 Kernel.NecFFloor <> total abbrev
+R3980:3980 Kernel.NecFFloor <> t:29 var
+R4135:4138 Kernel.NecFFloor <> Bare.cert var
+R4141:4144 Kernel.NecFFloor <> Bare.step var
+R4135:4138 Kernel.NecFFloor <> Bare.cert var
+R4141:4144 Kernel.NecFFloor <> Bare.step var
+R4226:4229 Kernel.NecFFloor <> Bare.cost var
+R4226:4229 Kernel.NecFFloor <> Bare.cost var
+R4281:4284 Kernel.NecFFloor <> Bare.step var
+R4300:4312 Kernel.NecFFloor <> nec_f_fr_step constr
+R4281:4284 Kernel.NecFFloor <> Bare.step var
+R4300:4312 Kernel.NecFFloor <> nec_f_fr_step constr
+R4391:4403 Kernel.NecFFloor <> nec_f_fr_refl constr
+R4391:4403 Kernel.NecFFloor <> nec_f_fr_refl constr
+ind 4477:4487 <> nec_f_reach
+constr 4515:4526 <> nec_f_r_refl
+constr 4550:4561 <> nec_f_r_step
+R4495:4495 Kernel.NecFFloor <> Bare.S var
+binder 4490:4491 <> s0:31
+R4501:4504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4500:4500 Kernel.NecFFloor <> Bare.S var
+R4530:4540 Kernel.NecFFloor <> nec_f_reach:32 ind
+R4545:4546 Kernel.NecFFloor <> s0:31 var
+R4542:4543 Kernel.NecFFloor <> s0:31 var
+binder 4572:4572 <> r:34
+binder 4574:4574 <> i:35
+R4593:4596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4577:4587 Kernel.NecFFloor <> nec_f_reach:32 ind
+R4592:4592 Kernel.NecFFloor <> r:34 var
+R4589:4590 Kernel.NecFFloor <> s0:31 var
+R4597:4607 Kernel.NecFFloor <> nec_f_reach:32 ind
+R4613:4616 Kernel.NecFFloor <> Bare.step var
+R4618:4618 Kernel.NecFFloor <> r:34 var
+R4620:4620 Kernel.NecFFloor <> i:35 var
+R4609:4610 Kernel.NecFFloor <> s0:31 var
+scheme 4477:4487 <> nec_f_reach_ind
+scheme 4477:4487 <> nec_f_reach_sind
+prf 4789:4820 <> nec_f_floor_at_from_reachable_a2
+binder 4833:4834 <> s0:36
+R4852:4859 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4844:4846 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4837:4840 Kernel.NecFFloor <> Bare.cert var
+R4842:4843 Kernel.NecFFloor <> s0:36 var
+R4847:4851 Coq.Init.Datatypes <> false constr
+R4860:4860 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4955:4963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4868:4868 <> r:37
+binder 4870:4870 <> i:38
+R4889:4892 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4873:4883 Kernel.NecFFloor <> nec_f_reach ind
+R4885:4886 Kernel.NecFFloor <> s0:36 var
+R4888:4888 Kernel.NecFFloor <> r:37 var
+R4907:4910 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4899:4901 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4893:4896 Kernel.NecFFloor <> Bare.cert var
+R4898:4898 Kernel.NecFFloor <> r:37 var
+R4902:4906 Coq.Init.Datatypes <> false constr
+R4933:4943 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4926:4928 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4911:4914 Kernel.NecFFloor <> Bare.cert var
+R4917:4920 Kernel.NecFFloor <> Bare.step var
+R4922:4922 Kernel.NecFFloor <> r:37 var
+R4924:4924 Kernel.NecFFloor <> i:38 var
+R4929:4932 Coq.Init.Datatypes <> true constr
+R4950:4953 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4944:4947 Kernel.NecFFloor <> Bare.cost var
+R4949:4949 Kernel.NecFFloor <> i:38 var
+R4964:4977 Kernel.NecFFloor <> nec_f_floor_at def
+R4979:4980 Kernel.NecFFloor <> s0:36 var
+R5016:5044 Kernel.NecFFloor <> nec_f_floor_at_iff_free_reach thm
+R5016:5044 Kernel.NecFFloor <> nec_f_floor_at_iff_free_reach thm
+def 5233:5243 <> nec_f_rises
+R5250:5253 Coq.Init.Datatypes <> list ind
+R5255:5255 Kernel.NecFFloor <> Bare.I var
+binder 5246:5246 <> t:39
+R5263:5263 Kernel.NecFFloor <> Bare.S var
+binder 5259:5259 <> s:40
+R5268:5270 Coq.Init.Datatypes <> nat ind
+R5283:5283 Kernel.NecFFloor <> t:39 var
+R5294:5295 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5307:5310 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5317:5317 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5367:5385 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5334:5337 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R5321:5324 Coq.Init.Datatypes <> negb def
+R5327:5330 Kernel.NecFFloor <> Bare.cert var
+R5332:5332 Kernel.NecFFloor <> s:40 var
+R5338:5341 Kernel.NecFFloor <> Bare.cert var
+R5344:5347 Kernel.NecFFloor <> Bare.step var
+R5349:5349 Kernel.NecFFloor <> s:40 var
+R5386:5396 Kernel.NecFFloor <> nec_f_rises:41 def
+R5402:5405 Kernel.NecFFloor <> Bare.step var
+R5407:5407 Kernel.NecFFloor <> s:40 var
+prf 5505:5523 <> nec_f_cost_ge_rises
+R5550:5553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5529:5530 Kernel.CostSemanticsComparison <> a2 def
+R5546:5549 Kernel.NecFFloor <> Bare.cert var
+R5541:5544 Kernel.NecFFloor <> Bare.cost var
+R5536:5539 Kernel.NecFFloor <> Bare.step var
+R5534:5534 Kernel.NecFFloor <> Bare.I var
+R5532:5532 Kernel.NecFFloor <> Bare.S var
+binder 5561:5561 <> t:43
+binder 5563:5563 <> s:44
+R5573:5576 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5566:5570 Kernel.NecFFloor <> total abbrev
+R5572:5572 Kernel.NecFFloor <> t:43 var
+R5577:5587 Kernel.NecFFloor <> nec_f_rises def
+R5589:5589 Kernel.NecFFloor <> t:43 var
+R5591:5591 Kernel.NecFFloor <> s:44 var
+R5687:5690 Kernel.NecFFloor <> Bare.step var
+R5687:5690 Kernel.NecFFloor <> Bare.step var
+R5711:5714 Kernel.NecFFloor <> Bare.cert var
+R5728:5731 Kernel.NecFFloor <> Bare.cert var
+R5734:5737 Kernel.NecFFloor <> Bare.step var
+R5711:5714 Kernel.NecFFloor <> Bare.cert var
+R5728:5731 Kernel.NecFFloor <> Bare.cert var
+R5734:5737 Kernel.NecFFloor <> Bare.step var
+R5728:5731 Kernel.NecFFloor <> Bare.cert var
+R5734:5737 Kernel.NecFFloor <> Bare.step var
+prf 5906:5920 <> nec_f_rises_pos
+binder 5933:5933 <> t:45
+binder 5935:5935 <> s:46
+R5952:5955 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5944:5946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5938:5941 Kernel.NecFFloor <> Bare.cert var
+R5943:5943 Kernel.NecFFloor <> s:46 var
+R5947:5951 Coq.Init.Datatypes <> false constr
+R5977:5980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5970:5972 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5956:5959 Kernel.NecFFloor <> Bare.cert var
+R5962:5964 Kernel.NecFFloor <> run abbrev
+R5966:5966 Kernel.NecFFloor <> t:45 var
+R5968:5968 Kernel.NecFFloor <> s:46 var
+R5973:5976 Coq.Init.Datatypes <> true constr
+R5996:5999 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5981:5991 Kernel.NecFFloor <> nec_f_rises def
+R5993:5993 Kernel.NecFFloor <> t:45 var
+R5995:5995 Kernel.NecFFloor <> s:46 var
+R6114:6117 Kernel.NecFFloor <> Bare.cert var
+R6120:6123 Kernel.NecFFloor <> Bare.step var
+R6114:6117 Kernel.NecFFloor <> Bare.cert var
+R6120:6123 Kernel.NecFFloor <> Bare.step var
+prf 6273:6290 <> nec_f_rises_iff_a2
+R6317:6322 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6361:6361 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6296:6297 Kernel.CostSemanticsComparison <> a2 def
+R6313:6316 Kernel.NecFFloor <> Bare.cert var
+R6308:6311 Kernel.NecFFloor <> Bare.cost var
+R6303:6306 Kernel.NecFFloor <> Bare.step var
+R6301:6301 Kernel.NecFFloor <> Bare.I var
+R6299:6299 Kernel.NecFFloor <> Bare.S var
+binder 6330:6330 <> t:47
+binder 6332:6332 <> s:48
+R6342:6345 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6335:6339 Kernel.NecFFloor <> total abbrev
+R6341:6341 Kernel.NecFFloor <> t:47 var
+R6346:6356 Kernel.NecFFloor <> nec_f_rises def
+R6358:6358 Kernel.NecFFloor <> t:47 var
+R6360:6360 Kernel.NecFFloor <> s:48 var
+R6387:6405 Kernel.NecFFloor <> nec_f_cost_ge_rises thm
+R6387:6405 Kernel.NecFFloor <> nec_f_cost_ge_rises thm
+R6447:6447 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6449:6449 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6447:6447 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6449:6449 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+def 6631:6654 <> nec_f_pays_rises_exactly
+R6661:6664 Coq.Init.Datatypes <> list ind
+R6666:6666 Kernel.NecFFloor <> Bare.I var
+binder 6657:6657 <> t:49
+R6674:6674 Kernel.NecFFloor <> Bare.S var
+binder 6670:6670 <> s:50
+R6695:6695 Kernel.NecFFloor <> t:49 var
+R6706:6707 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6712:6715 Coq.Init.Logic <> True ind
+R6722:6725 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6792:6810 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6738:6741 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6791:6791 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6732:6735 Kernel.NecFFloor <> Bare.cost var
+R6758:6761 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6745:6748 Coq.Init.Datatypes <> negb def
+R6751:6754 Kernel.NecFFloor <> Bare.cert var
+R6756:6756 Kernel.NecFFloor <> s:50 var
+R6762:6765 Kernel.NecFFloor <> Bare.cert var
+R6768:6771 Kernel.NecFFloor <> Bare.step var
+R6773:6773 Kernel.NecFFloor <> s:50 var
+R6811:6834 Kernel.NecFFloor <> nec_f_pays_rises_exactly:51 def
+R6840:6843 Kernel.NecFFloor <> Bare.step var
+R6845:6845 Kernel.NecFFloor <> s:50 var
+prf 6866:6886 <> nec_f_rises_exact_iff
+R6913:6918 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6892:6893 Kernel.CostSemanticsComparison <> a2 def
+R6909:6912 Kernel.NecFFloor <> Bare.cert var
+R6904:6907 Kernel.NecFFloor <> Bare.cost var
+R6899:6902 Kernel.NecFFloor <> Bare.step var
+R6897:6897 Kernel.NecFFloor <> Bare.I var
+R6895:6895 Kernel.NecFFloor <> Bare.S var
+binder 6926:6926 <> t:53
+binder 6928:6928 <> s:54
+R6956:6960 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6938:6940 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6931:6935 Kernel.NecFFloor <> total abbrev
+R6937:6937 Kernel.NecFFloor <> t:53 var
+R6941:6951 Kernel.NecFFloor <> nec_f_rises def
+R6953:6953 Kernel.NecFFloor <> t:53 var
+R6955:6955 Kernel.NecFFloor <> s:54 var
+R6961:6984 Kernel.NecFFloor <> nec_f_pays_rises_exactly def
+R6986:6986 Kernel.NecFFloor <> t:53 var
+R6988:6988 Kernel.NecFFloor <> s:54 var
+R7082:7100 Kernel.NecFFloor <> nec_f_cost_ge_rises thm
+R7108:7111 Kernel.NecFFloor <> Bare.step var
+R7082:7100 Kernel.NecFFloor <> nec_f_cost_ge_rises thm
+R7108:7111 Kernel.NecFFloor <> Bare.step var
+R7153:7157 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7207:7207 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7147:7150 Kernel.NecFFloor <> Bare.cost var
+R7174:7177 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R7161:7164 Coq.Init.Datatypes <> negb def
+R7167:7170 Kernel.NecFFloor <> Bare.cert var
+R7178:7181 Kernel.NecFFloor <> Bare.cert var
+R7184:7187 Kernel.NecFFloor <> Bare.step var
+R7153:7157 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7207:7207 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7147:7150 Kernel.NecFFloor <> Bare.cost var
+R7174:7177 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R7161:7164 Coq.Init.Datatypes <> negb def
+R7167:7170 Kernel.NecFFloor <> Bare.cert var
+R7178:7181 Kernel.NecFFloor <> Bare.cert var
+R7184:7187 Kernel.NecFFloor <> Bare.step var
+R7225:7228 Kernel.NecFFloor <> Bare.cert var
+R7242:7245 Kernel.NecFFloor <> Bare.cert var
+R7248:7251 Kernel.NecFFloor <> Bare.step var
+R7225:7228 Kernel.NecFFloor <> Bare.cert var
+R7242:7245 Kernel.NecFFloor <> Bare.cert var
+R7248:7251 Kernel.NecFFloor <> Bare.step var
+R7242:7245 Kernel.NecFFloor <> Bare.cert var
+R7248:7251 Kernel.NecFFloor <> Bare.step var
+R7329:7332 Kernel.NecFFloor <> Bare.step var
+R7329:7332 Kernel.NecFFloor <> Bare.step var
+R7329:7332 Kernel.NecFFloor <> Bare.step var
+R7408:7411 Kernel.NecFFloor Bare <> sec
+prf 7463:7481 <> nec_f_cs_run_is_run
+binder 7494:7495 <> CS:55
+binder 7497:7497 <> t:56
+binder 7499:7499 <> s:57
+R7515:7517 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7502:7507 Kernel.UniversalCertificationCost <> cs_run def
+R7509:7510 Kernel.NecFFloor <> CS:55 var
+R7512:7512 Kernel.NecFFloor <> t:56 var
+R7514:7514 Kernel.NecFFloor <> s:57 var
+R7518:7544 Kernel.CostSemanticsComparison <> run def
+R7563:7563 Kernel.NecFFloor <> t:56 var
+R7565:7565 Kernel.NecFFloor <> s:57 var
+R7551:7557 Kernel.UniversalCertificationCost <> cs_step proj
+R7559:7560 Kernel.NecFFloor <> CS:55 var
+prf 7670:7692 <> nec_f_cs_total_is_total
+binder 7705:7706 <> CS:58
+binder 7708:7708 <> t:59
+R7729:7731 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7711:7723 Kernel.UniversalCertificationCost <> cs_total_cost def
+R7725:7726 Kernel.NecFFloor <> CS:58 var
+R7728:7728 Kernel.NecFFloor <> t:59 var
+R7732:7760 Kernel.CostSemanticsComparison <> total def
+R7777:7777 Kernel.NecFFloor <> t:59 var
+R7765:7771 Kernel.UniversalCertificationCost <> cs_cost proj
+R7773:7774 Kernel.NecFFloor <> CS:58 var
+prf 7961:7982 <> nec_f_cs_cost_ge_rises
+R8001:8019 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 7996:7997 <> CS:60
+binder 8022:8022 <> t:61
+binder 8024:8024 <> s:62
+R8049:8052 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8031:8043 Kernel.UniversalCertificationCost <> cs_total_cost def
+R8045:8046 Kernel.NecFFloor <> CS:60 var
+R8048:8048 Kernel.NecFFloor <> t:61 var
+R8053:8063 Kernel.NecFFloor <> nec_f_rises def
+R8095:8095 Kernel.NecFFloor <> t:61 var
+R8097:8097 Kernel.NecFFloor <> s:62 var
+R8083:8089 Kernel.UniversalCertificationCost <> cs_cert proj
+R8091:8092 Kernel.NecFFloor <> CS:60 var
+R8070:8076 Kernel.UniversalCertificationCost <> cs_step proj
+R8078:8079 Kernel.NecFFloor <> CS:60 var
+R8132:8154 Kernel.NecFFloor <> nec_f_cs_total_is_total thm
+R8132:8154 Kernel.NecFFloor <> nec_f_cs_total_is_total thm
+R8132:8154 Kernel.NecFFloor <> nec_f_cs_total_is_total thm
+R8165:8183 Kernel.NecFFloor <> nec_f_cost_ge_rises thm
+R8165:8183 Kernel.NecFFloor <> nec_f_cost_ge_rises thm
+R8193:8205 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R8193:8205 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+ind 8374:8382 <> NecFBitOp
+constr 8387:8393 <> NecFSet
+constr 8397:8405 <> NecFReset
+scheme 8374:8382 <> NecFBitOp_rect
+scheme 8374:8382 <> NecFBitOp_ind
+scheme 8374:8382 <> NecFBitOp_rec
+scheme 8374:8382 <> NecFBitOp_sind
+def 8420:8433 <> nec_f_bit_step
+R8440:8443 Coq.Init.Datatypes <> bool ind
+binder 8436:8436 <> b:65
+R8451:8459 Kernel.NecFFloor <> NecFBitOp ind
+binder 8447:8447 <> o:66
+R8464:8467 Coq.Init.Datatypes <> bool ind
+R8480:8480 Kernel.NecFFloor <> o:66 var
+R8487:8493 Kernel.NecFFloor <> NecFSet constr
+R8498:8501 Coq.Init.Datatypes <> true constr
+R8505:8513 Kernel.NecFFloor <> NecFReset constr
+R8518:8522 Coq.Init.Datatypes <> false constr
+def 8540:8553 <> nec_f_bit_cost
+R8560:8568 Kernel.NecFFloor <> NecFBitOp ind
+binder 8556:8556 <> o:68
+R8573:8575 Coq.Init.Datatypes <> nat ind
+R8588:8588 Kernel.NecFFloor <> o:68 var
+R8595:8601 Kernel.NecFFloor <> NecFSet constr
+R8610:8618 Kernel.NecFFloor <> NecFReset constr
+prf 8637:8648 <> nec_f_bit_a2
+R8652:8653 Kernel.CostSemanticsComparison <> a2 def
+binder 8705:8705 <> b:70
+R8710:8710 Kernel.NecFFloor <> b:70 var
+R8685:8698 Kernel.NecFFloor <> nec_f_bit_cost def
+R8670:8683 Kernel.NecFFloor <> nec_f_bit_step def
+R8660:8668 Kernel.NecFFloor <> NecFBitOp ind
+R8655:8658 Coq.Init.Datatypes <> bool ind
+def 8790:8801 <> nec_f_bit_cs
+R8805:8823 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R8833:8840 Kernel.UniversalCertificationCost <> cs_state proj
+R8833:8840 Kernel.UniversalCertificationCost <> cs_state proj
+R8833:8840 Kernel.UniversalCertificationCost <> cs_state proj
+R8851:8858 Kernel.UniversalCertificationCost <> cs_instr proj
+R8851:8858 Kernel.UniversalCertificationCost <> cs_instr proj
+R8874:8880 Kernel.UniversalCertificationCost <> cs_step proj
+R8874:8880 Kernel.UniversalCertificationCost <> cs_step proj
+R8906:8912 Kernel.UniversalCertificationCost <> cs_cost proj
+R8906:8912 Kernel.UniversalCertificationCost <> cs_cost proj
+R8933:8939 Kernel.UniversalCertificationCost <> cs_cert proj
+R8933:8939 Kernel.UniversalCertificationCost <> cs_cert proj
+R8956:8968 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R8956:8968 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R8845:8848 Coq.Init.Datatypes <> bool ind
+R8863:8871 Kernel.NecFFloor <> NecFBitOp ind
+R8885:8898 Kernel.NecFFloor <> nec_f_bit_step def
+R8917:8930 Kernel.NecFFloor <> nec_f_bit_cost def
+binder 8948:8948 <> b:71
+R8953:8953 Kernel.NecFFloor <> b:71 var
+R8973:8984 Kernel.NecFFloor <> nec_f_bit_a2 thm
+def 9000:9014 <> nec_f_set_reset
+R9021:9023 Coq.Init.Datatypes <> nat ind
+binder 9017:9017 <> k:72
+R9028:9031 Coq.Init.Datatypes <> list ind
+R9033:9041 Kernel.NecFFloor <> NecFBitOp ind
+R9054:9054 Kernel.NecFFloor <> k:72 var
+R9066:9067 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9071:9071 Coq.Init.Datatypes <> S constr
+R9086:9089 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9079:9085 Kernel.NecFFloor <> NecFSet constr
+R9099:9102 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9090:9098 Kernel.NecFFloor <> NecFReset constr
+R9103:9117 Kernel.NecFFloor <> nec_f_set_reset:73 def
+prf 9293:9313 <> nec_f_bit_rises_exact
+binder 9326:9326 <> k:75
+R9417:9424 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9413:9415 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9333:9343 Kernel.NecFFloor <> nec_f_rises def
+R9389:9403 Kernel.NecFFloor <> nec_f_set_reset def
+R9405:9405 Kernel.NecFFloor <> k:75 var
+R9408:9412 Coq.Init.Datatypes <> false constr
+binder 9380:9380 <> b:76
+R9385:9385 Kernel.NecFFloor <> b:76 var
+R9360:9373 Kernel.NecFFloor <> nec_f_bit_step def
+R9350:9358 Kernel.NecFFloor <> NecFBitOp ind
+R9345:9348 Coq.Init.Datatypes <> bool ind
+R9416:9416 Kernel.NecFFloor <> k:75 var
+R9471:9473 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9425:9437 Kernel.UniversalCertificationCost <> cs_total_cost def
+R9439:9450 Kernel.NecFFloor <> nec_f_bit_cs def
+R9453:9467 Kernel.NecFFloor <> nec_f_set_reset def
+R9469:9469 Kernel.NecFFloor <> k:75 var
+R9474:9474 Kernel.NecFFloor <> k:75 var
+prf 9701:9729 <> nec_f_bit_recertify_costs_two
+R9769:9774 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9761:9763 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9735:9741 Kernel.UniversalCertificationCost <> cs_cert proj
+R9743:9754 Kernel.NecFFloor <> nec_f_bit_cs def
+R9756:9760 Coq.Init.Datatypes <> false constr
+R9764:9768 Coq.Init.Datatypes <> false constr
+R9860:9865 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9853:9855 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9775:9781 Kernel.UniversalCertificationCost <> cs_cert proj
+R9783:9794 Kernel.NecFFloor <> nec_f_bit_cs def
+R9797:9802 Kernel.UniversalCertificationCost <> cs_run def
+R9804:9815 Kernel.NecFFloor <> nec_f_bit_cs def
+R9817:9817 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9825:9826 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9836:9837 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9845:9845 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9818:9824 Kernel.NecFFloor <> NecFSet constr
+R9827:9835 Kernel.NecFFloor <> NecFReset constr
+R9838:9844 Kernel.NecFFloor <> NecFSet constr
+R9847:9851 Coq.Init.Datatypes <> false constr
+R9856:9859 Coq.Init.Datatypes <> true constr
+R9926:9931 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9922:9924 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9866:9878 Kernel.UniversalCertificationCost <> cs_total_cost def
+R9880:9891 Kernel.NecFFloor <> nec_f_bit_cs def
+R9893:9893 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9901:9902 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9912:9913 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9921:9921 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9894:9900 Kernel.NecFFloor <> NecFSet constr
+R9903:9911 Kernel.NecFFloor <> NecFReset constr
+R9914:9920 Kernel.NecFFloor <> NecFSet constr
+R9932:9932 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10050:10056 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9945:9963 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 9940:9941 <> CS:77
+binder 9973:9973 <> t:78
+binder 9975:9975 <> s:79
+R10001:10004 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9983:9995 Kernel.UniversalCertificationCost <> cs_total_cost def
+R9997:9998 Kernel.NecFFloor <> CS:77 var
+R10000:10000 Kernel.NecFFloor <> t:78 var
+R10005:10015 Kernel.NecFFloor <> nec_f_rises def
+R10047:10047 Kernel.NecFFloor <> t:78 var
+R10049:10049 Kernel.NecFFloor <> s:79 var
+R10035:10041 Kernel.UniversalCertificationCost <> cs_cert proj
+R10043:10044 Kernel.NecFFloor <> CS:77 var
+R10022:10028 Kernel.UniversalCertificationCost <> cs_step proj
+R10030:10031 Kernel.NecFFloor <> CS:77 var
+R10147:10149 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10057:10067 Kernel.NecFFloor <> nec_f_rises def
+R10112:10112 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10120:10121 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10131:10132 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10140:10140 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10113:10119 Kernel.NecFFloor <> NecFSet constr
+R10122:10130 Kernel.NecFFloor <> NecFReset constr
+R10133:10139 Kernel.NecFFloor <> NecFSet constr
+R10142:10146 Coq.Init.Datatypes <> false constr
+binder 10104:10104 <> b:80
+R10109:10109 Kernel.NecFFloor <> b:80 var
+R10084:10097 Kernel.NecFFloor <> nec_f_bit_step def
+R10074:10082 Kernel.NecFFloor <> NecFBitOp ind
+R10069:10072 Coq.Init.Datatypes <> bool ind
+R10199:10220 Kernel.NecFFloor <> nec_f_cs_cost_ge_rises thm
+R10199:10220 Kernel.NecFFloor <> nec_f_cs_cost_ge_rises thm
+prf 10312:10335 <> nec_f_floor_one_attained
+R10375:10380 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10367:10369 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10341:10347 Kernel.UniversalCertificationCost <> cs_cert proj
+R10349:10360 Kernel.NecFFloor <> nec_f_bit_cs def
+R10362:10366 Coq.Init.Datatypes <> false constr
+R10370:10374 Coq.Init.Datatypes <> false constr
+R10446:10451 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10439:10441 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10381:10387 Kernel.UniversalCertificationCost <> cs_cert proj
+R10389:10400 Kernel.NecFFloor <> nec_f_bit_cs def
+R10403:10408 Kernel.UniversalCertificationCost <> cs_run def
+R10410:10421 Kernel.NecFFloor <> nec_f_bit_cs def
+R10423:10423 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10431:10431 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10424:10430 Kernel.NecFFloor <> NecFSet constr
+R10433:10437 Coq.Init.Datatypes <> false constr
+R10442:10445 Coq.Init.Datatypes <> true constr
+R10488:10490 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10452:10464 Kernel.UniversalCertificationCost <> cs_total_cost def
+R10466:10477 Kernel.NecFFloor <> nec_f_bit_cs def
+R10479:10479 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10487:10487 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10480:10486 Kernel.NecFFloor <> NecFSet constr
+prf 10656:10681 <> nec_f_floor_needs_no_start
+R10719:10724 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10712:10714 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10687:10693 Kernel.UniversalCertificationCost <> cs_cert proj
+R10695:10706 Kernel.NecFFloor <> nec_f_bit_cs def
+R10708:10711 Coq.Init.Datatypes <> true constr
+R10715:10718 Coq.Init.Datatypes <> true constr
+R10782:10787 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10775:10777 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10725:10731 Kernel.UniversalCertificationCost <> cs_cert proj
+R10733:10744 Kernel.NecFFloor <> nec_f_bit_cs def
+R10747:10752 Kernel.UniversalCertificationCost <> cs_run def
+R10754:10765 Kernel.NecFFloor <> nec_f_bit_cs def
+R10767:10768 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10770:10773 Coq.Init.Datatypes <> true constr
+R10778:10781 Coq.Init.Datatypes <> true constr
+R10817:10819 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10788:10800 Kernel.UniversalCertificationCost <> cs_total_cost def
+R10802:10813 Kernel.NecFFloor <> nec_f_bit_cs def
+R10815:10816 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 10932:10959 <> nec_f_free_stamp_floor_fails
+R10965:10966 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10967:10988 Kernel.NecFFloor <> nec_f_floor_everywhere def
+binder 11038:11038 <> b:81
+R11043:11043 Kernel.NecFFloor <> b:81 var
+R11005:11018 Kernel.NecFFloor <> nec_f_bit_step def
+R10995:11003 Kernel.NecFFloor <> NecFBitOp ind
+R10990:10993 Coq.Init.Datatypes <> bool ind
+R11079:11079 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11087:11087 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11080:11086 Kernel.NecFFloor <> NecFSet constr
+R11089:11093 Coq.Init.Datatypes <> false constr
+R11095:11101 Coq.Init.Logic <> eq_refl constr
+R11103:11109 Coq.Init.Logic <> eq_refl constr
+R11079:11079 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11087:11087 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11080:11086 Kernel.NecFFloor <> NecFSet constr
+R11089:11093 Coq.Init.Datatypes <> false constr
+R11095:11101 Coq.Init.Logic <> eq_refl constr
+R11103:11109 Coq.Init.Logic <> eq_refl constr
+ind 11362:11369 <> NecFRoom
+constr 11374:11378 <> NecFA
+constr 11382:11386 <> NecFB
+constr 11390:11394 <> NecFC
+scheme 11362:11369 <> NecFRoom_rect
+scheme 11362:11369 <> NecFRoom_ind
+scheme 11362:11369 <> NecFRoom_rec
+scheme 11362:11369 <> NecFRoom_sind
+ind 11407:11414 <> NecFDoor
+constr 11419:11425 <> NecFPay
+constr 11429:11436 <> NecFFree
+scheme 11407:11414 <> NecFDoor_rect
+scheme 11407:11414 <> NecFDoor_ind
+scheme 11407:11414 <> NecFDoor_rec
+scheme 11407:11414 <> NecFDoor_sind
+def 11451:11465 <> nec_f_door_step
+R11472:11479 Kernel.NecFFloor <> NecFRoom ind
+binder 11468:11468 <> r:86
+R11487:11494 Kernel.NecFFloor <> NecFDoor ind
+binder 11483:11483 <> d:87
+R11499:11506 Kernel.NecFFloor <> NecFRoom ind
+R11522:11522 Kernel.NecFFloor <> d:87 var
+R11519:11519 Kernel.NecFFloor <> r:86 var
+R11533:11537 Kernel.NecFFloor <> NecFA constr
+R11540:11546 Kernel.NecFFloor <> NecFPay constr
+R11551:11555 Kernel.NecFFloor <> NecFB constr
+R11561:11565 Kernel.NecFFloor <> NecFB constr
+R11568:11575 Kernel.NecFFloor <> NecFFree constr
+R11580:11584 Kernel.NecFFloor <> NecFC constr
+R11598:11598 Kernel.NecFFloor <> r:86 var
+def 11618:11632 <> nec_f_door_cost
+R11639:11646 Kernel.NecFFloor <> NecFDoor ind
+binder 11635:11635 <> d:90
+R11651:11653 Coq.Init.Datatypes <> nat ind
+R11666:11666 Kernel.NecFFloor <> d:90 var
+R11673:11679 Kernel.NecFFloor <> NecFPay constr
+R11688:11695 Kernel.NecFFloor <> NecFFree constr
+def 11718:11732 <> nec_f_door_cert
+R11739:11746 Kernel.NecFFloor <> NecFRoom ind
+binder 11735:11735 <> r:92
+R11751:11754 Coq.Init.Datatypes <> bool ind
+R11767:11767 Kernel.NecFFloor <> r:92 var
+R11774:11778 Kernel.NecFFloor <> NecFC constr
+R11783:11786 Coq.Init.Datatypes <> true constr
+R11795:11799 Coq.Init.Datatypes <> false constr
+prf 11813:11835 <> nec_f_door_free_reach_A
+binder 11848:11848 <> r:94
+R11925:11932 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11851:11866 Kernel.NecFFloor <> nec_f_free_reach ind
+R11918:11922 Kernel.NecFFloor <> NecFA constr
+R11924:11924 Kernel.NecFFloor <> r:94 var
+R11902:11916 Kernel.NecFFloor <> nec_f_door_cost def
+R11886:11900 Kernel.NecFFloor <> nec_f_door_step def
+R11877:11884 Kernel.NecFFloor <> NecFDoor ind
+R11868:11875 Kernel.NecFFloor <> NecFRoom ind
+R11934:11936 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11933:11933 Kernel.NecFFloor <> r:94 var
+R11937:11941 Kernel.NecFFloor <> NecFA constr
+prf 12082:12102 <> nec_f_paid_door_floor
+R12108:12121 Kernel.NecFFloor <> nec_f_floor_at def
+R12189:12193 Kernel.NecFFloor <> NecFA constr
+R12173:12187 Kernel.NecFFloor <> nec_f_door_cert def
+R12157:12171 Kernel.NecFFloor <> nec_f_door_cost def
+R12141:12155 Kernel.NecFFloor <> nec_f_door_step def
+R12132:12139 Kernel.NecFFloor <> NecFDoor ind
+R12123:12130 Kernel.NecFFloor <> NecFRoom ind
+R12212:12240 Kernel.NecFFloor <> nec_f_floor_at_iff_free_reach thm
+R12252:12256 Kernel.NecFFloor <> NecFA constr
+R12258:12264 Coq.Init.Logic <> eq_refl constr
+R12212:12240 Kernel.NecFFloor <> nec_f_floor_at_iff_free_reach thm
+R12252:12256 Kernel.NecFFloor <> NecFA constr
+R12258:12264 Coq.Init.Logic <> eq_refl constr
+R12291:12313 Kernel.NecFFloor <> nec_f_door_free_reach_A thm
+R12291:12313 Kernel.NecFFloor <> nec_f_door_free_reach_A thm
+prf 12380:12401 <> nec_f_paid_door_not_a2
+R12464:12469 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12407:12417 Kernel.NecFFloor <> nec_f_reach ind
+R12453:12457 Kernel.NecFFloor <> NecFA constr
+R12459:12463 Kernel.NecFFloor <> NecFB constr
+R12437:12451 Kernel.NecFFloor <> nec_f_door_step def
+R12428:12435 Kernel.NecFFloor <> NecFDoor ind
+R12419:12426 Kernel.NecFFloor <> NecFRoom ind
+R12470:12471 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12472:12473 Kernel.CostSemanticsComparison <> a2 def
+R12525:12539 Kernel.NecFFloor <> nec_f_door_cert def
+R12509:12523 Kernel.NecFFloor <> nec_f_door_cost def
+R12493:12507 Kernel.NecFFloor <> nec_f_door_step def
+R12484:12491 Kernel.NecFFloor <> NecFDoor ind
+R12475:12482 Kernel.NecFFloor <> NecFRoom ind
+R12569:12573 Kernel.NecFFloor <> NecFB constr
+R12581:12595 Kernel.NecFFloor <> nec_f_door_step def
+R12597:12601 Kernel.NecFFloor <> NecFA constr
+R12603:12609 Kernel.NecFFloor <> NecFPay constr
+R12569:12573 Kernel.NecFFloor <> NecFB constr
+R12581:12595 Kernel.NecFFloor <> nec_f_door_step def
+R12597:12601 Kernel.NecFFloor <> NecFA constr
+R12603:12609 Kernel.NecFFloor <> NecFPay constr
+R12660:12664 Kernel.NecFFloor <> NecFB constr
+R12666:12673 Kernel.NecFFloor <> NecFFree constr
+R12675:12681 Coq.Init.Logic <> eq_refl constr
+R12683:12689 Coq.Init.Logic <> eq_refl constr
+R12660:12664 Kernel.NecFFloor <> NecFB constr
+R12666:12673 Kernel.NecFFloor <> NecFFree constr
+R12675:12681 Coq.Init.Logic <> eq_refl constr
+R12683:12689 Coq.Init.Logic <> eq_refl constr
+R12734:12751 Kernel.NecFFloor <> nec_f_floor_iff_a2 thm
+R12772:12800 Kernel.NecFFloor <> nec_f_floor_at_iff_free_reach thm
+R12821:12852 Kernel.NecFFloor <> nec_f_floor_at_from_reachable_a2 thm
+R12873:12891 Kernel.NecFFloor <> nec_f_cost_ge_rises thm
+R12912:12926 Kernel.NecFFloor <> nec_f_rises_pos thm
+R12947:12964 Kernel.NecFFloor <> nec_f_rises_iff_a2 thm
+R12985:13005 Kernel.NecFFloor <> nec_f_rises_exact_iff thm
+R13026:13047 Kernel.NecFFloor <> nec_f_cs_cost_ge_rises thm
+R13068:13088 Kernel.NecFFloor <> nec_f_bit_rises_exact thm
+R13109:13137 Kernel.NecFFloor <> nec_f_bit_recertify_costs_two thm
+R13158:13181 Kernel.NecFFloor <> nec_f_floor_one_attained thm
+R13202:13229 Kernel.NecFFloor <> nec_f_free_stamp_floor_fails thm
+R13250:13275 Kernel.NecFFloor <> nec_f_floor_needs_no_start thm
+R13296:13316 Kernel.NecFFloor <> nec_f_paid_door_floor thm
+R13337:13358 Kernel.NecFFloor <> nec_f_paid_door_not_a2 thm

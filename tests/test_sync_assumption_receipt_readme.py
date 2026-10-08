@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -25,6 +26,7 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
     receipt = tmp_path / "receipt.json"
     receipt.write_text(json.dumps({
         "files_probed": 450,
+        "corpus_digest": "ab" + "c" * 30 + "d" * 32,
         "summary": {
         "theorems_probed": 13318,
         "closed_under_global_context": 5965,
@@ -43,27 +45,22 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
         "1 close under the global Coq context outright, and 2 use only Coq "
         "standard-library assumptions. Zero project-local axioms appear in "
         "any of the 1 dependency trees.\n"
+        "The counts this book reports from the assumption audit (1 theorems in 1 files) are\n"
+        "  SHA-256 00000000000000000000000000000000\n"
+        "          00000000000000000000000000000000\n"
+        "  corpus digest 00000000000000000000000000000000\n"
+        "                00000000000000000000000000000000\n"
     )
     distillation = tmp_path / "THIELE_MACHINE.txt"
     distillation.write_text(
         "The assumption receipt covers 1 statements across 1 files: "
-        "1 closed and 2 depending on standard-library assumptions.\n"
+        "1 closed under the global context and 2 depending on standard-library assumptions.\n"
     )
     citation = tmp_path / "CITATION.cff"
     citation.write_text(
         "  and the mathematical specification. The assumption receipt covers 1\n"
         "  statements across 1 files: 1 are closed under the global context, 2 depend on\n"
     )
-    corrections = tmp_path / "corrections.tsv"
-    corrections.write_text(
-        "document\tline\toriginal\treplacement\treason\n"
-        "monograph/monograph.tex\t1\tfrozen monograph\tstale monograph\taudit\n"
-        "THIELE_MACHINE.txt\t1\tfrozen distillation\tstale distillation\taudit\n"
-        "CITATION.cff\t2\tfrozen citation\tstale citation\taudit\n"
-    )
-
-    frozen_corrections = corrections.read_bytes()
-
     subprocess.run([
         sys.executable,
         str(ROOT / "scripts/sync_assumption_receipt_readme.py"),
@@ -72,7 +69,6 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
         "--monograph", str(monograph),
         "--distillation", str(distillation),
         "--citation", str(citation),
-        "--corrections", str(corrections),
     ], check=True)
 
     text = readme.read_text()
@@ -88,8 +84,11 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
     assert "13,318 named theorems across 450 files" in monograph.read_text()
     assert "5,965 close under the global Coq context" in monograph.read_text()
     assert "any of the 13,318 dependency trees" in monograph.read_text()
+    assert "assumption audit (13,318 theorems in 450 files)" in monograph.read_text()
+    sha = hashlib.sha256(receipt.read_bytes()).hexdigest()
+    assert f"SHA-256 {sha[:32]}\n          {sha[32:]}" in monograph.read_text()
+    assert "corpus digest ab" + "c" * 30 + "\n                " + "d" * 32 in monograph.read_text()
     assert "13,318 statements across 450 files" in distillation.read_text()
-    assert "5,965 closed and 7,353" in distillation.read_text()
+    assert "5,965 closed under the global context and 7,353" in distillation.read_text()
     assert "covers 13,318" in citation.read_text()
     assert "statements across 450 files: 5,965" in citation.read_text()
-    assert corrections.read_bytes() == frozen_corrections

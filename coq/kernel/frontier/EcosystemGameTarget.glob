@@ -1,175 +1,175 @@
-DIGEST 5f9acaa9e6c1dc95cc6b6c3251889329
+DIGEST 654f0d2e3e69b7402ff2547e93b0b159
 FKernel.EcosystemGameTarget
-R87:91 Coq.Arith.Arith <> <> lib
-R93:96 Coq.Bool.Bool <> <> lib
-rec 258:270 <> EcosystemGame
-proj 286:295 <> game_state
-proj 307:320 <> observer_count
-proj 331:340 <> game_event
-proj 366:378 <> observer_view
-proj 411:419 <> game_step
-R324:326 Coq.Init.Datatypes <> nat ind
-R354:357 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R344:353 Kernel.EcosystemGameTarget <> game_state:2 meth
-R358:361 Coq.Init.Datatypes <> bool ind
-R385:388 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R382:384 Coq.Init.Datatypes <> nat ind
-R399:402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R389:398 Kernel.EcosystemGameTarget <> game_state:2 meth
-R403:406 Coq.Init.Datatypes <> bool ind
-R433:436 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R423:432 Kernel.EcosystemGameTarget <> game_state:2 meth
-R437:446 Kernel.EcosystemGameTarget <> game_state:2 meth
-def 463:470 <> in_range
-R477:489 Kernel.EcosystemGameTarget <> EcosystemGame rec
-binder 473:473 <> g:7
-R497:499 Coq.Init.Datatypes <> nat ind
-binder 493:493 <> i:8
-R515:517 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R514:514 Kernel.EcosystemGameTarget <> i:8 var
-R518:531 Kernel.EcosystemGameTarget <> observer_count proj
-R533:533 Kernel.EcosystemGameTarget <> g:7 var
-def 548:565 <> observer_consensus
-R572:584 Kernel.EcosystemGameTarget <> EcosystemGame rec
-binder 568:568 <> g:9
-binder 606:606 <> s:10
-binder 608:608 <> i:11
-binder 610:610 <> j:12
-R629:632 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R617:624 Kernel.EcosystemGameTarget <> in_range def
-R626:626 Kernel.EcosystemGameTarget <> g:9 var
-R628:628 Kernel.EcosystemGameTarget <> i:11 var
-R645:652 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R633:640 Kernel.EcosystemGameTarget <> in_range def
-R642:642 Kernel.EcosystemGameTarget <> g:9 var
-R644:644 Kernel.EcosystemGameTarget <> j:12 var
-R672:674 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R653:665 Kernel.EcosystemGameTarget <> observer_view proj
-R667:667 Kernel.EcosystemGameTarget <> g:9 var
-R669:669 Kernel.EcosystemGameTarget <> i:11 var
-R671:671 Kernel.EcosystemGameTarget <> s:10 var
-R675:687 Kernel.EcosystemGameTarget <> observer_view proj
-R689:689 Kernel.EcosystemGameTarget <> g:9 var
-R691:691 Kernel.EcosystemGameTarget <> j:12 var
-R693:693 Kernel.EcosystemGameTarget <> s:10 var
-def 770:790 <> observer_authenticity
-R797:809 Kernel.EcosystemGameTarget <> EcosystemGame rec
-binder 793:793 <> g:13
-binder 831:831 <> s:14
-binder 833:833 <> i:15
-R848:851 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R836:843 Kernel.EcosystemGameTarget <> in_range def
-R845:845 Kernel.EcosystemGameTarget <> g:13 var
-R847:847 Kernel.EcosystemGameTarget <> i:15 var
-R871:873 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R852:864 Kernel.EcosystemGameTarget <> observer_view proj
-R866:866 Kernel.EcosystemGameTarget <> g:13 var
-R868:868 Kernel.EcosystemGameTarget <> i:15 var
-R870:870 Kernel.EcosystemGameTarget <> s:14 var
-R874:883 Kernel.EcosystemGameTarget <> game_event proj
-R885:885 Kernel.EcosystemGameTarget <> g:13 var
-R887:887 Kernel.EcosystemGameTarget <> s:14 var
-def 1060:1082 <> coordinator_free_update
-R1089:1101 Kernel.EcosystemGameTarget <> EcosystemGame rec
-binder 1085:1085 <> g:16
-R1116:1122 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1143:1148 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1135:1138 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1131:1134 Coq.Init.Datatypes <> bool ind
-R1139:1142 Coq.Init.Datatypes <> bool ind
-binder 1123:1127 <> local:17
-binder 1156:1156 <> s:18
-binder 1158:1158 <> i:19
-R1173:1182 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1161:1168 Kernel.EcosystemGameTarget <> in_range def
-R1170:1170 Kernel.EcosystemGameTarget <> g:16 var
-R1172:1172 Kernel.EcosystemGameTarget <> i:19 var
-R1216:1218 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1183:1195 Kernel.EcosystemGameTarget <> observer_view proj
-R1197:1197 Kernel.EcosystemGameTarget <> g:16 var
-R1199:1199 Kernel.EcosystemGameTarget <> i:19 var
-R1202:1210 Kernel.EcosystemGameTarget <> game_step proj
-R1212:1212 Kernel.EcosystemGameTarget <> g:16 var
-R1214:1214 Kernel.EcosystemGameTarget <> s:18 var
-R1219:1223 Kernel.EcosystemGameTarget <> local:17 var
-R1226:1238 Kernel.EcosystemGameTarget <> observer_view proj
-R1240:1240 Kernel.EcosystemGameTarget <> g:16 var
-R1242:1242 Kernel.EcosystemGameTarget <> i:19 var
-R1244:1244 Kernel.EcosystemGameTarget <> s:18 var
-def 1260:1274 <> event_permanent
-R1281:1293 Kernel.EcosystemGameTarget <> EcosystemGame rec
-binder 1277:1277 <> g:20
-binder 1315:1315 <> s:21
-R1339:1342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1332:1334 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1318:1327 Kernel.EcosystemGameTarget <> game_event proj
-R1329:1329 Kernel.EcosystemGameTarget <> g:20 var
-R1331:1331 Kernel.EcosystemGameTarget <> s:21 var
-R1335:1338 Coq.Init.Datatypes <> true constr
-R1371:1373 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1343:1352 Kernel.EcosystemGameTarget <> game_event proj
-R1354:1354 Kernel.EcosystemGameTarget <> g:20 var
-R1357:1365 Kernel.EcosystemGameTarget <> game_step proj
-R1367:1367 Kernel.EcosystemGameTarget <> g:20 var
-R1369:1369 Kernel.EcosystemGameTarget <> s:21 var
-R1374:1377 Coq.Init.Datatypes <> true constr
-def 1392:1404 <> durable_views
-R1411:1423 Kernel.EcosystemGameTarget <> EcosystemGame rec
-binder 1407:1407 <> g:22
-binder 1445:1445 <> s:23
-binder 1447:1447 <> i:24
-R1462:1469 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1450:1457 Kernel.EcosystemGameTarget <> in_range def
-R1459:1459 Kernel.EcosystemGameTarget <> g:22 var
-R1461:1461 Kernel.EcosystemGameTarget <> i:24 var
-R1496:1503 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1489:1491 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1470:1482 Kernel.EcosystemGameTarget <> observer_view proj
-R1484:1484 Kernel.EcosystemGameTarget <> g:22 var
-R1486:1486 Kernel.EcosystemGameTarget <> i:24 var
-R1488:1488 Kernel.EcosystemGameTarget <> s:23 var
-R1492:1495 Coq.Init.Datatypes <> true constr
-R1537:1539 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1504:1516 Kernel.EcosystemGameTarget <> observer_view proj
-R1518:1518 Kernel.EcosystemGameTarget <> g:22 var
-R1520:1520 Kernel.EcosystemGameTarget <> i:24 var
-R1523:1531 Kernel.EcosystemGameTarget <> game_step proj
-R1533:1533 Kernel.EcosystemGameTarget <> g:22 var
-R1535:1535 Kernel.EcosystemGameTarget <> s:23 var
-R1540:1543 Coq.Init.Datatypes <> true constr
-def 1558:1581 <> strong_pointer_necessity
-binder 1602:1602 <> g:25
-R1629:1636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1610:1612 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1613:1626 Kernel.EcosystemGameTarget <> observer_count proj
-R1628:1628 Kernel.EcosystemGameTarget <> g:25 var
-R1657:1664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1637:1654 Kernel.EcosystemGameTarget <> observer_consensus def
-R1656:1656 Kernel.EcosystemGameTarget <> g:25 var
-R1688:1695 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1665:1685 Kernel.EcosystemGameTarget <> observer_authenticity def
-R1687:1687 Kernel.EcosystemGameTarget <> g:25 var
-R1721:1728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1696:1718 Kernel.EcosystemGameTarget <> coordinator_free_update def
-R1720:1720 Kernel.EcosystemGameTarget <> g:25 var
-R1729:1743 Kernel.EcosystemGameTarget <> event_permanent def
-R1745:1745 Kernel.EcosystemGameTarget <> g:25 var
-def 1760:1770 <> toggle_game
-R1774:1786 Kernel.EcosystemGameTarget <> EcosystemGame rec
-R1796:1805 Kernel.EcosystemGameTarget <> game_state proj
-R1796:1805 Kernel.EcosystemGameTarget <> game_state proj
-R1796:1805 Kernel.EcosystemGameTarget <> game_state proj
-R1818:1831 Kernel.EcosystemGameTarget <> observer_count proj
-R1818:1831 Kernel.EcosystemGameTarget <> observer_count proj
-R1841:1850 Kernel.EcosystemGameTarget <> game_event proj
-R1841:1850 Kernel.EcosystemGameTarget <> game_event proj
-R1869:1881 Kernel.EcosystemGameTarget <> observer_view proj
-R1869:1881 Kernel.EcosystemGameTarget <> observer_view proj
-R1902:1910 Kernel.EcosystemGameTarget <> game_step proj
-R1902:1910 Kernel.EcosystemGameTarget <> game_step proj
-R1810:1813 Coq.Init.Datatypes <> bool ind
-binder 1859:1859 <> b:26
-R1864:1864 Kernel.EcosystemGameTarget <> b:26 var
-binder 1892:1892 <> b:27
-R1897:1897 Kernel.EcosystemGameTarget <> b:27 var
-R1915:1918 Coq.Init.Datatypes <> negb def
+R80:84 Coq.Arith.Arith <> <> lib
+R86:89 Coq.Bool.Bool <> <> lib
+rec 251:263 <> EcosystemGame
+proj 279:288 <> game_state
+proj 300:313 <> observer_count
+proj 324:333 <> game_event
+proj 359:371 <> observer_view
+proj 404:412 <> game_step
+R317:319 Coq.Init.Datatypes <> nat ind
+R347:350 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R337:346 Kernel.EcosystemGameTarget <> game_state:2 meth
+R351:354 Coq.Init.Datatypes <> bool ind
+R378:381 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R375:377 Coq.Init.Datatypes <> nat ind
+R392:395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R382:391 Kernel.EcosystemGameTarget <> game_state:2 meth
+R396:399 Coq.Init.Datatypes <> bool ind
+R426:429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R416:425 Kernel.EcosystemGameTarget <> game_state:2 meth
+R430:439 Kernel.EcosystemGameTarget <> game_state:2 meth
+def 456:463 <> in_range
+R470:482 Kernel.EcosystemGameTarget <> EcosystemGame rec
+binder 466:466 <> g:7
+R490:492 Coq.Init.Datatypes <> nat ind
+binder 486:486 <> i:8
+R508:510 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R507:507 Kernel.EcosystemGameTarget <> i:8 var
+R511:524 Kernel.EcosystemGameTarget <> observer_count proj
+R526:526 Kernel.EcosystemGameTarget <> g:7 var
+def 541:558 <> observer_consensus
+R565:577 Kernel.EcosystemGameTarget <> EcosystemGame rec
+binder 561:561 <> g:9
+binder 599:599 <> s:10
+binder 601:601 <> i:11
+binder 603:603 <> j:12
+R622:625 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R610:617 Kernel.EcosystemGameTarget <> in_range def
+R619:619 Kernel.EcosystemGameTarget <> g:9 var
+R621:621 Kernel.EcosystemGameTarget <> i:11 var
+R638:645 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R626:633 Kernel.EcosystemGameTarget <> in_range def
+R635:635 Kernel.EcosystemGameTarget <> g:9 var
+R637:637 Kernel.EcosystemGameTarget <> j:12 var
+R665:667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R646:658 Kernel.EcosystemGameTarget <> observer_view proj
+R660:660 Kernel.EcosystemGameTarget <> g:9 var
+R662:662 Kernel.EcosystemGameTarget <> i:11 var
+R664:664 Kernel.EcosystemGameTarget <> s:10 var
+R668:680 Kernel.EcosystemGameTarget <> observer_view proj
+R682:682 Kernel.EcosystemGameTarget <> g:9 var
+R684:684 Kernel.EcosystemGameTarget <> j:12 var
+R686:686 Kernel.EcosystemGameTarget <> s:10 var
+def 763:783 <> observer_authenticity
+R790:802 Kernel.EcosystemGameTarget <> EcosystemGame rec
+binder 786:786 <> g:13
+binder 824:824 <> s:14
+binder 826:826 <> i:15
+R841:844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R829:836 Kernel.EcosystemGameTarget <> in_range def
+R838:838 Kernel.EcosystemGameTarget <> g:13 var
+R840:840 Kernel.EcosystemGameTarget <> i:15 var
+R864:866 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R845:857 Kernel.EcosystemGameTarget <> observer_view proj
+R859:859 Kernel.EcosystemGameTarget <> g:13 var
+R861:861 Kernel.EcosystemGameTarget <> i:15 var
+R863:863 Kernel.EcosystemGameTarget <> s:14 var
+R867:876 Kernel.EcosystemGameTarget <> game_event proj
+R878:878 Kernel.EcosystemGameTarget <> g:13 var
+R880:880 Kernel.EcosystemGameTarget <> s:14 var
+def 1053:1075 <> coordinator_free_update
+R1082:1094 Kernel.EcosystemGameTarget <> EcosystemGame rec
+binder 1078:1078 <> g:16
+R1109:1115 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1136:1141 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1128:1131 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1124:1127 Coq.Init.Datatypes <> bool ind
+R1132:1135 Coq.Init.Datatypes <> bool ind
+binder 1116:1120 <> local:17
+binder 1149:1149 <> s:18
+binder 1151:1151 <> i:19
+R1166:1175 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1154:1161 Kernel.EcosystemGameTarget <> in_range def
+R1163:1163 Kernel.EcosystemGameTarget <> g:16 var
+R1165:1165 Kernel.EcosystemGameTarget <> i:19 var
+R1209:1211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1176:1188 Kernel.EcosystemGameTarget <> observer_view proj
+R1190:1190 Kernel.EcosystemGameTarget <> g:16 var
+R1192:1192 Kernel.EcosystemGameTarget <> i:19 var
+R1195:1203 Kernel.EcosystemGameTarget <> game_step proj
+R1205:1205 Kernel.EcosystemGameTarget <> g:16 var
+R1207:1207 Kernel.EcosystemGameTarget <> s:18 var
+R1212:1216 Kernel.EcosystemGameTarget <> local:17 var
+R1219:1231 Kernel.EcosystemGameTarget <> observer_view proj
+R1233:1233 Kernel.EcosystemGameTarget <> g:16 var
+R1235:1235 Kernel.EcosystemGameTarget <> i:19 var
+R1237:1237 Kernel.EcosystemGameTarget <> s:18 var
+def 1253:1267 <> event_permanent
+R1274:1286 Kernel.EcosystemGameTarget <> EcosystemGame rec
+binder 1270:1270 <> g:20
+binder 1308:1308 <> s:21
+R1332:1335 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1325:1327 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1311:1320 Kernel.EcosystemGameTarget <> game_event proj
+R1322:1322 Kernel.EcosystemGameTarget <> g:20 var
+R1324:1324 Kernel.EcosystemGameTarget <> s:21 var
+R1328:1331 Coq.Init.Datatypes <> true constr
+R1364:1366 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1336:1345 Kernel.EcosystemGameTarget <> game_event proj
+R1347:1347 Kernel.EcosystemGameTarget <> g:20 var
+R1350:1358 Kernel.EcosystemGameTarget <> game_step proj
+R1360:1360 Kernel.EcosystemGameTarget <> g:20 var
+R1362:1362 Kernel.EcosystemGameTarget <> s:21 var
+R1367:1370 Coq.Init.Datatypes <> true constr
+def 1385:1397 <> durable_views
+R1404:1416 Kernel.EcosystemGameTarget <> EcosystemGame rec
+binder 1400:1400 <> g:22
+binder 1438:1438 <> s:23
+binder 1440:1440 <> i:24
+R1455:1462 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1443:1450 Kernel.EcosystemGameTarget <> in_range def
+R1452:1452 Kernel.EcosystemGameTarget <> g:22 var
+R1454:1454 Kernel.EcosystemGameTarget <> i:24 var
+R1489:1496 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1482:1484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1463:1475 Kernel.EcosystemGameTarget <> observer_view proj
+R1477:1477 Kernel.EcosystemGameTarget <> g:22 var
+R1479:1479 Kernel.EcosystemGameTarget <> i:24 var
+R1481:1481 Kernel.EcosystemGameTarget <> s:23 var
+R1485:1488 Coq.Init.Datatypes <> true constr
+R1530:1532 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1497:1509 Kernel.EcosystemGameTarget <> observer_view proj
+R1511:1511 Kernel.EcosystemGameTarget <> g:22 var
+R1513:1513 Kernel.EcosystemGameTarget <> i:24 var
+R1516:1524 Kernel.EcosystemGameTarget <> game_step proj
+R1526:1526 Kernel.EcosystemGameTarget <> g:22 var
+R1528:1528 Kernel.EcosystemGameTarget <> s:23 var
+R1533:1536 Coq.Init.Datatypes <> true constr
+def 1551:1574 <> strong_pointer_necessity
+binder 1595:1595 <> g:25
+R1622:1629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1603:1605 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1606:1619 Kernel.EcosystemGameTarget <> observer_count proj
+R1621:1621 Kernel.EcosystemGameTarget <> g:25 var
+R1650:1657 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1630:1647 Kernel.EcosystemGameTarget <> observer_consensus def
+R1649:1649 Kernel.EcosystemGameTarget <> g:25 var
+R1681:1688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1658:1678 Kernel.EcosystemGameTarget <> observer_authenticity def
+R1680:1680 Kernel.EcosystemGameTarget <> g:25 var
+R1714:1721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1689:1711 Kernel.EcosystemGameTarget <> coordinator_free_update def
+R1713:1713 Kernel.EcosystemGameTarget <> g:25 var
+R1722:1736 Kernel.EcosystemGameTarget <> event_permanent def
+R1738:1738 Kernel.EcosystemGameTarget <> g:25 var
+def 1753:1763 <> toggle_game
+R1767:1779 Kernel.EcosystemGameTarget <> EcosystemGame rec
+R1789:1798 Kernel.EcosystemGameTarget <> game_state proj
+R1789:1798 Kernel.EcosystemGameTarget <> game_state proj
+R1789:1798 Kernel.EcosystemGameTarget <> game_state proj
+R1811:1824 Kernel.EcosystemGameTarget <> observer_count proj
+R1811:1824 Kernel.EcosystemGameTarget <> observer_count proj
+R1834:1843 Kernel.EcosystemGameTarget <> game_event proj
+R1834:1843 Kernel.EcosystemGameTarget <> game_event proj
+R1862:1874 Kernel.EcosystemGameTarget <> observer_view proj
+R1862:1874 Kernel.EcosystemGameTarget <> observer_view proj
+R1895:1903 Kernel.EcosystemGameTarget <> game_step proj
+R1895:1903 Kernel.EcosystemGameTarget <> game_step proj
+R1803:1806 Coq.Init.Datatypes <> bool ind
+binder 1852:1852 <> b:26
+R1857:1857 Kernel.EcosystemGameTarget <> b:26 var
+binder 1885:1885 <> b:27
+R1890:1890 Kernel.EcosystemGameTarget <> b:27 var
+R1908:1911 Coq.Init.Datatypes <> negb def

@@ -15,314 +15,15 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
-  # Import the primary CI checks first.
-  # The software/proof surface and hardware checks are independent branches.
+  # Import the primary CI checks first. The full vacuity sweep is an
+  # independent branch.
   fast-verify:
     uses: ./.github/workflows/ci.yml
     secrets: inherit
 
-  # Hardware synthesis & simulation. Runs in PARALLEL with fast-verify —
-  # only consumes RTL files (.v) already in the repo at checkout, so it does
-  # not depend on any fast-verify output.
-  hardware-synthesis:
-    name: Hardware synthesis & simulation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Install synthesis tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib \
-            iverilog verilator yosys
-
-      - name: Capture toolchain version
-        id: toolchain
-        run: |
-          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
-          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
-          echo "Coq: ${coq_version}"
-
-      - name: Cache vendor builds (bbv + kami)
-        id: cache-vendor
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
-
-      - name: Build vendored deps (bbv + kami)
-        if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: |
-          cd vendor/bbv && make -j4
-          cd ../..
-          bash scripts/fix_kami_coq18.sh
-          cd vendor/kami && make -j4
-
-      - name: Compute vendor build digest
-        id: vendor-digest
-        run: |
-          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
-            | sort -z \
-            | xargs -0 sha256sum 2>/dev/null \
-            | sha256sum \
-            | cut -c1-16)
-          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
-          echo "Vendor .vo digest: ${digest}"
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements.txt
-
-      - name: Purge stale tracked Coq .vo files
-        run: make coq-clean
-
-      - name: Cache Coq build
-        id: cache-coq
-        uses: actions/cache@v4
-        with:
-          path: |
-            coq/**/*.vo
-            coq/**/*.vok
-            coq/**/*.vos
-            coq/**/*.glob
-            coq/Makefile
-            coq/Makefile.conf
-            coq/.Makefile.d
-          key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --quiet --upgrade pip
-          pip install --quiet -r requirements.txt
-          pip install --quiet -e . --no-deps
-
-      - name: Run hardware forge pipeline
-        run: bash scripts/forge_artifact.sh
-
-      - name: Synthesize with Yosys (stats + JSON netlist)
-        run: |
-          mkdir -p build
-          yosys -p "
-            read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_cpu_top_min.v;
-            prep -top thiele_cpu_top;
-            check;
-            stat;
-            write_json build/netlist.json;
-          " 2>&1 | tee build/synthesis.log
-
-      - name: Verify synthesis
-        run: |
-          if ! grep -q "Number of cells:" build/synthesis.log; then
-            echo "❌ Synthesis failed - no cell count"
-            exit 1
-          fi
-          cells=$(grep "Number of cells:" build/synthesis.log | awk '{print $NF}' | tail -n1)
-          if [ "${cells:-0}" -eq 0 ]; then
-            echo "❌ Zero cells synthesized"
-            exit 1
-          fi
-          echo "✓ Synthesis successful: $cells cells"
-          if [ ! -s build/netlist.json ]; then
-            echo "❌ JSON netlist missing"
-            exit 1
-          fi
-          echo "✓ JSON netlist exported: build/netlist.json"
-
-      - name: Simulate hardware
-        run: |
-          vvp build/thiele_cpu_tb.out +VCD=build/thiele_cpu_tb.vcd > build/simulation.log 2>&1
-
-      - name: Verify simulation
-        # The testbench emits "status": 2 for a clean halt, 3 for an error
-        # halt, 0 if the run never halted (rtl_harness/testbench/
-        # thiele_cpu_kami_tb.v line ~318). Grepping for the bare key
-        # accepted all three — an error halt rolled up green. Require the
-        # clean-halt code.
-        run: |
-          if ! grep -q '"status": 2' build/simulation.log; then
-            echo "❌ Simulation did not reach a clean halt (status 2); got:"
-            grep '"status"' build/simulation.log || echo "(no status line at all)"
-            exit 1
-          fi
-          if [ ! -s build/thiele_cpu_tb.vcd ]; then
-            echo "❌ Simulation waveform (VCD) missing or empty"
-            exit 1
-          fi
-          vcd_bytes=$(wc -c < build/thiele_cpu_tb.vcd)
-          echo "✓ Simulation successful (VCD: ${vcd_bytes} bytes)"
-
-      - name: Reproducible synthesis gate
-        run: bash scripts/synthesis_repro_gate.sh
-
-      - name: Upload hardware artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: hardware-verification
-          path: |
-            build/synthesis.log
-            build/simulation.log
-            build/thiele_cpu_tb.vcd
-            build/netlist.json
-            artifacts/synthesis_gate/
-          retention-days: 30
-
-  # FPGA bitstream generation. yosys synth_xilinx + nextpnr-xilinx
-  # place-and-route + xc7frames2bit packaging on the Digilent Genesys 2
-  # target (Xilinx Kintex-7, xc7k325tffg900-2) using the 100% open-source
-  # openXC7 toolchain. The RTL (.v) is committed and validated by
-  # hardware-synthesis upstream, so this job only needs the FPGA toolchain
-  # — no Coq/OCaml/Python/forge.
-  fpga-bitstream:
-    name: FPGA bitstream generation (Kintex-7 K325T / ffg900 / openXC7)
-    runs-on: ubuntu-latest
-    env:
-      # Revisions used for the reproducible FPGA toolchain snapshot
-      # https://github.com/sethirus/The-Thiele-Machine/actions/runs/29304801708
-      # Pinning the router, chip database, and frame packager keeps placement
-      # and bitstream generation reproducible together.
-      NEXTPNR_REV: 683858daf7b85e5984ecccb27884c88df3ec01f6
-      PRJXRAY_REV: c9f02d8576042325425824647ab5555b1bc77833
-      PRJXRAY_DB_REV: 381966a746cb4cf4a7f854f0e53caa3bf74fbe62
-    # No `needs:` — this job only reads .v files from the repo at checkout
-    # and produces its own bitstream end-to-end.
-    #
-    # CHSH_LASSERT's column_contractive_check_witness performs 22 wide
-    # integer multiplications. In Kami it's implemented as a 29-phase FSM
-    # (`chsh_lassert_fsm` rule in coq/kami_hw/ThieleCPUCore.v) that
-    # time-shares one 67×67 multiplier across the phases, so only one
-    # multiply is live per cycle; each FSM register is sized to the largest
-    # value 32-bit counters can put there, and the two 134×134 products are
-    # each summed from four 67×67 partial products. The Coq spec is still
-    # single-step; multi-cycle execution is a Kami-implementation detail
-    # invisible to the spec, same pattern as instr_lassert. synth_xc7.ys
-    # builds the multiplier from LUTs (`-nodsp`) and the module tensor store
-    # is a LUT-RAM RegFile, for about 37K LUTs in all. The synthesis driver
-    # uses nextpnr's `--no-tmdriv` mode so placement effort goes to
-    # routability; the uploaded nextpnr log reports the achieved frequency.
-    # A bitstream-generation failure must fail the workflow; the default
-    # continue-on-error policy is intentionally strict.
-    # Keep a hard safety cap well above the expected runtime.
-    timeout-minutes: 180
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install yosys + build deps
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            yosys cmake g++ python3-pip libboost-all-dev libeigen3-dev libgflags-dev libyaml-cpp-dev
-          # fasm pypi only ships 0.0.2.post* (no clean 0.0.2). The .post
-          # wheels print a noisy "circular import" RuntimeWarning under
-          # Python 3.12 and fall back to the slower textX parser — this
-          # is cosmetic, fasm2frames still runs correctly. We leave fasm
-          # unpinned so pip picks the latest .post that exists.
-          pip install --break-system-packages fasm intervaltree simplejson
-
-      - name: Build nextpnr-xilinx (openXC7)
-        run: |
-          git init /opt/nextpnr-xilinx
-          cd /opt/nextpnr-xilinx
-          git remote add origin https://github.com/openXC7/nextpnr-xilinx.git
-          git fetch --depth 1 origin "$NEXTPNR_REV"
-          git checkout --detach FETCH_HEAD
-          test "$(git rev-parse HEAD)" = "$NEXTPNR_REV"
-          git submodule update --init --recursive --depth 1
-          # Trim non-Kintex-7 device databases to keep the chipdb step slim.
-          # Keep all xc7k325t* (parent dir + ffg676 + ffg900 package subdirs)
-          # — that's the target. Drop every other Kintex-7 part (and the other
-          # 7-series families entirely).
-          rm -rf xilinx/external/prjxray-db/zynq7 xilinx/external/prjxray-db/artix7 xilinx/external/prjxray-db/spartan7
-          find xilinx/external/prjxray-db/kintex7 -maxdepth 1 -mindepth 1 -type d \
-            ! -name 'xc7k325t*' -exec rm -rf {} +
-          cmake -DARCH=xilinx -DBUILD_GUI=OFF -DBUILD_PYTHON=OFF .
-          make -j$(nproc) nextpnr-xilinx bbasm
-          sudo install -m 0755 nextpnr-xilinx /usr/local/bin/nextpnr-xilinx
-          # bbasm is needed by fpga/run_synthesis_xc7.sh to build the chipdb
-          # for xc7k325tffg900-2 at runtime; expose it on PATH and keep the
-          # source-tree path stable for the script's bbaexport.py invocation.
-          sudo install -m 0755 bbasm /usr/local/bin/bbasm
-
-      - name: Build prjxray xc7frames2bit
-        run: |
-          git init /opt/prjxray
-          cd /opt/prjxray
-          git remote add origin https://github.com/SymbiFlow/prjxray.git
-          git fetch --depth 1 origin "$PRJXRAY_REV"
-          git checkout --detach FETCH_HEAD
-          test "$(git rev-parse HEAD)" = "$PRJXRAY_REV"
-          git submodule update --init --recursive
-          rm -rf third_party/yosys
-          cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF .
-          make -C build -j$(nproc) xc7frames2bit
-          sudo install -m 0755 build/tools/xc7frames2bit /usr/local/bin/xc7frames2bit
-
-      - name: Clone full prjxray-db (kintex7 only)
-        # SymbiFlow/prjxray itself has no `database/` submodule, and
-        # SymbiFlow/prjxray-db only includes xc7k70t under kintex7/ — no
-        # xc7k325t. The upstream that supports our part is openxc7/prjxray-db
-        # (which openXC7/nextpnr-xilinx submodules at xilinx/external/...
-        # but trims mapping/ away during its own build step, so we cannot
-        # reuse that copy). Clone openxc7/prjxray-db directly here and trim
-        # only non-kintex7 families.
-        run: |
-          git init /opt/prjxray-db
-          git -C /opt/prjxray-db remote add origin https://github.com/openxc7/prjxray-db.git
-          git -C /opt/prjxray-db fetch --depth 1 origin "$PRJXRAY_DB_REV"
-          git -C /opt/prjxray-db checkout --detach FETCH_HEAD
-          test "$(git -C /opt/prjxray-db rev-parse HEAD)" = "$PRJXRAY_DB_REV"
-          rm -rf /opt/prjxray-db/artix7 /opt/prjxray-db/spartan7 /opt/prjxray-db/zynq7
-          test -f /opt/prjxray-db/kintex7/mapping/devices.yaml
-          test -f /opt/prjxray-db/kintex7/xc7k325tffg900-2/part.yaml
-
-      - name: Run yosys + nextpnr-xilinx + xc7frames2bit (Kintex-7 K325T)
-        env:
-          NEXTPNR_XILINX: /usr/local/bin/nextpnr-xilinx
-          NEXTPNR_DIR:    /opt/nextpnr-xilinx
-          BBASM:          /usr/local/bin/bbasm
-          XC7FRAMES2BIT:  /usr/local/bin/xc7frames2bit
-          PRJXRAY_DIR:    /opt/prjxray
-          # openxc7/prjxray-db: has mapping/devices.yaml AND
-          # xc7k325tffg900-2/part.yaml (speed-graded layout). Confirmed via
-          # GitHub API before push.
-          PRJXRAY_DB:     /opt/prjxray-db/kintex7
-        run: bash fpga/run_synthesis_xc7.sh
-
-      - name: Verify bitstream
-        run: |
-          if [ ! -s build/thiele_xc7k325t.bit ]; then
-            echo "❌ Bitstream missing or empty"
-            exit 1
-          fi
-          bytes=$(wc -c < build/thiele_xc7k325t.bit)
-          echo "✓ Bitstream generated: build/thiele_xc7k325t.bit (${bytes} bytes)"
-
-      - name: Upload bitstream
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: fpga-bitstream
-          path: |
-            build/thiele_xc7k325t.bit
-            build/thiele_xc7k325t.fasm
-            build/thiele_xc7k325t.frames
-            build/thiele_xc7k325t.json
-            build/yosys_xc7.log
-            build/nextpnr_xc7.log
-          retention-days: 90
-          if-no-files-found: warn
-
   # Nightly FULL kernel-conversion vacuity sweep. The pre-commit hook only
-  # re-probes the staged files (a full sweep is ~30 minutes — too slow for a
-  # commit), which leaves one case open: a theorem going vacuous because a
+  # re-probes the staged files (a full sweep is too slow for a commit),
+  # which leaves one case open: a theorem going vacuous because a
   # DEFINITION it uses changed in some *other* file. This job closes that
   # case by re-probing the whole manifest against a fresh proof tree every
   # night.
@@ -332,37 +33,23 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Install Coq + OCaml
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib
+      - name: Install Coq
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib
+
+      - name: Set up MetaCoq Template
+        # The vendored L modules (L tactics, GenEncode, MuRec, the
+        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
+        # time. They stay in the build for the small-machine recursion theorem.
+        uses: ./.github/actions/setup-metacoq
 
       - name: Capture toolchain version
         id: toolchain
         run: |
           coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
           echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
-
-      - name: Cache vendor builds (bbv + kami)
-        id: cache-vendor
-        uses: actions/cache@v4
-        with:
-          path: |
-            vendor/bbv
-            vendor/kami
-          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
-
-      - name: Build vendored deps (bbv + kami)
-        if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: |
-          cd vendor/bbv && make -j4
-          cd ../..
-          bash scripts/fix_kami_coq18.sh
-          cd vendor/kami && make -j4
 
       - name: Compute vendor build digest
         id: vendor-digest
@@ -386,17 +73,30 @@ jobs:
             coq/**/*.vok
             coq/**/*.vos
             coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
-          key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+            build/coq-build-manifest.json
+          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          # An earlier build of any source tree is a starting point; the
+          # build step rebuilds what changed (scripts/coq_build_manifest.py).
+          restore-keys: |
+            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Refresh Coq artefact mtimes
         run: |
-          find coq -name '*.vo' -exec touch {} +
-          find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
-          find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
-          find coq -name '*.glob' -exec touch {} + 2>/dev/null || true
+          # Vendored undecidability .vo files are tracked; a fresh checkout can
+          # leave them older than their sources, which would rebuild the library
+          # and everything above it. Refresh them first, then the coq/ outputs.
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
 
       - name: Build Coq proof tree
         if: steps.cache-coq.outputs.cache-hit != 'true'
@@ -405,9 +105,17 @@ jobs:
           set -Eeuo pipefail
           cd coq
           rm -f Makefile Makefile.conf .Makefile.d
-          find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          # A partial cache restore (an earlier build) rebuilds exactly the
+          # sources whose content changed and their dependents; otherwise
+          # build from clean outputs.
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
           coq_makefile -f _CoqProject -o Makefile
           make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
 
       - name: Run full vacuity sweep
         run: make vacuity-audit
@@ -425,15 +133,234 @@ jobs:
               sys.exit(1)
           EOF
 
+  # The universal programs U and U_P, extracted from Coq to OCaml, run on
+  # guests that use the record instructions (program code at least 2^24, about
+  # 4 * 10^8 host steps each; scripts/realize_universal_runs.py). The cases are
+  # too long for the python job, which runs the quick ones. Each run is checked
+  # against the python guest machine: the host stops when the guest stops, each
+  # visit of the loop head shows the guest after one more step, and at the stop
+  # the counters, ledger, flag and trap latch are the guest's.
+  realize-universal:
+    name: Extracted U and U_P on guests with record instructions
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Coq and OCaml
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib libzarith-ocaml-dev
+
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
+
+      - name: Capture toolchain version
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+
+      - name: Compute vendor build digest
+        id: vendor-digest
+        run: |
+          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
+            | sort -z \
+            | xargs -0 sha256sum 2>/dev/null \
+            | sha256sum \
+            | cut -c1-16)
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - name: Purge stale tracked Coq .vo files
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+            coq/.Makefile.d
+            build/coq-build-manifest.json
+          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          restore-keys: |
+            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+
+      - name: Refresh Coq artefact mtimes
+        run: |
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
+
+      - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          rm -f Makefile Makefile.conf .Makefile.d
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
+          coq_makefile -f _CoqProject -o Makefile
+          make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
+
+      - name: Extract the machines to OCaml and build the driver
+        run: bash scripts/realize_extract.sh build/realize
+
+      - name: Run U and U_P on the guests with record instructions
+        # Every case must pass; a case that does not finish within the job
+        # limit fails the job. The cases are listed in
+        # scripts/realize_universal_runs.py.
+        run: |
+          python3 scripts/realize_universal_runs.py build/realize/realize_driver --jobs 4 \
+            --case check-true --case check-false --case inc-check --case check-inc \
+            --case p-check-true --case p-check-false \
+            --json build/realize/universal_runs.json
+
+      - name: Upload the measured runs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: realize-universal-runs
+          path: build/realize/universal_runs.json
+          retention-days: 30
+
+  # The verified compiler (CmpLang.v to CmpFinal.v) extracted from Coq to OCaml
+  # and run on a corpus, random programs and long runs (tests/test_cmp_compiler.py,
+  # with the slow cases). The answers, every source variable and the operation
+  # counts are compared with an independent python interpreter, and the dumped
+  # programs with python virtual machines; the measured source operations and
+  # host steps are kept as an artifact.
+  compiler-runs:
+    name: Extracted verified compiler on a corpus and random programs
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Coq and OCaml
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib libzarith-ocaml-dev
+
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
+
+      - name: Capture toolchain version
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+
+      - name: Compute vendor build digest
+        id: vendor-digest
+        run: |
+          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
+            | sort -z \
+            | xargs -0 sha256sum 2>/dev/null \
+            | sha256sum \
+            | cut -c1-16)
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - name: Purge stale tracked Coq .vo files
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+            coq/.Makefile.d
+            build/coq-build-manifest.json
+          key: coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'coq/Makefile.local', 'scripts/install_metacoq.sh', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          restore-keys: |
+            coq-v4-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+
+      - name: Refresh Coq artefact mtimes
+        run: |
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
+
+      - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          rm -f Makefile Makefile.conf .Makefile.d
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
+          coq_makefile -f _CoqProject -o Makefile
+          make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
+
+      - name: Extract the compiler and its runner to OCaml and build the driver
+        run: bash scripts/cmp_extract.sh build/cmp
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          pip install --quiet -e . --no-deps
+
+      - name: Run the compiler tests, slow cases included
+        # A missing toolchain fails the tests (CI is set); the measured source
+        # operations, counter-machine steps and host steps go to the report.
+        env:
+          THIELE_CMP_DRIVER: ${{ github.workspace }}/build/cmp/cmp_driver
+          THIELE_CMP_REPORT: ${{ github.workspace }}/build/cmp/report.json
+        run: python -m pytest tests/test_cmp_compiler.py -q --tb=short --strict-backends
+
+      - name: Summarise the measured runs
+        if: always()
+        run: python3 scripts/cmp_report.py build/cmp/report.json
+
+      - name: Upload the measured runs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-runs
+          path: build/cmp/report.json
+          retention-days: 30
+
   # Final summary — waits for every parallel branch to finish so the rollup
-  # table reflects their actual outcomes. With fast-verify, hardware-synthesis,
-  # fpga-bitstream, and vacuity-audit all running in parallel, the critical
-  # path is the max of the branches instead of their sum.
+  # table reflects their actual outcomes.
   verify-full:
     name: Full Verification Summary
     runs-on: ubuntu-latest
-    needs: [fast-verify, hardware-synthesis, fpga-bitstream, vacuity-audit]
-    if: always()
+    needs: [fast-verify, vacuity-audit, realize-universal, compiler-runs]
+    if: ${{ always() }}
     steps:
       - name: Generate summary
         run: |
@@ -443,9 +370,9 @@ jobs:
           | Phase | Status |
           |-------|--------|
           | Fast verify | ${{ needs.fast-verify.result }} |
-          | Hardware synthesis | ${{ needs.hardware-synthesis.result }} |
-          | FPGA bitstream | ${{ needs.fpga-bitstream.result }} |
           | Vacuity audit | ${{ needs.vacuity-audit.result }} |
+          | Extracted U and U_P runs | ${{ needs.realize-universal.result }} |
+          | Extracted verified compiler | ${{ needs.compiler-runs.result }} |
           EOF
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
           cat /tmp/summary.md
@@ -457,9 +384,9 @@ jobs:
 
           for result in \
             "fast-verify=${{ needs.fast-verify.result }}" \
-            "hardware-synthesis=${{ needs.hardware-synthesis.result }}" \
-            "fpga-bitstream=${{ needs.fpga-bitstream.result }}" \
-            "vacuity-audit=${{ needs.vacuity-audit.result }}"
+            "vacuity-audit=${{ needs.vacuity-audit.result }}" \
+            "realize-universal=${{ needs.realize-universal.result }}" \
+            "compiler-runs=${{ needs.compiler-runs.result }}"
           do
             echo "$result"
             case "$result" in

@@ -1,0 +1,507 @@
+DIGEST 72766dd6b73f00ad1564518acf705d22
+FUndecidability.L.Tactics.GenEncode
+R37:37 Undecidability.L.L <> <> lib
+R39:56 Undecidability.L.Tactics.Computable <> <> lib
+R58:82 Undecidability.L.Tactics.ComputableTactics <> <> lib
+R84:98 Undecidability.L.Tactics.Extract <> <> lib
+R129:140 MetaCoq.Template.All <> <> lib
+R142:159 MetaCoq.Template.TemplateMonad.Core <> <> lib
+R161:172 MetaCoq.Template.Ast <> <> lib
+R190:193 Coq.Lists.List <> <> lib
+R211:234 MetaCoq.Utils.bytestring <> <> lib
+R245:259 MetaCoq.Utils.monad_utils MCMonadNotation <> mod
+def 337:342 <> mkLApp
+R349:352 MetaCoq.Template.Ast <> term ind
+binder 345:345 <> s:1
+R360:363 Coq.Init.Datatypes <> list ind
+R365:368 MetaCoq.Template.Ast <> term ind
+binder 356:356 <> L:2
+R382:382 Undecidability.L.Tactics.GenEncode <> L:2 var
+R393:394 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R399:399 Undecidability.L.Tactics.GenEncode <> s:1 var
+R406:409 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R415:420 Undecidability.L.Tactics.GenEncode <> mkLApp:3 def
+R472:472 Undecidability.L.Tactics.GenEncode <> L:2 var
+R423:426 MetaCoq.Template.Ast <> tApp constr
+R429:438 MetaCoq.Template.Ast <> tConstruct constr
+R441:445 MetaCoq.Common.Kernames <> mkInd constr
+R447:453 Undecidability.L.Tactics.Extract <> term_kn def
+R460:461 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R464:464 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R466:467 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R469:469 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R465:465 Undecidability.L.Tactics.GenEncode <> s:1 var
+def 493:508 <> encode_arguments
+R515:518 MetaCoq.Template.Ast <> term ind
+binder 511:511 <> B:5
+R528:530 Coq.Init.Datatypes <> nat ind
+binder 522:522 <> a:6
+binder 524:524 <> i:7
+binder 533:535 <> A_j:8
+R547:550 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R574:583 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R551:564 MetaCoq.Template.TemplateMonad.Core <> tmUnquoteTyped constr
+R571:573 Undecidability.L.Tactics.GenEncode <> A_j:8 var
+binder 546:546 <> A:9
+R588:592 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R650:661 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R628:633 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'>>='_x not
+R593:598 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R616:619 MetaCoq.Utils.bytestring <> ::bs_scope:x_'++'_x not
+R605:611 Undecidability.L.Tactics.Extract <> name_of def
+R613:615 Undecidability.L.Tactics.GenEncode <> A_j:8 var
+R600:602 MetaCoq.Template.TemplateMonad.Common <> cbv constr
+R634:649 MetaCoq.Template.TemplateMonad.Core <> tmFreshName constr
+binder 584:587 <> name:10
+R663:666 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R701:709 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R667:676 Undecidability.L.Tactics.Extract <> tmTryInfer def
+R689:697 Undecidability.L.Tactics.Extract <> encodable class
+R699:699 Undecidability.L.Tactics.GenEncode <> A:9 var
+R683:686 Coq.Init.Datatypes <> None constr
+R678:681 Undecidability.L.Tactics.GenEncode <> name:10 var
+binder 662:662 <> E:11
+R711:714 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R729:737 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R715:717 MetaCoq.Utils.monad_utils <> ret meth
+R721:723 Undecidability.L.Tactics.Extract <> enc meth
+R725:725 Undecidability.L.Tactics.GenEncode <> A:9 var
+R727:727 Undecidability.L.Tactics.GenEncode <> E:11 var
+binder 710:710 <> t:12
+R739:742 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R752:760 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R743:749 MetaCoq.Template.TemplateMonad.Core <> tmQuote constr
+R751:751 Undecidability.L.Tactics.GenEncode <> t:12 var
+binder 738:738 <> l:13
+R761:763 MetaCoq.Utils.monad_utils <> ret meth
+R766:769 MetaCoq.Template.Ast <> tApp constr
+R771:771 Undecidability.L.Tactics.GenEncode <> l:13 var
+R773:773 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R790:791 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R774:777 MetaCoq.Template.Ast <> tRel constr
+R785:787 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R781:783 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R780:780 Undecidability.L.Tactics.GenEncode <> a:6 var
+R784:784 Undecidability.L.Tactics.GenEncode <> i:7 var
+def 807:813 <> mkMatch
+R826:833 MetaCoq.Template.Ast <> term ind
+binder 816:817 <> t1:14
+binder 819:820 <> t2:15
+binder 822:822 <> d:16
+R844:856 MetaCoq.Template.Ast <> predicate rec
+R858:861 MetaCoq.Template.Ast <> term ind
+binder 837:840 <> pred:17
+R877:880 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R874:876 Coq.Init.Datatypes <> nat ind
+R890:893 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R881:884 Coq.Init.Datatypes <> list ind
+R886:889 MetaCoq.Template.Ast <> term ind
+R894:911 MetaCoq.Template.TemplateMonad.Core <> TemplateMonad ind
+R913:916 MetaCoq.Template.Ast <> term ind
+binder 866:870 <> cases:18
+R930:933 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R991:995 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R934:944 Undecidability.L.Tactics.Extract <> tmGetOption def
+R947:963 Undecidability.L.Tactics.Extract <> split_head_symbol def
+R965:966 Undecidability.L.Tactics.GenEncode <> t1:14 var
+binder 924:929 <> hs_num:19
+R1018:1023 Undecidability.L.Tactics.GenEncode <> hs_num:19 var
+R1001:1001 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1005:1006 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1013:1013 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1044:1054 Coq.Lists.List <> length abbrev
+binder 1034:1039 <> params:21
+R1069:1072 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1109:1115 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1094:1098 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'>>='_x not
+R1073:1089 Undecidability.L.Tactics.Extract <> list_constructors def
+R1099:1104 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R1106:1108 MetaCoq.Template.TemplateMonad.Common <> hnf constr
+binder 1068:1068 <> L:22
+R1120:1123 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1332:1336 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1124:1134 MetaCoq.Utils.monad_utils <> monad_map_i def
+R1331:1331 Undecidability.L.Tactics.GenEncode <> L:22 var
+binder 1141:1141 <> i:23
+R1144:1144 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1146:1147 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1149:1150 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1155:1155 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 1151:1154 <> args:24
+binder 1148:1148 <> s:25
+binder 1145:1145 <> n:26
+binder 1144:1155 <> pat:27
+R1163:1166 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1192:1197 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1167:1185 Undecidability.L.Tactics.Extract <> tmArgsOfConstructor def
+R1191:1191 Undecidability.L.Tactics.GenEncode <> i:23 var
+binder 1162:1162 <> l:28
+R1200:1203 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1260:1265 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1204:1214 MetaCoq.Utils.monad_utils <> monad_map_i def
+R1245:1249 Coq.Lists.List <> skipn def
+R1258:1258 Undecidability.L.Tactics.GenEncode <> l:28 var
+R1251:1256 Undecidability.L.Tactics.GenEncode <> params:21 var
+R1217:1229 Undecidability.L.Tactics.Extract <> insert_params def
+R1231:1234 Undecidability.L.Tactics.Extract <> FUEL abbrev
+binder 1198:1199 <> l':29
+R1267:1270 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1281:1284 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1271:1275 Undecidability.L.Tactics.GenEncode <> cases:18 var
+R1279:1280 Undecidability.L.Tactics.GenEncode <> l':29 var
+R1277:1277 Undecidability.L.Tactics.GenEncode <> i:23 var
+binder 1266:1266 <> t:30
+R1285:1287 MetaCoq.Utils.monad_utils <> ret meth
+R1290:1298 MetaCoq.Template.Ast <> mk_branch constr
+R1301:1319 Undecidability.L.Tactics.Extract <> context_to_bcontext def
+R1321:1324 Undecidability.L.Tactics.GenEncode <> args:24 var
+R1327:1327 Undecidability.L.Tactics.GenEncode <> t:30 var
+binder 1116:1119 <> body:31
+R1337:1339 MetaCoq.Utils.monad_utils <> ret meth
+R1342:1346 MetaCoq.Template.Ast <> tCase constr
+R1349:1360 MetaCoq.Common.BasicAst <> mk_case_info constr
+R1366:1371 Undecidability.L.Tactics.GenEncode <> params:21 var
+R1373:1380 MetaCoq.Common.BasicAst <> Relevant constr
+R1407:1410 Undecidability.L.Tactics.GenEncode <> pred:17 var
+R1436:1436 Undecidability.L.Tactics.GenEncode <> d:16 var
+R1462:1465 Undecidability.L.Tactics.GenEncode <> body:31 var
+def 1481:1490 <> L_facts_mp
+R1495:1500 MetaCoq.Common.Kernames <> MPfile constr
+R1502:1502 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1512:1513 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1520:1521 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1525:1526 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1543:1543 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 1558:1571 <> tmMatchCorrect
+binder 1574:1574 <> A:32
+R1586:1603 MetaCoq.Template.TemplateMonad.Core <> TemplateMonad ind
+R1616:1620 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1645:1652 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1633:1637 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'>>='_x not
+R1621:1626 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R1632:1632 Undecidability.L.Tactics.GenEncode <> A:32 var
+R1628:1630 MetaCoq.Template.TemplateMonad.Common <> hnf constr
+R1638:1644 MetaCoq.Template.TemplateMonad.Core <> tmQuote constr
+binder 1615:1615 <> t:33
+R1659:1662 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1711:1715 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1663:1673 Undecidability.L.Tactics.Extract <> tmGetOption def
+R1676:1692 Undecidability.L.Tactics.Extract <> split_head_symbol def
+R1694:1694 Undecidability.L.Tactics.GenEncode <> t:33 var
+binder 1653:1658 <> hs_num:34
+R1738:1743 Undecidability.L.Tactics.GenEncode <> hs_num:34 var
+R1721:1721 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1725:1726 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1733:1733 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1754:1757 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1799:1804 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1758:1777 Undecidability.L.Tactics.Extract <> tmQuoteInductiveDecl def
+R1780:1793 MetaCoq.Common.Kernames <> inductive_mind proj
+binder 1750:1753 <> decl:36
+R1827:1830 Undecidability.L.Tactics.GenEncode <> decl:36 var
+R1810:1810 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1816:1816 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1822:1822 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1851:1856 Coq.Lists.List <> firstn def
+R1865:1873 MetaCoq.Template.Ast Env ind_npars proj
+binder 1841:1846 <> params:38
+R1891:1894 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1927:1932 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1895:1900 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R1907:1908 Undecidability.Shared.Libs.PSL.Lists.BaseLists <> :::'|'_x_'|' not
+R1924:1925 Undecidability.Shared.Libs.PSL.Lists.BaseLists <> :::'|'_x_'|' not
+R1909:1917 MetaCoq.Template.Ast Env ind_ctors proj
+R1902:1904 MetaCoq.Template.TemplateMonad.Common <> cbv constr
+binder 1888:1890 <> num:39
+R1934:1937 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1958:1964 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1938:1953 MetaCoq.Template.TemplateMonad.Core <> tmFreshName constr
+binder 1933:1933 <> x:40
+R1969:1972 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2518:2524 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R1973:1979 Undecidability.L.Tactics.GenEncode <> mkMatch def
+binder 2176:2176 <> i:41
+binder 2194:2202 <> ctr_types:42
+R2241:2244 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2269:2286 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2245:2250 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R2257:2257 Undecidability.Shared.Libs.PSL.Lists.BaseLists <> :::'|'_x_'|' not
+R2267:2267 Undecidability.Shared.Libs.PSL.Lists.BaseLists <> :::'|'_x_'|' not
+R2258:2266 Undecidability.L.Tactics.GenEncode <> ctr_types:42 var
+R2252:2254 MetaCoq.Template.TemplateMonad.Common <> cbv constr
+binder 2237:2240 <> args:43
+R2288:2291 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2339:2357 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2292:2302 MetaCoq.Utils.monad_utils <> monad_map_i def
+R2330:2338 Undecidability.L.Tactics.GenEncode <> ctr_types:42 var
+R2305:2320 Undecidability.L.Tactics.GenEncode <> encode_arguments def
+R2324:2327 Undecidability.L.Tactics.GenEncode <> args:43 var
+R2322:2322 Undecidability.L.Tactics.GenEncode <> t:33 var
+binder 2287:2287 <> C:44
+R2358:2360 MetaCoq.Utils.monad_utils <> ret meth
+binder 2449:2449 <> s:45
+R2454:2462 Undecidability.L.Tactics.Extract <> mkAppList def
+R2466:2466 Undecidability.L.Tactics.GenEncode <> C:44 var
+R2464:2464 Undecidability.L.Tactics.GenEncode <> s:45 var
+R2470:2473 MetaCoq.Template.Ast <> tRel constr
+R2496:2498 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2480:2482 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2476:2479 Undecidability.L.Tactics.GenEncode <> args:43 var
+R2484:2487 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2495:2495 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2491:2493 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2488:2490 Undecidability.L.Tactics.GenEncode <> num:39 var
+R2494:2494 Undecidability.L.Tactics.GenEncode <> i:41 var
+R2056:2067 MetaCoq.Template.Ast <> mk_predicate constr
+R2153:2157 Undecidability.L.Tactics.Extract <> tTerm def
+R2092:2110 Undecidability.L.Tactics.Extract <> context_to_bcontext def
+R2113:2133 MetaCoq.Template.Ast <> ind_predicate_context def
+R2084:2089 Undecidability.L.Tactics.GenEncode <> params:38 var
+R2069:2082 MetaCoq.Common.Universes Instance empty def
+R2028:2031 MetaCoq.Template.Ast <> tRel constr
+R2035:2037 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2038:2040 Undecidability.L.Tactics.GenEncode <> num:39 var
+R2003:2007 Undecidability.L.Tactics.Extract <> tTerm def
+R1981:1981 Undecidability.L.Tactics.GenEncode <> t:33 var
+binder 1965:1968 <> mtch:46
+R2527:2530 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2570:2575 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2531:2550 MetaCoq.Template.TemplateMonad.Core <> tmInferInstance constr
+R2552:2555 Coq.Init.Datatypes <> None constr
+R2558:2566 Undecidability.L.Tactics.Extract <> encodable class
+R2568:2568 Undecidability.L.Tactics.GenEncode <> A:32 var
+binder 2525:2526 <> E':47
+R2577:2580 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2606:2620 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2581:2593 Undecidability.L.Tactics.Extract <> tmGetMyOption def
+R2595:2596 Undecidability.L.Tactics.GenEncode <> E':47 var
+binder 2576:2576 <> E:48
+R2623:2626 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2641:2646 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2627:2629 MetaCoq.Utils.monad_utils <> ret meth
+R2633:2635 Undecidability.L.Tactics.Extract <> enc meth
+R2637:2637 Undecidability.L.Tactics.GenEncode <> A:32 var
+R2639:2639 Undecidability.L.Tactics.GenEncode <> E:48 var
+binder 2621:2622 <> t':49
+R2648:2651 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2662:2667 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2652:2658 MetaCoq.Template.TemplateMonad.Core <> tmQuote constr
+R2660:2661 Undecidability.L.Tactics.GenEncode <> t':49 var
+binder 2647:2647 <> l:50
+R2672:2675 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2704:2710 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2676:2678 MetaCoq.Utils.monad_utils <> ret meth
+R2681:2684 MetaCoq.Template.Ast <> tApp constr
+R2686:2686 Undecidability.L.Tactics.GenEncode <> l:50 var
+R2688:2688 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2701:2702 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2689:2692 MetaCoq.Template.Ast <> tRel constr
+R2696:2696 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2697:2699 Undecidability.L.Tactics.GenEncode <> num:39 var
+binder 2668:2671 <> encn:51
+R2714:2717 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2813:2819 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2718:2720 MetaCoq.Utils.monad_utils <> ret meth
+R2723:2728 Undecidability.L.Tactics.GenEncode <> mkLApp def
+binder 2743:2743 <> n:52
+R2754:2754 Undecidability.L.Tactics.GenEncode <> n:52 var
+R2766:2767 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2771:2771 Coq.Init.Datatypes <> S constr
+R2794:2797 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2778:2781 MetaCoq.Template.Ast <> tRel constr
+R2789:2791 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2785:2787 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2788:2788 Undecidability.L.Tactics.GenEncode <> n:52 var
+R2798:2798 Undecidability.L.Tactics.GenEncode <> f:53 var
+R2800:2800 Undecidability.L.Tactics.GenEncode <> n:52 var
+R2808:2810 Undecidability.L.Tactics.GenEncode <> num:39 var
+R2730:2733 Undecidability.L.Tactics.GenEncode <> encn:51 var
+binder 2711:2713 <> lhs:55
+R2823:2826 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3025:3030 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R2827:2829 MetaCoq.Utils.monad_utils <> ret meth
+R2832:2836 MetaCoq.Template.Ast <> tProd constr
+R2838:2843 Undecidability.L.Tactics.Extract <> naAnon def
+R2845:2845 Undecidability.L.Tactics.GenEncode <> t:33 var
+R2848:2849 Undecidability.Shared.Libs.PSL.Numbers <> it def
+R2960:2963 MetaCoq.Template.Ast <> tApp constr
+R2966:2971 MetaCoq.Template.Ast <> tConst constr
+R2973:2973 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2984:2985 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2993:2993 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2974:2983 Undecidability.L.Tactics.GenEncode <> L_facts_mp def
+R2995:2996 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2999:2999 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3009:3010 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3014:3015 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3020:3020 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3000:3004 Undecidability.L.Tactics.Extract <> mkNat def
+R3006:3008 Undecidability.L.Tactics.GenEncode <> num:39 var
+R3011:3013 Undecidability.L.Tactics.GenEncode <> lhs:55 var
+R3016:3019 Undecidability.L.Tactics.GenEncode <> mtch:46 var
+R2954:2956 Undecidability.L.Tactics.GenEncode <> num:39 var
+R2860:2863 MetaCoq.Template.Ast <> term ind
+binder 2856:2856 <> s:56
+R2868:2872 MetaCoq.Template.Ast <> tProd constr
+R2874:2879 Undecidability.L.Tactics.Extract <> naAnon def
+R2881:2885 Undecidability.L.Tactics.Extract <> tTerm def
+R2888:2892 MetaCoq.Template.Ast <> tProd constr
+R2894:2899 Undecidability.L.Tactics.Extract <> naAnon def
+R2902:2905 MetaCoq.Template.Ast <> tApp constr
+R2908:2913 MetaCoq.Template.Ast <> tConst constr
+R2915:2915 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2926:2927 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2934:2934 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2916:2925 Undecidability.L.Tactics.GenEncode <> L_facts_mp def
+R2936:2937 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2940:2940 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2947:2947 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2941:2944 MetaCoq.Template.Ast <> tRel constr
+R2950:2950 Undecidability.L.Tactics.GenEncode <> s:56 var
+binder 2820:2822 <> ter:57
+R3034:3037 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3052:3058 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3038:3043 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R3049:3051 Undecidability.L.Tactics.GenEncode <> ter:57 var
+R3045:3047 MetaCoq.Template.TemplateMonad.Common <> cbv constr
+binder 3031:3033 <> ter:58
+R3059:3072 MetaCoq.Template.TemplateMonad.Core <> tmUnquoteTyped constr
+R3079:3081 Undecidability.L.Tactics.GenEncode <> ter:58 var
+def 3096:3103 <> matchlem
+binder 3105:3105 <> n:59
+binder 3107:3107 <> A:60
+R3113:3123 MetaCoq.Template.TemplateMonad.Core <> tmBind constr
+binder 3149:3149 <> m:61
+R3165:3168 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_';;'_x not
+R3154:3160 MetaCoq.Template.TemplateMonad.Core <> tmLemma constr
+R3162:3162 Undecidability.L.Tactics.GenEncode <> n:59 var
+R3164:3164 Undecidability.L.Tactics.GenEncode <> m:61 var
+R3169:3171 MetaCoq.Utils.monad_utils <> ret meth
+R3173:3174 Coq.Init.Datatypes <> tt constr
+R3126:3139 Undecidability.L.Tactics.GenEncode <> tmMatchCorrect def
+R3141:3141 Undecidability.L.Tactics.GenEncode <> A:60 var
+def 3191:3201 <> tmGenEncode
+R3208:3212 MetaCoq.Common.Kernames <> ident def
+binder 3204:3204 <> n:62
+binder 3216:3216 <> A:63
+R3228:3240 MetaCoq.Template.TemplateMonad.Core <> TemplateMonad ind
+R3243:3251 Undecidability.L.Tactics.Extract <> encodable class
+R3253:3253 Undecidability.L.Tactics.GenEncode <> A:63 var
+R3262:3265 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3276:3280 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3266:3273 Undecidability.L.Tactics.Extract <> tmEncode def
+R3275:3275 Undecidability.L.Tactics.GenEncode <> A:63 var
+binder 3261:3261 <> e:64
+R3288:3291 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3311:3316 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3292:3307 MetaCoq.Template.TemplateMonad.Core <> tmCurrentModPath constr
+R3309:3310 Coq.Init.Datatypes <> tt constr
+binder 3281:3287 <> modpath:65
+R3318:3321 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3376:3381 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3322:3333 MetaCoq.Template.TemplateMonad.Core <> tmLemma constr
+R3337:3340 MetaCoq.Utils.bytestring <> ::bs_scope:x_'++'_x not
+R3336:3336 Undecidability.L.Tactics.GenEncode <> n:62 var
+R3362:3362 Undecidability.L.Tactics.GenEncode <> A:63 var
+binder 3358:3358 <> x:66
+R3365:3368 Undecidability.L.Util.L_facts <> proc def
+R3371:3371 Undecidability.L.Tactics.GenEncode <> e:64 var
+R3373:3373 Undecidability.L.Tactics.GenEncode <> x:66 var
+binder 3317:3317 <> p:67
+R3384:3387 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3418:3423 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3388:3393 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R3412:3415 MetaCoq.Utils.bytestring <> ::bs_scope:x_'++'_x not
+R3416:3416 Undecidability.L.Tactics.GenEncode <> n:62 var
+R3395:3397 MetaCoq.Template.TemplateMonad.Common <> cbv constr
+binder 3382:3383 <> n3:68
+R3425:3428 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3467:3471 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3429:3441 Undecidability.L.Tactics.Extract <> tmInstanceRed def
+R3452:3463 Undecidability.L.Tactics.Extract <> mk_encodable constr
+R3465:3465 Undecidability.L.Tactics.GenEncode <> p:67 var
+R3446:3449 Coq.Init.Datatypes <> None constr
+R3443:3444 Undecidability.L.Tactics.GenEncode <> n3:68 var
+binder 3424:3424 <> d:69
+R3473:3476 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3493:3497 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3477:3490 Undecidability.L.Tactics.GenEncode <> tmMatchCorrect def
+R3492:3492 Undecidability.L.Tactics.GenEncode <> A:63 var
+binder 3472:3472 <> m:70
+R3500:3503 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3532:3537 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3504:3509 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R3517:3520 MetaCoq.Utils.bytestring <> ::bs_scope:x_'++'_x not
+R3516:3516 Undecidability.L.Tactics.GenEncode <> n:62 var
+R3511:3513 MetaCoq.Template.TemplateMonad.Common <> cbv constr
+binder 3498:3499 <> n4:71
+R3538:3548 MetaCoq.Template.TemplateMonad.Core <> tmBind constr
+binder 3574:3575 <> m':72
+R3593:3594 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_';;'_x not
+R3580:3586 MetaCoq.Template.TemplateMonad.Core <> tmLemma constr
+R3588:3589 Undecidability.L.Tactics.GenEncode <> n4:71 var
+R3591:3592 Undecidability.L.Tactics.GenEncode <> m':72 var
+R3595:3597 MetaCoq.Utils.monad_utils <> ret meth
+R3599:3599 Undecidability.L.Tactics.GenEncode <> d:69 var
+R3551:3564 Undecidability.L.Tactics.GenEncode <> tmMatchCorrect def
+R3566:3566 Undecidability.L.Tactics.GenEncode <> A:63 var
+R3614:3624 Undecidability.L.Tactics.GenEncode <> tmGenEncode def
+R3614:3624 Undecidability.L.Tactics.GenEncode <> tmGenEncode def
+def 3651:3664 <> tmGenEncodeInj
+R3671:3675 MetaCoq.Common.Kernames <> ident def
+binder 3667:3667 <> n:73
+binder 3679:3679 <> A:74
+R3691:3703 MetaCoq.Template.TemplateMonad.Core <> TemplateMonad ind
+R3705:3708 Coq.Init.Datatypes <> unit ind
+R3716:3719 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3735:3739 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3720:3730 Undecidability.L.Tactics.GenEncode <> tmGenEncode def
+R3734:3734 Undecidability.L.Tactics.GenEncode <> A:74 var
+R3732:3732 Undecidability.L.Tactics.GenEncode <> n:73 var
+binder 3715:3715 <> d:75
+R3742:3745 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3772:3776 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3746:3751 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R3760:3763 MetaCoq.Utils.bytestring <> ::bs_scope:x_'++'_x not
+R3759:3759 Undecidability.L.Tactics.GenEncode <> n:73 var
+R3753:3755 MetaCoq.Template.TemplateMonad.Common <> cbv constr
+binder 3740:3741 <> n2:76
+R3778:3781 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3812:3816 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3782:3793 MetaCoq.Template.TemplateMonad.Core <> tmLemma constr
+R3795:3796 Undecidability.L.Tactics.GenEncode <> n2:76 var
+R3801:3806 Undecidability.L.Tactics.Computable <> encInj class
+R3808:3808 Undecidability.L.Tactics.GenEncode <> A:74 var
+R3810:3810 Undecidability.L.Tactics.GenEncode <> d:75 var
+binder 3777:3777 <> i:77
+R3819:3822 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3850:3855 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3823:3828 MetaCoq.Template.TemplateMonad.Core <> tmEval constr
+R3844:3847 MetaCoq.Utils.bytestring <> ::bs_scope:x_'++'_x not
+R3848:3848 Undecidability.L.Tactics.GenEncode <> n:73 var
+R3830:3832 MetaCoq.Template.TemplateMonad.Common <> cbv constr
+binder 3817:3818 <> n3:78
+R3857:3860 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3884:3888 MetaCoq.Utils.monad_utils MCMonadNotation ::monad_scope:x_'<-'_x_';;'_x not
+R3861:3873 Undecidability.L.Tactics.Extract <> tmInstanceRed def
+R3883:3883 Undecidability.L.Tactics.GenEncode <> i:77 var
+R3878:3881 Coq.Init.Datatypes <> None constr
+R3875:3876 Undecidability.L.Tactics.GenEncode <> n3:78 var
+binder 3856:3856 <> d:79
+R3889:3891 MetaCoq.Utils.monad_utils <> ret meth
+R3893:3894 Coq.Init.Datatypes <> tt constr
+R3908:3921 Undecidability.L.Tactics.GenEncode <> tmGenEncodeInj def
+R3908:3921 Undecidability.L.Tactics.GenEncode <> tmGenEncodeInj def
+binder 4606:4606 <> x:80
+R4614:4617 Undecidability.L.Util.L_facts <> proc def
+binder 4606:4606 <> x:81
+R4614:4617 Undecidability.L.Util.L_facts <> proc def
+R4679:4684 Undecidability.L.Tactics.Computable <> encInj class
+R4679:4684 Undecidability.L.Tactics.Computable <> encInj class
+R4754:4762 Undecidability.Shared.Libs.PSL.Prelim <> injective abbrev
+R4754:4762 Undecidability.Shared.Libs.PSL.Prelim <> injective abbrev
+R4829:4834 Undecidability.L.Util.L_facts <> :::x_'>(<='_x_')'_x not
+R4836:4837 Undecidability.L.Util.L_facts <> :::x_'>(<='_x_')'_x not
+R4829:4834 Undecidability.L.Util.L_facts <> :::x_'>(<='_x_')'_x not
+R4836:4837 Undecidability.L.Util.L_facts <> :::x_'>(<='_x_')'_x not
+R4700:4705 Undecidability.L.Tactics.Computable <> encInj class

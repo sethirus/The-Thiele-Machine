@@ -129,8 +129,6 @@ def _coq_source_paths(root: Path) -> list[Path]:
             if line and not line.startswith(("#", "-")) and line.endswith(".v"):
                 paths.add(root / "coq" / line)
     for directory in (
-        root / "vendor/bbv",
-        root / "vendor/kami",
         root / "vendor/coq-undecidability/theories",
     ):
         if directory.exists():

@@ -1,0 +1,798 @@
+DIGEST 6f902689ba4349a0c94eb31e7c1c5eb7
+FUndecidability.L.Computability.Synthetic
+R37:55 Undecidability.L.Computability.MuRec <> <> lib
+R105:108 Undecidability.L.Datatypes.LNat <> <> lib
+R110:117 Undecidability.L.Datatypes.LOptions <> <> lib
+R119:123 Undecidability.L.Datatypes.LProd <> <> lib
+R171:187 Undecidability.Synthetic.DecidabilityFacts <> <> lib
+R189:206 Undecidability.Synthetic.EnumerabilityFacts <> <> lib
+R208:229 Undecidability.Synthetic.ListEnumerabilityFacts <> <> lib
+R231:247 Undecidability.Synthetic.ReducibilityFacts <> <> lib
+R302:312 Undecidability.L.Datatypes.List.List_basics <> <> lib
+R314:321 Undecidability.L.Datatypes.List.List_nat <> <> lib
+R340:348 Coq.Init.Datatypes <> <> lib
+ind 362:374 <> is_computable
+constr 411:411 <> C
+binder 377:377 <> A:1
+R385:386 Undecidability.L.Tactics.Computable <> TT class
+R388:388 Undecidability.L.Computability.Synthetic <> A:1 var
+binder 381:381 <> t:2
+R396:396 Undecidability.L.Computability.Synthetic <> A:1 var
+binder 392:392 <> a:3
+R427:430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R415:424 Undecidability.L.Tactics.Computable <> computable class
+R426:426 Undecidability.L.Computability.Synthetic <> a:3 var
+R431:443 Undecidability.L.Computability.Synthetic <> is_computable:4 ind
+R445:445 Undecidability.L.Computability.Synthetic <> a:3 var
+scheme 362:374 <> is_computable_ind
+scheme 362:374 <> is_computable_sind
+abbrev 458:467 <> enumerates
+binder 484:484 <> x:6
+R490:494 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R489:489 Undecidability.L.Computability.Synthetic <> x:6 var
+R495:501 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R509:510 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R506:508 Coq.Init.Datatypes <> nat ind
+binder 502:502 <> n:7
+R514:516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R513:513 Undecidability.L.Computability.Synthetic <> n:7 var
+R517:520 Coq.Init.Datatypes <> Some constr
+R522:522 Undecidability.L.Computability.Synthetic <> x:6 var
+def 538:548 <> L_decidable
+binder 551:551 <> X:8
+R556:564 Undecidability.L.Tactics.Extract <> encodable class
+R566:566 Undecidability.L.Computability.Synthetic <> X:8 var
+binder 556:566 <> H:9
+R575:578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R574:574 Undecidability.L.Computability.Synthetic <> X:8 var
+binder 570:570 <> P:10
+R590:596 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R610:611 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R602:605 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R601:601 Undecidability.L.Computability.Synthetic <> X:8 var
+R606:609 Coq.Init.Datatypes <> bool ind
+binder 597:597 <> f:11
+R627:630 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R612:624 Undecidability.L.Computability.Synthetic <> is_computable ind
+R626:626 Undecidability.L.Computability.Synthetic <> f:11 var
+binder 638:638 <> x:12
+R644:648 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R641:641 Undecidability.L.Computability.Synthetic <> P:10 var
+R643:643 Undecidability.L.Computability.Synthetic <> x:12 var
+R652:654 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R649:649 Undecidability.L.Computability.Synthetic <> f:11 var
+R651:651 Undecidability.L.Computability.Synthetic <> x:12 var
+R655:658 Coq.Init.Datatypes <> true constr
+def 673:684 <> L_enumerable
+binder 687:687 <> X:13
+R692:700 Undecidability.L.Tactics.Extract <> encodable class
+R702:702 Undecidability.L.Computability.Synthetic <> X:13 var
+binder 692:702 <> H:14
+R711:714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R710:710 Undecidability.L.Computability.Synthetic <> X:13 var
+binder 706:706 <> p:15
+R727:733 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R753:754 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R741:744 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R738:740 Coq.Init.Datatypes <> nat ind
+R745:750 Coq.Init.Datatypes <> option ind
+R752:752 Undecidability.L.Computability.Synthetic <> X:13 var
+binder 734:734 <> f:16
+R770:774 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R789:789 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R755:767 Undecidability.L.Computability.Synthetic <> is_computable ind
+R769:769 Undecidability.L.Computability.Synthetic <> f:16 var
+R775:784 Undecidability.L.Computability.Synthetic <> enumerates abbrev
+R788:788 Undecidability.L.Computability.Synthetic <> p:15 var
+R786:786 Undecidability.L.Computability.Synthetic <> f:16 var
+def 804:817 <> L_recognisable
+binder 820:820 <> X:17
+R825:833 Undecidability.L.Tactics.Extract <> encodable class
+R835:835 Undecidability.L.Computability.Synthetic <> X:17 var
+binder 825:835 <> H:18
+R844:847 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R843:843 Undecidability.L.Computability.Synthetic <> X:17 var
+binder 839:839 <> p:19
+R859:865 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R886:887 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R871:874 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R870:870 Undecidability.L.Computability.Synthetic <> X:17 var
+R878:881 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R875:877 Coq.Init.Datatypes <> nat ind
+R882:885 Coq.Init.Datatypes <> bool ind
+binder 866:866 <> f:20
+R903:906 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R888:900 Undecidability.L.Computability.Synthetic <> is_computable ind
+R902:902 Undecidability.L.Computability.Synthetic <> f:20 var
+binder 914:914 <> x:21
+R920:924 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R917:917 Undecidability.L.Computability.Synthetic <> p:19 var
+R919:919 Undecidability.L.Computability.Synthetic <> x:21 var
+R925:931 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R933:934 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 932:932 <> n:22
+R940:942 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R935:935 Undecidability.L.Computability.Synthetic <> f:20 var
+R939:939 Undecidability.L.Computability.Synthetic <> n:22 var
+R937:937 Undecidability.L.Computability.Synthetic <> x:21 var
+R943:946 Coq.Init.Datatypes <> true constr
+def 961:975 <> L_recognisable'
+binder 978:978 <> X:23
+R983:991 Undecidability.L.Tactics.Extract <> encodable class
+R993:993 Undecidability.L.Computability.Synthetic <> X:23 var
+binder 983:993 <> H:24
+R1002:1005 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1001:1001 Undecidability.L.Computability.Synthetic <> X:23 var
+binder 997:997 <> p:25
+R1017:1023 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1032:1033 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1028:1031 Undecidability.L.L <> term ind
+binder 1024:1024 <> s:26
+binder 1041:1041 <> x:27
+R1047:1051 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1044:1044 Undecidability.L.Computability.Synthetic <> p:25 var
+R1046:1046 Undecidability.L.Computability.Synthetic <> x:27 var
+R1052:1060 Undecidability.L.Util.L_facts <> converges def
+R1063:1067 Undecidability.L.L <> app constr
+R1069:1069 Undecidability.L.Computability.Synthetic <> s:26 var
+R1072:1074 Undecidability.L.Tactics.Extract <> enc meth
+R1076:1076 Undecidability.L.Computability.Synthetic <> x:27 var
+sec 1090:1099 <> L_enum_rec
+var 1114:1114 L_enum_rec X
+R1136:1144 Undecidability.L.Tactics.Extract <> encodable class
+R1146:1146 Undecidability.L.Computability.Synthetic <> L_enum_rec.X var
+binder 1136:1146 <> H:29
+var 1162:1162 L_enum_rec p
+R1167:1170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1166:1166 Undecidability.L.Computability.Synthetic <> L_enum_rec.X var
+var 1193:1193 L_enum_rec f
+var 1215:1217 L_enum_rec c_f
+var 1236:1238 L_enum_rec H_f
+R1200:1203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1197:1199 Coq.Init.Datatypes <> nat ind
+R1204:1209 Coq.Init.Datatypes <> option ind
+R1211:1211 Undecidability.L.Computability.Synthetic <> L_enum_rec.X var
+R1221:1230 Undecidability.L.Tactics.Computable <> computable class
+R1232:1232 Undecidability.L.Computability.Synthetic <> f:31 var
+R1242:1251 Undecidability.L.Computability.Synthetic <> enumerates abbrev
+R1255:1255 Undecidability.L.Computability.Synthetic <> L_enum_rec.p var
+R1253:1253 Undecidability.L.Computability.Synthetic <> f:31 var
+var 1273:1273 L_enum_rec d
+var 1294:1296 L_enum_rec c_d
+var 1315:1317 L_enum_rec H_d
+R1278:1281 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1277:1277 Undecidability.L.Computability.Synthetic <> L_enum_rec.X var
+R1283:1286 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1282:1282 Undecidability.L.Computability.Synthetic <> L_enum_rec.X var
+R1287:1290 Coq.Init.Datatypes <> bool ind
+R1300:1309 Undecidability.L.Tactics.Computable <> computable class
+R1311:1311 Undecidability.L.Computability.Synthetic <> d:34 var
+binder 1328:1328 <> x:36
+binder 1330:1330 <> y:37
+R1333:1339 Coq.Bool.Bool <> reflect ind
+R1343:1345 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1342:1342 Undecidability.L.Computability.Synthetic <> x:36 var
+R1346:1346 Undecidability.L.Computability.Synthetic <> y:37 var
+R1350:1350 Undecidability.L.Computability.Synthetic <> d:34 var
+R1354:1354 Undecidability.L.Computability.Synthetic <> y:37 var
+R1352:1352 Undecidability.L.Computability.Synthetic <> x:36 var
+def 1373:1376 <> test
+binder 1386:1386 <> x:39
+binder 1388:1388 <> n:40
+R1399:1399 Undecidability.L.Computability.Synthetic <> L_enum_rec.f var
+R1401:1401 Undecidability.L.Computability.Synthetic <> n:40 var
+R1408:1411 Coq.Init.Datatypes <> Some constr
+R1418:1418 Undecidability.L.Computability.Synthetic <> L_enum_rec.d var
+R1420:1420 Undecidability.L.Computability.Synthetic <> x:39 var
+R1426:1429 Coq.Init.Datatypes <> None constr
+R1434:1438 Coq.Init.Datatypes <> false constr
+inst 1458:1466 <> term_test
+R1470:1479 Undecidability.L.Tactics.Computable <> computable class
+R1481:1484 Undecidability.L.Computability.Synthetic <> test def
+R1540:1553 Undecidability.L.Util.L_facts HOAS_Notations <> mod
+prf 1565:1573 <> proc_test
+R1580:1580 Undecidability.L.Computability.Synthetic <> L_enum_rec.X var
+binder 1576:1576 <> x:41
+R1589:1592 Undecidability.L.Util.L_facts <> proc def
+R1594:1601 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R1632:1632 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R1602:1604 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+R1606:1607 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+binder 1605:1605 <> y:42
+R1608:1610 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1619:1631 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1611:1613 Undecidability.L.Tactics.Computable <> ext meth
+R1615:1618 Undecidability.L.Computability.Synthetic <> test def
+R1621:1623 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1629:1629 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1624:1626 Undecidability.L.Tactics.Extract <> enc meth
+R1628:1628 Undecidability.L.Computability.Synthetic <> x:41 var
+R1631:1631 Undecidability.L.Computability.Synthetic <> y:42 var
+prf 1680:1704 <> L_enumerable_recognisable
+R1712:1726 Undecidability.L.Computability.Synthetic <> L_recognisable' def
+R1728:1728 Undecidability.L.Computability.Synthetic <> L_enum_rec.p var
+R1773:1780 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R1816:1816 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R1781:1783 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+R1785:1786 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+binder 1784:1784 <> x:43
+R1787:1788 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1791:1815 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1789:1790 Undecidability.L.Computability.MuRec <> mu def
+R1793:1795 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+R1797:1798 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+binder 1796:1796 <> y:44
+R1799:1801 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1810:1814 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1802:1804 Undecidability.L.Tactics.Computable <> ext meth
+R1806:1809 Undecidability.L.Computability.Synthetic <> test def
+R1812:1812 Undecidability.L.Computability.Synthetic <> x:43 var
+R1814:1814 Undecidability.L.Computability.Synthetic <> y:44 var
+R1773:1780 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R1816:1816 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R1781:1783 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+R1785:1786 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+binder 1784:1784 <> x:45
+R1787:1788 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1791:1815 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1789:1790 Undecidability.L.Computability.MuRec <> mu def
+R1793:1795 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+R1797:1798 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+binder 1796:1796 <> y:46
+R1799:1801 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1810:1814 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R1802:1804 Undecidability.L.Tactics.Computable <> ext meth
+R1806:1809 Undecidability.L.Computability.Synthetic <> test def
+R1812:1812 Undecidability.L.Computability.Synthetic <> x:45 var
+R1814:1814 Undecidability.L.Computability.Synthetic <> y:46 var
+R1859:1861 Undecidability.L.Computability.Synthetic <> L_enum_rec.H_f var
+R1859:1861 Undecidability.L.Computability.Synthetic <> L_enum_rec.H_f var
+R1897:1907 Undecidability.L.Computability.MuRec <> mu_complete thm
+R1910:1918 Undecidability.L.Computability.Synthetic <> proc_test thm
+R1897:1907 Undecidability.L.Computability.MuRec <> mu_complete thm
+R1910:1918 Undecidability.L.Computability.Synthetic <> proc_test thm
+R1963:1966 Undecidability.L.Computability.Synthetic <> test def
+R1963:1966 Undecidability.L.Computability.Synthetic <> test def
+R2020:2023 Undecidability.L.Computability.Synthetic <> test def
+R2048:2050 Undecidability.L.Computability.Synthetic <> L_enum_rec.H_d var
+R2048:2050 Undecidability.L.Computability.Synthetic <> L_enum_rec.H_d var
+R2085:2087 Undecidability.L.Tactics.Computable <> ext meth
+R2085:2087 Undecidability.L.Tactics.Computable <> ext meth
+R2200:2207 Undecidability.L.Computability.MuRec <> mu_sound thm
+R2210:2218 Undecidability.L.Computability.Synthetic <> proc_test thm
+R2200:2207 Undecidability.L.Computability.MuRec <> mu_sound thm
+R2210:2218 Undecidability.L.Computability.Synthetic <> proc_test thm
+R2282:2285 Undecidability.L.Computability.Synthetic <> test def
+R2282:2285 Undecidability.L.Computability.Synthetic <> test def
+R2397:2399 Undecidability.L.Computability.Synthetic <> L_enum_rec.H_f var
+R2397:2399 Undecidability.L.Computability.Synthetic <> L_enum_rec.H_f var
+R2481:2484 Undecidability.L.Util.L_facts <> :::x_'=='_x not
+R2428:2435 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R2480:2480 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R2436:2439 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+R2441:2442 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+R2469:2479 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+binder 2440:2440 <> y:47
+R2443:2446 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2455:2468 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2447:2449 Undecidability.L.Tactics.Computable <> ext meth
+R2451:2454 Undecidability.L.Computability.Synthetic <> test def
+R2457:2460 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2466:2466 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2461:2463 Undecidability.L.Tactics.Extract <> enc meth
+R2468:2468 Undecidability.L.Computability.Synthetic <> y:47 var
+R2471:2473 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2479:2479 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2474:2476 Undecidability.L.Tactics.Computable <> ext meth
+R2485:2487 Undecidability.L.Tactics.Computable <> ext meth
+R2490:2493 Undecidability.L.Computability.Synthetic <> test def
+R2481:2484 Undecidability.L.Util.L_facts <> :::x_'=='_x not
+R2428:2435 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R2480:2480 Undecidability.L.Util.L_facts HOAS_Notations :::'['_'L_HOAS'_x_']' not
+R2436:2439 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+R2441:2442 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+R2469:2479 Undecidability.L.Util.L_facts HOAS_Notations :::'λ'_x_'..'_x_','_x not
+binder 2440:2440 <> y:48
+R2443:2446 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2455:2468 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2447:2449 Undecidability.L.Tactics.Computable <> ext meth
+R2451:2454 Undecidability.L.Computability.Synthetic <> test def
+R2457:2460 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2466:2466 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2461:2463 Undecidability.L.Tactics.Extract <> enc meth
+R2468:2468 Undecidability.L.Computability.Synthetic <> y:48 var
+R2471:2473 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2479:2479 Undecidability.L.Util.L_facts HOAS_Notations :::'!!'_x not
+R2474:2476 Undecidability.L.Tactics.Computable <> ext meth
+R2485:2487 Undecidability.L.Tactics.Computable <> ext meth
+R2490:2493 Undecidability.L.Computability.Synthetic <> test def
+R2569:2587 Undecidability.L.Util.L_facts <> unique_normal_forms thm
+R2569:2587 Undecidability.L.Util.L_facts <> unique_normal_forms thm
+R2622:2628 Undecidability.L.Tactics.Computable <> inj_enc def
+R2622:2628 Undecidability.L.Tactics.Computable <> inj_enc def
+R2652:2655 Undecidability.L.Computability.Synthetic <> test def
+R2674:2674 Undecidability.L.Computability.Synthetic <> L_enum_rec.f var
+R2674:2674 Undecidability.L.Computability.Synthetic <> L_enum_rec.f var
+R2706:2708 Undecidability.L.Computability.Synthetic <> L_enum_rec.H_d var
+R2706:2708 Undecidability.L.Computability.Synthetic <> L_enum_rec.H_d var
+R2752:2761 Undecidability.L.Computability.Synthetic L_enum_rec <> sec
+def 2776:2786 <> opt_to_list
+binder 2788:2788 <> n:49
+R2799:2806 Undecidability.Synthetic.EnumerabilityFacts <> nat_enum def
+R2808:2808 Undecidability.L.Computability.Synthetic <> n:49 var
+R2815:2818 Coq.Init.Datatypes <> Some constr
+R2825:2825 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2827:2827 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2831:2834 Coq.Init.Datatypes <> None constr
+R2839:2840 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+inst 2867:2882 <> term_opt_to_list
+R2886:2895 Undecidability.L.Tactics.Computable <> computable class
+R2897:2907 Undecidability.L.Computability.Synthetic <> opt_to_list def
+def 2947:2951 <> L_nat
+R2956:2960 Undecidability.Synthetic.ListEnumerabilityFacts <> cumul abbrev
+R2963:2973 Undecidability.L.Computability.Synthetic <> opt_to_list def
+inst 2997:3006 <> term_L_nat
+R3010:3019 Undecidability.L.Tactics.Computable <> computable class
+R3021:3025 Undecidability.L.Computability.Synthetic <> L_nat def
+R3044:3048 Undecidability.L.Computability.Synthetic <> L_nat def
+R3058:3062 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul def
+R3325:3330 Coq.Arith.Cantor <> <> lib
+def 3504:3505 <> F'
+R3522:3524 Coq.Init.Datatypes <> nat ind
+binder 3518:3518 <> n:50
+R3529:3531 Coq.Init.Datatypes <> nat ind
+R3542:3542 Undecidability.L.Computability.Synthetic <> n:50 var
+R3678:3678 Coq.Init.Datatypes <> S constr
+R3690:3692 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3686:3686 Coq.Init.Datatypes <> S constr
+R3693:3693 Undecidability.L.Computability.Synthetic <> F:51 var
+inst 3783:3789 <> term_F'
+R3793:3802 Undecidability.L.Tactics.Computable <> computable class
+R3804:3805 Undecidability.L.Computability.Synthetic <> F' def
+def 3843:3845 <> F''
+R3863:3865 Coq.Init.Datatypes <> nat ind
+binder 3858:3859 <> n0:53
+R3873:3875 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3870:3872 Coq.Init.Datatypes <> nat ind
+R3876:3878 Coq.Init.Datatypes <> nat ind
+R3889:3890 Undecidability.L.Computability.Synthetic <> n0:53 var
+R3957:3957 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3959:3960 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3962:3962 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4019:4019 Coq.Init.Datatypes <> S constr
+R4033:4033 Undecidability.L.Computability.Synthetic <> F:54 var
+R4108:4108 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4110:4111 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4113:4113 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4118:4118 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4122:4123 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4125:4125 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4119:4119 Coq.Init.Datatypes <> S constr
+R4192:4192 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4197:4198 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4200:4200 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4193:4193 Coq.Init.Datatypes <> S constr
+R4205:4205 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4208:4209 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4213:4213 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4210:4210 Coq.Init.Datatypes <> S constr
+inst 4353:4360 <> term_F''
+R4364:4373 Undecidability.L.Tactics.Computable <> computable class
+R4375:4377 Undecidability.L.Computability.Synthetic <> F'' def
+inst 4423:4436 <> term_embed_nat
+R4440:4449 Undecidability.L.Tactics.Computable <> computable class
+R4451:4463 Coq.Arith.Cantor <> to_nat def
+R4483:4492 Undecidability.L.Tactics.Computable <> computable class
+R4500:4500 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4502:4503 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4505:4505 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 4504:4504 <> y:56
+binder 4501:4501 <> x:57
+binder 4500:4505 <> pat:58
+R4511:4513 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4510:4510 Undecidability.L.Computability.Synthetic <> y:56 var
+R4514:4515 Undecidability.L.Computability.Synthetic <> F' def
+R4519:4521 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4518:4518 Undecidability.L.Computability.Synthetic <> y:56 var
+R4522:4522 Undecidability.L.Computability.Synthetic <> x:57 var
+R4483:4492 Undecidability.L.Tactics.Computable <> computable class
+R4500:4500 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4502:4503 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4505:4505 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 4504:4504 <> y:59
+binder 4501:4501 <> x:60
+binder 4500:4505 <> pat:61
+R4511:4513 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4510:4510 Undecidability.L.Computability.Synthetic <> y:59 var
+R4514:4515 Undecidability.L.Computability.Synthetic <> F' def
+R4519:4521 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4518:4518 Undecidability.L.Computability.Synthetic <> y:59 var
+R4522:4522 Undecidability.L.Computability.Synthetic <> x:60 var
+inst 4564:4579 <> term_unembed_nat
+R4583:4592 Undecidability.L.Tactics.Computable <> computable class
+R4594:4606 Coq.Arith.Cantor <> of_nat def
+R4625:4637 Coq.Arith.Cantor <> of_nat def
+R4650:4659 Undecidability.L.Tactics.Computable <> computable class
+R4661:4663 Undecidability.L.Computability.Synthetic <> F'' def
+R4650:4659 Undecidability.L.Tactics.Computable <> computable class
+R4661:4663 Undecidability.L.Computability.Synthetic <> F'' def
+R4675:4682 Undecidability.L.Computability.Synthetic <> term_F'' inst
+R4675:4682 Undecidability.L.Computability.Synthetic <> term_F'' inst
+def 5635:5645 <> lenumerates
+binder 5648:5648 <> X:62
+binder 5651:5651 <> L:63
+R5659:5662 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5658:5658 Undecidability.L.Computability.Synthetic <> X:62 var
+binder 5654:5654 <> p:64
+R5686:5690 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5739:5739 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5674:5683 Undecidability.Synthetic.ListEnumerabilityFacts <> cumulative def
+R5685:5685 Undecidability.L.Computability.Synthetic <> L:63 var
+R5702:5702 Undecidability.L.Computability.Synthetic <> X:62 var
+binder 5698:5698 <> x:65
+R5708:5713 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5738:5738 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5705:5705 Undecidability.L.Computability.Synthetic <> p:64 var
+R5707:5707 Undecidability.L.Computability.Synthetic <> x:65 var
+R5714:5720 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5728:5729 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5725:5727 Coq.Init.Datatypes <> nat ind
+binder 5721:5721 <> m:66
+R5731:5734 Undecidability.Shared.Libs.PSL.Lists.BaseLists <> :::x_'el'_x not
+R5730:5730 Undecidability.L.Computability.Synthetic <> x:65 var
+R5735:5735 Undecidability.L.Computability.Synthetic <> L:63 var
+R5737:5737 Undecidability.L.Computability.Synthetic <> m:66 var
+def 5754:5759 <> L_enum
+binder 5762:5762 <> X:67
+R5767:5775 Undecidability.L.Tactics.Extract <> encodable class
+R5777:5777 Undecidability.L.Computability.Synthetic <> X:67 var
+binder 5767:5777 <> H:68
+R5786:5789 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5785:5785 Undecidability.L.Computability.Synthetic <> X:67 var
+binder 5781:5781 <> p:69
+R5801:5807 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5809:5810 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5808:5808 <> L:70
+R5826:5829 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5811:5823 Undecidability.L.Computability.Synthetic <> is_computable ind
+R5825:5825 Undecidability.L.Computability.Synthetic <> L:70 var
+R5830:5840 Undecidability.L.Computability.Synthetic <> lenumerates def
+R5844:5844 Undecidability.L.Computability.Synthetic <> p:69 var
+R5842:5842 Undecidability.L.Computability.Synthetic <> L:70 var
+prf 5854:5863 <> projection
+binder 5865:5865 <> X:71
+binder 5867:5867 <> Y:72
+R5875:5883 Undecidability.L.Tactics.Extract <> encodable class
+R5885:5885 Undecidability.L.Computability.Synthetic <> X:71 var
+binder 5870:5871 <> HX:73
+R5894:5902 Undecidability.L.Tactics.Extract <> encodable class
+R5904:5904 Undecidability.L.Computability.Synthetic <> Y:72 var
+binder 5889:5890 <> HY:74
+R5917:5920 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5913:5915 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5912:5912 Undecidability.L.Computability.Synthetic <> X:71 var
+R5916:5916 Undecidability.L.Computability.Synthetic <> Y:72 var
+binder 5908:5908 <> p:75
+R5945:5948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5931:5942 Undecidability.L.Computability.Synthetic <> L_enumerable def
+R5944:5944 Undecidability.L.Computability.Synthetic <> p:75 var
+R5949:5960 Undecidability.L.Computability.Synthetic <> L_enumerable def
+binder 5967:5967 <> x:76
+R5972:5978 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5980:5981 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5979:5979 <> y:77
+R5982:5982 Undecidability.L.Computability.Synthetic <> p:75 var
+R5984:5984 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5986:5986 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5988:5988 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5985:5985 Undecidability.L.Computability.Synthetic <> x:76 var
+R5987:5987 Undecidability.L.Computability.Synthetic <> y:77 var
+binder 6038:6038 <> n:78
+R6051:6051 Undecidability.L.Computability.Synthetic <> n:78 var
+R6058:6061 Coq.Init.Datatypes <> Some constr
+R6063:6063 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6065:6066 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6068:6068 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6073:6076 Coq.Init.Datatypes <> Some constr
+R6082:6085 Coq.Init.Datatypes <> None constr
+R6090:6093 Coq.Init.Datatypes <> None constr
+binder 6038:6038 <> n:79
+R6051:6051 Undecidability.L.Computability.Synthetic <> n:79 var
+R6058:6061 Coq.Init.Datatypes <> Some constr
+R6063:6063 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6065:6066 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6068:6068 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6073:6076 Coq.Init.Datatypes <> Some constr
+R6082:6085 Coq.Init.Datatypes <> None constr
+R6090:6093 Coq.Init.Datatypes <> None constr
+prf 6332:6347 <> L_enumerable_ext
+binder 6349:6349 <> X:80
+R6353:6361 Undecidability.L.Tactics.Extract <> encodable class
+R6363:6363 Undecidability.L.Computability.Synthetic <> X:80 var
+binder 6353:6363 <> H:81
+binder 6366:6366 <> p:82
+binder 6368:6368 <> q:83
+R6386:6389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6372:6383 Undecidability.L.Computability.Synthetic <> L_enumerable def
+R6385:6385 Undecidability.L.Computability.Synthetic <> p:82 var
+R6390:6390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6416:6420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6402:6402 Undecidability.L.Computability.Synthetic <> X:80 var
+binder 6398:6398 <> x:84
+R6408:6412 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6405:6405 Undecidability.L.Computability.Synthetic <> p:82 var
+R6407:6407 Undecidability.L.Computability.Synthetic <> x:84 var
+R6413:6413 Undecidability.L.Computability.Synthetic <> q:83 var
+R6415:6415 Undecidability.L.Computability.Synthetic <> x:84 var
+R6421:6432 Undecidability.L.Computability.Synthetic <> L_enumerable def
+R6434:6434 Undecidability.L.Computability.Synthetic <> q:83 var
+def 6550:6551 <> F1
+binder 6554:6554 <> X:85
+R6565:6568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6562:6564 Coq.Init.Datatypes <> nat ind
+R6569:6572 Coq.Init.Datatypes <> list ind
+R6574:6574 Undecidability.L.Computability.Synthetic <> X:85 var
+binder 6558:6558 <> T:86
+binder 6586:6586 <> n:87
+R6605:6617 Coq.Arith.Cantor <> of_nat def
+R6619:6619 Undecidability.L.Computability.Synthetic <> n:87 var
+binder 6596:6596 <> n:88
+binder 6599:6599 <> m:89
+R6624:6632 Coq.Lists.List <> nth_error def
+R6640:6640 Undecidability.L.Computability.Synthetic <> m:89 var
+R6635:6635 Undecidability.L.Computability.Synthetic <> T:86 var
+R6637:6637 Undecidability.L.Computability.Synthetic <> n:88 var
+inst 6664:6670 <> term_F1
+binder 6673:6673 <> X:90
+R6681:6689 Undecidability.L.Tactics.Extract <> encodable class
+R6691:6691 Undecidability.L.Computability.Synthetic <> X:90 var
+binder 6677:6677 <> H:91
+R6698:6707 Undecidability.L.Tactics.Computable <> computable class
+R6710:6710 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6724:6728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6714:6717 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6711:6713 Coq.Init.Datatypes <> nat ind
+R6718:6721 Coq.Init.Datatypes <> list ind
+R6723:6723 Undecidability.L.Computability.Synthetic <> X:90 var
+R6732:6735 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6729:6731 Coq.Init.Datatypes <> nat ind
+R6736:6741 Coq.Init.Datatypes <> option ind
+R6743:6743 Undecidability.L.Computability.Synthetic <> X:90 var
+R6747:6747 Undecidability.L.Tactics.Computable <> :::x_'~>'_x not
+R6765:6769 Undecidability.L.Tactics.Computable <> :::x_'~>'_x not
+R6753:6756 Undecidability.L.Tactics.Computable <> :::x_'~>'_x not
+R6748:6749 Undecidability.L.Tactics.Computable <> :::'!'_x not
+R6750:6752 Coq.Init.Datatypes <> nat ind
+R6757:6758 Undecidability.L.Tactics.Computable <> :::'!'_x not
+R6759:6762 Coq.Init.Datatypes <> list ind
+R6764:6764 Undecidability.L.Computability.Synthetic <> X:90 var
+R6775:6778 Undecidability.L.Tactics.Computable <> :::x_'~>'_x not
+R6770:6771 Undecidability.L.Tactics.Computable <> :::'!'_x not
+R6772:6774 Coq.Init.Datatypes <> nat ind
+R6779:6780 Undecidability.L.Tactics.Computable <> :::'!'_x not
+R6781:6786 Coq.Init.Datatypes <> option ind
+R6788:6788 Undecidability.L.Computability.Synthetic <> X:90 var
+R6793:6794 Undecidability.L.Computability.Synthetic <> F1 def
+R6796:6796 Undecidability.L.Computability.Synthetic <> X:90 var
+prf 6830:6846 <> L_enumerable_enum
+binder 6849:6849 <> X:92
+R6854:6862 Undecidability.L.Tactics.Extract <> encodable class
+R6864:6864 Undecidability.L.Computability.Synthetic <> X:92 var
+binder 6854:6864 <> H:93
+R6873:6876 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6872:6872 Undecidability.L.Computability.Synthetic <> X:92 var
+binder 6868:6868 <> p:94
+R6895:6898 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6887:6892 Undecidability.L.Computability.Synthetic <> L_enum def
+R6894:6894 Undecidability.L.Computability.Synthetic <> p:94 var
+R6899:6910 Undecidability.L.Computability.Synthetic <> L_enumerable def
+R6912:6912 Undecidability.L.Computability.Synthetic <> p:94 var
+R6958:6959 Undecidability.L.Computability.Synthetic <> F1 def
+R6958:6959 Undecidability.L.Computability.Synthetic <> F1 def
+R7048:7049 Undecidability.L.Computability.Synthetic <> F1 def
+R7068:7096 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+R7068:7096 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+R7068:7096 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+prf 7111:7127 <> L_enumerable_halt
+binder 7130:7130 <> X:95
+R7135:7143 Undecidability.L.Tactics.Extract <> encodable class
+R7145:7145 Undecidability.L.Computability.Synthetic <> X:95 var
+binder 7135:7145 <> H:96
+R7154:7157 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7153:7153 Undecidability.L.Computability.Synthetic <> X:95 var
+binder 7149:7149 <> p:97
+R7214:7219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7168:7178 Undecidability.L.Computability.Synthetic <> L_decidable def
+R7199:7199 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7201:7201 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7203:7203 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 7202:7202 <> y:98
+binder 7200:7200 <> x:99
+binder 7199:7203 <> pat:100
+R7209:7211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7208:7208 Undecidability.L.Computability.Synthetic <> x:99 var
+R7212:7212 Undecidability.L.Computability.Synthetic <> y:98 var
+R7187:7189 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7186:7186 Undecidability.L.Computability.Synthetic <> X:95 var
+R7190:7190 Undecidability.L.Computability.Synthetic <> X:95 var
+R7234:7237 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7220:7231 Undecidability.L.Computability.Synthetic <> L_enumerable def
+R7233:7233 Undecidability.L.Computability.Synthetic <> p:97 var
+R7239:7243 Undecidability.Synthetic.Definitions <> :::x_'⪯'_x not
+R7238:7238 Undecidability.L.Computability.Synthetic <> p:97 var
+R7244:7252 Undecidability.L.Util.L_facts <> converges def
+binder 7370:7370 <> x:101
+binder 7372:7372 <> y:102
+R7379:7379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7381:7381 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7383:7383 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7380:7380 Undecidability.L.Computability.Synthetic <> x:101 var
+R7382:7382 Undecidability.L.Computability.Synthetic <> y:102 var
+R7320:7344 Undecidability.L.Computability.Synthetic <> L_enumerable_recognisable thm
+binder 7370:7370 <> x:103
+binder 7372:7372 <> y:104
+R7379:7379 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7381:7381 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7383:7383 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7380:7380 Undecidability.L.Computability.Synthetic <> x:103 var
+R7382:7382 Undecidability.L.Computability.Synthetic <> y:104 var
+R7320:7344 Undecidability.L.Computability.Synthetic <> L_enumerable_recognisable thm
+R7444:7444 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7446:7446 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7448:7448 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7444:7444 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7446:7446 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7448:7448 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7464:7464 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7466:7466 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7468:7468 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7464:7464 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7466:7466 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7468:7468 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 7520:7521 <> x0:105
+R7526:7530 Undecidability.L.L <> app constr
+R7535:7537 Undecidability.L.Tactics.Extract <> enc meth
+R7539:7540 Undecidability.L.Computability.Synthetic <> x0:105 var
+binder 7520:7521 <> x0:106
+R7526:7530 Undecidability.L.L <> app constr
+R7535:7537 Undecidability.L.Tactics.Extract <> enc meth
+R7539:7540 Undecidability.L.Computability.Synthetic <> x0:106 var
+R7561:7571 Undecidability.L.Util.L_facts L_Notations <> mod
+prf 7581:7608 <> L_recognisable'_recognisable
+binder 7611:7611 <> X:107
+R7616:7624 Undecidability.L.Tactics.Extract <> encodable class
+R7626:7626 Undecidability.L.Computability.Synthetic <> X:107 var
+binder 7616:7626 <> H:108
+R7635:7638 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7634:7634 Undecidability.L.Computability.Synthetic <> X:107 var
+binder 7630:7630 <> p:109
+R7665:7668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7649:7662 Undecidability.L.Computability.Synthetic <> L_recognisable def
+R7664:7664 Undecidability.L.Computability.Synthetic <> p:109 var
+R7669:7683 Undecidability.L.Computability.Synthetic <> L_recognisable' def
+R7685:7685 Undecidability.L.Computability.Synthetic <> p:109 var
+R7733:7735 Undecidability.L.L <> lam constr
+R7738:7739 Undecidability.L.Computability.MuRec <> mu def
+R7742:7744 Undecidability.L.L <> lam constr
+R7747:7749 Undecidability.L.Tactics.Computable <> ext meth
+R7733:7735 Undecidability.L.L <> lam constr
+R7738:7739 Undecidability.L.Computability.MuRec <> mu def
+R7742:7744 Undecidability.L.L <> lam constr
+R7747:7749 Undecidability.L.Tactics.Computable <> ext meth
+R7783:7783 Undecidability.L.Util.L_facts <> :::x_'>*'_x not
+R7822:7826 Undecidability.L.Util.L_facts <> :::x_'>*'_x not
+R7785:7787 Undecidability.L.L <> lam constr
+R7790:7791 Undecidability.L.Computability.MuRec <> mu def
+R7794:7796 Undecidability.L.L <> lam constr
+R7800:7802 Undecidability.L.Tactics.Computable <> ext meth
+R7816:7818 Undecidability.L.Tactics.Extract <> enc meth
+R7827:7828 Undecidability.L.Computability.MuRec <> mu def
+R7831:7833 Undecidability.L.L <> lam constr
+R7836:7838 Undecidability.L.Tactics.Computable <> ext meth
+R7843:7845 Undecidability.L.Tactics.Extract <> enc meth
+R7783:7783 Undecidability.L.Util.L_facts <> :::x_'>*'_x not
+R7822:7826 Undecidability.L.Util.L_facts <> :::x_'>*'_x not
+R7785:7787 Undecidability.L.L <> lam constr
+R7790:7791 Undecidability.L.Computability.MuRec <> mu def
+R7794:7796 Undecidability.L.L <> lam constr
+R7800:7802 Undecidability.L.Tactics.Computable <> ext meth
+R7816:7818 Undecidability.L.Tactics.Extract <> enc meth
+R7827:7828 Undecidability.L.Computability.MuRec <> mu def
+R7831:7833 Undecidability.L.L <> lam constr
+R7836:7838 Undecidability.L.Tactics.Computable <> ext meth
+R7843:7845 Undecidability.L.Tactics.Extract <> enc meth
+R7892:7898 Undecidability.L.Computability.MuRec <> mu_spec thm
+R7892:7898 Undecidability.L.Computability.MuRec <> mu_spec thm
+R7892:7898 Undecidability.L.Computability.MuRec <> mu_spec thm
+R7892:7898 Undecidability.L.Computability.MuRec <> mu_spec thm
+R7892:7898 Undecidability.L.Computability.MuRec <> mu_spec thm
+R7986:7995 Undecidability.L.Computability.Computability <> enc_extinj thm
+R7986:7995 Undecidability.L.Computability.Computability <> enc_extinj thm
+R8049:8052 Undecidability.L.Util.L_facts <> :::x_'=='_x not
+R8015:8017 Undecidability.L.L <> lam constr
+R8022:8024 Undecidability.L.Tactics.Computable <> ext meth
+R8030:8032 Undecidability.L.Tactics.Extract <> enc meth
+R8043:8045 Undecidability.L.Tactics.Computable <> ext meth
+R8053:8055 Undecidability.L.Tactics.Extract <> enc meth
+R8049:8052 Undecidability.L.Util.L_facts <> :::x_'=='_x not
+R8015:8017 Undecidability.L.L <> lam constr
+R8022:8024 Undecidability.L.Tactics.Computable <> ext meth
+R8030:8032 Undecidability.L.Tactics.Extract <> enc meth
+R8043:8045 Undecidability.L.Tactics.Computable <> ext meth
+R8053:8055 Undecidability.L.Tactics.Extract <> enc meth
+prf 8154:8172 <> L_recognisable_halt
+binder 8175:8175 <> X:110
+R8180:8188 Undecidability.L.Tactics.Extract <> encodable class
+R8190:8190 Undecidability.L.Computability.Synthetic <> X:110 var
+binder 8180:8190 <> H:111
+R8199:8202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8198:8198 Undecidability.L.Computability.Synthetic <> X:110 var
+binder 8194:8194 <> p:112
+R8229:8232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8213:8226 Undecidability.L.Computability.Synthetic <> L_recognisable def
+R8228:8228 Undecidability.L.Computability.Synthetic <> p:112 var
+R8234:8238 Undecidability.Synthetic.Definitions <> :::x_'⪯'_x not
+R8233:8233 Undecidability.L.Computability.Synthetic <> p:112 var
+R8239:8247 Undecidability.L.Util.L_facts <> converges def
+R8274:8301 Undecidability.L.Computability.Synthetic <> L_recognisable'_recognisable thm
+R8274:8301 Undecidability.L.Computability.Synthetic <> L_recognisable'_recognisable thm
+binder 8340:8341 <> x0:113
+R8349:8351 Undecidability.L.Tactics.Extract <> enc meth
+R8353:8354 Undecidability.L.Computability.Synthetic <> x0:113 var
+binder 8340:8341 <> x0:114
+R8349:8351 Undecidability.L.Tactics.Extract <> enc meth
+R8353:8354 Undecidability.L.Computability.Synthetic <> x0:114 var
+prf 8372:8391 <> L_recognisable_HaltL
+binder 8394:8394 <> X:115
+R8405:8413 Undecidability.L.Tactics.Extract <> encodable class
+R8415:8415 Undecidability.L.Computability.Synthetic <> X:115 var
+binder 8398:8401 <> Hreg:116
+R8424:8427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8423:8423 Undecidability.L.Computability.Synthetic <> X:115 var
+binder 8419:8419 <> p:117
+R8454:8457 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8438:8451 Undecidability.L.Computability.Synthetic <> L_recognisable def
+R8453:8453 Undecidability.L.Computability.Synthetic <> p:117 var
+R8459:8463 Undecidability.Synthetic.Definitions <> :::x_'⪯'_x not
+R8458:8458 Undecidability.L.Computability.Synthetic <> p:117 var
+R8464:8468 Undecidability.L.L <> HaltL def
+R8495:8522 Undecidability.L.Computability.Synthetic <> L_recognisable'_recognisable thm
+R8495:8522 Undecidability.L.Computability.Synthetic <> L_recognisable'_recognisable thm
+binder 8556:8557 <> x0:118
+R8565:8567 Undecidability.L.Tactics.Extract <> enc meth
+R8569:8570 Undecidability.L.Computability.Synthetic <> x0:118 var
+binder 8556:8557 <> x0:119
+R8565:8567 Undecidability.L.Tactics.Extract <> enc meth
+R8569:8570 Undecidability.L.Computability.Synthetic <> x0:119 var
+R8608:8616 Undecidability.L.Util.L_facts <> converges def
+R8619:8623 Undecidability.L.L <> HaltL def
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8641:8648 Undecidability.L.Util.L_facts <> eval_iff thm
+R8679:8689 Undecidability.L.Computability.Seval <> eproc_equiv thm
+R8679:8689 Undecidability.L.Computability.Seval <> eproc_equiv thm

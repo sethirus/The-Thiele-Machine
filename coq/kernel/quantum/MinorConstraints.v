@@ -6,9 +6,9 @@
 *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
@@ -102,7 +102,7 @@ Definition satisfies_minor_constraints (E : nat -> nat -> nat -> nat -> R) : Pro
     0 <= minor_3x3_det A B p lambda_max.
 
 (**
-    PART 4A: SUMMATION LEMMAS (convex combinations)
+    SUMMATION LEMMAS (convex combinations)
     *)
 
 (** sum_n_le: Pointwise inequality implies sum inequality

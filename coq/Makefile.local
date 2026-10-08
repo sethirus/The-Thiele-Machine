@@ -1,21 +1,59 @@
 # coq_makefile injects "-R . Top" into COQLIBS when no explicit root
 # mapping appears in _CoqProject. This pre-registers every subdirectory
-# as Top.xxx, and the subsequent -R kernel Kernel / -R nofi NoFI / etc.
-# remappings emit overriding-logical-loadpath warnings that cannot be
-# suppressed via coqc -w in Coq 8.18. Strip the offending flag here,
-# after Makefile.conf sets COQLIBS.
+# as Top.xxx, and the subsequent -R kernel/... Kernel remappings emit
+# overriding-logical-loadpath warnings that cannot be suppressed via
+# coqc -w in Coq 8.18. Strip the offending flag here, after Makefile.conf
+# sets COQLIBS.
 COQLIBS := $(subst -R . Top,,$(COQLIBS))
 
-.PHONY: extraction-output-dirs
-extraction-output-dirs:
-	mkdir -p ../build/kami_hw
+# Build the pinned undecidability library modules that coq/ and minimal/
+# import, with the library's own project flags. Every imported module is
+# listed, so the vendor make sees the whole closure and rebuilds stale
+# dependents consistently. The targets go to Makefile.coq in one call: the
+# vendor Makefile's pattern rule would start one sub-make per target, each
+# regenerating the dependency file.
+#
+# The L modules (L.vo, the L tactics, GenEncode, MuRec, the L datatypes,
+# ClosedLAdmissible) and the two L_computable_*_to_MMA_computable reductions
+# need MetaCoq at build time (.github/actions/setup-metacoq). They stay in
+# this list for the small-machine recursion theorem (Rice and Kleene for
+# programs on the host), whose evaluator is an L term; MM2ComplementUndec.v
+# and the Universal*.v files need the PCP/BSM/FRACTRAN/MMA chain and DLW.
+UNDEC_DIR := ../vendor/coq-undecidability/theories
+UNDEC_MODULES := \
+  FRACTRAN/FRACTRAN.vo FRACTRAN/Reductions/MM_FRACTRAN.vo FRACTRAN/Util/prime_seq.vo \
+  H10/H10.vo \
+  L/Computability/MuRec.vo L/Datatypes/LBool.vo L/Datatypes/Lists.vo L/Datatypes/LNat.vo \
+  L/Datatypes/LOptions.vo L/Datatypes/LProd.vo L/L.vo L/Tactics/GenEncode.vo L/Tactics/LTactics.vo \
+  L/Util/ClosedLAdmissible.vo L/Util/L_facts.vo MinskyMachines/MM.vo MinskyMachines/MM2.vo \
+  MinskyMachines/MM2_undec.vo MinskyMachines/MMA.vo MinskyMachines/MMA/mma3_mma2_compiler.vo \
+  MinskyMachines/MMA/mma_defs.vo MinskyMachines/MMA/mma_utils.vo MinskyMachines/MMenv/env.vo \
+  MinskyMachines/MMenv/mme_defs.vo MinskyMachines/MMenv/mme_utils.vo \
+  MinskyMachines/Reductions/BSM_MM.vo MinskyMachines/Reductions/FRACTRAN_to_MMA2.vo \
+  MinskyMachines/Reductions/L_computable_closed_to_MMA_computable.vo \
+  MinskyMachines/Reductions/L_computable_to_MMA_computable.vo \
+  MinskyMachines/Reductions/MMA2_to_MM2.vo MinskyMachines/Util/MMA_pairing.vo MuRec/MuRec.vo \
+  MuRec/Util/ra_mm_env.vo MuRec/Util/ra_sem_eq.vo MuRec/Util/recalg.vo \
+  PCP/PCP.vo PCP/PCP_undec.vo \
+  PCP/Reductions/PCPb_iff_iPCPb.vo Shared/Libs/DLW/Code/compiler.vo \
+  Shared/Libs/DLW/Code/compiler_correction.vo Shared/Libs/DLW/Code/sss.vo \
+  Shared/Libs/DLW/Code/subcode.vo Shared/Libs/DLW/Utils/gcd.vo \
+  Shared/Libs/DLW/Utils/godel_coding.vo Shared/Libs/DLW/Utils/prime.vo \
+  Shared/Libs/DLW/Utils/utils.vo Shared/Libs/DLW/Vec/pos.vo Shared/Libs/DLW/Vec/vec.vo \
+  StackMachines/BSM.vo StackMachines/Reductions/iPCPb_to_BSM_HALTING.vo \
+  Synthetic/Models_Equivalent.vo Synthetic/ReducibilityFacts.vo Synthetic/Undecidability.vo \
+  TM/SBTM.vo TM/TM.vo
+$(addprefix $(UNDEC_DIR)/,$(UNDEC_MODULES)) &: $(shell find $(UNDEC_DIR) -name '*.v') $(UNDEC_DIR)/_CoqProject
+	$(MAKE) -C $(UNDEC_DIR) Makefile.coq
+	$(MAKE) -C $(UNDEC_DIR) -f Makefile.coq $(UNDEC_MODULES)
 
-# Both roots write Target.ml/Target.mli, but their extraction contexts differ.
-# Canonical full extraction must run last, including in incremental -j builds.
-Extraction.vo: kami_hw/KamiExtraction.vo
-Extraction.vo ThieleMachineComplete.vo kami_hw/KamiExtraction.vo: | extraction-output-dirs
-
-# Build the pinned CM2 library dependency closure with its own project flags.
-# Grouping prevents parallel bridge imports from rebuilding the same objects.
-../vendor/coq-undecidability/theories/TM/SBTM.vo ../vendor/coq-undecidability/theories/MinskyMachines/MM2.vo ../vendor/coq-undecidability/theories/MinskyMachines/MM2_undec.vo ../vendor/coq-undecidability/theories/Synthetic/Undecidability.vo ../vendor/coq-undecidability/theories/Synthetic/ReducibilityFacts.vo ../vendor/coq-undecidability/theories/PCP/PCP.vo ../vendor/coq-undecidability/theories/PCP/PCP_undec.vo ../vendor/coq-undecidability/theories/PCP/Reductions/PCPb_iff_iPCPb.vo ../vendor/coq-undecidability/theories/StackMachines/BSM.vo ../vendor/coq-undecidability/theories/StackMachines/Reductions/iPCPb_to_BSM_HALTING.vo ../vendor/coq-undecidability/theories/MinskyMachines/MM.vo ../vendor/coq-undecidability/theories/MinskyMachines/MMA.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/BSM_MM.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/MMA2_to_MM2.vo ../vendor/coq-undecidability/theories/FRACTRAN/FRACTRAN.vo ../vendor/coq-undecidability/theories/FRACTRAN/Reductions/MM_FRACTRAN.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/FRACTRAN_to_MMA2.vo &: $(shell find ../vendor/coq-undecidability/theories -name '*.v') ../vendor/coq-undecidability/theories/_CoqProject
-	$(MAKE) -C ../vendor/coq-undecidability/theories MinskyMachines/MM2_undec.vo
+# A full build compiles the vendored library completely before any coq/ file.
+# Some of its intermediate libraries are untracked, so a fresh checkout
+# rebuilds them and then their tracked dependents (MinskyMachines/MM.vo, for
+# one). The rule above sees only the vendor sources and would let a coq/ file
+# compile against the old tracked object first, which Coq then rejects as an
+# inconsistent assumption. coq_makefile runs pre-all as its own make before
+# real-all, so real-all sees the final vendor objects.
+pre-all::
+	$(MAKE) -C $(UNDEC_DIR) Makefile.coq
+	$(MAKE) -C $(UNDEC_DIR) -f Makefile.coq $(UNDEC_MODULES)

@@ -3,7 +3,7 @@
     - Every base carries it. For any base and any event the base reaches
       from a starting state, the latch of that event, priced one unit per
       write, is an honest extension ([latch_core_honest]). A RAM, a Turing
-      machine, and the VM are all bases, so each carries the axis as itself
+      machine, and L are all bases, so each carries the axis as itself
       plus a latch.
     - A reversible base with unbounded memory carries it and stays
       reversible: keep every old record value in a history, and the whole
@@ -21,7 +21,7 @@
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.
-From Kernel Require Import StructuralCore StructuralCoreRound2 StructuralCoreRound4.
+From Kernel Require Import StructuralCore StructuralCoreCover StructuralCoreAnyBase.
 From Kernel Require Import PermanentCertification.
 
 (** * Every base carries the axis *)
@@ -56,7 +56,7 @@ Defined.
 Theorem latch_core_honest :
   (exists b0 n, b_init B b0 /\
      let '(b, r, _) := rc_run LatchCore n (b0, false, 0) in r = false /\ h b = true) ->
-  HonestExtension4 LatchCore B latch_cover.
+  HonestBaseExtension LatchCore B latch_cover.
 Proof.
   intros [b0 [n [Hb0 Hwrite]]].
   split; [exists (fun b r => orb r (h b)); intros [[b r] m]; reflexivity |].
@@ -118,7 +118,7 @@ Theorem history_latch_honest :
   (exists b0 n, b_init B b0 /\
      let '(b, r, _, _) := rc_run HistoryLatch n (b0, false, [], 0) in
      r = false /\ h b = true) ->
-  HonestExtension4 HistoryLatch B history_cover.
+  HonestBaseExtension HistoryLatch B history_cover.
 Proof.
   intros [b0 [n [Hb0 Hwrite]]].
   split; [exists (fun b r => orb r (h b)); intros [[[b r] hist] m]; reflexivity |].

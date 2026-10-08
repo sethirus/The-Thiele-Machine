@@ -19,9 +19,8 @@ FORBIDDEN_PATTERNS = [
     # emits a warning instead of asserting. Such a test cannot fail, so it
     # cannot distinguish "the committed artifact is correct" from "the
     # committed artifact is corrupt" -- it silently repairs the very drift it
-    # exists to detect. Two tests did this (test_rtl_text_transform_audit.py
-    # and test_master_summary_artifacts.py) and both now assert instead.
-    # Banned here so the idiom cannot come back.
+    # exists to detect. Freshness tests assert instead.
+    # Banned here so the idiom cannot appear.
     ("self-repairing freshness gate", "shutil.copy2("),
     ("warn-instead-of-assert gate", "warnings.warn("),
 ]

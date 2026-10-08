@@ -1,8 +1,8 @@
 (** SCOPE NOTE: standalone proof scope. These narrow real-system
     countermodels intentionally test information loss without claiming formal
-    translations into the VM.
+    translations into a Thiele machine.
 
-    Frozen top-five Part 7 candidate models.  Each captures a narrow
+    Top-five candidate models.  Each captures a narrow
     information-loss or durability condition identified by a real spec. *)
 
 From Coq Require Import Bool Arith.PeanoNat.

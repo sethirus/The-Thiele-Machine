@@ -1,12 +1,12 @@
 (** Full-elliptope completion: the CHSH correlator quantum set as an
     existential completion of the zero-marginal NPA matrix.
 
-  The zero-marginal bridge (QuantumPartitionPSD.v) characterizes one slice of
+  The zero-marginal bridge (CHSHColumnCheck.v) characterizes one slice of
   the quantum set: the orthogonal-observables case, where the cross moments
   rho_AA = <A0 A1> and rho_BB = <B0 B1> are pinned to zero. That slice is the
-  membership test CHSH_LASSERT runs, and the monograph says out loud what the
-  pinning costs: the slice rejects every deterministic local strategy,
-  including the mu = 0 trace that achieves the classical bound.
+  membership test [column_contractive_check_witness] decides. The pinning has
+  a cost: the slice rejects every deterministic local strategy, including the
+  one that achieves the classical bound.
 
   This file removes the pinning at the mathematical level. Membership in the
   full correlator quantum set is characterized the way Tsirelson's theorem
@@ -27,18 +27,18 @@
     matrix plus the identity block. Falsify: exhibit signs a0 a1 b0 b1 with
     squares 1 whose completed matrix has a negative quadratic form.
 
-  - [classical_tightness_witness_elliptope]: the all-ones strategy -- the
+  - [classical_tightness_witness_elliptope]: the all-ones strategy (the
     mu = 0 witness by which the classical bound is achieved, and which the
-    zero-marginal gate traps -- is in the set. The gap the monograph
-    documents between the slice and honest classical play closes here.
+    zero-marginal gate traps) is in the set. The slice rejects honest
+    classical play; the set does not.
 
   - [turing_point_elliptope]: (1,0,1,0), the running example of a classical
     point the slice rejects, is in the set, witnessed by x = 1, y = 0 and
     an explicit sum-of-squares decomposition of its quadratic form.
 
-  - [elliptope_convex] / [elliptope_convex_combination]: the set is closed
+  - [elliptope_convex] / [elliptope_finite_mixture]: the set is closed
     under binary convex combination, hence contains every finite mixture of
-    deterministic strategies -- every local-hidden-variable correlator.
+    deterministic strategies: every local-hidden-variable correlator.
 
   - [elliptope_tsirelson]: every tuple in the set satisfies S^2 <= 8, i.e.
     |S| <= 2*sqrt(2). The proof is the Cauchy-Schwarz argument run inside
@@ -58,15 +58,16 @@
 
   Scope: this is the correlator completion model, with zero marginals and
   free within-party cross moments. Its identification with quantum correlators
-  uses the external Tsirelson representation theorem. The proofs here concern
+  is Tsirelson's representation theorem, proved in TsirelsonRepresentation.v
+  ([tr_representation], [tr_representation_complex]). The proofs here concern
   the completed matrix and its quadratic form. Complete behaviors, including
   specified marginals, are a different object.
 *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
-   mathematics and does not engage VM semantics. No definition or theorem here
-   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
-   imports no kernel module.
+   mathematics. No definition or theorem here mentions a certification
+   system, a ledger or a machine step, and it imports no kernel
+   module.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
@@ -338,10 +339,10 @@ Proof.
     lra.
 Qed.
 
-(** The mu = 0 tightness witness -- the all-ones strategy by which
+(** The mu = 0 tightness witness (the all-ones strategy by which
     classical_bound_achieved touches the classical bound, and which the
-    zero-marginal gate traps -- is elliptope-realizable. This is the named
-    repair of the slice/set gap the monograph documents. *)
+    zero-marginal gate traps) is elliptope-realizable. The slice rejects
+    this point; the set contains it. *)
 Corollary classical_tightness_witness_elliptope :
   elliptope_realizable 1 1 1 1.
 Proof.
@@ -654,8 +655,8 @@ Proof.
       apply Hell; lia.
 Qed.
 
-(** The headline corollary: every local-hidden-variable correlator -- any
-    finite mixture of deterministic sign strategies -- is in the set. This
+(** The headline corollary: every local-hidden-variable correlator (any
+    finite mixture of deterministic sign strategies) is in the set. This
     is the point the slice could not make: honest classical play, in full
     generality, certifiable against the completed matrix. *)
 Corollary lhv_mixture_elliptope :

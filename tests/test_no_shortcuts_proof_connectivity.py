@@ -6,88 +6,43 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 COQ_ROOT = REPO_ROOT / "coq"
-EXTRACTION_V = COQ_ROOT / "Extraction.v"
+COQ_PROJECT = COQ_ROOT / "_CoqProject"
 
-# Critical proof surfaces that must remain connected to kernel VM semantics.
+# Proof surfaces that must remain connected to the foundation chain.
 CRITICAL_DIRS = (
     COQ_ROOT / "kernel",
-    COQ_ROOT / "bridge",
-    COQ_ROOT / "kami_hw",
+    REPO_ROOT / "minimal",
 )
 
-# Semantic anchors for "Thiele machine" meaning in proofs.
+# The foundation chain: the abstract certification system and its universal
+# floor, the record-carrying machine, the abstract substrate, the Turing
+# kernel, and the small machine with the definition it meets.
 ANCHOR_MODULES = {
-    "VMState",
-    "VMStep",
-    "VMEncoding",
+    "UniversalCertificationCost",
+    "StructuralCore",
+    "Substrate",
     "KernelTM",
-    "SimulationProof",
-    "MuCostModel",
-    "MuLedgerConservation",
-    "MuInitiality",
-    "NoFreeInsight",
-    "BridgeDefinitions",
-    "PythonBisimulation",
-    "HardwareBisimulation",
+    "EarnedCore",
+    "ThieleComplete",
 }
 
-# Infrastructure files that define alternative formalizations, HW type constants,
-# or Kami primitives — naturally disconnected from VM semantic anchors.
-# Connectivity is enforced by the authoritative inquisitor (PROOF_CONNECTIVITY_GAP rule).
-CONNECTIVITY_EXEMPT = {
-    "CertCheck", "CrossLayerManifest", "Kernel", "PartitionSeparation",
-    "ReceiptIntegrity", "Abstraction", "Blink", "Compatibility",
-    "ThieleCPUCore", "ThieleTypes",
-    "GraphReconstructionBridge", "RichStateCommutation",
-    "RTLGapRegistry",
-    # Unification-probe math files: substrate-free real analysis, matrix
-    # algebra, correlator algebra, and generic-cost-ledger theorems.
-    # Connected to the VM via the aggregator files (UnificationProbeBridges,
-    # UnificationProbePattern), not by direct imports of VMState/VMStep.
-    "MeasurementExtraction",
-    "HolevoGeneralD", "HolevoTwoQubit", "OperatorAlgebra",
-    "TsirelsonFromIC", "TsirelsonFromMu",
-    "AdditionalProbes", "BekensteinBound", "DimensionalGapTheorem",
-    # The substrate-free half of the A2 substitution gate. Every theorem is
-    # indicator-uniqueness over an abstract local-predicate pricing record and
-    # imports no VM semantics on purpose: the floor follows from the cost
-    # schedule alone. The VM teeth are in CommitmentCostDecomposition.v
-    # (imports VMState/VMStep/SimulationProof), and A2Payoff.v is the
-    # aggregator that combines the two. Carries the matching SCOPE NOTE.
-    "CommitmentPredicateAdequacy",
-    # Substrate.v is the abstract A2-respecting substrate typeclass that the
-    # 51-opcode VM instantiates via VMSubstrateInstance.v. It is
-    # foundation-tier (more foundational than VMState, which is one
-    # realization of it), so it cannot connect "down" to VMState without
-    # inverting the substrate-vs-scaffolding dependency direction. The
-    # inquisitor exempts it for the same reason (scripts/inquisitor.py:119).
-    "Substrate",
-    # The Kami step-rule decomposition. These files state one substep of
-    # `ThieleCPUCore.v`'s getRules FSM each (dispatch admission, normalization
-    # scan, morph copy/join, boundary decode, CHSH/LASSERT phase arithmetic,
-    # rich-fault word decode) and import that module directly. ThieleCPUCore is
-    # itself exempt as a Kami primitive, so the decomposition inherits the same
-    # status: it is hardware-substrate refinement, not VM semantics, and it
-    # cannot reach VMState/VMStep without asserting the very bridge these
-    # modules exist to break down. The authoritative inquisitor reports no
-    # PROOF_CONNECTIVITY_GAP for them (0 HIGH, 0 MEDIUM).
-    "ActionEvaluator", "ActionObservation", "BoundaryDecoded", "BoundaryRun",
-    "ChshArith", "ChshStepFields", "CoreExecution", "CoreRules", "CoreTyping",
-    "DecodedReadFree", "DispatchAddFamily", "DispatchContracts",
-    "DispatchExecution", "DispatchFetch", "DispatchLets", "DispatchObservation",
-    "DispatchReset", "HWBoundary", "HWBoundaryCompleteness", "HWBoundaryReads",
-    "LassertSpec", "LassertStepFields", "LegacyWordDecode", "MorphCopy",
-    "MorphJoin", "MorphLoading", "MorphRetirement", "MorphTensorGap",
-    "NormalizationExclusivity", "NormalizationExecution", "NormalizationFrame",
-    "NormalizationLoop", "NormalizationPrefix", "NormalizationRetirement",
-    "NormalizationScanExecution", "NormalizationStart", "NormalizationSteps",
-    "ReadFreeObservation", "RichFaultWords", "RichWordDecode", "RuleNext",
-    "RuleStep", "StepEval", "StepFields", "StepFieldsMorph", "TensorDispatch",
-    "MM2ComplementUndec",
+# The anchors' own files and where they live.
+ANCHOR_FILES = {
+    "UniversalCertificationCost": "coq/kernel/nfi/UniversalCertificationCost.v",
+    "StructuralCore": "coq/kernel/foundation/StructuralCore.v",
+    "Substrate": "coq/kernel/foundation/Substrate.v",
+    "KernelTM": "coq/kernel/foundation/KernelTM.v",
+    "EarnedCore": "minimal/EarnedCore.v",
+    "ThieleComplete": "minimal/ThieleComplete.v",
 }
+
+# Files that hold only base data types the anchors are built from.
+# Kernel.v is the toy Turing machine's state and instruction types, which
+# KernelTM runs; it has nothing to connect to below itself.
+CONNECTIVITY_EXEMPT = {"Kernel"}
 
 _FROM_IMPORT_RE = re.compile(r"From\s+([A-Za-z0-9_\.]+)\s+Require\s+Import\s+([^\.]+)\.")
-_REQUIRE_IMPORT_RE = re.compile(r"Require\s+Import\s+([^\.]+)\.")
+_REQUIRE_IMPORT_RE = re.compile(r"Require\s+(?:Import\s+|Export\s+)?([^\.]+(?:\.[A-Za-z][^\.\s]*)*)\.")
 
 
 def _all_coq_files() -> list[Path]:
@@ -109,19 +64,16 @@ def _parse_import_module_names(text: str) -> set[str]:
     mods: set[str] = set()
 
     for m in _FROM_IMPORT_RE.finditer(text):
-        imported = m.group(2)
-        for tok in imported.split():
+        for tok in m.group(2).split():
             tok = tok.strip()
             if tok:
-                # Handle dotted names like Kernel.VMState → VMState
+                # Handle dotted names like Kernel.StructuralCore → StructuralCore
                 mods.add(tok.rsplit(".", 1)[-1])
 
     for m in _REQUIRE_IMPORT_RE.finditer(text):
-        imported = m.group(1)
-        for tok in imported.split():
+        for tok in m.group(1).split():
             tok = tok.strip()
-            if tok and tok != "From":
-                # Handle dotted names like Kernel.VMState → VMState
+            if tok and tok not in ("From", "Import", "Export"):
                 mods.add(tok.rsplit(".", 1)[-1])
 
     return mods
@@ -162,26 +114,23 @@ def _reaches_any_anchor(start: Path, graph: dict[Path, set[Path]], anchors: set[
     return False
 
 
-def test_extraction_exports_core_vm_semantics() -> None:
-    assert EXTRACTION_V.exists(), f"Missing extraction file: {EXTRACTION_V}"
-    txt = EXTRACTION_V.read_text(encoding="utf-8")
-    # Extraction now targets canonical kernel/kami_hw modules directly
-    # (no longer routes through the monolithic ThieleMachineComplete).
-    assert "SimulationProof.vm_apply" in txt
-    assert "VMState.VMState" in txt
-    assert "VMStep.vm_instruction" in txt
-    assert "Extraction \"../build/thiele_core.ml\"" in txt
+def test_foundation_chain_is_built_with_the_project() -> None:
+    """Every anchor file exists and is a canonical compile target."""
+    project = COQ_PROJECT.read_text(encoding="utf-8").splitlines()
+    for module, rel in ANCHOR_FILES.items():
+        assert (REPO_ROOT / rel).is_file(), f"missing foundation file for {module}: {rel}"
+        entry = rel[len("coq/"):] if rel.startswith("coq/") else "../" + rel
+        assert entry in project, f"{rel} is not listed in coq/_CoqProject"
 
 
-# A file may declare itself substrate-free in the source rather than in the
+# A file may declare itself standalone in the source rather than in the
 # list above. The marker is the same one the Inquisitor honours for
 # PROOF_CONNECTIVITY_GAP, so the exemption lives next to the code it describes
 # and cannot drift out of sync with a list kept here.
 #
-# The alternative is what these files used to do: import VMState/VMStep and
-# never use them, which satisfies a reachability check while telling the
-# reader nothing. A scope marker states the truth next to the code it
-# describes.
+# The alternative is to import a foundation module and never use it, which
+# satisfies a reachability check while telling the reader nothing. A scope
+# marker states the truth next to the code it describes.
 _CONNECTIVITY_WAIVER_RE = re.compile(
     r"(?:SCOPE NOTE.*proof[- ]?connect|"
     r"SCOPE NOTE.*(?:foundation connectivity|standalone proof scope)|"
@@ -204,7 +153,10 @@ def test_critical_proof_files_connect_to_thiele_semantics() -> None:
 
     graph = _build_import_graph(files)
     anchors = _anchor_files(files)
-    assert anchors, "No anchor modules found in critical proof surfaces"
+    assert {p.stem for p in anchors} == ANCHOR_MODULES, (
+        "Not every foundation module was found in the critical proof surfaces: "
+        + ", ".join(sorted(ANCHOR_MODULES - {p.stem for p in anchors}))
+    )
 
     disconnected: list[str] = []
     for p in files:
@@ -216,7 +168,8 @@ def test_critical_proof_files_connect_to_thiele_semantics() -> None:
             disconnected.append(str(p.relative_to(REPO_ROOT)))
 
     assert not disconnected, (
-        "Critical proof files disconnected from Thiele VM semantic anchors "
-        "(VMState/VMStep/SimulationProof/MuLedgerConservation/NoFreeInsight):\n"
+        "Proof files disconnected from the foundation chain "
+        "(UniversalCertificationCost/StructuralCore/Substrate/KernelTM/EarnedCore/"
+        "ThieleComplete) and carrying no SCOPE NOTE saying why:\n"
         + "\n".join(f"- {d}" for d in disconnected)
     )

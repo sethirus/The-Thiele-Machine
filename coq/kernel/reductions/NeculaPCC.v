@@ -1,7 +1,7 @@
 (** SCOPE NOTE: standalone proof scope. These results concern the separately
-    scoped PCC fragment, not VM execution.
+    scoped PCC fragment, not a Thiele machine's execution.
 
-    Closed results for the frozen PCC consumer fragment. *)
+    Proved results for the PCC consumer fragment. *)
 
 From Coq Require Import List Bool.
 Import ListNotations.

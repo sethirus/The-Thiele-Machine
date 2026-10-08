@@ -1,144 +1,144 @@
-DIGEST b0eb4e9b538bcc03d838069acb2d6b76
+DIGEST 7ad668a9141bd6972336ee7509cae798
 FKernel.ProbabilisticRecord
-R236:239 Coq.Lists.List <> <> lib
-R241:244 Coq.Bool.Bool <> <> lib
-R246:259 Coq.Arith.PeanoNat <> <> lib
-R261:263 Coq.micromega.Lia <> <> lib
-R273:285 Coq.Lists.List ListNotations <> mod
-R315:337 Kernel.ProbabilisticRecordCore <> <> lib
-def 352:369 <> fair_branch_kernel
-R373:387 Kernel.ProbabilisticRecordCore <> weighted_kernel def
-binder 396:396 <> b:1
-R406:406 Kernel.ProbabilisticRecord <> b:1 var
-R430:430 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R441:442 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R452:452 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R431:431 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R433:434 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R440:440 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R435:439 Coq.Init.Datatypes <> false constr
-R443:443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R445:446 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R451:451 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R447:450 Coq.Init.Datatypes <> true constr
-R413:413 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R423:423 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R414:414 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R416:417 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R422:422 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R418:421 Coq.Init.Datatypes <> true constr
-def 467:486 <> biased_branch_kernel
-R490:504 Kernel.ProbabilisticRecordCore <> weighted_kernel def
-binder 513:513 <> b:2
-R523:523 Kernel.ProbabilisticRecord <> b:2 var
-R547:547 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R558:559 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R569:569 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R548:548 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R550:551 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R557:557 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R552:556 Coq.Init.Datatypes <> false constr
-R560:560 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R562:563 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R568:568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R564:567 Coq.Init.Datatypes <> true constr
-R530:530 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R540:540 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R531:531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R533:534 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R539:539 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R535:538 Coq.Init.Datatypes <> true constr
-def 584:602 <> branch_write_charge
-R606:618 Kernel.ProbabilisticRecordCore <> branch_charge def
-binder 627:632 <> before:3
-binder 634:638 <> after:4
-R648:651 Coq.Init.Datatypes <> andb def
-R667:671 Kernel.ProbabilisticRecord <> after:4 var
-R654:657 Coq.Init.Datatypes <> negb def
-R659:664 Kernel.ProbabilisticRecord <> before:3 var
-prf 695:712 <> fair_branch_honest
-R718:744 Kernel.ProbabilisticRecordCore <> honest_probabilistic_record def
-R746:763 Kernel.ProbabilisticRecord <> fair_branch_kernel def
-R765:783 Kernel.ProbabilisticRecord <> branch_write_charge def
-R1099:1117 Kernel.ProbabilisticRecord <> branch_write_charge def
-prf 1144:1163 <> biased_branch_honest
-R1169:1195 Kernel.ProbabilisticRecordCore <> honest_probabilistic_record def
-R1197:1216 Kernel.ProbabilisticRecord <> biased_branch_kernel def
-R1218:1236 Kernel.ProbabilisticRecord <> branch_write_charge def
-R1552:1570 Kernel.ProbabilisticRecord <> branch_write_charge def
-prf 1599:1643 <> deterministic_latch_handles_branching_refuted
-R1649:1650 Coq.Init.Logic <> ::type_scope:'~'_x not
-R1651:1687 Kernel.ProbabilisticRecordCore <> deterministic_latch_handles_branching def
-R1728:1745 Kernel.ProbabilisticRecord <> fair_branch_kernel def
-R1747:1765 Kernel.ProbabilisticRecord <> branch_write_charge def
-R1767:1784 Kernel.ProbabilisticRecord <> fair_branch_honest thm
-R1728:1745 Kernel.ProbabilisticRecord <> fair_branch_kernel def
-R1747:1765 Kernel.ProbabilisticRecord <> branch_write_charge def
-R1767:1784 Kernel.ProbabilisticRecord <> fair_branch_honest thm
-R1819:1823 Coq.Init.Datatypes <> false constr
-R1827:1831 Coq.Init.Datatypes <> false constr
-R1834:1842 Coq.Init.Logic <> or_introl constr
-R1844:1850 Coq.Init.Logic <> eq_refl constr
-R1819:1823 Coq.Init.Datatypes <> false constr
-R1827:1831 Coq.Init.Datatypes <> false constr
-R1834:1842 Coq.Init.Logic <> or_introl constr
-R1844:1850 Coq.Init.Logic <> eq_refl constr
-R1882:1886 Coq.Init.Datatypes <> false constr
-R1890:1893 Coq.Init.Datatypes <> true constr
-R1896:1904 Coq.Init.Logic <> or_intror constr
-R1907:1915 Coq.Init.Logic <> or_introl constr
-R1917:1923 Coq.Init.Logic <> eq_refl constr
-R1882:1886 Coq.Init.Datatypes <> false constr
-R1890:1893 Coq.Init.Datatypes <> true constr
-R1896:1904 Coq.Init.Logic <> or_intror constr
-R1907:1915 Coq.Init.Logic <> or_introl constr
-R1917:1923 Coq.Init.Logic <> eq_refl constr
-prf 1988:2014 <> branch_kernels_same_support
-binder 2025:2025 <> b:5
-binder 2027:2028 <> b':6
-R2071:2077 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R2033:2046 Kernel.ProbabilisticRecordCore <> kernel_support def
-R2048:2065 Kernel.ProbabilisticRecord <> fair_branch_kernel def
-R2067:2067 Kernel.ProbabilisticRecord <> b:5 var
-R2069:2070 Kernel.ProbabilisticRecord <> b':6 var
-R2078:2091 Kernel.ProbabilisticRecordCore <> kernel_support def
-R2093:2112 Kernel.ProbabilisticRecord <> biased_branch_kernel def
-R2114:2114 Kernel.ProbabilisticRecord <> b:5 var
-R2116:2117 Kernel.ProbabilisticRecord <> b':6 var
-R2150:2163 Kernel.ProbabilisticRecordCore <> kernel_support def
-R2166:2183 Kernel.ProbabilisticRecord <> fair_branch_kernel def
-R2186:2205 Kernel.ProbabilisticRecord <> biased_branch_kernel def
-prf 2560:2600 <> schedule_determines_probabilities_refuted
-R2606:2607 Coq.Init.Logic <> ::type_scope:'~'_x not
-R2608:2640 Kernel.ProbabilisticRecordCore <> schedule_determines_probabilities def
-R2683:2700 Kernel.ProbabilisticRecord <> fair_branch_kernel def
-R2702:2721 Kernel.ProbabilisticRecord <> biased_branch_kernel def
-R2727:2745 Kernel.ProbabilisticRecord <> branch_write_charge def
-R2747:2765 Kernel.ProbabilisticRecord <> branch_write_charge def
-R2767:2784 Kernel.ProbabilisticRecord <> fair_branch_honest thm
-R2790:2809 Kernel.ProbabilisticRecord <> biased_branch_honest thm
-R2683:2700 Kernel.ProbabilisticRecord <> fair_branch_kernel def
-R2702:2721 Kernel.ProbabilisticRecord <> biased_branch_kernel def
-R2727:2745 Kernel.ProbabilisticRecord <> branch_write_charge def
-R2747:2765 Kernel.ProbabilisticRecord <> branch_write_charge def
-R2767:2784 Kernel.ProbabilisticRecord <> fair_branch_honest thm
-R2790:2809 Kernel.ProbabilisticRecord <> biased_branch_honest thm
-R2835:2861 Kernel.ProbabilisticRecordCore <> same_probabilistic_schedule def
-R2863:2880 Kernel.ProbabilisticRecord <> fair_branch_kernel def
-R2886:2905 Kernel.ProbabilisticRecord <> biased_branch_kernel def
-R2907:2925 Kernel.ProbabilisticRecord <> branch_write_charge def
-R2927:2945 Kernel.ProbabilisticRecord <> branch_write_charge def
-R2835:2861 Kernel.ProbabilisticRecordCore <> same_probabilistic_schedule def
-R2863:2880 Kernel.ProbabilisticRecord <> fair_branch_kernel def
-R2886:2905 Kernel.ProbabilisticRecord <> biased_branch_kernel def
-R2907:2925 Kernel.ProbabilisticRecord <> branch_write_charge def
-R2927:2945 Kernel.ProbabilisticRecord <> branch_write_charge def
-R2967:2993 Kernel.ProbabilisticRecord <> branch_kernels_same_support thm
-R2967:2993 Kernel.ProbabilisticRecord <> branch_kernels_same_support thm
-R3079:3083 Coq.Init.Datatypes <> false constr
-R3079:3083 Coq.Init.Datatypes <> false constr
-prf 3115:3164 <> probability_preserving_equivalence_reflexive_holds
-R3170:3213 Kernel.ProbabilisticRecordCore <> probability_preserving_equivalence_reflexive def
-R3279:3323 Kernel.ProbabilisticRecord <> deterministic_latch_handles_branching_refuted thm
-R3344:3384 Kernel.ProbabilisticRecord <> schedule_determines_probabilities_refuted thm
-R3405:3454 Kernel.ProbabilisticRecord <> probability_preserving_equivalence_reflexive_holds thm
+R229:232 Coq.Lists.List <> <> lib
+R234:237 Coq.Bool.Bool <> <> lib
+R239:252 Coq.Arith.PeanoNat <> <> lib
+R254:256 Coq.micromega.Lia <> <> lib
+R266:278 Coq.Lists.List ListNotations <> mod
+R308:330 Kernel.ProbabilisticRecordCore <> <> lib
+def 345:362 <> fair_branch_kernel
+R366:380 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 389:389 <> b:1
+R399:399 Kernel.ProbabilisticRecord <> b:1 var
+R423:423 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R434:435 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R445:445 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R424:424 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R426:427 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R433:433 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R428:432 Coq.Init.Datatypes <> false constr
+R436:436 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R438:439 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R444:444 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R440:443 Coq.Init.Datatypes <> true constr
+R406:406 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R416:416 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R407:407 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R409:410 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R415:415 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R411:414 Coq.Init.Datatypes <> true constr
+def 460:479 <> biased_branch_kernel
+R483:497 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 506:506 <> b:2
+R516:516 Kernel.ProbabilisticRecord <> b:2 var
+R540:540 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R551:552 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R562:562 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R541:541 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R543:544 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R550:550 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R545:549 Coq.Init.Datatypes <> false constr
+R553:553 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R555:556 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R561:561 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R557:560 Coq.Init.Datatypes <> true constr
+R523:523 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R533:533 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R524:524 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R526:527 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R532:532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R528:531 Coq.Init.Datatypes <> true constr
+def 577:595 <> branch_write_charge
+R599:611 Kernel.ProbabilisticRecordCore <> branch_charge def
+binder 620:625 <> before:3
+binder 627:631 <> after:4
+R641:644 Coq.Init.Datatypes <> andb def
+R660:664 Kernel.ProbabilisticRecord <> after:4 var
+R647:650 Coq.Init.Datatypes <> negb def
+R652:657 Kernel.ProbabilisticRecord <> before:3 var
+prf 688:705 <> fair_branch_honest
+R711:737 Kernel.ProbabilisticRecordCore <> honest_probabilistic_record def
+R739:756 Kernel.ProbabilisticRecord <> fair_branch_kernel def
+R758:776 Kernel.ProbabilisticRecord <> branch_write_charge def
+R1092:1110 Kernel.ProbabilisticRecord <> branch_write_charge def
+prf 1137:1156 <> biased_branch_honest
+R1162:1188 Kernel.ProbabilisticRecordCore <> honest_probabilistic_record def
+R1190:1209 Kernel.ProbabilisticRecord <> biased_branch_kernel def
+R1211:1229 Kernel.ProbabilisticRecord <> branch_write_charge def
+R1545:1563 Kernel.ProbabilisticRecord <> branch_write_charge def
+prf 1592:1636 <> deterministic_latch_handles_branching_refuted
+R1642:1643 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1644:1680 Kernel.ProbabilisticRecordCore <> deterministic_latch_handles_branching def
+R1721:1738 Kernel.ProbabilisticRecord <> fair_branch_kernel def
+R1740:1758 Kernel.ProbabilisticRecord <> branch_write_charge def
+R1760:1777 Kernel.ProbabilisticRecord <> fair_branch_honest thm
+R1721:1738 Kernel.ProbabilisticRecord <> fair_branch_kernel def
+R1740:1758 Kernel.ProbabilisticRecord <> branch_write_charge def
+R1760:1777 Kernel.ProbabilisticRecord <> fair_branch_honest thm
+R1812:1816 Coq.Init.Datatypes <> false constr
+R1820:1824 Coq.Init.Datatypes <> false constr
+R1827:1835 Coq.Init.Logic <> or_introl constr
+R1837:1843 Coq.Init.Logic <> eq_refl constr
+R1812:1816 Coq.Init.Datatypes <> false constr
+R1820:1824 Coq.Init.Datatypes <> false constr
+R1827:1835 Coq.Init.Logic <> or_introl constr
+R1837:1843 Coq.Init.Logic <> eq_refl constr
+R1875:1879 Coq.Init.Datatypes <> false constr
+R1883:1886 Coq.Init.Datatypes <> true constr
+R1889:1897 Coq.Init.Logic <> or_intror constr
+R1900:1908 Coq.Init.Logic <> or_introl constr
+R1910:1916 Coq.Init.Logic <> eq_refl constr
+R1875:1879 Coq.Init.Datatypes <> false constr
+R1883:1886 Coq.Init.Datatypes <> true constr
+R1889:1897 Coq.Init.Logic <> or_intror constr
+R1900:1908 Coq.Init.Logic <> or_introl constr
+R1910:1916 Coq.Init.Logic <> eq_refl constr
+prf 1981:2007 <> branch_kernels_same_support
+binder 2018:2018 <> b:5
+binder 2020:2021 <> b':6
+R2064:2070 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2026:2039 Kernel.ProbabilisticRecordCore <> kernel_support def
+R2041:2058 Kernel.ProbabilisticRecord <> fair_branch_kernel def
+R2060:2060 Kernel.ProbabilisticRecord <> b:5 var
+R2062:2063 Kernel.ProbabilisticRecord <> b':6 var
+R2071:2084 Kernel.ProbabilisticRecordCore <> kernel_support def
+R2086:2105 Kernel.ProbabilisticRecord <> biased_branch_kernel def
+R2107:2107 Kernel.ProbabilisticRecord <> b:5 var
+R2109:2110 Kernel.ProbabilisticRecord <> b':6 var
+R2143:2156 Kernel.ProbabilisticRecordCore <> kernel_support def
+R2159:2176 Kernel.ProbabilisticRecord <> fair_branch_kernel def
+R2179:2198 Kernel.ProbabilisticRecord <> biased_branch_kernel def
+prf 2553:2593 <> schedule_determines_probabilities_refuted
+R2599:2600 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2601:2633 Kernel.ProbabilisticRecordCore <> schedule_determines_probabilities def
+R2676:2693 Kernel.ProbabilisticRecord <> fair_branch_kernel def
+R2695:2714 Kernel.ProbabilisticRecord <> biased_branch_kernel def
+R2720:2738 Kernel.ProbabilisticRecord <> branch_write_charge def
+R2740:2758 Kernel.ProbabilisticRecord <> branch_write_charge def
+R2760:2777 Kernel.ProbabilisticRecord <> fair_branch_honest thm
+R2783:2802 Kernel.ProbabilisticRecord <> biased_branch_honest thm
+R2676:2693 Kernel.ProbabilisticRecord <> fair_branch_kernel def
+R2695:2714 Kernel.ProbabilisticRecord <> biased_branch_kernel def
+R2720:2738 Kernel.ProbabilisticRecord <> branch_write_charge def
+R2740:2758 Kernel.ProbabilisticRecord <> branch_write_charge def
+R2760:2777 Kernel.ProbabilisticRecord <> fair_branch_honest thm
+R2783:2802 Kernel.ProbabilisticRecord <> biased_branch_honest thm
+R2828:2854 Kernel.ProbabilisticRecordCore <> same_probabilistic_schedule def
+R2856:2873 Kernel.ProbabilisticRecord <> fair_branch_kernel def
+R2879:2898 Kernel.ProbabilisticRecord <> biased_branch_kernel def
+R2900:2918 Kernel.ProbabilisticRecord <> branch_write_charge def
+R2920:2938 Kernel.ProbabilisticRecord <> branch_write_charge def
+R2828:2854 Kernel.ProbabilisticRecordCore <> same_probabilistic_schedule def
+R2856:2873 Kernel.ProbabilisticRecord <> fair_branch_kernel def
+R2879:2898 Kernel.ProbabilisticRecord <> biased_branch_kernel def
+R2900:2918 Kernel.ProbabilisticRecord <> branch_write_charge def
+R2920:2938 Kernel.ProbabilisticRecord <> branch_write_charge def
+R2960:2986 Kernel.ProbabilisticRecord <> branch_kernels_same_support thm
+R2960:2986 Kernel.ProbabilisticRecord <> branch_kernels_same_support thm
+R3072:3076 Coq.Init.Datatypes <> false constr
+R3072:3076 Coq.Init.Datatypes <> false constr
+prf 3108:3157 <> probability_preserving_equivalence_reflexive_holds
+R3163:3206 Kernel.ProbabilisticRecordCore <> probability_preserving_equivalence_reflexive def
+R3272:3316 Kernel.ProbabilisticRecord <> deterministic_latch_handles_branching_refuted thm
+R3337:3377 Kernel.ProbabilisticRecord <> schedule_determines_probabilities_refuted thm
+R3398:3447 Kernel.ProbabilisticRecord <> probability_preserving_equivalence_reflexive_holds thm

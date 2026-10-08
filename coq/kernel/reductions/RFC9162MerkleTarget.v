@@ -1,8 +1,8 @@
 (** SCOPE NOTE: standalone proof scope. This file transcribes RFC 9162 verifier
-    control flow and deliberately imports no VM semantics; the comparison to
+    control flow and deliberately imports no machine semantics; the comparison to
     the record axis is a separately reported modeling classification.
 
-    Executable vocabulary frozen from RFC 9162 Sections 2.1.1, 2.1.3.2,
+    Executable vocabulary taken from RFC 9162 Sections 2.1.1, 2.1.3.2,
     and 2.1.4.2. Cryptographic properties of the selected hash remain outside
     the executable verifier. *)
 
@@ -111,7 +111,7 @@ Definition verify_consistency {entry digest : Type}
     end
   else false.
 
-(** The exact success properties to be proved after this file is frozen. *)
+(** The exact success properties of the verifier. *)
 Definition inclusion_boundary_safe : Prop :=
   forall (entry digest : Type) (H : HashAlgorithm entry digest)
          tree_size leaf_hash root_hash path,

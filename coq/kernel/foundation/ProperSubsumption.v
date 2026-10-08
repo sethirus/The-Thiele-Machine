@@ -17,14 +17,14 @@
     
     *)
 
-(* SCOPE NOTE: standalone proof scope — this file is not bridged to
-   the VM kernel, and imports none of it.
+(* SCOPE NOTE: standalone proof scope; this file is not bridged to
+   the kernel, and imports none of it.
 
    What it is: a self-contained Turing-machine development (TM_Config,
    tm_step, tm_run) together with a LOCAL record
    [Thiele_Config := { th_tm_config : TM_Config; th_mu : nat }] that pairs a
    Turing configuration with a counter. No definition, statement, or proof
-   here mentions VMState, vm_apply, vm_mu, MuCostModel or instruction_cost.
+   here mentions a certification system or the small machine.
 
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that
@@ -179,12 +179,13 @@ Proof.
     + reflexivity.
 Qed.
 
-(** SCOPE NOTE — what "Thiele" means in this theorem's name.
+(** SCOPE NOTE: what "Thiele" means in this theorem's name.
 
     [Thiele_Config] here is the LOCAL record defined in this file,
     [{ th_tm_config : TM_Config; th_mu : nat }], a Turing configuration
-    paired with a nat counter. It is NOT [VMState], and [thiele_step] is NOT
-    [vm_step] or [vm_apply]. Nothing in this file touches the VM kernel.
+    paired with a nat counter. It is NOT a certification system, and
+    [thiele_step] is NOT the small machine's step. Nothing in this file
+    touches the kernel.
 
     So the content below is: carrying an extra field alongside a Turing
     configuration does not disturb the Turing configuration's evolution.
@@ -193,10 +194,10 @@ Qed.
     ledger is inert with respect to tape/state dynamics. It is not the claim
     that the Thiele substrate runs every Turing trace.
 
-    For the substrate-level statement, see the classical-embedding results
-    that are stated over VMState (e.g. [TuringClassicalEmbedding.v] and the
-    embedding lemma in [minimal/MuCore.v]). Do not cite this theorem as
-    evidence that the VM simulates Turing machines. *)
+    For a machine that runs every two-counter program, see the small
+    machine's simulation theorems in [minimal/EarnedCore.v]. Do not cite
+    this theorem as evidence that a Thiele machine simulates Turing
+    machines. *)
 Theorem thiele_simulates_turing :
   forall fuel delta c,
     (thiele_run fuel delta (lift_config c)).(th_tm_config) = tm_run fuel delta c.
@@ -279,9 +280,9 @@ Qed.
     1. All Turing-computable functions (simulation theorem)
     2. Verifiable cost certificates (strict extension)
     
-    This is NOT circular: we don't define Turing as "lacking cost tracking"
-    and then prove it lacks cost tracking. We show that cost tracking is
-    a meaningful, useful property that Thiele has and Turing doesn't.
+    This is NOT circular: Turing machines are not defined as "lacking cost
+    tracking" and then proved to lack it. Cost tracking is a property the
+    local Thiele record has and the Turing configuration does not.
 *)
 
 Definition TM_computes (delta : TM_Delta) (c_init c_final : TM_Config) : Prop :=
@@ -294,19 +295,19 @@ Definition Thiele_computes_with_cost (delta : TM_Delta) (c_init : Thiele_Config)
 
 (** Main theorem: Thiele strictly extends Turing *)
 Theorem thiele_strictly_extends_turing :
-  (** Part 1: Every Turing computation has a Thiele simulation *)
+  (** Simulation: every Turing computation has a Thiele simulation *)
   (forall delta c_init c_final,
     TM_computes delta c_init c_final ->
     exists c_th_final cost,
       Thiele_computes_with_cost delta (lift_config c_init) c_th_final cost /\
       c_th_final.(th_tm_config) = c_final) /\
-  (** Part 2: Thiele provides cost certificates with proven bounds *)
+  (** Cost certificates: Thiele provides certificates with proven bounds *)
   (forall fuel delta c,
     let cert := thiele_cost_certificate fuel delta c in
     cert.(cc_witness) <= cert.(cc_bound)).
 Proof.
   split.
-  - (* Part 1 *)
+  - (* simulation *)
     intros delta c_init c_final [fuel Hrun].
     exists (thiele_run fuel delta (lift_config c_init)).
     exists ((thiele_run fuel delta (lift_config c_init)).(th_mu)).
@@ -315,7 +316,7 @@ Proof.
       * reflexivity.
       * simpl. lia.
     + rewrite thiele_simulates_turing. exact Hrun.
-  - (* Part 2 *)
+  - (* cost certificates *)
     intros fuel delta c. apply cost_certificate_valid.
 Qed.
 
@@ -329,7 +330,7 @@ Qed.
     2. STRICT EXTENSION: Thiele provides verifiable cost certificates
        that Turing machines cannot produce (cost_certificate_valid)
     
-    3. NON-CIRCULAR: We do NOT artificially limit Turing machines.
+    3. NON-CIRCULAR: Turing machines are not artificially limited.
        They have full read/write/move capability on an infinite tape.
        The extension is about OBSERVABLE PROPERTIES, not raw power.
     

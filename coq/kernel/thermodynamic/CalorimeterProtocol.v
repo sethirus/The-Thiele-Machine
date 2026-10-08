@@ -1,7 +1,11 @@
-(** Exact energy bookkeeping and its dimensional boundary for the frozen
+(** Exact energy bookkeeping and its dimensional boundary for the
     two-state calorimeter protocol. *)
 
-From Coq Require Import Reals Lra.
+(* SCOPE NOTE: standalone proof scope. The two-state calorimeter protocol
+   is a physical model with its own parameters; no machine ledger fixes its
+   units. *)
+
+From Coq Require Import Reals Lra Lia.
 From Kernel Require Import CalorimeterProtocolTarget.
 
 Local Open Scope R_scope.

@@ -9,7 +9,7 @@
   universality class convincing is not the confirmations; it is the reported
   absence of exceptions after someone went looking. This file is the looking.
 
-  THE PROTOCOL, FIXED BEFORE THE RESULTS BELOW.
+  THE PROTOCOL.
 
   The claim under test is the pointer-observable criterion in the strong,
   falsifiable reading:
@@ -22,7 +22,7 @@
     (C1) It must resist forgery of a commitment. Its designers treat
          producing an unearned commitment as the primary failure mode, and
          the system is engineered against it.
-    (C2) It is deployed and independently evolved -- not built here, not
+    (C2) It is deployed and independently evolved: not built here, not
          built to make this point, and not derived from the Thiele machine.
     (C3) Its commitment event fails [redundantly_proliferating]: some
          observer cannot decide the event from its own fragment.
@@ -51,8 +51,8 @@
   Three candidates refute it. In each, the model's blind observer stands for
   the design goal of the real system, not for a gap: failure to proliferate
   is what the designers built. That is the prose half, and it is where a
-  reply should aim. Two further candidates -- a public log and digital
-  signatures -- confirm proliferation, so the search discriminates rather
+  reply should aim. Two further candidates (a public log and digital
+  signatures) confirm proliferation, so the search discriminates rather
   than only refuting.
 
   Digital signatures are the case that does the most work, because they
@@ -66,18 +66,18 @@
   M2).
 
   Falsification of THIS file: show that a candidate below fails (C1) or (C2)
-  -- i.e. that it does not really resist forgery, or that it is not really an
-  independent design -- or that its formal model is unfaithful in a way that
+  (that is, it does not really resist forgery, or it is not really an
+  independent design), or that its formal model is unfaithful in a way that
   changes the proliferation verdict. That is a modeling dispute, and the
   honest place for it is prose, not Coq.
 *)
 
-(* SCOPE NOTE: standalone proof scope -- this file is a companion to
+(* SCOPE NOTE: standalone proof scope; this file is a companion to
    PointerObservable.v and inherits its subject matter: it is about ecosystems
-   and record proliferation, not about VM semantics, and it states no theorem
-   mentioning VMState or vm_mu. Like PointerObservable.v, it has no formal
-   link to the mu-ledger; that link is the conjecture itself, argued in prose
-   in the monograph. Every theorem here is stated in PointerObservable.v's
+   and record proliferation, not about a machine's semantics, and it states
+   no theorem mentioning a ledger. Like PointerObservable.v, it has no formal
+   link to the mu-ledger; that link is the conjecture itself, argued in
+   prose. Every theorem here is stated in PointerObservable.v's
    definitions. *)
 
 From Coq Require Import List Lia Bool.
@@ -118,7 +118,7 @@ Proof.
   discriminate.
 Qed.
 
-(** * Candidate 1 -- Deniable (designated-verifier) authentication
+(** * Candidate 1: Deniable (designated-verifier) authentication
 
     (C1) Forgery resistance: yes, and it is the whole point. Only a holder of
          the key can produce an authenticator the designated verifier
@@ -187,7 +187,7 @@ Qed.
 
 End DeniableAuthentication.
 
-(** * Candidate 2 -- Symmetric-key message authentication (MAC)
+(** * Candidate 2: Symmetric-key message authentication (MAC)
 
     (C1) Forgery resistance: yes; existential unforgeability under chosen
          message attack is the defining security notion of a MAC.
@@ -197,7 +197,7 @@ End DeniableAuthentication.
     The structural fact: verification requires the shared secret. Exactly the
     parties holding the key can decide whether a tag is authentic; everyone
     else cannot, and no record reaches them. A MAC is forgery-resistant and
-    conspicuously non-proliferating -- which is exactly why protocols that
+    conspicuously non-proliferating, which is exactly why protocols that
     need third-party verifiability reach for signatures instead. That
     contrast is the criterion's real content, and it appears again in the
     boundary section below.
@@ -233,7 +233,7 @@ Qed.
 
 End SymmetricMAC.
 
-(** * Candidate 3 -- Object capabilities / unforgeable references
+(** * Candidate 3: Object capabilities / unforgeable references
 
     (C1) Forgery resistance: yes, and it is unconditional rather than
          computational. In a memory-safe capability system a reference cannot
@@ -283,7 +283,7 @@ Qed.
 
 End ObjectCapability.
 
-(** * Candidate 4 -- Public certificate transparency (control)
+(** * Candidate 4: Public certificate transparency (control)
 
     This candidate is included as a CONTROL, to check that the search is
     capable of returning "confirms" and is not an instrument that only ever
@@ -349,7 +349,7 @@ Qed.
 
 End PublicLog.
 
-(** * Candidate 5 -- Digital signatures, and the case that separates two claims
+(** * Candidate 5: Digital signatures, and the case that separates two claims
 
     (C1) Forgery resistance: yes, and it is the textbook definition.
          Existential unforgeability under chosen-message attack (EUF-CMA) IS
@@ -414,14 +414,12 @@ End DigitalSignature.
     this development, and it is worth stating here because it frames the
     scope question.
 
-    [VerifierEscape_Substrate.v], [VerifierEscape_Hardness.v] and
-    [VerifierEscape_Interaction.v] construct three ways to obtain a sound and
-    complete verifier for a mu-sensitive claim: expose the structure in the
-    substrate, carry a commitment bit under an exact disclosure contract, or
-    interact. The middle file's name says hardness; its model has no hardness
-    assumption. [commitment_contract_verifier] builds the verifier from the
-    contract [CommitmentBitContract] at an abstract unit cost. The three are
-    constructions. Nothing proves they are the only routes.
+    There are three ways to obtain a sound and complete verifier for a
+    mu-sensitive claim: expose the structure in the substrate, carry a
+    commitment bit under an exact disclosure contract, or interact. The
+    commitment route needs no hardness assumption: the contract supplies
+    soundness at an abstract unit cost. This file constructs none of the
+    three, and nothing proves they are the only routes.
 
     ONLY THE SUBSTRATE ROUTE METERS. The commitment route buys soundness from
     a contract that, in a deployed system, a signature and its hardness
@@ -431,7 +429,7 @@ End DigitalSignature.
     That reframes the five disciplines of PointerObservableReductions.v, and
     reframes them downward. They are not five instances of a law covering
     forgery resistance in general. At most they are five instances of ONE of
-    the three routes this development constructs. Signatures sit on the
+    the three routes. Signatures sit on the
     second route, and their existence is not an anomaly to be explained away.
 
     THE CLAIMS, SEPARATED. Three distinct statements travel together in loose
@@ -459,7 +457,7 @@ End DigitalSignature.
            they do not bear on it.
 
     What is left of the metering claim, stated so it can be attacked: when a
-    claim is mu-sensitive -- not decidable from the classical projection --
+    claim is mu-sensitive (not decidable from the classical projection)
     and the verifier can neither recheck it directly nor substitute a
     hardness assumption, the substrate route is the available construction,
     and that route prices the commitment event. That is
@@ -512,8 +510,8 @@ Print Assumptions DigitalSignature.signature_model_proliferating.
 
 (** * What the search found
 
-    Three refutations and two confirmations. (PO-STRONG) -- "every system
-    that must resist forgery has a proliferating commitment event" -- is
+    Three refutations and two confirmations. (PO-STRONG), "every system
+    that must resist forgery has a proliferating commitment event", is
     FALSE, and the counterexamples are not marginal: deniable authentication,
     symmetric MACs, and object capabilities are load-bearing, widely
     deployed, and independently developed. In each, failure to proliferate is
@@ -524,7 +522,7 @@ Print Assumptions DigitalSignature.signature_model_proliferating.
 
       - MAC vs. digital signature. Both resist forgery. The MAC does not
         proliferate; the signature does. The difference is not forgery
-        resistance -- it is whether THIRD PARTIES must be convinced.
+        resistance. It is whether THIRD PARTIES must be convinced.
       - Deniable authentication vs. certificate transparency. Both resist
         forgery. Deniability actively prevents third-party conviction;
         transparency actively requires it.
@@ -540,23 +538,23 @@ Print Assumptions DigitalSignature.signature_model_proliferating.
                    the commitment event.
 
     This is weaker than (PO-STRONG), and the five disciplines behind
-    PointerObservableReductions.v belong to its class -- every one of them is
+    PointerObservableReductions.v belong to its class: every one of them is
     a public-verifiability system. Their agreement is better understood that
     way: it is convergence across five designs that share the
     third-party-conviction requirement, which is a real and non-trivial
     class, rather than evidence about forgery resistance in general.
 
     Two consequences worth stating plainly, since they cut against the
-    broader thesis and were found by looking for exactly that:
+    broader thesis:
 
       1. Forgery resistance does NOT imply metering. Object capabilities
-         achieve unforgeability with no cost, no ledger, and no record --
+         achieve unforgeability with no cost, no ledger, and no record,
          unconditionally, not merely cheaply. Any claim that pricing is
          FORCED by the need to resist forgery is refuted by that single
          example.
       2. The five confirmations are evidence for (PO-PUBLIC), not for
          (PO-STRONG), and they should be cited that way.
 
-    The honest summary: the search was run, it found counterexamples, the
-    strong claim did not survive, and the weaker one that did is now stated
-    where it can be attacked in turn. *)
+    In sum: the search has counterexamples, the strong claim does not
+    survive, and the weaker one that does is stated where it can be
+    attacked in turn. *)

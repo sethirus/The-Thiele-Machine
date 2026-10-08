@@ -1,0 +1,284 @@
+name: Regenerate artifacts
+
+# Runs the repository pre-commit hook on Linux for commits made on a machine
+# that cannot run it, then pushes the regenerated receipts, manifests, PDFs,
+# and Coq outputs as one follow-up commit.
+#
+# Trigger: a push whose head commit message contains [regen], or a manual run.
+# The hook sees exactly the pushed changes as staged, the same as a local
+# commit on Linux. CI is dispatched again on the regenerated commit, because
+# pushes made with GITHUB_TOKEN do not start workflows by themselves.
+
+on:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Commit or ref the regenerated changes are measured from (default: the last regenerated commit on the branch)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: regen-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  regen:
+    name: Run pre-commit hook on Linux and push outputs
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[regen]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install toolchain
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures texlive-science lmodern poppler-utils
+
+      - name: Set up MetaCoq Template
+        # The vendored L modules (L tactics, GenEncode, MuRec, the
+        # L_computable_*_to_MMA_computable reductions) need MetaCoq at build
+        # time. They stay in the build for the small-machine recursion theorem.
+        uses: ./.github/actions/setup-metacoq
+
+      - name: Capture toolchain version
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          pip install --quiet -e . --no-deps
+
+      - name: Restore the incremental Coq build
+        # Any earlier build serves as a starting point, matched by toolchain;
+        # the manifest step below decides what in it is still current.
+        id: coq-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            vendor/coq-undecidability/theories/**/*.vo
+            vendor/coq-undecidability/theories/**/*.glob
+            build/coq-build-manifest.json
+          # v3: the key for the proof tree without kami or bbv; caches under
+          # earlier keys describe a different tree and are not reused.
+          key: coq-inc-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            coq-inc-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-
+
+      - name: Mark exactly the changed Coq sources stale
+        # Content digests, not checkout times, decide what make rebuilds: a
+        # changed source and everything that depends on it. Without a usable
+        # cache, coq/ builds from clean outputs on the tracked vendored library.
+        shell: bash
+        env:
+          MATCHED: ${{ steps.coq-restore.outputs.cache-matched-key }}
+        run: |
+          set -Eeuo pipefail
+          if [[ -n "$MATCHED" ]] && python3 scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from $MATCHED"
+          else
+            echo "No usable build cache; full build of coq/"
+            make coq-clean
+            find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
+          fi
+
+      - name: Build Coq proof tree
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          rm -f Makefile Makefile.conf .Makefile.d
+          coq_makefile -f _CoqProject -o Makefile
+          make -j4
+          cd ..
+          git checkout -- vendor/coq-undecidability/theories/Makefile.coq \
+            vendor/coq-undecidability/theories/Makefile.coq.conf \
+            vendor/coq-undecidability/theories/.Makefile.coq.d
+
+      - name: Record the build manifest
+        run: python3 scripts/coq_build_manifest.py write
+
+      - name: Save the incremental Coq build
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
+            vendor/coq-undecidability/theories/**/*.vo
+            vendor/coq-undecidability/theories/**/*.glob
+            build/coq-build-manifest.json
+          key: coq-inc-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Stage the pushed changes as one pending commit
+        id: stage
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+          INPUT_BASE: ${{ github.event.inputs.base }}
+        run: |
+          set -Eeuo pipefail
+          after=$(git rev-parse HEAD)
+          base=""
+          last_regen=$(git log -1 --format=%H --author='github-actions\[bot\]' HEAD)
+          if [[ -n "${INPUT_BASE:-}" ]]; then
+            base=$(git rev-parse "$INPUT_BASE")
+          elif [[ -n "$last_regen" ]]; then
+            base=$last_regen
+          elif [[ -n "${BEFORE:-}" && ! "$BEFORE" =~ ^0+$ ]] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            base=$BEFORE
+          else
+            base=$(git merge-base HEAD origin/main)
+          fi
+          echo "after=$after" >> "$GITHUB_OUTPUT"
+          echo "Measuring changes from $base to $after"
+          git reset --soft "$base"
+          git diff --cached --stat | tail -1
+
+      - name: Stage the rebuilt tracked Coq outputs
+        # The cache restore or rebuild above rewrote tracked .vo/.glob files.
+        # Stage them with the hook's own rule, so its opening worktree check
+        # sees only the proposed commit.
+        # New .v files produce new .vo/.glob files; the repository tracks
+        # those too, so stage untracked compiler outputs under coq/ as well.
+        run: |
+          git ls-files -z --others --exclude-standard -- 'coq/*.vo' 'coq/*.glob'             'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'             | xargs -0 -r git add --
+          git add -u -- 'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'
+          python3 scripts/check_hook_worktree.py --stage-generated
+
+      - name: Restore the Print Assumptions answer cache
+        # Answers are keyed by each library's compiled digest (which covers its
+        # whole dependency closure), the exact queries, the Coq version, and
+        # the load path, so only libraries whose compiled form changed rerun.
+        uses: actions/cache/restore@v4
+        with:
+          path: build/probe/assumption-cache
+          key: assumption-cache-v1-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            assumption-cache-v1-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+
+      - name: Run the pre-commit hook
+        id: hook
+        env:
+          # Hosted runners are slower than a Codespace; smaller Print Assumptions
+          # batches with a longer limit, as generate_assumption_receipt.sh advises.
+          # CI, dispatched on the regenerated commit below, runs the full
+          # pytest suite; the hook skips its identical run here.
+          THIELE_HOOK_SKIP_PYTEST: "1"
+          THIELE_ASSUMPTION_BATCH_SIZE: "500"
+          THIELE_ASSUMPTION_TIMEOUT: "1800"
+          THIELE_ASSUMPTION_WORK_DIR: build/probe/assumption-cache
+        # Generation precedes the test suite in the hook. A failure in the
+        # pytest step still pushes the regenerated outputs; the CI run
+        # dispatched below reports the failing tests. Any other failure
+        # stops here with nothing pushed.
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          set +e
+          sh .githooks/pre-commit 2>&1 | tee "$RUNNER_TEMP/hook.log"
+          rc=${PIPESTATUS[0]}
+          set -e
+          if [[ $rc -eq 0 ]]; then
+            echo "tests=passed" >> "$GITHUB_OUTPUT"
+          elif grep -q '^\[pre-commit\] FAIL: python3 -m pytest' "$RUNNER_TEMP/hook.log"; then
+            echo "::warning::pre-commit tests failed; pushing regenerated outputs for CI to report"
+            echo "tests=failed" >> "$GITHUB_OUTPUT"
+          else
+            exit "$rc"
+          fi
+
+      - name: Save the Print Assumptions answer cache
+        # Saved even when a later hook step fails, so the next run reuses
+        # every answer this one validated.
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: build/probe/assumption-cache
+          key: assumption-cache-v1-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Upload Inquisitor report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regen-inquisitor-report
+          path: INQUISITOR_REPORT.md
+          if-no-files-found: ignore
+
+      - name: Commit and push regenerated outputs
+        id: push
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git reset --soft "${{ steps.stage.outputs.after }}"
+          if git diff --cached --quiet; then
+            echo "Nothing to regenerate."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --cached --stat | tail -1
+          msg="regenerate artifacts on Linux"
+          if [[ "${{ steps.hook.outputs.tests }}" == "failed" ]]; then
+            msg="$msg (pre-commit tests failed; see CI)"
+          fi
+          git commit -q -m "$msg"
+          # Commits pushed while this job ran do not touch generated outputs
+          # in the normal case; replay this commit on top of them. A conflict
+          # fails the job rather than overwriting newer work.
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              break
+            fi
+            [[ $attempt -lt 3 ]] || exit 1
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+          done
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Run CI on the regenerated commit
+        if: steps.push.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ci.yml --ref "${GITHUB_REF_NAME}"
+
+      - name: Fail the run when the hook's tests failed
+        # The regenerated outputs are pushed so CI can report the failing
+        # tests, but this run must not show green while they fail.
+        if: steps.hook.outputs.tests == 'failed'
+        run: |
+          echo "::error::the pre-commit test suite failed; the regenerated outputs were pushed for CI to report"
+          exit 1

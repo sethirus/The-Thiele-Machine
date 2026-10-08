@@ -1,127 +1,127 @@
-DIGEST 33f4e7f12378cb836f54f896e95e2aaa
+DIGEST 13d61d6811a1eb0d46e28b7cf78171d5
 FKernel.NeculaPCCTarget
-R434:437 Coq.Lists.List <> <> lib
-R439:442 Coq.Bool.Bool <> <> lib
-R444:457 Coq.Arith.PeanoNat <> <> lib
-R467:479 Coq.Lists.List ListNotations <> mod
-ind 493:500 <> PCCInstr
-constr 514:518 <> PRead
-constr 538:543 <> PWrite
-constr 569:573 <> PHalt
-R531:533 Coq.Init.Datatypes <> nat ind
-binder 521:527 <> address:3
-R562:564 Coq.Init.Datatypes <> nat ind
-binder 546:552 <> address:4
-binder 554:558 <> value:5
-scheme 493:500 <> PCCInstr_rect
-scheme 493:500 <> PCCInstr_ind
-scheme 493:500 <> PCCInstr_rec
-scheme 493:500 <> PCCInstr_sind
-def 588:600 <> policy_allows
-R618:620 Coq.Init.Datatypes <> nat ind
-binder 603:614 <> memory_limit:6
-R628:635 Kernel.NeculaPCCTarget <> PCCInstr ind
-binder 624:624 <> i:7
-R640:643 Coq.Init.Datatypes <> bool ind
-R656:656 Kernel.NeculaPCCTarget <> i:7 var
-R667:671 Kernel.NeculaPCCTarget <> PRead constr
-R677:682 Kernel.NeculaPCCTarget <> PWrite constr
-R691:697 Coq.Arith.PeanoNat Nat ltb def
-R701:712 Kernel.NeculaPCCTarget <> memory_limit:6 var
-R691:697 Coq.Arith.PeanoNat Nat ltb def
-R701:712 Kernel.NeculaPCCTarget <> memory_limit:6 var
-R718:722 Kernel.NeculaPCCTarget <> PHalt constr
-R727:730 Coq.Init.Datatypes <> true constr
-def 751:772 <> verification_condition
-R790:792 Coq.Init.Datatypes <> nat ind
-binder 775:786 <> memory_limit:9
-R810:813 Coq.Init.Datatypes <> list ind
-R815:822 Kernel.NeculaPCCTarget <> PCCInstr ind
-binder 800:806 <> program:10
-R837:842 Coq.Lists.List <> Forall ind
-R891:897 Kernel.NeculaPCCTarget <> program:10 var
-binder 849:849 <> i:11
-R882:884 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R854:866 Kernel.NeculaPCCTarget <> policy_allows def
-R868:879 Kernel.NeculaPCCTarget <> memory_limit:9 var
-R881:881 Kernel.NeculaPCCTarget <> i:11 var
-R885:888 Coq.Init.Datatypes <> true constr
-ind 911:918 <> PCCProof
-constr 970:976 <> PCCDone
-constr 1007:1013 <> PCCStep
-R936:938 Coq.Init.Datatypes <> nat ind
-binder 921:932 <> memory_limit:12
-R956:959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R943:946 Coq.Init.Datatypes <> list ind
-R948:955 Kernel.NeculaPCCTarget <> PCCInstr ind
-R980:987 Kernel.NeculaPCCTarget <> PCCProof:13 ind
-R1002:1003 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R989:1000 Kernel.NeculaPCCTarget <> memory_limit:12 var
-binder 1024:1024 <> i:15
-binder 1026:1032 <> program:16
-R1074:1081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1067:1069 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1039:1051 Kernel.NeculaPCCTarget <> policy_allows def
-R1053:1064 Kernel.NeculaPCCTarget <> memory_limit:12 var
-R1066:1066 Kernel.NeculaPCCTarget <> i:15 var
-R1070:1073 Coq.Init.Datatypes <> true constr
-R1111:1118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1082:1089 Kernel.NeculaPCCTarget <> PCCProof:13 ind
-R1104:1110 Kernel.NeculaPCCTarget <> program:16 var
-R1091:1102 Kernel.NeculaPCCTarget <> memory_limit:12 var
-R1119:1126 Kernel.NeculaPCCTarget <> PCCProof:13 ind
-R1143:1146 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1142:1142 Kernel.NeculaPCCTarget <> i:15 var
-R1147:1153 Kernel.NeculaPCCTarget <> program:16 var
-R1128:1139 Kernel.NeculaPCCTarget <> memory_limit:12 var
-scheme 911:918 <> PCCProof_rect
-scheme 911:918 <> PCCProof_ind
-scheme 911:918 <> PCCProof_rec
-scheme 911:918 <> PCCProof_sind
-def 1167:1179 <> check_program
-R1197:1199 Coq.Init.Datatypes <> nat ind
-binder 1182:1193 <> memory_limit:17
-R1213:1216 Coq.Init.Datatypes <> list ind
-R1218:1225 Kernel.NeculaPCCTarget <> PCCInstr ind
-binder 1203:1209 <> program:18
-R1230:1233 Coq.Init.Datatypes <> bool ind
-R1246:1252 Kernel.NeculaPCCTarget <> program:18 var
-R1263:1264 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1269:1272 Coq.Init.Datatypes <> true constr
-R1279:1282 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1319:1322 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R1291:1303 Kernel.NeculaPCCTarget <> policy_allows def
-R1305:1316 Kernel.NeculaPCCTarget <> memory_limit:17 var
-R1323:1335 Kernel.NeculaPCCTarget <> check_program:19 def
-R1337:1348 Kernel.NeculaPCCTarget <> memory_limit:17 var
-def 1374:1395 <> checker_accepts_iff_vc
-binder 1416:1427 <> memory_limit:21
-binder 1429:1435 <> program:22
-R1483:1491 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R1476:1478 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1442:1454 Kernel.NeculaPCCTarget <> check_program def
-R1456:1467 Kernel.NeculaPCCTarget <> memory_limit:21 var
-R1469:1475 Kernel.NeculaPCCTarget <> program:22 var
-R1479:1482 Coq.Init.Datatypes <> true constr
-R1492:1513 Kernel.NeculaPCCTarget <> verification_condition def
-R1515:1526 Kernel.NeculaPCCTarget <> memory_limit:21 var
-R1528:1534 Kernel.NeculaPCCTarget <> program:22 var
-def 1549:1570 <> certificate_implies_vc
-binder 1591:1602 <> memory_limit:23
-binder 1604:1610 <> program:24
-R1646:1649 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1617:1624 Kernel.NeculaPCCTarget <> PCCProof ind
-R1626:1637 Kernel.NeculaPCCTarget <> memory_limit:23 var
-R1639:1645 Kernel.NeculaPCCTarget <> program:24 var
-R1650:1671 Kernel.NeculaPCCTarget <> verification_condition def
-R1673:1684 Kernel.NeculaPCCTarget <> memory_limit:23 var
-R1686:1692 Kernel.NeculaPCCTarget <> program:24 var
-def 1707:1729 <> unsafe_program_rejected
-R1775:1777 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1743:1755 Kernel.NeculaPCCTarget <> check_program def
-R1759:1759 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R1767:1768 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R1774:1774 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R1760:1764 Kernel.NeculaPCCTarget <> PRead constr
-R1769:1773 Kernel.NeculaPCCTarget <> PHalt constr
-R1778:1782 Coq.Init.Datatypes <> false constr
+R430:433 Coq.Lists.List <> <> lib
+R435:438 Coq.Bool.Bool <> <> lib
+R440:453 Coq.Arith.PeanoNat <> <> lib
+R463:475 Coq.Lists.List ListNotations <> mod
+ind 489:496 <> PCCInstr
+constr 510:514 <> PRead
+constr 534:539 <> PWrite
+constr 565:569 <> PHalt
+R527:529 Coq.Init.Datatypes <> nat ind
+binder 517:523 <> address:3
+R558:560 Coq.Init.Datatypes <> nat ind
+binder 542:548 <> address:4
+binder 550:554 <> value:5
+scheme 489:496 <> PCCInstr_rect
+scheme 489:496 <> PCCInstr_ind
+scheme 489:496 <> PCCInstr_rec
+scheme 489:496 <> PCCInstr_sind
+def 584:596 <> policy_allows
+R614:616 Coq.Init.Datatypes <> nat ind
+binder 599:610 <> memory_limit:6
+R624:631 Kernel.NeculaPCCTarget <> PCCInstr ind
+binder 620:620 <> i:7
+R636:639 Coq.Init.Datatypes <> bool ind
+R652:652 Kernel.NeculaPCCTarget <> i:7 var
+R663:667 Kernel.NeculaPCCTarget <> PRead constr
+R673:678 Kernel.NeculaPCCTarget <> PWrite constr
+R687:693 Coq.Arith.PeanoNat Nat ltb def
+R697:708 Kernel.NeculaPCCTarget <> memory_limit:6 var
+R687:693 Coq.Arith.PeanoNat Nat ltb def
+R697:708 Kernel.NeculaPCCTarget <> memory_limit:6 var
+R714:718 Kernel.NeculaPCCTarget <> PHalt constr
+R723:726 Coq.Init.Datatypes <> true constr
+def 747:768 <> verification_condition
+R786:788 Coq.Init.Datatypes <> nat ind
+binder 771:782 <> memory_limit:9
+R806:809 Coq.Init.Datatypes <> list ind
+R811:818 Kernel.NeculaPCCTarget <> PCCInstr ind
+binder 796:802 <> program:10
+R833:838 Coq.Lists.List <> Forall ind
+R887:893 Kernel.NeculaPCCTarget <> program:10 var
+binder 845:845 <> i:11
+R878:880 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R850:862 Kernel.NeculaPCCTarget <> policy_allows def
+R864:875 Kernel.NeculaPCCTarget <> memory_limit:9 var
+R877:877 Kernel.NeculaPCCTarget <> i:11 var
+R881:884 Coq.Init.Datatypes <> true constr
+ind 907:914 <> PCCProof
+constr 966:972 <> PCCDone
+constr 1003:1009 <> PCCStep
+R932:934 Coq.Init.Datatypes <> nat ind
+binder 917:928 <> memory_limit:12
+R952:955 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R939:942 Coq.Init.Datatypes <> list ind
+R944:951 Kernel.NeculaPCCTarget <> PCCInstr ind
+R976:983 Kernel.NeculaPCCTarget <> PCCProof:13 ind
+R998:999 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R985:996 Kernel.NeculaPCCTarget <> memory_limit:12 var
+binder 1020:1020 <> i:15
+binder 1022:1028 <> program:16
+R1070:1077 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1063:1065 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1035:1047 Kernel.NeculaPCCTarget <> policy_allows def
+R1049:1060 Kernel.NeculaPCCTarget <> memory_limit:12 var
+R1062:1062 Kernel.NeculaPCCTarget <> i:15 var
+R1066:1069 Coq.Init.Datatypes <> true constr
+R1107:1114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1078:1085 Kernel.NeculaPCCTarget <> PCCProof:13 ind
+R1100:1106 Kernel.NeculaPCCTarget <> program:16 var
+R1087:1098 Kernel.NeculaPCCTarget <> memory_limit:12 var
+R1115:1122 Kernel.NeculaPCCTarget <> PCCProof:13 ind
+R1139:1142 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1138:1138 Kernel.NeculaPCCTarget <> i:15 var
+R1143:1149 Kernel.NeculaPCCTarget <> program:16 var
+R1124:1135 Kernel.NeculaPCCTarget <> memory_limit:12 var
+scheme 907:914 <> PCCProof_rect
+scheme 907:914 <> PCCProof_ind
+scheme 907:914 <> PCCProof_rec
+scheme 907:914 <> PCCProof_sind
+def 1163:1175 <> check_program
+R1193:1195 Coq.Init.Datatypes <> nat ind
+binder 1178:1189 <> memory_limit:17
+R1209:1212 Coq.Init.Datatypes <> list ind
+R1214:1221 Kernel.NeculaPCCTarget <> PCCInstr ind
+binder 1199:1205 <> program:18
+R1226:1229 Coq.Init.Datatypes <> bool ind
+R1242:1248 Kernel.NeculaPCCTarget <> program:18 var
+R1259:1260 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1265:1268 Coq.Init.Datatypes <> true constr
+R1275:1278 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1315:1318 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1287:1299 Kernel.NeculaPCCTarget <> policy_allows def
+R1301:1312 Kernel.NeculaPCCTarget <> memory_limit:17 var
+R1319:1331 Kernel.NeculaPCCTarget <> check_program:19 def
+R1333:1344 Kernel.NeculaPCCTarget <> memory_limit:17 var
+def 1370:1391 <> checker_accepts_iff_vc
+binder 1412:1423 <> memory_limit:21
+binder 1425:1431 <> program:22
+R1479:1487 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1472:1474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1438:1450 Kernel.NeculaPCCTarget <> check_program def
+R1452:1463 Kernel.NeculaPCCTarget <> memory_limit:21 var
+R1465:1471 Kernel.NeculaPCCTarget <> program:22 var
+R1475:1478 Coq.Init.Datatypes <> true constr
+R1488:1509 Kernel.NeculaPCCTarget <> verification_condition def
+R1511:1522 Kernel.NeculaPCCTarget <> memory_limit:21 var
+R1524:1530 Kernel.NeculaPCCTarget <> program:22 var
+def 1545:1566 <> certificate_implies_vc
+binder 1587:1598 <> memory_limit:23
+binder 1600:1606 <> program:24
+R1642:1645 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1613:1620 Kernel.NeculaPCCTarget <> PCCProof ind
+R1622:1633 Kernel.NeculaPCCTarget <> memory_limit:23 var
+R1635:1641 Kernel.NeculaPCCTarget <> program:24 var
+R1646:1667 Kernel.NeculaPCCTarget <> verification_condition def
+R1669:1680 Kernel.NeculaPCCTarget <> memory_limit:23 var
+R1682:1688 Kernel.NeculaPCCTarget <> program:24 var
+def 1703:1725 <> unsafe_program_rejected
+R1771:1773 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1739:1751 Kernel.NeculaPCCTarget <> check_program def
+R1755:1755 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1763:1764 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1770:1770 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1756:1760 Kernel.NeculaPCCTarget <> PRead constr
+R1765:1769 Kernel.NeculaPCCTarget <> PHalt constr
+R1774:1778 Coq.Init.Datatypes <> false constr

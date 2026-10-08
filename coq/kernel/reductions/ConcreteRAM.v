@@ -1,7 +1,7 @@
 (** SCOPE NOTE: standalone proof scope. These proofs close the independent RAM
-    core and do not establish a bridge to VM semantics.
+    core and do not establish a bridge to a Thiele machine.
 
-    Closed proofs for the round-2 list-memory RAM core. *)
+    Proofs for the list-memory RAM core. *)
 
 From Coq Require Import List Arith.PeanoNat.
 Import ListNotations.

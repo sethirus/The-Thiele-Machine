@@ -1,0 +1,886 @@
+DIGEST 83157b937548fa08c420e6a8a12b79a1
+FUndecidability.MinskyMachines.MMenv.mme_defs
+R536:539 Coq.Lists.List <> <> lib
+R541:545 Coq.Arith.Arith <> <> lib
+R547:549 Coq.micromega.Lia <> <> lib
+R606:610 Undecidability.Shared.Libs.DLW.Utils.utils <> <> lib
+R612:618 Undecidability.Shared.Libs.DLW.Code.subcode <> <> lib
+R620:622 Undecidability.Shared.Libs.DLW.Code.sss <> <> lib
+R676:677 Undecidability.MinskyMachines.MM <> <> lib
+R736:738 Undecidability.MinskyMachines.MMenv.env <> <> lib
+sec 1060:1083 <> Minsky_Machine_env_based
+var 1099:1099 Minsky_Machine_env_based X
+var 1109:1116 Minsky_Machine_env_based X_eq_dec
+R1120:1124 Undecidability.Shared.Libs.DLW.Utils.utils_tac <> eqdec def
+R1126:1126 Undecidability.MinskyMachines.MMenv.mme_defs <> X:1 var
+def 1144:1151 <> mm_state
+R1160:1160 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1157:1159 Coq.Init.Datatypes <> nat ind
+R1161:1163 Undecidability.MinskyMachines.MMenv.env <> env def
+R1167:1169 Coq.Init.Datatypes <> nat ind
+R1165:1165 Undecidability.MinskyMachines.MMenv.mme_defs <> Minsky_Machine_env_based.X var
+R1213:1219 Undecidability.MinskyMachines.MMenv.env <> get_env def
+not 1196:1196 Minsky_Machine_env_based :::x_'⇢'_x
+R1276:1282 Undecidability.MinskyMachines.MMenv.env <> set_env def
+R1288:1295 Undecidability.MinskyMachines.MMenv.mme_defs <> Minsky_Machine_env_based.X_eq_dec var
+not 1248:1248 Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄'
+ind 1363:1372 <> mm_sss_env
+constr 1428:1444 <> in_mm_sss_env_inc
+constr 1534:1552 <> in_mm_sss_env_dec_0
+constr 1622:1640 <> in_mm_sss_env_dec_1
+R1386:1389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1376:1383 Undecidability.MinskyMachines.MM <> mm_instr ind
+R1385:1385 Undecidability.MinskyMachines.MMenv.mme_defs <> Minsky_Machine_env_based.X var
+R1398:1401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1390:1397 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_state def
+R1410:1413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1402:1409 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_state def
+R1744:1753 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env:4 ind
+binder 1457:1457 <> i:5
+binder 1459:1459 <> x:6
+binder 1461:1461 <> v:7
+R1487:1491 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1497:1501 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1482:1484 Undecidability.MinskyMachines.MM <> INC abbrev
+R1486:1486 Undecidability.MinskyMachines.MMenv.mme_defs <> x:6 var
+R1492:1492 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1494:1494 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1496:1496 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1493:1493 Undecidability.MinskyMachines.MMenv.mme_defs <> i:5 var
+R1495:1495 Undecidability.MinskyMachines.MMenv.mme_defs <> v:7 var
+R1502:1502 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1506:1506 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1526:1526 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1504:1504 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1505:1505 Undecidability.MinskyMachines.MMenv.mme_defs <> i:5 var
+R1508:1510 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R1512:1514 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R1523:1525 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R1507:1507 Undecidability.MinskyMachines.MMenv.mme_defs <> v:7 var
+R1511:1511 Undecidability.MinskyMachines.MMenv.mme_defs <> x:6 var
+R1515:1515 Coq.Init.Datatypes <> S constr
+R1518:1520 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R1517:1517 Undecidability.MinskyMachines.MMenv.mme_defs <> v:7 var
+R1521:1521 Undecidability.MinskyMachines.MMenv.mme_defs <> x:6 var
+binder 1563:1563 <> i:8
+binder 1565:1565 <> x:9
+binder 1567:1567 <> k:10
+binder 1569:1569 <> v:11
+R1583:1588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1579:1581 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1575:1577 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R1574:1574 Undecidability.MinskyMachines.MMenv.mme_defs <> v:11 var
+R1578:1578 Undecidability.MinskyMachines.MMenv.mme_defs <> x:9 var
+R1582:1582 Coq.Init.Datatypes <> O constr
+R1596:1599 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1605:1609 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1589:1591 Undecidability.MinskyMachines.MM <> DEC abbrev
+R1595:1595 Undecidability.MinskyMachines.MMenv.mme_defs <> k:10 var
+R1593:1593 Undecidability.MinskyMachines.MMenv.mme_defs <> x:9 var
+R1600:1600 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1602:1602 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1604:1604 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1601:1601 Undecidability.MinskyMachines.MMenv.mme_defs <> i:8 var
+R1603:1603 Undecidability.MinskyMachines.MMenv.mme_defs <> v:11 var
+R1610:1610 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1612:1612 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1614:1614 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1611:1611 Undecidability.MinskyMachines.MMenv.mme_defs <> k:10 var
+R1613:1613 Undecidability.MinskyMachines.MMenv.mme_defs <> v:11 var
+binder 1651:1651 <> i:12
+binder 1653:1653 <> x:13
+binder 1655:1655 <> k:14
+binder 1657:1657 <> v:15
+binder 1659:1659 <> u:16
+R1673:1676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1667:1669 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1663:1665 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R1662:1662 Undecidability.MinskyMachines.MMenv.mme_defs <> v:15 var
+R1666:1666 Undecidability.MinskyMachines.MMenv.mme_defs <> x:13 var
+R1670:1670 Coq.Init.Datatypes <> S constr
+R1672:1672 Undecidability.MinskyMachines.MMenv.mme_defs <> u:16 var
+R1684:1687 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1693:1697 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1677:1679 Undecidability.MinskyMachines.MM <> DEC abbrev
+R1683:1683 Undecidability.MinskyMachines.MMenv.mme_defs <> k:14 var
+R1681:1681 Undecidability.MinskyMachines.MMenv.mme_defs <> x:13 var
+R1688:1688 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1690:1690 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1692:1692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1689:1689 Undecidability.MinskyMachines.MMenv.mme_defs <> i:12 var
+R1691:1691 Undecidability.MinskyMachines.MMenv.mme_defs <> v:15 var
+R1698:1698 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1702:1702 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1715:1715 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1700:1700 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1701:1701 Undecidability.MinskyMachines.MMenv.mme_defs <> i:12 var
+R1704:1706 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R1708:1710 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R1712:1714 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R1703:1703 Undecidability.MinskyMachines.MMenv.mme_defs <> v:15 var
+R1707:1707 Undecidability.MinskyMachines.MMenv.mme_defs <> x:13 var
+R1711:1711 Undecidability.MinskyMachines.MMenv.mme_defs <> u:16 var
+scheme 1363:1372 <> mm_sss_env_ind
+scheme 1363:1372 <> mm_sss_env_sind
+R1744:1753 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env ind
+not 1725:1725 Minsky_Machine_env_based :::x_'//'_x_'-1>'_x
+prf 1771:1784 <> mm_sss_env_fun
+binder 1786:1786 <> i:17
+binder 1788:1788 <> s:18
+binder 1790:1791 <> t1:19
+binder 1793:1794 <> t2:20
+R1811:1814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1799:1802 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1804:1808 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1798:1798 Undecidability.MinskyMachines.MMenv.mme_defs <> i:17 var
+R1803:1803 Undecidability.MinskyMachines.MMenv.mme_defs <> s:18 var
+R1809:1810 Undecidability.MinskyMachines.MMenv.mme_defs <> t1:19 var
+R1828:1831 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1816:1819 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1821:1825 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R1815:1815 Undecidability.MinskyMachines.MMenv.mme_defs <> i:17 var
+R1820:1820 Undecidability.MinskyMachines.MMenv.mme_defs <> s:18 var
+R1826:1827 Undecidability.MinskyMachines.MMenv.mme_defs <> t2:20 var
+R1834:1836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1832:1833 Undecidability.MinskyMachines.MMenv.mme_defs <> t1:19 var
+R1837:1838 Undecidability.MinskyMachines.MMenv.mme_defs <> t2:20 var
+prf 2097:2112 <> mm_sss_env_total
+binder 2114:2115 <> ii:21
+binder 2117:2117 <> s:22
+R2121:2122 Coq.Init.Specif <> ::type_scope:'{'_x_'|'_x_'}' not
+R2124:2126 Coq.Init.Specif <> ::type_scope:'{'_x_'|'_x_'}' not
+R2140:2141 Coq.Init.Specif <> ::type_scope:'{'_x_'|'_x_'}' not
+binder 2123:2123 <> t:23
+R2129:2132 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R2134:2138 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R2127:2128 Undecidability.MinskyMachines.MMenv.mme_defs <> ii:21 var
+R2133:2133 Undecidability.MinskyMachines.MMenv.mme_defs <> s:22 var
+R2139:2139 Undecidability.MinskyMachines.MMenv.mme_defs <> t:23 var
+R2224:2226 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R2224:2226 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R2272:2272 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2276:2276 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2296:2296 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2274:2274 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2278:2280 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2282:2284 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2293:2295 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2285:2285 Coq.Init.Datatypes <> S constr
+R2288:2290 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R2272:2272 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2276:2276 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2296:2296 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2274:2274 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2278:2280 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2282:2284 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2293:2295 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2285:2285 Coq.Init.Datatypes <> S constr
+R2288:2290 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R2325:2325 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2327:2327 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2329:2329 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2325:2325 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2327:2327 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2329:2329 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2364:2364 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2368:2368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2381:2381 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2366:2366 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2370:2372 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2374:2376 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2378:2380 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2364:2364 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2368:2368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2381:2381 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2366:2366 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2370:2372 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2374:2376 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2378:2380 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+prf 2420:2437 <> mm_sss_env_INC_inv
+binder 2439:2439 <> x:24
+binder 2441:2441 <> i:25
+binder 2443:2443 <> v:26
+binder 2445:2445 <> j:27
+binder 2447:2447 <> w:28
+R2475:2478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2456:2459 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R2465:2469 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R2451:2453 Undecidability.MinskyMachines.MM <> INC abbrev
+R2455:2455 Undecidability.MinskyMachines.MMenv.mme_defs <> x:24 var
+R2460:2460 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2462:2462 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2464:2464 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2461:2461 Undecidability.MinskyMachines.MMenv.mme_defs <> i:25 var
+R2463:2463 Undecidability.MinskyMachines.MMenv.mme_defs <> v:26 var
+R2470:2470 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2472:2472 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2474:2474 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2471:2471 Undecidability.MinskyMachines.MMenv.mme_defs <> j:27 var
+R2473:2473 Undecidability.MinskyMachines.MMenv.mme_defs <> w:28 var
+R2484:2487 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2480:2480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2479:2479 Undecidability.MinskyMachines.MMenv.mme_defs <> j:27 var
+R2482:2482 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2483:2483 Undecidability.MinskyMachines.MMenv.mme_defs <> i:25 var
+R2489:2491 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2488:2488 Undecidability.MinskyMachines.MMenv.mme_defs <> w:28 var
+R2493:2495 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2497:2499 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2508:2510 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2492:2492 Undecidability.MinskyMachines.MMenv.mme_defs <> v:26 var
+R2496:2496 Undecidability.MinskyMachines.MMenv.mme_defs <> x:24 var
+R2500:2500 Coq.Init.Datatypes <> S constr
+R2503:2505 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R2502:2502 Undecidability.MinskyMachines.MMenv.mme_defs <> v:26 var
+R2506:2506 Undecidability.MinskyMachines.MMenv.mme_defs <> x:24 var
+prf 2563:2581 <> mm_sss_env_DEC0_inv
+binder 2583:2583 <> x:29
+binder 2585:2585 <> k:30
+binder 2587:2587 <> i:31
+binder 2589:2589 <> v:32
+binder 2591:2591 <> j:33
+binder 2593:2593 <> w:34
+R2606:2609 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2602:2604 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2598:2600 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R2597:2597 Undecidability.MinskyMachines.MMenv.mme_defs <> v:32 var
+R2601:2601 Undecidability.MinskyMachines.MMenv.mme_defs <> x:29 var
+R2605:2605 Coq.Init.Datatypes <> O constr
+R2636:2639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2617:2620 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R2626:2630 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R2610:2612 Undecidability.MinskyMachines.MM <> DEC abbrev
+R2616:2616 Undecidability.MinskyMachines.MMenv.mme_defs <> k:30 var
+R2614:2614 Undecidability.MinskyMachines.MMenv.mme_defs <> x:29 var
+R2621:2621 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2623:2623 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2625:2625 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2622:2622 Undecidability.MinskyMachines.MMenv.mme_defs <> i:31 var
+R2624:2624 Undecidability.MinskyMachines.MMenv.mme_defs <> v:32 var
+R2631:2631 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2633:2633 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2635:2635 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2632:2632 Undecidability.MinskyMachines.MMenv.mme_defs <> j:33 var
+R2634:2634 Undecidability.MinskyMachines.MMenv.mme_defs <> w:34 var
+R2645:2648 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2641:2643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2640:2640 Undecidability.MinskyMachines.MMenv.mme_defs <> j:33 var
+R2644:2644 Undecidability.MinskyMachines.MMenv.mme_defs <> k:30 var
+R2650:2652 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2649:2649 Undecidability.MinskyMachines.MMenv.mme_defs <> w:34 var
+R2653:2653 Undecidability.MinskyMachines.MMenv.mme_defs <> v:32 var
+prf 2758:2776 <> mm_sss_env_DEC1_inv
+binder 2778:2778 <> x:35
+binder 2780:2780 <> k:36
+binder 2782:2782 <> u:37
+binder 2784:2784 <> i:38
+binder 2786:2786 <> v:39
+binder 2788:2788 <> j:40
+binder 2790:2790 <> w:41
+R2805:2808 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2799:2801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2795:2797 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R2794:2794 Undecidability.MinskyMachines.MMenv.mme_defs <> v:39 var
+R2798:2798 Undecidability.MinskyMachines.MMenv.mme_defs <> x:35 var
+R2802:2802 Coq.Init.Datatypes <> S constr
+R2804:2804 Undecidability.MinskyMachines.MMenv.mme_defs <> u:37 var
+R2835:2838 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2816:2819 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R2825:2829 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-1>'_x not
+R2809:2811 Undecidability.MinskyMachines.MM <> DEC abbrev
+R2815:2815 Undecidability.MinskyMachines.MMenv.mme_defs <> k:36 var
+R2813:2813 Undecidability.MinskyMachines.MMenv.mme_defs <> x:35 var
+R2820:2820 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2822:2822 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2824:2824 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2821:2821 Undecidability.MinskyMachines.MMenv.mme_defs <> i:38 var
+R2823:2823 Undecidability.MinskyMachines.MMenv.mme_defs <> v:39 var
+R2830:2830 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2832:2832 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2834:2834 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2831:2831 Undecidability.MinskyMachines.MMenv.mme_defs <> j:40 var
+R2833:2833 Undecidability.MinskyMachines.MMenv.mme_defs <> w:41 var
+R2844:2847 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2840:2840 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2839:2839 Undecidability.MinskyMachines.MMenv.mme_defs <> j:40 var
+R2842:2842 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2843:2843 Undecidability.MinskyMachines.MMenv.mme_defs <> i:38 var
+R2849:2851 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2848:2848 Undecidability.MinskyMachines.MMenv.mme_defs <> w:41 var
+R2853:2855 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2857:2859 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2861:2863 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R2852:2852 Undecidability.MinskyMachines.MMenv.mme_defs <> v:39 var
+R2856:2856 Undecidability.MinskyMachines.MMenv.mme_defs <> x:35 var
+R2860:2860 Undecidability.MinskyMachines.MMenv.mme_defs <> u:37 var
+R3025:3033 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps ind
+R3035:3044 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env ind
+not 3001:3001 Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x
+R3086:3097 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R3099:3108 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env ind
+not 3067:3067 Minsky_Machine_env_based :::x_'//'_x_'-+>'_x
+R3148:3158 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute def
+R3160:3169 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env ind
+not 3129:3129 Minsky_Machine_env_based :::x_'//'_x_'->>'_x
+prf 3189:3207 <> mm_env_progress_INC
+binder 3209:3209 <> P:42
+binder 3211:3211 <> i:43
+binder 3213:3213 <> x:44
+binder 3215:3215 <> v:45
+binder 3217:3218 <> st:46
+R3251:3260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3245:3249 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R3231:3231 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3233:3233 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3244:3244 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3232:3232 Undecidability.MinskyMachines.MMenv.mme_defs <> i:43 var
+R3239:3240 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3234:3236 Undecidability.MinskyMachines.MM <> INC abbrev
+R3238:3238 Undecidability.MinskyMachines.MMenv.mme_defs <> x:44 var
+R3241:3243 Coq.Init.Datatypes <> nil constr
+R3250:3250 Undecidability.MinskyMachines.MMenv.mme_defs <> P:42 var
+R3298:3307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3262:3265 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R3291:3295 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R3261:3261 Undecidability.MinskyMachines.MMenv.mme_defs <> P:42 var
+R3266:3266 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3270:3270 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3290:3290 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3268:3268 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3269:3269 Undecidability.MinskyMachines.MMenv.mme_defs <> i:43 var
+R3272:3274 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R3276:3278 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R3287:3289 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R3271:3271 Undecidability.MinskyMachines.MMenv.mme_defs <> v:45 var
+R3275:3275 Undecidability.MinskyMachines.MMenv.mme_defs <> x:44 var
+R3279:3279 Coq.Init.Datatypes <> S constr
+R3282:3284 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R3281:3281 Undecidability.MinskyMachines.MMenv.mme_defs <> v:45 var
+R3285:3285 Undecidability.MinskyMachines.MMenv.mme_defs <> x:44 var
+R3296:3297 Undecidability.MinskyMachines.MMenv.mme_defs <> st:46 var
+R3309:3312 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-+>'_x not
+R3318:3322 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-+>'_x not
+R3308:3308 Undecidability.MinskyMachines.MMenv.mme_defs <> P:42 var
+R3313:3313 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3315:3315 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3317:3317 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3314:3314 Undecidability.MinskyMachines.MMenv.mme_defs <> i:43 var
+R3316:3316 Undecidability.MinskyMachines.MMenv.mme_defs <> v:45 var
+R3323:3324 Undecidability.MinskyMachines.MMenv.mme_defs <> st:46 var
+R3364:3389 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute_trans thm
+R3364:3389 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute_trans thm
+R3417:3436 Undecidability.Shared.Libs.DLW.Code.sss <> subcode_sss_progress thm
+R3417:3436 Undecidability.Shared.Libs.DLW.Code.sss <> subcode_sss_progress thm
+R3487:3497 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_1 thm
+R3487:3497 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_1 thm
+R3533:3535 Coq.Init.Datatypes <> nil constr
+R3510:3520 Undecidability.Shared.Libs.DLW.Code.sss <> in_sss_step thm
+R3533:3535 Coq.Init.Datatypes <> nil constr
+R3510:3520 Undecidability.Shared.Libs.DLW.Code.sss <> in_sss_step thm
+prf 3600:3617 <> mm_env_compute_INC
+binder 3619:3619 <> P:47
+binder 3621:3621 <> i:48
+binder 3623:3623 <> x:49
+binder 3625:3625 <> v:50
+binder 3627:3628 <> st:51
+R3662:3672 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3656:3660 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R3642:3642 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3644:3644 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3655:3655 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3643:3643 Undecidability.MinskyMachines.MMenv.mme_defs <> i:48 var
+R3650:3651 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3645:3647 Undecidability.MinskyMachines.MM <> INC abbrev
+R3649:3649 Undecidability.MinskyMachines.MMenv.mme_defs <> x:49 var
+R3652:3654 Coq.Init.Datatypes <> nil constr
+R3661:3661 Undecidability.MinskyMachines.MMenv.mme_defs <> P:47 var
+R3710:3720 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3674:3677 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R3703:3707 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R3673:3673 Undecidability.MinskyMachines.MMenv.mme_defs <> P:47 var
+R3678:3678 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3682:3682 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3702:3702 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3680:3680 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3681:3681 Undecidability.MinskyMachines.MMenv.mme_defs <> i:48 var
+R3684:3686 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R3688:3690 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R3699:3701 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R3683:3683 Undecidability.MinskyMachines.MMenv.mme_defs <> v:50 var
+R3687:3687 Undecidability.MinskyMachines.MMenv.mme_defs <> x:49 var
+R3691:3691 Coq.Init.Datatypes <> S constr
+R3694:3696 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R3693:3693 Undecidability.MinskyMachines.MMenv.mme_defs <> v:50 var
+R3697:3697 Undecidability.MinskyMachines.MMenv.mme_defs <> x:49 var
+R3708:3709 Undecidability.MinskyMachines.MMenv.mme_defs <> st:51 var
+R3722:3725 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R3731:3735 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R3721:3721 Undecidability.MinskyMachines.MMenv.mme_defs <> P:47 var
+R3726:3726 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3728:3728 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3730:3730 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3727:3727 Undecidability.MinskyMachines.MMenv.mme_defs <> i:48 var
+R3729:3729 Undecidability.MinskyMachines.MMenv.mme_defs <> v:50 var
+R3736:3737 Undecidability.MinskyMachines.MMenv.mme_defs <> st:51 var
+R3763:3782 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R3792:3810 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_INC thm
+R3763:3782 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R3792:3810 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_INC thm
+prf 3835:3855 <> mm_env_progress_DEC_0
+binder 3857:3857 <> P:52
+binder 3859:3859 <> i:53
+binder 3861:3861 <> x:54
+binder 3863:3863 <> k:55
+binder 3865:3865 <> v:56
+binder 3867:3868 <> st:57
+R3903:3912 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3897:3901 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R3881:3881 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3883:3883 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3896:3896 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3882:3882 Undecidability.MinskyMachines.MMenv.mme_defs <> i:53 var
+R3891:3892 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3884:3886 Undecidability.MinskyMachines.MM <> DEC abbrev
+R3890:3890 Undecidability.MinskyMachines.MMenv.mme_defs <> k:55 var
+R3888:3888 Undecidability.MinskyMachines.MMenv.mme_defs <> x:54 var
+R3893:3895 Coq.Init.Datatypes <> nil constr
+R3902:3902 Undecidability.MinskyMachines.MMenv.mme_defs <> P:52 var
+R3922:3932 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3918:3920 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3914:3916 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R3913:3913 Undecidability.MinskyMachines.MMenv.mme_defs <> v:56 var
+R3917:3917 Undecidability.MinskyMachines.MMenv.mme_defs <> x:54 var
+R3921:3921 Coq.Init.Datatypes <> O constr
+R3950:3959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3934:3937 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R3943:3947 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R3933:3933 Undecidability.MinskyMachines.MMenv.mme_defs <> P:52 var
+R3938:3938 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3940:3940 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3942:3942 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3939:3939 Undecidability.MinskyMachines.MMenv.mme_defs <> k:55 var
+R3941:3941 Undecidability.MinskyMachines.MMenv.mme_defs <> v:56 var
+R3948:3949 Undecidability.MinskyMachines.MMenv.mme_defs <> st:57 var
+R3961:3964 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-+>'_x not
+R3970:3974 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-+>'_x not
+R3960:3960 Undecidability.MinskyMachines.MMenv.mme_defs <> P:52 var
+R3965:3965 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3967:3967 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3969:3969 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3966:3966 Undecidability.MinskyMachines.MMenv.mme_defs <> i:53 var
+R3968:3968 Undecidability.MinskyMachines.MMenv.mme_defs <> v:56 var
+R3975:3976 Undecidability.MinskyMachines.MMenv.mme_defs <> st:57 var
+R4019:4044 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute_trans thm
+R4019:4044 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute_trans thm
+R4072:4091 Undecidability.Shared.Libs.DLW.Code.sss <> subcode_sss_progress thm
+R4072:4091 Undecidability.Shared.Libs.DLW.Code.sss <> subcode_sss_progress thm
+R4142:4152 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_1 thm
+R4142:4152 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_1 thm
+R4188:4190 Coq.Init.Datatypes <> nil constr
+R4165:4175 Undecidability.Shared.Libs.DLW.Code.sss <> in_sss_step thm
+R4188:4190 Coq.Init.Datatypes <> nil constr
+R4165:4175 Undecidability.Shared.Libs.DLW.Code.sss <> in_sss_step thm
+prf 4255:4274 <> mm_env_compute_DEC_0
+binder 4276:4276 <> P:58
+binder 4278:4278 <> i:59
+binder 4280:4280 <> x:60
+binder 4282:4282 <> k:61
+binder 4284:4284 <> v:62
+binder 4286:4287 <> st:63
+R4323:4333 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4317:4321 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R4301:4301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4303:4303 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4316:4316 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4302:4302 Undecidability.MinskyMachines.MMenv.mme_defs <> i:59 var
+R4311:4312 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4304:4306 Undecidability.MinskyMachines.MM <> DEC abbrev
+R4310:4310 Undecidability.MinskyMachines.MMenv.mme_defs <> k:61 var
+R4308:4308 Undecidability.MinskyMachines.MMenv.mme_defs <> x:60 var
+R4313:4315 Coq.Init.Datatypes <> nil constr
+R4322:4322 Undecidability.MinskyMachines.MMenv.mme_defs <> P:58 var
+R4343:4353 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4339:4341 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4335:4337 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R4334:4334 Undecidability.MinskyMachines.MMenv.mme_defs <> v:62 var
+R4338:4338 Undecidability.MinskyMachines.MMenv.mme_defs <> x:60 var
+R4342:4342 Coq.Init.Datatypes <> O constr
+R4371:4381 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4355:4358 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R4364:4368 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R4354:4354 Undecidability.MinskyMachines.MMenv.mme_defs <> P:58 var
+R4359:4359 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4361:4361 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4363:4363 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4360:4360 Undecidability.MinskyMachines.MMenv.mme_defs <> k:61 var
+R4362:4362 Undecidability.MinskyMachines.MMenv.mme_defs <> v:62 var
+R4369:4370 Undecidability.MinskyMachines.MMenv.mme_defs <> st:63 var
+R4383:4386 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R4392:4396 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R4382:4382 Undecidability.MinskyMachines.MMenv.mme_defs <> P:58 var
+R4387:4387 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4389:4389 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4391:4391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4388:4388 Undecidability.MinskyMachines.MMenv.mme_defs <> i:59 var
+R4390:4390 Undecidability.MinskyMachines.MMenv.mme_defs <> v:62 var
+R4397:4398 Undecidability.MinskyMachines.MMenv.mme_defs <> st:63 var
+R4424:4443 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R4453:4473 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_DEC_0 thm
+R4424:4443 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R4453:4473 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_DEC_0 thm
+prf 4498:4518 <> mm_env_progress_DEC_S
+binder 4520:4520 <> P:64
+binder 4522:4522 <> i:65
+binder 4524:4524 <> x:66
+binder 4526:4526 <> k:67
+binder 4528:4528 <> v:68
+binder 4530:4530 <> u:69
+binder 4532:4533 <> st:70
+R4568:4577 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4562:4566 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R4546:4546 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4548:4548 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4561:4561 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4547:4547 Undecidability.MinskyMachines.MMenv.mme_defs <> i:65 var
+R4556:4557 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4549:4551 Undecidability.MinskyMachines.MM <> DEC abbrev
+R4555:4555 Undecidability.MinskyMachines.MMenv.mme_defs <> k:67 var
+R4553:4553 Undecidability.MinskyMachines.MMenv.mme_defs <> x:66 var
+R4558:4560 Coq.Init.Datatypes <> nil constr
+R4567:4567 Undecidability.MinskyMachines.MMenv.mme_defs <> P:64 var
+R4589:4599 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4583:4585 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4579:4581 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R4578:4578 Undecidability.MinskyMachines.MMenv.mme_defs <> v:68 var
+R4582:4582 Undecidability.MinskyMachines.MMenv.mme_defs <> x:66 var
+R4586:4586 Coq.Init.Datatypes <> S constr
+R4588:4588 Undecidability.MinskyMachines.MMenv.mme_defs <> u:69 var
+R4630:4639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4601:4604 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R4623:4627 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R4600:4600 Undecidability.MinskyMachines.MMenv.mme_defs <> P:64 var
+R4605:4605 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4609:4609 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4622:4622 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4607:4607 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4608:4608 Undecidability.MinskyMachines.MMenv.mme_defs <> i:65 var
+R4611:4613 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R4615:4617 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R4619:4621 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R4610:4610 Undecidability.MinskyMachines.MMenv.mme_defs <> v:68 var
+R4614:4614 Undecidability.MinskyMachines.MMenv.mme_defs <> x:66 var
+R4618:4618 Undecidability.MinskyMachines.MMenv.mme_defs <> u:69 var
+R4628:4629 Undecidability.MinskyMachines.MMenv.mme_defs <> st:70 var
+R4641:4644 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-+>'_x not
+R4650:4654 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-+>'_x not
+R4640:4640 Undecidability.MinskyMachines.MMenv.mme_defs <> P:64 var
+R4645:4645 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4647:4647 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4649:4649 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4646:4646 Undecidability.MinskyMachines.MMenv.mme_defs <> i:65 var
+R4648:4648 Undecidability.MinskyMachines.MMenv.mme_defs <> v:68 var
+R4655:4656 Undecidability.MinskyMachines.MMenv.mme_defs <> st:70 var
+R4699:4724 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute_trans thm
+R4699:4724 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute_trans thm
+R4752:4771 Undecidability.Shared.Libs.DLW.Code.sss <> subcode_sss_progress thm
+R4752:4771 Undecidability.Shared.Libs.DLW.Code.sss <> subcode_sss_progress thm
+R4822:4832 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_1 thm
+R4822:4832 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_1 thm
+R4868:4870 Coq.Init.Datatypes <> nil constr
+R4845:4855 Undecidability.Shared.Libs.DLW.Code.sss <> in_sss_step thm
+R4868:4870 Coq.Init.Datatypes <> nil constr
+R4845:4855 Undecidability.Shared.Libs.DLW.Code.sss <> in_sss_step thm
+prf 4935:4954 <> mm_env_compute_DEC_S
+binder 4956:4956 <> P:71
+binder 4958:4958 <> i:72
+binder 4960:4960 <> x:73
+binder 4962:4962 <> k:74
+binder 4964:4964 <> v:75
+binder 4966:4966 <> u:76
+binder 4968:4969 <> st:77
+R5007:5019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5001:5005 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R4985:4985 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4987:4987 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5000:5000 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4986:4986 Undecidability.MinskyMachines.MMenv.mme_defs <> i:72 var
+R4995:4996 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4988:4990 Undecidability.MinskyMachines.MM <> DEC abbrev
+R4994:4994 Undecidability.MinskyMachines.MMenv.mme_defs <> k:74 var
+R4992:4992 Undecidability.MinskyMachines.MMenv.mme_defs <> x:73 var
+R4997:4999 Coq.Init.Datatypes <> nil constr
+R5006:5006 Undecidability.MinskyMachines.MMenv.mme_defs <> P:71 var
+R5031:5043 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5025:5027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5021:5023 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R5020:5020 Undecidability.MinskyMachines.MMenv.mme_defs <> v:75 var
+R5024:5024 Undecidability.MinskyMachines.MMenv.mme_defs <> x:73 var
+R5028:5028 Coq.Init.Datatypes <> S constr
+R5030:5030 Undecidability.MinskyMachines.MMenv.mme_defs <> u:76 var
+R5074:5086 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5045:5048 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R5067:5071 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R5044:5044 Undecidability.MinskyMachines.MMenv.mme_defs <> P:71 var
+R5049:5049 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5053:5053 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5066:5066 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5051:5051 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5052:5052 Undecidability.MinskyMachines.MMenv.mme_defs <> i:72 var
+R5055:5057 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R5059:5061 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R5063:5065 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R5054:5054 Undecidability.MinskyMachines.MMenv.mme_defs <> v:75 var
+R5058:5058 Undecidability.MinskyMachines.MMenv.mme_defs <> x:73 var
+R5062:5062 Undecidability.MinskyMachines.MMenv.mme_defs <> u:76 var
+R5072:5073 Undecidability.MinskyMachines.MMenv.mme_defs <> st:77 var
+R5088:5091 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R5097:5101 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'->>'_x not
+R5087:5087 Undecidability.MinskyMachines.MMenv.mme_defs <> P:71 var
+R5092:5092 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5094:5094 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5096:5096 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5093:5093 Undecidability.MinskyMachines.MMenv.mme_defs <> i:72 var
+R5095:5095 Undecidability.MinskyMachines.MMenv.mme_defs <> v:75 var
+R5102:5103 Undecidability.MinskyMachines.MMenv.mme_defs <> st:77 var
+R5129:5148 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R5158:5178 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_DEC_S thm
+R5129:5148 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress_compute thm
+R5158:5178 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_DEC_S thm
+prf 5203:5222 <> mm_env_steps_INC_inv
+binder 5224:5224 <> k:78
+binder 5226:5226 <> P:79
+binder 5228:5228 <> i:80
+binder 5230:5230 <> x:81
+binder 5232:5232 <> v:82
+binder 5234:5235 <> st:83
+R5268:5277 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5262:5266 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R5248:5248 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5250:5250 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5261:5261 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5249:5249 Undecidability.MinskyMachines.MMenv.mme_defs <> i:80 var
+R5256:5257 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5251:5253 Undecidability.MinskyMachines.MM <> INC abbrev
+R5255:5255 Undecidability.MinskyMachines.MMenv.mme_defs <> x:81 var
+R5258:5260 Coq.Init.Datatypes <> nil constr
+R5267:5267 Undecidability.MinskyMachines.MMenv.mme_defs <> P:79 var
+R5284:5293 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5279:5282 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5278:5278 Undecidability.MinskyMachines.MMenv.mme_defs <> k:78 var
+R5314:5323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5295:5298 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5304:5306 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5308:5311 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5294:5294 Undecidability.MinskyMachines.MMenv.mme_defs <> P:79 var
+R5307:5307 Undecidability.MinskyMachines.MMenv.mme_defs <> k:78 var
+R5299:5299 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5301:5301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5303:5303 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5300:5300 Undecidability.MinskyMachines.MMenv.mme_defs <> i:80 var
+R5302:5302 Undecidability.MinskyMachines.MMenv.mme_defs <> v:82 var
+R5312:5313 Undecidability.MinskyMachines.MMenv.mme_defs <> st:83 var
+R5324:5330 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5333:5334 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5331:5332 <> k':84
+R5341:5344 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5337:5339 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5335:5336 Undecidability.MinskyMachines.MMenv.mme_defs <> k':84 var
+R5340:5340 Undecidability.MinskyMachines.MMenv.mme_defs <> k:78 var
+R5346:5349 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5375:5377 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5380:5383 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5345:5345 Undecidability.MinskyMachines.MMenv.mme_defs <> P:79 var
+R5378:5379 Undecidability.MinskyMachines.MMenv.mme_defs <> k':84 var
+R5350:5350 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5354:5354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5374:5374 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5352:5352 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5353:5353 Undecidability.MinskyMachines.MMenv.mme_defs <> i:80 var
+R5356:5358 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R5360:5362 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R5371:5373 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R5355:5355 Undecidability.MinskyMachines.MMenv.mme_defs <> v:82 var
+R5359:5359 Undecidability.MinskyMachines.MMenv.mme_defs <> x:81 var
+R5363:5363 Coq.Init.Datatypes <> S constr
+R5366:5368 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R5365:5365 Undecidability.MinskyMachines.MMenv.mme_defs <> v:82 var
+R5369:5369 Undecidability.MinskyMachines.MMenv.mme_defs <> x:81 var
+R5384:5385 Undecidability.MinskyMachines.MMenv.mme_defs <> st:83 var
+R5428:5440 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_inv thm
+R5428:5440 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_inv thm
+R5554:5573 Undecidability.Shared.Libs.DLW.Code.sss <> sss_step_subcode_inv thm
+R5554:5573 Undecidability.Shared.Libs.DLW.Code.sss <> sss_step_subcode_inv thm
+prf 5676:5697 <> mm_env_steps_DEC_0_inv
+binder 5699:5699 <> k:85
+binder 5701:5701 <> P:86
+binder 5703:5703 <> i:87
+binder 5705:5705 <> x:88
+binder 5707:5707 <> p:89
+binder 5709:5709 <> v:90
+binder 5711:5712 <> st:91
+R5747:5756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5741:5745 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R5725:5725 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5727:5727 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5740:5740 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5726:5726 Undecidability.MinskyMachines.MMenv.mme_defs <> i:87 var
+R5735:5736 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5728:5730 Undecidability.MinskyMachines.MM <> DEC abbrev
+R5734:5734 Undecidability.MinskyMachines.MMenv.mme_defs <> p:89 var
+R5732:5732 Undecidability.MinskyMachines.MMenv.mme_defs <> x:88 var
+R5737:5739 Coq.Init.Datatypes <> nil constr
+R5746:5746 Undecidability.MinskyMachines.MMenv.mme_defs <> P:86 var
+R5763:5772 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5758:5761 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5757:5757 Undecidability.MinskyMachines.MMenv.mme_defs <> k:85 var
+R5782:5791 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5778:5780 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5774:5776 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R5773:5773 Undecidability.MinskyMachines.MMenv.mme_defs <> v:90 var
+R5777:5777 Undecidability.MinskyMachines.MMenv.mme_defs <> x:88 var
+R5812:5821 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5793:5796 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5802:5804 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5806:5809 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5792:5792 Undecidability.MinskyMachines.MMenv.mme_defs <> P:86 var
+R5805:5805 Undecidability.MinskyMachines.MMenv.mme_defs <> k:85 var
+R5797:5797 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5799:5799 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5801:5801 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5798:5798 Undecidability.MinskyMachines.MMenv.mme_defs <> i:87 var
+R5800:5800 Undecidability.MinskyMachines.MMenv.mme_defs <> v:90 var
+R5810:5811 Undecidability.MinskyMachines.MMenv.mme_defs <> st:91 var
+R5822:5828 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5831:5832 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5829:5830 <> k':92
+R5839:5842 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5835:5837 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5833:5834 Undecidability.MinskyMachines.MMenv.mme_defs <> k':92 var
+R5838:5838 Undecidability.MinskyMachines.MMenv.mme_defs <> k:85 var
+R5844:5847 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5853:5855 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5858:5861 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R5843:5843 Undecidability.MinskyMachines.MMenv.mme_defs <> P:86 var
+R5856:5857 Undecidability.MinskyMachines.MMenv.mme_defs <> k':92 var
+R5848:5848 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5850:5850 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5852:5852 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5849:5849 Undecidability.MinskyMachines.MMenv.mme_defs <> p:89 var
+R5851:5851 Undecidability.MinskyMachines.MMenv.mme_defs <> v:90 var
+R5862:5863 Undecidability.MinskyMachines.MMenv.mme_defs <> st:91 var
+R5909:5921 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_inv thm
+R5909:5921 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_inv thm
+R6035:6054 Undecidability.Shared.Libs.DLW.Code.sss <> sss_step_subcode_inv thm
+R6035:6054 Undecidability.Shared.Libs.DLW.Code.sss <> sss_step_subcode_inv thm
+prf 6193:6214 <> mm_env_steps_DEC_1_inv
+binder 6216:6216 <> k:93
+binder 6218:6218 <> P:94
+binder 6220:6220 <> i:95
+binder 6222:6222 <> x:96
+binder 6224:6224 <> p:97
+binder 6226:6226 <> v:98
+binder 6228:6228 <> u:99
+binder 6230:6231 <> st:100
+R6266:6275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6260:6264 Undecidability.Shared.Libs.DLW.Code.subcode <> :::x_'<sc'_x not
+R6244:6244 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6246:6246 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6259:6259 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6245:6245 Undecidability.MinskyMachines.MMenv.mme_defs <> i:95 var
+R6254:6255 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6247:6249 Undecidability.MinskyMachines.MM <> DEC abbrev
+R6253:6253 Undecidability.MinskyMachines.MMenv.mme_defs <> p:97 var
+R6251:6251 Undecidability.MinskyMachines.MMenv.mme_defs <> x:96 var
+R6256:6258 Coq.Init.Datatypes <> nil constr
+R6265:6265 Undecidability.MinskyMachines.MMenv.mme_defs <> P:94 var
+R6282:6291 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6277:6280 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6276:6276 Undecidability.MinskyMachines.MMenv.mme_defs <> k:93 var
+R6303:6312 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6297:6299 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6293:6295 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⇢'_x not
+R6292:6292 Undecidability.MinskyMachines.MMenv.mme_defs <> v:98 var
+R6296:6296 Undecidability.MinskyMachines.MMenv.mme_defs <> x:96 var
+R6300:6300 Coq.Init.Datatypes <> S constr
+R6302:6302 Undecidability.MinskyMachines.MMenv.mme_defs <> u:99 var
+R6333:6342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6314:6317 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R6323:6325 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R6327:6330 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R6313:6313 Undecidability.MinskyMachines.MMenv.mme_defs <> P:94 var
+R6326:6326 Undecidability.MinskyMachines.MMenv.mme_defs <> k:93 var
+R6318:6318 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6320:6320 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6322:6322 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6319:6319 Undecidability.MinskyMachines.MMenv.mme_defs <> i:95 var
+R6321:6321 Undecidability.MinskyMachines.MMenv.mme_defs <> v:98 var
+R6331:6332 Undecidability.MinskyMachines.MMenv.mme_defs <> st:100 var
+R6343:6349 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6352:6353 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6350:6351 <> k':101
+R6360:6363 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6356:6358 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6354:6355 Undecidability.MinskyMachines.MMenv.mme_defs <> k':101 var
+R6359:6359 Undecidability.MinskyMachines.MMenv.mme_defs <> k:93 var
+R6365:6368 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R6387:6389 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R6392:6395 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'//'_x_'-['_x_']->'_x not
+R6364:6364 Undecidability.MinskyMachines.MMenv.mme_defs <> P:94 var
+R6390:6391 Undecidability.MinskyMachines.MMenv.mme_defs <> k':101 var
+R6369:6369 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6373:6373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6386:6386 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6371:6371 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6372:6372 Undecidability.MinskyMachines.MMenv.mme_defs <> i:95 var
+R6375:6377 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R6379:6381 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R6383:6385 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based :::x_'⦃'_x_'⇠'_x_'⦄' not
+R6374:6374 Undecidability.MinskyMachines.MMenv.mme_defs <> v:98 var
+R6378:6378 Undecidability.MinskyMachines.MMenv.mme_defs <> x:96 var
+R6382:6382 Undecidability.MinskyMachines.MMenv.mme_defs <> u:99 var
+R6396:6397 Undecidability.MinskyMachines.MMenv.mme_defs <> st:100 var
+R6443:6455 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_inv thm
+R6443:6455 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_inv thm
+R6569:6588 Undecidability.Shared.Libs.DLW.Code.sss <> sss_step_subcode_inv thm
+R6569:6588 Undecidability.Shared.Libs.DLW.Code.sss <> sss_step_subcode_inv thm
+R6755:6778 Undecidability.MinskyMachines.MMenv.mme_defs Minsky_Machine_env_based <> sec
+R6821:6829 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps ind
+R6833:6842 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env ind
+not 6797:6797 <> :::x_'//'_x_'-['_x_']->'_x
+R6893:6904 Undecidability.Shared.Libs.DLW.Code.sss <> sss_progress def
+R6908:6917 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env ind
+not 6874:6874 <> :::x_'//'_x_'-+>'_x
+R6966:6976 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute def
+R6980:6989 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env ind
+not 6947:6947 <> :::x_'//'_x_'->>'_x
+R7088:7091 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7093:7097 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7088:7091 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7093:7097 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7153:7156 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7158:7162 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7153:7156 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7158:7162 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7174:7191 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_compute_INC thm
+R7109:7127 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_INC thm
+R7322:7325 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7327:7331 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7322:7325 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7327:7331 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7398:7401 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7403:7407 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7398:7401 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7403:7407 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7419:7438 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_compute_DEC_0 thm
+R7343:7363 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_DEC_0 thm
+R7586:7589 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7591:7595 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7586:7589 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7591:7595 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'-+>'_x not
+R7671:7674 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7676:7680 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7671:7674 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7676:7680 Undecidability.MinskyMachines.MMenv.mme_defs <> :::x_'//'_x_'->>'_x not
+R7692:7711 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_compute_DEC_S thm
+R7607:7627 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_env_progress_DEC_S thm
+R7812:7822 Undecidability.Shared.Libs.DLW.Code.sss <> sss_steps_0 thm

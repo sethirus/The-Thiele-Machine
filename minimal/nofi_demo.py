@@ -5,15 +5,15 @@ Three sections, and I want to be exact about what kind of evidence each one
 is, because the difference matters and I'd rather state it than have a
 careful reader state it for me.
 
-  E1  EXHAUSTIVE. Every function on every world-space up to size 5 — all
+  E1  EXHAUSTIVE. Every function on every world-space up to size 5, all
       3,412 of them, the complete space, not a sample. The claim "a
       reversible step cannot narrow what you know, and narrowing is
       exactly the destruction of possibilities" either holds for every
       single one or this script exits nonzero. There is nowhere for a
       counterexample to hide on these spaces.
 
-  E2  EXHAUSTIVE + RANDOMIZED. The conservation law — banking k bits of
-      insight erases exactly k bits — checked on every observation size
+  E2  EXHAUSTIVE + RANDOMIZED. The conservation law (banking k bits of
+      insight erases exactly k bits) is checked on every observation size
       over a 256-world uniform space, and then on 500 seeded random
       worlds with non-uniform priors. The law is a theorem; what these
       sweeps can catch is the thing a theorem can't check for you: that
@@ -23,7 +23,7 @@ careful reader state it for me.
   E3  MEASURED. Real algorithms, real counters. Binary search rides the
       log2(n) floor at 100% efficiency, a wasteful splitter pays 131%,
       linear scan pays ~2%. And one cheater: a strategy that stops paying
-      halfway and guesses. It gets under the floor — and buys every saved
+      halfway and guesses. It gets under the floor, and buys every saved
       bit in wrong answers, measured. The floor binds exact
       identification; pay less and you are wrong, at a rate you can read
       off the table.
@@ -53,7 +53,7 @@ def check(name: str, ok: bool, detail: str = "") -> None:
 
 
 # ---------------------------------------------------------------------
-# E1 — exhaustive: reversibility and narrowing exclude each other
+# E1: exhaustive: reversibility and narrowing exclude each other
 # ---------------------------------------------------------------------
 
 def e1() -> None:
@@ -86,7 +86,7 @@ def e1() -> None:
 
 
 # ---------------------------------------------------------------------
-# E2 — conservation: banked insight == erased bits, swept hard
+# E2: conservation: banked insight == erased bits, swept hard
 # ---------------------------------------------------------------------
 
 def entropy(dist: Counter) -> float:
@@ -98,7 +98,7 @@ def conservation_holds(prior: Counter, keep) -> tuple:
     """One observation under reversible accounting.
 
     The observation splits the worlds into survivors and ruled-out. A
-    reversible implementation relabels every world into (lane, index) —
+    reversible implementation relabels every world into (lane, index):
     a bijection, nothing discarded yet. Banking the insight means
     dropping the ruled-out lane. Returns (conservation error,
     insight-vs-erasure error) for the caller to bound.
@@ -167,7 +167,7 @@ def e2() -> None:
 
 
 # ---------------------------------------------------------------------
-# E3 — measured: the mu thermometer, plus one cheater
+# E3: measured: the mu thermometer, plus one cheater
 # ---------------------------------------------------------------------
 
 def binary_search(target: int, n: int, rng) -> tuple:

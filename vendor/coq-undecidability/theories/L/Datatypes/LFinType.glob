@@ -1,0 +1,75 @@
+DIGEST 9d75a4fca75a68933d43a9964e79dbf9
+FUndecidability.L.Datatypes.LFinType
+R45:52 Undecidability.L.Tactics.LTactics <> <> lib
+R54:62 Undecidability.L.Tactics.GenEncode <> <> lib
+R102:115 Undecidability.L.Datatypes.LNat <> <> lib
+R117:132 Undecidability.L.Functions.EqBool <> <> lib
+R143:145 Coq.Arith.PeanoNat Nat <> mod
+R163:213 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> <> lib
+def 339:355 <> encodable_finType
+R363:369 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 359:359 <> X:1
+R374:382 Undecidability.L.Tactics.Extract <> encodable class
+R384:384 Undecidability.L.Datatypes.LFinType <> X:1 var
+R404:413 Undecidability.L.Tactics.Computable <> registerAs thm
+R415:419 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> index def
+R404:413 Undecidability.L.Tactics.Computable <> registerAs thm
+R415:419 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> index def
+def 467:477 <> finType_eqb
+R482:488 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 480:480 <> X:2
+R498:498 Undecidability.L.Datatypes.LFinType <> X:2 var
+binder 492:492 <> x:3
+binder 494:494 <> y:4
+R506:512 Coq.Arith.PeanoNat Nat eqb def
+R515:519 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> index def
+R521:521 Undecidability.L.Datatypes.LFinType <> x:3 var
+R525:529 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> index def
+R531:531 Undecidability.L.Datatypes.LFinType <> y:4 var
+prf 542:560 <> finType_eqb_reflect
+R565:571 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 563:563 <> X:5
+R579:579 Undecidability.L.Datatypes.LFinType <> X:5 var
+binder 575:575 <> x:6
+binder 577:577 <> y:7
+R584:590 Coq.Bool.Bool <> reflect ind
+R594:596 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R593:593 Undecidability.L.Datatypes.LFinType <> x:6 var
+R597:597 Undecidability.L.Datatypes.LFinType <> y:7 var
+R601:611 Undecidability.L.Datatypes.LFinType <> finType_eqb def
+R615:615 Undecidability.L.Datatypes.LFinType <> y:7 var
+R613:613 Undecidability.L.Datatypes.LFinType <> x:6 var
+R635:645 Undecidability.L.Datatypes.LFinType <> finType_eqb def
+R658:669 Coq.Arith.PeanoNat Nat eqb_spec thm
+R682:686 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> index def
+R672:676 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> index def
+R658:669 Coq.Arith.PeanoNat Nat eqb_spec thm
+R682:686 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> index def
+R672:676 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> index def
+R718:732 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> injective_index thm
+R718:732 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> injective_index thm
+sec 764:774 <> finType_eqb
+R803:819 Undecidability.L.Datatypes.LFinType <> encodable_finType def
+inst 841:850 <> term_index
+R855:861 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 853:853 <> F:8
+R865:874 Undecidability.L.Tactics.Computable <> computable class
+R878:882 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> index def
+R884:884 Undecidability.L.Datatypes.LFinType <> F:8 var
+R907:921 Undecidability.L.Tactics.ComputableTactics <> cast_computable thm
+R907:921 Undecidability.L.Tactics.ComputableTactics <> cast_computable thm
+inst 949:963 <> eqbFinType_inst
+R968:974 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 966:966 <> X:9
+R978:985 Undecidability.L.Functions.EqBool <> eqbClass class
+R987:997 Undecidability.L.Datatypes.LFinType <> finType_eqb def
+R1003:1003 Undecidability.L.Datatypes.LFinType <> X:9 var
+R1039:1057 Undecidability.L.Datatypes.LFinType <> finType_eqb_reflect thm
+R1039:1057 Undecidability.L.Datatypes.LFinType <> finType_eqb_reflect thm
+inst 1087:1096 <> eqbFinType
+R1101:1107 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 1099:1099 <> X:10
+R1111:1117 Undecidability.L.Functions.EqBool <> eqbComp class
+R1119:1119 Undecidability.L.Datatypes.LFinType <> X:10 var
+R1155:1165 Undecidability.L.Datatypes.LFinType <> finType_eqb def
+R1193:1203 Undecidability.L.Datatypes.LFinType finType_eqb <> sec

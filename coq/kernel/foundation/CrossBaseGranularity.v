@@ -1,8 +1,8 @@
 (** Closed generic and available-adapter outcomes for cross-base granularity. *)
 
 From Coq Require Import Arith.PeanoNat.
-From Kernel Require Import StructuralCoreRound4 StructuralRecordAxis CrossBaseGranularityCore.
-From Kernel Require Import CrossBaseGranularityRound2Core.
+From Kernel Require Import StructuralCoreAnyBase StructuralRecordAxis CrossBaseGranularityCore.
+From Kernel Require Import CrossBaseGranularityTransCore.
 
 Theorem weak_base_equiv_refl_holds : weak_base_equiv_refl.
 Proof.
@@ -91,27 +91,25 @@ Proof.
         exists q, (base_run B2 n y). auto.
 Qed.
 
-Theorem weak_equiv_preserves_round4_holds : weak_equiv_preserves_round4.
+(** Both sides of the equivalence hold for every base:
+    [record_axis_is_latch_holds] proves the record axis is a latch over any
+    deterministic base. So weakly equivalent bases agree on it, and so do any
+    two bases. The weak-equivalence premise is not used; the theorem says no
+    more than that. *)
+Theorem weak_equiv_preserves_record_latch_holds : weak_equiv_preserves_record_latch.
 Proof.
   intros B1 B2 O obs1 obs2 _. split; intros _ M C Hhonest;
-    exact (uniqueness_round4_holds M _ C Hhonest).
+    exact (record_axis_is_latch_holds M _ C Hhonest).
 Qed.
 
-Theorem round4_tm_holds : round4_tm_target.
+Theorem record_axis_is_latch_on_tm_holds : record_axis_is_latch_on_tm.
 Proof.
   intros p M C Hhonest.
-  exact (uniqueness_round4_holds M _ C Hhonest).
-Qed.
-
-Theorem round4_vm_holds : round4_vm_target.
-Proof.
-  intros p M C Hhonest.
-  exact (uniqueness_round4_holds M _ C Hhonest).
+  exact (record_axis_is_latch_holds M _ C Hhonest).
 Qed.
 
 Print Assumptions weak_base_equiv_refl_holds.
 Print Assumptions weak_base_equiv_sym_holds.
 Print Assumptions weak_base_equiv_trans_holds.
-Print Assumptions weak_equiv_preserves_round4_holds.
-Print Assumptions round4_tm_holds.
-Print Assumptions round4_vm_holds.
+Print Assumptions weak_equiv_preserves_record_latch_holds.
+Print Assumptions record_axis_is_latch_on_tm_holds.

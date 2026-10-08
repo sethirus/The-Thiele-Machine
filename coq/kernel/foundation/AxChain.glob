@@ -1,0 +1,773 @@
+DIGEST 64136881b031bda8113e80c803f54f71
+FKernel.AxChain
+R2582:2585 Coq.Lists.List <> <> lib
+R2587:2591 Coq.Arith.Arith <> <> lib
+R2593:2595 Coq.micromega.Lia <> <> lib
+R2597:2600 Coq.Bool.Bool <> <> lib
+R2610:2622 Coq.Lists.List ListNotations <> mod
+R2676:2680 Undecidability.Shared.Libs.DLW.Utils.utils <> <> lib
+R2682:2684 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R2686:2688 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R2737:2742 Undecidability.MuRec.Util.recalg <> <> lib
+rec 2753:2765 <> ax_chain_mach
+proj 2793:2800 <> ax_cm_st
+proj 2812:2819 <> ax_cm_mv
+proj 2831:2840 <> ax_cm_step
+proj 2880:2889 <> ax_cm_cost
+proj 2912:2918 <> ax_cm_h
+proj 2941:2950 <> ax_cm_next
+proj 2985:2995 <> ax_cm_scode
+proj 3018:3027 <> ax_cm_sdec
+proj 3057:3067 <> ax_cm_icode
+proj 3090:3099 <> ax_cm_idec
+proj 3129:3144 <> ax_cm_sdec_scode
+proj 3197:3212 <> ax_cm_idec_icode
+R2852:2855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2844:2851 Kernel.AxChain <> ax_cm_st:2 meth
+R2864:2867 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2856:2863 Kernel.AxChain <> ax_cm_mv:3 meth
+R2868:2875 Kernel.AxChain <> ax_cm_st:2 meth
+R2901:2904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2893:2900 Kernel.AxChain <> ax_cm_mv:3 meth
+R2905:2907 Coq.Init.Datatypes <> nat ind
+R2930:2933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2922:2929 Kernel.AxChain <> ax_cm_st:2 meth
+R2934:2936 Coq.Init.Datatypes <> nat ind
+R2962:2965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2954:2961 Kernel.AxChain <> ax_cm_st:2 meth
+R2966:2971 Coq.Init.Datatypes <> option ind
+R2973:2980 Kernel.AxChain <> ax_cm_mv:3 meth
+R3007:3010 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2999:3006 Kernel.AxChain <> ax_cm_st:2 meth
+R3011:3013 Coq.Init.Datatypes <> nat ind
+R3034:3037 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3031:3033 Coq.Init.Datatypes <> nat ind
+R3038:3043 Coq.Init.Datatypes <> option ind
+R3045:3052 Kernel.AxChain <> ax_cm_st:2 meth
+R3079:3082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3071:3078 Kernel.AxChain <> ax_cm_mv:3 meth
+R3083:3085 Coq.Init.Datatypes <> nat ind
+R3106:3109 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3103:3105 Coq.Init.Datatypes <> nat ind
+R3110:3115 Coq.Init.Datatypes <> option ind
+R3117:3124 Kernel.AxChain <> ax_cm_mv:3 meth
+binder 3155:3155 <> s:12
+R3184:3186 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3158:3167 Kernel.AxChain <> ax_cm_sdec:9 meth
+R3170:3180 Kernel.AxChain <> ax_cm_scode:8 meth
+R3182:3182 Kernel.AxChain <> s:12 var
+R3187:3190 Coq.Init.Datatypes <> Some constr
+R3192:3192 Kernel.AxChain <> s:12 var
+binder 3223:3223 <> i:14
+R3252:3254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3226:3235 Kernel.AxChain <> ax_cm_idec:11 meth
+R3238:3248 Kernel.AxChain <> ax_cm_icode:10 meth
+R3250:3250 Kernel.AxChain <> i:14 var
+R3255:3258 Coq.Init.Datatypes <> Some constr
+R3260:3260 Kernel.AxChain <> i:14 var
+sec 3274:3278 <> Chain
+var 3291:3291 Chain C
+R3295:3307 Kernel.AxChain <> ax_chain_mach rec
+abbrev 3326:3327 <> st
+R3333:3340 Kernel.AxChain <> ax_cm_st proj
+R3342:3342 Kernel.AxChain <> Chain.C var
+abbrev 3361:3362 <> mv
+R3368:3375 Kernel.AxChain <> ax_cm_mv proj
+R3377:3377 Kernel.AxChain <> Chain.C var
+abbrev 3396:3400 <> cstep
+R3406:3415 Kernel.AxChain <> ax_cm_step proj
+R3417:3417 Kernel.AxChain <> Chain.C var
+abbrev 3436:3440 <> ccost
+R3446:3455 Kernel.AxChain <> ax_cm_cost proj
+R3457:3457 Kernel.AxChain <> Chain.C var
+abbrev 3476:3477 <> hh
+R3483:3489 Kernel.AxChain <> ax_cm_h proj
+R3491:3491 Kernel.AxChain <> Chain.C var
+abbrev 3510:3513 <> next
+R3519:3528 Kernel.AxChain <> ax_cm_next proj
+R3530:3530 Kernel.AxChain <> Chain.C var
+def 3618:3631 <> ax_cm_next_val
+R3638:3639 Kernel.AxChain <> st abbrev
+binder 3634:3634 <> s:17
+R3644:3646 Coq.Init.Datatypes <> nat ind
+R3659:3662 Kernel.AxChain <> next abbrev
+R3664:3664 Kernel.AxChain <> s:17 var
+R3671:3674 Coq.Init.Datatypes <> None constr
+R3683:3686 Coq.Init.Datatypes <> Some constr
+R3693:3693 Coq.Init.Datatypes <> S constr
+R3696:3706 Kernel.AxChain <> ax_cm_icode proj
+R3708:3708 Kernel.AxChain <> Chain.C var
+def 3870:3883 <> ax_cm_read_val
+R3892:3894 Coq.Init.Datatypes <> nat ind
+binder 3886:3886 <> v:18
+binder 3888:3888 <> j:19
+R3899:3901 Coq.Init.Datatypes <> nat ind
+R3914:3923 Kernel.AxChain <> ax_cm_sdec proj
+R3925:3925 Kernel.AxChain <> Chain.C var
+R3927:3927 Kernel.AxChain <> v:18 var
+R3938:3941 Coq.Init.Datatypes <> Some constr
+R3951:3957 Coq.Arith.PeanoNat Nat eqb def
+R3960:3970 Kernel.AxChain <> ax_cm_scode proj
+R3972:3972 Kernel.AxChain <> Chain.C var
+R3977:3977 Kernel.AxChain <> v:18 var
+R3988:3994 Coq.Arith.PeanoNat Nat leb def
+R3996:3996 Kernel.AxChain <> j:19 var
+R3999:4000 Kernel.AxChain <> hh abbrev
+R4031:4034 Coq.Init.Datatypes <> None constr
+prf 4055:4073 <> ax_cm_read_val_code
+binder 4084:4084 <> s:20
+binder 4086:4086 <> j:21
+R4125:4127 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4091:4104 Kernel.AxChain <> ax_cm_read_val def
+R4107:4117 Kernel.AxChain <> ax_cm_scode proj
+R4119:4119 Kernel.AxChain <> Chain.C var
+R4121:4121 Kernel.AxChain <> s:20 var
+R4124:4124 Kernel.AxChain <> j:21 var
+R4131:4137 Coq.Arith.PeanoNat Nat leb def
+R4139:4139 Kernel.AxChain <> j:21 var
+R4142:4143 Kernel.AxChain <> hh abbrev
+R4145:4145 Kernel.AxChain <> s:20 var
+R4191:4204 Kernel.AxChain <> ax_cm_read_val def
+R4215:4230 Kernel.AxChain <> ax_cm_sdec_scode proj
+R4233:4244 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4215:4230 Kernel.AxChain <> ax_cm_sdec_scode proj
+R4215:4230 Kernel.AxChain <> ax_cm_sdec_scode proj
+R4233:4244 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4233:4244 Coq.Arith.PeanoNat Nat eqb_refl thm
+rec 4273:4285 <> ax_chain_pres
+proj 4318:4330 <> ax_cp_next_ra
+proj 4346:4358 <> ax_cp_step_ra
+proj 4374:4386 <> ax_cp_cost_ra
+proj 4402:4414 <> ax_cp_read_ra
+proj 4430:4444 <> ax_cp_next_spec
+proj 4530:4544 <> ax_cp_step_spec
+proj 4664:4678 <> ax_cp_cost_spec
+proj 4755:4769 <> ax_cp_read_spec
+R4334:4339 Undecidability.MuRec.MuRec <> recalg ind
+R4362:4367 Undecidability.MuRec.MuRec <> recalg ind
+R4390:4395 Undecidability.MuRec.MuRec <> recalg ind
+R4418:4423 Undecidability.MuRec.MuRec <> recalg ind
+binder 4455:4455 <> s:27
+R4458:4463 Undecidability.MuRec.Util.recalg <> ra_rel def
+R4509:4522 Kernel.AxChain <> ax_cm_next_val def
+R4524:4524 Kernel.AxChain <> s:27 var
+R4495:4498 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R4480:4490 Kernel.AxChain <> ax_cm_scode proj
+R4492:4492 Kernel.AxChain <> Chain.C var
+R4494:4494 Kernel.AxChain <> s:27 var
+R4499:4505 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R4465:4477 Kernel.AxChain <> ax_cp_next_ra:23 meth
+binder 4555:4555 <> s:29
+binder 4557:4557 <> i:30
+R4564:4569 Undecidability.MuRec.Util.recalg <> ra_rel def
+R4634:4644 Kernel.AxChain <> ax_cm_scode proj
+R4646:4646 Kernel.AxChain <> Chain.C var
+R4649:4653 Kernel.AxChain <> cstep abbrev
+R4655:4655 Kernel.AxChain <> s:29 var
+R4657:4657 Kernel.AxChain <> i:30 var
+R4601:4604 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R4586:4596 Kernel.AxChain <> ax_cm_scode proj
+R4598:4598 Kernel.AxChain <> Chain.C var
+R4600:4600 Kernel.AxChain <> s:29 var
+R4620:4623 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R4605:4615 Kernel.AxChain <> ax_cm_icode proj
+R4617:4617 Kernel.AxChain <> Chain.C var
+R4619:4619 Kernel.AxChain <> i:30 var
+R4624:4630 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R4571:4583 Kernel.AxChain <> ax_cp_step_ra:24 meth
+binder 4689:4689 <> i:32
+R4692:4697 Undecidability.MuRec.Util.recalg <> ra_rel def
+R4743:4747 Kernel.AxChain <> ccost abbrev
+R4749:4749 Kernel.AxChain <> i:32 var
+R4729:4732 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R4714:4724 Kernel.AxChain <> ax_cm_icode proj
+R4726:4726 Kernel.AxChain <> Chain.C var
+R4728:4728 Kernel.AxChain <> i:32 var
+R4733:4739 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R4699:4711 Kernel.AxChain <> ax_cp_cost_ra:25 meth
+binder 4780:4780 <> v:34
+binder 4782:4782 <> j:35
+R4785:4790 Undecidability.MuRec.Util.recalg <> ra_rel def
+R4827:4840 Kernel.AxChain <> ax_cm_read_val def
+R4842:4842 Kernel.AxChain <> v:34 var
+R4844:4844 Kernel.AxChain <> j:35 var
+R4808:4811 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R4807:4807 Kernel.AxChain <> v:34 var
+R4813:4816 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R4812:4812 Kernel.AxChain <> j:35 var
+R4817:4823 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R4792:4804 Kernel.AxChain <> ax_cp_read_ra:26 meth
+def 4915:4927 <> ax_cm_bounded
+R4950:4951 Kernel.AxChain <> st abbrev
+binder 4946:4946 <> s:37
+R4958:4961 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4954:4955 Kernel.AxChain <> hh abbrev
+R4957:4957 Kernel.AxChain <> s:37 var
+def 4989:4997 <> ax_cm_run
+R5004:5005 Kernel.AxChain <> st abbrev
+binder 5000:5000 <> s:38
+R5013:5015 Coq.Init.Datatypes <> nat ind
+binder 5009:5009 <> n:39
+R5020:5021 Kernel.AxChain <> st abbrev
+R5034:5034 Kernel.AxChain <> n:39 var
+R5050:5050 Kernel.AxChain <> s:38 var
+R5056:5056 Coq.Init.Datatypes <> S constr
+R5070:5073 Kernel.AxChain <> next abbrev
+R5075:5075 Kernel.AxChain <> s:38 var
+R5082:5085 Coq.Init.Datatypes <> None constr
+R5090:5090 Kernel.AxChain <> s:38 var
+R5094:5097 Coq.Init.Datatypes <> Some constr
+R5104:5112 Kernel.AxChain <> ax_cm_run:40 def
+R5115:5119 Kernel.AxChain <> cstep abbrev
+R5121:5121 Kernel.AxChain <> s:38 var
+def 5150:5161 <> ax_cm_ledger
+R5168:5169 Kernel.AxChain <> st abbrev
+binder 5164:5164 <> s:42
+R5177:5179 Coq.Init.Datatypes <> nat ind
+binder 5173:5173 <> n:43
+R5184:5186 Coq.Init.Datatypes <> nat ind
+R5199:5199 Kernel.AxChain <> n:43 var
+R5221:5221 Coq.Init.Datatypes <> S constr
+R5235:5238 Kernel.AxChain <> next abbrev
+R5240:5240 Kernel.AxChain <> s:42 var
+R5247:5250 Coq.Init.Datatypes <> None constr
+R5259:5262 Coq.Init.Datatypes <> Some constr
+R5276:5278 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5269:5273 Kernel.AxChain <> ccost abbrev
+R5279:5290 Kernel.AxChain <> ax_cm_ledger:44 def
+R5293:5297 Kernel.AxChain <> cstep abbrev
+R5299:5299 Kernel.AxChain <> s:42 var
+def 5355:5363 <> ax_cm_lat
+R5370:5371 Kernel.AxChain <> st abbrev
+binder 5366:5366 <> s:46
+R5379:5381 Coq.Init.Datatypes <> nat ind
+binder 5375:5375 <> n:47
+R5386:5388 Coq.Init.Datatypes <> nat ind
+R5401:5401 Kernel.AxChain <> n:47 var
+R5417:5418 Kernel.AxChain <> hh abbrev
+R5420:5420 Kernel.AxChain <> s:46 var
+R5426:5426 Coq.Init.Datatypes <> S constr
+R5434:5436 Coq.Init.Peano <> max abbrev
+R5439:5440 Kernel.AxChain <> hh abbrev
+R5442:5442 Kernel.AxChain <> s:46 var
+R5452:5455 Kernel.AxChain <> next abbrev
+R5457:5457 Kernel.AxChain <> s:46 var
+R5464:5467 Coq.Init.Datatypes <> None constr
+R5476:5479 Coq.Init.Datatypes <> Some constr
+R5486:5494 Kernel.AxChain <> ax_cm_lat:48 def
+R5497:5501 Kernel.AxChain <> cstep abbrev
+R5503:5503 Kernel.AxChain <> s:46 var
+prf 5530:5545 <> ax_cm_run_halted
+binder 5556:5556 <> s:50
+binder 5558:5558 <> n:51
+R5574:5577 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5567:5569 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5561:5564 Kernel.AxChain <> next abbrev
+R5566:5566 Kernel.AxChain <> s:50 var
+R5570:5573 Coq.Init.Datatypes <> None constr
+R5591:5593 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5578:5586 Kernel.AxChain <> ax_cm_run def
+R5588:5588 Kernel.AxChain <> s:50 var
+R5590:5590 Kernel.AxChain <> n:51 var
+R5594:5594 Kernel.AxChain <> s:50 var
+prf 5681:5693 <> ax_cm_run_add
+binder 5704:5704 <> m:52
+binder 5706:5706 <> n:53
+binder 5708:5708 <> s:54
+R5730:5732 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5711:5719 Kernel.AxChain <> ax_cm_run def
+R5721:5721 Kernel.AxChain <> s:54 var
+R5725:5727 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5724:5724 Kernel.AxChain <> m:52 var
+R5728:5728 Kernel.AxChain <> n:53 var
+R5733:5741 Kernel.AxChain <> ax_cm_run def
+R5744:5752 Kernel.AxChain <> ax_cm_run def
+R5754:5754 Kernel.AxChain <> s:54 var
+R5756:5756 Kernel.AxChain <> m:52 var
+R5759:5759 Kernel.AxChain <> n:53 var
+R5844:5847 Kernel.AxChain <> next abbrev
+R5844:5847 Kernel.AxChain <> next abbrev
+R5900:5915 Kernel.AxChain <> ax_cm_run_halted thm
+R5900:5915 Kernel.AxChain <> ax_cm_run_halted thm
+prf 5939:5952 <> ax_cm_run_succ
+binder 5963:5963 <> n:55
+binder 5965:5965 <> s:56
+R5987:5991 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5970:5978 Kernel.AxChain <> ax_cm_run def
+R5980:5980 Kernel.AxChain <> s:56 var
+R5983:5983 Coq.Init.Datatypes <> S constr
+R5985:5985 Kernel.AxChain <> n:55 var
+R5998:6001 Kernel.AxChain <> next abbrev
+R6004:6012 Kernel.AxChain <> ax_cm_run def
+R6014:6014 Kernel.AxChain <> s:56 var
+R6016:6016 Kernel.AxChain <> n:55 var
+R6024:6027 Coq.Init.Datatypes <> None constr
+R6032:6040 Kernel.AxChain <> ax_cm_run def
+R6042:6042 Kernel.AxChain <> s:56 var
+R6044:6044 Kernel.AxChain <> n:55 var
+R6048:6051 Coq.Init.Datatypes <> Some constr
+R6058:6062 Kernel.AxChain <> cstep abbrev
+R6065:6073 Kernel.AxChain <> ax_cm_run def
+R6075:6075 Kernel.AxChain <> s:56 var
+R6077:6077 Kernel.AxChain <> n:55 var
+R6117:6117 Coq.Init.Datatypes <> S constr
+R6129:6131 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6117:6117 Coq.Init.Datatypes <> S constr
+R6129:6131 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6151:6163 Kernel.AxChain <> ax_cm_run_add thm
+R6151:6163 Kernel.AxChain <> ax_cm_run_add thm
+R6151:6163 Kernel.AxChain <> ax_cm_run_add thm
+R6185:6188 Kernel.AxChain <> next abbrev
+R6191:6199 Kernel.AxChain <> ax_cm_run def
+R6185:6188 Kernel.AxChain <> next abbrev
+R6191:6199 Kernel.AxChain <> ax_cm_run def
+prf 6233:6249 <> ax_cm_ledger_succ
+binder 6260:6260 <> n:57
+binder 6262:6262 <> s:58
+R6287:6289 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6267:6278 Kernel.AxChain <> ax_cm_ledger def
+R6280:6280 Kernel.AxChain <> s:58 var
+R6283:6283 Coq.Init.Datatypes <> S constr
+R6285:6285 Kernel.AxChain <> n:57 var
+R6306:6310 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6290:6301 Kernel.AxChain <> ax_cm_ledger def
+R6303:6303 Kernel.AxChain <> s:58 var
+R6305:6305 Kernel.AxChain <> n:57 var
+R6317:6320 Kernel.AxChain <> next abbrev
+R6323:6331 Kernel.AxChain <> ax_cm_run def
+R6333:6333 Kernel.AxChain <> s:58 var
+R6335:6335 Kernel.AxChain <> n:57 var
+R6343:6346 Coq.Init.Datatypes <> None constr
+R6355:6358 Coq.Init.Datatypes <> Some constr
+R6365:6369 Kernel.AxChain <> ccost abbrev
+R6443:6446 Kernel.AxChain <> next abbrev
+R6443:6446 Kernel.AxChain <> next abbrev
+R6469:6480 Kernel.AxChain <> ax_cm_ledger def
+R6485:6485 Coq.Init.Datatypes <> S constr
+R6488:6488 Coq.Init.Datatypes <> S constr
+R6513:6516 Kernel.AxChain <> next abbrev
+R6525:6528 Coq.Init.Datatypes <> None constr
+R6537:6540 Coq.Init.Datatypes <> Some constr
+R6554:6556 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6547:6551 Kernel.AxChain <> ccost abbrev
+R6557:6568 Kernel.AxChain <> ax_cm_ledger def
+R6571:6575 Kernel.AxChain <> cstep abbrev
+R6583:6583 Coq.Init.Datatypes <> S constr
+R6469:6480 Kernel.AxChain <> ax_cm_ledger def
+R6485:6485 Coq.Init.Datatypes <> S constr
+R6488:6488 Coq.Init.Datatypes <> S constr
+R6513:6516 Kernel.AxChain <> next abbrev
+R6525:6528 Coq.Init.Datatypes <> None constr
+R6537:6540 Coq.Init.Datatypes <> Some constr
+R6554:6556 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6547:6551 Kernel.AxChain <> ccost abbrev
+R6557:6568 Kernel.AxChain <> ax_cm_ledger def
+R6571:6575 Kernel.AxChain <> cstep abbrev
+R6583:6583 Coq.Init.Datatypes <> S constr
+R6606:6617 Kernel.AxChain <> ax_cm_ledger def
+R6622:6622 Coq.Init.Datatypes <> S constr
+R6646:6649 Kernel.AxChain <> next abbrev
+R6658:6661 Coq.Init.Datatypes <> None constr
+R6670:6673 Coq.Init.Datatypes <> Some constr
+R6687:6689 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6680:6684 Kernel.AxChain <> ccost abbrev
+R6690:6701 Kernel.AxChain <> ax_cm_ledger def
+R6704:6708 Kernel.AxChain <> cstep abbrev
+R6606:6617 Kernel.AxChain <> ax_cm_ledger def
+R6622:6622 Coq.Init.Datatypes <> S constr
+R6646:6649 Kernel.AxChain <> next abbrev
+R6658:6661 Coq.Init.Datatypes <> None constr
+R6670:6673 Coq.Init.Datatypes <> Some constr
+R6687:6689 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6680:6684 Kernel.AxChain <> ccost abbrev
+R6690:6701 Kernel.AxChain <> ax_cm_ledger def
+R6704:6708 Kernel.AxChain <> cstep abbrev
+R6735:6743 Kernel.AxChain <> ax_cm_run def
+R6748:6748 Coq.Init.Datatypes <> S constr
+R6772:6775 Kernel.AxChain <> next abbrev
+R6784:6787 Coq.Init.Datatypes <> None constr
+R6796:6799 Coq.Init.Datatypes <> Some constr
+R6806:6814 Kernel.AxChain <> ax_cm_run def
+R6817:6821 Kernel.AxChain <> cstep abbrev
+R6735:6743 Kernel.AxChain <> ax_cm_run def
+R6748:6748 Coq.Init.Datatypes <> S constr
+R6772:6775 Kernel.AxChain <> next abbrev
+R6784:6787 Coq.Init.Datatypes <> None constr
+R6796:6799 Coq.Init.Datatypes <> Some constr
+R6806:6814 Kernel.AxChain <> ax_cm_run def
+R6817:6821 Kernel.AxChain <> cstep abbrev
+R6850:6853 Kernel.AxChain <> next abbrev
+R6850:6853 Kernel.AxChain <> next abbrev
+prf 6938:6951 <> ax_cm_lat_ge_h
+binder 6962:6962 <> n:59
+binder 6964:6964 <> s:60
+R6985:6988 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6967:6968 Kernel.AxChain <> hh abbrev
+R6971:6979 Kernel.AxChain <> ax_cm_run def
+R6981:6981 Kernel.AxChain <> s:60 var
+R6983:6983 Kernel.AxChain <> n:59 var
+R6989:6997 Kernel.AxChain <> ax_cm_lat def
+R6999:6999 Kernel.AxChain <> s:60 var
+R7001:7001 Kernel.AxChain <> n:59 var
+R7076:7079 Kernel.AxChain <> next abbrev
+R7076:7079 Kernel.AxChain <> next abbrev
+R7120:7124 Kernel.AxChain <> cstep abbrev
+R7120:7124 Kernel.AxChain <> cstep abbrev
+prf 7159:7176 <> ax_cm_lat_ge_start
+binder 7187:7187 <> n:61
+binder 7189:7189 <> s:62
+R7196:7199 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7192:7193 Kernel.AxChain <> hh abbrev
+R7195:7195 Kernel.AxChain <> s:62 var
+R7200:7208 Kernel.AxChain <> ax_cm_lat def
+R7210:7210 Kernel.AxChain <> s:62 var
+R7212:7212 Kernel.AxChain <> n:61 var
+prf 7262:7275 <> ax_cm_lat_succ
+binder 7286:7286 <> n:63
+binder 7288:7288 <> s:64
+R7310:7312 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7293:7301 Kernel.AxChain <> ax_cm_lat def
+R7303:7303 Kernel.AxChain <> s:64 var
+R7306:7306 Coq.Init.Datatypes <> S constr
+R7308:7308 Kernel.AxChain <> n:63 var
+R7313:7315 Coq.Init.Peano <> max abbrev
+R7318:7326 Kernel.AxChain <> ax_cm_lat def
+R7328:7328 Kernel.AxChain <> s:64 var
+R7330:7330 Kernel.AxChain <> n:63 var
+R7334:7335 Kernel.AxChain <> hh abbrev
+R7338:7346 Kernel.AxChain <> ax_cm_run def
+R7348:7348 Kernel.AxChain <> s:64 var
+R7351:7351 Coq.Init.Datatypes <> S constr
+R7353:7353 Kernel.AxChain <> n:63 var
+R7424:7427 Kernel.AxChain <> next abbrev
+R7424:7427 Kernel.AxChain <> next abbrev
+R7466:7474 Kernel.AxChain <> ax_cm_lat def
+R7479:7479 Coq.Init.Datatypes <> S constr
+R7482:7482 Coq.Init.Datatypes <> S constr
+R7501:7503 Coq.Init.Peano <> max abbrev
+R7506:7507 Kernel.AxChain <> hh abbrev
+R7519:7522 Kernel.AxChain <> next abbrev
+R7531:7534 Coq.Init.Datatypes <> None constr
+R7543:7546 Coq.Init.Datatypes <> Some constr
+R7553:7561 Kernel.AxChain <> ax_cm_lat def
+R7564:7568 Kernel.AxChain <> cstep abbrev
+R7576:7576 Coq.Init.Datatypes <> S constr
+R7466:7474 Kernel.AxChain <> ax_cm_lat def
+R7479:7479 Coq.Init.Datatypes <> S constr
+R7482:7482 Coq.Init.Datatypes <> S constr
+R7501:7503 Coq.Init.Peano <> max abbrev
+R7506:7507 Kernel.AxChain <> hh abbrev
+R7519:7522 Kernel.AxChain <> next abbrev
+R7531:7534 Coq.Init.Datatypes <> None constr
+R7543:7546 Coq.Init.Datatypes <> Some constr
+R7553:7561 Kernel.AxChain <> ax_cm_lat def
+R7564:7568 Kernel.AxChain <> cstep abbrev
+R7576:7576 Coq.Init.Datatypes <> S constr
+R7600:7608 Kernel.AxChain <> ax_cm_lat def
+R7613:7613 Coq.Init.Datatypes <> S constr
+R7631:7633 Coq.Init.Peano <> max abbrev
+R7636:7637 Kernel.AxChain <> hh abbrev
+R7649:7652 Kernel.AxChain <> next abbrev
+R7661:7664 Coq.Init.Datatypes <> None constr
+R7673:7676 Coq.Init.Datatypes <> Some constr
+R7683:7691 Kernel.AxChain <> ax_cm_lat def
+R7694:7698 Kernel.AxChain <> cstep abbrev
+R7600:7608 Kernel.AxChain <> ax_cm_lat def
+R7613:7613 Coq.Init.Datatypes <> S constr
+R7631:7633 Coq.Init.Peano <> max abbrev
+R7636:7637 Kernel.AxChain <> hh abbrev
+R7649:7652 Kernel.AxChain <> next abbrev
+R7661:7664 Coq.Init.Datatypes <> None constr
+R7673:7676 Coq.Init.Datatypes <> Some constr
+R7683:7691 Kernel.AxChain <> ax_cm_lat def
+R7694:7698 Kernel.AxChain <> cstep abbrev
+R7726:7734 Kernel.AxChain <> ax_cm_run def
+R7739:7739 Coq.Init.Datatypes <> S constr
+R7742:7742 Coq.Init.Datatypes <> S constr
+R7767:7770 Kernel.AxChain <> next abbrev
+R7779:7782 Coq.Init.Datatypes <> None constr
+R7791:7794 Coq.Init.Datatypes <> Some constr
+R7801:7809 Kernel.AxChain <> ax_cm_run def
+R7812:7816 Kernel.AxChain <> cstep abbrev
+R7824:7824 Coq.Init.Datatypes <> S constr
+R7726:7734 Kernel.AxChain <> ax_cm_run def
+R7739:7739 Coq.Init.Datatypes <> S constr
+R7742:7742 Coq.Init.Datatypes <> S constr
+R7767:7770 Kernel.AxChain <> next abbrev
+R7779:7782 Coq.Init.Datatypes <> None constr
+R7791:7794 Coq.Init.Datatypes <> Some constr
+R7801:7809 Kernel.AxChain <> ax_cm_run def
+R7812:7816 Kernel.AxChain <> cstep abbrev
+R7824:7824 Coq.Init.Datatypes <> S constr
+R7849:7852 Kernel.AxChain <> next abbrev
+R7849:7852 Kernel.AxChain <> next abbrev
+R7914:7931 Kernel.AxChain <> ax_cm_lat_ge_start thm
+R7914:7931 Kernel.AxChain <> ax_cm_lat_ge_start thm
+R7951:7968 Kernel.AxChain <> ax_cm_lat_ge_start thm
+R7971:7971 Coq.Init.Datatypes <> S constr
+R7951:7968 Kernel.AxChain <> ax_cm_lat_ge_start thm
+R7971:7971 Coq.Init.Datatypes <> S constr
+prf 8015:8026 <> ax_cm_lat_le
+R8043:8046 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8030:8042 Kernel.AxChain <> ax_cm_bounded def
+binder 8054:8054 <> n:65
+binder 8056:8056 <> s:66
+R8072:8075 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8059:8067 Kernel.AxChain <> ax_cm_lat def
+R8069:8069 Kernel.AxChain <> s:66 var
+R8071:8071 Kernel.AxChain <> n:65 var
+R8170:8173 Kernel.AxChain <> next abbrev
+R8205:8209 Kernel.AxChain <> cstep abbrev
+R8170:8173 Kernel.AxChain <> next abbrev
+R8205:8209 Kernel.AxChain <> cstep abbrev
+prf 8280:8293 <> ax_cm_run_some
+binder 8304:8304 <> s:67
+binder 8306:8306 <> i:68
+binder 8308:8308 <> n:69
+R8326:8329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8317:8319 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8311:8314 Kernel.AxChain <> next abbrev
+R8316:8316 Kernel.AxChain <> s:67 var
+R8320:8323 Coq.Init.Datatypes <> Some constr
+R8325:8325 Kernel.AxChain <> i:68 var
+R8347:8349 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8330:8338 Kernel.AxChain <> ax_cm_run def
+R8340:8340 Kernel.AxChain <> s:67 var
+R8343:8343 Coq.Init.Datatypes <> S constr
+R8345:8345 Kernel.AxChain <> n:69 var
+R8350:8358 Kernel.AxChain <> ax_cm_run def
+R8361:8365 Kernel.AxChain <> cstep abbrev
+R8367:8367 Kernel.AxChain <> s:67 var
+R8369:8369 Kernel.AxChain <> i:68 var
+R8372:8372 Kernel.AxChain <> n:69 var
+prf 8540:8552 <> ax_cm_lat_iff
+binder 8563:8563 <> n:70
+binder 8565:8565 <> s:71
+binder 8567:8567 <> j:72
+R8590:8594 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8573:8576 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8572:8572 Kernel.AxChain <> j:72 var
+R8577:8585 Kernel.AxChain <> ax_cm_lat def
+R8587:8587 Kernel.AxChain <> s:71 var
+R8589:8589 Kernel.AxChain <> n:70 var
+R8595:8601 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8603:8604 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8602:8602 <> i:73
+R8611:8614 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8606:8609 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8605:8605 Kernel.AxChain <> i:73 var
+R8610:8610 Kernel.AxChain <> n:70 var
+R8616:8619 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8615:8615 Kernel.AxChain <> j:72 var
+R8620:8621 Kernel.AxChain <> hh abbrev
+R8624:8632 Kernel.AxChain <> ax_cm_run def
+R8634:8634 Kernel.AxChain <> s:71 var
+R8636:8636 Kernel.AxChain <> i:73 var
+R8784:8786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8784:8786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8828:8836 Kernel.AxChain <> ax_cm_lat def
+R8841:8841 Coq.Init.Datatypes <> S constr
+R8859:8861 Coq.Init.Peano <> max abbrev
+R8864:8865 Kernel.AxChain <> hh abbrev
+R8877:8880 Kernel.AxChain <> next abbrev
+R8889:8892 Coq.Init.Datatypes <> None constr
+R8901:8904 Coq.Init.Datatypes <> Some constr
+R8911:8919 Kernel.AxChain <> ax_cm_lat def
+R8922:8926 Kernel.AxChain <> cstep abbrev
+R8828:8836 Kernel.AxChain <> ax_cm_lat def
+R8841:8841 Coq.Init.Datatypes <> S constr
+R8859:8861 Coq.Init.Peano <> max abbrev
+R8864:8865 Kernel.AxChain <> hh abbrev
+R8877:8880 Kernel.AxChain <> next abbrev
+R8889:8892 Coq.Init.Datatypes <> None constr
+R8901:8904 Coq.Init.Datatypes <> Some constr
+R8911:8919 Kernel.AxChain <> ax_cm_lat def
+R8922:8926 Kernel.AxChain <> cstep abbrev
+R8956:8959 Kernel.AxChain <> next abbrev
+R8956:8959 Kernel.AxChain <> next abbrev
+R9021:9029 Coq.Arith.Compare_dec <> le_lt_dec def
+R9034:9035 Kernel.AxChain <> hh abbrev
+R9021:9029 Coq.Arith.Compare_dec <> le_lt_dec def
+R9034:9035 Kernel.AxChain <> hh abbrev
+R9127:9130 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9131:9139 Kernel.AxChain <> ax_cm_lat def
+R9142:9146 Kernel.AxChain <> cstep abbrev
+R9127:9130 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9131:9139 Kernel.AxChain <> ax_cm_lat def
+R9142:9146 Kernel.AxChain <> cstep abbrev
+R9185:9189 Coq.Init.Logic <> proj1 thm
+R9196:9200 Kernel.AxChain <> cstep abbrev
+R9185:9189 Coq.Init.Logic <> proj1 thm
+R9196:9200 Kernel.AxChain <> cstep abbrev
+R9252:9252 Coq.Init.Datatypes <> S constr
+R9252:9252 Coq.Init.Datatypes <> S constr
+R9284:9297 Kernel.AxChain <> ax_cm_run_some thm
+R9284:9297 Kernel.AxChain <> ax_cm_run_some thm
+R9284:9297 Kernel.AxChain <> ax_cm_run_some thm
+R9422:9435 Kernel.AxChain <> ax_cm_run_some thm
+R9422:9435 Kernel.AxChain <> ax_cm_run_some thm
+R9422:9435 Kernel.AxChain <> ax_cm_run_some thm
+R9479:9482 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9483:9491 Kernel.AxChain <> ax_cm_lat def
+R9494:9498 Kernel.AxChain <> cstep abbrev
+R9479:9482 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9483:9491 Kernel.AxChain <> ax_cm_lat def
+R9494:9498 Kernel.AxChain <> cstep abbrev
+R9682:9697 Kernel.AxChain <> ax_cm_run_halted thm
+R9682:9697 Kernel.AxChain <> ax_cm_run_halted thm
+R9682:9697 Kernel.AxChain <> ax_cm_run_halted thm
+def 9793:9810 <> ax_cm_bounded_from
+R9818:9819 Kernel.AxChain <> st abbrev
+binder 9813:9814 <> s0:74
+binder 9839:9839 <> n:75
+R9861:9864 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9842:9843 Kernel.AxChain <> hh abbrev
+R9846:9854 Kernel.AxChain <> ax_cm_run def
+R9856:9857 Kernel.AxChain <> s0:74 var
+R9859:9859 Kernel.AxChain <> n:75 var
+prf 9876:9891 <> ax_cm_bounded_of
+R9908:9911 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9895:9907 Kernel.AxChain <> ax_cm_bounded def
+binder 9919:9920 <> s0:76
+R9923:9940 Kernel.AxChain <> ax_cm_bounded_from def
+R9942:9943 Kernel.AxChain <> s0:76 var
+prf 9989:10005 <> ax_cm_lat_le_from
+binder 10016:10017 <> s0:77
+R10041:10044 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10020:10037 Kernel.AxChain <> ax_cm_bounded_from def
+R10039:10040 Kernel.AxChain <> s0:77 var
+binder 10052:10052 <> n:78
+R10069:10072 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10055:10063 Kernel.AxChain <> ax_cm_lat def
+R10065:10066 Kernel.AxChain <> s0:77 var
+R10068:10068 Kernel.AxChain <> n:78 var
+R10111:10119 Coq.Arith.Compare_dec <> le_lt_dec def
+R10122:10130 Kernel.AxChain <> ax_cm_lat def
+R10111:10119 Coq.Arith.Compare_dec <> le_lt_dec def
+R10122:10130 Kernel.AxChain <> ax_cm_lat def
+R10194:10198 Coq.Init.Logic <> proj1 thm
+R10201:10213 Kernel.AxChain <> ax_cm_lat_iff thm
+R10194:10198 Coq.Init.Logic <> proj1 thm
+R10201:10213 Kernel.AxChain <> ax_cm_lat_iff thm
+prf 10288:10301 <> ax_cm_lat_mono
+binder 10312:10312 <> n:79
+binder 10314:10314 <> s:80
+R10330:10333 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10317:10325 Kernel.AxChain <> ax_cm_lat def
+R10327:10327 Kernel.AxChain <> s:80 var
+R10329:10329 Kernel.AxChain <> n:79 var
+R10334:10342 Kernel.AxChain <> ax_cm_lat def
+R10344:10344 Kernel.AxChain <> s:80 var
+R10347:10347 Coq.Init.Datatypes <> S constr
+R10349:10349 Kernel.AxChain <> n:79 var
+R10380:10393 Kernel.AxChain <> ax_cm_lat_succ thm
+R10380:10393 Kernel.AxChain <> ax_cm_lat_succ thm
+R10380:10393 Kernel.AxChain <> ax_cm_lat_succ thm
+def 10445:10459 <> ax_cm_step_cost
+R10466:10467 Kernel.AxChain <> st abbrev
+binder 10462:10462 <> s:81
+R10472:10474 Coq.Init.Datatypes <> nat ind
+R10487:10490 Kernel.AxChain <> next abbrev
+R10492:10492 Kernel.AxChain <> s:81 var
+R10499:10502 Coq.Init.Datatypes <> None constr
+R10511:10514 Coq.Init.Datatypes <> Some constr
+R10521:10525 Kernel.AxChain <> ccost abbrev
+def 10544:10556 <> ax_cm_gledger
+R10564:10565 Kernel.AxChain <> st abbrev
+binder 10559:10560 <> s0:82
+R10573:10575 Coq.Init.Datatypes <> nat ind
+binder 10569:10569 <> n:83
+R10580:10582 Coq.Init.Datatypes <> nat ind
+R10595:10595 Kernel.AxChain <> n:83 var
+R10612:10614 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R10615:10616 Kernel.AxChain <> hh abbrev
+R10618:10619 Kernel.AxChain <> s0:82 var
+R10625:10625 Coq.Init.Datatypes <> S constr
+R10652:10666 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10633:10645 Kernel.AxChain <> ax_cm_gledger:84 def
+R10647:10648 Kernel.AxChain <> s0:82 var
+R10667:10669 Coq.Init.Peano <> max abbrev
+R10672:10686 Kernel.AxChain <> ax_cm_step_cost def
+R10689:10697 Kernel.AxChain <> ax_cm_run def
+R10699:10700 Kernel.AxChain <> s0:82 var
+R10709:10712 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R10750:10750 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R10732:10734 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10713:10721 Kernel.AxChain <> ax_cm_lat def
+R10723:10724 Kernel.AxChain <> s0:82 var
+R10727:10727 Coq.Init.Datatypes <> S constr
+R10735:10743 Kernel.AxChain <> ax_cm_lat def
+R10745:10746 Kernel.AxChain <> s0:82 var
+def 10772:10786 <> ax_cm_surcharge
+R10794:10795 Kernel.AxChain <> st abbrev
+binder 10789:10790 <> s0:86
+R10803:10805 Coq.Init.Datatypes <> nat ind
+binder 10799:10799 <> n:87
+R10810:10812 Coq.Init.Datatypes <> nat ind
+R10835:10837 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10817:10829 Kernel.AxChain <> ax_cm_gledger def
+R10831:10832 Kernel.AxChain <> s0:86 var
+R10834:10834 Kernel.AxChain <> n:87 var
+R10838:10849 Kernel.AxChain <> ax_cm_ledger def
+R10851:10852 Kernel.AxChain <> s0:86 var
+R10854:10854 Kernel.AxChain <> n:87 var
+prf 10864:10879 <> ax_cm_gledger_ge
+binder 10890:10891 <> s0:88
+binder 10893:10893 <> n:89
+R10913:10916 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10896:10907 Kernel.AxChain <> ax_cm_ledger def
+R10909:10910 Kernel.AxChain <> s0:88 var
+R10912:10912 Kernel.AxChain <> n:89 var
+R10917:10929 Kernel.AxChain <> ax_cm_gledger def
+R10931:10932 Kernel.AxChain <> s0:88 var
+R10934:10934 Kernel.AxChain <> n:89 var
+R11007:11019 Kernel.AxChain <> ax_cm_gledger def
+R11031:11047 Kernel.AxChain <> ax_cm_ledger_succ thm
+R11031:11047 Kernel.AxChain <> ax_cm_ledger_succ thm
+R11031:11047 Kernel.AxChain <> ax_cm_ledger_succ thm
+R11057:11071 Kernel.AxChain <> ax_cm_step_cost def
+prf 11091:11106 <> ax_cm_gledger_le
+binder 11117:11118 <> s0:90
+binder 11120:11120 <> n:91
+R11141:11144 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11123:11135 Kernel.AxChain <> ax_cm_gledger def
+R11137:11138 Kernel.AxChain <> s0:90 var
+R11140:11140 Kernel.AxChain <> n:91 var
+R11162:11164 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11145:11156 Kernel.AxChain <> ax_cm_ledger def
+R11158:11159 Kernel.AxChain <> s0:90 var
+R11161:11161 Kernel.AxChain <> n:91 var
+R11166:11168 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11169:11177 Kernel.AxChain <> ax_cm_lat def
+R11179:11180 Kernel.AxChain <> s0:90 var
+R11182:11182 Kernel.AxChain <> n:91 var
+R11255:11267 Kernel.AxChain <> ax_cm_gledger def
+R11279:11295 Kernel.AxChain <> ax_cm_ledger_succ thm
+R11279:11295 Kernel.AxChain <> ax_cm_ledger_succ thm
+R11279:11295 Kernel.AxChain <> ax_cm_ledger_succ thm
+R11305:11319 Kernel.AxChain <> ax_cm_step_cost def
+R11336:11349 Kernel.AxChain <> ax_cm_lat_mono thm
+R11336:11349 Kernel.AxChain <> ax_cm_lat_mono thm
+R11370:11373 Kernel.AxChain <> next abbrev
+R11376:11384 Kernel.AxChain <> ax_cm_run def
+R11370:11373 Kernel.AxChain <> next abbrev
+R11376:11384 Kernel.AxChain <> ax_cm_run def
+prf 11422:11439 <> ax_cm_surcharge_le
+binder 11450:11451 <> s0:92
+binder 11453:11453 <> n:93
+R11476:11479 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11456:11470 Kernel.AxChain <> ax_cm_surcharge def
+R11472:11473 Kernel.AxChain <> s0:92 var
+R11475:11475 Kernel.AxChain <> n:93 var
+R11481:11483 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11484:11492 Kernel.AxChain <> ax_cm_lat def
+R11494:11495 Kernel.AxChain <> s0:92 var
+R11497:11497 Kernel.AxChain <> n:93 var
+R11529:11543 Kernel.AxChain <> ax_cm_surcharge def
+R11558:11573 Kernel.AxChain <> ax_cm_gledger_le thm
+R11558:11573 Kernel.AxChain <> ax_cm_gledger_le thm
+R11597:11601 Kernel.AxChain Chain <> sec
+R11623:11636 Kernel.AxChain <> ax_cm_lat_succ thm
+R11657:11673 Kernel.AxChain <> ax_cm_ledger_succ thm
+R11694:11709 Kernel.AxChain <> ax_cm_gledger_ge thm
+R11730:11747 Kernel.AxChain <> ax_cm_surcharge_le thm

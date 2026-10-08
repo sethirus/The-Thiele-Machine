@@ -1,47 +1,30 @@
 # Coq Proofs for the Thiele Machine
 
-This directory contains the active Coq proof tree for the Thiele Machine.
+This directory contains the active Coq proof tree for the Thiele Machine: the abstract model and its results, and the links that tie the small machine of [`minimal/`](../minimal/) and the universal machine U to them.
 
-**Status:** ✅ Active proof tree compiles cleanly | ✅ **ZERO admitted proofs** in active code | ✅ **ZERO project-local axioms** in the active audited tree | ✅ proof-hygiene checks pass
+The proof gates check that the active tree builds, that no proof is admitted, and that no project-local axiom appears in any theorem's dependencies (`artifacts/print_assumptions_all_proofs.json`, written on Linux by `make assumption-receipt`).
 
 ## Build
 
+From the repository root, with Coq 8.18 and MetaCoq 1.2.1 installed (`scripts/install_metacoq.sh` builds MetaCoq from pinned source; the vendored L modules need it):
+
 ```bash
-# From repository root:
-make              # Build the active Coq proof tree
-
-# Or from coq/ directory:
-cd coq
-make -j4          # Build with 4 parallel jobs
-
-# Clean and rebuild:
-make clean
-make -j4
+make coq-gate     # builds the vendored undecidability modules, regenerates coq/Makefile from _CoqProject, and builds the active tree
 ```
 
-## Directory Structure
+`coq/_CoqProject` maps `../minimal` to the `Minimal` namespace, so the small-machine files in `minimal/` build with the tree, and `../vendor/coq-undecidability/theories` to `Undecidability`.
+For a fresh source-only rebuild, see [docs/REPRODUCTION.md](../docs/REPRODUCTION.md).
 
-The table names the principal proof surfaces; each directory README enumerates its maintained files and verification status.
+## Directory structure
 
 | Directory | Description |
 |-----------|-------------|
-| top-level `NecessityOfMuLedger.v` | Strict classical projection cannot recover μ/certification receipts |
-| top-level `ReceiptTheorem.v` | The twelve-line lift of the projection-collision into the impossibility theorem |
-| top-level `VerifierModel.v` + `VerifierImpossibility.v` | Verifier records (`BareVerifier`, soundness, completeness, cheapness) and the bare-setting impossibility for μ-sensitive claims |
-| top-level `VerifierEscape_{Substrate,Hardness,Interaction}.v` | Three structurally distinct escapes — each a closed Coq theorem with a concrete verifier — that clear the impossibility |
-| top-level `VerifierExhaustiveness.v` | Factorisation impossibility: no sound complete verifier on the μ-sensitive claim is a function of the classical projection alone |
-| top-level `MuCodingTheorem.v` | Tight two-sided cert-payload bound (Chaitin-style) for the canonical `mu_eq_k_claim` family |
-| top-level `IntrinsicLevelHierarchy.v` | State-side level hierarchy ("every certifying trace requires ≥ k cert-events"), companion to the trace-side `MuHierarchyTheorem` in `kernel/mu_calculus/` |
-| top-level `MuDirectSum.v` | Direct-sum theorem under cert-disjoint independence + amortisation counterexample under weaker independence |
-| `kernel/` | Core kernel proofs (VMState, VMStep, NoFreeInsight, μ-accounting, necessity/minimality, CHSH / bounds work) |
-| `kami_hw/` | Kami hardware spec, extraction, and refinement-facing proofs |
-| `thielemachine/` | Main Thiele Machine proofs and verification layers |
-| `physics/` | Physics-model formalizations and embeddings |
-| `nofi/` | No-Free-Insight abstraction layer |
-| `thiele_manifold/` | Manifold / bridge work |
-| `tests/` | Coq-side test files (includes `VacuitySmoke.v`, the fixture the kernel-conversion vacuity gate checks itself against) |
-| `thermodynamic/` | Thermodynamic bridge proofs |
-| `spacetime/` | Spacetime proofs (1 file) |
-| `self_reference/` | Self-reference exploration (9 files) |
+| `kernel/` | The abstract model, its results, and the links to the small machine; see [`kernel/README.md`](kernel/README.md) |
+| `test_fixtures/` | `VacuitySmoke.v`, the fixture the kernel-conversion vacuity gate checks itself against |
+| top-level `AssumptionsProbeAll.v` | Generated `Print Assumptions` probe that feeds the assumption receipt |
+| `INQUISITOR_ASSUMPTIONS.json` | The Inquisitor's allow list of standard-library axioms, its assumption-audit targets and its paper map |
+| `axioms.txt` | The project-local axiom policy, pointing to the receipt |
+
+The small machine itself lives outside this directory, in [`minimal/`](../minimal/): `EarnedCore.v`, `EarnedGeneric.v`, `EarnedMulti.v`, `ThieleComplete.v`, `ThieleCompleteWindow.v`, `UniversalThiele.v`, `UniversalCodes.v`, `UniversalNoCopy.v`, `EarnedPriced.v`, `PricedComplete.v`, `Presented.v` and `EarnedMultiPriced.v`, all on the Coq standard library alone.
 
 See the `README.md` in each subdirectory for details on its contents.

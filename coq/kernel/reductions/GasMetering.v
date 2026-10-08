@@ -15,9 +15,9 @@
     reading.
 
     Main theorem [gas_schedule_exactness]: any schedule satisfying the two
-    conditions an honest fee market wants --
+    conditions an honest fee market wants,
       floor:        no state-certifying step is free, and
-      no-overcharge: nothing else is billed as a commitment --
+      no-overcharge: nothing else is billed as a commitment,
     is extensionally the cert-flip schedule with exact unit pricing. This is
     [exact_commitment_pricing_characterization] wearing EVM vocabulary.
 
@@ -35,15 +35,13 @@
     This file does not bound gate counts, model gas refunds, or price
     anything except the commitment event itself. *)
 
+(* SCOPE NOTE: standalone proof scope. A domain-inspired abstract wrapper
+   around LocalPredicatePricedSystem; no machine is fixed. *)
+
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.
 
 From Kernel Require Import CommitmentPredicateAdequacy.
-
-(* The constructive bridge at the end of the file prices the kernel VM's own
-   certification channel, so the abstract fee-market results land on the
-   machine the kernel is about. *)
-From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI.
 
 (** * Vocabulary
 
@@ -53,7 +51,7 @@ From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI.
 
     GAS.  The per-step execution fee. In the kernel's terms this is
     [lps_cost]: a state-dependent nat charged when a step runs. "Out of
-    gas" and refund mechanics are out of scope; we price steps, not
+    gas" and refund mechanics are out of scope; the schedule prices steps, not
     budgets.
 
     OPCODE.  One instruction of the execution layer: [lps_instr]. An
@@ -80,7 +78,7 @@ Definition GasSchedule := LocalPredicatePricedSystem.
 (** * Main 1: the exactness characterization, in gas vocabulary.
 
     [gas_schedule_exactness]: a gas schedule satisfies the two
-    conditions an honest fee market wants --
+    conditions an honest fee market wants:
 
       floor:         total gas collected on any trace is at least the
                      number of commitment events in it
@@ -88,7 +86,7 @@ Definition GasSchedule := LocalPredicatePricedSystem.
       no-overcharge: total gas never exceeds that count
                      ([no_overcharge_for_commitments])
 
-    — exactly when its charging predicate is extensionally the
+    It satisfies them exactly when its charging predicate is extensionally the
     cert-flip predicate and every charged step costs exactly one unit
     ([local_predicate_same] + [exact_unit_pricing]). Under equal trust
     there is one exact schedule for pricing commitment, and it charges
@@ -96,13 +94,12 @@ Definition GasSchedule := LocalPredicatePricedSystem.
 
     HONESTY NOTE: since [GasSchedule] is definitionally
     [LocalPredicatePricedSystem], this theorem IS the kernel's
-    [exact_commitment_pricing_characterization] carried over unchanged —
+    [exact_commitment_pricing_characterization] carried over unchanged;
     the proof is a one-line instantiation, and the contribution of this
     statement is the reading, not new mathematics. The new mathematics
     in this file is downstream: the failure modes (Mains 2 and 3) and
-    the concrete inhabitants ([toy_gas_schedule_is_exact],
-    [thiele_vm_commit_pricing_is_exact]). *)
-(* SCOPE NOTE: alias for exact_commitment_pricing_characterization — deliberate vocabulary re-export; the file's new content is the failure modes and concrete instances below. *)
+    the concrete inhabitant ([toy_gas_schedule_is_exact]). *)
+(* SCOPE NOTE: alias for exact_commitment_pricing_characterization; deliberate vocabulary re-export; the file's new content is the failure modes and the concrete instance below. *)
 Theorem gas_schedule_exactness :
   forall G : GasSchedule,
     (quantitative_certification_floor G /\
@@ -141,7 +138,7 @@ Proof.
 Qed.
 
 (** Corollary: a schedule with even one undercharged committing opcode
-    fails the universal certification floor outright — some certifying
+    fails the universal certification floor outright: some certifying
     trace is free. One missed flip is enough; the floor is not a
     statistical property that survives small leaks.
 
@@ -168,7 +165,7 @@ Qed.
     trace through it exceeds its commitment count, so the schedule
     overcharges relative to commitments. Undercharging kills the floor
     (Main 2); overcharging kills the ceiling. Exactness pins the
-    predicate from both sides — that pincer is what makes the
+    predicate from both sides; that pincer is what makes the
     characterization in Main 1 an "iff" rather than a one-way bound.
 
     Instantiation note: this is the contrapositive of the kernel's
@@ -194,10 +191,10 @@ Qed.
 
     State:  one bit: "has the state root been committed?" (in the reading)
     Opcodes:
-      [OpCompute] — pure computation; never touches the committed flag.
-      [OpCommit]  — finalizes; sets the committed flag.
+      [OpCompute]:  pure computation; never touches the committed flag.
+      [OpCommit]:   finalizes; sets the committed flag.
     Cert:   the flag itself.
-    Charge: the canonical predicate — charge exactly when the commit
+    Charge: the canonical predicate; charge exactly when the commit
             flips the flag (committing an already-committed state is a
             no-op and free here; the nearest EVM case, a warm SSTORE
             writing the same value, is cheap there, not free).
@@ -265,7 +262,7 @@ Proof.
     cbv in H; cbv; congruence.
 Qed.
 
-(** Each charged step costs exactly one unit — true definitionally,
+(** Each charged step costs exactly one unit, true definitionally,
     since [toy_cost] is written as the indicator of [toy_charge]. *)
 Lemma toy_exact_unit_pricing :
   exact_unit_pricing toy_gas_schedule.
@@ -287,112 +284,3 @@ Proof.
   - exact toy_charge_is_cert_flip.
   - exact toy_exact_unit_pricing.
 Qed.
-
-(** * The Thiele VM itself is in the characterized class.
-
-    The toy shows the class is inhabited; this shows it is inhabited by the
-    machine the kernel is about. Price the VM's certification channel with
-    the canonical unit schedule — charge exactly the steps that flip
-    [vm_certified] false-to-true, one unit each — and the result is a
-    [GasSchedule] satisfying both honest-fee-market conditions. This is the
-    constructive bridge from the abstract fee-market characterization back
-    to the kernel's concrete step semantics ([vm_apply]). *)
-
-Definition thiele_commit_charge (s : VMState) (i : vm_instruction) : bool :=
-  andb (negb s.(vm_certified)) (vm_apply s i).(vm_certified).
-
-Definition thiele_commit_cost (s : VMState) (i : vm_instruction) : nat :=
-  if thiele_commit_charge s i then 1 else 0.
-
-Lemma thiele_commit_charged_costs :
-  forall (s : VMState) (i : vm_instruction),
-    thiele_commit_charge s i = true -> thiele_commit_cost s i >= 1.
-Proof.
-  intros s i Hcharged.
-  unfold thiele_commit_cost.
-  rewrite Hcharged.
-  lia.
-Qed.
-
-Lemma thiele_commit_uncharged_free :
-  forall (s : VMState) (i : vm_instruction),
-    thiele_commit_charge s i = false -> thiele_commit_cost s i = 0.
-Proof.
-  intros s i Huncharged.
-  unfold thiele_commit_cost.
-  rewrite Huncharged.
-  reflexivity.
-Qed.
-
-Definition thiele_vm_gas_schedule : GasSchedule :=
-  {| lps_state  := VMState;
-     lps_instr  := vm_instruction;
-     lps_step   := vm_apply;
-     lps_cost   := thiele_commit_cost;
-     lps_cert   := fun s => s.(vm_certified);
-     lps_charge := thiele_commit_charge;
-     lps_charged_costs  := thiele_commit_charged_costs;
-     lps_uncharged_free := thiele_commit_uncharged_free |}.
-
-(** The VM schedule's charging predicate is the cert-flip predicate on the
-    nose: both sides unfold to the same boolean. *)
-Lemma thiele_charge_is_cert_flip :
-  local_predicate_same thiele_vm_gas_schedule
-    (cert_flip_local thiele_vm_gas_schedule)
-    (lps_charge thiele_vm_gas_schedule).
-Proof.
-  split; intros s i H; exact H.
-Qed.
-
-Lemma thiele_exact_unit_pricing :
-  exact_unit_pricing thiele_vm_gas_schedule.
-Proof.
-  intros s i.
-  reflexivity.
-Qed.
-
-(** The kernel VM's certification channel, priced at the canonical unit
-    schedule, satisfies both honest-fee-market conditions. The abstract
-    characterization is about this machine too, not only about toys. *)
-Theorem thiele_vm_commit_pricing_is_exact :
-  quantitative_certification_floor thiele_vm_gas_schedule /\
-  no_overcharge_for_commitments thiele_vm_gas_schedule.
-Proof.
-  apply (proj2 (gas_schedule_exactness thiele_vm_gas_schedule)).
-  split.
-  - exact thiele_charge_is_cert_flip.
-  - exact thiele_exact_unit_pricing.
-Qed.
-
-(** The exact commitment price is a floor under the VM's real cost model:
-    on every committing step, the unit price charged by
-    [thiele_vm_gas_schedule] is at most the mu the instruction actually
-    pays ([instruction_cost]). The inequality composes the schedule's
-    definitional unit price with the kernel's A2 lemma
-    [no_free_certification_certified]: mu covers the commitment floor —
-    with room to spare, since mu also prices computation that commits
-    nothing, which is exactly why mu itself is not the exact commitment
-    pricer and the unit schedule above is. *)
-Theorem thiele_unit_price_lower_bounds_mu :
-  forall (s : VMState) (i : vm_instruction),
-    thiele_commit_charge s i = true ->
-    thiele_commit_cost s i <= instruction_cost i.
-Proof.
-  intros s i Hcharged.
-  unfold thiele_commit_cost.
-  rewrite Hcharged.
-  unfold thiele_commit_charge in Hcharged.
-  apply Bool.andb_true_iff in Hcharged.
-  destruct Hcharged as [Hbefore Hafter].
-  apply Bool.negb_true_iff in Hbefore.
-  pose proof (no_free_certification_certified s i Hbefore Hafter).
-  lia.
-Qed.
-
-Print Assumptions gas_schedule_exactness.
-Print Assumptions undercharged_opcode_admits_free_commitment.
-Print Assumptions undercharged_opcode_breaks_certification_floor.
-Print Assumptions overcharge_breaks_exactness.
-Print Assumptions toy_gas_schedule_is_exact.
-Print Assumptions thiele_vm_commit_pricing_is_exact.
-Print Assumptions thiele_unit_price_lower_bounds_mu.

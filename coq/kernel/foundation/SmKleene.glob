@@ -1,0 +1,1564 @@
+DIGEST 04f656cc31f5d7baff99174584587d20
+FKernel.SmKleene
+R3885:3888 Coq.Lists.List <> <> lib
+R3890:3894 Coq.Arith.Arith <> <> lib
+R3896:3898 Coq.micromega.Lia <> <> lib
+R3900:3903 Coq.Bool.Bool <> <> lib
+R3913:3925 Coq.Lists.List ListNotations <> mod
+R3983:3985 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R3987:3989 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R4048:4054 Undecidability.Shared.Libs.DLW.Code.subcode <> <> lib
+R4056:4058 Undecidability.Shared.Libs.DLW.Code.sss <> <> lib
+R4111:4112 Undecidability.MinskyMachines.MM <> <> lib
+R4114:4116 Undecidability.MinskyMachines.MMA <> <> lib
+R4164:4177 Undecidability.Synthetic.Undecidability <> <> lib
+R4188:4206 Minimal.EarnedMulti <> <> lib
+R4208:4229 Minimal.UniversalCodes <> <> lib
+R4247:4266 Minimal.SmHostBlocks <> <> lib
+R4268:4284 Kernel.SmHostRice <> <> lib
+R4286:4300 Minimal.SmCodes <> <> lib
+R4302:4317 Minimal.SmInterp <> <> lib
+R4319:4331 Kernel.SmFuel <> <> lib
+R4333:4348 Kernel.SmMMAHost <> <> lib
+R4363:4381 Minimal.EarnedMulti <> <> modtype
+mod 4358:4358 <> M
+R4397:4418 Minimal.UniversalCodes <> <> modtype
+mod 4391:4392 <> UC
+abbrev 4463:4468 <> hinstr
+R4475:4481 Kernel.SmKleene <> instr ind
+R4483:4490 Kernel.SmKleene <> hprop ind
+abbrev 4509:4513 <> hcore
+R4520:4525 Kernel.SmKleene <> core rec
+R4527:4534 Kernel.SmKleene <> hprop ind
+abbrev 4553:4558 <> hstate
+R4565:4571 Kernel.SmKleene <> state rec
+R4573:4580 Kernel.SmKleene <> hprop ind
+abbrev 4599:4604 <> hcexec
+R4610:4616 Kernel.SmKleene <> cexec def
+R4631:4638 Kernel.SmKleene <> heval def
+R4618:4629 Kernel.SmKleene <> hprop_eqb def
+abbrev 4657:4661 <> hstep
+R4667:4672 Kernel.SmKleene <> step def
+R4687:4694 Kernel.SmKleene <> heval def
+R4674:4685 Kernel.SmKleene <> hprop_eqb def
+abbrev 4713:4721 <> hrun_prog
+R4727:4736 Kernel.SmKleene <> run_prog def
+R4751:4758 Kernel.SmKleene <> heval def
+R4738:4749 Kernel.SmKleene <> hprop_eqb def
+abbrev 4777:4780 <> hfun
+R4786:4792 Minimal.SmHostBlocks <> sm_hfun def
+R4807:4814 Kernel.SmKleene <> heval def
+R4794:4805 Kernel.SmKleene <> hprop_eqb def
+abbrev 4833:4838 <> hcstep
+R4844:4851 Minimal.SmHostBlocks <> sm_cstep def
+R4866:4873 Kernel.SmKleene <> heval def
+R4853:4864 Kernel.SmKleene <> hprop_eqb def
+abbrev 4892:4895 <> srel
+R4901:4907 Minimal.SmHostBlocks <> sm_srel def
+R4918:4925 Kernel.SmKleene <> hprop ind
+def 5227:5232 <> sm_in2
+R5241:5243 Coq.Init.Datatypes <> nat ind
+binder 5235:5235 <> x:1
+binder 5237:5237 <> c:2
+R5251:5254 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5248:5250 Coq.Init.Datatypes <> nat ind
+R5255:5257 Coq.Init.Datatypes <> nat ind
+binder 5268:5268 <> r:3
+R5276:5282 Coq.Arith.PeanoNat Nat eqb def
+R5284:5284 Kernel.SmKleene <> r:3 var
+R5303:5309 Coq.Arith.PeanoNat Nat eqb def
+R5311:5311 Kernel.SmKleene <> r:3 var
+R5320:5320 Kernel.SmKleene <> c:2 var
+R5293:5293 Kernel.SmKleene <> x:1 var
+def 5410:5421 <> sm_hfun_from
+R5428:5431 Coq.Init.Datatypes <> list ind
+R5433:5438 Kernel.SmKleene <> hinstr abbrev
+binder 5424:5424 <> P:4
+R5450:5453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5447:5449 Coq.Init.Datatypes <> nat ind
+R5454:5456 Coq.Init.Datatypes <> nat ind
+binder 5442:5443 <> vs:5
+R5464:5466 Coq.Init.Datatypes <> nat ind
+binder 5460:5460 <> y:6
+R5481:5487 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5489:5490 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5488:5488 <> n:7
+R5542:5557 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5491:5498 Kernel.SmKleene <> halted def
+R5500:5500 Kernel.SmKleene <> P:4 var
+R5503:5511 Kernel.SmKleene <> core_of proj
+R5514:5522 Kernel.SmKleene <> hrun_prog abbrev
+R5524:5524 Kernel.SmKleene <> n:7 var
+R5526:5526 Kernel.SmKleene <> P:4 var
+R5529:5535 Kernel.SmKleene <> start def
+R5537:5538 Kernel.SmKleene <> vs:5 var
+R5607:5609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5558:5563 Kernel.SmKleene <> vals proj
+R5566:5574 Kernel.SmKleene <> core_of proj
+R5577:5585 Kernel.SmKleene <> hrun_prog abbrev
+R5587:5587 Kernel.SmKleene <> n:7 var
+R5589:5589 Kernel.SmKleene <> P:4 var
+R5592:5598 Kernel.SmKleene <> start def
+R5600:5601 Kernel.SmKleene <> vs:5 var
+R5610:5610 Kernel.SmKleene <> y:6 var
+prf 5620:5635 <> sm_vec_pos_const
+binder 5646:5646 <> n:8
+R5653:5655 Coq.Init.Datatypes <> nat ind
+binder 5649:5649 <> a:9
+R5663:5665 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R5667:5667 Kernel.SmKleene <> n:8 var
+binder 5659:5659 <> p:10
+R5699:5701 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5671:5677 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos def
+R5698:5698 Kernel.SmKleene <> p:10 var
+R5680:5691 Coq.Vectors.Vector <> const def
+R5695:5695 Kernel.SmKleene <> n:8 var
+R5693:5693 Kernel.SmKleene <> a:9 var
+R5702:5702 Kernel.SmKleene <> a:9 var
+R5762:5773 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_O_invert thm
+R5762:5773 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_O_invert thm
+R5802:5813 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R5802:5813 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R5840:5847 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos0 thm
+R5840:5847 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos0 thm
+R5840:5847 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos0 thm
+R5898:5909 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos_tail thm
+R5898:5909 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos_tail thm
+R5898:5909 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos_tail thm
+prf 6003:6011 <> sm_v0_pos
+binder 6022:6023 <> nn:11
+binder 6025:6025 <> x:12
+binder 6027:6027 <> c:13
+R6034:6036 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R6039:6039 Coq.Init.Datatypes <> S constr
+R6042:6042 Coq.Init.Datatypes <> S constr
+R6045:6045 Coq.Init.Datatypes <> S constr
+R6047:6048 Kernel.SmKleene <> nn:11 var
+binder 6030:6030 <> p:14
+R6218:6220 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6058:6064 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos def
+R6066:6068 Coq.Init.Datatypes <> nat ind
+R6071:6071 Coq.Init.Datatypes <> S constr
+R6074:6074 Coq.Init.Datatypes <> S constr
+R6077:6077 Coq.Init.Datatypes <> S constr
+R6079:6080 Kernel.SmKleene <> nn:11 var
+R6086:6098 Coq.Vectors.Vector <> append def
+R6197:6208 Coq.Vectors.Vector <> const def
+R6212:6213 Kernel.SmKleene <> nn:11 var
+R6101:6111 Coq.Vectors.Vector <> cons constr
+R6113:6115 Coq.Init.Datatypes <> nat ind
+R6122:6132 Coq.Vectors.Vector <> cons constr
+R6134:6136 Coq.Init.Datatypes <> nat ind
+R6138:6138 Kernel.SmKleene <> x:12 var
+R6143:6153 Coq.Vectors.Vector <> cons constr
+R6155:6157 Coq.Init.Datatypes <> nat ind
+R6159:6159 Kernel.SmKleene <> c:13 var
+R6164:6173 Coq.Vectors.Vector <> nil constr
+R6175:6177 Coq.Init.Datatypes <> nat ind
+R6217:6217 Kernel.SmKleene <> p:14 var
+R6221:6226 Kernel.SmKleene <> sm_in2 def
+R6228:6228 Kernel.SmKleene <> x:12 var
+R6230:6230 Kernel.SmKleene <> c:13 var
+R6233:6239 Undecidability.Shared.Libs.DLW.Vec.pos <> pos2nat def
+R6241:6241 Kernel.SmKleene <> p:14 var
+R6288:6299 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R6288:6299 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R6365:6376 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R6365:6376 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R6442:6453 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R6442:6453 Undecidability.Shared.Libs.DLW.Vec.pos <> pos_S_invert thm
+R6519:6534 Kernel.SmKleene <> sm_vec_pos_const thm
+R6519:6534 Kernel.SmKleene <> sm_vec_pos_const thm
+R6519:6534 Kernel.SmKleene <> sm_vec_pos_const thm
+prf 6616:6628 <> sm_mmatch_in2
+binder 6639:6640 <> nn:15
+binder 6642:6642 <> x:16
+binder 6644:6644 <> c:17
+R6651:6655 Kernel.SmKleene <> hcore abbrev
+binder 6647:6647 <> k:18
+R6676:6679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6668:6670 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6661:6665 Kernel.SmKleene <> err proj
+R6667:6667 Kernel.SmKleene <> k:18 var
+R6671:6675 Coq.Init.Datatypes <> false constr
+R6690:6693 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6686:6688 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6680:6683 Kernel.SmKleene <> pc proj
+R6685:6685 Kernel.SmKleene <> k:18 var
+R6694:6694 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6730:6736 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6702:6702 <> r:19
+R6715:6717 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6705:6710 Kernel.SmKleene <> vals proj
+R6712:6712 Kernel.SmKleene <> k:18 var
+R6714:6714 Kernel.SmKleene <> r:19 var
+R6718:6723 Kernel.SmKleene <> sm_in2 def
+R6725:6725 Kernel.SmKleene <> x:16 var
+R6727:6727 Kernel.SmKleene <> c:17 var
+R6729:6729 Kernel.SmKleene <> r:19 var
+R6737:6745 Kernel.SmMMAHost <> sm_mmatch def
+R6762:6762 Kernel.SmKleene <> k:18 var
+R6768:6768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6770:6771 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6898:6898 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6772:6784 Coq.Vectors.Vector <> append def
+R6880:6891 Coq.Vectors.Vector <> const def
+R6895:6896 Kernel.SmKleene <> nn:15 var
+R6787:6797 Coq.Vectors.Vector <> cons constr
+R6799:6801 Coq.Init.Datatypes <> nat ind
+R6808:6818 Coq.Vectors.Vector <> cons constr
+R6820:6822 Coq.Init.Datatypes <> nat ind
+R6824:6824 Kernel.SmKleene <> x:16 var
+R6829:6839 Coq.Vectors.Vector <> cons constr
+R6841:6843 Coq.Init.Datatypes <> nat ind
+R6845:6845 Kernel.SmKleene <> c:17 var
+R6850:6859 Coq.Vectors.Vector <> nil constr
+R6861:6863 Coq.Init.Datatypes <> nat ind
+R6748:6748 Coq.Init.Datatypes <> S constr
+R6751:6751 Coq.Init.Datatypes <> S constr
+R6754:6754 Coq.Init.Datatypes <> S constr
+R6756:6757 Kernel.SmKleene <> nn:15 var
+R6943:6951 Kernel.SmMMAHost <> sm_mmatch def
+R6959:6961 Coq.Init.Datatypes <> fst def
+R6963:6965 Coq.Init.Datatypes <> snd def
+R7014:7022 Kernel.SmKleene <> sm_v0_pos thm
+R7014:7022 Kernel.SmKleene <> sm_v0_pos thm
+R7014:7022 Kernel.SmKleene <> sm_v0_pos thm
+R7074:7079 Kernel.SmKleene <> sm_in2 def
+R7095:7101 Coq.Arith.PeanoNat Nat eqb def
+R7113:7117 Coq.Init.Datatypes <> false constr
+R7139:7149 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7095:7101 Coq.Arith.PeanoNat Nat eqb def
+R7113:7117 Coq.Init.Datatypes <> false constr
+R7139:7149 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7171:7177 Coq.Arith.PeanoNat Nat eqb def
+R7189:7193 Coq.Init.Datatypes <> false constr
+R7215:7225 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7171:7177 Coq.Arith.PeanoNat Nat eqb def
+R7189:7193 Coq.Init.Datatypes <> false constr
+R7215:7225 Coq.Arith.PeanoNat Nat eqb_neq thm
+def 7482:7491 <> sm_spec_s1
+R7498:7500 Coq.Init.Datatypes <> nat ind
+binder 7494:7494 <> c:20
+R7508:7511 Coq.Init.Datatypes <> list ind
+R7513:7518 Kernel.SmKleene <> hinstr abbrev
+binder 7504:7504 <> V:21
+R7526:7528 Coq.Init.Datatypes <> nat ind
+binder 7522:7522 <> x:22
+R7533:7538 Kernel.SmKleene <> hstate abbrev
+R7545:7553 Kernel.SmKleene <> hrun_prog abbrev
+R7555:7555 Kernel.SmKleene <> c:20 var
+R7558:7564 Minimal.SmCodes <> sm_spec def
+R7566:7566 Kernel.SmKleene <> c:20 var
+R7568:7568 Kernel.SmKleene <> V:21 var
+R7572:7580 Minimal.SmHostBlocks <> sm_hstart def
+R7582:7582 Kernel.SmKleene <> x:22 var
+prf 7593:7606 <> sm_spec_phase1
+binder 7617:7617 <> c:23
+binder 7619:7619 <> V:24
+binder 7621:7621 <> x:25
+R7636:7645 Kernel.SmKleene <> sm_spec_s1 def
+R7647:7647 Kernel.SmKleene <> c:23 var
+R7649:7649 Kernel.SmKleene <> V:24 var
+R7651:7651 Kernel.SmKleene <> x:25 var
+binder 7630:7631 <> s1:26
+R7658:7658 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7707:7713 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7666:7666 <> q:27
+R7692:7694 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7669:7674 Kernel.SmKleene <> vals proj
+R7677:7685 Kernel.SmKleene <> core_of proj
+R7687:7688 Kernel.SmKleene <> s1:26 var
+R7691:7691 Kernel.SmKleene <> q:27 var
+R7695:7700 Kernel.SmKleene <> sm_in2 def
+R7702:7702 Kernel.SmKleene <> x:25 var
+R7704:7704 Kernel.SmKleene <> c:23 var
+R7706:7706 Kernel.SmKleene <> q:27 var
+R7714:7714 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7762:7768 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7722:7722 <> q:28
+R7731:7734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7726:7729 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7725:7725 Kernel.SmKleene <> q:28 var
+R7758:7760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7735:7740 Kernel.SmKleene <> vers proj
+R7743:7751 Kernel.SmKleene <> core_of proj
+R7753:7754 Kernel.SmKleene <> s1:26 var
+R7757:7757 Kernel.SmKleene <> q:28 var
+R7796:7799 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7791:7793 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7769:7775 Kernel.SmKleene <> facts proj
+R7778:7786 Kernel.SmKleene <> core_of proj
+R7788:7789 Kernel.SmKleene <> s1:26 var
+R7794:7795 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7828:7833 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7821:7823 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7800:7805 Kernel.SmKleene <> chan proj
+R7808:7816 Kernel.SmKleene <> core_of proj
+R7818:7819 Kernel.SmKleene <> s1:26 var
+R7824:7827 Coq.Init.Datatypes <> None constr
+R7862:7865 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7854:7856 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7834:7838 Kernel.SmKleene <> err proj
+R7841:7849 Kernel.SmKleene <> core_of proj
+R7851:7852 Kernel.SmKleene <> s1:26 var
+R7857:7861 Coq.Init.Datatypes <> false constr
+R7891:7896 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7885:7887 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7866:7869 Kernel.SmKleene <> pc proj
+R7872:7880 Kernel.SmKleene <> core_of proj
+R7882:7883 Kernel.SmKleene <> s1:26 var
+R7888:7888 Coq.Init.Datatypes <> S constr
+R7890:7890 Kernel.SmKleene <> c:23 var
+R7908:7911 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7904:7906 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7897:7900 Kernel.SmKleene <> mu proj
+R7902:7903 Kernel.SmKleene <> s1:26 var
+R7921:7923 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7912:7917 Kernel.SmKleene <> cert proj
+R7919:7920 Kernel.SmKleene <> s1:26 var
+R7924:7928 Coq.Init.Datatypes <> false constr
+R7968:7977 Kernel.SmKleene <> sm_spec_s1 def
+R7992:8002 Minimal.SmHostBlocks <> sm_incs_run thm
+R8027:8033 Minimal.SmCodes <> sm_spec def
+R8047:8055 Minimal.SmHostBlocks <> sm_hstart def
+R8017:8024 Kernel.SmKleene <> heval def
+R8004:8015 Kernel.SmKleene <> hprop_eqb def
+R7992:8002 Minimal.SmHostBlocks <> sm_incs_run thm
+R8027:8033 Minimal.SmCodes <> sm_spec def
+R8047:8055 Minimal.SmHostBlocks <> sm_hstart def
+R8017:8024 Kernel.SmKleene <> heval def
+R8004:8015 Kernel.SmKleene <> hprop_eqb def
+R8133:8139 Minimal.SmCodes <> sm_spec def
+R8150:8160 Coq.Arith.PeanoNat Nat add_0_r thm
+R8150:8160 Coq.Arith.PeanoNat Nat add_0_r thm
+R8150:8160 Coq.Arith.PeanoNat Nat add_0_r thm
+R8205:8218 Minimal.SmHostBlocks <> sm_incs_length thm
+R8175:8191 Minimal.SmHostBlocks <> sm_fetch_app_left thm
+R8175:8191 Minimal.SmHostBlocks <> sm_fetch_app_left thm
+R8205:8218 Minimal.SmHostBlocks <> sm_incs_length thm
+R8205:8218 Minimal.SmHostBlocks <> sm_incs_length thm
+R8175:8191 Minimal.SmHostBlocks <> sm_fetch_app_left thm
+R8275:8281 Minimal.SmHostBlocks <> sm_incs def
+R8290:8305 Coq.Lists.List <> nth_error_repeat thm
+R8290:8305 Coq.Lists.List <> nth_error_repeat thm
+R8456:8461 Kernel.SmKleene <> vals proj
+R8463:8471 Kernel.SmKleene <> core_of proj
+R8473:8481 Minimal.SmHostBlocks <> sm_hstart def
+R8483:8489 Kernel.SmKleene <> start def
+R8491:8502 Kernel.SmKleene <> start_core def
+R8519:8524 Kernel.SmKleene <> sm_in2 def
+R8527:8532 Minimal.SmHostBlocks <> sm_hin def
+R8545:8556 Coq.Arith.PeanoNat Nat eqb_spec thm
+R8545:8556 Coq.Arith.PeanoNat Nat eqb_spec thm
+R8610:8616 Coq.Arith.PeanoNat Nat eqb def
+R8610:8616 Coq.Arith.PeanoNat Nat eqb def
+prf 8808:8821 <> sm_spec_embeds
+binder 8832:8832 <> c:29
+binder 8834:8834 <> V:30
+R8837:8845 Minimal.SmHostBlocks <> sm_embeds def
+R8848:8854 Minimal.SmCodes <> sm_spec def
+R8856:8856 Kernel.SmKleene <> c:29 var
+R8858:8858 Kernel.SmKleene <> V:30 var
+R8861:8861 Kernel.SmKleene <> V:30 var
+R8863:8863 Kernel.SmKleene <> c:29 var
+R8894:8900 Minimal.SmCodes <> sm_spec def
+R8915:8923 Coq.Lists.List <> app_nil_r thm
+R8926:8933 Minimal.SmHostBlocks <> sm_reloc def
+R8915:8923 Coq.Lists.List <> app_nil_r thm
+R8926:8933 Minimal.SmHostBlocks <> sm_reloc def
+R8915:8923 Coq.Lists.List <> app_nil_r thm
+R8926:8933 Minimal.SmHostBlocks <> sm_reloc def
+R8957:8970 Minimal.SmHostBlocks <> sm_incs_length thm
+R8972:8979 Kernel.SmKleene <> hprop ind
+R8957:8970 Minimal.SmHostBlocks <> sm_incs_length thm
+R8972:8979 Kernel.SmKleene <> hprop ind
+R8957:8970 Minimal.SmHostBlocks <> sm_incs_length thm
+R8972:8979 Kernel.SmKleene <> hprop ind
+R9000:9012 Minimal.SmHostBlocks <> sm_embeds_app thm
+R9000:9012 Minimal.SmHostBlocks <> sm_embeds_app thm
+prf 9027:9040 <> sm_spec_length
+binder 9051:9051 <> c:31
+binder 9053:9053 <> V:32
+R9076:9078 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9056:9061 Coq.Init.Datatypes <> length def
+R9064:9070 Minimal.SmCodes <> sm_spec def
+R9072:9072 Kernel.SmKleene <> c:31 var
+R9074:9074 Kernel.SmKleene <> V:32 var
+R9080:9082 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9079:9079 Kernel.SmKleene <> c:31 var
+R9083:9088 Coq.Init.Datatypes <> length def
+R9090:9090 Kernel.SmKleene <> V:32 var
+R9115:9121 Minimal.SmCodes <> sm_spec def
+R9132:9141 Coq.Lists.List <> app_length thm
+R9144:9157 Minimal.SmHostBlocks <> sm_incs_length thm
+R9160:9174 Minimal.SmHostBlocks <> sm_reloc_length thm
+R9132:9141 Coq.Lists.List <> app_length thm
+R9132:9141 Coq.Lists.List <> app_length thm
+R9144:9157 Minimal.SmHostBlocks <> sm_incs_length thm
+R9144:9157 Minimal.SmHostBlocks <> sm_incs_length thm
+R9160:9174 Minimal.SmHostBlocks <> sm_reloc_length thm
+R9160:9174 Minimal.SmHostBlocks <> sm_reloc_length thm
+prf 9354:9365 <> sm_spec_hfun
+binder 9376:9376 <> c:33
+binder 9378:9378 <> V:34
+binder 9380:9380 <> x:35
+binder 9382:9382 <> y:36
+R9409:9415 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9387:9390 Kernel.SmKleene <> hfun abbrev
+R9393:9399 Minimal.SmCodes <> sm_spec def
+R9401:9401 Kernel.SmKleene <> c:33 var
+R9403:9403 Kernel.SmKleene <> V:34 var
+R9406:9406 Kernel.SmKleene <> x:35 var
+R9408:9408 Kernel.SmKleene <> y:36 var
+R9416:9422 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9424:9425 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9423:9423 <> n:37
+R9492:9507 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9426:9433 Kernel.SmKleene <> halted def
+R9435:9435 Kernel.SmKleene <> V:34 var
+R9438:9446 Kernel.SmKleene <> core_of proj
+R9449:9457 Kernel.SmKleene <> hrun_prog abbrev
+R9459:9459 Kernel.SmKleene <> n:37 var
+R9461:9461 Kernel.SmKleene <> V:34 var
+R9464:9469 Kernel.SmHostRice <> sm_at1 def
+R9472:9481 Kernel.SmKleene <> sm_spec_s1 def
+R9483:9483 Kernel.SmKleene <> c:33 var
+R9485:9485 Kernel.SmKleene <> V:34 var
+R9487:9487 Kernel.SmKleene <> x:35 var
+R9572:9574 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9508:9513 Kernel.SmKleene <> vals proj
+R9516:9524 Kernel.SmKleene <> core_of proj
+R9527:9535 Kernel.SmKleene <> hrun_prog abbrev
+R9537:9537 Kernel.SmKleene <> n:37 var
+R9539:9539 Kernel.SmKleene <> V:34 var
+R9542:9547 Kernel.SmHostRice <> sm_at1 def
+R9550:9559 Kernel.SmKleene <> sm_spec_s1 def
+R9561:9561 Kernel.SmKleene <> c:33 var
+R9563:9563 Kernel.SmKleene <> V:34 var
+R9565:9565 Kernel.SmKleene <> x:35 var
+R9575:9575 Kernel.SmKleene <> y:36 var
+R9615:9628 Kernel.SmKleene <> sm_spec_phase1 thm
+R9615:9628 Kernel.SmKleene <> sm_spec_phase1 thm
+R9684:9693 Kernel.SmKleene <> sm_spec_s1 def
+R9684:9693 Kernel.SmKleene <> sm_spec_s1 def
+binder 9732:9732 <> n:38
+R9735:9738 Kernel.SmKleene <> srel abbrev
+R9750:9753 Coq.Init.Logic <> True ind
+R9759:9764 Coq.Init.Datatypes <> length def
+R9770:9778 Kernel.SmKleene <> hrun_prog abbrev
+R9780:9780 Kernel.SmKleene <> n:38 var
+R9785:9790 Kernel.SmHostRice <> sm_at1 def
+R9828:9836 Kernel.SmKleene <> hrun_prog abbrev
+R9840:9842 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9843:9843 Kernel.SmKleene <> n:38 var
+R9847:9853 Minimal.SmCodes <> sm_spec def
+R9861:9869 Minimal.SmHostBlocks <> sm_hstart def
+binder 9732:9732 <> n:39
+R9735:9738 Kernel.SmKleene <> srel abbrev
+R9750:9753 Coq.Init.Logic <> True ind
+R9759:9764 Coq.Init.Datatypes <> length def
+R9770:9778 Kernel.SmKleene <> hrun_prog abbrev
+R9780:9780 Kernel.SmKleene <> n:39 var
+R9785:9790 Kernel.SmHostRice <> sm_at1 def
+R9828:9836 Kernel.SmKleene <> hrun_prog abbrev
+R9840:9842 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9843:9843 Kernel.SmKleene <> n:39 var
+R9847:9853 Minimal.SmCodes <> sm_spec def
+R9861:9869 Minimal.SmHostBlocks <> sm_hstart def
+R9898:9907 Minimal.SmHostBlocks <> sm_run_add thm
+R9898:9907 Minimal.SmHostBlocks <> sm_run_add thm
+R9898:9907 Minimal.SmHostBlocks <> sm_run_add thm
+R9916:9925 Kernel.SmKleene <> sm_spec_s1 def
+R9916:9925 Kernel.SmKleene <> sm_spec_s1 def
+R9955:9972 Minimal.SmHostBlocks <> sm_block_run_final thm
+R10006:10009 Coq.Init.Logic <> True ind
+R10013:10019 Minimal.SmCodes <> sm_spec def
+R10044:10057 Kernel.SmKleene <> sm_spec_embeds thm
+R10065:10077 Kernel.SmHostRice <> sm_within_all thm
+R10083:10096 Kernel.SmKleene <> sm_spec_length thm
+R9987:9994 Kernel.SmKleene <> heval def
+R9974:9985 Kernel.SmKleene <> hprop_eqb def
+R9955:9972 Minimal.SmHostBlocks <> sm_block_run_final thm
+R10006:10009 Coq.Init.Logic <> True ind
+R10013:10019 Minimal.SmCodes <> sm_spec def
+R10044:10057 Kernel.SmKleene <> sm_spec_embeds thm
+R10065:10077 Kernel.SmHostRice <> sm_within_all thm
+R10083:10096 Kernel.SmKleene <> sm_spec_length thm
+R9987:9994 Kernel.SmKleene <> heval def
+R9974:9985 Kernel.SmKleene <> hprop_eqb def
+R10115:10124 Kernel.SmHostRice <> sm_at1_rel thm
+R10115:10124 Kernel.SmHostRice <> sm_at1_rel thm
+R10197:10199 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10197:10199 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10266:10268 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10221:10229 Kernel.SmKleene <> hrun_prog abbrev
+R10233:10235 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10240:10246 Minimal.SmCodes <> sm_spec def
+R10254:10262 Minimal.SmHostBlocks <> sm_hstart def
+R10269:10277 Kernel.SmKleene <> hrun_prog abbrev
+R10282:10288 Minimal.SmCodes <> sm_spec def
+R10296:10304 Minimal.SmHostBlocks <> sm_hstart def
+R10326:10340 Minimal.SmHostBlocks <> sm_halted_after thm
+R10266:10268 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10221:10229 Kernel.SmKleene <> hrun_prog abbrev
+R10233:10235 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10240:10246 Minimal.SmCodes <> sm_spec def
+R10254:10262 Minimal.SmHostBlocks <> sm_hstart def
+R10269:10277 Kernel.SmKleene <> hrun_prog abbrev
+R10282:10288 Minimal.SmCodes <> sm_spec def
+R10296:10304 Minimal.SmHostBlocks <> sm_hstart def
+R10326:10340 Minimal.SmHostBlocks <> sm_halted_after thm
+R10455:10462 Kernel.SmKleene <> halted def
+R10475:10486 Kernel.SmKleene <> next_instr def
+R10491:10499 Kernel.SmKleene <> core_of proj
+R10502:10510 Kernel.SmKleene <> hrun_prog abbrev
+R10517:10522 Kernel.SmHostRice <> sm_at1 def
+R10475:10486 Kernel.SmKleene <> next_instr def
+R10491:10499 Kernel.SmKleene <> core_of proj
+R10502:10510 Kernel.SmKleene <> hrun_prog abbrev
+R10517:10522 Kernel.SmHostRice <> sm_at1 def
+R10586:10604 Minimal.SmHostBlocks <> sm_block_not_halted thm
+R10638:10641 Coq.Init.Logic <> True ind
+R10645:10651 Minimal.SmCodes <> sm_spec def
+R10691:10704 Kernel.SmKleene <> sm_spec_embeds thm
+R10712:10724 Kernel.SmHostRice <> sm_within_all thm
+R10619:10626 Kernel.SmKleene <> heval def
+R10606:10617 Kernel.SmKleene <> hprop_eqb def
+R10586:10604 Minimal.SmHostBlocks <> sm_block_not_halted thm
+R10638:10641 Coq.Init.Logic <> True ind
+R10645:10651 Minimal.SmCodes <> sm_spec def
+R10691:10704 Kernel.SmKleene <> sm_spec_embeds thm
+R10712:10724 Kernel.SmHostRice <> sm_within_all thm
+R10619:10626 Kernel.SmKleene <> heval def
+R10606:10617 Kernel.SmKleene <> hprop_eqb def
+R10854:10862 Kernel.SmKleene <> hrun_prog abbrev
+R10866:10868 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10873:10879 Minimal.SmCodes <> sm_spec def
+R10887:10895 Minimal.SmHostBlocks <> sm_hstart def
+R10854:10862 Kernel.SmKleene <> hrun_prog abbrev
+R10866:10868 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10873:10879 Minimal.SmCodes <> sm_spec def
+R10887:10895 Minimal.SmHostBlocks <> sm_hstart def
+R10924:10926 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10924:10926 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10968:10982 Minimal.SmHostBlocks <> sm_block_halted thm
+R10994:10997 Coq.Init.Logic <> True ind
+R11001:11007 Minimal.SmCodes <> sm_spec def
+R11019:11027 Kernel.SmKleene <> core_of proj
+R11030:11038 Kernel.SmKleene <> hrun_prog abbrev
+R11045:11050 Kernel.SmHostRice <> sm_at1 def
+R11075:11088 Kernel.SmKleene <> sm_spec_embeds thm
+R11098:11111 Kernel.SmKleene <> sm_spec_length thm
+R10968:10982 Minimal.SmHostBlocks <> sm_block_halted thm
+R10994:10997 Coq.Init.Logic <> True ind
+R11001:11007 Minimal.SmCodes <> sm_spec def
+R11019:11027 Kernel.SmKleene <> core_of proj
+R11030:11038 Kernel.SmKleene <> hrun_prog abbrev
+R11045:11050 Kernel.SmHostRice <> sm_at1 def
+R11075:11088 Kernel.SmKleene <> sm_spec_embeds thm
+R11098:11111 Kernel.SmKleene <> sm_spec_length thm
+def 11446:11452 <> sm_vrel
+R11463:11466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11460:11462 Coq.Init.Datatypes <> nat ind
+binder 11455:11456 <> Sr:40
+R11481:11485 Kernel.SmKleene <> hcore abbrev
+binder 11474:11474 <> k:41
+binder 11476:11477 <> k':42
+R11500:11500 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11535:11539 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11508:11508 <> r:43
+R11521:11523 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11511:11516 Kernel.SmKleene <> vals proj
+R11518:11518 Kernel.SmKleene <> k:41 var
+R11520:11520 Kernel.SmKleene <> r:43 var
+R11524:11529 Kernel.SmKleene <> vals proj
+R11531:11532 Kernel.SmKleene <> k':42 var
+R11534:11534 Kernel.SmKleene <> r:43 var
+R11540:11540 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11583:11589 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11548:11548 <> r:44
+R11555:11558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11551:11552 Kernel.SmKleene <> Sr:40 var
+R11554:11554 Kernel.SmKleene <> r:44 var
+R11569:11571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11559:11564 Kernel.SmKleene <> vers proj
+R11566:11566 Kernel.SmKleene <> k:41 var
+R11568:11568 Kernel.SmKleene <> r:44 var
+R11572:11577 Kernel.SmKleene <> vers proj
+R11579:11580 Kernel.SmKleene <> k':42 var
+R11582:11582 Kernel.SmKleene <> r:44 var
+R11606:11609 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11596:11598 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11590:11593 Kernel.SmKleene <> pc proj
+R11595:11595 Kernel.SmKleene <> k:41 var
+R11599:11602 Kernel.SmKleene <> pc proj
+R11604:11605 Kernel.SmKleene <> k':42 var
+R11632:11635 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11619:11621 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11610:11616 Kernel.SmKleene <> facts proj
+R11618:11618 Kernel.SmKleene <> k:41 var
+R11622:11628 Kernel.SmKleene <> facts proj
+R11630:11631 Kernel.SmKleene <> k':42 var
+R11656:11659 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11644:11646 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11636:11641 Kernel.SmKleene <> chan proj
+R11643:11643 Kernel.SmKleene <> k:41 var
+R11647:11652 Kernel.SmKleene <> chan proj
+R11654:11655 Kernel.SmKleene <> k':42 var
+R11667:11669 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11660:11664 Kernel.SmKleene <> err proj
+R11666:11666 Kernel.SmKleene <> k:41 var
+R11670:11674 Kernel.SmKleene <> err proj
+R11676:11677 Kernel.SmKleene <> k':42 var
+prf 11687:11698 <> sm_vrel_step
+binder 11709:11710 <> Sr:45
+R11717:11720 Coq.Init.Datatypes <> list ind
+R11722:11727 Kernel.SmKleene <> hinstr abbrev
+binder 11713:11713 <> V:46
+binder 11730:11730 <> k:47
+binder 11732:11733 <> k':48
+R11750:11753 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11736:11744 Minimal.SmHostBlocks <> sm_within def
+R11746:11747 Kernel.SmKleene <> Sr:45 var
+R11749:11749 Kernel.SmKleene <> V:46 var
+R11769:11774 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11754:11760 Kernel.SmKleene <> sm_vrel def
+R11762:11763 Kernel.SmKleene <> Sr:45 var
+R11765:11765 Kernel.SmKleene <> k:47 var
+R11767:11768 Kernel.SmKleene <> k':48 var
+R11775:11781 Kernel.SmKleene <> sm_vrel def
+R11783:11784 Kernel.SmKleene <> Sr:45 var
+R11787:11792 Kernel.SmKleene <> hcstep abbrev
+R11794:11794 Kernel.SmKleene <> V:46 var
+R11796:11796 Kernel.SmKleene <> k:47 var
+R11800:11805 Kernel.SmKleene <> hcstep abbrev
+R11807:11807 Kernel.SmKleene <> V:46 var
+R11809:11810 Kernel.SmKleene <> k':48 var
+R11932:11934 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11916:11927 Kernel.SmKleene <> next_instr def
+R11935:11946 Kernel.SmKleene <> next_instr def
+R11965:11976 Kernel.SmKleene <> next_instr def
+R11932:11934 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11916:11927 Kernel.SmKleene <> next_instr def
+R11935:11946 Kernel.SmKleene <> next_instr def
+R12018:12025 Minimal.SmHostBlocks <> sm_cstep def
+R12055:12066 Kernel.SmKleene <> next_instr def
+R12055:12066 Kernel.SmKleene <> next_instr def
+R12118:12129 Minimal.SmHostBlocks <> sm_next_some thm
+R12118:12129 Minimal.SmHostBlocks <> sm_next_some thm
+R12176:12177 Coq.Lists.List <> In def
+R12176:12177 Coq.Lists.List <> In def
+R12199:12202 Kernel.SmKleene <> pc proj
+R12199:12202 Kernel.SmKleene <> pc proj
+R12256:12267 Coq.Lists.List <> nth_error_In thm
+R12256:12267 Coq.Lists.List <> nth_error_In thm
+R12303:12305 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12295:12299 Kernel.SmKleene <> err proj
+R12306:12310 Coq.Init.Datatypes <> false constr
+R12303:12305 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12295:12299 Kernel.SmKleene <> err proj
+R12306:12310 Coq.Init.Datatypes <> false constr
+R12337:12343 Kernel.SmKleene <> cexec def
+R12432:12438 Kernel.SmKleene <> sm_vrel def
+R12498:12514 Kernel.SmKleene <> multi_val_write thm
+R12498:12514 Kernel.SmKleene <> multi_val_write thm
+R12498:12514 Kernel.SmKleene <> multi_val_write thm
+R12498:12514 Kernel.SmKleene <> multi_val_write thm
+R12498:12514 Kernel.SmKleene <> multi_val_write thm
+R12527:12533 Coq.Arith.PeanoNat Nat eqb def
+R12527:12533 Coq.Arith.PeanoNat Nat eqb def
+R12576:12592 Kernel.SmKleene <> multi_ver_write thm
+R12576:12592 Kernel.SmKleene <> multi_ver_write thm
+R12576:12592 Kernel.SmKleene <> multi_ver_write thm
+R12576:12592 Kernel.SmKleene <> multi_ver_write thm
+R12576:12592 Kernel.SmKleene <> multi_ver_write thm
+R12755:12760 Kernel.SmKleene <> vals proj
+R12755:12760 Kernel.SmKleene <> vals proj
+R12790:12796 Kernel.SmKleene <> sm_vrel def
+R12839:12845 Kernel.SmKleene <> sm_vrel def
+R12888:12904 Kernel.SmKleene <> multi_val_write thm
+R12888:12904 Kernel.SmKleene <> multi_val_write thm
+R12888:12904 Kernel.SmKleene <> multi_val_write thm
+R12888:12904 Kernel.SmKleene <> multi_val_write thm
+R12888:12904 Kernel.SmKleene <> multi_val_write thm
+R12917:12923 Coq.Arith.PeanoNat Nat eqb def
+R12917:12923 Coq.Arith.PeanoNat Nat eqb def
+R12968:12984 Kernel.SmKleene <> multi_ver_write thm
+R12968:12984 Kernel.SmKleene <> multi_ver_write thm
+R12968:12984 Kernel.SmKleene <> multi_ver_write thm
+R12968:12984 Kernel.SmKleene <> multi_ver_write thm
+R12968:12984 Kernel.SmKleene <> multi_ver_write thm
+R13174:13185 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13174:13185 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13247:13249 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13222:13231 Kernel.SmKleene <> check_ok def
+R13233:13240 Kernel.SmKleene <> heval def
+R13250:13259 Kernel.SmKleene <> check_ok def
+R13261:13268 Kernel.SmKleene <> heval def
+R13247:13249 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13222:13231 Kernel.SmKleene <> check_ok def
+R13233:13240 Kernel.SmKleene <> heval def
+R13250:13259 Kernel.SmKleene <> check_ok def
+R13261:13268 Kernel.SmKleene <> heval def
+R13292:13301 Kernel.SmKleene <> check_ok def
+R13375:13384 Kernel.SmKleene <> check_ok def
+R13386:13393 Kernel.SmKleene <> heval def
+R13375:13384 Kernel.SmKleene <> check_ok def
+R13386:13393 Kernel.SmKleene <> heval def
+R13417:13423 Kernel.SmKleene <> sm_vrel def
+R13426:13438 Kernel.SmKleene <> record_fact def
+R13441:13447 Kernel.SmKleene <> claim def
+R13532:13538 Kernel.SmKleene <> sm_vrel def
+R13541:13546 Kernel.SmKleene <> trap def
+R13639:13650 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13639:13650 Coq.Arith.PeanoNat Nat eqb_refl thm
+R13700:13702 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13687:13693 Kernel.SmKleene <> claim def
+R13703:13709 Kernel.SmKleene <> claim def
+R13730:13736 Kernel.SmKleene <> claim def
+R13700:13702 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13687:13693 Kernel.SmKleene <> claim def
+R13703:13709 Kernel.SmKleene <> claim def
+R13820:13822 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13790:13800 Kernel.SmKleene <> commit_ok def
+R13802:13813 Kernel.SmKleene <> hprop_eqb def
+R13823:13833 Kernel.SmKleene <> commit_ok def
+R13835:13846 Kernel.SmKleene <> hprop_eqb def
+R13820:13822 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13790:13800 Kernel.SmKleene <> commit_ok def
+R13802:13813 Kernel.SmKleene <> hprop_eqb def
+R13823:13833 Kernel.SmKleene <> commit_ok def
+R13835:13846 Kernel.SmKleene <> hprop_eqb def
+R13870:13880 Kernel.SmKleene <> commit_ok def
+R13951:13961 Kernel.SmKleene <> commit_ok def
+R13963:13974 Kernel.SmKleene <> hprop_eqb def
+R13951:13961 Kernel.SmKleene <> commit_ok def
+R13963:13974 Kernel.SmKleene <> hprop_eqb def
+R13998:14004 Kernel.SmKleene <> sm_vrel def
+R14007:14017 Kernel.SmKleene <> commit_to def
+R14073:14079 Kernel.SmKleene <> sm_vrel def
+R14082:14087 Kernel.SmKleene <> trap def
+R14149:14151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14135:14146 Kernel.SmKleene <> certify_ok def
+R14152:14163 Kernel.SmKleene <> certify_ok def
+R14149:14151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14135:14146 Kernel.SmKleene <> certify_ok def
+R14152:14163 Kernel.SmKleene <> certify_ok def
+R14183:14194 Kernel.SmKleene <> certify_ok def
+R14260:14271 Kernel.SmKleene <> certify_ok def
+R14260:14271 Kernel.SmKleene <> certify_ok def
+R14291:14297 Kernel.SmKleene <> sm_vrel def
+R14300:14305 Kernel.SmKleene <> goto def
+R14348:14354 Kernel.SmKleene <> sm_vrel def
+R14357:14362 Kernel.SmKleene <> trap def
+prf 14404:14414 <> sm_vrel_run
+binder 14425:14426 <> Sr:49
+R14433:14436 Coq.Init.Datatypes <> list ind
+R14438:14443 Kernel.SmKleene <> hinstr abbrev
+binder 14429:14429 <> V:50
+binder 14446:14446 <> n:51
+binder 14448:14448 <> k:52
+binder 14450:14451 <> k':53
+R14468:14471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14454:14462 Minimal.SmHostBlocks <> sm_within def
+R14464:14465 Kernel.SmKleene <> Sr:49 var
+R14467:14467 Kernel.SmKleene <> V:50 var
+R14487:14492 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14472:14478 Kernel.SmKleene <> sm_vrel def
+R14480:14481 Kernel.SmKleene <> Sr:49 var
+R14483:14483 Kernel.SmKleene <> k:52 var
+R14485:14486 Kernel.SmKleene <> k':53 var
+R14493:14499 Kernel.SmKleene <> sm_vrel def
+R14501:14502 Kernel.SmKleene <> Sr:49 var
+R14505:14511 Minimal.SmInterp <> sm_crun def
+R14513:14513 Kernel.SmKleene <> n:51 var
+R14515:14515 Kernel.SmKleene <> V:50 var
+R14517:14517 Kernel.SmKleene <> k:52 var
+R14521:14527 Minimal.SmInterp <> sm_crun def
+R14529:14529 Kernel.SmKleene <> n:51 var
+R14531:14531 Kernel.SmKleene <> V:50 var
+R14533:14534 Kernel.SmKleene <> k':53 var
+R14655:14666 Kernel.SmKleene <> sm_vrel_step thm
+R14655:14666 Kernel.SmKleene <> sm_vrel_step thm
+prf 14694:14707 <> sm_vrel_halted
+binder 14718:14719 <> Sr:54
+R14726:14729 Coq.Init.Datatypes <> list ind
+R14731:14736 Kernel.SmKleene <> hinstr abbrev
+binder 14722:14722 <> V:55
+binder 14739:14739 <> k:56
+binder 14741:14742 <> k':57
+R14760:14765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14745:14751 Kernel.SmKleene <> sm_vrel def
+R14753:14754 Kernel.SmKleene <> Sr:54 var
+R14756:14756 Kernel.SmKleene <> k:56 var
+R14758:14759 Kernel.SmKleene <> k':57 var
+R14778:14781 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14766:14773 Kernel.SmKleene <> halted def
+R14775:14775 Kernel.SmKleene <> V:55 var
+R14777:14777 Kernel.SmKleene <> k:56 var
+R14782:14789 Kernel.SmKleene <> halted def
+R14791:14791 Kernel.SmKleene <> V:55 var
+R14793:14794 Kernel.SmKleene <> k':57 var
+R14859:14866 Kernel.SmKleene <> halted def
+R14869:14880 Kernel.SmKleene <> next_instr def
+prf 14933:14943 <> sm_vrel_sym
+binder 14954:14955 <> Sr:58
+binder 14957:14957 <> k:59
+binder 14959:14960 <> k':60
+R14978:14981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14963:14969 Kernel.SmKleene <> sm_vrel def
+R14971:14972 Kernel.SmKleene <> Sr:58 var
+R14974:14974 Kernel.SmKleene <> k:59 var
+R14976:14977 Kernel.SmKleene <> k':60 var
+R14982:14988 Kernel.SmKleene <> sm_vrel def
+R14990:14991 Kernel.SmKleene <> Sr:58 var
+R14993:14994 Kernel.SmKleene <> k':60 var
+R14996:14996 Kernel.SmKleene <> k:59 var
+R15061:15067 Kernel.SmKleene <> sm_vrel def
+prf 15420:15425 <> sm_smn
+binder 15436:15436 <> c:61
+binder 15438:15438 <> V:62
+binder 15440:15440 <> x:63
+binder 15442:15442 <> y:64
+R15476:15482 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15539:15539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15447:15455 Minimal.SmHostBlocks <> sm_within def
+binder 15462:15462 <> r:65
+R15468:15471 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15467:15467 Kernel.SmKleene <> r:65 var
+R15475:15475 Kernel.SmKleene <> V:62 var
+R15505:15509 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R15483:15486 Kernel.SmKleene <> hfun abbrev
+R15489:15495 Minimal.SmCodes <> sm_spec def
+R15497:15497 Kernel.SmKleene <> c:61 var
+R15499:15499 Kernel.SmKleene <> V:62 var
+R15502:15502 Kernel.SmKleene <> x:63 var
+R15504:15504 Kernel.SmKleene <> y:64 var
+R15510:15521 Kernel.SmKleene <> sm_hfun_from def
+R15523:15523 Kernel.SmKleene <> V:62 var
+R15526:15531 Kernel.SmKleene <> sm_in2 def
+R15533:15533 Kernel.SmKleene <> x:63 var
+R15535:15535 Kernel.SmKleene <> c:61 var
+R15538:15538 Kernel.SmKleene <> y:64 var
+R15580:15591 Kernel.SmKleene <> sm_spec_hfun thm
+R15580:15591 Kernel.SmKleene <> sm_spec_hfun thm
+R15580:15591 Kernel.SmKleene <> sm_spec_hfun thm
+R15606:15619 Kernel.SmKleene <> sm_spec_phase1 thm
+R15606:15619 Kernel.SmKleene <> sm_spec_phase1 thm
+R15683:15689 Kernel.SmKleene <> sm_vrel def
+binder 15696:15696 <> r:66
+R15702:15705 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15701:15701 Kernel.SmKleene <> r:66 var
+R15710:15718 Kernel.SmKleene <> core_of proj
+R15721:15726 Kernel.SmHostRice <> sm_at1 def
+R15729:15738 Kernel.SmKleene <> sm_spec_s1 def
+R15769:15777 Kernel.SmKleene <> core_of proj
+R15780:15786 Kernel.SmKleene <> start def
+R15789:15794 Kernel.SmKleene <> sm_in2 def
+R15683:15689 Kernel.SmKleene <> sm_vrel def
+binder 15696:15696 <> r:67
+R15702:15705 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15701:15701 Kernel.SmKleene <> r:67 var
+R15710:15718 Kernel.SmKleene <> core_of proj
+R15721:15726 Kernel.SmHostRice <> sm_at1 def
+R15729:15738 Kernel.SmKleene <> sm_spec_s1 def
+R15769:15777 Kernel.SmKleene <> core_of proj
+R15780:15786 Kernel.SmKleene <> start def
+R15789:15794 Kernel.SmKleene <> sm_in2 def
+R15816:15822 Kernel.SmKleene <> sm_vrel def
+R15825:15830 Kernel.SmHostRice <> sm_at1 def
+R15833:15838 Kernel.SmKleene <> goto def
+R15940:15951 Kernel.SmKleene <> sm_hfun_from def
+R16007:16017 Minimal.SmInterp <> sm_core_run thm
+R16007:16017 Minimal.SmInterp <> sm_core_run thm
+R16007:16017 Minimal.SmInterp <> sm_core_run thm
+R16041:16051 Kernel.SmKleene <> sm_vrel_run thm
+R16041:16051 Kernel.SmKleene <> sm_vrel_run thm
+R16100:16113 Kernel.SmKleene <> sm_vrel_halted thm
+R16100:16113 Kernel.SmKleene <> sm_vrel_halted thm
+R16234:16244 Minimal.SmInterp <> sm_core_run thm
+R16234:16244 Minimal.SmInterp <> sm_core_run thm
+R16234:16244 Minimal.SmInterp <> sm_core_run thm
+R16268:16278 Kernel.SmKleene <> sm_vrel_sym thm
+R16287:16297 Kernel.SmKleene <> sm_vrel_run thm
+R16268:16278 Kernel.SmKleene <> sm_vrel_sym thm
+R16287:16297 Kernel.SmKleene <> sm_vrel_run thm
+R16347:16360 Kernel.SmKleene <> sm_vrel_halted thm
+R16347:16360 Kernel.SmKleene <> sm_vrel_halted thm
+prf 16665:16674 <> sm_mma_two
+binder 16685:16686 <> nn:68
+R16694:16697 Coq.Init.Datatypes <> list ind
+R16700:16707 Undecidability.MinskyMachines.MM <> mm_instr ind
+R16710:16712 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R16715:16715 Coq.Init.Datatypes <> S constr
+R16718:16718 Coq.Init.Datatypes <> S constr
+R16721:16721 Coq.Init.Datatypes <> S constr
+R16723:16724 Kernel.SmKleene <> nn:68 var
+binder 16689:16690 <> Pm:69
+R16751:16754 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16737:16744 Coq.Vectors.Vector <> t ind
+R16746:16748 Coq.Init.Datatypes <> nat ind
+R16758:16761 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16755:16757 Coq.Init.Datatypes <> nat ind
+binder 16733:16733 <> R:70
+R16771:16771 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17021:17027 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16783:16790 Coq.Vectors.Vector <> t ind
+R16792:16794 Coq.Init.Datatypes <> nat ind
+binder 16779:16779 <> v:71
+binder 16806:16806 <> m:72
+R16814:16823 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R16809:16809 Kernel.SmKleene <> R:70 var
+R16813:16813 Kernel.SmKleene <> m:72 var
+R16811:16811 Kernel.SmKleene <> v:71 var
+R16824:16830 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16860:16869 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16831:16831 <> c:73
+R16839:16846 Coq.Vectors.Vector <> t ind
+R16848:16850 Coq.Init.Datatypes <> nat ind
+R16854:16856 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16857:16858 Kernel.SmKleene <> nn:68 var
+binder 16834:16835 <> v':74
+R16870:16879 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R16987:16987 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16989:16990 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R17020:17020 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16988:16988 Kernel.SmKleene <> c:73 var
+R16991:17001 Coq.Vectors.Vector <> cons constr
+R17003:17005 Coq.Init.Datatypes <> nat ind
+R17007:17007 Kernel.SmKleene <> m:72 var
+R17011:17013 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17014:17015 Kernel.SmKleene <> nn:68 var
+R17018:17019 Kernel.SmKleene <> v':74 var
+R16924:16924 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16926:16927 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16985:16985 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16928:16940 Coq.Vectors.Vector <> append def
+R16967:16978 Coq.Vectors.Vector <> const def
+R16982:16983 Kernel.SmKleene <> nn:68 var
+R16943:16953 Coq.Vectors.Vector <> cons constr
+R16955:16957 Coq.Init.Datatypes <> nat ind
+R16963:16963 Kernel.SmKleene <> v:71 var
+R16907:16907 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16909:16910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16913:16913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16911:16912 Kernel.SmKleene <> Pm:69 var
+R16883:16889 Undecidability.MinskyMachines.MMA <> mma_sss ind
+R16892:16892 Coq.Init.Datatypes <> S constr
+R16895:16895 Coq.Init.Datatypes <> S constr
+R16898:16898 Coq.Init.Datatypes <> S constr
+R16900:16901 Kernel.SmKleene <> nn:68 var
+R17040:17044 Kernel.SmKleene <> hcore abbrev
+binder 17036:17036 <> k:75
+binder 17047:17047 <> x:76
+binder 17049:17049 <> c:77
+binder 17051:17051 <> m:78
+R17071:17074 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17063:17065 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17056:17060 Kernel.SmKleene <> err proj
+R17062:17062 Kernel.SmKleene <> k:75 var
+R17066:17070 Coq.Init.Datatypes <> false constr
+R17085:17088 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17081:17083 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17075:17078 Kernel.SmKleene <> pc proj
+R17080:17080 Kernel.SmKleene <> k:75 var
+R17089:17089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17125:17132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17376:17376 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 17097:17097 <> r:79
+R17110:17112 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17100:17105 Kernel.SmKleene <> vals proj
+R17107:17107 Kernel.SmKleene <> k:75 var
+R17109:17109 Kernel.SmKleene <> r:79 var
+R17113:17118 Kernel.SmKleene <> sm_in2 def
+R17120:17120 Kernel.SmKleene <> x:76 var
+R17122:17122 Kernel.SmKleene <> c:77 var
+R17124:17124 Kernel.SmKleene <> r:79 var
+R17197:17204 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R17133:17133 Kernel.SmKleene <> R:70 var
+R17196:17196 Kernel.SmKleene <> m:78 var
+R17136:17146 Coq.Vectors.Vector <> cons constr
+R17148:17150 Coq.Init.Datatypes <> nat ind
+R17152:17152 Kernel.SmKleene <> x:76 var
+R17157:17167 Coq.Vectors.Vector <> cons constr
+R17169:17171 Coq.Init.Datatypes <> nat ind
+R17173:17173 Kernel.SmKleene <> c:77 var
+R17178:17187 Coq.Vectors.Vector <> nil constr
+R17189:17191 Coq.Init.Datatypes <> nat ind
+R17205:17211 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17213:17214 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17212:17212 <> n:80
+R17301:17317 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17215:17222 Kernel.SmKleene <> halted def
+R17225:17235 Kernel.SmMMAHost <> sm_mma_host def
+R17252:17253 Kernel.SmKleene <> Pm:69 var
+R17238:17238 Coq.Init.Datatypes <> S constr
+R17241:17241 Coq.Init.Datatypes <> S constr
+R17244:17244 Coq.Init.Datatypes <> S constr
+R17246:17247 Kernel.SmKleene <> nn:68 var
+R17257:17263 Minimal.SmInterp <> sm_crun def
+R17265:17265 Kernel.SmKleene <> n:80 var
+R17268:17278 Kernel.SmMMAHost <> sm_mma_host def
+R17295:17296 Kernel.SmKleene <> Pm:69 var
+R17281:17281 Coq.Init.Datatypes <> S constr
+R17284:17284 Coq.Init.Datatypes <> S constr
+R17287:17287 Coq.Init.Datatypes <> S constr
+R17289:17290 Kernel.SmKleene <> nn:68 var
+R17299:17299 Kernel.SmKleene <> k:75 var
+R17372:17374 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17318:17323 Kernel.SmKleene <> vals proj
+R17326:17332 Minimal.SmInterp <> sm_crun def
+R17334:17334 Kernel.SmKleene <> n:80 var
+R17337:17347 Kernel.SmMMAHost <> sm_mma_host def
+R17364:17365 Kernel.SmKleene <> Pm:69 var
+R17350:17350 Coq.Init.Datatypes <> S constr
+R17353:17353 Coq.Init.Datatypes <> S constr
+R17356:17356 Coq.Init.Datatypes <> S constr
+R17358:17359 Kernel.SmKleene <> nn:68 var
+R17368:17368 Kernel.SmKleene <> k:75 var
+R17375:17375 Kernel.SmKleene <> m:78 var
+R17445:17459 Kernel.SmMMAHost <> sm_mma_host_out thm
+R17462:17462 Coq.Init.Datatypes <> S constr
+R17465:17465 Coq.Init.Datatypes <> S constr
+R17445:17459 Kernel.SmMMAHost <> sm_mma_host_out thm
+R17462:17462 Coq.Init.Datatypes <> S constr
+R17465:17465 Coq.Init.Datatypes <> S constr
+R17491:17503 Kernel.SmKleene <> sm_mmatch_in2 thm
+R17491:17503 Kernel.SmKleene <> sm_mmatch_in2 thm
+prf 17530:17541 <> sm_mma_plain
+binder 17552:17552 <> N:81
+R17560:17563 Coq.Init.Datatypes <> list ind
+R17566:17573 Undecidability.MinskyMachines.MM <> mm_instr ind
+R17576:17578 Undecidability.Shared.Libs.DLW.Vec.pos <> pos abbrev
+R17580:17580 Kernel.SmKleene <> N:81 var
+binder 17555:17556 <> Pm:82
+binder 17585:17586 <> Sr:83
+R17589:17597 Minimal.SmHostBlocks <> sm_within def
+R17599:17600 Kernel.SmKleene <> Sr:83 var
+R17603:17613 Kernel.SmMMAHost <> sm_mma_host def
+R17617:17618 Kernel.SmKleene <> Pm:82 var
+R17615:17615 Kernel.SmKleene <> N:81 var
+R17677:17687 Kernel.SmMMAHost <> sm_mma_host def
+R17690:17700 Kernel.SmMMAHost <> sm_mma_prog def
+R17720:17726 Coq.Lists.List <> map_map thm
+R17720:17726 Coq.Lists.List <> map_map thm
+R17720:17726 Coq.Lists.List <> map_map thm
+R17742:17751 Coq.Lists.List <> in_map_iff thm
+R17742:17751 Coq.Lists.List <> in_map_iff thm
+prf 18043:18059 <> sm_host_universal
+R18063:18069 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18086:18089 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18075:18078 Coq.Init.Datatypes <> list ind
+R18080:18085 Kernel.SmKleene <> hinstr abbrev
+binder 18070:18071 <> Uh:84
+R18090:18090 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18128:18134 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 18098:18098 <> i:85
+R18108:18111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18101:18102 Coq.Lists.List <> In def
+R18106:18107 Kernel.SmKleene <> Uh:84 var
+R18104:18104 Kernel.SmKleene <> i:85 var
+R18121:18123 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18112:18118 Kernel.SmKleene <> plain def
+R18120:18120 Kernel.SmKleene <> i:85 var
+R18124:18127 Coq.Init.Datatypes <> true constr
+binder 18142:18142 <> c:86
+binder 18144:18144 <> x:87
+binder 18146:18146 <> y:88
+R18179:18183 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R18149:18160 Kernel.SmKleene <> sm_hfun_from def
+R18162:18163 Kernel.SmKleene <> Uh:84 var
+R18166:18171 Kernel.SmKleene <> sm_in2 def
+R18173:18173 Kernel.SmKleene <> x:87 var
+R18175:18175 Kernel.SmKleene <> c:86 var
+R18178:18178 Kernel.SmKleene <> y:88 var
+R18184:18187 Kernel.SmKleene <> hfun abbrev
+R18190:18199 Minimal.SmCodes <> sm_hdecode def
+R18201:18201 Kernel.SmKleene <> c:86 var
+R18204:18204 Kernel.SmKleene <> x:87 var
+R18206:18206 Kernel.SmKleene <> y:88 var
+R18227:18236 Kernel.SmFuel <> sm_uev_MMA thm
+R18266:18276 Kernel.SmMMAHost <> sm_mma_host def
+R18279:18279 Coq.Init.Datatypes <> S constr
+R18282:18282 Coq.Init.Datatypes <> S constr
+R18285:18285 Coq.Init.Datatypes <> S constr
+R18266:18276 Kernel.SmMMAHost <> sm_mma_host def
+R18279:18279 Coq.Init.Datatypes <> S constr
+R18282:18282 Coq.Init.Datatypes <> S constr
+R18285:18285 Coq.Init.Datatypes <> S constr
+R18330:18340 Kernel.SmMMAHost <> sm_mma_host def
+R18343:18353 Kernel.SmMMAHost <> sm_mma_prog def
+R18371:18377 Coq.Lists.List <> map_map thm
+R18371:18377 Coq.Lists.List <> map_map thm
+R18371:18377 Coq.Lists.List <> map_map thm
+R18397:18406 Coq.Lists.List <> in_map_iff thm
+R18397:18406 Coq.Lists.List <> in_map_iff thm
+R18494:18504 Minimal.SmInterp <> sm_uev_spec thm
+R18494:18504 Minimal.SmInterp <> sm_uev_spec thm
+R18494:18504 Minimal.SmInterp <> sm_uev_spec thm
+R18517:18523 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18525:18526 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18524:18524 <> n:89
+R18539:18541 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18527:18532 Minimal.SmInterp <> sm_uev def
+R18534:18534 Kernel.SmKleene <> n:89 var
+R18542:18545 Coq.Init.Datatypes <> Some constr
+R18556:18562 Kernel.SmFuel <> sm_Ruev def
+R18565:18575 Coq.Vectors.Vector <> cons constr
+R18577:18579 Coq.Init.Datatypes <> nat ind
+R18586:18596 Coq.Vectors.Vector <> cons constr
+R18598:18600 Coq.Init.Datatypes <> nat ind
+R18607:18616 Coq.Vectors.Vector <> nil constr
+R18618:18620 Coq.Init.Datatypes <> nat ind
+R18517:18523 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18525:18526 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18524:18524 <> n:90
+R18539:18541 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18527:18532 Minimal.SmInterp <> sm_uev def
+R18534:18534 Kernel.SmKleene <> n:90 var
+R18542:18545 Coq.Init.Datatypes <> Some constr
+R18556:18562 Kernel.SmFuel <> sm_Ruev def
+R18565:18575 Coq.Vectors.Vector <> cons constr
+R18577:18579 Coq.Init.Datatypes <> nat ind
+R18586:18596 Coq.Vectors.Vector <> cons constr
+R18598:18600 Coq.Init.Datatypes <> nat ind
+R18607:18616 Coq.Vectors.Vector <> nil constr
+R18618:18620 Coq.Init.Datatypes <> nat ind
+R18640:18649 Kernel.SmKleene <> sm_mma_two thm
+R18657:18663 Kernel.SmFuel <> sm_Ruev def
+R18670:18678 Kernel.SmKleene <> core_of proj
+R18681:18687 Kernel.SmKleene <> start def
+R18690:18695 Kernel.SmKleene <> sm_in2 def
+R18710:18716 Coq.Init.Logic <> eq_refl constr
+R18718:18724 Coq.Init.Logic <> eq_refl constr
+binder 18731:18731 <> r:91
+R18736:18742 Coq.Init.Logic <> eq_refl constr
+R18640:18649 Kernel.SmKleene <> sm_mma_two thm
+R18657:18663 Kernel.SmFuel <> sm_Ruev def
+R18670:18678 Kernel.SmKleene <> core_of proj
+R18681:18687 Kernel.SmKleene <> start def
+R18690:18695 Kernel.SmKleene <> sm_in2 def
+R18710:18716 Coq.Init.Logic <> eq_refl constr
+R18718:18724 Coq.Init.Logic <> eq_refl constr
+binder 18731:18731 <> r:92
+R18736:18742 Coq.Init.Logic <> eq_refl constr
+R18640:18649 Kernel.SmKleene <> sm_mma_two thm
+R18657:18663 Kernel.SmFuel <> sm_Ruev def
+R18670:18678 Kernel.SmKleene <> core_of proj
+R18681:18687 Kernel.SmKleene <> start def
+R18690:18695 Kernel.SmKleene <> sm_in2 def
+R18710:18716 Coq.Init.Logic <> eq_refl constr
+R18718:18724 Coq.Init.Logic <> eq_refl constr
+binder 18731:18731 <> r:93
+R18736:18742 Coq.Init.Logic <> eq_refl constr
+R18756:18767 Kernel.SmKleene <> sm_hfun_from def
+R18810:18820 Minimal.SmInterp <> sm_core_run thm
+R18810:18820 Minimal.SmInterp <> sm_core_run thm
+R18810:18820 Minimal.SmInterp <> sm_core_run thm
+R18810:18820 Minimal.SmInterp <> sm_core_run thm
+R18810:18820 Minimal.SmInterp <> sm_core_run thm
+prf 19070:19088 <> sm_second_recursion
+R19103:19106 Coq.Init.Datatypes <> list ind
+R19108:19113 Kernel.SmKleene <> hinstr abbrev
+binder 19099:19099 <> T:94
+R19116:19122 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19138:19141 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19127:19130 Coq.Init.Datatypes <> list ind
+R19132:19137 Kernel.SmKleene <> hinstr abbrev
+binder 19123:19123 <> e:95
+binder 19149:19149 <> x:96
+binder 19151:19151 <> y:97
+R19164:19168 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R19154:19157 Kernel.SmKleene <> hfun abbrev
+R19159:19159 Kernel.SmKleene <> e:95 var
+R19161:19161 Kernel.SmKleene <> x:96 var
+R19163:19163 Kernel.SmKleene <> y:97 var
+R19169:19175 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19177:19178 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19176:19176 <> d:98
+R19200:19203 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19179:19182 Kernel.SmKleene <> hfun abbrev
+R19184:19184 Kernel.SmKleene <> T:94 var
+R19187:19194 Minimal.SmCodes <> sm_hcode def
+R19196:19196 Kernel.SmKleene <> e:95 var
+R19199:19199 Kernel.SmKleene <> d:98 var
+R19204:19207 Kernel.SmKleene <> hfun abbrev
+R19210:19219 Minimal.SmCodes <> sm_hdecode def
+R19221:19221 Kernel.SmKleene <> d:98 var
+R19224:19224 Kernel.SmKleene <> x:96 var
+R19226:19226 Kernel.SmKleene <> y:97 var
+R19259:19266 Minimal.SmCodes <> sm_hcode def
+R19259:19266 Minimal.SmCodes <> sm_hcode def
+R19284:19292 Kernel.SmFuel <> sm_ev_MMA thm
+R19284:19292 Kernel.SmFuel <> sm_ev_MMA thm
+R19328:19338 Kernel.SmMMAHost <> sm_mma_host def
+R19341:19341 Coq.Init.Datatypes <> S constr
+R19344:19344 Coq.Init.Datatypes <> S constr
+R19347:19347 Coq.Init.Datatypes <> S constr
+R19328:19338 Kernel.SmMMAHost <> sm_mma_host def
+R19341:19341 Coq.Init.Datatypes <> S constr
+R19344:19344 Coq.Init.Datatypes <> S constr
+R19347:19347 Coq.Init.Datatypes <> S constr
+R19373:19381 Minimal.SmCodes <> sm_kpcode def
+R19384:19394 Kernel.SmMMAHost <> sm_mma_prog def
+R19397:19397 Coq.Init.Datatypes <> S constr
+R19400:19400 Coq.Init.Datatypes <> S constr
+R19403:19403 Coq.Init.Datatypes <> S constr
+R19373:19381 Minimal.SmCodes <> sm_kpcode def
+R19384:19394 Kernel.SmMMAHost <> sm_mma_prog def
+R19397:19397 Coq.Init.Datatypes <> S constr
+R19400:19400 Coq.Init.Datatypes <> S constr
+R19403:19403 Coq.Init.Datatypes <> S constr
+R19446:19448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19433:19442 Minimal.SmCodes <> sm_hdecode def
+R19464:19473 Minimal.SmCodes <> sm_hdecode def
+R19484:19494 Kernel.SmMMAHost <> sm_mma_host def
+R19505:19519 Minimal.SmCodes <> sm_kpdec_kpcode thm
+R19446:19448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19433:19442 Minimal.SmCodes <> sm_hdecode def
+R19505:19519 Minimal.SmCodes <> sm_kpdec_kpcode thm
+R19505:19519 Minimal.SmCodes <> sm_kpdec_kpcode thm
+R19548:19554 Minimal.SmCodes <> sm_spec def
+R19548:19554 Minimal.SmCodes <> sm_spec def
+R19593:19595 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19582:19589 Minimal.SmCodes <> sm_kspec def
+R19596:19603 Minimal.SmCodes <> sm_hcode def
+R19620:19632 Minimal.SmCodes <> sm_kspec_code thm
+R19593:19595 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19582:19589 Minimal.SmCodes <> sm_kspec def
+R19596:19603 Minimal.SmCodes <> sm_hcode def
+R19620:19632 Minimal.SmCodes <> sm_kspec_code thm
+R19620:19632 Minimal.SmCodes <> sm_kspec_code thm
+R19752:19763 Kernel.SmKleene <> sm_spec_hfun thm
+R19752:19763 Kernel.SmKleene <> sm_spec_hfun thm
+R19752:19763 Kernel.SmKleene <> sm_spec_hfun thm
+R19778:19791 Kernel.SmKleene <> sm_spec_phase1 thm
+R19778:19791 Kernel.SmKleene <> sm_spec_phase1 thm
+R19847:19855 Kernel.SmKleene <> core_of proj
+R19858:19863 Kernel.SmHostRice <> sm_at1 def
+R19866:19875 Kernel.SmKleene <> sm_spec_s1 def
+R19847:19855 Kernel.SmKleene <> core_of proj
+R19858:19863 Kernel.SmHostRice <> sm_at1 def
+R19866:19875 Kernel.SmKleene <> sm_spec_s1 def
+R19905:19911 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19913:19914 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19912:19912 <> n:99
+R19944:19947 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19915:19922 Kernel.SmKleene <> halted def
+R19928:19934 Minimal.SmInterp <> sm_crun def
+R19936:19936 Kernel.SmKleene <> n:99 var
+R19974:19976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19948:19953 Kernel.SmKleene <> vals proj
+R19956:19962 Minimal.SmInterp <> sm_crun def
+R19964:19964 Kernel.SmKleene <> n:99 var
+R19905:19911 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19913:19914 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19912:19912 <> n:100
+R19944:19947 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19915:19922 Kernel.SmKleene <> halted def
+R19928:19934 Minimal.SmInterp <> sm_crun def
+R19936:19936 Kernel.SmKleene <> n:100 var
+R19974:19976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19948:19953 Kernel.SmKleene <> vals proj
+R19956:19962 Minimal.SmInterp <> sm_crun def
+R19964:19964 Kernel.SmKleene <> n:100 var
+R20025:20035 Minimal.SmInterp <> sm_core_run thm
+R20025:20035 Minimal.SmInterp <> sm_core_run thm
+R20025:20035 Minimal.SmInterp <> sm_core_run thm
+R20025:20035 Minimal.SmInterp <> sm_core_run thm
+R20025:20035 Minimal.SmInterp <> sm_core_run thm
+R20106:20111 Kernel.SmFuel <> sm_Rev def
+R20116:20126 Coq.Vectors.Vector <> cons constr
+R20128:20130 Coq.Init.Datatypes <> nat ind
+R20137:20147 Coq.Vectors.Vector <> cons constr
+R20149:20151 Coq.Init.Datatypes <> nat ind
+R20159:20168 Coq.Vectors.Vector <> nil constr
+R20170:20172 Coq.Init.Datatypes <> nat ind
+R20106:20111 Kernel.SmFuel <> sm_Rev def
+R20116:20126 Coq.Vectors.Vector <> cons constr
+R20128:20130 Coq.Init.Datatypes <> nat ind
+R20137:20147 Coq.Vectors.Vector <> cons constr
+R20149:20151 Coq.Init.Datatypes <> nat ind
+R20159:20168 Coq.Vectors.Vector <> nil constr
+R20170:20172 Coq.Init.Datatypes <> nat ind
+R20202:20211 Kernel.SmKleene <> sm_mma_two thm
+R20220:20225 Kernel.SmFuel <> sm_Rev def
+R20248:20254 Coq.Init.Logic <> eq_refl constr
+R20202:20211 Kernel.SmKleene <> sm_mma_two thm
+R20220:20225 Kernel.SmFuel <> sm_Rev def
+R20248:20254 Coq.Init.Logic <> eq_refl constr
+R20274:20279 Kernel.SmFuel <> sm_Rev def
+R20284:20294 Coq.Vectors.Vector <> cons constr
+R20296:20298 Coq.Init.Datatypes <> nat ind
+R20305:20315 Coq.Vectors.Vector <> cons constr
+R20317:20319 Coq.Init.Datatypes <> nat ind
+R20327:20336 Coq.Vectors.Vector <> nil constr
+R20338:20340 Coq.Init.Datatypes <> nat ind
+R20358:20364 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20366:20367 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20365:20365 <> n:101
+R20382:20384 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20368:20372 Minimal.SmInterp <> sm_ev def
+R20376:20376 Kernel.SmKleene <> n:101 var
+R20385:20388 Coq.Init.Datatypes <> Some constr
+R20274:20279 Kernel.SmFuel <> sm_Rev def
+R20284:20294 Coq.Vectors.Vector <> cons constr
+R20296:20298 Coq.Init.Datatypes <> nat ind
+R20305:20315 Coq.Vectors.Vector <> cons constr
+R20317:20319 Coq.Init.Datatypes <> nat ind
+R20327:20336 Coq.Vectors.Vector <> nil constr
+R20338:20340 Coq.Init.Datatypes <> nat ind
+R20358:20364 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20366:20367 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20365:20365 <> n:102
+R20382:20384 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20368:20372 Minimal.SmInterp <> sm_ev def
+R20376:20376 Kernel.SmKleene <> n:102 var
+R20385:20388 Coq.Init.Datatypes <> Some constr
+R20404:20413 Minimal.SmInterp <> sm_ev_spec thm
+R20404:20413 Minimal.SmInterp <> sm_ev_spec thm
+R20404:20413 Minimal.SmInterp <> sm_ev_spec thm
+R20434:20449 Minimal.SmCodes <> sm_hdecode_hcode thm
+R20434:20449 Minimal.SmCodes <> sm_hdecode_hcode thm
+R20434:20449 Minimal.SmCodes <> sm_hdecode_hcode thm
+def 20793:20807 <> sm_computes_map
+R20814:20817 Coq.Init.Datatypes <> list ind
+R20819:20824 Kernel.SmKleene <> hinstr abbrev
+binder 20810:20810 <> T:103
+R20843:20846 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20832:20835 Coq.Init.Datatypes <> list ind
+R20837:20842 Kernel.SmKleene <> hinstr abbrev
+R20847:20850 Coq.Init.Datatypes <> list ind
+R20852:20857 Kernel.SmKleene <> hinstr abbrev
+binder 20828:20828 <> F:104
+binder 20879:20879 <> p:105
+R20882:20885 Kernel.SmKleene <> hfun abbrev
+R20887:20887 Kernel.SmKleene <> T:103 var
+R20890:20897 Minimal.SmCodes <> sm_hcode def
+R20899:20899 Kernel.SmKleene <> p:105 var
+R20903:20910 Minimal.SmCodes <> sm_hcode def
+R20913:20913 Kernel.SmKleene <> F:104 var
+R20915:20915 Kernel.SmKleene <> p:105 var
+prf 20929:20937 <> sm_kleene
+R20964:20967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20953:20956 Coq.Init.Datatypes <> list ind
+R20958:20963 Kernel.SmKleene <> hinstr abbrev
+R20968:20971 Coq.Init.Datatypes <> list ind
+R20973:20978 Kernel.SmKleene <> hinstr abbrev
+binder 20949:20949 <> F:106
+R20986:20989 Coq.Init.Datatypes <> list ind
+R20991:20996 Kernel.SmKleene <> hinstr abbrev
+binder 20982:20982 <> T:107
+R21021:21026 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21002:21016 Kernel.SmKleene <> sm_computes_map def
+R21018:21018 Kernel.SmKleene <> T:107 var
+R21020:21020 Kernel.SmKleene <> F:106 var
+R21027:21033 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21035:21036 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 21034:21034 <> e:108
+binder 21044:21044 <> x:109
+binder 21046:21046 <> y:110
+R21059:21063 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R21049:21052 Kernel.SmKleene <> hfun abbrev
+R21054:21054 Kernel.SmKleene <> e:108 var
+R21056:21056 Kernel.SmKleene <> x:109 var
+R21058:21058 Kernel.SmKleene <> y:110 var
+R21064:21067 Kernel.SmKleene <> hfun abbrev
+R21070:21070 Kernel.SmKleene <> F:106 var
+R21072:21072 Kernel.SmKleene <> e:108 var
+R21075:21075 Kernel.SmKleene <> x:109 var
+R21077:21077 Kernel.SmKleene <> y:110 var
+R21114:21132 Kernel.SmKleene <> sm_second_recursion thm
+R21114:21132 Kernel.SmKleene <> sm_second_recursion thm
+R21224:21234 Minimal.SmHostBlocks <> sm_hfun_det thm
+R21249:21256 Kernel.SmKleene <> heval def
+R21236:21247 Kernel.SmKleene <> hprop_eqb def
+R21224:21234 Minimal.SmHostBlocks <> sm_hfun_det thm
+R21249:21256 Kernel.SmKleene <> heval def
+R21236:21247 Kernel.SmKleene <> hprop_eqb def
+R21224:21234 Minimal.SmHostBlocks <> sm_hfun_det thm
+R21249:21256 Kernel.SmKleene <> heval def
+R21236:21247 Kernel.SmKleene <> hprop_eqb def
+R21296:21311 Minimal.SmCodes <> sm_hdecode_hcode thm
+R21296:21311 Minimal.SmCodes <> sm_hdecode_hcode thm
+R21296:21311 Minimal.SmCodes <> sm_hdecode_hcode thm
+R21352:21359 Minimal.SmCodes <> sm_hcode def
+R21352:21359 Minimal.SmCodes <> sm_hcode def
+R21402:21417 Minimal.SmCodes <> sm_hdecode_hcode thm
+R21402:21417 Minimal.SmCodes <> sm_hdecode_hcode thm
+R21402:21417 Minimal.SmCodes <> sm_hdecode_hcode thm
+prf 21607:21621 <> sm_kleene_codes
+R21640:21643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21637:21639 Coq.Init.Datatypes <> nat ind
+R21644:21646 Coq.Init.Datatypes <> nat ind
+binder 21633:21633 <> f:111
+R21654:21657 Coq.Init.Datatypes <> list ind
+R21659:21664 Kernel.SmKleene <> hinstr abbrev
+binder 21650:21650 <> T:112
+R21670:21670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21695:21701 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 21678:21678 <> n:113
+R21681:21684 Kernel.SmKleene <> hfun abbrev
+R21686:21686 Kernel.SmKleene <> T:112 var
+R21688:21688 Kernel.SmKleene <> n:113 var
+R21691:21691 Kernel.SmKleene <> f:111 var
+R21693:21693 Kernel.SmKleene <> n:113 var
+R21702:21708 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21710:21711 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 21709:21709 <> e:114
+binder 21719:21719 <> x:115
+binder 21721:21721 <> y:116
+R21747:21751 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R21724:21727 Kernel.SmKleene <> hfun abbrev
+R21730:21739 Minimal.SmCodes <> sm_hdecode def
+R21741:21741 Kernel.SmKleene <> e:114 var
+R21744:21744 Kernel.SmKleene <> x:115 var
+R21746:21746 Kernel.SmKleene <> y:116 var
+R21752:21755 Kernel.SmKleene <> hfun abbrev
+R21758:21767 Minimal.SmCodes <> sm_hdecode def
+R21770:21770 Kernel.SmKleene <> f:111 var
+R21772:21772 Kernel.SmKleene <> e:114 var
+R21776:21776 Kernel.SmKleene <> x:115 var
+R21778:21778 Kernel.SmKleene <> y:116 var
+R21815:21833 Kernel.SmKleene <> sm_second_recursion thm
+R21815:21833 Kernel.SmKleene <> sm_second_recursion thm
+R21859:21866 Minimal.SmCodes <> sm_hcode def
+R21859:21866 Minimal.SmCodes <> sm_hcode def
+R21892:21907 Minimal.SmCodes <> sm_hdecode_hcode thm
+R21892:21907 Minimal.SmCodes <> sm_hdecode_hcode thm
+R21892:21907 Minimal.SmCodes <> sm_hdecode_hcode thm
+R21954:21964 Minimal.SmHostBlocks <> sm_hfun_det thm
+R21979:21986 Kernel.SmKleene <> heval def
+R21966:21977 Kernel.SmKleene <> hprop_eqb def
+R21954:21964 Minimal.SmHostBlocks <> sm_hfun_det thm
+R21979:21986 Kernel.SmKleene <> heval def
+R21966:21977 Kernel.SmKleene <> hprop_eqb def
+R21954:21964 Minimal.SmHostBlocks <> sm_hfun_det thm
+R21979:21986 Kernel.SmKleene <> heval def
+R21966:21977 Kernel.SmKleene <> hprop_eqb def
+R22049:22056 Minimal.SmCodes <> sm_hcode def
+R22049:22056 Minimal.SmCodes <> sm_hcode def
+def 22412:22421 <> sm_fun_ext
+R22440:22443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22429:22432 Coq.Init.Datatypes <> list ind
+R22434:22439 Kernel.SmKleene <> hinstr abbrev
+binder 22424:22425 <> Pi:117
+binder 22469:22469 <> p:118
+binder 22471:22471 <> q:119
+R22474:22474 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22512:22516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 22482:22482 <> x:120
+binder 22484:22484 <> y:121
+R22497:22501 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22487:22490 Kernel.SmKleene <> hfun abbrev
+R22492:22492 Kernel.SmKleene <> p:118 var
+R22494:22494 Kernel.SmKleene <> x:120 var
+R22496:22496 Kernel.SmKleene <> y:121 var
+R22502:22505 Kernel.SmKleene <> hfun abbrev
+R22507:22507 Kernel.SmKleene <> q:119 var
+R22509:22509 Kernel.SmKleene <> x:120 var
+R22511:22511 Kernel.SmKleene <> y:121 var
+R22521:22524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22517:22518 Kernel.SmKleene <> Pi:117 var
+R22520:22520 Kernel.SmKleene <> p:118 var
+R22525:22526 Kernel.SmKleene <> Pi:117 var
+R22528:22528 Kernel.SmKleene <> q:119 var
+prf 22604:22623 <> sm_no_inside_decider
+R22651:22654 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22640:22643 Coq.Init.Datatypes <> list ind
+R22645:22650 Kernel.SmKleene <> hinstr abbrev
+binder 22635:22636 <> Pi:122
+binder 22661:22663 <> yes:123
+binder 22665:22666 <> no:124
+R22684:22687 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22671:22680 Kernel.SmKleene <> sm_fun_ext def
+R22682:22683 Kernel.SmKleene <> Pi:122 var
+R22694:22697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22688:22689 Kernel.SmKleene <> Pi:122 var
+R22691:22693 Kernel.SmKleene <> yes:123 var
+R22705:22710 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22698:22699 Coq.Init.Logic <> ::type_scope:'~'_x not
+R22700:22701 Kernel.SmKleene <> Pi:122 var
+R22703:22704 Kernel.SmKleene <> no:124 var
+R22733:22736 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22722:22725 Coq.Init.Datatypes <> list ind
+R22727:22732 Kernel.SmKleene <> hinstr abbrev
+R22737:22740 Coq.Init.Datatypes <> bool ind
+binder 22718:22718 <> d:125
+R22745:22745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22808:22814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22746:22752 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22754:22755 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22753:22753 <> T:126
+R22756:22770 Kernel.SmKleene <> sm_computes_map def
+R22772:22772 Kernel.SmKleene <> T:126 var
+binder 22779:22779 <> p:127
+R22787:22787 Kernel.SmKleene <> d:125 var
+R22789:22789 Kernel.SmKleene <> p:127 var
+R22804:22806 Kernel.SmKleene <> yes:123 var
+R22796:22797 Kernel.SmKleene <> no:124 var
+R22815:22817 Coq.Init.Logic <> ::type_scope:'~'_x not
+R22847:22847 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 22825:22825 <> p:128
+R22838:22842 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22831:22833 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22828:22828 Kernel.SmKleene <> d:125 var
+R22830:22830 Kernel.SmKleene <> p:128 var
+R22834:22837 Coq.Init.Datatypes <> true constr
+R22843:22844 Kernel.SmKleene <> Pi:122 var
+R22846:22846 Kernel.SmKleene <> p:128 var
+R22912:22920 Kernel.SmKleene <> sm_kleene thm
+R22912:22920 Kernel.SmKleene <> sm_kleene thm
+binder 22964:22964 <> x:129
+binder 22966:22966 <> z:130
+R22979:22983 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22969:22972 Kernel.SmKleene <> hfun abbrev
+R22976:22976 Kernel.SmKleene <> x:129 var
+R22978:22978 Kernel.SmKleene <> z:130 var
+R22984:22987 Kernel.SmKleene <> hfun abbrev
+R23015:23015 Kernel.SmKleene <> x:129 var
+R23017:23017 Kernel.SmKleene <> z:130 var
+binder 22964:22964 <> x:131
+binder 22966:22966 <> z:132
+R22979:22983 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R22969:22972 Kernel.SmKleene <> hfun abbrev
+R22976:22976 Kernel.SmKleene <> x:131 var
+R22978:22978 Kernel.SmKleene <> z:132 var
+R22984:22987 Kernel.SmKleene <> hfun abbrev
+R23015:23015 Kernel.SmKleene <> x:131 var
+R23017:23017 Kernel.SmKleene <> z:132 var
+prf 23343:23358 <> sm_host_rice_fun
+R23386:23389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23375:23378 Coq.Init.Datatypes <> list ind
+R23380:23385 Kernel.SmKleene <> hinstr abbrev
+binder 23370:23371 <> Pi:133
+binder 23396:23398 <> yes:134
+binder 23400:23401 <> no:135
+R23419:23422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23406:23415 Kernel.SmKleene <> sm_fun_ext def
+R23417:23418 Kernel.SmKleene <> Pi:133 var
+R23429:23432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23423:23424 Kernel.SmKleene <> Pi:133 var
+R23426:23428 Kernel.SmKleene <> yes:134 var
+R23440:23443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23433:23434 Coq.Init.Logic <> ::type_scope:'~'_x not
+R23435:23436 Kernel.SmKleene <> Pi:133 var
+R23438:23439 Kernel.SmKleene <> no:135 var
+R23444:23454 Undecidability.Synthetic.Undecidability <> undecidable def
+R23456:23457 Kernel.SmKleene <> Pi:133 var
+R23507:23518 Kernel.SmHostRice <> sm_host_rice thm
+R23533:23540 Kernel.SmKleene <> heval def
+R23520:23531 Kernel.SmKleene <> hprop_eqb def
+R23507:23518 Kernel.SmHostRice <> sm_host_rice thm
+R23533:23540 Kernel.SmKleene <> heval def
+R23520:23531 Kernel.SmKleene <> hprop_eqb def
+R23640:23653 Minimal.SmHostBlocks <> sm_hequiv_hfun thm
+R23640:23653 Minimal.SmHostBlocks <> sm_hequiv_hfun thm
+R23909:23914 Kernel.SmKleene <> sm_smn thm
+R23935:23951 Kernel.SmKleene <> sm_host_universal thm
+R23972:23990 Kernel.SmKleene <> sm_second_recursion thm
+R24011:24019 Kernel.SmKleene <> sm_kleene thm
+R24040:24054 Kernel.SmKleene <> sm_kleene_codes thm
+R24075:24094 Kernel.SmKleene <> sm_no_inside_decider thm
+R24115:24130 Kernel.SmKleene <> sm_host_rice_fun thm

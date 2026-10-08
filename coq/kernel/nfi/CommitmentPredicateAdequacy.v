@@ -4,7 +4,7 @@
     after replacing "cert-flip" by an arbitrary local invariant.  This file
     makes that test precise.
 
-    We consider trusted local-predicate pricing systems.  A system chooses a
+    The setting is trusted local-predicate pricing systems.  A system chooses a
     local predicate [lps_charge s i].  The trust law says:
 
       - charged steps cost at least 1;
@@ -24,18 +24,14 @@
     trusted system can certify at zero cost.  A2 is therefore the minimal
     local predicate for certification-cost lower bounds under equal trust.
 
-    SCOPE NOTE: foundation connectivity gap suppressed — this file is the
+    SCOPE NOTE: foundation connectivity gap suppressed; this file is the
     substrate-free half of the substitution gate.  Every theorem here is
     indicator-uniqueness over an abstract local-predicate pricing record
-    (lps_charge / lps_cost); it deliberately imports no VM semantics, because
-    the point is that the floor follows from the cost schedule alone, with no
-    appeal to the machine.  The VM teeth live next door in
-    CommitmentCostDecomposition.v (which imports VMState/VMStep/SimulationProof
-    and proves no_free_certification_certified), and A2Payoff.v is the
-    aggregator that combines the abstract result here with that concrete
-    instruction-set lemma.  Connection to the foundation chain is therefore
-    real but routed through A2Payoff, not by a direct VMState import that this
-    file would never use.
+    (lps_charge / lps_cost); it deliberately imports no machine semantics,
+    because the point is that the floor follows from the cost schedule alone,
+    with no appeal to a machine.  GasMetering.v reads the same record as a
+    fee schedule.  An import of the foundation chain here would be a phantom
+    import this file never uses.
 *)
 
 From Coq Require Import List Bool Lia.

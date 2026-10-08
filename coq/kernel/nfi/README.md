@@ -1,60 +1,51 @@
 # kernel/nfi
 
-The No Free Insight chain. Every certification has a price; the price is
-substrate-independent; the price grows with the ISA's strength of insight.
+No Free Insight and its pricing. The certification-system record, the
+floor for any substrate, why the toll holds on finite machines, how large the
+bill is, and what a window can and cannot price. The No Free Insight rows of
+the top-level README's [Formal Spine](../../../README.md#formal-spine) point
+into this directory.
 
-This is the load-bearing layer of the Receipt Theorem. The README's "Layer 1"
-that absorbs the toy-counter rebuttal lives here.
-
-## Files
-
-### Substrate-independent foundation
+## The floor
 
 | File | Purpose |
 |---|---|
-| `UniversalCertificationCost.v` | **`universal_nfi_any_substrate`** (claim 4), **`thiele_morphism_exists`** (claim 5), **`thiele_morphism_unique_on_traces`** |
-| `HonestCostTracking.v` | **`honest_cost_tracking_strict_restriction`**, **`free_forgery_violates_A2`**, `dishonest_forge_system` |
-| `VerificationCostSeparation.v` | **`thiele_honesty_O_1_witness`** vs **`verification_cost_gap_omega_T`** — Ω(T) free-world honesty verification |
-| `AbstractNoFI.v` | **`certification_requires_positive_mu`** (claim 3), **`no_free_certification_certified`** |
+| `UniversalCertificationCost.v` | The `CertificationSystem` record and No Free Insight for any substrate (`universal_nfi_any_substrate`); a simulating certification system over a host certifies there too (`host_represents_simulating_cert_system`) |
+| `QuantitativeNoFI.v` | From one to k: a system whose certification needs a threshold of witness pays at least that threshold (`universal_nfi_quantitative`) |
+| `HonestCostTracking.v` | A cost record without A2 admits free forgery; A2 is a strict restriction (`honest_cost_tracking_strict_restriction`, `free_forgery_violates_A2`) |
+| `CommitmentPredicateAdequacy.v` | The substitution test: which charge predicates keep the certification floor, and the exact-pricing characterization (`exact_commitment_pricing_characterization`) |
+| `CommitmentVsErasure.v` | With trust held fixed, commitment cost does not reduce to erasure cost (`commitment_cost_not_reducible_to_erasure_cost`) |
+| `StructuralUndecidability.v` | The diagonal over any substrate with a recursion theorem (`structural_shortcut_undecidable`) |
+| `DecisionTreeBound.v` | A binary decision tree has at most two to the depth leaves, and the rounded logarithm bounds |
 
-### Insight taxonomy and receipts
-
-| File | Purpose |
-|---|---|
-| `InsightTaxonomy.v` | Structural creation (free) vs. certified insight (cost ≥ 1) |
-| `RevelationRequirement.v` | Predicates: `reveals`, `cert_addr_setterb`, etc. |
-| `InformationGainToStrengthening.v` | Bridge from probe-style information gain to predicate strengthening |
-| `ReceiptCore.v`, `ReceiptIntegrity.v` | Receipt structure and integrity proofs |
-| `Certification.v`, `CertCheck.v` | Certification predicates and check semantics |
-| `NoFreeInsight.v` | General NFI theorem, parameterized form |
-| `HonestNoFI.v` | Three-level NFI scope (structural / quantitative / Landauer) |
-| `HonestNoFI_TheoremsWithoutAssumptions.v` | **`structural_entitlement_representation`** — Δμ ≥ 1 forced by feasible-set narrowing |
-| `MuLedgerQuantumBridge.v` | Bridge between μ-ledger and quantum-tier accounting |
-| `NecessityAbstract.v` | Abstract necessity of cost-bearing receipts |
-| `LandauerDerivation.v` | μ-cost / Landauer bridge (conservative positive-cost indicator) |
-| `PartitionRefinementNoFI.v` | Partition refinement is not free |
-
-### Structural advantage chain
+## Why the toll holds on finite machines
 
 | File | Purpose |
 |---|---|
-| `StructuralAdvantage.v` | Two-program advantage on factored SAT |
-| `StructuralAdvantageCertifiedShortcut.v` | MORPH_ASSERT bridge into structure-addition |
-| `StructuralAdvantageObservedShortcut.v` | Concrete factorization witness |
-| `StructuralAdvantageObservedShortcutResult.v` | Final specialization wrapper |
-| `NonAdaptiveLowerBound.v` | **`non_adaptive_factored_sat_4_k_lower_bound`** — 4ᵏ probes for non-adaptive blind solvers |
-| `ThermodynamicStructuralAdvantage.v` | **`byte_inspector_must_read_every_byte`** — Ω(N) parsing-vs-CERTIFY gap |
-| `PrimeAxiom.v` | Infrastructure for prime-related cost lemmas |
+| `PermanentCertification.v` | On a finite machine a certificate that is never revoked is switched on only by a merging step (`permanent_flip_is_not_injective`); pricing merges gives A2 (`a2_from_merging_price_and_permanence`); each premise is needed |
+| `PermanentRecordPricing.v` | The bill's size (`permanent_flips_log_bound`) and which flips a finite machine must pay for (`forced_priced_iff_merges`, `flip_merges_or_revokes`, `forced_price_without_permanent_record`) |
+| `PermanentCertificationEntropy.v` | The same bound in Shannon entropy, and heat under the named premise `landauer_heat` (`permanent_flip_heat_floor`, `known_state_flip_forces_no_heat`) |
+| `FiniteCertMachine.v` | An eight-state machine that meets both premises as theorems (`fin_a2_from_merging_price`) |
+| `PricingPhysicsTarget.v`, `PricingPhysicsAudit.v` | A ledger has no intrinsic joule value (`mu_has_no_intrinsic_joule_value`); a chosen scale is a premise (`calibrated_mu_landauer_energy`) |
 
-## Load-bearing exports cited from the README
+## Windows and narrowing
 
-`universal_nfi_any_substrate`, `thiele_morphism_exists`, `thiele_morphism_unique_on_traces`,
-`certification_requires_positive_mu`, `no_free_certification_certified`,
-`honest_cost_tracking_strict_restriction`, `free_forgery_violates_A2`,
-`thiele_honesty_O_1_witness`, `verification_cost_gap_omega_T`,
-`structural_entitlement_representation`, `non_adaptive_factored_sat_4_k_lower_bound`,
-`byte_inspector_must_read_every_byte`.
+| File | Purpose |
+|---|---|
+| `ShadowPricing.v` | No price computed from a window that confuses a certifying and a non-certifying step meets the floor without overcharging (`shadow_cannot_price_exactly`); a window showing the reading prices exactly |
+| `KnowledgeNarrowing.v` | A machine's own spread of states shrinks only at a price (`run_narrowing_priced_log`); an observer's knowledge can shrink for free (`observer_narrowing_can_be_free`); wiping the display costs (`wipe_costs_at_least_one`) |
+| `KnowledgeNarrowingIncremental.v`, `KnowledgeNarrowingMinimal.v` | The incremental reading of narrowing, and the smallest machine that narrows for free (`no_free_incremental_narrowing_below_three`) |
+
+## Cost frameworks
+
+| File | Purpose |
+|---|---|
+| `CostSemanticsComparison.v` | The ledger as a writer; A2 as the potential method (`a2_iff_nonnegative_amortized_cost`, `nfi_by_potential`) |
+| `CostFrameworks.v` | Graded monads, amortized analysis, and the flip count against the cost (`a2_and_aara_iff_exact`, `flips_le_cost`) |
+
+These files establish local correspondences, not embeddings of the cited
+cost calculi.
 
 ## Imports
 
-`foundation/`, `mu_calculus/`.
+`foundation/` for substrates and the record-carrying machine definitions.

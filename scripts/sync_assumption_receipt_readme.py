@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -24,8 +25,7 @@ def replace_exact(text: str, pattern: str, replacement: str, count: int) -> str:
 
 def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
                 distillation: Path | None = None,
-                citation: Path | None = None,
-                corrections: Path | None = None) -> None:
+                citation: Path | None = None) -> None:
     payload = json.loads(receipt.read_text(encoding="utf-8"))
     summary = payload["summary"]
     axioms = summary["unique_axioms_used"]
@@ -82,7 +82,7 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
         text = replace_exact(
             text,
             rf"`{label}` \([\d,]+\)",
-            f"`{label}` ({formatted(axioms[qualified])})",
+            f"`{label}` ({formatted(axioms.get(qualified, 0))})",
             1,
         )
 
@@ -106,6 +106,28 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
             f"Zero project-local axioms appear in any of the {theorem_count} dependency trees",
             1,
         )
+        text = replace_exact(
+            text,
+            r"from the assumption audit \([\d,]+ theorems in [\d,]+ files\)",
+            f"from the assumption audit ({theorem_count} theorems in {file_count} files)",
+            1,
+        )
+        # The release block names the report by its file hash and corpus
+        # digest, each wrapped over two lines of 32 hex digits.
+        sha = hashlib.sha256(receipt.read_bytes()).hexdigest()
+        digest = payload["corpus_digest"]
+        text = replace_exact(
+            text,
+            r"SHA-256 [0-9a-f]{32}\n\s+[0-9a-f]{32}",
+            f"SHA-256 {sha[:32]}\n          {sha[32:]}",
+            1,
+        )
+        text = replace_exact(
+            text,
+            r"corpus digest [0-9a-f]{32}\n\s+[0-9a-f]{32}",
+            f"corpus digest {digest[:32]}\n                {digest[32:]}",
+            1,
+        )
         monograph.write_text(text, encoding="utf-8")
 
     if distillation is not None:
@@ -113,10 +135,11 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
         text = replace_exact(
             text,
             r"[Aa]ssumption receipt covers [\d,]+ statements across [\d,]+ files: "
-            r"[\d,]+ closed and [\d,]+ depending on standard-library assumptions",
+            r"[\d,]+ closed under the global context and [\d,]+ depending on "
+            r"standard-library assumptions",
             f"assumption receipt covers {theorem_count} statements across "
-            f"{file_count} files: {closed} closed and {dependent} depending on "
-            f"standard-library assumptions",
+            f"{file_count} files: {closed} closed under the global context and "
+            f"{dependent} depending on standard-library assumptions",
             1,
         )
         distillation.write_text(text, encoding="utf-8")
@@ -133,9 +156,6 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
         )
         citation.write_text(text, encoding="utf-8")
 
-    # Dated audit ledgers are immutable evidence.  Receipt synchronization may
-    # update publications, never a historical round's recorded replacement.
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -148,16 +168,9 @@ def main() -> None:
     parser.add_argument("--monograph", type=Path, default=Path("monograph/monograph.tex"))
     parser.add_argument("--distillation", type=Path, default=Path("THIELE_MACHINE.txt"))
     parser.add_argument("--citation", type=Path, default=Path("CITATION.cff"))
-    parser.add_argument(
-        "--corrections",
-        type=Path,
-        default=Path(
-            "research/rounds/2026-09-30-part1-item1.4-round1-corrections.tsv"
-        ),
-    )
     args = parser.parse_args()
     synchronize(args.readme, args.receipt, args.monograph,
-                args.distillation, args.citation, args.corrections)
+                args.distillation, args.citation)
 
 
 if __name__ == "__main__":

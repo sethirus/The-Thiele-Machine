@@ -1,0 +1,560 @@
+DIGEST 16abaa0937cabc67d2b6abbafb5870f8
+FKernel.Presentation
+R2090:2093 Coq.Lists.List <> <> lib
+R2095:2099 Coq.Arith.Arith <> <> lib
+R2101:2103 Coq.micromega.Lia <> <> lib
+R2105:2108 Coq.Bool.Bool <> <> lib
+R2118:2130 Coq.Lists.List ListNotations <> mod
+R2184:2188 Undecidability.Shared.Libs.DLW.Utils.utils <> <> lib
+R2190:2192 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R2194:2196 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R2245:2250 Undecidability.MuRec.Util.recalg <> <> lib
+R2261:2282 Minimal.ThieleComplete <> <> lib
+R2297:2318 Minimal.ThieleComplete <> <> modtype
+mod 2292:2292 <> T
+R2336:2352 Minimal.Presented <> <> lib
+sec 2364:2375 <> Presentation
+var 2388:2388 Presentation M
+R2392:2408 Minimal.Presented <> presented_machine rec
+abbrev 2427:2428 <> st
+R2434:2443 Minimal.Presented T cs_state proj
+R2446:2451 Minimal.Presented <> pm_sys proj
+R2453:2453 Kernel.Presentation <> Presentation.M var
+abbrev 2473:2474 <> mv
+R2480:2489 Minimal.Presented T cs_instr proj
+R2492:2497 Minimal.Presented <> pm_sys proj
+R2499:2499 Kernel.Presentation <> Presentation.M var
+abbrev 2519:2523 <> cstep
+R2529:2537 Minimal.Presented T cs_step proj
+R2540:2545 Minimal.Presented <> pm_sys proj
+R2547:2547 Kernel.Presentation <> Presentation.M var
+abbrev 2567:2571 <> ccost
+R2577:2585 Minimal.Presented T cs_cost proj
+R2588:2593 Minimal.Presented <> pm_sys proj
+R2595:2595 Kernel.Presentation <> Presentation.M var
+abbrev 2615:2616 <> rd
+R2622:2630 Minimal.Presented T cs_cert proj
+R2633:2638 Minimal.Presented <> pm_sys proj
+R2640:2640 Kernel.Presentation <> Presentation.M var
+abbrev 2660:2663 <> next
+R2669:2675 Minimal.Presented <> pm_next proj
+R2677:2677 Kernel.Presentation <> Presentation.M var
+def 2764:2774 <> cg_next_val
+R2781:2782 Kernel.Presentation <> st abbrev
+binder 2777:2777 <> s:2
+R2787:2789 Coq.Init.Datatypes <> nat ind
+R2802:2805 Kernel.Presentation <> next abbrev
+R2807:2807 Kernel.Presentation <> s:2 var
+R2814:2817 Coq.Init.Datatypes <> None constr
+R2826:2829 Coq.Init.Datatypes <> Some constr
+R2836:2836 Coq.Init.Datatypes <> S constr
+R2839:2846 Minimal.Presented <> pm_icode proj
+R2848:2848 Kernel.Presentation <> Presentation.M var
+def 3001:3011 <> cg_read_val
+R3018:3020 Coq.Init.Datatypes <> nat ind
+binder 3014:3014 <> v:3
+R3025:3027 Coq.Init.Datatypes <> nat ind
+R3040:3046 Minimal.Presented <> pm_sdec proj
+R3048:3048 Kernel.Presentation <> Presentation.M var
+R3050:3050 Kernel.Presentation <> v:3 var
+R3061:3064 Coq.Init.Datatypes <> Some constr
+R3074:3080 Coq.Arith.PeanoNat Nat eqb def
+R3083:3090 Minimal.Presented <> pm_scode proj
+R3092:3092 Kernel.Presentation <> Presentation.M var
+R3097:3097 Kernel.Presentation <> v:3 var
+R3108:3109 Kernel.Presentation <> rd abbrev
+R3139:3142 Coq.Init.Datatypes <> None constr
+prf 3163:3178 <> cg_read_val_code
+binder 3189:3189 <> s:4
+R3218:3220 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3192:3202 Kernel.Presentation <> cg_read_val def
+R3205:3212 Minimal.Presented <> pm_scode proj
+R3214:3214 Kernel.Presentation <> Presentation.M var
+R3216:3216 Kernel.Presentation <> s:4 var
+R3224:3225 Kernel.Presentation <> rd abbrev
+R3227:3227 Kernel.Presentation <> s:4 var
+R3270:3280 Kernel.Presentation <> cg_read_val def
+R3291:3303 Minimal.Presented <> pm_sdec_scode proj
+R3306:3317 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3291:3303 Minimal.Presented <> pm_sdec_scode proj
+R3291:3303 Minimal.Presented <> pm_sdec_scode proj
+R3306:3317 Coq.Arith.PeanoNat Nat eqb_refl thm
+R3306:3317 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 3345:3360 <> cg_read_val_junk
+binder 3371:3371 <> v:5
+R3374:3374 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3402:3406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3382:3382 <> s:6
+R3397:3400 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3385:3392 Minimal.Presented <> pm_scode proj
+R3394:3394 Kernel.Presentation <> Presentation.M var
+R3396:3396 Kernel.Presentation <> s:6 var
+R3401:3401 Kernel.Presentation <> v:5 var
+R3420:3422 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3407:3417 Kernel.Presentation <> cg_read_val def
+R3419:3419 Kernel.Presentation <> v:5 var
+R3454:3464 Kernel.Presentation <> cg_read_val def
+R3477:3483 Minimal.Presented <> pm_sdec proj
+R3485:3485 Kernel.Presentation <> Presentation.M var
+R3477:3483 Minimal.Presented <> pm_sdec proj
+R3485:3485 Kernel.Presentation <> Presentation.M var
+R3529:3540 Coq.Arith.PeanoNat Nat eqb_spec thm
+R3543:3550 Minimal.Presented <> pm_scode proj
+R3552:3552 Kernel.Presentation <> Presentation.M var
+R3529:3540 Coq.Arith.PeanoNat Nat eqb_spec thm
+R3543:3550 Minimal.Presented <> pm_scode proj
+R3552:3552 Kernel.Presentation <> Presentation.M var
+rec 3614:3628 <> cg_presentation
+proj 3663:3672 <> cg_next_ra
+proj 3688:3697 <> cg_step_ra
+proj 3713:3722 <> cg_cost_ra
+proj 3738:3747 <> cg_read_ra
+proj 3763:3774 <> cg_next_spec
+proj 3851:3862 <> cg_step_spec
+proj 3970:3981 <> cg_cost_spec
+proj 4052:4063 <> cg_read_spec
+R3676:3681 Undecidability.MuRec.MuRec <> recalg ind
+R3701:3706 Undecidability.MuRec.MuRec <> recalg ind
+R3726:3731 Undecidability.MuRec.MuRec <> recalg ind
+R3751:3756 Undecidability.MuRec.MuRec <> recalg ind
+binder 3785:3785 <> s:12
+R3788:3793 Undecidability.MuRec.Util.recalg <> ra_rel def
+R3833:3843 Kernel.Presentation <> cg_next_val def
+R3845:3845 Kernel.Presentation <> s:12 var
+R3819:3822 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R3807:3814 Minimal.Presented <> pm_scode proj
+R3816:3816 Kernel.Presentation <> Presentation.M var
+R3818:3818 Kernel.Presentation <> s:12 var
+R3823:3829 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R3795:3804 Kernel.Presentation <> cg_next_ra:8 meth
+binder 3873:3873 <> s:14
+binder 3875:3875 <> i:15
+R3882:3887 Undecidability.MuRec.Util.recalg <> ra_rel def
+R3943:3950 Minimal.Presented <> pm_scode proj
+R3952:3952 Kernel.Presentation <> Presentation.M var
+R3955:3959 Kernel.Presentation <> cstep abbrev
+R3961:3961 Kernel.Presentation <> s:14 var
+R3963:3963 Kernel.Presentation <> i:15 var
+R3913:3916 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R3901:3908 Minimal.Presented <> pm_scode proj
+R3910:3910 Kernel.Presentation <> Presentation.M var
+R3912:3912 Kernel.Presentation <> s:14 var
+R3929:3932 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R3917:3924 Minimal.Presented <> pm_icode proj
+R3926:3926 Kernel.Presentation <> Presentation.M var
+R3928:3928 Kernel.Presentation <> i:15 var
+R3933:3939 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R3889:3898 Kernel.Presentation <> cg_step_ra:9 meth
+binder 3992:3992 <> i:17
+R3995:4000 Undecidability.MuRec.Util.recalg <> ra_rel def
+R4040:4044 Kernel.Presentation <> ccost abbrev
+R4046:4046 Kernel.Presentation <> i:17 var
+R4026:4029 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R4014:4021 Minimal.Presented <> pm_icode proj
+R4023:4023 Kernel.Presentation <> Presentation.M var
+R4025:4025 Kernel.Presentation <> i:17 var
+R4030:4036 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R4002:4011 Kernel.Presentation <> cg_cost_ra:10 meth
+binder 4074:4074 <> v:19
+R4077:4082 Undecidability.MuRec.Util.recalg <> ra_rel def
+R4111:4121 Kernel.Presentation <> cg_read_val def
+R4123:4123 Kernel.Presentation <> v:19 var
+R4097:4100 Undecidability.Shared.Libs.DLW.Vec.vec <> :::x_'##'_x not
+R4096:4096 Kernel.Presentation <> v:19 var
+R4101:4107 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_nil abbrev
+R4084:4093 Kernel.Presentation <> cg_read_ra:11 meth
+def 4141:4163 <> cg_computably_presented
+R4175:4183 Coq.Init.Logic <> inhabited ind
+R4185:4199 Kernel.Presentation <> cg_presentation rec
+prf 4427:4440 <> cg_mlatch_succ
+binder 4451:4452 <> s0:21
+binder 4454:4454 <> n:22
+R4476:4478 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4459:4464 Minimal.Presented <> mlatch def
+R4468:4469 Kernel.Presentation <> s0:21 var
+R4472:4472 Coq.Init.Datatypes <> S constr
+R4474:4474 Kernel.Presentation <> n:22 var
+R4466:4466 Kernel.Presentation <> Presentation.M var
+R4492:4495 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R4479:4484 Minimal.Presented <> mlatch def
+R4488:4489 Kernel.Presentation <> s0:21 var
+R4491:4491 Kernel.Presentation <> n:22 var
+R4486:4486 Kernel.Presentation <> Presentation.M var
+R4496:4497 Kernel.Presentation <> rd abbrev
+R4500:4512 Minimal.Presented <> presented_run def
+R4516:4517 Kernel.Presentation <> s0:21 var
+R4520:4520 Coq.Init.Datatypes <> S constr
+R4522:4522 Kernel.Presentation <> n:22 var
+R4514:4514 Kernel.Presentation <> Presentation.M var
+R4555:4568 Coq.Bool.Bool <> eq_true_iff_eq thm
+R4555:4568 Coq.Bool.Bool <> eq_true_iff_eq thm
+R4579:4590 Coq.Bool.Bool <> orb_true_iff thm
+R4594:4613 Minimal.Presented <> presented_mlatch_iff thm
+R4579:4590 Coq.Bool.Bool <> orb_true_iff thm
+R4579:4590 Coq.Bool.Bool <> orb_true_iff thm
+R4594:4613 Minimal.Presented <> presented_mlatch_iff thm
+R4594:4613 Minimal.Presented <> presented_mlatch_iff thm
+R4594:4613 Minimal.Presented <> presented_mlatch_iff thm
+R4594:4613 Minimal.Presented <> presented_mlatch_iff thm
+R4658:4667 Coq.Arith.PeanoNat Nat eq_dec thm
+R4672:4672 Coq.Init.Datatypes <> S constr
+R4658:4667 Coq.Arith.PeanoNat Nat eq_dec thm
+R4672:4672 Coq.Init.Datatypes <> S constr
+R4844:4844 Coq.Init.Datatypes <> S constr
+R4844:4844 Coq.Init.Datatypes <> S constr
+prf 4886:4903 <> cg_mlatch_false_rd
+binder 4914:4915 <> s0:23
+binder 4917:4917 <> n:24
+R4941:4944 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4933:4935 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4920:4925 Minimal.Presented <> mlatch def
+R4929:4930 Kernel.Presentation <> s0:23 var
+R4932:4932 Kernel.Presentation <> n:24 var
+R4927:4927 Kernel.Presentation <> Presentation.M var
+R4936:4940 Coq.Init.Datatypes <> false constr
+R4950:4952 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4945:4946 Kernel.Presentation <> rd abbrev
+R4948:4949 Kernel.Presentation <> s0:23 var
+R4953:4957 Coq.Init.Datatypes <> false constr
+R5004:5016 Coq.Bool.Bool <> orb_false_iff thm
+R5004:5016 Coq.Bool.Bool <> orb_false_iff thm
+R5004:5016 Coq.Bool.Bool <> orb_false_iff thm
+prf 5099:5117 <> cg_first_raise_succ
+binder 5128:5128 <> n:25
+binder 5130:5131 <> s0:26
+binder 5133:5133 <> i:27
+R5159:5164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5151:5153 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5138:5143 Minimal.Presented <> mlatch def
+R5147:5148 Kernel.Presentation <> s0:26 var
+R5150:5150 Kernel.Presentation <> n:25 var
+R5145:5145 Kernel.Presentation <> Presentation.M var
+R5154:5158 Coq.Init.Datatypes <> false constr
+R5201:5206 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5192:5194 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5165:5168 Kernel.Presentation <> next abbrev
+R5171:5183 Minimal.Presented <> presented_run def
+R5187:5188 Kernel.Presentation <> s0:26 var
+R5190:5190 Kernel.Presentation <> n:25 var
+R5185:5185 Kernel.Presentation <> Presentation.M var
+R5195:5198 Coq.Init.Datatypes <> Some constr
+R5200:5200 Kernel.Presentation <> i:27 var
+R5249:5254 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5242:5244 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5207:5208 Kernel.Presentation <> rd abbrev
+R5211:5215 Kernel.Presentation <> cstep abbrev
+R5218:5230 Minimal.Presented <> presented_run def
+R5234:5235 Kernel.Presentation <> s0:26 var
+R5237:5237 Kernel.Presentation <> n:25 var
+R5232:5232 Kernel.Presentation <> Presentation.M var
+R5240:5240 Kernel.Presentation <> i:27 var
+R5245:5248 Coq.Init.Datatypes <> true constr
+R5277:5279 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5255:5265 Minimal.Presented <> first_raise def
+R5269:5270 Kernel.Presentation <> s0:26 var
+R5273:5273 Coq.Init.Datatypes <> S constr
+R5275:5275 Kernel.Presentation <> n:25 var
+R5267:5267 Kernel.Presentation <> Presentation.M var
+R5280:5283 Coq.Init.Datatypes <> Some constr
+R5285:5285 Kernel.Presentation <> i:27 var
+R5369:5379 Coq.Bool.Bool <> orb_false_r thm
+R5369:5379 Coq.Bool.Bool <> orb_false_r thm
+R5369:5379 Coq.Bool.Bool <> orb_false_r thm
+R5472:5484 Coq.Bool.Bool <> orb_false_iff thm
+R5472:5484 Coq.Bool.Bool <> orb_false_iff thm
+R5535:5538 Kernel.Presentation <> next abbrev
+R5535:5538 Kernel.Presentation <> next abbrev
+R5620:5622 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5605:5606 Kernel.Presentation <> rd abbrev
+R5609:5613 Kernel.Presentation <> cstep abbrev
+R5623:5627 Coq.Init.Datatypes <> false constr
+R5641:5658 Kernel.Presentation <> cg_mlatch_false_rd thm
+R5620:5622 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5605:5606 Kernel.Presentation <> rd abbrev
+R5609:5613 Kernel.Presentation <> cstep abbrev
+R5623:5627 Coq.Init.Datatypes <> false constr
+R5641:5658 Kernel.Presentation <> cg_mlatch_false_rd thm
+R5684:5694 Minimal.Presented <> first_raise def
+R5702:5702 Coq.Init.Datatypes <> S constr
+R5705:5705 Coq.Init.Datatypes <> S constr
+R5696:5696 Kernel.Presentation <> Presentation.M var
+R5729:5730 Kernel.Presentation <> rd abbrev
+R5765:5768 Kernel.Presentation <> next abbrev
+R5789:5792 Coq.Init.Datatypes <> None constr
+R5797:5800 Coq.Init.Datatypes <> None constr
+R5813:5816 Coq.Init.Datatypes <> Some constr
+R5826:5827 Kernel.Presentation <> rd abbrev
+R5830:5834 Kernel.Presentation <> cstep abbrev
+R5859:5869 Minimal.Presented <> first_raise def
+R5874:5878 Kernel.Presentation <> cstep abbrev
+R5887:5887 Coq.Init.Datatypes <> S constr
+R5871:5871 Kernel.Presentation <> Presentation.M var
+R5847:5850 Coq.Init.Datatypes <> Some constr
+R5740:5743 Coq.Init.Datatypes <> None constr
+R5684:5694 Minimal.Presented <> first_raise def
+R5702:5702 Coq.Init.Datatypes <> S constr
+R5705:5705 Coq.Init.Datatypes <> S constr
+R5696:5696 Kernel.Presentation <> Presentation.M var
+R5729:5730 Kernel.Presentation <> rd abbrev
+R5765:5768 Kernel.Presentation <> next abbrev
+R5789:5792 Coq.Init.Datatypes <> None constr
+R5797:5800 Coq.Init.Datatypes <> None constr
+R5813:5816 Coq.Init.Datatypes <> Some constr
+R5826:5827 Kernel.Presentation <> rd abbrev
+R5830:5834 Kernel.Presentation <> cstep abbrev
+R5859:5869 Minimal.Presented <> first_raise def
+R5874:5878 Kernel.Presentation <> cstep abbrev
+R5887:5887 Coq.Init.Datatypes <> S constr
+R5871:5871 Kernel.Presentation <> Presentation.M var
+R5847:5850 Coq.Init.Datatypes <> Some constr
+R5740:5743 Coq.Init.Datatypes <> None constr
+def 6179:6188 <> cg_chk_pay
+R6197:6200 Coq.Init.Datatypes <> bool ind
+binder 6191:6191 <> l:28
+binder 6193:6193 <> b:29
+R6208:6210 Coq.Init.Datatypes <> nat ind
+binder 6204:6204 <> c:30
+R6215:6217 Coq.Init.Datatypes <> nat ind
+R6233:6236 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6227:6230 Coq.Init.Datatypes <> negb def
+R6232:6232 Kernel.Presentation <> l:28 var
+R6237:6237 Kernel.Presentation <> b:29 var
+R6261:6261 Kernel.Presentation <> c:30 var
+R6245:6248 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6254:6254 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6250:6252 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6249:6249 Kernel.Presentation <> c:30 var
+prf 6273:6287 <> cg_account_step
+binder 6298:6299 <> s0:31
+binder 6301:6301 <> n:32
+binder 6303:6303 <> i:33
+R6344:6349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6335:6337 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6308:6311 Kernel.Presentation <> next abbrev
+R6314:6326 Minimal.Presented <> presented_run def
+R6330:6331 Kernel.Presentation <> s0:31 var
+R6333:6333 Kernel.Presentation <> n:32 var
+R6328:6328 Kernel.Presentation <> Presentation.M var
+R6338:6341 Coq.Init.Datatypes <> Some constr
+R6343:6343 Kernel.Presentation <> i:33 var
+R6407:6412 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6374:6376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6350:6362 Minimal.Presented <> presented_run def
+R6366:6367 Kernel.Presentation <> s0:31 var
+R6370:6370 Coq.Init.Datatypes <> S constr
+R6372:6372 Kernel.Presentation <> n:32 var
+R6364:6364 Kernel.Presentation <> Presentation.M var
+R6377:6381 Kernel.Presentation <> cstep abbrev
+R6384:6396 Minimal.Presented <> presented_run def
+R6400:6401 Kernel.Presentation <> s0:31 var
+R6403:6403 Kernel.Presentation <> n:32 var
+R6398:6398 Kernel.Presentation <> Presentation.M var
+R6406:6406 Kernel.Presentation <> i:33 var
+R6485:6490 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6430:6432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6413:6418 Minimal.Presented <> mlatch def
+R6422:6423 Kernel.Presentation <> s0:31 var
+R6426:6426 Coq.Init.Datatypes <> S constr
+R6428:6428 Kernel.Presentation <> n:32 var
+R6420:6420 Kernel.Presentation <> Presentation.M var
+R6446:6449 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R6433:6438 Minimal.Presented <> mlatch def
+R6442:6443 Kernel.Presentation <> s0:31 var
+R6445:6445 Kernel.Presentation <> n:32 var
+R6440:6440 Kernel.Presentation <> Presentation.M var
+R6450:6451 Kernel.Presentation <> rd abbrev
+R6454:6458 Kernel.Presentation <> cstep abbrev
+R6461:6473 Minimal.Presented <> presented_run def
+R6477:6478 Kernel.Presentation <> s0:31 var
+R6480:6480 Kernel.Presentation <> n:32 var
+R6475:6475 Kernel.Presentation <> Presentation.M var
+R6483:6483 Kernel.Presentation <> i:33 var
+R6532:6538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6509:6511 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6491:6497 Minimal.Presented <> mledger def
+R6501:6502 Kernel.Presentation <> s0:31 var
+R6505:6505 Coq.Init.Datatypes <> S constr
+R6507:6507 Kernel.Presentation <> n:32 var
+R6499:6499 Kernel.Presentation <> Presentation.M var
+R6512:6520 Minimal.Presented <> surcharge def
+R6524:6525 Kernel.Presentation <> s0:31 var
+R6528:6528 Coq.Init.Datatypes <> S constr
+R6530:6530 Kernel.Presentation <> n:32 var
+R6522:6522 Kernel.Presentation <> Presentation.M var
+R6572:6578 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6553:6555 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6539:6545 Minimal.Presented <> mledger def
+R6549:6550 Kernel.Presentation <> s0:31 var
+R6552:6552 Kernel.Presentation <> n:32 var
+R6547:6547 Kernel.Presentation <> Presentation.M var
+R6556:6564 Minimal.Presented <> surcharge def
+R6568:6569 Kernel.Presentation <> s0:31 var
+R6571:6571 Kernel.Presentation <> n:32 var
+R6566:6566 Kernel.Presentation <> Presentation.M var
+R6579:6588 Kernel.Presentation <> cg_chk_pay def
+R6591:6596 Minimal.Presented <> mlatch def
+R6600:6601 Kernel.Presentation <> s0:31 var
+R6603:6603 Kernel.Presentation <> n:32 var
+R6598:6598 Kernel.Presentation <> Presentation.M var
+R6607:6608 Kernel.Presentation <> rd abbrev
+R6611:6615 Kernel.Presentation <> cstep abbrev
+R6618:6630 Minimal.Presented <> presented_run def
+R6634:6635 Kernel.Presentation <> s0:31 var
+R6637:6637 Kernel.Presentation <> n:32 var
+R6632:6632 Kernel.Presentation <> Presentation.M var
+R6640:6640 Kernel.Presentation <> i:33 var
+R6645:6649 Kernel.Presentation <> ccost abbrev
+R6651:6651 Kernel.Presentation <> i:33 var
+R6721:6723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6697:6709 Minimal.Presented <> presented_run def
+R6717:6717 Coq.Init.Datatypes <> S constr
+R6711:6711 Kernel.Presentation <> Presentation.M var
+R6724:6728 Kernel.Presentation <> cstep abbrev
+R6731:6743 Minimal.Presented <> presented_run def
+R6745:6745 Kernel.Presentation <> Presentation.M var
+R6772:6789 Minimal.Presented <> presented_run_succ thm
+R6721:6723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6697:6709 Minimal.Presented <> presented_run def
+R6717:6717 Coq.Init.Datatypes <> S constr
+R6711:6711 Kernel.Presentation <> Presentation.M var
+R6724:6728 Kernel.Presentation <> cstep abbrev
+R6731:6743 Minimal.Presented <> presented_run def
+R6745:6745 Kernel.Presentation <> Presentation.M var
+R6772:6789 Minimal.Presented <> presented_run_succ thm
+R6772:6789 Minimal.Presented <> presented_run_succ thm
+R6842:6844 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6825:6830 Minimal.Presented <> mlatch def
+R6838:6838 Coq.Init.Datatypes <> S constr
+R6832:6832 Kernel.Presentation <> Presentation.M var
+R6858:6861 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R6845:6850 Minimal.Presented <> mlatch def
+R6852:6852 Kernel.Presentation <> Presentation.M var
+R6862:6863 Kernel.Presentation <> rd abbrev
+R6866:6870 Kernel.Presentation <> cstep abbrev
+R6873:6885 Minimal.Presented <> presented_run def
+R6887:6887 Kernel.Presentation <> Presentation.M var
+R6915:6928 Kernel.Presentation <> cg_mlatch_succ thm
+R6842:6844 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6825:6830 Minimal.Presented <> mlatch def
+R6838:6838 Coq.Init.Datatypes <> S constr
+R6832:6832 Kernel.Presentation <> Presentation.M var
+R6858:6861 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R6845:6850 Minimal.Presented <> mlatch def
+R6852:6852 Kernel.Presentation <> Presentation.M var
+R6862:6863 Kernel.Presentation <> rd abbrev
+R6866:6870 Kernel.Presentation <> cstep abbrev
+R6873:6885 Minimal.Presented <> presented_run def
+R6887:6887 Kernel.Presentation <> Presentation.M var
+R6915:6928 Kernel.Presentation <> cg_mlatch_succ thm
+R6915:6928 Kernel.Presentation <> cg_mlatch_succ thm
+R7003:7014 Minimal.Presented <> mledger_succ thm
+R7003:7014 Minimal.Presented <> mledger_succ thm
+R7003:7014 Minimal.Presented <> mledger_succ thm
+R7028:7037 Kernel.Presentation <> cg_chk_pay def
+R7052:7057 Minimal.Presented <> mlatch def
+R7059:7059 Kernel.Presentation <> Presentation.M var
+R7052:7057 Minimal.Presented <> mlatch def
+R7059:7059 Kernel.Presentation <> Presentation.M var
+R7088:7113 Minimal.Presented <> presented_surcharge_stable thm
+R7123:7123 Coq.Init.Datatypes <> S constr
+R7115:7115 Kernel.Presentation <> Presentation.M var
+R7088:7113 Minimal.Presented <> presented_surcharge_stable thm
+R7123:7123 Coq.Init.Datatypes <> S constr
+R7115:7115 Kernel.Presentation <> Presentation.M var
+R7088:7113 Minimal.Presented <> presented_surcharge_stable thm
+R7123:7123 Coq.Init.Datatypes <> S constr
+R7115:7115 Kernel.Presentation <> Presentation.M var
+R7196:7198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7180:7188 Minimal.Presented <> surcharge def
+R7190:7190 Kernel.Presentation <> Presentation.M var
+R7213:7221 Minimal.Presented <> surcharge def
+R7196:7198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7180:7188 Minimal.Presented <> surcharge def
+R7190:7190 Kernel.Presentation <> Presentation.M var
+R7280:7281 Kernel.Presentation <> rd abbrev
+R7284:7288 Kernel.Presentation <> cstep abbrev
+R7291:7303 Minimal.Presented <> presented_run def
+R7305:7305 Kernel.Presentation <> Presentation.M var
+R7280:7281 Kernel.Presentation <> rd abbrev
+R7284:7288 Kernel.Presentation <> cstep abbrev
+R7291:7303 Minimal.Presented <> presented_run def
+R7305:7305 Kernel.Presentation <> Presentation.M var
+R7371:7373 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7351:7359 Minimal.Presented <> surcharge def
+R7367:7367 Coq.Init.Datatypes <> S constr
+R7361:7361 Kernel.Presentation <> Presentation.M var
+R7375:7377 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7378:7382 Kernel.Presentation <> ccost abbrev
+R7371:7373 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7351:7359 Minimal.Presented <> surcharge def
+R7367:7367 Coq.Init.Datatypes <> S constr
+R7361:7361 Kernel.Presentation <> Presentation.M var
+R7375:7377 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7378:7382 Kernel.Presentation <> ccost abbrev
+R7403:7411 Minimal.Presented <> surcharge def
+R7414:7423 Minimal.Presented <> raise_cost def
+R7435:7453 Kernel.Presentation <> cg_first_raise_succ thm
+R7435:7453 Kernel.Presentation <> cg_first_raise_succ thm
+R7435:7453 Kernel.Presentation <> cg_first_raise_succ thm
+R7580:7582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7560:7568 Minimal.Presented <> surcharge def
+R7576:7576 Coq.Init.Datatypes <> S constr
+R7570:7570 Kernel.Presentation <> Presentation.M var
+R7605:7613 Minimal.Presented <> surcharge def
+R7580:7582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7560:7568 Minimal.Presented <> surcharge def
+R7576:7576 Coq.Init.Datatypes <> S constr
+R7570:7570 Kernel.Presentation <> Presentation.M var
+prf 7689:7704 <> cg_account_start
+binder 7715:7716 <> s0:34
+R7742:7747 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7734:7736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7721:7726 Minimal.Presented <> mlatch def
+R7730:7731 Kernel.Presentation <> s0:34 var
+R7728:7728 Kernel.Presentation <> Presentation.M var
+R7737:7738 Kernel.Presentation <> rd abbrev
+R7740:7741 Kernel.Presentation <> s0:34 var
+R7781:7783 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7762:7764 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7748:7754 Minimal.Presented <> mledger def
+R7758:7759 Kernel.Presentation <> s0:34 var
+R7756:7756 Kernel.Presentation <> Presentation.M var
+R7765:7773 Minimal.Presented <> surcharge def
+R7777:7778 Kernel.Presentation <> s0:34 var
+R7775:7775 Kernel.Presentation <> Presentation.M var
+R7784:7793 Kernel.Presentation <> cg_chk_pay def
+R7795:7799 Coq.Init.Datatypes <> false constr
+R7802:7803 Kernel.Presentation <> rd abbrev
+R7805:7806 Kernel.Presentation <> s0:34 var
+R7847:7857 Coq.Bool.Bool <> orb_false_r thm
+R7847:7857 Coq.Bool.Bool <> orb_false_r thm
+R7847:7857 Coq.Bool.Bool <> orb_false_r thm
+R7893:7901 Minimal.Presented <> surcharge def
+R7904:7913 Minimal.Presented <> raise_cost def
+R7916:7925 Kernel.Presentation <> cg_chk_pay def
+R7947:7948 Kernel.Presentation <> rd abbrev
+R7947:7948 Kernel.Presentation <> rd abbrev
+R7978:7989 Kernel.Presentation Presentation <> sec
+R8003:8012 Kernel.Presentation <> cg_next_ra proj
+R8003:8012 Kernel.Presentation <> cg_next_ra proj
+R8029:8038 Kernel.Presentation <> cg_step_ra proj
+R8029:8038 Kernel.Presentation <> cg_step_ra proj
+R8055:8064 Kernel.Presentation <> cg_cost_ra proj
+R8055:8064 Kernel.Presentation <> cg_cost_ra proj
+R8081:8090 Kernel.Presentation <> cg_read_ra proj
+R8081:8090 Kernel.Presentation <> cg_read_ra proj
+R8107:8118 Kernel.Presentation <> cg_next_spec proj
+R8107:8118 Kernel.Presentation <> cg_next_spec proj
+R8135:8146 Kernel.Presentation <> cg_step_spec proj
+R8135:8146 Kernel.Presentation <> cg_step_spec proj
+R8163:8174 Kernel.Presentation <> cg_cost_spec proj
+R8163:8174 Kernel.Presentation <> cg_cost_spec proj
+R8191:8202 Kernel.Presentation <> cg_read_spec proj
+R8191:8202 Kernel.Presentation <> cg_read_spec proj
+R8228:8243 Kernel.Presentation <> cg_read_val_code thm
+R8264:8279 Kernel.Presentation <> cg_read_val_junk thm
+R8300:8313 Kernel.Presentation <> cg_mlatch_succ thm
+R8334:8351 Kernel.Presentation <> cg_mlatch_false_rd thm
+R8372:8390 Kernel.Presentation <> cg_first_raise_succ thm
+R8411:8425 Kernel.Presentation <> cg_account_step thm
+R8446:8461 Kernel.Presentation <> cg_account_start thm

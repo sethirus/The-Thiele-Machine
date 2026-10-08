@@ -1,0 +1,147 @@
+DIGEST 8ce0b3899878b3ce2a47db2d7faeba09
+FUndecidability.L.Datatypes.LProd
+R37:37 Undecidability.L.L <> <> lib
+R39:54 Undecidability.L.Tactics.LTactics <> <> lib
+R56:64 Undecidability.L.Tactics.GenEncode <> <> lib
+R115:119 Undecidability.L.Datatypes.LBool <> <> lib
+R160:175 Undecidability.L.Functions.EqBool <> <> lib
+R177:185 Undecidability.L.Tactics.GenEncode <> <> lib
+sec 273:278 <> Fix_XY
+var 293:293 Fix_XY X
+var 295:295 Fix_XY Y
+R324:332 Undecidability.L.Tactics.Extract <> encodable class
+R334:334 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+binder 317:320 <> intX:3
+R356:364 Undecidability.L.Tactics.Extract <> encodable class
+R366:366 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+binder 349:352 <> intY:4
+R386:396 Undecidability.L.Tactics.GenEncode <> tmGenEncode def
+R411:413 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R410:410 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R414:414 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+inst 482:496 <> encInj_prod_enc
+R503:508 Undecidability.L.Tactics.Computable <> encInj class
+R510:513 Undecidability.L.Datatypes.LProd <> Fix_XY.intX var
+binder 499:499 <> H:5
+R522:527 Undecidability.L.Tactics.Computable <> encInj class
+R529:532 Undecidability.L.Datatypes.LProd <> Fix_XY.intY var
+binder 517:518 <> H':6
+R537:542 Undecidability.L.Tactics.Computable <> encInj class
+R545:562 Undecidability.L.Datatypes.LProd <> encodable_prod_enc def
+inst 661:669 <> term_pair
+R673:682 Undecidability.L.Tactics.Computable <> computable class
+R686:689 Coq.Init.Datatypes <> pair constr
+R691:691 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R693:693 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+inst 757:764 <> term_fst
+R768:777 Undecidability.L.Tactics.Computable <> computable class
+R781:783 Coq.Init.Datatypes <> fst def
+R785:785 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R787:787 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+inst 839:846 <> term_snd
+R850:859 Undecidability.L.Tactics.Computable <> computable class
+R863:865 Coq.Init.Datatypes <> snd def
+R867:867 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R869:869 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+def 916:923 <> prod_eqb
+binder 925:925 <> f:7
+binder 927:927 <> g:8
+R936:936 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R935:935 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R937:937 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+binder 930:930 <> a:9
+binder 932:932 <> b:10
+R960:960 Undecidability.L.Datatypes.LProd <> a:9 var
+binder 951:952 <> x1:11
+binder 954:955 <> y1:12
+R983:983 Undecidability.L.Datatypes.LProd <> b:10 var
+binder 974:975 <> x2:13
+binder 977:978 <> y2:14
+R992:995 Coq.Init.Datatypes <> andb def
+R1008:1008 Undecidability.L.Datatypes.LProd <> g:8 var
+R1010:1011 Undecidability.L.Datatypes.LProd <> y1:12 var
+R1013:1014 Undecidability.L.Datatypes.LProd <> y2:14 var
+R998:998 Undecidability.L.Datatypes.LProd <> f:7 var
+R1000:1001 Undecidability.L.Datatypes.LProd <> x1:11 var
+R1003:1004 Undecidability.L.Datatypes.LProd <> x2:13 var
+prf 1027:1039 <> prod_eqb_spec
+binder 1041:1041 <> f:15
+binder 1043:1043 <> g:16
+R1050:1050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1099:1107 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1067:1067 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+binder 1059:1060 <> x1:17
+binder 1062:1063 <> x2:18
+R1072:1078 Coq.Bool.Bool <> reflect ind
+R1083:1085 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1081:1082 Undecidability.L.Datatypes.LProd <> x1:17 var
+R1086:1087 Undecidability.L.Datatypes.LProd <> x2:18 var
+R1091:1091 Undecidability.L.Datatypes.LProd <> f:15 var
+R1093:1094 Undecidability.L.Datatypes.LProd <> x1:17 var
+R1096:1097 Undecidability.L.Datatypes.LProd <> x2:18 var
+R1108:1108 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1157:1165 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1125:1125 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+binder 1117:1118 <> y1:19
+binder 1120:1121 <> y2:20
+R1130:1136 Coq.Bool.Bool <> reflect ind
+R1141:1143 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1139:1140 Undecidability.L.Datatypes.LProd <> y1:19 var
+R1144:1145 Undecidability.L.Datatypes.LProd <> y2:20 var
+R1149:1149 Undecidability.L.Datatypes.LProd <> g:16 var
+R1151:1152 Undecidability.L.Datatypes.LProd <> y1:19 var
+R1154:1155 Undecidability.L.Datatypes.LProd <> y2:20 var
+binder 1173:1173 <> x:21
+binder 1175:1175 <> y:22
+R1178:1184 Coq.Bool.Bool <> reflect ind
+R1188:1188 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1187:1187 Undecidability.L.Datatypes.LProd <> x:21 var
+R1189:1189 Undecidability.L.Datatypes.LProd <> y:22 var
+R1193:1200 Undecidability.L.Datatypes.LProd <> prod_eqb def
+R1208:1208 Undecidability.L.Datatypes.LProd <> y:22 var
+R1206:1206 Undecidability.L.Datatypes.LProd <> x:21 var
+R1204:1204 Undecidability.L.Datatypes.LProd <> g:16 var
+R1202:1202 Undecidability.L.Datatypes.LProd <> f:15 var
+inst 1395:1401 <> eqbProd
+binder 1403:1403 <> f:23
+binder 1405:1405 <> g:24
+R1409:1416 Undecidability.L.Functions.EqBool <> eqbClass class
+R1422:1422 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R1425:1425 Undecidability.L.Datatypes.LProd <> f:23 var
+binder 1409:1425 <> H:25
+R1430:1437 Undecidability.L.Functions.EqBool <> eqbClass class
+R1443:1443 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+R1446:1446 Undecidability.L.Datatypes.LProd <> g:24 var
+binder 1430:1446 <> H0:26
+R1454:1461 Undecidability.L.Functions.EqBool <> eqbClass class
+R1464:1471 Undecidability.L.Datatypes.LProd <> prod_eqb def
+R1475:1475 Undecidability.L.Datatypes.LProd <> g:24 var
+R1473:1473 Undecidability.L.Datatypes.LProd <> f:23 var
+R1511:1523 Undecidability.L.Datatypes.LProd <> prod_eqb_spec thm
+R1511:1523 Undecidability.L.Datatypes.LProd <> prod_eqb_spec thm
+R1542:1549 Undecidability.L.Functions.EqBool <> eqb_spec thm
+R1542:1549 Undecidability.L.Functions.EqBool <> eqb_spec thm
+R1542:1549 Undecidability.L.Functions.EqBool <> eqb_spec thm
+inst 1581:1592 <> eqbComp_Prod
+R1596:1602 Undecidability.L.Functions.EqBool <> eqbComp class
+R1604:1604 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R1610:1613 Undecidability.L.Datatypes.LProd <> Fix_XY.intX var
+binder 1596:1614 <> H0:29
+R1619:1625 Undecidability.L.Functions.EqBool <> eqbComp class
+R1627:1627 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+R1633:1636 Undecidability.L.Datatypes.LProd <> Fix_XY.intY var
+binder 1619:1637 <> H2:32
+R1645:1651 Undecidability.L.Functions.EqBool <> eqbComp class
+R1655:1655 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1654:1654 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R1656:1656 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+R1693:1700 Undecidability.L.Datatypes.LProd <> prod_eqb def
+R1727:1729 Undecidability.L.Functions.EqBool <> eqb def
+R1735:1735 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R1727:1729 Undecidability.L.Functions.EqBool <> eqb def
+R1735:1735 Undecidability.L.Datatypes.LProd <> Fix_XY.X var
+R1764:1766 Undecidability.L.Functions.EqBool <> eqb def
+R1772:1772 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+R1764:1766 Undecidability.L.Functions.EqBool <> eqb def
+R1772:1772 Undecidability.L.Datatypes.LProd <> Fix_XY.Y var
+R1804:1809 Undecidability.L.Datatypes.LProd Fix_XY <> sec

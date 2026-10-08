@@ -1,7 +1,7 @@
-(** Closed outcomes for the frozen finite-weight probabilistic targets. *)
+(** Proved outcomes for the finite-weight probabilistic targets. *)
 
 (* SCOPE NOTE: standalone proof scope. These finite-weight counterexamples
-   are independent of the Thiele VM execution semantics. *)
+   are independent of any machine's execution semantics. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.

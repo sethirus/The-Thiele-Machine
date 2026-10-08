@@ -1,1123 +1,1066 @@
-DIGEST 8853ff79dc1b0598d6797d8ce545569e
+DIGEST e53ebbad53ded0f2954ea4bd53fa4474
 FKernel.GenRealizability
-R1159:1163 Coq.Reals.Reals <> <> lib
-R1165:1167 Coq.micromega.Lra <> <> lib
-R1169:1171 Coq.micromega.Lia <> <> lib
-R1198:1200 Coq.Vectors.Fin <> <> lib
-R1227:1231 Coq.Arith.Arith <> <> lib
-R1291:1314 Coq.Logic.FunctionalExtensionality <> <> lib
-R1404:1418 Kernel.ConstructivePSD <> <> lib
-R1448:1463 Kernel.MinorConstraints <> <> lib
-R1532:1546 Kernel.NPAMomentMatrix <> <> lib
-R1628:1648 Kernel.MuLedgerQuantumBridge <> <> lib
-R1717:1735 Kernel.QuantumPartitionPSD <> <> lib
-R1804:1826 Kernel.QuantumPartitionPSD_1AB <> <> lib
-R1914:1920 Kernel.VMState <> <> lib
-R1922:1927 Kernel.VMStep <> <> lib
-R1929:1943 Kernel.SimulationProof <> <> lib
-def 2172:2177 <> quad_n
-R2186:2188 Coq.Init.Datatypes <> nat ind
-binder 2180:2182 <> top:1
-R2199:2202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2196:2198 Coq.Init.Datatypes <> nat ind
-R2206:2209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2203:2205 Coq.Init.Datatypes <> nat ind
-R2210:2219 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 2192:2192 <> M:2
-R2230:2233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2227:2229 Coq.Init.Datatypes <> nat ind
-R2234:2243 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 2223:2223 <> v:3
-R2250:2259 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-R2266:2270 Kernel.MinorConstraints <> sum_n def
-R2272:2274 Kernel.GenRealizability <> top:1 var
-binder 2281:2281 <> i:4
-R2286:2290 Kernel.MinorConstraints <> sum_n def
-R2292:2294 Kernel.GenRealizability <> top:1 var
-binder 2301:2301 <> j:5
-R2317:2319 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2309:2311 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2306:2306 Kernel.GenRealizability <> v:3 var
-R2308:2308 Kernel.GenRealizability <> i:4 var
-R2312:2312 Kernel.GenRealizability <> M:2 var
-R2316:2316 Kernel.GenRealizability <> j:5 var
-R2314:2314 Kernel.GenRealizability <> i:4 var
-R2320:2320 Kernel.GenRealizability <> v:3 var
-R2322:2322 Kernel.GenRealizability <> j:5 var
-def 2482:2486 <> psd_n
-R2495:2497 Coq.Init.Datatypes <> nat ind
-binder 2489:2491 <> top:6
-R2508:2511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2505:2507 Coq.Init.Datatypes <> nat ind
-R2515:2518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2512:2514 Coq.Init.Datatypes <> nat ind
-R2519:2528 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 2501:2501 <> M:7
-R2557:2560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2554:2556 Coq.Init.Datatypes <> nat ind
-R2561:2570 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 2550:2550 <> v:8
-R2587:2590 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R2573:2578 Kernel.GenRealizability <> quad_n def
-R2580:2582 Kernel.GenRealizability <> top:6 var
-R2584:2584 Kernel.GenRealizability <> M:7 var
-R2586:2586 Kernel.GenRealizability <> v:8 var
-def 2684:2694 <> vec5_to_nat
-R2705:2708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2701:2704 Kernel.ConstructivePSD <> Fin5 abbrev
-R2709:2718 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 2697:2697 <> v:9
-R2726:2729 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2723:2725 Coq.Init.Datatypes <> nat ind
-R2730:2739 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 2750:2750 <> n:10
-R2761:2761 Kernel.GenRealizability <> n:10 var
+R1233:1237 Coq.Reals.Reals <> <> lib
+R1239:1241 Coq.micromega.Lra <> <> lib
+R1243:1245 Coq.micromega.Lia <> <> lib
+R1272:1274 Coq.Vectors.Fin <> <> lib
+R1301:1305 Coq.Arith.Arith <> <> lib
+R1365:1388 Coq.Logic.FunctionalExtensionality <> <> lib
+R1478:1492 Kernel.ConstructivePSD <> <> lib
+R1522:1537 Kernel.MinorConstraints <> <> lib
+R1606:1620 Kernel.NPAMomentMatrix <> <> lib
+R1702:1716 Kernel.CHSHColumnCheck <> <> lib
+R1818:1840 Kernel.QuantumPartitionPSD_1AB <> <> lib
+def 2050:2055 <> quad_n
+R2064:2066 Coq.Init.Datatypes <> nat ind
+binder 2058:2060 <> top:1
+R2077:2080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2074:2076 Coq.Init.Datatypes <> nat ind
+R2084:2087 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2081:2083 Coq.Init.Datatypes <> nat ind
+R2088:2097 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 2070:2070 <> M:2
+R2108:2111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2105:2107 Coq.Init.Datatypes <> nat ind
+R2112:2121 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 2101:2101 <> v:3
+R2128:2137 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+R2144:2148 Kernel.MinorConstraints <> sum_n def
+R2150:2152 Kernel.GenRealizability <> top:1 var
+binder 2159:2159 <> i:4
+R2164:2168 Kernel.MinorConstraints <> sum_n def
+R2170:2172 Kernel.GenRealizability <> top:1 var
+binder 2179:2179 <> j:5
+R2195:2197 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2187:2189 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2184:2184 Kernel.GenRealizability <> v:3 var
+R2186:2186 Kernel.GenRealizability <> i:4 var
+R2190:2190 Kernel.GenRealizability <> M:2 var
+R2194:2194 Kernel.GenRealizability <> j:5 var
+R2192:2192 Kernel.GenRealizability <> i:4 var
+R2198:2198 Kernel.GenRealizability <> v:3 var
+R2200:2200 Kernel.GenRealizability <> j:5 var
+def 2360:2364 <> psd_n
+R2373:2375 Coq.Init.Datatypes <> nat ind
+binder 2367:2369 <> top:6
+R2386:2389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2383:2385 Coq.Init.Datatypes <> nat ind
+R2393:2396 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2390:2392 Coq.Init.Datatypes <> nat ind
+R2397:2406 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 2379:2379 <> M:7
+R2435:2438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2432:2434 Coq.Init.Datatypes <> nat ind
+R2439:2448 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 2428:2428 <> v:8
+R2465:2468 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R2451:2456 Kernel.GenRealizability <> quad_n def
+R2458:2460 Kernel.GenRealizability <> top:6 var
+R2462:2462 Kernel.GenRealizability <> M:7 var
+R2464:2464 Kernel.GenRealizability <> v:8 var
+def 2562:2572 <> vec5_to_nat
+R2583:2586 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2579:2582 Kernel.ConstructivePSD <> Fin5 abbrev
+R2587:2596 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 2575:2575 <> v:9
+R2604:2607 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2601:2603 Coq.Init.Datatypes <> nat ind
+R2608:2617 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 2628:2628 <> n:10
+R2639:2639 Kernel.GenRealizability <> n:10 var
+R2664:2664 Kernel.GenRealizability <> v:9 var
+R2666:2667 Coq.Vectors.Fin <> F1 constr
+R2687:2687 Kernel.GenRealizability <> v:9 var
+R2690:2691 Coq.Vectors.Fin <> FS constr
+R2693:2694 Coq.Vectors.Fin <> F1 constr
+R2715:2715 Kernel.GenRealizability <> v:9 var
+R2718:2719 Coq.Vectors.Fin <> FS constr
+R2722:2723 Coq.Vectors.Fin <> FS constr
+R2725:2726 Coq.Vectors.Fin <> F1 constr
+R2748:2748 Kernel.GenRealizability <> v:9 var
+R2751:2752 Coq.Vectors.Fin <> FS constr
+R2755:2756 Coq.Vectors.Fin <> FS constr
+R2759:2760 Coq.Vectors.Fin <> FS constr
+R2762:2763 Coq.Vectors.Fin <> F1 constr
 R2786:2786 Kernel.GenRealizability <> v:9 var
-R2788:2789 Coq.Vectors.Fin <> F1 constr
-R2809:2809 Kernel.GenRealizability <> v:9 var
-R2812:2813 Coq.Vectors.Fin <> FS constr
-R2815:2816 Coq.Vectors.Fin <> F1 constr
-R2837:2837 Kernel.GenRealizability <> v:9 var
-R2840:2841 Coq.Vectors.Fin <> FS constr
-R2844:2845 Coq.Vectors.Fin <> FS constr
-R2847:2848 Coq.Vectors.Fin <> F1 constr
-R2870:2870 Kernel.GenRealizability <> v:9 var
-R2873:2874 Coq.Vectors.Fin <> FS constr
-R2877:2878 Coq.Vectors.Fin <> FS constr
-R2881:2882 Coq.Vectors.Fin <> FS constr
-R2884:2885 Coq.Vectors.Fin <> F1 constr
-R2908:2908 Kernel.GenRealizability <> v:9 var
-R2911:2912 Coq.Vectors.Fin <> FS constr
-R2915:2916 Coq.Vectors.Fin <> FS constr
-R2919:2920 Coq.Vectors.Fin <> FS constr
-R2923:2924 Coq.Vectors.Fin <> FS constr
-R2926:2927 Coq.Vectors.Fin <> F1 constr
-def 3060:3070 <> nat_to_vec5
-R3080:3083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3077:3079 Coq.Init.Datatypes <> nat ind
-R3084:3093 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 3073:3073 <> v:12
-R3102:3105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3098:3101 Kernel.ConstructivePSD <> Fin5 abbrev
-R3106:3115 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 3126:3126 <> i:13
-R3131:3131 Kernel.GenRealizability <> v:12 var
-R3134:3143 Kernel.ConstructivePSD <> fin_to_nat def
-R3145:3145 Kernel.GenRealizability <> i:13 var
-prf 3345:3364 <> quad_n4_eq_quad5_ext
-R3380:3385 Kernel.ConstructivePSD <> Matrix def
-binder 3376:3376 <> M:14
-R3399:3402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3395:3398 Kernel.ConstructivePSD <> Fin5 abbrev
-R3403:3412 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 3391:3391 <> v:15
-R3444:3446 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3418:3423 Kernel.GenRealizability <> quad_n def
-R3427:3427 Kernel.GenRealizability <> M:14 var
-R3430:3440 Kernel.GenRealizability <> vec5_to_nat def
-R3442:3442 Kernel.GenRealizability <> v:15 var
-R3447:3451 Kernel.ConstructivePSD <> quad5 def
-R3454:3471 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R3473:3473 Kernel.GenRealizability <> M:14 var
-R3476:3476 Kernel.GenRealizability <> v:15 var
-R3509:3514 Kernel.GenRealizability <> quad_n def
-R3517:3521 Kernel.ConstructivePSD <> quad5 def
-R3524:3531 Kernel.ConstructivePSD <> sum_fin5 def
-R3534:3551 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R3554:3564 Kernel.GenRealizability <> vec5_to_nat def
-R3567:3576 Kernel.ConstructivePSD <> fin_to_nat def
-R3586:3590 Kernel.MinorConstraints <> sum_n def
-R3592:3601 Coq.Vectors.Fin <> to_nat def
-R3603:3611 Coq.Init.Specif <> proj1_sig def
-prf 3635:3656 <> quad_n4_eq_quad5_restr
-R3672:3677 Kernel.ConstructivePSD <> Matrix def
-binder 3668:3668 <> M:16
-R3690:3693 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3687:3689 Coq.Init.Datatypes <> nat ind
-R3694:3703 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 3683:3683 <> v:17
-R3753:3755 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3709:3713 Kernel.ConstructivePSD <> quad5 def
-R3716:3733 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R3735:3735 Kernel.GenRealizability <> M:16 var
-R3739:3749 Kernel.GenRealizability <> nat_to_vec5 def
-R3751:3751 Kernel.GenRealizability <> v:17 var
-R3756:3761 Kernel.GenRealizability <> quad_n def
-R3765:3765 Kernel.GenRealizability <> M:16 var
-R3767:3767 Kernel.GenRealizability <> v:17 var
-R3800:3805 Kernel.GenRealizability <> quad_n def
-R3808:3812 Kernel.ConstructivePSD <> quad5 def
-R3815:3822 Kernel.ConstructivePSD <> sum_fin5 def
-R3825:3842 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R3845:3855 Kernel.GenRealizability <> nat_to_vec5 def
-R3858:3867 Kernel.ConstructivePSD <> fin_to_nat def
-R3877:3881 Kernel.MinorConstraints <> sum_n def
-R3883:3892 Coq.Vectors.Fin <> to_nat def
-R3894:3902 Coq.Init.Specif <> proj1_sig def
-prf 4157:4170 <> psd_n_unfold_5
-R4185:4190 Kernel.ConstructivePSD <> Matrix def
-binder 4181:4181 <> M:18
-R4206:4210 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R4197:4201 Kernel.GenRealizability <> psd_n def
-R4205:4205 Kernel.GenRealizability <> M:18 var
-R4211:4214 Kernel.ConstructivePSD <> PSD5 def
-R4217:4234 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R4236:4236 Kernel.GenRealizability <> M:18 var
-R4296:4315 Kernel.GenRealizability <> quad_n4_eq_quad5_ext thm
-R4296:4315 Kernel.GenRealizability <> quad_n4_eq_quad5_ext thm
-R4296:4315 Kernel.GenRealizability <> quad_n4_eq_quad5_ext thm
-R4362:4383 Kernel.GenRealizability <> quad_n4_eq_quad5_restr thm
-R4362:4383 Kernel.GenRealizability <> quad_n4_eq_quad5_restr thm
-R4362:4383 Kernel.GenRealizability <> quad_n4_eq_quad5_restr thm
-R4423:4436 Kernel.GenRealizability <> psd_n_unfold_5 thm
-rec 4852:4866 <> RealizableClaim
-proj 4895:4900 <> rc_top
-proj 4914:4922 <> rc_matrix
-R4907:4909 Coq.Init.Datatypes <> nat ind
-R4929:4932 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4926:4928 Coq.Init.Datatypes <> nat ind
-R4936:4939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4933:4935 Coq.Init.Datatypes <> nat ind
-R4940:4949 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-def 5058:5068 <> symmetric_n
-R5077:5079 Coq.Init.Datatypes <> nat ind
-binder 5071:5073 <> top:22
-R5090:5093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5087:5089 Coq.Init.Datatypes <> nat ind
-R5097:5100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5094:5096 Coq.Init.Datatypes <> nat ind
-R5101:5110 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 5083:5083 <> M:23
-binder 5132:5132 <> i:24
-binder 5134:5134 <> j:25
-R5151:5154 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5139:5142 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5138:5138 Kernel.GenRealizability <> i:24 var
-R5143:5145 Kernel.GenRealizability <> top:22 var
-R5169:5172 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5157:5160 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5156:5156 Kernel.GenRealizability <> j:25 var
-R5161:5163 Kernel.GenRealizability <> top:22 var
-R5178:5180 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5173:5173 Kernel.GenRealizability <> M:23 var
-R5177:5177 Kernel.GenRealizability <> j:25 var
-R5175:5175 Kernel.GenRealizability <> i:24 var
-R5181:5181 Kernel.GenRealizability <> M:23 var
-R5185:5185 Kernel.GenRealizability <> i:24 var
-R5183:5183 Kernel.GenRealizability <> j:25 var
-def 5417:5429 <> GenRealizable
-R5436:5450 Kernel.GenRealizability <> RealizableClaim rec
-binder 5432:5432 <> c:26
-R5501:5504 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5465:5475 Kernel.GenRealizability <> symmetric_n def
-R5478:5483 Kernel.GenRealizability <> rc_top proj
-R5485:5485 Kernel.GenRealizability <> c:26 var
-R5489:5497 Kernel.GenRealizability <> rc_matrix proj
-R5499:5499 Kernel.GenRealizability <> c:26 var
-R5505:5509 Kernel.GenRealizability <> psd_n def
-R5512:5517 Kernel.GenRealizability <> rc_top proj
-R5519:5519 Kernel.GenRealizability <> c:26 var
-R5523:5531 Kernel.GenRealizability <> rc_matrix proj
-R5533:5533 Kernel.GenRealizability <> c:26 var
-def 5650:5659 <> chsh_claim
-R5680:5689 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 5662:5664 <> e00:27
-binder 5666:5668 <> e01:28
-binder 5670:5672 <> e10:29
-binder 5674:5676 <> e11:30
-R5694:5708 Kernel.GenRealizability <> RealizableClaim rec
-R5715:5733 Kernel.GenRealizability <> mk_realizable_claim constr
-R5738:5750 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R5753:5769 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R5771:5773 Kernel.GenRealizability <> e00:27 var
-R5775:5777 Kernel.GenRealizability <> e01:28 var
-R5779:5781 Kernel.GenRealizability <> e10:29 var
-R5783:5785 Kernel.GenRealizability <> e11:30 var
-prf 5969:5988 <> symmetric_n_unfold_5
-R6003:6008 Kernel.ConstructivePSD <> Matrix def
-binder 5999:5999 <> M:31
-R6030:6034 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R6015:6025 Kernel.GenRealizability <> symmetric_n def
-R6029:6029 Kernel.GenRealizability <> M:31 var
-R6035:6044 Kernel.ConstructivePSD <> symmetric5 def
-R6047:6064 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R6066:6066 Kernel.GenRealizability <> M:31 var
-R6095:6105 Kernel.GenRealizability <> symmetric_n def
-R6108:6117 Kernel.ConstructivePSD <> symmetric5 def
-R6120:6137 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R6179:6188 Coq.Vectors.Fin <> to_nat def
-R6179:6188 Coq.Vectors.Fin <> to_nat def
-R6218:6227 Coq.Vectors.Fin <> to_nat def
-R6218:6227 Coq.Vectors.Fin <> to_nat def
-R6323:6325 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6323:6325 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6362:6364 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6362:6364 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6400:6412 Coq.Vectors.Fin <> of_nat_lt def
-R6420:6432 Coq.Vectors.Fin <> of_nat_lt def
-R6400:6412 Coq.Vectors.Fin <> of_nat_lt def
-R6420:6432 Coq.Vectors.Fin <> of_nat_lt def
-R6454:6470 Coq.Vectors.Fin <> to_nat_of_nat thm
-R6454:6470 Coq.Vectors.Fin <> to_nat_of_nat thm
-R6454:6470 Coq.Vectors.Fin <> to_nat_of_nat thm
-R6454:6470 Coq.Vectors.Fin <> to_nat_of_nat thm
-R6454:6470 Coq.Vectors.Fin <> to_nat_of_nat thm
-prf 6928:6958 <> chsh_claim_is_zero_marginal_npa
-R6989:6998 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 6971:6973 <> e00:32
-binder 6975:6977 <> e01:33
-binder 6979:6981 <> e10:34
-binder 6983:6985 <> e11:35
-R7047:7055 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R7005:7017 Kernel.GenRealizability <> GenRealizable def
-R7020:7029 Kernel.GenRealizability <> chsh_claim def
-R7031:7033 Kernel.GenRealizability <> e00:32 var
-R7035:7037 Kernel.GenRealizability <> e01:33 var
-R7039:7041 Kernel.GenRealizability <> e10:34 var
-R7043:7045 Kernel.GenRealizability <> e11:35 var
-R7056:7062 Kernel.NPAMomentMatrix <> npa_psd def
-R7065:7081 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R7083:7085 Kernel.GenRealizability <> e00:32 var
-R7087:7089 Kernel.GenRealizability <> e01:33 var
-R7091:7093 Kernel.GenRealizability <> e10:34 var
-R7095:7097 Kernel.GenRealizability <> e11:35 var
-R7143:7155 Kernel.GenRealizability <> GenRealizable def
-R7158:7167 Kernel.GenRealizability <> chsh_claim def
-R7170:7176 Kernel.NPAMomentMatrix <> npa_psd def
-R7186:7191 Kernel.GenRealizability <> rc_top proj
-R7193:7201 Kernel.GenRealizability <> rc_matrix proj
-R7258:7262 Coq.Init.Logic <> proj1 thm
-R7265:7284 Kernel.GenRealizability <> symmetric_n_unfold_5 thm
-R7258:7262 Coq.Init.Logic <> proj1 thm
-R7265:7284 Kernel.GenRealizability <> symmetric_n_unfold_5 thm
-R7316:7320 Coq.Init.Logic <> proj1 thm
-R7323:7336 Kernel.GenRealizability <> psd_n_unfold_5 thm
-R7316:7320 Coq.Init.Logic <> proj1 thm
-R7323:7336 Kernel.GenRealizability <> psd_n_unfold_5 thm
-R7399:7403 Coq.Init.Logic <> proj2 thm
-R7406:7425 Kernel.GenRealizability <> symmetric_n_unfold_5 thm
-R7399:7403 Coq.Init.Logic <> proj2 thm
-R7406:7425 Kernel.GenRealizability <> symmetric_n_unfold_5 thm
-R7457:7461 Coq.Init.Logic <> proj2 thm
-R7464:7477 Kernel.GenRealizability <> psd_n_unfold_5 thm
-R7457:7461 Coq.Init.Logic <> proj2 thm
-R7464:7477 Kernel.GenRealizability <> psd_n_unfold_5 thm
-R7520:7550 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
-prf 8395:8435 <> column_contractive_iff_general_realizable
-R8466:8475 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 8448:8450 <> e00:36
-binder 8452:8454 <> e01:37
-binder 8456:8458 <> e10:38
-binder 8460:8462 <> e11:39
-R8530:8538 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R8482:8513 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
-R8515:8517 Kernel.GenRealizability <> e00:36 var
-R8519:8521 Kernel.GenRealizability <> e01:37 var
-R8523:8525 Kernel.GenRealizability <> e10:38 var
-R8527:8529 Kernel.GenRealizability <> e11:39 var
-R8539:8551 Kernel.GenRealizability <> GenRealizable def
-R8554:8563 Kernel.GenRealizability <> chsh_claim def
-R8565:8567 Kernel.GenRealizability <> e00:36 var
-R8569:8571 Kernel.GenRealizability <> e01:37 var
-R8573:8575 Kernel.GenRealizability <> e10:38 var
-R8577:8579 Kernel.GenRealizability <> e11:39 var
-R8651:8655 Coq.Init.Logic <> proj2 thm
-R8658:8688 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
-R8651:8655 Coq.Init.Logic <> proj2 thm
-R8658:8688 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
-R8720:8724 Coq.Init.Logic <> proj1 thm
-R8727:8756 Kernel.QuantumPartitionPSD <> column_contractive_iff_npa_psd thm
-R8720:8724 Coq.Init.Logic <> proj1 thm
-R8727:8756 Kernel.QuantumPartitionPSD <> column_contractive_iff_npa_psd thm
-R8818:8822 Coq.Init.Logic <> proj2 thm
-R8825:8854 Kernel.QuantumPartitionPSD <> column_contractive_iff_npa_psd thm
-R8818:8822 Coq.Init.Logic <> proj2 thm
-R8825:8854 Kernel.QuantumPartitionPSD <> column_contractive_iff_npa_psd thm
-R8886:8890 Coq.Init.Logic <> proj1 thm
-R8893:8923 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
-R8886:8890 Coq.Init.Logic <> proj1 thm
-R8893:8923 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
-R9140:9180 Kernel.GenRealizability <> column_contractive_iff_general_realizable thm
-R9201:9230 Kernel.QuantumPartitionPSD <> column_contractive_iff_npa_psd thm
-def 9655:9665 <> vec9_to_nat
-R9676:9679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9672:9675 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
-R9680:9689 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 9668:9668 <> v:40
-R9697:9700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9694:9696 Coq.Init.Datatypes <> nat ind
-R9701:9710 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 9721:9721 <> n:41
-R9732:9732 Kernel.GenRealizability <> n:41 var
-R9757:9757 Kernel.GenRealizability <> v:40 var
-R9759:9760 Kernel.QuantumPartitionPSD_1AB <> j0 def
-R9769:9769 Kernel.GenRealizability <> v:40 var
-R9771:9772 Kernel.QuantumPartitionPSD_1AB <> j1 def
-R9781:9781 Kernel.GenRealizability <> v:40 var
-R9783:9784 Kernel.QuantumPartitionPSD_1AB <> j2 def
-R9793:9793 Kernel.GenRealizability <> v:40 var
-R9795:9796 Kernel.QuantumPartitionPSD_1AB <> j3 def
-R9805:9805 Kernel.GenRealizability <> v:40 var
-R9807:9808 Kernel.QuantumPartitionPSD_1AB <> j4 def
-R9828:9828 Kernel.GenRealizability <> v:40 var
-R9830:9831 Kernel.QuantumPartitionPSD_1AB <> j5 def
-R9840:9840 Kernel.GenRealizability <> v:40 var
-R9842:9843 Kernel.QuantumPartitionPSD_1AB <> j6 def
-R9852:9852 Kernel.GenRealizability <> v:40 var
-R9854:9855 Kernel.QuantumPartitionPSD_1AB <> j7 def
-R9864:9864 Kernel.GenRealizability <> v:40 var
-R9866:9867 Kernel.QuantumPartitionPSD_1AB <> j8 def
-def 9906:9916 <> nat_to_vec9
-R9926:9929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9923:9925 Coq.Init.Datatypes <> nat ind
-R9930:9939 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 9919:9919 <> v:43
-R9948:9951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9944:9947 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
-R9952:9961 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 9972:9972 <> i:44
-R9977:9977 Kernel.GenRealizability <> v:43 var
-R9980:9989 Kernel.ConstructivePSD <> fin_to_nat def
-R9991:9991 Kernel.GenRealizability <> i:44 var
-prf 10002:10021 <> quad_n8_eq_quad9_ext
-R10042:10045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10039:10041 Coq.Init.Datatypes <> nat ind
-R10049:10052 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10046:10048 Coq.Init.Datatypes <> nat ind
-R10053:10062 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 10035:10035 <> M:45
-R10074:10077 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10070:10073 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
-R10078:10087 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 10066:10066 <> v:46
-R10121:10123 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10095:10100 Kernel.GenRealizability <> quad_n def
-R10104:10104 Kernel.GenRealizability <> M:45 var
-R10107:10117 Kernel.GenRealizability <> vec9_to_nat def
-R10119:10119 Kernel.GenRealizability <> v:46 var
-R10124:10128 Kernel.QuantumPartitionPSD_1AB <> quad9 def
-R10131:10148 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
-R10150:10150 Kernel.GenRealizability <> M:45 var
-R10153:10153 Kernel.GenRealizability <> v:46 var
-R10186:10191 Kernel.GenRealizability <> quad_n def
-R10194:10198 Kernel.QuantumPartitionPSD_1AB <> quad9 def
-R10201:10208 Kernel.QuantumPartitionPSD_1AB <> sum_fin9 def
-R10211:10228 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
-R10231:10241 Kernel.GenRealizability <> vec9_to_nat def
-R10244:10253 Kernel.ConstructivePSD <> fin_to_nat def
-R10265:10266 Kernel.QuantumPartitionPSD_1AB <> j0 def
-R10269:10270 Kernel.QuantumPartitionPSD_1AB <> j1 def
-R10273:10274 Kernel.QuantumPartitionPSD_1AB <> j2 def
-R10277:10278 Kernel.QuantumPartitionPSD_1AB <> j3 def
-R10281:10282 Kernel.QuantumPartitionPSD_1AB <> j4 def
-R10285:10286 Kernel.QuantumPartitionPSD_1AB <> j5 def
-R10289:10290 Kernel.QuantumPartitionPSD_1AB <> j6 def
-R10293:10294 Kernel.QuantumPartitionPSD_1AB <> j7 def
-R10297:10298 Kernel.QuantumPartitionPSD_1AB <> j8 def
-R10308:10312 Kernel.MinorConstraints <> sum_n def
-R10314:10323 Coq.Vectors.Fin <> to_nat def
-R10325:10333 Coq.Init.Specif <> proj1_sig def
-prf 10357:10378 <> quad_n8_eq_quad9_restr
-R10399:10402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10396:10398 Coq.Init.Datatypes <> nat ind
-R10406:10409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10403:10405 Coq.Init.Datatypes <> nat ind
-R10410:10419 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 10392:10392 <> M:47
-R10430:10433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10427:10429 Coq.Init.Datatypes <> nat ind
-R10434:10443 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 10423:10423 <> v:48
-R10495:10497 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10451:10455 Kernel.QuantumPartitionPSD_1AB <> quad9 def
-R10458:10475 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
-R10477:10477 Kernel.GenRealizability <> M:47 var
-R10481:10491 Kernel.GenRealizability <> nat_to_vec9 def
-R10493:10493 Kernel.GenRealizability <> v:48 var
-R10498:10503 Kernel.GenRealizability <> quad_n def
-R10507:10507 Kernel.GenRealizability <> M:47 var
-R10509:10509 Kernel.GenRealizability <> v:48 var
-R10542:10547 Kernel.GenRealizability <> quad_n def
-R10550:10554 Kernel.QuantumPartitionPSD_1AB <> quad9 def
-R10557:10564 Kernel.QuantumPartitionPSD_1AB <> sum_fin9 def
-R10567:10584 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
-R10587:10597 Kernel.GenRealizability <> nat_to_vec9 def
-R10600:10609 Kernel.ConstructivePSD <> fin_to_nat def
-R10621:10622 Kernel.QuantumPartitionPSD_1AB <> j0 def
-R10625:10626 Kernel.QuantumPartitionPSD_1AB <> j1 def
-R10629:10630 Kernel.QuantumPartitionPSD_1AB <> j2 def
-R10633:10634 Kernel.QuantumPartitionPSD_1AB <> j3 def
-R10637:10638 Kernel.QuantumPartitionPSD_1AB <> j4 def
-R10641:10642 Kernel.QuantumPartitionPSD_1AB <> j5 def
-R10645:10646 Kernel.QuantumPartitionPSD_1AB <> j6 def
-R10649:10650 Kernel.QuantumPartitionPSD_1AB <> j7 def
-R10653:10654 Kernel.QuantumPartitionPSD_1AB <> j8 def
-R10664:10668 Kernel.MinorConstraints <> sum_n def
-R10670:10679 Coq.Vectors.Fin <> to_nat def
-R10681:10689 Coq.Init.Specif <> proj1_sig def
-prf 10870:10883 <> psd_n_unfold_9
-R10903:10906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10900:10902 Coq.Init.Datatypes <> nat ind
-R10910:10913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10907:10909 Coq.Init.Datatypes <> nat ind
-R10914:10923 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 10896:10896 <> M:49
-R10939:10943 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R10930:10934 Kernel.GenRealizability <> psd_n def
-R10938:10938 Kernel.GenRealizability <> M:49 var
-R10944:10947 Kernel.QuantumPartitionPSD_1AB <> PSD9 def
-R10950:10967 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
-R10969:10969 Kernel.GenRealizability <> M:49 var
-R11029:11048 Kernel.GenRealizability <> quad_n8_eq_quad9_ext thm
-R11029:11048 Kernel.GenRealizability <> quad_n8_eq_quad9_ext thm
-R11029:11048 Kernel.GenRealizability <> quad_n8_eq_quad9_ext thm
-R11095:11116 Kernel.GenRealizability <> quad_n8_eq_quad9_restr thm
-R11095:11116 Kernel.GenRealizability <> quad_n8_eq_quad9_restr thm
-R11095:11116 Kernel.GenRealizability <> quad_n8_eq_quad9_restr thm
-R11156:11169 Kernel.GenRealizability <> psd_n_unfold_9 thm
-def 11348:11358 <> fin9_of_nat
-R11365:11367 Coq.Init.Datatypes <> nat ind
-binder 11361:11361 <> a:50
-R11372:11375 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
-R11388:11393 Coq.Arith.Compare_dec <> lt_dec thm
-R11395:11395 Kernel.GenRealizability <> a:50 var
-R11408:11411 Coq.Init.Specif <> left constr
-R11419:11431 Coq.Vectors.Fin <> of_nat_lt def
-R11439:11443 Coq.Init.Specif <> right constr
-R11450:11451 Coq.Vectors.Fin <> F1 constr
-prf 11624:11649 <> q1ab_depends_only_on_index
-binder 11662:11664 <> e00:51
-binder 11666:11668 <> e01:52
-binder 11670:11672 <> e10:53
-binder 11674:11676 <> e11:54
-binder 11678:11679 <> g1:55
-binder 11681:11682 <> g2:56
-binder 11684:11685 <> g3:57
-binder 11687:11688 <> g4:58
-binder 11690:11691 <> g5:59
-R11706:11709 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
-binder 11694:11694 <> a:60
-binder 11696:11697 <> a':61
-binder 11699:11699 <> b:62
-binder 11701:11702 <> b':63
-R11769:11776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11741:11743 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11717:11725 Coq.Init.Specif <> proj1_sig def
-R11728:11737 Coq.Vectors.Fin <> to_nat def
-R11739:11739 Kernel.GenRealizability <> a:60 var
-R11744:11752 Coq.Init.Specif <> proj1_sig def
-R11755:11764 Coq.Vectors.Fin <> to_nat def
-R11766:11767 Kernel.GenRealizability <> a':61 var
-R11829:11836 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11801:11803 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11777:11785 Coq.Init.Specif <> proj1_sig def
-R11788:11797 Coq.Vectors.Fin <> to_nat def
-R11799:11799 Kernel.GenRealizability <> b:62 var
-R11804:11812 Coq.Init.Specif <> proj1_sig def
-R11815:11824 Coq.Vectors.Fin <> to_nat def
-R11826:11827 Kernel.GenRealizability <> b':63 var
-R11890:11896 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11837:11854 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
-R11856:11858 Kernel.GenRealizability <> e00:51 var
-R11860:11862 Kernel.GenRealizability <> e01:52 var
-R11864:11866 Kernel.GenRealizability <> e10:53 var
-R11868:11870 Kernel.GenRealizability <> e11:54 var
-R11872:11873 Kernel.GenRealizability <> g1:55 var
-R11875:11876 Kernel.GenRealizability <> g2:56 var
-R11878:11879 Kernel.GenRealizability <> g3:57 var
-R11881:11882 Kernel.GenRealizability <> g4:58 var
-R11884:11885 Kernel.GenRealizability <> g5:59 var
-R11887:11887 Kernel.GenRealizability <> a:60 var
-R11889:11889 Kernel.GenRealizability <> b:62 var
-R11897:11914 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
-R11916:11918 Kernel.GenRealizability <> e00:51 var
-R11920:11922 Kernel.GenRealizability <> e01:52 var
-R11924:11926 Kernel.GenRealizability <> e10:53 var
-R11928:11930 Kernel.GenRealizability <> e11:54 var
-R11932:11933 Kernel.GenRealizability <> g1:55 var
-R11935:11936 Kernel.GenRealizability <> g2:56 var
-R11938:11939 Kernel.GenRealizability <> g3:57 var
-R11941:11942 Kernel.GenRealizability <> g4:58 var
-R11944:11945 Kernel.GenRealizability <> g5:59 var
-R11947:11948 Kernel.GenRealizability <> a':61 var
-R11950:11951 Kernel.GenRealizability <> b':63 var
-R11978:11995 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
-prf 12102:12121 <> fin9_index_roundtrip
-R12136:12139 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
-binder 12132:12132 <> i:64
-R12207:12211 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12144:12152 Coq.Init.Specif <> proj1_sig def
-R12155:12164 Coq.Vectors.Fin <> to_nat def
-R12167:12177 Kernel.GenRealizability <> fin9_of_nat def
-R12180:12188 Coq.Init.Specif <> proj1_sig def
-R12191:12200 Coq.Vectors.Fin <> to_nat def
-R12202:12202 Kernel.GenRealizability <> i:64 var
-R12212:12220 Coq.Init.Specif <> proj1_sig def
-R12223:12232 Coq.Vectors.Fin <> to_nat def
-R12234:12234 Kernel.GenRealizability <> i:64 var
-R12263:12273 Kernel.GenRealizability <> fin9_of_nat def
-R12288:12293 Coq.Arith.Compare_dec <> lt_dec thm
-R12296:12304 Coq.Init.Specif <> proj1_sig def
-R12307:12316 Coq.Vectors.Fin <> to_nat def
-R12288:12293 Coq.Arith.Compare_dec <> lt_dec thm
-R12296:12304 Coq.Init.Specif <> proj1_sig def
-R12307:12316 Coq.Vectors.Fin <> to_nat def
-R12348:12364 Coq.Vectors.Fin <> to_nat_of_nat thm
-R12348:12364 Coq.Vectors.Fin <> to_nat_of_nat thm
-R12348:12364 Coq.Vectors.Fin <> to_nat_of_nat thm
-R12413:12422 Coq.Vectors.Fin <> to_nat def
-R12413:12422 Coq.Vectors.Fin <> to_nat def
-def 12550:12564 <> q1ab_nat_matrix
-R12602:12611 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 12569:12571 <> e00:65
-binder 12573:12575 <> e01:66
-binder 12577:12579 <> e10:67
-binder 12581:12583 <> e11:68
-binder 12585:12586 <> g1:69
-binder 12588:12589 <> g2:70
-binder 12591:12592 <> g3:71
-binder 12594:12595 <> g4:72
-binder 12597:12598 <> g5:73
-R12619:12622 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12616:12618 Coq.Init.Datatypes <> nat ind
-R12626:12629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12623:12625 Coq.Init.Datatypes <> nat ind
-R12630:12639 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 12650:12650 <> a:74
-binder 12652:12652 <> b:75
-R12657:12674 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
-R12676:12678 Kernel.GenRealizability <> e00:65 var
-R12680:12682 Kernel.GenRealizability <> e01:66 var
-R12684:12686 Kernel.GenRealizability <> e10:67 var
-R12688:12690 Kernel.GenRealizability <> e11:68 var
-R12692:12693 Kernel.GenRealizability <> g1:69 var
-R12695:12696 Kernel.GenRealizability <> g2:70 var
-R12698:12699 Kernel.GenRealizability <> g3:71 var
-R12701:12702 Kernel.GenRealizability <> g4:72 var
-R12704:12705 Kernel.GenRealizability <> g5:73 var
-R12740:12750 Kernel.GenRealizability <> fin9_of_nat def
-R12752:12752 Kernel.GenRealizability <> a:74 var
-R12756:12766 Kernel.GenRealizability <> fin9_of_nat def
-R12768:12768 Kernel.GenRealizability <> b:75 var
-prf 12929:12947 <> q1ab_nat_to_fin9_eq
-binder 12960:12962 <> e00:76
-binder 12964:12966 <> e01:77
-binder 12968:12970 <> e10:78
-binder 12972:12974 <> e11:79
-binder 12976:12977 <> g1:80
-binder 12979:12980 <> g2:81
-binder 12982:12983 <> g3:82
-binder 12985:12986 <> g4:83
-binder 12988:12989 <> g5:84
-R13063:13069 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12996:13013 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
-R13016:13030 Kernel.GenRealizability <> q1ab_nat_matrix def
-R13032:13034 Kernel.GenRealizability <> e00:76 var
-R13036:13038 Kernel.GenRealizability <> e01:77 var
-R13040:13042 Kernel.GenRealizability <> e10:78 var
-R13044:13046 Kernel.GenRealizability <> e11:79 var
-R13048:13049 Kernel.GenRealizability <> g1:80 var
-R13051:13052 Kernel.GenRealizability <> g2:81 var
-R13054:13055 Kernel.GenRealizability <> g3:82 var
-R13057:13058 Kernel.GenRealizability <> g4:83 var
-R13060:13061 Kernel.GenRealizability <> g5:84 var
-R13070:13087 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
-R13089:13091 Kernel.GenRealizability <> e00:76 var
-R13093:13095 Kernel.GenRealizability <> e01:77 var
-R13097:13099 Kernel.GenRealizability <> e10:78 var
-R13101:13103 Kernel.GenRealizability <> e11:79 var
-R13105:13106 Kernel.GenRealizability <> g1:80 var
-R13108:13109 Kernel.GenRealizability <> g2:81 var
-R13111:13112 Kernel.GenRealizability <> g3:82 var
-R13114:13115 Kernel.GenRealizability <> g4:83 var
-R13117:13118 Kernel.GenRealizability <> g5:84 var
-R13144:13168 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-R13144:13168 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-R13188:13212 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-R13188:13212 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-R13233:13250 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
-R13253:13267 Kernel.GenRealizability <> q1ab_nat_matrix def
-R13278:13303 Kernel.GenRealizability <> q1ab_depends_only_on_index thm
-R13312:13331 Kernel.GenRealizability <> fin9_index_roundtrip thm
-R13278:13303 Kernel.GenRealizability <> q1ab_depends_only_on_index thm
-R13312:13331 Kernel.GenRealizability <> fin9_index_roundtrip thm
-R13312:13331 Kernel.GenRealizability <> fin9_index_roundtrip thm
-prf 13411:13430 <> symmetric_n_unfold_9
-R13448:13451 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13445:13447 Coq.Init.Datatypes <> nat ind
-R13455:13458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13452:13454 Coq.Init.Datatypes <> nat ind
-R13459:13468 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 13441:13441 <> M:85
-R13488:13492 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R13473:13483 Kernel.GenRealizability <> symmetric_n def
-R13487:13487 Kernel.GenRealizability <> M:85 var
-R13493:13502 Kernel.QuantumPartitionPSD_1AB <> symmetric9 def
-R13505:13522 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
-R13524:13524 Kernel.GenRealizability <> M:85 var
-R13553:13563 Kernel.GenRealizability <> symmetric_n def
-R13566:13575 Kernel.QuantumPartitionPSD_1AB <> symmetric9 def
-R13578:13595 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
-R13637:13646 Coq.Vectors.Fin <> to_nat def
-R13637:13646 Coq.Vectors.Fin <> to_nat def
-R13676:13685 Coq.Vectors.Fin <> to_nat def
-R13676:13685 Coq.Vectors.Fin <> to_nat def
-R13777:13779 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R13777:13779 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R13816:13818 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R13816:13818 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R13854:13866 Coq.Vectors.Fin <> of_nat_lt def
-R13874:13886 Coq.Vectors.Fin <> of_nat_lt def
-R13854:13866 Coq.Vectors.Fin <> of_nat_lt def
-R13874:13886 Coq.Vectors.Fin <> of_nat_lt def
-R13908:13924 Coq.Vectors.Fin <> to_nat_of_nat thm
-R13908:13924 Coq.Vectors.Fin <> to_nat_of_nat thm
-R13908:13924 Coq.Vectors.Fin <> to_nat_of_nat thm
-R13908:13924 Coq.Vectors.Fin <> to_nat_of_nat thm
-R13908:13924 Coq.Vectors.Fin <> to_nat_of_nat thm
-def 14049:14058 <> q1ab_claim
-R14096:14105 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 14063:14065 <> e00:86
-binder 14067:14069 <> e01:87
-binder 14071:14073 <> e10:88
-binder 14075:14077 <> e11:89
-binder 14079:14080 <> g1:90
-binder 14082:14083 <> g2:91
-binder 14085:14086 <> g3:92
-binder 14088:14089 <> g4:93
-binder 14091:14092 <> g5:94
-R14110:14124 Kernel.GenRealizability <> RealizableClaim rec
-R14131:14149 Kernel.GenRealizability <> mk_realizable_claim constr
-R14154:14168 Kernel.GenRealizability <> q1ab_nat_matrix def
-R14170:14172 Kernel.GenRealizability <> e00:86 var
-R14174:14176 Kernel.GenRealizability <> e01:87 var
-R14178:14180 Kernel.GenRealizability <> e10:88 var
-R14182:14184 Kernel.GenRealizability <> e11:89 var
-R14186:14187 Kernel.GenRealizability <> g1:90 var
-R14189:14190 Kernel.GenRealizability <> g2:91 var
-R14192:14193 Kernel.GenRealizability <> g3:92 var
-R14195:14196 Kernel.GenRealizability <> g4:93 var
-R14198:14199 Kernel.GenRealizability <> g5:94 var
-prf 14369:14394 <> q1ab_claim_is_npa_psd_q1ab
-binder 14407:14409 <> e00:95
-binder 14411:14413 <> e01:96
-binder 14415:14417 <> e10:97
-binder 14419:14421 <> e11:98
-binder 14423:14424 <> g1:99
-binder 14426:14427 <> g2:100
-binder 14429:14430 <> g3:101
-binder 14432:14433 <> g4:102
-binder 14435:14436 <> g5:103
-R14500:14508 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R14443:14455 Kernel.GenRealizability <> GenRealizable def
-R14458:14467 Kernel.GenRealizability <> q1ab_claim def
-R14469:14471 Kernel.GenRealizability <> e00:95 var
-R14473:14475 Kernel.GenRealizability <> e01:96 var
-R14477:14479 Kernel.GenRealizability <> e10:97 var
-R14481:14483 Kernel.GenRealizability <> e11:98 var
-R14485:14486 Kernel.GenRealizability <> g1:99 var
-R14488:14489 Kernel.GenRealizability <> g2:100 var
-R14491:14492 Kernel.GenRealizability <> g3:101 var
-R14494:14495 Kernel.GenRealizability <> g4:102 var
-R14497:14498 Kernel.GenRealizability <> g5:103 var
-R14509:14520 Kernel.QuantumPartitionPSD_1AB <> npa_psd_q1ab def
-R14522:14524 Kernel.GenRealizability <> e00:95 var
-R14526:14528 Kernel.GenRealizability <> e01:96 var
-R14530:14532 Kernel.GenRealizability <> e10:97 var
-R14534:14536 Kernel.GenRealizability <> e11:98 var
-R14538:14539 Kernel.GenRealizability <> g1:99 var
-R14541:14542 Kernel.GenRealizability <> g2:100 var
-R14544:14545 Kernel.GenRealizability <> g3:101 var
-R14547:14548 Kernel.GenRealizability <> g4:102 var
-R14550:14551 Kernel.GenRealizability <> g5:103 var
-R14580:14592 Kernel.GenRealizability <> GenRealizable def
-R14595:14604 Kernel.GenRealizability <> q1ab_claim def
-R14607:14618 Kernel.QuantumPartitionPSD_1AB <> npa_psd_q1ab def
-R14626:14631 Kernel.GenRealizability <> rc_top proj
-R14633:14641 Kernel.GenRealizability <> rc_matrix proj
-R14659:14677 Kernel.GenRealizability <> q1ab_nat_to_fin9_eq thm
-R14659:14677 Kernel.GenRealizability <> q1ab_nat_to_fin9_eq thm
-R14788:14792 Coq.Init.Logic <> proj1 thm
-R14795:14814 Kernel.GenRealizability <> symmetric_n_unfold_9 thm
-R14788:14792 Coq.Init.Logic <> proj1 thm
-R14795:14814 Kernel.GenRealizability <> symmetric_n_unfold_9 thm
-R14862:14866 Coq.Init.Logic <> proj1 thm
-R14869:14882 Kernel.GenRealizability <> psd_n_unfold_9 thm
-R14862:14866 Coq.Init.Logic <> proj1 thm
-R14869:14882 Kernel.GenRealizability <> psd_n_unfold_9 thm
-R14945:14949 Coq.Init.Logic <> proj2 thm
-R14952:14971 Kernel.GenRealizability <> symmetric_n_unfold_9 thm
-R14945:14949 Coq.Init.Logic <> proj2 thm
-R14952:14971 Kernel.GenRealizability <> symmetric_n_unfold_9 thm
-R15016:15020 Coq.Init.Logic <> proj2 thm
-R15023:15036 Kernel.GenRealizability <> psd_n_unfold_9 thm
-R15016:15020 Coq.Init.Logic <> proj2 thm
-R15023:15036 Kernel.GenRealizability <> psd_n_unfold_9 thm
-prf 15322:15367 <> column_contractive_q1ab_iff_general_realizable
-binder 15380:15382 <> e00:104
-binder 15384:15386 <> e01:105
-binder 15388:15390 <> e10:106
-binder 15392:15394 <> e11:107
-binder 15396:15397 <> g1:108
-binder 15399:15400 <> g2:109
-binder 15402:15403 <> g3:110
-binder 15405:15406 <> g4:111
-binder 15408:15409 <> g5:112
-R15470:15478 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R15416:15438 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab def
-R15440:15442 Kernel.GenRealizability <> e00:104 var
-R15444:15446 Kernel.GenRealizability <> e01:105 var
-R15448:15450 Kernel.GenRealizability <> e10:106 var
-R15452:15454 Kernel.GenRealizability <> e11:107 var
-R15456:15457 Kernel.GenRealizability <> g1:108 var
-R15459:15460 Kernel.GenRealizability <> g2:109 var
-R15462:15463 Kernel.GenRealizability <> g3:110 var
-R15465:15466 Kernel.GenRealizability <> g4:111 var
-R15468:15469 Kernel.GenRealizability <> g5:112 var
-R15479:15491 Kernel.GenRealizability <> GenRealizable def
-R15494:15503 Kernel.GenRealizability <> q1ab_claim def
-R15505:15507 Kernel.GenRealizability <> e00:104 var
-R15509:15511 Kernel.GenRealizability <> e01:105 var
-R15513:15515 Kernel.GenRealizability <> e10:106 var
-R15517:15519 Kernel.GenRealizability <> e11:107 var
-R15521:15522 Kernel.GenRealizability <> g1:108 var
-R15524:15525 Kernel.GenRealizability <> g2:109 var
-R15527:15528 Kernel.GenRealizability <> g3:110 var
-R15530:15531 Kernel.GenRealizability <> g4:111 var
-R15533:15534 Kernel.GenRealizability <> g5:112 var
-R15588:15592 Coq.Init.Logic <> proj2 thm
-R15595:15620 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
-R15588:15592 Coq.Init.Logic <> proj2 thm
-R15595:15620 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
-R15654:15658 Coq.Init.Logic <> proj1 thm
-R15661:15695 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab_iff_npa_psd thm
-R15654:15658 Coq.Init.Logic <> proj1 thm
-R15661:15695 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab_iff_npa_psd thm
-R15755:15759 Coq.Init.Logic <> proj2 thm
-R15762:15796 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab_iff_npa_psd thm
-R15755:15759 Coq.Init.Logic <> proj2 thm
-R15762:15796 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab_iff_npa_psd thm
-R15830:15834 Coq.Init.Logic <> proj1 thm
-R15837:15862 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
-R15830:15834 Coq.Init.Logic <> proj1 thm
-R15837:15862 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
-R15922:15967 Kernel.GenRealizability <> column_contractive_q1ab_iff_general_realizable thm
-prf 16133:16144 <> sum_n_affine
-binder 16155:16157 <> top:113
-R16166:16175 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 16160:16160 <> c:114
-binder 16162:16162 <> d:115
-binder 16178:16178 <> a:116
-binder 16180:16180 <> b:117
-R16223:16227 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16185:16189 Kernel.MinorConstraints <> sum_n def
-R16191:16193 Kernel.GenRealizability <> top:113 var
-binder 16200:16200 <> j:118
-R16212:16214 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R16206:16208 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16205:16205 Kernel.GenRealizability <> c:114 var
-R16209:16209 Kernel.GenRealizability <> a:116 var
-R16211:16211 Kernel.GenRealizability <> j:118 var
-R16216:16218 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16215:16215 Kernel.GenRealizability <> d:115 var
-R16219:16219 Kernel.GenRealizability <> b:117 var
-R16221:16221 Kernel.GenRealizability <> j:118 var
-R16243:16245 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R16229:16231 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16228:16228 Kernel.GenRealizability <> c:114 var
-R16232:16236 Kernel.MinorConstraints <> sum_n def
-R16238:16240 Kernel.GenRealizability <> top:113 var
-R16242:16242 Kernel.GenRealizability <> a:116 var
-R16247:16249 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16246:16246 Kernel.GenRealizability <> d:115 var
-R16250:16254 Kernel.MinorConstraints <> sum_n def
-R16256:16258 Kernel.GenRealizability <> top:113 var
-R16260:16260 Kernel.GenRealizability <> b:117 var
-R16302:16311 Kernel.MinorConstraints <> sum_n_plus thm
-R16302:16311 Kernel.MinorConstraints <> sum_n_plus thm
-R16302:16311 Kernel.MinorConstraints <> sum_n_plus thm
-R16323:16333 Kernel.MinorConstraints <> sum_n_scale thm
-R16323:16333 Kernel.MinorConstraints <> sum_n_scale thm
-R16323:16333 Kernel.MinorConstraints <> sum_n_scale thm
-R16323:16333 Kernel.MinorConstraints <> sum_n_scale thm
-R16323:16333 Kernel.MinorConstraints <> sum_n_scale thm
-prf 16489:16507 <> quad_n_convex_combo
-binder 16520:16522 <> top:119
-R16536:16539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16533:16535 Coq.Init.Datatypes <> nat ind
-R16543:16546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16540:16542 Coq.Init.Datatypes <> nat ind
-R16547:16556 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 16525:16526 <> M1:120
-binder 16528:16529 <> M2:121
-R16564:16573 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 16560:16560 <> t:122
-R16584:16587 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16581:16583 Coq.Init.Datatypes <> nat ind
-R16588:16597 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 16577:16577 <> v:123
-R16660:16666 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16605:16610 Kernel.GenRealizability <> quad_n def
-R16612:16614 Kernel.GenRealizability <> top:119 var
-binder 16621:16621 <> i:124
-binder 16623:16623 <> j:125
-R16644:16646 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R16628:16628 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16634:16637 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16630:16632 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R16633:16633 Kernel.GenRealizability <> t:122 var
-R16638:16639 Kernel.GenRealizability <> M1:120 var
-R16643:16643 Kernel.GenRealizability <> j:125 var
-R16641:16641 Kernel.GenRealizability <> i:124 var
-R16648:16650 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16647:16647 Kernel.GenRealizability <> t:122 var
-R16651:16652 Kernel.GenRealizability <> M2:121 var
-R16656:16656 Kernel.GenRealizability <> j:125 var
-R16654:16654 Kernel.GenRealizability <> i:124 var
-R16659:16659 Kernel.GenRealizability <> v:123 var
-R16692:16694 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R16667:16667 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16673:16676 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16669:16671 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R16672:16672 Kernel.GenRealizability <> t:122 var
-R16677:16682 Kernel.GenRealizability <> quad_n def
-R16684:16686 Kernel.GenRealizability <> top:119 var
-R16688:16689 Kernel.GenRealizability <> M1:120 var
-R16691:16691 Kernel.GenRealizability <> v:123 var
-R16696:16698 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16695:16695 Kernel.GenRealizability <> t:122 var
-R16699:16704 Kernel.GenRealizability <> quad_n def
-R16706:16708 Kernel.GenRealizability <> top:119 var
-R16710:16711 Kernel.GenRealizability <> M2:121 var
-R16713:16713 Kernel.GenRealizability <> v:123 var
-R16754:16759 Kernel.GenRealizability <> quad_n def
-R16775:16786 Kernel.GenRealizability <> sum_n_affine thm
-R16775:16786 Kernel.GenRealizability <> sum_n_affine thm
-R16775:16786 Kernel.GenRealizability <> sum_n_affine thm
-R16806:16830 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-R16806:16830 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-R16855:16866 Kernel.GenRealizability <> sum_n_affine thm
-R16855:16866 Kernel.GenRealizability <> sum_n_affine thm
-R16855:16866 Kernel.GenRealizability <> sum_n_affine thm
-R16886:16910 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-R16886:16910 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-prf 17265:17276 <> psd_n_convex
-binder 17289:17291 <> top:126
-R17305:17308 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17302:17304 Coq.Init.Datatypes <> nat ind
-R17312:17315 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17309:17311 Coq.Init.Datatypes <> nat ind
-R17316:17325 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 17294:17295 <> M1:127
-binder 17297:17298 <> M2:128
-R17333:17342 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 17329:17329 <> t:129
-R17350:17350 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17362:17370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17352:17355 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R17357:17360 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R17356:17356 Kernel.GenRealizability <> t:129 var
-R17356:17356 Kernel.GenRealizability <> t:129 var
-R17383:17386 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17371:17375 Kernel.GenRealizability <> psd_n def
-R17377:17379 Kernel.GenRealizability <> top:126 var
-R17381:17382 Kernel.GenRealizability <> M1:127 var
-R17399:17406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17387:17391 Kernel.GenRealizability <> psd_n def
-R17393:17395 Kernel.GenRealizability <> top:126 var
-R17397:17398 Kernel.GenRealizability <> M2:128 var
-R17407:17411 Kernel.GenRealizability <> psd_n def
-R17413:17415 Kernel.GenRealizability <> top:126 var
-binder 17422:17422 <> i:130
-binder 17424:17424 <> j:131
-R17445:17447 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R17429:17429 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17435:17438 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17431:17433 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R17434:17434 Kernel.GenRealizability <> t:129 var
-R17439:17440 Kernel.GenRealizability <> M1:127 var
-R17444:17444 Kernel.GenRealizability <> j:131 var
-R17442:17442 Kernel.GenRealizability <> i:130 var
-R17449:17451 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17448:17448 Kernel.GenRealizability <> t:129 var
-R17452:17453 Kernel.GenRealizability <> M2:128 var
-R17457:17457 Kernel.GenRealizability <> j:131 var
-R17455:17455 Kernel.GenRealizability <> i:130 var
-R17572:17590 Kernel.GenRealizability <> quad_n_convex_combo thm
-R17572:17590 Kernel.GenRealizability <> quad_n_convex_combo thm
-R17572:17590 Kernel.GenRealizability <> quad_n_convex_combo thm
-R17601:17606 Coq.Reals.RIneq <> Rle_ge thm
-R17601:17606 Coq.Reals.RIneq <> Rle_ge thm
-R17617:17636 Coq.Reals.RIneq <> Rplus_le_le_0_compat thm
-R17617:17636 Coq.Reals.RIneq <> Rplus_le_le_0_compat thm
-R17649:17660 Coq.Reals.RIneq <> Rmult_le_pos thm
-R17649:17660 Coq.Reals.RIneq <> Rmult_le_pos thm
-R17678:17689 Coq.Reals.RIneq <> Rmult_le_pos thm
-R17678:17689 Coq.Reals.RIneq <> Rmult_le_pos thm
-def 17923:17940 <> deterministic_chsh
-R17961:17970 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
-binder 17943:17945 <> e00:132
-binder 17947:17949 <> e01:133
-binder 17951:17953 <> e10:134
-binder 17955:17957 <> e11:135
-R17985:17985 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18005:18009 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R17993:17996 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R17989:17991 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17986:17988 Kernel.GenRealizability <> e00:132 var
-R18000:18002 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17997:17999 Kernel.GenRealizability <> e00:132 var
-R18010:18010 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18030:18036 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18018:18021 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R18014:18016 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18011:18013 Kernel.GenRealizability <> e01:133 var
-R18025:18027 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18022:18024 Kernel.GenRealizability <> e01:133 var
-R18037:18037 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18057:18062 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18082:18082 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18045:18048 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R18041:18043 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18038:18040 Kernel.GenRealizability <> e10:134 var
-R18052:18054 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18049:18051 Kernel.GenRealizability <> e10:134 var
-R18070:18073 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R18066:18068 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18063:18065 Kernel.GenRealizability <> e11:135 var
-R18077:18079 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18074:18076 Kernel.GenRealizability <> e11:135 var
-prf 18323:18351 <> deterministic_chsh_not_convex
-R18383:18388 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18357:18374 Kernel.GenRealizability <> deterministic_chsh def
-R18427:18432 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18389:18406 Kernel.GenRealizability <> deterministic_chsh def
-R18433:18434 Coq.Init.Logic <> ::type_scope:'~'_x not
-R18435:18452 Kernel.GenRealizability <> deterministic_chsh def
-R18455:18455 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R18462:18465 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R18457:18459 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R18470:18470 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R18477:18480 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R18472:18474 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R18485:18485 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R18492:18495 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R18487:18489 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R18500:18500 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R18507:18510 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R18502:18504 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R18552:18569 Kernel.GenRealizability <> deterministic_chsh def
-R18616:18633 Kernel.GenRealizability <> deterministic_chsh def
-R18681:18698 Kernel.GenRealizability <> deterministic_chsh def
-prf 19362:19402 <> genrealizable_captures_moment_presentable
-R19408:19408 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19533:19542 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19697:19697 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 19416:19418 <> e00:136
-binder 19420:19422 <> e01:137
-binder 19424:19426 <> e10:138
-binder 19428:19430 <> e11:139
-R19480:19489 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R19438:19450 Kernel.GenRealizability <> GenRealizable def
-R19453:19462 Kernel.GenRealizability <> chsh_claim def
-R19464:19466 Kernel.GenRealizability <> e00:136 var
-R19468:19470 Kernel.GenRealizability <> e01:137 var
-R19472:19474 Kernel.GenRealizability <> e10:138 var
-R19476:19478 Kernel.GenRealizability <> e11:139 var
-R19490:19496 Kernel.NPAMomentMatrix <> npa_psd def
-R19499:19515 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R19517:19519 Kernel.GenRealizability <> e00:136 var
-R19521:19523 Kernel.GenRealizability <> e01:137 var
-R19525:19527 Kernel.GenRealizability <> e10:138 var
-R19529:19531 Kernel.GenRealizability <> e11:139 var
-binder 19550:19552 <> e00:140
-binder 19554:19556 <> e01:141
-binder 19558:19560 <> e10:142
-binder 19562:19564 <> e11:143
-binder 19566:19567 <> g1:144
-binder 19569:19570 <> g2:145
-binder 19572:19573 <> g3:146
-binder 19575:19576 <> g4:147
-binder 19578:19579 <> g5:148
-R19644:19653 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R19587:19599 Kernel.GenRealizability <> GenRealizable def
-R19602:19611 Kernel.GenRealizability <> q1ab_claim def
-R19613:19615 Kernel.GenRealizability <> e00:140 var
-R19617:19619 Kernel.GenRealizability <> e01:141 var
-R19621:19623 Kernel.GenRealizability <> e10:142 var
-R19625:19627 Kernel.GenRealizability <> e11:143 var
-R19629:19630 Kernel.GenRealizability <> g1:144 var
-R19632:19633 Kernel.GenRealizability <> g2:145 var
-R19635:19636 Kernel.GenRealizability <> g3:146 var
-R19638:19639 Kernel.GenRealizability <> g4:147 var
-R19641:19642 Kernel.GenRealizability <> g5:148 var
-R19654:19665 Kernel.QuantumPartitionPSD_1AB <> npa_psd_q1ab def
-R19667:19669 Kernel.GenRealizability <> e00:140 var
-R19671:19673 Kernel.GenRealizability <> e01:141 var
-R19675:19677 Kernel.GenRealizability <> e10:142 var
-R19679:19681 Kernel.GenRealizability <> e11:143 var
-R19683:19684 Kernel.GenRealizability <> g1:144 var
-R19686:19687 Kernel.GenRealizability <> g2:145 var
-R19689:19690 Kernel.GenRealizability <> g3:146 var
-R19692:19693 Kernel.GenRealizability <> g4:147 var
-R19695:19696 Kernel.GenRealizability <> g5:148 var
-R19726:19756 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
-R19726:19756 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
-R19769:19794 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
-R19769:19794 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
-prf 20844:20885 <> vm_chsh_lassert_step_is_general_realizable
-R20903:20909 Kernel.VMState <> VMState rec
-binder 20899:20899 <> s:149
-R20924:20926 Coq.Init.Datatypes <> nat ind
-binder 20913:20920 <> mu_delta:150
-R20944:20951 Kernel.SimulationProof <> vm_apply def
-R20953:20953 Kernel.GenRealizability <> s:149 var
-R20956:20973 Kernel.VMStep VMStep instr_chsh_lassert constr
-R20975:20982 Kernel.GenRealizability <> mu_delta:150 var
-binder 20938:20939 <> s':151
-R21016:21023 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21002:21004 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20996:21000 Kernel.VMState <> vm_pc proj
-R20992:20993 Kernel.GenRealizability <> s':151 var
-R21005:21005 Coq.Init.Datatypes <> S constr
-R21010:21014 Kernel.VMState <> vm_pc proj
-R21007:21007 Kernel.GenRealizability <> s:149 var
-R21048:21055 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21035:21037 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21028:21033 Kernel.VMState <> vm_err proj
-R21024:21025 Kernel.GenRealizability <> s':151 var
-R21041:21046 Kernel.VMState <> vm_err proj
-R21038:21038 Kernel.GenRealizability <> s:149 var
-R21074:21081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21066:21068 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21059:21064 Kernel.VMState <> vm_err proj
-R21056:21056 Kernel.GenRealizability <> s:149 var
-R21069:21073 Coq.Init.Datatypes <> false constr
-R21082:21094 Kernel.GenRealizability <> GenRealizable def
-R21097:21106 Kernel.GenRealizability <> chsh_claim def
-R21109:21117 Kernel.MuLedgerQuantumBridge <> state_e00 def
-R21119:21119 Kernel.GenRealizability <> s:149 var
-R21123:21131 Kernel.MuLedgerQuantumBridge <> state_e01 def
-R21133:21133 Kernel.GenRealizability <> s:149 var
-R21137:21145 Kernel.MuLedgerQuantumBridge <> state_e10 def
-R21147:21147 Kernel.GenRealizability <> s:149 var
-R21151:21159 Kernel.MuLedgerQuantumBridge <> state_e11 def
-R21161:21161 Kernel.GenRealizability <> s:149 var
-R21221:21225 Coq.Init.Logic <> proj2 thm
-R21228:21258 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
-R21279:21287 Kernel.MuLedgerQuantumBridge <> state_e00 def
-R21293:21301 Kernel.MuLedgerQuantumBridge <> state_e01 def
-R21307:21315 Kernel.MuLedgerQuantumBridge <> state_e10 def
-R21321:21329 Kernel.MuLedgerQuantumBridge <> state_e11 def
-R21221:21225 Coq.Init.Logic <> proj2 thm
-R21228:21258 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
-R21279:21287 Kernel.MuLedgerQuantumBridge <> state_e00 def
-R21293:21301 Kernel.MuLedgerQuantumBridge <> state_e01 def
-R21307:21315 Kernel.MuLedgerQuantumBridge <> state_e10 def
-R21321:21329 Kernel.MuLedgerQuantumBridge <> state_e11 def
-R21346:21381 Kernel.QuantumPartitionPSD <> chsh_lassert_no_trap_implies_npa_psd thm
-R21346:21381 Kernel.QuantumPartitionPSD <> chsh_lassert_no_trap_implies_npa_psd thm
-R21435:21476 Kernel.GenRealizability <> vm_chsh_lassert_step_is_general_realizable thm
-R21498:21509 Kernel.GenRealizability <> psd_n_convex thm
-R21530:21558 Kernel.GenRealizability <> deterministic_chsh_not_convex thm
-R21579:21619 Kernel.GenRealizability <> genrealizable_captures_moment_presentable thm
+R2789:2790 Coq.Vectors.Fin <> FS constr
+R2793:2794 Coq.Vectors.Fin <> FS constr
+R2797:2798 Coq.Vectors.Fin <> FS constr
+R2801:2802 Coq.Vectors.Fin <> FS constr
+R2804:2805 Coq.Vectors.Fin <> F1 constr
+def 2938:2948 <> nat_to_vec5
+R2958:2961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2955:2957 Coq.Init.Datatypes <> nat ind
+R2962:2971 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 2951:2951 <> v:12
+R2980:2983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2976:2979 Kernel.ConstructivePSD <> Fin5 abbrev
+R2984:2993 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 3004:3004 <> i:13
+R3009:3009 Kernel.GenRealizability <> v:12 var
+R3012:3021 Kernel.ConstructivePSD <> fin_to_nat def
+R3023:3023 Kernel.GenRealizability <> i:13 var
+prf 3223:3242 <> quad_n4_eq_quad5_ext
+R3258:3263 Kernel.ConstructivePSD <> Matrix def
+binder 3254:3254 <> M:14
+R3277:3280 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3273:3276 Kernel.ConstructivePSD <> Fin5 abbrev
+R3281:3290 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 3269:3269 <> v:15
+R3322:3324 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3296:3301 Kernel.GenRealizability <> quad_n def
+R3305:3305 Kernel.GenRealizability <> M:14 var
+R3308:3318 Kernel.GenRealizability <> vec5_to_nat def
+R3320:3320 Kernel.GenRealizability <> v:15 var
+R3325:3329 Kernel.ConstructivePSD <> quad5 def
+R3332:3349 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R3351:3351 Kernel.GenRealizability <> M:14 var
+R3354:3354 Kernel.GenRealizability <> v:15 var
+R3387:3392 Kernel.GenRealizability <> quad_n def
+R3395:3399 Kernel.ConstructivePSD <> quad5 def
+R3402:3409 Kernel.ConstructivePSD <> sum_fin5 def
+R3412:3429 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R3432:3442 Kernel.GenRealizability <> vec5_to_nat def
+R3445:3454 Kernel.ConstructivePSD <> fin_to_nat def
+R3464:3468 Kernel.MinorConstraints <> sum_n def
+R3470:3479 Coq.Vectors.Fin <> to_nat def
+R3481:3489 Coq.Init.Specif <> proj1_sig def
+prf 3513:3534 <> quad_n4_eq_quad5_restr
+R3550:3555 Kernel.ConstructivePSD <> Matrix def
+binder 3546:3546 <> M:16
+R3568:3571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3565:3567 Coq.Init.Datatypes <> nat ind
+R3572:3581 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 3561:3561 <> v:17
+R3631:3633 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3587:3591 Kernel.ConstructivePSD <> quad5 def
+R3594:3611 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R3613:3613 Kernel.GenRealizability <> M:16 var
+R3617:3627 Kernel.GenRealizability <> nat_to_vec5 def
+R3629:3629 Kernel.GenRealizability <> v:17 var
+R3634:3639 Kernel.GenRealizability <> quad_n def
+R3643:3643 Kernel.GenRealizability <> M:16 var
+R3645:3645 Kernel.GenRealizability <> v:17 var
+R3678:3683 Kernel.GenRealizability <> quad_n def
+R3686:3690 Kernel.ConstructivePSD <> quad5 def
+R3693:3700 Kernel.ConstructivePSD <> sum_fin5 def
+R3703:3720 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R3723:3733 Kernel.GenRealizability <> nat_to_vec5 def
+R3736:3745 Kernel.ConstructivePSD <> fin_to_nat def
+R3755:3759 Kernel.MinorConstraints <> sum_n def
+R3761:3770 Coq.Vectors.Fin <> to_nat def
+R3772:3780 Coq.Init.Specif <> proj1_sig def
+prf 4028:4041 <> psd_n_unfold_5
+R4056:4061 Kernel.ConstructivePSD <> Matrix def
+binder 4052:4052 <> M:18
+R4077:4081 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4068:4072 Kernel.GenRealizability <> psd_n def
+R4076:4076 Kernel.GenRealizability <> M:18 var
+R4082:4085 Kernel.ConstructivePSD <> PSD5 def
+R4088:4105 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R4107:4107 Kernel.GenRealizability <> M:18 var
+R4167:4186 Kernel.GenRealizability <> quad_n4_eq_quad5_ext thm
+R4167:4186 Kernel.GenRealizability <> quad_n4_eq_quad5_ext thm
+R4167:4186 Kernel.GenRealizability <> quad_n4_eq_quad5_ext thm
+R4233:4254 Kernel.GenRealizability <> quad_n4_eq_quad5_restr thm
+R4233:4254 Kernel.GenRealizability <> quad_n4_eq_quad5_restr thm
+R4233:4254 Kernel.GenRealizability <> quad_n4_eq_quad5_restr thm
+R4294:4307 Kernel.GenRealizability <> psd_n_unfold_5 thm
+rec 4716:4730 <> RealizableClaim
+proj 4759:4764 <> rc_top
+proj 4778:4786 <> rc_matrix
+R4771:4773 Coq.Init.Datatypes <> nat ind
+R4793:4796 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4790:4792 Coq.Init.Datatypes <> nat ind
+R4800:4803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4797:4799 Coq.Init.Datatypes <> nat ind
+R4804:4813 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+def 4919:4929 <> symmetric_n
+R4938:4940 Coq.Init.Datatypes <> nat ind
+binder 4932:4934 <> top:22
+R4951:4954 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4948:4950 Coq.Init.Datatypes <> nat ind
+R4958:4961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4955:4957 Coq.Init.Datatypes <> nat ind
+R4962:4971 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 4944:4944 <> M:23
+binder 4993:4993 <> i:24
+binder 4995:4995 <> j:25
+R5012:5015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5000:5003 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4999:4999 Kernel.GenRealizability <> i:24 var
+R5004:5006 Kernel.GenRealizability <> top:22 var
+R5030:5033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5018:5021 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5017:5017 Kernel.GenRealizability <> j:25 var
+R5022:5024 Kernel.GenRealizability <> top:22 var
+R5039:5041 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5034:5034 Kernel.GenRealizability <> M:23 var
+R5038:5038 Kernel.GenRealizability <> j:25 var
+R5036:5036 Kernel.GenRealizability <> i:24 var
+R5042:5042 Kernel.GenRealizability <> M:23 var
+R5046:5046 Kernel.GenRealizability <> i:24 var
+R5044:5044 Kernel.GenRealizability <> j:25 var
+def 5278:5290 <> GenRealizable
+R5297:5311 Kernel.GenRealizability <> RealizableClaim rec
+binder 5293:5293 <> c:26
+R5362:5365 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5326:5336 Kernel.GenRealizability <> symmetric_n def
+R5339:5344 Kernel.GenRealizability <> rc_top proj
+R5346:5346 Kernel.GenRealizability <> c:26 var
+R5350:5358 Kernel.GenRealizability <> rc_matrix proj
+R5360:5360 Kernel.GenRealizability <> c:26 var
+R5366:5370 Kernel.GenRealizability <> psd_n def
+R5373:5378 Kernel.GenRealizability <> rc_top proj
+R5380:5380 Kernel.GenRealizability <> c:26 var
+R5384:5392 Kernel.GenRealizability <> rc_matrix proj
+R5394:5394 Kernel.GenRealizability <> c:26 var
+def 5511:5520 <> chsh_claim
+R5541:5550 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 5523:5525 <> e00:27
+binder 5527:5529 <> e01:28
+binder 5531:5533 <> e10:29
+binder 5535:5537 <> e11:30
+R5555:5569 Kernel.GenRealizability <> RealizableClaim rec
+R5576:5594 Kernel.GenRealizability <> mk_realizable_claim constr
+R5599:5611 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R5614:5630 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R5632:5634 Kernel.GenRealizability <> e00:27 var
+R5636:5638 Kernel.GenRealizability <> e01:28 var
+R5640:5642 Kernel.GenRealizability <> e10:29 var
+R5644:5646 Kernel.GenRealizability <> e11:30 var
+prf 5830:5849 <> symmetric_n_unfold_5
+R5864:5869 Kernel.ConstructivePSD <> Matrix def
+binder 5860:5860 <> M:31
+R5891:5895 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5876:5886 Kernel.GenRealizability <> symmetric_n def
+R5890:5890 Kernel.GenRealizability <> M:31 var
+R5896:5905 Kernel.ConstructivePSD <> symmetric5 def
+R5908:5925 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R5927:5927 Kernel.GenRealizability <> M:31 var
+R5956:5966 Kernel.GenRealizability <> symmetric_n def
+R5969:5978 Kernel.ConstructivePSD <> symmetric5 def
+R5981:5998 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R6040:6049 Coq.Vectors.Fin <> to_nat def
+R6040:6049 Coq.Vectors.Fin <> to_nat def
+R6079:6088 Coq.Vectors.Fin <> to_nat def
+R6079:6088 Coq.Vectors.Fin <> to_nat def
+R6184:6186 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6184:6186 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6223:6225 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6223:6225 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6261:6273 Coq.Vectors.Fin <> of_nat_lt def
+R6281:6293 Coq.Vectors.Fin <> of_nat_lt def
+R6261:6273 Coq.Vectors.Fin <> of_nat_lt def
+R6281:6293 Coq.Vectors.Fin <> of_nat_lt def
+R6315:6331 Coq.Vectors.Fin <> to_nat_of_nat thm
+R6315:6331 Coq.Vectors.Fin <> to_nat_of_nat thm
+R6315:6331 Coq.Vectors.Fin <> to_nat_of_nat thm
+R6315:6331 Coq.Vectors.Fin <> to_nat_of_nat thm
+R6315:6331 Coq.Vectors.Fin <> to_nat_of_nat thm
+prf 6779:6809 <> chsh_claim_is_zero_marginal_npa
+R6840:6849 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 6822:6824 <> e00:32
+binder 6826:6828 <> e01:33
+binder 6830:6832 <> e10:34
+binder 6834:6836 <> e11:35
+R6898:6906 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6856:6868 Kernel.GenRealizability <> GenRealizable def
+R6871:6880 Kernel.GenRealizability <> chsh_claim def
+R6882:6884 Kernel.GenRealizability <> e00:32 var
+R6886:6888 Kernel.GenRealizability <> e01:33 var
+R6890:6892 Kernel.GenRealizability <> e10:34 var
+R6894:6896 Kernel.GenRealizability <> e11:35 var
+R6907:6913 Kernel.NPAMomentMatrix <> npa_psd def
+R6916:6932 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R6934:6936 Kernel.GenRealizability <> e00:32 var
+R6938:6940 Kernel.GenRealizability <> e01:33 var
+R6942:6944 Kernel.GenRealizability <> e10:34 var
+R6946:6948 Kernel.GenRealizability <> e11:35 var
+R6994:7006 Kernel.GenRealizability <> GenRealizable def
+R7009:7018 Kernel.GenRealizability <> chsh_claim def
+R7021:7027 Kernel.NPAMomentMatrix <> npa_psd def
+R7037:7042 Kernel.GenRealizability <> rc_top proj
+R7044:7052 Kernel.GenRealizability <> rc_matrix proj
+R7109:7113 Coq.Init.Logic <> proj1 thm
+R7116:7135 Kernel.GenRealizability <> symmetric_n_unfold_5 thm
+R7109:7113 Coq.Init.Logic <> proj1 thm
+R7116:7135 Kernel.GenRealizability <> symmetric_n_unfold_5 thm
+R7167:7171 Coq.Init.Logic <> proj1 thm
+R7174:7187 Kernel.GenRealizability <> psd_n_unfold_5 thm
+R7167:7171 Coq.Init.Logic <> proj1 thm
+R7174:7187 Kernel.GenRealizability <> psd_n_unfold_5 thm
+R7250:7254 Coq.Init.Logic <> proj2 thm
+R7257:7276 Kernel.GenRealizability <> symmetric_n_unfold_5 thm
+R7250:7254 Coq.Init.Logic <> proj2 thm
+R7257:7276 Kernel.GenRealizability <> symmetric_n_unfold_5 thm
+R7308:7312 Coq.Init.Logic <> proj2 thm
+R7315:7328 Kernel.GenRealizability <> psd_n_unfold_5 thm
+R7308:7312 Coq.Init.Logic <> proj2 thm
+R7315:7328 Kernel.GenRealizability <> psd_n_unfold_5 thm
+R7371:7401 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
+prf 8232:8272 <> column_contractive_iff_general_realizable
+R8303:8312 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 8285:8287 <> e00:36
+binder 8289:8291 <> e01:37
+binder 8293:8295 <> e10:38
+binder 8297:8299 <> e11:39
+R8367:8375 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8319:8350 Kernel.CHSHColumnCheck <> zero_marginal_column_contractive def
+R8352:8354 Kernel.GenRealizability <> e00:36 var
+R8356:8358 Kernel.GenRealizability <> e01:37 var
+R8360:8362 Kernel.GenRealizability <> e10:38 var
+R8364:8366 Kernel.GenRealizability <> e11:39 var
+R8376:8388 Kernel.GenRealizability <> GenRealizable def
+R8391:8400 Kernel.GenRealizability <> chsh_claim def
+R8402:8404 Kernel.GenRealizability <> e00:36 var
+R8406:8408 Kernel.GenRealizability <> e01:37 var
+R8410:8412 Kernel.GenRealizability <> e10:38 var
+R8414:8416 Kernel.GenRealizability <> e11:39 var
+R8488:8492 Coq.Init.Logic <> proj2 thm
+R8495:8525 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
+R8488:8492 Coq.Init.Logic <> proj2 thm
+R8495:8525 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
+R8557:8561 Coq.Init.Logic <> proj1 thm
+R8564:8593 Kernel.CHSHColumnCheck <> column_contractive_iff_npa_psd thm
+R8557:8561 Coq.Init.Logic <> proj1 thm
+R8564:8593 Kernel.CHSHColumnCheck <> column_contractive_iff_npa_psd thm
+R8655:8659 Coq.Init.Logic <> proj2 thm
+R8662:8691 Kernel.CHSHColumnCheck <> column_contractive_iff_npa_psd thm
+R8655:8659 Coq.Init.Logic <> proj2 thm
+R8662:8691 Kernel.CHSHColumnCheck <> column_contractive_iff_npa_psd thm
+R8723:8727 Coq.Init.Logic <> proj1 thm
+R8730:8760 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
+R8723:8727 Coq.Init.Logic <> proj1 thm
+R8730:8760 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
+R8974:9014 Kernel.GenRealizability <> column_contractive_iff_general_realizable thm
+R9035:9064 Kernel.CHSHColumnCheck <> column_contractive_iff_npa_psd thm
+def 9453:9463 <> vec9_to_nat
+R9474:9477 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9470:9473 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
+R9478:9487 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 9466:9466 <> v:40
+R9495:9498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9492:9494 Coq.Init.Datatypes <> nat ind
+R9499:9508 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 9519:9519 <> n:41
+R9530:9530 Kernel.GenRealizability <> n:41 var
+R9555:9555 Kernel.GenRealizability <> v:40 var
+R9557:9558 Kernel.QuantumPartitionPSD_1AB <> j0 def
+R9567:9567 Kernel.GenRealizability <> v:40 var
+R9569:9570 Kernel.QuantumPartitionPSD_1AB <> j1 def
+R9579:9579 Kernel.GenRealizability <> v:40 var
+R9581:9582 Kernel.QuantumPartitionPSD_1AB <> j2 def
+R9591:9591 Kernel.GenRealizability <> v:40 var
+R9593:9594 Kernel.QuantumPartitionPSD_1AB <> j3 def
+R9603:9603 Kernel.GenRealizability <> v:40 var
+R9605:9606 Kernel.QuantumPartitionPSD_1AB <> j4 def
+R9626:9626 Kernel.GenRealizability <> v:40 var
+R9628:9629 Kernel.QuantumPartitionPSD_1AB <> j5 def
+R9638:9638 Kernel.GenRealizability <> v:40 var
+R9640:9641 Kernel.QuantumPartitionPSD_1AB <> j6 def
+R9650:9650 Kernel.GenRealizability <> v:40 var
+R9652:9653 Kernel.QuantumPartitionPSD_1AB <> j7 def
+R9662:9662 Kernel.GenRealizability <> v:40 var
+R9664:9665 Kernel.QuantumPartitionPSD_1AB <> j8 def
+def 9704:9714 <> nat_to_vec9
+R9724:9727 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9721:9723 Coq.Init.Datatypes <> nat ind
+R9728:9737 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 9717:9717 <> v:43
+R9746:9749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9742:9745 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
+R9750:9759 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 9770:9770 <> i:44
+R9775:9775 Kernel.GenRealizability <> v:43 var
+R9778:9787 Kernel.ConstructivePSD <> fin_to_nat def
+R9789:9789 Kernel.GenRealizability <> i:44 var
+prf 9800:9819 <> quad_n8_eq_quad9_ext
+R9840:9843 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9837:9839 Coq.Init.Datatypes <> nat ind
+R9847:9850 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9844:9846 Coq.Init.Datatypes <> nat ind
+R9851:9860 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 9833:9833 <> M:45
+R9872:9875 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9868:9871 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
+R9876:9885 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 9864:9864 <> v:46
+R9919:9921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9893:9898 Kernel.GenRealizability <> quad_n def
+R9902:9902 Kernel.GenRealizability <> M:45 var
+R9905:9915 Kernel.GenRealizability <> vec9_to_nat def
+R9917:9917 Kernel.GenRealizability <> v:46 var
+R9922:9926 Kernel.QuantumPartitionPSD_1AB <> quad9 def
+R9929:9946 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
+R9948:9948 Kernel.GenRealizability <> M:45 var
+R9951:9951 Kernel.GenRealizability <> v:46 var
+R9984:9989 Kernel.GenRealizability <> quad_n def
+R9992:9996 Kernel.QuantumPartitionPSD_1AB <> quad9 def
+R9999:10006 Kernel.QuantumPartitionPSD_1AB <> sum_fin9 def
+R10009:10026 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
+R10029:10039 Kernel.GenRealizability <> vec9_to_nat def
+R10042:10051 Kernel.ConstructivePSD <> fin_to_nat def
+R10063:10064 Kernel.QuantumPartitionPSD_1AB <> j0 def
+R10067:10068 Kernel.QuantumPartitionPSD_1AB <> j1 def
+R10071:10072 Kernel.QuantumPartitionPSD_1AB <> j2 def
+R10075:10076 Kernel.QuantumPartitionPSD_1AB <> j3 def
+R10079:10080 Kernel.QuantumPartitionPSD_1AB <> j4 def
+R10083:10084 Kernel.QuantumPartitionPSD_1AB <> j5 def
+R10087:10088 Kernel.QuantumPartitionPSD_1AB <> j6 def
+R10091:10092 Kernel.QuantumPartitionPSD_1AB <> j7 def
+R10095:10096 Kernel.QuantumPartitionPSD_1AB <> j8 def
+R10106:10110 Kernel.MinorConstraints <> sum_n def
+R10112:10121 Coq.Vectors.Fin <> to_nat def
+R10123:10131 Coq.Init.Specif <> proj1_sig def
+prf 10155:10176 <> quad_n8_eq_quad9_restr
+R10197:10200 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10194:10196 Coq.Init.Datatypes <> nat ind
+R10204:10207 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10201:10203 Coq.Init.Datatypes <> nat ind
+R10208:10217 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 10190:10190 <> M:47
+R10228:10231 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10225:10227 Coq.Init.Datatypes <> nat ind
+R10232:10241 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 10221:10221 <> v:48
+R10293:10295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10249:10253 Kernel.QuantumPartitionPSD_1AB <> quad9 def
+R10256:10273 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
+R10275:10275 Kernel.GenRealizability <> M:47 var
+R10279:10289 Kernel.GenRealizability <> nat_to_vec9 def
+R10291:10291 Kernel.GenRealizability <> v:48 var
+R10296:10301 Kernel.GenRealizability <> quad_n def
+R10305:10305 Kernel.GenRealizability <> M:47 var
+R10307:10307 Kernel.GenRealizability <> v:48 var
+R10340:10345 Kernel.GenRealizability <> quad_n def
+R10348:10352 Kernel.QuantumPartitionPSD_1AB <> quad9 def
+R10355:10362 Kernel.QuantumPartitionPSD_1AB <> sum_fin9 def
+R10365:10382 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
+R10385:10395 Kernel.GenRealizability <> nat_to_vec9 def
+R10398:10407 Kernel.ConstructivePSD <> fin_to_nat def
+R10419:10420 Kernel.QuantumPartitionPSD_1AB <> j0 def
+R10423:10424 Kernel.QuantumPartitionPSD_1AB <> j1 def
+R10427:10428 Kernel.QuantumPartitionPSD_1AB <> j2 def
+R10431:10432 Kernel.QuantumPartitionPSD_1AB <> j3 def
+R10435:10436 Kernel.QuantumPartitionPSD_1AB <> j4 def
+R10439:10440 Kernel.QuantumPartitionPSD_1AB <> j5 def
+R10443:10444 Kernel.QuantumPartitionPSD_1AB <> j6 def
+R10447:10448 Kernel.QuantumPartitionPSD_1AB <> j7 def
+R10451:10452 Kernel.QuantumPartitionPSD_1AB <> j8 def
+R10462:10466 Kernel.MinorConstraints <> sum_n def
+R10468:10477 Coq.Vectors.Fin <> to_nat def
+R10479:10487 Coq.Init.Specif <> proj1_sig def
+prf 10670:10683 <> psd_n_unfold_9
+R10703:10706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10700:10702 Coq.Init.Datatypes <> nat ind
+R10710:10713 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10707:10709 Coq.Init.Datatypes <> nat ind
+R10714:10723 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 10696:10696 <> M:49
+R10739:10743 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10730:10734 Kernel.GenRealizability <> psd_n def
+R10738:10738 Kernel.GenRealizability <> M:49 var
+R10744:10747 Kernel.QuantumPartitionPSD_1AB <> PSD9 def
+R10750:10767 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
+R10769:10769 Kernel.GenRealizability <> M:49 var
+R10829:10848 Kernel.GenRealizability <> quad_n8_eq_quad9_ext thm
+R10829:10848 Kernel.GenRealizability <> quad_n8_eq_quad9_ext thm
+R10829:10848 Kernel.GenRealizability <> quad_n8_eq_quad9_ext thm
+R10895:10916 Kernel.GenRealizability <> quad_n8_eq_quad9_restr thm
+R10895:10916 Kernel.GenRealizability <> quad_n8_eq_quad9_restr thm
+R10895:10916 Kernel.GenRealizability <> quad_n8_eq_quad9_restr thm
+R10956:10969 Kernel.GenRealizability <> psd_n_unfold_9 thm
+def 11130:11140 <> fin9_of_nat
+R11147:11149 Coq.Init.Datatypes <> nat ind
+binder 11143:11143 <> a:50
+R11154:11157 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
+R11170:11175 Coq.Arith.Compare_dec <> lt_dec thm
+R11177:11177 Kernel.GenRealizability <> a:50 var
+R11190:11193 Coq.Init.Specif <> left constr
+R11201:11213 Coq.Vectors.Fin <> of_nat_lt def
+R11221:11225 Coq.Init.Specif <> right constr
+R11232:11233 Coq.Vectors.Fin <> F1 constr
+prf 11403:11428 <> q1ab_depends_only_on_index
+binder 11441:11443 <> e00:51
+binder 11445:11447 <> e01:52
+binder 11449:11451 <> e10:53
+binder 11453:11455 <> e11:54
+binder 11457:11458 <> g1:55
+binder 11460:11461 <> g2:56
+binder 11463:11464 <> g3:57
+binder 11466:11467 <> g4:58
+binder 11469:11470 <> g5:59
+R11485:11488 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
+binder 11473:11473 <> a:60
+binder 11475:11476 <> a':61
+binder 11478:11478 <> b:62
+binder 11480:11481 <> b':63
+R11548:11555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11520:11522 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11496:11504 Coq.Init.Specif <> proj1_sig def
+R11507:11516 Coq.Vectors.Fin <> to_nat def
+R11518:11518 Kernel.GenRealizability <> a:60 var
+R11523:11531 Coq.Init.Specif <> proj1_sig def
+R11534:11543 Coq.Vectors.Fin <> to_nat def
+R11545:11546 Kernel.GenRealizability <> a':61 var
+R11608:11615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11580:11582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11556:11564 Coq.Init.Specif <> proj1_sig def
+R11567:11576 Coq.Vectors.Fin <> to_nat def
+R11578:11578 Kernel.GenRealizability <> b:62 var
+R11583:11591 Coq.Init.Specif <> proj1_sig def
+R11594:11603 Coq.Vectors.Fin <> to_nat def
+R11605:11606 Kernel.GenRealizability <> b':63 var
+R11669:11675 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11616:11633 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
+R11635:11637 Kernel.GenRealizability <> e00:51 var
+R11639:11641 Kernel.GenRealizability <> e01:52 var
+R11643:11645 Kernel.GenRealizability <> e10:53 var
+R11647:11649 Kernel.GenRealizability <> e11:54 var
+R11651:11652 Kernel.GenRealizability <> g1:55 var
+R11654:11655 Kernel.GenRealizability <> g2:56 var
+R11657:11658 Kernel.GenRealizability <> g3:57 var
+R11660:11661 Kernel.GenRealizability <> g4:58 var
+R11663:11664 Kernel.GenRealizability <> g5:59 var
+R11666:11666 Kernel.GenRealizability <> a:60 var
+R11668:11668 Kernel.GenRealizability <> b:62 var
+R11676:11693 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
+R11695:11697 Kernel.GenRealizability <> e00:51 var
+R11699:11701 Kernel.GenRealizability <> e01:52 var
+R11703:11705 Kernel.GenRealizability <> e10:53 var
+R11707:11709 Kernel.GenRealizability <> e11:54 var
+R11711:11712 Kernel.GenRealizability <> g1:55 var
+R11714:11715 Kernel.GenRealizability <> g2:56 var
+R11717:11718 Kernel.GenRealizability <> g3:57 var
+R11720:11721 Kernel.GenRealizability <> g4:58 var
+R11723:11724 Kernel.GenRealizability <> g5:59 var
+R11726:11727 Kernel.GenRealizability <> a':61 var
+R11729:11730 Kernel.GenRealizability <> b':63 var
+R11757:11774 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
+prf 11881:11900 <> fin9_index_roundtrip
+R11915:11918 Kernel.QuantumPartitionPSD_1AB <> Fin9 abbrev
+binder 11911:11911 <> i:64
+R11986:11990 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11923:11931 Coq.Init.Specif <> proj1_sig def
+R11934:11943 Coq.Vectors.Fin <> to_nat def
+R11946:11956 Kernel.GenRealizability <> fin9_of_nat def
+R11959:11967 Coq.Init.Specif <> proj1_sig def
+R11970:11979 Coq.Vectors.Fin <> to_nat def
+R11981:11981 Kernel.GenRealizability <> i:64 var
+R11991:11999 Coq.Init.Specif <> proj1_sig def
+R12002:12011 Coq.Vectors.Fin <> to_nat def
+R12013:12013 Kernel.GenRealizability <> i:64 var
+R12042:12052 Kernel.GenRealizability <> fin9_of_nat def
+R12067:12072 Coq.Arith.Compare_dec <> lt_dec thm
+R12075:12083 Coq.Init.Specif <> proj1_sig def
+R12086:12095 Coq.Vectors.Fin <> to_nat def
+R12067:12072 Coq.Arith.Compare_dec <> lt_dec thm
+R12075:12083 Coq.Init.Specif <> proj1_sig def
+R12086:12095 Coq.Vectors.Fin <> to_nat def
+R12127:12143 Coq.Vectors.Fin <> to_nat_of_nat thm
+R12127:12143 Coq.Vectors.Fin <> to_nat_of_nat thm
+R12127:12143 Coq.Vectors.Fin <> to_nat_of_nat thm
+R12192:12201 Coq.Vectors.Fin <> to_nat def
+R12192:12201 Coq.Vectors.Fin <> to_nat def
+def 12329:12343 <> q1ab_nat_matrix
+R12381:12390 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 12348:12350 <> e00:65
+binder 12352:12354 <> e01:66
+binder 12356:12358 <> e10:67
+binder 12360:12362 <> e11:68
+binder 12364:12365 <> g1:69
+binder 12367:12368 <> g2:70
+binder 12370:12371 <> g3:71
+binder 12373:12374 <> g4:72
+binder 12376:12377 <> g5:73
+R12398:12401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12395:12397 Coq.Init.Datatypes <> nat ind
+R12405:12408 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12402:12404 Coq.Init.Datatypes <> nat ind
+R12409:12418 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 12429:12429 <> a:74
+binder 12431:12431 <> b:75
+R12436:12453 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
+R12455:12457 Kernel.GenRealizability <> e00:65 var
+R12459:12461 Kernel.GenRealizability <> e01:66 var
+R12463:12465 Kernel.GenRealizability <> e10:67 var
+R12467:12469 Kernel.GenRealizability <> e11:68 var
+R12471:12472 Kernel.GenRealizability <> g1:69 var
+R12474:12475 Kernel.GenRealizability <> g2:70 var
+R12477:12478 Kernel.GenRealizability <> g3:71 var
+R12480:12481 Kernel.GenRealizability <> g4:72 var
+R12483:12484 Kernel.GenRealizability <> g5:73 var
+R12519:12529 Kernel.GenRealizability <> fin9_of_nat def
+R12531:12531 Kernel.GenRealizability <> a:74 var
+R12535:12545 Kernel.GenRealizability <> fin9_of_nat def
+R12547:12547 Kernel.GenRealizability <> b:75 var
+prf 12705:12723 <> q1ab_nat_to_fin9_eq
+binder 12736:12738 <> e00:76
+binder 12740:12742 <> e01:77
+binder 12744:12746 <> e10:78
+binder 12748:12750 <> e11:79
+binder 12752:12753 <> g1:80
+binder 12755:12756 <> g2:81
+binder 12758:12759 <> g3:82
+binder 12761:12762 <> g4:83
+binder 12764:12765 <> g5:84
+R12839:12845 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12772:12789 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
+R12792:12806 Kernel.GenRealizability <> q1ab_nat_matrix def
+R12808:12810 Kernel.GenRealizability <> e00:76 var
+R12812:12814 Kernel.GenRealizability <> e01:77 var
+R12816:12818 Kernel.GenRealizability <> e10:78 var
+R12820:12822 Kernel.GenRealizability <> e11:79 var
+R12824:12825 Kernel.GenRealizability <> g1:80 var
+R12827:12828 Kernel.GenRealizability <> g2:81 var
+R12830:12831 Kernel.GenRealizability <> g3:82 var
+R12833:12834 Kernel.GenRealizability <> g4:83 var
+R12836:12837 Kernel.GenRealizability <> g5:84 var
+R12846:12863 Kernel.QuantumPartitionPSD_1AB <> q1ab_moment_matrix def
+R12865:12867 Kernel.GenRealizability <> e00:76 var
+R12869:12871 Kernel.GenRealizability <> e01:77 var
+R12873:12875 Kernel.GenRealizability <> e10:78 var
+R12877:12879 Kernel.GenRealizability <> e11:79 var
+R12881:12882 Kernel.GenRealizability <> g1:80 var
+R12884:12885 Kernel.GenRealizability <> g2:81 var
+R12887:12888 Kernel.GenRealizability <> g3:82 var
+R12890:12891 Kernel.GenRealizability <> g4:83 var
+R12893:12894 Kernel.GenRealizability <> g5:84 var
+R12920:12944 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+R12920:12944 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+R12964:12988 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+R12964:12988 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+R13009:13026 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
+R13029:13043 Kernel.GenRealizability <> q1ab_nat_matrix def
+R13054:13079 Kernel.GenRealizability <> q1ab_depends_only_on_index thm
+R13088:13107 Kernel.GenRealizability <> fin9_index_roundtrip thm
+R13054:13079 Kernel.GenRealizability <> q1ab_depends_only_on_index thm
+R13088:13107 Kernel.GenRealizability <> fin9_index_roundtrip thm
+R13088:13107 Kernel.GenRealizability <> fin9_index_roundtrip thm
+prf 13187:13206 <> symmetric_n_unfold_9
+R13224:13227 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13221:13223 Coq.Init.Datatypes <> nat ind
+R13231:13234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13228:13230 Coq.Init.Datatypes <> nat ind
+R13235:13244 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 13217:13217 <> M:85
+R13264:13268 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13249:13259 Kernel.GenRealizability <> symmetric_n def
+R13263:13263 Kernel.GenRealizability <> M:85 var
+R13269:13278 Kernel.QuantumPartitionPSD_1AB <> symmetric9 def
+R13281:13298 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
+R13300:13300 Kernel.GenRealizability <> M:85 var
+R13329:13339 Kernel.GenRealizability <> symmetric_n def
+R13342:13351 Kernel.QuantumPartitionPSD_1AB <> symmetric9 def
+R13354:13371 Kernel.QuantumPartitionPSD_1AB <> nat_matrix_to_fin9 def
+R13413:13422 Coq.Vectors.Fin <> to_nat def
+R13413:13422 Coq.Vectors.Fin <> to_nat def
+R13452:13461 Coq.Vectors.Fin <> to_nat def
+R13452:13461 Coq.Vectors.Fin <> to_nat def
+R13553:13555 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13553:13555 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13592:13594 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13592:13594 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13630:13642 Coq.Vectors.Fin <> of_nat_lt def
+R13650:13662 Coq.Vectors.Fin <> of_nat_lt def
+R13630:13642 Coq.Vectors.Fin <> of_nat_lt def
+R13650:13662 Coq.Vectors.Fin <> of_nat_lt def
+R13684:13700 Coq.Vectors.Fin <> to_nat_of_nat thm
+R13684:13700 Coq.Vectors.Fin <> to_nat_of_nat thm
+R13684:13700 Coq.Vectors.Fin <> to_nat_of_nat thm
+R13684:13700 Coq.Vectors.Fin <> to_nat_of_nat thm
+R13684:13700 Coq.Vectors.Fin <> to_nat_of_nat thm
+def 13825:13834 <> q1ab_claim
+R13872:13881 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 13839:13841 <> e00:86
+binder 13843:13845 <> e01:87
+binder 13847:13849 <> e10:88
+binder 13851:13853 <> e11:89
+binder 13855:13856 <> g1:90
+binder 13858:13859 <> g2:91
+binder 13861:13862 <> g3:92
+binder 13864:13865 <> g4:93
+binder 13867:13868 <> g5:94
+R13886:13900 Kernel.GenRealizability <> RealizableClaim rec
+R13907:13925 Kernel.GenRealizability <> mk_realizable_claim constr
+R13930:13944 Kernel.GenRealizability <> q1ab_nat_matrix def
+R13946:13948 Kernel.GenRealizability <> e00:86 var
+R13950:13952 Kernel.GenRealizability <> e01:87 var
+R13954:13956 Kernel.GenRealizability <> e10:88 var
+R13958:13960 Kernel.GenRealizability <> e11:89 var
+R13962:13963 Kernel.GenRealizability <> g1:90 var
+R13965:13966 Kernel.GenRealizability <> g2:91 var
+R13968:13969 Kernel.GenRealizability <> g3:92 var
+R13971:13972 Kernel.GenRealizability <> g4:93 var
+R13974:13975 Kernel.GenRealizability <> g5:94 var
+prf 14145:14170 <> q1ab_claim_is_npa_psd_q1ab
+binder 14183:14185 <> e00:95
+binder 14187:14189 <> e01:96
+binder 14191:14193 <> e10:97
+binder 14195:14197 <> e11:98
+binder 14199:14200 <> g1:99
+binder 14202:14203 <> g2:100
+binder 14205:14206 <> g3:101
+binder 14208:14209 <> g4:102
+binder 14211:14212 <> g5:103
+R14276:14284 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14219:14231 Kernel.GenRealizability <> GenRealizable def
+R14234:14243 Kernel.GenRealizability <> q1ab_claim def
+R14245:14247 Kernel.GenRealizability <> e00:95 var
+R14249:14251 Kernel.GenRealizability <> e01:96 var
+R14253:14255 Kernel.GenRealizability <> e10:97 var
+R14257:14259 Kernel.GenRealizability <> e11:98 var
+R14261:14262 Kernel.GenRealizability <> g1:99 var
+R14264:14265 Kernel.GenRealizability <> g2:100 var
+R14267:14268 Kernel.GenRealizability <> g3:101 var
+R14270:14271 Kernel.GenRealizability <> g4:102 var
+R14273:14274 Kernel.GenRealizability <> g5:103 var
+R14285:14296 Kernel.QuantumPartitionPSD_1AB <> npa_psd_q1ab def
+R14298:14300 Kernel.GenRealizability <> e00:95 var
+R14302:14304 Kernel.GenRealizability <> e01:96 var
+R14306:14308 Kernel.GenRealizability <> e10:97 var
+R14310:14312 Kernel.GenRealizability <> e11:98 var
+R14314:14315 Kernel.GenRealizability <> g1:99 var
+R14317:14318 Kernel.GenRealizability <> g2:100 var
+R14320:14321 Kernel.GenRealizability <> g3:101 var
+R14323:14324 Kernel.GenRealizability <> g4:102 var
+R14326:14327 Kernel.GenRealizability <> g5:103 var
+R14356:14368 Kernel.GenRealizability <> GenRealizable def
+R14371:14380 Kernel.GenRealizability <> q1ab_claim def
+R14383:14394 Kernel.QuantumPartitionPSD_1AB <> npa_psd_q1ab def
+R14402:14407 Kernel.GenRealizability <> rc_top proj
+R14409:14417 Kernel.GenRealizability <> rc_matrix proj
+R14435:14453 Kernel.GenRealizability <> q1ab_nat_to_fin9_eq thm
+R14435:14453 Kernel.GenRealizability <> q1ab_nat_to_fin9_eq thm
+R14564:14568 Coq.Init.Logic <> proj1 thm
+R14571:14590 Kernel.GenRealizability <> symmetric_n_unfold_9 thm
+R14564:14568 Coq.Init.Logic <> proj1 thm
+R14571:14590 Kernel.GenRealizability <> symmetric_n_unfold_9 thm
+R14638:14642 Coq.Init.Logic <> proj1 thm
+R14645:14658 Kernel.GenRealizability <> psd_n_unfold_9 thm
+R14638:14642 Coq.Init.Logic <> proj1 thm
+R14645:14658 Kernel.GenRealizability <> psd_n_unfold_9 thm
+R14721:14725 Coq.Init.Logic <> proj2 thm
+R14728:14747 Kernel.GenRealizability <> symmetric_n_unfold_9 thm
+R14721:14725 Coq.Init.Logic <> proj2 thm
+R14728:14747 Kernel.GenRealizability <> symmetric_n_unfold_9 thm
+R14792:14796 Coq.Init.Logic <> proj2 thm
+R14799:14812 Kernel.GenRealizability <> psd_n_unfold_9 thm
+R14792:14796 Coq.Init.Logic <> proj2 thm
+R14799:14812 Kernel.GenRealizability <> psd_n_unfold_9 thm
+prf 15077:15122 <> column_contractive_q1ab_iff_general_realizable
+binder 15135:15137 <> e00:104
+binder 15139:15141 <> e01:105
+binder 15143:15145 <> e10:106
+binder 15147:15149 <> e11:107
+binder 15151:15152 <> g1:108
+binder 15154:15155 <> g2:109
+binder 15157:15158 <> g3:110
+binder 15160:15161 <> g4:111
+binder 15163:15164 <> g5:112
+R15225:15233 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R15171:15193 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab def
+R15195:15197 Kernel.GenRealizability <> e00:104 var
+R15199:15201 Kernel.GenRealizability <> e01:105 var
+R15203:15205 Kernel.GenRealizability <> e10:106 var
+R15207:15209 Kernel.GenRealizability <> e11:107 var
+R15211:15212 Kernel.GenRealizability <> g1:108 var
+R15214:15215 Kernel.GenRealizability <> g2:109 var
+R15217:15218 Kernel.GenRealizability <> g3:110 var
+R15220:15221 Kernel.GenRealizability <> g4:111 var
+R15223:15224 Kernel.GenRealizability <> g5:112 var
+R15234:15246 Kernel.GenRealizability <> GenRealizable def
+R15249:15258 Kernel.GenRealizability <> q1ab_claim def
+R15260:15262 Kernel.GenRealizability <> e00:104 var
+R15264:15266 Kernel.GenRealizability <> e01:105 var
+R15268:15270 Kernel.GenRealizability <> e10:106 var
+R15272:15274 Kernel.GenRealizability <> e11:107 var
+R15276:15277 Kernel.GenRealizability <> g1:108 var
+R15279:15280 Kernel.GenRealizability <> g2:109 var
+R15282:15283 Kernel.GenRealizability <> g3:110 var
+R15285:15286 Kernel.GenRealizability <> g4:111 var
+R15288:15289 Kernel.GenRealizability <> g5:112 var
+R15343:15347 Coq.Init.Logic <> proj2 thm
+R15350:15375 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
+R15343:15347 Coq.Init.Logic <> proj2 thm
+R15350:15375 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
+R15409:15413 Coq.Init.Logic <> proj1 thm
+R15416:15450 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab_iff_npa_psd thm
+R15409:15413 Coq.Init.Logic <> proj1 thm
+R15416:15450 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab_iff_npa_psd thm
+R15510:15514 Coq.Init.Logic <> proj2 thm
+R15517:15551 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab_iff_npa_psd thm
+R15510:15514 Coq.Init.Logic <> proj2 thm
+R15517:15551 Kernel.QuantumPartitionPSD_1AB <> column_contractive_q1ab_iff_npa_psd thm
+R15585:15589 Coq.Init.Logic <> proj1 thm
+R15592:15617 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
+R15585:15589 Coq.Init.Logic <> proj1 thm
+R15592:15617 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
+R15677:15722 Kernel.GenRealizability <> column_contractive_q1ab_iff_general_realizable thm
+prf 15871:15882 <> sum_n_affine
+binder 15893:15895 <> top:113
+R15904:15913 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 15898:15898 <> c:114
+binder 15900:15900 <> d:115
+binder 15916:15916 <> a:116
+binder 15918:15918 <> b:117
+R15961:15965 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15923:15927 Kernel.MinorConstraints <> sum_n def
+R15929:15931 Kernel.GenRealizability <> top:113 var
+binder 15938:15938 <> j:118
+R15950:15952 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R15944:15946 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15943:15943 Kernel.GenRealizability <> c:114 var
+R15947:15947 Kernel.GenRealizability <> a:116 var
+R15949:15949 Kernel.GenRealizability <> j:118 var
+R15954:15956 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15953:15953 Kernel.GenRealizability <> d:115 var
+R15957:15957 Kernel.GenRealizability <> b:117 var
+R15959:15959 Kernel.GenRealizability <> j:118 var
+R15981:15983 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R15967:15969 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15966:15966 Kernel.GenRealizability <> c:114 var
+R15970:15974 Kernel.MinorConstraints <> sum_n def
+R15976:15978 Kernel.GenRealizability <> top:113 var
+R15980:15980 Kernel.GenRealizability <> a:116 var
+R15985:15987 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15984:15984 Kernel.GenRealizability <> d:115 var
+R15988:15992 Kernel.MinorConstraints <> sum_n def
+R15994:15996 Kernel.GenRealizability <> top:113 var
+R15998:15998 Kernel.GenRealizability <> b:117 var
+R16040:16049 Kernel.MinorConstraints <> sum_n_plus thm
+R16040:16049 Kernel.MinorConstraints <> sum_n_plus thm
+R16040:16049 Kernel.MinorConstraints <> sum_n_plus thm
+R16061:16071 Kernel.MinorConstraints <> sum_n_scale thm
+R16061:16071 Kernel.MinorConstraints <> sum_n_scale thm
+R16061:16071 Kernel.MinorConstraints <> sum_n_scale thm
+R16061:16071 Kernel.MinorConstraints <> sum_n_scale thm
+R16061:16071 Kernel.MinorConstraints <> sum_n_scale thm
+prf 16227:16245 <> quad_n_convex_combo
+binder 16258:16260 <> top:119
+R16274:16277 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16271:16273 Coq.Init.Datatypes <> nat ind
+R16281:16284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16278:16280 Coq.Init.Datatypes <> nat ind
+R16285:16294 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 16263:16264 <> M1:120
+binder 16266:16267 <> M2:121
+R16302:16311 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 16298:16298 <> t:122
+R16322:16325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16319:16321 Coq.Init.Datatypes <> nat ind
+R16326:16335 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 16315:16315 <> v:123
+R16398:16404 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16343:16348 Kernel.GenRealizability <> quad_n def
+R16350:16352 Kernel.GenRealizability <> top:119 var
+binder 16359:16359 <> i:124
+binder 16361:16361 <> j:125
+R16382:16384 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R16366:16366 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16372:16375 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16368:16370 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R16371:16371 Kernel.GenRealizability <> t:122 var
+R16376:16377 Kernel.GenRealizability <> M1:120 var
+R16381:16381 Kernel.GenRealizability <> j:125 var
+R16379:16379 Kernel.GenRealizability <> i:124 var
+R16386:16388 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16385:16385 Kernel.GenRealizability <> t:122 var
+R16389:16390 Kernel.GenRealizability <> M2:121 var
+R16394:16394 Kernel.GenRealizability <> j:125 var
+R16392:16392 Kernel.GenRealizability <> i:124 var
+R16397:16397 Kernel.GenRealizability <> v:123 var
+R16430:16432 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R16405:16405 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16411:16414 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16407:16409 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R16410:16410 Kernel.GenRealizability <> t:122 var
+R16415:16420 Kernel.GenRealizability <> quad_n def
+R16422:16424 Kernel.GenRealizability <> top:119 var
+R16426:16427 Kernel.GenRealizability <> M1:120 var
+R16429:16429 Kernel.GenRealizability <> v:123 var
+R16434:16436 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16433:16433 Kernel.GenRealizability <> t:122 var
+R16437:16442 Kernel.GenRealizability <> quad_n def
+R16444:16446 Kernel.GenRealizability <> top:119 var
+R16448:16449 Kernel.GenRealizability <> M2:121 var
+R16451:16451 Kernel.GenRealizability <> v:123 var
+R16492:16497 Kernel.GenRealizability <> quad_n def
+R16513:16524 Kernel.GenRealizability <> sum_n_affine thm
+R16513:16524 Kernel.GenRealizability <> sum_n_affine thm
+R16513:16524 Kernel.GenRealizability <> sum_n_affine thm
+R16544:16568 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+R16544:16568 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+R16593:16604 Kernel.GenRealizability <> sum_n_affine thm
+R16593:16604 Kernel.GenRealizability <> sum_n_affine thm
+R16593:16604 Kernel.GenRealizability <> sum_n_affine thm
+R16624:16648 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+R16624:16648 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+prf 17000:17011 <> psd_n_convex
+binder 17024:17026 <> top:126
+R17040:17043 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17037:17039 Coq.Init.Datatypes <> nat ind
+R17047:17050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17044:17046 Coq.Init.Datatypes <> nat ind
+R17051:17060 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 17029:17030 <> M1:127
+binder 17032:17033 <> M2:128
+R17068:17077 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 17064:17064 <> t:129
+R17085:17085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17097:17105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17087:17090 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R17092:17095 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R17091:17091 Kernel.GenRealizability <> t:129 var
+R17091:17091 Kernel.GenRealizability <> t:129 var
+R17118:17121 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17106:17110 Kernel.GenRealizability <> psd_n def
+R17112:17114 Kernel.GenRealizability <> top:126 var
+R17116:17117 Kernel.GenRealizability <> M1:127 var
+R17134:17141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17122:17126 Kernel.GenRealizability <> psd_n def
+R17128:17130 Kernel.GenRealizability <> top:126 var
+R17132:17133 Kernel.GenRealizability <> M2:128 var
+R17142:17146 Kernel.GenRealizability <> psd_n def
+R17148:17150 Kernel.GenRealizability <> top:126 var
+binder 17157:17157 <> i:130
+binder 17159:17159 <> j:131
+R17180:17182 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R17164:17164 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17170:17173 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17166:17168 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17169:17169 Kernel.GenRealizability <> t:129 var
+R17174:17175 Kernel.GenRealizability <> M1:127 var
+R17179:17179 Kernel.GenRealizability <> j:131 var
+R17177:17177 Kernel.GenRealizability <> i:130 var
+R17184:17186 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17183:17183 Kernel.GenRealizability <> t:129 var
+R17187:17188 Kernel.GenRealizability <> M2:128 var
+R17192:17192 Kernel.GenRealizability <> j:131 var
+R17190:17190 Kernel.GenRealizability <> i:130 var
+R17307:17325 Kernel.GenRealizability <> quad_n_convex_combo thm
+R17307:17325 Kernel.GenRealizability <> quad_n_convex_combo thm
+R17307:17325 Kernel.GenRealizability <> quad_n_convex_combo thm
+R17336:17341 Coq.Reals.RIneq <> Rle_ge thm
+R17336:17341 Coq.Reals.RIneq <> Rle_ge thm
+R17352:17371 Coq.Reals.RIneq <> Rplus_le_le_0_compat thm
+R17352:17371 Coq.Reals.RIneq <> Rplus_le_le_0_compat thm
+R17384:17395 Coq.Reals.RIneq <> Rmult_le_pos thm
+R17384:17395 Coq.Reals.RIneq <> Rmult_le_pos thm
+R17413:17424 Coq.Reals.RIneq <> Rmult_le_pos thm
+R17413:17424 Coq.Reals.RIneq <> Rmult_le_pos thm
+def 17658:17675 <> deterministic_chsh
+R17696:17705 Kernel.QuantumPartitionPSD_1AB <> RealNumber abbrev
+binder 17678:17680 <> e00:132
+binder 17682:17684 <> e01:133
+binder 17686:17688 <> e10:134
+binder 17690:17692 <> e11:135
+R17720:17720 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17740:17744 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17728:17731 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17724:17726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17721:17723 Kernel.GenRealizability <> e00:132 var
+R17735:17737 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17732:17734 Kernel.GenRealizability <> e00:132 var
+R17745:17745 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17765:17771 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17753:17756 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17749:17751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17746:17748 Kernel.GenRealizability <> e01:133 var
+R17760:17762 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17757:17759 Kernel.GenRealizability <> e01:133 var
+R17772:17772 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17792:17797 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17817:17817 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17780:17783 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17776:17778 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17773:17775 Kernel.GenRealizability <> e10:134 var
+R17787:17789 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17784:17786 Kernel.GenRealizability <> e10:134 var
+R17805:17808 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17801:17803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17798:17800 Kernel.GenRealizability <> e11:135 var
+R17812:17814 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17809:17811 Kernel.GenRealizability <> e11:135 var
+prf 18055:18083 <> deterministic_chsh_not_convex
+R18115:18120 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18089:18106 Kernel.GenRealizability <> deterministic_chsh def
+R18159:18164 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18121:18138 Kernel.GenRealizability <> deterministic_chsh def
+R18165:18166 Coq.Init.Logic <> ::type_scope:'~'_x not
+R18167:18184 Kernel.GenRealizability <> deterministic_chsh def
+R18187:18187 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R18194:18197 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R18189:18191 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R18202:18202 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R18209:18212 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R18204:18206 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R18217:18217 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R18224:18227 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R18219:18221 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R18232:18232 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R18239:18242 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R18234:18236 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R18284:18301 Kernel.GenRealizability <> deterministic_chsh def
+R18348:18365 Kernel.GenRealizability <> deterministic_chsh def
+R18413:18430 Kernel.GenRealizability <> deterministic_chsh def
+prf 19015:19055 <> genrealizable_captures_moment_presentable
+R19061:19061 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19186:19195 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19350:19350 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 19069:19071 <> e00:136
+binder 19073:19075 <> e01:137
+binder 19077:19079 <> e10:138
+binder 19081:19083 <> e11:139
+R19133:19142 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R19091:19103 Kernel.GenRealizability <> GenRealizable def
+R19106:19115 Kernel.GenRealizability <> chsh_claim def
+R19117:19119 Kernel.GenRealizability <> e00:136 var
+R19121:19123 Kernel.GenRealizability <> e01:137 var
+R19125:19127 Kernel.GenRealizability <> e10:138 var
+R19129:19131 Kernel.GenRealizability <> e11:139 var
+R19143:19149 Kernel.NPAMomentMatrix <> npa_psd def
+R19152:19168 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R19170:19172 Kernel.GenRealizability <> e00:136 var
+R19174:19176 Kernel.GenRealizability <> e01:137 var
+R19178:19180 Kernel.GenRealizability <> e10:138 var
+R19182:19184 Kernel.GenRealizability <> e11:139 var
+binder 19203:19205 <> e00:140
+binder 19207:19209 <> e01:141
+binder 19211:19213 <> e10:142
+binder 19215:19217 <> e11:143
+binder 19219:19220 <> g1:144
+binder 19222:19223 <> g2:145
+binder 19225:19226 <> g3:146
+binder 19228:19229 <> g4:147
+binder 19231:19232 <> g5:148
+R19297:19306 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R19240:19252 Kernel.GenRealizability <> GenRealizable def
+R19255:19264 Kernel.GenRealizability <> q1ab_claim def
+R19266:19268 Kernel.GenRealizability <> e00:140 var
+R19270:19272 Kernel.GenRealizability <> e01:141 var
+R19274:19276 Kernel.GenRealizability <> e10:142 var
+R19278:19280 Kernel.GenRealizability <> e11:143 var
+R19282:19283 Kernel.GenRealizability <> g1:144 var
+R19285:19286 Kernel.GenRealizability <> g2:145 var
+R19288:19289 Kernel.GenRealizability <> g3:146 var
+R19291:19292 Kernel.GenRealizability <> g4:147 var
+R19294:19295 Kernel.GenRealizability <> g5:148 var
+R19307:19318 Kernel.QuantumPartitionPSD_1AB <> npa_psd_q1ab def
+R19320:19322 Kernel.GenRealizability <> e00:140 var
+R19324:19326 Kernel.GenRealizability <> e01:141 var
+R19328:19330 Kernel.GenRealizability <> e10:142 var
+R19332:19334 Kernel.GenRealizability <> e11:143 var
+R19336:19337 Kernel.GenRealizability <> g1:144 var
+R19339:19340 Kernel.GenRealizability <> g2:145 var
+R19342:19343 Kernel.GenRealizability <> g3:146 var
+R19345:19346 Kernel.GenRealizability <> g4:147 var
+R19348:19349 Kernel.GenRealizability <> g5:148 var
+R19379:19409 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
+R19379:19409 Kernel.GenRealizability <> chsh_claim_is_zero_marginal_npa thm
+R19422:19447 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
+R19422:19447 Kernel.GenRealizability <> q1ab_claim_is_npa_psd_q1ab thm
+R19474:19485 Kernel.GenRealizability <> psd_n_convex thm
+R19506:19534 Kernel.GenRealizability <> deterministic_chsh_not_convex thm
+R19555:19595 Kernel.GenRealizability <> genrealizable_captures_moment_presentable thm

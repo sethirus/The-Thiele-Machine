@@ -23,7 +23,7 @@
 
 (* SCOPE NOTE: standalone proof scope. The comparison with the four
    frameworks is stated over any step function, cost, and reading, so it
-   imports no VM semantics; [CostSemanticsComparison] connects the same
+   imports no machine semantics; [CostSemanticsComparison] connects the same
    reasoning to [CertificationSystem]. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.

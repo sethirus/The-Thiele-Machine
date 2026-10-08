@@ -5,11 +5,11 @@
   ElliptopeCompletion.v characterizes the correlator quantum set as an
   existential completion: some assignment of the cross moments makes the
   moment matrix PSD. That is a real-valued predicate with an existential in
-  it, and an opcode cannot branch on it. This file builds the thing an
-  opcode CAN branch on: a boolean function of the witness counters and a
+  it, and a program cannot branch on it. This file builds the thing a
+  program CAN branch on: a boolean function of the witness counters and a
   supplied completion witness, computed in Z with every denominator cleared,
-  no real and no rational ever evaluated at runtime -- the same discipline
-  as [column_contractive_check_witness] -- together with the theorem that a
+  no real and no rational ever evaluated at runtime (the same discipline
+  as [column_contractive_check_witness]), together with the theorem that a
   passing check entails elliptope membership of the witness-derived
   correlators.
 
@@ -17,7 +17,7 @@
 
   - The PD branch ([elliptope_pd_check]): the program supplies completion
     buckets for x = <A0 A1> and y = <B0 B1> (the same bucket-pair idiom the
-    Q_{1+AB} opcodes use for their gamma moments), and the check runs the
+    Q_{1+AB} checks use for their gamma moments), and the check runs the
     fraction-free Sylvester test on the completed 4x4: all four leading
     principal minors of the denominator-cleared integer matrix strictly
     positive. Soundness routes through [sym4_qf_nonneg_from_pd], the
@@ -27,25 +27,24 @@
 
   - The LDL branch ([elliptope_ldl_check]): the program supplies the
     completion (x, y) plus a rational LDL^T certificate of the completed
-    matrix -- six subdiagonal L-entries over a common denominator [lden],
-    four pivots d_k >= 0 over a common denominator [dden] -- and the check
+    matrix (six subdiagonal L-entries over a common denominator [lden],
+    four pivots d_k >= 0 over a common denominator [dden]), and the check
     verifies the ten entry equations of M = L D L^T in cross-multiplied
     Z-arithmetic. Soundness ([elliptope_ldl_check_sound]) is a
     sum-of-weighted-squares identity. Because a zero pivot in a PSD matrix
     forces its whole column to vanish, every rational PSD matrix has a
     rational LDL^T without pivoting, so this branch accepts EVERY point with
-    a rational PSD completion -- interior, classical (singular), or exactly
+    a rational PSD completion: interior, classical (singular), or exactly
     on the quantum boundary. It subsumes the strict PD branch, and it
-    subsumes what an LHV-weight decomposition could reach; an earlier draft
-    carried a separate sixteen-weight LHV branch, now removed as redundant
-    (every finite mixture of deterministic strategies has a rational PSD
-    completion the LDL branch certifies) and as the file's only performance
-    liability.
+    subsumes what an LHV-weight decomposition could reach; no separate
+    sixteen-weight LHV branch is needed, since every finite mixture of
+    deterministic strategies has a rational PSD completion the LDL branch
+    certifies.
 
   What no exact integer check can ever accept, said out loud: tuples whose
   EVERY PSD completion is irrational, since a rational certificate for such
   a completion does not exist to be supplied. That residue is the arithmetic
-  of the boundary itself, not an engineering gap -- and it is provably
+  of the boundary itself, not an engineering gap, and it is provably
   disjoint from the accept side: soundness holds with the check's passing as
   its only hypothesis, and [elliptope_full_gate_never_accepts_pr_box] shows
   the refusal side has teeth. The Pythagorean point (3/5, 4/5, 4/5, -3/5),
@@ -53,18 +52,16 @@
   rational singular completion and is accepted by the LDL branch
   ([gate_accepts_pythagorean_boundary]).
 
-  This file is the mathematical content of a CHSH_LASSERT_ELLIPTOPE
-  cert-opcode: the decider and its soundness. Binding it into the step
-  relation (opcode constructor, cost schedule under A2, Kami mirror) is
-  plumbing on the pattern of the four Q_{1+AB} opcodes and is not done
+  This file is the mathematical content of an elliptope check: the decider
+  and its soundness. Running it on a machine as an earned check is not done
   here.
 *)
 
-(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
-From Kernel Require Import VMState VMStep.
-From Kernel Require Import MuCostModel.
+(* PROOF SCOPE: standalone algebra. The decider and its soundness are
+   integer and real arithmetic about correlators; no machine is fixed. *)
+
 From Kernel Require Import ConstructivePSD NPAMomentMatrix.
-From Kernel Require Import MuLedgerQuantumBridge.
+From Kernel Require Import CHSHColumnCheck.
 From Kernel Require Import QuantumPartitionPSD_1AB.
 From Kernel Require Import ElliptopeCompletion.
 
@@ -379,13 +376,13 @@ Qed.
 (** * The LDL branch: rational certificates for singular completions *)
 
 (** The PD branch demands strict positivity, so it cannot accept a point
-    whose only admissible completions are singular -- and the boundary of
+    whose only admissible completions are singular, and the boundary of
     the quantum set is exactly where that happens. This branch closes the
     gap for every point that has a RATIONAL positive-semidefinite
     completion at all: the program supplies the completion (x, y) plus a
-    rational LDL^T certificate of the completed matrix -- six L-entries
+    rational LDL^T certificate of the completed matrix (six L-entries
     over a common positive denominator [lden], four pivots d_k >= 0 over a
-    common positive denominator [dden] -- and the check verifies the ten
+    common positive denominator [dden]), and the check verifies the ten
     entry equations of M = L D L^T in cross-multiplied Z-arithmetic.
     Soundness is a sum-of-weighted-squares identity: given the equations,
     the quadratic form IS d1 P1^2 + d2 P2^2 + d3 P3^2 + d4 P4^2.
@@ -394,7 +391,7 @@ Qed.
     a rational LDL^T without pivoting (a zero pivot in a PSD matrix forces
     its entire column to vanish, so the factorization never needs a swap),
     so this branch accepts every correlator tuple admitting any rational
-    PSD completion -- interior, classical, or exactly on the quantum
+    PSD completion: interior, classical, or exactly on the quantum
     boundary, as [gate_accepts_pythagorean_boundary] computes below. What
     no integer check can ever accept: tuples whose every PSD completion is
     irrational, since an exact rational certificate for such a completion
@@ -764,8 +761,8 @@ Qed.
 (** * The gate computes: acceptances via LDL / PD certificates *)
 
 (** The mu = 0 all-ones tightness witness (E = (1,1,1,1)): completion
-    x = y = 1 gives the rank-one all-ones matrix -- singular, invisible to
-    the strict PD branch -- whose rational LDL certificate (pivots 1,0,0,0,
+    x = y = 1 gives the rank-one all-ones matrix (singular, invisible to
+    the strict PD branch), whose rational LDL certificate (pivots 1,0,0,0,
     unit L-column) passes. The slice gate traps this state; the elliptope
     gate accepts it. *)
 Definition lq_ones (i : nat) : Z :=

@@ -1,0 +1,554 @@
+DIGEST 5a1b460ba56934bedc48288e9a43f54d
+FKernel.LiftHeadline
+R2228:2231 Coq.Lists.List <> <> lib
+R2233:2237 Coq.Arith.Arith <> <> lib
+R2239:2241 Coq.micromega.Lia <> <> lib
+R2243:2246 Coq.Bool.Bool <> <> lib
+R2256:2268 Coq.Lists.List ListNotations <> mod
+R2312:2316 Undecidability.MuRec.MuRec <> <> lib
+R2365:2370 Undecidability.MuRec.Util.recalg <> <> lib
+R2372:2380 Undecidability.MuRec.Util.ra_sem_eq <> <> lib
+R2420:2420 Undecidability.L.L <> <> lib
+R2461:2462 Undecidability.TM.TM <> <> lib
+R2514:2516 Undecidability.StackMachines.BSM <> <> lib
+R2569:2570 Undecidability.MinskyMachines.MM <> <> lib
+R2572:2574 Undecidability.MinskyMachines.MMA <> <> lib
+R2621:2628 Undecidability.FRACTRAN.FRACTRAN <> <> lib
+R2676:2689 Undecidability.Synthetic.Undecidability <> <> lib
+R2719:2724 Kernel.AxCore <> <> lib
+R2754:2763 Kernel.AxComplete <> <> lib
+R2793:2804 Kernel.Presentation <> <> lib
+R2806:2823 Kernel.PresentedUniversal <> <> lib
+R2841:2857 Minimal.Presented <> <> lib
+R2868:2889 Minimal.ThieleComplete <> <> lib
+R2904:2925 Minimal.ThieleComplete <> <> modtype
+mod 2899:2899 <> T
+R2956:2963 Minimal.LiftCore <> <> lib
+R2965:2976 Minimal.LiftConverse <> <> lib
+R2978:2991 Minimal.LiftOneCounter <> <> lib
+R3021:3028 Kernel.LiftAxis <> <> lib
+R3030:3037 Kernel.LiftExec <> <> lib
+R3039:3045 Kernel.LiftRAM <> <> lib
+R3047:3056 Kernel.LiftModels <> <> lib
+R3058:3070 Kernel.LiftModelsAll <> <> lib
+sec 3152:3157 <> Bridge
+var 3170:3171 Bridge Mp
+R3175:3191 Minimal.Presented <> presented_machine rec
+abbrev 3210:3211 <> st
+R3217:3226 Kernel.LiftModelsAll T cs_state proj
+R3229:3234 Minimal.Presented <> pm_sys proj
+R3236:3237 Kernel.LiftHeadline <> Bridge.Mp var
+abbrev 3257:3258 <> mv
+R3264:3273 Kernel.LiftModelsAll T cs_instr proj
+R3276:3281 Minimal.Presented <> pm_sys proj
+R3283:3284 Kernel.LiftHeadline <> Bridge.Mp var
+abbrev 3304:3308 <> cstep
+R3314:3322 Kernel.LiftModelsAll T cs_step proj
+R3325:3330 Minimal.Presented <> pm_sys proj
+R3332:3333 Kernel.LiftHeadline <> Bridge.Mp var
+abbrev 3353:3357 <> ccost
+R3363:3371 Kernel.LiftModelsAll T cs_cost proj
+R3374:3379 Minimal.Presented <> pm_sys proj
+R3381:3382 Kernel.LiftHeadline <> Bridge.Mp var
+def 3464:3479 <> lift_pm_next_rel
+R3486:3493 Coq.Vectors.Vector <> t ind
+R3495:3497 Coq.Init.Datatypes <> nat ind
+binder 3482:3482 <> v:2
+R3507:3509 Coq.Init.Datatypes <> nat ind
+binder 3503:3503 <> m:3
+R3524:3530 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3537:3538 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3535:3536 Kernel.LiftHeadline <> st abbrev
+binder 3531:3531 <> s:4
+R3566:3569 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3550:3552 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3539:3547 Coq.Vectors.Vector <> hd def
+R3549:3549 Kernel.LiftHeadline <> v:2 var
+R3553:3560 Minimal.Presented <> pm_scode proj
+R3562:3563 Kernel.LiftHeadline <> Bridge.Mp var
+R3565:3565 Kernel.LiftHeadline <> s:4 var
+R3571:3573 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3570:3570 Kernel.LiftHeadline <> m:3 var
+R3574:3584 Kernel.Presentation <> cg_next_val def
+R3589:3589 Kernel.LiftHeadline <> s:4 var
+R3586:3587 Kernel.LiftHeadline <> Bridge.Mp var
+def 3604:3619 <> lift_pm_step_rel
+R3626:3633 Coq.Vectors.Vector <> t ind
+R3635:3637 Coq.Init.Datatypes <> nat ind
+binder 3622:3622 <> v:5
+R3647:3649 Coq.Init.Datatypes <> nat ind
+binder 3643:3643 <> m:6
+R3664:3671 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3687:3689 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3676:3677 Kernel.LiftHeadline <> st abbrev
+binder 3672:3672 <> s:7
+R3685:3686 Kernel.LiftHeadline <> mv abbrev
+binder 3681:3681 <> i:8
+R3717:3724 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3701:3703 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3690:3698 Coq.Vectors.Vector <> hd def
+R3700:3700 Kernel.LiftHeadline <> v:5 var
+R3704:3711 Minimal.Presented <> pm_scode proj
+R3713:3714 Kernel.LiftHeadline <> Bridge.Mp var
+R3716:3716 Kernel.LiftHeadline <> s:7 var
+R3764:3767 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3748:3750 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3725:3733 Coq.Vectors.Vector <> hd def
+R3736:3744 Coq.Vectors.Vector <> tl def
+R3746:3746 Kernel.LiftHeadline <> v:5 var
+R3751:3758 Minimal.Presented <> pm_icode proj
+R3760:3761 Kernel.LiftHeadline <> Bridge.Mp var
+R3763:3763 Kernel.LiftHeadline <> i:8 var
+R3769:3771 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3768:3768 Kernel.LiftHeadline <> m:6 var
+R3772:3779 Minimal.Presented <> pm_scode proj
+R3781:3782 Kernel.LiftHeadline <> Bridge.Mp var
+R3785:3789 Kernel.LiftHeadline <> cstep abbrev
+R3791:3791 Kernel.LiftHeadline <> s:7 var
+R3793:3793 Kernel.LiftHeadline <> i:8 var
+def 3809:3824 <> lift_pm_cost_rel
+R3831:3838 Coq.Vectors.Vector <> t ind
+R3840:3842 Coq.Init.Datatypes <> nat ind
+binder 3827:3827 <> v:9
+R3852:3854 Coq.Init.Datatypes <> nat ind
+binder 3848:3848 <> m:10
+R3869:3875 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3882:3883 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3880:3881 Kernel.LiftHeadline <> mv abbrev
+binder 3876:3876 <> i:11
+R3911:3914 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3895:3897 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3884:3892 Coq.Vectors.Vector <> hd def
+R3894:3894 Kernel.LiftHeadline <> v:9 var
+R3898:3905 Minimal.Presented <> pm_icode proj
+R3907:3908 Kernel.LiftHeadline <> Bridge.Mp var
+R3910:3910 Kernel.LiftHeadline <> i:11 var
+R3916:3918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3915:3915 Kernel.LiftHeadline <> m:10 var
+R3919:3923 Kernel.LiftHeadline <> ccost abbrev
+R3925:3925 Kernel.LiftHeadline <> i:11 var
+def 3940:3955 <> lift_pm_read_rel
+R3962:3969 Coq.Vectors.Vector <> t ind
+R3971:3973 Coq.Init.Datatypes <> nat ind
+binder 3958:3958 <> v:12
+R3983:3985 Coq.Init.Datatypes <> nat ind
+binder 3979:3979 <> m:13
+R4001:4003 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4000:4000 Kernel.LiftHeadline <> m:13 var
+R4004:4014 Kernel.Presentation <> cg_read_val def
+R4020:4028 Coq.Vectors.Vector <> hd def
+R4030:4030 Kernel.LiftHeadline <> v:12 var
+R4016:4017 Kernel.LiftHeadline <> Bridge.Mp var
+prf 4106:4135 <> lift_presented_from_computable
+R4174:4177 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4141:4156 Undecidability.MuRec.MuRec <> MuRec_computable def
+R4158:4173 Kernel.LiftHeadline <> lift_pm_next_rel def
+R4211:4216 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4178:4193 Undecidability.MuRec.MuRec <> MuRec_computable def
+R4195:4210 Kernel.LiftHeadline <> lift_pm_step_rel def
+R4250:4253 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4217:4232 Undecidability.MuRec.MuRec <> MuRec_computable def
+R4234:4249 Kernel.LiftHeadline <> lift_pm_cost_rel def
+R4287:4292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4254:4269 Undecidability.MuRec.MuRec <> MuRec_computable def
+R4271:4286 Kernel.LiftHeadline <> lift_pm_read_rel def
+R4293:4315 Kernel.Presentation <> cg_computably_presented def
+R4317:4318 Kernel.LiftHeadline <> Bridge.Mp var
+R4376:4383 Coq.Init.Logic <> inhabits constr
+R4376:4383 Coq.Init.Logic <> inhabits constr
+R4396:4413 Kernel.Presentation <> cg_mk_presentation constr
+R4415:4416 Kernel.LiftHeadline <> Bridge.Mp var
+R4396:4413 Kernel.Presentation <> cg_mk_presentation constr
+R4415:4416 Kernel.LiftHeadline <> Bridge.Mp var
+R4459:4471 Undecidability.MuRec.Util.ra_sem_eq <> ra_bs_correct thm
+R4459:4471 Undecidability.MuRec.Util.ra_sem_eq <> ra_bs_correct thm
+R4536:4548 Undecidability.MuRec.Util.ra_sem_eq <> ra_bs_correct thm
+R4536:4548 Undecidability.MuRec.Util.ra_sem_eq <> ra_bs_correct thm
+R4640:4652 Undecidability.MuRec.Util.ra_sem_eq <> ra_bs_correct thm
+R4640:4652 Undecidability.MuRec.Util.ra_sem_eq <> ra_bs_correct thm
+R4714:4726 Undecidability.MuRec.Util.ra_sem_eq <> ra_bs_correct thm
+R4714:4726 Undecidability.MuRec.Util.ra_sem_eq <> ra_bs_correct thm
+def 4884:4897 <> lift_runs_on_U
+R4905:4919 Kernel.Presentation <> cg_presentation rec
+R4921:4922 Kernel.LiftHeadline <> Bridge.Mp var
+binder 4900:4901 <> pc:14
+R4931:4932 Kernel.LiftHeadline <> st abbrev
+binder 4926:4927 <> s0:15
+R4971:4997 Kernel.PresentedUniversal <> presented_universal_halting thm
+R4999:5000 Kernel.LiftHeadline <> Bridge.Mp var
+R5038:5063 Kernel.PresentedUniversal <> presented_universal_points thm
+R5065:5066 Kernel.LiftHeadline <> Bridge.Mp var
+R5104:5133 Kernel.PresentedUniversal <> presented_universal_halt_point thm
+R5135:5136 Kernel.LiftHeadline <> Bridge.Mp var
+R5174:5201 Kernel.PresentedUniversal <> presented_universal_flag_iff thm
+R5203:5204 Kernel.LiftHeadline <> Bridge.Mp var
+R5242:5277 Kernel.PresentedUniversal <> presented_universal_surcharge_le_two thm
+R5279:5280 Kernel.LiftHeadline <> Bridge.Mp var
+R5308:5311 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5313:5316 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5318:5321 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5323:5326 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4971:4997 Kernel.PresentedUniversal <> presented_universal_halting thm
+R4999:5000 Kernel.LiftHeadline <> Bridge.Mp var
+R5038:5063 Kernel.PresentedUniversal <> presented_universal_points thm
+R5065:5066 Kernel.LiftHeadline <> Bridge.Mp var
+R5104:5133 Kernel.PresentedUniversal <> presented_universal_halt_point thm
+R5135:5136 Kernel.LiftHeadline <> Bridge.Mp var
+R5174:5201 Kernel.PresentedUniversal <> presented_universal_flag_iff thm
+R5203:5204 Kernel.LiftHeadline <> Bridge.Mp var
+R5242:5277 Kernel.PresentedUniversal <> presented_universal_surcharge_le_two thm
+R5279:5280 Kernel.LiftHeadline <> Bridge.Mp var
+R5308:5311 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5313:5316 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5318:5321 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5323:5326 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+prf 5341:5364 <> lift_presented_runs_on_U
+binder 5375:5376 <> pc:16
+binder 5378:5379 <> s0:17
+R5382:5395 Kernel.LiftHeadline <> lift_runs_on_U def
+R5400:5401 Kernel.LiftHeadline <> s0:17 var
+R5397:5398 Kernel.LiftHeadline <> pc:16 var
+R5434:5447 Kernel.LiftHeadline <> lift_runs_on_U def
+R5459:5462 Coq.Init.Logic <> conj constr
+R5513:5516 Coq.Init.Logic <> conj constr
+R5566:5569 Coq.Init.Logic <> conj constr
+R5623:5626 Coq.Init.Logic <> conj constr
+R5684:5719 Kernel.PresentedUniversal <> presented_universal_surcharge_le_two thm
+R5721:5722 Kernel.LiftHeadline <> Bridge.Mp var
+R5629:5656 Kernel.PresentedUniversal <> presented_universal_flag_iff thm
+R5658:5659 Kernel.LiftHeadline <> Bridge.Mp var
+R5572:5601 Kernel.PresentedUniversal <> presented_universal_halt_point thm
+R5603:5604 Kernel.LiftHeadline <> Bridge.Mp var
+R5519:5544 Kernel.PresentedUniversal <> presented_universal_points thm
+R5546:5547 Kernel.LiftHeadline <> Bridge.Mp var
+R5465:5491 Kernel.PresentedUniversal <> presented_universal_halting thm
+R5493:5494 Kernel.LiftHeadline <> Bridge.Mp var
+R5459:5462 Coq.Init.Logic <> conj constr
+R5513:5516 Coq.Init.Logic <> conj constr
+R5566:5569 Coq.Init.Logic <> conj constr
+R5623:5626 Coq.Init.Logic <> conj constr
+R5684:5719 Kernel.PresentedUniversal <> presented_universal_surcharge_le_two thm
+R5721:5722 Kernel.LiftHeadline <> Bridge.Mp var
+R5629:5656 Kernel.PresentedUniversal <> presented_universal_flag_iff thm
+R5658:5659 Kernel.LiftHeadline <> Bridge.Mp var
+R5572:5601 Kernel.PresentedUniversal <> presented_universal_halt_point thm
+R5603:5604 Kernel.LiftHeadline <> Bridge.Mp var
+R5519:5544 Kernel.PresentedUniversal <> presented_universal_points thm
+R5546:5547 Kernel.LiftHeadline <> Bridge.Mp var
+R5465:5491 Kernel.PresentedUniversal <> presented_universal_halting thm
+R5493:5494 Kernel.LiftHeadline <> Bridge.Mp var
+prf 5876:5900 <> lift_computable_runs_on_U
+R5906:5906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6157:6163 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5936:5939 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R5907:5918 Undecidability.L.L <> L_computable def
+R5920:5935 Kernel.LiftHeadline <> lift_pm_next_rel def
+R5971:5974 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R5940:5953 Undecidability.MinskyMachines.MMA <> MMA_computable def
+R5955:5970 Kernel.LiftHeadline <> lift_pm_next_rel def
+R6005:6011 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R5975:5987 Undecidability.TM.TM <> TM_computable def
+R5989:6004 Kernel.LiftHeadline <> lift_pm_next_rel def
+R6043:6046 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6012:6025 Undecidability.StackMachines.BSM <> BSM_computable def
+R6027:6042 Kernel.LiftHeadline <> lift_pm_next_rel def
+R6077:6083 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6047:6059 Undecidability.MinskyMachines.MM <> MM_computable def
+R6061:6076 Kernel.LiftHeadline <> lift_pm_next_rel def
+R6120:6123 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6084:6102 Undecidability.FRACTRAN.FRACTRAN <> FRACTRAN_computable def
+R6104:6119 Kernel.LiftHeadline <> lift_pm_next_rel def
+R6124:6139 Undecidability.MuRec.MuRec <> MuRec_computable def
+R6141:6156 Kernel.LiftHeadline <> lift_pm_next_rel def
+R6164:6164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6415:6421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6194:6197 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6165:6176 Undecidability.L.L <> L_computable def
+R6178:6193 Kernel.LiftHeadline <> lift_pm_step_rel def
+R6229:6232 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6198:6211 Undecidability.MinskyMachines.MMA <> MMA_computable def
+R6213:6228 Kernel.LiftHeadline <> lift_pm_step_rel def
+R6263:6269 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6233:6245 Undecidability.TM.TM <> TM_computable def
+R6247:6262 Kernel.LiftHeadline <> lift_pm_step_rel def
+R6301:6304 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6270:6283 Undecidability.StackMachines.BSM <> BSM_computable def
+R6285:6300 Kernel.LiftHeadline <> lift_pm_step_rel def
+R6335:6341 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6305:6317 Undecidability.MinskyMachines.MM <> MM_computable def
+R6319:6334 Kernel.LiftHeadline <> lift_pm_step_rel def
+R6378:6381 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6342:6360 Undecidability.FRACTRAN.FRACTRAN <> FRACTRAN_computable def
+R6362:6377 Kernel.LiftHeadline <> lift_pm_step_rel def
+R6382:6397 Undecidability.MuRec.MuRec <> MuRec_computable def
+R6399:6414 Kernel.LiftHeadline <> lift_pm_step_rel def
+R6422:6422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6673:6679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6452:6455 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6423:6434 Undecidability.L.L <> L_computable def
+R6436:6451 Kernel.LiftHeadline <> lift_pm_cost_rel def
+R6487:6490 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6456:6469 Undecidability.MinskyMachines.MMA <> MMA_computable def
+R6471:6486 Kernel.LiftHeadline <> lift_pm_cost_rel def
+R6521:6527 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6491:6503 Undecidability.TM.TM <> TM_computable def
+R6505:6520 Kernel.LiftHeadline <> lift_pm_cost_rel def
+R6559:6562 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6528:6541 Undecidability.StackMachines.BSM <> BSM_computable def
+R6543:6558 Kernel.LiftHeadline <> lift_pm_cost_rel def
+R6593:6599 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6563:6575 Undecidability.MinskyMachines.MM <> MM_computable def
+R6577:6592 Kernel.LiftHeadline <> lift_pm_cost_rel def
+R6636:6639 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6600:6618 Undecidability.FRACTRAN.FRACTRAN <> FRACTRAN_computable def
+R6620:6635 Kernel.LiftHeadline <> lift_pm_cost_rel def
+R6640:6655 Undecidability.MuRec.MuRec <> MuRec_computable def
+R6657:6672 Kernel.LiftHeadline <> lift_pm_cost_rel def
+R6680:6680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6931:6937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6710:6713 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6681:6692 Undecidability.L.L <> L_computable def
+R6694:6709 Kernel.LiftHeadline <> lift_pm_read_rel def
+R6745:6748 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6714:6727 Undecidability.MinskyMachines.MMA <> MMA_computable def
+R6729:6744 Kernel.LiftHeadline <> lift_pm_read_rel def
+R6779:6785 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6749:6761 Undecidability.TM.TM <> TM_computable def
+R6763:6778 Kernel.LiftHeadline <> lift_pm_read_rel def
+R6817:6820 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6786:6799 Undecidability.StackMachines.BSM <> BSM_computable def
+R6801:6816 Kernel.LiftHeadline <> lift_pm_read_rel def
+R6851:6857 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6821:6833 Undecidability.MinskyMachines.MM <> MM_computable def
+R6835:6850 Kernel.LiftHeadline <> lift_pm_read_rel def
+R6894:6897 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R6858:6876 Undecidability.FRACTRAN.FRACTRAN <> FRACTRAN_computable def
+R6878:6893 Kernel.LiftHeadline <> lift_pm_read_rel def
+R6898:6913 Undecidability.MuRec.MuRec <> MuRec_computable def
+R6915:6930 Kernel.LiftHeadline <> lift_pm_read_rel def
+R6938:6944 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6968:6969 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6950:6964 Kernel.Presentation <> cg_presentation rec
+R6966:6967 Kernel.LiftHeadline <> Bridge.Mp var
+binder 6945:6946 <> pc:18
+binder 6977:6978 <> s0:19
+R6981:6994 Kernel.LiftHeadline <> lift_runs_on_U def
+R6999:7000 Kernel.LiftHeadline <> s0:19 var
+R6996:6997 Kernel.LiftHeadline <> pc:18 var
+R7044:7064 Kernel.LiftModelsAll <> lift_num_models_agree thm
+R7044:7064 Kernel.LiftModelsAll <> lift_num_models_agree thm
+R7114:7134 Kernel.LiftModelsAll <> lift_num_models_agree thm
+R7114:7134 Kernel.LiftModelsAll <> lift_num_models_agree thm
+R7184:7204 Kernel.LiftModelsAll <> lift_num_models_agree thm
+R7184:7204 Kernel.LiftModelsAll <> lift_num_models_agree thm
+R7254:7274 Kernel.LiftModelsAll <> lift_num_models_agree thm
+R7254:7274 Kernel.LiftModelsAll <> lift_num_models_agree thm
+R7324:7353 Kernel.LiftHeadline <> lift_presented_from_computable thm
+R7324:7353 Kernel.LiftHeadline <> lift_presented_from_computable thm
+R7410:7433 Kernel.LiftHeadline <> lift_presented_runs_on_U thm
+R7410:7433 Kernel.LiftHeadline <> lift_presented_runs_on_U thm
+R7446:7451 Kernel.LiftHeadline Bridge <> sec
+prf 7491:7513 <> lift_model_independence
+R7668:7668 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7789:7795 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7676:7677 <> M0:20
+R7684:7699 Kernel.LiftModelsAll T universal_base rec
+R7701:7702 Kernel.LiftHeadline <> M0:20 var
+binder 7680:7680 <> U:21
+binder 7705:7707 <> cap:22
+R7717:7725 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7711:7713 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7714:7716 Kernel.LiftHeadline <> cap:22 var
+R7726:7742 Kernel.LiftModelsAll T thiele_complete def
+R7745:7756 Minimal.LiftCore <> lift_machine def
+R7785:7787 Kernel.LiftHeadline <> cap:22 var
+R7762:7777 Minimal.LiftCore <> lift_window_lang def
+R7779:7780 Kernel.LiftHeadline <> M0:20 var
+R7782:7782 Kernel.LiftHeadline <> U:21 var
+R7758:7759 Kernel.LiftHeadline <> M0:20 var
+R7796:7796 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8075:8173 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7805:7805 <> A:23
+R7820:7823 Kernel.AxCore <> BPre rec
+R7825:7825 Kernel.LiftHeadline <> A:23 var
+binder 7816:7816 <> P:24
+R7834:7842 Kernel.LiftAxis <> lift_axis rec
+R7844:7844 Kernel.LiftHeadline <> P:24 var
+binder 7829:7830 <> AX:25
+binder 7847:7848 <> M0:26
+R7855:7870 Kernel.LiftModelsAll T universal_base rec
+R7872:7873 Kernel.LiftHeadline <> M0:26 var
+binder 7851:7851 <> U:27
+binder 7876:7878 <> cap:28
+R7900:7903 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7897:7899 Coq.Init.Datatypes <> nat ind
+R7904:7904 Kernel.LiftHeadline <> A:23 var
+binder 7891:7893 <> pts:29
+binder 7907:7908 <> k0:30
+R7918:7921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7912:7914 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7915:7917 Kernel.LiftHeadline <> cap:28 var
+R7959:7967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7922:7923 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7924:7928 Kernel.AxCore <> bp_le def
+R7942:7954 Kernel.LiftAxis <> lift_la_floor proj
+R7956:7957 Kernel.LiftHeadline <> AX:25 var
+R7933:7935 Kernel.LiftHeadline <> pts:29 var
+R7937:7938 Kernel.LiftHeadline <> k0:30 var
+R7930:7930 Kernel.LiftHeadline <> P:24 var
+R7968:7985 Kernel.AxComplete <> ax_thiele_complete def
+R7995:8010 Kernel.LiftAxis <> lift_lax_machine def
+binder 8055:8056 <> ck:31
+R8061:8063 Kernel.LiftHeadline <> pts:29 var
+R8066:8068 Coq.Init.Datatypes <> snd def
+R8070:8071 Kernel.LiftHeadline <> ck:31 var
+R8046:8048 Kernel.LiftHeadline <> cap:28 var
+R8019:8038 Kernel.LiftAxis <> lift_window_lang_pts def
+R8040:8041 Kernel.LiftHeadline <> M0:26 var
+R8043:8043 Kernel.LiftHeadline <> U:27 var
+R8015:8016 Kernel.LiftHeadline <> M0:26 var
+R8012:8013 Kernel.LiftHeadline <> AX:25 var
+R8174:8174 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8327:8386 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8182:8182 <> M:32
+R8204:8212 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8185:8201 Kernel.LiftModelsAll T thiele_complete def
+R8203:8203 Kernel.LiftHeadline <> M:32 var
+R8213:8219 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8244:8245 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8224:8241 Kernel.LiftModelsAll T thiele_interface rec
+R8243:8243 Kernel.LiftHeadline <> M:32 var
+binder 8220:8220 <> I:33
+R8270:8280 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8246:8267 Kernel.LiftModelsAll T thiele_complete_with def
+R8269:8269 Kernel.LiftHeadline <> I:33 var
+R8281:8289 Coq.Init.Logic <> inhabited ind
+R8292:8307 Kernel.LiftModelsAll T universal_base rec
+R8310:8320 Minimal.LiftConverse <> lift_reduct def
+R8324:8324 Kernel.LiftHeadline <> I:33 var
+R8322:8322 Kernel.LiftHeadline <> M:32 var
+R8387:8387 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8453:8542 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8395:8396 <> M0:34
+R8403:8418 Kernel.LiftModelsAll T universal_base rec
+R8420:8421 Kernel.LiftHeadline <> M0:34 var
+binder 8399:8399 <> U:35
+R8425:8426 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8427:8449 Minimal.LiftConverse <> lift_finitely_branching def
+R8451:8452 Kernel.LiftHeadline <> M0:34 var
+R8543:8543 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8641:8647 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8551:8552 <> M0:36
+binder 8554:8555 <> LG:37
+binder 8557:8559 <> cap:38
+R8588:8596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8562:8584 Minimal.LiftConverse <> lift_finitely_branching def
+R8586:8587 Kernel.LiftHeadline <> M0:36 var
+R8597:8598 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8599:8615 Kernel.LiftModelsAll T thiele_complete def
+R8618:8629 Minimal.LiftCore <> lift_machine def
+R8637:8639 Kernel.LiftHeadline <> cap:38 var
+R8634:8635 Kernel.LiftHeadline <> LG:37 var
+R8631:8632 Kernel.LiftHeadline <> M0:36 var
+R8648:8648 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8732:8764 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 8656:8657 <> M0:39
+binder 8659:8660 <> LG:40
+binder 8662:8664 <> cap:41
+R8684:8687 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8667:8680 Minimal.LiftConverse <> lift_stateless def
+R8682:8683 Kernel.LiftHeadline <> M0:39 var
+R8688:8689 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8690:8706 Kernel.LiftModelsAll T thiele_complete def
+R8709:8720 Minimal.LiftCore <> lift_machine def
+R8728:8730 Kernel.LiftHeadline <> cap:41 var
+R8725:8726 Kernel.LiftHeadline <> LG:40 var
+R8722:8723 Kernel.LiftHeadline <> M0:39 var
+R8765:8765 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9059:9160 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8810:8813 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8766:8774 Coq.Init.Logic <> inhabited ind
+R8777:8792 Kernel.LiftModelsAll T universal_base rec
+R8794:8808 Kernel.LiftExec <> lift_ex_machine def
+R8844:8850 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8814:8831 Kernel.LiftModelsAll <> lift_in_all_models def
+R8833:8843 Kernel.LiftExec <> lift_ex_rel def
+R8950:8956 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8851:8867 Kernel.LiftModelsAll T thiele_complete def
+R8870:8881 Minimal.LiftCore <> lift_machine def
+R8900:8915 Minimal.LiftCore <> lift_window_lang def
+R8917:8931 Kernel.LiftExec <> lift_ex_machine def
+R8933:8944 Kernel.LiftExec <> lift_ex_base def
+R8883:8897 Kernel.LiftExec <> lift_ex_machine def
+R8957:8973 Kernel.LiftModelsAll T thiele_complete def
+R8976:8987 Minimal.LiftCore <> lift_machine def
+R9007:9022 Minimal.LiftCore <> lift_window_lang def
+R9024:9039 Kernel.LiftRAM <> lift_ram_machine def
+R9041:9053 Kernel.LiftRAM <> lift_ram_base def
+R8989:9004 Kernel.LiftRAM <> lift_ram_machine def
+R9161:9161 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9244:9308 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9175:9191 Minimal.Presented <> presented_machine rec
+binder 9170:9171 <> Mp:42
+R9200:9214 Kernel.Presentation <> cg_presentation rec
+R9216:9217 Kernel.LiftHeadline <> Mp:42 var
+binder 9195:9196 <> pc:43
+binder 9220:9221 <> s0:44
+R9224:9237 Kernel.LiftHeadline <> lift_runs_on_U def
+R9242:9243 Kernel.LiftHeadline <> s0:44 var
+R9239:9240 Kernel.LiftHeadline <> pc:43 var
+R9309:9309 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9362:9366 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9317:9317 <> P:45
+binder 9319:9319 <> x:46
+R9339:9342 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9322:9334 Minimal.LiftOneCounter <> lift_oc_halts def
+R9336:9336 Kernel.LiftHeadline <> P:45 var
+R9338:9338 Kernel.LiftHeadline <> x:46 var
+R9343:9344 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9345:9357 Minimal.LiftOneCounter <> lift_oc_halts def
+R9359:9359 Kernel.LiftHeadline <> P:45 var
+R9361:9361 Kernel.LiftHeadline <> x:46 var
+R9367:9377 Undecidability.Synthetic.Undecidability <> undecidable def
+R9379:9393 Kernel.LiftModels <> lift_CM_HALTING def
+R9413:9416 Coq.Init.Logic <> conj constr
+R9421:9424 Coq.Init.Logic <> conj constr
+R9429:9432 Coq.Init.Logic <> conj constr
+R9437:9440 Coq.Init.Logic <> conj constr
+R9445:9448 Coq.Init.Logic <> conj constr
+R9453:9456 Coq.Init.Logic <> conj constr
+R9461:9464 Coq.Init.Logic <> conj constr
+R9469:9472 Coq.Init.Logic <> conj constr
+R9413:9416 Coq.Init.Logic <> conj constr
+R9421:9424 Coq.Init.Logic <> conj constr
+R9429:9432 Coq.Init.Logic <> conj constr
+R9437:9440 Coq.Init.Logic <> conj constr
+R9445:9448 Coq.Init.Logic <> conj constr
+R9453:9456 Coq.Init.Logic <> conj constr
+R9461:9464 Coq.Init.Logic <> conj constr
+R9469:9472 Coq.Init.Logic <> conj constr
+R9520:9546 Minimal.LiftCore <> lift_window_thiele_complete thm
+R9520:9546 Minimal.LiftCore <> lift_window_thiele_complete thm
+R9615:9645 Kernel.LiftAxis <> lift_lax_window_thiele_complete thm
+R9615:9645 Kernel.LiftAxis <> lift_lax_window_thiele_complete thm
+R9686:9706 Minimal.LiftConverse <> lift_reduct_universal thm
+R9686:9706 Minimal.LiftConverse <> lift_reduct_universal thm
+R9719:9748 Minimal.LiftConverse <> lift_ub_not_finitely_branching thm
+R9719:9748 Minimal.LiftConverse <> lift_ub_not_finitely_branching thm
+R9761:9794 Minimal.LiftConverse <> lift_finite_branching_not_complete thm
+R9761:9794 Minimal.LiftConverse <> lift_finite_branching_not_complete thm
+R9807:9833 Minimal.LiftConverse <> lift_stateless_not_complete thm
+R9807:9833 Minimal.LiftConverse <> lift_stateless_not_complete thm
+R9846:9863 Kernel.LiftModelsAll <> lift_classic_bases thm
+R9846:9863 Kernel.LiftModelsAll <> lift_classic_bases thm
+R9893:9916 Kernel.LiftHeadline <> lift_presented_runs_on_U thm
+R9893:9916 Kernel.LiftHeadline <> lift_presented_runs_on_U thm
+R9931:9934 Coq.Init.Logic <> conj constr
+R9938:9964 Kernel.LiftModels <> lift_cm_halting_undecidable thm
+R9931:9934 Coq.Init.Logic <> conj constr
+R9938:9964 Kernel.LiftModels <> lift_cm_halting_undecidable thm
+R9994:10010 Minimal.LiftOneCounter <> lift_oc_halts_dec thm
+R9994:10010 Minimal.LiftOneCounter <> lift_oc_halts_dec thm
+R10078:10107 Kernel.LiftHeadline <> lift_presented_from_computable thm
+R10128:10152 Kernel.LiftHeadline <> lift_computable_runs_on_U thm
+R10173:10195 Kernel.LiftHeadline <> lift_model_independence thm

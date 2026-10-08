@@ -50,7 +50,7 @@ err_text = ERR.read_text(errors="replace")
 # Strip coqtop progress chatter before block parsing.
 #
 # coqtop interleaves informational lines like
-#     Fetching opaque proofs from disk for Kernel.VMState
+#     Fetching opaque proofs from disk for Kernel.StructuralCore
 # into STDOUT, unindented. The block parser below treats any unindented line
 # inside an `Axioms:` block as an axiom NAME, so these progress messages were
 # being recorded as axioms -- and, because they match none of the stdlib

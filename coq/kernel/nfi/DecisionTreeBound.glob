@@ -1,0 +1,166 @@
+DIGEST 3240361c037813035c88f2d022e52881
+FKernel.DecisionTreeBound
+R667:680 Coq.Arith.PeanoNat <> <> lib
+R682:684 Coq.micromega.Lia <> <> lib
+ind 698:709 <> DecisionTree
+constr 723:729 <> dt_leaf
+constr 733:741 <> dt_branch
+R767:778 Kernel.DecisionTreeBound <> DecisionTree:1 ind
+binder 744:752 <> left_tree:3
+binder 754:763 <> right_tree:4
+scheme 698:709 <> DecisionTree_rect
+scheme 698:709 <> DecisionTree_ind
+scheme 698:709 <> DecisionTree_rec
+scheme 698:709 <> DecisionTree_sind
+def 792:810 <> decision_tree_depth
+R820:831 Kernel.DecisionTreeBound <> DecisionTree ind
+binder 813:816 <> tree:5
+R836:838 Coq.Init.Datatypes <> nat ind
+R851:854 Kernel.DecisionTreeBound <> tree:5 var
+R865:871 Kernel.DecisionTreeBound <> dt_leaf constr
+R882:890 Kernel.DecisionTreeBound <> dt_branch constr
+R922:922 Coq.Init.Datatypes <> S constr
+R925:931 Coq.Arith.PeanoNat Nat max def
+R934:952 Kernel.DecisionTreeBound <> decision_tree_depth:6 def
+R966:984 Kernel.DecisionTreeBound <> decision_tree_depth:6 def
+def 1016:1039 <> decision_tree_leaf_count
+R1049:1060 Kernel.DecisionTreeBound <> DecisionTree ind
+binder 1042:1045 <> tree:8
+R1065:1067 Coq.Init.Datatypes <> nat ind
+R1080:1083 Kernel.DecisionTreeBound <> tree:8 var
+R1094:1100 Kernel.DecisionTreeBound <> dt_leaf constr
+R1111:1119 Kernel.DecisionTreeBound <> dt_branch constr
+R1185:1187 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1151:1174 Kernel.DecisionTreeBound <> decision_tree_leaf_count:9 def
+R1188:1211 Kernel.DecisionTreeBound <> decision_tree_leaf_count:9 def
+prf 1238:1271 <> decision_tree_leaves_le_pow2_depth
+binder 1284:1287 <> tree:11
+R1323:1326 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1294:1317 Kernel.DecisionTreeBound <> decision_tree_leaf_count def
+R1319:1322 Kernel.DecisionTreeBound <> tree:11 var
+R1328:1330 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R1331:1349 Kernel.DecisionTreeBound <> decision_tree_depth def
+R1351:1354 Kernel.DecisionTreeBound <> tree:11 var
+R1462:1468 Coq.Arith.PeanoNat Nat max def
+R1471:1489 Kernel.DecisionTreeBound <> decision_tree_depth def
+R1498:1516 Kernel.DecisionTreeBound <> decision_tree_depth def
+R1462:1468 Coq.Arith.PeanoNat Nat max def
+R1471:1489 Kernel.DecisionTreeBound <> decision_tree_depth def
+R1498:1516 Kernel.DecisionTreeBound <> decision_tree_depth def
+R1538:1549 Coq.Arith.PeanoNat Nat le_trans thm
+R1538:1549 Coq.Arith.PeanoNat Nat le_trans thm
+R1564:1578 Coq.Arith.PeanoNat Nat add_le_mono thm
+R1564:1578 Coq.Arith.PeanoNat Nat add_le_mono thm
+R1596:1607 Coq.Arith.PeanoNat Nat le_trans thm
+R1596:1607 Coq.Arith.PeanoNat Nat le_trans thm
+R1650:1666 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+R1650:1666 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+R1728:1739 Coq.Arith.PeanoNat Nat le_max_l thm
+R1728:1739 Coq.Arith.PeanoNat Nat le_max_l thm
+R1757:1768 Coq.Arith.PeanoNat Nat le_trans thm
+R1757:1768 Coq.Arith.PeanoNat Nat le_trans thm
+R1812:1828 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+R1812:1828 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+R1890:1901 Coq.Arith.PeanoNat Nat le_max_r thm
+R1890:1901 Coq.Arith.PeanoNat Nat le_max_r thm
+R2011:2028 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1946:1948 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R1949:1955 Coq.Arith.PeanoNat Nat max def
+R1958:1976 Kernel.DecisionTreeBound <> decision_tree_depth def
+R1985:2003 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2030:2032 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R2033:2039 Coq.Arith.PeanoNat Nat max def
+R2042:2060 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2069:2087 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2112:2114 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2116:2118 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R2119:2125 Coq.Arith.PeanoNat Nat max def
+R2128:2146 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2155:2173 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2011:2028 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1946:1948 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R1949:1955 Coq.Arith.PeanoNat Nat max def
+R1958:1976 Kernel.DecisionTreeBound <> decision_tree_depth def
+R1985:2003 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2030:2032 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R2033:2039 Coq.Arith.PeanoNat Nat max def
+R2042:2060 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2069:2087 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2112:2114 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2116:2118 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R2119:2125 Coq.Arith.PeanoNat Nat max def
+R2128:2146 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2155:2173 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2208:2222 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R2208:2222 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R2208:2222 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+prf 2263:2291 <> decision_tree_log2_leaf_bound
+binder 2304:2307 <> tree:12
+R2354:2357 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2314:2321 Coq.Arith.PeanoNat Nat log2 def
+R2324:2347 Kernel.DecisionTreeBound <> decision_tree_leaf_count def
+R2349:2352 Kernel.DecisionTreeBound <> tree:12 var
+R2358:2376 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2378:2381 Kernel.DecisionTreeBound <> tree:12 var
+R2414:2425 Coq.Arith.PeanoNat Nat le_trans thm
+R2414:2425 Coq.Arith.PeanoNat Nat le_trans thm
+R2438:2453 Coq.Arith.PeanoNat Nat log2_le_mono thm
+R2438:2453 Coq.Arith.PeanoNat Nat log2_le_mono thm
+R2466:2499 Kernel.DecisionTreeBound <> decision_tree_leaves_le_pow2_depth thm
+R2466:2499 Kernel.DecisionTreeBound <> decision_tree_leaves_le_pow2_depth thm
+R2514:2526 Coq.Arith.PeanoNat Nat log2_pow2 thm
+R2514:2526 Coq.Arith.PeanoNat Nat log2_pow2 thm
+R2514:2526 Coq.Arith.PeanoNat Nat log2_pow2 thm
+prf 2565:2597 <> decision_tree_leaf_count_positive
+binder 2610:2613 <> tree:13
+R2649:2651 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2620:2643 Kernel.DecisionTreeBound <> decision_tree_leaf_count def
+R2645:2648 Kernel.DecisionTreeBound <> tree:13 var
+prf 2704:2735 <> decision_tree_log2_up_leaf_bound
+binder 2748:2751 <> tree:14
+R2801:2804 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2758:2768 Coq.Arith.PeanoNat Nat log2_up def
+R2771:2794 Kernel.DecisionTreeBound <> decision_tree_leaf_count def
+R2796:2799 Kernel.DecisionTreeBound <> tree:14 var
+R2805:2823 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2825:2828 Kernel.DecisionTreeBound <> tree:14 var
+R2861:2865 Coq.Init.Logic <> proj1 thm
+R2868:2886 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
+R2893:2916 Kernel.DecisionTreeBound <> decision_tree_leaf_count def
+R2929:2947 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2960:2992 Kernel.DecisionTreeBound <> decision_tree_leaf_count_positive thm
+R2861:2865 Coq.Init.Logic <> proj1 thm
+R2868:2886 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
+R2893:2916 Kernel.DecisionTreeBound <> decision_tree_leaf_count def
+R2929:2947 Kernel.DecisionTreeBound <> decision_tree_depth def
+R2960:2992 Kernel.DecisionTreeBound <> decision_tree_leaf_count_positive thm
+R3011:3044 Kernel.DecisionTreeBound <> decision_tree_leaves_le_pow2_depth thm
+R3011:3044 Kernel.DecisionTreeBound <> decision_tree_leaves_le_pow2_depth thm
+def 3158:3170 <> complete_tree
+R3177:3179 Coq.Init.Datatypes <> nat ind
+binder 3173:3173 <> d:15
+R3184:3195 Kernel.DecisionTreeBound <> DecisionTree ind
+R3208:3208 Kernel.DecisionTreeBound <> d:15 var
+R3224:3230 Kernel.DecisionTreeBound <> dt_leaf constr
+R3236:3236 Coq.Init.Datatypes <> S constr
+R3244:3252 Kernel.DecisionTreeBound <> dt_branch constr
+R3255:3267 Kernel.DecisionTreeBound <> complete_tree:16 def
+R3274:3286 Kernel.DecisionTreeBound <> complete_tree:16 def
+prf 3306:3329 <> complete_tree_leaf_count
+binder 3340:3340 <> d:18
+R3387:3389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3345:3368 Kernel.DecisionTreeBound <> decision_tree_leaf_count def
+R3371:3383 Kernel.DecisionTreeBound <> complete_tree def
+R3385:3385 Kernel.DecisionTreeBound <> d:18 var
+R3391:3393 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3394:3394 Kernel.DecisionTreeBound <> d:18 var
+prf 3481:3499 <> complete_tree_depth
+binder 3510:3510 <> d:19
+R3552:3554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3515:3533 Kernel.DecisionTreeBound <> decision_tree_depth def
+R3536:3548 Kernel.DecisionTreeBound <> complete_tree def
+R3550:3550 Kernel.DecisionTreeBound <> d:19 var
+R3555:3555 Kernel.DecisionTreeBound <> d:19 var
+R3625:3634 Coq.Arith.PeanoNat Nat max_id thm
+R3625:3634 Coq.Arith.PeanoNat Nat max_id thm
+R3625:3634 Coq.Arith.PeanoNat Nat max_id thm

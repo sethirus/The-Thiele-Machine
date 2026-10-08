@@ -1,111 +1,110 @@
-DIGEST 14a5505538a632ef6fc340edc08f9f4d
+DIGEST c9f9ec5e739808dc359a692f4c149112
 FKernel.PricingPhysicsAudit
-R95:98 Coq.Lists.List <> <> lib
-R100:103 Coq.Bool.Bool <> <> lib
-R105:109 Coq.Arith.Arith <> <> lib
-R111:115 Coq.Reals.Reals <> <> lib
-R117:119 Coq.micromega.Lra <> <> lib
-R121:139 Coq.Sorting.Permutation <> <> lib
-R149:161 Coq.Lists.List ListNotations <> mod
-R212:233 Kernel.PermanentCertification <> <> lib
-R263:284 Kernel.PermanentRecordPricing <> <> lib
-R314:342 Kernel.PermanentCertificationEntropy <> <> lib
-R372:391 Kernel.PricingPhysicsTarget <> <> lib
-R421:427 Kernel.VMState <> <> lib
-prf 439:467 <> no_forced_price_beyond_merges
-binder 481:481 <> S:1
-binder 483:483 <> I:2
-R502:505 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R501:501 Kernel.PricingPhysicsAudit <> S:1 var
-R507:510 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R506:506 Kernel.PricingPhysicsAudit <> I:2 var
-R511:511 Kernel.PricingPhysicsAudit <> S:1 var
-binder 494:497 <> step:3
-R552:552 Kernel.PricingPhysicsAudit <> I:2 var
-binder 546:546 <> a:4
-binder 548:548 <> b:5
-R555:555 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R561:565 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R572:572 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
-R557:559 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R556:556 Kernel.PricingPhysicsAudit <> a:4 var
-R560:560 Kernel.PricingPhysicsAudit <> b:5 var
-R567:570 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R566:566 Kernel.PricingPhysicsAudit <> a:4 var
-R571:571 Kernel.PricingPhysicsAudit <> b:5 var
-binder 524:535 <> instr_eq_dec:6
-R580:608 Kernel.PricingPhysicsTarget <> item41_no_price_beyond_merges def
-R615:626 Kernel.PricingPhysicsAudit <> instr_eq_dec:6 var
-R610:613 Kernel.PricingPhysicsAudit <> step:3 var
-R700:704 Coq.Init.Logic <> proj1 thm
-R708:731 Kernel.PermanentRecordPricing <> forced_priced_iff_merges thm
-R700:704 Coq.Init.Logic <> proj1 thm
-R708:731 Kernel.PermanentRecordPricing <> forced_priced_iff_merges thm
-prf 802:836 <> permanent_write_has_logical_payment
-binder 850:850 <> S:7
-binder 852:852 <> I:8
-R871:874 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R870:870 Kernel.PricingPhysicsAudit <> S:7 var
-R876:879 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R875:875 Kernel.PricingPhysicsAudit <> I:8 var
-R880:880 Kernel.PricingPhysicsAudit <> S:7 var
-binder 863:866 <> step:9
-R892:895 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R891:891 Kernel.PricingPhysicsAudit <> S:7 var
-R896:899 Coq.Init.Datatypes <> bool ind
-binder 884:887 <> cert:10
-R907:928 Kernel.PricingPhysicsTarget <> item42_logical_payment def
-R935:938 Kernel.PricingPhysicsAudit <> cert:10 var
-R930:933 Kernel.PricingPhysicsAudit <> step:9 var
-R1019:1052 Kernel.PermanentRecordPricing <> permanent_at_flip_is_not_injective thm
-R1019:1052 Kernel.PermanentRecordPricing <> permanent_at_flip_is_not_injective thm
-prf 1091:1121 <> mu_has_no_intrinsic_joule_value
-R1125:1155 Kernel.PricingPhysicsTarget <> item43_no_intrinsic_joule_scale def
-R1175:1195 Kernel.PricingPhysicsTarget <> vm_mu_energy_at_scale def
-R1202:1222 Kernel.PricingPhysicsTarget <> vm_mu_energy_at_scale def
-R1175:1195 Kernel.PricingPhysicsTarget <> vm_mu_energy_at_scale def
-R1202:1222 Kernel.PricingPhysicsTarget <> vm_mu_energy_at_scale def
-R1251:1271 Kernel.PricingPhysicsTarget <> vm_mu_energy_at_scale def
-prf 1348:1376 <> calibrated_mu_landauer_energy
-R1397:1397 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 1389:1391 <> k_B:11
-binder 1393:1393 <> T:12
-R1400:1426 Kernel.PricingPhysicsTarget <> item43_landauer_calibration def
-R1428:1430 Kernel.PricingPhysicsAudit <> k_B:11 var
-R1432:1432 Kernel.PricingPhysicsAudit <> T:12 var
-R1473:1499 Kernel.PricingPhysicsTarget <> item43_landauer_calibration def
-R1502:1522 Kernel.PricingPhysicsTarget <> vm_mu_energy_at_scale def
-prf 1725:1763 <> semantics_entropy_permutation_invariant
-binder 1777:1777 <> S:13
-R1799:1802 Coq.Init.Datatypes <> list ind
-R1804:1804 Kernel.PricingPhysicsAudit <> S:13 var
-binder 1788:1790 <> all:14
-binder 1792:1795 <> all':15
-R1813:1816 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1812:1812 Kernel.PricingPhysicsAudit <> S:13 var
-R1817:1817 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 1808:1808 <> p:16
-R1845:1848 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1825:1835 Coq.Sorting.Permutation <> Permutation ind
-R1841:1844 Kernel.PricingPhysicsAudit <> all':15 var
-R1837:1839 Kernel.PricingPhysicsAudit <> all:14 var
-R1862:1864 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1849:1855 Kernel.PermanentCertificationEntropy <> entropy def
-R1861:1861 Kernel.PricingPhysicsAudit <> p:16 var
-R1857:1859 Kernel.PricingPhysicsAudit <> all:14 var
-R1865:1871 Kernel.PermanentCertificationEntropy <> entropy def
-R1878:1878 Kernel.PricingPhysicsAudit <> p:16 var
-R1873:1876 Kernel.PricingPhysicsAudit <> all':15 var
-R1926:1932 Kernel.PermanentCertificationEntropy <> entropy def
-R1941:1956 Kernel.PermanentCertificationEntropy <> rsum_permutation thm
-R1941:1956 Kernel.PermanentCertificationEntropy <> rsum_permutation thm
-prf 2124:2158 <> permanence_heat_floor_uses_landauer
-R2162:2188 Kernel.PricingPhysicsTarget <> item44_landauer_is_required def
-R2312:2336 Kernel.PermanentCertificationEntropy <> permanent_flip_heat_floor thm
-R2312:2336 Kernel.PermanentCertificationEntropy <> permanent_flip_heat_floor thm
-R2412:2440 Kernel.PricingPhysicsAudit <> no_forced_price_beyond_merges thm
-R2461:2495 Kernel.PricingPhysicsAudit <> permanent_write_has_logical_payment thm
-R2516:2546 Kernel.PricingPhysicsAudit <> mu_has_no_intrinsic_joule_value thm
-R2567:2595 Kernel.PricingPhysicsAudit <> calibrated_mu_landauer_energy thm
-R2616:2654 Kernel.PricingPhysicsAudit <> semantics_entropy_permutation_invariant thm
-R2675:2709 Kernel.PricingPhysicsAudit <> permanence_heat_floor_uses_landauer thm
+R107:110 Coq.Lists.List <> <> lib
+R112:115 Coq.Bool.Bool <> <> lib
+R117:121 Coq.Arith.Arith <> <> lib
+R123:127 Coq.Reals.Reals <> <> lib
+R129:131 Coq.micromega.Lra <> <> lib
+R133:151 Coq.Sorting.Permutation <> <> lib
+R161:173 Coq.Lists.List ListNotations <> mod
+R224:245 Kernel.PermanentCertification <> <> lib
+R275:296 Kernel.PermanentRecordPricing <> <> lib
+R326:354 Kernel.PermanentCertificationEntropy <> <> lib
+R384:403 Kernel.PricingPhysicsTarget <> <> lib
+prf 415:443 <> no_forced_price_beyond_merges
+binder 457:457 <> S:1
+binder 459:459 <> I:2
+R478:481 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R477:477 Kernel.PricingPhysicsAudit <> S:1 var
+R483:486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R482:482 Kernel.PricingPhysicsAudit <> I:2 var
+R487:487 Kernel.PricingPhysicsAudit <> S:1 var
+binder 470:473 <> step:3
+R528:528 Kernel.PricingPhysicsAudit <> I:2 var
+binder 522:522 <> a:4
+binder 524:524 <> b:5
+R531:531 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R537:541 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R548:548 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R533:535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R532:532 Kernel.PricingPhysicsAudit <> a:4 var
+R536:536 Kernel.PricingPhysicsAudit <> b:5 var
+R543:546 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R542:542 Kernel.PricingPhysicsAudit <> a:4 var
+R547:547 Kernel.PricingPhysicsAudit <> b:5 var
+binder 500:511 <> instr_eq_dec:6
+R556:577 Kernel.PricingPhysicsTarget <> no_price_beyond_merges def
+R584:595 Kernel.PricingPhysicsAudit <> instr_eq_dec:6 var
+R579:582 Kernel.PricingPhysicsAudit <> step:3 var
+R669:673 Coq.Init.Logic <> proj1 thm
+R677:700 Kernel.PermanentRecordPricing <> forced_priced_iff_merges thm
+R669:673 Coq.Init.Logic <> proj1 thm
+R677:700 Kernel.PermanentRecordPricing <> forced_priced_iff_merges thm
+prf 771:805 <> permanent_write_has_logical_payment
+binder 819:819 <> S:7
+binder 821:821 <> I:8
+R840:843 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R839:839 Kernel.PricingPhysicsAudit <> S:7 var
+R845:848 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R844:844 Kernel.PricingPhysicsAudit <> I:8 var
+R849:849 Kernel.PricingPhysicsAudit <> S:7 var
+binder 832:835 <> step:9
+R861:864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R860:860 Kernel.PricingPhysicsAudit <> S:7 var
+R865:868 Coq.Init.Datatypes <> bool ind
+binder 853:856 <> cert:10
+R876:905 Kernel.PricingPhysicsTarget <> permanent_flip_logical_payment def
+R912:915 Kernel.PricingPhysicsAudit <> cert:10 var
+R907:910 Kernel.PricingPhysicsAudit <> step:9 var
+R996:1029 Kernel.PermanentRecordPricing <> permanent_at_flip_is_not_injective thm
+R996:1029 Kernel.PermanentRecordPricing <> permanent_at_flip_is_not_injective thm
+prf 1068:1098 <> mu_has_no_intrinsic_joule_value
+R1102:1125 Kernel.PricingPhysicsTarget <> no_intrinsic_joule_scale def
+R1160:1177 Kernel.PricingPhysicsTarget <> mu_energy_at_scale def
+R1187:1204 Kernel.PricingPhysicsTarget <> mu_energy_at_scale def
+R1160:1177 Kernel.PricingPhysicsTarget <> mu_energy_at_scale def
+R1187:1204 Kernel.PricingPhysicsTarget <> mu_energy_at_scale def
+R1236:1253 Kernel.PricingPhysicsTarget <> mu_energy_at_scale def
+prf 1330:1358 <> calibrated_mu_landauer_energy
+R1379:1379 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1371:1373 <> k_B:11
+binder 1375:1375 <> T:12
+R1382:1404 Kernel.PricingPhysicsTarget <> mu_landauer_calibration def
+R1406:1408 Kernel.PricingPhysicsAudit <> k_B:11 var
+R1410:1410 Kernel.PricingPhysicsAudit <> T:12 var
+R1456:1478 Kernel.PricingPhysicsTarget <> mu_landauer_calibration def
+R1481:1498 Kernel.PricingPhysicsTarget <> mu_energy_at_scale def
+prf 1701:1739 <> semantics_entropy_permutation_invariant
+binder 1753:1753 <> S:13
+R1775:1778 Coq.Init.Datatypes <> list ind
+R1780:1780 Kernel.PricingPhysicsAudit <> S:13 var
+binder 1764:1766 <> all:14
+binder 1768:1771 <> all':15
+R1789:1792 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1788:1788 Kernel.PricingPhysicsAudit <> S:13 var
+R1793:1793 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1784:1784 <> p:16
+R1821:1824 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1801:1811 Coq.Sorting.Permutation <> Permutation ind
+R1817:1820 Kernel.PricingPhysicsAudit <> all':15 var
+R1813:1815 Kernel.PricingPhysicsAudit <> all:14 var
+R1838:1840 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1825:1831 Kernel.PermanentCertificationEntropy <> entropy def
+R1837:1837 Kernel.PricingPhysicsAudit <> p:16 var
+R1833:1835 Kernel.PricingPhysicsAudit <> all:14 var
+R1841:1847 Kernel.PermanentCertificationEntropy <> entropy def
+R1854:1854 Kernel.PricingPhysicsAudit <> p:16 var
+R1849:1852 Kernel.PricingPhysicsAudit <> all':15 var
+R1902:1908 Kernel.PermanentCertificationEntropy <> entropy def
+R1917:1932 Kernel.PermanentCertificationEntropy <> rsum_permutation thm
+R1917:1932 Kernel.PermanentCertificationEntropy <> rsum_permutation thm
+prf 2100:2134 <> permanence_heat_floor_uses_landauer
+R2138:2167 Kernel.PricingPhysicsTarget <> landauer_permanence_heat_floor def
+R2291:2315 Kernel.PermanentCertificationEntropy <> permanent_flip_heat_floor thm
+R2291:2315 Kernel.PermanentCertificationEntropy <> permanent_flip_heat_floor thm
+R2391:2419 Kernel.PricingPhysicsAudit <> no_forced_price_beyond_merges thm
+R2440:2474 Kernel.PricingPhysicsAudit <> permanent_write_has_logical_payment thm
+R2495:2525 Kernel.PricingPhysicsAudit <> mu_has_no_intrinsic_joule_value thm
+R2546:2574 Kernel.PricingPhysicsAudit <> calibrated_mu_landauer_energy thm
+R2595:2633 Kernel.PricingPhysicsAudit <> semantics_entropy_permutation_invariant thm
+R2654:2688 Kernel.PricingPhysicsAudit <> permanence_heat_floor_uses_landauer thm

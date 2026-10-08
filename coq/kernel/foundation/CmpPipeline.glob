@@ -1,0 +1,900 @@
+DIGEST ba4208938d529546859df9287a6c60e9
+FKernel.CmpPipeline
+R3545:3548 Coq.Lists.List <> <> lib
+R3550:3554 Coq.Arith.Arith <> <> lib
+R3556:3558 Coq.micromega.Lia <> <> lib
+R3560:3563 Coq.Bool.Bool <> <> lib
+R3573:3585 Coq.Lists.List ListNotations <> mod
+R3639:3643 Undecidability.Shared.Libs.DLW.Utils.utils <> <> lib
+R3645:3647 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R3649:3651 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R3653:3659 Undecidability.Shared.Libs.DLW.Code.subcode <> <> lib
+R3661:3663 Undecidability.Shared.Libs.DLW.Code.sss <> <> lib
+R3716:3717 Undecidability.MinskyMachines.MM <> <> lib
+R3719:3721 Undecidability.MinskyMachines.MMA <> <> lib
+R3780:3782 Undecidability.MinskyMachines.MMenv.env <> <> lib
+R3784:3791 Undecidability.MinskyMachines.MMenv.mme_defs <> <> lib
+R3802:3820 Minimal.EarnedMulti <> <> lib
+R3872:3880 Undecidability.FRACTRAN.Util.prime_seq <> <> lib
+R3898:3917 Kernel.CompilerCodes <> <> lib
+R3919:3940 Kernel.CompilerChecker <> <> lib
+R3942:3961 Kernel.CompilerLifts <> <> lib
+R3963:3982 Kernel.CompilerIcomp <> <> lib
+R4000:4021 Kernel.UniversalPCodes <> <> lib
+R4023:4045 Kernel.UniversalPBridge <> <> lib
+R4047:4069 Kernel.UniversalPBlocks <> <> lib
+R4071:4093 Kernel.UniversalPLayout <> <> lib
+R4097:4119 Kernel.UniversalPPhases <> <> lib
+R4121:4140 Kernel.UniversalPSim <> <> lib
+R4142:4161 Kernel.UniversalPRun <> <> lib
+R4179:4192 Kernel.CmpLang <> <> lib
+R4194:4209 Kernel.CmpBlocks <> <> lib
+R4211:4226 Kernel.CmpInline <> <> lib
+R4228:4241 Kernel.CmpFlat <> <> lib
+R4243:4256 Kernel.CmpExpr <> <> lib
+R4258:4269 Kernel.CmpMM <> <> lib
+R4273:4289 Kernel.CmpCompile <> <> lib
+R4291:4304 Kernel.CmpHost <> <> lib
+R4306:4320 Kernel.CmpGuest <> <> lib
+abbrev 4339:4344 <> mmstep
+R4351:4360 Undecidability.MinskyMachines.MMenv.mme_defs <> mm_sss_env ind
+R4362:4364 Coq.Init.Datatypes <> nat ind
+R4366:4375 Coq.Arith.Peano_dec <> eq_nat_dec abbrev
+def 4473:4485 <> cmp_prog_regs
+R4492:4495 Coq.Init.Datatypes <> list ind
+R4498:4505 Undecidability.MinskyMachines.MM <> mm_instr ind
+R4507:4509 Coq.Init.Datatypes <> nat ind
+binder 4488:4488 <> Q:1
+R4515:4517 Coq.Init.Datatypes <> nat ind
+R4522:4531 Coq.Lists.List <> fold_right def
+R4544:4546 Coq.Lists.List <> map def
+R4556:4556 Kernel.CmpPipeline <> Q:1 var
+R4548:4554 Kernel.CompilerLifts <> cg_xreg def
+R4533:4539 Coq.Arith.PeanoNat Nat max def
+prf 4567:4582 <> cmp_prog_regs_lt
+binder 4593:4593 <> Q:2
+binder 4595:4595 <> J:3
+R4604:4607 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4598:4599 Coq.Lists.List <> In def
+R4603:4603 Kernel.CmpPipeline <> Q:2 var
+R4601:4601 Kernel.CmpPipeline <> J:3 var
+R4617:4619 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4608:4614 Kernel.CompilerLifts <> cg_xreg def
+R4616:4616 Kernel.CmpPipeline <> J:3 var
+R4620:4620 Coq.Init.Datatypes <> S constr
+R4623:4635 Kernel.CmpPipeline <> cmp_prog_regs def
+R4637:4637 Kernel.CmpPipeline <> Q:2 var
+R4715:4727 Kernel.CmpPipeline <> cmp_prog_regs def
+def 4817:4822 <> cmp_gk
+R4829:4836 Kernel.CmpLang <> cmp_prog rec
+binder 4825:4825 <> p:4
+R4850:4852 Coq.Init.Datatypes <> nat ind
+binder 4840:4842 <> nin:5
+binder 4844:4846 <> out:6
+R4857:4859 Coq.Init.Datatypes <> nat ind
+R4866:4872 Coq.Arith.PeanoNat Nat max def
+R4875:4875 Coq.Init.Datatypes <> S constr
+R4878:4890 Kernel.CmpPipeline <> cmp_prog_regs def
+R4893:4903 Kernel.CmpCompile <> cmp_mm_prog def
+R4905:4905 Kernel.CmpPipeline <> p:4 var
+R4907:4909 Kernel.CmpPipeline <> nin:5 var
+R4911:4913 Kernel.CmpPipeline <> out:6 var
+R4919:4919 Coq.Init.Datatypes <> S constr
+R4922:4928 Kernel.CmpCompile <> cmp_nvF def
+R4930:4930 Kernel.CmpPipeline <> p:4 var
+R4932:4934 Kernel.CmpPipeline <> nin:5 var
+R4936:4938 Kernel.CmpPipeline <> out:6 var
+prf 4950:4958 <> cmp_gk_wf
+binder 4969:4969 <> p:7
+binder 4971:4973 <> nin:8
+binder 4975:4977 <> out:9
+binder 4979:4979 <> J:10
+R5010:5013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4982:4983 Coq.Lists.List <> In def
+R4988:4998 Kernel.CmpCompile <> cmp_mm_prog def
+R5000:5000 Kernel.CmpPipeline <> p:7 var
+R5002:5004 Kernel.CmpPipeline <> nin:8 var
+R5006:5008 Kernel.CmpPipeline <> out:9 var
+R4985:4985 Kernel.CmpPipeline <> J:10 var
+R5023:5025 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5014:5020 Kernel.CompilerLifts <> cg_xreg def
+R5022:5022 Kernel.CmpPipeline <> J:10 var
+R5026:5031 Kernel.CmpPipeline <> cmp_gk def
+R5033:5033 Kernel.CmpPipeline <> p:7 var
+R5035:5037 Kernel.CmpPipeline <> nin:8 var
+R5039:5041 Kernel.CmpPipeline <> out:9 var
+R5082:5087 Kernel.CmpPipeline <> cmp_gk def
+R5102:5117 Kernel.CmpPipeline <> cmp_prog_regs_lt thm
+R5102:5117 Kernel.CmpPipeline <> cmp_prog_regs_lt thm
+prf 5144:5156 <> cmp_load_zero
+binder 5167:5167 <> p:11
+binder 5169:5171 <> nin:12
+binder 5173:5175 <> out:13
+binder 5177:5178 <> xs:14
+binder 5180:5180 <> x:15
+R5204:5209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5199:5202 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5183:5188 Kernel.CmpPipeline <> cmp_gk def
+R5190:5190 Kernel.CmpPipeline <> p:11 var
+R5192:5194 Kernel.CmpPipeline <> nin:12 var
+R5196:5198 Kernel.CmpPipeline <> out:13 var
+R5203:5203 Kernel.CmpPipeline <> x:15 var
+R5246:5248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5210:5220 Kernel.CmpCompile <> cmp_mm_load def
+R5223:5229 Kernel.CmpCompile <> cmp_nvF def
+R5231:5231 Kernel.CmpPipeline <> p:11 var
+R5233:5235 Kernel.CmpPipeline <> nin:12 var
+R5237:5239 Kernel.CmpPipeline <> out:13 var
+R5242:5243 Kernel.CmpPipeline <> xs:14 var
+R5245:5245 Kernel.CmpPipeline <> x:15 var
+R5293:5298 Kernel.CmpPipeline <> cmp_gk def
+R5313:5323 Kernel.CmpCompile <> cmp_mm_load def
+R5379:5390 Coq.Arith.PeanoNat Nat ltb_spec thm
+R5396:5402 Kernel.CmpCompile <> cmp_nvF def
+R5379:5390 Coq.Arith.PeanoNat Nat ltb_spec thm
+R5396:5402 Kernel.CmpCompile <> cmp_nvF def
+def 5455:5463 <> cmp_guest
+R5470:5477 Kernel.CmpLang <> cmp_prog rec
+binder 5466:5466 <> p:16
+R5491:5493 Coq.Init.Datatypes <> nat ind
+binder 5481:5483 <> nin:17
+binder 5485:5487 <> out:18
+R5498:5501 Coq.Init.Datatypes <> list ind
+R5505:5533 Minimal.EarnedPriced <> pr_instr ind
+R5535:5542 Kernel.CompilerChecker <> cg_uprop ind
+R5550:5558 Kernel.CmpGuest <> cmp_gprog def
+R5561:5566 Kernel.CmpPipeline <> cmp_gk def
+R5568:5568 Kernel.CmpPipeline <> p:16 var
+R5570:5572 Kernel.CmpPipeline <> nin:17 var
+R5574:5576 Kernel.CmpPipeline <> out:18 var
+R5580:5590 Kernel.CmpCompile <> cmp_mm_prog def
+R5592:5592 Kernel.CmpPipeline <> p:16 var
+R5594:5596 Kernel.CmpPipeline <> nin:17 var
+R5598:5600 Kernel.CmpPipeline <> out:18 var
+def 5616:5623 <> cmp_host
+binder 5626:5629 <> prop:19
+R5644:5651 Kernel.CmpLang <> cmp_prog rec
+binder 5640:5640 <> p:20
+R5665:5667 Coq.Init.Datatypes <> nat ind
+binder 5655:5657 <> nin:21
+binder 5659:5661 <> out:22
+R5672:5675 Coq.Init.Datatypes <> list ind
+R5679:5703 Minimal.EarnedMulti <> instr ind
+R5705:5708 Kernel.CmpPipeline <> prop:19 var
+R5716:5724 Kernel.CmpHost <> cmp_hprog def
+R5727:5739 Kernel.CmpHost <> cmp_host_prog def
+R5742:5752 Kernel.CmpCompile <> cmp_mm_prog def
+R5754:5754 Kernel.CmpPipeline <> p:20 var
+R5756:5758 Kernel.CmpPipeline <> nin:21 var
+R5760:5762 Kernel.CmpPipeline <> out:22 var
+prf 5994:6010 <> cmp_pipeline_host
+binder 6022:6025 <> prop:23
+R6051:6054 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6047:6050 Kernel.CmpPipeline <> prop:23 var
+R6059:6062 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6055:6058 Kernel.CmpPipeline <> prop:23 var
+R6063:6066 Coq.Init.Datatypes <> bool ind
+binder 6036:6043 <> prop_eqb:24
+R6081:6084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6077:6080 Kernel.CmpPipeline <> prop:23 var
+R6088:6091 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6085:6087 Coq.Init.Datatypes <> nat ind
+R6092:6095 Coq.Init.Datatypes <> bool ind
+binder 6070:6073 <> eval:25
+binder 6100:6100 <> p:26
+binder 6102:6104 <> nin:27
+binder 6106:6108 <> out:28
+R6119:6122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6111:6116 Kernel.CmpLang <> cmp_wf def
+R6118:6118 Kernel.CmpPipeline <> p:26 var
+binder 6130:6131 <> xs:29
+binder 6133:6133 <> y:30
+R6165:6171 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6138:6153 Kernel.CmpLang <> cmp_src_computes def
+R6155:6155 Kernel.CmpPipeline <> p:26 var
+R6157:6158 Kernel.CmpPipeline <> xs:29 var
+R6160:6162 Kernel.CmpPipeline <> out:28 var
+R6164:6164 Kernel.CmpPipeline <> y:30 var
+R6172:6178 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6183:6184 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6179:6179 <> n:31
+binder 6181:6182 <> v2:32
+R6346:6364 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6186:6199 Kernel.CmpHost <> cmp_host_final def
+R6201:6204 Kernel.CmpPipeline <> prop:23 var
+R6207:6217 Kernel.CmpCompile <> cmp_mm_prog def
+R6219:6219 Kernel.CmpPipeline <> p:26 var
+R6221:6223 Kernel.CmpPipeline <> nin:27 var
+R6225:6227 Kernel.CmpPipeline <> out:28 var
+R6230:6231 Kernel.CmpPipeline <> v2:32 var
+R6252:6262 Kernel.CmpHost <> cmp_host_at def
+R6264:6267 Kernel.CmpPipeline <> prop:23 var
+R6269:6276 Kernel.CmpPipeline <> prop_eqb:24 var
+R6278:6281 Kernel.CmpPipeline <> eval:25 var
+R6284:6294 Kernel.CmpCompile <> cmp_mm_prog def
+R6296:6296 Kernel.CmpPipeline <> p:26 var
+R6298:6300 Kernel.CmpPipeline <> nin:27 var
+R6302:6304 Kernel.CmpPipeline <> out:28 var
+R6308:6318 Kernel.CmpCompile <> cmp_mm_load def
+R6321:6327 Kernel.CmpCompile <> cmp_nvF def
+R6329:6329 Kernel.CmpPipeline <> p:26 var
+R6331:6333 Kernel.CmpPipeline <> nin:27 var
+R6335:6337 Kernel.CmpPipeline <> out:28 var
+R6340:6341 Kernel.CmpPipeline <> xs:29 var
+R6344:6344 Kernel.CmpPipeline <> n:31 var
+R6375:6377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6365:6366 Kernel.CmpPipeline <> v2:32 var
+R6369:6369 Coq.Init.Datatypes <> S constr
+R6371:6373 Kernel.CmpPipeline <> out:28 var
+R6378:6378 Kernel.CmpPipeline <> y:30 var
+R6469:6473 Coq.Init.Logic <> proj1 thm
+R6476:6485 Kernel.CmpCompile <> cmp_stageA thm
+R6469:6473 Coq.Init.Logic <> proj1 thm
+R6476:6485 Kernel.CmpCompile <> cmp_stageA thm
+R6550:6561 Kernel.CmpHost <> cmp_host_fwd thm
+R6583:6593 Kernel.CmpCompile <> cmp_mm_prog def
+R6607:6617 Kernel.CmpCompile <> cmp_mm_load def
+R6620:6626 Kernel.CmpCompile <> cmp_nvF def
+R6665:6675 Kernel.CmpCompile <> cmp_mm_load def
+R6678:6684 Kernel.CmpCompile <> cmp_nvF def
+binder 6706:6706 <> r:33
+R6711:6717 Coq.Init.Logic <> eq_refl constr
+R6550:6561 Kernel.CmpHost <> cmp_host_fwd thm
+R6583:6593 Kernel.CmpCompile <> cmp_mm_prog def
+R6607:6617 Kernel.CmpCompile <> cmp_mm_load def
+R6620:6626 Kernel.CmpCompile <> cmp_nvF def
+R6665:6675 Kernel.CmpCompile <> cmp_mm_load def
+R6678:6684 Kernel.CmpCompile <> cmp_nvF def
+binder 6706:6706 <> r:34
+R6711:6717 Coq.Init.Logic <> eq_refl constr
+R6820:6831 Kernel.CmpHost <> cmp_host_bwd thm
+R6853:6863 Kernel.CmpCompile <> cmp_mm_prog def
+R6877:6887 Kernel.CmpCompile <> cmp_mm_load def
+R6890:6896 Kernel.CmpCompile <> cmp_nvF def
+R6930:6940 Kernel.CmpCompile <> cmp_mm_load def
+R6943:6949 Kernel.CmpCompile <> cmp_nvF def
+binder 6973:6973 <> r:35
+R6978:6984 Coq.Init.Logic <> eq_refl constr
+R6988:6992 Coq.Init.Logic <> proj1 thm
+R6820:6831 Kernel.CmpHost <> cmp_host_bwd thm
+R6853:6863 Kernel.CmpCompile <> cmp_mm_prog def
+R6877:6887 Kernel.CmpCompile <> cmp_mm_load def
+R6890:6896 Kernel.CmpCompile <> cmp_nvF def
+R6930:6940 Kernel.CmpCompile <> cmp_mm_load def
+R6943:6949 Kernel.CmpCompile <> cmp_nvF def
+binder 6973:6973 <> r:36
+R6978:6984 Coq.Init.Logic <> eq_refl constr
+R6988:6992 Coq.Init.Logic <> proj1 thm
+R7041:7045 Coq.Init.Logic <> proj2 thm
+R7048:7057 Kernel.CmpCompile <> cmp_stageA thm
+R7041:7045 Coq.Init.Logic <> proj2 thm
+R7048:7057 Kernel.CmpCompile <> cmp_stageA thm
+R7221:7221 Coq.Init.Datatypes <> S constr
+R7238:7238 Coq.Init.Datatypes <> S constr
+R7221:7221 Coq.Init.Datatypes <> S constr
+R7221:7221 Coq.Init.Datatypes <> S constr
+R7238:7238 Coq.Init.Datatypes <> S constr
+R7238:7238 Coq.Init.Datatypes <> S constr
+def 7575:7586 <> cmp_guest_at
+R7593:7600 Kernel.CmpLang <> cmp_prog rec
+binder 7589:7589 <> p:37
+R7614:7616 Coq.Init.Datatypes <> nat ind
+binder 7604:7606 <> nin:38
+binder 7608:7610 <> out:39
+R7625:7628 Coq.Init.Datatypes <> list ind
+R7630:7632 Coq.Init.Datatypes <> nat ind
+binder 7620:7621 <> xs:40
+R7640:7642 Coq.Init.Datatypes <> nat ind
+binder 7636:7636 <> n:41
+R7647:7655 Kernel.CompilerLifts <> cg_ystate def
+R7662:7693 Minimal.EarnedPriced <> pr_run_prog def
+R7717:7717 Kernel.CmpPipeline <> n:41 var
+R7720:7728 Kernel.CmpPipeline <> cmp_guest def
+R7730:7730 Kernel.CmpPipeline <> p:37 var
+R7732:7734 Kernel.CmpPipeline <> nin:38 var
+R7736:7738 Kernel.CmpPipeline <> out:39 var
+R7746:7755 Kernel.CmpGuest <> cmp_gstart def
+R7758:7763 Kernel.CmpPipeline <> cmp_gk def
+R7765:7765 Kernel.CmpPipeline <> p:37 var
+R7767:7769 Kernel.CmpPipeline <> nin:38 var
+R7771:7773 Kernel.CmpPipeline <> out:39 var
+R7777:7787 Kernel.CmpCompile <> cmp_mm_load def
+R7790:7796 Kernel.CmpCompile <> cmp_nvF def
+R7798:7798 Kernel.CmpPipeline <> p:37 var
+R7800:7802 Kernel.CmpPipeline <> nin:38 var
+R7804:7806 Kernel.CmpPipeline <> out:39 var
+R7809:7810 Kernel.CmpPipeline <> xs:40 var
+R7708:7715 Kernel.CompilerChecker <> cg_ueval def
+R7695:7706 Kernel.CompilerChecker <> cg_uprop_eqb def
+def 7928:7943 <> cmp_guest_answer
+R7952:7954 Coq.Init.Datatypes <> nat ind
+binder 7946:7948 <> out:42
+R7962:7970 Kernel.CompilerLifts <> cg_ystate def
+binder 7958:7958 <> s:43
+R7975:7977 Coq.Init.Datatypes <> nat ind
+R7984:7990 Kernel.CompilerCodes <> cg_expo def
+R7993:7994 Undecidability.FRACTRAN.Util.prime_seq <> qs def
+R7997:7997 Coq.Init.Datatypes <> S constr
+R7999:8001 Kernel.CmpPipeline <> out:42 var
+R8006:8029 Minimal.EarnedGeneric <> cb proj
+R8032:8060 Minimal.EarnedGeneric <> core_of proj
+R8062:8062 Kernel.CmpPipeline <> s:43 var
+prf 8074:8088 <> cmp_guest_at_eq
+binder 8099:8099 <> p:44
+binder 8101:8103 <> nin:45
+binder 8105:8107 <> out:46
+binder 8109:8110 <> xs:47
+binder 8112:8112 <> n:48
+R8144:8148 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8117:8128 Kernel.CmpPipeline <> cmp_guest_at def
+R8130:8130 Kernel.CmpPipeline <> p:44 var
+R8132:8134 Kernel.CmpPipeline <> nin:45 var
+R8136:8138 Kernel.CmpPipeline <> out:46 var
+R8140:8141 Kernel.CmpPipeline <> xs:47 var
+R8143:8143 Kernel.CmpPipeline <> n:48 var
+R8149:8180 Minimal.EarnedPriced <> pr_run_prog def
+R8204:8204 Kernel.CmpPipeline <> n:48 var
+R8207:8215 Kernel.CmpGuest <> cmp_gprog def
+R8218:8223 Kernel.CmpPipeline <> cmp_gk def
+R8225:8225 Kernel.CmpPipeline <> p:44 var
+R8227:8229 Kernel.CmpPipeline <> nin:45 var
+R8231:8233 Kernel.CmpPipeline <> out:46 var
+R8237:8247 Kernel.CmpCompile <> cmp_mm_prog def
+R8249:8249 Kernel.CmpPipeline <> p:44 var
+R8251:8253 Kernel.CmpPipeline <> nin:45 var
+R8255:8257 Kernel.CmpPipeline <> out:46 var
+R8266:8275 Kernel.CmpGuest <> cmp_gstart def
+R8278:8283 Kernel.CmpPipeline <> cmp_gk def
+R8285:8285 Kernel.CmpPipeline <> p:44 var
+R8287:8289 Kernel.CmpPipeline <> nin:45 var
+R8291:8293 Kernel.CmpPipeline <> out:46 var
+R8297:8307 Kernel.CmpCompile <> cmp_mm_load def
+R8310:8316 Kernel.CmpCompile <> cmp_nvF def
+R8318:8318 Kernel.CmpPipeline <> p:44 var
+R8320:8322 Kernel.CmpPipeline <> nin:45 var
+R8324:8326 Kernel.CmpPipeline <> out:46 var
+R8329:8330 Kernel.CmpPipeline <> xs:47 var
+R8195:8202 Kernel.CompilerChecker <> cg_ueval def
+R8182:8193 Kernel.CompilerChecker <> cg_uprop_eqb def
+prf 8367:8379 <> cmp_out_lt_gk
+binder 8390:8390 <> p:49
+binder 8392:8394 <> nin:50
+binder 8396:8398 <> out:51
+R8406:8408 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8401:8401 Coq.Init.Datatypes <> S constr
+R8403:8405 Kernel.CmpPipeline <> out:51 var
+R8409:8414 Kernel.CmpPipeline <> cmp_gk def
+R8416:8416 Kernel.CmpPipeline <> p:49 var
+R8418:8420 Kernel.CmpPipeline <> nin:50 var
+R8422:8424 Kernel.CmpPipeline <> out:51 var
+R8461:8466 Kernel.CmpPipeline <> cmp_gk def
+R8469:8475 Kernel.CmpCompile <> cmp_nvF def
+R8478:8484 Kernel.CmpCompile <> cmp_nv0 def
+R8499:8510 Coq.Arith.PeanoNat Nat le_max_r thm
+R8513:8521 Kernel.CmpLang <> cmp_svmax def
+R8524:8530 Kernel.CmpLang <> cp_main proj
+R8537:8543 Coq.Arith.PeanoNat Nat max def
+R8550:8550 Coq.Init.Datatypes <> S constr
+R8499:8510 Coq.Arith.PeanoNat Nat le_max_r thm
+R8513:8521 Kernel.CmpLang <> cmp_svmax def
+R8524:8530 Kernel.CmpLang <> cp_main proj
+R8537:8543 Coq.Arith.PeanoNat Nat max def
+R8550:8550 Coq.Init.Datatypes <> S constr
+R8574:8585 Coq.Arith.PeanoNat Nat le_max_r thm
+R8592:8592 Coq.Init.Datatypes <> S constr
+R8574:8585 Coq.Arith.PeanoNat Nat le_max_r thm
+R8592:8592 Coq.Init.Datatypes <> S constr
+prf 8618:8631 <> cmp_out_lt_nv0
+binder 8642:8642 <> p:52
+binder 8644:8646 <> nin:53
+binder 8648:8650 <> out:54
+R8656:8658 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8653:8655 Kernel.CmpPipeline <> out:54 var
+R8659:8665 Kernel.CmpCompile <> cmp_nv0 def
+R8667:8667 Kernel.CmpPipeline <> p:52 var
+R8669:8671 Kernel.CmpPipeline <> nin:53 var
+R8673:8675 Kernel.CmpPipeline <> out:54 var
+R8712:8718 Kernel.CmpCompile <> cmp_nv0 def
+R8733:8744 Coq.Arith.PeanoNat Nat le_max_r thm
+R8751:8751 Coq.Init.Datatypes <> S constr
+R8733:8744 Coq.Arith.PeanoNat Nat le_max_r thm
+R8751:8751 Coq.Init.Datatypes <> S constr
+R8774:8785 Coq.Arith.PeanoNat Nat le_max_r thm
+R8788:8796 Kernel.CmpLang <> cmp_svmax def
+R8799:8805 Kernel.CmpLang <> cp_main proj
+R8812:8818 Coq.Arith.PeanoNat Nat max def
+R8825:8825 Coq.Init.Datatypes <> S constr
+R8774:8785 Coq.Arith.PeanoNat Nat le_max_r thm
+R8788:8796 Kernel.CmpLang <> cmp_svmax def
+R8799:8805 Kernel.CmpLang <> cp_main proj
+R8812:8818 Coq.Arith.PeanoNat Nat max def
+R8825:8825 Coq.Init.Datatypes <> S constr
+prf 8854:8871 <> cmp_pipeline_guest
+binder 8882:8882 <> p:55
+binder 8884:8886 <> nin:56
+binder 8888:8890 <> out:57
+R8901:8904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8893:8898 Kernel.CmpLang <> cmp_wf def
+R8900:8900 Kernel.CmpPipeline <> p:55 var
+binder 8912:8913 <> xs:58
+binder 8915:8915 <> y:59
+R8947:8953 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8920:8935 Kernel.CmpLang <> cmp_src_computes def
+R8937:8937 Kernel.CmpPipeline <> p:55 var
+R8939:8940 Kernel.CmpPipeline <> xs:58 var
+R8942:8944 Kernel.CmpPipeline <> out:57 var
+R8946:8946 Kernel.CmpPipeline <> y:59 var
+R8954:8960 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8962:8963 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8961:8961 <> n:60
+R9078:9093 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8964:8993 Minimal.EarnedPriced <> pr_halted def
+R8996:9004 Kernel.CmpPipeline <> cmp_guest def
+R9006:9006 Kernel.CmpPipeline <> p:55 var
+R9008:9010 Kernel.CmpPipeline <> nin:56 var
+R9012:9014 Kernel.CmpPipeline <> out:57 var
+R9018:9046 Minimal.EarnedGeneric <> core_of proj
+R9049:9060 Kernel.CmpPipeline <> cmp_guest_at def
+R9062:9062 Kernel.CmpPipeline <> p:55 var
+R9064:9066 Kernel.CmpPipeline <> nin:56 var
+R9068:9070 Kernel.CmpPipeline <> out:57 var
+R9072:9073 Kernel.CmpPipeline <> xs:58 var
+R9075:9075 Kernel.CmpPipeline <> n:60 var
+R9144:9146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9094:9109 Kernel.CmpPipeline <> cmp_guest_answer def
+R9111:9113 Kernel.CmpPipeline <> out:57 var
+R9116:9127 Kernel.CmpPipeline <> cmp_guest_at def
+R9129:9129 Kernel.CmpPipeline <> p:55 var
+R9131:9133 Kernel.CmpPipeline <> nin:56 var
+R9135:9137 Kernel.CmpPipeline <> out:57 var
+R9139:9140 Kernel.CmpPipeline <> xs:58 var
+R9142:9142 Kernel.CmpPipeline <> n:60 var
+R9147:9147 Kernel.CmpPipeline <> y:59 var
+R9219:9223 Coq.Init.Logic <> proj1 thm
+R9226:9235 Kernel.CmpCompile <> cmp_stageA thm
+R9219:9223 Coq.Init.Logic <> proj1 thm
+R9226:9235 Kernel.CmpCompile <> cmp_stageA thm
+R9299:9311 Kernel.CmpGuest <> cmp_guest_fwd thm
+R9314:9319 Kernel.CmpPipeline <> cmp_gk def
+R9333:9343 Kernel.CmpCompile <> cmp_mm_prog def
+R9357:9365 Kernel.CmpPipeline <> cmp_gk_wf thm
+R9395:9405 Kernel.CmpCompile <> cmp_mm_load def
+R9408:9414 Kernel.CmpCompile <> cmp_nvF def
+R9432:9444 Kernel.CmpPipeline <> cmp_load_zero thm
+R9299:9311 Kernel.CmpGuest <> cmp_guest_fwd thm
+R9314:9319 Kernel.CmpPipeline <> cmp_gk def
+R9333:9343 Kernel.CmpCompile <> cmp_mm_prog def
+R9357:9365 Kernel.CmpPipeline <> cmp_gk_wf thm
+R9395:9405 Kernel.CmpCompile <> cmp_mm_load def
+R9408:9414 Kernel.CmpCompile <> cmp_nvF def
+R9432:9444 Kernel.CmpPipeline <> cmp_load_zero thm
+R9563:9578 Kernel.CmpPipeline <> cmp_guest_answer def
+R9590:9604 Kernel.CmpPipeline <> cmp_guest_at_eq thm
+R9590:9604 Kernel.CmpPipeline <> cmp_guest_at_eq thm
+R9590:9604 Kernel.CmpPipeline <> cmp_guest_at_eq thm
+R9646:9655 Kernel.CompilerCodes <> cg_expo_gk thm
+R9646:9655 Kernel.CompilerCodes <> cg_expo_gk thm
+R9646:9655 Kernel.CompilerCodes <> cg_expo_gk thm
+R9668:9679 Coq.Arith.PeanoNat Nat ltb_spec thm
+R9682:9682 Coq.Init.Datatypes <> S constr
+R9690:9695 Kernel.CmpPipeline <> cmp_gk def
+R9752:9764 Kernel.CmpPipeline <> cmp_out_lt_gk thm
+R9668:9679 Coq.Arith.PeanoNat Nat ltb_spec thm
+R9682:9682 Coq.Init.Datatypes <> S constr
+R9690:9695 Kernel.CmpPipeline <> cmp_gk def
+R9752:9764 Kernel.CmpPipeline <> cmp_out_lt_gk thm
+R9824:9836 Kernel.CmpGuest <> cmp_guest_bwd thm
+R9839:9844 Kernel.CmpPipeline <> cmp_gk def
+R9858:9868 Kernel.CmpCompile <> cmp_mm_prog def
+R9882:9890 Kernel.CmpPipeline <> cmp_gk_wf thm
+R9920:9930 Kernel.CmpCompile <> cmp_mm_load def
+R9933:9939 Kernel.CmpCompile <> cmp_nvF def
+R9957:9969 Kernel.CmpPipeline <> cmp_load_zero thm
+R9824:9836 Kernel.CmpGuest <> cmp_guest_bwd thm
+R9839:9844 Kernel.CmpPipeline <> cmp_gk def
+R9858:9868 Kernel.CmpCompile <> cmp_mm_prog def
+R9882:9890 Kernel.CmpPipeline <> cmp_gk_wf thm
+R9920:9930 Kernel.CmpCompile <> cmp_mm_load def
+R9933:9939 Kernel.CmpCompile <> cmp_nvF def
+R9957:9969 Kernel.CmpPipeline <> cmp_load_zero thm
+R10025:10029 Coq.Init.Logic <> proj2 thm
+R10032:10041 Kernel.CmpCompile <> cmp_stageA thm
+R10025:10029 Coq.Init.Logic <> proj2 thm
+R10032:10041 Kernel.CmpCompile <> cmp_stageA thm
+R10147:10162 Kernel.CmpPipeline <> cmp_guest_answer def
+R10180:10194 Kernel.CmpPipeline <> cmp_guest_at_eq thm
+R10180:10194 Kernel.CmpPipeline <> cmp_guest_at_eq thm
+R10180:10194 Kernel.CmpPipeline <> cmp_guest_at_eq thm
+R10248:10257 Kernel.CompilerCodes <> cg_expo_gk thm
+R10248:10257 Kernel.CompilerCodes <> cg_expo_gk thm
+R10248:10257 Kernel.CompilerCodes <> cg_expo_gk thm
+R10276:10287 Coq.Arith.PeanoNat Nat ltb_spec thm
+R10290:10290 Coq.Init.Datatypes <> S constr
+R10298:10303 Kernel.CmpPipeline <> cmp_gk def
+R10360:10372 Kernel.CmpPipeline <> cmp_out_lt_gk thm
+R10276:10287 Coq.Arith.PeanoNat Nat ltb_spec thm
+R10290:10290 Coq.Init.Datatypes <> S constr
+R10298:10303 Kernel.CmpPipeline <> cmp_gk def
+R10360:10372 Kernel.CmpPipeline <> cmp_out_lt_gk thm
+prf 10464:10487 <> cmp_pipeline_guest_final
+binder 10498:10498 <> p:61
+binder 10500:10502 <> nin:62
+binder 10504:10506 <> out:63
+R10517:10520 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10509:10514 Kernel.CmpLang <> cmp_wf def
+R10516:10516 Kernel.CmpPipeline <> p:61 var
+binder 10528:10529 <> xs:64
+binder 10531:10531 <> n:65
+R10650:10655 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10536:10565 Minimal.EarnedPriced <> pr_halted def
+R10568:10576 Kernel.CmpPipeline <> cmp_guest def
+R10578:10578 Kernel.CmpPipeline <> p:61 var
+R10580:10582 Kernel.CmpPipeline <> nin:62 var
+R10584:10586 Kernel.CmpPipeline <> out:63 var
+R10590:10618 Minimal.EarnedGeneric <> core_of proj
+R10621:10632 Kernel.CmpPipeline <> cmp_guest_at def
+R10634:10634 Kernel.CmpPipeline <> p:61 var
+R10636:10638 Kernel.CmpPipeline <> nin:62 var
+R10640:10642 Kernel.CmpPipeline <> out:63 var
+R10644:10645 Kernel.CmpPipeline <> xs:64 var
+R10647:10647 Kernel.CmpPipeline <> n:65 var
+R10656:10662 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10665:10666 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10663:10664 <> e1:66
+R10667:10681 Kernel.CmpGuest <> cmp_guest_final def
+R10684:10689 Kernel.CmpPipeline <> cmp_gk def
+R10691:10691 Kernel.CmpPipeline <> p:61 var
+R10693:10695 Kernel.CmpPipeline <> nin:62 var
+R10697:10699 Kernel.CmpPipeline <> out:63 var
+R10703:10713 Kernel.CmpCompile <> cmp_mm_prog def
+R10715:10715 Kernel.CmpPipeline <> p:61 var
+R10717:10719 Kernel.CmpPipeline <> nin:62 var
+R10721:10723 Kernel.CmpPipeline <> out:63 var
+R10726:10727 Kernel.CmpPipeline <> e1:66 var
+R10730:10741 Kernel.CmpPipeline <> cmp_guest_at def
+R10743:10743 Kernel.CmpPipeline <> p:61 var
+R10745:10747 Kernel.CmpPipeline <> nin:62 var
+R10749:10751 Kernel.CmpPipeline <> out:63 var
+R10753:10754 Kernel.CmpPipeline <> xs:64 var
+R10756:10756 Kernel.CmpPipeline <> n:65 var
+R10811:10823 Kernel.CmpGuest <> cmp_guest_bwd thm
+R10826:10831 Kernel.CmpPipeline <> cmp_gk def
+R10845:10855 Kernel.CmpCompile <> cmp_mm_prog def
+R10869:10877 Kernel.CmpPipeline <> cmp_gk_wf thm
+R10905:10915 Kernel.CmpCompile <> cmp_mm_load def
+R10918:10924 Kernel.CmpCompile <> cmp_nvF def
+R10942:10954 Kernel.CmpPipeline <> cmp_load_zero thm
+R10811:10823 Kernel.CmpGuest <> cmp_guest_bwd thm
+R10826:10831 Kernel.CmpPipeline <> cmp_gk def
+R10845:10855 Kernel.CmpCompile <> cmp_mm_prog def
+R10869:10877 Kernel.CmpPipeline <> cmp_gk_wf thm
+R10905:10915 Kernel.CmpCompile <> cmp_mm_load def
+R10918:10924 Kernel.CmpCompile <> cmp_nvF def
+R10942:10954 Kernel.CmpPipeline <> cmp_load_zero thm
+R11258:11282 Minimal.EarnedMultiPriced <> <> modtype
+mod 11253:11253 <> M
+def 11430:11437 <> cmp_U_at
+R11444:11451 Kernel.CmpLang <> cmp_prog rec
+binder 11440:11440 <> p:67
+R11465:11467 Coq.Init.Datatypes <> nat ind
+binder 11455:11457 <> nin:68
+binder 11459:11461 <> out:69
+R11476:11479 Coq.Init.Datatypes <> list ind
+R11481:11483 Coq.Init.Datatypes <> nat ind
+binder 11471:11472 <> xs:70
+R11491:11493 Coq.Init.Datatypes <> nat ind
+binder 11487:11487 <> t:71
+R11499:11508 Kernel.CmpPipeline <> pu_state rec
+R11510:11517 Kernel.UniversalPCodes <> pu_hprop ind
+R11524:11530 Kernel.UniversalPRun <> pu_hrun def
+R11533:11541 Kernel.CmpPipeline <> cmp_guest def
+R11543:11543 Kernel.CmpPipeline <> p:67 var
+R11545:11547 Kernel.CmpPipeline <> nin:68 var
+R11549:11551 Kernel.CmpPipeline <> out:69 var
+R11561:11565 Kernel.CompilerCodes <> cg_gk def
+R11568:11573 Kernel.CmpPipeline <> cmp_gk def
+R11575:11575 Kernel.CmpPipeline <> p:67 var
+R11577:11579 Kernel.CmpPipeline <> nin:68 var
+R11581:11583 Kernel.CmpPipeline <> out:69 var
+R11587:11597 Kernel.CmpCompile <> cmp_mm_load def
+R11600:11606 Kernel.CmpCompile <> cmp_nvF def
+R11608:11608 Kernel.CmpPipeline <> p:67 var
+R11610:11612 Kernel.CmpPipeline <> nin:68 var
+R11614:11616 Kernel.CmpPipeline <> out:69 var
+R11619:11620 Kernel.CmpPipeline <> xs:70 var
+R11624:11624 Kernel.CmpPipeline <> t:71 var
+prf 11636:11649 <> cmp_pipeline_U
+binder 11660:11660 <> p:72
+binder 11662:11664 <> nin:73
+binder 11666:11668 <> out:74
+R11679:11682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11671:11676 Kernel.CmpLang <> cmp_wf def
+R11678:11678 Kernel.CmpPipeline <> p:72 var
+binder 11690:11691 <> xs:75
+binder 11693:11693 <> y:76
+R11725:11731 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11698:11713 Kernel.CmpLang <> cmp_src_computes def
+R11715:11715 Kernel.CmpPipeline <> p:72 var
+R11717:11718 Kernel.CmpPipeline <> xs:75 var
+R11720:11722 Kernel.CmpPipeline <> out:74 var
+R11724:11724 Kernel.CmpPipeline <> y:76 var
+R11732:11738 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11740:11741 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11739:11739 <> t:77
+R11795:11810 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11742:11752 Kernel.CmpPipeline <> pu_halted def
+R11754:11756 Kernel.UniversalPLayout <> U_P def
+R11759:11767 Kernel.CmpPipeline <> core_of proj
+R11770:11777 Kernel.CmpPipeline <> cmp_U_at def
+R11779:11779 Kernel.CmpPipeline <> p:72 var
+R11781:11783 Kernel.CmpPipeline <> nin:73 var
+R11785:11787 Kernel.CmpPipeline <> out:74 var
+R11789:11790 Kernel.CmpPipeline <> xs:75 var
+R11792:11792 Kernel.CmpPipeline <> t:77 var
+R11872:11887 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11868:11870 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11811:11817 Kernel.CompilerCodes <> cg_expo def
+R11820:11821 Undecidability.FRACTRAN.Util.prime_seq <> qs def
+R11824:11824 Coq.Init.Datatypes <> S constr
+R11826:11828 Kernel.CmpPipeline <> out:74 var
+R11833:11834 Kernel.UniversalPBridge <> hv abbrev
+R11837:11844 Kernel.CmpPipeline <> cmp_U_at def
+R11846:11846 Kernel.CmpPipeline <> p:72 var
+R11848:11850 Kernel.CmpPipeline <> nin:73 var
+R11852:11854 Kernel.CmpPipeline <> out:74 var
+R11856:11857 Kernel.CmpPipeline <> xs:75 var
+R11859:11859 Kernel.CmpPipeline <> t:77 var
+R11862:11866 Kernel.UniversalPLayout <> pu_RB def
+R11871:11871 Kernel.CmpPipeline <> y:76 var
+R11926:11941 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11922:11924 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11888:11889 Kernel.UniversalPBridge <> hv abbrev
+R11892:11899 Kernel.CmpPipeline <> cmp_U_at def
+R11901:11901 Kernel.CmpPipeline <> p:72 var
+R11903:11905 Kernel.CmpPipeline <> nin:73 var
+R11907:11909 Kernel.CmpPipeline <> out:74 var
+R11911:11912 Kernel.CmpPipeline <> xs:75 var
+R11914:11914 Kernel.CmpPipeline <> t:77 var
+R11917:11921 Kernel.UniversalPLayout <> pu_RA def
+R11976:11979 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11972:11974 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11942:11945 Kernel.CmpPipeline <> mu proj
+R11948:11955 Kernel.CmpPipeline <> cmp_U_at def
+R11957:11957 Kernel.CmpPipeline <> p:72 var
+R11959:11961 Kernel.CmpPipeline <> nin:73 var
+R11963:11965 Kernel.CmpPipeline <> out:74 var
+R11967:11968 Kernel.CmpPipeline <> xs:75 var
+R11970:11970 Kernel.CmpPipeline <> t:77 var
+R12012:12014 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11980:11985 Kernel.CmpPipeline <> cert proj
+R11988:11995 Kernel.CmpPipeline <> cmp_U_at def
+R11997:11997 Kernel.CmpPipeline <> p:72 var
+R11999:12001 Kernel.CmpPipeline <> nin:73 var
+R12003:12005 Kernel.CmpPipeline <> out:74 var
+R12007:12008 Kernel.CmpPipeline <> xs:75 var
+R12010:12010 Kernel.CmpPipeline <> t:77 var
+R12015:12019 Coq.Init.Datatypes <> false constr
+R12068:12072 Kernel.CompilerCodes <> cg_gk def
+R12075:12080 Kernel.CmpPipeline <> cmp_gk def
+R12094:12104 Kernel.CmpCompile <> cmp_mm_load def
+R12107:12113 Kernel.CmpCompile <> cmp_nvF def
+R12068:12072 Kernel.CompilerCodes <> cg_gk def
+R12075:12080 Kernel.CmpPipeline <> cmp_gk def
+R12094:12104 Kernel.CmpCompile <> cmp_mm_load def
+R12107:12113 Kernel.CmpCompile <> cmp_nvF def
+binder 12154:12154 <> n:78
+R12192:12194 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12157:12163 Kernel.UniversalPRun <> pu_grun def
+R12166:12174 Kernel.CmpPipeline <> cmp_guest def
+R12191:12191 Kernel.CmpPipeline <> n:78 var
+R12195:12206 Kernel.CmpPipeline <> cmp_guest_at def
+R12221:12221 Kernel.CmpPipeline <> n:78 var
+binder 12154:12154 <> n:79
+R12192:12194 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12157:12163 Kernel.UniversalPRun <> pu_grun def
+R12166:12174 Kernel.CmpPipeline <> cmp_guest def
+R12191:12191 Kernel.CmpPipeline <> n:79 var
+R12195:12206 Kernel.CmpPipeline <> cmp_guest_at def
+R12221:12221 Kernel.CmpPipeline <> n:79 var
+R12287:12291 Coq.Init.Logic <> proj1 thm
+R12294:12311 Kernel.CmpPipeline <> cmp_pipeline_guest thm
+R12287:12291 Coq.Init.Logic <> proj1 thm
+R12294:12311 Kernel.CmpPipeline <> cmp_pipeline_guest thm
+R12370:12393 Kernel.CmpPipeline <> cmp_pipeline_guest_final thm
+R12370:12393 Kernel.CmpPipeline <> cmp_pipeline_guest_final thm
+R12446:12450 Coq.Init.Logic <> proj1 thm
+R12453:12472 Kernel.UniversalPRun <> pu_universal_halting thm
+R12475:12483 Kernel.CmpPipeline <> cmp_guest def
+R12446:12450 Coq.Init.Logic <> proj1 thm
+R12453:12472 Kernel.UniversalPRun <> pu_universal_halting thm
+R12475:12483 Kernel.CmpPipeline <> cmp_guest def
+R12567:12585 Kernel.UniversalPRun <> pu_universal_output thm
+R12588:12596 Kernel.CmpPipeline <> cmp_guest def
+R12567:12585 Kernel.UniversalPRun <> pu_universal_output thm
+R12588:12596 Kernel.CmpPipeline <> cmp_guest def
+R12810:12817 Kernel.CmpPipeline <> cmp_U_at def
+R12877:12884 Kernel.CmpPipeline <> cmp_U_at def
+R12943:12950 Kernel.CmpPipeline <> cmp_U_at def
+R13010:13017 Kernel.CmpPipeline <> cmp_U_at def
+R13106:13110 Coq.Init.Logic <> proj2 thm
+R13113:13132 Kernel.UniversalPRun <> pu_universal_halting thm
+R13135:13143 Kernel.CmpPipeline <> cmp_guest def
+R13106:13110 Coq.Init.Logic <> proj2 thm
+R13113:13132 Kernel.UniversalPRun <> pu_universal_halting thm
+R13135:13143 Kernel.CmpPipeline <> cmp_guest def
+R13211:13229 Kernel.UniversalPRun <> pu_universal_output thm
+R13232:13240 Kernel.CmpPipeline <> cmp_guest def
+R13211:13229 Kernel.UniversalPRun <> pu_universal_output thm
+R13232:13240 Kernel.CmpPipeline <> cmp_guest def
+R13308:13312 Coq.Init.Logic <> proj2 thm
+R13315:13332 Kernel.CmpPipeline <> cmp_pipeline_guest thm
+R13308:13312 Coq.Init.Logic <> proj2 thm
+R13315:13332 Kernel.CmpPipeline <> cmp_pipeline_guest thm
+R13413:13428 Kernel.CmpPipeline <> cmp_guest_answer def
+R13453:13460 Kernel.CmpPipeline <> cmp_U_at def
+prf 13743:13754 <> cmp_pipeline
+binder 13766:13769 <> prop:80
+R13795:13798 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13791:13794 Kernel.CmpPipeline <> prop:80 var
+R13803:13806 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13799:13802 Kernel.CmpPipeline <> prop:80 var
+R13807:13810 Coq.Init.Datatypes <> bool ind
+binder 13780:13787 <> prop_eqb:81
+R13825:13828 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13821:13824 Kernel.CmpPipeline <> prop:80 var
+R13832:13835 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13829:13831 Coq.Init.Datatypes <> nat ind
+R13836:13839 Coq.Init.Datatypes <> bool ind
+binder 13814:13817 <> eval:82
+binder 13844:13844 <> p:83
+binder 13846:13848 <> nin:84
+binder 13850:13852 <> out:85
+R13863:13866 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13855:13860 Kernel.CmpLang <> cmp_wf def
+R13862:13862 Kernel.CmpPipeline <> p:83 var
+binder 13874:13875 <> xs:86
+binder 13877:13877 <> y:87
+R13882:13882 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14127:14133 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13910:13917 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13883:13898 Kernel.CmpLang <> cmp_src_computes def
+R13900:13900 Kernel.CmpPipeline <> p:83 var
+R13902:13903 Kernel.CmpPipeline <> xs:86 var
+R13905:13907 Kernel.CmpPipeline <> out:85 var
+R13909:13909 Kernel.CmpPipeline <> y:87 var
+R13918:13924 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13929:13930 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13925:13925 <> n:88
+binder 13927:13928 <> v2:89
+R14093:14112 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13932:13945 Kernel.CmpHost <> cmp_host_final def
+R13947:13950 Kernel.CmpPipeline <> prop:80 var
+R13953:13963 Kernel.CmpCompile <> cmp_mm_prog def
+R13965:13965 Kernel.CmpPipeline <> p:83 var
+R13967:13969 Kernel.CmpPipeline <> nin:84 var
+R13971:13973 Kernel.CmpPipeline <> out:85 var
+R13976:13977 Kernel.CmpPipeline <> v2:89 var
+R13999:14009 Kernel.CmpHost <> cmp_host_at def
+R14011:14014 Kernel.CmpPipeline <> prop:80 var
+R14016:14023 Kernel.CmpPipeline <> prop_eqb:81 var
+R14025:14028 Kernel.CmpPipeline <> eval:82 var
+R14031:14041 Kernel.CmpCompile <> cmp_mm_prog def
+R14043:14043 Kernel.CmpPipeline <> p:83 var
+R14045:14047 Kernel.CmpPipeline <> nin:84 var
+R14049:14051 Kernel.CmpPipeline <> out:85 var
+R14055:14065 Kernel.CmpCompile <> cmp_mm_load def
+R14068:14074 Kernel.CmpCompile <> cmp_nvF def
+R14076:14076 Kernel.CmpPipeline <> p:83 var
+R14078:14080 Kernel.CmpPipeline <> nin:84 var
+R14082:14084 Kernel.CmpPipeline <> out:85 var
+R14087:14088 Kernel.CmpPipeline <> xs:86 var
+R14091:14091 Kernel.CmpPipeline <> n:88 var
+R14123:14125 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14113:14114 Kernel.CmpPipeline <> v2:89 var
+R14117:14117 Coq.Init.Datatypes <> S constr
+R14119:14121 Kernel.CmpPipeline <> out:85 var
+R14126:14126 Kernel.CmpPipeline <> y:87 var
+R14134:14134 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14365:14372 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14699:14699 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14162:14169 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14135:14150 Kernel.CmpLang <> cmp_src_computes def
+R14152:14152 Kernel.CmpPipeline <> p:83 var
+R14154:14155 Kernel.CmpPipeline <> xs:86 var
+R14157:14159 Kernel.CmpPipeline <> out:85 var
+R14161:14161 Kernel.CmpPipeline <> y:87 var
+R14170:14176 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14178:14179 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14177:14177 <> n:90
+R14294:14310 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14180:14209 Minimal.EarnedPriced <> pr_halted def
+R14212:14220 Kernel.CmpPipeline <> cmp_guest def
+R14222:14222 Kernel.CmpPipeline <> p:83 var
+R14224:14226 Kernel.CmpPipeline <> nin:84 var
+R14228:14230 Kernel.CmpPipeline <> out:85 var
+R14234:14262 Minimal.EarnedGeneric <> core_of proj
+R14265:14276 Kernel.CmpPipeline <> cmp_guest_at def
+R14278:14278 Kernel.CmpPipeline <> p:83 var
+R14280:14282 Kernel.CmpPipeline <> nin:84 var
+R14284:14286 Kernel.CmpPipeline <> out:85 var
+R14288:14289 Kernel.CmpPipeline <> xs:86 var
+R14291:14291 Kernel.CmpPipeline <> n:90 var
+R14361:14363 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14311:14326 Kernel.CmpPipeline <> cmp_guest_answer def
+R14328:14330 Kernel.CmpPipeline <> out:85 var
+R14333:14344 Kernel.CmpPipeline <> cmp_guest_at def
+R14346:14346 Kernel.CmpPipeline <> p:83 var
+R14348:14350 Kernel.CmpPipeline <> nin:84 var
+R14352:14354 Kernel.CmpPipeline <> out:85 var
+R14356:14357 Kernel.CmpPipeline <> xs:86 var
+R14359:14359 Kernel.CmpPipeline <> n:90 var
+R14364:14364 Kernel.CmpPipeline <> y:87 var
+R14400:14407 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R14373:14388 Kernel.CmpLang <> cmp_src_computes def
+R14390:14390 Kernel.CmpPipeline <> p:83 var
+R14392:14393 Kernel.CmpPipeline <> xs:86 var
+R14395:14397 Kernel.CmpPipeline <> out:85 var
+R14399:14399 Kernel.CmpPipeline <> y:87 var
+R14408:14414 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14416:14417 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14415:14415 <> t:91
+R14471:14487 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14418:14428 Kernel.CmpPipeline <> pu_halted def
+R14430:14432 Kernel.UniversalPLayout <> U_P def
+R14435:14443 Kernel.CmpPipeline <> core_of proj
+R14446:14453 Kernel.CmpPipeline <> cmp_U_at def
+R14455:14455 Kernel.CmpPipeline <> p:83 var
+R14457:14459 Kernel.CmpPipeline <> nin:84 var
+R14461:14463 Kernel.CmpPipeline <> out:85 var
+R14465:14466 Kernel.CmpPipeline <> xs:86 var
+R14468:14468 Kernel.CmpPipeline <> t:91 var
+R14549:14565 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14545:14547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14488:14494 Kernel.CompilerCodes <> cg_expo def
+R14497:14498 Undecidability.FRACTRAN.Util.prime_seq <> qs def
+R14501:14501 Coq.Init.Datatypes <> S constr
+R14503:14505 Kernel.CmpPipeline <> out:85 var
+R14510:14511 Kernel.UniversalPBridge <> hv abbrev
+R14514:14521 Kernel.CmpPipeline <> cmp_U_at def
+R14523:14523 Kernel.CmpPipeline <> p:83 var
+R14525:14527 Kernel.CmpPipeline <> nin:84 var
+R14529:14531 Kernel.CmpPipeline <> out:85 var
+R14533:14534 Kernel.CmpPipeline <> xs:86 var
+R14536:14536 Kernel.CmpPipeline <> t:91 var
+R14539:14543 Kernel.UniversalPLayout <> pu_RB def
+R14548:14548 Kernel.CmpPipeline <> y:87 var
+R14604:14620 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14600:14602 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14566:14567 Kernel.UniversalPBridge <> hv abbrev
+R14570:14577 Kernel.CmpPipeline <> cmp_U_at def
+R14579:14579 Kernel.CmpPipeline <> p:83 var
+R14581:14583 Kernel.CmpPipeline <> nin:84 var
+R14585:14587 Kernel.CmpPipeline <> out:85 var
+R14589:14590 Kernel.CmpPipeline <> xs:86 var
+R14592:14592 Kernel.CmpPipeline <> t:91 var
+R14595:14599 Kernel.UniversalPLayout <> pu_RA def
+R14655:14658 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14651:14653 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14621:14624 Kernel.CmpPipeline <> mu proj
+R14627:14634 Kernel.CmpPipeline <> cmp_U_at def
+R14636:14636 Kernel.CmpPipeline <> p:83 var
+R14638:14640 Kernel.CmpPipeline <> nin:84 var
+R14642:14644 Kernel.CmpPipeline <> out:85 var
+R14646:14647 Kernel.CmpPipeline <> xs:86 var
+R14649:14649 Kernel.CmpPipeline <> t:91 var
+R14691:14693 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14659:14664 Kernel.CmpPipeline <> cert proj
+R14667:14674 Kernel.CmpPipeline <> cmp_U_at def
+R14676:14676 Kernel.CmpPipeline <> p:83 var
+R14678:14680 Kernel.CmpPipeline <> nin:84 var
+R14682:14684 Kernel.CmpPipeline <> out:85 var
+R14686:14687 Kernel.CmpPipeline <> xs:86 var
+R14689:14689 Kernel.CmpPipeline <> t:91 var
+R14694:14698 Coq.Init.Datatypes <> false constr
+R14786:14802 Kernel.CmpPipeline <> cmp_pipeline_host thm
+R14786:14802 Kernel.CmpPipeline <> cmp_pipeline_host thm
+R14855:14872 Kernel.CmpPipeline <> cmp_pipeline_guest thm
+R14855:14872 Kernel.CmpPipeline <> cmp_pipeline_guest thm
+R14906:14919 Kernel.CmpPipeline <> cmp_pipeline_U thm
+R14906:14919 Kernel.CmpPipeline <> cmp_pipeline_U thm
+R14966:14977 Kernel.CmpPipeline <> cmp_pipeline thm

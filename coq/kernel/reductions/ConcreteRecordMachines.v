@@ -1,7 +1,7 @@
-(** SCOPE NOTE: standalone proof scope. These outcomes are about the frozen
-    comparison machines and deliberately have no unused VM import.
+(** SCOPE NOTE: standalone proof scope. These outcomes are about the
+    comparison machines and deliberately have no unused kernel import.
 
-    Closed outcomes for the frozen RAM and Janus-like cases. *)
+    Proved outcomes for the RAM and Janus-like cases. *)
 
 From Coq Require Import List ZArith Lia Ring.
 Import ListNotations.

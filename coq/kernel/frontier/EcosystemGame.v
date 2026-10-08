@@ -1,4 +1,8 @@
-(** Closed outcomes for the coordinator-free ecosystem game. *)
+(** Proved outcomes for the coordinator-free ecosystem game. *)
+
+(* SCOPE NOTE: standalone proof scope. The game is an abstract ecosystem of
+   observers and one event, with the same standing as PointerObservable.v;
+   no machine is fixed. *)
 
 From Coq Require Import Arith Bool Lia.
 From Kernel Require Import EcosystemGameTarget.

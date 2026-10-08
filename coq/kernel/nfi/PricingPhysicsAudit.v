@@ -1,4 +1,4 @@
-(** Part 4 pricing and physics outcomes against the frozen target. *)
+(** Pricing and physics outcomes for the statements of [PricingPhysicsTarget]. *)
 
 From Coq Require Import List Bool Arith Reals Lra Sorting.Permutation.
 Import ListNotations.
@@ -8,12 +8,11 @@ From Kernel Require Import PermanentCertification.
 From Kernel Require Import PermanentRecordPricing.
 From Kernel Require Import PermanentCertificationEntropy.
 From Kernel Require Import PricingPhysicsTarget.
-From Kernel Require Import VMState.
 
 Theorem no_forced_price_beyond_merges :
   forall (S I : Type) (step : S -> I -> S)
          (instr_eq_dec : forall a b : I, {a = b} + {a <> b}),
-    item41_no_price_beyond_merges step instr_eq_dec.
+    no_price_beyond_merges step instr_eq_dec.
 Proof.
   intros S I step instr_eq_dec i [Hforced Hinjective].
   apply (proj1 (@forced_priced_iff_merges S I step instr_eq_dec i) Hforced).
@@ -22,24 +21,25 @@ Qed.
 
 Theorem permanent_write_has_logical_payment :
   forall (S I : Type) (step : S -> I -> S) (cert : S -> bool),
-    item42_logical_payment step cert.
+    permanent_flip_logical_payment step cert.
 Proof.
   intros S I step cert all s i Hfinite Hpermanent Hoff Hon.
   eapply (@permanent_at_flip_is_not_injective S I step cert); eauto.
 Qed.
 
-Theorem mu_has_no_intrinsic_joule_value : item43_no_intrinsic_joule_scale.
+Theorem mu_has_no_intrinsic_joule_value : no_intrinsic_joule_scale.
 Proof.
-  exists (vm_mu_energy_at_scale 1), (vm_mu_energy_at_scale 2).
-  intros s Hmu. unfold vm_mu_energy_at_scale. rewrite Hmu. simpl.
+  intros S mu.
+  exists (mu_energy_at_scale mu 1), (mu_energy_at_scale mu 2).
+  intros s Hmu. unfold mu_energy_at_scale. rewrite Hmu. simpl.
   split; [ring |]. split; [ring | lra].
 Qed.
 
 Theorem calibrated_mu_landauer_energy :
-  forall k_B T : R, item43_landauer_calibration k_B T.
+  forall k_B T : R, mu_landauer_calibration k_B T.
 Proof.
-  intros k_B T s Hmu.
-  unfold item43_landauer_calibration, vm_mu_energy_at_scale in *.
+  intros k_B T S mu s Hmu.
+  unfold mu_landauer_calibration, mu_energy_at_scale in *.
   rewrite Hmu. simpl. ring.
 Qed.
 
@@ -55,7 +55,7 @@ Qed.
 
 (** The heat conclusion retains [landauer_heat] as an explicit premise and
     uses the finite-state permanent-record entropy theorem. *)
-Theorem permanence_heat_floor_uses_landauer : item44_landauer_is_required.
+Theorem permanence_heat_floor_uses_landauer : landauer_permanence_heat_floor.
 Proof.
   intros S I step cert eq_dec all i F kT heat Hfin Hperm Hfl Hpos HkT.
   cbv zeta.

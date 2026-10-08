@@ -1,10 +1,10 @@
-DIGEST 00f5e1c4c5009c0bb43377eea9ccb79a
+DIGEST 9b81ebd91ae4b5ac714d161586a75ab6
 FKernel.CrossBaseGranularity
 R106:119 Coq.Arith.PeanoNat <> <> lib
-R149:168 Kernel.StructuralCoreRound4 <> <> lib
-R170:189 Kernel.StructuralRecordAxis <> <> lib
-R191:214 Kernel.CrossBaseGranularityCore <> <> lib
-R244:273 Kernel.CrossBaseGranularityRound2Core <> <> lib
+R149:169 Kernel.StructuralCoreAnyBase <> <> lib
+R171:190 Kernel.StructuralRecordAxis <> <> lib
+R192:215 Kernel.CrossBaseGranularityCore <> <> lib
+R245:273 Kernel.CrossBaseGranularityTransCore <> <> lib
 prf 285:310 <> weak_base_equiv_refl_holds
 R314:333 Kernel.CrossBaseGranularityCore <> weak_base_equiv_refl def
 binder 373:373 <> x:1
@@ -28,14 +28,14 @@ binder 742:742 <> x:8
 R749:749 Kernel.CrossBaseGranularity <> x:8 var
 R751:751 Kernel.CrossBaseGranularity <> y:7 var
 prf 998:1017 <> weak_match_left_runs
-R1039:1049 Kernel.StructuralCoreRound4 <> BaseMachine rec
+R1039:1049 Kernel.StructuralCoreAnyBase <> BaseMachine rec
 binder 1031:1032 <> B1:9
 binder 1034:1035 <> B2:10
 R1067:1070 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1057:1063 Kernel.StructuralCoreRound4 <> b_state proj
+R1057:1063 Kernel.StructuralCoreAnyBase <> b_state proj
 R1065:1066 Kernel.CrossBaseGranularity <> B1:9 var
 R1081:1084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1071:1077 Kernel.StructuralCoreRound4 <> b_state proj
+R1071:1077 Kernel.StructuralCoreAnyBase <> b_state proj
 R1079:1080 Kernel.CrossBaseGranularity <> B2:10 var
 binder 1053:1053 <> R:11
 R1096:1096 Coq.Init.Logic <> ::type_scope:x_'->'_x not
@@ -55,7 +55,7 @@ R1152:1159 Kernel.CrossBaseGranularityCore <> base_run def
 R1161:1162 Kernel.CrossBaseGranularity <> B2:10 var
 R1164:1164 Kernel.CrossBaseGranularity <> n:14 var
 R1166:1166 Kernel.CrossBaseGranularity <> y:13 var
-R1138:1143 Kernel.StructuralCoreRound4 <> b_next proj
+R1138:1143 Kernel.StructuralCoreAnyBase <> b_next proj
 R1145:1146 Kernel.CrossBaseGranularity <> B1:9 var
 R1148:1148 Kernel.CrossBaseGranularity <> x:12 var
 binder 1185:1185 <> k:15
@@ -77,9 +77,9 @@ R1220:1227 Kernel.CrossBaseGranularityCore <> base_run def
 R1229:1230 Kernel.CrossBaseGranularity <> B1:9 var
 R1232:1232 Kernel.CrossBaseGranularity <> k:15 var
 R1234:1234 Kernel.CrossBaseGranularity <> x:16 var
-R1410:1415 Kernel.StructuralCoreRound4 <> b_next proj
+R1410:1415 Kernel.StructuralCoreAnyBase <> b_next proj
 R1424:1431 Kernel.CrossBaseGranularityCore <> base_run def
-R1410:1415 Kernel.StructuralCoreRound4 <> b_next proj
+R1410:1415 Kernel.StructuralCoreAnyBase <> b_next proj
 R1424:1431 Kernel.CrossBaseGranularityCore <> base_run def
 R1469:1471 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
 R1469:1471 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
@@ -91,14 +91,14 @@ R1535:1546 Coq.Arith.PeanoNat Nat iter_add thm
 R1535:1546 Coq.Arith.PeanoNat Nat iter_add thm
 R1535:1546 Coq.Arith.PeanoNat Nat iter_add thm
 prf 1571:1591 <> weak_match_right_runs
-R1613:1623 Kernel.StructuralCoreRound4 <> BaseMachine rec
+R1613:1623 Kernel.StructuralCoreAnyBase <> BaseMachine rec
 binder 1605:1606 <> B1:19
 binder 1608:1609 <> B2:20
 R1641:1644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1631:1637 Kernel.StructuralCoreRound4 <> b_state proj
+R1631:1637 Kernel.StructuralCoreAnyBase <> b_state proj
 R1639:1640 Kernel.CrossBaseGranularity <> B1:19 var
 R1655:1658 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1645:1651 Kernel.StructuralCoreRound4 <> b_state proj
+R1645:1651 Kernel.StructuralCoreAnyBase <> b_state proj
 R1653:1654 Kernel.CrossBaseGranularity <> B2:20 var
 binder 1627:1627 <> R:21
 R1670:1670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
@@ -114,7 +114,7 @@ R1699:1705 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
 R1707:1708 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
 binder 1706:1706 <> n:24
 R1709:1709 Kernel.CrossBaseGranularity <> R:21 var
-R1730:1735 Kernel.StructuralCoreRound4 <> b_next proj
+R1730:1735 Kernel.StructuralCoreAnyBase <> b_next proj
 R1737:1738 Kernel.CrossBaseGranularity <> B2:20 var
 R1740:1740 Kernel.CrossBaseGranularity <> y:23 var
 R1712:1719 Kernel.CrossBaseGranularityCore <> base_run def
@@ -141,9 +141,9 @@ R1803:1804 Kernel.CrossBaseGranularity <> B1:19 var
 R1806:1806 Kernel.CrossBaseGranularity <> n:28 var
 R1808:1808 Kernel.CrossBaseGranularity <> x:26 var
 R1984:1991 Kernel.CrossBaseGranularityCore <> base_run def
-R2002:2007 Kernel.StructuralCoreRound4 <> b_next proj
+R2002:2007 Kernel.StructuralCoreAnyBase <> b_next proj
 R1984:1991 Kernel.CrossBaseGranularityCore <> base_run def
-R2002:2007 Kernel.StructuralCoreRound4 <> b_next proj
+R2002:2007 Kernel.StructuralCoreAnyBase <> b_next proj
 R2043:2045 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
 R2043:2045 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
 R2057:2064 Kernel.CrossBaseGranularityCore <> base_run def
@@ -154,7 +154,7 @@ R2109:2120 Coq.Arith.PeanoNat Nat iter_add thm
 R2109:2120 Coq.Arith.PeanoNat Nat iter_add thm
 R2109:2120 Coq.Arith.PeanoNat Nat iter_add thm
 prf 2147:2173 <> weak_base_equiv_trans_holds
-R2177:2197 Kernel.CrossBaseGranularityRound2Core <> weak_base_equiv_trans def
+R2177:2197 Kernel.CrossBaseGranularityTransCore <> weak_base_equiv_trans def
 binder 2309:2309 <> x:29
 binder 2311:2311 <> z:30
 R2316:2322 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
@@ -183,7 +183,7 @@ R2964:2964 Kernel.CrossBaseGranularity <> b:36 var
 R2979:2985 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
 R2987:2988 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
 binder 2986:2986 <> q:37
-R2994:2999 Kernel.StructuralCoreRound4 <> b_next proj
+R2994:2999 Kernel.StructuralCoreAnyBase <> b_next proj
 R3004:3004 Kernel.CrossBaseGranularity <> a:35 var
 R3008:3015 Kernel.CrossBaseGranularityCore <> base_run def
 R3020:3020 Kernel.CrossBaseGranularity <> q:37 var
@@ -196,7 +196,7 @@ R2964:2964 Kernel.CrossBaseGranularity <> b:39 var
 R2979:2985 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
 R2987:2988 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
 binder 2986:2986 <> q:40
-R2994:2999 Kernel.StructuralCoreRound4 <> b_next proj
+R2994:2999 Kernel.StructuralCoreAnyBase <> b_next proj
 R3004:3004 Kernel.CrossBaseGranularity <> a:38 var
 R3008:3015 Kernel.CrossBaseGranularityCore <> base_run def
 R3020:3020 Kernel.CrossBaseGranularity <> q:40 var
@@ -216,7 +216,7 @@ binder 3339:3339 <> q:43
 R3347:3354 Kernel.CrossBaseGranularityCore <> base_run def
 R3359:3359 Kernel.CrossBaseGranularity <> q:43 var
 R3361:3361 Kernel.CrossBaseGranularity <> a:41 var
-R3365:3370 Kernel.StructuralCoreRound4 <> b_next proj
+R3365:3370 Kernel.StructuralCoreAnyBase <> b_next proj
 R3375:3375 Kernel.CrossBaseGranularity <> b:42 var
 binder 3306:3306 <> a:44
 binder 3308:3308 <> b:45
@@ -229,28 +229,23 @@ binder 3339:3339 <> q:46
 R3347:3354 Kernel.CrossBaseGranularityCore <> base_run def
 R3359:3359 Kernel.CrossBaseGranularity <> q:46 var
 R3361:3361 Kernel.CrossBaseGranularity <> a:44 var
-R3365:3370 Kernel.StructuralCoreRound4 <> b_next proj
+R3365:3370 Kernel.StructuralCoreAnyBase <> b_next proj
 R3375:3375 Kernel.CrossBaseGranularity <> b:45 var
 R3476:3496 Kernel.CrossBaseGranularity <> weak_match_right_runs thm
 R3476:3496 Kernel.CrossBaseGranularity <> weak_match_right_runs thm
 R3568:3575 Kernel.CrossBaseGranularityCore <> base_run def
 R3568:3575 Kernel.CrossBaseGranularityCore <> base_run def
-prf 3606:3638 <> weak_equiv_preserves_round4_holds
-R3642:3668 Kernel.CrossBaseGranularityCore <> weak_equiv_preserves_round4 def
-R3748:3770 Kernel.StructuralRecordAxis <> uniqueness_round4_holds thm
-R3748:3770 Kernel.StructuralRecordAxis <> uniqueness_round4_holds thm
-R3748:3770 Kernel.StructuralRecordAxis <> uniqueness_round4_holds thm
-prf 3802:3816 <> round4_tm_holds
-R3820:3835 Kernel.CrossBaseGranularityCore <> round4_tm_target def
-R3878:3900 Kernel.StructuralRecordAxis <> uniqueness_round4_holds thm
-R3878:3900 Kernel.StructuralRecordAxis <> uniqueness_round4_holds thm
-prf 3932:3946 <> round4_vm_holds
-R3950:3965 Kernel.CrossBaseGranularityCore <> round4_vm_target def
-R4008:4030 Kernel.StructuralRecordAxis <> uniqueness_round4_holds thm
-R4008:4030 Kernel.StructuralRecordAxis <> uniqueness_round4_holds thm
-R4072:4097 Kernel.CrossBaseGranularity <> weak_base_equiv_refl_holds thm
-R4118:4142 Kernel.CrossBaseGranularity <> weak_base_equiv_sym_holds thm
-R4163:4189 Kernel.CrossBaseGranularity <> weak_base_equiv_trans_holds thm
-R4210:4242 Kernel.CrossBaseGranularity <> weak_equiv_preserves_round4_holds thm
-R4263:4277 Kernel.CrossBaseGranularity <> round4_tm_holds thm
-R4298:4312 Kernel.CrossBaseGranularity <> round4_vm_holds thm
+prf 3915:3953 <> weak_equiv_preserves_record_latch_holds
+R3957:3989 Kernel.CrossBaseGranularityCore <> weak_equiv_preserves_record_latch def
+R4069:4094 Kernel.StructuralRecordAxis <> record_axis_is_latch_holds thm
+R4069:4094 Kernel.StructuralRecordAxis <> record_axis_is_latch_holds thm
+R4069:4094 Kernel.StructuralRecordAxis <> record_axis_is_latch_holds thm
+prf 4126:4157 <> record_axis_is_latch_on_tm_holds
+R4161:4186 Kernel.CrossBaseGranularityCore <> record_axis_is_latch_on_tm def
+R4229:4254 Kernel.StructuralRecordAxis <> record_axis_is_latch_holds thm
+R4229:4254 Kernel.StructuralRecordAxis <> record_axis_is_latch_holds thm
+R4296:4321 Kernel.CrossBaseGranularity <> weak_base_equiv_refl_holds thm
+R4342:4366 Kernel.CrossBaseGranularity <> weak_base_equiv_sym_holds thm
+R4387:4413 Kernel.CrossBaseGranularity <> weak_base_equiv_trans_holds thm
+R4434:4472 Kernel.CrossBaseGranularity <> weak_equiv_preserves_record_latch_holds thm
+R4493:4524 Kernel.CrossBaseGranularity <> record_axis_is_latch_on_tm_holds thm
