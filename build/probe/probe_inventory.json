@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 308,
-  "total_addressable": 5369,
+  "files_probed": 329,
+  "total_addressable": 5694,
   "total_unaddressable": 0,
   "extras_addressable_via_instantiation": [],
   "files": [
@@ -6727,6 +6727,105 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/FiniteSums.v",
+      "qualified_module": "Kernel.FiniteSums",
+      "addressable_count": 18,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "sumL_nil",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_nil"
+        },
+        {
+          "local_name": "sumL_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_cons"
+        },
+        {
+          "local_name": "sumL_ext",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_ext"
+        },
+        {
+          "local_name": "sumL_plus",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_plus"
+        },
+        {
+          "local_name": "sumL_minus",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_minus"
+        },
+        {
+          "local_name": "sumL_scale_l",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_scale_l"
+        },
+        {
+          "local_name": "sumL_scale_r",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_scale_r"
+        },
+        {
+          "local_name": "sumL_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_zero"
+        },
+        {
+          "local_name": "sumL_swap",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_swap"
+        },
+        {
+          "local_name": "sumL_mult",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_mult"
+        },
+        {
+          "local_name": "sumL_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_nonneg"
+        },
+        {
+          "local_name": "sumL_delta",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_delta"
+        },
+        {
+          "local_name": "sumL_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_app"
+        },
+        {
+          "local_name": "sumL_map",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_map"
+        },
+        {
+          "local_name": "sumL_prod",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_prod"
+        },
+        {
+          "local_name": "sq_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sq_nonneg"
+        },
+        {
+          "local_name": "le_of_sq_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.le_of_sq_le"
+        },
+        {
+          "local_name": "sumL_cauchy_schwarz",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteSums.sumL_cauchy_schwarz"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/GrowingRecord.v",
       "qualified_module": "Kernel.GrowingRecord",
       "addressable_count": 14,
@@ -7576,6 +7675,55 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/NecEChshEquality.v",
+      "qualified_module": "Kernel.NecEChshEquality",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "nec_e_equality_forces_point",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChshEquality.nec_e_equality_forces_point"
+        },
+        {
+          "local_name": "nec_e_equality_two_points",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChshEquality.nec_e_equality_two_points"
+        },
+        {
+          "local_name": "nec_e_no_rational_half_square",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChshEquality.nec_e_no_rational_half_square"
+        },
+        {
+          "local_name": "nec_e_worked_cascade_passes",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChshEquality.nec_e_worked_cascade_passes"
+        },
+        {
+          "local_name": "nec_e_worked_cascade_fails_at_zero",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChshEquality.nec_e_worked_cascade_fails_at_zero"
+        },
+        {
+          "local_name": "nec_e_worked_level1_passes",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChshEquality.nec_e_worked_level1_passes"
+        },
+        {
+          "local_name": "nec_e_singular_level1_passes",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChshEquality.nec_e_singular_level1_passes"
+        },
+        {
+          "local_name": "nec_e_singular_full_fails",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChshEquality.nec_e_singular_full_fails"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/NecEChshInt.v",
       "qualified_module": "Kernel.NecEChshInt",
       "addressable_count": 11,
@@ -7996,6 +8144,30 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/NecFCups.v",
+      "qualified_module": "Kernel.NecFCups",
+      "addressable_count": 3,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "nec_f_same_rung_same_cups",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFCups.nec_f_same_rung_same_cups"
+        },
+        {
+          "local_name": "nec_f_non_partial_cups_fail",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFCups.nec_f_non_partial_cups_fail"
+        },
+        {
+          "local_name": "nec_f_cups_iff_partial",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFCups.nec_f_cups_iff_partial"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/NecFEntropy.v",
       "qualified_module": "Kernel.NecFEntropy",
       "addressable_count": 11,
@@ -8391,6 +8563,50 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/NecFGrade.v",
+      "qualified_module": "Kernel.NecFGrade",
+      "addressable_count": 7,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "nec_f_grade_exact",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFGrade.nec_f_grade_exact"
+        },
+        {
+          "local_name": "nec_f_small_conservation",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFGrade.nec_f_small_conservation"
+        },
+        {
+          "local_name": "nec_f_grade_exact_small",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFGrade.nec_f_grade_exact_small"
+        },
+        {
+          "local_name": "nec_f_iter_pay",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFGrade.nec_f_iter_pay"
+        },
+        {
+          "local_name": "nec_f_loop_cost",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFGrade.nec_f_loop_cost"
+        },
+        {
+          "local_name": "nec_f_loop_no_fixed_grade",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFGrade.nec_f_loop_no_fixed_grade"
+        },
+        {
+          "local_name": "nec_f_loop_input_grade",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFGrade.nec_f_loop_input_grade"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/NecFMerge.v",
       "qualified_module": "Kernel.NecFMerge",
       "addressable_count": 29,
@@ -8644,6 +8860,45 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/NecFPaperToys.v",
+      "qualified_module": "Kernel.NecFPaperToys",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "nec_f_board_toll",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFPaperToys.nec_f_board_toll"
+        },
+        {
+          "local_name": "nec_f_board_raw_free",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFPaperToys.nec_f_board_raw_free"
+        },
+        {
+          "local_name": "nec_f_board_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFPaperToys.nec_f_board_floor"
+        },
+        {
+          "local_name": "nec_f_board_floor_flat",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFPaperToys.nec_f_board_floor_flat"
+        },
+        {
+          "local_name": "nec_f_board_no_wait",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFPaperToys.nec_f_board_no_wait"
+        },
+        {
+          "local_name": "nec_f_history_infinite",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFPaperToys.nec_f_history_infinite"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/NecFPhysics.v",
       "qualified_module": "Kernel.NecFPhysics",
       "addressable_count": 7,
@@ -8752,6 +9007,100 @@
           "local_name": "nec_f_quant_needs_a5",
           "kind": "Theorem",
           "full_name": "Kernel.NecFQuant.nec_f_quant_needs_a5"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NecFRepeat.v",
+      "qualified_module": "Kernel.NecFRepeat",
+      "addressable_count": 17,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "nec_f_orbit_add",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_orbit_add"
+        },
+        {
+          "local_name": "nec_f_bounded_search",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_bounded_search"
+        },
+        {
+          "local_name": "nec_f_prefix_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_prefix_length"
+        },
+        {
+          "local_name": "nec_f_prefix_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_prefix_in"
+        },
+        {
+          "local_name": "nec_f_dup_or_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_dup_or_nodup"
+        },
+        {
+          "local_name": "nec_f_orbit_repeats",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_orbit_repeats"
+        },
+        {
+          "local_name": "nec_f_orbit_periodic",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_orbit_periodic"
+        },
+        {
+          "local_name": "nec_f_start_never_returns",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_start_never_returns"
+        },
+        {
+          "local_name": "nec_f_walk_back",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_walk_back"
+        },
+        {
+          "local_name": "nec_f_orbit_merges_visited",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFRepeat.nec_f_orbit_merges_visited"
+        },
+        {
+          "local_name": "nec_f_repeat_merges_visited",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFRepeat.nec_f_repeat_merges_visited"
+        },
+        {
+          "local_name": "nec_f_closed_merges_visited",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFRepeat.nec_f_closed_merges_visited"
+        },
+        {
+          "local_name": "nec_f_run_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_run_app"
+        },
+        {
+          "local_name": "nec_f_reps_orbit",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_reps_orbit"
+        },
+        {
+          "local_name": "nec_f_word_first_meet",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFRepeat.nec_f_word_first_meet"
+        },
+        {
+          "local_name": "nec_f_word_merges_visited",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFRepeat.nec_f_word_merges_visited"
+        },
+        {
+          "local_name": "nec_f_outside_moves_no_merge",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFRepeat.nec_f_outside_moves_no_merge"
         }
       ],
       "unaddressable": []
@@ -8935,6 +9284,75 @@
           "local_name": "nec_f_thinner_squeeze_below_one_bit",
           "kind": "Theorem",
           "full_name": "Kernel.NecFSqueezeLog.nec_f_thinner_squeeze_below_one_bit"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/NecFThreeState.v",
+      "qualified_module": "Kernel.NecFThreeState",
+      "addressable_count": 12,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "nec_f_record_ceiling_unique",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFThreeState.nec_f_record_ceiling_unique"
+        },
+        {
+          "local_name": "nec_f_three_both_merge",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_both_merge"
+        },
+        {
+          "local_name": "nec_f_three_automorphism_id",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_automorphism_id"
+        },
+        {
+          "local_name": "nec_f_three_total_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_total_app"
+        },
+        {
+          "local_name": "nec_f_three_common",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_common"
+        },
+        {
+          "local_name": "nec_f_three_toll_meets",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_toll_meets"
+        },
+        {
+          "local_name": "nec_f_three_merge_meets",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_merge_meets"
+        },
+        {
+          "local_name": "nec_f_three_bills_differ",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_bills_differ"
+        },
+        {
+          "local_name": "nec_f_three_ceiling_picks_toll",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_ceiling_picks_toll"
+        },
+        {
+          "local_name": "nec_f_three_merge_fails_ceiling",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_merge_fails_ceiling"
+        },
+        {
+          "local_name": "nec_f_three_cs_costs",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_cs_costs"
+        },
+        {
+          "local_name": "nec_f_three_cs_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFThreeState.nec_f_three_cs_floor"
         }
       ],
       "unaddressable": []
@@ -19376,6 +19794,175 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/quantum/ArcsineBoundary.v",
+      "qualified_module": "Kernel.ArcsineBoundary",
+      "addressable_count": 32,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "am_cos_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_cos_le"
+        },
+        {
+          "local_name": "am_acos_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_acos_le"
+        },
+        {
+          "local_name": "am_cos_PI_minus",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_cos_PI_minus"
+        },
+        {
+          "local_name": "am_acos_opp",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_acos_opp"
+        },
+        {
+          "local_name": "am_cos_abs",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_cos_abs"
+        },
+        {
+          "local_name": "am_sq_sin",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_sq_sin"
+        },
+        {
+          "local_name": "am_triangle_det",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_triangle_det"
+        },
+        {
+          "local_name": "am_inner_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_inner_sym"
+        },
+        {
+          "local_name": "am_comb4",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_comb4"
+        },
+        {
+          "local_name": "am_inner_bound",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_inner_bound"
+        },
+        {
+          "local_name": "am_sphere_triangle",
+          "kind": "Theorem",
+          "full_name": "Kernel.ArcsineBoundary.am_sphere_triangle"
+        },
+        {
+          "local_name": "am_path3",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_path3"
+        },
+        {
+          "local_name": "am_neg_unit",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_neg_unit"
+        },
+        {
+          "local_name": "am_dist_neg_l",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_dist_neg_l"
+        },
+        {
+          "local_name": "am_dist_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_dist_sym"
+        },
+        {
+          "local_name": "am_vectors",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_vectors"
+        },
+        {
+          "local_name": "am_necessary",
+          "kind": "Theorem",
+          "full_name": "Kernel.ArcsineBoundary.am_necessary"
+        },
+        {
+          "local_name": "am_S_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_S_nonneg"
+        },
+        {
+          "local_name": "am_SC",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_SC"
+        },
+        {
+          "local_name": "am_inner4",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_inner4"
+        },
+        {
+          "local_name": "am_b0_unit",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_b0_unit"
+        },
+        {
+          "local_name": "am_b1_unit",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_b1_unit"
+        },
+        {
+          "local_name": "am_a_ok",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_a_ok"
+        },
+        {
+          "local_name": "am_dot_lift",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_dot_lift"
+        },
+        {
+          "local_name": "am_rabs_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_rabs_le"
+        },
+        {
+          "local_name": "am_sufficient",
+          "kind": "Theorem",
+          "full_name": "Kernel.ArcsineBoundary.am_sufficient"
+        },
+        {
+          "local_name": "am_cycle_arcsine",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_cycle_arcsine"
+        },
+        {
+          "local_name": "am_arcsine",
+          "kind": "Theorem",
+          "full_name": "Kernel.ArcsineBoundary.am_arcsine"
+        },
+        {
+          "local_name": "am_quantum_arcsine",
+          "kind": "Theorem",
+          "full_name": "Kernel.ArcsineBoundary.am_quantum_arcsine"
+        },
+        {
+          "local_name": "am_345",
+          "kind": "Lemma",
+          "full_name": "Kernel.ArcsineBoundary.am_345"
+        },
+        {
+          "local_name": "am_pythagorean_boundary",
+          "kind": "Theorem",
+          "full_name": "Kernel.ArcsineBoundary.am_pythagorean_boundary"
+        },
+        {
+          "local_name": "am_tsirelson_boundary",
+          "kind": "Theorem",
+          "full_name": "Kernel.ArcsineBoundary.am_tsirelson_boundary"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/quantum/BoxCHSH.v",
       "qualified_module": "Kernel.BoxCHSH",
       "addressable_count": 8,
@@ -20875,6 +21462,248 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/quantum/QuantumStrategies.v",
+      "qualified_module": "Kernel.QuantumStrategies",
+      "addressable_count": 22,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "qs_corr_dot",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_corr_dot"
+        },
+        {
+          "local_name": "qs_uvec_unit",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_uvec_unit"
+        },
+        {
+          "local_name": "qs_vvec_unit",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_vvec_unit"
+        },
+        {
+          "local_name": "qs_dot_plus_r",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_dot_plus_r"
+        },
+        {
+          "local_name": "qs_dot_minus_r",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_dot_minus_r"
+        },
+        {
+          "local_name": "qs_dot_flat",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_dot_flat"
+        },
+        {
+          "local_name": "qs_dot_cs",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_dot_cs"
+        },
+        {
+          "local_name": "qs_dot_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_dot_nonneg"
+        },
+        {
+          "local_name": "qs_dot_sum_diff",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_dot_sum_diff"
+        },
+        {
+          "local_name": "qs_tsirelson",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumStrategies.qs_tsirelson"
+        },
+        {
+          "local_name": "qs_bits_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_bits_nodup"
+        },
+        {
+          "local_name": "qs_r_sq",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_r_sq"
+        },
+        {
+          "local_name": "qs_bell_valid",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_bell_valid"
+        },
+        {
+          "local_name": "qs_tsirelson_reached",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumStrategies.qs_tsirelson_reached"
+        },
+        {
+          "local_name": "qs_deterministic_plan",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumStrategies.qs_deterministic_plan"
+        },
+        {
+          "local_name": "qs_dot_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_dot_sym"
+        },
+        {
+          "local_name": "qs_npa_correlators",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_npa_correlators"
+        },
+        {
+          "local_name": "qs_vec_unit",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_vec_unit"
+        },
+        {
+          "local_name": "qs_npa_entries",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_npa_entries"
+        },
+        {
+          "local_name": "qs_sum_fin5",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_sum_fin5"
+        },
+        {
+          "local_name": "qs_dot_combination",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategies.qs_dot_combination"
+        },
+        {
+          "local_name": "qs_npa_psd",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumStrategies.qs_npa_psd"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumStrategiesComplex.v",
+      "qualified_module": "Kernel.QuantumStrategiesComplex",
+      "addressable_count": 15,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "qc_four_vectors",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_four_vectors"
+        },
+        {
+          "local_name": "qc_gram_entries",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_gram_entries"
+        },
+        {
+          "local_name": "qc_gram_psd",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_gram_psd"
+        },
+        {
+          "local_name": "qc_corr_dot",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_corr_dot"
+        },
+        {
+          "local_name": "qc_uvec_unit",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_uvec_unit"
+        },
+        {
+          "local_name": "qc_vvec_unit",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_vvec_unit"
+        },
+        {
+          "local_name": "qc_dot_lift",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_dot_lift"
+        },
+        {
+          "local_name": "qc_tsirelson",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_tsirelson"
+        },
+        {
+          "local_name": "qc_npa_correlators",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_npa_correlators"
+        },
+        {
+          "local_name": "qc_npa_psd",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_npa_psd"
+        },
+        {
+          "local_name": "qc_corr_real",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_corr_real"
+        },
+        {
+          "local_name": "qc_obsI_real",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_obsI_real"
+        },
+        {
+          "local_name": "qc_obsJ_real",
+          "kind": "Lemma",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_obsJ_real"
+        },
+        {
+          "local_name": "qc_of_real_valid",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_of_real_valid"
+        },
+        {
+          "local_name": "qc_tsirelson_reached",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumStrategiesComplex.qc_tsirelson_reached"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/quantum/SchurComplement.v",
+      "qualified_module": "Kernel.SchurComplement",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "sc_P_z",
+          "kind": "Lemma",
+          "full_name": "Kernel.SchurComplement.sc_P_z"
+        },
+        {
+          "local_name": "sc_cross_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.SchurComplement.sc_cross_sym"
+        },
+        {
+          "local_name": "sc_mvU_plus",
+          "kind": "Lemma",
+          "full_name": "Kernel.SchurComplement.sc_mvU_plus"
+        },
+        {
+          "local_name": "sc_zQ",
+          "kind": "Lemma",
+          "full_name": "Kernel.SchurComplement.sc_zQ"
+        },
+        {
+          "local_name": "schur_identity",
+          "kind": "Theorem",
+          "full_name": "Kernel.SchurComplement.schur_identity"
+        },
+        {
+          "local_name": "schur_complement_psd",
+          "kind": "Theorem",
+          "full_name": "Kernel.SchurComplement.schur_complement_psd"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/quantum/SmallChshCheck.v",
       "qualified_module": "Kernel.SmallChshCheck",
       "addressable_count": 18,
@@ -21236,6 +22065,200 @@
           "local_name": "tsirelson_from_minors_abs",
           "kind": "Corollary",
           "full_name": "Kernel.TsirelsonGeneral.tsirelson_from_minors_abs"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonRepresentation.v",
+      "qualified_module": "Kernel.TsirelsonRepresentation",
+      "addressable_count": 37,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "tr_sum_S",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_sum_S"
+        },
+        {
+          "local_name": "tr_in_idx",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_in_idx"
+        },
+        {
+          "local_name": "tr_qf_S",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_qf_S"
+        },
+        {
+          "local_name": "tr_sym_shift",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_sym_shift"
+        },
+        {
+          "local_name": "tr_qf_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_qf_zero"
+        },
+        {
+          "local_name": "tr_pivot_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_pivot_nonneg"
+        },
+        {
+          "local_name": "tr_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_restrict"
+        },
+        {
+          "local_name": "tr_sum_e",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_sum_e"
+        },
+        {
+          "local_name": "tr_qf_e",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_qf_e"
+        },
+        {
+          "local_name": "tr_zero_pivot_row",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_zero_pivot_row"
+        },
+        {
+          "local_name": "tr_schur_psd",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_schur_psd"
+        },
+        {
+          "local_name": "tr_gram",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_gram"
+        },
+        {
+          "local_name": "tr_sumL_IZR",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_sumL_IZR"
+        },
+        {
+          "local_name": "tr_checks",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_checks"
+        },
+        {
+          "local_name": "tr_forallb_idx",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_forallb_idx"
+        },
+        {
+          "local_name": "tr_gammaZ_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_gammaZ_sym"
+        },
+        {
+          "local_name": "tr_gamma_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_gamma_sym"
+        },
+        {
+          "local_name": "tr_gamma_clifford",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_gamma_clifford"
+        },
+        {
+          "local_name": "tr_gamma_trace",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_gamma_trace"
+        },
+        {
+          "local_name": "tr_r_sq",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_r_sq"
+        },
+        {
+          "local_name": "tr_e_refl",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_e_refl"
+        },
+        {
+          "local_name": "tr_obs_square",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_obs_square"
+        },
+        {
+          "local_name": "tr_obs_valid",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_obs_valid"
+        },
+        {
+          "local_name": "tr_obs_validJ",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_obs_validJ"
+        },
+        {
+          "local_name": "tr_psi_unit",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_psi_unit"
+        },
+        {
+          "local_name": "tr_dR_e",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_dR_e"
+        },
+        {
+          "local_name": "tr_obs_pair",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_obs_pair"
+        },
+        {
+          "local_name": "tr_corr_inner",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_corr_inner"
+        },
+        {
+          "local_name": "tr_strategy_valid",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_strategy_valid"
+        },
+        {
+          "local_name": "tr_G_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_G_sym"
+        },
+        {
+          "local_name": "tr_G_psd",
+          "kind": "Lemma",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_G_psd"
+        },
+        {
+          "local_name": "tr_elliptope_quantum",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_elliptope_quantum"
+        },
+        {
+          "local_name": "tr_vectors_elliptope",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_vectors_elliptope"
+        },
+        {
+          "local_name": "tr_quantum_elliptope",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_quantum_elliptope"
+        },
+        {
+          "local_name": "tr_complex_elliptope",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_complex_elliptope"
+        },
+        {
+          "local_name": "tr_representation",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_representation"
+        },
+        {
+          "local_name": "tr_representation_complex",
+          "kind": "Theorem",
+          "full_name": "Kernel.TsirelsonRepresentation.tr_representation_complex"
         }
       ],
       "unaddressable": []
@@ -21919,6 +22942,451 @@
       "addressable_count": 0,
       "unaddressable_count": 0,
       "addressable": [],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationContinuous.v",
+      "qualified_module": "Kernel.RelaxationContinuous",
+      "addressable_count": 12,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "rcd_ln_mono",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuous.rcd_ln_mono"
+        },
+        {
+          "local_name": "rcd_sigma_nonneg",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuous.rcd_sigma_nonneg"
+        },
+        {
+          "local_name": "rcd_lim_ext",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuous.rcd_lim_ext"
+        },
+        {
+          "local_name": "rcd_sum_deriv",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuous.rcd_sum_deriv"
+        },
+        {
+          "local_name": "rcd_term_deriv",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuous.rcd_term_deriv"
+        },
+        {
+          "local_name": "rcd_flow_total",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuous.rcd_flow_total"
+        },
+        {
+          "local_name": "rcd_flow_L",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuous.rcd_flow_L"
+        },
+        {
+          "local_name": "rcd_D_derivative",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuous.rcd_D_derivative"
+        },
+        {
+          "local_name": "rcd_D_monotone",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuous.rcd_D_monotone"
+        },
+        {
+          "local_name": "rcd_neg_D_deriv",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuous.rcd_neg_D_deriv"
+        },
+        {
+          "local_name": "rcd_produced_window",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuous.rcd_produced_window"
+        },
+        {
+          "local_name": "rcd_produced_bounds",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuous.rcd_produced_bounds"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationContinuousLimit.v",
+      "qualified_module": "Kernel.RelaxationContinuousLimit",
+      "addressable_count": 19,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "rcl_lin4",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_lin4"
+        },
+        {
+          "local_name": "rcl_sum_le_gen",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_sum_le_gen"
+        },
+        {
+          "local_name": "rcl_sum_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_sum_le"
+        },
+        {
+          "local_name": "rcl_sigma_ge",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_sigma_ge"
+        },
+        {
+          "local_name": "rcl_D_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_D_nonneg"
+        },
+        {
+          "local_name": "rcl_mass",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_mass"
+        },
+        {
+          "local_name": "rcl_D_deriv",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_D_deriv"
+        },
+        {
+          "local_name": "rcl_D_decay",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_D_decay"
+        },
+        {
+          "local_name": "rcl_exp_neg_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_exp_neg_le"
+        },
+        {
+          "local_name": "rcl_D_limit",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_D_limit"
+        },
+        {
+          "local_name": "rcl_produced_limit",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_produced_limit"
+        },
+        {
+          "local_name": "rcl_lim0_sum",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_lim0_sum"
+        },
+        {
+          "local_name": "rcl_cont_lim0",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_cont_lim0"
+        },
+        {
+          "local_name": "rcl_p_cont",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_p_cont"
+        },
+        {
+          "local_name": "rcl_vlnv",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_vlnv"
+        },
+        {
+          "local_name": "rcl_term_cont",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_term_cont"
+        },
+        {
+          "local_name": "rcl_D_at_zero",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_D_at_zero"
+        },
+        {
+          "local_name": "rcl_D_point",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_D_point"
+        },
+        {
+          "local_name": "rcl_known_start_total",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationContinuousLimit.rcl_known_start_total"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationConvergence.v",
+      "qualified_module": "Kernel.RelaxationConvergence",
+      "addressable_count": 14,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "rc_sum_abs",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationConvergence.rc_sum_abs"
+        },
+        {
+          "local_name": "rc_sum_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationConvergence.rc_sum_le"
+        },
+        {
+          "local_name": "rc_contract",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationConvergence.rc_contract"
+        },
+        {
+          "local_name": "rc_delta_le_1",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationConvergence.rc_delta_le_1"
+        },
+        {
+          "local_name": "rc_prob_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationConvergence.rc_prob_run"
+        },
+        {
+          "local_name": "rc_l1_le_2",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationConvergence.rc_l1_le_2"
+        },
+        {
+          "local_name": "rc_l1_pow",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationConvergence.rc_l1_pow"
+        },
+        {
+          "local_name": "rc_D_le_chi2",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationConvergence.rc_D_le_chi2"
+        },
+        {
+          "local_name": "rc_pi_min",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationConvergence.rc_pi_min"
+        },
+        {
+          "local_name": "rc_sq_sum",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationConvergence.rc_sq_sum"
+        },
+        {
+          "local_name": "rc_chi2_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationConvergence.rc_chi2_le"
+        },
+        {
+          "local_name": "rc_converges",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationConvergence.rc_converges"
+        },
+        {
+          "local_name": "rc_known_start_gap",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationConvergence.rc_known_start_gap"
+        },
+        {
+          "local_name": "rc_known_start_limit",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationConvergence.rc_known_start_limit"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationEntropy.v",
+      "qualified_module": "Kernel.RelaxationEntropy",
+      "addressable_count": 24,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "re_exp_ge",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_exp_ge"
+        },
+        {
+          "local_name": "re_ln_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_ln_le"
+        },
+        {
+          "local_name": "re_term_ge",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_term_ge"
+        },
+        {
+          "local_name": "re_gibbs_list",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_gibbs_list"
+        },
+        {
+          "local_name": "re_gibbs",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_gibbs"
+        },
+        {
+          "local_name": "re_pi_stationary",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_pi_stationary"
+        },
+        {
+          "local_name": "re_step_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_step_nonneg"
+        },
+        {
+          "local_name": "re_step_mass",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_step_mass"
+        },
+        {
+          "local_name": "re_term_le_sum",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_term_le_sum"
+        },
+        {
+          "local_name": "re_ln_div",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_ln_div"
+        },
+        {
+          "local_name": "re_sigma_term",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_sigma_term"
+        },
+        {
+          "local_name": "re_sigma_is_drop",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_sigma_is_drop"
+        },
+        {
+          "local_name": "re_sigma_nonneg",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_sigma_nonneg"
+        },
+        {
+          "local_name": "re_relative_entropy_monotone",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_relative_entropy_monotone"
+        },
+        {
+          "local_name": "re_run_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_run_nonneg"
+        },
+        {
+          "local_name": "re_run_mass",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_run_mass"
+        },
+        {
+          "local_name": "re_point_prob",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_point_prob"
+        },
+        {
+          "local_name": "re_point_entropy",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_point_entropy"
+        },
+        {
+          "local_name": "re_known_start_total",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_known_start_total"
+        },
+        {
+          "local_name": "re_known_start_bound",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_known_start_bound"
+        },
+        {
+          "local_name": "re_known_start_vs_set",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_known_start_vs_set"
+        },
+        {
+          "local_name": "re_flux_balance",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_flux_balance"
+        },
+        {
+          "local_name": "re_mass_split",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationEntropy.re_mass_split"
+        },
+        {
+          "local_name": "re_stretch_ratio",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationEntropy.re_stretch_ratio"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/thermodynamic/RelaxationStretch.v",
+      "qualified_module": "Kernel.RelaxationStretch",
+      "addressable_count": 11,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "rs_UN",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationStretch.rs_UN"
+        },
+        {
+          "local_name": "rs_keep_lin",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationStretch.rs_keep_lin"
+        },
+        {
+          "local_name": "rs_keep_ext",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationStretch.rs_keep_ext"
+        },
+        {
+          "local_name": "rs_split0",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationStretch.rs_split0"
+        },
+        {
+          "local_name": "rs_split",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationStretch.rs_split"
+        },
+        {
+          "local_name": "rs_partial",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationStretch.rs_partial"
+        },
+        {
+          "local_name": "rs_sum_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationStretch.rs_sum_le"
+        },
+        {
+          "local_name": "rs_u_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationStretch.rs_u_nonneg"
+        },
+        {
+          "local_name": "rs_left_pow",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationStretch.rs_left_pow"
+        },
+        {
+          "local_name": "rs_rate_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.RelaxationStretch.rs_rate_nonneg"
+        },
+        {
+          "local_name": "rs_mean_stretch",
+          "kind": "Theorem",
+          "full_name": "Kernel.RelaxationStretch.rs_mean_stretch"
+        }
+      ],
       "unaddressable": []
     },
     {
@@ -25351,6 +26819,190 @@
       "unaddressable": []
     },
     {
+      "file": "minimal/MonotoneConsensus.v",
+      "qualified_module": "Minimal.MonotoneConsensus",
+      "addressable_count": 35,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "mc_run_app",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_run_app"
+        },
+        {
+          "local_name": "mc_loc_set_same",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_loc_set_same"
+        },
+        {
+          "local_name": "mc_loc_set_other",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_loc_set_other"
+        },
+        {
+          "local_name": "mc_obj_set",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_obj_set"
+        },
+        {
+          "local_name": "mc_step_other",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_step_other"
+        },
+        {
+          "local_name": "mc_step_local",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_step_local"
+        },
+        {
+          "local_name": "mc_solo_local",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_solo_local"
+        },
+        {
+          "local_name": "mc_decided_step_same",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_decided_step_same"
+        },
+        {
+          "local_name": "mc_negb_neq",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_negb_neq"
+        },
+        {
+          "local_name": "mc_decided_keep_step",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_decided_keep_step"
+        },
+        {
+          "local_name": "mc_decided_keep",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_decided_keep"
+        },
+        {
+          "local_name": "mc_count_app",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_count_app"
+        },
+        {
+          "local_name": "mc_count_repeat",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_count_repeat"
+        },
+        {
+          "local_name": "mc_count_one",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_count_one"
+        },
+        {
+          "local_name": "mc_solo_decides",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_solo_decides"
+        },
+        {
+          "local_name": "mc_biv_undecided",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_biv_undecided"
+        },
+        {
+          "local_name": "mc_undecided_count",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_undecided_count"
+        },
+        {
+          "local_name": "mc_vals_cases",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_vals_cases"
+        },
+        {
+          "local_name": "mc_find_crit",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_find_crit"
+        },
+        {
+          "local_name": "mc_decided_loc",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_decided_loc"
+        },
+        {
+          "local_name": "mc_clash",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_clash"
+        },
+        {
+          "local_name": "mc_step_upd",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_step_upd"
+        },
+        {
+          "local_name": "mc_step_read",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_step_read"
+        },
+        {
+          "local_name": "mc_run_snoc",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_run_snoc"
+        },
+        {
+          "local_name": "mc_crit_false",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_crit_false"
+        },
+        {
+          "local_name": "mc_init_biv",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_init_biv"
+        },
+        {
+          "local_name": "mc_contradiction",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_contradiction"
+        },
+        {
+          "local_name": "mc_no_consensus",
+          "kind": "Theorem",
+          "full_name": "Minimal.MonotoneConsensus.mc_no_consensus"
+        },
+        {
+          "local_name": "mc_upd2_comm",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_upd2_comm"
+        },
+        {
+          "local_name": "mc_updr_comm",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_updr_comm"
+        },
+        {
+          "local_name": "mc_updr_over",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_updr_over"
+        },
+        {
+          "local_name": "mc_guard_mono",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_guard_mono"
+        },
+        {
+          "local_name": "mc_eff_rel",
+          "kind": "Lemma",
+          "full_name": "Minimal.MonotoneConsensus.mc_eff_rel"
+        },
+        {
+          "local_name": "mc_mono_interfere",
+          "kind": "Theorem",
+          "full_name": "Minimal.MonotoneConsensus.mc_mono_interfere"
+        },
+        {
+          "local_name": "mc_mono_no_consensus",
+          "kind": "Theorem",
+          "full_name": "Minimal.MonotoneConsensus.mc_mono_no_consensus"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "minimal/MultiThiele2.v",
       "qualified_module": "Minimal.MultiThiele2",
       "addressable_count": 7,
@@ -26410,6 +28062,60 @@
       "unaddressable": []
     },
     {
+      "file": "minimal/PayFree.v",
+      "qualified_module": "Minimal.PayFree",
+      "addressable_count": 9,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "pf_err_latch",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayFree.pf_err_latch"
+        },
+        {
+          "local_name": "pf_cert_latch",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayFree.pf_cert_latch"
+        },
+        {
+          "local_name": "pf_existsb_in",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayFree.pf_existsb_in"
+        },
+        {
+          "local_name": "pf_step",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayFree.pf_step"
+        },
+        {
+          "local_name": "pf_err_before",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayFree.pf_err_before"
+        },
+        {
+          "local_name": "pf_rep_same",
+          "kind": "Lemma",
+          "full_name": "Minimal.PayFree.pf_rep_same"
+        },
+        {
+          "local_name": "pf_bound",
+          "kind": "Theorem",
+          "full_name": "Minimal.PayFree.pf_bound"
+        },
+        {
+          "local_name": "pf_bound_start",
+          "kind": "Theorem",
+          "full_name": "Minimal.PayFree.pf_bound_start"
+        },
+        {
+          "local_name": "pf_no_repeat_bound",
+          "kind": "Theorem",
+          "full_name": "Minimal.PayFree.pf_no_repeat_bound"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "minimal/Presented.v",
       "qualified_module": "Minimal.Presented",
       "addressable_count": 27,
@@ -27306,6 +29012,75 @@
       "unaddressable": []
     },
     {
+      "file": "minimal/SmallConsensus.v",
+      "qualified_module": "Minimal.SmallConsensus",
+      "addressable_count": 12,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "sc_decode_code",
+          "kind": "Lemma",
+          "full_name": "Minimal.SmallConsensus.sc_decode_code"
+        },
+        {
+          "local_name": "sc_init_inv",
+          "kind": "Lemma",
+          "full_name": "Minimal.SmallConsensus.sc_init_inv"
+        },
+        {
+          "local_name": "sc_oldest_cons",
+          "kind": "Lemma",
+          "full_name": "Minimal.SmallConsensus.sc_oldest_cons"
+        },
+        {
+          "local_name": "sc_check_effect",
+          "kind": "Lemma",
+          "full_name": "Minimal.SmallConsensus.sc_check_effect"
+        },
+        {
+          "local_name": "sc_step_inv",
+          "kind": "Lemma",
+          "full_name": "Minimal.SmallConsensus.sc_step_inv"
+        },
+        {
+          "local_name": "sc_run_inv",
+          "kind": "Lemma",
+          "full_name": "Minimal.SmallConsensus.sc_run_inv"
+        },
+        {
+          "local_name": "sc_agreement",
+          "kind": "Theorem",
+          "full_name": "Minimal.SmallConsensus.sc_agreement"
+        },
+        {
+          "local_name": "sc_validity",
+          "kind": "Theorem",
+          "full_name": "Minimal.SmallConsensus.sc_validity"
+        },
+        {
+          "local_name": "sc_step_other",
+          "kind": "Lemma",
+          "full_name": "Minimal.SmallConsensus.sc_step_other"
+        },
+        {
+          "local_name": "sc_step_progress",
+          "kind": "Lemma",
+          "full_name": "Minimal.SmallConsensus.sc_step_progress"
+        },
+        {
+          "local_name": "sc_run_progress",
+          "kind": "Lemma",
+          "full_name": "Minimal.SmallConsensus.sc_run_progress"
+        },
+        {
+          "local_name": "sc_wait_free",
+          "kind": "Theorem",
+          "full_name": "Minimal.SmallConsensus.sc_wait_free"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "minimal/Tc2Am.v",
       "qualified_module": "Minimal.Tc2Am",
       "addressable_count": 22,
@@ -28155,6 +29930,45 @@
           "local_name": "tc2_no_mult",
           "kind": "Theorem",
           "full_name": "Minimal.Tc2Mult.tc2_no_mult"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/Tc2Pow.v",
+      "qualified_module": "Minimal.Tc2Pow",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "ch_outs_start_f",
+          "kind": "Lemma",
+          "full_name": "Minimal.Tc2Pow.ch_outs_start_f"
+        },
+        {
+          "local_name": "ch_collision_f",
+          "kind": "Lemma",
+          "full_name": "Minimal.Tc2Pow.ch_collision_f"
+        },
+        {
+          "local_name": "good_exists_f",
+          "kind": "Lemma",
+          "full_name": "Minimal.Tc2Pow.good_exists_f"
+        },
+        {
+          "local_name": "ch_prod_pos",
+          "kind": "Lemma",
+          "full_name": "Minimal.Tc2Pow.ch_prod_pos"
+        },
+        {
+          "local_name": "am_no_power_of_two",
+          "kind": "Theorem",
+          "full_name": "Minimal.Tc2Pow.am_no_power_of_two"
+        },
+        {
+          "local_name": "tc2_no_pow",
+          "kind": "Theorem",
+          "full_name": "Minimal.Tc2Pow.tc2_no_pow"
         }
       ],
       "unaddressable": []

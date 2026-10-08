@@ -70,6 +70,7 @@ Require Kernel.CzTower.
 Require Kernel.CzWin.
 Require Kernel.EarnedCoreLinks.
 Require Kernel.EarnedGenericLinks.
+Require Kernel.FiniteSums.
 Require Kernel.GrowingRecord.
 Require Kernel.GrowingRecordCore.
 Require Kernel.Kernel.
@@ -84,22 +85,28 @@ Require Kernel.LiftRAM.
 Require Kernel.MM2ComplementUndec.
 Require Kernel.NatSubstrateInstance.
 Require Kernel.NecEChsh.
+Require Kernel.NecEChshEquality.
 Require Kernel.NecEChshInt.
 Require Kernel.NecEFine.
 Require Kernel.NecEHost.
 Require Kernel.NecFCalorimeter.
 Require Kernel.NecFCounter.
+Require Kernel.NecFCups.
 Require Kernel.NecFEntropy.
 Require Kernel.NecFEntropyTight.
 Require Kernel.NecFExtra.
 Require Kernel.NecFFloor.
 Require Kernel.NecFGibbs.
+Require Kernel.NecFGrade.
 Require Kernel.NecFMerge.
 Require Kernel.NecFNarrowing.
+Require Kernel.NecFPaperToys.
 Require Kernel.NecFPhysics.
 Require Kernel.NecFQuant.
+Require Kernel.NecFRepeat.
 Require Kernel.NecFSqueeze.
 Require Kernel.NecFSqueezeLog.
+Require Kernel.NecFThreeState.
 Require Kernel.NecSMisc.
 Require Kernel.NecSPoints.
 Require Kernel.NecSPresented.
@@ -213,6 +220,7 @@ Require Kernel.QuantitativeNoFI.
 Require Kernel.ShadowPricing.
 Require Kernel.StructuralUndecidability.
 Require Kernel.UniversalCertificationCost.
+Require Kernel.ArcsineBoundary.
 Require Kernel.BoxCHSH.
 Require Kernel.CHSHColumnCheck.
 Require Kernel.CHSHCouplingBridge.
@@ -224,10 +232,14 @@ Require Kernel.GenRealizability.
 Require Kernel.MinorConstraints.
 Require Kernel.NPAMomentMatrix.
 Require Kernel.QuantumPartitionPSD_1AB.
+Require Kernel.QuantumStrategies.
+Require Kernel.QuantumStrategiesComplex.
+Require Kernel.SchurComplement.
 Require Kernel.SmallChshCheck.
 Require Kernel.SmallChshMachine.
 Require Kernel.TsirelsonFromAlgebra.
 Require Kernel.TsirelsonGeneral.
+Require Kernel.TsirelsonRepresentation.
 Require Kernel.ValidCorrelation.
 Require Kernel.CasperFFG.
 Require Kernel.CasperForkWitness.
@@ -250,6 +262,11 @@ Require Kernel.TPMQuoteAuthenticityTarget.
 Require Kernel.TPMQuoteGap.
 Require Kernel.CalorimeterProtocol.
 Require Kernel.CalorimeterProtocolTarget.
+Require Kernel.RelaxationContinuous.
+Require Kernel.RelaxationContinuousLimit.
+Require Kernel.RelaxationConvergence.
+Require Kernel.RelaxationEntropy.
+Require Kernel.RelaxationStretch.
 Require TestFixtures.VacuitySmoke.
 Require Minimal.AxDgBlock.
 Require Minimal.BitSearch2.
@@ -271,6 +288,7 @@ Require Minimal.LiftConverse.
 Require Minimal.LiftCore.
 Require Minimal.LiftOneCounter.
 Require Minimal.LiftPigeon.
+Require Minimal.MonotoneConsensus.
 Require Minimal.MultiThiele2.
 Require Minimal.NecEEnt.
 Require Minimal.NecESearch.
@@ -287,6 +305,7 @@ Require Minimal.NecTPartition.
 Require Minimal.NecTToll.
 Require Minimal.NecTUnclean.
 Require Minimal.NecTVerifier.
+Require Minimal.PayFree.
 Require Minimal.Presented.
 Require Minimal.PricedComplete.
 Require Minimal.SmCodes.
@@ -296,12 +315,14 @@ Require Minimal.SmLoops.
 Require Minimal.SmLoops2.
 Require Minimal.SmLoops3.
 Require Minimal.SmTally.
+Require Minimal.SmallConsensus.
 Require Minimal.Tc2Am.
 Require Minimal.Tc2Chain.
 Require Minimal.Tc2Collision.
 Require Minimal.Tc2Embed.
 Require Minimal.Tc2Forced.
 Require Minimal.Tc2Mult.
+Require Minimal.Tc2Pow.
 Require Minimal.Tc2Stage.
 Require Minimal.TcBlocks.
 Require Minimal.ThieleComplete.
@@ -1601,6 +1622,25 @@ Print Assumptions Kernel.EarnedGenericLinks.earned_complete_agrees.
 Print Assumptions Kernel.EarnedGenericLinks.generic_complete_agrees.
 Print Assumptions Kernel.EarnedGenericLinks.sorted_complete_agrees.
 Print Assumptions Kernel.EarnedGenericLinks.complete_cs_window_blind.
+(* === Kernel.FiniteSums : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.FiniteSums.sumL_nil.
+Print Assumptions Kernel.FiniteSums.sumL_cons.
+Print Assumptions Kernel.FiniteSums.sumL_ext.
+Print Assumptions Kernel.FiniteSums.sumL_plus.
+Print Assumptions Kernel.FiniteSums.sumL_minus.
+Print Assumptions Kernel.FiniteSums.sumL_scale_l.
+Print Assumptions Kernel.FiniteSums.sumL_scale_r.
+Print Assumptions Kernel.FiniteSums.sumL_zero.
+Print Assumptions Kernel.FiniteSums.sumL_swap.
+Print Assumptions Kernel.FiniteSums.sumL_mult.
+Print Assumptions Kernel.FiniteSums.sumL_nonneg.
+Print Assumptions Kernel.FiniteSums.sumL_delta.
+Print Assumptions Kernel.FiniteSums.sumL_app.
+Print Assumptions Kernel.FiniteSums.sumL_map.
+Print Assumptions Kernel.FiniteSums.sumL_prod.
+Print Assumptions Kernel.FiniteSums.sq_nonneg.
+Print Assumptions Kernel.FiniteSums.le_of_sq_le.
+Print Assumptions Kernel.FiniteSums.sumL_cauchy_schwarz.
 (* === Kernel.GrowingRecord : 14 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.GrowingRecord.growing_record_decomposes_holds.
 Print Assumptions Kernel.GrowingRecord.thresholds_determine_record_holds.
@@ -1758,6 +1798,15 @@ Print Assumptions Kernel.NecEChsh.nec_e_sbc_13.
 Print Assumptions Kernel.NecEChsh.nec_e_gzero_tight.
 Print Assumptions Kernel.NecEChsh.nec_e_flag_needs_clean.
 Print Assumptions Kernel.NecEChsh.nec_e_g12345_stronger.
+(* === Kernel.NecEChshEquality : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecEChshEquality.nec_e_equality_forces_point.
+Print Assumptions Kernel.NecEChshEquality.nec_e_equality_two_points.
+Print Assumptions Kernel.NecEChshEquality.nec_e_no_rational_half_square.
+Print Assumptions Kernel.NecEChshEquality.nec_e_worked_cascade_passes.
+Print Assumptions Kernel.NecEChshEquality.nec_e_worked_cascade_fails_at_zero.
+Print Assumptions Kernel.NecEChshEquality.nec_e_worked_level1_passes.
+Print Assumptions Kernel.NecEChshEquality.nec_e_singular_level1_passes.
+Print Assumptions Kernel.NecEChshEquality.nec_e_singular_full_fails.
 (* === Kernel.NecEChshInt : 11 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NecEChshInt.nec_e_check_split.
 Print Assumptions Kernel.NecEChshInt.nec_e_check_iff_facts.
@@ -1838,6 +1887,10 @@ Print Assumptions Kernel.NecFCounter.nec_f_descent_fails_for_history.
 Print Assumptions Kernel.NecFCounter.nec_f_potential_bound_iff.
 Print Assumptions Kernel.NecFCounter.nec_f_potential_bound_exact.
 Print Assumptions Kernel.NecFCounter.nec_f_potential_one_attained.
+(* === Kernel.NecFCups : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFCups.nec_f_same_rung_same_cups.
+Print Assumptions Kernel.NecFCups.nec_f_non_partial_cups_fail.
+Print Assumptions Kernel.NecFCups.nec_f_cups_iff_partial.
 (* === Kernel.NecFEntropy : 11 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NecFEntropy.nec_f_uniform_pair_pos.
 Print Assumptions Kernel.NecFEntropy.nec_f_entropy_invariant_iff_injective.
@@ -1913,6 +1966,14 @@ Print Assumptions Kernel.NecFGibbs.nec_f_entropy_eq_log_support.
 Print Assumptions Kernel.NecFGibbs.nec_f_uniform_drop_exact_only_if_divides.
 Print Assumptions Kernel.NecFGibbs.nec_f_uniform_drop_strict_unless_divides.
 Print Assumptions Kernel.NecFGibbs.nec_f_step_entropy_invariant_uniform.
+(* === Kernel.NecFGrade : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFGrade.nec_f_grade_exact.
+Print Assumptions Kernel.NecFGrade.nec_f_small_conservation.
+Print Assumptions Kernel.NecFGrade.nec_f_grade_exact_small.
+Print Assumptions Kernel.NecFGrade.nec_f_iter_pay.
+Print Assumptions Kernel.NecFGrade.nec_f_loop_cost.
+Print Assumptions Kernel.NecFGrade.nec_f_loop_no_fixed_grade.
+Print Assumptions Kernel.NecFGrade.nec_f_loop_input_grade.
 (* === Kernel.NecFMerge : 29 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NecFMerge.nec_f_yes_list_of_finite.
 Print Assumptions Kernel.NecFMerge.nec_f_flip_not_injective_on_yes_and_s.
@@ -1962,6 +2023,13 @@ Print Assumptions Kernel.NecFNarrowing.nec_f_view_first_differs.
 Print Assumptions Kernel.NecFNarrowing.nec_f_view_constant.
 Print Assumptions Kernel.NecFNarrowing.nec_f_view_self.
 Print Assumptions Kernel.NecFNarrowing.nec_f_two_states_never_teach.
+(* === Kernel.NecFPaperToys : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFPaperToys.nec_f_board_toll.
+Print Assumptions Kernel.NecFPaperToys.nec_f_board_raw_free.
+Print Assumptions Kernel.NecFPaperToys.nec_f_board_floor.
+Print Assumptions Kernel.NecFPaperToys.nec_f_board_floor_flat.
+Print Assumptions Kernel.NecFPaperToys.nec_f_board_no_wait.
+Print Assumptions Kernel.NecFPaperToys.nec_f_history_infinite.
 (* === Kernel.NecFPhysics : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NecFPhysics.nec_f_dec_collapses.
 Print Assumptions Kernel.NecFPhysics.nec_f_small_premise_pair_fails.
@@ -1983,6 +2051,24 @@ Print Assumptions Kernel.NecFQuant.nec_f_quant_tight.
 Print Assumptions Kernel.NecFQuant.nec_f_quant_needs_a6.
 Print Assumptions Kernel.NecFQuant.nec_f_quant_needs_a3.
 Print Assumptions Kernel.NecFQuant.nec_f_quant_needs_a5.
+(* === Kernel.NecFRepeat : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFRepeat.nec_f_orbit_add.
+Print Assumptions Kernel.NecFRepeat.nec_f_bounded_search.
+Print Assumptions Kernel.NecFRepeat.nec_f_prefix_length.
+Print Assumptions Kernel.NecFRepeat.nec_f_prefix_in.
+Print Assumptions Kernel.NecFRepeat.nec_f_dup_or_nodup.
+Print Assumptions Kernel.NecFRepeat.nec_f_orbit_repeats.
+Print Assumptions Kernel.NecFRepeat.nec_f_orbit_periodic.
+Print Assumptions Kernel.NecFRepeat.nec_f_start_never_returns.
+Print Assumptions Kernel.NecFRepeat.nec_f_walk_back.
+Print Assumptions Kernel.NecFRepeat.nec_f_orbit_merges_visited.
+Print Assumptions Kernel.NecFRepeat.nec_f_repeat_merges_visited.
+Print Assumptions Kernel.NecFRepeat.nec_f_closed_merges_visited.
+Print Assumptions Kernel.NecFRepeat.nec_f_run_app.
+Print Assumptions Kernel.NecFRepeat.nec_f_reps_orbit.
+Print Assumptions Kernel.NecFRepeat.nec_f_word_first_meet.
+Print Assumptions Kernel.NecFRepeat.nec_f_word_merges_visited.
+Print Assumptions Kernel.NecFRepeat.nec_f_outside_moves_no_merge.
 (* === Kernel.NecFSqueeze : 27 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NecFSqueeze.nec_f_fin_eq.
 Print Assumptions Kernel.NecFSqueeze.nec_f_collect_values.
@@ -2018,6 +2104,19 @@ Print Assumptions Kernel.NecFSqueezeLog.nec_f_least_cost_is_ceiling.
 Print Assumptions Kernel.NecFSqueezeLog.nec_f_least_cost_exists.
 Print Assumptions Kernel.NecFSqueezeLog.nec_f_one_halving_iff.
 Print Assumptions Kernel.NecFSqueezeLog.nec_f_thinner_squeeze_below_one_bit.
+(* === Kernel.NecFThreeState : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFThreeState.nec_f_record_ceiling_unique.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_both_merge.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_automorphism_id.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_total_app.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_common.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_toll_meets.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_merge_meets.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_bills_differ.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_ceiling_picks_toll.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_merge_fails_ceiling.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_cs_costs.
+Print Assumptions Kernel.NecFThreeState.nec_f_three_cs_floor.
 (* === Kernel.NecSMisc : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NecSMisc.nec_s_commit_traps_iff.
 Print Assumptions Kernel.NecSMisc.nec_s_certify_traps_iff.
@@ -4006,6 +4105,39 @@ Print Assumptions Kernel.UniversalCertificationCost.cs_run_app.
 Print Assumptions Kernel.UniversalCertificationCost.cs_total_cost_app.
 Print Assumptions Kernel.UniversalCertificationCost.scs_run_embed.
 Print Assumptions Kernel.UniversalCertificationCost.host_represents_simulating_cert_system.
+(* === Kernel.ArcsineBoundary : 32 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ArcsineBoundary.am_cos_le.
+Print Assumptions Kernel.ArcsineBoundary.am_acos_le.
+Print Assumptions Kernel.ArcsineBoundary.am_cos_PI_minus.
+Print Assumptions Kernel.ArcsineBoundary.am_acos_opp.
+Print Assumptions Kernel.ArcsineBoundary.am_cos_abs.
+Print Assumptions Kernel.ArcsineBoundary.am_sq_sin.
+Print Assumptions Kernel.ArcsineBoundary.am_triangle_det.
+Print Assumptions Kernel.ArcsineBoundary.am_inner_sym.
+Print Assumptions Kernel.ArcsineBoundary.am_comb4.
+Print Assumptions Kernel.ArcsineBoundary.am_inner_bound.
+Print Assumptions Kernel.ArcsineBoundary.am_sphere_triangle.
+Print Assumptions Kernel.ArcsineBoundary.am_path3.
+Print Assumptions Kernel.ArcsineBoundary.am_neg_unit.
+Print Assumptions Kernel.ArcsineBoundary.am_dist_neg_l.
+Print Assumptions Kernel.ArcsineBoundary.am_dist_sym.
+Print Assumptions Kernel.ArcsineBoundary.am_vectors.
+Print Assumptions Kernel.ArcsineBoundary.am_necessary.
+Print Assumptions Kernel.ArcsineBoundary.am_S_nonneg.
+Print Assumptions Kernel.ArcsineBoundary.am_SC.
+Print Assumptions Kernel.ArcsineBoundary.am_inner4.
+Print Assumptions Kernel.ArcsineBoundary.am_b0_unit.
+Print Assumptions Kernel.ArcsineBoundary.am_b1_unit.
+Print Assumptions Kernel.ArcsineBoundary.am_a_ok.
+Print Assumptions Kernel.ArcsineBoundary.am_dot_lift.
+Print Assumptions Kernel.ArcsineBoundary.am_rabs_le.
+Print Assumptions Kernel.ArcsineBoundary.am_sufficient.
+Print Assumptions Kernel.ArcsineBoundary.am_cycle_arcsine.
+Print Assumptions Kernel.ArcsineBoundary.am_arcsine.
+Print Assumptions Kernel.ArcsineBoundary.am_quantum_arcsine.
+Print Assumptions Kernel.ArcsineBoundary.am_345.
+Print Assumptions Kernel.ArcsineBoundary.am_pythagorean_boundary.
+Print Assumptions Kernel.ArcsineBoundary.am_tsirelson_boundary.
 (* === Kernel.BoxCHSH : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.BoxCHSH.E_expand.
 Print Assumptions Kernel.BoxCHSH.normalized_E_bound.
@@ -4297,6 +4429,52 @@ Print Assumptions Kernel.QuantumPartitionPSD_1AB.KZ12_pos.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.KZ16_pos.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_g12345_caller_witness_z_abs_sound.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_g12345_caller_witness_z_abs_implies_psd9.
+(* === Kernel.QuantumStrategies : 22 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.QuantumStrategies.qs_corr_dot.
+Print Assumptions Kernel.QuantumStrategies.qs_uvec_unit.
+Print Assumptions Kernel.QuantumStrategies.qs_vvec_unit.
+Print Assumptions Kernel.QuantumStrategies.qs_dot_plus_r.
+Print Assumptions Kernel.QuantumStrategies.qs_dot_minus_r.
+Print Assumptions Kernel.QuantumStrategies.qs_dot_flat.
+Print Assumptions Kernel.QuantumStrategies.qs_dot_cs.
+Print Assumptions Kernel.QuantumStrategies.qs_dot_nonneg.
+Print Assumptions Kernel.QuantumStrategies.qs_dot_sum_diff.
+Print Assumptions Kernel.QuantumStrategies.qs_tsirelson.
+Print Assumptions Kernel.QuantumStrategies.qs_bits_nodup.
+Print Assumptions Kernel.QuantumStrategies.qs_r_sq.
+Print Assumptions Kernel.QuantumStrategies.qs_bell_valid.
+Print Assumptions Kernel.QuantumStrategies.qs_tsirelson_reached.
+Print Assumptions Kernel.QuantumStrategies.qs_deterministic_plan.
+Print Assumptions Kernel.QuantumStrategies.qs_dot_sym.
+Print Assumptions Kernel.QuantumStrategies.qs_npa_correlators.
+Print Assumptions Kernel.QuantumStrategies.qs_vec_unit.
+Print Assumptions Kernel.QuantumStrategies.qs_npa_entries.
+Print Assumptions Kernel.QuantumStrategies.qs_sum_fin5.
+Print Assumptions Kernel.QuantumStrategies.qs_dot_combination.
+Print Assumptions Kernel.QuantumStrategies.qs_npa_psd.
+(* === Kernel.QuantumStrategiesComplex : 15 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_four_vectors.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_gram_entries.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_gram_psd.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_corr_dot.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_uvec_unit.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_vvec_unit.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_dot_lift.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_tsirelson.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_npa_correlators.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_npa_psd.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_corr_real.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_obsI_real.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_obsJ_real.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_of_real_valid.
+Print Assumptions Kernel.QuantumStrategiesComplex.qc_tsirelson_reached.
+(* === Kernel.SchurComplement : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.SchurComplement.sc_P_z.
+Print Assumptions Kernel.SchurComplement.sc_cross_sym.
+Print Assumptions Kernel.SchurComplement.sc_mvU_plus.
+Print Assumptions Kernel.SchurComplement.sc_zQ.
+Print Assumptions Kernel.SchurComplement.schur_identity.
+Print Assumptions Kernel.SchurComplement.schur_complement_psd.
 (* === Kernel.SmallChshCheck : 18 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.SmallChshCheck.small_chsh_psd2_form_nonneg.
 Print Assumptions Kernel.SmallChshCheck.small_chsh_contractive_implies_psd5.
@@ -4367,6 +4545,44 @@ Print Assumptions Kernel.TsirelsonGeneral.tsirelson_achievable.
 Print Assumptions Kernel.TsirelsonGeneral.minor_implies_row_bound.
 Print Assumptions Kernel.TsirelsonGeneral.tsirelson_from_minors.
 Print Assumptions Kernel.TsirelsonGeneral.tsirelson_from_minors_abs.
+(* === Kernel.TsirelsonRepresentation : 37 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TsirelsonRepresentation.tr_sum_S.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_in_idx.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_qf_S.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_sym_shift.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_qf_zero.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_pivot_nonneg.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_restrict.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_sum_e.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_qf_e.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_zero_pivot_row.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_schur_psd.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_gram.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_sumL_IZR.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_checks.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_forallb_idx.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_gammaZ_sym.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_gamma_sym.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_gamma_clifford.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_gamma_trace.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_r_sq.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_e_refl.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_obs_square.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_obs_valid.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_obs_validJ.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_psi_unit.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_dR_e.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_obs_pair.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_corr_inner.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_strategy_valid.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_G_sym.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_G_psd.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_elliptope_quantum.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_vectors_elliptope.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_quantum_elliptope.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_complex_elliptope.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_representation.
+Print Assumptions Kernel.TsirelsonRepresentation.tr_representation_complex.
 (* === Kernel.ValidCorrelation : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.ValidCorrelation.bell_math_deterministic.
 (* === Kernel.CasperFFG : 19 addressable theorems (unaddressable: 0) === *)
@@ -4480,6 +4696,91 @@ Print Assumptions Kernel.CalorimeterProtocol.ln_two_positive.
 Print Assumptions Kernel.CalorimeterProtocol.smaller_gap_refutes_unconditional_landauer_floor.
 Print Assumptions Kernel.CalorimeterProtocol.master_equation_does_not_fix_heat_scale.
 Print Assumptions Kernel.CalorimeterProtocol.canonical_reset_is_one_mu.
+(* === Kernel.RelaxationContinuous : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RelaxationContinuous.rcd_ln_mono.
+Print Assumptions Kernel.RelaxationContinuous.rcd_sigma_nonneg.
+Print Assumptions Kernel.RelaxationContinuous.rcd_lim_ext.
+Print Assumptions Kernel.RelaxationContinuous.rcd_sum_deriv.
+Print Assumptions Kernel.RelaxationContinuous.rcd_term_deriv.
+Print Assumptions Kernel.RelaxationContinuous.rcd_flow_total.
+Print Assumptions Kernel.RelaxationContinuous.rcd_flow_L.
+Print Assumptions Kernel.RelaxationContinuous.rcd_D_derivative.
+Print Assumptions Kernel.RelaxationContinuous.rcd_D_monotone.
+Print Assumptions Kernel.RelaxationContinuous.rcd_neg_D_deriv.
+Print Assumptions Kernel.RelaxationContinuous.rcd_produced_window.
+Print Assumptions Kernel.RelaxationContinuous.rcd_produced_bounds.
+(* === Kernel.RelaxationContinuousLimit : 19 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_lin4.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_sum_le_gen.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_sum_le.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_sigma_ge.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_D_nonneg.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_mass.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_D_deriv.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_D_decay.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_exp_neg_le.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_D_limit.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_produced_limit.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_lim0_sum.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_cont_lim0.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_p_cont.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_vlnv.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_term_cont.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_D_at_zero.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_D_point.
+Print Assumptions Kernel.RelaxationContinuousLimit.rcl_known_start_total.
+(* === Kernel.RelaxationConvergence : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RelaxationConvergence.rc_sum_abs.
+Print Assumptions Kernel.RelaxationConvergence.rc_sum_le.
+Print Assumptions Kernel.RelaxationConvergence.rc_contract.
+Print Assumptions Kernel.RelaxationConvergence.rc_delta_le_1.
+Print Assumptions Kernel.RelaxationConvergence.rc_prob_run.
+Print Assumptions Kernel.RelaxationConvergence.rc_l1_le_2.
+Print Assumptions Kernel.RelaxationConvergence.rc_l1_pow.
+Print Assumptions Kernel.RelaxationConvergence.rc_D_le_chi2.
+Print Assumptions Kernel.RelaxationConvergence.rc_pi_min.
+Print Assumptions Kernel.RelaxationConvergence.rc_sq_sum.
+Print Assumptions Kernel.RelaxationConvergence.rc_chi2_le.
+Print Assumptions Kernel.RelaxationConvergence.rc_converges.
+Print Assumptions Kernel.RelaxationConvergence.rc_known_start_gap.
+Print Assumptions Kernel.RelaxationConvergence.rc_known_start_limit.
+(* === Kernel.RelaxationEntropy : 24 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RelaxationEntropy.re_exp_ge.
+Print Assumptions Kernel.RelaxationEntropy.re_ln_le.
+Print Assumptions Kernel.RelaxationEntropy.re_term_ge.
+Print Assumptions Kernel.RelaxationEntropy.re_gibbs_list.
+Print Assumptions Kernel.RelaxationEntropy.re_gibbs.
+Print Assumptions Kernel.RelaxationEntropy.re_pi_stationary.
+Print Assumptions Kernel.RelaxationEntropy.re_step_nonneg.
+Print Assumptions Kernel.RelaxationEntropy.re_step_mass.
+Print Assumptions Kernel.RelaxationEntropy.re_term_le_sum.
+Print Assumptions Kernel.RelaxationEntropy.re_ln_div.
+Print Assumptions Kernel.RelaxationEntropy.re_sigma_term.
+Print Assumptions Kernel.RelaxationEntropy.re_sigma_is_drop.
+Print Assumptions Kernel.RelaxationEntropy.re_sigma_nonneg.
+Print Assumptions Kernel.RelaxationEntropy.re_relative_entropy_monotone.
+Print Assumptions Kernel.RelaxationEntropy.re_run_nonneg.
+Print Assumptions Kernel.RelaxationEntropy.re_run_mass.
+Print Assumptions Kernel.RelaxationEntropy.re_point_prob.
+Print Assumptions Kernel.RelaxationEntropy.re_point_entropy.
+Print Assumptions Kernel.RelaxationEntropy.re_known_start_total.
+Print Assumptions Kernel.RelaxationEntropy.re_known_start_bound.
+Print Assumptions Kernel.RelaxationEntropy.re_known_start_vs_set.
+Print Assumptions Kernel.RelaxationEntropy.re_flux_balance.
+Print Assumptions Kernel.RelaxationEntropy.re_mass_split.
+Print Assumptions Kernel.RelaxationEntropy.re_stretch_ratio.
+(* === Kernel.RelaxationStretch : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RelaxationStretch.rs_UN.
+Print Assumptions Kernel.RelaxationStretch.rs_keep_lin.
+Print Assumptions Kernel.RelaxationStretch.rs_keep_ext.
+Print Assumptions Kernel.RelaxationStretch.rs_split0.
+Print Assumptions Kernel.RelaxationStretch.rs_split.
+Print Assumptions Kernel.RelaxationStretch.rs_partial.
+Print Assumptions Kernel.RelaxationStretch.rs_sum_le.
+Print Assumptions Kernel.RelaxationStretch.rs_u_nonneg.
+Print Assumptions Kernel.RelaxationStretch.rs_left_pow.
+Print Assumptions Kernel.RelaxationStretch.rs_rate_nonneg.
+Print Assumptions Kernel.RelaxationStretch.rs_mean_stretch.
 (* === TestFixtures.VacuitySmoke : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions TestFixtures.VacuitySmoke.smoke_literal_true.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_unfolds_to_true.
@@ -5149,6 +5450,42 @@ Print Assumptions Minimal.LiftOneCounter.lift_oc_embed_halts.
 Print Assumptions Minimal.LiftPigeon.lift_pigeon_dec.
 Print Assumptions Minimal.LiftPigeon.lift_inj_le.
 Print Assumptions Minimal.LiftPigeon.lift_pigeon.
+(* === Minimal.MonotoneConsensus : 35 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.MonotoneConsensus.mc_run_app.
+Print Assumptions Minimal.MonotoneConsensus.mc_loc_set_same.
+Print Assumptions Minimal.MonotoneConsensus.mc_loc_set_other.
+Print Assumptions Minimal.MonotoneConsensus.mc_obj_set.
+Print Assumptions Minimal.MonotoneConsensus.mc_step_other.
+Print Assumptions Minimal.MonotoneConsensus.mc_step_local.
+Print Assumptions Minimal.MonotoneConsensus.mc_solo_local.
+Print Assumptions Minimal.MonotoneConsensus.mc_decided_step_same.
+Print Assumptions Minimal.MonotoneConsensus.mc_negb_neq.
+Print Assumptions Minimal.MonotoneConsensus.mc_decided_keep_step.
+Print Assumptions Minimal.MonotoneConsensus.mc_decided_keep.
+Print Assumptions Minimal.MonotoneConsensus.mc_count_app.
+Print Assumptions Minimal.MonotoneConsensus.mc_count_repeat.
+Print Assumptions Minimal.MonotoneConsensus.mc_count_one.
+Print Assumptions Minimal.MonotoneConsensus.mc_solo_decides.
+Print Assumptions Minimal.MonotoneConsensus.mc_biv_undecided.
+Print Assumptions Minimal.MonotoneConsensus.mc_undecided_count.
+Print Assumptions Minimal.MonotoneConsensus.mc_vals_cases.
+Print Assumptions Minimal.MonotoneConsensus.mc_find_crit.
+Print Assumptions Minimal.MonotoneConsensus.mc_decided_loc.
+Print Assumptions Minimal.MonotoneConsensus.mc_clash.
+Print Assumptions Minimal.MonotoneConsensus.mc_step_upd.
+Print Assumptions Minimal.MonotoneConsensus.mc_step_read.
+Print Assumptions Minimal.MonotoneConsensus.mc_run_snoc.
+Print Assumptions Minimal.MonotoneConsensus.mc_crit_false.
+Print Assumptions Minimal.MonotoneConsensus.mc_init_biv.
+Print Assumptions Minimal.MonotoneConsensus.mc_contradiction.
+Print Assumptions Minimal.MonotoneConsensus.mc_no_consensus.
+Print Assumptions Minimal.MonotoneConsensus.mc_upd2_comm.
+Print Assumptions Minimal.MonotoneConsensus.mc_updr_comm.
+Print Assumptions Minimal.MonotoneConsensus.mc_updr_over.
+Print Assumptions Minimal.MonotoneConsensus.mc_guard_mono.
+Print Assumptions Minimal.MonotoneConsensus.mc_eff_rel.
+Print Assumptions Minimal.MonotoneConsensus.mc_mono_interfere.
+Print Assumptions Minimal.MonotoneConsensus.mc_mono_no_consensus.
 (* === Minimal.MultiThiele2 : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.MultiThiele2.ent2_run_mmachine.
 Print Assumptions Minimal.MultiThiele2.ent2_msim.
@@ -5348,6 +5685,16 @@ Print Assumptions Minimal.NecTVerifier.nec_t_ver_collision_free_implies_exists.
 Print Assumptions Minimal.NecTVerifier.nec_t_ver_exists_iff_collision_free.
 Print Assumptions Minimal.NecTVerifier.nec_t_clock_has_bare_verifier.
 Print Assumptions Minimal.NecTVerifier.nec_t_weak_does_not_suffice.
+(* === Minimal.PayFree : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.PayFree.pf_err_latch.
+Print Assumptions Minimal.PayFree.pf_cert_latch.
+Print Assumptions Minimal.PayFree.pf_existsb_in.
+Print Assumptions Minimal.PayFree.pf_step.
+Print Assumptions Minimal.PayFree.pf_err_before.
+Print Assumptions Minimal.PayFree.pf_rep_same.
+Print Assumptions Minimal.PayFree.pf_bound.
+Print Assumptions Minimal.PayFree.pf_bound_start.
+Print Assumptions Minimal.PayFree.pf_no_repeat_bound.
 (* === Minimal.Presented : 27 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.Presented.presented_scode_inj.
 Print Assumptions Minimal.Presented.presented_icode_inj.
@@ -5520,6 +5867,19 @@ Print Assumptions Minimal.SmTally.sm2_reach_inv.
 Print Assumptions Minimal.SmTally.sm2_final_numbers.
 Print Assumptions Minimal.SmTally.sm2_ev_mono.
 Print Assumptions Minimal.SmTally.sm2_ev_spec.
+(* === Minimal.SmallConsensus : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.SmallConsensus.sc_decode_code.
+Print Assumptions Minimal.SmallConsensus.sc_init_inv.
+Print Assumptions Minimal.SmallConsensus.sc_oldest_cons.
+Print Assumptions Minimal.SmallConsensus.sc_check_effect.
+Print Assumptions Minimal.SmallConsensus.sc_step_inv.
+Print Assumptions Minimal.SmallConsensus.sc_run_inv.
+Print Assumptions Minimal.SmallConsensus.sc_agreement.
+Print Assumptions Minimal.SmallConsensus.sc_validity.
+Print Assumptions Minimal.SmallConsensus.sc_step_other.
+Print Assumptions Minimal.SmallConsensus.sc_step_progress.
+Print Assumptions Minimal.SmallConsensus.sc_run_progress.
+Print Assumptions Minimal.SmallConsensus.sc_wait_free.
 (* === Minimal.Tc2Am : 22 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.Tc2Am.am_run_add.
 Print Assumptions Minimal.Tc2Am.am_run_S_l.
@@ -5686,6 +6046,13 @@ Print Assumptions Minimal.Tc2Mult.tc2_pw_mono.
 Print Assumptions Minimal.Tc2Mult.tc2_lq_len.
 Print Assumptions Minimal.Tc2Mult.tc2_q0_in.
 Print Assumptions Minimal.Tc2Mult.tc2_no_mult.
+(* === Minimal.Tc2Pow : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.Tc2Pow.ch_outs_start_f.
+Print Assumptions Minimal.Tc2Pow.ch_collision_f.
+Print Assumptions Minimal.Tc2Pow.good_exists_f.
+Print Assumptions Minimal.Tc2Pow.ch_prod_pos.
+Print Assumptions Minimal.Tc2Pow.am_no_power_of_two.
+Print Assumptions Minimal.Tc2Pow.tc2_no_pow.
 (* === Minimal.Tc2Stage : 26 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.Tc2Stage.real_none.
 Print Assumptions Minimal.Tc2Stage.real_some.

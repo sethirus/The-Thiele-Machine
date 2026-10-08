@@ -1,0 +1,670 @@
+DIGEST 9bb27047603d220d15e6edf7914f1396
+FKernel.NecFThreeState
+R1980:1983 Coq.Lists.List <> <> lib
+R1985:1988 Coq.Bool.Bool <> <> lib
+R1990:1994 Coq.Arith.Arith <> <> lib
+R1996:1998 Coq.micromega.Lia <> <> lib
+R2008:2020 Coq.Lists.List ListNotations <> mod
+R2050:2075 Kernel.UniversalCertificationCost <> <> lib
+sec 2149:2155 <> Ceiling
+var 2170:2170 Ceiling S
+var 2172:2172 Ceiling M
+var 2192:2195 Ceiling step
+R2200:2203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2199:2199 Kernel.NecFThreeState <> Ceiling.S var
+R2205:2208 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2204:2204 Kernel.NecFThreeState <> Ceiling.M var
+R2209:2209 Kernel.NecFThreeState <> Ceiling.S var
+var 2221:2224 Ceiling read
+R2229:2232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2228:2228 Kernel.NecFThreeState <> Ceiling.S var
+R2233:2236 Coq.Init.Datatypes <> bool ind
+def 2251:2261 <> nec_f_raise
+R2268:2268 Kernel.NecFThreeState <> Ceiling.S var
+binder 2264:2264 <> s:5
+R2276:2276 Kernel.NecFThreeState <> Ceiling.M var
+binder 2272:2272 <> m:6
+R2281:2283 Coq.Init.Datatypes <> nat ind
+R2306:2309 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2293:2296 Coq.Init.Datatypes <> negb def
+R2299:2302 Kernel.NecFThreeState <> Ceiling.read var
+R2304:2304 Kernel.NecFThreeState <> s:5 var
+R2310:2313 Kernel.NecFThreeState <> Ceiling.read var
+R2316:2319 Kernel.NecFThreeState <> Ceiling.step var
+R2321:2321 Kernel.NecFThreeState <> s:5 var
+R2323:2323 Kernel.NecFThreeState <> m:6 var
+def 2351:2361 <> nec_f_total
+R2369:2372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2368:2368 Kernel.NecFThreeState <> Ceiling.S var
+R2374:2377 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2373:2373 Kernel.NecFThreeState <> Ceiling.M var
+R2378:2380 Coq.Init.Datatypes <> nat ind
+binder 2364:2364 <> c:7
+R2388:2388 Kernel.NecFThreeState <> Ceiling.S var
+binder 2384:2384 <> s:8
+R2397:2400 Coq.Init.Datatypes <> list ind
+R2402:2402 Kernel.NecFThreeState <> Ceiling.M var
+binder 2392:2393 <> tr:9
+R2407:2409 Coq.Init.Datatypes <> nat ind
+R2422:2423 Kernel.NecFThreeState <> tr:9 var
+R2430:2431 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2441:2444 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2458:2460 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2453:2453 Kernel.NecFThreeState <> c:7 var
+R2455:2455 Kernel.NecFThreeState <> s:8 var
+R2461:2471 Kernel.NecFThreeState <> nec_f_total:10 def
+R2476:2479 Kernel.NecFThreeState <> Ceiling.step var
+R2481:2481 Kernel.NecFThreeState <> s:8 var
+R2473:2473 Kernel.NecFThreeState <> c:7 var
+def 2506:2517 <> nec_f_raises
+R2524:2524 Kernel.NecFThreeState <> Ceiling.S var
+binder 2520:2520 <> s:12
+R2533:2536 Coq.Init.Datatypes <> list ind
+R2538:2538 Kernel.NecFThreeState <> Ceiling.M var
+binder 2528:2529 <> tr:13
+R2543:2545 Coq.Init.Datatypes <> nat ind
+R2558:2559 Kernel.NecFThreeState <> tr:13 var
+R2566:2567 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2577:2580 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2604:2606 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2589:2599 Kernel.NecFThreeState <> nec_f_raise def
+R2601:2601 Kernel.NecFThreeState <> s:12 var
+R2607:2618 Kernel.NecFThreeState <> nec_f_raises:14 def
+R2621:2624 Kernel.NecFThreeState <> Ceiling.step var
+R2626:2626 Kernel.NecFThreeState <> s:12 var
+prf 2650:2676 <> nec_f_record_ceiling_unique
+R2692:2695 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2691:2691 Kernel.NecFThreeState <> Ceiling.S var
+R2697:2700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2696:2696 Kernel.NecFThreeState <> Ceiling.M var
+R2701:2703 Coq.Init.Datatypes <> nat ind
+binder 2687:2687 <> c:16
+R2708:2708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2775:2781 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2716:2716 <> s:17
+binder 2718:2718 <> m:18
+R2735:2738 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2727:2729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2721:2724 Kernel.NecFThreeState <> Ceiling.read var
+R2726:2726 Kernel.NecFThreeState <> s:17 var
+R2730:2734 Coq.Init.Datatypes <> false constr
+R2761:2764 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2754:2756 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2739:2742 Kernel.NecFThreeState <> Ceiling.read var
+R2745:2748 Kernel.NecFThreeState <> Ceiling.step var
+R2750:2750 Kernel.NecFThreeState <> s:17 var
+R2752:2752 Kernel.NecFThreeState <> m:18 var
+R2757:2760 Coq.Init.Datatypes <> true constr
+R2770:2773 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2765:2765 Kernel.NecFThreeState <> c:16 var
+R2769:2769 Kernel.NecFThreeState <> m:18 var
+R2767:2767 Kernel.NecFThreeState <> s:17 var
+R2782:2782 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2835:2841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2790:2790 <> s:19
+binder 2792:2793 <> tr:20
+R2814:2817 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2796:2806 Kernel.NecFThreeState <> nec_f_total def
+R2808:2808 Kernel.NecFThreeState <> c:16 var
+R2810:2810 Kernel.NecFThreeState <> s:19 var
+R2812:2813 Kernel.NecFThreeState <> tr:20 var
+R2818:2829 Kernel.NecFThreeState <> nec_f_raises def
+R2831:2831 Kernel.NecFThreeState <> s:19 var
+R2833:2834 Kernel.NecFThreeState <> tr:20 var
+binder 2849:2849 <> s:21
+binder 2851:2851 <> m:22
+R2859:2861 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2854:2854 Kernel.NecFThreeState <> c:16 var
+R2858:2858 Kernel.NecFThreeState <> m:22 var
+R2856:2856 Kernel.NecFThreeState <> s:21 var
+R2862:2872 Kernel.NecFThreeState <> nec_f_raise def
+R2874:2874 Kernel.NecFThreeState <> s:21 var
+R2876:2876 Kernel.NecFThreeState <> m:22 var
+R2935:2935 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2937:2937 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2935:2935 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2937:2937 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2967:2977 Kernel.NecFThreeState <> nec_f_raise def
+R2997:3000 Kernel.NecFThreeState <> Ceiling.read var
+R3023:3026 Kernel.NecFThreeState <> Ceiling.read var
+R3029:3032 Kernel.NecFThreeState <> Ceiling.step var
+R2997:3000 Kernel.NecFThreeState <> Ceiling.read var
+R3023:3026 Kernel.NecFThreeState <> Ceiling.read var
+R3029:3032 Kernel.NecFThreeState <> Ceiling.step var
+R3023:3026 Kernel.NecFThreeState <> Ceiling.read var
+R3029:3032 Kernel.NecFThreeState <> Ceiling.step var
+R3117:3123 Kernel.NecFThreeState Ceiling <> sec
+ind 3164:3171 <> nec_f_st
+constr 3183:3187 <> Blank
+constr 3191:3194 <> Once
+constr 3198:3202 <> Twice
+scheme 3164:3171 <> nec_f_st_rect
+scheme 3164:3171 <> nec_f_st_ind
+scheme 3164:3171 <> nec_f_st_rec
+scheme 3164:3171 <> nec_f_st_sind
+ind 3215:3222 <> nec_f_mv
+constr 3234:3237 <> Flip
+constr 3241:3246 <> Smooth
+scheme 3215:3222 <> nec_f_mv_rect
+scheme 3215:3222 <> nec_f_mv_ind
+scheme 3215:3222 <> nec_f_mv_rec
+scheme 3215:3222 <> nec_f_mv_sind
+def 3261:3270 <> nec_f_step
+R3277:3284 Kernel.NecFThreeState <> nec_f_st ind
+binder 3273:3273 <> s:27
+R3292:3299 Kernel.NecFThreeState <> nec_f_mv ind
+binder 3288:3288 <> m:28
+R3304:3311 Kernel.NecFThreeState <> nec_f_st ind
+R3327:3327 Kernel.NecFThreeState <> s:27 var
+R3324:3324 Kernel.NecFThreeState <> m:28 var
+R3338:3341 Kernel.NecFThreeState <> Flip constr
+R3344:3348 Kernel.NecFThreeState <> Blank constr
+R3353:3356 Kernel.NecFThreeState <> Once constr
+R3362:3365 Kernel.NecFThreeState <> Flip constr
+R3373:3373 Kernel.NecFThreeState <> s:27 var
+R3379:3384 Kernel.NecFThreeState <> Smooth constr
+R3387:3391 Kernel.NecFThreeState <> Blank constr
+R3396:3400 Kernel.NecFThreeState <> Blank constr
+R3406:3411 Kernel.NecFThreeState <> Smooth constr
+R3419:3423 Kernel.NecFThreeState <> Twice constr
+def 3444:3453 <> nec_f_read
+R3460:3467 Kernel.NecFThreeState <> nec_f_st ind
+binder 3456:3456 <> s:31
+R3472:3475 Coq.Init.Datatypes <> bool ind
+R3486:3486 Kernel.NecFThreeState <> s:31 var
+R3493:3497 Kernel.NecFThreeState <> Blank constr
+R3502:3506 Coq.Init.Datatypes <> false constr
+R3515:3518 Coq.Init.Datatypes <> true constr
+def 3537:3546 <> nec_f_toll
+R3553:3560 Kernel.NecFThreeState <> nec_f_st ind
+binder 3549:3549 <> s:33
+R3568:3575 Kernel.NecFThreeState <> nec_f_mv ind
+binder 3564:3564 <> m:34
+R3580:3582 Coq.Init.Datatypes <> nat ind
+R3598:3598 Kernel.NecFThreeState <> s:33 var
+R3595:3595 Kernel.NecFThreeState <> m:34 var
+R3605:3608 Kernel.NecFThreeState <> Flip constr
+R3611:3615 Kernel.NecFThreeState <> Blank constr
+def 3651:3667 <> nec_f_merge_price
+R3674:3681 Kernel.NecFThreeState <> nec_f_st ind
+binder 3670:3670 <> s:37
+R3689:3696 Kernel.NecFThreeState <> nec_f_mv ind
+binder 3685:3685 <> m:38
+R3701:3703 Coq.Init.Datatypes <> nat ind
+R3719:3719 Kernel.NecFThreeState <> s:37 var
+R3716:3716 Kernel.NecFThreeState <> m:38 var
+R3726:3729 Kernel.NecFThreeState <> Flip constr
+R3732:3736 Kernel.NecFThreeState <> Blank constr
+R3745:3750 Kernel.NecFThreeState <> Smooth constr
+R3753:3756 Kernel.NecFThreeState <> Once constr
+def 3792:3811 <> nec_f_injective_move
+R3818:3825 Kernel.NecFThreeState <> nec_f_mv ind
+binder 3814:3814 <> m:41
+binder 3847:3847 <> a:42
+binder 3849:3849 <> b:43
+R3883:3886 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3866:3868 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3852:3861 Kernel.NecFThreeState <> nec_f_step def
+R3863:3863 Kernel.NecFThreeState <> a:42 var
+R3865:3865 Kernel.NecFThreeState <> m:41 var
+R3869:3878 Kernel.NecFThreeState <> nec_f_step def
+R3880:3880 Kernel.NecFThreeState <> b:43 var
+R3882:3882 Kernel.NecFThreeState <> m:41 var
+R3888:3890 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3887:3887 Kernel.NecFThreeState <> a:42 var
+R3891:3891 Kernel.NecFThreeState <> b:43 var
+def 3906:3923 <> nec_f_automorphism
+R3940:3943 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3932:3939 Kernel.NecFThreeState <> nec_f_st ind
+R3944:3951 Kernel.NecFThreeState <> nec_f_st ind
+binder 3926:3928 <> phi:44
+R3966:3966 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4001:4008 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4064:4064 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3974:3974 <> a:45
+binder 3976:3976 <> b:46
+R3992:3995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3984:3986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3979:3981 Kernel.NecFThreeState <> phi:44 var
+R3983:3983 Kernel.NecFThreeState <> a:45 var
+R3987:3989 Kernel.NecFThreeState <> phi:44 var
+R3991:3991 Kernel.NecFThreeState <> b:46 var
+R3997:3999 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3996:3996 Kernel.NecFThreeState <> a:45 var
+R4000:4000 Kernel.NecFThreeState <> b:46 var
+binder 4016:4016 <> s:47
+binder 4018:4018 <> m:48
+R4041:4043 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4021:4023 Kernel.NecFThreeState <> phi:44 var
+R4026:4035 Kernel.NecFThreeState <> nec_f_step def
+R4037:4037 Kernel.NecFThreeState <> s:47 var
+R4039:4039 Kernel.NecFThreeState <> m:48 var
+R4044:4053 Kernel.NecFThreeState <> nec_f_step def
+R4056:4058 Kernel.NecFThreeState <> phi:44 var
+R4060:4060 Kernel.NecFThreeState <> s:47 var
+R4063:4063 Kernel.NecFThreeState <> m:48 var
+def 4129:4152 <> nec_f_three_reading_free
+R4167:4170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4159:4166 Kernel.NecFThreeState <> nec_f_st ind
+R4179:4182 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4171:4178 Kernel.NecFThreeState <> nec_f_mv ind
+R4183:4185 Coq.Init.Datatypes <> nat ind
+binder 4155:4155 <> c:49
+R4200:4200 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4244:4250 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4208:4208 <> s:50
+binder 4210:4210 <> m:51
+R4231:4234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4227:4229 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4213:4222 Kernel.NecFThreeState <> nec_f_step def
+R4224:4224 Kernel.NecFThreeState <> s:50 var
+R4226:4226 Kernel.NecFThreeState <> m:51 var
+R4230:4230 Kernel.NecFThreeState <> s:50 var
+R4240:4242 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4235:4235 Kernel.NecFThreeState <> c:49 var
+R4239:4239 Kernel.NecFThreeState <> m:51 var
+R4237:4237 Kernel.NecFThreeState <> s:50 var
+R4251:4251 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4307:4313 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4259:4259 <> m:52
+R4284:4287 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4262:4281 Kernel.NecFThreeState <> nec_f_injective_move def
+R4283:4283 Kernel.NecFThreeState <> m:52 var
+binder 4295:4295 <> s:53
+R4303:4305 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4298:4298 Kernel.NecFThreeState <> c:49 var
+R4302:4302 Kernel.NecFThreeState <> m:52 var
+R4300:4300 Kernel.NecFThreeState <> s:53 var
+R4314:4314 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4384:4390 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4322:4324 <> phi:54
+R4349:4352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4327:4344 Kernel.NecFThreeState <> nec_f_automorphism def
+R4346:4348 Kernel.NecFThreeState <> phi:54 var
+binder 4360:4360 <> s:55
+binder 4362:4362 <> m:56
+R4376:4378 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4365:4365 Kernel.NecFThreeState <> c:49 var
+R4375:4375 Kernel.NecFThreeState <> m:56 var
+R4368:4370 Kernel.NecFThreeState <> phi:54 var
+R4372:4372 Kernel.NecFThreeState <> s:55 var
+R4379:4379 Kernel.NecFThreeState <> c:49 var
+R4383:4383 Kernel.NecFThreeState <> m:56 var
+R4381:4381 Kernel.NecFThreeState <> s:55 var
+R4391:4391 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4564:4570 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4399:4399 <> s:57
+binder 4401:4403 <> tr1:58
+binder 4405:4407 <> tr2:59
+R4453:4460 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4410:4420 Kernel.NecFThreeState <> nec_f_total def
+R4437:4437 Kernel.NecFThreeState <> c:49 var
+R4439:4439 Kernel.NecFThreeState <> s:57 var
+R4445:4448 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4442:4444 Kernel.NecFThreeState <> tr1:58 var
+R4449:4451 Kernel.NecFThreeState <> tr2:59 var
+R4426:4435 Kernel.NecFThreeState <> nec_f_step def
+R4495:4502 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4461:4471 Kernel.NecFThreeState <> nec_f_total def
+R4488:4488 Kernel.NecFThreeState <> c:49 var
+R4490:4490 Kernel.NecFThreeState <> s:57 var
+R4492:4494 Kernel.NecFThreeState <> tr1:58 var
+R4477:4486 Kernel.NecFThreeState <> nec_f_step def
+R4503:4513 Kernel.NecFThreeState <> nec_f_total def
+R4530:4530 Kernel.NecFThreeState <> c:49 var
+R4533:4541 Coq.Lists.List <> fold_left def
+R4558:4558 Kernel.NecFThreeState <> s:57 var
+R4554:4556 Kernel.NecFThreeState <> tr1:58 var
+R4543:4552 Kernel.NecFThreeState <> nec_f_step def
+R4561:4563 Kernel.NecFThreeState <> tr2:59 var
+R4519:4528 Kernel.NecFThreeState <> nec_f_step def
+R4571:4571 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4622:4628 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4572:4578 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4580:4581 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4579:4579 <> g:60
+binder 4589:4589 <> s:61
+binder 4591:4591 <> m:62
+R4599:4601 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4594:4594 Kernel.NecFThreeState <> c:49 var
+R4598:4598 Kernel.NecFThreeState <> m:62 var
+R4596:4596 Kernel.NecFThreeState <> s:61 var
+R4602:4602 Kernel.NecFThreeState <> g:60 var
+R4604:4604 Kernel.NecFThreeState <> s:61 var
+R4607:4616 Kernel.NecFThreeState <> nec_f_step def
+R4618:4618 Kernel.NecFThreeState <> s:61 var
+R4620:4620 Kernel.NecFThreeState <> m:62 var
+R4641:4643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4629:4629 Kernel.NecFThreeState <> c:49 var
+R4637:4640 Kernel.NecFThreeState <> Flip constr
+R4631:4635 Kernel.NecFThreeState <> Blank constr
+prf 4654:4675 <> nec_f_three_both_merge
+binder 4686:4686 <> m:63
+R4689:4690 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4691:4710 Kernel.NecFThreeState <> nec_f_injective_move def
+R4712:4712 Kernel.NecFThreeState <> m:63 var
+R4755:4759 Kernel.NecFThreeState <> Blank constr
+R4761:4764 Kernel.NecFThreeState <> Once constr
+R4766:4772 Coq.Init.Logic <> eq_refl constr
+R4755:4759 Kernel.NecFThreeState <> Blank constr
+R4761:4764 Kernel.NecFThreeState <> Once constr
+R4766:4772 Coq.Init.Logic <> eq_refl constr
+R4808:4811 Kernel.NecFThreeState <> Once constr
+R4813:4817 Kernel.NecFThreeState <> Twice constr
+R4819:4825 Coq.Init.Logic <> eq_refl constr
+R4808:4811 Kernel.NecFThreeState <> Once constr
+R4813:4817 Kernel.NecFThreeState <> Twice constr
+R4819:4825 Coq.Init.Logic <> eq_refl constr
+prf 4857:4883 <> nec_f_three_automorphism_id
+binder 4894:4896 <> phi:64
+R4921:4924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4899:4916 Kernel.NecFThreeState <> nec_f_automorphism def
+R4918:4920 Kernel.NecFThreeState <> phi:64 var
+binder 4932:4932 <> s:65
+R4940:4942 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4935:4937 Kernel.NecFThreeState <> phi:64 var
+R4939:4939 Kernel.NecFThreeState <> s:65 var
+R4943:4943 Kernel.NecFThreeState <> s:65 var
+R5003:5005 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4998:5002 Kernel.NecFThreeState <> Twice constr
+R5006:5010 Kernel.NecFThreeState <> Twice constr
+R5003:5005 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4998:5002 Kernel.NecFThreeState <> Twice constr
+R5006:5010 Kernel.NecFThreeState <> Twice constr
+R5035:5039 Kernel.NecFThreeState <> Twice constr
+R5041:5046 Kernel.NecFThreeState <> Smooth constr
+R5035:5039 Kernel.NecFThreeState <> Twice constr
+R5041:5046 Kernel.NecFThreeState <> Smooth constr
+R5073:5077 Kernel.NecFThreeState <> Twice constr
+R5079:5082 Kernel.NecFThreeState <> Flip constr
+R5073:5077 Kernel.NecFThreeState <> Twice constr
+R5079:5082 Kernel.NecFThreeState <> Flip constr
+R5127:5131 Kernel.NecFThreeState <> Twice constr
+R5127:5131 Kernel.NecFThreeState <> Twice constr
+R5184:5186 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5180:5183 Kernel.NecFThreeState <> Once constr
+R5187:5190 Kernel.NecFThreeState <> Once constr
+R5184:5186 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5180:5183 Kernel.NecFThreeState <> Once constr
+R5187:5190 Kernel.NecFThreeState <> Once constr
+R5215:5218 Kernel.NecFThreeState <> Once constr
+R5220:5223 Kernel.NecFThreeState <> Flip constr
+R5215:5218 Kernel.NecFThreeState <> Once constr
+R5220:5223 Kernel.NecFThreeState <> Flip constr
+R5264:5267 Kernel.NecFThreeState <> Once constr
+R5264:5267 Kernel.NecFThreeState <> Once constr
+R5395:5397 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5390:5394 Kernel.NecFThreeState <> Blank constr
+R5398:5402 Kernel.NecFThreeState <> Blank constr
+R5395:5397 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5390:5394 Kernel.NecFThreeState <> Blank constr
+R5398:5402 Kernel.NecFThreeState <> Blank constr
+R5424:5428 Kernel.NecFThreeState <> Blank constr
+R5424:5428 Kernel.NecFThreeState <> Blank constr
+prf 5610:5630 <> nec_f_three_total_app
+binder 5641:5641 <> c:66
+binder 5643:5643 <> s:67
+binder 5645:5647 <> tr1:68
+binder 5649:5651 <> tr2:69
+R5699:5703 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5656:5666 Kernel.NecFThreeState <> nec_f_total def
+R5683:5683 Kernel.NecFThreeState <> c:66 var
+R5685:5685 Kernel.NecFThreeState <> s:67 var
+R5691:5694 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5688:5690 Kernel.NecFThreeState <> tr1:68 var
+R5695:5697 Kernel.NecFThreeState <> tr2:69 var
+R5672:5681 Kernel.NecFThreeState <> nec_f_step def
+R5738:5740 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5704:5714 Kernel.NecFThreeState <> nec_f_total def
+R5731:5731 Kernel.NecFThreeState <> c:66 var
+R5733:5733 Kernel.NecFThreeState <> s:67 var
+R5735:5737 Kernel.NecFThreeState <> tr1:68 var
+R5720:5729 Kernel.NecFThreeState <> nec_f_step def
+R5741:5751 Kernel.NecFThreeState <> nec_f_total def
+R5768:5768 Kernel.NecFThreeState <> c:66 var
+R5771:5779 Coq.Lists.List <> fold_left def
+R5796:5796 Kernel.NecFThreeState <> s:67 var
+R5792:5794 Kernel.NecFThreeState <> tr1:68 var
+R5781:5790 Kernel.NecFThreeState <> nec_f_step def
+R5799:5801 Kernel.NecFThreeState <> tr2:69 var
+R5757:5766 Kernel.NecFThreeState <> nec_f_step def
+prf 5939:5956 <> nec_f_three_common
+binder 5967:5967 <> c:70
+R5972:5972 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6016:6022 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5980:5980 <> s:71
+binder 5982:5982 <> m:72
+R6003:6006 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5999:6001 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5985:5994 Kernel.NecFThreeState <> nec_f_step def
+R5996:5996 Kernel.NecFThreeState <> s:71 var
+R5998:5998 Kernel.NecFThreeState <> m:72 var
+R6002:6002 Kernel.NecFThreeState <> s:71 var
+R6012:6014 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6007:6007 Kernel.NecFThreeState <> c:70 var
+R6009:6009 Kernel.NecFThreeState <> s:71 var
+R6011:6011 Kernel.NecFThreeState <> m:72 var
+R6023:6023 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6074:6080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6024:6030 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6032:6033 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6031:6031 <> g:73
+binder 6041:6041 <> s:74
+binder 6043:6043 <> m:75
+R6051:6053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6046:6046 Kernel.NecFThreeState <> c:70 var
+R6048:6048 Kernel.NecFThreeState <> s:74 var
+R6050:6050 Kernel.NecFThreeState <> m:75 var
+R6054:6054 Kernel.NecFThreeState <> g:73 var
+R6056:6056 Kernel.NecFThreeState <> s:74 var
+R6059:6068 Kernel.NecFThreeState <> nec_f_step def
+R6070:6070 Kernel.NecFThreeState <> s:74 var
+R6072:6072 Kernel.NecFThreeState <> m:75 var
+R6097:6102 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6093:6095 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6081:6081 Kernel.NecFThreeState <> c:70 var
+R6083:6087 Kernel.NecFThreeState <> Blank constr
+R6089:6092 Kernel.NecFThreeState <> Flip constr
+R6103:6126 Kernel.NecFThreeState <> nec_f_three_reading_free def
+R6128:6128 Kernel.NecFThreeState <> c:70 var
+R6277:6298 Kernel.NecFThreeState <> nec_f_three_both_merge thm
+R6277:6298 Kernel.NecFThreeState <> nec_f_three_both_merge thm
+R6343:6369 Kernel.NecFThreeState <> nec_f_three_automorphism_id thm
+R6343:6369 Kernel.NecFThreeState <> nec_f_three_automorphism_id thm
+R6343:6369 Kernel.NecFThreeState <> nec_f_three_automorphism_id thm
+R6407:6427 Kernel.NecFThreeState <> nec_f_three_total_app thm
+R6407:6427 Kernel.NecFThreeState <> nec_f_three_total_app thm
+prf 6444:6465 <> nec_f_three_toll_meets
+R6469:6492 Kernel.NecFThreeState <> nec_f_three_reading_free def
+R6494:6503 Kernel.NecFThreeState <> nec_f_toll def
+R6521:6538 Kernel.NecFThreeState <> nec_f_three_common thm
+R6521:6538 Kernel.NecFThreeState <> nec_f_three_common thm
+binder 6594:6594 <> a:76
+binder 6596:6596 <> b:77
+R6610:6610 Kernel.NecFThreeState <> b:77 var
+R6607:6607 Kernel.NecFThreeState <> a:76 var
+R6617:6621 Kernel.NecFThreeState <> Blank constr
+R6624:6627 Kernel.NecFThreeState <> Once constr
+binder 6594:6594 <> a:80
+binder 6596:6596 <> b:81
+R6610:6610 Kernel.NecFThreeState <> b:81 var
+R6607:6607 Kernel.NecFThreeState <> a:80 var
+R6617:6621 Kernel.NecFThreeState <> Blank constr
+R6624:6627 Kernel.NecFThreeState <> Once constr
+prf 6714:6736 <> nec_f_three_merge_meets
+R6740:6763 Kernel.NecFThreeState <> nec_f_three_reading_free def
+R6765:6781 Kernel.NecFThreeState <> nec_f_merge_price def
+R6799:6816 Kernel.NecFThreeState <> nec_f_three_common thm
+R6799:6816 Kernel.NecFThreeState <> nec_f_three_common thm
+binder 6872:6872 <> a:84
+binder 6874:6874 <> b:85
+R6888:6888 Kernel.NecFThreeState <> b:85 var
+R6885:6885 Kernel.NecFThreeState <> a:84 var
+R6895:6899 Kernel.NecFThreeState <> Blank constr
+R6902:6905 Kernel.NecFThreeState <> Once constr
+R6914:6917 Kernel.NecFThreeState <> Once constr
+R6920:6924 Kernel.NecFThreeState <> Twice constr
+binder 6872:6872 <> a:88
+binder 6874:6874 <> b:89
+R6888:6888 Kernel.NecFThreeState <> b:89 var
+R6885:6885 Kernel.NecFThreeState <> a:88 var
+R6895:6899 Kernel.NecFThreeState <> Blank constr
+R6902:6905 Kernel.NecFThreeState <> Once constr
+R6914:6917 Kernel.NecFThreeState <> Once constr
+R6920:6924 Kernel.NecFThreeState <> Twice constr
+prf 7011:7034 <> nec_f_three_bills_differ
+R7060:7063 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7038:7047 Kernel.NecFThreeState <> nec_f_toll def
+R7049:7052 Kernel.NecFThreeState <> Once constr
+R7054:7059 Kernel.NecFThreeState <> Smooth constr
+R7064:7080 Kernel.NecFThreeState <> nec_f_merge_price def
+R7082:7085 Kernel.NecFThreeState <> Once constr
+R7087:7092 Kernel.NecFThreeState <> Smooth constr
+prf 7130:7159 <> nec_f_three_ceiling_picks_toll
+R7182:7185 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7174:7181 Kernel.NecFThreeState <> nec_f_st ind
+R7194:7197 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7186:7193 Kernel.NecFThreeState <> nec_f_mv ind
+R7198:7200 Coq.Init.Datatypes <> nat ind
+binder 7170:7170 <> c:92
+R7205:7205 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7290:7296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 7213:7213 <> s:93
+binder 7215:7215 <> m:94
+R7238:7241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7230:7232 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7218:7227 Kernel.NecFThreeState <> nec_f_read def
+R7229:7229 Kernel.NecFThreeState <> s:93 var
+R7233:7237 Coq.Init.Datatypes <> false constr
+R7276:7279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7269:7271 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7242:7251 Kernel.NecFThreeState <> nec_f_read def
+R7254:7263 Kernel.NecFThreeState <> nec_f_step def
+R7265:7265 Kernel.NecFThreeState <> s:93 var
+R7267:7267 Kernel.NecFThreeState <> m:94 var
+R7272:7275 Coq.Init.Datatypes <> true constr
+R7285:7288 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7280:7280 Kernel.NecFThreeState <> c:92 var
+R7284:7284 Kernel.NecFThreeState <> m:94 var
+R7282:7282 Kernel.NecFThreeState <> s:93 var
+R7297:7297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7391:7397 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 7305:7305 <> s:95
+binder 7307:7308 <> tr:96
+R7344:7347 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7311:7321 Kernel.NecFThreeState <> nec_f_total def
+R7338:7338 Kernel.NecFThreeState <> c:92 var
+R7340:7340 Kernel.NecFThreeState <> s:95 var
+R7342:7343 Kernel.NecFThreeState <> tr:96 var
+R7327:7336 Kernel.NecFThreeState <> nec_f_step def
+R7348:7359 Kernel.NecFThreeState <> nec_f_raises def
+R7387:7387 Kernel.NecFThreeState <> s:95 var
+R7389:7390 Kernel.NecFThreeState <> tr:96 var
+R7376:7385 Kernel.NecFThreeState <> nec_f_read def
+R7365:7374 Kernel.NecFThreeState <> nec_f_step def
+binder 7405:7405 <> s:97
+binder 7407:7407 <> m:98
+R7415:7417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7410:7410 Kernel.NecFThreeState <> c:92 var
+R7414:7414 Kernel.NecFThreeState <> m:98 var
+R7412:7412 Kernel.NecFThreeState <> s:97 var
+R7418:7427 Kernel.NecFThreeState <> nec_f_toll def
+R7429:7429 Kernel.NecFThreeState <> s:97 var
+R7431:7431 Kernel.NecFThreeState <> m:98 var
+R7472:7498 Kernel.NecFThreeState <> nec_f_record_ceiling_unique thm
+R7515:7524 Kernel.NecFThreeState <> nec_f_read def
+R7504:7513 Kernel.NecFThreeState <> nec_f_step def
+R7472:7498 Kernel.NecFThreeState <> nec_f_record_ceiling_unique thm
+R7515:7524 Kernel.NecFThreeState <> nec_f_read def
+R7504:7513 Kernel.NecFThreeState <> nec_f_step def
+R7472:7498 Kernel.NecFThreeState <> nec_f_record_ceiling_unique thm
+R7515:7524 Kernel.NecFThreeState <> nec_f_read def
+R7504:7513 Kernel.NecFThreeState <> nec_f_step def
+prf 7584:7614 <> nec_f_three_merge_fails_ceiling
+R7620:7622 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7750:7750 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 7630:7630 <> s:99
+binder 7632:7633 <> tr:100
+R7685:7706 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7636:7646 Kernel.NecFThreeState <> nec_f_total def
+R7663:7679 Kernel.NecFThreeState <> nec_f_merge_price def
+R7681:7681 Kernel.NecFThreeState <> s:99 var
+R7683:7684 Kernel.NecFThreeState <> tr:100 var
+R7652:7661 Kernel.NecFThreeState <> nec_f_step def
+R7707:7718 Kernel.NecFThreeState <> nec_f_raises def
+R7746:7746 Kernel.NecFThreeState <> s:99 var
+R7748:7749 Kernel.NecFThreeState <> tr:100 var
+R7735:7744 Kernel.NecFThreeState <> nec_f_read def
+R7724:7733 Kernel.NecFThreeState <> nec_f_step def
+R7783:7786 Kernel.NecFThreeState <> Once constr
+R7788:7788 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7795:7795 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7789:7794 Kernel.NecFThreeState <> Smooth constr
+R7783:7786 Kernel.NecFThreeState <> Once constr
+R7788:7788 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7795:7795 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7789:7794 Kernel.NecFThreeState <> Smooth constr
+def 8175:8189 <> nec_f_move_toll
+R8196:8203 Kernel.NecFThreeState <> nec_f_mv ind
+binder 8192:8192 <> m:101
+R8208:8210 Coq.Init.Datatypes <> nat ind
+R8221:8221 Kernel.NecFThreeState <> m:101 var
+R8228:8231 Kernel.NecFThreeState <> Flip constr
+R8240:8245 Kernel.NecFThreeState <> Smooth constr
+prf 8264:8283 <> nec_f_three_cs_costs
+binder 8294:8294 <> s:103
+binder 8296:8296 <> m:104
+R8321:8324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8313:8315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8301:8310 Kernel.NecFThreeState <> nec_f_read def
+R8312:8312 Kernel.NecFThreeState <> s:103 var
+R8316:8320 Coq.Init.Datatypes <> false constr
+R8359:8362 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8352:8354 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8325:8334 Kernel.NecFThreeState <> nec_f_read def
+R8337:8346 Kernel.NecFThreeState <> nec_f_step def
+R8348:8348 Kernel.NecFThreeState <> s:103 var
+R8350:8350 Kernel.NecFThreeState <> m:104 var
+R8355:8358 Coq.Init.Datatypes <> true constr
+R8380:8383 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8363:8377 Kernel.NecFThreeState <> nec_f_move_toll def
+R8379:8379 Kernel.NecFThreeState <> m:104 var
+def 8463:8476 <> nec_f_three_cs
+R8480:8498 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R8505:8518 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R8520:8527 Kernel.NecFThreeState <> nec_f_st ind
+R8529:8536 Kernel.NecFThreeState <> nec_f_mv ind
+R8538:8547 Kernel.NecFThreeState <> nec_f_step def
+R8549:8563 Kernel.NecFThreeState <> nec_f_move_toll def
+R8565:8574 Kernel.NecFThreeState <> nec_f_read def
+R8576:8595 Kernel.NecFThreeState <> nec_f_three_cs_costs thm
+prf 8607:8626 <> nec_f_three_cs_floor
+binder 8637:8638 <> tr:105
+R8693:8698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8686:8688 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8643:8652 Kernel.NecFThreeState <> nec_f_read def
+R8655:8660 Kernel.UniversalCertificationCost <> cs_run def
+R8662:8675 Kernel.NecFThreeState <> nec_f_three_cs def
+R8677:8678 Kernel.NecFThreeState <> tr:105 var
+R8680:8684 Kernel.NecFThreeState <> Blank constr
+R8689:8692 Coq.Init.Datatypes <> true constr
+R8730:8733 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8699:8711 Kernel.UniversalCertificationCost <> cs_total_cost def
+R8713:8726 Kernel.NecFThreeState <> nec_f_three_cs def
+R8728:8729 Kernel.NecFThreeState <> tr:105 var
+R8766:8792 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R8794:8807 Kernel.NecFThreeState <> nec_f_three_cs def
+R8812:8816 Kernel.NecFThreeState <> Blank constr
+R8818:8824 Coq.Init.Logic <> eq_refl constr
+R8766:8792 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R8794:8807 Kernel.NecFThreeState <> nec_f_three_cs def
+R8812:8816 Kernel.NecFThreeState <> Blank constr
+R8818:8824 Coq.Init.Logic <> eq_refl constr
+R8854:8873 Kernel.NecFThreeState <> nec_f_three_cs_floor thm
+R8894:8920 Kernel.NecFThreeState <> nec_f_record_ceiling_unique thm
+R8941:8967 Kernel.NecFThreeState <> nec_f_three_automorphism_id thm
+R8988:9009 Kernel.NecFThreeState <> nec_f_three_toll_meets thm
+R9030:9052 Kernel.NecFThreeState <> nec_f_three_merge_meets thm
+R9073:9096 Kernel.NecFThreeState <> nec_f_three_bills_differ thm
+R9117:9146 Kernel.NecFThreeState <> nec_f_three_ceiling_picks_toll thm
+R9167:9197 Kernel.NecFThreeState <> nec_f_three_merge_fails_ceiling thm

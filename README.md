@@ -99,10 +99,10 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the assumption receipt: 5,369 theorems probed, zero *project-local* axiom findings.
+The second command prints the assumption receipt: 5,694 theorems probed, zero *project-local* axiom findings.
 The badge says project-local, and that is the precise claim.
 Some theorems do use axioms from Coq's own standard library.
-4,882 of those theorems are closed under the global context outright; the remaining 487 use only Coq standard-library assumptions: dependent functional extensionality, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
+4,994 of those theorems are closed under the global context outright; the remaining 700 use only Coq standard-library assumptions: dependent functional extensionality, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
 Those library assumptions are disclosed in the receipt; what is zero is axioms this project added.
 The receipt's counts are written by the receipt generator on Linux (`make assumption-receipt`, then `scripts/sync_assumption_receipt_readme.py`), never by hand.
 Validate the committed receipt quickly with `make assumption-receipt-check`.
@@ -229,7 +229,7 @@ Coq closes the contradiction.
 Closed under the global context
 ```
 
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 5,369 addressable theorems probed across 308 files and no user/project-local axiom findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 5,694 addressable theorems probed across 329 files and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
@@ -459,9 +459,9 @@ Two independent receipts track proof assumptions.
 - [scripts/inquisitor.py](scripts/inquisitor.py) scans for proof-hygiene issues such as admitted proofs, undeclared axioms, vacuous theorem shapes, phantom imports, and circular claim patterns, and checks that every proof file connects to the foundation chain (the certification system, the record-carrying machine, the substrate, the Turing kernel, and the small machine) or says why it stands alone.
 - [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
 
-The generated assumption receipt reports 5,369 addressable theorems probed across 308 files and no user/project-local axiom findings.
-The split: 4,882 close under the global context outright, and the remaining 487 lean only on Coq-stdlib axiom families.
-Those families are `functional_extensionality_dep` (460), the classical-reals pair `sig_forall_dec` (487) and `sig_not_dec` (154), and `classic` (91). No theorem uses `eq_rect_eq` (0).
+The generated assumption receipt reports 5,694 addressable theorems probed across 329 files and no user/project-local axiom findings.
+The split: 4,994 close under the global context outright, and the remaining 700 lean only on Coq-stdlib axiom families.
+Those families are `functional_extensionality_dep` (665), the classical-reals pair `sig_forall_dec` (694) and `sig_not_dec` (231), and `classic` (145). No theorem uses `eq_rect_eq` (0).
 Those families enter through the real-number layers; the minimal core uses none of them.
 These counts are written by the receipt generator on Linux, never by hand.
 "Zero axioms" here means zero project-local axioms, the same convention the monograph uses.

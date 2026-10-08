@@ -1,11 +1,11 @@
 # INQUISITOR REPORT
-Generated: 2026-10-06 01:44:07Z (UTC)
-Scanned: 169 Coq files across the repo
+Generated: 2026-10-08 04:58:26Z (UTC)
+Scanned: 332 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
-- LOW: 1
-- SCOPE NOTES: 120 in-source scope markers across 97 files (102 SCOPE NOTE, 18 SAFE markers)
+- LOW: 0
+- SCOPE NOTES: 193 in-source scope markers across 161 files (163 SCOPE NOTE, 30 SAFE markers)
   - Read the severity counts as *unsuppressed* findings. Each scope note silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
 
 ## Rules
@@ -78,9 +78,4 @@ Scanned: 169 Coq files across the repo
 (no files scored above zero — no trivially-true or placeholder patterns detected)
 
 ## Findings
-### LOW
-
-#### `coq/kernel/quantum/SmallChshCheck.v`
-- L525: **CHSH_BOUND_MISSING** — CHSH bound theorem \`small_chsh_psd_row_bounds\` may not reference proper Tsirelson bound value.
-  - `Theorem small_chsh_psd_row_bounds :`
-
+(none)

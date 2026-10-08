@@ -1,0 +1,256 @@
+DIGEST d9bdf2fac4367b5c43721a0476514939
+FKernel.NecFPaperToys
+R1111:1114 Coq.Lists.List <> <> lib
+R1116:1120 Coq.Arith.Arith <> <> lib
+R1122:1124 Coq.micromega.Lia <> <> lib
+R1134:1146 Coq.Lists.List ListNotations <> mod
+R1176:1201 Kernel.UniversalCertificationCost <> <> lib
+R1231:1252 Kernel.PermanentCertification <> <> lib
+ind 1286:1294 <> nec_f_box
+constr 1306:1307 <> NO
+constr 1311:1313 <> YES
+scheme 1286:1294 <> nec_f_box_rect
+scheme 1286:1294 <> nec_f_box_ind
+scheme 1286:1294 <> nec_f_box_rec
+scheme 1286:1294 <> nec_f_box_sind
+ind 1326:1341 <> nec_f_board_move
+constr 1353:1356 <> STAY
+constr 1360:1363 <> WORK
+constr 1367:1371 <> VOUCH
+constr 1375:1379 <> CHECK
+scheme 1326:1341 <> nec_f_board_move_rect
+scheme 1326:1341 <> nec_f_board_move_ind
+scheme 1326:1341 <> nec_f_board_move_rec
+scheme 1326:1341 <> nec_f_board_move_sind
+def 1394:1409 <> nec_f_board_step
+R1416:1424 Kernel.NecFPaperToys <> nec_f_box ind
+binder 1412:1412 <> s:5
+R1432:1447 Kernel.NecFPaperToys <> nec_f_board_move ind
+binder 1428:1428 <> m:6
+R1452:1460 Kernel.NecFPaperToys <> nec_f_box ind
+R1473:1473 Kernel.NecFPaperToys <> m:6 var
+R1480:1484 Kernel.NecFPaperToys <> VOUCH constr
+R1489:1491 Kernel.NecFPaperToys <> YES constr
+R1500:1500 Kernel.NecFPaperToys <> s:5 var
+def 1519:1534 <> nec_f_board_cost
+R1541:1556 Kernel.NecFPaperToys <> nec_f_board_move ind
+binder 1537:1537 <> m:8
+R1561:1563 Coq.Init.Datatypes <> nat ind
+R1576:1576 Kernel.NecFPaperToys <> m:8 var
+R1583:1587 Kernel.NecFPaperToys <> VOUCH constr
+def 1620:1635 <> nec_f_board_read
+R1642:1650 Kernel.NecFPaperToys <> nec_f_box ind
+binder 1638:1638 <> s:10
+R1655:1658 Coq.Init.Datatypes <> bool ind
+R1669:1669 Kernel.NecFPaperToys <> s:10 var
+R1676:1677 Kernel.NecFPaperToys <> NO constr
+R1682:1686 Coq.Init.Datatypes <> false constr
+R1690:1692 Kernel.NecFPaperToys <> YES constr
+R1697:1700 Coq.Init.Datatypes <> true constr
+prf 1714:1729 <> nec_f_board_toll
+binder 1740:1740 <> s:12
+binder 1742:1742 <> m:13
+R1773:1776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1765:1767 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1747:1762 Kernel.NecFPaperToys <> nec_f_board_read def
+R1764:1764 Kernel.NecFPaperToys <> s:12 var
+R1768:1772 Coq.Init.Datatypes <> false constr
+R1823:1828 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1816:1818 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1777:1792 Kernel.NecFPaperToys <> nec_f_board_read def
+R1795:1810 Kernel.NecFPaperToys <> nec_f_board_step def
+R1812:1812 Kernel.NecFPaperToys <> s:12 var
+R1814:1814 Kernel.NecFPaperToys <> m:13 var
+R1819:1822 Coq.Init.Datatypes <> true constr
+R1847:1850 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1829:1844 Kernel.NecFPaperToys <> nec_f_board_cost def
+R1846:1846 Kernel.NecFPaperToys <> m:13 var
+def 1930:1943 <> nec_f_board_cs
+R1947:1965 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R1972:1985 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R1987:1995 Kernel.NecFPaperToys <> nec_f_box ind
+R1997:2012 Kernel.NecFPaperToys <> nec_f_board_move ind
+R2014:2029 Kernel.NecFPaperToys <> nec_f_board_step def
+R2031:2046 Kernel.NecFPaperToys <> nec_f_board_cost def
+R2065:2080 Kernel.NecFPaperToys <> nec_f_board_read def
+R2082:2097 Kernel.NecFPaperToys <> nec_f_board_toll thm
+prf 2109:2128 <> nec_f_board_raw_free
+binder 2139:2139 <> s:14
+binder 2141:2141 <> m:15
+R2154:2159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2145:2148 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2144:2144 Kernel.NecFPaperToys <> m:15 var
+R2149:2153 Kernel.NecFPaperToys <> VOUCH constr
+R2184:2187 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2180:2182 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2160:2175 Kernel.NecFPaperToys <> nec_f_board_step def
+R2177:2177 Kernel.NecFPaperToys <> s:14 var
+R2179:2179 Kernel.NecFPaperToys <> m:15 var
+R2183:2183 Kernel.NecFPaperToys <> s:14 var
+R2206:2208 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2188:2203 Kernel.NecFPaperToys <> nec_f_board_cost def
+R2205:2205 Kernel.NecFPaperToys <> m:15 var
+prf 2304:2320 <> nec_f_board_floor
+binder 2331:2332 <> tr:16
+R2390:2395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2383:2385 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2337:2352 Kernel.NecFPaperToys <> nec_f_board_read def
+R2355:2360 Kernel.UniversalCertificationCost <> cs_run def
+R2362:2375 Kernel.NecFPaperToys <> nec_f_board_cs def
+R2377:2378 Kernel.NecFPaperToys <> tr:16 var
+R2380:2381 Kernel.NecFPaperToys <> NO constr
+R2386:2389 Coq.Init.Datatypes <> true constr
+R2427:2430 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2396:2408 Kernel.UniversalCertificationCost <> cs_total_cost def
+R2410:2423 Kernel.NecFPaperToys <> nec_f_board_cs def
+R2425:2426 Kernel.NecFPaperToys <> tr:16 var
+R2461:2487 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R2489:2502 Kernel.NecFPaperToys <> nec_f_board_cs def
+R2507:2508 Kernel.NecFPaperToys <> NO constr
+R2510:2516 Coq.Init.Logic <> eq_refl constr
+R2461:2487 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R2489:2502 Kernel.NecFPaperToys <> nec_f_board_cs def
+R2507:2508 Kernel.NecFPaperToys <> NO constr
+R2510:2516 Coq.Init.Logic <> eq_refl constr
+prf 2536:2557 <> nec_f_board_floor_flat
+R2581:2584 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2572:2580 Kernel.NecFPaperToys <> nec_f_box ind
+binder 2568:2568 <> P:17
+R2598:2603 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2593:2593 Kernel.NecFPaperToys <> P:17 var
+R2595:2597 Kernel.NecFPaperToys <> YES constr
+R2604:2610 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2613:2614 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2611:2612 <> tr:18
+R2646:2662 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2615:2615 Kernel.NecFPaperToys <> P:17 var
+R2618:2623 Kernel.UniversalCertificationCost <> cs_run def
+R2625:2638 Kernel.NecFPaperToys <> nec_f_board_cs def
+R2640:2641 Kernel.NecFPaperToys <> tr:18 var
+R2643:2644 Kernel.NecFPaperToys <> NO constr
+R2716:2732 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2709:2711 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2663:2678 Kernel.NecFPaperToys <> nec_f_board_read def
+R2681:2686 Kernel.UniversalCertificationCost <> cs_run def
+R2688:2701 Kernel.NecFPaperToys <> nec_f_board_cs def
+R2703:2704 Kernel.NecFPaperToys <> tr:18 var
+R2706:2707 Kernel.NecFPaperToys <> NO constr
+R2712:2715 Coq.Init.Datatypes <> true constr
+R2764:2766 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2733:2745 Kernel.UniversalCertificationCost <> cs_total_cost def
+R2747:2760 Kernel.NecFPaperToys <> nec_f_board_cs def
+R2762:2763 Kernel.NecFPaperToys <> tr:18 var
+R2797:2797 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2803:2803 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2798:2802 Kernel.NecFPaperToys <> VOUCH constr
+R2797:2797 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2803:2803 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2798:2802 Kernel.NecFPaperToys <> VOUCH constr
+prf 2860:2878 <> nec_f_board_no_wait
+R2922:2925 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2916:2918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2884:2889 Kernel.UniversalCertificationCost <> cs_run def
+R2891:2904 Kernel.NecFPaperToys <> nec_f_board_cs def
+R2906:2906 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2912:2912 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2907:2911 Kernel.NecFPaperToys <> VOUCH constr
+R2914:2915 Kernel.NecFPaperToys <> NO constr
+R2919:2921 Kernel.NecFPaperToys <> YES constr
+R2966:2971 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2962:2964 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2926:2938 Kernel.UniversalCertificationCost <> cs_total_cost def
+R2940:2953 Kernel.NecFPaperToys <> nec_f_board_cs def
+R2955:2955 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2961:2961 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2956:2960 Kernel.NecFPaperToys <> VOUCH constr
+R2990:2995 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2972:2973 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2974:2975 Coq.Lists.List <> In def
+R2983:2983 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2989:2989 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2984:2988 Kernel.NecFPaperToys <> VOUCH constr
+R2977:2981 Kernel.NecFPaperToys <> CHECK constr
+R3041:3044 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3035:3037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2996:3001 Kernel.UniversalCertificationCost <> cs_run def
+R3003:3016 Kernel.NecFPaperToys <> nec_f_board_cs def
+R3018:3018 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3024:3025 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3031:3031 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3019:3023 Kernel.NecFPaperToys <> CHECK constr
+R3026:3030 Kernel.NecFPaperToys <> VOUCH constr
+R3033:3034 Kernel.NecFPaperToys <> NO constr
+R3038:3040 Kernel.NecFPaperToys <> YES constr
+R3088:3090 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3045:3057 Kernel.UniversalCertificationCost <> cs_total_cost def
+R3059:3072 Kernel.NecFPaperToys <> nec_f_board_cs def
+R3074:3074 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3080:3081 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3087:3087 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3075:3079 Kernel.NecFPaperToys <> CHECK constr
+R3082:3086 Kernel.NecFPaperToys <> VOUCH constr
+prf 3226:3247 <> nec_f_history_infinite
+R3251:3252 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3253:3259 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3282:3283 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3266:3269 Coq.Init.Datatypes <> list ind
+R3272:3275 Coq.Init.Datatypes <> list ind
+R3277:3280 Coq.Init.Datatypes <> bool ind
+binder 3260:3262 <> all:19
+R3284:3296 Kernel.PermanentCertification <> finite_states def
+R3298:3300 Kernel.NecFPaperToys <> all:19 var
+R3347:3354 Coq.Lists.List <> list_max def
+R3357:3359 Coq.Lists.List <> map def
+R3363:3368 Coq.Init.Datatypes <> length def
+R3370:3373 Coq.Init.Datatypes <> bool ind
+R3347:3354 Coq.Lists.List <> list_max def
+R3357:3359 Coq.Lists.List <> map def
+R3363:3368 Coq.Init.Datatypes <> length def
+R3370:3373 Coq.Init.Datatypes <> bool ind
+R3399:3400 Coq.Lists.List <> In def
+R3403:3408 Coq.Lists.List <> repeat def
+R3416:3416 Coq.Init.Datatypes <> S constr
+R3410:3413 Coq.Init.Datatypes <> true constr
+R3399:3400 Coq.Lists.List <> In def
+R3403:3408 Coq.Lists.List <> repeat def
+R3416:3416 Coq.Init.Datatypes <> S constr
+R3410:3413 Coq.Init.Datatypes <> true constr
+R3484:3487 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3458:3463 Coq.Init.Datatypes <> length def
+R3466:3471 Coq.Lists.List <> repeat def
+R3479:3479 Coq.Init.Datatypes <> S constr
+R3473:3476 Coq.Init.Datatypes <> true constr
+R3484:3487 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3458:3463 Coq.Init.Datatypes <> length def
+R3466:3471 Coq.Lists.List <> repeat def
+R3479:3479 Coq.Init.Datatypes <> S constr
+R3473:3476 Coq.Init.Datatypes <> true constr
+R3509:3514 Coq.Lists.List <> Forall ind
+R3535:3537 Coq.Lists.List <> map def
+R3541:3546 Coq.Init.Datatypes <> length def
+R3548:3551 Coq.Init.Datatypes <> bool ind
+binder 3521:3521 <> k:20
+R3527:3530 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3526:3526 Kernel.NecFPaperToys <> k:20 var
+R3570:3580 Coq.Lists.List <> list_max_le thm
+R3509:3514 Coq.Lists.List <> Forall ind
+R3535:3537 Coq.Lists.List <> map def
+R3541:3546 Coq.Init.Datatypes <> length def
+R3548:3551 Coq.Init.Datatypes <> bool ind
+binder 3521:3521 <> k:21
+R3527:3530 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3526:3526 Kernel.NecFPaperToys <> k:21 var
+R3570:3580 Coq.Lists.List <> list_max_le thm
+R3601:3613 Coq.Lists.List <> Forall_forall thm
+R3601:3613 Coq.Lists.List <> Forall_forall thm
+R3601:3613 Coq.Lists.List <> Forall_forall thm
+R3638:3643 Coq.Lists.List <> in_map thm
+R3638:3643 Coq.Lists.List <> in_map thm
+R3669:3681 Coq.Lists.List <> repeat_length thm
+R3669:3681 Coq.Lists.List <> repeat_length thm
+R3669:3681 Coq.Lists.List <> repeat_length thm
+R3720:3739 Kernel.NecFPaperToys <> nec_f_board_raw_free thm
+R3760:3776 Kernel.NecFPaperToys <> nec_f_board_floor thm
+R3797:3818 Kernel.NecFPaperToys <> nec_f_board_floor_flat thm
+R3839:3857 Kernel.NecFPaperToys <> nec_f_board_no_wait thm
+R3878:3899 Kernel.NecFPaperToys <> nec_f_history_infinite thm
