@@ -10558,13 +10558,17 @@ changes neither result. Neither idea is mine: the top is Plotkin's and the botto
 fact that field already knows.
 
 Process-calculus people have a statement of the same split. Johannes \AA{}man Pohjola and
-Joachim Parrow (2016) prove on paper that no model whose parallel composition is monotonic, where a
+Joachim Parrow, computer scientists at Uppsala University (Parrow is one of the inventors of the
+pi-calculus, a mathematical model of processes that talk over channels), in 2016 prove on paper that no model whose parallel composition is monotonic, where a
 neighbouring process can never stop a step, has a consensus process, and one of their examples
 of a model that does is test-and-set, an instruction that writes a cell and reports what was
 there. Test-and-set isn't a sticky bit: in Herlihy's ranking it brings two processors to agree,
 and a sticky bit brings any number. A store that can refuse permanently, as
-the version rule does to a stale commit, sits on the non-monotonic side. I haven't written that
-encoding, so it's a pointer.
+the version rule does to a stale commit, sits on the non-monotonic side. The shared-memory
+version of their split is the pair of results above: the small machine's object reaches agreement
+for any number of processors, and the monotone variant reaches it for none
+(\code{sc\_agreement}, \code{mc\_mono\_no\_consensus}). The encoding of the machine into their
+calculus I haven't written, so that part is a pointer.
 
 Security people know the pattern by a third name. A check that blesses a value, and a write
 that takes the blessing away, is close kin to dynamic taint tracking, where a label rides along
