@@ -143,6 +143,7 @@ WAIVED_FILES = [
     "coq/kernel/nfi/DecisionTreeBound.v",
     "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
     "coq/kernel/nfi/ShadowPricing.v",
+    "coq/kernel/quantum/ArcsineBoundary.v",
     "coq/kernel/quantum/BoxCHSH.v",
     "coq/kernel/quantum/CHSHColumnCheck.v",
     "coq/kernel/quantum/CHSHCouplingBridge.v",

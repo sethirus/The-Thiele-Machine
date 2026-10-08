@@ -1180,6 +1180,14 @@ An explicitly qualified citation keeps its own module identity.
 - `tr_complex_elliptope`: The correlator table of every valid quantum strategy with complex amplitudes in finite dimension has a PSD completion.
 - `tr_representation`: A correlator table has a PSD completion if and only if it is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
 - `tr_representation_complex`: A correlator table has a PSD completion if and only if it is the correlator table of a valid quantum strategy with complex amplitudes on two 8-level systems.
+- `am_sphere_triangle`: For unit vectors u, v, w in R^4, acos (u . w) <= acos (u . v) + acos (v . w): the angle on the sphere obeys the triangle inequality.
+- `am_triangle_det`: For angles t1, t2 in [0, pi] and b with |t1 - t2| <= b <= min (t1 + t2, 2 pi - t1 - t2), the expression (1 - cos^2 t1)(1 - cos^2 b) - (cos t2 - cos t1 cos b)^2 is nonnegative.
+- `am_necessary`: If a correlator table has a PSD completion, its entries lie in [-1, 1] and, with theta_xy = acos E_xy, each theta is at most the sum of the other three and the sum of any three minus the fourth is at most 2 pi.
+- `am_sufficient`: If the entries lie in [-1, 1] and the angles theta_xy = acos E_xy satisfy those eight inequalities, the table has a PSD completion.
+- `am_arcsine`: A correlator table (E00, E01, E10, E11) has a PSD completion if and only if every entry lies in [-1, 1] and |s00 + s01 + s10 - s11|, |s00 + s01 - s10 + s11|, |s00 - s01 + s10 + s11| and |-s00 + s01 + s10 + s11| are all at most pi, where s_xy = asin E_xy.
+- `am_quantum_arcsine`: A correlator table lies in that arcsine region if and only if it is the correlator table of a valid quantum strategy with real amplitudes on two 8-level systems.
+- `am_pythagorean_boundary`: The table (3/5, 4/5, 4/5, -3/5) lies in the arcsine region, and asin (3/5) + asin (4/5) + asin (4/5) - asin (-3/5) = pi, so it is on the boundary.
+- `am_tsirelson_boundary`: The table (1/sqrt 2, 1/sqrt 2, 1/sqrt 2, -1/sqrt 2) lies in the arcsine region with arcsine sum exactly pi, so it is on the boundary.
 - `re_gibbs`: For two probability vectors on a finite list of states, where the second is positive wherever the first is, the relative entropy of the first against the second is nonnegative.
 - `re_pi_stationary`: On a finite chain whose rows sum to one and whose positive distribution pi satisfies detailed balance, one step of the chain leaves pi unchanged at every state of the list.
 - `re_sigma_is_drop`: On such a chain, for any nonnegative vector p, the entropy produced in one step (the relative entropy of the forward flow p x P x y against the backward flow (pP) y P y x) equals the relative entropy of p to pi minus that of pP to pi.

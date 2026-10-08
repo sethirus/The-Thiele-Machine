@@ -14099,7 +14099,7 @@ implies S squared is at most eight; both are proved. The
 correlators of a PSD table like that are the correlators of some quantum strategy. That's
 Tsirelson's representation theorem, and it's proved here: the strategy is built on two systems of eight
 levels each (\code{tr\_representation}, TsirelsonRepresentation.v). The exact edge of the quantum set
-for this game is the cited result of Lawrence Landau, whose 1969 Berkeley thesis was on the quantum theory of local observables, and Lluís Masanes, then at the University of Barcelona (next part), and I haven't proved it here. Failing says nothing about whether the play was quantum: the check is complete for
+for this game was found by Lawrence Landau, whose 1969 Berkeley thesis was on the quantum theory of local observables, and Lluís Masanes, then at the University of Barcelona (next part), and that's proved here too (\code{am\_arcsine}, ArcsineBoundary.v). Failing says nothing about whether the play was quantum: the check is complete for
 the pinned matrix, the quantum set is wider than that, and quantum behaviour can fail it. Every one
 of the sixteen plans fails it (\code{nec\_e\_check\_refuses\_all\_plans}), and I'll show you why. What it guarantees is in one paragraph, once
 the check is on the host machine.
@@ -14161,7 +14161,9 @@ to zero. Pinning is a stronger demand than the rung makes, so passing puts you i
 rung, and a quantum point can still fail. My fence cuts across the field. Lawrence Landau in 1988
 and Lluís Masanes in 2003 came at the edge itself, for this two-questions-each case only. I'd have
 drawn a flat wall at 2.83. The exact boundary they found is a curved surface (the arc-sine form)
-touching 2.83 at one point. I cite it and haven't proved it.
+touching 2.83 at one point. It's checked here: a table has a PSD completion exactly when its
+entries lie between minus one and one and their arcsines pass four inequalities
+(\code{am\_arcsine}), so those are exactly the quantum tables (\code{am\_quantum\_arcsine}, ArcsineBoundary.v).
 
 So the obvious next question: if every rung is tighter than the last, does some rung finally land
 exactly on the quantum set and stop? My first guess was yes, at least here. A 2026 paper by Anubhav
@@ -14538,8 +14540,8 @@ branches: a strict Sylvester check with the completion supplied, and a rational
 factorisation certificate of the completed matrix, checked in integers. What's proved is
 that a pass puts the correlators inside the set and that no choice of inputs gets the PR box
 through (\code{elliptope\_check\_full\_sound}, \code{elliptope\_full\_gate\_never\_accepts\_pr\_box}), and, by
-computation, that some named points pass, the all-ones plan and a point that the cited arc-sine
-boundary puts exactly on the quantum edge among them (\code{gate\_accepts\_all\_ones},
+computation, that some named points pass, the all-ones plan and a point that the arc-sine
+boundary puts exactly on the quantum edge (\code{am\_pythagorean\_boundary}) among them (\code{gate\_accepts\_all\_ones},
 \code{gate\_accepts\_pythagorean\_boundary}).
 The file's header also argues that every point with a rational PSD completion has such a
 certificate; that is a comment, and no theorem states it. It's a decider with a soundness proof, as
@@ -14547,8 +14549,13 @@ mathematics; none of the small machine's properties is the elliptope check.
 
 \subsection{What isn't proved}
 
-The arc-sine curve. That's the cited external result, and the files say so in their scope notes.
-That every point of the elliptope comes from a quantum strategy is proved: the completion is
+Infinite dimension. Every quantum strategy in a Coq statement here acts on finitely many levels;
+for strategies on infinite-dimensional spaces, Tsirelson's bound and the arcsine edge stay cited.
+In finite dimension the picture is closed. The arc-sine curve is proved: a table has a PSD completion exactly when its
+entries lie in $[-1, 1]$ and the four arcsine sums are at most $\pi$ in absolute value
+(\code{am\_arcsine}, ArcsineBoundary.v). One way is the triangle inequality for angles on the
+sphere (\code{am\_sphere\_triangle}) applied around the cycle of four vectors; the other builds the
+four vectors from the angles. That every point of the elliptope comes from a quantum strategy is proved: the completion is
 a Gram matrix (\code{tr\_gram}), and four real symmetric eight-by-eight matrices that square to the
 identity and anticommute in pairs (\code{tr\_gamma\_clifford}) turn its vectors into observables
 whose correlators in the maximally entangled state are the vectors' inner products
@@ -15807,7 +15814,7 @@ A tally above two isn't one plan replayed & proved & Appendix~\ref{sec:chsh-deri
 A tally above two proves nonlocality; a pass proves the data quantum & not claimed & Section~\ref{sec:chsh} \\
 A finite local model meets the bound & proved; Fine's theorem in correlation form is proved as an iff (\code{nec\_e\_fine\_iff}), and the converse of \code{fine\_theorem} as stated is false (\code{nec\_e\_fine\_converse\_false}, NecEFine.v) & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-fine} \\
 The elliptope gate is sound; the PR box fails it & proved & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-gate-sound} \\
-The arc-sine boundary & not claimed (cited; unproved here) & Appendix~\ref{sec:chsh-derivation} \\
+The arc-sine boundary: a table has a PSD completion, and so is quantum, exactly when its arcsines pass the four inequalities {\footnotesize(if and only if)} & proved & Appendix~\ref{sec:chsh-derivation} \\
 Every PSD completion comes from a quantum strategy, and the completion set is exactly the set of quantum correlator tables in finite dimension, real or complex & proved & Appendix~\ref{sec:chsh-derivation} \\
 A two-qubit strategy reaches $2\sqrt{2}$; every strategy in finite dimension, with real or complex amplitudes, has $S^2 \le 8$ and a PSD level-1 moment matrix; every deterministic plan is such a strategy & proved & Appendix~\ref{sec:chsh-derivation} \\
 The integer route to the bound is new mathematics & not claimed; the route is NPA's & Section~\ref{sec:chsh} \\
@@ -16926,7 +16933,7 @@ and Acín's (2007, 2008); that every point with a PSD completion is the correlat
 and Mhalla, 2023) and in Lean's mathlib. Rational sum-of-squares certificates are Helfried Peyrl and Pablo A. Parrilo's
 (2008), from a paper on computing sum-of-squares decompositions with rational coefficients. Mine: a decision procedure in integer arithmetic on outcome counts; a checked
 chain from ``the counts pass'' to ``the pinned level-one matrix is positive semidefinite'' to
-``$S^2 \le 8$''; a checked proof of the representation in finite dimension, real or complex, on two eight-level systems; proofs of the contraction equivalence by explicit test vectors; and the
+``$S^2 \le 8$''; checked proofs of the representation in finite dimension, real or complex, on two eight-level systems, and of the arcsine characterization; proofs of the contraction equivalence by explicit test vectors; and the
 level-$1+AB$ cascade and an elliptope gate in whole numbers, with a soundness proof
 (Section~\ref{sec:chsh} and its derivation appendix). Kind: mechanization, with a new proof of a
 known equivalence in one slice. I found no prior formalization taking counts as input, and
@@ -17380,6 +17387,7 @@ Remark \ref{rem:chsh-equality}: Where equality can happen & \S\ref{sec:chsh-deri
 In the text: quantum strategies with real amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, a two-qubit one reaches $2\sqrt 2$, and deterministic plans are strategies & \S\ref{sec:chsh-derivation} & \code{qs\_tsirelson} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_deterministic\_plan} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_corr\_dot} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_npa\_psd} {\footnotesize(\code{QuantumStrategies.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 In the text: quantum strategies with complex amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, and the two-qubit one reaches $2\sqrt 2$ & \S\ref{sec:chsh-derivation} & \code{qc\_tsirelson} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_corr\_dot} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_npa\_psd} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_gram\_psd} {\footnotesize(\code{QuantumStrategiesComplex.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 In the text: Tsirelson's representation: the completion set is exactly the set of correlator tables of quantum strategies in finite dimension, real or complex {\footnotesize(if and only if)}; every PSD matrix is a Gram matrix; four anticommuting real symmetric involutions on eight levels & \S\ref{sec:chsh-derivation} & \code{tr\_representation} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_representation\_complex} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_elliptope\_quantum} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_quantum\_elliptope} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_complex\_elliptope} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_gram} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_gamma\_clifford} {\footnotesize(\code{TsirelsonRepresentation.v})}\newline \code{tr\_corr\_inner} {\footnotesize(\code{TsirelsonRepresentation.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
+In the text: the arcsine characterization of Landau and Masanes: a table has a PSD completion, and is a quantum table, exactly when its entries lie in $[-1,1]$ and its arcsines pass four inequalities {\footnotesize(if and only if)}; the angle on the sphere obeys the triangle inequality; two boundary points & \S\ref{sec:chsh-derivation} & \code{am\_arcsine} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_quantum\_arcsine} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_necessary} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_sufficient} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_sphere\_triangle} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_pythagorean\_boundary} {\footnotesize(\code{ArcsineBoundary.v})}\newline \code{am\_tsirelson\_boundary} {\footnotesize(\code{ArcsineBoundary.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
 Lemma \ref{lem:chsh-rational}: A rational constant above the bound, \code{rational\_tsirelson\_bound} & \S\ref{sec:chsh-derivation} & \code{rational\_tsirelson\_bound} {\footnotesize(\code{TsirelsonFromAlgebra.v})} & FE, RD \\
 Definition \ref{def:chsh-five}: The pinned level-1 matrix & \S\ref{sec:chsh-derivation} & \code{zero\_marginal\_npa} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{NPAMomentMatrix} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{npa\_to\_matrix} {\footnotesize(\code{NPAMomentMatrix.v})} & def\newline def\newline def \\
 Lemma \ref{lem:chsh-schur}: Schur complement, the standard form {\footnotesize(if and only if)} & \S\ref{sec:chsh-derivation} & \code{schur\_identity} {\footnotesize(\code{SchurComplement.v})}\newline \code{schur\_complement\_psd} {\footnotesize(\code{SchurComplement.v})} & FE, RD\newline FE, RD \\
@@ -19176,17 +19184,18 @@ machine is built from it.
 \subsection{What is not proved}
 \label{sub:chsh-not-proved}
 
-The following are cited results and open questions. Where part of one is now proved, the
+The following are cited results and open questions. Where part of one is proved, the
 paragraph names the theorem and the part that stays cited.
 
 The arcsine boundary. For two settings and two outcomes per side, Tsirelson, Landau (1988) and
 Masanes (2003) give theorems characterizing the correlators reachable by quantum measurements:
 $|\arcsin E_{00} + \arcsin E_{01} + \arcsin E_{10} - \arcsin E_{11}| \le \pi$ and its sign
-variants. None of those proofs is redone here.
-No arcsine appears in any Coq statement; the only mentions are comments in
-ElliptopeGate.v. The claim that $(3/5, 4/5, 4/5, -3/5)$ lies on that boundary is such a
-comment: $\arcsin \tfrac35 + \arcsin \tfrac45 = \tfrac{\pi}{2}$ by the 3-4-5 triangle, so the
-sum is $\pi$. It is correct arithmetic about a cited characterization.
+variants. The characterization is checked in ArcsineBoundary.v as an if and only if with the
+completion set (\code{am\_arcsine}) and, through Tsirelson's representation, with the quantum
+set (\code{am\_quantum\_arcsine}). The point $(3/5, 4/5, 4/5, -3/5)$ is on the boundary:
+$\arcsin \tfrac35 + \arcsin \tfrac45 = \tfrac{\pi}{2}$ by the 3-4-5 triangle, so the sum is $\pi$
+(\code{am\_pythagorean\_boundary}); Tsirelson's point is on it too (\code{am\_tsirelson\_boundary}).
+What stays outside every Coq statement is infinite dimension.
 
 Equality with the quantum set. That the completion set of item G is exactly the set of
 quantum correlators is Tsirelson's representation theorem, and it is proved in finite dimension:
@@ -19233,8 +19242,10 @@ the $4 \times 4$ Gram matrix of those vectors. Navascués,
 Pironio and Acín (2007, arXiv quant-ph/0607119; 2008, arXiv 0803.4290) built the hierarchy of
 moment-matrix tests; their 2008 paper applies a Schur complement to the level-1 matrix of this
 scenario, recovers the arcsine condition, and discusses the 1+AB level. I went back to each of
-those papers for these points, and that is what I found in them; the proofs are theirs, and none
-is redone here. Formal proofs of Tsirelson's
+those papers for these points, and that is what I found in them. The results are theirs. Two of
+them are proved again here in Coq, in finite dimension: Tsirelson's representation
+(TsirelsonRepresentation.v) and the arcsine characterization (ArcsineBoundary.v); the rest of
+their proofs are not redone. Formal proofs of Tsirelson's
 bound already exist, by Echenim and Mhalla in Isabelle/HOL (arXiv 2306.12535) and in Lean's
 mathlib (tsirelson\_\allowbreak{}inequality in Mathlib.Algebra.Star.CHSH), and exact rational
 sum-of-squares certificates go back at least to Peyrl and Parrilo (2008). So the
