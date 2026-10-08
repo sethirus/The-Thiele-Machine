@@ -11943,8 +11943,13 @@ seven: one passing CHECK and six COMMITs of the same claim cost seven and raise 
 every passing CHECK takes one of the table's sixteen entries for good, every COMMIT rewrites the
 channel, and a failing CHECK traps. So the host machine gets a seventh instruction kind, PAY: it
 costs one, goes to the next line, and changes nothing else; it never raises the flag, takes no
-table entry and leaves the channel alone. That's why the compiler uses it. I haven't proved that
-no host without PAY could do the same job some other way, and I don't claim it.
+table entry and leaves the channel alone. That's why the compiler uses it. How far the small
+machine gets without it is proved: a run that never traps and ends with the flag down bills at
+most 32, plus one for each COMMIT of a claim the run had already committed
+(\code{pf\_bound\_start}, PayFree.v). A claim names its counter's version, so such a repeat
+needs that counter unwritten since the earlier COMMIT, and a guest whose every move writes its
+counters runs out of ways to pay after 32 (\code{pf\_no\_repeat\_bound}). Whether some other
+host without PAY could do the same job is a question I haven't settled, and I don't claim it.
 
 The definition of Thiele-complete sorts every paid move into CHECK, COMMIT or CERTIFY, so PAY
 has to be filed under one of them, and it's filed as a CHECK of the empty claim, a claim that
@@ -17348,6 +17353,7 @@ Theorem \ref{thm:u34-presented-surcharge}: Exact, within two, and no better & \S
 In the text: a demonstration machine on the priced host & \S\ref{sec:smallest} & \code{pu\_demo\_computably\_presented}, \code{pu\_demo\_never\_halts}, \code{pu\_demo\_flag\_rises}, \code{pu\_demo\_exact}, \code{pu\_demo\_earned} {\footnotesize(\code{PresentedDemo.v})} & none \\
 Theorem \ref{thm:u19-tm-lift}: A counter beside a Turing machine changes nothing & \S\ref{sec:smallest} & \code{thiele\_simulates\_turing\_gen} {\footnotesize(\code{ProperSubsumption.v})}\newline \code{thiele\_simulates\_turing} {\footnotesize(\code{ProperSubsumption.v})} & none\newline none \\
 In the text: the shared small machine brings any number of processors to wait-free agreement; with everything growing, no protocol brings two to agreement & \S\ref{sec:smallest} & \code{sc\_agreement} {\footnotesize(\code{SmallConsensus.v})}\newline \code{sc\_validity} {\footnotesize(\code{SmallConsensus.v})}\newline \code{sc\_wait\_free} {\footnotesize(\code{SmallConsensus.v})}\newline \code{mc\_no\_consensus} {\footnotesize(\code{MonotoneConsensus.v})}\newline \code{mc\_mono\_interfere} {\footnotesize(\code{MonotoneConsensus.v})}\newline \code{mc\_mono\_no\_consensus} {\footnotesize(\code{MonotoneConsensus.v})} & none\newline none\newline none\newline none\newline FE\newline FE \\
+In the text: without PAY, a run that never traps and ends with the flag down bills at most 32 plus its repeated COMMITs & \S\ref{sec:smallest} & \code{pf\_bound} {\footnotesize(\code{PayFree.v})}\newline \code{pf\_bound\_start} {\footnotesize(\code{PayFree.v})}\newline \code{pf\_no\_repeat\_bound} {\footnotesize(\code{PayFree.v})} & none\newline none\newline none \\
 Definition \ref{def:host-same}: Behaving the same, on the host & \S\ref{sec:small-diagonal} & \code{sm\_hequiv} {\footnotesize(\code{SmHostBlocks.v})}\newline \code{sm\_hext} {\footnotesize(\code{SmHostRice.v})} & def\newline def \\
 Theorem \ref{thm:host-rice}: Rice's theorem on the host machine & \S\ref{sec:small-diagonal} & \code{sm\_host\_rice} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_rice\_prog\_halts} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_rice\_prog\_diverges} {\footnotesize(\code{SmHostRice.v})}\newline \code{sm\_host\_rice\_fun} {\footnotesize(\code{SmKleene.v})} & none\newline none\newline none\newline none \\
 Theorem \ref{thm:guest-rice}: Rice's theorem for the small machine, from the clean start & \S\ref{sec:small-diagonal} & \code{sm\_guest\_rice} {\footnotesize(\code{SmGuestRice.v})}\newline \code{sm\_guest\_halting\_clean\_undecidable} {\footnotesize(\code{SmGuestRice.v})} & none\newline none \\
