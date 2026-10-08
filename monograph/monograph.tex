@@ -1950,7 +1950,8 @@ separation of any other kind. Not a theory of everything. Not a claim that compu
 physics, or that physics is computation. Not a physics result: the game result (the
 integer check and Tsirelson's bound from the short version) is pure mathematics, and
 Landauer's principle enters only as a premise with
-its name on it. Nothing here derives it. Not a quantum computer or a claim about quantum behaviour. Not a verified chip or a
+its name on it. Nothing here derives it. Not a quantum computer. Its theorems about quantum strategies are mathematics about vectors and
+matrices, with no claim about a physical device. Not a verified chip or a
 verified device of any kind; a checked model and a checked machine, on paper and in Coq. Not a
 claim to priority on the ideas it builds from. What it does add, with the closest earlier work
 beside each item and the difference spelled out, is sorted in Appendix~\ref{sec:whats-mine}:
@@ -14251,7 +14252,7 @@ The pinned matrix is stricter than the quantum question it is usually read again
 $M(E)$ gives the correlators a PSD completion, since the zeros are one choice of the two free
 entries (\code{zero\_marginal\_implies\_elliptope}, ElliptopeCompletion.v). The converse fails.
 The all-ones plan has a PSD completion (\code{deterministic\_strategy\_elliptope}), and every
-deterministic plan is a quantum strategy, a standard fact I haven't proved here; yet its
+deterministic plan is a quantum strategy (\code{qs\_deterministic\_plan}, QuantumStrategies.v); yet its
 minor on rows $A_0, B_0, B_1$ is $1 - 1 - 1 = -1$, so $M(E)$ is not PSD there, and a tally of
 one matching round per pair gives $A = 1 - 1 - 1 = -1$ in the integer check, so the check
 fails. The second failure is a named theorem on the machine: the tally of one matching round
@@ -14523,9 +14524,12 @@ mathematics; none of the small machine's properties is the elliptope check.
 
 \subsection{What isn't proved}
 
-The arc-sine curve. That any of these sets equals what quantum mechanics can reach. That
-any state or measurement achieves 2.83. Those are the cited external results, and the files
-say so in their scope notes. Also: the finite-mixture theorem (\code{fine\_theorem} in the source)
+The arc-sine curve. That every point of these sets comes from a quantum strategy. Those are the
+cited external results, and the files say so in their scope notes. The other direction and the
+reaching are proved, for strategies with real amplitudes in finite dimension: every such strategy
+has $S^2 \le 8$ (\code{qs\_tsirelson}), its level-1 moment matrix, marginals included, passes
+the same PSD test (\code{qs\_npa\_psd}), and a two-qubit strategy reaches $2\sqrt 2$
+(\code{qs\_tsirelson\_reached}, all in QuantumStrategies.v). Also: the finite-mixture theorem (\code{fine\_theorem} in the source)
 proves only one direction, that a finite local model satisfies the bound, and its converse as
 stated is false: a table with $S = 0$ that no local model produces (\code{nec\_e\_fine\_converse\_false}).
 Fine's own theorem, in the form that speaks of correlations, is proved separately as an
@@ -15774,7 +15778,8 @@ A tally above two isn't one plan replayed & proved & Appendix~\ref{sec:chsh-deri
 A tally above two proves nonlocality; a pass proves the data quantum & not claimed & Section~\ref{sec:chsh} \\
 A finite local model meets the bound & proved; Fine's theorem in correlation form is proved as an iff (\code{nec\_e\_fine\_iff}), and the converse of \code{fine\_theorem} as stated is false (\code{nec\_e\_fine\_converse\_false}, NecEFine.v) & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-fine} \\
 The elliptope gate is sound; the PR box fails it & proved & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-gate-sound} \\
-The arc-sine boundary; the quantum set; reaching $2\sqrt{2}$ & not claimed (cited; unproved here) & Appendix~\ref{sec:chsh-derivation} \\
+The arc-sine boundary; that every PSD completion comes from a quantum strategy & not claimed (cited; unproved here) & Appendix~\ref{sec:chsh-derivation} \\
+A two-qubit strategy reaches $2\sqrt{2}$; every strategy with real amplitudes in finite dimension has $S^2 \le 8$ and a PSD level-1 moment matrix; every deterministic plan is such a strategy & proved & Appendix~\ref{sec:chsh-derivation} \\
 The integer route to the bound is new mathematics & not claimed; the route is NPA's & Section~\ref{sec:chsh} \\
 The integer check passes exactly when every pair was sampled and the pinned matrix is PSD & proved & Section~\ref{sec:chsh}, Theorem~\ref{thm:chsh-exact} \\
 A flag raised on the host machine from a clean start stands on a passing CHECK of the packed counts, a COMMIT and a CERTIFY; the chain run from a fresh start certifies for 3 exactly when the check passes & proved & Section~\ref{sec:chsh}, Theorem~\ref{thm:chsh-earned} \\
@@ -17340,6 +17345,7 @@ Lemma \ref{lem:chsh-sos}: The six-square identity, \code{chsh\_gap\_is\_sum\_of\
 Theorem \ref{thm:chsh-row-tsirelson}: Row-bound form of Tsirelson's bound & \S\ref{sec:chsh-derivation} & \code{tsirelson\_squared} {\footnotesize(\code{TsirelsonFromAlgebra.v})}\newline \code{tsirelson\_from\_row\_bounds} {\footnotesize(\code{TsirelsonGeneral.v})}\newline \code{tsirelson\_bound\_abs} {\footnotesize(\code{TsirelsonGeneral.v})} & FE, RD\newline FE, RD\newline FE, RD \\
 Theorem \ref{thm:chsh-tight}: Tightness & \S\ref{sec:chsh-derivation} & \code{tsirelson\_tight} {\footnotesize(\code{TsirelsonFromAlgebra.v})}\newline \code{tsirelson\_achievable} {\footnotesize(\code{TsirelsonGeneral.v})} & FE, RD\newline FE, RD \\
 Remark \ref{rem:chsh-equality}: Where equality can happen & \S\ref{sec:chsh-derivation} & \code{nec\_e\_check\_strict} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_never\_tsirelson} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_sharp} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_no\_sqrt8} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_equality\_forces\_point} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_equality\_two\_points} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_no\_rational\_half\_square} {\footnotesize(\code{NecEChshEquality.v})} & FE, RD\newline FE, RD\newline FE, RD\newline none\newline FE, RD\newline FE, RD\newline FE, RD \\
+In the text: quantum strategies with real amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, a two-qubit one reaches $2\sqrt 2$, and deterministic plans are strategies & \S\ref{sec:chsh-derivation} & \code{qs\_tsirelson} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_deterministic\_plan} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_corr\_dot} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_npa\_psd} {\footnotesize(\code{QuantumStrategies.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 Lemma \ref{lem:chsh-rational}: A rational constant above the bound, \code{rational\_tsirelson\_bound} & \S\ref{sec:chsh-derivation} & \code{rational\_tsirelson\_bound} {\footnotesize(\code{TsirelsonFromAlgebra.v})} & FE, RD \\
 Definition \ref{def:chsh-five}: The pinned level-1 matrix & \S\ref{sec:chsh-derivation} & \code{zero\_marginal\_npa} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{NPAMomentMatrix} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{npa\_to\_matrix} {\footnotesize(\code{NPAMomentMatrix.v})} & def\newline def\newline def \\
 Lemma \ref{lem:chsh-schur}: Schur complement, the standard form & \S\ref{sec:chsh-derivation} & argued in the text; no Coq theorem &  \\
@@ -18587,7 +18593,11 @@ correlators to admit some PSD completion (item G, \code{zero\_marginal\_implies\
 is not necessary: the all-ones plan has a completion but fails here. So a check built on
 $M(E)$ is sound for the completion set and not complete for it, and it rejects some honest
 classical tallies. That correlators with a PSD completion are exactly those reachable by
-quantum measurements is Tsirelson's theorem, cited and not proved here (item H).
+quantum measurements is Tsirelson's theorem, and half of it is proved here for real amplitudes in
+finite dimension: a strategy's correlators are inner products of unit vectors
+(\code{qs\_corr\_dot}, \code{qs\_uvec\_unit} and \code{qs\_vvec\_unit}) and its level-1 moment
+matrix is PSD (\code{qs\_npa\_psd}). The other half, that every PSD completion comes from a
+quantum strategy, is cited (item H).
 \end{remark}
 
 \subsection{The integer check}
@@ -19140,11 +19150,17 @@ sum is $\pi$. It is correct arithmetic about a cited characterization.
 
 Equality with the quantum set. That the completion set of item G is exactly the set of
 quantum correlators is Tsirelson's representation theorem, cited in the header of
-ElliptopeCompletion.v and not proved. That PSD of any of these matrices is necessary for
-quantum behaviour is the NPA reading, also cited.
+ElliptopeCompletion.v and not proved. That PSD of the level-1 moment matrix is necessary for
+quantum behaviour is proved for strategies with real amplitudes in finite dimension
+(\code{qs\_npa\_psd}, QuantumStrategies.v); for complex amplitudes it remains the cited NPA
+reading.
 
-Achievability. No state and no pair of measurements is constructed. Theorem~\ref{thm:chsh-tight} is a
-point of $\mathbb{R}^4$ and nothing more. No experiment stands behind it.
+Achievability. Theorem~\ref{thm:chsh-tight} is a point of $\mathbb{R}^4$. A state and
+measurements that reach it are built in QuantumStrategies.v: the two-qubit state
+$(|00\rangle + |11\rangle)/\sqrt 2$ with $A_0 = Z$, $A_1 = X$, $B_0 = (Z + X)/\sqrt 2$ and
+$B_1 = (Z - X)/\sqrt 2$ has correlators $1/\sqrt 2$, $1/\sqrt 2$, $1/\sqrt 2$, $-1/\sqrt 2$ and
+$S = 2\sqrt 2$ (\code{qs\_tsirelson\_reached}), and every strategy with real amplitudes in finite
+dimension has $S^2 \le 8$ (\code{qs\_tsirelson}). No experiment stands behind either.
 
 Completeness of the checks. The 1+AB cascade and the elliptope gate are proved sound, and neither
 has a proved converse. The level-1 integer check is the exception: on the small machine the same

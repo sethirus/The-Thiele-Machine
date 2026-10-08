@@ -153,6 +153,7 @@ WAIVED_FILES = [
     "coq/kernel/quantum/MinorConstraints.v",
     "coq/kernel/quantum/NPAMomentMatrix.v",
     "coq/kernel/quantum/QuantumPartitionPSD_1AB.v",
+    "coq/kernel/quantum/QuantumStrategies.v",
     "coq/kernel/quantum/SmallChshCheck.v",
     "coq/kernel/quantum/SmallChshMachine.v",
     "coq/kernel/quantum/TsirelsonFromAlgebra.v",

@@ -1151,3 +1151,11 @@ An explicitly qualified citation keeps its own module identity.
 - `nec_f_board_floor_flat`: For any property of states that holds of YES, some run from NO ends in a state with that property, reading yes, at total cost exactly one.
 - `nec_f_board_no_wait`: On the board, the run consisting of VOUCH alone takes NO to YES at cost one with no CHECK in it, and the run CHECK then VOUCH takes NO to YES at cost one.
 - `nec_f_history_infinite`: No duplicate-free list of lists of Booleans contains every list of Booleans, so the history machine's state space has no finite enumeration.
+- `qs_corr_dot`: For a finite-dimensional real joint space, a state psi and observables A and B, the correlator <psi, (A (x) B) psi> equals the inner product of the vectors (A (x) 1) psi and (1 (x) B) psi.
+- `qs_uvec_unit`: If A is a real symmetric matrix that squares to the identity and psi is a unit vector, then (A (x) 1) psi is a unit vector.
+- `qs_vvec_unit`: If B is a real symmetric matrix that squares to the identity and psi is a unit vector, then (1 (x) B) psi is a unit vector.
+- `qs_tsirelson`: Every quantum strategy with real amplitudes in finite dimension (a unit state and, on each side, two real symmetric observables that square to the identity) has S^2 <= 8, where S = E00 + E01 + E10 - E11.
+- `qs_tsirelson_reached`: On two qubits, the state (|00> + |11>)/sqrt 2 with A0 = Z, A1 = X, B0 = (Z + X)/sqrt 2 and B1 = (Z - X)/sqrt 2 is a valid strategy whose correlators are 1/sqrt 2, 1/sqrt 2, 1/sqrt 2 and -1/sqrt 2, and its S is 2 sqrt 2.
+- `qs_deterministic_plan`: For reals a0, a1, b0, b1 whose squares are 1, the two-qubit product state |00> with observables a_x times the identity and b_y times the identity is a valid strategy whose correlators are a_x b_y.
+- `qs_npa_correlators`: The moment matrix built from a strategy has the strategy's four correlators in its correlator entries.
+- `qs_npa_psd`: For every valid quantum strategy with real amplitudes in finite dimension, its level-1 moment matrix (marginals, correlators and self-correlations, as in NPAMomentMatrix.v) is symmetric and positive semidefinite, that is, it passes npa_psd.
