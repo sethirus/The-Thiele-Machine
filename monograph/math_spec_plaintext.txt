@@ -14,117 +14,142 @@ statements, exact premises, and where each one lives. If you want the pictures, 
 starts with them. If you want to know exactly what is claimed, it’s here.
 The Thiele Machine is an abstract model of computation, and an argument made
 with it about what an account of computation should preserve.
-   It is a machine in the sense a Turing machine is one: a mathematical object, not a device.
-The model is the abstract CertificationSystem record and the Substrate interface. The small
-machine of minimal/EarnedCore.v, a two-counter machine whose commitments are earned, is
-one instance; the universal machine U built on it is another. They are witnesses, not the model.
-   Certification is one concrete witness of a broader investigation of structural state, observation,
-and cost. Selected windows lose distinctions that the richer state can express; cost laws
-constrain specified events under explicit hypotheses. A conventional encoding can preserve
-those distinctions. A window that discards them cannot recover them in general. The stronger
-proposal that these distinctions belong in a necessary foundation of computation is a conjecture.
-The status of each result is stated below.
+    It is a machine in the sense a Turing machine is one: a mathematical object. No device is
+meant. The model is the abstract CertificationSystem record and the Substrate interface.
+The small machine of minimal/EarnedCore.v, a two-counter machine whose commitments are
+earned, is one instance; the universal machine U built on it is another. They are witnesses of
+the model, which is the record and the interface.
+    Certification is one example of a wider question about structural state, observation and cost.
+A window, a function from states to what can be seen of them (Chapter 5), can lose distinctions
+that the full state keeps, such as the record and the ledger; the cost laws of Chapters 3 and 4
+constrain specified events under hypotheses each theorem names. A conventional encoding can
+preserve those distinctions. A window that discards them cannot recover them in general. The
+stronger proposal that these distinctions belong in a necessary foundation of computation is a
+conjecture. The status of each result is stated below.
 
 
 
 
-                                                 1
-                                           Abstract
+                                                1
+                                            Abstract
 
 This is a mathematical reference for the Thiele Machine: a model of computation in which
 a step that raises a certification record must pay into a ledger that only grows. It presents
 the abstract interfaces, the main theorems, and the definitions of the small machine from the
 machine-checked Coq corpus. The Coq source is the complete definition; this document states
 each result with its premises and names the declaration that carries it.
-    Coq establishes that conclusions follow from premises. It does not establish that premises
+     Coq establishes that conclusions follow from premises. It does not establish that premises
 model physical reality. Every result is tagged as one of three types: (S) structural theorems
 about the model or a stated machine, (C) conditional results that hold under a named premise
 no machine fact discharges, and (R) refutations, where a theorem states the negation of a
-proposed claim and a named construction supplies the counterexample.
-    The core claims are structural (S): No Free Insight for every certification system; on finite
+proposed claim and a named construction supplies the counterexample. One proposal, the
+pointer criterion of Chapter 13, has no proof; it carries a fourth tag, conjecture.
+     The core claims are structural (S): No Free Insight for every certification system; on finite
 machines, the toll derived from merge pricing for permanent certificates; the window and pricing
 results; the small machine’s earned provenance, checker soundness and minimum price; Thiele
-completeness of the small machine and the failure of every clock-style machine; the window
-theorem for every Thiele-complete machine; the universal machine U; the record axis over any
-base; the recursion theorem and Rice’s theorem for L; the classical CHSH bound; the algebraic
-Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with
-positive semidefiniteness of one fixed 5 × 5 NPA matrix. Results stated over Landauer heat are
-conditional (C) on the named premise landauer_heat.
+completeness of the small machine; the window theorem for every Thiele-complete machine; the
+lifting of every universal base to a Thiele-complete machine and its converse; the composition of
+Thiele-complete machines; the universal machine U and the priced host’s program UP ; a verified
+compiler onto these machines; the record axis over any base and the toll over any order of records;
+the recursion theorem and Rice’s theorem (the logician Henry Rice proved it in his 1951 doctoral
+thesis and published it in 1953: no program decides a property of what programs do, unless
+it holds of every program or of none) for L, and Rice’s theorem for the two-counter machine
+itself; the classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice,
+the equivalence of column contractivity with positive semidefiniteness of one fixed 5 × 5 NPA
+matrix. The failure of every clock-style machine, the limits of lifting and of composition, and the
+necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer
+heat are conditional (C) on the named premise landauer_heat.
 Contents
 
-1 Introduction                                                                                      2
-  1.1 Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     2
+1 Introduction                                                                                       3
+  1.1 Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      3
 
-2 Notation and Conventions                                                                          3
+2 Notation and Conventions                                                                           4
 
-3 Certification Systems and No Free Insight                                                         4
-  3.1 A2 among cost frameworks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          4
-  3.2 Several floors and one charge . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       5
+3 Certification Systems and No Free Insight                                                          5
+  3.1 A2 among cost frameworks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           5
+  3.2 Several floors and one charge . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
 
-4 Finite Machines and the Price of Merging                                                         6
-  4.1 Entropy and heat . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     7
-  4.2 An eight-state instance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    7
-  4.3 No intrinsic joule value . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+4 Finite Machines and the Price of Merging                                                          7
+  4.1 Entropy and heat . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      8
+  4.2 An eight-state instance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     8
+  4.3 No intrinsic joule value . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    8
 
-5 Windows, Pricing and Narrowing                                                                    8
+5 Windows, Pricing and Narrowing                                                                     9
 
-6 The Small Machine                                                                                 9
+6 The Small Machine                                                                                 10
 
-7 Thiele Completeness                                                                        11
-  7.1 The window theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+7 Thiele Completeness                                                                               12
+  7.1 The window theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        13
+  7.2 Every model of computation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        13
+  7.3 Composition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       14
+  7.4 Each clause is needed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       14
 
-8 The Universal Machine                                                                           13
-  8.1 The universal host . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-  8.2 U . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+8 The Universal Machine                                                                             16
+  8.1 The universal host . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      16
+  8.2 U . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   16
+  8.3 The priced host and UP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        17
+  8.4 A verified compiler and the extracted machines . . . . . . . . . . . . . . . . . . .          17
 
-9 Recursion and Undecidability                                                                     14
+9 Recursion and Undecidability                                                               18
+  9.1 The two-counter machine itself . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
 
-10 The Record Axis                                                                                15
-   10.1 Growing and probabilistic records . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
-   10.2 Bases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+10 The Record Axis                                                                                  20
+   10.1 Growing and probabilistic records . . . . . . . . . . . . . . . . . . . . . . . . . . .     20
+   10.2 Bases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   21
+   10.3 The record over any order . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     21
 
-11 CHSH and Tsirelson                                                                              17
+11 CHSH and Tsirelson                                                                       22
+   11.1 The check as a property of the multi-register machine . . . . . . . . . . . . . . . 22
 
-12 The Physical Boundary                                                                           18
-
-13 External Systems and the Pointer Conjecture                                                    19
-   13.1 The pointer criterion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
-
-A Proof File Index                                                                                 20
-
-B Epistemological Classification                                                                   21
+12 The Physical Boundary                                                                            24
 
 
 
+                                                  1
+13 External Systems and the Pointer Conjecture                                                    25
+   13.1 The pointer criterion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
 
-                                                 1
+A Proof File Index                                                                               27
+
+B Epistemological Classification                                                                 30
+
+
+
+
+                                                 2
 Chapter 1
 
 Introduction
 
-A computation is usually described by what it reads and writes. The Thiele Machine adds a
-record of what the computation established and a ledger of what establishing it cost, and a rule
-tying the two together: the step that raises the record pays. The chapters below state that rule,
+The Thiele Machine describes a computation by what it reads and writes, by a record of what
+the computation established, and by a ledger of what establishing it cost, with a rule tying
+the last two together: the step that raises the record pays. The chapters below state that rule,
 derive its consequences, show which machines carry it, and prove where a window that hides the
 record and the ledger loses information.
     Chapter 3 states the model and No Free Insight. Chapter 4 derives the toll on finite machines
-from the price of merging states. Chapter 5 states what a window can decide and price. Chapter 6
-defines the small machine. Chapter 7 defines Thiele completeness and states the window theorem.
-Chapter 8 states the universal host and the universal machine U. Chapter 9 states the recursion
-and undecidability results. Chapter 10 states the record axis over any base. Chapter 11 states
-the CHSH and Tsirelson mathematics. Chapter 12 states the physical boundary. Chapter 13
-states the models of external systems and the pointer conjecture.
+from the price of merging states and checks which premises are needed. Chapter 5 states what a
+window can decide and price. Chapter 6 defines the small machine. Chapter 7 defines Thiele
+completeness, states the window theorem, lifts any universal base of any model of computation
+to a Thiele-complete machine, composes Thiele-complete machines, and shows each clause is
+needed. Chapter 8 states the universal host, the universal machine U, the priced host’s program
+UP , a verified compiler onto these machines and the extraction to OCaml. Chapter 9 states the
+recursion and undecidability results, for L and for the two-counter machine itself. Chapter 10
+states the record axis over any base and the record over any order. Chapter 11 states the CHSH
+and Tsirelson mathematics. Chapter 12 states the physical boundary. Chapter 13 states the
+models of external systems and the pointer conjecture.
 
 
 1.1    Scope
 Earlier releases of this repository carried a 51-instruction virtual machine and a hardware
-development. They are preserved at tag v3.3.0 and are not part of this reference. Nothing here
+development. They are preserved at tag v3.3.0, with their later development through commit
+7157ce1b on the branch archive/big-build, and are not part of this reference. Nothing here
 depends on them.
 
 
 
 
-                                               2
+                                               3
 Chapter 2
 
 Notation and Conventions
@@ -145,7 +170,7 @@ Notation and Conventions
 
 
 
-                                               3
+                                               4
 Chapter 3
 
 Certification Systems and No Free
@@ -182,10 +207,10 @@ is then the potential method’s telescoping bound. Coq: a2_iff_nonnegative_amor
 nfi_by_potential. Under A2 the number of certification flips along a trace is at most its cost
 (flips_le_cost), and A2 together with the matching upper-bound condition is equivalent to
 exact pricing of a permanent certificate (a2_and_aara_iff_exact).
-  These are local correspondences, not embeddings of the cited cost-framework families (graded
-monads, amortized resource analysis, cost translations, linear logic).
+  These are local correspondences. The cost-framework families they touch (graded monads,
+amortized resource analysis, cost translations, linear logic) are not embedded here.
 
-                                                 4
+                                                 5
 3.2    Several floors and one charge
 Theorem 3.6 (Joint floors). (S) For a finite family of events, the least cost schedule meet-
 ing every unit floor charges one on a step where any event occurs and zero otherwise. Coq:
@@ -194,15 +219,15 @@ step are met by a single charge of 1 (independent_coordinates_joint_change_costs
 
    Independent state coordinates do not by themselves force additive cost.
 
-Theorem 3.7 (Exact pricing). (S) For trusted local-predicate pricing systems, a schedule
-that charges exactly one on the steps its predicate marks meets the certification floor and
-never overcharges exactly when its predicate marks precisely the certification flips. Coq:
+Theorem 3.7 (Exact pricing). (S) For trusted local-predicate pricing systems, a
+schedule meets the certification floor and never overcharges exactly when it charges
+on precisely the certification flips, one unit each, and nothing elsewhere.     Coq:
 exact_commitment_pricing_characterization.
 
 
 
 
-                                             5
+                                             6
 Chapter 4
 
 Finite Machines and the Price of
@@ -230,58 +255,68 @@ permanent_certification_trace_floor, and an honest erasure account gives the sam
 vocable certificate escapes (revocable_certificate_escapes), and an unpriced merge escapes
 (free_merge_escapes).
 
-Theorem 4.3 (The size of the bill). (S) With m certified states and k uncerti-
-fied states that one instruction switches on, the instruction collapses at least k states
-(permanent_flips_collapse_at_least). Priced one unit per halving of the number of dis-
-tinct states, it costs at least log2 ((m + k)/m). Coq: permanent_flips_log_bound.
+Theorem 4.3 (The size of the bill). (S) On a finite state space with a permanent certificate, with
+m certified states and k uncertified states that one instruction switches on, the instruction col-
+lapses at least k states (permanent_flips_collapse_at_least). Priced one unit per halving of
+the number of distinct states, its cost c satisfies m+k ≤ 2c m, so c ≥ log2 ((m+k)/m); in rounded-
+up logarithms, ⌈log2 (m + k)⌉ ≤ c + ⌈log2 m⌉. Coq: permanent_flips_compression_bound,
+permanent_flips_log_bound.
 
-Theorem 4.4 (Which flips are forced). (S) Over all schedules that price merges, an instruction
-is forced to have positive price if and only if it merges two states (forced_priced_iff_merges).
-An instruction that switches a reading on either merges or switches it off somewhere else
-(flip_merges_or_revokes). So every permanent-record write is forced, and the only free flips
-are revocable ones.
+    These bounds are tight, and A2 is equivalent to the floor. For every system, A2 holds exactly
+when every run from an uncertified state to a certified one costs at least 1 (nec_f_floor_iff_a2).
+For every m and c, a grid machine with m certified states and one move of cost c flips
+2c m − m states, so the bound m + k ≤ 2c m of the theorem above is met with equality
+(nec_f_squeeze_tight). Its rounded-logarithm form is strictly weaker: m = 3, k = 1 and cost
+0 meet the rounded form and fail m + k ≤ 2c m (nec_f_rounded_log_form_weaker).
+
+Theorem 4.4 (Which flips are forced). (S) When instructions have decidable equality, over all
+schedules that price merges, an instruction is forced to have positive price if and only if it merges
+two states (forced_priced_iff_merges). An instruction that switches a reading on either
+
+                                                 7
+merges or switches it off somewhere else (flip_merges_or_revokes). So every permanent-
+record write is forced, and the only free flips are revocable ones.
 
 Theorem 4.5 (Refutation). (R) “The forced events are exactly the permanent-record
 writes” is false: a three-state instruction flips, revokes, and merges at once. Coq:
 forced_price_without_permanent_record.
 
 
-
-
-                                               6
-4.1    Entropy and heat
+4.1     Entropy and heat
 Theorem 4.6. (S) After a permanent step, any distribution on the m certified states and the k
 flipping ones has Shannon entropy at most log2 m (permanent_step_entropy_ceiling).
 From the uniform distribution the step removes at least log2 ((m + k)/m) bits
 (permanent_flip_uniform_entropy_drop).            An injective step removes none
 (step_entropy_invariant_if_injective).
 
-Theorem 4.7 (Heat). (C) Given the named premise landauer_heat, which states Lan-
-dauer’s principle for a step and a distribution, the flip dissipates at least kB T ln((m +
-k)/m) from the uniform distribution (permanent_flip_heat_floor), and positive heat
-from any distribution that leaves every certified state and the flipping one possible
-(permanent_flip_full_support_heat_positive). For a state known in advance, the premise
-is equivalent to heat ≥ 0, so it forces no heat (known_state_flip_forces_no_heat).
+Theorem 4.7 (Heat). (C) Given the named premise landauer_heat, which states Landauer’s
+principle for a step and a distribution (Rolf Landauer argued at IBM in 1961 that a step that
+cannot be run backwards requires a minimal heat generation; the premise reads this as heat at
+least kB T ln 2 per bit of entropy the step removes), the flip dissipates, when kB T ≥ 0, at least
+kB T ln((m + k)/m) from the uniform distribution (permanent_flip_heat_floor), and, when
+kB T > 0, positive heat from any distribution that leaves every certified state and the flipping one
+possible (permanent_flip_full_support_heat_positive). For a state known in advance, the
+premise is equivalent to heat ≥ 0, so it forces no heat (known_state_flip_forces_no_heat).
 
 
-4.2    An eight-state instance
-Example 4.1. Four program slots and a certification flag make eight states. An ad-
-vance step is injective (fnext_injective); the certify step and every jump merge states
-(fcertify_merges). The cost rule prices exactly the merges, so A2 holds there as a theo-
-rem (fin_a2_from_merging_price).
+4.2     An eight-state instance
+Example 4.1. Four program slots and a certification flag make eight states. An advance step is
+injective (fnext_injective); the certify step and every jump merge states (fcertify_merges,
+fjump_merges). The cost rule prices exactly the merges, so A2 holds there as a theorem
+(fin_a2_from_merging_price).
 
 
-4.3    No intrinsic joule value
+4.3     No intrinsic joule value
 Theorem 4.8 (Refutation). (R) For every state type and natural-number ledger, two real-
 valued scales agree on the ledger and differ in energy; the ledger fixes no energy unit. Coq:
 mu_has_no_intrinsic_joule_value. Choosing the scale kB T ln 2 gives one ledger unit that
-energy by definition (calibrated_mu_landauer_energy); the scale is a premise, not a measure-
-ment.
+energy by definition (calibrated_mu_landauer_energy); the scale is a premise, and nothing
+here measures it.
 
 
 
 
-                                             7
+                                                 8
 Chapter 5
 
 Windows, Pricing and Narrowing
@@ -296,34 +331,34 @@ same window before and after, no price computed from the window meets the certif
 without charging the non-certifying step. Coq: shadow_cannot_price_exactly. A window that
 shows the reading prices certification exactly (window_showing_reading_prices_exactly).
 
-Theorem 5.3 (Retained history). (S) Keeping the previous state in a history makes
-every deterministic step injective without changing its observed transition. Coq:
-retained_history_step_injective.
+Theorem 5.3 (Retained history). (S) Keeping the previous state in a history makes ev-
+ery deterministic step injective, and the state part of the new pair is still the original step’s
+result, so the observed transition is unchanged. Coq: retained_history_step_injective,
+history_simulates_observed_step.
 
-Theorem 5.4 (Narrowing). (S) On a finite machine that prices merges, each halving of the
-machine’s own set of possible states along a run is paid for (run_narrowing_priced_log).
-What an observer knows can shrink for free: a measurement that copies a hidden bit
-into a blank display forgets nothing, and one admissible merge-priced cost assigns it zero
-(observer_narrowing_can_be_free); wiping the display is a merge and costs at least one
-(wipe_costs_at_least_one).
+Theorem 5.4 (Narrowing). (S) On a finite machine priced one unit per halving of the number
+of distinct states, each halving of the machine’s own set of possible states along a run is paid for
+(run_narrowing_priced_log). What an observer knows can shrink for free: a measurement
+that copies a hidden bit into a blank display forgets nothing, and one admissible merge-priced cost
+assigns it zero (observer_narrowing_can_be_free); wiping the display is a merge and costs at
+least one (wipe_costs_at_least_one).
 
 
 
 
-                                                8
+                                                 9
 Chapter 6
 
 The Small Machine
 
 The small machine is defined in minimal/EarnedCore.v on the Coq standard library alone.
-
 Definition 6.1 (State). A core has two counters a, b ∈ N, their versions va , vb ∈ N, a program
-counter pc ≥ 1, a table of facts, a commitment channel holding at most one fact, and a trap
-latch. A fact is a triple (property, counter, version); the properties are “is zero”, “is even” and
-“is at least n”, each with a checker eval and a meaning holds tied by eval_iff. A state is a
-core with a ledger µ ∈ N and a flag P ∈ B. The table holds at most 16 facts. The start state for
-(a, b) has no facts, an empty channel, the flag down and µ = 0.
-
+counter pc ∈ N whose lines are numbered from 1 (a value with no instruction, 0 included, is a
+stop), a table of facts, a commitment channel holding at most one fact, and a trap latch. A fact
+is a triple (property, counter, version); the properties are “is zero”, “is even” and “is at least
+n”, each with a checker eval and a meaning holds tied by eval_iff. A state is a core with a
+ledger µ ∈ N and a flag P ∈ B. The table holds at most 16 facts. The start state for (a, b) has
+no facts, an empty channel, the flag down and µ = 0.
 Definition 6.2 (Instructions and costs). INC c adds one to counter c. DEC c j subtracts one
 and jumps to j if c > 0, and otherwise falls through. HALT stops. CHECK p c evaluates p on
 counter c and, if it holds and the table has room, writes the fact (p, c, vc ). COMMIT p c succeeds
@@ -332,50 +367,61 @@ the channel names a fact. Every failure sets the trap latch, after which no inst
 anything but the ledger. Every write to a counter adds one to its version. CHECK, COMMIT
 and CERTIFY cost 1; the others cost 0. The ledger adds the cost of every executed instruction,
 and the flag rises exactly on a passing CERTIFY.
-
 Theorem 6.1 (Universality). (S) The INC/DEC fragment is the two-counter machine step
 for step, and a program halts on the small machine exactly when it halts as a two-counter
 program. Coq: simulation_run, halting_correspondence. Its halting problem is undecidable,
 by reduction from the vendored two-counter result (earned_core_halting_undecidable). The
-Turing-universality of two-counter machines is Minsky’s theorem, cited.
-
+Turing-universality of two-counter machines is a theorem of Marvin Minsky, who studied how bare
+a machine can be and still compute what a Turing machine computes (Annals of Mathematics
+74, 1961; Computation: Finite and Infinite Machines, Prentice-Hall, 1967). It is cited and not
+re-proved here; the undecidability of two-counter halting used above is checked in Coq in the
+vendored Coq Library of Undecidability Proofs of Yannick Forster, Dominique Larchey-Wendling
+and coauthors.
 Theorem 6.2 (The toll). (S) The ledger is the exact sum of executed costs
 (mu_conservation_trace); only CERTIFY raises the flag (only_certify_certifies); the
 flag never drops (cert_permanent); A2 holds (a2); and a run from an uncertified state to a
 certified one pays at least 1 (nfi_floor).
-
 Theorem 6.3 (Earned provenance). (S) From a clean start, every certified run contains a
 passing CHECK of some claim, then a passing COMMIT of the same claim with that counter
 untouched in between, then CERTIFY. Coq: earned_certification_provenance.
-
 Theorem 6.4 (Checker soundness and no forging). (S) On a run from a clean start, a fact
 whose counter has not been written since its check names a true claim about that counter
-(checker_soundness), and every fact in the table was written by a passing CHECK of exactly
+
+                                                  10
+(checker_soundness), and every fact in the table was written by a passing CHECK of exactly
 that claim (no_forging).
 
 Theorem 6.5 (Price). (S) From a clean start a certified run costs at least 3
 (certified_run_min_cost), and a three-instruction program pays exactly 3 (min_cost_tight).
 
-
-                                                  9
-Theorem 6.6 (A check that can fail). (S) The program CHECK “a is zero”, COMMIT,
+Theorem 6.6 (A check that can fail). (S) The program CHECK “a is zero”, COMMIT,
 CERTIFY certifies from a start with a = 0, paying exactly 3, and from any other start
-traps with the flag down, for every number of steps. Coq: earned_run_check_can_fail,
-earned_run_refused_forever.
+has trapped by its fourth step and never raises the flag, for any number of steps. Coq:
+earned_run_check_can_fail, earned_run_refused_forever.
 
 Theorem 6.7 (Links). (S) The small machine is a certification system with the trace floor
 (earned_core_floor), and as a record-carrying machine its record moves as a latch on one base
 event (earned_core_is_latch).
 
-Remark 6.1. minimal/EarnedGeneric.v states the same machine over any property
-language with an exact checker; sorted lists are one instance (sorted_cs_sound).
-minimal/EarnedMulti.v has a counter for every natural number and is the host machine
-of Chapter 8.
+Remark 6.1. minimal/EarnedGeneric.v states the same machine over any property language
+with an exact equality test on properties and an exact checker; sorted lists are one instance
+(sorted_cs_sound). minimal/EarnedMulti.v has a counter for every natural number and is
+the host machine of Chapter 8.
+
+Theorem 6.8 (Each part of the clean start is needed). (S) From any state of the small machine,
+every run that ends certified costs at least 3 exactly when the flag is down and either the trap latch
+is up or the channel is empty and every fact in the table is about an older version of its counter
+(nec_s_floor3_iff). Without the empty table some certifying run from a state with an empty
+channel and the flag down costs less than 3 (nec_s_min_cost_needs_empty_table); without the
+empty channel some certifying run costs less than 2 (nec_s_min_cost_needs_empty_channel);
+without the lowered flag some run costs less than 1 (nec_s_min_cost_needs_flag_down). From
+every clean start with the trap latch down, CHECK, COMMIT, CERTIFY certifies and adds
+exactly 3 to the ledger (nec_s_witness_from_every_clean_start).
 
 
 
 
-                                             10
+                                                 11
 Chapter 7
 
 Thiele Completeness
@@ -391,8 +437,8 @@ type of claims with a meaning on states, a checker, a notion of the thing a clai
 unchanged, a set of clean starts and a ledger, such that:
 (a) Universal base. Every two-counter instruction has a base move that acts on a window of the
     state exactly as the instruction acts on a two-counter configuration, every two-counter start
-    has a clean live state showing it, base moves never change the record, and the record once
-    up stays up.
+    has a clean live state showing it (its loaded start), base moves never change the record, and
+    the record once up stays up.
 
 (b) Earned record. A clean start has the record down. Every run from a clean start that ends
     with the record up contains a passing CHECK of some claim, then a COMMIT of the same
@@ -403,33 +449,37 @@ unchanged, a set of clean starts and a ledger, such that:
 (c) Exact toll. Base moves cost 0, each record move costs exactly 1, and the ledger grows by the
     cost of each move.
 
-(d) Non-vacuity. Some claim is true at some clean start and false at another, and the bare chain
-    CHECK, COMMIT, CERTIFY on it raises the record from a clean start exactly when the
-    claim holds there.
+(d) Non-vacuity. Some claim is true at some loaded start and false at another, and the bare
+    chain CHECK, COMMIT, CERTIFY on it raises the record from a loaded start exactly
+    when the claim holds there.
 Coq: thiele_complete in minimal/ThieleComplete.v.
 Theorem 7.1 (Consequences). (S) In every Thiele-complete machine: the ledger
-counts the record moves (ledger_counts_record_moves);        a certificate costs at
-least 3 (certificate_costs_three); a committed claim holds when committed
-(committed_claim_holds); some check fails (check_can_fail); some run certifies
-(some_run_certifies); the move raising the record from a clean start is a CERTIFY
-(only_certify_raises); and some move costs 0 (complete_has_free_move).
-Theorem 7.2 (Machines that meet it). (S) The small machine is Thiele-
-complete (earned_core_thiele_complete), and so are the machine over any
-property language with an exact checker and a property true of one value and
+counts the record moves (ledger_counts_record_moves); a certificate reached from
+a clean start costs at least 3 (certificate_costs_three); the claim such a cer-
+tificate stands on held when it was checked and still held when it was committed
+(Minimal.ThieleComplete.committed_claim_holds); some check fails (check_can_fail);
+some run certifies (some_run_certifies); the move raising the record from a clean start is a
+CERTIFY (only_certify_raises); and some move costs 0 (complete_has_free_move).
+Theorem 7.2 (Machines that meet it). (S) The small machine is Thiele-complete
+(earned_core_thiele_complete), and so are the machine over any property language
 
-                                               11
-false of another (earned_generic_thiele_complete)             and    the   sorted-list   machine
+                                               12
+with an exact equality test on properties, an exact checker and a property true of one
+value and false of another (earned_generic_thiele_complete) and the sorted-list machine
 (sorted_machine_thiele_complete).
 
-Theorem 7.3 (Machines that fail it). (R) Every clock-style machine, with any record, is
-weakly Thiele-complete and not Thiele-complete (clock_not_thiele_complete); so is a clock
-whose record is a latch on its configuration (latch_clock_not_thiele_complete). A machine
-with a free base and one paid move that raises a latch meets clauses (a) and (c) and fails (b)
-(one_move_record_excluded, paid_latch_not_thiele_complete). A machine whose record
-never rises meets (a), (b) and (c) and fails (d) (silent_not_thiele_complete).
+Theorem 7.3 (Machines that fail it). (R) Every clock-style machine, with any
+record, is weakly Thiele-complete and not Thiele-complete (clock_weakly_thiele_complete,
+clock_not_thiele_complete); so is a clock whose record is a latch on its configura-
+tion (latch_clock_weakly_thiele_complete, latch_clock_not_thiele_complete). A ma-
+chine with a free base and one paid move that raises a latch meets clauses (a) and (c),
+and since that move raises the record from every state, the machine is Thiele-complete
+through no interface (paid_latch_meets_base_and_toll, one_move_record_excluded,
+paid_latch_not_thiele_complete). A machine whose record never rises meets (a), (b) and
+(c) and fails (d) (silent_meets_base_record_toll, silent_not_thiele_complete).
 
 
-7.1    The window theorem
+7.1     The window theorem
 Theorem 7.4 (Every Thiele-complete machine hides its record). (S) For every Thiele-complete
 machine there are a clean start and two runs from it, the second made of base moves only,
 that end at the same base window; the first ends certified with its ledger at least 3 above the
@@ -445,22 +495,116 @@ record nor the ledger.
 is blind to its reading (thiele_complete_floor, complete_cs_window_blind).
 
 
+7.2     Every model of computation
+Theorem 7.5 (Lifting). (S) For any machine with a universal base in the sense of clause
+(a), any claim language over its states that has an exact equality test and a checker proved
+equal to its meaning, and any fact-table capacity of at least 1, if some claim is true at one
+loaded start and false at another, the machine that adds the earned layer (base moves that
+raise a version, and CHECK, COMMIT and CERTIFY costing 1 each) is Thiele-complete
+(lift_thiele_complete). With the window claims (a register of the window is at least n, or
+the program line is n) the premise on claims always holds (lift_window_thiele_complete).
+Conversely, every Thiele-complete machine has an interface making it Thiele-complete whose
+base moves form a universal base (lift_reduct_universal).
+
+Theorem 7.6 (Limits of lifting). (R) A base whose moves have only finitely many differ-
+ent effects at each state (one with finitely many moves, for instance), or one whose step
+ignores the current state, lifts to no Thiele-complete machine under any claim language and
+capacity (lift_finite_branching_not_complete, lift_stateless_not_complete). A one-
+counter program of k instructions started at n halts exactly when it has stopped after k(n + k + 1)
+steps, so one-counter halting is decidable (lift_oc_halts_bound, lift_oc_halts_dec); two-
+counter halting is undecidable (lift_cm_halting_undecidable), and a halting-preserving
+translation of two-counter instances into one-counter instances would make it decidable
+(lift_no_oc_translation).
 
 
-                                              12
+
+                                                13
+Theorem 7.7 (Models of computation). (S) A relation on numbers computable in any one of
+the seven models of the vendored library (the lambda calculus L, the alternate Minsky machines
+MMA, Turing machines, binary stack machines, Minsky machines MM, FRACTRAN and mu-
+recursive functions) is computable in all of them (lift_num_models_agree). The number-coded
+two-counter machine has a universal base, its step relation is computable in all seven models, and
+the window lifts, with a fact table of 16, of that machine and of the random-access machine are
+Thiele-complete (lift_classic_bases). Over any record that is a preorder with binary joins
+(Chapter 10), every universal base, with a claim language that has an exact equality test and a
+proved checker and a fact table with room for one fact, lifts to a machine that is Thiele-complete
+on the axis, given a claim whose point is not at or below the floor and which is true at one load
+and false at another (lift_lax_thiele_complete). When every record is below every other, no
+machine over that axis is Thiele-complete (lift_ax_indiscrete_no_machine).
+
+
+7.3     Composition
+Theorem 7.8 (Products and hand-offs). (S) Two machines Thiele-complete on the axis give
+a product, whose moves act on one part each and whose record is the pair of the two records,
+that is Thiele-complete under the product interface, with every certification keeping its own
+earned chain (cmpz_prod_tc, cmpz_prod_thiele_complete). The cost of an interleaved run is
+the cost of its left moves plus the cost of its right moves (cmpz_cost_prod), two interleavings
+of the same moves reach the same state at the same cost (cmpz_interleaving_invariant),
+and with record-preserving simulations as morphisms the product is the categorical product
+(cmpz_prod_universal). Running one machine and handing its two output counters to a second
+through free loading moves gives a Thiele-complete machine when both are (cmpz_seq_tc), and
+it computes the second program’s run on the first program’s output (cmpz_seq_composes).
+Theorem 7.9 (Limits of composition). (R) From a clean start of the product, ev-
+ery run that raises the AND of the two records makes at least six record moves
+(cmpz_and_costs_six), and the point-level interface through “both flags are up” fails non-vacuity
+(cmpz_and_not_complete). The product of two clocks is weakly Thiele-complete and not Thiele-
+complete (cmpz_or_clocks_not_complete). A second writer that changes counter A of the small
+machine without raising its version breaks the earned-record clause (cmpz_shared_not_earned).
+Two finite machines that each have an exact shadow price through a window can collide as a
+pair (cmpz_exactness_not_preserved). If two load states of the second machine have records
+with the first not at or below the second, the second machine with free loads added fails the toll
+(cmpz_ld_unclean).
+Theorem 7.10 (Nesting). (S) If Y runs X and Z runs Y by simulation, then Z runs X with
+the record bit equal at matched points, halting and the rising of the record corresponding, and
+the surcharge bounds adding (cmpz_link_compose); a tower of k links adds between the sum
+of the lower bounds and the sum of the upper bounds (cmpz_tower). A computably presented
+machine whose reading starts at no and whose moves cost at most 1, run on UP (Chapter 8), pays
+exactly 2 more once its latch is up (cmpz_host_link_exact). A record-preserving simulation
+that reflects the order of records, into a machine that pays the toll, tracks every run of the guest
+by a host run costing at least the number of the guest run’s exits (cmpz_sim_cost_ge_exits).
+
+
+7.4     Each clause is needed
+Theorem 7.11. (R) Take any interface that makes a machine Thiele-complete. Charging every
+move twice its cost keeps clauses (a), (b) and (d), fails (c), and gives a machine that is Thiele-
+complete through no interface (nec_t_doubled_cost_meets_all_but_toll). A ledger that al-
+ways reads 0 keeps (a), (b) and (d) and fails (c) (nec_t_ledgerless_meets_all_but_ledger).
+
+                                                14
+An extra move ZAP that raises the record from every state at cost 1, read as CER-
+TIFY, keeps (a), (c) and (d) and fails (b), and the machine with ZAP is Thiele-complete
+through no interface (nec_t_zap_meets_all_but_chain, nec_t_zap_not_thiele_complete).
+A checker that accepts every claim keeps (a), (c) and (d) and loses checker soundness
+(nec_t_unsound_check_meets_all_but_soundness). A machine whose states pair one of
+six control states with a ledger, with one free move and the ordered record moves CHECK,
+COMMIT and CERTIFY, meets the loose notion, which keeps every clause except the
+universal base, and is Thiele-complete through no interface (nec_t_nb_loose_complete,
+nec_t_nb_not_thiele_complete). For the generic machine, the exact equality test, the exact
+checker and a property true of one value and false of another each do work. An equality test
+that calls a different property equal to one the checker accepts on some value, a checker that
+accepts a property on a value where it does not hold, or a property language in which every
+property that holds of one value holds of all, each leaves the generic machine with its interface
+not Thiele-complete (nec_t_generic_needs_exact_eqb, nec_t_generic_needs_exact_eval,
+nec_t_generic_needs_varying_property).
+
+
+
+
+                                               15
 Chapter 8
 
 The Universal Machine
 
 8.1     The universal host
-Theorem 8.1. (S) The host of minimal/UniversalThiele.v runs any small-machine pro-
-gram as a guest. Its mirror of the guest’s flag always equals that flag (record_agreement).
-The mirror rises only in a guest step that passed CERTIFY, charged in that same host step
-(no_free_host_certification_step, toll_enforced_by_host_step). The host is a certifi-
-cation system with the trace floor (host_nfi).
-
-    A machine from elsewhere enters through the two-counter encoding; its computation and the
-toll are kept, its own price list is not.
+Theorem 8.1. (S) The host of minimal/UniversalThiele.v runs any small-machine program
+as a guest. From a loaded host, or any state where the two agree, its mirror of the guest’s flag al-
+ways equals that flag (record_agreement, hload_agrees). The mirror rises only in a guest step
+that passed CERTIFY, charged in that same host step (no_free_host_certification_step,
+toll_enforced_by_host_step). The host is a certification system with the trace floor
+(host_nfi).
+    On this host, a machine from elsewhere enters through the two-counter encoding, and its
+computation and the toll are kept. Its own price list is not kept. On UP , in the section on the
+priced host below, a computably presented machine keeps its own ledger plus a surcharge.
 
 
 8.2     U
@@ -469,31 +613,64 @@ of minimal/UniversalCodes.v, made of the small machine’s own instruction kinds
 no guest step built into anything (coq/kernel/foundation/UniversalLayout.v). For a small-
 machine program P and a start (x, y), gm is the guest after m steps and hn is U after n steps
 from the loaded state.
-
 Theorem 8.2 (Simulation). (S) For every m there is n ≥ m with hn related to gm by the
 simulation relation, or both machines have stopped. Coq: U_simulation.
-
 Theorem 8.3 (Halting and output). (S) The guest halts if and only if U halts
 (universal_halting); at halting, U’s first two registers hold the guest’s counters, and the
 trap latches, ledgers and flags are equal (universal_output).
-
 Theorem 8.4 (The flag is earned again). (S) The guest’s flag ever rises if and only if U’s flag
 ever rises (universal_flag_iff). A raised flag of U stands on U’s own passing CHECK, its
 own COMMIT of the same claim with the slot untouched, and the CERTIFY that raised it; when
 checked, the slot held the guest’s claim and value, and the guest’s own run contains its chain on
 the same claim (universal_earned).
-
 Theorem 8.5 (The ledger). (S) At matching points U’s ledger equals the guest’s, and every ledger
 of U lies between the guest’s ledger at some m and at m + 1. Coq: universal_ledger_exact.
-
 Theorem 8.6. (S) The machine U runs on, read with INC and DEC as its base and CHECK,
 COMMIT and CERTIFY as its record moves, is Thiele-complete (universal_thiele_complete).
-Its halting problem is undecidable (interp_halting_undecidable).
+U’s halting problem, whether U started on the code of P and the inputs x, y ever halts, is
+undecidable (interp_halting_undecidable).
+
+                                                16
+8.3     The priced host and UP
+The priced host of minimal/EarnedMultiPriced.v is the machine with a counter for every
+natural number and one more paid move, PAY. Its fixed program UP runs priced guest programs.
+
+Theorem 8.7 (UP ). (S) A priced guest halts if and only if UP run on it halts
+(pu_universal_halting), and the priced host, read with INC and DEC as its base, CHECK,
+COMMIT and CERTIFY as its record moves and PAY as a check of the empty claim, is Thiele-
+complete (pu_universal_thiele_complete). A computably presented machine runs on UP : UP
+halts exactly when the machine does, and at every step before the halt some host step decodes the
+machine’s state, carries a flag equal to the machine’s latch and a ledger equal to the machine’s
+ledger plus a surcharge (presented_universal). When the machine’s reading starts at no,
+the surcharge is at most 2 (presented_universal_surcharge_le_two). If the four code-level
+relations of a presentation (next move, step, cost and reading) are computable in any one of the
+seven models of computation of the vendored library, the machine has a presentation that runs
+on UP this way (lift_computable_runs_on_U).
+
+
+8.4     A verified compiler and the extracted machines
+Theorem 8.8 (The compiler). (S) For a source program with variables, addition, truncated
+subtraction, conditionals, while loops and non-recursive procedures with several results, whose
+shape a Boolean check decides (cmp_wf_b_spec), the program computes y exactly when the fast
+runner halts with y, exactly when the compiled host program halts with y at the output, exactly
+when the compiled two-counter guest does, and exactly when UP running that guest halts with
+y, the first counter 0, ledger 0 and the flag down (cmp_final). If the source program has a
+run, there is a k such that the runner halts with any fuel of at least k and uses exactly k steps
+(cmp_exec_complete); a runner that does not halt has used all its fuel (cmp_exec_unhalted).
+
+    The interpreter, shape check, compiler and runner, and the host programs U and UP , are ex-
+tracted to OCaml (ocaml/CmpExtract.v, ocaml/RealizeExtract.v). The extracted definitions
+are proved equal to the originals: the extracted instruction list is U (rlz_host_program_is),
+the extracted host state after n steps is the original host’s, for U and for UP (rlz_host_at_is,
+rlz_phost_at_eq), and replacing the register storage of a run by a table changes no field of any
+state (rlz_host_sched_sound_original). Extraction maps natural numbers to unbounded
+integers; the hand-written mapping lines and the two OCaml drivers are trusted and carry no
+proof. U on a guest that certifies is proved and not run.
 
 
 
 
-                                               13
+                                               17
 Chapter 9
 
 Recursion and Undecidability
@@ -501,9 +678,10 @@ Recursion and Undecidability
 Definition 9.1 (Substrate). A substrate supplies states, programs, a partial run function, a
 ledger that no step decreases, an encoding of programs into states with a decoder, behavioral
 equivalence (equal runs from every state), a representability predicate on program transformers,
-and Kleene’s recursion theorem for representable transformers as a field (class Substrate). A
-shortcut predicate on programs respects behavioral equivalence and has one accepted and one
-rejected canonical program (class WithShortcutPredicate).
+and the recursion theorem stated and proved by the logician Stephen Kleene in 1938, for
+representable transformers, as a field (class Substrate). A shortcut predicate on programs
+respects behavioral equivalence and has one accepted and one rejected canonical program (class
+WithShortcutPredicate).
 
 Theorem 9.1 (Structural undecidability). (S) In every substrate with a shortcut predicate, no
 decider whose flip transformer is representable returns true exactly when the predicate holds.
@@ -518,10 +696,17 @@ way D is wrong at q.
 point program copies the transformer’s output (nat_structural_shortcut_undecidable).
 
 Theorem 9.2 (L). (S) For the weak call-by-value lambda calculus L, defined in
-coq/kernel/foundation/LRecursion.v from its reduction rules, Kleene’s second recursion the-
-orem holds (second_recursion), every extensional nontrivial property of L terms is undecidable
-(L_rice), and L halting is undecidable (L_halting_undecidable). The Turing-completeness of
-L is cited from Forster and Smolka, not re-proved.
+coq/kernel/foundation/LRecursion.v from its reduction rules, Kleene’s second recursion
+theorem holds (second_recursion), every extensional nontrivial property of L terms is un-
+decidable (L_rice), and L halting is undecidable (L_halting_undecidable). L is the calcu-
+lus Yannick Forster and Gert Smolka presented as a model of computation in which com-
+putability theory can be carried out in Coq (Interactive Theorem Proving, ITP 2017, LNCS
+10499). Yannick Forster, Fabian Kunze, Gert Smolka and Maximilian Wuttke later checked
+in Coq that L and Turing machines simulate each other (Interactive Theorem Proving, ITP
+2021). The Turing-completeness of L is not re-proved in this repository’s own files: it
+comes from the models-equivalence theorem of the vendored Coq Library of Undecidability
+Proofs (vendor/coq-undecidability/theories/Synthetic/Models_Equivalent.v), which is
+checked with this build.
 
 Theorem 9.3. (S) The complement of two-counter halting is undecidable, composed from the
 vendored library’s reductions (MM2_HALTING_compl_undec).
@@ -532,7 +717,33 @@ predicate over arbitrary programs is a different task from reading one field of 
 
 
 
-                                                 14
+                                                 18
+9.1     The two-counter machine itself
+Theorem 9.4 (Rice and Kleene for two counters). (S) For any set X of inputs, a property of
+small-machine programs that cannot tell apart two programs behaving the same on every input
+in X (same stopping, same counters, trap latch, ledger and flag, and the same shapes of the
+fact table and channel) is undecidable when it holds of some program and fails of another, and
+decidable when it holds of every program or of none (tc_rice, tc_rice_dichotomy). On packed
+inputs, the powers of 2, one program is universal (tc_universal), and for every transformation
+F of programs that some program carries out on program numbers there is a program e with the
+same packed function as F (e) (tc_kleene). On the multi-register host, a property of programs
+that depends only on the partial function computed is undecidable when it holds of one program
+and fails of another (sm_host_rice_fun), and Kleene’s recursion theorem holds for computed
+partial functions (sm_kleene).
+
+Theorem 9.5 (Where recursion fails). (R) When sameness also compares the shapes of the
+fact table and the channel, some transformation carried out by a program on program numbers
+has no fixed point, even on packed inputs (tc_no_fine_kleene). On plain inputs, the input
+in counter A and 0 in counter B, the recursion theorem fails: some transformation F carried
+out by a program has no program e equivalent to F (e), computing the same plain function
+(tc2_plain_recursion_false); the proof rests on the fact that no program P multiplies every
+input by c(length P ), the factorial of an explicit bound on the control size of programs of that
+length, plus 1 (tc2_no_mult).
+
+
+
+
+                                               19
 Chapter 10
 
 The Record Axis
@@ -552,19 +763,21 @@ latches, each reading the other (record_pair_is_two_latches_holds).
 
 Theorem 10.2 (Both premises do work). (R) A record that can switch back off is not a latch
 (toggle_not_latch). A record switched on by a hidden clock is permanent and not driven by
-the computation (clock_record_not_driven).
+the computation (clock_record_permanent, clock_record_not_driven).
 
 Theorem 10.3 (Which machines carry the axis). (S) Every base carries it: the base plus
 a latch on any event it reaches, charging one unit when the latch sets, is an honest exten-
 sion (latch_core_honest). A reversible base with unbounded memory carries it reversibly
-(history_latch_honest). With finite memory, a step that writes a permanent record is not
-injective (finite_reversible_cannot_write).
+(history_latch_honest, history_latch_injective). With finite memory, a step that writes
+a permanent record is not injective (finite_reversible_cannot_write).
 
 
 10.1     Growing and probabilistic records
-Theorem 10.4. (S) A growing record in a partial order satisfies a complete family of threshold-
-latch equations and keeps its price schedule (growing_record_decomposes_holds). A monotone
-chain of pairwise-distinct k-bit vectors has at most k + 1 members (chain_needs_bits_holds).
+Theorem 10.4. (S) A record whose next value is a function of the base state and its current
+value, that only grows in a partial order, whose ledger charges every strict change, and that
+changes at some reachable step satisfies a complete family of threshold-latch equations and keeps
+its price schedule (growing_record_decomposes_holds). A monotone chain of pairwise-distinct
+k-bit vectors has at most k + 1 members (chain_needs_bits_holds).
 
 Theorem 10.5. (R) One Boolean latch does not carry every growing record: a
 three-value chain over a one-state base is a counterexample (one_latch_refuted).
@@ -573,66 +786,125 @@ In a finite branching model a deterministic latch does not handle branching
 do not determine the branch weights (schedule_determines_probabilities_refuted).
 
 
-10.2     Bases
-The relation weak_base_equiv, agreement on chosen observations and halting with stut-
-tering steps, is an equivalence (weak_base_equiv_trans_holds). The record axis is a
 
 
-                                              15
-latch over the Cook and Reckhow RAM and over L (record_axis_is_latch_on_ram_holds,
-record_axis_is_latch_on_l_holds); these instances follow from the general theorem and do
-not distinguish the bases. Cost-respecting simulations between different bases are not constructed.
+                                               20
+10.2     Bases
+The relation weak_base_equiv, agreement on chosen observations and halting with stutter-
+ing steps, is an equivalence (weak_base_equiv_refl_holds, weak_base_equiv_sym_holds,
+weak_base_equiv_trans_holds). The record axis is a latch over the Cook and Reckhow
+RAM, the unit-cost random-access machine Stephen Cook and Robert Reckhow defined
+to measure time bounds (Journal of Computer and System Sciences 7, 1973), and over
+L (record_axis_is_latch_on_ram_holds, record_axis_is_latch_on_l_holds); these in-
+stances follow from the general theorem and do not distinguish the bases. Cost-respecting
+simulations between different bases are not constructed.
+
+
+10.3     The record over any order
+Let the record be a point of a preorder given by a Boolean test. A step leaves the down-set
+when its new record is not at or below the old one. An axis system has states, instructions, a
+step, a cost per instruction and such a record; it pays the toll when every step that leaves the
+down-set costs at least 1, and meets the floor when every run whose final record is not at or
+below its starting record costs at least 1.
+
+Theorem 10.6 (The whole direction). (S) For every axis system the floor holds exactly when
+the toll holds (ax_floor_iff_a2), and under the toll every run costs at least the number of its
+steps that leave the down-set (ax_cost_ge_exits). The toll holds exactly when, for every point
+a, the bit “a is at or below the record” pays the one-bit toll (ax_a2_iff_views). A record that
+never drops and whose next value is a function of the base state and the current record factors
+through thresholds: some event h makes a at or below the next record exactly when a is at or
+below the current record or h fires (ax_decompose). A repeat-free chain of k-bit words, each
+word’s set bits among the next word’s, has at most k + 1 members, and some chain has exactly
+k + 1 (chain_bits_exact). With finitely many states and a growing record, every instruction
+that leaves the down-set from some state merges two states (ax_growth_exit_merges), and
+pricing every merge gives the toll (ax_a2_from_merge_price). For finitely many states and
+moves and decidable observations, some price computed from a window is exact exactly when the
+window has no collision (ax_window_exact_iff_no_collision).
+
+Theorem 10.7 (Completeness and entropy on the axis). (S) An interface makes a machine
+of Chapter 7 Thiele-complete exactly when the same interface, read over the two-point order
+with false below true, meets the four clauses on the axis (ax_tc_two_point_iff). Every Thiele-
+complete axis machine pays the toll (ax_tc_a2), every run from a clean start that ends with the
+record not at or below the floor makes at least three record moves and raises the ledger by at
+least 3 (ax_tc_certificate_three), and no function of the counter-machine window gives the
+record (ax_tc_independence). On the multi-register host, for every reading of final states into
+a preorder that respects agreement on everything a program can read, a property of programs
+that respects behaving alike on the record is undecidable when it holds of some program and fails
+of another (ax_rice_record); some host program has runs whose claim sets climb in m strict
+steps exactly when m ≤ 16, the size of the fact table (ax_single_run_boundary). Under the
+halving price, on a state space of any size, for a non-negative weighting and any finite list of
+landing spots, each given with a repeat-free list of exactly the states the move sends to it, the
+move’s conditional entropy loss over those lists is at most their total weight times the move’s
+cost times ln 2 (ax_inf_loss_bits).
 
 
 
 
-                                                16
+                                               21
 Chapter 11
 
 CHSH and Tsirelson
 
-The results in this chapter are mathematics about correlators and trial counts. No machine is
-fixed.
-
+Until the last section, the results in this chapter are mathematics about correlators and trial
+counts, and no machine is fixed. The bound named for√   Boris Tsirelson, who showed in 1980 that
+quantum correlations give a CHSH value of at most 2 2, appears here as algebra.
 Theorem 11.1 (Classical bound). (S) A factorizable correlator has |S| ≤ 2
 (factorizable_CHSH_classical_bound); trial counts consistent with one deterministic local
 strategy cannot exceed the classical bound (chsh_stat_violation_not_local).
-
 Theorem 11.2 (Algebraic Tsirelson bound). (S) A rational correlator satisfying √    the
 absolute-value bounds and four selected 3 × 3 polynomial minors has |S| ≤ 2 2
 (algebraically_coherent_tsirelson_general). The bound also follows from row constraints
 and Cauchy–Schwarz (tsirelson_from_row_bounds) and is reached (tsirelson_tight). No
 Hilbert space is used.
-
 Theorem 11.3 (The biconditional). (S) On the zero-marginal slice, the column-contractivity
 conditions on E00 , E01 , E10 , E11 hold if and only if the zero-marginal 5 × 5 NPA moment matrix
 is positive semidefinite. Coq: column_contractive_iff_npa_psd.
-
 Theorem 11.4 (The integer check). (S) If the integer column check accepts eight trial
 counts, the zero-marginal NPA matrix built from their correlators is positive semidefinite
 (column_contractive_check_witness_npa_psd), and a PSD matrix of that form satisfies the
 Tsirelson bound (npa_psd_implies_tsirelson_bound). The check is sound in this direction
 only; a rejection is not proved to mean the conditions fail.
-
-Theorem 11.5 (Elliptope). (S) The CHSH correlator quantum set is an existential completion
-of the zero-marginal NPA matrix; points of it satisfy the Tsirelson bound (elliptope_tsirelson),
-and the PR box is outside it (pr_box_not_elliptope). An integer membership check is sound
-into realizability (elliptope_check_full_sound).
-
+Theorem 11.5 (Elliptope). (S) Call a correlator (E00 , E01 , E10 , E11 ) elliptope-realizable
+when some choice of the two within-party cross moments completes the zero-marginal
+NPA matrix to a positive semidefinite matrix (elliptope_realizable). The comments of
+coq/kernel/quantum/ElliptopeCompletion.v read this existential completion as the CHSH
+correlator quantum set, following Tsirelson’s characterization; no theorem here proves that iden-
+tification. Elliptope-realizable points satisfy the Tsirelson bound (elliptope_tsirelson), and
+the PR box is not elliptope-realizable (pr_box_not_elliptope). An integer membership check is
+sound into realizability (elliptope_check_full_sound).
    No theorem here identifies a correlator with a physical experiment or proves that any device
 produces CHSH-violating statistics.
 
 
+11.1     The check as a property of the multi-register machine
+This section fixes a machine: the multi-register machine of minimal/EarnedMulti.v, with a
+counter for every number and one property that reads a counter as a tally of eight trial counts
+and that passes exactly when the integer check small_chsh_check passes.
+
+                                               22
+Theorem 11.6 (The check on the machine). (S) The integer check passes exactly when every
+question pair was sampled and the pinned 5 × 5 moment matrix is symmetric and positive
+semidefinite (small_chsh_check_iff). From a clean start, a raised flag stands on a CHECK,
+a COMMIT and a CERTIFY of the CHSH claim on one counter, and that counter held a tally
+passing the check, with S 2 ≤ 8 (small_chsh_flag_implies_tsirelson).
+                                                          √                Every passing tally
+has S 2 < 8 (nec_e_check_strict), so none reaches 2 2 (nec_e_check_never_tsirelson),
+and for every ε > 0 some passing tally has S 2 > 8 − ε (nec_e_check_sharp). Each of the check’s
+seven integer facts is needed (nec_e_check_facts_irredundant), and the check refuses the tally
+of one round per question pair of every deterministic plan (nec_e_check_refuses_all_plans).
 
 
-                                               17
+
+
+                                              23
 Chapter 12
 
 The Physical Boundary
 
-Theorem 12.1 (Calorimeter). (S) In a two-state calorimeter protocol, a canonical reset from
-half-excited to ground satisfies a discrete master equation exactly, and at fixed Hamiltonian the
-bath receives ∆/2 (canonical_reset_heat_exact).
+Theorem 12.1 (Calorimeter). (S) In a two-state calorimeter protocol, a canon-
+ical reset from half-excited to ground satisfies a discrete master equation exactly
+(canonical_reset_satisfies_master_equation), and at fixed Hamiltonian the bath receives
+∆/2 (canonical_reset_heat_exact).
 
 Theorem 12.2 (Refutation). (R) Population dynamics do not fix heat: two gaps with identical
 dynamics release different heat (master_equation_does_not_fix_heat_scale).
@@ -644,7 +916,7 @@ energy unit (Chapter 4).
 
 
 
-                                               18
+                                               24
 Chapter 13
 
 External Systems and the Pointer
@@ -652,20 +924,25 @@ Conjecture
 
 Each model below is narrow. None is a full security, consensus, database or audit-log theorem.
 
-   • RFC 9162. The iterative inclusion and consistency checks of the specification re-
-     ject the boundary cases and accept the specification’s examples under symbolic digests
-     (rfc9162_inclusion_boundary_safe, rfc9162_consistency_boundary_safe). Colli-
-     sion resistance and signed-tree-head authenticity are cryptographic premises, not proved.
+   • RFC       9162      (Certificate     Transparency).            The iterative inclusion
+     and consistency checks of the specification reject the boundary cases
+     (rfc9162_inclusion_boundary_safe, rfc9162_consistency_boundary_safe) and ac-
+     cept the specification’s examples under symbolic digests (rfc9162_example_inclusion_d0,
+     rfc9162_example_consistency_4_7). Collision resistance and signed-tree-head authen-
+     ticity are cryptographic premises; neither is proved.
 
    • Proof-carrying code. A toy checker accepts exactly when the address-bound verification
-     condition holds (pcc_checker_accepts_iff_vc). It mirrors the roles of Necula’s system;
-     it is not that system.
+     condition holds (pcc_checker_accepts_iff_vc). It mirrors the roles in George C. Necula’s
+     proof-carrying code (POPL 1997), where a program ships with a proof that it is safe; the
+     full system is outside this model.
 
-   • TPM quotes. A bare sign/verify interface does not imply quote authenticity
-     (tpm_interface_authenticity_refuted).
+   • Trusted Platform Module (TPM) quotes. A bare sign/verify interface does not imply
+     quote authenticity (tpm_interface_authenticity_refuted).
 
-   • Casper FFG. Two finalized blocks on conflicting branches imply a slashable quorum
-     (accountable_safety). This is the known accountable-safety theorem.
+   • Casper FFG. Casper FFG is the finality gadget Vitalik Buterin and Virgil Griffith
+     proposed for Ethereum in 2017. Two finalized blocks on conflicting branches imply a
+     slashable quorum (accountable_safety). This is the accountable-safety theorem of their
+     paper.
 
     The addressed-RAM and reversible-update files prove only their named fragments. The
 cost-semantics correspondences are not full cost-framework embeddings.
@@ -674,90 +951,185 @@ cost-semantics correspondences are not full cost-framework embeddings.
 13.1     The pointer criterion
 The pointer-observable criterion proposes that the event a step rule is forced to price is
 singled out by redundant record proliferation across observers. Twelve candidate events
-over six observer maps proliferate as stated (twelve_candidate_measurements_checked).
+over seven observer maps proliferate as stated (twelve_candidate_measurements_checked).
 The MAC-labelled model does not proliferate (mac_model_not_proliferating); apply-
-ing that to a real system depends on the observer model.                  A two-observer tog-
+ing that to a real system depends on the observer model.               A two-observer tog-
 gle game with consensus, authenticity and coordinator-free updates revokes its event
 (toggle_game_refutes_strong_pointer_necessity), so those properties do not force per-
-manence.      Durable views do imply permanence, by making persistence a premise
+manence.     Durable views do imply permanence, by making persistence a premise
 (durable_consensus_implies_permanence). The external consequence survey contains five
-narrow statements already known from their governing specifications and five stronger statements
-without enough protocol or hardware semantics; no surveyed consequence is simultaneously
-record-axis dependent, novel, and ready for use. The pointer criterion is a conjecture.
+narrow countermodels, each for a point a governing source already addresses, and five stronger
+
+
+                                             25
+statements without enough protocol or hardware semantics; no surveyed consequence is simulta-
+neously record-axis dependent, novel, and ready for use. The pointer criterion is a conjecture.
 
 
 
 
-                                              19
+                                              26
 Appendix A
 
 Proof File Index
 
 Results                                 File
-No Free Insight, simulating systems     coq/kernel/nfi/UniversalCertificationCost.v
+No Free Insight, simulating systems     coq/kernel/nfi/UniversalCertificationCost.v,
+                                        coq/kernel/nfi/HonestCostTracking.v
 Quantitative form                       coq/kernel/nfi/QuantitativeNoFI.v
 Cost frameworks                         coq/kernel/nfi/CostSemanticsComparison.v,
                                         coq/kernel/nfi/CostFrameworks.v
+Exact pricing                           coq/kernel/nfi/CommitmentPredicateAdequacy.v
 Permanent certificates, merge pricing   coq/kernel/nfi/PermanentCertification.v,
                                         coq/kernel/nfi/PermanentRecordPricing.v
+Which finite premises are needed        coq/kernel/foundation/NecFFloor.v,
+                                        coq/kernel/foundation/NecFSqueeze.v
 Entropy and heat                        coq/kernel/nfi/PermanentCertificationEntropy.v
 Eight-state instance                    coq/kernel/nfi/FiniteCertMachine.v
+No intrinsic joule value                coq/kernel/nfi/PricingPhysicsAudit.v
 Shadow pricing                          coq/kernel/nfi/ShadowPricing.v
 Narrowing                               coq/kernel/nfi/KnowledgeNarrowing.v
 Window adequacy, joint floors           coq/kernel/frontier/ObservationPolicy.v
 The small machine                       minimal/EarnedCore.v,
-                                        coq/kernel/foundation/EarnedCoreLinks.v
+                                        coq/kernel/foundation/EarnedCoreLinks.v,
+                                        minimal/NecSClean.v
 Thiele completeness                     minimal/ThieleComplete.v,
                                         coq/kernel/foundation/EarnedGenericLinks.v
 The window theorem                      minimal/ThieleCompleteWindow.v
+Every model of computation              minimal/LiftCore.v, minimal/LiftConverse.v,
+                                        minimal/LiftOneCounter.v,
+                                        coq/kernel/foundation/LiftModels.v,
+                                        coq/kernel/foundation/LiftModelsAll.v,
+                                        coq/kernel/foundation/LiftAxis.v,
+                                        coq/kernel/foundation/LiftHeadline.v
+Composition                             coq/kernel/foundation/CzProd.v,
+                                        coq/kernel/foundation/CzProdTC.v,
+                                        coq/kernel/foundation/CzCounter.v,
+                                        coq/kernel/foundation/CzCat.v,
+                                        coq/kernel/foundation/CzSeq.v,
+                                        coq/kernel/foundation/CzWin.v,
+                                        coq/kernel/foundation/CzTower.v, minimal/CzLink.v,
+                                        minimal/CzShared.v
+Each clause is needed                   minimal/NecTToll.v, minimal/NecTEarned.v,
+                                        minimal/NecTLoose.v, minimal/NecTGeneric.v
 Universal host                          minimal/UniversalThiele.v,
                                         coq/kernel/foundation/UniversalThieleLinks.v
 U                                       coq/kernel/foundation/UniversalRun.v,
                                         coq/kernel/foundation/UniversalInterpreterLinks.v
-Structural undecidability               coq/kernel/nfi/StructuralUndecidability.v,
-                                        coq/kernel/foundation/NatSubstrateInstance.v
-L recursion and Rice                    coq/kernel/foundation/LRecursion.v
-Record axis                             coq/kernel/foundation/StructuralRecordAxis.v,
-                                        coq/kernel/foundation/RecordAxisDiscrimination.v
-Growing and probabilistic records       coq/kernel/foundation/GrowingRecord.v,
-                                        coq/kernel/foundation/ProbabilisticRecord.v
-CHSH and Tsirelson                      coq/kernel/quantum/CHSHColumnCheck.v,
-                                        coq/kernel/quantum/TsirelsonGeneral.v,
-                                        coq/kernel/category/AlgebraicCoherence.v
-Calorimeter                             coq/kernel/thermodynamic/CalorimeterProtocol.v
-Pointer criterion                       coq/kernel/frontier/PointerObservable.v,
-                                        coq/kernel/frontier/RecordProliferationSurvey.v,
-                                        coq/kernel/frontier/EcosystemGame.v
+
+                                               27
+UP and presented machines                 coq/kernel/foundation/UniversalPRun.v,
+                                          coq/kernel/foundation/PresentedUniversal.v
+Verified compiler                         coq/kernel/foundation/CmpFinal.v,
+                                          coq/kernel/foundation/CmpRun.v
+Extraction to OCaml                       ocaml/CmpExtract.v, ocaml/RealizeExtract.v,
+                                          coq/kernel/foundation/Realize.v,
+                                          coq/kernel/foundation/RealizePrograms.v,
+                                          coq/kernel/foundation/RealizePriced.v,
+                                          coq/kernel/foundation/RealizeCompact.v
+Structural undecidability                 coq/kernel/nfi/StructuralUndecidability.v,
+                                          coq/kernel/foundation/NatSubstrateInstance.v,
+                                          coq/kernel/foundation/Substrate.v
+L recursion and Rice                      coq/kernel/foundation/LRecursion.v,
+                                          coq/kernel/foundation/MM2ComplementUndec.v
+Two-counter recursion and Rice            coq/kernel/foundation/TcRice.v,
+                                          coq/kernel/foundation/TcPacked.v,
+                                          coq/kernel/foundation/TcNoFine.v,
+                                          coq/kernel/foundation/Tc2Plain.v, minimal/Tc2Mult.v,
+                                          coq/kernel/foundation/SmKleene.v
+Record axis                               coq/kernel/foundation/StructuralCore.v,
+                                          coq/kernel/foundation/StructuralCoreAnyBase.v,
+                                          coq/kernel/foundation/StructuralRecordAxis.v,
+                                          coq/kernel/foundation/RecordAxisDiscrimination.v,
+                                          coq/kernel/foundation/CrossBaseGranularityCore.v,
+                                          coq/kernel/foundation/CrossBaseGranularity.v,
+                                          coq/kernel/foundation/CrossBaseGranularityRAM.v,
+                                          coq/kernel/foundation/CrossBaseGranularityL.v
+The record over any order                 coq/kernel/foundation/AxCore.v,
+                                          coq/kernel/foundation/AxLatch.v,
+                                          coq/kernel/foundation/AxLatch2.v,
+                                          coq/kernel/foundation/AxMerge.v,
+                                          coq/kernel/foundation/AxWindow.v,
+                                          coq/kernel/foundation/AxTwoPoint.v,
+                                          coq/kernel/foundation/AxComplete.v,
+                                          coq/kernel/foundation/AxComplete2.v,
+                                          coq/kernel/foundation/AxRice.v,
+                                          coq/kernel/foundation/AxHostClaims.v,
+                                          coq/kernel/foundation/AxInfinite.v
+Growing and probabilistic records         coq/kernel/foundation/GrowingRecord.v,
+                                          coq/kernel/foundation/ProbabilisticRecord.v
+CHSH and Tsirelson                        coq/kernel/quantum/CHSHColumnCheck.v,
+                                          coq/kernel/quantum/TsirelsonGeneral.v,
+                                          coq/kernel/category/AlgebraicCoherence.v,
+                                          coq/kernel/quantum/MinorConstraints.v,
+                                          coq/kernel/quantum/CHSHStatisticalBridge.v,
+                                          coq/kernel/quantum/TsirelsonFromAlgebra.v,
+                                          coq/kernel/quantum/ElliptopeCompletion.v,
+                                          coq/kernel/quantum/ElliptopeGate.v
+The check on the multi-register machine   coq/kernel/quantum/SmallChshCheck.v,
+                                          coq/kernel/quantum/SmallChshMachine.v,
+                                          coq/kernel/foundation/NecEChsh.v,
+                                          coq/kernel/foundation/NecEChshInt.v
+Calorimeter                               coq/kernel/thermodynamic/CalorimeterProtocol.v
+External models                           coq/kernel/reductions/RFC9162Merkle.v,
+                                          coq/kernel/reductions/NeculaPCC.v,
+                                          coq/kernel/reductions/TPMQuoteAuthenticity.v,
+                                          coq/kernel/reductions/CasperFFG.v
+
+
+
+                                                 28
+Pointer criterion   coq/kernel/frontier/PointerObservable.v,
+                    coq/kernel/frontier/RecordProliferationSurvey.v,
+                    coq/kernel/frontier/EcosystemGame.v,
+                    coq/kernel/frontier/
+                    PointerObservableCounterexamples.v
 
 
 
 
-                                               20
+                           29
 Appendix B
 
 Epistemological Classification
 
-Result                                     Status       Key premise
-No Free Insight                            (S)          A2 as a field of the record
-A2 from merge pricing                      (S)          Finite states, permanent certificate, merge
-                                                        price
-Heat floor                                 (C)          landauer_heat
-No intrinsic joule value                   (R)          None beyond the ledger
-Shadow pricing                             (S)          A colliding pair in the window
-Earned provenance, checker soundness       (S)          Clean start
-Thiele completeness of the small machine   (S)          The four clauses
-Clock-style machines fail                  (R)          The four clauses
-Window theorem                             (S)          Thiele completeness
-U                                          (S)          Small-machine programs
-Structural undecidability                  (S)          Recursion theorem of the substrate
-L recursion and Rice                       (S)          L’s reduction rules
-Record axis is a latch                     (S)          Honest extension
-Algebraic Tsirelson bound                  (S)          Polynomial minors
-Calorimeter heat scale                     (R)          Fixed dynamics
-Pointer criterion                          Conjecture   Observer model
+Result                                 Status        Key premise
+No Free Insight                        (S)           A2 as a field of the record
+A2 from merge pricing                  (S)           Finite states, permanent certificate, merge
+                                                     price
+Heat floor                             (C)           landauer_heat, finite states, permanent
+                                                     certificate, the uniform distribution on the
+                                                     states in play
+No intrinsic joule value               (R)           None beyond the ledger
+Shadow pricing                         (S)           A colliding pair in the window
+Earned provenance, checker soundness   (S)           Clean start
+Thiele completeness of the small       (S)           The four clauses
+machine
+Clock-style machines fail              (R)           The four clauses
+Window theorem                         (S)           Thiele completeness
+Lifting any universal base             (S)           A universal base, a claim language with an
+                                                     exact equality test and a proved checker, a fact
+                                                     table with room for one fact, a claim that can
+                                                     come out either way
+Composition                            (S)           Thiele completeness of both parts
+Each clause is needed                  (R)           One clause weakened
+U                                      (S)           Small-machine programs
+UP                                     (S)           Priced guests, computably presented machines
+Verified compiler                      (S)           Well-formed source programs
+Extraction to OCaml                    (S)           Hand-written mapping lines and drivers
+                                                     trusted
+Structural undecidability              (S)           Recursion theorem of the substrate
+L recursion and Rice                   (S)           L’s reduction rules
+Two-counter Rice and packed Kleene     (S)           Behavioral sameness on chosen inputs
+Plain-input recursion fails            (R)           Inputs in counter A, 0 in counter B
+Record axis is a latch                 (S)           Honest extension
+Toll over any order                    (S)           A preorder of records
+Algebraic Tsirelson bound              (S)           Polynomial minors
+Calorimeter heat scale                 (R)           Fixed dynamics
+Pointer criterion                      Conjecture    Observer model
 
 
 
 
-                                                21
+                                                30
 
