@@ -522,6 +522,7 @@ Qed.
 (* PSD with a unit diagonal makes the three-by-three minors on rows
    (A0, B0, B1) and (A1, B0, B1) nonnegative, which are the two row
    bounds. *)
+(* SAFE: row bounds E00^2 + E01^2 <= 1 and E10^2 + E11^2 <= 1; 2 sqrt 2 follows in small_chsh_check_tsirelson. *)
 Theorem small_chsh_psd_row_bounds :
   forall E00 E01 E10 E11 : R,
     npa_psd (zero_marginal_npa E00 E01 E10 E11) ->

@@ -3,7 +3,7 @@
     The vendored library proves that seven models compute the same relations
     (Synthetic/Models_Equivalent.v): Turing machines, binary stack machines,
     Minsky machines, FRACTRAN, mu-recursive functions, the weak call-by-value
-    lambda calculus L, and Minsky machines with arithmetic (MMA).
+    lambda calculus L, and alternate Minsky machines (MMA).
 
     A machine on numbers [lift_num_machine g] has numbers for states and for
     moves, and the step function g.  Its step is realized in a model when the
