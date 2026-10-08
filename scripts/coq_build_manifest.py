@@ -73,13 +73,29 @@ def outputs() -> list[Path]:
     return found
 
 
+def project_flags(path: Path) -> bytes:
+    """A project file without its list of source files.
+
+    Adding or removing a source changes no flag the other sources are
+    compiled with; make's own dependencies and the orphan sweep cover the
+    file itself. So the list is left out, and only the flags and other
+    lines count."""
+    lines = path.read_bytes().split(b"\n")
+    return b"\n".join(line for line in lines if not line.strip().endswith(b".v"))
+
+
 def config_digest(scope: str) -> str:
     """Project files and compiled libraries the scope's outputs were built with."""
     hasher = hashlib.sha256()
     for name in SCOPES[scope]["config"]:
         path = ROOT / name
         hasher.update(name.encode() + b"\0")
-        hasher.update(path.read_bytes() if path.exists() else b"<missing>")
+        if not path.exists():
+            hasher.update(b"<missing>")
+        elif path.name == "_CoqProject":
+            hasher.update(project_flags(path))
+        else:
+            hasher.update(path.read_bytes())
         hasher.update(b"\0")
     for top in SCOPES[scope]["libraries"]:
         for path in sorted((ROOT / top).rglob("*.vo")):

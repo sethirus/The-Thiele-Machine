@@ -96,6 +96,19 @@ def test_coq_flag_or_library_change_marks_coq_sources_only(tree, name):
         assert mtime(tree, source) < mtime(tree, "vendor/coq-undecidability/theories/L/L.vo")
 
 
+def test_new_source_in_project_list_marks_only_itself(tree):
+    manifest = tree / "build/manifest.json"
+    MODULE.write(manifest)
+    (tree / "coq/kernel/C.v").write_text("Definition c := 2.\n")
+    with (tree / "coq/_CoqProject").open("a") as stream:
+        stream.write("kernel/C.v\n")
+    assert MODULE.apply(manifest) == 0
+    for source, output in (("coq/kernel/A.v", "coq/kernel/A.vo"),
+                           ("coq/kernel/B.v", "coq/kernel/B.vo")):
+        assert mtime(tree, source) < mtime(tree, output)
+    assert mtime(tree, "coq/kernel/C.v") > mtime(tree, "coq/kernel/A.vo")
+
+
 def test_vendor_flag_change_marks_vendor_sources(tree):
     manifest = tree / "build/manifest.json"
     MODULE.write(manifest)

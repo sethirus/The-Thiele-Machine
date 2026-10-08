@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       base:
-        description: "Commit or ref the regenerated changes are measured from (default: merge base with origin/main)"
+        description: "Commit or ref the regenerated changes are measured from (default: the last regenerated commit on the branch)"
         required: false
         default: ""
 
@@ -153,8 +153,11 @@ jobs:
           set -Eeuo pipefail
           after=$(git rev-parse HEAD)
           base=""
+          last_regen=$(git log -1 --format=%H --author='github-actions\[bot\]' HEAD)
           if [[ -n "${INPUT_BASE:-}" ]]; then
             base=$(git rev-parse "$INPUT_BASE")
+          elif [[ -n "$last_regen" ]]; then
+            base=$last_regen
           elif [[ -n "${BEFORE:-}" && ! "$BEFORE" =~ ^0+$ ]] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
             base=$BEFORE
           else

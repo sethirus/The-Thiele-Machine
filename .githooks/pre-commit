@@ -120,7 +120,7 @@ else:
         args.append("--merge")
 if args:
     subprocess.run(["python3", "scripts/vacuity_gate.py", *args,
-                    "--jobs", "1", "--output", "artifacts/vacuity_audit.json"], check=True)
+                    "--jobs", "0", "--output", "artifacts/vacuity_audit.json"], check=True)
 summary = json.loads(Path("artifacts/vacuity_audit.json").read_text())["summary"]
 if any(summary[key] for key in ("vacuous_true", "vacuous_hyp", "error")):
     raise SystemExit("[pre-commit] FAIL: vacuity audit: " + str(summary))
