@@ -4603,7 +4603,8 @@ So: moves picked from outside, no; a closed machine or a repeating program, yes
 \code{nec\_f\_word\_merges\_visited}, NecFRepeat.v; the last finds the letter and the two
 repetitions, from a flag down at the start and up at every repetition from some point on).
 
-And one limited piece of the chances-and-time-spans version, also argued here and not checked,
+And one limited piece of the chances-and-time-spans version, argued here in continuous time, with
+its discrete-time core checked,
 because it shows exactly where the known-state escape stops. Take a device with no outside hand
 at all: a little random process hopping among finitely many states at rates that never change,
 with the usual physical conditions (every hop has a reverse hop, and the rates obey local
@@ -4634,7 +4635,18 @@ finitely many states, every state reachable from every other, a reverse for ever
 detailed balance to read the entropy as heat. It's one bound on one relaxation, and it doesn't
 charge each certification again. It also isn't the permanence of the finite-state theorems on a
 noisy device: on this device the flag comes back down, and $T_{\mathrm{up}}$ and
-$T_{\mathrm{down}}$ are average stretches. None of it is in the checked corpus.
+$T_{\mathrm{down}}$ are average stretches. The discrete-time core is checked, for a finite chain
+whose steady spread $\pi$ is positive and satisfies detailed balance (RelaxationEntropy.v): the
+entropy produced in one step is exactly the drop in relative entropy to $\pi$, and never negative
+(\code{re\_sigma\_is\_drop} and \code{re\_sigma\_nonneg}); from a known start $s$ the entropy produced
+in the first $T$ steps is $-\ln\pi(s)$ minus the relative entropy left at step $T$, so it never
+exceeds $-\ln\pi(s)$ and reaches it in the limit exactly when that remainder goes to zero
+(\code{re\_known\_start\_total} and \code{re\_known\_start\_bound}); $-\ln\pi(s) \ge -\ln\pi(\mathrm{no})$
+for a start among the no-states (\code{re\_known\_start\_vs\_set}); the flow from the no-states to the
+yes-states equals the flow back (\code{re\_flux\_balance}); and with each mean stretch taken as its
+mass over that flow, $-\ln\pi(\mathrm{no}) = \ln(1 + T_{\mathrm{up}}/T_{\mathrm{down}})$
+(\code{re\_stretch\_ratio}). What stays argued is the continuous-time form, the run's convergence
+to $\pi$, and the fact that mass over flow is the mean stretch length.
 
 The next section is about a different door entirely. Forgetting has had its section; the
 question now is whether \emph{finding out} costs, because the demon's whole trick was that it knew which way the
@@ -17155,6 +17167,7 @@ Theorem \ref{thm:u04-entropy-toll}: The toll from entropy pricing & \S\ref{sec:a
 Theorem \ref{thm:known-state}: A known state gets no heat floor from the premise & \S\ref{sec:a2-not-arbitrary} & \code{known\_state\_step\_removes\_no\_entropy} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{known\_state\_flip\_forces\_no\_heat} {\footnotesize(if and only if)} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Theorem \ref{thm:u04-point-sum}: The bits removed, one term per state & \S\ref{sec:a2-not-arbitrary} & \code{entropy\_drop\_as\_point\_sum} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_nonneg} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_pos\_of\_support\_merge} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
 In the text: a repeated move, a closed machine or a repeating word, raising the flag for good from a start whose flag is down, merges two states the run visits; moves picked from outside need not; the strip machine has no finite list of its states & \S\ref{sec:a2-not-arbitrary} & \code{nec\_f\_orbit\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_repeat\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_closed\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_word\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_outside\_moves\_no\_merge} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_history\_infinite} {\footnotesize(\code{NecFPaperToys.v})} & none\newline none\newline none\newline none\newline none\newline none \\
+In the text: on a finite chain with detailed balance, one step's entropy production is the drop in relative entropy and is nonnegative; from a known start the total is at most $-\ln\pi(s)$; the flows balance & \S\ref{sec:a2-not-arbitrary} & \code{re\_sigma\_is\_drop} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_sigma\_nonneg} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_relative\_entropy\_monotone} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_total} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_bound} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_vs\_set} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_flux\_balance} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_stretch\_ratio} {\footnotesize(\code{RelaxationEntropy.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 Theorem \ref{thm:machine-narrowing}: The machine's own narrowing is priced & \S\ref{sec:narrowing} & \code{run\_narrowing\_priced\_log} {\footnotesize(\code{KnowledgeNarrowing.v})} & none \\
 Definition \ref{def:knowledge}: What an observer knows & \S\ref{sec:narrowing} & \code{knowledge} {\footnotesize(\code{KnowledgeNarrowing.v})} & def \\
 Theorem \ref{thm:observer-free}: An observer can learn for free & \S\ref{sec:narrowing} & \code{observer\_narrowing\_can\_be\_free} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{demon\_observer\_learns} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{demon\_machine\_spread\_kept} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{measure\_forgets\_nothing} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{wipe\_merges} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{wipe\_costs\_at\_least\_one} {\footnotesize(\code{KnowledgeNarrowing.v})} & none\newline none\newline none\newline none\newline none\newline none \\

@@ -1159,3 +1159,13 @@ An explicitly qualified citation keeps its own module identity.
 - `qs_deterministic_plan`: For reals a0, a1, b0, b1 whose squares are 1, the two-qubit product state |00> with observables a_x times the identity and b_y times the identity is a valid strategy whose correlators are a_x b_y.
 - `qs_npa_correlators`: The moment matrix built from a strategy has the strategy's four correlators in its correlator entries.
 - `qs_npa_psd`: For every valid quantum strategy with real amplitudes in finite dimension, its level-1 moment matrix (marginals, correlators and self-correlations, as in NPAMomentMatrix.v) is symmetric and positive semidefinite, that is, it passes npa_psd.
+- `re_gibbs`: For two probability vectors on a finite list of states, where the second is positive wherever the first is, the relative entropy of the first against the second is nonnegative.
+- `re_pi_stationary`: On a finite chain whose rows sum to one and whose positive distribution pi satisfies detailed balance, one step of the chain leaves pi unchanged at every state of the list.
+- `re_sigma_is_drop`: On such a chain, for any nonnegative vector p, the entropy produced in one step (the relative entropy of the forward flow p x P x y against the backward flow (pP) y P y x) equals the relative entropy of p to pi minus that of pP to pi.
+- `re_sigma_nonneg`: On such a chain, the entropy produced in one step from any probability vector is nonnegative.
+- `re_relative_entropy_monotone`: On such a chain, one step never raises the relative entropy of a probability vector to pi.
+- `re_known_start_total`: On such a chain with a list without repeats, from the point mass at a listed state s, the entropy produced in the first T steps equals -ln pi(s) minus the relative entropy to pi of the distribution after T steps.
+- `re_known_start_bound`: On such a chain, from the point mass at a listed state s, the entropy produced in the first T steps lies between 0 and -ln pi(s).
+- `re_known_start_vs_set`: For a list of states containing s, -ln pi(s) is at least -ln of the total pi-mass of the list.
+- `re_flux_balance`: On such a chain, the pi-weighted flow from the states reading no to the states reading yes equals the flow from yes back to no.
+- `re_stretch_ratio`: For any positive flow J and positive mass of the no-states, -ln of that mass equals ln (1 + (mass of yes-states / J) / (mass of no-states / J)).
