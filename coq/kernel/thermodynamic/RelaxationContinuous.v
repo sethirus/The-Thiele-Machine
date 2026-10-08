@@ -20,7 +20,10 @@
     - The relative entropy falls at exactly that rate:
       d/dt D (p t) = - sigma (p t) ([rcd_D_derivative]), the continuous
       form of re_sigma_is_drop.
-    - So D never rises along the run ([rcd_D_monotone]). *)
+    - So D never rises along the run ([rcd_D_monotone]).
+    - The entropy produced between times a and b, the Newton integral of
+      sigma, is D (p a) - D (p b) ([rcd_produced_window]), never negative and
+      never more than D (p a) ([rcd_produced_bounds]). *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics. No definition or theorem here mentions a certification
@@ -166,8 +169,36 @@ Proof.
   pose proof (rcd_sigma_nonneg (p c) (p_pos c)). nra.
 Qed.
 
+(** ** The entropy produced over a window of time *)
+
+Lemma rcd_neg_D_deriv : forall t,
+  derivable_pt_lim (opp_fct (fun s => rcd_D (p s))) t (rcd_sigma (p t)).
+Proof.
+  intro t. eapply rcd_lim_ext; [apply derivable_pt_lim_opp; apply rcd_D_derivative | ring].
+Qed.
+
+Definition rcd_window (a b : R) (Hab : a <= b) : Newton_integrable (fun t => rcd_sigma (p t)) a b.
+Proof.
+  exists (opp_fct (fun s => rcd_D (p s))). left. split; [| exact Hab].
+  intros x _. exists (exist _ (rcd_sigma (p x)) (rcd_neg_D_deriv x)). reflexivity.
+Defined.
+
+(** The entropy produced between times a and b, the integral of the
+    production rate, is the drop in relative entropy, and so it is never
+    negative and never more than the relative entropy at time a. *)
+Theorem rcd_produced_window : forall a b (Hab : a <= b),
+  NewtonInt (fun t => rcd_sigma (p t)) a b (rcd_window a b Hab) = rcd_D (p a) - rcd_D (p b).
+Proof. intros a b Hab. unfold NewtonInt, rcd_window. simpl. unfold opp_fct. ring. Qed.
+
+Theorem rcd_produced_bounds : forall a b (Hab : a <= b), 0 <= rcd_D (p b) ->
+  0 <= NewtonInt (fun t => rcd_sigma (p t)) a b (rcd_window a b Hab) <= rcd_D (p a).
+Proof.
+  intros a b Hab H0. rewrite rcd_produced_window. pose proof (rcd_D_monotone a b Hab). lra.
+Qed.
+
 End Continuous.
 
 Print Assumptions rcd_sigma_nonneg.
 Print Assumptions rcd_D_derivative.
 Print Assumptions rcd_D_monotone.
+Print Assumptions rcd_produced_window.
