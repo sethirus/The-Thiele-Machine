@@ -1114,3 +1114,40 @@ An explicitly qualified citation keeps its own module identity.
 - `cmp_exec_unhalted`: For a well-formed source program, when the fast runner does not halt it has used all its fuel, the host machine has not halted at that step either, and if the source program has a run then some larger fuel halts.
 - `cmp_exec_iff`: A well-formed source program computes y if and only if the fast runner halts for some fuel with answer y.
 - `cmp_final`: For a well-formed source program the source computes y if and only if the fast runner halts with y, if and only if the host program halts with y at the output, if and only if the two-counter guest does, if and only if U_P running the guest does with the first counter 0, ledger 0 and the flag down.
+
+## Pieces once argued on the page, now checked
+
+- `nec_f_orbit_merges_visited`: For any type with decidable equality, any reading, any map f and any finite list of all states, if the reading is false at a start s0 and true at every point of f's orbit from some step N on, then f sends two different states of that orbit to the same state.
+- `nec_f_repeat_merges_visited`: On a finite machine with decidable state equality, if one move repeated from a start whose reading is false leaves the reading true at every step from some point on, the move sends two different states of that run to the same state.
+- `nec_f_closed_merges_visited`: On a finite machine with decidable state equality, for any rule picking the next move from the state, if the run from a start whose reading is false has the reading true at every step from some point on, two different states of that run, each taking its own picked move, land on the same state.
+- `nec_f_word_merges_visited`: On a finite machine with decidable state equality, if a word of moves repeated from a start whose reading is false leaves the reading true after every repetition from some point on, then the word splits as u, a letter c, and the rest, and for two repetition counts m and n the states after m or n repetitions followed by u are different and c sends them to the same state.
+- `nec_f_outside_moves_no_merge`: On the two-state machine where one move swaps the states and the other leaves them alone, the swap followed by any number of idle moves from the state reading false ends in the state reading true, and neither move sends two different states to the same state.
+- `nec_f_grade_exact`: For any machine whose acts raise the counter by their charge whenever they succeed, every well-graded loop-free program (acts, sequencing, and branches whose arms carry equal grades) that runs to a final state without failing raises the counter by exactly its grade, the sum of its acts' charges.
+- `nec_f_grade_exact_small`: On the small machine of EarnedCore.v, every well-graded loop-free program over its instructions that runs to a final state with the trap latch down raises the ledger by exactly the program's grade, the sum of its instructions' costs.
+- `nec_f_loop_cost`: On the machine with one register and a counter whose paid act takes one off the register and charges one, the loop that runs the act once per unit of the register as read on entry raises the counter by the register's entry value.
+- `nec_f_loop_no_fixed_grade`: No fixed whole number g makes that loop raise the counter by exactly g from every start.
+- `nec_f_loop_input_grade`: That loop raises the counter by exactly the register's value on entry, from every start.
+- `nec_f_same_rung_same_cups`: In any Boolean preorder, if x is at or below y and y is at or below x, then for every a the threshold a <= x has the same truth value as a <= y.
+- `nec_f_non_partial_cups_fail`: In any Boolean preorder with two different places each at or below the other, there are two different places that leave every threshold with the same truth value.
+- `nec_f_cups_iff_partial`: In any Boolean preorder, the thresholds determine the place (two places with the same threshold values are equal) if and only if the order is antisymmetric.
+- `nec_f_record_ceiling_unique`: On any machine with a reading, a per-step charge that charges every raising step at least one and whose total over every run is at most the number of raising steps in it charges every step exactly one if it raises the reading and zero otherwise.
+- `nec_f_three_automorphism_id`: On the three-state machine (blank, once, twice; flip and smooth), every injective map of the states that commutes with both moves is the identity.
+- `nec_f_three_toll_meets`: On the three-state machine, the bill charging one for the flip from blank and nothing else meets all six reading-free requirements: no charge on a step that changes nothing, none on a move that forgets nothing, invariance under every move-respecting renaming, a run total that adds over concatenation, a charge that depends only on the state before and after, and one mark on the flip from blank.
+- `nec_f_three_merge_meets`: On the three-state machine, the bill charging one for the flip from blank and one for the smooth from once, and nothing else, meets the same six reading-free requirements.
+- `nec_f_three_bills_differ`: The toll and the price on merging charge the smooth from once differently, zero and one.
+- `nec_f_three_ceiling_picks_toll`: On the three-state machine, any per-step charge that charges every raise at least one and whose total over every run is at most the number of raises equals the toll bill at every state and move.
+- `nec_f_three_merge_fails_ceiling`: The price on merging does not satisfy the ceiling: some run on the three states costs more under it than the number of raises in that run.
+- `nec_f_three_cs_floor`: The three-state machine with the flip costing one and the smooth costing nothing is a certification system, and every run from blank that ends in a yes-state costs at least one.
+- `nec_e_equality_forces_point`: For all real a, b, c, d with a^2 + b^2 <= 1 and c^2 + d^2 <= 1, if (a + b + c - d)^2 = 8 then a = b, a = c, d = -a and 2a^2 = 1.
+- `nec_e_equality_two_points`: Under the same row bounds, (a + b + c - d)^2 = 8 forces a to be 1/sqrt 2 or -1/sqrt 2, with b = a, c = a and d = -a.
+- `nec_e_no_rational_half_square`: For all integers D and N with N positive, 2 (D/N)^2 is not 1.
+- `nec_e_worked_cascade_passes`: The full 1+AB integer check passes on correlators 3/5, 3/5, 3/5, -3/5 with moment buckets 0/2, 0/2, 0/2, 0/2 and -2/4.
+- `nec_e_worked_cascade_fails_at_zero`: The same check fails on those correlators when the last moment bucket is 0/2.
+- `nec_e_worked_level1_passes`: The level-1 integer check passes on the tally with 4 same and 1 different in three cells and 1 same and 4 different in the last.
+- `nec_e_singular_level1_passes`: The level-1 integer check passes on the tally whose correlators are 3/5, 4/5, 4/5, -3/5.
+- `nec_e_singular_full_fails`: For every choice of the five moment buckets, the full 1+AB integer check fails on correlators 6/10, 8/10, 8/10, -6/10, because its cleared H11 entry is zero.
+- `nec_f_board_raw_free`: On the board, every move other than VOUCH leaves the state where it was and costs nothing.
+- `nec_f_board_floor`: On the board as a certification system, every run from NO that ends in YES costs at least one.
+- `nec_f_board_floor_flat`: For any property of states that holds of YES, some run from NO ends in a state with that property, reading yes, at total cost exactly one.
+- `nec_f_board_no_wait`: On the board, the run consisting of VOUCH alone takes NO to YES at cost one with no CHECK in it, and the run CHECK then VOUCH takes NO to YES at cost one.
+- `nec_f_history_infinite`: No duplicate-free list of lists of Booleans contains every list of Booleans, so the history machine's state space has no finite enumeration.

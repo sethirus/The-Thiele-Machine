@@ -3815,12 +3815,12 @@ space to hold every intermediate result ``cannot be there.'' The history escape 
 costs you a memory that never fills. Every machine you can buy has a memory that fills.
 
 One thing I have to say plainly, because the file is more careful than I'd like to be. The
-theorem shows the strip machine has the other two properties and forgets nothing. It does
-not contain a sentence saying ``and this machine is infinite''; that's something you and I can
-see about a list of unbounded length, but no Coq statement says it. And it contains no cost
-at all. ``Certifies for free'' is written in a second theorem, \code{history\_escape}
+theorem shows the strip machine has the other two properties and forgets nothing. The sentence
+``and this machine is infinite'' is a second theorem, \code{nec\_f\_history\_infinite}
+(NecFPaperToys.v): no finite list holds every state of the strip. The first theorem contains no
+cost at all. ``Certifies for free'' is written in a second theorem, \code{history\_escape}
 (AxMerge.v): there the strip is counted as a number, each move adds one at a cost of zero,
-nothing merges, merge pricing holds, and the toll fails. So I'm marking the place where the words outrun the file.
+nothing merges, merge pricing holds, and the toll fails. So the words and the files line up, in three theorems.
 
 \emph{Which state is being counted.} Whether a move merges depends on what the state keeps. The
 strip keeps its history, so nothing merges; cut it to eight boxes and the reuse merges.
@@ -4570,7 +4570,7 @@ take the flag down somewhere nobody ever looks, and then it isn't forced to merg
 version of the toll stated in chances and time spans would be a different theorem, and I
 don't have it.
 
-One piece of it I can hand you, argued here on the page. The checked files don't have it. Take
+One piece of it I can hand you, and it's checked. Take
 one move and repeat it from one start, forever. On a finite machine the states that run passes through are
 finitely many, so it falls into a loop. If the move forgot nothing on those states, it would
 be a reshuffle of them, and a reshuffle brings every one of them back around, the start
@@ -4578,10 +4578,12 @@ included, where the flag was down. So if the flag goes up along that run and sta
 some point on, the move merges two states \emph{the run itself visits}. The shared chair is
 one the machine actually sits in. And it doesn't touch the known-state point above: a merge
 among states the run visits still costs Landauer nothing if the run knew where it was and
-something outside timed the step.
+something outside timed the step. Checked as \code{nec\_f\_orbit\_merges\_visited} and
+\code{nec\_f\_repeat\_merges\_visited} (NecFRepeat.v), for any map iterated from a start whose flag
+is down, with the flag up at every step from some point on; no permanence premise is used.
 
 Runs that mix different moves split two ways, and the answer is short enough to give here,
-argued on the page like the last one. If the moves are picked from outside, in any order at
+checked like the last one. If the moves are picked from outside, in any order at
 all, the answer is no. Take two states, one reading no and one reading yes. Move $a$ swaps them;
 move $b$ does nothing. Run $a$ once and then $b$ forever: the flag goes up at the first step and
 stays up for good, and neither move merges anything anywhere. The swap would take the flag down
@@ -4595,7 +4597,10 @@ repeating starts, and goes up and stays up after that. Count the repetitions fro
 $w$ at that letter if you have to) and run the same argument on the composite of $w$'s moves, at the states where such a repetition begins. It merges two
 of those states, both visited; follow the two through the letters of $w$, and the first letter
 where their paths meet merges two states the run visits at that letter's place in the pattern.
-So: moves picked from outside, no; a closed machine or a repeating program, yes.
+So: moves picked from outside, no; a closed machine or a repeating program, yes
+(\code{nec\_f\_outside\_moves\_no\_merge}, \code{nec\_f\_closed\_merges\_visited} and
+\code{nec\_f\_word\_merges\_visited}, NecFRepeat.v; the last finds the letter and the two
+repetitions, from a flag down at the start and up at every repetition from some point on).
 
 And one limited piece of the chances-and-time-spans version, also argued here and not checked,
 because it shows exactly where the known-state escape stops. Take a device with no outside hand
@@ -5424,8 +5429,8 @@ recurrences they extract for a program's cost. That isn't a hole waiting for a p
 moment-of-truth difference I just named. Putting the count in the step is choosing the other
 moment, so the grade here is written by the step at run time and never checked ahead of it.
 
-How close do the two moments come? Close enough to say exactly, in a limited form, argued here
-and not checked. Take a small structured language over a machine with this kind of counter:
+How close do the two moments come? Close enough to say exactly, in a limited form, and it's
+checked. Take a small structured language over a machine with this kind of counter:
 sequencing, branches whose two arms carry the same grade, and paid acts each graded with their
 charge, and grade every program the way Katsumata's discipline does, adding grades along the
 program. On loop-free programs the two agree on the nose: on every run that doesn't trap, the
@@ -5442,7 +5447,10 @@ entry, and no fixed whole number is an exact grade for it; a grade that's a func
 inputs, the kind cost-aware type theories like calf (Niu, Sterling, Grodin and Harper, 2022)
 allow, gets exactness back. So the counter carries their semantics exactly, agrees with fixed
 grades wherever a fixed grade can be exact, and where a run's cost depends on its data it holds
-the exact number that a fixed grade can only bound. What has no counterpart in the step is the
+the exact number that a fixed grade can only bound. Checked as \code{nec\_f\_grade\_exact}, with
+the small machine as an instance in \code{nec\_f\_grade\_exact\_small}, and for the loop
+\code{nec\_f\_loop\_cost}, \code{nec\_f\_loop\_no\_fixed\_grade} and \code{nec\_f\_loop\_input\_grade}
+(NecFGrade.v). What has no counterpart in the step is the
 checking ahead of time: a type checker turning a program away before it runs.
 
 There's one more neighbour, closer than any of those, and I'll name it before
@@ -7088,8 +7096,9 @@ step by it, from any state, is a certified insight event.
 \end{definition}
 
 \begin{remark}[What the toll prices, and what it doesn't]\label{rem:u09-three}
-Read off Definition~\ref{def:certsys} and Theorem~\ref{thm:universal-floor}; there is no further
-Coq theorem at this generality. (1) The toll puts no bound on the cost of a raw-observation
+Read off Definition~\ref{def:certsys} and Theorem~\ref{thm:universal-floor}, and checked on the
+board as a certification system (\code{nec\_f\_board\_raw\_free}, \code{nec\_f\_board\_floor} and
+\code{nec\_f\_board\_floor\_flat}, NecFPaperToys.v). (1) The toll puts no bound on the cost of a raw-observation
 move; on Section~\ref{sec:toll}'s board STAY and WORK are raw observation and cost $0$. (2) Every certified
 insight event is charged at least $1$, by the toll, and every run from a state reading no to
 one reading yes has total cost at least $1$, by the universal floor. (3) The price is flat:
@@ -7144,7 +7153,8 @@ preceded by a test is a fact about the run, or about a design somebody chose. Th
 guarantee it.
 
 \begin{remark}[Nothing makes the crossing wait]\label{rem:u09-no-wait}
-Read off Definition~\ref{def:certsys}; there is no Coq theorem. The toll constrains
+Read off Definition~\ref{def:certsys}, and checked on the board as \code{nec\_f\_board\_no\_wait}
+(NecFPaperToys.v). The toll constrains
 $\mathrm{cost}(i)$ for moves that cross, and nothing else; the step function is any function
 of the current state and the move. So a certification system may have a move that crosses
 from a state no check has touched, and the toll still holds. On Section~\ref{sec:toll}'s board extended with
@@ -8060,9 +8070,11 @@ Checked as \code{bp\_thresholds\_determine} and \code{thresholds\_fail\_on\_preo
 \code{indiscrete\_loses\_record} (AxLatch.v).
 
 So in a partial order the cups are the place, and in the preorder I built they aren't. That second
-half holds in every preorder that isn't partial, by one line of pencil that isn't in the Coq: if
+half holds in every preorder that isn't partial, by one line: if
 $x \le y$ and $y \le x$ with $x \ne y$, then a cup that's up at either one is up at the other, by
-transitivity. So the cups are the place exactly when the order is partial. My first guess was right on every
+transitivity. So the cups fix the place if and only if the order is partial
+(\code{nec\_f\_same\_rung\_same\_cups}, \code{nec\_f\_non\_partial\_cups\_fail} and
+\code{nec\_f\_cups\_iff\_partial}, NecFCups.v). My first guess was right on every
 strip I could draw, and it was right because of a rule I hadn't noticed I was leaning on. On a
 bare preorder, putting two places on the same rung tells the toll not to care about moves between
 them, and it doesn't. I don't think that's a defect. It's the order telling you what you agreed to
@@ -10102,8 +10114,12 @@ smooth, so that list doesn't pick between them. What picks the toll is a require
 the record: over any run the total is never more than the number of times the reading went up.
 With the floor, that leaves exactly one bill, one mark per raise and nothing else
 (Section~\ref{sec:windows}), and it rules the price on merging out, because the smooth costs that price a
-mark and raises nothing. (The three-state machine itself isn't in the Coq. It's three states and a
-pencil.) So the uniqueness is real and it's small. It holds once you've said which
+mark and raises nothing. All of that is checked on the three states: \code{nec\_f\_three\_toll\_meets},
+\code{nec\_f\_three\_merge\_meets}, \code{nec\_f\_three\_bills\_differ},
+\code{nec\_f\_three\_ceiling\_picks\_toll} and \code{nec\_f\_three\_merge\_fails\_ceiling}, with the
+general uniqueness as \code{nec\_f\_record\_ceiling\_unique} (NecFThreeState.v). The only renaming
+of the three states that respects the moves is the identity (\code{nec\_f\_three\_automorphism\_id}),
+so the renaming requirement asks nothing there. So the uniqueness is real and it's small. It holds once you've said which
 reading you're charging for, and which reading deserves the charge is the pointer conjecture,
 which is still a conjecture.
 
@@ -15027,9 +15043,8 @@ Companion sources:
   https://github.com/sethirus/The-Thiele-Machine
   branch handoff/native-recursion-2026-10-01
 Revision used for this edition:
-  7a3fc08dbc6168e4c749aa6fcfbbee6e68899884
-  (last change to the proof sources:
-   961a97da442b16204aab12affac64225f796223c)
+  the commit tagged for this edition's release; the
+  digest further down fingerprints its proof sources
 Dependency snapshot:
   Coq 8.18.0 (Ubuntu 24.04 packages), MetaCoq 1.2.1
   (scripts/install_metacoq.sh), vendored Coq Library of
@@ -17134,6 +17149,7 @@ Definition \ref{def:u04-entropy-priced}: Entropy-priced & \S\ref{sec:a2-not-arbi
 Theorem \ref{thm:u04-entropy-toll}: The toll from entropy pricing & \S\ref{sec:a2-not-arbitrary} & \code{a2\_from\_entropy\_price\_and\_permanence} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_priced\_trace\_floor} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{certification\_system\_from\_entropy\_price} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline def \\
 Theorem \ref{thm:known-state}: A known state gets no heat floor from the premise & \S\ref{sec:a2-not-arbitrary} & \code{known\_state\_step\_removes\_no\_entropy} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{known\_state\_flip\_forces\_no\_heat} {\footnotesize(if and only if)} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Theorem \ref{thm:u04-point-sum}: The bits removed, one term per state & \S\ref{sec:a2-not-arbitrary} & \code{entropy\_drop\_as\_point\_sum} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_nonneg} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_pos\_of\_support\_merge} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
+In the text: a repeated move, a closed machine or a repeating word, raising the flag for good from a start whose flag is down, merges two states the run visits; moves picked from outside need not; the strip machine has no finite list of its states & \S\ref{sec:a2-not-arbitrary} & \code{nec\_f\_orbit\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_repeat\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_closed\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_word\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_outside\_moves\_no\_merge} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_history\_infinite} {\footnotesize(\code{NecFPaperToys.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:machine-narrowing}: The machine's own narrowing is priced & \S\ref{sec:narrowing} & \code{run\_narrowing\_priced\_log} {\footnotesize(\code{KnowledgeNarrowing.v})} & none \\
 Definition \ref{def:knowledge}: What an observer knows & \S\ref{sec:narrowing} & \code{knowledge} {\footnotesize(\code{KnowledgeNarrowing.v})} & def \\
 Theorem \ref{thm:observer-free}: An observer can learn for free & \S\ref{sec:narrowing} & \code{observer\_narrowing\_can\_be\_free} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{demon\_observer\_learns} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{demon\_machine\_spread\_kept} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{measure\_forgets\_nothing} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{wipe\_merges} {\footnotesize(\code{KnowledgeNarrowing.v})}\newline \code{wipe\_costs\_at\_least\_one} {\footnotesize(\code{KnowledgeNarrowing.v})} & none\newline none\newline none\newline none\newline none\newline none \\
@@ -17143,6 +17159,7 @@ Theorem \ref{thm:conservation}: Conservation & \S\ref{sec:counter} & \code{nec\_
 Theorem \ref{thm:initiality}: Only one honest count & \S\ref{sec:counter} & \code{nec\_f\_initiality} {\footnotesize(\code{NecFCounter.v})} & none \\
 Definition \ref{def:potential}: Potential, amortized cost & \S\ref{sec:counter} & \code{amortized\_nonneg} {\footnotesize(\code{CostSemanticsComparison.v})}\newline \code{cert\_potential} {\footnotesize(\code{CostSemanticsComparison.v})} & def\newline def \\
 Theorem \ref{thm:potential}: The toll is the potential method & \S\ref{sec:counter} & \code{a2\_iff\_nonnegative\_amortized\_cost} {\footnotesize(\code{CostSemanticsComparison.v})}\newline \code{potential\_telescoping} {\footnotesize(\code{CostSemanticsComparison.v})}\newline \code{nfi\_by\_potential} {\footnotesize(\code{CostSemanticsComparison.v})}\newline \code{certification\_system\_is\_potential\_method} {\footnotesize(\code{CostSemanticsComparison.v})}\newline \code{flips\_le\_cost} {\footnotesize(\code{CostFrameworks.v})}\newline \code{a2\_and\_aara\_iff\_exact} {\footnotesize(\code{CostFrameworks.v})} & none\newline none\newline none\newline none\newline none\newline none \\
+In the text: on loop-free programs over a counter that conserves, a fixed grade equals the counter's rise on every run that doesn't trap, the small machine included; a loop has no fixed exact grade and an input-dependent one & \S\ref{sec:counter} & \code{nec\_f\_grade\_exact} {\footnotesize(\code{NecFGrade.v})}\newline \code{nec\_f\_grade\_exact\_small} {\footnotesize(\code{NecFGrade.v})}\newline \code{nec\_f\_loop\_cost} {\footnotesize(\code{NecFGrade.v})}\newline \code{nec\_f\_loop\_no\_fixed\_grade} {\footnotesize(\code{NecFGrade.v})}\newline \code{nec\_f\_loop\_input\_grade} {\footnotesize(\code{NecFGrade.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:fibre}: Decoders need constant fibres & \S\ref{sec:windows} & \code{decoding\_requires\_fiber\_constancy} {\footnotesize(\code{ObservationPolicy.v})}\newline \code{selected\_representatives\_give\_decoder} {\footnotesize(\code{ObservationPolicy.v})} & none\newline none \\
 Theorem \ref{thm:shadow-price}: No exact window price across a collision & \S\ref{sec:windows} & \code{shadow\_floor\_overcharges} {\footnotesize(\code{ShadowPricing.v})}\newline \code{shadow\_cannot\_price\_exactly} {\footnotesize(\code{ShadowPricing.v})}\newline \code{window\_showing\_reading\_prices\_exactly} {\footnotesize(\code{ShadowPricing.v})}\newline \code{window\_showing\_reading\_has\_no\_collision} {\footnotesize(\code{ShadowPricing.v})} & none\newline none\newline none\newline none \\
 Definition \ref{def:u21-escape-relations}: Three richer transcripts and their explanations & \S\ref{sec:windows} & stated in the text & \\
@@ -17163,8 +17180,8 @@ Theorem \ref{thm:ent-search}: A search through $n$ bits & \S\ref{sec:smallest} &
 In the text: the covering can't be dropped & \S\ref{sec:smallest} & \code{ent2\_uncovered\_posterior} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_uncovered\_claim\_false} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_no\_cheap\_covering} {\footnotesize(\code{CoveringNeeded2.v})} & none\newline none\newline none \\
 Theorem \ref{thm:time-tax}: The time tax & \S\ref{sec:smallest} & \code{ent2\_free\_run\_shift} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_free\_cannot\_decide\_fast} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_chain\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_time\_tax} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_machine\_free\_cannot\_decide} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_machine\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_free} {\footnotesize(\code{TimeTax2.v})}\newline \code{nec\_e\_time\_tax\_one\_paid\_move} {\footnotesize(\code{NecESearch.v})}\newline \code{nec\_e\_time\_tax\_free\_needed} {\footnotesize(\code{NecESearch.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u09-events}: Certified insight event, raw observation & \S\ref{sec:insight} & stated in the text &  \\
-Remark \ref{rem:u09-three}: What the toll prices, and what it doesn't & \S\ref{sec:insight} & argued in the text &  \\
-Remark \ref{rem:u09-no-wait}: Nothing makes the crossing wait & \S\ref{sec:insight} & argued in the text &  \\
+Remark \ref{rem:u09-three}: What the toll prices, and what it doesn't & \S\ref{sec:insight} & \code{nec\_f\_board\_raw\_free} {\footnotesize(\code{NecFPaperToys.v})}\newline \code{nec\_f\_board\_floor} {\footnotesize(\code{NecFPaperToys.v})}\newline \code{nec\_f\_board\_floor\_flat} {\footnotesize(\code{NecFPaperToys.v})} & none\newline none\newline none \\
+Remark \ref{rem:u09-no-wait}: Nothing makes the crossing wait & \S\ref{sec:insight} & \code{nec\_f\_board\_no\_wait} {\footnotesize(\code{NecFPaperToys.v})} & none \\
 Definition \ref{def:u11-base}: Base, record-carrying machine, cover & \S\ref{sec:latch} & stated in the text &  \\
 Definition \ref{def:u11-honest}: Honest extension, latch & \S\ref{sec:latch} & stated in the text &  \\
 Theorem \ref{thm:u11-latch}: The record is a latch & \S\ref{sec:latch} & \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{BaseMachine} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{BaseCover} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{computation\_driven} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{HonestBaseExtension} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{latch\_factorization} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{ledger\_carried} {\footnotesize(\code{StructuralCore.v})}\newline \code{rc\_a2} {\footnotesize(\code{StructuralCore.v})}\newline \code{record\_permanent} {\footnotesize(\code{StructuralCoreCover.v})}\newline \code{reachable\_record\_write} {\footnotesize(\code{StructuralCoreCover.v})} & none\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def \\
@@ -17181,6 +17198,7 @@ Theorem \ref{thm:u11-four-bases}: Outside bases, and the relation & \S\ref{sec:l
 Definition \ref{def:u11-growing}: A growing record & \S\ref{sec:latch} & stated in the text &  \\
 Theorem \ref{thm:u11-growing}: Growing records are families of latches & \S\ref{sec:latch} & \code{growing\_record\_decomposes\_holds} {\footnotesize(\code{GrowingRecord.v})}\newline \code{thresholds\_determine\_record\_holds} {\footnotesize(\code{GrowingRecord.v})}\newline \code{record\_price\_iff\_threshold\_price\_holds} {\footnotesize(\code{GrowingRecord.v})}\newline \code{one\_latch\_refuted} {\footnotesize(\code{GrowingRecord.v})}\newline \code{chain\_needs\_bits\_holds} {\footnotesize(\code{GrowingRecord.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:dir-lines}: The cups fix the place, and only with antisymmetry & \S\ref{sec:direction} & \code{bp\_thresholds\_determine} {\footnotesize(\code{AxCore.v})}\newline \code{thresholds\_fail\_on\_preorder} {\footnotesize(\code{AxCore.v})}\newline \code{indiscrete\_loses\_record} {\footnotesize(\code{AxLatch.v})} & none\newline none\newline none \\
+In the text: two places each at or below the other leave the same cups up, so the cups fix the place if and only if the order is partial & \S\ref{sec:direction} & \code{nec\_f\_same\_rung\_same\_cups} {\footnotesize(\code{NecFCups.v})}\newline \code{nec\_f\_non\_partial\_cups\_fail} {\footnotesize(\code{NecFCups.v})}\newline \code{nec\_f\_cups\_iff\_partial} {\footnotesize(\code{NecFCups.v})} & none\newline none\newline none \\
 Theorem \ref{thm:dir-toll}: The toll over any direction & \S\ref{sec:direction} & \code{ax\_floor\_iff\_a2} {\footnotesize(\code{AxCore.v})}\newline \code{ax\_cost\_ge\_exits} {\footnotesize(\code{AxCore.v})}\newline \code{ax\_view\_a2} {\footnotesize(\code{AxCore.v})}\newline \code{ax\_a2\_iff\_views} {\footnotesize(\code{AxLatch.v})}\newline \code{two\_point\_nfi} {\footnotesize(\code{AxCore.v})}\newline \code{ax\_exit\_is\_strict\_rise} {\footnotesize(\code{AxCore.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:dir-bits}: Lines a direction needs & \S\ref{sec:direction} & \code{chain\_bits\_exact} {\footnotesize(\code{AxLatch2.v})}\newline \code{chain3\_not\_join\_latch} {\footnotesize(\code{AxLatch.v})} & none\newline none \\
 Theorem \ref{thm:dir-merge}: Turning a cup over merges & \S\ref{sec:direction} & \code{ax\_exit\_merges\_or\_revokes} {\footnotesize(\code{AxMerge.v})}\newline \code{ax\_growth\_exit\_merges} {\footnotesize(\code{AxMerge.v})}\newline \code{ax\_a2\_iff\_flipping\_merges\_priced} {\footnotesize(\code{AxMerge.v})}\newline \code{ax\_a2\_from\_merge\_price} {\footnotesize(\code{AxMerge.v})} & none\newline none\newline none\newline none \\
@@ -17217,6 +17235,7 @@ Theorem \ref{thm:u14-survey}: The survey, and the swap & \S\ref{sec:pointer} & \
 Theorem \ref{thm:u14-blind}: One blind observer is enough & \S\ref{sec:pointer} & \code{blind\_observer\_blocks\_proliferation} {\footnotesize(\code{PointerObservableCounterexamples.v})}\newline \code{labeled\_model\_verdicts} {\footnotesize(\code{PointerObservableCounterexamples.v})} & none\newline none \\
 Definition \ref{def:u14-game}: Observation game & \S\ref{sec:pointer} & stated in the text &  \\
 Theorem \ref{thm:u14-toggle}: What buys permanence & \S\ref{sec:pointer} & \code{toggle\_game\_refutes\_strong\_pointer\_necessity} {\footnotesize(\code{EcosystemGame.v})}\newline \code{durable\_consensus\_implies\_permanence} {\footnotesize(\code{EcosystemGame.v})} & none\newline none \\
+In the text: on the three states, the six requirements that name no reading admit both the toll and the price on merging; the ceiling on raises with the floor fixes one mark per raise & \S\ref{sec:pointer} & \code{nec\_f\_three\_toll\_meets} {\footnotesize(\code{NecFThreeState.v})}\newline \code{nec\_f\_three\_merge\_meets} {\footnotesize(\code{NecFThreeState.v})}\newline \code{nec\_f\_three\_bills\_differ} {\footnotesize(\code{NecFThreeState.v})}\newline \code{nec\_f\_three\_automorphism\_id} {\footnotesize(\code{NecFThreeState.v})}\newline \code{nec\_f\_record\_ceiling\_unique} {\footnotesize(\code{NecFThreeState.v})}\newline \code{nec\_f\_three\_ceiling\_picks\_toll} {\footnotesize(\code{NecFThreeState.v})}\newline \code{nec\_f\_three\_merge\_fails\_ceiling} {\footnotesize(\code{NecFThreeState.v})}\newline \code{nec\_f\_three\_cs\_floor} {\footnotesize(\code{NecFThreeState.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u34-props}: Properties, checker, meaning & \S\ref{sec:smallest} & stated in the text &  \\
 Lemma \ref{lem:u34-eval}: The checker says what it means & \S\ref{sec:smallest} & \code{eval\_iff} {\footnotesize(\code{EarnedCore.v}, +7)} & none \\
 Definition \ref{def:u34-state}: Core, state, claim, start & \S\ref{sec:smallest} & stated in the text &  \\
@@ -17320,7 +17339,7 @@ Theorem \ref{thm:chsh-tally}: A tally above 2 is not one replayed strategy & \S\
 Lemma \ref{lem:chsh-sos}: The six-square identity, \code{chsh\_gap\_is\_sum\_of\_squares} & \S\ref{sec:chsh-derivation} & \code{chsh\_gap\_is\_sum\_of\_squares} {\footnotesize(\code{TsirelsonFromAlgebra.v})} & FE, RD \\
 Theorem \ref{thm:chsh-row-tsirelson}: Row-bound form of Tsirelson's bound & \S\ref{sec:chsh-derivation} & \code{tsirelson\_squared} {\footnotesize(\code{TsirelsonFromAlgebra.v})}\newline \code{tsirelson\_from\_row\_bounds} {\footnotesize(\code{TsirelsonGeneral.v})}\newline \code{tsirelson\_bound\_abs} {\footnotesize(\code{TsirelsonGeneral.v})} & FE, RD\newline FE, RD\newline FE, RD \\
 Theorem \ref{thm:chsh-tight}: Tightness & \S\ref{sec:chsh-derivation} & \code{tsirelson\_tight} {\footnotesize(\code{TsirelsonFromAlgebra.v})}\newline \code{tsirelson\_achievable} {\footnotesize(\code{TsirelsonGeneral.v})} & FE, RD\newline FE, RD \\
-Remark \ref{rem:chsh-equality}: Where equality can happen & \S\ref{sec:chsh-derivation} & \code{nec\_e\_check\_strict} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_never\_tsirelson} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_sharp} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_no\_sqrt8} {\footnotesize(\code{NecEChsh.v})}\newline the equality case is argued in the text & FE, RD\newline FE, RD\newline FE, RD\newline none \\
+Remark \ref{rem:chsh-equality}: Where equality can happen & \S\ref{sec:chsh-derivation} & \code{nec\_e\_check\_strict} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_never\_tsirelson} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_sharp} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_no\_sqrt8} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_equality\_forces\_point} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_equality\_two\_points} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_no\_rational\_half\_square} {\footnotesize(\code{NecEChshEquality.v})} & FE, RD\newline FE, RD\newline FE, RD\newline none\newline FE, RD\newline FE, RD\newline FE, RD \\
 Lemma \ref{lem:chsh-rational}: A rational constant above the bound, \code{rational\_tsirelson\_bound} & \S\ref{sec:chsh-derivation} & \code{rational\_tsirelson\_bound} {\footnotesize(\code{TsirelsonFromAlgebra.v})} & FE, RD \\
 Definition \ref{def:chsh-five}: The pinned level-1 matrix & \S\ref{sec:chsh-derivation} & \code{zero\_marginal\_npa} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{NPAMomentMatrix} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{npa\_to\_matrix} {\footnotesize(\code{NPAMomentMatrix.v})} & def\newline def\newline def \\
 Lemma \ref{lem:chsh-schur}: Schur complement, the standard form & \S\ref{sec:chsh-derivation} & argued in the text; no Coq theorem &  \\
@@ -17344,7 +17363,8 @@ Lemma \ref{lem:chsh-schur-step}: Fraction-free Schur step & \S\ref{sec:chsh-deri
 Lemma \ref{lem:chsh-sylvester}: Sylvester for 4x4, \code{sym4\_qf\_nonneg\_from\_pd} & \S\ref{sec:chsh-derivation} & \code{sym4\_qf\_nonneg\_from\_pd} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym4\_LDLT\_identity} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym4\_d1} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym4\_d4} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{sym4\_Q2} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline FE, RD\newline def\newline def\newline def \\
 Definition \ref{def:chsh-g12345}: What the integer check computes & \S\ref{sec:chsh-derivation} & \code{g12345\_COMMON\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{cleared\_g12345\_H11\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{cleared\_g12345\_H66\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{schur\_step\_Z} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{q1ab\_g12345\_check\_z\_kernel} {\footnotesize(\code{CHSHColumnCheck.v})} & def\newline def\newline def\newline def\newline def \\
 Theorem \ref{thm:chsh-g12345}: The full 1+AB check implies PSD & \S\ref{sec:chsh-derivation} & \code{q1ab\_g12345\_caller\_witness\_z\_abs\_sound} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{q1ab\_g12345\_minors\_witness\_implies\_psd9} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline FE, RD \\
-Remark \ref{rem:chsh-interior}: Interior only & \S\ref{sec:chsh-derivation} & argued in the text &  \\
+Remark \ref{rem:chsh-interior}: Interior only & \S\ref{sec:chsh-derivation} & \code{nec\_e\_singular\_level1\_passes} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_singular\_full\_fails} {\footnotesize(\code{NecEChshEquality.v})} & none\newline none \\
+In the text: the worked cascade passes the full 1+AB check, fails it at a zero last moment, and passes the level-1 check & \S\ref{sec:chsh-derivation} & \code{nec\_e\_worked\_cascade\_passes} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_worked\_cascade\_fails\_at\_zero} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_worked\_level1\_passes} {\footnotesize(\code{NecEChshEquality.v})} & none\newline none\newline none \\
 Theorem \ref{thm:chsh-gzero}: The zero-moment check sits inside the classical bound & \S\ref{sec:chsh-derivation} & \code{q1ab\_check\_at\_gzero\_forces\_unit\_ball} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{q1ab\_check\_at\_gzero\_implies\_classical\_bound} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{q1ab\_residual\_g\_zero\_decomp} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{column\_contractive\_check\_q1ab\_sound\_at\_g\_zero} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{column\_contractive\_check\_q1ab} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline def \\
 Definition \ref{def:chsh-elliptope}: Completion and membership & \S\ref{sec:chsh-derivation} & \code{completed\_npa} {\footnotesize(\code{ElliptopeCompletion.v})}\newline \code{elliptope\_realizable} {\footnotesize(\code{ElliptopeCompletion.v})} & def\newline def \\
 Theorem \ref{thm:chsh-ell-det}: Deterministic plans are inside, \code{deterministic\_strategy\_elliptope} & \S\ref{sec:chsh-derivation} & \code{deterministic\_strategy\_elliptope} {\footnotesize(\code{ElliptopeCompletion.v})} & FE, RD \\
@@ -18328,7 +18348,9 @@ Each row has squared length $1/2 + 1/2 = 1$, and $S = 4/\sqrt 2 = 2\sqrt 2 = \sq
 \end{proof}
 
 \begin{remark}[Where equality can happen]\label{rem:chsh-equality}
-The step about where equality happens is argued here and has no Coq theorem; the conclusion about
+The step about where equality happens is checked as \code{nec\_e\_equality\_forces\_point} and
+\code{nec\_e\_equality\_two\_points}, and the fact that no ratio of whole numbers solves $2a^2 = 1$
+as \code{nec\_e\_no\_rational\_half\_square} (NecEChshEquality.v); the conclusion about
 tallies at the end is checked as \code{nec\_e\_no\_sqrt8}, \code{nec\_e\_check\_strict},
 \code{nec\_e\_check\_never\_tsirelson} and \code{nec\_e\_check\_sharp} (NecEChsh.v). Equality $S^2 = 8$ under the row bounds forces
 equality in both steps of the proof above: the six squares must all vanish, which gives
@@ -18878,12 +18900,15 @@ Every test in the cascade is strict, so a passing check certifies that $H$ is po
 definite, which is stronger than semidefinite. A point where $H$ is PSD but singular cannot pass, and
 neither can a moment with $|\gamma_k| = 1$. For example, the tally of item E with correlators
 $(3/5, 4/5, 4/5, -3/5)$ has $H_{11} = 1 - 9/25 - 16/25 = 0$, so the full 1+AB check fails on it
-for every choice of $\gamma$, though the level-1 check of item E accepts it. The source proves
+for every choice of $\gamma$, though the level-1 check of item E accepts it
+(\code{nec\_e\_singular\_full\_fails} and \code{nec\_e\_singular\_level1\_passes},
+NecEChshEquality.v). The source proves
 soundness only; no converse is stated.
 \end{remark}
 
-A worked example of the cascade, in exact rational arithmetic (argued here; there is no Coq
-Example for it). Take the correlators $(0.6, 0.6, 0.6, -0.6)$ and
+A worked example of the cascade, in exact rational arithmetic, checked by computation as
+\code{nec\_e\_worked\_cascade\_passes}, \code{nec\_e\_worked\_cascade\_fails\_at\_zero} and
+\code{nec\_e\_worked\_level1\_passes} (NecEChshEquality.v). Take the correlators $(0.6, 0.6, 0.6, -0.6)$ and
 $\gamma = (0, 0, 0, 0, -1/2)$; as buckets, $\gamma_1$ to $\gamma_4$ are $(1,1)$, giving
 $0/2$, and $\gamma_5$ is $(1,3)$, giving $-2/4$, both inside the strict bounds. Then
 $H_{11} = H_{22} = 7/25$, $H_{12} = 0$, and every entry $H_{1j}$, $H_{2j}$ with $j \ge 3$ is

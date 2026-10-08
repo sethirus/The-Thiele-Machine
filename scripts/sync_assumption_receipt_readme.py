@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -103,6 +104,28 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
             text,
             r"Zero project-local axioms appear in any of the [\d,]+ dependency trees",
             f"Zero project-local axioms appear in any of the {theorem_count} dependency trees",
+            1,
+        )
+        text = replace_exact(
+            text,
+            r"from the assumption audit \([\d,]+ theorems in [\d,]+ files\)",
+            f"from the assumption audit ({theorem_count} theorems in {file_count} files)",
+            1,
+        )
+        # The release block names the report by its file hash and corpus
+        # digest, each wrapped over two lines of 32 hex digits.
+        sha = hashlib.sha256(receipt.read_bytes()).hexdigest()
+        digest = payload["corpus_digest"]
+        text = replace_exact(
+            text,
+            r"SHA-256 [0-9a-f]{32}\n\s+[0-9a-f]{32}",
+            f"SHA-256 {sha[:32]}\n          {sha[32:]}",
+            1,
+        )
+        text = replace_exact(
+            text,
+            r"corpus digest [0-9a-f]{32}\n\s+[0-9a-f]{32}",
+            f"corpus digest {digest[:32]}\n                {digest[32:]}",
             1,
         )
         monograph.write_text(text, encoding="utf-8")

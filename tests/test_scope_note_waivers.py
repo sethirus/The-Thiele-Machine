@@ -63,6 +63,7 @@ WAIVED_FILES = [
     "coq/kernel/foundation/LRecursion.v",
     "coq/kernel/foundation/MM2ComplementUndec.v",
     "coq/kernel/foundation/NecEChsh.v",
+    "coq/kernel/foundation/NecEChshEquality.v",
     "coq/kernel/foundation/NecEChshInt.v",
     "coq/kernel/foundation/NecEFine.v",
     "coq/kernel/foundation/NecWCT.v",
