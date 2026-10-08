@@ -190,6 +190,7 @@ WAIVED_FILES = [
     "coq/kernel/thermodynamic/RelaxationConvergence.v",
     "coq/kernel/thermodynamic/RelaxationEntropy.v",
     "coq/kernel/thermodynamic/RelaxationStretch.v",
+    "coq/kernel/thermodynamic/RelaxationStretchContinuous.v",
     "minimal/AxDgBlock.v",
     "minimal/CzLink.v",
     "minimal/EarnedCore.v",

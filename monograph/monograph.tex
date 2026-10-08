@@ -4695,12 +4695,27 @@ checked in steps. Start each stretch the way the flow starts them, count the ste
 chain leaves the up-states, and the average is exactly $\pi(\mathrm{up})$ over the flow, again
 under Doeblin's condition (\code{rs\_mean\_stretch}, RelaxationStretch.v). The proof is a
 telescoping sum: the long-run weight that has stayed up for $k$ steps splits into the stretches
-that started just now and the weight that stays up one step more. With the stretches measured in
-seconds, in continuous time, the same identity is still only argued here. Checking it takes
-either the fact that a linear differential equation has only one solution from a given start, or
-a way to solve the equations for the expected time to leave, and the standard library of the proof
-checker this book uses has neither ready-made. It's standard mathematics, and it's the one
-unchecked step left in this passage.
+that started just now and the weight that stays up one step more.
+
+With the stretches measured in seconds, when the device hops at random moments, it's checked
+too, and the route is different. Ask, for each up-state, how long on average the device takes to
+leave the up-states from there. Call that its leaving time. The leaving times obey one plain
+rule: from any up-state, the rate out of it times its leaving time, minus the rates into the other
+up-states times their leaving times, comes to exactly one second. Average the leaving times over
+the way the flow starts stretches, multiply by the flow, and the rule plus the balance of the
+steady spread (as much weight flows into each state as out of it) rearrange the sum into exactly
+$\pi(\mathrm{up})$ (\code{rsc\_mass\_over\_flow}, RelaxationStretchContinuous.v). That the
+rule has a solution at all needs proving, since nothing promises it in advance, and Doeblin's
+condition supplies it: run a clock that ticks faster than any rate in the chain, and the leaving
+times are the limit of a count that only grows and never passes one over $c\,\pi(\mathrm{down})$
+(\code{rsc\_leave\_exists}). Last, the seconds themselves. Take the chance that a stretch started
+by the flow is still running at time $t$, with the chain stopped the moment it leaves the
+up-states. That chance starts at one and falls at least as fast as $e^{-c\,\pi(\mathrm{down})\,t}$
+(\code{rsc\_S\_decay}). The time spent up, which is that chance added up over time, comes out to
+the averaged leaving time minus what's still running, and as time runs on it closes in on
+$\pi(\mathrm{up})$ over the flow (\code{rsc\_mean\_stretch\_time} and
+\code{rsc\_stretch\_identity}). Mass over flow, in seconds. The bound's two premises are both
+checked now, in steps and in seconds.
 
 The next section is about a different door entirely. Forgetting has had its section; the
 question now is whether \emph{finding out} costs, because the demon's whole trick was that it knew which way the
@@ -17320,6 +17335,7 @@ In the text: a repeated move, a closed machine or a repeating word, raising the 
 In the text: on a finite chain with detailed balance, one step's entropy production is the drop in relative entropy and is nonnegative; from a known start the total is at most $-\ln\pi(s)$; the flows balance & \S\ref{sec:a2-not-arbitrary} & \code{re\_sigma\_is\_drop} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_sigma\_nonneg} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_relative\_entropy\_monotone} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_total} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_bound} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_vs\_set} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_flux\_balance} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_stretch\_ratio} {\footnotesize(\code{RelaxationEntropy.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 In the text: under Doeblin's condition the chain converges to its steady spread and the entropy from a known start converges to $-\ln\pi(s)$; in continuous time the relative entropy falls at the production rate & \S\ref{sec:a2-not-arbitrary} & \code{rc\_contract} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rc\_converges} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rc\_known\_start\_gap} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rc\_known\_start\_limit} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rcd\_sigma\_nonneg} {\footnotesize(\code{RelaxationContinuous.v})}\newline \code{rcd\_D\_derivative} {\footnotesize(\code{RelaxationContinuous.v})}\newline \code{rcd\_D\_monotone} {\footnotesize(\code{RelaxationContinuous.v})}\newline \code{rcd\_produced\_window} {\footnotesize(\code{RelaxationContinuous.v})} & FE, RD\newline FE, RD\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
 In the text: the mean length of a stretch with the flag up, counted in steps, is the steady mass of the up-states over the flow into them & \S\ref{sec:a2-not-arbitrary} & \code{rs\_split} {\footnotesize(\code{RelaxationStretch.v})}\newline \code{rs\_partial} {\footnotesize(\code{RelaxationStretch.v})}\newline \code{rs\_mean\_stretch} {\footnotesize(\code{RelaxationStretch.v})} & FE, RD\newline FE, RD\newline FE, RD \\
+In the text: in continuous time, the mean length of a stretch with the flag up, in seconds, is the steady mass of the up-states over the flow into them; the leaving times exist and the chance a stretch is still running decays exponentially & \S\ref{sec:a2-not-arbitrary} & \code{rsc\_mass\_over\_flow} {\footnotesize(\code{RelaxationStretchContinuous.v})}\newline \code{rsc\_leave\_exists} {\footnotesize(\code{RelaxationStretchContinuous.v})}\newline \code{rsc\_S\_decay} {\footnotesize(\code{RelaxationStretchContinuous.v})}\newline \code{rsc\_window\_value} {\footnotesize(\code{RelaxationStretchContinuous.v})}\newline \code{rsc\_mean\_stretch\_time} {\footnotesize(\code{RelaxationStretchContinuous.v})}\newline \code{rsc\_stretch\_identity} {\footnotesize(\code{RelaxationStretchContinuous.v})} & FE, RD\newline FE, RD\newline FE, RD, EM\newline FE, RD\newline FE, RD, EM\newline FE, RD, EM \\
 In the text: under the continuous-time Doeblin condition the production rate is at least $c$ times the relative entropy, which then decays like $e^{-ct}$; from a known start the entropy produced over the whole relaxation is $-\ln\pi(s)$ & \S\ref{sec:a2-not-arbitrary} & \code{rcl\_sigma\_ge} {\footnotesize(\code{RelaxationContinuousLimit.v})}\newline \code{rcl\_D\_decay} {\footnotesize(\code{RelaxationContinuousLimit.v})}\newline \code{rcl\_D\_limit} {\footnotesize(\code{RelaxationContinuousLimit.v})}\newline \code{rcl\_produced\_limit} {\footnotesize(\code{RelaxationContinuousLimit.v})}\newline \code{rcl\_D\_at\_zero} {\footnotesize(\code{RelaxationContinuousLimit.v})}\newline \code{rcl\_known\_start\_total} {\footnotesize(\code{RelaxationContinuousLimit.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
 Theorem \ref{thm:machine-narrowing}: The machine's own narrowing is priced & \S\ref{sec:narrowing} & \code{run\_narrowing\_priced\_log} {\footnotesize(\code{KnowledgeNarrowing.v})} & none \\
 Definition \ref{def:knowledge}: What an observer knows & \S\ref{sec:narrowing} & \code{knowledge} {\footnotesize(\code{KnowledgeNarrowing.v})} & def \\
