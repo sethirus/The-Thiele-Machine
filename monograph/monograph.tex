@@ -4645,31 +4645,62 @@ exceeds $-\ln\pi(s)$ and reaches it in the limit exactly when that remainder goe
 for a start among the no-states (\code{re\_known\_start\_vs\_set}); the flow from the no-states to the
 yes-states equals the flow back (\code{re\_flux\_balance}); and with each mean stretch taken as its
 mass over that flow, $-\ln\pi(\mathrm{no}) = \ln(1 + T_{\mathrm{up}}/T_{\mathrm{down}})$
-(\code{re\_stretch\_ratio}). The run's convergence is checked too, under the condition named for Wolfgang Doeblin, a
-German-born French mathematician, son of the novelist Alfred Döblin, who took his doctorate at the
-Sorbonne in 1938 for work on chains like this one and died in June 1940, at twenty-five. The
-condition is that every row of the chain puts at least a fixed share $\delta$ of $\pi$ on every
-state: each step shrinks the distance to $\pi$ by the factor $1-\delta$, the spread converges to
-$\pi$ at every state, and the entropy produced from the known start converges to $-\ln\pi(s)$,
-falling short of it after $T$ steps by at most $(4/m)(1-\delta)^{2T}$, with $m$ the smallest weight
-of $\pi$ (\code{rc\_contract}, \code{rc\_converges}, \code{rc\_known\_start\_gap} and
-\code{rc\_known\_start\_limit}, RelaxationConvergence.v). In continuous time, for any solution of
-the master equation that is positive after time 0, the relative entropy to $\pi$ falls at exactly the entropy
-production rate, which is never negative, so it never rises (\code{rcd\_D\_derivative},
-\code{rcd\_sigma\_nonneg} and \code{rcd\_D\_monotone}, RelaxationContinuous.v), and the entropy
-produced between two times, the integral of that rate, is exactly the drop in relative entropy
-between them (\code{rcd\_produced\_window}). Mass over flow is
-the mean stretch length, counted in steps: enter the up-states as the flow enters them, and the
-expected number of steps before the chain leaves is exactly $\pi(\mathrm{up})$ over the flow, again
-under Doeblin's condition (\code{rs\_mean\_stretch}, RelaxationStretch.v). The continuous-time
-chain settles too, under the same kind of condition: if every rate $q(x,y)$ is at least $c\,\pi(y)$
-for some $c > 0$, the production rate is at least $c$ times the relative entropy, so the relative
-entropy falls at least as fast as $e^{-ct}$ and goes to zero; the relative entropy is continuous at
-time 0 even where the start puts no weight; and from the known start $s$ the entropy produced over
-the whole relaxation, the integral of the rate out to infinity, is exactly $-\ln\pi(s)$
-(\code{rcl\_sigma\_ge}, \code{rcl\_D\_decay}, \code{rcl\_D\_at\_zero} and
-\code{rcl\_known\_start\_total}, RelaxationContinuousLimit.v). What stays argued is the stretch
-identity in continuous time, with the stretches measured as lengths of time.
+(\code{re\_stretch\_ratio}).
+
+That's the bound, and two things under it were still promises when I stated it: that the device
+actually settles, and that ``mean stretch length'' means what it sounds like. Both are checked
+now, and here's what each one says in plain words.
+
+Settling first. A chain doesn't have to settle. It can get stuck in a corner, or cycle round
+forever. What rules that out here is a condition named for Wolfgang Doeblin, a German-born French
+mathematician, son of the novelist Alfred Döblin, who took his doctorate at the Sorbonne in 1938
+for work on chains like this one and died in June 1940, at twenty-five. In words: from wherever
+the device is, its next step lands on each state with at least some fixed fraction $\delta$ of
+that state's long-run chance. No state is ever out of reach in one step, and none is favoured
+so heavily that the others starve. Under that condition each step shrinks the distance between
+where the device is and where it's going by the factor $1-\delta$, so the distance dies off
+geometrically and the spread converges to $\pi$ at every state (\code{rc\_contract} and
+\code{rc\_converges}, RelaxationConvergence.v). Here's the payoff for the bound. The entropy
+produced from the known start stays under $-\ln\pi(s)$, and it also gets there: after $T$ steps
+it falls short by at most $(4/m)(1-\delta)^{2T}$, where $m$ is the smallest long-run chance of
+any state (\code{rc\_known\_start\_gap} and \code{rc\_known\_start\_limit}). So $-\ln\pi(s)$ is the
+exact price of the whole relaxation, and the bound is reached.
+
+The same story holds when the device hops at random moments, at fixed rates, with no clock
+ticking. At every instant the relative entropy to $\pi$ falls at exactly the rate entropy is
+being produced, and that rate is never negative (\code{rcd\_D\_derivative},
+\code{rcd\_sigma\_nonneg} and \code{rcd\_D\_monotone}, RelaxationContinuous.v); add the rate up
+between two times and you get exactly the drop in relative entropy between them
+(\code{rcd\_produced\_window}). For settling, Doeblin's condition becomes a condition on rates:
+the rate of hopping from any state $x$ to any state $y$ is at least $c$ times $\pi(y)$, for some
+fixed $c > 0$. Then entropy is always being produced at least $c$ times as fast as the relative
+entropy still left, and that forces the relative entropy down at least as fast as $e^{-ct}$
+(\code{rcl\_sigma\_ge} and \code{rcl\_D\_decay}, RelaxationContinuousLimit.v). One wrinkle needed
+its own proof. A known start puts all its weight on one state and none anywhere else, and the
+logarithms in the relative entropy go bad at zero. The check shows the relative entropy is still
+continuous at the starting instant, because $u \ln u$ goes to zero as $u$ does
+(\code{rcl\_D\_at\_zero}). So adding up the production from the start out to infinity gives
+exactly $-\ln\pi(s)$ (\code{rcl\_known\_start\_total}).
+
+I should say what Doeblin's condition costs. It asks for every hop to be possible directly, in
+one step or at a positive rate. A device whose states reach each other only through other states
+can still settle, and the standard theory of these chains says the conclusion holds for it too,
+but the proofs here don't cover that case. For a chain that ticks, the condition holding for some
+fixed number of steps would be enough for the same argument; I've checked it for one step.
+
+Then the stretches. The bound used the fact that the long-run chances of up and down stand in the
+ratio of the mean stretch lengths, and I took the mean length of a stretch with the flag up to be
+the long-run weight of the up-states divided by the flow into them. That's a theorem, and it's
+checked in steps. Start each stretch the way the flow starts them, count the steps until the
+chain leaves the up-states, and the average is exactly $\pi(\mathrm{up})$ over the flow, again
+under Doeblin's condition (\code{rs\_mean\_stretch}, RelaxationStretch.v). The proof is a
+telescoping sum: the long-run weight that has stayed up for $k$ steps splits into the stretches
+that started just now and the weight that stays up one step more. With the stretches measured in
+seconds, in continuous time, the same identity is still only argued here. Checking it takes
+either the fact that a linear differential equation has only one solution from a given start, or
+a way to solve the equations for the expected time to leave, and the standard library of the proof
+checker this book uses has neither ready-made. It's standard mathematics, and it's the one
+unchecked step left in this passage.
 
 The next section is about a different door entirely. Forgetting has had its section; the
 question now is whether \emph{finding out} costs, because the demon's whole trick was that it knew which way the
@@ -11970,12 +12001,19 @@ seven: one passing CHECK and six COMMITs of the same claim cost seven and raise 
 every passing CHECK takes one of the table's sixteen entries for good, every COMMIT rewrites the
 channel, and a failing CHECK traps. So the host machine gets a seventh instruction kind, PAY: it
 costs one, goes to the next line, and changes nothing else; it never raises the flag, takes no
-table entry and leaves the channel alone. That's why the compiler uses it. How far the small
-machine gets without it is proved: a run that never traps and ends with the flag down bills at
-most 32, plus one for each COMMIT of a claim the run had already committed
-(\code{pf\_bound\_start}, PayFree.v). A claim names its counter's version, so such a repeat
-needs that counter unwritten since the earlier COMMIT, and a guest whose every move writes its
-counters runs out of ways to pay after 32 (\code{pf\_no\_repeat\_bound}). Whether some other
+table entry and leaves the channel alone. That's why the compiler uses it.
+
+How far the small machine gets without it is proved, and the count is short. Take a run that
+never traps and ends with the flag down. No CERTIFY ran in it, since a passing one raises the
+flag and a failing one traps. Every CHECK in it passed, since a failing one traps, and each
+passing CHECK filled one of the table's sixteen entries, so there were at most sixteen. Every
+COMMIT in it committed a claim the table holds, and the table holds at most sixteen, so at most
+sixteen COMMITs can be of claims the run hadn't committed before. That's 32, and the only way
+past it is a COMMIT of a claim already committed earlier in the run (\code{pf\_bound\_start},
+PayFree.v). A claim names its counter's version, and the version changes at every write, so a
+repeat needs its counter left alone since the earlier COMMIT. A guest whose every move writes
+its counters can't do that, so it runs out of ways to pay after 32 (\code{pf\_no\_repeat\_bound}).
+A simulated program that runs longer than that has to bill somewhere, and PAY is where. Whether some other
 host without PAY could do the same job is a question I haven't settled, and I don't claim it.
 
 The definition of Thiele-complete sorts every paid move into CHECK, COMMIT or CERTIFY, so PAY
@@ -14596,25 +14634,63 @@ The file's header also argues that every point with a rational PSD completion ha
 certificate; that is a comment, and no theorem states it. It's a decider with a soundness proof, as
 mathematics; none of the small machine's properties is the elliptope check.
 
+\subsection{The quantum set, checked}
+
+Three descriptions of the same set have been running through this part: the tables some quantum
+strategy can produce, the tables whose five-by-five matrix has a PSD completion, and the tables
+inside Landau and Masanes's curved edge. They are the same set, and that's checked, for strategies
+on finitely many levels. Here's how each piece goes, because the constructions are the part
+worth seeing.
+
+Quantum tables are inside the completion set. A strategy's correlator is the inner product of two
+unit vectors: Alice's observable applied to the shared state, and Bob's applied to it
+(\code{qs\_corr\_dot}). Four unit vectors always have a PSD table of inner products, so every
+quantum table has a completion, and Tsirelson's bound follows from that: $S^2 \le 8$ for every
+strategy (\code{qs\_tsirelson}, QuantumStrategies.v), and its level-one moment matrix passes the
+PSD test with the marginals in (\code{qs\_npa\_psd}). Quantum mechanics uses complex amplitudes,
+and the complex case goes through by a plain trick: a complex vector of length $n$ is a real vector
+of length $2n$, its real parts followed by its imaginary parts, and the real part of a complex inner
+product is the ordinary inner product of those longer real vectors. So the real argument runs
+unchanged (\code{qc\_tsirelson} and \code{qc\_npa\_psd}, QuantumStrategiesComplex.v). The two-qubit
+strategy from the start of this part reaches $2\sqrt 2$ in both readings
+(\code{qs\_tsirelson\_reached}, \code{qc\_tsirelson\_reached}).
+
+The completion set is inside the quantum tables. This is Tsirelson's representation, and the
+construction is his. Take a table with a PSD completion. A PSD matrix is a table of inner
+products of vectors, always: peel off one row at a time, and a zero on the diagonal forces its
+whole row to zero (\code{tr\_gram}). So the completion hands over four unit vectors in four
+dimensions, $a_0, a_1$ for Alice and $b_0, b_1$ for Bob, with $a_x \cdot b_y$ equal to the table's
+entries. Now the trick. There are four real eight-by-eight matrices, built from the two-by-two ones that swap
+two entries or flip the sign of one, that each square to the identity and anticommute in pairs:
+multiply any two of them in either order and the answers differ only in sign
+(\code{tr\_gamma\_clifford}, checked by computation). Use a vector's four components to mix
+those four matrices, and you get an observable that squares to the identity, a legitimate
+measurement. Give Alice and Bob a maximally entangled pair of eight-level systems, and the
+correlator of two such observables comes out as exactly the inner product of their vectors
+(\code{tr\_corr\_inner}). So the strategy built from the four vectors produces the table
+(\code{tr\_representation} for real amplitudes and \code{tr\_representation\_complex} for complex,
+TsirelsonRepresentation.v). Eight levels on each side is always enough.
+
+The curved edge is the same set again. Each correlator is the cosine of an angle, the angle
+between one of Alice's vectors and one of Bob's. Walk the loop $a_0, b_0, a_1, b_1$ and back to
+$a_0$: the angle across any one leg can't exceed the sum of the other three, because angles on a
+sphere obey the triangle inequality (\code{am\_sphere\_triangle}, ArcsineBoundary.v). Flip one
+vector to its opposite and you get the other four inequalities, with $2\pi$ in them. Written in
+arcsines, those eight inequalities are Landau and Masanes's four. Going the other way, any four
+angles that pass them can be met by actual vectors: put Bob's two at the right angle to each other,
+build each of Alice's from the two angles it has to make with them, and check that the determinant that says such a triangle exists comes
+out nonnegative. So a table has a PSD completion exactly when its arcsines pass the four
+inequalities (\code{am\_arcsine}), and those are exactly the quantum tables
+(\code{am\_quantum\_arcsine}). The point $(3/5, 4/5, 4/5, -3/5)$ sits on the edge, because
+$\arcsin\tfrac35 + \arcsin\tfrac45 = \tfrac{\pi}{2}$ by the 3-4-5 triangle
+(\code{am\_pythagorean\_boundary}), and so does Tsirelson's point (\code{am\_tsirelson\_boundary}).
+
 \subsection{What isn't proved}
 
-Infinite dimension. Every quantum strategy in a Coq statement here acts on finitely many levels;
-for strategies on infinite-dimensional spaces, Tsirelson's bound and the arcsine edge stay cited.
-In finite dimension the picture is closed. The arc-sine curve is proved: a table has a PSD completion exactly when its
-entries lie in $[-1, 1]$ and the four arcsine sums are at most $\pi$ in absolute value
-(\code{am\_arcsine}, ArcsineBoundary.v). One way is the triangle inequality for angles on the
-sphere (\code{am\_sphere\_triangle}) applied around the cycle of four vectors; the other builds the
-four vectors from the angles. That every point of the elliptope comes from a quantum strategy is proved: the completion is
-a Gram matrix (\code{tr\_gram}), and four real symmetric eight-by-eight matrices that square to the
-identity and anticommute in pairs (\code{tr\_gamma\_clifford}) turn its vectors into observables
-whose correlators in the maximally entangled state are the vectors' inner products
-(\code{tr\_corr\_inner}, \code{tr\_representation}, all in TsirelsonRepresentation.v). The other direction and the
-reaching are proved, for strategies in finite dimension with real or complex amplitudes: every
-such strategy has $S^2 \le 8$ (\code{qs\_tsirelson}, \code{qc\_tsirelson}), its level-1 moment
-matrix, marginals included, passes the same PSD test (\code{qs\_npa\_psd}, \code{qc\_npa\_psd}),
-and a two-qubit strategy reaches $2\sqrt 2$ (\code{qs\_tsirelson\_reached},
-\code{qc\_tsirelson\_reached}). The real versions are in QuantumStrategies.v and the complex ones in
-QuantumStrategiesComplex.v. Also: the finite-mixture theorem (\code{fine\_theorem} in the source)
+Infinite dimension. Every quantum strategy in a Coq statement here acts on finitely many levels.
+Quantum mechanics also allows systems with infinitely many, and for strategies on those, Tsirelson's
+bound and the arcsine edge stay cited. The real and complex finite cases above are what's checked.
+Also: the finite-mixture theorem (\code{fine\_theorem} in the source)
 proves only one direction, that a finite local model satisfies the bound, and its converse as
 stated is false: a table with $S = 0$ that no local model produces (\code{nec\_e\_fine\_converse\_false}).
 Fine's own theorem, in the form that speaks of correlations, is proved separately as an
