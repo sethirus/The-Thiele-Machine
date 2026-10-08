@@ -237,6 +237,7 @@ Require Kernel.QuantumStrategiesComplex.
 Require Kernel.SchurComplement.
 Require Kernel.SmallChshCheck.
 Require Kernel.SmallChshMachine.
+Require Kernel.TsirelsonAlgebraic.
 Require Kernel.TsirelsonFromAlgebra.
 Require Kernel.TsirelsonGeneral.
 Require Kernel.TsirelsonRepresentation.
@@ -274,6 +275,7 @@ Require Minimal.BitSearch2.
 Require Minimal.BitSearchMember2.
 Require Minimal.BitSearchObserved2.
 Require Minimal.CompressionSmall2.
+Require Minimal.ConsensusSeparation.
 Require Minimal.CoveringNeeded2.
 Require Minimal.CzLink.
 Require Minimal.CzShared.
@@ -4516,6 +4518,17 @@ Print Assumptions Kernel.SmallChshMachine.small_chsh_demo_14_5_certifies.
 Print Assumptions Kernel.SmallChshMachine.small_chsh_demo_16_5_refused_forever.
 Print Assumptions Kernel.SmallChshMachine.small_chsh_demo_pr_box_refused_forever.
 Print Assumptions Kernel.SmallChshMachine.small_chsh_demo_all_ones_refused_forever.
+(* === Kernel.TsirelsonAlgebraic : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_Z_sa.
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_quad_expand.
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_quad_nonneg.
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_tsirelson.
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_realizable.
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_arcsine.
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_npa_quad.
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_W_nonneg.
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_npa_psd.
+Print Assumptions Kernel.TsirelsonAlgebraic.ta_classical_instance.
 (* === Kernel.TsirelsonFromAlgebra : 11 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TsirelsonFromAlgebra.chsh_gap_is_sum_of_squares.
 Print Assumptions Kernel.TsirelsonFromAlgebra.sq_nonneg_local.
@@ -4926,6 +4939,26 @@ Print Assumptions Minimal.CompressionSmall2.ent2_injective_flip_revokes.
 Print Assumptions Minimal.CompressionSmall2.ent2_forced_priced_iff_merges.
 Print Assumptions Minimal.CompressionSmall2.ent2_permanent_flip_forced.
 Print Assumptions Minimal.CompressionSmall2.ent2_forced_without_permanent.
+(* === Minimal.ConsensusSeparation : 19 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.ConsensusSeparation.cs_copies_add.
+Print Assumptions Minimal.ConsensusSeparation.cs_mono_r.
+Print Assumptions Minimal.ConsensusSeparation.cs_no_consensus_monotonic.
+Print Assumptions Minimal.ConsensusSeparation.cs_kind_eqb_eq.
+Print Assumptions Minimal.ConsensusSeparation.cs_comp_assoc.
+Print Assumptions Minimal.ConsensusSeparation.cs_comp_comm.
+Print Assumptions Minimal.ConsensusSeparation.cs_copies_P.
+Print Assumptions Minimal.ConsensusSeparation.cs_step_keeps_decided.
+Print Assumptions Minimal.ConsensusSeparation.cs_steps_keep_decided.
+Print Assumptions Minimal.ConsensusSeparation.cs_dec_mono.
+Print Assumptions Minimal.ConsensusSeparation.cs_move_pos.
+Print Assumptions Minimal.ConsensusSeparation.cs_step_inv.
+Print Assumptions Minimal.ConsensusSeparation.cs_steps_inv.
+Print Assumptions Minimal.ConsensusSeparation.cs_inv_copies.
+Print Assumptions Minimal.ConsensusSeparation.cs_no_both.
+Print Assumptions Minimal.ConsensusSeparation.cs_move_target_pos.
+Print Assumptions Minimal.ConsensusSeparation.cs_can_choose.
+Print Assumptions Minimal.ConsensusSeparation.cs_machine_consensus.
+Print Assumptions Minimal.ConsensusSeparation.cs_machine_not_monotonic.
 (* === Minimal.CoveringNeeded2 : 4 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.CoveringNeeded2.ent2_start_inj.
 Print Assumptions Minimal.CoveringNeeded2.ent2_uncovered_posterior.

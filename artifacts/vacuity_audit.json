@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 5602,
-    "total": 5602,
+    "ok": 5631,
+    "total": 5631,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -109236,6 +109236,586 @@
         "succeeded": false
       },
       "statement": "forall eps, 0 < eps -> exists T0, forall T (HT : 0 <= T), T0 <= T -> Rabs (NewtonInt rsc_S 0 T (rsc_window rsc_h rsc_leave_exists T HT) - rsc_massU / rsc_Phi) < eps",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Lemma",
+      "line": 90,
+      "name": "ta_Z_sa",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_Z_sa__a.v\", line 3, characters 55-59:\nError: The reference star was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.216 secs (0.177u,0.039s)\nChars 112 - 210 [Theorem~_vacuity_probe_a_ta_Z_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_Z_sa__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_Z_sa__b.v\", line 3, characters 55-59:\nError: The reference star was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.222 secs (0.192u,0.03s)\nChars 112 - 210 [Theorem~_vacuity_probe_b_ta_Z_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_Z_sa__b.v",
+        "succeeded": false
+      },
+      "statement": "forall v1 v2 v3 v4, star (ta_Z v1 v2 v3 v4) = ta_Z v1 v2 v3 v4",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Lemma",
+      "line": 96,
+      "name": "ta_quad_expand",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_quad_expand__a.v\", line 3, characters 62-65:\nError: The reference psi was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.22 secs (0.18u,0.04s)\nChars 112 - 480 [Theorem~_vacuity_probe_a_ta_qu...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_quad_expand__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_quad_expand__b.v\", line 3, characters 62-65:\nError: The reference psi was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.221 secs (0.181u,0.04s)\nChars 112 - 480 [Theorem~_vacuity_probe_b_ta_qu...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_quad_expand__b.v",
+        "succeeded": false
+      },
+      "statement": "forall v1 v2 v3 v4, psi (mul (ta_Z v1 v2 v3 v4) (ta_Z v1 v2 v3 v4)) = psi (mul A0 A0) * (v1 * v1) + psi (mul A1 A1) * (v2 * v2) + psi (mul B0 B0) * (v3 * v3) + psi (mul B1 B1) * (v4 * v4) + ta_X * (v1 * v2) + ta_Y * (v3 * v4) + 2 * ta_E00 * (v1 * v3) + 2 * ta_E01 * (v1 * v4) + 2 * ta_E10 * (v2 * v3) + 2 * ta_E11 * (v2 * v4)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Theorem",
+      "line": 110,
+      "name": "ta_quad_nonneg",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_quad_nonneg__a.v\", line 3, characters 67-70:\nError: The reference psi was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.221 secs (0.181u,0.039s)\nChars 112 - 435 [Theorem~_vacuity_probe_a_ta_qu...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_quad_nonneg__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_quad_nonneg__b.v\", line 3, characters 67-70:\nError: The reference psi was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.222 secs (0.184u,0.038s)\nChars 112 - 435 [Theorem~_vacuity_probe_b_ta_qu...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_quad_nonneg__b.v",
+        "succeeded": false
+      },
+      "statement": "forall v1 v2 v3 v4, 0 <= psi (mul A0 A0) * (v1 * v1) + psi (mul A1 A1) * (v2 * v2) + psi (mul B0 B0) * (v3 * v3) + psi (mul B1 B1) * (v4 * v4) + ta_X * (v1 * v2) + ta_Y * (v3 * v4) + 2 * ta_E00 * (v1 * v3) + 2 * ta_E01 * (v1 * v4) + 2 * ta_E10 * (v2 * v3) + 2 * ta_E11 * (v2 * v4)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Theorem",
+      "line": 122,
+      "name": "ta_tsirelson",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_tsirelson__a.v\", line 3, characters 40-44:\nError: The reference Rabs was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.219 secs (0.185u,0.034s)\nChars 112 - 207 [Theorem~_vacuity_probe_a_ta_ts...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_tsirelson__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_tsirelson__b.v\", line 3, characters 40-44:\nError: The reference Rabs was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.221 secs (0.187u,0.033s)\nChars 112 - 207 [Theorem~_vacuity_probe_b_ta_ts...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_tsirelson__b.v",
+        "succeeded": false
+      },
+      "statement": "Rabs (ta_E00 + ta_E01 + ta_E10 - ta_E11) <= 2 * sqrt 2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Theorem",
+      "line": 178,
+      "name": "ta_realizable",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_realizable__a.v\", line 3, characters 41-61:\nError: The reference elliptope_realizable was not found in the current\nenvironment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.224 secs (0.185u,0.039s)\nChars 112 - 202 [Theorem~_vacuity_probe_a_ta_re...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_realizable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_realizable__b.v\", line 3, characters 41-61:\nError: The reference elliptope_realizable was not found in the current\nenvironment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.228 secs (0.182u,0.045s)\nChars 112 - 202 [Theorem~_vacuity_probe_b_ta_re...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_realizable__b.v",
+        "succeeded": false
+      },
+      "statement": "elliptope_realizable ta_E00 ta_E01 ta_E10 ta_E11",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Theorem",
+      "line": 209,
+      "name": "ta_arcsine",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_arcsine__a.v\", line 3, characters 38-55:\nError: The reference am_arcsine_region was not found in the current\nenvironment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.223 secs (0.188u,0.035s)\nChars 112 - 196 [Theorem~_vacuity_probe_a_ta_ar...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_arcsine__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_arcsine__b.v\", line 3, characters 38-55:\nError: The reference am_arcsine_region was not found in the current\nenvironment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.224 secs (0.189u,0.034s)\nChars 112 - 196 [Theorem~_vacuity_probe_b_ta_ar...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_arcsine__b.v",
+        "succeeded": false
+      },
+      "statement": "am_arcsine_region ta_E00 ta_E01 ta_E10 ta_E11",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Lemma",
+      "line": 233,
+      "name": "ta_npa_quad",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_npa_quad__a.v\", line 3, characters 51-55:\nError: The reference Vec5 was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.22 secs (0.187u,0.032s)\nChars 112 - 697 [Theorem~_vacuity_probe_a_ta_np...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_npa_quad__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_npa_quad__b.v\", line 3, characters 51-55:\nError: The reference Vec5 was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.223 secs (0.192u,0.03s)\nChars 112 - 697 [Theorem~_vacuity_probe_b_ta_np...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_npa_quad__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (v : Vec5), quad5 (nat_matrix_to_fin5 (npa_to_matrix ta_npa)) v = let v0 := v Fin.F1 in let v1 := v (Fin.FS Fin.F1) in let v2 := v (Fin.FS (Fin.FS Fin.F1)) in let v3 := v (Fin.FS (Fin.FS (Fin.FS Fin.F1))) in let v4 := v (Fin.FS (Fin.FS (Fin.FS (Fin.FS Fin.F1)))) in v0 * v0 + v1 * v1 + v2 * v2 + v3 * v3 + v4 * v4 + 2 * v0 * (psi A0 * v1 + psi A1 * v2 + psi B0 * v3 + psi B1 * v4) + 2 * (ta_X / 2) * (v1 * v2) + 2 * (ta_Y / 2) * (v3 * v4) + 2 * ta_E00 * (v1 * v3) + 2 * ta_E01 * (v1 * v4) + 2 * ta_E10 * (v2 * v3) + 2 * ta_E11 * (v2 * v4)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Lemma",
+      "line": 250,
+      "name": "ta_W_nonneg",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_W_nonneg__a.v\", line 3, characters 87-90:\nError: The reference psi was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.223 secs (0.184u,0.037s)\nChars 112 - 514 [Theorem~_vacuity_probe_a_ta_W_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_W_nonneg__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_W_nonneg__b.v\", line 3, characters 87-90:\nError: The reference psi was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.222 secs (0.179u,0.042s)\nChars 112 - 514 [Theorem~_vacuity_probe_b_ta_W_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_W_nonneg__b.v",
+        "succeeded": false
+      },
+      "statement": "forall v0 v1 v2 v3 v4, 0 <= v0 * v0 + 2 * v0 * (psi A0 * v1 + psi A1 * v2 + psi B0 * v3 + psi B1 * v4) + (psi (mul A0 A0) * (v1 * v1) + psi (mul A1 A1) * (v2 * v2) + psi (mul B0 B0) * (v3 * v3) + psi (mul B1 B1) * (v4 * v4) + ta_X * (v1 * v2) + ta_Y * (v3 * v4) + 2 * ta_E00 * (v1 * v3) + 2 * ta_E01 * (v1 * v4) + 2 * ta_E10 * (v2 * v3) + 2 * ta_E11 * (v2 * v4))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Theorem",
+      "line": 271,
+      "name": "ta_npa_psd",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_npa_psd__a.v\", line 3, characters 38-45:\nError: The reference npa_psd was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.222 secs (0.192u,0.029s)\nChars 112 - 165 [Theorem~_vacuity_probe_a_ta_np...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_npa_psd__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_npa_psd__b.v\", line 3, characters 38-45:\nError: The reference npa_psd was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.226 secs (0.187u,0.039s)\nChars 112 - 165 [Theorem~_vacuity_probe_b_ta_np...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_npa_psd__b.v",
+        "succeeded": false
+      },
+      "statement": "npa_psd ta_npa",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/TsirelsonAlgebraic.v",
+      "kind": "Theorem",
+      "line": 307,
+      "name": "ta_classical_instance",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_classical_instance__a.v\", line 3, characters 70-71:\nError: The reference R was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.225 secs (0.187u,0.037s)\nChars 112 - 304 [Theorem~_vacuity_probe_a_ta_cl...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_classical_instance__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_classical_instance__b.v\", line 3, characters 70-71:\nError: The reference R was not found in the current environment.\n\nChars 65 - 111 [From~Kernel~Require~Import~Tsi...] 0.222 secs (0.186u,0.036s)\nChars 112 - 304 [Theorem~_vacuity_probe_b_ta_cl...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TsirelsonAlgebraic__ta_classical_instance__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a0 a1 b0 b1 : R, a0 * a0 = 1 -> a1 * a1 = 1 -> b0 * b0 = 1 -> b1 * b1 = 1 -> Rabs (a0 * b0 + a0 * b1 + a1 * b0 - a1 * b1) <= 2 * sqrt 2",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 71,
+      "name": "cs_copies_add",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_copies_add__a.v\", line 3, characters 55-59:\nError: The reference comp was not found in the current environment.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.155 secs (0.13u,0.024s)\nChars 114 - 232 [Theorem~_vacuity_probe_a_cs_co...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_copies_add__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_copies_add__b.v\", line 3, characters 55-59:\nError: The reference comp was not found in the current environment.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.158 secs (0.137u,0.021s)\nChars 114 - 232 [Theorem~_vacuity_probe_b_cs_co...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_copies_add__b.v",
+        "succeeded": false
+      },
+      "statement": "forall p a b, comp (cs_copies p a) (cs_copies p b) = cs_copies p (a + b + 1)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 78,
+      "name": "cs_mono_r",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_mono_r__a.v\", line 3, characters 104-108:\nError: The reference comp was not found in the current environment.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.156 secs (0.128u,0.028s)\nChars 114 - 228 [Theorem~_vacuity_probe_a_cs_mo...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_mono_r__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_mono_r__b.v\", line 3, characters 104-108:\nError: The reference comp was not found in the current environment.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.158 secs (0.132u,0.025s)\nChars 114 - 228 [Theorem~_vacuity_probe_b_cs_mo...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_mono_r__b.v",
+        "succeeded": false
+      },
+      "statement": "cs_monotonic -> forall p q r, cs_steps p q -> cs_steps (comp r p) (comp r q)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Theorem",
+      "line": 81,
+      "name": "cs_no_consensus_monotonic",
+      "probe_a": {
+        "coq_stderr_tail": "hine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_no_consensus_monotonic__a.v\", line 3, characters 53-65:\nError: The term \"cs_monotonic\" has type\n\"forall P : Type, (P -> P -> Prop) -> (P -> P -> P) -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.157 secs (0.125u,0.032s)\nChars 114 - 218 [Theorem~_vacuity_probe_a_cs_no...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_no_consensus_monotonic__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "hine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_no_consensus_monotonic__b.v\", line 3, characters 53-65:\nError: The term \"cs_monotonic\" has type\n\"forall P : Type, (P -> P -> Prop) -> (P -> P -> P) -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.156 secs (0.131u,0.025s)\nChars 114 - 218 [Theorem~_vacuity_probe_b_cs_no...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_no_consensus_monotonic__b.v",
+        "succeeded": false
+      },
+      "statement": "cs_monotonic -> forall f g p, ~ cs_consensus f g p",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 114,
+      "name": "cs_kind_eqb_eq",
+      "probe_a": {
+        "coq_stderr_tail": "then if y then true else false\n             else if y then false else true\n         | _ => false\n         end\n     end\n    else false) = true)\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.157 secs (0.127u,0.03s)\nChars 114 - 201 [Theorem~_vacuity_probe_a_cs_ki...] 0. secs (0.u,0.s)\nChars 202 - 208 [Proof.] 0. secs (0.u,0.s)\nChars 209 - 231 [(intros;~lazy;~exact~I).] 0.001 secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_kind_eqb_eq__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "iele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_kind_eqb_eq__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.158 secs (0.129u,0.029s)\nChars 114 - 201 [Theorem~_vacuity_probe_b_cs_ki...] 0. secs (0.u,0.s)\nChars 202 - 208 [Proof.] 0. secs (0.u,0.s)\nChars 209 - 239 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_kind_eqb_eq__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a b, cs_kind_eqb a b = true <-> a = b",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 143,
+      "name": "cs_comp_assoc",
+      "probe_a": {
+        "coq_stderr_tail": "p m)\n            end) ((let (_, c_th) := c in c_th) k)\n           ((let (_, c_th) := d in c_th) k)) ((let (_, c_th) := e in c_th) k)\n  |}\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.158 secs (0.134u,0.023s)\nChars 114 - 219 [Theorem~_vacuity_probe_a_cs_co...] 0. secs (0.u,0.s)\nChars 220 - 226 [Proof.] 0. secs (0.u,0.s)\nChars 227 - 249 [(intros;~lazy;~exact~I).] 0.002 secs (0.002u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_comp_assoc__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_comp_assoc__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.157 secs (0.127u,0.03s)\nChars 114 - 219 [Theorem~_vacuity_probe_b_cs_co...] 0. secs (0.u,0.s)\nChars 220 - 226 [Proof.] 0. secs (0.u,0.s)\nChars 227 - 257 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_comp_assoc__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c d e, cs_comp c (cs_comp d e) = cs_comp (cs_comp c d) e",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 150,
+      "name": "cs_comp_comm",
+      "probe_a": {
+        "coq_stderr_tail": "| 0 => m\n         | S p => S (add p m)\n         end) ((let (_, c_th) := d in c_th) k)\n        ((let (_, c_th) := c in c_th) k)\n  |}\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.157 secs (0.13u,0.026s)\nChars 114 - 192 [Theorem~_vacuity_probe_a_cs_co...] 0. secs (0.u,0.s)\nChars 193 - 199 [Proof.] 0. secs (0.u,0.s)\nChars 200 - 222 [(intros;~lazy;~exact~I).] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_comp_comm__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_comp_comm__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.16 secs (0.136u,0.024s)\nChars 114 - 192 [Theorem~_vacuity_probe_b_cs_co...] 0. secs (0.u,0.s)\nChars 193 - 199 [Proof.] 0. secs (0.u,0.s)\nChars 200 - 230 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_comp_comm__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c d, cs_comp c d = cs_comp d c",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 181,
+      "name": "cs_copies_P",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_copies_P__a.v\", line 3, characters 140-146:\nError: Pattern \"_\" is redundant in this clause.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.161 secs (0.126u,0.035s)\nChars 114 - 266 [Theorem~_vacuity_probe_a_cs_co...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_copies_P__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_copies_P__b.v\", line 3, characters 140-146:\nError: Pattern \"_\" is redundant in this clause.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.159 secs (0.13u,0.029s)\nChars 114 - 266 [Theorem~_vacuity_probe_b_cs_co...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_copies_P__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n, cs_copies cs_cfg cs_comp cs_P n = mkcfg SInit (fun k => match k_loc k with SStart => S n | _ => 0 end)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 189,
+      "name": "cs_step_keeps_decided",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_step_keeps_decided__a.v\", line 3, characters 97-105:\nError: The reference SDecided was not found in the current environment.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.159 secs (0.136u,0.023s)\nChars 114 - 256 [Theorem~_vacuity_probe_a_cs_st...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_step_keeps_decided__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_step_keeps_decided__b.v\", line 3, characters 97-105:\nError: The reference SDecided was not found in the current environment.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.158 secs (0.131u,0.026s)\nChars 114 - 256 [Theorem~_vacuity_probe_b_cs_st...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_step_keeps_decided__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c c' i b, cs_step c c' -> c_th c (mkk i (SDecided b)) <= c_th c' (mkk i (SDecided b))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 199,
+      "name": "cs_steps_keep_decided",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_steps_keep_decided__a.v\", line 3, characters 113-121:\nError: The reference SDecided was not found in the current environment.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.158 secs (0.129u,0.029s)\nChars 114 - 272 [Theorem~_vacuity_probe_a_cs_st...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_steps_keep_decided__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_steps_keep_decided__b.v\", line 3, characters 113-121:\nError: The reference SDecided was not found in the current environment.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.158 secs (0.125u,0.032s)\nChars 114 - 272 [Theorem~_vacuity_probe_b_cs_st...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_steps_keep_decided__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c c' i b, cs_steps cs_cfg cs_step c c' -> c_th c (mkk i (SDecided b)) <= c_th c' (mkk i (SDecided b))",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 208,
+      "name": "cs_dec_mono",
+      "probe_a": {
+        "coq_stderr_tail": "et (_, c_th) := c' in c_th)\n         {| k_inp := true; k_loc := SmallConsensus.SDecided b |})\n  with\n  | 0 => false\n  | S _ => true\n  end = true\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.161 secs (0.126u,0.035s)\nChars 114 - 240 [Theorem~_vacuity_probe_a_cs_de...] 0. secs (0.u,0.s)\nChars 241 - 247 [Proof.] 0. secs (0.u,0.s)\nChars 248 - 270 [(intros;~lazy;~exact~I).] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_dec_mono__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_dec_mono__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.159 secs (0.127u,0.031s)\nChars 114 - 240 [Theorem~_vacuity_probe_b_cs_de...] 0. secs (0.u,0.s)\nChars 241 - 247 [Proof.] 0. secs (0.u,0.s)\nChars 248 - 278 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_dec_mono__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c c' b, cs_steps cs_cfg cs_step c c' -> cs_dec b c = true -> cs_dec b c' = true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 223,
+      "name": "cs_move_pos",
+      "probe_a": {
+        "coq_stderr_tail": "0 < cs_move m k k' j\nThe term \"I\" has type \"True\" while it is expected to have type\n \"j = k' \\/ (j = k -> False) /\\ 1 <= m j \\/ j = k /\\ 2 <= m j\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.16 secs (0.123u,0.036s)\nChars 114 - 246 [Theorem~_vacuity_probe_a_cs_mo...] 0. secs (0.u,0.s)\nChars 247 - 253 [Proof.] 0. secs (0.u,0.s)\nChars 254 - 276 [(intros;~lazy;~exact~I).] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_move_pos__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_move_pos__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.16 secs (0.131u,0.028s)\nChars 114 - 246 [Theorem~_vacuity_probe_b_cs_mo...] 0. secs (0.u,0.s)\nChars 247 - 253 [Proof.] 0. secs (0.u,0.s)\nChars 254 - 284 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_move_pos__b.v",
+        "succeeded": false
+      },
+      "statement": "forall m k k' j, 0 < cs_move m k k' j -> j = k' \\/ (j <> k /\\ 0 < m j) \\/ (j = k /\\ 1 < m j)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 233,
+      "name": "cs_step_inv",
+      "probe_a": {
+        "coq_stderr_tail": ";\n              E.f_ver := 0\n            |} in\n        f_prop)\n     with\n     | SmallConsensus.E.PEven => true\n     | _ => false\n     end)\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.162 secs (0.132u,0.029s)\nChars 114 - 204 [Theorem~_vacuity_probe_a_cs_st...] 0. secs (0.u,0.s)\nChars 205 - 211 [Proof.] 0. secs (0.u,0.s)\nChars 212 - 234 [(intros;~lazy;~exact~I).] 0.002 secs (0.002u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_step_inv__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_step_inv__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.162 secs (0.138u,0.024s)\nChars 114 - 204 [Theorem~_vacuity_probe_b_cs_st...] 0. secs (0.u,0.s)\nChars 205 - 211 [Proof.] 0. secs (0.u,0.s)\nChars 212 - 242 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_step_inv__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c c', cs_inv c -> cs_step c c' -> cs_inv c'",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 267,
+      "name": "cs_steps_inv",
+      "probe_a": {
+        "coq_stderr_tail": ";\n              E.f_ver := 0\n            |} in\n        f_prop)\n     with\n     | SmallConsensus.E.PEven => true\n     | _ => false\n     end)\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.159 secs (0.133u,0.025s)\nChars 114 - 221 [Theorem~_vacuity_probe_a_cs_st...] 0. secs (0.u,0.s)\nChars 222 - 228 [Proof.] 0. secs (0.u,0.s)\nChars 229 - 251 [(intros;~lazy;~exact~I).] 0.002 secs (0.002u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_steps_inv__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_steps_inv__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.152 secs (0.127u,0.024s)\nChars 114 - 221 [Theorem~_vacuity_probe_b_cs_st...] 0. secs (0.u,0.s)\nChars 222 - 228 [Proof.] 0. secs (0.u,0.s)\nChars 229 - 259 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_steps_inv__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c c', cs_steps cs_cfg cs_step c c' -> cs_inv c -> cs_inv c'",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 275,
+      "name": "cs_inv_copies",
+      "probe_a": {
+        "coq_stderr_tail": ";\n              E.f_ver := 0\n            |} in\n        f_prop)\n     with\n     | SmallConsensus.E.PEven => true\n     | _ => false\n     end)\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.151 secs (0.128u,0.023s)\nChars 114 - 206 [Theorem~_vacuity_probe_a_cs_in...] 0. secs (0.u,0.s)\nChars 207 - 213 [Proof.] 0. secs (0.u,0.s)\nChars 214 - 236 [(intros;~lazy;~exact~I).] 0.004 secs (0.004u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_inv_copies__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "hiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_inv_copies__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.153 secs (0.122u,0.031s)\nChars 114 - 206 [Theorem~_vacuity_probe_b_cs_in...] 0. secs (0.u,0.s)\nChars 207 - 213 [Proof.] 0. secs (0.u,0.s)\nChars 214 - 244 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_inv_copies__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n, cs_inv (cs_copies cs_cfg cs_comp cs_P n)",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 285,
+      "name": "cs_no_both",
+      "probe_a": {
+        "coq_stderr_tail": "h) := c in c_th)\n         {| k_inp := true; k_loc := SmallConsensus.SDecided true |})\n  with\n  | 0 => false\n  | S _ => true\n  end = true -> False\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.155 secs (0.124u,0.03s)\nChars 114 - 274 [Theorem~_vacuity_probe_a_cs_no...] 0. secs (0.u,0.s)\nChars 275 - 281 [Proof.] 0. secs (0.u,0.s)\nChars 282 - 304 [(intros;~lazy;~exact~I).] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_no_both__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e-Thiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_no_both__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.153 secs (0.122u,0.031s)\nChars 114 - 274 [Theorem~_vacuity_probe_b_cs_no...] 0. secs (0.u,0.s)\nChars 275 - 281 [Proof.] 0. secs (0.u,0.s)\nChars 282 - 312 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_no_both__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n c, cs_steps cs_cfg cs_step (cs_copies cs_cfg cs_comp cs_P n) c -> cs_dec false c = true -> cs_dec true c <> true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 302,
+      "name": "cs_move_target_pos",
+      "probe_a": {
+        "coq_stderr_tail": "else if y then false else true\n           | _ => false\n           end\n       end\n      else false\n     then 1\n     else 0)\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.154 secs (0.131u,0.022s)\nChars 114 - 197 [Theorem~_vacuity_probe_a_cs_mo...] 0. secs (0.u,0.s)\nChars 198 - 204 [Proof.] 0. secs (0.u,0.s)\nChars 205 - 227 [(intros;~lazy;~exact~I).] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_move_target_pos__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_move_target_pos__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.154 secs (0.122u,0.031s)\nChars 114 - 197 [Theorem~_vacuity_probe_b_cs_mo...] 0. secs (0.u,0.s)\nChars 198 - 204 [Proof.] 0. secs (0.u,0.s)\nChars 205 - 235 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_move_target_pos__b.v",
+        "succeeded": false
+      },
+      "statement": "forall m k k', 0 < cs_move m k k' k'",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Lemma",
+      "line": 307,
+      "name": "cs_can_choose",
+      "probe_a": {
+        "coq_stderr_tail": "in c_th)\n           {| k_inp := true; k_loc := SmallConsensus.SDecided b |})\n    with\n    | 0 => false\n    | S _ => true\n    end = true\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.153 secs (0.13u,0.022s)\nChars 114 - 258 [Theorem~_vacuity_probe_a_cs_ca...] 0. secs (0.u,0.s)\nChars 259 - 265 [Proof.] 0. secs (0.u,0.s)\nChars 266 - 288 [(intros;~lazy;~exact~I).] 0.008 secs (0.007u,0.001s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_can_choose__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "hiele-Machine/build/vacuity_probes/Minimal__ConsensusSeparation__cs_can_choose__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.153 secs (0.131u,0.022s)\nChars 114 - 258 [Theorem~_vacuity_probe_b_cs_ca...] 0. secs (0.u,0.s)\nChars 259 - 265 [Proof.] 0. secs (0.u,0.s)\nChars 266 - 296 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_can_choose__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n b, exists c, cs_steps cs_cfg cs_step (cs_copies cs_cfg cs_comp cs_P n) c /\\ cs_dec b c = true",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Theorem",
+      "line": 328,
+      "name": "cs_machine_consensus",
+      "probe_a": {
+        "coq_stderr_tail": "{| k_inp := true; k_loc := SmallConsensus.SDecided false |})\n     with\n     | 0 => false\n     | S _ => true\n     end = true -> False)))\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.155 secs (0.127u,0.027s)\nChars 114 - 232 [Theorem~_vacuity_probe_a_cs_ma...] 0. secs (0.u,0.s)\nChars 233 - 239 [Proof.] 0. secs (0.u,0.s)\nChars 240 - 262 [(intros;~lazy;~exact~I).] 0.05 secs (0.047u,0.002s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_machine_consensus__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/build/vacuity_probes/Minimal__ConsensusSeparation__cs_machine_consensus__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.153 secs (0.118u,0.035s)\nChars 114 - 232 [Theorem~_vacuity_probe_b_cs_ma...] 0. secs (0.u,0.s)\nChars 233 - 239 [Proof.] 0. secs (0.u,0.s)\nChars 240 - 270 [(intros;~lazy~in~*;~assumption).] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_machine_consensus__b.v",
+        "succeeded": false
+      },
+      "statement": "cs_consensus cs_cfg cs_step cs_comp (cs_dec false) (cs_dec true) cs_P",
+      "status": "ok"
+    },
+    {
+      "file": "minimal/ConsensusSeparation.v",
+      "kind": "Corollary",
+      "line": 340,
+      "name": "cs_machine_not_monotonic",
+      "probe_a": {
+        "coq_stderr_tail": "| S p0 => S (add p0 m)\n            end) ((let (_, c_th) := q in c_th) k)\n           ((let (_, c_th) := r in c_th) k)\n     |}) -> False\".\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.154 secs (0.124u,0.029s)\nChars 114 - 204 [Theorem~_vacuity_probe_a_cs_ma...] 0. secs (0.u,0.s)\nChars 205 - 211 [Proof.] 0. secs (0.u,0.s)\nChars 212 - 234 [(intros;~lazy;~exact~I).] 0.015 secs (0.015u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_machine_not_monotonic__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ne/build/vacuity_probes/Minimal__ConsensusSeparation__cs_machine_not_monotonic__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 113 [From~Minimal~Require~Import~Co...] 0.155 secs (0.116u,0.038s)\nChars 114 - 204 [Theorem~_vacuity_probe_b_cs_ma...] 0. secs (0.u,0.s)\nChars 205 - 211 [Proof.] 0. secs (0.u,0.s)\nChars 212 - 242 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Minimal__ConsensusSeparation__cs_machine_not_monotonic__b.v",
+        "succeeded": false
+      },
+      "statement": "~ cs_monotonic cs_cfg cs_step cs_comp",
       "status": "ok"
     }
   ]
