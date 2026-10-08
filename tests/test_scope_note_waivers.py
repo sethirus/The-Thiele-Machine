@@ -155,6 +155,7 @@ WAIVED_FILES = [
     "coq/kernel/quantum/NPAMomentMatrix.v",
     "coq/kernel/quantum/QuantumPartitionPSD_1AB.v",
     "coq/kernel/quantum/QuantumStrategies.v",
+    "coq/kernel/quantum/QuantumStrategiesComplex.v",
     "coq/kernel/quantum/SchurComplement.v",
     "coq/kernel/quantum/SmallChshCheck.v",
     "coq/kernel/quantum/SmallChshMachine.v",

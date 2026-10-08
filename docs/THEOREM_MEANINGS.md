@@ -1159,6 +1159,16 @@ An explicitly qualified citation keeps its own module identity.
 - `qs_deterministic_plan`: For reals a0, a1, b0, b1 whose squares are 1, the two-qubit product state |00> with observables a_x times the identity and b_y times the identity is a valid strategy whose correlators are a_x b_y.
 - `qs_npa_correlators`: The moment matrix built from a strategy has the strategy's four correlators in its correlator entries.
 - `qs_npa_psd`: For every valid quantum strategy with real amplitudes in finite dimension, its level-1 moment matrix (marginals, correlators and self-correlations, as in NPAMomentMatrix.v) is symmetric and positive semidefinite, that is, it passes npa_psd.
+- `qc_corr_dot`: For a finite-dimensional complex joint space, a state psi and Hermitian matrices A and B (real parts symmetric, imaginary parts antisymmetric), the real part of <psi, (A (x) B) psi> equals the real part of the inner product of (A (x) 1) psi and (1 (x) B) psi.
+- `qc_uvec_unit`: If A is a Hermitian complex matrix that squares to the identity and psi is a complex unit vector, then (A (x) 1) psi is a unit vector.
+- `qc_vvec_unit`: If B is a Hermitian complex matrix that squares to the identity and psi is a complex unit vector, then (1 (x) B) psi is a unit vector.
+- `qc_four_vectors`: For any four unit vectors u0, u1, v0, v1 of a finite real inner-product space, (u0.v0 + u0.v1 + u1.v0 - u1.v1)^2 <= 8.
+- `qc_tsirelson`: Every quantum strategy with complex amplitudes in finite dimension (a unit state and, on each side, two Hermitian observables that square to the identity) has S^2 <= 8, where S is the sum of the real parts of the correlators E00 + E01 + E10 - E11.
+- `qc_of_real_valid`: A valid strategy with real amplitudes, read with zero imaginary parts, is a valid strategy with complex amplitudes and has the same S.
+- `qc_tsirelson_reached`: The two-qubit strategy of qs_tsirelson_reached, read with complex amplitudes, is valid and has S = 2 sqrt 2.
+- `qc_gram_psd`: The level-1 moment matrix filled with the inner products of five unit vectors of a finite real inner-product space passes npa_psd.
+- `qc_npa_correlators`: The moment matrix built from a strategy with complex amplitudes has the strategy's four correlators in its correlator entries.
+- `qc_npa_psd`: For every valid quantum strategy with complex amplitudes in finite dimension, its level-1 moment matrix (marginals, correlators and self-correlations, each the real part of an inner product) passes npa_psd.
 - `re_gibbs`: For two probability vectors on a finite list of states, where the second is positive wherever the first is, the relative entropy of the first against the second is nonnegative.
 - `re_pi_stationary`: On a finite chain whose rows sum to one and whose positive distribution pi satisfies detailed balance, one step of the chain leaves pi unchanged at every state of the list.
 - `re_sigma_is_drop`: On such a chain, for any nonnegative vector p, the entropy produced in one step (the relative entropy of the forward flow p x P x y against the backward flow (pP) y P y x) equals the relative entropy of p to pi minus that of pP to pi.

@@ -14030,9 +14030,10 @@ What quantum play does: if the players share an entangled pair and choose what t
 from their question, the best they can do is S equals two times the square root of two,
 about 2.83, a win rate of about eighty-five percent. Boris Tsirelson, a Soviet mathematician who later taught at Tel Aviv University, in a 1980 paper called ``Quantum generalizations of Bell's inequality,'' proved that that's
 a \emph{ceiling}: quantum correlations violate Bell, but only up to there. That ceiling, and the
-state that reaches it, are checked for strategies with real amplitudes in finite dimension
-(\code{qs\_tsirelson} and \code{qs\_tsirelson\_reached}, QuantumStrategies.v); for complex
-amplitudes I cite Tsirelson. What's checked below, besides, is the algebra.
+state that reaches it, are checked for strategies in finite dimension, with real amplitudes
+(\code{qs\_tsirelson} and \code{qs\_tsirelson\_reached}, QuantumStrategies.v) and with complex
+ones (\code{qc\_tsirelson} and \code{qc\_tsirelson\_reached}, QuantumStrategiesComplex.v); for
+infinite dimension I cite Tsirelson. What's checked below, besides, is the algebra.
 
 And the wall above that, which is the one I find most instructive. In 1994 the physicists
 Sandu Popescu and Daniel Rohrlich asked: what if you only demand that nothing can be \emph{signalled}, that Alice's
@@ -14545,10 +14546,12 @@ mathematics; none of the small machine's properties is the elliptope check.
 
 The arc-sine curve. That every point of these sets comes from a quantum strategy. Those are the
 cited external results, and the files say so in their scope notes. The other direction and the
-reaching are proved, for strategies with real amplitudes in finite dimension: every such strategy
-has $S^2 \le 8$ (\code{qs\_tsirelson}), its level-1 moment matrix, marginals included, passes
-the same PSD test (\code{qs\_npa\_psd}), and a two-qubit strategy reaches $2\sqrt 2$
-(\code{qs\_tsirelson\_reached}, all in QuantumStrategies.v). Also: the finite-mixture theorem (\code{fine\_theorem} in the source)
+reaching are proved, for strategies in finite dimension with real or complex amplitudes: every
+such strategy has $S^2 \le 8$ (\code{qs\_tsirelson}, \code{qc\_tsirelson}), its level-1 moment
+matrix, marginals included, passes the same PSD test (\code{qs\_npa\_psd}, \code{qc\_npa\_psd}),
+and a two-qubit strategy reaches $2\sqrt 2$ (\code{qs\_tsirelson\_reached},
+\code{qc\_tsirelson\_reached}). The real versions are in QuantumStrategies.v and the complex ones in
+QuantumStrategiesComplex.v. Also: the finite-mixture theorem (\code{fine\_theorem} in the source)
 proves only one direction, that a finite local model satisfies the bound, and its converse as
 stated is false: a table with $S = 0$ that no local model produces (\code{nec\_e\_fine\_converse\_false}).
 Fine's own theorem, in the form that speaks of correlations, is proved separately as an
@@ -15798,7 +15801,7 @@ A tally above two proves nonlocality; a pass proves the data quantum & not claim
 A finite local model meets the bound & proved; Fine's theorem in correlation form is proved as an iff (\code{nec\_e\_fine\_iff}), and the converse of \code{fine\_theorem} as stated is false (\code{nec\_e\_fine\_converse\_false}, NecEFine.v) & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-fine} \\
 The elliptope gate is sound; the PR box fails it & proved & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-gate-sound} \\
 The arc-sine boundary; that every PSD completion comes from a quantum strategy & not claimed (cited; unproved here) & Appendix~\ref{sec:chsh-derivation} \\
-A two-qubit strategy reaches $2\sqrt{2}$; every strategy with real amplitudes in finite dimension has $S^2 \le 8$ and a PSD level-1 moment matrix; every deterministic plan is such a strategy & proved & Appendix~\ref{sec:chsh-derivation} \\
+A two-qubit strategy reaches $2\sqrt{2}$; every strategy in finite dimension, with real or complex amplitudes, has $S^2 \le 8$ and a PSD level-1 moment matrix; every deterministic plan is such a strategy & proved & Appendix~\ref{sec:chsh-derivation} \\
 The integer route to the bound is new mathematics & not claimed; the route is NPA's & Section~\ref{sec:chsh} \\
 The integer check passes exactly when every pair was sampled and the pinned matrix is PSD & proved & Section~\ref{sec:chsh}, Theorem~\ref{thm:chsh-exact} \\
 A flag raised on the host machine from a clean start stands on a passing CHECK of the packed counts, a COMMIT and a CERTIFY; the chain run from a fresh start certifies for 3 exactly when the check passes & proved & Section~\ref{sec:chsh}, Theorem~\ref{thm:chsh-earned} \\
@@ -17367,6 +17370,7 @@ Theorem \ref{thm:chsh-row-tsirelson}: Row-bound form of Tsirelson's bound & \S\r
 Theorem \ref{thm:chsh-tight}: Tightness & \S\ref{sec:chsh-derivation} & \code{tsirelson\_tight} {\footnotesize(\code{TsirelsonFromAlgebra.v})}\newline \code{tsirelson\_achievable} {\footnotesize(\code{TsirelsonGeneral.v})} & FE, RD\newline FE, RD \\
 Remark \ref{rem:chsh-equality}: Where equality can happen & \S\ref{sec:chsh-derivation} & \code{nec\_e\_check\_strict} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_never\_tsirelson} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_check\_sharp} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_no\_sqrt8} {\footnotesize(\code{NecEChsh.v})}\newline \code{nec\_e\_equality\_forces\_point} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_equality\_two\_points} {\footnotesize(\code{NecEChshEquality.v})}\newline \code{nec\_e\_no\_rational\_half\_square} {\footnotesize(\code{NecEChshEquality.v})} & FE, RD\newline FE, RD\newline FE, RD\newline none\newline FE, RD\newline FE, RD\newline FE, RD \\
 In the text: quantum strategies with real amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, a two-qubit one reaches $2\sqrt 2$, and deterministic plans are strategies & \S\ref{sec:chsh-derivation} & \code{qs\_tsirelson} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_deterministic\_plan} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_corr\_dot} {\footnotesize(\code{QuantumStrategies.v})}\newline \code{qs\_npa\_psd} {\footnotesize(\code{QuantumStrategies.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
+In the text: quantum strategies with complex amplitudes in finite dimension: every one has $S^2 \le 8$ and a PSD level-1 moment matrix, and the two-qubit one reaches $2\sqrt 2$ & \S\ref{sec:chsh-derivation} & \code{qc\_tsirelson} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_tsirelson\_reached} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_corr\_dot} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_npa\_psd} {\footnotesize(\code{QuantumStrategiesComplex.v})}\newline \code{qc\_gram\_psd} {\footnotesize(\code{QuantumStrategiesComplex.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 Lemma \ref{lem:chsh-rational}: A rational constant above the bound, \code{rational\_tsirelson\_bound} & \S\ref{sec:chsh-derivation} & \code{rational\_tsirelson\_bound} {\footnotesize(\code{TsirelsonFromAlgebra.v})} & FE, RD \\
 Definition \ref{def:chsh-five}: The pinned level-1 matrix & \S\ref{sec:chsh-derivation} & \code{zero\_marginal\_npa} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{NPAMomentMatrix} {\footnotesize(\code{NPAMomentMatrix.v})}\newline \code{npa\_to\_matrix} {\footnotesize(\code{NPAMomentMatrix.v})} & def\newline def\newline def \\
 Lemma \ref{lem:chsh-schur}: Schur complement, the standard form {\footnotesize(if and only if)} & \S\ref{sec:chsh-derivation} & \code{schur\_identity} {\footnotesize(\code{SchurComplement.v})}\newline \code{schur\_complement\_psd} {\footnotesize(\code{SchurComplement.v})} & FE, RD\newline FE, RD \\
@@ -18617,10 +18621,12 @@ correlators to admit some PSD completion (item G, \code{zero\_marginal\_implies\
 is not necessary: the all-ones plan has a completion but fails here. So a check built on
 $M(E)$ is sound for the completion set and not complete for it, and it rejects some honest
 classical tallies. That correlators with a PSD completion are exactly those reachable by
-quantum measurements is Tsirelson's theorem, and half of it is proved here for real amplitudes in
-finite dimension: a strategy's correlators are inner products of unit vectors
-(\code{qs\_corr\_dot}, \code{qs\_uvec\_unit} and \code{qs\_vvec\_unit}) and its level-1 moment
-matrix is PSD (\code{qs\_npa\_psd}). The other half, that every PSD completion comes from a
+quantum measurements is Tsirelson's theorem, and half of it is proved here in finite dimension,
+for real and for complex amplitudes: a strategy's correlators are inner products of unit vectors
+(\code{qs\_corr\_dot}, \code{qs\_uvec\_unit} and \code{qs\_vvec\_unit}; with complex amplitudes,
+\code{qc\_corr\_dot}, \code{qc\_uvec\_unit} and \code{qc\_vvec\_unit}, the vectors read as real
+ones of twice the length) and its level-1 moment matrix is PSD (\code{qs\_npa\_psd},
+\code{qc\_npa\_psd}). The other half, that every PSD completion comes from a
 quantum strategy, is cited (item H).
 \end{remark}
 
@@ -19174,16 +19180,17 @@ sum is $\pi$. It is correct arithmetic about a cited characterization.
 Equality with the quantum set. That the completion set of item G is exactly the set of
 quantum correlators is Tsirelson's representation theorem, cited in the header of
 ElliptopeCompletion.v and not proved. That PSD of the level-1 moment matrix is necessary for
-quantum behaviour is proved for strategies with real amplitudes in finite dimension
-(\code{qs\_npa\_psd}, QuantumStrategies.v); for complex amplitudes it remains the cited NPA
-reading.
+quantum behaviour is proved for strategies in finite dimension, with real amplitudes
+(\code{qs\_npa\_psd}, QuantumStrategies.v) and with complex ones (\code{qc\_npa\_psd},
+QuantumStrategiesComplex.v); for infinite dimension it remains the cited NPA reading.
 
 Achievability. Theorem~\ref{thm:chsh-tight} is a point of $\mathbb{R}^4$. A state and
 measurements that reach it are built in QuantumStrategies.v: the two-qubit state
 $(|00\rangle + |11\rangle)/\sqrt 2$ with $A_0 = Z$, $A_1 = X$, $B_0 = (Z + X)/\sqrt 2$ and
 $B_1 = (Z - X)/\sqrt 2$ has correlators $1/\sqrt 2$, $1/\sqrt 2$, $1/\sqrt 2$, $-1/\sqrt 2$ and
-$S = 2\sqrt 2$ (\code{qs\_tsirelson\_reached}), and every strategy with real amplitudes in finite
-dimension has $S^2 \le 8$ (\code{qs\_tsirelson}). No experiment stands behind either.
+$S = 2\sqrt 2$ (\code{qs\_tsirelson\_reached}), and every strategy in finite dimension has
+$S^2 \le 8$, with real amplitudes (\code{qs\_tsirelson}) and with complex ones
+(\code{qc\_tsirelson}, QuantumStrategiesComplex.v). No experiment stands behind either.
 
 Completeness of the checks. The 1+AB cascade and the elliptope gate are proved sound, and neither
 has a proved converse. The level-1 integer check is the exception: on the small machine the same
