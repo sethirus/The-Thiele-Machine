@@ -2120,9 +2120,11 @@ pi-calculus (Palamidessi, Saraswat, Valencia and Victor 2006). \AA{}man Pohjola 
 separate models where a neighbouring process can never stop a step from models that can solve
 consensus, and test-and-set, an instruction that writes a cell and reports what was there, is
 on the consensus side. Palamidessi and coauthors compare messages that are used up with
-messages that stay, and the end of their study is a reduction from Minsky machines. A store
-that can refuse permanently, which is what the version rule does to a stale commit, looks like
-the non-monotonic side. I haven't written that encoding, so take it as a pointer. It isn't a claim.
+messages that stay, and the end of their study is a reduction from Minsky machines. The small
+machine, put into \AA{}man Pohjola and Parrow's setting with threads pooled on one shared state,
+has a consensus process in their sense, so it lands on their non-monotonic side; that, and their
+theorem, are checked (\code{cs\_machine\_not\_monotonic}, ConsensusSeparation.v). The
+comparison with Palamidessi and coauthors' persistence stays a comparison.
 \item Constructor theory (Deutsch and Marletto 2015; Marletto 2016; Marletto, Vedral and
 coauthors 2022; Violaris and Marletto 2022): physics as which tasks a device that runs in a
 cycle can do, with irreversible meaning possible while the inverse isn't. It's the nearest
@@ -10614,16 +10616,31 @@ fact that field already knows.
 
 Process-calculus people have a statement of the same split. Johannes \AA{}man Pohjola and
 Joachim Parrow, computer scientists at Uppsala University (Parrow is one of the inventors of the
-pi-calculus, a mathematical model of processes that talk over channels), in 2016 prove on paper that no model whose parallel composition is monotonic, where a
-neighbouring process can never stop a step, has a consensus process, and one of their examples
-of a model that does is test-and-set, an instruction that writes a cell and reports what was
-there. Test-and-set isn't a sticky bit: in Herlihy's ranking it brings two processors to agree,
-and a sticky bit brings any number. A store that can refuse permanently, as
-the version rule does to a stale commit, sits on the non-monotonic side. The shared-memory
-version of their split is the pair of results above: the small machine's object reaches agreement
-for any number of processors, and the monotone variant reaches it for none
-(\code{sc\_agreement}, \code{mc\_mono\_no\_consensus}). The encoding of the machine into their
-calculus I haven't written, so that part is a pointer.
+pi-calculus, a mathematical model of processes that talk over channels), in 2016 proved, with the
+proof checked in the Isabelle proof assistant, that no model whose parallel composition is
+monotonic, where a neighbouring process can never stop a step, has a consensus process. One of
+their examples of a model that does is test-and-set, an instruction that writes a cell and reports
+what was there. Test-and-set isn't a sticky bit: in Herlihy's ranking it brings two processors to
+agree, and a sticky bit brings any number.
+
+Their setting is small enough to check here whole. A model is any set of processes with a step
+relation and a way to compose two processes that doesn't care about order or grouping. Composition
+is monotonic when whatever a process can reach alone, it can still reach with anything set beside
+it. A consensus process is one where any number of copies, run together, can end up agreeing on
+either of two outcomes, and once a run has one outcome it can never show the other. Their theorem
+goes through in a few lines: run half the copies to one outcome and the other half to the other,
+and if neither half can block the other, the two outcomes meet on the same state
+(\code{cs\_no\_consensus\_monotonic}, ConsensusSeparation.v). Then the machine goes into it.
+A process is a shared machine state with a crowd of threads, each proposing a bit, and composing
+two processes pools their threads on one state. One thread proposing each bit is a consensus
+process in exactly their sense, for the outcomes ``some thread decided 0'' and ``some thread
+decided 1'' (\code{cs\_machine\_consensus}), so by their theorem that composition isn't
+monotonic (\code{cs\_machine\_not\_monotonic}). The small machine sits on their non-monotonic
+side, checked. What puts it there in the run is the order of the fact table, the same as above;
+a store that refuses a stale commit for good, as the version rule does, refuses in the same
+spirit. The shared-memory version of their split is the pair of results above: the small
+machine's object reaches agreement for any number of processors, and the monotone variant reaches
+it for none (\code{sc\_agreement}, \code{mc\_mono\_no\_consensus}).
 
 Security people know the pattern by a third name. A check that blesses a value, and a write
 that takes the blessing away, is close kin to dynamic taint tracking, where a label rides along
@@ -17490,6 +17507,7 @@ Theorem \ref{thm:u34-presented}: One host runs every computably presented Thiele
 Theorem \ref{thm:u34-presented-surcharge}: Exact, within two, and no better & \S\ref{sec:smallest} & \code{presented\_universal\_surcharge\_le\_two}, \code{presented\_universal\_exact}, \code{presented\_universal\_no\_exact\_below\_three}, \code{presented\_universal\_U\_no\_exact\_below\_three} {\footnotesize(\code{PresentedUniversal.v})} & none \\
 In the text: a demonstration machine on the priced host & \S\ref{sec:smallest} & \code{pu\_demo\_computably\_presented}, \code{pu\_demo\_never\_halts}, \code{pu\_demo\_flag\_rises}, \code{pu\_demo\_exact}, \code{pu\_demo\_earned} {\footnotesize(\code{PresentedDemo.v})} & none \\
 Theorem \ref{thm:u19-tm-lift}: A counter beside a Turing machine changes nothing & \S\ref{sec:smallest} & \code{thiele\_simulates\_turing\_gen} {\footnotesize(\code{ProperSubsumption.v})}\newline \code{thiele\_simulates\_turing} {\footnotesize(\code{ProperSubsumption.v})} & none\newline none \\
+In the text: in the framework of \AA{}man Pohjola and Parrow, a monotonic composition has no consensus process; the small machine, threads pooled on one shared state, has one, so its composition is not monotonic & \S\ref{sec:smallest} & \code{cs\_no\_consensus\_monotonic} {\footnotesize(\code{ConsensusSeparation.v})}\newline \code{cs\_machine\_consensus} {\footnotesize(\code{ConsensusSeparation.v})}\newline \code{cs\_machine\_not\_monotonic} {\footnotesize(\code{ConsensusSeparation.v})} & none\newline FE\newline FE \\
 In the text: the shared small machine brings any number of processors to wait-free agreement; with everything growing, no protocol brings two to agreement & \S\ref{sec:smallest} & \code{sc\_agreement} {\footnotesize(\code{SmallConsensus.v})}\newline \code{sc\_validity} {\footnotesize(\code{SmallConsensus.v})}\newline \code{sc\_wait\_free} {\footnotesize(\code{SmallConsensus.v})}\newline \code{mc\_no\_consensus} {\footnotesize(\code{MonotoneConsensus.v})}\newline \code{mc\_mono\_interfere} {\footnotesize(\code{MonotoneConsensus.v})}\newline \code{mc\_mono\_no\_consensus} {\footnotesize(\code{MonotoneConsensus.v})} & none\newline none\newline none\newline none\newline FE\newline FE \\
 In the text: without PAY, a run that never traps and ends with the flag down bills at most 32 plus its repeated COMMITs & \S\ref{sec:smallest} & \code{pf\_bound} {\footnotesize(\code{PayFree.v})}\newline \code{pf\_bound\_start} {\footnotesize(\code{PayFree.v})}\newline \code{pf\_no\_repeat\_bound} {\footnotesize(\code{PayFree.v})} & none\newline none\newline none \\
 Definition \ref{def:host-same}: Behaving the same, on the host & \S\ref{sec:small-diagonal} & \code{sm\_hequiv} {\footnotesize(\code{SmHostBlocks.v})}\newline \code{sm\_hext} {\footnotesize(\code{SmHostRice.v})} & def\newline def \\
