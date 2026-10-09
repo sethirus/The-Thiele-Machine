@@ -31,7 +31,7 @@ def test_committed_figures_match_the_generator() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
 
 
-def test_counts_the_figures_print() -> None:
+def test_counts_shown_in_the_figures() -> None:
     lists = book_figures.LISTS
     assert len(lists) == 27
     assert [sum(map(c, lists)) for c in book_figures.CHECKS] == [10, 27, 1]
