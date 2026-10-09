@@ -413,7 +413,7 @@ jobs:
       - name: Install LaTeX toolchain
         uses: ./.github/actions/apt-install
         with:
-          packages: texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures texlive-science texlive-luatex lmodern poppler-utils
+          packages: texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures texlive-science lmodern poppler-utils
 
       - name: Build the book and the specification
         run: bash monograph/build_monograph.sh

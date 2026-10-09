@@ -1,209 +1,229 @@
 % SPDX-FileCopyrightText: 2025-2026 Devon Thiele
 % SPDX-License-Identifier: CC-BY-SA-4.0
-%
-% Built with LuaLaTeX (monograph/build_monograph.sh): 7 by 10 inches, one column,
-% one ink. Charis SIL carries the text; Inconsolata the identifiers and figures
-% the build generates; Libertinus Math the mathematics. The fonts live in
-% monograph/fonts/ under the SIL Open Font License.
-%
-% The images: an image appears only where a sentence asks for one. Before the
-% essay's last sentence, "The rest of the book is me trying to break all of it",
-% each image is one case. After it, each image is every case, with the ones
-% that fail shown at the same weight. Every image is generated from the book's
-% own definitions by scripts/book_figures.py into monograph/figures/.
-\documentclass[10pt,twoside]{article}
-
-\usepackage{fontspec}
-\usepackage{amsmath,amsthm}
-\usepackage[math-style=TeX,bold-style=TeX]{unicode-math}
-\defaultfontfeatures{Ligatures=TeX}
-\setmainfont{CharisSIL}[
-  Path=fonts/, Extension=.ttf,
-  UprightFont=*-Regular, ItalicFont=*-Italic,
-  BoldFont=*-Bold, BoldItalicFont=*-BoldItalic]
-\setmonofont{Inconsolatazi4}[
-  Path=fonts/, Extension=.otf,
-  UprightFont=*-Regular, BoldFont=*-Bold, Scale=MatchLowercase]
-\setsansfont{CharisSIL}[
-  Path=fonts/, Extension=.ttf,
-  UprightFont=*-Regular, ItalicFont=*-Italic,
-  BoldFont=*-Bold, BoldItalicFont=*-BoldItalic]
-\setmathfont{LibertinusMath-Regular.otf}[Path=fonts/, Scale=MatchLowercase]
-\newfontfamily\recordfont{Inconsolatazi4-Regular.otf}[Path=fonts/, Scale=MatchLowercase]
-\newfontfamily\recordbold{Inconsolatazi4-Bold.otf}[Path=fonts/, Scale=MatchLowercase]
-
+\documentclass[11pt,a4paper]{article}
 \usepackage{longtable}
-\usepackage[
-  paperwidth=7in, paperheight=10in,
-  textwidth=30pc, textheight=8.2in,
-  inner=0.8125in, top=0.75in,
-  headheight=0pt, headsep=0pt, footskip=0.45in,
-  marginparwidth=1.0in, marginparsep=0.17in]{geometry}
-\usepackage{graphicx}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo}
+\usepackage[scaled=0.90]{helvet}
+\usepackage{courier}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage{hyperref}
-\usepackage[protrusion=true, expansion=false]{microtype}
+\usepackage[
+  activate={true,nocompatibility},
+  final,
+  tracking=true,
+  factor=1100,
+  stretch=12,
+  shrink=12
+]{microtype}
 \usepackage{array}
-\usepackage[explicit]{titlesec}
+\usepackage[skip=9pt plus 2pt]{parskip}
+\usepackage{setspace}
+\usepackage{titlesec}
 \usepackage{fancyhdr}
 \usepackage{seqsplit}
 \usepackage{etoolbox}
-\usepackage{newunicodechar}
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc,shapes.geometric,decorations.pathreplacing,shadings}
 
-% --- Inks ------------------------------------------------------------------------
-\definecolor{ink}{HTML}{000000}
-\color{ink}
-\hypersetup{colorlinks=true, linkcolor=ink, citecolor=ink, urlcolor=ink,
-  linktoc=page, hypertexnames=false, pdftitle={The Thiele Machine}, pdfauthor={Devon Thiele}}
+\geometry{top=1.1in, bottom=1.1in, left=1.3in, right=1.3in}
+\setstretch{1.18}
 
-% --- Text -----------------------------------------------------------------------------
-\renewcommand{\normalsize}{\fontsize{10}{12.5}\selectfont}\normalsize
-\setlength{\parindent}{1em}
-\setlength{\parskip}{0pt}
-\setlist{itemsep=0.2em, topsep=0.45em, parsep=0pt, leftmargin=1.5em}
-\setlist[itemize]{label={\rule[0.28em]{0.3em}{0.3em}}}
-\emergencystretch=2em
-\tolerance=1400
+\definecolor{linkblue}{RGB}{20,70,140}
+\hypersetup{colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue}
+
+\setlist{itemsep=0.45em, topsep=0.55em, parsep=0pt}
+\emergencystretch=12em
+\tolerance=2500
 \hbadness=4000
-\clubpenalty=8000
-\widowpenalty=8000
-\raggedbottom
-\newunicodechar{μ}{\ensuremath{\mu}}
-\newunicodechar{δ}{\ensuremath{\delta}}
+
+% \code{...} -- monospace identifier that may break at any character.
+% LaTeX prefers a single-line render and only invokes the break
+% opportunities when the word would otherwise overflow. The
+% \textnormal wrapper makes \code{} safe inside italic theorem bodies.
+% \DeclareRobustCommand makes \code{} safe inside moving arguments
+% (captions, \section{} titles, TOC, etc.).
 \DeclareRobustCommand{\code}[1]{\textnormal{\texttt{\seqsplit{#1}}}}
-\hyphenation{Thiele Coq bisim-u-la-tion poly-no-mi-al cer-ti-fi-ca-tion
-  com-pu-ta-tion com-pu-ta-tional sub-strate con-struc-tion cat-e-gor-i-cal
-  semi-def-i-nite re-al-iz-able Tsirelson Hilbert Kleene G\"odel Schur
-  Landauer Bekenstein}
 
-% --- Parts and chapters ------------------------------------------------------------
-\newcommand{\partwords}[1]{\ifcase#1\or One\or Two\or Three\or Four\or Five\or Six\or Seven\fi}
-\renewcommand{\thepart}{\arabic{part}}
-% A part opens on a recto: "Part One" and its title, alone. Done by hand here,
-% outside titlesec, so the pages fall where they are meant to.
-\newcommand{\emptypage}{\hbox{}\thispagestyle{empty}\clearpage}
-\renewcommand{\part}[1]{%
-  \clearpage
-  \ifodd\value{page}\else\emptypage\fi
-  \refstepcounter{part}%
-  \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
-  \thispagestyle{empty}%
-  \vspace*{2.6in}
-  {\fontsize{10}{12.5}\selectfont Part \partwords{\value{part}}}\par\vspace{14pt}
-  {\fontsize{28}{32}\selectfont #1}\par
-  \clearpage}
+% Hyphenation hints for stubborn proper names and compound words.
+\hyphenation{
+  Thiele
+  Coq
+  bisim-u-la-tion
+  poly-no-mi-al
+  cer-ti-fi-ca-tion
+  com-pu-ta-tion
+  com-pu-ta-tional
+  sub-strate
+  con-struc-tion
+  cat-e-gor-i-cal
+  semi-def-i-nite
+  re-al-iz-able
+  Tsirelson
+  Hilbert
+  Kleene
+  G\"odel
+  Schur
+  Landauer
+  Bekenstein
+}
 
-\newcommand{\sectionbreak}{\clearpage\thispagestyle{plain}}
+% Section heading style: bold, ruled underneath
+\titleformat{\section}{\large\bfseries}{\thesection}{0.8em}{}[\vspace{2pt}{\titlerule[0.4pt]}]
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.75em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{0.75em}{}
+\titlespacing*{\section}{0pt}{2.8ex plus 0.5ex minus 0.2ex}{1.4ex plus 0.2ex}
+\titlespacing*{\subsection}{0pt}{1.8ex plus 0.3ex minus 0.1ex}{0.7ex plus 0.1ex}
+\titlespacing*{\subsubsection}{0pt}{1.2ex plus 0.2ex}{0.4ex}
 
-\newcommand{\chapteropener}[2]{\vspace*{1.6in}%
-  {\fontsize{10}{12.5}\selectfont #1\par\vspace{10pt}}%
-  {\fontsize{24}{27}\selectfont\raggedright #2\par}}
-\titleformat{\section}[block]{}{}{0pt}{\chapteropener{\thesection}{#1}}
-\titleformat{name=\section,numberless}[block]{}{}{0pt}{\markright{#1}\chapteropener{\strut}{#1}}
-\titlespacing*{\section}{0pt}{0pt}{30pt}
-\titleformat{\subsection}[hang]{\fontsize{11.5}{14}\selectfont\bfseries\raggedright}{\thesubsection}{0.7em}{#1}
-\titleformat{name=\subsection,numberless}[block]{\fontsize{11.5}{14}\selectfont\bfseries\raggedright}{}{0pt}{#1}
-\titleformat{\subsubsection}[hang]{\normalsize\bfseries\raggedright}{\thesubsubsection}{0.7em}{#1}
-\titleformat{name=\subsubsection,numberless}[block]{\normalsize\bfseries\raggedright}{}{0pt}{#1}
-\titlespacing*{\subsection}{0pt}{3ex plus 0.8ex minus 0.3ex}{1ex plus 0.2ex}
-\titlespacing*{\subsubsection}{0pt}{2.2ex plus 0.5ex minus 0.2ex}{0.6ex plus 0.1ex}
-\titleformat{\paragraph}[runin]{\bfseries}{}{0pt}{#1}
-
-% --- Folios, no running heads ----------------------------------------------------------
 \pagestyle{fancy}
 \fancyhf{}
-\fancyfoot[LE]{\llap{\recordfont\footnotesize\thepage\hspace{0.1875in}}}
-\fancyfoot[RO]{\rlap{\hspace{0.1875in}\recordfont\footnotesize\thepage}}
-\renewcommand{\headrulewidth}{0pt}
-\fancypagestyle{plain}{\fancyhf{}%
-  \fancyfoot[LE]{\llap{\recordfont\footnotesize\thepage\hspace{0.1875in}}}%
-  \fancyfoot[RO]{\rlap{\hspace{0.1875in}\recordfont\footnotesize\thepage}}}
+\fancyhead[L]{\small\itshape The Thiele Machine}
+\fancyhead[R]{\small\itshape Devon Thiele}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
 
-% --- Statements ---------------------------------------------------------------------
+\DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
+\DeclareUnicodeCharacter{03B4}{\ensuremath{\delta}}
+
+% === Theorem / proof / plain-reading visual rhythm =========================
+% Theorems get extra breathing room; proofs get a small lead and tail; and
+% the "Plain reading" commentary lives in its own indented block with a soft
+% blue rule on the left so it reads as authorial gloss, not another theorem.
+
 \newtheoremstyle{thielethm}
-  {1.1\baselineskip}{0.8\baselineskip}{\itshape}{0pt}
-  {\bfseries}{.}{0.5em}{}
+  {1.2\baselineskip}     % above
+  {0.7\baselineskip}     % below
+  {\itshape}             % body font
+  {0pt}                  % indent
+  {\bfseries}            % head font
+  {.}                    % head punctuation
+  {0.55em}               % space after head
+  {}                     % default head spec
+
 \newtheoremstyle{thieledef}
-  {1.0\baselineskip}{0.7\baselineskip}{\normalfont}{0pt}
-  {\bfseries}{.}{0.5em}{}
+  {1.2\baselineskip}
+  {0.7\baselineskip}
+  {\normalfont}
+  {0pt}
+  {\bfseries}
+  {.}
+  {0.55em}
+  {}
+
 \theoremstyle{thielethm}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{conjecture}[theorem]{Conjecture}
+
 \theoremstyle{thieledef}
 \newtheorem{definition}{Definition}[section]
+
+\theoremstyle{thieledef}
 \newtheorem{remark}{Remark}[section]
+
+% A little extra room around proofs so they don't crowd the surrounding text.
+% (Implemented by patching the proof environment definitions below, not via
+% AtBeginEnvironment, to avoid list-context interference inside \qed.)
+
+% === TikZ shared styling ===================================================
+% A single visual language for every figure: Palatino-compatible text,
+% restrained blue accents matching linkblue, thin rules at 0.4-0.6pt to
+% rhyme with the section dividers.
+\definecolor{thiele@accent}{RGB}{20,70,140}    % matches linkblue
+\definecolor{thiele@soft}{RGB}{150,170,200}
+\definecolor{thiele@gray}{RGB}{120,120,120}
+\definecolor{thiele@red}{RGB}{170,40,40}
+\definecolor{thiele@pale}{RGB}{235,240,250}
+
+\tikzset{
+  thiele/.style={
+    font=\small,
+    >={Stealth[length=4pt,width=4pt]},
+    line width=0.5pt,
+    every node/.style={font=\small}
+  },
+  tnode/.style={                   % Thiele state node
+    draw=thiele@accent, line width=0.55pt,
+    rounded corners=2pt,
+    inner sep=4pt,
+    fill=thiele@pale,
+    font=\scriptsize\ttfamily,
+    minimum height=2.6em
+  },
+  cnode/.style={                   % classical state node
+    draw=thiele@gray, line width=0.55pt,
+    rounded corners=2pt,
+    inner sep=4pt,
+    fill=white,
+    font=\scriptsize\ttfamily,
+    minimum height=2.0em
+  },
+  proj/.style={->, line width=0.55pt, draw=thiele@accent},
+  nolift/.style={->, line width=0.7pt, draw=thiele@red, dashed},
+  pipe/.style={
+    draw=thiele@accent, line width=0.5pt,
+    rounded corners=3pt,
+    inner sep=5pt,
+    fill=thiele@pale,
+    align=center,
+    font=\small,
+    minimum width=11em,
+    minimum height=2.0em
+  },
+  pipearrow/.style={->, line width=0.6pt, draw=thiele@accent},
+  trustarrow/.style={->, line width=0.6pt, draw=thiele@red},
+  fcaption/.style={font=\footnotesize\itshape, text=thiele@gray}
+}
+
+% Plain reading: authorial gloss after a theorem/proof. Indented block,
+% with a soft blue left rule and a bold-italic lead-in.
+\newenvironment{plainreading}{%
+  \par\addvspace{0.85\baselineskip}%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{1.6em}%
+    \setlength{\rightmargin}{0.2em}%
+    \setlength{\topsep}{0pt}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parsep}{0.35\baselineskip}%
+    \setlength{\labelwidth}{0pt}%
+    \setlength{\labelsep}{0.7em}%
+  }%
+  \item[\textcolor{linkblue!55}{\rule[-0.18ex]{1.4pt}{0.95em}}]%
+  \hspace*{-0.35em}\textit{\textbf{Plain reading.}}~\ignorespaces
+}{%
+  \end{list}%
+  \addvspace{0.45\baselineskip}%
+}
+\theoremstyle{thieledef}
 \newtheorem{premise}[definition]{Premise}
-\renewcommand{\qedsymbol}{\rule{0.4em}{0.4em}}
-
-% --- Tables, figures ---------------------------------------------------------------
-\AtBeginEnvironment{longtable}{\footnotesize\renewcommand{\arraystretch}{1.15}}
-\setlength{\heavyrulewidth}{0.5pt}
-\setlength{\lightrulewidth}{0.3pt}
-\usepackage[font=small, labelfont=bf, labelsep=period, justification=raggedright, singlelinecheck=false]{caption}
-\tikzset{thiele/.style={font=\small, >={Stealth[length=5pt,width=4pt]}, line width=0.5pt}}
-
-% --- Contents ------------------------------------------------------------------------
-\usepackage{titletoc}
-\newcommand{\parttoc}[1]{{\def\hspace##1{\quad}#1}}
-\makeatletter
-\renewcommand*{\l@part}[2]{\addvspace{14pt}\begingroup\parindent=0pt\raggedright\bfseries
-  \parttoc{#1}\hfill{\recordfont\mdseries #2}\par\addvspace{4pt}\endgroup}
-\g@addto@macro\appendix{\fontsize{9}{11.5}\selectfont}
-\makeatother
-\titlecontents{section}[1.8em]{\addvspace{2pt}}%
-  {\contentslabel[{\recordfont\thecontentslabel}]{1.8em}}{}{\hfill\recordfont\contentspage}
-\setcounter{tocdepth}{1}
-
-% --- The images -------------------------------------------------------------------
-% One case before the essay's last sentence; every case after it. All of them
-% are generated (scripts/book_figures.py) and \input from figures/.
-\usepackage{dpfloat}
-\newfontfamily\figfont{CharisSIL}[Path=fonts/, Extension=.ttf, UprightFont=*-Regular,
-  ItalicFont=*-Italic, Numbers={Monospaced,Lining}]
-% a chair: who sits on it, over a hairline seat
-\newcommand{\seat}[1]{\begin{tabular}{@{}c@{}}\makebox[3.9mm]{\recordfont\fontsize{5.6}{6}\selectfont\vphantom{1}#1}\\[-6.2pt]\rule{3.5mm}{0.3pt}\end{tabular}}
-\newcommand{\chaircell}[3]{\seat{#1}\hspace{0.25mm}\seat{#2}\hspace{0.25mm}\seat{#3}}
-\newcommand{\doorcell}[4]{\seat{#1}\hspace{0.25mm}\seat{#2}\hspace{0.25mm}\seat{#3}\hspace{1.6mm}\seat{#4}}
-\newcommand{\pointfigure}[1]{\par\vspace*{3\baselineskip}\noindent\makebox[\textwidth]{\input{figures/#1}}\par\addvspace{3\baselineskip}}
-\newcommand{\wholefigure}[2]{\par\addvspace{1.4\baselineskip}\noindent\makebox[\textwidth]{\input{figures/#1}}\par\smallskip
-  \noindent\makebox[\textwidth]{\figfont\fontsize{7.5}{9}\selectfont #2}\par\addvspace{1.4\baselineskip}}
-\newcommand{\wholepage}[2]{\clearpage\vspace*{\fill}\noindent\makebox[\textwidth]{\input{figures/#1}}\par\medskip
-  \noindent\makebox[\textwidth]{\figfont\fontsize{7.5}{9}\selectfont #2}\par\vspace*{\fill}\clearpage}
-% the census: programs set as lines of type
-\newlength{\censuscol}\setlength{\censuscol}{0.488\textwidth}
-\newcommand{\censusline}[1]{\noindent\hbox to \censuscol{\figfont\fontsize{6.3}{7.9}\selectfont #1\hfil}\par}
-\newcommand{\censushead}[1]{\noindent\hbox to \censuscol{\figfont\fontsize{6.3}{7.9}\selectfont\itshape #1\hfil}\par\vspace{1pt}}
-\newcommand{\censusgap}{\vspace{5pt}}
-\newcommand{\censusspread}[1]{%
-  \begin{figure}[p]\begin{leftfullpage}\fontsize{6.3}{7.9}\selectfont\noindent\input{figures/#1-L}\end{leftfullpage}\end{figure}%
-  \begin{figure}[p]\begin{fullpage}\fontsize{6.3}{7.9}\selectfont\noindent\input{figures/#1-R}\end{fullpage}\end{figure}}
-% piles: lists of numerals under "yes pile" and "no pile"
-\newcommand{\pilehead}[1]{{\figfont\fontsize{7}{8.5}\selectfont\itshape #1}}
-\newcommand{\pileitem}[1]{\makebox[9.2mm][l]{\recordfont\fontsize{7}{8.5}\selectfont #1}}
+\theoremstyle{thielethm}
+\newtheorem{conjecture}[theorem]{Conjecture}
 
 \begin{document}
 \sloppy
 
 \hypersetup{pageanchor=false}
-\thispagestyle{empty}
-\noindent The Thiele Machine\par
-\noindent Devon Thiele\par
-\clearpage
+\begin{titlepage}
 \thispagestyle{empty}
 \vspace*{\fill}
-\noindent{\small \emph{The Thiele Machine: A Computational Model with Explicit Structural Cost.}
-Copyright 2025 to 2026 Devon Thiele. The text is under CC BY-SA 4.0; the proofs and the code
-are under the licences in the repository. Set in Charis SIL, Inconsolata and Libertinus Math,
-under the SIL Open Font License. Every image is generated from the book's own definitions by
-\code{scripts/book\_figures.py}.}\par
+\begin{center}
+{\fontsize{34}{40}\selectfont\bfseries The Thiele Machine}\\[2.2em]
+{\Large\itshape A Computational Model with Explicit Structural Cost}\\[3.5em]
+\rule{0.5\linewidth}{0.4pt}\\[1.8em]
+{\large Devon Thiele}
+\end{center}
+\vspace*{\fill}
+\end{titlepage}
 \clearpage
 \hypersetup{pageanchor=true}
 
@@ -608,8 +628,6 @@ inputs, however long it runs and however official it looks. It can still be soun
 property holds of everything, and then it's sound and tells you nothing you didn't have. A philosopher, Robert Nozick, made a
 version of this a condition for knowing, in 1981: you know a thing only if, had it been false, you
 wouldn't believe it.
-
-\pointfigure{lists-one}
 
 Push on it once more, because this is where it really gives. ``Could have failed'' is a fact about the
 \emph{procedure}, about what the check would have done on other lists. It isn't a fact about the end
@@ -1073,8 +1091,6 @@ either way, two people end on one chair, and from where everyone's sitting you c
 That's the pigeonhole principle, which is old and not mine, and the checked version, with exactly
 those three conditions (finite, permanent, one flip), is in the chapter ``Why the toll isn't
 arbitrary.'' No physics in it anywhere. Counting.
-
-\pointfigure{chairs-one}
 
 (How old is it? I went looking. A French Jesuit, Jean Leurechon, used it in 1622 to argue
 that two people somewhere must have exactly the same number of hairs on their heads, which is the
@@ -3533,8 +3549,6 @@ because this move is the one that raises their flag.
 
 Now try to finish the move with one person in each chair.
 
-\wholepage{chairs-all}{81}
-
 You can't. Three people start inside and have to stay inside, so they take the three inside
 chairs between them, with nobody left out, because nobody may leave. The person from the door
 has to come in. There is no fourth chair inside. Somebody shares. Two of the machine's
@@ -3552,8 +3566,6 @@ nothing is a one-to-one shuffle, a one-to-one shuffle of a finite set of chairs 
 chair, so the inside chairs are all taken by insiders, so there's no room for the newcomer.
 Finite. Permanent. Flip. Those three and nothing else, and the conclusion is ``two states
 became one.''
-
-\wholefigure{reseat}{24}
 
 The checked version of the chairs is a theorem a few lines down, and it needs one word first.
 ``Injective'' is the mathematician's word for ``forgets nothing'': a step is injective when two
@@ -10734,8 +10746,6 @@ three instructions certify from some starts and refuse from others, because the 
 have failed, and from most starts it does. A check like that has a no pile, which is the only
 kind the opening chapter counts as establishing anything.
 
-\wholefigure{lists-all}{27}
-
 Could I have picked an even dumber claim? Sure, and the machine would have let me. CHECK
 \emph{at least 0} $A$ passes on every number there is, so CHECK, COMMIT, CERTIFY on it raises the
 flag for 3 from every start (stop the presses: a number is at least zero). The step doesn't
@@ -11248,8 +11258,6 @@ the current zero claim and the idle table is empty, giving the stated difference
 whether another COMMIT would pass, as well as in the ledger and flag.
 \end{proof}
 
-\censusspread{window}
-
 Checked as \code{receipt\_separation} (EarnedCore.v).
 
 \begin{theorem}[No window oracle]\label{thm:u34-no-oracle}
@@ -11331,8 +11339,6 @@ places in $t$, each costing 1, and every other instruction costs at least 0. The
 statement is Theorem~\ref{thm:u34-toll}. A program run is the run of the instructions it
 actually executes, so the program form follows.
 \end{proof}
-
-\censusspread{record}
 
 Checked as \code{certified\_run\_min\_cost} and \code{program\_certified\_min\_cost} (EarnedCore.v).
 
@@ -14051,8 +14057,6 @@ whole ``pre-agreed answers, no influence between rooms'' story is \emph{exactly}
 those sixteen lists, one scoreboard for all four questions at once; the sixteen are the
 whole classical story. That one I don't have to take on his word: the form of his theorem that
 speaks of the four averages is checked in this book, and the end of this section says how.
-
-\wholefigure{chsh-plans}{16}
 
 The number. Recode answers zero and one as plus one and minus one. For each question pair,
 let E be the average, over many rounds, of Alice's answer times Bob's. The CHSH quantity is
