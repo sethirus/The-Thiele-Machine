@@ -44,7 +44,7 @@ jobs:
       - name: Install toolchain
         uses: ./.github/actions/apt-install
         with:
-          packages: coq coinor-csdp ocaml ocaml-findlib texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures texlive-science texlive-luatex lmodern poppler-utils
+          packages: coq coinor-csdp ocaml ocaml-findlib texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-pictures texlive-science lmodern poppler-utils
 
       - name: Set up MetaCoq Template
         # The vendored L modules (L tactics, GenEncode, MuRec, the
