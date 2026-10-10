@@ -1232,7 +1232,8 @@ goes up stays up; and, from
 a clean start, the record goes up only after a check of some claim passes,
 by
 a checker proved to
-mean what it says, then a commitment to that same claim with nothing
+mean what the claim says, in a language of claims and meanings fixed before any checker is
+named, then a commitment to that same claim with nothing
 it's about changed in between, then a certificate, with exactly one mark charged for each
 of those three acts; and at least
 one claim on the machine has a check, commit
@@ -1366,8 +1367,16 @@ and its history is a few sections back.
 It isn't more computing power. Anything a Thiele machine computes, the
 machine under its record
 computes without it. The book proves that over any machine at all, an honest record is a switch the machine's own
-events flip once and nothing flips back; it watches the computing and adds nothing to it. It isn't
-faster. It isn't quantum. It says nothing about which problems are hard.
+events flip once and nothing flips back; it watches the computing and adds nothing to it. That's
+a sentence about the record. The checker belongs to the machine under it, and the definition of
+Thiele-complete doesn't ask the checker to be a program. Hand it a checker that knows which
+programs halt, and whether a CHECK of ``this program halts'' traps tells you whether it does, so
+that machine decides halting (Section~\ref{sec:smallest} has the details). With a checker that is a program, as
+every checker in this book is, nothing in the machine goes past what a program can do. The record
+makes nothing faster either: erase the flag and the counter, and every run takes the same steps to
+the same places. CHECK is another matter. It's a test at unit cost, and one CHECK of ``$A \ge m$''
+settles whether $A \ge m$ in one step, where the two counters alone would count $A$ down. It isn't
+quantum. It says nothing about which problems are hard.
 
 And an ordinary computer can keep a record like this. Give a Turing machine a spot for the record
 and a track for the counter, write its rules so it never sets the spot without bumping the counter,
@@ -1882,7 +1891,9 @@ clock bolted to a computer clears it, and so does a machine whose record never r
 universal base whose moves are free and can't touch the record, and a record that stays up once it's up. A record that, from a clean start, rises
 only after a
 passing check of a claim, then a commitment to that same claim with nothing it's about changed in
-between, then a certificate, with the checker proved to mean what it says. An exact toll: one
+between, then a certificate, with the checker proved to mean what it says: the claims and what
+they mean come from a language fixed first, and the proof is that the checker's yes makes the
+claim true in that language's sense. An exact toll: one
 mark for each of those three acts and nothing for anything else. And a claim whose check, commit and certificate
 raise the record
 on some loaded starts and leave it down on others. Every clock-style machine fails the definition, because it charges for computing, whatever its
@@ -6814,7 +6825,9 @@ nothing in it reads the lists off the run. What it says is that, given lists, a 
 covering that someone supplies, the paid steps of the run cover the rounded drop in list
 length. That's Section~\ref{sec:narrowing}'s warning come due: watching can narrow for free, so the payment can't be
 dug out of the narrowing. It goes in as a premise, the tree's depth against the paid steps,
-and I'll keep calling it one.
+and I'll keep calling it one. At the end of the section the run makes the posterior itself, from
+a prior and the tests it passed (Theorem~\ref{thm:ent-run}), and then the premise is a share each
+test keeps.
 
 \subsection{What ``narrower'' buys: a stronger test}
 
@@ -7006,7 +7019,8 @@ the words ``not in $\Omega'$'' go unused, since a candidate whose observation di
 
 A statement like that is true by packaging: it takes the hypotheses in and hands the
 conclusions back, and the right word for it is a checklist. A checklist for leaning on a claim.
-It discovers nothing about leaning.
+It discovers nothing about leaning. The version in which the run itself does the narrowing,
+Theorem~\ref{thm:ent-run}, comes at the end of this section.
 
 And a checklist isn't nothing. On 30 October 1935, at Wright Field, northeast of Dayton, Ohio,
 the Army was evaluating Boeing's new four-engine bomber, the Model 299. Shortly after take-off it
@@ -7029,6 +7043,54 @@ on to be the B-17. Nothing on that card was a discovery. Every item on it was so
 already knew. What the card did was make sure none of it got left out when it mattered. That's
 what putting entitlement's hypotheses on one list does: it finds nothing new about leaning on a
 claim, and it makes the hypotheses impossible to drop quietly.
+
+\subsection{When the run does the narrowing}
+
+Theorem~\ref{thm:ent-cs} takes the lists in. Here is the version where the run makes the
+posterior, and the count stops being an item on the list and becomes a consequence. It needs one
+thing a bare certification system doesn't have: which steps are tests, and what each asks. So a
+reading names them. For each instruction it gives either nothing or a yes-or-no question about the
+state the run is in when it gets there, and a test step \emph{passes} when its question says yes
+there. The candidates are states the run could have started from. A passed test is asked of a
+candidate by running the same moves from the candidate up to that step and asking the same
+question there. The \emph{posterior} is the candidates that pass every test the run passed, asked
+that way, in the order the run asked them.
+
+\begin{theorem}[Structural entitlement, with the narrowing made by the run]\label{thm:ent-run}
+Take a certification system and a reading that names its test steps, every test step charged at
+least one. Take a state $s$ that reads no, a run $t$ from $s$ that ends in a state that reads yes,
+and a list $\Omega$ of candidate starts that contains $s$. Let $\Omega'$ be the posterior $t$ makes
+from $\Omega$, and let $b_i$ and $a_i$ be the numbers of candidates standing just before and just
+after the $i$th test $t$ passed. Then (1) $\Omega'$ sits inside $\Omega$ and contains $s$; (2)
+every candidate of $\Omega$ that isn't in $\Omega'$ fails, asked that way, a test $t$ passed; (3)
+$|\Omega| \cdot \prod_i a_i = |\Omega'| \cdot \prod_i b_i$; (4) if every test $t$ passed keeps at
+least a $2^{-k}$ share of the candidates standing before it, $b_i \le 2^k a_i$, then
+$\lceil \log_2 |\Omega| \rceil \mathbin{\dot{-}} \lceil \log_2 |\Omega'| \rceil$ is at most $k$ times
+the number of tests $t$ passed, that number is at most the number of steps charged at least one,
+and the index bits are at most $k$ times the sum of the charges; and (5) some step of $t$ took the
+reading from no to yes and was charged at least one.
+\end{theorem}
+
+\begin{proof}
+(1) The run passes its own tests from $s$, and a candidate is kept only if it passes them all. (2)
+A candidate dropped failed one of them. (3) Each test turns a standing list of $b_i$ into one of
+$a_i$, and the products telescope. (4) Each test keeps at least $b_i / 2^k$, so
+$|\Omega| \le 2^{kn} |\Omega'|$ with $n$ the number of tests passed, and the rounded logarithms
+follow as in Theorem~\ref{thm:u08-count}. Each test passed is a test step, charged at least one.
+(5) is Theorem~\ref{thm:ent-cs}(2).
+\end{proof}
+
+Checked as \code{ent\_cs\_run\_entitlement} (EntitlementSmall.v), with the counting underneath as
+\code{ent\_stages\_product} and \code{ent\_stages\_share\_bits}. Part (3) is the exact count: take
+base-two logarithms and $\log_2 |\Omega| - \log_2 |\Omega'|$ is the sum, over the tests the run
+passed, of $\log_2 (b_i / a_i)$, the bits each one took. Part (2) answers the complaint I made
+about the covering, that it doesn't say why anything was deleted: here everything deleted was
+deleted by a test the run passed and paid for. Two premises stay, the prior list and the share.
+The share is needed. On the small machine one CHECK of ``$A \ge 15$,'' asked of sixteen
+candidates, keeps one, a $2^{-4}$ share, and narrows by 4 index bits on a run of 3 record moves
+(Proposition~\ref{prop:ent-share-needed}); with $k = 1$ part (4) would say $4 \le 3$. The same
+statement on every Thiele-complete machine, where the tests are the CHECK moves and the bill is
+the ledger, is Theorem~\ref{thm:ent-run-machine}.
 
 Before any machine, I owe you the word the toll is named after, the ``insight'' in ``No Free
 Insight'' (Section~\ref{sec:narrowing}), because I've been using it as if it meant one thing.
@@ -11423,19 +11485,25 @@ happens is never broken. Neither one earns anything, and a name both of them get
 saying much.
 
 So the definition below asks for what the small machine actually does, written so that any
-machine at all can be held up against it. You hand over a reading of the machine, a list of
-things, and then the reading has to pass four clauses.
+machine at all can be held up against it. You name a language of claims first, then hand over a
+reading of the machine in that language, a list of things, and then the reading has to pass four
+clauses.
 
 \begin{definition}[Thiele-complete]\label{def:u34-thiele-complete}
 A \emph{machine} has states, moves, a step, a cost for each move and a yes/no reading of each
-state, the \emph{record}. An \emph{interface} for it hands over: a \emph{universal base}, meaning
+state, the \emph{record}. A \emph{claim language} for it is fixed first: a type of \emph{claims}
+with an exact equality test; a \emph{meaning} for each claim, a statement about a state; for each
+claim, a relation ``the thing this claim is about is unchanged'' between two states; and a proof
+that a meaning that holds keeps holding while the thing it's about is unchanged. An
+\emph{interface} over that language hands over the rest: a \emph{universal base}, meaning
 a two-counter configuration shown by each state (its \emph{window}), a class of \emph{live}
 states, a move for each two-counter instruction, and a loaded state for each start $(1, a, b)$;
-a type of \emph{claims}, each with a \emph{meaning}, a statement about a state; a \emph{checker}
-that says yes or no to a claim at a state; for each claim, a relation ``the thing this claim is
-about is unchanged'' between two states; a set of \emph{clean} states; a \emph{ledger}, a whole
-number for each state; and a \emph{kind} for each move: a base move, CHECK of a claim, COMMIT of a
-claim, or CERTIFY. The machine is \emph{Thiele-complete} when some interface meets four clauses.
+a \emph{checker} that says yes or no to a claim at a state, with a proof that a yes means the
+claim's meaning, as the language gives it, holds of that state; a set of \emph{clean} states; a
+\emph{ledger}, a whole number for each state; and a \emph{kind} for each move: a base move, CHECK
+of a claim, COMMIT of a claim, or CERTIFY. The machine is \emph{Thiele-complete over} the language
+when some interface over it meets four clauses, and \emph{Thiele-complete} when some interface,
+with claims, meanings and ``unchanged'' of its own, meets them.
 (a) \emph{Universal base.} Each two-counter instruction's move is a base move; from every live
 state it acts on the window exactly as the instruction acts on a configuration, and the state
 stays live; each loaded state shows $(1, a, b)$, is live and is clean; no base move changes the
@@ -11454,10 +11522,21 @@ $c$ holds at some loaded state and fails at another.
 A Thiele machine whose base is universal, with no more asked, is \emph{weakly} Thiele-complete.
 \end{definition}
 
-Defined as \code{thiele\_interface}, \code{thiele\_complete\_with} and \code{thiele\_complete}
+Defined as \code{claim\_language}, \code{lang\_interface}, \code{thiele\_complete\_over},
+\code{thiele\_interface}, \code{thiele\_complete\_with} and \code{thiele\_complete}
 (ThieleComplete.v), with the four clauses as \code{universal\_base\_clause},
 \code{earned\_record\_clause}, \code{exact\_toll\_clause} and \code{non\_vacuity\_clause}, and the
-easy notion as \code{weakly\_thiele\_complete}.
+easy notion as \code{weakly\_thiele\_complete}. An interface over a language becomes an interface
+of the plain kind by taking the language's claims, meanings and ``unchanged'' as its own
+(\code{lang\_ti}), and the four clauses are asked of that.
+
+Why the language comes first. If the interface could name the meanings, it could take ``the
+checker says yes'' as the meaning of every claim, and checker soundness would hold for nothing. In
+the language-first form the meanings are written down before any checker is handed over, so ``a
+checker proved to mean what it says'' has the content it has on the small machine: what the claim
+says is the language's, and the proof is that a yes from the checker makes it true. The plain form
+stays because the theorems that follow hold for any interface at all, so they hold over every
+language too.
 
 Read the four clauses as four plain sentences. (a) It computes anything a Turing machine can,
 and the computing can't reach the record: the base moves are the two-counter machine, they
@@ -11471,7 +11550,8 @@ to certify.
 
 And look where the checker's honesty sits. In (b), ``a passing check means its claim holds''
 is a field of the interface, proved once, outside every run, exactly where it sat for the small
-machine (Lemma~\ref{lem:u34-eval}). The definition doesn't ask the machine to vouch for its own
+machine (Lemma~\ref{lem:u34-eval}), and over a claim language it's proved against meanings the
+interface didn't write. The definition doesn't ask the machine to vouch for its own
 checker. The nearest reasons not to ask are Gödel's second theorem, about a system proving its
 own consistency, and the diagonal of Section~\ref{sec:diagonal}, about deciding a property of every
 program. Neither forbids a machine checking a proof about a checker, so keeping that proof
@@ -11488,6 +11568,31 @@ that and it's still met, and the machine certifies claims no program could ever 
 in this book builds one. So ``a Thiele-complete machine certifies
 exactly the claims a program could list'' is true only with ``and its checker is computable''
 added, and the definition doesn't require that.
+
+The same scope goes on the front matter's ``it isn't more computing power.'' The record (the flag
+and the ledger) is never read by the step that computes the next core (\code{base\_blind}), so
+erasing it changes no run, and it makes nothing faster. The checker is part of the machine under
+the record. With an oracle checker that machine decides what the oracle decides, since whether a
+CHECK traps is there for anyone to see; with a checker that's a program, it does what programs do.
+And a checker that's a program still makes CHECK a test at unit cost.
+
+\begin{theorem}[CHECK is a unit-cost test]\label{thm:u34-check-unit}
+From any start $(a, b)$, the single move CHECK $\mathsf{Ge}(m)$ $A$ costs 1, and the trap latch is
+down after it exactly when $a \ge m$.
+\end{theorem}
+
+\begin{proof}
+At a start the latch is down and the table is empty, so the check passes exactly when
+$\mathrm{eval}(\mathsf{Ge}(m), a)$ says yes, that is when $m \le a$; a failing check sets the latch.
+The price table charges a CHECK 1.
+\end{proof}
+
+Checked as \code{check\_ge\_unit\_cost} (ThieleComplete.v).
+
+The two counters alone look at $A$ only through the zero test of DEC, and from $a = m - 1$ and
+$a = m$ that test can't come out differently in fewer than $m$ steps, so they need about $m$ steps
+for what CHECK does in one. I argue that; nothing checks it. So the record makes nothing faster,
+and CHECK, a primitive test, can.
 
 One word needs pinning before the theorems, using the three names set at the front of the book.
 In clause (c), the \emph{exact toll} is instruction-exact pricing: each of the three acts, CHECK
@@ -11530,13 +11635,43 @@ Checked as \code{thiele\_complete\_is\_weak}, \code{base\_runs\_every\_program},
 \code{only\_certify\_raises}, \code{complete\_costs\_at\_most\_one} and
 \code{complete\_has\_free\_move} (ThieleComplete.v).
 
+\begin{theorem}[The language first, and what a certificate then means]\label{thm:u34-tc-over}
+(1) A machine that is Thiele-complete over some claim language is Thiele-complete, so every part
+of Theorem~\ref{thm:u34-tc-consequences} holds of it. (2) If a machine is Thiele-complete through
+an interface whose claims have an exact equality test, it is Thiele-complete over the language
+made of that interface's claims, meanings and ``unchanged,'' with clause (b)'s proof that a
+meaning keeps holding as the language's own. (3) If a machine is Thiele-complete over a claim
+language $L$, some interface over $L$ meets the four clauses and has this property: every run
+from one of its clean states that ends with the record up contains a CHECK of a claim $c$ of $L$
+that passed, then a COMMIT of $c$, and $L$'s meaning of $c$ holds at the state the CHECK
+saw and at the state the COMMIT saw.
+\end{theorem}
+
+\begin{proof}
+(1) Take the plain interface the language-first one becomes. (2) The checker's soundness and the
+keeping proof are the ones clause (b) already supplies. (3) Clause (b) gives the chain; the
+checker's soundness proof against $L$ gives $c$'s meaning at the state checked; $L$'s keeping
+proof carries it, through states where the thing $c$ is about is unchanged, to the state
+committed.
+\end{proof}
+
+Checked as \code{thiele\_complete\_over\_complete}, \code{thiele\_complete\_with\_over} and
+\code{over\_certificate\_means} (ThieleComplete.v).
+
+Part (2) says where the strength of the language-first form lives: in the naming. Any reading can
+be turned into a language, so ``Thiele-complete over some language'' asks no more than
+Thiele-complete does. ``Thiele-complete over $L$,'' for an $L$ written down without looking at
+the checker, says that what the machine certifies is what $L$ says. Every instance below is
+stated that way.
+
 Each item in the proof names the clause it comes from, and that's all the definition gives.
 A Thiele-complete machine needn't have a fact table, a CHECK that traps when it fails, a COMMIT
 that looks anything up, or claims about counters. The definition asks for an earned chain on the
 runs that raise the record and leaves the rest to the machine. So the small machine's table
 provenance, its trap, and its channel are facts about that machine, and they don't carry over to
-every machine that meets the definition. Its claims can be any labels its interface names, and
-its checker can be an oracle, as the paragraph above says.
+every machine that meets the definition. Through a plain interface its claims can be any labels
+the interface names; over a claim language they are the language's. Either way its checker can
+be an oracle, as the paragraph above says.
 
 The second half of (6), that some move costs 0, is the one that kills the clock.
 
@@ -11600,7 +11735,13 @@ property is ``this counter, read as a list, is sorted'' is Thiele-complete. (4) 
 Thiele-complete machine is a certification system (Definition~\ref{def:certsys}) and obeys the
 universal floor; for this chapter's machine, that system agrees step for step and cost for
 cost with the one of Theorem~\ref{thm:u34-instance}, and for the generic machine with the
-generic machine's own.
+generic machine's own. (5) Each of the three is Thiele-complete over its own claim language,
+fixed before the checker. For this chapter's machine the language's claims are pairs of a
+property and a counter, equal when both parts are, the meaning of ``$p$ holds of $c$'' is the
+meaning $\mathrm{holds}$ of Definition~\ref{def:u34-props} applied to $c$'s value, written
+without the checker, and ``unchanged'' is ``same value and same version of $c$.'' For the generic machine the
+language is built from the properties, their equality test and what they mean, and the checker
+isn't part of it; the sorted machine is that case.
 \end{theorem}
 
 \begin{proof}
@@ -11612,10 +11753,14 @@ Theorem~\ref{thm:u34-tight} with the claim ``$A$ is zero,'' which holds at $(0, 
 $(5, b)$. (2) and (3) are the same argument with the property language left open, and the
 sorted claim holds of the list numbered 18, which is $[1, 2]$, and fails of 20, which is
 $[2, 1]$. (4) is (1) of Theorem~\ref{thm:u34-tc-consequences} and Section~\ref{sec:toll}'s floor.
+(5) The interface over the language is the one of (1), (2) and (3) with the meanings handed over
+by the language, and the checker's soundness is Lemma~\ref{lem:u34-eval} and its generic form.
 \end{proof}
 
 Checked as \code{earned\_core\_thiele\_complete}, \code{earned\_generic\_thiele\_complete} and
-\code{sorted\_machine\_thiele\_complete} (ThieleComplete.v), and \code{thiele\_complete\_floor},
+\code{sorted\_machine\_thiele\_complete} (ThieleComplete.v), (5) as
+\code{earned\_core\_thiele\_complete\_over}, \code{earned\_generic\_thiele\_complete\_over} and
+\code{sorted\_machine\_thiele\_complete\_over} (ThieleComplete.v), and \code{thiele\_complete\_floor},
 \code{earned\_complete\_agrees} and \code{generic\_complete\_agrees} (EarnedGenericLinks.v).
 
 And here's the thing every machine that meets the definition can't help doing. It's
@@ -11935,8 +12080,10 @@ Checked as \code{universal\_earned} (UniversalRun.v).
 
 \begin{theorem}[The host is Thiele-complete, and $U$'s halting is undecidable]\label{thm:u34-U-complete}
 (1) The host machine, with $\mathsf{Slot}$ as its property and one move per instruction, is
-Thiele-complete (Definition~\ref{def:u34-thiele-complete}), and $U$'s run from
-$\mathrm{hload}(P, x, y)$ is a run of it. (2) Read as a certification system it obeys the universal
+Thiele-complete (Definition~\ref{def:u34-thiele-complete}), and Thiele-complete over its own
+claim language, whose claims are ``$\mathsf{Slot}$ holds of register $r$,'' whose meanings are
+written without the host's checker, and whose ``unchanged'' is ``same value and same version of
+register $r$''; and $U$'s run from $\mathrm{hload}(P, x, y)$ is a run of it. (2) Read as a certification system it obeys the universal
 floor; a run of $U$ that raises the host's flag costs at least 3 there. The system built from its
 Thiele-completeness agrees with it step for step and cost for cost, so the same run costs at least
 3 on that one too, and the universal floor of 1 holds there directly.
@@ -11949,13 +12096,15 @@ Theorem~\ref{thm:u34-undecidable}.
 (1) The base is registers 0 and 1, run by INC and DEC; the claims are ``$\mathsf{Slot}$ holds of
 register $r$''; the rest is the host machine's own versions of the small machine's theorems, and
 for non-vacuity, register 0 loaded with 1, which is $\langle 0, 0\rangle$, the pair of
-$\mathsf{Zero}$ and 0, against register 0 loaded with 0, which is no pair. (2) is
+$\mathsf{Zero}$ and 0, against register 0 loaded with 0, which is no pair. Over the claim
+language the interface is the same one, with the meanings handed over by the language. (2) is
 Theorem~\ref{thm:u34-tc-instances}(4) and Theorem~\ref{thm:u34-U-earned}. (3) is
 Theorem~\ref{thm:u34-U-halting}, and the identity map reduces the small machine's halting question,
 undecidable by Theorem~\ref{thm:u34-undecidable}, to this one.
 \end{proof}
 
-Checked as \code{universal\_thiele\_complete} and \code{U\_run\_on\_host\_machine} (UniversalRun.v),
+Checked as \code{universal\_thiele\_complete}, \code{universal\_thiele\_complete\_over} and
+\code{U\_run\_on\_host\_machine} (UniversalRun.v),
 and \code{multi\_cs\_floor}, \code{interp\_U\_certified\_floor}, \code{interp\_U\_complete\_floor},
 \code{interp\_complete\_agrees}, \code{interp\_halting\_iff} and \code{interp\_halting\_undecidable}
 (UniversalInterpreterLinks.v).
@@ -12053,7 +12202,9 @@ has to be filed under one of them, and it's filed as a CHECK of the empty claim,
 never holds. That's a filing for the interface. It isn't what PAY does on the machine: a CHECK
 that fails on this machine traps, and PAY goes on to the next line. With PAY filed that way the
 host stays Thiele-complete
-(\code{pu\_universal\_thiele\_complete}, UniversalPRun.v), and its floor of three for a flag
+(\code{pu\_universal\_thiele\_complete}, UniversalPRun.v), and Thiele-complete over its own claim
+language, in which the empty claim means nothing (\code{pu\_universal\_thiele\_complete\_over},
+UniversalPRun.v), and its floor of three for a flag
 raised from a clean start
 still holds with PAY present (\code{pu\_multi\_certified\_run\_min\_cost}, EarnedMultiPriced.v).
 
@@ -12660,6 +12811,60 @@ rivals as they start. The states the run had reached when it asked don't come in
 zero, can still narrow a list for nothing. So this prices a narrowing that the paid checks
 explain, and no more.
 
+The next statement takes the verdicts where the run took them. A rival is a state the run could
+have started from; a CHECK the run passed is asked of a rival by running the moves before it from
+the rival and checking the same claim at the state that reaches. Nothing is supplied but the prior.
+
+\begin{theorem}[Structural entitlement, with the narrowing made by the run]\label{thm:ent-run-machine}
+Let a machine be Thiele-complete through an interface. Take a clean start $s_0$, a run $t$ from it
+that ends with the record up, and a list $\Omega$ of rival starts that contains $s_0$. Let the
+posterior $\Omega'$ be the rivals that pass every CHECK $t$ passed, each asked as above, in the
+order $t$ made them, and let $b_i$ and $a_i$ be the numbers of rivals standing just before and just
+after the $i$th. Then (1) $\Omega'$ sits inside $\Omega$ and contains $s_0$; (2) every rival of
+$\Omega$ that isn't in $\Omega'$ fails, asked that way, a CHECK that $t$ made and passed; (3)
+$|\Omega| \cdot \prod_i a_i = |\Omega'| \cdot \prod_i b_i$; (4) if every CHECK $t$ passed keeps at
+least a $2^{-k}$ share of the rivals standing before it, $b_i \le 2^k a_i$, then
+$\lceil \log_2 |\Omega| \rceil \mathbin{\dot{-}} \lceil \log_2 |\Omega'| \rceil$ is at most $k$ times
+the number of CHECKs $t$ passed, that number is at most the record moves of $t$, the record moves
+are the ledger's rise, and so the index bits are at most $k$ times the ledger's rise; (5) $t$
+contains the earned chain and the ledger rose by at least 3; and (6) with no share assumed, the
+index bits are at most the sum over the CHECKs $t$ passed of
+$\lceil \log_2 \lceil b_i / a_i \rceil \rceil$.
+\end{theorem}
+
+\begin{proof}
+(1) The run passes its own checks from $s_0$, and a rival is kept only if it passes them all. (2)
+A rival dropped failed one of the tests, and each test is a CHECK of $t$ at the prefix where it
+passed. (3) Each test turns a standing list of $b_i$ into one of $a_i$, and the products
+telescope. (4) Each test keeps at least $b_i / 2^k$, so $|\Omega| \le 2^{kn} |\Omega'|$ with $n$
+the number of tests, and the rounded logarithms follow. The tests are among the run's CHECK moves,
+which are record moves, and clause (c) makes the record moves the ledger's rise. (5) is clause (b)
+and Theorem~\ref{thm:u34-tc-consequences}(3). (6) is (4) with $2^{k}$ replaced at the $i$th test by
+the smallest power of two at least $\lceil b_i / a_i \rceil$; every $a_i$ is positive because
+$s_0$ is never dropped.
+\end{proof}
+
+Checked as \code{ent\_run\_entitlement} and \code{ent\_run\_round\_bits} (EntitlementSmall.v), with
+the counting underneath as \code{ent\_stages\_product}, \code{ent\_stages\_share\_bits} and
+\code{ent\_stages\_round\_bits}. Part (3) is the exact form of ``index bits are the sum of what each
+test took'': take base-two logarithms and $\log_2 |\Omega| - \log_2 |\Omega'|$ is the sum of
+$\log_2 (b_i / a_i)$. Parts (4) and (6) are what survives rounding to whole bits. Here the run does
+the narrowing, every candidate dropped was dropped by a check the run paid for, and what stays a
+premise is the prior and the share. The share can't go.
+
+\begin{proposition}[One CHECK can take four bits]\label{prop:ent-share-needed}
+Take the sixteen starts $(a, 0)$ with $a = 0, \ldots, 15$, and the run CHECK ($A \ge 15$) $A$;
+COMMIT ($A \ge 15$) $A$; CERTIFY from $(15, 0)$. It raises the record. Its one passing CHECK keeps
+one rival of sixteen, so the posterior is $(15, 0)$ alone and the index bits are 4, while the run
+has 3 record moves. So index bits at most the record moves, the bound of
+Theorem~\ref{thm:ent-run-machine}(4) read with $k = 1$, fails here.
+\end{proposition}
+
+Checked as \code{ent\_share\_needed} (EntitlementSmall.v). The share here is $2^{-4}$, and with $k = 4$
+part (4) reads $4 \le 4$. It's the example of Section~\ref{sec:entitlement} that showed the covering
+can't be dropped, seen from the run's side: one test can take many bits, and the bill covers the
+bits per test times the tests.
+
 \begin{theorem}[What the record adds]\label{thm:ent-observed}
 Let a machine be Thiele-complete through an interface. (1) From a clean start, the record is up
 at the end of a run exactly when the run contains the earned chain, and a run with the record up
@@ -12720,6 +12925,10 @@ Checked as \code{ent\_small\_certifies\_iff}, \code{ent\_small\_posterior\_is\_c
 saying the small machine meets the definition through its own interface. It's a real narrowing.
 The cups of Section~\ref{sec:entitlement} aren't sitting under it in a costume, and the posterior is exactly the set of
 rivals the run certifies, so here a proof ties the lists to the run. Nobody supplies them.
+Read with Theorem~\ref{thm:ent-run-machine}, the run's two passing CHECKs, replayed from the eight
+rivals, leave four and then two, the same two, so the posterior is the one the run makes; each
+keeps half, so $k = 1$, and the index bits, 2, are at most $1 \cdot 2$ and at most the ledger's
+rise of 4 (\code{ent\_small\_run\_narrowing}, EntitlementSmall.v).
 
 \emph{A search through $n$ bits.} The same shape at a size you can't enumerate, on the machine of
 Definition~\ref{def:u34-multi}, the one with a counter
@@ -15788,6 +15997,8 @@ Paid narrowing, counted & proved with the bill of the charges (\code{nec\_e\_cs\
 Structural entitlement over any certification system: a strictly stronger test, a paid crossing, a bill that covers the index bits & proved (premises: covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:ent-cs} \\
 Structural entitlement for every Thiele-complete machine: stronger test, earned chain, index bits at most the record moves, ledger rise at least 3 & proved (premises: a clean start, and M1 to M6) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-machine} \\
 A floor with no supplied tree, from the run's own CHECKs & proved (answers taken at the rivals as they start) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-questions} \\
+Structural entitlement with the narrowing made by the run, over any certification system whose test steps are named: every drop made by a test the run passed, the exact product count, index bits at most $k$ times the bill & proved (premises: test steps charged at least one, a prior containing the start, a $2^{-k}$ share kept by each test) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:ent-run} \\
+The same for every Thiele-complete machine: index bits at most $k$ times the passing CHECKs, at most $k$ times the ledger's rise; the rounded sum with no share assumed; the share can't be dropped & proved (premises: a clean start, the record up at the end, a prior containing the start, the share for part (4)) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-run-machine}, Proposition~\ref{prop:ent-share-needed} \\
 What the record adds to the price bound from a clean start: the earned chain and a floor of 3 & proved & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-observed} \\
 The weighted count and the partition form & proved; the weights are whole numbers, and no probabilities enter & Section~\ref{sec:part3-on-machine} \\
 The eight-start member, and a search through $n$ bits with up to 16 questions & proved; the 16 is the machine's fact table & Section~\ref{sec:part3-on-machine}, Proposition~\ref{prop:ent-small}, Theorem~\ref{thm:ent-search} \\
@@ -17059,7 +17270,10 @@ assembly and its vocabulary are this work's, the pricing policy is assumed (noth
 count is mechanized: in its bill form over any certification system, and for the record moves of
 every Thiele-complete machine on a run from a clean start, with the earned chain in the run, a floor that takes the run's own
 checks in place of a tree, and a counterexample showing the covering can't be dropped
-(Section~\ref{sec:part3-on-machine}).
+(Section~\ref{sec:part3-on-machine}); and in a form where the run makes the posterior from a
+prior, every drop is made by a check the run passed, and the index bits are at most $k$ times the
+bill when each passing check keeps a $2^{-k}$ share, a hypothesis the same counterexample shows
+is needed (Theorems~\ref{thm:ent-run} and~\ref{thm:ent-run-machine}).
 
 \subsection{The record axis is a latch}
 
@@ -17391,11 +17605,14 @@ Definition \ref{def:u08-dtree}: Decision tree & \S\ref{sec:entitlement} & stated
 Lemma \ref{lem:u08-tree-width}: A tree is no wider than two to its depth & \S\ref{sec:entitlement} & \code{decision\_tree\_leaves\_le\_pow2\_depth} {\footnotesize(\code{DecisionTreeBound.v})}\newline \code{decision\_tree\_log2\_up\_leaf\_bound} {\footnotesize(\code{DecisionTreeBound.v})} & none\newline none \\
 Theorem \ref{thm:u08-count}: Paid narrowing, counted & \S\ref{sec:entitlement} & \code{ent\_cs\_count} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{nec\_e\_cs\_count\_any} {\footnotesize(\code{NecEEnt.v})}\newline \code{nec\_e\_cs\_tight} {\footnotesize(\code{NecEEnt.v})}\newline \code{nec\_f\_conservation} {\footnotesize(\code{NecFCounter.v})} & none\newline none\newline none\newline none \\
 Theorem \ref{thm:ent-cs}: Structural entitlement, over any certification system & \S\ref{sec:entitlement} & \code{ent\_narrowing\_strengthens} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_cs\_count} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_cs\_entitlement} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_leaves\_le\_pow2} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_log2\_leaves\_le\_depth} {\footnotesize(\code{EntitlementSmall.v})} & none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:ent-run}: Structural entitlement, with the narrowing made by the run & \S\ref{sec:entitlement} & \code{ent\_cs\_run\_entitlement} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_stages\_product} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_stages\_share\_bits} {\footnotesize(\code{EntitlementSmall.v})} & none\newline none\newline none \\
 Theorem \ref{thm:ent-machine}: Structural entitlement represented & \S\ref{sec:smallest} & \code{ent\_representation} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_every\_shortcut\_lands\_here} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_complete\_tree\_bound} {\footnotesize(\code{EntitlementSmall.v})} & none\newline none\newline none \\
 Theorem \ref{thm:ent-questions}: A floor with no supplied tree & \S\ref{sec:smallest} & \code{ent\_questions\_floor} {\footnotesize(\code{EntitlementSmall.v})} & none \\
+Theorem \ref{thm:ent-run-machine}: Structural entitlement, with the narrowing made by the run & \S\ref{sec:smallest} & \code{ent\_run\_entitlement} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_run\_round\_bits} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_stages\_round\_bits} {\footnotesize(\code{EntitlementSmall.v})} & none\newline none\newline none \\
+Proposition \ref{prop:ent-share-needed}: One CHECK can take four bits & \S\ref{sec:smallest} & \code{ent\_share\_needed} {\footnotesize(\code{EntitlementSmall.v})} & none \\
 Theorem \ref{thm:ent-observed}: What the record adds & \S\ref{sec:smallest} & \code{ent2\_record\_adds} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_upgrade\_iff} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_observed\_representation} {\footnotesize(\code{EntitlementMore2.v})} & none\newline none\newline none \\
 In the text: weights and the partition form & \S\ref{sec:smallest} & \code{ent2\_weighted\_bits} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_weighted\_cs} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_weighted\_representation} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_weighted\_expected\_bound} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_partition\_to\_reduction} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_wreduction\_covers} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_rise\_independent} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_expected\_rise\_exact} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_cover\_sum} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_partition\_old\_iff} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_partition\_bits} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent2\_reduction\_not\_partition} {\footnotesize(\code{EntitlementMore2.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
-Proposition \ref{prop:ent-small}: The eight-start member & \S\ref{sec:smallest} & \code{ent\_small\_certifies\_iff} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_posterior\_is\_certified} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_instance} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_questions} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent2\_observed\_small\_instance} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent\_earned\_complete\_with} {\footnotesize(\code{EntitlementSmall.v})} & none\newline none\newline none\newline none\newline none\newline none \\
+Proposition \ref{prop:ent-small}: The eight-start member & \S\ref{sec:smallest} & \code{ent\_small\_certifies\_iff} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_posterior\_is\_certified} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_instance} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_questions} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent2\_observed\_small\_instance} {\footnotesize(\code{EntitlementMore2.v})}\newline \code{ent\_earned\_complete\_with} {\footnotesize(\code{EntitlementSmall.v})}\newline \code{ent\_small\_run\_narrowing} {\footnotesize(\code{EntitlementSmall.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:ent-search}: A search through $n$ bits & \S\ref{sec:smallest} & \code{ent2\_mmachine\_complete} {\footnotesize(\code{MultiThiele2.v})}\newline \code{ent2\_bit\_search} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_certifies\_iff} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_questions\_floor} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_questions\_cap} {\footnotesize(\code{BitSearch2.v})}\newline \code{ent2\_search\_posterior\_is\_certified} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_lands} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_observed} {\footnotesize(\code{BitSearchObserved2.v})}\newline \code{ent2\_no\_search\_past\_16} {\footnotesize(\code{BitSearchMember2.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 In the text: the covering can't be dropped & \S\ref{sec:smallest} & \code{ent2\_uncovered\_posterior} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_uncovered\_claim\_false} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_no\_cheap\_covering} {\footnotesize(\code{CoveringNeeded2.v})} & none\newline none\newline none \\
 Theorem \ref{thm:time-tax}: The time tax & \S\ref{sec:smallest} & \code{ent2\_free\_run\_shift} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_free\_cannot\_decide\_fast} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_chain\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_time\_tax} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_machine\_free\_cannot\_decide} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_machine\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_free} {\footnotesize(\code{TimeTax2.v})}\newline \code{nec\_e\_time\_tax\_one\_paid\_move} {\footnotesize(\code{NecESearch.v})}\newline \code{nec\_e\_time\_tax\_free\_needed} {\footnotesize(\code{NecESearch.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
@@ -17479,11 +17696,13 @@ Theorem \ref{thm:u34-separation}: Same window, different record & \S\ref{sec:sma
 Theorem \ref{thm:u34-no-oracle}: No window oracle & \S\ref{sec:smallest} & \code{no\_mu\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_cert\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_commit\_oracle} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline none \\
 Theorem \ref{thm:u34-min-price}: The minimum price of a certificate & \S\ref{sec:smallest} & \code{certified\_run\_min\_cost} {\footnotesize(\code{EarnedCore.v})}\newline \code{program\_certified\_min\_cost} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
 Theorem \ref{thm:u34-tight}: Three is tight & \S\ref{sec:smallest} & \code{earned\_run\_check\_can\_fail} {\footnotesize(\code{EarnedCore.v})}\newline \code{earned\_run\_refused\_forever} {\footnotesize(\code{EarnedCore.v})}\newline \code{earned\_run} {\footnotesize(\code{EarnedCore.v})}\newline \code{min\_cost\_tight} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline def\newline none \\
-Definition \ref{def:u34-thiele-complete}: Thiele-complete & \S\ref{sec:smallest} & \code{thiele\_interface} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_with} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})} & def\newline def\newline def\newline def \\
+Definition \ref{def:u34-thiele-complete}: Thiele-complete & \S\ref{sec:smallest} & \code{thiele\_interface} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_with} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{claim\_language} {\footnotesize(\code{ThieleComplete.v})}\newline \code{lang\_interface} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_over} {\footnotesize(\code{ThieleComplete.v})} & def\newline def\newline def\newline def\newline def\newline def\newline def \\
+Theorem \ref{thm:u34-check-unit}: CHECK is a unit-cost test & \S\ref{sec:smallest} & \code{check\_ge\_unit\_cost} {\footnotesize(\code{ThieleComplete.v})} & none \\
 Theorem \ref{thm:u34-tc-consequences}: What every Thiele-complete machine has & \S\ref{sec:smallest} & \code{thiele\_complete\_is\_weak} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_halting\_correspondence} {\footnotesize(\code{ThieleComplete.v})}\newline \code{certificate\_costs\_three} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_runs\_every\_program} {\footnotesize(\code{ThieleComplete.v})}\newline \code{ledger\_counts\_record\_moves} {\footnotesize(\code{ThieleComplete.v})}\newline \code{check\_can\_fail} {\footnotesize(\code{ThieleComplete.v})}\newline \code{some\_run\_certifies} {\footnotesize(\code{ThieleComplete.v})}\newline \code{only\_certify\_raises} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_costs\_at\_most\_one} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-tc-over}: The language first, and what a certificate then means & \S\ref{sec:smallest} & \code{thiele\_complete\_over\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_with\_over} {\footnotesize(\code{ThieleComplete.v})}\newline \code{over\_certificate\_means} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none \\
 Theorem \ref{thm:u34-clock}: A clock is a Thiele machine and isn't Thiele-complete & \S\ref{sec:smallest} & \code{clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-clauses}: Each clause does work & \S\ref{sec:smallest} & \code{paid\_latch\_meets\_base\_and\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_meets\_base\_record\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{one\_move\_record\_excluded} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{never\_certifies\_excluded} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
-Theorem \ref{thm:u34-tc-instances}: The small machine, the generic one and the sorted one are Thiele-complete & \S\ref{sec:smallest} & \code{earned\_core\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{earned\_generic\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{sorted\_machine\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_floor} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{earned\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{generic\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})} & none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-tc-instances}: The small machine, the generic one and the sorted one are Thiele-complete & \S\ref{sec:smallest} & \code{earned\_core\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{earned\_generic\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{sorted\_machine\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_floor} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{earned\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{generic\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{earned\_core\_thiele\_complete\_over} {\footnotesize(\code{ThieleComplete.v})}\newline \code{earned\_generic\_thiele\_complete\_over} {\footnotesize(\code{ThieleComplete.v})}\newline \code{sorted\_machine\_thiele\_complete\_over} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-window}: Every Thiele-complete machine hides its record and its ledger from its window & \S\ref{sec:smallest} & \code{complete\_every\_window\_printed} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_record\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_ledger\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_cs\_window\_blind} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{complete\_hides\_record} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_hides\_ledger} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{thiele\_complete\_hides} {\footnotesize(\code{ThieleCompleteWindow.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u34-multi}: The host machine & \S\ref{sec:smallest} & \code{pair} {\footnotesize(\code{UniversalCodes.v})}\newline \code{pcode} {\footnotesize(\code{UniversalCodes.v})}\newline \code{heval} {\footnotesize(\code{UniversalCodes.v}, +1)}\newline \code{hholds} {\footnotesize(\code{UniversalCodes.v})} & def\newline def\newline def\newline def \\
 Theorem \ref{thm:u34-nocopy}: No host fact on an exact copy of the guest's counter & \S\ref{sec:smallest} & \code{pigeonhole\_collision} {\footnotesize(\code{UniversalNoCopy.v})}\newline \code{no\_exact\_copy\_host} {\footnotesize(\code{UniversalNoCopy.v})}\newline \code{multi\_cs\_no\_exact\_copy} {\footnotesize(\code{UniversalInterpreterLinks.v})} & none\newline none\newline none \\
@@ -17492,7 +17711,7 @@ Theorem \ref{thm:u34-U-sim}: $U$ keeps pace with its guest & \S\ref{sec:smallest
 Theorem \ref{thm:u34-U-halting}: Halting and answers match & \S\ref{sec:smallest} & \code{universal\_halting} {\footnotesize(\code{UniversalRun.v})}\newline \code{universal\_output} {\footnotesize(\code{UniversalRun.v})} & none\newline none \\
 Theorem \ref{thm:u34-U-flag}: The host's flag is the guest's, and its ledger is exact & \S\ref{sec:smallest} & \code{universal\_flag\_iff} {\footnotesize(\code{UniversalRun.v})}\newline \code{universal\_ledger\_exact} {\footnotesize(\code{UniversalRun.v})} & none\newline none \\
 Theorem \ref{thm:u34-U-earned}: The host earns its own flag & \S\ref{sec:smallest} & \code{universal\_earned} {\footnotesize(\code{UniversalRun.v})} & none \\
-Theorem \ref{thm:u34-U-complete}: The host is Thiele-complete, and $U$'s halting is undecidable & \S\ref{sec:smallest} & \code{universal\_thiele\_complete} {\footnotesize(\code{UniversalRun.v})}\newline \code{U\_run\_on\_host\_machine} {\footnotesize(\code{UniversalRun.v})}\newline \code{interp\_halting\_undecidable} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_U\_certified\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{multi\_cs\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_U\_complete\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_complete\_agrees} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_halting\_iff} {\footnotesize(\code{UniversalInterpreterLinks.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-U-complete}: The host is Thiele-complete, and $U$'s halting is undecidable & \S\ref{sec:smallest} & \code{universal\_thiele\_complete} {\footnotesize(\code{UniversalRun.v})}\newline \code{U\_run\_on\_host\_machine} {\footnotesize(\code{UniversalRun.v})}\newline \code{interp\_halting\_undecidable} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_U\_certified\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{multi\_cs\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_U\_complete\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_complete\_agrees} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_halting\_iff} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{universal\_thiele\_complete\_over} {\footnotesize(\code{UniversalRun.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u34-host}: The host & \S\ref{sec:smallest} & \code{hexec} {\footnotesize(\code{UniversalThiele.v})}\newline \code{U} {\footnotesize(\code{UniversalThiele.v}, +4)} & def\newline def \\
 Theorem \ref{thm:u34-universal}: The host runs any guest & \S\ref{sec:smallest} & \code{universal\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{universal\_program\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_thiele\_complete} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none \\
 Theorem \ref{thm:u34-mirror}: The copy is the record & \S\ref{sec:smallest} & \code{record\_agreement\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{record\_agreement} {\footnotesize(\code{UniversalThiele.v})}\newline \code{simulated\_record} {\footnotesize(\code{UniversalThiele.v})}\newline \code{record\_agreement\_program} {\footnotesize(\code{UniversalThiele.v})}\newline \code{hload\_agrees} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none\newline none\newline none \\
@@ -17503,7 +17722,7 @@ Remark \ref{rem:u34-host-runs}: Two guests, run & \S\ref{sec:smallest} & \code{d
 In the text: the same chain for any property language with an exact equality test and a proved checker, ``sorted'' included & \S\ref{sec:smallest} & \code{generic\_earned\_certification\_provenance} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_checker\_soundness} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_no\_forging} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{generic\_certified\_run\_min\_cost} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_certifies\_iff} {\footnotesize(\code{EarnedGeneric.v})}\newline \code{sorted\_run\_refused\_forever} {\footnotesize(\code{EarnedGeneric.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 In the text: with the flag up from a clean start, the channel names a fact an earlier passing COMMIT committed, and a later commit can replace it, as a two-commit run shows & \S\ref{sec:smallest} & \code{certified\_channel\_earned} {\footnotesize(\code{EarnedCore.v})}\newline \code{channel\_names\_last\_commit} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
 In the text: after a run from a loaded host, a raised mirror means the guest's own run earned it & \S\ref{sec:smallest} & \code{host\_mirror\_earned} {\footnotesize(\code{UniversalThiele.v})} & none \\
-Theorem \ref{thm:u34-presented}: One host runs every computably presented Thiele machine & \S\ref{sec:smallest} & \code{presented\_universal} {\footnotesize(\code{PresentedUniversal.v})}\newline \code{presented\_universal\_halting} {\footnotesize(if and only if)}, \code{presented\_universal\_points}, \code{presented\_universal\_halt\_point}, \code{presented\_universal\_flag\_iff} {\footnotesize(if and only if)}, \code{presented\_universal\_earned} {\footnotesize(\code{PresentedUniversal.v})}\newline \code{pu\_universal\_halting} {\footnotesize(if and only if)}, \code{pu\_universal\_flag\_iff} {\footnotesize(if and only if)}, \code{pu\_universal\_ledger\_exact}, \code{pu\_universal\_earned}, \code{pu\_universal\_thiele\_complete} {\footnotesize(\code{UniversalPRun.v})} & none\newline none\newline none \\
+Theorem \ref{thm:u34-presented}: One host runs every computably presented Thiele machine & \S\ref{sec:smallest} & \code{presented\_universal} {\footnotesize(\code{PresentedUniversal.v})}\newline \code{presented\_universal\_halting} {\footnotesize(if and only if)}, \code{presented\_universal\_points}, \code{presented\_universal\_halt\_point}, \code{presented\_universal\_flag\_iff} {\footnotesize(if and only if)}, \code{presented\_universal\_earned} {\footnotesize(\code{PresentedUniversal.v})}\newline \code{pu\_universal\_halting} {\footnotesize(if and only if)}, \code{pu\_universal\_flag\_iff} {\footnotesize(if and only if)}, \code{pu\_universal\_ledger\_exact}, \code{pu\_universal\_earned}, \code{pu\_universal\_thiele\_complete} {\footnotesize(\code{UniversalPRun.v})}\newline \code{pu\_universal\_thiele\_complete\_over} {\footnotesize(\code{UniversalPRun.v})} & none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-presented-surcharge}: Exact, within two, and no better & \S\ref{sec:smallest} & \code{presented\_universal\_surcharge\_le\_two}, \code{presented\_universal\_exact}, \code{presented\_universal\_no\_exact\_below\_three}, \code{presented\_universal\_U\_no\_exact\_below\_three} {\footnotesize(\code{PresentedUniversal.v})} & none \\
 In the text: a demonstration machine on the priced host & \S\ref{sec:smallest} & \code{pu\_demo\_computably\_presented}, \code{pu\_demo\_never\_halts}, \code{pu\_demo\_flag\_rises}, \code{pu\_demo\_exact}, \code{pu\_demo\_earned} {\footnotesize(\code{PresentedDemo.v})} & none \\
 Theorem \ref{thm:u19-tm-lift}: A counter beside a Turing machine changes nothing & \S\ref{sec:smallest} & \code{thiele\_simulates\_turing\_gen} {\footnotesize(\code{ProperSubsumption.v})}\newline \code{thiele\_simulates\_turing} {\footnotesize(\code{ProperSubsumption.v})} & none\newline none \\
@@ -17944,7 +18163,7 @@ fail; the step doesn't police that, and Section~\ref{sec:smallest} says so.
 
 \subsection{Thiele-complete, the four clauses}
 
-{\raggedright \code{thiele\_complete}, minimal/ThieleComplete.v, with the clauses it is made of. \texttt{load a b} is the interface's loaded state for the start $(1, a, b)$, written inside a section that fixes \texttt{I}; \texttt{run M} runs a list of moves from a state.\par}
+{\raggedright \code{thiele\_complete}, minimal/ThieleComplete.v, with the clauses it is made of, and its form over a claim language fixed first, \code{thiele\_complete\_over}. \texttt{load a b} is the interface's loaded state for the start $(1, a, b)$, written inside a section that fixes \texttt{I}; \texttt{run M} runs a list of moves from a state.\par}
 
 {\scriptsize
 \begin{verbatim}
@@ -17995,6 +18214,33 @@ Definition thiele_complete_with : Prop :=
 Definition thiele_complete (M : machine) : Prop :=
   exists I : thiele_interface M, thiele_complete_with I.
 
+Record claim_language (M : machine) : Type := mk_cl {
+  cl_claim : Type;
+  cl_eqb : cl_claim -> cl_claim -> bool;
+  cl_eqb_spec : forall c d, cl_eqb c d = true <-> c = d;
+  cl_meaning : cl_claim -> m_state M -> Prop;
+  cl_same : cl_claim -> m_state M -> m_state M -> Prop;
+  cl_same_keeps : forall c s s', cl_same c s s' ->
+    cl_meaning c s -> cl_meaning c s'
+}.
+
+Record lang_interface (M : machine) (L : claim_language M) : Type := mk_lang {
+  lang_base : universal_base M;
+  lang_kind : m_move M -> kind (cl_claim L);
+  lang_check : m_state M -> cl_claim L -> bool;
+  lang_sound : forall s c, lang_check s c = true -> cl_meaning L c s;
+  lang_clean : m_state M -> Prop;
+  lang_ledger : m_state M -> nat
+}.
+
+Definition lang_ti {M : machine} {L : claim_language M}
+  (J : lang_interface M L) : thiele_interface M :=
+  mk_ti M (lang_base J) (cl_claim L) (lang_kind J) (cl_meaning L)
+    (lang_check J) (cl_same L) (lang_clean J) (lang_ledger J).
+
+Definition thiele_complete_over (M : machine) (L : claim_language M) : Prop :=
+  exists J : lang_interface M L, thiele_complete_with (lang_ti J).
+
 Theorem clock_not_thiele_complete : forall rd, ~ thiele_complete (clock rd).
 \end{verbatim}}
 
@@ -18011,9 +18257,15 @@ claim holds, and a claim that holds keeps holding while its thing is unchanged. 
 base moves cost 0, record moves 1, and the ledger adds each move's cost. Non-vacuity: some claim's
 bare chain raises the record from a loaded state exactly when the claim holds there, and the claim
 holds at one loaded state and fails at another. \code{thiele\_complete} asks for one interface
-meeting all four. \texttt{clock} is the two-counter machine with every move costing 1 and any
+meeting all four. A \code{claim\_language} fixes the claims, an exact equality test on them, their
+meanings, ``unchanged,'' and the proof that a meaning keeps holding while its thing is unchanged;
+a \code{lang\_interface} over it supplies only the base, the kinds, the checker with its proof of
+soundness against the language's meanings, the clean states and the ledger; \code{lang\_ti} makes
+it a plain interface whose claims, meanings and ``unchanged'' are the language's; and
+\code{thiele\_complete\_over} asks that interface to meet all four.
+\texttt{clock} is the two-counter machine with every move costing 1 and any
 reading of its configuration as the record. Definition~\ref{def:u34-thiele-complete} says
-this and adds the weaker
+this, the language-first form included, and adds the weaker
 notion, weakly Thiele-complete (\code{weakly\_thiele\_complete}, not printed here). Theorem~\ref{thm:u34-clock} says the last line and more: the clock is weakly
 Thiele-complete (\code{clock\_weakly\_thiele\_complete}), a flag that switches on at the first yes
 behaves the same way (\code{latch\_clock\_weakly\_thiele\_complete} and
@@ -18297,6 +18549,81 @@ bits are at most the record moves; the record moves are exactly the ledger's ris
 least 3. Theorem~\ref{thm:ent-machine} says this, with the hypotheses numbered (M1) to (M6)
 and the conclusions numbered (1) to (5), and it says one thing more in (2): there the meanings hold at the chain's own CHECK and COMMIT. The Coq's third conclusion is a separate existential that doesn't name
 the chain; the printed form follows from it with the last two parts of clause (b), a passing check means the claim holds and an unchanged thing keeps it holding.
+
+{\raggedright And its form with the narrowing made by the run, \code{ent\_run\_entitlement}, same file, with the definitions it leans on.\par}
+
+{\tiny
+\begin{verbatim}
+Fixpoint ent_narrow (fs : list (X -> bool)) (L : list X) : list X :=
+  match fs with [] => L | f :: fs' => ent_narrow fs' (filter f L) end.
+
+Fixpoint ent_stages (fs : list (X -> bool)) (L : list X) : list (nat * nat) :=
+  match fs with
+  | [] => []
+  | f :: fs' => (length L, length (filter f L)) :: ent_stages fs' (filter f L)
+  end.
+
+Definition ent_prod (l : list nat) : nat := fold_right Nat.mul 1 l.
+
+Fixpoint ent_passes {M : machine} (I : thiele_interface M) (s : m_state M)
+    (done tr : list (m_move M)) : list (list (m_move M) * ti_claim I) :=
+  match tr with
+  | [] => []
+  | m :: rest =>
+      let tail := ent_passes I (m_step M s m) (done ++ [m]) rest in
+      match ti_kind I m with
+      | KCheck c => if ti_check I s c then (done, c) :: tail else tail
+      | _ => tail
+      end
+  end.
+
+Definition ent_run_tests {M : machine} (I : thiele_interface M) (s0 : m_state M)
+    (tr : list (m_move M)) : list (m_state M -> bool) :=
+  map (fun pc x => ti_check I (run M (fst pc) x) (snd pc)) (ent_passes I s0 [] tr).
+
+Definition ent_run_posterior {M : machine} (I : thiele_interface M) (s0 : m_state M)
+    (tr : list (m_move M)) (prior : list (m_state M)) : list (m_state M) :=
+  ent_narrow (ent_run_tests I s0 tr) prior.
+
+Theorem ent_run_entitlement :
+  forall (M : machine) (I : thiele_interface M),
+    thiele_complete_with I ->
+    forall (s0 : m_state M) (tr : list (m_move M)) (prior : list (m_state M)) (k : nat),
+    ti_clean I s0 ->
+    m_record M (run M tr s0) = true ->
+    In s0 prior ->
+    Forall (fun st => fst st <= 2 ^ k * snd st) (ent_stages (ent_run_tests I s0 tr) prior) ->
+    incl (ent_run_posterior I s0 tr prior) prior /\
+    In s0 (ent_run_posterior I s0 tr prior) /\
+    (forall x, In x prior -> ~ In x (ent_run_posterior I s0 tr prior) ->
+       exists pre c m rest, tr = pre ++ m :: rest /\ ti_kind I m = KCheck c /\
+         ti_check I (run M pre s0) c = true /\ ti_check I (run M pre x) c = false) /\
+    length prior * ent_prod (map snd (ent_stages (ent_run_tests I s0 tr) prior))
+      = length (ent_run_posterior I s0 tr prior)
+          * ent_prod (map fst (ent_stages (ent_run_tests I s0 tr) prior)) /\
+    Nat.log2_up (length prior) - Nat.log2_up (length (ent_run_posterior I s0 tr prior))
+      <= k * length (ent_passes I s0 [] tr) /\
+    length (ent_passes I s0 [] tr) <= record_moves I tr /\
+    record_moves I tr = ti_ledger I (run M tr s0) - ti_ledger I s0 /\
+    Nat.log2_up (length prior) - Nat.log2_up (length (ent_run_posterior I s0 tr prior))
+      <= k * (ti_ledger I (run M tr s0) - ti_ledger I s0) /\
+    earned_chain I s0 tr /\
+    ti_ledger I s0 + 3 <= ti_ledger I (run M tr s0).
+\end{verbatim}}
+
+In plain words: \code{ent\_passes} walks the run and keeps, for each CHECK that passes at the state
+the run is in, the moves before it and its claim; \code{ent\_run\_tests} turns each into a test of
+a candidate start $x$, replay those moves from $x$ and check the same claim; the posterior keeps
+the candidates that pass every test, in order; and \code{ent\_stages} records the number of
+candidates standing before and after each test. Hypotheses: the machine is Thiele-complete through
+\texttt{I}, the start is clean, the run ends with the record up, the start is among the
+candidates, and every test keeps at least a $2^{-k}$ share. Conclusions in order: the posterior is
+inside the prior and keeps the start; every dropped candidate fails, replayed, a CHECK the run made
+and passed; the exact product count; the index bits are at most $k$ times the tests passed; the
+tests passed are at most the record moves; the record moves are the ledger's rise; the index bits
+are at most $k$ times that rise; the earned chain; and a rise of at least 3.
+Theorem~\ref{thm:ent-run-machine} (1) to (5) says exactly this; its part (6) is
+\code{ent\_run\_round\_bits}, not printed here.
 
 \subsection{A raised flag stands on the CHSH check}
 
