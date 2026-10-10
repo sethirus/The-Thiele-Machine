@@ -3412,8 +3412,9 @@ properly, as a family of flags, one per threshold, with a step that raises any o
 at least one (Theorem~\ref{thm:u11-growing}). A step that raises three at once still owes at
 least one, and nothing in the toll makes the charges add up flag by flag. Charges that add need
 the composition assumptions for independent machines. The same theorem sends the bill for finiteness: a record
-held in $k$ bits that only ever turns bits on can take at most $k + 1$ different values, so it
-can go up at most $k$ times. A finite machine can keep only so many things up for good in its
+held in $k$ bits that only ever turns bits on can take at most $k + 1$ different values along any
+one run, so it can go up at most $k$ times in that run. (Across different runs it can end on any of
+the $2^k$ words.) A finite machine can keep only so many things up for good in its
 whole life. That's the opening chapter's ``you can't keep all of it,'' turned into a count.
 
 \subsection{What this does and doesn't buy}
