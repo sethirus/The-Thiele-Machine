@@ -237,6 +237,19 @@
 \label{sec:point}
 %===========================================================================
 
+The strongest thing in this book first, so you know what the rest is for. On the small machine
+of Part IV, every program anybody can write, run from a clean start, raises its flag only after
+a passing check of a claim, a passing commitment to that same claim about the same edition, and
+then a passing certificate, in that order (Theorem~\ref{thm:u34-cert-earned}). And one fixed program, the universal
+Thiele machine, runs every one of those programs on a host with more counters: it halts exactly
+when its guest halts, its flag goes up exactly when the guest's does, and its ledger equals the
+guest's at every guest step and, in between, never gets ahead of the guest's next one
+(Theorems~\ref{thm:u34-U-halting} and~\ref{thm:u34-U-flag}). So the guarantee holds for every
+program, carried through one interpreter, with the cost counted exactly, and all of it is checked
+in Coq. Putting a rule under every program is an old idea, and I say whose later in this chapter.
+Carrying it through a universal interpreter with an exact ledger is the piece I didn't find done
+before, where I looked (Appendix~\ref{sec:whats-mine}).
+
 Here's the whole thing before any of the careful parts. I'm going to start with one small picture,
 take it apart, and keep asking what each piece means, as far down as I can get before I hit
 something that holds or something I can't get under. I'll tell you which. Then I'll put it back
@@ -1214,6 +1227,33 @@ mark isn't one halving. A single state flipping into a big room of states that a
 squeezes things together very little, much less than a halving, and the whole-number count rounds
 that up to one.
 
+\emph{What ``new model of computation'' means here.} It adds something to how a machine runs:
+structure it keeps, and an account of what that structure cost. It doesn't add computable
+functions. It's an abstract model the way the Turing machine is, but it doesn't hand you a
+new primitive to compute with; whatever base machine sits under it still does all the
+computing. When I say ``shadow'' I mean the particular window I name. Other ways a
+conventional machine could store things aren't covered. Enforcing the law, storing it, and
+letting an observer see it are three separate questions, and the book keeps them separate.
+
+Which leaves a fair question hanging: if it computes nothing new, does it even get to call
+itself a model of computation? I think so, and not only on my say-so. Computer science has
+long kept models that compute exactly what Turing's does and differ only in what they count,
+how long a step takes, what reaching into memory costs, because the counting is the reason
+to have them. The random-access machine of the computer scientists Stephen Cook and Robert
+Reckhow (1973) charges each instruction one unit, or a cost that grows with the logarithm of the
+numbers it handles. The cell-probe model of Andrew Yao, a computer scientist who later won the Turing Award
+(1981), counts only the memory cells a program reads. The input-output model of the computer scientists Alok Aggarwal and
+Jeffrey Vitter (1988) counts only the blocks moved between a small fast memory and a large slow
+one. The bulk-synchronous parallel model of Leslie Valiant, a computer scientist at Harvard (1990), charges for rounds of
+communication between processors. Closest in kind are the two axioms the computer scientist
+Manuel Blum gave in 1967 for any measure of computational cost: they name no machine, and say
+what every cost has to satisfy, the way the toll is a rule every price list on the model has
+to obey. That's the family the Thiele Machine belongs to, with an axis of its own: what a run
+established, and what that cost. Part III lays the toll over a register machine of the
+first kind, and over a Turing
+machine and a lambda calculus, and none of them computes one function more afterward
+(Section~\ref{sec:latch}). What each of them gains is a record and a bill.
+
 What was I pushed into? That on a finite machine, a record that never comes down can only be raised
 by a merge: counting, proved. That merges cost: physics, assumed. What did I choose? To put the
 count \emph{inside the step}, as part of what a step is. Nothing forces that, and a log off to the
@@ -1584,7 +1624,10 @@ that says what an observer sees. The headline result is proved in Coq (a proof a
 that checks every step of a proof), with every premise printed. With finitely many yes-states and
 a reading that is never taken back, every move that raises the reading merges states; consequently
 every schedule that prices merges charges that move, and every run from no to yes has positive
-total cost. That's the universal certification result, and Landauer's principle (the physicist's
+total cost. That's what I call the universal certification result. ``Universal'' means it holds
+for every system with those premises; its counting core is classical, and what's mine is the
+price as a rule on a ledger and the toll that falls out of it (Appendix~\ref{sec:whats-mine}).
+Landauer's principle (the physicist's
 rule that forgetting costs heat) is a named premise for pricing merges. Around it the book proves
 that finding out can be free, that a window can hide what was paid, that an honest permanent record
 over any machine is a latch on one event (a switch the event flips once and nothing flips back),
@@ -1791,7 +1834,9 @@ states. Consequently, every cost schedule satisfying merge pricing charges that 
 mark, and every run from no to yes costs at least one. This is a theorem over all systems
 satisfying those premises. It isn't a property peculiar to the implementation in Part IV
 (\code{nec\_f\_perm\_flip\_merges\_yes\_finite} and \code{nec\_f\_toll\_from\_merges\_yes\_finite},
-NecFMerge.v). Three layers stay separate through the book. The first is the structural fact that a
+NecFMerge.v). The counting under it is classical, the finite cousin of Zermelo's recurrence
+argument and folklore among automata theorists; what's mine is reading it as a price on a ledger,
+and Appendix~\ref{sec:whats-mine} gives the neighbours. Three layers stay separate through the book. The first is the structural fact that a
 permanent raise merges states, which needs no prices at all. The second is the pricing premise,
 merge pricing, which turns that fact into a ledger bound. The third is the small machine of Part IV,
 which enforces earned certification on top of both.
@@ -1931,22 +1976,6 @@ about how that machine gets used. The code doesn't carry it, and yet it travels 
 anybody noticing. The only defence I know is the dull one: write the premise into every
 statement that needs it, where the next person will trip over it.
 
-\emph{What ``new model of computation'' means here.} It adds something to how a machine runs:
-structure it keeps, and an account of what that structure cost. It doesn't add computable
-functions. It's an abstract model the way the Turing machine is, but it doesn't hand you a
-new primitive to compute with; whatever base machine sits under it still does all the
-computing. When I say ``shadow'' I mean the particular window I name. Other ways a
-conventional machine could store things aren't covered. Enforcing the law, storing it, and
-letting an observer see it are three separate questions, and the book keeps them separate.
-
-Which leaves a fair question hanging: if it computes nothing new, does it even get to call
-itself a model of computation? I think so, and not only on my say-so. Computer science has
-long kept models that compute exactly what Turing's does and differ only in what they count,
-how long a step takes, what reaching into memory costs, because the counting is the reason
-to have them. Part III lays the toll over a register machine of that kind, and over a Turing
-machine and a lambda calculus, and none of them computes one function more afterward
-(Section~\ref{sec:latch}). What each of them gains is a record and a bill.
-
 \emph{What this project is not.} Not a solution to P versus NP, and not a complexity-class
 separation of any other kind. Not a theory of everything. Not a claim that computation is
 physics, or that physics is computation. Not a physics result: the game result (the
@@ -1957,8 +1986,10 @@ matrices, with no claim about a physical device. Not a verified chip or a
 verified device of any kind; a checked model and a checked machine, on paper and in Coq. Not a
 claim to priority on the ideas it builds from. What it does add, with the closest earlier work
 beside each item and the difference spelled out, is sorted in Appendix~\ref{sec:whats-mine}:
-chiefly the price as a named rule on a ledger, the universal certification result derived from
-it, and a checked machine and universal interpreters that carry it. Not closed on every question: the ones I couldn't settle are listed at the end.
+chiefly the price as a named rule on a ledger and the toll derived from it (on a counting core that
+is classical), the pricing form of the window fact, the latch form of a record that never comes
+down, and a checked machine and universal interpreters that carry the toll, whose every-program
+idea is the reference monitor's. Not closed on every question: the ones I couldn't settle are listed at the end.
 
 \emph{What I do and don't know about prior work.} I came to this with no formal training in the
 fields it turned out to need, and I've read what I could reach, with every tool I had. The
@@ -3357,11 +3388,16 @@ costing 0.
 
 Defined as the record \code{CertificationSystem} (UniversalCertificationCost.v).
 
-\begin{theorem}[The universal floor]\label{thm:universal-floor}
+A word on the label before the first result. I call a result an \emph{observation} when its proof
+does little more than unfold the definitions, and in an axiomatic cost model that's what the
+definitions are meant to do: the work is in choosing them, so the results that follow from them
+in a few lines are labelled that way and the theorems with more in them stand out.
+
+\begin{observation}[The universal floor]\label{thm:universal-floor}
 In any certification system, every run that starts at a state reading no and ends at a
 state reading yes has total cost at least 1: if $\mathrm{cert}(s_0) = \mathrm{no}$ and
 $\mathrm{cert}(\mathrm{run}(t, s_0)) = \mathrm{yes}$, then $\mathrm{cost}(t) \ge 1$.
-\end{theorem}
+\end{observation}
 
 \begin{proof}
 By induction on the run. If $t$ is empty, the run ends where it starts, at a state reading
@@ -3377,7 +3413,12 @@ yes, not what any move does beyond the reading before and after.
 
 Where to check it: the record's six fields are \code{cs\_state}, \code{cs\_instr}, \code{cs\_step}, \code{cs\_cost},
 \code{cs\_cert}, and the toll \code{cs\_cert\_costs}; the theorem is \code{universal\_nfi\_any\_substrate}, in the
-same file; and the checked proof is the induction above, step for step. One honest edge:
+same file; and the checked proof is the induction above, step for step. That name says ``any
+substrate,'' and it says too much: what the theorem quantifies over is every certification
+system, a substrate with the toll built in as a field, so it's about every system that has the
+toll and about no other. The same theorem under a name that says so is
+\code{every\_toll\_system\_pays\_the\_floor}, in the same file; the old name stays because other
+files use it. One honest edge:
 the theorem does not assume that a YES state exists. If no state ever
 reads YES, no run meets the theorem's hypothesis, so it's true of every run and tells you
 nothing about any of them, which is a mathematician's way of saying
@@ -3707,8 +3748,11 @@ merge the language can't avoid costs entropy. What I didn't find in their paper 
 machine charges on a ledger whether or not anybody's physics is right (put a price on merging
 and the flip has to pay it, which is the next subsection), and what I get out of that rule: the
 toll, as a theorem about the ledger, the merge-or-revoke split for a single move, the exact
-match between ``forced to be priced'' and ``merges,'' the squeeze bound counted in whole marks
-and its entropy form, a built machine walking out of each door, and all of it checked. The core
+match between ``forced to be priced'' and ``merges'' when move names can be decided equal or
+different, the squeeze bound counted in whole marks
+and its entropy form, a built machine walking out of each door, and all of it checked. Those are
+the forms I didn't find stated anywhere I looked, and Appendix~\ref{sec:whats-mine} sorts them the
+same way: the counting core classical and somebody else's, the pricing form only partly mine. The core
 move is older than the computer, it had two homes before it got to mine, and its physical price
 had a third.
 
@@ -3737,12 +3781,12 @@ Every move that merges costs at least one: for all $i$, if $i$ is not injective 
 $\mathrm{cost}(i) \ge 1$. (Checked name: \code{merging\_steps\_priced}.)
 \end{premise}
 
-\begin{theorem}[The toll from finiteness, permanence, and merge pricing]\label{thm:toll-derived}
+\begin{observation}[The toll from finiteness, permanence, and merge pricing]\label{thm:toll-derived}
 On a finite machine with a permanent reading whose cost satisfies merge pricing, every move
 that turns the reading from no to yes costs at least one. That is, the machine with that cost
 is a certification system in the sense of Definition~\ref{def:certsys}, and the universal floor
-(Theorem~\ref{thm:universal-floor}) applies to it.
-\end{theorem}
+(Observation~\ref{thm:universal-floor}) applies to it.
+\end{observation}
 
 \begin{proof}
 A move that flips the reading merges, by Theorem~\ref{thm:perm-flip-merges}; merge pricing
@@ -4362,7 +4406,7 @@ $\mathrm{step}(s, i)$ is one. Take the even spread on the $m$ yes-states and $s$
 Theorem~\ref{thm:entropy-ceiling} with $k = 1$, the move removes at least
 $\log_2 \frac{m+1}{m} > 0$ bits, so the cost of $i$ is a whole number above a positive
 number, which makes it at least one. The run-level floor is the universal floor
-(Theorem~\ref{thm:universal-floor}) applied to that system.
+(Observation~\ref{thm:universal-floor}) applied to that system.
 \end{proof}
 
 Checked as \code{a2\_from\_entropy\_price\_and\_permanence}, with the packaging
@@ -6036,12 +6080,12 @@ some bill $b : V \times V \to \mathbb{N}$. A \emph{collision} is two steps $(s_1
 $(s_2, i_2)$ with $w(s_1) = w(s_2)$ and $w(\mathrm{step}(s_1, i_1)) = w(\mathrm{step}(s_2,
 i_2))$, the first a raise and the second not.
 
-\begin{theorem}[No exact window price across a collision]\label{thm:shadow-price}
+\begin{observation}[No exact window price across a collision]\label{thm:shadow-price}
 If the window has a collision, every window price that meets the floor charges at least one
 on some step that is not a raise; so no window price is exact. If instead the reading is a
 function of the view, $\mathrm{cert}(s) = r(w(s))$ for some $r$, then the window price
 ``one when $r$ goes from no to yes, zero otherwise'' is exact, and the window has no collision.
-\end{theorem}
+\end{observation}
 
 \begin{proof}
 Across a collision both steps get the same bill $b(v, v')$. The floor makes it at least one
@@ -6307,7 +6351,7 @@ same window, and no function on bare transcripts is sound and complete for ``the
 \end{theorem}
 
 \begin{proof}
-Theorem~\ref{thm:u34-tc-window}(2) gives a loaded state and two runs from it that end with the
+Observation~\ref{thm:u34-tc-window}(2) gives a loaded state and two runs from it that end with the
 same window, one with the record up and one with it down, and, from one clean loaded state, two runs with the same window, one whose ledger rose by at least 3 and
 one made of free base moves that leaves the ledger where it started (that theorem's proof builds it; \code{complete\_two\_runs} states it).
  Both end states explain the same bare transcript. A verifier
@@ -6587,7 +6631,7 @@ section's entitlement. The third is the small machine of Part IV, whose step won
 through without a passing check of the same property, on the same thing, at the same edition, for
 every program from a clean start (Theorem~\ref{thm:u34-commit-earned}, and Theorem~\ref{thm:u34-cert-earned} for a run that ends certified), whose checker comes with a
 proof that it says what it means (Lemma~\ref{lem:u34-eval}, Theorem~\ref{thm:u34-soundness}), and
-whose certified runs from a clean start cost at least three (Theorem~\ref{thm:u34-min-price}). Even there two things are missing, and the
+whose certified runs from a clean start cost at least three (Observation~\ref{thm:u34-min-price}). Even there two things are missing, and the
 first is in the table, where you'll see it. The step doesn't police whether a
 check could have failed: a property every value has is a perfectly legal check, sound and useless.
 And in all three columns the status belongs to whoever reads the record. The machine doesn't know
@@ -7182,7 +7226,7 @@ step by it, from any state, is a certified insight event.
 \end{definition}
 
 \begin{remark}[What the toll prices, and what it doesn't]\label{rem:u09-three}
-Read off Definition~\ref{def:certsys} and Theorem~\ref{thm:universal-floor}, and checked on the
+Read off Definition~\ref{def:certsys} and Observation~\ref{thm:universal-floor}, and checked on the
 board as a certification system (\code{nec\_f\_board\_raw\_free}, \code{nec\_f\_board\_floor} and
 \code{nec\_f\_board\_floor\_flat}, NecFPaperToys.v). (1) The toll puts no bound on the cost of a raw-observation
 move; on Section~\ref{sec:toll}'s board STAY and WORK are raw observation and cost $0$. (2) Every certified
@@ -7397,10 +7441,10 @@ stop. The other three rules matter for the \emph{converse}: for any base and any
 Put the two together and you've got: honest records are exactly
 latches. One shape, no others, over any base.
 
-\begin{theorem}[The record is a latch]\label{thm:u11-latch}
+\begin{observation}[The record is a latch]\label{thm:u11-latch}
 Let $B$ be any base and $M$ an honest extension of it through $\pi$, with $f$ the function of
 (R1). Then $M$ factors as the latch of the event $h(b) = f(b, \mathrm{off})$.
-\end{theorem}
+\end{observation}
 
 \begin{proof}
 The base half of the equation is the cover's step clause. For the record, split on
@@ -7733,7 +7777,7 @@ $c_2(\mathrm{next}_M(m)) = c_2(m) \lor h_2(\pi(m), c_1(m))$ for every $m$.
 \begin{proof}
 Take $h_1(b, r_2)$ to be the first part of $F(b, \mathrm{off}, r_2)$ and $h_2(b, r_1)$ the
 second part of $F(b, r_1, \mathrm{off})$, then split on each record as in
-Theorem~\ref{thm:u11-latch}.
+Observation~\ref{thm:u11-latch}.
 \end{proof}
 
 Checked as \code{record\_pair\_is\_two\_latches\_holds} (StructuralRecordAxis.v).
@@ -7975,8 +8019,8 @@ $R(\mathrm{next}_{B_1}^n(x), \mathrm{next}_{B_2}(y))$.
 
 \begin{theorem}[Outside bases, and the relation]\label{thm:u11-four-bases}
 (1) Weak base equivalence is reflexive, symmetric and transitive. (2) If two bases are weakly
-equivalent, Theorem~\ref{thm:u11-latch} holds over one exactly when it holds over the other.
-(3) Theorem~\ref{thm:u11-latch} holds over each of the three bases in
+equivalent, Observation~\ref{thm:u11-latch} holds over one exactly when it holds over the other.
+(3) Observation~\ref{thm:u11-latch} holds over each of the three bases in
 Definition~\ref{def:u11-concrete-bases}, for every fixed program where the base has one.
 \end{theorem}
 
@@ -7984,7 +8028,7 @@ Definition~\ref{def:u11-concrete-bases}, for every fixed program where the base 
 (1) Reflexive with equality as $R$ and one step against one. Symmetric by reversing $R$.
 Transitive by composing the two relations; a step on the first base is matched by $n$ steps on
 the second, and those $n$ steps by some number on the third, by induction on $n$. (2) and (3)
-apply Theorem~\ref{thm:u11-latch} directly. In (2) the equivalence hypothesis is discarded.
+apply Observation~\ref{thm:u11-latch} directly. In (2) the equivalence hypothesis is discarded.
 \end{proof}
 
 Checked as \code{weak\_base\_equiv\_refl\_holds}, \code{weak\_base\_equiv\_sym\_holds},
@@ -8380,7 +8424,7 @@ don't compare. It didn't. Every cup gets its own room, and every room is the old
 Section~\ref{sec:windows} put the machine behind a window and asked what an outsider could tell.
 It found that two states can look the same through the window and differ in what matters, and that
 a price computed from the window can't be exact if the window has a collision
-(Theorem~\ref{thm:shadow-price}). That was for one cup. With a whole row of cups in hand I can ask
+(Observation~\ref{thm:shadow-price}). That was for one cup. With a whole row of cups in hand I can ask
 the sharper version of the same question, which is also the one I actually care about. Take the
 ordinary machine, the one with no cups and no ledger, and let it look at itself. What's the shape
 of everything it can't see, and what does the toll cost in terms of that shape?
@@ -10393,7 +10437,7 @@ no or yes, ``certified'' or not. A \emph{toll}: the step that raises the flag co
 (Section~\ref{sec:toll}). A \emph{ledger}: the running total of those costs, a whole number that only climbs (Section~\ref{sec:counter}).
 And Section~\ref{sec:latch} proved the thing this whole chapter stands on: over any base at
 all, an honest record is a \emph{latch}, a bit that switches on at an event the base decides and
-never switches off (Theorem~\ref{thm:u11-latch}). The record watches the base. It doesn't
+never switches off (Observation~\ref{thm:u11-latch}). The record watches the base. It doesn't
 compute anything the base couldn't compute without it.
 
 Push on that for a second, because it cuts the job in half. If the record adds no computing
@@ -11033,7 +11077,7 @@ one of the things Section~\ref{sec:toll} was about, and Section~\ref{sec:toll}'s
 \begin{theorem}[An instance of the certification system]\label{thm:u34-instance}
 The states, the instructions, the step $\mathrm{exec}$, the cost and the flag, with the toll
 of Theorem~\ref{thm:u34-toll}, form a certification system (Definition~\ref{def:certsys}). So
-the universal floor (Theorem~\ref{thm:universal-floor}) holds here: if
+the universal floor (Observation~\ref{thm:universal-floor}) holds here: if
 $\mathrm{cert}(s_0)$ is down and $\mathrm{cert}(\mathrm{run}(t, s_0))$ is up, then
 $\mathrm{cost}(t) \ge 1$.
 \end{theorem}
@@ -11042,7 +11086,7 @@ $\mathrm{cost}(t) \ge 1$.
 Take the state and instruction sets of Definitions~\ref{def:u34-state} and
 \ref{def:u34-step}, their step and cost, and the flag as the reading. These provide the
 five data fields of Definition~\ref{def:certsys}. Theorem~\ref{thm:u34-toll} supplies its
-one required rule. Applying Theorem~\ref{thm:universal-floor} gives the claimed bound.
+one required rule. Applying Observation~\ref{thm:universal-floor} gives the claimed bound.
 \end{proof}
 
 Checked as \code{earned\_cs} and \code{earned\_core\_floor} (EarnedCoreLinks.v); \code{earned\_core\_floor} is
@@ -11060,7 +11104,7 @@ Let the base have states (program, core), stepping by the program step, starting
 $\mathrm{start}(a, b)$'s core for any $a$, $b$, and halting when the program has halted.
 Map each (program, state) to (program, core). Then the machine, run as a closed machine on
 (program, state), is an honest extension of that base, and so its flag factors as the latch
-(Theorem~\ref{thm:u11-latch}) of the event ``the next instruction is a CERTIFY that passes.''
+(Observation~\ref{thm:u11-latch}) of the event ``the next instruction is a CERTIFY that passes.''
 \end{theorem}
 
 \begin{proof}
@@ -11353,7 +11397,7 @@ what the machine doesn't do.
 
 Section~\ref{sec:windows} was about windows: a view of a state that shows some of it, and the theorem that a window
 which can't tell two states apart can't price the step between them exactly
-(Theorem~\ref{thm:shadow-price}). Here's the smallest pair I could build where the window is
+(Observation~\ref{thm:shadow-price}). Here's the smallest pair I could build where the window is
 Minsky's view of the machine (line number and the two counters) and the record is
 everything else.
 
@@ -11450,11 +11494,11 @@ those is its own instruction costing one. So at least three. One of what: three 
 $\mu$, one per paid act, each one the ``one'' I picked back in the table. And three is the number
 of links in the chain. It isn't a guess that happens to hold.
 
-\begin{theorem}[The minimum price of a certificate]\label{thm:u34-min-price}
+\begin{observation}[The minimum price of a certificate]\label{thm:u34-min-price}
 If $s_0$ is clean and $\mathrm{cert}(\mathrm{run}(t, s_0))$ is up, then $\mathrm{cost}(t)
 \ge 3$ and $\mu(\mathrm{run}(t, s_0)) \ge \mu(s_0) + 3$. For programs: if the flag is up
 after $n$ program steps from $\mathrm{start}(a, b)$, then $\mu \ge 3$ there.
-\end{theorem}
+\end{observation}
 
 \begin{proof}
 Theorem~\ref{thm:u34-cert-earned} finds a CHECK, a COMMIT and a CERTIFY at three different
@@ -11663,13 +11707,13 @@ its checker can be an oracle, as the paragraph above says.
 
 The second half of (6), that some move costs 0, is the one that kills the clock.
 
-\begin{theorem}[A clock is a Thiele machine and isn't Thiele-complete]\label{thm:u34-clock}
+\begin{observation}[A clock is a Thiele machine and isn't Thiele-complete]\label{thm:u34-clock}
 Take the two-counter machine, let every move cost 1, and take as the record any yes/no
 question about its configuration whatsoever; or take a flag that switches on, and stays on, the
 first time any chosen test of the configuration says yes. Either way the machine obeys the toll
 and has a universal base, so it's weakly Thiele-complete, and it is not Thiele-complete. More
 generally, no machine whose every move costs at least 1 is Thiele-complete.
-\end{theorem}
+\end{observation}
 
 \begin{proof}
 Every move costs one, so any raise costs at least one: the toll holds for any record. The
@@ -11745,7 +11789,7 @@ And here's the thing every machine that meets the definition can't help doing. I
 Section~\ref{sec:windows}'s shape again, only this time it isn't about one machine. It's about all of
 them.
 
-\begin{theorem}[Every Thiele-complete machine hides its record and its ledger from its window]\label{thm:u34-tc-window}
+\begin{observation}[Every Thiele-complete machine hides its record and its ledger from its window]\label{thm:u34-tc-window}
 Let a machine be Thiele-complete through an interface, and let its window be the two-counter
 configuration its universal base shows. (1) For every state $s$ there's a loaded state and one
 free base move from it that lands on a state with $s$'s window, with the record down and the
@@ -11754,7 +11798,7 @@ one with the record up and one with it down; and likewise two runs from one load
 with the same window and ledgers at least 3 apart. (3) So no function of the window gives the
 record at the end of every run from every loaded state, and no function of the window gives the
 ledger. (4) The same holds of the certification system built from the machine.
-\end{theorem}
+\end{observation}
 
 \begin{proof}
 Theorem~\ref{thm:u34-tc-consequences}(4) gives a loaded state and a run from it that raises the
@@ -12293,7 +12337,9 @@ program, and $M$'s ledger is less.
 
 Checked as \code{presented\_universal\_surcharge\_le\_two}, \code{presented\_universal\_exact} and
 \code{presented\_universal\_no\_exact\_below\_three}, with the corollary for $U_P$ itself,
-\code{presented\_universal\_U\_no\_exact\_below\_three} (PresentedUniversal.v). If the reading is
+\code{presented\_universal\_U\_no\_exact\_below\_three} (PresentedUniversal.v). Part (3) is an
+observation in the sense of Section~\ref{sec:toll}: it reads off
+Observation~\ref{thm:u34-min-price}. If the reading is
 already yes at the start, the host has to raise its flag at once, and that costs three on top of
 a ledger of nothing.
 
@@ -12384,7 +12430,7 @@ weight. $\mathrm{GSTEP}$ runs the guest's instruction by calling the small machi
 the guest's state: the guest's step is a primitive of the host. So ``the host runs any guest''
 (Theorem~\ref{thm:u34-universal}) is true by construction. The host was built to do exactly
 that, and the proof is mostly unfolding. The theorems with something in them come after it.
-From a loaded host, or any state where the two agree, the mirror always equals the guest's flag (Theorem~\ref{thm:u34-mirror}). Nothing raises the
+From a loaded host, or any state where the two agree, the mirror always equals the guest's flag (Observation~\ref{thm:u34-mirror}). Nothing raises the
 mirror unless the guest itself passes a CERTIFY inside a guest step the host paid for
 (Theorem~\ref{thm:u34-no-free-host}). No $\mathrm{OWN}$ move, in any host program at all,
 touches the guest's state or the mirror (the second sentence of that same theorem), and no host
@@ -12417,13 +12463,13 @@ Theorem~\ref{thm:u34-halting} does the rest.
 Checked as \code{universal\_simulation}, \code{universal\_program\_simulation} and
 \code{host\_thiele\_complete} (UniversalThiele.v).
 
-\begin{theorem}[The copy is the record]\label{thm:u34-mirror}
+\begin{observation}[The copy is the record]\label{thm:u34-mirror}
 Say a host state $h$ \emph{agrees} when $m(h) = \mathrm{cert}(g(h))$. Every host move takes an
 agreeing state to an agreeing state, so every host trace and every stored host program
 does too, and a freshly loaded host agrees. In particular, if $h$ agrees and is not trapped,
 the mirror after $n$ moves $\mathrm{GSTEP}\ 1$ is the guest's flag after $n$ steps of its own
 program.
-\end{theorem}
+\end{observation}
 
 \begin{proof}
 One move at a time. An $\mathrm{OWN}$ move touches neither the mirror nor the guest. A trapped
@@ -12558,7 +12604,7 @@ shares that tape with the guest, any of that code can flip the bit without payin
 host's step has no opinion about it. So an ordinary programmable computer, as built, doesn't enforce the toll for its
 programs. That's how it's built. It could. The simpler host above enforces it
 by having its own step mirror the guest's bit and charge for its crossing
-(Theorems~\ref{thm:u34-mirror} and~\ref{thm:u34-no-free-host}), and the universal programs $U$
+(Observation~\ref{thm:u34-mirror} and Theorem~\ref{thm:u34-no-free-host}), and the universal programs $U$
 and $U_P$ are fixed tables that go one better: they earn their own flag, by their own check,
 commit and certificate, exactly when the guest's would rise, and pay on their own ledger what the guest pays, $U$ exactly and $U_P$ to within
 a surcharge of at most two when the guest's reading starts at no (Theorems~\ref{thm:u34-U-earned}, \ref{thm:u34-U-flag}, \ref{thm:u34-presented} and~\ref{thm:u34-presented-surcharge}). That's a statement
@@ -13474,7 +13520,7 @@ So Part IV has one machine, and it isn't the model. It's a Thiele machine in the
 sense, an instance of the certification system with the toll proved: \code{earned\_cs}
 (Theorem~\ref{thm:u34-instance}). It's Thiele-complete, in the sense of
 Definition~\ref{def:u34-thiele-complete}, the sense no clock meets
-(Theorems~\ref{thm:u34-clock} and~\ref{thm:u34-tc-instances}): it computes whatever a Turing
+(Observation~\ref{thm:u34-clock} and Theorem~\ref{thm:u34-tc-instances}): it computes whatever a Turing
 machine can, its computing is free and can't touch the record, and, from a clean start, its record is earned. And the
 universal Thiele machine runs on a host made of its own kinds of instruction: one fixed program,
 $U$, with no guest step built in, that runs every one of its programs with halting, flag and
@@ -15773,7 +15819,8 @@ If a line here ever says more than its section does, the section is right and th
 wrong. ``By unfolding'' after it means the proof does little more than read the answer off the
 definitions, a case split whose every branch is a line: true, checked, and carrying almost
 nothing the definitions didn't already say. If you're counting results, count those
-differently. I mark them so they don't pad the list.
+differently. I mark them so they don't pad the list, and where they're stated in the book they
+carry the label \emph{observation}.
 
 Ledger is a good word for it, and it's older than bookkeeping. Around 1400 a \emph{ledger} was a
 book that lay permanently in one place, a big church breviary, say, from the old verb
@@ -15822,12 +15869,12 @@ Nobody prices vouching for a sorting & not claimed; only that I found no one who
 \endlastfoot
 Certification system: states, moves, step, cost, reading & definition & Section~\ref{sec:toll}, Definition~\ref{def:certsys} \\
 The toll & choice & Section~\ref{sec:toll}, Definition~\ref{def:certsys} \\
-The universal floor: no to yes costs at least one & proved (premise: the toll) & Section~\ref{sec:toll}, Theorem~\ref{thm:universal-floor} \\
+The universal floor: no to yes costs at least one & proved (premise: the toll), by unfolding & Section~\ref{sec:toll}, Observation~\ref{thm:universal-floor} \\
 The floor speaks about the world, or computing power & not claimed & Section~\ref{sec:toll} \\
 A computation is in scope just by being one & not claimed; someone has to supply the five parts and prove the toll & Section~\ref{sec:toll} \\
 On a finite machine, a permanent flip merges & definition; proved (no price premise) & Section~\ref{sec:a2-not-arbitrary}, Definition~\ref{def:fin-perm-inj}, Theorem~\ref{thm:perm-flip-merges} \\
 Merge pricing & assumed (premise) & Section~\ref{sec:a2-not-arbitrary}, Premise~\ref{prem:merge-pricing} \\
-Finite, permanent and merge pricing give the toll & proved (premise: merge pricing) & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:toll-derived} \\
+Finite, permanent and merge pricing give the toll & proved (premise: merge pricing), by unfolding & Section~\ref{sec:a2-not-arbitrary}, Observation~\ref{thm:toll-derived} \\
 Each premise has a counterexample & proved (the strip, the coin, the stamp); ``free'' is proved too (\code{history\_escape}, \code{toggle\_escape} and \code{free\_merge\_escape}, AxMerge.v) & Section~\ref{sec:a2-not-arbitrary} \\
 On a finite machine, a flip merges or revokes & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:merge-or-revoke} \\
 Forced to be priced exactly when it merges & definition; proved (premise: move names decidable) & Section~\ref{sec:a2-not-arbitrary}, Definition~\ref{def:forced-priced}, Theorem~\ref{thm:forced-iff-merge} \\
@@ -15888,7 +15935,7 @@ The counter is the cost-semantics frameworks' writer & proved for the writer (\c
 The counter embeds the cost-semantics frameworks' type systems and their before-the-run checking of grades & not claimed; by design the grade is written by the step during the run & Section~\ref{sec:counter} \\
 A window that forgets the counter can't recover it & proved (premise: the counter can be changed on its own; \code{nec\_w\_forgetful\_window\_no\_counter} and, for the flag, \code{nec\_w\_forgetful\_window\_no\_flag}, NecWArgued.v); the premise is needed (\code{nec\_w\_forget\_needs\_settable}) & Section~\ref{sec:counter} \\
 A decoder needs constant fibres & proved (any types) & Section~\ref{sec:windows}, Theorem~\ref{thm:fibre} \\
-No exact window price across a collision & proved (premise: a collision) & Section~\ref{sec:windows}, Theorem~\ref{thm:shadow-price} \\
+No exact window price across a collision & proved (premise: a collision), by unfolding & Section~\ref{sec:windows}, Observation~\ref{thm:shadow-price} \\
 \end{longtable}
 \endgroup
 
@@ -15936,7 +15983,7 @@ A paid flag proves its claim true & not claimed & Section~\ref{sec:insight} \\
 \bottomrule
 \endlastfoot
 Base, cover, honest extension, latch & definition & Section~\ref{sec:latch}, Definition~\ref{def:u11-base}, Definition~\ref{def:u11-honest} \\
-Over any base, an honest record is a latch & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-latch} \\
+Over any base, an honest record is a latch & proved, by unfolding & Section~\ref{sec:latch}, Observation~\ref{thm:u11-latch} \\
 Every reachable latch is an honest record & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-converse} \\
 A finite reversible base can't write a record & proved; an endless history can & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-reversible} \\
 Two records are two latches & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-pair} \\
@@ -16035,7 +16082,7 @@ No stored fact is forged on a clean-start trace & proved on the small machine, u
 Bounded table keeps facts and traps when full & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-bounded} \\
 Equal computational windows can hide different records & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-separation} \\
 The window cannot recover the ledger, flag or commitment permission & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-no-oracle} \\
-From a clean start, a run ending with the flag up adds at least three to the ledger & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-min-price} \\
+From a clean start, a run ending with the flag up adds at least three to the ledger & proved on the small machine, under the stated premises, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-min-price} \\
 That minimum of three is reached by a run whose check could have failed, and when that check fails the program is refused forever & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tight} \\
 The step refuses trivial checks & not claimed; ``is at least 0'' passes every value and certifies for three too & Section~\ref{sec:smallest} \\
 From a clean start, provenance, checker soundness, no forging and the floor of three hold for any property language with an exact equality test and a checker proved to mean what it says, a sorted list read out of a counter included & proved on the generic machine (\code{generic\_earned\_certification\_provenance}, \code{generic\_checker\_soundness}, \code{generic\_no\_forging}, \code{generic\_certified\_run\_min\_cost}; the sorted list as \code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refused\_forever}, EarnedGeneric.v) & Section~\ref{sec:smallest} \\
@@ -16043,17 +16090,17 @@ With the flag up from a clean start, the channel names a fact an earlier passing
 The guarantees hold against whoever sets the start, a reset, or a second writer that doesn't bump versions & not claimed; they are about programs from a clean start, one step at a time & Section~\ref{sec:smallest}, Section~\ref{sec:scope} \\
 Thiele-complete means a universal base that is free and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, an exact toll of one mark per check, commit and certificate, and a claim whose check can fail & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
 Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three on any run from a clean state that ends with the record up, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
-A clock (every move charged, any reading or any latch as the record) obeys the toll with a universal base and is not Thiele-complete; nor is any machine whose every move costs something & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-clock} \\
+A clock (every move charged, any reading or any latch as the record) obeys the toll with a universal base and is not Thiele-complete; nor is any machine whose every move costs something & proved, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the base and toll clauses and fails, and a silent machine meets three clauses and fails & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
 The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are Thiele-complete & proved on the small machine and on the generic machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
-Every Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-window} \\
+Every Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-tc-window} \\
 No fixed host program can keep the guest's facts on an exact copy of a guest counter & proved, for any host property language and any translation into a finite list of host properties & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-nocopy} \\
 One fixed program $U$, in the small machine's own instruction kinds and with no guest step built in, runs every small-machine program from every clean start $\mathrm{start}(x, y)$, step for step, with halting and answers matched & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-sim}, Theorem~\ref{thm:u34-U-halting} \\
 $U$'s flag rises at some step if and only if the guest's does, and its ledger equals the guest's at every matching point & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-flag} \\
 $U$'s raised flag stands on $U$'s own check, commit and certificate on a slot, and on the guest's own earned chain for the same claim & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-earned} \\
 $U$'s host is Thiele-complete, and whether $U$ halts on a loaded guest is undecidable & proved on the host machine; undecidable in the library's sense & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-complete} \\
 The simpler host runs any small-machine program as a guest, and halts with any two-counter program & proved on the small machine, by construction: its guest step runs the guest's own step as a primitive; the guest program is held as a list & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-universal} \\
-From a loaded host, or any state where the two agree, the simpler host's mirror always equals the guest's flag & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-mirror} \\
+From a loaded host, or any state where the two agree, the simpler host's mirror always equals the guest's flag & proved on the small machine, by unfolding & Section~\ref{sec:universal-host}, Observation~\ref{thm:u34-mirror} \\
 From a host that agrees, the simpler host's step collects the guest's toll; on every trace its ledger covers the guest's & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-host-toll} \\
 The simpler host's mirror rises only in a guest step that passed CERTIFY & proved on the small machine, for every sequence of host moves & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-no-free-host} \\
 The simpler host's own instructions never touch the guest & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-no-free-host} \\
@@ -16074,7 +16121,7 @@ The simpler host's ledger equals the guest's & not claimed; a guest step with bu
 One fixed program $U_P$, $U$ with one paid move added, runs every computably presented Thiele machine: halting matched, the state decoded at every matching point, the host's flag up exactly when the guest's reading has been yes, and the host's ledger the guest's plus a surcharge & proved on the priced host & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented} \\
 $U_P$'s raised flag stands on its own check, commit and certificate on a slot whose claim is the guest's own reading of a state where it said yes & proved on the priced host & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented} \\
 The surcharge is at most two when the reading starts at no, and zero when the first raising move costs at least three & proved & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented-surcharge} \\
-No program on the host machine, run from a clean start, exactly matches a guest certified with its whole ledger below three & proved, for every program from a clean start & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented-surcharge} \\
+No program on the host machine, run from a clean start, exactly matches a guest certified with its whole ledger below three & proved, for every program from a clean start, by unfolding & Section~\ref{sec:presented-universal}, Theorem~\ref{thm:u34-presented-surcharge} \\
 The priced host is Thiele-complete, with the paid move read as a check that never passes & proved & Section~\ref{sec:presented-universal} \\
 A demonstration machine (one move of price three, reading ``at least three'') runs on $U_P$, with the host's ledger exactly $3n$ at the host time matching move $n$ & proved; never run & Section~\ref{sec:presented-universal} \\
 A machine whose reading no program decides, or whose next move no program computes, runs on $U_P$ & not claimed; outside the class & Section~\ref{sec:presented-universal} \\
@@ -16473,15 +16520,15 @@ If you asked what's new here, I wouldn't give you one thing, because there isn't
 are four, and each comes with its fence and its neighbours. First, the toll isn't only my
 preference: on a finite machine a reading nothing turns off can only be turned on by a step that
 merges states, so if merges are priced, raising it costs (Theorem~\ref{thm:perm-flip-merges},
-Theorem~\ref{thm:toll-derived}). The counting under it is the finite cousin of the recurrence
+Observation~\ref{thm:toll-derived}). The counting under it is the finite cousin of the recurrence
 argument Zermelo threw at Boltzmann in 1896, and the price on a merge is Landauer's, as a
 premise. Ouldridge and Wolpert (2023) had already put a physical price on that merge for finite
 automata, so what's here is the toll as a rule on a ledger. Second, a window that shows a raising step and a quiet one the same can't price the
-raise exactly (Theorem~\ref{thm:shadow-price}); that a price computed from what a window shows
+raise exactly (Observation~\ref{thm:shadow-price}); that a price computed from what a window shows
 can't tell apart two steps the window shows the same is elementary, and what's here is the
 pricing form. Third, a record driven by the
 computation that never switches off is a latch on one event, over any base
-(Theorem~\ref{thm:u11-latch}); latches and history variables are old, and the theorem covers
+(Observation~\ref{thm:u11-latch}); latches and history variables are old, and the theorem covers
 only records that never come down. Fourth, a record that's priced, and on the small machine
 earned (Theorem~\ref{thm:u34-cert-earned}), under the move of guaranteeing something about
 every program. That move isn't mine at all. It's the reference monitor's (Anderson, 1972),
@@ -16962,7 +17009,7 @@ $N$. Neither A4 nor the toll is used.
 Checked as \code{universal\_nfi\_quantitative} (QuantitativeNoFI.v). A3 and A4 bound opposite
 directions, and neither implies the other: witness 1, cost 0, witness 0 satisfies A3 and
 breaks A4, and witness 0, cost 0, witness 1 does the reverse. The record is a general shape.
-The small machine's own floor of three is proved directly (Theorem~\ref{thm:u34-min-price})
+The small machine's own floor of three is proved directly (Observation~\ref{thm:u34-min-price})
 and never goes through it.
 
 Here are the labels side by side, so none of them is left without a meaning.
@@ -17120,7 +17167,7 @@ the quantum homogeniser and argued that erasure may cost more than Landauer's bo
 Section~\ref{sec:a2-not-arbitrary} tells all of it. Mine: the price as a named rule on a
 ledger, a premise that merges cost at least a mark, which turns ``the flip merges'' into ``the
 flip costs'' on any machine whether or not anybody's physics is right, and the toll derived from
-it (Theorem~\ref{thm:toll-derived}); what comes with that form, namely the characterisation of
+it (Observation~\ref{thm:toll-derived}); what comes with that form, namely the characterisation of
 the moves every merge-pricing schedule must charge, when move names can be decided equal or different (the merging moves, so the core again in
 pricing words), the merge-or-revoke dichotomy for a single move, the squeeze and entropy forms
 for a permanent flip, and a built counterexample for each premise; and the mechanization of all
@@ -17465,11 +17512,11 @@ statements with their premises and that comparison made.
 Definition \ref{def:equiv-partition}: Equivalence relation, partition & \S\ref{sec:structure} & stated in the text &  \\
 Theorem \ref{thm:equiv-partition}: Sameness and sorting are one object & \S\ref{sec:structure} & \code{nec\_t\_rel\_of\_partition\_equiv} {\footnotesize(\code{NecTPartition.v})}\newline \code{nec\_t\_blocks\_of\_equiv\_partition} {\footnotesize(\code{NecTPartition.v})}\newline \code{nec\_t\_rel\_round\_trip} {\footnotesize(\code{NecTPartition.v})}\newline \code{nec\_t\_blocks\_round\_trip} {\footnotesize(\code{NecTPartition.v})} & none\newline none\newline none\newline none \\
 Definition \ref{def:certsys}: Certification system & \S\ref{sec:toll} & \code{CertificationSystem} {\footnotesize(\code{UniversalCertificationCost.v}, +1)} & def \\
-Theorem \ref{thm:universal-floor}: The universal floor & \S\ref{sec:toll} & \code{universal\_nfi\_any\_substrate} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_state} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_instr} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_step} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_cost} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_cert} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_cert\_costs} {\footnotesize(\code{UniversalCertificationCost.v})} & none\newline def\newline def\newline def\newline def\newline def\newline def \\
+Observation \ref{thm:universal-floor}: The universal floor & \S\ref{sec:toll} & \code{universal\_nfi\_any\_substrate} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{every\_toll\_system\_pays\_the\_floor} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_state} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_instr} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_step} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_cost} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_cert} {\footnotesize(\code{UniversalCertificationCost.v})}\newline \code{cs\_cert\_costs} {\footnotesize(\code{UniversalCertificationCost.v})} & none\newline none\newline def\newline def\newline def\newline def\newline def\newline def \\
 Definition \ref{def:fin-perm-inj}: Finite, permanent, injective & \S\ref{sec:a2-not-arbitrary} & \code{permanent} {\footnotesize(\code{PermanentCertification.v})}\newline \code{step\_injective} {\footnotesize(\code{PermanentCertification.v})} & def\newline def \\
 Theorem \ref{thm:perm-flip-merges}: A permanent flip merges & \S\ref{sec:a2-not-arbitrary} & \code{permanent\_flip\_is\_not\_injective} {\footnotesize(\code{PermanentCertification.v})} & none \\
 Premise \ref{prem:merge-pricing}: Merge pricing & \S\ref{sec:a2-not-arbitrary} & \code{merging\_steps\_priced} {\footnotesize(\code{PermanentCertification.v})} & def \\
-Theorem \ref{thm:toll-derived}: The toll from finiteness, permanence, and merge pricing & \S\ref{sec:a2-not-arbitrary} & \code{a2\_from\_merging\_price\_and\_permanence} {\footnotesize(\code{PermanentCertification.v})}\newline \code{permanent\_certification\_trace\_floor} {\footnotesize(\code{PermanentCertification.v})}\newline \code{certification\_system\_from\_merging\_price} {\footnotesize(\code{PermanentCertification.v})} & none\newline none\newline def \\
+Observation \ref{thm:toll-derived}: The toll from finiteness, permanence, and merge pricing & \S\ref{sec:a2-not-arbitrary} & \code{a2\_from\_merging\_price\_and\_permanence} {\footnotesize(\code{PermanentCertification.v})}\newline \code{permanent\_certification\_trace\_floor} {\footnotesize(\code{PermanentCertification.v})}\newline \code{certification\_system\_from\_merging\_price} {\footnotesize(\code{PermanentCertification.v})} & none\newline none\newline def \\
 Theorem \ref{thm:merge-or-revoke}: Merge or revoke & \S\ref{sec:a2-not-arbitrary} & \code{flip\_merges\_or\_revokes} {\footnotesize(\code{PermanentRecordPricing.v})}\newline \code{permanent\_at\_flip\_is\_not\_injective} {\footnotesize(\code{PermanentRecordPricing.v})} & none\newline none \\
 Definition \ref{def:forced-priced}: Forced to be priced & \S\ref{sec:a2-not-arbitrary} & \code{forced\_priced} {\footnotesize(\code{PermanentRecordPricing.v})} & def \\
 Theorem \ref{thm:forced-iff-merge}: Forced price is merging & \S\ref{sec:a2-not-arbitrary} & \code{forced\_priced\_iff\_merges} {\footnotesize(\code{PermanentRecordPricing.v})} & none \\
@@ -17507,7 +17554,7 @@ Definition \ref{def:potential}: Potential, amortized cost & \S\ref{sec:counter} 
 Theorem \ref{thm:potential}: The toll is the potential method & \S\ref{sec:counter} & \code{a2\_iff\_nonnegative\_amortized\_cost} {\footnotesize(\code{CostSemanticsComparison.v})}\newline \code{potential\_telescoping} {\footnotesize(\code{CostSemanticsComparison.v})}\newline \code{nfi\_by\_potential} {\footnotesize(\code{CostSemanticsComparison.v})}\newline \code{certification\_system\_is\_potential\_method} {\footnotesize(\code{CostSemanticsComparison.v})}\newline \code{flips\_le\_cost} {\footnotesize(\code{CostFrameworks.v})}\newline \code{a2\_and\_aara\_iff\_exact} {\footnotesize(\code{CostFrameworks.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 In the text: on loop-free programs over a counter that conserves, a fixed grade equals the counter's rise on every run that doesn't trap, the small machine included; a loop has no fixed exact grade and an input-dependent one & \S\ref{sec:counter} & \code{nec\_f\_grade\_exact} {\footnotesize(\code{NecFGrade.v})}\newline \code{nec\_f\_grade\_exact\_small} {\footnotesize(\code{NecFGrade.v})}\newline \code{nec\_f\_loop\_cost} {\footnotesize(\code{NecFGrade.v})}\newline \code{nec\_f\_loop\_no\_fixed\_grade} {\footnotesize(\code{NecFGrade.v})}\newline \code{nec\_f\_loop\_input\_grade} {\footnotesize(\code{NecFGrade.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:fibre}: Decoders need constant fibres & \S\ref{sec:windows} & \code{decoding\_requires\_fiber\_constancy} {\footnotesize(\code{ObservationPolicy.v})}\newline \code{selected\_representatives\_give\_decoder} {\footnotesize(\code{ObservationPolicy.v})} & none\newline none \\
-Theorem \ref{thm:shadow-price}: No exact window price across a collision & \S\ref{sec:windows} & \code{shadow\_floor\_overcharges} {\footnotesize(\code{ShadowPricing.v})}\newline \code{shadow\_cannot\_price\_exactly} {\footnotesize(\code{ShadowPricing.v})}\newline \code{window\_showing\_reading\_prices\_exactly} {\footnotesize(\code{ShadowPricing.v})}\newline \code{window\_showing\_reading\_has\_no\_collision} {\footnotesize(\code{ShadowPricing.v})} & none\newline none\newline none\newline none \\
+Observation \ref{thm:shadow-price}: No exact window price across a collision & \S\ref{sec:windows} & \code{shadow\_floor\_overcharges} {\footnotesize(\code{ShadowPricing.v})}\newline \code{shadow\_cannot\_price\_exactly} {\footnotesize(\code{ShadowPricing.v})}\newline \code{window\_showing\_reading\_prices\_exactly} {\footnotesize(\code{ShadowPricing.v})}\newline \code{window\_showing\_reading\_has\_no\_collision} {\footnotesize(\code{ShadowPricing.v})} & none\newline none\newline none\newline none \\
 Definition \ref{def:u21-escape-relations}: Three richer transcripts and their explanations & \S\ref{sec:windows} & stated in the text & \\
 Theorem \ref{thm:u21-escapes}: Three conditional escapes & \S\ref{sec:windows} & \code{ver\_full\_state\_escape} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_commitment\_escape} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_honest\_meets\_contract} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_unchecked\_breaks\_contract} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_response\_escape} {\footnotesize(\code{VerifierSmall.v})} & none\newline none\newline none\newline none\newline none \\
 In the text: the same collision survives into any richer transcript that keeps it & \S\ref{sec:windows} & \code{ver\_collision\_blocks} {\footnotesize(\code{VerifierSmall.v})}\newline \code{ver\_no\_factor} {\footnotesize(\code{VerifierSmall.v})} & none\newline none \\
@@ -17530,7 +17577,7 @@ Remark \ref{rem:u09-three}: What the toll prices, and what it doesn't & \S\ref{s
 Remark \ref{rem:u09-no-wait}: Nothing makes the crossing wait & \S\ref{sec:insight} & \code{nec\_f\_board\_no\_wait} {\footnotesize(\code{NecFPaperToys.v})} & none \\
 Definition \ref{def:u11-base}: Base, record-carrying machine, cover & \S\ref{sec:latch} & stated in the text &  \\
 Definition \ref{def:u11-honest}: Honest extension, latch & \S\ref{sec:latch} & stated in the text &  \\
-Theorem \ref{thm:u11-latch}: The record is a latch & \S\ref{sec:latch} & \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{BaseMachine} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{BaseCover} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{computation\_driven} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{HonestBaseExtension} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{latch\_factorization} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{ledger\_carried} {\footnotesize(\code{StructuralCore.v})}\newline \code{rc\_a2} {\footnotesize(\code{StructuralCore.v})}\newline \code{record\_permanent} {\footnotesize(\code{StructuralCoreCover.v})}\newline \code{reachable\_record\_write} {\footnotesize(\code{StructuralCoreCover.v})} & none\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def \\
+Observation \ref{thm:u11-latch}: The record is a latch & \S\ref{sec:latch} & \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{BaseMachine} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{BaseCover} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{computation\_driven} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{HonestBaseExtension} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{latch\_factorization} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{ledger\_carried} {\footnotesize(\code{StructuralCore.v})}\newline \code{rc\_a2} {\footnotesize(\code{StructuralCore.v})}\newline \code{record\_permanent} {\footnotesize(\code{StructuralCoreCover.v})}\newline \code{reachable\_record\_write} {\footnotesize(\code{StructuralCoreCover.v})} & none\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def \\
 Theorem \ref{thm:u11-converse}: Every reachable latch is an honest record & \S\ref{sec:latch} & \code{latch\_core\_honest} {\footnotesize(\code{RecordAxisDiscrimination.v})} & none \\
 Theorem \ref{thm:u11-reversible}: Records on reversible machines & \S\ref{sec:latch} & \code{history\_latch\_injective} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{history\_latch\_honest} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{finite\_reversible\_cannot\_write} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{permanent\_flip\_is\_not\_injective} {\footnotesize(\code{PermanentCertification.v})} & none\newline none\newline none\newline none \\
 Lemma \ref{lem:u11-pair}: Two records are two latches & \S\ref{sec:latch} & \code{record\_pair\_is\_two\_latches\_holds} {\footnotesize(\code{StructuralRecordAxis.v})} & none \\
@@ -17606,14 +17653,14 @@ Theorem \ref{thm:u34-no-forging}: No forging & \S\ref{sec:smallest} & \code{fact
 Theorem \ref{thm:u34-bounded}: Bounded table, no eviction & \S\ref{sec:smallest} & \code{facts\_keep} {\footnotesize(\code{EarnedCore.v})}\newline \code{full\_table\_traps} {\footnotesize(\code{EarnedCore.v})}\newline \code{facts\_bounded\_step} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline none \\
 Theorem \ref{thm:u34-separation}: Same window, different record & \S\ref{sec:smallest} & \code{receipt\_separation} {\footnotesize(\code{EarnedCore.v}, +1)} & none \\
 Theorem \ref{thm:u34-no-oracle}: No window oracle & \S\ref{sec:smallest} & \code{no\_mu\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_cert\_oracle} {\footnotesize(\code{EarnedCore.v}, +2)}\newline \code{no\_commit\_oracle} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline none \\
-Theorem \ref{thm:u34-min-price}: The minimum price of a certificate & \S\ref{sec:smallest} & \code{certified\_run\_min\_cost} {\footnotesize(\code{EarnedCore.v})}\newline \code{program\_certified\_min\_cost} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
+Observation \ref{thm:u34-min-price}: The minimum price of a certificate & \S\ref{sec:smallest} & \code{certified\_run\_min\_cost} {\footnotesize(\code{EarnedCore.v})}\newline \code{program\_certified\_min\_cost} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
 Theorem \ref{thm:u34-tight}: Three is tight & \S\ref{sec:smallest} & \code{earned\_run\_check\_can\_fail} {\footnotesize(\code{EarnedCore.v})}\newline \code{earned\_run\_refused\_forever} {\footnotesize(\code{EarnedCore.v})}\newline \code{earned\_run} {\footnotesize(\code{EarnedCore.v})}\newline \code{min\_cost\_tight} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline def\newline none \\
 Definition \ref{def:u34-thiele-complete}: Thiele-complete & \S\ref{sec:smallest} & \code{thiele\_interface} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_with} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})} & def\newline def\newline def\newline def \\
 Theorem \ref{thm:u34-tc-consequences}: What every Thiele-complete machine has & \S\ref{sec:smallest} & \code{thiele\_complete\_is\_weak} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_halting\_correspondence} {\footnotesize(\code{ThieleComplete.v})}\newline \code{certificate\_costs\_three} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_runs\_every\_program} {\footnotesize(\code{ThieleComplete.v})}\newline \code{ledger\_counts\_record\_moves} {\footnotesize(\code{ThieleComplete.v})}\newline \code{check\_can\_fail} {\footnotesize(\code{ThieleComplete.v})}\newline \code{some\_run\_certifies} {\footnotesize(\code{ThieleComplete.v})}\newline \code{only\_certify\_raises} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_costs\_at\_most\_one} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
-Theorem \ref{thm:u34-clock}: A clock is a Thiele machine and isn't Thiele-complete & \S\ref{sec:smallest} & \code{clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none \\
+Observation \ref{thm:u34-clock}: A clock is a Thiele machine and isn't Thiele-complete & \S\ref{sec:smallest} & \code{clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-clauses}: Each clause does work & \S\ref{sec:smallest} & \code{paid\_latch\_meets\_base\_and\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_meets\_base\_record\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{one\_move\_record\_excluded} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{never\_certifies\_excluded} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-instances}: The small machine, the generic one and the sorted one are Thiele-complete & \S\ref{sec:smallest} & \code{earned\_core\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{earned\_generic\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{sorted\_machine\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_floor} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{earned\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{generic\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})} & none\newline none\newline none\newline none\newline none\newline none \\
-Theorem \ref{thm:u34-tc-window}: Every Thiele-complete machine hides its record and its ledger from its window & \S\ref{sec:smallest} & \code{complete\_every\_window\_printed} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_record\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_ledger\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_cs\_window\_blind} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{complete\_hides\_record} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_hides\_ledger} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{thiele\_complete\_hides} {\footnotesize(\code{ThieleCompleteWindow.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Observation \ref{thm:u34-tc-window}: Every Thiele-complete machine hides its record and its ledger from its window & \S\ref{sec:smallest} & \code{complete\_every\_window\_printed} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_record\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_ledger\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_cs\_window\_blind} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{complete\_hides\_record} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_hides\_ledger} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{thiele\_complete\_hides} {\footnotesize(\code{ThieleCompleteWindow.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u34-multi}: The host machine & \S\ref{sec:smallest} & \code{pair} {\footnotesize(\code{UniversalCodes.v})}\newline \code{pcode} {\footnotesize(\code{UniversalCodes.v})}\newline \code{heval} {\footnotesize(\code{UniversalCodes.v}, +1)}\newline \code{hholds} {\footnotesize(\code{UniversalCodes.v})} & def\newline def\newline def\newline def \\
 Theorem \ref{thm:u34-nocopy}: No host fact on an exact copy of the guest's counter & \S\ref{sec:smallest} & \code{pigeonhole\_collision} {\footnotesize(\code{UniversalNoCopy.v})}\newline \code{no\_exact\_copy\_host} {\footnotesize(\code{UniversalNoCopy.v})}\newline \code{multi\_cs\_no\_exact\_copy} {\footnotesize(\code{UniversalInterpreterLinks.v})} & none\newline none\newline none \\
 Definition \ref{def:u34-U}: The program $U$, and loading a guest & \S\ref{sec:smallest} & \code{U} {\footnotesize(\code{UniversalLayout.v}, +4)}\newline \code{hload} {\footnotesize(\code{UniversalSim.v}, +1)}\newline \code{prog\_code} {\footnotesize(\code{UniversalCodes.v})}\newline \code{U\_paid\_sites} {\footnotesize(\code{UniversalLayout.v})} & def\newline def\newline def\newline none \\
@@ -17624,7 +17671,7 @@ Theorem \ref{thm:u34-U-earned}: The host earns its own flag & \S\ref{sec:smalles
 Theorem \ref{thm:u34-U-complete}: The host is Thiele-complete, and $U$'s halting is undecidable & \S\ref{sec:smallest} & \code{universal\_thiele\_complete} {\footnotesize(\code{UniversalRun.v})}\newline \code{U\_run\_on\_host\_machine} {\footnotesize(\code{UniversalRun.v})}\newline \code{interp\_halting\_undecidable} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_U\_certified\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{multi\_cs\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_U\_complete\_floor} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_complete\_agrees} {\footnotesize(\code{UniversalInterpreterLinks.v})}\newline \code{interp\_halting\_iff} {\footnotesize(\code{UniversalInterpreterLinks.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u34-host}: The host & \S\ref{sec:smallest} & \code{hexec} {\footnotesize(\code{UniversalThiele.v})}\newline \code{U} {\footnotesize(\code{UniversalThiele.v}, +4)} & def\newline def \\
 Theorem \ref{thm:u34-universal}: The host runs any guest & \S\ref{sec:smallest} & \code{universal\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{universal\_program\_simulation} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_thiele\_complete} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none \\
-Theorem \ref{thm:u34-mirror}: The copy is the record & \S\ref{sec:smallest} & \code{record\_agreement\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{record\_agreement} {\footnotesize(\code{UniversalThiele.v})}\newline \code{simulated\_record} {\footnotesize(\code{UniversalThiele.v})}\newline \code{record\_agreement\_program} {\footnotesize(\code{UniversalThiele.v})}\newline \code{hload\_agrees} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none\newline none\newline none \\
+Observation \ref{thm:u34-mirror}: The copy is the record & \S\ref{sec:smallest} & \code{record\_agreement\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{record\_agreement} {\footnotesize(\code{UniversalThiele.v})}\newline \code{simulated\_record} {\footnotesize(\code{UniversalThiele.v})}\newline \code{record\_agreement\_program} {\footnotesize(\code{UniversalThiele.v})}\newline \code{hload\_agrees} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-host-toll}: The host's step collects the guest's toll & \S\ref{sec:smallest} & \code{toll\_enforced\_by\_host\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{every\_guest\_crossing\_is\_a\_host\_crossing} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_pays\_for\_guest} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_cost\_covers\_guest} {\footnotesize(\code{UniversalThiele.v})}\newline \code{simulated\_cost} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-no-free-host}: No free host certification & \S\ref{sec:smallest} & \code{no\_free\_host\_certification\_step} {\footnotesize(\code{UniversalThiele.v})}\newline \code{no\_free\_host\_certification} {\footnotesize(\code{UniversalThiele.v})}\newline \code{no\_free\_host\_certification\_program} {\footnotesize(\code{UniversalThiele.v})}\newline \code{guestless\_runs\_leave\_mirror} {\footnotesize(\code{UniversalThiele.v})}\newline \code{own\_record\_only\_by\_certify} {\footnotesize(\code{UniversalThiele.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-host-instance}: The host is a Thiele machine & \S\ref{sec:smallest} & \code{host\_toll} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_own\_toll} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_mirror\_toll} {\footnotesize(\code{UniversalThiele.v})}\newline \code{host\_nfi} {\footnotesize(\code{UniversalThieleLinks.v})}\newline \code{host\_cs} {\footnotesize(\code{UniversalThieleLinks.v})}\newline \code{host\_mirror\_cs} {\footnotesize(\code{UniversalThieleLinks.v})}\newline \code{guest\_cs} {\footnotesize(\code{UniversalThieleLinks.v})} & none\newline none\newline none\newline none\newline def\newline def\newline def \\
@@ -17782,10 +17829,11 @@ Theorem universal_nfi_any_substrate :
 In plain words: a certification system is a record of a state type, a move type, a step, a
 cost and a yes-or-no reading, plus one more field, \code{cs\_cert\_costs}, which is the toll: a
 move that takes the reading from false to true costs at least one. Since the toll is a field,
-every system the theorem talks about has it. The theorem: start at a state reading false, run
+every system the theorem talks about has it, which is why the same file also states it as
+\code{every\_toll\_system\_pays\_the\_floor}. The theorem: start at a state reading false, run
 any list of moves (\code{cs\_run} applies them in order, \code{cs\_total\_cost} adds their
 costs), end at a state reading true, and the costs add up to at least one.
-Theorem~\ref{thm:universal-floor} says exactly this; the rule that Definition~\ref{def:certsys}
+Observation~\ref{thm:universal-floor} says exactly this; the rule that Definition~\ref{def:certsys}
 calls the toll is the record's last field here.
 
 \subsection{A permanent flip merges}
@@ -17848,7 +17896,7 @@ Theorem a2_from_merging_price_and_permanence :
 
 In plain words: \code{merging\_steps\_priced} says every move that isn't injective costs at
 least one, and \code{a2\_holds} is the toll. The theorem: finite, permanent and merges priced
-give the toll. Theorem~\ref{thm:toll-derived} says this and one thing more, that the machine
+give the toll. Observation~\ref{thm:toll-derived} says this and one thing more, that the machine
 with that cost is then a certification system the universal floor applies to. That second half
 isn't in this statement. It's the definition right after it in the file
 (\code{certification\_system\_from\_merging\_price}), which fills the record's toll field with
@@ -17897,7 +17945,7 @@ is any function of what the window shows before and after a step. \code{meets\_f
 every flip costs at least one, \code{never\_overcharges} says every step that isn't a flip costs
 nothing, and a \code{shadow\_collision} is two steps that look the same through the window,
 before and after, one a flip and one not. The theorem: given a collision, no shadow price does
-both. Theorem~\ref{thm:shadow-price} bundles this with three neighbours from the same file:
+both. Observation~\ref{thm:shadow-price} bundles this with three neighbours from the same file:
 that a price meeting the floor charges some non-flip at least one (\code{shadow\_floor\_overcharges}),
 that a window showing the reading prices exactly
 (\code{window\_showing\_reading\_prices\_exactly}), and that such a window has no collision
@@ -17948,7 +17996,7 @@ state and the reading's current value. Honest means driven, a ledger that never 
 toll, a permanent reading, and some reachable step that writes it. \code{latch\_next} is the
 latch of an event \code{h}: the base steps, and the record becomes ``already on, or \code{h}
 holds now.'' The theorem: every honest extension evolves exactly as the latch of some event.
-Theorem~\ref{thm:u11-latch} says a little more than this statement: it names the event,
+Observation~\ref{thm:u11-latch} says a little more than this statement: it names the event,
 $h(b) = f(b, \mathrm{off})$, where the statement only says one exists. The proof builds exactly
 that event (its first move is \texttt{exists (fun b => f b false)}), so it shows the theorem's
 stronger form too. And the proof uses two of the five honesty
@@ -18038,7 +18086,7 @@ Theorem certified_run_min_cost : forall s0 tr,
 \end{verbatim}}
 
 In plain words: from a clean start, a list of instructions that ends with the flag up cost at
-least three in total, and the ledger rose by at least three. Theorem~\ref{thm:u34-min-price}
+least three in total, and the ledger rose by at least three. Observation~\ref{thm:u34-min-price}
 says exactly this in its first sentence; its form for stored programs is
 \code{program\_certified\_min\_cost}.
 
@@ -18143,7 +18191,7 @@ holds at one loaded state and fails at another. \code{thiele\_complete} asks for
 meeting all four. \texttt{clock} is the two-counter machine with every move costing 1 and any
 reading of its configuration as the record. Definition~\ref{def:u34-thiele-complete} says
 this and adds the weaker
-notion, weakly Thiele-complete (\code{weakly\_thiele\_complete}, not printed here). Theorem~\ref{thm:u34-clock} says the last line and more: the clock is weakly
+notion, weakly Thiele-complete (\code{weakly\_thiele\_complete}, not printed here). Observation~\ref{thm:u34-clock} says the last line and more: the clock is weakly
 Thiele-complete (\code{clock\_weakly\_thiele\_complete}), a flag that switches on at the first yes
 behaves the same way (\code{latch\_clock\_weakly\_thiele\_complete} and
 \code{latch\_clock\_not\_thiele\_complete}), and no machine whose every move costs at least 1 is
@@ -18285,7 +18333,7 @@ Theorem record_agreement : forall tr h, agrees h -> agrees (hrun tr h).
 In plain words: the host keeps a mirror bit \code{mrec} beside the guest's state \code{gst},
 and \texttt{agrees h} says the mirror equals the guest's own flag. The theorem: a host state that
 agrees still agrees after any list of host moves, whatever they are.
-Theorem~\ref{thm:u34-mirror} says this for lists of moves and adds single moves, stored programs, loading,
+Observation~\ref{thm:u34-mirror} says this for lists of moves and adds single moves, stored programs, loading,
 and the mirror after $n$ moves GSTEP 1,
 which are \code{record\_agreement\_step}, \code{record\_agreement\_program}, \code{hload\_agrees} and \code{simulated\_record}.
 
@@ -20928,6 +20976,15 @@ this book's pointer thesis.
 \noindent Stephen A. Cook and Robert A. Reckhow (1973). Time bounded random access machines. Journal of Computer and System Sciences 7(4), pp. 354--375. \href{https://www.sciencedirect.com/science/article/pii/S0022000073800297}{DOI: 10.1016/S0022-0000(73)80029-7}.
 \par\medskip
 
+\noindent Andrew Chi-Chih Yao (1981). Should tables be sorted? Journal of the ACM 28(3), pp. 615--628. \href{https://doi.org/10.1145/322261.322274}{DOI: 10.1145/322261.322274}. The cell-probe model; an earlier version appeared at FOCS 1978.
+\par\medskip
+
+\noindent Alok Aggarwal and Jeffrey Scott Vitter (1988). The input/output complexity of sorting and related problems. Communications of the ACM 31(9), pp. 1116--1127. \href{https://doi.org/10.1145/48529.48535}{DOI: 10.1145/48529.48535}. The I/O model.
+\par\medskip
+
+\noindent Leslie G. Valiant (1990). A bridging model for parallel computation. Communications of the ACM 33(8), pp. 103--111. \href{https://doi.org/10.1145/79173.79181}{DOI: 10.1145/79173.79181}. The bulk-synchronous parallel (BSP) model.
+\par\medskip
+
 \noindent Yiannis N. Moschovakis (2009). Kleene's Amazing Second Recursion Theorem. Computer Science Logic, LNCS 5771, pp. 24--39. ``This little gem is stated unbilled and proved (completely) in the last two lines of \S2 of the short note Kleene (1938).'' Longer version: Bulletin of Symbolic Logic 16(2) (2010), pp. 189--239. \href{https://www.math.ucla.edu/~ynm/lectures/2009csl.pdf}{Author lecture text}.
 \par\medskip
 
@@ -21222,7 +21279,7 @@ this book's pointer thesis.
 \noindent Gerd Behrmann, Ansgar Fehnker, Thomas Hune, Kim Larsen, Paul Pettersson, Judi Romijn and Frits Vaandrager (2001). Minimum-cost reachability for priced timed automata. Hybrid Systems: Computation and Control (HSCC 2001), Lecture Notes in Computer Science 2034, pp. 147--161.
 \par\medskip
 
-\noindent Manuel Blum (1967). A machine-independent theory of the complexity of recursive functions. Journal of the ACM 14(2), pp. 322--336.
+\noindent Manuel Blum (1967). A machine-independent theory of the complexity of recursive functions. Journal of the ACM 14(2), pp. 322--336. \href{https://doi.org/10.1145/321386.321395}{DOI: 10.1145/321386.321395}. The two axioms for a complexity measure; cited beside the definition of a model of computation in the opening chapter.
 \par\medskip
 
 \noindent Jean-Éric Pin (1992). On reversible automata. In LATIN '92, 1st Latin American Symposium on Theoretical Informatics, Lecture Notes in Computer Science 583, Springer, pp. 401--416. \href{https://doi.org/10.1007/BFb0023844}{DOI: 10.1007/BFb0023844}.

@@ -18,6 +18,7 @@ An explicitly qualified citation keeps its own module identity.
 ## Certification cost
 
 - `universal_nfi_any_substrate`: In any `CertificationSystem`, whose record includes the rule that a step switching certification on costs at least one, a trace from an uncertified state to a certified one has total cost at least one.
+- `every_toll_system_pays_the_floor`: The same statement as `universal_nfi_any_substrate`, under a name that says it quantifies over every system with the toll built in as a field, and over no other.
 - `universal_nfi_quantitative`: For every `QuantitativeCertificationSystem` QCS, trace, and start state whose witness value `qcs_witness` is zero, if the state reached by running the trace in the underlying certification system is certified, then the trace's total cost is at least `qcs_threshold QCS`.
 - `honest_cost_tracking_strict_restriction`: Some cost-bearing system certifies at total cost zero, while every `CertificationSystem` needs cost at least one; the cost rule is what separates them.
 - `free_forgery_violates_A2`: In any cost-bearing system, if some step switches certification from false to true at cost zero, the system fails the rule that every such step costs at least one.
