@@ -1658,8 +1658,10 @@ together (how many times it halves the number of states it can tell apart), and,
 bound
 holds in bits of Shannon entropy, the standard measure of information. Proved, with
 the price as a premise. Second, where the machine I built stands, and that's a fact Part IV settles. The small machine of Part IV isn't a finite
-machine of that kind: its counters have no top, so it isn't finite, and some of its free steps merge states too. On it the toll is a design
-choice the chairs don't force. What the chairs do reach is a finite piece: an eight-state machine,
+machine of that kind: its counters have no top, so it isn't finite, and some of its free steps merge states too. So the chairs don't
+reach it. The merge premise asked of the record layer alone does: a move that sends two different states with the same line and
+counters to one state costs at least one. The small machine's own prices meet that premise, and every price list that meets it
+charges the flag-raising step, with no finiteness premise (Theorem~\ref{thm:record-merge-toll}). What the chairs do reach is a finite piece: an eight-state machine,
 four slots and a flag, on which every premise is a theorem and the toll follows outright
 (Section~\ref{sec:a2-not-arbitrary}). And the small machine runs that piece: seen through a window that shows only the
 line number, read modulo four, and the flag, a program of the small machine, after a two-mark setup, does what the
@@ -1886,7 +1888,9 @@ between, then a certificate, with the checker proved to mean what it says. An ex
 mark for each of those three acts and nothing for anything else. And a claim whose check, commit and certificate
 raise the record
 on some loaded starts and leave it down on others. Every clock-style machine fails the definition, because it charges for computing, whatever its
-record, and every machine that meets the definition hides its record and its ledger from its own window, both by theorem. The small machine
+record, and every machine that meets the definition hides its record and its ledger from its own window, both by theorem.
+None of the four clauses is there for decoration: for each one there's a machine that meets the other three and fails it, a
+Thiele machine with a universal base that no reading makes Thiele-complete (Theorem~\ref{thm:tc-independent}). The small machine
 meets it, and so does the same machine over any properties with an exact test for telling two of
 them apart and a proved checker, as long as one of them can come out both ways, sorted lists
 included. A
@@ -3020,7 +3024,10 @@ the person who does. I honestly can't tell you which.
 So that's where I am at the end of one word. Holding a sorting in readable form is worth
 something and cost something, forgetting where things came from costs heat, and standing
 behind a sorting is a different act from either, and nobody I found has priced it. (Rovelli's
-price is on a choice nobody could predict, and that's a different act again.) You can
+price is on a choice nobody could predict, and that's a different act again. And one price
+sits closer than any of these, which Section~\ref{sec:toll} puts beside the toll: Landauer's
+reset of a bit to one whatever it held, which is what raising a flag that stays up does on a
+machine that might already have it up. It prices the step and says nothing about vouching.) You can
 walk back through all of that and tell me where it breaks. Maybe there's no such bill. Maybe
 I'm about to spend a book chasing a charge that nobody owes, which would be an extremely me
 thing to do. The next two sections are me trying to find out whether that charge is real on any machine at all, mine or anybody's, and if the answer comes back no, you should stop
@@ -3176,6 +3183,17 @@ physics, the unavoidable erasure charge belongs to \emph{forgetting} the unknown
 a record carries no such charge of its own. Read
 that twice. It's not what I expected either.
 
+Making a record on a blank place is one operation. Landauer's 1961 paper names another, and it's
+the one this book ends up charging. Take one bit whose value you don't know and set it to one,
+whatever it held. Landauer's name for that is ``restore to one,'' and it's the reset he
+described, two possible situations made into one, the kind of step he said has to give off
+heat. Now raise a flag that stays up, on a machine that might be holding the flag down or might
+be holding it up already. Down goes to up, up stays up, and the two become one. That's restore
+to one. So the step the one-bit toll charges is Landauer's restore to one, and Landauer priced
+it, in heat, as a reset. What I can claim is the narrower thing: which premises about a machine (a finite memory, a flag that stays
+up) make the certifying step a reset, so that Landauer applies to it. That's the next section,
+and Section~\ref{sec:landauer} comes back to it with the numbers.
+
 I'll put the rest of the lineage quickly, because it all points the same way. Regulators who
 make brokers keep records on media that can't be rewritten (the SEC required exactly that, write
 once and read many, from 1997 until 2022, when it allowed an audit trail as the other way to comply)
@@ -3245,9 +3263,12 @@ Now the thing none of them says. Not one of these jobs is
 pricing the act of certifying. Bennett prices merging and erasing, which a certifying step
 might or might not be. Proof-of-work prices a search the designer chose. Bookkeeping prices
 a discipline. Witnesses and seals price showing up and guarding the stamp. I looked, with
-everything I had, and that's where it ran out. If the bill exists, nobody in this lineage
-wrote it down, and that's either because it isn't there or because the one person who did
-write it down is on a shelf I never found. So I'm going to have to try it myself, on the
+everything I had, and that's where it ran out. If the bill exists as a bill for certifying,
+nobody in this lineage wrote it down, and that's either because it isn't there or because the
+one person who did write it down is on a shelf I never found. The step itself has a price on
+it already: raising a flag that stays up, from a state that might already have it up, is
+Landauer's restore to one, and he priced that as a reset in 1961. What nobody I found wrote down
+is when a certifying step has to be that reset. So I'm going to have to try it myself, on the
 smallest thing I can build, and let you watch. And I'll have to be honest about which of the
 five jobs the small thing even attempts, because the answer is going to be none.
 
@@ -3313,7 +3334,10 @@ before the move and YES after it, the move's cost is at least one mark. That's a
 nothing about any other move. It says nothing about how big a mark is in anything you could
 measure. One mark is one mark; what a mark is worth, why the smallest charge is one (why not two,
 or a half?), and whether I had any right to decide that, come next, and I'm not sure of
-all of it.
+all of it. The middle question has a short answer I'll give away now. What the next section
+forces, on its premises, is that the crossing costs more than nothing. Costs here are whole numbers of marks, and
+the least whole number above nothing is one. So the positivity is forced, and the ``at least
+one'' comes from counting in whole marks.
 
 And one theorem, which is the only thing the toy actually proves, and you've already proved
 it by playing. Take any run of moves that starts in a NO state and ends in a YES state. Then
@@ -3492,8 +3516,11 @@ was after durability, the seven seals after evidence, the consul's stamp after a
 the two columns after catching slips; none of them was trying to put a price on the moment a
 flag goes up, and I shouldn't pretend they were. The reason is narrower. Everywhere in that
 lineage where somebody \emph{did} locate a cost, it sat on a step next to the flag. The flag itself
-went unpriced: Szilard on the measurement, Bennett on the wiping, proof-of-work on the search, Boyle
-on the instrument and the room, Foster and Stine on the test. The toy is the first thing I could build where the cost sits
+went unpriced as a flag: Szilard on the measurement, Bennett on the wiping, proof-of-work on the search, Boyle
+on the instrument and the room, Foster and Stine on the test. One entry prices the crossing's own
+shape, and I put it beside the toll on purpose: Landauer's restore to one, which is the one-bit
+toll step, priced as a reset whatever the bit is standing for. The flag's job never came into
+it. The toy is the first thing I could build where the cost sits
 on the crossing itself, and it proves that if you price that step, the floor follows
 everywhere, for any machine with the five parts. That's not an answer. It's the question made
 exact enough to be wrong. And of the five jobs a record does, the toy attempts none of them. Not even durability:
@@ -4156,8 +4183,9 @@ machine of Part IV as a whole does not meet the halving price, whatever procedur
 whether two of its states are equal, because one of its free moves, the one that takes one off
 a number the machine holds, lands two different states of the whole machine on the same
 state (\code{ent2\_small\_not\_compression\_priced}; the pair is in
-Theorem~\ref{thm:frag-merge-split}). So on that machine the toll is the rule I chose, as I said it was;
-that the halving premise fails there is a theorem (CompressionSmall2.v).
+Theorem~\ref{thm:frag-merge-split}). That the halving premise fails there is a theorem
+(CompressionSmall2.v). What does hold there is the same premise asked of the record layer alone,
+and it gives the toll on that machine too (Theorem~\ref{thm:record-merge-toll}, below).
 
 \subsection{The same bill, written in bits, and when it's zero}
 
@@ -4367,6 +4395,51 @@ Checked as \code{a2\_from\_entropy\_price\_and\_permanence}, with the packaging
 \code{certification\_system\_from\_entropy\_price} and the run-level floor
 \code{entropy\_priced\_trace\_floor} (PermanentCertificationEntropy.v).
 
+So there are three roads to the toll: merge pricing, the halving price, and entropy pricing. They
+don't compete. They're one premise written three ways, and that's checked too. Ask of a move the
+most bits it can remove from any spread at all, which is Landauer's principle taken in its worst
+case. That most is exactly the base-two logarithm of the move's worst pile-up: no spread loses
+more, and the even spread on the biggest pile loses exactly that much. A cost in whole marks that
+is at least that logarithm is a cost $c$ with no pile bigger than $2^c$, and that's the halving
+price. Merge pricing is the same premise asked about two states at a time.
+
+\begin{theorem}[One premise, three forms]\label{thm:one-premise}
+Take a finite machine whose states can be decided equal or different, and a move $i$.
+(1) If no state has more than $K \ge 1$ states landing on it under $i$, every spread loses at
+most $\log_2 K$ bits through $i$; and if some state has exactly $K$ states landing on it, the even
+spread on those $K$ loses exactly $\log_2 K$ bits. (2) A cost is entropy-priced
+(Definition~\ref{def:u04-entropy-priced}) exactly when it satisfies the halving price
+(Premise~\ref{prem:halving}). (3) A cost satisfies merge pricing
+(Premise~\ref{prem:merge-pricing}) exactly when it satisfies the halving price for every list of
+at most two different states, and exactly when it satisfies entropy pricing for every spread whose
+chance sits on at most two states. The first of those two equivalences uses no finiteness, only
+the test for equal states.
+\end{theorem}
+
+\begin{proof}
+(1) Split the bits removed into one term per state, as Theorem~\ref{thm:u04-point-sum} below does,
+and bound each term with $\ln y \le y - 1$ at $y = q(\mathrm{step}(x,i))/(K\,p(x))$. Adding up, the
+total is at most $\log_2 K$ plus a multiple of $\frac{1}{K}\sum_x q(\mathrm{step}(x,i)) - 1$, and
+that sum counts each state's chance once for every state landing beside it, at most $K$ times, so
+the extra part is at most zero. For the even spread on a pile of $K$, the chance starts on $K$
+states, $\log_2 K$ bits, and ends on one, which is zero bits. (2) If the cost is entropy-priced,
+take the even spread on any pile: by (1) the cost is at least $\log_2$ of its size, and a whole
+number $c$ at least $\log_2 n$ has $n \le 2^c$. That every pile is at most $2^c$ is the halving
+price (the plainer reading above). The other way, (1) with $K = 2^c$ says no spread loses more than
+$c$ bits. (3) Two different states that land together have one image, so the halving price for
+that pair reads $2 \le 2^{\mathrm{cost}(i)}$, which is $\mathrm{cost}(i) \ge 1$; a pair that doesn't
+land together, or a single state, asks nothing. A spread on two states loses at most one bit, and
+none unless they land together; the even spread on two that do loses exactly one.
+\end{proof}
+
+Checked as \code{entropy\_drop\_le\_log\_fibre}, \code{entropy\_drop\_of\_fibre},
+\code{worst\_case\_entropy\_drop}, \code{entropy\_priced\_iff\_compression\_priced},
+\code{merging\_priced\_iff\_pair\_halving}, \code{merging\_priced\_iff\_pair\_entropy} and
+\code{one\_premise\_three\_forms} (PricingOnePremise.v). So the premise under all three roads is
+one premise, Landauer's in its worst case over what the machine might hold, and I wrote it three
+ways because each way makes a different theorem short. Merge pricing asks it only about pairs,
+which is why that road gives the toll and stops there; the squeeze needs the whole premise.
+
 Now the zero. Put a coin under a cup without looking. Rule: set it heads up. You might have
 had tails; now you have heads; one bit of what you didn't know is gone, and that's the bit the
 principle charges for. Now lift the cup, see heads, put the cup back, and apply the rule
@@ -4515,9 +4588,9 @@ charge for forgetting in general, so the merge-pricing premise fails for it. Eit
 a machine outside these theorems as stated, though a finite piece of it can still sit
 inside. The machine I build later (Section~\ref{sec:smallest}) misses in both ways. It keeps
 counters with no ceiling, so it's infinite outright, and some of its ordinary steps, counting a
-counter down among them, can land two different states on one for free. So for it the toll is a
-rule I chose; the chairs force it only on finite machines that price every merge, and it isn't
-one.
+counter down among them, can land two different states on one for free. So the chairs, as
+stated, don't reach it: they force the toll only on finite machines that price every merge, and it
+isn't one. It doesn't need the chairs, though, and that comes after the eight-state piece below.
 
 A finite piece can still sit inside, and here's the smallest one I could build where every
 premise is a theorem. None of them is left as a hypothesis. Four slots times a flag, eight states. Three
@@ -4542,8 +4615,76 @@ number, read modulo four as the slot, and a flag, a short program of that machin
 two-instruction setup has run, does what the
 eight-state machine does, one move at a time, and pays exactly what the eight-state machine charges
 (Section~\ref{sec:part3-on-machine} has the construction and the exact statements). The machine as a
-whole is still not merge-priced: some of its free steps merge states, so the finite piece is a piece,
-and the machine around it keeps the choice the chairs don't force.
+whole is still not merge-priced: some of its free steps merge states, so the finite piece is a piece.
+The toll on the whole machine comes another way.
+
+Finiteness did one job in the chairs. It forced the step that raises a permanent flag to merge two
+states. On the machine of Part IV nothing has to force that, because the merge is in plain view.
+Its CERTIFY takes a state with the flag down and the same state with the flag up to one place,
+since a flag that's already up just stays up. Its COMMIT overwrites the channel, so two states that
+differ only in what the channel names land on one state. Both are checked. So any price list that
+charges every merge of that machine's own step charges the flag-raising step, and finiteness never
+comes into it.
+
+That leaves the other miss, the free merges. Clause (c) of Thiele-complete, in Part IV, asks for
+base moves at zero, and a base move merges (DEC, counting a counter down, lands two states on one),
+so full merge pricing and clause (c) can't both hold on that machine. They don't have to. Split a
+state into its base part, which is what a two-counter machine would show (the line number and the
+two counters), and its record part, which is everything else: the versions, the table of facts,
+the channel, the trap latch, the ledger and the flag. Then price only the merges the record layer
+makes.
+
+\begin{premise}[Record-layer merge pricing]\label{prem:record-merge}
+A move that sends two different states with the same base part to one state costs at least one.
+\end{premise}
+
+The merges among base parts are the ordinary computer's business, the ones any two-counter machine
+makes, and whatever heat they cost is the ordinary computer's heat. Merge pricing implies this
+premise, so it asks less, and on the part of the state that's new it's still Landauer's premise.
+
+\begin{theorem}[The toll on the machine I built]\label{thm:record-merge-toll}
+For the small machine of Section~\ref{sec:smallest}, with no finiteness premise: (1) CERTIFY merges,
+and so does COMMIT of every claim, and each joins two different states with the same line and
+counters. (2) Every cost that satisfies merge pricing for that machine's step charges CERTIFY and
+every COMMIT at least one, and obeys the toll, so the machine with that cost is a certification
+system. (3) No INC, DEC or HALT sends two different states with the same line and counters to one
+state. So the machine's own prices, base moves at zero and each record move at one, satisfy
+Premise~\ref{prem:record-merge}, and merge pricing fails for them. (4) Every cost that satisfies
+Premise~\ref{prem:record-merge} obeys the toll, so the machine with that cost is a certification
+system.
+\end{theorem}
+
+\begin{proof}
+(1) Take a state whose channel holds a commitment, once with the flag down and once with it up.
+CERTIFY raises the first, leaves the second up, moves both on a line and charges both one, so they
+land together. For COMMIT, take a table holding the claim about the current version, once with an
+empty channel and once with the channel already naming that claim; COMMIT writes the same name in
+both. (2) Only CERTIFY raises the flag, and it merges. (3) A base move keeps the table, the channel
+and the trap latch, adds nothing to the ledger and leaves the flag alone, and when it writes a
+counter it moves that counter's version up by one; so two states that agree on line and counters
+and land together agree on everything. A trapped state keeps everything but its ledger, and a live one
+stays live, so a trapped state and a live one never land together. Merge pricing fails because of the free DEC of
+Theorem~\ref{thm:frag-merge-split}, whose two states differ in a counter. (4) Only CERTIFY raises
+the flag, and by (1) its merge is a record-layer merge.
+\end{proof}
+
+Checked as \code{frag\_small\_certify\_merges} and \code{frag\_small\_not\_merge\_priced}
+(FragmentSmall.v), and \code{rm\_commit\_merges}, \code{rm\_merge\_price\_charges\_record\_moves},
+\code{rm\_toll\_from\_any\_merge\_price}, \code{rm\_cert\_system\_from\_merge\_price},
+\code{rm\_merge\_price\_gives\_record\_price}, \code{rm\_certify\_record\_merge},
+\code{rm\_commit\_record\_merge}, \code{rm\_base\_moves\_no\_record\_merge},
+\code{rm\_small\_record\_priced}, \code{rm\_toll\_from\_record\_price},
+\code{rm\_cert\_system\_from\_record\_price} and \code{rm\_record\_price\_and\_exact\_toll}
+(RecordMerge.v).
+
+So this section reaches the machine I built. On that machine the toll is forced by Landauer's
+premise asked of the record layer, and the machine's own price list, clause (c) included, is one
+the premise allows. There's a second way out, which I note and didn't take. Kenichi Morita, a
+computer scientist at Hiroshima University who works on reversible computing, proved in 1996 that a
+reversible two-counter machine, one whose every step can be run backwards, is universal: with its
+input encoded, it computes anything a Turing machine can. Put the record layer on a base like that and every base move is one-to-one,
+full merge pricing charges the base nothing, and clause (c) holds with merge pricing as it stands. I
+haven't built that machine or checked it.
 
 And you haven't earned anything about \emph{what} the flag means. Four chairs don't know what they're certifying. The bill is for raising a flag that
 stays up. Whether raising that flag ever amounts to standing behind a structural fact, the
@@ -11587,6 +11728,48 @@ Checked as \code{paid\_latch\_weakly\_thiele\_complete}, \code{paid\_latch\_meet
 The paid latch is the receipt for nothing from the opening chapter, wearing a universal base:
 honest about the price, silent about what was bought. The definition throws it out.
 
+The silent machine meets three clauses and fails only (d). The paid latch fails (d) as well as
+(b), so it doesn't show (b) doing work alone, and nothing above says whether a clock meets (a),
+(b) and (d). So here's the sharper check, the usual evidence that a definition isn't written
+around one machine: for each clause, a machine that meets the other three and fails it.
+
+\begin{theorem}[The four clauses are independent]\label{thm:tc-independent}
+For each clause of Definition~\ref{def:u34-thiele-complete} there is a machine with an interface
+that meets the other three clauses and fails that one. Each of the four machines obeys the toll and
+has a universal base, so it's weakly Thiele-complete, and none of them is Thiele-complete through
+any interface at all. (a) fails for this chapter's machine with one more move, DROP, free and read
+as a base move, which lowers the flag and trips the trap latch. (b) fails for this chapter's
+machine with one more move, FREE, costing one and read as a CERTIFY, which raises the flag on any
+state whose trap is down, with no commitment behind it. (c) fails for this chapter's machine with
+every move costing one. (d) fails for the silent machine of Theorem~\ref{thm:u34-tc-clauses}(2).
+\end{theorem}
+
+\begin{proof}
+(a) Nothing moves a trapped state's flag, so a run that uses DROP ends with the flag down. A run
+from a clean state that ends with the flag up never used DROP; it's a run of this chapter's
+machine, and Theorem~\ref{thm:u34-cert-earned} gives its chain. DROP is free and read as a base
+move, so (c) holds, and (d) holds as it does for the plain machine. A state with the flag up has
+it down after DROP. That breaks the permanence in (a), and permanence is about the machine alone,
+so no interface meets (a). (b) FREE never lowers the flag, costs one and is read as a record move,
+so (a), (c) and (d) hold as before. From a clean start FREE alone raises the flag, and a run of
+one move has no room for a CHECK, a COMMIT and a CERTIFY. Through any interface: (d) gives a
+loaded state from which the record rises, so its trap is down; (a) makes that state clean, so its
+record is down by (b); and FREE alone raises it, which (b) forbids. (c) Clauses (a), (b) and (d)
+never mention a price, and they hold as for the plain machine. Base moves cost one, so (c) fails,
+and every Thiele-complete machine has a free move (Theorem~\ref{thm:u34-tc-consequences}(6)). (d)
+is Theorem~\ref{thm:u34-tc-clauses}(2).
+\end{proof}
+
+Checked as \code{drop\_meets\_b\_c\_d}, \code{drop\_fails\_a}, \code{drop\_not\_thiele\_complete},
+\code{drop\_weakly\_thiele\_complete}, \code{free\_meets\_a\_c\_d}, \code{free\_fails\_b},
+\code{free\_not\_thiele\_complete}, \code{free\_weakly\_thiele\_complete},
+\code{paid\_meets\_a\_b\_d}, \code{paid\_fails\_c}, \code{paid\_not\_thiele\_complete},
+\code{paid\_weakly\_thiele\_complete} and \code{thiele\_complete\_clauses\_independent}
+(ThieleCompleteIndependent.v), with \code{silent\_meets\_base\_record\_toll} and
+\code{silent\_not\_thiele\_complete} (ThieleComplete.v). Three of the four are this chapter's
+machine with one thing changed, and in each case the one clause it fails is the only thing keeping
+it out.
+
 Now the other direction. A definition nobody meets is as useless as one everybody meets.
 
 \begin{theorem}[The small machine, the generic one and the sorted one are Thiele-complete]\label{thm:u34-tc-instances}
@@ -12587,7 +12770,10 @@ Checked as \code{frag\_small\_certify\_merges}, \code{frag\_small\_certifying\_s
 the same fact as the last item of the list of what this machine doesn't do, which comes near the
 end of
 this chapter, now with names: the chairs argument needs a price on every merge, this machine's schedule puts the floor on
-the flag only, and that's why the eight-state piece is a piece.
+the flag only, and that's why the eight-state piece is a piece. The record layer closes the rest:
+asked only of merges between states with the same line and counters, the merge premise holds for
+this machine's own prices and forces the toll on it with no finiteness premise
+(Theorem~\ref{thm:record-merge-toll}).
 
 \textbf{Structural entitlement, for every Thiele-complete machine.} Theorem~\ref{thm:ent-cs} was
 about any certification system and handed the run's payments in as a bill. For a Thiele-complete
@@ -13336,13 +13522,19 @@ value, so CHECK, COMMIT, CERTIFY on it raises the flag for three from any start 
 Theorem~\ref{thm:u34-tight}). A check that can't fail establishes nothing, and the machine raises
 the flag for it anyway. The step checks order, aboutness and an honest checker, and it leaves
 ``was that worth asking'' to whoever reads the record.
-\item \textbf{The toll is a choice here; nothing forces it.} Section~\ref{sec:a2-not-arbitrary}'s argument
-forces a toll on a finite machine that pays for every merge. This machine is neither. Its
+\item \textbf{The chairs don't reach it, and the toll is forced another way.}
+Section~\ref{sec:a2-not-arbitrary}'s chairs argument forces a toll on a finite machine that pays
+for every merge. This machine is neither. Its
 counters have no ceiling, so it's infinite. And its free instructions merge states: take a core
 at line $\ell$ with $c$ at 1 and version $w$, and a core at line $j - 1$ with $c$ at 0 and
 version $w + 1$, everything else alike, and DEC $c$ $j$ sends both to line $j$ with $c$ at 0
-and version $w + 1$, for nothing. So for this machine the price of one is a design choice the
-chairs don't force.
+and version $w + 1$, for nothing. So full merge pricing fails here, and clause (c) needs those
+free moves. What holds is merge pricing asked of the record layer alone: a move that sends two
+different states with the same line and counters to one state costs at least one. This machine's
+own prices meet it, CERTIFY's merge is a merge of that kind, and so every price list that meets it
+charges the flag-raising step at least one, with no finiteness premise
+(Theorem~\ref{thm:record-merge-toll}). That premise is Landauer's, named and assumed. And the
+exact price of one, where the premise asks for at least one, is still a design choice.
 \end{itemize}
 
 \subsection{What this chapter adds up to}
@@ -14980,7 +15172,8 @@ marks to joules, and anyone who tells you otherwise is reading a file name.
 Here's a fair question: is there a prediction the permanent-certificate theorems make that
 Landauer's principle alone doesn't? No, and the reason is short. The smallest case, one certified state and one
 flipping in, is ``set a bit to one whatever it held,'' which is the reset Landauer described
-and Bérut measured; Landauer's own name for it is ``restore to one.'' The general bound, kT ln((m plus k) over m) for squeezing m plus k
+and Bérut measured; Landauer's own name for it is ``restore to one,'' and
+Section~\ref{sec:toll} put it beside the toll at the start. The general bound, kT ln((m plus k) over m) for squeezing m plus k
 equally likely states into m, is what Landauer's principle gives for that squeeze, at kT ln 2 for
 each bit removed. What the permanence
 theorems add is the \emph{derivation}: which premises about a machine (finite, permanent) make
@@ -15732,8 +15925,10 @@ Landauer's principle & assumed (premise) & Section~\ref{sec:a2-not-arbitrary}, P
 Heat floor of a permanent flip & proved (premises: Landauer, $k_B T \ge 0$, the even spread) & Section~\ref{sec:a2-not-arbitrary}, Corollary~\ref{cor:heat-floor} \\
 Positive heat for any full spread & proved (premises: Landauer, $k_B T > 0$) & Section~\ref{sec:a2-not-arbitrary}, Corollary~\ref{cor:u04-full-support-heat} \\
 Entropy pricing gives the toll & definition; proved (premise: entropy pricing) & Section~\ref{sec:a2-not-arbitrary}, Definition~\ref{def:u04-entropy-priced}, Theorem~\ref{thm:u04-entropy-toll} \\
+Merge pricing, the halving price and entropy pricing are one premise: the most bits a move removes from any spread is $\log_2$ of its worst pile-up, entropy pricing is the halving price, and merge pricing is both asked of two states & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:one-premise} \\
 On a known state the premise sets no positive heat floor & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:known-state} \\
 The bits removed, one term per state & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:u04-point-sum} \\
+On the small machine CERTIFY and COMMIT merge, every merge-priced cost obeys the toll, and record-layer merge pricing holds for its own prices and gives the toll, with no finiteness premise & definition; proved (premise: record-layer merge pricing, for the toll) & Section~\ref{sec:a2-not-arbitrary}, Premise~\ref{prem:record-merge}, Theorem~\ref{thm:record-merge-toll} \\
 Landauer's principle is true of the world & not claimed; a named premise, with its critics named & Section~\ref{sec:a2-not-arbitrary} \\
 Any machine worth building is of this kind & not claimed & Section~\ref{sec:a2-not-arbitrary} \\
 Permanence is the job to pick & choice & Section~\ref{sec:a2-not-arbitrary} \\
@@ -15920,6 +16115,7 @@ Thiele-complete means a universal base that is free and can't touch the record, 
 Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three on any run from a clean state that ends with the record up, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
 A clock (every move charged, any reading or any latch as the record) obeys the toll with a universal base and is not Thiele-complete; nor is any machine whose every move costs something & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the base and toll clauses and fails, and a silent machine meets three clauses and fails & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
+The four clauses of Thiele-complete are independent: for each, a weakly Thiele-complete machine meets the other three, fails it, and is Thiele-complete through no interface & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:tc-independent} \\
 The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are Thiele-complete & proved on the small machine and on the generic machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
 Every Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-window} \\
 No fixed host program can keep the guest's facts on an exact copy of a guest counter & proved, for any host property language and any translation into a finite list of host properties & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-nocopy} \\
@@ -16332,8 +16528,8 @@ no axioms: each file prints the assumptions of every headline theorem, and every
 comes back closed. Then a check worth earning, the two-player game with an integer test whose
 pass forces Tsirelson's bound for the tally it's handed, and what the counter has to do with physics, which is less than
 the word Landauer in a file name suggests. The places where the machine came up short of the
-idea stayed on the page: its free steps merge states, so the toll on it is a choice the chairs
-don't force, and a check that can't fail certifies for three like any other. Part V was how to
+idea stayed on the page: its free steps merge states, so the chairs don't force the toll on it,
+and only the merge premise asked of the record layer does; and a check that can't fail certifies for three like any other. Part V was how to
 check it and how to break it. Every result carries the shape of the thing that would
 kill it, gathered in one place (Section~\ref{sec:falsification}): a state of the small machine
 and an instruction after which the ledger goes down; a contractive correlator whose pinned matrix isn't positive semidefinite; a
@@ -17362,8 +17558,11 @@ Corollary \ref{cor:heat-floor}: Heat floor of a permanent flip & \S\ref{sec:a2-n
 Corollary \ref{cor:u04-full-support-heat}: Positive heat for any full spread & \S\ref{sec:a2-not-arbitrary} & \code{permanent\_flip\_full\_support\_entropy\_drop\_positive} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{permanent\_flip\_full\_support\_heat\_positive} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Definition \ref{def:u04-entropy-priced}: Entropy-priced & \S\ref{sec:a2-not-arbitrary} & stated in the text &  \\
 Theorem \ref{thm:u04-entropy-toll}: The toll from entropy pricing & \S\ref{sec:a2-not-arbitrary} & \code{a2\_from\_entropy\_price\_and\_permanence} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_priced\_trace\_floor} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{certification\_system\_from\_entropy\_price} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline def \\
+Theorem \ref{thm:one-premise}: One premise, three forms & \S\ref{sec:a2-not-arbitrary} & \code{entropy\_drop\_le\_log\_fibre} {\footnotesize(\code{PricingOnePremise.v})}\newline \code{entropy\_drop\_of\_fibre} {\footnotesize(\code{PricingOnePremise.v})}\newline \code{worst\_case\_entropy\_drop} {\footnotesize(\code{PricingOnePremise.v})}\newline \code{entropy\_priced\_iff\_compression\_priced} {\footnotesize(\code{PricingOnePremise.v})}\newline \code{merging\_priced\_iff\_pair\_halving} {\footnotesize(\code{PricingOnePremise.v})}\newline \code{merging\_priced\_iff\_pair\_entropy} {\footnotesize(\code{PricingOnePremise.v})}\newline \code{one\_premise\_three\_forms} {\footnotesize(\code{PricingOnePremise.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline none\newline FE, RD, EM\newline FE, RD, EM \\
 Theorem \ref{thm:known-state}: A known state gets no heat floor from the premise & \S\ref{sec:a2-not-arbitrary} & \code{known\_state\_step\_removes\_no\_entropy} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{known\_state\_flip\_forces\_no\_heat} {\footnotesize(if and only if)} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Theorem \ref{thm:u04-point-sum}: The bits removed, one term per state & \S\ref{sec:a2-not-arbitrary} & \code{entropy\_drop\_as\_point\_sum} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_nonneg} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_drop\_pos\_of\_support\_merge} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
+Premise \ref{prem:record-merge}: Record-layer merge pricing & \S\ref{sec:a2-not-arbitrary} & \code{record\_merges\_priced} {\footnotesize(\code{RecordMerge.v})} & def \\
+Theorem \ref{thm:record-merge-toll}: The toll on the machine I built & \S\ref{sec:a2-not-arbitrary} & \code{frag\_small\_certify\_merges} {\footnotesize(\code{FragmentSmall.v})}\newline \code{frag\_small\_not\_merge\_priced} {\footnotesize(\code{FragmentSmall.v})}\newline \code{rm\_commit\_merges} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_merge\_price\_charges\_record\_moves} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_toll\_from\_any\_merge\_price} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_cert\_system\_from\_merge\_price} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_merge\_price\_gives\_record\_price} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_certify\_record\_merge} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_commit\_record\_merge} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_base\_moves\_no\_record\_merge} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_small\_record\_priced} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_toll\_from\_record\_price} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_cert\_system\_from\_record\_price} {\footnotesize(\code{RecordMerge.v})}\newline \code{rm\_record\_price\_and\_exact\_toll} {\footnotesize(\code{RecordMerge.v})} & none\newline none\newline none\newline none\newline none\newline def\newline none\newline none\newline none\newline none\newline none\newline none\newline def\newline none \\
 In the text: a repeated move, a closed machine or a repeating word, raising the flag for good from a start whose flag is down, merges two states the run visits; moves picked from outside need not; the strip machine has no finite list of its states & \S\ref{sec:a2-not-arbitrary} & \code{nec\_f\_orbit\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_repeat\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_closed\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_word\_merges\_visited} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_outside\_moves\_no\_merge} {\footnotesize(\code{NecFRepeat.v})}\newline \code{nec\_f\_history\_infinite} {\footnotesize(\code{NecFPaperToys.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 In the text: on a finite chain with detailed balance, one step's entropy production is the drop in relative entropy and is nonnegative; from a known start the total is at most $-\ln\pi(s)$; the flows balance & \S\ref{sec:a2-not-arbitrary} & \code{re\_sigma\_is\_drop} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_sigma\_nonneg} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_relative\_entropy\_monotone} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_total} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_bound} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_known\_start\_vs\_set} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_flux\_balance} {\footnotesize(\code{RelaxationEntropy.v})}\newline \code{re\_stretch\_ratio} {\footnotesize(\code{RelaxationEntropy.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD\newline FE, RD \\
 In the text: under Doeblin's condition the chain converges to its steady spread and the entropy from a known start converges to $-\ln\pi(s)$; in continuous time the relative entropy falls at the production rate & \S\ref{sec:a2-not-arbitrary} & \code{rc\_contract} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rc\_converges} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rc\_known\_start\_gap} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rc\_known\_start\_limit} {\footnotesize(\code{RelaxationConvergence.v})}\newline \code{rcd\_sigma\_nonneg} {\footnotesize(\code{RelaxationContinuous.v})}\newline \code{rcd\_D\_derivative} {\footnotesize(\code{RelaxationContinuous.v})}\newline \code{rcd\_D\_monotone} {\footnotesize(\code{RelaxationContinuous.v})}\newline \code{rcd\_produced\_window} {\footnotesize(\code{RelaxationContinuous.v})} & FE, RD\newline FE, RD\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
@@ -17483,6 +17682,7 @@ Definition \ref{def:u34-thiele-complete}: Thiele-complete & \S\ref{sec:smallest}
 Theorem \ref{thm:u34-tc-consequences}: What every Thiele-complete machine has & \S\ref{sec:smallest} & \code{thiele\_complete\_is\_weak} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_halting\_correspondence} {\footnotesize(\code{ThieleComplete.v})}\newline \code{certificate\_costs\_three} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_runs\_every\_program} {\footnotesize(\code{ThieleComplete.v})}\newline \code{ledger\_counts\_record\_moves} {\footnotesize(\code{ThieleComplete.v})}\newline \code{check\_can\_fail} {\footnotesize(\code{ThieleComplete.v})}\newline \code{some\_run\_certifies} {\footnotesize(\code{ThieleComplete.v})}\newline \code{only\_certify\_raises} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_costs\_at\_most\_one} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-clock}: A clock is a Thiele machine and isn't Thiele-complete & \S\ref{sec:smallest} & \code{clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-clauses}: Each clause does work & \S\ref{sec:smallest} & \code{paid\_latch\_meets\_base\_and\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_meets\_base\_record\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{one\_move\_record\_excluded} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{never\_certifies\_excluded} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:tc-independent}: The four clauses are independent & \S\ref{sec:smallest} & \code{drop\_meets\_b\_c\_d} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{drop\_fails\_a} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{drop\_not\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{drop\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{free\_meets\_a\_c\_d} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{free\_fails\_b} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{free\_not\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{free\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{paid\_meets\_a\_b\_d} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{paid\_fails\_c} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{paid\_not\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{paid\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{thiele\_complete\_clauses\_independent} {\footnotesize(\code{ThieleCompleteIndependent.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-instances}: The small machine, the generic one and the sorted one are Thiele-complete & \S\ref{sec:smallest} & \code{earned\_core\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{earned\_generic\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{sorted\_machine\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_floor} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{earned\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{generic\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-window}: Every Thiele-complete machine hides its record and its ledger from its window & \S\ref{sec:smallest} & \code{complete\_every\_window\_printed} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_record\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_ledger\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_cs\_window\_blind} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{complete\_hides\_record} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_hides\_ledger} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{thiele\_complete\_hides} {\footnotesize(\code{ThieleCompleteWindow.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u34-multi}: The host machine & \S\ref{sec:smallest} & \code{pair} {\footnotesize(\code{UniversalCodes.v})}\newline \code{pcode} {\footnotesize(\code{UniversalCodes.v})}\newline \code{heval} {\footnotesize(\code{UniversalCodes.v}, +1)}\newline \code{hholds} {\footnotesize(\code{UniversalCodes.v})} & def\newline def\newline def\newline def \\
@@ -20794,6 +20994,9 @@ this book's pointer conjecture.
 \par\medskip
 
 \noindent Marvin L. Minsky (1967). Computation: Finite and Infinite Machines. Prentice-Hall. Two-counter machines are universal, so their halting problem is undecidable.
+\par\medskip
+
+\noindent Kenichi Morita (1996). Universality of a reversible two-counter machine. Theoretical Computer Science 168(2), pp. 303--320. \href{https://ftp.math.utah.edu/pub/tex/bib/idx/tcs1995/168/2/303-320.html}{Bibliographic record}.
 \par\medskip
 
 \noindent Stephen A. Cook and Robert A. Reckhow (1973). Time bounded random access machines. Journal of Computer and System Sciences 7(4), pp. 354--375. \href{https://www.sciencedirect.com/science/article/pii/S0022000073800297}{DOI: 10.1016/S0022-0000(73)80029-7}.

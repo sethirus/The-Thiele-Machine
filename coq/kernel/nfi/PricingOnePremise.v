@@ -11,8 +11,9 @@
        largest number of states it sends to one state. Every spread loses at
        most log2 K when no pile-up is bigger than K
        [entropy_drop_le_log_fibre], and the even spread on a pile-up of n
-       states loses at least log2 n [entropy_drop_of_fibre]; so the maximum
-       is attained [worst_case_entropy_drop].
+       states loses at least log2 n [entropy_drop_of_fibre]; so the even
+       spread on a largest pile-up loses exactly log2 of its size, the
+       maximum [worst_case_entropy_drop].
     2. With costs in whole numbers, entropy pricing (cost at least the bits
        removed from every spread) holds exactly when the halving price holds
        [entropy_priced_iff_compression_priced]: a cost at least log2 K is a
@@ -259,13 +260,14 @@ Theorem worst_case_entropy_drop :
     (forall y, (length (fibre i y) <= K)%nat) ->
     length (fibre i y0) = K ->
     (forall p, distribution all p -> drop i p <= log2 (INR K)) /\
-    (exists p, distribution all p /\ drop i p = log2 (INR K)).
+    distribution all (uniform_on eq_dec (fibre i y0)) /\
+    drop i (uniform_on eq_dec (fibre i y0)) = log2 (INR K).
 Proof.
   intros i K y0 HK Hfib Hy0. split.
   - intros p Hp. apply entropy_drop_le_log_fibre; assumption.
   - assert (Hn : (0 < length (fibre i y0))%nat) by lia.
     destruct (entropy_drop_of_fibre i y0 Hn) as [Hd Hge].
-    exists (uniform_on eq_dec (fibre i y0)). split; [exact Hd |].
+    split; [exact Hd |].
     rewrite Hy0 in Hge.
     pose proof (entropy_drop_le_log_fibre i _ K Hd HK Hfib). lra.
 Qed.

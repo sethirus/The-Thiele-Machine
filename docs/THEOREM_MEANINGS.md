@@ -85,6 +85,13 @@ An explicitly qualified citation keeps its own module identity.
 - `permanent_step_entropy_drop`: Under the same premises, the step lowers entropy by at least `H(p) - log2(m)`.
 - `permanent_flip_uniform_entropy_drop`: From the uniform distribution on the `m + k` states in play, the step removes at least `log2((m + k)/m)` bits.
 - `a2_from_entropy_price_and_permanence`: On a finite state space with permanent certification, a whole-unit cost that covers the bits each instruction removes meets A2.
+- `entropy_drop_le_log_fibre`: On a finite state space with decidable equality, if no state has more than K >= 1 states that a move sends to it, then for every probability distribution the move lowers Shannon entropy by at most log2 K bits.
+- `entropy_drop_of_fibre`: On a finite state space with decidable equality, the uniform distribution on the nonempty set of states a move sends to one state y is a distribution, and the move lowers its entropy by at least log2 of that set's size.
+- `worst_case_entropy_drop`: On a finite state space with decidable equality, if no state has more than K >= 1 states that a move sends to it and some state y0 has exactly K, then every distribution loses at most log2 K bits through the move, and the uniform distribution on the states sent to y0 is a distribution that loses exactly log2 K bits.
+- `entropy_priced_iff_compression_priced`: On a finite state space with decidable equality, a whole-number cost covers the entropy each move removes from every distribution exactly when it satisfies the halving price (`compression_priced`).
+- `merging_priced_iff_pair_halving`: For any states with decidable equality, every non-injective move costs at least 1 exactly when every list of at most two distinct states has length at most 2^cost times the number of distinct states the move sends it to.
+- `merging_priced_iff_pair_entropy`: On a finite state space with decidable equality, every non-injective move costs at least 1 exactly when the cost of each move is at least the entropy it removes from every distribution supported on at most two states.
+- `one_premise_three_forms`: On a finite state space with decidable equality: entropy pricing holds exactly when the halving price holds; the halving price holds exactly when no state has more than 2^cost states sent to it by a move; and merge pricing holds exactly when the halving price holds for lists of at most two distinct states, and exactly when entropy pricing holds for distributions on at most two states.
 - `entropy_priced_trace_floor`: Under the same premises, a trace from uncertified to certified costs at least one.
 - `permanent_flip_heat_floor`: On a finite state space with a permanent reading, under the named premise `landauer_heat` and with `0 <= kT`, a flip of k > 0 states beside m certified ones, from the uniform distribution on those m + k states, dissipates at least `kT ln((m + k)/m)`.
 - `permanent_flip_heat_positive`: Under the same premise, with `k` at least one and positive temperature, that heat is positive.
@@ -445,6 +452,19 @@ An explicitly qualified citation keeps its own module identity.
 - `silent_weakly_thiele_complete`: A free two-counter base whose record never rises obeys the toll and has a universal base.
 - `silent_meets_base_record_toll`: That silent machine, with one interface, meets the universal base clause, the earned record clause and the exact toll clause.
 - `silent_not_thiele_complete`: That silent machine is not Thiele-complete.
+- `drop_meets_b_c_d`: The small machine with one extra free move DROP, read as a base move, that lowers the flag and sets the trap latch, meets the earned-record, exact-toll and non-vacuity clauses of Thiele-complete through its interface.
+- `drop_fails_a`: That DROP machine's interface fails the universal-base clause, because a state with the flag up has it down after DROP.
+- `drop_not_thiele_complete`: The DROP machine is Thiele-complete through no interface.
+- `drop_weakly_thiele_complete`: The DROP machine obeys the toll and has a universal base.
+- `free_meets_a_c_d`: The small machine with one extra move FREE, costing 1 and read as CERTIFY, that raises the flag on any state whose trap latch is down, meets the universal-base, exact-toll and non-vacuity clauses through its interface.
+- `free_fails_b`: That FREE machine's interface fails the earned-record clause: from a clean start the one-move run FREE raises the record and holds no earned chain.
+- `free_not_thiele_complete`: The FREE machine is Thiele-complete through no interface.
+- `free_weakly_thiele_complete`: The FREE machine obeys the toll and has a universal base.
+- `paid_meets_a_b_d`: The small machine with every move costing 1, read through the small machine's interface, meets the universal-base, earned-record and non-vacuity clauses.
+- `paid_fails_c`: That machine fails the exact-toll clause, since INC A costs 1 and is a base move.
+- `paid_not_thiele_complete`: The small machine with every move costing 1 is Thiele-complete through no interface.
+- `paid_weakly_thiele_complete`: The small machine with every move costing 1 obeys the toll and has a universal base.
+- `thiele_complete_clauses_independent`: For each of the four Thiele-complete clauses there is a machine with an interface that fails that clause and meets the other three, and the machine is weakly Thiele-complete and not Thiele-complete.
 - `earned_core_thiele_complete`: The small machine of EarnedCore.v, read with INC and DEC as base moves, CHECK and COMMIT of a property on a counter as record moves on that claim, CERTIFY as CERTIFY, clean starts as clean states and mu as the ledger, is Thiele-complete.
 - `earned_generic_thiele_complete`: The small machine over any property language with an exact claim equality and a checker equivalent to its meaning, in which some property is true of one number and false of another, is Thiele-complete.
 - `sorted_machine_thiele_complete`: The small machine whose property says a counter, decoded as a list, is sorted is Thiele-complete.
@@ -570,6 +590,16 @@ An explicitly qualified citation keeps its own module identity.
 - `frag_small_certifying_step_priced_merge`: Any small-machine step that raises the flag from down is CERTIFY, merges states, and costs at least 1.
 - `frag_small_dec_free_merge`: The small machine's DEC A 2 merges two states and costs 0.
 - `frag_small_not_merge_priced`: On the small machine it is false that every merging move is priced.
+- `rm_commit_merges`: For every claim, the small machine's COMMIT of it is not injective on states.
+- `rm_merge_price_charges_record_moves`: Every cost on the small machine's moves that charges every non-injective move at least 1 charges CERTIFY and every COMMIT at least 1.
+- `rm_toll_from_any_merge_price`: Every such merge-priced cost obeys the toll on the small machine: a step that raises the flag costs at least 1.
+- `rm_merge_price_gives_record_price`: For any machine and any base projection, merge pricing implies record-layer merge pricing (a move sending two different states with the same base part to one state costs at least 1).
+- `rm_certify_record_merge`: CERTIFY sends two different small-machine states with the same line and counters to one state.
+- `rm_commit_record_merge`: For every claim, COMMIT sends two different small-machine states with the same line and counters to one state.
+- `rm_base_moves_no_record_merge`: No INC, DEC or HALT sends two different small-machine states with the same line and counters to one state.
+- `rm_small_record_priced`: The small machine's own costs satisfy record-layer merge pricing with the line and counters as the base part.
+- `rm_toll_from_record_price`: Every cost on the small machine's moves that satisfies record-layer merge pricing obeys the toll.
+- `rm_record_price_and_exact_toll`: The small machine's cost is 0 on INC, DEC and HALT and 1 on the rest, it satisfies record-layer merge pricing, every cost satisfying that premise obeys the toll, and the small machine's cost does not satisfy merge pricing.
 - `ver_collision_blocks`: If two states A and B, one satisfying a claim and one not, stand behind the same transcript, no verifier is both sound and complete for the claim.
 - `ver_no_factor`: If two states of opposite claim have explanations whose projections agree, no sound and complete verifier reads its answer through that projection.
 - `ver_complete_no_record_verifier`: For every machine with an interface making it Thiele-complete, no verifier on bare transcripts (a clean start and an end window) is sound and complete for the claim that the record is up.
