@@ -354,9 +354,23 @@ steps on the other.
   Landauer bound. Counterexample: the same reset with gap `k_B T ln 2` releases
   half that heat; two different gaps give the same dynamics, which do not
   depend on the gap, and different heat.
-  Coq: `smaller_gap_refutes_unconditional_landauer_floor`,
-  `master_equation_does_not_fix_heat_scale`. Ruling the smaller gap out needs
-  a thermal premise such as local detailed balance, or device evidence.
+  Coq: `canonical_reset_heat_below_landauer_at_small_gap`,
+  `master_equation_does_not_fix_heat_scale`. The canonical reset is a
+  bookkeeping toy with no second law: its rates (up 0, down 1) are in detailed
+  balance at no gap (`canonical_rates_break_detailed_balance`), and with rates
+  that are, a fixed-gap relaxation settles at `1 / (1 + exp (Delta / kT))`,
+  which is `1/5` at the gap `2 k_B T ln 2`, and never below it
+  (`detailed_balance_never_empties`, `landauer_gap_settles_at_one_fifth`).
+- **Proved.** A driven reset with rates in detailed balance pays `k_B T ln 2`
+  in work: raising the gap in steps and letting the register settle at each,
+  the work is never below the free-energy change and exceeds it by at most the
+  step size times the fall in population; for `N` equal raises from gap 0 to
+  `D` it lies between `kT ln 2 - kT exp (- D / kT)` and `kT ln 2 + D / (2 N)`,
+  with at most `exp (- D / kT)` left excited. Work minus heat is the change in
+  mean energy. Coq: `detailed_balance_settles_at_gibbs`,
+  `detailed_balance_thermalizing_step`, `driven_first_law`,
+  `driven_work_second_law`, `driven_work_near_free_energy`,
+  `driven_reset_work_window`.
 - **Proved.** The protocol's ledger change is one unit, the price of one
   certification step on the small machine. No state map between the protocol
   and the machine is claimed. Coq: `canonical_reset_is_one_mu`.
@@ -485,12 +499,21 @@ the real-number axioms `ClassicalDedekindReals.sig_forall_dec` and
 `FunctionalExtensionality.functional_extensionality_dep`.
 
 - `calibrated_mu_landauer_energy`
+- `canonical_rates_break_detailed_balance`
+- `canonical_reset_heat_below_landauer_at_small_gap`
 - `canonical_reset_heat_exact`
 - `canonical_reset_satisfies_master_equation`
+- `detailed_balance_never_empties`
+- `detailed_balance_settles_at_gibbs`
+- `detailed_balance_thermalizing_step`
+- `driven_first_law`
+- `driven_reset_work_window`
+- `driven_work_near_free_energy`
+- `driven_work_second_law`
+- `landauer_gap_settles_at_one_fifth`
 - `master_equation_does_not_fix_heat_scale`
 - `mu_has_no_intrinsic_joule_value`
 - `permanence_heat_floor_uses_landauer`
 - `permanent_flip_heat_floor`
 - `selected_gap_gives_landauer_heat`
 - `semantics_entropy_permutation_invariant`
-- `smaller_gap_refutes_unconditional_landauer_floor`

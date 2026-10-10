@@ -93,9 +93,17 @@ Definition PSD9 (M : Matrix9) : Prop :=
       7: A_2 B_1
       8: A_2 B_2
 
-    Algebraic identities used to fill in the matrix by convention:
+    Algebraic identities used to fill in the matrix:
       A_i^2 = B_j^2 = I,  ⟨A_i⟩ = ⟨B_j⟩ = 0,
-      ⟨A_1 A_2⟩ = ⟨B_1 B_2⟩ = 0,  [A_i, B_j] = 0.
+      ⟨A_1 A_2⟩ = ⟨B_1 B_2⟩ = 0,  [A_i, B_j] = 0,
+    and the tie between the two four-body cells, (A_1B_2, A_2B_1) = - (A_1B_1,
+    A_2B_2), which in a real matrix is the constraint
+      ⟨{A_1, A_2} ⊗ {B_1, B_2}⟩ = 0.
+    The pinnings and the tie are constraints, not conventions: they hold on
+    the slice where A_1, A_2 anticommute (as in Tsirelson's realizations of
+    every quantum correlator table) and fail for some strategies, a classical
+    one among them ([q1ab_tie_is_a_constraint]). So this is the level 1+AB
+    matrix on the slice ⟨{A_1, A_2} ⊗ {B_1, B_2}⟩ = 0.
 
     Free real parameters: E_{ij} (four correlator slots) and γ_1..γ_5
     (five higher-order moment slots). Any operator interpretation requires a
@@ -4934,21 +4942,83 @@ Qed.
     signs
       (A_1B_1, A_2B_2) = g5
       (A_1B_2, A_2B_1) = -g5.
-    This is a convention of the explicit real polynomial matrix. It is not
-    derived here from an operator anticommutator, adjoint, or word-reversal
-    semantics. Had both cells carried the same value, the formal matrix and
-    its PSD region would change. The regression examples below guard this
-    formal sign choice; they do not establish a physical interpretation of
-    either matrix. *)
+    The tie is a constraint. In a real moment matrix the two cells are
+    ⟨A_1A_2 B_1B_2⟩ and ⟨A_1A_2 B_2B_1⟩ (real parts), and the tie says
+    ⟨{A_1, A_2} ⊗ {B_1, B_2}⟩ = 0. The level-1 pinnings do not imply it: the
+    classical strategy with a_1, a_2 independent fair signs, b_1 = a_1 and
+    b_2 = a_2 has every pinned cell 0 and both four-body cells 1, and no
+    choice of the nine parameters gives its moment matrix
+    ([q1ab_tie_is_a_constraint]). So the matrix is level 1+AB on the slice
+    ⟨{A_1, A_2} ⊗ {B_1, B_2}⟩ = 0. The soundness theorems are about this
+    matrix and are unaffected. The regression examples below guard the sign
+    choice; they do not establish a physical interpretation of either
+    matrix. *)
 
-(** The two cells use opposite signs by the explicit real-matrix convention,
-    not by a proved operator-adjoint or word-reversal theorem. Reverting to
-    +g5 changes the formal matrix and breaks the checked regression below. *)
+(** The two cells use opposite signs: the slice constraint above. Reverting
+    to +g5 changes the formal matrix and breaks the checked regression
+    below. *)
 Example q1ab_four_body_cells_are_conjugate :
   forall e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber,
     q1ab_moment_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5 j6 j7
     = - q1ab_moment_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5 j5 j8.
 Proof. intros; cbn; ring. Qed.
+
+(** The tie is a constraint, shown by a classical strategy. Alice's two
+    answers a_1, a_2 are independent fair signs, and Bob copies them:
+    b_1 = a_1, b_2 = a_2. The value of each basis slot at the outcome
+    (a_1, a_2), in the order I, A_1, A_2, B_1, B_2, A_1B_1, A_1B_2, A_2B_1,
+    A_2B_2: *)
+Definition q1ab_copy_slot (k : nat) (a1 a2 : RealNumber) : RealNumber :=
+  match k with
+  | 0%nat => 1
+  | 1%nat => a1
+  | 2%nat => a2
+  | 3%nat => a1
+  | 4%nat => a2
+  | 5%nat => a1 * a1
+  | 6%nat => a1 * a2
+  | 7%nat => a2 * a1
+  | 8%nat => a2 * a2
+  | _ => 0
+  end.
+
+(** Its moment matrix: the average of slot i times slot j over the four
+    equally likely outcomes. *)
+Definition q1ab_copy_moments (i j : nat) : RealNumber :=
+  / 4 * (q1ab_copy_slot i 1 1 * q1ab_copy_slot j 1 1
+         + q1ab_copy_slot i 1 (-1) * q1ab_copy_slot j 1 (-1)
+         + q1ab_copy_slot i (-1) 1 * q1ab_copy_slot j (-1) 1
+         + q1ab_copy_slot i (-1) (-1) * q1ab_copy_slot j (-1) (-1)).
+
+(** Its moment matrix agrees with the layout at E = (1, 0, 0, 1),
+    g1 = .. = g4 = 0, g5 = 1 in every cell but (A_1B_2, A_2B_1), so every
+    cell the layout pins to 0 is 0 for it; both four-body cells are 1; and
+    no choice of the correlators and of g1..g5 makes the layout equal its
+    moment matrix. *)
+Theorem q1ab_tie_is_a_constraint :
+  (forall i j : Fin9,
+     ~ (proj1_sig (Fin.to_nat i) = 6%nat /\ proj1_sig (Fin.to_nat j) = 7%nat) ->
+     ~ (proj1_sig (Fin.to_nat i) = 7%nat /\ proj1_sig (Fin.to_nat j) = 6%nat) ->
+     nat_matrix_to_fin9 q1ab_copy_moments i j = q1ab_moment_matrix 1 0 0 1 0 0 0 0 1 i j) /\
+  q1ab_copy_moments 5 8 = 1 /\ q1ab_copy_moments 6 7 = 1 /\
+  (forall e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber,
+     nat_matrix_to_fin9 q1ab_copy_moments
+       <> q1ab_moment_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5).
+Proof.
+  split; [| split; [| split]].
+  - intros i j. unfold nat_matrix_to_fin9, q1ab_moment_matrix.
+    destruct (Fin.to_nat i) as [ni Hi]; destruct (Fin.to_nat j) as [nj Hj]; simpl.
+    destruct ni as [|[|[|[|[|[|[|[|[|]]]]]]]]]; try lia;
+    destruct nj as [|[|[|[|[|[|[|[|[|]]]]]]]]]; try lia;
+    intros H1 H2; unfold q1ab_copy_moments; cbn;
+    first [ lra | exfalso; apply H1; split; reflexivity | exfalso; apply H2; split; reflexivity ].
+  - unfold q1ab_copy_moments. cbn. lra.
+  - unfold q1ab_copy_moments. cbn. lra.
+  - intros e00 e01 e10 e11 g1 g2 g3 g4 g5 E.
+    assert (E58 := f_equal (fun M => M j5 j8) E).
+    assert (E67 := f_equal (fun M => M j6 j7) E).
+    unfold nat_matrix_to_fin9 in E58, E67. cbn in E58, E67. try unfold q1ab_copy_moments in E58, E67. cbn in E58, E67. lra.
+Qed.
 
 (** Semantic guard: a concrete correlator with CHSH = 12/5 = 2.4 > 2 is
     PSD-realizable in the 9x9 NPA Q_{1+AB} matrix. Unprovable on the pre-fix
@@ -4976,3 +5046,5 @@ Example q1ab_g5_kernel_check_accepts_superclassical :
        wc_same_11 := 1; wc_diff_11 := 4 |}
     1 3 = true.
 Proof. vm_compute. reflexivity. Qed.
+
+Print Assumptions q1ab_tie_is_a_constraint.

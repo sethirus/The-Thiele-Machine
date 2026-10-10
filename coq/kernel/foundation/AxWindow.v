@@ -23,8 +23,13 @@
                                         the number of shadowed non-moving
                                         steps, and it is attained.
       ax_exact_without_position         a window can price exactly without
-                                        showing where the record is: pricing
-                                        needs the movement, not the position.
+                                        showing where the record is: on a
+                                        counter with rising and quiet steps,
+                                        parity flips exactly on the rises,
+                                        no constant price is exact, and the
+                                        parity window prices every step
+                                        exactly. Pricing needs the movement,
+                                        not the position.
       ax_threshold_window_blind         a window that shows one threshold only
                                         prices that threshold exactly and no
                                         other.
@@ -255,27 +260,55 @@ Arguments ax_step_price {A P} X.
 
 (** * Pricing needs the movement, not the position *)
 
-(** A counter whose every step raises the record, seen through its parity.
-    The window does not show the record, and no collision exists, so an
-    exact price exists. *)
+(** A counter with two moves, one that raises the record (true) and one
+    that leaves it alone (false), seen through its parity. The parity flips
+    exactly on the rises. The window does not show the record, no constant
+    price is exact (some steps rise and some don't), and yet no collision
+    exists: charging one exactly when the parity changed prices every step
+    exactly. *)
 Definition parity_sys : AxSys nat nat_pre :=
-  mk_axsys nat nat_pre nat unit (fun n _ => S n) (fun _ => 1) (fun n => n).
+  mk_axsys nat nat_pre nat bool (fun n b => if b then S n else n)
+    (fun b => if b then 1 else 0) (fun n => n).
 
 Theorem ax_exact_without_position :
-  (forall s, ax_exits (X := parity_sys) s tt) /\
+  (forall s, ax_exits (X := parity_sys) s true) /\
+  (forall s, ~ ax_exits (X := parity_sys) s false) /\
+  (forall s i, Nat.even (ax_step nat nat_pre parity_sys s i) <> Nat.even s
+               <-> ax_exits (X := parity_sys) s i) /\
   ~ ax_window_collision parity_sys (O := bool) Nat.even /\
   (exists price, ax_meets_floor parity_sys (ax_shadow_cost (X := parity_sys) Nat.even price) /\
                  ax_never_overcharges parity_sys (ax_shadow_cost (X := parity_sys) Nat.even price)) /\
+  (forall c : nat,
+     ~ (ax_meets_floor parity_sys (ax_shadow_cost (X := parity_sys) Nat.even (fun _ _ => c)) /\
+        ax_never_overcharges parity_sys (ax_shadow_cost (X := parity_sys) Nat.even (fun _ _ => c)))) /\
   ~ exists read : bool -> nat, forall s, s = read (Nat.even s).
 Proof.
-  assert (Hex : forall s, ax_exits (X := parity_sys) s tt).
+  assert (Hup : forall s, ax_exits (X := parity_sys) s true).
   { intro s. unfold ax_exits. simpl. rewrite nat_pre_le. lia. }
-  assert (Hnc : ~ ax_window_collision parity_sys (O := bool) Nat.even).
-  { intros [s1 [i1 [s2 [i2 [_ [_ [_ Hn]]]]]]]. destruct i2. exact (Hn (Hex s2)). }
-  refine (conj Hex (conj Hnc (conj _ _))).
-  - exists (fun _ _ => 1). split.
-    + intros s i _. unfold ax_shadow_cost. lia.
-    + intros s i H. destruct i. exfalso. exact (H (Hex s)).
+  assert (Hq : forall s, ~ ax_exits (X := parity_sys) s false).
+  { intros s H. apply H. simpl. rewrite nat_pre_le. lia. }
+  assert (Hflip : forall s i, Nat.even (ax_step nat nat_pre parity_sys s i) <> Nat.even s
+                              <-> ax_exits (X := parity_sys) s i).
+  { intros s [|].
+    - change (ax_step nat nat_pre parity_sys s true) with (S s).
+      split; [intros _; apply Hup |]. intros _. rewrite Nat.even_succ, <- Nat.negb_even.
+      destruct (Nat.even s); discriminate.
+    - change (ax_step nat nat_pre parity_sys s false) with s.
+      split; [intro H; exfalso; apply H; reflexivity | intro H; exfalso; exact (Hq s H)]. }
+  refine (conj Hup (conj Hq (conj Hflip (conj _ (conj _ (conj _ _)))))).
+  - intros [s1 [i1 [s2 [i2 [Hpre [Hpost [Hf1 Hf2]]]]]]].
+    apply Hf2. apply (proj1 (Hflip s2 i2)). intro E. apply (proj2 (Hflip s1 i1) Hf1).
+    rewrite Hpre, Hpost. exact E.
+  - exists (fun o o' => if Bool.eqb o o' then 0 else 1). split.
+    + intros s i H. unfold ax_shadow_cost.
+      destruct (Bool.eqb (Nat.even s) (Nat.even (ax_step nat nat_pre parity_sys s i))) eqn:E; [| lia].
+      exfalso. apply Bool.eqb_prop in E. apply (proj2 (Hflip s i) H). symmetry. exact E.
+    + intros s i H. unfold ax_shadow_cost.
+      destruct (Bool.eqb (Nat.even s) (Nat.even (ax_step nat nat_pre parity_sys s i))) eqn:E; [reflexivity |].
+      exfalso. apply H. apply (proj1 (Hflip s i)). intro E'. rewrite E' in E.
+      rewrite Bool.eqb_reflx in E. discriminate.
+  - intros c [Hfl Hno]. specialize (Hfl 0 true (Hup 0)). specialize (Hno 0 false (Hq 0)).
+    unfold ax_shadow_cost in Hfl, Hno. lia.
   - intros [read Hread]. assert (H0 := Hread 0). assert (H2 := Hread 2).
     simpl in H0, H2. rewrite <- H0 in H2. discriminate.
 Qed.
