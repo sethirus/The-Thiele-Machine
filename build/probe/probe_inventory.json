@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 332,
-  "total_addressable": 5762,
+  "files_probed": 340,
+  "total_addressable": 5981,
   "total_unaddressable": 0,
   "extras_addressable_via_instantiation": [],
   "files": [
@@ -5852,6 +5852,40 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/CzFollow.v",
+      "qualified_module": "Kernel.CzFollow",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "cmpz_follow_exists",
+          "kind": "Theorem",
+          "full_name": "Kernel.CzFollow.cmpz_follow_exists"
+        },
+        {
+          "local_name": "cmpz_follow_reaches",
+          "kind": "Theorem",
+          "full_name": "Kernel.CzFollow.cmpz_follow_reaches"
+        },
+        {
+          "local_name": "cmpz_follow_cost_ge_exits",
+          "kind": "Theorem",
+          "full_name": "Kernel.CzFollow.cmpz_follow_cost_ge_exits"
+        },
+        {
+          "local_name": "cmpz_bit_a2",
+          "kind": "Lemma",
+          "full_name": "Kernel.CzFollow.cmpz_bit_a2"
+        },
+        {
+          "local_name": "cmpz_end_only_not_enough",
+          "kind": "Theorem",
+          "full_name": "Kernel.CzFollow.cmpz_end_only_not_enough"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/CzLoad.v",
       "qualified_module": "Kernel.CzLoad",
       "addressable_count": 13,
@@ -7548,7 +7582,7 @@
     {
       "file": "coq/kernel/foundation/NecEChsh.v",
       "qualified_module": "Kernel.NecEChsh",
-      "addressable_count": 24,
+      "addressable_count": 30,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -7670,6 +7704,36 @@
           "local_name": "nec_e_g12345_stronger",
           "kind": "Theorem",
           "full_name": "Kernel.NecEChsh.nec_e_g12345_stronger"
+        },
+        {
+          "local_name": "nec_e_tol_check_zero",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChsh.nec_e_tol_check_zero"
+        },
+        {
+          "local_name": "nec_e_tol_clear",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecEChsh.nec_e_tol_clear"
+        },
+        {
+          "local_name": "nec_e_tol_check_sound",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChsh.nec_e_tol_check_sound"
+        },
+        {
+          "local_name": "nec_e_tol_contractive_norm",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecEChsh.nec_e_tol_contractive_norm"
+        },
+        {
+          "local_name": "nec_e_tol_check_norm",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChsh.nec_e_tol_check_norm"
+        },
+        {
+          "local_name": "nec_e_tol_check_bound",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecEChsh.nec_e_tol_check_bound"
         }
       ],
       "unaddressable": []
@@ -8901,13 +8965,43 @@
     {
       "file": "coq/kernel/foundation/NecFPhysics.v",
       "qualified_module": "Kernel.NecFPhysics",
-      "addressable_count": 7,
+      "addressable_count": 13,
       "unaddressable_count": 0,
       "addressable": [
+        {
+          "local_name": "nec_f_dec_one_way",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFPhysics.nec_f_dec_one_way"
+        },
+        {
+          "local_name": "nec_f_dec_merges_false_with_true",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFPhysics.nec_f_dec_merges_false_with_true"
+        },
         {
           "local_name": "nec_f_dec_collapses",
           "kind": "Lemma",
           "full_name": "Kernel.NecFPhysics.nec_f_dec_collapses"
+        },
+        {
+          "local_name": "nec_f_one_way_injective",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFPhysics.nec_f_one_way_injective"
+        },
+        {
+          "local_name": "nec_f_small_one_way_pair_fails",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFPhysics.nec_f_small_one_way_pair_fails"
+        },
+        {
+          "local_name": "nec_f_pigeonhole",
+          "kind": "Lemma",
+          "full_name": "Kernel.NecFPhysics.nec_f_pigeonhole"
+        },
+        {
+          "local_name": "nec_f_finite_one_way_merges",
+          "kind": "Theorem",
+          "full_name": "Kernel.NecFPhysics.nec_f_finite_one_way_merges"
         },
         {
           "local_name": "nec_f_small_premise_pair_fails",
@@ -12871,6 +12965,60 @@
           "local_name": "small_chsh_chain_cost",
           "kind": "Theorem",
           "full_name": "Kernel.SmallChshLinks.small_chsh_chain_cost"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralClockSync.v",
+      "qualified_module": "Kernel.StructuralClockSync",
+      "addressable_count": 9,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "record_axis_is_latch_r1_r4",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralClockSync.record_axis_is_latch_r1_r4"
+        },
+        {
+          "local_name": "driven_reachably_driven",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralClockSync.driven_reachably_driven"
+        },
+        {
+          "local_name": "record_axis_is_latch_reachable",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralClockSync.record_axis_is_latch_reachable"
+        },
+        {
+          "local_name": "clock_not_reachably_driven",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralClockSync.clock_not_reachably_driven"
+        },
+        {
+          "local_name": "sync_clock_in_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralClockSync.sync_clock_in_step"
+        },
+        {
+          "local_name": "sync_clock_not_driven",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralClockSync.sync_clock_not_driven"
+        },
+        {
+          "local_name": "sync_clock_reachably_driven",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralClockSync.sync_clock_reachably_driven"
+        },
+        {
+          "local_name": "sync_clock_reachable_latch",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralClockSync.sync_clock_reachable_latch"
+        },
+        {
+          "local_name": "sync_clock_record_permanent",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralClockSync.sync_clock_record_permanent"
         }
       ],
       "unaddressable": []
@@ -16878,7 +17026,7 @@
     {
       "file": "coq/kernel/foundation/UniversalPRun.v",
       "qualified_module": "Kernel.UniversalPRun",
-      "addressable_count": 38,
+      "addressable_count": 42,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -17070,6 +17218,26 @@
           "local_name": "pu_universal_thiele_complete",
           "kind": "Theorem",
           "full_name": "Kernel.UniversalPRun.pu_universal_thiele_complete"
+        },
+        {
+          "local_name": "pu_claim_eqb_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.UniversalPRun.pu_claim_eqb_spec"
+        },
+        {
+          "local_name": "pu_same_keeps",
+          "kind": "Lemma",
+          "full_name": "Kernel.UniversalPRun.pu_same_keeps"
+        },
+        {
+          "local_name": "pu_host_check_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.UniversalPRun.pu_host_check_sound"
+        },
+        {
+          "local_name": "pu_universal_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Kernel.UniversalPRun.pu_universal_thiele_complete_over"
         }
       ],
       "unaddressable": []
@@ -17765,7 +17933,7 @@
     {
       "file": "coq/kernel/foundation/UniversalRun.v",
       "qualified_module": "Kernel.UniversalRun",
-      "addressable_count": 38,
+      "addressable_count": 42,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -17957,6 +18125,26 @@
           "local_name": "universal_thiele_complete",
           "kind": "Theorem",
           "full_name": "Kernel.UniversalRun.universal_thiele_complete"
+        },
+        {
+          "local_name": "host_claim_eqb_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.UniversalRun.host_claim_eqb_spec"
+        },
+        {
+          "local_name": "host_same_keeps",
+          "kind": "Lemma",
+          "full_name": "Kernel.UniversalRun.host_same_keeps"
+        },
+        {
+          "local_name": "host_check_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.UniversalRun.host_check_sound"
+        },
+        {
+          "local_name": "universal_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Kernel.UniversalRun.universal_thiele_complete_over"
         }
       ],
       "unaddressable": []
@@ -18523,7 +18711,7 @@
     {
       "file": "coq/kernel/frontier/PointerObservable.v",
       "qualified_module": "Kernel.PointerObservable",
-      "addressable_count": 2,
+      "addressable_count": 10,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -18535,6 +18723,46 @@
           "local_name": "ReplicatedLedgerToy.toy_cert_unique_pointer",
           "kind": "Theorem",
           "full_name": "Kernel.PointerObservable.ReplicatedLedgerToy.toy_cert_unique_pointer"
+        },
+        {
+          "local_name": "pointer_on_unique",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservable.pointer_on_unique"
+        },
+        {
+          "local_name": "independent_copies_everywhere_are_constant",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservable.independent_copies_everywhere_are_constant"
+        },
+        {
+          "local_name": "ReplicatedHeaderToy.synced_copy",
+          "kind": "Lemma",
+          "full_name": "Kernel.PointerObservable.ReplicatedHeaderToy.synced_copy"
+        },
+        {
+          "local_name": "ReplicatedHeaderToy.ledger_carriers_independent",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservable.ReplicatedHeaderToy.ledger_carriers_independent"
+        },
+        {
+          "local_name": "ReplicatedHeaderToy.ledger_copying_alone_does_not_separate",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservable.ReplicatedHeaderToy.ledger_copying_alone_does_not_separate"
+        },
+        {
+          "local_name": "ReplicatedHeaderToy.final_empty_synced",
+          "kind": "Lemma",
+          "full_name": "Kernel.PointerObservable.ReplicatedHeaderToy.final_empty_synced"
+        },
+        {
+          "local_name": "ReplicatedHeaderToy.ledger_finalized_is_pointer",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservable.ReplicatedHeaderToy.ledger_finalized_is_pointer"
+        },
+        {
+          "local_name": "ReplicatedHeaderToy.ledger_gas_not_relied_on",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservable.ReplicatedHeaderToy.ledger_gas_not_relied_on"
         }
       ],
       "unaddressable": []
@@ -19280,7 +19508,7 @@
     {
       "file": "coq/kernel/nfi/PermanentCertificationEntropy.v",
       "qualified_module": "Kernel.PermanentCertificationEntropy",
-      "addressable_count": 49,
+      "addressable_count": 52,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -19469,6 +19697,16 @@
           "full_name": "Kernel.PermanentCertificationEntropy.not_nodup_map_witness"
         },
         {
+          "local_name": "map_nodup_injective_on",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.map_nodup_injective_on"
+        },
+        {
+          "local_name": "merge_pair_removes_a_bit",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.merge_pair_removes_a_bit"
+        },
+        {
           "local_name": "certified_and_flips_nodup",
           "kind": "Lemma",
           "full_name": "Kernel.PermanentCertificationEntropy.certified_and_flips_nodup"
@@ -19524,6 +19762,11 @@
           "full_name": "Kernel.PermanentCertificationEntropy.known_state_flip_forces_no_heat"
         },
         {
+          "local_name": "permanent_flip_spread_loses_a_bit",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.permanent_flip_spread_loses_a_bit"
+        },
+        {
           "local_name": "entropy_priced_trace_floor",
           "kind": "Theorem",
           "full_name": "Kernel.PermanentCertificationEntropy.entropy_priced_trace_floor"
@@ -19534,7 +19777,7 @@
     {
       "file": "coq/kernel/nfi/PermanentRecordPricing.v",
       "qualified_module": "Kernel.PermanentRecordPricing",
-      "addressable_count": 18,
+      "addressable_count": 19,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -19603,6 +19846,11 @@
           "full_name": "Kernel.PermanentRecordPricing.permanent_at_flip_is_not_injective"
         },
         {
+          "local_name": "permanent_flip_merges_on_yes_side",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.permanent_flip_merges_on_yes_side"
+        },
+        {
           "local_name": "flip_merges_or_revokes",
           "kind": "Theorem",
           "full_name": "Kernel.PermanentRecordPricing.flip_merges_or_revokes"
@@ -19626,6 +19874,115 @@
           "local_name": "forced_price_without_permanent_record",
           "kind": "Theorem",
           "full_name": "Kernel.PermanentRecordPricing.forced_price_without_permanent_record"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/nfi/PricingOnePremise.v",
+      "qualified_module": "Kernel.PricingOnePremise",
+      "addressable_count": 20,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "all_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.all_nodup"
+        },
+        {
+          "local_name": "all_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.all_in"
+        },
+        {
+          "local_name": "ln_INR_pos_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.ln_INR_pos_le"
+        },
+        {
+          "local_name": "log2_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.log2_one"
+        },
+        {
+          "local_name": "log2_pow2",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.log2_pow2"
+        },
+        {
+          "local_name": "log2_le_nat",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.log2_le_nat"
+        },
+        {
+          "local_name": "prob_le_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.prob_le_one"
+        },
+        {
+          "local_name": "entropy_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.entropy_nonneg"
+        },
+        {
+          "local_name": "entropy_drop_le_log_support_fibre",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricingOnePremise.entropy_drop_le_log_support_fibre"
+        },
+        {
+          "local_name": "entropy_drop_le_log_fibre",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricingOnePremise.entropy_drop_le_log_fibre"
+        },
+        {
+          "local_name": "step_no_pileup_entropy_invariant",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricingOnePremise.step_no_pileup_entropy_invariant"
+        },
+        {
+          "local_name": "entropy_drop_of_fibre",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricingOnePremise.entropy_drop_of_fibre"
+        },
+        {
+          "local_name": "worst_case_entropy_drop",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricingOnePremise.worst_case_entropy_drop"
+        },
+        {
+          "local_name": "compression_iff_fibre",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.compression_iff_fibre"
+        },
+        {
+          "local_name": "entropy_priced_iff_compression_priced",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricingOnePremise.entropy_priced_iff_compression_priced"
+        },
+        {
+          "local_name": "image_size_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.image_size_one"
+        },
+        {
+          "local_name": "image_size_two",
+          "kind": "Lemma",
+          "full_name": "Kernel.PricingOnePremise.image_size_two"
+        },
+        {
+          "local_name": "merging_priced_iff_pair_halving",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricingOnePremise.merging_priced_iff_pair_halving"
+        },
+        {
+          "local_name": "merging_priced_iff_pair_entropy",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricingOnePremise.merging_priced_iff_pair_entropy"
+        },
+        {
+          "local_name": "one_premise_three_forms",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricingOnePremise.one_premise_three_forms"
         }
       ],
       "unaddressable": []
@@ -19757,13 +20114,18 @@
     {
       "file": "coq/kernel/nfi/UniversalCertificationCost.v",
       "qualified_module": "Kernel.UniversalCertificationCost",
-      "addressable_count": 6,
+      "addressable_count": 7,
       "unaddressable_count": 0,
       "addressable": [
         {
           "local_name": "universal_nfi_any_substrate",
           "kind": "Theorem",
           "full_name": "Kernel.UniversalCertificationCost.universal_nfi_any_substrate"
+        },
+        {
+          "local_name": "every_toll_system_pays_the_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.UniversalCertificationCost.every_toll_system_pays_the_floor"
         },
         {
           "local_name": "cert_trace_nonempty",
@@ -20790,7 +21152,7 @@
     {
       "file": "coq/kernel/quantum/QuantumPartitionPSD_1AB.v",
       "qualified_module": "Kernel.QuantumPartitionPSD_1AB",
-      "addressable_count": 133,
+      "addressable_count": 134,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -21457,6 +21819,11 @@
           "local_name": "q1ab_g12345_caller_witness_z_abs_implies_psd9",
           "kind": "Corollary",
           "full_name": "Kernel.QuantumPartitionPSD_1AB.q1ab_g12345_caller_witness_z_abs_implies_psd9"
+        },
+        {
+          "local_name": "q1ab_tie_is_a_constraint",
+          "kind": "Theorem",
+          "full_name": "Kernel.QuantumPartitionPSD_1AB.q1ab_tie_is_a_constraint"
         }
       ],
       "unaddressable": []
@@ -22954,7 +23321,7 @@
     {
       "file": "coq/kernel/thermodynamic/CalorimeterProtocol.v",
       "qualified_module": "Kernel.CalorimeterProtocol",
-      "addressable_count": 7,
+      "addressable_count": 26,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -22978,9 +23345,9 @@
           "full_name": "Kernel.CalorimeterProtocol.ln_two_positive"
         },
         {
-          "local_name": "smaller_gap_refutes_unconditional_landauer_floor",
+          "local_name": "canonical_reset_heat_below_landauer_at_small_gap",
           "kind": "Theorem",
-          "full_name": "Kernel.CalorimeterProtocol.smaller_gap_refutes_unconditional_landauer_floor"
+          "full_name": "Kernel.CalorimeterProtocol.canonical_reset_heat_below_landauer_at_small_gap"
         },
         {
           "local_name": "master_equation_does_not_fix_heat_scale",
@@ -22991,6 +23358,101 @@
           "local_name": "canonical_reset_is_one_mu",
           "kind": "Lemma",
           "full_name": "Kernel.CalorimeterProtocol.canonical_reset_is_one_mu"
+        },
+        {
+          "local_name": "canonical_rates_break_detailed_balance",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.canonical_rates_break_detailed_balance"
+        },
+        {
+          "local_name": "detailed_balance_settles_at_gibbs",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.detailed_balance_settles_at_gibbs"
+        },
+        {
+          "local_name": "detailed_balance_thermalizing_step",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.detailed_balance_thermalizing_step"
+        },
+        {
+          "local_name": "gibbs_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.gibbs_pos"
+        },
+        {
+          "local_name": "detailed_balance_never_empties",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.detailed_balance_never_empties"
+        },
+        {
+          "local_name": "landauer_gap_settles_at_one_fifth",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.landauer_gap_settles_at_one_fifth"
+        },
+        {
+          "local_name": "dpl_ext",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.dpl_ext"
+        },
+        {
+          "local_name": "dpl_val",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.dpl_val"
+        },
+        {
+          "local_name": "free_energy_derivative",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.free_energy_derivative"
+        },
+        {
+          "local_name": "gibbs_le_half_at_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.gibbs_le_half_at_nonneg"
+        },
+        {
+          "local_name": "gibbs_antitone",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.gibbs_antitone"
+        },
+        {
+          "local_name": "free_energy_step_bounds",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.free_energy_step_bounds"
+        },
+        {
+          "local_name": "driven_first_law",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.driven_first_law"
+        },
+        {
+          "local_name": "driven_work_second_law",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.driven_work_second_law"
+        },
+        {
+          "local_name": "driven_work_near_free_energy",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.driven_work_near_free_energy"
+        },
+        {
+          "local_name": "free_energy_at_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.free_energy_at_zero"
+        },
+        {
+          "local_name": "ln_le_loc",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.ln_le_loc"
+        },
+        {
+          "local_name": "ln_one_plus_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.ln_one_plus_le"
+        },
+        {
+          "local_name": "driven_reset_work_window",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.driven_reset_work_window"
         }
       ],
       "unaddressable": []
@@ -24400,7 +24862,7 @@
     {
       "file": "minimal/EarnedCore.v",
       "qualified_module": "Minimal.EarnedCore",
-      "addressable_count": 69,
+      "addressable_count": 70,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -24682,6 +25144,11 @@
           "local_name": "earned_certification_provenance",
           "kind": "Theorem",
           "full_name": "Minimal.EarnedCore.earned_certification_provenance"
+        },
+        {
+          "local_name": "earned_certification_same_claim",
+          "kind": "Theorem",
+          "full_name": "Minimal.EarnedCore.earned_certification_same_claim"
         },
         {
           "local_name": "certified_run_min_cost",
@@ -26429,7 +26896,7 @@
     {
       "file": "minimal/EntitlementSmall.v",
       "qualified_module": "Minimal.EntitlementSmall",
-      "addressable_count": 39,
+      "addressable_count": 61,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -26626,6 +27093,116 @@
           "local_name": "ent_small_questions",
           "kind": "Theorem",
           "full_name": "Minimal.EntitlementSmall.ent_small_questions"
+        },
+        {
+          "local_name": "ent_narrow_filter",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_narrow_filter"
+        },
+        {
+          "local_name": "ent_narrow_le",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_narrow_le"
+        },
+        {
+          "local_name": "ent_stages_product",
+          "kind": "Theorem",
+          "full_name": "Minimal.EntitlementSmall.ent_stages_product"
+        },
+        {
+          "local_name": "ent_bits_of_cover",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_bits_of_cover"
+        },
+        {
+          "local_name": "ent_stages_cover",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_stages_cover"
+        },
+        {
+          "local_name": "ent_stages_bits",
+          "kind": "Theorem",
+          "full_name": "Minimal.EntitlementSmall.ent_stages_bits"
+        },
+        {
+          "local_name": "ent_stages_share_bits",
+          "kind": "Theorem",
+          "full_name": "Minimal.EntitlementSmall.ent_stages_share_bits"
+        },
+        {
+          "local_name": "ent_test_bits_cover",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_test_bits_cover"
+        },
+        {
+          "local_name": "ent_stages_after_pos",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_stages_after_pos"
+        },
+        {
+          "local_name": "ent_stages_round_bits",
+          "kind": "Theorem",
+          "full_name": "Minimal.EntitlementSmall.ent_stages_round_bits"
+        },
+        {
+          "local_name": "ent_passes_le_checked",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_passes_le_checked"
+        },
+        {
+          "local_name": "ent_passes_sound",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_passes_sound"
+        },
+        {
+          "local_name": "ent_forallb_false",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_forallb_false"
+        },
+        {
+          "local_name": "ent_run_entitlement",
+          "kind": "Theorem",
+          "full_name": "Minimal.EntitlementSmall.ent_run_entitlement"
+        },
+        {
+          "local_name": "ent_run_round_bits",
+          "kind": "Theorem",
+          "full_name": "Minimal.EntitlementSmall.ent_run_round_bits"
+        },
+        {
+          "local_name": "ent_cs_run_app",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_cs_run_app"
+        },
+        {
+          "local_name": "ent_cs_passes_le",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_cs_passes_le"
+        },
+        {
+          "local_name": "ent_cs_tested_le_paid",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_cs_tested_le_paid"
+        },
+        {
+          "local_name": "ent_cs_passes_sound",
+          "kind": "Lemma",
+          "full_name": "Minimal.EntitlementSmall.ent_cs_passes_sound"
+        },
+        {
+          "local_name": "ent_cs_run_entitlement",
+          "kind": "Theorem",
+          "full_name": "Minimal.EntitlementSmall.ent_cs_run_entitlement"
+        },
+        {
+          "local_name": "ent_small_run_narrowing",
+          "kind": "Theorem",
+          "full_name": "Minimal.EntitlementSmall.ent_small_run_narrowing"
+        },
+        {
+          "local_name": "ent_share_needed",
+          "kind": "Theorem",
+          "full_name": "Minimal.EntitlementSmall.ent_share_needed"
         }
       ],
       "unaddressable": []
@@ -27023,6 +27600,55 @@
           "local_name": "lift_window_thiele_complete",
           "kind": "Theorem",
           "full_name": "Minimal.LiftCore.lift_window_thiele_complete"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/LiftMacro.v",
+      "qualified_module": "Minimal.LiftMacro",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "sim_macro_runs",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftMacro.sim_macro_runs"
+        },
+        {
+          "local_name": "ub_to_sim_inhabited",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftMacro.ub_to_sim_inhabited"
+        },
+        {
+          "local_name": "sim_to_macro_inhabited",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftMacro.sim_to_macro_inhabited"
+        },
+        {
+          "local_name": "sim_base_lifts",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftMacro.sim_base_lifts"
+        },
+        {
+          "local_name": "fl_run_tgt",
+          "kind": "Lemma",
+          "full_name": "Minimal.LiftMacro.fl_run_tgt"
+        },
+        {
+          "local_name": "fl_no_universal_base",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftMacro.fl_no_universal_base"
+        },
+        {
+          "local_name": "fl_has_sim_base",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftMacro.fl_has_sim_base"
+        },
+        {
+          "local_name": "fl_macro_lifts",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftMacro.fl_macro_lifts"
         }
       ],
       "unaddressable": []
@@ -28429,6 +29055,105 @@
       "unaddressable": []
     },
     {
+      "file": "minimal/PartitionReading.v",
+      "qualified_module": "Minimal.PartitionReading",
+      "addressable_count": 18,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "pr_grouping_partition",
+          "kind": "Theorem",
+          "full_name": "Minimal.PartitionReading.pr_grouping_partition"
+        },
+        {
+          "local_name": "same_part_sym",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.same_part_sym"
+        },
+        {
+          "local_name": "same_part_trans",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.same_part_trans"
+        },
+        {
+          "local_name": "sound_same_part",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.sound_same_part"
+        },
+        {
+          "local_name": "sound_refines",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.sound_refines"
+        },
+        {
+          "local_name": "pr_entitled_iff_refines",
+          "kind": "Theorem",
+          "full_name": "Minimal.PartitionReading.pr_entitled_iff_refines"
+        },
+        {
+          "local_name": "pairs_ok_iff",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.pairs_ok_iff"
+        },
+        {
+          "local_name": "sound_b_iff",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.sound_b_iff"
+        },
+        {
+          "local_name": "same_part_b_iff",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.same_part_b_iff"
+        },
+        {
+          "local_name": "pr_reads_structural",
+          "kind": "Theorem",
+          "full_name": "Minimal.PartitionReading.pr_reads_structural"
+        },
+        {
+          "local_name": "p_inv_step",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.p_inv_step"
+        },
+        {
+          "local_name": "p_inv_run",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.p_inv_run"
+        },
+        {
+          "local_name": "p_inv_clean",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.p_inv_clean"
+        },
+        {
+          "local_name": "pr_reading_entitles",
+          "kind": "Theorem",
+          "full_name": "Minimal.PartitionReading.pr_reading_entitles"
+        },
+        {
+          "local_name": "pr_reading_entitles_only",
+          "kind": "Theorem",
+          "full_name": "Minimal.PartitionReading.pr_reading_entitles_only"
+        },
+        {
+          "local_name": "pr_toll",
+          "kind": "Theorem",
+          "full_name": "Minimal.PartitionReading.pr_toll"
+        },
+        {
+          "local_name": "p_cinv_step",
+          "kind": "Lemma",
+          "full_name": "Minimal.PartitionReading.p_cinv_step"
+        },
+        {
+          "local_name": "pr_reading_costs_three",
+          "kind": "Theorem",
+          "full_name": "Minimal.PartitionReading.pr_reading_costs_three"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "minimal/PayFree.v",
       "qualified_module": "Minimal.PayFree",
       "addressable_count": 9,
@@ -28681,6 +29406,85 @@
           "local_name": "priced_core_thiele_complete",
           "kind": "Theorem",
           "full_name": "Minimal.PricedComplete.priced_core_thiele_complete"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/RecordMerge.v",
+      "qualified_module": "Minimal.RecordMerge",
+      "addressable_count": 14,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "rm_fact_eqb_refl",
+          "kind": "Lemma",
+          "full_name": "Minimal.RecordMerge.rm_fact_eqb_refl"
+        },
+        {
+          "local_name": "rm_commit_lands",
+          "kind": "Lemma",
+          "full_name": "Minimal.RecordMerge.rm_commit_lands"
+        },
+        {
+          "local_name": "rm_commit_merges",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_commit_merges"
+        },
+        {
+          "local_name": "rm_merge_price_charges_record_moves",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_merge_price_charges_record_moves"
+        },
+        {
+          "local_name": "rm_toll_from_any_merge_price",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_toll_from_any_merge_price"
+        },
+        {
+          "local_name": "rm_merge_price_gives_record_price",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_merge_price_gives_record_price"
+        },
+        {
+          "local_name": "rm_certify_record_merge",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_certify_record_merge"
+        },
+        {
+          "local_name": "rm_commit_record_merge",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_commit_record_merge"
+        },
+        {
+          "local_name": "rm_base_core",
+          "kind": "Lemma",
+          "full_name": "Minimal.RecordMerge.rm_base_core"
+        },
+        {
+          "local_name": "rm_core_eq",
+          "kind": "Lemma",
+          "full_name": "Minimal.RecordMerge.rm_core_eq"
+        },
+        {
+          "local_name": "rm_base_moves_no_record_merge",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_base_moves_no_record_merge"
+        },
+        {
+          "local_name": "rm_small_record_priced",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_small_record_priced"
+        },
+        {
+          "local_name": "rm_toll_from_record_price",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_toll_from_record_price"
+        },
+        {
+          "local_name": "rm_record_price_and_exact_toll",
+          "kind": "Theorem",
+          "full_name": "Minimal.RecordMerge.rm_record_price_and_exact_toll"
         }
       ],
       "unaddressable": []
@@ -30641,7 +31445,7 @@
     {
       "file": "minimal/ThieleComplete.v",
       "qualified_module": "Minimal.ThieleComplete",
-      "addressable_count": 42,
+      "addressable_count": 56,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -30658,6 +31462,21 @@
           "local_name": "base_halting_correspondence",
           "kind": "Theorem",
           "full_name": "Minimal.ThieleComplete.base_halting_correspondence"
+        },
+        {
+          "local_name": "thiele_complete_over_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleComplete.thiele_complete_over_complete"
+        },
+        {
+          "local_name": "thiele_complete_with_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleComplete.thiele_complete_with_over"
+        },
+        {
+          "local_name": "over_certificate_means",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleComplete.over_certificate_means"
         },
         {
           "local_name": "thiele_complete_is_weak",
@@ -30790,9 +31609,34 @@
           "full_name": "Minimal.ThieleComplete.earned_chain_holds"
         },
         {
+          "local_name": "earned_core_complete_with",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleComplete.earned_core_complete_with"
+        },
+        {
           "local_name": "earned_core_thiele_complete",
           "kind": "Theorem",
           "full_name": "Minimal.ThieleComplete.earned_core_thiele_complete"
+        },
+        {
+          "local_name": "earned_claim_eqb_spec",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleComplete.earned_claim_eqb_spec"
+        },
+        {
+          "local_name": "earned_same_keeps",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleComplete.earned_same_keeps"
+        },
+        {
+          "local_name": "earned_check_sound",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleComplete.earned_check_sound"
+        },
+        {
+          "local_name": "earned_core_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleComplete.earned_core_thiele_complete_over"
         },
         {
           "local_name": "reference_step_agrees",
@@ -30808,6 +31652,11 @@
           "local_name": "earned_core_runs_counter_programs",
           "kind": "Theorem",
           "full_name": "Minimal.ThieleComplete.earned_core_runs_counter_programs"
+        },
+        {
+          "local_name": "check_ge_unit_cost",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleComplete.check_ge_unit_cost"
         },
         {
           "local_name": "run_generic",
@@ -30845,6 +31694,21 @@
           "full_name": "Minimal.ThieleComplete.generic_thiele_complete_with"
         },
         {
+          "local_name": "generic_claim_eqb_spec",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleComplete.generic_claim_eqb_spec"
+        },
+        {
+          "local_name": "generic_same_keeps",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleComplete.generic_same_keeps"
+        },
+        {
+          "local_name": "generic_check_sound",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleComplete.generic_check_sound"
+        },
+        {
           "local_name": "earned_generic_thiele_complete",
           "kind": "Theorem",
           "full_name": "Minimal.ThieleComplete.earned_generic_thiele_complete"
@@ -30853,6 +31717,309 @@
           "local_name": "sorted_machine_thiele_complete",
           "kind": "Theorem",
           "full_name": "Minimal.ThieleComplete.sorted_machine_thiele_complete"
+        },
+        {
+          "local_name": "earned_generic_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleComplete.earned_generic_thiele_complete_over"
+        },
+        {
+          "local_name": "sorted_machine_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleComplete.sorted_machine_thiele_complete_over"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/ThieleCompleteIndependent.v",
+      "qualified_module": "Minimal.ThieleCompleteIndependent",
+      "addressable_count": 29,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "ext_run_map",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.ext_run_map"
+        },
+        {
+          "local_name": "ext_run_EM_app",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.ext_run_EM_app"
+        },
+        {
+          "local_name": "ext_run_EM_cons",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.ext_run_EM_cons"
+        },
+        {
+          "local_name": "E_run_cons",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.E_run_cons"
+        },
+        {
+          "local_name": "ext_chain_transport",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.ext_chain_transport"
+        },
+        {
+          "local_name": "ext_record_parts",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.ext_record_parts"
+        },
+        {
+          "local_name": "ext_non_vacuity",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.ext_non_vacuity"
+        },
+        {
+          "local_name": "ext_exact_toll",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.ext_exact_toll"
+        },
+        {
+          "local_name": "drop_trapped_stays",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.drop_trapped_stays"
+        },
+        {
+          "local_name": "drop_free_run",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.drop_free_run"
+        },
+        {
+          "local_name": "drop_meets_b_c_d",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.drop_meets_b_c_d"
+        },
+        {
+          "local_name": "drop_not_permanent",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.drop_not_permanent"
+        },
+        {
+          "local_name": "drop_fails_a",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.drop_fails_a"
+        },
+        {
+          "local_name": "drop_not_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.drop_not_thiele_complete"
+        },
+        {
+          "local_name": "drop_weakly_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.drop_weakly_thiele_complete"
+        },
+        {
+          "local_name": "free_meets_a_c_d",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.free_meets_a_c_d"
+        },
+        {
+          "local_name": "chain_needs_three",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.chain_needs_three"
+        },
+        {
+          "local_name": "free_fails_b",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.free_fails_b"
+        },
+        {
+          "local_name": "free_trapped_stays",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.free_trapped_stays"
+        },
+        {
+          "local_name": "free_not_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.free_not_thiele_complete"
+        },
+        {
+          "local_name": "free_weakly_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.free_weakly_thiele_complete"
+        },
+        {
+          "local_name": "paid_run",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.paid_run"
+        },
+        {
+          "local_name": "earned_clauses",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.earned_clauses"
+        },
+        {
+          "local_name": "paid_chain",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteIndependent.paid_chain"
+        },
+        {
+          "local_name": "paid_meets_a_b_d",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.paid_meets_a_b_d"
+        },
+        {
+          "local_name": "paid_fails_c",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.paid_fails_c"
+        },
+        {
+          "local_name": "paid_not_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.paid_not_thiele_complete"
+        },
+        {
+          "local_name": "paid_weakly_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.paid_weakly_thiele_complete"
+        },
+        {
+          "local_name": "thiele_complete_clauses_independent",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteIndependent.thiele_complete_clauses_independent"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "minimal/ThieleCompleteScaled.v",
+      "qualified_module": "Minimal.ThieleCompleteScaled",
+      "addressable_count": 26,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "thiele_complete_at_one",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.thiele_complete_at_one"
+        },
+        {
+          "local_name": "thiele_complete_has_a_unit",
+          "kind": "Corollary",
+          "full_name": "Minimal.ThieleCompleteScaled.thiele_complete_has_a_unit"
+        },
+        {
+          "local_name": "run_scale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.run_scale"
+        },
+        {
+          "local_name": "run_unscale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.run_unscale"
+        },
+        {
+          "local_name": "base_clause_scale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.base_clause_scale"
+        },
+        {
+          "local_name": "base_clause_unscale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.base_clause_unscale"
+        },
+        {
+          "local_name": "earned_chain_scale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.earned_chain_scale"
+        },
+        {
+          "local_name": "earned_chain_unscale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.earned_chain_unscale"
+        },
+        {
+          "local_name": "record_clause_scale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.record_clause_scale"
+        },
+        {
+          "local_name": "record_clause_unscale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.record_clause_unscale"
+        },
+        {
+          "local_name": "nonvac_clause_scale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.nonvac_clause_scale"
+        },
+        {
+          "local_name": "nonvac_clause_unscale",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.nonvac_clause_unscale"
+        },
+        {
+          "local_name": "scale_complete_at",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.scale_complete_at"
+        },
+        {
+          "local_name": "unscale_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.unscale_complete"
+        },
+        {
+          "local_name": "unscale_same_step",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.unscale_same_step"
+        },
+        {
+          "local_name": "scaled_has_free_move",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.scaled_has_free_move"
+        },
+        {
+          "local_name": "paid_moves_not_thiele_complete_at_any_unit",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.paid_moves_not_thiele_complete_at_any_unit"
+        },
+        {
+          "local_name": "clock_not_thiele_complete_at_any_unit",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.clock_not_thiele_complete_at_any_unit"
+        },
+        {
+          "local_name": "latch_clock_not_thiele_complete_at_any_unit",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.latch_clock_not_thiele_complete_at_any_unit"
+        },
+        {
+          "local_name": "scaled_ledger_counts",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.scaled_ledger_counts"
+        },
+        {
+          "local_name": "scaled_certificate_costs_three_c",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.scaled_certificate_costs_three_c"
+        },
+        {
+          "local_name": "unscale_with",
+          "kind": "Lemma",
+          "full_name": "Minimal.ThieleCompleteScaled.unscale_with"
+        },
+        {
+          "local_name": "scaled_committed_claim_holds",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.scaled_committed_claim_holds"
+        },
+        {
+          "local_name": "scaled_only_certify_raises",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.scaled_only_certify_raises"
+        },
+        {
+          "local_name": "doubled_earned_scaled",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.doubled_earned_scaled"
+        },
+        {
+          "local_name": "doubled_earned_not_thiele_complete",
+          "kind": "Theorem",
+          "full_name": "Minimal.ThieleCompleteScaled.doubled_earned_not_thiele_complete"
         }
       ],
       "unaddressable": []

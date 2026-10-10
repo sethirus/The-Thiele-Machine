@@ -16183,8 +16183,8 @@ equal); two decidability principles that come with the standard library's real n
 wherever real analysis is, for example in the matrix proofs behind the game check and in the
 real-valued results of Sections~\ref{sec:a2-not-arbitrary}, \ref{sec:shadow-exact} and~\ref{sec:landauer}; and, in some theorems, the law of excluded middle
 (every proposition is true or false). The count, from the full audit:
-the full-corpus probe covers 5,762 named theorems across 332 files: 5,006 close under the global Coq context outright, and 756 use only Coq standard-library assumptions.
-Zero project-local axioms appear in any of the 5,762 dependency trees.
+the full-corpus probe covers 5,981 named theorems across 340 files: 5,184 close under the global Coq context outright, and 797 use only Coq standard-library assumptions.
+Zero project-local axioms appear in any of the 5,981 dependency trees.
 The small machine's files, under minimal/, are inside that probe too, and every one of their 1,417
 probed theorems comes back closed under Coq's own rules, with no axiom at all. Among them are the small machine,
 its
@@ -16358,10 +16358,10 @@ Build command:
   python3 scripts/reproduce_coq.py
 Audit report for this revision:
   artifacts/print_assumptions_all_proofs.json
-  SHA-256 e5df680291e0cd33897e26f9ab216b8f
-          31c6984bb9408bc862c666c3c981ee43
-  corpus digest 105d9231b77c79d5c117fd9d9c589188
-                b41e93f5dba327194659af31d326caba
+  SHA-256 df614c88da7828be65e3210c88715dc3
+          e394276f610b5620dfe4ecfc334ff6a6
+  corpus digest 1b972ac0173777c9155f498f6b5cb553
+                33b2c23dc598bec7406dcbd753ebfd8a
 Commit the audit report was built from:
   git log -1 --format=%H v4.0.0 -- \
     artifacts/print_assumptions_all_proofs.json
@@ -16390,7 +16390,7 @@ any other edit to a proof file moves it. The token streams come from Python's ow
 output differs between Python versions, and the digest above was computed with Python 3.12; under
 3.13 the same files give a different digest.
 
-The counts this book reports from the assumption audit (5,762 theorems in 332 files) are the ones
+The counts this book reports from the assumption audit (5,981 theorems in 340 files) are the ones
 in that report, and they belong to that revision. A change to the proof sources beyond their comments and
 layout changes the corpus digest; the audit then has to be run again and its counts read afresh.
 With those installed, run:

@@ -1,33 +1,33 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-08T07:08:28.106292+00:00",
+  "generated": "2026-10-10T06:52:55.958622+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "105d9231b77c79d5c117fd9d9c589188b41e93f5dba327194659af31d326caba",
-  "probe_digest": "458fa274b3321dac7d93fa062cb1275011a49ba9628d795d5d526f89e4bbc681",
+  "corpus_digest": "1b972ac0173777c9155f498f6b5cb55333b2c23dc598bec7406dcbd753ebfd8a",
+  "probe_digest": "10000e4e33cf9c1471d599a643332a3c5bb7064cb469be97b78d810c24582543",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "9bd4519ebe0c51499b9cb268816ba23773bd8a15f8d4024c1143f5c0caaa9342",
-  "files_probed": 332,
-  "addressable_theorems_probed": 5762,
-  "blocks_parsed": 5762,
+  "raw_output_sha256": "21c3c9a07ae965349b201f19d613b7eb9b7bdd2c772d682ba5a2cd668dc3de11",
+  "files_probed": 340,
+  "addressable_theorems_probed": 5981,
+  "blocks_parsed": 5981,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 5762,
-    "closed_under_global_context": 5006,
-    "depend_on_axioms": 756,
+    "theorems_probed": 5981,
+    "closed_under_global_context": 5184,
+    "depend_on_axioms": 797,
     "user_or_third_party_axiom_findings": 0,
-    "excluded_middle_users": 149,
-    "functional_extensionality_users": 720,
-    "real_completeness_axiom_users": 742,
+    "excluded_middle_users": 175,
+    "functional_extensionality_users": 761,
+    "real_completeness_axiom_users": 783,
     "unique_axioms_used": {
-      "ClassicalDedekindReals.sig_forall_dec": 742,
-      "FunctionalExtensionality.functional_extensionality_dep": 720,
-      "ClassicalDedekindReals.sig_not_dec": 241,
-      "Classical_Prop.classic": 149
+      "ClassicalDedekindReals.sig_forall_dec": 783,
+      "FunctionalExtensionality.functional_extensionality_dep": 761,
+      "ClassicalDedekindReals.sig_not_dec": 273,
+      "Classical_Prop.classic": 175
     }
   },
   "user_or_third_party_axiom_findings": [],
@@ -107,6 +107,7 @@
     "Kernel.PermanentCertificationEntropy.entropy_drop_nonneg",
     "Kernel.PermanentCertificationEntropy.entropy_drop_pos_of_support_merge",
     "Kernel.PermanentCertificationEntropy.known_state_step_removes_no_entropy",
+    "Kernel.PermanentCertificationEntropy.merge_pair_removes_a_bit",
     "Kernel.PermanentCertificationEntropy.permanent_step_entropy_ceiling",
     "Kernel.PermanentCertificationEntropy.permanent_step_entropy_drop",
     "Kernel.PermanentCertificationEntropy.permanent_flip_uniform_entropy_drop",
@@ -116,7 +117,21 @@
     "Kernel.PermanentCertificationEntropy.permanent_flip_full_support_entropy_drop_positive",
     "Kernel.PermanentCertificationEntropy.permanent_flip_full_support_heat_positive",
     "Kernel.PermanentCertificationEntropy.known_state_flip_forces_no_heat",
+    "Kernel.PermanentCertificationEntropy.permanent_flip_spread_loses_a_bit",
     "Kernel.PermanentCertificationEntropy.entropy_priced_trace_floor",
+    "Kernel.PricingOnePremise.ln_INR_pos_le",
+    "Kernel.PricingOnePremise.log2_one",
+    "Kernel.PricingOnePremise.log2_pow2",
+    "Kernel.PricingOnePremise.log2_le_nat",
+    "Kernel.PricingOnePremise.entropy_nonneg",
+    "Kernel.PricingOnePremise.entropy_drop_le_log_support_fibre",
+    "Kernel.PricingOnePremise.entropy_drop_le_log_fibre",
+    "Kernel.PricingOnePremise.step_no_pileup_entropy_invariant",
+    "Kernel.PricingOnePremise.entropy_drop_of_fibre",
+    "Kernel.PricingOnePremise.worst_case_entropy_drop",
+    "Kernel.PricingOnePremise.entropy_priced_iff_compression_priced",
+    "Kernel.PricingOnePremise.merging_priced_iff_pair_entropy",
+    "Kernel.PricingOnePremise.one_premise_three_forms",
     "Kernel.PricingPhysicsAudit.calibrated_mu_landauer_energy",
     "Kernel.PricingPhysicsAudit.semantics_entropy_permutation_invariant",
     "Kernel.PricingPhysicsAudit.permanence_heat_floor_uses_landauer",
@@ -137,7 +152,18 @@
     "Kernel.TsirelsonAlgebraic.ta_arcsine",
     "Kernel.CalorimeterProtocol.selected_gap_gives_landauer_heat",
     "Kernel.CalorimeterProtocol.ln_two_positive",
-    "Kernel.CalorimeterProtocol.smaller_gap_refutes_unconditional_landauer_floor",
+    "Kernel.CalorimeterProtocol.canonical_reset_heat_below_landauer_at_small_gap",
+    "Kernel.CalorimeterProtocol.landauer_gap_settles_at_one_fifth",
+    "Kernel.CalorimeterProtocol.free_energy_derivative",
+    "Kernel.CalorimeterProtocol.gibbs_le_half_at_nonneg",
+    "Kernel.CalorimeterProtocol.gibbs_antitone",
+    "Kernel.CalorimeterProtocol.free_energy_step_bounds",
+    "Kernel.CalorimeterProtocol.driven_work_second_law",
+    "Kernel.CalorimeterProtocol.driven_work_near_free_energy",
+    "Kernel.CalorimeterProtocol.free_energy_at_zero",
+    "Kernel.CalorimeterProtocol.ln_le_loc",
+    "Kernel.CalorimeterProtocol.ln_one_plus_le",
+    "Kernel.CalorimeterProtocol.driven_reset_work_window",
     "Kernel.RelaxationContinuous.rcd_ln_mono",
     "Kernel.RelaxationContinuous.rcd_sigma_nonneg",
     "Kernel.RelaxationContinuous.rcd_term_deriv",
@@ -185,9 +211,9 @@
   "unaddressable_theorems_in_functors_or_module_types": [],
   "by_namespace": {
     "Kernel": {
-      "theorems": 4255,
-      "closed": 3513,
-      "with_axioms": 742,
+      "theorems": 4342,
+      "closed": 3559,
+      "with_axioms": 783,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -196,8 +222,8 @@
       ]
     },
     "Minimal": {
-      "theorems": 1498,
-      "closed": 1484,
+      "theorems": 1630,
+      "closed": 1616,
       "with_axioms": 14,
       "axiom_set": [
         "FunctionalExtensionality.functional_extensionality_dep"
@@ -551,6 +577,12 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/foundation/CzFollow.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/foundation/CzLoad.v": {
       "theorems": 13,
       "closed": 13,
@@ -687,9 +719,9 @@
       "axiom_set": []
     },
     "coq/kernel/foundation/NecEChsh.v": {
-      "theorems": 24,
-      "closed": 4,
-      "with_axioms": 20,
+      "theorems": 30,
+      "closed": 5,
+      "with_axioms": 25,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -820,8 +852,8 @@
       "axiom_set": []
     },
     "coq/kernel/foundation/NecFPhysics.v": {
-      "theorems": 7,
-      "closed": 7,
+      "theorems": 13,
+      "closed": 13,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1110,6 +1142,12 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
+    "coq/kernel/foundation/StructuralClockSync.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/foundation/StructuralRecordAxis.v": {
       "theorems": 7,
       "closed": 7,
@@ -1303,8 +1341,8 @@
       "axiom_set": []
     },
     "coq/kernel/foundation/UniversalPRun.v": {
-      "theorems": 38,
-      "closed": 38,
+      "theorems": 42,
+      "closed": 42,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1321,8 +1359,8 @@
       "axiom_set": []
     },
     "coq/kernel/foundation/UniversalRun.v": {
-      "theorems": 38,
-      "closed": 38,
+      "theorems": 42,
+      "closed": 42,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1351,8 +1389,8 @@
       "axiom_set": []
     },
     "coq/kernel/frontier/PointerObservable.v": {
-      "theorems": 2,
-      "closed": 2,
+      "theorems": 10,
+      "closed": 10,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1435,9 +1473,9 @@
       "axiom_set": []
     },
     "coq/kernel/nfi/PermanentCertificationEntropy.v": {
-      "theorems": 49,
-      "closed": 5,
-      "with_axioms": 44,
+      "theorems": 52,
+      "closed": 6,
+      "with_axioms": 46,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -1446,10 +1484,21 @@
       ]
     },
     "coq/kernel/nfi/PermanentRecordPricing.v": {
-      "theorems": 18,
-      "closed": 18,
+      "theorems": 19,
+      "closed": 19,
       "with_axioms": 0,
       "axiom_set": []
+    },
+    "coq/kernel/nfi/PricingOnePremise.v": {
+      "theorems": 20,
+      "closed": 6,
+      "with_axioms": 14,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
     },
     "coq/kernel/nfi/PricingPhysicsAudit.v": {
       "theorems": 6,
@@ -1481,8 +1530,8 @@
       "axiom_set": []
     },
     "coq/kernel/nfi/UniversalCertificationCost.v": {
-      "theorems": 6,
-      "closed": 6,
+      "theorems": 7,
+      "closed": 7,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1586,9 +1635,9 @@
       ]
     },
     "coq/kernel/quantum/QuantumPartitionPSD_1AB.v": {
-      "theorems": 133,
+      "theorems": 134,
       "closed": 3,
-      "with_axioms": 130,
+      "with_axioms": 131,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
@@ -1769,9 +1818,9 @@
       "axiom_set": []
     },
     "coq/kernel/thermodynamic/CalorimeterProtocol.v": {
-      "theorems": 7,
+      "theorems": 26,
       "closed": 1,
-      "with_axioms": 6,
+      "with_axioms": 25,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -1906,8 +1955,8 @@
       "axiom_set": []
     },
     "minimal/EarnedCore.v": {
-      "theorems": 69,
-      "closed": 69,
+      "theorems": 70,
+      "closed": 70,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1942,8 +1991,8 @@
       "axiom_set": []
     },
     "minimal/EntitlementSmall.v": {
-      "theorems": 39,
-      "closed": 39,
+      "theorems": 61,
+      "closed": 61,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1962,6 +2011,12 @@
     "minimal/LiftCore.v": {
       "theorems": 38,
       "closed": 38,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/LiftMacro.v": {
+      "theorems": 8,
+      "closed": 8,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2081,6 +2136,12 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "minimal/PartitionReading.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "minimal/PayFree.v": {
       "theorems": 9,
       "closed": 9,
@@ -2096,6 +2157,12 @@
     "minimal/PricedComplete.v": {
       "theorems": 10,
       "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/RecordMerge.v": {
+      "theorems": 14,
+      "closed": 14,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2202,8 +2269,20 @@
       "axiom_set": []
     },
     "minimal/ThieleComplete.v": {
-      "theorems": 42,
-      "closed": 42,
+      "theorems": 56,
+      "closed": 56,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/ThieleCompleteIndependent.v": {
+      "theorems": 29,
+      "closed": 29,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "minimal/ThieleCompleteScaled.v": {
+      "theorems": 26,
+      "closed": 26,
       "with_axioms": 0,
       "axiom_set": []
     },

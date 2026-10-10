@@ -1,0 +1,343 @@
+DIGEST 78231cce691db790fed3b1524cdf5a67
+FKernel.CzFollow
+R2003:2006 Coq.Lists.List <> <> lib
+R2008:2011 Coq.Bool.Bool <> <> lib
+R2013:2026 Coq.Arith.PeanoNat <> <> lib
+R2028:2030 Coq.micromega.Lia <> <> lib
+R2040:2052 Coq.Lists.List ListNotations <> mod
+R2082:2087 Kernel.AxCore <> <> lib
+R2089:2098 Kernel.AxComplete <> <> lib
+R2100:2105 Kernel.CzProd <> <> lib
+R2107:2111 Kernel.CzCat <> <> lib
+sec 2123:2128 <> Follow
+R2147:2154 Kernel.CzCat <> cmpz_obj rec
+binder 2141:2141 <> X:1
+binder 2143:2143 <> Y:2
+var 2167:2167 Follow f
+R2171:2178 Kernel.CzCat <> cmpz_hom rec
+R2180:2180 Kernel.CzFollow <> Follow.X var
+R2182:2182 Kernel.CzFollow <> Follow.Y var
+def 2272:2283 <> cmpz_follows
+R2291:2294 Coq.Init.Datatypes <> list ind
+R2297:2303 Kernel.AxComplete <> am_move proj
+R2306:2309 Kernel.CzCat <> ob_M proj
+R2311:2311 Kernel.CzFollow <> Follow.X var
+binder 2286:2287 <> tr:4
+R2321:2328 Kernel.AxComplete <> am_state proj
+R2331:2334 Kernel.CzCat <> ob_M proj
+R2336:2336 Kernel.CzFollow <> Follow.X var
+binder 2317:2317 <> s:5
+R2352:2355 Coq.Init.Datatypes <> list ind
+R2358:2361 Coq.Init.Datatypes <> list ind
+R2364:2370 Kernel.AxComplete <> am_move proj
+R2373:2376 Kernel.CzCat <> ob_M proj
+R2378:2378 Kernel.CzFollow <> Follow.Y var
+binder 2345:2348 <> segs:6
+R2406:2409 Kernel.CzFollow <> segs:6 var
+R2402:2403 Kernel.CzFollow <> tr:4 var
+R2420:2421 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2424:2425 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2430:2433 Coq.Init.Logic <> True ind
+R2440:2443 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2452:2455 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2539:2548 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2503:2505 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2471:2477 Kernel.CzCat <> h_state proj
+R2482:2488 Kernel.AxComplete <> am_step proj
+R2499:2499 Kernel.CzFollow <> s:5 var
+R2491:2494 Kernel.CzCat <> ob_M proj
+R2496:2496 Kernel.CzFollow <> Follow.X var
+R2479:2479 Kernel.CzFollow <> Follow.f var
+R2506:2511 Kernel.AxComplete <> am_run def
+R2527:2533 Kernel.CzCat <> h_state proj
+R2537:2537 Kernel.CzFollow <> s:5 var
+R2535:2535 Kernel.CzFollow <> Follow.f var
+R2514:2517 Kernel.CzCat <> ob_M proj
+R2519:2519 Kernel.CzFollow <> Follow.Y var
+R2549:2560 Kernel.CzFollow <> cmpz_follows:7 def
+R2567:2573 Kernel.AxComplete <> am_step proj
+R2584:2584 Kernel.CzFollow <> s:5 var
+R2576:2579 Kernel.CzCat <> ob_M proj
+R2581:2581 Kernel.CzFollow <> Follow.X var
+R2607:2611 Coq.Init.Logic <> False ind
+prf 2629:2646 <> cmpz_follow_exists
+binder 2657:2658 <> tr:10
+binder 2660:2660 <> s:11
+R2663:2669 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2674:2675 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2670:2673 <> segs:12
+R2676:2687 Kernel.CzFollow <> cmpz_follows def
+R2689:2690 Kernel.CzFollow <> tr:10 var
+R2692:2692 Kernel.CzFollow <> s:11 var
+R2694:2697 Kernel.CzFollow <> segs:12 var
+R2758:2759 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2758:2759 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2768:2768 Coq.Init.Logic <> I constr
+R2768:2768 Coq.Init.Logic <> I constr
+R2785:2789 Kernel.CzCat <> h_sim proj
+R2791:2791 Kernel.CzFollow <> Follow.f var
+R2785:2789 Kernel.CzCat <> h_sim proj
+R2791:2791 Kernel.CzFollow <> Follow.f var
+R2831:2837 Kernel.AxComplete <> am_step proj
+R2840:2843 Kernel.CzCat <> ob_M proj
+R2845:2845 Kernel.CzFollow <> Follow.X var
+R2831:2837 Kernel.AxComplete <> am_step proj
+R2840:2843 Kernel.CzCat <> ob_M proj
+R2845:2845 Kernel.CzFollow <> Follow.X var
+R2886:2889 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2886:2889 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+prf 2930:2948 <> cmpz_follow_reaches
+binder 2959:2960 <> tr:13
+binder 2962:2962 <> s:14
+binder 2964:2967 <> segs:15
+R2992:2997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2970:2981 Kernel.CzFollow <> cmpz_follows def
+R2983:2984 Kernel.CzFollow <> tr:13 var
+R2986:2986 Kernel.CzFollow <> s:14 var
+R2988:2991 Kernel.CzFollow <> segs:15 var
+R3030:3032 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2998:3004 Kernel.CzCat <> h_state proj
+R3009:3014 Kernel.AxComplete <> am_run def
+R3028:3028 Kernel.CzFollow <> s:14 var
+R3025:3026 Kernel.CzFollow <> tr:13 var
+R3017:3020 Kernel.CzCat <> ob_M proj
+R3022:3022 Kernel.CzFollow <> Follow.X var
+R3006:3006 Kernel.CzFollow <> Follow.f var
+R3033:3038 Kernel.AxComplete <> am_run def
+R3064:3070 Kernel.CzCat <> h_state proj
+R3074:3074 Kernel.CzFollow <> s:14 var
+R3072:3072 Kernel.CzFollow <> Follow.f var
+R3050:3055 Coq.Lists.List <> concat def
+R3057:3060 Kernel.CzFollow <> segs:15 var
+R3041:3044 Kernel.CzCat <> ob_M proj
+R3046:3046 Kernel.CzFollow <> Follow.Y var
+R3229:3239 Kernel.AxComplete <> am_run_cons thm
+R3229:3239 Kernel.AxComplete <> am_run_cons thm
+R3229:3239 Kernel.AxComplete <> am_run_cons thm
+R3261:3270 Kernel.AxComplete <> am_run_app thm
+R3261:3270 Kernel.AxComplete <> am_run_app thm
+R3261:3270 Kernel.AxComplete <> am_run_app thm
+prf 3319:3343 <> cmpz_follow_cost_ge_exits
+R3349:3349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3422:3428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3357:3357 <> a:16
+binder 3359:3359 <> b:17
+R3400:3403 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3362:3366 Kernel.AxCore <> bp_le def
+R3390:3394 Kernel.CzCat <> h_rec proj
+R3398:3398 Kernel.CzFollow <> b:17 var
+R3396:3396 Kernel.CzFollow <> Follow.f var
+R3378:3382 Kernel.CzCat <> h_rec proj
+R3386:3386 Kernel.CzFollow <> a:16 var
+R3384:3384 Kernel.CzFollow <> Follow.f var
+R3369:3372 Kernel.CzCat <> ob_P proj
+R3374:3374 Kernel.CzFollow <> Follow.Y var
+R3404:3408 Kernel.AxCore <> bp_le def
+R3421:3421 Kernel.CzFollow <> b:17 var
+R3419:3419 Kernel.CzFollow <> a:16 var
+R3411:3414 Kernel.CzCat <> ob_P proj
+R3416:3416 Kernel.CzFollow <> Follow.X var
+R3459:3464 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3429:3433 Kernel.AxCore <> ax_a2 def
+R3441:3448 Kernel.AxComplete <> am_axsys def
+R3451:3454 Kernel.CzCat <> ob_M proj
+R3456:3456 Kernel.CzFollow <> Follow.Y var
+binder 3472:3473 <> tr:18
+binder 3475:3475 <> s:19
+binder 3477:3480 <> segs:20
+R3505:3512 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3483:3494 Kernel.CzFollow <> cmpz_follows def
+R3496:3497 Kernel.CzFollow <> tr:18 var
+R3499:3499 Kernel.CzFollow <> s:19 var
+R3501:3504 Kernel.CzFollow <> segs:20 var
+R3545:3548 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3513:3521 Kernel.CzProd <> cmpz_cost def
+R3533:3538 Coq.Lists.List <> concat def
+R3540:3543 Kernel.CzFollow <> segs:20 var
+R3524:3527 Kernel.CzCat <> ob_M proj
+R3529:3529 Kernel.CzFollow <> Follow.Y var
+R3549:3563 Kernel.CzProd <> cmpz_exit_count def
+R3577:3577 Kernel.CzFollow <> s:19 var
+R3574:3575 Kernel.CzFollow <> tr:18 var
+R3566:3569 Kernel.CzCat <> ob_M proj
+R3571:3571 Kernel.CzFollow <> Follow.X var
+R3705:3719 Kernel.CzProd <> cmpz_exit_count def
+R3781:3793 Kernel.CzProd <> cmpz_cost_app thm
+R3781:3793 Kernel.CzProd <> cmpz_cost_app thm
+R3781:3793 Kernel.CzProd <> cmpz_cost_app thm
+R3834:3848 Kernel.CzProd <> cmpz_exit_count def
+R3877:3882 Kernel.AxCore <> bp_leb proj
+R3885:3888 Kernel.CzCat <> ob_A proj
+R3890:3890 Kernel.CzFollow <> Follow.X var
+R3894:3897 Kernel.CzCat <> ob_P proj
+R3899:3899 Kernel.CzFollow <> Follow.X var
+R3903:3908 Kernel.AxComplete <> am_rec proj
+R3920:3926 Kernel.AxComplete <> am_step proj
+R3929:3932 Kernel.CzCat <> ob_M proj
+R3934:3934 Kernel.CzFollow <> Follow.X var
+R3911:3914 Kernel.CzCat <> ob_M proj
+R3916:3916 Kernel.CzFollow <> Follow.X var
+R3960:3965 Kernel.AxComplete <> am_rec proj
+R3968:3971 Kernel.CzCat <> ob_M proj
+R3973:3973 Kernel.CzFollow <> Follow.X var
+R3877:3882 Kernel.AxCore <> bp_leb proj
+R3885:3888 Kernel.CzCat <> ob_A proj
+R3890:3890 Kernel.CzFollow <> Follow.X var
+R3894:3897 Kernel.CzCat <> ob_P proj
+R3899:3899 Kernel.CzFollow <> Follow.X var
+R3903:3908 Kernel.AxComplete <> am_rec proj
+R3920:3926 Kernel.AxComplete <> am_step proj
+R3929:3932 Kernel.CzCat <> ob_M proj
+R3934:3934 Kernel.CzFollow <> Follow.X var
+R3911:3914 Kernel.CzCat <> ob_M proj
+R3916:3916 Kernel.CzFollow <> Follow.X var
+R3960:3965 Kernel.AxComplete <> am_rec proj
+R3968:3971 Kernel.CzCat <> ob_M proj
+R3973:3973 Kernel.CzFollow <> Follow.X var
+R4018:4025 Kernel.AxCore <> ax_exits def
+R4033:4040 Kernel.AxComplete <> am_axsys def
+R4043:4046 Kernel.CzCat <> ob_M proj
+R4048:4048 Kernel.CzFollow <> Follow.X var
+R4076:4083 Kernel.AxCore <> ax_exits def
+R4086:4090 Kernel.AxCore <> bp_le def
+R4018:4025 Kernel.AxCore <> ax_exits def
+R4033:4040 Kernel.AxComplete <> am_axsys def
+R4043:4046 Kernel.CzCat <> ob_M proj
+R4048:4048 Kernel.CzFollow <> Follow.X var
+R4144:4161 Kernel.CzCat <> cmpz_sim_exit_cost thm
+R4163:4163 Kernel.CzFollow <> Follow.f var
+R4144:4161 Kernel.CzCat <> cmpz_sim_exit_cost thm
+R4163:4163 Kernel.CzFollow <> Follow.f var
+R4207:4212 Kernel.CzFollow Follow <> sec
+def 4422:4437 <> cmpz_bit_machine
+R4441:4448 Kernel.AxComplete <> amachine rec
+R4450:4453 Coq.Init.Datatypes <> bool ind
+R4455:4461 Kernel.AxCore <> two_pre def
+R4468:4472 Kernel.AxComplete <> mk_am constr
+R4474:4477 Coq.Init.Datatypes <> bool ind
+R4479:4485 Kernel.AxCore <> two_pre def
+R4487:4490 Coq.Init.Datatypes <> bool ind
+R4492:4495 Coq.Init.Datatypes <> bool ind
+binder 4504:4504 <> b:21
+R4509:4509 Kernel.CzFollow <> b:21 var
+binder 4517:4517 <> b:22
+R4525:4525 Kernel.CzFollow <> b:22 var
+binder 4547:4547 <> s:23
+R4552:4552 Kernel.CzFollow <> s:23 var
+def 4568:4575 <> cmpz_bit
+R4579:4586 Kernel.CzCat <> cmpz_obj rec
+R4591:4596 Kernel.CzCat <> mk_obj constr
+R4598:4601 Coq.Init.Datatypes <> bool ind
+R4603:4609 Kernel.AxCore <> two_pre def
+R4611:4626 Kernel.CzFollow <> cmpz_bit_machine def
+prf 4636:4646 <> cmpz_bit_a2
+R4650:4654 Kernel.AxCore <> ax_a2 def
+R4662:4669 Kernel.AxComplete <> am_axsys def
+R4672:4675 Kernel.CzCat <> ob_M proj
+R4677:4684 Kernel.CzFollow <> cmpz_bit def
+R4721:4728 Kernel.AxCore <> ax_exits def
+R4731:4735 Kernel.AxCore <> bp_le def
+prf 4844:4867 <> cmpz_end_only_not_enough
+R4873:4880 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4914:4920 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4887:4894 Kernel.CzCat <> cmpz_obj rec
+binder 4881:4881 <> X:24
+R4887:4894 Kernel.CzCat <> cmpz_obj rec
+binder 4883:4883 <> Y:25
+R4902:4909 Kernel.CzCat <> cmpz_hom rec
+R4911:4911 Kernel.CzFollow <> X:24 var
+R4913:4913 Kernel.CzFollow <> Y:25 var
+binder 4898:4898 <> f:26
+R4921:4921 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4994:5002 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4929:4929 <> a:27
+binder 4931:4931 <> b:28
+R4972:4975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4934:4938 Kernel.AxCore <> bp_le def
+R4962:4966 Kernel.CzCat <> h_rec proj
+R4970:4970 Kernel.CzFollow <> b:28 var
+R4968:4968 Kernel.CzFollow <> f:26 var
+R4950:4954 Kernel.CzCat <> h_rec proj
+R4958:4958 Kernel.CzFollow <> a:27 var
+R4956:4956 Kernel.CzFollow <> f:26 var
+R4941:4944 Kernel.CzCat <> ob_P proj
+R4946:4946 Kernel.CzFollow <> Y:25 var
+R4976:4980 Kernel.AxCore <> bp_le def
+R4993:4993 Kernel.CzFollow <> b:28 var
+R4991:4991 Kernel.CzFollow <> a:27 var
+R4983:4986 Kernel.CzCat <> ob_P proj
+R4988:4988 Kernel.CzFollow <> X:24 var
+R5033:5040 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5003:5007 Kernel.AxCore <> ax_a2 def
+R5015:5022 Kernel.AxComplete <> am_axsys def
+R5025:5028 Kernel.CzCat <> ob_M proj
+R5030:5030 Kernel.CzFollow <> Y:25 var
+R5041:5048 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5111:5119 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5054:5057 Coq.Init.Datatypes <> list ind
+R5060:5066 Kernel.AxComplete <> am_move proj
+R5069:5072 Kernel.CzCat <> ob_M proj
+R5074:5074 Kernel.CzFollow <> X:24 var
+binder 5049:5050 <> tr:29
+binder 5079:5079 <> s:30
+R5088:5091 Coq.Init.Datatypes <> list ind
+R5094:5100 Kernel.AxComplete <> am_move proj
+R5103:5106 Kernel.CzCat <> ob_M proj
+R5108:5108 Kernel.CzFollow <> Y:25 var
+binder 5082:5084 <> tr':31
+R5188:5197 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5152:5154 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5120:5126 Kernel.CzCat <> h_state proj
+R5131:5136 Kernel.AxComplete <> am_run def
+R5150:5150 Kernel.CzFollow <> s:30 var
+R5147:5148 Kernel.CzFollow <> tr:29 var
+R5139:5142 Kernel.CzCat <> ob_M proj
+R5144:5144 Kernel.CzFollow <> X:24 var
+R5128:5128 Kernel.CzFollow <> f:26 var
+R5155:5160 Kernel.AxComplete <> am_run def
+R5176:5182 Kernel.CzCat <> h_state proj
+R5186:5186 Kernel.CzFollow <> s:30 var
+R5184:5184 Kernel.CzFollow <> f:26 var
+R5171:5173 Kernel.CzFollow <> tr':31 var
+R5163:5166 Kernel.CzCat <> ob_M proj
+R5168:5168 Kernel.CzFollow <> Y:25 var
+R5220:5222 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5198:5206 Kernel.CzProd <> cmpz_cost def
+R5217:5219 Kernel.CzFollow <> tr':31 var
+R5209:5212 Kernel.CzCat <> ob_M proj
+R5214:5214 Kernel.CzFollow <> Y:25 var
+R5223:5237 Kernel.CzProd <> cmpz_exit_count def
+R5251:5251 Kernel.CzFollow <> s:30 var
+R5248:5249 Kernel.CzFollow <> tr:29 var
+R5240:5243 Kernel.CzCat <> ob_M proj
+R5245:5245 Kernel.CzFollow <> X:24 var
+R5270:5277 Kernel.CzFollow <> cmpz_bit def
+R5280:5287 Kernel.CzFollow <> cmpz_bit def
+R5291:5301 Kernel.CzCat <> cmpz_hom_id def
+R5303:5310 Kernel.CzFollow <> cmpz_bit def
+R5270:5277 Kernel.CzFollow <> cmpz_bit def
+R5280:5287 Kernel.CzFollow <> cmpz_bit def
+R5291:5301 Kernel.CzCat <> cmpz_hom_id def
+R5303:5310 Kernel.CzFollow <> cmpz_bit def
+R5366:5376 Kernel.CzFollow <> cmpz_bit_a2 thm
+R5366:5376 Kernel.CzFollow <> cmpz_bit_a2 thm
+R5391:5391 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5396:5397 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5403:5403 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5392:5395 Coq.Init.Datatypes <> true constr
+R5398:5402 Coq.Init.Datatypes <> false constr
+R5406:5410 Coq.Init.Datatypes <> false constr
+R5413:5414 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5391:5391 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5396:5397 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5403:5403 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5392:5395 Coq.Init.Datatypes <> true constr
+R5398:5402 Coq.Init.Datatypes <> false constr
+R5406:5410 Coq.Init.Datatypes <> false constr
+R5413:5414 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5452:5466 Kernel.CzProd <> cmpz_exit_count def
+R5469:5477 Kernel.CzProd <> cmpz_cost def
+R5516:5533 Kernel.CzFollow <> cmpz_follow_exists thm
+R5554:5572 Kernel.CzFollow <> cmpz_follow_reaches thm
+R5593:5617 Kernel.CzFollow <> cmpz_follow_cost_ge_exits thm
+R5638:5661 Kernel.CzFollow <> cmpz_end_only_not_enough thm

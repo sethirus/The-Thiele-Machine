@@ -1,4 +1,4 @@
-DIGEST c0d3301147473d5705d08c6efc5e3f41
+DIGEST 8aab4dc41731c953ee9f903d7104491a
 FKernel.CalorimeterProtocolTarget
 R67:71 Coq.Reals.Reals <> <> lib
 def 232:252 <> two_state_hamiltonian
@@ -58,9 +58,123 @@ def 874:894 <> canonical_reset_after
 R898:898 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 def 917:934 <> canonical_reset_dt
 R938:938 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 1085:1103 <> canonical_reset_k01
-R1107:1107 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 1126:1144 <> canonical_reset_k10
-R1148:1148 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 1167:1184 <> canonical_reset_mu
-R1188:1190 Coq.Init.Datatypes <> nat ind
+def 1296:1314 <> canonical_reset_k01
+R1318:1318 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1337:1355 <> canonical_reset_k10
+R1359:1359 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1378:1395 <> canonical_reset_mu
+R1399:1401 Coq.Init.Datatypes <> nat ind
+def 1613:1625 <> gibbs_excited
+R1639:1639 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1628:1629 <> kT:12
+binder 1631:1635 <> Delta:13
+R1644:1644 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1649:1651 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R1672:1672 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R1653:1655 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1656:1658 Coq.Reals.Rtrigo_def <> exp def
+R1666:1668 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1661:1665 Kernel.CalorimeterProtocolTarget <> Delta:13 var
+R1669:1670 Kernel.CalorimeterProtocolTarget <> kT:12 var
+def 1821:1841 <> two_state_free_energy
+R1855:1855 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1844:1845 <> kT:14
+binder 1847:1851 <> Delta:15
+R1860:1860 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1871:1873 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1867:1868 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R1869:1870 Kernel.CalorimeterProtocolTarget <> kT:14 var
+R1874:1875 Coq.Reals.Rpower <> ln def
+R1879:1881 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1882:1884 Coq.Reals.Rtrigo_def <> exp def
+R1887:1889 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R1900:1900 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R1895:1897 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1890:1894 Kernel.CalorimeterProtocolTarget <> Delta:15 var
+R1898:1899 Kernel.CalorimeterProtocolTarget <> kT:14 var
+def 2016:2031 <> detailed_balance
+R2053:2053 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2034:2035 <> kT:16
+binder 2037:2041 <> Delta:17
+binder 2043:2045 <> k01:18
+binder 2047:2049 <> k10:19
+R2071:2073 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2068:2070 Kernel.CalorimeterProtocolTarget <> k01:18 var
+R2077:2079 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2074:2076 Kernel.CalorimeterProtocolTarget <> k10:19 var
+R2080:2082 Coq.Reals.Rtrigo_def <> exp def
+R2085:2087 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R2098:2098 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R2093:2095 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2088:2092 Kernel.CalorimeterProtocolTarget <> Delta:17 var
+R2096:2097 Kernel.CalorimeterProtocolTarget <> kT:16 var
+def 2402:2412 <> driven_work
+R2420:2420 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2415:2416 <> kT:20
+R2431:2434 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2428:2430 Coq.Init.Datatypes <> nat ind
+R2435:2435 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2424:2424 <> g:21
+R2443:2445 Coq.Init.Datatypes <> nat ind
+binder 2439:2439 <> n:22
+R2450:2450 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2463:2463 Kernel.CalorimeterProtocolTarget <> n:22 var
+R2474:2474 Coq.Init.Datatypes <> O constr
+R2485:2485 Coq.Init.Datatypes <> S constr
+R2510:2512 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2492:2502 Kernel.CalorimeterProtocolTarget <> driven_work:23 def
+R2507:2507 Kernel.CalorimeterProtocolTarget <> g:21 var
+R2504:2505 Kernel.CalorimeterProtocolTarget <> kT:20 var
+R2535:2538 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2552:2552 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2513:2525 Kernel.CalorimeterProtocolTarget <> gibbs_excited def
+R2527:2528 Kernel.CalorimeterProtocolTarget <> kT:20 var
+R2531:2531 Kernel.CalorimeterProtocolTarget <> g:21 var
+R2546:2548 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2539:2539 Kernel.CalorimeterProtocolTarget <> g:21 var
+R2542:2542 Coq.Init.Datatypes <> S constr
+R2549:2549 Kernel.CalorimeterProtocolTarget <> g:21 var
+def 2571:2581 <> driven_heat
+R2589:2589 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2584:2585 <> kT:25
+R2600:2603 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2597:2599 Coq.Init.Datatypes <> nat ind
+R2604:2604 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2593:2593 <> g:26
+R2612:2614 Coq.Init.Datatypes <> nat ind
+binder 2608:2608 <> n:27
+R2619:2619 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2632:2632 Kernel.CalorimeterProtocolTarget <> n:27 var
+R2643:2643 Coq.Init.Datatypes <> O constr
+R2654:2654 Coq.Init.Datatypes <> S constr
+R2679:2694 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2661:2671 Kernel.CalorimeterProtocolTarget <> driven_heat:28 def
+R2676:2676 Kernel.CalorimeterProtocolTarget <> g:26 var
+R2673:2674 Kernel.CalorimeterProtocolTarget <> kT:25 var
+R2702:2705 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2757:2757 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2695:2695 Kernel.CalorimeterProtocolTarget <> g:26 var
+R2698:2698 Coq.Init.Datatypes <> S constr
+R2728:2730 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2706:2718 Kernel.CalorimeterProtocolTarget <> gibbs_excited def
+R2720:2721 Kernel.CalorimeterProtocolTarget <> kT:25 var
+R2724:2724 Kernel.CalorimeterProtocolTarget <> g:26 var
+R2731:2743 Kernel.CalorimeterProtocolTarget <> gibbs_excited def
+R2745:2746 Kernel.CalorimeterProtocolTarget <> kT:25 var
+R2749:2749 Kernel.CalorimeterProtocolTarget <> g:26 var
+R2752:2752 Coq.Init.Datatypes <> S constr
+def 2821:2836 <> uniform_schedule
+R2843:2843 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2839:2839 <> D:30
+R2851:2853 Coq.Init.Datatypes <> nat ind
+binder 2847:2847 <> N:31
+R2861:2863 Coq.Init.Datatypes <> nat ind
+binder 2857:2857 <> m:32
+R2868:2868 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2882:2884 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2874:2876 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2873:2873 Kernel.CalorimeterProtocolTarget <> D:30 var
+R2877:2879 Coq.Reals.Raxioms <> INR def
+R2881:2881 Kernel.CalorimeterProtocolTarget <> m:32 var
+R2885:2887 Coq.Reals.Raxioms <> INR def
+R2889:2889 Kernel.CalorimeterProtocolTarget <> N:31 var

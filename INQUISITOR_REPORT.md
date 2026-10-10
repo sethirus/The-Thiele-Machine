@@ -1,11 +1,11 @@
 # INQUISITOR REPORT
-Generated: 2026-10-09 21:18:08Z (UTC)
-Scanned: 335 Coq files across the repo
+Generated: 2026-10-10 07:01:59Z (UTC)
+Scanned: 343 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
 - LOW: 0
-- SCOPE NOTES: 195 in-source scope markers across 163 files (165 SCOPE NOTE, 30 SAFE markers)
+- SCOPE NOTES: 196 in-source scope markers across 163 files (166 SCOPE NOTE, 30 SAFE markers)
   - Read the severity counts as *unsuppressed* findings. Each scope note silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
 
 ## Rules

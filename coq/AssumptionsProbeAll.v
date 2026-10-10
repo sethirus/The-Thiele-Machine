@@ -60,6 +60,7 @@ Require Kernel.CrossBaseGranularityTransCore.
 Require Kernel.CzCS.
 Require Kernel.CzCat.
 Require Kernel.CzCounter.
+Require Kernel.CzFollow.
 Require Kernel.CzLoad.
 Require Kernel.CzProd.
 Require Kernel.CzProdTC.
@@ -151,6 +152,7 @@ Require Kernel.SmNoExact.
 Require Kernel.SmSmnAll.
 Require Kernel.SmTallyL.
 Require Kernel.SmallChshLinks.
+Require Kernel.StructuralClockSync.
 Require Kernel.StructuralCore.
 Require Kernel.StructuralCoreAnyBase.
 Require Kernel.StructuralCoreCover.
@@ -214,6 +216,7 @@ Require Kernel.KnowledgeNarrowingMinimal.
 Require Kernel.PermanentCertification.
 Require Kernel.PermanentCertificationEntropy.
 Require Kernel.PermanentRecordPricing.
+Require Kernel.PricingOnePremise.
 Require Kernel.PricingPhysicsAudit.
 Require Kernel.PricingPhysicsTarget.
 Require Kernel.QuantitativeNoFI.
@@ -289,6 +292,7 @@ Require Minimal.EntitlementSmall.
 Require Minimal.FragmentSmall.
 Require Minimal.LiftConverse.
 Require Minimal.LiftCore.
+Require Minimal.LiftMacro.
 Require Minimal.LiftOneCounter.
 Require Minimal.LiftPigeon.
 Require Minimal.MonotoneConsensus.
@@ -308,9 +312,11 @@ Require Minimal.NecTPartition.
 Require Minimal.NecTToll.
 Require Minimal.NecTUnclean.
 Require Minimal.NecTVerifier.
+Require Minimal.PartitionReading.
 Require Minimal.PayFree.
 Require Minimal.Presented.
 Require Minimal.PricedComplete.
+Require Minimal.RecordMerge.
 Require Minimal.SmCodes.
 Require Minimal.SmHostBlocks.
 Require Minimal.SmInterp.
@@ -329,6 +335,8 @@ Require Minimal.Tc2Pow.
 Require Minimal.Tc2Stage.
 Require Minimal.TcBlocks.
 Require Minimal.ThieleComplete.
+Require Minimal.ThieleCompleteIndependent.
+Require Minimal.ThieleCompleteScaled.
 Require Minimal.ThieleCompleteWindow.
 Require Minimal.TimeTax2.
 Require Minimal.UniversalCodes.
@@ -1458,6 +1466,12 @@ Print Assumptions Kernel.CzCounter.cmpz_interleaving_invariant.
 Print Assumptions Kernel.CzCounter.cmpz_or_weakly_complete.
 Print Assumptions Kernel.CzCounter.cmpz_or_clocks_not_complete.
 Print Assumptions Kernel.CzCounter.cmpz_sum_record_loses.
+(* === Kernel.CzFollow : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CzFollow.cmpz_follow_exists.
+Print Assumptions Kernel.CzFollow.cmpz_follow_reaches.
+Print Assumptions Kernel.CzFollow.cmpz_follow_cost_ge_exits.
+Print Assumptions Kernel.CzFollow.cmpz_bit_a2.
+Print Assumptions Kernel.CzFollow.cmpz_end_only_not_enough.
 (* === Kernel.CzLoad : 13 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CzLoad.cmpz_ld_load.
 Print Assumptions Kernel.CzLoad.cmpz_load_floor.
@@ -1776,7 +1790,7 @@ Print Assumptions Kernel.NatSubstrateInstance.nat_no_refuses.
 Print Assumptions Kernel.NatSubstrateInstance.nat_admits_extensional.
 Print Assumptions Kernel.NatSubstrateInstance.nat_structural_shortcut_undecidable.
 Print Assumptions Kernel.NatSubstrateInstance.nat_self_undecidable.
-(* === Kernel.NecEChsh : 24 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.NecEChsh : 30 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NecEChsh.nec_e_sq2_descent.
 Print Assumptions Kernel.NecEChsh.nec_e_no_sqrt8.
 Print Assumptions Kernel.NecEChsh.nec_e_corr_frac.
@@ -1801,6 +1815,12 @@ Print Assumptions Kernel.NecEChsh.nec_e_sbc_13.
 Print Assumptions Kernel.NecEChsh.nec_e_gzero_tight.
 Print Assumptions Kernel.NecEChsh.nec_e_flag_needs_clean.
 Print Assumptions Kernel.NecEChsh.nec_e_g12345_stronger.
+Print Assumptions Kernel.NecEChsh.nec_e_tol_check_zero.
+Print Assumptions Kernel.NecEChsh.nec_e_tol_clear.
+Print Assumptions Kernel.NecEChsh.nec_e_tol_check_sound.
+Print Assumptions Kernel.NecEChsh.nec_e_tol_contractive_norm.
+Print Assumptions Kernel.NecEChsh.nec_e_tol_check_norm.
+Print Assumptions Kernel.NecEChsh.nec_e_tol_check_bound.
 (* === Kernel.NecEChshEquality : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NecEChshEquality.nec_e_equality_forces_point.
 Print Assumptions Kernel.NecEChshEquality.nec_e_equality_two_points.
@@ -2033,8 +2053,14 @@ Print Assumptions Kernel.NecFPaperToys.nec_f_board_floor.
 Print Assumptions Kernel.NecFPaperToys.nec_f_board_floor_flat.
 Print Assumptions Kernel.NecFPaperToys.nec_f_board_no_wait.
 Print Assumptions Kernel.NecFPaperToys.nec_f_history_infinite.
-(* === Kernel.NecFPhysics : 7 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.NecFPhysics : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NecFPhysics.nec_f_dec_one_way.
+Print Assumptions Kernel.NecFPhysics.nec_f_dec_merges_false_with_true.
 Print Assumptions Kernel.NecFPhysics.nec_f_dec_collapses.
+Print Assumptions Kernel.NecFPhysics.nec_f_one_way_injective.
+Print Assumptions Kernel.NecFPhysics.nec_f_small_one_way_pair_fails.
+Print Assumptions Kernel.NecFPhysics.nec_f_pigeonhole.
+Print Assumptions Kernel.NecFPhysics.nec_f_finite_one_way_merges.
 Print Assumptions Kernel.NecFPhysics.nec_f_small_premise_pair_fails.
 Print Assumptions Kernel.NecFPhysics.nec_f_small_free_collapse_is_merge.
 Print Assumptions Kernel.NecFPhysics.nec_f_small_premise_pair_on_flag.
@@ -2786,6 +2812,16 @@ Print Assumptions Kernel.SmTallyL.sm2_ev_MMA.
 Print Assumptions Kernel.SmallChshLinks.small_chsh_cs_floor.
 Print Assumptions Kernel.SmallChshLinks.small_chsh_certified_floor.
 Print Assumptions Kernel.SmallChshLinks.small_chsh_chain_cost.
+(* === Kernel.StructuralClockSync : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.StructuralClockSync.record_axis_is_latch_r1_r4.
+Print Assumptions Kernel.StructuralClockSync.driven_reachably_driven.
+Print Assumptions Kernel.StructuralClockSync.record_axis_is_latch_reachable.
+Print Assumptions Kernel.StructuralClockSync.clock_not_reachably_driven.
+Print Assumptions Kernel.StructuralClockSync.sync_clock_in_step.
+Print Assumptions Kernel.StructuralClockSync.sync_clock_not_driven.
+Print Assumptions Kernel.StructuralClockSync.sync_clock_reachably_driven.
+Print Assumptions Kernel.StructuralClockSync.sync_clock_reachable_latch.
+Print Assumptions Kernel.StructuralClockSync.sync_clock_record_permanent.
 (* === Kernel.StructuralRecordAxis : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralRecordAxis.record_axis_is_latch_holds.
 Print Assumptions Kernel.StructuralRecordAxis.record_pair_is_two_latches_holds.
@@ -3554,7 +3590,7 @@ Print Assumptions Kernel.UniversalPPhases.pu_phase_certify_fail.
 Print Assumptions Kernel.UniversalPPhases.pu_hPAYH_post.
 Print Assumptions Kernel.UniversalPPhases.pu_U_PAY.
 Print Assumptions Kernel.UniversalPPhases.pu_phase_pay.
-(* === Kernel.UniversalPRun : 38 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.UniversalPRun : 42 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UniversalPRun.pu_hmu_mono.
 Print Assumptions Kernel.UniversalPRun.pu_hmu_le.
 Print Assumptions Kernel.UniversalPRun.pu_hcert_mono.
@@ -3593,6 +3629,10 @@ Print Assumptions Kernel.UniversalPRun.pu_hholds_one.
 Print Assumptions Kernel.UniversalPRun.pu_hholds_zero.
 Print Assumptions Kernel.UniversalPRun.pu_host_thiele_complete_with.
 Print Assumptions Kernel.UniversalPRun.pu_universal_thiele_complete.
+Print Assumptions Kernel.UniversalPRun.pu_claim_eqb_spec.
+Print Assumptions Kernel.UniversalPRun.pu_same_keeps.
+Print Assumptions Kernel.UniversalPRun.pu_host_check_sound.
+Print Assumptions Kernel.UniversalPRun.pu_universal_thiele_complete_over.
 (* === Kernel.UniversalPSim : 82 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UniversalPSim.pu_hload_high.
 Print Assumptions Kernel.UniversalPSim.pu_greg_ne_gpc.
@@ -3729,7 +3769,7 @@ Print Assumptions Kernel.UniversalPhases.phase_commit_stale.
 Print Assumptions Kernel.UniversalPhases.phase_commit_none.
 Print Assumptions Kernel.UniversalPhases.phase_certify_pass.
 Print Assumptions Kernel.UniversalPhases.phase_certify_fail.
-(* === Kernel.UniversalRun : 38 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.UniversalRun : 42 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UniversalRun.hmu_mono.
 Print Assumptions Kernel.UniversalRun.hmu_le.
 Print Assumptions Kernel.UniversalRun.hcert_mono.
@@ -3768,6 +3808,10 @@ Print Assumptions Kernel.UniversalRun.hholds_one.
 Print Assumptions Kernel.UniversalRun.hholds_zero.
 Print Assumptions Kernel.UniversalRun.host_thiele_complete_with.
 Print Assumptions Kernel.UniversalRun.universal_thiele_complete.
+Print Assumptions Kernel.UniversalRun.host_claim_eqb_spec.
+Print Assumptions Kernel.UniversalRun.host_same_keeps.
+Print Assumptions Kernel.UniversalRun.host_check_sound.
+Print Assumptions Kernel.UniversalRun.universal_thiele_complete_over.
 (* === Kernel.UniversalSim : 81 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UniversalSim.hload_high.
 Print Assumptions Kernel.UniversalSim.greg_ne_gpc.
@@ -3875,9 +3919,17 @@ Print Assumptions Kernel.ObservationPolicy.retained_history_recovers_previous_st
 Print Assumptions Kernel.ObservationPolicy.retained_history_step_injective.
 Print Assumptions Kernel.ObservationPolicy.history_simulates_observed_step.
 Print Assumptions Kernel.ObservationPolicy.visible_reset_does_not_force_global_erasure.
-(* === Kernel.PointerObservable : 2 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.PointerObservable : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PointerObservable.ReplicatedLedgerToy.toy_work_not_proliferating.
 Print Assumptions Kernel.PointerObservable.ReplicatedLedgerToy.toy_cert_unique_pointer.
+Print Assumptions Kernel.PointerObservable.pointer_on_unique.
+Print Assumptions Kernel.PointerObservable.independent_copies_everywhere_are_constant.
+Print Assumptions Kernel.PointerObservable.ReplicatedHeaderToy.synced_copy.
+Print Assumptions Kernel.PointerObservable.ReplicatedHeaderToy.ledger_carriers_independent.
+Print Assumptions Kernel.PointerObservable.ReplicatedHeaderToy.ledger_copying_alone_does_not_separate.
+Print Assumptions Kernel.PointerObservable.ReplicatedHeaderToy.final_empty_synced.
+Print Assumptions Kernel.PointerObservable.ReplicatedHeaderToy.ledger_finalized_is_pointer.
+Print Assumptions Kernel.PointerObservable.ReplicatedHeaderToy.ledger_gas_not_relied_on.
 (* === Kernel.PointerObservableCounterexamples : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PointerObservableCounterexamples.blind_observer_blocks_proliferation.
 Print Assumptions Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_model_observer_zero_records.
@@ -4012,7 +4064,7 @@ Print Assumptions Kernel.PermanentCertification.sheets_finite.
 Print Assumptions Kernel.PermanentCertification.stamp_is_permanent.
 Print Assumptions Kernel.PermanentCertification.priced_reset_satisfies_premises.
 Print Assumptions Kernel.PermanentCertification.free_merge_escapes.
-(* === Kernel.PermanentCertificationEntropy : 49 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.PermanentCertificationEntropy : 52 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PermanentCertificationEntropy.rsum_nil.
 Print Assumptions Kernel.PermanentCertificationEntropy.rsum_cons.
 Print Assumptions Kernel.PermanentCertificationEntropy.rsum_ext_in.
@@ -4050,6 +4102,8 @@ Print Assumptions Kernel.PermanentCertificationEntropy.entropy_drop_nonneg.
 Print Assumptions Kernel.PermanentCertificationEntropy.entropy_drop_pos_of_support_merge.
 Print Assumptions Kernel.PermanentCertificationEntropy.known_state_step_removes_no_entropy.
 Print Assumptions Kernel.PermanentCertificationEntropy.not_nodup_map_witness.
+Print Assumptions Kernel.PermanentCertificationEntropy.map_nodup_injective_on.
+Print Assumptions Kernel.PermanentCertificationEntropy.merge_pair_removes_a_bit.
 Print Assumptions Kernel.PermanentCertificationEntropy.certified_and_flips_nodup.
 Print Assumptions Kernel.PermanentCertificationEntropy.certified_and_flips_land_certified.
 Print Assumptions Kernel.PermanentCertificationEntropy.permanent_step_entropy_ceiling.
@@ -4061,8 +4115,9 @@ Print Assumptions Kernel.PermanentCertificationEntropy.permanent_flip_heat_posit
 Print Assumptions Kernel.PermanentCertificationEntropy.permanent_flip_full_support_entropy_drop_positive.
 Print Assumptions Kernel.PermanentCertificationEntropy.permanent_flip_full_support_heat_positive.
 Print Assumptions Kernel.PermanentCertificationEntropy.known_state_flip_forces_no_heat.
+Print Assumptions Kernel.PermanentCertificationEntropy.permanent_flip_spread_loses_a_bit.
 Print Assumptions Kernel.PermanentCertificationEntropy.entropy_priced_trace_floor.
-(* === Kernel.PermanentRecordPricing : 18 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.PermanentRecordPricing : 19 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PermanentRecordPricing.nodup_app_disjoint.
 Print Assumptions Kernel.PermanentRecordPricing.permanent_flips_compression_bound.
 Print Assumptions Kernel.PermanentRecordPricing.flip_gives_certified_state.
@@ -4076,11 +4131,33 @@ Print Assumptions Kernel.PermanentRecordPricing.quad_lists_short.
 Print Assumptions Kernel.PermanentRecordPricing.quad_stamp_cost_two_is_priced.
 Print Assumptions Kernel.PermanentRecordPricing.quad_stamp_needs_two.
 Print Assumptions Kernel.PermanentRecordPricing.permanent_at_flip_is_not_injective.
+Print Assumptions Kernel.PermanentRecordPricing.permanent_flip_merges_on_yes_side.
 Print Assumptions Kernel.PermanentRecordPricing.flip_merges_or_revokes.
 Print Assumptions Kernel.PermanentRecordPricing.injective_flip_revokes.
 Print Assumptions Kernel.PermanentRecordPricing.forced_priced_iff_merges.
 Print Assumptions Kernel.PermanentRecordPricing.permanent_record_write_is_forced_priced.
 Print Assumptions Kernel.PermanentRecordPricing.forced_price_without_permanent_record.
+(* === Kernel.PricingOnePremise : 20 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PricingOnePremise.all_nodup.
+Print Assumptions Kernel.PricingOnePremise.all_in.
+Print Assumptions Kernel.PricingOnePremise.ln_INR_pos_le.
+Print Assumptions Kernel.PricingOnePremise.log2_one.
+Print Assumptions Kernel.PricingOnePremise.log2_pow2.
+Print Assumptions Kernel.PricingOnePremise.log2_le_nat.
+Print Assumptions Kernel.PricingOnePremise.prob_le_one.
+Print Assumptions Kernel.PricingOnePremise.entropy_nonneg.
+Print Assumptions Kernel.PricingOnePremise.entropy_drop_le_log_support_fibre.
+Print Assumptions Kernel.PricingOnePremise.entropy_drop_le_log_fibre.
+Print Assumptions Kernel.PricingOnePremise.step_no_pileup_entropy_invariant.
+Print Assumptions Kernel.PricingOnePremise.entropy_drop_of_fibre.
+Print Assumptions Kernel.PricingOnePremise.worst_case_entropy_drop.
+Print Assumptions Kernel.PricingOnePremise.compression_iff_fibre.
+Print Assumptions Kernel.PricingOnePremise.entropy_priced_iff_compression_priced.
+Print Assumptions Kernel.PricingOnePremise.image_size_one.
+Print Assumptions Kernel.PricingOnePremise.image_size_two.
+Print Assumptions Kernel.PricingOnePremise.merging_priced_iff_pair_halving.
+Print Assumptions Kernel.PricingOnePremise.merging_priced_iff_pair_entropy.
+Print Assumptions Kernel.PricingOnePremise.one_premise_three_forms.
 (* === Kernel.PricingPhysicsAudit : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PricingPhysicsAudit.no_forced_price_beyond_merges.
 Print Assumptions Kernel.PricingPhysicsAudit.permanent_write_has_logical_payment.
@@ -4101,8 +4178,9 @@ Print Assumptions Kernel.ShadowPricing.window_showing_reading_has_no_collision.
 (* === Kernel.StructuralUndecidability : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralUndecidability.structural_shortcut_undecidable.
 Print Assumptions Kernel.StructuralUndecidability.admits_shortcut_not_decidable.
-(* === Kernel.UniversalCertificationCost : 6 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.UniversalCertificationCost : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UniversalCertificationCost.universal_nfi_any_substrate.
+Print Assumptions Kernel.UniversalCertificationCost.every_toll_system_pays_the_floor.
 Print Assumptions Kernel.UniversalCertificationCost.cert_trace_nonempty.
 Print Assumptions Kernel.UniversalCertificationCost.cs_run_app.
 Print Assumptions Kernel.UniversalCertificationCost.cs_total_cost_app.
@@ -4298,7 +4376,7 @@ Print Assumptions Kernel.NPAMomentMatrix.npa_rho_BB_position.
 Print Assumptions Kernel.NPAMomentMatrix.npa_rho_AA_position.
 Print Assumptions Kernel.NPAMomentMatrix.npa_psd_implies_normalized.
 Print Assumptions Kernel.NPAMomentMatrix.npa_to_matrix_symmetric.
-(* === Kernel.QuantumPartitionPSD_1AB : 133 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.QuantumPartitionPSD_1AB : 134 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.fin9_destruct.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_moment_matrix_symmetric.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_to_matrix_symmetric.
@@ -4432,6 +4510,7 @@ Print Assumptions Kernel.QuantumPartitionPSD_1AB.KZ12_pos.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.KZ16_pos.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_g12345_caller_witness_z_abs_sound.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_g12345_caller_witness_z_abs_implies_psd9.
+Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_tie_is_a_constraint.
 (* === Kernel.QuantumStrategies : 22 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.QuantumStrategies.qs_corr_dot.
 Print Assumptions Kernel.QuantumStrategies.qs_uvec_unit.
@@ -4702,14 +4781,33 @@ Print Assumptions Kernel.TPMQuoteAuthenticity.tpm_interface_authenticity_refuted
 Print Assumptions Kernel.TPMQuoteGap.quote_collision.
 Print Assumptions Kernel.TPMQuoteGap.quote_cannot_attest_unmeasured_state.
 Print Assumptions Kernel.TPMQuoteGap.quote_decides_measured_claims.
-(* === Kernel.CalorimeterProtocol : 7 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.CalorimeterProtocol : 26 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CalorimeterProtocol.canonical_reset_satisfies_master_equation.
 Print Assumptions Kernel.CalorimeterProtocol.canonical_reset_heat_exact.
 Print Assumptions Kernel.CalorimeterProtocol.selected_gap_gives_landauer_heat.
 Print Assumptions Kernel.CalorimeterProtocol.ln_two_positive.
-Print Assumptions Kernel.CalorimeterProtocol.smaller_gap_refutes_unconditional_landauer_floor.
+Print Assumptions Kernel.CalorimeterProtocol.canonical_reset_heat_below_landauer_at_small_gap.
 Print Assumptions Kernel.CalorimeterProtocol.master_equation_does_not_fix_heat_scale.
 Print Assumptions Kernel.CalorimeterProtocol.canonical_reset_is_one_mu.
+Print Assumptions Kernel.CalorimeterProtocol.canonical_rates_break_detailed_balance.
+Print Assumptions Kernel.CalorimeterProtocol.detailed_balance_settles_at_gibbs.
+Print Assumptions Kernel.CalorimeterProtocol.detailed_balance_thermalizing_step.
+Print Assumptions Kernel.CalorimeterProtocol.gibbs_pos.
+Print Assumptions Kernel.CalorimeterProtocol.detailed_balance_never_empties.
+Print Assumptions Kernel.CalorimeterProtocol.landauer_gap_settles_at_one_fifth.
+Print Assumptions Kernel.CalorimeterProtocol.dpl_ext.
+Print Assumptions Kernel.CalorimeterProtocol.dpl_val.
+Print Assumptions Kernel.CalorimeterProtocol.free_energy_derivative.
+Print Assumptions Kernel.CalorimeterProtocol.gibbs_le_half_at_nonneg.
+Print Assumptions Kernel.CalorimeterProtocol.gibbs_antitone.
+Print Assumptions Kernel.CalorimeterProtocol.free_energy_step_bounds.
+Print Assumptions Kernel.CalorimeterProtocol.driven_first_law.
+Print Assumptions Kernel.CalorimeterProtocol.driven_work_second_law.
+Print Assumptions Kernel.CalorimeterProtocol.driven_work_near_free_energy.
+Print Assumptions Kernel.CalorimeterProtocol.free_energy_at_zero.
+Print Assumptions Kernel.CalorimeterProtocol.ln_le_loc.
+Print Assumptions Kernel.CalorimeterProtocol.ln_one_plus_le.
+Print Assumptions Kernel.CalorimeterProtocol.driven_reset_work_window.
 (* === Kernel.RelaxationContinuous : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.RelaxationContinuous.rcd_ln_mono.
 Print Assumptions Kernel.RelaxationContinuous.rcd_sigma_nonneg.
@@ -4976,7 +5074,7 @@ Print Assumptions Minimal.CzShared.cmpz_shared_base_toll.
 Print Assumptions Minimal.CzShared.cmpz_shared_respect.
 Print Assumptions Minimal.CzShared.cmpz_shared_raises.
 Print Assumptions Minimal.CzShared.cmpz_shared_not_earned.
-(* === Minimal.EarnedCore : 69 addressable theorems (unaddressable: 0) === *)
+(* === Minimal.EarnedCore : 70 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.EarnedCore.eval_iff.
 Print Assumptions Minimal.EarnedCore.fact_eqb_eq.
 Print Assumptions Minimal.EarnedCore.start_clean.
@@ -5033,6 +5131,7 @@ Print Assumptions Minimal.EarnedCore.earned_commitment_provenance.
 Print Assumptions Minimal.EarnedCore.cert_first.
 Print Assumptions Minimal.EarnedCore.chan_origin.
 Print Assumptions Minimal.EarnedCore.earned_certification_provenance.
+Print Assumptions Minimal.EarnedCore.earned_certification_same_claim.
 Print Assumptions Minimal.EarnedCore.certified_run_min_cost.
 Print Assumptions Minimal.EarnedCore.program_certified_min_cost.
 Print Assumptions Minimal.EarnedCore.min_cost_tight.
@@ -5377,7 +5476,7 @@ Print Assumptions Minimal.EntitlementMore2.ent2_upgrade_iff.
 Print Assumptions Minimal.EntitlementMore2.ent2_every_observed_shortcut_lands_here.
 Print Assumptions Minimal.EntitlementMore2.ent2_obs_depth.
 Print Assumptions Minimal.EntitlementMore2.ent2_observed_small_instance.
-(* === Minimal.EntitlementSmall : 39 addressable theorems (unaddressable: 0) === *)
+(* === Minimal.EntitlementSmall : 61 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.EntitlementSmall.ent_complete_depth.
 Print Assumptions Minimal.EntitlementSmall.ent_complete_leaves.
 Print Assumptions Minimal.EntitlementSmall.ent_leaves_le_pow2.
@@ -5417,6 +5516,28 @@ Print Assumptions Minimal.EntitlementSmall.ent_small_realized.
 Print Assumptions Minimal.EntitlementSmall.ent_small_instance.
 Print Assumptions Minimal.EntitlementSmall.ent_small_lands.
 Print Assumptions Minimal.EntitlementSmall.ent_small_questions.
+Print Assumptions Minimal.EntitlementSmall.ent_narrow_filter.
+Print Assumptions Minimal.EntitlementSmall.ent_narrow_le.
+Print Assumptions Minimal.EntitlementSmall.ent_stages_product.
+Print Assumptions Minimal.EntitlementSmall.ent_bits_of_cover.
+Print Assumptions Minimal.EntitlementSmall.ent_stages_cover.
+Print Assumptions Minimal.EntitlementSmall.ent_stages_bits.
+Print Assumptions Minimal.EntitlementSmall.ent_stages_share_bits.
+Print Assumptions Minimal.EntitlementSmall.ent_test_bits_cover.
+Print Assumptions Minimal.EntitlementSmall.ent_stages_after_pos.
+Print Assumptions Minimal.EntitlementSmall.ent_stages_round_bits.
+Print Assumptions Minimal.EntitlementSmall.ent_passes_le_checked.
+Print Assumptions Minimal.EntitlementSmall.ent_passes_sound.
+Print Assumptions Minimal.EntitlementSmall.ent_forallb_false.
+Print Assumptions Minimal.EntitlementSmall.ent_run_entitlement.
+Print Assumptions Minimal.EntitlementSmall.ent_run_round_bits.
+Print Assumptions Minimal.EntitlementSmall.ent_cs_run_app.
+Print Assumptions Minimal.EntitlementSmall.ent_cs_passes_le.
+Print Assumptions Minimal.EntitlementSmall.ent_cs_tested_le_paid.
+Print Assumptions Minimal.EntitlementSmall.ent_cs_passes_sound.
+Print Assumptions Minimal.EntitlementSmall.ent_cs_run_entitlement.
+Print Assumptions Minimal.EntitlementSmall.ent_small_run_narrowing.
+Print Assumptions Minimal.EntitlementSmall.ent_share_needed.
 (* === Minimal.FragmentSmall : 27 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.FragmentSmall.frag_up_spec.
 Print Assumptions Minimal.FragmentSmall.frag_flip_merges.
@@ -5494,6 +5615,15 @@ Print Assumptions Minimal.LiftCore.lift_wc_eqb_eq.
 Print Assumptions Minimal.LiftCore.lift_wc_eval_iff.
 Print Assumptions Minimal.LiftCore.lift_window_nonvacuous.
 Print Assumptions Minimal.LiftCore.lift_window_thiele_complete.
+(* === Minimal.LiftMacro : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.LiftMacro.sim_macro_runs.
+Print Assumptions Minimal.LiftMacro.ub_to_sim_inhabited.
+Print Assumptions Minimal.LiftMacro.sim_to_macro_inhabited.
+Print Assumptions Minimal.LiftMacro.sim_base_lifts.
+Print Assumptions Minimal.LiftMacro.fl_run_tgt.
+Print Assumptions Minimal.LiftMacro.fl_no_universal_base.
+Print Assumptions Minimal.LiftMacro.fl_has_sim_base.
+Print Assumptions Minimal.LiftMacro.fl_macro_lifts.
 (* === Minimal.LiftOneCounter : 25 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.LiftOneCounter.lift_oc_f_some.
 Print Assumptions Minimal.LiftOneCounter.lift_oc_f_none.
@@ -5759,6 +5889,25 @@ Print Assumptions Minimal.NecTVerifier.nec_t_ver_collision_free_implies_exists.
 Print Assumptions Minimal.NecTVerifier.nec_t_ver_exists_iff_collision_free.
 Print Assumptions Minimal.NecTVerifier.nec_t_clock_has_bare_verifier.
 Print Assumptions Minimal.NecTVerifier.nec_t_weak_does_not_suffice.
+(* === Minimal.PartitionReading : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.PartitionReading.pr_grouping_partition.
+Print Assumptions Minimal.PartitionReading.same_part_sym.
+Print Assumptions Minimal.PartitionReading.same_part_trans.
+Print Assumptions Minimal.PartitionReading.sound_same_part.
+Print Assumptions Minimal.PartitionReading.sound_refines.
+Print Assumptions Minimal.PartitionReading.pr_entitled_iff_refines.
+Print Assumptions Minimal.PartitionReading.pairs_ok_iff.
+Print Assumptions Minimal.PartitionReading.sound_b_iff.
+Print Assumptions Minimal.PartitionReading.same_part_b_iff.
+Print Assumptions Minimal.PartitionReading.pr_reads_structural.
+Print Assumptions Minimal.PartitionReading.p_inv_step.
+Print Assumptions Minimal.PartitionReading.p_inv_run.
+Print Assumptions Minimal.PartitionReading.p_inv_clean.
+Print Assumptions Minimal.PartitionReading.pr_reading_entitles.
+Print Assumptions Minimal.PartitionReading.pr_reading_entitles_only.
+Print Assumptions Minimal.PartitionReading.pr_toll.
+Print Assumptions Minimal.PartitionReading.p_cinv_step.
+Print Assumptions Minimal.PartitionReading.pr_reading_costs_three.
 (* === Minimal.PayFree : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.PayFree.pf_err_latch.
 Print Assumptions Minimal.PayFree.pf_cert_latch.
@@ -5808,6 +5957,21 @@ Print Assumptions Minimal.PricedComplete.priced_thiele_complete_with.
 Print Assumptions Minimal.PricedComplete.priced_thiele_complete.
 Print Assumptions Minimal.PricedComplete.priced_sorted_thiele_complete.
 Print Assumptions Minimal.PricedComplete.priced_core_thiele_complete.
+(* === Minimal.RecordMerge : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.RecordMerge.rm_fact_eqb_refl.
+Print Assumptions Minimal.RecordMerge.rm_commit_lands.
+Print Assumptions Minimal.RecordMerge.rm_commit_merges.
+Print Assumptions Minimal.RecordMerge.rm_merge_price_charges_record_moves.
+Print Assumptions Minimal.RecordMerge.rm_toll_from_any_merge_price.
+Print Assumptions Minimal.RecordMerge.rm_merge_price_gives_record_price.
+Print Assumptions Minimal.RecordMerge.rm_certify_record_merge.
+Print Assumptions Minimal.RecordMerge.rm_commit_record_merge.
+Print Assumptions Minimal.RecordMerge.rm_base_core.
+Print Assumptions Minimal.RecordMerge.rm_core_eq.
+Print Assumptions Minimal.RecordMerge.rm_base_moves_no_record_merge.
+Print Assumptions Minimal.RecordMerge.rm_small_record_priced.
+Print Assumptions Minimal.RecordMerge.rm_toll_from_record_price.
+Print Assumptions Minimal.RecordMerge.rm_record_price_and_exact_toll.
 (* === Minimal.SmCodes : 23 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.SmCodes.sm_hb_correct.
 Print Assumptions Minimal.SmCodes.sm_hb_unique.
@@ -6185,10 +6349,13 @@ Print Assumptions Minimal.TcBlocks.tc_gplain_exec.
 Print Assumptions Minimal.TcBlocks.tc_compile_run.
 Print Assumptions Minimal.TcBlocks.tc_gfetch_app_left.
 Print Assumptions Minimal.TcBlocks.tc_gfetch_app_right.
-(* === Minimal.ThieleComplete : 42 addressable theorems (unaddressable: 0) === *)
+(* === Minimal.ThieleComplete : 56 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.ThieleComplete.run_app.
 Print Assumptions Minimal.ThieleComplete.base_runs_every_program.
 Print Assumptions Minimal.ThieleComplete.base_halting_correspondence.
+Print Assumptions Minimal.ThieleComplete.thiele_complete_over_complete.
+Print Assumptions Minimal.ThieleComplete.thiele_complete_with_over.
+Print Assumptions Minimal.ThieleComplete.over_certificate_means.
 Print Assumptions Minimal.ThieleComplete.thiele_complete_is_weak.
 Print Assumptions Minimal.ThieleComplete.record_moves_app.
 Print Assumptions Minimal.ThieleComplete.ledger_counts_record_moves.
@@ -6215,10 +6382,16 @@ Print Assumptions Minimal.ThieleComplete.run_earned.
 Print Assumptions Minimal.ThieleComplete.earned_sim.
 Print Assumptions Minimal.ThieleComplete.untouched_prefix.
 Print Assumptions Minimal.ThieleComplete.earned_chain_holds.
+Print Assumptions Minimal.ThieleComplete.earned_core_complete_with.
 Print Assumptions Minimal.ThieleComplete.earned_core_thiele_complete.
+Print Assumptions Minimal.ThieleComplete.earned_claim_eqb_spec.
+Print Assumptions Minimal.ThieleComplete.earned_same_keeps.
+Print Assumptions Minimal.ThieleComplete.earned_check_sound.
+Print Assumptions Minimal.ThieleComplete.earned_core_thiele_complete_over.
 Print Assumptions Minimal.ThieleComplete.reference_step_agrees.
 Print Assumptions Minimal.ThieleComplete.reference_agrees.
 Print Assumptions Minimal.ThieleComplete.earned_core_runs_counter_programs.
+Print Assumptions Minimal.ThieleComplete.check_ge_unit_cost.
 Print Assumptions Minimal.ThieleComplete.run_generic.
 Print Assumptions Minimal.ThieleComplete.generic_base_blind.
 Print Assumptions Minimal.ThieleComplete.generic_sim.
@@ -6226,8 +6399,70 @@ Print Assumptions Minimal.ThieleComplete.generic_untouched_prefix.
 Print Assumptions Minimal.ThieleComplete.generic_chain_holds.
 Print Assumptions Minimal.ThieleComplete.generic_chain_iff.
 Print Assumptions Minimal.ThieleComplete.generic_thiele_complete_with.
+Print Assumptions Minimal.ThieleComplete.generic_claim_eqb_spec.
+Print Assumptions Minimal.ThieleComplete.generic_same_keeps.
+Print Assumptions Minimal.ThieleComplete.generic_check_sound.
 Print Assumptions Minimal.ThieleComplete.earned_generic_thiele_complete.
 Print Assumptions Minimal.ThieleComplete.sorted_machine_thiele_complete.
+Print Assumptions Minimal.ThieleComplete.earned_generic_thiele_complete_over.
+Print Assumptions Minimal.ThieleComplete.sorted_machine_thiele_complete_over.
+(* === Minimal.ThieleCompleteIndependent : 29 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.ThieleCompleteIndependent.ext_run_map.
+Print Assumptions Minimal.ThieleCompleteIndependent.ext_run_EM_app.
+Print Assumptions Minimal.ThieleCompleteIndependent.ext_run_EM_cons.
+Print Assumptions Minimal.ThieleCompleteIndependent.E_run_cons.
+Print Assumptions Minimal.ThieleCompleteIndependent.ext_chain_transport.
+Print Assumptions Minimal.ThieleCompleteIndependent.ext_record_parts.
+Print Assumptions Minimal.ThieleCompleteIndependent.ext_non_vacuity.
+Print Assumptions Minimal.ThieleCompleteIndependent.ext_exact_toll.
+Print Assumptions Minimal.ThieleCompleteIndependent.drop_trapped_stays.
+Print Assumptions Minimal.ThieleCompleteIndependent.drop_free_run.
+Print Assumptions Minimal.ThieleCompleteIndependent.drop_meets_b_c_d.
+Print Assumptions Minimal.ThieleCompleteIndependent.drop_not_permanent.
+Print Assumptions Minimal.ThieleCompleteIndependent.drop_fails_a.
+Print Assumptions Minimal.ThieleCompleteIndependent.drop_not_thiele_complete.
+Print Assumptions Minimal.ThieleCompleteIndependent.drop_weakly_thiele_complete.
+Print Assumptions Minimal.ThieleCompleteIndependent.free_meets_a_c_d.
+Print Assumptions Minimal.ThieleCompleteIndependent.chain_needs_three.
+Print Assumptions Minimal.ThieleCompleteIndependent.free_fails_b.
+Print Assumptions Minimal.ThieleCompleteIndependent.free_trapped_stays.
+Print Assumptions Minimal.ThieleCompleteIndependent.free_not_thiele_complete.
+Print Assumptions Minimal.ThieleCompleteIndependent.free_weakly_thiele_complete.
+Print Assumptions Minimal.ThieleCompleteIndependent.paid_run.
+Print Assumptions Minimal.ThieleCompleteIndependent.earned_clauses.
+Print Assumptions Minimal.ThieleCompleteIndependent.paid_chain.
+Print Assumptions Minimal.ThieleCompleteIndependent.paid_meets_a_b_d.
+Print Assumptions Minimal.ThieleCompleteIndependent.paid_fails_c.
+Print Assumptions Minimal.ThieleCompleteIndependent.paid_not_thiele_complete.
+Print Assumptions Minimal.ThieleCompleteIndependent.paid_weakly_thiele_complete.
+Print Assumptions Minimal.ThieleCompleteIndependent.thiele_complete_clauses_independent.
+(* === Minimal.ThieleCompleteScaled : 26 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.ThieleCompleteScaled.thiele_complete_at_one.
+Print Assumptions Minimal.ThieleCompleteScaled.thiele_complete_has_a_unit.
+Print Assumptions Minimal.ThieleCompleteScaled.run_scale.
+Print Assumptions Minimal.ThieleCompleteScaled.run_unscale.
+Print Assumptions Minimal.ThieleCompleteScaled.base_clause_scale.
+Print Assumptions Minimal.ThieleCompleteScaled.base_clause_unscale.
+Print Assumptions Minimal.ThieleCompleteScaled.earned_chain_scale.
+Print Assumptions Minimal.ThieleCompleteScaled.earned_chain_unscale.
+Print Assumptions Minimal.ThieleCompleteScaled.record_clause_scale.
+Print Assumptions Minimal.ThieleCompleteScaled.record_clause_unscale.
+Print Assumptions Minimal.ThieleCompleteScaled.nonvac_clause_scale.
+Print Assumptions Minimal.ThieleCompleteScaled.nonvac_clause_unscale.
+Print Assumptions Minimal.ThieleCompleteScaled.scale_complete_at.
+Print Assumptions Minimal.ThieleCompleteScaled.unscale_complete.
+Print Assumptions Minimal.ThieleCompleteScaled.unscale_same_step.
+Print Assumptions Minimal.ThieleCompleteScaled.scaled_has_free_move.
+Print Assumptions Minimal.ThieleCompleteScaled.paid_moves_not_thiele_complete_at_any_unit.
+Print Assumptions Minimal.ThieleCompleteScaled.clock_not_thiele_complete_at_any_unit.
+Print Assumptions Minimal.ThieleCompleteScaled.latch_clock_not_thiele_complete_at_any_unit.
+Print Assumptions Minimal.ThieleCompleteScaled.scaled_ledger_counts.
+Print Assumptions Minimal.ThieleCompleteScaled.scaled_certificate_costs_three_c.
+Print Assumptions Minimal.ThieleCompleteScaled.unscale_with.
+Print Assumptions Minimal.ThieleCompleteScaled.scaled_committed_claim_holds.
+Print Assumptions Minimal.ThieleCompleteScaled.scaled_only_certify_raises.
+Print Assumptions Minimal.ThieleCompleteScaled.doubled_earned_scaled.
+Print Assumptions Minimal.ThieleCompleteScaled.doubled_earned_not_thiele_complete.
 (* === Minimal.ThieleCompleteWindow : 17 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.ThieleCompleteWindow.cm_dec_a_to_zero.
 Print Assumptions Minimal.ThieleCompleteWindow.cm_dec_b_to_zero.
