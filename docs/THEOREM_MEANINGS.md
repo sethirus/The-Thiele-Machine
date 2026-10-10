@@ -1117,7 +1117,8 @@ An explicitly qualified citation keeps its own module identity.
 - `cmpz_compile_link`: For a computably presented machine and a start, if the surcharge lies between lo and hi whenever the latch is up, the machine links to its compiled guest on the priced small machine with surcharge bounds (lo, hi).
 - `cmpz_host_link_exact`: If the reading starts at no and every move a presented machine takes costs at most 1, running it on U_P adds exactly 2 to the ledger once its latch is up.
 - `cmpz_surcharge_exact_two`: For a presented machine whose reading starts at no and whose moves cost at most 1, the surcharge is exactly 2 whenever its latch is up, so the bound 2 is attained.
-- `cmpz_sim_cost_ge_exits`: A record-preserving simulation that reflects the order of records, into a machine that pays the toll, pays at least the number of guest exits over any run, so nesting only adds to the toll at every scale.
+- `cmpz_sim_cost_ge_exits`: For a record-preserving simulation that reflects the order of records, into a machine that pays the toll, every guest run from any state has some host run reaching the image of its end state that costs at least the number of guest exits.
+- `cmpz_sim_exit_cost`: For a record-preserving simulation that reflects the order of records, into a machine that pays the toll, every host list of moves that carries the image of a guest state to the image of its successor under a guest move leaving the down-set of its record costs at least 1.
 - `cmp_ceval_det`: In the source language of the verified compiler, a program run from one starting environment has at most one result: two derivations give the same final variables and the same operation count.
 - `cmp_interp_sound`: If the fuel interpreter of the source language returns a final environment and a count, then the source semantics derives a run from the same start whose final variables are those and whose count is the starting count plus the operations of the run.
 - `cmp_interp_complete`: If the source semantics derives a run, the fuel interpreter returns the same final variables and the count plus the operations of that run once its fuel is large enough, and for every larger fuel.
@@ -1274,3 +1275,43 @@ An explicitly qualified citation keeps its own module identity.
 - `tc2_no_pow`: No program of the small machine, started on x in counter A and nothing in counter B, stops with 2^x in counter A for every x.
 - `schur_identity`: For finite index lists, a symmetric P with a symmetric inverse Pinv, any Q and a symmetric R, the block form u^T P u + 2 u^T Q w + w^T R w equals (u + z)^T P (u + z) + w^T (R - Q^T Pinv Q) w with z = Pinv Q w, for all u and w.
 - `schur_complement_psd`: Under the same hypotheses and with P positive semidefinite, the block form is nonnegative for all u and w if and only if the complement R - Q^T Pinv Q is positive semidefinite.
+
+## Units, bases by simulation, nesting, clocks and partitions
+
+- `thiele_complete_at_one`: A machine is Thiele-complete at unit 1 (clauses (a), (b) and (d), base moves free, every record move costing 1, the ledger adding each cost) exactly when it is Thiele-complete.
+- `scale_complete_at`: For every c at least 1, a Thiele-complete machine with every price multiplied by c is Thiele-complete at unit c.
+- `unscale_complete`: A machine Thiele-complete at unit c, with every price divided by c, is Thiele-complete.
+- `scaled_has_free_move`: A machine Thiele-complete at any unit has a move that costs 0.
+- `paid_moves_not_thiele_complete_at_any_unit`: A machine whose every move costs at least 1 is Thiele-complete at no unit.
+- `clock_not_thiele_complete_at_any_unit`: The two-counter machine charging 1 per move, with any reading of its configuration as the record, is Thiele-complete at no unit.
+- `latch_clock_not_thiele_complete_at_any_unit`: The two-counter machine charging 1 per move, with a flag that latches when a chosen test of the configuration says yes, is Thiele-complete at no unit.
+- `scaled_certificate_costs_three_c`: For an interface meeting the definition at unit c, a run from a clean state ending with the record up contains at least three record moves and raises the ledger by at least 3c.
+- `scaled_committed_claim_holds`: For an interface meeting the definition at unit c, a run from a clean state ending with the record up contains a CHECK and a later COMMIT of one claim whose meaning holds at the state checked and at the state committed.
+- `scaled_only_certify_raises`: For an interface meeting the definition at unit c, on a run from a clean state the move that raises the record is a CERTIFY.
+- `doubled_earned_scaled`: The small machine with every price doubled is Thiele-complete at unit 2.
+- `doubled_earned_not_thiele_complete`: The small machine with every price doubled is not Thiele-complete.
+- `sim_macro_runs`: Running a list of move lists on the macro machine of a box is running their concatenation on the box.
+- `ub_to_sim_inhabited`: A machine with a universal base has a base by simulation.
+- `sim_to_macro_inhabited`: A machine with a base by simulation (each two-counter instruction a finite list of its moves acting on a window as the instruction acts, from every live state) has a universal base on its macro machine, whose moves are finite lists of its moves.
+- `sim_base_lifts`: For every base by simulation and every cap of at least 1, the lift of the macro machine with the window claims is Thiele-complete.
+- `fl_has_sim_base`: The five-lever box (increment A, increment B, raise the jump target, and for each of A and B decrement-or-jump to the target) has a base by simulation.
+- `fl_no_universal_base`: The five-lever box has no universal base.
+- `fl_macro_lifts`: For every cap of at least 1, the lift of the five-lever box's macro machine with the window claims is Thiele-complete.
+- `cmpz_follow_exists`: For every simulation and every guest run there is a host run, one segment per guest move, that follows it.
+- `cmpz_follow_reaches`: A host run that follows a guest run ends on the image of the guest's end state.
+- `cmpz_follow_cost_ge_exits`: For a simulation whose record map reflects the order, into a host that pays the toll, every host run that follows a guest run costs at least the guest's number of exits.
+- `cmpz_end_only_not_enough`: Some simulation reflecting the order into a host that pays the toll has a guest run and a host run reaching the image of its end state that costs less than the guest's number of exits.
+- `record_axis_is_latch_r1_r4`: Over any base, a record driven by the computation and permanent factors as the latch of some event; the ledger, toll and reachable-write clauses are not hypotheses.
+- `record_axis_is_latch_reachable`: Over any base, a permanent record driven by the computation on every state a run reaches from a starting state factors as the latch of some event on those states.
+- `clock_not_reachably_driven`: The record switched on at the fifth tick of a hidden clock, with every state a starting state, is not driven by the computation even on the states runs reach.
+- `sync_clock_not_driven`: The same clock with starting states (b, b, off) is not driven by the computation when every state counts.
+- `sync_clock_reachably_driven`: The clock with starting states (b, b, off) is driven by the computation on every state its runs reach.
+- `sync_clock_reachable_latch`: The clock with starting states (b, b, off) is, on every state its runs reach, the latch of the event "the base state is 5".
+- `sync_clock_record_permanent`: The record of the clock with starting states (b, b, off) never switches off.
+- `pr_grouping_partition`: The classes of "same bucket label" under any grouping form a partition.
+- `pr_entitled_iff_refines`: For groupings g and h of a pile, soundness of g for every key gives soundness of h for that key exactly when h refines g on the pile.
+- `pr_reads_structural`: Two groupings with the same partition of the pile have the same reading at every state of the bucket machine.
+- `pr_reading_entitles`: On every run of the bucket machine from a clean state, if the reading for a grouping g is up, the record holds a grouping and a key such that g is sound for that key and so is every grouping that refines g.
+- `pr_reading_entitles_only`: For every grouping h that does not refine g, there is a key for which g is sound and h is not.
+- `pr_toll`: The bucket machine pays the toll: a step that raises its record costs at least 1.
+- `pr_reading_costs_three`: On every run of the bucket machine from a clean state that ends with the record up, the ledger rises by at least 3.

@@ -1226,7 +1226,8 @@ The names work the way Turing's do, and I'm going to be a little annoying about 
 Machine}, capital letters, is the model and nothing else. \emph{A Thiele machine}, lower case, is any
 particular system proved to fit the model, the way one rule table is a Turing machine; a two-box toy
 on a sheet of paper counts. A Thiele machine is \emph{Thiele-complete} when the machine under the
-record can compute anything a Turing machine can, for free and without ever touching the record;
+record can compute anything a Turing machine can (under Minsky's $2^n$ encoding, done outside the
+machine), for free and without ever touching the record;
 a record that
 goes up stays up; and, from
 a clean start, the record goes up only after a check of some claim passes,
@@ -1365,7 +1366,7 @@ and its history is a few sections back.
 
 It isn't more computing power. Anything a Thiele machine computes, the
 machine under its record
-computes without it. The book proves that over any machine at all, an honest record is a switch the machine's own
+computes without it. The book proves that over any machine at all, a base-driven record is a switch the machine's own
 events flip once and nothing flips back; it watches the computing and adds nothing to it. It isn't
 faster. It isn't quantum. It says nothing about which problems are hard.
 
@@ -1414,7 +1415,7 @@ every schedule that prices merges charges that move, and every run from no to ye
 cost. The price is an assumption with a name. Finding out can be free: you can learn
 something from a step that merged nothing and cost nothing, so the toll lands on committing. A window that shows a certifying step and a quiet one
 alike, before and after, can't price
-certification exactly, however clever it is. And over any machine, an honest record is a one-way
+certification exactly, however clever it is. And over any machine, a base-driven record is a one-way
 switch on an event, with two choices left free: the price list and which event.
 
 On the smallest machine I could build, six instruction kinds on two counters: the chain in the table
@@ -1433,7 +1434,7 @@ out no, and I say so where it matters. It's Thiele-complete in the strong sense 
 back, and that sense has teeth: every clock-style machine, one that charges for computing, fails
 it, and every machine that meets it hides its record and its ledger from its own window, both by
 theorem. Its computing is that of the two-counter machines of Marvin Minsky, one of the founders of artificial intelligence at MIT, which Minsky proved can compute
-anything a Turing machine can. The two universal programs described under ``What it isn't'' run
+anything a Turing machine can, under his $2^n$ encoding, done outside the machine. The two universal programs described under ``What it isn't'' run
 on top of it, and what they're proved to do is said there.
 
 Argued only: that an account of computation \emph{should} carry what was established, and what it
@@ -1457,7 +1458,7 @@ quiet one alike, before
 and after, can't price certification exactly: an old fact about functions, the
 1956 thought experiments of Edward Moore, at Bell Labs, on what you can learn about a machine you
 may only watch from outside, and the engineer Rudolf Kalman's observability, the same question
-asked of control systems. What I put in is a price. An honest permanent record, over
+asked of control systems. What I put in is a price. A base-driven permanent record, over
 any machine, is a latch on one event: the 1918 flip-flop and write-once memory are its neighbours.
 And the small machine, a definition of Thiele-complete that a clock can't meet, and a universal
 Thiele machine written as one fixed program: a record that's priced, and earned, under the reference
@@ -1584,7 +1585,7 @@ a reading that is never taken back, every move that raises the reading merges st
 every schedule that prices merges charges that move, and every run from no to yes has positive
 total cost. That's the universal certification result, and Landauer's principle (the physicist's
 rule that forgetting costs heat) is a named premise for pricing merges. Around it the book proves
-that finding out can be free, that a window can hide what was paid, that an honest permanent record
+that finding out can be free, that a window can hide what was paid, that a base-driven permanent record
 over any machine is a latch on one event (a switch the event flips once and nothing flips back),
 and that a system can't decide, by a procedure it can itself represent, every property of its own
 programs that depends only on what they do. All of that is about any system with the named pieces.
@@ -1701,7 +1702,7 @@ Entitlement is a license to lean on a claim. It doesn't prove the claim is true.
 established and what it cost as part of how it steps. Bolting it on after isn't enough.
 Proposed. The proofs around it show it hangs together and what it costs; whether it should be
 adopted is argued, and no test settles it. What's proved around it: over
-any base machine, an honest record is a latch on an event, with two free choices, the
+any base machine, a base-driven record is a latch on an event, with two free choices, the
 price list and the event; no decider whose flip a substrate can
 itself represent decides which
 programs admit a shortcut, given a recursion theorem (the fact that a program can act as though
@@ -1898,7 +1899,8 @@ included. A
 a guest, with the guest's record earned again and its toll paid by the host's own steps. Part IV
 builds one, $U$: a fixed program in the small machine's own six kinds of instruction, on a host
 with more counters, with no step of any guest built in. Its guests are the small machine's
-programs, so every computation runs on it, and it matches each guest's halting, answer, flag and
+programs, so every computation runs on it under Minsky's $2^n$ encoding, done outside the
+machine, and it matches each guest's halting, answer, flag and
 ledger exactly, raising its own flag by its own check, commit and certificate. Then $U_P$, the
 same program with one more handler for a paid move that does nothing else, takes as its guests
 every computably presented Thiele machine, one whose next move (picked by a driver), step,
@@ -3056,7 +3058,11 @@ first kind of claim I care about. It isn't the only kind, and the book comes bac
 stands behind in Section~\ref{sec:entitlement}, and on a machine in Section~\ref{sec:smallest},
 where a flag stands on a checked claim. Until then nothing leans on the buckets. The floor in
 this section, the reason for it in the next, and the latch in Part III all
-work for any yes-or-no reading whatsoever, partition or no partition.
+work for any yes-or-no reading whatsoever, partition or no partition. When the buckets come back,
+in Section~\ref{sec:entitlement}, it's as a theorem: a reading that says a grouping has been checked
+and committed sees the grouping only through its partition, and what it entitles is exactly the
+groupings that refine it (Theorem~\ref{thm:partition-reading}). That's what ``structural'' in this
+book's subtitle means at the level of a theorem.
 
 But first the word, because I've got a new one and I don't trust it either. Record. Receipt.
 Certificate. Vouch. People have been making marks that other people are supposed to rely on
@@ -5686,7 +5692,7 @@ about such a program can't be proved without one, under the rule that an auxilia
 never steers the program. Jean-Christophe Filliâtre, Léon Gondelman and Andrei Paskevich, in
 2014, worked out when ghost code can be erased without changing what the program computes. By
 that test this section's counter is ghost whenever no step consults it, and
-Section~\ref{sec:latch}'s honest extensions are built exactly that way: the base moves the same
+Section~\ref{sec:latch}'s base-driven records are built exactly that way: the base moves the same
 whatever the ledger and the record say. So what does putting it in the step buy, if the number
 is ghost anyway? Two things, as far as I can see. The number is there while the machine runs,
 where a window can show it (Section~\ref{sec:windows}), and not only inside a proof somebody
@@ -5851,7 +5857,11 @@ settles that it's a circle by feeling it, and the circle grows from a point to i
 shrinks back to nothing as the sphere rises through. From one slice he can't put a sphere
 together. From the slices one after another, seen and felt and argued over, he starts to.
 The escape from a window is never ``think harder.'' It's always ``a different window,'' and a
-different window always costs something: a turn, a second look, training, time.
+different window that answers the question always has to show apart two states the old one
+showed alike; that's
+Theorem~\ref{thm:fibre} below, applied to the new window. In every story here, getting that window
+cost something: a turn, a second look, training, time. What a change of window costs in general
+is a separate question, and no theorem in this section prices it.
 
 Who was Edwin Abbott? Not a mathematician by trade. He was headmaster of the City of London School
 for twenty-four years, a clergyman, and the author of more than forty books, a Shakespeare
@@ -7171,7 +7181,66 @@ already knew. What the card did was make sure none of it got left out when it ma
 what putting entitlement's hypotheses on one list does: it finds nothing new about leaning on a
 claim, and it makes the hypotheses impossible to drop quietly.
 
-Before any machine, I owe you the word the toll is named after, the ``insight'' in ``No Free
+\subsection{A grouping, checked and committed}
+
+Part I ended on buckets, and Part II dropped them on purpose: the toll prices any yes-or-no
+reading. This is where the word in this section's title gets attached to a partition in a
+theorem. Take a pile, a finite list of items, and a \emph{grouping}, a bucket label for each item.
+Its partition is ``same label,'' and the classes of that relation are a partition in the sense of
+Definition~\ref{def:equiv-partition}. The data is a \emph{key} for each item, and a grouping is
+\emph{sound} for a key when any two items it puts in one bucket have the same key. The grouping
+says ``these belong together,'' and the key says whether they do. One grouping \emph{refines}
+another when every bucket of the first sits inside a bucket of the second.
+
+The \emph{bucket machine} holds a key, a table of checked groupings, a channel, a record, a trap
+latch and a ledger. SET replaces the key for nothing and throws away the table and the channel,
+which were checked against the old key. CHECK $g$ costs one and passes when $g$ is sound for the
+current key, and writes $g$ in the table. COMMIT $g$ costs one and passes when the table holds a
+grouping with the same partition as $g$, and puts $g$ in the channel. CERTIFY costs one and passes
+when the channel holds a grouping, and the record then keeps that grouping with the key it was
+checked against. A CHECK, COMMIT or CERTIFY that fails traps, and a trapped machine only pays. The
+\emph{reading for a grouping $g$} is: the record holds a grouping with $g$'s partition. That's the
+reading ``this grouping has been checked and committed.''
+
+\begin{theorem}[A committed grouping entitles exactly its refinements]\label{thm:partition-reading}
+(1) The classes of ``same label'' under any grouping form a partition. (2) Two groupings with the
+same partition of the pile have the same reading at every state of the bucket machine. (3) For
+groupings $g$ and $h$ of the pile, soundness of $g$ for a key gives soundness of $h$ for that key,
+for every key, exactly when $h$ refines $g$. (4) On every run from a clean state (table and channel
+empty, record down, trap down), if the reading for $g$ is up, the record holds a grouping and a key
+for which $g$ is sound, and so is every grouping that refines $g$; and for every grouping $h$ that
+doesn't refine $g$ there is a key for which $g$ is sound and $h$ isn't. (5) The bucket machine
+pays the toll, and a run from a clean state that ends with the record up has raised the ledger
+by at least three.
+\end{theorem}
+
+\begin{proof}
+(1) ``Same label'' is an equivalence relation, so Theorem~\ref{thm:equiv-partition} applies.
+(2) The reading asks only for a grouping with the same partition, and having the same partition
+is symmetric and transitive. (3) If $h$ refines $g$, two items $h$ puts together $g$ puts
+together, and soundness of $g$ gives them the same key. Conversely, take $g$ itself as the key:
+$g$ is sound for it, so $h$ is, and that says $h$ refines $g$. (4) Along any run, every grouping in
+the table is sound for the current key, the one in the channel is too, since it has the partition
+of one in the table, and the one the record keeps is sound for the key kept with it; SET empties
+the table and the channel when the key changes. Then (3), and its converse with $g$ as the key.
+(5) Only CERTIFY raises the record, and it costs one. A raised record needs a passing CERTIFY,
+which needs a grouping in the channel, which needs a passing COMMIT, which needs a grouping in the
+table, which needs a passing CHECK.
+\end{proof}
+
+Checked as \code{pr\_grouping\_partition}, \code{pr\_reads\_structural},
+\code{pr\_entitled\_iff\_refines}, \code{pr\_reading\_entitles}, \code{pr\_reading\_entitles\_only},
+\code{pr\_toll} and \code{pr\_reading\_costs\_three} (PartitionReading.v), all closed.
+
+So ``structural'' has a theorem under it. The reading sees a grouping only through its partition,
+which is item (2), and what a raised reading entitles is read off the partition too: every finer
+grouping, and nothing else. Refinement, the order on partitions, is the entitlement order. It's
+the three parts of entitlement from the start of this section in their smallest case: the object
+is the grouping, the checked relation is soundness for the key, and the paid event is the CERTIFY,
+on top of a CHECK and a COMMIT at one mark each. What it doesn't do is make a later move read the
+record. Like everything in this section, it says what someone auditing the run may conclude.
+
+Before the machine of Part IV, I owe you the word the toll is named after, the ``insight'' in ``No Free
 Insight'' (Section~\ref{sec:narrowing}), because I've been using it as if it meant one thing.
 
 %===========================================================================
@@ -7404,7 +7473,7 @@ Price and correctness are separate books.
 
 Which leaves a suspicion I'd have in your place. Everything so far has been one reading on one
 sheet of paper, with a rule I chose and a count I bolted on. Is the shape of that record
-something I picked, or is it what any honest record has to look like, on any machine at all?
+something I picked, or is it what any base-driven record has to look like, on any machine at all?
 That's the next section: take \emph{any} machine that steps, bolt a record onto it, and see what
 shape it's forced into. How a concrete machine hangs actual claims on its parts, a checked
 property of one counter at one edition, and where those sit in the state, comes in Part IV.
@@ -7461,9 +7530,9 @@ that prove anything here? No. The theorem below doesn't care what a cup is made 
 good to know the shape wasn't invented for a sheet of paper. Somebody needed it, for stakes a
 good deal higher than a die.
 
-Now the claim, stated loosely and then exactly: \emph{every honest record over any base is a cup with no reset wire, turned by some event the base passes through.}
+Now the claim, stated loosely and then exactly: \emph{every base-driven record, over any base, is a cup with no reset wire, turned by some event the base passes through.}
 
-\subsection{What ``honest'' has to mean}
+\subsection{What ``base-driven'' has to mean}
 
 Here's where the content is, and I'll give you the five rules, because the theorem is only as
 strong as they are.
@@ -7475,8 +7544,8 @@ about halting. The bigger machine may carry as much hidden state as it likes bey
 That's the ``any base'' part: the base doesn't get to see the extension, and the extension
 doesn't get to change what the base does.
 
-The extension carries a \emph{record}, a yes/no reading, and a \emph{ledger}, a counter. It's an
-honest extension when five things hold. One: the record's next value depends only on the
+The extension carries a \emph{record}, a yes/no reading, and a \emph{ledger}, a counter. It's a
+\emph{base-driven record} when five things hold. One: the record's next value depends only on the
 base's current state and the record's current value. (I'll call this \emph{driven by the computation}. It says the record answers to what the machine is doing. A clock on the
 wall or someone's hand doesn't get a say.) Two: the ledger never goes down (Section~\ref{sec:counter}). Three: the step that turns the
 record on costs at least one; that's the toll (Section~\ref{sec:toll}). Four: once on, the record stays on;
@@ -7498,8 +7567,8 @@ with the steps, $\pi(\mathrm{next}_M(m)) = \mathrm{next}_B(\pi(m))$, and agrees 
 $m$ halts exactly when $\pi(m)$ does.
 \end{definition}
 
-\begin{definition}[Honest extension, latch]\label{def:u11-honest}
-$M$ with cover $\pi$ is an \emph{honest extension} of $B$ when
+\begin{definition}[Base-driven record, latch]\label{def:u11-honest}
+$M$ with cover $\pi$ is a \emph{base-driven record} over $B$ when
 (R1, driven
 by the computation) there is one function $f$ such that, for
 every state $m$,
@@ -7532,13 +7601,15 @@ I promised the content was in the definition, and here's what that means: the pr
 short case split on whether the record is already on, and it uses only \emph{two} of the five
 rules, ``driven by the computation'' and ``permanent.'' The ledger, the toll, and the reachable-write clauses play no part in it. A
 latch is what you get from ``answers only to the base'' plus ``never comes back down,'' full
-stop. The other three rules matter for the \emph{converse}: for any base and any event the base can reach, the latch of that event, priced at one unit per write, \emph{is} an honest extension.
-Put the two together and you've got: honest records are exactly
+stop. The other three rules matter for the \emph{converse}: for any base and any event the base can reach, the latch of that event, priced at one unit per write, \emph{is} a base-driven record.
+Put the two together and you've got: base-driven records are exactly
 latches. One shape, no others, over any base.
 
 \begin{theorem}[The record is a latch]\label{thm:u11-latch}
-Let $B$ be any base and $M$ an honest extension of it through $\pi$, with $f$ the function of
-(R1). Then $M$ factors as the latch of the event $h(b) = f(b, \mathrm{off})$.
+Let $B$ be any base, $\pi$ a cover of $B$ by $M$, and suppose $M$'s record is driven by the
+computation (R1), through a function $f$, and permanent (R4). Then $M$ factors as the latch of the
+event $h(b) = f(b, \mathrm{off})$. In particular every base-driven record factors that way; (R2),
+(R3) and (R5) are not hypotheses.
 \end{theorem}
 
 \begin{proof}
@@ -7549,8 +7620,11 @@ $f(\pi(m), \mathrm{off}) = h(\pi(m)) = \mathrm{off} \lor h(\pi(m))$. Only (R1), 
 cover are used; (R2), (R3) and (R5) are discarded.
 \end{proof}
 
-Checked as \code{record\_axis\_is\_latch\_holds} (StructuralRecordAxis.v), with the definitions
-\code{BaseMachine}, \code{BaseCover}, \code{computation\_driven}, \code{HonestBaseExtension} and
+Checked as \code{record\_axis\_is\_latch\_r1\_r4} (StructuralClockSync.v), from (R1) and (R4)
+alone, and as \code{record\_axis\_is\_latch\_holds} (StructuralRecordAxis.v) for every base-driven
+record, with the definitions
+\code{BaseMachine}, \code{BaseCover}, \code{computation\_driven}, \code{HonestBaseExtension} (the
+Coq name for a base-driven record; in this book ``honest'' is kept for checkers) and
 \code{latch\_factorization} (StructuralCoreAnyBase.v), and the clauses (R2) to (R5) as
 \code{ledger\_carried}, \code{rc\_a2} (StructuralCore.v), \code{record\_permanent} and \code{reachable\_record\_write}
 (StructuralCoreCover.v).
@@ -7567,15 +7641,15 @@ above the line, the record and the ledger, are the ones that never steer anythin
 make a flag mean something sit below it, where this theorem doesn't look. So when the machine in
 Part IV arrives, ask it first which parts it puts above the line.
 
-\begin{theorem}[Every reachable latch is an honest record]\label{thm:u11-converse}
+\begin{theorem}[Every reachable latch is a base-driven record]\label{thm:u11-converse}
 Let $B$ be any base and $h$ any event. Let $\mathrm{Latch}_h$ have states $(b, r, x)$, starting
 states $(b, \mathrm{off}, 0)$ with $b$ starting in $B$, step
 $(b, r, x) \mapsto (\mathrm{next}_B(b),\ r \lor h(b),\ x + \delta)$ with $\delta = 1$ when $r$
 is off and $h(b)$ is on and $\delta = 0$ otherwise, record $r$, ledger $x$, halting as $b$
 halts, and cover $(b, r, x) \mapsto b$. Suppose some starting $b_0$ and some $k$ bring
 $\mathrm{Latch}_h$ from $(b_0, \mathrm{off}, 0)$, in $k$ steps, to a state whose record is
-still off and whose base state satisfies $h$. Then $\mathrm{Latch}_h$ is an honest extension
-of $B$.
+still off and whose base state satisfies $h$. Then $\mathrm{Latch}_h$ is a base-driven record
+over $B$.
 \end{theorem}
 
 \begin{proof}
@@ -7599,15 +7673,15 @@ with $r$ put on the front, as in Section~\ref{sec:insight}.
 (1) Let $B$ be a base whose step is injective. The machine with states $(b, r, H, x)$, step
 $(b, r, H, x) \mapsto (\mathrm{next}_B(b),\ r \lor h(b),\ r :: H,\ x + \delta)$ ($\delta$ as in
 Theorem~\ref{thm:u11-converse}), starting states with $r$ off, $H$ empty and $x = 0$, has an
-injective step, and under the supposition of Theorem~\ref{thm:u11-converse} it is an honest
-extension of $B$. (2) On a finite state space, a single injective step with a permanent
+injective step, and under the supposition of Theorem~\ref{thm:u11-converse} it is a base-driven
+record over $B$. (2) On a finite state space, a single injective step with a permanent
 reading never turns that reading from off to on.
 \end{theorem}
 
 \begin{proof}
 (1) Equal images have equal base parts, so equal base states by injectivity; equal histories
 $r :: H$, so equal records and histories; and equal ledgers once the equal $\delta$ is
-subtracted. Honesty is the proof of Theorem~\ref{thm:u11-converse} with the history carried
+subtracted. That it is base-driven is the proof of Theorem~\ref{thm:u11-converse} with the history carried
 along. (2) is Theorem~\ref{thm:perm-flip-merges} of Section~\ref{sec:a2-not-arbitrary} with a single move.
 \end{proof}
 
@@ -7851,7 +7925,9 @@ ledger is the step count, the first switch-on costs one, a run reaches it) is tr
 inspection, and isn't a separate theorem.
 
 Permanent but undriven is a clock, driven but impermanent is a toggle, and a record is
-the thing that's both. That's the whole discrimination, and I think it's the most useful
+the thing that's both. Undriven, for the clock, means that along the runs that actually happen the
+base state doesn't fix when the record turns; Lemma~\ref{lem:u11-clock-sync} below says why that's
+the condition, and what (R1) as written adds to it. That's the whole discrimination, and I think it's the most useful
 single sentence in this book for looking at systems other than the one I build, which is
 why it's here.
 
@@ -7907,27 +7983,65 @@ Checked as \code{clock\_record\_permanent} and \code{clock\_record\_not\_driven}
 state. The clock makes every state a starting state, so the two states the proof compares are
 both ones a run can begin at, even though a clock started at $(0, 0, \mathrm{off})$ would never reach $(0, 5, \mathrm{off})$.
 
+That last sentence does more work than it looks, so here it is as a lemma. Start the same clock
+in sync, at $(b, b, \mathrm{off})$ only. On every state its runs reach, the hidden count equals
+the base, and the clock is exactly the latch of $[b = 5]$. (R1) still rejects it, because (R1)
+asks about every state, and $(0, 5, \mathrm{off})$ is a state, though no run from a synchronised
+start reaches it. So (R1) as written separates the clock from a latch partly by how the cover is
+drawn and through states nobody visits. The separation I mean is the one on reachable states:
+the clock with every state a start fails (R1) even when only states some run reaches are
+counted, since two starting states sit over the same base state with the same record and
+disagree about the next one. And the latch theorem holds in that reachable form too.
+
+\begin{lemma}[The clock, on the states runs reach]\label{lem:u11-clock-sync}
+Say $M$'s record is \emph{driven on reachable states} when (R1) holds for every state reached
+from a starting state in some number of steps. (1) If $M$'s record is driven on reachable states
+and permanent, then on every reachable state $M$ steps as the latch of some event. (2) The clock
+of Lemma~\ref{lem:u11-clock} isn't driven on reachable states. (3) The clock started in sync, with
+starting states $(b, b, \mathrm{off})$ and the same step, record, ledger and cover, is permanent,
+isn't driven by the computation, is driven on reachable states, and on every reachable state
+steps as the latch of $[b = 5]$.
+\end{lemma}
+
+\begin{proof}
+(1) is the proof of Theorem~\ref{thm:u11-latch}, run on reachable states only. (2) The states
+$(0, 5, \mathrm{off})$ and $(0, 0, \mathrm{off})$ are starting states, reached in no steps, and the
+proof of Lemma~\ref{lem:u11-clock} applies to them. (3) From $(b, b, \mathrm{off})$ every step adds
+one to both counts, so a reachable state has $k = b$ and its next record is $r \lor [b = 5]$. Over
+every state, (R1) fails at the same pair as in Lemma~\ref{lem:u11-clock}.
+\end{proof}
+
+Checked as \code{record\_axis\_is\_latch\_reachable}, \code{clock\_not\_reachably\_driven},
+\code{sync\_clock\_record\_permanent}, \code{sync\_clock\_not\_driven},
+\code{sync\_clock\_reachably\_driven} and \code{sync\_clock\_reachable\_latch}
+(StructuralClockSync.v).
+
+So ``permanent but undriven is a clock'' is a sentence about the clock with every state a start,
+over the cover that hides its count, and it holds there in the strong form: undriven on the very
+states its runs pass through. A clock started in step with its base is a latch on the runs it
+has, and (R1) throws it out only because (R1) also looks at states those runs never reach.
+
 \subsection{Is there only one such machine? No. One structure, two free choices.}
 
-Here's a sentence I have to take apart: ``there's only one honest way to carry a record.'' Three different things
+Here's a sentence I have to take apart: ``there's only one way to carry a record.'' Three different things
 get squeezed into that breath.
 
 First claim: given the toll and a fixed price list, is there one way to keep the books,
 starting at zero and adding each move's price? Yes, on every state reachable from the start;
 that's Section~\ref{sec:counter}'s initiality, and it assumes the price list.
 
-Second claim: is every honest extension of a base \emph{the same machine}, charges and all? No,
-and the counterexample is embarrassing in its simplicity. Take any honest extension and add
+Second claim: is every base-driven record over a base \emph{the same machine}, charges and all? No,
+and the counterexample is embarrassing in its simplicity. Take any base-driven record and add
 one more coin to the bill on every step, whatever the step is. Now walk the five rules. The
 record still answers only to the base and its own value (R1); the bill never touches it. The
 ledger still never goes down (R2); it climbs faster, if anything. The step that turns the
 record on still costs at least one (R3), because the toll is a \emph{floor} and a surcharge only
 raises the price. Once on, the record stays on (R4), and the same run still reaches the write
-(R5). So the billed machine is honest, and it isn't the machine you started with: wherever
+(R5). So the billed machine is base-driven, and it isn't the machine you started with: wherever
 the original sat still for free, the billed one pays a coin a tick for sitting still. Do it
 with the cup and the die. Charge a coin for every roll, six or not. The cup turns over on the
 same roll as before. You've changed the bill and nothing about the record. A machine that
-charges for CPU time is honest and isn't the one that doesn't.
+charges for CPU time is base-driven and isn't the one that doesn't.
 
 But the billed machine isn't a different \emph{structure}. It's the same record, steps and
 halting with a different
@@ -7937,7 +8051,7 @@ base, and don't compare charges. Fix which event the record is, and the bill sto
 a flat surcharge, or any surcharge that depends on the current state, sits on the same
 structure. That's the first free choice. The walk above is the whole argument, and it's
 checked over an arbitrary base, with any surcharge that depends on the current state: the
-billed machine is honest (\code{nec\_w\_billed\_honest}), has the same latch event
+billed machine is base-driven (\code{nec\_w\_billed\_honest}), has the same latch event
 (\code{nec\_w\_billed\_same\_latch}), steps along with the original on record, halting and base
 (\code{nec\_w\_billed\_same\_up\_to\_schedule}), and pays each step's cost plus the surcharge
 (\code{nec\_w\_billed\_step\_cost}), all in NecWArgued.v.
@@ -7945,8 +8059,8 @@ billed machine is honest (\code{nec\_w\_billed\_honest}), has the same latch eve
 And then the second free choice, and this one still surprises me. \emph{Which event} is the record?
 Nothing in the five rules picks it. The converse above already says so, if you read it
 twice: for any event the base can reach, the latch of that event, priced at one unit per
-write, is an honest record. Do it with the die. One cup turns over on the first six. Another
-turns over on the first one. Both are cups with no reset wire; both are honest. Roll a one
+write, is a base-driven record. Do it with the die. One cup turns over on the first six. Another
+turns over on the first one. Both are cups with no reset wire; both are base-driven. Roll a one
 first, and until a six turns up the two cups disagree about whether anything has been
 recorded. So \emph{which permanent reading counts as the record} is a second thing nobody forces
 on you. The price list is one free choice. The event is the other. That second choice is the
@@ -7956,12 +8070,12 @@ recording. ``The ledger passed one'' is an event too, and so is anything else th
 \begin{corollary}[The event is a free choice]\label{cor:u11-event-free}
 Let $B$ be any base and $h_1, h_2$ two events, each meeting the supposition of
 Theorem~\ref{thm:u11-converse}. Then $\mathrm{Latch}_{h_1}$ and $\mathrm{Latch}_{h_2}$ are both
-honest extensions of $B$. If some base state $b$ has $h_1(b)$ on and $h_2(b)$ off,
+base-driven records over $B$. If some base state $b$ has $h_1(b)$ on and $h_2(b)$ off,
 then one step from $(b, \mathrm{off}, 0)$ leaves the first record on and the second off.
 \end{corollary}
 
 \begin{proof}
-Honesty is Theorem~\ref{thm:u11-converse} applied twice. The step is the latch's own rule:
+That both are base-driven is Theorem~\ref{thm:u11-converse} applied twice. The step is the latch's own rule:
 $\mathrm{off} \lor h_1(b)$ is on and $\mathrm{off} \lor h_2(b)$ is off.
 \end{proof}
 
@@ -7973,12 +8087,12 @@ odds you could write on a card. Does fixing the price list fix the odds? No, and
 counterexample is two cups with the same price tag and differently loaded coins. Here's the
 setup, said carefully. Let a record be a single bit that moves at random: from each value, a list of weighted next values, every weight positive,
 never empty, never leaving on once on, and with the write from off to on charged at least one.
-Call such a record an \emph{honest probabilistic record}.
+Call such a record a \emph{permanent probabilistic record}.
 Call two such records \emph{the same schedule} when the same moves are possible and every move is charged the same, and \emph{the same in probability} when the weighted lists are equal.
 
 \begin{theorem}[The schedule doesn't fix the probabilities]\label{thm:u11-probabilistic}
-(1) There are two honest probabilistic records with the same schedule that are not the same in
-probability. (2) There is an honest probabilistic record that no deterministic latch on its
+(1) There are two permanent probabilistic records with the same schedule that are not the same in
+probability. (2) There is a permanent probabilistic record that no deterministic latch on its
 current value describes.
 \end{theorem}
 
@@ -7994,7 +8108,7 @@ Checked as \code{schedule\_determines\_probabilities\_refuted} and
 ProbabilisticRecordCore.v. These are finite-weight models on one bit with no base underneath;
 they say nothing about any particular machine.
 
-Third claim: is there one state space, up to renaming, that every honest record-carrier has
+Third claim: is there one state space, up to renaming, that every base-driven record-carrier has
 to have? I don't claim it. Nothing needs it.
 
 \subsection{Bases from outside, and a relation I have to be honest about}
@@ -8006,9 +8120,9 @@ program); and a lambda calculus (call-by-value, meaning an argument is worked ou
 plugged in, and made deterministic by letting a term with no step left to take step to
 itself). On each, the latch form holds, by the one generic theorem applied to that base
 (the checked names are listed with the formal statement below). So a register machine
-with an honest record is a register machine plus a cup. So is a lambda calculus. (There's one
+with a base-driven record is a register machine plus a cup. So is a lambda calculus. (There's one
 more instance, the machine I build later, where a particular flag is shown to
-be an honest record and the same theorem makes it a latch, in
+be a base-driven record and the same theorem makes it a latch, in
 Section~\ref{sec:smallest}.)
 
 Here are the three bases explicitly. A base needs a state, a next-state function,
@@ -8145,14 +8259,14 @@ what makes it a \emph{partial} order), and $[a \le x]$ is the yes/no reading ``$
 
 \begin{definition}[A growing record]\label{def:u11-growing}
 Let the record take values in a set $A$ with a partial order $\le$ decided by a Boolean test. A
-record $\rho$ on $M$, with cover $\pi$ onto a base $B$, is an \emph{honest growing record} when: there
+record $\rho$ on $M$, with cover $\pi$ onto a base $B$, is a \emph{base-driven growing record} when: there
 is one function $f$ with $\rho(\mathrm{next}_M(m)) = f(\pi(m), \rho(m))$; it grows,
 $\rho(m) \le \rho(\mathrm{next}_M(m))$; the ledger never goes down and every step that changes
 $\rho$ costs at least one; and some run from a starting state reaches a step that changes it.
 \end{definition}
 
 \begin{theorem}[Growing records are families of latches]\label{thm:u11-growing}
-(1) For every honest growing record there is an $h$ with
+(1) For every base-driven growing record there is an $h$ with
 \[
 [a \le \rho(\mathrm{next}_M(m))] = [a \le \rho(m)] \lor h(a, \pi(m), \rho(m))
 \]
@@ -8160,7 +8274,7 @@ for every value $a$ and state $m$: each threshold is a latch, whose event may re
 value. (2) The thresholds determine the value: if $[a \le x] = [a \le y]$ for every $a$, then
 $x = y$. (3) For a growing record, charging every change is the same as charging every threshold
 that switches on. (4) One latch is not enough: a three-valued record that climbs
-$0 \to 1 \to 2$ over a one-state base, each climb charged one, is honest, and no single Boolean
+$0 \to 1 \to 2$ over a one-state base, each climb charged one, is base-driven, and no single Boolean
 latch with a decoding from the base state and the latch reproduces it. (5) A chain of distinct
 $k$-bit words, each word's set bits contained in the next one's, has at most $k + 1$ members.
 \end{theorem}
@@ -9642,7 +9756,7 @@ coauthors, building a system called Memoir in 2011, noted that the specification
 required a counter to be able to tick once every five seconds, and that the chip's storage was
 expected to survive about a hundred thousand writes in its whole life, so writing once a second
 would wear it out in under twenty-eight hours. Memoir writes to it twice per boot. Permanent,
-finite and rationed: the honest record has a budget, the way Theorem~\ref{thm:u11-growing}'s chain
+finite and rationed: the permanent record has a budget, the way Theorem~\ref{thm:u11-growing}'s chain
 of $k$-bit words can only climb $k$ times. Phones and small controllers go one floor further down,
 to fuses like the PROMs in Section~\ref{sec:latch}: a version number kept as a row of fuses, one
 more blown at each security update, and boot code that refuses anything older. An industry guide
@@ -10410,7 +10524,7 @@ Here's what Parts II and III say the model adds to a machine. A \emph{record}: a
 no or yes, ``certified'' or not. A \emph{toll}: the step that raises the flag costs something
 (Section~\ref{sec:toll}). A \emph{ledger}: the running total of those costs, a whole number that only climbs (Section~\ref{sec:counter}).
 And Section~\ref{sec:latch} proved the thing this whole chapter stands on: over any base at
-all, an honest record is a \emph{latch}, a bit that switches on at an event the base decides and
+all, a base-driven record is a \emph{latch}, a bit that switches on at an event the base decides and
 never switches off (Theorem~\ref{thm:u11-latch}). The record watches the base. It doesn't
 compute anything the base couldn't compute without it.
 
@@ -11077,7 +11191,7 @@ sense (Definition~\ref{def:u11-honest}), and if it is, Section~\ref{sec:latch} d
 Let the base have states (program, core), stepping by the program step, starting at
 $\mathrm{start}(a, b)$'s core for any $a$, $b$, and halting when the program has halted.
 Map each (program, state) to (program, core). Then the machine, run as a closed machine on
-(program, state), is an honest extension of that base, and so its flag factors as the latch
+(program, state), is a base-driven record over that base, and so its flag factors as the latch
 (Theorem~\ref{thm:u11-latch}) of the event ``the next instruction is a CERTIFY that passes.''
 \end{theorem}
 
@@ -11560,7 +11674,8 @@ undecidability proofs.
 
 The front matter promised a definition of Thiele-complete with teeth, so here it is. First,
 why it needs teeth. The easy definition goes: a Thiele machine is Thiele-complete when its base
-can compute anything a Turing machine can. It looks fine, and it's nearly empty. Take Minsky's
+can compute anything a Turing machine can (under Minsky's $2^n$ encoding, done outside the
+machine). It looks fine, and it's nearly empty. Take Minsky's
 two-counter machine, charge one mark for every move, and pick any yes-or-no question about its
 configuration as the record. Every move costs one, so every move that raises the record costs
 one, so it obeys the toll. That's a Thiele machine with a universal base: a clock bolted to a
@@ -11606,7 +11721,7 @@ Defined as \code{thiele\_interface}, \code{thiele\_complete\_with} and \code{thi
 easy notion as \code{weakly\_thiele\_complete}.
 
 Read the four clauses as four plain sentences. (a) It computes anything a Turing machine can,
-and the computing can't reach the record: the base moves are the two-counter machine, they
+under Minsky's $2^n$ encoding, done outside the machine, and the computing can't reach the record: the base moves are the two-counter machine, they
 leave the record exactly
 where it was, and a record that goes up stays up. (b) From a clean start, the record goes up only on
 top of the small machine's chain: a check that passed, a commitment
@@ -11774,6 +11889,50 @@ Checked as \code{drop\_meets\_b\_c\_d}, \code{drop\_fails\_a}, \code{drop\_not\_
 \code{silent\_not\_thiele\_complete} (ThieleComplete.v). Three of the four are this chapter's
 machine with one thing changed, and in each case the one clause it fails is the only thing keeping
 it out.
+Clause (c) also fixes something it has no business fixing: the size of a mark. Double every price
+on the small machine and it leaves the class, because its CHECK now costs two and (c) asks for
+one. A definition that a change of currency breaks would be a strange one, so here is (c) with
+the unit left open.
+
+\begin{theorem}[Any unit]\label{thm:u34-tc-unit}
+Call a machine \emph{Thiele-complete at unit $c$}, for a whole number $c \ge 1$, when some
+interface meets clauses (a), (b) and (d) and this form of (c): base moves cost 0, each CHECK,
+COMMIT and CERTIFY costs exactly $c$, and each move adds its cost to the ledger. (1) At unit 1
+that is Thiele-complete. (2) Multiply every price of a Thiele-complete machine by $c \ge 1$ and the
+machine is Thiele-complete at unit $c$; divide every price of a machine Thiele-complete at unit
+$c$ by $c$ and the machine, with the same states, moves, step and record, is Thiele-complete.
+(3) At every unit some move costs 0, so the clock of Theorem~\ref{thm:u34-clock}, with any reading
+or any latch as its record, is Thiele-complete at no unit, and neither is any machine whose every
+move costs at least 1. (4) At unit $c$, a run from a clean state that ends with the record up
+contains at least three of the three acts and raises the ledger by at least $3c$; the claim it
+stands on held when it was checked and still held when it was committed; and the move that raises
+the record is a CERTIFY. (5) The small machine with every price doubled is Thiele-complete at unit 2
+and isn't Thiele-complete.
+\end{theorem}
+
+\begin{proof}
+(1) $1 \cdot r = r$. (2) Clauses (a), (b) and (d) never mention a price, and the two machines have
+the same runs. The ledger is multiplied or divided along with the prices, and
+$(\ell + c\,r)/c = \ell/c + r$ exactly, so the divided ledger still adds each divided price.
+(3) The move compiled from INC $A$ is a base move, so it costs 0. (4) Clause (b) finds the three
+acts in the run as before, and each costs $c$. The other two parts are the unit-1 results on the
+divided machine, which runs exactly as this one does. (5) is (2) with $c = 2$, and the doubled
+machine has a CHECK that costs 2, which no Thiele-complete machine has
+(Theorem~\ref{thm:u34-tc-consequences}(6)).
+\end{proof}
+
+Checked as \code{thiele\_complete\_at\_one}, \code{scale\_complete\_at}, \code{unscale\_complete},
+\code{scaled\_has\_free\_move}, \code{clock\_not\_thiele\_complete\_at\_any\_unit},
+\code{latch\_clock\_not\_thiele\_complete\_at\_any\_unit},
+\code{paid\_moves\_not\_thiele\_complete\_at\_any\_unit}, \code{scaled\_certificate\_costs\_three\_c},
+\code{scaled\_committed\_claim\_holds}, \code{scaled\_only\_certify\_raises},
+\code{doubled\_earned\_scaled} and \code{doubled\_earned\_not\_thiele\_complete}
+(ThieleCompleteScaled.v).
+
+So the class doesn't care what a mark is worth. It cares that computing is free and that the
+three acts cost the same. The clock fails at every unit for the reason it failed at one: it
+charges for computing. I keep unit 1 in the definition because the small machine is built that
+way and every count in this chapter is in its marks.
 
 Now the other direction. A definition nobody meets is as useless as one everybody meets.
 
@@ -11938,7 +12097,10 @@ to read by taking pebbles out, again and again, to decide which way a DEC jumps 
 a property's answer, and each of those reads kills whatever fact was kept there. So the host
 can't keep the guest's facts on its copies of the guest's counters.
 
-The second says that even if reading were free, a fixed program couldn't. It's the pigeonhole.
+The second says that even if reading were free, a fixed program couldn't keep them by sending each
+guest property to one of a fixed, finite list of host properties and checking it on the same
+register the guest's fact is about. That's all the theorem below rules out, and it's the
+pigeonhole.
 
 \begin{theorem}[No host fact on an exact copy of the guest's counter]\label{thm:u34-nocopy}
 Take any host property language with an exact equality test and any checker, a finite list $Q$
@@ -12154,7 +12316,7 @@ It halts exactly when its guest halts, with the guest's answer in its first two 
 flag goes up at some step of its run exactly when the guest's goes up at some step of the guest's run, by its own check, its own commit and its own
 certificate. Its ledger is the guest's, mark for mark, wherever the two line up. And the machine
 it runs on is Thiele-complete. Since the small machine runs every two-counter program, $U$ runs
-every computation. That's the universal Thiele machine of this book, for the small machine's
+every computation, under Minsky's $2^n$ encoding, done outside the machine. That's the universal Thiele machine of this book, for the small machine's
 programs; the next subsection carries it to every computably presented Thiele machine.
 
 The fine print, before you take that anywhere. The guests start clean, from $\mathrm{start}(x,
@@ -12192,10 +12354,11 @@ a hole to hide in, and its theorems are checked by Coq one case at a time, which
 check that catches Davies's kind of slip. It doesn't catch a definition that says the wrong
 thing. That's why the definitions are on the page, for you.
 
-\subsection{Every computably presented Thiele machine, on one host}
+\subsection{Every computably presented Thiele machine, on one host: driven, decided, priced in whole units, carried as a latch}
 \label{sec:presented-universal}
 
-$U$ runs the small machine's programs, and through them every computation. But a Thiele machine
+$U$ runs the small machine's programs, and through them every computation, under Minsky's $2^n$
+encoding, done outside the machine. But a Thiele machine
 from somewhere else has its own states, its own moves, its own prices and its own reading, and
 running it through the two-counter encoding keeps its computation and nothing else. So the
 question Turing's machine raises for this book is the bigger one. Take any Thiele machine whose
@@ -12277,8 +12440,10 @@ count it took into the fuel register, and at such a value the checker says yes i
 reading says yes (\code{cg\_checker\_exact}).
 
 \begin{theorem}[One host runs every computably presented Thiele machine]\label{thm:u34-presented}
-Let $M$ be a computably presented Thiele machine and $s_0$ a start state. Load $U_P$ with the guest
-compiled from $M$'s presentation and $s_0$ coded in. Then: (1) $U_P$ halts exactly when $M$'s run
+Let $M$ be a computably presented Thiele machine, so that a driver picks its next move (one run
+per start), a program decides its reading on every state, and its prices are whole numbers; and let
+$s_0$ be a start state. Load $U_P$ with the guest compiled from $M$'s presentation and $s_0$ coded
+in. What the host carries of $M$'s reading is its latch. Then: (1) $U_P$ halts exactly when $M$'s run
 stops. (2) For every $n$ such that $M$ hasn't stopped before move $n$, there's a host time $t$
 at which the host's register for the guest's counter $B$ decodes to $M$'s state after $n$ moves,
 the host's ledger is $M$'s ledger after $n$ moves plus a \emph{surcharge}, and the host's flag is
@@ -13549,7 +13714,7 @@ sense, an instance of the certification system with the toll proved: \code{earne
 (Theorem~\ref{thm:u34-instance}). It's Thiele-complete, in the sense of
 Definition~\ref{def:u34-thiele-complete}, the sense no clock meets
 (Theorems~\ref{thm:u34-clock} and~\ref{thm:u34-tc-instances}): it computes whatever a Turing
-machine can, its computing is free and can't touch the record, and, from a clean start, its record is earned. And the
+machine can, under Minsky's $2^n$ encoding, done outside the machine, its computing is free and can't touch the record, and, from a clean start, its record is earned. And the
 universal Thiele machine runs on a host made of its own kinds of instruction: one fixed program,
 $U$, with no guest step built in, that runs every one of its programs with halting, flag and
 ledger matched exactly and earns its own flag (Section~\ref{sec:universal-host}); and the same
@@ -13669,6 +13834,47 @@ base at all. It says something narrower. A Turing machine \emph{with one fixed t
 run to the end. Pull it and the box runs that program from start to stop in a single move. That's how
 the register machine below comes in, and it's the honest reading of ``a Turing machine is a base'' too.
 The levers are the programs. They aren't the rows.
+
+That still leaves a worry about clause (a) itself. It asks for one lever per two-counter
+instruction, which is a fact about how the two-counter machine is presented, and a box that does
+each instruction in several pulls looks shut out for a reason that has nothing to do with
+computing. It isn't shut out, and the fix is to let the pulls be grouped. Call a box a \emph{base
+by simulation} when it has a window reading a two-counter configuration off each state, through
+any encoding at all, a class of live states, a finite list of its own levers for each two-counter
+instruction, and a live loaded state showing $(1, a, b)$ for each start, such that from every live
+state the list acts on the window exactly as the instruction acts on a configuration and the
+state stays live. The \emph{grouped box} has the same states, and its levers are finite lists of
+the box's levers, a list pulled in order.
+
+\begin{theorem}[The one-lever presentation loses nothing]\label{thm:lift-macro}
+(1) Every box with a universal base is a base by simulation. (2) Every base by simulation is a
+universal base of its grouped box, and a run of the grouped box is the box's run along the joined
+lists. (3) So for every base by simulation, the lift of its grouped box, with the window claims and
+a fact table with room for at least one fact, is Thiele-complete. (4) The box with five levers, add
+one to $A$, add one to $B$, add one to a jump target, and for each of $A$ and $B$ ``if it's above 0,
+take one off and jump to the target, otherwise go to the next line, and put the target back to 0
+either way,'' is a base by simulation, has no universal base, and its grouped box lifts to a
+Thiele-complete machine.
+\end{theorem}
+
+\begin{proof}
+(1) Each list has one lever. (2) The grouped box's step is the box's run along the list, so the
+simulation clause of a base by simulation is clause (a) for the grouped box. (3) is (2) with
+Theorem~\ref{thm:lift}. (4) INC $r$ is one pull; DEC $r$ $j$ is $j$ pulls of the target lever,
+then the decrement lever for $r$, from a live state where the target is 0. The box has five
+levers, so item (1) of Theorem~\ref{thm:lift-fails} says it has no universal base.
+\end{proof}
+
+Checked as \code{ub\_to\_sim\_inhabited}, \code{sim\_to\_macro\_inhabited}, \code{sim\_macro\_runs},
+\code{sim\_base\_lifts}, \code{fl\_has\_sim\_base}, \code{fl\_no\_universal\_base} and
+\code{fl\_macro\_lifts} (LiftMacro.v), all closed.
+
+So clause (a) can be read by simulation, and nothing is lost: a box that simulates two counters
+in finite runs of its own moves, through any window, is a universal base the moment its moves are
+grouped, and it lifts. Item (1) of Theorem~\ref{thm:lift-fails} is about the presentation, and the
+five-lever box is the proof that a finite lever set is not what fails. What this doesn't give is a
+Turing machine's rule table running a tape: the five-lever box is a register box, and the next
+subsection is still how Turing machines come in.
 
 Item (3) is a box with no memory. Pull a lever and it lands wherever that lever always lands,
 whatever happened before. So a window on it can't tell INC $A$ followed by INC $A$ from INC $B$
@@ -13940,9 +14146,13 @@ least one for each step where the guest's record went up. It's a floor on rises,
 keep the guest's whole bill.
 
 \begin{theorem}[Nesting]\label{thm:parts-nesting}
-(1) If a host that pays the toll simulates a guest faithfully, with a record map that reflects the
-order, then every run of the guest is matched by a run of the host that costs at least the number
-of the guest's steps that turned a cup over. (2) In each link the surcharge is 0 while the guest's record is down, and the bounds below hold
+(1) Let a host that pays the toll simulate a guest faithfully, with a record map that reflects the
+order. Say a run of the host \emph{follows} a run of the guest when it splits into one stretch of
+host moves for each guest step, each stretch carrying the image of the state before that step to
+the image of the state after it. Every run of the guest has a host run that follows it, every
+such host run ends on the image of the guest's end state, and every host run that follows a guest
+run costs at least the number of the guest's steps that turned a cup over. A host run that only
+ends on the image of the guest's end state can cost less. (2) In each link the surcharge is 0 while the guest's record is down, and the bounds below hold
 at the points where it's up. A small-machine guest on $U_P$ is carried with
 surcharge exactly 0. A computably presented machine whose reading starts at no is carried, through
 its compiled guest, with surcharge at most 2, and exactly 2 once its reading has first said yes
@@ -13953,14 +14163,19 @@ $k$ links has surcharge between the sums of their lower and upper bounds.
 provided every level's host run is itself presented by the next.
 \end{theorem}
 
-Checked as \code{cmpz\_sim\_cost\_ge\_exits}, \code{cmpz\_priced\_link}, \code{cmpz\_host\_link},
+Checked as \code{cmpz\_follow\_exists}, \code{cmpz\_follow\_reaches},
+\code{cmpz\_follow\_cost\_ge\_exits} and \code{cmpz\_end\_only\_not\_enough} (CzFollow.v), with
+\code{cmpz\_sim\_exit\_cost} and \code{cmpz\_sim\_cost\_ge\_exits}, \code{cmpz\_priced\_link}, \code{cmpz\_host\_link},
 \code{cmpz\_host\_link\_le\_two}, \code{cmpz\_host\_link\_exact}, \code{cmpz\_host\_link\_start\_up},
 \code{cmpz\_link\_compose}, \code{cmpz\_tower} and \code{cmpz\_tower\_presented\_exact} (CzCat.v, CzLink.v, CzTower.v,
 CzSelf.v), all closed.
 
 Item (1) is the cleanest sentence in the chapter. However you build the outer box, as long as it pays
 its own toll and doesn't lie about the inner box's record, it pays at least one for every step
-where the inner record climbed. That's a floor on the climbs, and it isn't the inner box's whole
+where the inner record climbed, on every run that keeps pace with the inner box step by step.
+The keeping pace is needed. A guest that turns a cup over and then turns it back ends where it
+started, and the host can reach that image by doing nothing at all, for nothing. The step by step
+floor is the guest's rises paid one by one; the end alone can't see them. That's a floor on the climbs, and it isn't the inner box's whole
 bill. A guest can charge a hundred for one rise while a host charges one for the matching rise,
 and both pay their tolls. Keeping the whole bill takes a further demand on the simulation, that
 it carry the guest's costs too, and for $U_P$ that's the separate ledger theorem of
@@ -15986,6 +16201,7 @@ Entitlement: object, checked relation, paid event & definition (the book's word;
 A decision tree has at most two to its depth leaves & definition; proved & Section~\ref{sec:entitlement}, Definition~\ref{def:u08-dtree}, Lemma~\ref{lem:u08-tree-width} \\
 Paid narrowing, counted & proved with the bill of the charges (\code{nec\_e\_cs\_count\_any}, NecEEnt.v), which equals the counter's rise by conservation (\code{nec\_f\_conservation}); both are checked (premises: a covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:u08-count} \\
 Structural entitlement over any certification system: a strictly stronger test, a paid crossing, a bill that covers the index bits & proved (premises: covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:ent-cs} \\
+A reading that a grouping was checked and committed sees only its partition and entitles exactly the groupings that refine it & proved & Section~\ref{sec:entitlement}, Theorem~\ref{thm:partition-reading} \\
 Structural entitlement for every Thiele-complete machine: stronger test, earned chain, index bits at most the record moves, ledger rise at least 3 & proved (premises: a clean start, and M1 to M6) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-machine} \\
 A floor with no supplied tree, from the run's own CHECKs & proved (answers taken at the rivals as they start) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-questions} \\
 What the record adds to the price bound from a clean start: the earned chain and a floor of 3 & proved & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-observed} \\
@@ -16012,14 +16228,15 @@ A paid flag proves its claim true & not claimed & Section~\ref{sec:insight} \\
 \endhead
 \bottomrule
 \endlastfoot
-Base, cover, honest extension, latch & definition & Section~\ref{sec:latch}, Definition~\ref{def:u11-base}, Definition~\ref{def:u11-honest} \\
-Over any base, an honest record is a latch & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-latch} \\
-Every reachable latch is an honest record & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-converse} \\
+Base, cover, base-driven record, latch & definition & Section~\ref{sec:latch}, Definition~\ref{def:u11-base}, Definition~\ref{def:u11-honest} \\
+Over any base, a base-driven record is a latch & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-latch} \\
+Every reachable latch is a base-driven record & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-converse} \\
 A finite reversible base can't write a record & proved; an endless history can & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-reversible} \\
 Two records are two latches & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-pair} \\
 The toggle: driven, can switch off, no latch & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-toggle} \\
 The clock: permanent, undriven & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-clock} \\
-Honest records agree up to the schedule & proved (\code{nec\_w\_billed\_honest}, \code{nec\_w\_billed\_same\_latch}, \code{nec\_w\_billed\_same\_up\_to\_schedule} and \code{nec\_w\_billed\_step\_cost}, NecWArgued.v) & Section~\ref{sec:latch} \\
+The clock is undriven on the states its runs reach, while the clock started in sync is a latch there and is rejected only by (R1) over every state & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-clock-sync} \\
+Base-driven records agree up to the schedule & proved (\code{nec\_w\_billed\_honest}, \code{nec\_w\_billed\_same\_latch}, \code{nec\_w\_billed\_same\_up\_to\_schedule} and \code{nec\_w\_billed\_step\_cost}, NecWArgued.v) & Section~\ref{sec:latch} \\
 The event is a free choice & proved, the converse applied twice (\code{nec\_w\_event\_free\_choice}, NecWLatch.v) & Section~\ref{sec:latch}, Corollary~\ref{cor:u11-event-free} \\
 The schedule doesn't fix the probabilities & proved, with the branching latch refuted & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-probabilistic} \\
 One state space up to renaming & not claimed & Section~\ref{sec:latch} \\
@@ -16121,6 +16338,7 @@ Every Thiele-complete machine obeys the toll, runs every two-counter program, co
 A clock (every move charged, any reading or any latch as the record) obeys the toll with a universal base and is not Thiele-complete; nor is any machine whose every move costs something & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the base and toll clauses and fails, and a silent machine meets three clauses and fails & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
 The four clauses of Thiele-complete are independent: for each, a weakly Thiele-complete machine meets the other three, fails it, and is Thiele-complete through no interface & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:tc-independent} \\
+Thiele-complete at any unit: with record moves at one fixed price $c \ge 1$ the class is the unit class with its prices multiplied by $c$, and the clock fails at every unit & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-unit} \\
 The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are Thiele-complete & proved on the small machine and on the generic machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
 Every Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-window} \\
 No fixed host program can keep the guest's facts on an exact copy of a guest counter & proved, for any host property language and any translation into a finite list of host properties & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-nocopy} \\
@@ -16497,7 +16715,7 @@ is a license to lean on a claim. It doesn't prove the claim true.
 Insight, in the sense the toll prices, is a committed relation. A feeling doesn't count. Its floor
 is flat: at least one, however deep. The claim behind the flag is something a check could
 have refused, and in the bare model nothing makes the commit wait for the check. Over any base,
-an honest record is a latch, with two free choices, the event and the price list; ``only one
+a base-driven record is a latch, with two free choices, the event and the price list; ``only one
 substrate'' is false and ``one structure, many price lists'' is true once the event is fixed. No
 procedure the substrate itself can represent decides the shortcut predicate, given a
 recursion theorem, by the same diagonal that broke Frege's floor, and the machine's answer is
@@ -17279,7 +17497,7 @@ irreversible in order to commit.
 Mine: the exact statement
 that a record driven by the computation that never switches off is, over any base, a latch
 on one event, with its converse and a counterexample for each of the two conditions, and the
-argument that honest records agree up to the price list while the stronger uniqueness fails
+argument that base-driven records agree up to the price list while the stronger uniqueness fails
 (Section~\ref{sec:latch}). Kind: a small structural lemma, I think not stated before in this
 form (I found no prior statement in the searches I ran), built from old notions; the latch form
 is mechanized, and so is the agreement up to the price list
@@ -17603,17 +17821,19 @@ Proposition \ref{prop:ent-small}: The eight-start member & \S\ref{sec:smallest} 
 Theorem \ref{thm:ent-search}: A search through $n$ bits & \S\ref{sec:smallest} & \code{ent2\_mmachine\_complete} {\footnotesize(\code{MultiThiele2.v})}\newline \code{ent2\_bit\_search} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_certifies\_iff} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_questions\_floor} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_questions\_cap} {\footnotesize(\code{BitSearch2.v})}\newline \code{ent2\_search\_posterior\_is\_certified} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_lands} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_observed} {\footnotesize(\code{BitSearchObserved2.v})}\newline \code{ent2\_no\_search\_past\_16} {\footnotesize(\code{BitSearchMember2.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 In the text: the covering can't be dropped & \S\ref{sec:smallest} & \code{ent2\_uncovered\_posterior} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_uncovered\_claim\_false} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_no\_cheap\_covering} {\footnotesize(\code{CoveringNeeded2.v})} & none\newline none\newline none \\
 Theorem \ref{thm:time-tax}: The time tax & \S\ref{sec:smallest} & \code{ent2\_free\_run\_shift} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_free\_cannot\_decide\_fast} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_chain\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_time\_tax} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_machine\_free\_cannot\_decide} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_machine\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_free} {\footnotesize(\code{TimeTax2.v})}\newline \code{nec\_e\_time\_tax\_one\_paid\_move} {\footnotesize(\code{NecESearch.v})}\newline \code{nec\_e\_time\_tax\_free\_needed} {\footnotesize(\code{NecESearch.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:partition-reading}: A committed grouping entitles exactly its refinements & \S\ref{sec:entitlement} & \code{pr\_grouping\_partition} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_reads\_structural} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_entitled\_iff\_refines} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_reading\_entitles} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_reading\_entitles\_only} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_toll} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_reading\_costs\_three} {\footnotesize(\code{PartitionReading.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u09-events}: Certified insight event, raw observation & \S\ref{sec:insight} & stated in the text &  \\
 Remark \ref{rem:u09-three}: What the toll prices, and what it doesn't & \S\ref{sec:insight} & \code{nec\_f\_board\_raw\_free} {\footnotesize(\code{NecFPaperToys.v})}\newline \code{nec\_f\_board\_floor} {\footnotesize(\code{NecFPaperToys.v})}\newline \code{nec\_f\_board\_floor\_flat} {\footnotesize(\code{NecFPaperToys.v})} & none\newline none\newline none \\
 Remark \ref{rem:u09-no-wait}: Nothing makes the crossing wait & \S\ref{sec:insight} & \code{nec\_f\_board\_no\_wait} {\footnotesize(\code{NecFPaperToys.v})} & none \\
 Definition \ref{def:u11-base}: Base, record-carrying machine, cover & \S\ref{sec:latch} & stated in the text &  \\
-Definition \ref{def:u11-honest}: Honest extension, latch & \S\ref{sec:latch} & stated in the text &  \\
-Theorem \ref{thm:u11-latch}: The record is a latch & \S\ref{sec:latch} & \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{BaseMachine} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{BaseCover} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{computation\_driven} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{HonestBaseExtension} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{latch\_factorization} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{ledger\_carried} {\footnotesize(\code{StructuralCore.v})}\newline \code{rc\_a2} {\footnotesize(\code{StructuralCore.v})}\newline \code{record\_permanent} {\footnotesize(\code{StructuralCoreCover.v})}\newline \code{reachable\_record\_write} {\footnotesize(\code{StructuralCoreCover.v})} & none\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def \\
-Theorem \ref{thm:u11-converse}: Every reachable latch is an honest record & \S\ref{sec:latch} & \code{latch\_core\_honest} {\footnotesize(\code{RecordAxisDiscrimination.v})} & none \\
+Definition \ref{def:u11-honest}: Base-driven record, latch & \S\ref{sec:latch} & stated in the text &  \\
+Theorem \ref{thm:u11-latch}: The record is a latch & \S\ref{sec:latch} & \code{record\_axis\_is\_latch\_r1\_r4} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{BaseMachine} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{BaseCover} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{computation\_driven} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{HonestBaseExtension} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{latch\_factorization} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{ledger\_carried} {\footnotesize(\code{StructuralCore.v})}\newline \code{rc\_a2} {\footnotesize(\code{StructuralCore.v})}\newline \code{record\_permanent} {\footnotesize(\code{StructuralCoreCover.v})}\newline \code{reachable\_record\_write} {\footnotesize(\code{StructuralCoreCover.v})} & none\newline none\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def \\
+Theorem \ref{thm:u11-converse}: Every reachable latch is a base-driven record & \S\ref{sec:latch} & \code{latch\_core\_honest} {\footnotesize(\code{RecordAxisDiscrimination.v})} & none \\
 Theorem \ref{thm:u11-reversible}: Records on reversible machines & \S\ref{sec:latch} & \code{history\_latch\_injective} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{history\_latch\_honest} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{finite\_reversible\_cannot\_write} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{permanent\_flip\_is\_not\_injective} {\footnotesize(\code{PermanentCertification.v})} & none\newline none\newline none\newline none \\
 Lemma \ref{lem:u11-pair}: Two records are two latches & \S\ref{sec:latch} & \code{record\_pair\_is\_two\_latches\_holds} {\footnotesize(\code{StructuralRecordAxis.v})} & none \\
 Lemma \ref{lem:u11-toggle}: The toggle & \S\ref{sec:latch} & \code{toggle\_computation\_driven} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_latch} {\footnotesize(\code{StructuralRecordAxis.v})} & none\newline none\newline none \\
 Lemma \ref{lem:u11-clock}: The clock & \S\ref{sec:latch} & \code{toggle\_computation\_driven} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_latch} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{clock\_record\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{clock\_record\_not\_driven} {\footnotesize(\code{StructuralRecordAxis.v})} & none\newline none\newline none\newline none\newline none \\
+Lemma \ref{lem:u11-clock-sync}: The clock, on the states runs reach & \S\ref{sec:latch} & \code{record\_axis\_is\_latch\_reachable} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{clock\_not\_reachably\_driven} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{sync\_clock\_record\_permanent} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{sync\_clock\_not\_driven} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{sync\_clock\_reachably\_driven} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{sync\_clock\_reachable\_latch} {\footnotesize(\code{StructuralClockSync.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 Corollary \ref{cor:u11-event-free}: The event is a free choice & \S\ref{sec:latch} & \code{nec\_w\_event\_free\_choice} {\footnotesize(\code{NecWLatch.v})} & none \\
 Theorem \ref{thm:u11-probabilistic}: The schedule doesn't fix the probabilities & \S\ref{sec:latch} & \code{schedule\_determines\_probabilities\_refuted} {\footnotesize(\code{ProbabilisticRecord.v})}\newline \code{deterministic\_latch\_handles\_branching\_refuted} {\footnotesize(\code{ProbabilisticRecord.v})} & none\newline none \\
 Definition \ref{def:u11-concrete-bases}: Three concrete bases & \S\ref{sec:latch} & stated in the text &  \\
@@ -17688,6 +17908,7 @@ Theorem \ref{thm:u34-tc-consequences}: What every Thiele-complete machine has & 
 Theorem \ref{thm:u34-clock}: A clock is a Thiele machine and isn't Thiele-complete & \S\ref{sec:smallest} & \code{clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-clauses}: Each clause does work & \S\ref{sec:smallest} & \code{paid\_latch\_meets\_base\_and\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_meets\_base\_record\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{one\_move\_record\_excluded} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{never\_certifies\_excluded} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:tc-independent}: The four clauses are independent & \S\ref{sec:smallest} & \code{drop\_meets\_b\_c\_d} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{drop\_fails\_a} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{drop\_not\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{drop\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{free\_meets\_a\_c\_d} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{free\_fails\_b} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{free\_not\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{free\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{paid\_meets\_a\_b\_d} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{paid\_fails\_c} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{paid\_not\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{paid\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleCompleteIndependent.v})}\newline \code{thiele\_complete\_clauses\_independent} {\footnotesize(\code{ThieleCompleteIndependent.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-tc-unit}: Any unit & \S\ref{sec:smallest} & \code{thiele\_complete\_at\_one} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scale\_complete\_at} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{unscale\_complete} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scaled\_has\_free\_move} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{clock\_not\_thiele\_complete\_at\_any\_unit} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{latch\_clock\_not\_thiele\_complete\_at\_any\_unit} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{paid\_moves\_not\_thiele\_complete\_at\_any\_unit} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scaled\_certificate\_costs\_three\_c} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scaled\_committed\_claim\_holds} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scaled\_only\_certify\_raises} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{doubled\_earned\_scaled} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{doubled\_earned\_not\_thiele\_complete} {\footnotesize(\code{ThieleCompleteScaled.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-instances}: The small machine, the generic one and the sorted one are Thiele-complete & \S\ref{sec:smallest} & \code{earned\_core\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{earned\_generic\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{sorted\_machine\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_floor} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{earned\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{generic\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-window}: Every Thiele-complete machine hides its record and its ledger from its window & \S\ref{sec:smallest} & \code{complete\_every\_window\_printed} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_record\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_ledger\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_cs\_window\_blind} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{complete\_hides\_record} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_hides\_ledger} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{thiele\_complete\_hides} {\footnotesize(\code{ThieleCompleteWindow.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u34-multi}: The host machine & \S\ref{sec:smallest} & \code{pair} {\footnotesize(\code{UniversalCodes.v})}\newline \code{pcode} {\footnotesize(\code{UniversalCodes.v})}\newline \code{heval} {\footnotesize(\code{UniversalCodes.v}, +1)}\newline \code{hholds} {\footnotesize(\code{UniversalCodes.v})} & def\newline def\newline def\newline def \\
@@ -17729,12 +17950,13 @@ Theorem \ref{thm:no-plain-recursion}: No plain recursion on two counters (some c
 In the text: Schroeppel's theorem, no program of the small machine started on $n$ computes $2^n$, nor any machine with a finite control read through zero and parity above a threshold & \S\ref{sec:small-diagonal} & \code{tc2\_no\_pow} {\footnotesize(\code{Tc2Pow.v})}\newline \code{am\_no\_power\_of\_two} {\footnotesize(\code{Tc2Pow.v})} & none\newline none \\
 Theorem \ref{thm:lift}: Every universal base lifts & \S\ref{sec:every-model} & \code{lift\_thiele\_complete} {\footnotesize(\code{LiftCore.v})}\newline \code{lift\_window\_nonvacuous} {\footnotesize(\code{LiftCore.v})}\newline \code{lift\_window\_thiele\_complete} {\footnotesize(\code{LiftCore.v})}\newline \code{lift\_reduct\_universal} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_projection\_run} {\footnotesize(\code{LiftConverse.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:lift-fails}: What doesn't lift & \S\ref{sec:every-model} & \code{lift\_finite\_moves\_not\_a\_base} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_ub\_not\_finitely\_branching} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_finite\_branching\_not\_complete} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_stateless\_not\_complete} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_ax\_indiscrete\_no\_machine} {\footnotesize(\code{LiftAxis.v})}\newline \code{lift\_canonical\_nonvac\_iff} {\footnotesize(\code{LiftConverse.v})} & none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:lift-macro}: The one-lever presentation loses nothing & \S\ref{sec:every-model} & \code{ub\_to\_sim\_inhabited} {\footnotesize(\code{LiftMacro.v})}\newline \code{sim\_to\_macro\_inhabited} {\footnotesize(\code{LiftMacro.v})}\newline \code{sim\_macro\_runs} {\footnotesize(\code{LiftMacro.v})}\newline \code{sim\_base\_lifts} {\footnotesize(\code{LiftMacro.v})}\newline \code{fl\_has\_sim\_base} {\footnotesize(\code{LiftMacro.v})}\newline \code{fl\_no\_universal\_base} {\footnotesize(\code{LiftMacro.v})}\newline \code{fl\_macro\_lifts} {\footnotesize(\code{LiftMacro.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:lift-models}: The base doesn't matter & \S\ref{sec:every-model} & \code{lift\_num\_models\_agree} {\footnotesize(\code{LiftModelsAll.v})}\newline \code{lift\_ex\_in\_all\_models} {\footnotesize(\code{LiftModelsAll.v})}\newline \code{lift\_ex\_thiele\_complete} {\footnotesize(\code{LiftModels.v})}\newline \code{lift\_ram\_thiele\_complete} {\footnotesize(\code{LiftModels.v})}\newline \code{lift\_numeric\_base} {\footnotesize(\code{LiftModelsAll.v})}\newline \code{lift\_classic\_bases} {\footnotesize(\code{LiftModelsAll.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:one-counter}: One counter is too few & \S\ref{sec:every-model} & \code{lift\_oc\_halts\_bound} {\footnotesize(\code{LiftOneCounter.v})}\newline \code{lift\_oc\_halts\_dec} {\footnotesize(\code{LiftOneCounter.v})}\newline \code{lift\_cm\_halting\_undecidable} {\footnotesize(\code{LiftModels.v})}\newline \code{lift\_no\_oc\_translation} {\footnotesize(\code{LiftModels.v})}\newline \code{lift\_no\_oc\_translation\_undecidability} {\footnotesize(\code{LiftModels.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:parts-product}: Side by side & \S\ref{sec:parts} & \code{cmpz\_cost\_prod} {\footnotesize(\code{CzProd.v})}\newline \code{cmpz\_interleaving\_invariant} {\footnotesize(\code{CzCounter.v})}\newline \code{cmpz\_prod\_a2\_iff} {\footnotesize(\code{CzProd.v})}\newline \code{cmpz\_cs\_or\_floor} {\footnotesize(\code{CzCS.v})}\newline \code{cmpz\_cs\_and\_floor} {\footnotesize(\code{CzCS.v})}\newline \code{cmpz\_cs\_and\_tight} {\footnotesize(\code{CzCS.v})}\newline \code{cmpz\_prod\_tc} {\footnotesize(\code{CzProdTC.v})}\newline \code{cmpz\_prod\_joint\_certificate} {\footnotesize(\code{CzProdTC.v})}\newline \code{cmpz\_prod\_joint\_certificate\_tight} {\footnotesize(\code{CzProdTC.v})}\newline \code{cmpz\_prod\_universal} {\footnotesize(\code{CzCat.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:parts-seq}: One after the other & \S\ref{sec:parts} & \code{cmpz\_seq\_tc} {\footnotesize(\code{CzSeq.v})}\newline \code{cmpz\_seq\_composes} {\footnotesize(\code{CzSeq.v})}\newline \code{cmpz\_ld\_a2\_if} {\footnotesize(\code{CzSeq.v})}\newline \code{cmpz\_ld\_unclean} {\footnotesize(\code{CzSeq.v})} & none\newline none\newline none\newline none \\
 Theorem \ref{thm:parts-breaks}: What breaks & \S\ref{sec:parts} & \code{cmpz\_and\_costs\_six} {\footnotesize(\code{CzProdTC.v})}\newline \code{cmpz\_and\_not\_complete} {\footnotesize(\code{CzProdTC.v})}\newline \code{cmpz\_or\_clocks\_not\_complete} {\footnotesize(\code{CzCounter.v})}\newline \code{cmpz\_shared\_raises} {\footnotesize(\code{CzShared.v})}\newline \code{cmpz\_shared\_not\_earned} {\footnotesize(\code{CzShared.v})}\newline \code{cmpz\_exactness\_not\_preserved} {\footnotesize(\code{CzWin.v})}\newline \code{cmpz\_sum\_record\_loses} {\footnotesize(\code{CzCounter.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
-Theorem \ref{thm:parts-nesting}: Nesting & \S\ref{sec:parts} & \code{cmpz\_sim\_cost\_ge\_exits} {\footnotesize(\code{CzCat.v})}\newline \code{cmpz\_priced\_link} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_host\_link} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_host\_link\_le\_two} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_host\_link\_exact} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_host\_link\_start\_up} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_link\_compose} {\footnotesize(\code{CzLink.v})}\newline \code{cmpz\_tower} {\footnotesize(\code{CzLink.v})}\newline \code{cmpz\_tower\_presented\_exact} {\footnotesize(\code{CzTower.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:parts-nesting}: Nesting & \S\ref{sec:parts} & \code{cmpz\_sim\_exit\_cost} {\footnotesize(\code{CzCat.v})}\newline \code{cmpz\_follow\_exists} {\footnotesize(\code{CzFollow.v})}\newline \code{cmpz\_follow\_reaches} {\footnotesize(\code{CzFollow.v})}\newline \code{cmpz\_follow\_cost\_ge\_exits} {\footnotesize(\code{CzFollow.v})}\newline \code{cmpz\_end\_only\_not\_enough} {\footnotesize(\code{CzFollow.v})}\newline \code{cmpz\_sim\_cost\_ge\_exits} {\footnotesize(\code{CzCat.v})}\newline \code{cmpz\_priced\_link} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_host\_link} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_host\_link\_le\_two} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_host\_link\_exact} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_host\_link\_start\_up} {\footnotesize(\code{CzTower.v})}\newline \code{cmpz\_link\_compose} {\footnotesize(\code{CzLink.v})}\newline \code{cmpz\_tower} {\footnotesize(\code{CzLink.v})}\newline \code{cmpz\_tower\_presented\_exact} {\footnotesize(\code{CzTower.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:running-compiler}: The compiler is correct (for a source program with no recursion, the compiled program halts with $y$ exactly when the source computes $y$) & \S\ref{sec:running} & \code{cmp\_final} {\footnotesize(\code{CmpFinal.v})}\newline \code{cmp\_exec\_machine} {\footnotesize(\code{CmpRun.v})}\newline \code{cmp\_exec\_sound} {\footnotesize(\code{CmpRun.v})}\newline \code{cmp\_exec\_complete} {\footnotesize(\code{CmpRun.v})}\newline \code{cmp\_exec\_unhalted} {\footnotesize(\code{CmpRun.v})}\newline \code{cmp\_interp\_sound} {\footnotesize(\code{CmpLang.v})}\newline \code{cmp\_interp\_complete} {\footnotesize(\code{CmpLang.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u23-pinned}: Correlators from the counts; the pinned matrix & \S\ref{sec:chsh} & stated in the text &  \\
 Theorem \ref{thm:u23-notrap-psd}: The integer check implies the pinned matrix is PSD & \S\ref{sec:chsh} & \code{column\_contractive\_check\_witness\_sound} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{column\_contractive\_check\_witness\_npa\_psd} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{npa\_psd\_iff\_column\_contractive} {\footnotesize(if and only if)} {\footnotesize(\code{CHSHColumnCheck.v})} & FE, RD\newline FE, RD\newline FE, RD \\
@@ -18020,15 +18242,17 @@ In plain words: here a machine $M$ steps by itself (\code{rc\_next} gives the on
 state), carries a reading \code{rc\_cert} and a ledger, and sits over a base $B$ through a
 cover \code{C}, a map down to the base's states that commutes with the step.
 \code{computation\_driven} says the reading's next value is some function \code{f} of the base
-state and the reading's current value. Honest means driven, a ledger that never falls, the
+state and the reading's current value. \code{HonestBaseExtension}, the book's base-driven record, means driven, a ledger that never falls, the
 toll, a permanent reading, and some reachable step that writes it. \code{latch\_next} is the
 latch of an event \code{h}: the base steps, and the record becomes ``already on, or \code{h}
-holds now.'' The theorem: every honest extension evolves exactly as the latch of some event.
+holds now.'' The theorem: every base-driven record evolves exactly as the latch of some event.
 Theorem~\ref{thm:u11-latch} says a little more than this statement: it names the event,
 $h(b) = f(b, \mathrm{off})$, where the statement only says one exists. The proof builds exactly
 that event (its first move is \texttt{exists (fun b => f b false)}), so it shows the theorem's
-stronger form too. And the proof uses two of the five honesty
-conditions, driven and permanent; the other three are carried along and never used.
+stronger form too. And the proof uses two of the five
+conditions, driven and permanent; the other three are carried along and never used. The form
+with only those two as hypotheses is \code{record\_axis\_is\_latch\_r1\_r4}
+(StructuralClockSync.v), and that is the form Theorem~\ref{thm:u11-latch} states.
 
 \subsection{A raised flag was checked, then committed, then certified}
 
@@ -18230,7 +18454,11 @@ notion, weakly Thiele-complete (\code{weakly\_thiele\_complete}, not printed her
 Thiele-complete (\code{clock\_weakly\_thiele\_complete}), a flag that switches on at the first yes
 behaves the same way (\code{latch\_clock\_weakly\_thiele\_complete} and
 \code{latch\_clock\_not\_thiele\_complete}), and no machine whose every move costs at least 1 is
-Thiele-complete, which comes from \code{complete\_has\_free\_move}.
+Thiele-complete, which comes from \code{complete\_has\_free\_move}. Clause (c) fixes the unit at
+one. Theorem~\ref{thm:u34-tc-unit} states the definition with every record move at one fixed price
+$c \ge 1$ (\code{thiele\_complete\_at}, ThieleCompleteScaled.v), shows that class is this one with
+its prices multiplied by $c$ (\code{scale\_complete\_at} and \code{unscale\_complete}), and shows the
+clock fails at every unit (\code{clock\_not\_thiele\_complete\_at\_any\_unit}).
 
 \subsection{The universal program's flag and ledger}
 
@@ -18332,27 +18560,65 @@ Theorem~\ref{thm:u34-presented-surcharge}(3) says exactly this. It's about the g
 ledger at that point. A guest whose one raising move is cheap but whose earlier moves already
 paid three or more isn't covered.
 
-\subsection{Nesting pays for every rise}
+\subsection{Nesting pays for every rise, on every host run that follows the guest}
 
-{\raggedright \code{cmpz\_sim\_cost\_ge\_exits}, coq/kernel/foundation/CzCat.v.\par}
+{\raggedright \code{cmpz\_hom}, coq/kernel/foundation/CzCat.v, and \code{cmpz\_follows},
+\code{cmpz\_follow\_cost\_ge\_exits} and \code{cmpz\_end\_only\_not\_enough},
+coq/kernel/foundation/CzFollow.v; \code{cmpz\_follows} and \code{cmpz\_follow\_cost\_ge\_exits}
+are written inside a section that fixes \texttt{X}, \texttt{Y} and \texttt{f : cmpz\_hom X Y}.\par}
 
 {\scriptsize
 \begin{verbatim}
-Theorem cmpz_sim_cost_ge_exits : forall {X Y} (f : cmpz_hom X Y),
+Record cmpz_hom (X Y : cmpz_obj) : Type := mk_hom {
+  h_state : am_state (ob_M X) -> am_state (ob_M Y);
+  h_rec : ob_A X -> ob_A Y;
+  h_mono : forall a b, bp_le (ob_P X) a b -> bp_le (ob_P Y) (h_rec a) (h_rec b);
+  h_rec_nat : forall s, am_rec (ob_M Y) (h_state s) = h_rec (am_rec (ob_M X) s);
+  h_sim : forall s m, exists tr : list (am_move (ob_M Y)),
+            h_state (am_step (ob_M X) s m) = am_run (ob_M Y) tr (h_state s)
+}.
+
+Fixpoint cmpz_follows (tr : list (am_move (ob_M X))) (s : am_state (ob_M X))
+    (segs : list (list (am_move (ob_M Y)))) : Prop :=
+  match tr, segs with
+  | [], [] => True
+  | m :: tr', seg :: segs' =>
+      h_state f (am_step (ob_M X) s m) = am_run (ob_M Y) seg (h_state f s) /\
+      cmpz_follows tr' (am_step (ob_M X) s m) segs'
+  | _, _ => False
+  end.
+
+Theorem cmpz_follow_cost_ge_exits :
   (forall a b, bp_le (ob_P Y) (h_rec f a) (h_rec f b) -> bp_le (ob_P X) a b) ->
   ax_a2 (X := am_axsys (ob_M Y)) ->
-  forall (tr : list (am_move (ob_M X))) s, exists tr' : list (am_move (ob_M Y)),
-    h_state f (am_run (ob_M X) tr s) = am_run (ob_M Y) tr' (h_state f s) /\
-    cmpz_cost (ob_M Y) tr' >= cmpz_exit_count (ob_M X) tr s.
+  forall tr s segs, cmpz_follows tr s segs ->
+    cmpz_cost (ob_M Y) (concat segs) >= cmpz_exit_count (ob_M X) tr s.
+
+Theorem cmpz_end_only_not_enough :
+  exists (X Y : cmpz_obj) (f : cmpz_hom X Y),
+    (forall a b, bp_le (ob_P Y) (h_rec f a) (h_rec f b) -> bp_le (ob_P X) a b) /\
+    ax_a2 (X := am_axsys (ob_M Y)) /\
+    exists (tr : list (am_move (ob_M X))) s (tr' : list (am_move (ob_M Y))),
+      h_state f (am_run (ob_M X) tr s) = am_run (ob_M Y) tr' (h_state f s) /\
+      cmpz_cost (ob_M Y) tr' < cmpz_exit_count (ob_M X) tr s.
 \end{verbatim}}
 
-In plain words: take a simulation $f$ of a guest $X$ inside a host $Y$, whose record map reflects
-the order, and let $Y$ pay its toll. Then every list of the guest's moves, from any state, is
-matched by a list of the host's moves that lands on the image of the guest's end state and costs
-at least the number of guest steps whose new record isn't at or below the old one.
-Theorem~\ref{thm:parts-nesting}(1) says exactly this, with ``faithfully'' meaning that $f$ is a
-simulation. It bounds the host's cost by the guest's rises. It says nothing about the guest's
-other charges.
+In plain words: a morphism $f$ from a guest $X$ to a host $Y$ is a map of states and a monotone
+map of records such that the record of an image state is the image of the record, and every move
+of the guest is simulated by some list of the host's moves landing on the image of the state
+after the move. \code{cmpz\_follows tr s segs} says the host's run is split into one stretch per
+guest move, each stretch carrying the image of the state before that move to the image of the
+state after it. The first theorem: if the record map reflects the order and $Y$ pays its toll,
+then every host run that follows a guest run in that sense costs at least the number of guest
+steps whose new record isn't at or below the old one. The second: for host runs that only reach
+the image of the guest's end state, no such bound holds in general. On a one-bit machine whose
+move $b$ sets the bit to $b$, the guest run ``up, then down'' has one such step, and the empty host
+run reaches the image of its end for nothing. Theorem~\ref{thm:parts-nesting}(1) says exactly
+these, with ``faithfully'' meaning that $f$ is a morphism, and with \code{cmpz\_follow\_exists} and
+\code{cmpz\_follow\_reaches} (CzFollow.v) for the existence of a following run and where it ends.
+The earlier form, \code{cmpz\_sim\_cost\_ge\_exits} (CzCat.v), finds one host run reaching the end
+image at that cost. It bounds the host's cost by the guest's rises. It says nothing about the
+guest's other charges.
 
 \subsection{The copy is the record, on the simpler host}
 
@@ -18549,7 +18815,7 @@ and the converse that the three instructions certify exactly when the check pass
 numbers in the statement are why it carries FE and RD, three standard-library assumptions in all, as printed in
 Section~\ref{sec:crosswalk}.
 
-\subsection{The recursion theorem up to the record, and no better}
+\subsection{The recursion theorem up to the record, but not on every register}
 
 {\raggedright \code{sm2\_kleene\_obs} and \code{sm2\_no\_exact}, coq/kernel/foundation/SmFixedPoint.v and coq/kernel/foundation/SmNoExact.v, with the relation they use. Here \code{M} is the host machine's module, \code{hends P x s} says program \code{P}, started with $x$ in register 1 and everything else clean, stops (a trap counts as stopping) in state \code{s}, and \code{sm\_computes\_map T F} says that on the number of every program \code{p}, \code{T} stops with the number of \code{F p}.\par}
 
