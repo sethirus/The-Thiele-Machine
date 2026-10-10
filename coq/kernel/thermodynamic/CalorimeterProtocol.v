@@ -254,22 +254,24 @@ Qed.
 (** The work of a driven reset is never below the free-energy change, for
     any rising schedule. *)
 Theorem driven_work_second_law : forall kT g n, 0 < kT ->
-  (forall m, g m <= g (S m)) ->
+  (forall m, (m < n)%nat -> g m <= g (S m)) ->
   two_state_free_energy kT (g n) - two_state_free_energy kT (g O) <= driven_work kT g n.
 Proof.
-  intros kT g n Hk Hmono. induction n as [| n IH]; simpl; [lra |].
-  pose proof (free_energy_step_bounds kT (g n) (g (S n)) Hk (Hmono n)). lra.
+  intros kT g n Hk. induction n as [| n IH]; intros Hmono; simpl; [lra |].
+  pose proof (free_energy_step_bounds kT (g n) (g (S n)) Hk (Hmono n (Nat.lt_succ_diag_r n))).
+  specialize (IH (fun m Hm => Hmono m (Nat.lt_lt_succ_r _ _ Hm))). lra.
 Qed.
 
 (** And it exceeds the free-energy change by at most the largest step h
     times the fall in the population. *)
 Theorem driven_work_near_free_energy : forall kT g n h, 0 < kT ->
-  (forall m, g m <= g (S m) <= g m + h) ->
+  (forall m, (m < n)%nat -> g m <= g (S m) <= g m + h) ->
   driven_work kT g n <= two_state_free_energy kT (g n) - two_state_free_energy kT (g O)
     + h * (gibbs_excited kT (g O) - gibbs_excited kT (g n)).
 Proof.
-  intros kT g n h Hk Hs. induction n as [| n IH]; simpl; [lra |].
-  destruct (Hs n) as [H1 H2].
+  intros kT g n h Hk. induction n as [| n IH]; intros Hs; simpl; [lra |].
+  specialize (IH (fun m Hm => Hs m (Nat.lt_lt_succ_r _ _ Hm))).
+  destruct (Hs n (Nat.lt_succ_diag_r n)) as [H1 H2].
   pose proof (free_energy_step_bounds kT (g n) (g (S n)) Hk H1) as [B1 B2].
   pose proof (gibbs_antitone kT (g n) (g (S n)) Hk H1) as Ha.
   assert ((gibbs_excited kT (g n) - gibbs_excited kT (g (S n))) * (g (S n) - g n)
@@ -316,8 +318,8 @@ Proof.
     split; [| right; field; lra].
     unfold Rdiv. apply Rmult_le_compat_r; [left; apply Rinv_0_lt_compat; lra |]. nra. }
   assert (Hmono : forall m, uniform_schedule D N m <= uniform_schedule D N (S m)) by (intro m; apply Hstep).
-  pose proof (driven_work_second_law kT (uniform_schedule D N) N Hk Hmono) as L.
-  pose proof (driven_work_near_free_energy kT (uniform_schedule D N) N (D / INR N) Hk Hstep) as U.
+  pose proof (driven_work_second_law kT (uniform_schedule D N) N Hk (fun m _ => Hmono m)) as L.
+  pose proof (driven_work_near_free_energy kT (uniform_schedule D N) N (D / INR N) Hk (fun m _ => Hstep m)) as U.
   rewrite HgN, Hg0 in L, U. rewrite free_energy_at_zero in L, U by exact Hk.
   unfold two_state_free_energy in L, U.
   pose proof (exp_pos (- (D / kT))) as He.
