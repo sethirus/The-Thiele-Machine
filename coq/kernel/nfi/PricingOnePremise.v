@@ -219,6 +219,30 @@ Proof.
   destruct (eq_dec (step x i) (step z i)) as [_ | N]; [reflexivity | exfalso; apply N; auto].
 Qed.
 
+(** At K = 1 the bound has no room: a move with no pile-up sends no two
+    states to one, so it is injective on the whole state space, and it leaves
+    the entropy of every spread exactly where it was. *)
+Theorem step_no_pileup_entropy_invariant : forall i p,
+  (forall y, (length (fibre i y) <= 1)%nat) ->
+  entropy all (push eq_dec all (fun s => step s i) p) = entropy all p.
+Proof.
+  intros i p H1.
+  apply step_entropy_invariant_if_injective; [exact all_nodup | exact all_in |].
+  intros x y Exy.
+  assert (Hx : In x (fibre i (step x i))).
+  { unfold fibre. apply filter_In. split; [apply all_in |].
+    unfold eqb_s. destruct (eq_dec (step x i) (step x i)); [reflexivity | contradiction]. }
+  assert (Hy : In y (fibre i (step x i))).
+  { unfold fibre. apply filter_In. split; [apply all_in |].
+    unfold eqb_s. destruct (eq_dec (step y i) (step x i)) as [_ | N];
+      [reflexivity | exfalso; apply N; symmetry; exact Exy]. }
+  specialize (H1 (step x i)).
+  remember (fibre i (step x i)) as L.
+  destruct L as [| a [| b l]]; simpl in *; [contradiction | | lia].
+  destruct Hx as [<- | []]. destruct Hy as [<- | []]. reflexivity.
+Qed.
+
+
 (** The even spread on a pile-up of [n] states loses at least [log2 n]. *)
 Theorem entropy_drop_of_fibre :
   forall i y,
@@ -442,6 +466,7 @@ End OnePremise.
 
 Print Assumptions entropy_drop_le_log_support_fibre.
 Print Assumptions entropy_drop_le_log_fibre.
+Print Assumptions step_no_pileup_entropy_invariant.
 Print Assumptions entropy_drop_of_fibre.
 Print Assumptions worst_case_entropy_drop.
 Print Assumptions entropy_priced_iff_compression_priced.

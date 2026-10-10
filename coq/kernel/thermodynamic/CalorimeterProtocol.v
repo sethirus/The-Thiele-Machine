@@ -286,6 +286,8 @@ Proof.
   replace (1 + 1) with 2 by ring. reflexivity.
 Qed.
 
+(* SCOPE NOTE: a fact about the logarithm, used by the work bounds below; it
+   makes no physical claim. *)
 Lemma ln_le_loc : forall x y, 0 < x -> x <= y -> ln x <= ln y.
 Proof.
   intros x y Hx [Hlt | ->]; [left; apply ln_increasing; assumption | right; reflexivity].
