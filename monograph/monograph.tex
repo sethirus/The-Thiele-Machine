@@ -1366,7 +1366,7 @@ and its history is a few sections back.
 
 It isn't more computing power. Anything a Thiele machine computes, the
 machine under its record
-computes without it. The book proves that over any machine at all, an honest record is a switch the machine's own
+computes without it. The book proves that over any machine at all, a base-driven record is a switch the machine's own
 events flip once and nothing flips back; it watches the computing and adds nothing to it. It isn't
 faster. It isn't quantum. It says nothing about which problems are hard.
 
@@ -1415,7 +1415,7 @@ every schedule that prices merges charges that move, and every run from no to ye
 cost. The price is an assumption with a name. Finding out can be free: you can learn
 something from a step that merged nothing and cost nothing, so the toll lands on committing. A window that shows a certifying step and a quiet one
 alike, before and after, can't price
-certification exactly, however clever it is. And over any machine, an honest record is a one-way
+certification exactly, however clever it is. And over any machine, a base-driven record is a one-way
 switch on an event, with two choices left free: the price list and which event.
 
 On the smallest machine I could build, six instruction kinds on two counters: the chain in the table
@@ -1458,7 +1458,7 @@ quiet one alike, before
 and after, can't price certification exactly: an old fact about functions, the
 1956 thought experiments of Edward Moore, at Bell Labs, on what you can learn about a machine you
 may only watch from outside, and the engineer Rudolf Kalman's observability, the same question
-asked of control systems. What I put in is a price. An honest permanent record, over
+asked of control systems. What I put in is a price. A base-driven permanent record, over
 any machine, is a latch on one event: the 1918 flip-flop and write-once memory are its neighbours.
 And the small machine, a definition of Thiele-complete that a clock can't meet, and a universal
 Thiele machine written as one fixed program: a record that's priced, and earned, under the reference
@@ -1585,7 +1585,7 @@ a reading that is never taken back, every move that raises the reading merges st
 every schedule that prices merges charges that move, and every run from no to yes has positive
 total cost. That's the universal certification result, and Landauer's principle (the physicist's
 rule that forgetting costs heat) is a named premise for pricing merges. Around it the book proves
-that finding out can be free, that a window can hide what was paid, that an honest permanent record
+that finding out can be free, that a window can hide what was paid, that a base-driven permanent record
 over any machine is a latch on one event (a switch the event flips once and nothing flips back),
 and that a system can't decide, by a procedure it can itself represent, every property of its own
 programs that depends only on what they do. All of that is about any system with the named pieces.
@@ -1700,7 +1700,7 @@ Entitlement is a license to lean on a claim. It doesn't prove the claim is true.
 established and what it cost as part of how it steps. Bolting it on after isn't enough.
 Proposed. The proofs around it show it hangs together and what it costs; whether it should be
 adopted is argued, and no test settles it. What's proved around it: over
-any base machine, an honest record is a latch on an event, with two free choices, the
+any base machine, a base-driven record is a latch on an event, with two free choices, the
 price list and the event; no decider whose flip a substrate can
 itself represent decides which
 programs admit a shortcut, given a recursion theorem (the fact that a program can act as though
@@ -5547,7 +5547,7 @@ about such a program can't be proved without one, under the rule that an auxilia
 never steers the program. Jean-Christophe Filliâtre, Léon Gondelman and Andrei Paskevich, in
 2014, worked out when ghost code can be erased without changing what the program computes. By
 that test this section's counter is ghost whenever no step consults it, and
-Section~\ref{sec:latch}'s honest extensions are built exactly that way: the base moves the same
+Section~\ref{sec:latch}'s base-driven records are built exactly that way: the base moves the same
 whatever the ledger and the record say. So what does putting it in the step buy, if the number
 is ghost anyway? Two things, as far as I can see. The number is there while the machine runs,
 where a window can show it (Section~\ref{sec:windows}), and not only inside a proof somebody
@@ -7265,7 +7265,7 @@ Price and correctness are separate books.
 
 Which leaves a suspicion I'd have in your place. Everything so far has been one reading on one
 sheet of paper, with a rule I chose and a count I bolted on. Is the shape of that record
-something I picked, or is it what any honest record has to look like, on any machine at all?
+something I picked, or is it what any base-driven record has to look like, on any machine at all?
 That's the next section: take \emph{any} machine that steps, bolt a record onto it, and see what
 shape it's forced into. How a concrete machine hangs actual claims on its parts, a checked
 property of one counter at one edition, and where those sit in the state, comes in Part IV.
@@ -7322,9 +7322,9 @@ that prove anything here? No. The theorem below doesn't care what a cup is made 
 good to know the shape wasn't invented for a sheet of paper. Somebody needed it, for stakes a
 good deal higher than a die.
 
-Now the claim, stated loosely and then exactly: \emph{every honest record over any base is a cup with no reset wire, turned by some event the base passes through.}
+Now the claim, stated loosely and then exactly: \emph{every base-driven record, over any base, is a cup with no reset wire, turned by some event the base passes through.}
 
-\subsection{What ``honest'' has to mean}
+\subsection{What ``base-driven'' has to mean}
 
 Here's where the content is, and I'll give you the five rules, because the theorem is only as
 strong as they are.
@@ -7336,8 +7336,8 @@ about halting. The bigger machine may carry as much hidden state as it likes bey
 That's the ``any base'' part: the base doesn't get to see the extension, and the extension
 doesn't get to change what the base does.
 
-The extension carries a \emph{record}, a yes/no reading, and a \emph{ledger}, a counter. It's an
-honest extension when five things hold. One: the record's next value depends only on the
+The extension carries a \emph{record}, a yes/no reading, and a \emph{ledger}, a counter. It's a
+\emph{base-driven record} when five things hold. One: the record's next value depends only on the
 base's current state and the record's current value. (I'll call this \emph{driven by the computation}. It says the record answers to what the machine is doing. A clock on the
 wall or someone's hand doesn't get a say.) Two: the ledger never goes down (Section~\ref{sec:counter}). Three: the step that turns the
 record on costs at least one; that's the toll (Section~\ref{sec:toll}). Four: once on, the record stays on;
@@ -7359,8 +7359,8 @@ with the steps, $\pi(\mathrm{next}_M(m)) = \mathrm{next}_B(\pi(m))$, and agrees 
 $m$ halts exactly when $\pi(m)$ does.
 \end{definition}
 
-\begin{definition}[Honest extension, latch]\label{def:u11-honest}
-$M$ with cover $\pi$ is an \emph{honest extension} of $B$ when
+\begin{definition}[Base-driven record, latch]\label{def:u11-honest}
+$M$ with cover $\pi$ is a \emph{base-driven record} over $B$ when
 (R1, driven
 by the computation) there is one function $f$ such that, for
 every state $m$,
@@ -7393,13 +7393,15 @@ I promised the content was in the definition, and here's what that means: the pr
 short case split on whether the record is already on, and it uses only \emph{two} of the five
 rules, ``driven by the computation'' and ``permanent.'' The ledger, the toll, and the reachable-write clauses play no part in it. A
 latch is what you get from ``answers only to the base'' plus ``never comes back down,'' full
-stop. The other three rules matter for the \emph{converse}: for any base and any event the base can reach, the latch of that event, priced at one unit per write, \emph{is} an honest extension.
-Put the two together and you've got: honest records are exactly
+stop. The other three rules matter for the \emph{converse}: for any base and any event the base can reach, the latch of that event, priced at one unit per write, \emph{is} a base-driven record.
+Put the two together and you've got: base-driven records are exactly
 latches. One shape, no others, over any base.
 
 \begin{theorem}[The record is a latch]\label{thm:u11-latch}
-Let $B$ be any base and $M$ an honest extension of it through $\pi$, with $f$ the function of
-(R1). Then $M$ factors as the latch of the event $h(b) = f(b, \mathrm{off})$.
+Let $B$ be any base, $\pi$ a cover of $B$ by $M$, and suppose $M$'s record is driven by the
+computation (R1), through a function $f$, and permanent (R4). Then $M$ factors as the latch of the
+event $h(b) = f(b, \mathrm{off})$. In particular every base-driven record factors that way; (R2),
+(R3) and (R5) are not hypotheses.
 \end{theorem}
 
 \begin{proof}
@@ -7410,8 +7412,11 @@ $f(\pi(m), \mathrm{off}) = h(\pi(m)) = \mathrm{off} \lor h(\pi(m))$. Only (R1), 
 cover are used; (R2), (R3) and (R5) are discarded.
 \end{proof}
 
-Checked as \code{record\_axis\_is\_latch\_holds} (StructuralRecordAxis.v), with the definitions
-\code{BaseMachine}, \code{BaseCover}, \code{computation\_driven}, \code{HonestBaseExtension} and
+Checked as \code{record\_axis\_is\_latch\_r1\_r4} (StructuralClockSync.v), from (R1) and (R4)
+alone, and as \code{record\_axis\_is\_latch\_holds} (StructuralRecordAxis.v) for every base-driven
+record, with the definitions
+\code{BaseMachine}, \code{BaseCover}, \code{computation\_driven}, \code{HonestBaseExtension} (the
+Coq name for a base-driven record; in this book ``honest'' is kept for checkers) and
 \code{latch\_factorization} (StructuralCoreAnyBase.v), and the clauses (R2) to (R5) as
 \code{ledger\_carried}, \code{rc\_a2} (StructuralCore.v), \code{record\_permanent} and \code{reachable\_record\_write}
 (StructuralCoreCover.v).
@@ -7428,15 +7433,15 @@ above the line, the record and the ledger, are the ones that never steer anythin
 make a flag mean something sit below it, where this theorem doesn't look. So when the machine in
 Part IV arrives, ask it first which parts it puts above the line.
 
-\begin{theorem}[Every reachable latch is an honest record]\label{thm:u11-converse}
+\begin{theorem}[Every reachable latch is a base-driven record]\label{thm:u11-converse}
 Let $B$ be any base and $h$ any event. Let $\mathrm{Latch}_h$ have states $(b, r, x)$, starting
 states $(b, \mathrm{off}, 0)$ with $b$ starting in $B$, step
 $(b, r, x) \mapsto (\mathrm{next}_B(b),\ r \lor h(b),\ x + \delta)$ with $\delta = 1$ when $r$
 is off and $h(b)$ is on and $\delta = 0$ otherwise, record $r$, ledger $x$, halting as $b$
 halts, and cover $(b, r, x) \mapsto b$. Suppose some starting $b_0$ and some $k$ bring
 $\mathrm{Latch}_h$ from $(b_0, \mathrm{off}, 0)$, in $k$ steps, to a state whose record is
-still off and whose base state satisfies $h$. Then $\mathrm{Latch}_h$ is an honest extension
-of $B$.
+still off and whose base state satisfies $h$. Then $\mathrm{Latch}_h$ is a base-driven record
+over $B$.
 \end{theorem}
 
 \begin{proof}
@@ -7460,15 +7465,15 @@ with $r$ put on the front, as in Section~\ref{sec:insight}.
 (1) Let $B$ be a base whose step is injective. The machine with states $(b, r, H, x)$, step
 $(b, r, H, x) \mapsto (\mathrm{next}_B(b),\ r \lor h(b),\ r :: H,\ x + \delta)$ ($\delta$ as in
 Theorem~\ref{thm:u11-converse}), starting states with $r$ off, $H$ empty and $x = 0$, has an
-injective step, and under the supposition of Theorem~\ref{thm:u11-converse} it is an honest
-extension of $B$. (2) On a finite state space, a single injective step with a permanent
+injective step, and under the supposition of Theorem~\ref{thm:u11-converse} it is a base-driven
+record over $B$. (2) On a finite state space, a single injective step with a permanent
 reading never turns that reading from off to on.
 \end{theorem}
 
 \begin{proof}
 (1) Equal images have equal base parts, so equal base states by injectivity; equal histories
 $r :: H$, so equal records and histories; and equal ledgers once the equal $\delta$ is
-subtracted. Honesty is the proof of Theorem~\ref{thm:u11-converse} with the history carried
+subtracted. That it is base-driven is the proof of Theorem~\ref{thm:u11-converse} with the history carried
 along. (2) is Theorem~\ref{thm:perm-flip-merges} of Section~\ref{sec:a2-not-arbitrary} with a single move.
 \end{proof}
 
@@ -7712,7 +7717,9 @@ ledger is the step count, the first switch-on costs one, a run reaches it) is tr
 inspection, and isn't a separate theorem.
 
 Permanent but undriven is a clock, driven but impermanent is a toggle, and a record is
-the thing that's both. That's the whole discrimination, and I think it's the most useful
+the thing that's both. Undriven, for the clock, means that along the runs that actually happen the
+base state doesn't fix when the record turns; Lemma~\ref{lem:u11-clock-sync} below says why that's
+the condition, and what (R1) as written adds to it. That's the whole discrimination, and I think it's the most useful
 single sentence in this book for looking at systems other than the one I build, which is
 why it's here.
 
@@ -7768,27 +7775,65 @@ Checked as \code{clock\_record\_permanent} and \code{clock\_record\_not\_driven}
 state. The clock makes every state a starting state, so the two states the proof compares are
 both ones a run can begin at, even though a clock started at $(0, 0, \mathrm{off})$ would never reach $(0, 5, \mathrm{off})$.
 
+That last sentence does more work than it looks, so here it is as a lemma. Start the same clock
+in sync, at $(b, b, \mathrm{off})$ only. On every state its runs reach, the hidden count equals
+the base, and the clock is exactly the latch of $[b = 5]$. (R1) still rejects it, because (R1)
+asks about every state, and $(0, 5, \mathrm{off})$ is a state, though no run from a synchronised
+start reaches it. So (R1) as written separates the clock from a latch partly by how the cover is
+drawn and through states nobody visits. The separation I mean is the one on reachable states:
+the clock with every state a start fails (R1) even when only states some run reaches are
+counted, since two starting states sit over the same base state with the same record and
+disagree about the next one. And the latch theorem holds in that reachable form too.
+
+\begin{lemma}[The clock, on the states runs reach]\label{lem:u11-clock-sync}
+Say $M$'s record is \emph{driven on reachable states} when (R1) holds for every state reached
+from a starting state in some number of steps. (1) If $M$'s record is driven on reachable states
+and permanent, then on every reachable state $M$ steps as the latch of some event. (2) The clock
+of Lemma~\ref{lem:u11-clock} isn't driven on reachable states. (3) The clock started in sync, with
+starting states $(b, b, \mathrm{off})$ and the same step, record, ledger and cover, is permanent,
+isn't driven by the computation, is driven on reachable states, and on every reachable state
+steps as the latch of $[b = 5]$.
+\end{lemma}
+
+\begin{proof}
+(1) is the proof of Theorem~\ref{thm:u11-latch}, run on reachable states only. (2) The states
+$(0, 5, \mathrm{off})$ and $(0, 0, \mathrm{off})$ are starting states, reached in no steps, and the
+proof of Lemma~\ref{lem:u11-clock} applies to them. (3) From $(b, b, \mathrm{off})$ every step adds
+one to both counts, so a reachable state has $k = b$ and its next record is $r \lor [b = 5]$. Over
+every state, (R1) fails at the same pair as in Lemma~\ref{lem:u11-clock}.
+\end{proof}
+
+Checked as \code{record\_axis\_is\_latch\_reachable}, \code{clock\_not\_reachably\_driven},
+\code{sync\_clock\_record\_permanent}, \code{sync\_clock\_not\_driven},
+\code{sync\_clock\_reachably\_driven} and \code{sync\_clock\_reachable\_latch}
+(StructuralClockSync.v).
+
+So ``permanent but undriven is a clock'' is a sentence about the clock with every state a start,
+over the cover that hides its count, and it holds there in the strong form: undriven on the very
+states its runs pass through. A clock started in step with its base is a latch on the runs it
+has, and (R1) throws it out only because (R1) also looks at states those runs never reach.
+
 \subsection{Is there only one such machine? No. One structure, two free choices.}
 
-Here's a sentence I have to take apart: ``there's only one honest way to carry a record.'' Three different things
+Here's a sentence I have to take apart: ``there's only one way to carry a record.'' Three different things
 get squeezed into that breath.
 
 First claim: given the toll and a fixed price list, is there one way to keep the books,
 starting at zero and adding each move's price? Yes, on every state reachable from the start;
 that's Section~\ref{sec:counter}'s initiality, and it assumes the price list.
 
-Second claim: is every honest extension of a base \emph{the same machine}, charges and all? No,
-and the counterexample is embarrassing in its simplicity. Take any honest extension and add
+Second claim: is every base-driven record over a base \emph{the same machine}, charges and all? No,
+and the counterexample is embarrassing in its simplicity. Take any base-driven record and add
 one more coin to the bill on every step, whatever the step is. Now walk the five rules. The
 record still answers only to the base and its own value (R1); the bill never touches it. The
 ledger still never goes down (R2); it climbs faster, if anything. The step that turns the
 record on still costs at least one (R3), because the toll is a \emph{floor} and a surcharge only
 raises the price. Once on, the record stays on (R4), and the same run still reaches the write
-(R5). So the billed machine is honest, and it isn't the machine you started with: wherever
+(R5). So the billed machine is base-driven, and it isn't the machine you started with: wherever
 the original sat still for free, the billed one pays a coin a tick for sitting still. Do it
 with the cup and the die. Charge a coin for every roll, six or not. The cup turns over on the
 same roll as before. You've changed the bill and nothing about the record. A machine that
-charges for CPU time is honest and isn't the one that doesn't.
+charges for CPU time is base-driven and isn't the one that doesn't.
 
 But the billed machine isn't a different \emph{structure}. It's the same record, steps and
 halting with a different
@@ -7798,7 +7843,7 @@ base, and don't compare charges. Fix which event the record is, and the bill sto
 a flat surcharge, or any surcharge that depends on the current state, sits on the same
 structure. That's the first free choice. The walk above is the whole argument, and it's
 checked over an arbitrary base, with any surcharge that depends on the current state: the
-billed machine is honest (\code{nec\_w\_billed\_honest}), has the same latch event
+billed machine is base-driven (\code{nec\_w\_billed\_honest}), has the same latch event
 (\code{nec\_w\_billed\_same\_latch}), steps along with the original on record, halting and base
 (\code{nec\_w\_billed\_same\_up\_to\_schedule}), and pays each step's cost plus the surcharge
 (\code{nec\_w\_billed\_step\_cost}), all in NecWArgued.v.
@@ -7806,8 +7851,8 @@ billed machine is honest (\code{nec\_w\_billed\_honest}), has the same latch eve
 And then the second free choice, and this one still surprises me. \emph{Which event} is the record?
 Nothing in the five rules picks it. The converse above already says so, if you read it
 twice: for any event the base can reach, the latch of that event, priced at one unit per
-write, is an honest record. Do it with the die. One cup turns over on the first six. Another
-turns over on the first one. Both are cups with no reset wire; both are honest. Roll a one
+write, is a base-driven record. Do it with the die. One cup turns over on the first six. Another
+turns over on the first one. Both are cups with no reset wire; both are base-driven. Roll a one
 first, and until a six turns up the two cups disagree about whether anything has been
 recorded. So \emph{which permanent reading counts as the record} is a second thing nobody forces
 on you. The price list is one free choice. The event is the other. That second choice is the
@@ -7817,12 +7862,12 @@ recording. ``The ledger passed one'' is an event too, and so is anything else th
 \begin{corollary}[The event is a free choice]\label{cor:u11-event-free}
 Let $B$ be any base and $h_1, h_2$ two events, each meeting the supposition of
 Theorem~\ref{thm:u11-converse}. Then $\mathrm{Latch}_{h_1}$ and $\mathrm{Latch}_{h_2}$ are both
-honest extensions of $B$. If some base state $b$ has $h_1(b)$ on and $h_2(b)$ off,
+base-driven records over $B$. If some base state $b$ has $h_1(b)$ on and $h_2(b)$ off,
 then one step from $(b, \mathrm{off}, 0)$ leaves the first record on and the second off.
 \end{corollary}
 
 \begin{proof}
-Honesty is Theorem~\ref{thm:u11-converse} applied twice. The step is the latch's own rule:
+That both are base-driven is Theorem~\ref{thm:u11-converse} applied twice. The step is the latch's own rule:
 $\mathrm{off} \lor h_1(b)$ is on and $\mathrm{off} \lor h_2(b)$ is off.
 \end{proof}
 
@@ -7834,12 +7879,12 @@ odds you could write on a card. Does fixing the price list fix the odds? No, and
 counterexample is two cups with the same price tag and differently loaded coins. Here's the
 setup, said carefully. Let a record be a single bit that moves at random: from each value, a list of weighted next values, every weight positive,
 never empty, never leaving on once on, and with the write from off to on charged at least one.
-Call such a record an \emph{honest probabilistic record}.
+Call such a record a \emph{permanent probabilistic record}.
 Call two such records \emph{the same schedule} when the same moves are possible and every move is charged the same, and \emph{the same in probability} when the weighted lists are equal.
 
 \begin{theorem}[The schedule doesn't fix the probabilities]\label{thm:u11-probabilistic}
-(1) There are two honest probabilistic records with the same schedule that are not the same in
-probability. (2) There is an honest probabilistic record that no deterministic latch on its
+(1) There are two permanent probabilistic records with the same schedule that are not the same in
+probability. (2) There is a permanent probabilistic record that no deterministic latch on its
 current value describes.
 \end{theorem}
 
@@ -7855,7 +7900,7 @@ Checked as \code{schedule\_determines\_probabilities\_refuted} and
 ProbabilisticRecordCore.v. These are finite-weight models on one bit with no base underneath;
 they say nothing about any particular machine.
 
-Third claim: is there one state space, up to renaming, that every honest record-carrier has
+Third claim: is there one state space, up to renaming, that every base-driven record-carrier has
 to have? I don't claim it. Nothing needs it.
 
 \subsection{Bases from outside, and a relation I have to be honest about}
@@ -7867,9 +7912,9 @@ program); and a lambda calculus (call-by-value, meaning an argument is worked ou
 plugged in, and made deterministic by letting a term with no step left to take step to
 itself). On each, the latch form holds, by the one generic theorem applied to that base
 (the checked names are listed with the formal statement below). So a register machine
-with an honest record is a register machine plus a cup. So is a lambda calculus. (There's one
+with a base-driven record is a register machine plus a cup. So is a lambda calculus. (There's one
 more instance, the machine I build later, where a particular flag is shown to
-be an honest record and the same theorem makes it a latch, in
+be a base-driven record and the same theorem makes it a latch, in
 Section~\ref{sec:smallest}.)
 
 Here are the three bases explicitly. A base needs a state, a next-state function,
@@ -8006,14 +8051,14 @@ what makes it a \emph{partial} order), and $[a \le x]$ is the yes/no reading ``$
 
 \begin{definition}[A growing record]\label{def:u11-growing}
 Let the record take values in a set $A$ with a partial order $\le$ decided by a Boolean test. A
-record $\rho$ on $M$, with cover $\pi$ onto a base $B$, is an \emph{honest growing record} when: there
+record $\rho$ on $M$, with cover $\pi$ onto a base $B$, is a \emph{base-driven growing record} when: there
 is one function $f$ with $\rho(\mathrm{next}_M(m)) = f(\pi(m), \rho(m))$; it grows,
 $\rho(m) \le \rho(\mathrm{next}_M(m))$; the ledger never goes down and every step that changes
 $\rho$ costs at least one; and some run from a starting state reaches a step that changes it.
 \end{definition}
 
 \begin{theorem}[Growing records are families of latches]\label{thm:u11-growing}
-(1) For every honest growing record there is an $h$ with
+(1) For every base-driven growing record there is an $h$ with
 \[
 [a \le \rho(\mathrm{next}_M(m))] = [a \le \rho(m)] \lor h(a, \pi(m), \rho(m))
 \]
@@ -8021,7 +8066,7 @@ for every value $a$ and state $m$: each threshold is a latch, whose event may re
 value. (2) The thresholds determine the value: if $[a \le x] = [a \le y]$ for every $a$, then
 $x = y$. (3) For a growing record, charging every change is the same as charging every threshold
 that switches on. (4) One latch is not enough: a three-valued record that climbs
-$0 \to 1 \to 2$ over a one-state base, each climb charged one, is honest, and no single Boolean
+$0 \to 1 \to 2$ over a one-state base, each climb charged one, is base-driven, and no single Boolean
 latch with a decoding from the base state and the latch reproduces it. (5) A chain of distinct
 $k$-bit words, each word's set bits contained in the next one's, has at most $k + 1$ members.
 \end{theorem}
@@ -9503,7 +9548,7 @@ coauthors, building a system called Memoir in 2011, noted that the specification
 required a counter to be able to tick once every five seconds, and that the chip's storage was
 expected to survive about a hundred thousand writes in its whole life, so writing once a second
 would wear it out in under twenty-eight hours. Memoir writes to it twice per boot. Permanent,
-finite and rationed: the honest record has a budget, the way Theorem~\ref{thm:u11-growing}'s chain
+finite and rationed: the permanent record has a budget, the way Theorem~\ref{thm:u11-growing}'s chain
 of $k$-bit words can only climb $k$ times. Phones and small controllers go one floor further down,
 to fuses like the PROMs in Section~\ref{sec:latch}: a version number kept as a row of fuses, one
 more blown at each security update, and boot code that refuses anything older. An industry guide
@@ -10271,7 +10316,7 @@ Here's what Parts II and III say the model adds to a machine. A \emph{record}: a
 no or yes, ``certified'' or not. A \emph{toll}: the step that raises the flag costs something
 (Section~\ref{sec:toll}). A \emph{ledger}: the running total of those costs, a whole number that only climbs (Section~\ref{sec:counter}).
 And Section~\ref{sec:latch} proved the thing this whole chapter stands on: over any base at
-all, an honest record is a \emph{latch}, a bit that switches on at an event the base decides and
+all, a base-driven record is a \emph{latch}, a bit that switches on at an event the base decides and
 never switches off (Theorem~\ref{thm:u11-latch}). The record watches the base. It doesn't
 compute anything the base couldn't compute without it.
 
@@ -10938,7 +10983,7 @@ sense (Definition~\ref{def:u11-honest}), and if it is, Section~\ref{sec:latch} d
 Let the base have states (program, core), stepping by the program step, starting at
 $\mathrm{start}(a, b)$'s core for any $a$, $b$, and halting when the program has halted.
 Map each (program, state) to (program, core). Then the machine, run as a closed machine on
-(program, state), is an honest extension of that base, and so its flag factors as the latch
+(program, state), is a base-driven record over that base, and so its flag factors as the latch
 (Theorem~\ref{thm:u11-latch}) of the event ``the next instruction is a CERTIFY that passes.''
 \end{theorem}
 
@@ -15911,14 +15956,15 @@ A paid flag proves its claim true & not claimed & Section~\ref{sec:insight} \\
 \endhead
 \bottomrule
 \endlastfoot
-Base, cover, honest extension, latch & definition & Section~\ref{sec:latch}, Definition~\ref{def:u11-base}, Definition~\ref{def:u11-honest} \\
-Over any base, an honest record is a latch & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-latch} \\
-Every reachable latch is an honest record & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-converse} \\
+Base, cover, base-driven record, latch & definition & Section~\ref{sec:latch}, Definition~\ref{def:u11-base}, Definition~\ref{def:u11-honest} \\
+Over any base, a base-driven record is a latch & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-latch} \\
+Every reachable latch is a base-driven record & proved & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-converse} \\
 A finite reversible base can't write a record & proved; an endless history can & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-reversible} \\
 Two records are two latches & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-pair} \\
 The toggle: driven, can switch off, no latch & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-toggle} \\
 The clock: permanent, undriven & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-clock} \\
-Honest records agree up to the schedule & proved (\code{nec\_w\_billed\_honest}, \code{nec\_w\_billed\_same\_latch}, \code{nec\_w\_billed\_same\_up\_to\_schedule} and \code{nec\_w\_billed\_step\_cost}, NecWArgued.v) & Section~\ref{sec:latch} \\
+The clock is undriven on the states its runs reach, while the clock started in sync is a latch there and is rejected only by (R1) over every state & proved & Section~\ref{sec:latch}, Lemma~\ref{lem:u11-clock-sync} \\
+Base-driven records agree up to the schedule & proved (\code{nec\_w\_billed\_honest}, \code{nec\_w\_billed\_same\_latch}, \code{nec\_w\_billed\_same\_up\_to\_schedule} and \code{nec\_w\_billed\_step\_cost}, NecWArgued.v) & Section~\ref{sec:latch} \\
 The event is a free choice & proved, the converse applied twice (\code{nec\_w\_event\_free\_choice}, NecWLatch.v) & Section~\ref{sec:latch}, Corollary~\ref{cor:u11-event-free} \\
 The schedule doesn't fix the probabilities & proved, with the branching latch refuted & Section~\ref{sec:latch}, Theorem~\ref{thm:u11-probabilistic} \\
 One state space up to renaming & not claimed & Section~\ref{sec:latch} \\
@@ -16396,7 +16442,7 @@ is a license to lean on a claim. It doesn't prove the claim true.
 Insight, in the sense the toll prices, is a committed relation. A feeling doesn't count. Its floor
 is flat: at least one, however deep. The claim behind the flag is something a check could
 have refused, and in the bare model nothing makes the commit wait for the check. Over any base,
-an honest record is a latch, with two free choices, the event and the price list; ``only one
+a base-driven record is a latch, with two free choices, the event and the price list; ``only one
 substrate'' is false and ``one structure, many price lists'' is true once the event is fixed. No
 procedure the substrate itself can represent decides the shortcut predicate, given a
 recursion theorem, by the same diagonal that broke Frege's floor, and the machine's answer is
@@ -17178,7 +17224,7 @@ irreversible in order to commit.
 Mine: the exact statement
 that a record driven by the computation that never switches off is, over any base, a latch
 on one event, with its converse and a counterexample for each of the two conditions, and the
-argument that honest records agree up to the price list while the stronger uniqueness fails
+argument that base-driven records agree up to the price list while the stronger uniqueness fails
 (Section~\ref{sec:latch}). Kind: a small structural lemma, I think not stated before in this
 form (I found no prior statement in the searches I ran), built from old notions; the latch form
 is mechanized, and so is the agreement up to the price list
@@ -17503,13 +17549,14 @@ Definition \ref{def:u09-events}: Certified insight event, raw observation & \S\r
 Remark \ref{rem:u09-three}: What the toll prices, and what it doesn't & \S\ref{sec:insight} & \code{nec\_f\_board\_raw\_free} {\footnotesize(\code{NecFPaperToys.v})}\newline \code{nec\_f\_board\_floor} {\footnotesize(\code{NecFPaperToys.v})}\newline \code{nec\_f\_board\_floor\_flat} {\footnotesize(\code{NecFPaperToys.v})} & none\newline none\newline none \\
 Remark \ref{rem:u09-no-wait}: Nothing makes the crossing wait & \S\ref{sec:insight} & \code{nec\_f\_board\_no\_wait} {\footnotesize(\code{NecFPaperToys.v})} & none \\
 Definition \ref{def:u11-base}: Base, record-carrying machine, cover & \S\ref{sec:latch} & stated in the text &  \\
-Definition \ref{def:u11-honest}: Honest extension, latch & \S\ref{sec:latch} & stated in the text &  \\
-Theorem \ref{thm:u11-latch}: The record is a latch & \S\ref{sec:latch} & \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{BaseMachine} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{BaseCover} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{computation\_driven} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{HonestBaseExtension} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{latch\_factorization} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{ledger\_carried} {\footnotesize(\code{StructuralCore.v})}\newline \code{rc\_a2} {\footnotesize(\code{StructuralCore.v})}\newline \code{record\_permanent} {\footnotesize(\code{StructuralCoreCover.v})}\newline \code{reachable\_record\_write} {\footnotesize(\code{StructuralCoreCover.v})} & none\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def \\
-Theorem \ref{thm:u11-converse}: Every reachable latch is an honest record & \S\ref{sec:latch} & \code{latch\_core\_honest} {\footnotesize(\code{RecordAxisDiscrimination.v})} & none \\
+Definition \ref{def:u11-honest}: Base-driven record, latch & \S\ref{sec:latch} & stated in the text &  \\
+Theorem \ref{thm:u11-latch}: The record is a latch & \S\ref{sec:latch} & \code{record\_axis\_is\_latch\_r1\_r4} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{BaseMachine} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{BaseCover} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{computation\_driven} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{HonestBaseExtension} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{latch\_factorization} {\footnotesize(\code{StructuralCoreAnyBase.v})}\newline \code{ledger\_carried} {\footnotesize(\code{StructuralCore.v})}\newline \code{rc\_a2} {\footnotesize(\code{StructuralCore.v})}\newline \code{record\_permanent} {\footnotesize(\code{StructuralCoreCover.v})}\newline \code{reachable\_record\_write} {\footnotesize(\code{StructuralCoreCover.v})} & none\newline none\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def\newline def \\
+Theorem \ref{thm:u11-converse}: Every reachable latch is a base-driven record & \S\ref{sec:latch} & \code{latch\_core\_honest} {\footnotesize(\code{RecordAxisDiscrimination.v})} & none \\
 Theorem \ref{thm:u11-reversible}: Records on reversible machines & \S\ref{sec:latch} & \code{history\_latch\_injective} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{history\_latch\_honest} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{finite\_reversible\_cannot\_write} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{permanent\_flip\_is\_not\_injective} {\footnotesize(\code{PermanentCertification.v})} & none\newline none\newline none\newline none \\
 Lemma \ref{lem:u11-pair}: Two records are two latches & \S\ref{sec:latch} & \code{record\_pair\_is\_two\_latches\_holds} {\footnotesize(\code{StructuralRecordAxis.v})} & none \\
 Lemma \ref{lem:u11-toggle}: The toggle & \S\ref{sec:latch} & \code{toggle\_computation\_driven} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_latch} {\footnotesize(\code{StructuralRecordAxis.v})} & none\newline none\newline none \\
 Lemma \ref{lem:u11-clock}: The clock & \S\ref{sec:latch} & \code{toggle\_computation\_driven} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_latch} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{clock\_record\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{clock\_record\_not\_driven} {\footnotesize(\code{StructuralRecordAxis.v})} & none\newline none\newline none\newline none\newline none \\
+Lemma \ref{lem:u11-clock-sync}: The clock, on the states runs reach & \S\ref{sec:latch} & \code{record\_axis\_is\_latch\_reachable} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{clock\_not\_reachably\_driven} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{sync\_clock\_record\_permanent} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{sync\_clock\_not\_driven} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{sync\_clock\_reachably\_driven} {\footnotesize(\code{StructuralClockSync.v})}\newline \code{sync\_clock\_reachable\_latch} {\footnotesize(\code{StructuralClockSync.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 Corollary \ref{cor:u11-event-free}: The event is a free choice & \S\ref{sec:latch} & \code{nec\_w\_event\_free\_choice} {\footnotesize(\code{NecWLatch.v})} & none \\
 Theorem \ref{thm:u11-probabilistic}: The schedule doesn't fix the probabilities & \S\ref{sec:latch} & \code{schedule\_determines\_probabilities\_refuted} {\footnotesize(\code{ProbabilisticRecord.v})}\newline \code{deterministic\_latch\_handles\_branching\_refuted} {\footnotesize(\code{ProbabilisticRecord.v})} & none\newline none \\
 Definition \ref{def:u11-concrete-bases}: Three concrete bases & \S\ref{sec:latch} & stated in the text &  \\
@@ -17917,15 +17964,17 @@ In plain words: here a machine $M$ steps by itself (\code{rc\_next} gives the on
 state), carries a reading \code{rc\_cert} and a ledger, and sits over a base $B$ through a
 cover \code{C}, a map down to the base's states that commutes with the step.
 \code{computation\_driven} says the reading's next value is some function \code{f} of the base
-state and the reading's current value. Honest means driven, a ledger that never falls, the
+state and the reading's current value. \code{HonestBaseExtension}, the book's base-driven record, means driven, a ledger that never falls, the
 toll, a permanent reading, and some reachable step that writes it. \code{latch\_next} is the
 latch of an event \code{h}: the base steps, and the record becomes ``already on, or \code{h}
-holds now.'' The theorem: every honest extension evolves exactly as the latch of some event.
+holds now.'' The theorem: every base-driven record evolves exactly as the latch of some event.
 Theorem~\ref{thm:u11-latch} says a little more than this statement: it names the event,
 $h(b) = f(b, \mathrm{off})$, where the statement only says one exists. The proof builds exactly
 that event (its first move is \texttt{exists (fun b => f b false)}), so it shows the theorem's
-stronger form too. And the proof uses two of the five honesty
-conditions, driven and permanent; the other three are carried along and never used.
+stronger form too. And the proof uses two of the five
+conditions, driven and permanent; the other three are carried along and never used. The form
+with only those two as hypotheses is \code{record\_axis\_is\_latch\_r1\_r4}
+(StructuralClockSync.v), and that is the form Theorem~\ref{thm:u11-latch} states.
 
 \subsection{A raised flag was checked, then committed, then certified}
 
