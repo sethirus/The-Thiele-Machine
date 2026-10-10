@@ -25,11 +25,11 @@ Definition canonical_reset_before : R := / 2.
    excited-state probability after the step is zero. *)
 Definition canonical_reset_after : R := 0.
 Definition canonical_reset_dt : R := 1.
+(* These rates are bookkeeping numbers: they satisfy detailed balance at no
+   finite gap and positive temperature ([canonical_rates_break_detailed_balance]).
+   The driven protocol below is the one with a thermal premise. *)
 (* SAFE: the canonical reset drives only the downward transition; the upward
-   rate is zero by construction. These rates are bookkeeping numbers: they
-   satisfy detailed balance at no finite gap and positive temperature
-   ([canonical_rates_break_detailed_balance]). The driven protocol below is
-   the one with a thermal premise. *)
+   rate is zero by construction. *)
 Definition canonical_reset_k01 : R := 0.
 Definition canonical_reset_k10 : R := 1.
 Definition canonical_reset_mu : nat := 1.
