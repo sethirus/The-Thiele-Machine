@@ -14604,7 +14604,11 @@ eight.
 
 The second rung: a nine-by-nine table on I, the four questions, and the four Alice-Bob
 \emph{products}, with the correlators and five extra free numbers for three- and four-body
-entries. Its PSD is again equivalent to a contraction-like condition (\code{q1ab\_psd\_iff\_column\_contractive}).
+entries. Its two four-body entries are tied, one the negative of the other. That tie is a
+constraint, $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$: the zero entries of the first
+rung don't imply it, and a classical strategy breaks it (\code{q1ab\_tie\_is\_a\_constraint},
+QuantumPartitionPSD\_\allowbreak{}1AB.v). So the second rung is level 1+AB on that slice, and
+that's what I mean by level 1+AB everywhere in this book. Its PSD is again equivalent to a contraction-like condition (\code{q1ab\_psd\_iff\_column\_contractive}).
 The check for it proves something stronger, that the matrix is positive definite, by a cascade of
 two Schur steps down to a four-by-four that Sylvester's criterion closes.
 Sylvester's name on a test about matrices fits in a way I enjoy, because the word
@@ -16062,6 +16066,7 @@ A passed check means $S^2 < 8$, and no smaller bound holds & proved: $S^2 \le 8$
 A PSD pinned matrix has a PSD completion & proved & Section~\ref{sec:chsh}, Remark~\ref{rem:u23-sound-not-complete} \\
 Every deterministic plan fails the check & proved (\code{nec\_e\_check\_refuses\_all\_plans} and \code{nec\_e\_check\_refuses\_deterministic}, NecEChshInt.v); no such plan's pinned matrix is PSD (\code{nec\_e\_deterministic\_not\_pinned\_psd}, NecEChsh.v) & Section~\ref{sec:chsh}, Remark~\ref{rem:u23-sound-not-complete} \\
 The level-1 test is the size-five case & definition; proved & Section~\ref{sec:chsh}, Definition~\ref{def:u23-genrealizable}, Corollary~\ref{cor:u23-general} \\
+The 1+AB matrix ties its four-body cells, the constraint $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$; the level-1 pinnings don't imply it, and a classical strategy breaks it & proved (\code{q1ab\_tie\_is\_a\_constraint}, QuantumPartitionPSD\_\allowbreak{}1AB.v) & Section~\ref{sec:chsh}, Appendix~\ref{sec:chsh-derivation} \\
 A tally above two isn't one plan replayed & proved & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-tally} \\
 A tally above two proves nonlocality; a pass proves the data quantum & not claimed & Section~\ref{sec:chsh} \\
 A finite local model meets the bound & proved; Fine's theorem in correlation form is proved as an iff (\code{nec\_e\_fine\_iff}), and the converse of \code{fine\_theorem} as stated is false (\code{nec\_e\_fine\_converse\_false}, NecEFine.v) & Appendix~\ref{sec:chsh-derivation}, Theorem~\ref{thm:chsh-fine} \\
@@ -17184,12 +17189,12 @@ universality and s-m-n, and the work is in building those for this machine.
 Known: that positive semidefiniteness of a correlation matrix gives the Tsirelson bound is
 Tsirelson's (1980) and Stephanie Wehner's semidefinite proof (2006), from a paper on Tsirelson bounds for generalized CHSH inequalities; the moment-matrix hierarchy, the
 Schur-complement analysis of this very level-one matrix and the level $1+AB$ are Navascués, Pironio
-and Acín's (2007, 2008); that every point with a PSD completion is the correlator table of a quantum strategy, built from anticommuting observables in a maximally entangled state, is Tsirelson's too (1980); the arcsine characterization is Landau's (1988) and Masanes's (2003); and Tsirelson's bound has already been checked by machine, in Isabelle/HOL (Echenim
+and Acín's (2007, 2008), with both four-body cells free where my matrix ties them; that every point with a PSD completion is the correlator table of a quantum strategy, built from anticommuting observables in a maximally entangled state, is Tsirelson's too (1980); the arcsine characterization is Landau's (1988) and Masanes's (2003); and Tsirelson's bound has already been checked by machine, in Isabelle/HOL (Echenim
 and Mhalla, 2023) and in Lean's mathlib. Rational sum-of-squares certificates are Helfried Peyrl and Pablo A. Parrilo's
 (2008), from a paper on computing sum-of-squares decompositions with rational coefficients. Mine: a decision procedure in integer arithmetic on outcome counts; a checked
 chain from ``the counts pass'' to ``the pinned level-one matrix is positive semidefinite'' to
 ``$S^2 \le 8$''; checked proofs of the representation in finite dimension, real or complex, on two eight-level systems, and of the arcsine characterization; proofs of the contraction equivalence by explicit test vectors; and the
-level-$1+AB$ cascade and an elliptope gate in whole numbers, with a soundness proof
+level-$1+AB$ cascade (on the slice $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$) and an elliptope gate in whole numbers, with a soundness proof
 (Section~\ref{sec:chsh} and its derivation appendix). Kind: mechanization, with a new proof of a
 known equivalence in one slice. I found no prior formalization taking counts as input, and
 that's a report on where I looked, and the literature is bigger than where I looked. The same check earned on
@@ -17670,6 +17675,7 @@ Lemma \ref{lem:chsh-clear}: The seven facts are the three conditions with denomi
 Theorem \ref{thm:chsh-check-sound}: Soundness of the integer check & \S\ref{sec:chsh-derivation} & \code{column\_contractive\_check\_witness\_sound} {\footnotesize(\code{CHSHColumnCheck.v})}\newline \code{column\_contractive\_check\_witness\_npa\_psd} {\footnotesize(\code{CHSHColumnCheck.v})} & FE, RD\newline FE, RD \\
 Corollary \ref{cor:chsh-check-bound}: A passed check implies the Tsirelson bound & \S\ref{sec:chsh-derivation} & the composition of Theorem~\ref{thm:chsh-check-sound}, Corollary~\ref{cor:chsh-iff} and Theorem~\ref{thm:chsh-psd-tsirelson}; on the small machine it is one theorem, \code{small\_chsh\_check\_tsirelson} {\footnotesize(\code{SmallChshCheck.v})} & FE, RD \\
 Definition \ref{def:chsh-nine}: \code{q1ab\_moment\_matrix} & \S\ref{sec:chsh-derivation} & \code{q1ab\_moment\_matrix} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & def \\
+In the text: the four-body tie is the slice $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$, which a classical strategy breaks & \S\ref{sec:chsh-derivation} & \code{q1ab\_tie\_is\_a\_constraint} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{q1ab\_four\_body\_cells\_are\_conjugate} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline none \\
 Definition \ref{def:chsh-residual}: The residual, \code{q1ab\_residual} & \S\ref{sec:chsh-derivation} & \code{q1ab\_residual} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{column\_contractive\_q1ab} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & def\newline def \\
 Lemma \ref{lem:chsh-nine-sos}: Three squares plus the residual, \code{quad9\_q1ab\_sos\_decomposition} & \S\ref{sec:chsh-derivation} & \code{quad9\_q1ab\_sos\_decomposition} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD \\
 Theorem \ref{thm:chsh-nine-iff}: PSD at level 1+AB, \code{q1ab\_psd\_iff\_column\_contractive} & \S\ref{sec:chsh-derivation} & \code{q1ab\_psd\_iff\_column\_contractive} {\footnotesize(if and only if)} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{column\_contractive\_q1ab\_implies\_psd9} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{psd9\_implies\_column\_contractive\_q1ab} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{PSD9} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})}\newline \code{column\_contractive\_q1ab} {\footnotesize(\code{QuantumPartitionPSD\_1AB.v})} & FE, RD\newline FE, RD\newline FE, RD\newline def\newline def \\
@@ -19046,10 +19052,19 @@ A_1B_1 & E_{11} & \gamma_2 & 0 & \gamma_4 & 0 & \gamma_5 & 0 & 0 & 1
 \end{array}
 \]
 
-Two conventions are fixed by this layout. First, the four-body cells carry opposite signs:
-$+\gamma_5$ at $(A_0B_0, A_1B_1)$ and $-\gamma_5$ at $(A_0B_1, A_1B_0)$. The file states this
-is a convention of the real matrix, chosen without any derivation from operators, and guards it with
-\code{q1ab\_four\_body\_cells\_are\_conjugate} (QuantumPartitionPSD\_\allowbreak{}1AB.v). Second, the matrix
+Two constraints are fixed by this layout. First, the four-body cells carry opposite signs:
+$+\gamma_5$ at $(A_0B_0, A_1B_1)$ and $-\gamma_5$ at $(A_0B_1, A_1B_0)$, guarded by
+\code{q1ab\_four\_body\_cells\_are\_conjugate} (QuantumPartitionPSD\_\allowbreak{}1AB.v). In a real
+moment matrix those two cells are $\langle A_0 A_1 B_0 B_1 \rangle$ and $\langle A_0 A_1 B_1 B_0
+\rangle$, so the tie says $\langle A_0 A_1 (B_0 B_1 + B_1 B_0) \rangle = 0$, which for a real
+matrix is $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$. The level-1 pinnings don't
+imply it. Take a classical strategy: Alice's two answers $a_0, a_1$ are independent fair signs,
+and Bob copies them, $b_0 = a_0$ and $b_1 = a_1$. Every pinned cell of its moment matrix is 0 and
+both four-body cells are 1, so no choice of the nine numbers gives its matrix
+(\code{q1ab\_tie\_is\_a\_constraint}, QuantumPartitionPSD\_\allowbreak{}1AB.v). The matrix here is
+therefore level 1+AB on the slice $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$, and that
+is what ``level 1+AB'' names in this book. The slice holds whenever $A_0$ and $A_1$ anticommute.
+The soundness theorems below are about this matrix, so they stand as stated. Second, the matrix
 keeps the level-1 pinning: every cell whose label reduces to a marginal or to
 $\langle A_0 A_1 \rangle$ or $\langle B_0 B_1 \rangle$ is zero, for instance
 $(A_0, A_0B_0)$, $(A_0B_0, A_0B_1)$ and $(A_0B_0, A_1B_0)$. Symmetry is
