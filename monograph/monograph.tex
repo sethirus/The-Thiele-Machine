@@ -1226,7 +1226,8 @@ The names work the way Turing's do, and I'm going to be a little annoying about 
 Machine}, capital letters, is the model and nothing else. \emph{A Thiele machine}, lower case, is any
 particular system proved to fit the model, the way one rule table is a Turing machine; a two-box toy
 on a sheet of paper counts. A Thiele machine is \emph{Thiele-complete} when the machine under the
-record can compute anything a Turing machine can, for free and without ever touching the record;
+record can compute anything a Turing machine can (under Minsky's $2^n$ encoding, done outside the
+machine), for free and without ever touching the record;
 a record that
 goes up stays up; and, from
 a clean start, the record goes up only after a check of some claim passes,
@@ -1433,7 +1434,7 @@ out no, and I say so where it matters. It's Thiele-complete in the strong sense 
 back, and that sense has teeth: every clock-style machine, one that charges for computing, fails
 it, and every machine that meets it hides its record and its ledger from its own window, both by
 theorem. Its computing is that of the two-counter machines of Marvin Minsky, one of the founders of artificial intelligence at MIT, which Minsky proved can compute
-anything a Turing machine can. The two universal programs described under ``What it isn't'' run
+anything a Turing machine can, under his $2^n$ encoding, done outside the machine. The two universal programs described under ``What it isn't'' run
 on top of it, and what they're proved to do is said there.
 
 Argued only: that an account of computation \emph{should} carry what was established, and what it
@@ -1894,7 +1895,8 @@ included. A
 a guest, with the guest's record earned again and its toll paid by the host's own steps. Part IV
 builds one, $U$: a fixed program in the small machine's own six kinds of instruction, on a host
 with more counters, with no step of any guest built in. Its guests are the small machine's
-programs, so every computation runs on it, and it matches each guest's halting, answer, flag and
+programs, so every computation runs on it under Minsky's $2^n$ encoding, done outside the
+machine, and it matches each guest's halting, answer, flag and
 ledger exactly, raising its own flag by its own check, commit and certificate. Then $U_P$, the
 same program with one more handler for a paid move that does nothing else, takes as its guests
 every computably presented Thiele machine, one whose next move (picked by a driver), step,
@@ -11414,7 +11416,8 @@ undecidability proofs.
 
 The front matter promised a definition of Thiele-complete with teeth, so here it is. First,
 why it needs teeth. The easy definition goes: a Thiele machine is Thiele-complete when its base
-can compute anything a Turing machine can. It looks fine, and it's nearly empty. Take Minsky's
+can compute anything a Turing machine can (under Minsky's $2^n$ encoding, done outside the
+machine). It looks fine, and it's nearly empty. Take Minsky's
 two-counter machine, charge one mark for every move, and pick any yes-or-no question about its
 configuration as the record. Every move costs one, so every move that raises the record costs
 one, so it obeys the toll. That's a Thiele machine with a universal base: a clock bolted to a
@@ -11460,7 +11463,7 @@ Defined as \code{thiele\_interface}, \code{thiele\_complete\_with} and \code{thi
 easy notion as \code{weakly\_thiele\_complete}.
 
 Read the four clauses as four plain sentences. (a) It computes anything a Turing machine can,
-and the computing can't reach the record: the base moves are the two-counter machine, they
+under Minsky's $2^n$ encoding, done outside the machine, and the computing can't reach the record: the base moves are the two-counter machine, they
 leave the record exactly
 where it was, and a record that goes up stays up. (b) From a clean start, the record goes up only on
 top of the small machine's chain: a check that passed, a commitment
@@ -11966,7 +11969,7 @@ It halts exactly when its guest halts, with the guest's answer in its first two 
 flag goes up at some step of its run exactly when the guest's goes up at some step of the guest's run, by its own check, its own commit and its own
 certificate. Its ledger is the guest's, mark for mark, wherever the two line up. And the machine
 it runs on is Thiele-complete. Since the small machine runs every two-counter program, $U$ runs
-every computation. That's the universal Thiele machine of this book, for the small machine's
+every computation, under Minsky's $2^n$ encoding, done outside the machine. That's the universal Thiele machine of this book, for the small machine's
 programs; the next subsection carries it to every computably presented Thiele machine.
 
 The fine print, before you take that anywhere. The guests start clean, from $\mathrm{start}(x,
@@ -12007,7 +12010,8 @@ thing. That's why the definitions are on the page, for you.
 \subsection{Every computably presented Thiele machine, on one host}
 \label{sec:presented-universal}
 
-$U$ runs the small machine's programs, and through them every computation. But a Thiele machine
+$U$ runs the small machine's programs, and through them every computation, under Minsky's $2^n$
+encoding, done outside the machine. But a Thiele machine
 from somewhere else has its own states, its own moves, its own prices and its own reading, and
 running it through the two-counter encoding keeps its computation and nothing else. So the
 question Turing's machine raises for this book is the bigger one. Take any Thiele machine whose
@@ -13352,7 +13356,7 @@ sense, an instance of the certification system with the toll proved: \code{earne
 (Theorem~\ref{thm:u34-instance}). It's Thiele-complete, in the sense of
 Definition~\ref{def:u34-thiele-complete}, the sense no clock meets
 (Theorems~\ref{thm:u34-clock} and~\ref{thm:u34-tc-instances}): it computes whatever a Turing
-machine can, its computing is free and can't touch the record, and, from a clean start, its record is earned. And the
+machine can, under Minsky's $2^n$ encoding, done outside the machine, its computing is free and can't touch the record, and, from a clean start, its record is earned. And the
 universal Thiele machine runs on a host made of its own kinds of instruction: one fixed program,
 $U$, with no guest step built in, that runs every one of its programs with halting, flag and
 ledger matched exactly and earns its own flag (Section~\ref{sec:universal-host}); and the same
