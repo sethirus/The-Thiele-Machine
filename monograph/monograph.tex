@@ -11843,7 +11843,10 @@ to read by taking pebbles out, again and again, to decide which way a DEC jumps 
 a property's answer, and each of those reads kills whatever fact was kept there. So the host
 can't keep the guest's facts on its copies of the guest's counters.
 
-The second says that even if reading were free, a fixed program couldn't. It's the pigeonhole.
+The second says that even if reading were free, a fixed program couldn't keep them by sending each
+guest property to one of a fixed, finite list of host properties and checking it on the same
+register the guest's fact is about. That's all the theorem below rules out, and it's the
+pigeonhole.
 
 \begin{theorem}[No host fact on an exact copy of the guest's counter]\label{thm:u34-nocopy}
 Take any host property language with an exact equality test and any checker, a finite list $Q$
