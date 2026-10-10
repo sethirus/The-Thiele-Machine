@@ -2013,9 +2013,9 @@ Lamport 1978; Floyd 1967; Turing 1949 & one-way counters give order and terminat
 Moore 1956; Kalman 1960; Cousot 1977; Codd 1970; Sampath and coauthors 1995; Saboori and Hadjicostis 2007 & what a window loses; when an observer can work out a hidden event, and when a secret state stays hidden & the fibre fact with a price in place of a decoder; the small machine's named collision, and the window every Thiele-complete machine is blind through \\
 Smith 2009 (quantitative information flow) & how much an observer learns about a secret from what it sees & none for leakage: the collisions rule out exact decoding through named windows, which isn't zero leakage, and no leakage measure is supplied \\
 Gettier 1963; Necula 1997; Cook 1971 & entitlement is not truth; proof-carrying checks & entitlement as object, relation, paid event, with a counted bound \\
-Dwork and Naor 1992; Back 1997 (Hashcash) & make establishing something cost, in a way anyone can check cheaply & a comparison, with no claim that the two are the same: proof of work checks a found value against a difficulty target, while the toll charges one mark at the step that certifies and verifies nothing about effort \\
+Dwork and Naor 1992; Back 2002 (Hashcash, first proposed 1997) & make establishing something cost, in a way anyone can check cheaply & a comparison, with no claim that the two are the same: proof of work checks a found value against a difficulty target, while the toll charges one mark at the step that certifies and verifies nothing about effort \\
 
-Eccles and Jordan 1918; Plotkin 1989; Shapiro and coauthors; Abadi and Lamport 1991; Ahman and coauthors 2018 & the latch; write-once and grow-only state; history variables; monotonic state whose witnessed facts can be recalled later & the latch form over any base, with its two counterexamples and converse \\
+Eccles and Jordan 1918 (patent filed) and 1919 (paper); Plotkin 1989; Shapiro and coauthors; Abadi and Lamport 1991; Ahman and coauthors 2018 & the latch; write-once and grow-only state; history variables; monotonic state whose witnessed facts can be recalled later & the latch form over any base, with its two counterexamples and converse \\
 Cantor, Gödel, Turing, Kleene, Rice; Lawvere 1969 & the diagonal & the shortcut wall on any substrate; L's recursion theorem by proof \\
 Bell, CHSH, Tsirelson, Wehner, NPA, Landau, Masanes, Fine; Echenim and Mhalla 2023 and Lean's mathlib (Tsirelson's bound already machine-checked) & the game, its walls, and the matrix test & an integer check on counts that implies the pinned matrix is PSD, which implies the bound \\
 Buterin and Griffith; Wood; TCG; RFC 9162; Necula & five record disciplines & five fragments read through one question: is the write priced \\
@@ -2189,7 +2189,7 @@ Then within weeks I found out the engine I had built to draw pictures was genera
 
 I kept going, because by then I could not not keep going. I built a small custom language for describing scenes (the name for that is a domain-specific language, a DSL), then a program that read the language and caught my mistakes in it (a linter), then a way to type commands at the whole thing from a terminal (a command-line interface, a CLI). The night the engine first ran a program declaratively, meaning I told it what should happen and let it work out the how without my spelling out each step, I told my wife, Julie, I thought I was onto something. She said okay.
 
-Then I hit a wall, and it is the wall this whole document is about. Z3 could settle the small questions and fell over on the exact ones I needed answered, which left me staring down an infinite hallway of guess-and-test with no proof waiting at the end of it, ever. One night, not even working, I was watching a video about Flatland, the old story about a creature living in two dimensions who cannot so much as picture a third. And it landed on me sideways, all at once, the way the real ones always do. I said it out loud: I get it now. There is another axis. Classical computation only ever sees what it can read and write off its own surface, and there is a whole direction it is blind to. It isn't broken. It was just never built with an eye that points that way. The two computers on the first pages of this book are my attempt to show you that blindness with something you can hold. I opened a new repo that same night and called the thing in it the Thiele Machine. The name began as a working title and became the name of the model. It carries the larger claim plainly: the machine treats structural state as part of computation.
+Then I hit a wall, and it is the wall this whole document is about. Z3 could settle the small questions and fell over on the exact ones I needed answered, which left me staring down an infinite hallway of guess-and-test with no proof waiting at the end of it, ever. One night, not even working, I was watching a video about Flatland, the old story about a creature living in two dimensions who cannot so much as picture a third. And it landed on me sideways, all at once, the way the real ones always do. I said it out loud: I get it now. There is another axis. Classical computation only ever sees what it can read and write off its own surface, and there is a whole direction it is blind to. It isn't broken. It was just never built with an eye that points that way. That's how it landed that night, and it didn't survive checking in that form: the direction turned out to be one an ordinary computer can reach, and what the usual rules leave out is the price (Section~\ref{sec:does-buy} says where the axis ended up). The two computers on the first pages of this book are my attempt to show you that blindness with something you can hold. I opened a new repo that same night and called the thing in it the Thiele Machine. The name began as a working title and became the name of the model. It carries the larger claim plainly: the machine treats structural state as part of computation.
 
 What survived the whole trip from there to here is not the code. Not one line of it. By the time the Coq proofs finally landed, every line of that first renderer had been thrown out and rewritten at least twice, probably more, and good riddance to all of it. What survived was a single architectural commitment I made early and never once let anyone talk me out of: structure is the state itself, the actual thing the machine runs on. It is no metaphor laid over some realer state underneath. Category theory was the first language I found for that structure. It is not what the model is. The model asks for a state, a step, a record, a ledger, and a window, and category theory appears nowhere in that list. It lived on for a while in a bigger machine I built on the way here, a fifty-one-instruction virtual machine with its own chip design, whose partition graph (groups, and arrows between them) was, in different words and different syntax, the same object as the category structure that came together in that first week and first ran morphisms correctly at two in the morning. That machine was useful for building and confusing for everything else, so it's set aside now, kept but out of this book. What building it showed me is that six instruction kinds were enough for everything this book needs, and that the big one was mostly in the way. I did not write that code, not then and not now. I directed the models and refused everything they handed me until the morphisms composed the way the shape said they had to. The morphisms in that early code were objects that remembered where they came from; the records in the small machine I ended up with remember where they came from too, and you can walk up to one and challenge it. The receipt grew teeth. But the shape itself never moved. The shape was the substrate the entire time, and everything else, every renderer and language and proof, was me slowly learning to see what I had already built. By the shape I mean structure held as state. Not category theory. Category theory was just the first language I had for it.
 
@@ -2479,8 +2479,8 @@ them from being a pile of unrelated hobbies. Felix Klein, twenty-three years old
 professorship at Erlangen, published an answer in a program paper that people still call the
 Erlangen program. Pick a set of allowed changes: rotations, stretches, whatever you decide.
 Then a geometry is the study of the properties that \emph{stay the same} under those changes. Pick
-a different set of changes and you get a different geometry on the very same page. Euclid's is the one where you may slide and
-turn a shape, and stretching it is off limits. And here's the part I'd
+a different set of changes and you get a different geometry on the very same page. Euclid's, in Klein's reading, is the one where you may slide,
+turn and flip a shape and scale it evenly, and stretching it more one way than another is off limits. And here's the part I'd
 underline if this were my book, which it is: in Klein's scheme any group of changes can define
 a geometry. The choice is free. Nobody tells you which changes to allow.
 
@@ -3415,6 +3415,7 @@ can go up at most $k$ times. A finite machine can keep only so many things up fo
 whole life. That's the opening chapter's ``you can't keep all of it,'' turned into a count.
 
 \subsection{What this does and doesn't buy}
+\label{sec:does-buy}
 
 I want to be very plain about how small this is, because the temptation is to look at the
 word ``theorem'' and feel something has been established about the world. Nothing has. What's
@@ -5721,7 +5722,7 @@ of his life on the geometer Thomas Banchoff's pages: \emph{Flatland}, by far the
 he wrote, isn't mentioned at all in his obituary in the London \emph{Times} or in his entry in the
 \emph{Dictionary of National Biography}. The official record of the man was a window too: it
 showed the headmaster and the grammarian and left out the one book people still read. That
-changes nothing in the argument. It's the argument, acted out by an obituary. (\emph{Flatland} already turned up in Section~\ref{sec:origin}, where the hunch behind this book started, and in Section~\ref{sec:point}, which first told the sphere's visit.)
+changes nothing in the argument. It's the argument, acted out by an obituary. (\emph{Flatland} already turned up in Section~\ref{sec:origin}, where the hunch behind this book started, and in the opening section, \hyperref[sec:point]{The point}, which first told the sphere's visit.)
 
 \subsection{The whole fact, in one paragraph}
 
@@ -8724,7 +8725,7 @@ recursion theorem says: for any transformation of programs you can compute, ther
 program that behaves exactly as if it had been handed its own source code. Any program may
 be written as though it already had a copy of itself in hand. He stated it almost in passing, in a paper
 on something else, and proved it in the last two lines of one of its sections. I have that count
-from Yiannis Moschovakis, a logician at UCLA and Athens who wrote a 2009 paper on it called
+from Yiannis Moschovakis, a logician at UCLA and Athens who wrote a 2009 paper on it, expanded in the Bulletin of Symbolic Logic in 2010, called
 ``Kleene's Amazing Second Recursion Theorem,'' and he calls it a little
 gem. It's the reason ``programs that print their own source'' exist in
 every programming language that can compute whatever
@@ -12209,6 +12210,7 @@ at all. Section~\ref{sec:running} says what was run.
 \end{itemize}
 
 \subsection{A simpler host, with the guest step built in}
+\label{sec:simpler-host}
 
 There's a much simpler host than $U$, and I keep it in the book because it's easy to read and
 it shows the copy rule in one line. Its universality is by construction: it has a move that runs
@@ -13714,7 +13716,7 @@ Item (1) is one flag for two boxes. It costs what two certifications cost, six r
 definition wants a claim that three can settle, so a single flag over both panels, read through
 the pair's interface, is too expensive
 to meet the definition. That's this interface. Nothing here shows that no other interface on the
-pair could meet it, and item (4) shows the pair meeting it through a richer record.
+pair could meet it, and Theorem~\ref{thm:parts-product}(4) shows the pair meeting it through a richer record.
 
 Item (3) is the one with the most teeth, because it's the opening chapter's bug, the file checked and then swapped. On the
 bench it's a second hand reaching into a bin while the box isn't looking. Two writers, one value, and
@@ -13844,7 +13846,7 @@ Second, whole numbers, and here my first instinct was the wrong one. The quick w
 Coq's whole numbers onto the computer's own machine integers, which are fast. They're 63 bits wide
 here, and the guest codes $U$ reads go up near $2^{100}$, so they'd wrap around without a
 word of warning. Coq's whole numbers never overflow. A machine word does, and the book already told
-you what that cost Ariane 5 (Section~\ref{sec:straight}). So the extraction maps Coq's whole numbers
+you what that cost Ariane 5 (\hyperref[sec:straight]{Let me be straight with you}). So the extraction maps Coq's whole numbers
 to an OCaml library of unbounded integers, and each arithmetic operation is mapped by hand to that
 library's version of it. Those are the hand-written substitutions in the trusted path: one line
 that maps Coq's whole numbers onto the library's integers, a few that map Coq's Booleans,
@@ -15123,7 +15125,8 @@ is a kind of safety in numbers. And it doesn't mean no axioms: the
 proofs use a handful of standard-library assumptions, and the assumption audit names them:
 functional extensionality on dependent functions (two functions that agree everywhere are
 equal); two decidability principles that come with the standard library's real numbers, used
-by the matrix proofs behind the game check; and, in some theorems, the law of excluded middle
+wherever real analysis is, for example in the matrix proofs behind the game check and in the
+real-valued results of Sections~\ref{sec:a2-not-arbitrary}, \ref{sec:shadow-exact} and~\ref{sec:landauer}; and, in some theorems, the law of excluded middle
 (every proposition is true or false). The count, from the full audit:
 the full-corpus probe covers 5,762 named theorems across 332 files: 5,006 close under the global Coq context outright, and 756 use only Coq standard-library assumptions.
 Zero project-local axioms appear in any of the 5,762 dependency trees.
@@ -15951,7 +15954,7 @@ printed in its section.
 \bottomrule
 \endlastfoot
 Checker and arithmetic meaning agree & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Lemma~\ref{lem:u34-eval} \\
-Two-counter simulation and halting correspondence & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-simulation} \\
+Two-counter simulation and halting correspondence & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-simulation} (step), Theorem~\ref{thm:u34-halting} (halting) \\
 Halting is undecidable by the vendored two-counter reduction & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-undecidable} \\
 Exact ledger, permanent certification and toll & proved on the small machine, under the stated premises, by unfolding & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-toll} \\
 Instance of the abstract certification system & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-instance} \\
@@ -15981,14 +15984,14 @@ One fixed program $U$, in the small machine's own instruction kinds and with no 
 $U$'s flag rises at some step if and only if the guest's does, and its ledger equals the guest's at every matching point & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-flag} \\
 $U$'s raised flag stands on $U$'s own check, commit and certificate on a slot, and on the guest's own earned chain for the same claim & proved on the host machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-earned} \\
 $U$'s host is Thiele-complete, and whether $U$ halts on a loaded guest is undecidable & proved on the host machine; undecidable in the library's sense & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-U-complete} \\
-The simpler host runs any small-machine program as a guest, and halts with any two-counter program & proved on the small machine, by construction: its guest step runs the guest's own step as a primitive; the guest program is held as a list & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-universal} \\
-From a loaded host, or any state where the two agree, the simpler host's mirror always equals the guest's flag & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-mirror} \\
-From a host that agrees, the simpler host's step collects the guest's toll; on every trace its ledger covers the guest's & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-host-toll} \\
-The simpler host's mirror rises only in a guest step that passed CERTIFY & proved on the small machine, for every sequence of host moves & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-no-free-host} \\
-The simpler host's own instructions never touch the guest & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-no-free-host} \\
-From a loaded host, the simpler host's raised mirror means the guest's own run checked, committed and certified the same claim & proved on the small machine (\code{host\_mirror\_earned}, UniversalThiele.v) & Section~\ref{sec:universal-host} \\
-The simpler host is a certification system & proved on the small machine & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-host-instance} \\
-The simpler host's ledger equals the guest's & not claimed; a guest step with budget $b$ costs $b$ whatever the guest instruction cost, so its ledger only covers the guest's; $U$'s is exact & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-host-toll} \\
+The simpler host runs any small-machine program as a guest, and halts with any two-counter program & proved on the small machine, by construction: its guest step runs the guest's own step as a primitive; the guest program is held as a list & Section~\ref{sec:simpler-host}, Theorem~\ref{thm:u34-universal} \\
+From a loaded host, or any state where the two agree, the simpler host's mirror always equals the guest's flag & proved on the small machine & Section~\ref{sec:simpler-host}, Theorem~\ref{thm:u34-mirror} \\
+From a host that agrees, the simpler host's step collects the guest's toll; on every trace its ledger covers the guest's & proved on the small machine & Section~\ref{sec:simpler-host}, Theorem~\ref{thm:u34-host-toll} \\
+The simpler host's mirror rises only in a guest step that passed CERTIFY & proved on the small machine, for every sequence of host moves & Section~\ref{sec:simpler-host}, Theorem~\ref{thm:u34-no-free-host} \\
+The simpler host's own instructions never touch the guest & proved on the small machine & Section~\ref{sec:simpler-host}, Theorem~\ref{thm:u34-no-free-host} \\
+From a loaded host, the simpler host's raised mirror means the guest's own run checked, committed and certified the same claim & proved on the small machine (\code{host\_mirror\_earned}, UniversalThiele.v) & Section~\ref{sec:simpler-host} \\
+The simpler host is a certification system & proved on the small machine & Section~\ref{sec:simpler-host}, Theorem~\ref{thm:u34-host-instance} \\
+The simpler host's ledger equals the guest's & not claimed; a guest step with budget $b$ costs $b$ whatever the guest instruction cost, so its ledger only covers the guest's; $U$'s is exact & Section~\ref{sec:simpler-host}, Theorem~\ref{thm:u34-host-toll} \\
 \end{longtable}
 \endgroup
 
@@ -16381,10 +16384,14 @@ stops, raises its own flag on its own earned chain exactly when the guest's read
 yes, with the guest's own reading as the claim it checked, and, when the guest's reading starts at no, keeps the guest's prices
 to within a surcharge of at most two, which no program on
 that host, run from a clean start, can avoid when the guest certifies with its whole ledger below three. An ordinary programmable computer, as built, doesn't do that for the
-programs it runs; $U$ and $U_P$ show a fixed interpreter can. All of it is proved in Coq with
+programs it runs; $U$ and $U_P$ show a fixed interpreter can. All of that is proved in Coq with
 no axioms: each file prints the assumptions of every headline theorem, and every line
-comes back closed. Then a check worth earning, the two-player game with an integer test whose
-pass forces Tsirelson's bound for the tally it's handed, and what the counter has to do with physics, which is less than
+comes back closed.
+
+Then a check worth earning, the two-player game with an integer test whose
+pass forces Tsirelson's bound for the tally it's handed. That one does use axioms, the standard
+library's: functional extensionality and the two decidability principles of its real numbers,
+because the bound is a statement about real numbers. And what the counter has to do with physics, which is less than
 the word Landauer in a file name suggests. The places where the machine came up short of the
 idea stayed on the page: its free steps merge states, so the toll on it is a choice the chairs
 don't force, and a check that can't fail certifies for three like any other. Part V was how to
@@ -17117,7 +17124,7 @@ checks in place of a tree, and a counterexample showing the covering can't be dr
 
 \subsection{The record axis is a latch}
 
-Known: monotone, write-once state is old: the latch (Eccles and Jordan, 1918), sticky bits
+Known: monotone, write-once state is old: the latch (Eccles and Jordan, patent filed 1918, paper 1919), sticky bits
 (Plotkin, 1989), grow-only state in replicated data types (Shapiro and coauthors), history
 variables and stuttering in refinement (Abadi and Lamport, 1991), append-only authenticated sets
 for transparency logs, which fit revocation as a once-only event (Tomescu and coauthors, 2019),
@@ -17463,7 +17470,7 @@ Theorem \ref{thm:u11-converse}: Every reachable latch is an honest record & \S\r
 Theorem \ref{thm:u11-reversible}: Records on reversible machines & \S\ref{sec:latch} & \code{history\_latch\_injective} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{history\_latch\_honest} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{finite\_reversible\_cannot\_write} {\footnotesize(\code{RecordAxisDiscrimination.v})}\newline \code{permanent\_flip\_is\_not\_injective} {\footnotesize(\code{PermanentCertification.v})} & none\newline none\newline none\newline none \\
 Lemma \ref{lem:u11-pair}: Two records are two latches & \S\ref{sec:latch} & \code{record\_pair\_is\_two\_latches\_holds} {\footnotesize(\code{StructuralRecordAxis.v})} & none \\
 Lemma \ref{lem:u11-toggle}: The toggle & \S\ref{sec:latch} & \code{toggle\_computation\_driven} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_latch} {\footnotesize(\code{StructuralRecordAxis.v})} & none\newline none\newline none \\
-Lemma \ref{lem:u11-clock}: The clock & \S\ref{sec:latch} & \code{toggle\_computation\_driven} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{toggle\_not\_latch} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{clock\_record\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{clock\_record\_not\_driven} {\footnotesize(\code{StructuralRecordAxis.v})} & none\newline none\newline none\newline none\newline none \\
+Lemma \ref{lem:u11-clock}: The clock & \S\ref{sec:latch} & \code{clock\_record\_permanent} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{clock\_record\_not\_driven} {\footnotesize(\code{StructuralRecordAxis.v})} & none\newline none \\
 Corollary \ref{cor:u11-event-free}: The event is a free choice & \S\ref{sec:latch} & \code{nec\_w\_event\_free\_choice} {\footnotesize(\code{NecWLatch.v})} & none \\
 Theorem \ref{thm:u11-probabilistic}: The schedule doesn't fix the probabilities & \S\ref{sec:latch} & \code{schedule\_determines\_probabilities\_refuted} {\footnotesize(\code{ProbabilisticRecord.v})}\newline \code{deterministic\_latch\_handles\_branching\_refuted} {\footnotesize(\code{ProbabilisticRecord.v})} & none\newline none \\
 Definition \ref{def:u11-concrete-bases}: Three concrete bases & \S\ref{sec:latch} & stated in the text &  \\
@@ -19865,12 +19872,12 @@ does not prematurely run the other.
 The three syntax constructors, operating on already encoded children, are
 \[
 \begin{aligned}
-V&=\lambda n.\lambda v.\lambda a.\lambda l.v\,n,\\
-A&=\lambda p.\lambda q.\lambda v.\lambda a.\lambda l.a\,p\,q,\\
-L&=\lambda p.\lambda v.\lambda a.\lambda l.l\,p.
+\mathrm{mkvar}&=\lambda n.\lambda v.\lambda a.\lambda l.v\,n,\\
+\mathrm{mkapp}&=\lambda p.\lambda q.\lambda v.\lambda a.\lambda l.a\,p\,q,\\
+\mathrm{mklam}&=\lambda p.\lambda v.\lambda a.\lambda l.l\,p.
 \end{aligned}
 \]
-The builder $L$ is a term of the language $L$ of Definition~\ref{def:u12-L}, and the two share only the letter.
+Each builder is a term of the language $L$ of Definition~\ref{def:u12-L}.
 For a variable of index $n$, an application and an abstraction, respectively, define
 their codes by the following resulting values:
 \[
@@ -19880,8 +19887,8 @@ their codes by the following resulting values:
 \ulcorner\lambda p\urcorner&=\lambda v.\lambda a.\lambda l.l\,\ulcorner p\urcorner.
 \end{aligned}
 \]
-In particular, $V\,\overline n$, $A\,\ulcorner p\urcorner\,\ulcorner q\urcorner$ and
-$L\,\ulcorner p\urcorner$ reduce to these three codes. A code is closed even when
+In particular, $\mathrm{mkvar}\,\overline n$, $\mathrm{mkapp}\,\ulcorner p\urcorner\,\ulcorner q\urcorner$ and
+$\mathrm{mklam}\,\ulcorner p\urcorner$ reduce to these three codes. A code is closed even when
 the term it describes has a free variable: the index of that variable is stored
 as a numeral. It is data inside the code, and the code itself has no free variable.
 
@@ -19909,14 +19916,14 @@ the call-by-value rule.
 
 Let $E_j=\ulcorner\#j\urcorner$ for $j=0,1,2$, and let
 $Z=\ulcorner\overline0\urcorner$, obtained directly from the finite syntax of
-$\overline0=\lambda\lambda.1$. Write $L^k(X)$ for $k$ nested applications of the
-syntax builder $L$ to $X$; it is an abbreviation for constructing $k$ lambda nodes, and the
+$\overline0=\lambda\lambda.1$. Write $\mathrm{mklam}^k(X)$ for $k$ nested applications of the
+syntax builder $\mathrm{mklam}$ to $X$; it is an abbreviation for constructing $k$ lambda nodes, and the
 language gains no new operation from it.
 
 Define
 \[
 F_N=\lambda r.\lambda n.\ n\,Z\,
-       (\lambda k.L^2(A\,E_0\,(r\,k))),
+       (\lambda k.\mathrm{mklam}^2(\mathrm{mkapp}\,E_0\,(r\,k))),
 \qquad Q_N=\operatorname{rec}(F_N).
 \]
 Then $Q_N\,\overline n\Downarrow\ulcorner\overline n\urcorner$, by induction on $n$.
@@ -19930,9 +19937,9 @@ which is exactly the syntax of $\overline{n+1}$.
 For a proposed recursive call $r$, define three handlers:
 \[
 \begin{aligned}
-H_V&=\lambda n.L^3(A\,E_2\,(Q_N\,n)),\\
-H_A(r)&=\lambda p.\lambda q.L^3(A\,(A\,E_1\,(r\,p))\,(r\,q)),\\
-H_L(r)&=\lambda p.L^3(A\,E_0\,(r\,p)).
+H_V&=\lambda n.\mathrm{mklam}^3(\mathrm{mkapp}\,E_2\,(Q_N\,n)),\\
+H_A(r)&=\lambda p.\lambda q.\mathrm{mklam}^3(\mathrm{mkapp}\,(\mathrm{mkapp}\,E_1\,(r\,p))\,(r\,q)),\\
+H_L(r)&=\lambda p.\mathrm{mklam}^3(\mathrm{mkapp}\,E_0\,(r\,p)).
 \end{aligned}
 \]
 Now set
@@ -19959,8 +19966,7 @@ Each recursive call works on a proper child of the finite input tree, or on a
 smaller numeral. Each builder takes finitely many beta steps. The induction therefore
 establishes termination as well as the value returned.
 
-The $\mathrm{mkapp}$ used in Section~\ref{sec:diagonal} is the builder $A$ here. That proof
-also has a term of its own called $A$, and it is a different term. With $Q$ and that builder written out, its self-referential
+The $\mathrm{mkapp}$ used in Section~\ref{sec:diagonal} is this builder. With $Q$ and that builder written out, its self-referential
 term has every piece on
 the page. The companion names are \code{mk\_app\_enc}, \code{rec\_spec}, \code{Qn\_spec} and \code{Q\_spec}
 (LRecursion.v); the construction above is the argument those names identify.
