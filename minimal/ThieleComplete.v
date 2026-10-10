@@ -40,7 +40,33 @@
           raises the record from a clean start exactly when the claim holds
           there.
 
+    Over a fixed claim language. In thiele_interface the claims, their
+    meanings and "unchanged" are fields beside the checker, so a reading
+    could take "the checker says yes" as the meaning and meet checker
+    soundness for free. thiele_complete_over M L fixes them first: a claim
+    language L (claim_language) carries the claims, an exact equality test,
+    the meaning of each claim on states, "unchanged", and the fact that a
+    meaning that holds keeps holding while its subject is unchanged. An
+    interface over L (lang_interface) supplies only the base, the kinds,
+    the checker with its soundness proof against L's meanings, the clean
+    states and the ledger, and the four clauses are asked of the interface
+    that results.
+
     What is proved (every result closed under the global context):
+
+      0. Over a fixed language. Thiele-complete over some L implies
+         Thiele-complete, so every consequence below carries over
+         [thiele_complete_over_complete]; a reading whose claims have an
+         exact equality test loses nothing [thiele_complete_with_over]; and
+         over L, a certified run from a clean start contains a passing
+         CHECK of a claim of L and a COMMIT of it, with L's own meaning
+         holding at both [over_certificate_means]. The small machine over
+         its property language, whose meanings EarnedCore.v states without
+         the checker [earned_core_thiele_complete_over], the generic machine
+         over any property language, whose claim language is built without
+         the checker [earned_generic_thiele_complete_over], and the sorted
+         instance [sorted_machine_thiele_complete_over] meet it; so do the
+         two universal hosts (UniversalRun.v, UniversalPRun.v).
 
       1. Consequences of the definition, for every machine. A
          Thiele-complete machine is a Thiele machine with a universal base
@@ -361,6 +387,121 @@ Arguments thiele_complete_with {M} I.
 (* THE DEFINITION. *)
 Definition thiele_complete (M : machine) : Prop :=
   exists I : thiele_interface M, thiele_complete_with I.
+
+(* ================================================================= *)
+(* The strong notion over a claim language fixed in advance.          *)
+(* ================================================================= *)
+
+(* In thiele_interface the claims, their meanings and "unchanged" are
+   fields of the same interface that supplies the checker, so a reading
+   could take "the checker says yes" as the meaning and pass checker
+   soundness for free. A claim language fixes those three things first:
+   its claims, an exact equality test on them, what each claim means of a
+   state, when the thing a claim is about counts as unchanged, and the
+   fact that a meaning that holds keeps holding while its subject is
+   unchanged. *)
+Record claim_language (M : machine) : Type := mk_cl {
+  cl_claim : Type;
+  cl_eqb : cl_claim -> cl_claim -> bool;
+  cl_eqb_spec : forall c d, cl_eqb c d = true <-> c = d;
+  cl_meaning : cl_claim -> m_state M -> Prop;
+  cl_same : cl_claim -> m_state M -> m_state M -> Prop;
+  cl_same_keeps : forall c s s', cl_same c s s' -> cl_meaning c s -> cl_meaning c s'
+}.
+
+Arguments cl_claim {M} _.
+Arguments cl_eqb {M} _ _ _.
+Arguments cl_eqb_spec {M} _ _ _.
+Arguments cl_meaning {M} _ _ _.
+Arguments cl_same {M} _ _ _ _.
+Arguments cl_same_keeps {M} _ _ _ _ _ _.
+
+(* An interface over a fixed language L supplies the rest and nothing
+   about what the claims mean: a universal base, a kind for each move over
+   L's claims, a checker, a proof that the checker is sound for L's
+   meanings, the clean states and the ledger. *)
+Record lang_interface (M : machine) (L : claim_language M) : Type := mk_lang {
+  lang_base : universal_base M;
+  lang_kind : m_move M -> kind (cl_claim L);
+  lang_check : m_state M -> cl_claim L -> bool;
+  lang_sound : forall s c, lang_check s c = true -> cl_meaning L c s;
+  lang_clean : m_state M -> Prop;
+  lang_ledger : m_state M -> nat
+}.
+
+Arguments lang_base {M L} _.
+Arguments lang_kind {M L} _ _.
+Arguments lang_check {M L} _ _ _.
+Arguments lang_sound {M L} _ _ _ _.
+Arguments lang_clean {M L} _ _.
+Arguments lang_ledger {M L} _ _.
+
+(* The full interface an interface over L determines: claims, meanings and
+   "unchanged" are L's own. *)
+Definition lang_ti {M : machine} {L : claim_language M} (J : lang_interface M L)
+  : thiele_interface M :=
+  mk_ti M (lang_base J) (cl_claim L) (lang_kind J) (cl_meaning L) (lang_check J) (cl_same L)
+    (lang_clean J) (lang_ledger J).
+
+(* THE DEFINITION OVER A FIXED LANGUAGE. *)
+Definition thiele_complete_over (M : machine) (L : claim_language M) : Prop :=
+  exists J : lang_interface M L, thiele_complete_with (lang_ti J).
+
+(* Every consequence of thiele_complete carries over. *)
+Theorem thiele_complete_over_complete : forall M (L : claim_language M),
+  thiele_complete_over M L -> thiele_complete M.
+Proof. intros M L [J HJ]. exists (lang_ti J). exact HJ. Qed.
+
+(* Nothing is lost for a reading whose claims have an exact equality test:
+   its own claims, meanings and "unchanged" form a language, and the
+   machine is Thiele-complete over it. So the strengthening is in naming
+   the language before the interface; a theorem over a language written
+   down independently of the checker says what that language says. *)
+Definition language_of {M : machine} (I : thiele_interface M)
+  (eqb : ti_claim I -> ti_claim I -> bool) (Heqb : forall c d, eqb c d = true <-> c = d)
+  (Hkeep : forall c s s', ti_same I c s s' -> ti_meaning I c s -> ti_meaning I c s')
+  : claim_language M :=
+  mk_cl M (ti_claim I) eqb Heqb (ti_meaning I) (ti_same I) Hkeep.
+
+Theorem thiele_complete_with_over : forall M (I : thiele_interface M)
+  (eqb : ti_claim I -> ti_claim I -> bool) (Heqb : forall c d, eqb c d = true <-> c = d)
+  (Hkeep : forall c s s', ti_same I c s s' -> ti_meaning I c s -> ti_meaning I c s'),
+  thiele_complete_with I -> thiele_complete_over M (language_of I eqb Heqb Hkeep).
+Proof.
+  intros M I eqb Heqb Hkeep HC.
+  pose proof HC as [_ [[_ [_ [Hsound _]]] _]].
+  exists (mk_lang M (language_of I eqb Heqb Hkeep)
+            (ti_base I) (ti_kind I) (ti_check I) Hsound (ti_clean I) (ti_ledger I)).
+  destruct I. exact HC.
+Qed.
+
+(* What a certificate means over L: on every run from a clean start that
+   ends with the record up, a claim of L was checked and then committed,
+   and L's own meaning of that claim held at the check and at the
+   commit. *)
+Theorem over_certificate_means : forall M (L : claim_language M),
+  thiele_complete_over M L ->
+  exists J : lang_interface M L,
+    forall s0 tr, lang_clean J s0 -> m_record M (run M tr s0) = true ->
+    exists pre c chk mid1 cmt rest,
+      tr = pre ++ chk :: mid1 ++ cmt :: rest /\
+      lang_kind J chk = KCheck c /\ lang_kind J cmt = KCommit c /\
+      lang_check J (run M pre s0) c = true /\
+      cl_meaning L c (run M pre s0) /\ cl_meaning L c (run M (pre ++ chk :: mid1) s0).
+Proof.
+  intros M L [J HJ]. exists J. intros s0 tr H0 H1.
+  pose proof HJ as [_ [[_ [Hchain _]] _]].
+  destruct (Hchain s0 tr H0 H1)
+    as [pre [c [chk [mid1 [cmt [mid2 [crt [post
+         [Htr [Hk1 [Hk2 [_ [Hck [Hsame _]]]]]]]]]]]]]].
+  exists pre, c, chk, mid1, cmt, (mid2 ++ crt :: post).
+  split; [exact Htr |]. split; [exact Hk1 |]. split; [exact Hk2 |].
+  split; [exact Hck |].
+  assert (Hm : cl_meaning L c (run M pre s0)) by (apply (lang_sound J), Hck).
+  split; [exact Hm |].
+  apply (cl_same_keeps L c (run M pre s0));
+    [apply (Hsame mid1 []); rewrite app_nil_r; reflexivity | exact Hm].
+Qed.
 
 (* ================================================================= *)
 (* 1. Consequences of the definition, for every machine.             *)
@@ -774,9 +915,9 @@ Proof.
   split; rewrite run_earned; assumption.
 Qed.
 
-Theorem earned_core_thiele_complete : thiele_complete earned_machine.
+Lemma earned_core_complete_with : thiele_complete_with earned_interface.
 Proof.
-  exists earned_interface. split; [| split; [| split]].
+  split; [| split; [| split]].
   - split; [intros [[|] | [|] j]; reflexivity |].
     split; [intros a b; apply E.start_clean |]. split.
     + intros s m Hk. destruct m; simpl in Hk; try discriminate; simpl;
@@ -797,6 +938,62 @@ Proof.
     intros a b. destruct a as [| a]; simpl; split; intro H;
       try reflexivity; try discriminate H.
 Qed.
+
+Theorem earned_core_thiele_complete : thiele_complete earned_machine.
+Proof. exists earned_interface. exact earned_core_complete_with. Qed.
+
+(* The small machine's claim language, written down before any interface.
+   A claim is a property and a counter. It means the property holds of the
+   counter's value, by E.holds, which EarnedCore.v states without the
+   checker. The thing it is about is unchanged when the counter's version
+   and value are. Claims are equal when property and counter are. *)
+Definition earned_claim_eqb (x y : E.prop * E.ctr) : bool :=
+  E.prop_eqb (fst x) (fst y) && E.ctr_eqb (snd x) (snd y).
+
+Lemma earned_claim_eqb_spec : forall x y, earned_claim_eqb x y = true <-> x = y.
+Proof.
+  intros [p c] [q d]. unfold earned_claim_eqb. simpl. rewrite andb_true_iff. split.
+  - intros [Hp Hc].
+    assert (p = q) by (destruct p, q; simpl in Hp; try discriminate; try reflexivity;
+                       apply Nat.eqb_eq in Hp; subst; reflexivity).
+    assert (c = d) by (destruct c, d; simpl in Hc; try discriminate; reflexivity).
+    subst. reflexivity.
+  - intro H. inversion H; subst.
+    split; [destruct q; simpl; try reflexivity; apply Nat.eqb_refl | destruct d; reflexivity].
+Qed.
+
+Lemma earned_same_keeps : forall (pc : E.prop * E.ctr) (s t : E.state),
+  E.ver (E.core_of s) (snd pc) = E.ver (E.core_of t) (snd pc) /\
+  E.val (E.core_of s) (snd pc) = E.val (E.core_of t) (snd pc) ->
+  E.holds (fst pc) (E.val (E.core_of s) (snd pc)) ->
+  E.holds (fst pc) (E.val (E.core_of t) (snd pc)).
+Proof. intros pc s t [_ Hw] H. rewrite <- Hw. exact H. Qed.
+
+Definition earned_language : claim_language earned_machine :=
+  mk_cl earned_machine (E.prop * E.ctr) earned_claim_eqb earned_claim_eqb_spec
+    (fun pc s => E.holds (fst pc) (E.val (E.core_of s) (snd pc)))
+    (fun pc s t => E.ver (E.core_of s) (snd pc) = E.ver (E.core_of t) (snd pc) /\
+                   E.val (E.core_of s) (snd pc) = E.val (E.core_of t) (snd pc))
+    earned_same_keeps.
+
+(* CHECK's own test is sound for those meanings. *)
+Lemma earned_check_sound : forall (s : E.state) (pc : E.prop * E.ctr),
+  E.check_ok (E.core_of s) (fst pc) (snd pc) = true ->
+  E.holds (fst pc) (E.val (E.core_of s) (snd pc)).
+Proof.
+  intros s [p c] H. simpl in *. unfold E.check_ok in H.
+  apply andb_true_iff in H as [H _]. apply andb_true_iff in H as [_ H].
+  apply E.eval_iff, H.
+Qed.
+
+Definition earned_li : lang_interface earned_machine earned_language :=
+  mk_lang earned_machine earned_language earned_base earned_kind
+    (fun s pc => E.check_ok (E.core_of s) (fst pc) (snd pc)) earned_check_sound
+    E.clean_start E.mu.
+
+(* The small machine is Thiele-complete over its own property language. *)
+Theorem earned_core_thiele_complete_over : thiele_complete_over earned_machine earned_language.
+Proof. exists earned_li. exact earned_core_complete_with. Qed.
 
 (* The reference model here and the two-counter machine of EarnedCore.v
    agree, so the universality above is the one halting_correspondence
@@ -1004,6 +1201,50 @@ Proof.
     apply generic_chain_iff.
 Qed.
 
+(* The generic machine's claim language. It is built from the properties,
+   their equality test and what they mean (holds) alone: the checker eval
+   is not part of it. *)
+Definition generic_claim_eqb (x y : prop * G.ctr) : bool :=
+  prop_eqb (fst x) (fst y) &&
+  match snd x, snd y with G.CA, G.CA | G.CB, G.CB => true | _, _ => false end.
+
+Lemma generic_claim_eqb_spec : forall x y, generic_claim_eqb x y = true <-> x = y.
+Proof.
+  intros [p c] [q d]. unfold generic_claim_eqb. simpl. rewrite andb_true_iff, prop_eqb_eq.
+  split.
+  - intros [Hp Hc]. assert (c = d) by (destruct c, d; try discriminate; reflexivity).
+    subst. reflexivity.
+  - intro H. inversion H; subst. split; [reflexivity | destruct d; reflexivity].
+Qed.
+
+Lemma generic_same_keeps : forall (pc : prop * G.ctr) (s t : @G.state prop),
+  G.ver (G.core_of s) (snd pc) = G.ver (G.core_of t) (snd pc) /\
+  G.val (G.core_of s) (snd pc) = G.val (G.core_of t) (snd pc) ->
+  holds (fst pc) (G.val (G.core_of s) (snd pc)) ->
+  holds (fst pc) (G.val (G.core_of t) (snd pc)).
+Proof. intros pc s t [_ Hw] H. rewrite <- Hw. exact H. Qed.
+
+Definition generic_language : claim_language generic_machine :=
+  mk_cl generic_machine (prop * G.ctr) generic_claim_eqb generic_claim_eqb_spec
+    (fun pc s => holds (fst pc) (G.val (G.core_of s) (snd pc)))
+    (fun pc s t => G.ver (G.core_of s) (snd pc) = G.ver (G.core_of t) (snd pc) /\
+                   G.val (G.core_of s) (snd pc) = G.val (G.core_of t) (snd pc))
+    generic_same_keeps.
+
+Lemma generic_check_sound : forall (s : @G.state prop) (pc : prop * G.ctr),
+  G.check_ok eval (G.core_of s) (fst pc) (snd pc) = true ->
+  holds (fst pc) (G.val (G.core_of s) (snd pc)).
+Proof.
+  intros s [p c] H. simpl in *. unfold G.check_ok in H.
+  apply andb_true_iff in H as [H _]. apply andb_true_iff in H as [_ H].
+  apply eval_iff, H.
+Qed.
+
+Definition generic_li : lang_interface generic_machine generic_language :=
+  mk_lang generic_machine generic_language generic_base generic_kind
+    (fun s pc => G.check_ok eval (G.core_of s) (fst pc) (snd pc)) generic_check_sound
+    G.clean_start (@G.mu prop).
+
 End GenericInstance.
 
 (* The small machine over any property language with an exact checker, in
@@ -1028,6 +1269,34 @@ Theorem sorted_machine_thiele_complete :
   thiele_complete (generic_machine G.sprop_eqb G.seval).
 Proof.
   apply (earned_generic_thiele_complete _ _ _ G.sholds G.sprop_eqb_eq G.seval_iff).
+  exists G.PSorted, 18, 20. split.
+  - simpl. apply G.sortedb_iff. vm_compute. reflexivity.
+  - simpl. intro H. apply G.sortedb_iff in H. vm_compute in H. discriminate H.
+Qed.
+
+(* The same three machines over their claim languages fixed in advance:
+   the property language with its own meanings comes first, and the
+   interface supplies only the base, the kinds, the checker with its
+   soundness proof, the clean states and the ledger. *)
+Theorem earned_generic_thiele_complete_over :
+  forall (prop : Type) (prop_eqb : prop -> prop -> bool)
+         (eval : prop -> nat -> bool) (holds : prop -> nat -> Prop)
+         (Heq : forall p q, prop_eqb p q = true <-> p = q),
+  (forall p v, eval p v = true <-> holds p v) ->
+  (exists p v w, holds p v /\ ~ holds p w) ->
+  thiele_complete_over (generic_machine prop_eqb eval)
+    (generic_language prop_eqb Heq eval holds).
+Proof.
+  intros prop prop_eqb eval holds Heq Hiff [p [v [w [Hv Hw]]]].
+  exists (generic_li prop_eqb Heq eval holds Hiff).
+  exact (generic_thiele_complete_with prop_eqb Heq eval holds Hiff p v w Hv Hw).
+Qed.
+
+Theorem sorted_machine_thiele_complete_over :
+  thiele_complete_over (generic_machine G.sprop_eqb G.seval)
+    (generic_language G.sprop_eqb G.sprop_eqb_eq G.seval G.sholds).
+Proof.
+  apply (earned_generic_thiele_complete_over _ _ _ G.sholds G.sprop_eqb_eq G.seval_iff).
   exists G.PSorted, 18, 20. split.
   - simpl. apply G.sortedb_iff. vm_compute. reflexivity.
   - simpl. intro H. apply G.sortedb_iff in H. vm_compute in H. discriminate H.
@@ -1066,3 +1335,9 @@ Print Assumptions reference_agrees.
 Print Assumptions earned_core_runs_counter_programs.
 Print Assumptions earned_generic_thiele_complete.
 Print Assumptions sorted_machine_thiele_complete.
+Print Assumptions thiele_complete_over_complete.
+Print Assumptions thiele_complete_with_over.
+Print Assumptions over_certificate_means.
+Print Assumptions earned_core_thiele_complete_over.
+Print Assumptions earned_generic_thiele_complete_over.
+Print Assumptions sorted_machine_thiele_complete_over.

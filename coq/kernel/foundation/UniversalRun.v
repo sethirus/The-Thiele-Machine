@@ -749,6 +749,49 @@ Qed.
 Theorem universal_thiele_complete : TC.thiele_complete host_machine.
 Proof. exists host_interface. exact host_thiele_complete_with. Qed.
 
+(* The host's claim language, written down before any interface. A claim
+   is the property PSlot and a register. It means hholds of the register's
+   value, which UniversalCodes.v states without the checker heval. The
+   thing it is about is unchanged when the register's version and value
+   are. Claims are equal when property and register are. *)
+Definition host_claim_eqb (x y : hprop * nat) : bool :=
+  hprop_eqb (fst x) (fst y) && Nat.eqb (snd x) (snd y).
+
+Lemma host_claim_eqb_spec : forall x y, host_claim_eqb x y = true <-> x = y.
+Proof.
+  intros [[] r] [[] u]. unfold host_claim_eqb. simpl. rewrite Nat.eqb_eq.
+  split; [intros ->; reflexivity | intro H; inversion H; reflexivity].
+Qed.
+
+Lemma host_same_keeps : forall (pr : hprop * nat) (s t : hstate),
+  hver s (snd pr) = hver t (snd pr) /\ hv s (snd pr) = hv t (snd pr) ->
+  hholds (fst pr) (hv s (snd pr)) -> hholds (fst pr) (hv t (snd pr)).
+Proof. intros pr s t [_ Hw] H. rewrite <- Hw. exact H. Qed.
+
+Definition host_language : TC.claim_language host_machine :=
+  TC.mk_cl host_machine (hprop * nat) host_claim_eqb host_claim_eqb_spec
+    (fun pr s => hholds (fst pr) (hv s (snd pr)))
+    (fun pr s t => hver s (snd pr) = hver t (snd pr) /\ hv s (snd pr) = hv t (snd pr))
+    host_same_keeps.
+
+(* CHECK's own test is sound for those meanings. *)
+Lemma host_check_sound : forall (s : hstate) (pr : hprop * nat),
+  M.check_ok heval (M.core_of s) (fst pr) (snd pr) = true -> hholds (fst pr) (hv s (snd pr)).
+Proof.
+  intros s [p r] H. simpl in *. unfold M.check_ok in H.
+  apply andb_true_iff in H as [H _]. apply andb_true_iff in H as [_ H].
+  apply heval_iff, H.
+Qed.
+
+Definition host_li : TC.lang_interface host_machine host_language :=
+  TC.mk_lang host_machine host_language host_base host_kind
+    (fun s pr => M.check_ok heval (M.core_of s) (fst pr) (snd pr)) host_check_sound
+    M.clean_start (@M.mu hprop).
+
+(* The host U runs on is Thiele-complete over its own claim language. *)
+Theorem universal_thiele_complete_over : TC.thiele_complete_over host_machine host_language.
+Proof. exists host_li. exact host_thiele_complete_with. Qed.
+
 (* ================================================================= *)
 (* Assumption audit. Every line must print                            *)
 (* "Closed under the global context".                                 *)
@@ -765,3 +808,4 @@ Print Assumptions universal_earned.
 Print Assumptions U_run_on_host_machine.
 Print Assumptions host_thiele_complete_with.
 Print Assumptions universal_thiele_complete.
+Print Assumptions universal_thiele_complete_over.
