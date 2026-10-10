@@ -11590,6 +11590,51 @@ Checked as \code{paid\_latch\_weakly\_thiele\_complete}, \code{paid\_latch\_meet
 The paid latch is the receipt for nothing from the opening chapter, wearing a universal base:
 honest about the price, silent about what was bought. The definition throws it out.
 
+Clause (c) also fixes something it has no business fixing: the size of a mark. Double every price
+on the small machine and it leaves the class, because its CHECK now costs two and (c) asks for
+one. A definition that a change of currency breaks would be a strange one, so here is (c) with
+the unit left open.
+
+\begin{theorem}[Any unit]\label{thm:u34-tc-unit}
+Call a machine \emph{Thiele-complete at unit $c$}, for a whole number $c \ge 1$, when some
+interface meets clauses (a), (b) and (d) and this form of (c): base moves cost 0, each CHECK,
+COMMIT and CERTIFY costs exactly $c$, and each move adds its cost to the ledger. (1) At unit 1
+that is Thiele-complete. (2) Multiply every price of a Thiele-complete machine by $c \ge 1$ and the
+machine is Thiele-complete at unit $c$; divide every price of a machine Thiele-complete at unit
+$c$ by $c$ and the machine, with the same states, moves, step and record, is Thiele-complete.
+(3) At every unit some move costs 0, so the clock of Theorem~\ref{thm:u34-clock}, with any reading
+or any latch as its record, is Thiele-complete at no unit, and neither is any machine whose every
+move costs at least 1. (4) At unit $c$, a run from a clean state that ends with the record up
+contains at least three of the three acts and raises the ledger by at least $3c$; the claim it
+stands on held when it was checked and still held when it was committed; and the move that raises
+the record is a CERTIFY. (5) The small machine with every price doubled is Thiele-complete at unit 2
+and isn't Thiele-complete.
+\end{theorem}
+
+\begin{proof}
+(1) $1 \cdot r = r$. (2) Clauses (a), (b) and (d) never mention a price, and the two machines have
+the same runs. The ledger is multiplied or divided along with the prices, and
+$(\ell + c\,r)/c = \ell/c + r$ exactly, so the divided ledger still adds each divided price.
+(3) The move compiled from INC $A$ is a base move, so it costs 0. (4) Clause (b) finds the three
+acts in the run as before, and each costs $c$. The other two parts are the unit-1 results on the
+divided machine, which runs exactly as this one does. (5) is (2) with $c = 2$, and the doubled
+machine has a CHECK that costs 2, which no Thiele-complete machine has
+(Theorem~\ref{thm:u34-tc-consequences}(6)).
+\end{proof}
+
+Checked as \code{thiele\_complete\_at\_one}, \code{scale\_complete\_at}, \code{unscale\_complete},
+\code{scaled\_has\_free\_move}, \code{clock\_not\_thiele\_complete\_at\_any\_unit},
+\code{latch\_clock\_not\_thiele\_complete\_at\_any\_unit},
+\code{paid\_moves\_not\_thiele\_complete\_at\_any\_unit}, \code{scaled\_certificate\_costs\_three\_c},
+\code{scaled\_committed\_claim\_holds}, \code{scaled\_only\_certify\_raises},
+\code{doubled\_earned\_scaled} and \code{doubled\_earned\_not\_thiele\_complete}
+(ThieleCompleteScaled.v).
+
+So the class doesn't care what a mark is worth. It cares that computing is free and that the
+three acts cost the same. The clock fails at every unit for the reason it failed at one: it
+charges for computing. I keep unit 1 in the definition because the small machine is built that
+way and every count in this chapter is in its marks.
+
 Now the other direction. A definition nobody meets is as useless as one everybody meets.
 
 \begin{theorem}[The small machine, the generic one and the sorted one are Thiele-complete]\label{thm:u34-tc-instances}
@@ -15924,6 +15969,7 @@ Thiele-complete means a universal base that is free and can't touch the record, 
 Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three on any run from a clean state that ends with the record up, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
 A clock (every move charged, any reading or any latch as the record) obeys the toll with a universal base and is not Thiele-complete; nor is any machine whose every move costs something & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the base and toll clauses and fails, and a silent machine meets three clauses and fails & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
+Thiele-complete at any unit: with record moves at one fixed price $c \ge 1$ the class is the unit class with its prices multiplied by $c$, and the clock fails at every unit & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-unit} \\
 The small machine, the same machine over any property language with an exact equality test, a proved checker and some property true of one number and false of another, and the sorted-list machine are Thiele-complete & proved on the small machine and on the generic machine & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-instances} \\
 Every Thiele-complete machine hides its record and its ledger from its base window & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-window} \\
 No fixed host program can keep the guest's facts on an exact copy of a guest counter & proved, for any host property language and any translation into a finite list of host properties & Section~\ref{sec:universal-host}, Theorem~\ref{thm:u34-nocopy} \\
@@ -17487,6 +17533,7 @@ Definition \ref{def:u34-thiele-complete}: Thiele-complete & \S\ref{sec:smallest}
 Theorem \ref{thm:u34-tc-consequences}: What every Thiele-complete machine has & \S\ref{sec:smallest} & \code{thiele\_complete\_is\_weak} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_halting\_correspondence} {\footnotesize(\code{ThieleComplete.v})}\newline \code{certificate\_costs\_three} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})}\newline \code{base\_runs\_every\_program} {\footnotesize(\code{ThieleComplete.v})}\newline \code{ledger\_counts\_record\_moves} {\footnotesize(\code{ThieleComplete.v})}\newline \code{check\_can\_fail} {\footnotesize(\code{ThieleComplete.v})}\newline \code{some\_run\_certifies} {\footnotesize(\code{ThieleComplete.v})}\newline \code{only\_certify\_raises} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_costs\_at\_most\_one} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-clock}: A clock is a Thiele machine and isn't Thiele-complete & \S\ref{sec:smallest} & \code{clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{latch\_clock\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{complete\_has\_free\_move} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-clauses}: Each clause does work & \S\ref{sec:smallest} & \code{paid\_latch\_meets\_base\_and\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_meets\_base\_record\_toll} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_not\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{paid\_latch\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{one\_move\_record\_excluded} {\footnotesize(\code{ThieleComplete.v})}\newline \code{silent\_weakly\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{never\_certifies\_excluded} {\footnotesize(\code{ThieleComplete.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:u34-tc-unit}: Any unit & \S\ref{sec:smallest} & \code{thiele\_complete\_at\_one} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scale\_complete\_at} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{unscale\_complete} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scaled\_has\_free\_move} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{clock\_not\_thiele\_complete\_at\_any\_unit} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{latch\_clock\_not\_thiele\_complete\_at\_any\_unit} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{paid\_moves\_not\_thiele\_complete\_at\_any\_unit} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scaled\_certificate\_costs\_three\_c} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scaled\_committed\_claim\_holds} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{scaled\_only\_certify\_raises} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{doubled\_earned\_scaled} {\footnotesize(\code{ThieleCompleteScaled.v})}\newline \code{doubled\_earned\_not\_thiele\_complete} {\footnotesize(\code{ThieleCompleteScaled.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-instances}: The small machine, the generic one and the sorted one are Thiele-complete & \S\ref{sec:smallest} & \code{earned\_core\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{earned\_generic\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{sorted\_machine\_thiele\_complete} {\footnotesize(\code{ThieleComplete.v})}\newline \code{thiele\_complete\_floor} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{earned\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{generic\_complete\_agrees} {\footnotesize(\code{EarnedGenericLinks.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:u34-tc-window}: Every Thiele-complete machine hides its record and its ledger from its window & \S\ref{sec:smallest} & \code{complete\_every\_window\_printed} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_record\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_no\_ledger\_oracle} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_cs\_window\_blind} {\footnotesize(\code{EarnedGenericLinks.v})}\newline \code{complete\_hides\_record} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{complete\_hides\_ledger} {\footnotesize(\code{ThieleCompleteWindow.v})}\newline \code{thiele\_complete\_hides} {\footnotesize(\code{ThieleCompleteWindow.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u34-multi}: The host machine & \S\ref{sec:smallest} & \code{pair} {\footnotesize(\code{UniversalCodes.v})}\newline \code{pcode} {\footnotesize(\code{UniversalCodes.v})}\newline \code{heval} {\footnotesize(\code{UniversalCodes.v}, +1)}\newline \code{hholds} {\footnotesize(\code{UniversalCodes.v})} & def\newline def\newline def\newline def \\
@@ -18022,7 +18069,11 @@ notion, weakly Thiele-complete (\code{weakly\_thiele\_complete}, not printed her
 Thiele-complete (\code{clock\_weakly\_thiele\_complete}), a flag that switches on at the first yes
 behaves the same way (\code{latch\_clock\_weakly\_thiele\_complete} and
 \code{latch\_clock\_not\_thiele\_complete}), and no machine whose every move costs at least 1 is
-Thiele-complete, which comes from \code{complete\_has\_free\_move}.
+Thiele-complete, which comes from \code{complete\_has\_free\_move}. Clause (c) fixes the unit at
+one. Theorem~\ref{thm:u34-tc-unit} states the definition with every record move at one fixed price
+$c \ge 1$ (\code{thiele\_complete\_at}, ThieleCompleteScaled.v), shows that class is this one with
+its prices multiplied by $c$ (\code{scale\_complete\_at} and \code{unscale\_complete}), and shows the
+clock fails at every unit (\code{clock\_not\_thiele\_complete\_at\_any\_unit}).
 
 \subsection{The universal program's flag and ledger}
 
