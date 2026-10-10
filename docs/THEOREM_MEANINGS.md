@@ -68,6 +68,7 @@ An explicitly qualified citation keeps its own module identity.
 - `l_step_fun_correct`: For all L terms `s` and `t`, `s` takes one weak call-by-value step to `t` exactly when the structural step function `l_step_fun` returns `Some t` on `s`.
 - `star_is_l_base_run`: Every L reduction sequence from `s` to `t` is reached by running the L base machine some number of steps from `s`.
 - `permanent_write_has_logical_payment`: On a finite state space, if instruction `i` keeps the record on wherever it is on, and some state goes from record off to record on under `i`, then `i` is not injective.
+- `permanent_flip_merges_on_yes_side`: Under the same conditions, `i` sends every state that reads on, and the flipped state, to a state that reads on, and is not injective even on those states: the forgetting lands on the record's yes side.
 - `record_pair_is_two_latches_holds`: Under the same conditions for two records, the pair evolves as two latches whose events may each read the other record.
 - `toggle_not_latch`: A record on a counter base that flips at every step is driven by the computation and is not the latch of any event.
 - `clock_record_not_driven`: The record switched on by a hidden clock at its fifth tick is not driven by the computation.
@@ -308,6 +309,12 @@ An explicitly qualified citation keeps its own module identity.
 - `durable_consensus_implies_permanence`: A positive observer count, authentic observer views, and durable true views imply event permanence; durability is the premise that supplies the conclusion.
 
 - `toy_cert_unique_pointer`: In the chosen replicated-ledger toy, the certificate predicate proliferates and the single designated work predicate does not.
+- `pointer_on_unique`: Two events that are each the pointer (the strongest event copied by every observer and relied on by every non-producing observer) on the same reachable states agree on every one of those states.
+- `independent_copies_everywhere_are_constant`: If observers' carriers are independent (each view reads its own part, and any two parts can be set separately) and there are at least two observers, an event every observer decides exactly on every state is constant.
+- `ledger_carriers_independent`: In the replicated-header toy, the three nodes' copies are independent carriers.
+- `ledger_copying_alone_does_not_separate`: In the replicated-header toy, on synced states both "finalized" and "gas used is at least one" are decided by every node's copy.
+- `ledger_finalized_is_pointer`: In the replicated-header toy, "finalized" is copied by every node, relied on by every non-producing node, and implies every other event copied and relied on in that sense on synced states.
+- `ledger_gas_not_relied_on`: In the replicated-header toy, "gas used is at least one" is not relied on by the non-producing nodes.
 - `PoS_model_unique_pointer`: In the synthetic PoS-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
 - `Gas_model_unique_pointer`: In the synthetic gas-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
 - `TEE_model_unique_pointer`: In the synthetic TEE-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.

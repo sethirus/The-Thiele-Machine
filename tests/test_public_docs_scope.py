@@ -65,8 +65,10 @@ def test_public_documents_preserve_the_scope_boundary():
 def test_pointer_criterion_is_stated_as_a_conjecture():
     monograph = normalized(ROOT / "monograph/monograph.tex")
     assert r"\label{sec:pointer}" in monograph
-    assert r"\begin{conjecture}[The pointer conjecture]" in monograph
-    assert "The conjecture leans on four notions left without precise mathematical definitions" in monograph
+    # The book states the pointer criterion as a thesis (its worldly terms,
+    # "faithfully model" and "deployed", can't be defined; the others are).
+    assert r"\begin{thesis}[The pointer thesis]" in monograph
+    assert "The thesis leans on two notions with no precise mathematical definition" in monograph
     assert "which systems count as" in monograph and "independent" in monograph
     assert "The general pointer criterion is a conjecture." in normalized(ROOT / "README.md")
     assert "The pointer criterion is a conjecture." in normalized(

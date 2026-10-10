@@ -208,6 +208,8 @@
 \newtheorem{premise}[definition]{Premise}
 \theoremstyle{thielethm}
 \newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{thesis}[theorem]{Thesis}
+\newtheorem{observation}[theorem]{Observation}
 
 \begin{document}
 \sloppy
@@ -1442,8 +1444,8 @@ costs (six instruction kinds and three marks, on the small machine); whether it 
 argued, and it's a claim about what matters, which no proof checker can check.
 
 Guessed at, with the ways to kill it written down: that the event worth recording is certification,
-because its records are the ones that get copied and relied on all over the place (the pointer
-conjecture, Part III).
+because its records are the ones that get copied and relied on all over the place by parties who
+didn't produce them (the pointer thesis, Part III).
 
 Not proved, and I'll say so every time it's tempting: any physical price for one mark, anything
 about a physical device running any of this, or anything about which problems are hard.
@@ -1709,7 +1711,7 @@ Section~\ref{sec:diagonal} says why the label is all the argument gets to see. A
 model's bare shape, a kind of state and a rule for stepping, and here the extra pieces it's asked
 for are programs written as states and that recursion theorem. The wall comes by the same self-referring trick, the
 diagonal, that put a hole in the foundations for arithmetic built by the German logician Gottlob Frege (Part I tells that
-story). Which event deserves the record is a conjecture, with its refutations listed.
+story). Which event deserves the record is a thesis, with its refutations listed.
 
 Certification is one point I could pin down. It gave me a law I could state, a machine I
 could build and run, and proofs I could put in front of someone who didn't share my
@@ -1720,7 +1722,7 @@ How the book is laid out. Part I is the picture: how I got here, and what struct
 Part II is the axiom: the smallest thing that could carry a bill, and why its one rule
 isn't arbitrary. Part III is the logic: the counter, the windows, entitlement, insight, the
 latch, the whole direction, the exact shadow, the diagonal (the lambda calculus L gets its
-recursion theorem there by proof), five real systems, and a conjecture. Parts I to III never use my
+recursion theorem there by proof), five real systems, and a thesis. Parts I to III never use my
 machine; every claim in them is about any system with the pieces it names, and the pictures
 are toys. Part IV builds one machine, the smallest honest machine I could make: two
 counters, six instruction kinds, a table of checked facts, a ledger and a flag. On it a flag raised from a
@@ -2019,7 +2021,7 @@ Eccles and Jordan 1918; Plotkin 1989; Shapiro and coauthors; Abadi and Lamport 1
 Cantor, Gödel, Turing, Kleene, Rice; Lawvere 1969 & the diagonal & the shortcut wall on any substrate; L's recursion theorem by proof \\
 Bell, CHSH, Tsirelson, Wehner, NPA, Landau, Masanes, Fine; Echenim and Mhalla 2023 and Lean's mathlib (Tsirelson's bound already machine-checked) & the game, its walls, and the matrix test & an integer check on counts that implies the pinned matrix is PSD, which implies the bound \\
 Buterin and Griffith; Wood; TCG; RFC 9162; Necula & five record disciplines & five fragments read through one question: is the write priced \\
-Zurek 2009; Ollivier, Poulin and Zurek 2004; Blume-Kohout and Zurek 2006 & pointer states and redundancy & a conjecture borrowing the shape, with the gap to the physics stated \\
+Zurek 2009; Ollivier, Poulin and Zurek 2004; Blume-Kohout and Zurek 2006 & pointer states and redundancy & a thesis borrowing the shape, with the gap to the physics stated \\
 Leroy 2009; Klein et al. 2009 & the discipline of saying where the proof stops & the list of what's trusted, in one place \\
 Minsky 1961, 1967; Forster, Larchey-Wendling and coauthors 2019, 2020 & two-counter machines are universal, and their halting is undecidable, checked in Coq & a machine of six instruction kinds on two counters where earned commitments, no forging and an exact minimum price of three are theorems, with halting reduced to the library's \\
 Forster and Smolka 2017; the Coq Library of Undecidability; Norrish 2011 & L as a model of computation in Coq; counter-machine constructions; a compiler from computable functions to counter machines & L's recursion theorem, Rice and halting, checked; the library's compiler used to put every computably presented Thiele machine on the universal host \\
@@ -2031,7 +2033,7 @@ Everything in the right column is stated with its premises in the body of the bo
 everything in the middle column is cited where it's used. The table is the short form. The
 long form is Appendix~\ref{sec:whats-mine}, which takes each row, says what was
 already known with sources, and sorts what's added into new result, new proof,
-mechanization, implementation, synthesis, or conjecture. Most of the right column is
+mechanization, implementation, synthesis, or conjecture or thesis. Most of the right column is
 mechanization, implementation, and synthesis.
 
 A few more labels I went and looked up are neighbours. Some of them also sit in
@@ -9203,8 +9205,18 @@ records other people rely on, with real money or real security behind them, and 
 the one question this book is about: \emph{is there a price on the moment the record is written?}
 Not on the work around it. On the write. I'll tell you the answer first, because it's a
 single sentence and it surprised me: of the five specifications, read through the
-transcriptions I made of them, only one prices the write, and that one has a leak at exactly
+transcriptions I made of them, only one takes a fee at the moment of the write, and that one has a leak at exactly
 the place Section~\ref{sec:counter} said a counter leaks, where it goes down.
+
+``Price'' needs one meaning for all five, or the answer is whatever I want it to be, so here it
+is, and every system below gets classified by it. A specification \emph{prices} an event when it
+attaches one of three costs to it. A \emph{fee}: something taken at the event itself, whatever
+happens afterward. A \emph{bond}: value put at risk by the event and lost only if some later event
+happens, a contradiction, say. A \emph{budget}: a finite allowance the event draws down, so that only
+so many such events can ever happen. A wall isn't a price under this definition. Nobody pays a
+hash; reversing one is just infeasible. Neither is work a protocol needs and never charges for.
+The table at the end of the section has a column for each of the three kinds, and what it shows
+is a finding about the five, because the definition came first.
 
 Three things are easy to blur in a section like this, so I'll name them now and keep them
 apart all the way through. There's the \emph{real specification}: the document real money and
@@ -9238,7 +9250,10 @@ either and your deposit can be destroyed, which is called \emph{slashing}. The
 theorem they prove, called accountable safety, says that if two \emph{conflicting} checkpoints
 are ever both finalized, at least a third of the stake broke a rule and can be slashed. So
 the price is on \emph{reversal}, on making the record contradict itself. The write itself,
-finalizing, is free: honest validators finalize all day and nobody loses anything.
+finalizing, takes no fee: honest validators finalize all day and nobody loses anything. In the
+terms from the start of the section, Casper's price is a bond. The deposit stands behind every
+vote, the finalizing votes included, and it's taken only if the record is later made to
+contradict itself.
 
 Do it with three validators. Let A and B vote one branch, B and C vote a competing branch.
 Each pair is two of three. Both branches finalize. Now read the rule: B cast two different votes
@@ -9339,19 +9354,21 @@ and the rest of the running protocol, is the gap between my transcription and th
 through near the end of this section with a photocopied recipe and a kitchen. Does any of that move the price? No. Finalizing is still free for an
 honest validator. What costs is contradicting yourself.
 
-\subsection{Gas: the one that prices the write}
+\subsection{Gas: the one that charges a fee at the write}
 
 Every operation on Ethereum costs \emph{gas}, paid in ether by whoever sent the transaction. The
 yellow paper, Ethereum's formal specification, gives the reason in one line: every computation is fee-bearing so the network
 can't be abused and halting questions are sidestepped. The record I care about is a nonzero
 slot in the shared storage, which every full node in the world (every computer keeping its own complete copy of the
-chain) has to keep forever.
+chain) has to keep until it's cleared. Clearing a slot is allowed, and the refund rules below exist to reward it.
 
 And here it is: writing a fresh storage slot from zero to nonzero costs twenty thousand gas,
 by the table in the paper's appendix, plus twenty-one hundred for touching a \emph{cold} slot, one
 the transaction hasn't touched yet (after the first touch it's \emph{warm}). As I read it, the point
 is to discourage storage growth, since storage grows every node's database.
-That's a price on the write, at the moment of the write, and it's the only one in the five.
+That's a fee on the write, at the moment of the write, and it's the only fee in the five. Gas
+has a budget too, in the sense from the start of the section: every block has a gas limit, and the
+gas its transactions use can't exceed it, so only so many writes fit in a block.
 
 Where does a number like twenty-one hundred come from? Somebody picked it, so the obvious next
 question is who, and why, and the answer has a date on it. In September 2016, just as Ethereum's
@@ -9480,13 +9497,14 @@ only fold more in. A \emph{quote} is the chip signing those register values toge
 number the asker chose, a \emph{nonce}, so the asker knows the quote is fresh. Intel's SGX does the equivalent for an
 \emph{enclave}, a walled-off region a program runs in. The record is the extended register.
 
-What's priced? Nothing in the specification. Reversal isn't expensive. It's \emph{infeasible}: you'd
+What's priced? On the registers, nothing in the specification: no fee, no bond, no budget. Reversal isn't expensive. It's \emph{infeasible}: you'd
 have to invert a hash or steal a key. That's the difference between a price and a wall, and
-it's easy to blur. A price can come in three kinds. It can be economic, a fee or a deposit
+it's easy to blur, which is why the definition at the start of the section leaves walls out.
+What stands behind a cost can come in three currencies. It can be economic, a fee or a deposit
 the protocol takes (Casper and gas are here). It can be cryptographic, a reversal made
 infeasible by a hardness assumption, which makes it a wall with no exact price on it (attestation and
-transparency are here). Or it can be physical, energy spent, which none of these five
-specifications touches. And the record's permanence is only as long as the register lives: a
+transparency are here). Or it can be physical, energy spent or hardware worn, which none of these five
+specifications charges as a fee or a bond; the nearest thing is the chip's write budget, below. And the record's permanence is only as long as the register lives: a
 platform's registers are cleared when it resets, so the permanence is per boot.
 
 Why the registers, then, when something that lasts would make a better record? Because the quote is what a remote asker
@@ -9501,8 +9519,9 @@ coauthors, building a system called Memoir in 2011, noted that the specification
 required a counter to be able to tick once every five seconds, and that the chip's storage was
 expected to survive about a hundred thousand writes in its whole life, so writing once a second
 would wear it out in under twenty-eight hours. Memoir writes to it twice per boot. Permanent,
-finite and rationed: the honest record has a budget, the way Theorem~\ref{thm:u11-growing}'s chain
-of $k$-bit words can only climb $k$ times. Phones and small controllers go one floor further down,
+finite and rationed: the honest record has a budget, in exactly the sense from the start of the
+section, and it sits on these slots and counters; the registers the quote signs have none. It's the budget of Theorem~\ref{thm:u11-growing}'s chain
+of $k$-bit words, which can only climb $k$ times. Phones and small controllers go one floor further down,
 to fuses like the PROMs in Section~\ref{sec:latch}: a version number kept as a row of fuses, one
 more blown at each security update, and boot code that refuses anything older. An industry guide
 on it, Rob Smart's 2021 explainer for PSA Certified, a security certification scheme for chips and
@@ -9537,22 +9556,34 @@ protocol that survives crashes into one that survives liars, with no extra repli
 read it, a record helps the others only as far as they can check what it says, which is
 Section~\ref{sec:windows}'s point from the other side.
 
-There's a fourth kind under those three, and it's the one that always pays. It's the logical
+There's a fourth currency under those three, and it's the one every permanent record pays in. It's the logical
 kind: Section~\ref{sec:a2-not-arbitrary}'s room of chairs applies to any of these records. On a finite state space, a step
 that switches a record on somewhere, and never switches it off anywhere, forgets something.
+Forgetting alone doesn't single out a record write: any step that overwrites a field able to hold
+two values forgets something too. What singles it out is where the forgetting lands. Take the
+states the record already reads yes on, together with the one the step switches on. The step
+sends every one of them to a yes state, and it can't keep them apart, so what it destroys is a
+distinction on the record's own yes side: two states it already vouched for, or the state it just
+raised and one that was up already. Any overwrite merges states somewhere; a permanent write is
+forced to merge them on that side.
 That needs no premise about money, keys or heat. The economic, cryptographic and physical
 payments each need a premise of their own about their kind (a fee rule, a hardness
 assumption, Landauer's principle), and they hold exactly where that premise holds.
 
-\begin{theorem}[The logical level always pays]\label{thm:u13-logical-payment}
-For any states $S$, instructions $I$, step and Boolean reading: if a duplicate-free list names
+\begin{theorem}[A permanent write forgets on its own yes side]\label{thm:u13-logical-payment}
+For any states $S$, instructions $I$, step and Boolean reading: suppose a duplicate-free list names
 every state, the instruction $i$ never turns the reading from on to off, and $i$ turns it on
-at some state $s$, then the step by $i$ is not injective.
+at some state $s$. Then the step by $i$ is not injective. More: the step by $i$ sends every state
+that reads on, and $s$, to a state that reads on, and it is not injective even on those states.
 \end{theorem}
 
 Checked as \code{permanent\_write\_has\_logical\_payment} (PricingPhysicsAudit.v), from
 \code{permanent\_at\_flip\_is\_not\_injective} (PermanentRecordPricing.v); the proof is
 Theorem~\ref{thm:perm-flip-merges} with permanence required only of the one instruction $i$.
+The second half is \code{permanent\_flip\_merges\_on\_yes\_side} (PermanentRecordPricing.v): if
+the step were one-to-one on the states that read on together with $s$, it would map the states
+that read on onto themselves, and then $s$ would land where some state that reads on already
+lands.
 
 What the quote can do is say what was \emph{measured}.
 It can't say the measured code is correct, and it can't say anything about runtime state
@@ -9776,24 +9807,26 @@ verifier reading only the quote's fields that decides a runtime flag the quote i
 
 \subsection{The same table, five ways}
 
-Lay them out. Casper prices \emph{reversal} (slashing). Gas prices \emph{the write} (and refunds the
-revocation, capped). Attestation and transparency price \emph{nothing}.
-They make reversal
+Lay them out by the one definition of price from the start of the section. Casper puts a bond
+behind the write and takes it on \emph{reversal} (slashing). Gas takes a fee at \emph{the write} (and refunds the
+revocation, capped), and rations writes with a gas limit per block. Attestation prices \emph{nothing} on
+the registers the quote signs, and puts a budget on its longer-lived slots and counters.
+Transparency prices \emph{nothing}. Attestation and transparency make reversal
 infeasible or visible. Proof-carrying code prices nothing and keeps nothing.
 
 \begingroup\small
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.242\linewidth}>{\raggedright\arraybackslash}p{0.344\linewidth}>{\raggedright\arraybackslash}p{0.344\linewidth}@{}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.15\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.19\linewidth}>{\raggedright\arraybackslash}p{0.22\linewidth}@{}}
 \toprule
-\textbf{System} & \textbf{What its specification prices} & \textbf{What the transcription checks} \\
+\textbf{System} & \textbf{Fee at the write} & \textbf{Bond} & \textbf{Budget} & \textbf{What the transcription checks} \\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
-Casper finality & reversal, by slashing & a finalization fork means a slashable third \\
-Gas & the write, refunded on revocation & a persistent write to an empty slot nets at least 20000 \\
-Attestation & nothing; reversal is infeasible & the quote can't decide what it never measured \\
-Transparency & nothing; misissuance is visible & the RFC's own inclusion examples pass \\
-Proof-carrying code & nothing, and nothing is kept & the checker is the verification condition \\
+Casper finality & none & the deposit, taken on a contradicting vote (slashing) & none & a finalization fork means a slashable third \\
+Gas & 20000 for a fresh slot, refunded on revocation & none & the gas limit of each block & a persistent write to an empty slot nets at least 20000 \\
+Attestation & none; reversal is infeasible & none & none on the registers; a write budget on the non-volatile slots and counters & the quote can't decide what it never measured \\
+Transparency & none; misissuance is visible & none & none & the RFC's own inclusion examples pass \\
+Proof-carrying code & none, and nothing is kept & none & none & the checker is the verification condition \\
 \end{longtable}
 \endgroup
 
@@ -9801,7 +9834,7 @@ Each row proves what its own transcription says. Reading a row as a claim about 
 system takes evidence from that system, and no row shows that certification is the one event
 every model has to price.
 
-So the thing my toy charges for, the moment the record is written, is charged for in one of the five
+So the thing my toy charges for, the moment the record is written, is charged a fee in one of the five
 specifications I read, and in that one the designers had to patch the place where the charge
 could be clawed back. I find that neither a vindication nor a refutation. It's a fact about
 what people built, and what they built was mostly walls (hash chains, signatures) and
@@ -9809,15 +9842,17 @@ penalties for contradiction. Tolls on commitment were rare. Whether a toll on co
 \emph{better} design than a wall is not something I can prove, and I won't pretend the five say
 so. What I read in them, and it's a reading of five fragments I chose, is that the record
 axis is real in each of them (each has a bit that goes one way) and that the price axis is
-mostly empty.
+mostly empty. With one definition of price fixed before the survey, that last part is a count:
+of fifteen cells in the table, four are filled (one fee, one bond, two budgets), and only gas
+takes a payment at the moment of the write.
 
 That leaves the question Section~\ref{sec:latch} raised and Section~\ref{sec:pointer} has to face. Five systems, five different
 events chosen as ``the record'': finalized, committed, attested, logged, checked. Is there
 anything that picks out one event as \emph{the} one worth recording, or is it a free choice every
-time? I have a guess. It's a conjecture, and I'll show you how to kill it.
+time? I have a guess. It's a thesis, and I'll show you how to kill it.
 
 %===========================================================================
-\section{The pointer conjecture}
+\section{The pointer thesis}
 \label{sec:pointer}
 %===========================================================================
 
@@ -9825,7 +9860,9 @@ Here's where I am. Over any base, a record that answers to the computation and n
 is a latch on an event (Section~\ref{sec:latch}), and the event is a
 free choice (Section~\ref{sec:latch} again, the two cups on one die). Five real systems each picked a
 different event (Section~\ref{sec:models}). The toll in this book sits on certification. Why that one? I don't have a proof. I
-have a conjecture, and the honest shape of a conjecture is: here's the claim, here's where I
+have a thesis, in the sense the Church-Turing thesis is one (Section~\ref{sec:structure}): a claim
+that ties notions I can define to notions about the world that no definition reaches, so no
+proof can settle it. The honest shape of a thesis is: here's the claim, here's where I
 got the idea, here's what's checked, here's what isn't, and here's how to kill it. In that
 order.
 
@@ -9833,10 +9870,15 @@ order.
 
 Of all the events a machine could put on its meter, the ones its price list charges for and
 its counter adds up, certification is the one whose records
-get \emph{copied}: checked, stored, and relied on across independent places that share no other
-state. Rival events leave no such trail. If that's true, the choice of certification stops being free.
-It's the one event the world around the machine keeps redundant copies of, and that's a
-reason to price it and leave the others unpriced.
+get \emph{copied and relied on by parties who didn't produce them}: checked, stored, and acted on
+across independent places that share no other state. Copying alone can't be the test. A
+replicated system copies everything it holds to every node, the gas used in a block header as
+faithfully as the word final, so rival events get copied too. Nobody who didn't produce them
+acts on them. If that's true, the choice of certification stops being free.
+It's the one event the world around the machine keeps redundant copies of and leans on, and that's a
+reason to price it and leave the others unpriced. So the thesis has two halves, and the ways to
+kill it at the end aim at both: certification is that event, and where a deployed discipline puts
+a price on writing a record, the record it prices is one that's copied and relied on in that sense.
 
 There's a second handle on the same question, and it comes from Section~\ref{sec:a2-not-arbitrary}. The permanent-certificate
 theorem never uses the word certification for anything special: given Section~\ref{sec:a2-not-arbitrary}'s rule that
@@ -9844,8 +9886,8 @@ forgetting is charged, it prices any yes-or-no reading that, once on, stays on, 
 with finite memory. So it points at a narrower
 candidate: the events to price are the ones that write a record no later step can take back.
 Certification is one of them. As an exact answer that candidate is false, because a merging
-step can also revoke (Section~\ref{sec:a2-not-arbitrary}'s three cards). Whether the records that proliferate are the permanent ones, and
-whether proliferation picks out anything the merge criterion doesn't, is what the two handles
+step can also revoke (Section~\ref{sec:a2-not-arbitrary}'s three cards). Whether the records that are copied and relied on are the permanent ones, and
+whether being copied and relied on picks out anything the merge criterion doesn't, is what the two handles
 have to settle between them.
 
 Two holes in that, which I can see from here, so you don't have to find them for me. The first
@@ -9853,15 +9895,15 @@ is a missing premise. Even if the world copies certification records more than a
 ``copied'' doesn't give you ``priced'' on its own. Something has to connect them, and the best
 candidate I have is a premise about incentives: a record that many independent parties copy and
 lean on is exactly the record worth forging, so it's the one where a price buys the most
-protection. That's a reasonable premise. It's also a premise, and as I've stated the conjecture,
-it's missing. The second hole is a circle. If ``certification'' just means ``the record other
+protection. That's a reasonable premise. It's also a premise. The thesis's second half states the
+connection as a claim to be tested; it doesn't explain it, and nothing in this book supplies the explanation. The second hole is a circle. If ``certification'' just means ``the record other
 people rely on,'' then of course it's the one that gets relied on and copied, and the claim says
 nothing. So the event has to be picked out without mentioning reliance: here it's a reading going
 up for good right after a check of the same claim passed, which you can find in a run without
 asking who reads it. Whether the world copies \emph{that} event more than its rivals is then a real
 question, and it could come out no.
 
-That's the whole conjecture. Now the rest of what a conjecture owes you.
+That's the whole thesis. Now the rest of what a thesis owes you.
 
 \subsection{Where the shape comes from, and how much of it survived}
 
@@ -9908,10 +9950,12 @@ per observer; an observer \emph{records} an event when its bit is true exactly w
 holds; an event \emph{proliferates} when every observer records it. Nothing in that says two
 observers draw on separate parts of the state. They could all be reading the same bit. The
 file says so itself. So I kept the word and dropped the independence that makes Zurek's version
-mean ``objective.'' That's a gap between the conjecture's prose and its formal object, and the
-prose is where the conjecture lives.
+mean ``objective.'' That's a gap between the thesis's prose and that first formal object, and the
+prose is where the thesis lives. The definitions under the thesis below close part of the gap:
+they define independent carriers, and the definition turns out to force something
+(Theorem~\ref{thm:u14-independent-constant}).
 
-The independence I dropped is exactly what the conjecture's closest published neighbour keeps.
+The independence I dropped is exactly what the thesis's closest published neighbour keeps.
 Jess Riedel, Zurek and Michael Zwolak (2016) took histories of a closed quantum system, the
 story a whole sequence of events tells, and asked which of them the world keeps records of in
 many separate pieces of the environment. As I read their paper, redundant records in separate pieces make a history
@@ -9933,8 +9977,8 @@ when you look at the dial alone and ignore what the light carried off. Then a bl
 readings decays into a plain either-or, and two different blends can decay into the same
 either-or: two states, one result, a merge in the coarse picture. So the opening chapter's
 ``every settling forgets'' fits the dial's own view. From the whole it fails, and the thing
-the conjecture leans on, proliferation, is the free half of the story. What that does to the
-conjecture: if there's a price, it isn't on the copying. It's on whatever makes the copy final
+the thesis leans on, copying, is the free half of the story. What that does to the
+thesis: if there's a price, it isn't on the copying. It's on whatever makes the copy final
 from the dial's side, and the claim above, as written, points at the copy.
 
 A published no-go cuts closer still. Philippe Allard Gu\'erin, Veronika Baumann, Flavio Del
@@ -9957,21 +10001,23 @@ way, and the people involved said so. Zurek himself pointed out that the photon 
 their copies artificially and that the diamond's environment is small, and others noted that all
 three are schematic versions of a real environment and don't rule out rival accounts. So the
 shape I borrowed has passed some first tests in a lab, at the scale of a handful of atoms or
-photons, with the caveats written on it. None of that touches the conjecture here, which is
+photons, with the caveats written on it. None of that touches the thesis here, which is
 about machines and never rested on quantum physics. It changes the picture: what I borrowed is a
 lead somebody is checking. It isn't settled, and I don't get to lean on it as if it were.
 
 \subsection{What's checked}
 
-Definitions, a toy, a survey, and two refutations of things that would have been stronger.
+Definitions, two toys, a theorem about independence, a survey, and two refutations of things that would have been stronger.
 
 The definitions above, plus ``unique pointer among rivals'': the event proliferates and none
 of a listed set of rival events does. Uniqueness is \emph{relative to the list}, necessarily,
 since any event that holds on exactly the same states as a proliferating event proliferates
 whenever it does: the same fact under another name, so someone has to say which names count
-as rivals. And the conjecture itself,
+as rivals. And the first criterion,
 as a schema: for every ecosystem in some class, its metered event is the unique pointer among
-its rivals. The class and the rivals are inputs. Nothing about them is proved.
+its rivals. The class and the rivals are inputs. Nothing about them is proved. A second set of
+definitions, after this one, tightens ``proliferates'' to ``copied and relied on'' and drops the
+rival list.
 
 Here's the formal object, small enough to hold in one hand.
 
@@ -9988,18 +10034,94 @@ for $C$ when every member's metered event is the unique pointer among its rivals
 Nothing in the definition makes two fragments read different parts of the state, and
 ``metered'' is only a label: the definition has no metering in it.
 
-\begin{conjecture}[The pointer conjecture]\label{conj:u14-pointer}
-Let $C$ be the class of ecosystems that faithfully model deployed record-keeping
-disciplines, observed through independent carriers (separate parts of the world, each
-holding its own copy), with each discipline's certification
-event as its metered event and the other events a step rule could meter as rivals. Then the
-pointer criterion holds for $C$.
-\end{conjecture}
+One bit per observer can't even state the objection a replicated system raises. Every full
+node of a blockchain holds the whole shared state, so every fact about it, ``gas used is at least
+one'' as much as ``final,'' sits on every node. The tightened definitions give each observer
+whatever it holds, an action it takes on what it holds, and a flag for whether it produced the
+record.
 
-The conjecture leans on four notions left without precise mathematical definitions: what it is to ``faithfully model'' a
-system, which systems count as ``deployed,'' what makes carriers ``independent,'' and which
-events ``a step rule could meter.'' That's why it's a conjecture. A theorem with a
-missing proof would at least have its terms defined.
+\begin{definition}[Copied and relied on, independent carriers, the pointer]\label{def:u14-reliance}
+An \emph{ecosystem with reliance} is a type of states, a number $N$ of observers, and for each
+observer $i$ a view $V_i$ (a function from states to some type of things an observer can hold), an
+action $a_i$ (a Boolean function of the view) and a producer flag. Fix a set $R$ of reachable
+states. An event $E$ is \emph{copied} on $R$ when for each $i < N$ some Boolean function $d$ of the
+view has $E(s)$ exactly when $d(V_i(s))$ is true, for every $s$ in $R$. Observer $i$ \emph{relies on}
+$E$ when $a_i(V_i(s))$ true gives $E(s)$ for every $s$ in $R$, and $a_i(V_i(s))$ is true for some $s$ in
+$R$. $E$ is \emph{relied on by parties who didn't produce it} when some observer $i < N$ is not a
+producer and every such observer relies on $E$; it is \emph{copied and relied on} when it is both.
+$E$ is the \emph{pointer} on $R$ when it is copied and relied on, and every event that is copied and
+relied on holds at every state of $R$ where $E$ holds. An event \emph{a step rule could meter} is one
+decided by a Boolean function of the state, so a price list can charge exactly the steps that turn
+it on. The carriers are \emph{independent} under a family of relations $P_i$ (states that agree on
+observer $i$'s own part of the world) when each view gives equal values on states related by its
+$P_i$, and for any two observers $i \ne j$ below $N$ and any states $s$, $t$ there is a state $u$
+with $P_i(u, s)$ and $P_j(u, t)$: the two parts can be set separately.
+\end{definition}
+
+Two pointers on the same $R$ agree on every state of $R$, so the pointer is unique with no list
+of rivals (\code{pointer\_on\_unique}). And the definition of independence has a consequence I
+didn't put in on purpose.
+
+\begin{theorem}[Independent copies of an event on every state make it constant]\label{thm:u14-independent-constant}
+In any ecosystem with reliance whose carriers are independent and which has at least two observers,
+an event copied on the set of all states holds at every state or at none.
+\end{theorem}
+
+\begin{proof}
+Let observers 0 and 1 decide the event by $d_0$ and $d_1$. Given states $s$ and $t$, take $u$ with
+observer 0's part from $s$ and observer 1's from $t$. Then the event at $s$ is $d_0$ of observer
+0's view, which is the same at $u$, so it equals the event at $u$; and the event at $u$ equals the
+event at $t$ the same way through observer 1.
+\end{proof}
+
+Checked as \code{independent\_copies\_everywhere\_are\_constant} (PointerObservable.v). So
+separate parts of the world can each carry an exact copy of a real record only on the states the
+world actually reaches, where the copying made them agree, and that's why the definition asks for
+copies on a set $R$ of reachable states. Zurek's copies are the same: the light carries the
+dial's reading because the dial put it there.
+
+\begin{theorem}[A replicated header: copying doesn't separate, reliance does]\label{thm:u14-ledger}
+Let the states be a block header (a finalized bit, a gas-used count) and three nodes' copies of it,
+with $R$ the states where every copy equals the header; node $i$'s view is its own copy, its part of
+the world is that copy, node 0 is the producer, and every node acts exactly when its copy says
+finalized. Then the carriers are independent; ``finalized'' and ``gas used is at least one'' are
+both copied on $R$; ``finalized'' is the pointer on $R$; and ``gas used is at least one'' is not
+relied on by parties who didn't produce it.
+\end{theorem}
+
+\begin{proof}
+Independence: to give node $i$ the copy from $s$ and node $j$ the copy from $t$, overwrite node
+$j$'s copy in $s$. On $R$ every copy is the header, so each node reads either fact off its copy.
+Node 1 acts only where its copy, and so the header, says finalized, and acts at the finalized
+header with no gas used; that state shows gas used fails node 1's reliance. Any event relied on by
+node 1 holds wherever node 1 acts, which on $R$ is wherever the header is finalized, so
+``finalized'' is the strongest.
+\end{proof}
+
+Checked as \code{ledger\_carriers\_independent}, \code{ledger\_copying\_alone\_does\_not\_separate},
+\code{ledger\_finalized\_is\_pointer} and \code{ledger\_gas\_not\_relied\_on} (PointerObservable.v).
+It's a sanity check with maps I wrote, and it shows only that the tightened definition can tell
+the two apart where plain copying can't.
+
+\begin{thesis}[The pointer thesis]\label{conj:u14-pointer}
+Let $C$ be the class of ecosystems with reliance that faithfully model deployed record-keeping
+disciplines, each with its reachable states, its observers reading independent carriers in the
+sense of Definition~\ref{def:u14-reliance}, its certification event, and the records its
+discipline prices. Then for every member of $C$: (1) the certification event is the pointer on
+the reachable states, so it is copied and relied on by parties who didn't produce it, and every
+event copied and relied on in that sense, every event a step rule could meter among them, holds
+wherever certification does; and (2) every record the discipline prices is copied and relied on
+by parties who didn't produce it.
+\end{thesis}
+
+The thesis leans on two notions with no precise mathematical definition: what it is to
+``faithfully model'' a system, and which systems count as ``deployed.'' Those two tie the
+definitions to the world, the way ``computable in the plain-English sense'' does in the
+Church-Turing thesis, and no definition can do that job, so the claim is a thesis. The other
+two terms it needs, independent carriers and the events a step rule could meter, are defined in
+Definition~\ref{def:u14-reliance}. Its formal shape is checked as a schema,
+\code{pointer\_thesis\_schema} (PointerObservable.v), with the class, the reachable states, the
+certification event and the priced records as inputs; nothing about them is proved.
 
 A toy: three observers on a replicated ledger, where certification proliferates and ``work
 done'' doesn't. The file labels it a sanity check, and that's all it is. It isn't evidence.
@@ -10130,25 +10252,26 @@ EcosystemGameTarget.v).
 
 \subsection{What isn't checked, and must stay that way on the page}
 
-That certification \emph{in deployed systems} is singled out by redundant proliferation across
-\emph{independent} carriers. The proposed criterion has no precise definition of ``independent'' or ``deployed,''
-and no cost law connecting proliferation to price. Every correspondence between a Coq observer
-map and a real system is a sentence I wrote. The conjecture is a conjecture, and anyone who
+That certification \emph{in deployed systems} is singled out by being copied and relied on across
+\emph{independent} carriers. The criterion now defines independence; it has no precise definition of ``deployed'' or ``faithfully model,''
+and no cost law connecting being copied and relied on to price. Every correspondence between a Coq observer
+map and a real system is a sentence I wrote. The thesis is a thesis, and anyone who
 says the formal object proves it is reading more than is there.
 
 \subsection{How to kill it}
 
 Three ways, in the order I'd try them.
 
-One: find a deployed discipline that prices a \emph{non}-proliferating event. A real system with
-a toll on something nobody copies. That breaks ``the priced event is the copied one.''
+One: find a deployed discipline that puts a price on writing a record that parties who didn't
+produce it don't copy and rely on. A real system with
+a toll on something nobody else leans on. That breaks the second half, ``the priced record is the copied and relied-on one.''
 
-Two: find a rival event that proliferates \emph{as well as} certification in a real ecosystem.
-Then certification isn't unique and the conjecture's ``the one'' is wrong. Or do it in a model:
-show that something like a multiplication count, or the number of times a Turing machine's head turns around, proliferates by the same
-standard I used, so the criterion picks out more than one event and decides nothing.
+Two: find a rival event, one certification doesn't imply, that is copied and relied on \emph{as well as} certification in a real ecosystem.
+Then certification isn't the pointer and the first half's ``the one'' is wrong. Or do it in a model:
+show that something like a multiplication count, or the number of times a Turing machine's head turns around, is copied and relied on by the same
+standard, so the criterion picks out more than one event and decides nothing.
 
-Three: formalise an ecosystem honestly, with independence defined, where certification
+Three: formalise an ecosystem honestly, with independence as Definition~\ref{def:u14-reliance} defines it, where certification
 \emph{fails} the test. The symmetric-MAC row is already most of the way there for a different
 claim; push it.
 
@@ -10179,8 +10302,8 @@ isn't a substrate, and
 on L the same diagonal is proved again
 from a recursion theorem it has by proof. What a
 record can do is carry the commitment (Section~\ref{sec:diagonal}). Of
-five specifications, read through my transcriptions, one prices the write (Section~\ref{sec:models}).
-And which event to record is a conjecture with a borrowed shape and a listed set of
+five specifications, read through my transcriptions, one charges a fee at the write (Section~\ref{sec:models}).
+And which event to record is a thesis with a borrowed shape and a listed set of
 refutations (Section~\ref{sec:pointer}).
 
 The obvious question to ask of all that is whether the toll is the only way. A theorem saying so
@@ -10206,8 +10329,8 @@ mark and raises nothing. All of that is checked on the three states: \code{nec\_
 general uniqueness as \code{nec\_f\_record\_ceiling\_unique} (NecFThreeState.v). The only renaming
 of the three states that respects the moves is the identity (\code{nec\_f\_three\_automorphism\_id}),
 so the renaming requirement asks nothing there. So the uniqueness is real and it's small. It holds once you've said which
-reading you're charging for, and which reading deserves the charge is the pointer conjecture,
-which is still a conjecture.
+reading you're charging for, and which reading deserves the charge is the pointer thesis,
+which is still a thesis.
 
 The uniqueness theorems that do exist are about pricing information loss, and they're worth
 a look because they say what kind of bill the price on merging is. John Baez, Tobias Fritz
@@ -15466,9 +15589,9 @@ the flag, the number of facts and whether the channel is empty, is a counterexam
 \code{sm2\_kleene\_obs}. A map whose fixed point disagrees with its image on some other register is not one:
 some computable map has no fixed point that agrees with its image on every register (\code{sm2\_no\_exact}).
 
-\emph{The pointer conjecture (Section~\ref{sec:pointer}).} It's a conjecture, so the three routes are its own: a
-deployed discipline pricing a non-proliferating event; a rival event proliferating as well
-as certification in a real ecosystem; an honest formalisation with independence defined
+\emph{The pointer thesis (Section~\ref{sec:pointer}).} It's a thesis, so the three routes are its own: a
+deployed discipline pricing a record that parties who didn't produce it don't copy and rely on; a rival event copied and relied on as well
+as certification in a real ecosystem; an honest formalisation, with independence as defined there,
 where certification fails the test.
 
 One concession goes with it, and I make it in full. The window results, the separation of
@@ -15476,7 +15599,7 @@ the two runs, and the counter's uniqueness don't single out certification. Their
 proofs use only that the step carries something the classical picture doesn't determine, so
 the same shape of result holds for any such field. Nothing in Parts II to IV proves that
 certification is the one event a model is \emph{forced} to price; Section~\ref{sec:a2-not-arbitrary} forces a price on every
-merge, certifying or not. That's the conjecture, and Section~\ref{sec:pointer} is the case I make for it.
+merge, certifying or not. That's the thesis, and Section~\ref{sec:pointer} is the case I make for it.
 
 \emph{The five models (Section~\ref{sec:models}).} Each fragment has a theorem with a named falsifier: a finality fork
 with nobody slashable; a gas schedule meeting floor and no-overcharge whose charging
@@ -15848,7 +15971,7 @@ Accountable safety & proved (premises: quorum intersection, one parent) & Sectio
 The quorum premise can hold; one vote finalizes free & proved & Section~\ref{sec:models}, Theorem~\ref{thm:u13-casper-instances} \\
 A persistent write to a fresh slot nets at least 20000 & proved, on the transcription & Section~\ref{sec:models}, Theorem~\ref{thm:u13-sstore} \\
 Gas is exact exactly when commits pay one & proved (premise: the stipulated charge predicate) & Section~\ref{sec:models}, Theorem~\ref{thm:u13-gas-exactness} \\
-A permanent write on a finite machine merges & proved & Section~\ref{sec:models}, Theorem~\ref{thm:u13-logical-payment} \\
+A permanent write on a finite machine merges, and the merge lands on the record's yes side & proved & Section~\ref{sec:models}, Theorem~\ref{thm:u13-logical-payment} \\
 Platform and quote; inclusion check; bounds fragment & definition & Section~\ref{sec:models}, Definition~\ref{def:u13-quote}, Definition~\ref{def:u13-inclusion}, Definition~\ref{def:u13-pcc} \\
 The quote can't attest what it never measured & proved & Section~\ref{sec:models}, Theorem~\ref{thm:u13-quote} \\
 \end{longtable}
@@ -15866,13 +15989,15 @@ The RFC's inclusion examples pass & proved (symbolic hash) & Section~\ref{sec:mo
 The proof-carrying checker is the verification condition & proved & Section~\ref{sec:models}, Theorem~\ref{thm:u13-pcc} \\
 A transcription is the real system & not claimed & Section~\ref{sec:models} \\
 A toll is a better design than a wall & not claimed & Section~\ref{sec:models} \\
-Ecosystem, proliferation, pointer; observation game & definition & Section~\ref{sec:pointer}, Definition~\ref{def:u14-ecosystem}, Definition~\ref{def:u14-game} \\
-Certification is the event whose records proliferate & conjecture & Section~\ref{sec:pointer}, Conjecture~\ref{conj:u14-pointer} \\
+Ecosystem, proliferation, pointer; copied and relied on, independent carriers; observation game & definition & Section~\ref{sec:pointer}, Definition~\ref{def:u14-ecosystem}, Definition~\ref{def:u14-reliance}, Definition~\ref{def:u14-game} \\
+Independent copies of an event on every state make it constant & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-independent-constant} \\
+In a replicated header, gas used is copied as finality is, and only finality is relied on & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-ledger} \\
+Certification is the event whose records are copied and relied on by parties who didn't produce them & thesis & Section~\ref{sec:pointer}, Thesis~\ref{conj:u14-pointer} \\
 In the toy, ``certified'' is the unique pointer & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-toy} \\
 The survey; the swap shows the verdict follows the observer maps & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-survey} \\
 One blind observer stops proliferation & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-blind} \\
 Agreement doesn't buy permanence; durable views do & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-toggle} \\
-The formal objects prove the conjecture & not claimed; ``independent'' and ``deployed'' are defined nowhere & Section~\ref{sec:pointer} \\
+The formal objects prove the thesis & not claimed; ``independent'' is defined, ``deployed'' and ``faithfully model'' are defined nowhere & Section~\ref{sec:pointer} \\
 The floor raised to a threshold & proved (premises: the witness starts at zero, grows by at most the cost, and meets the threshold) & Appendix~\ref{sec:assumptions}, Theorem~\ref{thm:app-quantitative} \\
 \end{longtable}
 \endgroup
@@ -16017,7 +16142,7 @@ here, and nothing in the tables puts an unavoidable physical price on every obse
 \begin{itemize}
 \item That the axis belongs in the step (Section~\ref{sec:scope}, Section~\ref{sec:conclusion}).
 \item That the usual account of a computation is a shadow of the step (Section~\ref{sec:conclusion}).
-\item That certification is the event worth recording, which is the pointer conjecture (Section~\ref{sec:pointer}).
+\item That certification is the event worth recording, which is the pointer thesis (Section~\ref{sec:pointer}).
 \item That this is a structural account of computation, with a cost model as one part of it (Section~\ref{sec:scope}).
 \item That the toll is the right thing to price. The alternatives are a wall or a penalty for contradiction (Section~\ref{sec:models}, Section~\ref{sec:conclusion}).
 \end{itemize}
@@ -16025,7 +16150,7 @@ here, and nothing in the tables puts an unavoidable physical price on every obse
 And three things this book doesn't settle, with what would settle each. Whether Landauer's critics are
 right, which would leave every theorem standing and one premise unowned by the world: that takes
 measurements of real devices (Section~\ref{sec:a2-not-arbitrary}). Whether certification really is the
-pointer event: that takes a definition of the systems the conjecture is about, and Section~\ref{sec:pointer}
+pointer event: that takes a way to tie the definitions to the systems the thesis is about, and Section~\ref{sec:pointer}
 gives three ways to kill it. And whether there's a smaller start than a partition: that takes a ruler
 someone can state and a smaller structure measured by it (Section~\ref{sec:structure}).
 
@@ -16301,7 +16426,7 @@ substrate'' is false and ``one structure, many price lists'' is true once the ev
 procedure the substrate itself can represent decides the shortcut predicate, given a
 recursion theorem, by the same diagonal that broke Frege's floor, and the machine's answer is
 to record the commitment. It leaves the judgement unautomated. Of five record disciplines I
-modelled in fragments, one prices the write. And which event to record is a conjecture, with
+modelled in fragments, one charges a fee at the write. And which event to record is a thesis, with
 its refutations listed.
 
 Part IV built one small machine, two counters and six instruction kinds, with hosts to run it, and on
@@ -16918,7 +17043,7 @@ already known, what this work actually defines, builds, proves, or connects, and
 contribution that is. Six kinds, and they aren't the same claim: a \emph{new result} (a statement
 nobody had); a \emph{new proof} of something known; a \emph{mechanization} (a known result checked by a
 machine, here Coq); an \emph{implementation} (something built that runs); a \emph{synthesis} (known
-pieces put together under one question); and a \emph{conjecture}. Every kind can be worth doing.
+pieces put together under one question); and a \emph{conjecture} or \emph{thesis} (a claim stated and not proved; a thesis ties defined notions to the world, so no proof can settle it). Every kind can be worth doing.
 None of them is the others. And if you read down the list and notice that ``new result''
 hardly shows up, good. You're reading it right.
 
@@ -17122,13 +17247,14 @@ Certificate Transparency (RFC 9162), proof-carrying code. Mine: asking all five 
 write is priced, with a small checked fragment of each (Section~\ref{sec:models}). Kind:
 synthesis and an organizing reading; the fragments are not verifications of those systems.
 
-\subsection{The pointer conjecture}
+\subsection{The pointer thesis}
 
 Known: Zurek's quantum Darwinism (2009), with Ollivier, Poulin and Zurek (2004) and
 Blume-Kohout and Zurek (2006): preferred states are the ones whose records proliferate
 redundantly in the environment. Mine: borrowing that shape for the question of which event
-deserves a record, with definitions, a toy, and refutations of two stronger forms
-(Section~\ref{sec:pointer}). Kind: conjecture. No claim about quantum physics.
+deserves a record, with definitions (copied and relied on by parties who didn't produce it, independent
+carriers), two toys, and refutations of two stronger forms
+(Section~\ref{sec:pointer}). Kind: thesis. No claim about quantum physics.
 
 \subsection{The counter as a receipt}
 
@@ -17315,8 +17441,8 @@ files also end by printing the assumptions of their own headline theorems, and e
 lines says closed. ``+N''
 after a file means $N$ other files under coq/ and minimal/ define or declare a name spelled the same way, section variables and hypotheses included (notations, module aliases and record fields aren't counted); the row gives
 the file this result uses. A premise is assumed and never proved, so its row gives at most the Coq
-definition that states it, marked ``def''. A conjecture has no Coq name, because the book states it
-and doesn't claim it. The section that states each one says so.
+definition that states it, marked ``def''. A thesis has no Coq name, because the book states it
+and doesn't claim it; its formal schema is a definition, marked ``def''. The section that states each one says so.
 
 This table is an index of companion formalizations. The statements, hypotheses and
 arguments are in the numbered sections it points to. An audit status reports the
@@ -17441,7 +17567,7 @@ Definition \ref{def:u13-slot}: One slot in one transaction & \S\ref{sec:models} 
 Theorem \ref{thm:u13-sstore}: Pricing the persistent write and the revoked one & \S\ref{sec:models} & \code{persistent\_write\_priced} {\footnotesize(\code{EVMStorageGas.v})}\newline \code{revoked\_write\_nearly\_free} {\footnotesize(\code{EVMStorageGas.v})} & none\newline none \\
 Definition \ref{def:u13-gas-schedule}: A gas schedule & \S\ref{sec:models} & stated in the text &  \\
 Theorem \ref{thm:u13-gas-exactness}: Gas schedule exactness & \S\ref{sec:models} & \code{gas\_schedule\_exactness} {\footnotesize(if and only if)} {\footnotesize(\code{GasMetering.v})}\newline \code{undercharged\_opcode\_admits\_free\_commitment} {\footnotesize(\code{GasMetering.v})}\newline \code{undercharged\_opcode\_breaks\_certification\_floor} {\footnotesize(\code{GasMetering.v})}\newline \code{overcharge\_breaks\_exactness} {\footnotesize(\code{GasMetering.v})}\newline \code{exact\_commitment\_pricing\_characterization} {\footnotesize(\code{CommitmentPredicateAdequacy.v})} & none\newline none\newline none\newline none\newline none \\
-Theorem \ref{thm:u13-logical-payment}: The logical level always pays & \S\ref{sec:models} & \code{permanent\_write\_has\_logical\_payment} {\footnotesize(\code{PricingPhysicsAudit.v})}\newline \code{permanent\_at\_flip\_is\_not\_injective} {\footnotesize(\code{PermanentRecordPricing.v})} & none\newline none \\
+Theorem \ref{thm:u13-logical-payment}: A permanent write forgets on its own yes side & \S\ref{sec:models} & \code{permanent\_write\_has\_logical\_payment} {\footnotesize(\code{PricingPhysicsAudit.v})}\newline \code{permanent\_at\_flip\_is\_not\_injective} {\footnotesize(\code{PermanentRecordPricing.v})}\newline \code{permanent\_flip\_merges\_on\_yes\_side} {\footnotesize(\code{PermanentRecordPricing.v})} & none\newline none\newline none \\
 Definition \ref{def:u13-quote}: Platform and quote & \S\ref{sec:models} & stated in the text &  \\
 Theorem \ref{thm:u13-quote}: The quote cannot attest unmeasured state & \S\ref{sec:models} & \code{quote\_cannot\_attest\_unmeasured\_state} {\footnotesize(\code{TPMQuoteGap.v})}\newline \code{quote\_decides\_measured\_claims} {\footnotesize(\code{TPMQuoteGap.v})}\newline \code{tpm\_interface\_authenticity\_refuted} {\footnotesize(\code{TPMQuoteAuthenticity.v})} & none\newline none\newline none \\
 Definition \ref{def:u13-inclusion}: Inclusion check, RFC 9162 section 2.1.3.2 & \S\ref{sec:models} & stated in the text &  \\
@@ -17449,7 +17575,10 @@ Theorem \ref{thm:u13-ct-examples}: The RFC's own examples pass & \S\ref{sec:mode
 Definition \ref{def:u13-pcc}: The bounds fragment & \S\ref{sec:models} & stated in the text &  \\
 Theorem \ref{thm:u13-pcc}: The checker is the verification condition & \S\ref{sec:models} & \code{pcc\_checker\_accepts\_iff\_vc} {\footnotesize(\code{NeculaPCC.v})}\newline \code{pcc\_certificate\_implies\_vc} {\footnotesize(\code{NeculaPCC.v})}\newline \code{pcc\_unsafe\_program\_rejected} {\footnotesize(\code{NeculaPCC.v})} & none\newline none\newline none \\
 Definition \ref{def:u14-ecosystem}: Ecosystem, records, proliferates, pointer & \S\ref{sec:pointer} & stated in the text &  \\
-Conjecture \ref{conj:u14-pointer}: The pointer conjecture & \S\ref{sec:pointer} & a conjecture, stated and not claimed &  \\
+Definition \ref{def:u14-reliance}: Copied and relied on, independent carriers, the pointer & \S\ref{sec:pointer} & \code{copied\_and\_relied\_on} {\footnotesize(\code{PointerObservable.v})}\newline \code{pointer\_on} {\footnotesize(\code{PointerObservable.v})}\newline \code{independent\_carriers} {\footnotesize(\code{PointerObservable.v})}\newline \code{meterable} {\footnotesize(\code{PointerObservable.v})}\newline \code{pointer\_on\_unique} {\footnotesize(\code{PointerObservable.v})} & def\newline def\newline def\newline def\newline none \\
+Theorem \ref{thm:u14-independent-constant}: Independent copies of an event on every state make it constant & \S\ref{sec:pointer} & \code{independent\_copies\_everywhere\_are\_constant} {\footnotesize(\code{PointerObservable.v})} & none \\
+Theorem \ref{thm:u14-ledger}: A replicated header: copying doesn't separate, reliance does & \S\ref{sec:pointer} & \code{ledger\_carriers\_independent} {\footnotesize(\code{PointerObservable.v})}\newline \code{ledger\_copying\_alone\_does\_not\_separate} {\footnotesize(\code{PointerObservable.v})}\newline \code{ledger\_finalized\_is\_pointer} {\footnotesize(\code{PointerObservable.v})}\newline \code{ledger\_gas\_not\_relied\_on} {\footnotesize(\code{PointerObservable.v})} & none\newline none\newline none\newline none \\
+Thesis \ref{conj:u14-pointer}: The pointer thesis & \S\ref{sec:pointer} & a thesis, stated and not claimed; its schema is \code{pointer\_thesis\_schema} {\footnotesize(\code{PointerObservable.v})} & def \\
 Theorem \ref{thm:u14-toy}: The toy & \S\ref{sec:pointer} & \code{toy\_cert\_unique\_pointer} {\footnotesize(\code{PointerObservable.v})}\newline \code{toy\_work\_not\_proliferating} {\footnotesize(\code{PointerObservable.v})} & none\newline none \\
 Theorem \ref{thm:u14-survey}: The survey, and the swap & \S\ref{sec:pointer} & \code{twelve\_candidate\_measurements\_checked} {\footnotesize(\code{RecordProliferationSurvey.v})}\newline \code{swapped\_event\_is\_pointer\_checked} {\footnotesize(\code{RecordProliferationSurvey.v})}\newline \code{five\_labeled\_models\_have\_selected\_pointer} {\footnotesize(\code{PointerObservableReductions.v})}\newline \code{pointer\_criterion\_holds\_indexed} {\footnotesize(\code{PointerObservableReductions.v})} & none\newline none\newline none\newline def \\
 Theorem \ref{thm:u14-blind}: One blind observer is enough & \S\ref{sec:pointer} & \code{blind\_observer\_blocks\_proliferation} {\footnotesize(\code{PointerObservableCounterexamples.v})}\newline \code{labeled\_model\_verdicts} {\footnotesize(\code{PointerObservableCounterexamples.v})} & none\newline none \\
@@ -19589,7 +19718,7 @@ Section~\ref{sec:presented-universal}, and the counter and lambda references ide
 established machinery under them. The thermodynamic
 references do not remove the explicit physical premise of the heat bound.
 The environmental-record papers motivate Section~\ref{sec:pointer}; they do not prove
-this book's pointer conjecture.
+this book's pointer thesis.
 
 \subsection{Structure, information and knowledge}
 
