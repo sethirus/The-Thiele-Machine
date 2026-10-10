@@ -775,6 +775,53 @@ Qed.
 Theorem pu_universal_thiele_complete : TC.thiele_complete pu_host_machine.
 Proof. exists pu_host_interface. exact pu_host_thiele_complete_with. Qed.
 
+(* The priced host's claim language, written down before any interface:
+   the claims, meanings and "unchanged" of pu_host_meaning and
+   pu_host_same, which are stated without the checker, with the empty
+   claim of PAY meaning nothing. Claims are equal when both are empty, or
+   property and register are. *)
+Definition pu_claim_eqb (x y : option (pu_hprop * nat)) : bool :=
+  match x, y with
+  | Some (p, r), Some (q, u) => pu_hprop_eqb p q && Nat.eqb r u
+  | None, None => true
+  | _, _ => false
+  end.
+
+Lemma pu_claim_eqb_spec : forall x y, pu_claim_eqb x y = true <-> x = y.
+Proof.
+  intros [[[] r] |] [[[] u] |]; simpl; try (split; intro H; discriminate H || reflexivity).
+  rewrite Nat.eqb_eq.
+  split; [intros ->; reflexivity | intro H; inversion H; reflexivity].
+Qed.
+
+Lemma pu_same_keeps : forall c (s t : hstate),
+  pu_host_same c s t -> pu_host_meaning c s -> pu_host_meaning c t.
+Proof.
+  intros [[p r] |] s t Hs H; simpl in *; [| contradiction H].
+  destruct Hs as [_ Hsame]. rewrite <- Hsame. exact H.
+Qed.
+
+Definition pu_host_language : TC.claim_language pu_host_machine :=
+  TC.mk_cl pu_host_machine (option (pu_hprop * nat)) pu_claim_eqb pu_claim_eqb_spec
+    pu_host_meaning pu_host_same pu_same_keeps.
+
+Lemma pu_host_check_sound : forall (s : hstate) c,
+  pu_host_check s c = true -> pu_host_meaning c s.
+Proof.
+  intros s [[p r] |] H; simpl in *; [| discriminate H]. unfold M.pu_check_ok in H.
+  apply andb_true_iff in H as [H _]. apply andb_true_iff in H as [_ H].
+  apply pu_heval_iff, H.
+Qed.
+
+Definition pu_host_li : TC.lang_interface pu_host_machine pu_host_language :=
+  TC.mk_lang pu_host_machine pu_host_language pu_host_base pu_host_kind
+    pu_host_check pu_host_check_sound M.pu_clean_start (@M.mu pu_hprop).
+
+(* The priced host is Thiele-complete over its own claim language. *)
+Theorem pu_universal_thiele_complete_over :
+  TC.thiele_complete_over pu_host_machine pu_host_language.
+Proof. exists pu_host_li. exact pu_host_thiele_complete_with. Qed.
+
 (* ================================================================= *)
 (* Assumption audit. Every line must print                            *)
 (* "Closed under the global context".                                 *)
@@ -791,3 +838,4 @@ Print Assumptions pu_universal_earned.
 Print Assumptions pu_U_run_on_host_machine.
 Print Assumptions pu_host_thiele_complete_with.
 Print Assumptions pu_universal_thiele_complete.
+Print Assumptions pu_universal_thiele_complete_over.
