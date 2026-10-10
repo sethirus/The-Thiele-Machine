@@ -35,6 +35,12 @@
    10. The zero-moment check's bound |S| <= 2 is attained by a passing
        record [nec_e_gzero_tight].
    11. A raised flag needs the clean start [nec_e_flag_needs_clean].
+   12. The check with a tolerance eps = p / q: at eps = 0 it is the exact
+       check [nec_e_tol_check_zero]; a pass means the correlator matrix
+       has operator norm at most 1 + eps [nec_e_tol_check_norm] and
+       S^2 <= 8 (1 + eps)^2 [nec_e_tol_check_bound]; a noisy tally near the
+       Tsirelson point fails the exact check and passes at eps = 1/10
+       [nec_e_tol_check_accepts_noisy_tsirelson].
 
     These results use the real numbers; their assumptions are the
     standard library's classical-real axioms, as for the repo's CHSH files. *)
@@ -559,3 +565,237 @@ Print Assumptions nec_e_psd2_iff.
 Print Assumptions nec_e_discriminant_converse_false.
 Print Assumptions nec_e_gzero_tight.
 Print Assumptions nec_e_flag_needs_clean.
+
+(* ================================================================= *)
+(* 12. The check with a tolerance.                                    *)
+(* ================================================================= *)
+
+(** The seven integer facts say the 2x2 correlator matrix
+    E = [[E00, E01], [E10, E11]] has operator norm at most 1, and the
+    Tsirelson point sits on that edge: there E^T E is the identity. So honest
+    play aimed at it lands outside about as often as inside on each of the
+    edge's directions, and fails the exact check most of the time. The
+    tolerance check, for eps = p / q with p >= 0 and q > 0, replaces the 1 by
+    (1 + eps)^2 = K / Q, where K = (q + p)^2 and Q = q^2, and clears the
+    denominators the same way. At eps = 0 it is the exact check
+    ([nec_e_tol_check_zero]). A pass means the operator norm is at most
+    1 + eps ([nec_e_tol_check_norm]) and S^2 <= 8 (1 + eps)^2
+    ([nec_e_tol_check_bound]). *)
+Definition nec_e_tol_check (p q : Z) (wc : WitnessCounts) : bool :=
+  let d00 := chsh_d_z wc.(wc_same_00) wc.(wc_diff_00) in
+  let n00 := chsh_n_z wc.(wc_same_00) wc.(wc_diff_00) in
+  let d01 := chsh_d_z wc.(wc_same_01) wc.(wc_diff_01) in
+  let n01 := chsh_n_z wc.(wc_same_01) wc.(wc_diff_01) in
+  let d10 := chsh_d_z wc.(wc_same_10) wc.(wc_diff_10) in
+  let n10 := chsh_n_z wc.(wc_same_10) wc.(wc_diff_10) in
+  let d11 := chsh_d_z wc.(wc_same_11) wc.(wc_diff_11) in
+  let n11 := chsh_n_z wc.(wc_same_11) wc.(wc_diff_11) in
+  let K := ((q + p) * (q + p))%Z in
+  let Q := (q * q)%Z in
+  let A := (K * (n00 * n00 * (n10 * n10)) - Q * (d00 * d00 * (n10 * n10))
+            - Q * (d10 * d10 * (n00 * n00)))%Z in
+  let B := (K * (n01 * n01 * (n11 * n11)) - Q * (d01 * d01 * (n11 * n11))
+            - Q * (d11 * d11 * (n01 * n01)))%Z in
+  let C := (d00 * d01 * n10 * n11 + d10 * d11 * n00 * n01)%Z in
+  andb (Z.ltb 0 q)
+  (andb (Z.leb 0 p)
+  (andb (Z.ltb 0 n00)
+  (andb (Z.ltb 0 n01)
+  (andb (Z.ltb 0 n10)
+  (andb (Z.ltb 0 n11)
+  (andb (Z.leb 0 A)
+  (andb (Z.leb 0 B)
+        (Z.leb (Q * Q * (C * C)) (A * B))))))))).
+
+(** At eps = 0 the tolerance check is the exact check. *)
+Theorem nec_e_tol_check_zero : forall wc,
+  nec_e_tol_check 0 1 wc = column_contractive_check_witness wc.
+Proof.
+  intro wc. unfold nec_e_tol_check, column_contractive_check_witness. cbv zeta.
+  rewrite ?Z.add_0_r, ?Z.mul_1_l. reflexivity.
+Qed.
+
+(** Clearing the denominators, over the reals. *)
+Lemma nec_e_tol_clear : forall rK rQ n00 n01 n10 n11 d00 d01 d10 d11 : R,
+  0 < rQ -> 0 < n00 -> 0 < n01 -> 0 < n10 -> 0 < n11 ->
+  let A := rK * (n00 * n00 * (n10 * n10)) - rQ * (d00 * d00 * (n10 * n10))
+           - rQ * (d10 * d10 * (n00 * n00)) in
+  let B := rK * (n01 * n01 * (n11 * n11)) - rQ * (d01 * d01 * (n11 * n11))
+           - rQ * (d11 * d11 * (n01 * n01)) in
+  let C := d00 * d01 * n10 * n11 + d10 * d11 * n00 * n01 in
+  0 <= A -> 0 <= B -> rQ * rQ * (C * C) <= A * B ->
+  let r := rK / rQ in
+  let e00 := d00 / n00 in let e01 := d01 / n01 in
+  let e10 := d10 / n10 in let e11 := d11 / n11 in
+  0 <= r - e00 * e00 - e10 * e10 /\ 0 <= r - e01 * e01 - e11 * e11 /\
+  (e00 * e01 + e10 * e11) * (e00 * e01 + e10 * e11)
+    <= (r - e00 * e00 - e10 * e10) * (r - e01 * e01 - e11 * e11).
+Proof.
+  intros rK rQ n00 n01 n10 n11 d00 d01 d10 d11 HQ H00 H01 H10 H11 A B C HA HB HC r e00 e01 e10 e11.
+  assert (EA : r - e00 * e00 - e10 * e10 = A / (rQ * (n00 * n00 * (n10 * n10)))).
+  { unfold r, e00, e10, A. field; repeat split; lra. }
+  assert (EB : r - e01 * e01 - e11 * e11 = B / (rQ * (n01 * n01 * (n11 * n11)))).
+  { unfold r, e01, e11, B. field; repeat split; lra. }
+  assert (EC : e00 * e01 + e10 * e11 = C / (n00 * n01 * n10 * n11)).
+  { unfold e00, e01, e10, e11, C. field; repeat split; lra. }
+  assert (P1 : 0 < rQ * (n00 * n00 * (n10 * n10))) by (apply Rmult_lt_0_compat; [lra | apply Rmult_lt_0_compat; apply Rmult_lt_0_compat; lra]).
+  assert (P2 : 0 < rQ * (n01 * n01 * (n11 * n11))) by (apply Rmult_lt_0_compat; [lra | apply Rmult_lt_0_compat; apply Rmult_lt_0_compat; lra]).
+  assert (P3 : 0 < n00 * n01 * n10 * n11) by (repeat apply Rmult_lt_0_compat; lra).
+  rewrite EA, EB, EC.
+  split; [| split].
+  - unfold Rdiv. apply Rmult_le_pos; [exact HA | left; apply Rinv_0_lt_compat; exact P1].
+  - unfold Rdiv. apply Rmult_le_pos; [exact HB | left; apply Rinv_0_lt_compat; exact P2].
+  - replace (A / (rQ * (n00 * n00 * (n10 * n10))) * (B / (rQ * (n01 * n01 * (n11 * n11)))))
+      with (A * B / ((rQ * (n00 * n01 * n10 * n11)) * (rQ * (n00 * n01 * n10 * n11))))
+      by (field; lra).
+    replace (C / (n00 * n01 * n10 * n11) * (C / (n00 * n01 * n10 * n11)))
+      with (rQ * rQ * (C * C) / ((rQ * (n00 * n01 * n10 * n11)) * (rQ * (n00 * n01 * n10 * n11))))
+      by (field; lra).
+    unfold Rdiv. apply Rmult_le_compat_r; [| exact HC].
+    left. apply Rinv_0_lt_compat. apply Rmult_lt_0_compat; apply Rmult_lt_0_compat; lra.
+Qed.
+
+(** The tolerance inequalities on the correlators, with r = (1 + p/q)^2. *)
+Definition nec_e_tol_contractive (r e00 e01 e10 e11 : R) : Prop :=
+  0 <= r - e00 * e00 - e10 * e10 /\ 0 <= r - e01 * e01 - e11 * e11 /\
+  (e00 * e01 + e10 * e11) * (e00 * e01 + e10 * e11)
+    <= (r - e00 * e00 - e10 * e10) * (r - e01 * e01 - e11 * e11).
+
+Theorem nec_e_tol_check_sound : forall p q wc,
+  nec_e_tol_check p q wc = true ->
+  (0 < q)%Z /\ (0 <= p)%Z /\
+  nec_e_tol_contractive ((1 + IZR p / IZR q) * (1 + IZR p / IZR q))
+    (state_bucket_correlation wc.(wc_same_00) wc.(wc_diff_00))
+    (state_bucket_correlation wc.(wc_same_01) wc.(wc_diff_01))
+    (state_bucket_correlation wc.(wc_same_10) wc.(wc_diff_10))
+    (state_bucket_correlation wc.(wc_same_11) wc.(wc_diff_11)).
+Proof.
+  intros p q wc H. unfold nec_e_tol_check in H. cbv zeta in H.
+  apply Bool.andb_true_iff in H; destruct H as [Hq H].
+  apply Bool.andb_true_iff in H; destruct H as [Hp H].
+  apply Bool.andb_true_iff in H; destruct H as [Hn00 H].
+  apply Bool.andb_true_iff in H; destruct H as [Hn01 H].
+  apply Bool.andb_true_iff in H; destruct H as [Hn10 H].
+  apply Bool.andb_true_iff in H; destruct H as [Hn11 H].
+  apply Bool.andb_true_iff in H; destruct H as [HA H].
+  apply Bool.andb_true_iff in H; destruct H as [HB HC].
+  apply Z.ltb_lt in Hq, Hn00, Hn01, Hn10, Hn11. apply Z.leb_le in Hp, HA, HB, HC.
+  split; [exact Hq | split; [exact Hp |]].
+  rewrite !state_bucket_correlation_to_IZR by assumption.
+  set (n00 := chsh_n_z (wc_same_00 wc) (wc_diff_00 wc)) in *.
+  set (n01 := chsh_n_z (wc_same_01 wc) (wc_diff_01 wc)) in *.
+  set (n10 := chsh_n_z (wc_same_10 wc) (wc_diff_10 wc)) in *.
+  set (n11 := chsh_n_z (wc_same_11 wc) (wc_diff_11 wc)) in *.
+  set (d00 := chsh_d_z (wc_same_00 wc) (wc_diff_00 wc)) in *.
+  set (d01 := chsh_d_z (wc_same_01 wc) (wc_diff_01 wc)) in *.
+  set (d10 := chsh_d_z (wc_same_10 wc) (wc_diff_10 wc)) in *.
+  set (d11 := chsh_d_z (wc_same_11 wc) (wc_diff_11 wc)) in *.
+  apply IZR_le in HA, HB, HC.
+  rewrite !minus_IZR, !mult_IZR, !plus_IZR in HA.
+  rewrite !minus_IZR, !mult_IZR, !plus_IZR in HB.
+  rewrite !mult_IZR, !plus_IZR, !minus_IZR, !mult_IZR, !plus_IZR in HC.
+  assert (Hqr : 0 < IZR q) by (apply IZR_lt; exact Hq).
+  assert (Er : (1 + IZR p / IZR q) * (1 + IZR p / IZR q)
+               = ((IZR q + IZR p) * (IZR q + IZR p)) / (IZR q * IZR q)) by (field; lra).
+  rewrite Er.
+  apply (nec_e_tol_clear ((IZR q + IZR p) * (IZR q + IZR p)) (IZR q * IZR q)).
+  - nra.
+  - apply IZR_lt. exact Hn00.
+  - apply IZR_lt. exact Hn01.
+  - apply IZR_lt. exact Hn10.
+  - apply IZR_lt. exact Hn11.
+  - exact HA.
+  - exact HB.
+  - exact HC.
+Qed.
+
+(** What the tolerance inequalities mean: the operator norm of
+    E = [[e00, e01], [e10, e11]] is at most the square root of r. *)
+Lemma nec_e_tol_contractive_norm : forall r e00 e01 e10 e11,
+  nec_e_tol_contractive r e00 e01 e10 e11 ->
+  forall u0 u1, (e00 * u0 + e01 * u1) * (e00 * u0 + e01 * u1)
+                + (e10 * u0 + e11 * u1) * (e10 * u0 + e11 * u1)
+                <= r * (u0 * u0 + u1 * u1).
+Proof.
+  intros r e00 e01 e10 e11 [Ha [Hc Hd]] u0 u1.
+  set (a := r - e00 * e00 - e10 * e10) in *.
+  set (c := r - e01 * e01 - e11 * e11) in *.
+  set (b := e00 * e01 + e10 * e11) in *.
+  assert (Hform : 0 <= a * u0 * u0 - 2 * b * u0 * u1 + c * u1 * u1).
+  { assert (Hu1 : 0 <= u1 * u1) by nra.
+    destruct (Req_dec a 0) as [Ha0 | Ha0].
+    - assert (Hb : b = 0) by (rewrite Ha0 in Hd; nra). rewrite Ha0, Hb.
+      replace (0 * u0 * u0 - 2 * 0 * u0 * u1 + c * u1 * u1) with (c * (u1 * u1)) by ring.
+      apply Rmult_le_pos; lra.
+    - assert (Hapos : 0 < a) by lra.
+      assert (H : 0 <= a * (a * u0 * u0 - 2 * b * u0 * u1 + c * u1 * u1)).
+      { replace (a * (a * u0 * u0 - 2 * b * u0 * u1 + c * u1 * u1))
+          with ((a * u0 - b * u1) * (a * u0 - b * u1) + (a * c - b * b) * (u1 * u1)) by ring.
+        apply Rplus_le_le_0_compat; [apply Rle_0_sqr | apply Rmult_le_pos; lra]. }
+      apply (Rmult_le_reg_l a); [exact Hapos | rewrite Rmult_0_r; exact H]. }
+  assert (Eq : r * (u0 * u0 + u1 * u1)
+               - ((e00 * u0 + e01 * u1) * (e00 * u0 + e01 * u1)
+                  + (e10 * u0 + e11 * u1) * (e10 * u0 + e11 * u1))
+               = a * u0 * u0 - 2 * b * u0 * u1 + c * u1 * u1) by (unfold a, b, c; ring).
+  lra.
+Qed.
+
+Theorem nec_e_tol_check_norm : forall p q wc,
+  nec_e_tol_check p q wc = true ->
+  let e00 := state_bucket_correlation wc.(wc_same_00) wc.(wc_diff_00) in
+  let e01 := state_bucket_correlation wc.(wc_same_01) wc.(wc_diff_01) in
+  let e10 := state_bucket_correlation wc.(wc_same_10) wc.(wc_diff_10) in
+  let e11 := state_bucket_correlation wc.(wc_same_11) wc.(wc_diff_11) in
+  forall u0 u1, (e00 * u0 + e01 * u1) * (e00 * u0 + e01 * u1)
+                + (e10 * u0 + e11 * u1) * (e10 * u0 + e11 * u1)
+                <= (1 + IZR p / IZR q) * (1 + IZR p / IZR q) * (u0 * u0 + u1 * u1).
+Proof.
+  intros p q wc H e00 e01 e10 e11.
+  destruct (nec_e_tol_check_sound p q wc H) as [_ [_ Ht]].
+  apply nec_e_tol_contractive_norm. exact Ht.
+Qed.
+
+(** And the bound: S^2 <= 8 (1 + eps)^2. *)
+Theorem nec_e_tol_check_bound : forall p q wc,
+  nec_e_tol_check p q wc = true ->
+  let e00 := state_bucket_correlation wc.(wc_same_00) wc.(wc_diff_00) in
+  let e01 := state_bucket_correlation wc.(wc_same_01) wc.(wc_diff_01) in
+  let e10 := state_bucket_correlation wc.(wc_same_10) wc.(wc_diff_10) in
+  let e11 := state_bucket_correlation wc.(wc_same_11) wc.(wc_diff_11) in
+  (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11)
+    <= 8 * ((1 + IZR p / IZR q) * (1 + IZR p / IZR q)).
+Proof.
+  intros p q wc H. cbv zeta.
+  destruct (nec_e_tol_check_sound p q wc H) as [_ [_ [Ha [Hc _]]]].
+  set (e00 := state_bucket_correlation wc.(wc_same_00) wc.(wc_diff_00)) in *.
+  set (e01 := state_bucket_correlation wc.(wc_same_01) wc.(wc_diff_01)) in *.
+  set (e10 := state_bucket_correlation wc.(wc_same_10) wc.(wc_diff_10)) in *.
+  set (e11 := state_bucket_correlation wc.(wc_same_11) wc.(wc_diff_11)) in *.
+  set (r := (1 + IZR p / IZR q) * (1 + IZR p / IZR q)) in *.
+  pose proof (chsh_gap_is_sum_of_squares e00 e01 e10 e11) as G.
+  assert (Hsos : 0 <= (e00 - e01) * (e00 - e01) + (e00 - e10) * (e00 - e10)
+                      + (e00 + e11) * (e00 + e11) + (e01 - e10) * (e01 - e10)
+                      + (e01 + e11) * (e01 + e11) + (e10 + e11) * (e10 + e11))
+    by (repeat apply Rplus_le_le_0_compat; apply Rle_0_sqr).
+  lra.
+Qed.
+
+(** A tally near the Tsirelson point, 100 rounds per pair with correlators
+    0.72, 0.70, 0.72, -0.72: the exact check refuses it (0.72^2 + 0.72^2 is
+    above 1) and the check with eps = 1/10 accepts it. *)
+Definition nec_e_noisy_tsirelson_tally : WitnessCounts :=
+  {| wc_same_00 := 86; wc_diff_00 := 14;
+     wc_same_01 := 85; wc_diff_01 := 15;
+     wc_same_10 := 86; wc_diff_10 := 14;
+     wc_same_11 := 14; wc_diff_11 := 86 |}.
+
+Example nec_e_tol_check_accepts_noisy_tsirelson :
+  column_contractive_check_witness nec_e_noisy_tsirelson_tally = false /\
+  nec_e_tol_check 1 10 nec_e_noisy_tsirelson_tally = true.
+Proof. split; vm_compute; reflexivity. Qed.
+
+Print Assumptions nec_e_tol_check_zero.
+Print Assumptions nec_e_tol_check_sound.
+Print Assumptions nec_e_tol_check_norm.
+Print Assumptions nec_e_tol_check_bound.
+Print Assumptions nec_e_tol_check_accepts_noisy_tsirelson.
