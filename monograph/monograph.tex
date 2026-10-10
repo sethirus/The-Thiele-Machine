@@ -12100,7 +12100,7 @@ a hole to hide in, and its theorems are checked by Coq one case at a time, which
 check that catches Davies's kind of slip. It doesn't catch a definition that says the wrong
 thing. That's why the definitions are on the page, for you.
 
-\subsection{Every computably presented Thiele machine, on one host}
+\subsection{Every computably presented Thiele machine, on one host: driven, decided, priced in whole units, carried as a latch}
 \label{sec:presented-universal}
 
 $U$ runs the small machine's programs, and through them every computation, under Minsky's $2^n$
@@ -12186,8 +12186,10 @@ count it took into the fuel register, and at such a value the checker says yes i
 reading says yes (\code{cg\_checker\_exact}).
 
 \begin{theorem}[One host runs every computably presented Thiele machine]\label{thm:u34-presented}
-Let $M$ be a computably presented Thiele machine and $s_0$ a start state. Load $U_P$ with the guest
-compiled from $M$'s presentation and $s_0$ coded in. Then: (1) $U_P$ halts exactly when $M$'s run
+Let $M$ be a computably presented Thiele machine, so that a driver picks its next move (one run
+per start), a program decides its reading on every state, and its prices are whole numbers; and let
+$s_0$ be a start state. Load $U_P$ with the guest compiled from $M$'s presentation and $s_0$ coded
+in. What the host carries of $M$'s reading is its latch. Then: (1) $U_P$ halts exactly when $M$'s run
 stops. (2) For every $n$ such that $M$ hasn't stopped before move $n$, there's a host time $t$
 at which the host's register for the guest's counter $B$ decodes to $M$'s state after $n$ moves,
 the host's ledger is $M$'s ledger after $n$ moves plus a \emph{surcharge}, and the host's flag is
