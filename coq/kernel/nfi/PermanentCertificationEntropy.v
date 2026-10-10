@@ -637,6 +637,50 @@ Proof.
       exists x, x'. repeat split; try (right; assumption); assumption.
 Qed.
 
+Lemma map_nodup_injective_on :
+  forall (f : A -> A) (l : list A) a b,
+    NoDup (map f l) -> In a l -> In b l -> f a = f b -> a = b.
+Proof.
+  intros f l. induction l as [| x xs IH]; intros a b Hnd Ha Hb E; [destruct Ha |].
+  simpl in Hnd. inversion Hnd as [| ? ? Hx Hxs]; subst.
+  destruct Ha as [<- | Ha]; destruct Hb as [<- | Hb].
+  - reflexivity.
+  - exfalso. apply Hx. rewrite E. apply in_map. exact Hb.
+  - exfalso. apply Hx. rewrite <- E. apply in_map. exact Ha.
+  - apply IH; assumption.
+Qed.
+
+(** The worst case of a merge. Put half the chance on each of two states
+    that a move sends to one place, and the move removes at least a full
+    bit, however many other states there are. *)
+Theorem merge_pair_removes_a_bit :
+  forall (all : list A) (f : A -> A) x x',
+    NoDup all -> (forall a, In a all) -> x <> x' -> f x = f x' ->
+    entropy all (uniform_on [x; x']) - entropy all (push all f (uniform_on [x; x'])) >= 1.
+Proof.
+  intros all f x x' Hnd Hall Hne Hff.
+  assert (HU : NoDup [x; x']).
+  { constructor; [intros [H | []]; congruence | constructor; [intros [] | constructor]]. }
+  assert (Hsub : forall a, In a [x; x'] -> In a all) by (intros; apply Hall).
+  assert (Hlen : (0 < length [x; x'])%nat) by (simpl; lia).
+  assert (Hdist : distribution all (uniform_on [x; x']))
+    by (apply uniform_on_distribution; assumption).
+  rewrite (uniform_on_entropy all [x; x'] Hnd HU Hsub Hlen).
+  assert (Hq : entropy all (push all f (uniform_on [x; x'])) <= log2 (INR (length [f x]))).
+  { apply entropy_le_log_support; [exact Hnd | apply push_distribution; assumption | | simpl; lia].
+    intros y Hy Hpos.
+    apply (push_support all [f x] [x; x'] f (uniform_on [x; x']) (proj1 Hdist)) with (y := y);
+      [| | exact Hy | exact Hpos].
+    - intros z _ Hz. unfold uniform_on, in_b in Hz.
+      destruct (in_dec eq_dec z [x; x']); [assumption | lra].
+    - intros z [<- | [<- | []]]; [left; reflexivity | left; exact Hff]. }
+  simpl length in Hq |- *.
+  unfold log2 in *. simpl INR in Hq |- *. rewrite ln_1 in Hq.
+  replace (1 + 1) with 2 by ring.
+  assert (Hl : ln 2 / ln 2 = 1) by (field; apply Rgt_not_eq, ln2_pos).
+  rewrite Hl. unfold Rdiv in Hq. rewrite Rmult_0_l in Hq. lra.
+Qed.
+
 End Distributions.
 
 (** * A permanent flip in bits *)
@@ -955,6 +999,30 @@ Proof.
   rewrite Rmult_0_r. tauto.
 Qed.
 
+(** Read in the worst case over what the machine might be holding, a
+    permanent flip removes a full bit, whatever the number of yes-states:
+    it merges two states (a permanent flip merges), and the spread with half
+    its chance on each loses at least one bit. *)
+Theorem permanent_flip_spread_loses_a_bit :
+  forall all s i,
+    finite_states all -> permanent step cert ->
+    cert s = false -> cert (step s i) = true ->
+    exists x x', x <> x' /\ step x i = step x' i /\
+      entropy all (uniform_on eq_dec [x; x'])
+      - entropy all (push eq_dec all (fun t => step t i) (uniform_on eq_dec [x; x'])) >= 1.
+Proof.
+  intros all s i Hfin Hperm Hs Hflip.
+  assert (Hni : ~ step_injective step i) by (eapply permanent_flip_is_not_injective; eauto).
+  destruct Hfin as [Hnd Hall].
+  assert (Hmap : ~ NoDup (map (fun t => step t i) all)).
+  { intro Hn. apply Hni. intros a b Hab.
+    exact (map_nodup_injective_on (fun t => step t i) all a b Hn (Hall a) (Hall b) Hab). }
+  destruct (not_nodup_map_witness eq_dec (fun t => step t i) all Hnd Hmap)
+    as [x [x' [_ [_ [Hne Hff]]]]].
+  exists x, x'. split; [exact Hne | split; [exact Hff |]].
+  apply merge_pair_removes_a_bit; assumption.
+Qed.
+
 End PermanentEntropy.
 
 Arguments flip_list {S I}.
@@ -997,3 +1065,6 @@ Proof.
            (certification_system_from_entropy_price
               S I step cert cost eq_dec all Hfin Hperm Hprice) trace s0 H0 H1).
 Qed.
+
+Print Assumptions merge_pair_removes_a_bit.
+Print Assumptions permanent_flip_spread_loses_a_bit.

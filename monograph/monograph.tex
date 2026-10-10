@@ -1208,9 +1208,11 @@ mark is worth a joule or a dollar; whether it's worth anything physical is Landa
 named, and nowhere else. And one is just the floor: Part II shows that if you charge one mark per
 halving, a step that squeezes a lot together pays at least the logarithm of the squeeze, roughly how
 many times it halves the number of states it can tell apart. Don't read that backwards, though. One
-mark isn't one halving. A single state flipping into a big room of states that already read yes
-squeezes things together very little, much less than a halving, and the whole-number count rounds
-that up to one.
+mark isn't one halving. A single state flipping into a big room of states that already read yes,
+with every state in play equally likely, squeezes things together very little, much less than a
+halving, and the whole-number count rounds that up to one. Read in the worst case over what the
+machine might be holding, the same flip can remove a full bit; Section~\ref{sec:a2-not-arbitrary}
+has both readings.
 
 What was I pushed into? That on a finite machine, a record that never comes down can only be raised
 by a merge: counting, proved. That merges cost: physics, assumed. What did I choose? To put the
@@ -4282,10 +4284,17 @@ was already yes, so $m = k = 1$ and the floor is $k_B T \ln 2$. At room temperat
 kelvin, that's roughly three zeptojoules: three thousandths of a billionth of a billionth of a
 joule. And that's the \emph{biggest} bill a single flip gets from this corollary. With $k = 1$ the floor is $k_B T \ln \frac{m+1}{m}$, and it shrinks as more states
 already read yes: with a thousand of them it's about a thousandth of $k_B T$, some seven
-hundred times less than the case of two. So one mark is not one halving. It's one halving
-exactly when the squeeze is two; for any thinner squeeze the physics asks for less than a
-halving, and the toll still charges a whole mark, because marks come in whole numbers (that's
-the rounding the entropy road to the toll leans on, a little further down). Whatever the size,
+hundred times less than the case of two. So, for an even spread over the states in play, one
+mark is not one halving. It's one halving exactly when the squeeze is two; for any thinner
+squeeze and an even spread, the physics asks for less than a halving, and the toll still charges
+a whole mark, because marks come in whole numbers (that's the rounding the entropy road to the
+toll leans on, a little further down). Read in the worst case over what the machine might be
+holding, the way the halving price reads a move, it's at least a full bit every time. A permanent flip
+merges two states (Theorem~\ref{thm:perm-flip-merges}); put half the chance on each, and the move
+removes a full bit, whatever $m$ is. Checked as \code{merge\_pair\_removes\_a\_bit} and
+\code{permanent\_flip\_spread\_loses\_a\_bit} (PermanentCertificationEntropy.v). So the gap
+between the mark and the bits is a fact about the even spread. In the worst case the flip removes
+at least the full bit the mark pays for. Whatever the size,
 it's a bill only if you grant the premise; nothing on this page measured anything. And even
 granted, it's a bill nobody will ever see on a meter: real logic gates spend many thousands of
 times more than this on every switch, even the frugal ones. One 2023 tally of the numbers puts
@@ -15807,6 +15816,7 @@ The universal floor: no to yes costs at least one & proved (premise: the toll) &
 The floor speaks about the world, or computing power & not claimed & Section~\ref{sec:toll} \\
 A computation is in scope just by being one & not claimed; someone has to supply the five parts and prove the toll & Section~\ref{sec:toll} \\
 On a finite machine, a permanent flip merges & definition; proved (no price premise) & Section~\ref{sec:a2-not-arbitrary}, Definition~\ref{def:fin-perm-inj}, Theorem~\ref{thm:perm-flip-merges} \\
+In the worst case over spreads a permanent flip removes a full bit, whatever the number of yes-states; for an even spread it removes $\log_2 \frac{m+k}{m}$ & proved (\code{permanent\_flip\_spread\_loses\_a\_bit}, \code{merge\_pair\_removes\_a\_bit}, \code{permanent\_flip\_uniform\_entropy\_drop}, PermanentCertificationEntropy.v) & Section~\ref{sec:a2-not-arbitrary} \\
 Merge pricing & assumed (premise) & Section~\ref{sec:a2-not-arbitrary}, Premise~\ref{prem:merge-pricing} \\
 Finite, permanent and merge pricing give the toll & proved (premise: merge pricing) & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:toll-derived} \\
 Each premise has a counterexample & proved (the strip, the coin, the stamp); ``free'' is proved too (\code{history\_escape}, \code{toggle\_escape} and \code{free\_merge\_escape}, AxMerge.v) & Section~\ref{sec:a2-not-arbitrary} \\
@@ -17469,6 +17479,7 @@ Theorem \ref{thm:u04-injective-entropy}: A move that forgets nothing removes no 
 Theorem \ref{thm:entropy-ceiling}: Entropy after a permanent flip & \S\ref{sec:a2-not-arbitrary} & \code{permanent\_step\_entropy\_ceiling} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{permanent\_flip\_uniform\_entropy\_drop} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Premise \ref{prem:landauer}: Landauer's principle, as a premise & \S\ref{sec:a2-not-arbitrary} & \code{landauer\_heat} {\footnotesize(\code{PermanentCertificationEntropy.v})} & def \\
 Corollary \ref{cor:heat-floor}: Heat floor of a permanent flip & \S\ref{sec:a2-not-arbitrary} & \code{permanent\_step\_entropy\_ceiling} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{permanent\_flip\_uniform\_entropy\_drop} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_le\_log\_support} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{permanent\_flip\_heat\_floor} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{permanent\_flip\_heat\_positive} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
+In the text: in the worst case over spreads a permanent flip removes a full bit, whatever $m$ is & \S\ref{sec:a2-not-arbitrary} & \code{merge\_pair\_removes\_a\_bit} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{permanent\_flip\_spread\_loses\_a\_bit} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Corollary \ref{cor:u04-full-support-heat}: Positive heat for any full spread & \S\ref{sec:a2-not-arbitrary} & \code{permanent\_flip\_full\_support\_entropy\_drop\_positive} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{permanent\_flip\_full\_support\_heat\_positive} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM \\
 Definition \ref{def:u04-entropy-priced}: Entropy-priced & \S\ref{sec:a2-not-arbitrary} & stated in the text &  \\
 Theorem \ref{thm:u04-entropy-toll}: The toll from entropy pricing & \S\ref{sec:a2-not-arbitrary} & \code{a2\_from\_entropy\_price\_and\_permanence} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{entropy\_priced\_trace\_floor} {\footnotesize(\code{PermanentCertificationEntropy.v})}\newline \code{certification\_system\_from\_entropy\_price} {\footnotesize(\code{PermanentCertificationEntropy.v})} & FE, RD, EM\newline FE, RD, EM\newline def \\

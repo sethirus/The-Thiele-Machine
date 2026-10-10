@@ -84,6 +84,8 @@ An explicitly qualified citation keeps its own module identity.
 - `permanent_step_entropy_ceiling`: On a finite state space with permanent certification, after a step that switches states on, any distribution living on the certified and flipping states has entropy at most `log2(m)`.
 - `permanent_step_entropy_drop`: Under the same premises, the step lowers entropy by at least `H(p) - log2(m)`.
 - `permanent_flip_uniform_entropy_drop`: From the uniform distribution on the `m + k` states in play, the step removes at least `log2((m + k)/m)` bits.
+- `merge_pair_removes_a_bit`: For any finite list of states without repeats covering every state, any map f and any two different states x and x' with f x = f x', the spread with chance one half on each of x and x' loses at least one bit of Shannon entropy when pushed through f.
+- `permanent_flip_spread_loses_a_bit`: On a finite machine with a permanent reading, if a move turns some no-state yes, then it sends some two different states x and x' to the same state, and the spread with chance one half on each of them loses at least one bit when pushed through the move.
 - `a2_from_entropy_price_and_permanence`: On a finite state space with permanent certification, a whole-unit cost that covers the bits each instruction removes meets A2.
 - `entropy_priced_trace_floor`: Under the same premises, a trace from uncertified to certified costs at least one.
 - `permanent_flip_heat_floor`: On a finite state space with a permanent reading, under the named premise `landauer_heat` and with `0 <= kT`, a flip of k > 0 states beside m certified ones, from the uniform distribution on those m + k states, dissipates at least `kT ln((m + k)/m)`.
