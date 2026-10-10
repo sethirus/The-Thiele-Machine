@@ -482,6 +482,7 @@ Qed.
 Theorem over_certificate_means : forall M (L : claim_language M),
   thiele_complete_over M L ->
   exists J : lang_interface M L,
+    thiele_complete_with (lang_ti J) /\
     forall s0 tr, lang_clean J s0 -> m_record M (run M tr s0) = true ->
     exists pre c chk mid1 cmt rest,
       tr = pre ++ chk :: mid1 ++ cmt :: rest /\
@@ -489,7 +490,7 @@ Theorem over_certificate_means : forall M (L : claim_language M),
       lang_check J (run M pre s0) c = true /\
       cl_meaning L c (run M pre s0) /\ cl_meaning L c (run M (pre ++ chk :: mid1) s0).
 Proof.
-  intros M L [J HJ]. exists J. intros s0 tr H0 H1.
+  intros M L [J HJ]. exists J. split; [exact HJ |]. intros s0 tr H0 H1.
   pose proof HJ as [_ [[_ [Hchain _]] _]].
   destruct (Hchain s0 tr H0 H1)
     as [pre [c [chk [mid1 [cmt [mid2 [crt [post
@@ -1031,6 +1032,21 @@ Proof.
   - rewrite reference_step_agrees, reference_agrees. exact Hn.
 Qed.
 
+(* CHECK is a unit-cost test. From any start (a, b), the single move
+   CHECK (A >= m) costs 1 and settles whether a >= m: the trap latch is
+   down after it exactly when a >= m. The two counters alone settle that
+   only by counting A down. The record (the flag and the ledger) is not
+   what makes this one step: the core's next value never reads them
+   (E.base_blind). *)
+Theorem check_ge_unit_cost : forall a b m,
+  E.cost (E.CHECK (E.PGe m) E.CA) = 1 /\
+  E.err (E.core_of (E.exec (E.start a b) (E.CHECK (E.PGe m) E.CA))) = negb (Nat.leb m a).
+Proof.
+  intros a b m. split; [reflexivity |].
+  unfold E.exec, E.cexec, E.check_ok. simpl.
+  destruct (Nat.leb m a); reflexivity.
+Qed.
+
 (* ================================================================= *)
 (* 3. The small machine over any property language with an exact     *)
 (*    checker and a property that can fail.                           *)
@@ -1341,3 +1357,4 @@ Print Assumptions over_certificate_means.
 Print Assumptions earned_core_thiele_complete_over.
 Print Assumptions earned_generic_thiele_complete_over.
 Print Assumptions sorted_machine_thiele_complete_over.
+Print Assumptions check_ge_unit_cost.
