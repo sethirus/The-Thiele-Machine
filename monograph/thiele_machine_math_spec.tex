@@ -452,12 +452,12 @@ When sameness also compares the shapes of the fact table and the channel, some t
 %=============================================================================
 \chapter{The Record Axis}\label{ch:record}
 
-\begin{definition}[Bases and honest extensions]
+\begin{definition}[Bases and base-driven records]
 A base is a deterministic record-free machine: states, a next function, initial states and halting (record \texttt{BaseMachine}). A record-carrying machine has states, a next function, initial states, a record, a ledger and halting (record \texttt{RCM}). A cover maps it onto a base step for step, preserving initial states and halting. The extension is \emph{honest} when its record's next value depends only on the base state and itself, the ledger never decreases, A2 holds, the record is permanent, and some reachable step writes it (\texttt{HonestBaseExtension}).
 \end{definition}
 
 \begin{theorem}[The record axis is a latch] \textbf{(S)}
-Every honest extension of every base factors as a latch: there is a base event $h$ such that the base state and the record evolve as $(b, r) \mapsto (\mathrm{next}(b), r \vee h(b))$.
+Every base-driven record over every base factors as a latch: there is a base event $h$ such that the base state and the record evolve as $(b, r) \mapsto (\mathrm{next}(b), r \vee h(b))$.
 Coq: \texttt{record\_axis\_is\_latch\_holds}. Two permanent records factor as two latches, each reading the other (\texttt{record\_pair\_is\_two\_latches\_holds}).
 \end{theorem}
 
@@ -466,7 +466,7 @@ A record that can switch back off is not a latch (\texttt{toggle\_not\_latch}). 
 \end{theorem}
 
 \begin{theorem}[Which machines carry the axis] \textbf{(S)}
-Every base carries it: the base plus a latch on any event it reaches, charging one unit when the latch sets, is an honest extension (\texttt{latch\_core\_honest}). A reversible base with unbounded memory carries it reversibly (\texttt{history\_latch\_honest}, \texttt{history\_latch\_injective}). With finite memory, a step that writes a permanent record is not injective (\texttt{finite\_reversible\_cannot\_write}).
+Every base carries it: the base plus a latch on any event it reaches, charging one unit when the latch sets, is a base-driven record (\texttt{latch\_core\_honest}). A reversible base with unbounded memory carries it reversibly (\texttt{history\_latch\_honest}, \texttt{history\_latch\_injective}). With finite memory, a step that writes a permanent record is not injective (\texttt{finite\_reversible\_cannot\_write}).
 \end{theorem}
 
 \section{Growing and probabilistic records}
@@ -545,7 +545,7 @@ Population dynamics do not fix heat: two gaps with identical dynamics release di
 Ruling a gap out needs a thermal premise such as local detailed balance, or device evidence. Converting the ledger to energy requires thermal and device premises; the ledger has no intrinsic energy unit (Chapter~\ref{ch:finite}).
 
 %=============================================================================
-\chapter{External Systems and the Pointer Conjecture}\label{ch:external}
+\chapter{External Systems and the Pointer Thesis}\label{ch:external}
 
 Each model below is narrow. None is a full security, consensus, database or audit-log theorem.
 
@@ -560,7 +560,7 @@ The addressed-RAM and reversible-update files prove only their named fragments. 
 
 \section{The pointer criterion}
 
-The pointer-observable criterion proposes that the event a step rule is forced to price is singled out by redundant record proliferation across observers. Twelve candidate events over seven observer maps proliferate as stated (\texttt{twelve\_candidate\_measurements\_checked}). The MAC-labelled model does not proliferate (\texttt{mac\_model\_not\_proliferating}); applying that to a real system depends on the observer model. A two-observer toggle game with consensus, authenticity and coordinator-free updates revokes its event (\texttt{toggle\_game\_refutes\_strong\_pointer\_necessity}), so those properties do not force permanence. Durable views do imply permanence, by making persistence a premise (\texttt{durable\_consensus\_implies\_permanence}). The external consequence survey contains five narrow countermodels, each for a point a governing source already addresses, and five stronger statements without enough protocol or hardware semantics; no surveyed consequence is simultaneously record-axis dependent, novel, and ready for use. The pointer criterion is a conjecture.
+The pointer-observable criterion proposes that the event a step rule is forced to price is singled out by redundant record proliferation across observers. Twelve candidate events over seven observer maps proliferate as stated (\texttt{twelve\_candidate\_measurements\_checked}). The MAC-labelled model does not proliferate (\texttt{mac\_model\_not\_proliferating}); applying that to a real system depends on the observer model. A two-observer toggle game with consensus, authenticity and coordinator-free updates revokes its event (\texttt{toggle\_game\_refutes\_strong\_pointer\_necessity}), so those properties do not force permanence. Durable views do imply permanence, by making persistence a premise (\texttt{durable\_consensus\_implies\_permanence}). The external consequence survey contains five narrow countermodels, each for a point a governing source already addresses, and five stronger statements without enough protocol or hardware semantics; no surveyed consequence is simultaneously record-axis dependent, novel, and ready for use. The pointer criterion is a thesis: ``faithfully model'' and ``deployed'' tie it to the world and cannot be defined, as in the Church--Turing thesis.
 
 %=============================================================================
 \appendix
@@ -635,11 +635,11 @@ Structural undecidability & \textbf{(S)} & Recursion theorem of the substrate \\
 L recursion and Rice & \textbf{(S)} & L's reduction rules \\
 Two-counter Rice and packed Kleene & \textbf{(S)} & Behavioral sameness on chosen inputs \\
 Plain-input recursion fails & \textbf{(R)} & Inputs in counter $A$, $0$ in counter $B$ \\
-Record axis is a latch & \textbf{(S)} & Honest extension \\
+Record axis is a latch & \textbf{(S)} & Base-driven record \\
 Toll over any order & \textbf{(S)} & A preorder of records \\
 Algebraic Tsirelson bound & \textbf{(S)} & Polynomial minors \\
 Calorimeter heat scale & \textbf{(R)} & Fixed dynamics \\
-Pointer criterion & Conjecture & Observer model \\
+Pointer criterion & Thesis & Observer model \\
 \end{longtable}
 \endgroup
 

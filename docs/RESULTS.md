@@ -58,7 +58,7 @@ each.
   the program halts. Coq: `simulation_run`, `halting_correspondence`.
 - **Proved.** Its halting problem is undecidable, by reduction from the
   vendored two-counter result; it satisfies the certification floor, is
-  adequate as a record-carrying machine, is an honest extension of its base
+  adequate as a record-carrying machine, is a base-driven record over its base
   (program and core, everything but the ledger and the flag), and moves its
   record as a latch. Coq: `earned_core_halting_undecidable`,
   `earned_core_floor`, `earned_core_adequate`, `earned_core_honest`,
@@ -161,8 +161,8 @@ The questions here ask how much of a machine the record axis pins down.
   driven by the computation. Coq: `toggle_not_latch`, `toggle_not_permanent`,
   `clock_record_permanent`, `clock_record_not_driven`.
 - **Proved.** Every base can carry the axis: the base plus a latch on any
-  event it reaches, charging one unit when the latch sets, is an honest
-  extension. A reversible base with unbounded memory can carry one and stay
+  event it reaches, charging one unit when the latch sets, is a base-driven
+  record. A reversible base with unbounded memory can carry one and stay
   reversible; with finite memory a step that writes a permanent record is not
   injective. Coq: `latch_core_honest`, `history_latch_honest`,
   `history_latch_injective`, `finite_reversible_cannot_write`.
@@ -172,7 +172,7 @@ The questions here ask how much of a machine the record axis pins down.
 A growing record takes values in a partial order and only moves up
 (`HonestGrowingExtension`).
 
-- **Proved.** Every honest growing record satisfies a complete family of
+- **Proved.** Every base-driven growing record satisfies a complete family of
   permanent threshold-update equations, one per lower threshold, and keeps its
   price schedule (`growing_record_decomposes`). This is a representation
   lemma: the threshold events are built from the driving function, and the
@@ -184,10 +184,10 @@ A growing record takes values in a partial order and only moves up
   equivalent to pricing every false-to-true threshold flip
   (`record_price_iff_threshold_price`).
   Coq: `record_price_iff_threshold_price_holds`.
-- **Refuted.** One Boolean latch carries every honest growing record
+- **Refuted.** One Boolean latch carries every base-driven growing record
   (`one_latch_suffices`). Counterexample: a fully priced three-value chain
-  over a one-state base (`ThreeMachine`, `OneBase`, `ThreeCover`, with honesty
-  proved by `three_honest`). Three values cannot be decoded from one base
+  over a one-state base (`ThreeMachine`, `OneBase`, `ThreeCover`, with the base-driven
+  conditions proved by `three_honest`). Three values cannot be decoded from one base
   state and one bit. Coq: `one_latch_refuted`.
 - **Proved.** A pairwise-distinct, pointwise-monotone chain of k-bit vectors
   has at most k + 1 members (`chain_needs_bits`). A chain through n
@@ -426,7 +426,7 @@ audit-log theorem.
 
 ## The pointer criterion
 
-The pointer-observable criterion is a conjecture. Choosing the observers and
+The pointer-observable criterion is a thesis. Choosing the observers and
 the event is a modeling choice that proofs cannot make. The formal
 definitions and the selected model instances are proved only inside their
 observer maps.

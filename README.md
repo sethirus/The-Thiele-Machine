@@ -342,7 +342,8 @@ real-system consequences reduce to known local indistinguishability or
 durability arguments, while five stronger candidates lack the required
 protocol or hardware semantics. None supplies a novel result that both needs
 the record axis and is ready for external use. The pointer criterion is a
-conjecture; its proposed strong necessity theorem is refuted.
+thesis, in the Church-Turing sense: two of its terms tie it to the world and
+cannot be defined. Its proposed strong necessity theorem is refuted.
 
 ## Repository Layout
 
@@ -521,7 +522,7 @@ To confirm, refute, build on, or point out what's wrong: thethielemachine@gmail.
 A submission that names a theorem gets, within 14 days, one of exactly two replies: "correct, fixing it," or the line where the construction fails.
 
 The abstract model's definitions and the small machine's semantics define what is studied here.
-The elliptope gate, pointer-observable definitions, and selected model instances are characterization tiers over that model; they do not alter it. The general pointer criterion is a conjecture.
+The elliptope gate, pointer-observable definitions, and selected model instances are characterization tiers over that model; they do not alter it. The general pointer criterion is a thesis.
 Different machine semantics belong in separate repositories citing this one.
 
 ## License

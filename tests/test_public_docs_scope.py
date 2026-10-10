@@ -54,7 +54,7 @@ def test_public_documents_preserve_the_scope_boundary():
         ("RFC 9162",),
         ("cost-framework",),
         ("observer model", "observer map", "modeling choice", "model-dependent"),
-        ("conjecture",),
+        ("conjecture", "thesis"),
     ]
     for path in PUBLIC_DOCUMENTS:
         text = path.read_text(encoding="utf-8").lower()
@@ -62,7 +62,7 @@ def test_public_documents_preserve_the_scope_boundary():
             assert any(idea.lower() in text for idea in alternatives), (path, alternatives)
 
 
-def test_pointer_criterion_is_stated_as_a_conjecture():
+def test_pointer_criterion_is_stated_as_a_thesis():
     monograph = normalized(ROOT / "monograph/monograph.tex")
     assert r"\label{sec:pointer}" in monograph
     # The book states the pointer criterion as a thesis (its worldly terms,
@@ -70,15 +70,15 @@ def test_pointer_criterion_is_stated_as_a_conjecture():
     assert r"\begin{thesis}[The pointer thesis]" in monograph
     assert "The thesis leans on two notions with no precise mathematical definition" in monograph
     assert "which systems count as" in monograph and "independent" in monograph
-    assert "The general pointer criterion is a conjecture." in normalized(ROOT / "README.md")
-    assert "The pointer criterion is a conjecture." in normalized(
+    assert "The general pointer criterion is a thesis." in normalized(ROOT / "README.md")
+    assert "The pointer criterion is a thesis" in normalized(
         ROOT / "monograph/thiele_machine_math_spec.tex"
     )
-    assert "The pointer-observable criterion is a conjecture." in normalized(
+    assert "The pointer-observable criterion is a thesis." in normalized(
         ROOT / "docs/RESULTS.md"
     )
     citation = normalized(ROOT / "CITATION.cff")
-    assert "the pointer criterion is a conjecture" in citation
+    assert "the pointer criterion is a thesis" in citation
     assert (
         "No surveyed external consequence satisfied all four novelty and applicability criteria"
         in citation
