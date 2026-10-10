@@ -2524,6 +2524,14 @@ changes, and ``chosen'' is doing real work in that sentence. There's no structur
 from nowhere. You have to say what you're allowed to do to it first. I didn't know that when
 I started, and I'd been saying ``the structure of'' things for years.
 
+Klein's move has a descendant in logic, and it goes all the way. In a lecture in London in
+1966, published only in 1986, three years after his death, the Polish-American logician Alfred Tarski
+asked what makes a notion logical, and answered with Klein's recipe at its far end: allow every
+one-to-one transformation of the world onto itself, and call logical the notions that survive
+all of them. The more changes you allow, the fewer notions are left standing, and with every
+change allowed what's left is logic. That's the sentence above, ``structure is what survives a
+chosen set of changes,'' with the choice made as large as it can be.
+
 \subsection{An invariance comes with a bill}
 
 In 1918 Emmy Noether, who at the time wasn't allowed to qualify for a university teaching post
@@ -2568,6 +2576,23 @@ where the weight was. So I keep two things from Bourbaki. The right thing: relat
 elements whose nature doesn't matter, which is Aristotle's bronze in different words. And the
 warning: a structure stated without its maps won't carry the work. I learned that one the
 slow way, and the origin story you just read tells it.
+
+Philosophers of mathematics took the same idea further and gave it a name, structuralism. In 1965
+the philosopher Paul Benacerraf pointed out that the whole numbers can be built out of sets in two
+equally good ways that disagree about which set the number three is, and concluded that numbers
+aren't objects at all: what arithmetic is about is the pattern, and anything standing in the right
+relations to everything else can play the part of three. The philosophers Michael Resnik
+(\emph{Mathematics as a Science of Patterns}) and Stewart Shapiro (\emph{Philosophy of Mathematics:
+Structure and Ontology}), both in 1997, made the patterns themselves what mathematics is about. The
+philosopher Geoffrey Hellman (\emph{Mathematics without Numbers}, 1989) kept the talk of patterns
+and did without the patterns, reading each statement as a claim about what would hold in any
+system with the right structure, if there were one. The logician Steve Awodey (1996) argued that
+category theory says it best, a structure being what its maps keep, which is where this section
+goes next. And the philosopher of science James Ladyman (1998) carried the idea into physics: what a
+successful theory gets right about the world is its structure. This section's thesis, that
+structure is the relations and the things in them don't matter, is theirs. None of the formal
+results takes their arguments as a premise, and the bibliography lists them under the same heading
+as Bourbaki.
 
 \subsection{A set with some named relations}
 
@@ -3863,6 +3888,16 @@ did; Landauer, back in 1961, had already written that for a machine able to run 
 space to hold every intermediate result ``cannot be there.'' The history escape is real. It
 costs you a memory that never fills. Every machine you can buy has a memory that fills.
 
+Bennett wasn't the first there, or the last. Yves Lecerf, in a short note to the French
+Academy of Sciences in 1963, had already shown that reversible Turing machines can simulate
+arbitrary ones, and the note went largely unnoticed. The computer scientist Tommaso Toffoli
+(1980), and Edward Fredkin and Toffoli together (1982), both then at MIT, built reversible logic:
+gates and circuits that compute any function and lose nothing, by carrying constant inputs in and
+extra outputs out. And the computer scientist Kenichi Morita (1996) proved that reversible
+two-counter machines are universal, so even a machine as small as the one in Part IV can compute
+everything with every move one-to-one. Every one of them keeps what it doesn't forget somewhere:
+a history, garbage outputs, a counter that codes the past. The strip is that.
+
 One thing I have to say plainly, because the file is more careful than I'd like to be. The
 theorem shows the strip machine has the other two properties and forgets nothing. The sentence
 ``and this machine is infinite'' is a second theorem, \code{nec\_f\_history\_infinite}
@@ -4449,6 +4484,15 @@ toll still charges the known-state stamp one mark, because the toll is a rule ab
 \emph{move}, and the move doesn't know what the observer knows. That's the worst-case gap from
 door three showing up again, and it's the price of having a rule a machine can follow
 without asking who's watching.
+
+The physics of all this has a standard review, the physicists Juan Parrondo, Jordan Horowitz and
+Takahiro Sagawa's ``Thermodynamics of information'' (2015), which sets Landauer's bound, its
+generalized form and the costs of measurement and feedback side by side. And the gap between a
+device and the spread it runs on has a physicist's number on it. Artemy Kolchinsky and David
+Wolpert (2017) showed that a fixed process built to dissipate as little as possible for one spread
+over its states pays extra when it runs on another, and the extra is how much closer the process
+brings the two spreads, measured in relative entropy; the extra was later named mismatch cost.
+That's the worst-case gap again, priced for an actual spread, where the toll prices the move.
 
 There's a second piece of fine print on that theorem, and it's about who works the controls.
 The generalized principle can charge a known state nothing because it lets the step be driven by
@@ -5475,6 +5519,14 @@ minimization in the same functorial terms in 2020. Their machines can have any o
 which is the honest point: the fold and the descent condition never use the record, so the toll
 is doing nothing here, just as I said.
 
+The nearest classical parallel to ``only one honest count'' is in thermodynamics. The mathematical
+physicists Elliott Lieb and Jakob Yngvason showed in 1999 that once you fix which states of a
+system can be reached from which by adiabatic processes, and that relation meets a short list of
+axioms, there is an entropy, a function that goes up exactly along the relation, and it is unique
+once its zero and its unit are chosen. Their uniqueness, like this one, comes after the fixing:
+the order is the input there, the price list is the input here, and in both the count is forced by
+it.
+
 \subsection{The toll is an old trick with a new name}
 
 Now a thing I first took as a let-down. It would be nice to have a new kind of
@@ -5542,7 +5594,11 @@ Functional Programming}, 2022). The grade is Shin-ya Katsumata's: a computation 
 as a grade, and the grades compose as the computations do (``Parametric effect monads and
 semantics of effect systems,'' POPL 2014). Dominic Orchard, Vilem Liepelt and Harley Eades put grades into the
 types of a working language (``Quantitative program reasoning with graded modal types,'' ICFP
-2019). Read against them, the counter is a grade carried in the state by the step rule. No type
+2019). And the potential method went into types before any of those: the computer scientists
+Martin Hofmann and Steffen Jost (POPL 2003) gave a type system that attaches potential to data and
+predicts, before a first-order functional program runs, how much heap it can use, which is where
+type-based amortized analysis begins; the multivariate work of Jan Hoffmann, Klaus Aehlig and
+Hofmann (2011) carried it further. Read against them, the counter is a grade carried in the state by the step rule. No type
 carries it. And what does that difference even mean? A cost that lives in a type gets checked
 before the program runs, by whoever checks the types; a cost that lives in the state gets
 written during the run, by the step itself. Same number, different moment of truth.
@@ -5873,6 +5929,20 @@ that followed gave users \emph{views}, deliberately partial windows onto the sto
 decade after Codd, in 1981, two database researchers, Fran\c{c}ois Bancilhon and Nicolas Spyratos, gave the view-update problem an exact semantics. The problem is this: if a user changes what they
 see through a view, which of the many underlying states that cast that view should the
 database move to? Several are legitimate. The fibre, from the writing side.
+
+Two more fields have the fact as a founding definition. In the theory of knowledge, what an agent
+knows is modelled by a partition of the possible states into cells, the states it can't tell
+apart, and it knows a fact at a state exactly when the fact holds at every state in that state's
+cell. The economist and game theorist Robert Aumann used that model in 1976 to prove that two
+people who start from the same prior, and whose estimates of an event's chance are common
+knowledge, can't agree to disagree; the computer scientists Ronald Fagin, Joseph Halpern, Yoram
+Moses and Moshe Vardi built a whole logic of knowledge on the same partitions in \emph{Reasoning
+About Knowledge} (1995). Theorem~\ref{thm:fibre} is that model with the cells written as fibres: a
+window knows the answer to a question exactly when the question is constant on its cell. And in
+computer security, the computer scientists Joseph Goguen and Jos\'e Meseguer defined
+\emph{noninterference} in 1982: one group of users doesn't interfere with another when nothing the
+first group does changes what the second can see. A window that can't see the counter is the
+counter not interfering with the window's view, and the clerk below is what that costs.
 
 And Parnas, from Section~\ref{sec:structure}, hid things on purpose: a module is characterised by the design decision
 it \emph{hides} from its callers. Hiding is a window. The caller can't later read back what was
@@ -7385,7 +7455,10 @@ honest extension when five things hold. One: the record's next value depends onl
 base's current state and the record's current value. (I'll call this \emph{driven by the computation}. It says the record answers to what the machine is doing. A clock on the
 wall or someone's hand doesn't get a say.) Two: the ledger never goes down (Section~\ref{sec:counter}). Three: the step that turns the
 record on costs at least one; that's the toll (Section~\ref{sec:toll}). Four: once on, the record stays on;
-that's permanence (Section~\ref{sec:a2-not-arbitrary}). Five: some run from a start state actually reaches a step that
+that's permanence (Section~\ref{sec:a2-not-arbitrary}). Distributed-systems people have a name for a predicate like that. The
+computer scientists K. Mani Chandy and Leslie Lamport, in their 1985 paper on taking a consistent
+snapshot of a distributed system, called a property \emph{stable} when once it holds it holds
+forever after, and stable properties are the ones a snapshot can be trusted to detect. Five: some run from a start state actually reaches a step that
 turns the record on; otherwise the record is decoration.
 
 Here are the words exactly. On/off is true/false, $\lor$ is ``or'' (on when either side is
@@ -7459,6 +7532,19 @@ Checked as \code{record\_axis\_is\_latch\_holds} (StructuralRecordAxis.v), with 
 \code{latch\_factorization} (StructuralCoreAnyBase.v), and the clauses (R2) to (R5) as
 \code{ledger\_carried}, \code{rc\_a2} (StructuralCore.v), \code{record\_permanent} and \code{reachable\_record\_write}
 (StructuralCoreCover.v).
+
+The latch's nearest neighbours are in verification, and they're old. The computer scientists
+Mart\'in Abadi and Leslie Lamport, then at Digital's research lab in Palo Alto, added
+\emph{history variables} to specifications in 1991: extra state that records what has happened and
+never steers the system, used to prove that one specification implements another. A history
+variable that only ever turns on is the cup. Temporal logic has the same record as an operator.
+In the past-time temporal logic that Orna Lichtenstein, Amir Pnueli and Lenore Zuck set out in
+1985, ``once $h$'' holds now exactly when $h$ has held at some point so far, and a runtime monitor
+keeps it in one bit with the update $r' = r \lor h$. Klaus Havelund and Grigore Ro\c{s}u, two
+computer scientists working on runtime verification, synthesized monitors of exactly that kind for
+safety properties written in that logic in 2002. That update is the latch of
+Definition~\ref{def:u11-honest}, word for word. What the observation adds is the other direction:
+a record driven by the computation that never comes down can't be anything else.
 
 One thing about that proof deserves a second look, because it cuts both ways. It never asks what
 the base is. The cover decides that: whatever the map sends down is base, and the record's rule is
@@ -9119,6 +9205,16 @@ Checked as \code{second\_recursion}, \code{L\_recursion\_theorem}, \code{L\_rice
 (LRecursion.v), with the quoting term's specification \code{Q\_spec} and the substrate-shaped form \code{L\_structural\_shortcut\_undecidable} (no decider whose flip L can
 compute says true exactly when the property holds) in the same file. The file uses only Coq's standard library.
 
+The construction in that proof isn't mine, and the credit belongs right here. Forster and Smolka's
+L development of 2017 has the Scott encoding of terms, a closed quoting term with exactly this
+specification, the code of a term to the code of its code, and a fixed point built the same way:
+their $t$ is $C\,\ulcorner C \urcorner$ with $C = \lambda x.\, s\,(A\,x\,(Q\,x))$, so their $C$ is
+my $A$, and their $A$, which builds the code of an application, is my $\mathrm{mkapp}$. They say they
+follow the proof in the Dutch logician Henk Barendregt's textbook on the lambda calculus (1984),
+where statement (1) is the full lambda calculus's second fixed-point theorem, and part (2) is what
+they call Scott's theorem. My file rebuilds L and reproves all of it on the standard library alone;
+the route is theirs, and Barendregt's before them.
+
 That's the wall on paper, on a family built to fit it, and on one outside model, closed under the global
 context. The machine built in Part IV fills in this same shape, closed the same way: on
 its host machine, the one the universal program runs on, which has a counter for every whole number,
@@ -9692,6 +9788,12 @@ only the few hashes sitting beside the climb from that leaf to the root, the \em
 redo the climb yourself. A second check, \emph{consistency}, shows that a bigger tree is a smaller
 one with leaves added on the end and nothing rewritten. The record is a leaf in the tree.
 
+The data structure has a history of its own in security. The computer scientists Scott Crosby and
+Dan Wallach, at Rice University, built tamper-evident logs on the same kind of tree in 2009, with
+a proof that an entry is in the log and a proof that a later version of the log extends an earlier
+one, each a logarithmic number of hashes; a logger that rewrites its past gets caught by the
+second.
+
 Priced? Nothing. The RFC says it in its first section: logs let interested parties \emph{detect} misissuance
 afterward. They don't \emph{prevent} it. And a log that shows different views to
 different people (a \emph{split view}) can defeat the auditing, so logs are still trusted parties.
@@ -10106,9 +10208,10 @@ Two pointers on the same $R$ agree on every state of $R$, so the pointer is uniq
 of rivals (\code{pointer\_on\_unique}). And the definition of independence has a consequence I
 didn't put in on purpose.
 
-\begin{theorem}[Independent copies of an event on every state make it constant]\label{thm:u14-independent-constant}
+\begin{theorem}[Independent copies on every state: the event is equivalent at any two states]\label{thm:u14-independent-constant}
 In any ecosystem with reliance whose carriers are independent and which has at least two observers,
-an event copied on the set of all states holds at every state or at none.
+an event copied on the set of all states holds at one state exactly when it holds at any other,
+so it holds at every state or at none.
 \end{theorem}
 
 \begin{proof}
@@ -11331,6 +11434,15 @@ a proof about a checker, or verify a restricted part of itself.
 Soundness rules out a lying checker. It doesn't rule out a pointless question: \emph{at least 0}
 has a perfectly sound checker and an empty no pile, as the worked run showed.
 
+Program checking has a theory of its own, and its founding paper asks for a checker that could
+have said no. The computer scientists Manuel Blum and Sampath Kannan (1989; journal version 1995)
+defined a checker for a computational problem: given a program and an input, it may run the
+program as it likes, and it must say ``correct'' with high probability when the program is right
+everywhere and ``buggy'' with high probability when its answer on that input is wrong. A checker
+that always says ``correct'' isn't one. Here the checker is fixed, deterministic and proved sound
+once, and the part of their demand that survives is the fourth clause of Thiele-complete in
+Section~\ref{sec:smallest}: some claim whose check can fail.
+
 \subsection{Nothing gets forged}
 
 The proof of Theorem~\ref{thm:u34-commit-earned} leaned on an invariant I promised to show you.
@@ -11365,6 +11477,16 @@ no forgery, and the step carries it along any trace.
 \end{proof}
 
 Checked as \code{facts\_step}, \code{no\_forging\_step} and \code{no\_forging} (EarnedCore.v).
+
+The closest earlier result is in capability hardware, and it's much bigger. The computer
+scientists Jack Dennis and Earl Van Horn, at MIT, introduced \emph{capabilities} in 1966: tokens a
+process has to hold to touch an object, which it can pass on and can't forge. CHERI, a
+capability extension of real instruction sets built at the University of Cambridge and SRI
+International, rests on that idea, and in 2020 Kyndylan Nienhuis and twelve coauthors proved in the
+proof checker Isabelle/HOL, for the whole CHERI-MIPS instruction set, that arbitrary code given
+some capabilities can't increase them as it runs (up to any change of protection domain). That's
+nothing gets forged across a full instruction set. Theorem~\ref{thm:u34-no-forging} is the same
+shape, one instruction at a time, for six instruction kinds and a table of checked facts.
 
 \subsection{A full table traps}
 
@@ -11881,7 +12003,10 @@ proofs check that what runs is what the page says.
 small machine's prices: INC, DEC, HALT for free, and CHECK, COMMIT, CERTIFY for one each, with the
 same table of sixteen facts, the same channel, trap, ledger and flag. One change: it has a counter for every whole number,
 each with its own version, where the small machine had two. No new kind of
-instruction, no new price.
+instruction, no new price. Take away the table, the channel and the flag and what's left is old: a
+machine with as many registers as it needs, adding one, taking one away and jumping on zero, is
+the unlimited register machine of John Shepherdson and H. E. Sturgis, two logicians who proved in
+1963 that such machines compute every partial recursive function.
 
 \begin{definition}[The host machine]\label{def:u34-multi}
 The \emph{host machine} is the machine of Definition~\ref{def:u34-step} with one change: it has a
@@ -13375,6 +13500,20 @@ function. It fails for the facts. And with plain inputs Kleene fails outright. T
 answer I didn't see coming. The powers of two weren't a convenience. On two bins they're the
 difference between a recursion theorem and none.
 
+That failure has a setting computability theorists know. The mathematician Hartley Rogers, in his
+1967 textbook, calls a numbering of the computable functions \emph{acceptable} when every other
+numbering can be translated into it by a computable map, and in every acceptable numbering
+Kleene's theorem holds. Read on plain inputs, the two-bin programs number something smaller than
+all the computable functions, since none of them computes $2^n$ from $n$ (Schroeppel's theorem,
+Section~\ref{sec:smallest}), so they fall outside Rogers's
+class, and his route to the theorem isn't open there. The computer scientists James Royer and John
+Case (1994) studied that territory: programming systems for classes of functions smaller than all
+the computable ones, which can't be acceptable, and what can still be programmed and proved in
+them. And the logician and puzzle
+writer Raymond Smullyan's two books on recursion theory and self-reference (1993, 1994) take the
+fixed-point theorems apart axiomatically, so you can see which property of a numbering each one
+leans on. The plain-input failure is a small, checked instance on the map they drew.
+
 \subsection{What the universal machine covers, and what it doesn't}
 
 Here's what that covers, said plainly, a sentence at a time. The guests of $U$ are this
@@ -14585,6 +14724,14 @@ scientists at Grenoble (2023), and in Lean's mathlib, and
 Navascués, Pironio and Acín already analyse this very matrix by Schur complement and discuss
 the level above it. What I think is mine here is smaller: an integer decision procedure on
 the counts, and a checked link from ``the check passed'' to PSD to the bound.
+
+The picture under the check is older still. Tsirelson showed, in a longer paper of 1987 after his
+1980 note, that the correlations two separated quantum parties can reach are exactly
+the tables of inner products of unit vectors, one vector for each question on each side. With the
+marginals pinned to zero the pinned matrix is that picture, and by its Schur complement it is PSD
+exactly when the two-by-two table of correlators, read as a matrix, has operator norm at most one.
+The physicists Reinhard Werner and Michael Wolf's survey of Bell inequalities (2001) sets out that
+correlation-matrix view for two-party inequalities in general.
 
 \subsection{The check, earned on the host machine}
 
@@ -16037,7 +16184,7 @@ The proof-carrying checker is the verification condition & proved & Section~\ref
 A transcription is the real system & not claimed & Section~\ref{sec:models} \\
 A toll is a better design than a wall & not claimed & Section~\ref{sec:models} \\
 Ecosystem, proliferation, pointer; copied and relied on, independent carriers; observation game & definition & Section~\ref{sec:pointer}, Definition~\ref{def:u14-ecosystem}, Definition~\ref{def:u14-reliance}, Definition~\ref{def:u14-game} \\
-Independent copies of an event on every state make it constant & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-independent-constant} \\
+Independent copies on every state: the event is equivalent at any two states & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-independent-constant} \\
 In a replicated header, gas used is copied as finality is, and only finality is relied on & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-ledger} \\
 Certification is the event whose records are copied and relied on by parties who didn't produce them & thesis & Section~\ref{sec:pointer}, Thesis~\ref{conj:u14-pointer} \\
 In the toy, ``certified'' is the unique pointer & proved & Section~\ref{sec:pointer}, Theorem~\ref{thm:u14-toy} \\
@@ -17108,7 +17255,7 @@ in principle, be thousands of careful ways of agreeing with Tarjan.
 Known: the potential method of amortized analysis, a function on states whose drop bounds
 the cost of a run, is Tarjan's (1985), and it has been mechanized more than once (Nipkow in
 Isabelle/HOL, 2015 and 2019; Charguéraud and Pottier's time credits in Coq, 2019), built
-into type systems for automatic resource analysis (Hoffmann and coauthors, 2011 onward), and
+into type systems for automatic resource analysis (from Hofmann and Jost, 2003, and Hoffmann and coauthors, 2011, onward), and
 recast in cost-aware type theories (Niu, Sterling, Grodin and Harper, 2022). Mine: choosing
 the potential that is one when a designated reading says no and zero when it says yes, so
 that ``the crossing costs'' (the toll) and ``every run that crosses paid'' (the floor) are the
@@ -17375,7 +17522,10 @@ counter included (\code{sorted\_run\_certifies\_iff} and \code{sorted\_run\_refu
 the library's machine, so halting is undecidable for it (Section~\ref{sec:smallest}).
 Kind: an instance of monitor enforcement, implemented and mechanized, with two things on top
 that I didn't find put together where I looked: the check is bound to the edition of the thing
-it checked, and a toll is paid for the commitment. The universality and the
+it checked, and a toll is paid for the commitment. The first of those alone is old: checking at
+commit time that nothing you read has changed since is optimistic concurrency control (Kung and
+Robinson, 1981), and each counter's version is its version number. What I didn't find is that
+check put together with a toll. The universality and the
 undecidability are borrowed, and the other properties are short consequences of the step
 rule. Whether the design is new I can't say, and I make no claim beyond the proofs.
 
@@ -17623,7 +17773,7 @@ Definition \ref{def:u13-pcc}: The bounds fragment & \S\ref{sec:models} & stated 
 Theorem \ref{thm:u13-pcc}: The checker is the verification condition & \S\ref{sec:models} & \code{pcc\_checker\_accepts\_iff\_vc} {\footnotesize(\code{NeculaPCC.v})}\newline \code{pcc\_certificate\_implies\_vc} {\footnotesize(\code{NeculaPCC.v})}\newline \code{pcc\_unsafe\_program\_rejected} {\footnotesize(\code{NeculaPCC.v})} & none\newline none\newline none \\
 Definition \ref{def:u14-ecosystem}: Ecosystem, records, proliferates, pointer & \S\ref{sec:pointer} & stated in the text &  \\
 Definition \ref{def:u14-reliance}: Copied and relied on, independent carriers, the pointer & \S\ref{sec:pointer} & \code{copied\_and\_relied\_on} {\footnotesize(\code{PointerObservable.v})}\newline \code{pointer\_on} {\footnotesize(\code{PointerObservable.v})}\newline \code{independent\_carriers} {\footnotesize(\code{PointerObservable.v})}\newline \code{meterable} {\footnotesize(\code{PointerObservable.v})}\newline \code{pointer\_on\_unique} {\footnotesize(\code{PointerObservable.v})} & def\newline def\newline def\newline def\newline none \\
-Theorem \ref{thm:u14-independent-constant}: Independent copies of an event on every state make it constant & \S\ref{sec:pointer} & \code{independent\_copies\_everywhere\_are\_constant} {\footnotesize(\code{PointerObservable.v})} & none \\
+Theorem \ref{thm:u14-independent-constant}: Independent copies on every state: the event is equivalent at any two states & \S\ref{sec:pointer} & \code{independent\_copies\_everywhere\_are\_constant} {\footnotesize(\code{PointerObservable.v})} & none \\
 Theorem \ref{thm:u14-ledger}: A replicated header: copying doesn't separate, reliance does & \S\ref{sec:pointer} & \code{ledger\_carriers\_independent} {\footnotesize(\code{PointerObservable.v})}\newline \code{ledger\_copying\_alone\_does\_not\_separate} {\footnotesize(\code{PointerObservable.v})}\newline \code{ledger\_finalized\_is\_pointer} {\footnotesize(\code{PointerObservable.v})}\newline \code{ledger\_gas\_not\_relied\_on} {\footnotesize(\code{PointerObservable.v})} & none\newline none\newline none\newline none \\
 Thesis \ref{conj:u14-pointer}: The pointer thesis & \S\ref{sec:pointer} & a thesis, stated and not claimed; its schema is \code{pointer\_thesis\_schema} {\footnotesize(\code{PointerObservable.v})} & def \\
 Theorem \ref{thm:u14-toy}: The toy & \S\ref{sec:pointer} & \code{toy\_cert\_unique\_pointer} {\footnotesize(\code{PointerObservable.v})}\newline \code{toy\_work\_not\_proliferating} {\footnotesize(\code{PointerObservable.v})} & none\newline none \\
@@ -19629,6 +19779,13 @@ and returns the code of that code. Here is its construction. Nothing in the oper
 lets a program inspect itself by magic: its input is an ordinary tree encoded as a
 closed lambda term.
 
+The construction follows Forster and Smolka (2017), whose Coq development of L has the same
+three syntax builders on Scott-encoded children, an auxiliary procedure for numerals, and a quote
+procedure $Q$ with the same specification, defined by the same recursion on codes; the
+self-application that uses $Q$ in Section~\ref{sec:diagonal} is their fixed-point lemma, after
+Barendregt's (1984) proof for the full lambda calculus. What follows is my rebuilding of it, with
+every step checked on the standard library.
+
 \subsection{Numerals and syntax as data}
 
 For readability, the formulas below give names to bound variables. Renaming a bound
@@ -20199,6 +20356,33 @@ this book's pointer thesis.
 \par\medskip
 
 \noindent The Galileo Project. Galileo Galilei. Rice University. \href{http://galileo.rice.edu/bio/index.html}{Biography}.
+\par\medskip
+
+\noindent Paul Benacerraf (1965). What numbers could not be. The Philosophical Review 74(1), pp. 47--73. \href{https://doi.org/10.2307/2183530}{DOI: 10.2307/2183530}. Structuralism, Section~\ref{sec:structure}.
+\par\medskip
+
+\noindent Geoffrey Hellman (1989). Mathematics without Numbers: Towards a Modal-Structural Interpretation. Oxford: Clarendon Press. \href{https://doi.org/10.1093/0198240341.001.0001}{DOI: 10.1093/0198240341.001.0001}.
+\par\medskip
+
+\noindent Steve Awodey (1996). Structure in mathematics and logic: a categorical perspective. Philosophia Mathematica 4(3), pp. 209--237. \href{https://doi.org/10.1093/philmat/4.3.209}{DOI: 10.1093/philmat/4.3.209}.
+\par\medskip
+
+\noindent Michael D. Resnik (1997). Mathematics as a Science of Patterns. Oxford: Clarendon Press. \href{https://doi.org/10.1093/0198250142.001.0001}{DOI: 10.1093/0198250142.001.0001}.
+\par\medskip
+
+\noindent Stewart Shapiro (1997). Philosophy of Mathematics: Structure and Ontology. New York: Oxford University Press.
+\par\medskip
+
+\noindent James Ladyman (1998). What is structural realism? Studies in History and Philosophy of Science Part A 29(3), pp. 409--424. \href{https://doi.org/10.1016/S0039-3681(98)80129-5}{DOI: 10.1016/S0039-3681(98)80129-5}.
+\par\medskip
+
+\noindent Alfred Tarski (1986). What are logical notions? Edited by John Corcoran. History and Philosophy of Logic 7(2), pp. 143--154. \href{https://doi.org/10.1080/01445348608837096}{DOI: 10.1080/01445348608837096}. From a lecture given at Bedford College, University of London, on 16 May 1966; Klein's Erlangen program is its starting point.
+\par\medskip
+
+\noindent Robert J. Aumann (1976). Agreeing to disagree. The Annals of Statistics 4(6). \href{https://doi.org/10.1214/aos/1176343654}{DOI: 10.1214/aos/1176343654}. The partition model of knowledge, Section~\ref{sec:windows}.
+\par\medskip
+
+\noindent Joseph A. Goguen and Jos\'e Meseguer (1982). Security policies and security models. Proceedings of the 1982 IEEE Symposium on Security and Privacy, pp. 11--20. \href{https://doi.org/10.1109/SP.1982.10014}{DOI: 10.1109/SP.1982.10014}. Noninterference.
 \par\medskip
 
 \subsection{Cost, records and thermodynamics}
@@ -20858,6 +21042,33 @@ this book's pointer thesis.
 \par\medskip
 
 \noindent History of Information. Eccles and Jordan invent the flip-flop circuit, the basis for electronic memory. \href{https://www.historyofinformation.com/detail.php?id=3606}{Entry}; and Flip-flop (electronics), Wikipedia, \href{https://en.wikipedia.org/wiki/Flip-flop_(electronics)}{Article}: the Eccles--Jordan trigger circuit as the first electronic latch, later the basic storage element of digital circuitry.
+\par\medskip
+
+\noindent Martin Hofmann and Steffen Jost (2003). Static prediction of heap space usage for first-order functional programs. Proceedings of the 30th ACM Symposium on Principles of Programming Languages (POPL 2003), pp. 185--197. \href{https://doi.org/10.1145/604131.604148}{DOI: 10.1145/604131.604148}. The start of type-based amortized analysis.
+\par\medskip
+
+\noindent Elliott H. Lieb and Jakob Yngvason (1999). The physics and mathematics of the second law of thermodynamics. Physics Reports 310(1), pp. 1--96. \href{https://doi.org/10.1016/S0370-1573(98)00082-9}{DOI: 10.1016/S0370-1573(98)00082-9}.
+\par\medskip
+
+\noindent Yves Lecerf (1963). Machines de Turing réversibles. Récursive insolubilité en $n \in \mathbb{N}$ de l'équation $u = \theta^n u$, où $\theta$ est un ``isomorphisme de codes.'' Comptes Rendus de l'Académie des Sciences de Paris 257, pp. 2597--2600.
+\par\medskip
+
+\noindent Tommaso Toffoli (1980). Reversible computing. Automata, Languages and Programming (ICALP 1980), Lecture Notes in Computer Science, pp. 632--644. \href{https://doi.org/10.1007/3-540-10003-2_104}{DOI: 10.1007/3-540-10003-2\_104}.
+\par\medskip
+
+\noindent Edward Fredkin and Tommaso Toffoli (1982). Conservative logic. International Journal of Theoretical Physics 21(3--4), pp. 219--253. \href{https://doi.org/10.1007/BF01857727}{DOI: 10.1007/BF01857727}.
+\par\medskip
+
+\noindent Kenichi Morita (1996). Universality of a reversible two-counter machine. Theoretical Computer Science 168(2), pp. 303--320. \href{https://doi.org/10.1016/S0304-3975(96)00081-3}{DOI: 10.1016/S0304-3975(96)00081-3}.
+\par\medskip
+
+\noindent Juan M. R. Parrondo, Jordan M. Horowitz and Takahiro Sagawa (2015). Thermodynamics of information. Nature Physics 11(2), pp. 131--139. \href{https://doi.org/10.1038/nphys3230}{DOI: 10.1038/nphys3230}.
+\par\medskip
+
+\noindent Artemy Kolchinsky and David H. Wolpert (2017). Dependence of dissipation on the initial distribution over states. Journal of Statistical Mechanics: Theory and Experiment 2017, 083202. \href{https://doi.org/10.1088/1742-5468/aa7ee1}{DOI: 10.1088/1742-5468/aa7ee1}.
+\par\medskip
+
+\noindent Scott A. Crosby and Dan S. Wallach (2009). Efficient data structures for tamper-evident logging. Proceedings of the 18th USENIX Security Symposium, Montreal. \href{https://www.usenix.org/conference/usenixsecurity09/technical-sessions/presentation/efficient-data-structures-tamper-evident}{Conference page}.
 \par\medskip
 
 \subsection{Computation, self-reference and checking}
@@ -21533,6 +21744,42 @@ this book's pointer thesis.
 \noindent Clay Mathematics Institute (n.d.). The Poincaré Conjecture. \href{https://www.claymath.org/millennium/poincare-conjecture/}{Web page}. Perelman's preprints of 2002 and 2003, and the prize of 2010.
 \par\medskip
 
+\noindent J. C. Shepherdson and H. E. Sturgis (1963). Computability of recursive functions. Journal of the ACM 10(2), pp. 217--255. \href{https://doi.org/10.1145/321160.321170}{DOI: 10.1145/321160.321170}. The unlimited register machine.
+\par\medskip
+
+\noindent Jack B. Dennis and Earl C. Van Horn (1966). Programming semantics for multiprogrammed computations. Communications of the ACM 9(3), pp. 143--155. \href{https://doi.org/10.1145/365230.365252}{DOI: 10.1145/365230.365252}. Capabilities.
+\par\medskip
+
+\noindent Hartley Rogers, Jr. (1967). Theory of Recursive Functions and Effective Computability. New York: McGraw-Hill. Acceptable numberings and the recursion theorem.
+\par\medskip
+
+\noindent Henk Barendregt (1984). The Lambda Calculus: Its Syntax and Semantics. Revised edition. Studies in Logic and the Foundations of Mathematics 103. Amsterdam: North-Holland. The second fixed-point theorem.
+\par\medskip
+
+\noindent K. Mani Chandy and Leslie Lamport (1985). Distributed snapshots: determining global states of distributed systems. ACM Transactions on Computer Systems 3(1), pp. 63--75. \href{https://doi.org/10.1145/214451.214456}{DOI: 10.1145/214451.214456}. Stable properties.
+\par\medskip
+
+\noindent Orna Lichtenstein, Amir Pnueli and Lenore Zuck (1985). The glory of the past. Logics of Programs, Lecture Notes in Computer Science, pp. 196--218. \href{https://doi.org/10.1007/3-540-15648-8_16}{DOI: 10.1007/3-540-15648-8\_16}. Past-time temporal logic.
+\par\medskip
+
+\noindent Manuel Blum and Sampath Kannan (1989). Designing programs that check their work. Proceedings of the 21st Annual ACM Symposium on Theory of Computing (STOC '89), pp. 86--97. \href{https://doi.org/10.1145/73007.73015}{DOI: 10.1145/73007.73015}. Journal version: Journal of the ACM 42(1), 1995, pp. 269--291, \href{https://doi.org/10.1145/200836.200880}{DOI: 10.1145/200836.200880}.
+\par\medskip
+
+\noindent Raymond M. Smullyan (1993). Recursion Theory for Metamathematics. New York: Oxford University Press. \href{https://doi.org/10.1093/oso/9780195082326.001.0001}{DOI: 10.1093/oso/9780195082326.001.0001}.
+\par\medskip
+
+\noindent Raymond M. Smullyan (1994). Diagonalization and Self-Reference. Oxford: Clarendon Press. \href{https://doi.org/10.1093/oso/9780198534501.001.0001}{DOI: 10.1093/oso/9780198534501.001.0001}.
+\par\medskip
+
+\noindent James S. Royer and John Case (1994). Subrecursive Programming Systems. Boston: Birkhäuser. \href{https://doi.org/10.1007/978-1-4612-0249-3}{DOI: 10.1007/978-1-4612-0249-3}.
+\par\medskip
+
+\noindent Klaus Havelund and Grigore Ro\c{s}u (2002). Synthesizing monitors for safety properties. Tools and Algorithms for the Construction and Analysis of Systems (TACAS 2002), Lecture Notes in Computer Science 2280, pp. 342--356. \href{https://doi.org/10.1007/3-540-46002-0_24}{DOI: 10.1007/3-540-46002-0\_24}.
+\par\medskip
+
+\noindent Kyndylan Nienhuis, Alexandre Joannou, Thomas Bauereiss, Anthony Fox, Michael Roe, Brian Campbell, Matthew Naylor, Robert M. Norton, Simon W. Moore, Peter G. Neumann, Ian Stark, Robert N. M. Watson and Peter Sewell (2020). Rigorous engineering for hardware security: formal modelling and proof in the CHERI design and implementation process. 2020 IEEE Symposium on Security and Privacy, pp. 1003--1020. \href{https://doi.org/10.1109/SP40000.2020.00055}{DOI: 10.1109/SP40000.2020.00055}. Technical report version: University of Cambridge UCAM-CL-TR-940, which states the reachable-capability monotonicity property.
+\par\medskip
+
 \subsection{Correlations and environmental records}
 
 \noindent Stephanie Wehner (2006). Tsirelson bounds for generalized Clauser-Horne-Shimony-Holt inequalities. Physical Review A 73, 022110. \href{https://arxiv.org/abs/quant-ph/0510076v2}{arXiv: quant-ph/0510076v2; DOI: 10.1103/PhysRevA.73.022110}.
@@ -21575,6 +21822,12 @@ this book's pointer thesis.
 \par\medskip
 
 \noindent Boris S. Cirel'son (Tsirelson) (1980). Quantum generalizations of Bell's inequality. Letters in Mathematical Physics 4, pp. 93--100. \href{https://doi.org/10.1007/BF00417500}{DOI: 10.1007/BF00417500}.
+\par\medskip
+
+\noindent B. S. Tsirel'son (1987). Quantum analogues of the Bell inequalities. The case of two spatially separated domains. Journal of Soviet Mathematics 36(4), pp. 557--570. \href{https://doi.org/10.1007/BF01663472}{DOI: 10.1007/BF01663472}.
+\par\medskip
+
+\noindent Reinhard F. Werner and Michael M. Wolf (2001). Bell inequalities and entanglement. Quantum Information and Computation 1(3), pp. 1--25. \href{https://doi.org/10.26421/QIC1.3-1}{DOI: 10.26421/QIC1.3-1}.
 \par\medskip
 
 \noindent Arthur Fine (1982). Hidden Variables, Joint Probability, and the Bell Inequalities. Physical Review Letters 48, pp. 291--295. \href{https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.48.291}{DOI: 10.1103/PhysRevLett.48.291}.
