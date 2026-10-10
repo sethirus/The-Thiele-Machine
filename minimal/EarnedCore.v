@@ -851,6 +851,46 @@ Proof.
   split; [exact Hv | exact Hun].
 Qed.
 
+(** The same chain, with the certified claim named. CERTIFY takes no operand,
+    so the statement above could leave open which commitment the CERTIFY
+    stood on. It is the COMMIT of the chain: when CERTIFY passes, the channel
+    holds exactly the claim that COMMIT made, about [c] at the version the
+    CHECK saw. *)
+Theorem earned_certification_same_claim : forall s0 tr,
+  clean_start s0 -> cert (run tr s0) = true ->
+  exists pre1 p c mid1 mid2 post,
+    tr = pre1 ++ CHECK p c :: mid1 ++ COMMIT p c :: mid2 ++ CERTIFY :: post /\
+    check_ok (core_of (run pre1 s0)) p c = true /\
+    commit_ok (core_of (run (pre1 ++ CHECK p c :: mid1) s0)) p c = true /\
+    certify_ok (core_of (run (pre1 ++ CHECK p c :: mid1 ++ COMMIT p c :: mid2) s0))
+      = true /\
+    chan (core_of (run (pre1 ++ CHECK p c :: mid1 ++ COMMIT p c :: mid2) s0))
+      = Some (claim (core_of (run (pre1 ++ CHECK p c :: mid1) s0)) p c) /\
+    claim (core_of (run (pre1 ++ CHECK p c :: mid1) s0)) p c
+      = mkfact p c (ver (core_of (run pre1 s0)) c) /\
+    ver (core_of (run pre1 s0)) c = ver (core_of (run (pre1 ++ CHECK p c :: mid1) s0)) c /\
+    untouched (run (pre1 ++ [CHECK p c]) s0) mid1 c.
+Proof.
+  intros s0 tr H0 H1. pose proof H0 as [_ [Hch Hc0]].
+  destruct (cert_first s0 tr Hc0 H1) as [pre [post [-> [_ Hok]]]].
+  pose proof Hok as Hset. unfold certify_ok in Hset.
+  apply andb_true_iff in Hset as [_ Hset].
+  destruct (chan (core_of (run pre s0))) as [f |] eqn:Hf; [| discriminate].
+  destruct (chan_origin s0 pre f Hch Hf) as [preC [p [c [mid2 [-> [Hcm Hfc]]]]]].
+  destruct (earned_commitment_provenance s0 preC p c H0 Hcm)
+    as [pre1 [mid1 [-> [Hck [_ [_ [Hv Hun]]]]]]].
+  exists pre1, p, c, mid1, mid2, post.
+  assert (Heq : (pre1 ++ CHECK p c :: mid1) ++ COMMIT p c :: mid2
+                = pre1 ++ CHECK p c :: mid1 ++ COMMIT p c :: mid2)
+    by (rewrite <- app_assoc; reflexivity).
+  rewrite Heq in Hok, Hf.
+  split; [rewrite Heq, <- app_assoc; simpl; rewrite <- app_assoc; reflexivity |].
+  split; [exact Hck |]. split; [exact Hcm |]. split; [exact Hok |].
+  split; [rewrite Hf, Hfc; reflexivity |].
+  split; [unfold claim; rewrite <- Hv; reflexivity |].
+  split; [exact Hv | exact Hun].
+Qed.
+
 (* ================================================================= *)
 (* 7. The price of an earned certificate.                             *)
 (* ================================================================= *)
@@ -1042,6 +1082,7 @@ Print Assumptions no_forging_step.
 Print Assumptions no_forging.
 Print Assumptions earned_commitment_provenance.
 Print Assumptions earned_certification_provenance.
+Print Assumptions earned_certification_same_claim.
 Print Assumptions certified_run_min_cost.
 Print Assumptions program_certified_min_cost.
 Print Assumptions min_cost_tight.

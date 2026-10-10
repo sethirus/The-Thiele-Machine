@@ -122,7 +122,7 @@ def test_durable_boundary_and_calorimeter_theorems_exist():
     calorimeter = (KERNEL / "thermodynamic/CalorimeterProtocol.v").read_text(encoding="utf-8")
     for name in ("canonical_reset_satisfies_master_equation", "canonical_reset_heat_exact",
                  "selected_gap_gives_landauer_heat",
-                 "smaller_gap_refutes_unconditional_landauer_floor",
+                 "canonical_reset_heat_below_landauer_at_small_gap",
                  "master_equation_does_not_fix_heat_scale"):
         assert f"Theorem {name}" in calorimeter
         assert f"Print Assumptions {name}." in calorimeter

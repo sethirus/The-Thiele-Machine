@@ -1,4 +1,4 @@
-DIGEST 18b5115a5319808a2d91dcbefeedc634
+DIGEST f6e87baef46cfab0fbefed01e48a9c65
 FKernel.UniversalPRun
 R3522:3525 Coq.Lists.List <> <> lib
 R3527:3531 Coq.Arith.Arith <> <> lib
@@ -3469,14 +3469,128 @@ R41097:41113 Kernel.UniversalPRun <> pu_host_interface def
 R41097:41113 Kernel.UniversalPRun <> pu_host_interface def
 R41122:41149 Kernel.UniversalPRun <> pu_host_thiele_complete_with thm
 R41122:41149 Kernel.UniversalPRun <> pu_host_thiele_complete_with thm
-R41467:41479 Kernel.UniversalPRun <> pu_sim_points thm
-R41500:41514 Kernel.UniversalPRun <> pu_U_simulation thm
-R41535:41547 Kernel.UniversalPRun <> pu_halt_point thm
-R41568:41587 Kernel.UniversalPRun <> pu_universal_halting thm
-R41608:41626 Kernel.UniversalPRun <> pu_universal_output thm
-R41647:41667 Kernel.UniversalPRun <> pu_universal_flag_iff thm
-R41688:41712 Kernel.UniversalPRun <> pu_universal_ledger_exact thm
-R41733:41751 Kernel.UniversalPRun <> pu_universal_earned thm
-R41772:41795 Kernel.UniversalPRun <> pu_U_run_on_host_machine thm
-R41816:41843 Kernel.UniversalPRun <> pu_host_thiele_complete_with thm
-R41864:41891 Kernel.UniversalPRun <> pu_universal_thiele_complete thm
+def 41481:41492 <> pu_claim_eqb
+R41501:41506 Coq.Init.Datatypes <> option ind
+R41517:41519 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R41509:41516 Kernel.UniversalPCodes <> pu_hprop ind
+R41520:41522 Coq.Init.Datatypes <> nat ind
+binder 41495:41495 <> x:208
+binder 41497:41497 <> y:209
+R41528:41531 Coq.Init.Datatypes <> bool ind
+R41547:41547 Kernel.UniversalPRun <> y:209 var
+R41544:41544 Kernel.UniversalPRun <> x:208 var
+R41558:41561 Coq.Init.Datatypes <> Some constr
+R41563:41563 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R41565:41566 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R41568:41568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R41571:41574 Coq.Init.Datatypes <> Some constr
+R41576:41576 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R41578:41579 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R41581:41581 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R41602:41605 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R41586:41597 Kernel.UniversalPCodes <> pu_hprop_eqb def
+R41606:41612 Coq.Arith.PeanoNat Nat eqb def
+R41622:41625 Coq.Init.Datatypes <> None constr
+R41628:41631 Coq.Init.Datatypes <> None constr
+R41636:41639 Coq.Init.Datatypes <> true constr
+R41653:41657 Coq.Init.Datatypes <> false constr
+prf 41673:41689 <> pu_claim_eqb_spec
+binder 41700:41700 <> x:212
+binder 41702:41702 <> y:213
+R41728:41732 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R41721:41723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41705:41716 Kernel.UniversalPRun <> pu_claim_eqb def
+R41718:41718 Kernel.UniversalPRun <> x:212 var
+R41720:41720 Kernel.UniversalPRun <> y:213 var
+R41724:41727 Coq.Init.Datatypes <> true constr
+R41734:41736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41733:41733 Kernel.UniversalPRun <> x:212 var
+R41737:41737 Kernel.UniversalPRun <> y:213 var
+R41849:41858 Coq.Arith.PeanoNat Nat eqb_eq thm
+R41849:41858 Coq.Arith.PeanoNat Nat eqb_eq thm
+R41849:41858 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 41944:41956 <> pu_same_keeps
+binder 41967:41967 <> c:214
+R41976:41981 Kernel.UniversalPRun <> hstate abbrev
+binder 41970:41970 <> s:215
+binder 41972:41972 <> t:216
+R42005:42008 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R41987:41998 Kernel.UniversalPRun <> pu_host_same def
+R42000:42000 Kernel.UniversalPRun <> c:214 var
+R42002:42002 Kernel.UniversalPRun <> s:215 var
+R42004:42004 Kernel.UniversalPRun <> t:216 var
+R42028:42031 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R42009:42023 Kernel.UniversalPRun <> pu_host_meaning def
+R42025:42025 Kernel.UniversalPRun <> c:214 var
+R42027:42027 Kernel.UniversalPRun <> s:215 var
+R42032:42046 Kernel.UniversalPRun <> pu_host_meaning def
+R42048:42048 Kernel.UniversalPRun <> c:214 var
+R42050:42050 Kernel.UniversalPRun <> t:216 var
+def 42194:42209 <> pu_host_language
+R42213:42229 Kernel.UniversalPRun <> claim_language rec
+R42231:42245 Kernel.UniversalPRun <> pu_host_machine def
+R42252:42259 Kernel.UniversalPRun <> mk_cl constr
+R42261:42275 Kernel.UniversalPRun <> pu_host_machine def
+R42278:42283 Coq.Init.Datatypes <> option ind
+R42294:42296 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R42286:42293 Kernel.UniversalPCodes <> pu_hprop ind
+R42297:42299 Coq.Init.Datatypes <> nat ind
+R42303:42314 Kernel.UniversalPRun <> pu_claim_eqb def
+R42316:42332 Kernel.UniversalPRun <> pu_claim_eqb_spec thm
+R42338:42352 Kernel.UniversalPRun <> pu_host_meaning def
+R42354:42365 Kernel.UniversalPRun <> pu_host_same def
+R42367:42379 Kernel.UniversalPRun <> pu_same_keeps thm
+prf 42389:42407 <> pu_host_check_sound
+R42423:42428 Kernel.UniversalPRun <> hstate abbrev
+binder 42419:42419 <> s:217
+binder 42431:42431 <> c:218
+R42460:42463 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R42453:42455 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R42436:42448 Kernel.UniversalPRun <> pu_host_check def
+R42450:42450 Kernel.UniversalPRun <> s:217 var
+R42452:42452 Kernel.UniversalPRun <> c:218 var
+R42456:42459 Coq.Init.Datatypes <> true constr
+R42464:42478 Kernel.UniversalPRun <> pu_host_meaning def
+R42480:42480 Kernel.UniversalPRun <> c:218 var
+R42482:42482 Kernel.UniversalPRun <> s:217 var
+R42555:42567 Kernel.UniversalPBridge M pu_check_ok def
+R42583:42595 Coq.Bool.Bool <> andb_true_iff thm
+R42583:42595 Coq.Bool.Bool <> andb_true_iff thm
+R42618:42630 Coq.Bool.Bool <> andb_true_iff thm
+R42618:42630 Coq.Bool.Bool <> andb_true_iff thm
+R42655:42666 Kernel.UniversalPCodes <> pu_heval_iff thm
+R42655:42666 Kernel.UniversalPCodes <> pu_heval_iff thm
+def 42689:42698 <> pu_host_li
+R42702:42718 Kernel.UniversalPRun <> lang_interface rec
+R42720:42734 Kernel.UniversalPRun <> pu_host_machine def
+R42736:42751 Kernel.UniversalPRun <> pu_host_language def
+R42758:42767 Kernel.UniversalPRun <> mk_lang constr
+R42769:42783 Kernel.UniversalPRun <> pu_host_machine def
+R42785:42800 Kernel.UniversalPRun <> pu_host_language def
+R42802:42813 Kernel.UniversalPRun <> pu_host_base def
+R42815:42826 Kernel.UniversalPRun <> pu_host_kind def
+R42832:42844 Kernel.UniversalPRun <> pu_host_check def
+R42846:42864 Kernel.UniversalPRun <> pu_host_check_sound thm
+R42866:42881 Kernel.UniversalPBridge M pu_clean_start def
+R42885:42888 Kernel.UniversalPBridge M mu proj
+R42890:42897 Kernel.UniversalPCodes <> pu_hprop ind
+prf 42980:43012 <> pu_universal_thiele_complete_over
+R43018:43040 Kernel.UniversalPRun <> thiele_complete_over def
+R43042:43056 Kernel.UniversalPRun <> pu_host_machine def
+R43058:43073 Kernel.UniversalPRun <> pu_host_language def
+R43090:43099 Kernel.UniversalPRun <> pu_host_li def
+R43090:43099 Kernel.UniversalPRun <> pu_host_li def
+R43108:43135 Kernel.UniversalPRun <> pu_host_thiele_complete_with thm
+R43108:43135 Kernel.UniversalPRun <> pu_host_thiele_complete_with thm
+R43453:43465 Kernel.UniversalPRun <> pu_sim_points thm
+R43486:43500 Kernel.UniversalPRun <> pu_U_simulation thm
+R43521:43533 Kernel.UniversalPRun <> pu_halt_point thm
+R43554:43573 Kernel.UniversalPRun <> pu_universal_halting thm
+R43594:43612 Kernel.UniversalPRun <> pu_universal_output thm
+R43633:43653 Kernel.UniversalPRun <> pu_universal_flag_iff thm
+R43674:43698 Kernel.UniversalPRun <> pu_universal_ledger_exact thm
+R43719:43737 Kernel.UniversalPRun <> pu_universal_earned thm
+R43758:43781 Kernel.UniversalPRun <> pu_U_run_on_host_machine thm
+R43802:43829 Kernel.UniversalPRun <> pu_host_thiele_complete_with thm
+R43850:43877 Kernel.UniversalPRun <> pu_universal_thiele_complete thm
+R43898:43930 Kernel.UniversalPRun <> pu_universal_thiele_complete_over thm

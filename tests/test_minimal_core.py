@@ -28,10 +28,10 @@ CODES = REPO_ROOT / "minimal" / "UniversalCodes.v"
 NOCOPY = REPO_ROOT / "minimal" / "UniversalNoCopy.v"
 DEMO = REPO_ROOT / "minimal" / "nofi_demo.py"
 EXPECTED_CLOSED = 10
-EARNED_EXPECTED_CLOSED = 33
+EARNED_EXPECTED_CLOSED = 34
 UNIVERSAL_EXPECTED_CLOSED = 22
 GENERIC_EXPECTED_CLOSED = 31
-COMPLETE_EXPECTED_CLOSED = 28
+COMPLETE_EXPECTED_CLOSED = 35
 WINDOW_EXPECTED_CLOSED = 10
 MULTI_EXPECTED_CLOSED = 37
 CODES_EXPECTED_CLOSED = 27
@@ -404,7 +404,7 @@ def test_earned_multi_priced_compiles_axiom_free(tmp_path):
     )
 
 
-ENTITLEMENT_EXPECTED_CLOSED = 21
+ENTITLEMENT_EXPECTED_CLOSED = 32
 FRAGMENT_EXPECTED_CLOSED = 23
 VERIFIER_EXPECTED_CLOSED = 17
 SMALL_MACHINE_BASE = ("EarnedCore.v", "EarnedGeneric.v", "ThieleComplete.v")
@@ -582,6 +582,49 @@ def test_entitlement_leftovers_compile_axiom_free(tmp_path):
             closed = proc.stdout.count("Closed under the global context")
             assert closed == ENT2_EXPECTED_CLOSED[name], (
                 f"{name}: expected {ENT2_EXPECTED_CLOSED[name]} closed-assumption "
+                f"receipts, saw {closed}\n" + proc.stdout
+            )
+            assert "Axioms:" not in proc.stdout
+
+
+# The merge on the small machine itself, record-layer merge pricing, and the
+# independence of the four Thiele-complete clauses.
+BRIDGE_CHAIN = (
+    "EarnedCore.v", "EarnedGeneric.v", "ThieleComplete.v", "FragmentSmall.v",
+    "RecordMerge.v", "ThieleCompleteIndependent.v",
+)
+BRIDGE_EXPECTED_CLOSED = {
+    "RecordMerge.v": 12,
+    "ThieleCompleteIndependent.v": 13,
+}
+
+
+@pytest.mark.coq
+def test_record_merge_and_clause_independence_compile_axiom_free(tmp_path):
+    """RecordMerge.v (CERTIFY and COMMIT merge on the small machine, and the
+    toll from record-layer merge pricing with no finiteness premise) and
+    ThieleCompleteIndependent.v (each Thiele-complete clause fails on a
+    machine meeting the other three) compile with plain coqc, and every
+    theorem they print assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    lib = tmp_path / "minimal"
+    lib.mkdir()
+    for name in BRIDGE_CHAIN:
+        (lib / name).write_text((MINIMAL_DIR / name).read_text())
+    for name in BRIDGE_CHAIN:
+        proc = subprocess.run(
+            ["coqc", "-Q", "minimal", "Minimal", f"minimal/{name}"],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            timeout=900,
+        )
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+        if name in BRIDGE_EXPECTED_CLOSED:
+            closed = proc.stdout.count("Closed under the global context")
+            assert closed == BRIDGE_EXPECTED_CLOSED[name], (
+                f"{name}: expected {BRIDGE_EXPECTED_CLOSED[name]} closed-assumption "
                 f"receipts, saw {closed}\n" + proc.stdout
             )
             assert "Axioms:" not in proc.stdout

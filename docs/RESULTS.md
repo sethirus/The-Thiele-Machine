@@ -58,7 +58,7 @@ each.
   the program halts. Coq: `simulation_run`, `halting_correspondence`.
 - **Proved.** Its halting problem is undecidable, by reduction from the
   vendored two-counter result; it satisfies the certification floor, is
-  adequate as a record-carrying machine, is an honest extension of its base
+  adequate as a record-carrying machine, is a base-driven record over its base
   (program and core, everything but the ledger and the flag), and moves its
   record as a latch. Coq: `earned_core_halting_undecidable`,
   `earned_core_floor`, `earned_core_adequate`, `earned_core_honest`,
@@ -161,8 +161,8 @@ The questions here ask how much of a machine the record axis pins down.
   driven by the computation. Coq: `toggle_not_latch`, `toggle_not_permanent`,
   `clock_record_permanent`, `clock_record_not_driven`.
 - **Proved.** Every base can carry the axis: the base plus a latch on any
-  event it reaches, charging one unit when the latch sets, is an honest
-  extension. A reversible base with unbounded memory can carry one and stay
+  event it reaches, charging one unit when the latch sets, is a base-driven
+  record. A reversible base with unbounded memory can carry one and stay
   reversible; with finite memory a step that writes a permanent record is not
   injective. Coq: `latch_core_honest`, `history_latch_honest`,
   `history_latch_injective`, `finite_reversible_cannot_write`.
@@ -172,7 +172,7 @@ The questions here ask how much of a machine the record axis pins down.
 A growing record takes values in a partial order and only moves up
 (`HonestGrowingExtension`).
 
-- **Proved.** Every honest growing record satisfies a complete family of
+- **Proved.** Every base-driven growing record satisfies a complete family of
   permanent threshold-update equations, one per lower threshold, and keeps its
   price schedule (`growing_record_decomposes`). This is a representation
   lemma: the threshold events are built from the driving function, and the
@@ -184,10 +184,10 @@ A growing record takes values in a partial order and only moves up
   equivalent to pricing every false-to-true threshold flip
   (`record_price_iff_threshold_price`).
   Coq: `record_price_iff_threshold_price_holds`.
-- **Refuted.** One Boolean latch carries every honest growing record
+- **Refuted.** One Boolean latch carries every base-driven growing record
   (`one_latch_suffices`). Counterexample: a fully priced three-value chain
-  over a one-state base (`ThreeMachine`, `OneBase`, `ThreeCover`, with honesty
-  proved by `three_honest`). Three values cannot be decoded from one base
+  over a one-state base (`ThreeMachine`, `OneBase`, `ThreeCover`, with the base-driven
+  conditions proved by `three_honest`). Three values cannot be decoded from one base
   state and one bit. Coq: `one_latch_refuted`.
 - **Proved.** A pairwise-distinct, pointwise-monotone chain of k-bit vectors
   has at most k + 1 members (`chain_needs_bits`). A chain through n
@@ -354,9 +354,23 @@ steps on the other.
   Landauer bound. Counterexample: the same reset with gap `k_B T ln 2` releases
   half that heat; two different gaps give the same dynamics, which do not
   depend on the gap, and different heat.
-  Coq: `smaller_gap_refutes_unconditional_landauer_floor`,
-  `master_equation_does_not_fix_heat_scale`. Ruling the smaller gap out needs
-  a thermal premise such as local detailed balance, or device evidence.
+  Coq: `canonical_reset_heat_below_landauer_at_small_gap`,
+  `master_equation_does_not_fix_heat_scale`. The canonical reset is a
+  bookkeeping toy with no second law: its rates (up 0, down 1) are in detailed
+  balance at no gap (`canonical_rates_break_detailed_balance`), and with rates
+  that are, a fixed-gap relaxation settles at `1 / (1 + exp (Delta / kT))`,
+  which is `1/5` at the gap `2 k_B T ln 2`, and never below it
+  (`detailed_balance_never_empties`, `landauer_gap_settles_at_one_fifth`).
+- **Proved.** A driven reset with rates in detailed balance pays `k_B T ln 2`
+  in work: raising the gap in steps and letting the register settle at each,
+  the work is never below the free-energy change and exceeds it by at most the
+  step size times the fall in population; for `N` equal raises from gap 0 to
+  `D` it lies between `kT ln 2 - kT exp (- D / kT)` and `kT ln 2 + D / (2 N)`,
+  with at most `exp (- D / kT)` left excited. Work minus heat is the change in
+  mean energy. Coq: `detailed_balance_settles_at_gibbs`,
+  `detailed_balance_thermalizing_step`, `driven_first_law`,
+  `driven_work_second_law`, `driven_work_near_free_energy`,
+  `driven_reset_work_window`.
 - **Proved.** The protocol's ledger change is one unit, the price of one
   certification step on the small machine. No state map between the protocol
   and the machine is claimed. Coq: `canonical_reset_is_one_mu`.
@@ -412,7 +426,7 @@ audit-log theorem.
 
 ## The pointer criterion
 
-The pointer-observable criterion is a conjecture. Choosing the observers and
+The pointer-observable criterion is a thesis. Choosing the observers and
 the event is a modeling choice that proofs cannot make. The formal
 definitions and the selected model instances are proved only inside their
 observer maps.
@@ -485,12 +499,21 @@ the real-number axioms `ClassicalDedekindReals.sig_forall_dec` and
 `FunctionalExtensionality.functional_extensionality_dep`.
 
 - `calibrated_mu_landauer_energy`
+- `canonical_rates_break_detailed_balance`
+- `canonical_reset_heat_below_landauer_at_small_gap`
 - `canonical_reset_heat_exact`
 - `canonical_reset_satisfies_master_equation`
+- `detailed_balance_never_empties`
+- `detailed_balance_settles_at_gibbs`
+- `detailed_balance_thermalizing_step`
+- `driven_first_law`
+- `driven_reset_work_window`
+- `driven_work_near_free_energy`
+- `driven_work_second_law`
+- `landauer_gap_settles_at_one_fifth`
 - `master_equation_does_not_fix_heat_scale`
 - `mu_has_no_intrinsic_joule_value`
 - `permanence_heat_floor_uses_landauer`
 - `permanent_flip_heat_floor`
 - `selected_gap_gives_landauer_heat`
 - `semantics_entropy_permutation_invariant`
-- `smaller_gap_refutes_unconditional_landauer_floor`

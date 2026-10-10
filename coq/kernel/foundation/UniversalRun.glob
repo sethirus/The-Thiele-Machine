@@ -1,4 +1,4 @@
-DIGEST e9a84e7aef9d100b8a1b3f0ba25e8def
+DIGEST f4a26ab6ff0fa83fbb4698b97fcc0323
 FKernel.UniversalRun
 R3039:3042 Coq.Lists.List <> <> lib
 R3044:3048 Coq.Arith.Arith <> <> lib
@@ -3432,14 +3432,197 @@ R38136:38149 Kernel.UniversalRun <> host_interface def
 R38136:38149 Kernel.UniversalRun <> host_interface def
 R38158:38182 Kernel.UniversalRun <> host_thiele_complete_with thm
 R38158:38182 Kernel.UniversalRun <> host_thiele_complete_with thm
-R38500:38509 Kernel.UniversalRun <> sim_points thm
-R38530:38541 Kernel.UniversalRun <> U_simulation thm
-R38562:38571 Kernel.UniversalRun <> halt_point thm
-R38592:38608 Kernel.UniversalRun <> universal_halting thm
-R38629:38644 Kernel.UniversalRun <> universal_output thm
-R38665:38682 Kernel.UniversalRun <> universal_flag_iff thm
-R38703:38724 Kernel.UniversalRun <> universal_ledger_exact thm
-R38745:38760 Kernel.UniversalRun <> universal_earned thm
-R38781:38801 Kernel.UniversalRun <> U_run_on_host_machine thm
-R38822:38846 Kernel.UniversalRun <> host_thiele_complete_with thm
-R38867:38891 Kernel.UniversalRun <> universal_thiele_complete thm
+def 38553:38566 <> host_claim_eqb
+R38580:38582 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R38575:38579 Minimal.UniversalCodes <> hprop ind
+R38583:38585 Coq.Init.Datatypes <> nat ind
+binder 38569:38569 <> x:205
+binder 38571:38571 <> y:206
+R38590:38593 Coq.Init.Datatypes <> bool ind
+R38625:38628 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R38600:38608 Minimal.UniversalCodes <> hprop_eqb def
+R38611:38613 Coq.Init.Datatypes <> fst def
+R38615:38615 Kernel.UniversalRun <> x:205 var
+R38619:38621 Coq.Init.Datatypes <> fst def
+R38623:38623 Kernel.UniversalRun <> y:206 var
+R38629:38635 Coq.Arith.PeanoNat Nat eqb def
+R38638:38640 Coq.Init.Datatypes <> snd def
+R38642:38642 Kernel.UniversalRun <> x:205 var
+R38646:38648 Coq.Init.Datatypes <> snd def
+R38650:38650 Kernel.UniversalRun <> y:206 var
+prf 38661:38679 <> host_claim_eqb_spec
+binder 38690:38690 <> x:207
+binder 38692:38692 <> y:208
+R38720:38724 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R38713:38715 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38695:38708 Kernel.UniversalRun <> host_claim_eqb def
+R38710:38710 Kernel.UniversalRun <> x:207 var
+R38712:38712 Kernel.UniversalRun <> y:208 var
+R38716:38719 Coq.Init.Datatypes <> true constr
+R38726:38728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38725:38725 Kernel.UniversalRun <> x:207 var
+R38729:38729 Kernel.UniversalRun <> y:208 var
+R38770:38783 Kernel.UniversalRun <> host_claim_eqb def
+R38801:38810 Coq.Arith.PeanoNat Nat eqb_eq thm
+R38801:38810 Coq.Arith.PeanoNat Nat eqb_eq thm
+R38801:38810 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 38896:38910 <> host_same_keeps
+R38932:38934 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R38927:38931 Minimal.UniversalCodes <> hprop ind
+R38935:38937 Coq.Init.Datatypes <> nat ind
+binder 38922:38923 <> pr:209
+R38947:38952 Kernel.UniversalRun <> hstate abbrev
+binder 38941:38941 <> s:210
+binder 38943:38943 <> t:211
+R39024:39029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38991:38994 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R38973:38975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38958:38961 Kernel.UniversalBridge <> hver abbrev
+R38963:38963 Kernel.UniversalRun <> s:210 var
+R38966:38968 Coq.Init.Datatypes <> snd def
+R38970:38971 Kernel.UniversalRun <> pr:209 var
+R38976:38979 Kernel.UniversalBridge <> hver abbrev
+R38981:38981 Kernel.UniversalRun <> t:211 var
+R38984:38986 Coq.Init.Datatypes <> snd def
+R38988:38989 Kernel.UniversalRun <> pr:209 var
+R39008:39010 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38995:38996 Kernel.UniversalBridge <> hv abbrev
+R38998:38998 Kernel.UniversalRun <> s:210 var
+R39001:39003 Coq.Init.Datatypes <> snd def
+R39005:39006 Kernel.UniversalRun <> pr:209 var
+R39011:39012 Kernel.UniversalBridge <> hv abbrev
+R39014:39014 Kernel.UniversalRun <> t:211 var
+R39017:39019 Coq.Init.Datatypes <> snd def
+R39021:39022 Kernel.UniversalRun <> pr:209 var
+R39061:39064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R39030:39035 Minimal.UniversalCodes <> hholds def
+R39038:39040 Coq.Init.Datatypes <> fst def
+R39042:39043 Kernel.UniversalRun <> pr:209 var
+R39047:39048 Kernel.UniversalBridge <> hv abbrev
+R39050:39050 Kernel.UniversalRun <> s:210 var
+R39053:39055 Coq.Init.Datatypes <> snd def
+R39057:39058 Kernel.UniversalRun <> pr:209 var
+R39065:39070 Minimal.UniversalCodes <> hholds def
+R39073:39075 Coq.Init.Datatypes <> fst def
+R39077:39078 Kernel.UniversalRun <> pr:209 var
+R39082:39083 Kernel.UniversalBridge <> hv abbrev
+R39085:39085 Kernel.UniversalRun <> t:211 var
+R39088:39090 Coq.Init.Datatypes <> snd def
+R39092:39093 Kernel.UniversalRun <> pr:209 var
+def 39170:39182 <> host_language
+R39186:39202 Kernel.UniversalRun <> claim_language rec
+R39204:39215 Kernel.UniversalRun <> host_machine def
+R39222:39229 Kernel.UniversalRun <> mk_cl constr
+R39231:39242 Kernel.UniversalRun <> host_machine def
+R39250:39252 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R39245:39249 Minimal.UniversalCodes <> hprop ind
+R39253:39255 Coq.Init.Datatypes <> nat ind
+R39258:39271 Kernel.UniversalRun <> host_claim_eqb def
+R39273:39291 Kernel.UniversalRun <> host_claim_eqb_spec thm
+binder 39302:39303 <> pr:212
+binder 39305:39305 <> s:213
+R39310:39315 Minimal.UniversalCodes <> hholds def
+R39318:39320 Coq.Init.Datatypes <> fst def
+R39322:39323 Kernel.UniversalRun <> pr:212 var
+R39327:39328 Kernel.UniversalBridge <> hv abbrev
+R39330:39330 Kernel.UniversalRun <> s:213 var
+R39333:39335 Coq.Init.Datatypes <> snd def
+R39337:39338 Kernel.UniversalRun <> pr:212 var
+binder 39352:39353 <> pr:214
+binder 39355:39355 <> s:215
+binder 39357:39357 <> t:216
+R39395:39398 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R39377:39379 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39362:39365 Kernel.UniversalBridge <> hver abbrev
+R39367:39367 Kernel.UniversalRun <> s:215 var
+R39370:39372 Coq.Init.Datatypes <> snd def
+R39374:39375 Kernel.UniversalRun <> pr:214 var
+R39380:39383 Kernel.UniversalBridge <> hver abbrev
+R39385:39385 Kernel.UniversalRun <> t:216 var
+R39388:39390 Coq.Init.Datatypes <> snd def
+R39392:39393 Kernel.UniversalRun <> pr:214 var
+R39412:39414 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39399:39400 Kernel.UniversalBridge <> hv abbrev
+R39402:39402 Kernel.UniversalRun <> s:215 var
+R39405:39407 Coq.Init.Datatypes <> snd def
+R39409:39410 Kernel.UniversalRun <> pr:214 var
+R39415:39416 Kernel.UniversalBridge <> hv abbrev
+R39418:39418 Kernel.UniversalRun <> t:216 var
+R39421:39423 Coq.Init.Datatypes <> snd def
+R39425:39426 Kernel.UniversalRun <> pr:214 var
+R39434:39448 Kernel.UniversalRun <> host_same_keeps thm
+prf 39510:39525 <> host_check_sound
+R39541:39546 Kernel.UniversalRun <> hstate abbrev
+binder 39537:39537 <> s:217
+R39560:39562 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R39555:39559 Minimal.UniversalCodes <> hprop ind
+R39563:39565 Coq.Init.Datatypes <> nat ind
+binder 39550:39551 <> pr:218
+R39626:39629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R39619:39621 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39571:39580 Kernel.UniversalBridge M check_ok def
+R39589:39597 Kernel.UniversalBridge M core_of proj
+R39599:39599 Kernel.UniversalRun <> s:217 var
+R39603:39605 Coq.Init.Datatypes <> fst def
+R39607:39608 Kernel.UniversalRun <> pr:218 var
+R39612:39614 Coq.Init.Datatypes <> snd def
+R39616:39617 Kernel.UniversalRun <> pr:218 var
+R39582:39586 Minimal.UniversalCodes <> heval def
+R39622:39625 Coq.Init.Datatypes <> true constr
+R39630:39635 Minimal.UniversalCodes <> hholds def
+R39638:39640 Coq.Init.Datatypes <> fst def
+R39642:39643 Kernel.UniversalRun <> pr:218 var
+R39647:39648 Kernel.UniversalBridge <> hv abbrev
+R39650:39650 Kernel.UniversalRun <> s:217 var
+R39653:39655 Coq.Init.Datatypes <> snd def
+R39657:39658 Kernel.UniversalRun <> pr:218 var
+R39709:39718 Kernel.UniversalBridge M check_ok def
+R39734:39746 Coq.Bool.Bool <> andb_true_iff thm
+R39734:39746 Coq.Bool.Bool <> andb_true_iff thm
+R39769:39781 Coq.Bool.Bool <> andb_true_iff thm
+R39769:39781 Coq.Bool.Bool <> andb_true_iff thm
+R39806:39814 Minimal.UniversalCodes <> heval_iff thm
+R39806:39814 Minimal.UniversalCodes <> heval_iff thm
+def 39837:39843 <> host_li
+R39847:39863 Kernel.UniversalRun <> lang_interface rec
+R39865:39876 Kernel.UniversalRun <> host_machine def
+R39878:39890 Kernel.UniversalRun <> host_language def
+R39897:39906 Kernel.UniversalRun <> mk_lang constr
+R39908:39919 Kernel.UniversalRun <> host_machine def
+R39921:39933 Kernel.UniversalRun <> host_language def
+R39935:39943 Kernel.UniversalRun <> host_base def
+R39945:39953 Kernel.UniversalRun <> host_kind def
+binder 39964:39964 <> s:219
+binder 39966:39967 <> pr:220
+R39972:39981 Kernel.UniversalBridge M check_ok def
+R39990:39998 Kernel.UniversalBridge M core_of proj
+R40000:40000 Kernel.UniversalRun <> s:219 var
+R40004:40006 Coq.Init.Datatypes <> fst def
+R40008:40009 Kernel.UniversalRun <> pr:220 var
+R40013:40015 Coq.Init.Datatypes <> snd def
+R40017:40018 Kernel.UniversalRun <> pr:220 var
+R39983:39987 Minimal.UniversalCodes <> heval def
+R40022:40037 Kernel.UniversalRun <> host_check_sound thm
+R40043:40055 Kernel.UniversalBridge M clean_start def
+R40059:40062 Kernel.UniversalBridge M mu proj
+R40064:40068 Minimal.UniversalCodes <> hprop ind
+prf 40154:40183 <> universal_thiele_complete_over
+R40187:40209 Kernel.UniversalRun <> thiele_complete_over def
+R40211:40222 Kernel.UniversalRun <> host_machine def
+R40224:40236 Kernel.UniversalRun <> host_language def
+R40253:40259 Kernel.UniversalRun <> host_li def
+R40253:40259 Kernel.UniversalRun <> host_li def
+R40268:40292 Kernel.UniversalRun <> host_thiele_complete_with thm
+R40268:40292 Kernel.UniversalRun <> host_thiele_complete_with thm
+R40610:40619 Kernel.UniversalRun <> sim_points thm
+R40640:40651 Kernel.UniversalRun <> U_simulation thm
+R40672:40681 Kernel.UniversalRun <> halt_point thm
+R40702:40718 Kernel.UniversalRun <> universal_halting thm
+R40739:40754 Kernel.UniversalRun <> universal_output thm
+R40775:40792 Kernel.UniversalRun <> universal_flag_iff thm
+R40813:40834 Kernel.UniversalRun <> universal_ledger_exact thm
+R40855:40870 Kernel.UniversalRun <> universal_earned thm
+R40891:40911 Kernel.UniversalRun <> U_run_on_host_machine thm
+R40932:40956 Kernel.UniversalRun <> host_thiele_complete_with thm
+R40977:41001 Kernel.UniversalRun <> universal_thiele_complete thm
+R41022:41051 Kernel.UniversalRun <> universal_thiele_complete_over thm

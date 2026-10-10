@@ -107,7 +107,7 @@ heat are conditional (C) on the named premise landauer_heat.
 
 
                                                   1
-13 External Systems and the Pointer Conjecture                                                    25
+13 External Systems and the Pointer Thesis                                                        25
    13.1 The pointer criterion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
 
 A Proof File Index                                                                               27
@@ -748,7 +748,7 @@ length, plus 1 (tc2_no_mult).
 
 The Record Axis
 
-Definition 10.1 (Bases and honest extensions). A base is a deterministic record-free machine:
+Definition 10.1 (Bases and base-driven records). A base is a deterministic record-free machine:
 states, a next function, initial states and halting (record BaseMachine). A record-carrying
 machine has states, a next function, initial states, a record, a ledger and halting (record
 RCM). A cover maps it onto a base step for step, preserving initial states and halting. The
@@ -756,18 +756,18 @@ extension is honest when its record’s next value depends only on the base stat
 ledger never decreases, A2 holds, the record is permanent, and some reachable step writes it
 (HonestBaseExtension).
 
-Theorem 10.1 (The record axis is a latch). (S) Every honest extension of every base factors
-as a latch: there is a base event h such that the base state and the record evolve as (b, r) 7→
-(next(b), r ∨ h(b)). Coq: record_axis_is_latch_holds. Two permanent records factor as two
-latches, each reading the other (record_pair_is_two_latches_holds).
+Theorem 10.1 (The record axis is a latch). (S) Every base-driven record over every base
+factors as a latch: there is a base event h such that the base state and the record evolve as
+(b, r) 7→ (next(b), r ∨ h(b)). Coq: record_axis_is_latch_holds. Two permanent records factor
+as two latches, each reading the other (record_pair_is_two_latches_holds).
 
 Theorem 10.2 (Both premises do work). (R) A record that can switch back off is not a latch
 (toggle_not_latch). A record switched on by a hidden clock is permanent and not driven by
 the computation (clock_record_permanent, clock_record_not_driven).
 
 Theorem 10.3 (Which machines carry the axis). (S) Every base carries it: the base plus
-a latch on any event it reaches, charging one unit when the latch sets, is an honest exten-
-sion (latch_core_honest). A reversible base with unbounded memory carries it reversibly
+a latch on any event it reaches, charging one unit when the latch sets, is a base-driven
+record (latch_core_honest). A reversible base with unbounded memory carries it reversibly
 (history_latch_honest, history_latch_injective). With finite memory, a step that writes
 a permanent record is not injective (finite_reversible_cannot_write).
 
@@ -920,7 +920,7 @@ energy unit (Chapter 4).
 Chapter 13
 
 External Systems and the Pointer
-Conjecture
+Thesis
 
 Each model below is narrow. None is a full security, consensus, database or audit-log theorem.
 
@@ -962,13 +962,14 @@ narrow countermodels, each for a point a governing source already addresses, and
 
 
                                              25
-statements without enough protocol or hardware semantics; no surveyed consequence is simulta-
-neously record-axis dependent, novel, and ready for use. The pointer criterion is a conjecture.
+statements without enough protocol or hardware semantics; no surveyed consequence is simultane-
+ously record-axis dependent, novel, and ready for use. The pointer criterion is a thesis: “faithfully
+model” and “deployed” tie it to the world and cannot be defined, as in the Church–Turing thesis.
 
 
 
 
-                                              26
+                                                 26
 Appendix A
 
 Proof File Index
@@ -1122,11 +1123,11 @@ Structural undecidability              (S)           Recursion theorem of the su
 L recursion and Rice                   (S)           L’s reduction rules
 Two-counter Rice and packed Kleene     (S)           Behavioral sameness on chosen inputs
 Plain-input recursion fails            (R)           Inputs in counter A, 0 in counter B
-Record axis is a latch                 (S)           Honest extension
+Record axis is a latch                 (S)           Base-driven record
 Toll over any order                    (S)           A preorder of records
 Algebraic Tsirelson bound              (S)           Polynomial minors
 Calorimeter heat scale                 (R)           Fixed dynamics
-Pointer criterion                      Conjecture    Observer model
+Pointer criterion                      Thesis        Observer model
 
 
 
