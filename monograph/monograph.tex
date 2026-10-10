@@ -13522,6 +13522,47 @@ run to the end. Pull it and the box runs that program from start to stop in a si
 the register machine below comes in, and it's the honest reading of ``a Turing machine is a base'' too.
 The levers are the programs. They aren't the rows.
 
+That still leaves a worry about clause (a) itself. It asks for one lever per two-counter
+instruction, which is a fact about how the two-counter machine is presented, and a box that does
+each instruction in several pulls looks shut out for a reason that has nothing to do with
+computing. It isn't shut out, and the fix is to let the pulls be grouped. Call a box a \emph{base
+by simulation} when it has a window reading a two-counter configuration off each state, through
+any encoding at all, a class of live states, a finite list of its own levers for each two-counter
+instruction, and a live loaded state showing $(1, a, b)$ for each start, such that from every live
+state the list acts on the window exactly as the instruction acts on a configuration and the
+state stays live. The \emph{grouped box} has the same states, and its levers are finite lists of
+the box's levers, a list pulled in order.
+
+\begin{theorem}[The one-lever presentation loses nothing]\label{thm:lift-macro}
+(1) Every box with a universal base is a base by simulation. (2) Every base by simulation is a
+universal base of its grouped box, and a run of the grouped box is the box's run along the joined
+lists. (3) So for every base by simulation, the lift of its grouped box, with the window claims and
+a fact table with room for at least one fact, is Thiele-complete. (4) The box with five levers, add
+one to $A$, add one to $B$, add one to a jump target, and for each of $A$ and $B$ ``if it's above 0,
+take one off and jump to the target, otherwise go to the next line, and put the target back to 0
+either way,'' is a base by simulation, has no universal base, and its grouped box lifts to a
+Thiele-complete machine.
+\end{theorem}
+
+\begin{proof}
+(1) Each list has one lever. (2) The grouped box's step is the box's run along the list, so the
+simulation clause of a base by simulation is clause (a) for the grouped box. (3) is (2) with
+Theorem~\ref{thm:lift}. (4) INC $r$ is one pull; DEC $r$ $j$ is $j$ pulls of the target lever,
+then the decrement lever for $r$, from a live state where the target is 0. The box has five
+levers, so item (1) of Theorem~\ref{thm:lift-fails} says it has no universal base.
+\end{proof}
+
+Checked as \code{ub\_to\_sim\_inhabited}, \code{sim\_to\_macro\_inhabited}, \code{sim\_macro\_runs},
+\code{sim\_base\_lifts}, \code{fl\_has\_sim\_base}, \code{fl\_no\_universal\_base} and
+\code{fl\_macro\_lifts} (LiftMacro.v), all closed.
+
+So clause (a) can be read by simulation, and nothing is lost: a box that simulates two counters
+in finite runs of its own moves, through any window, is a universal base the moment its moves are
+grouped, and it lifts. Item (1) of Theorem~\ref{thm:lift-fails} is about the presentation, and the
+five-lever box is the proof that a finite lever set is not what fails. What this doesn't give is a
+Turing machine's rule table running a tape: the five-lever box is a register box, and the next
+subsection is still how Turing machines come in.
+
 Item (3) is a box with no memory. Pull a lever and it lands wherever that lever always lands,
 whatever happened before. So a window on it can't tell INC $A$ followed by INC $A$ from INC $B$
 followed by INC $A$, and a box that can't tell those apart can't keep two counters in its window.
@@ -17575,6 +17616,7 @@ Theorem \ref{thm:no-plain-recursion}: No plain recursion on two counters (some c
 In the text: Schroeppel's theorem, no program of the small machine started on $n$ computes $2^n$, nor any machine with a finite control read through zero and parity above a threshold & \S\ref{sec:small-diagonal} & \code{tc2\_no\_pow} {\footnotesize(\code{Tc2Pow.v})}\newline \code{am\_no\_power\_of\_two} {\footnotesize(\code{Tc2Pow.v})} & none\newline none \\
 Theorem \ref{thm:lift}: Every universal base lifts & \S\ref{sec:every-model} & \code{lift\_thiele\_complete} {\footnotesize(\code{LiftCore.v})}\newline \code{lift\_window\_nonvacuous} {\footnotesize(\code{LiftCore.v})}\newline \code{lift\_window\_thiele\_complete} {\footnotesize(\code{LiftCore.v})}\newline \code{lift\_reduct\_universal} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_projection\_run} {\footnotesize(\code{LiftConverse.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:lift-fails}: What doesn't lift & \S\ref{sec:every-model} & \code{lift\_finite\_moves\_not\_a\_base} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_ub\_not\_finitely\_branching} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_finite\_branching\_not\_complete} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_stateless\_not\_complete} {\footnotesize(\code{LiftConverse.v})}\newline \code{lift\_ax\_indiscrete\_no\_machine} {\footnotesize(\code{LiftAxis.v})}\newline \code{lift\_canonical\_nonvac\_iff} {\footnotesize(\code{LiftConverse.v})} & none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:lift-macro}: The one-lever presentation loses nothing & \S\ref{sec:every-model} & \code{ub\_to\_sim\_inhabited} {\footnotesize(\code{LiftMacro.v})}\newline \code{sim\_to\_macro\_inhabited} {\footnotesize(\code{LiftMacro.v})}\newline \code{sim\_macro\_runs} {\footnotesize(\code{LiftMacro.v})}\newline \code{sim\_base\_lifts} {\footnotesize(\code{LiftMacro.v})}\newline \code{fl\_has\_sim\_base} {\footnotesize(\code{LiftMacro.v})}\newline \code{fl\_no\_universal\_base} {\footnotesize(\code{LiftMacro.v})}\newline \code{fl\_macro\_lifts} {\footnotesize(\code{LiftMacro.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:lift-models}: The base doesn't matter & \S\ref{sec:every-model} & \code{lift\_num\_models\_agree} {\footnotesize(\code{LiftModelsAll.v})}\newline \code{lift\_ex\_in\_all\_models} {\footnotesize(\code{LiftModelsAll.v})}\newline \code{lift\_ex\_thiele\_complete} {\footnotesize(\code{LiftModels.v})}\newline \code{lift\_ram\_thiele\_complete} {\footnotesize(\code{LiftModels.v})}\newline \code{lift\_numeric\_base} {\footnotesize(\code{LiftModelsAll.v})}\newline \code{lift\_classic\_bases} {\footnotesize(\code{LiftModelsAll.v})} & none\newline none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:one-counter}: One counter is too few & \S\ref{sec:every-model} & \code{lift\_oc\_halts\_bound} {\footnotesize(\code{LiftOneCounter.v})}\newline \code{lift\_oc\_halts\_dec} {\footnotesize(\code{LiftOneCounter.v})}\newline \code{lift\_cm\_halting\_undecidable} {\footnotesize(\code{LiftModels.v})}\newline \code{lift\_no\_oc\_translation} {\footnotesize(\code{LiftModels.v})}\newline \code{lift\_no\_oc\_translation\_undecidability} {\footnotesize(\code{LiftModels.v})} & none\newline none\newline none\newline none\newline none \\
 Theorem \ref{thm:parts-product}: Side by side & \S\ref{sec:parts} & \code{cmpz\_cost\_prod} {\footnotesize(\code{CzProd.v})}\newline \code{cmpz\_interleaving\_invariant} {\footnotesize(\code{CzCounter.v})}\newline \code{cmpz\_prod\_a2\_iff} {\footnotesize(\code{CzProd.v})}\newline \code{cmpz\_cs\_or\_floor} {\footnotesize(\code{CzCS.v})}\newline \code{cmpz\_cs\_and\_floor} {\footnotesize(\code{CzCS.v})}\newline \code{cmpz\_cs\_and\_tight} {\footnotesize(\code{CzCS.v})}\newline \code{cmpz\_prod\_tc} {\footnotesize(\code{CzProdTC.v})}\newline \code{cmpz\_prod\_joint\_certificate} {\footnotesize(\code{CzProdTC.v})}\newline \code{cmpz\_prod\_joint\_certificate\_tight} {\footnotesize(\code{CzProdTC.v})}\newline \code{cmpz\_prod\_universal} {\footnotesize(\code{CzCat.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\

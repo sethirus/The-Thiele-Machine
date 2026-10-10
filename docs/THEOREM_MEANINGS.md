@@ -1263,9 +1263,9 @@ An explicitly qualified citation keeps its own module identity.
 - `ub_to_sim_inhabited`: A machine with a universal base has a base by simulation.
 - `sim_to_macro_inhabited`: A machine with a base by simulation (each two-counter instruction a finite list of its moves acting on a window as the instruction acts, from every live state) has a universal base on its macro machine, whose moves are finite lists of its moves.
 - `sim_base_lifts`: For every base by simulation and every cap of at least 1, the lift of the macro machine with the window claims is Thiele-complete.
-- `fl_has_sim_base`: The four-lever box (increment A, increment B, raise the jump target, decrement-or-jump to the target) has a base by simulation.
-- `fl_no_universal_base`: The four-lever box has no universal base.
-- `fl_macro_lifts`: For every cap of at least 1, the lift of the four-lever box's macro machine with the window claims is Thiele-complete.
+- `fl_has_sim_base`: The five-lever box (increment A, increment B, raise the jump target, and for each of A and B decrement-or-jump to the target) has a base by simulation.
+- `fl_no_universal_base`: The five-lever box has no universal base.
+- `fl_macro_lifts`: For every cap of at least 1, the lift of the five-lever box's macro machine with the window claims is Thiele-complete.
 - `cmpz_follow_exists`: For every simulation and every guest run there is a host run, one segment per guest move, that follows it.
 - `cmpz_follow_reaches`: A host run that follows a guest run ends on the image of the guest's end state.
 - `cmpz_follow_cost_ge_exits`: For a simulation whose record map reflects the order, into a host that pays the toll, every host run that follows a guest run costs at least the guest's number of exits.

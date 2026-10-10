@@ -28,14 +28,14 @@
                             its macro machine, with the window claims, is
                             Thiele-complete.
 
-      The witness that the gap is real: fl_box, a box with four levers
+      The witness that the gap is real: fl_box, a box with five levers
       (increment A, increment B, add one to a jump target, and
       decrement-A-or-B-and-jump-to-the-target), has a base by simulation
       [fl_sim_base], has no universal base [fl_no_universal_base], and its
       macro machine lifts to a Thiele-complete machine [fl_macro_lifts].
 
     What this does not do: it does not give a fixed-table Turing machine
-    with a tape. The four-lever box is a register box; it shows that a
+    with a tape. The five-lever box is a register box; it shows that a
     finite lever set is not what fails, the one-move-per-instruction
     presentation is.
 
@@ -119,7 +119,7 @@ Proof.
 Qed.
 
 (* ================================================================= *)
-(* A box with four levers.                                            *)
+(* A box with five levers.                                            *)
 (* ================================================================= *)
 
 (* State: (line, (A, B), jump target). *)
