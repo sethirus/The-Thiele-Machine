@@ -329,6 +329,73 @@ Proof.
   apply HinL in HcL. rewrite Hs in HcL. discriminate.
 Qed.
 
+(** Where the forgetting lands. Any overwrite of a state with more than one
+    value merges two states somewhere, so non-injectivity alone does not
+    single out a record write. A permanent flip says more: the step is not
+    one-to-one even on the states that already read yes together with the
+    one it flips. Every state in that set lands on a state reading yes, so
+    the distinction the step destroys is one between two of the record's
+    own yes states, or between the state it just switched on and one that
+    was on already. *)
+Definition injective_on_yes_side (i : I) (s : S) : Prop :=
+  forall x y,
+    (cert x = true \/ x = s) ->
+    (cert y = true \/ y = s) ->
+    step x i = step y i -> x = y.
+
+Theorem permanent_flip_merges_on_yes_side :
+  forall (all : list S) s i,
+    finite_states all ->
+    permanent_at i ->
+    cert s = false ->
+    cert (step s i) = true ->
+    (forall x, (cert x = true \/ x = s) -> cert (step x i) = true)
+    /\ ~ injective_on_yes_side i s.
+Proof.
+  intros all s i Hfin Hperm Hs Hflip.
+  split.
+  { intros x [Hx | ->]; [apply Hperm; exact Hx | exact Hflip]. }
+  intros Hinj.
+  set (L := certified_states S cert all).
+  set (f := fun t => step t i).
+  assert (HinL : forall t, In t L <-> cert t = true)
+    by (apply certified_states_spec; exact Hfin).
+  assert (HndM : NoDup (map f L)).
+  { assert (Hgen : forall l, NoDup l -> (forall t, In t l -> cert t = true) ->
+                     NoDup (map f l)).
+    { induction l as [| a l IH]; intros Hnd Hcl; simpl; [constructor |].
+      inversion Hnd as [| a' l' Hnotin Hnd']; subst.
+      constructor.
+      - intros Hin. apply in_map_iff in Hin as [b [Hb Hbl]].
+        apply Hnotin.
+        assert (Hba : b = a).
+        { apply Hinj.
+          - left. apply Hcl. right. exact Hbl.
+          - left. apply Hcl. left. reflexivity.
+          - exact Hb. }
+        rewrite <- Hba. exact Hbl.
+      - apply IH; [exact Hnd' |].
+        intros t Ht. apply Hcl. right. exact Ht. }
+    apply Hgen.
+    - apply certified_states_nodup. exact Hfin.
+    - intros t Ht. apply HinL. exact Ht. }
+  assert (Hincl : incl (map f L) L).
+  { intros y Hy. apply in_map_iff in Hy as [x [<- Hx]].
+    apply HinL. apply HinL in Hx. apply Hperm. exact Hx. }
+  assert (Hback : incl L (map f L)).
+  { apply NoDup_length_incl;
+      [exact HndM | rewrite map_length; lia | exact Hincl]. }
+  assert (Hfs : In (f s) (map f L)) by (apply Hback; apply HinL; exact Hflip).
+  apply in_map_iff in Hfs as [c [Hc HcL]].
+  assert (Hcs : c = s).
+  { apply Hinj.
+    - left. apply HinL. exact HcL.
+    - right. reflexivity.
+    - exact Hc. }
+  subst c.
+  apply HinL in HcL. rewrite Hs in HcL. discriminate.
+Qed.
+
 (** Merge or revoke. A flipping instruction either merges two states or
     switches the reading off somewhere. The revoked state is found by a
     search over the certified states, so the proof is constructive. *)
@@ -447,3 +514,5 @@ Proof.
   - intros cost Hprice. apply Hprice.
     intro Hinj. specialize (Hinj T0 T2 eq_refl). discriminate.
 Qed.
+
+Print Assumptions permanent_flip_merges_on_yes_side.

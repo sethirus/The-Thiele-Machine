@@ -63,7 +63,7 @@
    mu-ledger is made by the conjecture the criterion is about, argued in
    prose, not by an import line. *)
 
-From Coq Require Import List Lia.
+From Coq Require Import List Lia PeanoNat.
 Import ListNotations.
 
 (** * Ecosystems, records, proliferation *)
@@ -174,3 +174,253 @@ Proof.
 Qed.
 
 End ReplicatedLedgerToy.
+
+(** * Copied and relied on, by parties who didn't produce it
+
+    The definitions above give every observer one bit, so two events an
+    observer records always agree, and "proliferates" cannot even state
+    the obvious objection: in a replicated system every full node holds
+    the whole shared state, so every predicate of it ("gas used is at
+    least k" in a block header as much as "finalized") is copied to every
+    node. The definitions below give each observer a view (anything it
+    holds), an action it takes on what it holds, and a flag saying whether
+    it produced the record. An event is COPIED on a set of reachable
+    states when every observer can decide it from its own view there. An
+    observer RELIES on an event when it acts only where the event holds,
+    and acts somewhere. The tightened criterion asks for both: copied by
+    every observer, and relied on by every observer that didn't produce
+    it, with at least one such observer. The POINTER on the reachable
+    states is the strongest event copied and relied on in that sense:
+    every event that is copied and relied on holds wherever it does.
+    Uniqueness then needs no list of rivals: two pointers agree on every
+    reachable state.
+
+    INDEPENDENT CARRIERS are a family of relations, one per observer,
+    saying when two states agree on that observer's own part of the world;
+    each view reads only its own part, and any two observers' parts can be
+    set separately. A theorem below shows independence and exact copying
+    on EVERY state together force the event to be constant, so the copies
+    of a real record agree only on the states the world reaches, where the
+    agreement is made by the copying. That is why the criterion is stated
+    on a set of reachable states.
+
+    The ledger toy is a sanity instance with three full nodes, each holding
+    its own copy of a block header (finalized, gas used), a proposer that
+    produced it, and two nodes that act (credit a deposit, say) only on a
+    finalized header. Gas used is copied as well as finality, which is the
+    objection; only finality is relied on, and finality is the pointer. The
+    maps are mine, and the toy is evidence of nothing about deployed
+    systems. *)
+
+Record RelianceEcosystem := {
+  re_state : Type;
+  re_observers : nat;
+  re_obs : Type;
+  re_view : nat -> re_state -> re_obs;
+  re_act : nat -> re_obs -> bool;
+  re_producer : nat -> bool
+}.
+
+(** An event a step rule could meter: one decided by a Boolean reading of
+    the state, so a price list can charge exactly the steps that turn it
+    on. *)
+Definition meterable (eco : RelianceEcosystem) (E : re_state eco -> Prop) : Prop :=
+  exists b : re_state eco -> bool, forall s, E s <-> b s = true.
+
+Section Reliance.
+
+Variable eco : RelianceEcosystem.
+Variable reach : re_state eco -> Prop.
+
+Definition copied_on (E : re_state eco -> Prop) : Prop :=
+  forall i, (i < re_observers eco)%nat ->
+    exists d : re_obs eco -> bool,
+      forall s, reach s -> (E s <-> d (re_view eco i s) = true).
+
+Definition relies_on (E : re_state eco -> Prop) (i : nat) : Prop :=
+  (forall s, reach s -> re_act eco i (re_view eco i s) = true -> E s)
+  /\ (exists s, reach s /\ re_act eco i (re_view eco i s) = true).
+
+Definition relied_on_by_others (E : re_state eco -> Prop) : Prop :=
+  (exists i, (i < re_observers eco)%nat /\ re_producer eco i = false)
+  /\ forall i, (i < re_observers eco)%nat -> re_producer eco i = false ->
+       relies_on E i.
+
+Definition copied_and_relied_on (E : re_state eco -> Prop) : Prop :=
+  copied_on E /\ relied_on_by_others E.
+
+Definition pointer_on (E : re_state eco -> Prop) : Prop :=
+  copied_and_relied_on E
+  /\ forall E', copied_and_relied_on E' -> forall s, reach s -> E s -> E' s.
+
+(** Two pointers agree on every reachable state. *)
+Theorem pointer_on_unique :
+  forall E1 E2, pointer_on E1 -> pointer_on E2 ->
+    forall s, reach s -> (E1 s <-> E2 s).
+Proof.
+  intros E1 E2 [H1 M1] [H2 M2] s Hs. split.
+  - intro HE. exact (M1 E2 H2 s Hs HE).
+  - intro HE. exact (M2 E1 H1 s Hs HE).
+Qed.
+
+End Reliance.
+
+Definition independent_carriers (eco : RelianceEcosystem)
+    (part : nat -> re_state eco -> re_state eco -> Prop) : Prop :=
+  (forall i s t, (i < re_observers eco)%nat -> part i s t ->
+     re_view eco i s = re_view eco i t)
+  /\ (forall i j s t, (i < re_observers eco)%nat -> (j < re_observers eco)%nat ->
+       i <> j -> exists u, part i u s /\ part j u t).
+
+(** Independence plus exact copying on every state leaves only constant
+    events. *)
+Theorem independent_copies_everywhere_are_constant :
+  forall (eco : RelianceEcosystem) part (E : re_state eco -> Prop),
+    independent_carriers eco part ->
+    (2 <= re_observers eco)%nat ->
+    copied_on eco (fun _ => True) E ->
+    forall s t, E s <-> E t.
+Proof.
+  intros eco part E [Hread Hsep] H2 Hcopy s t.
+  assert (H0 : (0 < re_observers eco)%nat) by lia.
+  assert (H1 : (1 < re_observers eco)%nat) by lia.
+  destruct (Hcopy 0%nat H0) as [d0 Hd0].
+  destruct (Hcopy 1%nat H1) as [d1 Hd1].
+  destruct (Hsep 0%nat 1%nat s t H0 H1 ltac:(lia)) as [u [Hus Hut]].
+  pose proof (Hread 0%nat u s H0 Hus) as Hv0.
+  pose proof (Hread 1%nat u t H1 Hut) as Hv1.
+  rewrite (Hd0 s I), (Hd1 t I), <- Hv0, <- Hv1, <- (Hd0 u I), <- (Hd1 u I).
+  tauto.
+Qed.
+
+(** The pointer thesis as a schema: for every member of a class, the
+    certification event is the pointer on the states the discipline
+    reaches, and every record the discipline prices is copied and relied
+    on by parties who didn't produce it. The class, its reachable states,
+    its certification event and its priced records are inputs; nothing
+    about them is proved. *)
+Definition pointer_thesis_schema
+  (C : RelianceEcosystem -> Prop)
+  (reach : forall eco, C eco -> re_state eco -> Prop)
+  (cert : forall eco, C eco -> re_state eco -> Prop)
+  (priced : forall eco, C eco -> (re_state eco -> Prop) -> Prop) : Prop :=
+  forall eco (h : C eco),
+    pointer_on eco (reach eco h) (cert eco h)
+    /\ forall E, priced eco h E -> copied_and_relied_on eco (reach eco h) E.
+
+Module ReplicatedHeaderToy.
+
+(** A block header: finalized, and gas used. *)
+Definition Header : Type := (bool * nat)%type.
+
+Record LState := {
+  l_src : Header;
+  l_c0 : Header;
+  l_c1 : Header;
+  l_c2 : Header
+}.
+
+Definition copy (i : nat) (s : LState) : Header :=
+  match i with
+  | 0 => l_c0 s
+  | 1 => l_c1 s
+  | _ => l_c2 s
+  end.
+
+Definition set_copy (j : nat) (h : Header) (s : LState) : LState :=
+  match j with
+  | 0 => {| l_src := l_src s; l_c0 := h; l_c1 := l_c1 s; l_c2 := l_c2 s |}
+  | 1 => {| l_src := l_src s; l_c0 := l_c0 s; l_c1 := h; l_c2 := l_c2 s |}
+  | _ => {| l_src := l_src s; l_c0 := l_c0 s; l_c1 := l_c1 s; l_c2 := h |}
+  end.
+
+(** Node 0 proposed the block; nodes 1 and 2 act (credit a deposit) only
+    on a header they hold that says finalized. *)
+Definition ledger : RelianceEcosystem := {|
+  re_state := LState;
+  re_observers := 3;
+  re_obs := Header;
+  re_view := copy;
+  re_act := fun _ h => fst h;
+  re_producer := fun i => Nat.eqb i 0
+|}.
+
+(** The states the network reaches: every node's copy equals the header. *)
+Definition synced (s : LState) : Prop :=
+  l_c0 s = l_src s /\ l_c1 s = l_src s /\ l_c2 s = l_src s.
+
+Definition part (i : nat) (s t : LState) : Prop := copy i s = copy i t.
+
+Definition finalized (s : LState) : Prop := fst (l_src s) = true.
+Definition gas_used_positive (s : LState) : Prop := (1 <= snd (l_src s))%nat.
+
+Lemma synced_copy : forall i s, (i < 3)%nat -> synced s -> copy i s = l_src s.
+Proof.
+  intros i s Hi [H0 [H1 H2]].
+  destruct i as [| [| [| i]]]; simpl; auto; lia.
+Qed.
+
+Theorem ledger_carriers_independent : independent_carriers ledger part.
+Proof.
+  split.
+  - intros i s t _ H. exact H.
+  - intros i j s t Hi Hj Hij. simpl in Hi, Hj.
+    exists (set_copy j (copy j t) s). unfold part.
+    destruct i as [| [| [| i]]]; destruct j as [| [| [| j]]];
+      simpl; try lia; split; reflexivity.
+Qed.
+
+(** The objection, as a theorem: copying alone doesn't separate them. *)
+Theorem ledger_copying_alone_does_not_separate :
+  copied_on ledger synced finalized /\ copied_on ledger synced gas_used_positive.
+Proof.
+  split.
+  - intros i Hi. exists fst. intros s Hs. simpl.
+    rewrite (synced_copy i s Hi Hs). unfold finalized. tauto.
+  - intros i Hi. exists (fun h => Nat.leb 1 (snd h)). intros s Hs.
+    change (re_view ledger i s) with (copy i s).
+    rewrite (synced_copy i s Hi Hs). unfold gas_used_positive.
+    rewrite Nat.leb_le. tauto.
+Qed.
+
+Definition final_empty : LState :=
+  {| l_src := (true, 0); l_c0 := (true, 0); l_c1 := (true, 0); l_c2 := (true, 0) |}.
+
+Lemma final_empty_synced : synced final_empty.
+Proof. repeat split. Qed.
+
+Theorem ledger_finalized_is_pointer : pointer_on ledger synced finalized.
+Proof.
+  assert (Hrel : relied_on_by_others ledger synced finalized).
+  { split.
+    - exists 1%nat. split; simpl; [lia | reflexivity].
+    - intros i Hi Hprod. split.
+      + intros s Hs Hact. simpl in Hact.
+        rewrite (synced_copy i s Hi Hs) in Hact. exact Hact.
+      + exists final_empty. split; [exact final_empty_synced |].
+        simpl in Hi. destruct i as [| [| [| i]]]; simpl; try reflexivity; lia. }
+  split.
+  - split; [exact (proj1 ledger_copying_alone_does_not_separate) | exact Hrel].
+  - intros E' [_ [_ Hothers]] s Hs Hfin.
+    destruct (Hothers 1%nat ltac:(simpl; lia) eq_refl) as [Hgate _].
+    apply Hgate; [exact Hs |].
+    simpl. destruct Hs as [_ [H1 _]]. rewrite H1. exact Hfin.
+Qed.
+
+Theorem ledger_gas_not_relied_on :
+  ~ relied_on_by_others ledger synced gas_used_positive.
+Proof.
+  intros [_ Hothers].
+  destruct (Hothers 1%nat ltac:(simpl; lia) eq_refl) as [Hgate _].
+  specialize (Hgate final_empty final_empty_synced eq_refl).
+  unfold gas_used_positive in Hgate. simpl in Hgate. lia.
+Qed.
+
+End ReplicatedHeaderToy.
+
+Print Assumptions pointer_on_unique.
+Print Assumptions independent_copies_everywhere_are_constant.
+Print Assumptions ReplicatedHeaderToy.ledger_carriers_independent.
+Print Assumptions ReplicatedHeaderToy.ledger_copying_alone_does_not_separate.
+Print Assumptions ReplicatedHeaderToy.ledger_finalized_is_pointer.
+Print Assumptions ReplicatedHeaderToy.ledger_gas_not_relied_on.
