@@ -125,6 +125,20 @@ Proof.
       lia.
 Qed.
 
+(** The same theorem under a name that says what it quantifies over. The
+    old name says "any substrate", but a [CertificationSystem] is a
+    substrate with the toll built in as its field [cs_cert_costs], so the
+    theorem is about every system that has the toll, and about no other.
+    The old name stays because other files use it. *)
+Theorem every_toll_system_pays_the_floor :
+  forall (CS : CertificationSystem)
+         (trace : list (cs_instr CS))
+         (s0 : cs_state CS),
+    cs_cert CS s0 = false ->
+    cs_cert CS (cs_run CS trace s0) = true ->
+    cs_total_cost CS trace >= 1.
+Proof. exact universal_nfi_any_substrate. Qed.
+
 (** Corollary: if the trace certifies from a false-start, the trace is nonempty.
     (Follows from base case: empty trace can't certify.) *)
 Corollary cert_trace_nonempty :
@@ -229,3 +243,5 @@ Qed.
     counterexample to the conclusion. This file proves only the unit floor;
     a bound tied to witness complexity would require additional fields and a
     separate theorem. *)
+
+Print Assumptions every_toll_system_pays_the_floor.
