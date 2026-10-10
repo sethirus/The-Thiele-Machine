@@ -369,6 +369,7 @@ An explicitly qualified citation keeps its own module identity.
 
 - `checker_soundness`: From a clean start, every stored fact whose version equals its counter's current version states a true property of that counter's current value.
 - `earned_certification_provenance`: Every trace from a clean start ending certified contains a passing CHECK, then a passing COMMIT of the same property and counter at the same version with that counter untouched between them, then a passing CERTIFY.
+- `earned_certification_same_claim`: Every trace from a clean start ending certified contains a passing CHECK, then a passing COMMIT of the same property and counter, then a passing CERTIFY, and when that CERTIFY runs the channel holds exactly the fact the COMMIT wrote: that property, that counter, and the counter's version at the CHECK, which is unchanged at the COMMIT.
 - `no_forging`: Every trace from a clean start satisfies no_forgery: each stored fact has a passing CHECK as its origin, with the stated untouched-counter condition when its version is current.
 - `certified_run_min_cost`: A trace from a clean start ending certified has total cost at least three and raises the ledger by at least three.
 - `min_cost_tight`: From every initial counter pair, four execution steps of CHECK at-least-zero, COMMIT of that claim, and CERTIFY halt with certification true and ledger three.
