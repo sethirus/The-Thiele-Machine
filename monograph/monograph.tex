@@ -14946,6 +14946,19 @@ a theorem exhibiting identical population dynamics with different heat
 scale is a selected Hamiltonian (the physicist's name for the rule that says what energy each
 state has), and selecting it is not deriving it.
 
+The canonical reset is a bookkeeping toy, and its rates show it. A register that trades heat
+with a bath at temperature $T$ has rates in \emph{detailed balance}: the rate up over the rate
+down is $e^{-\Delta/k_B T}$, which at the gap $2 k_B T \ln 2$ is $1/4$. The canonical rates are
+0 and 1, and the factor $e^{-\Delta/k_B T}$ is never 0, so no gap and no temperature put them in
+that ratio (\code{canonical\_rates\_break\_detailed\_balance}). With rates that are in it, a
+relaxation at a fixed gap moves toward the equilibrium population $1/(1 + e^{\Delta/k_B T})$ and,
+with steps short enough not to overshoot, never goes below it
+(\code{detailed\_balance\_settles\_at\_gibbs}, \code{detailed\_balance\_never\_empties}). At the
+gap $2 k_B T \ln 2$ that population is $1/5$ (\code{landauer\_gap\_settles\_at\_one\_fifth}). The
+toy has no work term either; nothing in it pays for the squeeze. Part (4) of the theorem below
+says what that costs: at the gap $k_B T \ln 2$ the toy books less heat than Landauer's bound
+asks for the same squeeze from one half to zero, so the toy has no second law.
+
 \begin{definition}[The two-state protocol]\label{def:u24-calorimeter}
 For a gap $\Delta$, the register's mean energy at excited population $p$ is $\Delta \cdot p$.
 One step of the rate equation is
@@ -14972,10 +14985,60 @@ $\Delta \cdot \tfrac12 - \Delta \cdot 0 = \Delta/2$; and $\ln 2 > 0$ for (4). Fo
 \end{proof}
 
 Checked as \code{canonical\_reset\_satisfies\_master\_equation}, \code{canonical\_reset\_heat\_exact},
-\code{selected\_gap\_gives\_landauer\_heat}, \code{smaller\_gap\_refutes\_unconditional\_landauer\_floor} (given
+\code{selected\_gap\_gives\_landauer\_heat}, \code{canonical\_reset\_heat\_below\_landauer\_at\_small\_gap} (given
 $k_B > 0$ and $T > 0$) and
 \code{master\_equation\_does\_not\_fix\_heat\_scale} (CalorimeterProtocol.v), with the
 definitions in CalorimeterProtocolTarget.v.
+
+A reset that pays its way is driven. Raise the gap a little, let the register settle with
+rates in detailed balance, raise it again, and so on, starting from a gap of zero, where the
+two states are alike and the population is one half. Raising the gap while the population
+holds is work done on the register; settling at the new gap is heat to the bath. That's the
+textbook way to wipe a bit slowly, and here it's checked.
+
+\begin{definition}[The driven reset]\label{def:u24-driven}
+Write $kT$ for $k_B T$. At gap $\Delta$ the equilibrium excited population is
+$\pi(\Delta) = 1/(1 + e^{\Delta/kT})$ and the register's free energy is
+$F(\Delta) = -kT \ln(1 + e^{-\Delta/kT})$. Rates satisfy \emph{detailed balance} at gap $\Delta$
+when $k_{01} = k_{10} \, e^{-\Delta/kT}$. A \emph{driven reset} along a schedule of gaps
+$g_0, g_1, \dots, g_n$ takes, at step $m$, the gap from $g_m$ to $g_{m+1}$ with the population
+held at $\pi(g_m)$, which is work $\pi(g_m)(g_{m+1} - g_m)$, and then lets the register settle to
+$\pi(g_{m+1})$, which is heat $g_{m+1}\big(\pi(g_m) - \pi(g_{m+1})\big)$ to the bath. The reset's
+work and heat are the sums over its steps. The uniform schedule from 0 to $D$ in $N$ steps has
+$g_m = D m / N$.
+\end{definition}
+
+\begin{theorem}[A driven reset pays $kT \ln 2$ in work]\label{thm:u24-driven}
+(1) With rates in detailed balance at gap $\Delta$, one step of the rate equation takes $p$ to
+$\pi(\Delta) + \big(1 - \delta t\,(k_{01} + k_{10})\big)\big(p - \pi(\Delta)\big)$; when
+$\delta t\,(k_{01} + k_{10}) = 1$ it lands on $\pi(\Delta)$ from any $p$. (2) For any schedule, work
+minus heat is $g_n \pi(g_n) - g_0 \pi(g_0)$, the change in the register's mean energy. (3) If
+$kT > 0$ and the schedule never falls, the work is at least $F(g_n) - F(g_0)$; if also every
+step raises the gap by at most $h$, the work is at most $F(g_n) - F(g_0) + h\big(\pi(g_0) -
+\pi(g_n)\big)$. (4) If $kT > 0$, $D \ge 0$ and $N \ge 1$, the uniform reset from 0 to $D$ in $N$
+steps does work between $kT \ln 2 - kT e^{-D/kT}$ and $kT \ln 2 + D/(2N)$, and leaves an excited
+population of at most $e^{-D/kT}$.
+\end{theorem}
+
+\begin{proof}
+(1) Under detailed balance $k_{01} = (k_{01} + k_{10})\,\pi(\Delta)$, so the step is linear in
+$p - \pi(\Delta)$ with that factor. (2) The terms telescope. (3) The slope of $F$ is $\pi$, which
+falls as the gap rises, so the mean value theorem gives $\pi(b)(b - a) \le F(b) - F(a) \le
+\pi(a)(b - a)$ for $a \le b$; add over the steps. (4) $F(0) = -kT \ln 2$, $\pi(0) = \tfrac12$,
+$\ln(1 + x) \le x$ for $x \ge 0$, and $\pi(D) \le e^{-D/kT}$; put these into (3) with $h = D/N$.
+\end{proof}
+
+Checked as \code{detailed\_balance\_settles\_at\_gibbs}, \code{detailed\_balance\_thermalizing\_step},
+\code{driven\_first\_law}, \code{driven\_work\_second\_law}, \code{driven\_work\_near\_free\_energy} and
+\code{driven\_reset\_work\_window} (CalorimeterProtocol.v), with the definitions in
+CalorimeterProtocolTarget.v.
+
+Here nobody picked the gap to make the number come out. Take $D$ large and $N$ much larger
+than $D$: the work closes in on $kT \ln 2$ from both sides, and the population left in the
+excited state goes to zero. The bit is wiped, and Landauer's number is the work it took. The
+temperature gets in through detailed balance, which is the thermal premise the toy didn't
+have. It's still a model. The settling step is the one part (1) describes, and the work and
+heat are the standard bookkeeping for a slowly driven two-state system.
 
 What ties it to a machine: the protocol counts one logical event (the file defines that
 count as the constant one), and one is what the small machine's CERTIFY charges, the last of
@@ -14985,10 +15048,10 @@ protocol's two register states to any machine state. The file's ``heat to the ba
 register's mean energy before minus after, so it also assumes the bath receives what the
 register loses, and no Coq says that. So a device test would have to measure the gap, the
 populations, the rates, and the bath heat independently; separately establish
-thermal admissibility and detailed balance (that the up and down rates stand in the ratio the
-temperature dictates); and separately establish that the device's
-physical reset \emph{is} the machine's certify event. The protocol is an executable experimental
-specification. It is not a measured device, and it is not an unconditional conversion of
+that the device's rates are in detailed balance (that the up and down rates stand in the ratio the
+temperature dictates), which the driven reset assumes and the canonical one breaks; and separately establish that the device's
+physical reset \emph{is} the machine's certify event. The driven reset is an executable experimental
+specification. The canonical reset is a bookkeeping toy. Neither is a measured device, and neither is an unconditional conversion of
 marks to joules, and anyone who tells you otherwise is reading a file name.
 
 \subsection{What permanence adds to Landauer: nothing new, said plainly}
@@ -16018,6 +16081,8 @@ A collapse needs the merge clause: INC $A$ raises ``$A \ge 1$'' one way, one-to-
 The small machine's whole instruction set fails the premise pair & proved (\code{nec\_f\_small\_premise\_pair\_fails}); its free steps merge (\code{nec\_f\_small\_free\_collapse\_is\_merge}, NecFPhysics.v) & Section~\ref{sec:landauer} \\
 Keeping history makes every step injective & proved & Section~\ref{sec:landauer}, Theorem~\ref{thm:u24-history} \\
 The heat is fixed by the chosen gap & definition; proved & Section~\ref{sec:landauer}, Definition~\ref{def:u24-calorimeter}, Theorem~\ref{thm:u24-calorimeter} \\
+The canonical reset's rates are in detailed balance at no gap; with rates that are, a fixed-gap relaxation settles at $1/(1 + e^{\Delta/k_B T})$, which is $1/5$ at the gap $2 k_B T \ln 2$ & proved (\code{canonical\_rates\_break\_detailed\_balance}, \code{detailed\_balance\_never\_empties}, \code{landauer\_gap\_settles\_at\_one\_fifth}, CalorimeterProtocol.v) & Section~\ref{sec:landauer} \\
+A driven reset with rates in detailed balance pays between $kT \ln 2 - kT e^{-D/kT}$ and $kT \ln 2 + D/(2N)$ in work & definition; proved & Section~\ref{sec:landauer}, Definition~\ref{def:u24-driven}, Theorem~\ref{thm:u24-driven} \\
 The counter is physical dissipation, in joules & not claimed & Section~\ref{sec:landauer} \\
 Permanence predicts more than Landauer & not claimed & Section~\ref{sec:landauer} \\
 Zero Admitted; a handful of standard assumptions & fact from the assumption audit, true of the sources at this edition & Section~\ref{sec:coq} \\
@@ -17565,7 +17630,10 @@ Premise \ref{prem:u24-landauer-pair}: Structural dissipation pricing & \S\ref{se
 Theorem \ref{thm:u24-consistency}: When the premises can hold together & \S\ref{sec:landauer} & \code{calibrated\_model\_exists\_iff\_positive\_cost} {\footnotesize(\code{ObservationPolicy.v})}\newline \code{bit\_model\_has\_satisfiable\_calibration} {\footnotesize(\code{ObservationPolicy.v})}\newline \code{calibrated\_positive\_model} {\footnotesize(\code{ObservationPolicy.v})} & none\newline none\newline def \\
 Theorem \ref{thm:u24-history}: Keeping history makes every step injective & \S\ref{sec:landauer} & \code{retained\_history\_step\_injective} {\footnotesize(\code{ObservationPolicy.v})} & none \\
 Definition \ref{def:u24-calorimeter}: The two-state protocol & \S\ref{sec:landauer} & stated in the text &  \\
-Theorem \ref{thm:u24-calorimeter}: The heat is fixed by the chosen gap & \S\ref{sec:landauer} & \code{canonical\_reset\_satisfies\_master\_equation} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{canonical\_reset\_heat\_exact} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{selected\_gap\_gives\_landauer\_heat} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{smaller\_gap\_refutes\_unconditional\_landauer\_floor} {\footnotesize(given $0 < k_B$ and $0 < T$)} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{master\_equation\_does\_not\_fix\_heat\_scale} {\footnotesize(\code{CalorimeterProtocol.v})} & FE, RD\newline FE, RD\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD \\
+Theorem \ref{thm:u24-calorimeter}: The heat is fixed by the chosen gap & \S\ref{sec:landauer} & \code{canonical\_reset\_satisfies\_master\_equation} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{canonical\_reset\_heat\_exact} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{selected\_gap\_gives\_landauer\_heat} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{canonical\_reset\_heat\_below\_landauer\_at\_small\_gap} {\footnotesize(given $0 < k_B$ and $0 < T$)} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{master\_equation\_does\_not\_fix\_heat\_scale} {\footnotesize(\code{CalorimeterProtocol.v})} & FE, RD\newline FE, RD\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD \\
+In the text: the canonical rates break detailed balance; with rates in detailed balance a fixed-gap relaxation settles at the equilibrium population, $1/5$ at the gap $2 k_B T \ln 2$, and never goes below it & \S\ref{sec:landauer} & \code{canonical\_rates\_break\_detailed\_balance} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{detailed\_balance\_never\_empties} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{landauer\_gap\_settles\_at\_one\_fifth} {\footnotesize(\code{CalorimeterProtocol.v})} & FE, RD\newline FE, RD\newline FE, RD, EM \\
+Definition \ref{def:u24-driven}: The driven reset & \S\ref{sec:landauer} & stated in the text &  \\
+Theorem \ref{thm:u24-driven}: A driven reset pays $kT \ln 2$ in work & \S\ref{sec:landauer} & \code{detailed\_balance\_settles\_at\_gibbs} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{detailed\_balance\_thermalizing\_step} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{driven\_first\_law} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{driven\_work\_second\_law} {\footnotesize(given $0 < kT$)} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{driven\_work\_near\_free\_energy} {\footnotesize(given $0 < kT$)} {\footnotesize(\code{CalorimeterProtocol.v})}\newline \code{driven\_reset\_work\_window} {\footnotesize(given $0 < k_B T$)} {\footnotesize(\code{CalorimeterProtocol.v})} & FE, RD\newline FE, RD\newline FE, RD\newline FE, RD, EM\newline FE, RD, EM\newline FE, RD, EM \\
 Definition \ref{def:app-certsys}: Certification system & \S\ref{sec:assumptions} & \code{CertificationSystem} {\footnotesize(\code{UniversalCertificationCost.v}, +1)}\newline \code{cs\_cert\_costs} {\footnotesize(\code{UniversalCertificationCost.v})} & def\newline def \\
 Definition \ref{def:app-qcs}: Quantitative certification system & \S\ref{sec:assumptions} & \code{QuantitativeCertificationSystem} {\footnotesize(\code{QuantitativeNoFI.v})}\newline \code{qcs\_cost\_bounds\_witness} {\footnotesize(\code{QuantitativeNoFI.v})}\newline \code{qcs\_cert\_threshold\_witness} {\footnotesize(\code{QuantitativeNoFI.v})}\newline \code{QuantitativeCertificationSystem\_full} {\footnotesize(\code{QuantitativeNoFI.v})} & def\newline def\newline def\newline def \\
 Theorem \ref{thm:app-quantitative}: The floor raised to a threshold & \S\ref{sec:assumptions} & \code{universal\_nfi\_quantitative} {\footnotesize(\code{QuantitativeNoFI.v})} & none \\
