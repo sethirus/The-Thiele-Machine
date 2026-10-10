@@ -11004,18 +11004,23 @@ for some $p$ and $c$, $t$ is
 \]
 where the CHECK passes at its state, the COMMIT passes at its state, the CERTIFY passes at
 its state, $c$ has the same version at the CHECK as at the COMMIT, and $\mathit{mid}_1$ leaves
-$c$ untouched.
+$c$ untouched. And when the CERTIFY runs, the channel holds exactly the claim that COMMIT made:
+the fact ($p$, $c$, $c$'s version at the CHECK). CERTIFY takes no operand; this is what ties it
+to the claim.
 \end{theorem}
 
 \begin{proof}
 The flag starts down, so some first instruction raised it, and by
 Theorem~\ref{thm:u34-toll} it's a passing CERTIFY. A CERTIFY passes only with a fact in the
 channel, the channel starts empty, and only a passing COMMIT puts a fact there, so some
-earlier COMMIT $p$ $c$ passed. Theorem~\ref{thm:u34-commit-earned} at that COMMIT gives the
-CHECK, the equal version, and the untouched stretch.
+earlier COMMIT $p$ $c$ passed. Take the last one before the CERTIFY: the fact in the channel
+is the one it wrote. Theorem~\ref{thm:u34-commit-earned} at that COMMIT gives the
+CHECK, the equal version, and the untouched stretch, and the equal version makes the
+committed fact ($p$, $c$, $c$'s version at the CHECK).
 \end{proof}
 
-Checked as \code{earned\_certification\_provenance} (EarnedCore.v).
+Checked as \code{earned\_certification\_provenance} and, with the channel clause,
+\code{earned\_certification\_same\_claim} (EarnedCore.v).
 
 And the failure side, so you can see the refusals are clean, with nothing left half-done:
 
@@ -17469,7 +17474,7 @@ Theorem \ref{thm:u34-instance}: An instance of the certification system & \S\ref
 Theorem \ref{thm:u34-latch}: The flag is a latch of the base & \S\ref{sec:smallest} & \code{earned\_core\_honest} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{earned\_core\_is\_latch} {\footnotesize(\code{EarnedCoreLinks.v})}\newline \code{record\_axis\_is\_latch\_holds} {\footnotesize(\code{StructuralRecordAxis.v})}\newline \code{cert\_latch} {\footnotesize(\code{EarnedCore.v})}\newline \code{base\_blind} {\footnotesize(\code{EarnedCore.v})} & none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u34-untouched}: Untouched & \S\ref{sec:smallest} & \code{untouched} {\footnotesize(\code{EarnedCore.v}, +2)} & def \\
 Theorem \ref{thm:u34-commit-earned}: A commitment was checked first & \S\ref{sec:smallest} & \code{earned\_commitment\_provenance} {\footnotesize(\code{EarnedCore.v})} & none \\
-Theorem \ref{thm:u34-cert-earned}: A raised flag was checked, then committed, then certified & \S\ref{sec:smallest} & \code{earned\_certification\_provenance} {\footnotesize(\code{EarnedCore.v})} & none \\
+Theorem \ref{thm:u34-cert-earned}: A raised flag was checked, then committed, then certified & \S\ref{sec:smallest} & \code{earned\_certification\_provenance} {\footnotesize(\code{EarnedCore.v})}\newline \code{earned\_certification\_same\_claim} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
 Theorem \ref{thm:u34-failures}: Unearned steps trap and change no claim & \S\ref{sec:smallest} & \code{unearned\_commit\_traps} {\footnotesize(\code{EarnedCore.v})}\newline \code{uncommitted\_certify\_traps} {\footnotesize(\code{EarnedCore.v})} & none\newline none \\
 Theorem \ref{thm:u34-soundness}: Checker soundness & \S\ref{sec:smallest} & \code{checker\_soundness} {\footnotesize(\code{EarnedCore.v})}\newline \code{committed\_claim\_holds} {\footnotesize(\code{EarnedCore.v}, +1)}\newline \code{sound\_step} {\footnotesize(\code{EarnedCore.v})}\newline \code{sound} {\footnotesize(\code{EarnedCore.v}, +2)} & none\newline none\newline none\newline def \\
 Definition \ref{def:u34-earned}: Earned fact; no forgery & \S\ref{sec:smallest} & stated in the text &  \\
@@ -17827,11 +17832,11 @@ conditions, driven and permanent; the other three are carried along and never us
 
 \subsection{A raised flag was checked, then committed, then certified}
 
-{\raggedright \code{earned\_certification\_provenance}, minimal/EarnedCore.v.\par}
+{\raggedright \code{earned\_certification\_same\_claim}, minimal/EarnedCore.v.\par}
 
 {\tiny
 \begin{verbatim}
-Theorem earned_certification_provenance : forall s0 tr,
+Theorem earned_certification_same_claim : forall s0 tr,
   clean_start s0 -> cert (run tr s0) = true ->
   exists pre1 p c mid1 mid2 post,
     tr = pre1 ++ CHECK p c :: mid1 ++ COMMIT p c :: mid2 ++ CERTIFY :: post /\
@@ -17839,6 +17844,10 @@ Theorem earned_certification_provenance : forall s0 tr,
     commit_ok (core_of (run (pre1 ++ CHECK p c :: mid1) s0)) p c = true /\
     certify_ok (core_of (run (pre1 ++ CHECK p c :: mid1 ++ COMMIT p c :: mid2) s0))
       = true /\
+    chan (core_of (run (pre1 ++ CHECK p c :: mid1 ++ COMMIT p c :: mid2) s0))
+      = Some (claim (core_of (run (pre1 ++ CHECK p c :: mid1) s0)) p c) /\
+    claim (core_of (run (pre1 ++ CHECK p c :: mid1) s0)) p c
+      = mkfact p c (ver (core_of (run pre1 s0)) c) /\
     ver (core_of (run pre1 s0)) c = ver (core_of (run (pre1 ++ CHECK p c :: mid1) s0)) c /\
     untouched (run (pre1 ++ [CHECK p c]) s0) mid1 c.
 \end{verbatim}}
@@ -17847,9 +17856,12 @@ In plain words: the clean-start premise on \texttt{s0} says the fact table and t
 empty and the flag is down, and \texttt{run tr s0} runs a list of instructions. The theorem: from a clean start,
 if the flag is up at the end, the list splits as some start, CHECK \texttt{p c}, a middle, COMMIT
 of the same \texttt{p c}, another middle, CERTIFY, and the rest; the CHECK, the COMMIT and the
-CERTIFY each pass where they run; the counter's version at the CHECK equals its version at the
-COMMIT; and nothing in the first middle touched that counter. Theorem~\ref{thm:u34-cert-earned}
-says exactly this.
+CERTIFY each pass where they run; when the CERTIFY runs, the channel holds the claim the COMMIT
+made, which is the fact (\texttt{p}, \texttt{c}, the version \texttt{c} had at the CHECK); the
+counter's version at the CHECK equals its version at the COMMIT; and nothing in the first middle
+touched that counter. CERTIFY takes no operand, and the channel clause is what ties it to the
+claim. Theorem~\ref{thm:u34-cert-earned} says exactly this. The same file keeps the statement
+without the channel clause as \code{earned\_certification\_provenance}.
 
 \subsection{Checker soundness}
 
