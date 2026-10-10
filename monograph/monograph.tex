@@ -15254,10 +15254,10 @@ this one:
 \begin{verbatim}
 Companion sources:
   https://github.com/sethirus/The-Thiele-Machine
-  branch handoff/native-recursion-2026-10-01
+  tag v4.0.0, this edition's release tag
 Revision used for this edition:
-  the commit tagged for this edition's release; the
-  digest further down fingerprints its proof sources
+  the commit the tag v4.0.0 names; print its hash with
+  git rev-list -n 1 v4.0.0
 Dependency snapshot:
   Coq 8.18.0 (Ubuntu 24.04 packages), MetaCoq 1.2.1
   (scripts/install_metacoq.sh), vendored Coq Library of
@@ -15272,15 +15272,37 @@ Audit report for this revision:
           31c6984bb9408bc862c666c3c981ee43
   corpus digest 105d9231b77c79d5c117fd9d9c589188
                 b41e93f5dba327194659af31d326caba
+Commit the audit report was built from:
+  git log -1 --format=%H v4.0.0 -- \
+    artifacts/print_assumptions_all_proofs.json
+  prints the commit that wrote the report; its proof
+  sources are the ones the report was built from, and
+  python3.12 scripts/assumption_receipt_fingerprint.py
+  run at the tag prints the corpus digest above
 Manuscript source for this edition:
   monograph/monograph.tex at the release commit; a file
   can't print its own checksum, so take it with
-  git rev-parse RELEASE:monograph/monograph.tex
+  git rev-parse v4.0.0:monograph/monograph.tex
 \end{verbatim}
 
+A commit can't print its own hash either, and that's why the block names the release by its tag and
+gives the command that turns the tag into a hash. The corpus digest ties the report to the
+sources without trusting the tag. It is a SHA-256 hash, computed by
+\texttt{scripts/assumption\_receipt\_fingerprint.py}, over this input, in this order: a fixed
+label; the first line Coq's compiler prints for its version; then, for every proof file the
+project lists in \texttt{coq/\_CoqProject} and every proof file of the vendored library, sorted
+by path, the file's path and its text with comments removed, each run of white space shortened to
+one space, and the wording of the strings in its \texttt{claim\_not\_imply} audit notes erased; then
+the project file \texttt{coq/\_CoqProject} as written, and the five scripts that scope, generate, run,
+aggregate and fingerprint the audit, each read as a stream of Python tokens with its comments dropped. Each
+item is followed by a zero byte. So an edit to a comment or to the layout leaves the digest alone, and
+any other edit to a proof file moves it. The token streams come from Python's own tokenizer, whose
+output differs between Python versions, and the digest above was computed with Python 3.12; under
+3.13 the same files give a different digest.
+
 The counts this book reports from the assumption audit (5,762 theorems in 332 files) are the ones
-in that report, and they belong to that revision. A change to the proof sources changes the
-corpus digest; the audit then has to be run again and its counts read afresh.
+in that report, and they belong to that revision. A change to the proof sources beyond their comments and
+layout changes the corpus digest; the audit then has to be run again and its counts read afresh.
 With those installed, run:
 
 \begin{verbatim}
