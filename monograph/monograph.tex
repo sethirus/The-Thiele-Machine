@@ -8424,10 +8424,11 @@ least one?'' Let the record rise on some steps and hold still on others. Once it
 cup is up before and after both kinds of step, so a step that turned over a cup further along looks
 exactly like a step that turned over nothing. That's a collision. So then, I thought, the window
 has to show every cup. That's wrong too, from the other side. Take a record in the whole numbers
-that rises on every step, and a window that shows only whether the record is even, which on the row
-is whether an even number of cups are up. You can't read the record off that window. Every step
-changes the evenness, though, and every step turns a cup over, so charging one for every step is
-exact.
+with two moves, one that adds one and one that leaves it alone, and a window that shows only
+whether the record is even, which on the row is whether an even number of cups are up. You can't
+read the record off that window, and no flat charge is exact, since some steps turn a cup over and
+some don't. But the evenness changes on exactly the steps that turn a cup over, so charging one
+exactly when the evenness changed is exact.
 
 \begin{theorem}[Window prices over a direction]\label{thm:dir-window}
 (1) If the window has a collision, every window price that meets the floor charges at least one for
@@ -8438,9 +8439,11 @@ any run, a window price that meets the floor charges at least the number of step
 over but look, through the window, like a step that does. When it can be decided, for each pair of
 views, whether some step showing them turns a cup over, some window price meets the floor and, among
 the steps that turn no cup over, charges one on exactly those, so that number is the least overcharge. (4) A window can
-price exactly without showing where the record is: there's a record in the whole numbers, rising on
-every step, and a window that shows only whether the record is even, which prices every step exactly
-although no rule reads the record off it. (5) There's a record in the whole numbers and a window
+price exactly without showing where the record is: there's a record in the whole numbers with a move
+that raises it and a move that leaves it alone, and a window that shows only whether the record is
+even; the evenness changes exactly on the rises, no charge that is the same for every step is exact,
+and charging one exactly when the evenness changes is exact, although no rule reads the record off
+the window. (5) There's a record in the whole numbers and a window
 that shows only the one cup ``at least one,'' and that window has a collision.
 \end{theorem}
 
@@ -8452,8 +8455,9 @@ machine you can answer it for every pair of views; charge one exactly when the a
 A step that turns no cup over but looks like one that does gets that step's bill, which is at
 least one by (1)'s argument; add along the run. For the other half, charge one exactly when the
 answer to (2)'s question is yes, which needs that question to be decidable, and count the
-overcharge. (4) Every step changes the evenness, so the window
-sees every step as a move, and every step turns a cup over. (5) The first cup, as above.
+overcharge. (4) A rise changes the evenness and the other move doesn't, so the window sees exactly
+the steps that turn a cup over; a flat charge either bills nothing for a rise or bills something
+for a step that turns nothing over; and 0 and 2 look the same through the window. (5) The first cup, as above.
 \end{proof}
 
 Checked as \code{ax\_window\_collision\_overcharges}, \code{ax\_window\_no\_exact\_price},
