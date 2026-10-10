@@ -3051,7 +3051,11 @@ first kind of claim I care about. It isn't the only kind, and the book comes bac
 stands behind in Section~\ref{sec:entitlement}, and on a machine in Section~\ref{sec:smallest},
 where a flag stands on a checked claim. Until then nothing leans on the buckets. The floor in
 this section, the reason for it in the next, and the latch in Part III all
-work for any yes-or-no reading whatsoever, partition or no partition.
+work for any yes-or-no reading whatsoever, partition or no partition. When the buckets come back,
+in Section~\ref{sec:entitlement}, it's as a theorem: a reading that says a grouping has been checked
+and committed sees the grouping only through its partition, and what it entitles is exactly the
+groupings that refine it (Theorem~\ref{thm:partition-reading}). That's what ``structural'' in this
+book's subtitle means at the level of a theorem.
 
 But first the word, because I've got a new one and I don't trust it either. Record. Receipt.
 Certificate. Vouch. People have been making marks that other people are supposed to rely on
@@ -5712,7 +5716,8 @@ settles that it's a circle by feeling it, and the circle grows from a point to i
 shrinks back to nothing as the sphere rises through. From one slice he can't put a sphere
 together. From the slices one after another, seen and felt and argued over, he starts to.
 The escape from a window is never ``think harder.'' It's always ``a different window,'' and a
-different window always has to show apart two states the old one showed alike; that's
+different window that answers the question always has to show apart two states the old one
+showed alike; that's
 Theorem~\ref{thm:fibre} below, applied to the new window. In every story here, getting that window
 cost something: a turn, a second look, training, time. What a change of window costs in general
 is a separate question, and no theorem in this section prices it.
@@ -7035,7 +7040,66 @@ already knew. What the card did was make sure none of it got left out when it ma
 what putting entitlement's hypotheses on one list does: it finds nothing new about leaning on a
 claim, and it makes the hypotheses impossible to drop quietly.
 
-Before any machine, I owe you the word the toll is named after, the ``insight'' in ``No Free
+\subsection{A grouping, checked and committed}
+
+Part I ended on buckets, and Part II dropped them on purpose: the toll prices any yes-or-no
+reading. This is where the word in this section's title gets attached to a partition in a
+theorem. Take a pile, a finite list of items, and a \emph{grouping}, a bucket label for each item.
+Its partition is ``same label,'' and the classes of that relation are a partition in the sense of
+Definition~\ref{def:equiv-partition}. The data is a \emph{key} for each item, and a grouping is
+\emph{sound} for a key when any two items it puts in one bucket have the same key. The grouping
+says ``these belong together,'' and the key says whether they do. One grouping \emph{refines}
+another when every bucket of the first sits inside a bucket of the second.
+
+The \emph{bucket machine} holds a key, a table of checked groupings, a channel, a record, a trap
+latch and a ledger. SET replaces the key for nothing and throws away the table and the channel,
+which were checked against the old key. CHECK $g$ costs one and passes when $g$ is sound for the
+current key, and writes $g$ in the table. COMMIT $g$ costs one and passes when the table holds a
+grouping with the same partition as $g$, and puts $g$ in the channel. CERTIFY costs one and passes
+when the channel holds a grouping, and the record then keeps that grouping with the key it was
+checked against. A CHECK, COMMIT or CERTIFY that fails traps, and a trapped machine only pays. The
+\emph{reading for a grouping $g$} is: the record holds a grouping with $g$'s partition. That's the
+reading ``this grouping has been checked and committed.''
+
+\begin{theorem}[A committed grouping entitles exactly its refinements]\label{thm:partition-reading}
+(1) The classes of ``same label'' under any grouping form a partition. (2) Two groupings with the
+same partition of the pile have the same reading at every state of the bucket machine. (3) For
+groupings $g$ and $h$ of the pile, soundness of $g$ for a key gives soundness of $h$ for that key,
+for every key, exactly when $h$ refines $g$. (4) On every run from a clean state (table and channel
+empty, record down, trap down), if the reading for $g$ is up, the record holds a grouping and a key
+for which $g$ is sound, and so is every grouping that refines $g$; and for every grouping $h$ that
+doesn't refine $g$ there is a key for which $g$ is sound and $h$ isn't. (5) The bucket machine
+pays the toll, and a run from a clean state that ends with the record up has raised the ledger
+by at least three.
+\end{theorem}
+
+\begin{proof}
+(1) ``Same label'' is an equivalence relation, so Theorem~\ref{thm:equiv-partition} applies.
+(2) The reading asks only for a grouping with the same partition, and having the same partition
+is symmetric and transitive. (3) If $h$ refines $g$, two items $h$ puts together $g$ puts
+together, and soundness of $g$ gives them the same key. Conversely, take $g$ itself as the key:
+$g$ is sound for it, so $h$ is, and that says $h$ refines $g$. (4) Along any run, every grouping in
+the table is sound for the current key, the one in the channel is too, since it has the partition
+of one in the table, and the one the record keeps is sound for the key kept with it; SET empties
+the table and the channel when the key changes. Then (3), and its converse with $g$ as the key.
+(5) Only CERTIFY raises the record, and it costs one. A raised record needs a passing CERTIFY,
+which needs a grouping in the channel, which needs a passing COMMIT, which needs a grouping in the
+table, which needs a passing CHECK.
+\end{proof}
+
+Checked as \code{pr\_grouping\_partition}, \code{pr\_reads\_structural},
+\code{pr\_entitled\_iff\_refines}, \code{pr\_reading\_entitles}, \code{pr\_reading\_entitles\_only},
+\code{pr\_toll} and \code{pr\_reading\_costs\_three} (PartitionReading.v), all closed.
+
+So ``structural'' has a theorem under it. The reading sees a grouping only through its partition,
+which is item (2), and what a raised reading entitles is read off the partition too: every finer
+grouping, and nothing else. Refinement, the order on partitions, is the entitlement order. It's
+the three parts of entitlement from the start of this section in their smallest case: the object
+is the grouping, the checked relation is soundness for the key, and the paid event is the CERTIFY,
+on top of a CHECK and a COMMIT at one mark each. What it doesn't do is make a later move read the
+record. Like everything in this section, it says what someone auditing the run may conclude.
+
+Before the machine of Part IV, I owe you the word the toll is named after, the ``insight'' in ``No Free
 Insight'' (Section~\ref{sec:narrowing}), because I've been using it as if it meant one thing.
 
 %===========================================================================
@@ -15938,6 +16002,7 @@ Entitlement: object, checked relation, paid event & definition (the book's word;
 A decision tree has at most two to its depth leaves & definition; proved & Section~\ref{sec:entitlement}, Definition~\ref{def:u08-dtree}, Lemma~\ref{lem:u08-tree-width} \\
 Paid narrowing, counted & proved with the bill of the charges (\code{nec\_e\_cs\_count\_any}, NecEEnt.v), which equals the counter's rise by conservation (\code{nec\_f\_conservation}); both are checked (premises: a covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:u08-count} \\
 Structural entitlement over any certification system: a strictly stronger test, a paid crossing, a bill that covers the index bits & proved (premises: covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:ent-cs} \\
+A reading that a grouping was checked and committed sees only its partition and entitles exactly the groupings that refine it & proved & Section~\ref{sec:entitlement}, Theorem~\ref{thm:partition-reading} \\
 Structural entitlement for every Thiele-complete machine: stronger test, earned chain, index bits at most the record moves, ledger rise at least 3 & proved (premises: a clean start, and M1 to M6) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-machine} \\
 A floor with no supplied tree, from the run's own CHECKs & proved (answers taken at the rivals as they start) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-questions} \\
 What the record adds to the price bound from a clean start: the earned chain and a floor of 3 & proved & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-observed} \\
@@ -17553,6 +17618,7 @@ Proposition \ref{prop:ent-small}: The eight-start member & \S\ref{sec:smallest} 
 Theorem \ref{thm:ent-search}: A search through $n$ bits & \S\ref{sec:smallest} & \code{ent2\_mmachine\_complete} {\footnotesize(\code{MultiThiele2.v})}\newline \code{ent2\_bit\_search} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_certifies\_iff} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_questions\_floor} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_questions\_cap} {\footnotesize(\code{BitSearch2.v})}\newline \code{ent2\_search\_posterior\_is\_certified} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_lands} {\footnotesize(\code{BitSearchMember2.v})}\newline \code{ent2\_search\_observed} {\footnotesize(\code{BitSearchObserved2.v})}\newline \code{ent2\_no\_search\_past\_16} {\footnotesize(\code{BitSearchMember2.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
 In the text: the covering can't be dropped & \S\ref{sec:smallest} & \code{ent2\_uncovered\_posterior} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_uncovered\_claim\_false} {\footnotesize(\code{CoveringNeeded2.v})}\newline \code{ent2\_no\_cheap\_covering} {\footnotesize(\code{CoveringNeeded2.v})} & none\newline none\newline none \\
 Theorem \ref{thm:time-tax}: The time tax & \S\ref{sec:smallest} & \code{ent2\_free\_run\_shift} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_free\_cannot\_decide\_fast} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_chain\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_time\_tax} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_machine\_free\_cannot\_decide} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_machine\_ladder\_decides} {\footnotesize(\code{TimeTax2.v})}\newline \code{ent2\_ladder\_free} {\footnotesize(\code{TimeTax2.v})}\newline \code{nec\_e\_time\_tax\_one\_paid\_move} {\footnotesize(\code{NecESearch.v})}\newline \code{nec\_e\_time\_tax\_free\_needed} {\footnotesize(\code{NecESearch.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none\newline none \\
+Theorem \ref{thm:partition-reading}: A committed grouping entitles exactly its refinements & \S\ref{sec:entitlement} & \code{pr\_grouping\_partition} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_reads\_structural} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_entitled\_iff\_refines} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_reading\_entitles} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_reading\_entitles\_only} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_toll} {\footnotesize(\code{PartitionReading.v})}\newline \code{pr\_reading\_costs\_three} {\footnotesize(\code{PartitionReading.v})} & none\newline none\newline none\newline none\newline none\newline none\newline none \\
 Definition \ref{def:u09-events}: Certified insight event, raw observation & \S\ref{sec:insight} & stated in the text &  \\
 Remark \ref{rem:u09-three}: What the toll prices, and what it doesn't & \S\ref{sec:insight} & \code{nec\_f\_board\_raw\_free} {\footnotesize(\code{NecFPaperToys.v})}\newline \code{nec\_f\_board\_floor} {\footnotesize(\code{NecFPaperToys.v})}\newline \code{nec\_f\_board\_floor\_flat} {\footnotesize(\code{NecFPaperToys.v})} & none\newline none\newline none \\
 Remark \ref{rem:u09-no-wait}: Nothing makes the crossing wait & \S\ref{sec:insight} & \code{nec\_f\_board\_no\_wait} {\footnotesize(\code{NecFPaperToys.v})} & none \\
