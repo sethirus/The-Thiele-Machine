@@ -26,6 +26,10 @@ NON_COQ_TOKENS = {
     # tactics / keywords
     "Admitted", "admit", "give_up", "lra", "nra", "tauto", "trivial", "reflexivity",
     "psatz", "lia", "nia", "omega", "ring", "field", "auto", "intuition",
+    "vm_compute", "native_compute",
+    # The audit-note field whose string payloads the corpus digest erases
+    # (scripts/assumption_receipt_fingerprint.py), named in the release notes.
+    "claim_not_imply",
     "destruct", "induction", "rewrite", "apply", "exact", "assumption", "congruence",
     "Qed", "Proof", "Theorem", "Lemma", "Corollary", "Definition", "Inductive",
     "Axiom", "Parameter", "Hypothesis", "Variable", "Section", "Module", "Context",

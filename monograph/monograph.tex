@@ -13894,6 +13894,12 @@ slip in a machine written separately by hand to hide. I can imagine that happeni
 it happening often. The comparison doesn't test whether the definitions say the right thing, since
 the hand-written machine copies them. That's what having them on the page is for.
 
+The same holds for how it was made. The Python machine was written from the same Coq definitions,
+by the same process as the Coq itself, the one the short version at the front of the book
+describes (\hyperref[sec:shortversion]{I wrote the code and the proofs with language models}). So it
+guards against a slip in the extraction, the integer mappings or the drivers. It doesn't guard against
+a misreading of the definitions: whatever reading went into the Coq went into the Python with it.
+
 \subsection{$U$ on a real guest}
 
 Now the universal program, which is where I expected trouble. The guest I wanted to run first was
@@ -15159,6 +15165,21 @@ ones in full, premises and all, and why Appendix~\ref{sec:coq-statements} prints
 of the load-bearing ones beside a line on whether my sentence says exactly that, more, or less. A
 machine check supplements that reading.
 \item Coq's kernel and its foundation, and the standard assumptions above.
+\item Coq's bytecode machine, on the build's side. Coq can hand a computation inside a proof to a
+virtual machine: a compiler from Coq terms to bytecode and an interpreter for that bytecode, written
+in OCaml and C, which sit beside the kernel's ordinary reduction and are trusted when used. A proof
+reaches it through the tactic \code{vm\_compute} or through a cast marked for it. Of the 332 files
+in the audit, 44 call \code{vm\_compute} themselves, and 267 reach the machine one way or the
+other, because the standard library's arithmetic deciders (\code{lia}, \code{nia}, \code{lra},
+\code{nra}, \code{psatz}) check their certificates on it; the vendored library's tactics for its
+lambda-calculus files call \code{vm\_compute} too. When \texttt{coqc} builds those files, it
+trusts the bytecode machine. Coq's independent checker, \texttt{coqchk}, keeps its bytecode
+machine switched off unless it's told otherwise (its option \texttt{-bytecode-compiler} defaults to
+no), the procedure in Section~\ref{sec:coq-reproduce} doesn't tell it otherwise, and with the machine
+off the kernel checks each such step again by its ordinary reduction. So the bytecode machine is
+trusted by the build, and the final pass doesn't lean on it. No proof uses \code{native\_compute},
+the variant that compiles a computation to machine code through the OCaml compiler, so native
+compilation adds nothing to this list.
 \item The tools under Coq. Coq's own program, the compiler it was built with, the operating
 system it ran on and the processor under all of them are trusted. This is the list Ken
 Thompson's lecture from Section~\ref{sec:diagonal} was about. I didn't write Coq, or OCaml, or
@@ -15181,6 +15202,16 @@ operator who chooses the start, a reset, a device running the machine, and anyon
 report they didn't watch being made are outside it (Section~\ref{sec:scope} lists the whole
 fence).
 \end{enumerate}
+
+One program on the install list is missing from this list on purpose. CSDP, a numerical solver for
+semidefinite programs written by Brian Borchers, a mathematician at New Mexico Tech, is called by
+one proof: \code{algebraically\_coherent\_tsirelson\_general}
+(category/AlgebraicCoherence.v) ends with the tactic \code{psatz Q 4}, which hands the inequality
+to CSDP. CSDP only proposes a certificate, a sum-of-squares identity with rational coefficients.
+Coq then checks it again: a checker written in Coq, whose soundness is proved in Coq's standard
+library, evaluates the certificate, and the kernel checks that evaluation. A wrong certificate
+makes the tactic fail. It can't make a false statement pass. So CSDP is needed to build that
+proof, and it's outside the trusted base.
 
 \subsection{Thompson's knife, again}
 
@@ -15237,6 +15268,7 @@ has to produce the numbers on the page, run by the checker itself, is harder to 
 disagrees, it tells you where to look.
 
 \subsection{Checking the companion formalization}
+\label{sec:coq-reproduce}
 
 The mathematical claims are the statements printed in this book, with their stated
 hypotheses and the arguments given here. Running software is an additional way to check
@@ -17644,6 +17676,345 @@ the printed theorem next to the block and check that every premise in the block 
 sentence. That's the whole test. These are the statements this book was checked against; if a
 file differs later, the book means the one printed here.
 
+\subsection{The definitions they rest on}
+\label{sec:coq-definitions}
+
+A statement is only as plain as the definitions inside it, and the readings below describe several
+of those definitions in words. Here are the ones they lean on hardest, copied the same way: the
+small machine's step, the meaning of the universal reading checker, the
+simulations that nesting is about, the meaning of the CHSH property, and the universal base with
+the interface that carries it.
+
+{\raggedright The step of the small machine, with the checks it runs and \code{untouched},
+minimal/EarnedCore.v. \texttt{prop}, \texttt{eval}, \texttt{fact}, \texttt{fact\_eqb}, \texttt{cost}
+and \texttt{run} are as in Definitions~\ref{def:u34-props}, \ref{def:u34-state} and~\ref{def:u34-step}.\par}
+
+{\scriptsize
+\begin{verbatim}
+Inductive instr : Type :=
+| INC (c : ctr)
+| DEC (c : ctr) (j : nat)
+| HALT
+| CHECK (p : prop) (c : ctr)
+| COMMIT (p : prop) (c : ctr)
+| CERTIFY.
+
+Record core : Type := mkcore {
+  ca : nat; cb : nat;
+  va : nat; vb : nat;
+  pc : nat;
+  facts : list fact;
+  chan : option fact;
+  err : bool
+}.
+
+Definition val (k : core) (c : ctr) : nat :=
+  match c with CA => ca k | CB => cb k end.
+
+Definition ver (k : core) (c : ctr) : nat :=
+  match c with CA => va k | CB => vb k end.
+
+Definition claim (k : core) (p : prop) (c : ctr) : fact := mkfact p c (ver k c).
+
+Definition write (k : core) (c : ctr) (n j : nat) : core :=
+  match c with
+  | CA => mkcore n (cb k) (S (va k)) (vb k) j (facts k) (chan k) (err k)
+  | CB => mkcore (ca k) n (va k) (S (vb k)) j (facts k) (chan k) (err k)
+  end.
+
+Definition goto (k : core) (j : nat) : core :=
+  mkcore (ca k) (cb k) (va k) (vb k) j (facts k) (chan k) (err k).
+
+Definition trap (k : core) : core :=
+  mkcore (ca k) (cb k) (va k) (vb k) (pc k) (facts k) (chan k) true.
+
+Definition record_fact (k : core) (f : fact) : core :=
+  mkcore (ca k) (cb k) (va k) (vb k) (S (pc k)) (f :: facts k) (chan k) (err k).
+
+Definition commit_to (k : core) (f : fact) : core :=
+  mkcore (ca k) (cb k) (va k) (vb k) (S (pc k)) (facts k) (Some f) (err k).
+
+Definition fact_cap : nat := 16.
+
+Definition check_ok (k : core) (p : prop) (c : ctr) : bool :=
+  negb (err k) && eval p (val k c) && Nat.ltb (length (facts k)) fact_cap.
+
+Definition commit_ok (k : core) (p : prop) (c : ctr) : bool :=
+  negb (err k) && existsb (fact_eqb (claim k p c)) (facts k).
+
+Definition certify_ok (k : core) : bool :=
+  negb (err k) && match chan k with Some _ => true | None => false end.
+
+Definition cexec (k : core) (i : instr) : core :=
+  if err k then k else
+  match i with
+  | INC c => write k c (S (val k c)) (S (pc k))
+  | DEC c j =>
+      match val k c with
+      | 0 => goto k (S (pc k))
+      | S n => write k c n j
+      end
+  | HALT => k
+  | CHECK p c => if check_ok k p c then record_fact k (claim k p c) else trap k
+  | COMMIT p c => if commit_ok k p c then commit_to k (claim k p c) else trap k
+  | CERTIFY => if certify_ok k then goto k (S (pc k)) else trap k
+  end.
+
+Definition fires (k : core) (i : instr) : bool :=
+  match i with CERTIFY => certify_ok k | _ => false end.
+
+Record state : Type := mkst { core_of : core; mu : nat; cert : bool }.
+
+Definition exec (s : state) (i : instr) : state :=
+  mkst (cexec (core_of s) i) (mu s + cost i) (cert s || fires (core_of s) i).
+
+Definition untouched (s : state) (mid : list instr) (c : ctr) : Prop :=
+  forall t1 i t2, mid = t1 ++ i :: t2 ->
+    let k := core_of (run t1 s) in
+    ver (cexec k i) c = ver k c /\ val (cexec k i) c = val k c.
+\end{verbatim}}
+
+In plain words: a core holds the two counters, their versions, the line number, the fact table,
+the channel and the trap bit. \code{claim k p c} is the fact made of \texttt{p}, \texttt{c} and
+\texttt{c}'s version now. CHECK passes when the trap is down, the checker says yes of the counter's
+value, and the table holds fewer than 16 facts, and it adds the claim to the table. COMMIT passes
+when the trap is down and that exact claim, version and all, is in the table, and it puts the
+claim in the channel in place of whatever was there. CERTIFY takes no operand: it passes when the
+trap is down and the channel holds a fact, any fact. A failing one sets the trap and changes nothing
+else, and a core with the trap up stays as it is. \code{exec} runs the core's step, adds the
+instruction's cost to the ledger, and raises the flag when a passing CERTIFY runs.
+\code{untouched s mid c} says each instruction of \texttt{mid}, at the point where it runs from
+\texttt{s}, leaves \texttt{c}'s value and version as they were.
+Definitions~\ref{def:u34-step} and~\ref{def:u34-untouched} say exactly this.
+
+{\raggedright \code{cg\_uholds}, the meaning of the universal reading checker, with the claims it
+reads and the routine's start, coq/kernel/foundation/CompilerChecker.v.\par}
+
+{\scriptsize
+\begin{verbatim}
+Inductive cg_uprop : Type :=
+| UBase (q : G.cprop)
+| URun (r : nat).
+
+Definition cg_env_chk (m v : nat) : env nat nat :=
+  fun x => if Nat.ltb x m then cg_expo (qs x) v else 0.
+
+Definition cg_uholds (p : cg_uprop) (v : nat) : Prop :=
+  match p with
+  | UBase q => G.cholds q v
+  | URun r =>
+      exists ig R xS xB xT m k st,
+        cg_rdec r = Some (ig, R, xS, xB, xT, m) /\
+        k <= cg_expo (qs xT) v /\
+        sss_steps (mm_sss_env eq_nat_dec) (ig, R) k (ig, cg_env_chk m v) st /\
+        out_code (fst st) (ig, R) /\
+        get_env (snd st) xB = 1
+  end.
+\end{verbatim}}
+
+In plain words: a claim is \code{UBase q}, a word of the counter language, or \code{URun r}, a
+number naming a reading routine. A word means what it meant on the small machine. A routine claim
+holds of a value \texttt{v} when \texttt{r} decodes to a routine (its first line, its code, and
+three register numbers and a register count), and the routine, started at its first line with each
+register below the count holding the exponent of that register's prime in \texttt{v}, reaches in
+some number of steps no larger than the exponent of the fuel register's prime in \texttt{v} a state
+outside its code with 1 in its answer register. \code{cg\_ueval\_iff}, printed below, says the
+checker's yes is exactly this, and Section~\ref{sec:presented-universal} says the same.
+
+{\raggedright \code{cmpz\_hom}, the simulations Theorem~\ref{thm:parts-nesting} is about, with the
+objects they join, coq/kernel/foundation/AxCore.v, AxComplete.v and CzCat.v. \texttt{T.run} is
+\texttt{run} of minimal/ThieleComplete.v, printed further down.\par}
+
+{\scriptsize
+\begin{verbatim}
+Record BPre (A : Type) : Type := {
+  bp_leb : A -> A -> bool;
+  bp_refl : forall x, bp_leb x x = true;
+  bp_trans : forall x y z, bp_leb x y = true -> bp_leb y z = true ->
+    bp_leb x z = true
+}.
+
+Definition bp_le {A} (P : BPre A) (x y : A) : Prop := bp_leb A P x y = true.
+
+Record amachine (A : Type) (P : BPre A) : Type := mk_am {
+  am_state : Type;
+  am_move : Type;
+  am_step : am_state -> am_move -> am_state;
+  am_cost : am_move -> nat;
+  am_rec : am_state -> A
+}.
+
+Definition am_pt {A P} (AM : amachine A P) (r : am_state AM -> bool) : T.machine :=
+  T.mk_machine (am_state AM) (am_move AM) (am_step AM) (am_cost AM) r.
+
+Definition am_bare {A P} (AM : amachine A P) : T.machine :=
+  am_pt AM (fun _ => false).
+
+Definition am_run {A P} (AM : amachine A P) (tr : list (am_move AM))
+    (s : am_state AM) : am_state AM :=
+  T.run (am_bare AM) tr s.
+
+Record cmpz_obj : Type := mk_obj {
+  ob_A : Type;
+  ob_P : BPre ob_A;
+  ob_M : amachine ob_A ob_P
+}.
+
+Record cmpz_hom (X Y : cmpz_obj) : Type := mk_hom {
+  h_state : am_state (ob_M X) -> am_state (ob_M Y);
+  h_rec : ob_A X -> ob_A Y;
+  h_mono : forall a b, bp_le (ob_P X) a b -> bp_le (ob_P Y) (h_rec a) (h_rec b);
+  h_rec_nat : forall s, am_rec (ob_M Y) (h_state s) = h_rec (am_rec (ob_M X) s);
+  h_sim : forall s m, exists tr : list (am_move (ob_M Y)),
+            h_state (am_step (ob_M X) s m) = am_run (ob_M Y) tr (h_state s)
+}.
+\end{verbatim}}
+
+In plain words: an object is a type of records with an order given by a yes-or-no test, and a
+machine whose record lives in that type. A morphism from $X$ to $Y$ is a map on states and a map on
+records such that the record map keeps the order, reading the record after mapping the state gives
+the record map of the old record, and each move of $X$ is matched by some list of moves of $Y$ that
+lands on the image of the new state. That last field asks for some list and names none, which is why
+Theorem~\ref{thm:parts-nesting}(1) and the statement printed for it below speak of some host
+trace.
+
+{\raggedright \code{small\_chsh\_meaning}, the meaning of the property PCHSH, with the correlators
+and the score it's read with, coq/kernel/quantum/SmallChshCheck.v, and the three definitions it
+uses from TsirelsonFromAlgebra.v and NPAMomentMatrix.v. \code{npa\_to\_matrix} lays the ten entries
+out as the five-by-five matrix $M(E)$ of Section~\ref{sec:chsh}.\par}
+
+{\scriptsize
+\begin{verbatim}
+Definition CHSH_value (e00 e01 e10 e11 : R) : R :=
+  e00 + e01 + e10 - e11.
+
+Definition npa_psd (npa : NPAMomentMatrix) : Prop :=
+  let M := nat_matrix_to_fin5 (npa_to_matrix npa) in
+  symmetric5 M /\ PSD5 M.
+
+Definition zero_marginal_npa (E00 E01 E10 E11 : R) : NPAMomentMatrix := {|
+  npa_EA0 := 0;
+  npa_EA1 := 0;
+  npa_EB0 := 0;
+  npa_EB1 := 0;
+  npa_E00 := E00;
+  npa_E01 := E01;
+  npa_E10 := E10;
+  npa_E11 := E11;
+  npa_rho_AA := 0;
+  npa_rho_BB := 0;
+|}.
+
+Definition small_chsh_corr (same diff : nat) : R :=
+  if Nat.eqb (same + diff) 0 then 0
+  else (INR same - INR diff) / INR (same + diff).
+
+Definition small_chsh_e00 (t : small_chsh_tally) : R :=
+  small_chsh_corr t.(small_chsh_same00) t.(small_chsh_diff00).
+
+Definition small_chsh_e01 (t : small_chsh_tally) : R :=
+  small_chsh_corr t.(small_chsh_same01) t.(small_chsh_diff01).
+
+Definition small_chsh_e10 (t : small_chsh_tally) : R :=
+  small_chsh_corr t.(small_chsh_same10) t.(small_chsh_diff10).
+
+Definition small_chsh_e11 (t : small_chsh_tally) : R :=
+  small_chsh_corr t.(small_chsh_same11) t.(small_chsh_diff11).
+
+Definition small_chsh_score (t : small_chsh_tally) : R :=
+  CHSH_value (small_chsh_e00 t) (small_chsh_e01 t)
+             (small_chsh_e10 t) (small_chsh_e11 t).
+
+Definition small_chsh_sampled (t : small_chsh_tally) : Prop :=
+  (0 < t.(small_chsh_same00) + t.(small_chsh_diff00))%nat /\
+  (0 < t.(small_chsh_same01) + t.(small_chsh_diff01))%nat /\
+  (0 < t.(small_chsh_same10) + t.(small_chsh_diff10))%nat /\
+  (0 < t.(small_chsh_same11) + t.(small_chsh_diff11))%nat.
+
+Definition small_chsh_psd (t : small_chsh_tally) : Prop :=
+  npa_psd (zero_marginal_npa (small_chsh_e00 t) (small_chsh_e01 t)
+                             (small_chsh_e10 t) (small_chsh_e11 t)).
+
+Definition small_chsh_meaning (t : small_chsh_tally) : Prop :=
+  small_chsh_sampled t /\ small_chsh_psd t.
+\end{verbatim}}
+
+In plain words: the correlator of a question pair is the number of rounds that agreed minus the
+number that disagreed, over the number of rounds, read as 0 when the pair had none. The score is the
+CHSH combination of the four correlators. The meaning is that every question pair has at least one
+round and the pinned matrix of the four correlators, with every one-sided average and both
+same-side entries set to 0, is symmetric and positive semidefinite.
+Definition~\ref{def:chsh-packed} says exactly this.
+
+{\raggedright The universal base and the interface that carries it, minimal/ThieleComplete.v.
+\texttt{machine} has the fields \texttt{m\_state}, \texttt{m\_move}, \texttt{m\_step},
+\texttt{m\_cost} and \texttt{m\_record}.\par}
+
+{\scriptsize
+\begin{verbatim}
+Inductive reg : Type := RA | RB.
+
+Inductive cm_instr : Type := CINC (r : reg) | CDEC (r : reg) (j : nat).
+
+Definition cm_conf : Type := (nat * (nat * nat))%type.
+
+Definition cm_get (x : cm_conf) (r : reg) : nat :=
+  match r with RA => fst (snd x) | RB => snd (snd x) end.
+
+Definition cm_set (x : cm_conf) (r : reg) (n j : nat) : cm_conf :=
+  match r with RA => (j, (n, snd (snd x))) | RB => (j, (fst (snd x), n)) end.
+
+Definition cm_exec (i : cm_instr) (x : cm_conf) : cm_conf :=
+  match i with
+  | CINC r => cm_set x r (S (cm_get x r)) (S (fst x))
+  | CDEC r j =>
+      match cm_get x r with
+      | 0 => (S (fst x), snd x)
+      | S n => cm_set x r n j
+      end
+  end.
+
+Record universal_base (M : machine) : Type := mk_ub {
+  ub_window : m_state M -> cm_conf;
+  ub_live : m_state M -> Prop;
+  ub_compile : cm_instr -> m_move M;
+  ub_load : nat -> nat -> m_state M;
+  ub_load_window : forall a b, ub_window (ub_load a b) = (1, (a, b));
+  ub_load_live : forall a b, ub_live (ub_load a b);
+  ub_sim : forall s i, ub_live s ->
+    ub_window (m_step M s (ub_compile i)) = cm_exec i (ub_window s) /\
+    ub_live (m_step M s (ub_compile i))
+}.
+
+Inductive kind (C : Type) : Type :=
+| KBase
+| KCheck (c : C)
+| KCommit (c : C)
+| KCertify.
+
+Record thiele_interface (M : machine) : Type := mk_ti {
+  ti_base : universal_base M;
+  ti_claim : Type;
+  ti_kind : m_move M -> kind ti_claim;
+  ti_meaning : ti_claim -> m_state M -> Prop;
+  ti_check : m_state M -> ti_claim -> bool;
+  ti_same : ti_claim -> m_state M -> m_state M -> Prop;
+  ti_clean : m_state M -> Prop;
+  ti_ledger : m_state M -> nat
+}.
+\end{verbatim}}
+
+In plain words: a two-counter configuration is a line number and two registers, and
+\code{cm\_exec} is what one instruction does to it, the same INC and DEC-or-fall-through as the
+small machine's base. A universal base for a machine reads a configuration off each state (its
+window), picks out the live states, gives a move for each instruction and a loaded state for each
+start; each loaded state shows $(1, a, b)$ and is live, and from every live state the compiled move
+changes the window exactly as \code{cm\_exec} says and leaves the state live. The interface lists
+its parts and asks nothing of them: the base, the claims, a kind for each move, each claim's
+meaning, the checker, ``unchanged,'' the clean states and the ledger. The demands are the four
+clauses printed below under Thiele-complete. This is part
+(a) of Definition~\ref{def:u34-thiele-complete} and the interface it describes.
+
 \subsection{The universal floor}
 
 {\raggedright \code{universal\_nfi\_any\_substrate}, coq/kernel/nfi/UniversalCertificationCost.v, with the record it quantifies over.\par}
@@ -18024,7 +18395,7 @@ In plain words: \texttt{M} is a machine (states, moves, step, cost, record) and 
 interface for it (a universal base, claims with meanings, a checker, ``unchanged,'' clean states,
 a ledger, and a kind for each move). The first clause says the compiled two-counter moves are
 base moves, loaded states are clean, base moves leave the record alone, and the record never comes
-down; the universal base's own fields, not printed here, say the compiled moves act on the window
+down; the universal base's own fields, printed in Section~\ref{sec:coq-definitions}, say the compiled moves act on the window
 exactly as the two-counter instructions act. \code{earned\_chain} is a passing check of a claim,
 then a commit of the same claim with the thing it's about unchanged at every point between, then
 the certify that raises the record. The earned-record clause says clean states have the record
@@ -21038,6 +21409,9 @@ this book's pointer conjecture.
 \par\medskip
 
 \noindent John Harrison (2007). Floating-Point Verification. Journal of Universal Computer Science 13(5), pp. 629--638. \href{https://www.jucs.org/jucs_13_5/floating_point_verification/jucs_13_5_0629_0638_harrison.pdf}{Paper}.
+\par\medskip
+
+\noindent Brian Borchers (1999). CSDP, A C Library for Semidefinite Programming. Optimization Methods and Software 11(1--4), pp. 613--623. \href{https://doi.org/10.1080/10556789908805765}{DOI: 10.1080/10556789908805765}. The solver that proposes the certificate for \code{psatz} in Section~\ref{sec:coq}; Coq checks it again.
 \par\medskip
 
 \noindent Ken Shirriff (2024). Intel's \$475 million error: the silicon behind the Pentium division bug. Ken Shirriff's blog, December 2024. \href{http://www.righto.com/2024/12/this-die-photo-of-pentium-shows.html}{Post}.
