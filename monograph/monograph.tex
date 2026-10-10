@@ -14814,8 +14814,8 @@ Checked as \code{calibrated\_mu\_landauer\_energy} (PricingPhysicsAudit.v), whic
 Section~\ref{sec:a2-not-arbitrary}, restated here once in the form the next theorems test. In words first: a \emph{dissipation}
 hands each instruction a whole number of heat units, each unit worth kT ln 2. The floor premise
 says an instruction that takes at least one state where some yes-or-no
-property is false to a state where it's true, and never sends a true one back to false,
-dissipates at least one unit. That's a different statement from Landauer's principle as
+property is false to a state where it's true, never sends a true one back to false, and sends
+two different states to one, dissipates at least one unit. That's a different statement from Landauer's principle as
 Premise~\ref{prem:landauer} has it. That one depends on the spread over states,
 $Q \ge k_B T \ln 2 \cdot \Delta H$, and gives nothing for a known state. This one gives every such
 instruction a floor of one whole unit, whatever the spread. To get the second from the first
@@ -14832,11 +14832,23 @@ A \emph{dissipation} is a function $\delta$ from instructions to naturals, count
 $k_B T \ln 2$. The \emph{floor}, a hypothesis separate from Premise~\ref{prem:landauer} of
 Section~\ref{sec:a2-not-arbitrary}:
 every instruction that collapses a yes-or-no property has $\delta(i) \ge 1$, where $i$
-\emph{collapses} $P$ when some state with $P$ false is sent to a state with $P$ true and every
-state with $P$ true is sent to one with $P$ true. The \emph{calibration}: $\delta(i) \le
+\emph{collapses} $P$ when some state with $P$ false is sent to a state with $P$ true, every
+state with $P$ true is sent to one with $P$ true, and some two different states are sent to the
+same state. The \emph{calibration}: $\delta(i) \le
 \mathrm{cost}(i)$ for every instruction. Neither is proved anywhere; the theorems below ask
 whether they can hold together.
 \end{premise}
+
+The last clause of the floor is there because the first two don't make a step forget anything
+on a machine with infinitely many states. INC $A$ sends a state with $A = 0$ to one with $A = 1$
+and keeps every positive $A$ positive, so it raises ``$A \ge 1$'' one way, and it is
+one-to-one. Any one-to-one map that misses some state does the same to the property ``is in my
+image''. Such a step can be run backward, and Landauer's principle charges it nothing; a floor
+read without the last clause would charge it a whole unit. On a finite machine the clause comes
+for free. A step that sends one false state into the true ones and keeps every true state true
+puts one more state into the true set than the set holds, so two of them land on the same
+state. Checked as \code{nec\_f\_one\_way\_injective} and
+\code{nec\_f\_finite\_one\_way\_merges} (NecFPhysics.v).
 
 \subsection{The premises have to be able to hold together}
 
@@ -14854,10 +14866,14 @@ one-bit reset, where resetting costs one and idling costs
 nothing (\code{bit\_model\_has\_satisfiable\_calibration}); the small machine's flag-raising steps, below, are another.
 
 Now point the test at the small machine of Section~\ref{sec:smallest}, counting every step
-that collapses some yes-or-no property, and it fails. Its free instructions merge states (the
+that collapses some yes-or-no property, and it fails. Read without the last clause of the
+floor, it would fail at a step that forgets nothing: INC $A$ raises ``$A \ge 1$'' one way, is
+one-to-one, and costs zero (\code{nec\_f\_small\_one\_way\_pair\_fails}, NecFPhysics.v). With
+the clause in place the failure sits at a merge. Its free instructions merge states (the
 last item of the list at the end of that chapter has the pair: two cores that one DEC sends to
 the same core, for nothing), so DEC A 2, which collapses the property ``$A$ is zero or the line
-number is 2'', costs zero there, and (1) below says no dissipation can charge it one and stay under its cost.
+number is 2'' by sending a state where it's false and a state where it's true to the same
+state, costs zero there, and (1) below says no dissipation can charge it one and stay under its cost.
 That's checked as \code{nec\_f\_small\_premise\_pair\_fails}, with the free merge itself as
 \code{nec\_f\_small\_free\_collapse\_is\_merge} (NecFPhysics.v). The machine prices the
 certifying chain and leaves its other merges free, so the premise pair holds for the steps
@@ -15998,6 +16014,7 @@ The tally was played, or was honest, or puts a bound on nature & not claimed; it
 The calibration is a unit conversion & definition; proved & Section~\ref{sec:landauer}, Definition~\ref{def:u24-scale}, Theorem~\ref{thm:u24-calibration} \\
 Structural dissipation pricing (a whole-unit floor on collapsing instructions, separate from Landauer's principle); dissipation at most cost & assumed (premise) & Section~\ref{sec:landauer}, Premise~\ref{prem:u24-landauer-pair} \\
 The premises fit when every counted step costs at least one, and fit a one-bit reset & proved & Section~\ref{sec:landauer}, Theorem~\ref{thm:u24-consistency} \\
+A collapse needs the merge clause: INC $A$ raises ``$A \ge 1$'' one way, one-to-one and free; on a finite machine a one-way step always merges & proved (\code{nec\_f\_one\_way\_injective}, \code{nec\_f\_small\_one\_way\_pair\_fails}, \code{nec\_f\_finite\_one\_way\_merges}, NecFPhysics.v) & Section~\ref{sec:landauer}, Premise~\ref{prem:u24-landauer-pair} \\
 The small machine's whole instruction set fails the premise pair & proved (\code{nec\_f\_small\_premise\_pair\_fails}); its free steps merge (\code{nec\_f\_small\_free\_collapse\_is\_merge}, NecFPhysics.v) & Section~\ref{sec:landauer} \\
 Keeping history makes every step injective & proved & Section~\ref{sec:landauer}, Theorem~\ref{thm:u24-history} \\
 The heat is fixed by the chosen gap & definition; proved & Section~\ref{sec:landauer}, Definition~\ref{def:u24-calorimeter}, Theorem~\ref{thm:u24-calorimeter} \\
