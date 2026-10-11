@@ -1,0 +1,683 @@
+DIGEST 9e0283973519fa6a1e9f917b8fe24efd
+FKernel.SmallChshTolerance
+R236:239 Coq.Lists.List <> <> lib
+R241:245 Coq.Arith.Arith <> <> lib
+R247:249 Coq.micromega.Lia <> <> lib
+R251:254 Coq.Bool.Bool <> <> lib
+R256:260 Coq.Reals.Reals <> <> lib
+R262:267 Coq.ZArith.ZArith <> <> lib
+R277:289 Coq.Lists.List ListNotations <> mod
+R319:332 Kernel.SmallChshCheck <> <> lib
+R334:349 Kernel.SmallChshMachine <> <> lib
+R351:365 Kernel.CHSHColumnCheck <> <> lib
+R367:374 Kernel.NecEChsh <> <> lib
+R404:429 Kernel.UniversalCertificationCost <> <> lib
+R440:458 Minimal.EarnedMulti <> <> lib
+R474:492 Minimal.EarnedMulti <> <> modtype
+mod 468:469 <> TM
+def 507:524 <> small_chsh_witness
+R531:546 Kernel.SmallChshCheck <> small_chsh_tally rec
+binder 527:527 <> t:1
+R551:563 Kernel.CHSHColumnCheck <> WitnessCounts rec
+R573:582 Kernel.CHSHColumnCheck <> wc_same_00 proj
+R573:582 Kernel.CHSHColumnCheck <> wc_same_00 proj
+R573:582 Kernel.CHSHColumnCheck <> wc_same_00 proj
+R608:617 Kernel.CHSHColumnCheck <> wc_diff_00 proj
+R608:617 Kernel.CHSHColumnCheck <> wc_diff_00 proj
+R648:657 Kernel.CHSHColumnCheck <> wc_same_01 proj
+R648:657 Kernel.CHSHColumnCheck <> wc_same_01 proj
+R683:692 Kernel.CHSHColumnCheck <> wc_diff_01 proj
+R683:692 Kernel.CHSHColumnCheck <> wc_diff_01 proj
+R723:732 Kernel.CHSHColumnCheck <> wc_same_10 proj
+R723:732 Kernel.CHSHColumnCheck <> wc_same_10 proj
+R758:767 Kernel.CHSHColumnCheck <> wc_diff_10 proj
+R758:767 Kernel.CHSHColumnCheck <> wc_diff_10 proj
+R798:807 Kernel.CHSHColumnCheck <> wc_same_11 proj
+R798:807 Kernel.CHSHColumnCheck <> wc_same_11 proj
+R833:842 Kernel.CHSHColumnCheck <> wc_diff_11 proj
+R833:842 Kernel.CHSHColumnCheck <> wc_diff_11 proj
+R587:603 Kernel.SmallChshCheck <> small_chsh_same00 proj
+R605:605 Kernel.SmallChshTolerance <> t:1 var
+R622:638 Kernel.SmallChshCheck <> small_chsh_diff00 proj
+R640:640 Kernel.SmallChshTolerance <> t:1 var
+R662:678 Kernel.SmallChshCheck <> small_chsh_same01 proj
+R680:680 Kernel.SmallChshTolerance <> t:1 var
+R697:713 Kernel.SmallChshCheck <> small_chsh_diff01 proj
+R715:715 Kernel.SmallChshTolerance <> t:1 var
+R737:753 Kernel.SmallChshCheck <> small_chsh_same10 proj
+R755:755 Kernel.SmallChshTolerance <> t:1 var
+R772:788 Kernel.SmallChshCheck <> small_chsh_diff10 proj
+R790:790 Kernel.SmallChshTolerance <> t:1 var
+R812:828 Kernel.SmallChshCheck <> small_chsh_same11 proj
+R830:830 Kernel.SmallChshTolerance <> t:1 var
+R847:863 Kernel.SmallChshCheck <> small_chsh_diff11 proj
+R865:865 Kernel.SmallChshTolerance <> t:1 var
+def 883:901 <> small_chsh_tol_eval
+R910:910 Coq.Numbers.BinNums <> Z ind
+binder 904:904 <> p:2
+binder 906:906 <> q:3
+R918:932 Kernel.SmallChshMachine <> small_chsh_prop ind
+R940:942 Coq.Init.Datatypes <> nat ind
+binder 936:936 <> v:4
+R947:950 Coq.Init.Datatypes <> bool ind
+R957:971 Kernel.NecEChsh <> nec_e_tol_check def
+R973:973 Kernel.SmallChshTolerance <> p:2 var
+R975:975 Kernel.SmallChshTolerance <> q:3 var
+R978:995 Kernel.SmallChshTolerance <> small_chsh_witness def
+R998:1016 Kernel.SmallChshMachine <> small_chsh_tally_of def
+R1018:1018 Kernel.SmallChshTolerance <> v:4 var
+prf 1032:1050 <> small_chsh_tol_zero
+binder 1061:1061 <> c:5
+binder 1063:1063 <> v:6
+R1095:1097 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1068:1086 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R1092:1092 Kernel.SmallChshTolerance <> c:5 var
+R1094:1094 Kernel.SmallChshTolerance <> v:6 var
+R1098:1112 Kernel.SmallChshMachine <> small_chsh_eval def
+R1114:1114 Kernel.SmallChshTolerance <> c:5 var
+R1116:1116 Kernel.SmallChshTolerance <> v:6 var
+R1148:1166 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R1169:1183 Kernel.SmallChshMachine <> small_chsh_eval def
+R1196:1215 Kernel.NecEChsh <> nec_e_tol_check_zero thm
+R1196:1215 Kernel.NecEChsh <> nec_e_tol_check_zero thm
+R1196:1215 Kernel.NecEChsh <> nec_e_tol_check_zero thm
+prf 1393:1416 <> small_chsh_tol_chain_iff
+binder 1427:1427 <> p:7
+binder 1429:1429 <> q:8
+binder 1431:1431 <> c:9
+binder 1433:1434 <> vs:10
+R1554:1560 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1547:1549 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1439:1445 Kernel.SmallChshTolerance <> cert proj
+R1448:1458 Kernel.SmallChshTolerance <> run_prog def
+R1513:1528 Kernel.SmallChshMachine <> small_chsh_chain def
+R1530:1530 Kernel.SmallChshTolerance <> c:9 var
+R1534:1541 Kernel.SmallChshTolerance <> start def
+R1543:1544 Kernel.SmallChshTolerance <> vs:10 var
+R1481:1499 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R1501:1501 Kernel.SmallChshTolerance <> p:7 var
+R1503:1503 Kernel.SmallChshTolerance <> q:8 var
+R1460:1478 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R1550:1553 Coq.Init.Datatypes <> true constr
+R1630:1632 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1561:1575 Kernel.NecEChsh <> nec_e_tol_check def
+R1577:1577 Kernel.SmallChshTolerance <> p:7 var
+R1579:1579 Kernel.SmallChshTolerance <> q:8 var
+R1582:1599 Kernel.SmallChshTolerance <> small_chsh_witness def
+R1602:1620 Kernel.SmallChshMachine <> small_chsh_tally_of def
+R1623:1624 Kernel.SmallChshTolerance <> vs:10 var
+R1626:1626 Kernel.SmallChshTolerance <> c:9 var
+R1633:1636 Coq.Init.Datatypes <> true constr
+R1672:1687 Kernel.SmallChshMachine <> small_chsh_chain def
+R1699:1726 Kernel.SmallChshTolerance <> multi_chain_certifies_iff thm
+R1877:1892 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R1865:1872 Coq.Init.Logic <> iff_refl thm
+binder 1806:1806 <> c:11
+binder 1808:1808 <> v:12
+R1840:1842 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1813:1831 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R1837:1837 Kernel.SmallChshTolerance <> c:11 var
+R1839:1839 Kernel.SmallChshTolerance <> v:12 var
+R1843:1846 Coq.Init.Datatypes <> true constr
+R1776:1794 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R1748:1769 Kernel.SmallChshMachine <> small_chsh_prop_eqb_eq thm
+R1728:1746 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R1699:1726 Kernel.SmallChshTolerance <> multi_chain_certifies_iff thm
+R1877:1892 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R1865:1872 Coq.Init.Logic <> iff_refl thm
+binder 1806:1806 <> c:13
+binder 1808:1808 <> v:14
+R1840:1842 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1813:1831 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R1837:1837 Kernel.SmallChshTolerance <> c:13 var
+R1839:1839 Kernel.SmallChshTolerance <> v:14 var
+R1843:1846 Coq.Init.Datatypes <> true constr
+R1776:1794 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R1748:1769 Kernel.SmallChshMachine <> small_chsh_prop_eqb_eq thm
+R1728:1746 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+prf 1915:1945 <> small_chsh_tol_chain_pays_three
+binder 1956:1956 <> p:15
+binder 1958:1958 <> q:16
+binder 1960:1960 <> c:17
+binder 1962:1963 <> vs:18
+R2044:2049 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2037:2039 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1968:1982 Kernel.NecEChsh <> nec_e_tol_check def
+R1984:1984 Kernel.SmallChshTolerance <> p:15 var
+R1986:1986 Kernel.SmallChshTolerance <> q:16 var
+R1989:2006 Kernel.SmallChshTolerance <> small_chsh_witness def
+R2009:2027 Kernel.SmallChshMachine <> small_chsh_tally_of def
+R2030:2031 Kernel.SmallChshTolerance <> vs:18 var
+R2033:2033 Kernel.SmallChshTolerance <> c:17 var
+R2040:2043 Coq.Init.Datatypes <> true constr
+R2165:2170 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2158:2160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2050:2056 Kernel.SmallChshTolerance <> cert proj
+R2059:2069 Kernel.SmallChshTolerance <> run_prog def
+R2124:2139 Kernel.SmallChshMachine <> small_chsh_chain def
+R2141:2141 Kernel.SmallChshTolerance <> c:17 var
+R2145:2152 Kernel.SmallChshTolerance <> start def
+R2154:2155 Kernel.SmallChshTolerance <> vs:18 var
+R2092:2110 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R2112:2112 Kernel.SmallChshTolerance <> p:15 var
+R2114:2114 Kernel.SmallChshTolerance <> q:16 var
+R2071:2089 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R2161:2164 Coq.Init.Datatypes <> true constr
+R2277:2279 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2171:2175 Kernel.SmallChshTolerance <> mu proj
+R2178:2188 Kernel.SmallChshTolerance <> run_prog def
+R2243:2258 Kernel.SmallChshMachine <> small_chsh_chain def
+R2260:2260 Kernel.SmallChshTolerance <> c:17 var
+R2264:2271 Kernel.SmallChshTolerance <> start def
+R2273:2274 Kernel.SmallChshTolerance <> vs:18 var
+R2211:2229 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R2231:2231 Kernel.SmallChshTolerance <> p:15 var
+R2233:2233 Kernel.SmallChshTolerance <> q:16 var
+R2190:2208 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R2318:2333 Kernel.SmallChshMachine <> small_chsh_chain def
+R2345:2368 Kernel.SmallChshTolerance <> multi_chain_certifies thm
+R2507:2514 Coq.Init.Logic <> iff_refl thm
+binder 2448:2448 <> c:19
+binder 2450:2450 <> v:20
+R2482:2484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2455:2473 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R2479:2479 Kernel.SmallChshTolerance <> c:19 var
+R2481:2481 Kernel.SmallChshTolerance <> v:20 var
+R2485:2488 Coq.Init.Datatypes <> true constr
+R2418:2436 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R2390:2411 Kernel.SmallChshMachine <> small_chsh_prop_eqb_eq thm
+R2370:2388 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R2345:2368 Kernel.SmallChshTolerance <> multi_chain_certifies thm
+R2507:2514 Coq.Init.Logic <> iff_refl thm
+binder 2448:2448 <> c:21
+binder 2450:2450 <> v:22
+R2482:2484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2455:2473 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R2479:2479 Kernel.SmallChshTolerance <> c:21 var
+R2481:2481 Kernel.SmallChshTolerance <> v:22 var
+R2485:2488 Coq.Init.Datatypes <> true constr
+R2418:2436 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R2390:2411 Kernel.SmallChshMachine <> small_chsh_prop_eqb_eq thm
+R2370:2388 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+prf 2544:2573 <> small_chsh_tol_refused_forever
+binder 2584:2584 <> p:23
+binder 2586:2586 <> q:24
+binder 2588:2588 <> c:25
+binder 2590:2591 <> vs:26
+R2673:2678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2665:2667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2596:2610 Kernel.NecEChsh <> nec_e_tol_check def
+R2612:2612 Kernel.SmallChshTolerance <> p:23 var
+R2614:2614 Kernel.SmallChshTolerance <> q:24 var
+R2617:2634 Kernel.SmallChshTolerance <> small_chsh_witness def
+R2637:2655 Kernel.SmallChshMachine <> small_chsh_tally_of def
+R2658:2659 Kernel.SmallChshTolerance <> vs:26 var
+R2661:2661 Kernel.SmallChshTolerance <> c:25 var
+R2668:2672 Coq.Init.Datatypes <> false constr
+binder 2686:2686 <> n:27
+R2807:2813 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2951:2951 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2799:2801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2691:2697 Kernel.SmallChshTolerance <> cert proj
+R2700:2710 Kernel.SmallChshTolerance <> run_prog def
+R2762:2762 Kernel.SmallChshTolerance <> n:27 var
+R2765:2780 Kernel.SmallChshMachine <> small_chsh_chain def
+R2782:2782 Kernel.SmallChshTolerance <> c:25 var
+R2786:2793 Kernel.SmallChshTolerance <> start def
+R2795:2796 Kernel.SmallChshTolerance <> vs:26 var
+R2733:2751 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R2753:2753 Kernel.SmallChshTolerance <> p:23 var
+R2755:2755 Kernel.SmallChshTolerance <> q:24 var
+R2712:2730 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R2802:2806 Coq.Init.Datatypes <> false constr
+R2820:2823 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2815:2818 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2814:2814 Kernel.SmallChshTolerance <> n:27 var
+R2944:2946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2824:2829 Kernel.SmallChshTolerance <> err proj
+R2832:2841 Kernel.SmallChshTolerance <> core_of proj
+R2844:2854 Kernel.SmallChshTolerance <> run_prog def
+R2906:2906 Kernel.SmallChshTolerance <> n:27 var
+R2909:2924 Kernel.SmallChshMachine <> small_chsh_chain def
+R2926:2926 Kernel.SmallChshTolerance <> c:25 var
+R2930:2937 Kernel.SmallChshTolerance <> start def
+R2939:2940 Kernel.SmallChshTolerance <> vs:26 var
+R2877:2895 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R2897:2897 Kernel.SmallChshTolerance <> p:23 var
+R2899:2899 Kernel.SmallChshTolerance <> q:24 var
+R2856:2874 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R2947:2950 Coq.Init.Datatypes <> true constr
+R2991:3006 Kernel.SmallChshMachine <> small_chsh_chain def
+R3018:3047 Kernel.SmallChshTolerance <> multi_chain_refused_forever thm
+R3163:3170 Coq.Init.Logic <> iff_refl thm
+binder 3104:3104 <> c:28
+binder 3106:3106 <> v:29
+R3138:3140 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3111:3129 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R3135:3135 Kernel.SmallChshTolerance <> c:28 var
+R3137:3137 Kernel.SmallChshTolerance <> v:29 var
+R3141:3144 Coq.Init.Datatypes <> true constr
+R3074:3092 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R3049:3067 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R3018:3047 Kernel.SmallChshTolerance <> multi_chain_refused_forever thm
+R3163:3170 Coq.Init.Logic <> iff_refl thm
+binder 3104:3104 <> c:30
+binder 3106:3106 <> v:31
+R3138:3140 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3111:3129 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R3135:3135 Kernel.SmallChshTolerance <> c:30 var
+R3137:3137 Kernel.SmallChshTolerance <> v:31 var
+R3141:3144 Coq.Init.Datatypes <> true constr
+R3074:3092 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R3049:3067 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R3184:3202 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+prf 3229:3252 <> small_chsh_tol_untouched
+binder 3263:3263 <> p:32
+binder 3265:3265 <> q:33
+binder 3267:3269 <> mid:34
+R3277:3284 Kernel.SmallChshTolerance <> state rec
+R3286:3300 Kernel.SmallChshMachine <> small_chsh_prop ind
+binder 3272:3272 <> s:35
+binder 3303:3303 <> c:36
+R3374:3379 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3308:3319 Kernel.SmallChshTolerance <> untouched def
+R3367:3367 Kernel.SmallChshTolerance <> s:35 var
+R3369:3371 Kernel.SmallChshTolerance <> mid:34 var
+R3373:3373 Kernel.SmallChshTolerance <> c:36 var
+R3342:3360 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R3362:3362 Kernel.SmallChshTolerance <> p:32 var
+R3364:3364 Kernel.SmallChshTolerance <> q:33 var
+R3321:3339 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R3463:3469 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3380:3386 Kernel.SmallChshTolerance <> vals proj
+R3389:3398 Kernel.SmallChshTolerance <> core_of proj
+R3401:3406 Kernel.SmallChshTolerance <> run def
+R3454:3456 Kernel.SmallChshTolerance <> mid:34 var
+R3458:3458 Kernel.SmallChshTolerance <> s:35 var
+R3429:3447 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R3449:3449 Kernel.SmallChshTolerance <> p:32 var
+R3451:3451 Kernel.SmallChshTolerance <> q:33 var
+R3408:3426 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R3462:3462 Kernel.SmallChshTolerance <> c:36 var
+R3470:3476 Kernel.SmallChshTolerance <> vals proj
+R3479:3488 Kernel.SmallChshTolerance <> core_of proj
+R3490:3490 Kernel.SmallChshTolerance <> s:35 var
+R3493:3493 Kernel.SmallChshTolerance <> c:36 var
+R3620:3621 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3629:3635 Coq.Init.Logic <> eq_refl constr
+R3620:3621 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3629:3635 Coq.Init.Logic <> eq_refl constr
+R3693:3696 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3693:3696 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+prf 3747:3771 <> small_chsh_tol_flag_bound
+binder 3782:3782 <> p:37
+binder 3784:3784 <> q:38
+R3793:3800 Kernel.SmallChshTolerance <> state rec
+R3802:3816 Kernel.SmallChshMachine <> small_chsh_prop ind
+binder 3787:3788 <> s0:39
+binder 3819:3820 <> tr:40
+R3842:3847 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3825:3838 Kernel.SmallChshTolerance <> clean_start def
+R3840:3841 Kernel.SmallChshTolerance <> s0:39 var
+R3923:3928 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3916:3918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3848:3854 Kernel.SmallChshTolerance <> cert proj
+R3857:3862 Kernel.SmallChshTolerance <> run def
+R3910:3911 Kernel.SmallChshTolerance <> tr:40 var
+R3913:3914 Kernel.SmallChshTolerance <> s0:39 var
+R3885:3903 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R3905:3905 Kernel.SmallChshTolerance <> p:37 var
+R3907:3907 Kernel.SmallChshTolerance <> q:38 var
+R3864:3882 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R3919:3922 Coq.Init.Datatypes <> true constr
+R3929:3935 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3956:3961 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3936:3938 <> pre:41
+binder 3940:3940 <> c:42
+binder 3942:3945 <> mid1:43
+binder 3947:3950 <> mid2:44
+binder 3952:3955 <> post:45
+R4077:4084 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3964:3966 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3962:3963 Kernel.SmallChshTolerance <> tr:40 var
+R3970:3973 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3967:3969 Kernel.SmallChshTolerance <> pre:41 var
+R4001:4004 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3974:3981 Kernel.SmallChshTolerance <> CHECK constr
+R3983:3998 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R4000:4000 Kernel.SmallChshTolerance <> c:42 var
+R4009:4018 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4005:4008 Kernel.SmallChshTolerance <> mid1:43 var
+R4047:4050 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4019:4027 Kernel.SmallChshTolerance <> COMMIT constr
+R4029:4044 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R4046:4046 Kernel.SmallChshTolerance <> c:42 var
+R4055:4058 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4051:4054 Kernel.SmallChshTolerance <> mid2:44 var
+R4069:4072 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4059:4068 Kernel.SmallChshTolerance <> CERTIFY constr
+R4073:4076 Kernel.SmallChshTolerance <> post:45 var
+R4094:4100 Kernel.SmallChshTolerance <> vals proj
+R4103:4112 Kernel.SmallChshTolerance <> core_of proj
+R4115:4120 Kernel.SmallChshTolerance <> run def
+R4168:4170 Kernel.SmallChshTolerance <> pre:41 var
+R4172:4173 Kernel.SmallChshTolerance <> s0:39 var
+R4143:4161 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R4163:4163 Kernel.SmallChshTolerance <> p:37 var
+R4165:4165 Kernel.SmallChshTolerance <> q:38 var
+R4122:4140 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R4177:4177 Kernel.SmallChshTolerance <> c:42 var
+binder 4089:4089 <> v:46
+R4195:4213 Kernel.SmallChshMachine <> small_chsh_tally_of def
+R4215:4215 Kernel.SmallChshTolerance <> v:46 var
+binder 4190:4190 <> t:47
+R4273:4280 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4266:4268 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4224:4238 Kernel.NecEChsh <> nec_e_tol_check def
+R4240:4240 Kernel.SmallChshTolerance <> p:37 var
+R4242:4242 Kernel.SmallChshTolerance <> q:38 var
+R4245:4262 Kernel.SmallChshTolerance <> small_chsh_witness def
+R4264:4264 Kernel.SmallChshTolerance <> t:47 var
+R4269:4272 Coq.Init.Datatypes <> true constr
+R4290:4293 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4283:4285 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R4286:4286 Kernel.SmallChshTolerance <> q:38 var
+R4304:4311 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4296:4299 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R4300:4300 Kernel.SmallChshTolerance <> p:37 var
+R4412:4419 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4352:4361 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4331:4333 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4313:4328 Kernel.SmallChshCheck <> small_chsh_score def
+R4330:4330 Kernel.SmallChshTolerance <> t:47 var
+R4334:4349 Kernel.SmallChshCheck <> small_chsh_score def
+R4351:4351 Kernel.SmallChshTolerance <> t:47 var
+R4363:4366 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4408:4408 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4367:4367 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4385:4389 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4407:4407 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4369:4371 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4377:4379 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4372:4374 Coq.Reals.Rdefinitions <> IZR def
+R4376:4376 Kernel.SmallChshTolerance <> p:37 var
+R4380:4382 Coq.Reals.Rdefinitions <> IZR def
+R4384:4384 Kernel.SmallChshTolerance <> q:38 var
+R4391:4393 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4399:4401 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4394:4396 Coq.Reals.Rdefinitions <> IZR def
+R4398:4398 Kernel.SmallChshTolerance <> p:37 var
+R4402:4404 Coq.Reals.Rdefinitions <> IZR def
+R4406:4406 Kernel.SmallChshTolerance <> q:38 var
+R4551:4553 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4420:4426 Kernel.SmallChshTolerance <> vals proj
+R4429:4438 Kernel.SmallChshTolerance <> core_of proj
+R4441:4446 Kernel.SmallChshTolerance <> run def
+R4504:4507 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4501:4503 Kernel.SmallChshTolerance <> pre:41 var
+R4535:4538 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4508:4515 Kernel.SmallChshTolerance <> CHECK constr
+R4517:4532 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R4534:4534 Kernel.SmallChshTolerance <> c:42 var
+R4539:4542 Kernel.SmallChshTolerance <> mid1:43 var
+R4545:4546 Kernel.SmallChshTolerance <> s0:39 var
+R4469:4487 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R4489:4489 Kernel.SmallChshTolerance <> p:37 var
+R4491:4491 Kernel.SmallChshTolerance <> q:38 var
+R4448:4466 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R4550:4550 Kernel.SmallChshTolerance <> c:42 var
+R4554:4554 Kernel.SmallChshTolerance <> v:46 var
+R4602:4641 Kernel.SmallChshTolerance <> multi_earned_certification_provenance thm
+R4691:4709 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R4667:4688 Kernel.SmallChshMachine <> small_chsh_prop_eqb_eq thm
+R4643:4661 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R4602:4641 Kernel.SmallChshTolerance <> multi_earned_certification_provenance thm
+R4691:4709 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R4667:4688 Kernel.SmallChshMachine <> small_chsh_prop_eqb_eq thm
+R4643:4661 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R4890:4900 Kernel.SmallChshTolerance <> check_ok def
+R4916:4928 Coq.Bool.Bool <> andb_true_iff thm
+R4916:4928 Coq.Bool.Bool <> andb_true_iff thm
+R4957:4969 Coq.Bool.Bool <> andb_true_iff thm
+R4957:4969 Coq.Bool.Bool <> andb_true_iff thm
+R4999:5017 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R5063:5083 Kernel.NecEChsh <> nec_e_tol_check_sound thm
+R5063:5083 Kernel.NecEChsh <> nec_e_tol_check_sound thm
+R5174:5194 Kernel.NecEChsh <> nec_e_tol_check_bound thm
+R5174:5194 Kernel.NecEChsh <> nec_e_tol_check_bound thm
+R5224:5227 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5255:5258 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5228:5235 Kernel.SmallChshTolerance <> CHECK constr
+R5237:5252 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R5277:5277 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5314:5318 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5281:5284 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5285:5285 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5313:5313 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5286:5293 Kernel.SmallChshTolerance <> CHECK constr
+R5295:5310 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R5346:5354 Coq.Lists.List <> app_assoc thm
+R5224:5227 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5255:5258 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5228:5235 Kernel.SmallChshTolerance <> CHECK constr
+R5237:5252 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R5277:5277 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5314:5318 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5281:5284 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5285:5285 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5313:5313 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5286:5293 Kernel.SmallChshTolerance <> CHECK constr
+R5295:5310 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R5346:5354 Coq.Lists.List <> app_assoc thm
+R5346:5354 Coq.Lists.List <> app_assoc thm
+R5383:5398 Kernel.SmallChshTolerance <> multi_run_app thm
+R5401:5424 Kernel.SmallChshTolerance <> small_chsh_tol_untouched thm
+R5383:5398 Kernel.SmallChshTolerance <> multi_run_app thm
+R5383:5398 Kernel.SmallChshTolerance <> multi_run_app thm
+R5401:5424 Kernel.SmallChshTolerance <> small_chsh_tol_untouched thm
+R5401:5424 Kernel.SmallChshTolerance <> small_chsh_tol_untouched thm
+R5452:5468 Kernel.SmallChshTolerance <> multi_run_snoc thm
+R5452:5468 Kernel.SmallChshTolerance <> multi_run_snoc thm
+R5452:5468 Kernel.SmallChshTolerance <> multi_run_snoc thm
+R5486:5503 Kernel.SmallChshTolerance <> multi_val_check thm
+R5486:5503 Kernel.SmallChshTolerance <> multi_val_check thm
+R5486:5503 Kernel.SmallChshTolerance <> multi_val_check thm
+prf 5533:5560 <> small_chsh_tol_program_bound
+binder 5571:5571 <> p:48
+binder 5573:5573 <> q:49
+binder 5575:5575 <> n:50
+binder 5577:5577 <> P:51
+binder 5579:5580 <> vs:52
+R5677:5682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5670:5672 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5585:5591 Kernel.SmallChshTolerance <> cert proj
+R5594:5604 Kernel.SmallChshTolerance <> run_prog def
+R5652:5652 Kernel.SmallChshTolerance <> n:50 var
+R5654:5654 Kernel.SmallChshTolerance <> P:51 var
+R5657:5664 Kernel.SmallChshTolerance <> start def
+R5666:5667 Kernel.SmallChshTolerance <> vs:52 var
+R5627:5645 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R5647:5647 Kernel.SmallChshTolerance <> p:48 var
+R5649:5649 Kernel.SmallChshTolerance <> q:49 var
+R5606:5624 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R5673:5676 Coq.Init.Datatypes <> true constr
+R5683:5689 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5700:5705 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5690:5692 <> pre:53
+binder 5694:5694 <> c:54
+binder 5696:5699 <> rest:55
+R5832:5839 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5781:5789 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5706:5716 Kernel.SmallChshTolerance <> trace_of def
+R5764:5764 Kernel.SmallChshTolerance <> n:50 var
+R5766:5766 Kernel.SmallChshTolerance <> P:51 var
+R5769:5776 Kernel.SmallChshTolerance <> start def
+R5778:5779 Kernel.SmallChshTolerance <> vs:52 var
+R5739:5757 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R5759:5759 Kernel.SmallChshTolerance <> p:48 var
+R5761:5761 Kernel.SmallChshTolerance <> q:49 var
+R5718:5736 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R5793:5796 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5790:5792 Kernel.SmallChshTolerance <> pre:53 var
+R5824:5827 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5797:5804 Kernel.SmallChshTolerance <> CHECK constr
+R5806:5821 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R5823:5823 Kernel.SmallChshTolerance <> c:54 var
+R5828:5831 Kernel.SmallChshTolerance <> rest:55 var
+R5849:5867 Kernel.SmallChshMachine <> small_chsh_tally_of def
+R5870:5876 Kernel.SmallChshTolerance <> vals proj
+R5879:5888 Kernel.SmallChshTolerance <> core_of proj
+R5897:5902 Kernel.SmallChshTolerance <> run def
+R5950:5952 Kernel.SmallChshTolerance <> pre:53 var
+R5955:5962 Kernel.SmallChshTolerance <> start def
+R5964:5965 Kernel.SmallChshTolerance <> vs:52 var
+R5925:5943 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R5945:5945 Kernel.SmallChshTolerance <> p:48 var
+R5947:5947 Kernel.SmallChshTolerance <> q:49 var
+R5904:5922 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R5970:5970 Kernel.SmallChshTolerance <> c:54 var
+binder 5844:5844 <> t:56
+R6020:6029 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5999:6001 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5981:5996 Kernel.SmallChshCheck <> small_chsh_score def
+R5998:5998 Kernel.SmallChshTolerance <> t:56 var
+R6002:6017 Kernel.SmallChshCheck <> small_chsh_score def
+R6019:6019 Kernel.SmallChshTolerance <> t:56 var
+R6031:6034 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6076:6076 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6035:6035 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6053:6057 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6075:6075 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6037:6039 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6045:6047 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6040:6042 Coq.Reals.Rdefinitions <> IZR def
+R6044:6044 Kernel.SmallChshTolerance <> p:48 var
+R6048:6050 Coq.Reals.Rdefinitions <> IZR def
+R6052:6052 Kernel.SmallChshTolerance <> q:49 var
+R6059:6061 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6067:6069 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6062:6064 Coq.Reals.Rdefinitions <> IZR def
+R6066:6066 Kernel.SmallChshTolerance <> p:48 var
+R6070:6072 Coq.Reals.Rdefinitions <> IZR def
+R6074:6074 Kernel.SmallChshTolerance <> q:49 var
+R6120:6142 Kernel.SmallChshTolerance <> multi_run_prog_trace thm
+R6120:6142 Kernel.SmallChshTolerance <> multi_run_prog_trace thm
+R6120:6142 Kernel.SmallChshTolerance <> multi_run_prog_trace thm
+R6162:6186 Kernel.SmallChshTolerance <> small_chsh_tol_flag_bound thm
+R6193:6200 Kernel.SmallChshTolerance <> start def
+R6209:6228 Kernel.SmallChshTolerance <> multi_start_clean thm
+R6162:6186 Kernel.SmallChshTolerance <> small_chsh_tol_flag_bound thm
+R6193:6200 Kernel.SmallChshTolerance <> start def
+R6209:6228 Kernel.SmallChshTolerance <> multi_start_clean thm
+R6323:6326 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6355:6358 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6327:6335 Kernel.SmallChshTolerance <> COMMIT constr
+R6337:6352 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R6363:6366 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6377:6380 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6367:6376 Kernel.SmallChshTolerance <> CERTIFY constr
+R6323:6326 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6355:6358 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6327:6335 Kernel.SmallChshTolerance <> COMMIT constr
+R6337:6352 Kernel.SmallChshMachine <> small_chsh_PCHSH constr
+R6363:6366 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6377:6380 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6367:6376 Kernel.SmallChshTolerance <> CERTIFY constr
+def 6426:6442 <> small_chsh_tol_cs
+R6451:6451 Coq.Numbers.BinNums <> Z ind
+binder 6445:6445 <> p:57
+binder 6447:6447 <> q:58
+R6456:6474 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R6481:6494 Kernel.UniversalCertificationCost <> mk_cert_system constr
+R6498:6505 Kernel.SmallChshTolerance <> state rec
+R6507:6521 Kernel.SmallChshMachine <> small_chsh_prop ind
+R6526:6533 Kernel.SmallChshTolerance <> instr ind
+R6535:6549 Kernel.SmallChshMachine <> small_chsh_prop ind
+R6557:6563 Kernel.SmallChshTolerance <> exec def
+R6586:6604 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R6606:6606 Kernel.SmallChshTolerance <> p:57 var
+R6608:6608 Kernel.SmallChshTolerance <> q:58 var
+R6565:6583 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R6618:6624 Kernel.SmallChshTolerance <> cost def
+R6626:6640 Kernel.SmallChshMachine <> small_chsh_prop ind
+R6645:6651 Kernel.SmallChshTolerance <> cert proj
+R6653:6667 Kernel.SmallChshMachine <> small_chsh_prop ind
+R6675:6685 Kernel.SmallChshTolerance <> multi_a2 thm
+R6708:6726 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R6728:6728 Kernel.SmallChshTolerance <> p:57 var
+R6730:6730 Kernel.SmallChshTolerance <> q:58 var
+R6687:6705 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+prf 6742:6763 <> small_chsh_tol_cs_cost
+binder 6774:6774 <> p:59
+binder 6776:6776 <> q:60
+binder 6778:6779 <> tr:61
+R6824:6826 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6784:6796 Kernel.UniversalCertificationCost <> cs_total_cost def
+R6799:6815 Kernel.SmallChshTolerance <> small_chsh_tol_cs def
+R6817:6817 Kernel.SmallChshTolerance <> p:59 var
+R6819:6819 Kernel.SmallChshTolerance <> q:60 var
+R6822:6823 Kernel.SmallChshTolerance <> tr:61 var
+R6827:6839 Kernel.SmallChshTolerance <> total_cost def
+R6841:6842 Kernel.SmallChshTolerance <> tr:61 var
+prf 6908:6937 <> small_chsh_tol_certified_floor
+binder 6948:6948 <> p:62
+binder 6950:6950 <> q:63
+binder 6952:6953 <> s0:64
+binder 6955:6956 <> tr:65
+R6978:6983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6961:6974 Kernel.SmallChshTolerance <> clean_start def
+R6976:6977 Kernel.SmallChshTolerance <> s0:64 var
+R7059:7064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7052:7054 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6984:6990 Kernel.SmallChshTolerance <> cert proj
+R6993:6998 Kernel.SmallChshTolerance <> run def
+R7046:7047 Kernel.SmallChshTolerance <> tr:65 var
+R7049:7050 Kernel.SmallChshTolerance <> s0:64 var
+R7021:7039 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R7041:7041 Kernel.SmallChshTolerance <> p:62 var
+R7043:7043 Kernel.SmallChshTolerance <> q:63 var
+R7000:7018 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R7055:7058 Coq.Init.Datatypes <> true constr
+R7105:7108 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7065:7077 Kernel.UniversalCertificationCost <> cs_total_cost def
+R7080:7096 Kernel.SmallChshTolerance <> small_chsh_tol_cs def
+R7098:7098 Kernel.SmallChshTolerance <> p:62 var
+R7100:7100 Kernel.SmallChshTolerance <> q:63 var
+R7103:7104 Kernel.SmallChshTolerance <> tr:65 var
+R7153:7174 Kernel.SmallChshTolerance <> small_chsh_tol_cs_cost thm
+R7153:7174 Kernel.SmallChshTolerance <> small_chsh_tol_cs_cost thm
+R7153:7174 Kernel.SmallChshTolerance <> small_chsh_tol_cs_cost thm
+R7186:7190 Coq.Init.Logic <> proj1 thm
+R7193:7223 Kernel.SmallChshTolerance <> multi_certified_run_min_cost thm
+R7273:7291 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R7249:7270 Kernel.SmallChshMachine <> small_chsh_prop_eqb_eq thm
+R7225:7243 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R7186:7190 Coq.Init.Logic <> proj1 thm
+R7193:7223 Kernel.SmallChshTolerance <> multi_certified_run_min_cost thm
+R7273:7291 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R7249:7270 Kernel.SmallChshMachine <> small_chsh_prop_eqb_eq thm
+R7225:7243 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+prf 7327:7356 <> small_chsh_tol_noisy_certifies
+R7539:7541 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7362:7368 Kernel.SmallChshTolerance <> cert proj
+R7371:7381 Kernel.SmallChshTolerance <> run_prog def
+R7437:7452 Kernel.SmallChshMachine <> small_chsh_chain def
+R7462:7469 Kernel.SmallChshTolerance <> start def
+R7481:7495 Kernel.SmallChshMachine <> small_chsh_code def
+R7498:7510 Kernel.SmallChshCheck <> small_chsh_mk constr
+R7404:7422 Kernel.SmallChshTolerance <> small_chsh_tol_eval def
+R7383:7401 Kernel.SmallChshMachine <> small_chsh_prop_eqb def
+R7542:7545 Coq.Init.Datatypes <> true constr
+R7563:7586 Kernel.SmallChshTolerance <> small_chsh_tol_chain_iff thm
+R7563:7586 Kernel.SmallChshTolerance <> small_chsh_tol_chain_iff thm
+R7597:7620 Kernel.SmallChshMachine <> small_chsh_tally_of_code thm
+R7597:7620 Kernel.SmallChshMachine <> small_chsh_tally_of_code thm
+R7597:7620 Kernel.SmallChshMachine <> small_chsh_tally_of_code thm
+R7674:7703 Kernel.SmallChshTolerance <> small_chsh_tol_certified_floor thm
+R7724:7753 Kernel.SmallChshTolerance <> small_chsh_tol_noisy_certifies thm
+R7774:7792 Kernel.SmallChshTolerance <> small_chsh_tol_zero thm
+R7813:7836 Kernel.SmallChshTolerance <> small_chsh_tol_chain_iff thm
+R7857:7887 Kernel.SmallChshTolerance <> small_chsh_tol_chain_pays_three thm
+R7908:7937 Kernel.SmallChshTolerance <> small_chsh_tol_refused_forever thm
+R7958:7982 Kernel.SmallChshTolerance <> small_chsh_tol_flag_bound thm
+R8003:8030 Kernel.SmallChshTolerance <> small_chsh_tol_program_bound thm

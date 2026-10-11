@@ -4625,15 +4625,30 @@ def _scan_kernel_convertibility_vacuity(repo_root: Path) -> list[Finding]:
                 ),
             )
         ]
+    if data.get("schema") != "vacuity_audit.v2":
+        return [Finding(
+            rule_id="KERNEL_CONVERTIBILITY_VACUITY", severity="HIGH",
+            file=audit_path, line=1, snippet="legacy vacuity receipt",
+            message="Regenerate the full vacuity audit: older receipts could treat "
+                    "unelaborated probes as passing results.",
+        )]
     findings: list[Finding] = []
     for verdict in data.get("verdicts", []):
         status = verdict.get("status", "ok")
+        if status == "error":
+            findings.append(Finding(
+                rule_id="KERNEL_CONVERTIBILITY_VACUITY", severity="HIGH",
+                file=repo_root / verdict["file"], line=int(verdict.get("line", 1)),
+                snippet=verdict.get("name", "<unknown>"),
+                message="Vacuity probe could not complete; this is not a passing result. "
+                        "Rerun scripts/vacuity_gate.py after resolving the probe error.",
+            ))
         if status in ("vacuous-true", "vacuous-hyp"):
             target_file = repo_root / verdict["file"]
             kind_phrase = (
-                "convertible to `True` after lazy reduction"
+                "convertible to `True`"
                 if status == "vacuous-true"
-                else "convertible to one of its hypotheses after lazy reduction"
+                else "convertible to one of its hypotheses"
             )
             findings.append(
                 Finding(

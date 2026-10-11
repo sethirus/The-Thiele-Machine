@@ -121,8 +121,8 @@ jobs:
         run: make vacuity-audit
 
       - name: Fail on any vacuous or errored verdict
-        # The gate itself always exits 0 by design (the consumer decides);
-        # this job is the consumer. An 'error' verdict means a theorem was
+        # The gate fails on probe errors; this consumer also rejects findings.
+        # An 'error' verdict means a theorem was
         # not actually probed, which is silent shrinkage — fail on it too.
         run: |
           python3 - <<'EOF'

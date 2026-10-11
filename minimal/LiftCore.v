@@ -575,6 +575,28 @@ Proof.
   split; [apply lift_toll_clause | apply lift_nonvac_clause; assumption].
 Qed.
 
+(** The language is fixed by the base-state claims and their meanings;
+    neither a chosen universal interface nor its checker defines it. *)
+Definition lift_language (M0 : T.machine) (LG : lift_lang (T.m_state M0)) cap
+  : T.claim_language (lift_machine M0 LG cap).
+Proof.
+  refine (T.mk_cl (lift_machine M0 LG cap) (lift_ll_claim LG) (lift_ll_eqb LG) (lift_ll_eqb_eq LG)
+    (fun c s => lift_ll_mean LG c (lift_ls_base s))
+    (fun _ s t => lift_ls_base s = lift_ls_base t) _).
+  intros c s t H Hm. rewrite <- H. exact Hm.
+Defined.
+
+Theorem lift_thiele_complete_over : forall M0 (LG : lift_lang (T.m_state M0)) cap
+    (U : T.universal_base M0),
+  0 < cap -> lift_nonvacuous U LG ->
+  T.thiele_complete_over (lift_machine M0 LG cap) (lift_language M0 LG cap).
+Proof.
+  intros M0 LG cap U Hcap Hnv.
+  apply (T.thiele_complete_with_over _ (lift_interface M0 LG cap U)
+    (lift_ll_eqb LG) (lift_ll_eqb_eq LG)).
+  apply lift_thiele_complete_with; assumption.
+Qed.
+
 Theorem lift_thiele_complete : forall M0 (LG : lift_lang (T.m_state M0)) cap
     (U : T.universal_base M0),
   0 < cap -> lift_nonvacuous U LG -> T.thiele_complete (lift_machine M0 LG cap).
@@ -647,5 +669,16 @@ Proof.
   apply lift_window_nonvacuous.
 Qed.
 
+Theorem lift_window_thiele_complete_over : forall M0 (U : T.universal_base M0) cap,
+  0 < cap ->
+  T.thiele_complete_over (lift_machine M0 (lift_window_lang M0 U) cap)
+    (lift_language M0 (lift_window_lang M0 U) cap).
+Proof.
+  intros M0 U cap Hcap. apply (lift_thiele_complete_over M0 _ cap U Hcap).
+  apply lift_window_nonvacuous.
+Qed.
+
+Print Assumptions lift_thiele_complete_over.
+Print Assumptions lift_window_thiele_complete_over.
 Print Assumptions lift_thiele_complete.
 Print Assumptions lift_window_thiele_complete.

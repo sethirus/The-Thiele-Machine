@@ -1,7 +1,22 @@
 from scripts.assumption_receipt_fingerprint import (
+    _python_tokens,
     _strip_coq_assumption_irrelevant_literals,
     _strip_coq_comments,
 )
+
+
+def test_python_fingerprint_uses_stable_token_names():
+    assert _python_tokens("x = 1\n") == (
+        b"[('NAME', 'x'), ('OP', '='), ('NUMBER', '1'), ('NEWLINE', '')]"
+    )
+
+
+def test_python_fingerprint_preserves_code_and_indentation():
+    assert _python_tokens("x = 1 # comment\n") == _python_tokens("x=1\n")
+    assert _python_tokens("x = 1\n") != _python_tokens("x = 2\n")
+    assert _python_tokens("if x:\n    f()\ng()\n") != _python_tokens(
+        "if x:\n    f()\n    g()\n"
+    )
 
 
 def test_coq_comments_and_external_whitespace_are_semantically_ignored():
