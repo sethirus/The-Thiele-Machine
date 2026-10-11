@@ -323,7 +323,7 @@ def test_universal_no_copy_compiles_axiom_free(tmp_path):
 
 MINIMAL_DIR = REPO_ROOT / "minimal"
 PRICED_EXPECTED_CLOSED = 48
-PRICED_COMPLETE_EXPECTED_CLOSED = 7
+PRICED_COMPLETE_EXPECTED_CLOSED = 10
 PRESENTED_EXPECTED_CLOSED = 23
 MULTI_PRICED_EXPECTED_CLOSED = 40
 
@@ -544,7 +544,7 @@ ENT2_CHAIN = (
     "CompressionSmall2.v", "TimeTax2.v", "CoveringNeeded2.v",
 )
 ENT2_EXPECTED_CLOSED = {
-    "MultiThiele2.v": 6,
+    "MultiThiele2.v": 7,
     "BitSearch2.v": 8,
     "EntitlementMore2.v": 20,
     "BitSearchMember2.v": 15,
@@ -765,7 +765,7 @@ LIFT_MINIMAL_CHAIN = (
 )
 LIFT_MINIMAL_EXPECTED_CLOSED = {
     "LiftPigeon.v": 0,
-    "LiftCore.v": 2,
+    "LiftCore.v": 4,
     "LiftConverse.v": 7,
     "LiftOneCounter.v": 3,
 }

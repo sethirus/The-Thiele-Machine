@@ -1,31 +1,31 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-10T06:52:55.958622+00:00",
+  "generated": "2026-10-11T06:33:48.879353+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "1b972ac0173777c9155f498f6b5cb55333b2c23dc598bec7406dcbd753ebfd8a",
-  "probe_digest": "10000e4e33cf9c1471d599a643332a3c5bb7064cb469be97b78d810c24582543",
+  "corpus_digest": "59afe7ccb7d651aedc8e98a557931e46ee10d511706d4a0d4956a922737baefd",
+  "probe_digest": "f62344999401e2e260f69ccf7ef615c3f9b365f56fba065d9bbd06d91b39ef4c",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "21c3c9a07ae965349b201f19d613b7eb9b7bdd2c772d682ba5a2cd668dc3de11",
-  "files_probed": 340,
-  "addressable_theorems_probed": 5981,
-  "blocks_parsed": 5981,
+  "raw_output_sha256": "3cca8a5a0fc5b6a1474d743ed00e4dc2886e4e1f6e18bdaa3fc2a7b6633a45f9",
+  "files_probed": 341,
+  "addressable_theorems_probed": 5997,
+  "blocks_parsed": 5997,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 5981,
-    "closed_under_global_context": 5184,
-    "depend_on_axioms": 797,
+    "theorems_probed": 5997,
+    "closed_under_global_context": 5198,
+    "depend_on_axioms": 799,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 175,
-    "functional_extensionality_users": 761,
-    "real_completeness_axiom_users": 783,
+    "functional_extensionality_users": 763,
+    "real_completeness_axiom_users": 785,
     "unique_axioms_used": {
-      "ClassicalDedekindReals.sig_forall_dec": 783,
-      "FunctionalExtensionality.functional_extensionality_dep": 761,
+      "ClassicalDedekindReals.sig_forall_dec": 785,
+      "FunctionalExtensionality.functional_extensionality_dep": 763,
       "ClassicalDedekindReals.sig_not_dec": 273,
       "Classical_Prop.classic": 175
     }
@@ -211,9 +211,9 @@
   "unaddressable_theorems_in_functors_or_module_types": [],
   "by_namespace": {
     "Kernel": {
-      "theorems": 4342,
-      "closed": 3559,
-      "with_axioms": 783,
+      "theorems": 4350,
+      "closed": 3565,
+      "with_axioms": 785,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -222,8 +222,8 @@
       ]
     },
     "Minimal": {
-      "theorems": 1630,
-      "closed": 1616,
+      "theorems": 1638,
+      "closed": 1624,
       "with_axioms": 14,
       "axiom_set": [
         "FunctionalExtensionality.functional_extensionality_dep"
@@ -1142,6 +1142,15 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
+    "coq/kernel/foundation/SmallChshTolerance.v": {
+      "theorems": 10,
+      "closed": 8,
+      "with_axioms": 2,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
     "coq/kernel/foundation/StructuralClockSync.v": {
       "theorems": 9,
       "closed": 9,
@@ -1161,14 +1170,14 @@
       "axiom_set": []
     },
     "coq/kernel/foundation/Tc2Plain.v": {
-      "theorems": 10,
-      "closed": 10,
+      "theorems": 9,
+      "closed": 9,
       "with_axioms": 0,
       "axiom_set": []
     },
     "coq/kernel/foundation/Tc2PlainAdd.v": {
-      "theorems": 6,
-      "closed": 6,
+      "theorems": 5,
+      "closed": 5,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2009,14 +2018,14 @@
       "axiom_set": []
     },
     "minimal/LiftCore.v": {
-      "theorems": 38,
-      "closed": 38,
+      "theorems": 40,
+      "closed": 40,
       "with_axioms": 0,
       "axiom_set": []
     },
     "minimal/LiftMacro.v": {
-      "theorems": 8,
-      "closed": 8,
+      "theorems": 10,
+      "closed": 10,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2041,8 +2050,8 @@
       ]
     },
     "minimal/MultiThiele2.v": {
-      "theorems": 7,
-      "closed": 7,
+      "theorems": 10,
+      "closed": 10,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2155,8 +2164,8 @@
       "axiom_set": []
     },
     "minimal/PricedComplete.v": {
-      "theorems": 10,
-      "closed": 10,
+      "theorems": 15,
+      "closed": 15,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2281,8 +2290,8 @@
       "axiom_set": []
     },
     "minimal/ThieleCompleteScaled.v": {
-      "theorems": 26,
-      "closed": 26,
+      "theorems": 22,
+      "closed": 22,
       "with_axioms": 0,
       "axiom_set": []
     },

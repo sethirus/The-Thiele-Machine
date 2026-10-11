@@ -750,9 +750,9 @@ The Record Axis
 
 Definition 10.1 (Bases and base-driven records). A base is a deterministic record-free machine:
 states, a next function, initial states and halting (record BaseMachine). A record-carrying
-machine has states, a next function, initial states, a record, a ledger and halting (record
-RCM). A cover maps it onto a base step for step, preserving initial states and halting. The
-extension is honest when its record’s next value depends only on the base state and itself, the
+machine has states, a next function, initial states, a record, a ledger and halting (record RCM).
+A cover maps it onto a base step for step, preserving initial states and halting. The extension
+is base-driven when its record’s next value depends only on the base state and itself, the
 ledger never decreases, A2 holds, the record is permanent, and some reachable step writes it
 (HonestBaseExtension).
 

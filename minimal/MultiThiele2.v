@@ -214,6 +214,36 @@ Qed.
 (* Assumption audit.                                                  *)
 (* ================================================================= *)
 
+Definition ent2_claim_eqb (x y : E.prop * nat) : bool :=
+  E.prop_eqb (fst x) (fst y) && Nat.eqb (snd x) (snd y).
+
+Lemma ent2_claim_eqb_spec : forall x y, ent2_claim_eqb x y = true <-> x = y.
+Proof.
+  intros [p r] [q s]. unfold ent2_claim_eqb. simpl.
+  rewrite andb_true_iff, ent2_prop_eqb_eq, Nat.eqb_eq.
+  split; [intros [-> ->]; reflexivity | intro H; inversion H; auto].
+Qed.
+
+Lemma ent2_same_keeps : forall c s t,
+  ti_same ent2_minterface c s t ->
+  ti_meaning ent2_minterface c s -> ti_meaning ent2_minterface c t.
+Proof. intros [p r] s t [_ Hv] Hm. simpl in *. rewrite <- Hv. exact Hm. Qed.
+
+Definition ent2_language : claim_language ent2_mmachine :=
+  mk_cl ent2_mmachine (E.prop * nat) ent2_claim_eqb ent2_claim_eqb_spec
+    (fun pr s => E.holds (fst pr) (M.vals (M.core_of s) (snd pr)))
+    (fun pr s t => M.vers (M.core_of s) (snd pr) = M.vers (M.core_of t) (snd pr) /\
+                   M.vals (M.core_of s) (snd pr) = M.vals (M.core_of t) (snd pr))
+    ent2_same_keeps.
+
+Theorem ent2_mmachine_complete_over : thiele_complete_over ent2_mmachine ent2_language.
+Proof.
+  apply (thiele_complete_with_over _ ent2_minterface
+    ent2_claim_eqb ent2_claim_eqb_spec ent2_same_keeps).
+  exact ent2_mmachine_complete.
+Qed.
+
+Print Assumptions ent2_mmachine_complete_over.
 Print Assumptions ent2_prop_eqb_eq.
 Print Assumptions ent2_run_mmachine.
 Print Assumptions ent2_msim.

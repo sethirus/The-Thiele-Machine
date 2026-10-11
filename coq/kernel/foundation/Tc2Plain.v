@@ -113,7 +113,8 @@ Instance term_tc2_fx : computable tc2_fx. Proof. extract. Qed.
 
 Transparent tc2_cx.
 
-Lemma tc2_fx_mono : forall n n' x c m, tc2_fx 0 n x c = Some m -> n <= n' -> tc2_fx 0 n' x c = Some m.
+(* Definitional witness for the compiler interface: tc2_fx ignores fuel. *)
+Definition tc2_fx_mono : forall n n' x c m, tc2_fx 0 n x c = Some m -> n <= n' -> tc2_fx 0 n' x c = Some m.
 Proof. intros n n' x c m H _. exact H. Qed.
 
 Definition tc2_Rfx (v : Vector.t nat 2) (m : nat) : Prop :=

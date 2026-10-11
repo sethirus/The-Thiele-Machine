@@ -3,10 +3,9 @@
 
 The full ``Print Assumptions`` corpus is expensive to re-derive. A receipt may
 be reused only when the inputs that can change theorem dependencies are
-unchanged. Coq comments, formatting, and string payloads are removed from
-proof-source fingerprints: none can add or remove a referenced axiom or proof
-constant. Project mappings, declarations, proof terms, generator code, and
-the Coq version remain inputs.
+unchanged. Coq comments, formatting, and claim_not_imply metadata wording are
+normalized; other string literals remain significant. Project mappings,
+declarations, proof terms, generator code, and the Coq version remain inputs.
 """
 from __future__ import annotations
 
@@ -157,7 +156,11 @@ def _coq_version(root: Path) -> str:
 
 
 def _python_tokens(text: str) -> bytes:
-    """Return Python tokens without comments or formatting-only whitespace."""
+    """Return named Python tokens without comments or layout-only whitespace.
+
+    Numeric token IDs are an interpreter detail (OP moved between Python
+    3.12 and 3.13). Persist their names, never their numeric values.
+    """
     try:
         tokens = tokenize.generate_tokens(io.StringIO(text).readline)
         normalized = []
@@ -167,9 +170,9 @@ def _python_tokens(text: str) -> bytes:
                 continue
             if token.type in (tokenize.INDENT, tokenize.DEDENT,
                               tokenize.NEWLINE):
-                normalized.append((token.type, ""))
+                normalized.append((tokenize.tok_name[token.type], ""))
             else:
-                normalized.append((token.type, token.string))
+                normalized.append((tokenize.tok_name[token.type], token.string))
         return repr(normalized).encode("utf-8")
     except (IndentationError, tokenize.TokenError):
         # A syntax-incomplete script must still invalidate the receipt rather
@@ -189,7 +192,7 @@ def _digest(path: Path, *, semantic_coq: bool) -> bytes:
 
 def corpus_digest(root: Path = ROOT) -> str:
     hasher = hashlib.sha256()
-    hasher.update(b"thiele-assumption-corpus-v1\0")
+    hasher.update(b"thiele-assumption-corpus-v2\0")
     hasher.update(_coq_version(root).encode("utf-8"))
     hasher.update(b"\0")
     for path in _coq_source_paths(root):

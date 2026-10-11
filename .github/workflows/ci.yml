@@ -1,5 +1,7 @@
 name: CI
 
+# MetaCoq 1.2.1+8.18 requires the Coq 8.18 toolchain from Ubuntu 24.04.
+
 on:
   # Trigger on push to ANY branch — feature branches need the same gate as
   # main, otherwise a "green locally + green PR" assumption gets to develop
@@ -34,7 +36,7 @@ jobs:
   # intentional clean rebuild and can't share the cache.
   build-coq:
     name: Build Coq (shared cache primer)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       coq-version: ${{ steps.toolchain.outputs.coq }}
       vendor-digest: ${{ steps.vendor-digest.outputs.digest }}
@@ -133,7 +135,7 @@ jobs:
   # No Coq rebuild here — restores the cache populated by build-coq.
   proof-check:
     name: Proof verification
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build-coq
     env:
       OCAMLRUNPARAM: "l=64M"
@@ -210,6 +212,21 @@ jobs:
           fi
           echo "OK: no cheat axiom usage found in Thiele proofs"
 
+      - name: Set up Python 3.13 for fingerprint portability
+        id: fingerprint-python313
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          update-environment: false
+
+      - name: Check fingerprint portability across Python versions
+        env:
+          PYTHON313: ${{ steps.fingerprint-python313.outputs.python-path }}
+        run: |
+          python scripts/assumption_receipt_fingerprint.py > /tmp/fingerprint-312
+          "$PYTHON313" scripts/assumption_receipt_fingerprint.py > /tmp/fingerprint-313
+          diff -u /tmp/fingerprint-312 /tmp/fingerprint-313
+
       - name: Run Inquisitor proof audit
         run: |
           python -m pip install --quiet --upgrade pip
@@ -256,7 +273,7 @@ jobs:
   # intentionally cannot share the cache build-coq produces.
   proof-repro-gate:
     name: Proof reproducibility gate (clean rebuild + coqchk)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
@@ -287,7 +304,7 @@ jobs:
 
   python-tests:
     name: Python unit tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # A cold Coq build on this job takes about 36 minutes and the full suite
     # about 16, so 40 cancelled every run that missed the build cache.
     timeout-minutes: 75
@@ -405,7 +422,7 @@ jobs:
   # regen workflow.
   book-build:
     name: Book build (monograph + math spec)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
@@ -434,7 +451,7 @@ jobs:
   # Dependency audit (independent)
   dependencies:
     name: Dependency security scan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
@@ -456,7 +473,7 @@ jobs:
   # Summary
   verify-summary:
     name: Verification Summary
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [build-coq, proof-check, proof-repro-gate, python-tests, book-build, dependencies]
     if: always()
     steps:

@@ -70,7 +70,7 @@ def test_inquisitor_consumes_vacuity_audit(tmp_path: Path, monkeypatch: pytest.M
     fake_root = tmp_path / "repo"
     (fake_root / "artifacts").mkdir(parents=True)
     audit_payload = {
-        "schema": "vacuity_audit.v1",
+        "schema": "vacuity_audit.v2",
         "verdicts": [
             {
                 "name": "fake_vacuous_true",
@@ -118,6 +118,46 @@ def test_inquisitor_consumes_vacuity_audit(tmp_path: Path, monkeypatch: pytest.M
     assert names == {"fake_vacuous_true", "fake_vacuous_hyp"}
     assert all(f.severity == "HIGH" for f in findings)
     assert all(f.rule_id == "KERNEL_CONVERTIBILITY_VACUITY" for f in findings)
+
+    audit_payload["verdicts"][2]["status"] = "error"
+    (fake_root / "artifacts" / "vacuity_audit.json").write_text(json.dumps(audit_payload))
+    findings = inquisitor._scan_kernel_convertibility_vacuity(fake_root)
+    assert len(findings) == 3
+    assert any("not a passing result" in f.message for f in findings)
+
+    audit_payload["schema"] = "vacuity_audit.v1"
+    (fake_root / "artifacts" / "vacuity_audit.json").write_text(json.dumps(audit_payload))
+    findings = inquisitor._scan_kernel_convertibility_vacuity(fake_root)
+    assert len(findings) == 1
+    assert "older receipts" in findings[0].message
+
+
+def test_probe_timeout_is_an_error(tmp_path, monkeypatch):
+    from scripts import vacuity_gate as gate
+    monkeypatch.setattr(gate, "REPO_ROOT", tmp_path)
+    def timeout(*args, **kwargs):
+        raise subprocess.TimeoutExpired(args[0], 1)
+    monkeypatch.setattr(gate.subprocess, "run", timeout)
+    result = gate.run_probe(tmp_path / "probe__a.v", [], timeout=1)
+    assert not result.succeeded
+    assert result.error == "timeout after 1s"
+
+
+def test_uninstantiated_module_is_not_silently_probed_as_a_global_name():
+    from scripts import vacuity_gate as gate
+    with pytest.raises(ValueError, match="instantiated module"):
+        gate.parse_theorems("Module F (X : S).\nLemma identity : True.\n"
+                            "Proof. exact I. Qed.\nEnd F.\n")
+
+
+def test_merge_does_not_replace_an_unreadable_audit_with_partial_results(tmp_path):
+    output = tmp_path / "audit.json"
+    output.write_text("not json")
+    result = subprocess.run([sys.executable, str(GATE_SCRIPT), "--merge",
+                             "--output", str(output)], cwd=REPO_ROOT,
+                            text=True, capture_output=True)
+    assert result.returncode == 2
+    assert output.read_text() == "not json"
 
 
 @pytest.mark.slow
@@ -206,3 +246,46 @@ def test_batched_engine_matches_serial_engine(tmp_path: Path) -> None:
         if serial_map.get(name) != batched_map.get(name)
     ]
     assert not diffs, "Batched engine diverged from the serial reference oracle:\n" + "\n".join(diffs)
+
+
+@pytest.mark.coq
+@pytest.mark.parametrize("engine", ["serial", "batched"])
+def test_compiled_types_preserve_scope_and_binders(tmp_path, monkeypatch, engine):
+    from scripts import vacuity_gate as gate
+    source = tmp_path / "Scoped.v"
+    source.write_text('''From Coq Require Import List.
+Import ListNotations.
+Section S.
+Variable A : Type.
+Lemma append_empty (xs : list A) : [] ++ xs = xs.
+Proof. reflexivity. Qed.
+Lemma identity (xs : list A) : xs = xs -> xs = xs.
+Proof. auto. Qed.
+End S.
+Module Nested.
+Lemma true_here : True.
+Proof. exact I. Qed.
+End Nested.
+''')
+    flags = ["-Q", str(tmp_path), "Probe"]
+    subprocess.run(["coqc", *flags, str(source)], check=True, capture_output=True)
+    monkeypatch.setattr(gate, "REPO_ROOT", tmp_path)
+    probe_dir = tmp_path / "probes"
+    probe_dir.mkdir()
+    fn = gate.gate_one_target if engine == "serial" else gate.gate_one_target_batched
+    verdicts = fn(target_path=source, logical_module="Probe.Scoped",
+                  probe_dir=probe_dir, coq_flags=flags, timeout=30)
+    assert {v.name: v.status for v in verdicts} == {
+        "append_empty": "ok", "identity": "vacuous-hyp", "true_here": "vacuous-true"}
+
+
+@pytest.mark.coq
+def test_missing_theorem_is_a_probe_error(tmp_path, monkeypatch):
+    from scripts import vacuity_gate as gate
+    monkeypatch.setattr(gate, "REPO_ROOT", tmp_path)
+    decl = gate.TheoremDecl("does_not_exist", "Lemma", "True", 1)
+    verdict = gate.TheoremVerdict(decl.name, "missing.v", 1, "Lemma", "True")
+    gate._probe_theorem_serial(verdict, decl, logical_module="Coq.Init.Logic",
+                               probe_dir=tmp_path, coq_flags=[], timeout=30)
+    assert verdict.status == "error"
+    assert verdict.probe_a.error

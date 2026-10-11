@@ -12413,6 +12413,15 @@ Checked as \code{earned\_core\_thiele\_complete}, \code{earned\_generic\_thiele\
 \code{sorted\_machine\_thiele\_complete\_over} (ThieleComplete.v), and \code{thiele\_complete\_floor},
 \code{earned\_complete\_agrees} and \code{generic\_complete\_agrees} (EarnedGenericLinks.v).
 
+The same fixed-language form is proved for the priced machine and its counter and sorted-list
+instances (\code{priced\_thiele\_complete\_over}, \code{priced\_core\_thiele\_complete\_over},
+\code{priced\_sorted\_thiele\_complete\_over}, PricedComplete.v), the multi-register machine
+(\code{ent2\_mmachine\_complete\_over}, MultiThiele2.v), and the lifts over a base or its window
+(\code{lift\_thiele\_complete\_over}, \code{lift\_window\_thiele\_complete\_over}, LiftCore.v).
+For a base simulated by finite lists of moves, it also holds for the macro lift and the
+five-lever example (\code{sim\_base\_lifts\_over}, \code{fl\_macro\_lifts\_over}, LiftMacro.v).
+The claims keep their stated meanings; the new interfaces supply the checkers.
+
 And here's the thing every machine that meets the definition can't help doing. It's
 Section~\ref{sec:windows}'s shape again, only this time it isn't about one machine. It's about all of
 them.
@@ -15546,8 +15555,16 @@ $\varepsilon = 1/10$. Checked as \code{nec\_e\_tol\_check\_zero}, \code{nec\_e\_
 \code{nec\_e\_tol\_check\_accepts\_noisy\_tsirelson} (NecEChsh.v). In the same simulation, with
 $\varepsilon = 3/\sqrt n$ for $n$ rounds per pair, honest Tsirelson play fails it about five times
 in a hundred thousand. The price is in the bound: a pass caps $S$ at $2\sqrt 2\,(1 + \varepsilon)$,
-a little outside Tsirelson's number. The machine's earned chain runs the exact check; the
-tolerance check is proved as mathematics and isn't wired to a CHECK. The
+a little outside Tsirelson's number. The exact check remains the default. With $p$ and $q$
+fixed for a machine instance, the tolerance check also runs as CHECK on the same versioned
+registers: its CHECK, COMMIT, CERTIFY chain certifies exactly when the integer tolerance
+test passes, pays three marks on success, and traps permanently on failure. From a clean
+start, every raised flag has that earned chain behind it, with the same register value at
+CHECK and COMMIT, and establishes the relaxed bound above. Checked as
+\code{small\_chsh\_tol\_chain\_iff}, \code{small\_chsh\_tol\_chain\_pays\_three},
+\code{small\_chsh\_tol\_refused\_forever} and \code{small\_chsh\_tol\_flag\_bound}
+(SmallChshTolerance.v). The Python host in \texttt{thiele\_small/chsh.py} implements the same
+integer check and instruction chain. The
 check certifies a \emph{shape} of the tally. What the shape means is a question for whoever
 supplied the rounds.
 
@@ -16183,8 +16200,8 @@ equal); two decidability principles that come with the standard library's real n
 wherever real analysis is, for example in the matrix proofs behind the game check and in the
 real-valued results of Sections~\ref{sec:a2-not-arbitrary}, \ref{sec:shadow-exact} and~\ref{sec:landauer}; and, in some theorems, the law of excluded middle
 (every proposition is true or false). The count, from the full audit:
-the full-corpus probe covers 5,981 named theorems across 340 files: 5,184 close under the global Coq context outright, and 797 use only Coq standard-library assumptions.
-Zero project-local axioms appear in any of the 5,981 dependency trees.
+the full-corpus probe covers 5,997 named theorems across 341 files: 5,198 close under the global Coq context outright, and 799 use only Coq standard-library assumptions.
+Zero project-local axioms appear in any of the 5,997 dependency trees.
 The small machine's files, under minimal/, are inside that probe too, and every one of their 1,417
 probed theorems comes back closed under Coq's own rules, with no axiom at all. Among them are the small machine,
 its
@@ -16358,10 +16375,10 @@ Build command:
   python3 scripts/reproduce_coq.py
 Audit report for this revision:
   artifacts/print_assumptions_all_proofs.json
-  SHA-256 df614c88da7828be65e3210c88715dc3
-          e394276f610b5620dfe4ecfc334ff6a6
-  corpus digest 1b972ac0173777c9155f498f6b5cb553
-                33b2c23dc598bec7406dcbd753ebfd8a
+  SHA-256 85cf21cc932def2abaa49d25cb1447d5
+          4a5adffeacf314f53b3fce32e83a0752
+  corpus digest 59afe7ccb7d651aedc8e98a557931e46
+                ee10d511706d4a0d4956a922737baefd
 Commit the audit report was built from:
   git log -1 --format=%H v4.0.0 -- \
     artifacts/print_assumptions_all_proofs.json
@@ -16384,13 +16401,13 @@ project lists in \texttt{coq/\_CoqProject} and every proof file of the vendored 
 by path, the file's path and its text with comments removed, each run of white space shortened to
 one space, and the wording of the strings in its \texttt{claim\_not\_imply} audit notes erased; then
 the project file \texttt{coq/\_CoqProject} as written, and the five scripts that scope, generate, run,
-aggregate and fingerprint the audit, each read as a stream of Python tokens with its comments dropped. Each
-item is followed by a zero byte. So an edit to a comment or to the layout leaves the digest alone, and
-any other edit to a proof file moves it. The token streams come from Python's own tokenizer, whose
-output differs between Python versions, and the digest above was computed with Python 3.12; under
-3.13 the same files give a different digest.
+aggregate and fingerprint the audit, each read as a stream of Python tokens with its comments dropped.
+The version-two fingerprint records token names instead of Python's internal numeric token IDs;
+the same corpus gives the same digest under Python 3.12 and 3.13. Each item is followed by a zero
+byte. So an edit to a Coq comment or to its layout leaves the digest alone, and any other edit to
+a proof file moves it, apart from the audit-note wording described above.
 
-The counts this book reports from the assumption audit (5,981 theorems in 340 files) are the ones
+The counts this book reports from the assumption audit (5,997 theorems in 341 files) are the ones
 in that report, and they belong to that revision. A change to the proof sources beyond their comments and
 layout changes the corpus digest; the audit then has to be run again and its counts read afresh.
 With those installed, run:
@@ -17118,7 +17135,7 @@ A two-qubit strategy reaches $2\sqrt{2}$; every strategy in finite dimension, wi
 The integer route to the bound is new mathematics & not claimed; the route is NPA's & Section~\ref{sec:chsh} \\
 The integer check passes exactly when every pair was sampled and the pinned matrix is PSD & proved & Section~\ref{sec:chsh}, Theorem~\ref{thm:chsh-exact} \\
 Honest play at Tsirelson's point fails the exact check about 85 percent of the time & simulated, with a first-order limit of $(2 + \sqrt 2)/4$; no theorem & Section~\ref{sec:chsh} \\
-The check with a tolerance $\varepsilon$ is the exact check at $\varepsilon = 0$; a pass means operator norm at most $1 + \varepsilon$ and $S^2 \le 8(1 + \varepsilon)^2$ & proved (\code{nec\_e\_tol\_check\_zero}, \code{nec\_e\_tol\_check\_norm}, \code{nec\_e\_tol\_check\_bound}, NecEChsh.v); not wired to the machine & Section~\ref{sec:chsh} \\
+The check with a tolerance $\varepsilon$ is the exact check at $\varepsilon = 0$; a pass means operator norm at most $1 + \varepsilon$ and $S^2 \le 8(1 + \varepsilon)^2$ & proved (\code{nec\_e\_tol\_check\_zero}, \code{nec\_e\_tol\_check\_norm}, \code{nec\_e\_tol\_check\_bound}, NecEChsh.v); earned CHECK integration: \code{small\_chsh\_tol\_flag\_bound} (SmallChshTolerance.v) & Section~\ref{sec:chsh} \\
 A flag raised on the host machine from a clean start stands on a passing CHECK of the packed counts, a COMMIT and a CERTIFY; the chain run from a fresh start certifies for 3 exactly when the check passes & proved & Section~\ref{sec:chsh}, Theorem~\ref{thm:chsh-earned} \\
 Five tallies: 12/5 and 14/5 certify; 16/5, the PR box and the all-ones plan are refused forever & proved & Section~\ref{sec:chsh}, Proposition~\ref{prop:chsh-demos} \\
 The tally was played, or was honest, or puts a bound on nature & not claimed; it is placed in a counter for free & Section~\ref{sec:chsh} \\
@@ -21456,7 +21473,7 @@ this book's pointer thesis.
 \noindent Ralph V. L. Hartley (1928). Transmission of Information. Bell System Technical Journal 7(3), pp. 535--563. \href{https://doi.org/10.1002/j.1538-7305.1928.tb01236.x}{DOI: 10.1002/j.1538-7305.1928.tb01236.x}.
 \par\medskip
 
-\noindent Hartley (unit). Wikipedia entry: the hartley, also called the ban or the dit, the unit of information for logarithms to base ten, named after Ralph Hartley and listed in IEC 80000-13. \href{https://en.wikipedia.org/wiki/Hartley_(unit)}{Entry}.
+\noindent Hartley (unit). IEC 80000-13:2008, Quantities and units---Part 13: Information science and technology, items 13-24 and 13-24.b, pp. 18--19: the hartley (Hart) is the base-ten information unit. \href{https://webstore.iec.ch/en/publication/7479}{IEC publication record}; the table is available in the \href{https://standards.iteh.ai/catalog/standards/iso/de28b5a9-f361-456a-8b80-5f19909f057b/iec-80000-13-2008}{distributor's standard preview}. This cites the 2008 edition, superseded in 2025. The alternative names ban and dit, and naming after Ralph Hartley: Wikipedia, \href{https://en.wikipedia.org/wiki/Hartley_(unit)}{Hartley (unit)}.
 \par\medskip
 
 \noindent Chris Heegard (1985). On the capacity of permanent memory. IEEE Transactions on Information Theory 31(1), pp. 34--42. \href{https://doi.org/10.1109/TIT.1985.1056994}{DOI: 10.1109/TIT.1985.1056994}.
@@ -22969,7 +22986,7 @@ this book's pointer thesis.
 \noindent Dana Scott (1962). A system of functional abstraction. Lectures delivered at the University of California, Berkeley, 1962--63; unpublished. The origin of the Scott encoding, as given in Mogensen--Scott encoding, Wikipedia, \href{https://en.wikipedia.org/wiki/Mogensen\%E2\%80\%93Scott_encoding}{Article}.
 \par\medskip
 
-\noindent Dana Scott. Wikipedia. \href{https://en.wikipedia.org/wiki/Dana_Scott}{Article}. Logician, doctorate at Princeton under Alonzo Church, 1976 Turing Award with Michael Rabin, domain theory and models of the lambda calculus.
+\noindent Dana Scott. Carnegie Mellon University's School of Computer Science, \href{https://www.cs.cmu.edu/~scsfacts/turing.html}{faculty Turing Award recipients}: the 1976 award jointly with Michael Rabin for their work on nondeterministic machines. His doctorate at Princeton under Alonzo Church, domain theory and models of the lambda calculus: Wikipedia, \href{https://en.wikipedia.org/wiki/Dana_Scott}{Dana Scott}.
 \par\medskip
 
 \noindent Marc Shapiro, Nuno Preguiça, Carlos Baquero and Marek Zawirski (2011). A comprehensive study of Convergent and Commutative Replicated Data Types. INRIA Research Report RR-7506. \href{https://inria.hal.science/inria-00555588}{HAL: inria-00555588}.
@@ -23008,7 +23025,7 @@ this book's pointer thesis.
 \noindent Ken Thompson (1984). Reflections on Trusting Trust. Communications of the ACM 27(8), pp. 761--763. Delivered as the 1983 Turing Award lecture. \href{https://doi.org/10.1145/358198.358210}{DOI: 10.1145/358198.358210}.
 \par\medskip
 
-\noindent Ken Thompson. Wikipedia. \href{https://en.wikipedia.org/wiki/Ken_Thompson}{Article}. At Bell Labs he designed and implemented the original Unix operating system; 1983 Turing Award with Dennis Ritchie.
+\noindent Ken Thompson. Heidelberg Laureate Forum, \href{https://www.heidelberg-laureate-forum.org/laureate/ken-thompson/}{laureate profile}: the 1983 Turing Award with Dennis Ritchie for operating systems theory and the implementation of Unix. Thompson's design and implementation of the original Unix at Bell Labs: Wikipedia, \href{https://en.wikipedia.org/wiki/Ken_Thompson}{Ken Thompson}.
 \par\medskip
 
 \noindent Amin Timany and Lars Birkedal (2021). Reasoning about monotonicity in separation logic. Proceedings of the 10th ACM SIGPLAN International Conference on Certified Programs and Proofs (CPP 2021), pp. 91--104. \href{https://doi.org/10.1145/3437992.3439931}{DOI: 10.1145/3437992.3439931}.
