@@ -29,7 +29,7 @@ jobs:
   # night.
   vacuity-audit:
     name: Kernel-conversion vacuity audit (full sweep)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
@@ -142,7 +142,7 @@ jobs:
   # the counters, ledger, flag and trap latch are the guest's.
   realize-universal:
     name: Extracted U and U_P on guests with record instructions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
@@ -248,7 +248,7 @@ jobs:
   # host steps are kept as an artifact.
   compiler-runs:
     name: Extracted verified compiler on a corpus and random programs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
@@ -358,7 +358,7 @@ jobs:
   # table reflects their actual outcomes.
   verify-full:
     name: Full Verification Summary
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [fast-verify, vacuity-audit, realize-universal, compiler-runs]
     if: ${{ always() }}
     steps:
