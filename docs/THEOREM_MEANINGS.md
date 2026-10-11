@@ -1361,3 +1361,23 @@ An explicitly qualified citation keeps its own module identity.
 - `pr_reading_entitles_only`: For every grouping h that does not refine g, there is a key for which g is sound and h is not.
 - `pr_toll`: The bucket machine pays the toll: a step that raises its record costs at least 1.
 - `pr_reading_costs_three`: On every run of the bucket machine from a clean state that ends with the record up, the ledger rises by at least 3.
+
+
+## Release-completion results
+
+- `lift_thiele_complete_over`: Given a universal base, a fact capacity of at least one, and a nonvacuous base-state claim language with an exact checker, the earned lift is Thiele-complete over the language that reads those claims on its base state; the language does not depend on the chosen universal interface.
+- `lift_window_thiele_complete_over`: Every universal base with positive fact capacity has an earned lift that is Thiele-complete over its fixed register-threshold and program-counter language.
+- `sim_base_lifts_over`: A base simulated by finite lists of moves has a macro lift that is Thiele-complete over the fixed window language, for every positive fact capacity.
+- `fl_macro_lifts_over`: The five-lever example's macro lift is Thiele-complete over that fixed window language, for every positive fact capacity.
+- `priced_thiele_complete_over`: The priced machine is Thiele-complete over its fixed optional property-and-counter language when property equality is exact, its checker agrees with the given meaning, and some property holds at one counter value and fails at another; the empty claim means False.
+- `priced_sorted_thiele_complete_over`: The priced sorted-list instance is Thiele-complete over the fixed sorted-list language, with the empty claim meaning False.
+- `priced_core_thiele_complete_over`: The priced counter-property instance is Thiele-complete over the fixed zero, even, and lower-bound language, with the empty claim meaning False.
+- `ent2_mmachine_complete_over`: The multi-register machine is Thiele-complete over the fixed property-and-register language; unchanged means the register has the same version and value.
+- `small_chsh_tol_zero`: With numerator zero and denominator one, the tolerance machine's checker equals the original exact CHSH checker for every register value.
+- `small_chsh_tol_chain_iff`: For any integer tolerance parameters and starting registers, the three-instruction tolerance chain certifies exactly when the integer tolerance test accepts the decoded tally in the selected register.
+- `small_chsh_tol_chain_pays_three`: When the tolerance test accepts that starting tally, the chain certifies and its final ledger is exactly three.
+- `small_chsh_tol_refused_forever`: When the tolerance test rejects that starting tally, no number of program steps certifies; after at least one step the error latch is set.
+- `small_chsh_tol_flag_bound`: For a fixed tolerance p/q, every trace from a clean start ending certified contains CHECK, COMMIT of that same property and register, and CERTIFY. The checked tally passes the tolerance test, q is positive and p nonnegative, its score satisfies S squared at most 8 times (1 + p/q) squared, and the register holds the same value at COMMIT as at CHECK.
+- `small_chsh_tol_program_bound`: The same relaxed score bound holds for the tally checked in any stored program run from a start that ends certified.
+- `small_chsh_tol_certified_floor`: Every tolerance-machine trace from a clean start ending certified costs at least three as a CertificationSystem trace.
+- `small_chsh_tol_noisy_certifies`: The tally (86,14), (85,15), (86,14), (14,86) certifies through the actual instruction chain at tolerance 1/10.

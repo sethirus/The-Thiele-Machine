@@ -128,11 +128,12 @@ Definition ti_unscale {M} k (I : thiele_interface M) : thiele_interface (unscale
     (ti_meaning I) (ti_check I) (ti_same I) (ti_clean I) (fun s => ti_ledger I s / k).
 
 (* Clauses (a), (b) and (d) do not mention prices, so they carry over. *)
-Lemma base_clause_scale : forall M k (I : thiele_interface M),
+(* Definitional transports: scaling leaves these clauses unchanged. *)
+Definition base_clause_scale : forall M k (I : thiele_interface M),
   universal_base_clause I -> universal_base_clause (ti_scale k I).
 Proof. intros M k I H. exact H. Qed.
 
-Lemma base_clause_unscale : forall M k (I : thiele_interface M),
+Definition base_clause_unscale : forall M k (I : thiele_interface M),
   universal_base_clause I -> universal_base_clause (ti_unscale k I).
 Proof. intros M k I H. exact H. Qed.
 
@@ -172,7 +173,7 @@ Proof.
   rewrite run_unscale in Hr. exact Hr.
 Qed.
 
-Lemma nonvac_clause_scale : forall M k (I : thiele_interface M),
+Definition nonvac_clause_scale : forall M k (I : thiele_interface M),
   non_vacuity_clause I -> non_vacuity_clause (ti_scale k I).
 Proof.
   intros M k I [c [chk [cmt [crt [H1 [H2 [H3 [H4 H5]]]]]]]].
@@ -180,7 +181,7 @@ Proof.
   split; [| exact H5]. intros a b. rewrite run_scale. apply H4.
 Qed.
 
-Lemma nonvac_clause_unscale : forall M k (I : thiele_interface M),
+Definition nonvac_clause_unscale : forall M k (I : thiele_interface M),
   non_vacuity_clause I -> non_vacuity_clause (ti_unscale k I).
 Proof.
   intros M k I [c [chk [cmt [crt [H1 [H2 [H3 [H4 H5]]]]]]]].

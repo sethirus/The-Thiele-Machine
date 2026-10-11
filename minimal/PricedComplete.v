@@ -211,6 +211,42 @@ Proof.
     apply priced_chain_iff.
 Qed.
 
+(* The meaning and subject of a claim are fixed independently of CHECK. *)
+Definition priced_claim_eqb (x y : option (prop * G.ctr)) : bool :=
+  match x, y with
+  | None, None => true
+  | Some a, Some b => T.generic_claim_eqb prop_eqb a b
+  | _, _ => false
+  end.
+
+Lemma priced_claim_eqb_spec : forall x y, priced_claim_eqb x y = true <-> x = y.
+Proof.
+  intros [x |] [y |]; simpl; try (split; congruence).
+  rewrite (T.generic_claim_eqb_spec prop_eqb prop_eqb_eq).
+  split; congruence.
+Qed.
+
+Lemma priced_same_keeps : forall c s t,
+  priced_same c s t -> priced_meaning c s -> priced_meaning c t.
+Proof.
+  intros [[p c] |] s t H Hm; simpl in *; [| exact Hm].
+  destruct H as [_ Hv]. rewrite <- Hv. exact Hm.
+Qed.
+
+Definition priced_language : T.claim_language priced_machine :=
+  T.mk_cl priced_machine (option (prop * G.ctr)) priced_claim_eqb priced_claim_eqb_spec
+    priced_meaning priced_same priced_same_keeps.
+
+Theorem priced_thiele_complete_over :
+  (exists p v w, holds p v /\ ~ holds p w) ->
+  T.thiele_complete_over priced_machine priced_language.
+Proof.
+  intros [p [v [w [Hv Hw]]]].
+  apply (T.thiele_complete_with_over _ priced_interface
+    priced_claim_eqb priced_claim_eqb_spec priced_same_keeps).
+  exact (priced_thiele_complete_with p v w Hv Hw).
+Qed.
+
 End PricedInstance.
 
 (* The machine of EarnedPriced.v over any property language with an exact
@@ -255,6 +291,29 @@ Qed.
 (* "Closed under the global context".                                 *)
 (* ================================================================= *)
 
+Theorem priced_sorted_thiele_complete_over :
+  T.thiele_complete_over (priced_machine G.sprop_eqb G.seval)
+    (priced_language G.sprop_eqb G.sprop_eqb_eq G.seval G.sholds).
+Proof.
+  apply (priced_thiele_complete_over G.sprop_eqb G.sprop_eqb_eq G.seval
+    G.sholds G.seval_iff).
+  exists G.PSorted, 18, 20. split.
+  - simpl. apply G.sortedb_iff. vm_compute. reflexivity.
+  - simpl. intro H. apply G.sortedb_iff in H. vm_compute in H. discriminate H.
+Qed.
+
+Theorem priced_core_thiele_complete_over :
+  T.thiele_complete_over (priced_machine G.cprop_eqb G.ceval)
+    (priced_language G.cprop_eqb G.cprop_eqb_eq G.ceval G.cholds).
+Proof.
+  apply (priced_thiele_complete_over G.cprop_eqb G.cprop_eqb_eq G.ceval
+    G.cholds G.ceval_iff).
+  exists G.PZero, 0, 1. split; simpl; [reflexivity | discriminate].
+Qed.
+
+Print Assumptions priced_thiele_complete_over.
+Print Assumptions priced_sorted_thiele_complete_over.
+Print Assumptions priced_core_thiele_complete_over.
 Print Assumptions priced_toll.
 Print Assumptions priced_cert_system.
 Print Assumptions priced_pay_reads_as_failed_check.

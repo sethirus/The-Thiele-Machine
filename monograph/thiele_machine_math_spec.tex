@@ -453,7 +453,7 @@ When sameness also compares the shapes of the fact table and the channel, some t
 \chapter{The Record Axis}\label{ch:record}
 
 \begin{definition}[Bases and base-driven records]
-A base is a deterministic record-free machine: states, a next function, initial states and halting (record \texttt{BaseMachine}). A record-carrying machine has states, a next function, initial states, a record, a ledger and halting (record \texttt{RCM}). A cover maps it onto a base step for step, preserving initial states and halting. The extension is \emph{honest} when its record's next value depends only on the base state and itself, the ledger never decreases, A2 holds, the record is permanent, and some reachable step writes it (\texttt{HonestBaseExtension}).
+A base is a deterministic record-free machine: states, a next function, initial states and halting (record \texttt{BaseMachine}). A record-carrying machine has states, a next function, initial states, a record, a ledger and halting (record \texttt{RCM}). A cover maps it onto a base step for step, preserving initial states and halting. The extension is \emph{base-driven} when its record's next value depends only on the base state and itself, the ledger never decreases, A2 holds, the record is permanent, and some reachable step writes it (\texttt{HonestBaseExtension}).
 \end{definition}
 
 \begin{theorem}[The record axis is a latch] \textbf{(S)}

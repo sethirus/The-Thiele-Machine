@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 340,
-  "total_addressable": 5981,
+  "files_probed": 341,
+  "total_addressable": 5997,
   "total_unaddressable": 0,
   "extras_addressable_via_instantiation": [],
   "files": [
@@ -12970,6 +12970,65 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/SmallChshTolerance.v",
+      "qualified_module": "Kernel.SmallChshTolerance",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "small_chsh_tol_zero",
+          "kind": "Theorem",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_zero"
+        },
+        {
+          "local_name": "small_chsh_tol_chain_iff",
+          "kind": "Theorem",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_chain_iff"
+        },
+        {
+          "local_name": "small_chsh_tol_chain_pays_three",
+          "kind": "Theorem",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_chain_pays_three"
+        },
+        {
+          "local_name": "small_chsh_tol_refused_forever",
+          "kind": "Theorem",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_refused_forever"
+        },
+        {
+          "local_name": "small_chsh_tol_untouched",
+          "kind": "Lemma",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_untouched"
+        },
+        {
+          "local_name": "small_chsh_tol_flag_bound",
+          "kind": "Theorem",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_flag_bound"
+        },
+        {
+          "local_name": "small_chsh_tol_program_bound",
+          "kind": "Theorem",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_program_bound"
+        },
+        {
+          "local_name": "small_chsh_tol_cs_cost",
+          "kind": "Lemma",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_cs_cost"
+        },
+        {
+          "local_name": "small_chsh_tol_certified_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_certified_floor"
+        },
+        {
+          "local_name": "small_chsh_tol_noisy_certifies",
+          "kind": "Theorem",
+          "full_name": "Kernel.SmallChshTolerance.small_chsh_tol_noisy_certifies"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/StructuralClockSync.v",
       "qualified_module": "Kernel.StructuralClockSync",
       "addressable_count": 9,
@@ -13118,7 +13177,7 @@
     {
       "file": "coq/kernel/foundation/Tc2Plain.v",
       "qualified_module": "Kernel.Tc2Plain",
-      "addressable_count": 10,
+      "addressable_count": 9,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -13135,11 +13194,6 @@
           "local_name": "tc2_cx_eq",
           "kind": "Lemma",
           "full_name": "Kernel.Tc2Plain.tc2_cx_eq"
-        },
-        {
-          "local_name": "tc2_fx_mono",
-          "kind": "Lemma",
-          "full_name": "Kernel.Tc2Plain.tc2_fx_mono"
         },
         {
           "local_name": "tc2_fx_MMA",
@@ -13177,18 +13231,13 @@
     {
       "file": "coq/kernel/foundation/Tc2PlainAdd.v",
       "qualified_module": "Kernel.Tc2PlainAdd",
-      "addressable_count": 6,
+      "addressable_count": 5,
       "unaddressable_count": 0,
       "addressable": [
         {
           "local_name": "tc2_krep_eq",
           "kind": "Lemma",
           "full_name": "Kernel.Tc2PlainAdd.tc2_krep_eq"
-        },
-        {
-          "local_name": "tc2_addfx_mono",
-          "kind": "Lemma",
-          "full_name": "Kernel.Tc2PlainAdd.tc2_addfx_mono"
         },
         {
           "local_name": "tc2_addfx_MMA",
@@ -27408,7 +27457,7 @@
     {
       "file": "minimal/LiftCore.v",
       "qualified_module": "Minimal.LiftCore",
-      "addressable_count": 38,
+      "addressable_count": 40,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -27577,6 +27626,11 @@
           "full_name": "Minimal.LiftCore.lift_thiele_complete_with"
         },
         {
+          "local_name": "lift_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftCore.lift_thiele_complete_over"
+        },
+        {
           "local_name": "lift_thiele_complete",
           "kind": "Theorem",
           "full_name": "Minimal.LiftCore.lift_thiele_complete"
@@ -27600,6 +27654,11 @@
           "local_name": "lift_window_thiele_complete",
           "kind": "Theorem",
           "full_name": "Minimal.LiftCore.lift_window_thiele_complete"
+        },
+        {
+          "local_name": "lift_window_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftCore.lift_window_thiele_complete_over"
         }
       ],
       "unaddressable": []
@@ -27607,7 +27666,7 @@
     {
       "file": "minimal/LiftMacro.v",
       "qualified_module": "Minimal.LiftMacro",
-      "addressable_count": 8,
+      "addressable_count": 10,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -27649,6 +27708,16 @@
           "local_name": "fl_macro_lifts",
           "kind": "Theorem",
           "full_name": "Minimal.LiftMacro.fl_macro_lifts"
+        },
+        {
+          "local_name": "sim_base_lifts_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftMacro.sim_base_lifts_over"
+        },
+        {
+          "local_name": "fl_macro_lifts_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.LiftMacro.fl_macro_lifts_over"
         }
       ],
       "unaddressable": []
@@ -27998,7 +28067,7 @@
     {
       "file": "minimal/MultiThiele2.v",
       "qualified_module": "Minimal.MultiThiele2",
-      "addressable_count": 7,
+      "addressable_count": 10,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -28035,6 +28104,21 @@
           "local_name": "ent2_mmachine_complete",
           "kind": "Theorem",
           "full_name": "Minimal.MultiThiele2.ent2_mmachine_complete"
+        },
+        {
+          "local_name": "ent2_claim_eqb_spec",
+          "kind": "Lemma",
+          "full_name": "Minimal.MultiThiele2.ent2_claim_eqb_spec"
+        },
+        {
+          "local_name": "ent2_same_keeps",
+          "kind": "Lemma",
+          "full_name": "Minimal.MultiThiele2.ent2_same_keeps"
+        },
+        {
+          "local_name": "ent2_mmachine_complete_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.MultiThiele2.ent2_mmachine_complete_over"
         }
       ],
       "unaddressable": []
@@ -29354,7 +29438,7 @@
     {
       "file": "minimal/PricedComplete.v",
       "qualified_module": "Minimal.PricedComplete",
-      "addressable_count": 10,
+      "addressable_count": 15,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -29393,6 +29477,21 @@
           "full_name": "Minimal.PricedComplete.priced_thiele_complete_with"
         },
         {
+          "local_name": "priced_claim_eqb_spec",
+          "kind": "Lemma",
+          "full_name": "Minimal.PricedComplete.priced_claim_eqb_spec"
+        },
+        {
+          "local_name": "priced_same_keeps",
+          "kind": "Lemma",
+          "full_name": "Minimal.PricedComplete.priced_same_keeps"
+        },
+        {
+          "local_name": "priced_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.PricedComplete.priced_thiele_complete_over"
+        },
+        {
           "local_name": "priced_thiele_complete",
           "kind": "Theorem",
           "full_name": "Minimal.PricedComplete.priced_thiele_complete"
@@ -29406,6 +29505,16 @@
           "local_name": "priced_core_thiele_complete",
           "kind": "Theorem",
           "full_name": "Minimal.PricedComplete.priced_core_thiele_complete"
+        },
+        {
+          "local_name": "priced_sorted_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.PricedComplete.priced_sorted_thiele_complete_over"
+        },
+        {
+          "local_name": "priced_core_thiele_complete_over",
+          "kind": "Theorem",
+          "full_name": "Minimal.PricedComplete.priced_core_thiele_complete_over"
         }
       ],
       "unaddressable": []
@@ -31888,7 +31997,7 @@
     {
       "file": "minimal/ThieleCompleteScaled.v",
       "qualified_module": "Minimal.ThieleCompleteScaled",
-      "addressable_count": 26,
+      "addressable_count": 22,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -31912,16 +32021,6 @@
           "full_name": "Minimal.ThieleCompleteScaled.run_unscale"
         },
         {
-          "local_name": "base_clause_scale",
-          "kind": "Lemma",
-          "full_name": "Minimal.ThieleCompleteScaled.base_clause_scale"
-        },
-        {
-          "local_name": "base_clause_unscale",
-          "kind": "Lemma",
-          "full_name": "Minimal.ThieleCompleteScaled.base_clause_unscale"
-        },
-        {
           "local_name": "earned_chain_scale",
           "kind": "Lemma",
           "full_name": "Minimal.ThieleCompleteScaled.earned_chain_scale"
@@ -31940,16 +32039,6 @@
           "local_name": "record_clause_unscale",
           "kind": "Lemma",
           "full_name": "Minimal.ThieleCompleteScaled.record_clause_unscale"
-        },
-        {
-          "local_name": "nonvac_clause_scale",
-          "kind": "Lemma",
-          "full_name": "Minimal.ThieleCompleteScaled.nonvac_clause_scale"
-        },
-        {
-          "local_name": "nonvac_clause_unscale",
-          "kind": "Lemma",
-          "full_name": "Minimal.ThieleCompleteScaled.nonvac_clause_unscale"
         },
         {
           "local_name": "scale_complete_at",

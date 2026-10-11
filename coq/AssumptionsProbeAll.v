@@ -152,6 +152,7 @@ Require Kernel.SmNoExact.
 Require Kernel.SmSmnAll.
 Require Kernel.SmTallyL.
 Require Kernel.SmallChshLinks.
+Require Kernel.SmallChshTolerance.
 Require Kernel.StructuralClockSync.
 Require Kernel.StructuralCore.
 Require Kernel.StructuralCoreAnyBase.
@@ -2812,6 +2813,17 @@ Print Assumptions Kernel.SmTallyL.sm2_ev_MMA.
 Print Assumptions Kernel.SmallChshLinks.small_chsh_cs_floor.
 Print Assumptions Kernel.SmallChshLinks.small_chsh_certified_floor.
 Print Assumptions Kernel.SmallChshLinks.small_chsh_chain_cost.
+(* === Kernel.SmallChshTolerance : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_zero.
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_chain_iff.
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_chain_pays_three.
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_refused_forever.
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_untouched.
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_flag_bound.
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_program_bound.
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_cs_cost.
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_certified_floor.
+Print Assumptions Kernel.SmallChshTolerance.small_chsh_tol_noisy_certifies.
 (* === Kernel.StructuralClockSync : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralClockSync.record_axis_is_latch_r1_r4.
 Print Assumptions Kernel.StructuralClockSync.driven_reachably_driven.
@@ -2834,20 +2846,18 @@ Print Assumptions Kernel.StructuralRecordAxis.clock_record_not_driven.
 Print Assumptions Kernel.Substrate.prog_equiv_sym.
 Print Assumptions Kernel.Substrate.prog_equiv_trans.
 Print Assumptions Kernel.Substrate.mu_monotone_chain.
-(* === Kernel.Tc2Plain : 10 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.Tc2Plain : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Tc2Plain.tc2_plain_pf.
 Print Assumptions Kernel.Tc2Plain.tc2_mulprog_fun.
 Print Assumptions Kernel.Tc2Plain.tc2_cx_eq.
-Print Assumptions Kernel.Tc2Plain.tc2_fx_mono.
 Print Assumptions Kernel.Tc2Plain.tc2_fx_MMA.
 Print Assumptions Kernel.Tc2Plain.tc2_fcode_pcode.
 Print Assumptions Kernel.Tc2Plain.tc2_F_computed.
 Print Assumptions Kernel.Tc2Plain.tc2_plain_recursion_false.
 Print Assumptions Kernel.Tc2Plain.tc2_plain_recursion_refuted.
 Print Assumptions Kernel.Tc2Plain.tc2_plain_recursion_needs_LL.
-(* === Kernel.Tc2PlainAdd : 6 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.Tc2PlainAdd : 5 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Tc2PlainAdd.tc2_krep_eq.
-Print Assumptions Kernel.Tc2PlainAdd.tc2_addfx_mono.
 Print Assumptions Kernel.Tc2PlainAdd.tc2_addfx_MMA.
 Print Assumptions Kernel.Tc2PlainAdd.tc2_addcode_pcode.
 Print Assumptions Kernel.Tc2PlainAdd.tc2_Fadd_computed.
@@ -5576,7 +5586,7 @@ Print Assumptions Minimal.LiftConverse.lift_stateless_not_complete.
 Print Assumptions Minimal.LiftConverse.lift_ub_not_finitely_branching.
 Print Assumptions Minimal.LiftConverse.lift_finite_moves_not_a_base.
 Print Assumptions Minimal.LiftConverse.lift_canonical_nonvac_iff.
-(* === Minimal.LiftCore : 38 addressable theorems (unaddressable: 0) === *)
+(* === Minimal.LiftCore : 40 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.LiftCore.lift_lfact_eqb_eq.
 Print Assumptions Minimal.LiftCore.lift_lrun_nil.
 Print Assumptions Minimal.LiftCore.lift_lrun_cons.
@@ -5610,12 +5620,14 @@ Print Assumptions Minimal.LiftCore.lift_run_err.
 Print Assumptions Minimal.LiftCore.lift_chain_false.
 Print Assumptions Minimal.LiftCore.lift_nonvac_clause.
 Print Assumptions Minimal.LiftCore.lift_thiele_complete_with.
+Print Assumptions Minimal.LiftCore.lift_thiele_complete_over.
 Print Assumptions Minimal.LiftCore.lift_thiele_complete.
 Print Assumptions Minimal.LiftCore.lift_wc_eqb_eq.
 Print Assumptions Minimal.LiftCore.lift_wc_eval_iff.
 Print Assumptions Minimal.LiftCore.lift_window_nonvacuous.
 Print Assumptions Minimal.LiftCore.lift_window_thiele_complete.
-(* === Minimal.LiftMacro : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Minimal.LiftCore.lift_window_thiele_complete_over.
+(* === Minimal.LiftMacro : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.LiftMacro.sim_macro_runs.
 Print Assumptions Minimal.LiftMacro.ub_to_sim_inhabited.
 Print Assumptions Minimal.LiftMacro.sim_to_macro_inhabited.
@@ -5624,6 +5636,8 @@ Print Assumptions Minimal.LiftMacro.fl_run_tgt.
 Print Assumptions Minimal.LiftMacro.fl_no_universal_base.
 Print Assumptions Minimal.LiftMacro.fl_has_sim_base.
 Print Assumptions Minimal.LiftMacro.fl_macro_lifts.
+Print Assumptions Minimal.LiftMacro.sim_base_lifts_over.
+Print Assumptions Minimal.LiftMacro.fl_macro_lifts_over.
 (* === Minimal.LiftOneCounter : 25 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.LiftOneCounter.lift_oc_f_some.
 Print Assumptions Minimal.LiftOneCounter.lift_oc_f_none.
@@ -5690,7 +5704,7 @@ Print Assumptions Minimal.MonotoneConsensus.mc_guard_mono.
 Print Assumptions Minimal.MonotoneConsensus.mc_eff_rel.
 Print Assumptions Minimal.MonotoneConsensus.mc_mono_interfere.
 Print Assumptions Minimal.MonotoneConsensus.mc_mono_no_consensus.
-(* === Minimal.MultiThiele2 : 7 addressable theorems (unaddressable: 0) === *)
+(* === Minimal.MultiThiele2 : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.MultiThiele2.ent2_run_mmachine.
 Print Assumptions Minimal.MultiThiele2.ent2_msim.
 Print Assumptions Minimal.MultiThiele2.ent2_untouched_prefix.
@@ -5698,6 +5712,9 @@ Print Assumptions Minimal.MultiThiele2.ent2_prop_eqb_eq.
 Print Assumptions Minimal.MultiThiele2.ent2_chain_same.
 Print Assumptions Minimal.MultiThiele2.ent2_chain_holds.
 Print Assumptions Minimal.MultiThiele2.ent2_mmachine_complete.
+Print Assumptions Minimal.MultiThiele2.ent2_claim_eqb_spec.
+Print Assumptions Minimal.MultiThiele2.ent2_same_keeps.
+Print Assumptions Minimal.MultiThiele2.ent2_mmachine_complete_over.
 (* === Minimal.NecEEnt : 47 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.NecEEnt.nec_e_cover_bits_any.
 Print Assumptions Minimal.NecEEnt.nec_e_cs_count_any.
@@ -5946,7 +5963,7 @@ Print Assumptions Minimal.Presented.presented_flip_sdec.
 Print Assumptions Minimal.Presented.presented_flip_idec.
 Print Assumptions Minimal.Presented.presented_flip_facts.
 Print Assumptions Minimal.Presented.presented_flip_no_exact.
-(* === Minimal.PricedComplete : 10 addressable theorems (unaddressable: 0) === *)
+(* === Minimal.PricedComplete : 15 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.PricedComplete.priced_run_eq.
 Print Assumptions Minimal.PricedComplete.priced_toll.
 Print Assumptions Minimal.PricedComplete.priced_sim.
@@ -5954,9 +5971,14 @@ Print Assumptions Minimal.PricedComplete.priced_pay_reads_as_failed_check.
 Print Assumptions Minimal.PricedComplete.priced_chain_holds.
 Print Assumptions Minimal.PricedComplete.priced_chain_iff.
 Print Assumptions Minimal.PricedComplete.priced_thiele_complete_with.
+Print Assumptions Minimal.PricedComplete.priced_claim_eqb_spec.
+Print Assumptions Minimal.PricedComplete.priced_same_keeps.
+Print Assumptions Minimal.PricedComplete.priced_thiele_complete_over.
 Print Assumptions Minimal.PricedComplete.priced_thiele_complete.
 Print Assumptions Minimal.PricedComplete.priced_sorted_thiele_complete.
 Print Assumptions Minimal.PricedComplete.priced_core_thiele_complete.
+Print Assumptions Minimal.PricedComplete.priced_sorted_thiele_complete_over.
+Print Assumptions Minimal.PricedComplete.priced_core_thiele_complete_over.
 (* === Minimal.RecordMerge : 14 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.RecordMerge.rm_fact_eqb_refl.
 Print Assumptions Minimal.RecordMerge.rm_commit_lands.
@@ -6436,19 +6458,15 @@ Print Assumptions Minimal.ThieleCompleteIndependent.paid_fails_c.
 Print Assumptions Minimal.ThieleCompleteIndependent.paid_not_thiele_complete.
 Print Assumptions Minimal.ThieleCompleteIndependent.paid_weakly_thiele_complete.
 Print Assumptions Minimal.ThieleCompleteIndependent.thiele_complete_clauses_independent.
-(* === Minimal.ThieleCompleteScaled : 26 addressable theorems (unaddressable: 0) === *)
+(* === Minimal.ThieleCompleteScaled : 22 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Minimal.ThieleCompleteScaled.thiele_complete_at_one.
 Print Assumptions Minimal.ThieleCompleteScaled.thiele_complete_has_a_unit.
 Print Assumptions Minimal.ThieleCompleteScaled.run_scale.
 Print Assumptions Minimal.ThieleCompleteScaled.run_unscale.
-Print Assumptions Minimal.ThieleCompleteScaled.base_clause_scale.
-Print Assumptions Minimal.ThieleCompleteScaled.base_clause_unscale.
 Print Assumptions Minimal.ThieleCompleteScaled.earned_chain_scale.
 Print Assumptions Minimal.ThieleCompleteScaled.earned_chain_unscale.
 Print Assumptions Minimal.ThieleCompleteScaled.record_clause_scale.
 Print Assumptions Minimal.ThieleCompleteScaled.record_clause_unscale.
-Print Assumptions Minimal.ThieleCompleteScaled.nonvac_clause_scale.
-Print Assumptions Minimal.ThieleCompleteScaled.nonvac_clause_unscale.
 Print Assumptions Minimal.ThieleCompleteScaled.scale_complete_at.
 Print Assumptions Minimal.ThieleCompleteScaled.unscale_complete.
 Print Assumptions Minimal.ThieleCompleteScaled.unscale_same_step.

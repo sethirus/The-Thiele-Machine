@@ -187,6 +187,23 @@ Theorem fl_macro_lifts : forall cap, 0 < cap ->
        (lift_window_lang (macro_machine fl_box) (sim_to_macro_ub fl_sim_base)) cap).
 Proof. intros cap Hcap. apply sim_base_lifts. exact Hcap. Qed.
 
+Theorem sim_base_lifts_over : forall M0 (B : sim_base M0) cap,
+  0 < cap ->
+  T.thiele_complete_over
+    (lift_machine (macro_machine M0) (lift_window_lang (macro_machine M0) (sim_to_macro_ub B)) cap)
+    (lift_language (macro_machine M0) (lift_window_lang (macro_machine M0) (sim_to_macro_ub B)) cap).
+Proof. intros M0 B cap Hcap. apply lift_window_thiele_complete_over. exact Hcap. Qed.
+
+Theorem fl_macro_lifts_over : forall cap, 0 < cap ->
+  T.thiele_complete_over
+    (lift_machine (macro_machine fl_box)
+       (lift_window_lang (macro_machine fl_box) (sim_to_macro_ub fl_sim_base)) cap)
+    (lift_language (macro_machine fl_box)
+       (lift_window_lang (macro_machine fl_box) (sim_to_macro_ub fl_sim_base)) cap).
+Proof. intros cap Hcap. apply sim_base_lifts_over. exact Hcap. Qed.
+
+Print Assumptions sim_base_lifts_over.
+Print Assumptions fl_macro_lifts_over.
 Print Assumptions sim_macro_runs.
 Print Assumptions ub_to_sim_inhabited.
 Print Assumptions sim_to_macro_inhabited.

@@ -59,7 +59,8 @@ Instance term_tc2_addfx : computable tc2_addfx. Proof. extract. Qed.
 
 Transparent tc2_cx.
 
-Lemma tc2_addfx_mono : forall n n' x c m, tc2_addfx 0 n x c = Some m -> n <= n' -> tc2_addfx 0 n' x c = Some m.
+(* Definitional witness for the compiler interface: tc2_addfx ignores fuel. *)
+Definition tc2_addfx_mono : forall n n' x c m, tc2_addfx 0 n x c = Some m -> n <= n' -> tc2_addfx 0 n' x c = Some m.
 Proof. intros n n' x c m H _. exact H. Qed.
 
 Definition tc2_Raddfx (v : Vector.t nat 2) (m : nat) : Prop :=
