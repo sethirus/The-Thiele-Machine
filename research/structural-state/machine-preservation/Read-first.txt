@@ -68,3 +68,13 @@ From this directory, with Python 3.10 or newer and no third-party dependencies:
 No book or repository file was changed. No full-book audit or literature
 novelty claim is implied. The earlier grouped-mask prototype remains paused
 and unverified. This note supersedes that optimization as the active direction.
+
+ADDED 12 October 2026 (continuation): RetentionBound.v
+  Theorem 3 (M >= 1 + (T+1)(N-1)) stated and proved in Coq, standard
+  library only, both assumption reports closed under the global context.
+  The q0 representative's own trajectory end supplies the extra state,
+  which is a shorter argument than the one in Result.txt Section 7 and
+  proves the same inequality. Tightness is not formalized; Result.txt
+  gives the construction. Check with:
+    coqc -q RetentionBound.v
+  (Coq 8.18.0; remove the generated .vo/.vos/.vok/.glob afterwards.)

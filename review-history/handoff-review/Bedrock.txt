@@ -1,0 +1,194 @@
+BEDROCK — WHERE THE THREE ROUTES END
+12 October 2026
+
+The question. Is the toll a fact about computation, or a definition that is
+true because the model was built so that it would be? Three routes could
+settle that: a characterization (conditions stated outside the model force
+it), a separation (something true here and false in an established
+framework), and a prediction (a measurable consequence). This note pushes
+each route to the point where proof stops, states what stands there with
+its checked name, and says exactly what is left and why no further theorem
+of the same kind can move it. Everything cited below is in the book and in
+the checked sources unless marked NEW. The one addition is RetentionBound.v.
+
+ROUTE 1 — CHARACTERIZATION: WHAT IS FORCED, AND BY WHAT
+
+Forced by counting alone, no price anywhere:
+
+  F1. Finite, permanent, flip ⇒ the raising move merges.
+      Theorem thm:perm-flip-merges; permanent_flip_is_not_injective.
+  F2. Drop permanence, keep finiteness: a move that raises the reading
+      somewhere either merges or revokes it somewhere else. No third case.
+      Theorem thm:merge-or-revoke; flip_merges_or_revokes.
+  F3. The only moves every merge-pricing schedule must charge are the
+      merging ones, with no finiteness needed.
+      Theorem thm:forced-iff-merge; forced_priced_iff_merges.
+  F4. The event is not special. F1 prices any yes/no reading that, once
+      on, stays on; the latch theorem shows a base-driven permanent record
+      is a latch over any base, and the event is a free choice.
+      Observation thm:u11-latch; Corollary cor:u11-event-free.
+  F5. NEW, checked today. Door one with a number. Any deterministic
+      implementation with M states that keeps the history of a reset of an
+      N-state family injectively through T repetitions needs
+      M >= 1 + (T+1)(N-1). So a finite memory keeps such history for at
+      most (M-1)/(N-1) repetitions, whatever its encoding, hidden state or
+      clock, and after that some boundary step merges.
+      research/structural-state/machine-preservation/RetentionBound.v,
+      retention_bound and retention_horizon, standard library only, closed
+      under the global context. The matching construction showing the bound
+      is attained is in that directory's Result.txt, Section 7.
+
+Forced by the three premises together, and by nothing less:
+
+  F6. Finite + permanent + merge pricing ⇒ the toll.
+      Observation thm:toll-derived; a2_from_merging_price_and_permanence.
+  F7. Each premise is necessary, by a built counterexample:
+        drop finiteness: the endless strip raises and keeps a flag with
+        every move injective, at cost zero
+        (unbounded_history_escapes; nec_f_history_infinite);
+        drop permanence: the coin raises and lowers with one injective move
+        at cost zero (revocable_certificate_escapes);
+        drop the price: the stamp at cost zero is finite and permanent and
+        merges, and the toll fails (free_merge_escapes).
+      And the premises are jointly consistent: the stamp at cost one
+      (priced_reset_satisfies_premises).
+  F8. The three forms of the price premise (merge, halving, entropy) are
+      one premise at the pair level and ordered in strength above it.
+      Theorem thm:one-premise; one_premise_three_forms.
+
+Where route 1 ends. Given a permanent yes/no reading on a finite machine
+and a charge on merging, the price is forced, the premise set is minimal,
+and the machine does not matter. What no theorem forces, and no theorem of
+this kind could: which reading to make permanent (a theorem cannot choose
+an event; F4 says every permanent reading is priced alike), and whether a
+merge costs anything (a theorem cannot price a merge; that is door three).
+The first is the pointer thesis, stated as a thesis with its refutations
+listed. The second is physics, route 3.
+
+ROUTE 2 — SEPARATION: NONE, AND WHY NONE IS POSSIBLE
+
+A certification system is a transition system with a cost function and a
+predicate satisfying one inequality. Drop the cost and it is an ordinary
+deterministic machine. The book proves the inclusion in the hard direction
+too: the small machine is two-counter universal, U runs every program of
+the small machine on an ordinary counter host with the ledger carried, and
+U_P runs every computably presented Thiele machine. The Scope section says
+in so many words that no complexity-class separation follows from the
+window collisions, and the research notes confirm the same at the level of
+data structures: every bound there is inherited from or reduced to standard
+computation (Pătraşcu–Thorup through the rollback reduction, union-find,
+Myhill–Nerode). "Thiele machine" names a class of cost-annotated systems,
+as "reversible" or "monotone" name classes, not a new computational power.
+
+What does separate is the accounting, and it is provable because it is
+small:
+
+  S1. The toll is logically independent of the monitor safety property
+      "no certify without an earned commit". A reference monitor enforces
+      that property at cost zero (an unpriced small machine), and a toll
+      system need not have an earned chain at all (cost one on every move,
+      no check). The book's own line is that the difference from the
+      monitor literature is that here the step enforces the price.
+  S2. No window that shows a raising step and a quiet step alike can
+      price the raise exactly. Observation thm:shadow-price.
+  S3. The exact-check rule remembers which claim was checked, not what
+      follows; the inference rule remembers what follows. They are
+      different machines with different state counts (B_n bits against
+      log2(B_n+1)), and neither is a compression of the other.
+      research/structural-state/partition-preservation/Result.txt.
+
+Where route 2 ends. There is no separation theorem to prove, because the
+class is defined by an accounting constraint on ordinary machines. Any
+claim of a computational separation would be false, and the book already
+refuses it. The separation that exists is S1–S3: a rule about what is
+charged and what a view can recover.
+
+ROUTE 3 — PREDICTION: EXACTLY LANDAUER'S, UNDER LANDAUER'S CONDITIONS
+
+The model's physical content is one named premise and its consequences:
+
+  P1. Landauer's principle as a premise (prem:landauer); the heat floor of
+      a permanent flip under an uncertain preparation (cor:heat-floor;
+      permanent_flip_heat_floor); no floor from this premise for a known
+      start (thm:known-state; known_state_flip_forces_no_heat); the toll
+      from entropy pricing (thm:u04-entropy-toll).
+  P2. The generic experiment has been done. Bérut, Arakelyan, Petrosyan,
+      Ciliberto, Dillenschneider and Lutz, Nature 483 (2012): a colloidal
+      particle in a modulated double well, a bit erased; the abstract says
+      the mean dissipated heat saturates at the Landauer bound in the limit
+      of long erasure cycles (record checked today through Europe PMC).
+      That is "restore to one" from a 50/50 preparation: the stamp.
+  P3. The model adds no prediction beyond Landauer. A device realizing a
+      permanent yes/no record on finite memory, driven from an uncertain
+      preparation, must hand over at least kT ln 2 per bit actually removed
+      at the raising step. That is Landauer applied to a latch, not a new
+      law, and the book says so. Nothing is predicted from the ledger
+      alone: door one shows the same ledger at zero physical cost on an
+      unbounded device, and F5 says how long a bounded device can imitate
+      that before it must merge.
+  P4. The dispute is named (Norton; Earman and Norton) and the book takes
+      the sound horn deliberately: ordinary thermodynamics relabelled onto
+      a ledger is all the physics it asks for.
+
+Where route 3 ends. The only measurement that could break the model's
+physical leg is a violation of Landauer's bound, which would be a result
+about thermodynamics, not about this model. The only model-specific
+experiment is a latch driven from an uncertain preparation, and that is
+the Bérut experiment under another name. No experiment distinguishes a
+Thiele machine from a correctly accounted ordinary machine, because the
+model claims no such distinction.
+
+THE ANSWER
+
+What the model is: a conditional theorem (F6) with a minimal, independent,
+separately refutable premise set (F7), invariant under the choice of
+machine and event (F4), with one physical anchor (P1–P2), plus an
+engineering construction, the small machine, in which the price is
+enforced by the step rather than by a watcher (S1). What it is not: a new
+law of computation, a new complexity class, or a new physical prediction.
+
+"Did I fit the model?" The counting theorems never mention the machine; they
+hold for any finite deterministic system with any permanent yes/no
+observable. Each premise can be refused with a built counterexample, and
+none is redundant. That is the standard a non-arbitrary definition meets:
+not that it is forced by nothing, but that every assumption is visible,
+minimal and separately refutable, and the conclusion does not depend on
+the construction used to exhibit it. On that standard the toll passes. On
+the standard "forced by nature with no premise" nothing passes, Landauer's
+principle included, which is why the book keeps it a premise with its
+critics named.
+
+WHAT REMAINS, EXACTLY
+
+  1. Which event deserves the permanent record: the pointer thesis. A
+     claim about how records are copied and relied on, with its
+     refutations listed in the book. Not closeable by proof.
+  2. Whether merging costs anything in the world: Landauer under his
+     conditions, measured in the generic case, philosophically disputed.
+     Not closeable by proof.
+  3. Whether there is a smaller start than a partition: the author's own
+     open question.
+
+These are the book's own "doesn't settle" list. This session adds none and
+removes none. The gap felt as "maybe I just fitted the model" is not a gap
+in the proofs; it is the location of the two premises, and both are marked.
+
+CHECKED TODAY
+
+  Built from source with Coq 8.18.0 (Ubuntu 24.04 package), from the
+  committed proof sources: PermanentCertification.v,
+  PermanentRecordPricing.v, PermanentCertificationEntropy.v,
+  PricingOnePremise.v, NecFPaperToys.v, KnowledgeNarrowing.v,
+  KnowledgeNarrowingMinimal.v and their dependencies.
+    Counting results (F1–F3, F6–F7, the three-state and demon results):
+    every assumption report reads "Closed under the global context".
+    Entropy and heat results (P1, F8): their reports list the standard
+    library's real-number construction (ClassicalDedekindReals.sig_not_dec,
+    sig_forall_dec, functional_extensionality_dep, classic). Those are
+    Coq's own real numbers, not premises of the book; any real analysis in
+    Coq carries them. The book's premise is Landauer's principle, which is
+    stated as a premise and never derived.
+  RetentionBound.v: coqc, standard library only, both reports closed.
+  The Bérut 2012 abstract: Europe PMC record for DOI 10.1038/nature10872.
+  The compiled .vo files tracked in the repository were restored after the
+  build; no proof source under coq/ or minimal/ was changed.
