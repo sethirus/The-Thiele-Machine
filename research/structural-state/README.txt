@@ -10,7 +10,8 @@ Current abstract-model work:
   abstract-direction.txt             Scope and definition compatibility notes.
 
 Earlier completed work, retained for reference:
-  machine-preservation/              Concrete-machine semantic preservation.
+  machine-preservation/              Concrete-machine semantic preservation;
+                                     RetentionBound.v checks its Theorem 3 (Coq, optional).
   interval-succinct/                 Succinct interval freshness component.
   followup/                         Earlier bounds and interval models.
   Results.txt, monitors.py, verify.py Baseline freshness study.
