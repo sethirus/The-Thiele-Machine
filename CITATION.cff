@@ -6,7 +6,7 @@ authors:
     given-names: Devon
 type: software
 version: 4.0.0
-date-released: 2026-10-04
+date-released: 2026-10-11
 license: Apache-2.0
 repository-code: "https://github.com/sethirus/The-Thiele-Machine"
 url: "https://github.com/sethirus/The-Thiele-Machine"
@@ -31,7 +31,8 @@ abstract: >-
   least three. Thiele-complete asks for four things: a universal base whose
   moves are free and cannot touch the record, a record raised only by an
   earned check, commitment and certificate of one claim, an exact toll, and a
-  check that can fail. The small machine meets it, and every clock-style
+  claim whose check, commitment and certificate raise the record on some
+  loaded starts and leave it down on others. The small machine meets it, and every clock-style
   machine fails it. Every Thiele-complete machine hides its record and its
   ledger from its own window. A universal machine U, one fixed program of
   the small machine's own instructions, runs every program of the small
@@ -53,10 +54,11 @@ abstract: >-
   hold, yields A2; the heat comes from uncertainty about the state, and under
   Landauer's principle a known state owes none. Priced per halving, switching
   k states on beside m certified ones costs at least log2((m+k)/m), and on
-  finite hardware that prices merges the events that must be priced are
-  exactly the merges, with every permanent-record write among them. The same
-  bound holds in bits of Shannon entropy, and an eight-state machine meets
-  both premises as theorems. An exact price for certification cannot be
+  finite hardware that prices merges, whose instructions have decidable
+  equality, the events that must be priced are exactly the merges, with every
+  permanent-record write among them. The same bound holds in bits of Shannon
+  entropy from the uniform distribution on those m + k states, and an
+  eight-state machine meets both premises as theorems. An exact price for certification cannot be
   computed from a window in which a certifying step and a non-certifying one
   look alike. Three results carry the weight of the structural question:
   every deterministic machine can carry the record axis, as itself plus a

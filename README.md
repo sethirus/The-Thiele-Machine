@@ -249,7 +249,7 @@ The fourth column is the artifact that refutes the row, each one constructible i
 
 | Claim | Meaning | Main proof files | Refute it |
 |---|---|---|---|
-| Minimal core | The core accounting claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. Zero axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) | An `f : shadow -> nat` with `f (strict_shadow s) = st_mu s` for all `s`; Coq accepts it where `no_mu_oracle` proves none exists. |
+| Minimal core | The core accounting claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. No project-local axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) | An `f : shadow -> nat` with `f (strict_shadow s) = st_mu s` for all `s`; Coq accepts it where `no_mu_oracle` proves none exists. |
 | Earned commitments | In the small machine, every certified run from a clean start passed a CHECK, then a COMMIT of the same claim with its counter untouched in between, then CERTIFY; it costs at least 3, and 3 is reached. | [minimal/EarnedCore.v](minimal/EarnedCore.v), [EarnedCoreLinks.v](coq/kernel/foundation/EarnedCoreLinks.v) | A clean-start trace that ends certified without a passing CHECK of the committed claim before its COMMIT; `earned_certification_provenance` falls. |
 | Thiele-complete | The four clauses: universal free base with a record that stays up, earned record, exact toll, a claim that certifies on some starts and not others. The small machine, the generic machine (over any property language with an exact equality test, a proved checker and a property true of one number and false of another) and the sorted machine meet them; every clock machine fails them. | [minimal/ThieleComplete.v](minimal/ThieleComplete.v), [EarnedGenericLinks.v](coq/kernel/foundation/EarnedGenericLinks.v) | An interface for a clock machine meeting the four clauses (`clock_not_thiele_complete` falls), or a clean-start run of the small machine that certifies without its chain (`earned_core_thiele_complete` falls). |
 | The window | Every Thiele-complete machine hides its record and its ledger from its own window: two runs agree on the window and differ on the record and the ledger. | [minimal/ThieleCompleteWindow.v](minimal/ThieleCompleteWindow.v) | A function of the window that returns the record on every state of a Thiele-complete machine; `complete_no_record_oracle` falls. |
@@ -459,7 +459,7 @@ The split: 5,198 close under the global context outright, and the remaining 799 
 Those families are `functional_extensionality_dep` (763), the classical-reals pair `sig_forall_dec` (785) and `sig_not_dec` (273), and `classic` (175). No theorem uses `eq_rect_eq` (0).
 Those families enter through the real-number layers; the minimal core uses none of them.
 These counts are written by the receipt generator on Linux, never by hand.
-"Zero axioms" here means zero project-local axioms, the same convention the monograph uses.
+"Zero axioms" here means zero project-local axioms, the convention the companion release record uses.
 The receipt is what enforces that count.
 A test ([tests/test_proof_hygiene_numbers.py](tests/test_proof_hygiene_numbers.py)) holds this paragraph to the committed artifact, number by number.
 
@@ -480,9 +480,9 @@ make proof-undeniable
 | Document | Role |
 |---|---|
 | [THIELE_MACHINE.txt](THIELE_MACHINE.txt) | The model and the argument in plain text. Start here. |
-| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph: the picture, the axiom, the logic (the abstract model only), then the machine (the small machine, the universal machine, every model, building from parts, running it, the CHSH check, and the counter against physics), then how to check it and where it ends. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the crosswalk from claims to Coq, the exact words of twenty-one results, the CHSH derivation, the construction of the quoting operation, and the sources. |
+| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph: the picture, the axiom, the logic (the abstract model only), then the machine (the small machine, the universal machine, every model, building from parts, running it, the CHSH check, and the counter against physics), then how to check it and where it ends. Appendices hold the vocabulary, every assumption, what's mine and what isn't, the CHSH derivation, the construction of the quoting operation, computing with counters, the universal program in blocks, a methodology note, and the sources. |
 | [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
-| [docs/THEOREM_MEANINGS.md](docs/THEOREM_MEANINGS.md) | What each theorem the book cites says, in plain words. |
+| [docs/THEOREM_MEANINGS.md](docs/THEOREM_MEANINGS.md) | What each theorem the README, the specification, the disclosure and `THIELE_MACHINE.txt` cite says, in plain words. |
 | [docs/RESULTS.md](docs/RESULTS.md) | The settled questions and their exact statements. |
 | [coq/README.md](coq/README.md) | Map of the active Coq proof tree. |
 | [TECHNICAL_DISCLOSURE.md](TECHNICAL_DISCLOSURE.md) | Prior-art disclosure for the public technical concepts. |

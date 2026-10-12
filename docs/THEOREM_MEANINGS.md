@@ -2,9 +2,8 @@
 
 Coq checks that a proof matches its statement. It does not check that the
 name or the prose around a theorem means what the statement says. This file
-closes that gap for every theorem the README, the monograph, the
-mathematical specification, the technical disclosure, and
-`THIELE_MACHINE.txt` cite. Each entry is one plain sentence saying what the
+closes that gap for every theorem the README, the mathematical
+specification, the technical disclosure, and `THIELE_MACHINE.txt` cite. Each entry is one plain sentence saying what the
 Coq statement asserts, premises included.
 
 `tests/test_theorem_meanings.py` fails when a document cites a theorem that
