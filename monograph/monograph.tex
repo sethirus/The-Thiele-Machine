@@ -5186,7 +5186,7 @@ to be free. Settling is the separate act with a price, and nothing in this defin
 anything.
 
 \begin{theorem}[An observer can learn for free]\label{thm:observer-free}
-There is a four-state machine (the demon), a cost satisfying the halving price, a run of cost
+There is a four-state machine (the demon), a window (the display), a cost satisfying the halving price, a run of cost
 0, and candidates with $|\Omega| = 2$, for which $|K(\Omega, t, s_0)| = 1$. So the claim
 ``for every $\Omega$ with no repeats, every $t$, and every $s_0$ in $\Omega$: $\lceil\log_2|\Omega|\rceil - \lceil\log_2|K(\Omega,t,s_0)|
 \rceil \le \mathrm{cost}(t)$'' is false for that machine and that cost. In the same machine,
@@ -5314,7 +5314,7 @@ is for the one thing in Section~\ref{sec:a2-not-arbitrary} that couldn't be done
 many states: raising a flag that stays up. Learning is the demon writing on a blank pad, which merges nothing. What the demon
 pays for is the wipe, a step with a shared chair. The mark in Section~\ref{sec:toll} is paid for the same
 reason, because raising a flag that stays up also has a shared chair, but it's a different
-step: the demon machine has no flag, and its file prices merges; commitments never appear in it. Same
+step: the demon machine has no flag, and its price list prices merges; commitments never appear in it. Same
 chair. Different room.
 
 This is also where I settle up with Rovelli, my closest neighbour from the opening chapter,
@@ -5579,7 +5579,7 @@ about whether the other books agree, which is the right thing for a receipt to s
 
 Here are the properties exactly. First the piece being added to Section~\ref{sec:toll}'s five, a counter and a
 price list, and then the two facts about it. The counter gets the Greek letter $\mu$ (mu),
-which is what the checked work calls it.
+which is the letter the machine in Part IV uses for it (Theorem~\ref{thm:u34-toll}).
 
 \begin{definition}[A counter kept by a price list]\label{def:u06-counter}
 A \emph{counter machine} has a set of states, a set of moves, a step function
@@ -5727,7 +5727,7 @@ sharpest version of
 the schedule, and notice that Section~\ref{sec:toll}'s toy doesn't meet it: the toy's VOUCH move, played from
 YES, makes a mark
 although it raises nothing, which the floor allows and the exact version forbids. (These
-two theorems let the price depend on the state as well as the move's name, which is wider
+two facts hold even if the price depends on the state as well as the move's name, which is wider
 than Section~\ref{sec:toll}'s per-name cost; a per-name cost is a special case.) Two older tools sit beside
 these, named for completeness: running a list of moves in a ``writer'' that accumulates a
 number returns the final state and the run's cost, and a
@@ -5794,7 +5794,7 @@ where a window can show it (Section~\ref{sec:windows}), and not only inside a pr
 wrote afterwards. And the rule that keeps it is one rule for every run of every program. An
 annotation covers only the one program somebody happened to prove. Whether a record stays ghost depends on
 what else the step does with it; the machine in Part IV has a part that isn't ghost, its table
-of checked facts, and that's where I'll say why. One last relative, from the graph side: Section~\ref{sec:toll}'s floor is a
+of checked facts, because the step reads it and refuses on it, as the opening section said. One last relative, from the graph side: Section~\ref{sec:toll}'s floor is a
 cheapest-path bound in a system with weights on its moves. Every path from the no-states to the
 yes-states crosses the line between them, and every edge across that line weighs at least one.
 Weighted automata go back to Marcel-Paul Schützenberger in 1961, and priced timed automata, which
@@ -6018,7 +6018,7 @@ every possible decoder from ``what I see'' to ``is the flag up'': there are exac
 functions from two positions to two answers. Check each against both results. None of the
 four gets both right, because both results show position 1 and one has the flag up and one
 doesn't. That exhaustive check is the theorem on this example; the general statement is the
-one-line argument above, and that's what's checked. There's no fifth function hiding
+one-line argument above, and that's the one that carries the weight. There's no fifth function hiding
 somewhere.
 
 \subsection{People who found this on their own}
@@ -6275,8 +6275,8 @@ clerk's problem needs, and the bill ``one for a raise, zero otherwise'' meets it
 doesn't pick out one bill: ``two for a raise, zero
 otherwise'' meets it too. Pinning the bill down takes one more demand, a ceiling: over any
 run, the total never exceeds the number of raises. With the floor and that ceiling there's
-exactly one bill left, one per raise and zero otherwise; that's an if and only if, proved for
-any system whose bill is decided step by step. These are stated for any states and any steps. The window version, the cube theorem with a
+exactly one bill left, one per raise and zero otherwise; that's an if and only if for
+any system whose bill is decided step by step: apply the ceiling to a one-step run. These are stated for any states and any steps. The window version, the cube theorem with a
 price in place of a decoder, comes next.
 
 Same clerk, now in symbols, so you can check every word I just used. Take the five parts
@@ -6555,7 +6555,7 @@ same window, and no function on bare transcripts is sound and complete for ``the
 \begin{proof}
 Observation~\ref{thm:u34-tc-window}(2) gives a loaded state and two runs from it that end with the
 same window, one with the record up and one with it down, and, from one clean loaded state, two runs with the same window, one whose ledger rose by at least 3 and
-one made of free base moves that leaves the ledger where it started (that theorem's proof builds it).
+one made of free base moves that leaves the ledger where it started (that observation's proof builds it).
  Both end states explain the same bare transcript. A verifier
 complete for the claim accepts that transcript, since a state where the claim holds explains it;
 a verifier sound for the claim then makes the claim true of every state that explains it,
