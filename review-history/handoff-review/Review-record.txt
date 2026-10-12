@@ -1,0 +1,242 @@
+HANDOFF REVIEW — CONTINUATION ON book-design
+12 October 2026
+
+This record continues the work described in the root CLAUDE_HANDOFF.txt and
+review-history/BOOK-CHECKPOINT.txt. It follows their priorities: challenge the
+latest mathematical statements, verify the cited lower-bound hypotheses, review
+the book checkpoint against main, rerun the checks, rebuild and inspect the
+printed pages, and identify what remains. It is a review aid, not part of the
+book. Nothing here declares the manuscript, the research or the visual design
+finished. No manuscript text, proof source or research result was changed.
+
+WHAT WAS RERUN
+
+  python3 research/structural-state/run_checks.py
+    All seven completed suites PASS (baseline, followup, wide-interval,
+    succinct-interval, machine-preservation, partition-preservation,
+    partition-costs). The only differences from the committed outputs were
+    the local timing samples in partition-costs/verification.json and its
+    handoff log; those files were restored so the checkpoint stays as committed.
+
+  pytest on the nine document/edition test files listed in HANDOFF-CHECKS.txt
+    56 passed.
+
+  bash monograph/build_monograph.sh
+    monograph.pdf 524 pages, thiele_machine_math_spec.pdf 33 pages. The
+    regenerated monograph.txt, math_spec_plaintext.txt, .toc and .out are
+    byte-identical to the committed copies, so the committed plaintext is
+    current. No overfull boxes, undefined references or missing characters
+    in the final pass log. The rebuilt PDFs differ from the committed ones
+    only in build-time bytes and were restored rather than recommitted.
+
+  monograph/page-composition: python3 build.py; python3 review.py
+    609 pages at 190 x 255 mm, author Devon Thiele, document body passed
+    through verbatim (body SHA-256 616a8afc...1599f, unchanged), 314 labels
+    preserved, no off-page text, no overfull boxes. construction.json records
+    an absolute source path, which differs per checkout; it was restored.
+
+  Pages 10 (The point), 213 (the bucket machine and Theorem 8.5), 304
+  (opening of Part IV) and 476 (conclusion) were rendered and inspected.
+  They are clean and legible; nothing decorative was added. This is a
+  typesetting check only. The artistic objective in ARTISTIC-BRIEF.txt is
+  not addressed by this record and remains unresolved, as the brief says.
+
+  Independent checks written for this review (in this directory):
+    challenge_c1.py   Counts distinguishable permission states by behaviour
+                      for n <= 4 at EVERY key partition, for the exact and
+                      the full-inference policies, and compares with the C1
+                      formula 1 + |{c(T)}|. Also confirms B_n + 1 inferred
+                      pair states at the top key. All agree.
+    challenge_81.py   A fresh implementation of the direct instruction rules
+                      of minimal/EarnedCore.v, written from the Coq text and
+                      not from machine_models.py. It reproduces the two-history
+                      example, the historical channel surviving a write, the
+                      81 histories with identical interface, versions 2/2 and
+                      ledger 16, a separating COMMIT for every pair, and the
+                      four-instruction cycle collapsing all 81 at zero ledger.
+    challenge-output.txt  Their recorded output.
+
+1. THE CITED LOWER BOUNDS, CHECKED AGAINST THE PRIMARY TEXT
+
+The author manuscript of Pătraşcu and Thorup (March 27, 2011) was fetched
+from the URL given in partition-costs/Result.txt [S1] and read on pages 1-4.
+
+  Theorem 1, verbatim: "Any data structure for incremental connectivity over
+  n vertices that supports edge insertions in worst-case time
+  o(lg n / lg lg n) must have worst-case connectivity query time n^(1-o(1))
+  in the cell-probe model with cells of O(lg n) bits."
+
+  So both sides of the threshold are worst-case, and the model is cell-probe
+  with O(lg n)-bit cells. A deterministic word-RAM monitor with Theta(log n)-
+  bit words is such a data structure, so C4's transfer uses the theorem under
+  its own hypotheses. Their Section 2 says the lower bounds are proved against
+  deterministic algorithms on an input distribution, which also covers
+  randomized ones; the note's deterministic hypothesis is therefore stricter
+  than required, which is harmless.
+
+  Page 2 confirms the balanced worst-case O(log n / log log n) upper bound
+  obtained by implementing connectivity through union-find.
+
+  Section 1.4 confirms the attributions used in Section 6 of the note:
+  Fredman and Saks proved, for worst-case union-find, t_q = Omega(lg n /
+  lg(t_U lg n)); Alstrup, Ben-Amram and Rauhe improved this to
+  t_q = Omega(lg n / lg t_U); Kaplan, Shafrir and Tarjan showed the optimal
+  worst-case and amortized union-find trade-offs also hold for the Boolean
+  version, and Pătraşcu and Thorup explain how that gives the same trade-off
+  for incremental connectivity. The note states the Fredman-Saks form with a
+  +2 to avoid a zero logarithm; that is correct and slightly weaker than the
+  Alstrup-Ben-Amram-Rauhe form available by the same route. Its conclusion
+  max(t_update, t_query) = Omega(log n / log log n) follows from either form.
+
+  Not re-inspected here: the Kaplan-Shafrir-Tarjan abstract. The Princeton
+  page listed under [S2] returned HTTP 404 through this session's proxy and
+  the ACM page returned 403. The Pătraşcu-Thorup account above was used
+  instead. The [S2] entry should not be described as re-checked today.
+
+2. THE PARTITION-COST STATEMENTS, CHALLENGED
+
+C1 (exact permission-state count). Holds. The necessity argument needs only
+that COMMIT acceptance is observable and that every nonempty T subset of L_K
+is reachable with the other fields equal; both are supplied in the proof. The
+behavioural count in challenge_c1.py matches the formula at every key for
+n <= 4 and both policies, including keys where L_K is a proper subset of L.
+One remark on the observation contract: the count is for the permission
+component under COMMIT acceptance as the only observation of it. An interface
+that also exports the checked list, or any history carrier, changes the count;
+the note says so in Section 1 and this should be kept whenever the result is
+summarized.
+
+C2 (complete groupings). The construction and both lower bounds hold. The
+input-probe argument is an adversary argument for deterministic algorithms and
+needs the stated contract that caller memory is not inspected later; both are
+stated. The equal-field reachability of all B_n + 1 states at the top key is
+the same construction as C1. Nothing to repair.
+
+C3 (pair claims). Holds. Union by size without path compression gives depth at
+most floor(log2 n); the note does not claim the balanced optimum for its own
+code, and the verification suite checks the depth bound rather than timing.
+
+C4 (worst-case rollback reduction). Holds as stated, with these points worth
+keeping explicit when it is presented:
+  - It is a simulation of the monitor's program with instrumented writes, not
+    a black-box use of a deployed monitor. The note says this; the code's
+    TransactionalPairMachine shows it concretely.
+  - Logging one constant-size entry per write and replaying in reverse costs
+    O(t_M) probes and O(t_M) temporary words. Repeated writes to one address
+    are logged separately; verify.py checks this.
+  - The rolled-back COMMIT also rolls back its ledger increment, so in the
+    simulation the ledger counts only CHECKs. This does not affect the bound.
+  - The transfer is worst-case only. The note is right that it does not give
+    an amortized bound, because restoring state can erase amortized credit.
+
+The partition-preservation theorems (join summary, canonical representation,
+2^(t-1) histories, the cost obstruction, Theorem 4's closure identity, and
+Theorem 5's counts) were checked rule by rule against minimal/PartitionReading.v
+p_step: CHECK tests sound_b and prepends; COMMIT tests existsb same_part_b,
+which is exact partition membership; CERTIFY keeps the first record; SET keeps
+the record and the trap flag's falsity; a trapped state only pays. The
+canonicalization in Section 4 is faithful to these rules. The exact-versus-
+inferred distinction is kept clean throughout; nothing in the notes replaces
+the original same-claim provenance theorem.
+
+3. THE MACHINE-PRESERVATION STATEMENTS, CHALLENGED
+
+The 81-history witness, the live-prefix normal form and the zero-ledger reset
+cycle were reproduced by challenge_81.py from the EarnedCore.v rules without
+reference to the shipped model. After the cycle the reference versions are 4
+and 4 while the reduced state is one state, as the note says.
+
+Theorem 3 (M >= 1 + (T+1)(N-1)) is correct. Its "one more state" paragraph is
+terse: when x_0 lies on trajectory i, the new node F^T(x_0) must be compared
+not only with the counted nodes of other trajectories but with x_0's own
+earlier iterates; the cancellation then closes through x_i and contradicts the
+abstract values. A sentence saying so would make the proof self-contained.
+The tightness construction and the general form M >= N + T(N-L) are fine.
+
+The seven-bit and sixteen-gap-bit figures are component bounds given the
+retained fact names; the notes repeat this. They must not be summarized as a
+whole-machine bit count, and the (a+1)(b+1) <= 81 arithmetic in
+abstract-direction.txt Section 5 is right.
+
+4. THE BOOK CHECKPOINT AGAINST MAIN
+
+Structure. The manuscript on this branch is not a correction-only revision of
+main (e4c2346). Compared with main, the back matter is restructured:
+
+  Removed from the book: the section "What Coq is, and why" and its seven
+  subsections; "Every result and where it is checked"; "The exact words of
+  twenty-one results" with its twenty-three subsections; "Coq, in just enough
+  detail"; "The axioms of the checker itself"; "What is not proved"; and
+  "Sources and mathematical dependencies".
+  Added: subsections of the CHSH derivation (four-vector construction, the
+  arcsine boundary in both directions, the finite local model, scope);
+  appendices "Computing with counters" and "The universal program in blocks";
+  a short "Methodology note"; "Sources".
+  Renamed: "A compiler, all in Coq" to "From source programs to the host";
+  "The quantum set, checked" to "The quantum set"; "The records that carry a
+  rule" to "Systems and their conditions".
+
+  Labels: 311 on main, 314 here. Word "Coq": 186 occurrences on main, 7 here.
+  The verbatim release record moved out of the book into
+  monograph/COMPANION_CHECKS.txt, and tests/test_edition_numbers.py now reads
+  it there; its prose assertion was updated to the rewritten sentence. The
+  test still checks the receipt digest and the Coq-derived program counts.
+
+  These changes are documented as authored passes in
+  review-history/mathematical-book and review-history/self-contained-book,
+  whose records state that the counter constructions, universal-program
+  blocks and CHSH constructions were supplied in the book so that the argument
+  stands without the tool. The completion audit's "organization preserved"
+  statement is relative to the start of its own pass, not to main. Anyone
+  integrating this branch should treat it as a restructuring of the back
+  matter and decide on that basis; this record does not approve or reject it.
+
+Evidence. The principal corrections listed in completion-audit/Audit-record.txt
+are present in monograph.tex (collision location, prepared input distribution,
+mean-heat conditions). No revision narrative was found by searching for
+"previously", "we now correct", "earlier draft" and similar phrases. The
+662-entry source review was not repeated here; its stated limits stand.
+
+The source line numbers in design-direction/ARTISTIC-BRIEF.txt refer to an
+older manuscript (for example the conclusion is now at line 16702, not 17410).
+The brief says its line numbers are not permanent; no action was taken.
+
+5. WHAT REMAINS
+
+Settled by the existing notes under their contracts: exact state counts for
+sound closure policies; tight space and time for complete-array inference;
+the exact-versus-inferred pair comparison; the worst-case threshold inherited
+through C4; the balanced worst-case order.
+
+The narrowest unresolved question these notes actually raise is the amortized
+one: a COMMIT failure is fatal, so a real run contains at most one negative
+answer per trap and SET starts a new evidence epoch. The rollback simulation
+cannot transfer the Pătraşcu-Thorup amortized trade-off to that interface. A
+precise target would be: for the inferred pair policy with fatal COMMIT and
+SET, state an amortized model (what counts as a sequence, how epochs and traps
+are charged) and either prove the amortized trade-off transfers without
+rollback, or exhibit a monitor that beats it by using the promise that every
+answered COMMIT but the last is "yes". Before any work, check the literature
+for promise or verification variants of incremental connectivity; this record
+does not claim the question is open in the literature.
+
+The broader quotient/descent target in abstract-direction.txt Section 6 needs
+its model stated first (which observations, which identifications, which cost
+contract) before it is a theorem to prove. It is the author's direction, not a
+result.
+
+6. BOOK PROPOSAL
+
+Book-proposal.txt in this directory is the one concise plaintext proposal the
+handoff allows: a short, tangible addition to the bucket-machine section that
+states what the exact-match COMMIT rule remembers and what it does not, with
+the inferred policy named as an alternative and kept separate. It is a
+proposal for the author's judgement, not an insertion.
+
+7. NOT DONE
+
+No Coq build, coqchk or full backend pytest suite was run in this session;
+the handoff's historical records remain the evidence for those. No physical
+print or paper test. No literature novelty search beyond the primary texts
+named above. The Kaplan-Shafrir-Tarjan abstract was not re-inspected. The
+visual design objective was not attempted.

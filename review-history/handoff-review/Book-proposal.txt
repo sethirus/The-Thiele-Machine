@@ -1,0 +1,77 @@
+PROPOSAL FOR THE BUCKET-MACHINE SECTION
+Devon Thiele — 12 October 2026 — a proposal, not an insertion
+
+Where: after Theorem 8.5 (A committed grouping entitles exactly its
+refinements), before the sentence beginning "So 'structural' has a theorem
+under it." Length: one experiment, one proposition with proof, one remark.
+The existing machine and theorem are unchanged; the alternative rule is
+named as an alternative and nothing is silently replaced.
+
+Why it adds something: the section says what a raised record entitles. It
+does not yet say what the table remembers, and the COMMIT rule is a choice
+about exactly that. The experiment below separates "what follows from the
+checks" from "which grouping may be committed" with three buttons.
+
+---
+
+Put three buttons on the table, all red, and let the key be colour. Run two
+histories on the bucket machine from the same clean state.
+
+  Run A: CHECK {1,2,3}, then CHECK {1,2,3} again.
+  Run B: CHECK {1,2,3}, then CHECK {1,2}|{3}.
+
+Both runs pass both checks and pay two marks. Both have established the same
+thing about the buttons: all three colours agree, which already covers any
+smaller circle. Now ask each to COMMIT {1,2}|{3}. Run A traps. Run B passes.
+
+That is the rule as written: COMMIT asks whether the table holds a grouping
+with this partition, not whether this partition follows from what the table
+holds. The two questions have different answers here, and neither answer is
+wrong. The machine remembers which groupings were checked. It does not
+remember, and is not asked to remember, their consequences.
+
+Proposition (what the checks establish). Take any finite collection T of
+groupings checked against the current key, and write J for their join: the
+coarsest partition obtained by merging two buttons whenever some grouping in
+T puts them together, and closing under chains. Then a grouping h is sound
+for every key for which every member of T is sound exactly when h refines J.
+
+Proof. "Every member of T is sound for key k" says each grouping in T refines
+the key's partition, which is the same as J refining it, because J is the
+least partition coarser than every member of T. If h refines J it refines
+that key partition too, so h is sound. Conversely take k to be J itself,
+giving different colours to different blocks of J. Every member of T is
+sound for it; if h is sound for it, h refines J. That is both directions.
+
+So the consequences of a set of checks are summarized exactly by one
+partition, the join. The chain example makes it visible: checking
+{1,2}|{3} and {1}|{2,3} establishes that all three colours agree, which
+neither grouping said on its own.
+
+Remark (the rule could be otherwise). One could define COMMIT g to pass when
+some check has been made since the last SET and g refines the join of the
+checked groupings. Under that rule Run A and Run B would both pass, the
+table could be replaced by the join and a one-bit "something was checked"
+flag, and a CHECK, a COMMIT and a CERTIFY would still be the least that
+raises the record, because the discrete grouping refines every join and
+would otherwise be committable for free. But the provenance statement would
+change: a committed grouping need no longer have been checked itself, only
+to follow from the groupings that were. This book keeps the rule as written.
+Theorem 8.5 is about that rule; the alternative is a different machine with
+its own theorem, and the two should not be confused.
+
+---
+
+Notes for the author, outside the book text:
+
+- The proposition is Theorem 1 of research/structural-state/
+  partition-preservation/Result.txt; the remark is its Section 7 (Theorem 4)
+  with the evidence flag. Both are proved there in ordinary terms, and the
+  finite checks in that directory exercise them.
+- The counting results (B_n bits versus log2(B_n + 1) bits, the Theta(n log n)
+  implementation, the Pătraşcu-Thorup threshold) are deliberately left out.
+  They belong to the research notes unless the book acquires a place for
+  resource analysis; none of them is a thesis of the book.
+- Numbering: the proposition would become 8.6 and shift nothing before it.
+  If the author prefers no new numbered item, the proof can be folded into
+  the prose after the experiment.
