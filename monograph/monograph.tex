@@ -434,7 +434,7 @@ machine, in Part IV. Each place says which one it means.
 Which raises a fair question. What if the second machine, handed the typed-in list, runs the check
 on it? Then it has established that the list is sorted. Full stop. It didn't do the sorting and it
 doesn't need to. The line I'm drawing is between checked and unchecked. Whether the list was
-computed or copied doesn't enter into it, and ``found out nothing'' up there was about the copier that never looked. So whatever this
+computed or copied doesn't enter into it, and ``without doing either'' up there was about the copier that never looked. So whatever this
 book ends up counting, it isn't how hard anybody worked.
 
 People say ``a right to lean on it'' about a lot of things that turn out to be vibes, so I had to find
@@ -1260,8 +1260,8 @@ long kept models that compute exactly what Turing's does and differ only in what
 how long a step takes, what reaching into memory costs, because the counting is the reason
 to have them. The random-access machine of the computer scientists Stephen Cook and Robert
 Reckhow (1973) charges each instruction one unit, or a cost that grows with the logarithm of the
-numbers it handles. The cell-probe model of Andrew Yao, a computer scientist who later won the Turing Award
-(1981), counts only the memory cells a program reads. The input-output model of the computer scientists Alok Aggarwal and
+numbers it handles. The cell-probe model (1981) of Andrew Yao, a computer scientist who later won the Turing Award,
+counts only the memory cells a program reads. The input-output model of the computer scientists Alok Aggarwal and
 Jeffrey Vitter (1988) counts only the blocks moved between a small fast memory and a large slow
 one. The bulk-synchronous parallel model of Leslie Valiant, a computer scientist at Harvard (1990), charges for rounds of
 communication between processors. Closest in kind are the two axioms the computer scientist
@@ -1537,7 +1537,7 @@ Thiele machine written as one fixed program: a record that's priced, and earned,
 monitor's every-program move (Anderson in 1972, Schneider in 2000, monitors from Azevedo
 de Amorim and coauthors in 2015), carried to every program of the small machine and, with one paid
 move added, to every computably presented Thiele machine. That fourth one is built and checked;
-the idea under it isn't new. The first three are small exact statements I didn't find stated before, where I looked. The
+the idea under it isn't new. The first is a ledger form of a core that's classical and already priced in physics; the second and third are small exact statements I didn't find stated before, where I looked. The
 two-player game check later in the book is careful engineering on known mathematics. It doesn't make a fifth.
 
 \subsection*{At the bottom: what I suspect and can't prove}
@@ -1740,8 +1740,8 @@ Section~\ref{sec:part3-on-machine}).
 
 \emph{A window can hide what was paid.} Two runs can look identical through the usual window
 and differ in what they established and paid, and nothing reading only the window gets the
-difference back. The machine I built has such a pair for the window a Turing machine would point at
-it, the line and the counters, and every machine that meets the definition of Thiele-complete has
+difference back. The machine I built has such a pair for the window a Turing machine would point at,
+the line and the counters, and every machine that meets the definition of Thiele-complete has
 one through its own window: two runs from one clean start that end looking the same, one certified
 and one not. Proved, both. And when two single steps look the same through a window, before and
 after, and only one of them certifies, no price read off that window charges the certifying step
@@ -1790,8 +1790,8 @@ intuition. It's one witness in a larger argument about structure and observation
 the argument.
 
 How the book is laid out. Part I is the picture: how I got here, and what structure is.
-Part II is the axiom: the smallest thing that could carry a bill, and why its one rule
-isn't arbitrary. Part III is the logic: the counter, the windows, entitlement, insight, the
+Part II is the axiom: the smallest thing that could carry a bill, why its one rule
+isn't arbitrary, and why learning is free where committing isn't. Part III is the logic: the counter, the windows, entitlement, insight, the
 latch, the whole direction, the exact shadow, the diagonal (the lambda calculus L gets its
 recursion theorem there by proof), five real systems, and a thesis. Parts I to III develop the abstract arguments and their examples. They also point ahead
 to instances and limits on the machine built in Part IV. Part IV builds one machine, the smallest honest machine I could make: two
@@ -2041,7 +2041,7 @@ first, and they don't show that certification is the only event worth pricing.
 name. \emph{Rise-only pricing} charges at least one mark on every step that raises the reading and
 nothing on any other step; its tightest bill, one mark per raise and nothing else, is the
 \emph{exact schedule}. \emph{Instruction-exact pricing} charges every instruction a fixed listed
-price. On the small machine of Part~IV that's one mark each for CHECK, COMMIT and CERTIFY and
+price. On the small machine of Part IV that's one mark each for CHECK, COMMIT and CERTIFY and
 nothing for the rest, and the definition of Thiele-complete calls it the \emph{exact toll}. CHECK
 and COMMIT raise no flag, so the small machine is instruction-exact without being rise-only, and
 no rule is broken by that. \emph{Simulation-exact accounting} is a host whose ledger equals its
