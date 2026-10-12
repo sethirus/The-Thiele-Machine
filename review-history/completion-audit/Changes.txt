@@ -1,0 +1,1647 @@
+THE THIELE MACHINE — AUDIT CORRECTIONS
+Author: Devon Thiele
+
+This review file records corrections; it is not part of the book.
+Part I: 91 manuscript corrections from the full meaning audit.
+Part II: completion audit, companion documents and source corrections.
+
+1. reset_full_state
+Reason: Separate the two-state reset, whole-state collision, actual input distribution and physical heat at the first explanation.
+
+BEFORE
+Making a record on a blank place is one operation. Landauer's 1961 paper names another, and it's
+the one this book ends up charging. Take one bit whose value you don't know and set it to one,
+whatever it held. Landauer's name for that is ``restore to one,'' and it's the reset he
+described, two possible situations made into one, the kind of step he said has to give off
+heat. Now raise a flag that stays up, on a machine that might be holding the flag down or might
+be holding it up already. Down goes to up, up stays up, and the two become one. That's restore
+to one. So the step the one-bit toll charges is Landauer's restore to one, and Landauer priced
+it, in heat, as a reset. What I can claim is the narrower thing: which premises about a machine (a finite memory, a flag that stays
+up) make the certifying step a reset, so that Landauer applies to it. That's the next section,
+and Section~\ref{sec:landauer} comes back to it with the numbers.
+
+AFTER
+Making a record on a blank place is one operation. Landauer's 1961 paper names
+another: set a bit to one whatever it held. If that bit is the whole state, down
+goes to up, up stays up, and two possible states become one. Landauer called this
+``restore to one.'' On an uncertain input it removes information; a heat bound
+then needs the thermodynamic premises.
+
+A larger machine has more state than its flag. Two starts can both finish with the
+flag up while remaining different elsewhere. The next section proves that, on a
+finite machine whose reading is permanent, any instruction that raises it must
+merge some full states. It does not say the newly certified state is one of that
+pair. Put one chair outside the certified room and two inside. Send the outsider
+to the first inside chair, and both insiders to the second. The flag rises for the
+outsider, but the two insiders are the states that merge. These arrows describe
+alternative starts, not three things happening in one run.
+
+That is the distinction the one-bit picture hides. The instruction has a collision
+somewhere; the actual distribution of starting states determines whether that
+collision removes uncertainty. A known starting state loses none under the entropy
+premise, even when its flag rises (Theorem~\ref{thm:known-state}). The ledger can
+still charge the instruction under merge pricing. A ledger charge, information
+loss and a device's heat are three quantities to keep apart.
+
+2. reset_lineage
+Reason: Remove the repeated identification of every permanent flag raise with the literal two-state reset.
+
+BEFORE
+The step itself has a price on
+it already: raising a flag that stays up, from a state that might already have it up, is
+Landauer's restore to one, and he priced that as a reset in 1961. What nobody I found wrote down
+is when a certifying step has to be that reset.
+
+AFTER
+The literal one-bit reset already has a thermodynamic analysis: Landauer's restore
+to one. The question here is which premises force an instruction that raises a
+record to merge full states, and which further premises let us price that loss.
+
+3. reset_smallest_scope
+Reason: Keep the lineage comparison from implying an unconditional physical price.
+
+BEFORE
+Landauer's restore to one, which is the one-bit
+toll step, priced as a reset whatever the bit is standing for.
+
+AFTER
+Landauer's restore to one, the literal two-state version of the crossing, whose
+heat bound depends on the input uncertainty and the thermal premises.
+
+4. chairs_local_collision
+Reason: Put the quantifier distinction directly beside the chairs argument, not only in the later known-state discussion.
+
+BEFORE
+Finite. Permanent. Flip. Those three and nothing else, and the conclusion is ``two states
+became one.
+
+AFTER
+Finite. Permanent. Flip. Those three force a collision in the instruction's map.
+The two starts that collide need not include the outsider: send the outsider to
+one inside chair and send two insiders to another. A run from a known outside
+chair can still have a uniquely identifiable start. The collision is a fact about
+the instruction over possible states.
+
+5. pricing_strength_before
+Reason: Correct prose implying equivalence between pairwise merge pricing and full entropy/halving pricing.
+
+BEFORE
+So there are three roads to the toll: merge pricing, the halving price, and entropy pricing. They
+don't compete. They're one premise written three ways, and that's checked too. Ask of a move the
+most bits it can remove from any spread at all, which is Landauer's principle taken in its worst
+case. That most is exactly the base-two logarithm of the move's worst pile-up: no spread loses
+more, and the even spread on the biggest pile loses exactly that much. A cost in whole marks that
+is at least that logarithm is a cost $c$ with no pile bigger than $2^c$, and that's the halving
+price. Merge pricing is the same premise asked about two states at a time.
+
+AFTER
+There are three roads to the toll, with two different strengths. Entropy pricing
+and the halving price are equivalent: the most bits a deterministic move can remove
+is the base-two logarithm of its largest pile of starts sharing a destination.
+Merge pricing asks only for at least one mark whenever any pair collides. It is
+the two-state restriction of the stronger conditions.
+
+Try eight equally likely cards all sent to one box. The loss is three bits. A
+charge of one meets merge pricing but fails entropy pricing and the halving price,
+which require at least three. All three conditions give the permanent-record toll;
+only the stronger two give the full squeeze bound.
+
+6. pricing_theorem_title
+Reason: Make the theorem title reflect its unchanged, qualified statement.
+
+BEFORE
+\begin{theorem}[One premise, three forms]
+
+AFTER
+\begin{theorem}[Entropy pricing, halving, and pairwise merge pricing]
+
+7. pricing_strength_after
+Reason: Preserve the difference between abstract operation pricing and a distribution-dependent heat bound.
+
+BEFORE
+ So the premise under all three roads is
+one premise, Landauer's in its worst case over what the machine might hold, and I wrote it three
+ways because each way makes a different theorem short. Merge pricing asks it only about pairs,
+which is why that road gives the toll and stops there; the squeeze needs the whole premise.
+
+AFTER
+Thus merge pricing is weaker than full entropy pricing, though both force the
+one-mark toll under the permanence and finiteness premises. The mathematical
+prices are rules on instructions. A physical interpretation additionally needs
+Landauer's premise for the actual distribution and an explicit conversion from
+bits or marks to thermal quantities.
+
+8. known_device_heat
+Reason: Do not assert that every fixed merging device has positive dissipation for every known input.
+
+BEFORE
+A fixed device that merges states dissipates on known input too; Bennett calls that
+wasteful, because entropy goes out into the room with nothing taken from the data.
+
+AFTER
+A device can dissipate on a known input too: heat can go into the room even when
+no uncertainty is removed from the data. Its dissipation depends on its physical
+implementation and control protocol.
+
+9. record_price_not_physics
+Reason: Record-layer merge pricing is not itself the thermodynamic premise.
+
+BEFORE
+on the part of the state that's new it's still Landauer's premise.
+
+AFTER
+on the record distinctions it is still an assumed operation-level price; identifying
+it with heat needs a physical model.
+
+10. record_toll_premise
+Reason: Stop silently converting an abstract pricing assumption into Landauer physics.
+
+BEFORE
+On that machine the toll is forced by Landauer's
+premise asked of the record layer, and the machine's own price list, clause (c) included, is one
+the premise allows.
+
+AFTER
+On that machine the toll follows from record-layer merge pricing, and the machine's
+own price list, clause (c) included, satisfies that premise. This is a result about
+its ledger, not a heat bound.
+
+11. reversible_floor_not_zero
+Reason: A floor permits free injective moves; it does not force them to be free.
+
+BEFORE
+full merge pricing charges the base nothing, and clause (c) holds with merge pricing as it stands.
+
+AFTER
+full merge pricing permits those base moves to cost zero. Choosing that schedule
+would meet clause (c); the lower-bound premise alone does not require zero charges.
+
+12. physics_reset_summary
+Reason: Repeat the corrected scope in the physics summary.
+
+BEFORE
+What the permanence
+theorems add is the \emph{derivation}: which premises about a machine (finite, permanent) make
+the certifying step a reset, so that Landauer applies to it. That's a result about the
+machine. Physics gets nothing new from it, and that's the right size for it.
+
+AFTER
+What the permanence theorems add is a structural derivation: finiteness and a
+permanent reading force any flag-raising instruction to merge some full states.
+They do not identify the newly certified state as part of that collision, or
+supply the input distribution and physical conditions for a heat bound. With
+those supplied, Landauer's premise applies to the uncertainty actually removed.
+The machine result and the physical premise do different jobs.
+
+13. ledger_pricing_strength
+Reason: Make the claims ledger agree with the actual pricing-equivalence theorem.
+
+BEFORE
+Merge pricing, the halving price and entropy pricing are one premise: the most bits a move removes from any spread is $\log_2$ of its worst pile-up, entropy pricing is the halving price, and merge pricing is both asked of two states
+
+AFTER
+Entropy pricing is equivalent to the halving price; merge pricing is their weaker restriction to pairs. The largest entropy loss is $\log_2$ of the largest pile-up
+
+14. assumption_pricing_strength
+Reason: Keep the assumption appendix from identifying a qualitative charge with a physical entropy bound.
+
+BEFORE
+Third, merge pricing is Landauer's principle taken in its worst case over
+what the machine might be holding: it charges every merging move, while the principle in its
+general form charges only for uncertainty actually removed, when the step can be driven by a
+protocol timed from outside it (Theorem~\ref{thm:known-state}).
+
+AFTER
+Third, merge pricing is an abstract lower bound on every merging instruction.
+It is the pairwise restriction of worst-case entropy pricing, which is equivalent
+to the halving price. Landauer's premise instead bounds heat from the uncertainty
+actually removed under its thermal conditions. A known starting state supplies no
+positive floor from that premise (Theorem~\ref{thm:known-state}).
+
+15. index_questions_scope
+Reason: State the worst-case and available-question conditions behind the index-bit interpretation.
+
+BEFORE
+the number of yes-or-no questions it takes to pick one of $n$ things.
+
+AFTER
+the fewest yes-or-no questions that can guarantee identification among $n$ things
+when arbitrary binary splits are allowed.
+
+16. potential_floor_not_exact
+Reason: The generic toll proves a lower bound, not attainability or an exact conversion price.
+
+BEFORE
+Only
+in the trivial way: the conversion costs exactly one mark and that's the whole theory.
+
+AFTER
+Only as this simple resource-accounting example: the floor is one mark for a
+no-to-yes run. An exact one-mark conversion additionally needs a run attaining it.
+
+17. partition_uniformity
+Reason: Distinguish a guarantee uniform over keys from truth for one particular key.
+
+BEFORE
+which is item (2), and what a raised reading entitles is read off the partition too: every finer
+grouping, and nothing else. Refinement, the order on partitions, is the entitlement order.
+
+AFTER
+which is item (2). Soundness of the recorded grouping guarantees soundness of every
+refinement, uniformly over all keys. A grouping that is not a refinement may still
+be sound for a particular key; the guarantee does not extend to every key. If all
+four buttons have the same colour, every grouping is sound. The theorem identifies
+what follows from the first grouping's soundness alone.
+
+18. insight_extra_hypotheses
+Reason: Additional hypotheses can strengthen a bound; a proof not using them cannot rule that out.
+
+BEFORE
+so adding any hypothesis
+about what else the end state shows leaves the bound at $1$ and cannot raise it.
+
+AFTER
+so that proof establishes the same lower bound $1$ whatever else the end state
+shows. A stronger lower bound can follow from additional hypotheses, but those
+hypotheses must do additional work; it does not follow from the toll alone.
+
+19. insight_price_depth
+Reason: Scope the flat floor to the stated toll rather than all possible cost laws.
+
+BEFORE
+And putting something remarkable behind the reading doesn't make it cost any more.
+
+AFTER
+The toll alone does not charge more for a remarkable claim; another pricing rule
+or an additional requirement could.
+
+20. latch_noninterference
+Reason: A commuting cover guarantees noninterference with the projected base, not all fields of the extension.
+
+BEFORE
+The pieces
+above the line, the record and the ledger, are the ones that never steer anything; the pieces that
+make a flag mean something sit below it, where this theorem doesn't look.
+
+AFTER
+The cover makes the projected base step independent of which extension state lies
+above it. The record, ledger and hidden fields may still affect other extension
+fields; the theorem does not make the entire extension inert. On the small machine,
+the checks that give the flag its meaning sit in the base chosen for this cover.
+
+21. latch_ledger_event
+Reason: Do not allow the free-event choice to violate the base-driven condition.
+
+BEFORE
+``The ledger passed one'' is an event too, and so is anything else the base can reach.
+
+AFTER
+``The ledger passed one'' is an event only if the chosen base includes enough
+information to decide it. An extension-only ledger is hidden from a base event,
+just as the hidden clock was. The free choice is among functions of the chosen base.
+
+22. finite_record_instruction
+Reason: Carry the instruction-versus-actual-state distinction into the reversible-record discussion.
+
+BEFORE
+on a finite machine the record's first write is a merge, and
+Section~\ref{sec:a2-not-arbitrary} already put the price on that.
+
+AFTER
+on a finite machine an instruction that first raises a permanent reading must
+merge some possible states. The entering state need not belong to the colliding
+pair; Section~\ref{sec:a2-not-arbitrary} prices the instruction under merge pricing.
+
+23. entitlement_check_payment
+Reason: Separate missing verification from missing payment; neither alone establishes the other.
+
+BEFORE
+Without the third part, the object may be sitting right there and the claim may be true, and
+the run still hasn't \emph{earned} it. That's the cups: the coin is under cup one; the reason is
+disconnected from it; nobody lifted the cup. Put it on Section~\ref{sec:toll}'s sheet of paper, the one with the
+NO box, the YES box and the tally line, and grow the toy by one thing: the state is now the box
+you're in plus whatever is written on the sheet beside it. Next to the boxes, write a note:
+``coin under cup one, checked.'' Writing the note is a WORK move, and WORK costs nothing. The note is an object, it's
+on the paper, and it might even be true. What it doesn't have is a crossing on the record: no
+move took the reading from NO to YES when the note went down, and there's no mark under the
+line for it. The note is raw data, forged in one write, and the five parts allow a system that
+lets you write one, because nothing in them says what an ordinary move may put in
+the state. A note put down by the move that crosses has a receipt, and the receipt is the
+event. One limit on that word ``receipt'': the crossing records that something was paid for at
+that moment. What the crossing move actually looked at before it crossed is up to whatever
+the move does, and the five parts don't say.
+
+AFTER
+Keep the second and third parts separate. A note saying ``coin under cup one, checked''
+can be written without anyone lifting a cup. That gives an object, but no checked relation.
+Now actually lift the cup, find the coin and write the result. Suppose this is a free move:
+the note is on the sheet, the check really happened, but the NO box stays NO and the tally
+line stays blank. This time the object and the checked relation are both there. What is
+missing is the paid event. The run isn't entitled in this definition's sense; that doesn't
+make the result of the check false.
+
+The reverse distinction matters too. A move from NO to YES earns a mark on the tally line,
+but the bare toll says nothing about what that move looked at. Payment alone supplies
+neither a check nor its correctness. The later machine will bind those acts together in its
+step rule. The five parts of a certification system do not do that by themselves.
+
+24. lvars_read_discipline
+Reason: Monotonicity alone does not imply schedule independence.
+
+BEFORE
+That's a cup. What the cup buys them took me a couple of reads. As I understand it,
+writers running side by side can push the value up in a different order on every run, and a cup
+that's up stays up whatever the order was, so a program that only ever looks at cups can't see
+the others' timing.
+
+AFTER
+That's a cup. Writers running side by side can push the value up in different orders,
+and a threshold once passed stays passed. Their deterministic behaviour also depends on
+which reads and updates the language permits. Permanence alone would not do it: a program
+allowed to ask whether the cup is up \emph{yet} could still see another writer's timing.
+
+25. direction_base_noninterference
+Reason: Restrict noninterference to the base projection.
+
+BEFORE
+Here the record is never allowed to steer anything, so I sit with the ghost state.
+
+AFTER
+Here the record is never allowed to steer the base computation, so that particular restriction sits closer to the ghost state.
+
+26. window_parity_information
+Reason: Parity carries partial information about position.
+
+BEFORE
+A window that knows nothing about where you are, and knows
+exactly when you've gone somewhere, can send the right bill every time.
+
+AFTER
+A window that cannot tell you your exact place, but detects every rise and every pause,
+can send the right bill every time.
+
+27. weighted_entropy_scope
+Reason: State positive logarithm argument, normalization and attainability condition.
+
+BEFORE
+Take any spread of non-negative weights over the states, uniform or not. (1) If every landing pile
+has at most $N$ states, the conditional entropy of the state given its landing spot is at most the
+total weight times $\log_2 N$ bits. (2) So on a machine with finitely many states and the halving price, the average
+information a move destroys is at most its cost in bits, times the weight. (3) The bound is reached:
+the even spread on a pile of $2^c$ states loses exactly $c$ bits.
+
+AFTER
+Take any spread of non-negative weights over the states, uniform or not. (1) If every landing pile
+has at most $N$ states, with $N\ge1$, the weighted conditional entropy of the state given its landing spot is at most the
+total weight times $\log_2 N$ bits. (2) So on a machine with finitely many states and the halving price, that weighted
+information loss is at most its cost in bits times the total weight. For a probability distribution,
+the total weight is one and the average loss is at most the cost. (3) If a landing pile has $2^c$ states,
+the uniform probability distribution on it loses exactly $c$ bits and attains that bound.
+
+28. infinite_halving_price
+Reason: Infinite-fibre impossibility concerns halving pricing, not every toll.
+
+BEFORE
+No finite toll can price a move that sends infinitely many states
+to one spot, and that's a theorem.
+
+AFTER
+No finite charge satisfying the halving price can price a move that sends infinitely many states
+to one spot. The weaker merge price could still charge one; it does not measure the pile's size.
+
+29. infinite_average_budget
+Reason: Distinguish information budget from arbitrary instruction toll.
+
+BEFORE
+two bits of toll would cover the average, though nothing covers the worst case.
+
+AFTER
+a two-bit information budget covers the average, though no finite budget covers the worst case.
+
+30. infinite_divergence_budget
+Reason: Scope divergence to entropy.
+
+BEFORE
+No toll covers it, on average or otherwise.
+
+AFTER
+No finite information budget covers that average loss.
+
+31. infinite_theorem_budget
+Reason: Scope formal conclusion to quantity calculated.
+
+BEFORE
+grows past every bound, so no cost covers it.
+
+AFTER
+grows past every bound, so no finite bit budget covers it.
+
+32. test_lower_bound_reference
+Reason: Replace unsupported-proof disclaimer with actual book proof.
+
+BEFORE
+I argue that; nothing checks it.
+
+AFTER
+Theorem~\ref{thm:time-tax} gives the precise lower bound and the matching ladder.
+
+33. mirror_program_own_flag
+Reason: Scope non-earning to program U0, not host instruction set.
+
+BEFORE
+So this
+host runs any guest by construction and keeps the guest's record by theorem, as a copy of the
+guest's flag. It never earns a flag of its own.
+
+AFTER
+So this
+host runs any guest by construction and keeps the guest's record by theorem, as a copy of the
+guest's flag. The mirroring program $U_0$ does not earn the host's own flag; a different program
+could do so with the host's OWN CHECK, COMMIT and CERTIFY.
+
+34. time_tax_trace_bill
+Reason: Distinguish fixed trace costs from early-stopping program costs.
+
+BEFORE
+(3) The paid chain of three instructions raises the flag exactly when $A \ge m$ and has a ledger of
+exactly 3, whatever $m$ is.
+
+AFTER
+(3) Executed as a three-move trace from $\mathrm{start}(a,b)$, the paid chain raises the flag exactly when $a \ge m$ and has a ledger of
+exactly 3, whatever $m$ is. As a stored program it pays 3 on success and stops after its first failed CHECK with a ledger of 1.
+
+35. time_tax_program_length
+Reason: Ladder contains 2m instructions, observed after m moves; do not conflate code length and runtime.
+
+BEFORE
+(2) A program of $m$ DECs and INCs (a ladder:
+
+AFTER
+(2) A program of $m$ DEC/INC pairs (a ladder:
+
+36. floor3_ends_up
+Reason: Floor includes zero-length run of already-certified state, rather than requiring a crossing.
+
+BEFORE
+every run from a state that raises the flag costs at
+least three exactly when
+
+AFTER
+every run from a state that ends with the flag up costs at
+least three exactly when
+
+37. computable_translation
+Reason: Undecidability excludes effective reductions, not set-theoretic assignments.
+
+BEFORE
+(3) So no translation
+from two-counter programs to one-counter programs keeps halting, unless
+
+AFTER
+(3) So no computable translation
+from two-counter programs to one-counter programs keeps halting, unless
+
+38. compiler_certification_scope
+Reason: Do not claim unsupported source-language record instructions or termination of every source program.
+
+BEFORE
+So compiling
+a program computes its answer and certifies nothing: the compiler is a route to answers, and a
+certification has to be written into the source as a CHECK, a COMMIT and a CERTIFY.
+
+AFTER
+So a terminating compiled program delivers its answer and certifies nothing. To certify a
+claim about that answer, a target program must add a CHECK, a COMMIT and a CERTIFY;
+this compiler does not insert that chain.
+
+39. pair_six_attainment
+Reason: Distinguish joint nonvacuity witnesses from arbitrary target reachability.
+
+BEFORE
+six, and six is reached. (6)
+
+AFTER
+six. Suitable loaded starts and a three-act certificate on each side attain six; this does not promise to reach every chosen pair of thresholds in six moves. (6)
+
+40. injective_heat_floor
+Reason: Logical reversibility removes this lower bound, not all implementation dissipation.
+
+BEFORE
+Such a step can be run backward, and Landauer's principle charges it nothing; a floor
+read without the last clause would charge it a whole unit.
+
+AFTER
+Its input can be recovered from its output, and its entropy loss is zero. The adopted
+Landauer premise therefore supplies no positive heat floor; this does not promise that an
+implementation gives off no heat. A floor read without the last clause would charge a whole unit.
+
+41. time_symmetric_physics
+Reason: Primary paper equations 28–30 give input-weighted low-error work scaling, with time-reversal assumptions; avoid exact universal heat claim.
+
+BEFORE
+The generalized principle can charge a known state nothing because it lets the step be driven by
+a protocol that changes in time: lower this barrier, tilt that well, raise the barrier again,
+each at the right moment. Something outside the step keeps that time, an outside clock or an
+outside hand, and the premise doesn't bill it. Take the hand away and the bill changes. Paul
+Riechers, Alexander Boyd, Gregory Wimsatt and James Crutchfield (2020) analysed what happens
+when the control is \emph{time-symmetric}, the same played forwards or backwards, which covers a clocked pulse and any device
+whose rates never change. On their analysis, every move that doesn't come back to
+where it started when you apply it twice, which they call \emph{nonreciprocal}, costs at least
+$k_B T \ln(1/\varepsilon)$ on top of the change in free energy, to run with error at most
+$\varepsilon$. A flip that stays up is always nonreciprocal: apply it twice from the no-state
+and you're still at yes. So, if they're right, under that kind of
+control the known-state stamp isn't free after all, and the more reliable you want it, the more it costs. Their class is bigger than mine,
+though. Erasure is nonreciprocal, and so is a counter of three or more values that steps forward
+and wraps around, which merges nothing, so their bound is about what the
+controls are allowed to do, records or no records. So read Theorem~\ref{thm:known-state} with its control written in:
+Landauer's premise sets no positive heat floor for a known state when the step can be driven by a protocol timed
+from outside it. The same goes for Theorem~\ref{thm:forced-iff-merge}. On a machine whose move names can be decided equal or different,
+the moves every
+merge-pricing schedule must charge are exactly the merging moves, and that's true against merge
+pricing; measured against time-symmetric control, the forced moves would be, on this argument
+and unchecked, the nonreciprocal
+ones, the wrapping counter included. Which moves the physics forces a price on depends on what
+the controls can do.
+
+AFTER
+The entropy-loss bound supplies no positive floor for a known input. Whether a device
+can approach that floor also depends on its controls: lower this barrier, tilt that well,
+raise the barrier again. Those operations have a timing and a physical implementation.
+The entropy calculation alone does not price either.
+
+Paul Riechers, Alexander Boyd, Gregory Wimsatt and James Crutchfield (2020) analyse
+metastable memories under \emph{time-symmetric} control: the prescribed control is the
+same played forwards or backwards, with the relevant time-reversal conventions. A
+symmetric clock pulse can meet that restriction; an arbitrary clocked pulse need not.
+For memory states unchanged by time reversal, their low-error result distinguishes
+inputs $m$ for which applying the desired logical map $C$ twice fails to return to $m$.
+They call those transitions \emph{nonreciprocal}. With equal local-equilibrium free
+energies, the leading minimum-work term as the error allowance $\varepsilon$ tends to
+zero is proportional to
+\[
+k_B T\ln(1/\varepsilon)\,
+\Pr\bigl(C(C(m))\ne m\bigr).
+\]
+The probability is over the initial memory states. This is a low-error scaling with
+physical premises, not an exact finite-error heat charge on every execution.
+
+A permanent flip from no to yes is nonreciprocal at that no-state: a second application
+cannot return it to no. A known input at that state can therefore face the extra work
+cost in their restricted control setting, even though its initial logical entropy is zero.
+Their class also includes a three-state cycle, which merges nothing. The distinction is
+about the permitted controls as well as the logical map. It neither changes
+Theorem~\ref{thm:known-state}'s entropy calculation nor identifies the book's abstract
+merge price with a universal physical bill.
+
+42. assumption_control_scope
+Reason: Propagate primary-paper scope to assumption summary.
+
+BEFORE
+Under time-symmetric control,
+Riechers, Boyd, Wimsatt and Crutchfield (2020) argue, even a known state pays for a move that
+doesn't undo itself.
+
+AFTER
+Riechers, Boyd, Wimsatt and Crutchfield (2020) derive additional work bounds under
+time-symmetric control of metastable memories. Their low-error bound depends on the
+initial distribution and the memory's time-reversal behaviour; it is not a universal
+heat charge on each logical move.
+
+43. pointer_falsifier
+Reason: A weaker copied event is compatible with certification as strongest pointer.
+
+BEFORE
+a rival event copied and relied on as well
+as certification in a real ecosystem;
+
+AFTER
+a rival event copied and relied on that fails at a reachable state where
+certification holds in a real ecosystem;
+
+44. independence_falsifier
+Reason: Earlier paid latch fails two clauses; dropping one does not refute exclusion proof.
+
+BEFORE
+A clause none of the
+excluded machines needs: drop it and show the paid latch or the silent machine still fails, and
+the exclusion of the paid latch or the exclusion of the silent machine has been proved
+by the wrong clause, which is worth a letter.
+
+AFTER
+For clause independence, take one of the four witnesses in Theorem~\ref{thm:tc-independent}
+and show that it also fails one of the three clauses it is said to meet, or that it meets
+the clause it is said to fail. That would break the claimed independence witness.
+
+45. conclusion_price_premise
+Reason: Preserve central instruction/run/physics distinctions in conclusion.
+
+BEFORE
+and if forgetting is charged for, the way Landauer's
+principle charges for it in its worst case, the toll follows.
+
+AFTER
+and under the merge-pricing rule the toll follows. The collision is a property of the
+instruction on its allowed states; it need not involve the state that just entered.
+A heat bound additionally needs the input distribution and a physical model.
+
+46. conclusion_merge_credit
+Reason: Avoid equating abstract merge pricing with distribution-dependent Landauer bound.
+
+BEFORE
+and the price on a merge is Landauer's, as a
+premise.
+
+AFTER
+and the abstract merge price is motivated by Landauer's reset example. Identifying that
+price with heat needs the further premises stated in Part II.
+
+47. landauer_average
+Reason: Clarify ensemble-average heat and physical interpretation prerequisite.
+
+BEFORE
+A step that lowers the entropy of the machine's state by $\Delta H$ bits, at temperature
+$T$, gives off heat $Q \ge k_B T \ln 2 \cdot \Delta H$, where $k_B$ is Boltzmann's constant.
+
+AFTER
+For the chosen physical memory and its input distribution, assume that a step lowering
+its logical-state entropy by $\Delta H$ bits transfers mean heat
+$Q \ge k_B T \ln 2 \cdot \Delta H$ to a bath at temperature $T$, where $k_B$ is Boltzmann's constant.
+Here $Q$ is an average over that preparation, not a bound on each individual trial.
+Applying this premise requires a physical model in which the logical entropy loss has
+this thermodynamic meaning; a bare state-transition table does not supply one.
+
+48. absolute_irreversibility_scope
+Reason: A deterministic logical map and matching logarithm do not specify thermodynamic reverse histories or absolute-irreversibility parameter.
+
+BEFORE
+Physicists have a name for a step with no way back, and that logarithm has turned up in their
+work before. Y\^uto Murashita, Ken Funo and Masahito Ueda (2014) studied processes where some
+histories of the reversed process have no forward history at all. They call that
+\emph{absolute irreversibility}, and they derived that the entropy
+such a process produces averages at least $-\ln(1-\lambda)$, where $\lambda$ is the chance of those orphaned reverse
+histories. Their first example is a gas let out of a box that held a fraction $l$ of the room,
+where the bound comes to $\ln(1/l)$. Now picture the even spread of my flip played backwards:
+the chance sitting on the $m$ yes-states spreading back out over all $m+k$, a gas let out of a
+box holding $m/(m+k)$ of the room. Their bound for that is $\ln\frac{m+k}{m}$, the same
+logarithm as the heat floor, in units of $k_B T$. So is my squeeze a special case of their
+bound? No, and the reason is worth a minute, because the match is a good trap. The even spread
+gives a real chance to every state the flip starts from, so no forward history is missing: the
+flip itself isn't absolutely irreversible at all, and their $\lambda$ for it is zero. The heat
+floor is ordinary Landauer heat, the bill for squeezing a spread over $m+k$ states into $m$ of
+them, the same kind of bill as any reset into a smaller set. The two logarithms match because a
+squeeze's Landauer heat equals the entropy produced by the free expansion that undoes it, and
+that free expansion, the flip played backwards, is the process their bound is about. A mirror.
+Neither result descends from the other. Their idea does reach the flip, just somewhere else: on a device
+whose rates never change, raising the flag from a state it knows, which turns up at the end of this
+section. Gonzalo Manzano, G\"ulce Karde\c{s}, \'Edgar Rold\'an and David Wolpert (2024) carried
+absolute irreversibility over to computations, with one-way transitions and machines that stop
+at random times, worked on finite automata, and the same $-\ln(1-\lambda)$ term sits in their
+second-law bounds.
+
+AFTER
+A related logarithm appears in a different physical question. Y\^uto Murashita,
+Ken Funo and Masahito Ueda (2014) study processes whose reverse histories can include
+ones with no forward counterpart. They call this \emph{absolute irreversibility}.
+If those reverse histories have total probability $\lambda$, their bound on mean
+entropy production contains $-\ln(1-\lambda)$. In their free-expansion example, gas
+initially confined to a fraction $l$ of a box gives $\ln(1/l)$.
+
+Setting $l=m/(m+k)$ gives the same logarithm as the squeeze bound. That numerical
+match does not identify two physical processes. Our arrows specify neither a
+thermodynamic reverse experiment nor its path probabilities, so they do not determine
+$\lambda$. We cannot infer absolute irreversibility, its absence, or a heat equality
+from the state count alone. Gonzalo Manzano, G\"ulce Karde\c{s}, \'Edgar Rold\'an and
+David Wolpert (2024) study such trajectory-level questions for computations with
+one-way transitions and random stopping times. Their physical premises are additional
+to the counting done here.
+
+49. door_three_price_scope
+Reason: Remove remaining identification of pairwise merge price with full worst-case Landauer charge.
+
+BEFORE
+So the premise is Landauer's
+claim taken in its worst case over what the machine might be holding, and that's the
+version the counting needs.
+
+AFTER
+Merge pricing keeps only a yes-or-no distinction: whether any pair can merge. It is
+motivated by the one-bit reset, but does not itself measure the full worst-case entropy
+loss or the heat of a particular preparation. The counting needs that abstract price rule.
+
+50. known_state_preparation
+Reason: Observer knowledge alone does not change thermodynamics; distinguish physical ensemble and conditional information.
+
+BEFORE
+The principle
+charges for \emph{uncertainty removed}. The shape of the move doesn't enter.
+
+AFTER
+The entropy-loss bound depends on the preparation and on what the move does to it.
+Here ``known'' means a preparation concentrated on one logical state, or a conditional
+ensemble whose side information is explicitly included in the account. Merely telling a
+spectator which way the coin landed does not change an unchanged device's heat.
+
+51. summary_k_merges
+Reason: Count lost distinguishable alternatives, not which individual states collide.
+
+BEFORE
+forgets something, and a move that raises k states collapses at least k of them.
+
+AFTER
+has a collision somewhere. If it raises $k$ distinct no-states, the yes-states together
+with those newcomers have at least $k$ fewer distinct outputs than inputs. This does
+not say that each newcomer shares its destination.
+
+52. quantum_recurrence_scope
+Reason: Do not identify approximate quantum recurrence with finite-state exact pigeonhole argument.
+
+BEFORE
+The quantum version came in 1957, when P. Bocchieri and A. Loinger proved the same return
+for a closed quantum system whose energies come in separate levels, so going quantum isn't a way
+out of the room either, not for a closed system that never sheds anything.
+
+AFTER
+A quantum recurrence result came in 1957, when P. Bocchieri and A. Loinger proved
+returns arbitrarily close to the initial state under their conditions on a closed
+quantum system. That is a neighbouring recurrence argument, not this finite-state proof:
+even a finite-dimensional quantum system has continuously many states. Applying it to a
+physical record requires saying how that record is read and how robustly it distinguishes
+nearby states.
+
+53. intro_permanent_price
+Reason: Front matter must not infer price from finiteness alone.
+
+BEFORE
+A finite machine pays to
+keep anything for good, and that's the chairs, still to come.
+
+AFTER
+On a finite machine, writing a record that stays up forces the instruction to merge
+some states. Charging for that merge is a further premise. Those are the chairs and the
+price rule, still to come.
+
+54. intro_bennett_steps
+Reason: Avoid universal overhead constant and total-physical-cost inference.
+
+BEFORE
+It costs about twice the steps and a lot of scratch paper, and that's all it costs.
+
+AFTER
+It takes a forward run, a copy of the answer and a backward run, with scratch space for the history.
+
+55. intro_bennett_bill
+Reason: Absence of entropy-loss lower bound does not exhaust physical costs.
+
+BEFORE
+the steps and the scratch paper are the whole bill.
+
+AFTER
+the construction accounts for steps and scratch space, without establishing zero heat for a physical implementation.
+
+56. intro_heat_scope
+Reason: Early explanation must distinguish existence of collision from positive average loss for chosen preparation.
+
+BEFORE
+and if Landauer's right, a merge costs heat whenever the machine doesn't already know which of the
+merged states it was in. So on that assumption, a device that has to settle things correctly
+without knowing its own state ahead of time can't do it for free.
+
+AFTER
+and under the adopted Landauer premise a preparation giving positive probability to
+both members of a colliding pair has a positive mean heat bound. The instruction's collision
+is one fact; which starts actually occur, and the physical device's heat, are further facts.
+
+57. intro_information_scope
+Reason: Algorithmic information of equal outputs does not make history noninformational.
+
+BEFORE
+The difference isn't information; information theory says the sort added nothing new.
+
+AFTER
+It isn't a difference in the algorithmic information of the final list: the list is the
+same. A retained record of the runs would be additional information, and these two machines
+kept none.
+
+58. intro_final_heat_scope
+Reason: Propagate ensemble dependence to opening conclusion.
+
+BEFORE
+If Landauer's
+right, that costs, for any device that has to settle things without already knowing which state
+it's in.
+
+AFTER
+A preparation that actually loses uncertainty through that merge has a mean heat bound
+under the physical premise. The merge by itself does not give every run that bill.
+
+59. intro_log_scope
+Reason: Conventional software monitors can enforce guarantees across many programs.
+
+BEFORE
+A log kept by one program
+covers only that one.
+
+AFTER
+A log a program can freely write does not by itself supply that guarantee.
+
+60. short_price_scope
+Reason: Correct short-version conflation of abstract and physical price.
+
+BEFORE
+If merging is charged for, the way Landauer's
+principle charges for it in its worst case, the rule follows.
+
+AFTER
+If every merging instruction is charged at least one mark, the rule follows.
+That is an abstract price on the instruction; a physical heat bound also needs the
+input distribution and the device premises.
+
+61. short_machine_usage
+Reason: Parts II–III explicitly apply record-layer merge and other results to concrete machine.
+
+BEFORE
+Parts I to III never use my
+machine; every claim in them is about any system with the pieces it names, and the pictures
+are toys.
+
+AFTER
+Parts I to III develop the abstract arguments and their examples. They also point ahead
+to instances and limits on the machine built in Part IV.
+
+62. ledger_partition_uniformity
+Reason: Propagate uniform-over-keys quantifier to ledger.
+
+BEFORE
+entitles exactly the groupings that refine it & proved
+
+AFTER
+entitles, uniformly over keys, exactly the groupings that refine it & proved
+
+63. ledger_time_tax_view
+Reason: Lower bound concerns specified output observation, not direct inspection of A.
+
+BEFORE
+no free program of fewer than $m$ moves decides $A \ge m$,
+
+AFTER
+no free program of fewer than $m$ moves decides $A \ge m$ from its final line and $B$,
+
+64. ledger_reversible_scope
+Reason: Finiteness must cover the extended state space, not only the projected base.
+
+BEFORE
+A finite reversible base can't write a record & proved; an endless history can
+
+AFTER
+A finite reversible machine cannot raise a permanent reading & proved; an unbounded-history extension can
+
+65. ledger_nat_quantifiers
+Reason: Quantifier order: one substrate per candidate, not one substrate defeating all functions.
+
+BEFORE
+The nat family: every decider misses program two
+
+AFTER
+The nat family: each candidate decider misses program two in the instance built from it
+
+66. front_interface_scope
+Reason: The machine reading is fixed; exclusion quantifies over interfaces.
+
+BEFORE
+that no reading makes Thiele-complete
+
+AFTER
+that no interface makes Thiele-complete
+
+67. front_physics_table
+Reason: Propagate correct time-symmetry and entropy scope to comparison table.
+
+BEFORE
+a known state's reset has no Landauer floor under control timed from outside; time-symmetric control charges every nonreciprocal move
+
+AFTER
+the entropy-loss bound is zero for a point-mass input; further work bounds depend on control, reliability and input distribution
+
+68. front_irreversibility_table
+Reason: Logical noninvertibility alone does not specify absolute irreversibility.
+
+BEFORE
+a step with no way back has a logarithmic entropy floor
+
+AFTER
+absolute-irreversibility bounds require forward and reverse path probabilities
+
+69. front_kolmogorov
+Reason: Do not identify arbitrary structural organization with algorithmic complexity.
+
+BEFORE
+the structure in an object is the length of the
+shortest program that prints it.
+
+AFTER
+the description complexity of a string is the length of the
+shortest program that prints it, relative to a fixed description language.
+
+70. front_toll_merge
+Reason: Bare toll does not itself require permanence or noninjectivity.
+
+BEFORE
+where
+the toll's commit is a deterministic merge that stays.
+
+AFTER
+where
+the toll prices a deterministic no-to-yes transition. Finiteness and permanence are the
+additional conditions that force its instruction to merge states.
+
+71. glossary_shifts
+Reason: Qualify finite-width and unsigned arithmetic.
+
+BEFORE
+A shift moves
+every bit left or right, which multiplies or divides by a power of two.
+
+AFTER
+A logical shift moves
+bits left or right: for unsigned values it multiplies or divides by a power of two,
+discarding overflow on a fixed-width left shift and rounding down on a right shift.
+
+72. glossary_simulation_encoding
+Reason: Computable presentation needs encodable states, not merely an abstract step.
+
+BEFORE
+a Turing machine simulates any system of the model
+whose step a program can compute, my machine included, by writing the whole state out on its tape,
+
+AFTER
+a Turing machine can simulate a system with effective finite encodings of its states and moves
+and a computable step on those encodings, my small machine included, by representing its state on tape,
+
+73. glossary_instance_simulation
+Reason: Being an instance does not preclude simulation.
+
+BEFORE
+it's an instance of the
+model, and it simulates nothing.
+
+AFTER
+it directly satisfies the
+model's rule. Whether it also simulates another machine is a separate question.
+
+74. glossary_landauer_average
+Reason: Propagate ensemble heat and physical model condition.
+
+BEFORE
+gives off
+at least Boltzmann's constant times the temperature times the natural log of two in heat per
+bit.
+
+AFTER
+gives off mean heat
+at least Boltzmann's constant times the temperature times the natural log of two per bit,
+under a physical model relating that logical entropy to the memory's thermodynamic entropy.
+
+75. glossary_recursion_equivalence
+Reason: Functional fixed point is not full operational equivalence.
+
+BEFORE
+some program behaves exactly like its own
+transform.
+
+AFTER
+some program computes the same partial function as its own
+transform. Its timing, storage and records need not agree.
+
+76. glossary_crypto_hash
+Reason: Collision resistance belongs to cryptographic hashes, not every hash function.
+
+BEFORE
+A hash is a short fingerprint of a longer piece of data, made so
+
+AFTER
+A cryptographic hash is a short fingerprint of a longer piece of data, made so
+
+77. glossary_early_parts
+Reason: Avoid false blanket claim that earlier parts contain only general results.
+
+BEFORE
+Parts I to III live there, and every claim in them
+is about any system with the pieces it names.
+
+AFTER
+Parts I to III develop those general arguments, alongside particular examples
+and applications to the later machine.
+
+78. glossary_property_forms
+Reason: Ge(n) denotes infinitely many properties, not one of three total properties.
+
+BEFORE
+the properties come from a fixed language of three,
+
+AFTER
+the properties come from a fixed language with three forms,
+
+79. contributions_reverse_scope
+Reason: Propagate corrected thermodynamic-reversal comparison.
+
+BEFORE
+The match is a mirror image. It isn't a special case of their bound: the squeeze is ordinary Landauer heat, whose logarithm
+equals their bound for the free expansion that undoes it, and absolute irreversibility reaches
+the commit itself only on a fixed-rate device starting from a known state.
+
+AFTER
+The logarithms coincide for the stated counts. This does not supply a physical reverse
+process: absolute irreversibility needs forward and reverse path probabilities that the
+logical map alone does not specify.
+
+80. contributions_price_scope
+Reason: Separate adopted abstract price from physical law.
+
+BEFORE
+and the price is
+Landauer's, as a premise).
+
+AFTER
+and the price is
+an abstract premise motivated by Landauer's reset).
+
+81. contributions_memory_scope
+Reason: Avoid false universal assertion that conventional programs can access all memory.
+
+BEFORE
+An ordinary programmable computer, as built, doesn't do this for the programs it runs, because
+the code beside a program shares its memory and can flip anything; $U$ is a fixed interpreter
+that does.
+
+AFTER
+Code that shares unprotected memory with a record can overwrite it. Ordinary computers
+can also isolate memory and enforce rules through monitors. The claim here is the specific
+simulation and record guarantee proved for the fixed interpreter $U$.
+
+82. contributions_structural_question
+Reason: Keep broad proposal distinct from selected certification example; avoid claiming priority on general question.
+
+BEFORE
+What's mine is the question (should an
+account of computation carry what was certified and what certifying cost, as part of how it
+steps),
+
+AFTER
+The question organizing this book is what structural relations an account of computation
+should carry in its state and step, with certification and its price as the worked case,
+
+83. ledger_direction_shadow
+Reason: Add missing principal results of direction and exact-shadow chapters to claim ledger.
+
+BEFORE
+A growing record is a family of latches & definition; proved, and one latch isn't enough & Section~\ref{sec:latch}, Definition~\ref{def:u11-growing}, Theorem~\ref{thm:u11-growing} \\
+
+AFTER
+A growing record is a family of latches & definition; proved, and one latch isn't enough & Section~\ref{sec:latch}, Definition~\ref{def:u11-growing}, Theorem~\ref{thm:u11-growing} \\
+A chain of $n+1$ stages needs $n$ write-once Boolean cups & proved; ordinary rewritable binary storage is a different question & Section~\ref{sec:direction}, Theorem~\ref{thm:dir-bits} \\
+A window can price rises exactly without determining the record value & proved, under the collision and decidability conditions stated there & Section~\ref{sec:shadow-exact}, Theorem~\ref{thm:dir-window} \\
+With an injective shadow step, merged states lie in one shadow fibre & proved; the shadow-injectivity premise is needed & Section~\ref{sec:shadow-exact}, Theorem~\ref{thm:dir-fibre} \\
+Halving pricing bounds weighted conditional entropy; an infinite landing pile admits no finite halving price & proved; average loss still depends on the distribution & Section~\ref{sec:shadow-exact}, Theorems~\ref{thm:dir-bits-loss} and~\ref{thm:dir-infinite} \\
+
+84. opening-input-preparation
+Reason: Keep preparation-dependent physical heat separate from preparation-independent instruction pricing.
+
+BEFORE
+And the heat isn't owed by every run. Landauer's principle, in the general form Part II adopts,
+charges for what you didn't know, so for one run from a known start, with its controls timed from
+outside, the premise supplies no positive heat floor (which doesn't show the device gives off none); the floor
+bites for a device that has to cope with states it can't tell apart, which is how devices get
+built (Theorem~\ref{thm:known-state}). The toll still charges its mark on that run, because the
+toll is a rule about the move, and the move doesn't know who's watching.
+
+AFTER
+And the heat isn't owed by every run. Landauer's principle, in the general form Part II adopts,
+bounds mean heat by the uncertainty actually removed from the prepared inputs. For a deterministic
+run from a known start, it supplies no positive heat floor; that doesn't show the device gives off
+none (Theorem~\ref{thm:known-state}). Preparing both members of a colliding pair can give a
+positive floor. The ledger toll still charges its mark on a known run, because merge pricing
+prices the instruction regardless of which input was prepared. That is a premise of the ledger,
+not another conclusion about heat.
+
+85. ladyman-scope
+Reason: A physical result under L-machine assumptions does not imply the abstract merge-pricing rule.
+
+BEFORE
+of their L-machines. That's the merge-pricing premise with an argument under it, and if you want
+to argue with the premise, that's the paper to argue with.
+
+AFTER
+of their L-machines. That's a physical argument under their stated model of a machine.
+It deserves to be argued with on those terms; it does not by itself establish the book's
+whole-number ledger charge.
+
+86. surroundings-heat-scope
+Reason: Information transferred to another memory is not necessarily heat; distinguish heat transfer, total entropy production, and input uncertainty.
+
+BEFORE
+Read that way, Landauer's premise is the claim that pushing a distinction out of a finite
+machine into its surroundings costs heat, and that's all it claims. Which also means the bill
+is heat \emph{handed over}. None of it has to be heat \emph{wasted}. Takahiro Sagawa's 2014
+analysis says that a step
+that forgets can, in principle, be run slowly enough that no entropy is produced overall: the
+heat leaves the machine, the room's entropy goes up by what the machine's went down, and
+nothing is lost that didn't have to be. So on the premise the forgetting step can't be free,
+but it doesn't have to be wasteful. When I call it a cost, I mean a transfer you can't avoid.
+None of it is a loss you could have engineered away.
+
+AFTER
+The heat claim needs more than moving a distinction outside the machine: another memory
+could retain it. Under the physical conditions used here, when resetting removes actual
+uncertainty into a thermal reservoir, Landauer bounds the mean heat handed over. None of
+that heat has to be heat \emph{wasted}. Takahiro Sagawa's 2014 analysis says that erasure
+can, in principle, approach a process that produces no entropy overall: the reservoir's
+entropy goes up by what the machine's goes down. A positive mean heat transfer can therefore
+be unavoidable without being wasteful. A known input has no uncertainty to remove, and
+this entropy-loss premise alone sets no positive heat floor for it.
+
+87. device-envelope-quantifier
+Reason: State the existential worst-case preparation explicitly instead of implying a uniform physical cost.
+
+BEFORE
+So here's what this section actually earns.
+A device with finitely many states that has to raise a flag and keep it up
+correctly \emph{from every state it might be
+in}, including states where it can't tell whether the
+flag is already up, can't do it for
+free at any temperature above zero, on Landauer's premise; that's the design envelope, the worst case. For a particular run from
+a known start, that premise supplies no positive heat floor, even when the flag rises.
+Whether a device can attain zero heat also depends on its dynamics and controls. What stays forced in every case is the toll as a
+rule about the move, because the rule can't ask what the run knows. Wherever this book says
+that settling something for good can't be free if Landauer's right, it means the device
+sentence. It never means the run sentence.
+
+AFTER
+So here's what this section actually earns. A finite machine's permanent flag-raising
+instruction has two allowed starting states that land on one state. Prepare those two
+with equal chances: that instruction removes one bit, and under the adopted physical
+premise its mean heat is at least $k_B T\ln2$. That is a worst-case preparation, not a
+positive charge on every execution. A known start gives no positive entropy-loss floor;
+whether a device can attain zero heat also depends on its dynamics and controls. The
+ledger charges the merging instruction regardless of the preparation because merge
+pricing explicitly requires that. The counting proves a collision, the preparation
+determines the uncertainty removed, and the physical premises connect that removal to heat.
+
+88. relaxation-scope
+Reason: Separate stochastic total entropy production from heat and deterministic logical entropy; remove unsupported identification with absolute irreversibility and time-symmetric control; distinguish ratio from absolute lifetime.
+
+BEFORE
+And one limited piece of the chances-and-time-spans version, set in continuous time and checked
+in all but one step,
+because it shows exactly where the known-state escape stops. Take a device with no outside hand
+at all: a little random process hopping among finitely many states at rates that never change,
+with the usual physical conditions (every hop has a reverse hop, and the rates obey local
+detailed balance), able to get from any state to any other. Left to run, it settles into a
+long-run spread $\pi$ and spends stretches with the flag up and stretches with it down; call
+their mean lengths $T_{\mathrm{up}}$ and $T_{\mathrm{down}}$. Start it in a no-state you know.
+Then the entropy it produces from then on is at least $\ln\bigl(1 + T_{\mathrm{up}}/T_{\mathrm{down}}\bigr)$,
+in units of $k_B$. The argument is three lines once the pieces have names. With fixed rates, the
+entropy produced is at least the drop in relative entropy between the device's spread and
+$\pi$; that's half of Massimiliano Esposito and Christian Van den Broeck's split of entropy
+production (2010). A start known to be in state $s$ has relative entropy $-\ln\pi(s)$, which is
+at least $-\ln\pi(\mathrm{no})$, where $\pi(\mathrm{no})$ is the long-run chance of the flag being
+down, and the relative entropy runs down to zero as the device settles. And the long-run
+chances of up and down stand in the ratio of the mean stretch lengths, because the crossings up
+and the crossings down balance, so $-\ln\pi(\mathrm{no}) = \ln\bigl(1 + T_{\mathrm{up}}/T_{\mathrm{down}}\bigr)$.
+Read it this way: each doubling of how long the record stays up, against how long it sits down,
+costs about one more $k_B\ln 2$, and a record that stays up forever on a fixed-rate device costs
+without bound. That's Murashita, Funo and Ueda's absolute irreversibility landing on the flip
+at last, with $1-\lambda$ the long-run chance of the starting state. It isn't new physics:
+nothing in it needs a record, since an autonomous reset to a fixed state obeys the same bound,
+and the time-symmetric-control result above covers the same ground with an error rate in place
+of the time ratio. And it isn't the theorem I said I didn't have. It's a first honest step
+toward it, and it pins down where ``the premise sets no heat floor for a known state'' needs its outside clock.
+
+AFTER
+There is also a limited statement about how long a noisy record lasts, using a different
+quantity: total entropy production during relaxation. Take a device with no outside hand:
+a random process hopping among finitely many states at rates that never change, with a
+reverse for every hop and local detailed balance, able to get from any state to any other.
+Require at least one up-state and one down-state. Left to run, it settles into a long-run
+spread $\pi$. Measure each up or down stretch from its entrance, with entrances sampled
+in the stationary process, and call the mean lengths $T_{\mathrm{up}}$ and
+$T_{\mathrm{down}}$. Start the device in a known no-state $s$. The total entropy it
+produces over relaxation is at least
+$\ln(1+T_{\mathrm{up}}/T_{\mathrm{down}})$, in units of $k_B$.
+
+The argument is three lines once the pieces have names. With fixed rates, total entropy
+production is at least the drop in relative entropy to $\pi$; that follows from
+Massimiliano Esposito and Christian Van den Broeck's split of entropy production (2010).
+A known start $s$ has relative entropy $-\ln\pi(s)$, at least $-\ln\pi(\mathrm{no})$,
+and the relative entropy runs down to zero as the device settles. The stationary chances
+of up and down have the ratio of their mean stretch lengths, because crossings up and
+down balance. Hence $-\ln\pi(\mathrm{no})=\ln(1+T_{\mathrm{up}}/T_{\mathrm{down}})$.
+
+For a large up-to-down ratio, doubling that ratio raises this lower bound by about
+$k_B\ln2$. Making both stretches longer by the same factor leaves it unchanged. Across
+a family of devices whose ratio tends to infinity, the bound diverges; no single finite
+irreducible device in this class keeps its flag up forever. This is a relaxation bound,
+not a heat charge on each flip. It uses neither a thermodynamic reverse-path construction
+nor time-symmetric control, so it does not identify the quantities in those other results.
+It also does not close the known-input escape from the deterministic entropy-loss bound:
+this noisy evolution and its total entropy production are a different question.
+
+89. relaxation-exact-quantity
+Reason: Name the quantity and exact bound instead of calling it a generic price.
+
+BEFORE
+exact price of the whole relaxation, and the bound is reached.
+
+AFTER
+exact total entropy production of the whole relaxation, in units of $k_B$, and the
+bound $-\ln\pi(s)$ is reached.
+
+90. leaving-time-units
+Reason: Correct the units in the backward equation for mean exit times.
+
+BEFORE
+up-states times their leaving times, comes to exactly one second.
+
+AFTER
+up-states times their leaving times, comes to exactly one. Rates measured per second
+times times measured in seconds give a dimensionless one.
+
+91. narrowing-price-premise
+Reason: Carry the pricing premise and operation-level quantifier into the next chapter.
+
+BEFORE
+forgetting: on a finite machine, a flag
+that stays up was paid for because raising it merged two states.
+
+AFTER
+forgetting: under merge pricing, a finite machine's permanent flag-raising instruction
+was paid for because it merges two states somewhere.
+
+
+PART II — COMPLETION AUDIT
+
+1. README.md
+Remove proof-tool status badges from the opening; retain technical audit details in their section.
+BEFORE
+[![Coq](https://img.shields.io/badge/Coq-0%20project--local%20axioms-EF4135?logo=coq&logoColor=white)](coq/)
+
+AFTER
+
+
+2. README.md
+Remove proof-tool status badges from the opening; retain technical audit details in their section.
+BEFORE
+[![Inquisitor](https://img.shields.io/badge/Inquisitor-0%20HIGH%20or%20MEDIUM%2C%201%20LOW%20%28169%20files%2C%20Oct%206%202026%29-brightgreen)](INQUISITOR_REPORT.md)
+
+AFTER
+
+
+3. README.md
+Separate physical heat from instruction accounting.
+BEFORE
+The event's physical cost comes in only under Landauer's principle, as a named premise: Rolf Landauer, a physicist at IBM, argued in 1961 that a computer has to give off heat whenever it throws information away, and I take that as an assumption with his name on it.
+AFTER
+A physical heat bound needs the input distribution and explicit thermodynamic premises. The adopted form of Landauer's principle bounds mean heat by the uncertainty actually removed; the abstract ledger is a separate price rule.
+
+4. README.md
+Align headline with the corrected theorem and distinguish physical from mathematical examples.
+BEFORE
+2. **Establishing is not free.** If the step that turns uncertified into certified has to pay, every run from uncertified to certified has paid. Proved, for any system that follows that rule. The rule isn't arbitrary: on a machine with finite memory, a certificate that can never be revoked can only be switched on by a step that merges two states, and merging is what Landauer's principle charges for whenever the machine could be in either state. Proved in [PermanentCertification.v](coq/kernel/nfi/PermanentCertification.v), with Landauer's principle as the named premise. The heat comes from that uncertainty: a machine already known to be in one state loses nothing, and [PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v) proves both sides. A finite machine with eight states meets both premises, and both are theorems about it ([FiniteCertMachine.v](coq/kernel/nfi/FiniteCertMachine.v)).
+AFTER
+2. **The price has stated premises.** If a step that turns uncertified into certified has to pay, every run from uncertified to certified has paid. On a finite machine with a permanent reading, an instruction that raises it merges some whole states; the newly entering state need not be one of that colliding pair. Charging every merging instruction at least one mark therefore yields the toll ([PermanentCertification.v](coq/kernel/nfi/PermanentCertification.v)). This is an abstract pricing premise. A physical heat bound additionally depends on the prepared inputs and thermodynamic conditions: a known deterministic start loses no logical entropy, whereas an equal mixture of a colliding pair loses one bit ([PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v)). The eight-state example meets the finite-state and abstract pricing conditions ([FiniteCertMachine.v](coq/kernel/nfi/FiniteCertMachine.v)); that does not measure a device's heat.
+
+5. README.md
+Do not identify an abstract all-distribution rule with physical Landauer heat.
+BEFORE
+(Landauer's principle in counting form)
+AFTER
+(the halving-price premise)
+
+6. README.md
+An arbitrary account need not obey a physical law.
+BEFORE
+Whether every account has to price merges is physics.
+AFTER
+Which physical devices meet a thermal bound is a further question; an abstract price list is chosen.
+
+7. README.md
+Correct the premise of forced-pricing characterization.
+BEFORE
+Proved, with Landauer's principle as the named premise. The guess
+AFTER
+Proved under merge pricing. The guess
+
+8. README.md
+Remove obsolete badge reference and clarify the role of verification.
+BEFORE
+The badge says project-local, and that is the precise claim.
+AFTER
+This is a report about the formal derivations, not a premise or a source of authority for the argument.
+
+9. README.md
+Do not make tool output a prerequisite for assessing the argument.
+BEFORE
+**The output of these two commands is the ground floor for any review, human or AI.**
+**An assessment without it has read the prose and left the repository unchecked.**
+AFTER
+These commands check the companion implementation and its formal dependencies. The standalone argument is in the book.
+
+10. README.md
+Remove the misleading implication that no reported axioms means no substantive premises.
+BEFORE
+Ten theorems fall out of that, and every one ends with `Print Assumptions` reporting `Closed under the global context`.
+Zero axioms.
+Zero `Admitted`.
+If a theorem were leaning on a hidden assumption, that line would rat it out and `make verify` would stop.
+It doesn't.
+AFTER
+The file checks ten consequences of those definitions. `Print Assumptions` reports formal dependencies; it does not remove hypotheses inside a theorem or establish that the definitions describe a physical machine.
+
+11. README.md
+Keep repository directions without proof-tool triumphalism.
+BEFORE
+It compiles [minimal/Napkin.v](minimal/Napkin.v) too: the three-line napkin argument written out as seven theorems, each closing the same way, zero axioms.
+The napkin holds. It also compiles.
+AFTER
+It also checks [minimal/Napkin.v](minimal/Napkin.v), which spells out the short counting argument and its consequences.
+
+12. README.md
+The toll alone does not enforce a semantic checker.
+BEFORE
+so there is no separate checker to skip.
+AFTER
+so a permitted step cannot bypass that charge. A separate soundness condition is needed to establish what a claim means.
+
+13. README.md
+Correct average terminology in the exact-shadow summary.
+BEFORE
+the bill in bits is, on average, never less than what was collapsed
+AFTER
+the instruction price bounds the weighted conditional entropy lost inside the fibres
+
+14. README.md
+Clarify the specific finite-lever obstruction rather than implying ordinary finitely branching universal machines cannot lift.
+BEFORE
+finitely branching and stateless bases never lift
+AFTER
+bases with uniformly finite instruction branching, and bases whose moves ignore their state, fail the stated universal-base requirement
+
+15. THIELE_MACHINE.txt
+Separate the pricing assumptions.
+BEFORE
+That premise is Landauer's principle in its worst case, counted in merged states.
+AFTER
+That is an abstract whole-number price on instructions. It is weaker than worst-case entropy pricing and is not itself a heat law.
+
+16. THIELE_MACHINE.txt
+Correct quantitative pricing premise.
+BEFORE
+Landauer's principle in counting form
+AFTER
+the halving-price premise
+
+17. THIELE_MACHINE.txt
+Correct premise and instruction-level quantifier.
+BEFORE
+Price every merging step at one or more, as Landauer's principle does in the worst case over what the machine might hold, and A2 follows
+AFTER
+Price every merging instruction at one or more, as the merge-pricing premise requires, and A2 follows
+
+18. THIELE_MACHINE.txt
+Retaining a overwritten value elsewhere can make the full operation injective.
+BEFORE
+Pricing every merge would charge every overwrite, and whether every account must do that is the physics question.
+AFTER
+Merge pricing charges an overwrite only when its full-state map merges states. A physical heat bound additionally needs an input distribution and thermodynamic premises.
+
+19. THIELE_MACHINE.txt
+A one-mark lower bound is not a count of all lost states.
+BEFORE
+The units count merged states.
+AFTER
+The units are ledger marks, not a count of merged states.
+
+20. THIELE_MACHINE.txt
+Avoid unqualified implementation claim and Coq as its authority.
+BEFORE
+What is added is the link for every implementation of a certificate that lasts, checked in Coq.
+AFTER
+The counting establishes the link for any finite full-state model with a permanent reading. It guarantees a collision somewhere, not necessarily at the newly entering state.
+
+21. THIELE_MACHINE.txt
+Heat is an ensemble bound.
+BEFORE
+the flip from the uniform distribution dissipates at least
+AFTER
+the instruction on the uniform input distribution has mean heat at least
+
+22. THIELE_MACHINE.txt
+Avoid no-positive-lower-bound/zero-heat ambiguity.
+BEFORE
+so the premise forces no heat (`known_state_flip_forces_no_heat`).
+AFTER
+so the premise supplies no positive heat floor (`known_state_flip_forces_no_heat`); it does not establish zero actual heat.
+
+23. TECHNICAL_DISCLOSURE.md
+Propagate the corrected scope into the technical disclosure.
+BEFORE
+The merge price stands for Landauer's principle as a named premise, in the worst case over the machine's state distribution: a merge removes entropy only when the machine could be in more than one of the merged states, and a state known in advance owes no heat. For a point mass the premise is equivalent to heat ≥ 0 (`known_state_flip_forces_no_heat`).
+AFTER
+Merge pricing is an abstract rule on instructions, weaker than full worst-case entropy pricing. It is not identical to Landauer's heat bound. A collision somewhere in the instruction need not involve the newly certified state. A physical bound concerns the uncertainty removed from the prepared distribution under the stated thermodynamic conditions. For a point mass the adopted entropy-loss premise is equivalent to mean heat ≥ 0 (`known_state_flip_forces_no_heat`), supplying no positive lower bound and no guarantee of zero heat.
+
+24. monograph/thiele_machine_math_spec.tex
+Restore the mu=1 qualifier from the actual theorem.
+BEFORE
+For every state type and natural-number ledger, two real-valued scales agree on the ledger and differ in energy; the ledger fixes no energy unit.
+AFTER
+For every state type and natural-number ledger, the energy assignments at scales 1 and 2 give values 1 and 2 respectively at every state whose ledger is 1. This is conditional on such a state; an identically zero ledger need not yield different energies. The ledger fixes no energy unit.
+
+25. monograph/thiele_machine_math_spec.tex
+Clarify the known-input result.
+BEFORE
+so it forces no heat (\texttt{known\_state\_flip\_forces\_no\_heat}).
+AFTER
+so it supplies no positive lower bound; it does not prove zero device heat (\texttt{known\_state\_flip\_forces\_no\_heat}).
+
+26. monograph/thiele_machine_math_spec.tex
+State the ensemble interpretation of Q.
+BEFORE
+the premise reads this as heat at least
+AFTER
+the premise reads this as mean heat at least
+
+27. monograph/thiele_machine_math_spec.tex
+Distinguish the whole instruction from the particular flipping input.
+BEFORE
+the flip dissipates, when
+AFTER
+the instruction has mean heat, when
+
+28. docs/THEOREM_MEANINGS.md
+Distinguish code length from successful-path runtime.
+BEFORE
+The ladder of m DEC moves, after m moves,
+AFTER
+The ladder of m DEC/INC pairs (2m stored instructions), after m executed moves,
+
+29. docs/THEOREM_MEANINGS.md
+The zero ledger result requires zero starting ledger.
+BEFORE
+The ladder of m DEC moves, compiled to the small machine, has ledger 0 after every number of steps from every start.
+AFTER
+The ladder of m DEC/INC pairs, compiled to the small machine, has ledger 0 after every number of steps from each clean start.
+
+30. docs/THEOREM_MEANINGS.md
+Distinguish fixed traces from trapping stored-program execution.
+BEFORE
+The paid chain CHECK "A at least m", COMMIT, CERTIFY has three moves, a ledger of exactly 3, and raises the flag exactly when A is at least m.
+AFTER
+The fixed instruction trace CHECK "A at least m", COMMIT, CERTIFY has three moves, a ledger of exactly 3 from a clean start, and ends with its flag up exactly when A is at least m. A stored program stops fetching after a failed CHECK and then pays only 1.
+
+31. docs/THEOREM_MEANINGS.md
+Preserve restricted observation and trace semantics.
+BEFORE
+no free program of fewer than m moves decides whether A is at least m, the ladder decides in m moves at ledger 0, the paid chain decides at ledger 3,
+AFTER
+no final observation of just the program counter and B after fewer than m free moves decides whether A is at least m, the ladder decides in m moves at ledger 0 from a clean start, and the fixed paid trace decides at ledger 3,
+
+32. monograph/monograph.tex
+The cited Justice Department primary document is dated October 2 and describes a complaint, not the later indictment.
+BEFORE
+Press release, 31 October 2002, on the indictment of Andrew Fastow;
+AFTER
+Press release, 2 October 2002, on the criminal complaint against Andrew Fastow;
+
+33. monograph/monograph.tex
+Use the actual article title displayed by the cited publisher.
+BEFORE
+Kent Weare (2016). Ethereum DOS Attack. InfoQ, 19 September 2016.
+AFTER
+Kent Weare (2016). Ethereum Security Alert Issued, Ethereum Foundation Responds with ``From Shanghai, With Love. InfoQ, 19 September 2016.
+
+34. monograph/monograph.tex
+Remove a confirmed dead author-page link; retain the journal citation and attribution.
+BEFORE
+\href{https://faculty.lynchburg.edu/~nicely/twins/twins.html}{Author's page}. 
+AFTER
+
+
+35. monograph/thiele_machine_math_spec.tex
+The obstruction excludes effective translations, not arbitrary set-theoretic functions.
+BEFORE
+and a halting-preserving translation of two-counter instances into one-counter instances would make it decidable
+AFTER
+and a computable halting-preserving translation of two-counter instances into one-counter instances would make it decidable
+
+36. monograph/thiele_machine_math_spec.tex
+State the direct-interface restriction; the macro lift permits ordinary finite instruction sets.
+BEFORE
+A base whose moves have only finitely many different effects at each state (one with finitely many moves, for instance), or one whose step ignores the current state, lifts to no Thiele-complete machine under any claim language and capacity
+AFTER
+A base whose moves have only finitely many different effects at each state (one with finitely many moves, for instance), or one whose step ignores the current state, lifts to no Thiele-complete machine under any claim language and capacity through the direct one-move interface. This does not exclude grouping several base steps into one macro move
+
+37. TECHNICAL_DISCLOSURE.md
+Keep the universal-program claim within the loading and clean-start theorem.
+BEFORE
+it runs every program of the small machine from every start (`U_simulation`)
+AFTER
+it runs every program of the small machine from every clean start start(x, y), through the prescribed host loading (`U_simulation`)
+
+38. TECHNICAL_DISCLOSURE.md
+A finite base alone does not exclude unbounded hidden history.
+BEFORE
+with finite memory, a step that writes a permanent record is not injective
+AFTER
+when the whole extended state space is finite, an instruction that raises a permanent record is not injective
+
+39. docs/THEOREM_MEANINGS.md
+Make ensemble mean explicit in the theorem guide.
+BEFORE
+a flip of k > 0 states beside m certified ones, from the uniform distribution on those m + k states, dissipates at least
+AFTER
+an instruction flipping k > 0 states beside m certified ones, on the uniform input distribution over those m + k states, has mean heat at least
+
+40. monograph/monograph.tex
+The cited primary article supports Flyspeck and the refereeing history but not this attributed quotation; targeted searches did not establish its wording. Preserve the documented action without assigning unverified words or motivation to Hales.
+BEFORE
+Hales, in his own words, ``growing out of my frustration, in an effort to bypass
+the referees,'' started a project in 2003 to have the entire proof checked by a proof assistant.
+AFTER
+Hales started the Flyspeck project in 2003 to have the entire proof checked by proof assistants.
+
+41. README.md
+State the direct-interface restriction and the actual pointwise finite-branching hypothesis; this does not rule out ordinary finite instruction sets used through a macro interface.
+BEFORE
+bases with uniformly finite instruction branching, and bases whose moves ignore their state, fail the stated universal-base requirement
+AFTER
+bases with only finitely many possible next states at each state, and bases whose moves ignore their state, fail the direct one-move universal-base requirement (a macro interface can group several base steps)
+
+42. monograph/thiele_machine_math_spec.tex
+Keep theorem identifiers beside the statements they prove.
+BEFORE
+through the direct one-move interface. This does not exclude grouping several base steps into one macro move (\texttt{lift\_finite\_branching\_not\_complete}, \texttt{lift\_stateless\_not\_complete}).
+AFTER
+through the direct one-move interface (\texttt{lift\_finite\_branching\_not\_complete}, \texttt{lift\_stateless\_not\_complete}). This does not exclude grouping several base steps into one macro move.
+
+43. monograph/monograph.tex
+Add a checked, accessible primary-text link to the existing bibliography entry.
+BEFORE
+The passage on proof as an act is on p.~28.
+AFTER
+The passage on proof as an act is on p.~28. \href{https://archive-pml.github.io/martin-lof/pdfs/Meanings-of-the-Logical-Constants-1983.pdf}{Lecture text}.
+
+44. monograph/monograph.tex
+Add a checked, accessible primary-text link to the existing bibliography entry.
+BEFORE
+p.~338 of the chapter as posted on his website.
+AFTER
+p.~338 of the chapter as posted on his website. \href{https://www.tau.ac.il/~corry/publications/articles/pdf/bourbaki-structures.pdf}{Author's chapter}.
+
+45. monograph/monograph.tex
+Add a checked, accessible primary-text link to the existing bibliography entry.
+BEFORE
+Notices of the American Mathematical Society 55(11), pp. 1370--1379.
+AFTER
+Notices of the American Mathematical Society 55(11), pp. 1370--1379. \href{https://webhomes.maths.ed.ac.uk/~v1ranick/papers/hales2.pdf}{Article text}.
+
+46. monograph/monograph.tex
+Add a checked, accessible primary-text link to the existing bibliography entry.
+BEFORE
+is Note~5 to 2.41, p.~30.
+AFTER
+is Note~5 to 2.41, p.~30. \href{https://www.bipm.org/documents/20126/2071204/JCGM_200_2012.pdf}{BIPM text}.
+
+47. monograph/monograph.tex
+Add a checked, accessible primary-text link to the existing bibliography entry.
+BEFORE
+Oxford: Clarendon Press, 1922, p.~11.
+AFTER
+Oxford: Clarendon Press, 1922, p.~11. \href{https://www.gutenberg.org/cache/epub/33663/pg33663-images.html}{1922 translation}.
+
+48. monograph/monograph.tex
+Add a checked, accessible primary-text link to the existing bibliography entry.
+BEFORE
+Proceedings of the 21st Annual Computer Security Applications Conference (ACSAC), Tucson, pp. 28--40.
+AFTER
+Proceedings of the 21st Annual Computer Security Applications Conference (ACSAC), Tucson, pp. 28--40. \href{https://dwheeler.com/trusting-trust/wheelerd-trust.pdf}{Author's paper}.
+
+49. monograph/monograph.tex
+Add a checked, accessible primary-text link to the existing bibliography entry.
+BEFORE
+all p.~183; ``no guarantee that this minimum is in fact achievable,'' p.~187.
+AFTER
+all p.~183; ``no guarantee that this minimum is in fact achievable,'' p.~187. \href{https://fab.cba.mit.edu/classes/862.22/notes/computation/Landauer-1961.pdf}{Paper scan}.
+
+50. monograph/monograph.tex
+Add a checked, accessible primary-text link to the existing bibliography entry.
+BEFORE
+half of English ``determined by the structure of the language,'' p.~399.
+AFTER
+half of English ``determined by the structure of the language,'' p.~399. \href{https://www.csd.uoc.gr/~hy590-38/shannon1948.pdf}{Paper text}.
+
+51. monograph/thiele_machine_math_spec.tex
+Set the reference PDF metadata to its printed title and sole author, Devon Thiele.
+BEFORE
+\usepackage{hyperref}
+AFTER
+\usepackage{hyperref}
+\hypersetup{pdftitle={The Thiele Machine: A Mathematical Reference},pdfauthor={Devon Thiele}}

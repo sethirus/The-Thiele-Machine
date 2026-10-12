@@ -1,0 +1,308 @@
+[
+  {
+    "file": "README.md",
+    "before": "[![Coq](https://img.shields.io/badge/Coq-0%20project--local%20axioms-EF4135?logo=coq&logoColor=white)](coq/)\n",
+    "after": "",
+    "reason": "Remove proof-tool status badges from the opening; retain technical audit details in their section."
+  },
+  {
+    "file": "README.md",
+    "before": "[![Inquisitor](https://img.shields.io/badge/Inquisitor-0%20HIGH%20or%20MEDIUM%2C%201%20LOW%20%28169%20files%2C%20Oct%206%202026%29-brightgreen)](INQUISITOR_REPORT.md)\n",
+    "after": "",
+    "reason": "Remove proof-tool status badges from the opening; retain technical audit details in their section."
+  },
+  {
+    "file": "README.md",
+    "before": "The event's physical cost comes in only under Landauer's principle, as a named premise: Rolf Landauer, a physicist at IBM, argued in 1961 that a computer has to give off heat whenever it throws information away, and I take that as an assumption with his name on it.",
+    "after": "A physical heat bound needs the input distribution and explicit thermodynamic premises. The adopted form of Landauer's principle bounds mean heat by the uncertainty actually removed; the abstract ledger is a separate price rule.",
+    "reason": "Separate physical heat from instruction accounting."
+  },
+  {
+    "file": "README.md",
+    "before": "2. **Establishing is not free.** If the step that turns uncertified into certified has to pay, every run from uncertified to certified has paid. Proved, for any system that follows that rule. The rule isn't arbitrary: on a machine with finite memory, a certificate that can never be revoked can only be switched on by a step that merges two states, and merging is what Landauer's principle charges for whenever the machine could be in either state. Proved in [PermanentCertification.v](coq/kernel/nfi/PermanentCertification.v), with Landauer's principle as the named premise. The heat comes from that uncertainty: a machine already known to be in one state loses nothing, and [PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v) proves both sides. A finite machine with eight states meets both premises, and both are theorems about it ([FiniteCertMachine.v](coq/kernel/nfi/FiniteCertMachine.v)).",
+    "after": "2. **The price has stated premises.** If a step that turns uncertified into certified has to pay, every run from uncertified to certified has paid. On a finite machine with a permanent reading, an instruction that raises it merges some whole states; the newly entering state need not be one of that colliding pair. Charging every merging instruction at least one mark therefore yields the toll ([PermanentCertification.v](coq/kernel/nfi/PermanentCertification.v)). This is an abstract pricing premise. A physical heat bound additionally depends on the prepared inputs and thermodynamic conditions: a known deterministic start loses no logical entropy, whereas an equal mixture of a colliding pair loses one bit ([PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v)). The eight-state example meets the finite-state and abstract pricing conditions ([FiniteCertMachine.v](coq/kernel/nfi/FiniteCertMachine.v)); that does not measure a device's heat.",
+    "reason": "Align headline with the corrected theorem and distinguish physical from mathematical examples."
+  },
+  {
+    "file": "README.md",
+    "before": "(Landauer's principle in counting form)",
+    "after": "(the halving-price premise)",
+    "reason": "Do not identify an abstract all-distribution rule with physical Landauer heat."
+  },
+  {
+    "file": "README.md",
+    "before": "Whether every account has to price merges is physics.",
+    "after": "Which physical devices meet a thermal bound is a further question; an abstract price list is chosen.",
+    "reason": "An arbitrary account need not obey a physical law."
+  },
+  {
+    "file": "README.md",
+    "before": "Proved, with Landauer's principle as the named premise. The guess",
+    "after": "Proved under merge pricing. The guess",
+    "reason": "Correct the premise of forced-pricing characterization."
+  },
+  {
+    "file": "README.md",
+    "before": "The badge says project-local, and that is the precise claim.",
+    "after": "This is a report about the formal derivations, not a premise or a source of authority for the argument.",
+    "reason": "Remove obsolete badge reference and clarify the role of verification."
+  },
+  {
+    "file": "README.md",
+    "before": "**The output of these two commands is the ground floor for any review, human or AI.**\n**An assessment without it has read the prose and left the repository unchecked.**",
+    "after": "These commands check the companion implementation and its formal dependencies. The standalone argument is in the book.",
+    "reason": "Do not make tool output a prerequisite for assessing the argument."
+  },
+  {
+    "file": "README.md",
+    "before": "Ten theorems fall out of that, and every one ends with `Print Assumptions` reporting `Closed under the global context`.\nZero axioms.\nZero `Admitted`.\nIf a theorem were leaning on a hidden assumption, that line would rat it out and `make verify` would stop.\nIt doesn't.",
+    "after": "The file checks ten consequences of those definitions. `Print Assumptions` reports formal dependencies; it does not remove hypotheses inside a theorem or establish that the definitions describe a physical machine.",
+    "reason": "Remove the misleading implication that no reported axioms means no substantive premises."
+  },
+  {
+    "file": "README.md",
+    "before": "It compiles [minimal/Napkin.v](minimal/Napkin.v) too: the three-line napkin argument written out as seven theorems, each closing the same way, zero axioms.\nThe napkin holds. It also compiles.",
+    "after": "It also checks [minimal/Napkin.v](minimal/Napkin.v), which spells out the short counting argument and its consequences.",
+    "reason": "Keep repository directions without proof-tool triumphalism."
+  },
+  {
+    "file": "README.md",
+    "before": "so there is no separate checker to skip.",
+    "after": "so a permitted step cannot bypass that charge. A separate soundness condition is needed to establish what a claim means.",
+    "reason": "The toll alone does not enforce a semantic checker."
+  },
+  {
+    "file": "README.md",
+    "before": "the bill in bits is, on average, never less than what was collapsed",
+    "after": "the instruction price bounds the weighted conditional entropy lost inside the fibres",
+    "reason": "Correct average terminology in the exact-shadow summary."
+  },
+  {
+    "file": "README.md",
+    "before": "finitely branching and stateless bases never lift",
+    "after": "bases with uniformly finite instruction branching, and bases whose moves ignore their state, fail the stated universal-base requirement",
+    "reason": "Clarify the specific finite-lever obstruction rather than implying ordinary finitely branching universal machines cannot lift."
+  },
+  {
+    "file": "THIELE_MACHINE.txt",
+    "before": "That premise is Landauer's principle in its worst case, counted in merged states.",
+    "after": "That is an abstract whole-number price on instructions. It is weaker than worst-case entropy pricing and is not itself a heat law.",
+    "reason": "Separate the pricing assumptions."
+  },
+  {
+    "file": "THIELE_MACHINE.txt",
+    "before": "Landauer's principle in counting form",
+    "after": "the halving-price premise",
+    "reason": "Correct quantitative pricing premise."
+  },
+  {
+    "file": "THIELE_MACHINE.txt",
+    "before": "Price every merging step at one or more, as Landauer's principle does in the worst case over what the machine might hold, and A2 follows",
+    "after": "Price every merging instruction at one or more, as the merge-pricing premise requires, and A2 follows",
+    "reason": "Correct premise and instruction-level quantifier."
+  },
+  {
+    "file": "THIELE_MACHINE.txt",
+    "before": "Pricing every merge would charge every overwrite, and whether every account must do that is the physics question.",
+    "after": "Merge pricing charges an overwrite only when its full-state map merges states. A physical heat bound additionally needs an input distribution and thermodynamic premises.",
+    "reason": "Retaining a overwritten value elsewhere can make the full operation injective."
+  },
+  {
+    "file": "THIELE_MACHINE.txt",
+    "before": "The units count merged states.",
+    "after": "The units are ledger marks, not a count of merged states.",
+    "reason": "A one-mark lower bound is not a count of all lost states."
+  },
+  {
+    "file": "THIELE_MACHINE.txt",
+    "before": "What is added is the link for every implementation of a certificate that lasts, checked in Coq.",
+    "after": "The counting establishes the link for any finite full-state model with a permanent reading. It guarantees a collision somewhere, not necessarily at the newly entering state.",
+    "reason": "Avoid unqualified implementation claim and Coq as its authority."
+  },
+  {
+    "file": "THIELE_MACHINE.txt",
+    "before": "the flip from the uniform distribution dissipates at least",
+    "after": "the instruction on the uniform input distribution has mean heat at least",
+    "reason": "Heat is an ensemble bound."
+  },
+  {
+    "file": "THIELE_MACHINE.txt",
+    "before": "so the premise forces no heat (`known_state_flip_forces_no_heat`).",
+    "after": "so the premise supplies no positive heat floor (`known_state_flip_forces_no_heat`); it does not establish zero actual heat.",
+    "reason": "Avoid no-positive-lower-bound/zero-heat ambiguity."
+  },
+  {
+    "file": "TECHNICAL_DISCLOSURE.md",
+    "before": "The merge price stands for Landauer's principle as a named premise, in the worst case over the machine's state distribution: a merge removes entropy only when the machine could be in more than one of the merged states, and a state known in advance owes no heat. For a point mass the premise is equivalent to heat \u2265 0 (`known_state_flip_forces_no_heat`).",
+    "after": "Merge pricing is an abstract rule on instructions, weaker than full worst-case entropy pricing. It is not identical to Landauer's heat bound. A collision somewhere in the instruction need not involve the newly certified state. A physical bound concerns the uncertainty removed from the prepared distribution under the stated thermodynamic conditions. For a point mass the adopted entropy-loss premise is equivalent to mean heat \u2265 0 (`known_state_flip_forces_no_heat`), supplying no positive lower bound and no guarantee of zero heat.",
+    "reason": "Propagate the corrected scope into the technical disclosure."
+  },
+  {
+    "file": "monograph/thiele_machine_math_spec.tex",
+    "before": "For every state type and natural-number ledger, two real-valued scales agree on the ledger and differ in energy; the ledger fixes no energy unit.",
+    "after": "For every state type and natural-number ledger, the energy assignments at scales 1 and 2 give values 1 and 2 respectively at every state whose ledger is 1. This is conditional on such a state; an identically zero ledger need not yield different energies. The ledger fixes no energy unit.",
+    "reason": "Restore the mu=1 qualifier from the actual theorem."
+  },
+  {
+    "file": "monograph/thiele_machine_math_spec.tex",
+    "before": "so it forces no heat (\\texttt{known\\_state\\_flip\\_forces\\_no\\_heat}).",
+    "after": "so it supplies no positive lower bound; it does not prove zero device heat (\\texttt{known\\_state\\_flip\\_forces\\_no\\_heat}).",
+    "reason": "Clarify the known-input result."
+  },
+  {
+    "file": "monograph/thiele_machine_math_spec.tex",
+    "before": "the premise reads this as heat at least",
+    "after": "the premise reads this as mean heat at least",
+    "reason": "State the ensemble interpretation of Q."
+  },
+  {
+    "file": "monograph/thiele_machine_math_spec.tex",
+    "before": "the flip dissipates, when",
+    "after": "the instruction has mean heat, when",
+    "reason": "Distinguish the whole instruction from the particular flipping input."
+  },
+  {
+    "file": "docs/THEOREM_MEANINGS.md",
+    "before": "The ladder of m DEC moves, after m moves,",
+    "after": "The ladder of m DEC/INC pairs (2m stored instructions), after m executed moves,",
+    "reason": "Distinguish code length from successful-path runtime."
+  },
+  {
+    "file": "docs/THEOREM_MEANINGS.md",
+    "before": "The ladder of m DEC moves, compiled to the small machine, has ledger 0 after every number of steps from every start.",
+    "after": "The ladder of m DEC/INC pairs, compiled to the small machine, has ledger 0 after every number of steps from each clean start.",
+    "reason": "The zero ledger result requires zero starting ledger."
+  },
+  {
+    "file": "docs/THEOREM_MEANINGS.md",
+    "before": "The paid chain CHECK \"A at least m\", COMMIT, CERTIFY has three moves, a ledger of exactly 3, and raises the flag exactly when A is at least m.",
+    "after": "The fixed instruction trace CHECK \"A at least m\", COMMIT, CERTIFY has three moves, a ledger of exactly 3 from a clean start, and ends with its flag up exactly when A is at least m. A stored program stops fetching after a failed CHECK and then pays only 1.",
+    "reason": "Distinguish fixed traces from trapping stored-program execution."
+  },
+  {
+    "file": "docs/THEOREM_MEANINGS.md",
+    "before": "no free program of fewer than m moves decides whether A is at least m, the ladder decides in m moves at ledger 0, the paid chain decides at ledger 3,",
+    "after": "no final observation of just the program counter and B after fewer than m free moves decides whether A is at least m, the ladder decides in m moves at ledger 0 from a clean start, and the fixed paid trace decides at ledger 3,",
+    "reason": "Preserve restricted observation and trace semantics."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "Press release, 31 October 2002, on the indictment of Andrew Fastow;",
+    "after": "Press release, 2 October 2002, on the criminal complaint against Andrew Fastow;",
+    "reason": "The cited Justice Department primary document is dated October 2 and describes a complaint, not the later indictment."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "Kent Weare (2016). Ethereum DOS Attack. InfoQ, 19 September 2016.",
+    "after": "Kent Weare (2016). Ethereum Security Alert Issued, Ethereum Foundation Responds with ``From Shanghai, With Love. InfoQ, 19 September 2016.",
+    "reason": "Use the actual article title displayed by the cited publisher."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "\\href{https://faculty.lynchburg.edu/~nicely/twins/twins.html}{Author's page}. ",
+    "after": "",
+    "reason": "Remove a confirmed dead author-page link; retain the journal citation and attribution."
+  },
+  {
+    "file": "monograph/thiele_machine_math_spec.tex",
+    "before": "and a halting-preserving translation of two-counter instances into one-counter instances would make it decidable",
+    "after": "and a computable halting-preserving translation of two-counter instances into one-counter instances would make it decidable",
+    "reason": "The obstruction excludes effective translations, not arbitrary set-theoretic functions."
+  },
+  {
+    "file": "monograph/thiele_machine_math_spec.tex",
+    "before": "A base whose moves have only finitely many different effects at each state (one with finitely many moves, for instance), or one whose step ignores the current state, lifts to no Thiele-complete machine under any claim language and capacity",
+    "after": "A base whose moves have only finitely many different effects at each state (one with finitely many moves, for instance), or one whose step ignores the current state, lifts to no Thiele-complete machine under any claim language and capacity through the direct one-move interface. This does not exclude grouping several base steps into one macro move",
+    "reason": "State the direct-interface restriction; the macro lift permits ordinary finite instruction sets."
+  },
+  {
+    "file": "TECHNICAL_DISCLOSURE.md",
+    "before": "it runs every program of the small machine from every start (`U_simulation`)",
+    "after": "it runs every program of the small machine from every clean start start(x, y), through the prescribed host loading (`U_simulation`)",
+    "reason": "Keep the universal-program claim within the loading and clean-start theorem."
+  },
+  {
+    "file": "TECHNICAL_DISCLOSURE.md",
+    "before": "with finite memory, a step that writes a permanent record is not injective",
+    "after": "when the whole extended state space is finite, an instruction that raises a permanent record is not injective",
+    "reason": "A finite base alone does not exclude unbounded hidden history."
+  },
+  {
+    "file": "docs/THEOREM_MEANINGS.md",
+    "before": "a flip of k > 0 states beside m certified ones, from the uniform distribution on those m + k states, dissipates at least",
+    "after": "an instruction flipping k > 0 states beside m certified ones, on the uniform input distribution over those m + k states, has mean heat at least",
+    "reason": "Make ensemble mean explicit in the theorem guide."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "Hales, in his own words, ``growing out of my frustration, in an effort to bypass\nthe referees,'' started a project in 2003 to have the entire proof checked by a proof assistant.",
+    "after": "Hales started the Flyspeck project in 2003 to have the entire proof checked by proof assistants.",
+    "reason": "The cited primary article supports Flyspeck and the refereeing history but not this attributed quotation; targeted searches did not establish its wording. Preserve the documented action without assigning unverified words or motivation to Hales."
+  },
+  {
+    "file": "README.md",
+    "before": "bases with uniformly finite instruction branching, and bases whose moves ignore their state, fail the stated universal-base requirement",
+    "after": "bases with only finitely many possible next states at each state, and bases whose moves ignore their state, fail the direct one-move universal-base requirement (a macro interface can group several base steps)",
+    "reason": "State the direct-interface restriction and the actual pointwise finite-branching hypothesis; this does not rule out ordinary finite instruction sets used through a macro interface."
+  },
+  {
+    "file": "monograph/thiele_machine_math_spec.tex",
+    "before": "through the direct one-move interface. This does not exclude grouping several base steps into one macro move (\\texttt{lift\\_finite\\_branching\\_not\\_complete}, \\texttt{lift\\_stateless\\_not\\_complete}).",
+    "after": "through the direct one-move interface (\\texttt{lift\\_finite\\_branching\\_not\\_complete}, \\texttt{lift\\_stateless\\_not\\_complete}). This does not exclude grouping several base steps into one macro move.",
+    "reason": "Keep theorem identifiers beside the statements they prove."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "The passage on proof as an act is on p.~28.",
+    "after": "The passage on proof as an act is on p.~28. \\href{https://archive-pml.github.io/martin-lof/pdfs/Meanings-of-the-Logical-Constants-1983.pdf}{Lecture text}.",
+    "reason": "Add a checked, accessible primary-text link to the existing bibliography entry."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "p.~338 of the chapter as posted on his website.",
+    "after": "p.~338 of the chapter as posted on his website. \\href{https://www.tau.ac.il/~corry/publications/articles/pdf/bourbaki-structures.pdf}{Author's chapter}.",
+    "reason": "Add a checked, accessible primary-text link to the existing bibliography entry."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "Notices of the American Mathematical Society 55(11), pp. 1370--1379.",
+    "after": "Notices of the American Mathematical Society 55(11), pp. 1370--1379. \\href{https://webhomes.maths.ed.ac.uk/~v1ranick/papers/hales2.pdf}{Article text}.",
+    "reason": "Add a checked, accessible primary-text link to the existing bibliography entry."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "is Note~5 to 2.41, p.~30.",
+    "after": "is Note~5 to 2.41, p.~30. \\href{https://www.bipm.org/documents/20126/2071204/JCGM_200_2012.pdf}{BIPM text}.",
+    "reason": "Add a checked, accessible primary-text link to the existing bibliography entry."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "Oxford: Clarendon Press, 1922, p.~11.",
+    "after": "Oxford: Clarendon Press, 1922, p.~11. \\href{https://www.gutenberg.org/cache/epub/33663/pg33663-images.html}{1922 translation}.",
+    "reason": "Add a checked, accessible primary-text link to the existing bibliography entry."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "Proceedings of the 21st Annual Computer Security Applications Conference (ACSAC), Tucson, pp. 28--40.",
+    "after": "Proceedings of the 21st Annual Computer Security Applications Conference (ACSAC), Tucson, pp. 28--40. \\href{https://dwheeler.com/trusting-trust/wheelerd-trust.pdf}{Author's paper}.",
+    "reason": "Add a checked, accessible primary-text link to the existing bibliography entry."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "all p.~183; ``no guarantee that this minimum is in fact achievable,'' p.~187.",
+    "after": "all p.~183; ``no guarantee that this minimum is in fact achievable,'' p.~187. \\href{https://fab.cba.mit.edu/classes/862.22/notes/computation/Landauer-1961.pdf}{Paper scan}.",
+    "reason": "Add a checked, accessible primary-text link to the existing bibliography entry."
+  },
+  {
+    "file": "monograph/monograph.tex",
+    "before": "half of English ``determined by the structure of the language,'' p.~399.",
+    "after": "half of English ``determined by the structure of the language,'' p.~399. \\href{https://www.csd.uoc.gr/~hy590-38/shannon1948.pdf}{Paper text}.",
+    "reason": "Add a checked, accessible primary-text link to the existing bibliography entry."
+  },
+  {
+    "file": "monograph/thiele_machine_math_spec.tex",
+    "before": "\\usepackage{hyperref}",
+    "after": "\\usepackage{hyperref}\n\\hypersetup{pdftitle={The Thiele Machine: A Mathematical Reference},pdfauthor={Devon Thiele}}",
+    "reason": "Set the reference PDF metadata to its printed title and sole author, Devon Thiele."
+  }
+]

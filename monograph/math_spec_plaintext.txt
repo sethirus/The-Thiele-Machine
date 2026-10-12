@@ -291,12 +291,13 @@ From the uniform distribution the step removes at least log2 ((m + k)/m) bits
 
 Theorem 4.7 (Heat). (C) Given the named premise landauer_heat, which states Landauer’s
 principle for a step and a distribution (Rolf Landauer argued at IBM in 1961 that a step that
-cannot be run backwards requires a minimal heat generation; the premise reads this as heat at
-least kB T ln 2 per bit of entropy the step removes), the flip dissipates, when kB T ≥ 0, at least
-kB T ln((m + k)/m) from the uniform distribution (permanent_flip_heat_floor), and, when
-kB T > 0, positive heat from any distribution that leaves every certified state and the flipping one
-possible (permanent_flip_full_support_heat_positive). For a state known in advance, the
-premise is equivalent to heat ≥ 0, so it forces no heat (known_state_flip_forces_no_heat).
+cannot be run backwards requires a minimal heat generation; the premise reads this as mean heat at
+least kB T ln 2 per bit of entropy the step removes), the instruction has mean heat, when kB T ≥ 0,
+at least kB T ln((m + k)/m) from the uniform distribution (permanent_flip_heat_floor), and,
+when kB T > 0, positive heat from any distribution that leaves every certified state and the flipping
+one possible (permanent_flip_full_support_heat_positive). For a state known in advance,
+the premise is equivalent to heat ≥ 0, so it supplies no positive lower bound; it does not prove
+zero device heat (known_state_flip_forces_no_heat).
 
 
 4.2     An eight-state instance
@@ -307,11 +308,12 @@ fjump_merges). The cost rule prices exactly the merges, so A2 holds there as a t
 
 
 4.3     No intrinsic joule value
-Theorem 4.8 (Refutation). (R) For every state type and natural-number ledger, two real-
-valued scales agree on the ledger and differ in energy; the ledger fixes no energy unit. Coq:
-mu_has_no_intrinsic_joule_value. Choosing the scale kB T ln 2 gives one ledger unit that
-energy by definition (calibrated_mu_landauer_energy); the scale is a premise, and nothing
-here measures it.
+Theorem 4.8 (Refutation). (R) For every state type and natural-number ledger, the energy
+assignments at scales 1 and 2 give values 1 and 2 respectively at every state whose ledger is 1.
+This is conditional on such a state; an identically zero ledger need not yield different energies.
+The ledger fixes no energy unit. Coq: mu_has_no_intrinsic_joule_value. Choosing the scale
+kB T ln 2 gives one ledger unit that energy by definition (calibrated_mu_landauer_energy);
+the scale is a premise, and nothing here measures it.
 
 
 
@@ -479,7 +481,7 @@ paid_latch_not_thiele_complete). A machine whose record never rises meets (a), (
 (c) and fails (d) (silent_meets_base_record_toll, silent_not_thiele_complete).
 
 
-7.1     The window theorem
+7.1    The window theorem
 Theorem 7.4 (Every Thiele-complete machine hides its record). (S) For every Thiele-complete
 machine there are a clean start and two runs from it, the second made of base moves only,
 that end at the same base window; the first ends certified with its ledger at least 3 above the
@@ -495,7 +497,7 @@ record nor the ledger.
 is blind to its reading (thiele_complete_floor, complete_cs_window_blind).
 
 
-7.2     Every model of computation
+7.2    Every model of computation
 Theorem 7.5 (Lifting). (S) For any machine with a universal base in the sense of clause
 (a), any claim language over its states that has an exact equality test and a checker proved
 equal to its meaning, and any fact-table capacity of at least 1, if some claim is true at one
@@ -508,17 +510,17 @@ base moves form a universal base (lift_reduct_universal).
 
 Theorem 7.6 (Limits of lifting). (R) A base whose moves have only finitely many differ-
 ent effects at each state (one with finitely many moves, for instance), or one whose step
-ignores the current state, lifts to no Thiele-complete machine under any claim language and
-capacity (lift_finite_branching_not_complete, lift_stateless_not_complete). A one-
-counter program of k instructions started at n halts exactly when it has stopped after k(n + k + 1)
-steps, so one-counter halting is decidable (lift_oc_halts_bound, lift_oc_halts_dec); two-
-counter halting is undecidable (lift_cm_halting_undecidable), and a halting-preserving
-translation of two-counter instances into one-counter instances would make it decidable
-(lift_no_oc_translation).
+ignores the current state, lifts to no Thiele-complete machine under any claim language
+and capacity through the direct one-move interface (lift_finite_branching_not_complete,
+lift_stateless_not_complete). This does not exclude grouping several base steps into one
+macro move. A one-counter program of k instructions started at n halts exactly when it has
+stopped after k(n + k + 1) steps, so one-counter halting is decidable (lift_oc_halts_bound,
+lift_oc_halts_dec); two-counter halting is undecidable (lift_cm_halting_undecidable),
+and a computable halting-preserving translation of two-counter instances into one-counter in-
+stances would make it decidable (lift_no_oc_translation).
 
 
-
-                                                13
+                                              13
 Theorem 7.7 (Models of computation). (S) A relation on numbers computable in any one of
 the seven models of the vendored library (the lambda calculus L, the alternate Minsky machines
 MMA, Turing machines, binary stack machines, Minsky machines MM, FRACTRAN and mu-

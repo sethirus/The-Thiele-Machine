@@ -1,0 +1,107 @@
+THE COMPLETED PARTITION COST STUDY
+Research review for Devon Thiele — 12 October 2026
+
+The question now has precise answers for two interfaces to the partition
+model. The same established structure can have different computational
+costs depending on whether a caller supplies a complete grouping or one
+equality at a time. The permission policy matters just as much as the input.
+
+THE TANGIBLE DISTINCTION
+
+Check that cup A has the same mark as cup B. Then check that B has the same
+mark as C. The equality A=C follows, although it was never checked directly.
+
+An exact-check policy remembers which pair was checked. An inference policy
+must recognize the connection through the checked chain. Your existing
+partition machine uses exact matching; the inference policy studied here
+is an explicit alternative. Both can retain the channel, historical record,
+trap, actual-check requirement and three-mark minimum. They make different
+promises about which claim may be committed.
+
+THE ANSWERS
+
+1. Minimal state can be characterized through the permission policy.
+
+   For a finite sound closure policy, count its distinct active closed sets
+   of claims, and add one state for no current check. The logarithm of that
+   count is the exact abstract permission-bit requirement. Distinguishable
+   next commitments prove necessity; storing the closure proves sufficiency.
+   This is a state-count result, not a free algorithm for arbitrary inference.
+
+2. Complete groupings have tight memory and time bounds.
+
+   With n labels supplied per instruction, inferred permission uses
+   Theta(n log n) structural bits and Theta(n) worst-case time for SET,
+   CHECK and COMMIT. The implementation meets both bounds. CERTIFY captures
+   an owned historical snapshot in constant structural time.
+
+   Every grouping input can hide a decisive difference in its last unread
+   entry. More memory cannot eliminate that worst-case input-reading cost.
+   A connected-components calculation combines checks in linear time.
+
+3. Pairwise claims reveal an unconditional computational barrier.
+
+   Exact matching needs Theta(n^2) permission bits and permits constant-time
+   CHECK and COMMIT within a fixed-key epoch. Inferred permission needs only
+   Theta(n log n) structural bits, but answering whether an equality follows
+   becomes incremental connectivity.
+
+   Under the stated deterministic logarithmic-word model, making CHECK
+   asymptotically faster than log n / log log n forces worst-case COMMIT
+   time to n^(1-o(1)). In particular, constant-time updates cannot coexist
+   with polylogarithmic worst-case inferred commitments.
+
+   This is an application of the published Pătraşcu–Thorup lower bound,
+   not a new lower bound or an unresolved conjecture. The report proves
+   the transfer, including the fatal-trap issue: a trusted simulation logs
+   and reverses a trial commitment, at constant-factor worst-case overhead.
+   It does not grant the adversarial caller rollback access to the machine.
+
+   The known optimal balanced worst-case bound is Theta(log n/log log n),
+   attainable in O(n) words. The supplied pair implementation uses the
+   simpler, fully checked O(log n) union-by-size algorithm. The more complex
+   optimal implementation is cited, not claimed to have been built here.
+
+WHAT WAS VERIFIED
+
+Three implementations were checked against an independent mathematical
+reference: complete-grouping inference, pair inference, and exact pair
+matching. Exhaustive small-state checks, 24,300 random transition checks,
+input lower-bound witnesses and historical-snapshot checks passed.
+
+The rollback simulation answered 5,899 graph queries, including 478 negative
+ones, with exact state restoration after every query. Scale checks reached
+32,768 objects and matched the proved linear graph-work bound. Timings are
+local observations, not the proof of the asymptotic results.
+
+The ledger remains explicit. Unbounded accumulated bills need additional
+memory and arithmetic time. A mark is not being equated with a CPU step,
+heat, or entropy. Working storage and usable external history are accounted
+for in the stated models.
+
+WHAT THIS CONTRIBUTES
+
+The model now has a worked resource analysis of how established structural
+relations govern later actions. It distinguishes retaining a checked claim
+from maintaining the consequences of many checks, and gives exact state
+counts plus tight operation bounds in specified cases. It is independent
+of the Small Machine's counters and interpreter overhead.
+
+These results use classical mathematics and established complexity theorems.
+Novelty has not been established. The study does not claim a new law of
+computation or a complete frontier for every memory budget and language.
+The worst-case rollback argument does not establish an amortized lower bound.
+
+FILES AND REPRODUCTION
+
+Result.txt          Definitions, proofs, lower-bound transfer and references.
+monitors.py         The three monitors and rollback simulation.
+verify.py           Independent reference and verification suite.
+verification.json   Recorded outcomes and local scale measurements.
+
+Run: python3 verify.py
+
+The companion partition-preservation directory contains the preceding
+structural preservation proofs. The combined plaintext review includes both
+reports. The manuscript is unchanged; a whole-book audit is not being
+represented as complete by this focused research package.

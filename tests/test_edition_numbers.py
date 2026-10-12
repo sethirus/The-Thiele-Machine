@@ -1,9 +1,9 @@
-"""Edition-dependent numbers in the book match the receipt and the Coq sources.
+"""Edition-dependent numbers match the receipt and the companion mathematical sources.
 
-The release block names the audit report by its SHA-256 and corpus digest,
+The companion release record names the audit report by its SHA-256 and corpus digest,
 and the text quotes the universal programs' lengths and paid-site counts.
 Each of those comes from one source of truth; this test reads that source
-and checks the book's copy, so a change to either side fails here.
+and checks the published copy, so a change to either side fails here.
 """
 
 from __future__ import annotations
@@ -15,15 +15,16 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 BOOK = ROOT / "monograph" / "monograph.tex"
+COMPANION_CHECKS = ROOT / "monograph" / "COMPANION_CHECKS.txt"
 RECEIPT = ROOT / "artifacts" / "print_assumptions_all_proofs.json"
 U_LAYOUT = ROOT / "coq" / "kernel" / "foundation" / "UniversalLayout.v"
 UP_LAYOUT = ROOT / "coq" / "kernel" / "foundation" / "UniversalPLayout.v"
 
 
 def _release_block() -> str:
-    text = BOOK.read_text(encoding="utf-8")
+    text = COMPANION_CHECKS.read_text(encoding="utf-8")
     start = text.index("Companion sources:")
-    return text[start:text.index("\\end{verbatim}", start)]
+    return text[start:text.index("END RELEASE RECORD", start)]
 
 
 def _joined_hex(block: str, label: str) -> str:
@@ -47,14 +48,14 @@ def test_release_block_names_the_committed_receipt() -> None:
 
 
 def test_universal_program_lengths_and_paid_sites_match_coq() -> None:
-    text = BOOK.read_text(encoding="utf-8")
+    text = re.sub(r"\s+", " ", BOOK.read_text(encoding="utf-8"))
     u_len = _coq_number(U_LAYOUT, "U_len")
     up_len = _coq_number(UP_LAYOUT, "pu_U_len")
     u_paid = _coq_number(U_LAYOUT, "length paid_sites")
     up_paid = _coq_number(UP_LAYOUT, "length pu_paid_sites")
     assert f"{u_len} instructions" in text
     assert f"{up_len} instructions" in text
-    assert f"the {u_paid} paid sites" in text
+    assert f"exactly {u_paid} of them cost anything" in text
     assert f"{up_paid} paid sites, the {u_paid}" in text
     for doc in ("README.md", "THIELE_MACHINE.txt"):
         quoted = {int(n) for n in re.findall(r"\b(\d{4}) instructions",

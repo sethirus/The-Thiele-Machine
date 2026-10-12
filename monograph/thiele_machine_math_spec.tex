@@ -7,6 +7,7 @@
 \usepackage{geometry}
 \usepackage{enumerate}
 \usepackage{hyperref}
+\hypersetup{pdftitle={The Thiele Machine: A Mathematical Reference},pdfauthor={Devon Thiele}}
 \usepackage{mathtools}
 \usepackage{microtype}
 \usepackage{array,longtable}
@@ -191,7 +192,7 @@ After a permanent step, any distribution on the $m$ certified states and the $k$
 \end{theorem}
 
 \begin{theorem}[Heat] \textbf{(C)}
-Given the named premise \texttt{landauer\_heat}, which states Landauer's principle for a step and a distribution (Rolf Landauer argued at IBM in 1961 that a step that cannot be run backwards requires a minimal heat generation; the premise reads this as heat at least $k_B T \ln 2$ per bit of entropy the step removes), the flip dissipates, when $k_B T \ge 0$, at least $k_B T \ln((m+k)/m)$ from the uniform distribution (\texttt{permanent\_flip\_heat\_floor}), and, when $k_B T > 0$, positive heat from any distribution that leaves every certified state and the flipping one possible (\texttt{permanent\_flip\_full\_support\_heat\_positive}). For a state known in advance, the premise is equivalent to heat $\ge 0$, so it forces no heat (\texttt{known\_state\_flip\_forces\_no\_heat}).
+Given the named premise \texttt{landauer\_heat}, which states Landauer's principle for a step and a distribution (Rolf Landauer argued at IBM in 1961 that a step that cannot be run backwards requires a minimal heat generation; the premise reads this as mean heat at least $k_B T \ln 2$ per bit of entropy the step removes), the instruction has mean heat, when $k_B T \ge 0$, at least $k_B T \ln((m+k)/m)$ from the uniform distribution (\texttt{permanent\_flip\_heat\_floor}), and, when $k_B T > 0$, positive heat from any distribution that leaves every certified state and the flipping one possible (\texttt{permanent\_flip\_full\_support\_heat\_positive}). For a state known in advance, the premise is equivalent to heat $\ge 0$, so it supplies no positive lower bound; it does not prove zero device heat (\texttt{known\_state\_flip\_forces\_no\_heat}).
 \end{theorem}
 
 \section{An eight-state instance}
@@ -203,7 +204,7 @@ Four program slots and a certification flag make eight states. An advance step i
 \section{No intrinsic joule value}
 
 \begin{theorem}[Refutation] \textbf{(R)}
-For every state type and natural-number ledger, two real-valued scales agree on the ledger and differ in energy; the ledger fixes no energy unit.
+For every state type and natural-number ledger, the energy assignments at scales 1 and 2 give values 1 and 2 respectively at every state whose ledger is 1. This is conditional on such a state; an identically zero ledger need not yield different energies. The ledger fixes no energy unit.
 Coq: \texttt{mu\_has\_no\_intrinsic\_joule\_value}. Choosing the scale $k_B T \ln 2$ gives one ledger unit that energy by definition (\texttt{calibrated\_mu\_landauer\_energy}); the scale is a premise, and nothing here measures it.
 \end{theorem}
 
@@ -331,7 +332,7 @@ For any machine with a universal base in the sense of clause (a), any claim lang
 \end{theorem}
 
 \begin{theorem}[Limits of lifting] \textbf{(R)}
-A base whose moves have only finitely many different effects at each state (one with finitely many moves, for instance), or one whose step ignores the current state, lifts to no Thiele-complete machine under any claim language and capacity (\texttt{lift\_finite\_branching\_not\_complete}, \texttt{lift\_stateless\_not\_complete}). A one-counter program of $k$ instructions started at $n$ halts exactly when it has stopped after $k(n+k+1)$ steps, so one-counter halting is decidable (\texttt{lift\_oc\_halts\_bound}, \texttt{lift\_oc\_halts\_dec}); two-counter halting is undecidable (\texttt{lift\_cm\_halting\_undecidable}), and a halting-preserving translation of two-counter instances into one-counter instances would make it decidable (\texttt{lift\_no\_oc\_translation}).
+A base whose moves have only finitely many different effects at each state (one with finitely many moves, for instance), or one whose step ignores the current state, lifts to no Thiele-complete machine under any claim language and capacity through the direct one-move interface (\texttt{lift\_finite\_branching\_not\_complete}, \texttt{lift\_stateless\_not\_complete}). This does not exclude grouping several base steps into one macro move. A one-counter program of $k$ instructions started at $n$ halts exactly when it has stopped after $k(n+k+1)$ steps, so one-counter halting is decidable (\texttt{lift\_oc\_halts\_bound}, \texttt{lift\_oc\_halts\_dec}); two-counter halting is undecidable (\texttt{lift\_cm\_halting\_undecidable}), and a computable halting-preserving translation of two-counter instances into one-counter instances would make it decidable (\texttt{lift\_no\_oc\_translation}).
 \end{theorem}
 
 \begin{theorem}[Models of computation] \textbf{(S)}

@@ -1,0 +1,1807 @@
+--- before.tex
++++ working.tex
+@@ -557,8 +557,8 @@
+ 
+ Bring the two computers back. The sorted list in the first one has some depth. The identical list in
+ the second has exactly the same depth, because depth looks at the list and nothing else. A
+-photocopy of a deep thing is just as deep. Depth tells you \emph{some} work was done, somewhere, by
+-someone. It's not a record that \emph{this} machine did it, and it's not a receipt for what doing it
++photocopy of a deep thing is just as deep. Depth tells you what work a plausible way of making the thing would take.
++It's not a record that \emph{this} machine did it, and it's not a receipt for what doing it
+ cost.
+ 
+ So Bennett's standing right next to the line, on the other side of it, and as far as I can tell he
+@@ -702,8 +702,13 @@
+ into a theorem. No way of combining people's yes-or-no judgments on connected questions
+ meets a short list of conditions that each look harmless on their own and always hands back a consistent,
+ complete group judgment. A group's settling is a rule's settling, and which rule you pick
+-decides which of the honest settlings sticks. I haven't tried to put a group on the
+-machine, and that's where I'd expect the first wall to be.
++decides which of the honest settlings sticks. Try the problem with three ballots and a rule that a payment is due only if a contract
++was signed and a deadline was missed. One voter says yes to both, one says signed but
++not missed, and one says missed but not signed. Each voter applies the rule consistently.
++Count separately: a majority says signed, a majority says missed, and a majority says
++no payment. You can point to the disagreement on the paper without blaming any one
++voter's logic. I haven't tried to put a group on the machine, and that's where I'd
++expect the first wall to be.
+ 
+ Popper's swamp sent me further down, because it's the oldest problem in the book and it doesn't have a
+ bottom. Ask why you believe something and you get a reason. Ask why you believe the reason and you
+@@ -929,8 +934,12 @@
+ 
+ Laying all of that out together is what changed my picture. If there are stages, then at each one
+ there's a line, and the line has two sides: not this far yet, and at least this far. Each line amounts to
+-its own yes-or-no question, and the answer to each can only ever change from no to yes, so long as the
+-check behind it could have failed. Maybe the switch wasn't wrong. Maybe it was just incomplete, the first of many lines, and the
++its own yes-or-no question. But choose the question carefully. ``Do we still trust this
++proof?'' can turn back to no, as Kempe's did. ``Did we carry out this particular check?''
++asks about a completed act. Cross out the acceptance and the act still happened.
++To keep its answer available, the machine must retain a record and have no move that
++resets it. A check's ability to fail does not supply that permanence by itself.
++Maybe the switch wasn't wrong. Maybe it was just incomplete, the first of many lines, and the
+ real shape is a direction with lines drawn across it. I've gone
+ around many times on whether the lines create the direction or the direction comes first and the lines
+ are just places where you cut it, and on whether yes and no are even different from each other until
+@@ -1069,7 +1078,9 @@
+ one tool. That's what I'd want the door to be for.
+ 
+ But the door doesn't care, and this is the honest edge of the whole picture. Hook the door to a
+-check that says yes to everything and the machine walks through, settled, and wrong. Settled whether
++check that says yes to everything and the machine walks through even when the claim
++is false. If the claim happens to hold of everything, that same check is sound but
++distinguishes nothing. Settled whether
+ true or false, like Peirce said. A door that only swings one way tells you a question was closed. It
+ doesn't tell you it was closed right. Price and correctness are two different books, and I keep
+ both, separately.
+@@ -1098,7 +1109,12 @@
+ because yes is permanent. The person by the door has to come in, because this is the step that flips
+ them to yes. Now finish the move, one person per chair. You can't. Four people, three inside chairs:
+ somebody shares. Maybe the newcomer ends up on a lap, maybe two insiders squeeze onto one chair;
+-either way, two people end on one chair, and from where everyone's sitting you can't tell which two.
++either way, two starting places share a destination. The people stand for alternative
++starting states; a running machine occupies only one. Draw the move's arrows, then
++have somebody choose one starting place without telling you which and report only
++the destination chair. At a shared destination, that report cannot tell you which
++of its starting places they chose. Watching the person walk would give you extra
++information; the destination alone does not.
+ That's the pigeonhole principle, which is old and not mine, and the checked version, with exactly
+ those three conditions (finite, permanent, one flip), is in the chapter ``Why the toll isn't
+ arbitrary.'' No physics in it anywhere. Counting.
+@@ -1118,9 +1134,11 @@
+ Bennett, the same Bennett, showed in 1973 that any computation can be done reversibly if you give it
+ room to keep its history while it works. But give a reversible computer a finite memory and, however
+ much it computes, it can never raise a flag that stays up. It can always back up to before the
+-flag. Settling needs exactly the kind of step a reversible computer refuses to take. (Where does
+-the merged state go, physically? Out of the machine and into the room, as heat; the machine and
+-the room together never merge. Section~\ref{sec:a2-not-arbitrary} comes back to that.)
++flag. Settling needs exactly the kind of step a reversible computer refuses to take. (In a reversible description of the machine and its surroundings together, the
++distinction lost from the machine remains somewhere in the surroundings. Turning
++that transfer into a lower bound on heat needs the thermal assumptions below.
++The chairs establish the merge; they do not measure a heat bill.
++Section~\ref{sec:a2-not-arbitrary} comes back to that.)
+ 
+ Now the physics, as an assumption with its name on it. Rolf Landauer, at IBM, 1961, said that a step
+ that can't be run backwards, that merges, ``requires a minimal heat generation.'' That's the rule
+@@ -1732,8 +1750,11 @@
+ 
+ \emph{Leaning on a fact takes a paid history.} A computation is entitled to lean on a structural
+ fact when it holds the object, a checked relation, and a paid event on its record. Defined,
+-for the model, with a counting fact beside it: narrowing a list of rivals down takes at least
+-the yes-or-no questions that name the survivors. The cost floor that ties those questions to
++for the model, with a counting fact beside it. Number eight cards and hide which one you
++chose: three yes-or-no answers suffice to identify any choice, while for two cards one
++suffices. The difference is two questions. That change in the size of the pile does
++not itself put two marks on a ledger; a premise must connect the questions to paid
++steps. The cost floor that ties those questions to
+ steps a run actually paid for holds for any system with a counter, once somebody supplies three
+ things: the list of rivals before, the list of survivors after, and a tree of yes-or-no questions
+ with enough leaves to cover the narrowing. Then if a run paid at least as many charged steps as that
+@@ -1834,7 +1855,9 @@
+ and Appendix~\ref{sec:whats-mine} gives the neighbours. Three layers stay separate through the book. The first is the structural fact that a
+ permanent raise merges states, which needs no prices at all. The second is the pricing premise,
+ merge pricing, which turns that fact into a ledger bound. The third is the small machine of Part IV,
+-which enforces earned certification on top of both.
++which has its own stated prices and enforces earned certification. Its unbounded
++counters do not meet the finite-state premise; its toll is established directly
++from its instruction rules.
+ 
+ \emph{The proved core, in three steps.} Anything that follows the toll pays something to get from
+ uncertified to certified. A window that shows two states as the same, when they disagree on
+@@ -2280,8 +2303,10 @@
+ \subsection{A string, a square, and a drowning nobody can place}
+ 
+ Start with the oldest one, and start by doing it. Take a string. A guitar string, a rubber
+-band over an open box, anything that twangs. Pluck it. Now press it down exactly at the
+-middle and pluck half. That's the same note, an octave up, the one that makes a round sound
++band over an open box, anything that twangs. Pluck it. Keep its tension as nearly
++unchanged as you can when you stop it at a new point; stretching it tighter changes
++the pitch for a second reason. Now stop it exactly at the middle and pluck half.
++With the tension held steady, that's the same note an octave up, the one that makes a round sound
+ like a round. Press at a third of the way along and pluck the long side: that's the fifth,
+ one of the handful of intervals a bugle can play at all, which is why you hear it all through
+ bugle calls. Half. Two thirds. Small whole numbers,
+@@ -2326,8 +2351,9 @@
+ times $q$. People write ``times itself'' as a small raised two, so that's $p^2 = 2q^2$, and that
+ is the only piece of notation in this argument.
+ 
+-Twice anything is even. So $p$ times $p$ is even. An odd number times itself is always odd
+-(three times three, five times five, try a couple), so $p$ itself must be even: it's two
++Twice anything is even. So $p$ times $p$ is even. An odd number times itself is always odd: draw that many rows of that many dots,
++pair off the columns, then pair the dots in the one column left over. One dot
++remains. The same pairing works for any odd side, so $p$ itself must be even: it's two
+ times something, and I'll call that something $r$. Put it back in. Two $r$ times two $r$ is
+ four times $r$ times $r$, and that equals twice $q$ times $q$. Halve both sides: two times $r$
+ times $r$ equals $q$ times $q$. So $q$ times $q$ is even, so $q$ is even too, by the same step
+@@ -2386,8 +2412,9 @@
+ nicknamed the third man, and it's the most useful mistake in this section. Take all the large
+ things. Plato says they share one thing, Largeness. But Largeness is itself large, so now
+ there's a further thing that all the large things \emph{and} Largeness share, and that one is
+-large too, and it never stops. Try it with any property you like; it runs away every time.
+-The lesson, and I think it's right though Plato never quite accepted it himself: the
++large too, and it never stops. The extra move is treating Largeness itself as one more large thing. Grant that
++again at each stage and it never stops; refuse it and this particular regress
++never starts. The lesson, and I think it's right though Plato never quite accepted it himself: the
+ structure of a collection is not one more member of the collection. The plan isn't a brick.
+ Hold on to that one. It'll come back in a place you won't expect.
+ 
+@@ -2515,8 +2542,10 @@
+ a geometry. The choice is free. Nobody tells you which changes to allow.
+ 
+ You can do this one at your desk. Take any drawing and ask what's still true after you turn
+-it upside down (lengths, angles), after you stretch it (lengths are gone by then; which lines cross which is still there), after you crumple it (almost nothing but what touches what). Three answers,
+-three structures, one drawing. The residue: structure is what survives a chosen set of
++it upside down (lengths, angles), after you stretch it (lengths are gone by then; which lines cross which is still there), after you bend and crumple the sheet without tearing it (which drawn paths remain
++connected survives). Two distant ink marks may touch across a fold; that new
++physical contact is not a new connection in the drawing. You have to say which
++relation you are following. Three answers, three structures, one drawing. The residue: structure is what survives a chosen set of
+ changes, and ``chosen'' is doing real work in that sentence. There's no structure of a thing
+ from nowhere. You have to say what you're allowed to do to it first. I didn't know that when
+ I started, and I'd been saying ``the structure of'' things for years.
+@@ -2632,7 +2661,10 @@
+ own, and the structure falls apart into a pile of unconnected pairs, a phone book without a
+ search function. Associativity says that with a third arrow h on the end, pairing up the first
+ two and then adding h gives the same arrow as adding h to the last two first. Both spell the
+-same three-hop path, and if they came out different, two people who built the same chain in
++same three-hop path. With your paper triangle, bracket ``slide, then turn'' before
++``flip,'' or bracket ``turn, then flip'' after ``slide'': you still carry out the
++same three moves in the same order. Swapping the turn and the flip would be a
++different question. If the two bracketings came out different, two people who built the same chain in
+ different orders would hold two different arrows, which is a bug: the chain is the thing, and
+ how you assembled it isn't. The identity laws say that tacking the do-nothing loop onto either
+ end of an arrow gives back the arrow. If the loop changed things, it wouldn't be the loop. Six
+@@ -2745,12 +2777,15 @@
+ 
+ Now push, because this is where ``structure means information'' gets born, and it's wrong, and
+ it's an easy thing to believe. Flip a fair coin two hundred times and write down the string.
+-Almost always, there's no shorter way to say that string than to say the whole thing. You can
++Usually there is no substantially shorter way to say that string than to say the whole thing. You can
+ watch it happen in the little code above, cut to thirty-two digits: a coin-flip row disagrees
+ with ``repeat 01'' in about sixteen places, which would cost eighty-odd bits to list,
+ and even the one block guaranteed to fit with no exceptions, the whole row used as its own
+-block, costs $1 + 5 + 32 + 5 = 43$. The written-out row at thirty-three wins, and no pattern
+-earns its keep. Nikolai
++block, costs $1 + 5 + 32 + 5 = 43$. The written-out row at thirty-three beats those two descriptions. Another block
++could do better; a lucky run of coins can make a pattern, so check it. The general
++reason long random rows usually resist substantial compression is a count: put
++each short description beside the one row it prints, and there are too few short
++descriptions to stand beside more than a small fraction of all the long rows. Nikolai
+ Vereshchagin, a mathematician at Moscow State University, and Paul Vitányi, a computer scientist at
+ CWI in Amsterdam, in a 2004 paper on exactly this question, put it without
+ mercy: every bit of a string like that is ``meaningless information, random noise.'' Maximum information. Zero
+@@ -2769,8 +2804,8 @@
+ good sorting in the set theorist's sense, every object in exactly one group. And the list of
+ who went where is a thousand coin flips, which is to say it compresses about as well as a
+ thousand coin flips, which is to say not at all. Feed it to a code built like the little one,
+-with the fields widened to fit a thousand, and you get the coin-flip row again, only longer: no block earns its keep, the written-out list wins, and by
+-Rissanen's rule there's no pattern worth stating. By the set theorist's rule, the sorting
++with the fields widened to fit a thousand, and you get the coin-flip row again, only longer: typically most of the assignment still has to be written down. A lucky pattern
++can save some of it; the coin tosses alone do not guarantee there is none. By the set theorist's rule, the sorting
+ \emph{is} the structure, and it's every bit as much a sorting as ``evens in one group, odds in the
+ other,'' which compresses to almost nothing. Same kind of object, wildly different
+ description lengths. So the two meanings don't even rank things the same way: one asks ``is
+@@ -3044,9 +3079,9 @@
+ So who, in everything I read, says what the bill is? I found three answers that come close,
+ and I'll be exact about how close, because this is the edge of what I know. Rolf Landauer, in
+ 1961, and Charles Bennett after him, say that any step which takes two possible situations
+-and makes them one, erasing a bit or merging two paths a computation could have taken, has to
+-push some disorder out into the world, which in a real machine means heat. I mean that
+-literally. It's the place, of all I've found, where a fact about information turns into a fact about
++and makes them one, erasing a bit or merging two paths a computation could have taken,
++has a heat floor when it removes uncertainty under their thermodynamic assumptions.
++That is a physical claim about how the device and its surroundings are prepared. It's the place, of all I've found, where a fact about information turns into a fact about
+ heat, though at room temperature the amount for one bit is far too small to show up on anybody's
+ electricity bill. In 2012 a lab in Lyon erased one bit, held in a single tiny
+ bead, and measured the average heat it gave off coming down toward Landauer's floor as the erasing was slowed, and other labs
+@@ -3123,8 +3158,12 @@
+ put the tokens inside a hollow clay ball, pressed the shapes of the tokens onto the outside
+ while the clay was soft, and sealed it. The archaeologist Denise Schmandt-Besserat has
+ spent a career on these, and she puts the practice at around 3300 BC; the ball is called a bulla. Here's the push, and you can do it with
+-a cookie tin: what makes it a record is the outside. It shows what's inside, and you have to
+-break it to get in. Opening it destroys it. Tampering shows.
++a cookie tin, with a paper seal glued across the lid and rim. Let it dry, then try
++opening the lid without tearing or disturbing the seal. The bare lid would come
++straight off; it is the seal that makes this a test. A substitute seal could fool
++you, so this little trial shows a disturbance, not an unforgeable history. In the
++clay ball, the outside shows the count inside and opening the ball breaks it.
++That is the property the tin and seal are trying to reproduce.
+ That's a real idea and it will show up again in a form you won't expect: a record is worth
+ something only if it can't be silently undone.
+ 
+@@ -3252,8 +3291,14 @@
+ are pricing the hardware. The act itself stays free. Haber and Stornetta in 1991, the timestamping that
+ Bitcoin's footnotes lead back to in the opening chapter, chained time-stamped
+ records together with hashes so that changing an old entry breaks every entry after it (and
+-Ralph Merkle's hash tree, from his 1979 Stanford thesis on secrecy and authentication, lets one short value vouch for a great many records); try it with five lines and a made-up sum, change line two, and watch every number below
+-it move. That makes a change \emph{visible}. It doesn't make it cost. Proof-of-work, which the
++Ralph Merkle's hash tree, from his 1979 Stanford thesis on secrecy and authentication, lets one short value vouch for a great many records); try the dependency with five entries, 1, 2, 3, 4, 5, adding each to the running
++total: 1, 3, 6, 10, 15. Keep that sheet and make another with the second entry
++changed to 3. Its totals are 1, 4, 7, 11, 16. The change travels down the chain.
++Now lower the third entry to 2: the last total is 15 again. Simple addition can be
++fooled by compensating changes. A cryptographic chain needs a stronger function,
++and someone must retain a trusted value to compare against. This trial shows the
++dependency between entries; it supplies neither that function's security nor a
++price on the record. Proof-of-work, which the
+ computer scientists Cynthia Dwork
+ and Moni Naor proposed in 1992 to make junk mail expensive and which Bitcoin later chained, is the
+ one framing where a record genuinely costs, and what it charges for is a search: how many
+@@ -3284,7 +3329,7 @@
+ the balance sheet, which is how the Justice Department described the scheme in 2002, and its
+ auditor, Arthur Andersen, shredded the paper. Andersen was convicted for the shredding that
+ year, and the Supreme Court threw the conviction out in 2005 over how the jury had been
+-instructed; either way, those books recorded nothing. But notice this job doesn't need a
++instructed; either way, the books concealed debts they should have shown. But notice this job doesn't need a
+ witness at all. A copy will do: a hash chain nobody signed is still hard to change quietly, so
+ long as somebody else holds the latest link, because a chain with no copy anywhere can be
+ rewritten from end to end and recomputed, and nobody would know.
+@@ -3631,8 +3676,11 @@
+ You can't. Three people start inside and have to stay inside, so they take the three inside
+ chairs between them, with nobody left out, because nobody may leave. The person from the door
+ has to come in. There is no fourth chair inside. Somebody shares. Two of the machine's
+-possible states land on one state, and after the move you can no longer tell, from where
+-everyone is sitting, which of the two it was. The move forgot something.
++possible states land on one state. Now use the chairs as a guessing game: secretly choose
++one starting chair, apply the rule, and report only the finishing chair. If two arrows end
++there, the report cannot tell your partner which start you chose. Watching the people move
++would tell them; that would keep information outside the finishing chair. The chair alone
++has forgotten something.
+ 
+ That's the whole argument, and I want to name the piece of mathematics that did the work,
+ because it's old and it's not mine. If you put things into fewer boxes
+@@ -3694,8 +3742,8 @@
+ just as well backwards: reverse every molecule's velocity and the gas retraces its steps, so
+ mechanics alone can't make entropy only ever climb. Twenty years on, in 1896, a young
+ assistant of Max Planck's in Berlin pushed harder. He took Henri Poincaré's recurrence
+-theorem of 1890, which says a bounded mechanical system comes back as close as you like to
+-wherever it started, again and again, and used it to argue that nothing in such a system can
++theorem of 1890, which says that in a system preserving a finite measure of its accessible
++states, almost every starting state returns arbitrarily close to itself, again and again, and used it to argue that nothing in such a system can
+ climb forever: give it time and it comes back down. The assistant was Ernst Zermelo, the same
+ Zermelo who'd patch Frege's floor twelve years later. Boltzmann answered the same year, not
+ very politely, that the times you'd have to wait for a return are so enormous that nobody
+@@ -3994,10 +4042,12 @@
+ \subsection{Door three: forget for free}
+ 
+ The third door is the easiest to describe and the hardest to argue about, so I'll describe
+-it and then spend the rest of the section on the argument. Take two sheets of paper, one
+-blank and one stamped. One move: stamp whatever you're handed. Finite, two states.
+-Permanent: stamped stays stamped. Flip: blank goes to stamped. Forgets: both sheets end up as
+-the same stamped sheet. Everything the room argument needs is here, and the move merges. Now
++it and then spend the rest of the section on the argument. Take a sheet of paper and let its
++reading be just BLANK or STAMPED. One move: stamp it if blank, and leave it alone if already
++stamped. Finite, two readings. Permanent: STAMPED stays STAMPED. Flip: BLANK goes to
++STAMPED. Both possible readings now end at STAMPED. The paper's fibres, the ink and your
++memory are outside this two-state description; the merge is a loss from the reading, not
++the disappearance of every physical trace. Everything the room argument needs is here, and the move merges. Now
+ set the price of that move to zero. The toll fails, and you can watch it fail: the flag went
+ up for nothing.
+ What walked out the door is the charge on forgetting. (A price of one on that move satisfies all three premises, so the premises can hold together;
+@@ -4052,7 +4102,8 @@
+ provable from counting; for particular machines with particular price lists it's checked
+ (the stamp at cost one, above), which is a different thing. If Norton turns out to be right, every theorem in this section still holds; they
+ just have one premise fewer that the world agrees to. If Landauer's side turns out to be
+-right, the premise is physics. Either way, nothing in this section says a device does
++right, it supports a thermal price under its conditions; the whole-number charge on every
++merging move is still the ledger rule stated here. Either way, nothing in this section says a device does
+ anything until someone measures the device. The counting is mine to prove. The physics is a
+ door I've labelled, and what opens it is a measurement. A proof can't.
+ 
+@@ -4083,8 +4134,9 @@
+ section says a step merged two states, where did the difference go? Out of the machine. The
+ merge is in the machine's own description, the states its reading is about. The machine
+ together with everything around it still runs one-to-one, and the distinction the machine
+-forgot survives. It gets pushed out into the surroundings, mostly as heat. The
+-surroundings are door one's endless strip. That door is always open for the universe as a
++forgot survives. It gets pushed out into the surroundings. Another memory could keep it as a readable
++record; when uncertainty is removed into a thermal reservoir under Landauer's conditions,
++heat is the relevant transfer. The surroundings play the part of door one's endless strip. That door is always open for the universe as a
+ whole and shut for the machine, because the machine isn't the universe and its memory fills.
+ Read that way, Landauer's premise is the claim that pushing a distinction out of a finite
+ machine into its surroundings costs heat, and that's all it claims. Which also means the bill
+@@ -4108,10 +4160,13 @@
+ the move costs at least the number of halvings in that squeeze, which is the base-two
+ logarithm of (m + k)/m.
+ 
+-Back to door three's stamp, with four sheets this time: three blank, one stamped, and the
+-stamp-everything move. Four states go to one. Before the move, to say which sheet you had took
+-two yes-or-no questions (is it one of the first two? then which of those two?); after the
+-move, it takes none. Two bits gone. Two halvings. So that move costs at least two marks, and
++Back to door three's stamp, but give the reading four possible values this time: A, B, C
++and YES. Write them on four cards. Choose one secretly, then cover its face with an identical
++opaque YES label. Read only the new face: all four possibilities now give YES. Before the
++move, identifying the original face took two yes-or-no questions (one of the first two?
++then which one?); afterward there is only one possible face to report. Two bits gone from
++that reading. Two halvings. Peeling the label off would recover the old face, so this
++tabletop version models the loss from the reading; it does not demonstrate physical erasure. So that move costs at least two marks, and
+ two marks is enough: a cost of exactly two satisfies the halving rule. The
+ general statement is m + k at most 2 to the cost times m, and there is also a
+ logarithm form that rounds both logarithms up and is weaker for it (three states and one
+@@ -4189,7 +4244,7 @@
+ gives $m + k \le 2^{\mathrm{cost}(i)} \cdot \mathrm{img}_i \le 2^{\mathrm{cost}(i)} \cdot m$.
+ \end{proof}
+ 
+-The four sheets are the case $m = 1$, $k = 3$, where the bound is reached. With
++The four card readings are the case $m = 1$, $k = 3$, where the bound is reached. With
+ $k = 1$ the bound says $\mathrm{cost}(i) \ge 1$, which is the toll again. The counting argument also shows that at least $k$ states collapse,
+ without any price premise.
+ 
+@@ -4262,6 +4317,15 @@
+ $\log_2 n$ when $n$ states share the chance evenly and less when the chance is lopsided. Pushing a spread through a move $i$ gives the spread of where you land:
+ $q(y) = \sum_{x:\,\mathrm{step}(x,i) = y} p(x)$. The bits the move \emph{removes} are
+ $H(p) - H(q)$.
++
++Try four equally likely cards, A, B, C and D. Send A and B to a box marked X,
++C to Y and D to Z. Beforehand each card has chance $1/4$, so the four terms in
++the sum are each $1/2$: two bits. Afterward the box chances are $1/2,1/4,1/4$,
++and the three terms are each $1/2$: one and a half bits. Half a bit was lost on
++average. You can see where: half the time the box is X and leaves one binary
++question unanswered---A or B? The other half of the time Y or Z tells you the
++starting card exactly. An actual draw never loses half a card; the half belongs
++to the average uncertainty over repeated draws.
+ 
+ Start with the half of the claim that costs nothing, Bennett's half. A move that forgets
+ nothing sends each state somewhere different, so the chances just get carried to new
+@@ -4459,12 +4523,12 @@
+ ways because each way makes a different theorem short. Merge pricing asks it only about pairs,
+ which is why that road gives the toll and stops there; the squeeze needs the whole premise.
+ 
+-Now the zero. Put a coin under a cup without looking. Rule: set it heads up. You might have
++Now the zero. Toss a fair coin under a cup without looking at how it lands. Rule: set it heads up. You might have
+ had tails; now you have heads; one bit of what you didn't know is gone, and that's the bit the
+ principle charges for. Now lift the cup, see heads, put the cup back, and apply the rule
+ again. Nothing you didn't know changed. No bit was lost. And the principle, applied to a state
+ you already knew, demands nothing: the premise holds exactly when the heat is zero or more,
+-which is to say it sets no floor at all. The principle
++which is to say it sets no positive floor. The principle
+ charges for \emph{uncertainty removed}. The shape of the move doesn't enter. This is the generalized
+ form of Landauer's principle, worked out by Owen Maroney in 2009, in a paper he wrote at the
+ Perimeter Institute in Canada (he has been a philosopher of physics at Oxford since 2011), and by Sagawa in 2014, and Landauer
+@@ -4543,9 +4607,9 @@
+ correctly \emph{from every state it might be
+ in}, including states where it can't tell whether the
+ flag is already up, can't do it for
+-free at any temperature above zero, on Landauer's premise; that's the design envelope, the worst case. A particular run from
+-a start it knows can, on the same premise, as long as something outside the step does the
+-timing. What stays forced in every case is the toll as a
++free at any temperature above zero, on Landauer's premise; that's the design envelope, the worst case. For a particular run from
++a known start, that premise supplies no positive heat floor, even when the flag rises.
++Whether a device can attain zero heat also depends on its dynamics and controls. What stays forced in every case is the toll as a
+ rule about the move, because the rule can't ask what the run knows. Wherever this book says
+ that settling something for good can't be free if Landauer's right, it means the device
+ sentence. It never means the run sentence.
+@@ -4595,7 +4659,7 @@
+ Here's what you haven't earned. I'm listing it so you don't assume it. You haven't
+ earned that forgetting costs anything in the world; that's Landauer, it's measured for beads
+ and argued over for the general case, and in the checked work it's an assumption with a name.
+-And even granting it, Landauer charges a run that knows where it is nothing at all (the lifted
++And even granting it, Landauer's entropy-loss bound demands no positive heat from a run whose state is known (the lifted
+ cup), so what the physics forces is a floor on a device that has to work whatever it's
+ holding. Any one run can come in under it.
+ You haven't earned that any machine you'd actually want to build is of this kind, either,
+@@ -4731,8 +4795,8 @@
+ included, where the flag was down. So if the flag goes up along that run and stays up from
+ some point on, the move merges two states \emph{the run itself visits}. The shared chair is
+ one the machine actually sits in. And it doesn't touch the known-state point above: a merge
+-among states the run visits still costs Landauer nothing if the run knew where it was and
+-something outside timed the step. The argument holds for any map iterated from a start whose flag
++among states the run visits still receives no positive lower bound from the entropy-loss
++premise when its state is known. The argument holds for any map iterated from a start whose flag
+ is down, with the flag up at every step from some point on; no permanence premise is used.
+ 
+ Runs that mix different moves split two ways, and the answer is short enough to give here. If the moves are picked from outside, in any order at
+@@ -4780,7 +4844,8 @@
+ the known no-state $s$ until it has settled, over one whole relaxation. The starting spread is
+ all on $s$, and $\pi$ is the device's long-run spread. The inequality rests on fixed rates,
+ finitely many states, every state reachable from every other, a reverse for every hop, and local
+-detailed balance to read the entropy as heat. It's one bound on one relaxation, and it doesn't
++detailed balance to relate the entropy balance to heat exchanged with the reservoirs.
++Total entropy production includes the change in the device's entropy too; it is not heat alone. It's one bound on one relaxation, and it doesn't
+ charge each certification again. It also isn't the permanence of the finite-state theorems on a
+ noisy device: on this device the flag comes back down, and $T_{\mathrm{up}}$ and
+ $T_{\mathrm{down}}$ are average stretches. The discrete-time core is checked, for a finite chain
+@@ -4792,8 +4857,24 @@
+ yes-states equals the flow back; and with each mean stretch taken as its
+ mass over that flow, $-\ln\pi(\mathrm{no}) = \ln(1 + T_{\mathrm{up}}/T_{\mathrm{down}})$.
+ 
+-That's the bound, and two things under it were still promises when I stated it: that the device
+-actually settles, and that ``mean stretch length'' means what it sounds like. Here is what each says, and why it holds.
++Try the stretches with a bag of ten counters: nine marked YES and one NO. Draw,
++record the answer, replace the counter and mix again. Each draw gives YES with chance
++$9/10$, whatever the last answer was. A YES stretch ends on the next draw with chance
++$1/10$, so its mean length is ten draws: the mean $L$ obeys
++$L=1+(9/10)L$. A NO stretch similarly averages $10/9$ draws. Their ratio is nine,
++just like the ratio of YES to NO counters. In a long record, count all the YES entries
++and divide by the number of YES stretches; that is the measured mean stretch length.
++Divide both counts by the total number of draws and you have mass divided by flow.
++
++For this rule the long-run flow from NO to YES is $(1/10)(9/10)=9/100$ per draw,
++and the reverse flow is the same. A start known to be NO has relative entropy
++$-\ln(1/10)=\ln10$ against the long-run spread; after one draw the spread is already
++$1/10,9/10$, so none of that relative entropy remains. This bag shows the probability
++accounting. The entropy-production interpretation still needs the stated physical model;
++shaking counters in a bag does not measure that heat.
++
++Two things need establishing for a general device: that it actually settles, and that
++``mean stretch length'' means what it sounds like. Here is what each says, and why it holds.
+ 
+ Settling first. A chain doesn't have to settle. It can get stuck in a corner, or cycle round
+ forever. What rules that out here is a condition named for Wolfgang Doeblin, a German-born French
+@@ -4809,8 +4890,8 @@
+ any state. So $-\ln\pi(s)$ is the
+ exact price of the whole relaxation, and the bound is reached.
+ 
+-The same story holds when the device hops at random moments, at fixed rates, with no clock
+-ticking. At every instant the relative entropy to $\pi$ falls at exactly the rate entropy is
++For rates satisfying detailed balance with $\pi$, the same equality holds when the device
++hops at random moments, with no clock ticking. At every instant the relative entropy to $\pi$ falls at exactly the rate entropy is
+ being produced, and that rate is never negative; add the rate up
+ between two times and you get exactly the drop in relative entropy between them. For settling, Doeblin's condition becomes a condition on rates:
+ the rate of hopping from any state $x$ to any state $y$ is at least $c$ times $\pi(y)$, for some
+@@ -5148,10 +5229,16 @@
+ work that came after him: the quantum physicist Lídia del Rio and colleagues argued in 2011 that the cost of erasing a
+ system depends on how much the eraser already knows about it, down to zero and in the
+ quantum case past zero. The bill for clearing a record is sent to whoever clears it, and it's
+-smaller the more they know. Try it with a card under a cup and a sticky note. Write the
+-colour on the note, then erase the note \emph{without lifting the cup}: two possible notes
+-become one blank, a merge. Now do it again, but lift the cup, check the
+-note matches, and then erase: nothing unknown was destroyed. Same blank note. Different bill.
++smaller the more they know. Try it with a red or blue card under a cup and a note that is blank or marked.
++Start with the note blank. Lift the cup: for red, toggle the note (blank to marked,
++marked to blank); for blue, leave it alone. The note now reports the colour. Repeat
++that same rule while the card is still available, and the note returns to blank.
++Check all four card-and-note combinations: the rule undoes itself, so no two land
++together. Erase the note regardless of the card instead, and for either card both
++note values land on blank. That rule merges on the full set of combinations. On
++the correlated pair you actually prepared, the card still keeps the information.
++The difference is which information the rule can use and which states it must
++handle; these paper operations do not measure a heat difference.
+ 
+ \subsection{The smallest machine that teaches for free, and the one that can't}
+ 
+@@ -5333,12 +5420,15 @@
+ overheated the flue, and burned down the Palace of Westminster, which I mention because it's
+ the best fact I picked up for this book and because it tells you how many of them there were.
+ 
+-Do it: notch a strip of card once for every coin you hand a friend, split it, keep half each.
+-Try to cheat, either direction. The three things you'll find are the three things I want.
+-The total is the notches, added up, and nothing else (I'll call that conservation). You can
+-add a notch but you can't take one away (it only climbs). And two halves that were notched
+-together must agree; a half that disagrees is a forgery, and the wood says which one (there
+-is only one honest count). The treasury didn't have the words. They had the stick.
++Do it: draw a border round a strip of card, notch it once for every coin you hand a
++friend, then split it lengthwise through the notches and keep half each. Keep the same
++strip: no trimming its edge away or substituting another. Add a notch to one half and
++put them back together. The mismatch is visible. You cannot fill a cut back in with the
++card you cut away; an attempted patch is an alteration to inspect. The total you made
++is the notches, one per coin (conservation), and under that rule the count only climbs.
++Both halves began with the same count. If they disagree now, something changed; the
++mismatch alone does not tell you which holder changed it. The demonstration gives a
++comparison you can make, not an unforgeable object or a verdict on who cheated.
+ 
+ Economists read the same stick another way, and they're not wrong either. Alfred Mitchell-Innes
+ (1913) made the exchequer tally his star witness that money is credit: the crown paid the people
+@@ -5802,14 +5892,19 @@
+ 
+ \subsection{The shadow of a cube}
+ 
+-Do this one tonight with a lamp. Hold a cube face-on to the light: its shadow is a square.
+-Now hold up a square of card the same size: same shadow. A person who sees only the wall
+-can't tell you whether what's casting the shadow has any thickness at all. Ask them, and
++Do this one tonight with a lamp and a flat wall. Keep the lamp well back, hold a cube
++face-on with its face parallel to the wall, and mark the outline of its shadow. Replace
++it with square card and adjust the card's size or distance until the outlines match as
++closely as you can judge. Show your partner only that outline. It does not tell them
++whether the object has thickness. For the exact mathematical version, take parallel
++light rays and let the window report only the silhouette: an aligned cube and a square
++face of the same size then give exactly the same square. Ask them, and
+ they'll tell you, truthfully, that they can't know, and if they're honest they'll also tell
+ you that no amount of staring at that square will change it.
+ 
+-Now turn both a quarter turn. The card's shadow collapses to a line. The cube's stays a
+-square. Now the wall-watcher knows. What changed? Not their cleverness. The \emph{window}. A
++Now turn each a quarter turn about its vertical centre line. The card's shadow
++becomes a narrow edge; the cube still casts a broad face. With ideal parallel rays
++and zero-thickness card, those are exactly a line and a square. Now the wall-watcher knows. What changed? Not their cleverness. The \emph{window}. A
+ second look from a different angle is a bigger window than one look, and what bought it was
+ the turn. Edwin Abbott wrote a novel about a window like this in 1884,
+ \emph{Flatland}. A Flatlander never sees a shape. Abbott's narrator says it in his first section: nothing was
+@@ -5915,8 +6010,8 @@
+ systems, called it \emph{observability}, and gave a test (a matrix rank, which you can compute)
+ for whether watching the output over time pins down the internal state. His unobservable
+ states are exactly a fibre: states whose difference never reaches the output, and never will,
+-however long you watch. That second half took me longest to take in. More samples of the same
+-window only repeat the same fibre. Try it on a car: if your only instrument is the speedometer, two
++however long you watch. That second half took me longest to take in. More samples help only when the states eventually show different outputs. States in
++the same fibre of the \emph{whole observation history} remain indistinguishable. Try it on a car: if your only instrument is the speedometer, two
+ cars a mile apart at the same speed read the same forever, and nothing on that dial will ever tell
+ you which mile marker either one started at. Read the mile markers instead and, over time, you
+ recover both position and speed. Same car, different window.
+@@ -5940,8 +6035,10 @@
+ In 1977 Patrick and Radhia Cousot built a whole discipline of program analysis, called
+ abstract interpretation, on throwing information away \emph{on purpose}. You run the program over
+ coarse descriptions of its values, and the exact values never enter. And you accept that the answer you get
+-has to be true of \emph{every} real value the coarse description could stand for. That last
+-sentence is fibre constancy as a design rule. And in 1970 Edgar Codd, inventing the relational
++has to be true of \emph{every} real value the coarse description could stand for. For example, an input known only to lie between $-1$ and $1$ has a square between
++$0$ and $1$; the interval does not tell you its exact square. That is a sound bound
++over the hidden possibilities. Exact recovery would require the stronger condition
++of fibre constancy. And in 1970 Edgar Codd, inventing the relational
+ database, made programs independent of how the data is stored, and the relational systems
+ that followed gave users \emph{views}, deliberately partial windows onto the stored data. A
+ decade after Codd, in 1981, two database researchers, Fran\c{c}ois Bancilhon and Nicolas Spyratos, gave the view-update problem an exact semantics. The problem is this: if a user changes what they
+@@ -6186,7 +6283,7 @@
+ machine has such a pair, for a particular window, has to be checked machine by machine and
+ window by window; the theorem only tells you what a pair does once you've found one.
+ 
+-There's a tidy way to say what the best window prices are, and it isn't mine. Give each pair of
++There's a tidy way to say what the best window prices are, and it isn't mine. Start with the charge one for a raise and zero otherwise. Give each attainable pair of
+ before-and-after photographs the highest charge of any step that casts that pair, and you have
+ the cheapest window price that never undercharges; give it the lowest, and you have the dearest
+ one that never overcharges. Those two are the ``there is'' and ``for all'' of logic taken along
+@@ -6902,8 +6999,9 @@
+ everybody else asks questions he may only answer yes or no. He's thinking of an animal, a
+ disagreeable, savage one that growls and grunts and lives in London, and the answer is Uncle
+ Scrooge. Most people know the game as twenty questions, and twenty is a good number for it:
+-each yes-or-no answer can at best cut the field in half, and twenty halvings take a million or
+-so possibilities, $2^{20} = 1{,}048{,}576$, down to one. Push on that, though. The halving only
++a balanced question splits the remaining field in half, and twenty such questions can
++guarantee identification among $2^{20} = 1{,}048{,}576$ possibilities. A lucky answer to
++``is it this one?'' can finish immediately; the count is about handling every possible answer. Push on that, though. The halving only
+ happens because Fred answers truthfully about what's actually in his head. Lie once and the
+ count still shrinks; it shrinks around the wrong animal. That's the cups again: the four and
+ the two are real because you lifted the cup and compared. Being told what was under it wouldn't
+@@ -7205,6 +7303,22 @@
+ says ``these belong together,'' and the key says whether they do. One grouping \emph{refines}
+ another when every bucket of the first sits inside a bucket of the second.
+ 
++Put two red buttons and two blue buttons on the table, numbered 1 through 4,
++with 1 and 2 red. Let the key be colour. Circles round $\{1,2\}$ and $\{3,4\}$
++give a sound grouping: every pair inside a circle has the same colour. Split the
++red circle into two singletons and it stays sound; splitting cannot introduce a
++mismatched pair. Join 1 and 3 instead and it fails. Changing the circles' names
++from A and B to North and South changes none of these checks. That is why the
++reading below uses the partition, not the spelling of its labels.
++
++For the operational rule, put a tick beside a grouping only after comparing the
++colours within each circle. Copy that ticked grouping onto a separate commitment
++card, then place the card in a record envelope; charge one tally for each of those
++three acts. Change a button's colour between the check and the copy, and the old
++tick must no longer authorize the copy. The machine's SET rule below does that by
++clearing the current table and channel. A record already kept remains about the
++old colours, which it keeps with the grouping.
++
+ The \emph{bucket machine} holds a key, a table of checked groupings, a channel, a record, a trap
+ latch and a ledger. SET replaces the key for nothing and throws away the table and the channel,
+ which were checked against the old key. CHECK $g$ costs one and passes when $g$ is sound for the
+@@ -7506,9 +7620,15 @@
+ 
+ Put a cup upside down on the table. The rule: the first time a coin lands in front of it,
+ turn it right side up. There is no rule for turning it back over. Now roll a die, and put a
+-coin down on every six. Roll twenty times. The cup turns over on the first six and stays
+-turned over. Write down which roll did it. That number, the roll that turned the cup, is
+-where the record happened, and the cup afterward is the record.
++coin down on every six. Roll twenty times. If a six appears, the cup turns over on the first one and stays
++turned over. Write down which roll did it. That number is where the record happened,
++and the cup afterward is the record. If no six appears, the cup stays down; a reachable
++event need not occur on every trial.
++
++For the deterministic base in the theorem, write the rolls down first and replay them.
++The base state is the fixed list and a finger pointing to its next entry; a step moves
++the finger one place, regardless of the cup. The event asks whether that entry is six.
++Nothing about the cup changes which entry comes next.
+ 
+ That's a \emph{latch}. Electrical engineers have had the circuit since 1918, when two British
+ physicists teaching engineering in London, William Eccles, a radio pioneer, and Frank Jordan,
+@@ -7923,9 +8043,13 @@
+ Drop ``driven by the computation.'' Take a base that counts, and a record that switches on at
+ the fifth tick of a \emph{hidden clock}, whatever the base is doing. It's permanent. The computation doesn't drive it. This is a \emph{timestamp}. A timestamp is not evidence. It says \emph{when}. It doesn't say \emph{what happened}, and a record
+ switched by an outside party or a clock records that party or that clock and leaves the computation
+-out. Try it with the die:
+-play twenty rolls with the rule ``turn the cup after roll seven no matter what,'' and notice
+-you've recorded nothing about the dice.
++out. Try it with the recorded die list. Keep a second tally hidden beside it, and turn
++the cup when that tally reads five before a move; then advance both the tally and
++the finger on the list. Run two trials from the same list entry with the cup down,
++but start the hidden tally at five in one trial and zero in the other. The next
++cup values disagree although everything the base shows agrees. That is the failure
++of being driven by the base. If the tally always starts synchronized with the
++list position, the position can predict the cup; the distinction matters below.
+ 
+ The examples establish exactly the facts I named for each: the toggle is driven, isn't
+ permanent and isn't a latch; the clock is permanent and isn't driven. That each also keeps the other rules (the
+@@ -8110,7 +8234,7 @@
+ program); and a lambda calculus (call-by-value, meaning an argument is worked out before it's
+ plugged in, and made deterministic by letting a term with no step left to take step to
+ itself). On each, the latch form holds, by the one generic theorem applied to that base
+-(the checked names are listed with the formal statement below). So a register machine
++(the bases are defined below). So a register machine
+ with a base-driven record is a register machine plus a cup. So is a lambda calculus. (There's one
+ more instance, the machine I build later, where a particular flag is shown to
+ be a base-driven record and the same theorem makes it a latch, in
+@@ -8178,6 +8302,12 @@
+ contents. A state is halted when it fetches Halt or is outside the program.
+ Unit cost here counts instructions. It has nothing to do with the certification ledger.
+ 
++For the indirect instructions, draw boxes 1, 2 and 3 and put 2, 7 and 0 in them.
++Indirect load $(3,1)$ first reads the 2 in box 1, uses it as an address, and copies
++box 2's 7 into box 3. Now put 9 in box 3 and execute indirect store $(1,3)$:
++the 2 in box 1 tells it where to put the 9, so box 2 changes and box 1 stays 2.
++An address is being read from a box; it is not necessarily the box's own number.
++
+ The \textbf{lambda base} uses the terms and weak call-by-value rule defined in
+ Definition~\ref{def:u12-L}. To compute its next state, first try to reduce the function
+ part of an application. If that part cannot step and is an abstraction, either
+@@ -8201,6 +8331,15 @@
+ carries no cost; a machine that multiplies huge numbers in one step and a Turing machine
+ differ in price. The relation never looks at price, so on what it does look at they can match. It's proved to be an equivalence relation, and the latch
+ form is preserved across it.
++
++Draw a coarse machine $0\to1$, with 1 halted, and a finer one
++$a\to b\to c$, with $c$ halted. Let $a$ and $b$ both show 0 and $c$ show 1;
++halted states stay where they are. Relate 0 to both $a$ and $b$, and 1 to $c$.
++The fine move $a\to b$ changes nothing visible, so the coarse machine matches it
++by taking no step. Its move $b\to c$ matches $0\to1$. Starting from $a$, the
++coarse move is matched by two fine steps. This is what ``possibly zero'' allows;
++the relation is about matching observations and halting, not matching the number
++of ticks or their bill.
+ 
+ There is a limit to that statement. The ``preserved across it'' proof throws away its equivalence hypothesis; the latch holds
+ on every base regardless, so the preservation is true for a boring reason. And nowhere in the
+@@ -8312,16 +8451,14 @@
+ 
+ \subsection{A row of cups}
+ 
+-Get four cups and a pencil. Write five stages of a sentence on a strip of paper, left to right:
+-\emph{guessed}, \emph{announced}, \emph{refereed}, \emph{printed}, \emph{machine-checked}. Those
+-are close to the stages the Kepler story moved through in the opening chapter. Hales's referees ran seminars
+-on his proof for years and ran out of energy before they could certify it, so here
+-\emph{refereed} stands for that long reading, which is part of why the last stage exists. You
+-don't have to believe my version of that story to use them. Now put a cup between each pair of neighbours,
+-upside down. The first cup means ``at least announced,'' the second ``at least refereed,'' the
+-third ``at least printed,'' the fourth ``at least machine-checked.'' When the sentence reaches a
+-stage, turn over every cup up to that stage. Cups only ever get turned right side up. None of
+-them has a reset wire.
++Get four cups and a pencil. Write five stages of an experiment on a strip of paper,
++left to right: \emph{proposed}, \emph{set up}, \emph{run}, \emph{read}, \emph{recorded}.
++Agree to do them in that order. Put an upside-down cup between each pair of neighbours.
++The first means ``the setup happened,'' the second ``the run happened,'' the third
++``the result was read,'' the fourth ``the result was recorded.'' As you complete a
++stage, turn over its cup. Cups only ever get turned right side up; none has a reset
++wire. These are records of completed acts. A fourth cup up does not make a false
++conclusion true, and a different experiment may need a different order.
+ 
+ Two things to notice with the cups in front of you. Each cup by itself is exactly the cup of
+ Section~\ref{sec:latch}: it reads yes or no, and once yes it stays yes. And four cups were
+@@ -8329,16 +8466,15 @@
+ order, give you at most four different arrangements along the way. I'll prove both of those in a
+ minute, and the proof is about as short as the experiment.
+ 
+-Now a harder strip. Some checks don't line up. A referee can read a proof, and a machine can
+-check it, and neither of those is above the other: a refereed proof hasn't been machine-checked,
+-and a machine-checked proof hasn't been refereed. Draw it as a diamond. \emph{Nothing} at the
+-bottom, \emph{refereed} on the left, \emph{machine-checked} on the right, \emph{both} at the top.
+-Moving up the diamond is still only ever moving up, but now there are two ways up from the
+-bottom, and the two middle points don't compare. That's what a \emph{partial} order allows: some pairs
+-simply aren't comparable. Put a cup on each point that isn't the bottom, one
+-for ``at least refereed,'' one for ``at least machine-checked,'' one for ``both.'' Each cup is
+-still a latch. The record is now a place on the diamond, and the three cups together tell you
+-which place.
++Now a harder strip. Some checks don't line up. One person repeats the experiment;
++another independently works through the calculation. Neither act includes the other.
++Draw a diamond: \emph{neither} at the bottom, \emph{experiment repeated} on the left,
++\emph{calculation checked} on the right, \emph{both} at the top. There are two ways
++up, and the middle points don't compare. That's what a \emph{partial} order allows.
++Put a cup on each point except the bottom, one for the repeat, one for the calculation,
++one for both. Each cup is still a latch. The three cups tell you which acts have
++happened. They do not decide whether the experimental model or the calculation's
++premises were appropriate.
+ 
+ Whatever the shape of the strip, a straight line of stages or a diamond or something with a
+ hundred points, I'll call the set of places the record can be the \emph{direction}, and each
+@@ -8685,7 +8821,7 @@
+ Now the fibres. Part II showed that the step raising a permanent flag on a finite machine seats two
+ states in one chair, and Theorem~\ref{thm:dir-merge} showed the same for a step that turns any cup
+ over, once the cups only go up. Which two? It matters a great deal. If they're in different shadow
+-fibres, then the ordinary machine lost something and the record didn't. If they're in the same
++fibres, then the ordinary machine lost a distinction too; the record may also differ between them. If they're in the same
+ fibre, the ordinary machine lost nothing, and what got destroyed was only ever off the table: two
+ states that cast one shadow, told apart by their cups or their ledger, crushed into one.
+ 
+@@ -8754,6 +8890,24 @@
+ for a spread that does blow up, and it took a nastier one: blocks of states, block $k$ holding
+ $2^{2^k}$ states and a share $\frac{1}{(k+1)(k+2)}$ of the weight, which adds up to one. Under that
+ spread the loss grows past every bound. No toll covers it, on average or otherwise.
++
++You can generate the first spread by tossing a fair coin until the first head.
++Zero tails names state 0, one tail names state 1, and so on. State $j$ has chance
++$2^{-(j+1)}$, and identifying that outcome takes $j+1$ toss-results. Its entropy
++term is therefore $(j+1)/2^{j+1}$. Add these by counting each possible toss position:
++the first is reached with chance 1, the second with chance $1/2$, the third with
++chance $1/4$, and so on. The total is $1+1/2+1/4+\cdots=2$; every finite partial
++sum of the state terms is smaller. Resetting all those outcomes to one box can
++lose only those two bits on average, despite having infinitely many possible starts.
++
++For the block spread, split each block's weight equally among its states. The block
++weights sum to one because $1/((k+1)(k+2))=1/(k+1)-1/(k+2)$. Within block $k$,
++there are $2^{2^k}$ equally likely choices, so just identifying a state within that
++block contributes $2^k/((k+1)(k+2))$ to the average bits. Those contributions grow
++without bound as $k$ grows. Forgetting which block it was only adds to the loss.
++And no finite worst-case price can handle an infinite pile: for any proposed cost
++$c$, select $2^c+1$ different states in it. They all land together, violating the
++halving rule's maximum of $2^c$.
+ 
+ \begin{theorem}[An infinite pile]\label{thm:dir-infinite}
+ (1) A move that sends infinitely many states to one spot isn't priced by the halving price at any
+@@ -9223,6 +9377,21 @@
+ combinator}, a term that lets a function call itself, which is how $Q$ works its way through
+ a code of any size.
+ 
++Work two substitutions on paper before taking the general rule. Write
++$I=\lambda x.x$: its instruction is ``return whatever you were handed.'' Applying
++$I$ to the card bearing $I$ gives $I\,I\to I$, and stops. Now write
++$D=\lambda x.x\,x$: ``make two copies of what you were handed and apply the first
++to the second.'' Hand it its own card. Substituting $D$ for both occurrences of
++$x$ gives $D\,D\to D\,D$. You are back at precisely the same instruction and
++argument, so repeating the rule never finishes. Both arguments were already
++functions; neither example sneaks work under an unopened function.
++
++The variable numbers keep this copying unambiguous. In $\lambda x.\lambda y.x$,
++the final $x$ refers past the nearest binder $y$ to the next one, so its number
++is 1; in $\lambda x.\lambda y.y$ the final variable has number 0. Renaming $x$
++and $y$ changes neither recipe. The codes below are a way of putting the whole
++recipe on a card that another recipe can inspect.
++
+ \begin{definition}[L, as built here]\label{def:u12-L}
+ A term of L is a variable (a de Bruijn number), an application $s\,t$, or an abstraction
+ $\lambda s$; the values are the abstractions. One step is weak call-by-value, left to right:
+@@ -9450,9 +9619,12 @@
+ vote, the finalizing votes included, and it's taken only if the record is later made to
+ contradict itself.
+ 
+-Do it with three validators. Let A and B vote one branch, B and C vote a competing branch.
+-Each pair is two of three. Both branches finalize. Now read the rule: B cast two different votes
+-with the same target epoch. B is the third that gets slashed; A and C are clean. That's what a fork costs
++Do it with three validators of equal stake. Draw genesis at epoch 0, two competing
++children at epoch 1, and one child of each at epoch 2. Let A and B vote both links
++on the left branch, from genesis to its first child and from that child to the
++next. Let B and C do the same on the right. Each link has two of the three votes.
++Both epoch-1 blocks are justified and have the required link to their child, so
++both finalize. B voted for different targets at the same epoch. B is the third that gets slashed; A and C are clean. That's what a fork costs
+ and who pays, and the checked work has exactly this instance, so the theorem's premise isn't vacuous: forks of that kind can be
+ built, and the theorem fires on them.
+ 
+@@ -9594,10 +9766,14 @@
+ value, whether it has been touched (warm), the gas charged so far, and the refund counter.
+ A store of a new value charges 2100 if the slot is cold, plus 20000 if the slot still holds
+ its original value, the new value differs, and the original is 0 (2900 if the original is
+-nonzero), and otherwise 100. It adjusts the refund counter by the specification's rules; in
+-particular, when the new value equals the original value 0, the refund grows by
+-$20000 - 100 = 19900$. The run starts fresh: original and current 0, cold, gas and refund 0.
+-The \emph{net} charge is gas minus refund.
++nonzero), and otherwise 100. If the value is unchanged, the refund does not change. Otherwise add together
++these applicable adjustments: add 4800 when the original and current values are
++nonzero and the new value is zero; subtract 4800 when the original is nonzero and
++the current value is zero; and, when the new value restores the original, add
++19900 if that original is zero, or 2800 if it is nonzero. Store the new current
++value, mark the slot warm, and keep the original value unchanged. The run starts
++fresh: original and current 0, cold, gas and refund 0. The \emph{net} charge is gas
++minus refund.
+ \end{definition}
+ 
+ \begin{theorem}[Pricing the persistent write and the revoked one]\label{thm:u13-sstore}
+@@ -9608,9 +9784,11 @@
+ 
+ \begin{proof}
+ (1) By induction on the list, with the invariant: while the original value is 0, the net
+-charge is at least 0 when the current value is 0 and at least 20000 when it is not. Each
+-store keeps it, which is a finite case split on whether the slot is warm and which of the
+-original, current and new values are equal. A fresh slot satisfies it. (2) Direct
++charge is at least 0 when the current value is 0 and at least 20000 when it is not. For the fresh original value 0, the four cases are short. Zero to zero adds 100
++to net; zero to nonzero adds 20000; nonzero to nonzero adds 100; and nonzero to
++zero adds $100-19900=-19800$. The last case starts with net at least 20000 and
++therefore ends at least 200, still nonnegative. A cold access adds another 2100
++in any case. These updates preserve the invariant, and a fresh slot satisfies it. (2) Direct
+ computation: $2100 + 20000 = 22100$ for the first store, $100$ for the second, refund
+ $19900$, and $22200 - 19900 = 2300$.
+ \end{proof}
+@@ -9843,22 +10021,43 @@
+ each specification prices. But it's worth keeping two sentences apart: ``the specification
+ prices nothing'' and ``nothing is priced.''
+ 
+-Do the inclusion proof by hand, because it's the most satisfying ten minutes in this section.
+-Take the RFC's own seven-leaf example tree and verify that leaf d3 is in it from the path
+-the log hands you: three hashes and a rule about which side to hash on, depending on
+-whether your position is odd. Three hashing steps and you land on the root. The RFC's own examples, including the awkward lone-leaf case, can be run
+-through a transcription of the RFC's verifier control flow with a symbolic
+-hash. Verifier logic only: no signatures, no gossip (auditors comparing
+-the views they were shown), no misbehaving log.
++Do the inclusion proof by hand. Lay out seven cards $d_0$ through $d_6$.
++Join neighbours with paper brackets: $a=\nu(d_0,d_1)$,
++$b=\nu(d_2,d_3)$ and $c=\nu(d_4,d_5)$. The last card stands alone.
++Next join $a$ to $b$, giving $L=\nu(a,b)$, and $c$ to $d_6$, giving
++$R=\nu(c,d_6)$. The root is $\nu(L,R)$. Here $\nu$ means ``put these two
++expressions, in this order, inside one labelled bracket.'' Equal symbolic hashes
++must have exactly the same bracket structure.
++
++To check $d_3$, keep only that card and the three siblings $d_2,a,R$.
++Combine $d_2$ on its left to recover $b$, then $a$ on the left to recover $L$,
++then $R$ on the right to recover the root. You never needed to open the cards
++inside $a$ or $R$. That is the inclusion path. These are symbolic hashes, so
++this trial checks the tree's assembly; real short hashes need a separate
++cryptographic argument. There are no signatures, gossip between auditors or
++misbehaving logs in this fragment.
+ 
+ \begin{definition}[Inclusion check, RFC 9162 section 2.1.3.2]\label{def:u13-inclusion}
+ Given a leaf index $m$, a tree size $N$, a leaf hash, a root hash and a path, the check
+-rejects unless $m < N$. Otherwise it walks the path from the leaf with two counters starting
+-at $m$ and $N - 1$, hashing each path element on the left or the right according to the
+-counters as the RFC specifies and halving the counters, and accepts when the second counter
+-ends at 0 and the result equals the root. A \emph{symbolic hash} makes a leaf hash $\ell(x)$ and a
+-node hash $\nu(a, b)$ free constructors, so two hashes are equal only when they are built the
+-same way.
++rejects unless $m < N$. Otherwise start counters $f=m$, $s=N-1$ and an accumulated hash $r$ equal to
++the leaf hash. For each path element $p$, reject if $s=0$. If $f$ is odd or
++$f=s$, replace $r$ by $\nu(p,r)$; in this branch, while $f$ is positive and
++even, halve both counters with rounding down. In the other branch replace
++$r$ by $\nu(r,p)$. After either branch halve both counters once more. At the
++end accept exactly when $s=0$ and $r$ is the claimed root. A \emph{symbolic hash}
++makes a leaf hash $\ell(x)$ and a node hash $\nu(a,b)$ distinct constructors:
++two hashes are equal only when their entire constructions agree.
++
++The consistency check used here takes old and new sizes $M,N$, roots $u,v$ and
++a path, and rejects unless $0<M<N$. If $M$ is a power of two, prepend $u$ to
++the path. Reject an empty resulting path; otherwise its first element seeds
++two accumulated hashes $r_\mathrm{old},r_\mathrm{new}$. Start $f=M-1$, $s=N-1$,
++and halve both while $f$ is odd. Process each remaining path element $p$:
++reject if $s=0$; when $f$ is odd or $f=s$, put $p$ on the left of both
++accumulated hashes and halve both counters while $f$ is positive and even;
++otherwise leave $r_\mathrm{old}$ alone and put $p$ on the right of
++$r_\mathrm{new}$. After either branch halve both counters once. Accept exactly
++when $s=0$, $r_\mathrm{old}=u$ and $r_\mathrm{new}=v$. All halvings round down.
+ \end{definition}
+ 
+ \begin{theorem}[The RFC's own examples pass]\label{thm:u13-ct-examples}
+@@ -9869,8 +10068,18 @@
+ \end{theorem}
+ 
+ \begin{proof}
+-The examples are evaluation of the transcribed functions on constructor terms. The boundary
+-case is the first test, $m < N$, failing.
++Use the brackets $a,b,c,L,R$ built above. For leaf 3, the counters start at
++$(3,6)$: put $d_2$ on the left, leaving $(1,3)$; put $a$ on the left, leaving
++$(0,1)$; put $R$ on the right, leaving $(0,0)$ and root $\nu(L,R)$.
++Leaf 0 has path $[d_1,b,R]$ and three right combinations. Leaf 4 has path
++$[d_5,d_6,L]$: right, right, left. Leaf 6 has path $[c,L]$:
++left, then left; its first branch shifts $(6,6)$ to $(3,3)$ before the ordinary
++halving, which accounts for the unpaired last leaf. Each reconstructs the same root.
++For consistency from 4 to 7, the old root is $L$ and the supplied path is $[R]$.
++Prepending $L$ seeds both hashes with $L$; shifting the initial $(3,6)$ gives
++$(0,1)$, so the sole remaining element leaves the old root alone and makes the
++new root $\nu(L,R)$, with final counters $(0,0)$. The boundary case $m=N$
++fails the first test $m<N$.
+ \end{proof}
+ 
+ The append-only history is list append: appending keeps every old entry.
+@@ -10009,8 +10218,7 @@
+ what people built, and what they built was mostly walls (hash chains, signatures) and
+ penalties for contradiction. Tolls on commitment were rare. Whether a toll on commitment is a
+ \emph{better} design than a wall is not something I can prove, and I won't pretend the five say
+-so. What I read in them, and it's a reading of five fragments I chose, is that the record
+-axis is real in each of them (each has a bit that goes one way) and that the price axis is
++so. What I read in them, and it's a reading of five fragments I chose, is that each has a condition treated as a record, though the conditions differ in durability and that the price axis is
+ mostly empty. With one definition of price fixed before the survey, that last part is a count:
+ of fifteen cells in the table, four are filled (one fee, one bond, two budgets), and only gas
+ takes a payment at the moment of the write.
+@@ -10117,8 +10325,7 @@
+ disjointness at all}. An ecosystem is a state type, some number of observers, and one bit
+ per observer; an observer \emph{records} an event when its bit is true exactly when the event
+ holds; an event \emph{proliferates} when every observer records it. Nothing in that says two
+-observers draw on separate parts of the state. They could all be reading the same bit. The
+-file says so itself. So I kept the word and dropped the independence that makes Zurek's version
++observers draw on separate parts of the state. They could all be reading the same bit. The definition permits it. So I kept the word and dropped the independence that makes Zurek's version
+ mean ``objective.'' That's a gap between the thesis's prose and that first formal object, and the
+ prose is where the thesis lives. The definitions under the thesis below close part of the gap:
+ they define independent carriers, and the definition turns out to force something
+@@ -10231,6 +10438,20 @@
+ of rivals. And the definition of independence has a consequence I
+ didn't put in on purpose.
+ 
++Put one yes/no card in front of each of two readers. If the cards can be set
++separately, all four arrangements are allowed: no/no, no/yes, yes/no and yes/yes.
++Ask each reader to recover one shared event using only their own card. Suppose
++that event is false at no/no and true at yes/yes. At no/yes, the first reader
++sees exactly what they saw in the false case, while the second sees exactly
++what they saw in the true case. Their answers conflict. That mixed arrangement
++is what the independence condition supplies in the proof.
++
++Now impose a copying procedure that only leaves no/no or yes/yes. On those
++reachable arrangements each reader can report the shared bit correctly.
++Separate cards are possible carriers; correlated reachable contents make them
++copies. The theorem concerns exact recovery on \emph{all} arrangements, including
++the mixed ones that this copying procedure never leaves behind.
++
+ \begin{theorem}[Independent copies on every state: the event is equivalent at any two states]\label{thm:u14-independent-constant}
+ In any ecosystem with reliance whose carriers are independent and which has at least two observers,
+ an event copied on the set of all states holds at one state exactly when it holds at any other,
+@@ -10311,7 +10532,13 @@
+ measurement noise, submission latency, prover steps) doesn't. The five together are one
+ statement, an instance of the schema above.
+ Plus a symmetric message-authentication code, which does \emph{not} proliferate, and a digital
+-signature, which does. Twelve rows. And a thirteenth that I think is the most important one: swap which bit
++signature, which does. Twelve rows. The five maps all use the same construction: a state has a designated
++Boolean event and a separate nonnegative rival count, three observers each return
++the event bit, and the rival asks whether its count is at least one. The bit and
++count can vary independently. The signature map likewise gives all three observers
++the authentic-signature bit. In the MAC map, observers 0 and 1 receive the authentic-tag
++bit and observer 2 always returns false. These maps, not a protocol running
++on a network, are the entire tests here. And a thirteenth that I think is the most important one: swap which bit
+ every observer copies, and the criterion picks the \emph{other} event. The criterion selects
+ whatever the observer map copies. The map is where the argument lives, and I wrote the maps.
+ So the five ``confirmations'' are five instances of one construction with the fields renamed.
+@@ -10406,7 +10633,7 @@
+ \subsection{What isn't checked, and must stay that way on the page}
+ 
+ That certification \emph{in deployed systems} is singled out by being copied and relied on across
+-\emph{independent} carriers. The criterion now defines independence; it has no precise definition of ``deployed'' or ``faithfully model,''
++\emph{independent} carriers. The criterion defines independence; it has no precise definition of ``deployed'' or ``faithfully model,''
+ and no cost law connecting being copied and relied on to price. Every correspondence between a mathematical observer
+ map and a real system is a sentence I wrote. The thesis is a thesis, and anyone who
+ says the formal object proves it is reading more than is there.
+@@ -10794,8 +11021,11 @@
+ 
+ One of what? One unit of $\mu$, the same unit as Section~\ref{sec:toll}'s toll. Why one? Why would ten be worse? Because one
+ is the smallest positive whole number, which is honestly the whole defence, and Section~\ref{sec:a2-not-arbitrary} is the
+-section where I tried to do better than that for the flag. That argument doesn't reach this
+-machine, though (the end of the chapter says why), so here the one is a choice, full stop.
++section where I tried to do better than that for the flag. The finite whole-machine argument doesn't apply here: these counters are unbounded
++and some base moves merge for free. The record-layer argument in
++Theorem~\ref{thm:record-merge-toll} does give the toll if record-layer merges are
++priced. Choosing that premise and choosing a unit for each of these three acts
++remain choices of the model.
+ 
+ The whole numbers have a history of their own. In 1888 the German
+ mathematician Richard
+@@ -11161,14 +11391,14 @@
+ \begin{proof}
+ Take the state and instruction sets of Definitions~\ref{def:u34-state} and
+ \ref{def:u34-step}, their step and cost, and the flag as the reading. These provide the
+-five data fields of Definition~\ref{def:certsys}. Theorem~\ref{thm:u34-toll} supplies its
++five components of Definition~\ref{def:certsys}. Theorem~\ref{thm:u34-toll} supplies its
+ one required rule. Applying Observation~\ref{thm:universal-floor} gives the claimed bound.
+ \end{proof}
+ 
+ Then Section~\ref{sec:latch}. Section~\ref{sec:latch} said: take any base, and any record that answers only to the base and never
+ comes back down, and the record is a latch. This machine has a base: a program together
+ with a core, stepping by the program step. And it has a record, the flag, with the ledger
+-riding along. So the question is whether it's an \emph{honest} extension in Section~\ref{sec:latch}'s five-rule
++riding along. So the question is whether it's a \emph{base-driven} extension in Section~\ref{sec:latch}'s five-rule
+ sense (Definition~\ref{def:u11-honest}), and if it is, Section~\ref{sec:latch} does the rest.
+ 
+ \begin{theorem}[The flag is a latch of the base]\label{thm:u34-latch}
+@@ -11463,14 +11693,14 @@
+ 
+ Why trap? Why not make room? Because ``making room'' means deciding which fact dies, and a
+ fact that can die is a fact whose absence you have to explain later. A table that only grows
+-is a history you can read back, and the provenance proofs above lean on exactly that. The
++keeps the checked facts available to read back, and the provenance proofs above lean on exactly that. The
+ bill for it is real, though, and it's in the subsection near the end of this chapter on
+ what the machine doesn't do.
+ 
+ \subsection{The window can't see the record}
+ 
+ Section~\ref{sec:windows} was about windows: a view of a state that shows some of it, and the theorem that a window
+-which can't tell two states apart can't price the step between them exactly
++which shows the same before-and-after pair for a raise and a non-raise cannot price both exactly
+ (Observation~\ref{thm:shadow-price}). Here's the smallest pair I could build where the window is
+ Minsky's view of the machine (line number and the two counters) and the record is
+ everything else.
+@@ -11608,7 +11838,7 @@
+ The version whose check can't
+ fail, CHECK \emph{at least 0} $A$; COMMIT \emph{at least 0} $A$; CERTIFY, certifies from every
+ start for exactly 3. So the
+-floor of three is reachable from any start at all, and that's the machine declining to police
++floor of three is reachable from every loaded start, and that's the machine declining to police
+ trivial checks. On that program the check distinguishes no inputs.
+ 
+ That's the worked run from the start of the chapter, now as a theorem. The floor is 3, and a
+@@ -12125,6 +12355,20 @@
+ every slot about that counter a nudge, one INC and one DEC, which leaves the number alone and
+ pushes the version up, so the host's facts go stale at exactly the moment the guest's do.
+ 
++Do one slot by hand. The property ``even'' has number 1. Checking it on value 4
++puts $\langle1,4\rangle=(2\cdot4+1)2^1=18$ in a separate slot. To read that
++pair, divide 18 by two until the remainder is odd: one division gives 9, so the
++property number is 1; subtract one from 9 and halve to recover value 4. The host
++checks that property of that value. A second card, the mirror, says 2: the property
++number plus one. COMMIT can read this second card while leaving the checked slot
++untouched.
++
++When the guest changes the counter that fact concerned, nudge the slot
++$18\to19\to18$ and set the mirror to zero. Its number came back, but its version
++rose twice, so the old host fact is no longer current. A restored number does not
++restore an old check. The mirror tells the search not to use that slot's old fact;
++the version rule enforces the refusal even if it tries.
++
+ \textbf{The program.} Here's $U$ the way Turing would describe it, one register at a time and then
+ one job at a time. Registers 0 and 1 hold the guest's $A$ and $B$. Register 2 holds the guest's
+ whole program as one number: each instruction gets a number (an opcode paired with its operands,
+@@ -12166,8 +12410,11 @@
+ Why the mirrors? COMMIT has to find the slot holding the claim, and it can't read the slot to
+ find out, because reading would make the fact stale. So beside every slot sits a mirror the
+ program is allowed to read: the property's number plus one while the slot's fact is live, 0 once
+-the guest has written the counter. If a guest CHECK fails, the host's CHECK on the slot fails too,
+-since the slot holds exactly the pair the guest checked, and both machines trap.
++the guest has written the counter. If a guest CHECK fails its property, the host's CHECK on the slot fails too,
++since the slot holds exactly the pair the guest checked. If the guest table is
++full across both counters, the host's own sixteen-entry table is full as well,
++even when this counter's slot count is below sixteen; its CHECK then traps for
++lack of room. Both kinds of refusal are preserved.
+ 
+ Count what costs anything. Fetching, unpacking, copying, nudging, branching: all INC and DEC,
+ all free, the way computing is free on the small machine. The only paid instructions are the
+@@ -12284,7 +12531,7 @@
+ $\mathsf{Zero}$ and 0, against register 0 loaded with 0, which is no pair. Over the claim
+ language the interface is the same one, with the meanings handed over by the language. (2) is
+ Theorem~\ref{thm:u34-tc-instances}(4) and Theorem~\ref{thm:u34-U-earned}. (3) is
+-Theorem~\ref{thm:u34-U-halting}, and the identity map reduces the small machine's halting question,
++Theorem~\ref{thm:u34-U-halting}, and the loading map reduces the small machine's halting question,
+ undecidable by Theorem~\ref{thm:u34-undecidable}, to this one.
+ \end{proof}
+ 
+@@ -12414,6 +12661,14 @@
+ count it took into the fuel register, and at such a value the checker says yes if and only if the
+ reading says yes.
+ 
++For the fuel rule, take a routine containing just one instruction: increment an
++answer register initially holding 0, then leave its one-line code. Give it fuel 0
++and the check says no: it has not completed. Give it fuel 1 and the check says yes:
++it has left the code with answer 1. The first no did not mean the routine would
++never answer yes. It meant ``not within this allowance.'' You can run that distinction
++with a pebble and a single instruction card. The general checker does the same job
++for an arbitrary finite list and an allowance supplied with it.
++
+ \begin{theorem}[One host runs every computably presented Thiele machine]\label{thm:u34-presented}
+ Let $M$ be a computably presented Thiele machine, so that a driver picks its next move (one run
+ per start), a program decides its reading on every state, and its prices are whole numbers; and let
+@@ -12467,6 +12722,14 @@
+ from a clean start. When $M$ paid more than that earlier, nothing here says this compiler's
+ surcharge is the least possible: part (1) of the theorem below bounds this compiler, and part (3) is the only lower
+ bound proved.
++
++Keep two tally lines for a guest whose first three moves each cost one and whose
++reading first says yes after the third. The guest's totals are 1, 2, 3. This
++compiler pays one PAY on each of the first two moves, then its three-act chain:
++the host totals are 1, 2, 5. The excess is two, added once. If the third move
++instead costs four, the host runs the chain and one PAY there; both totals then
++read 6. These are counts of charged instructions, not counts of all the work
++needed to decode the guest.
+ 
+ \begin{theorem}[Exact, within two, and no better]\label{thm:u34-presented-surcharge}
+ Let $M$, $s_0$ and the loaded host be as in Theorem~\ref{thm:u34-presented}, and let $M$'s reading
+@@ -12570,10 +12833,12 @@
+ step, whatever the step was. It never falls behind the guest's own bill (part (3) of
+ Theorem~\ref{thm:u34-host-toll} below), and it matches that bill only when every guest step
+ happens to cost one. Could a cleverer host have simulation-exact accounting, a ledger equal to
+-its guest's? Not with a price read off the move alone. $\mathrm{GSTEP}\ 1$ is the same move whether the guest's next instruction is a free INC or
+-a paid CHECK, so one price can't match both. A simulation-exact host has to be built the
+-other way, with no guest step to put a price on: that's $U$, which pays only on the record moves
+-it runs itself, so its ledger equals its guest's (Theorem~\ref{thm:u34-U-flag}).
++its guest's? This one fixed-price move cannot: $\mathrm{GSTEP}\ 1$ is the same
++move whether the guest's next instruction is a free INC or a paid CHECK, so its
++one price cannot match both. That does not rule out other primitive-step designs
++with different moves or state-dependent prices. $U$ achieves the match using
++ordinary instructions: it pays only on the record moves it runs itself, so its
++ledger equals its guest's (Theorem~\ref{thm:u34-U-flag}).
+ 
+ And one thing about the definition before the theorems, so you know which of them carry
+ weight. $\mathrm{GSTEP}$ runs the guest's instruction by calling the small machine's own step on
+@@ -13011,8 +13276,8 @@
+ \end{theorem}
+ 
+  So the record doesn't make narrowing cost more. It adds the earned chain and
+-a floor of 3, and that's all it adds: a run that narrows without ever raising the record is still bound to pay
+-its index bits, and the floor of 3 no longer applies to it.
++a floor of 3, and that's all it adds: a run meeting the same counting and payment hypotheses is still bound by that index-bit
++floor even if it never raises the record, and the floor of 3 no longer applies to it.
+ 
+ \emph{Weights, and the partition form.} Two more pieces of the same count. First,
+ suppose the rivals aren't equally many: give each a whole-number weight, a multiplicity, and call
+@@ -13021,9 +13286,10 @@
+ two masses differ by at most $\mathrm{depth}(T)$; so for any certification system a run that paid at
+ least that many charged steps has a bill at least the drop, and for a Thiele-complete machine the
+ representation theorem goes through with masses and the same five conclusions. On such a machine
+-the ledger rises by the same number from every start, the number of record moves, so the expected
+-rise over a weighted prior is its mass times the record moves, and the drop in rounded bits times
+-the prior's mass is at most that expected rise, with no averaging argument. The weights are whole
++the ledger rises by the same number from every start, the number of record moves, so the weighted sum of
++ledger rises is the prior's mass times the record moves, and the drop in rounded bits
++times that mass is at most the weighted sum. Dividing by a positive total mass would
++give an expected rise; the statement here leaves the weights unnormalized. The weights are whole
+ numbers, cross-multiplied, and no probability enters.  Second, the covering by fibres has a plainer form
+ that doesn't need the clause that the fibres add up to the prior. Say the rivals are
+ \emph{partitioned} by the representative observation when every rival looks like some survivor
+@@ -13328,11 +13594,12 @@
+ The construction is Theorem~\ref{thm:host-kleene}'s, with a different evaluator. The first step is to
+ see that a record is small. From a clean start, a host program that stops has a record I can read off
+ five numbers, in this order: what it left in register 0; how many facts the table holds; what is
+-left of the ledger once the facts, the trap and the flag are paid for, which I'll call the commits;
++left of the ledger once the facts, the trap and the flag are paid for, which I'll call the replay allowance;
+ 1 if the flag is up and 0 if not; and 1 if the trap latch is up and 0 if not. The record obeys a short rulebook. The table holds
+ at most sixteen facts. The latch is a single bit. A commit needs a fact behind it, a certify needs a
+-commit, and the channel is empty exactly when no commit was paid. The ledger is the facts, plus the
+-commits, plus the flag, plus the trap, and that's all of it. Those are the only properties of a record
++commit, and the channel is empty exactly when the replay allowance is zero. The ledger is the facts, plus that
++allowance, plus the flag, plus the trap. The allowance includes repeated CERTIFYs as well as COMMITs;
++it counts marks the replay can spend on commitments, not the original commitment events. Those are the only properties of a record
+ the replay will use, and I proved them by following the plain machine alongside the real one, one step
+ at a time.
+ 
+@@ -13343,12 +13610,17 @@
+ of its own, they are simulated and never paid.
+ 
+ The third step is the payment. The evaluator puts 1 in a fresh register, which satisfies the host's one
+-property, and CHECKs it once for every fact. It COMMITs to that claim once for every commit. It CERTIFYs
++property, and CHECKs it once for every fact. It COMMITs to that claim once for every mark in the replay allowance. It CERTIFYs
+ once if the flag is up. It copies the first number into register 0. And if the trap latch is up, it
+ CHECKs a register that holds 0, which fails, and the host traps. Everything before the payments is INC and
+ DEC and costs nothing, and the payments cost what the record costs, so the ledger is exact. Specialise the
+ evaluator to its own number, as before.
+ \end{proof}
++
++Try CHECK, COMMIT, CERTIFY, CERTIFY on a true claim. The ledger is four, the table holds one
++fact, the flag is up and the trap is down, so the replay allowance is two. The replay pays
++CHECK, COMMIT, COMMIT, CERTIFY: the same four marks and the same summary, in a different order.
++That is the agreement being claimed.
+ 
+ In the replay, the trap latch is up exactly when the fifth number is 1, and the flag
+ exactly when the fourth is positive. Restricting the comparison to the computed function
+@@ -13365,8 +13637,9 @@
+ \end{theorem}
+ 
+ \begin{proof}
+-Let $F(p)$ be the one-line program INC $r$, with $r$ one above the number of $p$. A host program carries
+-this out on numbers; I got it from the same route through L. None of it was written by hand. A program's number is at
++Let $F(p)$ be the one-line program INC $r$, with $r$ one above the number of $p$. To carry this out on numbers, add one to the input code, encode INC with that register,
++and encode the one-element instruction list. These are finite arithmetic operations of the
++counter construction in Appendix~\ref{sec:counter-constructions}. A program's number is at
+ least every register it names: the number of an instruction is above its register, and the code of a
+ list is above every instruction in it. So $e$ can't name $r$, the register $F(e)$ writes. On input 0 the
+ run of $F(e)$ ends with 1 in register $r$, and if $e$ stops at all, it ends with 0 there. If $e$ doesn't
+@@ -13445,6 +13718,11 @@
+ reduction is from the complement of halting.
+ \end{proof}
+ 
++Try input 2 while the simulated counters hold 1 and 2. The pile is
++$17\cdot2\cdot9=306$. Raising the first simulated counter doubles it to 612; lowering
++the second divides it by three, to 204. Strip off every factor of two and three and 17
++remains; subtract five and divide by six, and the original input 2 is back.
++
+ So $6n + 5$ is the place to keep the input that two counters seemed not to have. It isn't beside the
+ work. It's inside it, in a factor the work never touches. I like that one more than I can justify: the
+ input hides in the leftover that every halving and thirding walks straight past.
+@@ -13479,27 +13757,97 @@
+ \end{theorem}
+ 
+ \begin{proof}
+-(2) from (1): let $F(p)$ multiply bin A by $c$ for the length of $p$. A program carries $F$ out by
+-the same route through L as before, and a fixed point would multiply every input by a number fixed by
+-its own length. For (1), count the control states of a program of $n$ lines: its line, the trap latch,
+-whether the channel holds a commitment, and for each of at most sixteen facts its property, its counter
+-and whether it still concerns that counter's current version. There are at most $4(n+1)(2n+1)^{16}$, and
+-$N$ is four times that, so $c$ shares no factor with any number up to $N$. Now suppose a program does
+-multiply every input by $c$. On a large input, a bin far fuller than anything a CHECK names is seen
+-only two ways: whether it's empty, and whether its pebbles pair off evenly. So the run breaks into
+-stages, each a bounded cycle that moves the small bin up by some $g$ and the full one down by some $m$,
+-both at most $N$. Follow one input and the same input plus the product of the $m$'s through the same
+-stages, and compare the outputs: the growth is $c$ times the product of the $m$'s on one side and the
+-product of the $g$'s on the other. A number with no factor up to $N$ can't divide a product of numbers
+-up to $N$ unless it is 1, and $c$ is at least 2.
++(2) from (1): let $F(p)$ be a program that multiplies bin A by the constant
++$c$ determined by the length of $p$. Multiplication by a fixed constant is the
++transfer loop of Appendix~\ref{sec:counter-constructions}. Decoding a finite
++program, counting its lines, forming the factorial and writing that loop are
++computable operations, so a program carries out $F$ on encoded program numbers.
++A fixed point would multiply every plain input by the constant forbidden by (1).
++
++For (1), separate the two bin counts from the finite control. The control records
++the line, trap, whether the channel is empty, and each stored fact's property,
++counter and current-or-stale status. Only properties named in the program can
++enter the table. With at most sixteen entries this gives at most
++$Q=4(n+1)(2n+1)^{16}$ control states. The ledger and absolute versions do not
++influence a branch; current-or-stale status contains the version information a
++COMMIT needs. Choose a positive threshold $B$ above every number named by a CHECK.
++Above $B$, a bin affects a branch only through its parity; below $B$, retain its
++exact value. Including both parities gives at most $4Q=N$ large-bin control patterns.
++
++Here is the loop argument behind the bound. Start with one bin below $B$ and
++let the other hold a large number $v$. Until that large bin drops below $B$,
++pretend it cannot run out: keep its parity and a running tally of how much was
++added to or taken from it. Follow the other bin exactly. This gives a run whose
++choices do not depend on the size of $v$, only on its parity. The real run agrees
++with it up to the first crossing of the threshold.
++
++This forced run either stops, repeats while its exact bin remains bounded, or
++eventually repeats a pattern with that bin growing. To check that the list is
++exhaustive, look at visits below $B$: there are only $2QB$ possibilities for the
++control, exact small value and other parity. A repeated one repeats the entire
++forced run from there. Otherwise there can be only finitely many such visits.
++In a stretch above $B$, two of any $N+1$ consecutive control-and-parity patterns
++coincide. The intervening instructions have a fixed net change of each bin.
++If the exact bin has not decreased, the stretch repeats indefinitely, translated
++upwards by that even change. If it has decreased, repetition takes it back below
++$B$. This last alternative cannot support an arbitrarily long stretch above the
++threshold: from its entry at $B$, the first repetition starts at height at most
++$B+N$, has length at most $N$, and a negative change reaches the threshold within
++at most $B+N+2$ repetitions. Thus a stretch longer than
++$N+(B+N+2)N$ supplies a nondecreasing repeat. Either sufficiently many short
++stretches revisit a small configuration, or a long stretch supplies that repeat.
++This is a finite search, and proves the three alternatives.
++
++Choose $v$ large enough that the finite prefix just found cannot empty its bin.
++A stopping prefix leaves one bin fixed and the other equal to $v$ plus a constant.
++In a repeating tail, if the large bin does not decrease per period, the real run
++never stops. If it decreases and the other bin does not grow, it reaches the
++threshold with both bins bounded independently of $v$. The remaining case transfers
++size from one bin to the other. Write $m>0$ for the loss per period and $g>0$ for
++the gain. This is the growing repeat above, so its period is at most $N$, and
++each instruction changes a bin by at most one: $m,g\le N$. Both changes are even,
++because the repeated pattern includes both parities. Increasing $v$ by $m$ inserts
++one more complete period before the threshold crossing. At that crossing the
++formerly large bin is exactly $B-1$, the control is the same, and the other bin
++is larger by $g$. Repeating this comparison works for every nonnegative multiple
++of $m$. That is the stage rule. For example, a loop taking two beans from the full
++bin and placing four in the other gives $m=2,g=4$: two extra entering beans buy
++one extra loop and four extra exiting beans. The general rule is the same count.
++
++There are finitely many ways to start a stage: control, the small value below $B$,
++and the large bin's parity. Choose one common bound large enough for every finite
++prefix and every bounded outcome above, in both orientations of the bins. The
++configurations with one bin below $B$ and the other below this common bound form
++a finite set. If the program multiplied every input by $c>0$, two different
++inputs could never visit the same configuration: their subsequent outputs would
++then agree, whereas $cx\ne cx'$ for $x\ne x'$. Only finitely many inputs can
++therefore visit that finite set. Choose a larger input avoiding it, with output
++larger than every bounded stopping output.
++
++Its run halts by the supposed multiplier property. A stage cannot be a never-ending
++one or end with both bins bounded. It therefore transfers by a positive pair
++$(m_i,g_i)$, exchanging the roles of the bins, until it stops with bin A large.
++There are only finitely many stages, since each takes at least one step of this
++halting run. The last stopping prefix preserves an even increase in that bin
++unchanged. Working backwards through the stages, compare the chosen input with
++itself plus $2\prod_i m_i$. Each stage's incoming difference is divisible by its
++$m_i$, so the same comparison continues through every stage. The final outputs
++differ by $2\prod_i g_i$. But multiplication by $c$ makes their difference
++$2c\prod_i m_i$. Cancel two:
++\[
++c\prod_i m_i=\prod_i g_i.
++\]
++Empty products are 1. Every factor on the right is between 1 and $N$, and
++$c=N!+1$ is coprime to every such factor: any common divisor divides both $N!$
++and $N!+1$, hence divides 1. Thus $c$ cannot divide the right side unless $c=1$.
++Since $c\ge2$, this is a contradiction.
+ \end{proof}
+ 
+ The same obstruction holds for any machine with finitely many control states whose counters
+ are read only through zero and parity above a threshold. It gives a computable transformation
+ $F$ with no program $e$ equivalent to $F(e)$ on plain inputs.
+ 
+-The case split in the stages is decided by running for a bounded number of steps, so no excluded
+-middle goes in. For a long time I couldn't read Schroeppel's own memo. I went looking again and
++For a long time I couldn't read Schroeppel's own memo. I went looking again and
+ found the scan. As I read it, his route is close in spirit: he trades a two-counter machine that
+ starts with one counter empty for a machine with one register that can only add,
+ multiply and
+@@ -13552,9 +13900,10 @@
+ 
+ What's outside the class is outside the theorems. A machine whose reading no program decides
+ (an oracle checker, say, which the definition of Thiele-complete doesn't rule out) doesn't come in. Nor
+-does a machine whose next move is nobody's computation. Nor does a guest that starts with a table
+-of facts nobody checked: the guests start where their presentation says, and the host from a clean
+-start.
++does a machine whose next move is nobody's computation. The two universal programs have different start conditions: $U$'s whole-run result starts
++its guest clean; $U_P$ starts its guest where the presentation says, even if that state
++already has a yes reading. The host starts clean and earns a claim about that reading.
++It does not reconstruct or authenticate the guest's earlier history.
+ 
+ And here's why insisting on no built-in step is the point. A plain interpreter on an ordinary
+ computer runs guests too, but then the guest's record is data the interpreter's program updates
+@@ -13656,7 +14005,7 @@
+ the counters. Getting from an arbitrary Turing machine to two counters goes through his
+ exponential packing, constructed in Appendix~\ref{sec:counter-constructions}, and nothing about it is fast.
+ \item \textbf{The step doesn't police trivial checks.} CHECK \emph{at least 0} passes on every
+-value, so CHECK, COMMIT, CERTIFY on it raises the flag for three from any start (the note after
++value, so CHECK, COMMIT, CERTIFY on it raises the flag for three from any fresh loaded start (the note after
+ Theorem~\ref{thm:u34-tight}). A check that can't fail establishes nothing, and the machine raises
+ the flag for it anyway. The step checks order, aboutness and an honest checker, and it leaves
+ ``was that worth asking'' to whoever reads the record.
+@@ -13671,8 +14020,9 @@
+ different states with the same line and counters to one state costs at least one. This machine's
+ own prices meet it, CERTIFY's merge is a merge of that kind, and so every price list that meets it
+ charges the flag-raising step at least one, with no finiteness premise
+-(Theorem~\ref{thm:record-merge-toll}). That premise is Landauer's, named and assumed. And the
+-exact price of one, where the premise asks for at least one, is still a design choice.
++(Theorem~\ref{thm:record-merge-toll}). That is an assumed price for losing record distinctions. Turning it into a heat bound
++requires the physical conditions of Section~\ref{sec:a2-not-arbitrary}; a ledger mark by itself
++is not heat. The exact price of one, where the premise asks for at least one, is still a design choice.
+ \end{itemize}
+ 
+ \subsection{What this chapter adds up to}
+@@ -13759,7 +14109,8 @@
+ 
+ The proof of (1) is the small machine's proof with the bins swapped out for whatever the box has.
+ That's the part I'd braced for, and it turned out to be nothing. The chain CHECK, COMMIT, CERTIFY
+-never looked at anything but the tally and the claim. The levers never touched the panel. Neither
++never looked at anything but the tally and the claim. The levers changed only the tally on the panel, making old facts stale; they never inserted
++a fact, made a commitment or raised the flag. Neither
+ side of the proof ever needed to know it was looking at pebbles.
+ 
+ So the earned layer isn't something two counters do. It sits on top of any machine that can compute,
+@@ -13923,9 +14274,19 @@
+ \end{theorem}
+ 
+ \begin{proof}
+-(1) Two facts and a count. The two facts are the walk above: the extra pebbles ride along, and
+-among more moments than there are lines, two are at the same line. Counting with those two facts
+-gives the bound. (2) The tape simulation, prime packing and halting diagonal of
++(1) If $k=0$, the program has already stopped. Otherwise suppose it is still running
++after $k(n+k+1)$ steps. If the counter has stayed at most $n+k$, the live
++configurations have only $k(n+k+1)$ possibilities: $k$ lines and $n+k+1$ counter
++values. The run has visited one more configuration than that, so one repeats and
++the deterministic run loops forever.
++
++If instead the counter reached $n+k+1$, look back to the last time it was at most
++$n$. After that it stayed positive. Mark its first arrivals at the $k+1$ levels
++$n+1,\ldots,n+k+1$. Two arrivals have the same line, at levels $a<b$. No zero
++test fired between them. Start that same stretch at level $b$: every test gives
++the same answer, every counter value is larger by $b-a$, and it returns to the
++same line still higher. Repeat forever. Either way a run still live at the bound
++never stops; a run that stops therefore does so within the bound. (2) The tape simulation, prime packing and halting diagonal of
+ Appendix~\ref{sec:counter-constructions}, carried over to the book's instruction set line by line. (3) A translation
+ that kept halting would make two-counter halting decidable by (1).
+ \end{proof}
+@@ -14008,7 +14369,10 @@
+ 
+  The machines that
+ preserve cost and record form a category with these pairs as products, and the pairing is a
+-symmetric monoidal structure, with the pentagon, triangle and hexagon laws checked.
++symmetric monoidal structure. The pentagon, triangle and hexagon laws say that
++regrouping four boxes, inserting an idle box, or exchanging groups of boxes gives
++the same final wiring whichever permitted route you take. Label the boxes and
++follow each wire: both routes put it at the same labelled terminal.
+ 
+ That last sentence is the most formal way I know of saying ``side by side composes, and nothing about
+ the order of the parts matters.'' It's a lot of category theory to confirm what the bench told me in
+@@ -14339,8 +14703,8 @@
+ 
+ \subsection{The game}
+ 
+-Two players, Alice and Bob, in separate rooms. A referee flips two coins and hands Alice a
+-question x, zero or one, and Bob a question y, zero or one. Alice answers a, zero or one;
++Two players, Alice and Bob, in separate rooms. A referee flips two independent fair coins, independent also of the players' plan,
++and hands Alice a question x, zero or one, and Bob a question y, zero or one. Alice answers a, zero or one;
+ Bob answers b. No talking during the game. They may agree on a plan beforehand, as detailed
+ as they like. They win a round when their answers
+ \emph{differ exactly when both questions were one}. In words: if either question is zero, match; if both are one, differ.
+@@ -14468,8 +14832,9 @@
+ answers on their own have the same odds whatever Bob is asked, and the other way round?
+ Then you can write down a ``box'' (the PR box, after their initials) that wins \emph{every} round (its answers differ exactly when
+ both questions are one, by fiat, each answer alone a fair coin), S equals four, and nothing
+-about it lets either room send a message. So relativity alone doesn't explain the quantum
+-ceiling; the PR box obeys relativity and beats 2.83. The order is: two for plans, 2.83 for
++about it lets either room send a message. So the no-signalling condition alone doesn't explain the quantum
++ceiling; the PR box meets that condition and beats 2.83. That does not supply a
++physical theory satisfying every requirement of relativity. The order is: two for plans, 2.83 for
+ quantum, four for no-signalling.
+ 
+ And the box has the same kind of history as everything else in this book: somebody got there
+@@ -14853,8 +15218,9 @@
+ one, the edge of what it accepts. So an honest tally aimed at that point sits right on the line,
+ and ordinary luck over a finite number of rounds pushes it over most of the time. I simulated it,
+ drawing each round's answers at Tsirelson's correlators: the check fails 92 percent of the time at
+-10 rounds per question pair, 87 percent at 100, and about 85.5 percent from 1,000 to 100,000. Fair
+-coins pass every time from 100 rounds per pair on, and fail about 2.5 percent of the time at 10.
++10 rounds per question pair, 87 percent at 100, and about 85.5 percent from 1,000 to 100,000. In those simulated trials, fair
++coins passed every time from 100 rounds per pair on, and failed about 2.5 percent of the time at 10.
++That is an observed frequency, not a guarantee for every possible tally.
+ The limit has a closed form. To first order the largest singular value of the noisy correlator
+ matrix is one plus the larger eigenvalue of a random symmetric two-by-two with independent
+ Gaussian entries, and the check passes only when that eigenvalue is at most zero, which happens
+@@ -15053,8 +15419,7 @@
+ Section~\ref{sec:a2-not-arbitrary} did the physics argument once: on a finite machine a permanent flag merges states,
+ Landauer's principle (a named premise) prices merges, and the toll follows. I'm not going
+ to do it again. This section is about what a machine's counter, the small machine's $\mu$
+-included, has to do with any of that, and the answer is: less than the word ``Landauer'' in a
+-file name suggests, and I want you to hear the exact amount from me.
++included, has to do with any of that, and the answer is: less than naming Landauer might suggest, and I want you to hear the exact amount from me.
+ 
+ \subsection{The calibration is a unit conversion}
+ 
+@@ -15078,7 +15443,8 @@
+ 20 May 2019 it isn't. That day the international system of units was redefined so that
+ Boltzmann's constant is exactly $1.380649 \times 10^{-23}$ joules per kelvin, by definition, and
+ the kelvin is whatever makes that true. So the conversion from temperature to energy has been a
+-convention since then, in the strictest sense: nobody can measure it wrong any more. What's still
++convention since then, in the strictest sense: its numerical value in those units is fixed. Realising the kelvin in a laboratory still
++requires measurements, with uncertainty. What's still
+ physics is everything around it, whether wiping a bit at a temperature really sheds that much
+ heat, which is what the Lyon bead was measuring. The calibration theorem is the same kind of move
+ as that redefinition. It fixes a conversion, and the physics, if there is any, is somewhere else.
+@@ -15150,7 +15516,7 @@
+ below calls those \emph{eligible}) costs at least one. I should say how cheap that is. The model the proof builds takes the dissipation to be
+ the cost itself, so the theorem shows the two premises don't contradict each other. It
+ doesn't show that the counter tracks any dissipation. Still, it does bite on a schedule: if you count a
+-zero-cost step, no such model can exist. One place the checked files show the premises holding is a
++zero-cost step, no such model can exist. One example where the premises hold is a
+ one-bit reset, where resetting costs one and idling costs
+ nothing; the small machine's flag-raising steps, below, are another.
+ 
+@@ -15302,6 +15668,13 @@
+ $\ln(1 + x) \le x$ for $x \ge 0$, and $\pi(D) \le e^{-D/kT}$; put these into (3) with $h = D/N$.
+ \end{proof}
+ 
++Try one finite step in units where $kT=1$: start with gap zero and half the
++registers excited, then raise the gap to $\ln2$. The work is $\tfrac12\ln2$.
++After settling, the excited share is $1/3$, so the bath receives
++$(\tfrac12-\tfrac13)\ln2=\tfrac16\ln2$ and the registers retain
++$\tfrac13\ln2$ more energy. Work equals those two amounts added together.
++A third are still excited: one such step has not wiped the bit.
++
+ Here nobody picked the gap to make the number come out. Take $D$ large and $N$ much larger
+ than $D$: the work closes in on $kT \ln 2$ from both sides, and the population left in the
+ excited state goes to zero. The bit is wiped, and Landauer's number is the work it took. The
+@@ -15382,7 +15755,7 @@
+ 
+ \emph{The toll from premises (Section~\ref{sec:a2-not-arbitrary}).} Exhibit a finite, duplicate-free list of every state, a
+ certificate no step revokes, and an \emph{injective} step that switches it on.
+-the permanent-flip theorem falls, and the derivation of the toll with it. An infinite
++The permanent-flip theorem falls, and the derivation of the toll with it. An infinite
+ state space, a revocable certificate, or an unpriced merge is not a counterexample; the chapter
+ already builds one of each. For the squeeze bound, a finite permanent machine with a cost
+ meeting the halving premise where one step switches k states on beside m certified ones and
+@@ -15395,7 +15768,7 @@
+ \emph{The bill in bits (Section~\ref{sec:a2-not-arbitrary}).} Exhibit a finite machine with a permanent certificate, a move that
+ switches k states on beside m certified ones (k at least one), and a spread of probability
+ over those m plus k states whose image under the move has entropy above log base two of m.
+-the entropy ceiling falls. For the general form, a step and a spread on
++The entropy ceiling falls. For the general form, a step and a spread on
+ a finite list of every state under which
+ two different states, each with some probability, land on the same state while the entropy
+ doesn't drop; the strict entropy-drop claim falls. A heat measurement on a real device
+@@ -15836,7 +16209,7 @@
+ Undecidable means unknowable; the wall separates Turing degrees & not claimed & Section~\ref{sec:diagonal} \\
+ Casper setting; one storage slot; a gas schedule & definition (transcribed; the gas schedule's charge premise stipulated) & Section~\ref{sec:models}, Definition~\ref{def:u13-casper}, Definition~\ref{def:u13-slot}, Definition~\ref{def:u13-gas-schedule} \\
+ Accountable safety & proved (premises: quorum intersection, one parent) & Section~\ref{sec:models}, Theorem~\ref{thm:u13-accountable-safety} \\
+-The quorum premise can hold; one vote finalizes free & proved & Section~\ref{sec:models}, Theorem~\ref{thm:u13-casper-instances} \\
++The quorum premise can hold; two successive quorum links finalize free & proved & Section~\ref{sec:models}, Theorem~\ref{thm:u13-casper-instances} \\
+ A persistent write to a fresh slot nets at least 20000 & proved, on the transcription & Section~\ref{sec:models}, Theorem~\ref{thm:u13-sstore} \\
+ Gas is exact exactly when commits pay one & proved (premise: the stipulated charge predicate) & Section~\ref{sec:models}, Theorem~\ref{thm:u13-gas-exactness} \\
+ A permanent write on a finite machine merges, and the merge lands on the record's yes side & proved & Section~\ref{sec:models}, Theorem~\ref{thm:u13-logical-payment} \\
+@@ -15891,7 +16264,7 @@
+ \endlastfoot
+ Checker and arithmetic meaning agree & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Lemma~\ref{lem:u34-eval} \\
+ Two-counter simulation and halting correspondence & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-simulation} (step), Theorem~\ref{thm:u34-halting} (halting) \\
+-Halting is undecidable by the vendored two-counter reduction & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-undecidable} \\
++Halting is undecidable by the two-counter reduction & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-undecidable} \\
+ Exact ledger, permanent certification and toll & proved on the small machine, under the stated premises, by unfolding & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-toll} \\
+ Instance of the abstract certification system & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-instance} \\
+ Certification factors as a latch over the core base & proved on the small machine, under the stated premises & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-latch} \\
+@@ -15961,6 +16334,13 @@
+ Rice's theorem for two-counter programs on every input (stop, counters, trap latch, ledger, flag, and what each fact and the channel are about) & proved & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:tc-rice} \\
+ Kleene's recursion theorem for two-counter programs, inputs written as powers of two, for the function & proved; refuted once the recorded facts count & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:tc-kleene} \\
+ Kleene's recursion theorem for two-counter programs on plain inputs & refuted: a carried-out transformation has no fixed point & Section~\ref{sec:small-diagonal}, Theorem~\ref{thm:no-plain-recursion} \\
++Every universal base lifts with an exact checker, a nontrivial claim and room for a fact; finite simulations lift after grouping & proved under the stated interface conditions & Section~\ref{sec:every-model}, Theorems~\ref{thm:lift} and~\ref{thm:lift-macro} \\
++Finite branching, state-independent moves and an indiscriminate record order give the stated obstructions to lifting & proved & Section~\ref{sec:every-model}, Theorem~\ref{thm:lift-fails} \\
++The seven models compute the same numerical relations under their encodings; one counter has decidable halting & proved & Section~\ref{sec:every-model}, Theorems~\ref{thm:lift-models} and~\ref{thm:one-counter} \\
++Products and sequential hand-offs preserve the stated structure; shared writers and unsuitable record readings can break it & proved under the stated interfaces and loading conditions & Section~\ref{sec:parts}, Theorems~\ref{thm:parts-product}--\ref{thm:parts-breaks} \\
++A following host run pays for the guest's record rises; presented nesting surcharges add & proved; deeper towers require each host run to be presented & Section~\ref{sec:parts}, Theorem~\ref{thm:parts-nesting} \\
++The source compiler preserves halting and numerical output through the host, two-counter guest and universal program & proved; final two stages not executed & Section~\ref{sec:running}, Theorem~\ref{thm:running-compiler} \\
++Executable implementations agree on the tested whole-state transitions & tested, not a guarantee about untested inputs or physical hardware & Section~\ref{sec:running} \\
+ \end{longtable}
+ \endgroup
+ 
+@@ -16110,8 +16490,9 @@
+ 
+ \emph{Quantum behaviour.} The fixed-matrix equivalence is about one completion with zero
+ marginals and zero within-party moments. The elliptope lets the within-party moments move,
+-at the level of correlators. Full behaviours with marginals, and operator realisations, need
+-identifications this book doesn't make. A sound check isn't complete for those bigger sets,
++at the level of correlators. That correlator completion has an operator realisation by the construction in
++Appendix~\ref{sec:chsh-derivation}. Full behaviours with prescribed marginals ask
++for more: the correlator construction does not establish those extra probabilities. A sound check isn't complete for those bigger sets,
+ and the elliptope decider is mathematics. None of the small machine's properties is it
+ (Section~\ref{sec:chsh}).
+ 
+@@ -16466,8 +16847,8 @@
+ count of one-bits in a value. Hexadecimal is base 16, digits 0 to 9 then A to F, written
+ with a 0x prefix: 0xFF is 255.
+ 
+-A trap, on a CPU, means execution jumps to a fixed handler and the program stops advancing, the chip's
+-``this went wrong.'' On the small machine a trap is one bit that goes up when an instruction
++A trap, on a CPU, transfers control to a handler; the interrupted program may later resume.
++It can report an error or request a service. On the small machine a trap is one bit that goes up when an instruction
+ refuses, and then the core stops moving. An ISA, instruction set architecture, is the list of
+ every instruction a CPU recognises, each identified by an opcode, a numeric tag the CPU
+ decodes. The small machine's has six. The abstract model has none; it has a step rule.
+@@ -16484,8 +16865,9 @@
+ composition, apply the right one first. Angle brackets mean one of three things, and the sentence around them says which: a pair of numbers packed
+ into one, $\langle m, n \rangle$ (Section~\ref{sec:universal-host}); a dot product of two vectors; or, around a random quantity,
+ its
+-long-run average, which I picked up from the Bell-test papers. The quantum sense of a circled times never appears, because the game section
+-does its work in plain integer arithmetic. A superscript T on a matrix is its transpose, rows
++long-run average, which I picked up from the Bell-test papers. The circled times $\otimes$ in the quantum derivation combines two systems:
++$A\otimes B$ acts as $A$ on the first and $B$ on the second; the appendix gives
++its entries. The integer check itself uses neither operation nor quantum systems. A superscript T on a matrix is its transpose, rows
+ and columns swapped, and I with a subscript n is the identity matrix.
+ 
+ \subsection{Category theory beyond Part I}
+@@ -16940,13 +17322,13 @@
+ it (Observation~\ref{thm:toll-derived}); what comes with that form, namely the characterisation of
+ the moves every merge-pricing schedule must charge, when move names can be decided equal or different (the merging moves, so the core again in
+ pricing words), the merge-or-revoke dichotomy for a single move, the squeeze and entropy forms
+-for a permanent flip, and a built counterexample for each premise; and the mechanization of all
+-of it (Section~\ref{sec:a2-not-arbitrary}). Kind: the core is classical, and somebody else's: Zermelo's in
++for a permanent flip, and a built counterexample for each premise
++(Section~\ref{sec:a2-not-arbitrary}). Kind: the core is classical, and somebody else's: Zermelo's in
+ physics, folklore in automata theory, with Pin's paper as the place to check it. The pricing
+ form isn't wholly mine either: priced in entropy, for automata, it's Ouldridge and Wolpert's.
+ They derive the price from the physics. I assume mine. What's mine is the price as a named rule on a
+-ledger, the toll derived from it, its single-move and counted forms, the counterexamples, and
+-the mechanized proofs, and the physics is a named premise and is Landauer's. Searches: the core
++ledger, the toll derived from it, its single-move and counted forms, and the counterexamples.
++The physics is a named premise and is Landauer's. Searches: the core
+ turned up in the places just named, and its physical price in Ouldridge and Wolpert; I didn't
+ find the ledger form or the derived toll stated anywhere I looked, and nobody's search covers a
+ whole field, mine least of all.
+@@ -16961,9 +17343,9 @@
+ correlation in chemistry, and Section~\ref{sec:narrowing} says how it differs. The sharp
+ chemical form, that a persistent copy grown at equilibrium carries no information about its
+ template, is Poulton, ten Wolde and Ouldridge's (2019), and that the bill can be split between
+-measuring and erasing in more than one way is Fahn's (1996). Mine: the four-state demon and the three-state ring as checked
+-models, and the two-state impossibility (Section~\ref{sec:narrowing}). Kind: mechanization
+-and illustration of a known physical point inside my ledger. Not a new physical claim.
++measuring and erasing in more than one way is Fahn's (1996). Mine: the four-state demon, the three-state ring
++and the two-state impossibility (Section~\ref{sec:narrowing}). Kind: finite models
++illustrating a known physical point inside my ledger. Not a new physical claim.
+ Bennett did the hard part in 1982; my four-dot example puts the difference between
+ learning and committing where you can work through it yourself.
+ 
+@@ -16985,7 +17367,7 @@
+ small machine's window, and the theorem that every Thiele-complete machine has two runs from one
+ clean start that end looking the same through the window its base shows, one certified and one
+ not (Section~\ref{sec:windows}, Section~\ref{sec:smallest}). Kind:
+-mechanization of an elementary lemma, plus specific facts about the machine and the definition.
++an elementary observation about what a window hides, plus specific facts about the machine and the definition.
+ 
+ \subsection{Structural entitlement and its bound}
+ 
+@@ -16997,7 +17379,7 @@
+ tree and a covering, a run that paid for the tree's depth pays at least the index bits it
+ commits to (Section~\ref{sec:entitlement}). Kind: synthesis; the counting idea is standard, the
+ assembly and its vocabulary are this work's, the pricing policy is assumed (nothing derives it), and the
+-count is mechanized: in its bill form over any certification system, and for the record moves of
++count is proved in its bill form over any certification system, and for the record moves of
+ every Thiele-complete machine on a run from a clean start, with the earned chain in the run, a floor that takes the run's own
+ checks in place of a tree, and a counterexample showing the covering can't be dropped
+ (Section~\ref{sec:part3-on-machine}); and in a form where the run makes the posterior from a
+@@ -17024,8 +17406,8 @@
+ on one event, with its converse and a counterexample for each of the two conditions, and the
+ argument that base-driven records agree up to the price list while the stronger uniqueness fails
+ (Section~\ref{sec:latch}). Kind: a small structural lemma, I think not stated before in this
+-form (I found no prior statement in the searches I ran), built from old notions; the latch form
+-is mechanized, and so is the agreement up to the price list.
++form (I found no prior statement in the searches I ran), built from old notions. The proofs
++show why the record must latch and why its price list remains a separate choice.
+ 
+ \subsection{The diagonal and L}
+ 
+@@ -17049,10 +17431,10 @@
+ and Mhalla, 2023) and in Lean's mathlib. Rational sum-of-squares certificates are Helfried Peyrl and Pablo A. Parrilo's
+ (2008), from a paper on computing sum-of-squares decompositions with rational coefficients. Mine: a decision procedure in integer arithmetic on outcome counts; a checked
+ chain from ``the counts pass'' to ``the pinned level-one matrix is positive semidefinite'' to
+-``$S^2 \le 8$''; checked proofs of the representation in finite dimension, real or complex, on two eight-level systems, and of the arcsine characterization; proofs of the contraction equivalence by explicit test vectors; and the
++``$S^2 \le 8$''; explicit constructions of the representation in finite dimension, real or complex, on two eight-level systems, and a proof of the arcsine characterization; proofs of the contraction equivalence by explicit test vectors; and the
+ level-$1+AB$ cascade (on the slice $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$) and an elliptope gate in whole numbers, with a soundness proof
+-(Section~\ref{sec:chsh} and its derivation appendix). Kind: mechanization, with a new proof of a
+-known equivalence in one slice. I found no prior formalization taking counts as input, and
++(Section~\ref{sec:chsh} and its derivation appendix). Kind: an integer procedure connecting
++counts to these known bounds, with a new proof of a known equivalence in one slice. I found no prior formalization taking counts as input, and
+ that's a report on where I looked, and the literature is bigger than where I looked. The same check earned on
+ the small machine's host, a raised flag standing on it, is built and checked; the idea isn't new
+ (Section~\ref{sec:chsh}).
+@@ -17143,7 +17525,7 @@
+ test whose checker is proved to mean what it says, a sorted list read out of a
+ counter included; and the step-for-step match with
+ the two-counter machine, so halting is undecidable for it (Section~\ref{sec:smallest}).
+-Kind: an instance of monitor enforcement, implemented and mechanized, with two things on top
++Kind: an instance of monitor enforcement with two things on top
+ that I didn't find put together where I looked: the check is bound to the edition of the thing
+ it checked, and a toll is paid for the commitment. The first of those alone is old: checking at
+ commit time that nothing you read has changed since is optimistic concurrency control (Kung and
+@@ -17433,7 +17815,7 @@
+ 
+ The constant is the four-decimal round-up of $2\sqrt 2 = 2.8284271\ldots$; the gap is about
+ $7.3 \times 10^{-5}$. It lets rational code test ``above the Tsirelson bound'' without a square
+-root. It plays no part in the integer check of item E.
++root. It plays no part in the integer check of Section~\ref{sub:chsh-integer}.
+ 
+ \subsection{The zero-marginal 5x5 moment matrix}
+ \label{sub:chsh-five}
+@@ -17630,7 +18012,7 @@
+ \begin{remark}[What PSD of the pinned matrix means]\label{rem:chsh-scope-five}
+ $M(E)$ is the level-1 moment matrix with the two within-party entries $\langle A_0 A_1
+ \rangle$ and $\langle B_0 B_1 \rangle$ pinned to zero. Its PSD is sufficient for the
+-correlators to admit some PSD completion (item G), and it
++correlators to admit some PSD completion (Section~\ref{sub:chsh-elliptope}), and it
+ is not necessary: the all-ones plan has a completion but fails here. So a check built on
+ $M(E)$ is sound for the completion set and not complete for it, and it rejects some honest
+ classical tallies. That correlators with a PSD completion are exactly those reachable by
+@@ -17638,7 +18020,7 @@
+ For real and for complex amplitudes, a strategy's correlators are inner products of unit vectors
+ (with complex amplitudes, use real vectors of twice the length) and its level-1 moment matrix is PSD, so they have a PSD completion. The other half, that every PSD completion comes from a quantum
+ strategy, comes from this construction: the strategy is built on two eight-level systems from
+-the completion's Gram vectors (item H).
++the completion's Gram vectors (Section~\ref{sub:four-vectors}).
+ \end{remark}
+ 
+ \subsection{The integer check}
+@@ -17723,7 +18105,7 @@
+ \end{aligned}
+ \]
+ All seven facts hold: four positive $N$, $0 \le 175$ twice, and $0 \le 175 \cdot 175$.
+-Dividing back, $p = 175/625 = 0.28$ and $s = 0$, the second row of the table in item D.
++Dividing back, $p = 175/625 = 0.28$ and $s = 0$, the second row of the table in Section~\ref{sub:chsh-five}.
+ 
+ Two more, for contrast. One round per pair from the all-ones plan, $(1,0)$ four times, gives
+ $N = D = 1$ everywhere and $A = 1 - 1 - 1 = -1 < 0$: the check fails. The tally $(4,1), (9,1), (9,1),
+@@ -17827,7 +18209,7 @@
+ If $R \ge 0$ everywhere, Lemma~\ref{lem:chsh-nine-sos} writes the form as three squares plus $R$.
+ Conversely, given the six residual inputs, choose $v_I = -L_1$, $v_{A_0} = -L_2$,
+ $v_{A_1} = -L_3$; the three squares vanish and PSD gives $R \ge 0$. This is the level-1
+-argument of item D one size up.
++argument of Section~\ref{sub:chsh-five} one size up.
+ \end{proof}
+ 
+ As a quadratic form in $(v_{B_0},v_{B_1},v_{00},v_{01},v_{10},v_{11})$, numbered 1 to 6,
+@@ -17848,7 +18230,7 @@
+ H_{66} &= 1 - E_{11}^2 - \gamma_2^2.
+ \end{align*}
+ 
+-The top left $2 \times 2$ block is $I_2 - E^{\mathsf T} E$ from item D.
++The top left $2 \times 2$ block is $I_2 - E^{\mathsf T} E$ from Section~\ref{sub:chsh-five}.
+ 
+ The full check does not decide $R \ge 0$ directly. It proves the stronger fact that $H$ is
+ positive definite, by two Schur steps and a Sylvester test, all fraction-free.
+@@ -17908,7 +18290,7 @@
+ $N_{g_k} = \mathrm{same}_{g_k} - \mathrm{diff}_{g_k}$ and
+ $D_{g_k} = \mathrm{same}_{g_k} + \mathrm{diff}_{g_k}$. Watch the letters: for these five
+ buckets $N$ names the numerator and $D$ the denominator: the difference and the count, the reverse
+-of item A. Let
++of Section~\ref{sub:chsh-notation}. Let
+ $K = (N_{00} N_{01} N_{10} N_{11} D_{g_1} D_{g_2} D_{g_3} D_{g_4} D_{g_5})^2$. The check computes the 21 integers
+ $K H_{ij}$, the 15
+ integers of $S^{(6)}$ at scale $K^2$ and the 10 integers of $S^{(5)}$ at scale $K^4$, each by
+@@ -17942,9 +18324,9 @@
+ \begin{remark}[Interior only]\label{rem:chsh-interior}
+ Every test in the cascade is strict, so a passing check certifies that $H$ is positive
+ definite, which is stronger than semidefinite. A point where $H$ is PSD but singular cannot pass, and
+-neither can a moment with $|\gamma_k| = 1$. For example, the tally of item E with correlators
++neither can a moment with $|\gamma_k| = 1$. For example, the tally of Section~\ref{sub:chsh-integer} with correlators
+ $(3/5, 4/5, 4/5, -3/5)$ has $H_{11} = 1 - 9/25 - 16/25 = 0$, so the full 1+AB check fails on it
+-for every choice of $\gamma$, though the level-1 check of item E accepts it. The argument establishes soundness only; no converse is stated.
++for every choice of $\gamma$, though the level-1 check of Section~\ref{sub:chsh-integer} accepts it. The argument establishes soundness only; no converse is stated.
+ \end{remark}
+ 
+ A worked example of the cascade in exact rational arithmetic. Take the correlators $(0.6, 0.6, 0.6, -0.6)$ and
+@@ -17965,7 +18347,7 @@
+ where $50 H_{33} = 32$, $50 H_{34} = 50 H_{35} = -18$, $50 H_{36} = 50(-1/2 + 0.36) = -7$,
+ $50 H_{45} = 50(1/2 - 0.36) = 7$, and $50 H_{46} = 50 H_{56} = 18$. The leading minors of the
+ integer matrix are $32$, $700$, $15000$ and $140625$, all positive. With
+-$H_{11} = 7/25 > 0$ and $S^{(6)}_{22} > 0$, all six tests pass, and with item E's $A = B = 175$,
++$H_{11} = 7/25 > 0$ and $S^{(6)}_{22} > 0$, all six tests pass, and with Section~\ref{sub:chsh-integer}'s $A = B = 175$,
+ $C = 0$ the full check passes. At $\gamma_5 = 0$ instead, the same block becomes
+ $I_4 - \mathbf e \mathbf e^{\mathsf T}$ with $\mathbf e = (0.6, 0.6, 0.6, -0.6)$, whose third
+ leading minor is negative ($\tfrac{1}{25^3}$ times $-1250$), and the check fails.
+@@ -18012,13 +18394,13 @@
+ 
+ Each of the four 1+AB checks  contains
+ the seven-integer check as a conjunct, so a passing 1+AB check also passes the
+-level-1 check and inherits $S^2 \le 8$ from item E. This follows directly by composing the definitions and the bound.
++level-1 check and inherits $S^2 \le 8$ from Section~\ref{sub:chsh-integer}. This follows directly by composing the definitions and the bound.
+ 
+ \subsection{The elliptope completion}
+ \label{sub:chsh-elliptope}
+ 
+ \begin{definition}[Completion and membership]\label{def:chsh-elliptope}
+-Complete the matrix of item D by setting the
++Complete the matrix of Section~\ref{sub:chsh-five} by setting the
+ within-party entries to free reals: $x$ in the $(A_0, A_1)$ cells and $y$ in the
+ $(B_0, B_1)$ cells, marginals still zero. The correlators are elliptope realizable
+  when some $x, y$ make the completed matrix symmetric and PSD.
+@@ -18090,7 +18472,7 @@
+ \end{proof}
+ 
+ The completion can make a row of $E$ longer than 1 (the all-ones plan has rows of squared
+-length 2), which is why this proof does not use the row bounds of item D.
++length 2), which is why this proof does not use the row bounds of Section~\ref{sub:chsh-five}.
+ 
+ \begin{corollary}[The PR box is outside]\label{cor:chsh-ell-pr}
+  $(1, 1, 1, -1)$ is not elliptope realizable, since its
+@@ -18119,7 +18501,7 @@
+ 
+ The gate  is an integer decider with a soundness proof. Its
+ completion entries arrive as bucket pairs, and an empty bucket is read as $0/1$,
+-so unlike item E it does not require every pair to be sampled.
++so unlike Section~\ref{sub:chsh-integer} it does not require every pair to be sampled.
+ 
+ \begin{definition}[The two branches]\label{def:chsh-gate}
+ The positive-minor branch: with the completion supplied as buckets and all
+@@ -18179,7 +18561,7 @@
+ 1&t&x&y\\t&1&z&w\\x&z&1&u\\y&w&u&1
+ \end{pmatrix}.
+ \]
+-The extra row and column labelled $I$ in item G have diagonal 1 and all other entries
++The extra row and column labelled $I$ in Section~\ref{sub:chsh-elliptope} have diagonal 1 and all other entries
+ zero, so they do not change this condition.
+ 
+ Why positivity? Lay arrows end to end, allowing a backward arrow when its weight
+@@ -18435,7 +18817,7 @@
+ The necessary direction holds in any dimension, for any expectation on an algebra of
+ observables in which Alice's commute with Bob's.
+ 
+-Equality with the quantum set. That the completion set of item G is exactly the set of
++Equality with the quantum set. That the completion set of Section~\ref{sub:chsh-elliptope} is exactly the set of
+ quantum correlators is Tsirelson's representation theorem, and it is proved in finite dimension:
+ for both real and complex amplitudes, with two eight-level systems enough for every point. That PSD of the level-1 moment matrix is necessary for
+ quantum behaviour is proved for strategies in finite dimension, with real amplitudes
+@@ -18485,7 +18867,7 @@
+ mathlib, and exact rational
+ sum-of-squares certificates go back at least to Peyrl and Parrilo (2008). So the
+ moment-matrix route to $2\sqrt 2$ is standard. What is specific here is narrower: an integer
+-certificate computed from outcome counts, and a mechanized chain from ``the counts pass'' to PSD
++certificate computed from outcome counts, and the argument from ``the counts pass'' to PSD
+ of the pinned matrix and on to $S^2 \le 8$. I did not find that chain elsewhere, and I make no
+ claim beyond it.
+ On the host machine, the same chain is earned: a raised flag from a clean start
+@@ -18500,9 +18882,19 @@
+ %===========================================================================
+ 
+ The proof in Section~\ref{sec:diagonal} uses a program that takes the code of a term
+-and returns the code of that code. Here is its construction. Nothing in the operation
+-lets a program inspect itself by magic: its input is an ordinary tree encoded as a
+-closed lambda term.
++and returns the code of that code. Here is its construction.
++
++Draw the instruction ``add one'' on a card. Now make a second card describing the
++first card's marks, rather than carrying out the addition. The count has not risen:
++you have described an instruction. Describe the second card in turn and you have
++a description of a description. Quoting does that second job mechanically. In the
++language below, take the variable of index 0. Its code is a tree with three lambda
++nodes, then an application of variable 2 to the numeral for 0. Quoting that code
++builds a description of those three lambdas and that application; it does not
++look up variable 0 or execute the term it describes.
++
++Nothing in the operation lets a program inspect itself by magic: its input is an
++ordinary tree encoded as a closed lambda term.
+ 
+ The construction follows Forster and Smolka (2017), whose construction for L has the same
+ three syntax builders on Scott-encoded children, an auxiliary procedure for numerals, and a quote

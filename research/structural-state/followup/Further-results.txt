@@ -1,0 +1,466 @@
+PROTECTED ONLINE EVIDENCE: STRONGER BOUNDS AND A STRUCTURED CONSTRUCTION
+Research working note for Devon Thiele — 12 October 2026
+
+This extends ../Results.txt. These are research notes, not manuscript changes.
+The results below are derived applications, elementary counting arguments and
+standard data-structure constructions. No priority or novelty is claimed.
+
+MAIN FINDINGS
+
+1. An unconditional multiphase lower bound already in the literature transfers
+   to freshness monitoring. For n claims, m=Theta(log^4 n) objects, word size
+   Theta(log n), and n polylog(n) words of TOTAL data-dependent storage, query
+   time o(log n/log log n) forces worst-case WRITE time n^(1-o(1)). This is a
+   worst-case statement over arbitrary dependency families. It does not assume
+   OMv, and it is not a new lower-bound theorem: it follows from Clifford,
+   Gronlund and Larsen (2015), Theorem 1. Constants must ensure m>=w^4.
+
+2. At exactly n persistent mutable bits, clearing any fixed k statuses has an
+   unconditional worst-case Omega(ceil(k/w)) word-write lower bound. This
+   extends the earlier global-reset argument. It allows arbitrary encodings,
+   but not extra persistent metadata. For contiguous invalidation ranges, the
+   ordinary packed bit vector matches this bound.
+
+3. If every invalidation set is an interval in one supplied static claim order,
+   a word-wide lazy tree gives a tunable trade-off. With one word per leaf,
+   n+O(n/w+w*(1+log_w n)) bits suffice for O(1+log_w n) worst-case operations.
+   With only n+O(w) persistent bits, another configuration gives constant USE
+   and O(1+n/w^2) worst-case PASS/WRITE. The simpler binary version is also
+   implemented. These are upper bounds, not optimal-redundancy theorems.
+
+4. Classical worst-case order maintenance removes the compaction spikes from
+   the earlier lazy upper bound, using O((n+m)log(n+m+1)) bits when w=Theta(log
+   (n+m+1)). PASS and WRITE can be worst-case O(1), with USE O(1+|D_i|).
+   This is an application of an existing data structure, not an implementation
+   claim about the earlier bounded-compaction Python code.
+
+A recent additional preprint is recorded separately in section 7. Its reported
+theorem is not needed for findings 1–4 above.
+
+1. MODEL AND WHAT COUNTS AS MEMORY
+
+There are n named claims, m mutable objects, and static dependency sets D_i.
+A trusted successful PASS(i) makes claim i fresh. A mediated WRITE(j) makes
+every claim depending on j stale. USE(i) must return true if and only if a
+PASS(i) occurred after the last WRITE to every dependency. All claims start
+stale. All 2^n freshness subsets are reachable in the event model.
+
+These are atomic, authenticated events. The adversary may choose the sequence
+but cannot forge successful validation, bypass mediation, tamper with protected
+state, or insert a write between a guard and the protected action it authorizes.
+The actual cost of validating a predicate is additional. The guarantee retains
+evidence about editions; it is stronger than merely asking whether a predicate
+happens to remain true after a write.
+
+B is mutable protected information retained between operations. W is transient
+protected workspace; peak protected memory includes both. P is immutable policy
+and indexes. Uniform code may depend on n and m, but not conceal an arbitrary
+dependency matrix as an uncharged oracle or instance-specific instruction set.
+
+The exact-space arguments charge B. The multiphase lower bound charges ALL
+data-dependent memory cells, including P, B, preprocessing tables, and any
+addressable storage retained during its phases. Policy reads cost probes too.
+Its word size is logarithmic and bounds the address space. Exponential lookup
+tables and free matrix-specific code are not covered by that lower bound.
+
+2. AN UNCONDITIONAL TIME BARRIER VIA MULTIPHASE SET DISJOINTNESS
+
+Imported theorem [CGL15, Theorem 1], with variables renamed to avoid ambiguity:
+Preprocess n subsets D_1,...,D_n of [m] into S=n*m^O(1) memory cells of w bits.
+Then receive a set Y of objects and update the representation. Finally receive
+an index i and answer whether D_i intersects Y. For w^4<=m<=n and w=Omega(log n),
+query cost o(log n/log m) implies batch-update cost n^(1-o(1))/w. The result
+already holds for update sets with |Y|=O(log n/log m). We use its deterministic
+exact setting. Preprocessing time is not the restricted resource here; space is.
+
+Freshness reduction, with every phase accounted for:
+
+  Phase I: preprocess the dependency policy and issue PASS(i) for every i.
+           This creates an all-fresh state before Y is known. All PASS work
+           is charged to preprocessing, not silently omitted from a repeated
+           online sequence as in the earlier OMv reduction.
+  Phase II: for each j in Y issue WRITE(j), in any fixed order.
+  Phase III: return USE(i).
+
+At the end, USE(i) is true exactly when D_i intersects Y in no element.
+Thus a monitor with worst-case write cost t_w and query cost t_q gives a
+multiphase structure with the same space, query cost t_q, and batch-update
+cost at most |Y|*t_w. The reduction is exact and requires no mutation of the
+dependency relation, no expensive actual predicate, and no free bulk reset.
+
+A concrete predicate realization is available if successful events must be
+backed by data rather than supplied as abstract symbols. Start every object
+at zero, let claim i say that every object in D_i is zero, and perform the
+initial validations in Phase I. Phase II changes each selected object to one.
+All initial checks are valid and their evaluation belongs to preprocessing.
+The final freshness answer is exactly the same disjointness answer. Thus this
+particular reduction does not depend on repeatedly validating false claims or
+on declaring arbitrary checks computationally free.
+
+If queries themselves modify the representation, the final query can simulate
+those writes in local temporary computation: remember written addresses and
+values, and serve subsequent accesses to them locally. There is no later query
+or operation in Phase III. Cell-probe computation is free, so this does not
+increase the number of probes into the shared structure. This observation is
+only about the lower-bound reduction, not a word-RAM constant-time dictionary.
+
+Corollary A (rectangular regime). Set w=Theta(log n), choose
+m=Theta(log^4 n) with constants ensuring m>=w^4, and permit n polylog(n) words
+of total storage. If t_q=o(log n/log log n), then worst-case
+
+                         t_w = n^(1-o(1)).
+
+Proof. The source theorem supplies a hard Y of polylogarithmic size requiring
+n^(1-o(1))/w probes in total. If every WRITE took t_w probes, that total would
+be at most O(log n/log m)*t_w. Dividing by the polylogarithmic factors gives
+the displayed statement. Equivalently, a fixed polynomial improvement
+t_w=O(n^(1-epsilon)) for any epsilon>0 is incompatible with that query bound.
+
+Consequences and limits:
+- Constant-time queries force almost-linear worst-case writes on some families,
+  even though the number of objects is only polylogarithmic in the claim count.
+- The eager bit vector, with t_q=O(1), t_w=O(n/w), and O(nm) policy bits, obeys
+  the storage restriction. It matches the lower bound at the polynomial
+  exponent, not at logarithmic factors.
+- The bound permits substantially more than n mutable bits; it is not just
+  the zero-redundancy encoding obstruction in section 3.
+- This transfer concerns WORST-CASE WRITE bounds. Preprocessing PASS operations
+  could bank potential in an amortized analysis, so a whole-run amortized
+  guarantee cannot simply be substituted into this phase-specific proof.
+- It does not apply to each matrix individually or prove hardness for global,
+  interval, laminar, or other structured dependencies.
+- The older theorem is quantitatively useful when log n/log m grows. Setting
+  m=n makes its query hypothesis o(1), so this theorem alone gives no balanced
+  constant-query lower bound. The earlier OMv reduction covers a different
+  parameter regime; section 7 records newer literature for balanced systems.
+
+Attribution: the difficult communication/cell-probe lower bound is CGL's. The
+argument here transfers it to the specified freshness interface. A renaming
+of that lower bound is not a new foundational law.
+
+3. EXACT SPACE: A SELECTIVE-INVALIDATION LOWER BOUND
+
+Theorem B. Suppose an exact deterministic monitor has all 2^n logical freshness
+states reachable and exactly n persistent mutable bits, in a fixed memory
+layout. Let a WRITE clear a fixed set C of k>=1 statuses. If each persistent
+cell has at most w mutable bits and there are L addressable persistent cells,
+some such WRITE changes at least
+
+                 k / log2(1 + L*(2^w-1))
+
+cells. In a word-addressed model L<=2^w, this is Omega(ceil(k/w)) word writes.
+Every retained mutable register is part of the n-bit budget.
+
+Proof. All 2^n physical patterns must be reachable, and each logical status
+vector has exactly one physical encoding. Otherwise two distinct logical
+vectors would have the same code, contradicting a USE query on a differing bit.
+
+Fix the statuses outside C. There are 2^k predecessor vectors that a WRITE
+maps to the same logical target. The target has one physical encoding y.
+If all these writes modify at most t distinct cells, all 2^k predecessor
+encodings must lie within cell-Hamming distance t of y. Such a ball contains
+at most
+
+           sum_{r=0}^{min(t,L)} binomial(L,r)*(2^w-1)^r
+                    <= (1+L*(2^w-1))^t
+
+patterns. For the last inequality use binomial(L,r)<=L^r and the binomial
+expansion on the right (t>=1). Therefore 2^k cannot exceed that expression,
+which gives the claimed bound. L<=2^w bounds its denominator by 2w. Some
+transition changes a cell because k>=1; combining this with k/(2w) gives the
+ceiling-order bound. Reads and temporary workspace cannot eliminate a required
+change in the final stored cells.
+
+This argument does not assume a bit-per-claim encoding. It explicitly fails
+when extra persistent bits allow multiple encodings for a logical target.
+Hagerup's n+1-bit global-reset construction demonstrates why that exception
+is essential.
+
+Corollary B1, a tight restricted case. If C is a contiguous interval of k claims
+in a static order, the ordinary packed bit vector clears it in
+O(1+ceil(k/w)) writes and supports PASS/USE in O(1). At exactly n mutable
+information bits its worst-case clearing cost is optimal up to constants,
+even compared with other encodings. Word padding is fixed, not extra usable
+state. Physical allocation rounded to full words adds at most O(w) bits.
+
+4. INTERVAL INVALIDATION WITH NEARLY MINIMUM SPACE
+
+Theorem C. Suppose each object's invalidation set C_j={i:j in D_i} is a
+half-open interval [l_j,r_j) in a supplied static ordering of the claims.
+For w=Omega(log(n+m+1)) there is an exact monitor with
+
+  persistent mutable allocation B = n+O(n/w+w) bits;
+  PASS, WRITE, USE = O(1+log(ceil(n/w))) worst-case time;
+  transient workspace W = O(w*(1+log(ceil(n/w)))) for the simple recursive code;
+  policy P = O(m log(n+1)) bits for endpoints, plus any claim-ID order mapping.
+
+When w=Theta(log(n+m)) and m is polynomial in n, the mutable allocation is
+n+o(n), and this implementation's peak storage is n+O(n/log n+log^2 n)=n+o(n).
+The statement is an upper bound, not an optimal redundancy/time theorem.
+
+Construction. Put the freshness bits in q=ceil(n/w) packed leaf words. Build
+an implicit complete binary tree over s leaves, where s is the next power of
+two at least q. Store one lazy-zero flag per tree node, packed into words.
+There are fewer than 4q nodes. No pointers or interval endpoints are stored
+in mutable tree nodes; indices and spans follow from the complete tree layout.
+
+Invariant: a set flag makes all bits below that node logically zero, regardless
+of their old physical contents. If a node has no flagged ancestor, its children
+or leaf word determine the represented statuses.
+
+PASS(i): follow the root-to-leaf path. When meeting a flagged internal node,
+mark both children flagged and clear the parent's flag. At a flagged leaf,
+zero its one data word and clear the flag. Then set bit i. The sibling remains
+logically zero even if its old physical data are nonzero.
+
+USE(i): inspect the leaf-to-root flags. Return false if any is set; otherwise
+read the claim's bit. This does not mutate state.
+
+WRITE(j): clear [l_j,r_j). A fully covered subtree is cleared by setting its
+flag. An already-flagged subtree needs no work. Recurse only on partially
+covered nodes. At a partial leaf, clear the relevant bits with a word mask.
+There are at most two partially covered nodes per depth; the canonical fully
+covered pieces and their boundary neighbours number O(1+log q). No operation
+depends on the number of earlier writes or on an unbounded clock.
+
+Correctness follows by induction on operations from the stated invariant.
+The leaf words need at most n+w bits, and the packed flags need O(q+w) bits.
+Each node visit takes O(1) word operations. PASS and USE follow one tree path;
+WRITE visits O(1+log q) nodes. The recursive WRITE stack has O(1+log q) words.
+
+The implementation is interval_monitor.py. It handles empty intervals, partial
+last words, nested and crossing intervals, repeated resets, and checks after
+reset without allowing stale physical bits to reappear.
+
+Laminar corollary. If the family of invalidation sets C_j is laminar (every two
+are disjoint or one contains the other), a depth-first ordering of the leaves
+of its inclusion forest makes every set contiguous. Add singleton leaves for
+claim identities and a common root if needed. Each set's descendants occupy
+one leaf interval. The construction then applies. The relevant laminarity is
+on INVALIDATION SETS of claims, not automatically on the D_i sets of objects.
+Finding/validating an order is preprocessing, not a free per-event operation;
+the theorem assumes the order is supplied. Arbitrary interval sets need not
+be laminar, so the implementation supports a larger class than this corollary.
+
+This is standard lazy propagation plus word blocking and a careful storage
+count. It is useful here because it makes the protected-memory accounting
+explicit, not because segment trees are new.
+
+4A. A WORD-WIDE TREE AND AN EXPLICIT MEMORY/TIME FAMILY
+
+The binary construction can be improved using word masks on child flags.
+Let f be the largest power of two at most w, with w>=2. Put s>=1 data words
+in each leaf block, so q=ceil(n/(w*s)) leaves suffice. Use f children per
+internal node and one w-bit word of child-zero flags per internal node. The
+tree can be incomplete at the right boundary; do not allocate a full padded
+f-ary tree, which could waste a factor f in space.
+
+Let h=max(1,ceil(log_f q)). The level immediately above the leaves has
+ceil(q/f) flag words, the next ceil(q/f^2), and so on through the root.
+Their total is at most q/(f-1)+h. Consequently the persistent mutable
+allocation is
+
+              B = n+O(q+w*h+w) bits.
+
+Offsets, level spans and claim ordering are immutable configuration/policy;
+the implementation's level-offset table uses O(h) immutable words. They may
+instead be computed during traversal. Retained history is in the packed
+data words and flag words. Temporary recursion uses O(w*h) bits, which must
+be added if the budget is peak rather than quiescent.
+
+PASS follows one path. A flagged child that is an internal node is made
+explicit by filling its one child-flags word with ones, then clearing its
+parent flag. At a flagged leaf, materialize its s (or fewer) data words as
+zeros. Finally set the claim bit. Cost: O(h+s) worst-case.
+
+USE checks one child flag per level and then one data word. It never
+materializes a block. Cost: O(h) worst-case.
+
+WRITE processes a claim interval. At a node, the wholly covered children
+form a contiguous run, so mark ALL of their zero flags with one word mask.
+Only the at most two partial boundary children need further traversal. At
+each level, the two boundaries of the original interval account for all
+partial nodes. At a boundary leaf, mask the affected data words explicitly;
+there are at most two such leaves. Already-flagged children need no work.
+Cost: O(h+s) worst-case, independent of the number of complete leaves cleared.
+All nodes retain the same logical-zero invariant as the binary structure.
+
+This proves the following family of upper bounds, taking 1<=R<=ceil(n/w)
+and s=ceil(n/(w*R)):
+
+  B = n+O(R+w*(1+log_w R));
+  PASS, WRITE = O(1+log_w R+n/(w*R));
+  USE = O(1+log_w R).
+
+If a WRITE invalidates k claims, the two boundary scans actually cost at
+most O(1+min(s,k/w)) data-word operations; the displayed bound is uniform
+over all allowed intervals. A PASS can still materialize one whole stale
+leaf even when it sets just one claim.
+
+Two useful configurations:
+(a) s=1, q=ceil(n/w). All operations take O(1+log_w n); with logarithmic
+    words and polynomial m, the persistent AND peak space are n+o(n).
+(b) s=ceil(n/(w*f)), so q<=f and h=1. There is just one word of child flags.
+    B=n+O(w), W=O(w), USE=O(1), PASS/WRITE=O(1+n/w^2), all worst-case.
+
+Configuration (b) is a concrete point on the nearly-minimum protected-space
+curve, not merely an asymptotic existence argument. A write can clear the
+complete middle blocks by one mask; only its boundary blocks are scanned.
+For n=O(w^2), all three operations in this configuration are constant-time.
+These bounds do not contradict the arbitrary-overlap obstruction: interval
+policies restrict which invalidation subsets can occur.
+
+WideIntervalMonitor implements this construction using actual arrays of
+w-bit data and flag values. Its counters measure tree-node visits and data
+word touches separately. It is not a claim of a novel range data structure.
+
+5. TWO OTHER STRUCTURED UPPER BOUNDS FROM KNOWN DATA STRUCTURES
+
+Disjoint groups. Partition the claims into g fixed disjoint groups. Suppose
+every object's invalidation set is a union of at most a complete groups.
+Use one externally sized Hagerup choice dictionary per nonempty group. The
+group sizes sum to n, so the persistent mutable budget is n+g bits, with O(w)
+temporary workspace reused across sequential group operations. PASS/USE are
+O(1), and WRITE is O(1+a), all worst-case. Group locations, offsets and local
+claim IDs are immutable policy and must be stored/accounted there. Unaligned
+packed words can be simulated with a constant number of physical word accesses;
+physical rounding adds O(w) overall. In particular g=O(w), a=O(1) gives an
+n+O(w)-bit positive family. This is a direct composition of known dictionaries;
+the executable code does not implement those succinct dictionaries.
+
+Worst-case lazy timestamps. Maintain one live order token for each claim's
+last PASS and each object's last WRITE, omitting tokens that have not occurred.
+An update deletes its previous token, if any, and appends a replacement at the
+end. Store stable handles by claim/object ID. A query accepts exactly when its
+PASS token exists and follows every existing dependency-WRITE token.
+
+There are never more than N=n+m tokens. Dietz and Sleator's worst-case order-
+maintenance structure supplies O(1) insertion, deletion and order comparison
+with O(N) words of bounded labels and metadata. Thus PASS and WRITE are
+worst-case O(1), USE is O(1+|D_i|), and memory is O(Nw) bits, or O(N log N)
+with logarithmic words. A sentinel and an end handle make append constant-time.
+No permanent time value is exported, so internal relabeling is harmless.
+
+This strengthens the earlier amortized existence bound. It does not change
+BoundedLazy's implemented O(N) compaction spikes, and it does not make dense
+USE queries constant-time. The source's word operations and workspace count
+remain part of the imported data-structure guarantee.
+
+6. WHAT THE DATABASE DICHOTOMIES DO AND DO NOT SETTLE
+
+After the preprocessing refresh, the stale-query relation is
+
+                     stale(i) = exists j: D(i,j) and Written(j).
+
+This makes the link with dynamic conjunctive-query testing concrete. In the
+t-hierarchical definition, atoms(i)={D}, while atoms(j)={D,Written}. The bound
+variable j has atoms not contained in those of the free variable i, and their
+atom sets intersect; the query is not t-hierarchical. Berkholz, Keppeler and
+Schweikardt provide conditional hardness for general dynamic databases.
+
+However, their classification concerns the syntax of a fixed query over the
+allowed databases and updates. Our desired classification restricts the actual
+static dependency INSTANCE and also budgets protected mutable bits separately
+from immutable policy. Furthermore, individual PASS events reset different
+claims' time baselines, whereas one Written relation describes a common batch.
+A fixed-query dichotomy cannot simply be relabelled as a classification of
+all such dependency geometries. The direct reductions in this note explicitly
+use only the operations our model allows.
+
+7. CURRENT LITERATURE CHECKPOINT — SEPARATE FROM FINDINGS 1–4
+
+Young Kun Ko, ECCC TR26-244, revision 1 (10 October 2026), reports in Theorem
+3.1 a stronger unconditional bound for insert-only multiphase Disjointness
+with n sets on n objects and w=Theta(log n):
+
+                  t_q = Omega((log n / log(t_w*w))^2).
+
+The updates have worst-case cost; queries have expected cost with zero error.
+The report's preprocessing is arbitrary, and query operations are read-only.
+For a deterministic exact monitor, the Phase I/II/III reduction in section 2
+transfers that displayed theorem directly, with the same final-query local
+simulation if needed. In particular it would give
+max(t_w,t_q)=Omega((log n/log log n)^2) in the balanced setting, without OMv.
+The logarithmic word size limits the addressable memory; no free policy oracle
+is allowed. PASS cost is in preprocessing for this reduction.
+
+Status: the primary report, revision date, problem definition and theorem
+statement were inspected, along with its reduction discussion. Its full new
+communication lower-bound proof has NOT been independently audited here.
+This is a cited preprint consequence, not a theorem newly proved by this work,
+and not evidence that the polynomial lower-bound question is settled.
+
+8. WHAT IS ACTUALLY CLOSED, AND WHAT REMAINS
+
+Closed within the stated models:
+- Information minimum for independent statuses: n persistent bits.
+- Exact-space interval invalidation: Theta(1+ceil(k/w)) worst-case write cost.
+- Unconditional rectangular hard-family obstruction via CGL15, even with
+  near-linear total space and arbitrary preprocessing time.
+- A tunable near-minimum-space interval/laminar construction, including
+  O(log_w n) operations with n+o(n) bits and constant queries with n+O(w) bits.
+- Worst-case, bounded-memory lazy monitoring by importing order maintenance.
+- An n+O(w)-bit constant-operation family from disjoint-group composition.
+
+Not closed:
+- A necessary-and-sufficient classification of fast dependency families.
+- Optimal interval time with n+O(w) bits, or optimal redundancy for each time.
+- A matching full B-versus-update-versus-query curve for arbitrary overlap.
+- General balanced polynomial unconditional lower bounds with redundancy.
+
+These are limits of THIS investigation, not a claim that every listed item is
+open in the literature. To advance beyond reductions and standard constructions,
+a candidate result must improve a named bound with all model parameters held
+fixed. The interval redundancy gap is a concrete next comparison target; a
+new unconditional general polynomial bound would demand a major new lower-
+bound argument, not additional finite tests or renamed definitions.
+
+9. PRIMARY SOURCES AND TEST SCOPE
+
+[CGL15] Raphael Clifford, Allan Gronlund, Kasper Green Larsen. New Unconditional
+Hardness Results for Dynamic and Online Problems. 2015. Section 2, Theorem 1;
+the cell-probe model and the multiphase proof were inspected.
+https://arxiv.org/abs/1504.01836
+https://cs.au.dk/~larsen/papers/unconditional_dynamic.pdf
+
+[H17] Torben Hagerup. An Optimal Choice Dictionary. 2017. Theorem 1.2.
+https://arxiv.org/abs/1711.00808
+
+[DS87/88] Paul F. Dietz and Daniel D. Sleator. Two Algorithms for Maintaining
+Order in a List. STOC 1987; technical report CMU-CS-88-113, 1988.
+https://www.cs.cmu.edu/~sleator/papers/maintaining-order.pdf
+The primary report specifies a fixed maximum list size N and O(log N)-bit
+arithmetic; its abstract and introduction state the worst-case guarantee.
+
+[BCDFZ02] Bender, Cole, Demaine, Farach-Colton, Zito. Two Simplified Algorithms
+for Maintaining Order in a List. ESA 2002. Sections 1.1–2.1 explain the known
+worst-case guarantee and indirection; this conference version defers its own
+deamortization details. Do not cite its amortized Theorem 2 as a worst-case proof.
+https://erikdemaine.org/papers/DietzSleator_ESA2002/paper.pdf
+
+[BKS17/18] Berkholz, Keppeler, Schweikardt. Answering UCQs under updates and
+in the presence of integrity constraints. arXiv 2017 / ICDT 2018.
+Definition 3.3 and the nearby testing dichotomy were inspected.
+https://arxiv.org/abs/1709.10039
+
+[K26] Young Kun Ko. Omega((log n/log log n)^2) Lower Bounds for Dynamic Graph
+Problems. ECCC TR26-244, revision 1, 10 October 2026. Theorem 3.1. See section 7
+for the limited audit status; this source is not needed for sections 2–6.
+https://eccc.weizmann.ac.il/report/2026/244/
+
+verify_followup.py independently checks the interval construction against a
+backward scan of event histories, tests the rectangular multiphase reduction,
+and enumerates all bijective encodings through n=3 to check the cell-distance
+volume inequality. It also checks interval node-visit bounds and packed-word
+invariants. Tests completed successfully; counts are in verification.json.
+
+verify_wide.py checks the word-wide construction at several word/leaf sizes,
+including every status vector and invalidation interval through n=9, histories
+with repeated resets and renewals, and separate worst-case bounds of at most
+2h visited nodes and 2s boundary data words per WRITE. Its results are recorded
+in wide-verification.json. Tiny test word sizes check semantics; the asymptotic
+word-RAM claims assume words large enough to address the structure.
+
+These finite checks do not prove CGL's theorem, audit Ko's preprint, establish
+novelty, or measure Python objects as succinct word-RAM storage. The algorithms'
+general correctness and resource bounds are the separate arguments above.

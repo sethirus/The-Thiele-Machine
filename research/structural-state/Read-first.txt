@@ -1,0 +1,67 @@
+PROTECTED STATE: RESEARCH RESULTS AND REPRODUCTION
+12 October 2026
+
+ACTIVE DIRECTION: machine-preservation/Read-first.txt and Result.txt in that
+directory return to the actual Small Machine: full instruction behavior,
+structural distinguishability, historical commitment and finite reversible
+retention. Earlier data-structure notes below are component studies only.
+
+The earlier interval construction is in interval-succinct/Read-first.txt and Result.txt
+within that directory: interval invalidation in n+O(w) PEAK protected bits,
+including workspace, with logarithmic worst-case PASS, WRITE and USE.
+Literature priority and time optimality remain unestablished.
+
+Further work is in followup/Read-first.txt and followup/Further-results.txt:
+an unconditional multiphase lower-bound transfer, a selective-clearing lemma,
+and implemented interval monitors with a tunable protected-memory/time bound.
+The original results below remain the baseline model.
+
+Question: How much protected state does an exact online monitor need, and how
+does that interact with update time and claim expressiveness?
+
+Concrete guarantee studied: USE(i) must succeed exactly when a trusted PASS(i)
+has occurred since the last write to any declared dependency of claim i.
+Every write is mediated; validation and use are atomic with respect to writes.
+Soundness and completeness are both required. This is a freshness guarantee,
+not a claim that every epistemic invariant reduces to freshness.
+
+Results:
+1. Exactly n persistent bits are necessary and sufficient when n separately
+   queryable freshness statuses vary independently at identical public data.
+2. Global invalidation has a sharp known threshold: with exactly n persistent
+   bits a worst-case reset costs Omega(n/w) word writes; n+1 persistent bits
+   permit constant-time reset, insertion and membership using Hagerup's choice
+   dictionary, with O(w) temporary workspace and externally available n.
+3. Arbitrary dependency overlap can encode online Boolean matrix-vector
+   multiplication. With near-quadratic preprocessing, making PASS, WRITE and
+   USE all O(n^(1-epsilon)) for a fixed epsilon>0 would refute the OMv conjecture.
+4. An eager n-bit monitor has constant PASS/USE and O(ceil(n/w)) dense WRITE.
+   A bounded lazy monitor uses O((n+m)log(n+m+1)) persistent bits, constant
+   amortized PASS/WRITE, and O(1+|D_i|) USE. Neither needs unbounded counters.
+
+These are proved reductions and constructions, with existing results credited.
+They do not establish novelty or the complete tight memory/time frontier.
+Actual predicate validation cost is additional to metadata maintenance.
+
+The next precise research target is to characterize dependency families that
+admit n+O(w) persistent protected bits and constant worst-case PASS, WRITE and
+USE, with preprocessing near-linear in an explicit policy representation.
+Global invalidation and bounded write fan-out give positive examples; arbitrary
+overlap has the conditional obstruction above. Existing dynamic set-query
+classification results must be compared before claiming a new classification.
+
+Files:
+  Results.txt        Full model, proofs, qualifications and primary references.
+  monitors.py        Eager, bounded-lazy and simple global-reset constructions.
+  verify.py          Independent-history and reduction checks.
+  verification.json  Recorded test counts and outcome.
+  verification.log   Output of the completed verification run.
+
+Reproduce from this directory with Python 3:
+  python3 verify.py
+
+Recorded outcome: passed. Exhaustive tests covered 801,678 small event prefixes
+and 4,164 matrix-vector rounds; long-run tests exercised 8,966 compactions.
+The simple executable global-reset construction uses O(n log n) bits; it does
+not implement Hagerup's succinct construction. Python allocation and integer
+operations do not measure the word-RAM bounds, which are proved in Results.txt.

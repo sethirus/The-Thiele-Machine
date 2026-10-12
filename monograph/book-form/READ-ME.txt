@@ -1,0 +1,29 @@
+THE THIELE MACHINE — TYPOGRAPHY WORKING SETTING
+Devon Thiele
+
+Devon's wording and organization are fixed. The task is the visual art of
+composing that existing work on the page.
+
+The entire original document body is passed to LaTeX verbatim, including
+the title page, contents, paragraphs, headings, references, order, and
+explicit breaks. No passage-specific formatting is inserted into it.
+
+The earlier paired openings, recurring entry positions, added pauses,
+shortened contents, and revised front matter have been removed. That
+experiment is archived under archive/prior-structural-draft and is
+superseded. Its reading-copy PDF and verification report describe that
+earlier experiment only.
+
+Current work is limited to the preamble: typography, measure, leading,
+spacing, margins, running matter, and visual hierarchy. Natural line and
+page wrapping follows those choices. This working setting does not claim
+the artistic design is finished.
+
+Rebuild with:
+    python build.py
+    python review.py
+
+Verification checks exact document-body equality and preservation of the
+existing numbered labels. It requires PyMuPDF and ../monograph.aux. The
+build requires pdfLaTeX and the original manuscript's packages plus those
+in book.sty. Construction checks do not certify artistic success.

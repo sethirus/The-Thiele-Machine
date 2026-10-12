@@ -1,0 +1,103 @@
+THE THIELE MACHINE — PROPOSED EDITORIAL CHANGES
+
+Review copy only. None of these changes has been applied.
+
+1. The opening result
+
+CURRENT:
+
+So the guarantee holds for every program, carried through one interpreter, with the cost counted exactly, and all of it is checked in Coq.
+
+PROPOSED:
+
+So the guarantee holds for every program, carried through one interpreter, with the cost counted exactly.
+
+2. The list of proved claims
+
+CURRENT:
+
+Checked by a proof assistant, with every assumption printed, for any system with the named parts:
+
+PROPOSED:
+
+Proved, with every assumption printed, for any system with the named parts:
+
+3. The short version
+
+CURRENT:
+
+The headline result is proved in Coq (a proof assistant: software that checks every step of a proof), with every premise printed.
+
+PROPOSED:
+
+The headline result is proved with every premise printed.
+
+4. The front-matter account of the tools
+
+CURRENT:
+
+I used language models to write the code and the proofs in this project, and I trust language models about as far as I can throw them, which is exactly why every formal declaration is checked by a proof assistant that doesn't care who or what wrote it. Coq rejects a wrong proof the same whether a tenured professor or a model hands it over, and it accepted these, with none of my own axioms anywhere in them, re-checkable by the procedure in Part V. Being self-taught and using modern tools didn't make this looser. It's the reason I made a machine check the formal corpus, and then built an auditor to read over the checker's shoulder for every way I might have cheated, on purpose or by accident (Part V says what it looks for). It doesn't trust me either. Good.
+
+PROPOSED:
+
+I used language models to write the code and the proofs in this project, and I trust language models about as far as I can throw them. Every argument still has to hold up when you read it. I used a proof checker to look for gaps in the formal derivations, and built an auditor to look for the ways I'd let an assumption do the work. Neither can tell me that I've asked the right question or that a definition means what I say it means. Part V gives the procedure and its limits. The work stands or falls on the arguments.
+
+5. The small-machine chapter’s summary
+
+CURRENT:
+
+Every result above is closed: Coq reports no assumptions for any of them. That isn't my say-so. EarnedCore.v and its link file, EarnedCoreLinks.v, each end by asking Coq to print the assumptions of each headline theorem, and the build of Section 22 compiles them and fails unless every one comes back closed. The project-wide audit of Section 22 lists these files too, and every theorem in them comes back closed there as well. The base file uses nothing but Coq's standard library, so you can check it with nothing else installed; the link file adds only the book's own abstract records and the library of undecidability proofs.
+
+PROPOSED:
+
+The formal derivations of these results use no added axioms; each theorem still has the hypotheses printed in its statement. The sources are EarnedCore.v and EarnedCoreLinks.v, and Section 22 gives the assumption audit and the procedure for repeating it. The base file uses only Coq's standard library; the link file adds the book's abstract records and the library of undecidability proofs.
+
+6. The precedents in “Why I used it”
+
+CURRENT:
+
+Two precedents show that a proof assistant is a serious tool. Neither of them is a toy.
+
+PROPOSED:
+
+Two precedents show how a large proof can be checked by a small program.
+
+7. The shared foundation
+
+CURRENT:
+
+It doesn't mean Coq's own foundation is proved consistent; it's believed consistent, and that can't be proved from inside, by Gödel (Section 13), so the foundation is trusted, and “trusted” has substance: it's the same kernel CompCert and the four-colour proof stand on, and a bug in it would take all of them down together, which is a kind of safety in numbers.
+
+PROPOSED:
+
+It doesn't mean Coq's own foundation is proved consistent. Gödel's second incompleteness theorem limits what a sufficiently strong, effectively axiomatized theory can establish about its own consistency, if it is consistent (Section 13). The foundation and the implementation of the checker remain dependencies. CompCert and the four-colour formalization share them; that does not make them independent checks of those dependencies.
+
+8. The invitation to challenge the work
+
+CURRENT:
+
+Before the list, the honest part about it. Most targets below are theorems Coq has checked, and knocking one of those over head-on would take a bug in Coq's kernel. That can happen, but it isn't where I'd put my money. The places a reader can actually win are aimed at me, and there are three. None of them goes through Coq. A sentence of mine that says more than the Coq statement it cites (Appendix E puts the load-bearing ones side by side to make that easy). A Coq definition that doesn't capture the English word it's named for:
+
+PROPOSED:
+
+Before the list, three places to aim at me. A sentence of mine that says more than the formal statement it cites (Appendix E puts the load-bearing ones side by side to make that easy). A definition that doesn't capture the English word it's named for:
+
+9. The concluding statement of the machine’s results
+
+CURRENT:
+
+All of that is proved in Coq with no axioms: each file prints the assumptions of every headline theorem, and every line comes back closed.
+
+PROPOSED:
+
+The formal derivations of those results use no added axioms; the hypotheses of each theorem are printed in its statement.
+
+10. The concluding invitation to the reader
+
+CURRENT:
+
+I hunted. I came up empty. For a theorem Coq has checked, that's no surprise: finding one would take a bug in the checker. The places a reader can really win are where my sentence says more than the statement does, or a definition doesn't catch the word it's named for, and Section 23 starts with those.
+
+PROPOSED:
+
+I hunted. I came up empty. That leaves the arguments here for you to examine. Even where a theorem holds, my sentence can say more than it establishes, or a definition can fail to catch the word it's named for. Section 23 starts with those.

@@ -1,0 +1,729 @@
+--- before.tex
++++ working.tex
+@@ -237,19 +237,20 @@
+ \label{sec:point}
+ %===========================================================================
+ 
+-The strongest thing in this book first, so you know what the rest is for. On the small machine
+-of Part IV, every program anybody can write, run from a clean start, raises its flag only after
+-a passing check of a claim, a passing commitment to that same claim about the same edition, and
+-then a passing certificate, in that order (Theorem~\ref{thm:u34-cert-earned}). And one fixed program, the universal
+-Thiele machine, runs every one of those programs on a host with more counters: it halts exactly
+-when its guest halts, its flag goes up exactly when the guest's does, and its ledger equals the
+-guest's at every guest step and, in between, never gets ahead of the guest's next one
+-(Theorems~\ref{thm:u34-U-halting} and~\ref{thm:u34-U-flag}). So the guarantee holds for every
+-program, carried through one interpreter, with the cost counted exactly. Putting a rule under every program is an old idea, and I say whose later in this chapter.
+-Carrying it through a universal interpreter with an exact ledger is the piece I didn't find done
+-before, where I looked (Appendix~\ref{sec:whats-mine}).
+-
+-Here's the whole thing before any of the careful parts. I'm going to start with one small picture,
++Structure is something a machine can hold and act on. Which things belong together,
++which change preserves a relation, which earlier act a later move depends on: those
++can be part of its state and its rules. That is the commitment behind the Thiele
++Machine. I want to take those relations apart, put them to work, and ask what survives
++when the machine changes or when we look at it through a smaller window.
++
++The way into that question is two computers with the same answer. The answer leaves
++something out. We can give that difference a place in the machine, let the step
++maintain it, and ask what an observer can recover and what a change costs. A record
++of a checked claim will be the first case I work through. It gives the argument
++something definite to stand on: states you can point at, moves you can follow, and
++rules you can try to break.
++
++Start with one small picture. I'm going to
+ take it apart, and keep asking what each piece means, as far down as I can get before I hit
+ something that holds or something I can't get under. I'll tell you which. Then I'll put it back
+ together at the end and you can check whether it still stands.
+@@ -274,9 +275,9 @@
+ thousand numbers, same order, and it puts them in memory.
+ 
+ Now wait until both are done and look inside. Same bits in memory. Same bits on the screen. Set it
+-up right, which you can, and it's the same everything, down to the last bit. One of them found
+-something out about your list and stood behind it. The other one is holding identical bits and found
+-out nothing. Wheel them out on a cart, swap them, wheel them back, and ask me which is which. I
++up right, which you can, and it's the same everything, down to the last bit. The first compared the entries and checked their order. The second loaded the same
++answer without doing either. The list is in order in both; the difference is what
++each run did with it. Wheel them out on a cart, swap them, wheel them back, and ask me which is which. I
+ can't tell you. You can't tell me. And the part that bugs me most: built the ordinary way, neither
+ machine can tell you either.
+ 
+@@ -293,9 +294,10 @@
+ print it? I'll come back to every one of those at the end of this chapter and say which of them this
+ book actually helps with. Fair warning: fewer than you'd hope.
+ 
+-I'm going to call the difference \emph{established}. The first machine established that your list is
+-sorted. The second has the same answer and established nothing. The rest of this chapter is me
+-taking that one word apart.
++I'm going to call the first run's relation to that answer \emph{established}: it
++checked the order of this list. The second run has the answer without that relation.
++The list's order is there either way. What can a machine keep of the difference
++between the runs? The rest of this chapter takes that question apart.
+ 
+ \subsection*{Look harder}
+ 
+@@ -1243,13 +1245,13 @@
+ machine might be holding, the same flip can remove a full bit; Section~\ref{sec:a2-not-arbitrary}
+ has both readings.
+ 
+-\emph{What ``new model of computation'' means here.} It adds something to how a machine runs:
+-structure it keeps, and an account of what that structure cost. It doesn't add computable
+-functions. It's an abstract model the way the Turing machine is, but it doesn't hand you a
+-new primitive to compute with; whatever base machine sits under it still does all the
+-computing. When I say ``shadow'' I mean the particular window I name. Other ways a
+-conventional machine could store things aren't covered. Enforcing the law, storing it, and
+-letting an observer see it are three separate questions, and the book keeps them separate.
++\emph{What ``new model of computation'' means here.} The Thiele Machine makes chosen
++structural distinctions explicit in the state, the step and its cost. In the case
++on the table, that includes which object a check concerned, which edition it saw,
++and which later act may rely on it. A record keeps something of those relations;
++a window determines how much an observer can recover. Change what is kept or what
++the window shows, and you change which questions the resulting state can answer.
++The computing base supplies the operations. The record adds no computable function.
+ 
+ Which leaves a fair question hanging: if it computes nothing new, does it even get to call
+ itself a model of computation? I think so, and not only on my say-so. Computer science has
+@@ -1403,8 +1405,10 @@
+ that goes through the database. A rule in the step gives you a fact about every program the machine
+ can run, the buggy ones and the hostile ones too, because there's no way to run anything on it that
+ isn't a string of its steps. That's what moving the rule down a level changes. Not what can be
+-computed. \emph{Which} programs the guarantee covers: this one becomes every one. Most of the rest of the
+-book is how far that ``every'' goes and where it stops.
++computed. \emph{Which} programs the guarantee covers: this one becomes every one. Here the
++relation between a check and its object has a job in the machine: the step reads
++it and refuses a commitment when it no longer fits. That is one concrete way to
++make structure part of what the machine does.
+ 
+ Two limits on that ``every,'' said now so you don't have to find them later. First, it's every program.
+ It isn't every everything. The guarantee covers any list of instructions, run from a clean start, one step at
+@@ -1640,29 +1644,22 @@
+ \label{sec:shortversion}
+ %===========================================================================
+ 
+-\emph{The book in one paragraph.} The Thiele Machine is an abstract model of computation. Its core is a
+-state, a step rule, a cost for each move and a yes-or-no certification reading, with one rule: the
+-step turning the reading from no to yes costs at least one unit (I call that rule the toll,
+-and its first name, the one I gave it before I understood it, is No Free Insight; Part II
+-builds it). On top of that core go a counter that adds up the costs and only climbs, and a window
+-that says what an observer sees. The headline result is this. With finitely many yes-states and
+-a reading that is never taken back, every move that raises the reading merges states; consequently
+-every schedule that prices merges charges that move, and every run from no to yes has positive
+-total cost. That's what I call the universal certification result. ``Universal'' means it holds
+-for every system with those premises; its counting core is classical, and what's mine is the
+-price as a rule on a ledger and the toll that falls out of it (Appendix~\ref{sec:whats-mine}).
+-Landauer's principle (the physicist's
+-rule that forgetting costs heat) is a named premise for pricing merges. Around it the book proves
+-that finding out can be free, that a window can hide what was paid, that a base-driven permanent record
+-over any machine is a latch on one event (a switch the event flips once and nothing flips back),
+-and that a system can't decide, by a procedure it can itself represent, every property of its own
+-programs that depends only on what they do. All of that is about any system with the named pieces.
+-Part IV builds one machine that carries the model, six instruction kinds on two counters, on which
+-commitments are earned, and two universal programs on a host with more counters: one runs every
+-program of that machine, and one runs every Thiele machine whose workings a program can compute,
+-each guest's record earned again by the host. The five steps below are the argument in order, with
+-where each stands. ``What's proved, what's argued, and what I just believe,'' back in ``The
+-point,'' sorts the claims by status and names the few that are new, each beside its neighbours.
++\emph{The book in one paragraph.} The Thiele Machine is an account of computation
++that holds structure in the state and makes its treatment explicit in the step.
++Start with things and their relations, then ask which moves preserve them, which
++lose distinctions, and which distinctions an observer can see. The worked core is
++a state, a step rule, a cost for each move and a yes-or-no reading, with a toll on
++turning that reading on. A ledger adds the costs; a window shows some of the state.
++This small case lets us derive definite consequences: a permanent reading over
++finitely many yes-states can only rise through a merge; a price on merges then
++forces the toll. A window may hide that change and its price. Over any base, a
++driven permanent record is a latch; records with more stages give a direction of
++such readings. These are results about the pieces they name. Part IV gives them a
++concrete form in a machine with six instruction kinds, where checks and commitments
++are tied to the same edition of an object. The later constructions change the base,
++join machines and run one inside another, asking what structure and accounting
++survive. That is the route from the picture to the machinery. The five steps below
++follow it, with the premises and the limits of each claim.
+ 
+ I didn't invent a machine. I found one. That's how I see this work, and I'll be straight
+ about the difference between that conviction and a theorem before I do anything else.
+@@ -1686,11 +1683,12 @@
+ the count inside the step are choices, mine, and ``The point'' said so where it sorted what
+ I was pushed into from what I chose.
+ 
+-What this book is. An argument, made with that model, about what an account of
+-computation should preserve. Turing's account, and every account built on it, describes a computation by what it reads and
+-writes. I think that account is a shadow, and that there's another axis, holding what the
+-computation established and what that cost. Here's the argument in five steps, each with
+-where it stands.
++What this book is. An argument about what an account of computation should preserve.
++An answer, a run and a view of a run keep different things. The sorter and the copier
++make that difference visible; the model lets us ask exactly which distinctions a
++description retains and what follows when it drops them. My proposal is to carry
++those structural relations and their accounting in the step itself. Here is the
++argument in five steps, each with where it stands.
+ 
+ \emph{Holding a sorting costs something; standing behind one might.} That's Part I: one word,
+ structure, pushed on with you through as many of the people who wrestled it before me as I
+@@ -1699,10 +1697,9 @@
+ costs work and space. Forgetting where things came from costs heat, if Landauer is right.
+ And standing behind a sorting, vouching for it, is a third act, and nobody I read had put a
+ price on it. The nearest was Rovelli's price on a choice that sticks, and his is a choice nobody
+-could predict, which Section~\ref{sec:narrowing} shows is a different act. Whether vouching has a
+-price is the question the rest of the book takes up.
+-
+-\emph{Establishing is not free.} If the step that turns uncertified into certified has to pay,
++could predict, which Section~\ref{sec:narrowing} shows is a different act. Whether that act has a price is the first accounting question the book takes up.
++
++\emph{Writing a permanent record.} If the step that turns uncertified into certified has to pay,
+ every run from uncertified to certified has paid. Proved, for any system that follows that
+ rule, whatever its states and steps. And the rule isn't arbitrary: on any system with
+ finitely many states, a certificate nothing takes back can only be switched on by a step that
+@@ -1818,8 +1815,11 @@
+ vocabulary I had to learn is at the back.
+ 
+ If you want the argument without the whole tour, read ``The point'' and this short version, then
+-Section~\ref{sec:toll}, Section~\ref{sec:a2-not-arbitrary}, Section~\ref{sec:latch},
+-Section~\ref{sec:smallest} and Section~\ref{sec:conclusion}. If physics is your thing, add
++Section~\ref{sec:structure}, Section~\ref{sec:toll}, Section~\ref{sec:a2-not-arbitrary},
++Section~\ref{sec:windows}, Section~\ref{sec:latch}, Section~\ref{sec:direction} and
++Section~\ref{sec:shadow-exact}. Then follow the construction in Section~\ref{sec:smallest}
++through Sections~\ref{sec:every-model} and~\ref{sec:parts}, and the conclusion in
++Section~\ref{sec:conclusion}. If physics is your thing, add
+ Section~\ref{sec:narrowing} and Section~\ref{sec:landauer}. If you mean to check me, add
+ Section~\ref{sec:falsification} and Section~\ref{sec:ledger}. The appendices are reference:
+ everything in them is there to be looked up when a claim points at it. Nothing gets cut for
+@@ -1837,16 +1837,16 @@
+ \label{sec:straight}
+ %===========================================================================
+ 
+-\emph{What this project is.} The short version gave the argument. This section is the fine
+-print it stands on, starting with the working form of its proposal, structural entitlement: a computation is entitled to lean on a
+-structural fact when it holds the object, a checked relation, and a history that earned
+-it. The model, its laws, and the instructions of any one build are different things, and I
+-keep them apart. The generic
+-flag-raising step pays to set a flag; it checks nothing. A claim that something is actually
+-\emph{true} needs explicit witnesses and a checker proved sound, and some results here are of
+-that kind; the generic accounting law isn't one of them. It's a law about marks.
+-
+-\emph{The universal certification result.} The universal certification result is this: when the
++\emph{What this project is.} An account of the relations a computation carries,
++the moves that act on them, and the views through which they can be read. The
++smallest accounting case uses a yes-or-no reading and a toll; structural entitlement
++adds an object, a checked relation and a history that earned it. The generic
++flag-raising step pays to set a flag and checks nothing. In the earned version,
++a checker establishes a stated property of a particular object, and the step
++keeps that check tied to the edition it concerned. The model, the results under
++its premises and the instructions of a particular build each have their own scope.
++
++\emph{The permanent-record result.} For the yes-or-no case, the universal certification result is this: when the
+ yes-state set is finite and the reading is permanent, every move that raises the reading merges
+ states. Consequently, every cost schedule satisfying merge pricing charges that move at least one
+ mark, and every run from no to yes costs at least one. This is a theorem over all systems
+@@ -3072,9 +3072,9 @@
+ what survives: holding a sorting in a form you can read back
+ is worth something, and building that form cost something, and those are already two
+ different events. Building the table, storing it, checking that it's right, and deciding to
+-\emph{rely} on it are four different things. The question this book is about lives in the gap
+-between the third and the fourth, and nothing in the kindergarten has shown you yet that
+-there's a charge in that gap. It's shown you there might be a place for one.
++\emph{rely} on it are four different things. The first cost question I want to put to that structure lives in the gap between
++the third and the fourth. Nothing in the kindergarten has shown a charge in that
++gap. It has separated the acts well enough for us to ask.
+ 
+ So who, in everything I read, says what the bill is? I found three answers that come close,
+ and I'll be exact about how close, because this is the edge of what I know. Rolf Landauer, in
+@@ -3105,17 +3105,14 @@
+ different act. That could mean nobody says it. It could mean I didn't find
+ the person who does. I honestly can't tell you which.
+ 
+-So that's where I am at the end of one word. Holding a sorting in readable form is worth
+-something and cost something, forgetting where things came from costs heat, and standing
+-behind a sorting is a different act from either, and nobody I found has priced it. (Rovelli's
+-price is on a choice nobody could predict, and that's a different act again. And one price
+-sits closer than any of these, which Section~\ref{sec:toll} puts beside the toll: Landauer's
+-reset of a bit to one whatever it held, which is what raising a flag that stays up does on a
+-machine that might already have it up. It prices the step and says nothing about vouching.) You can
+-walk back through all of that and tell me where it breaks. Maybe there's no such bill. Maybe
+-I'm about to spend a book chasing a charge that nobody owes, which would be an extremely me
+-thing to do. The next two sections are me trying to find out whether that charge is real on any machine at all, mine or anybody's, and if the answer comes back no, you should stop
+-reading there. I would have stopped writing there too.
++So that's where I am at the end of one word. A grouping, the act of making it,
++the information kept about it, and a commitment to rely on it are different things.
++The blocks let you separate them with your hands. Now I want that separation in a
++machine's state and moves, where we can ask what each act preserves and what it
++costs. The next two sections take the smallest record I can give it, a yes-or-no
++reading, put a price on its change, and ask which premises force that price.
++A failure there would tell us something definite about that proposed cost. A success
++would give us one case to carry into the wider questions of observation and structure.
+ 
+ \part{The axiom}
+ 
+@@ -3124,13 +3121,12 @@
+ \label{sec:toll}
+ %===========================================================================
+ 
+-I left you with a question I couldn't answer: something pays for the glance, and I couldn't
+-find anyone who says the moment of vouching for a grouping has a price of its own. Before I
+-go looking for that price in anything complicated, I want to try the opposite. Build the
+-smallest thing that could possibly carry such a bill, on paper, with a pencil, write the bill
+-into its rules, and see what follows from it. If nothing follows in something with five
+-parts, nothing is going to follow in something with five thousand. I want
+-to find that out on page one. Page four hundred is too late.
++Take the distinction between arranging something and recording an act concerning it.
++Give the record two positions, no and yes. I want to build the smallest thing that
++could carry a bill for that change, on paper, with a pencil, write the bill into its
++rules, and see what follows. Then we can ask whether that rule follows from anything
++else. Keeping the case this small lets us see which part of the construction does
++which part of the work.
+ 
+ One thing about where the buckets went, because you'll notice they vanish for a while. Part I
+ ended on vouching for a grouping, and what I'm about to build prices vouching for anything at
+@@ -3142,8 +3138,7 @@
+ work for any yes-or-no reading whatsoever, partition or no partition. When the buckets come back,
+ in Section~\ref{sec:entitlement}, it's as a theorem: a reading that says a grouping has been checked
+ and committed sees the grouping only through its partition, and what it entitles is exactly the
+-groupings that refine it (Theorem~\ref{thm:partition-reading}). That's what ``structural'' in this
+-book's subtitle means at the level of a theorem.
++groupings that refine it (Theorem~\ref{thm:partition-reading}). That gives the grouping itself a precise role in this part of the construction.
+ 
+ But first the word, because I've got a new one and I don't trust it either. Record. Receipt.
+ Certificate. Vouch. People have been making marks that other people are supposed to rely on
+@@ -6576,7 +6571,7 @@
+ why I won't say these escapes beat a cheater. Blum's paper is the kind of thing it would take,
+ and nothing like it is in this chapter.
+ 
+-Now point the three escapes back at the record this book is about, because that's where they
++Now point the three escapes back at the record we have been constructing, because that's where they
+ bite hardest. A record kept in a machine's state is bits too. Hand someone outside a copy of
+ those bits with a note saying ``the flag is up,'' and they're reading a window: the run that
+ really raised the flag and a box built to print that it did cast the same shadow. So putting the
+@@ -9566,7 +9561,7 @@
+ cups and cards and dice I made up. I've been building a toy and claiming it's the smallest
+ version of something people actually do. Time to go and look at what people actually do. I picked five systems that keep
+ records other people rely on, with real money or real security behind them, and asked each
+-the one question this book is about: \emph{is there a price on the moment the record is written?}
++the pricing question from the paper models: \emph{is there a price on the moment the record is written?}
+ Not on the work around it. On the write. I'll tell you the answer first, because it's a
+ single sentence and it surprised me: of the five specifications, read through the
+ transcriptions I made of them, only one takes a fee at the moment of the write, and that one has a leak at exactly
+@@ -10233,15 +10228,18 @@
+ \label{sec:pointer}
+ %===========================================================================
+ 
+-Here's where I am. Over any base, a record that answers to the computation and never comes down
+-is a latch on an event (Section~\ref{sec:latch}), and the event is a
+-free choice (Section~\ref{sec:latch} again, the two cups on one die). Five real systems each picked a
+-different event (Section~\ref{sec:models}). The toll in this book sits on certification. Why that one? I don't have a proof. I
+-have a thesis, in the sense the Church-Turing thesis is one (Section~\ref{sec:structure}): a claim
+-that ties notions I can define to notions about the world that no definition reaches, so no
+-proof can settle it. The honest shape of a thesis is: here's the claim, here's where I
+-got the idea, here's what's checked, here's what isn't, and here's how to kill it. In that
+-order.
++The structural results leave a choice open. A base-driven permanent record is a
++latch on an event, and the event is free to choose (Section~\ref{sec:latch}, the two
++cups on one die). Five real systems each picked a different one
++(Section~\ref{sec:models}). For the worked case in this book I picked certification.
++This chapter asks whether that choice has a reason beyond the construction: is there
++something about how people and machines rely on records that selects this event?
++
++I have a thesis, in the sense the Church-Turing thesis is one
++(Section~\ref{sec:structure}): a claim tying defined notions to the world. Its fate
++matters to that choice of event. The latch, the windows and the counting arguments
++use their stated premises whichever event a system records. Here is the claim,
++where I got it, what can be checked, and how to kill it.
+ 
+ \subsection{The claim}
+ 
+@@ -10683,13 +10681,12 @@
+ from a recursion theorem it has by proof. What a
+ record can do is carry the commitment (Section~\ref{sec:diagonal}). Of
+ five specifications, read through my transcriptions, one charges a fee at the write (Section~\ref{sec:models}).
+-And which event to record is a thesis with a borrowed shape and a listed set of
+-refutations (Section~\ref{sec:pointer}).
+-
+-The obvious question to ask of all that is whether the toll is the only way. A theorem saying so
+-would be the best thing this book could hold: a short list of requirements that any account of
+-what a step costs has to meet, whatever field it comes from, with the toll and the counter the
+-only accounting left standing. I looked for that theorem, and the answer I can give you is no, and
++For the choice of event, the pointer thesis proposes certification and lists how
++that proposal could fail (Section~\ref{sec:pointer}).
++
++One accounting question remains: do the structural requirements select the toll
++alone? A short list of requirements leaving only one price would settle that choice.
++The requirements I tried do not do it, and
+ the no is small enough to check on three states. Call them blank, once and twice, with once and
+ twice reading yes. The flip takes blank to once and leaves the other two where they are. The
+ smooth takes both once and twice to twice and leaves blank alone. The smooth forgets something, so
+@@ -10753,14 +10750,14 @@
+ proofs go through? A big machine is a wonderful place to hide a mistake. It's a garage so full
+ of stuff that you could lose a car in it.
+ 
+-So the machine in this book is a small one. The least I can build that still shows the whole
+-model, every piece of it, with nothing waved at. If the idea only stands up with dozens of
+-instructions holding it, the idea belongs to those instructions. The model can't claim it. If it
+-stands up on six, the six are the idea, and you can hold all of them in your head at once, which
+-is more than I can say for most things I've built. Six kinds, to be exact: each takes operands, a
+-counter or a property or a line to jump to, so the instructions themselves are unboundedly many.
+-And smallest, in this chapter's title, is my account of building it. No comparison class, no
+-measure of size and no proof of minimality stands behind the word.
++So the machine in this book is a small one. I want the state and every way of
++changing it where you can inspect them. Six instruction kinds let us follow how a
++check stays tied to an object, how a change makes it stale, and how the next move
++uses that relation. Each kind takes operands, a counter or a property or a line to
++jump to, so there are unboundedly many instructions. This is one construction of
++the model; the theorems will say which facts depend on these particular choices.
++Smallest, in this chapter's title, is my account of building it. No comparison
++class, measure of size or proof of minimality stands behind the word.
+ 
+ \subsection{What the model actually asks for}
+ 
+@@ -10815,10 +10812,12 @@
+ compute, as long as you're willing to pack the input in a strange way. The trick is to keep
+ many numbers inside one number, as the powers of different primes ($2^x 3^y 5^z$ holds
+ three numbers in one), and to do arithmetic on the exponents by multiplying and dividing
+-with the second bin as scratch space. It's slow. Exponentially slow. A
+-two-counter machine doing your taxes would finish sometime after the sun burns out. But
+-``universal'' is a claim about what's \emph{possible}. Pleasant doesn't come into it, and on that
+-claim two bins of pebbles are as strong as anything.
++with the second bin as scratch space. That representation can turn a modest input
++into an enormous pile, handled one pebble at a time. It is a way to establish
++universality: the two bins can express every Turing computation under the encoding.
++Here they give me a base whose ordinary moves are easy to inspect. The structural
++results each say which properties of a base they need; Section~\ref{sec:every-model}
++carries the earned layer to other bases under explicit interface conditions.
+ 
+ Who cares? Minsky did, because the question then was where the edge of computation sits and
+ how little machinery reaches it. You should, because it means the base of this chapter's
+@@ -12550,8 +12549,10 @@
+ a different property language needs a different host property; the host of the next subsection
+ has one, a single property that reads a universal claim language. Sixteen slots per counter is
+ the guest's whole table size, reserved for each counter in case every fact is about that one.
+-And it's slow: every guest step unpacks the program number from the front,
+-on a machine where copying a number means moving it a pebble at a time.
++This interpreter unpacks the program number from the front for every guest step,
++and copies a number one pebble at a time. That determines the running time measured
++in Section~\ref{sec:running}; the simulation result above compares the states and
++ledgers at matching points.
+ 
+ Enforcement in the step is the reference monitor's move from the opening chapter, Anderson's 1972
+ move: one mechanism everything has to pass through. What's put together here is a priced, earned
+@@ -12784,7 +12785,8 @@
+ move costs three or more; when it starts at yes, three. And no program on this host, run from a clean start,
+ can do better when the guest certifies with its whole ledger below three.
+ \item \textbf{Prices in whole units, paid one at a time.} A move that costs a million is a million
+-PAYs. Nothing here is fast, and the compiler's packing is Minsky's, so it's slower still.
++PAYs. The compiler also uses Minsky's packing. These choices determine the time
++needed to realize the guest's charge on this host.
+ \item \textbf{Proved; never run.} The demonstration machine's numbers come from theorems. Nobody
+ has run $U_P$ on it. An executable version of the full construction has not been produced,
+ and its compiled programs are impractically large. Section~\ref{sec:running} says what was run.
+@@ -14001,9 +14003,11 @@
+ simpler host with the built-in guest step pays one per guest step whatever the step was, so its
+ ledger is at least the guest's and usually more; $U$'s is exact, and $U_P$'s is exact up to the
+ surcharge.
+-\item \textbf{Slow, and fed directly.} Universality is Minsky's, with the inputs placed straight in
+-the counters. Getting from an arbitrary Turing machine to two counters goes through his
+-exponential packing, constructed in Appendix~\ref{sec:counter-constructions}, and nothing about it is fast.
++\item \textbf{Encoding and running time.} The universality construction loads encoded
++inputs directly into the counters. Its route from an arbitrary Turing machine uses
++Minsky's exponential packing (Appendix~\ref{sec:counter-constructions}). That is the
++cost of this route to the two-counter base. The lift to another base has its own
++interface conditions, and an efficient implementation would need its own analysis.
+ \item \textbf{The step doesn't police trivial checks.} CHECK \emph{at least 0} passes on every
+ value, so CHECK, COMMIT, CERTIFY on it raises the flag for three from any fresh loaded start (the note after
+ Theorem~\ref{thm:u34-tight}). A check that can't fail establishes nothing, and the machine raises
+@@ -14070,9 +14074,11 @@
+ when the box writes, a rack for facts, the flag, and the three buttons CHECK, COMMIT and CERTIFY at one mark
+ each. The worry is whether that panel only bolts onto the one box I built.
+ 
+-If it did, it would be a curiosity. The whole point of the opening chapter was that the second
+-computer is missing something \emph{any} computer could have. So this chapter tries to break that,
+-from both directions: the panel onto other boxes, and other boxes run inside mine.
++The opening asked which distinctions the machine could carry in its state and
++steps. Now we can ask which parts of that construction depend on the computing
++base. This chapter works in both directions: the earned layer onto other bases,
++and other bases run inside this one. The interface conditions will say exactly
++what has to survive the change.
+ 
+ \subsection{From any base up}
+ 
+@@ -14513,14 +14519,17 @@
+ \label{sec:running}
+ %===========================================================================
+ 
+-Everything so far is theorems. A fair reader is entitled to ask the rude question: does any of it
+-run? The mathematical definitions are drawings, exact to the last part, and every theorem in this book is
+-about the drawings. A proof that the drawn machine does something isn't a machine doing it, and I'd be
+-suspicious of a book about a machine that never once got built and switched on.
+-
+-So this chapter builds it twice from the same drawings, once generated from the formal definitions and once implemented separately,
+-switches both on, and compares them step by step. It says exactly what ran, exactly what didn't, and what you'd
+-have to trust to believe the parts that did. Here's the short version first.
++The constructions give exact rules for states and steps. This chapter asks how
++executable implementations follow those rules. It builds the small machine twice,
++once from the formal definitions and once separately, runs both, and compares the
++whole state after each tested step. Then it runs the universal programs on guests
++small enough to finish and source programs through the executable part of the compiler.
++
++There are two counts to keep apart here. The ledger measures what the price list
++charges; the number of interpreter steps measures the work this representation takes
++to carry out the run. One guest step can take millions of host steps while adding
++one mark to its ledger. The state comparisons test the implementation, and the times
++tell us which demonstrations are practical on it. Here is what ran and what did not.
+ 
+ \begin{center}
+ \begin{tabular}{@{}p{0.42\linewidth}p{0.5\linewidth}@{}}
+@@ -14606,15 +14615,18 @@
+ chain, has a code near $2^{100}$, which at the same twelve steps a unit is more than $10^{31}$
+ host steps a guest step; at the measured rate, with this encoding on that computer, that's
+ around $10^{18}$ years. So $U$ on a guest that
+-certifies is proved. It isn't run. I'm not going to dress that up. Runs this long only fit in memory
++certifies is covered by the mathematical simulation argument, but this execution
++has not been performed. Runs this long only fit in memory
+ at all because the host's register store can be squeezed during the run without changing any state,
+ which is a theorem too.
+ 
+-Why so slow? Because a fixed program on a machine of counters has to keep the guest packed into
+-numbers, and counters only count. Whether every universal program on counters has to pay this much
+-is a real question, and this book doesn't answer it. What it claims is exactly what the table shows.
+-I'll admit the table stung a little. About ten minutes to watch one CHECK pass is a long time to stare at a
+-machine you built to be small.
++The large counts come from this encoding and the unit operations used to read it.
++They measure the work done by this interpreter. The structural comparison asks
++whether the related states preserve the guest's computation, record and ledger;
++the execution tests check that comparison on the cases in the table. Whether another
++interpreter or another base realizes the same relations efficiently needs a separate
++construction and a running-time analysis. Nothing in these measurements gives a
++lower bound for all such realizations.
+ 
+ \subsection{From source programs to the host}
+ 
+@@ -14655,8 +14667,8 @@
+ 
+ That's about 1,800 host steps per source operation for Ackermann, and up to about a hundred thousand
+ for multiplication by repeated addition, because every addition copies a running total one unit at a
+-time. Counters are unary, and unary is slow, and the slowdown grows with the values. How it grows
+-with the size of the program I haven't measured. The last two stages, the two-counter guest and $U_P$ running it, are proved but have not
++time. This implementation's unit operations make the work grow with the values
++being handled. I haven't measured how it grows with program size. The last two stages, the two-counter guest and $U_P$ running it, are proved but have not
+ been run. An executable version of those stages has not been produced, and $U_P$ on a
+ compiled guest would be slow for the same reason $U$ on a certifying guest is. Still, I like that 253. It came out of nothing but INC and DEC, and a proof
+ that they mean what the source meant.
+@@ -14688,18 +14700,18 @@
+ semidefinite, and that property forces the famous number under the famous bound. The wall
+ is a consequence of the check. It never goes into it. Everything else is explaining those sentences.
+ 
+-But first, why is a quantum game in a book about records at all? Not for the physics. Nothing in
+-this section tests nature, and the check can't tell honest play from a made-up tally (the
+-guarantee paragraph below says exactly how). It's here for three reasons, all about the record.
+-It's a check whose content is striking enough to tempt anyone into thinking that certifying it
+-should cost more than certifying something dull, and on the small machine it doesn't: a flag raised
+-from a clean start costs at least three, and
+-exactly three at the cheapest, whatever the claim (Section~\ref{sec:smallest}). It sets free observation
+-against a priced check: a round of the game is written down for nothing, and judging the pile is
+-one of the three paid acts. And it's an integer test small enough to be a property in the small
+-machine's sense, a checker that's a little program and a meaning that's a statement, with a
+-proof that the two agree, which is exactly what Section~\ref{sec:smallest}'s generic machine asks
+-of any property before it lets a flag stand on it.
++What does this example contribute to the structural question? It separates the
++counts, the relation they satisfy, the act of checking that relation and the record
++kept of the act. A tally is written down for nothing on this machine. Its checker
++uses integer arithmetic to decide a precise matrix condition. The step then ties
++the passing check to this edition of the tally, and the earned chain costs three
++marks, just as it does for a simpler claim. The mathematical depth of the condition
++and the price of those three acts are different quantities. That makes this a useful
++case to hold against the small examples.
++
++The tally alone supplies no history of how it was obtained. A made-up tally can
++pass the same arithmetic test as a played one. The claims here concern its numbers
++and the machine's treatment of them; the guarantee paragraph below says exactly how.
+ 
+ \subsection{The game}
+ 
+@@ -16390,13 +16402,15 @@
+ 
+ \subsection{What I propose}
+ 
+-And then there's what I'm proposing. These are mine. They reach further than any theorem in
+-here, and nothing in the tables puts an unavoidable physical price on every observable change.
++The proposal joining these results is to make structural relations and their
++accounting part of the state and the step. The items below spell out that proposal
++and a narrower choice within it, the pointer thesis about certification. They reach
++further than the theorems; none puts an unavoidable physical price on every observable change.
+ 
+ \begin{itemize}
+ \item That the axis belongs in the step (Section~\ref{sec:scope}, Section~\ref{sec:conclusion}).
+ \item That the usual account of a computation is a shadow of the step (Section~\ref{sec:conclusion}).
+-\item That certification is the event worth recording, which is the pointer thesis (Section~\ref{sec:pointer}).
++\item Within the record construction, that certification is the event selected by the reliance criterion of the pointer thesis (Section~\ref{sec:pointer}).
+ \item That this is a structural account of computation, with a cost model as one part of it (Section~\ref{sec:scope}).
+ \item That the toll is the right thing to price. The alternatives are a wall or a penalty for contradiction (Section~\ref{sec:models}, Section~\ref{sec:conclusion}).
+ \end{itemize}
+@@ -16620,35 +16634,42 @@
+ This machine only: its six instruction kinds and their prices, its sixteen slots, its own colliding
+ pair, and the encodings its universal programs use.
+ 
+-\emph{What I'm proposing beyond that.} That the axis belongs in the step; that certification is
+-the event worth recording; that this is a structural account of computation,
+-with a cost model as one part
+-of it. Those reach further than any theorem here, and no theorem here puts an
+-unavoidable physical price on every observable change. They're the argument, and the
+-argument is what the rest of the book was. What kind of claim is that? A proposal about which
+-distinctions an account of computation ought to draw, and no proof settles an ``ought''. The
+-proofs show the proposal hangs together, follows from premises I've named, and costs little
+-(six instruction kinds on the small machine); whether anyone should adopt it is something I
+-argue for and can't prove.
+-Here's what would weaken it: if every use people have for the record turned out to be
+-recoverable from a log the program writes plus a correctness proof about the program, or if the
+-real systems keep choosing walls over tolls for good reasons, as the five in
+-Section~\ref{sec:models} mostly did.
++\emph{What I'm proposing beyond that.} A structural account of computation: the
++relations it carries belong in the state, their treatment belongs in the step,
++and a cost model is one part of that account. The permanent record supplies a
++case we can take apart. The pointer thesis asks whether certification deserves
++that record in the systems it describes. It can fail without changing the latch
++or window arguments, which use no such selection criterion.
++
++The larger proposal is about which distinctions an account of computation ought
++to preserve. The constructions show particular ways to preserve them and what
++follows under the stated premises. Their worth depends on the questions we need
++the account to answer. If a program's log and a proof about that program recover
++every distinction we need, that weakens the case for requiring the account in the
++step. If a deployed system has good reasons for a wall or a penalty rather than
++a toll, that weighs against the proposed pricing there. Those are ways to examine
++the proposal, alongside the counterexamples that test individual theorems.
+ 
+ %===========================================================================
+ \section{Conclusion}
+ \label{sec:conclusion}
+ %===========================================================================
+ 
+-I started with one word and a machine I couldn't explain. Here's where the word ended up,
+-and where the machine did.
+-
+-Structure, by the end of Part I, was relations among things, kept under chosen changes, carried by
+-whatever stuff, always relative to a frame. The start I chose, the smallest one by the count
+-of names, was a sorting of a pile, and the thing nobody I read had priced was the moment you
+-stand behind the sorting. That was Part I, and it ended with a question.
+-
+-The question got an exact form in Part II: five parts, one rule, one theorem you proved at
++Put the triangle, the cups and the two computers back on the table. Turning the
++triangle preserves relations you can check with your fingers. Turning a cup records
++an act; a row of cups can distinguish stages that one cup cannot. The two computers
++can leave the same answer while differing in what they did to reach it. In each
++case we had to say what the things were, which moves were allowed, which relations
++survived, and what our way of looking could tell apart.
++
++Part I gave that question its vocabulary: structure as relations among things,
++kept under chosen changes, carried by whatever stuff, relative to a frame. A
++partition supplied the smallest sorting by the ruler I chose. Making a grouping,
++keeping it, checking it and standing behind it separated into different acts.
++That gave me a case in which to ask how an account of computation could carry the
++difference and price a change.
++
++The record case got an exact form in Part II: five parts, one rule, one theorem you proved at
+ the table. Then the rule stopped being only my preference. With finitely many yes-states and a flag
+ that stays up, every move that raises it merges states, and if forgetting is charged for, the way Landauer's
+ principle charges for it in its worst case, the toll follows. That's a derivation under three
+@@ -16680,30 +16701,31 @@
+ modelled in fragments, one charges a fee at the write. And which event to record is a thesis, with
+ its refutations listed.
+ 
+-Part IV built one small machine, two counters and six instruction kinds, with hosts to run it, and on
+-it the model stands whole: from a clean start, a raised flag was checked, then committed, then certified, on the
+-same edition of the same counter, nothing gets forged, the cheapest run to a raised flag adds
+-exactly three to the ledger, and a run whose check could have failed reaches that three (the step doesn't police trivial checks), and it
+-computes everything Minsky's two-counter machines can, so its halting is
+-undecidable. Earned commitments and universality are proved there. So is what
+-Thiele-complete has to mean: a universal base that's free and can't touch the record, a record that stays up once it's
+-up, an earned
+-record, one mark for each check, commit and certificate, and some claim whose check can fail. Every clock,
+-every machine that charges for computing, fails it; the small machine meets it; and every machine
+-that meets it hides its record and its ledger from its own window. And so is a universal Thiele
+-machine, with its scope said plainly: one fixed program, $U$, written in the small machine's own
+-six kinds of instruction on a host with more counters, with no guest step built in, that runs
+-every small-machine program from every clean start $\mathrm{start}(x, y)$, halts exactly when its guest halts, raises its own
+-flag by its own check, commit and certificate if and only if the guest's rises somewhere in its run, and keeps a ledger
+-equal to the
+-guest's at every matching point. And then the bigger version of the same thing: with one paid move added,
+-one fixed program, $U_P$, runs every computably presented Thiele machine, a machine from
+-anywhere whose driver, step, prices and reading are computed by programs. It halts when the guest
+-stops, raises its own flag on its own earned chain exactly when the guest's reading has said
+-yes, with the guest's own reading as the claim it checked, and, when the guest's reading starts at no, keeps the guest's prices
+-to within a surcharge of at most two, which no program on
+-that host, run from a clean start, can avoid when the guest certifies with its whole ledger below three. An ordinary programmable computer, as built, doesn't do that for the
+-programs it runs; $U$ and $U_P$ show a fixed interpreter can.
++Part IV made the relations operational. The small machine's state ties a checked
++claim to an edition of a counter. Its step uses that tie: change the counter and
++the old check no longer authorizes a commitment. From a clean start, a raised flag
++therefore requires a passing check, a commitment about the same edition and a
++certificate, in order. Three marks suffice and no such run pays less. These are
++facts about the construction, including the case of a check that cannot fail.
++Its two-counter base supplies universality under the stated encoding.
++
++The universal programs ask whether those relations survive another machine doing
++the work. On the host with more counters, $U$ runs the small machine's programs
++from clean starts, matches halting and answers, earns its own flag exactly when
++the guest raises one, and matches the ledger at corresponding points. With PAY
++added, $U_P$ runs every computably presented Thiele machine, latches the guest's
++reading through its own earned chain, and carries the guest's ledger with the
++stated surcharge: at most two at the raise when the reading starts at no. The
++simulation arguments describe which states correspond; the execution chapter
++measures the time this particular representation takes.
++
++Changing the base and joining machines ask the structural question more widely.
++The lift works under its interface conditions, with counterexamples where those
++conditions fail (Section~\ref{sec:every-model}). Side-by-side machines need both
++records; a single total can lose which side acted. Sequential hand-offs and nested
++runs each need their own conditions (Section~\ref{sec:parts}). These constructions
++make us say which relation is carried through a change and which is lost. The
++six instruction kinds are one place to inspect that work.
+ 
+ Then a check worth earning, the two-player game with an integer test whose
+ pass forces Tsirelson's bound for the tally it's handed. And what the counter has to do with physics, which is less than
+@@ -16771,27 +16793,29 @@
+ And the question I'd most like someone to take from me: is there a smaller start than a
+ partition, by a ruler they can state? I said in Section~\ref{sec:structure} it would change this book. It would.
+ 
+-And the two computers from the first pages, the sorter and the copier, holding the same bits.
+-Walk the warehouse again. On an ordinary machine there's still no lamp for what the sorter did,
+-and nothing in this book changes that. On the small machine there is one: a flag and a counter
+-you can read off the state, and a theorem that, from a clean start, the flag can't be up unless
+-some claim went through a passing check, a commit about the same edition and a certificate, in that order, where a claim can be any
+-property, in a language with an exact
+-equality test, whose checker is proved to mean what it says, ``this counter, read as a list, is
+-sorted'' among them. That's the one lamp I set
+-out to light. It's a lamp for whoever can read this machine's state. A ``tests passed'' sheet
+-fits it only when the test is a checker proved to mean what it says; the sticker and the very
+-sure AI from the first pages ask something else, whether to believe a report you didn't watch
+-being made, and nothing in this book answers that (Section~\ref{sec:scope}). Whether every
+-machine ought to have that lamp is the argument. No proof here settles it.
+-
+-So that's the Thiele Machine. An abstract model with five parts and one rule, an argument
+-made with it that the usual account of a computation is a shadow and the axis it leaves out
+-belongs in the step, and one small machine to check the argument against, with one fixed
+-program, written in its instruction kinds plus one paid move and run on a host with more counters, that runs every machine of the model whose workings a program can present.
+-The theorems are what they are, with their premises printed. The interpretation is mine, and
+-I've tried to say at every turn which is which, because the first time through I was the
+-only one checking, and I've met me, and that's not enough people. Now there's you.
++And the two computers from the first pages, the sorter and the copier, holding the
++same list. Walk the warehouse again. The list is in order on both. On the machine
++with the earned layer, a different part of the state tells you whether a check and
++a matching commitment occurred. Its rules maintain the relation to the edition
++that was checked. Cover that part of the machine and the distinction disappears
++from your view. Change the counter and you can watch the old check become stale.
++Those are different operations, with different consequences, and you can follow
++each one.
++
++A report carried out of the warehouse raises another question: what connects that
++report to the machine? The flag alone supplies no answer. A window, a copying
++operation, a second machine and a reader each introduce relations of their own.
++The book's constructions ask explicitly which of them hold. That is how the
++example reaches beyond the lamp: through what survives a change of view, a change
++of state, or a change of machine.
++
++So that's the Thiele Machine: structure held as state, acted on by a step, with an
++account of the changes and a view that may keep or lose their distinctions. The
++record and its toll give that proposal a worked mathematical core. The small
++machine and its interpreters give us particular constructions to take apart.
++The argument is for treating those relations as part of computation itself.
++Each theorem answers a stated question under stated premises; the choice of which
++questions an account ought to preserve remains there for you to challenge.
+ 
+ \appendix
+ 

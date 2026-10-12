@@ -1,0 +1,95 @@
+THE THIELE MACHINE — COMPLETE MANUSCRIPT PASS
+Author: Devon Thiele
+11 October 2026
+
+RESULT
+Every part of the manuscript was read, from the opening through all chapters,
+appendices and the bibliography: 21,247 source lines, approximately 260,125 words
+in the starting manuscript. The 46 consecutive reading chunks reconstruct that
+manuscript exactly. coverage.json and reading-notes.txt record their assessments.
+This pass applied 136 recorded edits. Earlier self-contained constructions and
+nineteen tangible appendix explanations remain in the book.
+
+The review asks whether a reader can follow what is done, what changes, why the
+conclusion follows, and which conditions it depends on without consulting the
+repository. It addresses explanations, procedural definitions, examples, proof
+gaps and scope. It preserves the existing organization and the author's concrete
+voice rather than replacing the book with a symbolic or software manual.
+
+WHAT CHANGED
+- Concrete examples now distinguish knowing an answer, recording it, losing
+  information and dissipating heat. Chairs and cards illustrate the mathematics;
+  the text states what extra physical premises are needed to speak about heat.
+- Worked examples include the checksum's compensating-change failure, four-card
+  entropy loss, biased-bag residence times, reversible conditional copying,
+  indirect registers, version changes, replay allowance, encoded inputs and the
+  energy balance of a finite reset step.
+- The tree-verification fragment gives both iterative verification procedures,
+  their rejection conditions, and seven-leaf inclusion and consistency trials.
+- The storage-cost definition includes the missing refund cases. The finalization
+  example uses both quorum links required by the stated protocol.
+- The one-counter stopping bound and the no-plain-recursion argument now include
+  the intervening counting and transfer-stage reasoning.
+- The explanations distinguish soundness from exactness, a model from a physical
+  device, conditional results from unconditional claims, and finite state sets
+  from unbounded counter machines.
+- Internal references and the claims ledger now cover the lift, composition,
+  compiler and execution chapters. Contribution summaries describe the arguments
+  and constructions rather than emphasizing their proof-assistant treatment.
+- Bibliographical titles and historical credit are retained accurately. The short
+  methodology note remains separate from the argument. No revision-history prose
+  or this review record is inserted into the book.
+
+PRESERVATION
+All 279 headings remain unchanged and in order. All 314 labels remain in order,
+and every internal reference resolves. All 145 theorem, 16 lemma, 3 proposition,
+9 corollary and 8 observation statements are byte-for-byte unchanged in this pass.
+Some definitions gained missing operational rules or clearer references; proof
+and explanatory prose changed. No formal proof source was edited. Devon Thiele
+is the sole author named in both PDFs.
+
+VALIDATION
+- Every recorded edit reconstructs the final source exactly, with no overlap.
+- Direct arithmetic checks cover the new numerical examples.
+- 52,488 fresh-slot storage transitions preserve the stated cost invariant.
+- Independent recursive tree/path construction exercises 528 inclusion paths
+  and 496 consistency paths against the printed iterative procedures, including
+  rejected altered roots/leaves and boundary cases.
+- Finite exhaustive checks cover 1,441 one-counter programs on six initial
+  counter values each (8,646 runs), with halting runs within the stated bound.
+- Expansion of the book's universal-program blocks matches all 3,728 U and
+  3,735 U_P instructions and their targets in the existing program data.
+- Exact symbolic checks verify the supplied Clifford identities and triple
+  marginals; 10,081 finite cases exercise the quantum interval constructions,
+  including degenerate angles.
+- The two edition-consistency tests pass. git diff --check passes.
+- Both PDFs build without overfull boxes, unresolved references, missing glyphs
+  or text outside the physical page. Selected changed pages were inspected
+  visually: entropy, tree verification, both counter proofs, reset and ledger.
+- The book setting preserves the complete manuscript body verbatim relative to
+  the standard A4 build; all numbered references agree.
+
+These checks support the explanations and examples. They are not a new independent
+formal proof of every result, a physical experiment, or a reauthentication of every
+historical source. The bibliography was read for context and dependencies; every
+external source was not fetched again. Existing stated premises, open questions
+and limits remain explicit. This is a complete manuscript pass, not a claim that
+all repository engineering or the earlier release checklist is completed.
+
+FILES FOR REVIEW
+The-Thiele-Machine-reading.txt — complete continuous plaintext.
+The-Thiele-Machine.txt — complete plaintext retaining page layout.
+The-Thiele-Machine.pdf — 607-page book setting.
+The-Thiele-Machine-A4.pdf — 522-page standard setting, same manuscript.
+The-Thiele-Machine.tex — complete final manuscript source.
+Changed-passages.txt — every before/after passage and its reason, in book order;
+                       literal mathematical source is retained in these excerpts.
+changes.patch — exact source diff for this pass.
+reading-notes.txt / coverage.json — full reading coverage and assessments.
+pass-verification.json / design-verification.json — structural and example checks.
+
+WORKSPACE
+Updated locally in /workspace/The-Thiele-Machine-book-design, branch book-design.
+Nothing was committed, pushed, merged, tagged or published during this pass.
+Earlier design-study directories were left alone. These PDFs use the existing
+book typography; this pass does not claim to complete the separate meta-art design.

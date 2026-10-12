@@ -1,0 +1,70 @@
+BACK TO THE MACHINE: STRUCTURE THAT A FAITHFUL IMPLEMENTATION MUST KEEP
+12 October 2026
+
+This work starts from the actual Small Machine instruction rules, including
+the earned CHECK -> COMMIT -> CERTIFY chain, the permanent record, the channel,
+the sixteen-slot fact table, traps and the exact ledger. It does not replace
+the machine by an isolated range-clear data structure.
+
+The central experiment:
+Two histories can leave the same counter values, even the same current version
+numbers and ledger, while the same next COMMIT must succeed in one and fail
+in the other. The checked numerical statement is true in both. The difference
+is what was established since a write. We construct 81 pairwise distinguishable
+histories of this kind, all using the machine's actual Ge claims.
+
+Any faithful deterministic implementation must keep those differences somewhere.
+That necessity follows from distinguishable continuations, a classical principle.
+The concrete machine witness and the preservation analysis are the work here.
+
+Two explicit representations are proved and tested:
+- For the instruction interface and named facts/channel: two live-prefix
+  lengths replace unbounded version labels, with seven bits of edition
+  distinction sufficient and necessary in the exhibited fixed context.
+- If old-edition equality/order and the channel's historical edition must also
+  be preserved: canonical edition ranks do so. Their fact/current relations
+  have a sixteen-gap-bit representation and 65536 reachable patterns. The
+  channel may be identified by one of sixteen slots or empty (five more bits).
+
+Neither figure is a memory bound for the entire machine. Numeric version
+readout, arbitrary write counts, unbounded claim parameters, the base and
+the ledger are not magically compressed into these bits. The precise
+observation contracts and the proof of each representation are in Result.txt.
+
+A four-instruction cycle restores both counter values and pc but invalidates
+current evidence, for ZERO additional ledger marks. It collapses the 81-state
+operational family to one state. Under the richer edition-relation interface,
+it collapses 65536 patterns to 16384, preserving the older relationships.
+
+An implementation can retain the discarded distinctions as hidden history.
+The proved reset-experiment bound is:
+
+    M >= N + T(N-L),
+
+where an idempotent reset maps N distinguishable states onto L fixed images,
+T is the number of repetitions through which one time-independent transition
+remains injective on the union of encountered inputs, and M counts ALL retained
+implementation states, including any hidden history or clock. The bound is
+tight for this reset-only experiment. It is not a full-machine implementation
+bound or a heat law. Free external garbage/history invalidates a claim that M
+counts only protected memory.
+
+This identifies a real connection between the machine's structural distinctions,
+what faithful implementations must remember, and what bounded reversible
+retention requires. The ledger and a physical price still need separate
+justification: faithful behavior alone does not force a positive heat toll.
+
+FILES AND REPRODUCTION
+  Result.txt          Self-contained experiments, definitions, proofs and limits.
+  machine_models.py   Reference, operational normal form and edition normal form.
+  verify.py           Differential checks, distinguishing histories and reset maps.
+  verification.json  Recorded counts and inspected reference-source fingerprint.
+  verification.log   Completed run output.
+  SHA256SUMS          Bundle integrity manifest.
+
+From this directory, with Python 3.10 or newer and no third-party dependencies:
+  python3 verify.py
+
+No book or repository file was changed. No full-book audit or literature
+novelty claim is implied. The earlier grouped-mask prototype remains paused
+and unverified. This note supersedes that optimization as the active direction.

@@ -1,0 +1,1490 @@
+THE THIELE MACHINE — FULL EDITORIAL AUDIT OF PROOF-TOOL EMPHASIS
+Manuscript by Devon Thiele. Review proposals only. No manuscript changes applied.
+
+The first ten suggestions caught the most visible framing. The same pattern also appears
+in the personal account, chapter transitions, the explanation of proof checking, the
+implementation chapter and the appendices. This pass follows it through the entire book.
+
+There are 58 grouped findings containing 74 exact replacements.
+The original ten proposals are included unchanged and identified by their previous numbers.
+Most replacements are short cuts or changes of emphasis. The first-person changes, two
+heading changes and shortened name-history paragraph are explicitly marked VOICE CHOICE.
+They are proposals for your judgment, just like the rest; no one has applied them.
+
+Editorial principle: the argument carries the claim. The formalization is a companion
+that can expose gaps in a specified derivation. Tool acceptance does not determine the
+importance of the work, choose its definitions, validate its interpretation or confer
+novelty. Conversely, having no separate formal counterpart does not refute an argument.
+
+Scope and method: the complete 23,288-line manuscript was searched, from preamble through
+the last bibliography entry. The review inventoried 319 tool/foundation-related paragraphs
+and screened 294 additional candidate passages for the same framing without tool names.
+Relevant passages were read in context, with follow-up reads around ambiguous statements.
+The section coverage and dispositions are recorded in coverage.txt and passage-dispositions.tsv.
+This is a manuscript-wide editorial audit of this issue, including nearby accuracy and
+consistency problems. It is not a fresh verification of every mathematical derivation,
+every historical citation or every claim of originality in the 282,043-word TeX source.
+
+WHAT THE FULL PASS ADDS
+
+1. Remove shared-checker endorsements from historical comparisons.
+2. Stop treating compilation as the central accomplishment or the identity of the author.
+3. Remove the repeated “and it is checked” refrain where the argument and source already follow.
+4. Correct claims of certainty, infallibility, automatic totality and independence that the
+   described tools or tests do not establish.
+5. Make the checking chapter serve the argument; shorten the tool-name digression if you
+   agree with that voice choice.
+6. Let the appendices document the work without making source syntax the arbiter of all prose.
+7. Correct stale descriptions where the book and its current companion sources disagree.
+
+WHAT SHOULD STAY
+
+“Gap-catcher. Not the proof. The proof is the argument.” Keep that paragraph exactly.
+Keep theorem statements, proofs, hypotheses, mathematical definitions, formal source blocks,
+source identifiers, genuine limitations, reproducibility commands, and attribution of prior work.
+Keep the distinction between the machine's CHECK instruction and the external proof checker.
+Keep the real-number assumptions and their per-result accounting; deleting them would hide
+dependencies rather than improve the emphasis. Keep the honest distinction between runs that
+were tested and constructions whose behavior is proved but which have never been run.
+Keep the classification of contributions as known mathematics, synthesis, implementation or
+mechanization where that is the actual contribution. Changing “mechanized” to “new” would
+misrepresent the work. This audit recommends no such change.
+Keep the historical discussions when they explain the machine or an argument. The particular
+name-history cut below is a judgment about focus, not a ban on historical digressions.
+Gallina does not occur by name in the current manuscript.
+
+READING THIS REVIEW
+
+Each entry gives its location, source line, reason, CURRENT wording and PROPOSED replacement.
+Only the displayed span changes; surrounding text stays. Source lines refer to the unchanged
+manuscript. Displayed section numbers are resolved from the existing book; the patch retains
+the original LaTeX cross-references. Multi-location entries print every replacement separately.
+No paragraphs or chapters are moved, and all existing paragraph boundaries remain in place.
+
+CONTENTS
+E01. The opening result [earlier #1] — line 247
+E02. Historical examples: stop borrowing authority from the shared tool — line 727
+E03. The list of proved claims [earlier #2] — line 1463
+E04. The short version [earlier #3] — line 1635
+E05. The found-or-invented question — line 1668
+E06. The front-matter account of the tools [earlier #4] — line 1813
+E07. What the reader gets to examine — line 1824
+E08. The project’s scope — line 2005
+E09. The personal account: compilation is not the author’s central act [VOICE CHOICE] — line 2250
+E10. “The proofs you can’t fake” — line 2250
+E11. Repeated announcements that the next argument is checked — line 3686
+E12. The file is not the standard of care — line 3949
+E13. The counter’s proofs and their source locations — line 5638
+E14. A proof the reader can inspect — line 6213
+E15. Why the recursion result matters — line 9455
+E16. The checker’s proof outside the machine — line 9628
+E17. An argument without a separate formal counterpart — line 9641
+E18. Why this base was usable — line 10929
+E19. The price unit comes from the model’s choice of whole numbers — line 11129
+E20. What establishes the checker’s meaning — line 11729
+E21. The states differ whether or not software distinguishes them — line 11926
+E22. The small-machine chapter’s summary [earlier #5] — line 12028
+E23. Which premise has been discharged — line 13950
+E24. The comparison with Schroeppel’s proof — line 14084
+E25. Borrowing a theorem does not cost “nothing in certainty” — line 14446
+E26. The running-status table — line 14767
+E27. What is proved equal before extraction — line 14788
+E28. Popularity is not an extra correctness argument — line 14814
+E29. What a single execution tells you — line 14819
+E30. Agreement between implementations — line 14844
+E31. The compiler’s heading [VOICE CHOICE] — line 14901
+E32. What each compiler stage establishes — line 14909
+E33. The calorimeter’s physical assumption — line 16048
+E34. The checking chapter’s heading [VOICE CHOICE] — line 16083
+E35. The checking chapter’s opening — line 16087
+E36. The name-and-renaming digression [VOICE CHOICE] — line 16093
+E37. The types-as-claims explanation — line 16108
+E38. What an accepted derivation establishes — line 16135
+E39. The precedents in “Why I used it” [earlier #6] — line 16156
+E40. The shared foundation [earlier #7] — line 16192
+E41. Repeated closed-status assurances in the audit explanation — line 16210
+E42. What the trust list is a list of — line 16233
+E43. The stale bytecode-use census — line 16246
+E44. The auditor’s “pedigree” — line 16332
+E45. The invitation to challenge the work [earlier #8] — line 16495
+E46. The concluding statement of the machine’s results [earlier #9] — line 17477
+E47. The concluding invitation to the reader [earlier #10] — line 17493
+E48. What establishes that the bound is algebraic — line 17532
+E49. What the learning appendix was for [VOICE CHOICE] — line 17584
+E50. Tactics build derivations — line 17660
+E51. The operating-system meaning of kernel is used after all — line 17765
+E52. Bennett and the four-state example — line 18177
+E53. The grade/counter appendix is behind the main chapter — line 18309
+E54. The closing account of the contribution — line 18440
+E55. The crosswalk’s legend — line 18467
+E56. The crosswalk is an index, not the authority over all prose — line 18486
+E57. How to compare the printed statements with the source — line 18791
+E58. Why the bounded checker terminates — line 19655
+
+
+============================================================================
+
+E01. The opening result
+
+Location: The point
+
+Type: Previously reviewed
+
+Earlier proposal 1 — wording retained.
+
+WHY: Let the opening land on what the machine does. The theorem references immediately before this sentence already identify the supporting results.
+
+Source line 247
+
+CURRENT:
+
+So the guarantee holds for every program, carried through one interpreter, with the cost counted exactly, and all of it is checked in Coq.
+
+PROPOSED:
+
+So the guarantee holds for every program, carried through one interpreter, with the cost counted exactly.
+
+============================================================================
+
+E02. Historical examples: stop borrowing authority from the shared tool
+
+Location: The point / Settled, whether it's true or not
+
+Type: Emphasis
+
+WHY: These four comparisons repeatedly turn a historical argument into an endorsement of this book through its choice of software. Keep the people, work and historical facts; remove the shared-tool endorsement.
+
+PASSAGE 1 — source line 727
+
+CURRENT:
+
+Per Martin-Löf, a Swedish logician whose type theory sits underneath the kind of proof checker that checks this book,
+
+PROPOSED:
+
+Per Martin-Löf, a Swedish logician,
+
+PASSAGE 2 — source line 891
+
+CURRENT:
+
+a proof assistant, the same kind of tool that checks this book.
+
+PROPOSED:
+
+a proof assistant.
+
+PASSAGE 3 — source line 927
+
+CURRENT:
+
+checked by Coq, the program that checks this book.
+
+PROPOSED:
+
+checked by Coq.
+
+PASSAGE 4 — source line 1053
+
+CURRENT:
+
+Coq, the same proof checker this book uses.
+
+PROPOSED:
+
+Coq.
+
+============================================================================
+
+E03. The list of proved claims
+
+Location: The point / What's proved, what's argued, and what I just believe
+
+Type: Previously reviewed
+
+Earlier proposal 2 — wording retained.
+
+WHY: Name the status as proved and retain the explicit assumptions. The method used to check the derivation need not lead the list.
+
+Source line 1463
+
+CURRENT:
+
+Checked by a proof assistant, with every assumption printed, for any system with the named parts:
+
+PROPOSED:
+
+Proved, with every assumption printed, for any system with the named parts:
+
+============================================================================
+
+E04. The short version
+
+Location: Before the book: the short version
+
+Type: Previously reviewed
+
+Earlier proposal 3 — wording retained.
+
+WHY: Keep the summary about the result and its premises. Part V already explains the checking procedure.
+
+Source line 1635
+
+CURRENT:
+
+The headline result is proved in Coq (a proof assistant: software that checks every step of a proof), with every premise printed.
+
+PROPOSED:
+
+The headline result is proved with every premise printed.
+
+============================================================================
+
+E05. The found-or-invented question
+
+Location: Before the book: the short version
+
+Type: Emphasis
+
+WHY: The independence of mathematical discovery from this philosophical question does not need another appearance by the checker.
+
+Source line 1668
+
+CURRENT:
+
+A proof checker doesn't settle it either; Coq checks a proof the same whether you think the theorem was out there waiting or you think you built it.
+
+PROPOSED:
+
+A proof doesn't settle it either: showing what follows from the premises doesn't decide whether you found the theorem or made it.
+
+============================================================================
+
+E06. The front-matter account of the tools
+
+Location: Before the book: the short version
+
+Type: Previously reviewed
+
+Earlier proposal 4 — wording retained.
+
+WHY: Preserve the account of how the work was produced. Replace the appeal to acceptance by Coq with a direct statement of the limited job given to the checker and auditor.
+
+Source line 1813
+
+CURRENT:
+
+I used language models to write the code and the proofs in this project, and I trust language models about as far as I can throw them, which is exactly why every formal declaration is checked by a proof assistant that doesn't care who or what wrote it. Coq rejects a wrong proof the same whether a tenured professor or a model hands it over, and it accepted these, with none of my own axioms anywhere in them, re-checkable by the procedure in Part V. Being self-taught and using modern tools didn't make this looser. It's the reason I made a machine check the formal corpus, and then built an auditor to read over the checker's shoulder for every way I might have cheated, on purpose or by accident (Part V says what it looks for). It doesn't trust me either. Good.
+
+PROPOSED:
+
+I used language models to write the code and the proofs in this project, and I trust language models about as far as I can throw them. Every argument still has to hold up when you read it. I used a proof checker to look for gaps in the formal derivations, and built an auditor to look for the ways I'd let an assumption do the work. Neither can tell me that I've asked the right question or that a definition means what I say it means. Part V gives the procedure and its limits. The work stands or falls on the arguments.
+
+============================================================================
+
+E07. What the reader gets to examine
+
+Location: Before the book: the short version
+
+Type: Emphasis
+
+WHY: Proof terms are implementation objects. Here the book is inviting a reader to examine reasons.
+
+Source line 1824
+
+CURRENT:
+
+The results in this book have statements, premises, and proof terms.
+
+PROPOSED:
+
+The results in this book have statements, premises, and arguments.
+
+============================================================================
+
+E08. The project’s scope
+
+Location: Let me be straight with you
+
+Type: Emphasis
+
+WHY: State the actual kind of work rather than doubling the word checked and ending the description on the programming language.
+
+Source line 2005
+
+CURRENT:
+
+a checked model and a checked machine, on paper and in Coq.
+
+PROPOSED:
+
+a mathematical model and an abstract machine, with proofs of their properties.
+
+============================================================================
+
+E09. The personal account: compilation is not the author’s central act
+
+Location: The picture / How I got here
+
+Type: Voice choice
+
+WHY: These are first-person passages, so they are marked as voice choices for your review. They retain your authorship and the role of the models, while taking compilation out of the definition of what you do.
+
+PASSAGE 1 — source line 2250
+
+CURRENT:
+
+The symbol-pushing, the actual Coq and the actual math, the models produced and the proof checker judged. The proofs compile or they do not. I refused every one that did not.
+
+PROPOSED:
+
+The symbol-pushing, the code and the formal derivations, the models produced. I used the checker to catch gaps in those derivations.
+
+PASSAGE 2 — source line 2252
+
+CURRENT:
+
+Then the model gives me the symbols, the proof checker takes them or throws them back, and I refuse anything that will not compile or does not match the shape I am holding.
+
+PROPOSED:
+
+Then the model gives me the symbols, and I refuse anything whose argument does not hold or does not match the shape I am holding.
+
+============================================================================
+
+E10. “The proofs you can’t fake”
+
+Location: The picture / How I got here
+
+Type: Accuracy and emphasis
+
+WHY: This absolute assurance undoes the paragraph’s own example of a vacuous theorem. Say what remains your responsibility without claiming the software makes fakery impossible.
+
+Source line 2250
+
+CURRENT:
+
+The proofs you can't fake. The statements you can fake by accident, which is the more dangerous failure mode. I refused both kinds.
+
+PROPOSED:
+
+An accepted derivation can still settle an empty question. I had to refuse that too.
+
+============================================================================
+
+E11. Repeated announcements that the next argument is checked
+
+Location: The axiom / Why the toll isn't arbitrary / A closed room with no spare chair
+
+Type: Emphasis
+
+WHY: These short asides accumulate into a second refrain underneath the arguments. The nearby source references and precise statements already report the formal counterparts. Remove the repeated announcement while keeping those references.
+
+PASSAGE 1 — source line 3686
+
+CURRENT:
+
+The checked version of the chairs is a theorem a few lines down,
+
+PROPOSED:
+
+The precise statement of the chairs argument is a theorem a few lines down,
+
+PASSAGE 2 — source line 4273
+
+CURRENT:
+
+Four more facts about the halving price, all checked, and the last one is a limit.
+
+PROPOSED:
+
+Four more facts about the halving price, and the last one is a limit.
+
+PASSAGE 3 — source line 4834
+
+CURRENT:
+
+One piece of it I can hand you, and it's checked.
+
+PROPOSED:
+
+One piece of it I can hand you.
+
+PASSAGE 4 — source line 4846
+
+CURRENT:
+
+Runs that mix different moves split two ways, and the answer is short enough to give here, checked like the last one.
+
+PROPOSED:
+
+Runs that mix different moves split two ways, and the answer is short enough to give here.
+
+PASSAGE 5 — source line 4911
+
+CURRENT:
+
+Both are checked now, and here's what each one says in plain words.
+
+PROPOSED:
+
+Here is what each says, and why it holds.
+
+PASSAGE 6 — source line 4953
+
+CURRENT:
+
+That's a theorem, and it's checked in steps.
+
+PROPOSED:
+
+That's a theorem. Here's the argument.
+
+PASSAGE 7 — source line 5786
+
+CURRENT:
+
+Close enough to say exactly, in a limited form, and it's checked.
+
+PROPOSED:
+
+Close enough to say exactly, in a limited form.
+
+PASSAGE 8 — source line 13556
+
+CURRENT:
+
+Two more pieces of the same count, both checked.
+
+PROPOSED:
+
+Two more pieces of the same count.
+
+PASSAGE 9 — source line 15675
+
+CURRENT:
+
+They are the same set, and that's checked, for strategies on finitely many levels.
+
+PROPOSED:
+
+They are the same set, for strategies on finitely many levels.
+
+============================================================================
+
+E12. The file is not the standard of care
+
+Location: The axiom / Why the toll isn't arbitrary / Door one: keep everything, and nothing ever has to merge
+
+Type: Emphasis
+
+WHY: Name the distinction directly instead of attributing the care to a source file.
+
+Source line 3949
+
+CURRENT:
+
+One thing I have to say plainly, because the file is more careful than I'd like to be.
+
+PROPOSED:
+
+There are three separate claims here, and I need to keep them apart.
+
+============================================================================
+
+E13. The counter’s proofs and their source locations
+
+Location: The logic / The counter / Only one honest count
+
+Type: Emphasis
+
+WHY: Lead with the arguments the reader just saw; retain every source identifier in this passage.
+
+Source line 5638
+
+CURRENT:
+
+Those two proofs are the whole of it, and they're about any counter machine. Coq checks them over arbitrary states, as nec_f_conservation, with nec_f_counter_monotone for the climb, and nec_f_initiality (NecFCounter.v), and here they're on the page, where you can check every line.
+
+PROPOSED:
+
+Those two proofs are the whole of it, and they're about any counter machine. They're on the page, where you can check every line. Their formal counterparts over arbitrary states are nec_f_conservation, with nec_f_counter_monotone for the climb, and nec_f_initiality (NecFCounter.v).
+
+============================================================================
+
+E14. A proof the reader can inspect
+
+Location: The logic / Windows and shadows / People who found this on their own
+
+Type: Emphasis
+
+WHY: Rerunning software is one way to check a formal counterpart. This sentence is about the reader’s access to the reason.
+
+Source line 6213
+
+CURRENT:
+
+and that its honesty is a proof you can rerun yourself.
+
+PROPOSED:
+
+and that its honesty rests on a proof you can examine yourself.
+
+============================================================================
+
+E15. Why the recursion result matters
+
+Location: The logic / The diagonal / Now point it at the record
+
+Type: Emphasis
+
+WHY: The important distinction is a derived recursion theorem versus an assumed one. A global-context status is not what makes the model exist.
+
+Source line 9455
+
+CURRENT:
+
+And the one where the recursion theorem is proved from the rules, closed under the global context, which is why it exists:
+
+PROPOSED:
+
+And the one where the recursion theorem is proved from the reduction rules rather than assumed:
+
+============================================================================
+
+E16. The checker’s proof outside the machine
+
+Location: The logic / The diagonal / What this does to the book
+
+Type: Accuracy and emphasis
+
+WHY: This paragraph says the proof cannot be moved inside and invokes Gödel and Löb as the reason. Later the book explicitly says keeping it outside is a design choice and that these theorems do not forbid checking proofs about checkers. Bring the earlier passage into agreement with that narrower statement.
+
+Source line 9628
+
+CURRENT:
+
+Push on that and it gives, because a receipt is only as good as whoever wrote it. Its trust rests on the checker meaning what it says, and that gets settled once, from outside the machine. I don't think it can be moved inside, and Gödel's second theorem is my reason. The theorem says a consistent system strong enough for arithmetic can't prove its own consistency, and a checker vouching for itself would be doing something close to that. That last step is my reading. The theorem itself stops at consistency. So I didn't get rid of the receipt somewhere. I moved it out of the machine and handed it to whoever reads the record. Try to move that proof inside the system, so it can certify its own checker or a successor's, and you hit exactly the wall Eliezer Yudkowsky and Marcello Herreshoff named the Löbian obstacle in 2013, writing about agents that want to trust their own rewrites. As I understand their draft report, they came at it from the far side, an agent wanting to trust a successor's proofs the way it trusts its own. Same arrow, pointed forward, same wall.
+
+PROPOSED:
+
+Push on that and it gives, because a receipt is only as good as whoever wrote it. Its trust rests on the checker meaning what it says, and that gets settled once, from outside the machine. That's where I chose to stop this machine's chain of reasons. Gödel's second theorem does not forbid a machine from checking a proof about a checker. It limits a sufficiently strong, effectively axiomatized theory's ability to prove its own consistency, if the theory is consistent. Eliezer Yudkowsky and Marcello Herreshoff's 2013 draft on agents that trust their own rewrites describes a related problem, the Löbian obstacle: how an agent can justify trust in a successor's proofs. The relation is worth examining, but it does not prove that my design is forced. So I didn't get rid of the receipt somewhere. I moved it out of the machine and handed it to whoever reads the record.
+
+============================================================================
+
+E17. An argument without a separate formal counterpart
+
+Location: The logic / The diagonal / What this does to the book
+
+Type: Emphasis
+
+WHY: The existing wording tells the reader to discount this argument because it has no checked theorem. Preserve that information without treating it as the measure of the argument’s weight.
+
+PASSAGE 1 — source line 9641
+
+CURRENT:
+
+One more thing falls out of the same picture, and it's a short argument with no checked theorem behind it, so take it at that weight.
+
+PROPOSED:
+
+One more thing follows from the same picture, by a short argument.
+
+PASSAGE 2 — source line 9650
+
+CURRENT:
+
+I haven't checked this in Coq, and I'm not claiming more than the paragraph says.
+
+PROPOSED:
+
+There is no separate formal derivation of this argument; the claim is exactly what this paragraph says.
+
+============================================================================
+
+E18. Why this base was usable
+
+Location: The machine / The smallest honest machine / Where the counters come from
+
+Type: Emphasis
+
+WHY: Keep the practical benefit of reusing an identified construction, without making being in a Coq library the criterion for the machine’s significance.
+
+Source line 10929
+
+CURRENT:
+
+And I care because it's the smallest universal base I know of that is already in a Coq library, so the hard part (proving that its halting question is undecidable) is someone else's checked work. I don't have to ask you to take my word for it.
+
+PROPOSED:
+
+For this construction I can reuse the two-counter result in the Coq Library of Undecidability Proofs. The halting reduction is their work; the step-for-step connection to this machine is the part I have to establish.
+
+============================================================================
+
+E19. The price unit comes from the model’s choice of whole numbers
+
+Location: The machine / The smallest honest machine / The machine
+
+Type: Accuracy and emphasis
+
+WHY: The previous paragraph correctly says the unit is a choice. The next paragraph makes Coq’s successor notation sound like an additional justification. Keep Dedekind and Peano, and make the actual mathematical consequence clear.
+
+PASSAGE 1 — source line 11129
+
+CURRENT:
+
+Where does that one come from, though? It's older than Coq by about a century.
+
+PROPOSED:
+
+The whole numbers have a history of their own.
+
+PASSAGE 2 — source line 11139
+
+CURRENT:
+
+Coq builds its whole numbers exactly that way, out of zero and “the next one” and nothing else, so inside Coq the number three really is S (S (S O)), the next of the next of the next of zero. What that changes here is small and I like it: the one a CHECK costs isn't a number pulled from a hat. It's one application of the smallest step the number system has. You can't charge less than one S and still charge something.
+
+PROPOSED:
+
+Start from zero and take “the next one” three times, and you have three. Once the prices are whole numbers, one is the smallest positive price. Choosing whole-number prices, and choosing that unit for CHECK, are still choices of this model.
+
+============================================================================
+
+E20. What establishes the checker’s meaning
+
+Location: The machine / The smallest honest machine / What a passing check means
+
+Type: Emphasis
+
+WHY: The lemma is the reason. Its external checking procedure does not need to be repeated in the sentence identifying it.
+
+Source line 11729
+
+CURRENT:
+
+Lemma 16.1, a proof about the little program the step calls, checked once by Coq and priced by nothing on the ledger.
+
+PROPOSED:
+
+Lemma 16.1, a proof about the little program the step calls, priced by nothing on the ledger.
+
+============================================================================
+
+E21. The states differ whether or not software distinguishes them
+
+Location: The machine / The smallest honest machine / The window can't see the record
+
+Type: Emphasis
+
+WHY: The difference is already given explicitly. Ending on Coq turns an elementary distinction into a tool achievement.
+
+Source line 11926
+
+CURRENT:
+
+one has a fact in its table and its flag up, and the other doesn't, and Coq tells them apart in a line.
+
+PROPOSED:
+
+one has a fact in its table and its flag up, and the other doesn't.
+
+============================================================================
+
+E22. The small-machine chapter’s summary
+
+Location: The machine / The smallest honest machine / The exact price is three
+
+Type: Previously reviewed
+
+Earlier proposal 5 — wording retained.
+
+WHY: Keep the assumption status and the exact source files, while removing the repeated account of compilation and printouts from the chapter’s conclusion.
+
+Source line 12028
+
+CURRENT:
+
+Every result above is closed: Coq reports no assumptions for any of them. That isn't my say-so. EarnedCore.v and its link file, EarnedCoreLinks.v, each end by asking Coq to print the assumptions of each headline theorem, and the build of Section 22 compiles them and fails unless every one comes back closed. The project-wide audit of Section 22 lists these files too, and every theorem in them comes back closed there as well. The base file uses nothing but Coq's standard library, so you can check it with nothing else installed; the link file adds only the book's own abstract records and the library of undecidability proofs.
+
+PROPOSED:
+
+The formal derivations of these results use no added axioms; each theorem still has the hypotheses printed in its statement. The sources are EarnedCore.v and EarnedCoreLinks.v, and Section 22 gives the assumption audit and the procedure for repeating it. The base file uses only Coq's standard library; the link file adds the book's abstract records and the library of undecidability proofs.
+
+============================================================================
+
+E23. Which premise has been discharged
+
+Location: The machine / The smallest honest machine / The diagonal, on this machine's programs
+
+Type: Accuracy and emphasis
+
+WHY: The recursion theorem has been established; the remaining conditions on the property have not disappeared.
+
+Source line 13950
+
+CURRENT:
+
+And with the recursion theorem proved, the wall of Section 13 goes up on this machine without a premise left over.
+
+PROPOSED:
+
+And with the recursion theorem proved, the wall of Section 13 goes up on this machine without assuming that theorem as an extra premise.
+
+============================================================================
+
+E24. The comparison with Schroeppel’s proof
+
+Location: The machine / The smallest honest machine / The diagonal, on this machine's programs
+
+Type: Emphasis
+
+WHY: Keep the limitation on your reading of the earlier paper. A checked status is not a substitute for comparing the two arguments.
+
+Source line 14084
+
+CURRENT:
+
+I haven't followed his proof line by line; this one is checked.
+
+PROPOSED:
+
+I haven't followed his proof line by line, so the comparison stays at that level. The argument here is the one given above.
+
+============================================================================
+
+E25. Borrowing a theorem does not cost “nothing in certainty”
+
+Location: The machine / Every model / The same thing, in seven models
+
+Type: Accuracy and emphasis
+
+WHY: Using the same proof assistant makes the formal dependency usable in the project. It does not make the dependency disappear or independently establish its intended meaning.
+
+Source line 14446
+
+CURRENT:
+
+Their proof is checked by the same proof assistant as mine, so leaning on it costs me nothing in certainty.
+
+PROPOSED:
+
+Their theorem is a dependency of this construction. Its statement and hypotheses still have to match the use I make of it.
+
+============================================================================
+
+E26. The running-status table
+
+Location: The machine / Running it
+
+Type: Accuracy and emphasis
+
+WHY: The table summarizes tests, not a proof of agreement over all runs. Match the qualification already given in the surrounding chapter.
+
+Source line 14767
+
+CURRENT:
+
+The small machine & run: Coq, extracted OCaml and Python agree on every step
+
+PROPOSED:
+
+The small machine & run: Coq, extracted OCaml and Python agree on every tested step
+
+============================================================================
+
+E27. What is proved equal before extraction
+
+Location: The machine / Running it / Taking the coat off
+
+Type: Accuracy and emphasis
+
+WHY: The equality proofs concern the functions supplied to extraction. They do not independently verify extraction, compilation or the executable.
+
+Source line 14788
+
+CURRENT:
+
+First, the code that runs is the code the theorems are about.
+
+PROPOSED:
+
+First, the functions supplied to extraction are the ones the theorems describe.
+
+============================================================================
+
+E28. Popularity is not an extra correctness argument
+
+Location: The machine / Running it / Taking the coat off
+
+Type: Emphasis
+
+WHY: Keep the trusted dependencies and the ability to inspect the small local pieces. Remove the appeal to age and popularity as a reason to believe the run.
+
+Source line 14814
+
+CURRENT:
+
+Coq's extraction, the OCaml compiler, the C tools and the integer library are old and used by a lot of people. The mapping lines, the drivers and the comparing code are mine, and they're small enough to read in one sitting. That's a reason to trust it. It isn't a proof.
+
+PROPOSED:
+
+The mapping lines, the drivers and the comparing code are mine, and they're small enough to read in one sitting. Their behavior, and the behavior of the tools they call, remain part of what the tests have to examine.
+
+============================================================================
+
+E29. What a single execution tells you
+
+Location: The machine / Running it / A second machine, written by hand, to check the first
+
+Type: Accuracy and emphasis
+
+WHY: A run can expose a fault, so “would never show it” is too strong. The valid point is that execution alone does not prove fidelity to the specification.
+
+Source line 14819
+
+CURRENT:
+
+A run of extracted code only tells you the extracted code agrees with itself. If the extraction, or one of the integer mappings, or a driver had slipped somewhere, a run on its own would never show it.
+
+PROPOSED:
+
+A run shows what that build did on those inputs. It does not by itself establish that extraction, the integer mappings and the drivers implement the definitions correctly.
+
+============================================================================
+
+E30. Agreement between implementations
+
+Location: The machine / Running it / A second machine, written by hand, to check the first
+
+Type: Accuracy and emphasis
+
+WHY: The comparison can expose discrepancies on tested runs. Neither independence nor the probability of a shared mistake is established by the described tests.
+
+Source line 14844
+
+CURRENT:
+
+When they agree on every step of thousands of programs, a slip in the extraction, the integer mappings or the drivers would have to be matched by the same slip in a machine written separately by hand to hide. I can imagine that happening. I can't imagine it happening often.
+
+PROPOSED:
+
+Comparing every step of thousands of programs can expose a slip in the extraction, the integer mappings or the drivers. Agreement on those runs leaves untested runs open, and a shared mistake can survive both implementations.
+
+============================================================================
+
+E31. The compiler’s heading
+
+Location: The machine / Running it / A compiler, all in Coq
+
+Type: Voice choice
+
+WHY: The heading should name the route the chapter builds. This changes only a heading’s wording, not its position, level or contents.
+
+Source line 14901
+
+CURRENT:
+
+A compiler, all in Coq
+
+PROPOSED:
+
+From source programs to the host
+
+============================================================================
+
+E32. What each compiler stage establishes
+
+Location: The machine / Running it / A compiler, all in Coq
+
+Type: Emphasis
+
+WHY: Describe the guarantee instead of twice naming the language in which it is written.
+
+Source line 14909
+
+CURRENT:
+
+Every stage is a Coq function with a Coq proof:
+
+PROPOSED:
+
+Each translation stage has a proof that it preserves the program's result:
+
+============================================================================
+
+E33. The calorimeter’s physical assumption
+
+Location: The machine / The counter against physics / The calorimeter protocol, as a specification
+
+Type: Emphasis
+
+WHY: The issue is an assumed physical relation, not the lack of a Coq statement.
+
+Source line 16048
+
+CURRENT:
+
+so it also assumes the bath receives what the register loses, and no Coq says that.
+
+PROPOSED:
+
+so it assumes the bath receives what the register loses. That physical relation is not established here.
+
+============================================================================
+
+E34. The checking chapter’s heading
+
+Location: Checking it, and its edge / What Coq is, and why
+
+Type: Voice choice
+
+WHY: Name the chapter’s job in relation to your work. The location, section level and label stay unchanged.
+
+Source line 16083
+
+CURRENT:
+
+What Coq is, and why
+
+PROPOSED:
+
+What the checks establish
+
+============================================================================
+
+E35. The checking chapter’s opening
+
+Location: Checking it, and its edge / What Coq is, and why
+
+Type: Emphasis
+
+WHY: Introduce the limited task given to the software instead of presenting its language as an exceptional source of authority.
+
+Source line 16087
+
+CURRENT:
+
+Coq is a proof assistant, which is a phrase I had to go and look up. Underneath the phrase it's a programming language, but one whose type system is strict enough to do a thing ordinary languages can't: you write a proof down as a program, and the compiler refuses it unless the program genuinely matches the statement you claimed. You can't talk it into a maybe.
+
+PROPOSED:
+
+Coq is the tool I used to check the formal derivations. A statement and a proposed derivation are written in a precise language, and the checker tests whether the derivation follows the system's rules from its definitions and assumptions. The rest of this section says what that check covers, what it depends on, and what it leaves for us to read.
+
+============================================================================
+
+E36. The name-and-renaming digression
+
+Location: Checking it, and its edge / What Coq is, and why
+
+Type: Voice choice
+
+WHY: This is the longest passage whose subject is the tool’s identity. Recommend shortening it to the information readers need to identify the companion sources. It is an authored digression, so this cut is marked as a voice choice, not a factual correction.
+
+Source line 16093
+
+CURRENT:
+
+The name is a joke three ways at once, and it's worth knowing before you say it out loud in English. Coq is French for rooster. It's also a nod to Thierry Coquand, a French computer scientist and mathematician, at the University of Gothenburg as of 2026, who worked out the logic it started from with Gérard Huet, a French computer scientist at INRIA, and to that logic's initials, CoC, for the Calculus of Constructions; and there's a French habit of naming research tools after animals. The English slang reading did what you'd guess. By the development team's own account, some people, women students especially, ended up never learning the tool because of its name. So in March 2025 it got a new one, the Rocq Prover, after Rocquencourt, the Inria site where it was first built, and after the Roc, the giant bird of legend, so the bird stayed. Everything in this book was checked with Coq 8.18, from before the rename, so that's the name I use. The rooster changes nothing about what got checked.
+
+PROPOSED:
+
+The companion formalization uses Coq 8.18. The project was renamed the Rocq Prover in March 2025; this book uses the older name to identify the version its sources were checked with.
+
+============================================================================
+
+E37. The types-as-claims explanation
+
+Location: Checking it, and its edge / What Coq is, and why / Types as claims
+
+Type: Accuracy and emphasis
+
+WHY: Keep the explanation of the proof representation, while avoiding the suggestion that all types are claims or that writing definitions in a language guarantees nothing was smuggled into them.
+
+PASSAGE 1 — source line 16108
+
+CURRENT:
+
+In Coq, types are claims.
+
+PROPOSED:
+
+In Coq, a claim can be written as a type, and a proof of it as a value of that type.
+
+PASSAGE 2 — source line 16119
+
+CURRENT:
+
+The numbers, lists and states this book uses are all defined that way, inside the system, so the foundation is explicit; nothing is smuggled.
+
+PROPOSED:
+
+The source gives the definitions of the numbers, lists and states used here, so you can inspect exactly which objects the formal derivations concern.
+
+============================================================================
+
+E38. What an accepted derivation establishes
+
+Location: Checking it, and its edge / What Coq is, and why / Types as claims
+
+Type: Accuracy and emphasis
+
+WHY: Compilation can succeed with an admitted statement, and a vacuous claim is not literally meaningless. Explain acceptance, assumptions and the translation problem accurately, without making either compilation or its rejection the definition of truth.
+
+Source line 16135
+
+CURRENT:
+
+The compiler checks whether the types line up. If your proof has a hole, it rejects the proof, unless you write “trust me” (the keyword is Admitted), and then it marks the theorem as unproved. But here's the part that matters: the compiler checks that the proof matches the statement. It does not check that the statement says what you meant. Hand it a statement that means nothing and it'll prove it for you, three characters, no complaint. So a proof being accepted is not the same as the thing being true. It means this proof matches this statement, and whether that's the right statement is on me. The machine can't tell. The point said a short version of this and I'm saying it again because every section since has leaned on it: the checked names in this book are a promise that the proof is there, and the sentences around them are my claim about what the statement says, and the second can be wrong while the first is fine, which is why so many sections of this book stop to say exactly what a statement's hypotheses are.
+
+PROPOSED:
+
+The checker tests a proposed derivation against its statement, under the definitions and assumptions it uses. Admitted skips the derivation and turns the statement into an assumption; the file can still compile. That is why a successful build alone does not show that every claimed result has been proved. Even a complete derivation can settle the wrong question. A statement can be true for an empty reason, such as a condition nothing satisfies. Whether it expresses what I meant remains my responsibility. The point said a short version of this: the source names identify formal statements and their derivations, and the sentences around them are my account of what those statements establish. Comparing the two means reading the definitions, the premises and the conclusion. The checker does not do that reading for us.
+
+============================================================================
+
+E39. The precedents in “Why I used it”
+
+Location: Checking it, and its edge / What Coq is, and why / Why I used it
+
+Type: Previously reviewed
+
+Earlier proposal 6 — wording retained.
+
+WHY: Introduce the examples by the checking practice they illustrate. The existing paragraph explaining why you used the tool stays exactly as written.
+
+Source line 16156
+
+CURRENT:
+
+Two precedents show that a proof assistant is a serious tool. Neither of them is a toy.
+
+PROPOSED:
+
+Two precedents show how a large proof can be checked by a small program.
+
+============================================================================
+
+E40. The shared foundation
+
+Location: Checking it, and its edge / What Coq is, and why / What “zero Admitted” means
+
+Type: Previously reviewed
+
+Earlier proposal 7 — wording retained.
+
+WHY: Sharing a foundation is a shared dependency, not an independent confirmation. Also qualify the incompleteness claim rather than treating it as an unconditional slogan.
+
+Source line 16192
+
+CURRENT:
+
+It doesn't mean Coq's own foundation is proved consistent; it's believed consistent, and that can't be proved from inside, by Gödel (Section 13), so the foundation is trusted, and “trusted” has substance: it's the same kernel CompCert and the four-colour proof stand on, and a bug in it would take all of them down together, which is a kind of safety in numbers.
+
+PROPOSED:
+
+It doesn't mean Coq's own foundation is proved consistent. Gödel's second incompleteness theorem limits what a sufficiently strong, effectively axiomatized theory can establish about its own consistency, if it is consistent (Section 13). The foundation and the implementation of the checker remain dependencies. CompCert and the four-colour formalization share them; that does not make them independent checks of those dependencies.
+
+============================================================================
+
+E41. Repeated closed-status assurances in the audit explanation
+
+Location: Checking it, and its edge / What Coq is, and why / What “zero Admitted” means
+
+Type: Emphasis
+
+WHY: Keep the audit counts, file coverage and reproduction instructions. Condense the repeated reassurance that two printouts said the same thing.
+
+Source line 16210
+
+CURRENT:
+
+Each also ends by printing the assumptions of every headline theorem in it, and every one of those lines says the theorem is closed. A lemma a closed theorem uses is closed with it. So for those files every headline theorem is closed under the global context, resting on no axiom of mine or of the standard library, and two separate printouts say so. That isn't the same as having no premises: each theorem keeps the hypotheses written in its own statement.
+
+PROPOSED:
+
+Those files also print the assumptions of their headline theorems. Both those printouts and the full audit report no added axioms for these results. That does not remove the hypotheses written in each theorem's statement.
+
+============================================================================
+
+E42. What the trust list is a list of
+
+Location: Checking it, and its edge / What Coq is, and why / What you're trusting, in one place
+
+Type: Emphasis
+
+WHY: Separate the dependencies of the formal checks and physical applications from the validity of a readable mathematical argument.
+
+Source line 16233
+
+CURRENT:
+
+If you accept every checked theorem in this book, here is what you're still taking on trust, all of it, so you don't have to collect it from five chapters.
+
+PROPOSED:
+
+Here are the dependencies of the formal checks, the executable tests and the physical interpretations, in one place, so you don't have to collect them from five chapters.
+
+============================================================================
+
+E43. The stale bytecode-use census
+
+Location: Checking it, and its edge / What Coq is, and why / What you're trusting, in one place
+
+Type: Stale description
+
+WHY: The paragraph says “332 files in the audit”; this edition’s receipt says 341. The related counts 44 and 267 have not been re-established in this pass. Remove the stale census, retaining the actual dependency explanation and the independent-checker procedure. Do not silently substitute 341 while leaving the two subset counts unverified.
+
+Source line 16246
+
+CURRENT:
+
+Of the 332 files in the audit, 44 call vm_compute themselves, and 267 reach the machine one way or the other, because the standard library's arithmetic deciders (lia, nia, lra, nra, psatz) check their certificates on it;
+
+PROPOSED:
+
+The build uses it both through explicit calls to vm_compute and through arithmetic deciders (lia, nia, lra, nra, psatz) that check certificates on it;
+
+============================================================================
+
+E44. The auditor’s “pedigree”
+
+Location: Checking it, and its edge / What Coq is, and why / The auditor on top
+
+Type: Emphasis
+
+WHY: An import rule is a project constraint, not a source of intellectual authority.
+
+Source line 16332
+
+CURRENT:
+
+or it doesn't get to claim the kernel's pedigree
+
+PROPOSED:
+
+or it fails the project's dependency rule
+
+============================================================================
+
+E45. The invitation to challenge the work
+
+Location: Checking it, and its edge / How to break this
+
+Type: Previously reviewed
+
+Earlier proposal 8 — wording retained.
+
+WHY: Remove the suggestion that readers need a kernel exploit to challenge the book. Retain all three concrete targets and the example that distinguishes certification from learning.
+
+Source line 16495
+
+CURRENT:
+
+Before the list, the honest part about it. Most targets below are theorems Coq has checked, and knocking one of those over head-on would take a bug in Coq's kernel. That can happen, but it isn't where I'd put my money. The places a reader can actually win are aimed at me, and there are three. None of them goes through Coq. A sentence of mine that says more than the Coq statement it cites (Appendix E puts the load-bearing ones side by side to make that easy). A Coq definition that doesn't capture the English word it's named for:
+
+PROPOSED:
+
+Before the list, three places to aim at me. A sentence of mine that says more than the formal statement it cites (Appendix E puts the load-bearing ones side by side to make that easy). A definition that doesn't capture the English word it's named for:
+
+============================================================================
+
+E46. The concluding statement of the machine’s results
+
+Location: Checking it, and its edge / Conclusion
+
+Type: Previously reviewed
+
+Earlier proposal 9 — wording retained.
+
+WHY: Let the results carry the conclusion. Retain the assumption status because the next paragraph contrasts it with the assumptions used for the game check.
+
+Source line 17477
+
+CURRENT:
+
+All of that is proved in Coq with no axioms: each file prints the assumptions of every headline theorem, and every line comes back closed.
+
+PROPOSED:
+
+The formal derivations of those results use no added axioms; the hypotheses of each theorem are printed in its statement.
+
+============================================================================
+
+E47. The concluding invitation to the reader
+
+Location: Checking it, and its edge / Conclusion
+
+Type: Previously reviewed
+
+Earlier proposal 10 — wording retained.
+
+WHY: Keep the admission that you found no counterexample without turning that search into an appeal to the checker’s authority. Preserve the distinction between a false theorem and an overreaching interpretation.
+
+Source line 17493
+
+CURRENT:
+
+I hunted. I came up empty. For a theorem Coq has checked, that's no surprise: finding one would take a bug in the checker. The places a reader can really win are where my sentence says more than the statement does, or a definition doesn't catch the word it's named for, and Section 23 starts with those.
+
+PROPOSED:
+
+I hunted. I came up empty. That leaves the arguments here for you to examine. Even where a theorem holds, my sentence can say more than it establishes, or a definition can fail to catch the word it's named for. Section 23 starts with those.
+
+============================================================================
+
+E48. What establishes that the bound is algebraic
+
+Location: Checking it, and its edge / Conclusion
+
+Type: Accuracy and emphasis
+
+WHY: An assumption report lists formal dependencies; it cannot determine what a symbol means physically. Keep the dependency facts and attach the conclusion to the definitions and argument.
+
+Source line 17532
+
+CURRENT:
+
+and nothing of mine, which is how anyone can see that no physics was smuggled in.
+
+PROPOSED:
+
+and nothing of mine. The reason this is an algebraic claim is in its definitions and the argument: no premise identifies the counts or matrices with a physical device.
+
+============================================================================
+
+E49. What the learning appendix was for
+
+Location: Appendices / Things I had to learn first
+
+Type: Voice choice
+
+WHY: The narrative milestone is building the argument, not getting the proofs to compile. Marked as a first-person voice choice.
+
+Source line 17584
+
+CURRENT:
+
+By the time the proofs compiled I'd needed enough of half a dozen of them that I had to put down somewhere what those fields had words for.
+
+PROPOSED:
+
+By the time the argument had taken shape I'd needed enough of half a dozen of them that I had to put down somewhere what those fields had words for.
+
+============================================================================
+
+E50. Tactics build derivations
+
+Location: Appendices / Things I had to learn first / Coq, in just enough detail
+
+Type: Accuracy and emphasis
+
+WHY: A tactic is an instruction to the proof-building machinery; its execution is not itself the logical reason a theorem holds.
+
+Source line 17660
+
+CURRENT:
+
+A tactic is a step inside a proof:
+
+PROPOSED:
+
+A tactic is an instruction for building a formal derivation:
+
+============================================================================
+
+E51. The operating-system meaning of kernel is used after all
+
+Location: Appendices / Things I had to learn first / Other terms I use without rebuilding
+
+Type: Accuracy and emphasis
+
+WHY: The proof-carrying-code discussion uses kernel in the operating-system sense at line 10198. Replace the contradictory claim that this meaning is never used.
+
+Source line 17765
+
+CURRENT:
+
+Third, the operating-system kernel, which I never use and mention only so you know it isn't meant.
+
+PROPOSED:
+
+Third, the operating-system kernel, the core of an operating system, as in the packet-filter example in Section 14.
+
+============================================================================
+
+E52. Bennett and the four-state example
+
+Location: Appendices / What's mine, and what isn't / Learning free, committing priced
+
+Type: Emphasis
+
+WHY: Keep the credit and the modest scope. The point of the example is the distinction it makes visible, not getting software to agree with Bennett.
+
+Source line 18177
+
+CURRENT:
+
+Bennett did the hard part in 1982; I built a toy with four dots on it and got Coq to agree with him.
+
+PROPOSED:
+
+Bennett did the hard part in 1982; my four-dot example puts the difference between learning and committing where you can work through it yourself.
+
+============================================================================
+
+E53. The grade/counter appendix is behind the main chapter
+
+Location: Appendices / What's mine, and what isn't / The counter as a receipt
+
+Type: Stale description
+
+WHY: The appendix says there is no checked theorem. The main chapter cites NecFGrade.v, which contains the grade, loop-cost, no-fixed-grade and input-grade theorems. Correct the status and keep the qualifications on the structured language and the chosen loop.
+
+Source line 18309
+
+CURRENT:
+
+On loop-free programs the counter agrees with a fixed grade exactly, and where a run's cost depends on its data it holds the exact number that a fixed grade can only bound; that's argued in Section 6, with no checked theorem behind it, and cost-aware type theories such as calf get exactness back with grades that depend on the inputs.
+
+PROPOSED:
+
+For the well-graded, loop-free programs defined in Section 6, on runs that do not trap, the counter's rise equals the fixed grade. The loop built there costs its input value, so no fixed whole number is its exact grade on every input; an input-dependent grade is exact. The arguments and their formal counterparts are given there (NecFGrade.v). Cost-aware type theories such as calf allow grades that depend on the inputs.
+
+============================================================================
+
+E54. The closing account of the contribution
+
+Location: Appendices / What's mine, and what isn't / What that adds up to
+
+Type: Emphasis
+
+WHY: The size of a mechanization is not an additional result. State what those arguments connect.
+
+Source line 18440
+
+CURRENT:
+
+Under all four sits a large body of mechanized proof that ties those statements to one small machine and the programs that run on it.
+
+PROPOSED:
+
+The proofs connect those statements to one small machine and the programs that run on it.
+
+============================================================================
+
+E55. The crosswalk’s legend
+
+Location: Appendices / Every result and where it is checked
+
+Type: Accuracy and emphasis
+
+WHY: A definition can use parameters and assumptions; “def” is a kind of entry, not a claim of independence. Also distinguish proposing a thesis from proving it.
+
+PASSAGE 1 — source line 18467
+
+CURRENT:
+
+“def” marks a definition, which has nothing to assume.
+
+PROPOSED:
+
+“def” marks a definition rather than a theorem; its parameters and any assumptions on them remain part of what it defines.
+
+PASSAGE 2 — source line 18476
+
+CURRENT:
+
+A thesis has no Coq name, because the book states it and doesn't claim it;
+
+PROPOSED:
+
+A thesis has no Coq theorem name, because the book proposes it without claiming to have proved it;
+
+============================================================================
+
+E56. The crosswalk is an index, not the authority over all prose
+
+Location: Appendices / Every result and where it is checked
+
+Type: Accuracy and emphasis
+
+WHY: A stronger claim needs a further argument. Its absence from one formal statement does not, by itself, make it false. Preserve the requirement that any claimed restatement be faithful.
+
+Source line 18486
+
+CURRENT:
+
+No row is meant to say more than its Coq names, and where the prose does, the prose is wrong.
+
+PROPOSED:
+
+Where a row claims to restate a formal result, it must preserve that result's scope. Any stronger claim needs a further argument, and the row must say where that argument is given.
+
+============================================================================
+
+E57. How to compare the printed statements with the source
+
+Location: Appendices / The exact words of twenty-one results
+
+Type: Accuracy and emphasis
+
+WHY: Matching the list of premises alone is not enough, and reading unfamiliar source syntax is not effortless. The comparison must include definitions, quantifiers and conclusions.
+
+Source line 18791
+
+CURRENT:
+
+You don't need to read Coq to use this. Put the printed theorem next to the block and check that every premise in the block turns up in the sentence. That's the whole test.
+
+PROPOSED:
+
+Each source block has a plain reading beside it. Compare the definitions, the premises, the quantifiers and the conclusion with the printed theorem. Checking the translation against the source also takes enough of its notation to follow those parts; matching the list of premises alone is not the whole test.
+
+============================================================================
+
+E58. Why the bounded checker terminates
+
+Location: Appendices / The exact words of twenty-one results / The universal reading checker
+
+Type: Emphasis
+
+WHY: Give the construction’s reason for termination: decoding terminates and execution has finite fuel. Keep the named formal result.
+
+Source line 19655
+
+CURRENT:
+
+The checker answers on every input because it's a Coq function that always returns
+
+PROPOSED:
+
+The checker answers on every input because decoding terminates and the routine runs for at most the supplied finite number of steps
+
+NOTES ON THE ACCURACY FINDINGS
+
+The grade/counter status is a confirmed stale sentence, not an inference from a passing build.
+NecFGrade.v explicitly states nec_f_grade_exact, nec_f_grade_exact_small, nec_f_loop_cost,
+nec_f_loop_no_fixed_grade and nec_f_loop_input_grade. Its definitions require well-graded
+branches and the conservation hypothesis. The proposed wording keeps that restricted scope.
+
+The 332-file denominator conflicts with the current receipt's files_probed value of 341.
+The old 44/267 bytecode figures were not independently recomputed. The proposal removes the
+unnecessary census and keeps the explanation of how the checking path uses bytecode.
+
+The earlier Gödel passage conflicts with the book's later, explicit statement that keeping
+the checker proof outside is a design choice. The proposal fixes that contradiction without
+claiming self-verification has no limitations.
+
+The operating-system use of “kernel” is present in the packet-filter discussion, despite the
+glossary's claim never to use that meaning. The proposed glossary sentence identifies it.
+
+There is a residual technical-reference load after these edits: theorem identifiers, the
+crosswalk, exact source statements and reproduction instructions. Their presence is useful
+and does not require enthusiasm for Coq. No proposal here relocates them or changes the
+book's existing organization. Their visual weight remains a separate page-composition issue.
+
+No mathematical theorem, proof source, release tag, repository commit or published artifact
+has been changed by this review. The full proposed patch is supplied solely for inspection.
+

@@ -1,0 +1,982 @@
+REVIEW
+======
+
+THE COMPLETED PARTITION COST STUDY
+Research review for Devon Thiele — 12 October 2026
+
+The question now has precise answers for two interfaces to the partition
+model. The same established structure can have different computational
+costs depending on whether a caller supplies a complete grouping or one
+equality at a time. The permission policy matters just as much as the input.
+
+THE TANGIBLE DISTINCTION
+
+Check that cup A has the same mark as cup B. Then check that B has the same
+mark as C. The equality A=C follows, although it was never checked directly.
+
+An exact-check policy remembers which pair was checked. An inference policy
+must recognize the connection through the checked chain. Your existing
+partition machine uses exact matching; the inference policy studied here
+is an explicit alternative. Both can retain the channel, historical record,
+trap, actual-check requirement and three-mark minimum. They make different
+promises about which claim may be committed.
+
+THE ANSWERS
+
+1. Minimal state can be characterized through the permission policy.
+
+   For a finite sound closure policy, count its distinct active closed sets
+   of claims, and add one state for no current check. The logarithm of that
+   count is the exact abstract permission-bit requirement. Distinguishable
+   next commitments prove necessity; storing the closure proves sufficiency.
+   This is a state-count result, not a free algorithm for arbitrary inference.
+
+2. Complete groupings have tight memory and time bounds.
+
+   With n labels supplied per instruction, inferred permission uses
+   Theta(n log n) structural bits and Theta(n) worst-case time for SET,
+   CHECK and COMMIT. The implementation meets both bounds. CERTIFY captures
+   an owned historical snapshot in constant structural time.
+
+   Every grouping input can hide a decisive difference in its last unread
+   entry. More memory cannot eliminate that worst-case input-reading cost.
+   A connected-components calculation combines checks in linear time.
+
+3. Pairwise claims reveal an unconditional computational barrier.
+
+   Exact matching needs Theta(n^2) permission bits and permits constant-time
+   CHECK and COMMIT within a fixed-key epoch. Inferred permission needs only
+   Theta(n log n) structural bits, but answering whether an equality follows
+   becomes incremental connectivity.
+
+   Under the stated deterministic logarithmic-word model, making CHECK
+   asymptotically faster than log n / log log n forces worst-case COMMIT
+   time to n^(1-o(1)). In particular, constant-time updates cannot coexist
+   with polylogarithmic worst-case inferred commitments.
+
+   This is an application of the published Pătraşcu–Thorup lower bound,
+   not a new lower bound or an unresolved conjecture. The report proves
+   the transfer, including the fatal-trap issue: a trusted simulation logs
+   and reverses a trial commitment, at constant-factor worst-case overhead.
+   It does not grant the adversarial caller rollback access to the machine.
+
+   The known optimal balanced worst-case bound is Theta(log n/log log n),
+   attainable in O(n) words. The supplied pair implementation uses the
+   simpler, fully checked O(log n) union-by-size algorithm. The more complex
+   optimal implementation is cited, not claimed to have been built here.
+
+WHAT WAS VERIFIED
+
+Three implementations were checked against an independent mathematical
+reference: complete-grouping inference, pair inference, and exact pair
+matching. Exhaustive small-state checks, 24,300 random transition checks,
+input lower-bound witnesses and historical-snapshot checks passed.
+
+The rollback simulation answered 5,899 graph queries, including 478 negative
+ones, with exact state restoration after every query. Scale checks reached
+32,768 objects and matched the proved linear graph-work bound. Timings are
+local observations, not the proof of the asymptotic results.
+
+The ledger remains explicit. Unbounded accumulated bills need additional
+memory and arithmetic time. A mark is not being equated with a CPU step,
+heat, or entropy. Working storage and usable external history are accounted
+for in the stated models.
+
+WHAT THIS CONTRIBUTES
+
+The model now has a worked resource analysis of how established structural
+relations govern later actions. It distinguishes retaining a checked claim
+from maintaining the consequences of many checks, and gives exact state
+counts plus tight operation bounds in specified cases. It is independent
+of the Small Machine's counters and interpreter overhead.
+
+These results use classical mathematics and established complexity theorems.
+Novelty has not been established. The study does not claim a new law of
+computation or a complete frontier for every memory budget and language.
+The worst-case rollback argument does not establish an amortized lower bound.
+
+FILES AND REPRODUCTION
+
+Result.txt          Definitions, proofs, lower-bound transfer and references.
+monitors.py         The three monitors and rollback simulation.
+verify.py           Independent reference and verification suite.
+verification.json   Recorded outcomes and local scale measurements.
+
+Run: python3 verify.py
+
+The companion partition-preservation directory contains the preceding
+structural preservation proofs. The combined plaintext review includes both
+reports. The manuscript is unchanged; a whole-book audit is not being
+represented as complete by this focused research package.
+
+
+MEMORY AND COMPUTATIONAL COST: COMPLETE REPORT
+==============================================
+
+PROTECTED STRUCTURAL STATE: MEMORY, INPUT SIZE, AND INFERENCE TIME
+Research note for Devon Thiele — 12 October 2026
+
+PURPOSE AND STATUS
+
+This completes the next bounded study of the existing partition example:
+exact permission-state counts, an optimal complete-partition implementation,
+pair-at-a-time implementations, and a worst-case lower-bound transfer that
+handles fatal traps. The book and its original exact-check policy are not
+changed. The inference policy is the explicit alternative analyzed in the
+companion partition-preservation/Result.txt, not a silent reinterpretation
+of the original same-claim requirement.
+
+The source correspondence remains minimal/PartitionReading.v at commit
+e4c234627651f1b12eb649148a051d5a252ed6b4. Mathematical arguments are stated
+here in ordinary terms. monitors.py supplies executable implementations;
+verify.py checks them against a separate relation-matrix reference.
+
+The combinatorial tools and graph algorithms are classical. The dynamic
+lower bounds are attributed to existing research. No open-problem solution,
+new physical law, or original general lower-bound method is claimed.
+
+1. THE CONTRACT BEING MEASURED
+
+There are n named items. A grouping P says that any two items in the same
+P-block have equal keys. Write P <= K if P refines the current key partition
+K: every P-block fits inside a K-block. The discrete partition 0 separates
+all items; the indiscrete partition 1 groups all items together.
+
+CHECK P must test this assertion against the current key. A passing check
+adds P to the current evidence. SET replaces the key and clears current
+checks and the channel, while retaining the first historical record.
+
+Two permission policies are compared:
+
+  Exact:    COMMIT H requires H itself among the current checked partitions.
+  Inferred: COMMIT H requires at least one current check and H <= J,
+            where J is the join of the current checked partitions.
+
+CERTIFY requires a channel. Its first success stores the committed claim
+and the historical key; later successes retain that first record. A failure
+traps permanently. A direct instruction on a trapped state preserves the
+other fields and still adds its specified price. SET costs zero; the other
+three instructions cost one, including failures. These are ledger marks,
+not an assertion that the implementation uses one CPU instruction.
+
+The adversarial caller selects instructions and their payloads. It cannot
+alter monitor-owned state except through these instructions. Inputs are
+available during the call, and may be reused or mutated afterward. No free
+authenticated external transcript, stored evidence table, claim fingerprint,
+or previously validated claim handle is supplied.
+
+Memory counts all retained information used to make exact decisions and all
+working storage in the algorithmic upper bounds. Describing it as protected
+state assumes no additional usable history carrier. It is not a lower bound
+for cryptographic schemes that outsource authenticated state under a changed
+interface or permit computational error.
+
+For runtime, use a deterministic word RAM with words of Theta(log(n+1)) bits,
+with a sufficiently large constant to address the polynomial-size arrays.
+Arithmetic and memory access on such words take constant time. Finite runs
+of polynomial length fit their ledger in O(1) words. For longer runs, the
+ledger qualification in Section 7 applies. We do not count a Python object
+as a machine word or claim Python attains the abstract bit bounds exactly.
+
+2. AN EXACT MEMORY FORMULA FOR A FIXED INFERENCE POLICY
+
+Let L be a finite language of claims, and fix a current key K. Let L_K be
+the claims sound for K. Let c be a sound closure policy on subsets of L:
+it is extensive, monotone and idempotent, and every claim in c(T) follows
+from the soundness assertions in T. Permission means T is nonempty and
+H belongs to c(T).
+
+Define
+
+  M(K,c) = 1 + number of distinct sets c(T)
+                   for nonempty subsets T of L_K.
+
+The initial 1 represents no current check. The count is zero inside the
+sum when L_K is empty, giving M=1.
+
+Theorem C1. The permission component at fixed K has exactly M(K,c)
+distinguishable states, and therefore needs ceil(log2 M(K,c)) bits in an
+abstract fixed-width encoding. This counts permission state with the other
+machine fields supplied, not the total cost of storing K, claims or a bill.
+
+Proof. Store either the no-check state or the closed set c(T). The identity
+
+  c(T union {P}) = c(c(T) union {P})
+
+shows that an inserted successful check can be incorporated using the stored
+closure alone. It follows from extensiveness and monotonicity in one direction
+and from monotonicity and idempotence in the other. SET returns to no-check.
+The COMMIT guard is exactly determined by this representation.
+
+Different active closed sets differ on some claim H, whose COMMIT succeeds
+in one and traps in the other. Every active closed set is nonempty by
+extensiveness, so some COMMIT distinguishes it from no-check as well.
+Thus all M states are necessary.
+
+These distinctions can be reached with equal ledgers and instruction counts
+when L_K is nonempty. Put t=|L_K|. For each nonempty T, SET K, check each
+member, then repeat a member until t checks have occurred. For the no-check
+state, perform t sound checks and then SET K. All have t+1 instructions,
+ledger t, identical key, empty channel and historical record, and no trap.
+No common supplied field carries the distinctions. End proof.
+
+This formula characterizes memory through the claim language and inference
+policy. It supplies no efficient ranking of its classes and no runtime
+bound for an arbitrary c. A uniform implementation also needs an effective
+description of the policy.
+
+For all partitions at K=1, exact matching has M=2^(B_n), whereas inferred
+permission has M=B_n+1. Here B_n is the number of partitions of n items.
+The companion note proves these counts directly.
+
+3. COMPLETE GROUPINGS: TIGHT SPACE AND TIME
+
+In this interface SET, CHECK and COMMIT supply an array of n labels, one
+per item. Every label is an integer in [0,n). Repeated or unused labels are
+allowed. The array need not be canonically named. There is no trusted handle
+identifying its partition. One array entry occupies one word.
+
+Theorem C2. Under inferred permission, the structural monitor, including
+working storage and owned historical snapshots, uses O(n log(n+1)) bits.
+SET, CHECK and COMMIT take O(n) worst-case time. CERTIFY takes O(1) structural
+time. The memory bound and the first three worst-case time bounds are
+asymptotically optimal for this interface, for n>=2.
+
+Construction. Retain the current key labels K, established partition J,
+evidence-presence flag, optional channel, first historical record, and trap.
+Arrays for K and committed claims are owned and immutable. Their references
+may be captured by the historical record; later SET and COMMIT allocate new
+arrays. Only a constant number of length-n arrays remain live.
+
+Testing P <= Q takes one pass. For each P-label, remember the Q-label of
+its first item. Every later item with that P-label must have the same
+Q-label. The representative table has n entries.
+
+To compute J join P, form a star inside each block of J and each block of
+P. Each partition needs at most n-1 undirected star edges. Their union has
+at most 2(n-1) edges. Its connected components are exactly J join P:
+each star connects its original block, and graph paths express precisely
+the equivalence closure of the two sets of equality relations.
+
+An adjacency-list traversal labels these components in O(n) time and words.
+There are at most 4(n-1) directed adjacency entries, each scanned once.
+This avoids a logarithmic factor from performing separate union operations
+when the whole grouping is already supplied as one batch.
+
+CHECK first validates P <= K, then performs that join on success and sets
+the evidence flag. COMMIT validates the flag and H <= J, then retains an
+owned copy of H. SET copies its new K and resets current evidence and the
+channel. CERTIFY captures the current immutable channel and key references
+on first success. It does not copy n labels. Trap and ledger branches retain
+the source behavior. All temporary arrays also have O(n) entries.
+
+Correctness follows from the refinement test, the graph characterization
+of the join, and inspection of the instruction rules in Section 1. Induction
+on the trace preserves the key, permitted/refused actions, committed claim,
+first historical record, trap, and every ledger increment. The stored join
+summarizes the evidence; it does not reveal the original checked list.
+
+Space lower bound. Distinct active partitions J have different refinement
+sets, and hence some COMMIT separates them. No-check is separated from each
+active state by COMMIT 0. At K=1 all B_n+1 states are reachable with equal
+other fields, as in C1, so at least log2(B_n+1) bits are necessary.
+
+For completeness, log2 B_n = Theta(n log n) requires no delicate asymptotic
+formula. There are at most n^n labelings, giving the upper bound. For 2m<=n,
+pair the first m items bijectively with the next m, leaving any remaining
+items separate. There are m! different such partitions. The last floor(m/2)
+factors of m! are at least m/2, yielding an Omega(n log n) logarithm when
+m=floor(n/2). Thus the O(n log n) implementation matches the lower bound
+up to constants, including its workspace. This does not claim exact
+ceil(log2(B_n+1))-bit storage with the same runtime.
+
+Input-time lower bound. Run CHECK on P=(0,1,...,n-1) with K discrete. It
+must pass. If the algorithm does not read coordinate i, change only that
+coordinate to the label of a different item j. The same observations now
+hide an unsound equality, which must fail. Therefore every coordinate must
+be read on the original input. For COMMIT, establish the discrete partition
+first and use the same argument: the original claim is permitted and the
+altered one is not. This proves Omega(n) probes for CHECK and COMMIT even
+with additional persistent memory.
+
+For SET, give those two key arrays in the same transient input buffer. If
+coordinate i is unread, the retained states agree. A later CHECK asserting
+i=j must then give the same answer, although it is sound only for the
+altered key. Hence SET must also read every coordinate in the worst case.
+Deferred inspection of caller-owned memory is excluded by the input contract.
+Together with the construction, these are tight worst-case bounds. End proof.
+
+Increasing the memory budget cannot improve the asymptotic O(n) bound for
+these complete-array instructions. The minimum-space threshold is already
+attainable together with minimum-order runtime. This settles this interface
+without a further asymptotic memory-time trade-off. Smaller constants and
+near-information-minimum encodings remain separate questions.
+
+4. PAIR CLAIMS: EXPRESSIVENESS WITHOUT AN n-WORD PAYLOAD
+
+The compact claim (i,j) asserts that two items have equal keys. As a partition
+it has one two-item block and all other items separate. A self-pair is the
+discrete partition 0; all self-pairs express the same claim. The language
+therefore has t=n(n-1)/2+1 distinct claims.
+
+CHECK(i,j) tests K[i]=K[j]. Under inferred permission, its effect on J is
+to connect the components containing i and j. COMMIT(i,j) succeeds exactly
+when at least one current check exists and those components coincide.
+SET still takes a complete key array and starts a new evidence epoch.
+
+Theorem C3. At fixed K=1, the exact pair policy needs exactly t permission
+bits. The inferred pair policy needs ceil(log2(B_n+1)) permission bits as
+an abstract state count, and has an O(n log n)-bit implementation.
+
+Proof. Exact matching can independently remember every subset of the t
+claims; a COMMIT on a differing member separates any two subsets. A t-bit
+membership vector suffices. Inferred pair checks can generate any partition
+by adding a spanning star within each desired block. Distinct partitions
+disagree on some pair's connectivity. The active discrete partition is
+generated by a self-pair and is distinct from no-check. Thus there are
+exactly B_n+1 distinguishable permission states. End proof.
+
+All inferred states can be reached with equal ledgers: use at most n-1
+star edges, pad with self-pair checks to max(1,n-1) checks, and use an initial
+SET. The no-check witness uses the same number of checks followed by SET.
+The exact-policy equal-ledger witnesses are those in C1 with t checks.
+
+Implemented bounds in a fixed-key epoch:
+
+  Exact pairs:    Theta(n^2) permission bits; O(1) CHECK and COMMIT.
+  Inferred pairs: Theta(n log n) structural bits; O(log n) CHECK and COMMIT.
+
+The exact implementation packs the t flags into ordinary machine words,
+using a triangular index for distinct pairs and one bit for the self-pair
+claim. It never treats an n^2-bit integer operation as constant time.
+Its implemented SET clears that array, costing O(n + n^2/log(n+1)); this
+reset cost is not hidden inside the constant fixed-epoch operation bounds.
+
+The inferred implementation uses a parent forest with union by component
+size, without path compression. When a root becomes a child, its component
+at least doubles, so parent depth is at most floor(log2 n). Two root walks
+and a constant number of writes suffice per pair operation. It uses O(n)
+words, with O(n) SET and O(1) CERTIFY. Its snapshots use owned immutable keys
+and constant-size pair claims. Historical structural observations expand a
+pair into a grouping only when requested; that output cost is not attributed
+to the pair instruction itself.
+
+Changing from exact to inferred permission is what makes this distinction:
+remembering which equality was checked is different from deciding whether
+an equality follows through a chain of checks. The difference is in the
+same pair language, not in switching to a Minsky or RAM base machine.
+
+5. FATAL TRAPS AND A VALID WORST-CASE REDUCTION
+
+Classical incremental connectivity asks whether two vertices are connected
+after edge insertions. A pair CHECK at K=1 inserts an edge into the established
+equality graph. An inferred COMMIT asks connectivity. But a failed COMMIT
+traps, whereas a graph data structure must survive negative answers.
+Ignoring that difference would leave a gap in a lower-bound transfer.
+
+Theorem C4. Suppose a deterministic inferred-pair monitor implemented on
+the word RAM has worst-case times t_C for CHECK and t_M for COMMIT, with
+all persistent state accounted for in its memory. It yields an incremental
+connectivity data structure with O(t_C+1) insertion time and O(t_M+1) query
+time. Temporary query storage increases by O(t_M+1) words. The construction
+is valid in the polynomial-space, logarithmic-word regime relevant below.
+
+Proof. Fix the key to 1 and begin with CHECK(0,0). This establishes an active
+discrete partition without connecting distinct vertices. Translate an edge
+insertion (i,j) to CHECK(i,j); it is always sound.
+
+For a connectivity query, execute COMMIT(i,j) in a simulated transaction.
+Before each simulated memory write, record its address and previous word
+value. Preserve the constant-size control state as well; any larger stored
+workspace is part of the simulated memory. Record whether the instruction
+trapped, then undo every write in reverse order and restore the control
+state. Return true precisely when it did not trap.
+
+Each write incurs constant extra word-RAM work and one constant-size log
+entry; reverse replay has the same order of cost. Multiple writes to one
+address are logged separately and reversed in order. Allocator and ledger
+state are included, not treated as free external effects. With O(t_M)
+instruction steps, the extra storage and work are O(t_M).
+
+The restored state is exactly the legal monitor state after the preceding
+CHECK sequence. The next graph operation therefore starts untrapped with
+the correct established partition. The monitor's worst-case bound applies
+to every such query, so repeated restoration cannot invalidate the time
+guarantee. This proves the reduction. End proof.
+
+This is an algorithmic construction in a lower-bound argument. It gives no
+untrusted caller permission to roll back a real monitor's protected state.
+Unlogged hardware effects, physical irreversible operations and hidden
+oracles are outside this RAM contract. All simulation memory is counted.
+
+Why worst case matters: an amortized monitor may spend credit or improve its
+representation during a query. Rollback can erase that improvement and let
+the same expensive work recur. C4 therefore does NOT transfer an amortized
+time guarantee. This note makes no inverse-Ackermann amortized lower-bound
+claim for the fatal-query interface on the basis of this reduction.
+
+6. THE RESULTING UNCONDITIONAL TIME BARRIER
+
+The lower bounds in this section are established results of other authors,
+applied through C4. They concern pairwise INFERRED permission in a fixed-key
+epoch, deterministic exact decisions, polynomially addressable memory, and
+words of Theta(log n) bits. They do not apply to exact pair membership.
+
+Pătraşcu and Thorup, "Don't Rush into a Union: Take Time to Find Your Roots,"
+Theorem 1, prove that incremental connectivity with worst-case insertion
+time o(log n / log log n) needs worst-case query time n^(1-o(1)) in the
+logarithmic-cell model. Their paper also records the balanced
+O(log n / log log n) worst-case upper bound. [S1]
+
+Applying C4 gives the following corollary for the monitor:
+
+  t_CHECK = o(log n / log log n)
+        implies t_COMMIT >= n^(1-o(1)).
+
+In particular, constant-time pair CHECK cannot coexist with polylogarithmic
+worst-case pair COMMIT under this inferred policy and computational model.
+This is an unconditional computational restriction, not an OMv conjecture
+and not a heat bound. The query-log overhead does not remove it: when query
+time is already at least linear the conclusion is satisfied; otherwise the
+additional storage remains polynomial and the simulation stays in the same
+logarithmic-word model.
+
+The classical Boolean union-find lower bound gives
+
+  t_query = Omega(log n / log((t_update+2) log n)),
+
+which in particular forces max(t_update,t_query)=Omega(log n/log log n).
+Its applicability to Boolean answers is established by Kaplan, Shafrir and
+Tarjan [S2]; the relationship to connectivity is explained in [S1, Section
+1.4]. C4 transfers this worst-case restriction despite the monitor's traps.
+The standard balanced connectivity construction supplies the matching
+O(log n/log log n) upper bound by implementing CHECK as edge insertion
+and COMMIT as connectivity testing, with constant additional monitor work.
+It uses O(n) words [S5], so the balanced time optimum is achievable together
+with asymptotically optimal O(n log n) structural bits.
+
+Thus the optimal order of the balanced worst-case operation bound is
+Theta(log n/log log n), with the usual asymptotic convention for large n.
+The supplied implementation deliberately proves and attains the simpler
+O(log n) bound; it does not implement the more elaborate literature-optimal
+structure. No benchmark of the supplied code demonstrates the sharper bound.
+
+These results do not identify the entire optimal memory/update/query frontier
+for every intermediate budget, nor do they establish a new theorem for all
+claim languages. C1 handles exact state counts for sound closure policies;
+the time barrier here is specific to equality inference containing arbitrary
+pair connectivity. A different language or permission rule needs its own
+analysis. Additional memory alone cannot evade a bound that already permits
+polynomially addressable memory in this model.
+
+7. THE LEDGER AND THE LIMITS OF THE ACCOUNTING
+
+The structural space bounds exclude an unbounded accumulated integer, but
+the implementations retain and verify the actual ledger. After at most H
+paid instructions, it requires O(log(H+1)) further bits. Distinct observable
+bills require that many bits even when the structural state is unchanged.
+For polynomial H it occupies O(1) logarithmic-size RAM words, as assumed
+in the principal per-operation bounds.
+
+For unrestricted H, exact increment with ordinary multiword binary storage
+takes O(1+log(H+1)/log(n+1)) worst-case word operations and O(1) amortized
+word operations over the increments. That cost must be added to a paid
+instruction. Python's arbitrary-precision integer is not a constant-time
+implementation of an unbounded ledger. The space is correspondingly
+O(n log(n+1)+log(H+1)) for the inferred structural implementation.
+
+No step in this analysis identifies ledger marks with comparisons, elapsed
+time, energy, or entropy loss. The same charge can accompany different
+runtime costs. Retaining a permanent historical record does not assert that
+its claim remains true of a subsequently replaced key.
+
+8. WHAT IS COMPLETED AND WHAT IS NOT CLAIMED
+
+Completed here:
+
+  - An exact permission-state formula for a finite sound closure policy.
+  - Tight asymptotic space and complete-array operation times for partition
+    inference, with a working implementation and independent checks.
+  - Exact versus inferred state counts in the compact pair language.
+  - Working exact-pair and inferred-pair monitors, including historical
+    records, ledger, traps, self-pair evidence and resets.
+  - A worst-case reduction that explicitly handles fatal COMMIT failures.
+  - An unconditional inherited update/query barrier and the known balanced
+    optimal order, with attribution and computational assumptions.
+
+Not established: a new physical principle; novelty of the elementary
+partition results; a new dynamic-data-structure lower bound; a complete
+three-way frontier for every space budget and claim language; an amortized
+lower bound for fatal queries via rollback; a whole-book audit; or an
+implementation of the literature-optimal balanced pair structure.
+
+The connection to the Thiele model is precise. These results preserve or
+explicitly vary the rule connecting checked structure to permitted action,
+while retaining the channel, historical record, trap and trace prices.
+They do not elevate certification into the purpose of the entire model.
+
+SOURCES
+
+[S1] Mihai Pătraşcu and Mikkel Thorup. Don't Rush into a Union: Take Time
+     to Find Your Roots. Author manuscript dated March 27, 2011.
+     https://people.csail.mit.edu/mip/papers/unions/unions.pdf
+     Theorem 1, printed page 2; Sections 1.1 and 1.4 for the upper bound
+     and Boolean-query lower-bound context. Inspected 12 October 2026.
+
+[S2] Haim Kaplan, Nira Shafrir and Robert E. Tarjan. Meldable Heaps and
+     Boolean Union-Find. STOC 2002, pages 573-582.
+     https://doi.org/10.1145/509907.509990
+     Author-affiliated abstract and bibliographic record inspected at:
+     https://collaborate.princeton.edu/en/publications/meldable-heaps-and-boolean-union-find/
+     The abstract states the transfer of union-find lower bounds to Boolean
+     union-find. The operation distinction is discussed in [S1, Section 1.4].
+
+[S3] Michael L. Fredman and Michael E. Saks. The Cell Probe Complexity of
+     Dynamic Data Structures. STOC 1989, pages 345-354.
+     https://doi.org/10.1145/73007.73040
+     Background source for classical union-find bounds; this note relies
+     on the Boolean extension and the explicit connectivity statements
+     above, not on treating FIND's multi-bit answer as a Boolean query.
+
+[S4] NIST Digital Library of Mathematical Functions, Section 26.7,
+     Set Partitions: Bell Numbers. https://dlmf.nist.gov/26.7
+     Definition and tabulation inspected. The coarse logarithmic growth
+     bound needed here is proved directly in Section 3.
+
+[S5] Zvi Galil and Giuseppe F. Italiano. Data Structures and Algorithms for
+     Disjoint Set Union Problems. ACM Computing Surveys 23(3), 1991,
+     pages 319-344. https://doi.org/10.1145/116873.116878
+     Theorem 1.2.1 states Blum's O(log n/log log n) worst-case operations
+     with O(n) space. An indexed full-text copy was inspected at:
+     https://www.researchgate.net/publication/220566666_Data_Structures_and_Algorithms_for_Disjoint_Set_Union_Problems
+     Blum's original article: SIAM Journal on Computing 15(4), 1986,
+     pages 1021-1024. https://doi.org/10.1137/0215072
+
+REPRODUCTION
+
+Run python3 verify.py in this directory; no third-party packages are needed.
+verification.json records test counts, source fingerprint and measured local
+scale-check times. The mathematical runtime claims come from operation counts
+and proofs, not from fitting the timing samples. The finite checks are not
+a proof of the imported literature theorems or the reduction for all programs.
+
+
+STRUCTURAL PRESERVATION: COMPANION PROOFS
+=========================================
+
+STRUCTURE, ESTABLISHMENT, AND EXECUTION COST
+Research note for Devon Thiele — 12 October 2026
+
+STATUS AND SCOPE
+
+This note gives mathematical proofs about the partition example already in
+The Thiele Machine. It does not propose another machine architecture. It asks
+which information can be identified without changing the example's behavior.
+The proofs stand independently of their finite executable checks.
+
+The source correspondence is minimal/PartitionReading.v at repository commit
+e4c234627651f1b12eb649148a051d5a252ed6b4. No manuscript or repository source
+is changed. This is a focused result, not a completed audit of the book.
+
+The result has three parts:
+
+  1. The mathematical consequences of a collection of checked groupings have
+     an exact summary: one partition, their join.
+  2. That summary cannot in general preserve the existing rule about which
+     groupings may be committed. A sharp family of examples needs t-1 bits
+     to distinguish histories with identical mathematical consequences,
+     where t is the number of available partition claims.
+  3. Structural effects alone cannot determine the existing execution bill.
+     Repeated successful checks can leave the structure unchanged while
+     adding to the ledger. Paths or an accumulated ledger must retain this
+     distinction.
+
+These are consequences of explicit observation and action contracts. The
+partition-lattice and distinguishable-history arguments are classical tools;
+no claim of a new general lower-bound technique or open-problem solution is
+made. The substantive application is to this existing structural example.
+
+1. THE EXPERIMENT
+
+Put three objects a, b, c on a table. Each carries a key, such as a color.
+A grouping claims that objects placed in the same bucket have the same key.
+The claim does not say that different buckets must have different keys.
+
+Compare two runs when all three objects have the same key:
+
+  Run A: check {a,b,c}; then check {a,b,c} again.
+  Run B: check {a,b,c}; then check {a,b}|{c}.
+
+Both runs have established the same mathematical consequences: all three
+keys agree, which already implies agreement within any smaller bucket.
+Both have performed two successful checks and paid two marks. Neither has
+committed or raised a record.
+
+Now request COMMIT {a,b}|{c}.
+
+  Run A traps. Run B succeeds.
+
+This is exactly the existing rule: COMMIT requires a matching partition in
+the checked table. It does not merely ask whether that partition follows
+logically from earlier checks. Renaming buckets does not matter; checking a
+different partition does.
+
+The example therefore distinguishes two questions:
+
+  What follows from the established constraints?
+  Which action has been earned under the specified history rule?
+
+Their answers can differ without either being inconsistent. Treating them
+as interchangeable changes the machine. This distinction is a policy in the
+existing model, not a universal requirement that every computation must use.
+
+2. THE MATHEMATICAL SETUP
+
+Let X be a finite nonempty set of n items. A partition P is represented by its
+equivalence relation E_P: x E_P y means x and y occupy the same bucket.
+Write P <= Q when E_P is contained in E_Q. Thus P is finer than Q.
+
+Bottom, denoted 0, separates every item. Top, denoted 1, puts all items into
+one bucket. These symbols denote partitions, not instruction prices.
+
+A key assignment k induces the partition K defined by equality of keys.
+The grouping P is sound for k exactly when P <= K. Every partition K can
+occur as a key partition: give distinct keys to its distinct blocks.
+
+For a finite set T of checked partitions, define J(T) to be their join:
+the equivalence closure of the union of their equivalence relations.
+For T empty, J(T)=0. It is the least partition coarser than every member
+of T. This is a mathematical operation, not a claim about its runtime.
+
+The information expressed by T means only its soundness assertions. It does
+not include the actual key assignment, the table's membership as a historical
+fact, an external transcript, or the timing of the checks.
+
+3. EXACT SUMMARY OF THE MATHEMATICAL CONSEQUENCES
+
+Theorem 1. For any checked family T and proposed grouping H,
+
+  for every key partition K,
+    [P <= K for every P in T] implies H <= K
+
+  if and only if H <= J(T).
+
+Proof. The conjunction P <= K for all P in T is equivalent to J(T) <= K
+by the defining property of the join. If H <= J(T), transitivity proves
+the implication. Conversely choose K=J(T). It satisfies every assertion
+in T, so the implication forces H <= J(T). Such a K is realizable by an
+actual assignment of keys. This proves both directions. End proof.
+
+Consequently the entire set of mathematical consequences is the set of
+refinements of J(T). Two checked families have the same consequences if
+and only if their joins agree. For the reverse direction, each join belongs
+to its own refinement set, so equality of those sets gives both refinement
+directions and hence equality of the partitions.
+
+This generalizes the existing single-grouping entitlement result to any
+finite collection of checked groupings. A chain example makes the join
+visible: checking {a,b}|{c} and {a}|{b,c} establishes a=b and b=c, hence all
+three keys agree. Neither individual grouping asserted the full result.
+
+This is implication among the specified equality claims. It does not assert
+that computation always contracts possibilities, or that a unique answer or
+termination follows. SET can discard the checks against the previous key.
+
+4. AN EXACT STRUCTURAL REPRESENTATION OF THE EXISTING RULES
+
+Replace each grouping and key by its partition on X. Replace the checked
+list by the SET of its distinct partitions. Retain:
+
+  K: the current key partition;
+  T: the set of partitions checked against the current key;
+  C: an optional committed partition;
+  R: an optional pair (partition, historical key partition);
+  e: the trap flag;
+  m: the accumulated ledger.
+
+The permitted observations are structural: these canonical partitions and
+checked membership, the channel, historical record, trap, and ledger.
+Numerical bucket/key labels, checked-list order and duplicate multiplicity
+are not separately observable. Action parameters are canonicalized in the
+same way. This is a declared interface, not equality of raw source records.
+
+For an untrapped state, the rules become:
+
+  SET K':     K := K'; T := empty; C := none. Retain R. Cost 0.
+  CHECK P:    if P <= K, add P to T; otherwise trap. Cost 1 either way.
+  COMMIT P:   if P belongs to T, set C := P; otherwise trap. Cost 1.
+  CERTIFY:    if C is none, trap; otherwise, if R is none, set R := (C,K).
+              If R already exists, retain that first record. Cost 1.
+
+On an already trapped state, only the ledger changes, by the action's cost.
+In particular SET cannot recover a trapped state. Retaining the historical
+record across SET does not make it a claim about the new current key.
+
+Theorem 2. Canonicalization commutes with every step, preserves its price,
+and therefore preserves every finite trace of the stated observations.
+
+Proof. Equality of numerical keys becomes equality in K; the CHECK test is
+exactly P <= K. The source COMMIT test searches for a grouping inducing the
+same partition, which is exactly membership in T. Prepending a successful
+check becomes set insertion. SET clears the same fields; the channel and
+first historical record are transformed componentwise. Trap and ledger
+updates agree in each branch, including already trapped states. This proves
+the one-step identity. Induction on the action sequence proves the trace
+statement. End proof.
+
+This representation removes bucket names, list order and duplicates from
+stored structural information. It retains the distinction between separately
+checked partitions. Replacing T by J(T) alone is not an exact implementation
+of these rules: the experiment in Section 1 disproves that possibility,
+even when the other fields, including the ledger, are supplied.
+
+If COMMIT were instead defined to accept any H <= J(T), the join WOULD be
+sufficient for that guard. That would be an inference-permitting policy,
+not a compression preserving the present exact-check policy. Neither
+policy is established as universally preferable by this result.
+
+5. A SHARP STATE REQUIREMENT WITH IDENTICAL CONSEQUENCES
+
+Let L be a finite language of t DISTINCT partitions of X, including the
+one-bucket partition 1. COMMIT may request any member of L. Consider all
+histories starting from the same clean state with K=1 and ledger zero.
+
+Theorem 3. There are 2^(t-1) reachable, pairwise distinguishable states with
+the same current key, mathematical consequences, channel, historical record,
+trap status, ledger and number of executed steps. An exact deterministic
+implementation must have at least that many distinguishable retained states
+at this boundary. With no other history carrier, this requires at least
+t-1 bits. The bound is attained for this family by its membership vector.
+
+Proof. For every subset U of L excluding 1, perform CHECK 1, then check
+each member of U in a fixed order, then repeat CHECK 1 until exactly t
+checks have been performed. All checks succeed because every partition
+refines K=1. The resulting checked set is {1} union U.
+
+All these states have K=1, C=none, R=none, e=false and m=t. Each has join
+1 and therefore exactly the same mathematical consequences. The programs
+can have the same length and a common next request; their earlier action
+parameters must not be provided as a free external history at the boundary.
+
+For U different from V, choose P in their symmetric difference. The common
+next action COMMIT P succeeds for one state and traps for the other. If an
+implementation assigned both histories the same complete retained state,
+it could not produce different deterministic answers to that same request.
+Thus all 2^(t-1) states must remain distinct. A representation with b bits
+has at most 2^b states, so b >= t-1.
+
+Conversely, one bit for membership of each partition other than 1 identifies
+every state in this family, since membership of 1 is fixed. It answers every
+COMMIT membership question on this family. This proves sharpness for the
+family, not a total-memory optimum for all machine operations. End proof.
+
+If L contains every partition of n items, t is the Bell number B_n:
+
+  items n                 1     2     3     4     5
+  partition claims B_n    1     2     5    15    52
+  required bits B_n-1     0     1     4    14    51
+
+For comparison, one semantic summary partition has only B_n possibilities;
+its abstract identity can be encoded in ceil(log2 B_n) bits. This statement
+is about distinguishable possibilities, not efficient encoding or update
+time. On the particular lower-bound family the semantic summary is always
+1 and itself requires no varying information at all.
+
+The bound counts all retained information available for exact decisions.
+It becomes a protected-memory bound only if no other usable history carrier
+is available. An authenticated external table, recoverable action transcript
+or trusted caller state must be counted or treated as a different interface.
+The theorem supplies no time-space trade-off, randomized error bound, or
+unconditional lower bound for arbitrary cryptographic outsourcing schemes.
+
+Most importantly, it is a cost of enforcing THIS establishment rule, not an
+inherent Bell-number memory requirement for truth, structure, or computation.
+Allowing entailed commitments changes the rule and avoids this particular
+distinguishability family. This is precisely why the interface matters.
+
+6. WHY THE BILL CANNOT BE READ FROM STRUCTURAL EFFECTS
+
+Remove m from the representation in Section 4, but keep the other fields.
+Let s be a clean state where P is sound. One successful CHECK P and two
+successive successful CHECK P instructions produce the same structural state:
+same K, checked set {P}, empty channel and record, and no trap.
+Their costs are 1 and 2. Thus no function of that final structural state
+alone recovers the accumulated bill for these histories.
+
+The same obstruction can be expressed at the level of transformation rules.
+On states with fixed K where P is sound, CHECK P inserts P in a set and is
+an idempotent structural map F: F composed with F equals F. An additive cost
+on extensional maps with finite nonnegative integer or real values would
+have to satisfy
+
+  cost(F) = cost(F composed with F) = cost(F) + cost(F),
+
+and hence cost(F)=0. It cannot assign the existing price 1 to that map.
+
+Execution paths resolve this without a contradiction: [CHECK P] and
+[CHECK P, CHECK P] are different paths, despite having the same structural
+effect. Assign each executed edge its price and add along paths. Equivalently
+retain an accumulated ledger as a separate state component. With the ledger
+retained, the full CHECK transformation is not idempotent.
+
+For fixed finite X the structural representation without m is finite, even
+though arbitrarily many duplicate checks may be executed. A positive-cost
+self-loop shows why an unbounded cumulative ledger cannot be reconstructed
+as a state function on that finite structural representation.
+
+More generally, an additive path cost descends through an identification of
+paths if and only if identified paths have equal cost. Necessity follows
+from well-definedness; sufficiency assigns each class its representatives'
+common cost. To retain composition, the identification must also respect
+composition. Positive reset prices therefore cannot be inferred merely by
+calling structural maps morphisms and their costs a functor.
+
+None of this proves a heat floor or a necessary positive price for CHECK.
+The price here is the existing operational ledger rule. Physical dissipation
+requires additional physical assumptions and uncertainty accounting.
+
+7. INFERENCE POLICIES: A PRECISE ALTERNATIVE AND ITS PRICE
+
+The source's exact-match rule is one possible establishment policy. A useful
+comparison permits a commitment inferred from successful current checks.
+This section analyzes that alternative; it does not install it in the book
+or silently treat it as equivalent to the source.
+
+There is a catch. The discrete partition 0 is sound for every key, without
+any checks. Under the unqualified entailment guard H <= J(T), a clean
+machine could COMMIT 0 and CERTIFY for two marks. Consequently replacing
+the guard alone would invalidate the existing three-mark floor.
+
+If a successful current check is required, retain an evidence-presence flag
+A, which says T is nonempty. Permit COMMIT H only when A is true and
+H <= J(T). A successful CHECK sets A=true and updates J by joining its
+partition. SET resets A=false, J=0 and the channel. The historical record,
+trap behavior and prices remain as specified earlier.
+
+The flag cannot always be recovered from J: no checks and a successful
+CHECK 0 both have join 0. But they must give different COMMIT 0 decisions
+under this anchored policy. No claim of nontriviality follows from the flag;
+CHECK 0 is still a successful, tautological check.
+
+This construction extends beyond full entailment. Let L be a finite claim
+language and let c map subsets of L to subsets of L. Require c to be:
+
+  extensive:   T is contained in c(T);
+  monotone:    T contained in U implies c(T) contained in c(U);
+  idempotent:  c(c(T)) = c(T);
+  sound:       every member of c(T) follows from the soundness claims in T.
+
+These properties define a sound closure policy. The identity c(T)=T gives
+exact matching. For partition claims, c(T)={H in L : H <= J(T)} gives full
+semantic entailment. Soundness is relative to the stated interpretation of
+the claims, not supplied merely by the other three algebraic properties.
+
+Theorem 4. For the policy permitting COMMIT H exactly when T is nonempty
+and H belongs to c(T), the pair (A,c(T)) is a sufficient online replacement
+for T, with the other structural fields and priced actions retained.
+It preserves the altered policy's behavior and soundness, and its minimum
+cost to raise a first record from a clean zero-ledger state is still three,
+whenever at least one claim can successfully be checked.
+
+Proof. The closure axioms give
+
+  c(T union {P}) = c(c(T) union {P}).
+
+For one inclusion use T contained in c(T) and monotonicity. For the other,
+both c(T) and {P} are contained in c(T union {P}); apply monotonicity and
+idempotence. Thus CHECK updates the stored closure using only that closure
+and its argument. SET resets it to c(empty) and clears A and the channel.
+The COMMIT guard is determined by A and membership in the stored closure.
+Other branches are unchanged. This proves step preservation as in Theorem 2.
+
+Every member of T is sound for the current key. Soundness of c makes every
+authorized commitment sound for that key too. The first historical record
+therefore stores a sound claim and its historical key, even after later SETs.
+
+The first successful CERTIFY needs a channel produced by COMMIT. That COMMIT
+needs A=true, which requires an earlier successful CHECK since the latest
+SET, if any. These are three distinct paid actions in order. Conversely,
+CHECK P; COMMIT P; CERTIFY succeeds for a sound P because c is extensive.
+It costs exactly three. End proof.
+
+The provenance statement changes: an inferred committed claim need not have
+been checked verbatim. It must follow from the actual collection of current
+checks. This is an explicit policy difference, not the original same-claim
+theorem under different notation. Theorem 4 supplies no computational time
+bound for evaluating c, and not every inference mechanism is a closure of
+this kind.
+
+There is a sharp comparison for the language of all B_n partitions, with
+the current key fixed to 1. Count only the retained component needed for
+these permission decisions, with all other fields supplied and fixed in
+the lower-bound experiment.
+
+Theorem 5. The source's exact-match policy requires exactly 2^(B_n) possible
+permission states, or B_n bits. The anchored full-entailment policy requires
+exactly B_n+1 possible permission states, or ceil(log2(B_n+1)) bits. These
+are abstract state counts and fixed-width encoding bounds, not update-time
+bounds or total implementation memory bounds.
+
+Proof for exact matching. Every subset T of the B_n claims is possible.
+Distinct subsets differ on a COMMIT request. A membership vector attains
+2^(B_n) states, establishing necessity and sufficiency.
+
+To make the necessity hold with equal ledgers and equal action counts, put
+t=B_n. For any nonempty T, first SET the key to 1, check every member of T,
+then repeat one member until t checks have occurred. For T empty, check 1
+t times and then SET the key to 1. All histories have t+1 actions, ledger t,
+key 1, no channel or record, and no trap. Only the retained checked sets
+vary. Thus the supplied common fields cannot encode their differences.
+
+Proof for anchored entailment. If A=false, the only possible summary is
+J=0. If A=true, J can be any of the B_n partitions. These B_n+1 states are
+sufficient by Theorem 4. Each is reachable with the same common fields,
+ledger and action count using the preceding construction with T empty or
+T={J}. Two distinct active joins have different refinement sets, so some
+COMMIT H distinguishes them. The inactive state rejects COMMIT 0, whereas
+every active state accepts it. All states are therefore distinguishable.
+End proof.
+
+For three objects this comparison is five permission bits versus three;
+for five objects it is fifty-two versus six. The difference is accounted
+for by what the rule promises to remember: exact checking history or its
+logical consequences plus the presence of a current check. Neither policy
+receives a lower runtime or physical-energy bound from these state counts.
+As in Theorem 3, external usable history must be counted or excluded before
+calling this a protected-memory lower bound.
+
+8. WHAT THIS SETTLES, AND WHAT IT DOES NOT
+
+The partition model has an exact answer to a representation question:
+
+  Mathematical consequences may be compressed to a join partition.
+  Exact earned permissions may still require the distinct checked set.
+  Execution costs require priced paths or a ledger when equal effects can
+  arise from differently priced executions.
+
+Those are three different equivalence relations on histories. A proposed
+abstract representation must state which it preserves. If it identifies
+histories separated by an allowed future observation, it changes the model.
+
+This is independent of counter machines and numerical bucket names. It is
+not a claim that standard computation cannot represent these distinctions;
+the construction explicitly shows how to represent them. Nor does it derive
+the choice of establishment policy or the positive ledger prices from the
+partition geometry alone.
+
+For sound closure policies, Theorem 4 answers how to preserve the connection
+between actual checks and subsequent inferred actions. Theorem 5 gives a
+tight state comparison for two such policies on this partition language.
+The remaining time-space question requires a computational model for the
+closure operation and claim representation; state counting alone does not
+answer it. Any broader lower bound must also specify available external
+history and the observations it promises to preserve.
+
+VERIFICATION
+
+verify.py contains a direct list-and-label reference model of the inspected
+rules and a separate partition-and-set implementation. It checks step
+commutation, the finite entailment theorem, explicit separating histories,
+and the cost counterexample. verification.json records the executed counts.
+These finite checks catch modeling mistakes; the proofs above establish the
+statements for arbitrary finite X and finite L under their stated contracts.

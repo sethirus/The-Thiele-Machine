@@ -1,0 +1,91 @@
+THE THIELE MACHINE — SOURCE REVIEW
+12 October 2026
+
+Coverage and evidence
+The bibliography inventory contains 662 entries. This review checked citation
+identity and metadata across the inventory, followed links, examined flagged
+discrepancies, and checked selected attributed quotations against available
+texts. A matching title or successful HTTP request is not treated as proof
+that a source supports every sentence for which it is cited.
+
+The 242 entries contain 245 DOI references. All 245 were checked against
+metadata: 244 through Crossref, and the Forster–Kunze ITP 2019 paper through
+DataCite. The three additional DOI references are later journal versions; their
+authors, titles, dates and publication data agree with those descriptions. Seventeen initial
+flags were examined. Most reflect reprints, incomplete metadata, title markup,
+or conference/publication dates. No correction was made solely because an
+automated title or date comparison disagreed.
+
+307 distinct non-DOI links were attempted: 294 returned HTTP 200, including two
+challenge pages rather than usable texts. Thirteen returned errors. The one
+confirmed 404, Nicely's old faculty page, was removed while retaining the journal
+citation. The others were access/server errors, not evidence that the cited works
+do not exist. The full results, including access failures, are in link-results.json.
+The 160 entries without a URL were reviewed and queried bibliographically.
+Search results that were reviews, reprints or merely similar titles were not
+counted as authentication of the original work.
+
+Corrections
+- The cited Justice Department release is dated 2 October 2002 and concerns a
+  criminal complaint against Andrew Fastow. The book had called it a 31 October
+  indictment release.
+- Kent Weare's InfoQ article is cited under its actual displayed title.
+- An attributed Hales phrase about frustration and bypassing referees could not
+  be substantiated in the cited primary text or targeted searches. The quotation
+  was removed. The documented Flyspeck project and its dates remain.
+- Eight accessible primary-text links were added to existing bibliography
+  entries: Martin-Löf, Corry, Hales, JCGM, Planck, Wheeler, Landauer and Shannon.
+
+Quotation review
+Thirty externally attributed passages were selected from the long-quotation
+inventory. Twenty-three match their full quoted phrases in the downloaded
+corpus after normalization of typography and explicit ellipses. The remaining
+seven were resolved as follows:
+- Kepler: corroborated in the Cambridge publisher's excerpt of the cited
+  historical discussion. The book's disclosure of the secondary route remains;
+  this review does not claim to have inspected the original 1611 printing or
+  the whole 1966 translation.
+- Hales's frustration quotation: removed as unsubstantiated.
+- Kempe: wording checked in the transcription of the original 1879 paper.
+- Euclid's first common notion: checked in Heath's wording, reproduced by
+  Trinity College Dublin. Joyce's online translation uses different wording;
+  the book's quotation was not silently changed to that translation.
+- Landauer's minimum-achievability sentence: checked on page 187 of the paper
+  scan. OCR read 'is' as '1s'; this was not a textual discrepancy.
+- Planck: checked in the Clarke–Silberstein 1922 translation, page 11, available
+  as Project Gutenberg 33663.
+- Berry: checked in Principia Mathematica, volume I, pages 63–64, available as
+  Project Gutenberg 78050.
+
+Other downloaded primary texts include Martin-Löf's Siena lectures, JCGM's VIM,
+Six's 1782 thermometer paper, Shannon's 1948 paper, Hales's 2008 article, Corry's
+chapter, Bennett's 2003 notes, Rovelli's paper, and Knott's reproduction of
+Maxwell's note. The quoted 'Call him no more a demon but a valve' sentence is
+present in Knott, page 215. The referee-letter passage is present in Hales.
+
+Metadata decisions
+- Hellman and Resnik: retain original publication years; the DOI metadata
+  describe later paperback/online editions.
+- Katsuno–Mendelzon, Kolmogorov and Nipkow: the entries already distinguish the
+  original work from the later version associated with the DOI.
+- Goguen: retain 1973, matching the journal issue/copyright and standard
+  citation, despite the publisher's conflicting 1972 online metadata.
+- Wheeler: retain pages 28–40, explicitly confirmed on the author's site;
+  Crossref's 33–48 is not used to overwrite the author's bibliography.
+- Bell and Bennett's Logical Depth chapter: retain the cited edition's page
+  range rather than silently substituting a conflicting metadata/reprint range.
+- Lyapunov: the citation describes the full translated work, not one metadata
+  record for a component; Wells's conference publication is not its preprint.
+
+Limits of this evidence
+This is a bibliography and selected-quotation audit, combined with the separate
+manuscript argument audit. It is not a claim to have read all 662 cited works
+cover to cover, authenticated every biographical anecdote, or independently
+established every priority claim. Access failures and secondary attribution are
+recorded explicitly; no successful build or citation lookup removes those limits.
+
+Evidence files
+sources.json; doi-results.json; doi-flags.json; datacite-444.json;
+link-results.json; linked-title-review.json; unlinked-review.json;
+quote-full-phrase-checks.json; quote-sources/; quote_web*.json;
+finalquotes*.json; remainingquotes*.json; euclid_exact.json.

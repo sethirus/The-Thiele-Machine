@@ -1,0 +1,257 @@
+from pathlib import Path
+import json,re
+R=Path(__file__).parent
+s=(R/'before.tex').read_text(); changes=[]
+def change(old,new):
+ global s
+ assert s.count(old)==1,(old[:100],s.count(old))
+ s=s.replace(old,new);changes.append({'before':old,'after':new})
+change(r'''Write the four correlators as $x=E_{00}$, $y=E_{01}$, $z=E_{10}$ and $w=E_{11}$.
+A completion is a positive-semidefinite matrix''',r'''Put two equal-length pencils down with their ends together, and draw a line along
+one of them. Keep that pencil still and turn the other. Use the square corner of
+a sheet of paper to bring the moving pencil's tip straight across to the line,
+and mark where it lands. The mark moves from a full pencil-length forward,
+through the joined ends when the pencils make a square corner, to a full
+pencil-length backward. Call those readings 1, 0 and $-1$. That is the signed
+shadow we want. Between those positions the reading is the cosine of the angle.
+A dot product of unit vectors measures that shadow.
+
+Now ask for four directions, two labelled Alice and two Bob, with a prescribed
+shadow for each Alice--Bob pair. Try this request: Alice's first points exactly
+along both of Bob's; Alice's second points along Bob's first and exactly against
+his second. Each request alone is easy. Put them together and your hands cannot do
+it: Bob's pencils would have to point both the same way and opposite ways. Four
+numbers in range need not describe four directions that can coexist.
+
+Write those four readings as $x=E_{00}$, $y=E_{01}$, $z=E_{10}$ and $w=E_{11}$.
+We have not specified the shadow between Alice's own two directions, or between
+Bob's own two. Those are the two blanks, $t$ and $u$, in the following table.
+Can we fill them so that the whole table comes from directions? The pencils let
+us ask it in a plane; the construction will allow four coordinates. A completion is
+a positive-semidefinite matrix''')
+change(r'''First, every real symmetric PSD matrix is a Gram matrix. Here is the construction,
+including its boundary.''',r'''Why positivity? Lay arrows end to end, allowing a backward arrow when its weight
+is negative. Square the length from the start to the finish. Expanding that square
+adds up the arrows' pairwise shadows, with their weights. It cannot be negative.
+A proposed shadow table that gives a negative answer for some choice of weights
+cannot come from arrows. That is the PSD test. A Gram matrix is simply the table
+of all those pairwise dot products.
+
+The converse has to build the arrows. Pick the first direction as a baseline.
+Give every other arrow the component along it that its shadow demands, then
+build the remaining components perpendicular to it. What remains to be fitted is
+a smaller shadow table. Here is that construction, including its boundary.''')
+change(r'''Those vectors give actual measurements. Put''',r'''The next question is harder: how do directions become a prescription for a
+quantum measurement? Start with two signed cards in a row. One move swaps them;
+another changes the sign of the card in the right-hand place. Start at $(+,+)$.
+Swap then change the right sign: $(+,-)$. Start again, change the right sign then
+swap: $(-,+)$. Every sign is reversed. Try unequal numbers on the cards: the two
+orders still give negatives of each other. ``Anticommute'' means exactly that
+relation between the two moves. Do either move twice and everything is back.
+
+Write the swap as $X$, the sign change as $Z$, and doing nothing as $I$:''')
+change(r'''and define four real $8\times8$ matrices''',r'''For the larger construction, label eight places by the three-bit words 000 through
+111 and put a signed number at each. An $X$ in one bit-position swaps each pair of
+places differing at that bit; a $Z$ reverses the signs at places whose bit there is 1.
+The three positions give us the following four moves, written as real $8\times8$
+matrices:''')
+change(r'''Their strategy realizes $x,y,z,w$. All four $\Gamma_i$ have trace zero, so the
+one-party expectations vanish too. The same real matrices and state are also a
+complex strategy.''',r'''Their strategy realizes $x,y,z,w$. All four $\Gamma_i$ have trace zero, so the
+one-party expectations vanish too. The same real matrices and state are also a
+complex strategy.
+
+What would that mean at a bench? Prepare the stated shared state, choose one of
+the two specified measurements on each side, and write down the two signs returned.
+For each pair of settings, count agreements as $+1$ and disagreements as $-1$.
+Their average is the correlator. The model predicts the four averages $x,y,z,w$;
+a finite tally fluctuates around its expectation. The signed-card moves let us
+check the measurement algebra by hand. Realizing that state and those measurements
+in a device, and comparing its tallies with the predictions, is the physical experiment.''')
+change(r'''Assume $x,y,z,w\in[-1,1]$, and put
+$s_x=\arcsin x$, with analogous notation for the other three entries.''',r'''Keep Bob's two directions hinged at one end. Alice's first direction has to make
+a specified angle with each. How far can Bob's hinge open while that is possible?
+Hold Alice's direction upright and sweep each of Bob's around it at its required
+angle. Point them towards the same side to close the hinge as far as it will go;
+point them towards opposite sides to open it as far as it will go. There is a
+whole interval of openings between those limits. Alice's second direction asks
+for another interval.
+
+Draw both intervals on one strip marked from 0 to 180 degrees. If they miss, no
+hinge setting satisfies both. If they overlap, choose an opening in the overlap
+and construct each Alice direction at that opening. The algebra below permits
+each its own perpendicular component in four dimensions. The pencils show why
+the shared opening is the question; they need not fit the entire construction
+on a tabletop. In the impossible request above, one interval is just 0 degrees
+and the other just 180. There is nowhere to put the hinge.
+
+Assume $x,y,z,w\in[-1,1]$, and put
+$s_x=\arcsin x$, with analogous notation for the other three entries.''')
+change(r'''For four correlators in $[-1,1]$, a finite local model exists exactly when all eight
+CHSH inequalities hold. Necessity follows by applying the classical bound to every
+choice of sign and setting labels. Here is a direct construction for sufficiency.
+Choose a number $t$ in both intervals''',r'''Make sixteen cards, each with four boxes labelled $A_0,A_1,B_0,B_1$, and put every
+possible arrangement of plus and minus signs on them, one arrangement per card.
+Draw a card before choosing which setting to ask each player about. Alice reads
+her chosen box; Bob reads his. Neither needs the other's setting. How often each
+card is drawn is the only choice left in this model.
+
+Try to get perfect agreement for the first three pairs and perfect disagreement
+for the fourth. Any card that ever gets drawn would need $A_0=B_0$, $A_0=B_1$
+and $A_1=B_0$, which makes $A_1=B_1$ too. Changing how often you draw the cards
+cannot fix it. For less extreme requests the question is quantitative: can we
+assign nonnegative weights to the cards, adding to one, that give all four
+requested averages? The following construction supplies those weights exactly
+when all eight CHSH inequalities hold and the correlators are in $[-1,1]$.
+
+There is a useful way to assemble the deck. First allow only Bob's first question
+and make a distribution of the three answers $A_0,A_1,B_0$. Then do the same for
+his second question. Both smaller decks must draw Alice's answer pairs in the
+same proportions. The adjustable number $t$ is Alice's agreement-minus-disagreement
+average across her two boxes. Choose it in both intervals''')
+change(r'''Define a distribution on all four answers by''',r'''To join the two smaller decks, first draw Alice's pair with its common probability.
+Among the first deck's cards bearing that pair, draw Bob's first answer; among
+the second deck's cards bearing the same pair, draw his second. Those conditional
+draws give a four-answer card. A pair that never occurs needs no card. Written
+as probabilities, this procedure is''')
+change(r'''The reductions in this appendix concern functions on natural numbers.''',r'''Put a few beans in one cup and leave a second empty. Write a short list of orders:
+add one, take one away if there is one, go to this line, stop. A finger on the page
+keeps your place. Carry out the orders literally. The question in this appendix
+is how to give the same job to another person with different equipment---a strip
+of paper, stacks of cards, or a different set of cups---and get the same answer
+whenever the first person stops.
+
+Agree on how the input is laid out and how to read the output before either starts.
+One person must not quietly solve the problem while preparing the other's cups.
+The reductions in this appendix concern functions on natural numbers.''')
+change(r'''Emptying a counter is a DEC loop back to its own line. To move its contents into
+another, decrement the source and increment the destination until the source is zero.
+To copy a counter $r$, empty two fresh counters $s,t$, decrement $r$ while incrementing
+both, then move $t$ back into $r$. Thus $s$ is the copy and $r$ is restored.''',r'''Try copying a cup with three beans. Put two empty cups beside it and keep a supply
+of spare beans. Each time you remove a bean from the first cup, put one in each of
+the other two. When the first is empty, move the third cup's beans back into it.
+Now the first and second each have three, and the third is empty. Try zero beans,
+then five. At every pass one more of the original beans has been counted into
+both other cups; that is why it works for any starting count, not just the three
+you tried. These are the moves behind the copy $C(r,s,t)$ below.
+
+Emptying a counter is a DEC loop back to its own line. Moving a pile decrements
+its source and increments its destination until the source is empty. Copying
+uses two such destinations and then restores the source from one of them.''')
+change(r'''Number a finite tape alphabet by $1,\ldots,q$, including its blank, and put $b=q+1$.''',r'''Cut a strip into numbered squares and put a finger on one square. Lift the squares
+on its left into a stack, nearest on top, and do the same on its right. Moving your
+finger one place right is now two acts: put the square you were reading on top of
+the left stack, then take the top of the right stack as the new square. Write a
+new mark before moving and the stack keeps the changed square. Move left and the
+two stacks exchange jobs. You can walk the strip either way without losing its
+order. An exhausted stack supplies a fresh blank square.
+
+Now replace each stack by a count. Use digit 1 for a blank and digit 2 for a mark,
+with base 3. Push a mark onto an empty stack: its code is 2. Push a blank on top:
+its code is $3\cdot2+1=7$. Count seven beans in groups of three. The one left over
+says ``blank on top''; the two groups say the remaining stack has code 2. Pop that
+and the marked square comes back. Multiplication pushes and division pops.
+
+In general, number a finite tape alphabet by $1,\ldots,q$, including its blank,
+and put $b=q+1$.''')
+change(r'''Let $p_0,\ldots,p_{k-1}$ be distinct primes. At the boundary between simulated
+instructions, keep''',r'''Try holding two counts in one pile of eighteen beans. Count how many times you can
+halve eighteen exactly: once. Count how many times you can divide it exactly by
+three: twice. Reassemble the eighteen beans after each reading. Those are the two stored counts,
+1 and 2. Double the pile to 36 and
+only the first stored count rises. Divide 36 by three to get 12 and only the second
+falls. Divide by three again: four beans, storing 2 and 0.
+
+Try taking one more off that second count. Four beans do not divide evenly into
+threes. The attempted division must restore the four and take the zero branch;
+keeping only the quotient would corrupt the first count. This is why the procedure
+below remembers the remainder. Two and three share no factor, so changing the
+number of one kind of factor leaves the other alone. Assign another prime to
+each extra count. An all-zero collection is represented by one bean: the empty
+product is 1.
+
+Let $p_0,\ldots,p_{k-1}$ be distinct primes. At the boundary between simulated
+instructions, keep''')
+change(r'''Finite tape programs can be written as finite binary words, and a program can interpret
+such a word by looking up the next transition and maintaining the simulated tape.''',r'''Write two responses on a card: ``If the predictor says STOP, keep going forever.
+If it says KEEP GOING, stop.'' Suppose somebody offers a predictor that always
+finishes and always gets a program's eventual behaviour right. Give it this very
+card, with these instructions for using its answer. Work through both possible
+answers. STOP makes the card keep going; KEEP GOING makes it stop. Waiting longer
+for the predictor does not create a third correct answer: its promise was to
+finish with one of the two.
+
+The card can be a program because each response is a finite instruction, and
+waiting for and branching on the predictor's answer are computable operations.
+Here is how to include the input explicitly. Finite tape programs can be written
+as finite binary words, and a program can interpret such a word by looking up
+the next transition and maintaining the simulated tape.''')
+change(r'''This gives the finite instruction list defining $U$. A block is a list, not an extra
+instruction:''',r'''Put the guest's instructions on one sheet and the host's on another, with a finger
+marking the current line on each. The guest takes one instruction. The host takes
+as many of its smaller instructions as it needs, then returns to the head of its
+sheet. Compare the two arrangements there: counts, live facts, commitment, flag
+and ledger. The host is allowed to do more work between comparisons. It is not
+allowed to lose a fact, revive a dead one, or charge another mark for its bookkeeping.
+The lists below let you carry out that comparison instruction by instruction.
+
+This gives the finite instruction list defining $U$. A block is a list, not an extra
+instruction:''')
+change(r'''At the head, registers 0, 1 and 3 give the guest counters and line.''',r'''Run a case that catches more than a wrong sum. Start the guest with four beans
+in $A$ and run CHECK Even $A$. Put its fact on a card saying ``even, version 0.''
+The host copies the value into an unused slot as the pair (Even, 4), whose code
+is $(2\cdot4+1)2^1=18$, and checks that slot. Put one mark on each ledger.
+
+Now let the guest add one bean and take it away. Its pile is four again, but its
+version is 2. The old fact still says version 0. On the host, each of those guest
+writes bumps the slot by one and back: 18 to 19 to 18. The slot's value ends where
+it began, while its version rises and its mirror is cleared. Try COMMIT Even $A$
+using the old check. Both machines must refuse, even though four is even. Both
+pay one more mark for that failed attempt. A translation that merely compares
+the piles at the end would miss the failure this experiment is designed to catch.
+
+Start again and leave out the two bean moves. CHECK, COMMIT, CERTIFY must succeed
+on both sheets, raising both flags for exactly three marks. The longer list of
+host instructions earns no extra marks for copying or looking up a line. These
+two runs test the reason for keeping both values and versions. The argument for
+all runs has to keep the following correspondence at every return to the head.
+
+At the head, registers 0, 1 and 3 give the guest counters and line.''')
+change(r"""For INC $r$ going to $j$, use
+$t_i p_r/q_i$, followed by the transfer $q_j/t_i$.""",r"""For INC $r$ going to $j$, use
+$t_i p_r/q_i$, followed by the transfer $q_j/t_i$.
+Try it with a counter represented by factors of 2, a starting line marked by 5,
+a destination marked by 7 and an intermediate marker 11. Ten beans, $5\cdot2$,
+mean line 5 with counter value 1. The fraction $22/5$ takes ten to 44; $7/11$
+takes 44 to 28. Divide the result by its line marker 7: four remains, two factors
+of 2. The line has changed and the counter has risen by one. The intermediate 11
+keeps the two parts of the instruction separate.""")
+change(r"""\emph{Partial recursive functions.} Start with zero, successor and projections;""",r"""\emph{Partial recursive functions.} Compare two orders. ``Try the first ten tickets''
+gives you a stopping point before you begin. ``Try tickets in order until one
+passes'' does not. If each test finishes, the second order can still keep you
+working forever because every ticket fails. If one test itself never finishes,
+you never reach the next ticket. Those are the differences between a bounded
+loop and the search used here.
+Start with zero, successor and projections;""")
+change(r"""\emph{The language $L$.} The Scott numeral definitions and the delayed recursion""",r"""\emph{The language $L$.} Fold two instruction cards shut. One says ``put three beans
+in the output cup and stop''; the other says ``keep adding beans forever.'' A zero
+input is to choose the first card. If your rule makes you carry out both cards
+before choosing, you never deliver the three beans. You have to keep the
+instructions folded until the choice is made. An abstraction does that job in
+weak call-by-value: its body waits until the abstraction is applied.
+The Scott numeral definitions and the delayed recursion""")
+change(r"""The evaluators used in Section~\ref{sec:small-diagonal} need no undecided infinite test.
+A program and a natural budget determine a finite simulation. Enumerate budgets""",r"""Give yourself one token and run one instruction of the program you want to test.
+If it has not stopped, reset its starting arrangement, give yourself two tokens
+and try again. Then three. A program that stops after seven instructions is found
+on the seven-token attempt. Seeing six attempts fail says only that it has not
+stopped within six instructions; it does not tell you it runs forever.
+
+The evaluators used in Section~\ref{sec:small-diagonal} work by that search. A program
+and a natural budget determine a finite simulation. Enumerate budgets""")
+change('using only INC, DEC and HALT, hence costs\nzero and leaves', 'using only INC, DEC and HALT, hence costs\nzero in the certification ledger and leaves') if 'using only INC, DEC and HALT, hence costs\nzero and leaves' in s else None
+
+(R/'working.tex').write_text(s)
+(R/'changes.json').write_text(json.dumps(changes,indent=2,ensure_ascii=False)+'\n')
+(R/'Passages-for-review.txt').write_text('\n\n'.join(f'PASSAGE {i+1}\n\n'+c['after'] for i,c in enumerate(changes))+'\n')
+print(len(changes),'passages;',len(s.split())-len((R/'before.tex').read_text().split()),'net added words')

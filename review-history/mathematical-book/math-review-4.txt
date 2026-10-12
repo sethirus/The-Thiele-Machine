@@ -1,0 +1,229 @@
+thm:chsh-check-sound
+--- 
++++ 
+@@ -1,7 +1,5 @@
+ \begin{theorem}[Soundness of the integer check]\label{thm:chsh-check-sound}
+-If \code{column\_contractive\_check\_witness} $w$ = \code{true}, then the four correlators
+-\code{state\_bucket\_correlation} $\mathrm{same}_{xy}\ \mathrm{diff}_{xy}$ of $w$ are column
+-contractive. This is \code{column\_contractive\_check\_witness\_sound}
+-(kernel/quantum/CHSHColumnCheck.v), and \code{column\_contractive\_check\_witness\_npa\_psd}
+-(same file) carries it on to PSD of the pinned matrix.
++If a tally $w$ passes the seven-integer check, then its four correlators
++$E_{xy}=D_{xy}/N_{xy}$ are column contractive. Consequently its pinned matrix is positive
++semidefinite.
+ \end{theorem}
+
+cor:chsh-check-bound
+--- 
++++ 
+@@ -1,5 +1,5 @@
+ \begin{corollary}[A passed check implies the Tsirelson bound]\label{cor:chsh-check-bound}
+-If \code{column\_contractive\_check\_witness} $w$ = \code{true}, the correlators of $w$ satisfy
++If a tally $w$ passes the seven-integer check, the correlators of $w$ satisfy
+ $S^2 \le 8$. It is the composition of Theorem~\ref{thm:chsh-check-sound},
+ Corollary~\ref{cor:chsh-iff} and Theorem~\ref{thm:chsh-psd-tsirelson}.
+ \end{corollary}
+
+def:chsh-nine
+--- 
++++ 
+@@ -1,5 +1,4 @@
+-\begin{definition}[\code{q1ab\_moment\_matrix}]\label{def:chsh-nine}
+-(kernel/quantum/QuantumPartitionPSD\_\allowbreak{}1AB.v) The $9 \times 9$ real matrix on rows and
+-columns $I, A_0, A_1, B_0, B_1, A_0B_0, A_0B_1, A_1B_0, A_1B_1$, with the entries exactly as
+-the Coq definition places them:
++\begin{definition}[The level-1+AB matrix]\label{def:chsh-nine}
++The $9 \times 9$ real matrix on rows and
++columns $I, A_0, A_1, B_0, B_1, A_0B_0, A_0B_1, A_1B_0, A_1B_1$, with the following entries:
+ \end{definition}
+
+def:chsh-residual
+--- 
++++ 
+@@ -1,11 +1,10 @@
+-\begin{definition}[The residual, \code{q1ab\_residual}]\label{def:chsh-residual}
+-(QuantumPartitionPSD\_\allowbreak{}1AB.v)
++\begin{definition}[The residual]\label{def:chsh-residual}
+ \[
+ \begin{aligned}
+ R ={}& v_{B_0}^2 + v_{B_1}^2 + v_{00}^2 + v_{01}^2 + v_{10}^2 + v_{11}^2 \\
+ &+ 2 v_{B_0} (\gamma_3 v_{01} + \gamma_4 v_{11}) + 2 v_{B_1} (\gamma_3 v_{00} + \gamma_4 v_{10}) \\
+-&+ 2 \gamma_5 (v_{00} v_{11} - v_{01} v_{10}) - L_1^2 - L_2^2 - L_3^2 .
++&+ 2 \gamma_5 (v_{00} v_{11} - v_{01} v_{10}) - L_1^2 - L_2^2 - L_3^2.
+ \end{aligned}
+ \]
+-The predicate \code{column\_contractive\_q1ab} says $R \ge 0$ for all six real inputs.
++The condition called column contractivity at level 1+AB is $R \ge 0$ for all six real inputs.
+ \end{definition}
+
+lem:chsh-nine-sos
+--- 
++++ 
+@@ -1,6 +1,6 @@
+-\begin{lemma}[Three squares plus the residual, \code{quad9\_q1ab\_sos\_decomposition}]\label{lem:chsh-nine-sos}
+-(QuantumPartitionPSD\_\allowbreak{}1AB.v, closed by \code{ring}.) For every vector,
++\begin{lemma}[Three squares plus the residual]\label{lem:chsh-nine-sos}
++For every vector,
+ \[
+-v^{\mathsf T} M_9\, v = (v_I + L_1)^2 + (v_{A_0} + L_2)^2 + (v_{A_1} + L_3)^2 + R .
++v^{\mathsf T} M_9\, v = (v_I + L_1)^2 + (v_{A_0} + L_2)^2 + (v_{A_1} + L_3)^2 + R.
+ \]
+ \end{lemma}
+
+thm:chsh-nine-iff
+--- 
++++ 
+@@ -1,6 +1,5 @@
+-\begin{theorem}[PSD at level 1+AB, \code{q1ab\_psd\_iff\_column\_contractive}]\label{thm:chsh-nine-iff}
+-(QuantumPartitionPSD\_\allowbreak{}1AB.v) For all real $E_{xy}$ and $\gamma_1, \ldots, \gamma_5$,
+-\code{PSD9} of the matrix of Definition~\ref{def:chsh-nine} holds if and only if \code{column\_contractive\_q1ab}
+-holds. The directions are \code{column\_contractive\_q1ab\_implies\_psd9} and
+-\code{psd9\_implies\_column\_contractive\_q1ab}.
++\begin{theorem}[PSD at level 1+AB]\label{thm:chsh-nine-iff}
++For all real $E_{xy}$ and $\gamma_1, \ldots, \gamma_5$,
++the matrix of Definition~\ref{def:chsh-nine} is positive semidefinite if and only if
++the residual $R$ is nonnegative for every choice of its six real inputs.
+ \end{theorem}
+
+lem:chsh-schur-step
+--- 
++++ 
+@@ -4,10 +4,8 @@
+ the score plays no part
+ in this lemma),
+ \[
+-h_{11} \, v^{\mathsf T} h\, v = \Bigl(\sum_{j} h_{1j} v_j\Bigr)^2 + \sum_{i,j \ge 2} S_{ij} v_i v_j .
++h_{11} \, v^{\mathsf T} h\, v = \Bigl(\sum_{j} h_{1j} v_j\Bigr)^2 + \sum_{i,j \ge 2} S_{ij} v_i v_j.
+ \]
+ So if $h_{11} > 0$ and the $(n-1) \times (n-1)$ matrix $S$ gives a nonnegative form, then $h$
+-does too. The instances used are \code{sym6\_Schur\_identity} (QuantumPartitionPSD\_\allowbreak{}1AB.v) and
+-\code{sym5\_Schur\_identity}, with the conclusions \code{sym6\_qf\_nonneg\_from\_pd} and
+-\code{sym5\_qf\_nonneg\_from\_pd}.
++does too. The cascade uses this identity at sizes six and five.
+ \end{lemma}
+
+lem:chsh-sylvester
+--- 
++++ 
+@@ -1,5 +1,5 @@
+-\begin{lemma}[Sylvester for 4x4, \code{sym4\_qf\_nonneg\_from\_pd}]\label{lem:chsh-sylvester}
+-(QuantumPartitionPSD\_\allowbreak{}1AB.v) Let $h$ be symmetric $4 \times 4$ with leading principal
+-minors $d_1, d_2, d_3, d_4$ (\code{sym4\_d1} to \code{sym4\_d4}). If all four are
++\begin{lemma}[Sylvester for 4x4]\label{lem:chsh-sylvester}
++Let $h$ be symmetric $4 \times 4$ with leading principal
++minors $d_1, d_2, d_3, d_4$. If all four are
+ strictly positive, then $v^{\mathsf T} h\, v \ge 0$ for all $v$.
+ \end{lemma}
+
+def:chsh-g12345
+--- 
++++ 
+@@ -2,17 +2,16 @@
+ The supplied moments arrive as bucket pairs: $\gamma_k = N_{g_k}/D_{g_k}$ with
+ $N_{g_k} = \mathrm{same}_{g_k} - \mathrm{diff}_{g_k}$ and
+ $D_{g_k} = \mathrm{same}_{g_k} + \mathrm{diff}_{g_k}$. Watch the letters: for these five
+-buckets the source swaps them, so here $N$ is the difference and $D$ the count, the reverse
+-of item A. I keep the source's letters so the names below match the files. Let
+-$K = (N_{00} N_{01} N_{10} N_{11} D_{g_1} D_{g_2} D_{g_3} D_{g_4} D_{g_5})^2$
+-(\code{g12345\_COMMON\_Z}, kernel/quantum/CHSHColumnCheck.v). The check computes the 21 integers
+-$K H_{ij}$ (\code{cleared\_g12345\_H11\_Z} to \code{cleared\_g12345\_H66\_Z}), the 15
++buckets $N$ names the numerator and $D$ the denominator: the difference and the count, the reverse
++of item A. Let
++$K = (N_{00} N_{01} N_{10} N_{11} D_{g_1} D_{g_2} D_{g_3} D_{g_4} D_{g_5})^2$. The check computes the 21 integers
++$K H_{ij}$, the 15
+ integers of $S^{(6)}$ at scale $K^2$ and the 10 integers of $S^{(5)}$ at scale $K^4$, each by
+-\code{schur\_step\_Z}, $h_{11} h_{ij} - h_{1i} h_{1j}$ on integers. The
+-decider \code{q1ab\_g12345\_check\_z\_kernel} is the conjunction of: $N_{xy} > 0$ for the four
++$h_{11} h_{ij} - h_{1i} h_{1j}$ on integers. The
++decider is the conjunction of: $N_{xy} > 0$ for the four
+ pairs; $D_{g_k} > 0$ for $k = 1..5$; $-D_{g_k} < N_{g_k} < D_{g_k}$ for $k = 1..5$; and six
+ strict positivities, namely $K H_{11} > 0$, $K^2 S^{(6)}_{22} > 0$, and the four leading
+ minors of the integer $S^{(5)}$. The full check
+-\code{q1ab\_g12345\_full\_integer\_check\_kernel} is \code{column\_contractive\_check\_witness} of item
+-E and this decider.
++combines the seven-integer check of item
++E with this decider.
+ \end{definition}
+
+thm:chsh-g12345
+--- 
++++ 
+@@ -1,8 +1,6 @@
+ \begin{theorem}[The full 1+AB check implies PSD]\label{thm:chsh-g12345}
+ Let the counts make every $N_{xy}$ and every $D_{g_k}$ positive, and let
+-\code{q1ab\_g12345\_check\_z\_kernel} pass on them. Then the matrix of
++the decider just defined pass on them. Then the matrix of
+ Definition~\ref{def:chsh-nine} at the four correlators and $\gamma_k = N_{g_k}/D_{g_k}$ is
+-symmetric and \code{PSD9}. This is \code{q1ab\_g12345\_caller\_witness\_z\_abs\_sound} followed by
+-\code{q1ab\_g12345\_minors\_witness\_implies\_psd9}
+-(kernel/quantum/QuantumPartitionPSD\_\allowbreak{}1AB.v).
++symmetric and positive semidefinite.
+ \end{theorem}
+
+rem:chsh-interior
+--- 
++++ 
+@@ -3,8 +3,5 @@
+ definite, which is stronger than semidefinite. A point where $H$ is PSD but singular cannot pass, and
+ neither can a moment with $|\gamma_k| = 1$. For example, the tally of item E with correlators
+ $(3/5, 4/5, 4/5, -3/5)$ has $H_{11} = 1 - 9/25 - 16/25 = 0$, so the full 1+AB check fails on it
+-for every choice of $\gamma$, though the level-1 check of item E accepts it
+-(\code{nec\_e\_singular\_full\_fails} and \code{nec\_e\_singular\_level1\_passes},
+-NecEChshEquality.v). The source proves
+-soundness only; no converse is stated.
++for every choice of $\gamma$, though the level-1 check of item E accepts it. The argument establishes soundness only; no converse is stated.
+ \end{remark}
+
+thm:chsh-gzero
+--- 
++++ 
+@@ -1,7 +1,5 @@
+ \begin{theorem}[The zero-moment check sits inside the classical bound]\label{thm:chsh-gzero}
+-If \code{column\_contractive\_check\_q1ab} $w$ = \code{true} (QuantumPartitionPSD\_\allowbreak{}1AB.v, the same
+-function), then the four correlators of $w$ satisfy
++If the zero-moment check accepts a tally $w$, then the four correlators of $w$ satisfy
+ $E_{00}^2 + E_{01}^2 + E_{10}^2 + E_{11}^2 \le 1$
+-(\code{q1ab\_check\_at\_gzero\_forces\_unit\_ball}) and $|S| \le 2$
+-(\code{q1ab\_check\_at\_gzero\_implies\_classical\_bound}).
++ and $|S| \le 2$.
+ \end{theorem}
+
+def:chsh-elliptope
+--- 
++++ 
+@@ -1,6 +1,6 @@
+ \begin{definition}[Completion and membership]\label{def:chsh-elliptope}
+-\code{completed\_npa} (kernel/quantum/ElliptopeCompletion.v) is the record of item D with the
+-within-party entries set to free reals: $x$ in the $(A_0, A_1)$ cells and $y$ in the
++Complete the matrix of item D by setting the
++within-party entries to free reals: $x$ in the $(A_0, A_1)$ cells and $y$ in the
+ $(B_0, B_1)$ cells, marginals still zero. The correlators are elliptope realizable
+-(\code{elliptope\_realizable}) when some $x, y$ make the completed matrix symmetric and PSD.
++ when some $x, y$ make the completed matrix symmetric and PSD.
+ \end{definition}
+
+thm:chsh-ell-det
+--- 
++++ 
+@@ -1,5 +1,5 @@
+-\begin{theorem}[Deterministic plans are inside, \code{deterministic\_strategy\_elliptope}]\label{thm:chsh-ell-det}
+-(ElliptopeCompletion.v) If $a_0^2 = a_1^2 = b_0^2 = b_1^2 = 1$, then
++\begin{theorem}[Deterministic plans are inside]\label{thm:chsh-ell-det}
++ If $a_0^2 = a_1^2 = b_0^2 = b_1^2 = 1$, then
+ $(a_0 b_0, a_0 b_1, a_1 b_0, a_1 b_1)$ is elliptope realizable, with $x = a_0 a_1$ and
+ $y = b_0 b_1$.
+ \end{theorem}
+
+thm:chsh-ell-convex
+--- 
++++ 
+@@ -1,7 +1,5 @@
+ \begin{theorem}[Convexity and finite mixtures]\label{thm:chsh-ell-convex}
+ For $0 \le \lambda \le 1$, if $E$ and $F$ are elliptope realizable, so is
+-$\lambda E + (1 - \lambda) F$ (\code{elliptope\_convex}, ElliptopeCompletion.v). For finitely
+-many members with nonnegative weights summing to at most 1, the weighted sum is realizable
+-(\code{elliptope\_finite\_mixture}). Every finite mixture of deterministic plans is realizable
+-(\code{lhv\_mixture\_elliptope}).
++$\lambda E + (1 - \lambda) F$. For finitely
++many members with nonnegative weights summing to at most 1, the weighted sum is realizable. Every finite mixture of deterministic plans is realizable.
+ \end{theorem}

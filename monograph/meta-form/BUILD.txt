@@ -1,0 +1,28 @@
+The Thiele Machine — The shape
+Devon Thiele
+
+This folder is a local design experiment. It does not replace monograph.tex,
+monograph.pdf, or the v4.0.0 release.
+
+Run from a checkout containing release commit e4c234627651:
+
+    python monograph/meta-form/make_book.py
+    python monograph/meta-form/verify_book.py
+
+Dependencies: Python 3.12, PyMuPDF 1.26.6, NumPy; Debian/Ubuntu package
+fonts-urw-base35 at /usr/share/fonts/opentype/urw-base35. The PDF embeds fonts.
+The construction receipt records the exact font hashes used.
+
+Read The-Thiele-Machine-The-Shape.pdf in page order. The page size is
+190.5 by 254 mm. For loose leaves use actual size and long-edge duplex.
+The separate booklet PDF imposes exactly the same twenty pages onto five
+landscape sheets: print actual size, short-edge duplex, and fold in half.
+An A3 or larger sheet accommodates each 381 by 254 mm imposed spread.
+
+The PDF and print use the same content. Small text, turned text, a crossing,
+and a large word perceived as negative space are deliberate. The full
+source passage is set conventionally on pages 2 and 16.
+
+construction.json retains the source paragraph, source revision, each word's
+identity and placement, font hashes, and output hash. verification.json
+records construction checks; it makes no claim of artistic success.

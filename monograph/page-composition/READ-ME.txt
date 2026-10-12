@@ -1,0 +1,23 @@
+THE THIELE MACHINE — PAGE COMPOSITION PROPOSAL
+Devon Thiele
+
+This proposal changes the visual setting only. The complete document body
+is passed through verbatim, including paragraph boundaries, headings,
+sequence, and authored explicit breaks. The manuscript remains the source
+of organization. Generic heading-fit rules prevent stranded headings.
+
+The setting uses Charter body text, contrasting sans-serif headings,
+wider outer margins, open paragraph spacing, upright statements, and
+folios without repeated running titles. It is a visual proposal for
+judgement, not a declaration that the artistic brief is finished.
+
+build.py compiles the complete manuscript with book.sty. review.py checks
+body equality, numbered labels, missing glyphs, unresolved references,
+and page boundaries. make_preview.py extracts actual adjacent pages into
+a twelve-page sample and six-spread review PDF. The source of every spread
+is recorded in selected-pages.json beside the exported files.
+
+The complete PDF and individual-page sample use a 190 x 255 mm page.
+The six-spread review PDF shows two such pages side by side at 380 x 255 mm.
+For an ordinary physical proof, print the complete or individual-page PDF
+at actual size. Paper and binding have not been physically tested.

@@ -1,0 +1,522 @@
+[
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:equiv-partition"
+    ],
+    "before": "\\begin{theorem}[Sameness and sorting are one object]\\label{thm:equiv-partition}\nEvery equivalence relation on $X$ determines a partition, whose blocks are the classes\n$[x] = \\{\\, y \\in X : y \\sim x \\,\\}$; every partition determines an equivalence relation,\n``$x$ and $y$ lie in the same block''; and the two constructions undo each other.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Sameness and sorting are one object]\\label{thm:equiv-partition}\nEvery equivalence relation on $X$ determines a partition, whose blocks are the classes\n$[x] = \\{\\, y \\in X: y \\sim x \\,\\}$; every partition determines an equivalence relation,\n``$x$ and $y$ lie in the same block''; and the two constructions undo each other.\n\\end{theorem}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:certsys"
+    ],
+    "before": "\\begin{definition}[Certification system]\\label{def:certsys}\nA \\emph{certification system} consists of a set $S$ of states, a set $I$ of move names, a step\nfunction $\\mathrm{step} : S \\times I \\to S$, a cost $\\mathrm{cost} : I \\to \\mathbb{N}$, and a\nreading $\\mathrm{cert} : S \\to \\{\\mathrm{no}, \\mathrm{yes}\\}$, subject to one rule, the\n\\emph{toll}: for every state $s$ and move $i$,\n\\[\n\\mathrm{cert}(s) = \\mathrm{no} \\text{ and } \\mathrm{cert}(\\mathrm{step}(s,i)) = \\mathrm{yes}\n\\;\\Longrightarrow\\; \\mathrm{cost}(i) \\ge 1.\n\\]\nThe run of $t = [i_1, \\ldots, i_n]$ from $s_0$ ends at $\\mathrm{run}(t, s_0)$, the result of\napplying the steps in order, and its total cost is\n$\\mathrm{cost}(t) = \\mathrm{cost}(i_1) + \\cdots + \\mathrm{cost}(i_n)$, with the empty run\ncosting 0.\n\\end{definition}",
+    "after": "\\begin{definition}[Certification system]\\label{def:certsys}\nA \\emph{certification system} consists of a set $S$ of states, a set $I$ of move names, a step\nfunction $\\mathrm{step}: S \\times I \\to S$, a cost $\\mathrm{cost}: I \\to \\mathbb{N}$, and a\nreading $\\mathrm{cert}: S \\to \\{\\mathrm{no}, \\mathrm{yes}\\}$, subject to one rule, the\n\\emph{toll}: for every state $s$ and move $i$,\n\\[\n\\mathrm{cert}(s) = \\mathrm{no} \\text{ and } \\mathrm{cert}(\\mathrm{step}(s,i)) = \\mathrm{yes}\n\\;\\Longrightarrow\\; \\mathrm{cost}(i) \\ge 1.\n\\]\nThe run of $t = [i_1, \\ldots, i_n]$ from $s_0$ ends at $\\mathrm{run}(t, s_0)$, the result of\napplying the steps in order, and its total cost is\n$\\mathrm{cost}(t) = \\mathrm{cost}(i_1) + \\cdots + \\mathrm{cost}(i_n)$, with the empty run\ncosting 0.\n\\end{definition}"
+  },
+  {
+    "kind": "premise",
+    "labels": [
+      "prem:merge-pricing"
+    ],
+    "before": "\\begin{premise}[Merge pricing]\\label{prem:merge-pricing}\nEvery move that merges costs at least one: for all $i$, if $i$ is not injective then\n$\\mathrm{cost}(i) \\ge 1$. (Checked name: \\code{merging\\_steps\\_priced}.)\n\\end{premise}",
+    "after": "\\begin{premise}[Merge pricing]\\label{prem:merge-pricing}\nEvery move that merges costs at least one: for all $i$, if $i$ is not injective then\n$\\mathrm{cost}(i) \\ge 1$.\n\\end{premise}"
+  },
+  {
+    "kind": "premise",
+    "labels": [
+      "prem:halving"
+    ],
+    "before": "\\begin{premise}[Halving price]\\label{prem:halving}\nEach mark pays for at most one halving: for every move $i$ and every list $D$ of states with\nno repeats, $|D| \\le 2^{\\mathrm{cost}(i)} \\cdot \\mathrm{img}_i(D)$. (Checked name:\n\\code{compression\\_priced}. It implies merge pricing, since a merge sends two different states to\none and so needs $\\mathrm{cost}(i) \\ge 1$.)\n\\end{premise}",
+    "after": "\\begin{premise}[Halving price]\\label{prem:halving}\nEach mark pays for at most one halving: for every move $i$ and every list $D$ of states with\nno repeats, $|D| \\le 2^{\\mathrm{cost}(i)} \\cdot \\mathrm{img}_i(D)$. (It implies merge pricing, since a merge sends two different states to\none and so needs $\\mathrm{cost}(i) \\ge 1$.)\n\\end{premise}"
+  },
+  {
+    "kind": "premise",
+    "labels": [
+      "prem:landauer"
+    ],
+    "before": "\\begin{premise}[Landauer's principle, as a premise]\\label{prem:landauer}\nA step that lowers the entropy of the machine's state by $\\Delta H$ bits, at temperature\n$T$, gives off heat $Q \\ge k_B T \\ln 2 \\cdot \\Delta H$, where $k_B$ is Boltzmann's constant.\n(Checked name: \\code{landauer\\_heat}, with $k_B T$ as one variable.)\n\\end{premise}",
+    "after": "\\begin{premise}[Landauer's principle, as a premise]\\label{prem:landauer}\nA step that lowers the entropy of the machine's state by $\\Delta H$ bits, at temperature\n$T$, gives off heat $Q \\ge k_B T \\ln 2 \\cdot \\Delta H$, where $k_B$ is Boltzmann's constant.\n\\end{premise}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:machine-narrowing"
+    ],
+    "before": "\\begin{theorem}[The machine's own narrowing is priced]\\label{thm:machine-narrowing}\nIf the cost satisfies the halving price (Premise~\\ref{prem:halving}), then for every run $t$\nand every list $D$ of starting states with no repeats,\n\\[\n\\lceil \\log_2 |D| \\rceil \\;\\le\\; \\mathrm{cost}(t) + \\lceil \\log_2 |\\mathrm{img}_t(D)| \\rceil .\n\\]\n\\end{theorem}",
+    "after": "\\begin{theorem}[The machine's own narrowing is priced]\\label{thm:machine-narrowing}\nIf the cost satisfies the halving price (Premise~\\ref{prem:halving}), then for every run $t$\nand every list $D$ of starting states with no repeats,\n\\[\n\\lceil \\log_2 |D| \\rceil \\;\\le\\; \\mathrm{cost}(t) + \\lceil \\log_2 |\\mathrm{img}_t(D)| \\rceil.\n\\]\n\\end{theorem}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:potential"
+    ],
+    "before": "\\begin{definition}[Potential, amortized cost]\\label{def:potential}\nA \\emph{potential} is a function $\\Phi : S \\to \\mathbb{N}$. A step has \\emph{non-negative amortized\ncost} under $\\Phi$ when $\\mathrm{cost}(i) + \\Phi(\\mathrm{step}(s, i)) \\ge \\Phi(s)$. The\n\\emph{flag potential} is $\\Phi_\\mathrm{cert}(s) = 1$ if $\\mathrm{cert}(s) = \\mathrm{no}$ and $0$\nif it reads yes.\n\\end{definition}",
+    "after": "\\begin{definition}[Potential, amortized cost]\\label{def:potential}\nA \\emph{potential} is a function $\\Phi: S \\to \\mathbb{N}$. A step has \\emph{non-negative amortized\ncost} under $\\Phi$ when $\\mathrm{cost}(i) + \\Phi(\\mathrm{step}(s, i)) \\ge \\Phi(s)$. The\n\\emph{flag potential} is $\\Phi_\\mathrm{cert}(s) = 1$ if $\\mathrm{cert}(s) = \\mathrm{no}$ and $0$\nif it reads yes.\n\\end{definition}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:u08-entitlement"
+    ],
+    "before": "\\begin{definition}[Entitlement]\\label{def:u08-entitlement}\nA run is \\emph{entitled} to a claim when three things are on hand: an \\emph{object} carried in the run's\nstates; a \\emph{checked relation} between that object and the claim, meaning a test that was run\nand whose result is on the record; and a \\emph{paid event}, a move of the run at which\nthe object was put in place and which the price list charged at least one. In a certification\nsystem (Definition~\\ref{def:certsys}) a move that takes the reading from no to yes is such a\nmove, because the toll charges it. This is the book's word; there's no Coq definition of it.\n\\end{definition}",
+    "after": "\\begin{definition}[Entitlement]\\label{def:u08-entitlement}\nA run is \\emph{entitled} to a claim when three things are on hand: an \\emph{object} carried in the run's\nstates; a \\emph{checked relation} between that object and the claim, meaning a test that was run\nand whose result is on the record; and a \\emph{paid event}, a move of the run at which\nthe object was put in place and which the price list charged at least one. In a certification\nsystem (Definition~\\ref{def:certsys}) a move that takes the reading from no to yes is such a\nmove, because the toll charges it. This is the book's word.\n\\end{definition}"
+  },
+  {
+    "kind": "remark",
+    "labels": [
+      "rem:u09-three"
+    ],
+    "before": "\\begin{remark}[What the toll prices, and what it doesn't]\\label{rem:u09-three}\nRead off Definition~\\ref{def:certsys} and Observation~\\ref{thm:universal-floor}, and checked on the\nboard as a certification system (\\code{nec\\_f\\_board\\_raw\\_free}, \\code{nec\\_f\\_board\\_floor} and\n\\code{nec\\_f\\_board\\_floor\\_flat}, NecFPaperToys.v). (1) The toll puts no bound on the cost of a raw-observation\nmove; on Section~\\ref{sec:toll}'s board STAY and WORK are raw observation and cost $0$. (2) Every certified\ninsight event is charged at least $1$, by the toll, and every run from a state reading no to\none reading yes has total cost at least $1$, by the universal floor. (3) The price is flat:\nthe floor's proof uses nothing about the end state but its reading, so adding any hypothesis\nabout what else the end state shows leaves the bound at $1$ and cannot raise it. A system that\nwants to charge more for a deeper certification has to write that into its price list, move\nby move; the toll doesn't do it for anyone.\n\\end{remark}",
+    "after": "\\begin{remark}[What the toll prices, and what it doesn't]\\label{rem:u09-three}\nRead off Definition~\\ref{def:certsys} and Observation~\\ref{thm:universal-floor}, and checked on the\nboard as a certification system. (1) The toll puts no bound on the cost of a raw-observation\nmove; on Section~\\ref{sec:toll}'s board STAY and WORK are raw observation and cost $0$. (2) Every certified\ninsight event is charged at least $1$, by the toll, and every run from a state reading no to\none reading yes has total cost at least $1$, by the universal floor. (3) The price is flat:\nthe floor's proof uses nothing about the end state but its reading, so adding any hypothesis\nabout what else the end state shows leaves the bound at $1$ and cannot raise it. A system that\nwants to charge more for a deeper certification has to write that into its price list, move\nby move; the toll doesn't do it for anyone.\n\\end{remark}"
+  },
+  {
+    "kind": "remark",
+    "labels": [
+      "rem:u09-no-wait"
+    ],
+    "before": "\\begin{remark}[Nothing makes the crossing wait]\\label{rem:u09-no-wait}\nRead off Definition~\\ref{def:certsys}, and checked on the board as \\code{nec\\_f\\_board\\_no\\_wait}\n(NecFPaperToys.v). The toll constrains\n$\\mathrm{cost}(i)$ for moves that cross, and nothing else; the step function is any function\nof the current state and the move. So a certification system may have a move that crosses\nfrom a state no check has touched, and the toll still holds. On Section~\\ref{sec:toll}'s board extended with\nCHECK, the run $[\\mathrm{VOUCH}]$ from NO crosses with one mark, and so does\n$[\\mathrm{CHECK}, \\mathrm{VOUCH}]$. Making a crossing depend on an earlier check is a\ncondition on the step function, which a particular system can impose and the definition does\nnot.\n\\end{remark}",
+    "after": "\\begin{remark}[Nothing makes the crossing wait]\\label{rem:u09-no-wait}\nRead off Definition~\\ref{def:certsys}. The toll constrains\n$\\mathrm{cost}(i)$ for moves that cross, and nothing else; the step function is any function\nof the current state and the move. So a certification system may have a move that crosses\nfrom a state no check has touched, and the toll still holds. On Section~\\ref{sec:toll}'s board extended with\nCHECK, the run $[\\mathrm{VOUCH}]$ from NO crosses with one mark, and so does\n$[\\mathrm{CHECK}, \\mathrm{VOUCH}]$. Making a crossing depend on an earlier check is a\ncondition on the step function, which a particular system can impose and the definition does\nnot.\n\\end{remark}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:u11-reversible"
+    ],
+    "before": "\\begin{theorem}[Records on reversible machines]\\label{thm:u11-reversible}\n(1) Let $B$ be a base whose step is injective. The machine with states $(b, r, H, x)$, step\n$(b, r, H, x) \\mapsto (\\mathrm{next}_B(b),\\ r \\lor h(b),\\ r :: H,\\ x + \\delta)$ ($\\delta$ as in\nTheorem~\\ref{thm:u11-converse}), starting states with $r$ off, $H$ empty and $x = 0$, has an\ninjective step, and under the supposition of Theorem~\\ref{thm:u11-converse} it is a base-driven\nrecord over $B$. (2) On a finite state space, a single injective step with a permanent\nreading never turns that reading from off to on.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Records on reversible machines]\\label{thm:u11-reversible}\n(1) Let $B$ be a base whose step is injective. The machine with states $(b, r, H, x)$, step\n$(b, r, H, x) \\mapsto (\\mathrm{next}_B(b),\\ r \\lor h(b),\\ r:: H,\\ x + \\delta)$ ($\\delta$ as in\nTheorem~\\ref{thm:u11-converse}), starting states with $r$ off, $H$ empty and $x = 0$, has an\ninjective step, and under the supposition of Theorem~\\ref{thm:u11-converse} it is a base-driven\nrecord over $B$. (2) On a finite state space, a single injective step with a permanent\nreading never turns that reading from off to on.\n\\end{theorem}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:u12-substrate"
+    ],
+    "before": "\\begin{definition}[Substrate]\\label{def:u12-substrate}\nA \\emph{substrate} has a type of states, a type $\\mathrm{Prog}$ of programs, and a run map that\ntakes a program and a state and either gives back a state or gives nothing. It has a counter\n$\\mu$ on states and a step relation along which $\\mu$ never decreases; an encoding\n$\\mathrm{enc}$ of programs as states with a decoder $\\mathrm{dec}$ such that\n$\\mathrm{dec}(\\mathrm{enc}(p)) = p$; and a predicate $\\mathrm{Rep}$ on maps\n$f : \\mathrm{Prog} \\to \\mathrm{Prog}$, the transformations the substrate counts as its own.\nTwo programs are \\emph{equivalent}, $p \\simeq q$, when $\\mathrm{run}(p, s) = \\mathrm{run}(q, s)$\nfor every state $s$. The last field is the \\emph{recursion theorem}: for every $f$ with\n$\\mathrm{Rep}(f)$ there is a program $p$ with $p \\simeq f(p)$.\n\\end{definition}",
+    "after": "\\begin{definition}[Substrate]\\label{def:u12-substrate}\nA \\emph{substrate} has a type of states, a type $\\mathrm{Prog}$ of programs, and a run map that\ntakes a program and a state and either gives back a state or gives nothing. It has a counter\n$\\mu$ on states and a step relation along which $\\mu$ never decreases; an encoding\n$\\mathrm{enc}$ of programs as states with a decoder $\\mathrm{dec}$ such that\n$\\mathrm{dec}(\\mathrm{enc}(p)) = p$; and a predicate $\\mathrm{Rep}$ on maps\n$f: \\mathrm{Prog} \\to \\mathrm{Prog}$, the transformations the substrate counts as its own.\nTwo programs are \\emph{equivalent}, $p \\simeq q$, when $\\mathrm{run}(p, s) = \\mathrm{run}(q, s)$\nfor every state $s$. The last condition is the \\emph{recursion theorem}: for every $f$ with\n$\\mathrm{Rep}(f)$ there is a program $p$ with $p \\simeq f(p)$.\n\\end{definition}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:u13-quote"
+    ],
+    "before": "\\begin{definition}[Platform and quote]\\label{def:u13-quote}\nFix any functions $H : \\mathbb{N} \\times \\mathbb{N} \\to \\mathbb{N}$ (the extend hash) and\n$\\delta : \\mathbb{N} \\to \\mathbb{N}$ (the digest); nothing is assumed about either. A\n\\emph{platform} is a measurement log (a list of numbers) and a Boolean runtime flag. Its register\nis the log folded from 0 by $H$. The \\emph{quote} with nonce $n$ is the pair\n$(\\delta(\\text{register}), n)$.\n\\end{definition}",
+    "after": "\\begin{definition}[Platform and quote]\\label{def:u13-quote}\nFix any functions $H: \\mathbb{N} \\times \\mathbb{N} \\to \\mathbb{N}$ (the extend hash) and\n$\\delta: \\mathbb{N} \\to \\mathbb{N}$ (the digest); nothing is assumed about either. A\n\\emph{platform} is a measurement log (a list of numbers) and a Boolean runtime flag. Its register\nis the log folded from 0 by $H$. The \\emph{quote} with nonce $n$ is the pair\n$(\\delta(\\text{register}), n)$.\n\\end{definition}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:u34-undecidable"
+    ],
+    "before": "\\begin{theorem}[Halting is undecidable for this machine]\\label{thm:u34-undecidable}\nThe library's two-counter machine agrees with the INC/DEC fragment: its step, its stop, and\nits termination match those of the compiled program, so a library problem $(P, a, b)$ halts\nif and only if the compiled program halts from $\\mathrm{start}(a, b)$. Consequently, the\nquestion ``does program $P$ halt from $\\mathrm{start}(a, b)$?'' is undecidable in the\nlibrary's sense: a decider for it would make the complement of single-tape binary Turing machine\nhalting enumerable.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Halting is undecidable for this machine]\\label{thm:u34-undecidable}\nThe two-counter machine used by Forster, Larchey-Wendling and coauthors agrees with the\nINC/DEC fragment: its step, its stop, and its termination match those of the compiled program,\nso its halting problem at $(P, a, b)$ has a positive answer\nif and only if the compiled program halts from $\\mathrm{start}(a, b)$. Consequently, the\nquestion ``does program $P$ halt from $\\mathrm{start}(a, b)$?'' is undecidable in the\nfollowing reduction sense: a decider for it would make the complement of single-tape binary Turing machine\nhalting enumerable.\n\\end{theorem}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:u34-U-complete"
+    ],
+    "before": "\\begin{theorem}[The host is Thiele-complete, and $U$'s halting is undecidable]\\label{thm:u34-U-complete}\n(1) The host machine, with $\\mathsf{Slot}$ as its property and one move per instruction, is\nThiele-complete (Definition~\\ref{def:u34-thiele-complete}), and Thiele-complete over its own\nclaim language, whose claims are ``$\\mathsf{Slot}$ holds of register $r$,'' whose meanings are\nwritten without the host's checker, and whose ``unchanged'' is ``same value and same version of\nregister $r$''; and $U$'s run from $\\mathrm{hload}(P, x, y)$ is a run of it. (2) Read as a certification system it obeys the universal\nfloor; a run of $U$ that raises the host's flag costs at least 3 there. The system built from its\nThiele-completeness agrees with it step for step and cost for cost, so the same run costs at least\n3 on that one too, and the universal floor of 1 holds there directly.\n(3) $U$ halts from $\\mathrm{hload}(P, x, y)$ exactly when $P$ halts from $\\mathrm{start}(x, y)$, so\nthe question ``does $U$ halt from this loaded host?'' is undecidable in the library's sense of\nTheorem~\\ref{thm:u34-undecidable}.\n\\end{theorem}",
+    "after": "\\begin{theorem}[The host is Thiele-complete, and $U$'s halting is undecidable]\\label{thm:u34-U-complete}\n(1) The host machine, with $\\mathsf{Slot}$ as its property and one move per instruction, is\nThiele-complete (Definition~\\ref{def:u34-thiele-complete}), and Thiele-complete over its own\nclaim language, whose claims are ``$\\mathsf{Slot}$ holds of register $r$,'' whose meanings are\nwritten without the host's checker, and whose ``unchanged'' is ``same value and same version of\nregister $r$''; and $U$'s run from $\\mathrm{hload}(P, x, y)$ is a run of it. (2) Read as a certification system it obeys the universal\nfloor; a run of $U$ that raises the host's flag costs at least 3 there. The system built from its\nThiele-completeness agrees with it step for step and cost for cost, so the same run costs at least\n3 on that one too, and the universal floor of 1 holds there directly.\n(3) $U$ halts from $\\mathrm{hload}(P, x, y)$ exactly when $P$ halts from $\\mathrm{start}(x, y)$, so\nthe question ``does $U$ halt from this loaded host?'' is undecidable in the reduction sense of\nTheorem~\\ref{thm:u34-undecidable}.\n\\end{theorem}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:u34-host"
+    ],
+    "before": "\\begin{definition}[The host]\\label{def:u34-host}\nA \\emph{guest} is a program $P$ of this chapter's machine together with a state $g$ of it\n(Definition~\\ref{def:u34-step}). A \\emph{host state} $h$ has six parts: its own core\n$\\mathrm{core}(h)$, its ledger $\\mu(h)$, its own flag $\\mathrm{own}(h)$, the guest program\n$P(h)$ held as a list of instructions, the guest state $g(h)$, and the \\emph{mirror} $m(h)$, a\nyes/no copy of the guest's flag. The host has two kinds of move. $\\mathrm{OWN}\\ i$ runs the\ninstruction $i$ on the host's own core, costs what this chapter's machine charges for $i$,\nand raises $\\mathrm{own}$ exactly when that machine's flag would rise. $\\mathrm{GSTEP}\\ b$\ncosts $b$. If the host's core is trapped it does nothing else. Otherwise it moves the host to\nits next line and, if the guest's next instruction costs at most $b$, runs that instruction\non $g(h)$; in the same move the mirror becomes $m(h) \\lor (\\lnot\\mathrm{cert}(g(h)) \\land\n\\mathrm{cert}(g'))$, where $g'$ is the new guest state. The host's reading is\n$\\mathrm{own}(h) \\lor m(h)$. Its stored program is $U_0 = [\\mathrm{GSTEP}\\ 1;\\ \\mathrm{OWN}\\\n(\\text{INC } A);\\ \\mathrm{OWN}\\ (\\text{DEC } A\\ 1)]$: one guest step, then two moves that\nbring the host back to its first line. (The Coq file calls it \\code{U}; I write $U_0$ here so\nnobody mixes it up with the universal program $U$.)\n\\end{definition}",
+    "after": "\\begin{definition}[The host]\\label{def:u34-host}\nA \\emph{guest} is a program $P$ of this chapter's machine together with a state $g$ of it\n(Definition~\\ref{def:u34-step}). A \\emph{host state} $h$ has six parts: its own core\n$\\mathrm{core}(h)$, its ledger $\\mu(h)$, its own flag $\\mathrm{own}(h)$, the guest program\n$P(h)$ held as a list of instructions, the guest state $g(h)$, and the \\emph{mirror} $m(h)$, a\nyes/no copy of the guest's flag. The host has two kinds of move. $\\mathrm{OWN}\\ i$ runs the\ninstruction $i$ on the host's own core, costs what this chapter's machine charges for $i$,\nand raises $\\mathrm{own}$ exactly when that machine's flag would rise. $\\mathrm{GSTEP}\\ b$\ncosts $b$. If the host's core is trapped it does nothing else. Otherwise it moves the host to\nits next line and, if the guest's next instruction costs at most $b$, runs that instruction\non $g(h)$; in the same move the mirror becomes $m(h) \\lor (\\lnot\\mathrm{cert}(g(h)) \\land\n\\mathrm{cert}(g'))$, where $g'$ is the new guest state. The host's reading is\n$\\mathrm{own}(h) \\lor m(h)$. Its stored program is $U_0 = [\\mathrm{GSTEP}\\ 1;\\ \\mathrm{OWN}\\\n(\\text{INC } A);\\ \\mathrm{OWN}\\ (\\text{DEC } A\\ 1)]$: one guest step, then two moves that\nbring the host back to its first line.\n\\end{definition}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:host-rice"
+    ],
+    "before": "\\begin{theorem}[Rice's theorem on the host machine]\\label{thm:host-rice}\nLet $\\Pi$ be an extensional property of host programs that some program has and some program lacks.\nThen $\\Pi$ is undecidable in the library's sense.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Rice's theorem on the host machine]\\label{thm:host-rice}\nLet $\\Pi$ be an extensional property of host programs that some program has and some program lacks.\nThen $\\Pi$ is undecidable in the reduction sense of Theorem~\\ref{thm:u34-undecidable}.\n\\end{theorem}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:guest-rice"
+    ],
+    "before": "\\begin{theorem}[Rice's theorem for the small machine, from the clean start]\\label{thm:guest-rice}\nLet $\\Pi$ be a property of two-counter programs that's carried from a program to any program that\nbehaves the same from the clean start, held by some program and lacked by some other. Then $\\Pi$ is\nundecidable in the library's sense. In particular ``halts from the clean start'' is undecidable.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Rice's theorem for the small machine, from the clean start]\\label{thm:guest-rice}\nLet $\\Pi$ be a property of two-counter programs that's carried from a program to any program that\nbehaves the same from the clean start, held by some program and lacked by some other. Then $\\Pi$ is\nundecidable in the reduction sense of Theorem~\\ref{thm:u34-undecidable}. In particular ``halts from the clean start'' is undecidable.\n\\end{theorem}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:tc-rice"
+    ],
+    "before": "\\begin{theorem}[Rice's theorem for the two-counter machine, on any inputs]\\label{thm:tc-rice}\nFor any set $X$ of inputs, a property of two-counter programs that's carried from a program to any\nprogram that behaves the same on $X$ is undecidable in the library's sense, unless every program has\nit or none does, and then it's decidable. $X$ can be every input, the powers of two, or $\\{0\\}$.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Rice's theorem for the two-counter machine, on any inputs]\\label{thm:tc-rice}\nFor any set $X$ of inputs, a property of two-counter programs that's carried from a program to any\nprogram that behaves the same on $X$ is undecidable in the reduction sense of Theorem~\\ref{thm:u34-undecidable}, unless every program has\nit or none does, and then it's decidable. $X$ can be every input, the powers of two, or $\\{0\\}$.\n\\end{theorem}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:running-compiler"
+    ],
+    "before": "\\begin{theorem}[The compiler is correct]\\label{thm:running-compiler}\nFor every source program with no recursion, and every input: the program computes $y$ exactly when\nthe runner (the Coq function that gets extracted) halts with $y$ for some amount of fuel; exactly when the compiled host program\nhalts with $y$; exactly when the two-counter guest halts with $y$; and exactly when $U_P$ running that\nguest halts with $y$, with its first counter at 0, its ledger at 0 and its flag down. So compiling\na program computes its answer and certifies nothing: the compiler is a route to answers, and a\ncertification has to be written into the source as a CHECK, a COMMIT and a CERTIFY. The runner also\ntakes exactly as many steps as the host program does, with the rest of its fuel left over, and a run\nthat doesn't halt has used all its fuel.\n\\end{theorem}",
+    "after": "\\begin{theorem}[The compiler is correct]\\label{thm:running-compiler}\nFor every source program with no recursion, and every input: the program computes $y$ exactly when\nthe runner (the bounded evaluator of the compiled host program) halts with $y$ for some amount of fuel; exactly when the compiled host program\nhalts with $y$; exactly when the two-counter guest halts with $y$; and exactly when $U_P$ running that\nguest halts with $y$, with its first counter at 0, its ledger at 0 and its flag down. So compiling\na program computes its answer and certifies nothing: the compiler is a route to answers, and a\ncertification has to be written into the source as a CHECK, a COMMIT and a CERTIFY. The runner also\ntakes exactly as many steps as the host program does, with the rest of its fuel left over, and a run\nthat doesn't halt has used all its fuel.\n\\end{theorem}"
+  },
+  {
+    "kind": "remark",
+    "labels": [
+      "rem:u23-sound-not-complete"
+    ],
+    "before": "\\begin{remark}[Sound, and incomplete]\\label{rem:u23-sound-not-complete}\nThe pinned matrix is stricter than the quantum question it is usually read against. PSD of\n$M(E)$ gives the correlators a PSD completion, since the zeros are one choice of the two free\nentries (\\code{zero\\_marginal\\_implies\\_elliptope}, ElliptopeCompletion.v). The converse fails.\nThe all-ones plan has a PSD completion (\\code{deterministic\\_strategy\\_elliptope}), and every\ndeterministic plan is a quantum strategy (\\code{qs\\_deterministic\\_plan}, QuantumStrategies.v); yet its\nminor on rows $A_0, B_0, B_1$ is $1 - 1 - 1 = -1$, so $M(E)$ is not PSD there, and a tally of\none matching round per pair gives $A = 1 - 1 - 1 = -1$ in the integer check, so the check\nfails. The second failure is a named theorem on the machine: the tally of one matching round\nper pair is refused forever (Proposition~\\ref{prop:chsh-demos}). Every deterministic plan fails\nthe same way. The tally of one round per pair fails the check for each of the sixteen plans\n(\\code{nec\\_e\\_check\\_refuses\\_all\\_plans}), so does a plan replayed over any number of rounds once\npairs 00 and 10 have been sampled (\\code{nec\\_e\\_check\\_refuses\\_deterministic}, NecEChshInt.v), and\nno deterministic plan's pinned matrix is PSD (\\code{nec\\_e\\_deterministic\\_not\\_pinned\\_psd},\nNecEChsh.v). So a pass proves the bound, and a failure proves only that the tally's pinned matrix isn't\nPSD or a pair went unsampled; it says nothing about whether the play was classical or quantum. The free tally from the start of this section is\nexactly such a tally: it reaches $S = 2$ and the check throws it out.\n\\end{remark}",
+    "after": "\\begin{remark}[Sound, and incomplete]\\label{rem:u23-sound-not-complete}\nThe pinned matrix is stricter than the quantum question it is usually read against. PSD of\n$M(E)$ gives the correlators a PSD completion, since the zeros are one choice of the two free\nentries. The converse fails.\nThe all-ones plan has a PSD completion, and every\ndeterministic plan is a quantum strategy; yet its\nminor on rows $A_0, B_0, B_1$ is $1 - 1 - 1 = -1$, so $M(E)$ is not PSD there, and a tally of\none matching round per pair gives $A = 1 - 1 - 1 = -1$ in the integer check, so the check\nfails. The second failure is a named theorem on the machine: the tally of one matching round\nper pair is refused forever (Proposition~\\ref{prop:chsh-demos}). Every deterministic plan fails\nthe same way. The tally of one round per pair fails the check for each of the sixteen plans, so does a plan replayed over any number of rounds once\npairs 00 and 10 have been sampled, and\nno deterministic plan's pinned matrix is PSD. So a pass proves the bound, and a failure proves only that the tally's pinned matrix isn't\nPSD or a pair went unsampled; it says nothing about whether the play was classical or quantum. The free tally from the start of this section is\nexactly such a tally: it reaches $S = 2$ and the check throws it out.\n\\end{remark}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:u24-history"
+    ],
+    "before": "\\begin{theorem}[Keeping history makes every step injective]\\label{thm:u24-history}\nLet the history step send a pair $(s, h)$, a state and a list of past states, to\n$(\\mathrm{apply}(s, i), s :: h)$. For any step function, the history step with a fixed\ninstruction is injective, and its first component is the original step.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Keeping history makes every step injective]\\label{thm:u24-history}\nLet the history step send a pair $(s, h)$, a state and a list of past states, to\n$(\\mathrm{apply}(s, i), s:: h)$. For any step function, the history step with a fixed\ninstruction is injective, and its first component is the original step.\n\\end{theorem}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:app-certsys"
+    ],
+    "before": "\\begin{definition}[Certification system]\\label{def:app-certsys}\nThe record \\code{CertificationSystem} (UniversalCertificationCost.v) has five data fields, a state\ntype, a move type, a step function, a cost per move in $\\mathbb{N}$, and a yes/no reading,\nand one proof field, \\code{cs\\_cert\\_costs}: a move that turns the reading from no to yes costs at\nleast one. This proof field is the toll of Section~\\ref{sec:toll}, and in this record's\nnumbering it is called A2. Every result stated ``for any certification system'' assumes it,\nbecause the record cannot be built without it.\n\\end{definition}",
+    "after": "\\begin{definition}[Certification system]\\label{def:app-certsys}\nA certification system consists of a set of states $S$, a set of moves $I$, a step function\n$\\mathrm{step}: S\\times I\\to S$, a cost $\\mathrm{cost}:I\\to\\mathbb{N}$, and a reading\n$\\mathrm{cert}:S\\to\\{\\mathrm{no},\\mathrm{yes}\\}$, satisfying the toll: every move that\nturns the reading from no to yes costs at least one. This is the condition of\nSection~\\ref{sec:toll}, called A2 in the table below. Every result stated ``for any\ncertification system'' assumes it.\n\\end{definition}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:app-qcs"
+    ],
+    "before": "\\begin{definition}[Quantitative certification system]\\label{def:app-qcs}\nThe record \\code{QuantitativeCertificationSystem} (QuantitativeNoFI.v) extends a certification\nsystem with a \\emph{witness}, a function $W$ from states to $\\mathbb{N}$, and a threshold\n$N \\in \\mathbb{N}$, and adds two proof fields:\n(A3, \\code{qcs\\_cost\\_bounds\\_witness}) $W(s) + \\mathrm{cost}(i) \\ge W(\\mathrm{step}(s, i))$, the\nwitness grows by at most what the move cost; and\n(A5, \\code{qcs\\_cert\\_threshold\\_witness}) a state that reads yes has $W(s) \\ge N$.\nAn optional extension, \\code{QuantitativeCertificationSystem\\_full}, adds\n(A4, \\code{qcsf\\_witness\\_nondecreasing}) $W(s) \\le W(\\mathrm{step}(s, i))$.\n\\end{definition}",
+    "after": "\\begin{definition}[Quantitative certification system]\\label{def:app-qcs}\nA quantitative certification system is a certification system with a \\emph{witness},\na function $W$ from states to $\\mathbb{N}$, and a threshold $N \\in \\mathbb{N}$, satisfying:\n(A3) $W(s) + \\mathrm{cost}(i) \\ge W(\\mathrm{step}(s, i))$, the witness grows by at most\nwhat the move cost; and (A5) a state that reads yes has $W(s) \\ge N$.\nAn optional additional condition is (A4) $W(s) \\le W(\\mathrm{step}(s, i))$.\n\\end{definition}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-counters"
+    ],
+    "before": "\\begin{definition}[Counters]\\label{def:chsh-counters}\nEight counts sit in the record \\code{WitnessCounts}\n(kernel/quantum/CHSHColumnCheck.v): for each setting pair, $\\mathrm{same}_{xy}$ counts rounds\nwhose two answer bits matched and $\\mathrm{diff}_{xy}$ counts rounds whose bits differed. A\nround adds one to exactly one of the eight. Write\n\\[\nN_{xy} = \\mathrm{same}_{xy} + \\mathrm{diff}_{xy}, \\qquad\nD_{xy} = \\mathrm{same}_{xy} - \\mathrm{diff}_{xy}, \\qquad\nE_{xy} = \\frac{D_{xy}}{N_{xy}} .\n\\]\n\\end{definition}",
+    "after": "\\begin{definition}[Counters]\\label{def:chsh-counters}\nThere are eight counts: for each setting pair, $\\mathrm{same}_{xy}$ counts rounds\nwhose two answer bits matched and $\\mathrm{diff}_{xy}$ counts rounds whose bits differed. A\nround adds one to exactly one of the eight. Write\n\\[\nN_{xy} = \\mathrm{same}_{xy} + \\mathrm{diff}_{xy}, \\qquad\nD_{xy} = \\mathrm{same}_{xy} - \\mathrm{diff}_{xy}, \\qquad\nE_{xy} = \\frac{D_{xy}}{N_{xy}}.\n\\]\n\\end{definition}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-factorizable"
+    ],
+    "before": "\\begin{definition}[Finite factorizable model, \\code{is\\_factorizable}]\\label{def:chsh-factorizable}\nA real-valued correlation function $E(a, b, x, y)$ is factorizable\n(kernel/quantum/MinorConstraints.v) when there exist response functions $A(x, \\lambda)$,\n$B(y, \\lambda)$, weights $p(\\lambda)$ and a natural number $\\lambda_{\\max}$ such that:\n$0 \\le p(\\lambda) \\le 1$ for $\\lambda \\le \\lambda_{\\max}$;\n$\\sum_{\\lambda = 0}^{\\lambda_{\\max}} p(\\lambda) = 1$; every $A(x, \\lambda)$ and every\n$B(y, \\lambda)$ is $-1$ or $+1$; and for all $a, b, x, y$,\n$E(a, b, x, y) = \\sum_{\\lambda=0}^{\\lambda_{\\max}} p(\\lambda) A(x, \\lambda) B(y, \\lambda)$.\nThe outcome arguments $a, b$ are dummies; only correlations are modelled.\n\\end{definition}",
+    "after": "\\begin{definition}[Finite factorizable model]\\label{def:chsh-factorizable}\nA real-valued correlation function $E(a, b, x, y)$ is factorizable\n when there exist response functions $A(x, \\lambda)$,\n$B(y, \\lambda)$, weights $p(\\lambda)$ and a natural number $\\lambda_{\\max}$ such that:\n$0 \\le p(\\lambda) \\le 1$ for $\\lambda \\le \\lambda_{\\max}$;\n$\\sum_{\\lambda = 0}^{\\lambda_{\\max}} p(\\lambda) = 1$; every $A(x, \\lambda)$ and every\n$B(y, \\lambda)$ is $-1$ or $+1$; and for all $a, b, x, y$,\n$E(a, b, x, y) = \\sum_{\\lambda=0}^{\\lambda_{\\max}} p(\\lambda) A(x, \\lambda) B(y, \\lambda)$.\nThe outcome arguments $a, b$ are dummies; only correlations are modelled.\n\\end{definition}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-fine"
+    ],
+    "before": "\\begin{theorem}[\\code{fine\\_theorem}, one direction only]\\label{thm:chsh-fine}\nIf $E$ is factorizable, then $-2 \\le E(0,0,0,0) + E(0,0,0,1) + E(0,0,1,0) - E(0,0,1,1) \\le 2$\n(kernel/quantum/MinorConstraints.v; restated as \\code{factorizable\\_CHSH\\_classical\\_bound}).\n\\end{theorem}",
+    "after": "\\begin{theorem}[The classical bound for a finite local model]\\label{thm:chsh-fine}\nIf $E$ is factorizable, then $-2 \\le E(0,0,0,0) + E(0,0,0,1) + E(0,0,1,0) - E(0,0,1,1) \\le 2$.\n\\end{theorem}"
+  },
+  {
+    "kind": "remark",
+    "labels": [
+      "rem:chsh-fine-scope"
+    ],
+    "before": "\\begin{remark}[What the name does and does not cover]\\label{rem:chsh-fine-scope}\nFine's 1982 theorem is an equivalence between several descriptions of local models and the\nBell inequalities. \\code{fine\\_theorem} proves one direction: a finite factorizable model obeys\nthe bound. Its converse, as it's stated, is false (\\code{nec\\_e\\_fine\\_converse\\_false}); the\nequivalence in the form Fine meant, for correlations, with each correlator between $-1$ and $1$ and all eight inequalities, is\n\\code{nec\\_e\\_fine\\_iff}. And \\code{fine\\_theorem} covers only finitely many hidden states\n($\\lambda \\le \\lambda_{\\max}$). An arbitrary probability space is outside it. The transfer to rational\nboxes is \\code{local\\_box\\_CHSH\\_bound} (kernel/quantum/MinorConstraints.v): if\n\\textnormal{\\texttt{box\\_correlations B}} is factorizable then the real image of $|S(B)|$ is at most 2.\n\\end{remark}",
+    "after": "\\begin{remark}[Scope of the classical bound]\\label{rem:chsh-fine-scope}\nFine's 1982 theorem is an equivalence between several descriptions of local models and the\nBell inequalities. The preceding theorem proves one direction: a finite factorizable model\nobeys the bound. The converse of this single inequality is false. The correlation-form\nequivalence requires each correlator to lie between $-1$ and $1$ and all eight inequalities.\nThe preceding theorem covers finitely many hidden states ($\\lambda\\le\\lambda_{\\max}$),\nnot an arbitrary probability space. It applies to rational boxes as well: if their\ncorrelations form a factorizable model, their rational score has absolute value at most 2.\n\\end{remark}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-wclc"
+    ],
+    "before": "\\begin{definition}[\\code{WCLocallyConsistent}]\\label{def:chsh-wclc}\nFor bits $a_0, a_1, b_0, b_1 \\in \\{0, 1\\}$ and a counter record $w$\n(kernel/quantum/CHSHStatisticalBridge.v), $w$ is locally consistent with\n$(a_0, a_1, b_0, b_1)$ when, for each setting pair $(x, y)$: if $a_x = b_y$ then\n$\\mathrm{diff}_{xy} = 0$, otherwise $\\mathrm{same}_{xy} = 0$; and every bucket is sampled,\n$N_{00}, N_{01}, N_{10}, N_{11} > 0$.\n\\end{definition}",
+    "after": "\\begin{definition}[A tally consistent with one local plan]\\label{def:chsh-wclc}\nFor bits $a_0, a_1, b_0, b_1 \\in \\{0, 1\\}$ and a counter record $w$, $w$ is locally consistent with\n$(a_0, a_1, b_0, b_1)$ when, for each setting pair $(x, y)$: if $a_x = b_y$ then\n$\\mathrm{diff}_{xy} = 0$, otherwise $\\mathrm{same}_{xy} = 0$; and every bucket is sampled,\n$N_{00}, N_{01}, N_{10}, N_{11} > 0$.\n\\end{definition}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-tally"
+    ],
+    "before": "\\begin{theorem}[A tally above 2 is not one replayed strategy]\\label{thm:chsh-tally}\nLet $w$ be a counter record whose rational score \\code{chsh\\_stat\\_from\\_wc} $w$ is greater than 2.\nThen for all bits $a_0, a_1, b_0, b_1$, $w$ is not locally consistent with\n$(a_0, a_1, b_0, b_1)$. This is \\code{chsh\\_violation\\_rules\\_out\\_locally\\_factorizable\\_coupling}\n(kernel/quantum/CHSHCouplingBridge.v). A stronger companion,\n\\code{locally\\_consistent\\_classical\\_bound}, states that a locally consistent record has\nscore of absolute value at most 2; read through its contrapositive, it gives the first statement.\n\\end{theorem}",
+    "after": "\\begin{theorem}[A tally above 2 is not one replayed strategy]\\label{thm:chsh-tally}\nLet $w$ be a counter record whose rational score $S(w)$ is greater than 2.\nThen for all bits $a_0, a_1, b_0, b_1$, $w$ is not locally consistent with\n$(a_0, a_1, b_0, b_1)$. A stronger statement is that a locally consistent record has\nscore of absolute value at most 2; read through its contrapositive, it gives the first statement.\n\\end{theorem}"
+  },
+  {
+    "kind": "lemma",
+    "labels": [
+      "lem:chsh-sos"
+    ],
+    "before": "\\begin{lemma}[The six-square identity, \\code{chsh\\_gap\\_is\\_sum\\_of\\_squares}]\\label{lem:chsh-sos}\nFor all real $a, b, c, d$,\n\\[\n\\begin{aligned}\n&4(a^2 + b^2 + c^2 + d^2) - (a + b + c - d)^2 \\\\\n&\\quad = (a-b)^2 + (a-c)^2 + (a+d)^2 + (b-c)^2 + (b+d)^2 + (c+d)^2 .\n\\end{aligned}\n\\]\n(kernel/quantum/TsirelsonFromAlgebra.v, closed by \\code{ring}.)\n\\end{lemma}",
+    "after": "\\begin{lemma}[The six-square identity]\\label{lem:chsh-sos}\nFor all real $a, b, c, d$,\n\\[\n\\begin{aligned}\n&4(a^2 + b^2 + c^2 + d^2) - (a + b + c - d)^2 \\\\\n&\\quad = (a-b)^2 + (a-c)^2 + (a+d)^2 + (b-c)^2 + (b+d)^2 + (c+d)^2.\n\\end{aligned}\n\\]\n\n\\end{lemma}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-row-tsirelson"
+    ],
+    "before": "\\begin{theorem}[Row-bound form of Tsirelson's bound]\\label{thm:chsh-row-tsirelson}\nFor all real $E_{00}, E_{01}, E_{10}, E_{11}$ with $E_{00}^2 + E_{01}^2 \\le 1$ and\n$E_{10}^2 + E_{11}^2 \\le 1$, $S^2 \\le 8$. This is \\code{tsirelson\\_squared}\n(kernel/quantum/TsirelsonFromAlgebra.v) and \\code{tsirelson\\_from\\_row\\_bounds}\n(kernel/quantum/TsirelsonGeneral.v). The absolute form $|S| \\le \\sqrt 8 = 2\\sqrt 2$ is\n\\code{tsirelson\\_bound\\_abs} (TsirelsonGeneral.v).\n\\end{theorem}",
+    "after": "\\begin{theorem}[Row-bound form of Tsirelson's bound]\\label{thm:chsh-row-tsirelson}\nFor all real $E_{00}, E_{01}, E_{10}, E_{11}$ with $E_{00}^2 + E_{01}^2 \\le 1$ and\n$E_{10}^2 + E_{11}^2 \\le 1$, $S^2 \\le 8$. The absolute form $|S| \\le \\sqrt 8 = 2\\sqrt 2$ follows.\n\\end{theorem}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-tight"
+    ],
+    "before": "\\begin{theorem}[Tightness]\\label{thm:chsh-tight}\nThe point $E_{00} = E_{01} = E_{10} = 1/\\sqrt 2$, $E_{11} = -1/\\sqrt 2$ satisfies both row\nbounds and has $S = \\sqrt 8$. This is \\code{tsirelson\\_tight} (TsirelsonFromAlgebra.v) and\n\\code{tsirelson\\_achievable} (TsirelsonGeneral.v).\n\\end{theorem}",
+    "after": "\\begin{theorem}[Tightness]\\label{thm:chsh-tight}\nThe point $E_{00} = E_{01} = E_{10} = 1/\\sqrt 2$, $E_{11} = -1/\\sqrt 2$ satisfies both row\nbounds and has $S = \\sqrt 8$.\n\\end{theorem}"
+  },
+  {
+    "kind": "remark",
+    "labels": [
+      "rem:chsh-equality"
+    ],
+    "before": "\\begin{remark}[Where equality can happen]\\label{rem:chsh-equality}\nThe step about where equality happens is checked as \\code{nec\\_e\\_equality\\_forces\\_point} and\n\\code{nec\\_e\\_equality\\_two\\_points}, and the fact that no ratio of whole numbers solves $2a^2 = 1$\nas \\code{nec\\_e\\_no\\_rational\\_half\\_square} (NecEChshEquality.v); the conclusion about\ntallies at the end is checked as \\code{nec\\_e\\_no\\_sqrt8}, \\code{nec\\_e\\_check\\_strict},\n\\code{nec\\_e\\_check\\_never\\_tsirelson} and \\code{nec\\_e\\_check\\_sharp} (NecEChsh.v). Equality $S^2 = 8$ under the row bounds forces\nequality in both steps of the proof above: the six squares must all vanish, which gives\n$a = b = c = -d$, and the rows must be tight, which gives $2a^2 = 1$. So the point of\nTheorem~\\ref{thm:chsh-tight} and its negative are the only places the bound is reached. A tally's correlators are\nratios of whole numbers and $2a^2 = 1$ has no such solution, so no tally reaches the bound; the integer\ncheck's passing tallies stay strictly below it and come as near as you like.\n\\end{remark}",
+    "after": "\\begin{remark}[Where equality can happen]\\label{rem:chsh-equality}\nEquality $S^2 = 8$ under the row bounds forces\nequality in both steps of the proof above: the six squares must all vanish, which gives\n$a = b = c = -d$, and the rows must be tight, which gives $2a^2 = 1$. So the point of\nTheorem~\\ref{thm:chsh-tight} and its negative are the only places the bound is reached. A tally's correlators are\nratios of whole numbers and $2a^2 = 1$ has no such solution, so no tally reaches the bound; the integer\ncheck's passing tallies stay strictly below it and come as near as you like.\n\\end{remark}"
+  },
+  {
+    "kind": "lemma",
+    "labels": [
+      "lem:chsh-rational"
+    ],
+    "before": "\\begin{lemma}[A rational constant above the bound, \\code{rational\\_tsirelson\\_bound}]\\label{lem:chsh-rational}\n$\\sqrt 8 < 5657/2000$ (kernel/quantum/TsirelsonFromAlgebra.v).\n\\end{lemma}",
+    "after": "\\begin{lemma}[A rational constant above the bound]\\label{lem:chsh-rational}\n$\\sqrt 8 < 5657/2000$.\n\\end{lemma}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-five"
+    ],
+    "before": "\\begin{definition}[The pinned level-1 matrix]\\label{def:chsh-five}\n\\code{zero\\_marginal\\_npa} (kernel/quantum/NPAMomentMatrix.v) fills the general record\n\\code{NPAMomentMatrix} with all four one-party entries and both within-party entries set\nto zero, and \\code{npa\\_to\\_matrix} lays it out on rows and columns\n$I, A_0, A_1, B_0, B_1$:\n\\end{definition}",
+    "after": "\\begin{definition}[The pinned level-1 matrix]\\label{def:chsh-five}\nSet all four one-party entries and both within-party entries to zero. On rows and columns\n$I,A_0,A_1,B_0,B_1$, the resulting matrix is:\n\\end{definition}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-cc"
+    ],
+    "before": "\\begin{definition}[Column contractive, \\code{zero\\_marginal\\_column\\_contractive}]\\label{def:chsh-cc}\n(kernel/quantum/CHSHColumnCheck.v) Write\n$p = 1 - E_{00}^2 - E_{10}^2$, $q = 1 - E_{01}^2 - E_{11}^2$ and\n$s = E_{00} E_{01} + E_{10} E_{11}$. The correlators are column contractive when\n\\[\np \\ge 0, \\qquad q \\ge 0, \\qquad p\\,q - s^2 \\ge 0 .\n\\]\n\\end{definition}",
+    "after": "\\begin{definition}[Column contractive]\\label{def:chsh-cc}\n Write\n$p = 1 - E_{00}^2 - E_{10}^2$, $q = 1 - E_{01}^2 - E_{11}^2$ and\n$s = E_{00} E_{01} + E_{10} E_{11}$. The correlators are column contractive when\n\\[\np \\ge 0, \\qquad q \\ge 0, \\qquad p\\,q - s^2 \\ge 0.\n\\]\n\\end{definition}"
+  },
+  {
+    "kind": "lemma",
+    "labels": [
+      "lem:chsh-psd2"
+    ],
+    "before": "\\begin{lemma}[The 2x2 test, \\code{psd2\\_quadratic\\_form\\_nonneg}]\\label{lem:chsh-psd2}\n(kernel/quantum/CHSHColumnCheck.v) If $\\alpha \\ge 0$, $\\delta \\ge 0$ and\n$\\alpha\\delta - \\beta^2 \\ge 0$, then $\\alpha u^2 + 2\\beta u w + \\delta w^2 \\ge 0$ for all real\n$u, w$.\n\\end{lemma}",
+    "after": "\\begin{lemma}[The 2x2 test]\\label{lem:chsh-psd2}\n If $\\alpha \\ge 0$, $\\delta \\ge 0$ and\n$\\alpha\\delta - \\beta^2 \\ge 0$, then $\\alpha u^2 + 2\\beta u w + \\delta w^2 \\ge 0$ for all real\n$u, w$.\n\\end{lemma}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-cc-psd"
+    ],
+    "before": "\\begin{theorem}[Contractive implies PSD]\\label{thm:chsh-cc-psd}\nIf $p \\ge 0$, $q \\ge 0$ and $pq - s^2 \\ge 0$, then \\code{PSD5} holds of $M(E)$.\nThis is \\code{zero\\_marginal\\_npa\\_column\\_contractive\\_implies\\_psd}\n(kernel/quantum/CHSHColumnCheck.v).\n\\end{theorem}",
+    "after": "\\begin{theorem}[Contractive implies PSD]\\label{thm:chsh-cc-psd}\nIf $p \\ge 0$, $q \\ge 0$ and $pq - s^2 \\ge 0$, then $M(E)$ is positive semidefinite.\n\\end{theorem}"
+  },
+  {
+    "kind": "lemma",
+    "labels": [
+      "lem:chsh-discriminant"
+    ],
+    "before": "\\begin{lemma}[Discriminant, \\code{quadratic\\_nonneg\\_discriminant}]\\label{lem:chsh-discriminant}\n(kernel/quantum/ConstructivePSD.v) If $a + 2bt + ct^2 \\ge 0$ for every real $t$, then\n$b^2 \\le ac$.\n\\end{lemma}",
+    "after": "\\begin{lemma}[Discriminant]\\label{lem:chsh-discriminant}\n If $a + 2bt + ct^2 \\ge 0$ for every real $t$, then\n$b^2 \\le ac$.\n\\end{lemma}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-psd-cc"
+    ],
+    "before": "\\begin{theorem}[PSD implies contractive]\\label{thm:chsh-psd-cc}\nIf \\code{PSD5} holds of $M(E)$, then $p \\ge 0$, $q \\ge 0$ and $pq - s^2 \\ge 0$. This is\n\\code{npa\\_psd\\_implies\\_column\\_contractive} (kernel/quantum/CHSHColumnCheck.v).\n\\end{theorem}",
+    "after": "\\begin{theorem}[PSD implies contractive]\\label{thm:chsh-psd-cc}\nIf $M(E)$ is positive semidefinite, then $p \\ge 0$, $q \\ge 0$ and $pq - s^2 \\ge 0$.\n\\end{theorem}"
+  },
+  {
+    "kind": "corollary",
+    "labels": [
+      "cor:chsh-iff"
+    ],
+    "before": "\\begin{corollary}[The equivalence]\\label{cor:chsh-iff}\nFor all real $E_{00}, E_{01}, E_{10}, E_{11}$, \\code{PSD5} of $M(E)$ holds if and only if the\ncorrelators are column contractive: \\code{npa\\_psd\\_iff\\_column\\_contractive}\n(kernel/quantum/CHSHColumnCheck.v). With symmetry packaged in,\n\\code{column\\_contractive\\_iff\\_npa\\_psd} states contractivity if and only if \\code{npa\\_psd} holds\nof \\code{zero\\_marginal\\_npa} at the four correlators.\n\\end{corollary}",
+    "after": "\\begin{corollary}[The equivalence]\\label{cor:chsh-iff}\nFor all real $E_{00},E_{01},E_{10},E_{11}$, the symmetric matrix $M(E)$ is positive\nsemidefinite if and only if the correlators are column contractive.\n\\end{corollary}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-psd-tsirelson"
+    ],
+    "before": "\\begin{theorem}[PSD implies Tsirelson]\\label{thm:chsh-psd-tsirelson}\nIf \\code{npa\\_psd} holds of \\code{zero\\_marginal\\_npa} at $E_{00}, E_{01}, E_{10}, E_{11}$, then $S^2 \\le 8$, and\n$|S| \\le \\sqrt 8$. These are \\code{npa\\_psd\\_implies\\_tsirelson\\_bound} and\n\\code{npa\\_psd\\_implies\\_tsirelson\\_bound\\_abs}.\n\\end{theorem}",
+    "after": "\\begin{theorem}[PSD implies Tsirelson]\\label{thm:chsh-psd-tsirelson}\nIf the pinned matrix $M(E)$ is symmetric and positive semidefinite at\n$E_{00},E_{01},E_{10},E_{11}$, then $S^2\\le8$ and $|S|\\le\\sqrt8$.\n\\end{theorem}"
+  },
+  {
+    "kind": "remark",
+    "labels": [
+      "rem:chsh-scope-five"
+    ],
+    "before": "\\begin{remark}[What PSD of the pinned matrix means]\\label{rem:chsh-scope-five}\n$M(E)$ is the level-1 moment matrix with the two within-party entries $\\langle A_0 A_1\n\\rangle$ and $\\langle B_0 B_1 \\rangle$ pinned to zero. Its PSD is sufficient for the\ncorrelators to admit some PSD completion (item G, \\code{zero\\_marginal\\_implies\\_elliptope}), and it\nis not necessary: the all-ones plan has a completion but fails here. So a check built on\n$M(E)$ is sound for the completion set and not complete for it, and it rejects some honest\nclassical tallies. That correlators with a PSD completion are exactly those reachable by\nquantum measurements is Tsirelson's theorem, and both halves are proved here in finite dimension.\nFor real and for complex amplitudes, a strategy's correlators are inner products of unit vectors\n(\\code{qs\\_corr\\_dot}, \\code{qs\\_uvec\\_unit} and \\code{qs\\_vvec\\_unit}; with complex amplitudes,\n\\code{qc\\_corr\\_dot}, \\code{qc\\_uvec\\_unit} and \\code{qc\\_vvec\\_unit}, the vectors read as real\nones of twice the length) and its level-1 moment matrix is PSD (\\code{qs\\_npa\\_psd},\n\\code{qc\\_npa\\_psd}), so they have a PSD completion (\\code{tr\\_quantum\\_elliptope},\n\\code{tr\\_complex\\_elliptope}). The other half, that every PSD completion comes from a quantum\nstrategy, is \\code{tr\\_representation}: the strategy is built on two eight-level systems from\nthe completion's Gram vectors (item H).\n\\end{remark}",
+    "after": "\\begin{remark}[What PSD of the pinned matrix means]\\label{rem:chsh-scope-five}\n$M(E)$ is the level-1 moment matrix with the two within-party entries $\\langle A_0 A_1\n\\rangle$ and $\\langle B_0 B_1 \\rangle$ pinned to zero. Its PSD is sufficient for the\ncorrelators to admit some PSD completion (item G), and it\nis not necessary: the all-ones plan has a completion but fails here. So a check built on\n$M(E)$ is sound for the completion set and not complete for it, and it rejects some honest\nclassical tallies. That correlators with a PSD completion are exactly those reachable by\nquantum measurements is Tsirelson's theorem, and both halves are proved here in finite dimension.\nFor real and for complex amplitudes, a strategy's correlators are inner products of unit vectors\n(with complex amplitudes, use real vectors of twice the length) and its level-1 moment matrix is PSD, so they have a PSD completion. The other half, that every PSD completion comes from a quantum\nstrategy, comes from this construction: the strategy is built on two eight-level systems from\nthe completion's Gram vectors (item H).\n\\end{remark}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-check"
+    ],
+    "before": "\\begin{definition}[\\code{column\\_contractive\\_check\\_witness}]\\label{def:chsh-check}\n(kernel/quantum/CHSHColumnCheck.v) From the counters of Definition~\\ref{def:chsh-counters}, with all\narithmetic in $\\mathbb{Z}$, let\n\\[\n\\begin{aligned}\nA &= N_{00}^2 N_{10}^2 - D_{00}^2 N_{10}^2 - D_{10}^2 N_{00}^2, \\\\\nB &= N_{01}^2 N_{11}^2 - D_{01}^2 N_{11}^2 - D_{11}^2 N_{01}^2, \\\\\nC &= D_{00} D_{01} N_{10} N_{11} + D_{10} D_{11} N_{00} N_{01}.\n\\end{aligned}\n\\]\nThe check is the conjunction of seven facts, in this order:\n$0 < N_{00}$, $0 < N_{01}$, $0 < N_{10}$, $0 < N_{11}$, $0 \\le A$, $0 \\le B$, and\n$C \\cdot C \\le A \\cdot B$.\n\\end{definition}",
+    "after": "\\begin{definition}[The seven-integer check]\\label{def:chsh-check}\n From the counters of Definition~\\ref{def:chsh-counters}, with all\narithmetic in $\\mathbb{Z}$, let\n\\[\n\\begin{aligned}\nA &= N_{00}^2 N_{10}^2 - D_{00}^2 N_{10}^2 - D_{10}^2 N_{00}^2, \\\\\nB &= N_{01}^2 N_{11}^2 - D_{01}^2 N_{11}^2 - D_{11}^2 N_{01}^2, \\\\\nC &= D_{00} D_{01} N_{10} N_{11} + D_{10} D_{11} N_{00} N_{01}.\n\\end{aligned}\n\\]\nThe check is the conjunction of seven facts, in this order:\n$0 < N_{00}$, $0 < N_{01}$, $0 < N_{10}$, $0 < N_{11}$, $0 \\le A$, $0 \\le B$, and\n$C \\cdot C \\le A \\cdot B$.\n\\end{definition}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-check-sound"
+    ],
+    "before": "\\begin{theorem}[Soundness of the integer check]\\label{thm:chsh-check-sound}\nIf \\code{column\\_contractive\\_check\\_witness} $w$ = \\code{true}, then the four correlators\n\\code{state\\_bucket\\_correlation} $\\mathrm{same}_{xy}\\ \\mathrm{diff}_{xy}$ of $w$ are column\ncontractive. This is \\code{column\\_contractive\\_check\\_witness\\_sound}\n(kernel/quantum/CHSHColumnCheck.v), and \\code{column\\_contractive\\_check\\_witness\\_npa\\_psd}\n(same file) carries it on to PSD of the pinned matrix.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Soundness of the integer check]\\label{thm:chsh-check-sound}\nIf a tally $w$ passes the seven-integer check, then its four correlators\n$E_{xy}=D_{xy}/N_{xy}$ are column contractive. Consequently its pinned matrix is positive\nsemidefinite.\n\\end{theorem}"
+  },
+  {
+    "kind": "corollary",
+    "labels": [
+      "cor:chsh-check-bound"
+    ],
+    "before": "\\begin{corollary}[A passed check implies the Tsirelson bound]\\label{cor:chsh-check-bound}\nIf \\code{column\\_contractive\\_check\\_witness} $w$ = \\code{true}, the correlators of $w$ satisfy\n$S^2 \\le 8$. It is the composition of Theorem~\\ref{thm:chsh-check-sound},\nCorollary~\\ref{cor:chsh-iff} and Theorem~\\ref{thm:chsh-psd-tsirelson}.\n\\end{corollary}",
+    "after": "\\begin{corollary}[A passed check implies the Tsirelson bound]\\label{cor:chsh-check-bound}\nIf a tally $w$ passes the seven-integer check, the correlators of $w$ satisfy\n$S^2 \\le 8$. It is the composition of Theorem~\\ref{thm:chsh-check-sound},\nCorollary~\\ref{cor:chsh-iff} and Theorem~\\ref{thm:chsh-psd-tsirelson}.\n\\end{corollary}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-nine"
+    ],
+    "before": "\\begin{definition}[\\code{q1ab\\_moment\\_matrix}]\\label{def:chsh-nine}\n(kernel/quantum/QuantumPartitionPSD\\_\\allowbreak{}1AB.v) The $9 \\times 9$ real matrix on rows and\ncolumns $I, A_0, A_1, B_0, B_1, A_0B_0, A_0B_1, A_1B_0, A_1B_1$, with the entries exactly as\nthe Coq definition places them:\n\\end{definition}",
+    "after": "\\begin{definition}[The level-1+AB matrix]\\label{def:chsh-nine}\nThe $9 \\times 9$ real matrix on rows and\ncolumns $I, A_0, A_1, B_0, B_1, A_0B_0, A_0B_1, A_1B_0, A_1B_1$, with the following entries:\n\\end{definition}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-residual"
+    ],
+    "before": "\\begin{definition}[The residual, \\code{q1ab\\_residual}]\\label{def:chsh-residual}\n(QuantumPartitionPSD\\_\\allowbreak{}1AB.v)\n\\[\n\\begin{aligned}\nR ={}& v_{B_0}^2 + v_{B_1}^2 + v_{00}^2 + v_{01}^2 + v_{10}^2 + v_{11}^2 \\\\\n&+ 2 v_{B_0} (\\gamma_3 v_{01} + \\gamma_4 v_{11}) + 2 v_{B_1} (\\gamma_3 v_{00} + \\gamma_4 v_{10}) \\\\\n&+ 2 \\gamma_5 (v_{00} v_{11} - v_{01} v_{10}) - L_1^2 - L_2^2 - L_3^2 .\n\\end{aligned}\n\\]\nThe predicate \\code{column\\_contractive\\_q1ab} says $R \\ge 0$ for all six real inputs.\n\\end{definition}",
+    "after": "\\begin{definition}[The residual]\\label{def:chsh-residual}\n\\[\n\\begin{aligned}\nR ={}& v_{B_0}^2 + v_{B_1}^2 + v_{00}^2 + v_{01}^2 + v_{10}^2 + v_{11}^2 \\\\\n&+ 2 v_{B_0} (\\gamma_3 v_{01} + \\gamma_4 v_{11}) + 2 v_{B_1} (\\gamma_3 v_{00} + \\gamma_4 v_{10}) \\\\\n&+ 2 \\gamma_5 (v_{00} v_{11} - v_{01} v_{10}) - L_1^2 - L_2^2 - L_3^2.\n\\end{aligned}\n\\]\nThe condition called column contractivity at level 1+AB is $R \\ge 0$ for all six real inputs.\n\\end{definition}"
+  },
+  {
+    "kind": "lemma",
+    "labels": [
+      "lem:chsh-nine-sos"
+    ],
+    "before": "\\begin{lemma}[Three squares plus the residual, \\code{quad9\\_q1ab\\_sos\\_decomposition}]\\label{lem:chsh-nine-sos}\n(QuantumPartitionPSD\\_\\allowbreak{}1AB.v, closed by \\code{ring}.) For every vector,\n\\[\nv^{\\mathsf T} M_9\\, v = (v_I + L_1)^2 + (v_{A_0} + L_2)^2 + (v_{A_1} + L_3)^2 + R .\n\\]\n\\end{lemma}",
+    "after": "\\begin{lemma}[Three squares plus the residual]\\label{lem:chsh-nine-sos}\nFor every vector,\n\\[\nv^{\\mathsf T} M_9\\, v = (v_I + L_1)^2 + (v_{A_0} + L_2)^2 + (v_{A_1} + L_3)^2 + R.\n\\]\n\\end{lemma}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-nine-iff"
+    ],
+    "before": "\\begin{theorem}[PSD at level 1+AB, \\code{q1ab\\_psd\\_iff\\_column\\_contractive}]\\label{thm:chsh-nine-iff}\n(QuantumPartitionPSD\\_\\allowbreak{}1AB.v) For all real $E_{xy}$ and $\\gamma_1, \\ldots, \\gamma_5$,\n\\code{PSD9} of the matrix of Definition~\\ref{def:chsh-nine} holds if and only if \\code{column\\_contractive\\_q1ab}\nholds. The directions are \\code{column\\_contractive\\_q1ab\\_implies\\_psd9} and\n\\code{psd9\\_implies\\_column\\_contractive\\_q1ab}.\n\\end{theorem}",
+    "after": "\\begin{theorem}[PSD at level 1+AB]\\label{thm:chsh-nine-iff}\nFor all real $E_{xy}$ and $\\gamma_1, \\ldots, \\gamma_5$,\nthe matrix of Definition~\\ref{def:chsh-nine} is positive semidefinite if and only if\nthe residual $R$ is nonnegative for every choice of its six real inputs.\n\\end{theorem}"
+  },
+  {
+    "kind": "lemma",
+    "labels": [
+      "lem:chsh-schur-step"
+    ],
+    "before": "\\begin{lemma}[Fraction-free Schur step]\\label{lem:chsh-schur-step}\nFor a symmetric $n \\times n$ matrix $h$ and any vector $v$, with\n$S_{ij} = h_{11} h_{ij} - h_{1i} h_{1j}$ for $i, j \\ge 2$ (here $S$ is the Schur matrix;\nthe score plays no part\nin this lemma),\n\\[\nh_{11} \\, v^{\\mathsf T} h\\, v = \\Bigl(\\sum_{j} h_{1j} v_j\\Bigr)^2 + \\sum_{i,j \\ge 2} S_{ij} v_i v_j .\n\\]\nSo if $h_{11} > 0$ and the $(n-1) \\times (n-1)$ matrix $S$ gives a nonnegative form, then $h$\ndoes too. The instances used are \\code{sym6\\_Schur\\_identity} (QuantumPartitionPSD\\_\\allowbreak{}1AB.v) and\n\\code{sym5\\_Schur\\_identity}, with the conclusions \\code{sym6\\_qf\\_nonneg\\_from\\_pd} and\n\\code{sym5\\_qf\\_nonneg\\_from\\_pd}.\n\\end{lemma}",
+    "after": "\\begin{lemma}[Fraction-free Schur step]\\label{lem:chsh-schur-step}\nFor a symmetric $n \\times n$ matrix $h$ and any vector $v$, with\n$S_{ij} = h_{11} h_{ij} - h_{1i} h_{1j}$ for $i, j \\ge 2$ (here $S$ is the Schur matrix;\nthe score plays no part\nin this lemma),\n\\[\nh_{11} \\, v^{\\mathsf T} h\\, v = \\Bigl(\\sum_{j} h_{1j} v_j\\Bigr)^2 + \\sum_{i,j \\ge 2} S_{ij} v_i v_j.\n\\]\nSo if $h_{11} > 0$ and the $(n-1) \\times (n-1)$ matrix $S$ gives a nonnegative form, then $h$\ndoes too. The cascade uses this identity at sizes six and five.\n\\end{lemma}"
+  },
+  {
+    "kind": "lemma",
+    "labels": [
+      "lem:chsh-sylvester"
+    ],
+    "before": "\\begin{lemma}[Sylvester for 4x4, \\code{sym4\\_qf\\_nonneg\\_from\\_pd}]\\label{lem:chsh-sylvester}\n(QuantumPartitionPSD\\_\\allowbreak{}1AB.v) Let $h$ be symmetric $4 \\times 4$ with leading principal\nminors $d_1, d_2, d_3, d_4$ (\\code{sym4\\_d1} to \\code{sym4\\_d4}). If all four are\nstrictly positive, then $v^{\\mathsf T} h\\, v \\ge 0$ for all $v$.\n\\end{lemma}",
+    "after": "\\begin{lemma}[Sylvester for 4x4]\\label{lem:chsh-sylvester}\nLet $h$ be symmetric $4 \\times 4$ with leading principal\nminors $d_1, d_2, d_3, d_4$. If all four are\nstrictly positive, then $v^{\\mathsf T} h\\, v \\ge 0$ for all $v$.\n\\end{lemma}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-g12345"
+    ],
+    "before": "\\begin{definition}[What the integer check computes]\\label{def:chsh-g12345}\nThe supplied moments arrive as bucket pairs: $\\gamma_k = N_{g_k}/D_{g_k}$ with\n$N_{g_k} = \\mathrm{same}_{g_k} - \\mathrm{diff}_{g_k}$ and\n$D_{g_k} = \\mathrm{same}_{g_k} + \\mathrm{diff}_{g_k}$. Watch the letters: for these five\nbuckets the source swaps them, so here $N$ is the difference and $D$ the count, the reverse\nof item A. I keep the source's letters so the names below match the files. Let\n$K = (N_{00} N_{01} N_{10} N_{11} D_{g_1} D_{g_2} D_{g_3} D_{g_4} D_{g_5})^2$\n(\\code{g12345\\_COMMON\\_Z}, kernel/quantum/CHSHColumnCheck.v). The check computes the 21 integers\n$K H_{ij}$ (\\code{cleared\\_g12345\\_H11\\_Z} to \\code{cleared\\_g12345\\_H66\\_Z}), the 15\nintegers of $S^{(6)}$ at scale $K^2$ and the 10 integers of $S^{(5)}$ at scale $K^4$, each by\n\\code{schur\\_step\\_Z}, $h_{11} h_{ij} - h_{1i} h_{1j}$ on integers. The\ndecider \\code{q1ab\\_g12345\\_check\\_z\\_kernel} is the conjunction of: $N_{xy} > 0$ for the four\npairs; $D_{g_k} > 0$ for $k = 1..5$; $-D_{g_k} < N_{g_k} < D_{g_k}$ for $k = 1..5$; and six\nstrict positivities, namely $K H_{11} > 0$, $K^2 S^{(6)}_{22} > 0$, and the four leading\nminors of the integer $S^{(5)}$. The full check\n\\code{q1ab\\_g12345\\_full\\_integer\\_check\\_kernel} is \\code{column\\_contractive\\_check\\_witness} of item\nE and this decider.\n\\end{definition}",
+    "after": "\\begin{definition}[What the integer check computes]\\label{def:chsh-g12345}\nThe supplied moments arrive as bucket pairs: $\\gamma_k = N_{g_k}/D_{g_k}$ with\n$N_{g_k} = \\mathrm{same}_{g_k} - \\mathrm{diff}_{g_k}$ and\n$D_{g_k} = \\mathrm{same}_{g_k} + \\mathrm{diff}_{g_k}$. Watch the letters: for these five\nbuckets $N$ names the numerator and $D$ the denominator: the difference and the count, the reverse\nof item A. Let\n$K = (N_{00} N_{01} N_{10} N_{11} D_{g_1} D_{g_2} D_{g_3} D_{g_4} D_{g_5})^2$. The check computes the 21 integers\n$K H_{ij}$, the 15\nintegers of $S^{(6)}$ at scale $K^2$ and the 10 integers of $S^{(5)}$ at scale $K^4$, each by\n$h_{11} h_{ij} - h_{1i} h_{1j}$ on integers. The\ndecider is the conjunction of: $N_{xy} > 0$ for the four\npairs; $D_{g_k} > 0$ for $k = 1..5$; $-D_{g_k} < N_{g_k} < D_{g_k}$ for $k = 1..5$; and six\nstrict positivities, namely $K H_{11} > 0$, $K^2 S^{(6)}_{22} > 0$, and the four leading\nminors of the integer $S^{(5)}$. The full check\ncombines the seven-integer check of item\nE with this decider.\n\\end{definition}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-g12345"
+    ],
+    "before": "\\begin{theorem}[The full 1+AB check implies PSD]\\label{thm:chsh-g12345}\nLet the counts make every $N_{xy}$ and every $D_{g_k}$ positive, and let\n\\code{q1ab\\_g12345\\_check\\_z\\_kernel} pass on them. Then the matrix of\nDefinition~\\ref{def:chsh-nine} at the four correlators and $\\gamma_k = N_{g_k}/D_{g_k}$ is\nsymmetric and \\code{PSD9}. This is \\code{q1ab\\_g12345\\_caller\\_witness\\_z\\_abs\\_sound} followed by\n\\code{q1ab\\_g12345\\_minors\\_witness\\_implies\\_psd9}\n(kernel/quantum/QuantumPartitionPSD\\_\\allowbreak{}1AB.v).\n\\end{theorem}",
+    "after": "\\begin{theorem}[The full 1+AB check implies PSD]\\label{thm:chsh-g12345}\nLet the counts make every $N_{xy}$ and every $D_{g_k}$ positive, and let\nthe decider just defined pass on them. Then the matrix of\nDefinition~\\ref{def:chsh-nine} at the four correlators and $\\gamma_k = N_{g_k}/D_{g_k}$ is\nsymmetric and positive semidefinite.\n\\end{theorem}"
+  },
+  {
+    "kind": "remark",
+    "labels": [
+      "rem:chsh-interior"
+    ],
+    "before": "\\begin{remark}[Interior only]\\label{rem:chsh-interior}\nEvery test in the cascade is strict, so a passing check certifies that $H$ is positive\ndefinite, which is stronger than semidefinite. A point where $H$ is PSD but singular cannot pass, and\nneither can a moment with $|\\gamma_k| = 1$. For example, the tally of item E with correlators\n$(3/5, 4/5, 4/5, -3/5)$ has $H_{11} = 1 - 9/25 - 16/25 = 0$, so the full 1+AB check fails on it\nfor every choice of $\\gamma$, though the level-1 check of item E accepts it\n(\\code{nec\\_e\\_singular\\_full\\_fails} and \\code{nec\\_e\\_singular\\_level1\\_passes},\nNecEChshEquality.v). The source proves\nsoundness only; no converse is stated.\n\\end{remark}",
+    "after": "\\begin{remark}[Interior only]\\label{rem:chsh-interior}\nEvery test in the cascade is strict, so a passing check certifies that $H$ is positive\ndefinite, which is stronger than semidefinite. A point where $H$ is PSD but singular cannot pass, and\nneither can a moment with $|\\gamma_k| = 1$. For example, the tally of item E with correlators\n$(3/5, 4/5, 4/5, -3/5)$ has $H_{11} = 1 - 9/25 - 16/25 = 0$, so the full 1+AB check fails on it\nfor every choice of $\\gamma$, though the level-1 check of item E accepts it. The argument establishes soundness only; no converse is stated.\n\\end{remark}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-gzero"
+    ],
+    "before": "\\begin{theorem}[The zero-moment check sits inside the classical bound]\\label{thm:chsh-gzero}\nIf \\code{column\\_contractive\\_check\\_q1ab} $w$ = \\code{true} (QuantumPartitionPSD\\_\\allowbreak{}1AB.v, the same\nfunction), then the four correlators of $w$ satisfy\n$E_{00}^2 + E_{01}^2 + E_{10}^2 + E_{11}^2 \\le 1$\n(\\code{q1ab\\_check\\_at\\_gzero\\_forces\\_unit\\_ball}) and $|S| \\le 2$\n(\\code{q1ab\\_check\\_at\\_gzero\\_implies\\_classical\\_bound}).\n\\end{theorem}",
+    "after": "\\begin{theorem}[The zero-moment check sits inside the classical bound]\\label{thm:chsh-gzero}\nIf the zero-moment check accepts a tally $w$, then the four correlators of $w$ satisfy\n$E_{00}^2 + E_{01}^2 + E_{10}^2 + E_{11}^2 \\le 1$\n and $|S| \\le 2$.\n\\end{theorem}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-elliptope"
+    ],
+    "before": "\\begin{definition}[Completion and membership]\\label{def:chsh-elliptope}\n\\code{completed\\_npa} (kernel/quantum/ElliptopeCompletion.v) is the record of item D with the\nwithin-party entries set to free reals: $x$ in the $(A_0, A_1)$ cells and $y$ in the\n$(B_0, B_1)$ cells, marginals still zero. The correlators are elliptope realizable\n(\\code{elliptope\\_realizable}) when some $x, y$ make the completed matrix symmetric and PSD.\n\\end{definition}",
+    "after": "\\begin{definition}[Completion and membership]\\label{def:chsh-elliptope}\nComplete the matrix of item D by setting the\nwithin-party entries to free reals: $x$ in the $(A_0, A_1)$ cells and $y$ in the\n$(B_0, B_1)$ cells, marginals still zero. The correlators are elliptope realizable\n when some $x, y$ make the completed matrix symmetric and PSD.\n\\end{definition}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-ell-det"
+    ],
+    "before": "\\begin{theorem}[Deterministic plans are inside, \\code{deterministic\\_strategy\\_elliptope}]\\label{thm:chsh-ell-det}\n(ElliptopeCompletion.v) If $a_0^2 = a_1^2 = b_0^2 = b_1^2 = 1$, then\n$(a_0 b_0, a_0 b_1, a_1 b_0, a_1 b_1)$ is elliptope realizable, with $x = a_0 a_1$ and\n$y = b_0 b_1$.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Deterministic plans are inside]\\label{thm:chsh-ell-det}\n If $a_0^2 = a_1^2 = b_0^2 = b_1^2 = 1$, then\n$(a_0 b_0, a_0 b_1, a_1 b_0, a_1 b_1)$ is elliptope realizable, with $x = a_0 a_1$ and\n$y = b_0 b_1$.\n\\end{theorem}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-ell-convex"
+    ],
+    "before": "\\begin{theorem}[Convexity and finite mixtures]\\label{thm:chsh-ell-convex}\nFor $0 \\le \\lambda \\le 1$, if $E$ and $F$ are elliptope realizable, so is\n$\\lambda E + (1 - \\lambda) F$ (\\code{elliptope\\_convex}, ElliptopeCompletion.v). For finitely\nmany members with nonnegative weights summing to at most 1, the weighted sum is realizable\n(\\code{elliptope\\_finite\\_mixture}). Every finite mixture of deterministic plans is realizable\n(\\code{lhv\\_mixture\\_elliptope}).\n\\end{theorem}",
+    "after": "\\begin{theorem}[Convexity and finite mixtures]\\label{thm:chsh-ell-convex}\nFor $0 \\le \\lambda \\le 1$, if $E$ and $F$ are elliptope realizable, so is\n$\\lambda E + (1 - \\lambda) F$. For finitely\nmany members with nonnegative weights summing to at most 1, the weighted sum is realizable. Every finite mixture of deterministic plans is realizable.\n\\end{theorem}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-ell-tsirelson"
+    ],
+    "before": "\\begin{theorem}[Tsirelson's bound holds on the completion set, \\code{elliptope\\_tsirelson}]\\label{thm:chsh-ell-tsirelson}\n(ElliptopeCompletion.v) If $E$ is elliptope realizable then $S^2 \\le 8$.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Tsirelson's bound holds on the completion set]\\label{thm:chsh-ell-tsirelson}\n If $E$ is elliptope realizable then $S^2 \\le 8$.\n\\end{theorem}"
+  },
+  {
+    "kind": "corollary",
+    "labels": [
+      "cor:chsh-ell-pr"
+    ],
+    "before": "\\begin{corollary}[The PR box is outside, \\code{pr\\_box\\_not\\_elliptope}]\\label{cor:chsh-ell-pr}\n(ElliptopeCompletion.v) $(1, 1, 1, -1)$ is not elliptope realizable, since its\n$S^2 = 16 > 8$.\n\\end{corollary}",
+    "after": "\\begin{corollary}[The PR box is outside]\\label{cor:chsh-ell-pr}\n $(1, 1, 1, -1)$ is not elliptope realizable, since its\n$S^2 = 16 > 8$.\n\\end{corollary}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-ell-beyond"
+    ],
+    "before": "\\begin{theorem}[Strictly beyond the classical bound, \\code{beyond\\_classical\\_elliptope}]\\label{thm:chsh-ell-beyond}\n(ElliptopeCompletion.v) $(3/5, 3/5, 3/5, -3/5)$ is elliptope realizable and has\n$S = 12/5 > 2$.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Strictly beyond the classical bound]\\label{thm:chsh-ell-beyond}\n $(3/5, 3/5, 3/5, -3/5)$ is elliptope realizable and has\n$S = 12/5 > 2$.\n\\end{theorem}"
+  },
+  {
+    "kind": "definition",
+    "labels": [
+      "def:chsh-gate"
+    ],
+    "before": "\\begin{definition}[The two branches]\\label{def:chsh-gate}\n\\code{elliptope\\_pd\\_check} (ElliptopeGate.v): with the completion supplied as buckets and all\nentries scaled to integers by a positive common factor $K$, the four leading minors of\nthe $4 \\times 4$ block on $A_0, A_1, B_0, B_1$ are strictly positive. \\code{elliptope\\_ldl\\_check}: with the completion and a rational certificate supplied (six subdiagonal entries over\na common positive denominator, four pivots $d_k \\ge 0$ over another), the ten entry equations\nof $M = L D L^{\\mathsf T}$ hold in cross-multiplied integer arithmetic (\\code{ldl\\_equations}). \\code{elliptope\\_check\\_full} is their disjunction.\n\\end{definition}",
+    "after": "\\begin{definition}[The two branches]\\label{def:chsh-gate}\nThe positive-minor branch: with the completion supplied as buckets and all\nentries scaled to integers by a positive common factor $K$, the four leading minors of\nthe $4 \\times 4$ block on $A_0, A_1, B_0, B_1$ are strictly positive. The factorization branch: with the completion and a rational certificate supplied (six subdiagonal entries over\na common positive denominator, four pivots $d_k \\ge 0$ over another), the ten entry equations\nof $M = L D L^{\\mathsf T}$ hold in cross-multiplied integer arithmetic. The full gate is their disjunction.\n\\end{definition}"
+  },
+  {
+    "kind": "theorem",
+    "labels": [
+      "thm:chsh-gate-sound"
+    ],
+    "before": "\\begin{theorem}[Soundness of the gate, \\code{elliptope\\_check\\_full\\_sound}]\\label{thm:chsh-gate-sound}\n(ElliptopeGate.v) If \\code{elliptope\\_check\\_full} returns \\code{true} on a counter record, any\ncompletion buckets and any certificate, then the four correlators of the record are\nelliptope realizable. And \\code{elliptope\\_full\\_gate\\_never\\_accepts\\_pr\\_box}: on the PR box\ntally the gate returns \\code{false} for every choice of the remaining arguments.\n\\end{theorem}",
+    "after": "\\begin{theorem}[Soundness of the gate]\\label{thm:chsh-gate-sound}\n If the full gate returns yes on a counter record, any\ncompletion buckets and any certificate, then the four correlators of the record are\nelliptope realizable. On the PR box\ntally the gate returns no for every choice of the remaining arguments.\n\\end{theorem}"
+  }
+]

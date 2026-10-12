@@ -1,0 +1,82 @@
+[
+  {
+    "number": 1,
+    "title": "The opening result",
+    "reason": "Let the opening land on what the machine does. The theorem references immediately before this sentence already identify the supporting results.",
+    "source_line": 247,
+    "before": "So the guarantee holds for every\nprogram, carried through one interpreter, with the cost counted exactly, and all of it is checked\nin Coq.",
+    "after": "So the guarantee holds for every\nprogram, carried through one interpreter, with the cost counted exactly."
+  },
+  {
+    "number": 2,
+    "title": "The list of proved claims",
+    "reason": "Name the status as proved and retain the explicit assumptions. The method used to check the derivation need not lead the list.",
+    "source_line": 1463,
+    "before": "Checked by a proof assistant, with every assumption printed, for any system with the named parts:",
+    "after": "Proved, with every assumption printed, for any system with the named parts:"
+  },
+  {
+    "number": 3,
+    "title": "The short version",
+    "reason": "Keep the summary about the result and its premises. Part V already explains the checking procedure.",
+    "source_line": 1635,
+    "before": "The headline result is proved in Coq (a proof assistant: software\nthat checks every step of a proof), with every premise printed.",
+    "after": "The headline result is proved with every premise printed."
+  },
+  {
+    "number": 4,
+    "title": "The front-matter account of the tools",
+    "reason": "Preserve the account of how the work was produced. Replace the appeal to acceptance by Coq with a direct statement of the limited job given to the checker and auditor.",
+    "source_line": 1813,
+    "before": "I used language models to\nwrite the code and the proofs in this project, and I trust language models about as far as\nI can throw them, which is exactly why every formal declaration is checked by a proof\nassistant that doesn't care who or what wrote it. Coq rejects a wrong proof the same whether\na tenured professor or a model hands it over, and it accepted these, with none of my own\naxioms anywhere in them, re-checkable by the procedure in Part V. Being self-taught and\nusing modern tools didn't make this looser. It's the reason I made a machine check the\nformal corpus, and then built an auditor to read over the checker's shoulder for every way I\nmight have cheated, on purpose or by accident (Part V says what it looks for). It doesn't\ntrust me either. Good.",
+    "after": "I used language models to\nwrite the code and the proofs in this project, and I trust language models about as far as\nI can throw them. Every argument still has to hold up when you read it. I used a proof\nchecker to look for gaps in the formal derivations, and built an auditor to look for the\nways I'd let an assumption do the work. Neither can tell me that I've asked the right\nquestion or that a definition means what I say it means. Part V gives the procedure and\nits limits. The work stands or falls on the arguments."
+  },
+  {
+    "number": 5,
+    "title": "The small-machine chapter’s summary",
+    "reason": "Keep the assumption status and the exact source files, while removing the repeated account of compilation and printouts from the chapter’s conclusion.",
+    "source_line": 12028,
+    "before": "Every result above is closed: Coq reports no assumptions for any of them. That isn't\nmy say-so. EarnedCore.v and its link file, EarnedCoreLinks.v, each end by asking Coq to print the assumptions of each headline\ntheorem, and the build of Section~\\ref{sec:coq} compiles them and fails unless every one comes\nback closed. The\nproject-wide audit of Section~\\ref{sec:coq} lists these files too, and every theorem in them comes\nback closed there as well. The base\nfile uses nothing but Coq's standard library, so you can check it with nothing else\ninstalled; the link file adds only the book's own abstract records and the library of\nundecidability proofs.",
+    "after": "The formal derivations of these results use no added axioms; each theorem still has\nthe hypotheses printed in its statement. The sources are EarnedCore.v and EarnedCoreLinks.v,\nand Section~\\ref{sec:coq} gives the assumption audit and the procedure for repeating it.\nThe base file uses only Coq's standard library; the link file adds the book's abstract\nrecords and the library of undecidability proofs."
+  },
+  {
+    "number": 6,
+    "title": "The precedents in “Why I used it”",
+    "reason": "Introduce the examples by the checking practice they illustrate. The existing paragraph explaining why you used the tool stays exactly as written.",
+    "source_line": 16156,
+    "before": "Two precedents show that a proof assistant is a serious tool. Neither of them is a\ntoy.",
+    "after": "Two precedents show how a large proof can be checked by a small program."
+  },
+  {
+    "number": 7,
+    "title": "The shared foundation",
+    "reason": "Sharing a foundation is a shared dependency, not an independent confirmation. Also qualify the incompleteness claim rather than treating it as an unconditional slogan.",
+    "source_line": 16192,
+    "before": "It doesn't mean Coq's own foundation is proved\nconsistent; it's believed consistent, and that can't be proved from inside, by Gödel (Section~\\ref{sec:diagonal}),\nso the foundation is trusted, and ``trusted'' has substance: it's the same kernel CompCert and\nthe four-colour proof stand on, and a bug in it would take all of them down together, which\nis a kind of safety in numbers.",
+    "after": "It doesn't mean Coq's own foundation is proved\nconsistent. Gödel's second incompleteness theorem limits what a sufficiently strong,\neffectively axiomatized theory can establish about its own consistency, if it is consistent\n(Section~\\ref{sec:diagonal}). The foundation and the implementation of the checker remain\ndependencies. CompCert and the four-colour formalization share them; that does not make\nthem independent checks of those dependencies."
+  },
+  {
+    "number": 8,
+    "title": "The invitation to challenge the work",
+    "reason": "Remove the suggestion that readers need a kernel exploit to challenge the book. Retain all three concrete targets and the example that distinguishes certification from learning.",
+    "source_line": 16495,
+    "before": "Before the list, the honest part about it. Most targets below are theorems Coq has checked,\nand knocking one of those over head-on would take a bug in Coq's kernel. That can happen, but\nit isn't where I'd put my money. The places a reader can actually win are aimed at me,\nand there are three. None of them goes through Coq. A sentence of mine that says more than the Coq statement it cites\n(Appendix~\\ref{sec:coq-statements} puts the load-bearing ones side by side to make that easy). A Coq\ndefinition that doesn't capture the English word it's named for:",
+    "after": "Before the list, three places to aim at me. A sentence of mine that says more than\nthe formal statement it cites (Appendix~\\ref{sec:coq-statements} puts the load-bearing ones\nside by side to make that easy). A definition that doesn't capture the English word it's named for:"
+  },
+  {
+    "number": 9,
+    "title": "The concluding statement of the machine’s results",
+    "reason": "Let the results carry the conclusion. Retain the assumption status because the next paragraph contrasts it with the assumptions used for the game check.",
+    "source_line": 17477,
+    "before": "All of that is proved in Coq with\nno axioms: each file prints the assumptions of every headline theorem, and every line\ncomes back closed.",
+    "after": "The formal derivations of those results use no added axioms; the hypotheses of each\ntheorem are printed in its statement."
+  },
+  {
+    "number": 10,
+    "title": "The concluding invitation to the reader",
+    "reason": "Keep the admission that you found no counterexample without turning that search into an appeal to the checker’s authority. Preserve the distinction between a false theorem and an overreaching interpretation.",
+    "source_line": 17493,
+    "before": "I hunted. I came up empty. For a theorem Coq has\nchecked, that's no surprise: finding one would take a bug in the checker. The places a reader can really win are where my sentence says more\nthan the statement does, or a definition doesn't catch the word it's named for, and\nSection~\\ref{sec:falsification} starts with those.",
+    "after": "I hunted. I came up empty. That leaves the arguments here for you to examine.\nEven where a theorem holds, my sentence can say more than it establishes, or a definition\ncan fail to catch the word it's named for. Section~\\ref{sec:falsification} starts with those."
+  }
+]

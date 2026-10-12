@@ -1,0 +1,189 @@
+thm:equiv-partition
+--- 
++++ 
+@@ -1,5 +1,5 @@
+ \begin{theorem}[Sameness and sorting are one object]\label{thm:equiv-partition}
+ Every equivalence relation on $X$ determines a partition, whose blocks are the classes
+-$[x] = \{\, y \in X : y \sim x \,\}$; every partition determines an equivalence relation,
++$[x] = \{\, y \in X: y \sim x \,\}$; every partition determines an equivalence relation,
+ ``$x$ and $y$ lie in the same block''; and the two constructions undo each other.
+ \end{theorem}
+
+def:certsys
+--- 
++++ 
+@@ -1,7 +1,7 @@
+ \begin{definition}[Certification system]\label{def:certsys}
+ A \emph{certification system} consists of a set $S$ of states, a set $I$ of move names, a step
+-function $\mathrm{step} : S \times I \to S$, a cost $\mathrm{cost} : I \to \mathbb{N}$, and a
+-reading $\mathrm{cert} : S \to \{\mathrm{no}, \mathrm{yes}\}$, subject to one rule, the
++function $\mathrm{step}: S \times I \to S$, a cost $\mathrm{cost}: I \to \mathbb{N}$, and a
++reading $\mathrm{cert}: S \to \{\mathrm{no}, \mathrm{yes}\}$, subject to one rule, the
+ \emph{toll}: for every state $s$ and move $i$,
+ \[
+ \mathrm{cert}(s) = \mathrm{no} \text{ and } \mathrm{cert}(\mathrm{step}(s,i)) = \mathrm{yes}
+
+
+prem:merge-pricing
+--- 
++++ 
+@@ -1,4 +1,4 @@
+ \begin{premise}[Merge pricing]\label{prem:merge-pricing}
+ Every move that merges costs at least one: for all $i$, if $i$ is not injective then
+-$\mathrm{cost}(i) \ge 1$. (Checked name: \code{merging\_steps\_priced}.)
++$\mathrm{cost}(i) \ge 1$. 
+ \end{premise}
+
+prem:halving
+--- 
++++ 
+@@ -1,6 +1,5 @@
+ \begin{premise}[Halving price]\label{prem:halving}
+ Each mark pays for at most one halving: for every move $i$ and every list $D$ of states with
+-no repeats, $|D| \le 2^{\mathrm{cost}(i)} \cdot \mathrm{img}_i(D)$. (Checked name:
+-\code{compression\_priced}. It implies merge pricing, since a merge sends two different states to
++no repeats, $|D| \le 2^{\mathrm{cost}(i)} \cdot \mathrm{img}_i(D)$. ( It implies merge pricing, since a merge sends two different states to
+ one and so needs $\mathrm{cost}(i) \ge 1$.)
+ \end{premise}
+
+prem:landauer
+--- 
++++ 
+@@ -1,5 +1,4 @@
+ \begin{premise}[Landauer's principle, as a premise]\label{prem:landauer}
+ A step that lowers the entropy of the machine's state by $\Delta H$ bits, at temperature
+ $T$, gives off heat $Q \ge k_B T \ln 2 \cdot \Delta H$, where $k_B$ is Boltzmann's constant.
+-(Checked name: \code{landauer\_heat}, with $k_B T$ as one variable.)
+ \end{premise}
+
+thm:machine-narrowing
+--- 
++++ 
+@@ -2,6 +2,6 @@
+ If the cost satisfies the halving price (Premise~\ref{prem:halving}), then for every run $t$
+ and every list $D$ of starting states with no repeats,
+ \[
+-\lceil \log_2 |D| \rceil \;\le\; \mathrm{cost}(t) + \lceil \log_2 |\mathrm{img}_t(D)| \rceil .
++\lceil \log_2 |D| \rceil \;\le\; \mathrm{cost}(t) + \lceil \log_2 |\mathrm{img}_t(D)| \rceil.
+ \]
+ \end{theorem}
+
+def:potential
+--- 
++++ 
+@@ -1,5 +1,5 @@
+ \begin{definition}[Potential, amortized cost]\label{def:potential}
+-A \emph{potential} is a function $\Phi : S \to \mathbb{N}$. A step has \emph{non-negative amortized
++A \emph{potential} is a function $\Phi: S \to \mathbb{N}$. A step has \emph{non-negative amortized
+ cost} under $\Phi$ when $\mathrm{cost}(i) + \Phi(\mathrm{step}(s, i)) \ge \Phi(s)$. The
+ \emph{flag potential} is $\Phi_\mathrm{cert}(s) = 1$ if $\mathrm{cert}(s) = \mathrm{no}$ and $0$
+ if it reads yes.
+
+
+def:u08-entitlement
+--- 
++++ 
+@@ -4,5 +4,5 @@
+ and whose result is on the record; and a \emph{paid event}, a move of the run at which
+ the object was put in place and which the price list charged at least one. In a certification
+ system (Definition~\ref{def:certsys}) a move that takes the reading from no to yes is such a
+-move, because the toll charges it. This is the book's word; there's no Coq definition of it.
++move, because the toll charges it. This is the book's word.
+ \end{definition}
+
+rem:u09-three
+--- 
++++ 
+@@ -1,7 +1,6 @@
+ \begin{remark}[What the toll prices, and what it doesn't]\label{rem:u09-three}
+ Read off Definition~\ref{def:certsys} and Observation~\ref{thm:universal-floor}, and checked on the
+-board as a certification system (\code{nec\_f\_board\_raw\_free}, \code{nec\_f\_board\_floor} and
+-\code{nec\_f\_board\_floor\_flat}, NecFPaperToys.v). (1) The toll puts no bound on the cost of a raw-observation
++board as a certification system. (1) The toll puts no bound on the cost of a raw-observation
+ move; on Section~\ref{sec:toll}'s board STAY and WORK are raw observation and cost $0$. (2) Every certified
+ insight event is charged at least $1$, by the toll, and every run from a state reading no to
+ one reading yes has total cost at least $1$, by the universal floor. (3) The price is flat:
+
+
+rem:u09-no-wait
+--- 
++++ 
+@@ -1,6 +1,5 @@
+ \begin{remark}[Nothing makes the crossing wait]\label{rem:u09-no-wait}
+-Read off Definition~\ref{def:certsys}, and checked on the board as \code{nec\_f\_board\_no\_wait}
+-(NecFPaperToys.v). The toll constrains
++Read off Definition~\ref{def:certsys}. The toll constrains
+ $\mathrm{cost}(i)$ for moves that cross, and nothing else; the step function is any function
+ of the current state and the move. So a certification system may have a move that crosses
+ from a state no check has touched, and the toll still holds. On Section~\ref{sec:toll}'s board extended with
+
+
+thm:u11-reversible
+--- 
++++ 
+@@ -1,6 +1,6 @@
+ \begin{theorem}[Records on reversible machines]\label{thm:u11-reversible}
+ (1) Let $B$ be a base whose step is injective. The machine with states $(b, r, H, x)$, step
+-$(b, r, H, x) \mapsto (\mathrm{next}_B(b),\ r \lor h(b),\ r :: H,\ x + \delta)$ ($\delta$ as in
++$(b, r, H, x) \mapsto (\mathrm{next}_B(b),\ r \lor h(b),\ r:: H,\ x + \delta)$ ($\delta$ as in
+ Theorem~\ref{thm:u11-converse}), starting states with $r$ off, $H$ empty and $x = 0$, has an
+ injective step, and under the supposition of Theorem~\ref{thm:u11-converse} it is a base-driven
+ record over $B$. (2) On a finite state space, a single injective step with a permanent
+
+
+def:u12-substrate
+--- 
++++ 
+@@ -4,7 +4,7 @@
+ $\mu$ on states and a step relation along which $\mu$ never decreases; an encoding
+ $\mathrm{enc}$ of programs as states with a decoder $\mathrm{dec}$ such that
+ $\mathrm{dec}(\mathrm{enc}(p)) = p$; and a predicate $\mathrm{Rep}$ on maps
+-$f : \mathrm{Prog} \to \mathrm{Prog}$, the transformations the substrate counts as its own.
++$f: \mathrm{Prog} \to \mathrm{Prog}$, the transformations the substrate counts as its own.
+ Two programs are \emph{equivalent}, $p \simeq q$, when $\mathrm{run}(p, s) = \mathrm{run}(q, s)$
+ for every state $s$. The last field is the \emph{recursion theorem}: for every $f$ with
+ $\mathrm{Rep}(f)$ there is a program $p$ with $p \simeq f(p)$.
+
+
+def:u13-quote
+--- 
++++ 
+@@ -1,6 +1,6 @@
+ \begin{definition}[Platform and quote]\label{def:u13-quote}
+-Fix any functions $H : \mathbb{N} \times \mathbb{N} \to \mathbb{N}$ (the extend hash) and
+-$\delta : \mathbb{N} \to \mathbb{N}$ (the digest); nothing is assumed about either. A
++Fix any functions $H: \mathbb{N} \times \mathbb{N} \to \mathbb{N}$ (the extend hash) and
++$\delta: \mathbb{N} \to \mathbb{N}$ (the digest); nothing is assumed about either. A
+ \emph{platform} is a measurement log (a list of numbers) and a Boolean runtime flag. Its register
+ is the log folded from 0 by $H$. The \emph{quote} with nonce $n$ is the pair
+ $(\delta(\text{register}), n)$.
+
+
+thm:u34-undecidable
+--- 
++++ 
+@@ -1,8 +1,9 @@
+ \begin{theorem}[Halting is undecidable for this machine]\label{thm:u34-undecidable}
+-The library's two-counter machine agrees with the INC/DEC fragment: its step, its stop, and
+-its termination match those of the compiled program, so a library problem $(P, a, b)$ halts
++The two-counter machine used by Forster, Larchey-Wendling and coauthors agrees with the
++INC/DEC fragment: its step, its stop, and its termination match those of the compiled program,
++so its halting problem at $(P, a, b)$ has a positive answer
+ if and only if the compiled program halts from $\mathrm{start}(a, b)$. Consequently, the
+ question ``does program $P$ halt from $\mathrm{start}(a, b)$?'' is undecidable in the
+-library's sense: a decider for it would make the complement of single-tape binary Turing machine
++following reduction sense: a decider for it would make the complement of single-tape binary Turing machine
+ halting enumerable.
+ \end{theorem}
+
+thm:u34-U-complete
+--- 
++++ 
+@@ -8,6 +8,6 @@
+ Thiele-completeness agrees with it step for step and cost for cost, so the same run costs at least
+ 3 on that one too, and the universal floor of 1 holds there directly.
+ (3) $U$ halts from $\mathrm{hload}(P, x, y)$ exactly when $P$ halts from $\mathrm{start}(x, y)$, so
+-the question ``does $U$ halt from this loaded host?'' is undecidable in the library's sense of
++the question ``does $U$ halt from this loaded host?'' is undecidable in the reduction sense of
+ Theorem~\ref{thm:u34-undecidable}.
+ \end{theorem}

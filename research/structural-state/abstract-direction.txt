@@ -1,0 +1,151 @@
+ABSTRACT MODEL: WHAT EXISTS, WHAT NEEDS CARE, AND THE NEXT TARGET
+Research note for Devon Thiele — 12 October 2026
+
+The objective is the abstract model of structure as state. The Small Machine
+is an instance, and the earlier data-structure studies are component studies.
+Neither should silently become the definition or purpose of the project.
+This is a scope and mathematical compatibility review, not a manuscript edit
+or a complete audit. Repository sources were inspected at commit
+e4c234627651f1b12eb649148a051d5a252ed6b4.
+
+1. THE ABSTRACT FOUNDATION ALREADY EXISTS
+
+StructuralCore.v defines a record-carrying deterministic machine with arbitrary
+state space, initialization, reading, ledger and halting observation. Its core
+equivalence uses a relation preserving the reading, cost increments and steps.
+
+StructuralCoreAnyBase.v defines extensions of an arbitrary deterministic base
+through a projection that commutes with steps. StructuralRecordAxis.v proves
+that a permanent base-driven Boolean record factors as r' = r OR h(b).
+The proof uses permanence and base dependence; it does not derive a heat price.
+It does not establish a unique h on base states never represented with r=false.
+
+These definitions are not intrinsically Minsky definitions. A continuous-state
+system with a specified deterministic discrete-time map also fits the bare
+state-space formulation. Claims about continuous-time trajectories, continuity
+of the readout, physical realizability or finite-state counting require their
+own hypotheses; they do not follow from naming a continuous base.
+
+PartitionReading.v treats groupings through their induced partitions, invariant
+under bucket renaming. It proves that, for every key assignment, soundness of
+grouping g entails soundness of h exactly when h refines g. It also supplies a
+concrete grouping machine. This is already a counter-independent structural
+entitlement result. ThieleComplete.v adds a stronger certification interface
+and a universal-base requirement; that is a different layer, not the only
+abstract definition in the repository.
+
+No conclusion about the whole book's completeness follows from these spot
+checks. The suggestion that all substrate independence remains to be written
+does not match these existing definitions and results.
+
+2. EFFECTS AND EXECUTIONS CANNOT BE IDENTIFIED CARELESSLY
+
+Proposition. Let transitions form a category, and let an additive cost take
+values in the nonnegative integers or finite nonnegative reals. If an arrow e
+is idempotent (e composed with e equals e), its additive cost must be zero.
+
+Proof. Additivity gives cost(e)=cost(e composed with e)=2*cost(e), so cost(e)=0.
+
+Example: reset both values of a bit to 1. As a function R, R composed with R
+equals R, and R is non-injective. Therefore no additive functor on a category
+that identifies these extensional functions can assign a positive finite cost
+to every such reset. This directly blocks the proposed definition of a cost
+functor pricing every non-injective morphism if this is its morphism equality.
+
+Resolution: distinguish paths of executed transitions from their effects on
+states. The path [reset,reset] differs from [reset], although their effects
+agree. Costs can add along paths. To descend those costs to a quotient that
+identifies paths, equal cost for every identified pair is necessary and
+sufficient: necessity follows from being a well-defined function on classes;
+sufficiency defines the class's cost using any representative. Composition
+must also respect the equivalence if the quotient is to remain a category.
+
+This is an elementary compatibility result, not a novelty claim. It explains
+why the precise equality of arrows matters more than the label "functor."
+The existing per-instruction trace ledger already distinguishes executions.
+
+3. CONSTRAINTS AND OBSERVATION: THE EXACT DESCENT TEST
+
+Let S be states, W a window, and pi:S->W the observation. Let A(s,a) specify
+whether action a is permitted at state s. An exact guard using only the window
+exists iff, for every a, A(s,a) is constant whenever pi(s)=pi(t).
+
+Proof. Necessity: the guard receives identical inputs for s and t. Sufficiency:
+define its answer on each occupied window by that common truth value. This is
+existence as a mathematical function, not necessarily effective computability.
+
+For a deterministic next-window rule, one additionally needs pi(delta(s,a))
+to agree for all states in a window fibre where the same action is allowed.
+The same necessity/sufficiency proof applies. Without these conditions, simply
+calling the window a projection functor does not supply an exact deterministic
+quotient or preserve which actions are forbidden.
+
+If the conditions fail, distinguishable continuations identify which extra
+state must be retained. This connects the preservation work to the abstract
+constraint model without selecting a counter, tape or data structure. Related
+window/fibre and descent results already occur in the book; compare their
+scope before presenting this as an additional theorem.
+
+4. 'CAN AND CANNOT' NEEDS AN OBSERVATION AND UPDATE CONTRACT
+
+Representing both permitted and forbidden transitions can be valuable, but
+classical transition systems, types, invariants and reference monitors already
+express exclusions. Exclusion alone is not a separation from classical
+computation. A new theorem must identify a further requirement or consequence.
+
+A successful check can intersect a set of candidate worlds with the worlds
+that satisfy its test, but the intersection may equal the original set. A
+mutation or lost observation can broaden the compatible possibilities. For
+example, after learning a bit is zero, an unobserved replacement by either
+value makes the current-bit possibilities {0,1}. Not every execution is
+strict contraction, and contraction alone does not guarantee termination or
+a unique answer. These are specification choices requiring explicit hypotheses.
+
+Likewise, adding cost cannot make a false invariant true. If an action may pay
+to relax a constraint, the relaxation must be a separately specified permitted
+transition with a new invariant. If the invariant is mandatory, violating the
+guard must remain disallowed or trap. Payment is not a proof of validity.
+
+5. PRECISE SCOPE OF THE PROPOSED BOOK REMARK
+
+The proposed r_A,r_B<=8 bound is false. All sixteen facts can concern one
+counter. Given the retained ordered fact names, let a and b count the entries
+for A and B; a+b<=16. Their live-prefix lengths have (a+1)(b+1)<=81 possible
+pairs, explaining the seven-bit bound. The encoding depends on that retained
+fact list. The two lengths alone range over more than 128 pairs if the list's
+counts are not available.
+
+A possible accurate remark, pending editorial placement:
+
+  Numeric version counters are not required to enforce the stated instruction
+  behavior. Given the retained ordered fact table, if a entries concern A and
+  b concern B, their live-prefix lengths have (a+1)(b+1)<=81 possibilities;
+  seven additional bits suffice. Preserving equality and order of editions
+  within each counter's stored facts and relative to its current edition needs
+  at most sixteen gap bits, with the channel's historical identity retained
+  separately. These encodings preserve the specified relations, not numeric
+  version readout or an unbounded write count.
+
+This is not a claim that the entire Small Machine is finite-state. Its base,
+ledger and unrestricted claim parameters remain outside these component bounds.
+No book paragraph has been inserted as part of this review.
+
+6. THE NEXT ABSTRACT TARGET
+
+Use the existing arbitrary-base and partition framework to characterize
+which structural identifications preserve BOTH future permission/refusal
+behavior and execution costs.
+
+For each proposed identification or simulation, ask:
+  - Which structural claims and exclusions must remain meaningful?
+  - Which observations and continuations can distinguish states?
+  - Does the state quotient preserve enabledness and future observations?
+  - Which execution paths are identified, and is their cost equal?
+  - If hidden history is added or discarded, what remains invariant?
+
+The immediate mathematical task is a representation/quotient result, with
+worked partitions and relations, and explicit counterexamples where descent
+fails. A positive Toll requires a stated charging contract or further physical
+hypotheses. Neither categorical vocabulary nor a manifesto supplies that
+missing implication. The earlier retention bound supplies a finite-capacity
+constraint under its precise hypotheses; it does not settle physical pricing.

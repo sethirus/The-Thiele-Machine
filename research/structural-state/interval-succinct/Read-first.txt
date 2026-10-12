@@ -1,0 +1,55 @@
+INTERVAL INVALIDATION: THE NEXT RESEARCH RESULT
+12 October 2026
+
+For n independently queryable freshness statuses, with each write invalidating
+an interval in a supplied fixed claim order, the construction achieves:
+
+  n+O(w) peak protected mutable bits, including temporary workspace;
+  O(1+log(1+n/w)) worst-case PASS, WRITE and USE;
+  O(1) global invalidation.
+
+w is the machine-word width, sufficient for all addresses. Static policy is
+counted separately. Successful validation must be authenticated, all writes
+mediated, and operations atomic. Predicate validation cost is additional.
+There are no unbounded timestamps or probabilistic errors.
+
+The mechanism is tangible: a block with no fresh claims has nothing left to
+remember about individual freshness. Its existing protected storage can hold
+a node of an index of stale ranges. On renewal, the index is repaired before
+that block is cleared and returned to ordinary bit storage. Traversal records
+also occupy stale blocks, eliminating a logarithmic external recursion stack.
+
+This improves the space/time options already obtained. It does not dominate
+the earlier constant-query construction: queries here become logarithmic.
+The earlier wide tree has faster O(log_w n) operations but more redundancy.
+The n-bit information lower bound makes the new space bound optimal up to an
+additive constant number of words. No matching time lower bound is proved.
+
+These are standard AVL and intrusive-storage ingredients. Priority for this
+particular combination and bound is NOT established. Treat this as a concrete
+research construction with a written proof and tested implementation, not a
+claim that an established open problem has been solved.
+
+FILES
+  Result.txt          Self-contained specification, construction and proofs;
+                      resource accounting, related work and limitations.
+  inplace_monitor.py  Executable word-array model with an embedded AVL index.
+  verify_inplace.py   Independent history oracle and representation checks.
+  verification.json  Counts from the completed verification run.
+  verification.log   Output from that run.
+  SHA256SUMS          File-integrity manifest for this bundle.
+
+REPRODUCE
+From this directory with Python 3, no third-party packages:
+  python3 verify_inplace.py
+
+The recorded run passed 173,524 individual-bit history prefixes, 10,290
+multi-block history prefixes, 37,884 representative range cases, 30,000
+random events and 14,040 adversarial events. It exercised 37,796 renewals in
+blocks holding index nodes. Counts overlap where a case includes a renewal.
+Tests support implementation correctness; the general bounds require the
+proof in Result.txt. Python allocation overhead is not the claimed bit count.
+
+Still unresolved here: the best achievable simultaneous time bounds at
+n+O(w) peak protected bits; matching lower bounds; the full literature status;
+and how far the construction extends beyond bounded interval descriptions.

@@ -1,0 +1,242 @@
+[
+  {
+    "tag": "opening_purpose",
+    "before": "The strongest thing in this book first, so you know what the rest is for. On the small machine\nof Part IV, every program anybody can write, run from a clean start, raises its flag only after\na passing check of a claim, a passing commitment to that same claim about the same edition, and\nthen a passing certificate, in that order (Theorem~\\ref{thm:u34-cert-earned}). And one fixed program, the universal\nThiele machine, runs every one of those programs on a host with more counters: it halts exactly\nwhen its guest halts, its flag goes up exactly when the guest's does, and its ledger equals the\nguest's at every guest step and, in between, never gets ahead of the guest's next one\n(Theorems~\\ref{thm:u34-U-halting} and~\\ref{thm:u34-U-flag}). So the guarantee holds for every\nprogram, carried through one interpreter, with the cost counted exactly. Putting a rule under every program is an old idea, and I say whose later in this chapter.\nCarrying it through a universal interpreter with an exact ledger is the piece I didn't find done\nbefore, where I looked (Appendix~\\ref{sec:whats-mine}).",
+    "after": "Structure is something a machine can hold and act on. Which things belong together,\nwhich change preserves a relation, which earlier act a later move depends on: those\ncan be part of its state and its rules. That is the commitment behind the Thiele\nMachine. I want to take those relations apart, put them to work, and ask what survives\nwhen the machine changes or when we look at it through a smaller window.\n\nThe way into that question is two computers with the same answer. The answer leaves\nsomething out. We can give that difference a place in the machine, let the step\nmaintain it, and ask what an observer can recover and what a change costs. A record\nof a checked claim will be the first case I work through. It gives the argument\nsomething definite to stand on: states you can point at, moves you can follow, and\nrules you can try to break.",
+    "reason": "Lead with structural state, operations and observation; introduce certification as a worked case, not the purpose of the book."
+  },
+  {
+    "tag": "opening_transition",
+    "before": "Here's the whole thing before any of the careful parts. I'm going to start with one small picture,",
+    "after": "Start with one small picture. I'm going to",
+    "reason": "Remove a competing whole-book synopsis after the new opening."
+  },
+  {
+    "tag": "two_computers_relation",
+    "before": "One of them found\nsomething out about your list and stood behind it. The other one is holding identical bits and found\nout nothing.",
+    "after": "The first compared the entries and checked their order. The second loaded the same\nanswer without doing either. The list is in order in both; the difference is what\neach run did with it.",
+    "reason": "Make the contrast concern the run and its relation to the object, not two grades of truth."
+  },
+  {
+    "tag": "established_scope",
+    "before": "I'm going to call the difference \\emph{established}. The first machine established that your list is\nsorted. The second has the same answer and established nothing. The rest of this chapter is me\ntaking that one word apart.",
+    "after": "I'm going to call the first run's relation to that answer \\emph{established}: it\nchecked the order of this list. The second run has the answer without that relation.\nThe list's order is there either way. What can a machine keep of the difference\nbetween the runs? The rest of this chapter takes that question apart.",
+    "reason": "Define the opening contrast operationally without making the machine confer truth."
+  },
+  {
+    "tag": "model_framing",
+    "before": "\\emph{What ``new model of computation'' means here.} It adds something to how a machine runs:\nstructure it keeps, and an account of what that structure cost. It doesn't add computable\nfunctions. It's an abstract model the way the Turing machine is, but it doesn't hand you a\nnew primitive to compute with; whatever base machine sits under it still does all the\ncomputing. When I say ``shadow'' I mean the particular window I name. Other ways a\nconventional machine could store things aren't covered. Enforcing the law, storing it, and\nletting an observer see it are three separate questions, and the book keeps them separate.",
+    "after": "\\emph{What ``new model of computation'' means here.} The Thiele Machine makes chosen\nstructural distinctions explicit in the state, the step and its cost. In the case\non the table, that includes which object a check concerned, which edition it saw,\nand which later act may rely on it. A record keeps something of those relations;\na window determines how much an observer can recover. Change what is kept or what\nthe window shows, and you change which questions the resulting state can answer.\nThe computing base supplies the operations. The record adds no computable function.",
+    "reason": "Put the role of state and observation before the comparison of computing power."
+  },
+  {
+    "tag": "every_program_role",
+    "before": "\\emph{Which} programs the guarantee covers: this one becomes every one. Most of the rest of the\nbook is how far that ``every'' goes and where it stops.",
+    "after": "\\emph{Which} programs the guarantee covers: this one becomes every one. Here the\nrelation between a check and its object has a job in the machine: the step reads\nit and refuses a commitment when it no longer fits. That is one concrete way to\nmake structure part of what the machine does.",
+    "reason": "Explain what enforcement demonstrates instead of making it the destination of the rest of the book."
+  },
+  {
+    "tag": "short_version_summary",
+    "before": "\\emph{The book in one paragraph.} The Thiele Machine is an abstract model of computation. Its core is a\nstate, a step rule, a cost for each move and a yes-or-no certification reading, with one rule: the\nstep turning the reading from no to yes costs at least one unit (I call that rule the toll,\nand its first name, the one I gave it before I understood it, is No Free Insight; Part II\nbuilds it). On top of that core go a counter that adds up the costs and only climbs, and a window\nthat says what an observer sees. The headline result is this. With finitely many yes-states and\na reading that is never taken back, every move that raises the reading merges states; consequently\nevery schedule that prices merges charges that move, and every run from no to yes has positive\ntotal cost. That's what I call the universal certification result. ``Universal'' means it holds\nfor every system with those premises; its counting core is classical, and what's mine is the\nprice as a rule on a ledger and the toll that falls out of it (Appendix~\\ref{sec:whats-mine}).\nLandauer's principle (the physicist's\nrule that forgetting costs heat) is a named premise for pricing merges. Around it the book proves\nthat finding out can be free, that a window can hide what was paid, that a base-driven permanent record\nover any machine is a latch on one event (a switch the event flips once and nothing flips back),\nand that a system can't decide, by a procedure it can itself represent, every property of its own\nprograms that depends only on what they do. All of that is about any system with the named pieces.\nPart IV builds one machine that carries the model, six instruction kinds on two counters, on which\ncommitments are earned, and two universal programs on a host with more counters: one runs every\nprogram of that machine, and one runs every Thiele machine whose workings a program can compute,\neach guest's record earned again by the host. The five steps below are the argument in order, with\nwhere each stands. ``What's proved, what's argued, and what I just believe,'' back in ``The\npoint,'' sorts the claims by status and names the few that are new, each beside its neighbours.",
+    "after": "\\emph{The book in one paragraph.} The Thiele Machine is an account of computation\nthat holds structure in the state and makes its treatment explicit in the step.\nStart with things and their relations, then ask which moves preserve them, which\nlose distinctions, and which distinctions an observer can see. The worked core is\na state, a step rule, a cost for each move and a yes-or-no reading, with a toll on\nturning that reading on. A ledger adds the costs; a window shows some of the state.\nThis small case lets us derive definite consequences: a permanent reading over\nfinitely many yes-states can only rise through a merge; a price on merges then\nforces the toll. A window may hide that change and its price. Over any base, a\ndriven permanent record is a latch; records with more stages give a direction of\nsuch readings. These are results about the pieces they name. Part IV gives them a\nconcrete form in a machine with six instruction kinds, where checks and commitments\nare tied to the same edition of an object. The later constructions change the base,\njoin machines and run one inside another, asking what structure and accounting\nsurvive. That is the route from the picture to the machinery. The five steps below\nfollow it, with the premises and the limits of each claim.",
+    "reason": "Replace the certification headline with the progression from structure through observation to implementations and composition."
+  },
+  {
+    "tag": "short_version_argument",
+    "before": "What this book is. An argument, made with that model, about what an account of\ncomputation should preserve. Turing's account, and every account built on it, describes a computation by what it reads and\nwrites. I think that account is a shadow, and that there's another axis, holding what the\ncomputation established and what that cost. Here's the argument in five steps, each with\nwhere it stands.",
+    "after": "What this book is. An argument about what an account of computation should preserve.\nAn answer, a run and a view of a run keep different things. The sorter and the copier\nmake that difference visible; the model lets us ask exactly which distinctions a\ndescription retains and what follows when it drops them. My proposal is to carry\nthose structural relations and their accounting in the step itself. Here is the\nargument in five steps, each with where it stands.",
+    "reason": "Avoid describing Turing computation itself as unable to represent structure; state the proposal in terms of chosen descriptions."
+  },
+  {
+    "tag": "vouching_is_local",
+    "before": "Whether vouching has a\nprice is the question the rest of the book takes up.",
+    "after": "Whether that act has a price is the first accounting question the book takes up.",
+    "reason": "Keep the vouching question as the first case rather than the scope of the whole book."
+  },
+  {
+    "tag": "permanence_heading",
+    "before": "\\emph{Establishing is not free.} If the step",
+    "after": "\\emph{Writing a permanent record.} If the step",
+    "reason": "Make the prose heading match the conditional result instead of implying a general law of truth or discovery."
+  },
+  {
+    "tag": "structural_reading_route",
+    "before": "Section~\\ref{sec:toll}, Section~\\ref{sec:a2-not-arbitrary}, Section~\\ref{sec:latch},\nSection~\\ref{sec:smallest} and Section~\\ref{sec:conclusion}.",
+    "after": "Section~\\ref{sec:structure}, Section~\\ref{sec:toll}, Section~\\ref{sec:a2-not-arbitrary},\nSection~\\ref{sec:windows}, Section~\\ref{sec:latch}, Section~\\ref{sec:direction} and\nSection~\\ref{sec:shadow-exact}. Then follow the construction in Section~\\ref{sec:smallest}\nthrough Sections~\\ref{sec:every-model} and~\\ref{sec:parts}, and the conclusion in\nSection~\\ref{sec:conclusion}.",
+    "reason": "Make the suggested argument route include structure, observation, the direction, change of base and composition."
+  },
+  {
+    "tag": "straight_purpose",
+    "before": "\\emph{What this project is.} The short version gave the argument. This section is the fine\nprint it stands on, starting with the working form of its proposal, structural entitlement: a computation is entitled to lean on a\nstructural fact when it holds the object, a checked relation, and a history that earned\nit. The model, its laws, and the instructions of any one build are different things, and I\nkeep them apart. The generic\nflag-raising step pays to set a flag; it checks nothing. A claim that something is actually\n\\emph{true} needs explicit witnesses and a checker proved sound, and some results here are of\nthat kind; the generic accounting law isn't one of them. It's a law about marks.",
+    "after": "\\emph{What this project is.} An account of the relations a computation carries,\nthe moves that act on them, and the views through which they can be read. The\nsmallest accounting case uses a yes-or-no reading and a toll; structural entitlement\nadds an object, a checked relation and a history that earned it. The generic\nflag-raising step pays to set a flag and checks nothing. In the earned version,\na checker establishes a stated property of a particular object, and the step\nkeeps that check tied to the edition it concerned. The model, the results under\nits premises and the instructions of a particular build each have their own scope.",
+    "reason": "Present structural entitlement as a developed case and keep truth tied to the actual checked property."
+  },
+  {
+    "tag": "universal_result_local",
+    "before": "\\emph{The universal certification result.} The universal certification result is this: when the",
+    "after": "\\emph{The permanent-record result.} For the yes-or-no case, the universal certification result is this: when the",
+    "reason": "Name the structural property before the certification interpretation."
+  },
+  {
+    "tag": "structure_chapter_question",
+    "before": "The question this book is about lives in the gap\nbetween the third and the fourth, and nothing in the kindergarten has shown you yet that\nthere's a charge in that gap. It's shown you there might be a place for one.",
+    "after": "The first cost question I want to put to that structure lives in the gap between\nthe third and the fourth. Nothing in the kindergarten has shown a charge in that\ngap. It has separated the acts well enough for us to ask.",
+    "reason": "Make the transition to records a chosen investigation rather than a redefinition of the book."
+  },
+  {
+    "tag": "structure_to_toll",
+    "before": "So that's where I am at the end of one word. Holding a sorting in readable form is worth\nsomething and cost something, forgetting where things came from costs heat, and standing\nbehind a sorting is a different act from either, and nobody I found has priced it. (Rovelli's\nprice is on a choice nobody could predict, and that's a different act again. And one price\nsits closer than any of these, which Section~\\ref{sec:toll} puts beside the toll: Landauer's\nreset of a bit to one whatever it held, which is what raising a flag that stays up does on a\nmachine that might already have it up. It prices the step and says nothing about vouching.) You can\nwalk back through all of that and tell me where it breaks. Maybe there's no such bill. Maybe\nI'm about to spend a book chasing a charge that nobody owes, which would be an extremely me\nthing to do. The next two sections are me trying to find out whether that charge is real on any machine at all, mine or anybody's, and if the answer comes back no, you should stop\nreading there. I would have stopped writing there too.",
+    "after": "So that's where I am at the end of one word. A grouping, the act of making it,\nthe information kept about it, and a commitment to rely on it are different things.\nThe blocks let you separate them with your hands. Now I want that separation in a\nmachine's state and moves, where we can ask what each act preserves and what it\ncosts. The next two sections take the smallest record I can give it, a yes-or-no\nreading, put a price on its change, and ask which premises force that price.\nA failure there would tell us something definite about that proposed cost. A success\nwould give us one case to carry into the wider questions of observation and structure.",
+    "reason": "Replace the claim that the entire book depends on pricing vouching with the actual transition from structure to a worked accounting case."
+  },
+  {
+    "tag": "toll_entry",
+    "before": "I left you with a question I couldn't answer: something pays for the glance, and I couldn't\nfind anyone who says the moment of vouching for a grouping has a price of its own. Before I\ngo looking for that price in anything complicated, I want to try the opposite. Build the\nsmallest thing that could possibly carry such a bill, on paper, with a pencil, write the bill\ninto its rules, and see what follows from it. If nothing follows in something with five\nparts, nothing is going to follow in something with five thousand. I want\nto find that out on page one. Page four hundred is too late.",
+    "after": "Take the distinction between arranging something and recording an act concerning it.\nGive the record two positions, no and yes. I want to build the smallest thing that\ncould carry a bill for that change, on paper, with a pencil, write the bill into its\nrules, and see what follows. Then we can ask whether that rule follows from anything\nelse. Keeping the case this small lets us see which part of the construction does\nwhich part of the work.",
+    "reason": "Give the record construction a clear role in the structural inquiry without treating it as the purpose of all computation."
+  },
+  {
+    "tag": "partition_result_scope",
+    "before": "That's what ``structural'' in this\nbook's subtitle means at the level of a theorem.",
+    "after": "That gives the grouping itself a precise role in this part of the construction.",
+    "reason": "Do not reduce every use of structural in the book to one certification theorem."
+  },
+  {
+    "tag": "record_window_scope",
+    "before": "Now point the three escapes back at the record this book is about, because that's where they",
+    "after": "Now point the three escapes back at the record we have been constructing, because that's where they",
+    "reason": "Refer to the worked record rather than redefine the whole book by it."
+  },
+  {
+    "tag": "five_models_question",
+    "before": "the one question this book is about: \\emph{is there a price on the moment the record is written?}",
+    "after": "the pricing question from the paper models: \\emph{is there a price on the moment the record is written?}",
+    "reason": "Keep the five-system comparison focused on its actual question without presenting it as the purpose of the book."
+  },
+  {
+    "tag": "pointer_entry",
+    "before": "Here's where I am. Over any base, a record that answers to the computation and never comes down\nis a latch on an event (Section~\\ref{sec:latch}), and the event is a\nfree choice (Section~\\ref{sec:latch} again, the two cups on one die). Five real systems each picked a\ndifferent event (Section~\\ref{sec:models}). The toll in this book sits on certification. Why that one? I don't have a proof. I\nhave a thesis, in the sense the Church-Turing thesis is one (Section~\\ref{sec:structure}): a claim\nthat ties notions I can define to notions about the world that no definition reaches, so no\nproof can settle it. The honest shape of a thesis is: here's the claim, here's where I\ngot the idea, here's what's checked, here's what isn't, and here's how to kill it. In that\norder.",
+    "after": "The structural results leave a choice open. A base-driven permanent record is a\nlatch on an event, and the event is free to choose (Section~\\ref{sec:latch}, the two\ncups on one die). Five real systems each picked a different one\n(Section~\\ref{sec:models}). For the worked case in this book I picked certification.\nThis chapter asks whether that choice has a reason beyond the construction: is there\nsomething about how people and machines rely on records that selects this event?\n\nI have a thesis, in the sense the Church-Turing thesis is one\n(Section~\\ref{sec:structure}): a claim tying defined notions to the world. Its fate\nmatters to that choice of event. The latch, the windows and the counting arguments\nuse their stated premises whichever event a system records. Here is the claim,\nwhere I got it, what can be checked, and how to kill it.",
+    "reason": "Locate the pointer thesis as a proposed choice within the broader model; preserve its actual claim."
+  },
+  {
+    "tag": "pointer_question_scope",
+    "before": "And which event to record is a thesis with a borrowed shape and a listed set of\nrefutations (Section~\\ref{sec:pointer}).",
+    "after": "For the choice of event, the pointer thesis proposes certification and lists how\nthat proposal could fail (Section~\\ref{sec:pointer}).",
+    "reason": "Keep a thesis about choosing an event from defining the purpose of the structural results."
+  },
+  {
+    "tag": "accounting_uniqueness_scope",
+    "before": "The obvious question to ask of all that is whether the toll is the only way. A theorem saying so\nwould be the best thing this book could hold: a short list of requirements that any account of\nwhat a step costs has to meet, whatever field it comes from, with the toll and the counter the\nonly accounting left standing. I looked for that theorem, and the answer I can give you is no, and",
+    "after": "One accounting question remains: do the structural requirements select the toll\nalone? A short list of requirements leaving only one price would settle that choice.\nThe requirements I tried do not do it, and",
+    "reason": "Remove a second competing claim about what would matter most in the book; retain the counterexample and its consequences."
+  },
+  {
+    "tag": "small_machine_role",
+    "before": "So the machine in this book is a small one. The least I can build that still shows the whole\nmodel, every piece of it, with nothing waved at. If the idea only stands up with dozens of\ninstructions holding it, the idea belongs to those instructions. The model can't claim it. If it\nstands up on six, the six are the idea, and you can hold all of them in your head at once, which\nis more than I can say for most things I've built. Six kinds, to be exact: each takes operands, a\ncounter or a property or a line to jump to, so the instructions themselves are unboundedly many.\nAnd smallest, in this chapter's title, is my account of building it. No comparison class, no\nmeasure of size and no proof of minimality stands behind the word.",
+    "after": "So the machine in this book is a small one. I want the state and every way of\nchanging it where you can inspect them. Six instruction kinds let us follow how a\ncheck stays tied to an object, how a change makes it stale, and how the next move\nuses that relation. Each kind takes operands, a counter or a property or a line to\njump to, so there are unboundedly many instructions. This is one construction of\nthe model; the theorems will say which facts depend on these particular choices.\nSmallest, in this chapter's title, is my account of building it. No comparison\nclass, measure of size or proof of minimality stands behind the word.",
+    "reason": "Replace six instructions are the idea with an inspectable construction of the idea."
+  },
+  {
+    "tag": "minsky_representation",
+    "before": "with the second bin as scratch space. It's slow. Exponentially slow. A\ntwo-counter machine doing your taxes would finish sometime after the sun burns out. But\n``universal'' is a claim about what's \\emph{possible}. Pleasant doesn't come into it, and on that\nclaim two bins of pebbles are as strong as anything.",
+    "after": "with the second bin as scratch space. That representation can turn a modest input\ninto an enormous pile, handled one pebble at a time. It is a way to establish\nuniversality: the two bins can express every Turing computation under the encoding.\nHere they give me a base whose ordinary moves are easy to inspect. The structural\nresults each say which properties of a base they need; Section~\\ref{sec:every-model}\ncarries the earned layer to other bases under explicit interface conditions.",
+    "reason": "Explain why the counter base is used; replace performance hyperbole with the actual representational cost and change-of-base scope."
+  },
+  {
+    "tag": "u_runtime_scope",
+    "before": "And it's slow: every guest step unpacks the program number from the front,\non a machine where copying a number means moving it a pebble at a time.",
+    "after": "This interpreter unpacks the program number from the front for every guest step,\nand copies a number one pebble at a time. That determines the running time measured\nin Section~\\ref{sec:running}; the simulation result above compares the states and\nledgers at matching points.",
+    "reason": "Keep runtime facts attached to the particular interpreter and distinguish the measured quantities."
+  },
+  {
+    "tag": "up_runtime_scope",
+    "before": "PAYs. Nothing here is fast, and the compiler's packing is Minsky's, so it's slower still.",
+    "after": "PAYs. The compiler also uses Minsky's packing. These choices determine the time\nneeded to realize the guest's charge on this host.",
+    "reason": "State the implementation mechanism instead of a global verdict about the model."
+  },
+  {
+    "tag": "encoding_limit",
+    "before": "\\item \\textbf{Slow, and fed directly.} Universality is Minsky's, with the inputs placed straight in\nthe counters. Getting from an arbitrary Turing machine to two counters goes through his\nexponential packing, constructed in Appendix~\\ref{sec:counter-constructions}, and nothing about it is fast.",
+    "after": "\\item \\textbf{Encoding and running time.} The universality construction loads encoded\ninputs directly into the counters. Its route from an arbitrary Turing machine uses\nMinsky's exponential packing (Appendix~\\ref{sec:counter-constructions}). That is the\ncost of this route to the two-counter base. The lift to another base has its own\ninterface conditions, and an efficient implementation would need its own analysis.",
+    "reason": "Bound the performance limitation without promising an efficient alternative or concealing the encoding requirement."
+  },
+  {
+    "tag": "change_of_base_role",
+    "before": "If it did, it would be a curiosity. The whole point of the opening chapter was that the second\ncomputer is missing something \\emph{any} computer could have. So this chapter tries to break that,\nfrom both directions: the panel onto other boxes, and other boxes run inside mine.",
+    "after": "The opening asked which distinctions the machine could carry in its state and\nsteps. Now we can ask which parts of that construction depend on the computing\nbase. This chapter works in both directions: the earned layer onto other bases,\nand other bases run inside this one. The interface conditions will say exactly\nwhat has to survive the change.",
+    "reason": "Connect base-independence to the structural inquiry and its precise interfaces."
+  },
+  {
+    "tag": "running_role",
+    "before": "Everything so far is theorems. A fair reader is entitled to ask the rude question: does any of it\nrun? The mathematical definitions are drawings, exact to the last part, and every theorem in this book is\nabout the drawings. A proof that the drawn machine does something isn't a machine doing it, and I'd be\nsuspicious of a book about a machine that never once got built and switched on.\n\nSo this chapter builds it twice from the same drawings, once generated from the formal definitions and once implemented separately,\nswitches both on, and compares them step by step. It says exactly what ran, exactly what didn't, and what you'd\nhave to trust to believe the parts that did. Here's the short version first.",
+    "after": "The constructions give exact rules for states and steps. This chapter asks how\nexecutable implementations follow those rules. It builds the small machine twice,\nonce from the formal definitions and once separately, runs both, and compares the\nwhole state after each tested step. Then it runs the universal programs on guests\nsmall enough to finish and source programs through the executable part of the compiler.\n\nThere are two counts to keep apart here. The ledger measures what the price list\ncharges; the number of interpreter steps measures the work this representation takes\nto carry out the run. One guest step can take millions of host steps while adding\none mark to its ledger. The state comparisons test the implementation, and the times\ntell us which demonstrations are practical on it. Here is what ran and what did not.",
+    "reason": "Frame execution as tests of particular constructions; distinguish structural ledger cost from interpreter running time before presenting benchmarks."
+  },
+  {
+    "tag": "runtime_evidence",
+    "before": "certifies is proved. It isn't run. I'm not going to dress that up.",
+    "after": "certifies is covered by the mathematical simulation argument, but this execution\nhas not been performed.",
+    "reason": "Retain the important non-execution limit without making impracticality the rhetorical verdict."
+  },
+  {
+    "tag": "why_this_runtime",
+    "before": "Why so slow? Because a fixed program on a machine of counters has to keep the guest packed into\nnumbers, and counters only count. Whether every universal program on counters has to pay this much\nis a real question, and this book doesn't answer it. What it claims is exactly what the table shows.\nI'll admit the table stung a little. About ten minutes to watch one CHECK pass is a long time to stare at a\nmachine you built to be small.",
+    "after": "The large counts come from this encoding and the unit operations used to read it.\nThey measure the work done by this interpreter. The structural comparison asks\nwhether the related states preserve the guest's computation, record and ledger;\nthe execution tests check that comparison on the cases in the table. Whether another\ninterpreter or another base realizes the same relations efficiently needs a separate\nconstruction and a running-time analysis. Nothing in these measurements gives a\nlower bound for all such realizations.",
+    "reason": "Explain exactly what the benchmark supports and what would be needed to generalize it."
+  },
+  {
+    "tag": "compiler_runtime",
+    "before": "time. Counters are unary, and unary is slow, and the slowdown grows with the values. How it grows\nwith the size of the program I haven't measured.",
+    "after": "time. This implementation's unit operations make the work grow with the values\nbeing handled. I haven't measured how it grows with program size.",
+    "reason": "Tie the observed overhead to its mechanism without suggesting a result about all machines of the model."
+  },
+  {
+    "tag": "chsh_role",
+    "before": "But first, why is a quantum game in a book about records at all? Not for the physics. Nothing in\nthis section tests nature, and the check can't tell honest play from a made-up tally (the\nguarantee paragraph below says exactly how). It's here for three reasons, all about the record.\nIt's a check whose content is striking enough to tempt anyone into thinking that certifying it\nshould cost more than certifying something dull, and on the small machine it doesn't: a flag raised\nfrom a clean start costs at least three, and\nexactly three at the cheapest, whatever the claim (Section~\\ref{sec:smallest}). It sets free observation\nagainst a priced check: a round of the game is written down for nothing, and judging the pile is\none of the three paid acts. And it's an integer test small enough to be a property in the small\nmachine's sense, a checker that's a little program and a meaning that's a statement, with a\nproof that the two agree, which is exactly what Section~\\ref{sec:smallest}'s generic machine asks\nof any property before it lets a flag stand on it.",
+    "after": "What does this example contribute to the structural question? It separates the\ncounts, the relation they satisfy, the act of checking that relation and the record\nkept of the act. A tally is written down for nothing on this machine. Its checker\nuses integer arithmetic to decide a precise matrix condition. The step then ties\nthe passing check to this edition of the tally, and the earned chain costs three\nmarks, just as it does for a simpler claim. The mathematical depth of the condition\nand the price of those three acts are different quantities. That makes this a useful\ncase to hold against the small examples.\n\nThe tally alone supplies no history of how it was obtained. A made-up tally can\npass the same arithmetic test as a played one. The claims here concern its numbers\nand the machine's treatment of them; the guarantee paragraph below says exactly how.",
+    "reason": "Explain the quantum example through data, relation, action and record rather than introducing the whole book as about records."
+  },
+  {
+    "tag": "ledger_proposals",
+    "before": "And then there's what I'm proposing. These are mine. They reach further than any theorem in\nhere, and nothing in the tables puts an unavoidable physical price on every observable change.",
+    "after": "The proposal joining these results is to make structural relations and their\naccounting part of the state and the step. The items below spell out that proposal\nand a narrower choice within it, the pointer thesis about certification. They reach\nfurther than the theorems; none puts an unavoidable physical price on every observable change.",
+    "reason": "Give the proposal list a hierarchy while retaining every listed proposal and its status."
+  },
+  {
+    "tag": "ledger_pointer_scope",
+    "before": "\\item That certification is the event worth recording, which is the pointer thesis (Section~\\ref{sec:pointer}).",
+    "after": "\\item Within the record construction, that certification is the event selected by the reliance criterion of the pointer thesis (Section~\\ref{sec:pointer}).",
+    "reason": "State the particular proposal using its actual criterion rather than making certification the global purpose."
+  },
+  {
+    "tag": "scope_proposal",
+    "before": "\\emph{What I'm proposing beyond that.} That the axis belongs in the step; that certification is\nthe event worth recording; that this is a structural account of computation,\nwith a cost model as one part\nof it. Those reach further than any theorem here, and no theorem here puts an\nunavoidable physical price on every observable change. They're the argument, and the\nargument is what the rest of the book was. What kind of claim is that? A proposal about which\ndistinctions an account of computation ought to draw, and no proof settles an ``ought''. The\nproofs show the proposal hangs together, follows from premises I've named, and costs little\n(six instruction kinds on the small machine); whether anyone should adopt it is something I\nargue for and can't prove.\nHere's what would weaken it: if every use people have for the record turned out to be\nrecoverable from a log the program writes plus a correctness proof about the program, or if the\nreal systems keep choosing walls over tolls for good reasons, as the five in\nSection~\\ref{sec:models} mostly did.",
+    "after": "\\emph{What I'm proposing beyond that.} A structural account of computation: the\nrelations it carries belong in the state, their treatment belongs in the step,\nand a cost model is one part of that account. The permanent record supplies a\ncase we can take apart. The pointer thesis asks whether certification deserves\nthat record in the systems it describes. It can fail without changing the latch\nor window arguments, which use no such selection criterion.\n\nThe larger proposal is about which distinctions an account of computation ought\nto preserve. The constructions show particular ways to preserve them and what\nfollows under the stated premises. Their worth depends on the questions we need\nthe account to answer. If a program's log and a proof about that program recover\nevery distinction we need, that weakens the case for requiring the account in the\nstep. If a deployed system has good reasons for a wall or a penalty rather than\na toll, that weighs against the proposed pricing there. Those are ways to examine\nthe proposal, alongside the counterexamples that test individual theorems.",
+    "reason": "Separate the broader architectural proposal from the event-selection thesis, and keep meaningful ways to challenge each."
+  },
+  {
+    "tag": "conclusion_opening",
+    "before": "I started with one word and a machine I couldn't explain. Here's where the word ended up,\nand where the machine did.\n\nStructure, by the end of Part I, was relations among things, kept under chosen changes, carried by\nwhatever stuff, always relative to a frame. The start I chose, the smallest one by the count\nof names, was a sorting of a pile, and the thing nobody I read had priced was the moment you\nstand behind the sorting. That was Part I, and it ended with a question.",
+    "after": "Put the triangle, the cups and the two computers back on the table. Turning the\ntriangle preserves relations you can check with your fingers. Turning a cup records\nan act; a row of cups can distinguish stages that one cup cannot. The two computers\ncan leave the same answer while differing in what they did to reach it. In each\ncase we had to say what the things were, which moves were allowed, which relations\nsurvived, and what our way of looking could tell apart.\n\nPart I gave that question its vocabulary: structure as relations among things,\nkept under chosen changes, carried by whatever stuff, relative to a frame. A\npartition supplied the smallest sorting by the ruler I chose. Making a grouping,\nkeeping it, checking it and standing behind it separated into different acts.\nThat gave me a case in which to ask how an account of computation could carry the\ndifference and price a change.",
+    "reason": "Return to the tangible structural inquiry, not the history of discovering a certification cost."
+  },
+  {
+    "tag": "conclusion_case_transition",
+    "before": "The question got an exact form in Part II: five parts, one rule, one theorem you proved at",
+    "after": "The record case got an exact form in Part II: five parts, one rule, one theorem you proved at",
+    "reason": "Name the scope of the accounting construction in the conclusion."
+  },
+  {
+    "tag": "conclusion_construction",
+    "before": "Part IV built one small machine, two counters and six instruction kinds, with hosts to run it, and on\nit the model stands whole: from a clean start, a raised flag was checked, then committed, then certified, on the\nsame edition of the same counter, nothing gets forged, the cheapest run to a raised flag adds\nexactly three to the ledger, and a run whose check could have failed reaches that three (the step doesn't police trivial checks), and it\ncomputes everything Minsky's two-counter machines can, so its halting is\nundecidable. Earned commitments and universality are proved there. So is what\nThiele-complete has to mean: a universal base that's free and can't touch the record, a record that stays up once it's\nup, an earned\nrecord, one mark for each check, commit and certificate, and some claim whose check can fail. Every clock,\nevery machine that charges for computing, fails it; the small machine meets it; and every machine\nthat meets it hides its record and its ledger from its own window. And so is a universal Thiele\nmachine, with its scope said plainly: one fixed program, $U$, written in the small machine's own\nsix kinds of instruction on a host with more counters, with no guest step built in, that runs\nevery small-machine program from every clean start $\\mathrm{start}(x, y)$, halts exactly when its guest halts, raises its own\nflag by its own check, commit and certificate if and only if the guest's rises somewhere in its run, and keeps a ledger\nequal to the\nguest's at every matching point. And then the bigger version of the same thing: with one paid move added,\none fixed program, $U_P$, runs every computably presented Thiele machine, a machine from\nanywhere whose driver, step, prices and reading are computed by programs. It halts when the guest\nstops, raises its own flag on its own earned chain exactly when the guest's reading has said\nyes, with the guest's own reading as the claim it checked, and, when the guest's reading starts at no, keeps the guest's prices\nto within a surcharge of at most two, which no program on\nthat host, run from a clean start, can avoid when the guest certifies with its whole ledger below three. An ordinary programmable computer, as built, doesn't do that for the\nprograms it runs; $U$ and $U_P$ show a fixed interpreter can.",
+    "after": "Part IV made the relations operational. The small machine's state ties a checked\nclaim to an edition of a counter. Its step uses that tie: change the counter and\nthe old check no longer authorizes a commitment. From a clean start, a raised flag\ntherefore requires a passing check, a commitment about the same edition and a\ncertificate, in order. Three marks suffice and no such run pays less. These are\nfacts about the construction, including the case of a check that cannot fail.\nIts two-counter base supplies universality under the stated encoding.\n\nThe universal programs ask whether those relations survive another machine doing\nthe work. On the host with more counters, $U$ runs the small machine's programs\nfrom clean starts, matches halting and answers, earns its own flag exactly when\nthe guest raises one, and matches the ledger at corresponding points. With PAY\nadded, $U_P$ runs every computably presented Thiele machine, latches the guest's\nreading through its own earned chain, and carries the guest's ledger with the\nstated surcharge: at most two at the raise when the reading starts at no. The\nsimulation arguments describe which states correspond; the execution chapter\nmeasures the time this particular representation takes.\n\nChanging the base and joining machines ask the structural question more widely.\nThe lift works under its interface conditions, with counterexamples where those\nconditions fail (Section~\\ref{sec:every-model}). Side-by-side machines need both\nrecords; a single total can lose which side acted. Sequential hand-offs and nested\nruns each need their own conditions (Section~\\ref{sec:parts}). These constructions\nmake us say which relation is carried through a change and which is lost. The\nsix instruction kinds are one place to inspect that work.",
+    "reason": "Give concrete construction, simulation, change of base and composition their respective roles; reduce repeated certification-detail dominance."
+  },
+  {
+    "tag": "conclusion_return",
+    "before": "And the two computers from the first pages, the sorter and the copier, holding the same bits.\nWalk the warehouse again. On an ordinary machine there's still no lamp for what the sorter did,\nand nothing in this book changes that. On the small machine there is one: a flag and a counter\nyou can read off the state, and a theorem that, from a clean start, the flag can't be up unless\nsome claim went through a passing check, a commit about the same edition and a certificate, in that order, where a claim can be any\nproperty, in a language with an exact\nequality test, whose checker is proved to mean what it says, ``this counter, read as a list, is\nsorted'' among them. That's the one lamp I set\nout to light. It's a lamp for whoever can read this machine's state. A ``tests passed'' sheet\nfits it only when the test is a checker proved to mean what it says; the sticker and the very\nsure AI from the first pages ask something else, whether to believe a report you didn't watch\nbeing made, and nothing in this book answers that (Section~\\ref{sec:scope}). Whether every\nmachine ought to have that lamp is the argument. No proof here settles it.\n\nSo that's the Thiele Machine. An abstract model with five parts and one rule, an argument\nmade with it that the usual account of a computation is a shadow and the axis it leaves out\nbelongs in the step, and one small machine to check the argument against, with one fixed\nprogram, written in its instruction kinds plus one paid move and run on a host with more counters, that runs every machine of the model whose workings a program can present.\nThe theorems are what they are, with their premises printed. The interpretation is mine, and\nI've tried to say at every turn which is which, because the first time through I was the\nonly one checking, and I've met me, and that's not enough people. Now there's you.",
+    "after": "And the two computers from the first pages, the sorter and the copier, holding the\nsame list. Walk the warehouse again. The list is in order on both. On the machine\nwith the earned layer, a different part of the state tells you whether a check and\na matching commitment occurred. Its rules maintain the relation to the edition\nthat was checked. Cover that part of the machine and the distinction disappears\nfrom your view. Change the counter and you can watch the old check become stale.\nThose are different operations, with different consequences, and you can follow\neach one.\n\nA report carried out of the warehouse raises another question: what connects that\nreport to the machine? The flag alone supplies no answer. A window, a copying\noperation, a second machine and a reader each introduce relations of their own.\nThe book's constructions ask explicitly which of them hold. That is how the\nexample reaches beyond the lamp: through what survives a change of view, a change\nof state, or a change of machine.\n\nSo that's the Thiele Machine: structure held as state, acted on by a step, with an\naccount of the changes and a view that may keep or lose their distinctions. The\nrecord and its toll give that proposal a worked mathematical core. The small\nmachine and its interpreters give us particular constructions to take apart.\nThe argument is for treating those relations as part of computation itself.\nEach theorem answers a stated question under stated premises; the choice of which\nquestions an account ought to preserve remains there for you to challenge.",
+    "reason": "End on the structural proposal and its concrete operations; remove the claim that the certification lamp was the sole purpose."
+  }
+]

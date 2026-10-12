@@ -1,0 +1,78 @@
+short histories: all instruction types, traps and latch passed
+long and stored-program correspondence passed
+historical commitment, duplicate capacity and ledger corner cases passed
+81 states, 3240 separating continuations, zero-ledger reset passed
+edition equality/order preservation and 65536-to-16384 reset passed
+finite retention lower bound and matching reset-only constructions passed
+{
+  "status": "passed",
+  "differential_prefixes": 90484,
+  "random_steps": 16000,
+  "program_steps": 9000,
+  "boundary_states": 81,
+  "separating_pairs": 3240,
+  "reset_maps": 81,
+  "retention_functions": 21857,
+  "tight_retention_examples": 32,
+  "edition_gap_histories": 1108,
+  "edition_gap_patterns": 65536,
+  "sample_separators": [
+    {
+      "cuts1": [
+        0,
+        0
+      ],
+      "cuts2": [
+        0,
+        1
+      ],
+      "next_instruction": [
+        "commit",
+        [
+          "ge",
+          8
+        ],
+        1
+      ]
+    },
+    {
+      "cuts1": [
+        0,
+        0
+      ],
+      "cuts2": [
+        0,
+        2
+      ],
+      "next_instruction": [
+        "commit",
+        [
+          "ge",
+          7
+        ],
+        1
+      ]
+    },
+    {
+      "cuts1": [
+        0,
+        0
+      ],
+      "cuts2": [
+        0,
+        3
+      ],
+      "next_instruction": [
+        "commit",
+        [
+          "ge",
+          6
+        ],
+        1
+      ]
+    }
+  ],
+  "reference_commit": "e4c234627651f1b12eb649148a051d5a252ed6b4",
+  "reference_sha256": "d47b234ec16f46c0ce46ba3037cec90af589ad9eb782521624095b3a3ba0f1d9",
+  "scope": "Independent executable models and finite cases; general theorems require the written proofs."
+}

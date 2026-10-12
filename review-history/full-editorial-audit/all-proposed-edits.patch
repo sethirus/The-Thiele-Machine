@@ -1,0 +1,832 @@
+--- a/monograph/monograph.tex
++++ b/monograph/monograph.tex
+@@ -245,8 +245,7 @@
+ when its guest halts, its flag goes up exactly when the guest's does, and its ledger equals the
+ guest's at every guest step and, in between, never gets ahead of the guest's next one
+ (Theorems~\ref{thm:u34-U-halting} and~\ref{thm:u34-U-flag}). So the guarantee holds for every
+-program, carried through one interpreter, with the cost counted exactly, and all of it is checked
+-in Coq. Putting a rule under every program is an old idea, and I say whose later in this chapter.
++program, carried through one interpreter, with the cost counted exactly. Putting a rule under every program is an old idea, and I say whose later in this chapter.
+ Carrying it through a universal interpreter with an exact ledger is the piece I didn't find done
+ before, where I looked (Appendix~\ref{sec:whats-mine}).
+ 
+@@ -724,8 +723,7 @@
+ something decides, and the deciding is its own event. That's the second machine's whole trick: it
+ skipped the check and kept the answer.
+ 
+-And a logician said the part I didn't expect a logician to say. Per Martin-Löf, a Swedish logician whose type theory sits underneath the kind of proof checker that
+-checks this book, says a proof is an act, and once it's done it's done. His
++And a logician said the part I didn't expect a logician to say. Per Martin-Löf, a Swedish logician, says a proof is an act, and once it's done it's done. His
+ words, from lectures he gave in Siena in 1983: ``a proof is, not an object, but an act \ldots{} Only
+ secondarily, and irrevocably, does it become the act that has been performed.'' That took me a few
+ reads, and the tenses unlocked it: first the act being done, then, for good, the act that has been
+@@ -888,8 +886,7 @@
+ Hales reported it: the referees had ``not been able to certify the correctness of the proof, and will
+ not be able to certify it in the future, because they have run out of energy \ldots'' The Annals printed the human part in 2005, and the whole
+ proof appeared in 2006. Hales, in his own words, ``growing out of my frustration, in an effort to bypass
+-the referees,'' started a project in 2003 to have the entire proof checked by a proof assistant, the
+-same kind of tool that checks this book. It was finished on 10 August 2014.
++the referees,'' started a project in 2003 to have the entire proof checked by a proof assistant. It was finished on 10 August 2014.
+ 
+ Lay those dates out on the table and look at what moved. The sentence never changed. Hilbert's version
+ of the question didn't even name the man who first said it. Whether it's true never changed, as far as
+@@ -924,7 +921,7 @@
+ And then the part I didn't expect. The four-colour statement was true all along. Kenneth Appel and
+ Wolfgang Haken, two mathematicians at the University of Illinois, proved it in 1976 with a computer, and the proof was met with suspicion for years; a
+ cleaner version came in the 1990s; and in 2005 Georges Gonthier, a computer scientist at Microsoft Research in Cambridge, finished a proof of the whole thing
+-checked by Coq, the program that checks this book. So here's a statement that stayed true the entire
++checked by Coq. So here's a statement that stayed true the entire
+ time while its standing went up in 1879, came down in 1890, went up again in 1976 against a lot of
+ doubt, and went up further in 2005. The fall wasn't a fall of the truth. It was a fall of how far the
+ truth had been established, and it was the right fall to have, because what had been established was
+@@ -1050,7 +1047,7 @@
+ computer scientists call safety rules. ``No certificate without an
+ earlier passing check and a commit'' is one of those. And in 2015 Arthur Azevedo de Amorim, a computer scientist then at the University of Pennsylvania, and six
+ coauthors built monitors that check a rule at every single instruction, and proved them correct in
+-Coq, the same proof checker this book uses. So putting a rule under every program, so nothing can
++Coq. So putting a rule under every program, so nothing can
+ get around it, is their move. I didn't invent it. What I'm putting under that move is narrower: a record that
+ has to be paid for, on the small machine one that has to be earned, and a reason, from counting,
+ why a finite machine that prices its merges can't make the price of a record that never comes down zero.
+@@ -1460,7 +1457,7 @@
+ Every claim in this book has a status and I'll tell you which, every time. Here's the whole list at
+ once, so you know what I'm on the hook for.
+ 
+-Checked by a proof assistant, with every assumption printed, for any system with the named parts:
++Proved, with every assumption printed, for any system with the named parts:
+ anything that obeys the toll pays at least one mark to get from not-established to established
+ (short enough that you'll prove it yourself on paper in Part II). With finitely many yes-states and a record
+ that never comes down, every move that raises it merges states, which is the chairs; consequently
+@@ -1632,8 +1629,7 @@
+ step turning the reading from no to yes costs at least one unit (I call that rule the toll,
+ and its first name, the one I gave it before I understood it, is No Free Insight; Part II
+ builds it). On top of that core go a counter that adds up the costs and only climbs, and a window
+-that says what an observer sees. The headline result is proved in Coq (a proof assistant: software
+-that checks every step of a proof), with every premise printed. With finitely many yes-states and
++that says what an observer sees. The headline result is proved with every premise printed. With finitely many yes-states and
+ a reading that is never taken back, every move that raises the reading merges states; consequently
+ every schedule that prices merges charges that move, and every run from no to yes has positive
+ total cost. That's what I call the universal certification result. ``Universal'' means it holds
+@@ -1665,9 +1661,9 @@
+ line and it gets thin fast. It comes down through Heinrich Weber, another German mathematician, in a memorial piece written
+ after Kronecker died, pointing back to a lecture from 1886, and that's the only source I could find anybody citing. A great line with one witness. (The first chapter of Part II stops early on to ask how
+ many witnesses a claim ought to need. The answer is more than one.) So does any of this
+-settle whether I found the Thiele Machine or made it up? No. A proof checker doesn't settle
+-it either; Coq checks a proof the same whether you think the theorem was out there waiting or
+-you think you built it. That's why it's labelled a conviction. What it changes is how I hold
++settle whether I found the Thiele Machine or made it up? No. A proof doesn't settle
++it either: showing what follows from the premises doesn't decide whether you found the
++theorem or made it. That's why it's labelled a conviction. What it changes is how I hold
+ the thing: like something that was already there, which means I can be wrong about its shape
+ and the shape won't care. And to be exact about what ``found'' covers: the parts the counting
+ forces on you, the latch shape and the merge. The event to record, the price list, and putting
+@@ -1812,17 +1808,14 @@
+ 
+ One more thing before the book starts, because people get it backwards. I used language models to
+ write the code and the proofs in this project, and I trust language models about as far as
+-I can throw them, which is exactly why every formal declaration is checked by a proof
+-assistant that doesn't care who or what wrote it. Coq rejects a wrong proof the same whether
+-a tenured professor or a model hands it over, and it accepted these, with none of my own
+-axioms anywhere in them, re-checkable by the procedure in Part V. Being self-taught and
+-using modern tools didn't make this looser. It's the reason I made a machine check the
+-formal corpus, and then built an auditor to read over the checker's shoulder for every way I
+-might have cheated, on purpose or by accident (Part V says what it looks for). It doesn't
+-trust me either. Good.
++I can throw them. Every argument still has to hold up when you read it. I used a proof
++checker to look for gaps in the formal derivations, and built an auditor to look for the
++ways I'd let an assumption do the work. Neither can tell me that I've asked the right
++question or that a definition means what I say it means. Part V gives the procedure and
++its limits. The work stands or falls on the arguments.
+ 
+ I think there's something foundational here. The results in this book have statements,
+-premises, and proof terms. The larger claim is a conjecture. No theorem proves it. I built the
++premises, and arguments. The larger claim is a conjecture. No theorem proves it. I built the
+ machine so that the work could be done in public, with something firmer than my confidence
+ to argue over. If you're the skeptical sort, and I hope you are, the two places to aim are
+ the appendix that sorts what's mine from what isn't (Appendix~\ref{sec:whats-mine}) and the
+@@ -2002,7 +1995,7 @@
+ Landauer's principle enters only as a premise with
+ its name on it. Nothing here derives it. Not a quantum computer. Its theorems about quantum strategies are mathematics about vectors and
+ matrices, with no claim about a physical device. Not a verified chip or a
+-verified device of any kind; a checked model and a checked machine, on paper and in Coq. Not a
++verified device of any kind; a mathematical model and an abstract machine, with proofs of their properties. Not a
+ claim to priority on the ideas it builds from. What it does add, with the closest earlier work
+ beside each item and the difference spelled out, is sorted in Appendix~\ref{sec:whats-mine}:
+ chiefly the price as a named rule on a ledger and the toll derived from it (on a counting core that
+@@ -2247,9 +2240,9 @@
+ 
+ Formal verification was a graveyard of dead ends further on. The hardware came after that, in the bigger machine I set aside, and none of it is in this book. Every step pulled back to show another layer underneath that I had not known was there, and I mean that plainly: I did not know what a Turing machine was when I started, I did not know what Coq was, I did not know most of the words in this document existed. I learned each one the same way, by walking face-first into a wall that needed it and not being let past until I had it. The needing always came first. The learning came after, dragged along behind the needing because it had no say in the matter.
+ 
+-Large language models were my hands the whole way through, and I want the division of labor exact, because it is the thing people most want to get wrong about work like this. The hands had nothing like this to draw on: no reference implementation, no prior project to point at. The ideas, the architecture, the direction, the demand that the thing be true: those are mine, all of them, no asterisk. The symbol-pushing, the actual Coq and the actual math, the models produced and the proof checker judged. The proofs compile or they do not. I refused every one that did not. Coq is an obedient idiot. It checks the proof matches the statement. It does not check that the statement means what you think it means. A theorem can claim ``every cat that is also a prime number has whiskers'' and the proof can be three characters long and Coq will nod and stamp it. So I read every statement. The proofs you can't fake. The statements you can fake by accident, which is the more dangerous failure mode. I refused both kinds. However the symbols got onto the page, the argument on it is checkable by reading, and it would be exactly as right or as wrong if a million monkeys had typed it. The monkeys could not have refused.
+-
+-A word on what I actually do, because it runs under everything after it. I do not write code or math by hand. I do not pick constants. I do not grind through derivations. I have never written a line of code on paper or in a notepad in my life. What I do is see, and direct, and refuse. When I take hold of an idea it does not stay a point. It opens up. It becomes a shape I can blow up and turn over and take apart, lay across another shape to find where the two of them touch, run forward and then back to where it started, zoom into until it is the only thing in the world and pull back until it is one dot in a field of other dots, and the whole time it stays wired to everything I have ever connected it to, the right connections and the wrong ones both, all of them live at once. I am not reading that field neutrally, the way a search would. The thing doing the looking is me, the whole of me, my gut and my mood and my stubbornness picking what lights up and which way I move through it, and that is the part you cannot lift out without turning me back into a search engine. So I see where a thing has to fit, the shape it is obligated to have, usually well before I could write it down in a single symbol. Then the model gives me the symbols, the proof checker takes them or throws them back, and I refuse anything that will not compile or does not match the shape I am holding. That refusal is the one thing in this entire document that is mine and only mine: the demand that it be true, and the throwing-out of everything that wasn't.
++Large language models were my hands the whole way through, and I want the division of labor exact, because it is the thing people most want to get wrong about work like this. The hands had nothing like this to draw on: no reference implementation, no prior project to point at. The ideas, the architecture, the direction, the demand that the thing be true: those are mine, all of them, no asterisk. The symbol-pushing, the code and the formal derivations, the models produced. I used the checker to catch gaps in those derivations. Coq is an obedient idiot. It checks the proof matches the statement. It does not check that the statement means what you think it means. A theorem can claim ``every cat that is also a prime number has whiskers'' and the proof can be three characters long and Coq will nod and stamp it. So I read every statement. An accepted derivation can still settle an empty question. I had to refuse that too. However the symbols got onto the page, the argument on it is checkable by reading, and it would be exactly as right or as wrong if a million monkeys had typed it. The monkeys could not have refused.
++
++A word on what I actually do, because it runs under everything after it. I do not write code or math by hand. I do not pick constants. I do not grind through derivations. I have never written a line of code on paper or in a notepad in my life. What I do is see, and direct, and refuse. When I take hold of an idea it does not stay a point. It opens up. It becomes a shape I can blow up and turn over and take apart, lay across another shape to find where the two of them touch, run forward and then back to where it started, zoom into until it is the only thing in the world and pull back until it is one dot in a field of other dots, and the whole time it stays wired to everything I have ever connected it to, the right connections and the wrong ones both, all of them live at once. I am not reading that field neutrally, the way a search would. The thing doing the looking is me, the whole of me, my gut and my mood and my stubbornness picking what lights up and which way I move through it, and that is the part you cannot lift out without turning me back into a search engine. So I see where a thing has to fit, the shape it is obligated to have, usually well before I could write it down in a single symbol. Then the model gives me the symbols, and I refuse anything whose argument does not hold or does not match the shape I am holding. That refusal is the one thing in this entire document that is mine and only mine: the demand that it be true, and the throwing-out of everything that wasn't.
+ 
+ I am telling you all of this because it's the engine. I did not come up through anywhere that hands you a foundation and says trust us, this part is settled. No professors, no colleagues, no field full of authority to lean back on when a claim got heavy. From the outside that is a deficit. From the inside it is the whole reason any of this is solid: when I meet a claim I either find the proof or I do not believe it, and that goes double for my own, because my own are the ones I most want to wave through. It is how I am built. It is the only way I know to hold a thing and actually trust that I am holding it.
+ 
+@@ -3683,7 +3676,7 @@
+ Finite. Permanent. Flip. Those three and nothing else, and the conclusion is ``two states
+ became one.''
+ 
+-The checked version of the chairs is a theorem a few lines down, and it needs one word first.
++The precise statement of the chairs argument is a theorem a few lines down, and it needs one word first.
+ ``Injective'' is the mathematician's word for ``forgets nothing'': a step is injective when two
+ different starts always give two different ends. The theorem says exactly what the chairs
+ said and takes exactly the three premises: a duplicate-free list that
+@@ -3946,7 +3939,7 @@
+ everything with every move one-to-one. Every one of them keeps what it doesn't forget somewhere:
+ a history, garbage outputs, a counter that codes the past. The strip is that.
+ 
+-One thing I have to say plainly, because the file is more careful than I'd like to be. The
++There are three separate claims here, and I need to keep them apart. The
+ theorem shows the strip machine has the other two properties and forgets nothing. The sentence
+ ``and this machine is infinite'' is a second theorem, \code{nec\_f\_history\_infinite}
+ (NecFPaperToys.v): no finite list holds every state of the strip. The first theorem contains no
+@@ -4270,7 +4263,7 @@
+ is exactly $\lceil \log_2 \frac{m+k}{m} \rceil$ (\code{nec\_f\_least\_cost\_exists} and
+ \code{nec\_f\_least\_cost\_is\_ceiling}, NecFSqueezeLog.v).
+ 
+-Four more facts about the halving price, all checked, and the last one is a limit. First, the plainer
++Four more facts about the halving price, and the last one is a limit. First, the plainer
+ reading above is a theorem on a finite machine: the halving price holds exactly when no move has
+ a landing spot with more than $2^{\mathrm{cost}(i)}$ states landing on it
+ (\code{ent2\_compression\_priced\_iff\_fibres}). Second, for the eight-state machine
+@@ -4831,7 +4824,7 @@
+ version of the toll stated in chances and time spans would be a different theorem, and I
+ don't have it.
+ 
+-One piece of it I can hand you, and it's checked. Take
++One piece of it I can hand you. Take
+ one move and repeat it from one start, forever. On a finite machine the states that run passes through are
+ finitely many, so it falls into a loop. If the move forgot nothing on those states, it would
+ be a reshuffle of them, and a reshuffle brings every one of them back around, the start
+@@ -4843,8 +4836,7 @@
+ \code{nec\_f\_repeat\_merges\_visited} (NecFRepeat.v), for any map iterated from a start whose flag
+ is down, with the flag up at every step from some point on; no permanence premise is used.
+ 
+-Runs that mix different moves split two ways, and the answer is short enough to give here,
+-checked like the last one. If the moves are picked from outside, in any order at
++Runs that mix different moves split two ways, and the answer is short enough to give here. If the moves are picked from outside, in any order at
+ all, the answer is no. Take two states, one reading no and one reading yes. Move $a$ swaps them;
+ move $b$ does nothing. Run $a$ once and then $b$ forever: the flag goes up at the first step and
+ stays up for good, and neither move merges anything anywhere. The swap would take the flag down
+@@ -4908,8 +4900,7 @@
+ (\code{re\_stretch\_ratio}).
+ 
+ That's the bound, and two things under it were still promises when I stated it: that the device
+-actually settles, and that ``mean stretch length'' means what it sounds like. Both are checked
+-now, and here's what each one says in plain words.
++actually settles, and that ``mean stretch length'' means what it sounds like. Here is what each says, and why it holds.
+ 
+ Settling first. A chain doesn't have to settle. It can get stuck in a corner, or cycle round
+ forever. What rules that out here is a condition named for Wolfgang Doeblin, a German-born French
+@@ -4950,8 +4941,7 @@
+ 
+ Then the stretches. The bound used the fact that the long-run chances of up and down stand in the
+ ratio of the mean stretch lengths, and I took the mean length of a stretch with the flag up to be
+-the long-run weight of the up-states divided by the flow into them. That's a theorem, and it's
+-checked in steps. Start each stretch the way the flow starts them, count the steps until the
++the long-run weight of the up-states divided by the flow into them. That's a theorem. Here's the argument. Start each stretch the way the flow starts them, count the steps until the
+ chain leaves the up-states, and the average is exactly $\pi(\mathrm{up})$ over the flow, again
+ under Doeblin's condition (\code{rs\_mean\_stretch}, RelaxationStretch.v). The proof is a
+ telescoping sum: the long-run weight that has stayed up for $k$ steps splits into the stretches
+@@ -5635,10 +5625,10 @@
+ by the counter's rule.
+ \end{proof}
+ 
+-Those two proofs are the whole of it, and they're about any counter machine. Coq checks them
+-over arbitrary states, as \code{nec\_f\_conservation}, with \code{nec\_f\_counter\_monotone} for
+-the climb, and \code{nec\_f\_initiality} (NecFCounter.v), and here they're on
+-the page, where you can check every line. The machine I build later is one of these, and on
++Those two proofs are the whole of it, and they're about any counter machine. They're on
++the page, where you can check every line. Their formal counterparts over arbitrary states are
++\code{nec\_f\_conservation}, with \code{nec\_f\_counter\_monotone} for the climb, and
++\code{nec\_f\_initiality} (NecFCounter.v). The machine I build later is one of these, and on
+ it the run form is a checked theorem: the ledger after any list of instructions is the start
+ plus the sum of their costs (Theorem~\ref{thm:u34-toll}). The uniqueness half holds even with
+ the books' rule asked only of reachable states (\code{nec\_f\_initiality\_reachable\_rule}).
+@@ -5783,8 +5773,7 @@
+ moment-of-truth difference I just named. Putting the count in the step is choosing the other
+ moment, so the grade here is written by the step at run time and never checked ahead of it.
+ 
+-How close do the two moments come? Close enough to say exactly, in a limited form, and it's
+-checked. Take a small structured language over a machine with this kind of counter:
++How close do the two moments come? Close enough to say exactly, in a limited form. Take a small structured language over a machine with this kind of counter:
+ sequencing, branches whose two arms carry the same grade, and paid acts each graded with their
+ charge, and grade every program the way Katsumata's discipline does, adding grades along the
+ program. On loop-free programs the two agree on the nose: on every run that doesn't trap, the
+@@ -6210,8 +6199,8 @@
+ but the check runs on a checker, and I trust the checker because it was proved honest once, outside
+ every run. That's a jurisdiction rule. It's Burrows, Abadi and Needham's arrow with the checker as the
+ named authority, so I'm not sitting at Locke's end as cleanly as I'd like. What I can say is that my
+-authority was picked in advance, that it's a single named thing while Burge trusts every writer, and that its honesty is a proof you
+-can rerun yourself. That's a smaller trust than Burge's, and a different kind from Goldberg's, because
++authority was picked in advance, that it's a single named thing while Burge trusts every writer, and that its honesty rests on a proof you
++can examine yourself. That's a smaller trust than Burge's, and a different kind from Goldberg's, because
+ the machinery is out where you can look at it. It isn't zero, so
+ I'm pointing at it here
+ myself.
+@@ -9452,7 +9441,7 @@
+ did it.) Undecidable from inside and decided cleanly from outside, at the same time, about
+ the same property. That's not a paradox. It's two different people asking.
+ 
+-And the one where the recursion theorem is \emph{proved} from the rules, closed under the global context, which is why it exists:
++And the one where the recursion theorem is \emph{proved} from the reduction rules rather than assumed:
+ \emph{L}, the weak call-by-value lambda calculus that Yannick Forster and Gert Smolka presented in
+ 2017 as a model of computation in Coq, and which a group at Saarland has since used as the
+ seed of a whole library of undecidable problems. The development here builds its own copy of
+@@ -9626,20 +9615,17 @@
+ somewhere you take on the system's own word. A record sits on the explicit side.
+ 
+ Push on that and it gives, because a receipt is only as good as whoever wrote it. Its trust rests
+-on the checker meaning what it says, and that gets settled once, from outside the machine. I don't
+-think it can be moved inside, and Gödel's second theorem is my reason. The theorem says a
+-consistent system strong enough for arithmetic can't prove its own consistency, and a checker
+-vouching for itself would be doing something close to that. That last step is my reading. The
+-theorem itself stops at consistency. So I didn't get rid of the receipt
+-somewhere. I moved it out of the machine and handed it to whoever reads the record. Try to move that proof inside the
+-system, so it can certify its own checker or a successor's, and you hit exactly the wall Eliezer
+-Yudkowsky and Marcello Herreshoff named the Löbian obstacle in 2013, writing about agents that
+-want to trust their own rewrites. As I understand their draft report, they came at it from the
+-far side, an agent wanting to trust a successor's proofs the way it trusts its own. Same arrow,
+-pointed forward, same wall.
+-
+-One more thing falls out of the same picture, and it's a short argument with no checked
+-theorem behind it, so take it at that weight. Can a record rest on itself, the way the sentence ``this
++on the checker meaning what it says, and that gets settled once, from outside the machine.
++That's where I chose to stop this machine's chain of reasons. Gödel's second theorem does not
++forbid a machine from checking a proof about a checker. It limits a sufficiently strong,
++effectively axiomatized theory's ability to prove its own consistency, if the theory is
++consistent. Eliezer Yudkowsky and Marcello Herreshoff's 2013 draft on agents that trust their
++own rewrites describes a related problem, the Löbian obstacle: how an agent can justify
++trust in a successor's proofs. The relation is worth examining, but it does not prove that
++my design is forced. So I didn't get rid of the receipt somewhere. I moved it out of the
++machine and handed it to whoever reads the record.
++
++One more thing follows from the same picture, by a short argument. Can a record rest on itself, the way the sentence ``this
+ sentence is certified'' would like to? Not if it's earned and permanent. The check that a
+ certificate stands on happened while the record was still down, because the record goes up only
+ after that check passes, and once up it never comes back down. So no claim whose truth needs the record already up can
+@@ -9647,8 +9633,8 @@
+ that, one that only ever leans on itself, ungrounded, and earned records are grounded in his
+ sense: every one bottoms out in a check that didn't lean on it. Caspar Oesterheld's 2019 work on
+ programs that cooperate by simulating each other needed a grounding step of the same kind to stop
+-an infinite regress. I haven't checked this in Coq, and I'm not claiming more than the paragraph
+-says.
++an infinite regress. There is no separate formal derivation of this argument; the claim is exactly what this
++paragraph says.
+ 
+ One last distinction, because the two are easy to conflate and conflating them is the
+ easiest way to misread this book. There's a \emph{second} wall, nothing to do with the diagonal.
+@@ -10926,9 +10912,9 @@
+ how little machinery reaches it. You should, because it means the base of this chapter's
+ machine hides nothing: if it can compute everything with plus one, minus one and a jump,
+ then nothing about the record can be smuggling computing power in through some instruction
+-I made fancy. And I care because it's the smallest universal base I know of that is
+-already in a Coq library, so the hard part (proving that its halting question is
+-undecidable) is someone else's checked work. I don't have to ask you to take my word for it.
++I made fancy. For this construction I can reuse the two-counter result in the Coq Library of
++Undecidability Proofs. The halting reduction is their work; the step-for-step connection
++to this machine is the part I have to establish.
+ 
+ And the pebbles aren't only my picture. They were somebody's actual machine, the same year.
+ In one issue of the Canadian Mathematical Bulletin, September 1961, Z.~A. Melzak, a
+@@ -11126,7 +11112,7 @@
+ section where I tried to do better than that for the flag. That argument doesn't reach this
+ machine, though (the end of the chapter says why), so here the one is a choice, full stop.
+ 
+-Where does that one come from, though? It's older than Coq by about a century. In 1888 the German
++The whole numbers have a history of their own. In 1888 the German
+ mathematician Richard
+ Dedekind published a little book whose title asks what numbers are and what they're for, and in
+ 1889 the Italian mathematician Giuseppe Peano published a booklet, written in Latin, that set out
+@@ -11136,12 +11122,9 @@
+ Dedekind says Peano acknowledged Dedekind's priority, which is why the axioms often go by both
+ names. (Peano's booklet is also where the
+ sign $\in$ that you met in Section~\ref{sec:structure} comes from: he wrote it as a Greek epsilon,
+-for the Latin \emph{est}, ``is.'') Coq builds
+-its whole numbers exactly that way, out of zero and ``the next one'' and nothing else, so inside
+-Coq the number three really is S (S (S O)), the next of the next of the next of zero. What that
+-changes here is small and I like it: the one a CHECK costs isn't a number pulled from a hat.
+-It's one application of the smallest step the number system has. You can't charge less than one
+-S and still charge something.
++for the Latin \emph{est}, ``is.'') Start from zero and take ``the next one'' three times, and you have three.
++Once the prices are whole numbers, one is the smallest positive price. Choosing whole-number
++prices, and choosing that unit for CHECK, are still choices of this model.
+ 
+ The zeros matter just as much:
+ computing is free on this ledger. Plus one, minus one and jumping around cost nothing at all.
+@@ -11726,8 +11709,8 @@
+ carries the run's half of
+ the story: a CHECK, then a COMMIT of the same claim about the same edition, then a CERTIFY. The
+ other half, that the checker says yes exactly when the property holds, isn't in any run. It's
+-Lemma~\ref{lem:u34-eval}, a proof about the little program the step calls, checked once by Coq
+-and priced by nothing on the ledger. So a claim established here stands on two legs: a fact
++Lemma~\ref{lem:u34-eval}, a proof about the little program the step calls,
++priced by nothing on the ledger. So a claim established here stands on two legs: a fact
+ about this run, carried by the record, and a fact about the checker, carried by a proof that
+ whoever reads the record has to accept. That's the Münchhausen trilemma from the opening chapter
+ taking its third horn on purpose: the chain of reasons stops at a proof, named and on the page,
+@@ -11923,8 +11906,7 @@
+ 
+ Here's why I don't have to. Leibniz's claim is about \emph{every} property a thing has. The
+ theorems above are about three: the line and the two counters. The two runs aren't indiscernible
+-in his sense at all: one has a fact in its table and its flag up, and the other doesn't, and Coq
+-tells them apart in a line. They're indiscernible to a window, which is a much cheaper thing, and
++in his sense at all: one has a fact in its table and its flag up, and the other doesn't. They're indiscernible to a window, which is a much cheaper thing, and
+ it's the thing that matters for a machine, because an observer of a machine only ever gets a
+ window. Leibniz's gentleman would always find his difference if he could look at everything. It
+ doesn't help him if all he's allowed to look at is three things about each leaf.
+@@ -12025,15 +12007,11 @@
+ everything two counters can, a ledger that's exact, a toll the universal floor applies to, a
+ flag that's a latch of the base, a window that can't see the record, and, from a clean start, a commitment that can't
+ happen unless a check of the same claim,
+-on the same edition, came first and was right. Every result above is closed: Coq reports no assumptions for any of them. That isn't
+-my say-so. EarnedCore.v and its link file, EarnedCoreLinks.v, each end by asking Coq to print the assumptions of each headline
+-theorem, and the build of Section~\ref{sec:coq} compiles them and fails unless every one comes
+-back closed. The
+-project-wide audit of Section~\ref{sec:coq} lists these files too, and every theorem in them comes
+-back closed there as well. The base
+-file uses nothing but Coq's standard library, so you can check it with nothing else
+-installed; the link file adds only the book's own abstract records and the library of
+-undecidability proofs.
++on the same edition, came first and was right. The formal derivations of these results use no added axioms; each theorem still has
++the hypotheses printed in its statement. The sources are EarnedCore.v and EarnedCoreLinks.v,
++and Section~\ref{sec:coq} gives the assumption audit and the procedure for repeating it.
++The base file uses only Coq's standard library; the link file adds the book's abstract
++records and the library of undecidability proofs.
+ 
+ \subsection{What it takes to be Thiele-complete}
+ 
+@@ -13553,7 +13531,7 @@
+ a floor of 3, and that's all it adds: a run that narrows without ever raising the record is still bound to pay
+ its index bits, and the floor of 3 no longer applies to it.
+ 
+-\emph{Weights, and the partition form.} Two more pieces of the same count, both checked. First,
++\emph{Weights, and the partition form.} Two more pieces of the same count. First,
+ suppose the rivals aren't equally many: give each a whole-number weight, a multiplicity, and call
+ the sum of the weights of a list its \emph{mass}. The count survives with masses in place of
+ lengths. If the prior's mass is at most $L(T)$ times the posterior's, the rounded index bits of the
+@@ -13948,7 +13926,7 @@
+ register could be added to that list I haven't settled either way, and I don't claim it.
+ 
+ And with the recursion theorem proved, the wall of Section~\ref{sec:diagonal} goes up on this
+-machine without a premise left over. Call a property of host programs \emph{functional} when it
++machine without assuming that theorem as an extra premise. Call a property of host programs \emph{functional} when it
+ depends only on the partial function a program computes.
+ 
+ \begin{theorem}[The diagonal on the host machine]\label{thm:host-wall}
+@@ -14081,7 +14059,8 @@
+ starts with one counter empty for a machine with one register that can only add,
+ multiply and
+ divide by fixed numbers and take one away, each of those built out of one of the program's loops, and that's the
+-stages here under another name. I haven't followed his proof line by line; this one is checked. The $c$ it uses is astronomically bigger than anything a real
++stages here under another name. I haven't followed his proof line by line, so the comparison stays at that level.
++The argument here is the one given above. The $c$ it uses is astronomically bigger than anything a real
+ multiplier needs, and finding the best bound is a question I leave alone.
+ 
+ So on two bins: Rice holds on every input. Kleene holds with inputs written as powers of two, for the
+@@ -14443,8 +14422,8 @@
+ $\mu$-recursive functions. Conway's model I know only as a step on the library's road to two counters
+ (Section~\ref{sec:smallest}) and by its place on that
+ list, so I'll say nothing about it beyond that. I didn't re-prove the agreement. I lean
+-on their proof. Their proof is checked by the same proof assistant as mine, so leaning
+-on it costs me nothing in certainty. What I proved is the joint where my boxes meet theirs.
++on their proof. Their theorem is a dependency of this construction. Its statement and hypotheses
++still have to match the use I make of it. What I proved is the joint where my boxes meet theirs.
+ 
+ \begin{theorem}[The base doesn't matter]\label{thm:lift-models}
+ (1) A relation on numbers that's computable in any one of those seven models is computable in all
+@@ -14764,7 +14743,7 @@
+ \begin{center}
+ \begin{tabular}{@{}p{0.42\linewidth}p{0.5\linewidth}@{}}
+ \textbf{What} & \textbf{Status} \\ \hline
+-The small machine & run: Coq, extracted OCaml and Python agree on every step \\
++The small machine & run: Coq, extracted OCaml and Python agree on every tested step \\
+ The host machines, with and without PAY & run, the same three ways \\
+ $U$ and $U_P$ on tiny guests & run, extracted, against the Python guest \\
+ $U$ or $U_P$ on a guest that certifies & proved, not run \\
+@@ -14785,8 +14764,8 @@
+ $U_P$ written out instruction by instruction, and the loaders. The other extracts the compiler below
+ and its runner.
+ 
+-Two things about that build are worth knowing before you believe a word of the rest. First, the code
+-that runs is the code the theorems are about. Coq won't extract some of the files directly (a
++Two things about that build are worth knowing before you believe a word of the rest. First, the functions
++supplied to extraction are the ones the theorems describe. Coq won't extract some of the files directly (a
+ technical limit on files that rename modules), so the extracted functions are copies with plain
+ names, and each copy is proved equal to the original, by computation or by a short proof, inside Coq.
+ The two universal programs are printed by Coq as literal lists and proved equal to the programs in
+@@ -14811,14 +14790,15 @@
+ 
+ What you're trusting, if you trust a run: Coq's extraction, the OCaml compiler and the C tools
+ under it, the integer library, those mapping lines, the two drivers, and the Python code that
+-does the comparing. None of that is proved. Coq's extraction, the OCaml compiler, the C tools and the integer library are old and used by a lot of people. The mapping
+-lines, the drivers and the comparing code are mine, and they're small enough to read in one sitting. That's a reason to trust it. It isn't a proof.
++does the comparing. None of that is proved. The mapping
++lines, the drivers and the comparing code are mine, and they're small enough to read in one sitting.
++Their behavior, and the behavior of the tools they call, remain part of what the tests have to examine.
+ 
+ \subsection{A second machine, written by hand, to check the first}
+ 
+ Switch the first build on and let it run, and what have you learned? Less than I first thought. A run
+-of extracted code only tells you the extracted code agrees with itself. If the extraction, or one of
+-the integer mappings, or a driver had slipped somewhere, a run on its own would never show it. So there's a second build, made by hand:
++shows what that build did on those inputs. It does not by itself establish that extraction,
++the integer mappings and the drivers implement the definitions correctly. So there's a second build, made by hand:
+ an implementation of the small machine and both hosts written separately in Python straight from the
+ Coq definitions, with every function naming the definition it copies. Then the two builds are made to
+ argue.
+@@ -14841,10 +14821,9 @@
+ 
+ That's evidence. It isn't proof, and Section~\ref{sec:coq} says why Dijkstra would want me to say so.
+ What it is, is three routes to the same numbers: Coq computing inside itself, the code Coq extracted,
+-and a machine written by hand from scratch. When they agree on every step of thousands of programs, a
+-slip in the extraction, the integer mappings or the drivers would have to be matched by the same
+-slip in a machine written separately by hand to hide. I can imagine that happening. I can't imagine
+-it happening often. The comparison doesn't test whether the definitions say the right thing, since
++and a machine written by hand from scratch. Comparing every step of thousands of programs can expose a
++slip in the extraction, the integer mappings or the drivers. Agreement on those runs leaves
++untested runs open, and a shared mistake can survive both implementations. The comparison doesn't test whether the definitions say the right thing, since
+ the hand-written machine copies them. That's what having them on the page is for.
+ 
+ The same holds for how it was made. The Python machine was written from the same Coq definitions,
+@@ -14898,7 +14877,7 @@
+ I'll admit the table stung a little. About ten minutes to watch one CHECK pass is a long time to stare at a
+ machine you built to be small.
+ 
+-\subsection{A compiler, all in Coq}
++\subsection{From source programs to the host}
+ 
+ Running guests one CHECK at a time doesn't tell you whether the built machine can do anything you'd
+ recognise as a program. You'd want to hand it gcd, or a sort, written the way people write them, and
+@@ -14906,7 +14885,7 @@
+ in the drawings is a compiler. The source is a small language you could write by hand: whole-number
+ variables, addition, subtraction that stops at zero, comparisons, \emph{if}, \emph{while}, and
+ procedures that return several results, with the rule that a procedure can only call ones defined
+-before it, so there's no recursion. Every stage is a Coq function with a Coq proof: the procedures are
++before it, so there's no recursion. Each translation stage has a proof that it preserves the program's result: the procedures are
+ inlined, the result is flattened to assignments and jumps, that is compiled to Minsky's counter
+ machine through the library's own compiler, that to a program for the host machine, that to a
+ two-counter guest, and the guest to a run of $U_P$.
+@@ -15672,7 +15651,7 @@
+ 
+ Three descriptions of the same set have been running through this part: the tables some quantum
+ strategy can produce, the tables whose five-by-five matrix has a PSD completion, and the tables
+-inside Landau and Masanes's curved edge. They are the same set, and that's checked, for strategies
++inside Landau and Masanes's curved edge. They are the same set, for strategies
+ on finitely many levels. Here's how each piece goes, because the constructions are the part
+ worth seeing.
+ 
+@@ -16045,8 +16024,8 @@
+ the three paid acts behind a raised flag (Section~\ref{sec:smallest}). That's a match of two
+ numbers, both one by choice, and nothing more. There is no theorem mapping the
+ protocol's two register states to any machine state. The file's ``heat to the bath'' is the
+-register's mean energy before minus after, so it also assumes the bath receives what the
+-register loses, and no Coq says that. So a device test would have to measure the gap, the
++register's mean energy before minus after, so it assumes the bath receives what the
++register loses. That physical relation is not established here. So a device test would have to measure the gap, the
+ populations, the rates, and the bath heat independently; separately establish
+ that the device's rates are in detailed balance (that the up and down rates stand in the ratio the
+ temperature dictates), which the driven reset assumes and the canonical one breaks; and separately establish that the device's
+@@ -16080,33 +16059,22 @@
+ \part{Checking it, and its edge}
+ 
+ %===========================================================================
+-\section{What Coq is, and why}
++\section{What the checks establish}
+ \label{sec:coq}
+ %===========================================================================
+ 
+-Coq is a proof assistant, which is a phrase I had to go and look up. Underneath the phrase
+-it's a programming language, but one whose type system is strict enough to do a thing
+-ordinary languages can't: you write a proof down as a program, and the compiler refuses it
+-unless the program genuinely matches the statement you claimed. You can't talk it into a
+-maybe.
+-
+-The name is a joke three ways at once, and it's worth knowing before you say it out loud in
+-English. \emph{Coq} is French for rooster. It's also a nod to Thierry Coquand, a French computer scientist and mathematician, at the University of Gothenburg as of 2026, who worked out the
+-logic it started from with
+-Gérard Huet, a French computer scientist at INRIA, and to that logic's initials, CoC, for the Calculus of
+-Constructions; and there's a French habit of naming research tools after animals. The English
+-slang reading did what you'd guess. By the development team's own account, some people, women
+-students especially, ended up never learning the tool because of its name. So in March 2025 it
+-got a new one, the Rocq Prover, after Rocquencourt, the Inria site where it was first built,
+-and after the Roc, the giant bird of legend, so the bird stayed. Everything in this book was
+-checked with Coq 8.18, from before the rename, so that's the name I use. The rooster changes
+-nothing about what got checked.
++Coq is the tool I used to check the formal derivations. A statement and a proposed
++derivation are written in a precise language, and the checker tests whether the derivation
++follows the system's rules from its definitions and assumptions. The rest of this section
++says what that check covers, what it depends on, and what it leaves for us to read.
++
++The companion formalization uses Coq 8.18. The project was renamed the Rocq Prover in
++March 2025; this book uses the older name to identify the version its sources were checked with.
+ 
+ \subsection{Types as claims}
+ 
+ Here's the idea, and it's one idea. In a normal language a type says what kind of value a
+-variable holds: in Python, ``x is an int'' means x is a whole number. In Coq, types are
+-\emph{claims}. The type ``n is greater than zero'' is the type of \emph{proofs} that n is positive. A
++variable holds: in Python, ``x is an int'' means x is a whole number. In Coq, a claim can be written as a type, and a proof of it as a value of that type. The type ``n is greater than zero'' is the type of \emph{proofs} that n is positive. A
+ function from ``n is greater than zero'' to ``n plus one is greater than zero'' is a proof that
+ if n is positive, n plus one is too, and the compiler checks that the function really has
+ that type, the way it would check that a function from integers to strings really returns
+@@ -16116,8 +16084,8 @@
+ Christine Paulin-Mohring, a logician and computer scientist best known for developing Coq,
+ on top of the Calculus of Constructions he and Huet had made; their paper on it was given in 1988
+ and printed in 1990, so the late 1980s is as close as I'd date it. The ``inductive'' part means you
+-define your own recursive types (numbers, lists, trees, machine states) inside the system. The numbers, lists and states this book uses are all defined that
+-way, inside the system, so the foundation is explicit; nothing is smuggled.
++define your own recursive types (numbers, lists, trees, machine states) inside the system. The source gives the definitions of the numbers, lists and states used here,
++so you can inspect exactly which objects the formal derivations concern.
+ 
+ ``Decades apart'' undersells it, and the gap is worth a side trip. Haskell Curry, an American logician at Penn State best known for combinatory logic, noticed in 1934
+ that the type of a function from $A$ to $B$ reads like the claim ``$A$ implies $B$,'' and that
+@@ -16132,17 +16100,16 @@
+ ``proofs are programs.'' It kept getting noticed, by people coming from different directions,
+ until somebody wrote it down plainly.
+ 
+-The compiler checks whether the types line up. If your proof has a hole, it rejects the proof, unless you write ``trust
+-me'' (the keyword is Admitted), and then it marks the theorem as unproved. But here's the part that matters: the
+-compiler checks that the proof matches the \emph{statement}. It does not check that the statement
+-says what you \emph{meant}. Hand it a statement that means nothing and it'll prove it for you,
+-three characters, no complaint. So a proof being accepted is not the same as the thing being
+-true. It means this proof matches this statement, and whether that's the right statement is
+-on me. The machine can't tell. \hyperref[sec:point]{The point} said a short version of this and I'm saying it again because every section
+-since has leaned on it: the checked names in this book are a promise that the \emph{proof} is
+-there, and the sentences around them are my claim about what the statement \emph{says}, and the
+-second can be wrong while the first is fine, which is why so many sections of this book
+-stop to say exactly what a statement's hypotheses are.
++The checker tests a proposed derivation against its statement, under the definitions and
++assumptions it uses. Admitted skips the derivation and turns the statement into an assumption;
++the file can still compile. That is why a successful build alone does not show that every
++claimed result has been proved. Even a complete derivation can settle the wrong question.
++A statement can be true for an empty reason, such as a condition nothing satisfies.
++Whether it expresses what I meant remains my responsibility.
++\hyperref[sec:point]{The point} said a short version of this: the source names identify
++formal statements and their derivations, and the sentences around them are my account of
++what those statements establish. Comparing the two means reading the definitions, the
++premises and the conclusion. The checker does not do that reading for us.
+ 
+ \subsection{Why I used it}
+ 
+@@ -16153,8 +16120,7 @@
+ argument has to close in a way a person can follow, or it hasn't closed at all, which is
+ why this book is written in prose. A list of theorem names can't close an argument for anyone.
+ 
+-Two precedents show that a proof assistant is a serious tool. Neither of them is a
+-toy. CompCert, Xavier Leroy's C compiler, written and proved correct in Coq: the assembly it
++Two precedents show how a large proof can be checked by a small program. CompCert, Xavier Leroy's C compiler, written and proved correct in Coq: the assembly it
+ emits behaves as the source does, for programs with defined behaviour. And Georges
+ Gonthier's 2005 proof of the four-colour theorem, a century-old problem whose first
+ proof (in 1976) needed a computer to check fewer than two thousand configurations, by its own
+@@ -16190,10 +16156,11 @@
+ What it doesn't mean, listed. It doesn't mean the theorems prove physical reality; they
+ prove things about the machine as formalised, and whether that describes the world is
+ answered by experiments (Section~\ref{sec:a2-not-arbitrary}, Section~\ref{sec:landauer}). It doesn't mean Coq's own foundation is proved
+-consistent; it's believed consistent, and that can't be proved from inside, by Gödel (Section~\ref{sec:diagonal}),
+-so the foundation is trusted, and ``trusted'' has substance: it's the same kernel CompCert and
+-the four-colour proof stand on, and a bug in it would take all of them down together, which
+-is a kind of safety in numbers. And it doesn't mean no axioms: the
++consistent. Gödel's second incompleteness theorem limits what a sufficiently strong,
++effectively axiomatized theory can establish about its own consistency, if it is consistent
++(Section~\ref{sec:diagonal}). The foundation and the implementation of the checker remain
++dependencies. CompCert and the four-colour formalization share them; that does not make
++them independent checks of those dependencies. And it doesn't mean no axioms: the
+ proofs use a handful of standard-library assumptions, and the assumption audit names them:
+ functional extensionality on dependent functions (two functions that agree everywhere are
+ equal); two decidability principles that come with the standard library's real numbers, used
+@@ -16207,12 +16174,9 @@
+ its
+ version for any property language, the simpler host, the definition of Thiele-complete and its
+ window theorem, the host machine with a register for every whole number, the numbers that write
+-a guest program down, and the pigeonhole (Section~\ref{sec:smallest}), and the files that run Parts II and III on that machine and the diagonal on its programs (Sections~\ref{sec:part3-on-machine} and~\ref{sec:small-diagonal}). Each also ends by printing the assumptions of
+-every headline theorem in it, and every one
+-of those lines says the theorem is closed. A lemma a closed theorem uses is closed with it. So for those files every headline
+-theorem is closed under the global context, resting on no axiom of mine or of the standard
+-library, and two separate printouts say so. That isn't the same as having no premises: each
+-theorem keeps the hypotheses written in its own statement. Only two small files under minimal/,
++a guest program down, and the pigeonhole (Section~\ref{sec:smallest}), and the files that run Parts II and III on that machine and the diagonal on its programs (Sections~\ref{sec:part3-on-machine} and~\ref{sec:small-diagonal}). Those files also print the assumptions of their headline theorems. Both those
++printouts and the full audit report no added axioms for these results. That does not remove
++the hypotheses written in each theorem's statement. Only two small files under minimal/,
+ MuCore.v and Napkin.v,
+ sit outside the big audit, and they are built and checked on their own by
+ \texttt{bash scripts/verify\_core.sh}, which compiles each from a clean slate with \texttt{coqc},
+@@ -16230,8 +16194,8 @@
+ 
+ \subsection{What you're trusting, in one place}
+ 
+-If you accept every checked theorem in this book, here is what you're still taking on trust,
+-all of it, so you don't have to collect it from five chapters.
++Here are the dependencies of the formal checks, the executable tests and the physical
++interpretations, in one place, so you don't have to collect them from five chapters.
+ 
+ \begin{enumerate}
+ \item The statements. The checker confirms a proof proves its statement. It doesn't confirm the
+@@ -16243,10 +16207,9 @@
+ \item Coq's bytecode machine, on the build's side. Coq can hand a computation inside a proof to a
+ virtual machine: a compiler from Coq terms to bytecode and an interpreter for that bytecode, written
+ in OCaml and C, which sit beside the kernel's ordinary reduction and are trusted when used. A proof
+-reaches it through the tactic \code{vm\_compute} or through a cast marked for it. Of the 332 files
+-in the audit, 44 call \code{vm\_compute} themselves, and 267 reach the machine one way or the
+-other, because the standard library's arithmetic deciders (\code{lia}, \code{nia}, \code{lra},
+-\code{nra}, \code{psatz}) check their certificates on it; the vendored library's tactics for its
++reaches it through the tactic \code{vm\_compute} or through a cast marked for it. The build uses it both through explicit calls to \code{vm\_compute}
++and through arithmetic deciders (\code{lia}, \code{nia}, \code{lra},
++\code{nra}, \code{psatz}) that check certificates on it; the vendored library's tactics for its
+ lambda-calculus files call \code{vm\_compute} too. When \texttt{coqc} builds those files, it
+ trusts the bytecode machine. Coq's independent checker, \texttt{coqchk}, keeps its bytecode
+ machine switched off unless it's told otherwise (its option \texttt{-bytecode-compiler} defaults to
+@@ -16329,8 +16292,8 @@
+ compute); physics-definition heuristics (no physical quantity defined as a placeholder
+ constant, no physics claim without an invariance condition); scope enforcement (the proof
+ tree is split into tiers, the kernel tier may not import from research-side files, and every
+-active file must reach the cost or semantics foundation through its imports, or it doesn't
+-get to claim the kernel's pedigree); and comment hygiene (no unfinished or historical
++active file must reach the cost or semantics foundation through its imports, or it fails
++the project's dependency rule); and comment hygiene (no unfinished or historical
+ markers in maintained source). Its rules are heuristics. They point at places to look. They don't prove
+ a theorem means what it should, and they can't promise every empty premise got caught.
+ 
+@@ -16492,12 +16455,9 @@
+ every claim, a description of the exact object that would make it fall, so you know before you
+ start what counts as winning.
+ 
+-Before the list, the honest part about it. Most targets below are theorems Coq has checked,
+-and knocking one of those over head-on would take a bug in Coq's kernel. That can happen, but
+-it isn't where I'd put my money. The places a reader can actually win are aimed at me,
+-and there are three. None of them goes through Coq. A sentence of mine that says more than the Coq statement it cites
+-(Appendix~\ref{sec:coq-statements} puts the load-bearing ones side by side to make that easy). A Coq
+-definition that doesn't capture the English word it's named for: on the small machine, ``is at
++Before the list, three places to aim at me. A sentence of mine that says more than
++the formal statement it cites (Appendix~\ref{sec:coq-statements} puts the load-bearing ones
++side by side to make that easy). A definition that doesn't capture the English word it's named for: on the small machine, ``is at
+ least 0'' is a check that can't fail, and the step certifies it anyway, so ``certified'' there
+ doesn't mean ``found something out'' (Section~\ref{sec:smallest} says so, and that's the kind
+ of gap to hunt). And a list of premises that only its own example satisfies.
+@@ -17474,9 +17434,8 @@
+ yes, with the guest's own reading as the claim it checked, and, when the guest's reading starts at no, keeps the guest's prices
+ to within a surcharge of at most two, which no program on
+ that host, run from a clean start, can avoid when the guest certifies with its whole ledger below three. An ordinary programmable computer, as built, doesn't do that for the
+-programs it runs; $U$ and $U_P$ show a fixed interpreter can. All of that is proved in Coq with
+-no axioms: each file prints the assumptions of every headline theorem, and every line
+-comes back closed.
++programs it runs; $U$ and $U_P$ show a fixed interpreter can. The formal derivations of those results use no added axioms; the hypotheses of each
++theorem are printed in its statement.
+ 
+ Then a check worth earning, the two-player game with an integer test whose
+ pass forces Tsirelson's bound for the tally it's handed. That one does use axioms, the standard
+@@ -17490,10 +17449,9 @@
+ and an instruction after which the ledger goes down; a contractive correlator whose pinned matrix isn't positive semidefinite; a
+ certification system that follows the toll and certifies at total cost zero; a function on
+ numbers that correctly decides the shortcut predicate of the substrate built from it. Any one
+-of them brings down the theorem it matches. I hunted. I came up empty. For a theorem Coq has
+-checked, that's no surprise: finding one would take a bug in the checker. The places a reader can really win are where my sentence says more
+-than the statement does, or a definition doesn't catch the word it's named for, and
+-Section~\ref{sec:falsification} starts with those.
++of them brings down the theorem it matches. I hunted. I came up empty. That leaves the arguments here for you to examine.
++Even where a theorem holds, my sentence can say more than it establishes, or a definition
++can fail to catch the word it's named for. Section~\ref{sec:falsification} starts with those.
+ 
+ If you asked what's new here, I wouldn't give you one thing, because there isn't one. There
+ are four, and each comes with its fence and its neighbours. First, the toll isn't only my
+@@ -17529,8 +17487,8 @@
+ whole numbers, and the checked link from ``the check passed'' to the bound. It's algebra you can
+ follow line by line, and the assumption audit on that link finds exactly three standard
+ axioms from Coq's own library (two that come with its real numbers, and functional
+-extensionality) and nothing of mine, which is how anyone can see
+-that no physics was smuggled in. And on the small machine's host a raised flag can stand on that
++extensionality) and nothing of mine. The reason this is an algebraic claim is in its definitions
++and the argument: no premise identifies the counts or matrices with a physical device. And on the small machine's host a raised flag can stand on that
+ check: from a clean start a raised flag contains a passing CHECK of the packed counts, a COMMIT and
+ a CERTIFY, and the check passes exactly when every pair was sampled and the five-by-five is
+ positive semidefinite (Section~\ref{sec:chsh}).
+@@ -17582,7 +17540,7 @@
+ %===========================================================================
+ 
+ I came in with none of the formal fields this work turned out to need. By the time the
+-proofs compiled I'd needed enough of half a dozen of
++argument had taken shape I'd needed enough of half a dozen of
+ them that I had to put down somewhere what those fields had words for. This appendix is that
+ place. None of it is the argument. It's what I needed to be able to make it. Everything
+ below is what I understood after I went and read about it; I'm not claiming to teach you
+@@ -17657,7 +17615,7 @@
+ a named statement followed by a proof; a Lemma is the same thing used for an intermediate
+ result; a Definition introduces a named value; an Inductive type is one with a finite list of
+ constructors, the only ways to build a value of it (Coq's natural numbers have two: zero, and
+-successor of another natural). A tactic is a step inside a proof: induction (base case, then
++successor of another natural). A tactic is an instruction for building a formal derivation: induction (base case, then
+ step), destruct (split into cases), reflexivity (prove a thing equals itself), simpl
+ (compute), lia and lra and nra (arithmetic solvers for integers, linear reals, and
+ polynomial reals), psatz (a certificate search for polynomial inequalities). Qed ends a
+@@ -17763,7 +17721,8 @@
+ development where the model is written down and its main theorems live (Section~\ref{sec:coq}),
+ with the link files that tie the small machine to them;
+ and Coq's own kernel, the small checker that accepts or rejects every proof. Third, the
+-operating-system kernel, which I never use and mention only so you know it isn't meant. The
++operating-system kernel, the core of an operating system, as in the packet-filter example
++in Section~\ref{sec:models}. The
+ sentence around the word always says which one is.
+ 
+ \subsection{Matrices}
+@@ -18174,8 +18133,8 @@
+ measuring and erasing in more than one way is Fahn's (1996). Mine: the four-state demon and the three-state ring as checked
+ models, and the two-state impossibility (Section~\ref{sec:narrowing}). Kind: mechanization
+ and illustration of a known physical point inside my ledger. Not a new physical claim.
+-Bennett did the hard part in 1982; I built a toy with four dots on it and got Coq to agree
+-with him.
++Bennett did the hard part in 1982; my four-dot example puts the difference between
++learning and committing where you can work through it yourself.
+ 
+ \subsection{Windows that can't price what they hide}
+ 
+@@ -18306,11 +18265,12 @@
+ frameworks the answer is split: the counter is their writer exactly
+ (\code{run\_writer\_is\_run\_and\_cost}), and their type systems, bounding relations and
+ before-the-run checking of grades are not embedded, because the grade here is written by the step
+-during the run (Section~\ref{sec:counter}). On loop-free programs the counter agrees with a fixed
+-grade exactly, and where a run's cost depends on its data it holds the exact number that a fixed
+-grade can only bound; that's argued in Section~\ref{sec:counter}, with no checked theorem
+-behind it, and cost-aware
+-type theories such as calf get exactness back with grades that depend on the inputs.
++during the run (Section~\ref{sec:counter}). For the well-graded, loop-free programs defined in Section~\ref{sec:counter}, on runs
++that do not trap, the counter's rise equals the fixed grade. The loop built there costs
++its input value, so no fixed whole number is its exact grade on every input; an
++input-dependent grade is exact. The arguments and their formal counterparts are given
++there (NecFGrade.v). Cost-aware type theories such as calf allow grades that depend on
++the inputs.
+ 
+ \subsection{The small machine}
+ 
+@@ -18437,9 +18397,8 @@
+ small-machine program and to every computably presented Thiele machine, earning their own flag).
+ The first is a ledger
+ form of a core that's classical and already priced in physics; the second and third are small exact statements I didn't find
+-stated where I looked; the fourth is built and checked, and its idea isn't new. Under all four sits a
+-large body of mechanized proof that
+-ties those statements to one small machine and the programs that run on it. Around it is my best
++stated where I looked; the fourth is built and checked, and its idea isn't new. The proofs connect
++those statements to one small machine and the programs that run on it. Around it is my best
+ attempt at saying which is which,
+ which you should check as hard as anything else in here. Item 2's core, the finite cousin of Zermelo's recurrence objection, was
+ folklore among automata theorists,
+@@ -18464,8 +18423,8 @@
+ ``none'' means the theorem is closed: its proof uses nothing beyond
+ Coq's own rules. The other entries name the standard-library assumptions it uses: FE is
+ functional extensionality on dependent functions, RD is one or both of the two decidability principles
+-that come with the real numbers, and EM is excluded middle. ``def'' marks a definition, which
+-has nothing to assume.
++that come with the real numbers, and EM is excluded middle. ``def'' marks a definition rather than a theorem; its parameters and any assumptions
++on them remain part of what it defines.
+ The audit covers every file the project builds, the small machine's files under minimal/ and the
+ kernel tree under coq/kernel alike; only MuCore.v and Napkin.v, which are built and checked on their
+ own, sit outside it. The small machine's files, the universal program's files and the priced host's
+@@ -18473,8 +18432,8 @@
+ lines says closed. ``+N''
+ after a file means $N$ other files under coq/ and minimal/ define or declare a name spelled the same way, section variables and hypotheses included (notations, module aliases and record fields aren't counted); the row gives
+ the file this result uses. A premise is assumed and never proved, so its row gives at most the Coq
+-definition that states it, marked ``def''. A thesis has no Coq name, because the book states it
+-and doesn't claim it; its formal schema is a definition, marked ``def''. The section that states each one says so.
++definition that states it, marked ``def''. A thesis has no Coq theorem name, because the book proposes it
++without claiming to have proved it; its formal schema is a definition, marked ``def''. The section that states each one says so.
+ 
+ This table is an index of companion formalizations. The statements, hypotheses and
+ arguments are in the numbered sections it points to. An audit status reports the
+@@ -18483,8 +18442,8 @@
+ statement, or one per numbered part, says what the numbered statement says. A few are
+ \emph{assembled}: the numbered statement follows from the listed Coq results by a step done in
+ the text, and the row says so, as Corollary~\ref{cor:u23-notrap-bound}'s does with ``the
+-composition of.'' No row is meant to say more than its Coq names, and where the prose does,
+-the prose is wrong. A name and its file fix the constant, the revision is the one in
++composition of.'' Where a row claims to restate a formal result, it must preserve that result's scope.
++Any stronger claim needs a further argument, and the row must say where that argument is given. A name and its file fix the constant, the revision is the one in
+ Section~\ref{sec:coq}, and Section~\ref{sec:coq-statements} prints twenty-one of the
+ statements with their premises and that comparison made.
+ 
+@@ -18788,9 +18747,10 @@
+ statement is a question the checker never asks. So here are the statements themselves for twenty-one of the results the argument
+ leans on hardest. Each is copied from its file with the comments taken out and a few long lines
+ broken to fit the page, which Coq doesn't notice, and nothing else changed, and each comes with its file, a plain reading, and a line on whether the book's
+-printed version says exactly that, more, or less. You don't need to read Coq to use this. Put
+-the printed theorem next to the block and check that every premise in the block turns up in the
+-sentence. That's the whole test. These are the statements this book was checked against; if a
++printed version says exactly that, more, or less. Each source block has a plain reading beside it. Compare the definitions, the premises,
++the quantifiers and the conclusion with the printed theorem. Checking the translation
++against the source also takes enough of its notation to follow those parts; matching
++the list of premises alone is not the whole test. These are the statements this book was checked against; if a
+ file differs later, the book means the one printed here.
+ 
+ \subsection{The definitions they rest on}
+@@ -19652,7 +19612,8 @@
+ value, runs the routine for at most $t$ steps, and says yes exactly when the routine has left its
+ code with 1 in its answer register. The theorem says the checker's yes is the claim's meaning,
+ which for a routine is that bounded run. Section~\ref{sec:presented-universal} says exactly this.
+-The checker answers on every input because it's a Coq function that always returns
++The checker answers on every input because decoding terminates and the routine runs for
++at most the supplied finite number of steps
+ (\code{cg\_ueval\_total}).
+ 
+ \subsection{The surcharge can't always be avoided}
