@@ -33,10 +33,25 @@ Forced by counting alone, no price anywhere:
       M >= 1 + (T+1)(N-1). So a finite memory keeps such history for at
       most (M-1)/(N-1) repetitions, whatever its encoding, hidden state or
       clock, and after that some boundary step merges.
-      research/structural-state/machine-preservation/RetentionBound.v,
-      retention_bound and retention_horizon, standard library only, closed
-      under the global context. The matching construction showing the bound
-      is attained is in that directory's Result.txt, Section 7.
+      The argument, with chairs. Take any of the N-1 live situations and
+      follow its chair through T applications: T+1 chairs. If the path
+      revisited a chair, undo the common steps (allowed, since no two
+      visited chairs are sent to one place) and the starting chair would
+      equal a chair reached after at least one step; but the start is live
+      and every later chair is "nothing current". So the path has T+1
+      distinct chairs. Two live situations' paths cannot touch: undo to the
+      earlier time and either two situations share a start, or a live start
+      sits on a reset chair. So the paths are disjoint: (T+1)(N-1) chairs.
+      One more: where the "nothing current" situation's own path ends after
+      T steps. If that chair were on a live path, the same undoing puts a
+      live start on a reset chair or two starts on one chair. So it is new.
+      For the 81 histories: seven bits (128 chairs) cannot survive one
+      reset (161 needed); eight bits (256) survive two and not three (321).
+      The same argument is typed out in
+      research/structural-state/machine-preservation/RetentionBound.v and
+      compiles with the standard library alone; that compilation checks
+      the typing of the steps above, nothing more. The construction showing
+      the bound is attained is in that directory's Result.txt, Section 7.
 
 Forced by the three premises together, and by nothing less:
 
@@ -188,7 +203,9 @@ CHECKED TODAY
     Coq's own real numbers, not premises of the book; any real analysis in
     Coq carries them. The book's premise is Landauer's principle, which is
     stated as a premise and never derived.
-  RetentionBound.v: coqc, standard library only, both reports closed.
+  RetentionBound.v: coqc, standard library only, both reports closed. The
+  argument itself is the chairs argument under F5; the compilation is a
+  check on its typing, not the reason it holds.
   The Bérut 2012 abstract: Europe PMC record for DOI 10.1038/nature10872.
   The compiled .vo files tracked in the repository were restored after the
   build; no proof source under coq/ or minimal/ was changed.
