@@ -1912,7 +1912,7 @@ So here's how the book keeps the two apart. Parts I to III are about any system 
 pieces each result names, and their pictures are toys you can hold (two boxes on a sheet of
 paper, chairs in a room, a row of dots). My machine isn't one of them; it first appears in Part IV.
 Every Part III claim that has a machine instance gets that instance in Part IV, with
-its own checked name, and Part III says so in one sentence at most. When the origin story,
+its own theorem, and Part III says so in one sentence at most. When the origin story,
 a few pages on, says the shape ``was the substrate the entire time,'' it means this layer, the model's shape.
 It doesn't mean any piece of the build. Same story with two more of its words. When it says ``the
 machine'' about the thing it named the Thiele Machine, or calls that thing a meta machine, it
@@ -4109,7 +4109,7 @@ not going to pretend the laboratory settles a question about what the principle 
 general, because measuring one bead doesn't do that.
 
 So here's what I did with it, and I think it's the only honest thing to do. The charge on
-forgetting is written into the checked work as a \emph{named premise}. It's a definition the
+forgetting is written into this book as a \emph{named premise}. It's a definition the
 theorems take as an assumption, and nowhere is it proved as a general fact, because it isn't
 provable from counting; for particular machines with particular price lists it's checked
 (the stamp at cost one, above), which is a different thing. If Norton turns out to be right, every theorem in this section still holds; they
@@ -4678,7 +4678,7 @@ finite machine with a flag that stays up. In that section I only declared it.
 
 Here's what you haven't earned. I'm listing it so you don't assume it. You haven't
 earned that forgetting costs anything in the world; that's Landauer, it's measured for beads
-and argued over for the general case, and in the checked work it's an assumption with a name.
+and argued over for the general case, and in this book it's an assumption with a name.
 And even granting it, Landauer's entropy-loss bound demands no positive heat from a run whose state is known (the lifted
 cup), so what the physics forces is a floor on a device that has to work whatever it's
 holding. Any one run can come in under it.
@@ -14941,7 +14941,7 @@ program, where the program can't choose them. And how much can one round tell yo
 the chair in that subject at Leiden, and Peter Gr\"unwald (2005) measured exactly that, in bits of evidence against every local plan. Of the
 two-party proofs they compare, CHSH comes out the strongest, ``much stronger'' than the others in
 their words, at about 0.046 of a bit per round, a few hundredths, so a convincing record takes
-hundreds of rounds. Four won't do. The checked work proves only the narrow thing, that a tally above two is not
+hundreds of rounds. Four won't do. This book proves only the narrow thing, that a tally above two is not
 explained by \emph{one fixed plan replayed every round}, and that narrow thing is what
 the sentence has to stay. And ``the PSD test proves the data is
 quantum.'' (PSD is short for positive semidefinite, the property of the five-by-five table from
@@ -15913,7 +15913,9 @@ merge, certifying or not. That's the thesis, and Section~\ref{sec:pointer} is th
 
 \emph{The five models (Section~\ref{sec:models}).} Each fragment has a theorem with a named falsifier: a finality fork
 with nobody slashable; a gas schedule meeting floor and no-overcharge whose charging
-predicate differs from the commit predicate on some step; one of the RFC's own example proofs
+predicate differs from the commit predicate on some step; a nonce $n$ and a function from
+quotes to Booleans that returns $\mathrm{flag}(P)$ on $\mathrm{quote}_n(P)$ for every platform
+$P$; one of the RFC's own example proofs
 that the transcribed inclusion check rejects, or an input with leaf index equal to tree size
 that it accepts; a program the bounds checker accepts whose verification condition fails. Each
 kills one fragment. None of them, and I want this clear, says anything about the
@@ -16009,8 +16011,8 @@ two-counter machines and the constructions that prove their halting undecidable 
 computable functions into them (Forster, Larchey-Wendling and coauthors). Turing, Church, Kleene, Rice, Cantor, Gödel, the
 diagonal pattern, Lawvere's unification, and the mechanized versions of them:
 Michael Norrish's, Mario Carneiro's, and Yannick Forster, Fabian Kunze and Gert Smolka's. Bell, CHSH, Tsirelson, Stephanie Wehner's semidefinite proof of Tsirelson's bound (2006), NPA, Landau,
-Masanes, Fine, the elliptope, and the machine-checked proofs of Tsirelson's bound that came
-before mine (Echenim and Mhalla in Isabelle, and Lean's mathlib). Landauer, Bennett, Szilard,
+Masanes, Fine, the elliptope, and the machine-checked proofs of Tsirelson's bound
+(Echenim and Mhalla in Isabelle, and Lean's mathlib). Landauer, Bennett, Szilard,
 Maxwell, and their critics. The potential method (Tarjan) and its mechanizations (Nipkow,
 Charguéraud and Pottier), Lamport's clocks, Floyd and Hoare. Gettier, Necula, Cook, Hartley,
 Shannon, Rissanen. Zurek. The guarantee about every program: the reference monitor (Anderson),
@@ -16206,7 +16208,7 @@ The one-round ``ask'' models a cheating prover & not claimed & Section~\ref{sec:
 The window fact is mysticism, or Rice & not claimed & Section~\ref{sec:windows} \\
 Entitlement: object, checked relation, paid event & definition (the book's word) & Section~\ref{sec:entitlement}, Definition~\ref{def:u08-entitlement} \\
 A decision tree has at most two to its depth leaves & definition; proved & Section~\ref{sec:entitlement}, Definition~\ref{def:u08-dtree}, Lemma~\ref{lem:u08-tree-width} \\
-Paid narrowing, counted & proved with the bill of the charges, which equals the counter's rise by conservation; both are checked (premises: a covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:u08-count} \\
+Paid narrowing, counted & proved with the bill of the charges, which equals the counter's rise by conservation; both are proved (premises: a covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:u08-count} \\
 Structural entitlement over any certification system: a strictly stronger test, a paid crossing, a bill that covers the index bits & proved (premises: covering tree, paid steps) & Section~\ref{sec:entitlement}, Theorem~\ref{thm:ent-cs} \\
 A reading that a grouping was checked and committed sees only its partition and entitles, uniformly over keys, exactly the groupings that refine it & proved & Section~\ref{sec:entitlement}, Theorem~\ref{thm:partition-reading} \\
 Structural entitlement for every Thiele-complete machine: stronger test, earned chain, index bits at most the record moves, ledger rise at least 3 & proved (premises: a clean start, and M1 to M6) & Section~\ref{sec:part3-on-machine}, Theorem~\ref{thm:ent-machine} \\
@@ -16578,7 +16580,7 @@ probabilities. And no single deterministic
 latch explains a record that can branch both ways from the same observation.
 Weak base equivalence is defined and is an equivalence; no two of the three bases of
 Definition~\ref{def:u11-concrete-bases}, and none of them and the small machine, are related by it in
-the checked work, and the latch form holds on each separately, so it doesn't tell
+this book, and the latch form holds on each separately, so it doesn't tell
 them apart (Section~\ref{sec:latch}).
 A record driven by the computation that stays up is a latch, and on a finite machine its write merges states;
 which event deserves the latch isn't proved; records that can come back down lie outside all
@@ -16652,28 +16654,22 @@ host with a guest step built in runs guests by construction and keeps a mirror o
 flag; its ledger only covers the guest's. The small machine's check price is flat, its fact table holds sixteen,
 and its certificate is historical (Section~\ref{sec:smallest} lists the rest).
 
-\emph{The comparison machines.} The small machines I built to compare against are fragments too.
-The random-access memory result covers an addressed list memory with load, increment and
-decrement on cells, and it's about that
-machine. The register machine Section~\ref{sec:latch} puts the latch on  is
-a different small machine, the one with indirect addressing, and that theorem is about it. The reversible-machine
-result covers arithmetic update cores: add and subtract, each undone by the other, with or
-without wrapping at a modulus.
+\emph{The comparison machines.} The bases I put the latch on are fragments too. The register
+machine of Section~\ref{sec:latch} is the one with indirect addressing in
+Definition~\ref{def:u11-concrete-bases}, and that theorem is about it. The reversible result
+(Theorem~\ref{thm:u11-reversible}) covers any base whose step is injective, and on a finite
+state space says only that no injective step raises a permanent reading.
 None is a theorem about real memories or full reversible languages. The cost-semantics
 results are local correspondences, short of full cost-framework embeddings: the trace's cost is a
 writer cost and a grade, and the toll is the potential method with one potential (Section~\ref{sec:counter}).
 Nobody's whole type system gets embedded either.
 
 \emph{Outward consequences.} I looked for results about real systems that would need the record
-axis. Five narrow ones are proved, each as a two-state countermodel: a certificate-transparency
-client's local tree head can't decide whether the world's log is consistent; a quote check that matches only the composite digest accepts a
-mismatched selection; a local suffix can't decide a
-trusted anchor; an acknowledgement without a durable
-commit record can be lost; and a current local log can't
-decide what happened before it. Each reduces to a known
-indistinguishability or durability argument. Five stronger candidates would need protocol or
-hardware semantics I haven't formalised, and I've proved nothing about them. So none of this
-yields a new outside result that both needs the record axis and is ready to use.
+axis. What's proved are the five fragments of Section~\ref{sec:models}, each a transcription
+with its own named limit, and none is a theorem about the deployed system. Stronger candidates
+would need protocol or hardware semantics I haven't formalised, and I've proved nothing about
+them. So none of this yields a new outside result that both needs the record axis and is ready
+to use.
 
 \emph{Where each result lives.} Every system that follows the toll, whatever its states: the
 floor, at most as many certifications as cost, and the potential-method reading. Every
@@ -17187,7 +17183,7 @@ whole number, and one property, $\mathsf{Slot}$, true of a number that packs a p
 small machine together with a value it holds of. A \emph{slot} is a register of the host used for
 nothing but holding one checked fact about the guest, and its \emph{mirror} is a register beside
 it, safe to read, that says which claim the slot holds while its fact is live. $U$ is the fixed
-program of 3728 host instructions that runs every small-machine program; it reads guest
+program of host instructions that runs every small-machine program; it reads guest
 instructions out of one register, keeps the guest's counters in two others, and puts every
 checked fact in a slot, because on this machine reading a counter writes it. The universal
 program's \emph{guest} is a program of the small machine, held as one number in a register of the
@@ -17297,6 +17293,14 @@ Recursion (generic) & every transformation the substrate can represent has a fix
 Commitment contract & a commitment bit is set only when the claim holds, and whenever it holds & the commitment escape, Section~\ref{sec:windows} \\
 Computably presented & four programs compute the driver, the step, the price and the reading, and the reading's program answers on every state & the universal host for presented machines, Section~\ref{sec:presented-universal} \\
 Clean start & an empty fact table, an empty channel and the flag down & every provenance theorem about the small machine, Section~\ref{sec:smallest} \\
+Record-layer merge pricing & a move that sends two different states with the same base part to one state costs at least one & the toll on the small machine, Theorem~\ref{thm:record-merge-toll} \\
+Structural dissipation pricing & every collapsing instruction dissipates at least one unit, and dissipation is at most cost & Section~\ref{sec:landauer}, Premise~\ref{prem:u24-landauer-pair} \\
+Covering tree, paid steps & a decision tree whose leaves cover the narrowing, and at least as many steps charged at least one as the tree is deep & entitlement, Theorems~\ref{thm:ent-cs} and~\ref{thm:ent-machine} \\
+Share kept by a test & each passed test keeps at least a $2^{-k}$ share of the candidates & entitlement made by the run, Theorems~\ref{thm:ent-run} and~\ref{thm:ent-run-machine} \\
+Lift interface & a checker proved to mean what it says, a claim true at one loaded state and false at another, room for one fact & the lift, Theorem~\ref{thm:lift} \\
+Decidable move names & any two move names can be decided equal or different & forced pricing, Theorem~\ref{thm:forced-iff-merge} \\
+Representable flip & the substrate can represent the flip of the candidate decider & the diagonal, Theorem~\ref{thm:u12-no-inside-decider} \\
+Quorum intersection, one parent; charge predicate & as transcribed in Section~\ref{sec:models} & Theorems~\ref{thm:u13-accountable-safety} and~\ref{thm:u13-gas-exactness} \\
 \end{longtable}
 \endgroup
 
