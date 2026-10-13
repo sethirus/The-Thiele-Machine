@@ -11135,7 +11135,7 @@ each one returns, which steps are indivisible, how it starts and which processes
 a proof that every processor decides, they all decide the same value, the value is one somebody
 proposed, and nobody waits. Here it is, with every instruction one indivisible step and the whole
 state readable, and the object is at the top. The reason is the order of the fact table. Each
-processor CHECKs a property that holds of a counter at zero, PZero to propose 0 and PEven to
+processor CHECKs a property that holds of a counter at zero, $\mathsf{Zero}$ to propose 0 and $\mathsf{Even}$ to
 propose 1, then reads the table and decides the bit of its oldest fact. The table only gains
 entries at the front, and a CHECK that finds it full trips the trap, after which nothing moves, so
 the first CHECK of the run fixes the oldest fact for good. Every processor that decides decides
@@ -11175,8 +11175,7 @@ A process is a shared machine state with a crowd of threads, each proposing a bi
 two processes pools their threads on one state. One thread proposing each bit is a consensus
 process in exactly their sense, for the outcomes ``some thread decided 0'' and ``some thread
 decided 1'', so by their theorem that composition isn't
-monotonic. The small machine sits on their non-monotonic
-side, checked. What puts it there in the run is the order of the fact table, the same as above;
+monotonic. The small machine sits on their non-monotonic side. What puts it there in the run is the order of the fact table, the same as above;
 a store that refuses a stale commit for good, as the version rule does, refuses in the same
 spirit. The shared-memory version of their split is the pair of results above: the small
 machine's object reaches agreement for any number of processors, and the monotone variant reaches
@@ -11390,11 +11389,8 @@ exactly where. In 1972 Rich Schroeppel, then at the MIT AI Lab, wrote a ten-page
 ``A Two Counter Machine Cannot Calculate $2^N$.'' He spells out the convention first: a counter
 machine computing a function starts with $n$ in one counter and zero in the others. Then he gives
 a proof that a two-counter machine started that way can't compute
-$2^n$. His theorem is checked here, for every program of the small machine
- and for every machine with a finite control whose counters are
-read only through zero and parity above a threshold, by the same
-chain of stages that proves the theorem about multiplying near the end of the chapter
-(Theorem~\ref{thm:no-plain-recursion}): along an arithmetic progression of inputs the outputs grow
+$2^n$. The same chain of stages that proves the theorem about multiplying near the end of the chapter
+(Theorem~\ref{thm:no-plain-recursion}) rules $2^n$ out too, though I state only the multiplying form: along an arithmetic progression of inputs the outputs grow
 by a fixed amount, and powers of two don't. So the packing Minsky needs is precisely the thing two plain counters can't do for
 themselves. Hand the small machine its inputs straight and there are functions of them it
 can't compute; hand it the inputs already packed and it computes anything a Turing machine
@@ -11673,8 +11669,7 @@ defined a checker for a computational problem: given a program and an input, it 
 program as it likes, and it must say ``correct'' with high probability when the program is right
 everywhere and ``buggy'' with high probability when its answer on that input is wrong. A checker
 that always says ``correct'' isn't one. Here the checker is fixed, deterministic and proved sound
-once, and the part of their demand that survives is the fourth clause of Thiele-complete in
-Section~\ref{sec:smallest}: some claim whose check can fail.
+once, and the part of their demand that survives is the fourth clause of Thiele-complete (Definition~\ref{def:u34-thiele-complete} below): some claim whose check can fail.
 
 \subsection{Nothing gets forged}
 
@@ -12021,7 +12016,7 @@ and CHECK, a primitive test, can.
 One word needs pinning before the theorems, using the three names set at the front of the book.
 In clause (c), the \emph{exact toll} is instruction-exact pricing: each of the three acts, CHECK
 and COMMIT included, costs exactly one, so the ledger counts the acts that make a claim. Back in
-Section~\ref{sec:counter}, one of the cited results  is about
+Section~\ref{sec:counter}, one result is about
 rise-only pricing in its tightest bill, the \emph{exact schedule}: one mark on the step that
 raises the flag and nothing on any other step. Measured against the flag alone, the small machine
 isn't rise-only, since CHECK and COMMIT raise no flag and cost one each; measured the way (c)
@@ -12235,10 +12230,7 @@ $[2, 1]$. (4) is (1) of Theorem~\ref{thm:u34-tc-consequences} and Section~\ref{s
 by the language, and the checker's soundness is Lemma~\ref{lem:u34-eval} and its generic form.
 \end{proof}
 
-The same fixed-language form is proved for the priced machine and its counter and sorted-list
-instances, the multi-register machine, and the lifts over a base or its window.
-For a base simulated by finite lists of moves, it also holds for the macro lift and the
-five-lever example.
+Section~\ref{sec:every-model} carries the same fixed-language form to other bases.
 The claims keep their stated meanings; the new interfaces supply the checkers.
 
 And here's the thing every machine that meets the definition can't help doing. It's
@@ -13078,7 +13070,7 @@ they'd want a host to sit: the host's own steps collect each guest's toll and ea
 record again. And an industry learned the same lesson the expensive way: a rule binds the guest
 only if it lives in the step underneath.
 
-The smallest checked version of ``a ledger beside an ordinary machine'' is a Turing machine
+The smallest version of ``a ledger beside an ordinary machine'' is a Turing machine
 configuration with a counter next to it, where each step adds one, plus one more if it writes
 a nonblank symbol. The counter doesn't disturb the machine.
 
@@ -13474,8 +13466,7 @@ it, reproved it on L, handled on its own terms rather than as a substrate,
 and said what a machine has to supply to fill in the same shape, two things: programs that can be handed to programs as numbers, and a recursion theorem for the
 transformations it can carry out. This machine's universal program reads a whole guest program out
 of one register, with a numbering of programs that goes there and back
-(Definition~\ref{def:u34-U}), and halting is undecidable here in the reduction sense of Theorem~\ref{thm:u34-undecidable}
-(Theorem~\ref{thm:u34-undecidable}). What's left are the two classical results that turn a
+(Definition~\ref{def:u34-U}), and halting is undecidable here in the reduction sense of Theorem~\ref{thm:u34-undecidable}. What's left are the two classical results that turn a
 universal machine into a place where the diagonal bites: Rice's theorem and Kleene's recursion
 theorem. They come with a wrinkle I should put first, because it decides which machine they're
 about.
@@ -13802,7 +13793,7 @@ program $p$, stops with $2^m$ where $m$ is the number of $F(p)$.
 
 \begin{theorem}[No plain recursion on two counters]\label{thm:no-plain-recursion}
 (1) No program of $n$ lines stops with $c \cdot x$ pebbles in bin A, started on $x$ pebbles in bin A
-and none in bin B, for every $x$, where $c = N! + 1$ and $N = 16(n+1)(2n+1)^{16}$. (2) So there's a
+and none in bin B, for every $x$, where $c = N! + 1$ and $N = 16(n+1)(4n+1)^{16}$. (2) So there's a
 carried-out transformation $F$ such that no program $e$ computes the same plain function as $F(e)$.
 \end{theorem}
 
@@ -13818,7 +13809,7 @@ For (1), separate the two bin counts from the finite control. The control record
 the line, trap, whether the channel is empty, and each stored fact's property,
 counter and current-or-stale status. Only properties named in the program can
 enter the table. With at most sixteen entries this gives at most
-$Q=4(n+1)(2n+1)^{16}$ control states. The ledger and absolute versions do not
+$Q=4(n+1)(4n+1)^{16}$ control states. The ledger and absolute versions do not
 influence a branch; current-or-stale status contains the version information a
 COMMIT needs. Choose a positive threshold $B$ above every number named by a CHECK.
 Above $B$, a bin affects a branch only through its parity; below $B$, retain its
@@ -13915,15 +13906,14 @@ That failure has a setting computability theorists know. The mathematician Hartl
 1967 textbook, calls a numbering of the computable functions \emph{acceptable} when every other
 numbering can be translated into it by a computable map, and in every acceptable numbering
 Kleene's theorem holds. Read on plain inputs, the two-bin programs number something smaller than
-all the computable functions, since none of them computes $2^n$ from $n$ (Schroeppel's theorem,
-Section~\ref{sec:smallest}), so they fall outside Rogers's
+all the computable functions, since none of them computes $2^n$ from $n$ (Schroeppel's theorem; compare Theorem~\ref{thm:no-plain-recursion}), so they fall outside Rogers's
 class, and his route to the theorem isn't open there. The computer scientists James Royer and John
 Case (1994) studied that territory: programming systems for classes of functions smaller than all
 the computable ones, which can't be acceptable, and what can still be programmed and proved in
 them. And the logician and puzzle
 writer Raymond Smullyan's two books on recursion theory and self-reference (1993, 1994) take the
 fixed-point theorems apart axiomatically, so you can see which property of a numbering each one
-leans on. The plain-input failure is a small, checked instance on the map they drew.
+leans on. The plain-input failure is a small instance on the map they drew.
 
 \subsection{What the universal machine covers, and what it doesn't}
 
@@ -14096,8 +14086,7 @@ If you ever find yourself wondering whether a property of this machine is the mo
 the machine's, hold it up against Section~\ref{sec:toll}'s certification system, the latch of
 Section~\ref{sec:latch} and the four clauses of Thiele-complete. What follows from those holds of
 every machine that meets them; the rest (a table of sixteen facts, three properties,
-a flat price of one) is this machine's choice. Six
-instructions, and a seventh for a host that has to bill somebody else's prices. If the model
+a flat price of one) is this machine's choice. Six instruction kinds, and a seventh for a host that has to bill somebody else's prices. If the model
 needs more than that, this is where it'll show.
 
 What's left of Part IV: whether any of this depends on counters (Section~\ref{sec:every-model}),
@@ -14480,7 +14469,7 @@ Item (1) is one flag for two boxes. It costs what two certifications cost, six r
 definition wants a claim that three can settle, so a single flag over both panels, read through
 the pair's interface, is too expensive
 to meet the definition. That's this interface. Nothing here shows that no other interface on the
-pair could meet it, and Theorem~\ref{thm:parts-product}(4) shows the pair meeting it through a richer record.
+pair could meet it, and Theorem~\ref{thm:parts-product}(4) shows the pair meeting it through a richer record. Item (4) says that a window exact for each box alone can be fooled by the pair: two pair states with different costs can show the same pair of readings.
 
 Item (3) is the one with the most teeth, because it's the opening chapter's bug, the file checked and then swapped. On the
 bench it's a second hand reaching into a bin while the box isn't looking. Two writers, one value, and
@@ -14617,8 +14606,7 @@ and register and its version, the fact table in order, the channel, the trap lat
 the flag. The comparison covers exhaustive sets of short programs, random programs, both hosts and
 the small guests listed below. They agree on every tested step. I also broke the machine on purpose, giving it a fact table one too small, a free
 CHECK, a commitment that ignores versions, and a write that doesn't bump the version, and each break
-gets caught. A second set pins the boundaries this book draws in words, and most of those runs
-succeed: two runs that end in the same state with different first certifications, a check that
+gets caught. A second set pins the boundaries this book draws in words, and those runs come out as the words say: two runs that end in the same state with different first certifications, a check that
 can't fail certifying from every start, six commitments billing seven without a flag, a write
 after the commitment and a flag over a claim that's now false, sixteen copies of one CHECK filling
 the table, a CERTIFY costing one at a ledger already at two, and a merge between two yes-states
@@ -14710,8 +14698,7 @@ programs that never halt run for a fixed budget, and programs mutated on purpose
 comparison notices. Answers are compared with direct arithmetic and separate interpreters of the source and
 compiled programs. Ackermann's function at $(3, 5)$ is 253; the
 source program takes 64,768 operations to get there, and the compiled host program takes about 119
-million steps. The executable runner does a few million host steps a second, so that's well under a
-minute.
+million steps. The executable runner does a few million host steps a second, so that's about a minute.
 
 That's about 1,800 host steps per source operation for Ackermann, and up to about a hundred thousand
 for multiplication by repeated addition, because every addition copies a running total one unit at a
@@ -19172,7 +19159,7 @@ Encode a finite stack whose top symbol is $d$ and whose remaining stack has code
 by $bn+d$; the empty stack is 0. A push is multiplication by $b$ followed by $d$
 increments. A pop is division by $b$: the remainder is the top symbol and the quotient
 is the remaining stack. The digits are nonzero, so no nonempty stack has code 0.
-Popping an empty stack returns the blank and leaves it empty.
+Popping an empty stack gives remainder 0, which is no digit; the control reads it as the blank and leaves the stack empty.
 
 A tape configuration is a control state, the scanned symbol, and two stacks: the
 symbols to the left of the head, nearest first, and the symbols to its right,
@@ -19433,7 +19420,7 @@ resolve each label to its instruction number. The first instruction is at addres
 Within a block, $o$ is its first address and $o+k$ its offset $k$. Unless a branch says
 otherwise, execution continues into the next block. The only final instructions are
 INC, DEC, HALT, CHECK, COMMIT and CERTIFY, with the meanings and prices of
-Definition~\ref{def:u34-step} on the host's registers.
+Definition~\ref{def:u34-step} on the host's registers (Definition~\ref{def:u34-multi}).
 
 \subsection{Arithmetic blocks}
 
@@ -19476,7 +19463,7 @@ adds one to $x$. Thus it leaves $a=0$ and $x=\lfloor x_{\rm old}/2\rfloor$;
 an even old value jumps to $p$, an odd one falls through. In $P$, the first four
 blocks make $x=2x_{\rm old}+1$ and $a=0$. Each subsequent pass doubles $x$ while
 decrementing $y$, so it ends at $x=(2x_{\rm old}+1)2^{y_{\rm old}}$, with $a=y=0$.
-In $N$, zero jumps to address 0 and halts. A positive number is repeatedly halved
+In $N$, zero jumps to address 0, which holds no instruction, so the run stops. A positive number is repeatedly halved
 until odd, counting the even divisions in $y$. Therefore
 $N$ sends $x=\langle m,n\rangle$ to $x=n$, $y=m$, $a=0$.
 These invariants prove both the returned values and termination on the stated inputs.
@@ -19553,7 +19540,7 @@ in increasing slot order; its length is 48.
 \subsection{The fifteen blocks of $U$}
 
 The following table fixes the order, start address and expanded length of every major
-block. Labels in the definitions below mean these addresses; $H$ denotes the head at 1
+block. Labels in the definitions below mean these addresses; $H$ without arguments denotes the head at 1
 and $K$ the halt block at 98.
 
 \begingroup\small
@@ -19616,7 +19603,7 @@ $11+48+1+2+16\cdot60=1022$.
 The selected unused slot starts at zero, so the move into it installs exactly the
 pair of property code and guest value. The host's own table has capacity sixteen:
 if it is full, its CHECK traps even when this bank's count is below sixteen.
-Thus the capacity is shared between the banks, just as it is in the guest.
+Thus the capacity is shared between the banks, just as it is in the guest. A count of sixteen in one bank already fills the table, so the dead-end check and the full-table trap are the same case.
 
 A COMMIT slot block is COMMIT $\mathsf{Slot}$ $S_{c,k}$;
 $Z(T_2)$; INC 3; $J(T_4,H)$, of length 5.
