@@ -3667,6 +3667,16 @@ sentence. Every one of them
 is a door you can walk out of, and I'm going to show you each door, because the doors are
 where the actual content is.
 
+One more thing before the doors, because it's what I'd most want a sceptic to hear first.
+Nothing in the argument uses the word certify. It uses a reading that can go from no to yes
+and never back. A fuse that has blown is one. So is a seal that has been broken, a bit in
+write-once memory, a block a chain has finalized, a measurement somebody wrote down and won't
+take back. The theorem below prices whichever of them you point at, and the latch chapter
+(Section~\ref{sec:latch}) proves that the choice of which one is free. Certification is the
+instance I build, for reasons I give in Section~\ref{sec:pointer} and don't claim to have
+proved. So read this section as being about anything that stays. The flag is only the one I
+keep on the table.
+
 \subsection{A closed room with no spare chair}
 
 Do this one with real objects, because the whole section rests on it and it's about ninety
@@ -3978,6 +3988,45 @@ or a composite run of several. Relabelling the states one-to-one changes no pric
 merges to merges and one-to-one moves to one-to-one moves. Adding history to the state, or
 projecting part of the state away, changes the machine being modelled, and the price can change
 with it.
+
+Door one deserves a number, because ``a memory that never fills'' is doing all the work and
+I'd rather see the bill than take it on trust.
+
+\begin{proposition}[Heat or room]\label{prop:heat-or-room}
+(1) Let a machine have a permanent reading and a move that turns it from no to yes at some
+state. Then either the move merges, or starting from that state and repeating the move
+visits a new state every time, so no finite list of states contains the run. (2) Let an
+operation send every state to one that reads the same fixed way and keep it there, and let
+$N$ starts be told apart by what happens next, one of them already in that fixed reading.
+An implementation with $M$ states that carries out the operation without merging, through
+$T$ repetitions from each start, needs $M \ge 1 + (T+1)(N-1)$. A bounded memory delays the
+merge and does not avoid it.
+\end{proposition}
+
+\begin{proof}
+(1) If the move never merges it is one-to-one. Call the raising state $s$. It reads no, its
+image reads yes, and by permanence every later image reads yes, so no image is $s$. If two
+images coincided, say after $j$ and $k$ moves with $j < k$, cancelling one move at a time,
+which a one-to-one move allows, would make $s$ equal its own image after $k - j$ moves, and
+that image reads yes. So the images are all distinct, and there are infinitely many of them.
+(2) Run the chairs along paths. Each of the $N - 1$ starts not already in the fixed reading,
+followed through $T$ repetitions, occupies $T + 1$ chairs, and none twice: a repeat would
+cancel back to the start equalling a later state of its own path, and every later state is
+in the fixed reading while the start is not. Two of those paths cannot share a chair either:
+cancel back to the earlier time, and either two different starts sit in one chair, or a start
+sits in a chair that is in the fixed reading. That is $(T+1)(N-1)$ chairs. The start that was
+already in the fixed reading, followed through $T$ repetitions, ends in one more: if that
+chair were on one of the paths, cancelling would again put a start where it cannot sit.
+\end{proof}
+
+So the strip's escape is an escape only while the strip has room. Cut it anywhere and the
+bound says how many raises are left before a box gets reused. And room isn't the only second
+currency. Keeping history costs time as well: Bennett (1989) showed that a computation can be
+run without ever forgetting, but then either its space grows with the run or it spends time
+undoing and redoing its own work to stay small. Heat if you merge, room if you keep, time if
+you keep in bounded room. A reading that stays up lands in at least one of the three, and the
+raise is where the bill is incurred. Which of the three a particular device pays is physics.
+That it pays one of them is counting.
 
 \subsection{Door two: let the flag come back down}
 
@@ -8458,7 +8507,9 @@ The reason this section exists is to answer the suspicion I started with. The re
 special pleading for one machine. Over any base that steps deterministically, under rules you can read, a record that
 answers to the computation and never comes down is a latch on an event, and the proof
 doesn't care what the base is. What a particular machine adds on top of the latch is a
-\emph{choice of price list} and a \emph{choice of event}, and both are choices. The surcharged cup
+\emph{choice of price list} and a \emph{choice of event}, and both are choices. That is why the
+chairs theorem in Section~\ref{sec:a2-not-arbitrary} never needed the word certify: it prices
+whatever stays. The surcharged cup
 shows the first: the bill can change and the record not notice. The two cups on one die show
 the second: the rules are happy with either event. Any machine I build will have to make both
 choices, and whether its choice of event is the right one is a question I'll get to
@@ -20190,6 +20241,9 @@ this book's pointer thesis.
 \par\medskip
 
 \noindent Charles H. Bennett (1982). The thermodynamics of computation: a review. International Journal of Theoretical Physics 21, pp. 905--940. \href{https://doi.org/10.1007/BF02084158}{DOI: 10.1007/BF02084158}.
+\par\medskip
+
+\noindent Charles H. Bennett (1989). Time/Space Trade-Offs for Reversible Computation. SIAM Journal on Computing 18(4), pp. 766--776. \href{https://doi.org/10.1137/0218053}{DOI: 10.1137/0218053}.
 \par\medskip
 
 \noindent Charles H. Bennett (2003). Notes on Landauer's principle, reversible computation, and Maxwell's Demon. Studies in History and Philosophy of Modern Physics 34(3), pp. 501--510. \href{https://arxiv.org/abs/physics/0210005v2}{arXiv: physics/0210005v2; DOI: 10.1016/S1355-2198(03)00039-X}. Quoted from the arXiv preprint: ``the erasure of a bit or the merging of two computation paths'' (abstract) and ``in my opinion the one of greatest merit'' (p.~1); ``the most important logically reversible operations'' and ``erasure of one of two copies of data known to be identical'' (p.~2). I didn't see the journal pages.
