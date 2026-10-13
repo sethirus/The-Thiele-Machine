@@ -3702,7 +3702,7 @@ Finite. Permanent. Flip. Those three force a collision in the instruction's map.
 The two starts that collide need not include the outsider: send the outsider to
 one inside chair and send two insiders to another. A run from a known outside
 chair can still have a uniquely identifiable start. The collision is a fact about
-the instruction over possible states.''
+the instruction over possible states.
 
 The precise statement of the chairs argument is a theorem a few lines down, and it needs one word first.
 ``Injective'' is the mathematician's word for ``forgets nothing'': a step is injective when two
@@ -4020,8 +4020,7 @@ be forced to be priced without writing anything permanent, and I don't want you 
 The rule: T0 goes to T1, T1 goes to T2, T2 goes to T1. T0 gains the star (a flip). T1 loses
 it (a revocation). T0 and T2 both land on T1 (a merge). So this move is priced, by the
 forgetting rule, and yet it writes nothing permanent; it takes a star away in the same breath.
-``The priced moves are exactly the permanent records'' is false, as the following example shows
-with these three cards. What's true is one direction: on a finite machine whose move names can be decided equal or different, every permanent raise is a priced move.
+``The priced moves are exactly the permanent records'' is false, as the three cards just showed. What's true is one direction: on a finite machine whose move names can be decided equal or different, every permanent raise is a priced move.
 The other direction has the three cards standing in it. And ``priced'' here has an exact
 meaning worth one sentence: a move is \emph{forced to be priced} when every schedule that charges
 for forgetting charges it, and that holds exactly when the move forgets something, with no finiteness needed at all. A way
@@ -4100,7 +4099,7 @@ And is it settled? No, and I'd be lying by omission if I left that out, because 
 who doubt it are not cranks. John Norton, a philosopher of physics, has argued since 2005
 that the usual proofs of the principle quietly assume what they're trying to prove, and that
 the kinds of process they assume, combined, could be made to break the very law the
-principle is supposed to guard. An earlier objection, made in 1999 by Norton and his Pittsburgh colleague John Earman, also a philosopher
+principle is supposed to guard. An earlier objection, made in 1998--99 by Norton and his Pittsburgh colleague John Earman, also a philosopher
 of physics, was that the principle can't be independent of the second law. Charles Bennett, who did more
 than anyone to build the subject, rated that one ``in my opinion the one of greatest merit,''
 and then disagreed with it. Others replied to Norton; Norton replied back. The Stanford Encyclopedia
@@ -4357,7 +4356,7 @@ is hit exactly once. So $q(f(x)) = p(x)$ for every $x$, and the sum defining $H(
 defining $H(p)$ with its terms in a different order.
 \end{proof}
 
- That's
+That's
 why a price on removed bits can leave every reversible move free, which is the shape the
 toll needs: the bill lands only where something was forgotten.
 
@@ -4412,7 +4411,7 @@ $k_B T>0$, the heat floor is strictly positive too.
 How big is that? Take the case where the squeeze is two, one state flipping in beside one that
 was already yes, so $m = k = 1$ and the floor is $k_B T \ln 2$. At room temperature, about 300
 kelvin, that's roughly three zeptojoules: three thousandths of a billionth of a billionth of a
-joule. And that's the \emph{biggest} bill a single flip gets from this corollary. With $k = 1$ the floor is $k_B T \ln \frac{m+1}{m}$, and it shrinks as more states
+joule. And that's the \emph{biggest} bill a one-state flip gets from this corollary. With $k = 1$ the floor is $k_B T \ln \frac{m+1}{m}$, and it shrinks as more states
 already read yes: with a thousand of them it's about a thousandth of $k_B T$, some seven
 hundred times less than the case of two. So, for an even spread over the states in play, one
 mark is not one halving. It's one halving exactly when the squeeze is two; for any thinner
@@ -4703,7 +4702,7 @@ isn't one. It doesn't need the chairs, though, and that comes after the eight-st
 A finite piece can still sit inside, and here's the smallest one I could build where every
 premise is a theorem. None of them is left as a hypothesis. Four slots times a flag, eight states. Three
 moves: stamp (set the flag, go to the next slot, cost one), jump to slot $a$ (cost two), next slot
-(cost zero). It's finite  and permanent; the next-slot
+(cost zero). It's finite and permanent; the next-slot
 move forgets nothing; the stamp and the jump merge; merges are priced, and priced per halving. So this
 section's two conclusions hold on it outright. The counting lemma underneath,
 that a duplicate-free list with at most $K$ preimages per image has at most $K$ times as many
@@ -4779,7 +4778,7 @@ own price list, clause (c) included, satisfies that premise. This is a result ab
 its ledger, not a heat bound. There's a second way out, which I note and didn't take. Morita's reversible two-counter
 machine, from the history earlier in this chapter, runs every step backwards and is still
 universal: with its input encoded, it computes anything a Turing machine can. Put the record layer on a base like that and every base move is one-to-one,
-full merge pricing permits those base moves to cost zero. Choosing that schedule
+and full merge pricing permits those base moves to cost zero. Choosing that schedule
 would meet clause (c); the lower-bound premise alone does not require zero charges. I
 haven't built that machine or checked it.
 
@@ -6776,8 +6775,8 @@ A run is \emph{entitled} to a claim when three things are on hand: an \emph{obje
 states; a \emph{checked relation} between that object and the claim, meaning a test that was run
 and whose result is on the record; and a \emph{paid event}, a move of the run at which
 the object was put in place and which the price list charged at least one. In a certification
-system (Definition~\ref{def:certsys}) a move that takes the reading from no to yes is such a
-move, because the toll charges it. This is the book's word.
+system (Definition~\ref{def:certsys}) a move that takes the reading from no to yes is a paid
+move, because the toll charges it; whether the object went in at that move is a separate question. This is the book's word.
 \end{definition}
 
 Keep the second and third parts separate. A note saying ``coin under cup one, checked''
@@ -7112,7 +7111,7 @@ $\mathrm{depth}(T)$ is one of the $k$ with $2^k \ge L(T)$, and the rounded-up lo
 smallest of them.
 \end{proof}
 
- Both are stated over the tree type alone, a leaf or a branch, with
+The definition and the lemma are stated over the tree type alone, a leaf or a branch, with
 nothing about any machine in them.
 
 \begin{theorem}[Paid narrowing, counted]\label{thm:u08-count}
@@ -7324,7 +7323,7 @@ Part I ended on buckets, and Part II dropped them on purpose: the toll prices an
 reading. This is where the word in this section's title gets attached to a partition in a
 theorem. Take a pile, a finite list of items, and a \emph{grouping}, a bucket label for each item.
 Its partition is ``same label,'' and the classes of that relation are a partition in the sense of
-Definition~\ref{def:equiv-partition}. The data is a \emph{key} for each item, and a grouping is
+Definition~\ref{def:equiv-partition}. The data is a \emph{key} for each item, drawn from any type you like (a grouping's own labels can serve as a key), and a grouping is
 \emph{sound} for a key when any two items it puts in one bucket have the same key. The grouping
 says ``these belong together,'' and the key says whether they do. One grouping \emph{refines}
 another when every bucket of the first sits inside a bucket of the second.
@@ -7348,10 +7347,11 @@ old colours, which it keeps with the grouping.
 The \emph{bucket machine} holds a key, a table of checked groupings, a channel, a record, a trap
 latch and a ledger. SET replaces the key for nothing and throws away the table and the channel,
 which were checked against the old key. CHECK $g$ costs one and passes when $g$ is sound for the
-current key, and writes $g$ in the table. COMMIT $g$ costs one and passes when the table holds a
+current key, and, when it passes, writes $g$ in the table. COMMIT $g$ costs one and passes when the table holds a
 grouping with the same partition as $g$, and puts $g$ in the channel. CERTIFY costs one and passes
-when the channel holds a grouping, and the record then keeps that grouping with the key it was
-checked against. A CHECK, COMMIT or CERTIFY that fails traps, and a trapped machine only pays. The
+when the channel holds a grouping; if the record is still down it then keeps that grouping with the
+current key, the key a grouping with its partition was checked against, and a record already kept
+is left as it is. A CHECK, COMMIT or CERTIFY that fails traps, and a trapped machine only pays. The
 \emph{reading for a grouping $g$} is: the record holds a grouping with $g$'s partition. That's the
 reading ``this grouping has been checked and committed.''
 
@@ -7604,8 +7604,8 @@ Read off Definition~\ref{def:certsys}. The toll constrains
 $\mathrm{cost}(i)$ for moves that cross, and nothing else; the step function is any function
 of the current state and the move. So a certification system may have a move that crosses
 from a state no check has touched, and the toll still holds. On Section~\ref{sec:toll}'s board extended with
-CHECK, the run $[\mathrm{VOUCH}]$ from NO crosses with one mark, and so does
-$[\mathrm{CHECK}, \mathrm{VOUCH}]$. Making a crossing depend on an earlier check is a
+CHECK, the run $[\mathrm{VOUCH}]$ from NO crosses with one mark, and
+$[\mathrm{CHECK}, \mathrm{VOUCH}]$ crosses with one mark for the crossing plus whatever CHECK was charged, one mark in all if CHECK is priced at zero. Making a crossing depend on an earlier check is a
 condition on the step function, which a particular system can impose and the definition does
 not.
 \end{remark}
@@ -7822,8 +7822,7 @@ over $B$.
 (R1) holds with $f(b, r) = r \lor h(b)$. (R2): each step adds $0$ or $1$. (R3): a step that
 turns the record on has $r$ off and $h(b)$ on, so it adds $1$. (R4): $\mathrm{on} \lor h(b)$ is
 on. (R5) is the supposition. The supposition asks for the first time $h$ holds on some run;
-any run from a start that reaches an $h$-state has such a first time, though the checked
-statement uses only the first-time form.
+any run from a start that reaches an $h$-state has such a first time.
 \end{proof}
 
 A reversible base needs one more thing to carry a record, and the next theorem says exactly what. If
@@ -7931,7 +7930,7 @@ their argument, where a clock already exists. The base is my clock, and I assume
 Physicists have built this latch on paper too, in quantum mechanics, and it behaves the way the
 last theorem says. The question that sorted them for me is where the cup puts what it forgets,
 since a closed quantum system with separate energy levels comes back (Bocchieri and Loinger,
-earlier) and the theorem left only
+Section~\ref{sec:a2-not-arbitrary}) and the theorem left only
 two ways out: a history that never ends, or a merge. Klaus Hepp, a mathematical physicist at ETH
 Zurich, wanted a measuring device inside quantum mechanics itself, and studied in 1972 a particle
 that flips spins in a long chain as it passes, now called the Coleman-Hepp model (I know Hepp's
@@ -7965,7 +7964,7 @@ that's a \emph{second} latch (``revoked''), which is how certificate revocation 
 you add an entry; you never delete the certificate. Alin Tomescu, a computer scientist then at
 MIT, and his coauthors (2019) built
 append-only authenticated sets and dictionaries for transparency logs, and revocation fits that
-shape exactly: a revocation goes in once and stays. The pair theorem (stated below) covers two
+shape exactly: a revocation goes in once and stays. The pair lemma (stated below) covers two
 latches that can each read the other; do it with two cups where the
 second only turns over on an even roll \emph{if the first is already up}, and you'll see the
 second can never turn before the first.
@@ -7995,7 +7994,7 @@ to the speaker. Take the pen away from the program. And this book answers Krabbe
 take-back is a second cup, ``revoked,'' and turning it costs at least one like any other write, so a
 retraction is allowed, permanent and paid for. That's Prakken's convention with the toll attached.
 Where mine gives is his first condition. He lets a claim come down only when it's been challenged,
-and nothing in my latch asks why the second cup turned. The pair theorem lets the second cup's event read the
+and nothing in my latch asks why the second cup turned. The pair lemma lets the second cup's event read the
 base and the first cup, and nothing in it requires a challenge to be there.
 
 The same field has a notion that looks a lot like earning. In the abstract argumentation of Phan
@@ -8096,7 +8095,7 @@ the condition, and what (R1) as written adds to it. That's the whole discriminat
 single sentence in this book for looking at systems other than the one I build, which is
 why it's here.
 
-The pair theorem and the two counterexamples, exactly. The base for both counterexamples is the
+The pair lemma and the two counterexamples, exactly. The base for both counterexamples is the
 counter: states are whole numbers, the step adds one, every state is a starting state, and
 nothing halts. Two more bits of shorthand: $\lnot r$ is $r$ flipped, and a statement in
 square brackets, like $[k = 5]$, reads on when it's true and off when it isn't.
@@ -8140,7 +8139,7 @@ $(0, 0, \mathrm{off})$ have the same base state and the same record, and their n
 on and off, so no $f$ of the base state and the record can give both.
 \end{proof}
 
- ``Driven'' is a condition on every
+``Driven'' is a condition on every
 state. The clock makes every state a starting state, so the two states the proof compares are
 both ones a run can begin at, even though a clock started at $(0, 0, \mathrm{off})$ would never reach $(0, 5, \mathrm{off})$.
 
@@ -8255,7 +8254,7 @@ moves, same charges, different weights. (2) The first record moves from off both
 on, while a latch $r \lor h(r)$ gives one value.
 \end{proof}
 
- These are finite-weight models on one bit with no base underneath;
+These are finite-weight models on one bit with no base underneath;
 they say nothing about any particular machine.
 
 Third claim: is there one state space, up to renaming, that every base-driven record-carrier has
@@ -8263,7 +8262,7 @@ to have? I don't claim it. Nothing needs it.
 
 \subsection{Bases from outside, and a relation I have to be honest about}
 
-The theorem is stated for any base, and the checked work instantiates it on three models of
+The theorem is stated for any base, and this section instantiates it on three models of
 computation that other people built: a small Turing machine (any program); a register machine
 of the kind the computer scientists Stephen Cook (of the certificates) and Robert Reckhow described in 1973, with unit-cost indirect addressing (any
 program); and a lambda calculus (call-by-value, meaning an argument is worked out before it's
@@ -8299,14 +8298,14 @@ Write a bit & Perform the write and advance $q$ by one. \\
 Move left or right & Perform the move and advance $q$ by one. \\
 Branch to $j$ & Set $q:=j$ if the current cell is true; otherwise advance $q$ by one. \\
 Halt & Leave the entire state unchanged. \\
-ClaimTapeIsZero with parameter $\delta$ & Advance $q$ by one and do nothing else. \\
+ClaimTapeIsZero with a label $\ell$ & Advance $q$ by one and do nothing else. \\
 \end{longtable}
 \endgroup
 
 An out-of-range program fetch is Halt. Every state is allowed as a starting state,
 and halting means the fetched instruction is Halt. The cost field is preserved by
 every instruction in this base. In particular, its ClaimTapeIsZero instruction
-neither erases the tape nor charges the cost field; the name supplies no extra
+neither erases the tape nor charges the cost field; neither the name nor the label supplies any
 semantics.
 
 The \textbf{random-access base} has a register function $X:\mathbb N\to\mathbb N$ and a
@@ -8377,8 +8376,8 @@ the relation is about matching observations and halting, not matching the number
 of ticks or their bill.
 
 There is a limit to that statement. The ``preserved across it'' proof throws away its equivalence hypothesis; the latch holds
-on every base regardless, so the preservation is true for a boring reason. And nowhere in the
-checked work are \emph{two} of the bases actually related by this relation. The relation is
+on every base regardless, so the preservation is true for a boring reason. And nowhere in this
+book are \emph{two} of the bases actually related by this relation. The relation is
 defined, it's an equivalence, and it is not used to connect the Turing machine to the
 register machine to the lambda calculus, or any of them to the machine in Part IV. It would be
 easy to read that list as if it did. What's proved is that each base, separately,
@@ -8450,13 +8449,13 @@ the events aren't all functions of the base alone. And (3) charges a step when i
 threshold on: a step that switches on three thresholds at once owes at least one, and nothing
 here makes the charges add up per threshold.
 
- The order need not be finite;
+The order need not be finite;
 (5) is the finite-memory bound.
 
 \subsection{What the base being free buys you}
 
 The reason this section exists is to answer the suspicion I started with. The record isn't
-special pleading for one machine. Over any base, under rules you can read, a record that
+special pleading for one machine. Over any base that steps deterministically, under rules you can read, a record that
 answers to the computation and never comes down is a latch on an event, and the proof
 doesn't care what the base is. What a particular machine adds on top of the latch is a
 \emph{choice of price list} and a \emph{choice of event}, and both are choices. The surcharged cup
@@ -8758,7 +8757,11 @@ honest merge price whose record doesn't grow, which turns a cup over and fails t
 There's a two-state machine with a growing record whose merges aren't priced, which fails the toll.
 \end{theorem}
 
- So
+\begin{proof}
+The three machines above, in order.
+\end{proof}
+
+So
 the toll over a whole direction rests on exactly the three things the cup's toll rested on:
 finitely many states, a record that doesn't come down, and merges that pay. Nothing extra got
 smuggled in when one cup became a row, and nothing the one cup needed got left behind.
@@ -8865,7 +8868,7 @@ happens. It isn't always. It depends on whether the ordinary machine forgets any
 
 \begin{theorem}[The toll prices a collapse inside a fibre]\label{thm:dir-fibre}
 On a machine with finitely many states and a growing record: (1) a move that turns a cup over
-somewhere sends two different states to one landing spot; (2) if the shadow's step for that move
+somewhere sends two different states to one landing spot; (2) if the shadow exists, so that sweeping commutes with the step, and the shadow's step for that move
 forgets nothing, sending different shadow states to different shadow states, then those two states
 are in the same shadow fibre, and every landing pile of the move lies inside one fibre; (3) without
 that premise it can fail: there's a two-state machine whose two states sit in different fibres and
@@ -8953,6 +8956,10 @@ $n$ states, is less than $2$ bits for every $n$. (3) Under the block spread, the
 grows past every bound, so no finite bit budget covers it.
 \end{theorem}
 
+\begin{proof}
+The three computations above.
+\end{proof}
+
 And heat? Part II already said where the line is, and it's the same line here. Landauer's
 principle, that crushing $c$ bits' worth of possibilities costs at least $c\,kT\ln 2$ of heat on
 average, is a premise from physics, and a contested one (Section~\ref{sec:a2-not-arbitrary}). Nothing in
@@ -8996,7 +9003,7 @@ a block's bucket off the table without applying the rule from scratch. Call any 
 call it \emph{sound} when it gives the answer the long way would have given. (That gloss is about cost, leaning on what
 was done so nothing is redone, and the wall I'm about to show you doesn't look at cost at all;
 the next section says exactly what it does look at.) So: can a machine \emph{decide}, from inside,
-whether its own shortcuts are sound? That's a wall, and it's the same wall the logician Kurt Gödel and Turing hit, and
+whether its own shortcuts are sound? That's a wall, and it's the same wall Kurt Gödel and Alan Turing hit, and
 I have to show you that it's there before I show you anything that pretends to be on the other side
 of it.
 
@@ -9056,8 +9063,8 @@ refuted was the assumed object, the collection of everything, and Zermelo's fix 
 assuming it.
 
 Jules Richard, a French mathematician who taught at the lycées of Tours, Dijon and Châteauroux,
-took his doctorate in Paris in 1901 and wrote mostly on geometry, in 1905, in a short note, a
-letter to the editor of a French science review: some phrases (his were in French) define real numbers (``the ratio of a circle's
+took his doctorate in Paris in 1901 and wrote mostly on geometry. In 1905, in a short note, a
+letter to the editor of a French science review, he observed: some phrases (his were in French) define real numbers (``the ratio of a circle's
 circumference to its diameter''); there are only countably many phrases, so list the numbers
 they define in order; run Cantor's diagonal down their decimal expansions and you get a real
 number no phrase defines, except that you just defined it, in the phrase that describes the
@@ -9243,7 +9250,7 @@ makes the shortcut \emph{admissible}. So: can a system like that have, as one of
 correctly decides, for every program, ``does this program admit a sound shortcut''? That
 would be autopilot. Hand it any program and it says yes or no, and it's always right.
 
-That's the question in plain words, and the checked statement is narrower, so here it is
+That's the question in plain words, and the exact statement is narrower, so here it is
 before the proof. In the theorem, ``admits a shortcut'' is any property of programs with two
 features: two programs that behave alike agree on it, and there's one program that has it
 and one that doesn't. That's all the argument gets to look at. The diagonal doesn't see
@@ -9384,9 +9391,9 @@ seed of a whole library of undecidable problems. Here L is built from its reduct
 follows, and the diagonal is reproved in the shape of the substrate
 theorem, for any property of programs that depends only
 on what they compute and that holds of one program and fails of another. The statement
-mentions no shortcut. That's the diagonal for a fixed model. It isn't an instance of the generic framework
-(that framework asks for a run map that always answers, with a state or with nothing, and L's evaluation
-can run forever without ever answering), so it's the argument \emph{reproved}. The
+mentions no shortcut. That's the diagonal for a fixed model. I don't use it as an instance of the generic framework.
+That framework's run map answers, with a state or with nothing, and to read L's evaluation as one
+you have to settle, for every term, whether it ever reaches a value; that's a decision made from outside L, so instead the argument is \emph{reproved}. The
 generic theorem isn't \emph{applied} here. Both are true; they're different sentences.
 
 Here's what that string of words means, because L is the strangest thing in this book that
@@ -9661,7 +9668,7 @@ on the left branch, from genesis to its first child and from that child to the
 next. Let B and C do the same on the right. Each link has two of the three votes.
 Both epoch-1 blocks are justified and have the required link to their child, so
 both finalize. B voted for different targets at the same epoch. B is the third that gets slashed; A and C are clean. That's what a fork costs
-and who pays, and the checked work has exactly this instance, so the theorem's premise isn't vacuous: forks of that kind can be
+and who pays, and Theorem~\ref{thm:u13-casper-instances} below has exactly this instance, so the theorem's premise isn't vacuous: forks of that kind can be
 built, and the theorem fires on them.
 
 The fragment: a reconstruction of the published casper-proofs argument from Runtime Verification
@@ -9687,7 +9694,7 @@ for each validator, target hash $h$, target epoch $t$ and source epoch $u$, whet
 validator voted the link $(h, t, u)$. A link from $p$ at epoch $u$ to $h$ at epoch $t$ is
 \emph{justified by} $q$ when $q \in Q_1$, every member of $q$ voted $(h, t, u)$, $h$ is the
 $(t - u)$-th descendant of $p$, and $t > u$. Genesis is justified at epoch 0, and a block
-reached from a justified block by a justified link is justified. Block $h$ is \emph{finalized} at
+reached from a justified block by a justified link landing at epoch $t$ is justified at $t$. Block $h$ is \emph{finalized} at
 epoch $v$ with child $c$ when $c$ is a child of $h$, $h$ is justified at $v$, and the link
 from $h$ at $v$ to $c$ at $v + 1$ is justified. A \emph{finalization fork} is two finalized blocks
 $h_1 \ne h_2$, neither an ancestor of the other. A validator is \emph{slashed} when it voted two
@@ -9706,8 +9713,7 @@ Let the fork be $h_1$ finalized at $v_1$ and $h_2$ at $v_2$. If $v_1 = v_2$, the
 epoch $v_1 + 1$ are each voted by a set in $Q_1$; quorum intersection gives a set in $Q_2$
 that voted both; their targets differ, since equal children would give $h_1$ and $h_2$ the
 same child and so, by at most one parent, $h_1 = h_2$. That set double-voted. If
-$v_1 \ne v_2$, say $v_1 < v_2$, walk down the chain of justified links that justifies $h_2$,
-by strong induction on the epoch gap. Every block on that chain is an ancestor of $h_2$, so
+$v_1 \ne v_2$, say $v_1 < v_2$, walk down the chain of justified links that justifies $h_2$. Every block on that chain is an ancestor of $h_2$, so
 none descends from $h_1$. Some link in the chain starts at or below $v_1$ and lands above
 $v_1$. If it lands at $v_1 + 1$, it and the finalization link of $h_1$ have distinct targets at
 that epoch, and the intersection set double-voted. If it starts at $v_1$, its source is a
@@ -10012,7 +10018,7 @@ equal, since the quote never reads the flag, so $D$ would have to return both va
 input.
 \end{proof}
 
- Any Boolean claim about the retained digest can be read off the quote. But a scheme whose
+Any yes-or-no claim about $\delta(\text{register})$ can be read off the quote. But a scheme whose
 verification always says yes satisfies the sign-and-verify interface while accepting a
 signature no key produced.
 
@@ -10254,7 +10260,7 @@ could be clawed back. I find that neither a vindication nor a refutation. It's a
 what people built, and what they built was mostly walls (hash chains, signatures) and
 penalties for contradiction. Tolls on commitment were rare. Whether a toll on commitment is a
 \emph{better} design than a wall is not something I can prove, and I won't pretend the five say
-so. What I read in them, and it's a reading of five fragments I chose, is that each has a condition treated as a record, though the conditions differ in durability and that the price axis is
+so. What I read in them, and it's a reading of five fragments I chose, is that each has a condition treated as a record, though the conditions differ in durability, and that the price axis is
 mostly empty. With one definition of price fixed before the survey, that last part is a count:
 of fifteen cells in the table, four are filled (one fee, one bond, two budgets), and only gas
 takes a payment at the moment of the write.
@@ -10355,12 +10361,12 @@ that never happen to turn up.
 That's the shape I borrowed. Certification is to a machine's ecosystem (the machine plus everything around it that
 reads, stores and relies on its records) what the pointer
 reading is to the room: the thing that gets copied everywhere. It's a good shape and I think
-it's the right intuition. Here's what survived into the checked work, and I'm going to be
+it's the right intuition. Here's what survived into the definitions below, and I'm going to be
 exact because the word ``redundant'' is doing less than it does for Zurek.
 
 Zurek's redundancy is \emph{graded} (each fragment carries almost all the information, with some
 small loss) and it requires the fragments to be \emph{disjoint}: different observers reading
-different parts of the environment. The checked definition is the zero-loss case with \emph{no
+different parts of the environment. The definition below is the zero-loss case with \emph{no
 disjointness at all}. An ecosystem is a state type, some number of observers, and one bit
 per observer; an observer \emph{records} an event when its bit is true exactly when the event
 holds; an event \emph{proliferates} when every observer records it. Nothing in that says two
@@ -10420,7 +10426,7 @@ photons, with the caveats written on it. None of that touches the thesis here, w
 about machines and never rested on quantum physics. It changes the picture: what I borrowed is a
 lead somebody is checking. It isn't settled, and I don't get to lean on it as if it were.
 
-\subsection{What's checked}
+\subsection{What's proved}
 
 Definitions, two toys, a theorem about independence, a survey, and two refutations of things that would have been stronger.
 
@@ -10565,7 +10571,7 @@ For the rival, take the state with the bit false and work 1: the event holds and
 fragment is false, so observer 0 does not record it.
 \end{proof}
 
-A survey of twelve events, one checked theorem: for each of the five systems in Section~\ref{sec:models}, the
+A survey of twelve events, one theorem: for each of the five systems in Section~\ref{sec:models}, the
 designated event (finalized, committed, attested, logged, checked) proliferates in the
 observer map I wrote for that system, and a rival (proposer work, a scratch counter,
 measurement noise, submission latency, prover steps) doesn't. The five together are one
@@ -10610,7 +10616,7 @@ event; a symmetric MAC, where the key holders share a secret and nobody else can
 object capability, an unforgeable token that grants access to whoever holds it) and
 confirmed in two (a public log; a digital signature). Build the first
 with three observers: give one a copy of the event's bit and the other two a constant false.
-The one records it; it doesn't proliferate. The checked half is the map computation. Whether
+The one records it; it doesn't proliferate. The proved half is the map computation. Whether
 my maps are \emph{fair} to the real designs is argued in prose, and you should argue back.
 
 \begin{theorem}[One blind observer is enough]\label{thm:u14-blind}
@@ -10625,7 +10631,7 @@ events; the public-log and signature models proliferate theirs.
 \begin{proof}
 (1) Recording would require $E(s_0) \iff F_i(s_0)$, and the left side is true while the right
 is false. (2) Observer 0's fragment is true exactly when the event holds. Apply (1) with observer 1 and
-the state (true, true). The other two refutations apply (1) to a blind observer of their own model, and the two confirmations hold by definition.
+the state (true, true). The other two refutations apply (1) to a blind observer of their own model (the object-capability map gives the token holder the bit and the other two constant false; the public-log map gives all three the logged bit), and the two confirmations hold by definition.
 \end{proof}
 
  The theorem is about the observer maps. That a third
@@ -10669,7 +10675,7 @@ state true steps to false. (2) If $e(s)$ is true, observer 0's view is true by a
 stays true by durability, and authenticity turns it back into $e(\mathrm{step}(s))$.
 \end{proof}
 
-\subsection{What isn't checked, and must stay that way on the page}
+\subsection{What isn't proved, and must stay that way on the page}
 
 That certification \emph{in deployed systems} is singled out by being copied and relied on across
 \emph{independent} carriers. The criterion defines independence; it has no precise definition of ``deployed'' or ``faithfully model,''
@@ -10694,7 +10700,7 @@ Three: formalise an ecosystem honestly, with independence as Definition~\ref{def
 \emph{fails} the test. The symmetric-MAC row is already most of the way there for a different
 claim; push it.
 
-The checked work has already refuted two stronger forms of its own claim, which I take as a
+The theorems above have already refuted two stronger forms of its own claim, which I take as a
 sign the method works and as a warning about the main claim.
 
 \subsection{The end of the logic}
@@ -10717,7 +10723,7 @@ machine has finitely many states, its record only grows, and the
 ordinary machine forgets nothing, the toll prices crushing two states of one fibre, and a window
 can price exactly by seeing the cups move (Section~\ref{sec:shadow-exact}). No inside procedure whose flip a substrate can represent decides a shortcut property,
 given a recursion theorem, which the nat family has by construction. L
-isn't a substrate, and
+is handled on its own terms rather than as a substrate, and
 on L the same diagonal is proved again
 from a recursion theorem it has by proof. What a
 record can do is carry the commitment (Section~\ref{sec:diagonal}). Of
@@ -10731,7 +10737,7 @@ The requirements I tried do not do it, and
 the no is small enough to check on three states. Call them blank, once and twice, with once and
 twice reading yes. The flip takes blank to once and leaves the other two where they are. The
 smooth takes both once and twice to twice and leaves blank alone. The smooth forgets something, so
-the price on merging from Section~\ref{sec:a2-not-arbitrary} charges it a mark. It raises nothing, so the toll
+the price on merging from Section~\ref{sec:a2-not-arbitrary} charges it a mark. (The flip forgets too, blank and once both land on once, so the price on merging charges it as well, as the list requires.) It raises nothing, so the toll
 leaves it free. Now try requirements that name no reading: no charge on a move that changes
 nothing, none on a move that forgets nothing, the same bill when you rename the states, a total
 that adds up along a run, a bill that looks only at the step, and one mark on the flip from blank. The toll, read as
@@ -13464,7 +13470,7 @@ compare two certifications.
 \label{sec:small-diagonal}
 
 Section~\ref{sec:diagonal} left the diagonal standing on any substrate and on a little family built to fit
-it, reproved it on L, which isn't a substrate because its evaluation can run forever,
+it, reproved it on L, handled on its own terms rather than as a substrate,
 and said what a machine has to supply to fill in the same shape, two things: programs that can be handed to programs as numbers, and a recursion theorem for the
 transformations it can carry out. This machine's universal program reads a whole guest program out
 of one register, with a numbering of programs that goes there and back
@@ -14878,7 +14884,7 @@ state that reaches it, are checked for strategies in finite dimension, with real
  and with complex
 ones; and
 the ceiling holds in any dimension at all, infinitely many levels included
-(the next part says how). What's checked
+(the next part says how). What's proved
 below, besides, is the algebra.
 
 And the wall above that, which is the one I find most instructive. In 1994 the physicists
