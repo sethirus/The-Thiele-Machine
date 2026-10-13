@@ -2,9 +2,8 @@
 
 Coq checks that a proof matches its statement. It does not check that the
 name or the prose around a theorem means what the statement says. This file
-closes that gap for every theorem the README, the monograph, the
-mathematical specification, the technical disclosure, and
-`THIELE_MACHINE.txt` cite. Each entry is one plain sentence saying what the
+closes that gap for every theorem the README, the mathematical
+specification, the technical disclosure, and `THIELE_MACHINE.txt` cite. Each entry is one plain sentence saying what the
 Coq statement asserts, premises included.
 
 `tests/test_theorem_meanings.py` fails when a document cites a theorem that
@@ -97,7 +96,7 @@ An explicitly qualified citation keeps its own module identity.
 - `merging_priced_iff_pair_entropy`: On a finite state space with decidable equality, every non-injective move costs at least 1 exactly when the cost of each move is at least the entropy it removes from every distribution supported on at most two states.
 - `one_premise_three_forms`: On a finite state space with decidable equality: entropy pricing holds exactly when the halving price holds; the halving price holds exactly when no state has more than 2^cost states sent to it by a move; and merge pricing holds exactly when the halving price holds for lists of at most two distinct states, and exactly when entropy pricing holds for distributions on at most two states.
 - `entropy_priced_trace_floor`: Under the same premises, a trace from uncertified to certified costs at least one.
-- `permanent_flip_heat_floor`: On a finite state space with a permanent reading, under the named premise `landauer_heat` and with `0 <= kT`, a flip of k > 0 states beside m certified ones, from the uniform distribution on those m + k states, dissipates at least `kT ln((m + k)/m)`.
+- `permanent_flip_heat_floor`: On a finite state space with a permanent reading, under the named premise `landauer_heat` and with `0 <= kT`, an instruction flipping k > 0 states beside m certified ones, on the uniform input distribution over those m + k states, has mean heat at least `kT ln((m + k)/m)`.
 - `permanent_flip_heat_positive`: Under the same premise, with `k` at least one and positive temperature, that heat is positive.
 - `entropy_drop_as_point_sum`: For nonnegative weights `p` on a repeat-free list of every state, the entropy a deterministic step removes equals a sum over states of positive probability of `p(x) (log2 q(f x) - log2 p(x))`.
 - `entropy_drop_nonneg`: Under the same premises, that entropy drop is never negative.
@@ -701,12 +700,12 @@ An explicitly qualified citation keeps its own module identity.
 - `ent2_observed_small_instance`: In the worked instance with the observation trace on the small machine, the posterior claim is strictly stronger, the log difference is 2, the ledger rise is 2 and at least the log difference, the flag stays down, and the trace is not an earned chain and does not raise the ledger by 3.
 - `ent2_free_run_shift`: Two configurations of the two-counter machine that are alike except that A differs by a fixed amount, each with at least n in A, are still alike after n moves of any program.
 - `ent2_free_cannot_decide_fast`: For n less than m, no function of the program counter and counter B after n moves of a free program (INC, DEC and falling off the end) decides whether A is at least m.
-- `ent2_ladder_decides`: The ladder of m DEC moves, after m moves, has program counter 2 times m plus 1 exactly when A is at least m, and then A has dropped by m.
-- `ent2_ladder_free`: The ladder of m DEC moves, compiled to the small machine, has ledger 0 after every number of steps from every start.
+- `ent2_ladder_decides`: The ladder of m DEC/INC pairs (2m stored instructions), after m executed moves, has program counter 2 times m plus 1 exactly when A is at least m, and then A has dropped by m.
+- `ent2_ladder_free`: The ladder of m DEC/INC pairs, compiled to the small machine, has ledger 0 after every number of steps from each clean start.
 - `ent2_machine_free_cannot_decide`: On the small machine itself, for n less than m, no function of the program counter and counter B after n steps of a compiled free program decides whether A is at least m.
 - `ent2_machine_ladder_decides`: On the small machine itself, the compiled ladder of m decrements decides whether A is at least m in m steps.
-- `ent2_chain_decides`: The paid chain CHECK "A at least m", COMMIT, CERTIFY has three moves, a ledger of exactly 3, and raises the flag exactly when A is at least m.
-- `ent2_time_tax`: For every m and price lambda of a ledger unit in moves, no free program of fewer than m moves decides whether A is at least m, the ladder decides in m moves at ledger 0, the paid chain decides at ledger 3, and the paid route costs less than the free route exactly when 3 plus 3 lambda is less than m.
+- `ent2_chain_decides`: The fixed instruction trace CHECK "A at least m", COMMIT, CERTIFY has three moves, a ledger of exactly 3 from a clean start, and ends with its flag up exactly when A is at least m. A stored program stops fetching after a failed CHECK and then pays only 1.
+- `ent2_time_tax`: For every m and price lambda of a ledger unit in moves, no final observation of just the program counter and B after fewer than m free moves decides whether A is at least m, the ladder decides in m moves at ledger 0 from a clean start, and the fixed paid trace decides at ledger 3, and the paid route costs less than the free route exactly when 3 plus 3 lambda is less than m.
 - `ent2_compression_priced_iff_fibres`: On a finite machine, the compression premise (each cost unit pays for at most one halving of the number of distinct states) holds exactly when no fibre of any move has more than 2 to the power of its cost elements.
 - `ent2_frag_compression_priced`: The eight-state finite machine meets the compression premise.
 - `ent2_frag_toll_by_compression`: The eight-state finite machine meets the toll, derived from the compression premise.

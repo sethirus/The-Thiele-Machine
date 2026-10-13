@@ -1,0 +1,116 @@
+COMPANION CHECKING PROCEDURES
+The Thiele Machine — Devon Thiele
+
+These procedures concern the companion software. The book presents the mathematical
+claims, their conditions and their arguments on the page. Software checking does not
+establish that a definition captures the intended idea or that a model describes a
+device. A passing build is not a substitute for either question.
+
+The release record identifies the companion source tree and its receipt. To reproduce
+that release, use a checkout of v4.0.0. Run the commands from the repository root.
+
+BEGIN RELEASE RECORD
+Companion sources:
+  https://github.com/sethirus/The-Thiele-Machine
+  tag v4.0.0, the companion mathematical-source release
+Companion source revision:
+  the commit the tag v4.0.0 names; print its hash with
+  git rev-list -n 1 v4.0.0
+Dependency snapshot:
+  Coq 8.18.0 (Ubuntu 24.04 packages), MetaCoq 1.2.1
+  (scripts/install_metacoq.sh), vendored Coq Library of
+  Undecidability Proofs at upstream commit
+  8880e198bdc44cba1bd901f1fee701a95fc440ae (coq-8.18
+  branch; vendor/coq-undecidability/UPSTREAM.md)
+Build command:
+  python3 scripts/reproduce_coq.py
+Audit report for this revision:
+  artifacts/print_assumptions_all_proofs.json
+  SHA-256 85cf21cc932def2abaa49d25cb1447d5
+          4a5adffeacf314f53b3fce32e83a0752
+  corpus digest 59afe7ccb7d651aedc8e98a557931e46
+                ee10d511706d4a0d4956a922737baefd
+Commit the audit report was built from:
+  git log -1 --format=%H v4.0.0 -- \
+    artifacts/print_assumptions_all_proofs.json
+  prints the commit that wrote the report; its proof
+  sources are the ones the report was built from, and
+  python3.12 scripts/assumption_receipt_fingerprint.py
+  run at the tag prints the corpus digest above
+Manuscript originally published with that release:
+  monograph/monograph.tex at the release commit; a file
+  can't print its own checksum, so take it with
+  git rev-parse v4.0.0:monograph/monograph.tex
+END RELEASE RECORD
+
+Prerequisites
+Python 3, GNU make, Coq 8.18 and its standard library, CSDP, OCaml with ocamlfind,
+and MetaCoq 1.2.1 for Coq 8.18. The vendored lambda-calculus files need MetaCoq.
+See scripts/install_metacoq.sh and the repository's dependency documentation.
+
+Clean reproduction
+Run from the repository root:
+
+  python3 scripts/reproduce_coq.py
+
+The script snapshots the sources, builds the required vendored modules, regenerates
+the build file, rebuilds the proofs, and runs the independent module checker. It
+reuses no compiled proof from the checkout. Its pass file is written only after all
+stages pass. Additional probe files may be supplied with --probe; none run by default.
+A failed run can resume from its snapshot:
+
+  python3 scripts/reproduce_coq.py --resume \
+    --output artifacts/reproduction/RUN_DIRECTORY
+
+A source change requires a new snapshot. Inspect the full statement, definitions and
+derivation of any result being compared with the book; compilation does not perform
+that comparison.
+
+Receipt interpretation
+The corpus digest fingerprints the listed proof files and vendored library, their
+paths, the compiler version, the project manifest, and the five audit scripts.
+Comments and runs of whitespace in proof text are normalized, as are designated
+claim_not_imply audit-note strings. The Python scripts are tokenized without comments;
+version two uses token names instead of Python's numeric token IDs so 3.12 and 3.13
+agree. See scripts/assumption_receipt_fingerprint.py for the exact serialization.
+Regenerate the receipt after a substantive change to the proof corpus.
+
+Other reproduction commands
+Full assumption inventory (regenerate, then compare):
+  make assumption-receipt
+  make assumption-receipt-check
+The custom auditor (its warnings are heuristics):
+  python3 scripts/inquisitor.py \
+    --report INQUISITOR_REPORT.md
+The two files outside the audit:
+  bash scripts/verify_core.sh
+Extraction to OCaml:
+  scripts/realize_extract.sh build/realize
+Python against Coq, with the deliberate breaks of
+the small machine (the test named
+test_mutations_of_the_small_machine_are_caught):
+  python3 -m pytest tests/test_realize.py
+Python against the extracted OCaml:
+  python3 -m pytest tests/test_realize_ocaml.py
+The compiler runs:
+  python3 -m pytest tests/test_cmp_compiler.py
+The U and U_P runs in Running it, with steps and times:
+  python3 scripts/realize_universal_runs.py \
+    build/realize/realize_driver \
+    --case all --json runs.json
+The edition's numbers against the receipt and the Coq:
+  python3 -m pytest tests/test_edition_numbers.py
+The semantic boundaries, runs that show what a pass means:
+  python3 -m pytest tests/test_semantic_boundaries.py
+
+Tests requiring the proof compiler skip without version 8.18 and a compiled tree.
+The environment variables pointing tests at a compiled tree are documented in
+tests/realize_harness.py. The custom auditor uses heuristics: a warning requires
+inspection and is not itself evidence that a theorem is false.
+
+Source comparison material
+monograph/companion/source-statements.tex preserves the former printed source-statement
+appendix for readers comparing literal declarations. It is excluded from the book build.
+monograph/companion/citation-concordance.txt preserves the original source citations,
+including names shared by more than one module. monograph/companion/source-index.tex
+locates the formal counterparts of numbered results. This index is outside the book.
