@@ -13368,6 +13368,20 @@ machine that only meets the exact-toll clause (c): the hypotheses (M1), (M2), (M
 and the decoded run being shown by some survivor, are all it needs.
 \end{theorem}
 
+\begin{proof}
+(1) One direction is clause (b): a run from a clean start that ends with the record up contains the
+chain. The other is the last words of clause (a): the chain's CERTIFY leaves the record up, and a
+record that's up stays up under every move, so whatever the run does after that CERTIFY it ends
+with the record up. The floor of 3 is Theorem~\ref{thm:u34-tc-consequences}(3). (2) Read the proof of
+Theorem~\ref{thm:ent-machine} again and mark what each conclusion used. Its (1) used (M1) and (M2),
+through Theorem~\ref{thm:ent-cs}(1), and nothing about the machine. Its (3) used (M5) and (M6) for
+the count $|\Omega| \le L(T) \cdot |\Omega'|$ and (M4) to put the record moves in place of the
+tree's depth; the clean start and the raised record never entered. Its (4) is clause (c) added up
+along the run, from whatever state the run starts at. The decoded run being shown by some survivor
+is in the hypotheses and, like the second half of (M3) above, feeds none of the three. The
+conclusions dropped, (2) and (5), are exactly the two that used the clean start and the record.
+\end{proof}
+
  So the record doesn't make narrowing cost more. It adds the earned chain and
 a floor of 3, and that's all it adds: a run meeting the same counting and payment hypotheses is still bound by that index-bit
 floor even if it never raises the record, and the floor of 3 no longer applies to it.
@@ -13598,6 +13612,31 @@ Let $\Pi$ be a property of two-counter programs that's carried from a program to
 behaves the same from the clean start, held by some program and lacked by some other. Then $\Pi$ is
 undecidable in the reduction sense of Theorem~\ref{thm:u34-undecidable}. In particular ``halts from the clean start'' is undecidable.
 \end{theorem}
+
+\begin{proof}
+The road of Theorem~\ref{thm:host-rice}, with the input dropped. Take a two-counter program $H$ with
+a start $(a, b)$, and let $y$ have $\Pi$ and $n$ lack it; as before, if the program that loops has
+$\Pi$, swap the roles of $y$ and $n$. Build the program that does INC $A$ $a$ times and INC $B$ $b$
+times, runs a copy of $H$ with its jumps moved down, empties $A$ and then $B$ with a one-line DEC loop
+each, and then runs $y$ with its jumps moved down. From the clean start the copy of $H$ begins at
+$(a, b)$, which is $H$'s own start, so it stops exactly when $H$ does. If it does, both counters are
+emptied and $y$ runs from $(0, 0)$. Every instruction before $y$ is an INC or a DEC: it pays nothing
+and touches no fact, channel, trap latch or flag. It does move the versions of $A$ and $B$ up, each by
+the number of writes that counter took before $y$ started, and the facts $y$ records carry versions.
+But a CHECK or a COMMIT reads versions only to ask whether two versions of the same counter are
+equal, and adding one fixed amount to both keeps the answer. So $y$ takes the same steps inside the
+built program as it takes from the clean start, with the same counters, trap latch, ledger and flag
+at every point, and with facts that differ only by that fixed shift in their versions. That shift is
+why the fact table is left out of ``behaves the same from the clean start.'' If $H$ doesn't stop,
+neither does the built program: the copy of $H$ never reaches a HALT, and nothing before $y$ can
+trap. So the built program behaves the same as $y$ when $H$ stops from $(a, b)$, and the same as the
+two-line program that loops, INC $A$ then DEC $A$ back to line 1, when it doesn't. A decider for
+$\Pi$ would then decide whether $H$ stops from $(a, b)$, with the consequence stated in
+Theorem~\ref{thm:u34-undecidable}. The reduction is from the complement of halting and the proof
+splits on the decider's own answer for the looping program, so no excluded middle is used. ``Halts
+from the clean start'' is carried by behaving the same from the clean start, held by the empty
+program and lacked by the looping one, so it's covered.
+\end{proof}
 
 That's the clean start only. Every input is harder, because the standard reduction has to keep the
 input safe while the halting instance runs, and two counters have nowhere obvious to keep it. The
@@ -13832,6 +13871,29 @@ a program $e$ that computes the same function as $F(e)$, with inputs and outputs
 two. (2) The fixed point is of the function only: there's such an $F$ for which no $e$ behaves the same
 as $F(e)$ once the properties and counters of the recorded facts count.
 \end{theorem}
+
+\begin{proof}
+(1) The host's three pieces, with two counters in place of registers. First, the universal program.
+Load a program's number $e$ and its input $x$ together as $2^x \cdot 3^e$ in bin A, with bin B empty.
+The evaluator of Appendix~\ref{sec:counter-constructions}, the one that searches budgets and runs the
+program numbered $e$ on $x$, is a finite counter program on finitely many counters, and packing those
+counters into two by the prime-exponent construction of Appendix~\ref{sub:prime-packing} gives
+$U_2$: started on $2^x \cdot 3^e$ it stops with $2^y$ in bin A exactly when the program numbered $e$,
+started on $2^x$, stops with $2^y$. Second, specialising. For a number $c$ and a program $V$, let
+$\mathrm{spec}(c, V)$ be $c$ copies of a block that multiplies bin A by three, followed by $V$ with
+its jumps moved down. The block is INC and DEC only, so it pays nothing and records nothing, and
+started on $2^x$ the $c$ copies leave $2^x \cdot 3^c$; so $\mathrm{spec}(c, V)$ on $2^x$ does what $V$
+does on $2^x \cdot 3^c$. Third, the fixed point. Let $T$ be a program that carries out $F$: on $2^n$,
+$n$ the number of a program $p$, it stops with $2^m$, $m$ the number of $F(p)$. Build $E$ from the
+same finite evaluator, with $T$'s number written in, and pack it into two counters as before: on
+$2^x \cdot 3^c$ it computes the number of $\mathrm{spec}(c, P_c)$, where $P_c$ is the program numbered
+$c$, runs $T$ on that number to get $d$, and runs the program numbered $d$ on $2^x$. Let $c_0$ be the
+number of $E$ and $e = \mathrm{spec}(c_0, E)$. On $2^x$, $e$ does what $E$ does on
+$2^x \cdot 3^{c_0}$: it builds the number of $\mathrm{spec}(c_0, P_{c_0})$, which is the number of $e$
+itself since $P_{c_0}$ is $E$, hands it to $T$, gets the number of $F(e)$, and runs $F(e)$ on $2^x$.
+The machine is deterministic, so a packed output is unique, and $e$ and $F(e)$ stop on the same
+packed inputs with the same packed outputs. (2) is the counterexample that follows.
+\end{proof}
 
 The counterexample in (2) is short. Let $F(p)$ check that bin A holds at least the number of $p$ plus
 one. A program can only record facts about properties it names, and every property it names is below
@@ -15865,6 +15927,9 @@ For merge-or-revoke, a finite machine and an injective instruction that switches
 without switching it off anywhere; the merge-or-revoke claim falls. A move that merges and
 also revokes counts against nothing. It's the three cards. For the eight-state
 machine, a move of it that merges two states and costs nothing; merge pricing on that machine falls.
+For the small machine, with no finiteness in play: an INC, DEC or HALT that sends two different
+states with the same line and counters to one state, or a CERTIFY, or a COMMIT of some claim, that
+never joins two such states; the toll on the machine I built falls.
 
 \emph{The bill in bits (Section~\ref{sec:a2-not-arbitrary}).} Exhibit a finite machine with a permanent certificate, a move that
 switches k states on beside m certified ones (k at least one), and a spread of probability
@@ -15896,6 +15961,11 @@ and after pictures and only one certifies. The window-pricing obstruction falls.
 shows certification is not a counterexample; the theorem says exactly that such a window
 prices exactly. For the three escapes, a verifier of one of the three kinds that's wrong about
 the pair, under its own relation; the argument after Definition~\ref{def:u21-escape-relations}
+falls. On any Thiele-complete machine: a function on bare transcripts, sound and complete under the
+explanation relation of Section~\ref{sec:windows} for ``the record is up,'' or, from the clean
+loaded state the theorem names, for ``the ledger is at least 3 above the start''; the
+no-bare-verifier theorem falls. On the small machine, the run CHECK, COMMIT, CERTIFY from $(1, 0, 0)$
+and three DECs of a zero counter from the same start ending with different windows; its collision
 falls.
 
 \emph{Entitlement (Section~\ref{sec:entitlement}).} Produce a strict narrowing of a candidate
@@ -15906,7 +15976,9 @@ Theorem~\ref{thm:u08-count} falls.
 On every Thiele-complete machine: a run from a clean start that ends with the record up, meets the
 hypotheses of Theorem~\ref{thm:ent-machine}, and has fewer record moves than the index bits it
 narrowed, or has no earned chain in it; the entitlement bound falls, and the weighted form
- falls the same way. A narrowing with a big drop and a small
+ falls the same way. A run on a machine meeting only the exact-toll clause, from any start, with the record never
+raised, that meets (M1), (M2), (M4), (M5) and (M6) and has fewer record moves than the index bits it
+narrowed; the observed form falls. A narrowing with a big drop and a small
 bill is not a counterexample unless a tree no deeper than the record moves covers it: the covering
 is a hypothesis, and the uncovered-narrowing counterexample says why it has to stay one. On the host
 machine, a run from a clean start that raises the record only after more than sixteen CHECKs; the sixteen-check ceiling
@@ -15931,7 +16003,11 @@ falls. On the small machine: a decider for a property of what two-counter progra
 start that some program has and some lacks; the fixed-input Rice theorem falls. A decider for such a
 property over every input of two-counter programs; the all-input Rice theorem falls. A two-counter program that
 multiplies every plain input by the number of Theorem~\ref{thm:no-plain-recursion}; the multiplication obstruction
-falls. A map of host programs that a host program carries out, with no host
+falls. A map of two-counter programs that a two-counter program carries out on program numbers, with
+inputs and outputs written as powers of two, and no program that computes the same packed function
+as its image; the packed recursion theorem falls. A program number $e$ and an input $x$ on which
+$U_2$, started on $2^x \cdot 3^e$, and the program numbered $e$, started on $2^x$, stop with different
+packed outputs, or one stops and the other doesn't; the packed universal program falls. A map of host programs that a host program carries out, with no host
 program that stops when its image stops and agrees with it on register 0, the trap latch, the ledger,
 the flag, the number of facts and whether the channel is empty, is a counterexample to
 the fixed-point theorem for the record. A map whose fixed point disagrees with its image on some other register is not one:
@@ -15997,6 +16073,35 @@ machine's; the surcharge bound falls. A program on the host machine,
 from a clean start, that matches exactly a guest certified with its whole ledger below three;
 the lower bound of three falls. A machine whose reading no program
 decides isn't a counterexample. It's outside the class, and the book says so.
+
+\emph{Every base (Section~\ref{sec:every-model}).} A box with a universal base, a claim language
+with an exact equality test and a checker proved to mean what it says, a claim true at one loaded
+state and false at another, and a fact table with room, whose lift fails one of the four clauses;
+the lift theorem falls. A Thiele-complete machine none of whose interfaces has base moves that form,
+taken alone, a machine with a universal base; the converse falls. A state with the trap down from
+which a run of lever pulls in the lift moves the box differently from the box's own run, or raises
+the trap; the panel-leaves-the-box-alone claim falls. For what doesn't lift: a finitely branching
+box, or a box whose step ignores its state, with a universal base, or with a choice of claims and
+fact table whose lift is Thiele-complete; or a Thiele-complete machine on a record axis where every
+place is at or below every other. Each makes one part of the obstruction theorem fall. For the
+one-lever presentation: a base by simulation whose grouped box, with the window claims and a fact
+table with room, doesn't lift to a Thiele-complete machine; or the five-lever box of
+Theorem~\ref{thm:lift-macro} shown to have a universal base after all.
+
+\emph{Side by side and nesting (Section~\ref{sec:parts}).} Two machines side by side and a run of
+the pair whose cost isn't the left machine's cost of its moves plus the right's, or two
+interleavings of the same lever pulls that end in different places or at different costs; the
+product falls. A run of the pair from both flags down to both flags up that costs less than two;
+the floor of two falls. Two Thiele-complete machines whose pair fails one of the four clauses;
+closure under pairing falls. A run of the pair from a clean start that ends with each side at a
+point not at or below its floor, with fewer than six record moves or a ledger rise under six; the
+floor of six falls. A machine mapping into both sides, preserving records, with two different maps
+into the pair that do both jobs, or none; the product's universal property falls. For nesting: a
+host that pays the toll, a guest it simulates faithfully with a record map that reflects the order,
+and a guest run with no host run that follows it, or a following host run that doesn't end on the
+image of the guest's end state, or one that costs less than the number of guest steps that turned
+a cup over; the nesting bound falls. A tower of presented machines on $U_P$, each level presented
+by the next, where some level above the first adds other than exactly 2; the tower count falls.
 
 \emph{The classical CHSH bound (Section~\ref{sec:chsh}).} Exhibit four fixed bits and a tally consistent with that
 one plan, every pair sampled, scoring above two. The classical bound
