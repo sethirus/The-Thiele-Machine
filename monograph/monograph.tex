@@ -13365,6 +13365,13 @@ has 3 record moves. So index bits at most the record moves, the bound of
 Theorem~\ref{thm:ent-run-machine}(4) read with $k = 1$, fails here.
 \end{proposition}
 
+\begin{proof}
+$A \ge 15$ holds at exactly one of the sixteen starts. From $(15, 0)$ the CHECK passes and files the
+claim, the COMMIT finds it with $A$'s version unchanged, and the CERTIFY raises the record. The
+posterior is the one rival that passes the run's only CHECK, so the index bits are
+$\lceil \log_2 16 \rceil - \lceil \log_2 1 \rceil = 4$, and the run has three record moves.
+\end{proof}
+
  The share here is $2^{-4}$, and with $k = 4$
 part (4) reads $4 \le 4$. It's the example of Section~\ref{sec:entitlement} that showed the covering
 can't be dropped, seen from the run's side: one test can take many bits, and the bill covers the
@@ -13432,6 +13439,27 @@ and the ledger rises by exactly 4; and the earned chain is in the run. The run's
 (Theorem~\ref{thm:ent-questions}) are its 2 CHECKs, so the floor is met with equality. With the two
 CHECKs alone, the record stays down, the ledger rises by 2, and the bound $2 \le 2$ still holds.
 \end{proposition}
+
+\begin{proof}
+CHECK (Even) $A$ passes at $(a, b)$ exactly when $a$ is even, and CHECK ($A \ge 2$) $A$ exactly
+when $a \ge 2$, so both pass exactly when $a = 2$, whatever $b$. From $(2, 0)$ and $(2, 1)$ the
+COMMIT then finds its fact with $A$'s version unchanged, nothing having written $A$, and the CERTIFY
+raises the flag; from every other start the first failing CHECK traps the machine, and a trapped
+machine raises nothing. So the posterior is those two. The hypotheses: the posterior narrows the
+eight strictly (M1); a dropped rival whose run fails a CHECK shows receipts no survivor shows (M2);
+the run ends with the record up and its receipts, two passes, are the survivors' (M3); the tree has
+depth 2 and the run 4 record moves (M4); two survivors (M5); and the fibres, the four rivals with
+$B$ at 0 for the survivor $(2, 0)$ and the four with $B$ at 1 for $(2, 1)$, cover all eight, add up
+to eight, and have four members each, the leaves of the tree (M6). Then
+$\lceil \log_2 8 \rceil - \lceil \log_2 2 \rceil = 3 - 1 = 2$; the four record moves are two
+CHECKs, a COMMIT and a CERTIFY, and the ledger rises by exactly those four by clause (c); and the
+chain is in the run. For Theorem~\ref{thm:ent-questions}, the run's questions are its two CHECKs,
+and two rivals answer them alike exactly when their $a$'s agree on being even and on reaching 2,
+which puts the eight starts in four classes of two, so $m = 2$ and
+$\lceil \log_2 8 \rceil - \lceil \log_2 2 \rceil = 2$ is the number of CHECKs. With the two
+CHECKs alone there's no CERTIFY, so the record stays down, the ledger rises by 2, and the index
+bits are still 2.
+\end{proof}
 
 It's a real narrowing.
 The cups of Section~\ref{sec:entitlement} aren't sitting under it in a costume, and the posterior is exactly the set of
@@ -14274,7 +14302,40 @@ panel leaves the box alone: from a state whose trap is down, a run of lever pull
 the box exactly as the box's own run does, and the trap stays down.
 \end{theorem}
 
-The proof of (1) is the small machine's proof with the bins swapped out for whatever the box has.
+\begin{proof}
+(1) The four clauses, one at a time. (a) The lift keeps the box's states, levers and step and adds
+the tally, the table, the channel, the flag and the trap. A lever moves the box's part of the state
+as the box's step does, raises the tally by one, and touches nothing else. So from a live state,
+which is a state whose box part is live, the window moves as the instruction does and the state
+stays live; no lever changes the flag; the loaded states are the box's loaded states with an empty
+panel, so they're clean; and the flag, once up, is lowered by nothing. (b) Start with the panel
+empty. The only move that raises the flag is CERTIFY, and CERTIFY traps unless the channel holds a
+fact; the channel is filled only by a COMMIT, which traps unless the table holds its claim at the
+current tally; and the table is filled only by a CHECK that passed, which files the claim with the
+tally it was checked at. So in front of the raise there's a passing CHECK of some claim $c$, then a
+COMMIT of $c$ at the same tally, then the CERTIFY. The tally rises with every lever pull, so an
+unchanged tally means no lever was pulled in between, so the box's state is unchanged, and that's
+what ``the thing $c$ is about is unchanged'' says in the lift's language, whose claims are about the
+box's state. A passing CHECK means the checker said yes, and the checker was proved to mean what it
+says. (c) is the price list: levers free, the three buttons at one each, the ledger the running
+sum. (d) Take the claim that's true at one loaded state and false at another. From the first, CHECK
+passes and files it, the table having room, COMMIT finds it at the same tally, and CERTIFY raises
+the flag. From the second the CHECK traps, and a trapped machine raises nothing. (2) ``$A$ is at
+least 1'' is true at the loaded state showing $(1, 1, 0)$ and false at the one showing $(1, 0,
+0)$. A window claim is a register and a number, or a line number, so two claims can be tested
+equal, and its checker reads the window, which is its meaning, so the checker is sound by
+definition. (3) Take an interface the machine is Thiele-complete with and throw away every move
+whose kind isn't base. What's left has the same states, the base moves as levers, and the
+interface's window, live states and loaded states, and clause (a) says of exactly these that the
+window follows every instruction from every live state, that the state stays live, and that each
+loaded state shows $(1, a, b)$ and is live. That's a universal base. (4) A lever pull with the trap
+down changes the box's part by the box's step and the tally by one, and nothing else; the trap
+goes up only on a CHECK that fails, a COMMIT without its fact, or a CERTIFY with the channel empty,
+never on a lever. So along a run of lever pulls the box's part follows the box's own run, pull for
+pull, and the trap stays down.
+\end{proof}
+
+Clause (b) is the small machine's proof with the bins swapped out for whatever the box has.
 That's the part I'd braced for, and it turned out to be nothing. The chain CHECK, COMMIT, CERTIFY
 never looked at anything but the tally and the claim. The levers changed only the tally on the panel, making old facts stale; they never inserted
 a fact, made a commitment or raised the flag. Neither
@@ -14305,6 +14366,32 @@ each lever sends every state to the same place. (4) On a record axis where every
 every other, there is no Thiele-complete machine at all. (5) The lift's own non-vacuity clause holds
 exactly when the fact table has room and some claim is true at one loaded state and false at another.
 \end{theorem}
+
+\begin{proof}
+(1) Take a universal base and its loaded state showing $(1, 1, 0)$. For each $j$ the lever for
+DEC $A$ $j$ must take it, in one pull, to a state showing $(j, 0, 0)$: $A$ was above 0, so one
+comes off and the line jumps to $j$. Different $j$, different window, different state. So one state
+has infinitely many different successors, which is what not finitely branching means; and since one
+lever lands in one place from one state, the levers for the DEC $A$ $j$ are all different, so there
+are infinitely many of them. (2) From any state of the lift, a lever leads to one of the box's
+finitely many successors with the tally raised by one, and each of the three buttons leads to one
+state. So the lift of a finitely branching box is finitely branching, whatever claims and table it
+got. If it were Thiele-complete, its base moves under that interface would be a universal base by
+Theorem~\ref{thm:lift}(3), and by (1) that base would have a state with infinitely many
+successors, all of them states of the lift. (3) Suppose each lever lands in one place whatever the
+state. The move an interface gives an instruction is a base move, free by clause (c), while each
+button costs one, so it's a lever. Pull the lever for INC $A$ twice from a loaded state showing
+$(1, 0, 0)$, and pull the lever for INC $B$ and then the lever for INC $A$ from the same state.
+Both runs end with the lever for INC $A$, so both end with the box in the one place that lever
+lands, with the tally two higher and the panel untouched: the same state of the lift. But the window
+would have to show $(3, 2, 0)$ after the first run and $(3, 1, 1)$ after the second, and a window
+is a function of the state. The same two runs refute the box on its own. (4) On a record axis,
+raising the record means leaving the down-set of where it stood. If every place is at or below
+every other, every down-set is the whole axis and no move ever leaves one; but clause (d) asks for
+three moves that raise the record from some loaded state. (5) If the table has no room, every
+CHECK traps and no CERTIFY ever fires, so (d) fails. If no claim is true at one loaded state and
+false at another, (d)'s second half has no witness. And when both hold, (d) was proved in (1).
+\end{proof}
 
 So my first test case failed, and at first I read item (1) as saying a Turing machine can't be a
 base at all. It says something narrower. A Turing machine \emph{with one fixed table} can't be one. A classic model comes in the other way round, with one lever for each whole program,
@@ -14529,6 +14616,49 @@ six. Suitable loaded starts and a three-act certificate on each side attain six;
 mapping into both, preserving records, there's exactly one map into the pair that does both jobs.
 \end{theorem}
 
+\begin{proof}
+(1) A move of the pair is a lever of one box. It moves that box's component by that box's step,
+leaves the other component alone, and costs what that box charges for it. So the pair's run is the
+pair of the two boxes' runs along the projections of the trace, each box's moves in the order they
+came, and the cost is the left projection's cost plus the right's. Two interleavings with the same
+two projections end in the same state at the same cost. (2) The toll prices a step that takes the
+record out of the down-set of where it stood. A pair is at or below another when both sides are, so
+the down-set of a pair is the two down-sets side by side, and a move of the left box leaves the
+pair's down-set exactly when it leaves the left down-set, the right side not having moved. So the
+pair's exits are the left exits and the right exits, each priced by its own box, and the pair pays
+the toll exactly when both parts do; for the converse, a free exit on one side is a free exit of
+the pair with any state at all on the other. (3) Read through ``either flag is up,'' a step from
+neither to either raises one side's flag, and that side charges it at least one, so the pair is a
+certification system with floor one. Read through ``both flags are up,'' a run from both down to
+both up raises each side's flag on some step, no move touches both, and each such step costs at
+least one; when each part can certify for one, the two certificates one after the other cost two.
+(4) Give the pair the interface that reads a move as its own box reads it, takes a claim to be a
+claim of one side, about that side's component and unchanged when that component is unchanged,
+with both sides clean as clean, both sides loaded as loaded, the sum of the ledgers as ledger, and
+the left box's window as window. Clause (a) is the left box's clause (a), since a left base move
+acts on the left window as its instruction does and a right move doesn't touch the left component,
+and no base move of either side changes either record. Clause (c) is the two price lists added.
+Clause (d) is the left box's witness claim with the right box idle. Clause (b) is the one with
+work in it. A run from both clean that ends with the pair's record raised left the down-set on a
+move of one side, and by (2) that move left that side's own down-set. Project the run onto that
+side: a run from clean that ends with that record raised, so it contains that side's chain, a
+passing CHECK of a claim $c$, a COMMIT of $c$ with $c$'s component unchanged in between, and a
+CERTIFY. Put the other side's moves back where they were. None of them touches the component $c$
+is about, so the chain is a chain of the interleaved run. (5) A run from a clean start that ends
+with each side at a point not at or below its floor left each side's down-set of the floor on some
+move, by (2) a move of that side, and the projection onto that side is a run from clean with its
+record raised, which by that side's clause (b) has three record moves of its own. So six record
+moves at least, and by (c) a ledger rise of at least six; a three-act certificate on each side,
+from loaded starts where each side's witness claim holds, makes exactly six. (6) A
+record-preserving map from a machine $Z$ into a box is a map of states with a monotone map of
+records, the record of the image being the image of the record, and every move of $Z$ simulated by
+some run of the box. Given one into each box, send a state of $Z$ to the pair of its images. The
+record of the pair is the pair of the records, and a move of $Z$ is simulated by the left box's run
+followed by the right box's, which is a run of the pair by (1). That map followed by either
+projection is the map you started with, and any map into the pair with those two projections
+agrees with it on every state, which is what equal maps means here.
+\end{proof}
+
 Most of that is what you'd guess from the bench. Each box keeps its own ledger and nobody else pulls
 its levers, so the bills add, and it can't matter which box you happened to work on first. The six in
 (5) is two certifications of three marks each, one per box, with no discount for doing them on the
@@ -14563,6 +14693,31 @@ the second machine at a record that isn't at or below another load's, the hand-o
 it's a certification nobody paid for.
 \end{theorem}
 
+\begin{proof}
+(1) Give the second machine a loadable form. A state is either pristine, holding the second
+machine's loaded state for some $(a, b)$, or running, a state of the second machine. A move LOAD
+$(a, b)$ turns a pristine state into the pristine state for $(a, b)$ and does nothing to a running
+one; the second machine's own moves move a running state as before and turn a pristine state into
+a running one. LOAD is a base move and costs nothing. When the second machine is Thiele-complete
+its loaded states are clean and stand at the floor, so a LOAD leaves the record alone; the base,
+the toll and the witness claim are the second machine's; and the chain in front of a raise lies
+after the last LOAD before the second machine's first move, so it lifts through the projection
+onto the second machine's own moves. So the loadable form is Thiele-complete, and the composite,
+the first machine side by side with it, is Thiele-complete by Theorem~\ref{thm:parts-product}(4).
+(2) A wired schedule is the first machine's moves, then a LOAD of the two counters its window
+shows at that moment, then the second machine's moves. The first stretch runs the first program on
+the first window; the LOAD puts the second window at $(1, a, b)$ for the counters $(a, b)$ the
+first stretch left; the last stretch runs the second program on it. If both programs halt, the two
+windows after the schedule are the two halting configurations, the second's on the first's output,
+and the wire cost nothing. (3) and (4) are one fact read two ways. A LOAD from the pristine state
+for one input to the pristine state for another is free, and carries the record from where the
+first loaded state stands to where the second stands. If every loaded state stands at one level,
+no LOAD moves the record, the composite's exits are the two machines' own, and the toll is kept by
+Theorem~\ref{thm:parts-product}(2). If some loaded state stands at a record not at or below
+another's, the free LOAD from the second to the first leaves a down-set, which is an exit nobody
+paid for, and the toll fails.
+\end{proof}
+
 Item (4) is the one to remember. The tipping is free, so it had better not tip in anything that counts
 as established. If pouring pebbles into the second box can land its panel somewhere that isn't at
 or below where some other pouring would land it, the second machine gets a raised record without ever having checked anything. That's
@@ -14588,6 +14743,35 @@ collide as a pair, so exact pricing isn't preserved by putting machines together
 pair's certifications with one number, and the count can't tell which side certified. The pair of
 records can.
 \end{theorem}
+
+\begin{proof}
+(1) Through the pair's interface, a run from a clean start that raises ``both flags are up'' ends
+with each side's record raised, and by Theorem~\ref{thm:parts-product}(5) that takes at least six
+record moves. Clause (d) asks for a claim whose CHECK, COMMIT and CERTIFY, those three moves alone,
+raise the record from a loaded state. Three moves aren't six, so (d) fails for that reading. (2) A
+clock is the two-counter machine with every move priced at one and a reading over it
+(Observation~\ref{thm:u34-clock}). Two side by side have a universal base, the left's, and pay the
+toll by Theorem~\ref{thm:parts-product}(2), so the pair is weakly Thiele-complete; and every move
+of the pair is a move of one clock, costing one, while a Thiele-complete machine has a move that
+costs nothing (Theorem~\ref{thm:u34-tc-consequences}(6)). (3) Add to the small machine a writer
+that changes counter $A$ and leaves its version alone, read as a base move. The run CHECK ($A$ is
+0), the writer's move, COMMIT ($A$ is 0), CERTIFY, from a start with $A$ at 0, passes its CHECK,
+finds its fact at the unchanged version at the COMMIT, and raises the flag at the CERTIFY. The base
+and toll clauses still hold, and so does the checker's promise. What fails is clause (b): the only
+chain in that run has the writer's move between its CHECK and its COMMIT, and there the thing the
+claim is about, counter $A$, has changed, while ``unchanged,'' read as the small machine reads it,
+by the version, says it hasn't. So a run from a clean start raises the record with no earned chain
+in it. (4) Take a left box whose only step its window doesn't see is a certifying one, so the
+window still prices it exactly, charging that unseen transition one; and a right box whose only
+step is a stutter, free, leaving its down-set alone and its window unchanged, priced exactly at
+zero. In the pair, the left box's unseen certifying step and the right box's stutter show the same
+pair of windows before and after. One costs at least one and leaves the pair's down-set; the other
+costs nothing and doesn't. So a price computed from the pair of windows is short on the first or
+over on the second. (5) Replace the pair of records by the number of sides that have certified. A
+run in which only the left side certifies and one in which only the right side does both reach the
+count one, with the left record raised in the first and at its floor in the second. The count can't
+tell them apart; the pair of records can.
+\end{proof}
 
 Item (1) is one flag for two boxes. It costs what two certifications cost, six record moves, and the
 definition wants a claim that three can settle, so a single flag over both panels, read through
@@ -14638,6 +14822,39 @@ $k$ links has surcharge between the sums of their lower and upper bounds.
 (4) A tower of presented machines, each level running the next on $U_P$, adds exactly 2 for every level above the first, on top of the first level's own surcharge,
 provided every level's host run is itself presented by the next.
 \end{theorem}
+
+\begin{proof}
+(1) The simulation gives, for each guest move, a list of host moves carrying the image of the
+state before it to the image of the state after it. String those lists together along the guest
+run: that host run follows it, and it ends on the image of the guest's end state, because each
+stretch ends where the next begins. Now take any host run that follows the guest run, and a guest
+step that turned a cup over, leaving the down-set of its record. Its stretch carries the image of
+the state before to the image of the state after, and since the record map reflects the order, the
+image after isn't at or below the image before, or the guest's record after would be at or below
+the record before. So along that stretch the host's record leaves the down-set of where it stood at
+some host move, and the host, paying the toll, charges that move at least one. Different guest
+steps have different stretches, so the charges add up to at least the number of such steps. The
+end alone isn't enough: a guest on one cup that turns it over and turns it back has one rise and
+ends where it started, and the host run that does nothing reaches the image of the end state for
+nothing. (2) A link from a guest to a host matches every point of the guest's run with a point of
+the host's, with the record bits equal there and the host's ledger the guest's plus a surcharge,
+the surcharge 0 while the record is down and between the link's two bounds once it's up, and
+halting and the record's first rising matching. A small-machine guest run by $U_P$ is a link with
+surcharge exactly 0: that is the ledger equality of Section~\ref{sec:universal-host}, carried to
+$U_P$. A computably presented machine run as its compiled guest is a link with surcharge at most 2
+from a reading that starts at no and exactly 3 from one that starts at yes, which is
+Theorem~\ref{thm:u34-presented-surcharge}; once the reading has first said yes the surcharge is
+$3 - c$ with $c$ what the raising move cost, and when every move costs at most one, $c$ is exactly
+one, the toll making it at least one, so the surcharge is exactly 2. (3) Match the points through
+the middle: a point of the bottom run has a matching point of the middle run, which has a matching
+point of the top run; the record bits agree along the way; the top ledger is the bottom ledger plus
+both surcharges, which is 0 while the record is down and between the sum of the lower bounds and
+the sum of the upper bounds once it's up; halting and the first rising pass through. A tower of $k$
+links is that, $k - 1$ times. (4) Each level above the first is, by the hypothesis, a presented
+machine whose run is the level below's host run, carried as its compiled guest on $U_P$. Its moves
+are the host's moves, which cost 0 or 1, so by (2) that link adds exactly 2 once the record is up,
+and by (3) the additions stack on the first level's own surcharge.
+\end{proof}
 
 Item (1) is the cleanest sentence in the chapter. However you build the outer box, as long as it pays
 its own toll and doesn't lie about the inner box's record, it pays at least one for every step
@@ -14811,6 +15028,36 @@ this compiler does not insert that chain. The runner also
 takes exactly as many steps as the host program does, with the rest of its fuel left over, and a run
 that doesn't halt has used all its fuel.
 \end{theorem}
+
+\begin{proof}
+Six arrows, each with its own theorem, and the statement is their composition. Unfolding the
+calls: a procedure may only call procedures defined before it, so unfolding ends, and the unfolded
+main program has a derivation ending with the answer $y$ exactly when the original does, with the
+same variables. Flattening: the structured statement becomes assignments and jumps at address 1,
+and a derivation of the one is a halting run of the other with the same final variables, and
+back. Counter machine: each flat instruction becomes counter-machine code, variable $x$ in
+register $x + 1$ and register 0 the zero register of the jumps, by the vendored counter-machine
+compiler, whose soundness and completeness give the run both ways. Host: an INC becomes INC, and a
+DEC, whose library convention jumps when the register is zero, becomes a DEC to the line after the
+block, then INC 0 and DEC 0 $j$, which jump to $j$ and leave register 0 as they found it; the host
+program has no CHECK, COMMIT, CERTIFY or PAY in it, so a run of it leaves the facts, the channel,
+the trap latch, the ledger and the flag as they were, and it halts with the counter machine's
+registers exactly when the counter machine's run leaves its program. Guest: the host program's
+registers are packed into counter $B$ as a product of prime powers, one prime per register, each
+INC and DEC becoming the two-counter code that multiplies or divides by its prime, with counter
+$A$ the spare at 0 between instructions; the guest halts with the code of the final registers
+exactly when the host program halts with those registers, by the compiler of
+Section~\ref{sec:presented-universal} and its converse. $U_P$: the fixed program runs the guest
+with halting matched and the guest's ledger and flag carried exactly
+(Section~\ref{sec:presented-universal}); the guest made no record move, so the ledger is 0 and the
+flag down, and the guest's first counter is 0 at the end, so the register carrying it is 0. The
+runner is the host program on a fast representation, proved to take the host's steps one for one:
+when it halts after $k$ steps, on any fuel of at least $k$, the host machine run for $k$ steps is
+halted at the end of the program with the runner's registers, and the fuel left is the fuel given
+less $k$; when the source program has a derivation there is such a $k$; and when the runner hasn't
+halted, it used all its fuel, the host is still running after that many steps, and every
+derivation of the source program needs more.
+\end{proof}
 
 The statement says nothing about how many steps the compiled program takes. It's about answers.
 
@@ -15356,6 +15603,23 @@ has $S = 14/5 = 2.8$, just under $2\sqrt 2$, with $S^2 = 7.84$: it passes, the l
 (1,0), (1,0), (1,0), (0,1), the PR box, has $S = 4$: refused forever. (1,0), (1,0), (1,0), (1,0),
 the all-ones classical plan, has $S = 2$: refused forever.
 \end{proposition}
+
+\begin{proof}
+A pair's correlator is $(\mathrm{same} - \mathrm{diff}) / (\mathrm{same} + \mathrm{diff})$, and $S$
+adds the first three and subtracts the fourth. $(4, 1)$ gives $3/5$ and $(1, 4)$ gives $-3/5$, so
+$S = 12/5$; the seven facts are the worked tally after Corollary~\ref{cor:chsh-check-bound}, with
+$A = B = 175$ and $C = 0$, so the check passes, and Theorem~\ref{thm:chsh-earned} gives the flag
+and the ledger at 3. $(17, 3)$ gives $7/10$ and $(3, 17)$ gives $-7/10$, so $S = 14/5$ and
+$S^2 = 196/25 = 7.84$; with $N = 20$ in every pair and $D = 14, 14, 14, -14$,
+$A = B = 400 \cdot 400 - 196 \cdot 400 - 196 \cdot 400 = 3200$ and
+$C = 14 \cdot 14 \cdot 400 - 14 \cdot 14 \cdot 400 = 0$, so the seven facts hold and the same
+theorem applies. $(9, 1)$ gives $4/5$, so $S = 16/5$ and $S^2 = 256/25 > 8$; the PR box gives
+$1, 1, 1, -1$ and $S = 4$; both fail the check, because a tally that passes has $S^2 \le 8$
+(Corollary~\ref{cor:chsh-check-bound}), and a failed check traps at the CHECK, after which no step
+raises the flag (Theorem~\ref{thm:chsh-earned}). The all-ones plan gives $N = D = 1$ in every
+pair, $S = 2$, and $A = 1 - 1 - 1 < 0$, the worked tally's second computation, so it fails the
+check and is refused the same way.
+\end{proof}
 
  The last one is the
 check being stricter than the bound, as a named theorem: a perfectly legal classical play with
@@ -18210,6 +18474,10 @@ with $a = q$, $b = -s$, $c = p$: $s^2 \le pq$.
 For all real $E_{00},E_{01},E_{10},E_{11}$, the symmetric matrix $M(E)$ is positive
 semidefinite if and only if the correlators are column contractive.
 \end{corollary}
+
+\begin{proof}
+Theorem~\ref{thm:chsh-cc-psd} is one direction and Theorem~\ref{thm:chsh-psd-cc} the other.
+\end{proof}
 
 The equivalence above is about the columns. The bound itself goes through the rows.
 
