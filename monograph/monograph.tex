@@ -17337,7 +17337,7 @@ my searches. The literature is bigger than my searches. I searched with every to
 cheerfully invent a citation if you let them, so where it matters I say where I looked, and
 you should assume it may well be sitting in a paper I'd need a few more lifetimes of homework
 to read. Second, nothing below is inferred from how many theorems there
-are, from the audit's clean bill, or from a good story about who came before. Those tell you
+are, from a proof assistant's clean bill, or from a good story about who came before. Those tell you
 the work was checked. They don't tell you it's new. Thousands of checked theorems could,
 in principle, be thousands of careful ways of agreeing with Tarjan.
 
@@ -17570,9 +17570,8 @@ the inputs.
 
 \subsection{The small machine}
 
-Known: two-counter machines are Minsky's (1961, 1967), and the undecidability of their
-halting is established by Forster, Larchey-Wendling and coauthors (Forster, Larchey-Wendling and
-coauthors, 2019, 2020). The guarantee about every program is older than any of this, and it
+Known: two-counter machines and the undecidability of their halting are Minsky's (1961, 1967),
+mechanized by Forster, Larchey-Wendling and coauthors (2019, 2020). The guarantee about every program is older than any of this, and it
 isn't mine either. It's the reference monitor (Anderson, 1972): a check that sits in the path of
 every operation, so no program gets around it. Schneider (2000) worked out what a monitor that
 watches a run can enforce: only safety properties, the kind a bad run breaks at some finite
@@ -17902,7 +17901,7 @@ The constant is the four-decimal round-up of $2\sqrt 2 = 2.8284271\ldots$; the g
 $7.3 \times 10^{-5}$. It lets rational code test ``above the Tsirelson bound'' without a square
 root. It plays no part in the integer check of Section~\ref{sub:chsh-integer}.
 
-\subsection{The zero-marginal 5x5 moment matrix}
+\subsection{The zero-marginal $5\times5$ moment matrix}
 \label{sub:chsh-five}
 
 \begin{definition}[The pinned level-1 matrix]\label{def:chsh-five}
@@ -17979,7 +17978,7 @@ p \ge 0, \qquad q \ge 0, \qquad p\,q - s^2 \ge 0.
 \]
 \end{definition}
 
-\begin{lemma}[The 2x2 test]\label{lem:chsh-psd2}
+\begin{lemma}[The $2\times2$ test]\label{lem:chsh-psd2}
  If $\alpha \ge 0$, $\delta \ge 0$ and
 $\alpha\delta - \beta^2 \ge 0$, then $\alpha u^2 + 2\beta u w + \delta w^2 \ge 0$ for all real
 $u, w$.
@@ -18340,7 +18339,7 @@ The difference is $\sum_{i,j \ge 2} (h_{11} h_{ij} - h_{1i} h_{1j}) v_i v_j$. Di
 $h_{11} > 0$ keeps the sign.
 \end{proof}
 
-\begin{lemma}[Sylvester for 4x4]\label{lem:chsh-sylvester}
+\begin{lemma}[Sylvester for $4\times4$]\label{lem:chsh-sylvester}
 Let $h$ be symmetric $4 \times 4$ with leading principal
 minors $d_1, d_2, d_3, d_4$. If all four are
 strictly positive, then $v^{\mathsf T} h\, v \ge 0$ for all $v$.
@@ -18384,8 +18383,7 @@ decider is the conjunction of: $N_{xy} > 0$ for the four
 pairs; $D_{g_k} > 0$ for $k = 1..5$; $-D_{g_k} < N_{g_k} < D_{g_k}$ for $k = 1..5$; and six
 strict positivities, namely $K H_{11} > 0$, $K^2 S^{(6)}_{22} > 0$, and the four leading
 minors of the integer $S^{(5)}$. The full check
-combines the seven-integer check of item
-E with this decider.
+combines the seven-integer check of Definition~\ref{def:chsh-check} with this decider.
 \end{definition}
 
 Each cleared integer, read as a real, equals the
@@ -18477,7 +18475,7 @@ integer version runs the $\gamma_5$
 check on the counters $(4,1), (4,1), (4,1), (1,4)$ and the bucket $(1,3)$ and returns
 yes by computation.
 
-Each of the four 1+AB checks  contains
+Each of the 1+AB checks contains
 the seven-integer check as a conjunct, so a passing 1+AB check also passes the
 level-1 check and inherits $S^2 \le 8$ from Section~\ref{sub:chsh-integer}. This follows directly by composing the definitions and the bound.
 
@@ -18685,7 +18683,7 @@ relation between the two moves. Do either move twice and everything is back.
 Write the swap as $X$, the sign change as $Z$, and doing nothing as $I$:
 \[
 X=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
-Z=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad I=\begin{pmatrix}1&0\\0&1\end{pmatrix},
+Z=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad I=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
 \]
 For the larger construction, label eight places by the three-bit words 000 through
 111 and put a signed number at each. An $X$ in one bit-position swaps each pair of
@@ -18742,8 +18740,7 @@ realizability are equivalent.
 
 The necessary direction does not require finite-dimensional vectors. If a positive
 normalized expectation $\omega$ on an algebra has self-adjoint $A_x,B_y$, with
-$\omega(A_x^2),\omega(B_y^2)\le1$, then the real matrix of pairwise expectations is
-PSD: its quadratic form is $\omega(C^*C)\ge0$ for the real linear combination $C$
+$\omega(A_x^2),\omega(B_y^2)\le1$, then the real symmetric matrix with entries $\operatorname{Re}\,\omega(X_iX_j)$ is PSD: its quadratic form is $\omega(C^*C)\ge0$ for the real linear combination $C$
 of the four observables. Increasing each diagonal entry to 1 preserves PSD. When
 Alice's observables commute with Bob's, its cross entries are precisely the real
 correlators. This supplies the same $G$. Including the unit as a fifth observable
@@ -18923,7 +18920,7 @@ semidefinite (Theorem~\ref{thm:chsh-exact}), so that check is
 complete for what it tests. The 1+AB
 cascade is strict and misses boundary points. The assertion that the factorization branch accepts every rational PSD completion needs
 a completeness argument for its rational certificates; no such argument is supplied here.
-Nor is it shown that the four 1+AB checks accept nested sets.
+Nor is it shown that the 1+AB checks accept nested sets.
 
 Finite levels. For full behaviours, marginals included, the NPA levels are relaxations.
 Chaturvedi (arXiv 2607.14569, 2026) argues, in a preprint, that no finite NPA level characterizes the complete
@@ -19828,7 +19825,7 @@ this book's pointer thesis.
 \noindent Roderick M. Chisholm (1957). Perceiving: A Philosophical Study. Cornell University Press, p.~16. One of the two definitions Gettier targets.
 \par\medskip
 
-\noindent R. Cockett, I. J. Geng, C. M. Scandolo and P. V. Srinivasan (2023). Extending resource monotones using Kan extensions. In Proceedings of the Fifth International Conference on Applied Category Theory (ACT 2022), Electronic Proceedings in Theoretical Computer Science 380, pp. 203--223. \href{https://arxiv.org/abs/2206.09784}{arXiv:2206.09784}.
+\noindent R. Cockett, I. J. Geng, C. M. Scandolo and P. V. Srinivasan (2023). Extending resource monotones using Kan extensions. In Proceedings of the Fifth International Conference on Applied Category Theory (ACT 2022), Electronic Proceedings in Theoretical Computer Science 380, pp. 203--223. \href{https://arxiv.org/abs/2206.09784}{arXiv: 2206.09784}.
 \par\medskip
 
 \noindent Leo Corry (1992). Nicolas Bourbaki and the Concept of Mathematical Structure. Synthese 92(3), pp. 315--348. The sentence quoted, ``plays no actual role in the presentation of theories within the treatise,'' I read in Chapter~7 of his book Modern Algebra and the Rise of Mathematical Structures (Birkhäuser), p.~338 of the chapter as posted on his website. \href{https://www.tau.ac.il/~corry/publications/articles/pdf/bourbaki-structures.pdf}{Author's chapter}.
@@ -19852,7 +19849,7 @@ this book's pointer thesis.
 \noindent Kenny Easwaran (2009). Probabilistic proofs and transferability. Philosophia Mathematica (III) 17(3), pp. 341--362. \href{https://doi.org/10.1093/philmat/nkn032}{DOI: 10.1093/philmat/nkn032}.
 \par\medskip
 
-\noindent Samuel Eilenberg and Saunders Mac Lane (1945). General Theory of Natural Equivalences. Transactions of the American Mathematical Society 58(2), pp. 231--294. \href{https://people.math.osu.edu/cogdell.1/6112-Eilenberg%26MacLane-www.pdf}{Original paper}.
+\noindent Samuel Eilenberg and Saunders Mac Lane (1945). General Theory of Natural Equivalences. Transactions of the American Mathematical Society 58(2), pp. 231--294. \href{https://people.math.osu.edu/cogdell.1/6112-Eilenberg\%26MacLane-www.pdf}{Original paper}.
 \par\medskip
 
 \noindent Euclid. Elements, Books I and X. Definitions, postulates, common notions and commensurability. Quoted in T. L. Heath's translation (Definition~1, Postulate~1, Common Notion~1).
@@ -20083,7 +20080,7 @@ this book's pointer thesis.
 \noindent Michael D. Resnik (1997). Mathematics as a Science of Patterns. Oxford: Clarendon Press. \href{https://doi.org/10.1093/0198250142.001.0001}{DOI: 10.1093/0198250142.001.0001}.
 \par\medskip
 
-\noindent Jorma Rissanen (1978). Modeling by shortest data description. Automatica 14(5), pp. 465--471. \href{https://www.sciencedirect.com/science/article/abs/pii/0005109878900055}{DOI: 10.1016/0005-1098(78)90005-5}.
+\noindent Jorma Rissanen (1978). Modeling by shortest data description. Automatica 14(5), pp. 465--471. \href{https://doi.org/10.1016/0005-1098(78)90005-5}{DOI: 10.1016/0005-1098(78)90005-5}.
 \par\medskip
 
 \noindent Benoît Rittaud and Albrecht Heeffer (2014). The Pigeonhole Principle, Two Centuries before Dirichlet. The Mathematical Intelligencer 36(2), pp. 27--29. Jean Leurechon's use of the principle in 1622.
@@ -20370,7 +20367,7 @@ this book's pointer thesis.
 \noindent Edward Fredkin and Tommaso Toffoli (1982). Conservative logic. International Journal of Theoretical Physics 21(3--4), pp. 219--253. \href{https://doi.org/10.1007/BF01857727}{DOI: 10.1007/BF01857727}.
 \par\medskip
 
-\noindent Tobias Fritz (2017). Resource convertibility and ordered commutative monoids. Mathematical Structures in Computer Science 27(6), pp. 850--938. \href{https://arxiv.org/abs/1504.03661}{arXiv:1504.03661}.
+\noindent Tobias Fritz (2017). Resource convertibility and ordered commutative monoids. Mathematical Structures in Computer Science 27(6), pp. 850--938. \href{https://arxiv.org/abs/1504.03661}{arXiv: 1504.03661}.
 \par\medskip
 
 \noindent Tom Furtwangler (2017). The vaccine vial monitor: the world's smartest sticker. PATH, 6 November 2017. \href{https://www.path.org/articles/vaccine-vial-monitor-worlds-smartest-sticker/}{Article}. The stickers first sold in 1996, for oral polio vaccine.
@@ -20505,7 +20502,7 @@ this book's pointer thesis.
 \noindent Ralf K\"usters, Tomasz Truderung and Andreas Vogt (2010). Accountability: definition and relationship to verifiability. Proceedings of the 17th ACM Conference on Computer and Communications Security (CCS '10), pp. 526--535. \href{https://doi.org/10.1145/1866307.1866366}{DOI: 10.1145/1866307.1866366}.
 \par\medskip
 
-\noindent Mikhail Kuter, Marina Gurskaya and Albert Gurskii (2025). Genoa 1340, Double Entry, and `Gold Coasting'. De Computis, Revista Española de Historia de la Contabilidad 22(1), pp. 1--33. \href{http://dx.doi.org/10.26784/issn.1886-1881.22.1.11927}{DOI: 10.26784/issn.1886-1881.22.1.11927}.
+\noindent Mikhail Kuter, Marina Gurskaya and Albert Gurskii (2025). Genoa 1340, Double Entry, and `Gold Coasting'. De Computis, Revista Española de Historia de la Contabilidad 22(1), pp. 1--33. \href{https://doi.org/10.26784/issn.1886-1881.22.1.11927}{DOI: 10.26784/issn.1886-1881.22.1.11927}.
 \par\medskip
 
 \noindent James Ladyman, Stuart Presnell, Anthony J. Short and Berry Groisman (2007). The connection between logical and thermodynamic irreversibility. Studies in History and Philosophy of Modern Physics 38(1), pp. 58--79. \href{https://doi.org/10.1016/j.shpsb.2006.03.007}{DOI: 10.1016/j.shpsb.2006.03.007}.
@@ -20805,7 +20802,7 @@ this book's pointer thesis.
 \noindent Trusted Computing Group (n.d.). Trusted Platform Module Library Specification, Family 2.0, Part 1: Architecture. The platform configuration registers and the extend operation. \href{https://trustedcomputinggroup.org/resource/tpm-library-specification/}{Specification page}.
 \par\medskip
 
-\noindent Alan M. Turing (1949). Checking a large routine. In Report of a Conference on High Speed Automatic Calculating Machines, University Mathematical Laboratory, Cambridge, pp. 67--69. \href{https://turingarchive.kings.cam.ac.uk/checking-large-routine}{Turing Digital Archive}. A corrected text was published by F. L. Morris and C. B. Jones, Annals of the History of Computing 6 (1984). ``Definite assertions which can be checked individually'' is in the opening paragraph; I read it in the reprint by F. L. Morris and C. B. Jones, Annals of the History of Computing 6(2), 1984, p.~139.
+\noindent Alan M. Turing (1949). Checking a large routine. In Report of a Conference on High Speed Automatic Calculating Machines, University Mathematical Laboratory, Cambridge, pp. 67--69. \href{https://turingarchive.kings.cam.ac.uk/checking-large-routine}{Turing Digital Archive}. ``Definite assertions which can be checked individually'' is in the opening paragraph; I read it in the reprint by F. L. Morris and C. B. Jones, Annals of the History of Computing 6(2), 1984, p.~139.
 \par\medskip
 
 \noindent U.S. Department of Justice (2002). Press release, 15 June 2002, on the jury verdict against Arthur Andersen LLP. \href{https://www.justice.gov/archive/opa/pr/2002/June/02_dag_356.htm}{Press release}.
@@ -20829,7 +20826,7 @@ this book's pointer thesis.
 \noindent Maria Violaris and Chiara Marletto (2022). Irreversibility beyond Landauer's principle: is it possible to perform erasure using the quantum homogenizer? New Journal of Physics 24, 113030. \href{https://doi.org/10.1088/1367-2630/ac9e13}{DOI: 10.1088/1367-2630/ac9e13}.
 \par\medskip
 
-\noindent Kent Weare (2016). Ethereum Security Alert Issued, Ethereum Foundation Responds with ``From Shanghai, With Love. InfoQ, 19 September 2016. \href{https://www.infoq.com/news/2016/09/Ethereum-DOS-Attack}{Article}.
+\noindent Kent Weare (2016). Ethereum Security Alert Issued, Ethereum Foundation Responds with ``From Shanghai, With Love''. InfoQ, 19 September 2016. \href{https://www.infoq.com/news/2016/09/Ethereum-DOS-Attack}{Article}.
 \par\medskip
 
 \noindent David H. Wolpert (1992). Memory systems, computation, and the second law of thermodynamics. International Journal of Theoretical Physics 31(4), pp. 743--785. \href{https://doi.org/10.1007/BF00670829}{DOI: 10.1007/BF00670829}.
@@ -20936,9 +20933,6 @@ this book's pointer thesis.
 \noindent Michael Burrows, Martin Abadi and Roger Needham (1990). A logic of authentication. ACM Transactions on Computer Systems 8(1), pp. 18--36. \href{https://doi.org/10.1145/77648.77649}{DOI: 10.1145/77648.77649}. First presented at the 12th ACM Symposium on Operating Systems Principles, 1989.
 \par\medskip
 
-\noindent Chris K. Caldwell (ed.). Prime Curios! page for $2^{11213}-1$. The Prime Pages. \href{https://t5k.org/curios/cpage/787.html}{Web page}. The Illinois mathematics department's postage meter changed to stamp ``$2^{11213}-1$ is prime'' after the 1963 find.
-\par\medskip
-
 \noindent Georg Cantor (1874). Über eine Eigenschaft des Inbegriffes aller reellen algebraischen Zahlen. Journal für die reine und angewandte Mathematik 77, pp. 258--262. \href{https://doi.org/10.1515/crll.1874.77.258}{DOI: 10.1515/crll.1874.77.258}.
 \par\medskip
 
@@ -20978,16 +20972,10 @@ this book's pointer thesis.
 \noindent Stephen A. Cook (1971). The complexity of theorem-proving procedures. Proceedings of STOC 1971, pp. 151--158. \href{https://doi.org/10.1145/800157.805047}{DOI: 10.1145/800157.805047}.
 \par\medskip
 
-\noindent Stephen A. Cook and Robert A. Reckhow (1973). Time bounded random access machines. Journal of Computer and System Sciences 7(4), pp. 354--375. \href{https://www.sciencedirect.com/science/article/pii/S0022000073800297}{DOI: 10.1016/S0022-0000(73)80029-7}.
+\noindent Stephen A. Cook and Robert A. Reckhow (1973). Time bounded random access machines. Journal of Computer and System Sciences 7(4), pp. 354--375. \href{https://doi.org/10.1016/S0022-0000(73)80029-7}{DOI: 10.1016/S0022-0000(73)80029-7}.
 \par\medskip
 
 \noindent Patrick Cousot and Radhia Cousot (1977). Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints. Proceedings of POPL 1977, pp. 238--252. \href{https://cs.nyu.edu/~pcousot/COUSOTpapers/POPL77.shtml}{Author publication record and paper}.
-\par\medskip
-
-\noindent Haskell B. Curry (1934). Functionality in combinatory logic. Proceedings of the National Academy of Sciences 20(11), pp. 584--590.
-\par\medskip
-
-\noindent Haskell B. Curry and Robert Feys (1958). Combinatory Logic, Volume I. With two sections by William Craig. Studies in Logic and the Foundations of Mathematics, North-Holland, Amsterdam.
 \par\medskip
 
 \noindent Vincent Danos and Jean Krivine (2005). Transactions in RCCS. CONCUR 2005, Lecture Notes in Computer Science 3653, pp. 398--412. \href{https://doi.org/10.1007/11539452_31}{DOI: 10.1007/11539452\_31}.
@@ -21008,9 +20996,6 @@ this book's pointer thesis.
 \noindent Jack B. Dennis and Earl C. Van Horn (1966). Programming semantics for multiprogrammed computations. Communications of the ACM 9(3), pp. 143--155. \href{https://doi.org/10.1145/365230.365252}{DOI: 10.1145/365230.365252}. Capabilities.
 \par\medskip
 
-\noindent Department of Mathematics, University of Illinois at Urbana-Champaign (n.d.). Postmarks Used by Department of Mathematics. \href{https://math.illinois.edu/system/files/inline-files/postmarks.pdf}{Document}.
-\par\medskip
-
 \noindent Harry Deutsch and Oliver Marshall (2021, revised 2022). Alonzo Church. Stanford Encyclopedia of Philosophy. \href{https://plato.stanford.edu/entries/church/}{Entry}.
 \par\medskip
 
@@ -21029,7 +21014,7 @@ this book's pointer thesis.
 \noindent Rod Downey, Carl Jockusch, Timothy H. McNicholl and Paul Schupp (2014). Asymptotic density and the Ershov hierarchy. \href{https://arxiv.org/abs/1309.0137}{arXiv: 1309.0137}. States that the 1-c.e.\ sets (one change of guess, from no to yes) are precisely the c.e.\ sets.
 \par\medskip
 
-\noindent Andrej Dudenhefner (2022). Certified Decision Procedures for Two-Counter Machines. FSCD 2022, LIPIcs 228, article 16. The successful-decrement jump convention used in the counter guest. \href{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.FSCD.2022.16}{DOI: 10.4230/LIPIcs.FSCD.2022.16}.
+\noindent Andrej Dudenhefner (2022). Certified Decision Procedures for Two-Counter Machines. FSCD 2022, LIPIcs 228, article 16. The successful-decrement jump convention used in the counter guest. \href{https://doi.org/10.4230/LIPIcs.FSCD.2022.16}{DOI: 10.4230/LIPIcs.FSCD.2022.16}.
 \par\medskip
 
 \noindent W. H. Eccles and F. W. Jordan (1919). A trigger relay utilizing three-electrode thermionic vacuum tubes. The Electrician 83, p. 298; reprinted in Radio Review 1(3), pp. 143--146.
@@ -21048,9 +21033,6 @@ this book's pointer thesis.
 \par\medskip
 
 \noindent Solomon Feferman (2006). The nature and significance of Gödel's incompleteness theorems. Lecture, Institute for Advanced Study, Gödel Centenary Program, 17 November 2006. \href{https://math.stanford.edu/~feferman/papers/Godel-IAS.pdf}{Author's text}.
-\par\medskip
-
-\noindent Robert Feys. Wikipedia. \href{https://en.wikipedia.org/wiki/Robert_Feys}{Article}. Belgian logician at the University of Leuven; with Curry, Combinatory Logic (1958).
 \par\medskip
 
 \noindent Jean-Christophe Filliâtre, Léon Gondelman and Andrei Paskevich (2014). The spirit of ghost code. Computer Aided Verification (CAV 2014), Lecture Notes in Computer Science 8559, pp. 1--16. \href{https://doi.org/10.1007/978-3-319-08867-9_1}{DOI: 10.1007/978-3-319-08867-9\_1}.
@@ -21084,9 +21066,6 @@ this book's pointer thesis.
 \par\medskip
 
 \noindent Roberto Giacobazzi, Francesco Ranzato and Francesca Scozzari (2000). Making abstract interpretations complete. Journal of the ACM 47(2), pp. 361--416. \href{https://profs.sci.univr.it/~giaco/papers.html}{Author publication record}.
-\par\medskip
-
-\noindent Donald B. Gillies (1964). Three new Mersenne primes and a statistical theory. Mathematics of Computation 18, pp. 93--97. \href{https://doi.org/10.1090/S0025-5718-1964-0159774-6}{DOI: 10.1090/S0025-5718-1964-0159774-6}. Gillies as a professor at the University of Illinois from 1956 who designed the pipeline control of ILLIAC II and found these primes during its check-out in 1963, and the mathematics department's postal meter cancellation for the largest of them, used until Appel and Haken's four-colour proof of 1976: Wikipedia, \href{https://en.wikipedia.org/wiki/Donald_B._Gillies}{Donald B. Gillies} and \href{https://en.wikipedia.org/wiki/ILLIAC_II}{ILLIAC II}.
 \par\medskip
 
 \noindent Jean-Yves Girard (1987). Linear logic. Theoretical Computer Science 50(1), pp. 1--101. \href{https://doi.org/10.1016/0304-3975(87)90045-4}{DOI: 10.1016/0304-3975(87)90045-4}.
@@ -21144,12 +21123,6 @@ this book's pointer thesis.
 \par\medskip
 
 \noindent Kohei Honda (1993). Types for dyadic interaction. CONCUR '93, LNCS 715, pp. 509--523. \href{https://doi.org/10.1007/3-540-57208-2_35}{DOI: 10.1007/3-540-57208-2\_35}.
-\par\medskip
-
-\noindent William A. Howard (1980). The formulae-as-types notion of construction. In To H. B. Curry: Essays on Combinatory Logic, Lambda Calculus and Formalism, Academic Press. Circulated as a typescript in 1969.
-\par\medskip
-
-\noindent William Alvin Howard. Wikipedia. \href{https://en.wikipedia.org/wiki/William_Alvin_Howard}{Article}. Proof theorist at the University of Illinois at Chicago.
 \par\medskip
 
 \noindent William Stanley Jevons (1864). Pure Logic, or the Logic of Quality apart from Quantity. Edward Stanford, London.
@@ -21296,9 +21269,6 @@ this book's pointer thesis.
 \noindent Michael Norrish (2011). Mechanised Computability Theory. Interactive Theorem Proving, ITP 2011, LNCS 6898, pp. 297--311. \href{https://trustworthy.systems/publications/nicta_full_text/4837.pdf}{Author paper}; \href{https://doi.org/10.1007/978-3-642-22863-6_22}{DOI: 10.1007/978-3-642-22863-6\_22}.
 \par\medskip
 
-\noindent J. J. O'Connor and E. F. Robertson (n.d.). Haskell Brooks Curry. MacTutor History of Mathematics. \href{https://mathshistory.st-andrews.ac.uk/Biographies/Curry/}{Biography}.
-\par\medskip
-
 \noindent Caspar Oesterheld (2019). Robust program equilibrium. Theory and Decision 86, pp. 143--159. \href{https://doi.org/10.1007/s11238-018-9679-3}{DOI: 10.1007/s11238-018-9679-3}.
 \par\medskip
 
@@ -21359,7 +21329,7 @@ this book's pointer thesis.
 \noindent Erich Reck. Dedekind's Contributions to the Foundations of Mathematics. Stanford Encyclopedia of Philosophy. \href{https://plato.stanford.edu/entries/dedekind-foundations/}{Entry}. Peano acknowledged Dedekind's priority for the axioms.
 \par\medskip
 
-\noindent Henry Gordon Rice (1953). Classes of Recursively Enumerable Sets and Their Decision Problems. Transactions of the American Mathematical Society 74(2), pp. 358--366. \href{https://www.ams.org/journals/tran/1953-074-02/S0002-9947-1953-0053041-6/S0002-9947-1953-0053041-6.pdf}{DOI: 10.1090/S0002-9947-1953-0053041-6}.
+\noindent Henry Gordon Rice (1953). Classes of Recursively Enumerable Sets and Their Decision Problems. Transactions of the American Mathematical Society 74(2), pp. 358--366. \href{https://doi.org/10.1090/S0002-9947-1953-0053041-6}{DOI: 10.1090/S0002-9947-1953-0053041-6}.
 \par\medskip
 
 \noindent Jules Richard (1905). Les principes des mathématiques et le problème des ensembles. Revue générale des sciences pures et appliquées 16(12), pp. 541--543. English translation in Jean van Heijenoort (ed.), From Frege to Gödel, Harvard University Press, 1967, pp. 142--144. His life (school posts, doctorate, geometry) is from J. J. O'Connor and E. F. Robertson, ``Jules Antoine Richard,'' MacTutor History of Mathematics archive, University of St Andrews, \href{https://mathshistory.st-andrews.ac.uk/Biographies/Richard_Jules/}{mathshistory.st-andrews.ac.uk}.
@@ -21377,10 +21347,10 @@ this book's pointer thesis.
 \noindent Hartley Rogers, Jr. (1967). Theory of Recursive Functions and Effective Computability. New York: McGraw-Hill. Acceptable numberings and the recursion theorem.
 \par\medskip
 
-\noindent Morgan Rogers (2019). Toposes of discrete monoid actions. \href{https://arxiv.org/abs/1905.10277}{arXiv:1905.10277}.
+\noindent Morgan Rogers (2019). Toposes of discrete monoid actions. \href{https://arxiv.org/abs/1905.10277}{arXiv: 1905.10277}.
 \par\medskip
 
-\noindent Morgan Rogers (2021). Toposes of monoid actions. \href{https://arxiv.org/abs/2112.10198}{arXiv:2112.10198}.
+\noindent Morgan Rogers (2021). Toposes of monoid actions. \href{https://arxiv.org/abs/2112.10198}{arXiv: 2112.10198}.
 \par\medskip
 
 \noindent J. Barkley Rosser (1936). Extensions of some theorems of Gödel and Church. Journal of Symbolic Logic 1(3), pp. 87--91. \href{https://doi.org/10.2307/2269028}{DOI: 10.2307/2269028}. Rosser's trick, which weakens Gödel's $\omega$-consistency premise to consistency. Rosser as a student of Alonzo Church at Princeton: Wikipedia, \href{https://en.wikipedia.org/wiki/J._Barkley_Rosser}{J. Barkley Rosser}.
@@ -21407,7 +21377,7 @@ this book's pointer thesis.
 \noindent M. Sampath, R. Sengupta, S. Lafortune, K. Sinnamohideen and D. Teneketzis (1995). Diagnosability of discrete-event systems. IEEE Transactions on Automatic Control 40(9), pp. 1555--1575. \href{https://doi.org/10.1109/9.412626}{DOI: 10.1109/9.412626}.
 \par\medskip
 
-\noindent Jürgen Schmidhuber (2003). Gödel machines: self-referential universal problem solvers making provably optimal self-improvements. Technical Report IDSIA-19-03. \href{https://arxiv.org/abs/cs/0309048}{arXiv:cs/0309048}.
+\noindent Jürgen Schmidhuber (2003). Gödel machines: self-referential universal problem solvers making provably optimal self-improvements. Technical Report IDSIA-19-03. \href{https://arxiv.org/abs/cs/0309048}{arXiv: cs/0309048}.
 \par\medskip
 
 \noindent Fred B. Schneider (2000). Enforceable security policies. ACM Transactions on Information and System Security 3(1), pp. 30--50. \href{https://doi.org/10.1145/353323.353382}{DOI: 10.1145/353323.353382}.
@@ -21435,9 +21405,6 @@ this book's pointer thesis.
 \par\medskip
 
 \noindent Ken Shirriff. Righto (blog). \href{https://www.righto.com/}{Blog}. Reverse engineering of old chips from die photographs.
-\par\medskip
-
-\noindent Siebel School of Computing and Data Science, University of Illinois. Donald B. Gillies Memorial Lecture. \href{https://siebelschool.illinois.edu/news/speaker-series/donald-b-gillies-memorial-lecture}{Web page}. The three primes found while checking out ILLIAC II, ``commemorated by the Mathematics Department with a postage mark stamped on all outgoing mail'' for nearly a decade.
 \par\medskip
 
 \noindent Emin G\"un Sirer, Willem de Bruijn, Patrick Reynolds, Alan Shieh, Kevin Walsh, Dan Williams and Fred B. Schneider (2011). Logical attestation: an authorization architecture for trustworthy computing. SOSP 2011, pp. 249--264. \href{https://doi.org/10.1145/2043556.2043580}{DOI: 10.1145/2043556.2043580}.
@@ -21476,16 +21443,10 @@ this book's pointer thesis.
 \noindent United States of America Standards Institute (1967). USA Standard Code for Information Interchange, USAS X3.4-1967. The revision that added the lower-case letters, one bit away from the capitals.
 \par\medskip
 
-\noindent University of Illinois Distributed Museum. Four Colors Suffice. \href{https://distributedmuseum.illinois.edu/?p=2793}{Web page}. The ``four colors suffice'' postmark the Department of Mathematics stamped on its outgoing mail for years after the proof.
-\par\medskip
-
 \noindent Leslie G. Valiant (1990). A bridging model for parallel computation. Communications of the ACM 33(8), pp. 103--111. \href{https://doi.org/10.1145/79173.79181}{DOI: 10.1145/79173.79181}. The bulk-synchronous parallel (BSP) model.
 \par\medskip
 
 \noindent Vitruvius. The Ten Books on Architecture, Book IX, Introduction. Trans. Morris Hicky Morgan, Harvard University Press, 1914. \href{https://math.nyu.edu/Archimedes/Crown/Vitruvius.html}{Passage}.
-\par\medskip
-
-\noindent Philip Wadler (2015). Propositions as Types. Communications of the ACM 58(12), pp. 75--84. \href{https://homepages.inf.ed.ac.uk/wadler/papers/propositions-as-types/propositions-as-types.pdf}{Author's copy}.
 \par\medskip
 
 \noindent Hao Wang (1957). A variant to Turing's theory of computing machines. Journal of the ACM 4(1), pp. 63--92. \href{https://doi.org/10.1145/320856.320867}{DOI: 10.1145/320856.320867}. Machines that mark a square and never erase one.
@@ -21568,7 +21529,7 @@ this book's pointer thesis.
 \noindent Boris S. Cirel'son (Tsirelson) (1980). Quantum generalizations of Bell's inequality. Letters in Mathematical Physics 4, pp. 93--100. \href{https://doi.org/10.1007/BF00417500}{DOI: 10.1007/BF00417500}.
 \par\medskip
 
-\noindent John F. Clauser, Michael A. Horne, Abner Shimony and Richard A. Holt (1969). Proposed Experiment to Test Local Hidden-Variable Theories. Physical Review Letters 23, pp. 880--884. \href{https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.23.880}{DOI: 10.1103/PhysRevLett.23.880}.
+\noindent John F. Clauser, Michael A. Horne, Abner Shimony and Richard A. Holt (1969). Proposed Experiment to Test Local Hidden-Variable Theories. Physical Review Letters 23, pp. 880--884. \href{https://doi.org/10.1103/PhysRevLett.23.880}{DOI: 10.1103/PhysRevLett.23.880}.
 \par\medskip
 
 \noindent Wim van Dam (2005). Implausible consequences of superstrong nonlocality. \href{https://arxiv.org/abs/quant-ph/0501159}{arXiv: quant-ph/0501159}.
@@ -21589,7 +21550,7 @@ this book's pointer thesis.
 \noindent Albert Einstein, Boris Podolsky and Nathan Rosen (1935). Can Quantum-Mechanical Description of Physical Reality Be Considered Complete? Physical Review 47, pp. 777--780. \href{https://doi.org/10.1103/PhysRev.47.777}{DOI: 10.1103/PhysRev.47.777}.
 \par\medskip
 
-\noindent Arthur Fine (1982). Hidden Variables, Joint Probability, and the Bell Inequalities. Physical Review Letters 48, pp. 291--295. \href{https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.48.291}{DOI: 10.1103/PhysRevLett.48.291}.
+\noindent Arthur Fine (1982). Hidden Variables, Joint Probability, and the Bell Inequalities. Physical Review Letters 48, pp. 291--295. \href{https://doi.org/10.1103/PhysRevLett.48.291}{DOI: 10.1103/PhysRevLett.48.291}.
 \par\medskip
 
 \noindent Arthur Fine (2004, substantive revision 2017). The Einstein-Podolsky-Rosen Argument in Quantum Theory. Stanford Encyclopedia of Philosophy. \href{https://plato.stanford.edu/entries/qt-epr/}{Entry}. Einstein's ``smothered by formalism'' (letter to Schrödinger, 19 June 1935) is Fine's translation, quoted from Section~1.1 of this entry, which gives it as p.~35 of Fine's The Shaky Game (2nd edition, 1996); I have it secondhand.
@@ -21634,7 +21595,7 @@ this book's pointer thesis.
 \noindent Leonid A. Khalfin and Boris S. Tsirelson (1985). Quantum and quasi-classical analogs of Bell inequalities. In P. Lahti and P. Mittelstaedt (eds.), Symposium on the Foundations of Modern Physics: 50 Years of the Einstein-Podolsky-Rosen Gedankenexperiment, Joensuu, Finland, 16--20 June 1985. World Scientific, Singapore, 1985, p. 441.
 \par\medskip
 
-\noindent Lawrence J. Landau (1988). Empirical two-point correlation functions. Foundations of Physics 18, pp. 449--460. \href{https://link.springer.com/article/10.1007/BF00732549}{DOI: 10.1007/BF00732549}. Landau's 1969 Berkeley thesis, ``Some Aspects of the Quantum Theory of Local Observables'': \href{https://www.mathgenealogy.org/id.php?id=61987}{Mathematics Genealogy Project}.
+\noindent Lawrence J. Landau (1988). Empirical two-point correlation functions. Foundations of Physics 18, pp. 449--460. \href{https://doi.org/10.1007/BF00732549}{DOI: 10.1007/BF00732549}. Landau's 1969 Berkeley thesis, ``Some Aspects of the Quantum Theory of Local Observables'': \href{https://www.mathgenealogy.org/id.php?id=61987}{Mathematics Genealogy Project}.
 \par\medskip
 
 \noindent Lluís Masanes (2003). Necessary and sufficient condition for quantum-generated correlations. \href{https://arxiv.org/abs/quant-ph/0309137v1}{arXiv: quant-ph/0309137v1}. The paper gives his affiliation as the Universitat de Barcelona.
@@ -21643,7 +21604,7 @@ this book's pointer thesis.
 \noindent The mathlib Community (2020). The Lean mathematical library. Certified Programs and Proofs, CPP 2020, pp. 367--381. \href{https://doi.org/10.1145/3372885.3373824}{DOI: 10.1145/3372885.3373824}. The CHSH and Tsirelson inequalities for star-algebras are in \href{https://leanprover-community.github.io/mathlib4_docs/Mathlib/Algebra/Star/CHSH.html}{Mathlib.Algebra.Star.CHSH}.
 \par\medskip
 
-\noindent Miguel Navascués, Stefano Pironio and Antonio Acín (2007). Bounding the Set of Quantum Correlations. Physical Review Letters 98, 010401. \href{https://arxiv.org/abs/quant-ph/0607119v2}{DOI: 10.1103/PhysRevLett.98.010401; arXiv: quant-ph/0607119v2}.
+\noindent Miguel Navascués, Stefano Pironio and Antonio Acín (2007). Bounding the Set of Quantum Correlations. Physical Review Letters 98, 010401. \href{https://doi.org/10.1103/PhysRevLett.98.010401}{DOI: 10.1103/PhysRevLett.98.010401; arXiv: quant-ph/0607119v2}.
 \par\medskip
 
 \noindent Miguel Navascués, Stefano Pironio and Antonio Acín (2008). A convergent hierarchy of semidefinite programs characterizing the set of quantum correlations. New Journal of Physics 10, 073013. \href{https://arxiv.org/abs/0803.4290v1}{arXiv: 0803.4290v1}.
@@ -21718,7 +21679,7 @@ this book's pointer thesis.
 \noindent Wojciech H. Zurek (1981). Pointer basis of quantum apparatus: Into what mixture does the wave packet collapse? Physical Review D 24(6), pp. 1516--1525. \href{https://doi.org/10.1103/PhysRevD.24.1516}{DOI: 10.1103/PhysRevD.24.1516}.
 \par\medskip
 
-\noindent Wojciech H. Zurek (2009). Quantum Darwinism. Nature Physics 5, pp. 181--188. \href{https://arxiv.org/abs/0903.5082v1}{DOI: 10.1038/nphys1202; arXiv: 0903.5082v1}.
+\noindent Wojciech H. Zurek (2009). Quantum Darwinism. Nature Physics 5, pp. 181--188. \href{https://doi.org/10.1038/nphys1202}{DOI: 10.1038/nphys1202; arXiv: 0903.5082v1}.
 \par\medskip
 
 \end{document}
