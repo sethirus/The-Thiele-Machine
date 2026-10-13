@@ -4019,6 +4019,17 @@ already in the fixed reading, followed through $T$ repetitions, ends in one more
 chair were on one of the paths, cancelling would again put a start where it cannot sit.
 \end{proof}
 
+The number is exact, not only a floor. Take one chair for the start already in the fixed
+reading and let the operation leave it there. For each of the other $N - 1$ starts lay out a
+path of $T + 1$ chairs, the first reading as that start does and the rest in the fixed reading,
+with the operation walking the path and sending the last chair to itself. That is
+$1 + (T+1)(N-1)$ chairs; through $T$ repetitions from any start the operation never merges, and
+on the next one it does, because the last chair of every path now lands where the chair before
+it lands. Nor is the single fixed reading needed. If the operation sends every state to one of
+$L$ places and leaves each of those alone, the same chairs counted inside each place's own
+fibre add up to $M \ge N + T(N - L)$, which is the bound above at $L = 1$, and the same paths
+in each fibre show it exact.
+
 So the strip's escape is an escape only while the strip has room. Cut it anywhere and the
 bound says how many raises are left before a box gets reused. And room isn't the only second
 currency. Keeping history costs time as well: Bennett (1989) showed that a computation can be
@@ -15929,7 +15940,11 @@ also revokes counts against nothing. It's the three cards. For the eight-state
 machine, a move of it that merges two states and costs nothing; merge pricing on that machine falls.
 For the small machine, with no finiteness in play: an INC, DEC or HALT that sends two different
 states with the same line and counters to one state, or a CERTIFY, or a COMMIT of some claim, that
-never joins two such states; the toll on the machine I built falls.
+never joins two such states; the toll on the machine I built falls. For heat or room, an
+operation on $N$ starts told apart by what happens next, one already in the fixed reading, and an
+implementation with fewer than $1 + (T+1)(N-1)$ states that carries it through $T$ repetitions from
+every start without merging; the retention bound falls, and the exactness claim falls if the path
+construction merges within $T$ repetitions or needs more chairs than it says.
 
 \emph{The bill in bits (Section~\ref{sec:a2-not-arbitrary}).} Exhibit a finite machine with a permanent certificate, a move that
 switches k states on beside m certified ones (k at least one), and a spread of probability
