@@ -20,7 +20,7 @@ body = remainder
 original_body = remainder
 recovered = body
 changes = []
-preamble = preamble.replace(r"\documentclass[11pt,a4paper]{article}",
+preamble = preamble.replace(r"\documentclass[10pt,a4paper]{article}",
                             r"\RequirePackage{fix-cm}" + "\n" +
                             r"\documentclass[11pt,twoside]{article}")
 preamble = preamble.replace("stretch=12", "stretch=20").replace("shrink=12", "shrink=20")
