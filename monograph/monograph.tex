@@ -3706,11 +3706,13 @@ I also simulated the bead. B\'erut, Arakelyan, Petrosyan, Ciliberto, Dillenschne
 toward Landauer's number as they slowed the erasure, with the excess going like a constant over
 the time taken. I wrote their protocol as described, barrier down over a second, tilt ramped
 over the protocol time, tilt stopped, barrier up over a second, as overdamped Brownian motion
-in a quartic double well with their numbers, and measured the heat the same two ways they do.
-With the tilt set per protocol time to the smallest force that erases at least nine times in
-ten (they took the smallest that erased ninety-five times in a hundred), the heat on
-successful erasures came out as $0.694\,kT$ plus $3.6\,kT\cdot\mathrm{s}$ divided by the
-time; $\ln 2$ is $0.693$. My excess constant isn't theirs, which was $8.15$; the shape is.
+in a quartic double well with their numbers, and added up the heat the way they do, the force
+times the bead's displacement along each path. I set the tilt at each protocol time from a scan
+so that it erased about nine times in ten (between 88 and 92 times in a hundred across the six
+protocol times, two seconds to eighty; they took the smallest that erased ninety-five times in a
+hundred), and fitted the heat on successful erasures against the time: $0.694\,kT$ plus
+$3.6\,kT\cdot\mathrm{s}$ divided by the time; $\ln 2$ is $0.693$. The script is
+\texttt{scripts/bead\_erasure\_sim.py} in the repository, and it prints those numbers. My excess constant isn't theirs, which was $8.15$; the shape is.
 Nothing in that model but a particle, a well and noise, and the floor came out at the third
 decimal with the one-over-time excess on top of it. That's the floor and time's bill together,
 in a simulation of their bead.
