@@ -433,9 +433,9 @@ there's no keeping bill; the steps still give off heat when they happen. Start t
 principle, in the form Part~I adopts, puts no heat floor under the merge at all
 (Theorem~\ref{thm:known-state}), because no uncertainty is wiped. It's the known blank from a couple of pages back, and the bill
 sits where it sat there: the step still gives off heat when it happens, and the difference was
-already being kept, by whoever knows the start. The ledger I build in Part~I charges the merge
-anyway, because it prices the step for every state it could be handed, and that's a rule of the
-ledger, my premise, not a claim about heat. The heat itself is physics. In 2012 a group in Lyon
+already being kept, by whoever knows the start. The toll I build in Part~I charges that step
+anyway, because it charges the raise, whichever way the raise is paid, for every state the step could
+be handed. That's a rule of the ledger, not a claim about heat. The heat itself is physics. In 2012 a group in Lyon
 erased one bit held in a tiny bead, kept in place by a laser, and found the average heat it gave
 off coming down toward Landauer's floor as the erasing was slowed; the principle also has serious
 critics, the philosopher John Norton among them. So the counting is proved, on any machine, the
@@ -482,15 +482,17 @@ measure of computational cost at all; they name no machine and say what every co
 
 Time counts the steps and room counts the cells, and both are counts of something made of
 distinctions. Every time a computation makes something the case and keeps it, a bit set, a list left
-in order, an answer written down, it pays, in a merge or in room. That bill isn't time: a slow step
-and a fast one can keep the same thing. It isn't room either: a machine with a fixed memory pays it by
-merging, over and over, in the same cells. It sits under both, and it's the count nobody kept.
+in order, an answer written down, it pays, in a merge or in room. That bill isn't the time count: a
+slow step and a fast one can keep the same thing. It isn't the space count either, though room is one
+of the two ways to pay it: a machine with a fixed memory pays it by merging, over and over, in the same
+cells, and its space count never moves. It's the count nobody kept.
 
 So here's the Thiele Machine, written down. It's a model of computation, math you can reason about,
 the way Turing's machine is. It has five parts and one rule. A set of states. A set of moves. A step
 that takes a state and a move to the next state. A price on each move, a whole number of marks. And
 a reading of the state, yes or no, that once yes stays yes: something has been made to stay. The rule,
-which I call the toll: a step that turns the reading from no to yes costs at least one mark. Two
+which I call the toll: a step that turns the reading from no to yes costs at least one mark. The toll
+sits on the raise, not on the merge, so it charges the keep whichever way it's paid, merge or room. Two
 more pieces come in when a result needs them: a counter in the state that adds up the marks and only
 climbs, which is the ledger, and a window, what an outside observer gets to see. The toll's first
 name, the one I gave it before I understood it, is No Free Insight.
@@ -562,25 +564,21 @@ kept distinction, a 0 in some cell that says ``checked,'' and it pays the same b
 Part~III opens by taking that apart (Section~\ref{sec:established}): what ``could have said no'' means, what settling a question is, and why
 the people who thought hardest about knowledge kept landing near it.
 
-Then it builds the machine. Underneath, it's an ordinary computer, as small as I could make it: two
-counters, add one and take one away, the machines Marvin Minsky proved can compute anything a
-Turing machine can, with the input written in his $2^n$ code. Its merges are an ordinary computer's merges, and whatever they cost is an
-ordinary computer's heat; the ledger leaves them alone. On top of that sits a record layer: a table
-of checked facts, a commitment, and a flag. The flag is the blank cell. Raising it is the write of a
-0: a state with the flag down and the same state with the flag already up both land on one state,
-flag up. That's a merge, the same merge step one is about, and it happens in the record layer, the
-part of the state the two counters can't see. Price the merges in that layer, the same merge pricing the toll is
-derived from in step two, applied only there, and the toll on the flag follows, with no finiteness needed, as a
-theorem (Theorem~\ref{thm:record-merge-toll}). The machine's toll is the bill on the 0, read by a meter
-in the step.
+Then it builds the machine, in two layers. Underneath is an ordinary computer, as small as I could
+make it: two counters that add one and take one away, which Marvin Minsky proved can compute anything
+a Turing machine can. Its own merges are an ordinary computer's merges, and the ledger leaves them
+alone. On top sits a record layer whose flag is the blank cell. Raising the flag is the write of a 0:
+the state with the flag down and the same state with it already up both land on one state. That's a
+merge, the one step one is about, and once merges in that layer are priced, the toll on the flag
+follows as a theorem (Theorem~\ref{thm:record-merge-toll}). The machine's toll is the bill on the 0,
+read by a meter in the step.
 
-What makes the flag mean \emph{established} is the lock: the step won't let a commitment through
-unless a check of that very claim passed, about that very edition of the thing checked, and won't
-certify without a commitment. Because that rule is in the step, it holds of every program anybody can
-write for the machine, the buggy ones and the hostile ones too. A log a program keeps tells you
-about that program. A rule in the step tells you about all of them. From a clean start, a raised
-flag always went through a passing check, a commitment and a certificate of exactly the same claim,
-and paid at least three marks, and three is reached.
+What makes a raised flag \emph{mean} something is the lock, and it's one rule: no flag without a
+commitment, and no commitment without a check of that same claim that passed, with the thing checked
+untouched since (a counter's \emph{edition} is how many times it has been written, so ``untouched''
+means the edition hasn't moved). The rule is in the step, so it holds of every program anybody can
+write for the machine, buggy and hostile ones included. A log a program keeps tells you about that
+program. A rule in the step tells you about all of them.
 
 How far the machine reaches, to other models of computation and to universal machines that run it
 as a guest and earn its flag again, is proved too; Part~III states it (Section~\ref{sec:reach}) and the
@@ -883,17 +881,9 @@ can't give back. The machine is the thing whose state includes the chairs it can
 It doesn't stop at the cell. The tape is a set of distinctions that stayed. So is the rule for
 the next state, and so is the question you ask of a chair. Each of the five parts of the model
 is itself a definite thing where there could have been anything, which is to say each is an
-instance of the thing the model charges for. And the model does contain itself, in the only
-way a model can: by running itself. One fixed program, $U$, of the small machine (the two-counter
-computer with a record layer on top that Section~\ref{sec:smallest} builds) runs every
-program of the small machine as a guest, and one more, $U_P$, with a paid move added, runs every
-computably presented Thiele machine, the ones whose step, price, driver and reading are computed
-by programs, with the reading decided on every state. A host that pays the toll and runs a guest move for move pays
-at least a mark in its own ledger for every step where the guest's record went up. That's the
-universal program, stated in Section~\ref{sec:reach} and built in the appendix
-(Theorem~\ref{thm:u34-universal},
-Theorem~\ref{thm:u34-presented}), and the nesting theorem of Appendix~\ref{sec:parts} (Theorem~\ref{thm:parts-nesting}). The tower is the same machine above and
-below. What no level does is hold all the questions you can ask of it: for any way of coding
+instance of the thing the model charges for. And the model can run itself: a host that pays the toll and runs a guest move for move pays at
+least a mark in its own ledger for every step where the guest's record went up, and Part~III builds
+one (Section~\ref{sec:reach}). The tower is the same machine above and below. What no level does is hold all the questions you can ask of it: for any way of coding
 readings as states, there's a reading no state codes, the one that answers each state with the
 opposite of what that state's own coded reading says of it. That's Cantor's diagonal, the shape
 of Russell's 1902 letter to Frege (Section~\ref{sec:structure}), and the subject of Section~\ref{sec:diagonal}. Put the
