@@ -16321,35 +16321,144 @@ that doesn't halt has used all its fuel.
 \end{theorem}
 
 \begin{proof}
-Six arrows, each with its own theorem, and the statement is their composition. Unfolding the
-calls: a procedure may only call procedures defined before it, so unfolding ends, and the unfolded
-main program has a derivation ending with the answer $y$ exactly when the original does, with the
-same variables. Flattening: the structured statement becomes assignments and jumps at address 1,
-and a derivation of the one is a halting run of the other with the same final variables, and
-back. Counter machine: each flat instruction becomes counter-machine code, variable $x$ in
-register $x + 1$ and register 0 the zero register of the jumps, by the standard construction: an
-addition, a cut-off subtraction or a comparison is a loop that moves one unit per pass through
-spare registers it leaves at 0, and induction on the number of passes shows the block ends with
-the right values, while induction along the run carries that both ways. Host: an INC becomes INC,
-and a DEC, whose counter-machine convention jumps when the register is zero, becomes a DEC to the line after the
-block, then INC 0 and DEC 0 $j$, which jump to $j$ and leave register 0 as they found it; the host
-program has no CHECK, COMMIT, CERTIFY or PAY in it, so a run of it leaves the facts, the channel,
-the trap latch, the ledger and the flag as they were, and it halts with the counter machine's
-registers exactly when the counter machine's run leaves its program. Guest: the host program's
-registers are packed into counter $B$ as a product of prime powers, one prime per register, each
-INC and DEC becoming the two-counter code that multiplies or divides by its prime, with counter
-$A$ the spare at 0 between instructions; the guest halts with the code of the final registers
-exactly when the host program halts with those registers, by the compiler of
-Section~\ref{sec:presented-universal} and its converse. $U_P$: the fixed program runs the guest
-with halting matched and the guest's ledger and flag carried exactly
-(Section~\ref{sec:presented-universal}); the guest made no record move, so the ledger is 0 and the
-flag down, and the guest's first counter is 0 at the end, so the register carrying it is 0. The
-runner does one host instruction for each unit of fuel, on a faster representation of the same
-registers, so it takes the host's steps one for one: when it halts after $k$ steps, on any fuel of at least $k$, the host machine run for $k$ steps is
+Six arrows and a runner, each argued below, and the statement is their composition. Four of the
+arrows are between machines that take steps, and for those one argument does both directions, so
+I give it first.
+
+\emph{The simulation argument.} Take two machines $S$ and $T$, each deterministic, where $S$ has a
+next state from every state inside its program, and a relation $\sim$ between their states such
+that: a state of $S$ inside its program is related only to states of $T$ inside its program, and
+a state of $S$ outside it only to states of $T$ outside it; and from any related pair with $S$
+inside its program, one step of $S$ is matched by one or more steps of $T$ that land related to
+$S$'s next state. Then from related starts, $S$ halts exactly when $T$ does, and they halt
+related. Forward: induction on the length of $S$'s run, one matched stretch per step, gives a run
+of $T$ ending related to $S$'s last state, which is outside $S$'s program, so $T$'s is outside its
+own. Backward: suppose $T$ halts after $k$ steps and $S$ doesn't halt. Then $S$ takes at least
+$k + 1$ steps without leaving its program, the matched stretches give $T$ a run of at least
+$k + 1$ steps all of whose stretch ends are inside its program, and $T$, being deterministic, has
+only one run from its start, which halted at step $k$. That's a contradiction, so $S$ halts, and
+by the forward direction it halts related to where $T$ did.
+
+\emph{Unfolding the calls.} A procedure may only call procedures with smaller numbers, so unfold
+them in order of number: procedure 0 calls nothing, and the unfolded body of procedure $i$ is
+built from the already unfolded bodies of the procedures below $i$. The construction ends. The
+variables live in one global space. The main program's frame is variables $0$ to $n_0 - 1$, and a
+call made in a frame that starts at $b$ and has $n$ variables becomes four pieces: assignments
+that put the argument values into the callee's frame, which starts at $b + n$; assignments that
+set the callee's other locals to 0; the callee's unfolded body, with each of its variables $x$
+read as global variable $b + n + x$; and assignments that copy its results into the caller's
+variables. Say a global state $G$ \emph{carries} a source state $e$ in the frame at $b$ when
+$G(b + x) = e(x)$ for every $x$ of the frame. Forward, by induction on the source derivation: an
+assignment, a sequence, a test and a loop are the same statement in both programs, read in the
+frame; for a call, the source derivation runs the callee's body from the frame of parameters and
+zeros, the first two pieces build exactly that frame at $b + n$, the induction hypothesis on the
+callee's (shorter) derivation runs the unfolded body to a state carrying the callee's final
+frame, and the copy writes the results where the source call writes them. Every assignment in the
+compiled statement writes in its own frame or the frames above it, so variables below $b$ are
+never touched. Backward, by induction on the derivation of the compiled statement: the compiled
+statement has the source statement's shape everywhere except at calls, and the derivation of a
+compiled call is a derivation of its four pieces in sequence, which the induction hypothesis turns
+back into a derivation of the callee's body from the frame the source call would build. So the
+unfolded program has a derivation ending with $y$ in the answer variable exactly when the
+original does, and neither has one when the program doesn't terminate.
+
+\emph{Flattening.} The flat code of a statement placed at address $a$: an assignment is one
+assignment; a sequence is the first statement's code followed by the second's; \emph{if} $b$ is a
+jump on false to the else part, the then part, a jump past the else part, and the else part; and
+\emph{while} $b$ with a body of $l$ instructions is a jump on false to $a + l + 2$, the body at
+$a + 1$, and a jump back to $a$. Every jump in the code of a statement lands inside that code or
+at its end, the address just past it. Forward, by induction on the derivation: a derivation from
+$e$ to $e_1$ gives a flat run from $a$ with variables $e$ to the end of the code with variables
+$e_1$. For a loop that runs its body once more, the test falls through, the body's code takes the
+run to $a + l + 1$, the jump returns it to $a$, and the induction hypothesis on the rest of the
+loop's derivation finishes. Backward, by induction on the statement and, inside that, on the
+length of the run: a flat run from $a$ that ends anywhere outside the code passes through the end
+of the code, and the part up to its first visit there has a derivation of the statement. For a
+loop, the run's first step is the test. If it is false, the run jumps to the end, and the loop's
+derivation is the one with a false test. If it is true, the run enters the body's code, which it
+can leave only through its end at $a + l + 1$ (the body's own backward statement), where the jump
+returns it to $a$ with a strictly shorter run left, to which the inner induction applies. So the
+flat program at address 1 halts exactly when the structured statement has a derivation, with the
+same final variables.
+
+\emph{Counter machine.} Here a DEC jumps when its register is zero and goes on otherwise. Variable
+$x$ lives in register $x + 1$, register 0 is kept at 0, so DEC 0 $j$ is a plain jump to $j$, and
+registers above the variables are working space. The relation: register 0 is 0, registers 1 to
+$n$ hold the flat variables, and every register above is 0. Each flat instruction becomes a block,
+and each block is built from small loops, each argued by induction on the number of passes.
+Emptying a register: each pass takes one off, and the loop exits at zero. Moving $s$ into $d$:
+each pass takes one off $s$ and adds one to $d$, so $s + d$ never changes, and at exit $s$ is 0
+and $d$ holds the old sum. Copying: move $s$ into two registers at once, then move one of them
+back. Cut-off subtraction $t - u$: take one off each while both are positive; at exit one of them
+is 0, and the other holds the difference, or 0. Comparison: take one off each in step; whichever
+reaches zero first, or both together, decides $<$ and $=$, and the block empties both. The code
+of an expression, by induction on the expression, leaves its value in a working register $t$ and
+returns every register above $t$ to 0, using only $t$ and above. The code of a test, by induction
+on the test, goes to its true or false address and leaves every register as it found it. So an
+assignment block computes the value into the first working register, empties register $x + 1$,
+moves the value in, and lands related; a jump on false runs the test's code with the true exit at
+the next block and the false exit at the block of $j$; a jump is DEC 0 $j$. The linker places the
+blocks one after another and sends every jump to the start of its target's block. That's the
+one-step matching. The flat machine has a next state from every address in its program, and an
+instruction that names a variable outside the frame just advances, so the step is total. The
+counter machine is deterministic. The simulation argument gives both directions: the counter
+program from the loaded inputs leaves its code with register $\mathit{out} + 1$ equal to $y$
+exactly when the flat program halts with $y$ in $\mathit{out}$.
+
+\emph{Host.} The host's DEC is the other way round: it jumps when its register is positive, taking
+one off, and goes on at zero. An INC $x$ stays INC $x$. A DEC $x$ $j$ at host address $a$ becomes
+three instructions: DEC $x$ $(a + 3)$, then INC 0, then DEC 0 $j'$, where $j'$ is the host address
+of $j$'s block. If register $x$ is positive, the first takes one off and jumps to $a + 3$, the
+start of the next block, which is what the counter machine does. If it is 0, the run goes on to
+INC 0, which raises register 0 to one more than it held, and DEC 0 $j'$ finds it positive, takes
+the one back off and jumps to $j'$, which is the counter machine's jump at zero, with register 0
+as it was. The relation: the same registers, at corresponding addresses. Each counter-machine step
+is matched by one or three host steps. The host program has no CHECK, COMMIT, CERTIFY or PAY, and
+INC and DEC change only a register and the line, at no marks, so every host state in the run has
+the start's facts, channel, trap latch, ledger and flag. The counter machine's step is total, the
+host is deterministic, and the simulation argument gives: the host program halts with register
+$\mathit{out} + 1$ equal to $y$ exactly when the counter program leaves its code with that
+register equal to $y$.
+
+\emph{Guest.} The host program's registers $r_0, \ldots, r_{k-1}$ are packed into the guest's
+counter $B$ as $\prod_i p_i^{r_i}$, one prime $p_i$ per register, with counter $A$ the spare. That
+is the packing of Appendix~\ref{sub:prime-packing}, with the two counters' jobs swapped. The
+relation: the guest is at the start of the block for the matching instruction, $B$ holds the code
+of the registers, and $A$ is 0. An INC on register $i$ is the stretch that multiplies $B$ by
+$p_i$; a DEC on register $i$ is the stretch that divides $B$ by $p_i$ with remainder and takes the
+positive branch when the remainder is 0, the zero branch otherwise, restoring $B$. The appendix
+argues each stretch: it ends, because each of its loops empties the counter it counts down; it
+lands with $A$ at 0; and, by unique factorisation, it changes the exponent of $p_i$ alone, by the
+right amount. The host's step is total on these programs and the guest is deterministic, so the
+simulation argument gives: the guest halts with $B$ coding registers whose register
+$\mathit{out} + 1$ is $y$, that is, with $y$ the exponent of that register's prime in $B$, exactly
+when the host program halts with that register at $y$. The guest has no record instruction, so its
+ledger stays 0 and its flag down.
+
+\emph{$U_P$.} $U_P$ is $U$ with one more branch, for a guest PAY, and this guest has no PAY and no
+record instruction, so on it $U_P$ runs only branches $U$ has. Theorem~\ref{thm:u34-U-sim} gives
+the one-step matching from a freshly loaded host, and Theorem~\ref{thm:u34-U-halting}: $U_P$ halts
+exactly when the guest does, with its registers 0 and 1 holding the guest's $A$ and $B$, and its
+ledger and flag equal to the guest's. So it halts with register 0 at 0, register 1 the code with
+$y$ in it, ledger 0 and flag down.
+
+\emph{The runner.} The runner keeps the host program and the registers in binary tries, a tree
+indexed by the bits of a number. Looking up an index and storing at one give what the finite map
+they stand for gives: induction on the bits of the index. So each round of the runner's loop does
+exactly what one host step does to the same registers, and the runner stops when the line leaves
+the program or the fuel is spent. If it halts after $k$ rounds, the host run of $k$ steps is
 halted at the end of the program with the runner's registers, and the fuel left is the fuel given
-less $k$; when the source program has a derivation there is such a $k$; and when the runner hasn't
-halted, it used all its fuel, the host is still running after that many steps, and every
-derivation of the source program needs more.
+less $k$. If the source program has a derivation, the arrows above give a halting host run, of
+some length $k$, and the host, being deterministic, has only that run; any fuel of at least $k$
+makes the runner take those $k$ steps and stop. If the runner hasn't halted, it used every unit of
+fuel on host steps that stayed inside the program, so the host is still running after that many
+steps, and a derivation, which would give a halting host run of some length $k$, would need $k$
+larger than the fuel.
+
+Composing: the program computes $y$ exactly when the unfolded program does, exactly when the flat
+program halts with $y$, exactly when the counter program does, exactly when the host program does,
+exactly when the guest halts with $y$ coded in $B$, exactly when $U_P$ halts as stated, and exactly
+when the runner halts with $y$ on some fuel.
 \end{proof}
 
 The theorem says nothing about how many steps the compiled program takes next to the source.
