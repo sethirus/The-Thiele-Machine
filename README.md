@@ -9,6 +9,7 @@
 
 That is how I see this work.
 I think computation has structure that a description of what it reads and writes leaves out.
+And keeping that structure is never free: anything a machine keeps and can't take back is paid for in heat, room or time. The count that says so is in the book; which of the three a device pays is physics.
 
 **What the Thiele Machine is.**
 It is an abstract model of computation.
