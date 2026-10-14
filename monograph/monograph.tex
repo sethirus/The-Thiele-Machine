@@ -2248,22 +2248,6 @@ Then I hit a wall, and it is the wall this whole document is about. Z3 could set
 
 What survived the whole trip from there to here is not the code. Not one line of it. By the time the arguments took shape, every line of that first renderer had been thrown out and rewritten at least twice, probably more, and good riddance to all of it. What survived was a single architectural commitment I made early and never once let anyone talk me out of: structure is the state itself, the actual thing the machine runs on. It is no metaphor laid over some realer state underneath. Category theory was the first language I found for that structure. It is not what the model is. The model asks for a state, a step, a record, a ledger, and a window, and category theory appears nowhere in that list. It lived on for a while in a bigger machine I built on the way here, a fifty-one-instruction virtual machine with its own chip design, whose partition graph (groups, and arrows between them) was, in different words and different syntax, the same object as the category structure that came together in that first week and first ran morphisms correctly at two in the morning. That machine was useful for building and confusing for everything else, so it's set aside now, kept but out of this book. What building it showed me is that six instruction kinds were enough for everything this book needs, and that the big one was mostly in the way. I did not write that code, not then and not now. I directed the models and refused everything they handed me until the morphisms composed the way the shape said they had to. The morphisms in that early code were objects that remembered where they came from; the records in the small machine I ended up with remember where they came from too, and you can walk up to one and challenge it. The receipt grew teeth. But the shape itself never moved. The shape was the substrate the entire time, and everything else, every renderer and language and proof, was me slowly learning to see what I had already built. By the shape I mean structure held as state. Not category theory. Category theory was just the first language I had for it.
 
-I can date the sentence this book turns on, because the first version of it I wrote was
-wrong, and in public. The first thing I put up, in August 2025, said that the true cost of
-seeing structure is information, that a machine blind to structure pays that cost in time
-instead, and that energy and time were the exhaust of how a machine settles the debt. I called
-the unit a $\mu$-bit and I called it a physical law. The law part was a postulate in a law's
-clothes, and the exponential gap I hung on it, resolution against Gaussian elimination on
-Tseitin formulas, was a known fact, Urquhart's lower bound from 1987 on one side and linear
-algebra on the other, not mine. By October I had written the cost of narrowing $N$
-possibilities to $M$ as the logarithm of $N$ over $M$ and chained it to Landauer. By January it
-was one sentence, the machine can see structure but it has to pay for what it sees, and the
-partition had moved inside the state. What's left of all that, after a year of trying to knock
-it down, is Section~\ref{sec:a2-not-arbitrary} and Section~\ref{sec:entitlement}: a thing a
-machine keeps and can't take back is paid for in heat, room or time, and the bits a run narrows
-are at most the moves it paid for. The currency was right on the first day. The physics, the
-exchange rate and the speed-up were not, and they're gone.
-
 Formal verification was a graveyard of dead ends further on. The hardware came after that, in the bigger machine I set aside, and none of it is in this book. Every step pulled back to show another layer underneath that I had not known was there, and I mean that plainly: I did not know what a Turing machine was when I started, I did not know most of the words in this document existed. I learned each one the same way, by walking face-first into a wall that needed it and not being let past until I had it. The needing always came first. The learning came after, dragged along behind the needing because it had no say in the matter.
 
 Large language models were my hands the whole way through, and I want the division of labor exact, because it is the thing people most want to get wrong about work like this. The hands had nothing like this to draw on: no reference implementation, no prior project to point at. The ideas, the architecture, the direction, the demand that the thing be true: those are mine, all of them, no asterisk. The symbol-pushing, the code and the formal derivations, the models produced. So I read every statement. A derivation can settle an empty question, and I had to refuse that too. However the symbols got onto the page, the argument on it is checkable by reading, and it would be exactly as right or as wrong if a million monkeys had typed it. The monkeys could not have refused.
@@ -21906,8 +21890,6 @@ this book's pointer thesis.
 
 \noindent United States of America Standards Institute (1967). USA Standard Code for Information Interchange, USAS X3.4-1967. The revision that added the lower-case letters, one bit away from the capitals.
 \par\medskip
-
-\noindent Alasdair Urquhart (1987). Hard examples for resolution. Journal of the ACM 34(1), pp. 209--219. \href{https://doi.org/10.1145/7531.8928}{DOI: 10.1145/7531.8928}.
 
 \noindent Leslie G. Valiant (1990). A bridging model for parallel computation. Communications of the ACM 33(8), pp. 103--111. \href{https://doi.org/10.1145/79173.79181}{DOI: 10.1145/79173.79181}. The bulk-synchronous parallel (BSP) model.
 \par\medskip
