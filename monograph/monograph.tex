@@ -4168,9 +4168,9 @@ door three is about whether they must.) Nothing in counting stops you from setti
 claim about the world does. The nearest such claim is Landauer's, and I have to be exact
 about the gap between the two: the premise as written charges \emph{every} forgetting move,
 whether or not you knew which state you were in, and Landauer's own heat, as the coin under
-the cup below will show, is owed only for what you didn't know. Merge pricing keeps only a yes-or-no distinction: whether any pair can merge. It is
-motivated by the one-bit reset, but does not itself measure the full worst-case entropy
-loss or the heat of a particular preparation. The counting needs that abstract price rule.
+the cup below will show, is owed only for what you didn't know. Merge pricing keeps only a yes-or-no distinction: whether any pair can merge. The one-bit
+reset is where it comes from, and it measures neither the full worst-case entropy loss nor
+the heat of any particular preparation. The counting needs only that rule.
 
 Here is what Landauer said, in 1961, as exactly as I can put it. I went past the
 summaries and read the paper itself. A logical operation with no single-valued inverse (a step that
@@ -4636,10 +4636,9 @@ none unless they land together; the even spread on two that do loses exactly one
 \end{proof}
 
 So merge pricing is weaker than full entropy pricing, though both force the
-one-mark toll under the permanence and finiteness premises. The mathematical
-prices are rules on instructions. A physical interpretation additionally needs
-Landauer's premise for the actual distribution and an explicit conversion from
-bits or marks to thermal quantities.
+one-mark toll under the permanence and finiteness premises. The prices are rules on
+moves. Reading one as physics takes Landauer's premise for the actual spread and a
+stated exchange rate from bits or marks to heat.
 
 Now the zero. Toss a fair coin under a cup without looking at how it lands. Rule: set it heads up. You might have
 had tails; now you have heads; one bit of what you didn't know is gone, and that's the bit the
@@ -4731,8 +4730,7 @@ with equal chances: that instruction removes one bit, and under the adopted phys
 premise its mean heat is at least $k_B T\ln2$. That is a worst-case preparation, not a
 positive charge on every execution. A known start gives no positive entropy-loss floor;
 whether a device can attain zero heat also depends on its dynamics and controls. The
-ledger charges the merging instruction regardless of the preparation because merge
-pricing explicitly requires that. The counting proves a collision, the preparation
+ledger charges the merging move whatever the preparation, because merge pricing says so. The counting proves a collision, the preparation
 determines the uncertainty removed, and the physical premises connect that removal to heat.
 
 Here's the general case, and it's the one that shows you where the bits go. Split the bill
@@ -4900,16 +4898,19 @@ to.
 
 And ``permanent'' is an idealization, which I should say before a physicist does. No physical
 record lasts forever. A bit held behind an energy barrier leaks over it at some rate, however
-slow, and a closed finite system comes back around, which is Zermelo's point from the chairs.
+slow, and a closed finite system comes back around, which is Zermelo's point from the chairs
+(Theorem~\ref{thm:reversible-keeps-nothing} is the finite form).
 The theorems in this section need permanence on every state, including states the machine
 never visits, forever. Weaken that to ``the flag stays up on the states that actually turn up,
 for as long as anyone cares,'' and merge-or-revoke tells you what goes wrong: the move could
 take the flag down somewhere nobody ever looks, and then it isn't forced to merge at all. A
-version of the toll stated in chances and time spans would be a different theorem, and I
-don't have it.
+version of the toll stated in chances is the noisy chairs of Section~\ref{sec:what-a-chair-is}:
+a step that squeezes nothing on average can't raise a reading that stays, and one that can
+strictly bunches the even spread. A version stated in time spans is a different theorem, and
+what I have of it is below.
 
-One piece of it I can hand you. Take
-one move and repeat it from one start, forever. On a finite machine the states that run passes through are
+One piece of it I can hand you, and the step law of Section~\ref{sec:what-a-chair-is} is its
+general form. Take one move and repeat it from one start, forever. On a finite machine the states that run passes through are
 finitely many, so it falls into a loop. If the move forgot nothing on those states, it would
 be a reshuffle of them, and a reshuffle brings every one of them back around, the start
 included, where the flag was down. So if the flag goes up along that run and stays up from
@@ -5056,8 +5057,10 @@ the averaged leaving time minus what's still running, and as time runs on it clo
 $\pi(\mathrm{up})$ over the flow. Mass over flow, in seconds. The bound's two premises are both
 checked now, in steps and in seconds.
 
-The next section is about a different door entirely. Forgetting has had its section; the
-question now is whether \emph{finding out} costs, because the demon's whole trick was that it knew which way the
+Two sections remain in this part. The first says what a chair is, because the whole argument
+has stood on chairs without my saying, and takes the count to the bottom. The second is about
+a different door entirely. Forgetting has had its section; the question after that is whether
+\emph{finding out} costs, because the demon's whole trick was that it knew which way the
 molecule was going, and I owe you a straight answer on whether knowing is free.
 
 %===========================================================================
@@ -5435,7 +5438,7 @@ the quantum chairs and time's bill, each proved, each with its instance in a lab
 \label{sec:narrowing}
 %===========================================================================
 
-I ended the last section owing you an answer about knowing. The bill so far sits on
+I ended the section on the toll owing you an answer about knowing. The bill so far sits on
 forgetting: under merge pricing, a finite machine's permanent flag-raising instruction
 was paid for because it merges two states somewhere. But
 there's a thing that looks like the opposite of forgetting and feels like it ought to cost
@@ -5444,11 +5447,11 @@ it did. If forgetting a bit costs, does learning one cost too? I had a strong fe
 this, and you probably have it too, so here it is first: learning is the expensive part. Most
 physicists had that feeling as well, for a long time. It's why the demon took a hundred and fifteen
 years to exorcise. Or didn't. ``Exorcise'' is the word the people who think it worked like to
-use. John Earman and John Norton, the doubters from the last section, called their two-part
+use. John Earman and John Norton, the doubters from the toll section, called their two-part
 paper on it ``Exorcist XIV: The Wrath of Maxwell's Demon,'' and I read that Roman numeral as a
 joke about how many times the demon has been declared gone. So hold the word loosely. This section is me finding out where the feeling
 goes wrong. I'm going to tell you the version where the exorcism worked, because it's the version that says
-where the bill goes, and the door from the last section stays open behind it.
+where the bill goes, and the door from the toll section stays open behind it.
 
 \subsection{A small being at a small door}
 
@@ -5692,7 +5695,7 @@ foils the demon, erasure drops out of the bill, and Bennett's free copy fails as
 lists, so it stands either way. What hangs on her is whether a real demon can look for nothing,
 which is the same door the next paragraph's doubter pushes on.
 
-And the doubter from the last section cuts this side too, so I owe it to you, since I leaned
+And the doubter from the toll section cuts this side too, so I owe it to you, since I leaned
 on him there. In 2013 John Norton argued for a no-go result: at the scale of molecules, thermal
 jiggling keeps any process that's supposed to be thermodynamically reversible from ever
 actually finishing, and finishing it takes more entropy than Landauer's amount. If he's right,
@@ -5772,7 +5775,7 @@ separate them. This half never uses the price at all.
 
 \subsection{What the toll prices, said at last}
 
-Now I can say, more precisely than I could two sections ago, what the mark in Section~\ref{sec:toll} is a mark
+Now I can say, more precisely than I could in the toll section, what the mark in Section~\ref{sec:toll} is a mark
 for. Not for learning. What you know can be narrowed at no cost, with nothing merged, on
 some machines under some honest price lists, and the demon is one. Not for
 looking, not for copying, not for finding out. The mark
@@ -5794,7 +5797,7 @@ and he calls choosing in a sense the inverse of erasing, because branching is th
 merging; the toll comes from a merge, the opposite shape. His stability is for a while: he says
 stabilization means something only on times that aren't too long next to the time it takes
 things to thermalize, and past that nothing stays chosen; my permanence is forever (and the
-last section owned up that forever is an idealization). And he doesn't stand beside Bennett at
+toll section owned up that forever is an idealization). And he doesn't stand beside Bennett at
 all: he holds that any measurement is dissipative, credits the point to the philosopher of
 science Hans Reichenbach, and
 doesn't cite Bennett. So what Rovelli and I share is a sentence, that a choice that sticks

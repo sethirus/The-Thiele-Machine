@@ -4466,23 +4466,23 @@ equal or different, a move that never turns the reading off and turns it on some
 they merge, and they revoke.
 
 4.5 Door three: forget for free
-The third door is the easiest to describe and the hardest to argue about, so I’ll describe it and
-then spend the rest of the section on the argument. Take a sheet of paper and let its reading be
-just BLANK or STAMPED. One move: stamp it if blank, and leave it alone if already stamped.
-Finite, two readings. Permanent: STAMPED stays STAMPED. Flip: BLANK goes to STAMPED.
-Both possible readings now end at STAMPED. The paper’s fibres, the ink and your memory are
-outside this two-state description; the merge is a loss from the reading, not the disappearance of
-every physical trace. Everything the room argument needs is here, and the move merges. Now
-set the price of that move to zero. The toll fails, and you can watch it fail: the flag went up for
-nothing. What walked out the door is the charge on forgetting. (A price of one on that move
-satisfies all three premises, so the premises can hold together; door three is about whether they
-must.) Nothing in counting stops you from setting that price to zero. Only a claim about the world
-does. The nearest such claim is Landauer’s, and I have to be exact about the gap between the two:
-the premise as written charges every forgetting move, whether or not you knew which state you
-were in, and Landauer’s own heat, as the coin under the cup below will show, is owed only for
-what you didn’t know. Merge pricing keeps only a yes-or-no distinction: whether any pair can
-merge. It is motivated by the one-bit reset, but does not itself measure the full worst-case entropy
-loss or the heat of a particular preparation. The counting needs that abstract price rule.
+The third door is the easiest to describe and the hardest to argue about, so I’ll describe it and then
+spend the rest of the section on the argument. Take a sheet of paper and let its reading be just
+BLANK or STAMPED. One move: stamp it if blank, and leave it alone if already stamped. Finite,
+two readings. Permanent: STAMPED stays STAMPED. Flip: BLANK goes to STAMPED. Both
+possible readings now end at STAMPED. The paper’s fibres, the ink and your memory are outside
+this two-state description; the merge is a loss from the reading, not the disappearance of every
+physical trace. Everything the room argument needs is here, and the move merges. Now set the
+price of that move to zero. The toll fails, and you can watch it fail: the flag went up for nothing.
+What walked out the door is the charge on forgetting. (A price of one on that move satisfies all
+three premises, so the premises can hold together; door three is about whether they must.) Nothing
+in counting stops you from setting that price to zero. Only a claim about the world does. The
+nearest such claim is Landauer’s, and I have to be exact about the gap between the two: the premise
+as written charges every forgetting move, whether or not you knew which state you were in, and
+Landauer’s own heat, as the coin under the cup below will show, is owed only for what you didn’t
+know. Merge pricing keeps only a yes-or-no distinction: whether any pair can merge. The one-bit
+reset is where it comes from, and it measures neither the full worst-case entropy loss nor the heat
+of any particular preparation. The counting needs only that rule.
 Here is what Landauer said, in 1961, as exactly as I can put it. I went past the summaries and read
 the paper itself. A logical operation with no single-valued inverse (a step that forgets, in this book’s
 words) must produce heat, “typically of the order of kT” per operation, where k is Boltzmann’s
@@ -4913,14 +4913,14 @@ spread on two states loses at most one bit, and none unless they land together; 
 two that do loses exactly one.
 
 So merge pricing is weaker than full entropy pricing, though both force the one-mark toll under the
-permanence and finiteness premises. The mathematical prices are rules on instructions. A physical
-interpretation additionally needs Landauer’s premise for the actual distribution and an explicit
-conversion from bits or marks to thermal quantities.
+permanence and finiteness premises. The prices are rules on moves. Reading one as physics takes
+Landauer’s premise for the actual spread and a stated exchange rate from bits or marks to heat.
 Now the zero. Toss a fair coin under a cup without looking at how it lands. Rule: set it heads up.
 You might have had tails; now you have heads; one bit of what you didn’t know is gone, and that’s
 the bit the principle charges for. Now lift the cup, see heads, put the cup back, and apply the rule
 again. Nothing you didn’t know changed. No bit was lost. And the principle, applied to a state you
 already knew, demands nothing: the premise holds exactly when the heat is zero or more, which is
+to say it sets no positive floor. The entropy-loss bound depends on the preparation and on what
 
 
                                                         84
@@ -4928,7 +4928,6 @@ already knew, demands nothing: the premise holds exactly when the heat is zero o
 
 
 
-to say it sets no positive floor. The entropy-loss bound depends on the preparation and on what
 the move does to it. Here “known” means a preparation concentrated on one logical state, or a
 conditional ensemble whose side information is explicitly included in the account. Merely telling
 a spectator which way the coin landed does not change an unchanged device’s heat. This is the
@@ -4979,6 +4978,7 @@ zero is proportional to                                           
                                    k B T ln(1/ε) Pr C (C (m)) ̸= m .
 The probability is over the initial memory states. This is a low-error scaling with physical premises,
 not an exact finite-error heat charge on every execution.
+A permanent flip from no to yes is nonreciprocal at that no-state: a second application cannot return
 
 
 
@@ -4987,7 +4987,6 @@ not an exact finite-error heat charge on every execution.
 
 
 
-A permanent flip from no to yes is nonreciprocal at that no-state: a second application cannot return
 it to no. A known input at that state can then face the extra work cost in their restricted control
 setting, even though its initial logical entropy is zero. Their class also includes a three-state cycle,
 which merges nothing. The distinction is about the permitted controls as well as the logical map. It
@@ -5008,9 +5007,9 @@ has two allowed starting states that land on one state. Prepare those two with e
 that instruction removes one bit, and under the adopted physical premise its mean heat is at least
 k B T ln 2. That is a worst-case preparation, not a positive charge on every execution. A known
 start gives no positive entropy-loss floor; whether a device can attain zero heat also depends on its
-dynamics and controls. The ledger charges the merging instruction regardless of the preparation
-because merge pricing explicitly requires that. The counting proves a collision, the preparation
-determines the uncertainty removed, and the physical premises connect that removal to heat.
+dynamics and controls. The ledger charges the merging move whatever the preparation, because
+merge pricing says so. The counting proves a collision, the preparation determines the uncertainty
+removed, and the physical premises connect that removal to heat.
 Here’s the general case, and it’s the one that shows you where the bits go. Split the bill state by
 state. Each state x you might be in carries its chance p( x ) along to where it lands, step( x, i ), and
 finds whatever other chance landed there too. If nobody else landed there, its term is zero. If others
@@ -5042,6 +5041,7 @@ forgets something or takes a flag down somewhere else. Pure counting, no physics
 beyond finiteness, and the half of it where nothing comes down is the four chairs. You’ve earned
 this: on a finite machine, if a flag, once up, stays up, then raising it has a collision somewhere. If
 it raises several no-states at once, the yes-states together with those newcomers land on at least
+that many fewer spots than there are of them. This does not say that each newcomer shares its
 
 
                                                            86
@@ -5049,7 +5049,6 @@ it raises several no-states at once, the yes-states together with those newcomer
 
 
 
-that many fewer spots than there are of them. This does not say that each newcomer shares its
 destination. Counting again. And you’ve earned this: if forgetting is charged for, the toll follows,
 and if forgetting is charged per halving, the size of the toll follows too; each of those derivations
 hands back a system with the five parts and the toll, so Section 3’s floor applies to it as it stands.
@@ -5101,6 +5100,7 @@ CERTIFY takes a state with the flag down and the same state with the flag up to 
 flag that’s already up just stays up. Its COMMIT overwrites the channel, so two states that differ
 only in what the channel names land on one state. Both are checked. So any price list that charges
 every merge of that machine’s own step charges the flag-raising step, and finiteness never comes
+into it.
 
 
                                                    87
@@ -5108,7 +5108,6 @@ every merge of that machine’s own step charges the flag-raising step, and fini
 
 
 
-into it.
 That leaves the other miss, the free merges. Clause (c) of Thiele-complete, in Part IV, asks for base
 moves at zero, and a base move merges (DEC, counting a counter down, lands two states on one),
 so full merge pricing and clause (c) can’t both hold on that machine. They don’t have to. Split a
@@ -5160,6 +5159,8 @@ standing behind a structural fact, the “vouching” I keep promising and keep 
 question for the machine of Part IV, and here it has moved exactly this far: on a finite machine that
 charges for every merge, if that flag stays up, it was paid for.
 One last thing, because it should nag at you. The toll is forced by the premises, but the premises
+were chosen, and “permanent” in particular was chosen by me. Why should a certificate stay
+
 
 
                                                        88
@@ -5167,7 +5168,6 @@ One last thing, because it should nag at you. The toll is forced by the premises
 
 
 
-were chosen, and “permanent” in particular was chosen by me. Why should a certificate stay
 up? Why not let it come down, pay nothing, and be honest about it? That’s a fair question, and
 merge or revoke is the start of an answer (the three-card machine only showed that the converse
 of Corollary 4.6 fails): on a finite machine that charges for every merge, a flag that goes up for free
@@ -5178,21 +5178,24 @@ was built around it; I chose it. Whether that was the right job to pick out of t
 you can argue with me about, and I’d want you to.
 And “permanent” is an idealization, which I should say before a physicist does. No physical record
 lasts forever. A bit held behind an energy barrier leaks over it at some rate, however slow, and a
-closed finite system comes back around, which is Zermelo’s point from the chairs. The theorems
-in this section need permanence on every state, including states the machine never visits, forever.
-Weaken that to “the flag stays up on the states that actually turn up, for as long as anyone cares,”
-and merge-or-revoke tells you what goes wrong: the move could take the flag down somewhere
-nobody ever looks, and then it isn’t forced to merge at all. A version of the toll stated in chances
-and time spans would be a different theorem, and I don’t have it.
-One piece of it I can hand you. Take one move and repeat it from one start, forever. On a finite
-machine the states that run passes through are finitely many, so it falls into a loop. If the move
-forgot nothing on those states, it would be a reshuffle of them, and a reshuffle brings every one of
-them back around, the start included, where the flag was down. So if the flag goes up along that
-run and stays up from some point on, the move merges two states the run itself visits. The shared
-chair is one the machine actually sits in. And it doesn’t touch the known-state point above: a merge
-among states the run visits still receives no positive lower bound from the entropy-loss premise
-when its state is known. The argument holds for any map iterated from a start whose flag is down,
-with the flag up at every step from some point on; no permanence premise is used.
+closed finite system comes back around, which is Zermelo’s point from the chairs (Theorem 5.5 is
+the finite form). The theorems in this section need permanence on every state, including states the
+machine never visits, forever. Weaken that to “the flag stays up on the states that actually turn up,
+for as long as anyone cares,” and merge-or-revoke tells you what goes wrong: the move could take
+the flag down somewhere nobody ever looks, and then it isn’t forced to merge at all. A version of
+the toll stated in chances is the noisy chairs of Section 5: a step that squeezes nothing on average
+can’t raise a reading that stays, and one that can strictly bunches the even spread. A version stated
+in time spans is a different theorem, and what I have of it is below.
+One piece of it I can hand you, and the step law of Section 5 is its general form. Take one move and
+repeat it from one start, forever. On a finite machine the states that run passes through are finitely
+many, so it falls into a loop. If the move forgot nothing on those states, it would be a reshuffle of
+them, and a reshuffle brings every one of them back around, the start included, where the flag was
+down. So if the flag goes up along that run and stays up from some point on, the move merges
+two states the run itself visits. The shared chair is one the machine actually sits in. And it doesn’t
+touch the known-state point above: a merge among states the run visits still receives no positive
+lower bound from the entropy-loss premise when its state is known. The argument holds for any
+map iterated from a start whose flag is down, with the flag up at every step from some point on;
+no permanence premise is used.
 Runs that mix different moves split two ways, and the answer is short enough to give here. If the
 moves are picked from outside, in any order at all, the answer is no. Take two states, one reading no
 and one reading yes. One move swaps them; the other does nothing. Run the swap once and then
@@ -5217,8 +5220,6 @@ down-state. Left to run, it settles into a long-run spread π. Measure each up o
 its entrance, with entrances sampled in the stationary process, and call the mean lengths Tup and
 Tdown . Start the device in a known no-state s. The total entropy it produces over relaxation is at
 least ln(1 + Tup /Tdown ), in units of k B .
-The argument is three lines once the pieces have names. With fixed rates, total entropy production
-
 
 
                                                    89
@@ -5226,6 +5227,7 @@ The argument is three lines once the pieces have names. With fixed rates, total 
 
 
 
+The argument is three lines once the pieces have names. With fixed rates, total entropy production
 is at least the drop in relative entropy to π; that follows from Massimiliano Esposito and Christian
 Van den Broeck’s split of entropy production (2010). A known start s has relative entropy − ln π (s),
 at least − ln π (no), and the relative entropy runs down to zero as the device settles. The stationary
@@ -5276,7 +5278,6 @@ chance. No state is ever out of reach in one step, and none is favoured so heavi
 starve. Under that condition each step shrinks the distance between where the device is and where
 it’s going by the factor 1 − δ, so the distance dies off geometrically and the spread converges to π
 at every state. Here’s the payoff for the bound. The entropy produced from the known start stays
-under − ln π (s), and it also gets there: after T steps it falls short by at most (4/m)(1 − δ)2T , where
 
 
 
@@ -5285,6 +5286,7 @@ under − ln π (s), and it also gets there: after T steps it falls short by at 
 
 
 
+under − ln π (s), and it also gets there: after T steps it falls short by at most (4/m)(1 − δ)2T , where
 m is the smallest long-run chance of any state. So − ln π (s) is the exact total entropy production of
 the whole relaxation, in units of k B , and the bound − ln π (s) is reached.
 For rates satisfying detailed balance with π, the same equality holds when the device hops at
@@ -5326,15 +5328,15 @@ leaves the up-states. That chance starts at one and falls at least as fast as e�
 spent up, which is that chance added up over time, comes out to the averaged leaving time minus
 what’s still running, and as time runs on it closes in on π (up) over the flow. Mass over flow, in
 seconds. The bound’s two premises are both checked now, in steps and in seconds.
-The next section is about a different door entirely. Forgetting has had its section; the question
-now is whether finding out costs, because the demon’s whole trick was that it knew which way the
-molecule was going, and I owe you a straight answer on whether knowing is free.
+Two sections remain in this part. The first says what a chair is, because the whole argument has
+stood on chairs without my saying, and takes the count to the bottom. The second is about a
+different door entirely. Forgetting has had its section; the question after that is whether finding out
+costs, because the demon’s whole trick was that it knew which way the molecule was going, and I
+owe you a straight answer on whether knowing is free.
 
 5 What a chair is
 The last section stood on chairs from its first line and never said what a chair is. Here it is, and once
 it’s said, every result in that section turns out to be one result wearing different clothes.
-A chair is a distinction that stays. A cell on a tape that reads 0, and not 1, and not blank. A bead
-sitting in the left well and not the right. A flag that is up. Anything the world can tell apart from
 
 
                                                    91
@@ -5342,6 +5344,8 @@ sitting in the left well and not the right. A flag that is up. Anything the worl
 
 
 
+A chair is a distinction that stays. A cell on a tape that reads 0, and not 1, and not blank. A bead
+sitting in the left well and not the right. A flag that is up. Anything the world can tell apart from
 something else and keeps telling apart. The chairs theorem counted chairs and charged for sharing
 them. This section asks what it costs for a chair to be there at all, and what every step of every
 machine does to the chairs it has, and answers both with proofs. Every theorem here is checked by
@@ -5391,8 +5395,6 @@ no merge, no fresh chair after that, nothing. The step law assumed every state h
 a machine that stops its clock dodges it. Close the hole either way and the bill comes back. Say the
 halted state’s next state is itself, which is what every deterministic model of halting says, and the
 halt is a merge: the moving state and the halted state both land on the halted state. Or keep the
-machine physically stopped, and something has to hold it there, a barrier, a hill, a latch, which is a
-chair paid for before the run began. The cost of halting hides in holding.
 
 
 
@@ -5400,6 +5402,9 @@ chair paid for before the run began. The cost of halting hides in holding.
 The Thiele Machine                                                                                     Devon Thiele
 
 
+
+machine physically stopped, and something has to hold it there, a barrier, a hill, a latch, which is a
+chair paid for before the run began. The cost of halting hides in holding.
 
 Theorem 5.2 (Halting). A partial step, one that may have no next state, can raise a permanent reading on
 two states with no two states sharing a next state. Totalising it, with the halted state stepping to itself, makes
@@ -5450,9 +5455,6 @@ A fact is a distinction that stays. A kept distinction is a chair you can’t gi
 is the thing whose state includes the chairs it can’t give back.
 It doesn’t stop at the cell. The tape is a set of distinctions that stayed. So is the rule for the next state,
 and so is the question you ask of a chair. Each of the five parts of the model is itself a definite thing
-where there could have been anything, which is to say each is an instance of the thing the model
-charges for. And the model does contain itself, in the only way a model can: by running itself. A
-Thiele machine runs any Thiele machine as a guest, its own self included, and the host’s ledger
 
 
                                                          93
@@ -5460,6 +5462,9 @@ Thiele machine runs any Thiele machine as a guest, its own self included, and th
 
 
 
+where there could have been anything, which is to say each is an instance of the thing the model
+charges for. And the model does contain itself, in the only way a model can: by running itself. A
+Thiele machine runs any Thiele machine as a guest, its own self included, and the host’s ledger
 carries the guest’s bill; that is the universal program of Part IV (Theorem 17.35) and the nesting
 theorem (Theorem 19.4). The tower is the same machine above and below. What no level does is
 hold all the questions you can ask of it: for any way of coding readings as states, there’s a reading
@@ -5510,9 +5515,6 @@ Real chairs are noisy. The bead hops on its own. So take the step to be a table 
 chair, the chance of landing on each chair next, every row adding to one. A permanent reading is a
 set of chairs you never leave once you’re in it. And “no merge” has an exact noisy meaning: the
 step preserves the even spread. Start with everybody spread evenly over the chairs, take one step,
-and they’re still spread evenly; which is to say every column of the table adds to one as well as
-every row. That’s a step that squeezes nothing on average.
-
 
 
 
@@ -5521,6 +5523,8 @@ every row. That’s a step that squeezes nothing on average.
 
 
 
+and they’re still spread evenly; which is to say every column of the table adds to one as well as
+every row. That’s a step that squeezes nothing on average.
 Then the chairs theorem holds word for word. A step that preserves the even spread cannot raise a
 permanent reading from any chair outside it, not with small chance, with none. Count the chance
 flowing into the yes-chairs from everywhere. Column by column that’s one per yes-chair, so it
@@ -5571,14 +5575,15 @@ forever, taking a fresh rung every time. The two quantum stories about a measure
 columns. A reading that stays, which no unitary step can raise in finite dimension, is paid either
 by a step that isn’t unitary, which squeezes, which is heat, or by room, a ladder of states that never
 comes back around. Collapse is the heat column and branching is the room column, and the finite
-building forbids the free one. The experiments that go looking for the heat of collapse are asking
-the universe which column it pays; I come back to them below.
 
 
                                                         95
 The Thiele Machine                                                                                  Devon Thiele
 
 
+
+building forbids the free one. The experiments that go looking for the heat of collapse are asking
+the universe which column it pays; I come back to them below.
 
 Theorem 5.7 (Quantum chairs). On a finite-dimensional space, let a unitary map a subspace into itself.
 Then it maps the orthogonal complement into itself: a state orthogonal to the subspace remains orthogonal
@@ -5680,7 +5685,7 @@ never a way out: that is the step law, the noisy chairs, the quantum chairs and 
 proved, each with its instance in a laboratory.
 
 6 Learning is free, committing is not
-I ended the last section owing you an answer about knowing. The bill so far sits on forgetting:
+I ended the section on the toll owing you an answer about knowing. The bill so far sits on forgetting:
 under merge pricing, a finite machine’s permanent flag-raising instruction was paid for because it
 merges two states somewhere. But there’s a thing that looks like the opposite of forgetting and feels
 like it ought to cost at least as much, probably more. Finding out. Every time a machine rules out a
@@ -5688,7 +5693,7 @@ possibility, it knows more than it did. If forgetting a bit costs, does learning
 strong feeling about this, and you probably have it too, so here it is first: learning is the expensive
 part. Most physicists had that feeling as well, for a long time. It’s why the demon took a hundred
 and fifteen years to exorcise. Or didn’t. “Exorcise” is the word the people who think it worked
-like to use. John Earman and John Norton, the doubters from the last section, called their two-part
+like to use. John Earman and John Norton, the doubters from the toll section, called their two-part
 paper on it “Exorcist XIV: The Wrath of Maxwell’s Demon,” and I read that Roman numeral as a
 
 
@@ -5699,7 +5704,7 @@ paper on it “Exorcist XIV: The Wrath of Maxwell’s Demon,” and I read that 
 
 joke about how many times the demon has been declared gone. So hold the word loosely. This
 section is me finding out where the feeling goes wrong. I’m going to tell you the version where the
-exorcism worked, because it’s the version that says where the bill goes, and the door from the last
+exorcism worked, because it’s the version that says where the bill goes, and the door from the toll
 section stays open behind it.
 
 6.1 A small being at a small door
@@ -5922,7 +5927,7 @@ after all: once the physics of a real measurement is put back in, it’s measure
 foils the demon, erasure drops out of the bill, and Bennett’s free copy fails as physics. The theorem
 above is about price lists, so it stands either way. What hangs on her is whether a real demon can
 look for nothing, which is the same door the next paragraph’s doubter pushes on.
-And the doubter from the last section cuts this side too, so I owe it to you, since I leaned on him there.
+And the doubter from the toll section cuts this side too, so I owe it to you, since I leaned on him there.
 In 2013 John Norton argued for a no-go result: at the scale of molecules, thermal jiggling keeps
 any process that’s supposed to be thermodynamically reversible from ever actually finishing, and
 
@@ -6000,7 +6005,7 @@ that agree at the first look are, on a two-state machine, all the states there a
 one value everywhere and no later look can separate them. This half never uses the price at all.
 
 6.7 What the toll prices, said at last
-Now I can say, more precisely than I could two sections ago, what the mark in Section 3 is a mark
+Now I can say, more precisely than I could in the toll section, what the mark in Section 3 is a mark
 for. Not for learning. What you know can be narrowed at no cost, with nothing merged, on some
 machines under some honest price lists, and the demon is one. Not for looking, not for copying, not
 for finding out. The mark is for the one thing in Section 4 that couldn’t be done without merging,
@@ -6019,7 +6024,7 @@ branching, one possibility splitting into two, and he calls choosing in a sense 
 because branching is the inverse of merging; the toll comes from a merge, the opposite shape. His
 stability is for a while: he says stabilization means something only on times that aren’t too long
 next to the time it takes things to thermalize, and past that nothing stays chosen; my permanence is
-forever (and the last section owned up that forever is an idealization). And he doesn’t stand beside
+forever (and the toll section owned up that forever is an idealization). And he doesn’t stand beside
 Bennett at all: he holds that any measurement is dissipative, credits the point to the philosopher of
 science Hans Reichenbach, and doesn’t cite Bennett. So what Rovelli and I share is a sentence, that
 a choice that sticks costs something like Landauer’s bill. There’s no shared mechanism. Push on
