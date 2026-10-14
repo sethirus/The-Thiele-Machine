@@ -510,7 +510,7 @@ It also keeps the disclosure of the hardware embodiment (certification opcodes, 
 
 ```bibtex
 @misc{thielemachine2026,
-  title        = {The Thiele Machine: A Computational Model with Explicit Structural Cost},
+  title        = {The Thiele Machine: No Free Insight},
   author       = {Thiele, Devon},
   year         = {2026},
   version      = {4.1.0},
