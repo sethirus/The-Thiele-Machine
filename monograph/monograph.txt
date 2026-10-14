@@ -405,9 +405,9 @@ something, is never free. It gives off heat by happening, and keeping it is paid
 or in room, on any machine there is.
 Two: so every machine already carries it. A machine has to tell a blank from a 0, or nothing happens;
 every machine is made of kept distinctions, and pays this bill at every write, billions of times a
-second, with no account kept. The cell itself is the smallest Thiele machine: I found it, I didn’t
-invent it. What I added is the meter, a count in the step itself, so the step that makes something stay
-is the step that’s charged.
+second, with no account kept. I found that bill, I didn’t invent it; the cell is where it starts. What I
+added is the meter, a count in the step itself, so the step that makes something stay is the step that’s
+charged.
 Three: structure is made of exactly this. A 0 is the smallest structure there is: the ways a cell could
 be, sorted into piles, and one pile held. A grouping, an order, a relation a later move leans on, a
 fact somebody found out and wrote down: each is a distinction that stays, on the same bill as the 0.
@@ -606,25 +606,27 @@ merges two, or it goes round a loop. That’s proved, for any machine at all (Th
 Put the two together on the smallest machine there is, the cell. Three states: blank, 0 and 1. One
 move: write a 0. One reading: “the cell is definite,” which once yes stays yes. Writing the 0 turns
 the reading on and lands blank and 0 on the same state. That’s a merge, so it pays, and only endless
-room gets around it (Theorem 1.4). That cell already has every part of the Thiele Machine: states, a
-move, a reading that stays, and a step that has to pay to raise it. It’s the smallest Thiele machine,
-and every computer that can tell a blank from a 0 carries one at every write. I didn’t invent it. I
-found it. What I added is the meter: a count, in the step itself, of what the keeping costs.
+room gets around it (Theorem 1.4). That cell already has every part of the Thiele Machine but one:
+states, a move, a reading that stays, and a step that pays to raise it whether anybody counts or not.
+The part it lacks is a price list, the meter, and any price list that charges merges has to charge that
+write. With the meter on, it’s the smallest Thiele machine, and every computer that can tell a blank
+from a 0 pays the same bill at every write. I didn’t invent it. I found it. What I added is the meter: a
+count, in the step itself, of what the keeping costs.
 Computer science has always counted what a computation costs. How many steps it takes is time.
 How many cells it needs is room. Whole fields rest on those two counts, and on the models built to
 make them exact: the random-access machine of the computer scientists Stephen Cook and Robert
 Reckhow (1973), which charges each instruction a unit; the cell-probe model (1981) of Andrew Yao,
 which counts only the memory cells a program reads; the input-output model of Alok Aggarwal
 and Jeffrey Vitter (1988), which counts only the blocks moved between a small fast memory and a
-large slow one. Each of those computes exactly what Turing’s machine computes. They differ only
-in what they count, and the counting is the reason to have them. Manuel Blum gave two axioms in
 
 
                                                    11
-The Thiele Machine                                                                         Devon Thiele
+The Thiele Machine                                                                           Devon Thiele
 
 
 
+large slow one. Each of those computes exactly what Turing’s machine computes. They differ only
+in what they count, and the counting is the reason to have them. Manuel Blum gave two axioms in
 1967 for any measure of computational cost at all; they name no machine and say what every cost
 has to satisfy.
 Time counts the steps and room counts the cells, and both are counts of something made of distinc-
@@ -634,19 +636,22 @@ and a fast one can keep the same thing. It isn’t the space count either, thoug
 two ways to pay it: a machine with a fixed memory pays it by merging, over and over, in the same
 cells, and its space count never moves. It’s the count nobody kept.
 So here’s the Thiele Machine, written down. It’s a model of computation, math you can reason
-about, the way Turing’s machine is. It has five parts and one rule. A set of states. A set of moves.
-A step that takes a state and a move to the next state. A price on each move, a whole number of
-marks. And a reading of the state, yes or no, that once yes stays yes: something has been made to
-stay. The rule, which I call the toll: a step that turns the reading from no to yes costs at least one
-mark. The toll sits on the raise, not on the merge, so it charges the keep whichever way it’s paid,
-merge or room. Two more pieces come in when a result needs them: a counter in the state that adds
-up the marks and only climbs, which is the ledger, and a window, what an outside observer gets to
-see. The toll’s first name, the one I gave it before I understood it, is No Free Insight.
-It computes nothing new, any more than the cell-probe model does. What it adds is a place, in the
-step itself, for what a computation made the case and what that cost. Which reading? Any reading
-that, once yes, stays yes. The blank cell’s “it’s a 0 now” is one. “This list has been put in order” is
-one. “This claim was checked and closed” is one. The model doesn’t care which; the toll is the same
-rule for all of them, and Part I derives it from the bill, on stated premises.
+about, the way Turing’s machine is. It has five parts and one rule. A set of states. A set of moves. A
+step that takes a state and a move to the next state. A price on each move, a whole number of marks.
+And a reading of the state, yes or no. The rule, which I call the toll: a step that turns the reading
+from no to yes costs at least one mark. The toll sits on the raise, not on the merge, so it charges the
+keep whichever way it’s paid, merge or room. Two more pieces come in when a result needs them:
+a counter in the state that adds up the marks and only climbs, which is the ledger, and a window,
+what an outside observer gets to see. The toll’s first name, the one I gave it before I understood it,
+is No Free Insight.
+It computes nothing new, any more than the cell-probe model does. What it adds is a place, in
+the step itself, for what a computation made the case and what that cost. Which reading? Any
+yes-or-no reading at all; the toll charges every step that turns it on. The readings this book cares
+about are the ones that, once yes, stay yes, because those are the kept distinctions and keeping is
+what the bill is for. The blank cell’s “it’s a 0 now” is one. “This list has been put in order” is one.
+“This claim was checked and closed” is one. The model doesn’t care which, and for readings that
+stay, Part I derives the toll from the bill, on stated premises. A reading that flips back and forth isn’t
+a record of anything: Part II calls it a toggle and proves it’s the latch of no event (Section 10).
 One what, and why one? One mark, in the model’s own count. One because it’s the least a whole-
 number count can charge and still not be free, and the toll only says not free. A mark isn’t a joule.
 What ties it to heat is Landauer’s principle, named, and nothing else.
@@ -671,18 +676,18 @@ and each one it keeps is paid for the way the 0 is. Part II goes through the peo
 with the word structure, from Pythagoras to category theory, and comes out at that: structure is
 distinctions held in a state.
 That gives insight an exact meaning, a narrower one than you might want, and I’ll be honest about
+
+
+                                                   12
+The Thiele Machine                                                                          Devon Thiele
+
+
+
 how narrow. Finding something out doesn’t have to pay the merge. Bennett showed that you
 can write down what you see on a blank page without merging anything, so Landauer’s floor
 isn’t owed; the page is what you spend, and it can be handed back while the original is still there.
 Making it stay is what pays. Learning borrows, committing pays. The insight the toll prices is the
 committed kind: a distinction made to stay. Whether that narrower thing deserves the word is a
-
-
-                                                  12
-The Thiele Machine                                                                          Devon Thiele
-
-
-
 fair thing to argue about, and Part I argues it, where learning and committing get pulled apart.
 Then Part II asks what follows, on any machine, once a distinction is kept and the keeping is
 charged. The ledger is a chair too: a number that only climbs takes a fresh value for every mark. A
@@ -729,11 +734,6 @@ Every claim in this book has a status and I’ll tell you which, every time. Her
 once, in the order of the four steps, so you know what I’m on the hook for.
 Proved, step one. A machine with only one state changes nothing, so everything starts from states
 that can be told apart. On any machine with one next state for every state, finite or endless, every
-step lands on a fresh state, merges two states into one, or goes round a loop, and a run that keeps
-a reading up can’t be on a loop through its start, so it merges somewhere or spends fresh room
-at every step. Heat or room. The same holds for steps that are noisy and for quantum steps, it
-holds whatever the zoom (when a coarse picture merges, a finer picture it’s exact about merges too,
-spends fresh room, or has no end), and for a bounded memory the room runs out at an exact count.
 
 
                                                   13
@@ -741,6 +741,11 @@ spends fresh room, or has no end), and for a bounded memory the room runs out at
 
 
 
+step lands on a fresh state, merges two states into one, or goes round a loop, and a run that keeps
+a reading up can’t be on a loop through its start, so it merges somewhere or spends fresh room
+at every step. Heat or room. The same holds for steps that are noisy and for quantum steps, it
+holds whatever the zoom (when a coarse picture merges, a finer picture it’s exact about merges too,
+spends fresh room, or has no end), and for a bounded memory the room runs out at an exact count.
 With finitely many states reading yes and a reading that never comes down, every move that raises
 it merges states, which is the chairs. That a merge carries a heat floor is Landauer’s premise, and
 that every step a real device finishes gives off heat is cited physics; neither is proved here.
@@ -787,11 +792,6 @@ a ledger form of the core underneath. And that core, step one’s bill, is old m
 pigeonhole principle, Dedekind’s 1888 definition of infinite and the finite heart of Ernst Zermelo’s
 1896 recurrence argument, with Landauer and Bennett on merging and Thomas Ouldridge and
 David Wolpert’s 2023 price in entropy on the merges a finite automaton can’t avoid. What I’d
-defend most is there, at the bottom: the arrangement, one law with three columns and no fourth,
-for deterministic, noisy and quantum steps alike, with two small exact lemmas, the chair count
-and the bill at every scale, and the reading of it, that the cell every computer writes on is already a
-Thiele machine.
-
 
 
                                                   14
@@ -799,6 +799,10 @@ Thiele machine.
 
 
 
+defend most is there, at the bottom: the arrangement, one law with three columns and no fourth,
+for deterministic, noisy and quantum steps alike, with two small exact lemmas, the chair count
+and the bill at every scale, and the reading of it, that the cell every computer writes on is already a
+Thiele machine.
 What this book is not. Not a solution to P versus NP, and not a complexity-class separation of any
 other kind. Not a theory of everything. Not a claim that computation is physics, or that physics is
 computation. Not a physics result: Landauer’s principle enters only as a premise with its name on

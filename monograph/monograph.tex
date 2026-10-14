@@ -248,8 +248,8 @@ in a merge or in room, on any machine there is.
 
 \emph{Two: so every machine already carries it.} A machine has to tell a blank from a 0, or nothing
 happens; every machine is made of kept distinctions, and pays this bill at every write, billions of
-times a second, with no account kept. The cell itself is the smallest Thiele machine: I found it,
-I didn't invent it. What I added is the meter, a count in the step itself, so the step that makes
+times a second, with no account kept. I found that bill, I didn't invent it; the cell is where it
+starts. What I added is the meter, a count in the step itself, so the step that makes
 something stay is the step that's charged.
 
 \emph{Three: structure is made of exactly this.} A 0 is the smallest structure there is: the ways a
@@ -465,8 +465,10 @@ Put the two together on the smallest machine there is, the cell. Three states: b
 move: write a 0. One reading: ``the cell is definite,'' which once yes stays yes. Writing the 0 turns
 the reading on and lands blank and 0 on the same state. That's a merge, so it pays, and only endless
 room gets around it (Theorem~\ref{thm:write-merge}). That cell already has every part of the Thiele
-Machine: states, a move, a reading that stays, and a step that has to pay to raise it. It's the
-smallest Thiele machine, and every computer that can tell a blank from a 0 carries one at every write.
+Machine but one: states, a move, a reading that stays, and a step that pays to raise it whether
+anybody counts or not. The part it lacks is a price list, the meter, and any price list that charges
+merges has to charge that write. With the meter on, it's the smallest Thiele machine, and every
+computer that can tell a blank from a 0 pays the same bill at every write.
 I didn't invent it. I found it. What I added is the meter: a count, in the step itself, of what the
 keeping costs.
 
@@ -490,7 +492,7 @@ cells, and its space count never moves. It's the count nobody kept.
 So here's the Thiele Machine, written down. It's a model of computation, math you can reason about,
 the way Turing's machine is. It has five parts and one rule. A set of states. A set of moves. A step
 that takes a state and a move to the next state. A price on each move, a whole number of marks. And
-a reading of the state, yes or no, that once yes stays yes: something has been made to stay. The rule,
+a reading of the state, yes or no. The rule,
 which I call the toll: a step that turns the reading from no to yes costs at least one mark. The toll
 sits on the raise, not on the merge, so it charges the keep whichever way it's paid, merge or room. Two
 more pieces come in when a result needs them: a counter in the state that adds up the marks and only
@@ -498,10 +500,14 @@ climbs, which is the ledger, and a window, what an outside observer gets to see.
 name, the one I gave it before I understood it, is No Free Insight.
 
 It computes nothing new, any more than the cell-probe model does. What it adds is a place, in the
-step itself, for what a computation made the case and what that cost. Which reading? Any reading
-that, once yes, stays yes. The blank cell's ``it's a 0 now'' is one. ``This list has been put in
-order'' is one. ``This claim was checked and closed'' is one. The model doesn't care which; the toll
-is the same rule for all of them, and Part~I derives it from the bill, on stated premises.
+step itself, for what a computation made the case and what that cost. Which reading? Any yes-or-no
+reading at all; the toll charges every step that turns it on. The readings this book cares about are
+the ones that, once yes, stay yes, because those are the kept distinctions and keeping is what the
+bill is for. The blank cell's ``it's a 0 now'' is one. ``This list has been put in order'' is one.
+``This claim was checked and closed'' is one. The model doesn't care which, and for readings that
+stay, Part~I derives the toll from the bill, on stated premises. A reading that flips back and forth
+isn't a record of anything: Part~II calls it a toggle and proves it's the latch of no event
+(Section~\ref{sec:latch}).
 
 One what, and why one? One mark, in the model's own count. One because it's the least a
 whole-number count can charge and still not be free, and the toll only says \emph{not free}. A mark
