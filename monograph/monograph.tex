@@ -4475,7 +4475,7 @@ $m + k$ states, the move removes at least $\log_2 \frac{m+k}{m}$ bits.
 \begin{proof}
 After the move, all the chance sits on the $m$ yes-states (permanence for the old ones,
 the hypothesis for the new). There is at least one yes-state: the image of a state that
-flips. Thus $m\ge1$. Write $q_1,\ldots,q_r$ for the positive output probabilities,
+flips. So $m\ge1$. Write $q_1,\ldots,q_r$ for the positive output probabilities,
 where $r\le m$ and their sum is $1$.
 
 For $y>0$, $\ln y\le y-1$: the derivative of $y-1-\ln y$ is $1-1/y$, so its minimum
@@ -4485,7 +4485,7 @@ is $0$ at $y=1$. Apply this with $y=1/(m q_j)$, multiply by $q_j$, and add:
 \;\le\;\sum_{j=1}^{r}(1/m-q_j)=r/m-1\;\le\;0.
 \]
 Dividing by $\ln2>0$ gives $H(q)\le\log_2 m$. The even input spread has
-$m+k$ probabilities each $1/(m+k)$, hence $H(p)=\log_2(m+k)$. Subtracting the
+$m+k$ probabilities each $1/(m+k)$, so $H(p)=\log_2(m+k)$. Subtracting the
 output bound gives the claimed loss $\log_2((m+k)/m)$.
 \end{proof}
 
@@ -4952,7 +4952,7 @@ Massimiliano Esposito and Christian Van den Broeck's split of entropy production
 A known start $s$ has relative entropy $-\ln\pi(s)$, at least $-\ln\pi(\mathrm{no})$,
 and the relative entropy runs down to zero as the device settles. The stationary chances
 of up and down have the ratio of their mean stretch lengths, because crossings up and
-down balance. Hence $-\ln\pi(\mathrm{no})=\ln(1+T_{\mathrm{up}}/T_{\mathrm{down}})$.
+down balance. So $-\ln\pi(\mathrm{no})=\ln(1+T_{\mathrm{up}}/T_{\mathrm{down}})$.
 
 For a large up-to-down ratio, doubling that ratio raises this lower bound by about
 $k_B\ln2$. Making both stretches longer by the same factor leaves it unchanged. Across
@@ -5575,7 +5575,7 @@ states reachable after the rest of the run from the shrunk set are exactly those
 after the whole run from the original. Add the costs.
 \end{proof}
 
- The run itself is the witness;
+The run itself is the witness;
 nothing else is handed in. That will matter in Section~\ref{sec:entitlement}, and I'll say why at the end of this
 section.
 
@@ -6282,7 +6282,7 @@ if it reads yes.
 \begin{theorem}[The toll is the potential method]\label{thm:potential}
 (1) The toll holds exactly when every step has non-negative amortized cost under
 $\Phi_\mathrm{cert}$. (2) For any $\Phi$ with non-negative amortized cost and any run $t$ from
-$s$, $\mathrm{cost}(t) + \Phi(\mathrm{run}(t, s)) \ge \Phi(s)$. (3) Hence, under the toll,
+$s$, $\mathrm{cost}(t) + \Phi(\mathrm{run}(t, s)) \ge \Phi(s)$. (3) So, under the toll,
 a run from a no-state to a yes-state costs at least $1 - 0 = 1$.
 \end{theorem}
 
@@ -6982,7 +6982,7 @@ $E_U(s,(t,b))\iff E_0(s,t)$ does not.
 
 \begin{proof}
 For the full-state verifier, an explaining state is precisely the last entry. Reading
-that entry's counter therefore accepts exactly when the explaining state's counter is
+so that entry's counter accepts exactly when the explaining state's counter is
 $1$. An empty transcript is rejected and has no explaining state.
 
 For the commitment verifier, acceptance says $b$ is true. Binding then gives the claim
@@ -6992,7 +6992,7 @@ The equivalence in $E_H$ gives both implications directly. Under $E_U$, however,
 $B$ explains $(\tau,\mathrm{true})$ even though $\mu(B)=0$. That violates binding.
 
 For the response verifier, explanation gives $\mu(s)=r$. Acceptance adds $r=1$,
-so $\mu(s)=1$. Conversely, $\mu(s)=1$ and explanation give $r=1$, hence acceptance.
+so $\mu(s)=1$. Conversely, $\mu(s)=1$ and explanation give $r=1$, so it accepts.
 The three cost claims follow from the assigned constant.
 \end{proof}
 
@@ -7025,7 +7025,7 @@ same window, and no function on bare transcripts is sound and complete for ``the
 Observation~\ref{thm:u34-tc-window}(2) gives a loaded state and two runs from it that end with the
 same window, one with the record up and one with it down, and, from one clean loaded state, two runs with the same window, one whose ledger rose by at least 3 and
 one made of free base moves that leaves the ledger where it started (that observation's proof builds it).
- Both end states explain the same bare transcript. A verifier
+Both end states explain the same bare transcript. A verifier
 complete for the claim accepts that transcript, since a state where the claim holds explains it;
 a verifier sound for the claim then makes the claim true of every state that explains it,
 including the one where it's false. That's (1), and (2) is the same with the ledger: the paid run's end state satisfies the claim, and the free run's doesn't. For (3) the
@@ -7073,7 +7073,7 @@ contract and assumed outright, and the unchecked bit above shows what's left wit
 why I won't say these escapes beat a cheater. Blum's paper is the kind of thing it would take,
 and nothing like it is in this chapter.
 
-Now point the three escapes back at the record we have been constructing, because that's where they
+Now point the three escapes back at the record I've been building, because that's where they
 bite hardest. A record kept in a machine's state is bits too. Hand someone outside a copy of
 those bits with a note saying ``the flag is up,'' and they're reading a window: the run that
 really raised the flag and a box built to print that it did cast the same shadow. So putting the
@@ -8104,9 +8104,9 @@ property of one counter at one edition, and where those sit in the state, comes 
 \label{sec:latch}
 %===========================================================================
 
-For the whole book so far I've been building up a thing with a flag and a counter, and a
-fair reader is entitled to suspect that the whole apparatus is special pleading for one
-machine, the one I keep promising to build. So here's the section that answers the suspicion
+For the whole book so far I've been building up a thing with a flag and a counter, and
+you'd be right to suspect that the whole apparatus is special pleading for one machine, the
+one I keep promising to build. So here's the section that answers the suspicion
 with no particular machine in it at all, and sees what's left. Take \emph{any} machine that steps deterministically: a Turing
 machine, a register machine (a few numbered boxes that each hold a whole number, and a
 program that adds, subtracts and jumps), a lambda calculus (Alonzo Church's way of computing by nothing
@@ -9403,7 +9403,7 @@ spread the loss grows past every bound. No finite information budget covers that
 You can generate the first spread by tossing a fair coin until the first head.
 Zero tails names state 0, one tail names state 1, and so on. State $j$ has chance
 $2^{-(j+1)}$, and identifying that outcome takes $j+1$ toss-results. Its entropy
-term is therefore $(j+1)/2^{j+1}$. Add these by counting each possible toss position:
+term is then $(j+1)/2^{j+1}$. Add these by counting each possible toss position:
 the first is reached with chance 1, the second with chance $1/2$, the third with
 chance $1/4$, and so on. The total is $1+1/2+1/4+\cdots=2$; every finite partial
 sum of the state terms is smaller. Resetting all those outcomes to one box can
@@ -9890,20 +9890,20 @@ code (a program that prints its own source needs exactly this move), and a \emph
 combinator}, a term that lets a function call itself, which is how $Q$ works its way through
 a code of any size.
 
-Work two substitutions on paper before taking the general rule. Write
-$I=\lambda x.x$: its instruction is ``return whatever you were handed.'' Applying
-$I$ to the card bearing $I$ gives $I\,I\to I$, and stops. Now write
+Do two of these on paper before I give you the general rule. Write
+$I=\lambda x.x$: its instruction is ``return whatever you were handed.'' Hand
+$I$ its own card and you get $I\,I\to I$, and it stops. Now write
 $D=\lambda x.x\,x$: ``make two copies of what you were handed and apply the first
-to the second.'' Hand it its own card. Substituting $D$ for both occurrences of
-$x$ gives $D\,D\to D\,D$. You are back at precisely the same instruction and
-argument, so repeating the rule never finishes. Both arguments were already
-functions; neither example sneaks work under an unopened function.
+to the second.'' Hand it its own card. Putting $D$ in for both copies of
+$x$ gives $D\,D\to D\,D$. You're back at exactly the same instruction and
+argument, so the rule never finishes. Both arguments were already
+functions, so neither example sneaks any work under a function that hasn't been handed anything.
 
-The variable numbers keep this copying unambiguous. In $\lambda x.\lambda y.x$,
-the final $x$ refers past the nearest binder $y$ to the next one, so its number
-is 1; in $\lambda x.\lambda y.y$ the final variable has number 0. Renaming $x$
-and $y$ changes neither recipe. The codes below are a way of putting the whole
-recipe on a card that another recipe can inspect.
+The variable numbers are what keep the copying from getting confused. In $\lambda x.\lambda y.x$,
+the last $x$ points past the nearest $\lambda$ (the one for $y$) to the one before it, so its number
+is 1; in $\lambda x.\lambda y.y$ the last variable has number 0. Rename $x$
+and $y$ however you like and neither recipe changes. The codes below are a way of putting a whole
+recipe on a card that another recipe can read.
 
 \begin{definition}[L, as built here]\label{def:u12-L}
 A term of L is a variable (a de Bruijn number), an application $s\,t$, or an abstraction
@@ -9922,7 +9922,7 @@ $p \equiv q$ and $P(p)$ give $P(q)$.
 
 \begin{theorem}[Recursion, Rice and halting for L]\label{thm:u12-L}
 (1) For every closed value $s$ there is a closed term $t$ that reaches
-$s\,\ulcorner t \urcorner$; hence every L-computable $f$ has a term $p$ with $p \equiv f(p)$.
+$s\,\ulcorner t \urcorner$; so every L-computable $f$ has a term $p$ with $p \equiv f(p)$.
 (2) Let $P$ be extensional, with $P(y)$ and not $P(n)$ for closed terms $y$ and $n$. Then no
 closed term decides $P$. (3) No closed term decides halting, the property of evaluating to
 some value.
@@ -10037,12 +10037,11 @@ somewhere you take on the system's own word. A record sits on the explicit side.
 Push on that and it gives, because a receipt is only as good as whoever wrote it. Its trust rests
 on the checker meaning what it says, and that gets settled once, from outside the machine.
 That's where I chose to stop this machine's chain of reasons. Gödel's second theorem does not
-forbid a machine from checking a proof about a checker. It limits a sufficiently strong,
-effectively axiomatized theory's ability to prove its own consistency, if the theory is
-consistent. Eliezer Yudkowsky and Marcello Herreshoff's 2013 draft on agents that trust their
+forbid a machine from checking a proof about a checker. What it limits is a system's ability to prove \emph{its own} consistency, when the system
+is strong enough to do arithmetic and its axioms can be listed by a machine. Eliezer Yudkowsky and Marcello Herreshoff's 2013 draft on agents that trust their
 own rewrites describes a related problem, the Löbian obstacle: how an agent can justify
-trust in a successor's proofs. The relation is worth examining, but it does not prove that
-my design is forced. So I didn't get rid of the receipt somewhere. I moved it out of the
+trust in a successor's proofs. That's a cousin of this question, and it doesn't settle it, and it doesn't make
+my design the only one possible. So I didn't get rid of the receipt somewhere. I moved it out of the
 machine and handed it to whoever reads the record.
 
 One more thing follows from the same picture, by a short argument. Can a record rest on itself, the way the sentence ``this
@@ -10053,8 +10052,8 @@ be the claim a certificate stands on. Saul Kripke's 1975 theory of truth calls a
 that, one that only ever leans on itself, ungrounded, and earned records are grounded in his
 sense: every one bottoms out in a check that didn't lean on it. Caspar Oesterheld's 2019 work on
 programs that cooperate by simulating each other needed a grounding step of the same kind to stop
-an infinite regress. There is no separate formal derivation of this argument; the claim is exactly what this
-paragraph says.
+an infinite regress. I haven't written this argument out anywhere else; the claim is exactly what this
+paragraph says, and it's short enough to check by hand.
 
 One last distinction, because the two are easy to conflate and conflating them is the
 easiest way to misread this book. There's a \emph{second} wall, nothing to do with the diagonal.
@@ -10192,7 +10191,7 @@ a double vote the same way. Otherwise it starts below $v_1$ and lands above $v_1
 surrounds the finalization link of $h_1$, and the intersection set made a surround vote.
 \end{proof}
 
-The model takes quorum intersection and the accountable-safety setting as premises. Its guarantees are conditional on those premises.
+Everything the fragment promises stands on those two premises, the overlap and the one parent. Take either away and it promises nothing.
 
 \begin{theorem}[The premise can hold, and the write is free]\label{thm:u13-casper-instances}
 (1) In the three-validator setting where each validator has stake 1, $Q_1$ is the sets of
@@ -10299,18 +10298,15 @@ alone has net charge 22100.
 charge is at least 0 when the current value is 0 and at least 20000 when it is not. For the fresh original value 0, the four cases are short. Zero to zero adds 100
 to net; zero to nonzero adds 20000; nonzero to nonzero adds 100; and nonzero to
 zero adds $100-19900=-19800$. The last case starts with net at least 20000 and
-therefore ends at least 200, still nonnegative. A cold access adds another 2100
+so ends at least 200, still nonnegative. A cold access adds another 2100
 in any case. These updates preserve the invariant, and a fresh slot satisfies it. (2) Direct
 computation: $2100 + 20000 = 22100$ for the first store, $100$ for the second, refund
 $19900$, and $22200 - 19900 = 2300$.
 \end{proof}
 
-The arithmetic follows the execution specification's storage instruction and gas table.
-The end-of-transaction refund cap of one fifth is not in the fragment.
-
-The fragment: one slot, one transaction, the gas and refund arithmetic transcribed from the
-Ethereum execution specification at a named commit. No stack, no call context, no other
-slots, and \emph{no refund cap}.
+The fragment: one slot, one transaction, the gas and refund arithmetic copied out of the
+Ethereum execution specification's storage instruction and gas table, at a named commit. No stack, no call context, no other
+slots, and \emph{no refund cap}, the one-fifth rule applied at the end of a transaction.
 
 Then the wrapper, which is a different kind of object, and the walk near the end is about
 exactly that difference. It's a \emph{gas schedule} in the abstract: any states, any steps, a cost
@@ -10488,9 +10484,10 @@ equal, since the quote never reads the flag, so $D$ would have to return both va
 input.
 \end{proof}
 
-Any yes-or-no claim about $\delta(\text{register})$ can be read off the quote. But a scheme whose
-verification always says yes satisfies the sign-and-verify interface while accepting a
-signature no key produced.
+Anything that depends only on $\delta(\text{register})$, the quote can answer; that's what it's
+for. And the companion result is the one I mentioned: a ``signature'' scheme whose check always says yes
+fits the sign-and-verify interface perfectly and accepts a signature no key ever made, so the
+interface on its own promises nothing.
 
 \subsection{Certificate transparency: visible, unpriced}
 
@@ -10544,10 +10541,11 @@ must have exactly the same bracket structure.
 To check $d_3$, keep only that card and the three siblings $d_2,a,R$.
 Combine $d_2$ on its left to recover $b$, then $a$ on the left to recover $L$,
 then $R$ on the right to recover the root. You never needed to open the cards
-inside $a$ or $R$. That is the inclusion path. These are symbolic hashes, so
-this trial checks the tree's assembly; real short hashes need a separate
-cryptographic argument. There are no signatures, gossip between auditors or
-misbehaving logs in this fragment.
+inside $a$ or $R$. That's the inclusion path. The hashes here are brackets, not numbers,
+so what you just checked is how the tree is put together; a real log uses short hashes, and
+``two different trees can't give the same root'' is then a separate promise from the
+cryptography. Nothing in this fragment signs anything, no auditors talk to each other, and no
+log misbehaves.
 
 \begin{definition}[Inclusion check, RFC 9162 section 2.1.3.2]\label{def:u13-inclusion}
 Given a leaf index $m$, a tree size $N$, a leaf hash, a root hash and a path, the check
@@ -10594,7 +10592,8 @@ new root $\nu(L,R)$, with final counters $(0,0)$. The boundary case $m=N$
 fails the first test $m<N$.
 \end{proof}
 
-The append-only history is list append: appending keeps every old entry.
+And the append-only part of the fragment is as plain as it sounds: the history is a list,
+and adding to the end of a list leaves every old entry where it was.
 
 \subsection{Proof-carrying code: no price, no permanence}
 
@@ -10720,9 +10719,9 @@ Proof-carrying code & none, and nothing is kept & none & none & the checker is t
 \end{longtable}
 \endgroup
 
-Each row proves what its own transcription says. Reading a row as a claim about a deployed
-system takes evidence from that system, and no row shows that certification is the one event
-every model has to price.
+Each row proves what its own transcription says, and no more. To read a row as a claim about
+the running system you'd need evidence from that system, and no row shows that certification
+is the one event every model has to price.
 
 So the thing my toy charges for, the moment the record is written, is charged a fee in one of the five
 specifications I read, and in that one the designers had to patch the place where the charge
@@ -10745,18 +10744,18 @@ time? I have a guess. It's a thesis, and I'll show you how to kill it.
 \label{sec:pointer}
 %===========================================================================
 
-The structural results leave a choice open. A base-driven permanent record is a
-latch on an event, and the event is free to choose (Section~\ref{sec:latch}, the two
+Everything so far leaves one choice open. A permanent record driven by the machine is a
+latch on an event, and the event is yours to pick (Section~\ref{sec:latch}, the two
 cups on one die). Five real systems each picked a different one
-(Section~\ref{sec:models}). For the worked case in this book I picked certification.
-This chapter asks whether that choice has a reason beyond the construction: is there
-something about how people and machines rely on records that selects this event?
+(Section~\ref{sec:models}). For the machine in this book I picked certification.
+So I owe you an answer to the obvious question: is that just my choice, or is there
+something about how people and machines lean on records that picks this event out?
 
-I have a thesis, in the sense the Church-Turing thesis is one
-(Section~\ref{sec:structure}): a claim tying defined notions to the world. Its fate
-matters to that choice of event. The latch, the windows and the counting arguments
-use their stated premises whichever event a system records. Here is the claim,
-where I got it, what can be checked, and how to kill it.
+What I have is a thesis, in the sense the Church-Turing thesis is one
+(Section~\ref{sec:structure}): a claim tying defined things to the world, which no proof
+can settle. Whether it stands or falls is what decides whether the choice of event was free.
+Nothing before it depends on it; the latch, the windows and the counting arguments hold
+whichever event a system records. Here's the claim, where I got it, what can be checked, and how to kill it.
 
 \subsection{The claim}
 
@@ -10959,13 +10958,14 @@ Ask each reader to recover one shared event using only their own card. Suppose
 that event is false at no/no and true at yes/yes. At no/yes, the first reader
 sees exactly what they saw in the false case, while the second sees exactly
 what they saw in the true case. Their answers conflict. That mixed arrangement
-is what the independence condition supplies in the proof.
+is exactly what the independence condition hands the proof.
 
 Now impose a copying procedure that only leaves no/no or yes/yes. On those
 reachable arrangements each reader can report the shared bit correctly.
-Separate cards are possible carriers; correlated reachable contents make them
-copies. The theorem concerns exact recovery on \emph{all} arrangements, including
-the mixed ones that this copying procedure never leaves behind.
+Separate cards are things that \emph{could} carry a copy; what makes them copies is that
+the arrangements you actually reach have the two agreeing. The theorem below is about
+recovering the event exactly on \emph{all} arrangements, the mixed ones included, which
+the copying never leaves behind.
 
 \begin{theorem}[Independent copies on every state: the event is equivalent at any two states]\label{thm:u14-independent-constant}
 In any ecosystem with reliance whose carriers are independent and which has at least two observers,
@@ -10980,7 +10980,7 @@ observer 0's part from $s$ and observer 1's from $t$. Then the event at $s$ is $
 event at $t$ the same way through observer 1.
 \end{proof}
 
- So
+So
 separate parts of the world can each carry an exact copy of a real record only on the states the
 world actually reaches, where the copying made them agree, and that's why the definition asks for
 copies on a set $R$ of reachable states. Zurek's copies are the same: the light carries the
@@ -11104,7 +11104,7 @@ is false. (2) Observer 0's fragment is true exactly when the event holds. Apply 
 the state (true, true). The other two refutations apply (1) to a blind observer of their own model (the object-capability map gives the token holder the bit and the other two constant false; the public-log map gives all three the logged bit), and the two confirmations hold by definition.
 \end{proof}
 
- The theorem is about the observer maps. That a third
+The theorem is about the observer maps, and only them. That a third
 party in deniable authentication really cannot be convinced is the modelling claim, and the
 model has no transcript, key or verifier in it to check that against.
 
@@ -11201,9 +11201,9 @@ five specifications, read through my transcriptions, one charges a fee at the wr
 For the choice of event, the pointer thesis proposes certification and lists how
 that proposal could fail (Section~\ref{sec:pointer}).
 
-One accounting question remains: do the structural requirements select the toll
-alone? A short list of requirements leaving only one price would settle that choice.
-The requirements I tried do not do it, and
+One question about the bill itself is still open: do the requirements I've put on a price
+pick out the toll and nothing else? If a short list of them left only one price standing,
+that would settle it. The lists I tried don't, and
 the no is small enough to check on three states. Call them blank, once and twice, with once and
 twice reading yes. The flip takes blank to once and leaves the other two where they are. The
 smooth takes both once and twice to twice and leaves blank alone. The smooth forgets something, so
@@ -11271,10 +11271,10 @@ So the machine in this book is a small one. I want the state and every way of
 changing it where you can inspect them. Six instruction kinds, and you can follow how
 a check stays tied to an object, how a change makes it stale, and how the next move
 uses that relation. Each kind takes operands, a counter or a property or a line to
-jump to, so there are unboundedly many instructions. This is one construction of
-the model; the theorems will say which facts depend on these particular choices.
-Smallest, in this chapter's title, is my account of building it. No comparison
-class, measure of size or proof of minimality stands behind the word.
+jump to, so there are unboundedly many instructions. It's one way of building the
+model, not the only one, and the theorems will say which facts hang on these particular choices.
+``Smallest,'' in the title, is me telling you how I built it: by throwing things out until
+nothing more would go. I haven't got a proof that nothing smaller works, and I'm not claiming one.
 
 \subsection{What the model actually asks for}
 
@@ -11329,12 +11329,13 @@ What Minsky proved, by hand, is that two bins are enough to compute anything a T
 compute, as long as you're willing to pack the input in a strange way. The trick is to keep
 many numbers inside one number, as the powers of different primes ($2^x 3^y 5^z$ holds
 three numbers in one), and to do arithmetic on the exponents by multiplying and dividing
-with the second bin as scratch space. That representation can turn a modest input
-into an enormous pile, handled one pebble at a time. It is a way to establish
-universality: the two bins can express every Turing computation under the encoding.
-Here they give me a base whose ordinary moves are easy to inspect. The structural
-results each say which properties of a base they need; Section~\ref{sec:every-model}
-carries the earned layer to other bases under explicit interface conditions.
+with the second bin as scratch space. Packing numbers that way can turn a modest input
+into an enormous pile of pebbles, handled one at a time, so it's no way to build a fast
+machine. It's a way to settle a question: with that packing, the two bins can do every
+Turing computation. What the bins give me here is a base whose ordinary moves you can see
+all of. Each of the earlier results says which properties of a base it needs, and
+Section~\ref{sec:every-model} carries the earned layer over to other bases once you've named
+what they have to supply.
 
 Who cares? Minsky did, because the question then was where the edge of computation sits and
 how little machinery reaches it. You should, because it means the base of this chapter's
@@ -11537,11 +11538,11 @@ check that passed. Three links, and each one costs.
 
 One of what? One unit of $\mu$, the same unit as Section~\ref{sec:toll}'s toll. Why one? Why would ten be worse? Because one
 is the smallest positive whole number, which is honestly the whole defence, and Section~\ref{sec:a2-not-arbitrary} is the
-section where I tried to do better than that for the flag. The finite whole-machine argument doesn't apply here: these counters are unbounded
-and some base moves merge for free. The record-layer argument in
-Theorem~\ref{thm:record-merge-toll} does give the toll if record-layer merges are
-priced. Choosing that premise and choosing a unit for each of these three acts
-remain choices of the model.
+section where I tried to do better than that for the flag. The argument for a whole finite machine doesn't reach this one: these counters have no top,
+and some of the base moves merge states for free. What does reach it is
+Theorem~\ref{thm:record-merge-toll}, which gives the toll once you've agreed to price a merge
+in the record's own part of the state. Agreeing to that, and picking one unit for each of these
+three acts, are still my choices.
 
 The whole numbers have a history of their own. In 1888 the German
 mathematician Richard
@@ -11554,8 +11555,8 @@ Dedekind says Peano acknowledged Dedekind's priority, which is why the axioms of
 names. (Peano's booklet is also where the
 sign $\in$ that you met in Section~\ref{sec:structure} comes from: he wrote it as a Greek epsilon,
 for the Latin \emph{est}, ``is.'') Start from zero and take ``the next one'' three times, and you have three.
-Once the prices are whole numbers, one is the smallest positive price. Choosing whole-number
-prices, and choosing that unit for CHECK, are still choices of this model.
+Once prices are whole numbers, one is the smallest price that isn't nothing. Making them whole
+numbers in the first place, and charging that one unit for CHECK, are still my choices.
 
 The zeros matter just as much:
 computing is free on this ledger. Plus one, minus one and jumping around cost nothing at all.
@@ -11823,11 +11824,13 @@ from a tape to counters, packs finitely many counters into two, and gives the ha
 diagonal. The remaining step here is to match that two-counter machine to this
 machine's INC/DEC fragment, instruction for instruction.
 
-Be precise about the reduction used below. A procedure deciding this halting question
-would give a program listing the single-tape Turing machines that do not halt. Such a
-listing cannot exist: halting runs can already be listed, and running the two listings
-in parallel would decide halting. The undecidability statement below records that
-reduction, so its meaning is in the connection between the two problems.
+I want to be exact about what ``undecidable'' means in the theorem below, because it's
+stated as a connection between two problems. Suppose you had a procedure that answered the
+halting question for this machine. Then you could write a program that lists, one by one,
+every single-tape Turing machine that \emph{doesn't} halt. No such list can exist: the ones
+that \emph{do} halt can already be listed (just run them all, a step at a time, and call out
+each one as it stops), and with both lists running side by side you'd have a halting
+decider. So the theorem says: a decider here would give you that impossible list.
 
 \begin{theorem}[Halting is undecidable for this machine]\label{thm:u34-undecidable}
 The two-counter machine with the instruction convention just stated agrees with the
@@ -11844,7 +11847,7 @@ The agreement is a case split on the counter-machine instruction at the current 
 and then induction along the run, ending in Theorem~\ref{thm:u34-halting}. Composing a
 proposed decider for the compiled program with the compile map would decide two-counter
 halting. The tape-to-counter reduction in Appendix~\ref{sec:counter-constructions} would then
-decide single-tape binary halting and hence enumerate its complement, as claimed.
+decide single-tape binary halting and so list its complement, as claimed.
 \end{proof}
 
 What that buys, and what it doesn't. It buys: the base of this machine is a universal
@@ -11884,8 +11887,8 @@ $\mathrm{cert}(s)$ is up, so is $\mathrm{cert}(\mathrm{exec}(s, i))$.
 Read the ledger component of Definition~\ref{def:u34-step}: it adds exactly
 $\mathrm{cost}(i)$. Repeated substitution along a trace gives the sum of its costs,
 or, equivalently, induction on the length of the trace does. The flag's new value is
-its old value or $\mathrm{fires}(\mathrm{core}(s),i)$. A false-to-true change therefore
-requires that event, whose definition requires a passing CERTIFY. CERTIFY costs $1$.
+its old value or $\mathrm{fires}(\mathrm{core}(s),i)$. So a change from down to up
+needs that event, and the event needs a passing CERTIFY. CERTIFY costs $1$.
 An already true flag stays true under the same disjunction.
 \end{proof}
 
@@ -12235,7 +12238,7 @@ In the earned run, CHECK adds $(\mathsf{Zero},A,0)$, COMMIT puts that fact in th
 channel, and CERTIFY raises the flag. The ledger is $1+1+1=3$. No counter is written.
 In the idle run each DEC sees zero, so it advances the line without writing a counter
 or raising a version. Its three costs are zero and it adds no fact or commitment.
-Thus both final windows are $(4,0,0)$ with versions $(0,0)$. The earned table contains
+So both final windows are $(4,0,0)$ with versions $(0,0)$. The earned table contains
 the current zero claim and the idle table is empty, giving the stated difference in
 whether another COMMIT would pass, as well as in the ledger and flag.
 \end{proof}
@@ -12623,7 +12626,7 @@ and every Thiele-complete machine has a free move (Theorem~\ref{thm:u34-tc-conse
 is Theorem~\ref{thm:u34-tc-clauses}(2).
 \end{proof}
 
- Three of the four are this chapter's
+Three of the four are this chapter's
 machine with one thing changed, and in each case the one clause it fails is the only thing keeping
 it out.
 Clause (c) also fixes something it has no business fixing: the size of a mark. Double every price
@@ -12870,10 +12873,10 @@ number plus one. COMMIT can read this second card while leaving the checked slot
 untouched.
 
 When the guest changes the counter that fact concerned, nudge the slot
-$18\to19\to18$ and set the mirror to zero. Its number came back, but its version
-rose twice, so the old host fact is no longer current. A restored number does not
-restore an old check. The mirror tells the search not to use that slot's old fact;
-the version rule enforces the refusal even if it tries.
+$18\to19\to18$ and set the mirror to zero. The number is back where it was, but the version
+went up twice, so the host's old fact about that slot is stale. Putting a number back
+doesn't put an old check back. The mirror is what tells the search to leave that slot alone,
+and if the search tried it anyway, the version rule would refuse it.
 
 \textbf{The program.} Here's $U$ the way Turing would describe it, one register at a time and then
 one job at a time. Registers 0 and 1 hold the guest's $A$ and $B$. Register 2 holds the guest's
@@ -12920,7 +12923,7 @@ the guest has written the counter. If a guest CHECK fails its property, the host
 since the slot holds exactly the pair the guest checked. If the guest table is
 full across both counters, the host's own sixteen-entry table is full as well,
 even when this counter's slot count is below sixteen; its CHECK then traps for
-lack of room. Both kinds of refusal are preserved.
+lack of room. So both kinds of refusal come through.
 
 Count what costs anything. Fetching, unpacking, copying, nudging, branching: all INC and DEC,
 all free, the way computing is free on the small machine. The only paid instructions are the
@@ -13056,10 +13059,10 @@ related pair. The host's property reads the small machine's three-word language,
 a different property language needs a different host property; the host of the next subsection
 has one, a single property that reads a universal claim language. Sixteen slots per counter is
 the guest's whole table size, reserved for each counter in case every fact is about that one.
-This interpreter unpacks the program number from the front for every guest step,
-and copies a number one pebble at a time. That determines the running time measured
-in Section~\ref{sec:running}; the simulation result above compares the states and
-ledgers at matching points.
+And it's slow: for every guest step it unpacks the program number from the front again,
+and it copies a number one pebble at a time. That's where the running time in
+Section~\ref{sec:running} comes from. The theorems above say nothing about time; they match
+states and ledgers at the points where the two line up.
 
 Enforcement in the step is the reference monitor's move from the opening chapter, Anderson's 1972
 move: one mechanism everything has to pass through. What's put together here is a priced, earned
@@ -13174,8 +13177,8 @@ answer register initially holding 0, then leave its one-line code. Give it fuel 
 and the check says no: it has not completed. Give it fuel 1 and the check says yes:
 it has left the code with answer 1. The first no did not mean the routine would
 never answer yes. It meant ``not within this allowance.'' You can run that distinction
-with a pebble and a single instruction card. The general checker does the same job
-for an arbitrary finite list and an allowance supplied with it.
+with a pebble and one instruction card. The real checker does the same job
+for any list of instructions, with the allowance handed in alongside the claim.
 
 \begin{theorem}[One host runs every computably presented Thiele machine]\label{thm:u34-presented}
 Let $M$ be a computably presented Thiele machine, so that a driver picks its next move (one run
@@ -13292,8 +13295,8 @@ and zero when the first raising
 move costs three or more; when it starts at yes, three. And no program on this host, run from a clean start,
 can do better when the guest certifies with its whole ledger below three.
 \item \textbf{Prices in whole units, paid one at a time.} A move that costs a million is a million
-PAYs. The compiler also uses Minsky's packing. These choices determine the time
-needed to realize the guest's charge on this host.
+PAYs. The compiler also uses Minsky's packing. Between them, those two choices set how long the
+host takes to pay the guest's bill.
 \item \textbf{Proved; never run.} The demonstration machine's numbers come from theorems. Nobody
 has run $U_P$ on it. An executable version of the full construction has not been produced,
 and its compiled programs are impractically large. Section~\ref{sec:running} says what was run.
@@ -13342,10 +13345,10 @@ So the host's ledger is closer to a clock than to a receipt for its guests: one 
 step, whatever the step was. It never falls behind the guest's own bill (part (3) of
 Theorem~\ref{thm:u34-host-toll} below), and it matches that bill only when every guest step
 happens to cost one. Could a cleverer host have simulation-exact accounting, a ledger equal to
-its guest's? This one fixed-price move cannot: $\mathrm{GSTEP}\ 1$ is the same
-move whether the guest's next instruction is a free INC or a paid CHECK, so its
-one price cannot match both. That does not rule out other primitive-step designs
-with different moves or state-dependent prices. $U$ achieves the match using
+its guest's? Not with this one fixed-price move: $\mathrm{GSTEP}\ 1$ is the same
+move whether the guest's next instruction is a free INC or a paid CHECK, so one
+price can't match both. Some other built-in step, with more moves or a price that
+looks at the state, might; I haven't ruled that out. $U$ gets the match with
 ordinary instructions: it pays only on the record moves it runs itself, so its
 ledger equals its guest's (Theorem~\ref{thm:u34-U-flag}).
 
@@ -13558,13 +13561,14 @@ is exactly the Turing machine's next configuration, whatever $m'$ is, and the in
 hypothesis at $(c', m')$ finishes it.
 \end{proof}
 
- The construction here is a Turing configuration paired with a number. It isn't a Thiele machine in this book's sense, so it does not establish a Thiele simulation
-of Turing machines. A counter beside a machine is the scorekeeper's tally from
+That's a Turing configuration with a number riding beside it, and nothing more. It isn't a
+Thiele machine in this book's sense, so don't read it as a Thiele machine running Turing
+machines; it isn't one. A counter beside a machine is the scorekeeper's tally from
 Section~\ref{sec:toll}: honest about the machine, and kept by whoever holds the pencil.
 
-One limit on all of this, so it isn't read as more. Certification is one event. Other kinds
-of observable a machine might carry would each need their own event, their own evidence and
-their own cost law, and nothing here supplies those.
+One limit on all of this, so it isn't read as more. Certification is one event. If you wanted
+a machine to carry some other kind of reading, you'd need an event for it, evidence for it and
+a price law for it, and nothing here supplies any of those.
 
 \subsection{Parts II and III, run on this machine}
 \label{sec:part3-on-machine}
@@ -13648,7 +13652,7 @@ version 1, line 2, a write; it takes the second to line 2 with $A$ still 0 at ve
 DEC on zero is no write. Same state, price zero.
 \end{proof}
 
- It's
+It's
 the same fact as the last item of the list of what this machine doesn't do, which comes near the
 end of
 this chapter, now with names: the chairs argument needs a price on every merge, this machine's schedule puts the floor on
@@ -13718,7 +13722,7 @@ $c$ the number of CHECK moves. The classes have at most $m$ members each, so
 $|\Omega| \le 2^{c} \cdot m$, and the rounded logarithms follow. The rest is clause (c).
 \end{proof}
 
- The tree has gone: it is the run's own
+The tree has gone: it is the run's own
 questions. There are limits, and they're the ones in the statement. The verdicts are taken at the
 rivals as they start. The states the run had reached when it asked don't come into it, and a free branch, DEC on
 zero, can still narrow a list for nothing. So this prices a narrowing that the paid checks
@@ -13778,7 +13782,7 @@ posterior is the one rival that passes the run's only CHECK, so the index bits a
 $\lceil \log_2 16 \rceil - \lceil \log_2 1 \rceil = 4$, and the run has three record moves.
 \end{proof}
 
- The share here is $2^{-4}$, and with $k = 4$
+The share here is $2^{-4}$, and with $k = 4$
 part (4) reads $4 \le 4$. It's the example of Section~\ref{sec:entitlement} that showed the covering
 can't be dropped, seen from the run's side: one test can take many bits, and the bill covers the
 bits per test times the tests.
@@ -13806,7 +13810,7 @@ is in the hypotheses and, like the second half of (M3) above, feeds none of the 
 conclusions dropped, (2) and (5), are exactly the two that used the clean start and the record.
 \end{proof}
 
- So the record doesn't make narrowing cost more. It adds the earned chain and
+So the record doesn't make narrowing cost more. It adds the earned chain and
 a floor of 3, and that's all it adds: a run meeting the same counting and payment hypotheses is still bound by that index-bit
 floor even if it never raises the record, and the floor of 3 no longer applies to it.
 
@@ -13908,7 +13912,7 @@ never evicts, and a CHECK on a full table traps (Theorem~\ref{thm:u34-bounded}),
 CHECK before the CERTIFY ends the run in a trap.
 \end{proof}
 
- The sixteen belongs to the machine. The
+The sixteen belongs to the machine. The
 program has no say in it: it's the same ceiling as the item ``Sixteen checks per run, ever'' in the list of what the machine
 doesn't do, near the end of this chapter, and it's why this search never asks more than sixteen questions however many bits
 are hidden. Unasked bits can be any number. The lists, the
@@ -13957,10 +13961,10 @@ three. (4) is the same price table with one instruction: a passing CHECK goes on
 and a failing one traps. (5) is arithmetic on (1) to (4).
 \end{proof}
 
-The certifying comparison is $3 + 3\lambda < m$; the deciding comparison $1 + \lambda < m$
-is arithmetic on the free lower bound and the one-move decider. The exchange is sharper than a
-comparison of two particular programs: the free side is a lower bound over every program of
-INC and DEC, so no choice of program is involved, and the paid side is constant. The limits: the bound is for
+So the paid route to a certificate wins when $3 + 3\lambda < m$, and the paid route to a bare
+answer wins when $1 + \lambda < m$. That's a sharper exchange rate than comparing two programs I
+happened to write: the free side is a floor under every program of INC and DEC there is, so
+no choice of program comes into it, and the paid side doesn't move with $m$ at all. The limits: the bound is for
 programs that make no record move, INC and DEC with falling off the end as stopping. It doesn't
 cover every Thiele-complete machine, because the definition doesn't forbid a base move that changes a
 counter by more than one unit, and such a machine is a different machine, one the bound doesn't
@@ -14124,8 +14128,8 @@ counter program. The host runs those INC and DEC instructions on the required re
 with HALT marking the returned output. This supplies $W$.
 \end{proof}
 
-Be exact about one
-thing: $U$ is not that universal program. $U$ runs two-counter guests, and a two-counter guest
+One thing to be exact
+about: $U$ is not that universal program. $U$ runs two-counter guests, and a two-counter guest
 given its input plainly can't run the evaluator. With inputs written as powers of two one can, as
 Theorem~\ref{thm:tc-kleene} near the end of this subsection shows. $W$ runs host programs, and it can, because it's a host program on a machine
 with registers.
@@ -14152,7 +14156,7 @@ is $E$. So $e$ hands its own number to $T$, gets $d$, and runs $d$ on $x$. (2) a
 carrying out $F$ or $f$.
 \end{proof}
 
- That fixed point is of the \emph{function}: $e$ and $F(e)$ stop on the same inputs and
+That fixed point is of the \emph{function}: $e$ and $F(e)$ stop on the same inputs and
 leave the same number in register 0. Their ledgers, flags and fact tables can differ, because the
 marks $e$ pays are the evaluator's. I'd like a fixed point that agrees on the record too, and the next two theorems say how
 much of that can be had. The ledger and the flag can be had. Every register can't.
@@ -14196,11 +14200,11 @@ evaluator to its own number, as before.
 Try CHECK, COMMIT, CERTIFY, CERTIFY on a true claim. The ledger is four, the table holds one
 fact, the flag is up and the trap is down, so the replay allowance is two. The replay pays
 CHECK, COMMIT, COMMIT, CERTIFY: the same four marks and the same summary, in a different order.
-That is the agreement being claimed.
+That's the agreement the theorem claims, and all of it.
 
 In the replay, the trap latch is up exactly when the fifth number is 1, and the flag
-exactly when the fourth is positive. Restricting the comparison to the computed function
-gives the usual fixed-point statement. Two limits, and the second one is a theorem. First, $e$ pays
+exactly when the fourth is positive. Look only at the function computed and you get the
+usual fixed-point statement back. Two limits, and the second one is a theorem. First, $e$ pays
 after it has computed everything. It is not the way $U$ runs a guest, mirroring every move: $e$ pays
 the counts, CHECKs, then COMMITs, then the CERTIFY, whatever order $F(e)$ used, so the order of the
 record's events isn't preserved, and for a program $F(e)$ that never stops, $e$ never stops and pays
@@ -14222,7 +14226,7 @@ run of $F(e)$ ends with 1 in register $r$, and if $e$ stops at all, it ends with
 stop, then it already differs from $F(e)$, which does. Either way they don't behave the same.
 \end{proof}
 
- A variant of $F$ that also
+A variant of $F$ that also
 CHECKs register $r$ and commits to it gives $F(e)$ a fact and a commitment about $r$ that $e$ can't
 have, so no fixed point agrees on the fact table alone, or on the channel alone, or on the versions of
 the registers. What survives is what Theorem~\ref{thm:host-kleene-record} states. Whether one more fixed
@@ -14247,7 +14251,7 @@ one having it, is carried out by a host program by hypothesis. Theorem~\ref{thm:
 a program $e$ that computes what its image computes; $\Pi$ holds of $e$ exactly when it holds of the
 image, and the image lacks it exactly when $d$ calls $e$ good, so $d$ is wrong at $e$. (2) From
 a deciding program $D$ build a host program that computes $D$'s flip on numbers, by the finite-simulation search of Appendix~\ref{sec:counter-constructions}, reading the
-Boolean from the first halting run of $D$; then (1) applies. This one is an outright negation. The synthetic notion doesn't come into it.
+Boolean from the first halting run of $D$; then (1) applies. This one is a plain no; the ``representable'' reading of (1) doesn't come into it.
 \end{proof}
 
 Rice and Kleene are the ingredients the diagonal of Section~\ref{sec:diagonal} asks a substrate for,
@@ -14392,7 +14396,7 @@ upwards by that even change. If it has decreased, repetition takes it back below
 $B$. This last alternative cannot support an arbitrarily long stretch above the
 threshold: from its entry at $B$, the first repetition starts at height at most
 $B+N$, has length at most $N$, and a negative change reaches the threshold within
-at most $B+N+2$ repetitions. Thus a stretch longer than
+at most $B+N+2$ repetitions. So a stretch longer than
 $N+(B+N+2)N$ supplies a nondecreasing repeat. Either sufficiently many short
 stretches revisit a small configuration, or a long stretch supplies that repeat.
 This is a finite search, and proves the three alternatives.
@@ -14419,12 +14423,12 @@ prefix and every bounded outcome above, in both orientations of the bins. The
 configurations with one bin below $B$ and the other below this common bound form
 a finite set. If the program multiplied every input by $c>0$, two different
 inputs could never visit the same configuration: their subsequent outputs would
-then agree, whereas $cx\ne cx'$ for $x\ne x'$. Only finitely many inputs can
-therefore visit that finite set. Choose a larger input avoiding it, with output
+then agree, whereas $cx\ne cx'$ for $x\ne x'$. So only finitely many inputs can
+visit that finite set. Choose a larger input avoiding it, with output
 larger than every bounded stopping output.
 
 Its run halts by the supposed multiplier property. A stage cannot be a never-ending
-one or end with both bins bounded. It therefore transfers by a positive pair
+one or end with both bins bounded. So it transfers by a positive pair
 $(m_i,g_i)$, exchanging the roles of the bins, until it stops with bin A large.
 There are only finitely many stages, since each takes at least one step of this
 halting run. The last stopping prefix preserves an even increase in that bin
@@ -14438,8 +14442,8 @@ c\prod_i m_i=\prod_i g_i.
 \]
 Empty products are 1. Every factor on the right is between 1 and $N$, and
 $c=N!+1$ is coprime to every such factor: any common divisor divides both $N!$
-and $N!+1$, hence divides 1. Thus $c$ cannot divide the right side unless $c=1$.
-Since $c\ge2$, this is a contradiction.
+and $N!+1$, so it divides 1. So $c$ can't divide the right side unless $c=1$,
+and $c\ge2$. That's the contradiction.
 \end{proof}
 
 The same obstruction holds for any machine with finitely many control states whose counters
@@ -14599,14 +14603,15 @@ machine outside that class, with a reading no program decides, isn't covered by 
 simpler host with the built-in guest step pays one per guest step whatever the step was, so its
 ledger is at least the guest's and usually more; $U$'s is exact, and $U_P$'s is exact up to the
 surcharge.
-\item \textbf{Encoding and running time.} The universality construction loads encoded
-inputs directly into the counters. Its route from an arbitrary Turing machine uses
-Minsky's exponential packing (Appendix~\ref{sec:counter-constructions}). That is the
-cost of this route to the two-counter base. The lift to another base has its own
-interface conditions, and an efficient implementation would need its own analysis.
+\item \textbf{Encoding and running time.} The universality result takes its inputs already
+packed into the counters. Getting there from an arbitrary Turing machine goes through
+Minsky's exponential packing (Appendix~\ref{sec:counter-constructions}), and that packing is
+the price of reaching the two-counter base this way. Carrying the record to another base has
+its own conditions, in the next chapter, and anyone who wanted this to run fast would have to
+start the analysis over.
 \item \textbf{The step charges for the act, not for what the claim is worth.} CHECK \emph{at
 least 0} passes on every value, so CHECK, COMMIT, CERTIFY on it raises the flag for three from
-any fresh loaded start (the note after Theorem~\ref{thm:u34-tight}). That is by design. The
+any fresh loaded start (the note after Theorem~\ref{thm:u34-tight}). That's by design. The
 step checks order, aboutness and an honest checker. What a claim is worth is the entitlement
 count of Section~\ref{sec:entitlement}, a number computed over the rivals a run narrows. A
 step sees one state, so it cannot compute that count. A check that cannot fail narrows nothing
@@ -14626,9 +14631,9 @@ the record layer only: a move that sends two different states with the same line
 to one state costs at least one. This machine's
 own prices meet it, CERTIFY's merge is a merge of that kind, and so every price list that meets it
 charges the flag-raising step at least one, with no finiteness premise
-(Theorem~\ref{thm:record-merge-toll}). That is an assumed price for losing record distinctions. Turning it into a heat bound
-requires the physical conditions of Section~\ref{sec:a2-not-arbitrary}; a ledger mark by itself
-is not heat. The exact price of one, where the premise asks for at least one, is still a design choice.
+(Theorem~\ref{thm:record-merge-toll}). That's a price I assume for losing distinctions in the record, and
+assuming it is all it is. Turning it into heat takes the physical conditions of
+Section~\ref{sec:a2-not-arbitrary}; a mark on a ledger isn't heat on its own. The exact price of one, where the premise asks for at least one, is still a design choice.
 \end{itemize}
 
 \subsection{What this chapter adds up to}
@@ -14675,11 +14680,10 @@ for moves and a window showing what clause (a) asks to see, two numbers and a li
 when the box writes, a rack for facts, the flag, and the three buttons CHECK, COMMIT and CERTIFY at one mark
 each. The worry is whether that panel only bolts onto the one box I built.
 
-The opening asked which distinctions the machine could carry in its state and its
-steps. Now the question is which parts of that construction depend on the computing
-base underneath. This chapter goes both ways: the earned layer onto other bases, and
-other bases run inside this one. The interface conditions say exactly what has to
-survive the change.
+So this chapter goes both ways. First the panel goes onto boxes I didn't build, and I say
+exactly what a box has to supply for it to fit. Then other boxes, panel and all, get run
+inside mine. If the record is really about the record and not about pebbles, both trips
+should work, and the conditions on the way should say what has to survive the move.
 
 \subsection{From any base up}
 
@@ -14863,13 +14867,14 @@ same as a panel riding on another? The honest way to ask is whether the boxes ag
 compute.
 
 My first idea was to wire the boxes to each other myself, two at a time, with a relation that
-says one box's run keeps pace with another's. Section~\ref{sec:latch} defines weak base
-equivalence, but the equivalence needed here is about computed relations. The seven models
+says one box's run keeps pace with another's. That's the wrong tool. Section~\ref{sec:latch}'s
+weak base equivalence is about runs keeping pace, and what I need here is coarser: do the boxes
+compute the same relations on numbers? For that the work is already done, and it isn't mine. The seven models
 are the weak call-by-value lambda calculus L, Turing machines, two Minsky instruction
-conventions, binary stack machines, Conway's FRACTRAN, and the $\mu$-recursive functions.
-Their equivalence is prior work, developed in the constructions of Minsky, Shepherdson and
-Sturgis, and Forster, Larchey-Wendling and their coauthors. The translations and their
-input and output encodings are given in Appendix~\ref{sec:counter-constructions}.
+conventions, binary stack machines, Conway's FRACTRAN, and the $\mu$-recursive functions,
+and that they all compute the same things is Minsky's, Shepherdson and Sturgis's, and Forster,
+Larchey-Wendling and their coauthors' work. The translations, with how each one writes its
+inputs and reads its outputs, are in Appendix~\ref{sec:counter-constructions}.
 
 \begin{theorem}[The base doesn't matter]\label{thm:lift-models}
 (1) A relation on numbers that's computable in any one of those seven models is computable in all
@@ -14886,7 +14891,7 @@ computable in all seven.
 (1) Compose the translations of Appendix~\ref{sec:counter-constructions}.
 (2) Encode a configuration as $\langle\ell,\langle a,b\rangle\rangle$.
 Decoding, performing one INC or DEC, and encoding the result are the total finite
-arithmetic operations constructed there. The decoding window therefore commutes with
+arithmetic operations constructed there. So the window follows
 each instruction exactly; loading is the encoding of $(1,a,b)$.
 (3) Let RAM registers 0, 1 and 2 hold the simulated line, $A$ and $B$, and keep
 register 3 equal to 1. To increment counter register $r$, add register 3 to $r$
@@ -14952,7 +14957,7 @@ $n+1,\ldots,n+k+1$. Two arrivals have the same line, at levels $a<b$. No zero
 test fired between them. Start that same stretch at level $b$: every test gives
 the same answer, every counter value is larger by $b-a$, and it returns to the
 same line still higher. Repeat forever. Either way a run still live at the bound
-never stops; a run that stops therefore does so within the bound. (2) The tape simulation, prime packing and halting diagonal of
+never stops, so a run that stops does so within the bound. (2) The tape simulation, prime packing and halting diagonal of
 Appendix~\ref{sec:counter-constructions}, carried over to the book's instruction set line by line. (3) A translation
 that kept halting would make two-counter halting decidable by (1).
 \end{proof}
@@ -14975,7 +14980,8 @@ per counter. That's coarser, and it's enough for every theorem above. Fourth, it
 lifted machine is computably presented in general. The trip down needs the four relations, and for a
 particular machine somebody has to supply them.
 
-All of it is one statement too, if you want the whole chapter in one place.
+If you want the whole chapter in one sentence: any box that can compute takes the panel, and
+any box somebody has written down runs inside mine.
 
 I went into this chapter looking for the place where the bins were doing secret work for the panel.
 I didn't find one. Either there isn't one, or I didn't look hard enough, and the four items above are
@@ -15076,7 +15082,7 @@ its levers, so the bills add, and it can't matter which box you happened to work
 (5) is two certifications of three marks each, one per box, with no discount for doing them on the
 same bench.
 
- The machines that
+The machines that
 preserve cost and record form a category with these pairs as products, and the pairing is a
 symmetric monoidal structure. The pentagon, triangle and hexagon laws say that
 regrouping four boxes, inserting an idle box, or exchanging groups of boxes gives
@@ -15309,17 +15315,17 @@ proofs did.
 \label{sec:running}
 %===========================================================================
 
-The constructions give exact rules for states and steps. This chapter asks how
-executable implementations follow those rules. It builds the small machine twice,
-once from the formal definitions and once separately, runs both, and compares the
-whole state after each tested step. Then it runs the universal programs on guests
-small enough to finish and source programs through the executable part of the compiler.
+Everything so far is definitions and proofs about them. Does any of it run? This chapter is
+me finding out. I built the small machine twice, once straight out of the definitions and once
+by hand from the same description, ran both, and compared the whole state after every step.
+Then I ran the universal programs on guests small enough to finish, and real programs through
+the part of the compiler that executes.
 
-There are two counts to keep apart here. The ledger measures what the price list
-charges; the number of interpreter steps measures the work this representation takes
-to carry out the run. One guest step can take millions of host steps while adding
-one mark to its ledger. The state comparisons test the implementation, and the times
-tell you which demonstrations are practical on it. Here is what ran and what did not.
+Two counts to keep apart as you read. The ledger counts what the price list charges. The
+number of interpreter steps counts the work this particular build does to carry the run out.
+One guest step can take millions of host steps and add one mark to the ledger. The state
+comparisons are the test of the build; the times only tell you which demonstrations are
+practical on it. Here's what ran and what didn't.
 
 \begin{center}
 \begin{tabular}{@{}p{0.42\linewidth}p{0.5\linewidth}@{}}
@@ -15336,23 +15342,25 @@ The presented machine carried by $U_P$ & proved, not run \\
 
 \subsection{Taking the coat off}
 
-The first executable is generated from the formal definitions. The second is written
-separately from the same specification. Both implement the small machine, the host with a
-register for every whole number, the host with PAY, the universal programs and the loaders.
-The compiler below has an executable runner too.
+The first executable is generated straight from the formal definitions, the way you'd
+strip the coat off a proof and keep the program underneath. The second was written
+separately, by hand, from the same description. Both implement the small machine, the host
+with a register for every whole number, the host with PAY, the universal programs and the
+loaders. The compiler below has an executable runner too.
 
-Whole numbers matter here. Machine words in one build are 63 bits wide, while the guest
-codes $U$ reads go up near $2^{100}$, so ordinary fixed-width arithmetic would wrap around.
-The mathematical machine has no such overflow, so its executable uses unbounded
-integers, with arithmetic chosen to match the definitions: subtraction stops at zero and
-division by zero returns zero. The mappings, compilers and input/output routines remain
-implementation dependencies; testing them does not change the mathematical definitions.
+Whole numbers matter here. A machine word in one build is 63 bits wide, and the guest
+codes $U$ reads go up near $2^{100}$, so ordinary fixed-width arithmetic would wrap around
+and lie. The mathematical machine never overflows, so its executable uses integers of any
+size, with the arithmetic chosen to match the definitions: subtraction stops at zero and
+division by zero gives zero. What sits between the definitions and the running code, the
+mappings, the compilers and the routines that read input and write output, is code I had to
+trust, and testing it doesn't change what the definitions say.
 
 \subsection{A second machine, written by hand, to check the first}
 
-A run shows what a build did on those inputs. Comparing two implementations step by step
-can expose a disagreement with the specification; agreement on tested runs leaves other
-runs open.
+A run shows you what a build did on those inputs, and nothing more. Comparing two builds
+step by step can catch one of them disagreeing with the description; when they agree on the
+runs I tested, every run I didn't test is still open.
 
 They're compared on the \emph{whole} state after \emph{every} step: the program line, every counter
 and register and its version, the fact table in order, the channel, the trap latch, the ledger and
@@ -15409,13 +15417,12 @@ has not been performed. Runs this long only fit in memory
 at all because the host's register store can be squeezed during the run without changing any state,
 which is a theorem too.
 
-The large counts come from this encoding and the unit operations used to read it.
-They measure the work done by this interpreter. The structural comparison asks
-whether the related states preserve the guest's computation, record and ledger;
-the execution tests check that comparison on the cases in the table. Whether another
-interpreter or another base realizes the same relations efficiently needs a separate
-construction and a running-time analysis. Nothing in these measurements gives a
-lower bound for all such realizations.
+Those big counts come from this encoding and from reading it one pebble at a time. They
+measure the work this interpreter does, and that's all they measure. The theorems ask
+whether the matched states keep the guest's computation, record and ledger, and the runs
+check that on the cases in the table. Whether some other interpreter, or some other base,
+could do the same job fast is a separate construction with its own running-time analysis.
+Nothing measured here puts a floor under every way of doing it.
 
 \subsection{From source programs to the host}
 
@@ -15485,8 +15492,9 @@ million steps. The executable runner does a few million host steps a second, so 
 
 That's about 1,800 host steps per source operation for Ackermann, and up to about a hundred thousand
 for multiplication by repeated addition, because every addition copies a running total one unit at a
-time. This implementation's unit operations make the work grow with the values
-being handled. I haven't measured how it grows with program size. The last two stages, the two-counter guest and $U_P$ running it, are proved but have not
+time. On this build the work grows with the size of the numbers being handled, because every
+operation is one pebble at a time. How it grows with the size of the program I haven't
+measured. The last two stages, the two-counter guest and $U_P$ running it, are proved but have not
 been run. An executable version of those stages has not been produced, and $U_P$ on a
 compiled guest would be slow for the same reason $U$ on a certifying guest is. Still, I like that 253. It came out of nothing but INC and DEC, and a proof
 that they mean what the source meant.
@@ -15518,18 +15526,18 @@ counts. If they pass, a certain five-by-five table has a property called positiv
 semidefinite, and that property forces the famous number under the famous bound. The wall
 is a consequence of the check. It never goes into it. Everything else is explaining those sentences.
 
-What does this example contribute to the structural question? It separates the
-counts, the relation they satisfy, the act of checking that relation and the record
-kept of the act. A tally is written down for nothing on this machine. Its checker
-uses integer arithmetic to decide a precise matrix condition. The step then ties
-the passing check to this edition of the tally, and the earned chain costs three
-marks, just as it does for a simpler claim. The mathematical depth of the condition
-and the price of those three acts are different quantities. That makes this a useful
-case to hold against the small examples.
+Why put it in the book? Because it pulls four things apart that the small examples keep
+bunched together: the counts, the relation the counts satisfy, the act of checking that
+relation, and the record kept of the act. Writing a tally down costs nothing on this
+machine. The checker decides a real condition about a matrix, using nothing but integer
+arithmetic. The step ties the passing check to this edition of the tally, and the earned
+chain costs three marks, the same three it costs for ``$A$ is zero.'' How deep the condition
+is and what the three acts cost are different numbers, and here you can see them apart.
 
-The tally alone supplies no history of how it was obtained. A made-up tally can
-pass the same arithmetic test as a played one. The claims here concern its numbers
-and the machine's treatment of them; the guarantee paragraph below says exactly how.
+And the tally on its own carries no history of where it came from. A tally somebody made up
+passes the same arithmetic as one that was played. What's claimed here is about the numbers
+and what the machine does with them, and the guarantee paragraph below says exactly how far
+that goes.
 
 \subsection{The game}
 
@@ -15662,9 +15670,9 @@ Sandu Popescu and Daniel Rohrlich asked: what if you only demand that nothing ca
 answers on their own have the same odds whatever Bob is asked, and the other way round?
 Then you can write down a ``box'' (the PR box, after their initials) that wins \emph{every} round (its answers differ exactly when
 both questions are one, by fiat, each answer alone a fair coin), S equals four, and nothing
-about it lets either room send a message. So the no-signalling condition alone doesn't explain the quantum
-ceiling; the PR box meets that condition and beats 2.83. That does not supply a
-physical theory satisfying every requirement of relativity. The order is: two for plans, 2.83 for
+about it lets either room send a message. So no-signalling on its own doesn't explain the quantum
+ceiling; the PR box meets that condition and beats 2.83. (A box isn't a physical theory, and
+nobody is claiming one that meets everything relativity asks.) The order is: two for plans, 2.83 for
 quantum, four for no-signalling.
 
 And the box has the same kind of history as everything else in this book: somebody got there
@@ -15872,10 +15880,9 @@ $S^2 < 8$, and passing tallies come as close to 8 as you like.
 \end{corollary}
 
 \begin{proof}
-Theorem~\ref{thm:u23-notrap-psd} supplies positive semidefiniteness of the pinned
-moment matrix for these four correlators. Theorem~\ref{thm:chsh-psd-tsirelson} in the
-derivation appendix applies to every such matrix and gives $S^2\le8$. Its quadratic
-form calculation is printed there. The score is a ratio of whole numbers, and no such ratio
+Theorem~\ref{thm:u23-notrap-psd} makes the pinned matrix of these four correlators PSD, and
+Theorem~\ref{thm:chsh-psd-tsirelson} in the appendix, which holds of every such matrix, gives
+$S^2\le8$; the calculation with the quadratic form is printed there. The score is a ratio of whole numbers, and no such ratio
 squares to 8, so the bound is strict. The tallies whose four correlators are
 $n/q, n/q, n/q, -n/q$ with $2n^2 \le q^2$ pass, and their scores $4n/q$ come as near
 $2\sqrt 2$ as you like.
@@ -16033,7 +16040,7 @@ pair, $S = 2$, and $A = 1 - 1 - 1 < 0$, the worked tally's second computation, s
 check and is refused the same way.
 \end{proof}
 
- The last one is the
+The last one is the
 check being stricter than the bound, as a named theorem: a perfectly legal classical play with
 $S = 2$ is turned away.
 
@@ -16050,8 +16057,8 @@ business, and in the theorem the packed counter is simply there at the start. Wh
 claim about the pile. Statistics are free; the claim about them is what costs.
 
 So here, in one paragraph, is what the check guarantees. If it passes, then every question
-pair was sampled, the four empirical ratios satisfy three polynomial inequalities, hence the
-fixed five-by-five is PSD, hence S squared is at most eight. It does \emph{not} guarantee that
+pair was sampled, the four ratios from the counts satisfy three polynomial inequalities, so the
+pinned five-by-five is PSD, so S squared is at most eight. It does \emph{not} guarantee that
 the tally came from honest play (a program can INC
 whatever counts it likes
 for nothing, including four rounds that put S at four). It does not guarantee any
@@ -16067,7 +16074,7 @@ and ordinary luck over a finite number of rounds pushes it over most of the time
 drawing each round's answers at Tsirelson's correlators: the check fails 92 percent of the time at
 10 rounds per question pair, 87 percent at 100, and about 85.5 percent from 1,000 to 100,000. In those simulated trials, fair
 coins passed every time from 100 rounds per pair on, and failed about 2.5 percent of the time at 10.
-That is an observed frequency, not a guarantee for every possible tally.
+That's what I saw in the trials, and it's no guarantee about any one tally.
 The limit has a closed form. To first order the largest singular value of the noisy correlator
 matrix is one plus the larger eigenvalue of a random symmetric two-by-two with independent
 Gaussian entries, and the check passes only when that eigenvalue is at most zero, which happens
@@ -16270,9 +16277,9 @@ included, has to do with any of that, and the answer is: less than naming Landau
 
 \subsection{The calibration is a unit conversion}
 
-Multiply the counter by a chosen energy per mark,
-and a theorem that a state with one mark, at the scale kT ln 2 per mark, carries kT ln 2 of
-energy for every k and T. Read that for exactly what it is: a unit conversion, true by definition,
+Multiply the counter by an energy per mark that you choose,
+and you get a theorem: a state with one mark, at the scale kT ln 2 per mark, carries kT ln 2 of
+energy, for every k and T. Read that for exactly what it is: a unit conversion, true by definition,
 with the scale as a free input. Nothing in it picks the scale. The theorem would be just as
 true with the scale set to a dollar a mark. What \emph{would} connect marks to joules is the premise in Section~\ref{sec:a2-not-arbitrary},
 Landauer's principle, which is a physical premise. And even
@@ -16346,9 +16353,9 @@ The last clause of the floor is there because the first two don't make a step fo
 on a machine with infinitely many states. INC $A$ sends a state with $A = 0$ to one with $A = 1$
 and keeps every positive $A$ positive, so it raises ``$A \ge 1$'' one way, and it is
 one-to-one. Any one-to-one map that misses some state does the same to the property ``is in my
-image''. Its input can be recovered from its output, and its entropy loss is zero. The adopted
-Landauer premise then supplies no positive heat floor; this does not promise that an
-implementation gives off no heat. A floor read without the last clause would charge a whole unit. On a finite machine the clause comes
+image''. Its input can be read back off its output, so it loses no entropy, and Landauer's premise as
+this book takes it then puts no heat floor under it at all. That's no promise that a real
+implementation of it gives off no heat; it's only that the premise is silent. A floor read without the last clause would charge a whole unit. On a finite machine the clause comes
 for free. A step that sends one false state into the true ones and keeps every true state true
 puts one more state into the true set than the set holds, so two of them land on the same
 state.
@@ -16379,7 +16386,7 @@ number is 2'' by sending a state where it's false and a state where it's true to
 state, costs zero there, and (1) below says no dissipation can charge it one and stay under its cost.
 The machine prices the
 certifying chain and leaves its other merges free, so the premise pair holds for the steps
-the toll is about and fails for the whole instruction set. That is by design. The hardware
+the toll is about and fails for the whole instruction set. That's by design. The hardware
 pays for the free merges in heat, off the ledger. The ledger counts the record only. A mark is
 not a joule.
 
@@ -16533,11 +16540,11 @@ have. It's still a model. The settling step is the one part (1) describes, and t
 heat are the standard bookkeeping for a slowly driven two-state system.
 
 What ties it to a machine: the protocol counts one logical event, by definition, and one is what the small machine's CERTIFY charges, the last of
-the three paid acts behind a raised flag (Section~\ref{sec:smallest}). That's a match of two
-numbers, both one by choice, and nothing more. There is no theorem mapping the
-protocol's two register states to any machine state. Here ``heat to the bath'' is the
-register's mean energy before minus after, so it assumes the bath receives what the
-register loses. That physical relation is not established here. So a device test would have to measure the gap, the
+the three paid acts behind a raised flag (Section~\ref{sec:smallest}). That's two numbers
+that happen to match, both one by choice, and nothing more. No theorem maps the
+protocol's two register states onto any state of the machine. And ``heat to the bath'' here
+means the register's mean energy before minus after, which quietly assumes the bath gets
+exactly what the register loses; nothing here establishes that. So a device test would have to measure the gap, the
 populations, the rates, and the bath heat independently; separately establish
 that the device's rates are in detailed balance (that the up and down rates stand in the ratio the
 temperature dictates), which the driven reset assumes and the canonical one breaks; and separately establish that the device's
@@ -16553,12 +16560,12 @@ flipping in, is ``set a bit to one whatever it held,'' which is the reset Landau
 and Bérut measured; Landauer's own name for it is ``restore to one,'' and
 Section~\ref{sec:toll} put it beside the toll at the start. The general bound, kT ln((m plus k) over m) for squeezing m plus k
 equally likely states into m, is what Landauer's principle gives for that squeeze, at kT ln 2 for
-each bit removed. What the permanence theorems add is a structural derivation: finiteness and a
+each bit removed. What the permanence theorems add is the structural half: finiteness and a
 permanent reading force any flag-raising instruction to merge some full states.
-They do not identify the newly certified state as part of that collision, or
-supply the input distribution and physical conditions for a heat bound. With
-those supplied, Landauer's premise applies to the uncertainty actually removed.
-The machine result and the physical premise do different jobs.
+They don't say the newly certified state is one of the states that collide, and they
+don't supply the spread over inputs or the physical conditions a heat bound needs. Supply
+those and Landauer's premise prices the uncertainty that was actually removed. The
+machine result and the physical premise do different jobs, and neither does the other's.
 
 \subsection{What this section is}
 
@@ -16587,7 +16594,7 @@ The invitation is an old one, and people have put prices on it. Donald Knuth giv
 person to find each error in his books one hexadecimal dollar, 0x\$1.00, which is \$2.56,
 deposited these days at the Bank of San Serriffe, a bank that doesn't exist, since real
 checks turned out to be an open door for fraud. Why pay strangers to find your mistakes? His
-own page says it plainly enough: a careful reader makes the book better for everyone who reads
+own page says it plainly enough: whoever finds a mistake makes the book better for everyone who reads
 it next. This chapter doesn't come with a bank, real or made up. What it comes with is, for
 every claim, a description of the exact object that would make it fall, so you know before you
 start what counts as winning.
@@ -17335,10 +17342,11 @@ The theorems prove physical reality & not claimed & Section~\ref{sec:landauer} \
 
 \subsection{What I propose}
 
-The proposal joining these results is to make structural relations and their
-accounting part of the state and the step. The items below spell out that proposal
-and a narrower choice within it, the pointer thesis about certification. They reach
-further than the theorems; none puts an unavoidable physical price on every observable change.
+What ties all of those results together is a proposal, and it's mine: put the relations a
+computation carries, and the bill for them, into the state and the step. The items below
+spell that out, along with one narrower bet inside it, the pointer thesis about
+certification. Every one of them reaches past the theorems, and none of them says that every
+change you can see has a physical price it can't get out of.
 
 \begin{itemize}
 \item That the axis belongs in the step (Section~\ref{sec:scope}, Section~\ref{sec:conclusion}).
@@ -17440,11 +17448,11 @@ extends it to every Thiele-complete machine (Section~\ref{sec:part3-on-machine})
 
 \emph{Quantum behaviour.} The fixed-matrix equivalence is about one completion with zero
 marginals and zero within-party moments. The elliptope lets the within-party moments move,
-at the level of correlators. That correlator completion has an operator realisation by the construction in
-Appendix~\ref{sec:chsh-derivation}. Full behaviours with prescribed marginals ask
-for more: the correlator construction does not establish those extra probabilities. A sound check isn't complete for those bigger sets,
-and the elliptope decider is mathematics. None of the small machine's properties is it
-(Section~\ref{sec:chsh}).
+at the level of correlators. A completion of the correlators is realised by actual measurements, by the construction in
+Appendix~\ref{sec:chsh-derivation}. A full behaviour, with each room's own odds prescribed as
+well, asks for more, and the construction doesn't deliver those extra probabilities. A sound
+check isn't complete for those bigger sets, and the elliptope decider is mathematics on the
+page; none of the small machine's properties is it (Section~\ref{sec:chsh}).
 
 \emph{The record axis.} The proved structural result is: a permanent record driven by a base
 computation is a latch on an event; on a finite machine its write merges states; and the named
@@ -17564,21 +17572,21 @@ determine the record or the ledger. Any eight counts: the integer check and its 
 This machine only: its six instruction kinds and their prices, its sixteen slots, its own colliding
 pair, and the encodings its universal programs use.
 
-\emph{What I'm proposing beyond that.} A structural account of computation: the
-relations a computation carries belong in the state, what each move does to them
-belongs in the step, and a cost model is one part of that account. The permanent
-record is the case I took apart. The pointer thesis asks whether certifying deserves
-that record in the systems it describes, and it can fail without touching the latch
-or the window arguments, which don't use it.
+\emph{What I'm proposing beyond that.} A way of describing computation in which the
+relations a computation carries live in the state, what each move does to them lives in the
+step, and a price list is one part of the description, not an afterthought. The permanent
+record is the one case I took apart all the way. The pointer thesis asks whether certifying
+is the thing that deserves that record in the systems it talks about, and it can be wrong
+without touching the latch or the window arguments, which never use it.
 
-The larger proposal is about which distinctions a description of a computation ought
-to keep. The constructions show particular ways to keep them and what follows under
-the stated premises. What they're worth depends on which questions you need the
-description to answer. If a program's log and a proof about that program recover
-every distinction you need, that weakens the case for putting the account in the
-step. If a deployed system has good reasons for a wall or a penalty instead of a
-toll, that weighs against the toll there. Those are the ways to examine the proposal,
-alongside the counterexamples that test the theorems one by one.
+Underneath that is a question about which distinctions a description of a computation
+ought to keep. The constructions show particular ways of keeping some, and what follows once
+you do, under premises I've printed. What that's worth depends on what you need the
+description to answer. If a program's log, plus a proof about the program, recovers every
+distinction you care about, that's a point against putting the account in the step. If a
+system out in the world has good reasons to use a wall or a penalty instead of a toll, that's
+a point against the toll there. Those are the ways to push on the proposal, alongside the
+counterexamples that push on the theorems one at a time.
 
 %===========================================================================
 \section{Conclusion}
@@ -17592,18 +17600,19 @@ can leave the same answer while differing in what they did to reach it. In each
 case I had to say what the things were, which moves were allowed, which relations
 survived, and what my way of looking could tell apart.
 
-Part I gave that question its vocabulary: structure as relations among things,
-kept under chosen changes, carried by whatever stuff, relative to a frame. A
-partition supplied the smallest sorting by the ruler I chose. Making a grouping,
-keeping it, checking it and standing behind it separated into different acts.
-That gave me a case in which to ask how an account of computation could carry the
-difference and price a change.
+Part I gave that question its words: structure is relations among things, kept under
+the changes you choose, carried by whatever stuff happens to be there, relative to a
+frame. A partition turned out to be the smallest sorting by the ruler I picked. And making
+a grouping, keeping it, checking it and standing behind it came apart into four different
+acts. That gave me one case to ask the question on: how could an account of computation
+carry the difference between those acts, and put a price on one of them?
 
 The record case got an exact form in Part II: five parts, one rule, one theorem you proved at
 the table. Then the rule stopped being only my preference. With finitely many yes-states and a flag
-that stays up, every move that raises it merges states, and under the merge-pricing rule the toll follows. The collision is a property of the
-instruction on its allowed states; it need not involve the state that just entered.
-A heat bound additionally needs the input distribution and a physical model. That's a derivation under three
+that stays up, every move that raises it merges states, and under the merge-pricing rule the toll follows. The collision belongs to the
+instruction, over the states it's allowed to act on; the state that just came in needn't
+be one of the two that collide. Turning that into heat takes a spread over inputs and a
+physical model on top. That's a derivation under three
 premises you can refuse one at a time, each with its counterexample built. It isn't a proof that
 every computation has to adopt the rule; and the charge on forgetting is a named premise with
 its critics named. Learning can be free; committing to a record that stays put can't be, on
@@ -17632,36 +17641,33 @@ to record the commitment. It leaves the judgement unautomated. Of five record di
 modelled in fragments, one charges a fee at the write. And which event to record is a thesis, with
 its refutations listed.
 
-Part IV made the relations operational. The small machine's state ties a checked
-claim to an edition of a counter. Its step uses that tie: change the counter and
-the old check no longer authorizes a commitment. So from a clean start a raised flag
-needs a passing check, a commitment about the same edition and a certificate, in
-that order. Three marks are enough, and no such run pays less. These are
-facts about the construction, including the case of a check that cannot fail.
-Its two-counter base supplies universality under the stated encoding.
+Part IV built it. The small machine's state ties a checked claim to an edition of a
+counter, and its step uses the tie: change the counter and the old check no longer lets
+you commit. So from a clean start a raised flag needs a passing check, a commitment about
+the same edition and a certificate, in that order. Three marks are enough, and no such run
+pays less. Those are facts about the thing I built, the check that can't fail included,
+and its two-counter base is universal under Minsky's packing.
 
-The universal programs ask whether those relations survive another machine doing
-the work. On the host with more counters, $U$ runs the small machine's programs
-from clean starts, matches halting and answers, earns its own flag exactly when
-the guest raises one, and matches the ledger at corresponding points. With PAY
-added, $U_P$ runs every computably presented Thiele machine, latches the guest's
-reading through its own earned chain, and carries the guest's ledger with the
-stated surcharge: at most two at the raise when the reading starts at no. The
-simulation arguments describe which states correspond; the execution chapter
-measures the time this particular representation takes.
+The universal programs ask whether those relations survive somebody else's machine doing
+the work. On the host with more counters, $U$ runs the small machine's programs from clean
+starts, halts when they halt with their answers, earns its own flag exactly when the guest
+raises one, and matches the ledger wherever the two line up. With PAY added, $U_P$ runs
+every computably presented Thiele machine, latches the guest's reading through its own
+earned chain, and carries the guest's ledger to within the stated surcharge: at most two at
+the raise when the reading starts at no. The theorems say which states match; the chapter
+on running it says how long this particular build takes to get there, which is a long time.
 
-Changing the base and joining machines ask the structural question more widely.
-The lift works under its interface conditions, with counterexamples where those
-conditions fail (Section~\ref{sec:every-model}). Side-by-side machines need both
-records; a single total can lose which side acted. Sequential hand-offs and nested
-runs each need their own conditions (Section~\ref{sec:parts}). These constructions
-make you say which relation is carried through a change and which is lost. The
-six instruction kinds are one place to inspect that work.
+Then I changed the base and joined machines up, to see what carried over. The panel bolts
+onto any box that can compute, with the boxes it won't fit named
+(Section~\ref{sec:every-model}). Two machines side by side need both records kept; one
+total loses which side did the work. Hand-offs and nested runs each come with conditions
+of their own (Section~\ref{sec:parts}). Every one of those constructions makes you say
+which relation survives the change and which is lost, and that saying is the work.
 
 Then a check worth earning, the two-player game with an integer test whose
 pass forces Tsirelson's bound for the tally it's handed. And what the counter has to do with physics, which is less than
-the name Landauer might suggest. Two facts about the machine are stated where they belong. Its free
-steps merge states, because that is what forgetting scratch work means; the hardware pays for
+the name Landauer might suggest. Two facts about the machine sit where they belong. Its free
+steps merge states, because that's what forgetting scratch work is; the hardware pays for
 those merges in heat, off the ledger, so the toll on this machine comes from the record layer's
 merge premise and not from finiteness. And a check that cannot fail still certifies for three,
 because the step charges for the act, and the entitlement count says what the claim bought. Part V was where to challenge it and what would break it. Every result carries the shape of the thing that would
@@ -17705,8 +17711,8 @@ physics. No Hilbert space, no operators, no observables. The route through the m
 first rung of a ladder Navascués, Pironio and Acín built in 2007. None of that route is mine, and
 the semidefinite road to Tsirelson's bound is older than that. What's here is the check that runs in
 whole numbers, and the checked link from ``the check passed'' to the bound. It's algebra you can
-follow line by line. The reason this is an algebraic claim is in its definitions
-and the argument: no premise identifies the counts or matrices with a physical device. And on the small machine's host a raised flag can stand on that
+follow line by line. It's algebra and nothing more, because nothing in the definitions or
+the argument ties the counts or the matrix to any physical device. And on the small machine's host a raised flag can stand on that
 check: from a clean start a raised flag contains a passing CHECK of the packed counts, a COMMIT and
 a CERTIFY, and the check passes exactly when every pair was sampled and the five-by-five is
 positive semidefinite (Section~\ref{sec:chsh}).
@@ -17728,27 +17734,26 @@ partition, by a ruler they can state? I said in Section~\ref{sec:structure} it w
 
 And the two computers from the first pages, the sorter and the copier, holding the
 same list. Walk the warehouse again. The list is in order on both. On the machine
-with the earned layer, a different part of the state tells you whether a check and
-a matching commitment occurred. Its rules maintain the relation to the edition
-that was checked. Cover that part of the machine and the distinction disappears
-from your view. Change the counter and you can watch the old check become stale.
-Those are different operations, with different consequences, and you can follow
-each one.
+with the earned layer, a different part of the state tells you whether a check happened
+and a matching commitment followed it, and the rules keep that tied to the edition that
+was checked. Put your hand over that part of the machine and the difference between the
+two computers vanishes from where you're standing. Change the counter and you can watch
+the old check go stale. Those are different operations with different consequences, and
+you can follow each one with your finger.
 
-A report carried out of the warehouse raises another question: what connects that
-report to the machine? The flag alone supplies no answer. A window, a copying
-operation, a second machine and a reader each introduce relations of their own.
-The book's constructions ask explicitly which of them hold. That is how the
-example reaches beyond the lamp: through what survives a change of view, a change
-of state, or a change of machine.
+Carry a report out of the warehouse and you've got another question: what connects the
+report to the machine? The flag on its own doesn't answer it. A window, a copy, a second
+machine and a reader each bring relations of their own, and the constructions in this
+book ask, one at a time, which of those relations hold. That's how the example gets past
+the lamp: by what survives a change of view, a change of state, or a change of machine.
 
 So that's the Thiele Machine: structure held as state, acted on by a step, with an
-account of the changes and a view that may keep or lose their distinctions. The
-record and its toll give that proposal a worked mathematical core. The small
-machine and its interpreters are particular constructions you can take apart.
-The argument is for treating those relations as part of computation itself.
-Each theorem answers a stated question under stated premises; the choice of which
-questions an account ought to preserve remains there for you to challenge.
+account of the changes and a view that may keep or lose their distinctions. The record
+and its toll are the part of that I've worked all the way through. The small machine and
+its interpreters are things you can take apart. What I'm arguing is that those relations
+are part of computation itself, and not something you bolt on afterwards. Each theorem
+answers a stated question under stated premises. Which questions an account of
+computation ought to keep is the part that's still open, and it's yours to push on.
 
 \appendix
 
@@ -18128,7 +18133,7 @@ start plus the total cost, so at most the total cost. A5 says the end witness is
 $N$. Neither A4 nor the toll is used.
 \end{proof}
 
- A3 and A4 bound opposite
+A3 and A4 bound opposite
 directions, and neither implies the other: witness 1, cost 0, witness 0 satisfies A3 and
 breaks A4, and witness 0, cost 0, witness 1 does the reverse. These conditions describe a general setting.
 The small machine's own floor of three is proved directly (Observation~\ref{thm:u34-min-price})
@@ -18587,10 +18592,10 @@ stated earlier, I'll move it up the list.
 \label{sec:chsh-derivation}
 %===========================================================================
 
-This appendix supports Section~\ref{sec:chsh}. That section tells the story; this one does
-the algebra. Each item gives the statement with its hypotheses and the steps needed to
-check it. Nothing here identifies an arbitrary matrix with a physical state. Where quantum
-strategies enter, their relationship to the matrices is stated explicitly.
+Section~\ref{sec:chsh} tells the story; this appendix does the algebra. Each item gives
+the statement with its hypotheses and the steps you need to check it. Nothing here says
+that a matrix is a physical state. Where quantum strategies come in, I say exactly how they
+stand to the matrices.
 
 \subsection{Setting and notation}
 \label{sub:chsh-notation}
@@ -18852,7 +18857,7 @@ The diagonal of $E^{\mathsf T} E$ holds the squared lengths of the columns of $E
 why the conditions below are column conditions.
 
 \begin{definition}[Column contractive]\label{def:chsh-cc}
- Write
+Write
 $p = 1 - E_{00}^2 - E_{10}^2$, $q = 1 - E_{01}^2 - E_{11}^2$ and
 $s = E_{00} E_{01} + E_{10} E_{11}$. The correlators are column contractive when
 \[
@@ -18861,7 +18866,7 @@ p \ge 0, \qquad q \ge 0, \qquad p\,q - s^2 \ge 0.
 \end{definition}
 
 \begin{lemma}[The $2\times2$ test]\label{lem:chsh-psd2}
- If $\alpha \ge 0$, $\delta \ge 0$ and
+If $\alpha \ge 0$, $\delta \ge 0$ and
 $\alpha\delta - \beta^2 \ge 0$, then $\alpha u^2 + 2\beta u w + \delta w^2 \ge 0$ for all real
 $u, w$.
 \end{lemma}
@@ -18901,7 +18906,7 @@ nonnegative by Lemma~\ref{lem:chsh-psd2}.
 \end{proof}
 
 \begin{lemma}[Discriminant]\label{lem:chsh-discriminant}
- If $a + 2bt + ct^2 \ge 0$ for every real $t$, then
+If $a + 2bt + ct^2 \ge 0$ for every real $t$, then
 $b^2 \le ac$.
 \end{lemma}
 
@@ -18997,7 +19002,7 @@ the completion's Gram vectors (Section~\ref{sub:four-vectors}).
 \label{sub:chsh-integer}
 
 \begin{definition}[The seven-integer check]\label{def:chsh-check}
- From the counters of Definition~\ref{def:chsh-counters}, with all
+From the counters of Definition~\ref{def:chsh-counters}, with all
 arithmetic in $\mathbb{Z}$, let
 \[
 \begin{aligned}
@@ -19126,7 +19131,7 @@ matrix is $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$. The level-1 p
 imply it. Take a classical strategy: Alice's two answers $a_0, a_1$ are independent fair signs,
 and Bob copies them, $b_0 = a_0$ and $b_1 = a_1$. Every pinned cell of its moment matrix is 0 and
 both four-body cells are 1, so no choice of the nine numbers gives its matrix. The matrix here is
-therefore level 1+AB on the slice $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$, and that
+so level 1+AB on the slice $\langle \{A_0, A_1\} \otimes \{B_0, B_1\} \rangle = 0$, and that
 is what ``level 1+AB'' names in this book. The slice holds whenever $A_0$ and $A_1$ anticommute.
 The soundness theorems below are about this matrix, so they stand as stated. Second, the matrix
 keeps the level-1 pinning: every cell whose label reduces to a marginal or to
@@ -19253,7 +19258,7 @@ The cascade for the full check runs on $H$. Step one: $H_{11} > 0$ and the $5 \t
 matrix $S^{(6)}_{ij} = H_{11} H_{ij} - H_{1i} H_{1j}$, $2 \le i, j \le 6$, gives a nonnegative
 form. Step two: $S^{(6)}_{22} > 0$ and the $4 \times 4$ matrix
 $S^{(5)}_{ij} = S^{(6)}_{22} S^{(6)}_{ij} - S^{(6)}_{2i} S^{(6)}_{2j}$, $3 \le i, j \le 6$,
-gives a nonnegative form. Step three: the four leading minors of $S^{(5)}$ are positive. Together these conditions make the residual nonnegative and hence the nine-by-nine matrix positive semidefinite.
+gives a nonnegative form. Step three: the four leading minors of $S^{(5)}$ are positive. Together these conditions make the residual nonnegative, and so the nine-by-nine matrix positive semidefinite.
 
 \begin{definition}[What the integer check computes]\label{def:chsh-g12345}
 The supplied moments arrive as bucket pairs: $\gamma_k = N_{g_k}/D_{g_k}$ with
@@ -19287,7 +19292,7 @@ symmetric and positive semidefinite.
 \begin{proof}
 The bucket conjuncts make every denominator positive, the bridges carry the six integer
 positivities to the real cascade, and Lemma~\ref{lem:chsh-schur-step} twice plus
-Lemma~\ref{lem:chsh-sylvester} give $R \ge 0$, hence positive semidefiniteness by Theorem~\ref{thm:chsh-nine-iff}.
+Lemma~\ref{lem:chsh-sylvester} give $R \ge 0$, and so positive semidefiniteness by Theorem~\ref{thm:chsh-nine-iff}.
 \end{proof}
 
 \begin{remark}[Interior only]\label{rem:chsh-interior}
@@ -19392,7 +19397,7 @@ $\sum_k v_k^2 + 2x v_1 v_2 + 2y v_3 v_4 + 2E_{00} v_1 v_3 + 2E_{01} v_1 v_4 + 2E
 so PSD of $M(E)$ implies membership.
 
 \begin{theorem}[Deterministic plans are inside]\label{thm:chsh-ell-det}
- If $a_0^2 = a_1^2 = b_0^2 = b_1^2 = 1$, then
+If $a_0^2 = a_1^2 = b_0^2 = b_1^2 = 1$, then
 $(a_0 b_0, a_0 b_1, a_1 b_0, a_1 b_1)$ is elliptope realizable, with $x = a_0 a_1$ and
 $y = b_0 b_1$.
 \end{theorem}
@@ -19423,7 +19428,7 @@ The last statement combines this with Theorem~\ref{thm:chsh-ell-det}.
 \end{proof}
 
 \begin{theorem}[Tsirelson's bound holds on the completion set]\label{thm:chsh-ell-tsirelson}
- If $E$ is elliptope realizable then $S^2 \le 8$.
+If $E$ is elliptope realizable then $S^2 \le 8$.
 \end{theorem}
 
 \begin{proof}
@@ -19465,7 +19470,7 @@ and $-2 \cdot \tfrac35 v_2 v_4$, as the entries require.
 
 By Theorem~\ref{thm:chsh-fine} no finite factorizable model has $S > 2$, so this point is not a finite
 mixture of plans, while Theorem~\ref{thm:chsh-ell-convex} puts every such mixture inside. The completion
-set therefore strictly contains the finite classical set, and the PR box lies outside it.
+set then strictly contains the finite classical set, and the PR box lies outside it.
 No inclusion in the no-signalling set is established here.
 
 The gate  is an integer decider with a soundness proof. Its
@@ -19481,7 +19486,7 @@ of $M = L D L^{\mathsf T}$ hold in cross-multiplied integer arithmetic. The full
 \end{definition}
 
 \begin{theorem}[Soundness of the gate]\label{thm:chsh-gate-sound}
- If the full gate returns yes on a counter record, any
+If the full gate returns yes on a counter record, any
 completion buckets and any certificate, then the four correlators of the record are
 elliptope realizable. On the PR box
 tally the gate returns no for every choice of the remaining arguments.
@@ -19509,7 +19514,7 @@ a sheet of paper to bring the moving pencil's tip straight across to the line,
 and mark where it lands. The mark moves from a full pencil-length forward,
 through the joined ends when the pencils make a square corner, to a full
 pencil-length backward. Call those readings 1, 0 and $-1$. That is the signed
-shadow we want. Between those positions the reading is the cosine of the angle.
+shadow I want. Between those positions the reading is the cosine of the angle.
 A dot product of unit vectors measures that shadow.
 
 Now ask for four directions, two labelled Alice and two Bob, with a prescribed
@@ -19520,7 +19525,7 @@ it: Bob's pencils would have to point both the same way and opposite ways. Four
 numbers in range need not describe four directions that can coexist.
 
 Write those four readings as $x=E_{00}$, $y=E_{01}$, $z=E_{10}$ and $w=E_{11}$.
-We have not specified the shadow between Alice's own two directions, or between
+I haven't specified the shadow between Alice's own two directions, or between
 Bob's own two. Those are the two blanks, $t$ and $u$, in the following table.
 Can they be filled so that the whole table comes from directions? The pencils let
 you ask it in a plane; the construction will allow four coordinates. A completion is
@@ -19585,8 +19590,8 @@ matrices:
 The tensor product has entries $(A\otimes B)_{(i,k),(j,l)}=A_{ij}B_{kl}$.
 Each $\Gamma_i$ is symmetric and squares to the identity. For $i<j$, the first
 position where the two products differ has $X$ against $Z$, and $XZ=-ZX$; all
-other positions commute. Thus $\Gamma_i\Gamma_j=-\Gamma_j\Gamma_i$.
-For a unit vector $a$, the symmetric matrix $A(a)=\sum_i a_i\Gamma_i$ therefore
+other positions commute. So $\Gamma_i\Gamma_j=-\Gamma_j\Gamma_i$.
+For a unit vector $a$, the symmetric matrix $A(a)=\sum_i a_i\Gamma_i$ then
 satisfies $A(a)^2=\sum_i a_i^2 I=I$. Its two-outcome measurement has projectors
 $(I+A(a))/2$ and $(I-A(a))/2$: they are symmetric, square to themselves, are
 orthogonal, and sum to the identity.
@@ -19621,7 +19626,7 @@ $\operatorname{Re}\langle a_x,b_y\rangle=E_{xy}$. Replace each complex coordinat
 its real and imaginary parts. This preserves those real inner products, and their
 Gram matrix is a completion. A mixed state gives the same construction by taking
 the direct sum of the vectors of its pure components, weighted by the square roots
-of their probabilities. Thus the completion condition and finite-dimensional quantum
+of their probabilities. So the completion condition and finite-dimensional quantum
 realizability are equivalent.
 
 The necessary direction does not require finite-dimensional vectors. If a positive
@@ -19763,7 +19768,7 @@ P_0(a_0,a_1,b_0)P_1(a_0,a_1,b_1)/P_A(a_0,a_1),&P_A(a_0,a_1)>0,\\
 \end{cases}
 \]
 If $P_A=0$, nonnegativity forces both corresponding triple distributions to be zero.
-Otherwise summing over either Bob answer cancels the denominator. Thus $P$ has the
+Otherwise summing over either Bob answer cancels the denominator. So $P$ has the
 two triple distributions as marginals and total mass 1. Sample one of its sixteen
 answer quadruples and let each party answer with its assigned sign. This is a finite
 mixture of deterministic local plans with exactly the four required correlators.
@@ -19771,9 +19776,9 @@ mixture of deterministic local plans with exactly the four required correlators.
 \subsection{Scope of the constructions}
 \label{sub:chsh-not-proved}
 
-The constructions above establish the correlation characterizations. The following
-paragraphs distinguish their scope from the completeness of a particular integer test,
-from full behaviours with marginals, and from claims about experimental data.
+The constructions above pin down the correlators. What follows is where they stop: they
+aren't a completeness claim for the integer check, they say nothing about full behaviours
+with marginals, and they say nothing about data from a lab.
 
 The arcsine boundary. For two settings and two outcomes per side, Tsirelson, Landau (1988) and
 Masanes (2003) give theorems characterizing the correlators reachable by quantum measurements:
@@ -19884,7 +19889,7 @@ Scott numerals are the following closed values:
 \qquad
 \overline{n+1}=\lambda z.\lambda s.s\,\overline n.
 \]
-Thus a numeral selects either the supplied zero case or the supplied successor case,
+So a numeral selects either the supplied zero case or the supplied successor case,
 passing its predecessor to the latter. The cases below are values, so choosing one
 does not prematurely run the other.
 
@@ -19927,7 +19932,7 @@ When $F$ and $u$ are closed values, beta reduction gives
 \longrightarrow^{*} F\,(\lambda a.W\,W\,F\,a)\,u
 =F\,(\operatorname{rec}(F))\,u.
 \]
-The recursive argument is a lambda, hence already a value. It starts work only when
+The recursive argument is a lambda, so it's already a value. It starts work only when
 $F$ applies it to an argument. That is the whole reason this construction survives
 the call-by-value rule.
 
@@ -19982,7 +19987,7 @@ applied to the quoted child code. That is the syntax of the abstraction code.
 \end{itemize}
 
 Each recursive call works on a proper child of the finite input tree, or on a
-smaller numeral. Each builder takes finitely many beta steps. The induction therefore
+smaller numeral. Each builder takes finitely many beta steps. So the induction
 establishes termination as well as the value returned.
 
 The $\mathrm{mkapp}$ used in Section~\ref{sec:diagonal} is this builder. With $Q$ and that builder written out, its self-referential
@@ -20079,7 +20084,7 @@ Multiple tapes may be represented on one tape by a list of tracks with marked he
 positions: a complete scan reads the marked symbols, a second scan writes their changes
 and shifts their markers. Extend the represented interval by a blank cell when needed.
 A fixed-length binary code for the finite alphabet implements each scan with binary
-symbols and finitely many intermediate control states. Thus this argument also applies
+symbols and finitely many intermediate control states. So this argument also applies
 to the single-tape binary halting question.
 
 \subsection{Packing finitely many counters into two}
@@ -20114,7 +20119,7 @@ To simulate INC on $r_i$, empty $A$ into $B$, adding $p_i$ to $B$ per decrement,
 then move $B$ back to $A$. The result is $p_iA_{\rm old}$ and $B=0$.
 To simulate DEC, divide $A$ by $p_i$ using the finite remainder cycle described above.
 On exit $A=0$, $B=q$ and the control holds $d$, where $A_{\rm old}=p_iq+d$ and
-$0\le d<p_i$. If $d=0$, the original number was divisible by $p_i$, hence $r_i>0$.
+$0\le d<p_i$. If $d=0$, the original number was divisible by $p_i$, so $r_i>0$.
 Move $B$ to $A$ and take the positive branch. Its exponent of $p_i$ has decreased by
 one and every other exponent is unchanged. If $d>0$, then $r_i=0$. Restore $A$ by
 moving $B$ back with $p_i$ increments per unit, add $d$, and take the zero branch.
@@ -20151,11 +20156,11 @@ Invalid descriptions may be assigned one fixed halting program. Suppose a termin
 algorithm $H(p,x)$ decided whether the program described by $p$ halts on $x$.
 Build a program $D$ which, on input $p$, computes $H(p,p)$, loops forever if the answer
 is yes, and halts if it is no. Let $d$ describe $D$. Either answer to $H(d,d)$ contradicts
-what $D(d)$ does. Therefore no such deciding algorithm exists.
+what $D(d)$ does. So no such deciding algorithm exists.
 
 Translate a tape program and its input by the stack construction and then prime packing.
 Both translations are finite algorithms, and the translated two-counter run halts exactly
-when the tape run halts. A decider for two-counter halting would therefore give $H$.
+when the tape run halts. A decider for two-counter halting would then give $H$.
 The same reduction, followed by Theorem~\ref{thm:u34-halting}, applies to the small machine.
 Halting instances can be enumerated by simulating every description and input for successively
 larger finite budgets. If the nonhalting instances could also be enumerated, interleaving
@@ -20184,7 +20189,7 @@ connect binary stack machines and counter machines in both directions.
 fall through after a positive decrement; the convention of this book does the reverse.
 To translate a conditional decrement, send its two outcomes to separate short blocks
 that unconditionally jump to the intended destinations. An unconditional jump is the
-restoring INC/DEC pair above. Thus either convention implements the other's instruction,
+restoring INC/DEC pair above. So either convention implements the other's instruction,
 with the same final counter values and one finite stretch per step. Relabel each target
 to the beginning of its translated block. This proves the equivalence of the two Minsky
 instruction conventions without identifying their individual steps.
@@ -20214,7 +20219,7 @@ from the counter primes. Exactly one state marker is present. Fractions belongin
 to other states cannot apply. At state $i$, the first decrement fraction applies exactly
 when $n_r>0$; otherwise the second applies. The next fraction transfers the intermediate
 marker to the destination marker. A halting state has no outgoing fraction. Each
-counter step therefore takes two fraction steps, and the prime exponents preserve all
+counter step then takes two fraction steps, and the prime exponents preserve all
 counter values. Read the output as the exponent of the output counter's prime.
 
 \emph{Partial recursive functions.} Compare two orders. ``Try the first ten tickets''
@@ -20239,7 +20244,7 @@ $\langle m,n\rangle=(2n+1)2^m$, with a separate finite code for the line.
 Addition, multiplication, powers, bounded division and bounded search are primitive
 recursive: their loops have a supplied natural bound and can be written as recursion
 on that bound. Pair decoding is bounded by the encoded positive number. The next
-configuration and the halt test are therefore primitive recursive for any fixed finite
+configuration and the halt test are then primitive recursive for any fixed finite
 program. The configuration after $t$ steps is primitive recursion on $t$, keeping halted
 configurations fixed. Minimize the total halt test over $t$, then read the output counter.
 This is the program's partial function, and it is undefined exactly when the program
@@ -20275,7 +20280,7 @@ then substitutes the argument value in the abstraction's body; it never reduces 
 an unapplied abstraction. Each operation is a finite tape computation. Induction on
 a terminating evaluation gives a terminating tape run with its value; reading a terminating
 run backwards gives the evaluation tree. Scott numerals are decoded by counting successor
-constructors. Thus an $L$ computation of a numerical relation is a tape computation of it.
+constructors. So an $L$ computation of a numerical relation is a tape computation of it.
 
 The tape and counter translations, the two counter conventions, binary stacks, FRACTRAN,
 partial recursive functions and $L$ now lie in one connected family of translations.
@@ -20298,7 +20303,7 @@ If no such run exists, the search continues forever. Encoding a finite program, 
 an instruction, and performing one step use the finite operations above, so this search
 is itself a partial recursive function and has a finite counter program.
 The host can execute that program instruction for instruction, using as many registers
-as the construction requires. Its computation uses only INC, DEC and HALT, hence costs
+as the construction requires. Its computation uses only INC, DEC and HALT, so it costs
 zero and leaves the fact table, channel and flag alone. This supplies the evaluators and
 program transformations used in the host's s-m-n and fixed-point arguments.
 
@@ -20358,12 +20363,12 @@ $y$, and leaves $t=0$. $J_0$ tests zero without changing the value: a positive
 counter is decremented and then restored, while zero takes the jump.
 
 In $H$, first move the old $x$ into $a$. Each complete pass removes two from $a$ and
-adds one to $x$. Thus it leaves $a=0$ and $x=\lfloor x_{\rm old}/2\rfloor$;
+adds one to $x$. So it leaves $a=0$ and $x=\lfloor x_{\rm old}/2\rfloor$;
 an even old value jumps to $p$, an odd one falls through. In $P$, the first four
 blocks make $x=2x_{\rm old}+1$ and $a=0$. Each subsequent pass doubles $x$ while
 decrementing $y$, so it ends at $x=(2x_{\rm old}+1)2^{y_{\rm old}}$, with $a=y=0$.
 In $N$, zero jumps to address 0, which holds no instruction, so the run stops. A positive number is repeatedly halved
-until odd, counting the even divisions in $y$. Therefore
+until odd, counting the even divisions in $y$. So
 $N$ sends $x=\langle m,n\rangle$ to $x=n$, $y=m$, $a=0$.
 These invariants prove both the returned values and termination on the stated inputs.
 
@@ -20391,7 +20396,7 @@ $C(x,t_1,u)$ and $C(y,t_2,u)$, occupying offsets 0 to 21. Its remaining list is
 The listed offsets count expanded instructions, so the block has length 34.
 The temporary registers are distinct from each other and from $x,y$.
 The two copies count down together. If they reach zero together, the block jumps to
-$p$; if one reaches zero first, it clears both and falls through. Thus it preserves
+$p$; if one reaches zero first, it clears both and falls through. So it preserves
 $x,y$, leaves its temporary counters zero at either exit, and branches exactly on equality.
 
 For fetching, define $F(q,l;w,k,h,a,t;p_0,p_e)$ by the list
@@ -20502,7 +20507,7 @@ $11+48+1+2+16\cdot60=1022$.
 The selected unused slot starts at zero, so the move into it installs exactly the
 pair of property code and guest value. The host's own table has capacity sixteen:
 if it is full, its CHECK traps even when this bank's count is below sixteen.
-Thus the capacity is shared between the banks, just as it is in the guest. A count of sixteen in one bank already fills the table, so the dead-end check and the full-table trap are the same case.
+So the capacity is shared between the banks, just as it is in the guest. A count of sixteen in one bank already fills the table, so the dead-end check and the full-table trap are the same case.
 
 A COMMIT slot block is COMMIT $\mathsf{Slot}$ $S_{c,k}$;
 $Z(T_2)$; INC 3; $J(T_4,H)$, of length 5.
@@ -20578,7 +20583,7 @@ produce a stopped host except in its own halting or trapping case.
 For $U_P$, use opcode 6 with operand 0 for PAY, append a PAY handler to the six handlers,
 and append its block after CERTIFY. The block is PAY; INC 3; $J(T_4,H)$, of length 4.
 The head's selector now has seven entries and is three instructions longer. Every
-block after the head therefore starts three addresses later. Resolve targets to those
+block after the head then starts three addresses later. Resolve targets to those
 new addresses; the head itself remains at address 1.
 The new PAY block starts at 3732. The total length is $3728+3+4=3735$ and there
 are $69+1=70$ paid sites. The interpretation of $\mathsf{Slot}$ uses the priced
@@ -20599,16 +20604,14 @@ that a result matters. Those questions belong to the argument.
 \label{sec:bibliography}
 %===========================================================================
 
-These works are cited for their results, history and intellectual context.
-
-The universal programs and the compiler that puts every computably presented Thiele machine on
-the universal host use effective computability and counter-machine simulation; their
-construction is given in Sections~\ref{sec:universal-host} and~\ref{sec:presented-universal}
-and Appendices~\ref{sec:quoting-construction}--\ref{sec:universal-blocks}. The counter and
-lambda references credit the established constructions. The thermodynamic
-references do not remove the explicit physical premise of the heat bound.
-The environmental-record papers motivate Section~\ref{sec:pointer}; they do not prove
-this book's pointer thesis.
+These are the works I leaned on, for their results, their history and the company they
+keep. A few words on how to read the list. The counter and lambda references are the
+constructions the universal programs and the compiler stand on
+(Sections~\ref{sec:universal-host} and~\ref{sec:presented-universal}, and
+Appendices~\ref{sec:quoting-construction} to~\ref{sec:universal-blocks}); the credit for
+those constructions is theirs. The thermodynamics references don't take the physical premise
+out of the heat bound; it stays a premise. And the papers on records in the environment
+are where the pointer thesis got its shape; none of them proves it.
 
 \subsection{Structure, information and knowledge}
 
