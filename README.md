@@ -9,7 +9,7 @@
 
 That is how I see this work.
 I think computation has structure that a description of what it reads and writes leaves out.
-And keeping that structure is never free: anything a machine keeps and can't take back is paid for in heat, room or time. The count that says so is in the book; which of the three a device pays is physics.
+Every computer is charged for time and space. There is a third charge: what it keeps and cannot take back. That charge is paid in heat, room, or time. The book proves the count; which of the three a device pays is physics.
 
 **What the Thiele Machine is.**
 It is an abstract model of computation.
@@ -98,10 +98,10 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the assumption receipt: 5,997 theorems probed, zero *project-local* axiom findings.
+The second command prints the assumption receipt: 6,140 theorems probed, zero *project-local* axiom findings.
 This is a report about the formal derivations, not a premise or a source of authority for the argument.
 Some theorems do use axioms from Coq's own standard library.
-5,198 of those theorems are closed under the global context outright; the remaining 799 use only Coq standard-library assumptions: dependent functional extensionality, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
+5,320 of those theorems are closed under the global context outright; the remaining 820 use only Coq standard-library assumptions: dependent functional extensionality, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
 Those library assumptions are disclosed in the receipt; what is zero is axioms this project added.
 The receipt's counts are written by the receipt generator on Linux (`make assumption-receipt`, then `scripts/sync_assumption_receipt_readme.py`), never by hand.
 Validate the committed receipt quickly with `make assumption-receipt-check`.
@@ -222,7 +222,7 @@ Coq closes the contradiction.
 Closed under the global context
 ```
 
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 5,997 addressable theorems probed across 341 files and no user/project-local axiom findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 6,140 addressable theorems probed across 351 files and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
@@ -258,6 +258,13 @@ The fourth column is the artifact that refutes the row, each one constructible i
 | Universal cost floor | Any substrate with a cert-flip cost floor satisfies the same no-free-certification result. | [UniversalCertificationCost.v](coq/kernel/nfi/UniversalCertificationCost.v) | A `CertificationSystem` trace from uncertified to certified with `cs_total_cost = 0`; `universal_nfi_any_substrate` falls. |
 | Honest cost tracking | A2 is a strict well-formedness condition: some system without it certifies for free, and no system with it does. | [HonestCostTracking.v](coq/kernel/nfi/HonestCostTracking.v) | A `CertificationSystem` (A2 in scope) with a non-empty cert-flip trace at total cost 0, or a proof that every `CostBearingSystem` satisfies A2; `honest_cost_tracking_strict_restriction` falls either way. |
 | The toll from permanence | On a finite machine, a permanent certificate is switched on only by a merge, so merge pricing yields A2. | [PermanentCertification.v](coq/kernel/nfi/PermanentCertification.v), [PermanentRecordPricing.v](coq/kernel/nfi/PermanentRecordPricing.v) | A finite machine with a permanent reading switched on by an injective step; `permanent_flip_is_not_injective` falls. |
+| Heat or room | On any state space a permanent flip either merges or visits a fresh state every time; a finite memory keeps the history of a reset through at most (M−1)/(N−1) repetitions, and that bound is attained. | [HeatOrRoom.v](minimal/HeatOrRoom.v) | An injective move raising a permanent reading whose iterates repeat; `permanent_flip_iterates_distinct` falls. A retaining implementation with fewer than 1 + (T+1)(N−1) states; `retention_bound` falls. |
+| The step law | Any step on any state set, no reading and no finiteness: every step is fresh, a merge, or a revisit from the same state after which the run is periodic; a merge is two distinct states with one image. | [StepLaw.v](minimal/StepLaw.v) | A step that is none of the three; `step_law` falls. |
+| The write is a merge | Writing a 0 on a blank cell merges blank with zero; a finite remembering state does not escape; the endless tape and the bilateral shift do, paying a fresh state every step; no state space codes all its own readings. | [KeptDistinction.v](minimal/KeptDistinction.v) | A finite extension of the cell on which the write is one-to-one and the reading stays; `four_state_escape_fails` is the smallest case and the chairs theorem the general one. |
+| Reversible keeps nothing | An injective step on finitely many states returns every run to its start, so a reading that is false at the start and never comes down stays false. | [Recurrence.v](minimal/Recurrence.v) | A one-to-one step on a finite set whose run never returns; `returns_to_start` falls. |
+| Noisy chairs | A kernel preserving the uniform spread cannot enter a closed set from outside; one that can strictly concentrates the uniform spread (collision weight up, Shannon entropy down); one that preserves it never concentrates any spread. | [NoisyChairs.v](minimal/NoisyChairs.v), [GibbsGap.v](minimal/GibbsGap.v) | A doubly stochastic kernel with a positive entry into a closed set; `noisy_chairs` falls. |
+| Quantum chairs | A finite-dimensional unitary that keeps a projector's range inside itself keeps the complement inside itself: a no-state never reads yes. | [QuantumChairs.v](minimal/QuantumChairs.v) | A unitary and a projector with (1−P)UP = 0 and PU(1−P) ≠ 0 in finite dimension; `quantum_chairs` falls. |
+| Time's bill | A biased walk produces strictly positive entropy per tick at any nonzero speed, and heat times time is at least the distance squared. | [BrownianComputer.v](minimal/BrownianComputer.v) | A speed off zero with zero entropy production, or heat times time under the distance squared; `heat_at_any_speed` or `heat_time_floor` falls. |
 | Threshold floor | Certifying from zero evidence, with a threshold of evidence K, costs at least K when each step's cost bounds the evidence it adds. | [QuantitativeNoFI.v](coq/kernel/nfi/QuantitativeNoFI.v) | A `QuantitativeCertificationSystem` run from zero evidence to certified with total cost below the threshold; `universal_nfi_quantitative` falls. |
 | The record axis | A record driven by the computation that never switches off is a latch on one event, over any base; every base carries one. | [StructuralRecordAxis.v](coq/kernel/foundation/StructuralRecordAxis.v), [RecordAxisDiscrimination.v](coq/kernel/foundation/RecordAxisDiscrimination.v) | An honest extension whose record is not a latch on any event; `record_axis_is_latch_holds` falls. |
 | Shadow pricing | No account that prices from a window with a collision prices certification exactly; a window that shows the reading can. | [ShadowPricing.v](coq/kernel/nfi/ShadowPricing.v) | A shadow price meeting the floor and never overcharging on a window with a collision; `shadow_cannot_price_exactly` falls. |
@@ -398,12 +405,14 @@ The full proof build needs Coq 8.18 with CSDP, and MetaCoq for the vendored L mo
 The exact versions are the ones CI earns its badges with: plain apt on `ubuntu-latest`, Ubuntu 24.04, which ships Coq 8.18.0.
 
 ```bash
-sudo apt-get install -y coq coinor-csdp ocaml ocaml-findlib
+sudo apt-get install -y coq coinor-csdp libcoq-mathcomp-field ocaml ocaml-findlib
 sudo apt-get install -y libcoq-core-ocaml-dev libcoq-equations libstdlib-shims-ocaml-dev
 bash scripts/install_metacoq.sh                                # MetaCoq 1.2.1 for the vendored L modules
 ```
 
 `coinor-csdp` is not garnish: the algebraic Tsirelson theorem closes its sum-of-squares certificate through `psatz`, and `psatz` asks CSDP for the certificate.
+
+`libcoq-mathcomp-field` is there for one file: the quantum chairs theorem in `minimal/QuantumChairs.v` is stated on matrices over the algebraic numbers with complex conjugation, and that algebra comes from the Mathematical Components library.
 
 ### Full proof build (the `coq-gate`)
 
@@ -455,9 +464,9 @@ Two independent receipts track proof assumptions.
 
 The vacuity gate probes the compiled theorem types, preserving their section binders and module scope. An unresolved theorem, failed import, or timeout is an audit error, not a passing result. Version-two receipts replace older receipts that did not distinguish these failures. Definitional transport helpers are labeled `Definition`; they are not counted as new theorems.
 
-The generated assumption receipt reports 5,997 addressable theorems probed across 341 files and no user/project-local axiom findings.
-The split: 5,198 close under the global context outright, and the remaining 799 lean only on Coq-stdlib axiom families.
-Those families are `functional_extensionality_dep` (763), the classical-reals pair `sig_forall_dec` (785) and `sig_not_dec` (273), and `classic` (175). No theorem uses `eq_rect_eq` (0).
+The generated assumption receipt reports 6,140 addressable theorems probed across 351 files and no user/project-local axiom findings.
+The split: 5,320 close under the global context outright, and the remaining 820 lean only on Coq-stdlib axiom families.
+Those families are `functional_extensionality_dep` (784), the classical-reals pair `sig_forall_dec` (806) and `sig_not_dec` (285), and `classic` (187). No theorem uses `eq_rect_eq` (0).
 Those families enter through the real-number layers; the minimal core uses none of them.
 These counts are written by the receipt generator on Linux, never by hand.
 "Zero axioms" here means zero project-local axioms, the convention the companion release record uses.
@@ -503,7 +512,7 @@ It also keeps the disclosure of the hardware embodiment (certification opcodes, 
   title        = {The Thiele Machine: A Computational Model with Explicit Structural Cost},
   author       = {Thiele, Devon},
   year         = {2026},
-  version      = {4.0.0},
+  version      = {4.1.0},
   note         = {Version 4.0.0 is the current tree; the latest version deposited at this DOI is the tagged release v3.3.0},
   doi          = {10.5281/zenodo.17316437},
   publisher    = {Zenodo},

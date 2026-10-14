@@ -238,17 +238,17 @@
 %===========================================================================
 
 Structure is something a machine can hold and act on. Which things belong together,
-which change preserves a relation, which earlier act a later move depends on: those
-can be part of its state and its rules. That is the commitment behind the Thiele
+which change keeps a relation intact, which earlier act a later move leans on: a
+machine can carry those in its state and in its rules. That's the bet behind the Thiele
 Machine. I want to take those relations apart, put them to work, and ask what survives
-when the machine changes or when we look at it through a smaller window.
+when the machine changes or when you look at it through a smaller window.
 
-The way into that question is two computers with the same answer. The answer leaves
-something out. We can give that difference a place in the machine, let the step
-maintain it, and ask what an observer can recover and what a change costs. A record
-of a checked claim will be the first case I work through. It gives the argument
-something definite to stand on: states you can point at, moves you can follow, and
-rules you can try to break.
+The way in is two computers with the same answer. The answer leaves something out. I'm
+going to give that difference a place in the machine, let the step keep it, and ask
+what somebody looking in can recover and what a change costs. A record of a checked
+claim is the first case I work through, because it gives the argument something
+definite to stand on: states you can point at, moves you can follow, and rules you can
+try to break.
 
 Start with one small picture. I'm going to
 take it apart, and keep asking what each piece means, as far down as I can get before I hit
@@ -966,12 +966,12 @@ this is true or false. Reading them didn't make anything truer. It raised how fa
 things for myself, and I could still be wrong about every one, the way the people who read Kempe in 1880
 were. I went through them because I needed something to test the feeling against, and most of what I
 tested failed. The failures told me what the thing isn't: not hidden, not free, not reversible, not
-steering. What's left after all that is mostly a list of what it isn't, and I'm still not certain I've
-described what it is.
+steering. What's left after all that is a list of what it isn't. What it is comes next, with
+definitions and proofs.
 
 \subsection*{Computing already had a word for it}
 
-Here's the slightly embarrassing part. Computing already has a word for this and uses it every
+Computing already has a word for this and uses it every
 day. Anyone who's used a database has seen it: COMMIT.
 
 A database does a pile of tentative work, and then there's one moment, the commit, written to a log,
@@ -1255,7 +1255,7 @@ the window shows, and you change which questions the resulting state can answer.
 The computing base supplies the operations. The record adds no computable function.
 
 Which leaves a fair question hanging: if it computes nothing new, does it even get to call
-itself a model of computation? I think so, and not only on my say-so. Computer science has
+itself a model of computation? It does, and not only on my say-so. Computer science has
 long kept models that compute exactly what Turing's does and differ only in what they count,
 how long a step takes, what reaching into memory costs, because the counting is the reason
 to have them. The random-access machine of the computer scientists Stephen Cook and Robert
@@ -1645,22 +1645,24 @@ If it breaks there, the book ends there. I'd rather know.
 \label{sec:shortversion}
 %===========================================================================
 
-\emph{The book in one paragraph.} The Thiele Machine is an account of computation
-that holds structure in the state and makes its treatment explicit in the step.
-Start with things and their relations, then ask which moves preserve them, which
-lose distinctions, and which distinctions an observer can see. The worked core is
-a state, a step rule, a cost for each move and a yes-or-no reading, with a toll on
-turning that reading on. A ledger adds the costs; a window shows some of the state.
-This small case lets us derive definite consequences: a permanent reading over
-finitely many yes-states can only rise through a merge; a price on merges then
-forces the toll. A window may hide that change and its price. Over any base, a
-driven permanent record is a latch; records with more stages give a direction of
-such readings. These are results about the pieces they name. Part IV gives them a
-concrete form in a machine with six instruction kinds, where checks and commitments
-are tied to the same edition of an object. The later constructions change the base,
-join machines and run one inside another, asking what structure and accounting
-survive. That is the route from the picture to the machinery. The five steps below
-follow it, with the premises and the limits of each claim.
+\emph{The book in one paragraph.} The Thiele Machine is a way of describing a
+computation that keeps the structure in the state and says, in the step, what each
+move does to it. Start with things and the relations between them. Ask which moves
+keep those relations, which ones lose a distinction, and which distinctions somebody
+looking in can see. The worked core is five parts: a state, a rule for the next
+state, a price for each move, a yes-or-no reading, and a toll on turning that reading
+on. A ledger adds up the prices. A window shows part of the state. Keeping the case
+that small is what makes the consequences definite: a reading that stays up, on
+finitely many yes-states, can only rise through a merge, and a price on merges then
+forces the toll. A window can hide that change and its price. Over any base, a
+record that the computation drives and that never comes down is a latch, and
+records with more stages are a row of latches with a direction. Those are results
+about the pieces they name. Part IV gives them a body, a machine with six
+instruction kinds in which a check and a commitment are tied to the same edition of
+the same object. The later chapters change the base, put machines side by side and
+run one inside another, and ask what structure and what accounting survive. That's
+the road from the picture to the machinery, and the five steps below walk it, with
+the premises and the limits of each claim.
 
 I didn't invent a machine. I found one. That's how I see this work, and I'll be straight
 about the difference between that conviction and a theorem before I do anything else.
@@ -1684,12 +1686,12 @@ forces on you, the latch shape and the merge. The event to record, the price lis
 the count inside the step are choices, mine, and ``The point'' said so where it sorted what
 I was pushed into from what I chose.
 
-What this book is. An argument about what an account of computation should preserve.
-An answer, a run and a view of a run keep different things. The sorter and the copier
-make that difference visible; the model lets us ask exactly which distinctions a
-description retains and what follows when it drops them. My proposal is to carry
-those structural relations and their accounting in the step itself. Here is the
-argument in five steps, each with where it stands.
+What this book is: an argument about what a description of a computation should keep.
+An answer, a run, and a view of a run keep different things. The sorter and the copier
+put that difference on the table, and the model lets me ask exactly which distinctions
+a description keeps and what follows when it drops them. My proposal is to carry
+those relations and their bill in the step itself. Here's the argument in five steps,
+each with where it stands.
 
 \emph{Holding a sorting costs something; standing behind one might.} That's Part I: one word,
 structure, pushed on with you through as many of the people who wrestled it before me as I
@@ -1726,8 +1728,9 @@ together (how many times it halves the number of states it can tell apart), and,
 bound
 holds in bits of Shannon entropy, the standard measure of information. Proved, with
 the price as a premise. Second, where the machine I built stands, and that's a fact Part IV settles. The small machine of Part IV isn't a finite
-machine of that kind: its counters have no top, so it isn't finite, and some of its free steps merge states too. So the chairs don't
-reach it. The merge premise asked of the record layer alone does: a move that sends two different states with the same line and
+machine of that kind: its counters have no top, so it isn't finite, and some of its free steps merge states. The hardware pays for
+those merges in heat, off the ledger, on purpose: the ledger counts the one kind of merge a computation is not allowed to make.
+So the chairs don't reach the whole machine. The merge premise asked of the record layer alone does: a move that sends two different states with the same line and
 counters to one state costs at least one. The small machine's own prices meet that premise, and every price list that meets it
 charges the flag-raising step, with no finiteness premise (Theorem~\ref{thm:record-merge-toll}). What the chairs do reach is a finite piece: an eight-state machine,
 four slots and a flag, on which every premise is a theorem and the toll follows outright
@@ -1826,10 +1829,10 @@ Section~\ref{sec:falsification} and Section~\ref{sec:ledger}. The appendices are
 everything in them is there to be looked up when a claim points at it. Nothing gets cut for
 that. It's a map. Nobody's on a diet.
 
-I think there's something foundational here. The results in this book have statements,
+There's something foundational here. The results in this book have statements,
 premises, and arguments. The larger claim is a conjecture. No theorem proves it. I built the
 machine so that the work could be done in public, with something firmer than my confidence
-to argue over. If you're the skeptical sort, and I hope you are, the two places to aim are
+to argue over. The two places to aim are
 the appendix that sorts what's mine from what isn't (Appendix~\ref{sec:whats-mine}) and the
 chapter of ways to break it (Section~\ref{sec:falsification}).
 
@@ -1871,7 +1874,7 @@ statements about named laws and named windows, and the third is checked too, ove
 transcripts and then for every Thiele-complete machine (Section~\ref{sec:windows}). An ordinary machine can keep a richer encoding, or enforce the same invariant
 through its own transition table. What I'm proposing is about why the extra distinctions
 matter. It isn't a theorem that every Turing-equivalent system lacks them. And if you want the
-list of what I think is new, it's the short one at the end of ``What's proved, what's argued,
+list of what's new, it's the short one at the end of ``What's proved, what's argued,
 and what I just believe'' in ``The point,'' four small things, and nothing bigger.
 
 \emph{The layers, once.} The core definition (Definition~\ref{def:certsys}) is a certification
@@ -2017,8 +2020,8 @@ idea is the reference monitor's. Not closed on every question: the ones I couldn
 \emph{What I do and don't know about prior work.} I came to this with no formal training in the
 fields it turned out to need, and I've read what I could reach, with every tool I had. The
 prior-work map below is orientation. It doesn't pretend to be scholarship. For each piece of this book it says who did
-the thing it leans on, and what, if anything, this development adds. I'd welcome correction
-on any row.
+the thing it leans on, and what, if anything, this development adds. A row that's wrong gets
+fixed, and the end of Section~\ref{sec:ledger} says how I'd want to hear of one.
 
 There's a law about rows like these, and it's a joke that keeps turning out true. In 1980 the
 statistician Stephen Stigler proposed that no scientific discovery is named after the person
@@ -2275,11 +2278,11 @@ stupid thing I did was build a machine that keeps a running bill, and the bill h
 couldn't talk it out of. You can arrange things however you like for whatever price you
 name, including free. But the moment you ask the machine to \emph{vouch} for an arrangement, to
 put its own name on the claim that these things belong together, there's a charge, and it
-isn't zero. Charged in what has only three answers, heat, room or time, and
-Section~\ref{sec:a2-not-arbitrary} is where I show there isn't a fourth. How much, why I picked
-the one I did, and whether I had any business picking it at all: that's all later, and some of
-it I'm still not sure of. What I was sure of, standing there with the thing built, was that I'd made something that
-charges for standing behind structure and I could not have told you what structure was. It
+isn't zero. Charged in what has three possible answers: heat, room, or time.
+Section~\ref{sec:a2-not-arbitrary} shows there is no fourth. How much, why I picked
+the one I did, and whether I had any business picking it at all: that's all later. What was in
+front of me, standing there with the thing built, was a machine that charges for standing behind
+structure, and I could not have told you what structure was. It
 didn't care. It can't nod along the way a person does. It needed the word to hold still, and
 the word had never held still for anyone, least of all me. (The machine itself isn't built on the
 page until Part IV, on purpose. Until then, the one rule is all of it that matters, and I want you to meet the rule in a toy you
@@ -2388,8 +2391,8 @@ came first. The number, when there is one, is a name for the relation, and somet
 isn't a name. I'm going to keep that, and I want you to keep it too, because you're going to
 watch the same move get made again and again as this book goes on: somebody says ``everything
 is X,'' and it's true enough to do real work with, and it sounds right when you pluck it, and
-then somebody draws the diagonal. I don't know yet whether the thing I built survives its own
-diagonal. That's a real question, and I'll get to it.
+then somebody draws the diagonal. Whether the thing I built survives its own diagonal is a real
+question, and Section~\ref{sec:diagonal} answers it.
 
 \subsection{Shapes poured into nothing}
 
@@ -2860,7 +2863,7 @@ beginning. It didn't. I did, eventually.
 \subsection{Laying them all down}
 
 Now lay every one of those on top of the others and see what shows through. Here are the
-seven things I think I see. They're
+seven things I see. They're
 my overlay, the places where I see the sources agreeing. The sources never proved it
 together; some of them never met, and some of them disagree
 (Bourbaki left out the maps that Eilenberg and Mac Lane built everything on; Shannon's
@@ -3111,11 +3114,11 @@ the person who does. I honestly can't tell you which.
 So that's where I am at the end of one word. A grouping, the act of making it,
 the information kept about it, and a commitment to rely on it are different things.
 The blocks let you separate them with your hands. Now I want that separation in a
-machine's state and moves, where we can ask what each act preserves and what it
-costs. The next two sections take the smallest record I can give it, a yes-or-no
-reading, put a price on its change, and ask which premises force that price.
-A failure there would tell us something definite about that proposed cost. A success
-would give us one case to carry into the wider questions of observation and structure.
+machine's state and moves, where you can ask what each act keeps and what it costs.
+The next two sections take the smallest record I can give it, a yes-or-no reading,
+put a price on its change, and ask which premises force that price. If it fails
+there, that says something definite about the price. If it holds, I have one case to
+carry into the wider questions of looking and structure.
 
 \part{The axiom}
 
@@ -3124,12 +3127,19 @@ would give us one case to carry into the wider questions of observation and stru
 \label{sec:toll}
 %===========================================================================
 
-Take the distinction between arranging something and recording an act concerning it.
-Give the record two positions, no and yes. I want to build the smallest thing that
-could carry a bill for that change, on paper, with a pencil, write the bill into its
-rules, and see what follows. Then we can ask whether that rule follows from anything
-else. Keeping the case this small lets us see which part of the construction does
-which part of the work.
+Take the difference between arranging something and recording an act about it. Give
+the record two positions, no and yes. I want to build the smallest thing that could
+carry a bill for that change, on paper, with a pencil, write the bill into its rules,
+and see what follows. Then I can ask whether that rule follows from anything else.
+Keeping it this small is what lets you see which part of the construction does which
+part of the work.
+
+Computer science charges a computation for two things: how long it runs and how much space it
+uses. There is a third thing to charge for: what the computation keeps and can't take back.
+This part is about that charge. It gets paid in heat, in room, or in time, and it can't be
+talked down to zero; Section~\ref{sec:a2-not-arbitrary} does that with chairs. The record
+built below is the smallest thing that can carry the charge, and the tally next to it counts
+the one kind of keeping a computation isn't allowed to undo.
 
 One thing about where the buckets went, because you'll notice they vanish for a while. Part I
 ended on vouching for a grouping, and what I'm about to build prices vouching for anything at
@@ -3373,7 +3383,7 @@ everything I had, and that's where it ran out. If the bill exists as a bill for 
 nobody in this lineage wrote it down, and that's either because it isn't there or because the
 one person who did write it down is on a shelf I never found. The literal one-bit reset already has a thermodynamic analysis: Landauer's restore
 to one. The question here is which premises force an instruction that raises a
-record to merge full states, and which further premises let us price that loss. So I'm going to have to try it myself, on the
+record to merge full states, and which further premises put a price on that loss. So I'm going to have to try it myself, on the
 smallest thing I can build, and let you watch. And I'll have to be honest about which of the
 five jobs the small thing even attempts, because the answer is going to be none.
 
@@ -3437,8 +3447,7 @@ One rule, which I'll call the toll. For every state and every move: if the readi
 before the move and YES after it, the move's cost is at least one mark. That's all. It says
 nothing about any other move. It says nothing about how big a mark is in anything you could
 measure. One mark is one mark; what a mark is worth, why the smallest charge is one (why not two,
-or a half?), and whether I had any right to decide that, come next, and I'm not sure of
-all of it. The middle question has a short answer I'll give away now. What the next section
+or a half?), and whether I had any right to decide that, come next. The middle question has a short answer I'll give away now. What the next section
 forces, on its premises, is that the crossing costs more than nothing. Costs here are whole numbers of marks, and
 the least whole number above nothing is one. So the positivity is forced, and the ``at least
 one'' comes from counting in whole marks.
@@ -3523,10 +3532,7 @@ the crossings you can reach without paying anything;
 a crossing you can only reach by paying has already cost at least one by the time you get there.
 
 And the bound of one is the smallest case of a count. Under the toll a run costs at least the number
-of times it takes the reading from no to yes, with no permanence assumed. That bound for every run is again the same rule as the toll. And it is reached for every count: on a one-bit machine whose set
-costs one and whose reset is free, setting and resetting $k$ times from no takes the reading
-from no to yes $k$ times and costs
-exactly $k$.
+of times it takes the reading from no to yes, with no permanence assumed. That bound for every run is again the same rule as the toll. And it is reached for every count: on a one-bit machine whose set costs one and whose reset is free, setting and resetting a hundred times from no takes the reading from no to yes a hundred times and costs exactly a hundred, and the same for any count.
 
 And one more edge, because it's the first thing to bite when you ask a machine to stand behind
 more than one thing. The definition has \emph{one} reading in it. One question, one flag, one
@@ -3536,11 +3542,11 @@ third claim a third: one reading per claim, each with its own crossing. Part III
 properly, as a family of flags, one per threshold, with a step that raises any of them charged
 at least one (Theorem~\ref{thm:u11-growing}). A step that raises three at once still owes at
 least one, and nothing in the toll makes the charges add up flag by flag. Charges that add need
-the composition assumptions for independent machines. The same theorem sends the bill for finiteness: a record
-held in $k$ bits that only ever turns bits on can take at most $k + 1$ different values along any
-one run, so it can go up at most $k$ times in that run. (Across different runs it can end on any of
-the $2^k$ words.) A finite machine can keep only so many things up for good in its
-whole life. That's the opening chapter's ``you can't keep all of it,'' turned into a count.
+the composition assumptions for independent machines. The same theorem sends the bill for finiteness. Picture the record as a row of
+switches that only ever get turned on. Ten switches can change at most ten times in one run,
+one switch per change, and then the row is full. (Across different runs the row can end in any
+of its thousand and twenty-four settings; along any one run it climbs through at most eleven.)
+A finite machine can keep only so many things up for good in its whole life. That's the opening chapter's ``you can't keep all of it,'' turned into a count.
 
 \subsection{What this does and doesn't buy}
 \label{sec:does-buy}
@@ -3655,16 +3661,24 @@ everywhere.
 \label{sec:a2-not-arbitrary}
 %===========================================================================
 
-Here's this section in one sentence, and if you keep one sentence from the book, keep this one.
-Anything a machine keeps and can't take back is paid for in one of three currencies: heat, when
-the step that keeps it makes two states one; room, when it never does, and so needs a state it
-has never stood in every time it does it again; or time, when it keeps the room bounded for as
-long as it can by undoing and redoing its own work, which Bennett showed is the price of staying
-small, and which only puts the merge off. There isn't a fourth. The first two are a dichotomy,
-proved below with no finiteness premise at all, and the third is the one way of delaying the
-choice. Which of the three a particular device pays is physics. That it pays one of them is
-counting, and the counting is this section. The flag I built is one thing that stays. The
-sentence is about all of them.
+Here is the main result of this section, and you can do it with chairs. A machine keeps
+something it can't take back. From then on, every step it takes does one of two things. Either
+it sits two people in one chair, or it lands on a chair nobody has sat in yet. There is no
+third thing a step can do. Sitting two in one chair means something got forgotten, and
+forgetting is the thing Landauer charges for: that's heat. Never doing it means every step
+needs a fresh chair, and a building only has so many: that's room. Count them. You start in
+one chair. Every step after that needs a new one. With a building of some fixed number of
+chairs, you get one step fewer than that many before every chair is taken, and on the next
+step somebody shares. Time doesn't buy you a chair. Redoing your scratch work instead of
+keeping it, which is Bennett's trick, only slows down how fast you go through the building.
+And slow isn't free either. Bennett's own reversible computer only moves forward if it's
+pushed, and the push is heat: run it at any speed at all and every step pays, less the slower
+you go, and never nothing for a run that finishes. The only step that pays no heat is one that
+takes forever. So: heat, or room, and time only changes the pace. There is no fourth way. Every account of
+computation already charges for time and for space. This is the third charge, and it can't be
+made zero. Which of the three a real device pays is physics. That it pays one of them is
+counting, and this section counts it. The flag I built is one thing that stays. The result is
+about anything that stays.
 
 I handed you a rule without a reason. The move that raises the flag makes a mark, because I
 said so. If that's all it is, this book is a long way of describing a preference, and you
@@ -3679,7 +3693,7 @@ sentence. Every one of them
 is a door you can walk out of, and I'm going to show you each door, because the doors are
 where the actual content is.
 
-One more thing before the doors, because it's what I'd most want a sceptic to hear first.
+One more thing before the doors, and it comes first on purpose.
 Nothing in the argument uses the word certify. It uses a reading that can go from no to yes
 and never back. A fuse that has blown is one. So is a seal that has been broken, a bit in
 write-once memory, a block a chain has finalized, a measurement somebody wrote down and won't
@@ -3762,11 +3776,11 @@ some $c$ in $C$, and injectivity gives $s = c$, so $s$ reads yes. It reads no. T
 contradiction, and it's the chairs.
 \end{proof}
 
-A duplicate-free list of $n$ members drawn from an $n$-member set contains the whole set:
-if it omitted one member, it would put $n$ distinct members into the remaining $n-1$ places.
-Induction on the number of places rules that out: remove one occupied place and its member,
-and the same excess remains until no place is left. This is the pigeonhole in the form
-Leurechon would recognise.
+A list with no repeats, as long as the set it draws from, contains the whole set. Leave one
+member of the set out and you have packed the list into one place fewer than it has members.
+That can't be done: take away one occupied place and the member sitting in it, and the list is
+still one too long for the places left, and it stays one too long until there are no places
+left at all. This is the pigeonhole in the form Leurechon would recognise.
 
 Is that new? No. It has been sitting in two places for a long time, one in physics and one in
 the theory of automata, and a physicist will recognise it on sight, so start there. In 1876 Josef Loschmidt pointed out,
@@ -4005,9 +4019,10 @@ Door one deserves a number, because ``a memory that never fills'' is doing all t
 I'd rather see the bill than take it on trust.
 
 \begin{proposition}[Heat or room]\label{prop:heat-or-room}
-(1) Let a machine have a permanent reading and a move that turns it from no to yes at some
-state. Then either the move merges, or starting from that state and repeating the move
-visits a new state every time, so no finite list of states contains the run. (2) Let an
+(1) Let a machine have a permanent reading, and take any run of it in which the reading goes
+from no to yes. Then either the step merges two states of that run, or the run never visits the
+same state twice. So on a machine with $M$ states, a run that keeps a record and never merges
+has fewer than $M$ steps. (2) Let an
 operation send every state to one that reads the same fixed way and keep it there, and let
 $N$ starts be told apart by what happens next, one of them already in that fixed reading.
 An implementation with $M$ states that carries out the operation without merging, through
@@ -4016,11 +4031,17 @@ merge and does not avoid it.
 \end{proposition}
 
 \begin{proof}
-(1) If the move never merges it is one-to-one. Call the raising state $s$. It reads no, its
-image reads yes, and by permanence every later image reads yes, so no image is $s$. If two
-images coincided, say after $j$ and $k$ moves with $j < k$, cancelling one move at a time,
-which a one-to-one move allows, would make $s$ equal its own image after $k - j$ moves, and
-that image reads yes. So the images are all distinct, and there are infinitely many of them.
+(1) Suppose no step of the run sits two people in one chair, and suppose the run still sits in
+some chair twice, once early and once later. Walk the two visits back together, one step at a
+time, which you can do because no step merged: the early visit gets back to the start, and the
+later visit lands on the start's chair too. So the start is a chair the run comes back to, and
+from then on the run goes round the same loop of chairs forever. The chair just after the
+raise reads yes, and it's on the loop. Walk the loop backwards from it. If you get to a chair
+before the raise, that chair reads no, and it's the same chair that reads yes. If the loop is
+too long to get there, then the start itself, which reads no, is a chair past the raise, which
+reads yes because the reading never comes back down. Either way the repeat was impossible. So a
+run that never shares a chair needs a fresh chair at every step, and a building with a fixed
+number of chairs runs out one step before that number.
 (2) Run the chairs along paths. Each of the $N - 1$ starts not already in the fixed reading,
 followed through $T$ repetitions, occupies $T + 1$ chairs, and none twice: a repeat would
 cancel back to the start equalling a later state of its own path, and every later state is
@@ -4031,24 +4052,33 @@ already in the fixed reading, followed through $T$ repetitions, ends in one more
 chair were on one of the paths, cancelling would again put a start where it cannot sit.
 \end{proof}
 
-The number is exact, not only a floor. Take one chair for the start already in the fixed
-reading and let the operation leave it there. For each of the other $N - 1$ starts lay out a
-path of $T + 1$ chairs, the first reading as that start does and the rest in the fixed reading,
-with the operation walking the path and sending the last chair to itself. That is
-$1 + (T+1)(N-1)$ chairs; through $T$ repetitions from any start the operation never merges, and
-on the next one it does, because the last chair of every path now lands where the chair before
-it lands. Nor is the single fixed reading needed. If the operation sends every state to one of
-$L$ places and leaves each of those alone, the same chairs counted inside each place's own
-fibre add up to $M \ge N + T(N - L)$, which is the bound above at $L = 1$, and the same paths
-in each fibre show it exact.
+The number is exact, not only a floor, and you can build the building that reaches it. One
+chair for the start that already reads the fixed way; the operation leaves it sitting there.
+For every other start, lay out a row of chairs, one chair longer than the number of
+repetitions you want to survive. The first chair in the row reads the way that start reads,
+the rest read the fixed way, and the operation walks the row and parks on the last chair.
+Count the chairs: one, plus a row for each of the other starts. For as many repetitions as
+you asked for, nobody shares a chair. On the next repetition somebody does, because the last
+chair in every row now lands where the chair before it lands. A single fixed reading isn't
+needed either. If the operation sends everyone to one of a few parking spots and leaves each
+spot alone, count the same rows inside each spot's own catchment. The total comes to one chair
+per start, plus, for every repetition, one more chair for each start that isn't a parking spot.
+With one spot that is the boxed bound, and the same rows in each catchment show it exact.
+In the exact form: $N$ starts, $L$ spots, $T$ repetitions, at least $N + T(N - L)$ chairs.
 
-So the strip's escape is an escape only while the strip has room. Cut it anywhere and the
-bound says how many raises are left before a box gets reused. And room isn't the only second
-currency. Keeping history costs time as well: Bennett (1989) showed that a computation can be
-run without ever forgetting, but then either its space grows with the run or it spends time
-undoing and redoing its own work to stay small. Heat if you merge, room if you keep, time if
-you keep in bounded room. A reading that stays up lands in at least one of the three, and the
-raise is where the bill is incurred. Which of the three a particular device pays is physics.
+So the strip escape only works while the strip has room. Cut the strip anywhere and the bound
+says how many raises are left before a box gets reused. Room is not the only other cost.
+Bennett (1989) showed that a computation can run without ever forgetting, but then its space
+grows with the run, or it spends time undoing and redoing its own work to keep the space small.
+Part (1) says what that time buys: a run that never sits two in one chair needs a fresh chair
+at every step, so a building of chairs runs out one step before the number of chairs. Redoing
+work slows down how fast you go through the chairs. It doesn't add any. And the time has its
+own bill. Bennett's review (1982) gives the rate for his Brownian computer: the heat per step
+is proportional to the speed, so at any speed the machine actually runs at, every step pays,
+and only a step that takes forever pays nothing. No run that finishes is free; Section~\ref{sec:what-a-chair-is}
+proves that as time's bill, Theorem~\ref{thm:time-bill}. Heat if you
+share a chair, room if you never do, and time only changes the pace. A reading that stays up costs heat
+or room, and the cost lands on the step that raises it. Which one a device pays is physics.
 That it pays one of them is counting.
 
 \subsection{Door two: let the flag come back down}
@@ -4061,7 +4091,7 @@ charges only for forgetting is allowed to charge it nothing. The move is injecti
 meets merge pricing, since no move merges, and fails the toll.
 The thing that walked out the door is permanence.
 
-Now here's a fact that I think is sharper than the premise it replaces, and it was the thing
+Now here's a fact sharper than the premise it replaces, and it was the thing
 in this section that surprised me. Drop permanence entirely. Keep only finiteness. Take any
 move that raises the flag anywhere. Then one of two things is true: the move forgets something,
 or the same move lowers the flag somewhere else. There's no third option, and the proof below
@@ -4228,7 +4258,7 @@ could retain it. Under the physical conditions used here, when resetting removes
 uncertainty into a thermal reservoir, Landauer bounds the mean heat handed over. None of
 that heat has to be heat \emph{wasted}. Takahiro Sagawa's 2014 analysis says that erasure
 can, in principle, approach a process that produces no entropy overall: the reservoir's
-entropy goes up by what the machine's goes down. A positive mean heat transfer can therefore
+entropy goes up by what the machine's goes down. A positive mean heat transfer can then
 be unavoidable without being wasteful. A known input has no uncertainty to remove, and
 this entropy-loss premise alone sets no positive heat floor for it.
 
@@ -4289,14 +4319,14 @@ one and so needs $\mathrm{cost}(i) \ge 1$.)
 \end{premise}
 
 There's a plainer way to read that premise, and it's worth having because it says what the
-premise is \emph{about}. Look at one landing spot of move $i$ and count how many states land
+premise is \emph{about}. Look at one landing spot of a move and count how many states land
 there; call the biggest such count the move's worst pile-up. The premise holds exactly when
-every pile-up has at most $2^{\mathrm{cost}(i)}$ states in it, which is to say the cost is at
-least the base-two logarithm of the worst pile-up. One direction: take $D$ to be one whole
-pile, which lands on a single spot, and the premise says the pile has at most
-$2^{\mathrm{cost}(i)}$ members. The other: any list $D$ splits by where its members land,
-each part fits inside one pile, so $|D|$ is at most the number of landing spots times the
-worst pile-up, which is the premise. So the halving price asks a move to pay for the worst it
+the cost covers the worst pile-up in halvings: a cost of one allows piles of two, a cost of
+two allows piles of four, and a pile of three already needs a cost of two. One direction: hand
+the premise one whole pile. It lands on a single spot, so the premise says the pile has at most
+that many members. The other: any list of states splits by where its members land, each part
+sits inside one pile, so the list is at most the number of landing spots times the worst
+pile-up, which is what the premise says. So the halving price asks a move to pay for the worst it
 could ever do, whichever state it's actually handed. That's worst case on purpose, and it has
 a home in physics. In the branch of thermodynamics that prices a single run that
 has to succeed every time, with no averaging over many runs, Philippe Faist, Frédéric
@@ -4328,16 +4358,19 @@ too, so all $m + k$ land among the $m$ yes-states: $\mathrm{img}_i \le m$. The h
 gives $m + k \le 2^{\mathrm{cost}(i)} \cdot \mathrm{img}_i \le 2^{\mathrm{cost}(i)} \cdot m$.
 \end{proof}
 
-The four card readings are the case $m = 1$, $k = 3$, where the bound is reached. With
-$k = 1$ the bound says $\mathrm{cost}(i) \ge 1$, which is the toll again. The counting argument also shows that at least $k$ states collapse,
-without any price premise.
+The four card readings are the case of one yes-state and three newcomers, where the bound is
+reached. With one newcomer the bound says the move costs at least one, which is the toll
+again. The counting argument also shows that at least as many states collapse as there are
+newcomers, without any price premise.
 
-The bound is reached for every $m \ge 1$ and every cost $c$. Whenever $m + k \le 2^c m$, a finite
-machine with a permanent reading and the halving price has $m$ yes-states and a move of cost
-exactly $c$ that turns a listed $k$ distinct no-states to yes. The move turns every other no-state
-of that machine to yes as well, $(2^c - 1)m$ of them in all. No cost meeting the halving price on
-that machine charges the move less than $c$. So the least whole-number cost that meets the bound
-is exactly $\lceil \log_2 \frac{m+k}{m} \rceil$.
+The bound is reached, whatever the numbers. Pick how many states already read yes and pick a
+cost. As long as the old yes-states and the newcomers together fit under that cost's pile-up
+allowance (a cost of one allows twice the yes-states, a cost of two allows four times), there is
+a finite machine with a permanent reading and the halving price that has exactly that many
+yes-states and a move of exactly that cost turning those newcomers to yes. The move turns every
+other no-state of that machine to yes as well, filling the allowance to the brim. No cost meeting
+the halving price on that machine charges the move less. So the least whole-number cost that
+meets the bound is exactly the rounded-up logarithm, $\lceil \log_2 \frac{m+k}{m} \rceil$.
 
 Four more facts about the halving price, and the last one is a limit. First, the plainer
 reading above is a theorem on a finite machine: the halving price holds exactly when no move has
@@ -4481,10 +4514,10 @@ $k_B T>0$, the heat floor is strictly positive too.
 \end{proof}
 
 How big is that? Take the case where the squeeze is two, one state flipping in beside one that
-was already yes, so $m = k = 1$ and the floor is $k_B T \ln 2$. At room temperature, about 300
+was already yes, and the floor is $k_B T \ln 2$. At room temperature, about 300
 kelvin, that's roughly three zeptojoules: three thousandths of a billionth of a billionth of a
-joule. And that's the \emph{biggest} bill a one-state flip gets from this corollary. With $k = 1$ the floor is $k_B T \ln \frac{m+1}{m}$, and it shrinks as more states
-already read yes: with a thousand of them it's about a thousandth of $k_B T$, some seven
+joule. And that's the \emph{biggest} bill a one-state flip gets from this corollary. With one newcomer the floor shrinks as more states already read yes, because the
+squeeze gets thinner: with a thousand of them it's about a thousandth of $k_B T$, some seven
 hundred times less than the case of two. So, for an even spread over the states in play, one
 mark is not one halving. It's one halving exactly when the squeeze is two; for any thinner
 squeeze and an even spread, the physics asks for less than a halving, and the toll still charges
@@ -4492,7 +4525,7 @@ a whole mark, because marks come in whole numbers (that's the rounding the entro
 toll leans on, a little further down). Read in the worst case over what the machine might be
 holding, the way the halving price reads a move, it's at least a full bit every time. A permanent flip
 merges two states (Theorem~\ref{thm:perm-flip-merges}); put half the chance on each, and the move
-removes a full bit, whatever $m$ is.  So the gap
+removes a full bit, however many states already read yes.  So the gap
 between the mark and the bits is a fact about the even spread. In the worst case the flip removes
 at least the full bit the mark pays for. Whatever the size,
 it's a bill only if you grant the premise; nothing on this page measured anything. And even
@@ -4505,15 +4538,17 @@ certifying is expensive. It's that, on the premise, it isn't zero.
 A related logarithm appears in a different physical question. Y\^uto Murashita,
 Ken Funo and Masahito Ueda (2014) study processes whose reverse histories can include
 ones with no forward counterpart. They call this \emph{absolute irreversibility}.
-If those reverse histories have total probability $\lambda$, their bound on mean
-entropy production contains $-\ln(1-\lambda)$. In their free-expansion example, gas
-initially confined to a fraction $l$ of a box gives $\ln(1/l)$.
+If the reverse histories with no forward partner carry some share of the probability,
+their bound on mean entropy production picks up the logarithm of one over what's left. In
+their free-expansion example, gas that starts confined to a tenth of a box gives the
+logarithm of ten.
 
-Setting $l=m/(m+k)$ gives the same logarithm as the squeeze bound. That numerical
-match does not identify two physical processes. Our arrows specify neither a
-thermodynamic reverse experiment nor its path probabilities, so they do not determine
-$\lambda$. We cannot infer absolute irreversibility, its absence, or a heat equality
-from the state count alone. Gonzalo Manzano, G\"ulce Karde\c{s}, \'Edgar Rold\'an and
+Make the confined fraction the old yes-states' share of the pile, the yes-states over the
+yes-states plus the newcomers, and out comes the same logarithm as the squeeze bound. That
+numerical match does not identify two physical processes. The arrows specify neither a
+thermodynamic reverse experiment nor its path probabilities, so they don't determine that
+share of reverse histories. The state count alone says nothing about absolute
+irreversibility, its absence, or a heat equality. Gonzalo Manzano, G\"ulce Karde\c{s}, \'Edgar Rold\'an and
 David Wolpert (2024) study such trajectory-level questions for computations with
 one-way transitions and random stopping times. Their physical premises are additional
 to the counting done here.
@@ -4601,7 +4636,7 @@ land together, or a single state, asks nothing. A spread on two states loses at 
 none unless they land together; the even spread on two that do loses exactly one.
 \end{proof}
 
-Thus merge pricing is weaker than full entropy pricing, though both force the
+So merge pricing is weaker than full entropy pricing, though both force the
 one-mark toll under the permanence and finiteness premises. The mathematical
 prices are rules on instructions. A physical interpretation additionally needs
 Landauer's premise for the actual distribution and an explicit conversion from
@@ -4664,9 +4699,9 @@ Paul Riechers, Alexander Boyd, Gregory Wimsatt and James Crutchfield (2020) anal
 metastable memories under \emph{time-symmetric} control: the prescribed control is the
 same played forwards or backwards, with the relevant time-reversal conventions. A
 symmetric clock pulse can meet that restriction; an arbitrary clocked pulse need not.
-For memory states unchanged by time reversal, their low-error result distinguishes
-inputs $m$ for which applying the desired logical map $C$ twice fails to return to $m$.
-They call those transitions \emph{nonreciprocal}. With equal local-equilibrium free
+For memory states unchanged by time reversal, their low-error result singles out the
+memory states that the desired logical map, applied twice, fails to bring back to where
+they started. They call those transitions \emph{nonreciprocal}. With equal local-equilibrium free
 energies, the leading minimum-work term as the error allowance $\varepsilon$ tends to
 zero is proportional to
 \[
@@ -4677,20 +4712,17 @@ The probability is over the initial memory states. This is a low-error scaling w
 physical premises, not an exact finite-error heat charge on every execution.
 
 A permanent flip from no to yes is nonreciprocal at that no-state: a second application
-cannot return it to no. A known input at that state can therefore face the extra work
+cannot return it to no. A known input at that state can then face the extra work
 cost in their restricted control setting, even though its initial logical entropy is zero.
 Their class also includes a three-state cycle, which merges nothing. The distinction is
 about the permitted controls as well as the logical map. It neither changes
 Theorem~\ref{thm:known-state}'s entropy calculation nor identifies the book's abstract
 merge price with a universal physical bill.
 
-A deterministic run from a known start has a known state at every step. For such a run, the
-adopted entropy-loss premise reduces to $Q \ge 0$: it supplies no positive heat lower bound.
+A deterministic run from a known start has a known state at every step. For such a run, the adopted entropy-loss premise reduces to heat at least zero: it supplies no positive heat lower bound.
 That does not establish that a particular device attains zero heat. The chairs guarantee a
-collision among the already-yes states together with the entering no-state. They do not
-guarantee that the entering state takes part in the collision (take four states $s,a,b,c$, with only $s$ reading no, and a move
-$s\mapsto a$, $a\mapsto b$, $b\mapsto b$, $c\mapsto c$). For an input distribution
-supported only on no-states, this counting argument alone therefore forces no positive entropy
+collision among the already-yes states together with the entering no-state. They do not guarantee that the entering state takes part in the collision. Take four chairs with only the first reading no, and a move that walks the first chair to the second, the second to the third, and leaves the third and fourth where they are: the second and third both land on the third, and the first never shares with anyone. For an input distribution
+supported only on no-states, this counting argument alone forces no positive entropy
 loss. Whether other states in that support merge depends on the move. The operation-level
 ledger toll still follows under merge pricing.
 
@@ -4738,8 +4770,8 @@ You've earned this: on any machine with finitely many states, a move that raises
 either forgets something or takes a flag down somewhere else. Pure counting, no physics, no
 premise beyond finiteness, and the half of it where nothing comes down is the four chairs.
 You've earned this: on a finite machine, if a flag, once up, stays up, then raising it
-has a collision somewhere. If it raises $k$ distinct no-states, the yes-states together
-with those newcomers have at least $k$ fewer distinct outputs than inputs. This does
+has a collision somewhere. If it raises several no-states at once, the yes-states together
+with those newcomers land on at least that many fewer spots than there are of them. This does
 not say that each newcomer shares its destination. Counting
 again. And you've earned this: if forgetting
 is charged for, the toll follows, and if forgetting is charged per halving, the size of the
@@ -4772,27 +4804,22 @@ stated, don't reach it: they force the toll only on finite machines that price e
 isn't one. It doesn't need the chairs, though, and that comes after the eight-state piece below.
 
 A finite piece can still sit inside, and here's the smallest one I could build where every
-premise is a theorem. None of them is left as a hypothesis. Four slots times a flag, eight states. Three
-moves: stamp (set the flag, go to the next slot, cost one), jump to slot $a$ (cost two), next slot
-(cost zero). It's finite and permanent; the next-slot
+premise is a theorem. None of them is left as a hypothesis. Four slots times a flag, eight states. Three moves: stamp (set the flag, go to the next slot, cost one), jump to a chosen slot (cost two), next slot (cost zero). It's finite and permanent; the next-slot
 move forgets nothing; the stamp and the jump merge; merges are priced, and priced per halving. So this
-section's two conclusions hold on it outright. The counting lemma underneath,
-that a duplicate-free list with at most $K$ preimages per image has at most $K$ times as many
-members as images, is proved generically. Merge pricing alone
+section's two conclusions hold on it outright. The counting lemma underneath, that a duplicate-free list in which no landing spot is hit by more than a set number of members has at most that many times as many members as landing spots, is proved generically. Merge pricing alone
 would take any price of at least one for the jump. The jump's price of
 two is what the halving price asks, since the jump squeezes four states into one. One more fact
 about it, also checked: each move's price is exactly the number of halvings in its largest
-squeeze. For a move that costs $c$, no state is landed on by more than $2^c$ states, and some
-state is landed on by exactly that many (stamp squeezes at most two states into one, jump to a
-slot squeezes four, and next-slot squeezes nothing).
+squeeze. A move that costs one has no spot hit by more than two states, a move that costs two has none hit by more than four, and some spot is hit by exactly that many (stamp squeezes at most two states into one, jump to a slot squeezes four, and next-slot squeezes nothing).
 
 The machine Part IV builds runs this eight-state machine. Seen through a window that shows only a line
 number, read modulo four as the slot, and a flag, a short program of that machine, once a
 two-instruction setup has run, does what the
 eight-state machine does, one move at a time, and pays exactly what the eight-state machine charges
 (Section~\ref{sec:part3-on-machine} has the construction and the exact statements). The machine as a
-whole is still not merge-priced: some of its free steps merge states, so the finite piece is a piece.
-The toll on the whole machine comes another way.
+whole prices its record layer and not every merge: its free steps merge states, and the hardware pays
+for those merges in heat, off the ledger, so the finite piece is a piece. The toll on
+the whole machine comes from the record layer (Theorem~\ref{thm:record-merge-toll}).
 
 Finiteness did one job in the chairs. It forced the step that raises a permanent flag to merge two
 states. On the machine of Part IV nothing has to force that, because the merge is in plain view.
@@ -4894,19 +4921,18 @@ premise when its state is known. The argument holds for any map iterated from a 
 is down, with the flag up at every step from some point on; no permanence premise is used.
 
 Runs that mix different moves split two ways, and the answer is short enough to give here. If the moves are picked from outside, in any order at
-all, the answer is no. Take two states, one reading no and one reading yes. Move $a$ swaps them;
-move $b$ does nothing. Run $a$ once and then $b$ forever: the flag goes up at the first step and
+all, the answer is no. Take two states, one reading no and one reading yes. One move swaps them; the other does nothing. Run the swap once and then the do-nothing move forever: the flag goes up at the first step and
 stays up for good, and neither move merges anything anywhere. The swap would take the flag down
 from the yes-state if it ever ran there; on this run it never does, and that's exactly the
 weakened permanence this paragraph is about. But if the machine is closed, picking its next
 move from its own state, the run is the orbit of one map, the step with whatever move the state
 picks, and the single-move argument applies to that map as it
 stands. Now say the moves come in a
-pattern that eventually repeats, one word $w$ of moves over and over. Suppose the flag is down at some step after the
+pattern that eventually repeats, one phrase of moves played over and over. Suppose the flag is down at some step after the
 repeating starts, and goes up and stays up after that. Count the repetitions from a step where the flag was down (start
-$w$ at that letter if you have to) and run the same argument on the composite of $w$'s moves, at the states where such a repetition begins. It merges two
-of those states, both visited; follow the two through the letters of $w$, and the first letter
-where their paths meet merges two states the run visits at that letter's place in the pattern.
+the phrase at that move if you have to) and run the same argument on the whole phrase treated as one move, at the states where each playing of it begins. It merges two
+of those states, both visited; follow the two through the phrase, and the first move
+where their paths meet merges two states the run visits at that move's place in the pattern.
 So: moves picked from outside, no; a closed machine or a repeating program, yes.
 
 There is also a limited statement about how long a noisy record lasts, using a different
@@ -5034,6 +5060,376 @@ checked now, in steps and in seconds.
 The next section is about a different door entirely. Forgetting has had its section; the
 question now is whether \emph{finding out} costs, because the demon's whole trick was that it knew which way the
 molecule was going, and I owe you a straight answer on whether knowing is free.
+
+%===========================================================================
+\section{What a chair is}
+\label{sec:what-a-chair-is}
+%===========================================================================
+
+The last section stood on chairs from its first line and never said what a chair is. Here it
+is, and once it's said, every result in that section turns out to be one result wearing
+different clothes.
+
+A chair is a distinction that stays. A cell on a tape that reads 0, and not 1, and not blank. A
+bead sitting in the left well and not the right. A flag that is up. Anything the world can
+tell apart from something else and keeps telling apart. The chairs theorem counted chairs and
+charged for sharing them. This section asks what it costs for a chair to be there at all, and
+what every step of every machine does to the chairs it has, and answers both with proofs. Every
+theorem here is checked by machine in the companion, with no axiom beyond Coq's own real
+numbers where a logarithm is needed.
+
+\subsection{Every step does one of three things}
+
+Forget the flag for a moment. Forget finiteness. Take any machine at all, with any number of
+states and any rule for the next state, and watch it run from any start. Keep a list of the
+chairs it has sat in. Now look at one step, the next one. There are exactly three things it
+can do.
+
+It can land on a chair nobody in this run has sat in. A fresh chair. That's room, paid now, on
+this step, and nothing refunds it.
+
+It can land on a chair somebody sat in before, coming from a different chair than the one that
+first got there. Two chairs, one landing. That's a merge, and a merge is a literal collision:
+two different states with the same next state.
+
+Or it can land on a chair somebody sat in before, coming from the same chair as last time.
+Then the machine is going round a loop. Not ``might be.'' Is. A machine with one rule for the
+next state, once it stands where it stood before, does again what it did before, forever. Every
+later state is one it already had. It is computing nothing new.
+
+That's all. There is no fourth thing a step can do, and the proof is one line: the first time
+a run comes back to a chair, either it came back to its very first chair, which is a pure loop
+from the start, or the step that brought it back shares the chair with the step that first
+got there, which is a merge.
+
+\begin{theorem}[The step law]\label{thm:step-law}
+Let any step act on any set of states whose members can be told apart, and run it from any
+start. Every step is exactly one of: fresh, landing on a state the run has not visited; a
+merge, landing on a visited state from a different state than the one that first reached it,
+so that two distinct states share a next state; or a revisit from the same state as before,
+after which the run is periodic, every later state being one the run already had.
+\end{theorem}
+
+\begin{proof}
+Take the step into the state at position $n+1$. Either it equals no earlier state of the run,
+which is fresh, or it equals some earlier state, say the one at position $j$. If $j$ is the
+start, the run is a cycle through the start. Otherwise compare the state just before position
+$j$ with the state at position $n$: both land on the same state. If they differ, that is a
+merge. If they are the same, the run at position $n$ equals the run at position $j-1$, and
+since one rule gives the next state, the run from $n$ on repeats the run from $j-1$ on, so
+every later state is one from positions $j-1$ to $n$. The three cases are exhaustive by
+construction, and a merge is two distinct states with equal next states by definition.
+\end{proof}
+
+So here is ``nothing is free'' as a theorem with one hypothesis, that you can tell states
+apart. The only step that pays neither room nor heat is a step on a loop, and a loop makes
+nothing new. Anything new is a fresh chair or a shared one. The reading that stays up was my
+way of forcing ``new'': a reading that was no and is now yes can't be on a loop through its
+old chair, so every step of a run that keeps something is fresh or a merge, and that is the
+first part of Proposition~\ref{prop:heat-or-room}, now as a special case.
+
+One hole, and it's worth seeing exactly. A machine that stops. Two chairs. The first reads no,
+the step takes it to the second, which reads yes, and the second has no next step at all.
+Reading raised, no merge, no fresh chair after that, nothing. The step law assumed every state
+has a next state, and a machine that stops its clock dodges it. Close the hole either way and
+the bill comes back. Say the halted state's next state is itself, which is what every
+deterministic model of halting says, and the halt is a merge: the moving state and the halted
+state both land on the halted state. Or keep the machine physically stopped, and something has
+to hold it there, a barrier, a hill, a latch, which is a chair paid for before the run began.
+The cost of halting hides in holding.
+
+\begin{theorem}[Halting]\label{thm:halting-hole}
+A partial step, one that may have no next state, can raise a permanent reading on two states
+with no two states sharing a next state. Totalising it, with the halted state stepping to
+itself, makes the raise a merge.
+\end{theorem}
+\begin{proof}
+States $a$ and $b$, reading no on $a$ and yes on $b$; $a$ steps to $b$ and $b$ has no next
+state. No two states step to the same state, because only $a$ steps at all. Totalise: $b$
+steps to $b$, and now $a$ and $b$ both step to $b$, a merge of two distinct states.
+\end{proof}
+
+\subsection{A chair is a distinction that stays}
+
+Now the cell. A blank cell could be anything. Write a 0 in it and it is a 0, and it stays a 0.
+I want the price of that, from the step law and nothing else.
+
+Three states: blank, zero, one. The reading is ``the cell is definite,'' no on blank and yes on
+the other two, and a written cell stays written, so the reading is permanent. The move is
+``write a 0,'' which takes blank to zero and leaves a written cell alone. Now look. Blank lands
+on zero, and zero lands on zero. Two chairs, one landing. Writing a 0 on nothing is, by itself,
+a merge. The history in which the cell was blank and the history in which it already held a 0
+are now the same history. That's not an analogy to the chairs theorem. It's the theorem with
+three states filled in.
+
+The obvious escape is a fourth state that remembers: ``0, and it was blank before.'' Now blank
+goes somewhere fresh. But the remembering state has to go somewhere on the next write too, and
+on a finite set of states it lands on a chair already taken; in the smallest version it lands
+on itself, and then blank and the remembering state share a chair. No finite extension of the
+cell escapes, and the reason is the chairs theorem, not bad luck. The only escape is the
+endless tape of Door one: a new cell for every write, forever, which is room without limit. Or,
+in a form I need below, a tape that stretches both ways with the machine stepping one cell
+along it. Every cell has one before it and one after it, nothing ever shares, the reading
+``past the start'' goes up on the first step and never comes down, and the machine never
+returns. That's the bilateral shift, and it pays room at every step.
+
+\begin{theorem}[The write, the escape that fails, and the one that works]\label{thm:write-merge}
+(1) On the three states blank, zero, one, with reading ``definite,'' writing a 0 is permanent,
+raises the reading from blank, and merges blank with zero. (2) Adding a fourth state that
+remembers the cell was blank does not escape: on the four states the write still merges two
+distinct states. (3) On an endless tape, writing adds one cell and is one-to-one; on the
+integers, the step ``one cell along'' is a bijection, raises ``past the start'' on the first
+step, keeps it up, and after any positive number of steps is away from where it started.
+\end{theorem}
+\begin{proof}
+(1) Blank and zero both step to zero, and blank is not zero; zero and one step to themselves,
+so a written cell stays written. (2) The three written states are fixed points, so wherever the
+remembering state steps, it shares a landing with a written state or with itself; in the
+smallest version it steps to itself and shares that landing with blank. (3) ``Add one'' on the
+counting numbers is one-to-one and never returns to zero; ``add one'' on the integers is
+one-to-one and onto, sends 0 to 1, keeps every number at least 1 at least 1, and after $k>0$
+steps has moved by $k$.
+\end{proof}
+
+Here is what that buys, and it's the sentence I came to this chapter without. The toll charges
+a mark when a reading goes from no to yes and stays. The write of a 0 is a reading going from
+no to yes and staying. So the toll was never a rule about certifying. It's the price of
+something being the case. A fact is a distinction that stays. A kept distinction is a chair you
+can't give back. And the machine is the thing whose state includes the chairs it can't give
+back.
+
+It doesn't stop at the cell. The tape is a set of distinctions that stayed. So is the rule for
+the next state, and so is the question you ask of a chair. Each of the five parts of the model
+is itself a definite thing where there could have been anything, which is to say each is an
+instance of the thing the model charges for. And the model does contain itself, in the only
+way a model can: by running itself. A Thiele machine runs any Thiele machine as a guest, its
+own self included, and the host's ledger carries the guest's bill; that is the universal
+program of Part IV (Theorem~\ref{thm:u34-universal}) and the nesting theorem
+(Theorem~\ref{thm:parts-nesting}). The tower is the same machine above and below. What no
+level does is hold all the questions you can ask of it: for any way of coding readings as
+states, there's a reading no state codes, the one that answers each state with the opposite of
+what that state's own coded reading says of it. That's Cantor's diagonal, the same one as in
+Part I. Put the two together and you have the regress exactly: every level runs the one below
+and pays that level's bill again in its own ledger, and no level ever pays for all of them.
+
+\begin{theorem}[No level holds its own questions]\label{thm:no-self-containment}
+For any set of states and any assignment of a yes/no reading to each state, some yes/no
+reading on the states is assigned to no state.
+\end{theorem}
+\begin{proof}
+Take the reading that says, of each state, the opposite of what that state's assigned reading
+says of the state itself. If some state were assigned it, that state would answer itself both
+ways.
+\end{proof}
+
+The regress has a price too, and the book already set it. Write a 0 on a cell you know is
+blank and Landauer charges nothing: Theorem~\ref{thm:known-state}, the entropy before and
+after are both zero. So where did the bill go? Into the knowing. ``This cell is blank'' is a
+distinction that stays, a record, and the entitlement count of
+Section~\ref{sec:entitlement} says what a record costs: at least the rounded-up logarithm of
+how many things it rules out, one mark per halving. Blank among three possibilities is two
+marks. Blank among ``it could have been anything'' is as many marks as you like. The write on
+a known blank is free in heat because somebody already paid for the knowing, and the chair the
+0 sits in was paid for before the run, by whoever built the cell.
+
+\subsection{A reversible machine keeps nothing}
+
+Bennett's reversible machine never shares a chair; that's what reversible means. Put one on a
+finite building and watch it. It has to revisit a chair within as many steps as there are
+chairs, by the pigeonhole. The step law says the first revisit is a merge or a return to the
+start, and a merge is impossible for it. So it returns to its start. And once it's back at its
+start it does everything again. Any reading it raised has come back down. A reversible finite
+machine keeps nothing. Not as a slogan: as a theorem. It is Zermelo's recurrence in its finite
+form, proved from the step law and the pigeonhole and nothing else. What Bennett's machine
+keeps is the room it's handed: on an endless tape it never comes back, because the tape is a
+fresh chair every step, and the tape was paid for before the first step by whoever built it.
+
+\begin{theorem}[Reversible keeps nothing]\label{thm:reversible-keeps-nothing}
+Let a one-to-one step act on finitely many states. From any start the run returns to the
+start after some positive number of steps, and any reading that is no at the start and never
+goes from yes to no is no at every step.
+\end{theorem}
+\begin{proof}
+Among the first (number of states) plus one states of the run, two are equal, by the
+pigeonhole. Take two equal positions and cancel the one-to-one step back from both the same
+number of times, until the earlier one reaches the start; the later one then equals the start.
+So the run returns to the start after a positive number of steps, and from then on repeats. If
+the reading were yes at some step, it would stay yes from there, in particular at a later
+multiple of the period, where the state is the start, which reads no.
+\end{proof}
+
+\subsection{Noisy chairs}
+
+Real chairs are noisy. The bead hops on its own. So take the step to be a table of chances:
+from each chair, the chance of landing on each chair next, every row adding to one. A
+permanent reading is a set of chairs you never leave once you're in it. And ``no merge'' has
+an exact noisy meaning: the step preserves the even spread. Start with everybody spread evenly
+over the chairs, take one step, and they're still spread evenly; which is to say every column
+of the table adds to one as well as every row. That's a step that squeezes nothing on average.
+
+Then the chairs theorem holds word for word. A step that preserves the even spread cannot raise
+a permanent reading from any chair outside it, not with small chance, with none. Count the
+chance flowing into the yes-chairs from everywhere. Column by column that's one per yes-chair,
+so it equals the number of yes-chairs. The yes-chairs alone already send exactly that much,
+because they never leave. What's left over for the outside chairs is zero, and it's a sum of
+chances, so each is zero.
+
+And it runs the other way too. A step that can raise a permanent reading does not preserve the
+even spread, so after one step from the even spread the crowd is more bunched up than it was.
+Two ways to say ``bunched'': the chance that two independent draws land on the same chair goes
+strictly up, which is arithmetic and needs no logarithm; and the Shannon entropy goes strictly
+down, which is the quantity Landauer's premise charges heat for. Both are proved. The converse
+holds too: a step that preserves the even spread never bunches any spread at all, by Cauchy's
+inequality one column at a time.
+
+\begin{theorem}[Noisy chairs]\label{thm:noisy-chairs}
+Let a step on finitely many states be a table of chances with rows adding to one, and let a
+set of states be closed: from inside, the chance of leaving is zero. (1) If every column also
+adds to one, the chance of entering the closed set from any state outside it is zero. (2) If
+some state outside can enter the closed set with positive chance, then some column does not
+add to one, and one step from the even spread strictly raises the collision weight, the sum of
+the squared chances, which is least for the even spread; when the stepped spread is strictly
+positive, its Shannon entropy is strictly below the logarithm of the number of states. (3) If
+every column adds to one, one step never raises the collision weight of any spread.
+\end{theorem}
+\begin{proof}
+(1) is the count above. (2) The first half is the contrapositive of (1), decided on the finite
+table. For the collision weight, with column sums $c_j$ adding to the number of states $N$,
+$\sum_j (c_j-1)^2 = \sum_j c_j^2 - N$, the left side is a sum of squares, and it is positive
+as soon as some $c_j$ differs from 1. For the entropy, the gap between $\ln N$ and the entropy
+of a spread $q$ is its relative entropy to the even spread, $\sum_i q_i \ln(N q_i)$; each term
+is at least $q_i - 1/N$ because $\ln y \le y - 1$, the terms add to zero, and the inequality is
+strict as soon as some $q_i \ne 1/N$ because $\ln y < y - 1$ for $y \ne 1$. (3) For each
+column, the stepped chance is a weighted mean of the old chances with the column's entries as
+weights adding to one, and a weighted mean squared is at most the weighted mean of the
+squares, the difference being a weighted variance; summing over columns and using that the
+rows add to one gives the bound.
+\end{proof}
+
+\subsection{Quantum chairs}
+
+The same theorem holds for quantum states, and the proof is three lines, so here they are.
+States are vectors; the step is a unitary, which is the quantum word for a step that never
+squeezes, every length and every angle kept. A permanent reading is a subspace the step maps
+into itself: once the state is in it, it stays. Finite dimension. Claim: no state outside the
+subspace, orthogonal to it, ever gets in.
+
+Line one: the step is one-to-one and the subspace is finite-dimensional, so the step maps the
+subspace onto itself, not just into it. Line two: then the step's inverse maps the subspace
+into itself as well, because anything in the subspace is the step applied to something in the
+subspace. Line three: take a state orthogonal to the subspace and any vector in it; the overlap
+of the vector with the stepped state equals the overlap of the inverse-stepped vector with the
+state, which is zero. So the stepped state is still orthogonal, and it never reads yes.
+
+Finite dimension was used exactly once, in line one, for ``onto.'' Drop it and the bilateral
+shift, which is unitary on an endless ladder of states, raises ``past the start'' on the first
+step and keeps it forever, taking a fresh rung every time. The two quantum stories about a
+measurement are the two columns. A reading that stays, which no unitary step can raise in
+finite dimension, is paid either by a step that isn't unitary, which squeezes, which is heat,
+or by room, a ladder of states that never comes back around. Collapse is the heat column and
+branching is the room column, and the finite building forbids the free one. The experiments
+that go looking for the heat of collapse are asking the universe which column it pays; I come
+back to them below.
+
+\begin{theorem}[Quantum chairs]\label{thm:quantum-chairs}
+On a finite-dimensional space, let a unitary map a subspace into itself. Then it maps the
+orthogonal complement into itself: a state orthogonal to the subspace remains orthogonal after
+every step.
+\end{theorem}
+\begin{proof}
+The three lines above. In matrix form, with $P$ the projector on the subspace and $Q = 1-P$:
+the invariance is $QUP = 0$, so $UP = PUP$, and its adjoint gives $PU^\dagger = PU^\dagger P$.
+With $V = PUP$ one gets $V^\dagger V = P$ and $(V+Q)^\dagger(V+Q) = 1$; in finite dimension a
+left inverse is a right inverse, so $(V+Q)(V+Q)^\dagger = 1$, which gives $VV^\dagger = P$.
+Then $PUQ = VV^\dagger UQ = V\,PU^\dagger UQ = V\,PQ = 0$.
+\end{proof}
+
+\subsection{Time has a bill}
+
+Bennett's own reversible computer is a walker on a line that is pushed forward a little: at
+each tick it steps forward with some chance and back with the rest. Its speed is the
+difference. The entropy it produces per tick is Schnakenberg's formula for a biased walk, the
+speed times the logarithm of the forward-to-backward ratio, and that number is strictly
+positive at any speed other than zero, because both factors have the same sign. The only walker
+that produces nothing is the one that goes nowhere. That's ``slow isn't free'' as a theorem:
+at any speed you actually run it, every tick pays.
+
+And the exchange rate has a floor. Heat per net step forward is the logarithm of the
+forward-to-backward ratio, and that logarithm is at least the speed. So walking a distance
+costs at least distance times speed in heat and takes distance over speed in time, and heat
+times time is at least the distance squared. Halve the speed, halve the heat, double the time;
+the product never drops below the square of how far you went.
+
+\begin{theorem}[Time's bill]\label{thm:time-bill}
+For a walker stepping forward with chance $p$ and back with chance $1-p$, with $0<p<1$, the
+entropy production per tick, $(2p-1)\ln\frac{p}{1-p}$, is zero at $p=\tfrac12$ and strictly
+positive otherwise. With speed $v = 2p-1$ in $(0,1)$ and distance $N \ge 0$, the heat
+$N\ln\frac{1+v}{1-v}$ times the time $N/v$ is at least $N^2$.
+\end{theorem}
+\begin{proof}
+For $p > \tfrac12$ both factors are positive and for $p < \tfrac12$ both are negative, by the
+monotonicity of the logarithm; at $p=\tfrac12$ the first factor is zero. For the floor,
+$\ln(1+v) \ge 0$ and $\ln(1-v) \le -v$ since $\ln y \le y - 1$, so
+$\ln\frac{1+v}{1-v} \ge v$, and the product is $N^2$ times that logarithm divided by $v$.
+\end{proof}
+
+I also rebuilt the bead. B\'erut, Arakelyan, Petrosyan, Ciliberto, Dillenschneider and Lutz
+(2012) erased one bit held by a glass bead in a laser double well, and found the heat falling
+toward Landauer's number as they slowed the erasure, with the excess going like a constant over
+the time taken. I wrote their protocol as described, barrier down over a second, tilt ramped
+over the protocol time, tilt stopped, barrier up over a second, as overdamped Brownian motion
+in a quartic double well with their numbers, and measured the heat the same two ways they do.
+With the tilt set per protocol time to the smallest force that erases at least nine times in
+ten, which is how their figure is built, the heat on successful erasures came out as
+$0.694\,kT$ plus $3.6\,kT\cdot\mathrm{s}$ divided by the time; $\ln 2$ is $0.693$. Nothing in
+that model but a particle, a well and noise, and the floor came out at the third decimal with
+the one-over-time excess beside it. That's the time column in a dish.
+
+\subsection{What the lab has measured}
+
+Here is the ledger of the columns against experiments, with the numbers taken from the papers.
+
+\begin{center}
+\begin{tabular}{p{0.28\textwidth} p{0.64\textwidth}}
+Shared chair, the floor & Jun, Gavrilov and Bechhoefer (2014): one bead in a feedback trap.
+Squash two wells to one: $0.71 \pm 0.03\,kT$ of work. Move the bead just as much without
+squashing: $0.05 \pm 0.03\,kT$, zero within error. $\ln 2$ is $0.693$. Same bead, same trap. \\[3pt]
+The floor, three more ways & B\'erut and others (2012), a colloidal bead; Hong, Lambson, Dhuey
+and Bokor (2016), nanomagnetic memory bits, within two standard deviations of Landauer;
+Gaudenzi, Burzur\'i, Maegawa, van der Zant and Luis (2018), molecular spins at one kelvin. \\[3pt]
+Time against heat & B\'erut and others (2012; B\'erut, Petrosyan and Ciliberto 2015): heat
+$= kT\ln 2 + B/\tau$ with $B = 8.15\,kT\cdot\mathrm{s}$, the floor reached only as the time
+goes to infinity. \\[3pt]
+The chair itself & The same bead: held by an $8\,kT$ barrier it stays put about 3,000 seconds;
+at $2.2\,kT$ it hops on its own. A distinction that stays is a hill paid in advance, and its
+lifetime grows exponentially with the hill. \\[3pt]
+The loop & Rauer, Erne, Schweigler, Cataldini, Tajik and Schmiedmayer (2018): recurrences of
+coherence in an isolated gas of thousands of atoms. A closed finite building comes back
+around. \\[3pt]
+Heat of a quantum record & Vinante and others (2017): a cantilever at millikelvin shows a
+non-thermal force noise of unknown origin, compatible with the collapse heating one model
+predicts. Donadi, Piscicchia, Curceanu, Di\'osi, Laubenstein and Bassi (2021): the radiation a
+gravity-driven collapse would emit was not seen at Gran Sasso, ruling out that model's
+parameter-free form. The heat-or-room question, asked of the universe, with no answer yet. \\[3pt]
+Room's ceiling & Not measured by anyone. Bekenstein's cap on distinguishable states in a region
+is theory. \\
+\end{tabular}
+\end{center}
+
+Everything that has been measured obeys the law at the measured rates, and nothing measured has
+found a fourth column. The one column nobody has measured is the one I lean on least: every
+memory anyone can buy fills, and that needs no experiment.
+
+\subsection{What this adds to the toll}
+
+Three sentences. The toll is the price of something being the case: a reading that goes from no
+to yes and stays is a distinction that stays, and a distinction that stays is a chair you can't
+give back. A Thiele machine is the name for anything whose state includes the chairs it can't
+give back, five parts and a kept reading, and the bead, the cell, the memory bit and a world
+with a past are instances of it, not analogies. And the bill has three columns and no fourth,
+at every step of every machine, deterministic or noisy or quantum, with time setting the rate
+at which the other two are spent and never a way out: that is the step law, the noisy chairs,
+the quantum chairs and time's bill, each proved, each with its instance in a laboratory.
 
 %===========================================================================
 \section{Learning is free, committing is not}
@@ -7239,9 +7635,8 @@ paid for. It doesn't rule out deleting for no reason. A run can satisfy every hy
 the count and have ruled nothing out on purpose; the count prices the size of the drop. It says
 nothing about the honesty of it. And the covering can't just be dropped. On the small machine one yes-or-no
 question with a big constant in it
-narrows $2^n$ candidates to one, $n$ index bits, for a ledger of
-three,
-so for any $n \ge 4$ the bound is false without it (Section~\ref{sec:part3-on-machine}).
+narrows sixteen candidates to one, four index bits for a ledger of three, and more candidates
+only widen the gap, so the bound is false without it (Section~\ref{sec:part3-on-machine}).
 
 Here's a side trip worth taking, because it looks like it breaks the count and doesn't. Two
 information theorists, Rudolf
@@ -8731,9 +9126,8 @@ stay at $1$.
 \end{proof}
 
 So five stages need four cups. One won't do it, and three won't either. Cups that only turn up,
-that is: $n$ write-once threshold bits. An ordinary binary counter holds $n + 1$ stages in about
-$\log_2(n + 1)$ bits, because its bits go down as well as up, and the theorem says nothing against
-that. The switch isn't wrong.
+that is. An ordinary binary counter holds a thousand stages in ten bits, because its bits go
+down as well as up, and the theorem says nothing against that. The switch isn't wrong.
 It's the first line, and a straight strip with more than two places needs more of them, exactly one
 fewer than it has stages. A direction that branches needs at least as many cups as the steps in its
 longest strict climb, and it can need more. Put three places above a bottom, none of them above another. The longest
@@ -8772,14 +9166,14 @@ row of cups? Mostly, and the parts that don't survive are the interesting ones.
 The room needs a flag, and now there are many cups, so the first job is to pick one. My first guess
 was the cup for the place where the record starts. That goes nowhere: the starting state
 already has that cup up, so it's already inside the room, and there's nobody at the door. The cup
-that works is the one the step turns over, the cup for the place $a$ where the record lands. It's up
-after the step, since $a$ is at or above itself, and it was down before, which is what turning a cup
-over means. So the room is every state with the cup at $a$ up, and the state the step
+that works is the one the step turns over, the cup for the place where the record lands. It's up
+after the step, since a place is at or above itself, and it was down before, which is what turning a cup
+over means. So the room is every state with that landing cup up, and the state the step
 starts from is the one at the door.
 If the move keeps everybody in the room inside it and seats nobody twice, the insiders fill the
 inside chairs between them and there's no chair left for the newcomer. So one of two things
 happened. Either two states shared a chair, or somebody who was in the room got moved out, which
-means their cup at $a$ went back down. I'll call that second thing a \emph{revocation}.
+means their landing cup went back down. I'll call that second thing a \emph{revocation}.
 
 \begin{theorem}[Turning a cup over merges]\label{thm:dir-merge}
 On a machine with finitely many states and a record in any preorder: (1) if a move turns a cup over
@@ -10792,7 +11186,7 @@ down is a latch, with two free choices, the price list and the event
 and climbs a partial order is a
 row of cups, each one a latch; the toll over the whole row charges at least one on any step that
 turns up some cup, and a
-straight strip of $n + 1$ stages needs exactly $n$ cups that only turn up (Section~\ref{sec:direction}). When the
+straight strip needs exactly one cup fewer than it has stages, cups that only turn up (Section~\ref{sec:direction}). When the
 machine has finitely many states, its record only grows, and the
 ordinary machine forgets nothing, the toll prices crushing two states of one fibre, and a window
 can price exactly by seeing the cups move (Section~\ref{sec:shadow-exact}). No inside procedure whose flip a substrate can represent decides a shortcut property,
@@ -10864,7 +11258,7 @@ means, that's where it'll show. Part IV is the thing. I want to see if it holds 
 
 Parts I to III never built anything. They said ``any states, any steps,'' and whenever a
 picture was needed, a board or some chairs or a cup stood in. Now I have to build a
-machine, and the first worry I have about that is a slightly embarrassing one. I built a big
+machine, and the first question is about the one I built before it. I built a big
 one first, the one from the origin story, with dozens of instructions,
 some picked for reasons and some picked because I had to pick something, and theorems held of it.
 What does that show? That the model works, or that I'm good at stacking instructions until the
@@ -10872,8 +11266,8 @@ proofs go through? A big machine is a wonderful place to hide a mistake. It's a 
 of stuff that you could lose a car in it.
 
 So the machine in this book is a small one. I want the state and every way of
-changing it where you can inspect them. Six instruction kinds let us follow how a
-check stays tied to an object, how a change makes it stale, and how the next move
+changing it where you can inspect them. Six instruction kinds, and you can follow how
+a check stays tied to an object, how a change makes it stale, and how the next move
 uses that relation. Each kind takes operands, a counter or a property or a line to
 jump to, so there are unboundedly many instructions. This is one construction of
 the model; the theorems will say which facts depend on these particular choices.
@@ -11354,14 +11748,14 @@ three instructions certify from some starts and refuse from others, because the 
 have failed, and from most starts it does. A check like that has a no pile, which is the only
 kind the opening chapter counts as establishing anything.
 
-Could I have picked an even dumber claim? Sure, and the machine would have let me. CHECK
-\emph{at least 0} $A$ passes on every number there is, so CHECK, COMMIT, CERTIFY on it raises the
-flag for 3 from every start (stop the presses: a number is at least zero). The step doesn't
-police that. It checks order, aboutness and that the checker tells the truth; whether the
-question was worth asking isn't something it looks at. A check that can't fail establishes
-nothing, and this machine will charge you three and raise the flag for it anyway. Spotting
-that is the reader's job, with the property in hand, and it's on the list at the end of the
-chapter.
+Could I have picked an even dumber claim? Sure. CHECK \emph{at least 0} $A$ passes on every
+number there is, so CHECK, COMMIT, CERTIFY on it raises the flag for 3 from every start. The step
+doesn't ask whether the question was worth asking, and it shouldn't. Worth is a count over the
+rivals a run narrows (Section~\ref{sec:entitlement}), and a step that sees one state has no list
+of rivals to count. What the step checks is order, aboutness and that the checker tells the
+truth. What a check that can't fail is worth, the entitlement count says exactly: zero bits, for
+three marks. The price is for standing behind the claim. What the claim bought is a separate
+number, and this machine keeps both. It's on the list at the end of the chapter.
 
 Others walked into the same line from communication. Three theoretical computer scientists,
 Oded Goldreich, Brendan Juba and Madhu Sudan
@@ -12082,9 +12476,7 @@ $\mathrm{eval}(\mathsf{Ge}(m), a)$ says yes, that is when $m \le a$; a failing c
 The price table charges a CHECK 1.
 \end{proof}
 
-The two counters alone look at $A$ only through the zero test of DEC, and from $a = m - 1$ and
-$a = m$ that test can't come out differently in fewer than $m$ steps, so they need about $m$ steps
-for what CHECK does in one. Theorem~\ref{thm:time-tax} gives the precise lower bound and the matching ladder. So the record makes nothing faster,
+The two counters alone look at $A$ only through the zero test of DEC, and started one pebble below a threshold or right at it, that test can't come out differently until the pile has been counted down to zero, so they need about as many steps as the threshold for what CHECK does in one. Theorem~\ref{thm:time-tax} gives the precise lower bound and the matching ladder. So the record makes nothing faster,
 and CHECK, a primitive test, can.
 
 One word needs pinning before the theorems, using the three names set at the front of the book.
@@ -13516,7 +13908,7 @@ CHECK before the CERTIFY ends the run in a trap.
 
  The sixteen belongs to the machine. The
 program has no say in it: it's the same ceiling as the item ``Sixteen checks per run, ever'' in the list of what the machine
-doesn't do, near the end of this chapter, and it's why this search has $k \le 16$ however many bits
+doesn't do, near the end of this chapter, and it's why this search never asks more than sixteen questions however many bits
 are hidden. Unasked bits can be any number. The lists, the
 tree and the fibres are supplied here, as in the representation theorem, and tied to the run only
 for this member. The covering still prices only the size of the drop. Its reason goes unpriced.
@@ -14210,20 +14602,26 @@ inputs directly into the counters. Its route from an arbitrary Turing machine us
 Minsky's exponential packing (Appendix~\ref{sec:counter-constructions}). That is the
 cost of this route to the two-counter base. The lift to another base has its own
 interface conditions, and an efficient implementation would need its own analysis.
-\item \textbf{The step doesn't police trivial checks.} CHECK \emph{at least 0} passes on every
-value, so CHECK, COMMIT, CERTIFY on it raises the flag for three from any fresh loaded start (the note after
-Theorem~\ref{thm:u34-tight}). A check that can't fail establishes nothing, and the machine raises
-the flag for it anyway. The step checks order, aboutness and an honest checker, and it leaves
-``was that worth asking'' to whoever reads the record.
-\item \textbf{The chairs don't reach it, and the toll is forced another way.}
+\item \textbf{The step charges for the act, not for what the claim is worth.} CHECK \emph{at
+least 0} passes on every value, so CHECK, COMMIT, CERTIFY on it raises the flag for three from
+any fresh loaded start (the note after Theorem~\ref{thm:u34-tight}). That is by design. The
+step checks order, aboutness and an honest checker. What a claim is worth is the entitlement
+count of Section~\ref{sec:entitlement}, a number computed over the rivals a run narrows. A
+step sees one state, so it cannot compute that count. A check that cannot fail narrows nothing
+and costs three, and both numbers are on the record.
+\item \textbf{The toll on this machine comes from the record layer, not from finiteness.}
 Section~\ref{sec:a2-not-arbitrary}'s chairs argument forces a toll on a finite machine that pays
-for every merge. This machine is neither. Its
-counters have no ceiling, so it's infinite. And its free instructions merge states: take a core
-at line $\ell$ with $c$ at 1 and version $w$, and a core at line $j - 1$ with $c$ at 0 and
-version $w + 1$, everything else alike, and DEC $c$ $j$ sends both to line $j$ with $c$ at 0
-and version $w + 1$, for nothing. So full merge pricing fails here, and clause (c) needs those
-free moves. What holds is merge pricing asked of the record layer alone: a move that sends two
-different states with the same line and counters to one state costs at least one. This machine's
+for every merge. This machine is neither, by design. Its counters have no ceiling, so it's
+infinite. And its free instructions merge states: take a core at line $\ell$ with $c$ at 1 and
+version $w$, and a core at line $j - 1$ with $c$ at 0 and version $w + 1$, everything else
+alike, and DEC $c$ $j$ sends both to line $j$ with $c$ at 0 and version $w + 1$, for nothing.
+They must be free, and they still cost something: the hardware that runs the machine pays for
+every one of those merges in heat, off the ledger. The ledger does not count them, on purpose.
+It counts the one kind of merge a computation is not allowed to make. Charging every merge would
+charge for computing itself, which is the clock that Observation~\ref{thm:u34-clock} rules
+out, and clause (c) requires computing to be free. So merge pricing on this machine applies to
+the record layer only: a move that sends two different states with the same line and counters
+to one state costs at least one. This machine's
 own prices meet it, CERTIFY's merge is a merge of that kind, and so every price list that meets it
 charges the flag-raising step at least one, with no finiteness premise
 (Theorem~\ref{thm:record-merge-toll}). That is an assumed price for losing record distinctions. Turning it into a heat bound
@@ -14275,11 +14673,11 @@ for moves and a window showing what clause (a) asks to see, two numbers and a li
 when the box writes, a rack for facts, the flag, and the three buttons CHECK, COMMIT and CERTIFY at one mark
 each. The worry is whether that panel only bolts onto the one box I built.
 
-The opening asked which distinctions the machine could carry in its state and
-steps. Now we can ask which parts of that construction depend on the computing
-base. This chapter works in both directions: the earned layer onto other bases,
-and other bases run inside this one. The interface conditions will say exactly
-what has to survive the change.
+The opening asked which distinctions the machine could carry in its state and its
+steps. Now the question is which parts of that construction depend on the computing
+base underneath. This chapter goes both ways: the earned layer onto other bases, and
+other bases run inside this one. The interface conditions say exactly what has to
+survive the change.
 
 \subsection{From any base up}
 
@@ -14919,7 +15317,7 @@ There are two counts to keep apart here. The ledger measures what the price list
 charges; the number of interpreter steps measures the work this representation takes
 to carry out the run. One guest step can take millions of host steps while adding
 one mark to its ledger. The state comparisons test the implementation, and the times
-tell us which demonstrations are practical on it. Here is what ran and what did not.
+tell you which demonstrations are practical on it. Here is what ran and what did not.
 
 \begin{center}
 \begin{tabular}{@{}p{0.42\linewidth}p{0.5\linewidth}@{}}
@@ -14943,7 +15341,7 @@ The compiler below has an executable runner too.
 
 Whole numbers matter here. Machine words in one build are 63 bits wide, while the guest
 codes $U$ reads go up near $2^{100}$, so ordinary fixed-width arithmetic would wrap around.
-The mathematical machine has no such overflow. Its executable therefore uses unbounded
+The mathematical machine has no such overflow, so its executable uses unbounded
 integers, with arithmetic chosen to match the definitions: subtraction stops at zero and
 division by zero returns zero. The mappings, compilers and input/output routines remain
 implementation dependencies; testing them does not change the mathematical definitions.
@@ -15947,7 +16345,7 @@ on a machine with infinitely many states. INC $A$ sends a state with $A = 0$ to 
 and keeps every positive $A$ positive, so it raises ``$A \ge 1$'' one way, and it is
 one-to-one. Any one-to-one map that misses some state does the same to the property ``is in my
 image''. Its input can be recovered from its output, and its entropy loss is zero. The adopted
-Landauer premise therefore supplies no positive heat floor; this does not promise that an
+Landauer premise then supplies no positive heat floor; this does not promise that an
 implementation gives off no heat. A floor read without the last clause would charge a whole unit. On a finite machine the clause comes
 for free. A step that sends one false state into the true ones and keeps every true state true
 puts one more state into the true set than the set holds, so two of them land on the same
@@ -15979,7 +16377,9 @@ number is 2'' by sending a state where it's false and a state where it's true to
 state, costs zero there, and (1) below says no dissipation can charge it one and stay under its cost.
 The machine prices the
 certifying chain and leaves its other merges free, so the premise pair holds for the steps
-the toll is about  and fails for the whole instruction set. That's the honest shape.
+the toll is about and fails for the whole instruction set. That is by design. The hardware
+pays for the free merges in heat, off the ledger. The ledger counts the record only. A mark is
+not a joule.
 
 \begin{theorem}[When the premises can hold together]\label{thm:u24-consistency}
 (1) For any set of operations, any predicate ``eligible'' on them, and any cost, a dissipation
@@ -16143,10 +16543,10 @@ physical reset \emph{is} the machine's certify event. The driven reset is an exe
 specification. The canonical reset is a bookkeeping toy. Neither is a measured device, and neither is an unconditional conversion of
 marks to joules, and anyone who tells you otherwise has skipped the conditions.
 
-\subsection{What permanence adds to Landauer: nothing new, said plainly}
+\subsection{What permanence adds to Landauer, and what it doesn't}
 
-Here's a fair question: is there a prediction the permanent-certificate theorems make that
-Landauer's principle alone doesn't? No, and the reason is short. The smallest case, one certified state and one
+Is there a heat prediction the permanent-certificate theorems make that Landauer's principle
+alone doesn't? No. The reason is short. The smallest case, one certified state and one
 flipping in, is ``set a bit to one whatever it held,'' which is the reset Landauer described
 and Bérut measured; Landauer's own name for it is ``restore to one,'' and
 Section~\ref{sec:toll} put it beside the toll at the start. The general bound, kT ln((m plus k) over m) for squeezing m plus k
@@ -16216,11 +16616,27 @@ also revokes counts against nothing. It's the three cards. For the eight-state
 machine, a move of it that merges two states and costs nothing; merge pricing on that machine falls.
 For the small machine, with no finiteness in play: an INC, DEC or HALT that sends two different
 states with the same line and counters to one state, or a CERTIFY, or a COMMIT of some claim, that
-never joins two such states; the toll on the machine I built falls. For heat or room, an
+never joins two such states; the toll on the machine I built falls. For heat or room, a run on a machine with a permanent reading in which the reading goes from no to
+yes, that repeats a state, and in which no two of its states merge; the run form falls. An
 operation on $N$ starts told apart by what happens next, one already in the fixed reading, and an
 implementation with fewer than $1 + (T+1)(N-1)$ states that carries it through $T$ repetitions from
 every start without merging; the retention bound falls, and the exactness claim falls if the path
 construction merges within $T$ repetitions or needs more chairs than it says.
+
+\emph{What a chair is (Section~\ref{sec:what-a-chair-is}).} For the step law, a deterministic
+step whose next state is neither new to the run, nor a revisit from a different state, nor a
+revisit from the same state. For the write, a finite set of states extending blank, zero and
+one on which writing a 0 is one-to-one and ``definite'' never comes down; the chairs theorem
+forbids it. For reversible keeps nothing, a one-to-one step on finitely many states and a start
+whose run never returns to it. For the noisy chairs, a table of chances with every row and
+every column adding to one and a positive chance of entering a closed set from outside; or a
+table that can enter a closed set from outside and leaves the even spread's collision weight
+unchanged. For the quantum chairs, a finite-dimensional unitary and a projector with
+$(1-P)UP = 0$ and $PU(1-P) \ne 0$. For time's bill, a biased walk at a speed other than zero
+with no entropy production, or one whose heat times time comes under the square of the
+distance. For the measurements, a record that stays, in a closed finite system, with no heat
+out and no fresh degrees of freedom taken; recurrence says it can't be built, and the law dies
+if it is.
 
 \emph{The bill in bits (Section~\ref{sec:a2-not-arbitrary}).} Exhibit a finite machine with a permanent certificate, a move that
 switches k states on beside m certified ones (k at least one), and a spread of probability
@@ -16309,7 +16725,7 @@ deployed discipline pricing a record that parties who didn't produce it don't co
 certification holds in a real ecosystem; an honest formalisation, with independence as defined there,
 where certification fails the test.
 
-One concession goes with it, and I make it in full. The window results, the separation of
+One line gets drawn with it, and I draw it in full. The window results, the separation of
 the two runs, and the counter's uniqueness don't single out certification. Their
 proofs use only that the step carries something the classical picture doesn't determine, so
 the same shape of result holds for any such field. Nothing in Parts II to IV proves that
@@ -16436,7 +16852,7 @@ require.
 
 This is not a claim to have been first. Appendix~\ref{sec:whats-mine} does the sorting item by
 item, with sources: what was known, what's added, and what kind of addition it is. Here's the
-short form, and I'd welcome correction on any boundary.
+short form. A boundary that's wrong gets moved, and the appendix is where to point.
 
 \emph{Borrowed, with names.} As the opening chapter warned, I usually had the hunch first and
 found these names after, and that order doesn't make any of it mine. Everything in Part I (every
@@ -16459,9 +16875,14 @@ bounds, and ``set a bit to one whatever it held'' is my way of saying his RESTOR
 potential method with one particular potential. The derivation of the toll from finiteness,
 permanence, and a named price, in counted states and in bits, with each premise's
 counterexample built. The eight-state machine on which every one of those premises is a theorem.
-The dichotomy under all of it, on any state space, that a permanent flip merges or needs a fresh
-state every time, its exact bound on how long a bounded memory can put the merge off, and the
+The dichotomy under all of it, on any state space, that a run which keeps a record either merges two
+of its own states or visits a fresh state every step, so time cannot replace room, its exact bound on how long a bounded memory can put the merge off, and the
 three-currency reading of it, with Bennett's time leg cited rather than reproved.
+Under that, with no reading and no finiteness, the step law, that every step of every
+deterministic machine is a fresh state, a merge, or a revisit on a loop; the write of a 0 as a
+merge, with the failure of every finite escape; recurrence for reversible finite machines; the
+noisy and the quantum forms of the chairs; time's bill on the biased walk; and the lab
+instances of each, with the bead's erasure law reproduced by simulation.
 The window that can't price the flag exactly, and the small machine's own colliding pair. The
 latch form over any base, with its two counterexamples and converse. The small machine's earned record from a clean
 start (checked, then committed, then certified, about
@@ -16486,7 +16907,15 @@ Of
 that list, the toll derivation as a rule on a ledger (Ouldridge and Wolpert priced the same
 merge in entropy first), the pricing form of the window fact, and the latch form are
 the only pieces I'd call new statements, and only in the sense that I didn't find them stated
-where I looked. The fourth thing I'd name is built and checked, and its idea isn't new: a
+where I looked. The mathematics under Section~\ref{sec:what-a-chair-is} is old: the step law is
+the first-return argument every textbook on dynamics makes, recurrence is Poincar\'e's and
+Zermelo's, the noisy chairs are the fact that a doubly stochastic chain has no closed class
+reachable from outside, the quantum chairs are that a unitary preserving a finite-dimensional
+subspace preserves its complement, the entropy gap is Gibbs's inequality, and the walker's
+entropy production is Schnakenberg's. What's mine there is the reading, that the write of a 0 is
+the merge and the toll is the price of something being the case, the assembly of those facts as
+instances of one law with the three columns and no fourth, and the machine-checked proofs of
+each. The fourth thing I'd name is built and checked, and its idea isn't new: a
 record that's priced, and on the small machine earned, under the reference monitor's
 every-program move, which is old and isn't mine. Appendix~\ref{sec:whats-mine} names the same four the same
 way, with the prior work beside each.
@@ -16567,8 +16996,15 @@ Finite, permanent and merge pricing give the toll & proved (premise: merge prici
 Each premise has a counterexample & proved (the strip, the coin, the stamp); ``free'' is proved too  & Section~\ref{sec:a2-not-arbitrary} \\
 On a finite machine, a flip merges or revokes & proved & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:merge-or-revoke} \\
 Forced to be priced exactly when it merges & definition; proved (premise: move names decidable) & Section~\ref{sec:a2-not-arbitrary}, Definition~\ref{def:forced-priced}, Theorem~\ref{thm:forced-iff-merge} \\
-Anything kept is paid for in heat, room or time: on any state space a permanent flip merges or visits a fresh state every time, and a bounded memory only delays the merge & proved on the page, by counting; Bennett's time leg cited, not reproved & Section~\ref{sec:a2-not-arbitrary}, Proposition~\ref{prop:heat-or-room} \\
-Retention bound $M \ge 1 + (T+1)(N-1)$, exact, and $M \ge N + T(N-L)$ with $L$ fixed places & proved on the page, by counting & Section~\ref{sec:a2-not-arbitrary}, Proposition~\ref{prop:heat-or-room} \\
+Anything kept is paid for in heat or room, and time only changes how fast room is used: any run that keeps a record either merges two of its own states or is in a new state at every step, so on $M$ states a non-merging run has fewer than $M$ steps, and a bounded memory only delays the merge & proved; Bennett's trade-off cited, not reproved & Section~\ref{sec:a2-not-arbitrary}, Proposition~\ref{prop:heat-or-room} \\
+Every step of every deterministic machine is a fresh state, a merge, or a revisit on a loop, and the only free step is one on a loop, which makes nothing new & proved & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:step-law} \\
+Writing a 0 on a blank cell is a merge of blank with zero; no finite remembering state escapes; the endless tape and the bilateral shift escape by paying a fresh state every step; the machine contains itself by running itself, and no level codes all its own readings & proved & Section~\ref{sec:what-a-chair-is}, Theorems~\ref{thm:write-merge} and~\ref{thm:no-self-containment} \\
+A reversible step on finitely many states returns every run to its start and keeps nothing & proved & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:reversible-keeps-nothing} \\
+A noisy step that preserves the even spread cannot raise a permanent reading; one that can strictly concentrates the even spread, in collision weight and in Shannon entropy & proved & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:noisy-chairs} \\
+A finite-dimensional unitary that keeps a subspace keeps its complement, so no unitary step raises a permanent reading in finite dimension & proved, in the Mathematical Components library & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:quantum-chairs} \\
+A biased walk pays strictly positive entropy per tick at any nonzero speed, and heat times time is at least the distance squared & proved; Schnakenberg's formula taken as the model & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:time-bill} \\
+The measured floor, the measured time-heat rate, the measured recurrence and the collapse-heat searches & cited, not reproved; the bead's erasure law reproduced by simulation & Section~\ref{sec:what-a-chair-is} \\
+Retention bound $M \ge 1 + (T+1)(N-1)$, exact, and $M \ge N + T(N-L)$ with $L$ fixed places & proved; the fibre form by the same count, on the page & Section~\ref{sec:a2-not-arbitrary}, Proposition~\ref{prop:heat-or-room} \\
 On a finite machine with decidable move names, permanent records are forced; the converse fails & proved (the three cards) & Section~\ref{sec:a2-not-arbitrary}, Corollary~\ref{cor:permanent-forced} \\
 Halving price & assumed (premise) & Section~\ref{sec:a2-not-arbitrary}, Premise~\ref{prem:halving} \\
 The squeeze bound & proved (premise: halving price) & Section~\ref{sec:a2-not-arbitrary}, Theorem~\ref{thm:squeeze} \\
@@ -16927,8 +17363,8 @@ says more than its home does, that's my mistake, and I'd want to hear about it.
 
 This is the line around what I've proved. Inside it: an accounting law for one event, a
 derivation of that law from premises each with its own counterexample, under it the count that
-says anything kept is paid for in heat, room or time, with its exact bound on how long a bounded
-memory can put the choice off, a set of windows
+says anything kept is paid for in heat, room or time, with the exact bound on how long a bounded
+memory can postpone the choice, a set of windows
 that provably lose it, a record axis that's a latch over any base, a diagonal that holds by
 proof on L, a machine of six instruction kinds on which commitments are earned and which computes what
 two counters can, one fixed program in its instruction kinds, run on a host with more
@@ -16951,8 +17387,9 @@ needs a model of which states carry information, premises that can all hold at o
 real argument tying the formal charge to dissipation. The permanent-certificate theorems
 supply the first for an abstract finite machine with a permanent reading. The two premises
 are shown able to hold together whenever every counted step costs at least one, and for a
-one-bit reset. The small machine's free steps merge states and are charged nothing, which
-breaks the bridge for its whole instruction set (Section~\ref{sec:landauer}), and the calorimeter protocol shows that population
+one-bit reset. The small machine's free steps merge states and are charged nothing, so its ledger is not a heat
+meter for computing: the hardware pays for those merges in heat, off the ledger, and the bridge
+holds for the record steps only (Section~\ref{sec:landauer}); and the calorimeter protocol shows that population
 dynamics don't fix the energy scale. No joule value attaches to one mark without thermal and
 device premises (Section~\ref{sec:a2-not-arbitrary}, Section~\ref{sec:landauer}).
 Once you pick the start and the price list, the number is forced by arithmetic, and
@@ -17126,20 +17563,20 @@ This machine only: its six instruction kinds and their prices, its sixteen slots
 pair, and the encodings its universal programs use.
 
 \emph{What I'm proposing beyond that.} A structural account of computation: the
-relations it carries belong in the state, their treatment belongs in the step,
-and a cost model is one part of that account. The permanent record supplies a
-case we can take apart. The pointer thesis asks whether certification deserves
-that record in the systems it describes. It can fail without changing the latch
-or window arguments, which use no such selection criterion.
+relations a computation carries belong in the state, what each move does to them
+belongs in the step, and a cost model is one part of that account. The permanent
+record is the case I took apart. The pointer thesis asks whether certifying deserves
+that record in the systems it describes, and it can fail without touching the latch
+or the window arguments, which don't use it.
 
-The larger proposal is about which distinctions an account of computation ought
-to preserve. The constructions show particular ways to preserve them and what
-follows under the stated premises. Their worth depends on the questions we need
-the account to answer. If a program's log and a proof about that program recover
-every distinction we need, that weakens the case for requiring the account in the
-step. If a deployed system has good reasons for a wall or a penalty rather than
-a toll, that weighs against the proposed pricing there. Those are ways to examine
-the proposal, alongside the counterexamples that test individual theorems.
+The larger proposal is about which distinctions a description of a computation ought
+to keep. The constructions show particular ways to keep them and what follows under
+the stated premises. What they're worth depends on which questions you need the
+description to answer. If a program's log and a proof about that program recover
+every distinction you need, that weakens the case for putting the account in the
+step. If a deployed system has good reasons for a wall or a penalty instead of a
+toll, that weighs against the toll there. Those are the ways to examine the proposal,
+alongside the counterexamples that test the theorems one by one.
 
 %===========================================================================
 \section{Conclusion}
@@ -17150,8 +17587,8 @@ Put the triangle, the cups and the two computers back on the table. Turning the
 triangle preserves relations you can check with your fingers. Turning a cup records
 an act; a row of cups can distinguish stages that one cup cannot. The two computers
 can leave the same answer while differing in what they did to reach it. In each
-case we had to say what the things were, which moves were allowed, which relations
-survived, and what our way of looking could tell apart.
+case I had to say what the things were, which moves were allowed, which relations
+survived, and what my way of looking could tell apart.
 
 Part I gave that question its vocabulary: structure as relations among things,
 kept under chosen changes, carried by whatever stuff, relative to a frame. A
@@ -17195,9 +17632,9 @@ its refutations listed.
 
 Part IV made the relations operational. The small machine's state ties a checked
 claim to an edition of a counter. Its step uses that tie: change the counter and
-the old check no longer authorizes a commitment. From a clean start, a raised flag
-therefore requires a passing check, a commitment about the same edition and a
-certificate, in order. Three marks suffice and no such run pays less. These are
+the old check no longer authorizes a commitment. So from a clean start a raised flag
+needs a passing check, a commitment about the same edition and a certificate, in
+that order. Three marks are enough, and no such run pays less. These are
 facts about the construction, including the case of a check that cannot fail.
 Its two-counter base supplies universality under the stated encoding.
 
@@ -17216,14 +17653,16 @@ The lift works under its interface conditions, with counterexamples where those
 conditions fail (Section~\ref{sec:every-model}). Side-by-side machines need both
 records; a single total can lose which side acted. Sequential hand-offs and nested
 runs each need their own conditions (Section~\ref{sec:parts}). These constructions
-make us say which relation is carried through a change and which is lost. The
+make you say which relation is carried through a change and which is lost. The
 six instruction kinds are one place to inspect that work.
 
 Then a check worth earning, the two-player game with an integer test whose
 pass forces Tsirelson's bound for the tally it's handed. And what the counter has to do with physics, which is less than
-the name Landauer might suggest. The places where the machine came up short of the
-idea stayed on the page: its free steps merge states, so the chairs don't force the toll on it,
-and only the merge premise asked of the record layer does; and a check that can't fail certifies for three like any other. Part V was where to challenge it and what would break it. Every result carries the shape of the thing that would
+the name Landauer might suggest. Two facts about the machine are stated where they belong. Its free
+steps merge states, because that is what forgetting scratch work means; the hardware pays for
+those merges in heat, off the ledger, so the toll on this machine comes from the record layer's
+merge premise and not from finiteness. And a check that cannot fail still certifies for three,
+because the step charges for the act, and the entitlement count says what the claim bought. Part V was where to challenge it and what would break it. Every result carries the shape of the thing that would
 kill it, gathered in one place (Section~\ref{sec:falsification}): a state of the small machine
 and an instruction after which the ledger goes down; a contractive correlator whose pinned matrix isn't positive semidefinite; a
 certification system that follows the toll and certifies at total cost zero; a function on
@@ -17304,7 +17743,7 @@ of state, or a change of machine.
 So that's the Thiele Machine: structure held as state, acted on by a step, with an
 account of the changes and a view that may keep or lose their distinctions. The
 record and its toll give that proposal a worked mathematical core. The small
-machine and its interpreters give us particular constructions to take apart.
+machine and its interpreters are particular constructions you can take apart.
 The argument is for treating those relations as part of computation itself.
 Each theorem answers a stated question under stated premises; the choice of which
 questions an account ought to preserve remains there for you to challenge.
@@ -18139,7 +18578,7 @@ folklore among automata theorists,
 with Pin's paper as the place to check it, long before I found
 it, and its price in physics was Ouldridge and Wolpert's. If someone shows me
 its ledger form, the pricing form in item 4, or item 6
-stated earlier, I'll move it up the list and be glad to, and a little embarrassed, in that order.
+stated earlier, I'll move it up the list.
 
 %===========================================================================
 \section{The CHSH derivation, in full}
@@ -20623,6 +21062,27 @@ this book's pointer thesis.
 \noindent Roberto M. Amadio, Nicolas Ayache, François Bobot, Jaap P. Boender, Brian Campbell, Ilias Garnier, Antoine Madet, James McKinna, Dominic P. Mulligan, Mauro Piccolo, Randy Pollack, Yann Régis-Gianas, Claudio Sacerdoti Coen, Ian Stark and Paolo Tranquilli (2014). Certified Complexity (CerCo). Foundational and Practical Aspects of Resource Analysis, FOPARA 2013, LNCS 8552, pp. 1--18. \href{https://doi.org/10.1007/978-3-319-12466-7_1}{DOI: 10.1007/978-3-319-12466-7\_1}.
 \par\medskip
 
+\noindent Antoine B\'erut, Artyom Petrosyan and Sergio Ciliberto (2015). Information and thermodynamics: experimental verification of Landauer's erasure principle. Journal of Statistical Mechanics: Theory and Experiment, P06015. \href{https://doi.org/10.1088/1742-5468/2015/06/P06015}{DOI: 10.1088/1742-5468/2015/06/P06015}. The long version, with the protocol in full and the fit $\langle Q\rangle = kT\ln 2 + B/\tau$, $B = 8.15\,kT\cdot\mathrm{s}$.
+\par\medskip
+
+\noindent Sandro Donadi, Kristian Piscicchia, Catalina Curceanu, Lajos Di\'osi, Matthias Laubenstein and Angelo Bassi (2021). Underground test of gravity-related wave function collapse. Nature Physics 17, pp. 74--78. \href{https://doi.org/10.1038/s41567-020-1008-4}{DOI: 10.1038/s41567-020-1008-4}. The radiation a gravity-driven collapse would emit, listened for at Gran Sasso and not found at the level the parameter-free model predicts.
+\par\medskip
+
+\noindent Rocco Gaudenzi, Enrique Burzur\'i, Satoru Maegawa, Herre S. J. van der Zant and Fernando Luis (2018). Quantum Landauer erasure with a molecular nanomagnet. Nature Physics 14, pp. 565--568. \href{https://doi.org/10.1038/s41567-018-0070-7}{DOI: 10.1038/s41567-018-0070-7}. Landauer's floor on a register of molecular spins at one kelvin.
+\par\medskip
+
+\noindent Jeongmin Hong, Brian Lambson, Scott Dhuey and Jeffrey Bokor (2016). Experimental test of Landauer's principle in single-bit operations on nanomagnetic memory bits. Science Advances 2(3), e1501492. \href{https://doi.org/10.1126/sciadv.1501492}{DOI: 10.1126/sciadv.1501492}. The floor on a real memory technology, within two standard deviations.
+\par\medskip
+
+\noindent Yonggun Jun, Mom\v{c}ilo Gavrilov and John Bechhoefer (2014). High-precision test of Landauer's principle in a feedback trap. Physical Review Letters 113, 190601. \href{https://doi.org/10.1103/PhysRevLett.113.190601}{DOI: 10.1103/PhysRevLett.113.190601}. Erasure at $0.71 \pm 0.03\,kT$ and the control that squashes nothing at $0.05 \pm 0.03\,kT$, on the same bead.
+\par\medskip
+
+\noindent Bernhard Rauer, Sebastian Erne, Thomas Schweigler, Federica Cataldini, Mohammadamin Tajik and J\"org Schmiedmayer (2018). Recurrences in an isolated quantum many-body system. Science 360, pp. 307--310. \href{https://doi.org/10.1126/science.aan7938}{DOI: 10.1126/science.aan7938}. A sealed gas of thousands of atoms coming back around.
+\par\medskip
+
+\noindent J\"urgen Schnakenberg (1976). Network theory of microscopic and macroscopic behavior of master equation systems. Reviews of Modern Physics 48, pp. 571--585. \href{https://doi.org/10.1103/RevModPhys.48.571}{DOI: 10.1103/RevModPhys.48.571}. The entropy production of a Markov chain as the rate times the log of the forward-to-backward ratio; the biased walk is its smallest case.
+\par\medskip
+
 \noindent American Physical Society (2006). May, 1911: Rutherford and the Discovery of the Atomic Nucleus. APS News 15(5), This Month in Physics History. \href{https://www.aps.org/publications/apsnews/200605/history.cfm}{Article}.
 \par\medskip
 
@@ -20828,6 +21288,9 @@ this book's pointer thesis.
 \par\medskip
 
 \noindent Atul Gawande (2007). The Checklist. The New Yorker, 10 December 2007. The earliest place the line ``too much airplane for one man to fly'' turns up that I could find; it names no newspaper. \href{https://www.newyorker.com/magazine/2007/12/10/the-checklist}{Article}.
+\par\medskip
+
+\noindent Andrea Vinante, Rima Mezzena, Paolo Falferi, Matteo Carlesso and Angelo Bassi (2017). Improved noninterferometric test of collapse models using ultracold cantilevers. Physical Review Letters 119, 110401. \href{https://doi.org/10.1103/PhysRevLett.119.110401}{DOI: 10.1103/PhysRevLett.119.110401}. A millikelvin cantilever with a non-thermal force noise of unknown origin, compatible with one model's collapse heating.
 \par\medskip
 
 \noindent General Conference on Weights and Measures (2018). Resolution 1 of the 26th meeting: On the revision of the International System of Units (SI), effective 20 May 2019.

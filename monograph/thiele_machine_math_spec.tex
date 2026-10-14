@@ -61,7 +61,7 @@ This is a mathematical reference for the Thiele Machine: a model of computation 
 
 Coq establishes that conclusions follow from premises. It does \emph{not} establish that premises model physical reality. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the model or a stated machine, \textbf{(C)}~conditional results that hold under a named premise no machine fact discharges, and \textbf{(R)}~refutations, where a theorem states the negation of a proposed claim and a named construction supplies the counterexample. One proposal, the pointer criterion of Chapter~\ref{ch:external}, has no proof; it carries a fourth tag, conjecture.
 
-The core claims are structural (S): No Free Insight for every certification system; on finite machines, the toll derived from merge pricing for permanent certificates; the window and pricing results; the small machine's earned provenance, checker soundness and minimum price; Thiele completeness of the small machine; the window theorem for every Thiele-complete machine; the lifting of every universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete machines; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the record axis over any base and the toll over any order of records; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix. The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
+The core claims are structural (S): No Free Insight for every certification system; on finite machines, the toll derived from merge pricing for permanent certificates, and on any state space the dichotomy that a permanent flip merges or needs a fresh state every time, with the exact retention bound for a bounded memory; the window and pricing results; the small machine's earned provenance, checker soundness and minimum price; Thiele completeness of the small machine; the window theorem for every Thiele-complete machine; the lifting of every universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete machines; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the record axis over any base and the toll over any order of records; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix. The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
 \end{abstract}
 
 \tableofcontents
@@ -183,6 +183,61 @@ When instructions have decidable equality, over all schedules that price merges,
 \begin{theorem}[Refutation] \textbf{(R)}
 ``The forced events are exactly the permanent-record writes'' is false: a three-state instruction flips, revokes, and merges at once.
 Coq: \texttt{forced\_price\_without\_permanent\_record}.
+\end{theorem}
+
+\begin{theorem}[Heat or room: the dichotomy] \textbf{(S)}
+On any state space, let a reading be permanent under a step $f$, and take a run $x_0, f(x_0), f(f(x_0)), \ldots$ in which the reading goes from false at step $r$ to true at step $r + 1$. If no two states among the run's first $n$ steps merge under $f$, those states are pairwise distinct; so on a finite state space of $M$ elements, a run that keeps a record and never merges has fewer than $M$ steps. In particular, for an injective move $F$ that switches the reading on at $s$, the iterates of $s$ are pairwise distinct and no finite duplicate-free list contains them all: a permanent flip either merges or visits a fresh state every time.
+Coq: \texttt{run\_merges\_or\_fresh}, \texttt{run\_bounded\_by\_room}; \texttt{permanent\_flip\_iterates\_distinct}, \texttt{permanent\_flip\_no\_finite\_list}.
+\end{theorem}
+
+\begin{theorem}[Retention bound, and its exactness] \textbf{(S)}
+Let a finite implementation $F : X \to X$ of a reset carry an abstraction $q$ that sends every image of $F$ to a fixed abstract state $q_0$, with a representative of $q_0$ and representatives of $N - 1$ further, pairwise distinct abstract states, and let $F$ be injective on the states reached from the representatives in fewer than $T$ applications. Then $|X| \ge 1 + (T+1)(N-1)$, so the history of at most $(|X|-1)/(N-1)$ resets is kept. The bound is attained: one fixed state and $N - 1$ paths of $T + 1$ states, with $F$ walking each path and sending its last state to the fixed one, has exactly $1 + (T+1)(N-1)$ states, is closed under $F$, meets the reset and representative premises, is injective through $T$ repetitions, and merges on the next.
+Coq: \texttt{retention\_bound}, \texttt{retention\_horizon}; \texttt{tight\_exact}, \texttt{tight\_closed}, \texttt{tight\_retain}, \texttt{tight\_merges\_next}.
+\end{theorem}
+
+\begin{theorem}[The step law] \textbf{(S)}
+For any step $f$ on any type with decidable equality and any start, every step of the run is exactly one of: fresh (the new state equals no earlier state of the run), a merge (it equals an earlier state $x_j$ with $j \ge 1$ and the state before $x_j$ differs from the current state, so two distinct states share an $f$-image), or a revisit from the same state, after which the run is periodic and every later state is one already visited.
+Coq: \texttt{step\_law}, \texttt{merge\_is\_collision}, \texttt{revisit\_means\_loop}.
+\end{theorem}
+
+\begin{theorem}[Refutation: the halting hole] \textbf{(R)}
+``Every raise of a permanent reading on finitely many states is a merge'' is false for partial steps: on two states, $a \mapsto b$ with $b$ having no successor raises the reading with no shared image. Totalising the halt ($b \mapsto b$) makes the raise a merge.
+Coq: \texttt{partial\_raises\_without\_merge}, \texttt{totalised\_halt\_is\_merge}.
+\end{theorem}
+
+\begin{theorem}[The write of a cell, and its escapes] \textbf{(S)}
+On the states blank, zero, one with reading ``definite,'' the write of a 0 is permanent, raises the reading from blank, and merges blank with zero. A fourth state remembering that the cell was blank does not escape: the write on four states still merges two distinct states. On the natural numbers the write ``add one'' is injective and never returns to 0; on the integers ``add one'' is a bijection, raises ``at least one'' from 0, keeps it, and after $k > 0$ steps is away from its start.
+Coq: \texttt{write\_is\_permanent}, \texttt{write\_raises}, \texttt{write\_is\_a\_merge}, \texttt{four\_state\_escape\_fails}, \texttt{tape\_write\_injective}, \texttt{tape\_write\_never\_returns}, \texttt{shift\_bijective}, \texttt{shift\_raises\_and\_keeps}, \texttt{shift\_never\_returns}.
+\end{theorem}
+
+\begin{theorem}[No state space codes all its own readings; the regress has a price] \textbf{(S)}
+For any type $X$ and any coding $X \to (X \to \mathrm{bool})$, some reading $X \to \mathrm{bool}$ is coded by no state (Cantor). With the entitlement count, a record that narrows $N$ candidates to one costs at least $\lceil \log_2 N \rceil$ marks, and for every $m$ there is a candidate count whose rounded-up logarithm is at least $m$.
+Coq: \texttt{no\_space\_holds\_its\_own\_readings}, \texttt{regress\_price\_unbounded}; the count itself is \texttt{ent\_cs\_run\_entitlement}.
+\end{theorem}
+
+\begin{theorem}[Nondeterministic merge] \textbf{(S)}
+Let a step relation on a finite duplicate-free list of states have a duplicate-free set $Y$ of yes-states that is closed and total (every yes-state has a chosen successor in $Y$), and let some state outside $Y$ relate to a state of $Y$. Then some state of $Y$ has two distinct predecessors.
+Coq: \texttt{nondet\_merge}.
+\end{theorem}
+
+\begin{theorem}[Reversible keeps nothing] \textbf{(S)}
+For an injective step on a finite duplicate-free list containing every state, the run from any start returns to the start after a positive number of steps, and any reading that is false at the start and never goes from true to false is false at every step.
+Coq: \texttt{returns\_to\_start}, \texttt{reversible\_keeps\_nothing}.
+\end{theorem}
+
+\begin{theorem}[Noisy chairs, both directions] \textbf{(S)}
+Let $P$ be a nonnegative kernel on $n$ states with rows summing to 1 and let $Y$ be closed under $P$. If every column of $P$ sums to 1, then $P(i,j) = 0$ for every $i \notin Y$, $j \in Y$. If some $i \notin Y$, $j \in Y$ has $P(i,j) > 0$, then some column sum differs from 1, and the collision weight of the uniform spread after one step, $\sum_j c_j^2$ with $c_j$ the column sums, strictly exceeds $n$, its value when every column sums to 1. Conversely, if every column sums to 1, then for every spread $q$, $\sum_j (qP)_j^2 \le \sum_i q_i^2$. Over the reals, for a strictly positive spread $q$ on $N$ states, $\sum_i q_i \ln(N q_i) = \ln N - H(q) \ge 0$, with strict inequality as soon as some $q_i \ne 1/N$.
+Coq: \texttt{noisy\_chairs}, \texttt{raise\_breaks\_uniform}, \texttt{colsums\_total}, \texttt{raise\_concentrates}, \texttt{uniform\_floor}, \texttt{raise\_concentrates\_uniform}, \texttt{no\_merge\_no\_concentration}; \texttt{gibbs\_nonneg}, \texttt{gibbs\_strict}, \texttt{relent\_is\_entropy\_gap} (the last three over Coq's real numbers).
+\end{theorem}
+
+\begin{theorem}[Quantum chairs] \textbf{(S)}
+Over the algebraic closure of $\mathbb{Q}$ with complex conjugation, let $U$ be an $n \times n$ matrix with $U^\dagger U = 1$ and $P$ a matrix with $P^2 = P$, $P^\dagger = P$ and $(1 - P)\,U\,P = 0$. Then $P\,U\,(1 - P) = 0$. Checked in the Mathematical Components library; finite dimension enters once, as ``a left inverse of a square matrix is a right inverse.''
+Coq: \texttt{quantum\_chairs}.
+\end{theorem}
+
+\begin{theorem}[Time's bill] \textbf{(S)}
+For $0 < p < 1$ the biased walk's entropy production per tick, $\sigma(p) = (2p-1)\ln\frac{p}{1-p}$, is $0$ at $p = \tfrac12$ and strictly positive otherwise. For $0 < v < 1$ and $N \ge 0$, $N\ln\frac{1+v}{1-v} \cdot \frac{N}{v} \ge N^2$. Over Coq's real numbers.
+Coq: \texttt{heat\_at\_any\_speed}, \texttt{no\_heat\_at\_rest}, \texttt{heat\_time\_floor}.
 \end{theorem}
 
 \section{Entropy and heat}

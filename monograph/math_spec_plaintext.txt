@@ -31,34 +31,35 @@ conjecture. The status of each result is stated below.
 
 
                                                 1
-                                           Abstract
+                                            Abstract
 
 This is a mathematical reference for the Thiele Machine: a model of computation in which
 a step that raises a certification record must pay into a ledger that only grows. It presents
 the abstract interfaces, the main theorems, and the definitions of the small machine from the
 machine-checked Coq corpus. The Coq source is the complete definition; this document states
 each result with its premises and names the declaration that carries it.
-     Coq establishes that conclusions follow from premises. It does not establish that premises
+    Coq establishes that conclusions follow from premises. It does not establish that premises
 model physical reality. Every result is tagged as one of three types: (S) structural theorems
 about the model or a stated machine, (C) conditional results that hold under a named premise
 no machine fact discharges, and (R) refutations, where a theorem states the negation of a
 proposed claim and a named construction supplies the counterexample. One proposal, the
 pointer criterion of Chapter 13, has no proof; it carries a fourth tag, conjecture.
-     The core claims are structural (S): No Free Insight for every certification system; on finite
-machines, the toll derived from merge pricing for permanent certificates; the window and pricing
-results; the small machine’s earned provenance, checker soundness and minimum price; Thiele
-completeness of the small machine; the window theorem for every Thiele-complete machine; the
-lifting of every universal base to a Thiele-complete machine and its converse; the composition
-of Thiele-complete machines; the universal machine U and the priced host’s program UP ; a
-verified compiler onto these machines; the record axis over any base and the toll over any order
-of records; the recursion theorem and Rice’s theorem (the logician Henry Rice, 1953: no program
-decides a property of what programs do, unless it holds of every program or of none) for L,
-and Rice’s theorem for the two-counter machine itself; the classical CHSH bound; the algebraic
-Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with
-positive semidefiniteness of one fixed 5 × 5 NPA matrix. The failure of every clock-style machine,
-the limits of lifting and of composition, and the necessity of each clause of Thiele completeness
-are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise
-landauer_heat.
+    The core claims are structural (S): No Free Insight for every certification system; on finite
+machines, the toll derived from merge pricing for permanent certificates, and on any state
+space the dichotomy that a permanent flip merges or needs a fresh state every time, with
+the exact retention bound for a bounded memory; the window and pricing results; the small
+machine’s earned provenance, checker soundness and minimum price; Thiele completeness of
+the small machine; the window theorem for every Thiele-complete machine; the lifting of every
+universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete
+machines; the universal machine U and the priced host’s program UP ; a verified compiler onto
+these machines; the record axis over any base and the toll over any order of records; the recursion
+theorem and Rice’s theorem (the logician Henry Rice, 1953: no program decides a property of
+what programs do, unless it holds of every program or of none) for L, and Rice’s theorem for
+the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and,
+on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness
+of one fixed 5 × 5 NPA matrix. The failure of every clock-style machine, the limits of lifting
+and of composition, and the necessity of each clause of Thiele completeness are refutations (R).
+Results stated over Landauer heat are conditional (C) on the named premise landauer_heat.
 Contents
 
 1 Introduction                                                                                       3
@@ -70,49 +71,49 @@ landauer_heat.
   3.1 A2 among cost frameworks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           5
   3.2 Several floors and one charge . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
 
-4 Finite Machines and the Price of Merging                                                          7
-  4.1 Entropy and heat . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      8
-  4.2 An eight-state instance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     8
-  4.3 No intrinsic joule value . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    8
+4 Finite Machines and the Price of Merging                                                        7
+  4.1 Entropy and heat . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+  4.2 An eight-state instance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+  4.3 No intrinsic joule value . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
 
-5 Windows, Pricing and Narrowing                                                                     9
+5 Windows, Pricing and Narrowing                                                                    11
 
-6 The Small Machine                                                                                 10
+6 The Small Machine                                                                                 12
 
-7 Thiele Completeness                                                                               12
-  7.1 The window theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        13
-  7.2 Every model of computation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        13
-  7.3 Composition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       14
-  7.4 Each clause is needed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       14
+7 Thiele Completeness                                                                               14
+  7.1 The window theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        15
+  7.2 Every model of computation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        15
+  7.3 Composition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       16
+  7.4 Each clause is needed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       16
 
-8 The Universal Machine                                                                             16
-  8.1 The universal host . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      16
-  8.2 U . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   16
-  8.3 The priced host and UP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        17
-  8.4 A verified compiler and the extracted machines . . . . . . . . . . . . . . . . . . .          17
+8 The Universal Machine                                                                             18
+  8.1 The universal host . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      18
+  8.2 U . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   18
+  8.3 The priced host and UP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        19
+  8.4 A verified compiler and the extracted machines . . . . . . . . . . . . . . . . . . .          19
 
-9 Recursion and Undecidability                                                               18
-  9.1 The two-counter machine itself . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+9 Recursion and Undecidability                                                               20
+  9.1 The two-counter machine itself . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
 
-10 The Record Axis                                                                                  20
-   10.1 Growing and probabilistic records . . . . . . . . . . . . . . . . . . . . . . . . . . .     20
-   10.2 Bases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   21
-   10.3 The record over any order . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     21
+10 The Record Axis                                                                                  22
+   10.1 Growing and probabilistic records . . . . . . . . . . . . . . . . . . . . . . . . . . .     22
+   10.2 Bases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   23
+   10.3 The record over any order . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     23
 
-11 CHSH and Tsirelson                                                                       22
-   11.1 The check as a property of the multi-register machine . . . . . . . . . . . . . . . 22
+11 CHSH and Tsirelson                                                                       24
+   11.1 The check as a property of the multi-register machine . . . . . . . . . . . . . . . 24
 
-12 The Physical Boundary                                                                            24
+12 The Physical Boundary                                                                            26
 
 
 
                                                   1
-13 External Systems and the Pointer Thesis                                                        25
-   13.1 The pointer criterion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+13 External Systems and the Pointer Thesis                                                        27
+   13.1 The pointer criterion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
 
-A Proof File Index                                                                               27
+A Proof File Index                                                                               29
 
-B Epistemological Classification                                                                 30
+B Epistemological Classification                                                                 32
 
 
 
@@ -276,22 +277,107 @@ two states (forced_priced_iff_merges). An instruction that switches a reading on
                                                  7
 merges or switches it off somewhere else (flip_merges_or_revokes). So every permanent-
 record write is forced, and the only free flips are revocable ones.
-
 Theorem 4.5 (Refutation). (R) “The forced events are exactly the permanent-record
 writes” is false: a three-state instruction flips, revokes, and merges at once. Coq:
 forced_price_without_permanent_record.
+Theorem 4.6 (Heat or room: the dichotomy). (S) On any state space, let a reading be per-
+manent under a step f , and take a run x0 , f (x0 ), f (f (x0 )), . . . in which the reading goes from
+false at step r to true at step r + 1. If no two states among the run’s first n steps merge under
+f , those states are pairwise distinct; so on a finite state space of M elements, a run that keeps
+a record and never merges has fewer than M steps. In particular, for an injective move F
+that switches the reading on at s, the iterates of s are pairwise distinct and no finite duplicate-
+free list contains them all: a permanent flip either merges or visits a fresh state every time.
+Coq: run_merges_or_fresh, run_bounded_by_room; permanent_flip_iterates_distinct,
+permanent_flip_no_finite_list.
+Theorem 4.7 (Retention bound, and its exactness). (S) Let a finite implementation F : X → X
+of a reset carry an abstraction q that sends every image of F to a fixed abstract state q0 , with a
+representative of q0 and representatives of N − 1 further, pairwise distinct abstract states, and let
+F be injective on the states reached from the representatives in fewer than T applications. Then
+|X| ≥ 1 + (T + 1)(N − 1), so the history of at most (|X| − 1)/(N − 1) resets is kept. The bound is
+attained: one fixed state and N − 1 paths of T + 1 states, with F walking each path and sending
+its last state to the fixed one, has exactly 1 + (T + 1)(N − 1) states, is closed under F , meets
+the reset and representative premises, is injective through T repetitions, and merges on the next.
+Coq: retention_bound, retention_horizon; tight_exact, tight_closed, tight_retain,
+tight_merges_next.
+Theorem 4.8 (The step law). (S) For any step f on any type with decidable equality and
+any start, every step of the run is exactly one of: fresh (the new state equals no earlier state
+of the run), a merge (it equals an earlier state xj with j ≥ 1 and the state before xj differs
+from the current state, so two distinct states share an f -image), or a revisit from the same
+state, after which the run is periodic and every later state is one already visited. Coq: step_law,
+merge_is_collision, revisit_means_loop.
+Theorem 4.9 (Refutation: the halting hole). (R) “Every raise of a permanent reading on
+finitely many states is a merge” is false for partial steps: on two states, a 7→ b with b having no
+successor raises the reading with no shared image. Totalising the halt (b 7→ b) makes the raise a
+merge. Coq: partial_raises_without_merge, totalised_halt_is_merge.
+Theorem 4.10 (The write of a cell, and its escapes). (S) On the states blank, zero,
+one with reading “definite,” the write of a 0 is permanent, raises the reading from
+blank, and merges blank with zero. A fourth state remembering that the cell was blank
+does not escape: the write on four states still merges two distinct states. On the nat-
+ural numbers the write “add one” is injective and never returns to 0; on the integers
+“add one” is a bijection, raises “at least one” from 0, keeps it, and after k > 0 steps
+is away from its start. Coq: write_is_permanent, write_raises, write_is_a_merge,
+four_state_escape_fails,         tape_write_injective,       tape_write_never_returns,
+shift_bijective, shift_raises_and_keeps, shift_never_returns.
+Theorem 4.11 (No state space codes all its own readings; the regress has a price). (S) For
+any type X and any coding X → (X → bool), some reading X → bool is coded by no state
+(Cantor). With the entitlement count, a record that narrows N candidates to one costs at least
+⌈log2 N ⌉ marks, and for every m there is a candidate count whose rounded-up logarithm is
+at least m. Coq: no_space_holds_its_own_readings, regress_price_unbounded; the count
+itself is ent_cs_run_entitlement.
+
+                                                  8
+Theorem 4.12 (Nondeterministic merge). (S) Let a step relation on a finite duplicate-free list
+of states have a duplicate-free set Y of yes-states that is closed and total (every yes-state has a
+chosen successor in Y ), and let some state outside Y relate to a state of Y . Then some state of
+Y has two distinct predecessors. Coq: nondet_merge.
+
+Theorem 4.13 (Reversible keeps nothing). (S) For an injective step on a finite duplicate-free
+list containing every state, the run from any start returns to the start after a positive number of
+steps, and any reading that is false at the start and never goes from true to false is false at every
+step. Coq: returns_to_start, reversible_keeps_nothing.
+
+Theorem 4.14 (Noisy chairs, both directions). (S) Let P be a nonnegative kernel on n
+states with rows summing to 1 and let Y be closed under P . If every column of P sums to
+1, then P (i, j) = 0 for every i ∈                          / Y , j ∈ Y has P (i, j) > 0, then
+                                    / Y , j ∈ Y . If some i ∈
+some column sum differs from 1, and the collision weight of the uniform spread after one
+step, j c2j with cj the column sums, strictly exceeds n, its value when every column sums to
+      P
+
+1. Conversely, if every column sums to 1, then for every spread q, j (qP )2j ≤ i qi2 . Over
+                                                                        P          P
+
+the reals, for a strictly positive spread q on N states, i qi ln(N qi ) = ln N − H(q) ≥ 0, with
+                                                         P
+
+strict inequality as soon as some qi ̸= 1/N . Coq: noisy_chairs, raise_breaks_uniform,
+colsums_total, raise_concentrates, uniform_floor, raise_concentrates_uniform,
+no_merge_no_concentration; gibbs_nonneg, gibbs_strict, relent_is_entropy_gap (the
+last three over Coq’s real numbers).
+
+Theorem 4.15 (Quantum chairs). (S) Over the algebraic closure of Q with complex conjugation,
+let U be an n×n matrix with U † U = 1 and P a matrix with P 2 = P , P † = P and (1−P ) U P = 0.
+Then P U (1 − P ) = 0. Checked in the Mathematical Components library; finite dimension enters
+once, as “a left inverse of a square matrix is a right inverse.” Coq: quantum_chairs.
+
+Theorem 4.16 (Time’s bill). (S) For 0 < p < 1 the biased walk’s entropy production per tick,
+                    p
+σ(p) = (2p − 1) ln 1−p , is 0 at p = 12 and strictly positive otherwise. For 0 < v < 1 and N ≥ 0,
+N ln 1+v   N      2
+     1−v · v ≥ N . Over Coq’s real numbers. Coq: heat_at_any_speed, no_heat_at_rest,
+heat_time_floor.
 
 
 4.1     Entropy and heat
-Theorem 4.6. (S) After a permanent step, any distribution on the m certified states and the k
+Theorem 4.17. (S) After a permanent step, any distribution on the m certified states and the k
 flipping ones has Shannon entropy at most log2 m (permanent_step_entropy_ceiling).
 From the uniform distribution the step removes at least log2 ((m + k)/m) bits
 (permanent_flip_uniform_entropy_drop).            An injective step removes none
 (step_entropy_invariant_if_injective).
 
-Theorem 4.7 (Heat). (C) Given the named premise landauer_heat, which states Landauer’s
-principle for a step and a distribution (Rolf Landauer argued at IBM in 1961 that a step
-that cannot be run backwards requires a minimal heat generation; the premise reads this
+Theorem 4.18 (Heat). (C) Given the named premise landauer_heat, which states Lan-
+dauer’s principle for a step and a distribution (Rolf Landauer argued at IBM in 1961 that a
+step that cannot be run backwards requires a minimal heat generation; the premise reads this
 as mean heat at least kB T ln 2 per bit of entropy the step removes, for the chosen physical
 memory and its input distribution, as an average over that preparation rather than a bound
 on each trial), the instruction has mean heat, when kB T ≥ 0, at least kB T ln((m + k)/m)
@@ -303,7 +389,8 @@ heat, and the ledger toll still charges its mark on a known run, since merge pri
 instruction whatever input was prepared (known_state_flip_forces_no_heat).
 
 
-4.2     An eight-state instance
+                                                 9
+4.2     An eight-state instance
 Example 4.1. Four program slots and a certification flag make eight states. An advance step is
 injective (fnext_injective); the certify step and every jump merge states (fcertify_merges,
 fjump_merges). The cost rule prices exactly the merges, so A2 holds there as a theorem
@@ -311,7 +398,7 @@ fjump_merges). The cost rule prices exactly the merges, so A2 holds there as a t
 
 
 4.3     No intrinsic joule value
-Theorem 4.8 (Refutation). (R) For every state type and natural-number ledger, the energy
+Theorem 4.19 (Refutation). (R) For every state type and natural-number ledger, the energy
 assignments at scales 1 and 2 give values 1 and 2 respectively at every state whose ledger is 1.
 This is conditional on such a state; an identically zero ledger need not yield different energies.
 The ledger fixes no energy unit. Coq: mu_has_no_intrinsic_joule_value. Choosing the scale
@@ -321,7 +408,7 @@ the scale is a premise, and nothing here measures it.
 
 
 
-                                                8
+                                               10
 Chapter 5
 
 Windows, Pricing and Narrowing
@@ -351,7 +438,7 @@ least one (wipe_costs_at_least_one).
 
 
 
-                                                 9
+                                                11
 Chapter 6
 
 The Small Machine
@@ -392,7 +479,7 @@ untouched in between, then CERTIFY. Coq: earned_certification_provenance.
 Theorem 6.4 (Checker soundness and no forging). (S) On a run from a clean start, a fact
 whose counter has not been written since its check names a true claim about that counter
 
-                                                  10
+                                                  12
 (checker_soundness), and every fact in the table was written by a passing CHECK of exactly
 that claim (no_forging).
 
@@ -426,7 +513,7 @@ exactly 3 to the ledger (nec_s_witness_from_every_clean_start).
 
 
 
-                                                 11
+                                                 13
 Chapter 7
 
 Thiele Completeness
@@ -468,7 +555,7 @@ tificate stands on held when it was checked and still held when it was committed
 some run certifies (some_run_certifies); the move raising the record from a clean start is a
 CERTIFY (only_certify_raises); and some move costs 0 (complete_has_free_move).
 
-                                                12
+                                                14
 Theorem 7.2 (Machines that meet it). (S) The small machine is Thiele-complete
 (earned_core_thiele_complete), and so are the machine over any property language
 with an exact equality test on properties, an exact checker and a property true of one
@@ -523,7 +610,7 @@ stopped after k(n + k + 1) steps, so one-counter halting is decidable (lift_oc_h
 lift_oc_halts_dec); two-counter halting is undecidable (lift_cm_halting_undecidable),
 
 
-                                              13
+                                              15
 and a computable halting-preserving translation of two-counter instances into one-counter in-
 stances would make it decidable (lift_no_oc_translation).
 Theorem 7.7 (Models of computation). (S) A relation on numbers computable in any one of
@@ -575,7 +662,7 @@ by a host run costing at least the number of the guest run’s exits (cmpz_sim_c
 Theorem 7.11. (R) Take any interface that makes a machine Thiele-complete. Charging every
 move twice its cost keeps clauses (a), (b) and (d), fails (c), and gives a machine that is Thiele-
 
-                                                14
+                                                16
 complete through no interface (nec_t_doubled_cost_meets_all_but_toll). A ledger that al-
 ways reads 0 keeps (a), (b) and (d) and fails (c) (nec_t_ledgerless_meets_all_but_ledger).
 An extra move ZAP that raises the record from every state at cost 1, read as CER-
@@ -597,7 +684,7 @@ nec_t_generic_needs_varying_property).
 
 
 
-                                               15
+                                               17
 Chapter 8
 
 The Universal Machine
@@ -637,7 +724,7 @@ COMMIT and CERTIFY as its record moves, is Thiele-complete (universal_thiele_com
 U’s halting problem, whether U started on the code of P and the inputs x, y ever halts, is
 undecidable (interp_halting_undecidable).
 
-                                                16
+                                                18
 8.3     The priced host and UP
 The priced host of minimal/EarnedMultiPriced.v is the machine with a counter for every
 natural number and one more paid move, PAY. Its fixed program UP runs priced guest programs.
@@ -677,7 +764,7 @@ proof. U on a guest that certifies is proved and not run.
 
 
 
-                                               17
+                                               19
 Chapter 9
 
 Recursion and Undecidability
@@ -724,7 +811,7 @@ predicate over arbitrary programs is a different task from reading one field of 
 
 
 
-                                                 18
+                                                 20
 9.1     The two-counter machine itself
 Theorem 9.4 (Rice and Kleene for two counters). (S) For any set X of inputs, a property of
 small-machine programs that cannot tell apart two programs behaving the same on every input
@@ -750,7 +837,7 @@ length, plus 1 (tc2_no_mult).
 
 
 
-                                               19
+                                               21
 Chapter 10
 
 The Record Axis
@@ -795,7 +882,7 @@ do not determine the branch weights (schedule_determines_probabilities_refuted).
 
 
 
-                                               20
+                                               22
 10.2     Bases
 The relation weak_base_equiv, agreement on chosen observations and halting with stutter-
 ing steps, is an equivalence (weak_base_equiv_refl_holds, weak_base_equiv_sym_holds,
@@ -847,7 +934,7 @@ cost times ln 2 (ax_inf_loss_bits).
 
 
 
-                                               21
+                                               23
 Chapter 11
 
 CHSH and Tsirelson
@@ -888,7 +975,7 @@ This section fixes a machine: the multi-register machine of minimal/EarnedMulti.
 counter for every number and one property that reads a counter as a tally of eight trial counts
 and that passes exactly when the integer check small_chsh_check passes.
 
-                                               22
+                                               24
 Theorem 11.6 (The check on the machine). (S) The integer check passes exactly when every
 question pair was sampled and the pinned 5 × 5 moment matrix is symmetric and positive
 semidefinite (small_chsh_check_iff). From a clean start, a raised flag stands on a CHECK,
@@ -903,7 +990,7 @@ of one round per question pair of every deterministic plan (nec_e_check_refuses_
 
 
 
-                                              23
+                                              25
 Chapter 12
 
 The Physical Boundary
@@ -923,7 +1010,7 @@ energy unit (Chapter 4).
 
 
 
-                                               24
+                                               26
 Chapter 13
 
 External Systems and the Pointer
@@ -968,7 +1055,7 @@ manence.     Durable views do imply permanence, by making persistence a premise
 narrow countermodels, each for a point a governing source already addresses, and five stronger
 
 
-                                             25
+                                             27
 statements without enough protocol or hardware semantics; no surveyed consequence is simultane-
 ously record-axis dependent, novel, and ready for use. The pointer criterion is a thesis: “faithfully
 model” and “deployed” tie it to the world and cannot be defined, as in the Church–Turing thesis.
@@ -976,7 +1063,7 @@ model” and “deployed” tie it to the world and cannot be defined, as in the
 
 
 
-                                                 26
+                                                 28
 Appendix A
 
 Proof File Index
@@ -1025,7 +1112,7 @@ Universal host                          minimal/UniversalThiele.v,
 U                                       coq/kernel/foundation/UniversalRun.v,
                                         coq/kernel/foundation/UniversalInterpreterLinks.v
 
-                                               27
+                                               29
 UP and presented machines                 coq/kernel/foundation/UniversalPRun.v,
                                           coq/kernel/foundation/PresentedUniversal.v
 Verified compiler                         coq/kernel/foundation/CmpFinal.v,
@@ -1086,7 +1173,7 @@ External models                           coq/kernel/reductions/RFC9162Merkle.v,
 
 
 
-                                                 28
+                                                 30
 Pointer criterion   coq/kernel/frontier/PointerObservable.v,
                     coq/kernel/frontier/RecordProliferationSurvey.v,
                     coq/kernel/frontier/EcosystemGame.v,
@@ -1096,7 +1183,7 @@ External models                           coq/kernel/reductions/RFC9162Merkle.v,
 
 
 
-                           29
+                           31
 Appendix B
 
 Epistemological Classification
@@ -1139,5 +1226,5 @@ Pointer criterion                      Thesis        Observer model
 
 
 
-                                                30
+                                                32
 

@@ -7,15 +7,15 @@ establish that a definition captures the intended idea or that a model describes
 device. A passing build is not a substitute for either question.
 
 The release record identifies the companion source tree and its receipt. To reproduce
-that release, use a checkout of v4.0.0. Run the commands from the repository root.
+that release, use a checkout of v4.1.0. Run the commands from the repository root.
 
 BEGIN RELEASE RECORD
 Companion sources:
   https://github.com/sethirus/The-Thiele-Machine
-  tag v4.0.0, the companion mathematical-source release
+  tag v4.1.0, the companion mathematical-source release
 Companion source revision:
-  the commit the tag v4.0.0 names; print its hash with
-  git rev-list -n 1 v4.0.0
+  the commit the tag v4.1.0 names; print its hash with
+  git rev-list -n 1 v4.1.0
 Dependency snapshot:
   Coq 8.18.0 (Ubuntu 24.04 packages), MetaCoq 1.2.1
   (scripts/install_metacoq.sh), vendored Coq Library of
@@ -26,12 +26,12 @@ Build command:
   python3 scripts/reproduce_coq.py
 Audit report for this revision:
   artifacts/print_assumptions_all_proofs.json
-  SHA-256 85cf21cc932def2abaa49d25cb1447d5
-          4a5adffeacf314f53b3fce32e83a0752
-  corpus digest 59afe7ccb7d651aedc8e98a557931e46
-                ee10d511706d4a0d4956a922737baefd
+  SHA-256 59726900a05358deb37e9a382695dd2d
+          2eaf63c614c020ee1fe7bdf5b9f157bc
+  corpus digest c75220e2ce21e12f44b01e44acb0bebf
+                7bc2d2fa0e90c6496b1a32923a50279a
 Commit the audit report was built from:
-  git log -1 --format=%H v4.0.0 -- \
+  git log -1 --format=%H v4.1.0 -- \
     artifacts/print_assumptions_all_proofs.json
   prints the commit that wrote the report; its proof
   sources are the ones the report was built from, and
@@ -40,7 +40,7 @@ Commit the audit report was built from:
 Manuscript originally published with that release:
   monograph/monograph.tex at the release commit; a file
   can't print its own checksum, so take it with
-  git rev-parse v4.0.0:monograph/monograph.tex
+  git rev-parse v4.1.0:monograph/monograph.tex
 END RELEASE RECORD
 
 Prerequisites
