@@ -403,10 +403,11 @@ bead that could sit in either of two dips, a bit of memory nobody has set. Now m
 keep it a 0. Something is the case now that wasn’t a moment ago. That moment, nothing becoming
 something, is never free. It gives off heat by happening, and keeping it is paid on top, in a merge
 or in room, on any machine there is.
-Two: so what a computation makes the case is a resource. Computer science charges a computation for
-two things, how long it runs and how much room it takes. Every computer also pays this third bill,
-billions of times a second, and keeps no account of it. The Thiele Machine is a model of computation
-that does keep the account: the step that makes something stay is the step that’s charged.
+Two: so every machine already carries it. A machine has to tell a blank from a 0, or nothing happens;
+every machine is made of kept distinctions, and pays this bill at every write, billions of times a
+second, with no account kept. The cell itself is the smallest Thiele machine: I found it, I didn’t
+invent it. What I added is the meter, a count in the step itself, so the step that makes something stay
+is the step that’s charged.
 Three: structure is made of exactly this. A 0 is the smallest structure there is: the ways a cell could
 be, sorted into piles, and one pile held. A grouping, an order, a relation a later move leans on, a
 fact somebody found out and wrote down: each is a distinction that stays, on the same bill as the 0.
@@ -442,7 +443,6 @@ Put the three together and you have what I’ll call a chair: a distinction that
 1 in every computer is one, and so is a flag that’s up, a written number, a fact somebody checked
 and wrote down.
 Now the moment. The cell is blank and you write a 0. Here is everything that step can cost, and
-the rest of the book only ever adds detail to it.
 
 
                                                     8
@@ -450,6 +450,7 @@ the rest of the book only ever adds detail to it.
 
 
 
+the rest of the book only ever adds detail to it.
 It happens, so it gives off heat. Every event that finishes in a real device does; slower means less,
 never none.
 If the blank could have been anything, every way it might have been now lands on one way, the 0.
@@ -499,15 +500,15 @@ Four people, three inside chairs: somebody shares. Maybe the newcomer ends up on
 two insiders squeeze onto one chair; either way, two starting places share a destination. Somebody
 secretly picks a starting chair, the rule moves them, and you’re told only where they ended up:
 at a shared chair, you can’t say where they started. That’s the pigeonhole principle, which is old
-and not mine, and the chapter “Why the toll isn’t arbitrary” (Section 3) proves it with exactly
-three conditions: finitely many chairs that read yes, a yes that stays, and one flip. No physics in it
 
 
-                                                   9
+                                                    9
 The Thiele Machine                                                                          Devon Thiele
 
 
 
+and not mine, and the chapter “Why the toll isn’t arbitrary” (Section 3) proves it with exactly
+three conditions: finitely many chairs that read yes, a yes that stays, and one flip. No physics in it
 anywhere. Counting.
 (How old is it? I went looking. A French Jesuit, Jean Leurechon, used it in 1622 to argue that two
 people somewhere must have exactly the same number of hairs on their heads, which is the kind
@@ -557,8 +558,7 @@ history.” Ordinary machines spend their merges, and their heat, on forgetting 
 on purpose, so a 1 is a 1 no matter what path made it. You’ll see in step four what that does to two
 computers that end up holding the same bits. And the very same kind of step, a merge, is what it
 takes, on any machine whose room runs out, to make something stay for good.
-So here’s the deepest thing I can say about keeping. Not every forgetting keeps anything: wiping
-a scratch pad keeps nothing. But every keeping pays. On a machine with finite room it pays
+
 
 
                                                    10
@@ -566,6 +566,8 @@ a scratch pad keeps nothing. But every keeping pays. On a machine with finite ro
 
 
 
+So here’s the deepest thing I can say about keeping. Not every forgetting keeps anything: wiping
+a scratch pad keeps nothing. But every keeping pays. On a machine with finite room it pays
 by forgetting: the step that makes something stay for good lands two states on one, somewhere,
 maybe not where you happen to be standing, and afterward nothing can tell which one it was. With
 endless room it can dodge the merge only by spending room it never gets back. A verdict keeps
@@ -616,8 +618,6 @@ which counts only the memory cells a program reads; the input-output model of Al
 and Jeffrey Vitter (1988), which counts only the blocks moved between a small fast memory and a
 large slow one. Each of those computes exactly what Turing’s machine computes. They differ only
 in what they count, and the counting is the reason to have them. Manuel Blum gave two axioms in
-1967 for any measure of computational cost at all; they name no machine and say what every cost
-has to satisfy.
 
 
                                                    11
@@ -625,6 +625,8 @@ has to satisfy.
 
 
 
+1967 for any measure of computational cost at all; they name no machine and say what every cost
+has to satisfy.
 Time counts the steps and room counts the cells, and both are counts of something made of dis-
 tinctions. Every time a computation makes something the case and keeps it, a bit set, a list left in
 order, an answer written down, it pays, in a merge or in room. That bill isn’t time: a slow step and
@@ -673,9 +675,7 @@ isn’t owed; the page is what you spend, and it can be handed back while the or
 Making it stay is what pays. Learning borrows, committing pays. The insight the toll prices is the
 committed kind: a distinction made to stay. Whether that narrower thing deserves the word is a
 fair thing to argue about, and Part I argues it, where learning and committing get pulled apart.
-Then Part II asks what follows, on any machine, once a distinction is kept and the keeping is
-charged. The ledger is a chair too: a number that only climbs takes a fresh value for every mark. A
-window that shows only part of a state can hide the very distinction that was paid for, and when it
+
 
 
                                                   12
@@ -683,6 +683,9 @@ window that shows only part of a state can hide the very distinction that was pa
 
 
 
+Then Part II asks what follows, on any machine, once a distinction is kept and the keeping is
+charged. The ledger is a chair too: a number that only climbs takes a fresh value for every mark. A
+window that shows only part of a state can hide the very distinction that was paid for, and when it
 hides it, no bill read off the window can be exact. A later step can be entitled to something because
 a distinction stayed, and the entitlement has an exact count. Over any machine at all, a reading the
 machine’s own steps turn on and nothing turns off is a latch, the blank cell’s 0 one level up. And
@@ -731,9 +734,6 @@ Proved, step one. A machine with only one state changes nothing, so everything s
 that can be told apart. On any machine with one next state for every state, finite or endless, every
 step lands on a fresh state, merges two states into one, or goes round a loop, and a run that keeps
 a reading up can’t be on a loop through its start, so it merges somewhere or spends fresh room
-at every step. Heat or room. The same holds for steps that are noisy and for quantum steps, it
-holds whatever the zoom (when a coarse picture merges, a finer picture it’s exact about merges too,
-spends fresh room, or has no end), and for a bounded memory the room runs out at an exact count.
 
 
                                                   13
@@ -741,6 +741,9 @@ spends fresh room, or has no end), and for a bounded memory the room runs out at
 
 
 
+at every step. Heat or room. The same holds for steps that are noisy and for quantum steps, it
+holds whatever the zoom (when a coarse picture merges, a finer picture it’s exact about merges too,
+spends fresh room, or has no end), and for a bounded memory the room runs out at an exact count.
 With finitely many states reading yes and a reading that never comes down, every move that raises
 it merges states, which is the chairs. That a merge carries a heat floor is Landauer’s premise, and
 that every step a real device finishes gives off heat is cited physics; neither is proved here.
@@ -789,9 +792,6 @@ pigeonhole principle, Dedekind’s 1888 definition of infinite and the finite he
 David Wolpert’s 2023 price in entropy on the merges a finite automaton can’t avoid. What I’d
 defend most is there, at the bottom: the arrangement, one law with three columns and no fourth,
 for deterministic, noisy and quantum steps alike, with two small exact lemmas, the chair count
-and the bill at every scale, and the reading of it, that the cell every computer writes on is already a
-Thiele machine.
-
 
 
                                                   14
@@ -799,6 +799,8 @@ Thiele machine.
 
 
 
+and the bill at every scale, and the reading of it, that the cell every computer writes on is already a
+Thiele machine.
 What this book is not. Not a solution to P versus NP, and not a complexity-class separation of any
 other kind. Not a theory of everything. Not a claim that computation is physics, or that physics is
 computation. Not a physics result: Landauer’s principle enters only as a premise with its name on
@@ -1372,13 +1374,14 @@ with two positions, no and yes, and build the smallest thing that could carry a 
 
 on paper, with a pencil. Write the charge into its rules and see what follows. Keeping it this small
 is what lets you see which part of the construction does which part of the work.
-Computer science charges a computation for two things: how long it runs and how much space it
-uses. There is a third thing to charge for: what the computation keeps and can’t take back. This part
-is about that charge. It gets paid in a merge, which carries a heat floor when the merged states were
-really possible, or in room, and the last chapter showed it can’t be talked down to zero. The record
-built below is the smallest thing that can carry the charge, and the tally next to it counts every time
-the record goes up. Whether a machine has to charge it as a mark, and on which premises, is the
-next chapter.
+Computer science charges a computation for how long it runs and how much space it uses: a count
+of steps and a count of cells, and both count things made of distinctions. What it never charges is
+the keeping of those distinctions, what the computation makes stay and can’t take back, though
+every machine pays for it at every write. This part is about that charge. It gets paid in a merge,
+which carries a heat floor when the merged states were really possible, or in room, and the last
+chapter showed it can’t be talked down to zero. The record built below is the smallest thing that can
+carry the charge, and the tally next to it counts every time the record goes up. Whether a machine
+has to charge it as a mark, and on which premises, is the next chapter.
 One thing about what a flag stands behind, because it stays out of the picture a while. What I’m
 about to build prices vouching for anything at all: a flag goes up, and the rule doesn’t ask what
 the flag is standing behind. A sorting of a pile into groups, the kind of structure Part II starts from
@@ -1421,7 +1424,6 @@ object. So the record isn’t the paper. It’s the number of independent people
 own seal, their own name, their own risk, next to the claim. Try it: write “paid five dollars, signed
 A” on a napkin and ask a friend to forge it. Takes them ten seconds. Now require two other people
 to initial it at the moment of payment and each keep a copy. Your forger needs two accomplices or
-has to match two copies held in two other pockets. The claim didn’t change. What stands behind it
 
 
                                                    25
@@ -1429,6 +1431,7 @@ has to match two copies held in two other pockets. The claim didn’t change. Wh
 
 
 
+has to match two copies held in two other pockets. The claim didn’t change. What stands behind it
 did.
 Which brings me to seals, and the medieval historian Michael Clanchy, whose book is called From
 Memory to Written Record. England between the Norman Conquest and the early 1300s was learning
@@ -1480,7 +1483,6 @@ it. (Where did they get it? From somebody’s words, naturally. It’s half a li
 Horace, from a verse letter to his patron, saying he isn’t bound to swear by the words of any master.
 So the society that takes nobody’s word for it took its motto from a poet and cut the line to fit.
 That’s not a contradiction, and it’s a nice picture of the method: borrow what’s useful, say whose it
-was, and don’t swear by it.) The historian Steven Shapin wrote a paper about what that meant in
 
 
                                                  26
@@ -1488,6 +1490,7 @@ was, and don’t swear by it.) The historian Steven Shapin wrote a paper about w
 
 
 
+was, and don’t swear by it.) The historian Steven Shapin wrote a paper about what that meant in
 practice, and the answer is more interesting than the slogan. Robert Boyle, pumping the air out of a
 glass globe to see what happens to a candle or a bird, had three problems: the machine, the report,
 and the witnesses. He solved the third by having gentlemen present who’d sign their names, and
@@ -1539,7 +1542,6 @@ next chapter). That isn’t a way around the bill: whoever knows the start is al
 distinction, and the bill was paid in that knowing, or gets paid when that knowledge is wiped. The
 ledger can still charge the instruction under merge pricing. A ledger charge, information loss and a
 device’s heat are three quantities to keep apart.
-
 
 
                                                    27
