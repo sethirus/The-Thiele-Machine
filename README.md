@@ -8,6 +8,7 @@
 **I didn't invent a machine. I found one.**
 
 That is how I see this work.
+Take a blank cell and write a 0 in it, and keep it a 0. Something is now the case that wasn't. That moment, nothing becoming something, is never free, and the book is about its bill.
 I think computation has structure that a description of what it reads and writes leaves out.
 Every computer is charged for time and space. There is a third charge: what it keeps and cannot take back. In any real device every step that happens gives off some heat, less the slower it goes but never none; keeping something costs more on top, a merge, which carries a heat floor no slowness removes, or room never given back, which dodges only the floor. The book proves the counting; the heat is physics, taken as a named premise.
 
