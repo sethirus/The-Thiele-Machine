@@ -44,9 +44,9 @@ about the model or a stated machine, (C) conditional results that hold under a n
 no machine fact discharges, and (R) refutations, where a theorem states the negation of a
 proposed claim and a named construction supplies the counterexample. One proposal, the
 pointer criterion of Chapter 13, has no proof; it carries a fourth tag, conjecture.
-    The core claims are structural (S): No Free Insight for every certification system; on finite
-machines, the toll derived from merge pricing for permanent certificates, and on any state
-space the dichotomy that a permanent flip merges or needs a fresh state every time, with
+    The core claims are structural (S): the universal floor for every certification system; on
+finite machines, the toll derived from merge pricing for permanent certificates, and on any
+state space the dichotomy that a permanent flip merges or needs a fresh state every time, with
 the exact retention bound for a bounded memory; the window and pricing results; the small
 machine’s earned provenance, checker soundness and minimum price; Thiele completeness of
 the small machine; the window theorem for every Thiele-complete machine; the lifting of every
@@ -67,7 +67,7 @@ Results stated over Landauer heat are conditional (C) on the named premise landa
 
 2 Notation and Conventions                                                                           4
 
-3 Certification Systems and No Free Insight                                                          5
+3 Certification Systems and the Universal Floor                                                      5
   3.1 A2 among cost frameworks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           5
   3.2 Several floors and one charge . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
 
@@ -128,17 +128,17 @@ the computation established, and by a ledger of what establishing it cost, with 
 the last two together: the step that raises the record pays. The chapters below state that rule,
 derive its consequences, show which machines carry it, and prove where a window that hides the
 record and the ledger loses information.
-    Chapter 3 states the model and No Free Insight. Chapter 4 derives the toll on finite machines
-from the price of merging states and checks which premises are needed. Chapter 5 states what a
-window can decide and price. Chapter 6 defines the small machine. Chapter 7 defines Thiele
-completeness, states the window theorem, lifts any universal base of any model of computation
-to a Thiele-complete machine, composes Thiele-complete machines, and shows each clause is
-needed. Chapter 8 states the universal host, the universal machine U, the priced host’s program
-UP , a verified compiler onto these machines and the extraction to OCaml. Chapter 9 states the
-recursion and undecidability results, for L and for the two-counter machine itself. Chapter 10
-states the record axis over any base and the record over any order. Chapter 11 states the CHSH
-and Tsirelson mathematics. Chapter 12 states the physical boundary. Chapter 13 states the
-models of external systems and the pointer conjecture.
+     Chapter 3 states the model, its toll and the universal floor. Chapter 4 derives the toll on
+finite machines from the price of merging states and checks which premises are needed. Chapter 5
+states what a window can decide and price. Chapter 6 defines the small machine. Chapter 7
+defines Thiele completeness, states the window theorem, lifts any universal base of any model of
+computation to a Thiele-complete machine, composes Thiele-complete machines, and shows each
+clause is needed. Chapter 8 states the universal host, the universal machine U, the priced host’s
+program UP , a verified compiler onto these machines and the extraction to OCaml. Chapter 9
+states the recursion and undecidability results, for L and for the two-counter machine itself.
+Chapter 10 states the record axis over any base and the record over any order. Chapter 11 states
+the CHSH and Tsirelson mathematics. Chapter 12 states the physical boundary. Chapter 13
+states the models of external systems and the pointer conjecture.
 
 
 1.1    Scope
@@ -174,14 +174,14 @@ Notation and Conventions
                                                4
 Chapter 3
 
-Certification Systems and No Free
-Insight
+Certification Systems and the
+Universal Floor
 
 Definition 3.1 (Certification system). A certification system is a tuple (S, I, step, c, P ) with
-step : S × I → S, c : I → N, P : S → B, satisfying
-                  A2:   ∀s i, P (s) = false ∧ P (step(s, i)) = true =⇒ c(i) ≥ 1.
+step : S × I → S, c : I → N, P : S → B, satisfying the toll, first named No Free Insight,
+                  A2:    ∀s i, P (s) = false ∧ P (step(s, i)) = true =⇒ c(i) ≥ 1.
 Coq: the record CertificationSystem, with A2 as its field cs_cert_costs.
-Theorem 3.1 (No Free Insight). (S) In every certification system, if P (s0 ) = false and
+Theorem 3.1 (The universal floor). (S) In every certification system, if P (s0 ) = false and
 P (run(τ, s0 )) = true, then c(τ ) ≥ 1. Coq: universal_nfi_any_substrate.
 Proof. Induction on τ . Since P is false at the start and true at the end, some step in τ takes it
 from false to true. By A2 that step costs at least 1; every other step costs at least 0.
@@ -203,7 +203,7 @@ free_forgery_violates_A2.
 
 3.1     A2 among cost frameworks
 Theorem 3.5. (S) A step system satisfies A2 if and only if every step has non-negative amortized
-cost under the potential that is 1 on uncertified states and 0 on certified ones; No Free Insight
+cost under the potential that is 1 on uncertified states and 0 on certified ones; the universal floor
 is then the potential method’s telescoping bound. Coq: a2_iff_nonnegative_amortized_cost,
 nfi_by_potential. Under A2 the number of certification flips along a trace is at most its cost
 (flips_le_cost), and A2 together with the matching upper-bound condition is equivalent to
@@ -1083,7 +1083,7 @@ model” and “deployed” tie it to the world and cannot be defined, as in the
 Proof File Index
 
 Results                                 File
-No Free Insight, simulating systems     coq/kernel/nfi/UniversalCertificationCost.v,
+Universal floor, simulating systems     coq/kernel/nfi/UniversalCertificationCost.v,
                                         coq/kernel/nfi/HonestCostTracking.v
 Quantitative form                       coq/kernel/nfi/QuantitativeNoFI.v
 Cost frameworks                         coq/kernel/nfi/CostSemanticsComparison.v,
@@ -1203,7 +1203,7 @@ External models                           coq/kernel/reductions/RFC9162Merkle.v,
 Epistemological Classification
 
 Result                                 Status        Key premise
-No Free Insight                        (S)           A2 as a field of the record
+Universal floor                        (S)           A2 as a field of the record
 A2 from merge pricing                  (S)           Finite states, permanent certificate, merge
                                                      price
 Heat floor                             (C)           landauer_heat, finite states, permanent

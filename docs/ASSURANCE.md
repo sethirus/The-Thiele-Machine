@@ -6,7 +6,7 @@ This repository separates checked mathematics from executable tests. A result is
 
 The active Coq project (`coq/_CoqProject`) is the source of truth for the formal corpus. The checked surface includes:
 
-- the abstract model: certification systems, the step rule, the ledger, A2, and No Free Insight for any substrate (`coq/kernel/nfi/UniversalCertificationCost.v`), with the permanent-certificate, pricing, entropy and narrowing results beside it in `coq/kernel/nfi/`;
+- the abstract model: certification systems, the step rule, the ledger, A2, and the universal floor for any substrate (`coq/kernel/nfi/UniversalCertificationCost.v`), with the permanent-certificate, pricing, entropy and narrowing results beside it in `coq/kernel/nfi/`;
 - the record axis and its extensions over any base (`coq/kernel/foundation/`), and the record over any order (`coq/kernel/foundation/Ax*.v`);
 - the small machine in `minimal/EarnedCore.v` (earned commitments, checker soundness, no forging, the cost of a certified run) and its links into the abstract records in `coq/kernel/foundation/EarnedCoreLinks.v`;
 - the definition of Thiele-complete, the machines that meet it and the machines that fail it (`minimal/ThieleComplete.v`), and the window theorem for every Thiele-complete machine (`minimal/ThieleCompleteWindow.v`);

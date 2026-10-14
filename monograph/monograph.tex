@@ -1286,10 +1286,12 @@ about. You can't buy it in a box. It isn't a device, a CPU or an instruction set
 you build to carry it, and Part IV builds one, as small as I could make it. Unlike a Turing
 machine, it computes nothing new. It adds what a computation \emph{establishes}, and what
 establishing it cost. The event it accounts for happens on any computer, whether anybody keeps
-track of it or not, and the record exists only if something keeps it. It has a few parts. A state. A step that moves the state. A record: a
-yes-or-no reading of the state that says whether something's been established. A charge on each kind
-of move, added up on a counter that only climbs. One rule, which I call the toll: the step that
-flips the record from no to yes has to cost at least one mark on that counter. And a window, what an
+track of it or not, and the record exists only if something keeps it. It has five parts and one
+rule. A set of states. A set of moves. A step that takes a state and a move to the next state. A
+price on each move, a whole number of marks. A record: a yes-or-no reading of the state that says
+whether something's been established. The rule, which I call the toll: a step that turns the
+record from no to yes costs at least one mark. Two more pieces come in when a result needs them: a
+counter in the state that adds up the marks and only climbs, and a window, what an
 outside observer gets to see, which is there because the two computers already showed you the
 problem: the usual window, the bits, can't see the record. The toll's first name, the one I gave it
 before I understood it, is No Free Insight.
@@ -1360,10 +1362,11 @@ named, then a commitment to that same claim with nothing
 it's about changed in between, then a certificate, with exactly one mark charged for each
 of those three acts; and at least
 one claim on the machine has a check, commit
-and certificate that raise the record on some inputs and leave it down on others. And a
-\emph{universal} Thiele machine is one fixed program that runs other machines as guests, with
-each guest's record earned again by the host's own steps and each guest's toll paid on the host's
-own ledger. Nothing is left to the guest's good manners.
+and certificate that raise the record from a loaded start exactly when the claim holds there, and
+the claim holds at some loaded starts and fails at others. And a
+\emph{universal} Thiele machine is one fixed machine running one fixed program that runs any
+machine of a stated class as a guest, with each guest's record earned again and its toll paid by
+the host's own steps. Nothing is left to the guest's good manners.
 
 The first bar, being a Thiele machine at all, is low, and I'd rather you hear
 it from me. A machine that charges one mark for every step it takes, whatever the step does,
@@ -1373,7 +1376,7 @@ computer would pass that too, and so would a machine whose record never goes up.
 Thiele-complete asks for more, and both of those fail it, by theorem: a clock charges for
 computing, and Thiele-complete says computing costs no marks; and a machine whose record never goes up
 fails the clause asking for at least one claim whose check, commit and certificate raise the record
-on some inputs and leave it down on others (Section~\ref{sec:smallest}). The small
+exactly when the claim holds, at some starts and not at others (Section~\ref{sec:smallest}). The small
 machine of Part IV meets it, and so does the same machine over any properties with an exact test for telling two of them apart and
 a checker
 proved to mean what it says, as long as one of them is true of some number and false of another, sorted lists included. And every machine that meets it has the same
@@ -1541,7 +1544,7 @@ Every claim in this book has a status and I'll tell you which, every time. Here'
 once, so you know what I'm on the hook for.
 
 Proved, for any system with the named parts:
-anything that obeys the toll pays at least one mark to get from not-established to established
+anything that obeys the toll pays at least one mark to take its reading from no to yes
 (short enough that you'll prove it yourself on paper in Part II). On any machine with one next
 state for every state, finite or endless, every step lands on a fresh state, merges two states
 into one, or goes round a loop, and a run that keeps a record can't be on a loop through its
@@ -1554,7 +1557,10 @@ puts no floor under it (it still gives off heat when it happens) and a price lis
 charge it nothing. It isn't free. It borrows
 room, the blank page. The copy can be handed back, undone while the original's still there; keep
 it, and the page is paid for in heat when it's wiped for reuse. A commitment can't be handed
-back, so the toll lands on committing. A window that shows a certifying step and a quiet one
+back, so the toll lands on committing. Put a number on that and it's the certainty bill: what
+anyone learns about where a machine started is either still held in its state or was paid for
+in marks, at most one bit a mark. And none of it depends on the zoom: when a coarse picture
+merges, a finer picture it's exact about merges too, spends fresh room, or has no end. A window that shows a certifying step and a quiet one
 alike, before and after, can't price
 certification exactly, however clever it is. And over any machine, a base-driven record is a one-way
 switch on an event, with two choices left free: the price list and which event.
@@ -1724,9 +1730,10 @@ If it breaks there, the book ends there. I'd rather know.
 computation that keeps the structure in the state and says, in the step, what each
 move does to it. Start with things and how they stand to each other. Ask which moves
 keep that, which ones lose a distinction, and which distinctions somebody looking in
-can see. The core I work with has five parts: a state, a rule for the next state, a
-price for each move, a yes-or-no reading, and a toll on turning that reading on. A
-ledger adds up the prices. A window shows part of the state. I keep it that small
+can see. The core I work with has five parts and one rule: a set of states, a set of
+moves, a step, a price for each move, and a yes-or-no reading, with the toll on turning
+that reading on. A ledger adds up the prices when a result needs it. A window shows part
+of the state. I keep it that small
 because small is where the answers come out definite. A reading that stays up is paid
 for, by a merge or by room; with finitely many yes-states it can only rise through a
 merge, and a price on merges then forces the toll. A window can hide that rise and
@@ -2031,27 +2038,29 @@ system proved to be an instance of the model's core definition, a certification 
 its five parts and its toll (Definition~\ref{def:certsys}), the way one rule table is a Turing
 machine. The toys on paper in Part II count, the same way trivial Turing machines do. The
 small machine counts too, with its toll proved, and Part IV names the theorem. A Thiele
-machine is \emph{weakly} Thiele-complete when its base is Turing-universal, and that bar is
+machine is \emph{weakly} Thiele-complete when a two-counter machine runs inside it, with nothing
+asked of its record, and that bar is
 nearly empty: a machine that charges one for every step is a Thiele machine for any record, so a
 clock bolted to a computer clears it, and so does a machine whose record never rises. So
 \emph{Thiele-complete} asks for four things (Definition~\ref{def:u34-thiele-complete}). A
-universal base whose moves are free and can't touch the record, and a record that stays up once it's up. A record that, from a clean start, rises
+universal base whose moves cost no marks and can't touch the record, and a record that stays up once it's up. A record that, from a clean start, rises
 only after a
 passing check of a claim, then a commitment to that same claim with nothing it's about changed in
 between, then a certificate, with the checker proved to mean what it says: the claims and what
 they mean come from a language fixed first, and the proof is that the checker's yes makes the
 claim true in that language's sense. An exact toll: one
 mark for each of those three acts and nothing for anything else. And a claim whose check, commit and certificate
-raise the record
-on some loaded starts and leave it down on others. Every clock-style machine fails the definition, because it charges for computing, whatever its
+raise the record from a loaded start exactly when the claim holds there, with the claim holding
+at some loaded starts and failing at others. Every clock-style machine fails the definition, because it charges for computing, whatever its
 record, and every machine that meets the definition hides its record and its ledger from its own window, both by theorem.
 None of the four clauses is there for decoration: for each one there's a machine that meets the other three and fails it, each of them a
-Thiele machine with a universal base that no interface makes Thiele-complete (Theorem~\ref{thm:tc-independent}). The small machine
+weakly Thiele-complete machine that no interface makes Thiele-complete (Theorem~\ref{thm:tc-independent}). The small machine
 meets it, and so does the same machine over any properties with an exact test for telling two of
 them apart and a proved checker, as long as one of them can come out both ways, sorted lists
 included. A
-\emph{universal} Thiele machine is one fixed program that runs any machine of a stated class as
-a guest, with the guest's record earned again and its toll paid by the host's own steps. Part IV
+\emph{universal} Thiele machine is one fixed machine running one fixed program that runs any
+machine of a stated class as a guest, with each guest's record earned again and its toll paid by
+the host's own steps. Part IV
 builds one, $U$: a fixed program in the small machine's own six kinds of instruction, on a host
 with more counters, with no step of any guest built in. Its guests are the small machine's
 programs, so every computation runs on it under Minsky's $2^n$ encoding, done outside the
@@ -3240,7 +3249,8 @@ uses. There is a third thing to charge for: what the computation keeps and can't
 This part is about that charge. It gets paid in a merge, which carries a heat floor when the merged states were really possible, or in room, on
 top of the heat every step gives off by happening, and it can't be talked down to zero; Section~\ref{sec:a2-not-arbitrary} does that with chairs. The record
 built below is the smallest thing that can carry the charge, and the tally next to it counts
-the one kind of keeping a computation isn't allowed to undo.
+every time the record goes up. Making the record stay up, so that each raise is something kept,
+comes right after.
 
 One thing about where the buckets went, because you'll notice they vanish for a while. Part I
 ended on vouching for a grouping, and what I'm about to build prices vouching for anything at
@@ -3545,17 +3555,24 @@ from going down; the marks are the side tally from the board game, and the tally
 grows because the costs are whole numbers, zero or more. (A machine could keep the
 total inside its state too; that's an extra part beyond the five, and Section~\ref{sec:counter} builds it.) There's no window, no observer
 who sees only part of the state; that's a later question and it gets its own section. And
-the cost depends only on the move's name; where you are when you make it doesn't matter, which is a
-real simplification, and I'll flag it where it counts.
+the cost depends only on the move's name; where you are when you make it doesn't matter. That's
+on purpose: the charge is on the attempt, so you pay for making the move, whatever it turns out to
+do. It's also a real simplification, and where a result needs a price that depends on where you
+are, Section~\ref{sec:windows} says so and uses one. Last, the step gives every state and every move
+exactly one place to land. A choice becomes a move name. A machine that has stopped steps to
+itself. A step that can land in several places by chance is a different picture, and the noisy
+chairs in Section~\ref{sec:a2-not-arbitrary} take it up. One landing place for each state and
+move is what the step law and the heat-or-room argument there need.
 
 One rule, which I'll call the toll. For every state and every move: if the reading is NO
 before the move and YES after it, the move's cost is at least one mark. That's all. It says
 nothing about any other move. It says nothing about how big a mark is in anything you could
 measure. One mark is one mark; what a mark is worth, why the smallest charge is one (why not two,
 or a half?), and whether I had any right to decide that, come next. The middle question has a short answer I'll give away now. What the next section
-forces, on its premises, is that the crossing costs more than nothing. Costs here are whole numbers of marks, and
-the least whole number above nothing is one. So the positivity is forced, and the ``at least
-one'' comes from counting in whole marks.
+forces, on its premises, is that a raise that stays up, with only finitely many yes-states,
+merges two states, so any price on merges lands on it. Costs here are whole numbers of marks,
+which I chose so the ledger counts acts, and the least whole number above nothing is one. That's
+where the ``at least one'' comes from.
 
 And one theorem, which is the only thing the toy actually proves, and you've already proved
 it by playing. Take any run of moves that starts in a NO state and ends in a YES state. Then
@@ -3636,8 +3653,23 @@ the toll only at
 the crossings you can reach without paying anything;
 a crossing you can only reach by paying has already cost at least one by the time you get there.
 
-And the bound of one is the smallest case of a count. Under the toll a run costs at least the number
-of times it takes the reading from no to yes, with no permanence assumed. That bound for every run is again the same rule as the toll. And it is reached for every count: on a one-bit machine whose set costs one and whose reset is free, setting and resetting a hundred times from no takes the reading from no to yes a hundred times and costs exactly a hundred, and the same for any count.
+And the bound of one is the smallest case of a count.
+
+\begin{observation}[One mark per crossing]\label{thm:per-crossing}
+In any certification system, a run costs at least the number of its steps that take the reading
+from no to yes, with no permanence assumed. Conversely, a system in which every run costs at least
+its number of such steps obeys the toll. And the bound is reached for every count: on the one-bit
+machine with a set that costs one and a reset that costs no marks, setting and resetting $n$ times
+from no crosses $n$ times and costs exactly $n$.
+\end{observation}
+
+\begin{proof}
+Each crossing step costs at least one by the toll, every other step costs at least zero, and each
+step is counted once, so the total is at least the number of crossings. Conversely, a single move
+that crosses is a run with one crossing, so it costs at least one, which is the toll. On the one-bit
+machine, each set from no is a crossing costing one and each reset costs nothing, so $n$ rounds
+cost $n$ and cross $n$ times.
+\end{proof}
 
 And one more edge, because it's the first thing to bite when you ask a machine to stand behind
 more than one thing. The definition has \emph{one} reading in it. One question, one flag, one
@@ -3679,16 +3711,24 @@ all about its state, is a certification system. A clock passes. Nothing about th
 what the definition says, and it means the definition, on its own, doesn't tie the marks to
 certifying anything. It only says a crossing can't be free. (It's also why ``a base that can
 compute anything plus a flag that obeys the toll'' would be a cheap thing to call Thiele-complete,
-and why the definition that gets that name, in Part IV, asks for free computing and an earned
+and why the definition that gets that name, in Part IV, asks for computing that costs no marks and an earned
 record, which no clock meets; Section~\ref{sec:smallest}.) Two things later in the book do the tying. One is a ceiling: demand that a run's
-total never exceed the number of times the flag went up, and together with the floor exactly
-one bill survives, one mark per raise and nothing on any other step
-(Section~\ref{sec:windows}); a clock fails that the first time it charges a step that raised
+total never exceed the number of times the flag went up. With a price that can depend on where
+the step starts, that and the floor leave exactly one bill, one mark per raise and nothing else
+(Section~\ref{sec:windows}). With a price per move name, as in my definition, no system whose flag
+ever rises meets both, because the raising move, played again from yes, raises nothing and still
+costs one. A clock fails the ceiling the first time it charges a step that raised
 nothing. The other is order, on the smallest machine I build:
 there, from a clean start, the flag can't go up
 unless a passing check of a claim came first, then a commitment to that same claim, and a
 clock can't fake that, because it's about which moves happened, and a clock only makes marks
 (Theorem~\ref{thm:u34-cert-earned}).
+
+And why the ledger doesn't bill heat. In any real device every step gives off heat as it happens.
+A ledger that billed that heat would charge every step, and that's the clock: it can't tell a run
+that kept something from a run that only ran. So the ledger leaves the heat of happening to
+physics and counts one thing, the keeping. A step that costs no marks still gives off heat. It
+just keeps nothing the ledger prices.
 
 And the other side of that: nothing is in scope just for being a computation. A Turing
 machine's run isn't an instance of this theorem because it's a run. It becomes one when
@@ -4426,7 +4466,7 @@ merge is in the machine's own description, the states its reading is about. The 
 together with everything around it still runs one-to-one, and the distinction the machine
 forgot survives. It gets pushed out into the surroundings. Another memory could keep it as a readable
 record; when uncertainty is removed into a thermal reservoir under Landauer's conditions,
-heat is the relevant transfer. The surroundings are door one's endless strip: the room column,
+heat is the relevant transfer. The surroundings are Door one's endless strip: the room column,
 which the universe as a whole may have to spend and the machine doesn't, because the machine
 isn't the universe and its memory fills.
 The heat claim needs more than moving a distinction outside the machine: another memory
@@ -5719,9 +5759,61 @@ rates, and nothing measured has kept a reading with neither a merge nor room. Th
 nobody has measured is room's ceiling, and it's the one I lean on least: every memory anyone can
 buy fills, and that needs no experiment.
 
+\subsection{The same bill at every scale}
+
+One more question, and it's the one that decides whether any of this is about the world or
+only about my pictures. A chair is a description. The dial on a lab bench is a chair, and so
+is each atom in it, and so is each atom together with the light it gave off. Describe the same
+thing coarser or finer and you get different chairs. Does the bill change with the zoom?
+
+It doesn't, and here's why in one picture. Draw the fine chairs, and draw a fence around each
+group of them that counts as one coarse chair. Say the coarse picture merges: two coarse chairs
+send everyone to one coarse chair. Then on a finite floor, the fine chairs can't all be keeping
+their distance either. Count them. If the fine step sent different chairs to different chairs
+and nobody left the fenced floor, it would be a reshuffle of the fine chairs, every chair
+filled exactly once afterwards. But some fenced group is now empty, because the coarse step
+missed a coarse chair (two coarse chairs went to one, so on a finite floor some coarse chair
+gets nobody), and the chairs in that group got nobody. A reshuffle can't empty a chair. So
+something gave: the fine step merges too, or some fine chair stepped off the fenced floor into
+fresh room, or the floor has no end. That's the step law's three-way choice again, one level
+down.
+
+\begin{theorem}[The same bill at every scale]\label{thm:every-scale}
+Let a fine machine have one rule $F$ on a set $X$ of states, let $A$ be a set of its states, and
+let a coarse description be a map $\pi$ from $X$ to a set $S$ of coarse states that takes $A$
+onto $S$, with a coarse rule $f$ on $S$ such that $\pi(F(x)) = f(\pi(x))$ for every $x$ in $A$.
+If the coarse rule merges two coarse states, then at least one of these holds: $F$ merges two
+states of $A$; $F$ takes some state of $A$ outside $A$; or $A$ is infinite.
+\end{theorem}
+
+\begin{proof}
+Suppose none holds: $A$ is finite, $F$ keeps $A$ inside $A$, and $F$ sends different states of
+$A$ to different states. A one-to-one map of a finite set into itself is onto, so every state of
+$A$ is $F$ of some state of $A$. For each coarse state $c$ write $A_c$ for the states of $A$ that
+$\pi$ sends to $c$; each is non-empty, because $\pi$ takes $A$ onto $S$, and $S$ is finite
+because $A$ is. The rule $\pi(F(x)) = f(\pi(x))$ says $F$ sends $A_c$ into $A_{f(c)}$. The
+coarse rule merges, so it is a map of the finite set $S$ to itself that isn't one-to-one, and
+so it misses some coarse state $d$. No $A_c$ is sent into $A_d$, so no state of $A$ is sent into
+$A_d$, which isn't empty. That contradicts $F$ being onto $A$.
+\end{proof}
+
+Put it next to the permanent flip. On a finite coarse picture, a reading that goes up and stays
+up is raised by a merge (Theorem~\ref{thm:perm-flip-merges}). By this theorem, at every finer
+description that the coarse one is exact about, that keep is a merge again, or a step into fresh
+room, or an endless floor. Zoom in as far as you like: the keep is paid at every level, in one
+of the same three ways, and the only thing the zoom changes is which one. The dial and its
+light are the example. In the dial's own picture, two blends of readings decay to one
+either-or, a merge (Section~\ref{sec:pointer}). In the picture of dial and light together, the
+step is one-to-one, and it's the second case: the light starts blank and leaves carrying the
+copy, so the fine step leaves the set of states where the light is still blank. The merge at
+the coarse scale is paid in room at the fine one. And the heat floor sits where the merge
+really is. Landauer's premise charges the scale whose step merges states that were really
+possible; a description that merges only because it stopped looking at the light owes that
+floor nowhere, and owes the room instead.
+
 \subsection{What this adds to the toll}
 
-Three sentences. The toll is the price of something being the case: a reading that goes from no
+The toll is the price of something being the case: a reading that goes from no
 to yes and stays is a distinction that stays, and a distinction that stays is a chair you can't
 give back. Anything whose state includes chairs it can't give back pays the bill the toll prices:
 the bead, the cell, the memory bit, a world with a past. Give one a price list that obeys the toll
@@ -5733,6 +5825,14 @@ costs on top of that either a merge, with Landauer's floor when the merged state
 possible, or a fresh chair of room; and a finite building forces the merge. The step law, the
 noisy chairs and the quantum chairs are proved, each with its instance in a laboratory; the heat
 is physics.
+
+That's also why the rule sits on the raise and not on the merge. The toll charges the keep
+whichever column pays it, merge or room. A price on merges charges only the merge column, so it
+misses a keep paid in room: the endless strip of Door one certifies at zero marks under it. And it
+charges merges that keep nothing, like the reset that lowers a flag. That reset costs no marks on
+my ledger and still merges two states, so in a real device it owes Landauer's floor whenever the
+bit it lowers was really unknown; the ledger leaves that to physics, the same as the heat of
+happening.
 
 %===========================================================================
 \section{Learning borrows, committing pays}
@@ -6098,6 +6198,85 @@ the states there are, so the window takes one value everywhere and no later look
 separate them. This half never uses the price at all.
 \end{proof}
 
+\subsection{The certainty bill}
+
+Now I can put the whole path from not knowing to knowing on one page, with the bill for it.
+Here's the picture. You don't know which chair the machine started in. There are a few it
+could have been, each with its chance; that's your uncertainty. Run the machine. Every one
+of those possible chairs goes somewhere, and only two things can happen to a pair of them.
+Either they land on one chair, and the difference between them is gone from the machine: a
+merge, and the halving price charges for it, at most one bit a mark. Or they land on two
+chairs, and the difference is still in the machine, sitting in its state, taking up room.
+There's no third thing a pair of possibilities can do. So the uncertainty about where it
+started splits exactly in two: the part the merges destroyed, paid in marks, and the part
+the end state still holds, paid in room.
+
+Now put an observer at the window. Whatever they see is fixed by where the machine
+started, so whatever they learn is a fact about the start. And the same split holds for it:
+what they learned is either still held in the machine's end state, or it's gone from the
+machine and a merge paid for losing it. A run that costs no marks leaves every bit the
+observer learned still held in the machine. That's the precise sense of ``learning
+borrows'': the observer's copy is a copy, and the machine still holds the original. When
+the machine lets go of the original, a merge happens, and the mark comes due.
+
+Exactly, then. Take a spread $p$ over starting states and a run $t$, and write $q$ for the
+spread of where the run ends. For an end state $z$ with $q(z) > 0$, the starts that end at
+$z$ have chances $p(x)/q(z)$ between them; call that the spread of the start given $z$, and
+average its entropy over the ends:
+\[
+H(\text{start} \mid \text{end}) \;=\; \sum_{z:\,q(z) > 0} q(z)\, H\bigl(\text{start given } z\bigr).
+\]
+That's how many bits you'd still be missing about the start if someone told you the end. Do
+the same for anything $v$ that's fixed by the start, like the whole film of what the window
+showed: $H(v \mid \text{end})$ is what you'd still be missing about $v$ once you knew the end.
+
+\begin{theorem}[The certainty bill]\label{thm:certainty-bill}
+On a finite machine with an entropy-priced cost (Definition~\ref{def:u04-entropy-priced}),
+take any spread $p$ over starting states, any run $t$, and anything $v$ that the start fixes.
+Then
+(1) $H(p) = H(\text{start} \mid \text{end}) + H(q)$: the uncertainty about the start is the
+part the run destroyed plus the part the end state still holds;
+(2) $H(\text{start} \mid \text{end}) \le \mathrm{cost}(t)$: the destroyed part was paid for,
+at most one bit a mark;
+(3) $H(v \mid \text{end}) \le H(\text{start} \mid \text{end}) \le \mathrm{cost}(t)$: whatever
+the end state can't tell you about what an observer saw was paid for in marks, and everything
+else the observer learned is still held in the end state. In particular, after a run that costs
+no marks, the end state fixes everything the window showed.
+\end{theorem}
+
+\begin{proof}
+(1) Treat the whole run as one map from starts to ends; the proof of
+Theorem~\ref{thm:u04-point-sum} works for any map, so
+$H(p) - H(q) = \sum_{x} p(x) \log_2 \frac{q(z_x)}{p(x)}$, where $z_x$ is where $x$ ends. Group
+the starts by where they end: for each $z$ the terms add up to
+$q(z) \sum_{x \to z} \frac{p(x)}{q(z)} \log_2 \frac{q(z)}{p(x)} = q(z)\, H(\text{start given } z)$.
+Adding over $z$ gives $H(\text{start} \mid \text{end})$.
+(2) Let $q_0 = p, q_1, \ldots, q_n = q$ be the spreads after each step of the run. Entropy
+pricing says step $k$ removes at most its own cost: $H(q_{k-1}) - H(q_k) \le
+\mathrm{cost}(i_k)$. Add over the steps: $H(p) - H(q) \le \mathrm{cost}(t)$, and by (1) the
+left side is $H(\text{start} \mid \text{end})$.
+(3) Fix an end $z$. Given $z$, the value of $v$ is a function of the start, so its spread
+given $z$ is the spread of the start given $z$ pushed through that function, and by
+Theorem~\ref{thm:u04-point-sum} a push never adds bits. So $H(v \text{ given } z) \le
+H(\text{start given } z)$ for every $z$, and averaging with weights $q(z)$ gives the first
+inequality; (2) gives the second. With $\mathrm{cost}(t) = 0$, $H(v \mid \text{end}) = 0$, so
+each end state with a chance leaves one value of $v$.
+\end{proof}
+
+Entropy pricing and the halving price are the same premise (Theorem~\ref{thm:one-premise}), so
+the theorem holds under either. Three things it doesn't say. It doesn't say how much heat;
+that's Landauer's premise, applied to the destroyed part, $H(\text{start} \mid \text{end})$,
+which is the uncertainty the run really removed. It doesn't say the observer's own notes are
+free: they're room on the observer's side, a page that was blank. And with a known start,
+$p$ on one chair, every term is zero: nothing to learn, nothing destroyed, no floor, and the
+step still gives off its heat for happening. The bill for knowing sits with whoever knew.
+
+So here's the path between uncertainty and certainty, both ways round. Going in, certainty is
+got by narrowing what's possible, and narrowing is a merge or a copy: a merge pays marks, and
+a copy spends room. Holding it, certainty is a distinction that stays, and a distinction that
+stays is a merge already paid or a chair still taken. Every bit of it is on one side of the
+ledger or the other.
+
 \subsection{What the toll prices, said at last}
 
 Now I can say, more precisely than I could in the toll section, what the mark in
@@ -6416,6 +6595,13 @@ with $B(s') = \mu(s')$, then $B(s) = B(s') + c(i) = \mu(s') + c(i) = \mu(s)$, th
 by the counter's rule.
 \end{proof}
 
+One thing follows that's easy to miss. If a run comes back to a state it has already visited, the
+counter is the same both times, so the moves on that loop cost nothing in total. A machine that
+keeps its counter inside its state can go round a loop only at no marks, and every paid move lands
+on a state the run has never been in, because the counter is higher there than anywhere before.
+So a counter that only climbs is itself paid in room: it needs a fresh number for every mark, and
+it never gets one back.
+
 Those two proofs are the whole of it, and they're about any counter machine. They're on
 the page, where you can check every line. The machine I build later is one of these, and on
 it the run form is a theorem: the ledger after any list of instructions is the start
@@ -6446,7 +6632,7 @@ to send that state. That's the whole obstruction, and it's exact: the map from s
 on the reachable ones precisely when equal states always come from lists that agree on the
 other side. Call that the \emph{descent} condition, because it's what
 lets the fold come down from lists to states. A toll doesn't force it. Take the one-bit machine whose set costs one and whose
-reset is free. It obeys the toll, yet a single set and a reset followed by a set leave its
+reset costs no marks. It obeys the toll, yet a single set and a reset followed by a set leave its
 bit in the same state. A target that keeps its whole history as its state tells those two
 runs apart, so nothing comes down. So the fold is unique on lists, and that's what the word ``initial''
 earns. It doesn't make anybody's states initial among everything that obeys the toll, and I
@@ -6534,7 +6720,8 @@ purpose: its CHECK and COMMIT cost one each and raise no flag. It charges every 
 fixed listed price, which is a different job for the word exact (instruction-exact pricing),
 and it breaks no rule. (These two facts hold even if the price depends on the state as well as
 the move's name, which is wider than Section~\ref{sec:toll}'s per-name cost; a per-name cost
-is a special case.) Two older tools sit beside these. Run a list of moves in a ``writer,'' a
+is a special case, and there the floor and the ceiling together are out of reach for any system
+whose flag ever goes up.) Two older tools sit beside these. Run a list of moves in a ``writer,'' a
 wrapper that adds up a number as it goes, and you get back the final state and the run's cost;
 and a per-move schedule is a ``grade,'' fixed before the run. I'm borrowing those two and no
 more: neither brings along the full type systems they come from. The writer is the move
@@ -11926,7 +12113,7 @@ for the Latin \emph{est}, ``is.'') Start from zero and take ``the next one'' thr
 Once prices are whole numbers, one is the smallest price that isn't nothing.
 
 The zeros matter just as much:
-computing is free on this ledger. Plus one, minus one and jumping around cost nothing on it.
+computing costs no marks on this ledger. Plus one, minus one and jumping around cost nothing on it.
 Only the three acts that make a claim cost, and each of them costs whether it passes or traps.
 Failing is not a discount.
 
@@ -12771,7 +12958,7 @@ can compute anything a Turing machine can (under Minsky's $2^n$ encoding, done o
 machine). It looks fine, and it's nearly empty. Take Minsky's
 two-counter machine, charge one mark for every move, and pick any yes-or-no question about its
 configuration as the record. Every move costs one, so every move that raises the record costs
-one, so it obeys the toll. That's a Thiele machine with a universal base: a clock bolted to a
+one, so it obeys the toll. That's a Thiele machine with a two-counter machine running inside it: a clock bolted to a
 computer. A machine whose record never goes up passes too, since a toll on a raise that never
 happens is never broken. Neither one earns anything, and a name both of them get without trying
 isn't saying much.
@@ -12811,7 +12998,10 @@ each move adds its cost to the ledger.
 (d) \emph{Non-vacuity.} Some claim $c$ has a CHECK, a COMMIT and a CERTIFY such that those three
 moves alone, from a loaded state, raise the record exactly when $c$'s meaning holds there; and
 $c$ holds at some loaded state and fails at another.
-A Thiele machine whose base is universal, with no more asked, is \emph{weakly} Thiele-complete.
+A Thiele machine is \emph{weakly} Thiele-complete when some interface gives it a universal base
+and nothing more is asked: each two-counter instruction's move acts on the window exactly as the
+instruction does from every live state and keeps it live, and each start $(1, a, b)$ has a live
+loaded state showing it. Nothing is asked about the record, the prices or the checker.
 \end{definition}
 
 An interface over a language becomes an interface
@@ -12949,7 +13139,7 @@ The second half of (6), that some move costs 0, is the one that kills the clock.
 Take the two-counter machine, let every move cost 1, and take as the record any yes/no
 question about its configuration whatsoever; or take a flag that switches on, and stays on, the
 first time any chosen test of the configuration says yes. Either way the machine obeys the toll
-and has a universal base, so it's weakly Thiele-complete, and it is not Thiele-complete. More
+and has a two-counter machine running inside it, so it's weakly Thiele-complete, and it is not Thiele-complete. More
 generally, no machine whose every move costs at least 1 is Thiele-complete.
 \end{observation}
 
@@ -12991,7 +13181,7 @@ around one machine: for each clause, a machine that meets the other three and fa
 \begin{theorem}[The four clauses are independent]\label{thm:tc-independent}
 For each clause of Definition~\ref{def:u34-thiele-complete} there is a machine with an interface
 that meets the other three clauses and fails that one. Each of the four machines obeys the toll and
-has a universal base, so it's weakly Thiele-complete, and none of them is Thiele-complete through
+has a two-counter machine running inside it, so it's weakly Thiele-complete, and none of them is Thiele-complete through
 any interface at all. (a) fails for this chapter's machine with one more move, DROP, priced 0 and read
 as a base move, which lowers the flag and trips the trap latch. (b) fails for this chapter's
 machine with one more move, FREE, costing one and read as a CERTIFY, which raises the flag on any
@@ -13145,8 +13335,23 @@ The small machine raises its flag only by checking, committing and certifying, a
 for that. The next question is whether one machine can stand in for all of them, the way
 Turing's universal machine stands in for every Turing machine. Here's what I mean by that. A
 \emph{universal Thiele machine} is one fixed machine running one fixed program that runs any
-machine of a stated class as a guest, with the guest's record kept and the guest's toll
-collected by the host's own steps. No program running on the host has to keep a convention for it.
+machine of a stated class as a guest, with each guest's record earned again and its toll paid by
+the host's own steps. No program running on the host has to keep a convention for it. In full:
+
+\begin{definition}[Universal Thiele machine]\label{def:universal-thiele}
+Fix a class $C$ of Thiele machines, each with its runs from given start states. A
+\emph{universal Thiele machine for} $C$ is a Thiele machine $H$, the \emph{host}, with one program
+$P$ fixed for the whole class and a way to load any guest $M$ in $C$ with any start $s_0$ into a
+start state of $H$, such that the run of $P$ from that loaded state
+(1) halts exactly when $M$'s run from $s_0$ stops;
+(2) passes, in order, through host states that decode to $M$'s states along its run, at which the
+host's flag equals $M$'s reading kept as a latch and the host's ledger equals $M$'s ledger plus
+a surcharge bounded by a number fixed for the class;
+(3) raises the host's flag only by the host's own moves, under the host's own toll.
+\end{definition}
+
+The guest lives only in the loaded state; the machine and the program are fixed before any guest is
+named. For $U$ the surcharge is zero, and for $U_P$ it is at most two.
 
 And I want it the hard way. The easy way is to give the host a move that means ``take one step
 of the guest,'' and then ``it runs any guest'' is true because I wrote it that way. There's a host
@@ -15080,9 +15285,12 @@ $w$, and a core at line $j - 1$ with $c$ at 0 and version $w + 1$, everything el
 DEC $c$ $j$ sends both to line $j$ with $c$ at 0 and version $w + 1$, for zero marks. Zero marks
 is not zero cost. Every one of those moves is an event, and whatever it costs the hardware, heat
 for happening and, under Landauer's premise, a floor for each merge, is off the ledger. The
-ledger leaves those merges out on purpose. It counts the merges computing can't make, the ones in
-the record. Charging every merge would charge for computing itself, which is the clock that
-Observation~\ref{thm:u34-clock} rules out, and clause (c) asks for computing to cost no marks. So
+ledger leaves those merges out on purpose. It counts the keeping in the record, not what computing
+spends. Computing doesn't have to merge; a reversible base computes by paying room. On this machine
+full merge pricing would charge DEC, an ordinary step, and clause (c) asks for computing to cost no
+marks. Pricing the heat of happening would be worse. Every step that happens gives off heat, so
+that ledger charges every step, and that's the clock of Observation~\ref{thm:u34-clock}: its marks
+say how long it ran and nothing about what it kept. So
 merge pricing on this machine applies to the record layer only: a move that sends two different
 states with the same line and counters to one state costs at least one. This machine's own prices
 meet it. The endless counters would leave room for a raise that merges nothing, and the flag
@@ -15640,7 +15848,7 @@ with each side's record raised, and by Theorem~\ref{thm:parts-product}(5) that t
 record moves. Clause (d) asks for a claim whose CHECK, COMMIT and CERTIFY, those three moves alone,
 raise the record from a loaded state. Three moves aren't six, so (d) fails for that reading. (2) A
 clock is the two-counter machine with every move priced at one and a reading over it
-(Observation~\ref{thm:u34-clock}). Two side by side have a universal base, the left's, and pay the
+(Observation~\ref{thm:u34-clock}). Two side by side have a two-counter machine running inside, the left's, and pay the
 toll by Theorem~\ref{thm:parts-product}(2), so the pair is weakly Thiele-complete; and every move
 of the pair is a move of one clock, costing one, while a Thiele-complete machine has a move that
 costs no marks (Theorem~\ref{thm:u34-tc-consequences}(6)). (3) Add to the small machine a writer
@@ -16528,7 +16736,7 @@ A tally stays free of marks. Each count is a counter, a round is an INC on one o
 no marks, so a pile of trials costs no marks to write down (what it spends is room, a counter that
 never runs out of numbers); the packing into one counter is a program's
 business, and in the theorem the packed counter is simply there at the start. What costs is the
-claim about the pile. On the ledger, statistics are free; the claim about them is what costs.
+claim about the pile. On the ledger, statistics cost no marks; the claim about them is what costs.
 
 So here, in one paragraph, is what the check guarantees. If it passes, then every question
 pair was sampled, the four ratios from the counts satisfy three polynomial inequalities, so the
@@ -16861,22 +17069,22 @@ below calls those \emph{eligible}) costs at least one. I should say how cheap th
 the cost itself, so the theorem shows the two premises don't contradict each other. It
 doesn't show that the counter tracks any dissipation. Still, it does bite on a schedule: if you count a
 zero-cost step, no such model can exist. One example where the premises hold is a
-one-bit reset, where resetting costs one and idling costs
+one-bit restore, where restoring the bit to one costs one and idling costs
 nothing; the small machine's flag-raising steps, below, are another.
 
 Now point the test at the small machine of Section~\ref{sec:smallest}, counting every step
 that collapses some yes-or-no property, and it fails. Read without the last clause of the
 floor, it would fail at a step that forgets nothing: INC $A$ raises ``$A \ge 1$'' one way, is
 one-to-one, and costs zero. With
-the clause in place the failure sits at a merge. Its free instructions merge states (the
+the clause in place the failure sits at a merge. Its unpriced instructions merge states (the
 last item of the list at the end of that chapter has the pair: two cores that one DEC sends to
 the same core, at zero marks), so DEC A 2, which collapses the property ``$A$ is zero or the line
 number is 2'' by sending a state where it's false and a state where it's true to the same
 state, costs zero there, and (1) below says no dissipation can charge it one and stay under its cost.
 The machine prices the
-certifying chain and leaves its other merges free, so the premise pair holds for the steps
+certifying chain and leaves its other merges unpriced, so the premise pair holds for the steps
 the toll is about and fails for the whole instruction set. That's by design. The hardware
-pays for the free merges in heat, off the ledger. The ledger counts the record only. A mark is
+pays for those unpriced merges in heat, off the ledger. The ledger counts the record only. A mark is
 not a joule.
 
 \begin{theorem}[When the premises can hold together]\label{thm:u24-consistency}
@@ -16900,7 +17108,7 @@ lower bound. The theorem above says the assumptions can hold together. That's co
 and it isn't evidence. It doesn't make the ledger the least energy anything needs, and it doesn't
 make it the heat anything gives off.
 
-But now door one of Section~\ref{sec:a2-not-arbitrary}, keep everything and pay in room, pointed
+But now Door one of Section~\ref{sec:a2-not-arbitrary}, keep everything and pay in room, pointed
 at a machine. Keep the previous state in a
 history list (push it onto the front each step; below, $s:: h$ is the list $h$ with $s$ put
 on the front) and every fixed-instruction step becomes injective, while the step you can see
@@ -17098,6 +17306,67 @@ the mathematical statement and argument it refers to. A definition that doesn't 
 least 0'' is a check that can't fail, and the step certifies it anyway, so ``certified'' there
 doesn't mean ``found something out'' (Section~\ref{sec:smallest} says so, and that's the kind
 of gap to hunt). And a list of premises that only its own example satisfies.
+
+\subsection{Where I already looked}
+
+Before you aim, here's where I aimed first. A proof that can't fail isn't a proof, so I wrote a
+search whose whole job is to make the results of Part II fail. It takes every machine small
+enough to list: every way of sending each of up to six states to a next state, every yes-or-no
+reading on them, every set of starts and every run length the statement talks about, and for the
+statements about chances or amplitudes, hundreds of random tables done in exact fractions. For
+each machine where a result's premises hold, it checks the conclusion. A false statement would
+turn up a machine where it fails, and the search would print it.
+
+That alone proves nothing about a search that's broken. So every result also gets a control:
+the same search with one premise taken away. The control has to find a machine where the
+conclusion fails, and every one of them did. That shows two things at once: the premise is doing
+work in the statement, and the search is able to catch a failure when there is one. A table of
+zeros from a search that couldn't have found anything would be worth nothing. These zeros sit
+next to controls that found something every time.
+
+None of this is why the results are true. The arguments on the page are. A search over small
+machines can't reach a machine with a million states, and the results are about every machine.
+What it does is give each statement a fair chance to be wrong, in the place where wrong
+statements usually get caught, the small cases. The search is the file
+\texttt{scripts/break\_it.py} in the repository, standard Python, no other library; run it and
+you get this table, or a counterexample.
+
+\begin{center}
+\small
+\begin{tabular}{p{0.28\linewidth}p{0.34\linewidth}p{0.07\linewidth}p{0.17\linewidth}}
+\textbf{Result} & \textbf{Searched} & \textbf{Fails} & \textbf{Premise dropped} \\
+\hline
+Step law (Thm.~\ref{thm:step-law}) & every map on up to 6 states, every start & none & one next state: fails \\
+Heat or room (1) (Prop.~\ref{prop:heat-or-room}) & every map, every reading it keeps, every start, up to 6 states & none & permanence, one rule: both fail \\
+Heat or room (2), the exact bound & every map, reading, set of starts and $T$, up to 5 states; the bound reached & none & no merge: fails \\
+Permanent flip merges (Thm.~\ref{thm:perm-flip-merges}), toll from merge pricing & every map and every reading it keeps, up to 6 states & none & finiteness, permanence, merge pricing: all fail \\
+Merge or revoke (Thm.~\ref{thm:merge-or-revoke}) & every map and reading, up to 6 states & none & finiteness: fails \\
+Reversible keeps nothing (Thm.~\ref{thm:reversible-keeps-nothing}) & every one-to-one map, reading and start, up to 6 states & none & finiteness, one-to-one: both fail \\
+Floor and one mark per crossing (Obs.~\ref{thm:per-crossing}) & every system of two moves on up to 3 states, prices 0 to 2, runs up to 5 & none & the toll: fails \\
+Floor and ceiling, price per move name & the same systems, runs up to 3 & none & state-dependent price: meets both \\
+Squeeze bound (Thm.~\ref{thm:squeeze}) & every map and kept reading, up to 6 states & none & permanence: fails \\
+Least halving price is the log of the largest pile & every map and every list of states, up to 5 states & none & \\
+Own narrowing priced (Thm.~\ref{thm:machine-narrowing}) & every pair of moves on up to 3 states, runs up to 3, every list of starts & none & halving price: fails \\
+Entropy ceiling (Thm.~\ref{thm:entropy-ceiling}) & every map on up to 4 states, random spreads & none & permanence: fails \\
+Noisy chairs (Thm.~\ref{thm:noisy-chairs}) & 400 random tables per size, 2 to 4 states, every closed set & none & columns add to one: fails \\
+Quantum chairs (Thm.~\ref{thm:quantum-chairs}) & 200 random unitaries per size, dimensions 2 to 4 & none & unitary: fails \\
+Time's bill (Thm.~\ref{thm:time-bill}) & 999 values of $p$, distances up to 60 & none & \\
+Teaching at zero marks (Thm.~\ref{thm:three-states}) & every zero-mark machine on up to 3 states, every window & none & \\
+No level holds its questions (Thm.~\ref{thm:no-self-containment}) & every assignment on up to 3 states & none & \\
+Certainty bill (Thm.~\ref{thm:certainty-bill}) & every pair of moves on up to 3 states, runs up to 3, every window, random spreads & none & halving price: fails \\
+Same bill at every scale (Thm.~\ref{thm:every-scale}) & every fine machine on up to 4 states, every described set and coarse description & none & staying inside, finiteness: both fail \\
+\end{tabular}
+\end{center}
+
+Three rows deserve a word. For the quantum chairs, a unitary keeps right angles by definition,
+so the search can only catch an arithmetic slip; its control, an invertible map that isn't
+unitary, shows what goes wrong without it. Time's bill is a sweep over a formula, a check of
+the algebra and nothing more. And ``floor and ceiling'' is the row that caught me: the book used
+to say the two leave exactly one bill, and with a price per move name they leave none, because
+the raising move, played again from yes, raises nothing and still costs one. The fix is in
+Section~\ref{sec:toll}. Where a statement was about the infinite, the finiteness control is the
+endless strip of Door one, checked on as long a stretch as you like; no search reaches the end
+of it, and the argument on the page is what covers it.
 
 \subsection{The abstract claims (Parts II and III)}
 
@@ -17513,6 +17782,7 @@ Anything kept is paid for in a merge or in room (the heat every step gives off i
 Every step of every deterministic machine is a fresh state, a merge, or a revisit on a loop, and the only step that spends neither fresh room nor a merge is one on a loop, which makes nothing new & proved & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:step-law} \\
 Writing a 0 on a blank cell is a merge of blank with zero; a remembering state added to the cell still merges; the endless tape and the bilateral shift avoid the merge by paying room, a fresh state every step; a Thiele machine runs computably presented Thiele machines as guests, paying at least a mark for each rise of a guest's record, and no level codes all its own readings & proved & Section~\ref{sec:what-a-chair-is}, Theorems~\ref{thm:write-merge} and~\ref{thm:no-self-containment} \\
 A reversible step on finitely many states returns every run to its start and keeps nothing & proved & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:reversible-keeps-nothing} \\
+The same bill at every scale: when a coarse description is exact on a set of fine states and its rule merges, the fine rule merges there, steps out of that set into fresh room, or the set is endless & proved & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:every-scale} \\
 A noisy step that preserves the even spread cannot raise a permanent reading; one that can strictly concentrates the even spread in collision weight, and in Shannon entropy when the stepped spread is strictly positive & proved & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:noisy-chairs} \\
 A finite-dimensional unitary that keeps a subspace keeps its complement, so no unitary step raises a permanent reading in finite dimension & proved; finite dimension is used once, for ``onto'' & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:quantum-chairs} \\
 A biased walk pays strictly positive entropy per tick at any nonzero speed, and heat times time is at least the distance squared & proved; Schnakenberg's formula taken as the model & Section~\ref{sec:what-a-chair-is}, Theorem~\ref{thm:time-bill} \\
@@ -17565,6 +17835,7 @@ Learning costs nothing on every price list, or spends no room & not claimed; a p
 \bottomrule
 \endlastfoot
 Three states are the minimum for teaching at zero cost after the first look & proved & Section~\ref{sec:narrowing}, Theorem~\ref{thm:three-states} \\
+The certainty bill: the uncertainty about a start splits into the part the run destroyed, at most its cost in bits, and the part the end state holds; whatever the end state can't tell you about what an observer saw was paid for in marks & proved (premise: entropy pricing) & Section~\ref{sec:narrowing}, Theorem~\ref{thm:certainty-bill} \\
 ``No Free Insight'' names the committed kind & choice (the name kept, the scope stated) & Section~\ref{sec:narrowing} \\
 Watching narrows like a quantum measurement & not claimed & Section~\ref{sec:narrowing} \\
 A counter kept by a price list & definition & Section~\ref{sec:counter}, Definition~\ref{def:u06-counter} \\
@@ -17741,7 +18012,7 @@ With the flag up from a clean start, the channel names a fact an earlier passing
 The guarantees hold against whoever sets the start, a reset, or a second writer that doesn't bump versions & not claimed; they are about programs from a clean start, one step at a time & Section~\ref{sec:smallest}, Section~\ref{sec:scope} \\
 Thiele-complete means a universal base that costs no marks and can't touch the record, a record that stays up once it's up, an earned record with a checker proved to mean its claims, an exact toll of one mark per check, commit and certificate, and a claim whose check can fail & definition & Section~\ref{sec:smallest}, Definition~\ref{def:u34-thiele-complete} \\
 Every Thiele-complete machine obeys the toll, runs every two-counter program, counts its record moves on its ledger, pays at least three on any run from a clean state that ends with the record up, has a check that fails and a run that certifies, and from a clean state raises its record only by a CERTIFY & proved, for every machine and every interface meeting the definition & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-consequences} \\
-A clock (every move charged, any reading or any latch as the record) obeys the toll with a universal base and is not Thiele-complete; nor is any machine whose every move costs something & proved, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-clock} \\
+A clock (every move charged, any reading or any latch as the record) obeys the toll with a two-counter machine running inside it and is not Thiele-complete; nor is any machine whose every move costs something & proved, by unfolding & Section~\ref{sec:smallest}, Observation~\ref{thm:u34-clock} \\
 Each clause does work: a paid latch meets the base and toll clauses and fails, and a silent machine meets three clauses and fails & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-clauses} \\
 The four clauses of Thiele-complete are independent: for each, a weakly Thiele-complete machine meets the other three, fails it, and is Thiele-complete through no interface & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:tc-independent} \\
 Thiele-complete at any unit: with record moves at one fixed price $c \ge 1$ the class is the unit class with its prices multiplied by $c$, and the clock fails at every unit & proved & Section~\ref{sec:smallest}, Theorem~\ref{thm:u34-tc-unit} \\
@@ -18506,9 +18777,10 @@ These are mine, or mine in the sense that I pinned them down for this book. Each
 properly in the chapter named; this is only a reminder.
 
 A few words first, because everything else hangs off them and each has exactly one meaning.
-The \emph{model} (or the abstract model) is a kind of state and a rule for stepping, plus exactly
-the extra pieces a given theorem asks for: a certification reading and the toll, or a counter
-and a price list, or a window, or programs written as states and a recursion theorem. The
+The \emph{model} (or the abstract model) is the certification system of
+Definition~\ref{def:certsys}, five parts and the toll, plus exactly the extra pieces a given theorem
+asks for: a counter in the state, or a window, or programs written as states and a recursion
+theorem. A few theorems, the step law among them, use only the states and the step. The
 name Thiele Machine belongs to the model. Parts I to III develop those general arguments, alongside particular examples
 and applications to the later machine. A \emph{substrate} is the model's shape with
 whatever extension a theorem names, and nothing else; the word never means my machine, and
@@ -18520,7 +18792,8 @@ and their prices, with its hosts and universal programs. The \emph{scaffolding} 
 and everything built on it, and Part IV lives there. \emph{A Thiele
 machine}, lower case, is any system proved to be an instance of the certification system
 (Definition~\ref{def:certsys}), five parts and the toll; the paper toys are, and so is the
-small machine. \emph{Weakly Thiele-complete} means a Thiele machine whose base is Turing-universal;
+small machine. \emph{Weakly Thiele-complete} means a Thiele machine that a two-counter machine runs inside, with
+nothing asked of its record;
 that bar is nearly empty, since a clock that charges one for every move pays the toll for any
 record. \emph{Thiele-complete} means more (Definition~\ref{def:u34-thiele-complete}): a
 universal base whose moves cost no marks and can't touch the record, a record that
@@ -18530,9 +18803,9 @@ unchanged in between, and a certificate, one mark for each of those
 three acts, and a claim whose check, commit and certificate raise the record from a loaded start
 exactly when the claim holds there, true at some loaded starts and false at others. Every clock-style machine fails it; the small
 machine meets it; and every machine that meets it hides its record
-and ledger from its own window. A \emph{universal} Thiele machine is one fixed program that runs
-any machine of a stated class as a guest, with the guest's record earned again and its toll paid
-by the host's own steps. The ones in this book are $U$ (Section~\ref{sec:universal-host}), a fixed
+and ledger from its own window. A \emph{universal} Thiele machine is one fixed machine running one
+fixed program that runs any machine of a stated class as a guest, with each guest's record earned
+again and its toll paid by the host's own steps (Definition~\ref{def:universal-thiele}). The ones in this book are $U$ (Section~\ref{sec:universal-host}), a fixed
 program in the small machine's instruction kinds, with no guest step built in, that runs every
 small-machine program with halting and flag exact and its ledger equal to the guest's at every matching point, and $U_P$
 (Section~\ref{sec:presented-universal}), the same program with one paid move added, that runs
@@ -18720,7 +18993,7 @@ Finite & a list with no repeats contains every state & the chairs theorem, Theor
 Permanent & no move turns the reading from yes to no & the chairs theorem; heat or room \\
 Merge pricing & every move that merges costs at least one & the toll derived, Section~\ref{sec:a2-not-arbitrary} \\
 Halving price & each unit of cost pays for at most one halving of distinct states & the squeeze bound; narrowing along a run, Section~\ref{sec:narrowing} \\
-Entropy pricing & on a finite machine, each move costs at least the bits it removes from any spread & the third road to the toll \\
+Entropy pricing & on a finite machine, each move costs at least the bits it removes from any spread & the third road to the toll; the certainty bill, Theorem~\ref{thm:certainty-bill} \\
 Landauer's principle & for a stated physical memory, removing $\Delta H$ bits gives off mean heat $\ge k_B T \ln 2 \cdot \Delta H$ & the heat floor; with $k_B T \ge 0$ (or $> 0$) as a separate hypothesis on each theorem \\
 Recursion (generic) & every transformation the substrate can represent has a fixed point & the diagonal, Section~\ref{sec:diagonal} \\
 Commitment contract & a commitment bit is set only when the claim holds, and whenever it holds & the commitment escape, Section~\ref{sec:windows} \\

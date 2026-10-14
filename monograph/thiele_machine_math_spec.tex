@@ -61,7 +61,7 @@ This is a mathematical reference for the Thiele Machine: a model of computation 
 
 Coq establishes that conclusions follow from premises. It does \emph{not} establish that premises model physical reality. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the model or a stated machine, \textbf{(C)}~conditional results that hold under a named premise no machine fact discharges, and \textbf{(R)}~refutations, where a theorem states the negation of a proposed claim and a named construction supplies the counterexample. One proposal, the pointer criterion of Chapter~\ref{ch:external}, has no proof; it carries a fourth tag, conjecture.
 
-The core claims are structural (S): No Free Insight for every certification system; on finite machines, the toll derived from merge pricing for permanent certificates, and on any state space the dichotomy that a permanent flip merges or needs a fresh state every time, with the exact retention bound for a bounded memory; the window and pricing results; the small machine's earned provenance, checker soundness and minimum price; Thiele completeness of the small machine; the window theorem for every Thiele-complete machine; the lifting of every universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete machines; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the record axis over any base and the toll over any order of records; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix. The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
+The core claims are structural (S): the universal floor for every certification system; on finite machines, the toll derived from merge pricing for permanent certificates, and on any state space the dichotomy that a permanent flip merges or needs a fresh state every time, with the exact retention bound for a bounded memory; the window and pricing results; the small machine's earned provenance, checker soundness and minimum price; Thiele completeness of the small machine; the window theorem for every Thiele-complete machine; the lifting of every universal base to a Thiele-complete machine and its converse; the composition of Thiele-complete machines; the universal machine U and the priced host's program U\textsubscript{P}; a verified compiler onto these machines; the record axis over any base and the toll over any order of records; the recursion theorem and Rice's theorem (the logician Henry Rice, 1953: no program decides a property of what programs do, unless it holds of every program or of none) for L, and Rice's theorem for the two-counter machine itself; the classical CHSH bound; the algebraic Tsirelson bound; and, on the zero-marginal slice, the equivalence of column contractivity with positive semidefiniteness of one fixed $5\times 5$ NPA matrix. The failure of every clock-style machine, the limits of lifting and of composition, and the necessity of each clause of Thiele completeness are refutations (R). Results stated over Landauer heat are conditional (C) on the named premise \texttt{landauer\_heat}.
 \end{abstract}
 
 \tableofcontents
@@ -71,7 +71,7 @@ The core claims are structural (S): No Free Insight for every certification syst
 
 The Thiele Machine describes a computation by what it reads and writes, by a record of what the computation established, and by a ledger of what establishing it cost, with a rule tying the last two together: the step that raises the record pays. The chapters below state that rule, derive its consequences, show which machines carry it, and prove where a window that hides the record and the ledger loses information.
 
-Chapter~\ref{ch:nfi} states the model and No Free Insight. Chapter~\ref{ch:finite} derives the toll on finite machines from the price of merging states and checks which premises are needed. Chapter~\ref{ch:windows} states what a window can decide and price. Chapter~\ref{ch:small} defines the small machine. Chapter~\ref{ch:complete} defines Thiele completeness, states the window theorem, lifts any universal base of any model of computation to a Thiele-complete machine, composes Thiele-complete machines, and shows each clause is needed. Chapter~\ref{ch:universal} states the universal host, the universal machine U, the priced host's program U\textsubscript{P}, a verified compiler onto these machines and the extraction to OCaml. Chapter~\ref{ch:undecidability} states the recursion and undecidability results, for L and for the two-counter machine itself. Chapter~\ref{ch:record} states the record axis over any base and the record over any order. Chapter~\ref{ch:chsh} states the CHSH and Tsirelson mathematics. Chapter~\ref{ch:physics} states the physical boundary. Chapter~\ref{ch:external} states the models of external systems and the pointer conjecture.
+Chapter~\ref{ch:nfi} states the model, its toll and the universal floor. Chapter~\ref{ch:finite} derives the toll on finite machines from the price of merging states and checks which premises are needed. Chapter~\ref{ch:windows} states what a window can decide and price. Chapter~\ref{ch:small} defines the small machine. Chapter~\ref{ch:complete} defines Thiele completeness, states the window theorem, lifts any universal base of any model of computation to a Thiele-complete machine, composes Thiele-complete machines, and shows each clause is needed. Chapter~\ref{ch:universal} states the universal host, the universal machine U, the priced host's program U\textsubscript{P}, a verified compiler onto these machines and the extraction to OCaml. Chapter~\ref{ch:undecidability} states the recursion and undecidability results, for L and for the two-counter machine itself. Chapter~\ref{ch:record} states the record axis over any base and the record over any order. Chapter~\ref{ch:chsh} states the CHSH and Tsirelson mathematics. Chapter~\ref{ch:physics} states the physical boundary. Chapter~\ref{ch:external} states the models of external systems and the pointer conjecture.
 
 \section{Scope}
 
@@ -90,17 +90,17 @@ Earlier releases of this repository carried a 51-instruction virtual machine and
 \end{itemize}
 
 %=============================================================================
-\chapter{Certification Systems and No Free Insight}\label{ch:nfi}
+\chapter{Certification Systems and the Universal Floor}\label{ch:nfi}
 
 \begin{definition}[Certification system]
-A certification system is a tuple $(S, I, \mathrm{step}, \cost, \cert)$ with $\mathrm{step} : S \times I \to S$, $\cost : I \to \N$, $\cert : S \to \B$, satisfying
+A certification system is a tuple $(S, I, \mathrm{step}, \cost, \cert)$ with $\mathrm{step} : S \times I \to S$, $\cost : I \to \N$, $\cert : S \to \B$, satisfying the toll, first named No Free Insight,
 \[
 \textbf{A2:}\quad \forall s\, i,\ \cert(s) = \mathrm{false} \wedge \cert(\mathrm{step}(s,i)) = \mathrm{true} \implies \cost(i) \ge 1.
 \]
 Coq: the record \texttt{CertificationSystem}, with A2 as its field \texttt{cs\_cert\_costs}.
 \end{definition}
 
-\begin{theorem}[No Free Insight]\label{thm:nfi} \textbf{(S)}
+\begin{theorem}[The universal floor]\label{thm:nfi} \textbf{(S)}
 In every certification system, if $\cert(s_0) = \mathrm{false}$ and $\cert(\mathrm{run}(\tau, s_0)) = \mathrm{true}$, then $\cost(\tau) \ge 1$.
 Coq: \texttt{universal\_nfi\_any\_substrate}.
 \end{theorem}
@@ -127,7 +127,7 @@ Coq: \texttt{honest\_cost\_tracking\_strict\_restriction}, \texttt{free\_forgery
 \section{A2 among cost frameworks}
 
 \begin{theorem} \textbf{(S)}
-A step system satisfies A2 if and only if every step has non-negative amortized cost under the potential that is $1$ on uncertified states and $0$ on certified ones; No Free Insight is then the potential method's telescoping bound.
+A step system satisfies A2 if and only if every step has non-negative amortized cost under the potential that is $1$ on uncertified states and $0$ on certified ones; the universal floor is then the potential method's telescoping bound.
 Coq: \texttt{a2\_iff\_nonnegative\_amortized\_cost}, \texttt{nfi\_by\_potential}.
 Under A2 the number of certification flips along a trace is at most its cost (\texttt{flips\_le\_cost}), and A2 together with the matching upper-bound condition is equivalent to exact pricing of a permanent certificate (\texttt{a2\_and\_aara\_iff\_exact}).
 \end{theorem}
@@ -629,7 +629,7 @@ The pointer-observable criterion proposes that the event a step rule is forced t
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}p{\dimexpr0.62\textwidth-2\tabcolsep\relax}@{}}
 \textbf{Results} & \textbf{File} \\
 \hline
-No Free Insight, simulating systems & \texttt{coq/kernel/nfi/UniversalCertificationCost.v}, \texttt{coq/kernel/nfi/HonestCostTracking.v} \\
+Universal floor, simulating systems & \texttt{coq/kernel/nfi/UniversalCertificationCost.v}, \texttt{coq/kernel/nfi/HonestCostTracking.v} \\
 Quantitative form & \texttt{coq/kernel/nfi/QuantitativeNoFI.v} \\
 Cost frameworks & \texttt{coq/kernel/nfi/CostSemanticsComparison.v}, \texttt{coq/kernel/nfi/CostFrameworks.v} \\
 Exact pricing & \texttt{coq/kernel/nfi/CommitmentPredicateAdequacy.v} \\
@@ -673,7 +673,7 @@ Pointer criterion & \texttt{coq/kernel/frontier/PointerObservable.v}, \texttt{co
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{\dimexpr0.50\textwidth-4\tabcolsep\relax}@{}}
 \textbf{Result} & \textbf{Status} & \textbf{Key premise} \\
 \hline
-No Free Insight & \textbf{(S)} & A2 as a field of the record \\
+Universal floor & \textbf{(S)} & A2 as a field of the record \\
 A2 from merge pricing & \textbf{(S)} & Finite states, permanent certificate, merge price \\
 Heat floor & \textbf{(C)} & \texttt{landauer\_heat}, finite states, permanent certificate, the uniform distribution on the states in play \\
 No intrinsic joule value & \textbf{(R)} & None beyond the ledger \\
