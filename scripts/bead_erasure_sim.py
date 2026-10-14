@@ -5,15 +5,17 @@ quartic double well, overdamped Brownian motion, the protocol as the paper
 describes it: lower the barrier over one second, tilt the trap with a force
 ramped over the protocol time tau, stop the tilt, raise the barrier over one
 second. Heat is measured the way the paper does, as the Stratonovich integral
-of the force times the displacement (Sekimoto's heat), and averaged over the
-runs that end in the right-hand well.
+of the force times the displacement (Sekimoto's heat), and averaged over all
+runs and over the runs that end in the right-hand well.
 
-For each tau the tilt is the smallest from a scan that erases at least nine
-times in ten (the paper used ninety-five in a hundred, so the excess constant
-differs). The fit is heat = A + B / tau. The floor A comes out at ln 2 to the
-third decimal; that, and the one-over-time excess on top of it, is what the
-book reports. This is a simulation of a model with the paper's numbers, not a
-measurement.
+For each tau the tilt was set from a scan so that it erases about nine times in
+ten (between 0.88 and 0.92 here; the paper used ninety-five in a hundred, so the
+excess constant differs). The fit is heat = A + B / tau, over all runs and over
+the successful runs alone. Over all runs A sits above ln 2 + p ln p + (1-p) ln(1-p),
+the floor for an erasure that succeeds with chance p (about 0.37 kT at p = 0.9);
+over the successful runs A comes out at ln 2 within the fit's noise (about
+0.015 kT). This is a simulation of a model with the paper's barrier heights,
+diffusion constant and timings, not a measurement.
 
 Needs numpy. Run:  python scripts/bead_erasure_sim.py   (a few minutes)
 """

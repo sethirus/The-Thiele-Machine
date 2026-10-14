@@ -17,7 +17,10 @@ any order, and the results showing that each premise and each clause is
 needed. Each result below names the Coq declarations that carry it and has one
 of four statuses:
 
-- **Proved.** A Coq theorem states the result.
+- **Proved.** The result has a proof, written out in the monograph for the
+  results the monograph states, and a named Coq theorem states it formally.
+  The formal version is a tool for catching mistakes; the argument is the
+  reason to believe the result.
 - **Refuted.** A Coq theorem states its negation, and a named declaration
   supplies the counterexample.
 - **Conditional.** A Coq theorem states the result under a named premise
@@ -40,7 +43,7 @@ writes on Linux.
 
 The small machine of minimal/EarnedCore.v has two counters, a table of
 checked facts, a certification flag and a ledger. Its counter instructions are
-a two-counter machine and cost nothing; CHECK, COMMIT and CERTIFY cost one
+a two-counter machine and cost no marks; CHECK, COMMIT and CERTIFY cost one
 each.
 
 - **Proved.** From a clean start, every certified run contains a passing
@@ -75,16 +78,18 @@ each.
 
 ## Thiele completeness
 
-A machine is weakly Thiele-complete when a step that raises its record costs
-at least one and its base is universal. Thiele-complete asks for four clauses
-(minimal/ThieleComplete.v): a universal base whose moves are free and cannot
-touch the record, and a record that stays up once it is up; a record that,
+A Thiele machine (one whose record-raising steps cost at least one, the toll)
+is weakly Thiele-complete when a two-counter machine runs inside it, that is,
+when some interface gives it a universal base, with nothing asked of its
+record. Thiele-complete asks for four clauses (minimal/ThieleComplete.v): a
+universal base whose moves cost no marks and cannot touch the record, and a record that stays up once it is up; a record that,
 from a clean start, rises only after a passing check of a claim, a commitment
 to that same claim with nothing it is about changed in between, and a
 certificate, with the checker proved to mean what it says; exact prices, one
 mark for each of those three acts and nothing for anything else; and a claim
-whose check, commit and certificate raise the record on some loaded starts and
-leave it down on others.
+whose check, commit and certificate raise the record from a loaded start
+exactly when the claim holds there, with the claim holding at some loaded
+starts and failing at others.
 
 - **Proved.** The small machine is Thiele-complete, and so are the same
   machine over any property language with an exact equality test, a proved
@@ -128,8 +133,8 @@ leave it down on others.
   `host_nfi`. On this host, a machine from elsewhere enters through the
   two-counter encoding, and its own price list is not kept. On the priced
   host's program U_P, a computably presented machine keeps its own ledger plus
-  a surcharge, which is at most 2 when the machine's reading starts at no (see
-  the specification).
+  a surcharge, which is at most 2 when the machine's reading starts at no and
+  exactly 3 when it starts at yes (see the specification).
 - **Proved.** U is one fixed program of the small machine's own instruction
   kinds, with no guest step built into anything. It runs every program of the
   small machine from every clean start start(x, y): each guest step is
@@ -163,7 +168,7 @@ The questions here ask how much of a machine the record axis pins down.
 - **Proved.** Every base can carry the axis: the base plus a latch on any
   event it reaches, charging one unit when the latch sets, is a base-driven
   record. A reversible base with unbounded memory can carry one and stay
-  reversible; with finite memory a step that writes a permanent record is not
+  reversible, paying room at every step; with finite memory a step that writes a permanent record is not
   injective. Coq: `latch_core_honest`, `history_latch_honest`,
   `history_latch_injective`, `finite_reversible_cannot_write`.
 
@@ -214,7 +219,8 @@ A growing record takes values in a partial order and only moves up
 
 Accountable conflict fits the permanent-record axis when a contradiction
 entails a stated penalty. A record that is actually revoked does not: a
-revocable flip escapes the finite-state price (`revocable_certificate_escapes`).
+revocable flip is not forced to pay the finite-state price, and it keeps
+nothing (`revocable_certificate_escapes`).
 
 ## Probabilistic records
 
@@ -306,6 +312,40 @@ steps on the other.
 - **Proved.** The complement of two-counter halting is undecidable, from the
   vendored two-counter result. Coq: `MM2_HALTING_compl_undec`.
 
+## The bill
+
+The monograph's point is that nothing becomes something for free: a
+distinction that comes into being gives off heat by happening (in any real
+device, in finite time; physics, with one proved instance below), and keeping
+it is paid on top, in a merge or in room. Certification is the sharpest case.
+
+- **Proved.** Every step of a deterministic run on any set of states is fresh,
+  a merge (two distinct states with one next state), or a revisit from the
+  same state after which the run is periodic. No finiteness is assumed.
+  Coq: `step_law`, `merge_is_collision`, `revisit_means_loop`.
+- **Proved.** On any set of states, a run that raises a permanent reading
+  either merges two of its states or visits a fresh state at every step; an
+  injective raising move visits a fresh state every time. Coq:
+  `run_merges_or_fresh`, `permanent_flip_iterates_distinct`. A finite memory
+  keeps the history of a reset through at most (M - 1)/(N - 1) repetitions,
+  and the bound is attained. Coq: `retention_bound`, `tight_exact`.
+- **Proved.** Writing a 0 on a blank cell merges blank with zero, and a
+  finite extension of the cell still merges; an endless tape avoids the merge
+  only by paying a fresh cell every write. Coq: `write_is_a_merge`,
+  `four_state_escape_fails`, `tape_write_injective`.
+- **Proved.** An injective step on finitely many states returns every run to
+  its start, so a reversible finite machine keeps nothing. Coq:
+  `returns_to_start`, `reversible_keeps_nothing`.
+- **Proved.** A biased Brownian walk produces strictly positive entropy per
+  tick at any nonzero speed, and heat times time is at least the distance
+  squared. Coq: `heat_at_any_speed`, `heat_time_floor`.
+- **Proved** in the monograph, with no Coq counterpart: one mark per crossing
+  of the reading from no to yes; the certainty bill (under entropy pricing,
+  the uncertainty about the start is the part the run destroyed, at most its
+  cost in bits, plus the part the end state still holds); and the same bill at
+  every scale (a coarse merge forces a fine merge, unless the fine step leaves
+  the described states or there are endlessly many of them).
+
 ## Pricing and physics
 
 - **Proved.** For instructions with decidable equality, under every cost
@@ -342,7 +382,7 @@ steps on the other.
   `permanence_heat_floor_uses_landauer`, through `permanent_flip_heat_floor`.
   The finite-state entropy is invariant under permutation of the state
   enumeration: `semantics_entropy_permutation_invariant`. The heat floor is
-  Landauer's principle applied to this step; the checked content is the link
+  Landauer's principle applied to this step; the proved content is the link
   from a permanent record write to a many-to-one step.
 - **Proved.** A two-state calorimeter protocol: a canonical reset from
   half-excited to ground satisfies a discrete master equation exactly, and at
@@ -510,6 +550,8 @@ the real-number axioms `ClassicalDedekindReals.sig_forall_dec` and
 - `driven_reset_work_window`
 - `driven_work_near_free_energy`
 - `driven_work_second_law`
+- `heat_at_any_speed`
+- `heat_time_floor`
 - `landauer_gap_settles_at_one_fifth`
 - `master_equation_does_not_fix_heat_scale`
 - `mu_has_no_intrinsic_joule_value`

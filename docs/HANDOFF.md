@@ -24,11 +24,17 @@ Devon Thiele; every word of the book is his; the rules below are his.
 
 ## What the release carries
 
-- The bill, led with in Part II: in any real device every step that happens gives off heat (time
-  sets how much); anything kept is paid on top, in a merge (heat floor) or in room; `minimal/HeatOrRoom.v` (the run form and the exact retention bound).
+- The point, opening the book: nothing becomes something for free. A blank cell becoming a 0
+  gives off heat by happening (any real device, finite time; time sets how much); keeping it is
+  paid on top, in a merge (Landauer's floor, a premise, when the merged states were really
+  possible) or in room. Certification is the sharpest case, not the point itself.
+- The bill, Part II (What a chair is, A record and a toll, Why the toll isn't arbitrary,
+  Learning borrows, committing pays); `minimal/HeatOrRoom.v` (the run form and the exact retention bound).
 - The section "What a chair is" in Part II: the step law, the write as a merge, recurrence for
   reversible machines, the noisy chairs (both directions, collision weight and Shannon entropy),
-  the quantum chairs, time's bill, and the laboratory instances. Kernel files:
+  the quantum chairs, time's bill, the same bill at every scale, and the laboratory instances; the
+  bead erasure there is a simulation (`scripts/bead_erasure_sim.py`, needs numpy), and
+  `scripts/break_it.py` searches every small machine for counterexamples (a search, not warrant). Kernel files:
   `minimal/StepLaw.v`, `KeptDistinction.v`, `HaltingHole.v`, `NondetChairs.v`, `Recurrence.v`,
   `NoisyChairs.v`, `GibbsGap.v`, `BrownianComputer.v`, `QuantumChairs.v` (the last needs the
   Mathematical Components library: `libcoq-mathcomp-field`).

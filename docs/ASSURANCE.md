@@ -1,6 +1,6 @@
 # Assurance and scope
 
-This repository separates checked mathematics from executable tests. A result is described by the strongest category it actually satisfies; a generated file or a passing test is not treated as a proof merely because it is committed.
+A result is true when the argument for it is correct, and the arguments are written out in the monograph, on the page. The formal and executable checks described here are tools for catching mistakes in those arguments and in their formal versions; none of them is the reason to believe a result. This repository separates formal proofs from executable tests. A result is described by the strongest category it actually satisfies; a generated file or a passing test is not treated as a proof merely because it is committed.
 
 ## Checked Coq results
 
@@ -23,7 +23,7 @@ These theorems establish only the propositions stated by their types. A model of
 
 The repository runs source-level probes, dependency-enabled `coqchk` over every module of the project, the assumption receipt, the Inquisitor proof audit, the kernel-conversion vacuity audit, and the Python test suite. These establish reproducibility and the behavior of the tested finite cases. They do not extrapolate finite traces to all states or all executions.
 
-`minimal/nofi_demo.py` rebuilds the quantitative floor with Python's standard library alone; it is a finite sweep, and it proves nothing beyond the cases it runs.
+`minimal/nofi_demo.py` rebuilds the quantitative floor with Python's standard library alone; it is a finite sweep, and it proves nothing beyond the cases it runs. `scripts/break_it.py` searches every small machine for counterexamples to the results of the monograph's part on the bill and runs a control with each premise dropped; it is a search, not warrant. `scripts/bead_erasure_sim.py` (needs numpy) is a simulation of a model with the numbers of Bérut and colleagues (2012), not a measurement.
 
 ## Historical hardware disclosure
 
@@ -31,7 +31,7 @@ Earlier releases of this repository carried a 51-instruction virtual machine, a 
 
 ## Vocabulary used by the documents
 
-- **Proved**: established by the checked Coq source and its required dependencies.
+- **Proved**: argued in full (in the monograph, for the results it states), with a formal counterpart in the Coq source and its required dependencies.
 - **Tested**: exercised by an executable gate or finite regression suite.
 - **Cited**: a result from the literature or a vendored library, named with its source and not re-proved here.
 - **Assumed**: supplied as a premise of a theorem or gate.

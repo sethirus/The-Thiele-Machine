@@ -20,7 +20,13 @@ keywords:
   - formal verification
   - Coq
 abstract: >-
-  I didn't invent a machine. I found one. That is my conviction. The Thiele
+  I didn't invent a machine. I found one. That is my conviction. Take a blank
+  cell and write a 0 in it, and keep it a 0: something is now the case that
+  wasn't, and that moment, nothing becoming something, is never free. It
+  gives off heat by happening, in any real device, and keeping it is paid on
+  top, in a merge, which carries Landauer's floor (a named premise) when the
+  merged states were really possible, or in room. Certification, a record
+  that a claim was checked and closed, is the sharpest case. The Thiele
   Machine is an abstract model of computation, a machine the way Turing's is,
   and this work is an argument made with it about which distinctions an
   account of computation should preserve. It is not a CPU, an instruction set,
@@ -29,8 +35,8 @@ abstract: >-
   certified run from a clean start contains a passing check of the committed
   claim, a commitment to that same claim, and a certificate, and costs at
   least three. Thiele-complete asks for four things: a universal base whose
-  moves are free and cannot touch the record, a record raised only by an
-  earned check, commitment and certificate of one claim, an exact toll, and a
+  moves cost no marks and cannot touch the record, a record raised only by an
+  earned check, commitment and certificate of one claim, exact prices, and a
   claim whose check, commitment and certificate raise the record on some
   loaded starts and leave it down on others. The small machine meets it, and every clock-style
   machine fails it. Every Thiele-complete machine hides its record and its
@@ -41,18 +47,21 @@ abstract: >-
   and keeps the guest's ledger mark for mark where the runs line up. A
   computation gives you an answer. What did it establish on the way there?
   Which distinctions did it keep? What did it cost to establish them?
-  Certification is one point I could pin down. Its proofs show exactly what
+  Certification is the case I could pin down. Its proofs show exactly what
   specified observations lose. A full encoding can preserve those
   distinctions; the question is which ones a model should keep. The formal
   development includes accounting laws for systems satisfying A2, pricing
   adequacy for designated events, observation adequacy, and a finite family
   of unit event floors that share one charge. Retaining history makes a
-  deterministic step injective without changing its observed transition. On
-  a finite state space that escape is closed: a certificate no step revokes
+  deterministic step injective without changing its observed transition, by
+  paying room at every step. On a finite state space the room runs out: a
+  certificate no step revokes
   can only be switched on by a step that merges states, so pricing merges,
   as Landauer's principle does in the worst case over what the machine might
-  hold, yields A2; the heat comes from uncertainty about the state, and under
-  Landauer's principle a known state owes none. Priced per halving, switching
+  hold, yields A2; the heat floor comes from uncertainty about the state, so under
+  Landauer's principle a known state owes no floor, though the step still
+  gives off heat when it happens and the distinction is held by whoever
+  knows the start. Priced per halving, switching
   k states on beside m certified ones costs at least log2((m+k)/m), and on
   finite hardware that prices merges, whose instructions have decidable
   equality, the events that must be priced are exactly the merges, with every
